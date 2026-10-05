@@ -62059,3 +62059,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva00362862@Rva00362862Item@@QAEXHH@Z,,0x00362862,68,Code/GameEngine/Source/Common/Bfme/Rva00362862Notify.cpp,matched,vector element notify helper via rowed caller 0x239300 loop aux plus entries plus mask
 ?rva00112153@Rva0011216CSlotQuartet@@QAEXXZ,,0x00112153,25,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSlotQuartet.cpp,matched,abutting FillFourSlots array cleanup via rowed delete-array
 ?rva0029DE76@Rva0029DE76@@QAE_NPBUCoord3D@@@Z,,0x0029DE76,164,Code/GameEngine/Source/GameClient/Rva0029DE76Method.cpp,matched,unlock caller 0x0029EAFA rowed shroud plus path test
+?rva000E04CE@Rva000E04CE@@QAEXPAVSegmentedLineClass@@@Z,,0x000E04CE,104,Code/GameEngine/Source/GameLogic/Object/Rva000E04CEUpdate.cpp,matched,rowed callees SegmentedLine virtual slot plus g_00BC2918
