@@ -624,13 +624,14 @@ void Anim2DCollection::init( void )
 // ------------------------------------------------------------------------------------------------
 /** System update phase */
 // ------------------------------------------------------------------------------------------------
-// ?update@Anim2DCollection@@UAEXXZ present-unmatched
+// BFME 2 keeps the instance list at +0x10 (see registerAnimation); retail
+// 0x002D7267, reached only from the collection's vtable.
 void Anim2DCollection::update( void )
 {
 	Anim2D *anim;
 
 	// go through all our animations
-	for( anim = m_instanceList; anim; anim = anim->m_collectionSystemNext )
+	for( anim = *(Anim2D **)((unsigned char *)this + 0x10); anim; anim = anim->m_collectionSystemNext )
 	{
 
 		// try to update the frame
