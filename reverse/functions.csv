@@ -61969,3 +61969,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva0042DB21@Rva0042DB21@@QAEXPBD@Z,,0x0042DB21,184,Code/GameEngine/Source/Common/Rva0042DB21Method.cpp,matched,chain via rowed reset 0x002D38EB plus pinned ctor 0x00527C04 plus rowed path helpers plus rowed notifies 0x005785A2 0x005796B3
 ?Rva00528C30Get@@YA_NPBDAAVAsciiString@@@Z,,0x00528C30,27,Code/GameEngine/Source/Common/Rva00528C30.cpp,matched,GetParam wrapper with literal name plus uchar local bool normalize
 ??0Rva00577846@@QAE@PAVRva00577838@@H@Z,,0x00577846,29,Code/GameEngine/Source/Common/Rva00577846Ctor.cpp,matched,vtable plus args at plus4 plus8 plus byte 0 at plus0c via caller 0x00577863
+?_M_clear@?$vector@URva00475F2AElement@@V?$allocator@URva00475F2AElement@@@_STL@@@_STL@@IAEXXZ,,0x004758D6,30,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearRva00475F2A.cpp,matched,Destroy pin 0x00470398 plus free row 0x00030830 plus stride 4
