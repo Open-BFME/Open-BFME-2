@@ -23,8 +23,20 @@ class Rva003623E5Member
 {
 public:
 	Rva003623E5Member();
-	~Rva003623E5Member();
 	void initFromStorages(BfmeFixedStorage0004543D first, BfmeFixedStorage0004543D second);
+private:
+	int m_x;
+};
+
+// Rowed pool-aware member dtor at 0x00360D26 lives under this name
+// (ObjectFilterRelease.cpp). Same 4-byte handle as above; the ctor twin
+// at 0x003623E5 is also rowed under both names, so construction bytes
+// are unchanged while the implicit ~Made dtor now calls the row.
+class Rva00360D26Member
+{
+public:
+	Rva00360D26Member();
+	~Rva00360D26Member();
 private:
 	int m_x;
 };
@@ -62,7 +74,7 @@ private:
 	char m_pad156[2];
 	float m_158;
 	float m_15C;
-	Rva003623E5Member m_160;
+	Rva00360D26Member m_160;
 };
 
 Made002CC8A4::Made002CC8A4()
@@ -83,7 +95,7 @@ Made002CC8A4::Made002CC8A4()
 	m_155 = false;
 	m_158 = 2.0f;
 	m_15C = 100.0f;
-	m_160.initFromStorages(
+	((Rva003623E5Member *)&m_160)->initFromStorages(
 		BfmeFixedStorage0004543D(g_009FEFA4),
 		BfmeFixedStorage0004543D(g_009FEFA4));
 }
