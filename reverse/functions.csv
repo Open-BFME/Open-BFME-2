@@ -57133,3 +57133,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005D32AA@Rva005D32AA@@QAEXXZ,,0x005D32AA,26,Code/GameEngine/Source/Common/Rva005D32AA.cpp,matched,clear owned pointer dtor delete caller jmp
 ?rva003307F2@Rva003307F2@@QAEXPBVModuleData@@@Z,,0x003307F2,61,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003307F2Method.cpp,matched,unlock broadcast via forEach vector push inc rowed callees
 ??1Rva005F8CB0@@UAE@XZ,,0x005F8CB0,79,Code/GameEngine/Source/Common/Rva005F8CB0Dtor.cpp,matched,virtual dtor two bases member via rowed 0x005E8908 pinned 0x005E12D1
+?Rva001F852BParse@@YAXPAVINI@@PAX@Z,,0x001F852B,110,Code/Libraries/Source/WWVegas/WWLib/Rva001F852BParse.cpp,matched,INI token lookup FX CategoryModuleClass 01 list store at AC via rva001F43BD
