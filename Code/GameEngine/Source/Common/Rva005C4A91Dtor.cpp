@@ -1,0 +1,19 @@
+// cl: /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// stlport
+// Native005C4A91..005C4ACD (60B): same verified Rva004FA830 base
+// vptr C633A0 after vector cleanup; member vector<AsciiString> at+C calls
+// complete63B row2CC70. Original derived class name/word8 meaning unknown.
+// Body and sibling004FADB8 prove the destructor pattern; this is not a
+// no-argument vector push_back candidate as the structural queue suggests.
+#include "ascii_string.h"
+#include <vector>
+class Rva004FA830 {
+public: virtual ~Rva004FA830();
+private: AsciiString m_s;
+};
+inline Rva004FA830::~Rva004FA830() {}
+class __declspec(novtable) Rva005C4A91:public Rva004FA830 {
+public: virtual ~Rva005C4A91();
+private: unsigned int unknown08; _STL::vector<AsciiString> member0C;
+};
+Rva005C4A91::~Rva005C4A91() {}
