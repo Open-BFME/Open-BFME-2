@@ -23,7 +23,7 @@ private:
 extern "C" char Rva003AF27B_v0 = 87;
 // Rva003AF27B_v14: matched references place it at VA 0xc1c030 (retail .rdata value -12).
 extern "C" char Rva003AF27B_v14 = -12;
-extern "C" char Rva003AF27B_v18;
+extern "C" char Rva003AF208_v18;
 
 class Rva003AF27B : public Rva003AF2CC
 {
@@ -33,7 +33,7 @@ public:
 	{
 		*(void **)this = &Rva003AF27B_v0;
 		*(void **)((char *)this + 0x14) = &Rva003AF27B_v14;
-		*(void **)((char *)this + 0x18) = &Rva003AF27B_v18;
+		*(void **)((char *)this + 0x18) = &Rva003AF208_v18;
 	}
 	Rva003AF27B *clone() const;
 };
