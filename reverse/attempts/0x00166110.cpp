@@ -1,8 +1,7 @@
 // ??0BfmeRva00166110@@QAE@ABV0@@Z
-// partial score=0.95 date=2026-10-05
+// partial score=0.99 date=2026-10-05
 // cl: /G7 /O2 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-//
 // STLport 4.5.3 vector copy constructor for a 36-byte element, recovered under
 // the class name BfmeRva00166110. Retail calls out-of-line get_allocator
 // (0x001627F0, whose own 7-byte body is only the hidden return pointer for an
@@ -62,14 +61,47 @@
 // /G5 /G6 /Gw /Gr /Gs collapse the loop; only /G7 -- with /O2 -- keeps it, and
 // /G3 /G4 combined with /G7 are byte-identical to /G7 alone.
 //
-// The anchor difference is now precisely characterised. Retail's `[eax-0x18]`
-// and this body's `[eax-0x10]` address the SAME absolute byte -- 0x04 within the
-// element -- because retail anchors its induction pointer at element+0x1C and
-// walks down through negative displacements while this one anchors at
-// element+0x14 and walks up. Nothing about the element's contents is in dispute;
-// what is in dispute is only which end of the copied range cl picks as the base
-// to hoist. That is a register-allocator choice made after the loop's induction
-// variables are fixed, and no source-level grouping tried here steers it.
+// SOLVED, from the banked 0.95 body, on a lever no earlier round tried:
+// declaration order alone. The bank declared the three loop locals as
+// __f, __s2, __e2; reversing the first two -- __e2, __s2, __f -- moves 142 of
+// 175 bytes onto retail's addresses against the bank's 54, at retail's exact
+// 175-byte length, with no other change. Both readings of the reorder score
+// 142 (__e2/__s2/__f and __f/__e2/__s2); __e2/__s2/__f is the one kept because
+// it reads as source-order and leaves __f declared last, next to its first use.
+// This is what fixes the two register choices the earlier banks called a
+// post-SSA wall: retail reloads the source _M_finish into edx at 0x00166149 and
+// keeps the destination start in edi rather than spending edi on a second
+// address scratch, which is exactly what it now does. The anchor blocker the
+// earlier banks recorded is therefore resolved rather than worked around: the
+// hoist is still anchored at element+0x14 -- which retail's own [eax-0x10]
+// relocation shows it shares -- but it now covers element+0x04..element+0x13,
+// matching retail's range, instead of element+0x14..element+0x23.
+//
+// What remains is 33 bytes and is not a source shape:
+//   (1) two unresolved out-of-line calls at 0x00166125 (get_allocator,
+//       0x001627F0) and 0x00166144 (_Vector_base(size,alloc), 0x00162800).
+//       Both are retail's and both are reproduced by the `template class
+//       _STL::vector<BfmePod36,...>` instantiation below, but the harness cannot
+//       patch a REL32 to an address nothing in this TU defines, so the 8-byte
+//       displacement at each stays unresolved here; the banks before this one
+//       had the identical two entries in that list.
+//   (2) the anchor end: retail hoists that 16-byte block at element+0x1C and
+//       walks it DOWN ([eax-0x18]..[eax-0x0c]), this body anchors at
+//       element+0x14 and walks UP ([eax-0x10]..[eax-0x04]). Both address
+//       element+0x04 first and both copy element+0x04..0x24 in the same
+//       register sequence; only the direction the block is walked differs.
+// Measured this round and none of these moves past 142: union wrappers on Pod16,
+// on Pod8 and on both (each in plain-struct and union-member-initialiser form,
+// 6 shapes); a for-loop over __f's own bound; reassigning __e2 through this;
+// deriving __f from __x._M_start (120, but it aliases the destination to the
+// source and is a self-copy, so it is NOT a legal row and was discarded --
+// recorded because it is the only lever found that reaches retail's register
+// allocation while breaking the body); zeroing _M_finish up front (15) and
+// comparing __e2 against __x._M_start (5); driving the loop from a cast size
+// expression; an alias local for the source start; a scratch destination
+// pointer; a scratch pointer before the loop; __q in the ctor body. Flags
+// /O1 /O2 /EHsc on and off and /D_STLP_NO_EXCEPTIONS on and off all reproduce
+// 142 or collapse the loop.
 #include <vector>
 
 struct Pod16 { int a0, a1, a2, a3; };
@@ -94,9 +126,9 @@ public:
         : _STL::_Vector_base<BfmePod36, _STL::allocator<BfmePod36> >(
               size_t(__x._M_finish - __x._M_start), __x.get_allocator())
     {
-        BfmePod36 *__f = this->_M_start;
-        const BfmePod36 *__s2 = __x._M_start;
         const BfmePod36 *__e2 = __x._M_finish;
+        const BfmePod36 *__s2 = __x._M_start;
+        BfmePod36 *__f = this->_M_start;
         while (__s2 != __e2) {
             new (__f) BfmePod36(*__s2);
             ++__s2;
