@@ -1,5 +1,3 @@
-// ?Rva0023D793Transfer@@YGXHHH@Z
-// partial score=0.93 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 // ?Rva0023D793Transfer@@YGXHHH@Z, retail 0x0023D793, 241 bytes.
 // Player index pair transfer with Money withdraw/deposit and tracker adds.
@@ -84,9 +82,7 @@ void __stdcall Rva0023D793Transfer(int a1, int a2, int a3)
 		return;
 	unsigned int reqSlot = a3;
 	unsigned int balSlot = m1->m_val04;
-	unsigned int *pmin = &balSlot;
-	if (balSlot >= reqSlot)
-		pmin = &reqSlot;
+	unsigned int *pmin = (balSlot < reqSlot) ? &balSlot : &reqSlot;
 	Rva0039B795 *t1 = (Rva0039B795 *)p1->m_track;
 	unsigned int got = m1->rva003B0CB3(*pmin, t1, true);
 	Rva0039B795 *t2 = (Rva0039B795 *)p2->m_track;
