@@ -55837,3 +55837,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva0039561F@Rva0039561F@@QAEHPAVThingTemplate@@@Z,,0x0039561F,93,Code/GameEngine/Source/Common/Rva0039561F.cpp,matched,guarded lookup via rowed getControllingPlayer plus pinned rva0033A69A plus rowed rva003B0CB3 plus unsigned float store
 ?rva00050FFD@Rva00050FFD@@QAEXXZ,,0x00050FFD,26,Code/GameEngineDevice/Source/MilesAudioDevice/Rva00050FFD.cpp,matched,chain miles offset vs position dllimport IAT
 ?Rva0032BF39Equal@@YA_NHH@Z,,0x0032BF39,21,Code/GameEngine/Source/Common/Rva0032BF39Equal.cpp,matched,chain via 0x0032B610 equality wrapper per Rva000B3EECNotEqual
+?swap@SidesList@@QAEXPAV1@@Z,,0x0032B690,279,Code/GameEngine/Source/GameLogic/Map/SidesListSwap.cpp,matched,SidesList swap via rowed member swaps and notifier posts
