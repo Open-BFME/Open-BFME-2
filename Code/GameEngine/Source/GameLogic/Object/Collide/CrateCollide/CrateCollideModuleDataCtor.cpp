@@ -35,6 +35,8 @@ private:
 
 extern AsciiString g_emptyAsciiString;
 
+extern const void *const g_00C5A660[];
+
 class UpdateModuleData
 {
 public:
@@ -66,7 +68,7 @@ private:
 };
 
 CrateCollideModuleData::CrateCollideModuleData()
-	: m_vtable(reinterpret_cast<const void *>(0x00C5A660))
+	: m_vtable((const void *)g_00C5A660)
 	, m_forbidOwnerPlayer(false)
 	, m_buildingPickup(false)
 	, m_humanOnly(false)
