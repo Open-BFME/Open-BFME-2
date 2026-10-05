@@ -54353,7 +54353,6 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?rva0052C036@Rva0052C036@@QAE_NXZ,,0x0052C036,54,Code/GameEngine/Source/Common/System/Rva0052C036Step.cpp,matched,chain via rowed 0x003EF2FF plus pin bfmeEnter plus g_009FE1C8 plus callers 0x003B8CAC 0x0052C9F9
 ??0Rva000A0D3A@@QAE@PAX@Z,,0x000A0D3A,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A0D3ACtor.cpp,matched,Gadget ctor via Rva000A0CE7 base plus vtable 0x00BC8D30
 ?storeWord@Rva0023425D@@QAEPAV1@G@Z,,0x0023425D,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp,matched,BFME1 5cc75ddd whole BfmeConv1047.cpp compiled; target-address ABI word-store view only; constructor and owner identity unproven
-?d_0001b3e0@@YAXXZ,,0x0001B3E0,254,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0041b3e0
 ?d_0001c090@@YAXXZ,,0x0001C090,132,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0041c090
 ?d_0002c7fd@@YAXXZ,,0x0002C7FD,214,Code/gen_asm/d_0001b3e0.asm,matched,gen-dump;ghidra=FUN_0042c7fd
 ?rva007B80D3@@YAXXZ,,0x007B80D3,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
@@ -56593,3 +56592,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003A83D4Init@@YAXXZ,,0x003A83D4,64,Code/GameEngine/Source/GameClient/Rva005613B2Ctor.cpp,matched,QUAD_DRAW publisher static init; drift mirage at 0x0052B84F (69B) refused
 ?addModuleInfo@ModuleInfo@@QAEXPAVThingTemplate@@ABVAsciiString@@1PBVModuleData@@H_N3@Z,,0x0033D553,785,Code/GameEngine/Source/Common/Thing/ModuleInfoAddModuleInfo.cpp,matched,BFME1 6583b3c1 ThingTemplate donor; native diagnostics and parser33D865 establish identity; target four module lists2E4..308 and name64; verified two-string temporary teardown2CF51B; full785 bytes exact
 ?parseModuleName@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z,,0x0033D865,704,Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp,matched,BFME1 6583b3c1 ThingTemplate semantic donor; native Behavior/Body field tableDBF068/078 names callback; target layout64 94 98 2E4..308 5F8 and slot7 read from retail; now calls byte-verified addModuleInfo33D553; all704 bytes exact
+??$append@PBD@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEAAV01@PBD0ABUforward_iterator_tag@1@@Z,,0x0001B3E0,254,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_append.cpp,matched,STLport 4.5.3 narrow forward-iterator append; port of BFME1 wide-append donor shape with folded memmove; hoisted count and max-by-address select ebp/ecx allocation
