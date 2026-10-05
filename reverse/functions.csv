@@ -56446,3 +56446,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003BAA2D@@YGXM@Z,,0x003BAA2D,25,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAA2D.cpp,matched,ret 4 one float to Display slot 0xd0
 ?rva002947A8@Rva00294759@@QAEXXZ,,0x002947A8,46,Code/GameEngine/Source/GameLogic/Object/ObjectRva00294759.cpp,matched,chain from 0x00294759 caller 0x0039F269
 ?evaluateNamedUnitRankLevel@ScriptConditions@@IAE_NPAVParameter@@0@Z,,0x003E92DF,148,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E92DFFinish.cpp,matched,warn block textual A and rank load textual B so the hot load lands out-of-line; both falses share one trailing return false sink
+?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z,,0x004320B1,160,Code/GameEngine/Source/Common/Rva004320B1Finish.cpp,matched,each of the three InGameUI uses reads the global afresh instead of caching one read in a local
