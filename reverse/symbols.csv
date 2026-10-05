@@ -13364,3 +13364,28 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
 ?rva000347A0@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z,0x000347A0,address-derived thiscall GeneralAllocator realloc-engine member taking block size flags and returning void pointer; called from wrapper 0x00035190; identity unproven
 ?rva00034A60@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z,0x00034A60,address-derived thiscall GeneralAllocator calloc-engine member taking count size flags and returning void pointer; called from wrapper 0x00035210; identity unproven
+?rva00396A5C@Rva00396A5C@@QAEHPAVPlayer@@@Z,0x00396A5C,address read from the retail REL32 at 0x00396B1E in rva00396B0D 0x00396B0D; 177B AsciiString/NameKey map-find body, recovery blocked on StringBase/map models
+?rva003970E7@Rva0039718B@@QAEHPAVPlayer@@@Z,0x003970E7,address read from the retail REL32 at 0x003971B0 in rva0039718B 0x0039718B; 164B free Ghidra body on the same host (ecx=this), returns dword compared with Player+0x94
+?rva00796023@@YAHPAVObject@@PAX@Z,0x00796023,iterate callback pushed at retail 0x003960FF in rva003960BD 0x003960BD for Player::iterateObjects over the Rva0036BDD0 box; identity unproven
+?rva00397756@Rva00397756@@QAEXPAUIdRange@@H@Z,0x00397756,GameLogic-outer method (ecx=this-0xc style callers) sweeping one IdRange; free 59B body banked as partial (56/59 scheduler delta); called 4x from rva00397791 0x00397791
+??0Rva003B0344@@QAE@ABVRvaSmartPtr12@@@Z,0x003B0454,264B EH ctor of the 0x00C1D9B0 class (pinned dtor 0x003B00D6-family 0x003B0344); base-constructs Rva003B00D6; ObjectCreationList/vector layout reconciliation still open
+?rva003B015D@@YAXHHD@Z,0x003B015D,static 5-push forwarder into 0x003AFFBE; 3rd param is char (callers mov-al the byte); read from REL32 at 0x003B0427 in rva003B0412 0x003B0412
+?rva0039BB0A@Rva0039BD28@@QAEHXZ,0x0039BB0A,thiscall returning int stored to +0x314; read from REL32 at 0x0039BD4A in rva0039BD28 0x0039BD28; identity unproven
+?rva0039BC85@Rva0039BD28@@QAEHXZ,0x0039BC85,thiscall returning int stored to +0x318; read from REL32 at 0x0039BD57 in rva0039BD28 0x0039BD28; identity unproven
+?rva0039AEBC@Rva0039B0C9@@QAEXH@Z,0x0039AEBC,thiscall worker on this taking the +4 dword; read from REL32 at 0x0039B0D4 in rva0039B0C9 0x0039B0C9; 158B free body; identity unproven
+?rva003AFFBE@@YAXHHHHH@Z,0x003AFFBE,50B idiv+rep-movsd helper calling 0x003AFE48; 5 int args assumed; read from REL32 at 0x003B016D in rva003B015D 0x003B015D
+?rva003B0176@@YAXHHHH@Z,0x003B0176,42B movsd-copy helper calling 0x003AFFF0; 4 int args assumed (p2 used as pointer); read from REL32 at 0x003B02AF in rva003B02A1 0x003B02A1
+?rva003B5EA5@@YAHHHPAURva003B65Header@@@Z,0x003B5EA5,real prolog at unlisted address inside Ghidra 1818B blob; 3rd arg is the caller header; int args assumed; read from REL32 at 0x003B65CD/0x003B6607
+?rva003B7448@Rva003B7448@@QAEXH@Z,0x003B7448,member method on +4 taking arg+4; read from REL32 at 0x003B7700 in rva003B76EF 0x003B76EF; int arg assumed
+?rva003B7167@Rva003B761E@@QAEXXZ,0x003B7167,temp cleanup on the 0x20-byte Rva003B761E slot; read from REL32 at 0x003B7663 in rva003B7647 0x003B7647; likely the dtor; identity unproven
+?rva002AEEA7@Player@@QAEXH@Z,0x002AEEA7,Player method taking int 1 in the 0x003BBD84 mask sweep; read from REL32 at 0x003BBDB5; identity unproven
+?rva002AF037@Player@@QAEXH@Z,0x002AF037,Player method taking int 1 in the 0x003BBDC4 mask sweep; read from REL32 at 0x003BBDF5; identity unproven
+?rva002AE228@Rva003A2BD4M08@@QAEXPAVTeamPrototype@@@Z,0x002AE228,m08 entry taking this; read from REL32 at 0x003A2BDF in rva003A2BD4 0x003A2BD4
+?rva002A8AB1@PlayerList@@QAEPAVPlayer@@PAVRva003A2BD4M08@@@Z,0x002A8AB1,PlayerList lookup by m08 returning Player; read from REL32 at 0x003A2BFA in rva003A2BD4 0x003A2BD4
+?rva004EC072@Player@@QAEXPAVTeamPrototype@@@Z,0x004EC072,Player entry taking this; read from REL32 at 0x003A2C06 in rva003A2BD4 0x003A2BD4
+?rva003A3B7E@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z,0x003A3B7E,fallback when findPrototype hits an empty inactive team; same (a1,a2) args; read from REL32 at 0x003A3E67 in rva003A3E37 0x003A3E37
+?rva0052C7A2@Rva0052C7A2@@QAEHXZ,0x0052C7A2,no-arg entry method tail-called from indexed table in rva003B8D4D 0x003B8D4D; read from jmp at 0x003B8D67; identity unproven
+?Rva005D303AFormat@@YA?AVUnicodeString@@HH@Z,0x005D303A,by-value UnicodeString formatter ("%d/%d" via 0x00C380FC) returning hidden retptr at [ebp+8]; read from REL32 at 0x005D3113 in rva005D30EE 0x005D30EE; Ghidra 99B
+?rva0057C499@Rva0057C499@@QAEXHH@Z,0x0057C499,thiscall forwarder target of 0x005D4EA8 taking two dwords; int args assumed; read from REL32 at 0x005D4EAD in rva005D4EA8 0x005D4EA8; Ghidra 73B
+?rva005D388B@Rva005D388B@@QAE?AUTreeHintRef00217D4C@@XZ,0x005D388B,by-value TreeHintRef getter on +0x24 member (hidden retptr at [ebp-16]); read from REL32 at 0x005D3AB2 in rva005D3A91 0x005D3A91; Ghidra 61B blocked
+?rva005E4BB7@Rva005E4BB7@@QAEPAXPAX@Z,0x005E4BB7,thiscall on +0x1C member taking out-ptr returning pointer chain for 0x9F3F41; void ptrs assumed; read from REL32 at 0x005E4DBD in rva005E4DAF 0x005E4DAF; Ghidra 120B
