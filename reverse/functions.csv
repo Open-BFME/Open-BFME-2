@@ -56562,3 +56562,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0016AF80@Rva0016AF80@@QAE_NAAVChunkLoadClass@@@Z,,0x0016AF80,72,Code/Libraries/Source/WWVegas/WW3D2/Rva0016AF80Finish.cpp,matched,vertex chunk reader sibling exact 72B explicit-else polarity lever t=8 model=space-bunny-alpha
 ?Rva003C8A15Do@@YGXPAVParameter@@ABVAsciiString@@1@Z,,0x003C8A15,128,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C8A15Do.cpp,matched,unit guard via getQualifiedTriggerAreaByName getUnitNamed waypoint 0x88 rva0036F629 else rva0036F5BB
 ?addTeamPrototypeToList@TeamFactory@@QAEXPAVTeamPrototype@@@Z,,0x003A2B78,92,Code/GameEngine/Source/Common/RTS/TeamFactoryAddPrototype003A2B78.cpp,matched,TeamFactory add prototype via nameToKey lowerbound map insert
+?Rva003C8A95Do@@YGXPAVParameter@@@Z,,0x003C8A95,42,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C8A95Do.cpp,matched,unit hunt via getUnitNamed AI 0x258 aiHunt
