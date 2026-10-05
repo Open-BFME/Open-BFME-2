@@ -63617,3 +63617,9 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002F1C5F@Rva002F1C5F@@QAEPAV1@HH@Z,,0x002F1C5F,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x002F0C32
 ?rva002F1CB3@Rva002F1CB3@@QAEPAV1@HH@Z,,0x002F1CB3,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x002F0C55
 ?rva004152BC@Rva004152BC@@QAEPAV1@HH@Z,,0x004152BC,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x004151C4
+?rva001F8213@Rva001F8213@@QAEXHH@Z,,0x001F8213,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chain root calling virtual slot 3 then unrowed same-shape 0x001F6492
+?rva001F8960@Rva001F8960@@QAEXHH@Z,,0x001F8960,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001F8213 on member
+?rva001F8DE2@Rva001F8DE2@@QAEXHH@Z,,0x001F8DE2,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001F8960 on member
+?rva001F9424@Rva001F9424@@QAEXHH@Z,,0x001F9424,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001F8DE2 on member
+?rva001FA4C6@Rva001FA4C6@@QAEXHH@Z,,0x001FA4C6,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001F9424 on member
+?rva001FA7CE@Rva001FA7CE@@QAEXHH@Z,,0x001FA7CE,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001FA4C6 on member

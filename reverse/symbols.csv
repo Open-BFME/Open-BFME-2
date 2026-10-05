@@ -12947,3 +12947,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?helper@Rva002F1C5F@@AAEXH@Z,0x002F0C32,unrowed member callee of self-link init 0x002F1C5F read from its REL32
 ?helper@Rva002F1CB3@@AAEXH@Z,0x002F0C55,unrowed member callee of self-link init 0x002F1CB3 read from its REL32
 ?helper@Rva004152BC@@AAEXH@Z,0x004151C4,unrowed member callee of self-link init 0x004152BC read from its REL32
+?helper@Rva001F6492Helper@@QAEXHH@Z,0x001F6492,same-shape predecessor of chain root 0x001F8213 read from its REL32
