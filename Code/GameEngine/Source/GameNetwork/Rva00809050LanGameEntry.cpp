@@ -36,9 +36,11 @@ public:
 
 	int m_field08;
 	int m_field0c;
-	int m_sequence;
-	int m_field14;
-	char m_tail18[ 8 ];
+ 	int m_sequence;
+ 	int m_field14;
+ 	char m_tail18[ 8 ];
+
+ 	virtual ~Rva00808CB0LanGameEntry();
 };
 
 class Rva00803620Sink
