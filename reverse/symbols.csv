@@ -13511,3 +13511,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002B3049@@YAXHHHPAEH@Z,0x002B3049,cdecl 5-arg worker looping (end-begin)>>2 through 0x2B2F97; args 4-5 unread; Ghidra FUN_006b3049 47B
 ?rva002B3621@Rva002B4C09@@QAE_NXZ,0x002B3621,thiscall bool: +0x160 target non-null with +0x25 flag set; Ghidra FUN_006b3621 23B
 ?rva0020E873@@YAHHHPAH@Z,0x0020E873,cdecl 3-arg int return; ICF-shares address with STL find bodies whose identity is unproven for this call site; Ghidra FUN_0060e873 27B
+?rva002E0A9F@Rva002E0A9FElem@@QAEHPAX@Z,0x002E0A9F,thiscall int scan over +0x1B8/+0x1BC entries with 1 stack arg; head-decoded, Ghidra FUN_006e0a9f 75B
