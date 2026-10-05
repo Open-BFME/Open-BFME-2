@@ -11,12 +11,14 @@ struct CharCompare
 };
 
 int __cdecl compareRangeNoCase(const char *a, int alen, const char *b, int blen, CharCompare tag);
+extern "C" unsigned int strlen(const char *s);
 
 
 class Rva0050EE23
 {
 public:
 	int rva0050EE23(const char *b, int blen, CharCompare tag);
+	int rva0050F1F0(const char *b, CharCompare tag);
 private:
 	struct Header
 	{
@@ -41,4 +43,18 @@ int Rva0050EE23::rva0050EE23(const char *b, int blen, CharCompare tag)
 	else
 		a = "";
 	return compareRangeNoCase(a, alen, b, blen, tag);
+}
+
+// Retail 0x0050F1F0 (41B): C-string overload measuring a non-null argument with
+// strlen (import thunk 0x00629170) before forwarding to 0x0050EE23.
+int Rva0050EE23::rva0050F1F0(const char *b, CharCompare tag)
+{
+	return rva0050EE23(b, b ? strlen(b) : 0, tag);
+}
+
+// Retail 0x0050F841 (28B): free cdecl wrapper supplying a value-initialized
+// tag; the tribute page factory 0x00510D98 tests its result against zero.
+int __cdecl rva0050F841(Rva0050EE23 *a, const char *b)
+{
+	return a->rva0050F1F0(b, CharCompare());
 }
