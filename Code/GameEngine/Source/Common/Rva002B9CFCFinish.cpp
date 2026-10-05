@@ -1,7 +1,3 @@
-// ?rva002B9CFC@Rva002B9CFC@@QAEXPAVOther002B9CFC@@@Z
-// partial score=0.97 date=2026-09-30
-// ?rva002B9CFC@Rva002B9CFC@@QAEXPAVOther002B9CFC@@@Z
-// partial score=0.97 date=2026-09-30
 // cl: /O1 /MD /GX-
 //
 // ?rva002B9CFC@Rva002B9CFC@@QAEXPAVOther002B9CFC@@@Z @0x002B9CFC 203B
@@ -112,7 +108,6 @@ public:
 // ??A?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAHABH@Z @0x0028932C rowed
 // ??2@YAPAXI@Z @0x0002FDA0 rowed
 // ?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z @0x00024250 rowed
-// ?rva002B9CFC@Rva002B9CFC@@QAEXPAVOther002B9CFC@@@Z present-unmatched
 void Rva002B9CFC::rva002B9CFC(Other002B9CFC *other)
 {
 	TwoBools002B9CFC bb;
@@ -127,18 +122,15 @@ void Rva002B9CFC::rva002B9CFC(Other002B9CFC *other)
 		if (count > 0)
 		{
 		_STL::map<int, int, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > *map130 = (_STL::map<int, int, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > *)((char *)this + 0x130);
-			for (unsigned int i = 0; i < count; i++)
+			unsigned int i = 0;
+			do
 			{
 				Rva002B644A *p = (Rva002B644A *)::operator new(0x20);
-				if (!p)
-				{
-				}
-				else
-					new (p) Rva002B644A();
+				p = p ? (Rva002B644A *)new (p) Rva002B644A() : 0;
 				other->v30(p);
 				int key = *(int *)((char *)p + 4);
 				(*map130)[key] = (int)p;
-			}
+			} while (++i < count);
 		}
 	}
 	else
