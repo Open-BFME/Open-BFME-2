@@ -11413,3 +11413,5 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ??1Rva004110B9Tree@@QAE@XZ,0x004110B9,tree teardown dtor for Rva007B6880Thunks.cpp 0x007B8229/0x007B8233; jmp stub to the rowed dup_00410c7b body 0x00410C7B
 ??1Rva004110BETree@@QAE@XZ,0x004110BE,tree teardown dtor for Rva007B6880Thunks.cpp 0x007B823D; jmp stub to the rowed tree dtor 0x00410CB9
 ??1Rva00411453Tree@@QAE@XZ,0x00411453,tree teardown dtor for Rva007B6880Thunks.cpp 0x007B8247; jmp stub to tree-dtor-family body 0x004111CC
+??1Rva004816F4Entry@@QAE@XZ,0x0048130E,native DestinationTemplate cleanup; full53B verified8B filter/string entry destructor; scoped address views not original names
+?push_back@Rva004816F4Vector@@QAEXABURva004816F4Entry@@@Z,0x004816BD,native DestinationTemplate append; full55B verified8B entry vector push_back; scoped address views not original names
