@@ -63611,3 +63611,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva005E35B5@@QAE@ABV0@@Z,,0x005E35B5,20,Code/GameEngine/Source/Common/Rva005E35B5Memcpy.cpp,matched,copy ctor of 32-byte word-array holder with rep movsd
 ??0Rva005EEEFF@@QAE@ABV0@@Z,,0x005EEEFF,20,Code/GameEngine/Source/Common/Rva005E35B5Memcpy.cpp,matched,copy ctor of 20-byte word-array holder with rep movsd
 ??0Rva005F8F00@@QAE@ABV0@@Z,,0x005F8F00,20,Code/GameEngine/Source/Common/Rva005E35B5Memcpy.cpp,matched,copy ctor of 36-byte word-array holder with rep movsd
+?rva002BFCF5@Rva002BFCF5@@QAEXHH@Z,,0x002BFCF5,30,Code/GameEngine/Source/Common/Rva002BFCF5TwoIntWraps.cpp,matched,two-int pack wrapper calling unrowed member 0x002BFA86
+?rva003A37DC@Rva003A37DC@@QAEXHH@Z,,0x003A37DC,30,Code/GameEngine/Source/Common/Rva002BFCF5TwoIntWraps.cpp,matched,two-int pack wrapper calling unrowed member 0x002ADCE1
+?rva005258F8@Rva005258F8@@QAEXHH@Z,,0x005258F8,30,Code/GameEngine/Source/Common/Rva002BFCF5TwoIntWraps.cpp,matched,two-int pack wrapper calling unrowed member 0x00525407
