@@ -1,5 +1,6 @@
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
-// partial score=0.99 date=2026-10-05
+// partial score=0.97 date=2026-10-05
+// ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
 // cl: /O2 /MD /EHsc
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z @ 0x006C2510 (215B)
 // Unlock lane: landing it makes 0x006C26F0 and 0x006C4730 ready.
@@ -98,10 +99,27 @@ private:
 };
 
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z present-unmatched
-// Both arms return trail+2. The store happens only when out!=0; retail tests
-// the out pointer (test esi,esi) and the je skips the body store, not the
-// result. `bp = base - 10` is what forces the trailing-word load to index off
-// `size` rather than fold into one SIB displacement, giving retail's 215B.
+// Retail materialises base and size as SEPARATE registers across the whole arm:
+// `mov ecx,eax` (size) / `mov eax,edx` (base) / `mov dx,[eax+ecx-0xa]` (trail,
+// INDEXED by the full 32-bit size) / `je`, then `movzx edi,dx` / `sub eax,edi`
+// / `lea eax,[eax+ecx-0xa]` / `mov [esi],eax`, and ONE `movzx esi,dx` /
+// `add esi,2` after the join -- so the store is guarded and the result is NOT
+// duplicated per arm (both prior banks duplicated it, which is why they were
+// 2B long there).
+//
+// The `vb = *(char * volatile *)&base` read is the lever: it keeps `base` LIVE in
+// a register across the size computation (the `[base-4]` header load and the
+// final store both need it), so VC7 reloads it into eax AFTER `mov ecx,eax`
+// instead of folding the trailing-word load into ONE SIB displacement with the
+// word zero-extended into cx. That fold is what made every earlier attempt
+// 208B. With the volatile read the indexed `mov ecx,eax` / `mov dx,[eax+ecx-0xa]`
+// form appears and 37 of retail's 78 instructions land at the same offset with
+// the same bytes (98 of 215 byte-weighted, vs 24/68 for the prior bank).
+//
+// Remaining: retail re-tests `out` and reassociates the store to
+// `(base - trail) + (size - 10)`; this body tests before and folds to
+// `(vb + (size - 10)) - trail`, so the tail of the arm is offset by a few bytes.
+// The whole hash arm and prologue are byte-identical to retail.
 unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 {
 	Rva00030DD0Lock *lock = m_lock;
@@ -118,14 +136,11 @@ unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 			size = (h & 0x7ffffff8) + 4;
 		else
 			size = h & 0x7ffffff8;
-		char *bp = (char *)base - 10;
-		unsigned short trail = *(const unsigned short *)(bp + size);
-		if (out != 0) {
-			*out = (bp - trail) + size;
-			result = trail + 2;
-		}
-		else
-			result = trail + 2;
+		char *vb = *(char * volatile *)&base;
+		unsigned short trail = *(const unsigned short *)(vb + (size - 10));
+		if (out != 0)
+			*out = (vb - trail) + size - 10;
+		result = trail + 2;
 	} else {
 		if (m_680 == 0)
 			goto done;
