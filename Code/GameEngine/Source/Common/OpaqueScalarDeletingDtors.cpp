@@ -2691,3 +2691,23 @@ void Rva0057C394::rva0057C394(const AsciiString &a1, const TreeHintRef00217D4C &
 {
     return m_p->rva0057C339(a1, a2);
 }
+// ??1Rva005F329E@@QAE@XZ, retail 0x005F329E, 23 bytes.
+// Opaque scalar dtor deleting owned Rva005F2B22 member via pinned dtor and
+// rowed operator delete. Evidence: callees pinned 0x005F2B22 rowed 0x0002FD60;
+// callers at 0x005F35C1 0x007A5049; prev/next in this TU (/O1 /MD).
+class Rva005F2B22
+{
+public:
+    ~Rva005F2B22();
+};
+class Rva005F329E
+{
+public:
+    ~Rva005F329E();
+private:
+    Rva005F2B22 *m_elem;
+};
+Rva005F329E::~Rva005F329E()
+{
+    delete m_elem;
+}
