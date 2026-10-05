@@ -63396,3 +63396,8 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0023D0C2@GameLogic@@QAEXPAVObject@@H@Z,,0x0023D0C2,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: peer pin name void(Object*;int); 11B shape
 ?fwd@Rva002E2F39Owner@@QAEHH@Z,,0x002E2F39,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x1A8 int(int); 11B shape
 ?fwd@Rva004EC072Owner@@QAEXPAX@Z,,0x004EC072,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x90 void(void*); 11B shape
+?poll@Rva001EB72F@@QAEXXZ,,0x001EB72F,13,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked member forward; 13B load/test/jmp shape
+?poll@Rva001EB75C@@QAEXXZ,,0x001EB75C,13,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked member forward; 13B load/test/jmp shape
+?poll@Rva0020EB41@@QAEXXZ,,0x0020EB41,13,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked member forward; 13B load/test/jmp shape
+?poll@Rva005CCB16@@QAEXXZ,,0x005CCB16,13,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked member forward; 13B load/test/jmp shape
+?poll@Rva005D13D5@@QAEXXZ,,0x005D13D5,13,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked member forward; 13B load/test/jmp shape

@@ -12718,3 +12718,8 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?method@Rva0040D280Sub@@QAEXPAVObject@@H@Z,0x0040D280,opaque thiscall-view alias; same body as rowed stdcall Rva0040D280Set; identity unproven
 ?method@Rva002E2D10Sub@@QAEHH@Z,0x002E2D10,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
 ?method@Rva0059A71CSub@@QAEXPAX@Z,0x0059A71C,opaque thiscall-view alias; same body as rowed Rva0059A71C::rva; identity unproven
+?run@Rva001EB68ARun@@QAEXXZ,0x001EB68A,REL32 callee decoded from target call bytes of null-checked forward 0x001EB72F; identity unproven
+?run@Rva001EB6FERun@@QAEXXZ,0x001EB6FE,REL32 callee decoded from target call bytes of null-checked forward 0x001EB75C; identity unproven
+?run@Rva0020E9A1Run@@QAEXXZ,0x0020E9A1,REL32 callee decoded from target call bytes of null-checked forward 0x0020EB41; identity unproven
+?run@Rva005CB283Run@@QAEXXZ,0x005CB283,REL32 callee decoded from target call bytes of null-checked forward 0x005CCB16; identity unproven
+?run@Rva000B3FD0Run@@QAEXXZ,0x000B3FD0,opaque alias: shared folded empty body; callee of null-checked forward 0x005D13D5
