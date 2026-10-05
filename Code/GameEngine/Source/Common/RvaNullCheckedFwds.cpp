@@ -122,3 +122,69 @@ void Rva005D13D5::poll()
 	if (target)
 		target->run();
 }
+
+class RadarEventRef
+{
+public:
+	void release();
+};
+
+class Rva0010FAEARun
+{
+public:
+	void run();
+};
+
+class Rva0010FBDERun
+{
+public:
+	void run();
+};
+
+class Rva0004E4BD
+{
+public:
+	void poll();
+
+private:
+	RadarEventRef *m_ptr;
+};
+
+class Rva000A8AB4
+{
+public:
+	void poll();
+
+private:
+	Rva0010FAEARun *m_ptr;
+};
+
+class Rva000A8ACC
+{
+public:
+	void poll();
+
+private:
+	Rva0010FBDERun *m_ptr;
+};
+
+void Rva0004E4BD::poll()
+{
+	RadarEventRef *target = m_ptr;
+	if (target)
+		target->release();
+}
+
+void Rva000A8AB4::poll()
+{
+	Rva0010FAEARun *target = m_ptr;
+	if (target)
+		target->run();
+}
+
+void Rva000A8ACC::poll()
+{
+	Rva0010FBDERun *target = m_ptr;
+	if (target)
+		target->run();
+}
