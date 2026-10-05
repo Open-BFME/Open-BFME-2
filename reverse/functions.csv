@@ -59978,3 +59978,17 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0028BC94@Object@@QAEPAXXZ,,0x0028BC94,32,Code/GameEngine/Source/Common/VslotSmallBodiesAB.cpp,matched,Ghidra FUN with six callers; first non-NULL virtual slot 28 of the +0x0C interface over the NULL-terminated module list at +0x244; unrowed
 ?rva005D99E9@Rva005D99E9@@QAEHHPAVObject@@@Z,,0x005D99E9,35,Code/GameEngine/Source/Common/VslotSmallBodiesAB.cpp,matched,vtable slot; 1 when arg2 +0x04 +0x11A bit 4 is clear and its 0x0028BC94 finds one; no Ghidra entry
 ?rva0015068C@Rva0015068C@@QAEPAVRva0014F699@@PAV2@0@Z,,0x0015068C,51,Code/GameEngine/Source/Common/Rva0015068CFinish.cpp,matched,vector reassign via rowed 3-arg Copy 0x150265 with 4th tag arg = addr-of-result+3 per stlport erase recipe; /Oy- keeps ebp frame
+??0Rva00342547@@QAE@PAVStateMachine@@@Z,,0x00342547,37,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva0036756A@@QAE@PAVStateMachine@@H_N@Z,,0x0036756A,60,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva003675AC@@QAE@PAVStateMachine@@H@Z,,0x003675AC,36,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva003675D6@@QAE@PAVStateMachine@@_N@Z,,0x003675D6,40,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva00367E59@@QAE@PAVStateMachine@@@Z,,0x00367E59,51,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva004884ED@@QAE@PAVStateMachine@@H@Z,,0x004884ED,40,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva0048851B@@QAE@PAVStateMachine@@H@Z,,0x0048851B,36,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva00488545@@QAE@PAVStateMachine@@H@Z,,0x00488545,40,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva004886C7@@QAE@PAVStateMachine@@@Z,,0x004886C7,40,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva004A992A@@QAE@PAVStateMachine@@@Z,,0x004A992A,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva00542D25@@QAE@PAVStateMachine@@@Z,,0x00542D25,51,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva00544095@@QAE@PAVStateMachine@@@Z,,0x00544095,33,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva00544C2A@@QAE@PAVStateMachine@@@Z,,0x00544C2A,33,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
+??0Rva00545B4F@@QAE@PAVStateMachine@@@Z,,0x00545B4F,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp,matched,State hash ctor
