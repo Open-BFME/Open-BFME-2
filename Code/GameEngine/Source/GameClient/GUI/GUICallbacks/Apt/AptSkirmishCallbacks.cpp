@@ -337,7 +337,6 @@ void AptSkirmish::OnChangeProfile(const char *unused)
 // Retail 0x00522556, 277 bytes: refills the "Skirmish::SelectProfile" list
 // with the user names, selecting the current one, and disables the select
 // button when there is none.
-// ?rva00522556@AptSkirmish@@QAEXXZ present-unmatched
 void AptSkirmish::rva00522556()
 {
 	if (!m_profiles)
