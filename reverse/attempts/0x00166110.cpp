@@ -1,5 +1,14 @@
 // ??0BfmeRva00166110@@QAE@ABV0@@Z
 // partial score=0.94 date=2026-10-05
+// The // cl: flag line and the // stlport marker below MUST stay at the very top
+// of any copy of this file. tools/build.py reads flags from the FIRST line
+// starting "// cl:" and puts vendor/stlport on the include path only when
+// "// stlport" appears. When both sat below the stashed partial header this file
+// built with default flags and then did not compile at all (11 errors, _STL not
+// a namespace). See reverse/re_attempts.log row 0x166110.
+// cl: /G7 /O2 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
+// finish round from the 0.94 bank
 // ??0BfmeRva00166110@@QAE@ABV0@@Z
 // partial score=0.99 date=2026-10-05
 // cl: /G7 /O2 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
