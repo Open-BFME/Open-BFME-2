@@ -19,6 +19,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 
-struct Rva004F7DF9Record { Rva004F7DF9Record(); Rva004F7DF9Record(const Rva004F7DF9Record&); ~Rva004F7DF9Record(); Rva004F7DF9Record&operator=(const Rva004F7DF9Record&); private: char bytes[4]; };
-namespace _STL {template<> void _Construct<Rva004F7DF9Record,Rva004F7DF9Record>(Rva004F7DF9Record*,const Rva004F7DF9Record&);}
-template void _STL::vector<Rva004F7DF9Record>::reserve(unsigned int);
+struct Rva00504755Record { Rva00504755Record(); Rva00504755Record(const Rva00504755Record&); ~Rva00504755Record(); Rva00504755Record&operator=(const Rva00504755Record&); private: char bytes[16]; };
+namespace _STL {template<> void _Construct<Rva00504755Record,Rva00504755Record>(Rva00504755Record*,const Rva00504755Record&);}
+template Rva00504755Record *_STL::__uninitialized_copy(Rva00504755Record*,Rva00504755Record*,Rva00504755Record*,const _STL::__false_type&);
