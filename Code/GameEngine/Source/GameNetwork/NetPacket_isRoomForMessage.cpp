@@ -30,8 +30,8 @@ public:
 class NetCommandRef
 {
 public:
-	NetCommandMsg *getCommand() { return m_msg; }
-	UnsignedByte getRelay() const { return m_relay; }
+	NetCommandMsg *getCommand();
+	UnsignedByte getRelay() const;
 	NetCommandMsg *m_msg;
 	NetCommandRef *m_next;
 	NetCommandRef *m_prev;
@@ -64,11 +64,11 @@ Bool NetPacket::rva0058D211(NetCommandRef *msg)
 {
 	Int len = 0;
 	Bool needNewCommandID = false;
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = msg->m_msg;
 	if (m_lastType1FF != cmdMsg->m_commandType) {
 		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 	}
-	if (m_lastRelay200 != msg->getRelay()) {
+	if (m_lastRelay200 != msg->m_relay) {
 		++len;
 		++len;
 	}
@@ -100,11 +100,11 @@ Bool NetPacket::rva0058D310(NetCommandRef *msg)
 {
 	Int len = 0;
 	Bool needNewCommandID = false;
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = msg->m_msg;
 	if (m_lastType1FF != cmdMsg->m_commandType) {
 		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 	}
-	if (m_lastRelay200 != msg->getRelay()) {
+	if (m_lastRelay200 != msg->m_relay) {
 		++len;
 		++len;
 	}
@@ -133,11 +133,11 @@ Bool NetPacket::rva0058D58A(NetCommandRef *msg)
 {
 	Int len = 0;
 	Bool needNewCommandID = false;
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = msg->m_msg;
 	if (m_lastType1FF != cmdMsg->m_commandType) {
 		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 	}
-	if (m_lastRelay200 != msg->getRelay()) {
+	if (m_lastRelay200 != msg->m_relay) {
 		++len;
 		++len;
 	}
@@ -166,11 +166,11 @@ Bool NetPacket::rva0058D296(NetCommandRef *msg)
 {
 	Int len = 0;
 	Bool needNewCommandID = false;
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = msg->m_msg;
 	if (m_lastType1FF != cmdMsg->m_commandType) {
 		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 	}
-	if (m_lastRelay200 != msg->getRelay()) {
+	if (m_lastRelay200 != msg->m_relay) {
 		++len;
 		++len;
 	}
@@ -200,11 +200,11 @@ Bool NetPacket::rva0058D601(NetCommandRef *msg)
 {
 	Int len = 0;
 	Bool needNewCommandID = false;
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = msg->m_msg;
 	if (m_lastType1FF != cmdMsg->m_commandType) {
 		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 	}
-	if (m_lastRelay200 != msg->getRelay()) {
+	if (m_lastRelay200 != msg->m_relay) {
 		++len;
 		++len;
 	}
