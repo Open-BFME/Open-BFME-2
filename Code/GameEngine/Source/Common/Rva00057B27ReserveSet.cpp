@@ -25,6 +25,7 @@ public:
 	int rva00056BFE(unsigned int n);
 	void rva00054BC3(unsigned int a, unsigned int b);
 	int rva00057B27(unsigned int a, unsigned int b);
+	void rva00058913(void *dst, unsigned int b);
 };
 
 int Rva00057B27::rva00057B27(unsigned int a, unsigned int b)
@@ -101,6 +102,25 @@ int Rva0052B7F8::rva0052B7F8(unsigned int a, unsigned int b)
 	rva00212858(m_count10 + 1);
 	rva0052B737(a, b);
 	return a;
+}
+
+// 0x00058913 42B: fills a 9-byte (int int byte) temp via rowed reserve-then-set
+// 0x00057B27 on the same this (ecx passes through) then copies it to *dst.
+// Evidence: pushes outer arg then temp address then rowed call then three
+// moves to [dst] [dst+4] [dst+8] with ret 8; callers 0x00059D90 plus 0x0006265C;
+// unblocks 0x00059CE6; precedent rva000E055A 0x000E055A same recipe same size.
+void Rva00057B27::rva00058913(void *dst, unsigned int b)
+{
+	struct Temp
+	{
+		int a;
+		int c2;
+		unsigned char c3;
+	} tmp;
+	rva00057B27((unsigned int)&tmp, b);
+	((int *)dst)[0] = tmp.a;
+	((int *)dst)[1] = tmp.c2;
+	((unsigned char *)dst)[8] = tmp.c3;
 }
 
 // 0x000E055A 42B: fills a 9-byte (int int byte) temp via rowed reserve-then-set
