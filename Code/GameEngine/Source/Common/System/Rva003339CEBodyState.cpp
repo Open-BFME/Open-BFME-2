@@ -25,7 +25,7 @@ typedef const ConstCharPtr *ConstCharPtrArray;
 
 extern const char *BodyStateNames[];
 extern const char *VeterancyNames104[];
-extern const char *ModelConditionNames[];
+extern const char *const ModelConditionNames[];
 
 class INIException
 {
