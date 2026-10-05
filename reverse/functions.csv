@@ -60812,3 +60812,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva007B6E7C@@YAXXZ,,0x007B6E7C,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Faction-set tree teardown: ecx=&g_Va00DEBFE4 then tail-jmp to 0x00059068 stub; honest address name
 ?Rva00438D58Update@@YGXPAVObject@@@Z,,0x00438D58,197,Code/GameEngine/Source/GameLogic/AI/Rva00438D58Update.cpp,matched,free stdcall via getDrawable and local control and audio event
 ?rva0042D632@Rva0042D632@@QAEXXZ,,0x0042D632,74,Code/GameEngine/Source/Common/Rva0042D632Method.cpp,matched,state switch driving Apt SetState fadeOut via rowed invoke plus pin
+?reset@Rva0042D766@@QAEXPAVRva00578C43@@@Z,,0x0042D766,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,owning-pointer reset same pointee as clear 0x0042D789 via pin 0x00578C43 plus delete

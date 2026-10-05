@@ -1490,3 +1490,24 @@ void Rva005F13CC::clear()
 		::operator delete(p);
 	}
 }
+
+class Rva0042D766
+{
+public:
+	Rva00578C43 *m_ptr;
+	void reset(Rva00578C43 *p);
+};
+
+void Rva0042D766::reset(Rva00578C43 *p)
+{
+	if (p != m_ptr)
+	{
+		Rva00578C43 *old = m_ptr;
+		m_ptr = p;
+		if (old)
+		{
+			old->Rva00578C43::~Rva00578C43();
+			::operator delete(old);
+		}
+	}
+}
