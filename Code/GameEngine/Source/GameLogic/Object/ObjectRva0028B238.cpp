@@ -9,12 +9,31 @@ public:
 class Object
 {
 public:
+	void setCaptured(bool isCaptured);
 	void rva0028B238(bool flag);
 	Player *getControllingPlayer() const;
 private:
-	char m_pad00[0x43C];
+	enum
+	{
+		CAPTURED = (1 << 2)
+	};
+	char m_pad00[0x438];
+	unsigned char m_privateStatus; // +0x438
+	char m_pad439[0x43C - 0x439];
 	bool m_43C;
 };
+
+// ?setCaptured@Object@@QAEX_N@Z @0x0028B21E 26B: Zero Hour's setCaptured
+// (release build, so no log in the clear arm) on the private status byte
+// at +0x438, whose bit 0 the rowed 0x004DE24B tests as EFFECTIVELY_DEAD;
+// 4 is Zero Hour's CAPTURED bit. Directly before rva0028B238.
+void Object::setCaptured(bool isCaptured)
+{
+	if (isCaptured)
+		m_privateStatus |= CAPTURED;
+	else
+		m_privateStatus &= ~CAPTURED;
+}
 void Object::rva0028B238(bool flag)
 {
 	if (flag == m_43C)
