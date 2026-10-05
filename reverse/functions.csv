@@ -61963,3 +61963,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva00414B0A@Rva00414B0A@@QAEXXZ,,0x00414B0A,26,Code/GameEngine/Source/Common/Rva00414B0A.cpp,matched,vector erase plus two int clears rowed erase
 ??0Rva0056616B@@QAE@ABV0@@Z,,0x0052D555,333,Code/GameEngine/Source/Common/System/Rva0056616BCopy.cpp,matched,unlock lane copy ctor vtable 0x008689D0 16 members plus byte
 ?rva00264274@Rva00264274@@QAE_NPBUCoord3D@@@Z,,0x00264274,234,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00264274Path.cpp,matched,unlock path test with TransportShip locomotor set static key callers 0x0029DEFB
+?rva004ABFB2@Rva004ABFB2@@QAEXH@Z,,0x004ABFB2,39,Code/Libraries/Source/WWVegas/WWLib/Rva004ABFB2Method.cpp,matched,unlock caller 0x004ABFD9 rowed tree-erase plus Rva0020DAE0
