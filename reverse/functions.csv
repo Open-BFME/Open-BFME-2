@@ -61068,3 +61068,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0030F388@Rva0030F388@@QAEXXZ,,0x0030F388,29,Code/GameEngine/Source/Common/Rva0030F388Method.cpp,matched,guarded broadcast via rowed forEach plus slot0 forwarder with flag at 1c
 ?rva0030F3BF@Rva0030F388@@QAEXM@Z,,0x0030F3BF,69,Code/GameEngine/Source/Common/Rva0030F3BFMethod.cpp,matched,float clamp and guarded broadcast same object as 0x0030F388 vtable slot 1
 ?rva002B61DD@Rva002B61DD@@QAEXXZ,,0x002B61DD,30,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva002B61DDDtor.cpp,matched,frameless Destroy 002B61C5 plus free 00030830 callers growers
+??$__copy@PAURva0040538FElement@@PAU1@H@_STL@@YAPAURva0040538FElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,,0x00404B71,50,Code/GameEngine/Source/Common/StlportCopy00404B71.cpp,matched,STLport __copy via rowed Rva001DE4F0 copy 0x00404A72 caller 0x00404CD8
