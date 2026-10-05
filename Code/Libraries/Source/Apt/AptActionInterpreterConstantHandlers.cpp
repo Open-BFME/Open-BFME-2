@@ -31,6 +31,7 @@ class AptString;
 class AptInteger;
 class AptArray;
 class AptNativeHash;
+class AptCIH;
 class AptValue {
     unsigned int m_valueFlags;
 public:
@@ -41,6 +42,7 @@ public:
     virtual bool ContainsNativeHashVirtual() const;
     virtual int getHasClass() const;
     virtual void setHasClass(int);
+    AptCIH *c_cih(bool=false);
     AptArray *c_array() const;
     bool isArray() const;
     bool isExtern() const;
@@ -157,6 +159,7 @@ struct AptActionInterpreter
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
 private:
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
+    HANDLER(Play); HANDLER(Stop);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1134,3 +1137,35 @@ void AptActionInterpreter::_FunctionAptActionWith(AptActionInterpreter *const p,
 }
 
 
+
+// Play/Stop: opcode6/7 dispatch and original PDB establish handler identity.
+// Later source supplies semantics; PC proves CIH+4C and sprite playing bit25+1C.
+// Keep direct accessor-expression bitfield assignment: a temporary changes MSVC codegen.
+struct AptSpriteInstBase { unsigned char prefix[0x18]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; };
+class AptCIH : public AptValue {
+public:
+    unsigned char prefix[0x4C-8];
+    void *mpCharacterInst;
+    bool IsLevelInst() const;
+    AptSpriteInstBase *GetSpriteInstBase() const;
+    __forceinline void SetIsPlaying(bool play) {
+        GetSpriteInstBase()->mbIsPlaying=play ? 1 : 0;
+    }
+};
+void AptActionInterpreter::_FunctionAptActionPlay(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptCIH *current=c->pCurrentContext;
+    if (!current->isUndefined() && !current->IsLevelInst()) {
+        if(c->pCurWith && c->pCurWith->isCIH()) c->pCurWith->c_cih()->SetIsPlaying(true);
+        else if(c->pCurrentContext->isCIH()) current->c_cih()->SetIsPlaying(true);
+    }
+}
+void AptActionInterpreter::_FunctionAptActionStop(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptCIH *current=c->pCurrentContext;
+    if (!current->isUndefined() && !current->IsLevelInst() && current->mpCharacterInst)
+        current->c_cih()->SetIsPlaying(false);
+}
+#pragma comment(linker, "/alternatename:?c_cih@AptValue@@QAEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
+#pragma comment(linker, "/alternatename:?IsLevelInst@AptCIH@@QBE_NXZ=?rva006E03A0@BfmeAptValue006DCD20@@QBEHXZ")
+#pragma comment(linker, "/alternatename:?GetSpriteInstBase@AptCIH@@QBEPAUAptSpriteInstBase@@XZ=?rva006CFF40@AptCIH@@QBEPAXXZ")
