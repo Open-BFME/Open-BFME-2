@@ -100,7 +100,7 @@ private:
 };
 
 // ??0DataChunkTableOfContents@@QAE@XZ
-DataChunkTableOfContents::DataChunkTableOfContents() :
+inline DataChunkTableOfContents::DataChunkTableOfContents() :
 	m_list(0),
 	m_nextID(1),
 	m_listLength(0),
@@ -186,3 +186,11 @@ unsigned int DataChunkTableOfContents::allocateID(const AsciiString& name )
 		return m->m_id;
 	}
 }
+
+#pragma inline_depth(0)
+// ?bfmeEmitDataChunkTableOfContentsCtor@@YAXPAVDataChunkTableOfContents@@@Z present-unmatched
+void bfmeEmitDataChunkTableOfContentsCtor(DataChunkTableOfContents *p)
+{
+	p->DataChunkTableOfContents::DataChunkTableOfContents();
+}
+#pragma inline_depth()
