@@ -1,5 +1,5 @@
 // ?Rva001DABB6Parse@@YAXPAVINI@@PAXPAH1@Z
-// partial score=0.95 date=2026-10-05
+// partial score=0.97 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva001DABB6Parse@@YAXPAVINI@@PAXPAH1@Z @0x001DABB6 391B. INI sounds-list parse
@@ -13,8 +13,8 @@
 #include <new>
 #define _OPERATOR_NEW_DEFINED_
 #include <string.h>
-#include <stdlib.h>
-#include <ctype.h>
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
+extern "C" __declspec(dllimport) int __cdecl isdigit(int c);
 class INI
 {
 public:
@@ -24,6 +24,10 @@ class INIException
 {
 public:
 	INIException(int argCount, const char *format, ...);
+	char *mFailureMessage;
+	int m_argCount;
+	INIException(const INIException &that);
+	~INIException();
 };
 struct Rva001DAAF2Element {
 	AsciiString name;
@@ -45,7 +49,6 @@ extern const char g_Rva0107301CEmptyString[];
 // ?Rva001DABB6Parse@@YAXPAVINI@@PAXPAH1@Z present-unmatched
 void __cdecl Rva001DABB6Parse(INI *ini, void *store, int *totalWeight, void *instance)
 {
-	Rva001DAAF2Vec *sounds = (Rva001DAAF2Vec *)store;
 	const char *token = ini->getNextTokenOrNull(0);
 	while (token) {
 		int tokenLength = strlen(token);
@@ -53,8 +56,8 @@ void __cdecl Rva001DABB6Parse(INI *ini, void *store, int *totalWeight, void *ins
 			const char *end = token + tokenLength - 1;
 			while (end > token && isdigit(*end))
 				--end;
-			AsciiString name;
 			int weight;
+			AsciiString name;
 			if (*end == ':') {
 				weight = atoi(++end);
 				if (weight < 1)
@@ -66,7 +69,7 @@ void __cdecl Rva001DABB6Parse(INI *ini, void *store, int *totalWeight, void *ins
 			}
 			if (name.isEmpty())
 				throw INIException(3, "Sound file has no file name. Sound '%s' for audio event '%s'", token, *(const char **)instance ? *(const char **)instance + 8 : g_Rva0107301CEmptyString);
-			sounds->push_back(Rva001DAAF2Element(name, weight));
+			((Rva001DAAF2Vec *)store)->push_back(Rva001DAAF2Element(name, weight));
 			if (totalWeight)
 				*totalWeight += weight;
 		}
