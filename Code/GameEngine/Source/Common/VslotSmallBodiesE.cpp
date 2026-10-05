@@ -196,3 +196,39 @@ Int Rva0048872D::rva0048872D()
 	m_28 = false;
 	return 0;
 }
+
+// slot at VA 0x00C4B4B0 slot 4 (offset 0x10) of Rva00488545 (vtable 0x0084B4B0,
+// class of ??0Rva00488545@@QAE@PAVStateMachine@@H@Z from AIStateHashCtorsMisc):
+// runs AI vslot93, answers -2 when null, else stamps TheGameLogic frame at
+// +0x24 and runs target vslot18(0) when +0x20 is 0 or 1, answers 0.
+// Evidence: +0x18/+0x14/+0x258 AI path and vslot93/frame+0x40 same as 0x004885B8,
+// m_20 at +0x20 and m_24 at +0x24 match Rva00488545 layout, ret void with -2/0.
+class Rva00488573Target : public Rva004885B8Slots<18>
+{
+public:
+	virtual void vslot18(Int arg);
+};
+class Rva00488545
+{
+public:
+	Int rva00488573();
+private:
+	char m_pad00[0x18];
+	Rva004885B8Machine *m_machine;
+	char m_pad1C[0x20 - 0x1C];
+	Int m_20;
+	UnsignedInt m_24;
+};
+
+Int Rva00488545::rva00488573()
+{
+	Rva004885B8AI *ai = m_machine->m_owner->m_ai;
+	Rva00488573Target *target = (Rva00488573Target *)ai->vslot93();
+	if (!target)
+		return -2;
+	m_24 = TheGameLogic->getFrame();
+	Int status = m_20;
+	if (status == 0 || status == 1)
+		target->vslot18(0);
+	return 0;
+}
