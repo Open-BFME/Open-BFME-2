@@ -14,6 +14,7 @@
 // (defined in Rva00446A77Enable.cpp; the g_00DFE958 spelling is aliased
 // there); LANAPI vslot 56 returns the current LANGameInfo, vslot 25 sends a
 // game-options string, vslot 26 asks the host for serialized game info.
+// LANAPI vslot 55 returns the local player name by value.
 // LANGameInfo vslot 14 is resetAccepted, and the non-virtual
 // LANGameInfo::rva004477C7 0x004477C7 is the host test (slot 0 is local).
 // GameSlot keeps the start position at +0x10 (with a second copy at
@@ -166,7 +167,7 @@ public:
 	virtual void v52() = 0;
 	virtual void v53() = 0;
 	virtual void v54() = 0;
-	virtual void v55() = 0;
+	virtual UnicodeString GetMyName() = 0;
 	virtual LANGameInfo *GetMyGame() = 0;
 };
 
@@ -201,6 +202,7 @@ public:
 	bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
 	bool applySlotColor(GameSlot *slot, int color);
 	bool applySlotHero(GameSlot *slot);
+	void copyLanNameRva00444D7B(UnicodeString &dest);
 
 private:
 	unsigned char m_pad00[0x0C];
@@ -400,4 +402,13 @@ bool BfmeAptScreenLanLobby::applySlotHero(GameSlot *slot)
 		m_prefs.write();
 	}
 	return true;
+}
+
+// Retail 0x00444D7B, 72 bytes: vftable 0x00C3E098 slot 14. Donor
+// AptScreenLanLobbyCopyName.cpp (BFME1 copyLanNameRva005171A0), unchanged;
+// the original name is unknown, so the address stays in it.
+void BfmeAptScreenLanLobby::copyLanNameRva00444D7B(UnicodeString &dest)
+{
+	if (TheLAN)
+		dest = TheLAN->GetMyName();
 }
