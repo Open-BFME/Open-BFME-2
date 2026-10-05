@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /arch:SSE2 /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // STLport 4.5.3 _M_insert, specialized to the retail 0x003F75EC tree.
 // Target: Ghidra 0x003F75EC/136; sole direct caller 0x003F76B1/134
@@ -38,3 +38,21 @@ template Rva003F75ECTree::iterator Rva003F75ECTree::_M_insert(
 // target loop compares the signed key in descending order and returns
 // the iterator and insertion flag through the caller's result pointer.
 template _STL::pair<Rva003F75ECTree::iterator, bool> Rva003F75ECTree::insert_unique(const Rva003F75ECTree::value_type &);
+
+// Retail equality compares the three floats before the signed key.
+__forceinline bool operator==(const Rva003F75ECValue &a, const Rva003F75ECValue &b)
+{
+    return a.x == b.x && a.y == b.y && a.z == b.z && a.key == b.key;
+}
+template <> bool _STL::operator==<int, Rva003F75ECValue, Rva003F75ECKey, _STL::greater<int>, _STL::allocator<Rva003F75ECValue> >(const Rva003F75ECTree &a, const Rva003F75ECTree &b)
+{
+    if (a.size() != b.size())
+        return false;
+    Rva003F75ECTree::const_iterator first = a.begin();
+    Rva003F75ECTree::const_iterator last = a.end();
+    Rva003F75ECTree::const_iterator other = b.begin();
+    for (; first != last; ++first, ++other)
+        if (!(*first == *other))
+            return false;
+    return true;
+}
