@@ -55,3 +55,25 @@ Rva003B0152::Rva003B0152(const RvaSmartPtr12 &src) :
 	Rva003B00D6(src)
 {
 }
+
+// ??0Rva003B0401@@QAE@ABVRvaSmartPtr12@@@Z @0x003B0835 24B: base-constructs
+// the pinned 264B Rva003B0344 ctor (vptr 0x00C1D9B0 class) from the arg, then
+// installs vptr 0x00C1DA10. Dtor rowed at 0x003B0401.
+class Rva003B0344
+{
+public:
+	Rva003B0344(const RvaSmartPtr12 &src);
+	virtual ~Rva003B0344();
+};
+
+class Rva003B0401 : public Rva003B0344
+{
+public:
+	Rva003B0401(const RvaSmartPtr12 &src);
+	virtual ~Rva003B0401();
+};
+
+Rva003B0401::Rva003B0401(const RvaSmartPtr12 &src) :
+	Rva003B0344(src)
+{
+}
