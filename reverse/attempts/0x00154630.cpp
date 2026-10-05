@@ -80,3 +80,15 @@ void FontCharsClass::Create_GDI_Font(const char *font_name)
 
 	::SelectObject(screen_dc, old_font);
 }
+//
+// 2026-10-05 seat-4 trials (no Code/ residue; bank above unchanged):
+// - Baseline reproduced under real build flags (/arch:SSE /G7 /DNDEBUG /MD
+//   /EHsc): frame 0x40 vs retail 0x44; old_font coalesced into the dead
+//   font_name param home, retail keeps it in a fresh slot; ~50 disp diffs.
+// - Split declaration/assignment of screen_dc/old_font: identical homes.
+// - Dropping /EHsc (family convention in FontCharsClassLoadCharacterData):
+//   identical output; the slot wall is not EH-driven.
+// - /O2 /Oy- NOT tried here (wrong direction: retail is frameless with ebp
+//   as GPR, confirmed from prologue 83 EC 44 without 8B EC).
+// Single-slot allocator wall stands: one extra dword home in retail with no
+// identified owner; volatile/HGDIOBJ-typed old_font not yet tried.
