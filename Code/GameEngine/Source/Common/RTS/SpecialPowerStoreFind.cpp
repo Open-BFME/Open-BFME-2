@@ -26,9 +26,9 @@ public:
 class SpecialPowerTemplate : public Overridable
 {
 public:
-	const AsciiString &getName() const { return getFO()->m_name; }
+	const AsciiString &getName() const { return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_name; }
 private:
-	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
+	const SpecialPowerTemplate *getFO() const;
 	unsigned char m_pad00[0x10];
 	AsciiString m_name; // +0x10
 	UnsignedInt m_id; // +0x14
