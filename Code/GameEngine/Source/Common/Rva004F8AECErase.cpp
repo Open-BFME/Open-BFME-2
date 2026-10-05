@@ -34,3 +34,29 @@ void Rva004F8AEC::rva004F8AEC(Rva004F8AECNode *node)
 		node = left;
 	}
 }
+
+// ?rva004F8DD4@Rva004F8DD4@@QAEXXZ retail 0x004F8DD4 41B
+// Rb clear counterpart to erase 0x004F8AEC: if count at +4 nonzero erase root
+// at header+4 then reset left/parent/right and count.
+// Evidence: sole callee 0x004F8AEC rowed in this TU; caller at 0x004F938D;
+// same 41B shape as clear 0x00383A28 in Rva003833BBErase.cpp.
+class Rva004F8DD4
+{
+public:
+	void rva004F8DD4();
+private:
+	Rva004F8AECNode *m_header;
+	unsigned int m_count;
+};
+
+void Rva004F8DD4::rva004F8DD4()
+{
+	if (m_count != 0)
+	{
+		((Rva004F8AEC *)this)->rva004F8AEC(m_header->m_parent);
+		m_header->m_left = m_header;
+		m_header->m_parent = 0;
+		m_header->m_right = m_header;
+		m_count = 0;
+	}
+}
