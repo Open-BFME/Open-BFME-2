@@ -96,3 +96,47 @@ Int INI::parseIntMathExpression(const char *text, Int (INI::*valueParser)(const 
 	return result;
 }
 
+// ?parseUnsignedIntMathExpression@INI@@QAEIPBDP81@AEI0@Z@Z
+UnsignedInt INI::parseUnsignedIntMathExpression(const char *text, UnsignedInt (INI::*valueParser)(const char *token))
+{
+	rva0002CBCC(AsciiString(text), ' ');
+	const char *token = getNextToken(NULL);
+	const char *first = getNextToken(NULL);
+	UnsignedInt result;
+	if (strcmp(token, "#ADD(") == 0) {
+		result = (this->*valueParser)(first);
+		bool done = false;
+		while (!done) {
+			token = getNextToken(NULL);
+			if (strcmp(token, ")") == 0)
+				done = true;
+			else
+				result += (this->*valueParser)(token);
+		}
+	} else if (strcmp(token, "#SUBTRACT(") == 0) {
+		result = (this->*valueParser)(first);
+		result -= (this->*valueParser)(getNextToken(NULL));
+		token = getNextToken(NULL);
+		if (strcmp(token, ")") != 0)
+			throw INIException(8, "#SUBTRACT takes only 2 operands");
+	} else if (strcmp(token, "#MULTIPLY(") == 0) {
+		result = (this->*valueParser)(first);
+		bool done = false;
+		while (!done) {
+			token = getNextToken(NULL);
+			if (strcmp(token, ")") == 0)
+				done = true;
+			else
+				result *= (this->*valueParser)(token);
+		}
+	} else if (strcmp(token, "#DIVIDE(") == 0) {
+		result = (this->*valueParser)(first);
+		result /= (this->*valueParser)(getNextToken(NULL));
+		token = getNextToken(NULL);
+		if (strcmp(token, ")") != 0)
+			throw INIException(8, "#DIVIDE takes only 2 operands");
+	} else {
+		throw INIException(3, "Expected known math operation after #, but found '%s'", token);
+	}
+	return result;
+}
