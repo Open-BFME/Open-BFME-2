@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc
 // ?rva0050F0AB@Rva0050F0AB@@QAEXXZ, retail 0x0050F0AB, 96 bytes.
 // If m_7c null return; else format m_6c via UnicodeString::format L"%d" into
 // local buf and GadgetTextEntrySetText(m_7c buf by value). Evidence: EH prolog
@@ -11,6 +11,40 @@ typedef unsigned short wchar_t;
 
 
 class GameWindow;
+class GameFont;
+class BfmeKeyLC;
+
+// The text entry's font, rebuilt at 0.8 of its size by TheFontLibrary.
+class AsciiString;
+
+struct GameFontView
+{
+	unsigned char m_pad00[0x08];
+	unsigned char m_name[4]; // +0x08, an AsciiString
+	float m_pointSize; // +0x0C
+	unsigned char m_pad10[0x18 - 0x10];
+	bool m_bold; // +0x18
+};
+
+class FontLibrary
+{
+public:
+	GameFont *getFont(const AsciiString *name, float size, bool bold);
+};
+
+extern FontLibrary *TheFontLibrary;
+
+class GameWindow
+{
+public:
+	GameFont *winGetFont();
+	virtual void winSetFont(GameFont *font);
+};
+
+// GadgetUserDataOr0032060D.cpp's 0x0032060D and the text entry's maximum
+// length setter 0x00433D07.
+void Rva0032060D(GameWindow *window, int flags);
+void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
 
 void GadgetTextEntrySetText(GameWindow *g, UnicodeString text);
 UnicodeString __cdecl GadgetTextEntryGetText(GameWindow *g);
@@ -23,6 +57,8 @@ public:
 	void rva0050F420(unsigned int val);
 	void rva0050F290();
 	void rva0050F450();
+	void InitSlider(const char *name, void *argument, GameWindow *window);
+	void InitTextEntry(const char *name, void *argument, GameWindow *window);
 private:
 	char m_pad00[0x68];
 	unsigned int m_68;
@@ -121,4 +157,47 @@ void Rva0050F5A6::rva0050F5A6(int unused)
 		if (entry)
 			entry->rva0050F290();
 	}
+}
+
+// The number of decimal digits in value.
+inline int countDigits(unsigned int value)
+{
+	int digits = 0;
+	while (value)
+	{
+		++digits;
+		value /= 10;
+	}
+	return digits;
+}
+
+// Retail 0x0050E889, 54 bytes: "_InitSlider", bound as a member pointer
+// by the row's constructor 0x0050FC54: keeps the slider, ranges it
+// 0..99999 and shows the amount.
+void Rva0050F0AB::InitSlider(const char *name, void *argument, GameWindow *window)
+{
+	m_78 = window;
+	TheWindowManager->winSendSystemMsg(window, 0x400E, 0, 99999);
+	Rva0050E776Send(m_78, m_6c);
+}
+
+// Retail 0x0050F3A0, 128 bytes: "_InitTextEntry", bound alongside: keeps
+// the text entry, shrinks its font, takes digits only up to the slider's
+// width and shows the amount.
+void Rva0050F0AB::InitTextEntry(const char *name, void *argument, GameWindow *window)
+{
+	m_7c = window;
+	if (TheFontLibrary)
+	{
+		GameFontView *font = (GameFontView *)window->winGetFont();
+		if (font)
+		{
+			GameFont *smaller = TheFontLibrary->getFont((const AsciiString *)font->m_name, font->m_pointSize * 0.8f, font->m_bold);
+			if (smaller)
+				m_7c->GameWindow::winSetFont(smaller);
+		}
+	}
+	Rva0032060D(m_7c, 0x21);
+	bfmeGo924F((BfmeKeyLC *)m_7c, countDigits(99999));
+	rva0050F0AB();
 }
