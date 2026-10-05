@@ -1,5 +1,3 @@
-// ??0Rva00573E7C@@QAE@XZ
-// partial score=0.9 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /Os /DNDEBUG /MD /EHsc /arch:SSE
 //
 // ??0Rva00573E7C@@QAE@XZ @0x00573E7C (60B).
@@ -9,6 +7,9 @@
 // dtor row; layout from Rva00573F9FXfer.cpp (Coord m_40 float m_4c int m_50
 // bool m_54 uint m_58 m_5c); 5 callers; retail order 40/44/48/58/5C/4C/50/54.
 #include "ascii_string.h"
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
 struct Coord3DBase
 {
@@ -41,12 +42,12 @@ private:
 	unsigned int m_5c;
 };
 
-// ??0Rva00573E7C@@QAE@XZ present-unmatched
 Rva00573E7C::Rva00573E7C()
 {
 	m_40.x = 0.0f;
 	m_40.y = 0.0f;
 	m_40.z = 0.0f;
+	_ReadWriteBarrier();
 	m_58 = 0;
 	m_5c = 0;
 	m_4c = 0.0f;
