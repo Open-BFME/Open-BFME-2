@@ -448,3 +448,93 @@ void W3DView::setViewFilterPos(const Coord3D *pos)
 }
 
 
+
+// BFME moved the shake state and the GlobalData shake tuning; retail reads
+// the angle pair and intensity at W3DView +0x120..+0x128 and the six
+// intensities, the intensity cap and the range at GlobalData +0xB74..+0xB90.
+struct BfmeW3DViewShakeFields
+{
+	unsigned char m_padding0000[0x120];
+	Real m_shakeAngleCos;
+	Real m_shakeAngleSin;
+	Real m_shakeIntensity;
+};
+
+struct BfmeGlobalDataShakeFields
+{
+	unsigned char m_padding0000[0xB74];
+	Real m_shakeSubtleIntensity;
+	Real m_shakeNormalIntensity;
+	Real m_shakeStrongIntensity;
+	Real m_shakeSevereIntensity;
+	Real m_shakeCineExtremeIntensity;
+	Real m_shakeCineInsaneIntensity;
+	Real m_maxShakeIntensity;
+	Real m_maxShakeRange;
+};
+
+// ------------------------------------------------------------------------------------------------
+/** Add an impulse force to shake the camera.
+ * The camera shake is a simple simulation of an oscillating spring/damper.
+ * The idea is that some sort of shock has "pushed" the camera once, as an
+ * impluse, after which the camera vibrates back to its rest position.
+ * @todo This should be part of "View", not "W3DView". */
+// ------------------------------------------------------------------------------------------------
+#define BFME_SHAKE_DATA ((const BfmeGlobalDataShakeFields *)TheGlobalData)
+void W3DView::shake( const Coord3D *epicenter, CameraShakeType shakeType )
+{
+	BfmeW3DViewShakeFields *fields = (BfmeW3DViewShakeFields *)this;
+#line 5735 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\W3DView.cpp"
+	Real angle = GameClientRandomValueReal( 0, 2*PI );
+
+	fields->m_shakeAngleCos = (Real)cos( angle );
+	fields->m_shakeAngleSin = (Real)sin( angle );
+
+	Real intensity = 0.0f;
+	switch( shakeType )
+	{
+		case SHAKE_SUBTLE:
+			intensity = BFME_SHAKE_DATA->m_shakeSubtleIntensity;
+			break;
+
+		case SHAKE_NORMAL:
+			intensity = BFME_SHAKE_DATA->m_shakeNormalIntensity;
+			break;
+
+		case SHAKE_STRONG:
+			intensity = BFME_SHAKE_DATA->m_shakeStrongIntensity;
+			break;
+
+		case SHAKE_SEVERE:
+			intensity = BFME_SHAKE_DATA->m_shakeSevereIntensity;
+			break;
+
+		case SHAKE_CINE_EXTREME:
+			intensity = BFME_SHAKE_DATA->m_shakeCineExtremeIntensity;
+			break;
+
+		case SHAKE_CINE_INSANE:
+			intensity = BFME_SHAKE_DATA->m_shakeCineInsaneIntensity;
+			break;
+	}
+
+	// intensity falls off with distance
+	const Coord3D *viewPos = getPosition();
+	Coord3D d;
+	d.x = epicenter->x - viewPos->x;
+	d.y = epicenter->y - viewPos->y;
+
+	Real dist = (Real)sqrt( d.x*d.x + d.y*d.y );
+
+	if (dist > BFME_SHAKE_DATA->m_maxShakeRange)
+		return;
+
+	intensity *= 1.0f - (dist/BFME_SHAKE_DATA->m_maxShakeRange);
+
+	// add intensity and clamp
+	fields->m_shakeIntensity += intensity;
+
+	if (fields->m_shakeIntensity > BFME_SHAKE_DATA->m_maxShakeIntensity)
+		fields->m_shakeIntensity = BFME_SHAKE_DATA->m_maxShakeIntensity;
+}
+#undef BFME_SHAKE_DATA
