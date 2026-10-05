@@ -12089,7 +12089,6 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ??0Rva00502082Element@@QAE@ABU0@@Z,0x00501DD4,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00502082; element identity unproven; address-derived name
 ??0Rva00502667Element@@QAE@ABU0@@Z,0x005020AF,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00502667; element identity unproven; address-derived name
 ??0Rva00502C53Element@@QAE@ABU0@@Z,0x00502909,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00502C53; element identity unproven; address-derived name
-??0Rva0052D6BEElement@@QAE@ABU0@@Z,0x0052D555,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x0052D6BE; element identity unproven; address-derived name
 ??0Rva00557C90Element@@QAE@ABU0@@Z,0x005564EB,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00557C90; element identity unproven; address-derived name
 ??0Rva00600F9CElement@@QAE@ABU0@@Z,0x00600F76,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00600F9C; element identity unproven; address-derived name
 ??0Rva002BAE2AElement@@QAE@ABU0@@Z,0x002B9247,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002BAE2A; callee already rowed as the vector<Rva002B72C9> copy ctor so the element is likely that vector; address-derived placeholder name

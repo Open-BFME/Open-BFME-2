@@ -1,7 +1,7 @@
 // cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// Wave-3 shape-family batch: thirteen 45-byte STLport _Construct<T, T>
+// Wave-3 shape-family batch: twelve 45-byte STLport _Construct<T, T>
 // placement-copy helpers with the shape
 //   mov call push mov mov and test je push call mov mov leave ret
 // (mov eax,<frame>; call __EH_prolog 0x00629188; null-guarded placement-new
@@ -21,7 +21,6 @@
 //   0x00502082  Rva00502082Element       0x00501DD4
 //   0x00502667  Rva00502667Element       0x005020AF
 //   0x00502C53  Rva00502C53Element       0x00502909
-//   0x0052D6BE  Rva0052D6BEElement       0x0052D555
 //   0x00557C90  Rva00557C90Element       0x005564EB
 //   0x00600F9C  Rva00600F9CElement       0x00600F76
 //
@@ -88,12 +87,6 @@ struct Rva00502C53Element
 	Rva00502C53Element(const Rva00502C53Element &that);
 };
 
-struct Rva0052D6BEElement
-{
-	int a;
-	Rva0052D6BEElement(const Rva0052D6BEElement &that);
-};
-
 struct Rva00557C90Element
 {
 	int a;
@@ -121,7 +114,6 @@ template void _STL::_Construct<Rva004F868AElement, Rva004F868AElement>(Rva004F86
 template void _STL::_Construct<Rva00502082Element, Rva00502082Element>(Rva00502082Element *, const Rva00502082Element &);
 template void _STL::_Construct<Rva00502667Element, Rva00502667Element>(Rva00502667Element *, const Rva00502667Element &);
 template void _STL::_Construct<Rva00502C53Element, Rva00502C53Element>(Rva00502C53Element *, const Rva00502C53Element &);
-template void _STL::_Construct<Rva0052D6BEElement, Rva0052D6BEElement>(Rva0052D6BEElement *, const Rva0052D6BEElement &);
 template void _STL::_Construct<Rva00557C90Element, Rva00557C90Element>(Rva00557C90Element *, const Rva00557C90Element &);
 template void _STL::_Construct<Rva002BAE2AElement, Rva002BAE2AElement>(Rva002BAE2AElement *, const Rva002BAE2AElement &);
 template void _STL::_Construct<Rva00600F9CElement, Rva00600F9CElement>(Rva00600F9CElement *, const Rva00600F9CElement &);
