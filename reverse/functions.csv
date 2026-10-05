@@ -56582,3 +56582,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??4Rva0051F6DF@@QAEAAV0@ABV0@@Z,,0x0051F6DF,206,Code/GameEngine/Source/Common/Rva0051F6DFFinish.cpp,matched,vector operator= 20-byte element; copy tag is its own local not derived from another local's address
 ?rva003BEDD1@ScriptActions@@IAEXABVAsciiString@@0@Z,,0x003BEDD1,141,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BEDD1.cpp,matched,neighbours same flags callees rowed caller unclaimed
 ?rva003BED01@ScriptActions@@IAEXPAVParameter@@ABVAsciiString@@@Z,,0x003BED01,88,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BED01.cpp,matched,chain neighbours same flags callees rowed
+??0Rva002553F6@@QAE@XZ,,0x002553F6,74,Code/GameEngine/Source/GameLogic/Object/Update/Rva002553F6Ctor.cpp,matched,ModuleData ctor via CrateTemplate double-zero plus barrier
