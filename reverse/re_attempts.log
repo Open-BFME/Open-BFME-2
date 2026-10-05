@@ -9866,3 +9866,4 @@ FUN_005182a0	0x001182A0	399	blocked	big WW3D render 399B with x87 FPU cw plus SS
 ?rva004DA36A@Rva004DA36A@@QAE_NPBUCoord3D@@@Z	0x004DA36A	528	blocked	frame 0x4c vs 0x1a4 Rva001E4DB0 base size 4 vs 340 plus register wall edi-ebx and stack offsets t=25 model=muse-10
 ?rva0043C384@SkirmishPreferences@@QAE?AVAsciiString@@XZ	0x0043C384	306	blocked	map getter wall frame 0x10 vs 0xc key offset plus missing default path plus add-vs-lea t=30 model=muse-10
 ?rva00223BF6@Rva00223BF6@@QAEPAXPAXPBD1@Z	0x00223BF6	199	blocked	timer functor wall push-ebx-vs-push-ecx and-vs-mov plus GetParam order fixed but frame persists t=20 model=muse-10
+?winFindFont@GameWindowManager@@QAEPAVGameFont@@VAsciiString@@H_N@Z	0x00314CC1	80	converted	Boundary inventory 80B; GameWindowManager vtable0x7C7C90 slot76; BFME1 donor 6583b3c1 with canonical BFME2 AsciiString and already-matched FontLibrary getFont solves former string-ABI blocker; add_match verified t=8 model=GPT-6
