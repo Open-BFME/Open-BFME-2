@@ -11,6 +11,7 @@
 // MpGameSetupOnInitGadget.cpp); +0x2C4 is a dirty flag.
 
 #include "unicode_string.h"
+#include "ascii_string.h"
 
 class GameWindow;
 class BfmeKeyLC;
@@ -79,10 +80,25 @@ void GadgetComboBoxSetItemData(GameWindow *comboBox, int index, void *data);
 void GadgetComboBoxSetMaxDisplay(GameWindow *comboBox, int maxDisplay);
 int Rva0043DDF8(int count);
 
+extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
+
+class Image;
+
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+
+extern ImageCollection *TheMappedImageCollection;
+
 class Rva00222A8BTarget
 {
 public:
 	int invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
+	// Unrowed 0x002239E2 (sets a named Apt image), pinned by address.
+	void rva002239E2(const AsciiString &name, const Image *image);
 };
 
 // The owning screen's interface at +0x58, by vslot.
@@ -144,6 +160,12 @@ public:
 
 	void rva0043E30F(int slot, int value);
 	void rva0043E253(int slot);
+	void rva00442F65(int query, char *result, bool skip);
+	const Image *rva0043E512(int value);
+	void rva0043E5C1(int slot, int kind, int value);
+
+	// Unrowed 0x00442C9C (23 bytes), pinned by address.
+	bool rva00442C9C();
 
 private:
 	unsigned char m_pad000[0x58];
@@ -153,7 +175,9 @@ private:
 	int m_mode; // +0x7C (MpGameSetupOnInitGadget.cpp's m_hideFlag)
 	unsigned char m_pad080[0xD0 - 0x80];
 	Rva0057EE5C m_d0; // +0xD0
-	unsigned char m_pad0d1[0x2C3 - 0xD1];
+	unsigned char m_pad0d1[0x160 - 0xD1];
+	int m_160; // +0x160
+	unsigned char m_pad164[0x2C3 - 0x164];
 	bool m_pending; // +0x2C3
 	bool m_2c4; // +0x2C4
 	unsigned char m_pad2c5[0x2D4 - 0x2C5];
@@ -383,4 +407,31 @@ void MpGameSetup::rva0043E253(int slot)
 	}
 	GadgetComboBoxSetSelectedPos(m_handicap[slot], 0, false);
 	GadgetComboBoxSetMaxDisplay(m_handicap[slot], Rva0043DDF8(slot));
+}
+
+// Retail 0x00442F65, 115 bytes: an Apt query callback bound four times by the
+// panel's registration 0x0044303D. Unless told to skip, it writes "1" or "0"
+// for query 0 (owner vslot 1), 1 (0x00442C9C), 2 (mode +0x160 is 1 with a
+// current game) or 3 (flag 0x80 at +0x3A4). Name unknown.
+void MpGameSetup::rva00442F65(int query, char *result, bool skip)
+{
+	switch (query)
+	{
+	case 0:
+		if (!skip)
+			_mbscpy(result, m_owner->v01() ? "1" : "0");
+		break;
+	case 1:
+		if (!skip)
+			_mbscpy(result, rva00442C9C() ? "1" : "0");
+		break;
+	case 2:
+		if (!skip)
+			_mbscpy(result, m_160 == 1 && m_game->rva0043DA65() ? "1" : "0");
+		break;
+	case 3:
+		if (!skip)
+			_mbscpy(result, m_flags & 0x80 ? "1" : "0");
+		break;
+	}
 }
