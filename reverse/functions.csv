@@ -64847,3 +64847,5 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva00464923@Rva00464923@@QAEAAVWeaponTemplateSetHead@@ABI@Z,,0x00464923,97,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetHeadMapLookupRva00464923.cpp,matched,unsigned-key lookup-or-create for 0x4C WeaponTemplateSetHead; target call sites identify lower_bound pair construction and hinted insertion; owner name unproven
 ?rva004B15E6@Rva004B15E6@@QAEXXZ,,0x004B15E6,77,Code/GameEngine/Source/Common/Rva004B15E6Clear.cpp,matched,clear the slot at +0x7C then destroy the vector at +0x70
 ?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
+?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
+?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
