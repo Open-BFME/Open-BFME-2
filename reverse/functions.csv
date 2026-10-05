@@ -56585,3 +56585,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva002553F6@@QAE@XZ,,0x002553F6,74,Code/GameEngine/Source/GameLogic/Object/Update/Rva002553F6Ctor.cpp,matched,ModuleData ctor via CrateTemplate double-zero plus barrier
 ?updateAndDrawWorldAnimations@InGameUI@@IAEXXZ,,0x0029D44E,452,Code/GameEngine/Source/GameClient/InGameUIUpdateAndDrawWorldAnimations.cpp,matched,pinned name donor InGameUI caller preDraw rowed callees
 ?Rva0044C205Reset@@YAXXZ,,0x0044C205,114,Code/GameEngine/Source/Common/Rva0044C205Reset.cpp,matched,Reset UI via Network Mouse GameEngine WindowManager Display
+?Rva003BB1A4Grant@@YGXABVAsciiString@@0@Z,,0x003BB1A4,91,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB1A4.cpp,matched,leaf lane ScriptEngine mask PlayerList UpgradeCenter Player grant

@@ -9083,3 +9083,4 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?Rva002B57FEPartition@@YAPAVRva002B2F97@@PAV1@0V1@@Z	0x002B57FE	117	partial	missing 2x lea ecx ebp+14 t=25 model=muse-04 score=0.95 stash=reverse/attempts/0x002b57fe.cpp
 ?rva000438CB@Rva000438CB@@QAEXXZ	0x000438CB	738	blocked	big WW3D draw 738B jump tables t=10 model=muse-04
 ?addMapObjects@W3DRoadBuffer@@IAEXXZ	0x000DD47D	671	blocked	needs moderate donor repair t=15 model=muse-04
+?Rva0023D793Transfer@@YGXHHH@Z	0x0023D793	241	partial	req-bal regs edx-edi vs eax-edx and store order swapped t=30 model=muse-08 score=0.93 stash=reverse/attempts/0x0023d793.cpp
