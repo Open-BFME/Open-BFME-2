@@ -8,6 +8,8 @@
 
 int Rva00381452Get(void);
 
+extern const void *const g_00C728B8[];
+
 struct Rva002BA8F1Listener
 {
 	char opaque[4];
@@ -46,7 +48,7 @@ private:
 
 Rva005AFE86::Rva005AFE86(void *p)
 	: EmptyBase005AFE86()
-	, m_vtable(reinterpret_cast<const void *>(0x00C728B8))
+	, m_vtable(g_00C728B8)
 	, m_04(p)
 {
 	m_08 = 0;
