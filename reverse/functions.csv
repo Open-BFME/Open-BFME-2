@@ -63306,3 +63306,17 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00355155@Rva00355B61@@QBEPBVArmorTemplate@@W4NameKeyType@@@Z,,0x00355155,23,Code/GameEngine/Source/GameLogic/Object/Rva00355155Find.cpp,matched,finds ArmorTemplate in map at 0x10 via rowed _M_find 0x2888D4 twin of 0x35516C
 ?rva00355A09@Rva003559B5Host@@QAEXHPAVRva0036E346@@H@Z,,0x00355A09,84,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,matched,creates GarrisonObjectGroupOrder 0x28 via rowed ctor 0x546C26 then Attach pin 0x3558A3 ret 0xC
 ?rva002E8D74@Rva002E8D74@@QAEMHH@Z,,0x002E8D74,54,Code/GameEngine/Source/Common/Rva002E8D74.cpp,matched,x87 scaled squared distance via fild dance and G7 imul
+?rva0020065A@Rva0020065ANullForwarder@@QAEXXZ,,0x0020065A,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva00068373@Rva00068373NullForwarder@@QAEXH@Z,,0x00068373,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva000682FA@Rva000682FANullForwarder@@QAEXXZ,,0x000682FA,16,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva002722F4@Rva002722F4NullForwarder@@QAEXH@Z,,0x002722F4,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?thru@Rva0023D6D5Callee@@QAEXXZ,,0x001EC98E,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva00068061@Rva00068061NullTarget@@QAEXH@Z,,0x00068061,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva00068283@Rva00068283NullTarget@@QAEXH@Z,,0x00068283,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva005CD9F2@Rva005CD9F2NullForwarder@@QAEXXZ,,0x005CD9F2,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva005CDD25@Rva005CDD25NullForwarder@@QAEXXZ,,0x005CDD25,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva005CE9F7@Rva005CE9F7NullForwarder@@QAEXXZ,,0x005CE9F7,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva005CEA04@Rva005CEA04NullForwarder@@QAEXXZ,,0x005CEA04,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva00068385@Rva00068385NullForwarder@@QAEXXZ,,0x00068385,16,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva00068D43@Rva00068D43NullForwarder@@QAEXXZ,,0x00068D43,16,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva0007E17B@Rva0007E17BNullForwarder@@QAEXH@Z,,0x0007E17B,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
