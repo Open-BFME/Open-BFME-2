@@ -8918,3 +8918,4 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	size-exact 331B; retail po
 ?rva0035C194@Shell@@QAEE_N0@Z	0x0035C194	293	blocked	sete+mov vs jne/xor/inc/jmp/xor for m_52 and mov al,1 placement t=15 model=muse-01 (stash 0.98 kept)
 ?applyDisconnectVote@DisconnectManager@@IAEXHIHPAVConnectionManager@@@Z	0x004D3CD8	83	partial	pop ecx cleanup vs add esp and cmp global vs mov+test ecx t=25 model=muse-01 score=0.95 stash=reverse/attempts/0x004d3cd8.cpp
 ?rva004D3C32@BfmeVoteCounter@@QAEXHIPAVConnectionManager@@@Z	0x004D3C32	89	partial	pop ecx cleanup vs add esp and cmp global vs mov+test ecx t=30 model=muse-01 score=0.96 stash=reverse/attempts/0x004d3c32.cpp
+?rva000A3E4F@Rva000A3E4F@@QAEXHPAVWinInstanceData@@@Z	0x000A3E4F	274	partial	stack-slot allocation only: ebp offsets swapped retail-vs-ours (1c/20/14/18/10) plus mov ebx eax-vs-edx; 0 structural regions same size t=10 agent=muse-14 score=0.9 stash=reverse/attempts/0x000a3e4f.cpp
