@@ -55940,3 +55940,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva0057BA90@Rva0057BA90@@QAEXXZ,,0x0057BA90,52,Code/GameEngine/Source/Common/Rva0057BA90Open.cpp,matched,leaf Apt Open via rowed call
 ??4Rva0030ADED@@QAEAAV0@ABV0@@Z,,0x0030ADED,85,Code/GameEngine/Source/Common/Rva0030ADEDAssign.cpp,matched,calls rowed StringBase set twice plus raw copies return this
 ?rva002C9586@Weapon@@QAE_NXZ,,0x002C9586,24,Code/GameEngine/Source/GameLogic/Object/WeaponIsTooClose.cpp,matched,frame window via rowed TheGameLogic plus WeaponDtor layout plus callers
+?isReady@SpecialPowerModule@@UBE_NXZ,,0x004934DE,128,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleIsReady.cpp,matched,ZH isReady lead blocked28 status70 MI primary+10 layout agrees getPowerName
