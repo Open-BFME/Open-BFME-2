@@ -51,7 +51,8 @@ public:
 	virtual void f04();
 	virtual void f05();
 	virtual void f06();
-	virtual void f07(const Vector3 *v);
+ virtual void f07(const Vector3 *v);
+ virtual void f08(int arg);
 	char m_pad[0xB4 - 4];
 	float m_b4;
 };
@@ -64,9 +65,9 @@ public:
 	virtual void s02();
 	virtual void s03();
 	virtual void s04();
-	virtual void rva00539316(const Vector3 *arg);
-	virtual void s06();
-	virtual void rva005392EC();
+ virtual void rva00539316(const Vector3 *arg);
+ virtual void rva00539251(int arg);
+ virtual void rva005392EC();
 	virtual void s08();
 	virtual void s09();
 	virtual void s10();
@@ -103,5 +104,20 @@ void Rva0053947D::rva005392EC()
 	{
 		Rva00539316Elem *p = s15(i);
 		p->f03();
+	}
+}
+
+// ?rva00539251@Rva0053947D@@UAEXH@Z @0x00539251 48B:
+// Virtual slot 6 (0x18) of vtable 0x00869228 (class of ??1Rva0053947D):
+// count via slot 0x34, per-index elem via slot 0x3C, elem slot 0x20 with int arg.
+// Evidence: same s13/s15 loop as slots 5 and 7 in this TU; ret 4 single int arg
+// passed through to elem f08; neighbours 0x00539227/0x00539281 contiguous.
+void Rva0053947D::rva00539251(int arg)
+{
+	int count = s13();
+	for (int i = 0; i < count; ++i)
+	{
+		Rva00539316Elem *p = s15(i);
+		p->f08(arg);
 	}
 }

@@ -57294,3 +57294,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva005BA2CB@@UAE@XZ,,0x005BA2CB,40,Code/GameEngine/Source/Common/Rva005BA2CBDtor.cpp,matched,dtor three vptrs global clear tail-jmp base
 ?rva003B93BC@Rva003B93BC@@QAEPAUBfmePod104@@XZ,,0x003B93BC,68,Code/GameEngine/Source/Common/Rva003B93BCMethod.cpp,matched,leaf temp 0x68 via rowed ctor push_back pinned dtor twin
 ??1Rva005613B2@@QAE@XZ,,0x00560AF6,27,Code/GameEngine/Source/GameClient/Rva00560AF6Finish.cpp,matched,finish delete global via rowed dtor and delete
+?rva00539251@Rva0053947D@@UAEXH@Z,,0x00539251,48,Code/GameEngine/Source/Common/Rva00539316Slot5.cpp,matched,slot6 vtable 0x00869228 s13 s15 elem f08 int arg same loop as slots 5 and 7
