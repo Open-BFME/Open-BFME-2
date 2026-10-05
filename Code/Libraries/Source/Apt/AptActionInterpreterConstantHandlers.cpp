@@ -27,6 +27,7 @@ static __forceinline float bfme_fmodf(float x,float y) { return (float)fmod(x,y)
 class EAStringC;
 class AptString;
 class AptInteger;
+class AptArray;
 class AptNativeHash;
 class AptValue {
     unsigned int m_valueFlags;
@@ -36,6 +37,13 @@ public:
     virtual void ForceDelete();
     virtual AptNativeHash *GetNativeHashVirtual();
     virtual bool ContainsNativeHashVirtual() const;
+    virtual int getHasClass() const;
+    virtual void setHasClass(int);
+    AptArray *c_array() const;
+    bool isArray() const;
+    bool isExtern() const;
+    bool isCIH(bool=false) const;
+    bool isObject() const;
     AptString *c_string() const;
     AptInteger *c_integer() const;
     bool isUndefined() const;
@@ -51,7 +59,12 @@ public:
 class AptCIH;
 struct AptCharacterInst;
 class EAStringC { void *mpData; public: bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
-class AptString : public AptValue { public: static AptString *Create(); EAStringC str; };
+class AptArray { public: AptValue *get(int); void set(int,AptValue *); };
+// PC callbacks occupy two independently zero-initialized slots in gAptFuncs.
+// Member handlers establish the getter/setter ABI; later source names their role.
+AptValue *(__cdecl *g_bfmeAptGetExternAtE17768)(const char *)=0;
+void (__cdecl *g_bfmeAptSetExternAtE17764)(const char *,const char *)=0;
+class AptString : public AptValue { public: static AptString *Create(); EAStringC str; __forceinline EAStringC *GetInternalString() { return &str; } };
 class AptInteger : public AptValue { public: static AptValue *Create(int); int GetInt() const; };
 int Rva006CD220Get();
 bool rva006fc370(AptValue *);
@@ -77,6 +90,7 @@ void Rva00709F70Set(int, AptValue *);
 class AptBasePtrStack
 {
 public:
+    void PopAndPush(int,AptValue *);
     void Push(AptValue *);
     void PushNoInc(AptValue *);
     void rva006FE920();
@@ -861,3 +875,63 @@ void AptActionInterpreter::_FunctionAptActionDelete2(AptActionInterpreter *const
     p->stack.Pop();
     p->stack.Push(AptInteger::Create(1));
 }
+
+void AptActionInterpreter::_FunctionAptActionGetMember(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *name=p->stack.At(0);
+    AptValue *object=p->stack.At(1);
+    if(object->isUndefined() || name->isUndefined()) {
+        p->stack.Pop(2);
+        p->stack.Push(gpUndefinedValue);
+    } else if(object->isArray() && (name->isInteger() || name->isFloat())) {
+        AptArray *array=object->c_array();
+        AptValue *value=array->get(name->toInteger());
+        p->stack.PopAndPush(2,value);
+    } else if(object->isExtern()) {
+        AptValue *value=g_bfmeAptGetExternAtE17768(name->c_string()->GetInternalString()->rva00620090());
+        p->stack.PopAndPush(2,value);
+    } else {
+        EAStringC text;
+        name->toString(text);
+        AptValue *value=p->getVariable(object,0,&text,1,0,1);
+        p->stack.PopAndPush(2,value);
+    }
+}
+// PC always converts the member name into a temporary (later source adds a
+// string fast path). Native pooled ID0 is __proto__; slot6 sets hasClass.
+void AptActionInterpreter::_FunctionAptActionSetMember(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    AptValue *name=p->stack.At(1);
+    AptValue *object=p->stack.At(2);
+    if(object->isArray() && (name->isInteger() || name->isFloat())) {
+        AptArray *array=object->c_array();
+        array->set(name->toInteger(),value);
+    } else if(object->ContainsNativeHashVirtual() || object->isCIH()) {
+        EAStringC text;
+        name->toString(text);
+        p->setVariable(object,c->pCurWith,&text,value,1,0,1);
+        if(text.IsEqualTo(Rva0070B4F0GetString(0)) && (object->isObject() || object->isCIH())) object->setHasClass(1);
+    } else if(object->isExtern()) {
+        EAStringC text;
+        value->toString(text);
+        AptString *str=name->c_string();
+        g_bfmeAptSetExternAtE17764(str->str.rva00620090(),text.rva00620090());
+    }
+    p->stack.Pop(3);
+    if(g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0) g_releaseVectorAtE17710->ReleaseValues();
+}
+
+#pragma comment(linker, "/alternatename:?isArray@AptValue@@QBE_NXZ=?isArray@BfmeAptValue006DCD20@@QBEHXZ")
+
+#pragma comment(linker, "/alternatename:?isExtern@AptValue@@QBE_NXZ=?rva006DC300@BfmeAptValue006DCD20@@QBEHXZ")
+
+#pragma comment(linker, "/alternatename:?isObject@AptValue@@QBE_NXZ=?isObject@BfmeAptValue006DCD20@@QBEHXZ")
+
+#pragma comment(linker, "/alternatename:?c_array@AptValue@@QBEPAVAptArray@@XZ=?rva006DCFA0@BfmeAptValue006DCD20@@QAEPAV1@XZ")
+
+#pragma comment(linker, "/alternatename:?set@AptArray@@QAEXHPAVAptValue@@@Z=?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z")
+
+#pragma comment(linker, "/alternatename:?PopAndPush@AptBasePtrStack@@QAEXHPAVAptValue@@@Z=?rva006FE880@AptBasePtrStack@@QAEXHPAVBfmeAptValue006DCD20@@@Z")
+
+#pragma comment(linker, "/alternatename:?isCIH@AptValue@@QBE_N_N@Z=?isCIH@BfmeAptValue006DCD20@@QBEH_N@Z")
