@@ -13431,3 +13431,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva003A1D1A@Team@@QAEXXZ,0x003A1D1A,thiscall void() on the getTeamNamed team; callee of dump-range-18 0x003BFD5A
 ?rva002064CB@ScriptEngine@@QAEXPAVTeam@@@Z,0x002064CB,thiscall (Team*); jump-stub to 0x002051B7; forward target of dump-range-18 0x003C0C3E
 ?rva002872BA@Rva002872BA@@QAEXPAXHH@Z,0x002872BA,thiscall (ptr,int,int) on the manager global; area-writer callee of dump-range-18 0x003C3A3F
+?rva003BD4C3@@YAXPAX00@Z,0x003BD4C3,cdecl-3 call-site spelling of the banked-blocked heap insert; only spells the 0x003C4B2D else-arm call
