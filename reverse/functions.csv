@@ -63208,3 +63208,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?addEffect@Rva003BB730Owner@@QAEXAAVAsciiString@@PAVRva003BB730Record@@@Z,,0x003EE7C2,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
 ?Rva0006297CClamp@@YGXPBM0PAM1@Z,,0x0006297C,160,Code/GameEngine/Source/Common/VslotSmallBodiesAT.cpp,matched,vslot 17 of Rva00628FD single callee GetRes neighbours VslotSmall
 ?rva0046D738@HordeContain@@QAEXXZ,,0x0046D738,119,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D738.cpp,matched,HordeContain 0x11C iface plus 0x2A0 ID via TheGameLogic findObjectByID row and Thing orientation row
+?rva00355141@Rva00355B61@@QAEXXZ,,0x00355141,20,Code/GameEngine/Source/GameLogic/Object/Rva00355141Clear.cpp,matched,clears maps at 0x10 and 0x24 via rowed hashtable clear 0x1DBCDC slot 9 vtable 0x814E14
