@@ -33,10 +33,11 @@ private:
 	unsigned char m_31;
 	unsigned char m_32;
 };
+extern const void *const g_00BF1D58[];
 QueueProductionExitUpdateModuleData::QueueProductionExitUpdateModuleData()
 {
 	float fzero = 0.0f;
-	m_vtable = (const void *)0x00BF1D58;
+	m_vtable = (const void *)g_00BF1D58;
 	m_f08 = fzero;
 	m_f0C = fzero;
 	m_f10 = fzero;
