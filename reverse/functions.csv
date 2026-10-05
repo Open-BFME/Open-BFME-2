@@ -55897,3 +55897,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva003888F9@Rva003888F9@@QAEHH@Z,,0x003888F9,27,Code/GameEngine/Source/Common/Rva003888F9Get.cpp,matched,unlock bounds getter array 21c via sibling
 ?rva003888DE@Rva003888DE@@QAEHH@Z,,0x003888DE,27,Code/GameEngine/Source/Common/Rva003888F9Get.cpp,matched,unlock bounds getter array 1bc sibling
 ?rva00388914@Rva00388914@@QAEHH@Z,,0x00388914,27,Code/GameEngine/Source/Common/Rva003888F9Get.cpp,matched,unlock bounds getter array 1dc sibling
+?rva0038892F@Rva0038892F@@QAEHH@Z,,0x0038892F,27,Code/GameEngine/Source/Common/Rva003888F9Get.cpp,matched,unlock bounds getter array 1fc sibling

@@ -5,6 +5,8 @@
 // Evidence: same 27B shape; array +0x1BC; callers 0x0038DE34 0x0038DE49.
 // ?rva00388914@Rva00388914@@QAEHH@Z @0x00388914 27B unlock lane bounds getter.
 // Evidence: same 27B shape; array +0x1DC; callers 0x0038DD98 0x0038DDAD.
+// ?rva0038892F@Rva0038892F@@QAEHH@Z @0x0038892F 27B unlock lane bounds getter.
+// Evidence: same 27B shape; array +0x1FC; callers 0x0038DD74 0x0038DD89.
 class Rva003888F9
 {
     char m_pad[0x21C];
@@ -47,6 +49,22 @@ public:
 };
 
 int Rva00388914::rva00388914(int index)
+{
+    if (index < 0 || index >= 8)
+        return 0;
+    return m_slots[index];
+}
+
+class Rva0038892F
+{
+    char m_pad[0x1FC];
+    int m_slots[8];
+
+public:
+    int rva0038892F(int index);
+};
+
+int Rva0038892F::rva0038892F(int index)
 {
     if (index < 0 || index >= 8)
         return 0;
