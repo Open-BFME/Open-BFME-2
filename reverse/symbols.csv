@@ -14779,3 +14779,13 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??$__copy_ptrs@PBURva001DEF89Record@@PAU1@@_STL@@YAPAURva001DEF89Record@@PBU1@0PAU1@ABU__false_type@0@@Z,0x001DEE1F
 ??$_Destroy@PAURva001DEF89Record@@@_STL@@YAXPAURva001DEF89Record@@0@Z,0x001DEEE0
 ??$__uninitialized_copy@PBURva001DEF89Record@@PAU1@@_STL@@YAPAURva001DEF89Record@@PBU1@0PAU1@ABU__false_type@0@@Z,0x001DEDD4
+??$_M_allocate_and_copy@PBURva003F5FD0Record@@@?$vector@URva003F5FD0Record@@V?$allocator@URva003F5FD0Record@@@_STL@@@_STL@@IAEPAURva003F5FD0Record@@IPBU2@0@Z,0x003F5943
+?_M_clear@?$vector@URva003F5FD0Record@@V?$allocator@URva003F5FD0Record@@@_STL@@@_STL@@IAEXXZ,0x003F5EF7
+??$__copy_ptrs@PBURva003F5FD0Record@@PAU1@@_STL@@YAPAURva003F5FD0Record@@PBU1@0PAU1@ABU__false_type@0@@Z,0x003F5B3E
+??$_Destroy@PAURva003F5FD0Record@@@_STL@@YAXPAURva003F5FD0Record@@0@Z,0x003F592A
+??$__uninitialized_copy@PBURva003F5FD0Record@@PAU1@@_STL@@YAPAURva003F5FD0Record@@PBU1@0PAU1@ABU__false_type@0@@Z,0x003F5858
+??$_M_allocate_and_copy@PBURva001DA05ERecord@@@?$vector@URva001DA05ERecord@@V?$allocator@URva001DA05ERecord@@@_STL@@@_STL@@IAEPAURva001DA05ERecord@@IPBU2@0@Z,0x001D9C9F
+?_M_clear@?$vector@URva001DA05ERecord@@V?$allocator@URva001DA05ERecord@@@_STL@@@_STL@@IAEXXZ,0x004C3D8B
+??$__copy_ptrs@PBURva001DA05ERecord@@PAU1@@_STL@@YAPAURva001DA05ERecord@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00255CFA
+??$_Destroy@PAURva001DA05ERecord@@@_STL@@YAXPAURva001DA05ERecord@@0@Z,0x0032C0CA
+??$__uninitialized_copy@PBURva001DA05ERecord@@PAU1@@_STL@@YAPAURva001DA05ERecord@@PBU1@0PAU1@ABU__false_type@0@@Z,0x001D9B3C
