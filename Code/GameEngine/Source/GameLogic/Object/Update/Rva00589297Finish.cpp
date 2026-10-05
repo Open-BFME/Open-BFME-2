@@ -64,7 +64,6 @@ private:
 	int m_0C;
 };
 
-// ?rva00589297@WeaponModeSpecialPowerUpdateBase@@QAE_NXZ present-unmatched
 bool WeaponModeSpecialPowerUpdateBase::rva00589297()
 {
 	Object *outer = *(Object **)((char *)this - 0x1c);
@@ -81,10 +80,5 @@ bool WeaponModeSpecialPowerUpdateBase::rva00589297()
 			}
 		}
 	}
-	if (m_08 == 0) {
-		unsigned int frame2 = (unsigned int)TheGameLogic->m_frame40;
-		if (frame2 >= (unsigned int)m_04)
-			return true;
-	}
-	return false;
+	return m_08 == 0 && (unsigned int)TheGameLogic->m_frame40 >= (unsigned int)m_04;
 }
