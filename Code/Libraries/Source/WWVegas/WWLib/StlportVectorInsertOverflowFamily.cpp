@@ -106,6 +106,21 @@ struct Rva005FA197Element { char m_pad[4]; public: Rva005FA197Element(const Rva0
 // 4-byte element; push_back 0x005FA1CE.
 struct Rva005FA1CEElement { char m_pad[4]; public: Rva005FA1CEElement(const Rva005FA1CEElement &); ~Rva005FA1CEElement(); };
 
+// Element views of push_back rows outside StlportVectorPushBackFamily.cpp
+// (and of 0x005E825C, landed there with this body); each push_back is the
+// sole caller of its _M_insert_overflow, which names the element type.
+// 12-byte element; push_back 0x0033E080.
+struct BfmeContainerRecord002CF46E { char m_pad[12]; public: BfmeContainerRecord002CF46E(const BfmeContainerRecord002CF46E &); ~BfmeContainerRecord002CF46E(); };
+// 8-byte element; push_back 0x000C3448.
+namespace _STL { struct Rva007719C0Element { char m_pad[8]; public: Rva007719C0Element(const Rva007719C0Element &); ~Rva007719C0Element(); }; }
+// 104-byte element; push_back 0x003B9369.
+struct BfmePod104 { char m_pad[104]; public: BfmePod104(const BfmePod104 &); ~BfmePod104(); };
+// 16-byte element; push_back 0x0032D2EA.
+class BfmeThingUBB { char m_pad[16]; public: BfmeThingUBB(const BfmeThingUBB &); ~BfmeThingUBB(); };
+// 4-byte element; push_back 0x005E825C.
+struct Rva005E71C6Ref { char m_pad[4]; public: Rva005E71C6Ref(const Rva005E71C6Ref &); ~Rva005E71C6Ref(); };
+// 8-byte element; push_back 0x004F93B0.
+struct Rva004F93B0Element { char m_pad[8]; public: Rva004F93B0Element(const Rva004F93B0Element &); ~Rva004F93B0Element(); };
 namespace _STL
 {
 template <> void _Construct<RvaSmartPtr12, RvaSmartPtr12>(RvaSmartPtr12 *, const RvaSmartPtr12 &);
@@ -151,6 +166,12 @@ template <> void _Construct<Rva005EFD53Element, Rva005EFD53Element>(Rva005EFD53E
 template <> void _Construct<Rva005F13E6Element, Rva005F13E6Element>(Rva005F13E6Element *, const Rva005F13E6Element &);
 template <> void _Construct<Rva005FA197Element, Rva005FA197Element>(Rva005FA197Element *, const Rva005FA197Element &);
 template <> void _Construct<Rva005FA1CEElement, Rva005FA1CEElement>(Rva005FA1CEElement *, const Rva005FA1CEElement &);
+template <> void _Construct<BfmeContainerRecord002CF46E, BfmeContainerRecord002CF46E>(BfmeContainerRecord002CF46E *, const BfmeContainerRecord002CF46E &);
+template <> void _Construct<_STL::Rva007719C0Element, _STL::Rva007719C0Element>(_STL::Rva007719C0Element *, const _STL::Rva007719C0Element &);
+template <> void _Construct<BfmePod104, BfmePod104>(BfmePod104 *, const BfmePod104 &);
+template <> void _Construct<BfmeThingUBB, BfmeThingUBB>(BfmeThingUBB *, const BfmeThingUBB &);
+template <> void _Construct<Rva005E71C6Ref, Rva005E71C6Ref>(Rva005E71C6Ref *, const Rva005E71C6Ref &);
+template <> void _Construct<Rva004F93B0Element, Rva004F93B0Element>(Rva004F93B0Element *, const Rva004F93B0Element &);
 }
 
 // Retail 0x0004CE90.
@@ -282,6 +303,25 @@ template void _STL::vector<Rva005FA197Element>::_M_insert_overflow(
 // Retail 0x005F9CB7.
 template void _STL::vector<Rva005FA1CEElement>::_M_insert_overflow(
     Rva005FA1CEElement *, const Rva005FA1CEElement &, const _STL::__false_type &, unsigned int, bool);
+
+// Retail 0x0033DCEA.
+template void _STL::vector<BfmeContainerRecord002CF46E>::_M_insert_overflow(
+    BfmeContainerRecord002CF46E *, const BfmeContainerRecord002CF46E &, const _STL::__false_type &, unsigned int, bool);
+// Retail 0x000C1E4A.
+template void _STL::vector<_STL::Rva007719C0Element>::_M_insert_overflow(
+    _STL::Rva007719C0Element *, const _STL::Rva007719C0Element &, const _STL::__false_type &, unsigned int, bool);
+// Retail 0x003B9184.
+template void _STL::vector<BfmePod104>::_M_insert_overflow(
+    BfmePod104 *, const BfmePod104 &, const _STL::__false_type &, unsigned int, bool);
+// Retail 0x0032CAA1.
+template void _STL::vector<BfmeThingUBB>::_M_insert_overflow(
+    BfmeThingUBB *, const BfmeThingUBB &, const _STL::__false_type &, unsigned int, bool);
+// Retail 0x005E818E.
+template void _STL::vector<Rva005E71C6Ref>::_M_insert_overflow(
+    Rva005E71C6Ref *, const Rva005E71C6Ref &, const _STL::__false_type &, unsigned int, bool);
+// Retail 0x004F8DFD.
+template void _STL::vector<Rva004F93B0Element>::_M_insert_overflow(
+    Rva004F93B0Element *, const Rva004F93B0Element &, const _STL::__false_type &, unsigned int, bool);
 
 // Also landed from the instances above (sole growth-path callers):
 //   0x0004CDAF 30B ?_M_clear@?$vector@VRvaSmartPtr12@@V?$allocator@VRvaSmartPtr12@@@_STL@@@_STL@@IAEXXZ

@@ -68,6 +68,7 @@
 //   0x00578425    4     0x00087A5C  0x0057833B          Rva00578425Element
 //   0x005C8624   72     0x005C83CD  0x005C856D          Rva005C8624Element
 //   0x005E1E9B    4     0x00087A5C  0x005E1D5D          Rva005E1E9BElement
+//   0x005E825C    4     0x005E71C6  0x005E818E          Rva005E71C6Ref (pinned _Construct type)
 //   0x005E2B0E    4     0x00087A5C  0x005E2A40          Rva005E2B0EElement
 //   0x005EB44A   36     0x005EA9A9  0x005EB379          GeometryShape (rowed _Construct type)
 //   0x005EFD53    4     0x005F09FF  0x005EFB7E          Rva005EFD53Element
@@ -146,6 +147,7 @@ class Rva00568A20 { public: int a[3]; };
 struct Rva00578425Element { int a[1]; };
 struct Rva005C8624Element { int a[18]; };
 struct Rva005E1E9BElement { int a[1]; };
+struct Rva005E71C6Ref { int a[1]; };
 struct Rva005E2B0EElement { int a[1]; };
 struct GeometryShape { int a[9]; };
 struct Rva005EFD53Element { int a[1]; };
@@ -214,6 +216,7 @@ template <> __declspec(nothrow) void _Construct<Rva00568A20, Rva00568A20>(Rva005
 template <> __declspec(nothrow) void _Construct<Rva00578425Element, Rva00578425Element>(Rva00578425Element *__p, const Rva00578425Element &__val);
 template <> __declspec(nothrow) void _Construct<Rva005C8624Element, Rva005C8624Element>(Rva005C8624Element *__p, const Rva005C8624Element &__val);
 template <> __declspec(nothrow) void _Construct<Rva005E1E9BElement, Rva005E1E9BElement>(Rva005E1E9BElement *__p, const Rva005E1E9BElement &__val);
+template <> __declspec(nothrow) void _Construct<Rva005E71C6Ref, Rva005E71C6Ref>(Rva005E71C6Ref *__p, const Rva005E71C6Ref &__val);
 template <> __declspec(nothrow) void _Construct<Rva005E2B0EElement, Rva005E2B0EElement>(Rva005E2B0EElement *__p, const Rva005E2B0EElement &__val);
 template <> __declspec(nothrow) void _Construct<GeometryShape, GeometryShape>(GeometryShape *__p, const GeometryShape &__val);
 template <> __declspec(nothrow) void _Construct<Rva005EFD53Element, Rva005EFD53Element>(Rva005EFD53Element *__p, const Rva005EFD53Element &__val);
@@ -279,6 +282,7 @@ template void _STL::vector<Rva00568A20>::push_back(const Rva00568A20 &);
 template void _STL::vector<Rva00578425Element>::push_back(const Rva00578425Element &);
 template void _STL::vector<Rva005C8624Element>::push_back(const Rva005C8624Element &);
 template void _STL::vector<Rva005E1E9BElement>::push_back(const Rva005E1E9BElement &);
+template void _STL::vector<Rva005E71C6Ref>::push_back(const Rva005E71C6Ref &);
 template void _STL::vector<Rva005E2B0EElement>::push_back(const Rva005E2B0EElement &);
 template void _STL::vector<GeometryShape>::push_back(const GeometryShape &);
 template void _STL::vector<Rva005EFD53Element>::push_back(const Rva005EFD53Element &);
