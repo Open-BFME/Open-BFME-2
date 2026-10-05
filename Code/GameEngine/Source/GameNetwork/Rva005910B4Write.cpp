@@ -1,6 +1,4 @@
-// ?Rva005910B4Write@@YAXPADPAVNetCommandRef@@@Z
-// partial score=0.98 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs-c-
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs-c- /G7
 // ?Rva005910B4Write@@YAXPADPAVNetCommandRef@@@Z @0x005910B4 188B. Tagged
 // NetCommand serializer: T<type>R<relay>S<timestamp>P<player>D<len><wstr>.
 // Evidence: NetCommandMsg layout from sibling NetPacket_rva0059188C
@@ -41,7 +39,6 @@ public:
 	unsigned char m_relay;
 };
 
-// ?Rva005910B4Write@@YAXPADPAVNetCommandRef@@@Z present-unmatched
 void __cdecl Rva005910B4Write(char *dst, NetCommandRef *ref)
 {
 	Rva004D6119 *msg = (Rva004D6119 *)ref->m_msg;
