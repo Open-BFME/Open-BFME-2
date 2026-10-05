@@ -6837,3 +6837,36 @@ void __cdecl rva007B6EF4()
 	return p->Rva004E5A24::~Rva004E5A24();
 }
 
+class Rva000E6387
+{
+public:
+	virtual ~Rva000E6387();
+};
+
+extern unsigned g_Va00DEBC98;
+unsigned int g_Va00DEBC98;
+
+// ?rva007B6E18@@YAXXZ @ 0x007B6E18 (10B). Global Rva000E6387 dtor thunk: ecx=&g_Va00DEBC98 then tail-jmp to pinned ??1Rva000E6387@@UAE@XZ (0x000E6387). No callers. Honest address name.
+void __cdecl rva007B6E18()
+{
+	Rva000E6387 *p = (Rva000E6387 *)&g_Va00DEBC98;
+	return p->Rva000E6387::~Rva000E6387();
+}
+
+class Gen_uwm_00357cd9
+{
+public:
+	~Gen_uwm_00357cd9();
+};
+
+extern unsigned g_Va00E02838;
+unsigned int g_Va00E02838;
+
+// ?rva007B7E3F@@YAXXZ @ 0x007B7E3F (10B). Global Gen_uwm_00357cd9 dtor thunk: ecx=&g_Va00E02838 then tail-jmp to pinned ??1Gen_uwm_00357cd9@@QAE@XZ (0x00357CD9). No callers. Honest address name.
+void __cdecl rva007B7E3F()
+{
+	Gen_uwm_00357cd9 *p = (Gen_uwm_00357cd9 *)&g_Va00E02838;
+	return p->~Gen_uwm_00357cd9();
+}
+
+
