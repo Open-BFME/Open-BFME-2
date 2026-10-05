@@ -294,6 +294,7 @@ public:
 	Bool rva003F82CF();
 	Int rva003F834C(Int a0);
 	void rva003F8374();
+	void rva003F8385();
 	void rva003F8361(const class Matrix3D *m);
 	Rva003F7D86Inner *rva003F81B0();			///< pinned 0x003F81B0
 private:
@@ -522,4 +523,22 @@ void Rva003F81FDProxy::rva003F8361(const Matrix3D *m)
 	if (!inner)
 		return;
 	((W3DTerrainVisual *)inner)->W3DTerrainVisual::setWaterTransform(m);
+}
+
+class Rva003F8083
+{
+public:
+	void rva003F8083();
+};
+
+// ?rva003F8385@Rva003F81FDProxy@@QAEXXZ retail 0x003F8385 17B
+// Evidence: leaf lane between 0x003F8374 and 0x003F8396 in this TU;
+// same proxy getter rva003F81B0; tail-jmp to rowed
+// ?rva003F8083@Rva003F8083@@QAEXXZ 0x003F8083; caller at 0x0057446B.
+void Rva003F81FDProxy::rva003F8385()
+{
+	Rva003F7D86Inner *inner = rva003F81B0();
+	if (!inner)
+		return;
+	((Rva003F8083 *)inner)->rva003F8083();
 }
