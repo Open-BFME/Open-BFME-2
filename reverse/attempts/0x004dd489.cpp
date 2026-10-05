@@ -1,10 +1,11 @@
 // ?xfer@Rva004DD489@@UAEXPAVXfer@@@Z
-// partial score=0.99 date=2026-10-04
+// partial score=0.995 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /EHs-c- /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
-// ?xfer@Rva004DD489@@UAEXPAVXfer@@@Z @ 0x004DD489 400B
-// Slot 3 xfer called by EmotionTrackerUpdate::xfer 0x004B1ECB for entries in m_90; ObjectID at +0x08 via XferObjectID; maps int-int at +0x14 and ushort-int at +0x20.
-// ?xfer@Rva004DD489@@UAEXPAVXfer@@@Z present-unmatched
+// ?xfer@Rva004DD489@@UAEXPAVXfer@@@Z @0x004DD489 400B.
+// Slot 3 xfer, called by EmotionTrackerUpdate::xfer 0x004B1ECB for entries in
+// m_90. ObjectID at +0x08 via XferObjectID; maps int-int at +0x14 and
+// ushort-int at +0x20. Reference: Open-BFME / EmotionTracker.
 #include <map>
 #include <set>
 #include <vector>
@@ -140,9 +141,9 @@ void Rva004DD489::xfer(Xfer *xfer)
 		}
 	} else {
 		for (_STL::map<unsigned short, int, Gen_lt_00940b40>::iterator jt = m_20.begin(); jt != m_20.end(); ++jt) {
-			unsigned short key2 = (*jt).first;
+			int key2 = (int)(unsigned short)(*jt).first;
 			unsigned int val2 = (unsigned int)(*jt).second;
-			*xfer == key2;
+			*xfer == (unsigned short &)*(unsigned short *)&key2;
 			*xfer == val2;
 		}
 	}
