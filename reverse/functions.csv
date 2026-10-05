@@ -56459,3 +56459,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva004296EE@Rva0042CBB6@@QAEPAXI@Z,,0x004296EE,28,Code/GameEngine/Source/Common/Rva004296EESlot.cpp,matched,vslot1 of 00C3C6F4 calls rowed apply then conditional delete
 ??1Rva00102188@@UAE@XZ,,0x00102188,54,Code/GameEngine/Source/GameClient/Rva00102188Dtor.cpp,matched,chain calls vector dtor 0x000B0254 at +0x14 then +0x04
 ?Rva005910B4Write@@YAXPADPAVNetCommandRef@@@Z,,0x005910B4,188,Code/GameEngine/Source/GameNetwork/Rva005910B4Write.cpp,matched,NetCommand serializer via getPath row plus releaseBuffer caller 0x00592B48
+??4BfmeStringRecord00111ACF@@QAEAAU0@ABU0@@Z,,0x00101EF5,60,Code/Libraries/Source/WWVegas/WWLib/BfmeStringRecord00111ACFAssign.cpp,matched,unlock via rowed set 0x000366F0 plus caller 0x00101FA6 layout from StringRecordInlineCopyBFME2
