@@ -579,42 +579,9 @@ GameWindow *GameWindowManager::winGetWindowList( void )
 //-------------------------------------------------------------------------------------------------
 /** Send a system message to the specified window */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::winSendSystemMsg present-unmatched
-WindowMsgHandledType GameWindowManager::winSendSystemMsg( GameWindow *window, 
-																					UnsignedInt msg,
-																					WindowMsgData mData1, 
-																					WindowMsgData mData2 )
-{
-
-	if( window == NULL)
-		return MSG_IGNORED;
-
-	if( msg != GWM_DESTROY && BitTest( window->m_status, WIN_STATUS_DESTROYED ) )
-		return MSG_IGNORED;
-
-	return window->m_system( window, msg, mData1, mData2 );
-
-}  // end winSendSystemMsg
-
-//-------------------------------------------------------------------------------------------------
-/** Send a system message to the specified window */
-//-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::winSendInputMsg present-unmatched
-WindowMsgHandledType GameWindowManager::winSendInputMsg( GameWindow *window, 
-																				 UnsignedInt msg,
-																				 WindowMsgData mData1, 
-																				 WindowMsgData mData2 )
-{
-
-	if( window == NULL )
-		return MSG_IGNORED;
-
-	if( msg != GWM_DESTROY && BitTest( window->m_status, WIN_STATUS_DESTROYED ) )
-		return MSG_IGNORED;
-
-	return window->m_input( window, msg, mData1, mData2 );
-
-}  // end winSendInputMsg
+// GameWindowManager::winSendSystemMsg / winSendInputMsg: BFME 2 sends through
+// GameWindow members instead of the m_system / m_input callbacks; the matched
+// bodies live in GameWindowManagerSendMsg.cpp.
 
 //-------------------------------------------------------------------------------------------------
 /** Get the current input focus */
