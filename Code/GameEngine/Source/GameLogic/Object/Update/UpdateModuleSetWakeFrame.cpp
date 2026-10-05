@@ -42,8 +42,11 @@ class ModuleData;
 class BehaviorModuleBase
 {
 	virtual void unused();
-	int a;
-	int b;
+	const ModuleData *m_moduleData;
+	Object *m_object; // +0x08
+
+public:
+	Object *getObject() const { return m_object; }
 };
 
 class BehaviorModuleOther
@@ -57,10 +60,36 @@ public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
+// BitFlags<11> is DisabledMaskType (BitFlags11DisabilityCtors.cpp); its
+// copy is a 4-byte memcpy call in retail, as its constructors memset.
+#pragma function(memcpy)
+extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
+
+template <int NUM_BITS>
+class BitFlags
+{
+public:
+	__forceinline BitFlags(const BitFlags &src) { memcpy(m_bits, src.m_bits, sizeof(m_bits)); }
+
+private:
+	UnsignedInt m_bits[(NUM_BITS + 31) / 32];
+};
+typedef BitFlags<11> DisabledMaskType;
+
+// VA 0x00E030CC: the dynamic initializer at 0x007B00F1 memsets it clear.
+extern DisabledMaskType DISABLEDMASK_NONE;
+// VA 0x00E030D0: memset clear at 0x007B0103, then all bits set through the
+// rowed 0x00419CC8.
+extern DisabledMaskType DISABLEDMASK_ALL;
+
+// Slot order: update, getDisabledTypesToProcess (ZH), then a BFME 2 slot
+// that wakes the module (0x0044DF8D; no donor name).
 class UpdateModuleInterface
 {
 public:
 	virtual void update() = 0;
+	virtual DisabledMaskType getDisabledTypesToProcess() const = 0;
+	virtual void rva0044DF8D(UpdateSleepTime wakeDelay) = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -70,6 +99,10 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
 	UpdateSleepTime getWakeFrame() const;
+
+public:
+	DisabledMaskType getDisabledTypesToProcess() const;
+	void rva0044DF8D(UpdateSleepTime wakeDelay);
 };
 
 // ?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z @0x0044DF71
@@ -90,6 +123,37 @@ UpdateSleepTime UpdateModule::getWakeFrame() const
 		return UPDATE_SLEEP(nextCallFrame - now);
 	else
 		return UPDATE_SLEEP_NONE;
+}
+
+// ?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ @0x00253376
+// ZH UpdateModule default; the {for UpdateModuleInterface} slot after update
+// in some 60 module vtables.
+DisabledMaskType UpdateModule::getDisabledTypesToProcess() const
+{
+	return DISABLEDMASK_NONE;
+}
+
+// ?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z @0x0044DF8D
+// The interface slot after getDisabledTypesToProcess: this adjusts from the
+// interface at +0x10 and sets the wake frame of the owning object.
+void UpdateModule::rva0044DF8D(UpdateSleepTime wakeDelay)
+{
+	setWakeFrame(getObject(), wakeDelay);
+}
+
+// ?getDisabledTypesToProcess@Rva004DF396@@UBE?AV?$BitFlags@$0L@@@XZ @0x004DF396
+// The DISABLEDMASK_ALL override many ZH modules declare inline; identical
+// copies fold, so the {for UpdateModuleInterface} slot of several vtables
+// lands here and the owning class is not recovered.
+class Rva004DF396 : public UpdateModule
+{
+public:
+	DisabledMaskType getDisabledTypesToProcess() const;
+};
+
+DisabledMaskType Rva004DF396::getDisabledTypesToProcess() const
+{
+	return DISABLEDMASK_ALL;
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

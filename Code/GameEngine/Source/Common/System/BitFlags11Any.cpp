@@ -17,10 +17,12 @@ public:
 	unsigned int m_words[(N + 31) / 32];
 };
 
-// placement unverified: no rowed DIR32 site yet; ZH DISABLEDMASK_NONE starts clear.
-BitFlags<13> DISABLEDMASK_NONE = { { 0 } };
-// placement unverified: no rowed DIR32 site yet; ZH initDisabledMasks sets all 13 bits.
-BitFlags<13> DISABLEDMASK_ALL = { { 0x1FFF } };
+// VA 0x00E030CC: memset clear by the dynamic initializer at 0x007B00F1;
+// read (DIR32) by the rowed UpdateModule::getDisabledTypesToProcess.
+BitFlags<11> DISABLEDMASK_NONE = { { 0 } };
+// VA 0x00E030D0: memset clear at 0x007B0103; the rowed 0x00419CC8 sets every
+// bit at runtime; read (DIR32) by the rowed Rva004DF396 override.
+BitFlags<11> DISABLEDMASK_ALL = { { 0 } };
 
 template <>
 bool BitFlags<11>::any() const
