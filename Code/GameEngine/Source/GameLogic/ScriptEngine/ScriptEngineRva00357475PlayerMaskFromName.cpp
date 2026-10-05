@@ -29,10 +29,9 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Player
 {
 public:
-	int getPlayerIndex() const { return m_playerIndex; }
+	int getPlayerIndex() const;
 	int getPlayerMask() const { return 1 << m_playerIndex; }
 
-private:
 	unsigned char m_pad00[0x54];
 	int m_playerIndex; // +0x54
 };
@@ -40,13 +39,14 @@ private:
 class PlayerList
 {
 public:
-	Player *getLocalPlayer() { return m_local; }
+	Player *getLocalPlayer();
 	Player *findPlayerWithNameKey(NameKeyType key);
 	int getPlayersWithRelationship(int srcPlayerIndex, unsigned int allowedRelationships, bool reverse);
 	int rva002A7D30();
 
 private:
 	unsigned char m_pad00[0x10];
+public:
 	Player *m_local; // +0x10
 };
 extern PlayerList *ThePlayerList;
@@ -69,8 +69,8 @@ int ScriptEngine::rva00357475(const AsciiString &name, Bool *matchedSpecialName)
 		return 0;
 
 	int mask = 0;
-	int thisIndex = TheScriptEngine->getCurrentPlayer()->getPlayerIndex();
-	int localIndex = ThePlayerList->getLocalPlayer()->getPlayerIndex();
+	int thisIndex = TheScriptEngine->getCurrentPlayer()->m_playerIndex;
+	int localIndex = ThePlayerList->m_local->m_playerIndex;
 	if (name.compare("<This Player's Enemies>") == 0)
 		mask = ThePlayerList->getPlayersWithRelationship(thisIndex, 4, false);
 	else if (name.compare("<This Player's Allies incl Self>") == 0)
@@ -82,7 +82,7 @@ int ScriptEngine::rva00357475(const AsciiString &name, Bool *matchedSpecialName)
 	else if (name.compare("<This Player's Enemy>") == 0)
 		mask = getSkirmishEnemyPlayer()->getPlayerMask();
 	else if (name.compare("<Local Player>") == 0)
-		mask = ThePlayerList->getLocalPlayer()->getPlayerMask();
+		mask = ThePlayerList->m_local->getPlayerMask();
 	else if (name.compare("<Local Player's Enemies>") == 0)
 		mask = ThePlayerList->getPlayersWithRelationship(localIndex, 4, false);
 	else if (name.compare("<Local Player's Allies incl Self>") == 0)
