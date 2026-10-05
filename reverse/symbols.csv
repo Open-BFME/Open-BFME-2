@@ -12327,3 +12327,10 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?Rva00580705Partition@@YAPAPAXPAPAX0PAXVRva000795C1Record@@@Z,0x00580705,Address-named partition callee read at58104B; two4-byte iterators and4-byte median value plus same16B record; iterator result feeds recursive range
 ?Rva00580F7FPartialSort@@YAXPAPAX00VRva000795C1Record@@@Z,0x00580F7F,Address-named depth-exhaustion partial sort callee read at58108C; first and duplicated last plus16B copied record; caller-cleaned ABI
 ?compareRva005803C0@Rva000795C1Record@@QBE_NPAX0@Z,0x005803C0,Address-named comparator read at580664/580677/580687/5806BC/5806D2; native5803C0/619 RET8 takes ecx record and two4B elements; application semantics unknown
+??$__copy_ptrs@PBVRva000C4657Elem@@PAV1@@_STL@@YAPAVRva000C4657Elem@@PBV1@0PAV1@ABU__false_type@0@@Z,0x0007A401,erase 0x000C4657 copy
+??1Rva00142D70@@QAE@XZ,0x00142D70,ICF basic_string dtor for erase 0x000C4657
+??$__copy_ptrs@PBURva000C4657Elem@@PAU1@@_STL@@YAPAURva000C4657Elem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x0007A401,struct spelling for erase 0x000C4657
+??$__copy_ptrs@PBURva002606AFElem@@PAU1@@_STL@@YAPAURva002606AFElem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00260647,erase copy
+??1Rva002606AFDtor@@QAE@XZ,0x005B804E,UnicodeString dtor alias
+??$__copy_ptrs@PBURva002821CFElem@@PAU1@@_STL@@YAPAURva002821CFElem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00281AB7,erase copy
+??1Rva002821CFDtor@@QAE@XZ,0x0027EA49,dtor for erase 0x002821CF

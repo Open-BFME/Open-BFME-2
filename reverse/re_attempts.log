@@ -10163,3 +10163,4 @@ AptSavedInputCheckpoints::CanContinueSavedInputs	0x006CE7A0	44	blocked	Raw donor
 ?_M_fill_insert@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAEXPAUBfmePod28@@IABU3@@Z	0x00584405	225	partial	pos in eax with reload vs esi once plus overflow needs Tag-ref bool retype t=22 model=muse-09 score=0.97 stash=reverse/attempts/0x00584405.cpp
 ?rva005FEA02@Rva005FE750@@QAEXI@Z	0x005FEA02	96	blocked	esi edi swapped for this versus vector persists across definition order plus pointer plus no-G7 t=18 model=muse-09 (stash 0.92 kept)
 ?rva00584A9B@Rva005843DA@@QAEXPAVXfer@@@Z	0x00584A9B	423	blocked	vector copy offset in eax with lea vs direct mem add persists across O2 plus elem-hoist t=20 model=muse-09 (stash 0.98 kept)
+??0map_twin@@	0x001DDBC6	25	blocked	25B map default-ctor twin family (12 sites); need dual lea ebp-1 of same slot; STLport map instantiation or optimize-off both miss exact shape

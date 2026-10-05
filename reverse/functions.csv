@@ -62461,3 +62461,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva00580646Median@@YAPAPAXABQAX00VRva000795C1Record@@@Z,,0x00580646,191,Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp,matched,STLport4.5.3 median decision tree from BFME1 revision6583b3c1; native580646/191 boundary and record ABI; five calls to address-named member5803C0; original comparator and element names unknown; /O1 /G7 /EHsc /MD
 ??1Rva005CF8E3@@UAE@XZ,,0x005CF8E3,48,Code/GameEngine/Source/Common/Rva005CF8E3Dtor.cpp,matched,LINK BONUS 86B deleting dtor plus Rva005D078B caller precedent Rva005E9FC1Dtor
 ?Rva003C1F0A@@YGXABVAsciiString@@ABV?$StringBase@D@@M@Z,,0x003C1F0A,98,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C1F0A.cpp,matched,Script team to AIGroup anim via getTeamNamed createGroup and slot10
+?erase@Rva000C4657@@QAEPAURva000C4657Elem@@PAU2@@Z,,0x000C4657,55,Code/GameEngine/Source/Common/Rva000C4657Erase.cpp,matched,masked twin of Rva002A75DA erase; 12B string element
+?erase@Rva002606AF@@QAEPAURva002606AFElem@@PAU2@@Z,,0x002606AF,55,Code/GameEngine/Source/Common/Rva002606AFErase.cpp,matched,8B erase twin of 0x0040DC1F
+?erase@Rva002821CF@@QAEPAURva002821CFElem@@PAU2@@Z,,0x002821CF,55,Code/GameEngine/Source/Common/Rva002821CFErase.cpp,matched,8B erase twin of 0x0040DC1F
