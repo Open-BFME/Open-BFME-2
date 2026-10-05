@@ -9740,3 +9740,5 @@ $L36270	0x796558	8	blocked	Refreshed ZH packet still compares32B compilerlocal a
 ??1Rva0042D92E@@QAE@XZ	0x0042D92E	181	blocked	EH states 9 to 0 missing and final m_0C dtor not emitted ours 142B vs retail 181B t=12 model=muse-12
 ??1?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ	0x004F7D7F	63	blocked	pin Vector_base disproven honest base 14B vs retail 63B with Destroy TreeHintRef plus free exact twin of rowed vector dtor 0x000806B4 one-name-one-address blocks landing t=25 model=muse-12
 ?rva0052A804@Rva0052A804@@QAEXHH@Z	0x0052A804	89	partial	mov esi+add vs mov eax+lea esi and inc mem vs inc eax+store; frame and imul fixed via /O1/G7/Oy-; 0 reg diffs 88v89B t=20 model=muse-12 score=0.93 stash=reverse/attempts/0x0052a804.cpp
+?xfer@AttributeModifierPoolUpdate@@MAEXPAVXfer@@@Z	0x0040426D	321	blocked	EraseRange mov-push vs push-mem i at local vs arg-slot tmp at arg-slot vs frame tail jmp vs mov-cmp t=15 model=muse-10 (stash 0.93 kept)
+??0Rva0040450E@@QAE@XZ	0x00214B61	79	partial	EH mov1 before first member vs after 79B exact size 26insns t=22 model=muse-10 score=0.95 stash=reverse/attempts/0x00214b61.cpp
