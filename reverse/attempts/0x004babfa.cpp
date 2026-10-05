@@ -1,4 +1,6 @@
 // ?onDamage@ReflectDamage@@UAEXPAVDamageInfo@@@Z
+// partial score=0.98 date=2026-10-05
+// ?onDamage@ReflectDamage@@UAEXPAVDamageInfo@@@Z
 // partial score=0.97 date=2026-10-04
 // cl: /O1 /arch:SSE /DNDEBUG /MD
 //
@@ -118,14 +120,24 @@ void ReflectDamage::onDamage(DamageInfo *damageInfo)
 	Object *source = TheGameLogic->findObjectByID(damageInfo->m_sourceID);
 	if (source == 0)
 		return;
+
 	DamageInfo reflected;
 	float amount = damageInfo->m_amount * data->m_reflectDamagePercentage;
-	reflected.m_14 = 2;
-	reflected.m_deathType = DEATH_02;
-	reflected.m_damageType = DAMAGE_REFLECTED;
-	reflected.m_sourceID = m_object->getID();
-	if (!(amount > data->m_reflectDamageMinimum))
-		amount = data->m_reflectDamageMinimum;
-	reflected.m_amount = amount;
+	if (amount > data->m_reflectDamageMinimum)
+	{
+		reflected.m_deathType = DEATH_02;
+		reflected.m_14 = 2;
+		reflected.m_damageType = DAMAGE_REFLECTED;
+		reflected.m_sourceID = m_object->getID();
+		reflected.m_amount = amount;
+	}
+	else
+	{
+		reflected.m_deathType = DEATH_02;
+		reflected.m_14 = 2;
+		reflected.m_damageType = DAMAGE_REFLECTED;
+		reflected.m_sourceID = m_object->getID();
+		reflected.m_amount = data->m_reflectDamageMinimum;
+	}
 	source->attemptDamage(&reflected);
 }
