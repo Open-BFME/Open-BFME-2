@@ -1,8 +1,6 @@
-// ??1Rva002CD4A6@@MAE@XZ
-// partial score=0.99 date=2026-10-01
 // cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHs
 // stlport
-// ??1Rva002CD4A6@@MAE@XZ @0x002CD4A6 314B unlock: vtable 0x00802170 dtor with list plus strings plus refs plus free, caller 0x002CE047 deleting dtor, neighbours WeaponGetStatus and WeaponRva002CDB0E
+// ??1Rva002CD4A6@@UAE@XZ @0x002CD4A6 314B unlock: vtable 0x00802170 dtor with list plus strings plus refs plus free, caller 0x002CE047 deleting dtor, neighbours WeaponGetStatus and WeaponRva002CDB0E
 #include <list>
 #include "ascii_string.h"
 
@@ -50,7 +48,7 @@ struct Rva002CD4A6RefPtr
 
 class Rva002CD4A6
 {
-protected:
+public:
     virtual ~Rva002CD4A6();
 private:
     Rva002CD4A6Aux *m_04;
@@ -76,7 +74,6 @@ private:
     _STL::list<int> m_list;
 };
 
-// ??1Rva002CD4A6@@MAE@XZ present-unmatched
 Rva002CD4A6::~Rva002CD4A6()
 {
     if (m_04)
@@ -89,7 +86,6 @@ Rva002CD4A6::~Rva002CD4A6()
         void *v = m_e0;
         ::operator delete(v);
     }
-    int zero = 0;
     for (_STL::list<int>::iterator it = m_list.begin(); it != m_list.end(); ++it)
     {
         if (m_160)
@@ -99,9 +95,9 @@ Rva002CD4A6::~Rva002CD4A6()
                 continue;
         }
         Rva002CD4A6Elem *o2 = (Rva002CD4A6Elem *)(int)*it;
-        if ((int)o2 == zero)
-            continue;
-        void *p = o2->Get(zero);
+        void *p = 0;
+        if (o2 != 0)
+            p = o2->Get(0);
         ::operator delete(p);
     }
     m_list.clear();
