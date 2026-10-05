@@ -61632,3 +61632,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva005D27BE@Rva005D2664@@QAEXPBD@Z,,0x005D27BE,39,Code/GameEngine/Source/Common/Rva005D27BEMethod.cpp,matched,chain from rowed 005D2505Get plus rowed 005D2664
 ?rva002AD826@Player@@QAE_NW4ScienceType@@@Z,,0x002AD826,56,Code/GameEngine/Source/Common/RTS/PlayerRva002AD826.cpp,matched,Player purchase capable cost withdraw addScience callers 0x003BC775 0x004F32E9
 ?resize@BfmePod36Vector@@QAEXIUBfmePod36@@@Z,,0x000B06D4,73,Code/Libraries/Source/WWVegas/WWLib/stlport_pod36_resize_byvalue.cpp,matched,Pod36 resize by value erase plus fill-insert neighbours E16 Pod8
+?rva005DDE01@Rva005DDE01@@QAEXIIABUBfmeStringRecord005DDD40@@_N@Z,,0x005DDE01,50,Code/GameEngine/Source/Common/Rva005DDE01Finish.cpp,matched,bounds-checked delegate to rowed setValue via sibling Rva005DDE33
