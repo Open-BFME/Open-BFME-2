@@ -1,5 +1,7 @@
 // ?reset@ControlBar@@QAEXXZ
 // partial score=0.9 date=2026-10-05
+// ?reset@ControlBar@@QAEXXZ
+// partial score=0.9 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O2 /Oy- /DNDEBUG /MD /G7 /arch:SSE
 #include "ascii_string.h"
 
@@ -86,12 +88,14 @@ public:
 	void *m_owner;
 };
 
-struct VideoPair
+union VideoPair
 {
-	void *first;
-	void *second;
-	inline VideoPair() { }
-	inline VideoPair(void *a, void *b) { first = a; second = b; }
+	struct
+	{
+		void *first;
+		void *second;
+	} s;
+	inline VideoPair(void *a, void *b) { s.first = a; s.second = b; }
 };
 
 class Rva000427195
@@ -266,10 +270,7 @@ void ControlBar::reset()
 			((Rva000411084 *)&iter)->next();
 			Overridable *overrides = *(Overridable **)((char *)first + 8);
 			if (overrides->deleteOverrides() == 0) {
-				VideoPair args;
-				args.first = first;
-				args.second = second;
-				m_videoMap.rva003A37DC(args);
+				m_videoMap.rva003A37DC(VideoPair(first, second));
 			}
 			first = (void *)iter.m_current;
 			second = (void *)iter.m_owner;
