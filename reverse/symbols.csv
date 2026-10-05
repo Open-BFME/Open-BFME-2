@@ -12358,3 +12358,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?rva0006AB98@WorldHeightMap@@QAEEHH@Z,0x0006AB98,retail REL32 at 0x0006B1F1 in BaseHeightMapRenderObjClass cell query 0x0006B187 with ECX=m_map; same body rowed as ?rva0006AB98@Rva0006AB98@@QAEEHH@Z
 ??$__introsort_loop@PAPAURva003C3AB0Item@@PAU1@HURva003C3AB0Cmp@@@_STL@@YAXPAPAURva003C3AB0Item@@00HURva003C3AB0Cmp@@@Z,0x003CA2A7,address read from the retail REL32 in sort 0x003CA3D5; rowed under another name (Rva003CA2A7IntrosortLoop)
 ??1DebugCmdInterface@@UAE@XZ,0x006C5930,twin spelling of the MAE pin at the same 7B base-dtor body for the public link-canonical base view used by DebugCmdInterfaceDebugCtor.cpp
+??$copy_backward@PAW4Rva0021B68DKey@@PAW41@@_STL@@YAPAW4Rva0021B68DKey@@PAW41@00@Z,0x005E42D3,address read from the retail REL32 in __linear_insert 0x0021C736; rowed under another name (ICF copy_backward<ObjectID*>)
+??$sort_heap@PAW4Rva0021B68DKey@@URva0021B68DCmp@@@_STL@@YAXPAW4Rva0021B68DKey@@0URva0021B68DCmp@@@Z,0x0021DDFC,address read from the retail REL32 in __partial_sort 0x0021E44B; rowed under another name (ICF Rva00204BB8 int sort_heap)
+??RRva0021B68DCmp@@QBE_NABW4Rva0021B68DKey@@0@Z,0x0021B68D,out-of-line comparator read from the retail REL32 in __unguarded_linear_insert 0x0021BA58; body unrowed
