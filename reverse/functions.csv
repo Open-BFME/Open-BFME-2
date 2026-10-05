@@ -63919,3 +63919,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva005D3628@@QAE@HH@Z,,0x005D3628,66,Code/GameEngine/Source/Common/Rva005D3628Wrapper.cpp,matched,New-wrapper ctor news 0x6C Inner 0x005D3506 ab then stores at +0; address-derived
 ?rva005E5884@Rva005E5884@@QAEHHH@Z,,0x005E5884,26,Code/GameEngine/Source/Common/Rva005E5884Fwd.cpp,matched,Forwarder checks +0x40 then +0x38 object then virtual +0x0C; ret8 ignores args; address-derived
 ?rva005E0D9C@Rva005E0D9C@@QAEXXZ,,0x005E0D9C,36,Code/GameEngine/Source/Common/Rva005E0D9CFwd.cpp,matched,Checks +0x10 then rowed getter 0x005CB265 via +0x0C then tail-jmps to rowed 0x005CB260; address-derived
+?rva005E49FD@@YAXHHHH@Z,,0x005E49FD,30,Code/GameEngine/Source/Common/Rva005E49FDFwd.cpp,matched,Cdecl forwarder abcd plus bool tmp-last to pinned 0x005E4817; address-derived
