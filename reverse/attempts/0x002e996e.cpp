@@ -1,3 +1,5 @@
+// ?rva002E996E@Pathfinder@@QAE_NH_N0H@Z
+// partial score=0.9 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 // Dump lane range 13: contiguous Pathfinder cell-query predicates around
 // 0x002E9897. Each forwards (this, b, a) to the rowed lookup 0x001E3647
