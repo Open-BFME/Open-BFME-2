@@ -12889,3 +12889,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva002C004F@Rva002D3627Host@@QAEXPBD@Z,0x002C004F,member function on 0xDFEF18 taking const char*
 ??_7Rva005C4230@@6B@,0x00C744E8,Rva005C4230 vtable installed by dtor 0x005C4230
 ??1SecondaryBase@@UAE@XZ,0x004FAC80,SecondaryBase destructor called by Rva005C48E5 destructor
+?check@Rva0040C804Target@@QAE_NXZ,0x0040C804,check method called by Rva005C4A91::rva005C4952
