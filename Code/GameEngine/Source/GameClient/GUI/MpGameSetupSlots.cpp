@@ -12,6 +12,37 @@
 
 class GameWindow;
 
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
+
+class GameSlot
+{
+public:
+	bool isHuman() const;
+	bool isObserver() const;
+
+	unsigned char m_pad00[0x04];
+	int m_state; // +0x04
+	bool m_accepted; // +0x08
+};
+
+class GameInfo
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual bool v12();
+
+	GameSlot *getSlot(int index);
+};
+
+// The validated current game at +0x5C (rowed under its address name).
+class Rva0043DA65
+{
+public:
+	int rva0043DA65();
+};
+
 void GadgetComboBoxGetSelectedPos(GameWindow *comboBox, int *selected);
 void *GadgetComboBoxGetItemData(GameWindow *comboBox, int index);
 
@@ -42,11 +73,16 @@ public:
 	int rva0043DD02(int slot);
 	void rva0043DC0F();
 	void rva0043E49C(int value);
+	void rva0043E4B6(const char *slotText);
+
+	// Unrowed 0x0043E30F (211 bytes), pinned by address.
+	void rva0043E30F(int slot, int value);
 
 private:
 	unsigned char m_pad000[0x58];
 	MpGameSetupOwner *m_owner; // +0x58
-	unsigned char m_pad05c[0x2C4 - 0x5C];
+	Rva0043DA65 *m_game; // +0x5C
+	unsigned char m_pad060[0x2C4 - 0x60];
 	bool m_2c4; // +0x2C4
 	unsigned char m_pad2c5[0x334 - 0x2C5];
 	GameWindow *m_playerTemplate[8]; // +0x334
@@ -99,4 +135,21 @@ int Rva0043DDF8(int count)
 void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name)
 {
 	target->invoke(owner, name, 0, 0, 0, 0, 0, 0);
+}
+
+// Retail 0x0043E4B6, 92 bytes: when game vslot 12 holds, a slot given by
+// number (1..7) that is neither open nor closed goes to 0x0043E30F.
+void MpGameSetup::rva0043E4B6(const char *slotText)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (game && game->v12())
+	{
+		int slot = atoi(slotText);
+		if (slot > 0 && slot < 8)
+		{
+			GameSlot *gameSlot = game->getSlot(slot);
+			if (gameSlot && gameSlot->m_state != 0 && gameSlot->m_state != 1)
+				rva0043E30F(slot, 0);
+		}
+	}
 }
