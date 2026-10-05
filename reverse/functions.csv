@@ -62665,3 +62665,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva006012ED@Rva0060126D@@QAEXPAPAXPAX1PBX1@Z,,0x006012ED,146,Code/GameEngine/Source/Common/Rva006012EDInsert.cpp,matched,chain via landed create plus rowed CStrLess Rebalance; prev clear next dtor; caller 0x0060142F; unblocks 0x006013B7
 ?rva00058913@Rva00057B27@@QAEXPAXI@Z,,0x00058913,42,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,precedent rva000E055A same recipe callers plus unblocks
 ?rva00278C6B@Drawable@@QAEXXZ,,0x00278C6B,17,Code/GameEngine/Source/GameClient/DrawableRva00278C6B.cpp,matched,Drawable flag 0x44B with Host 0x2783F6 call per packet and siblings
+?Rva0033B634Get@@YAPBVImage@@PAVThingTemplate@@PAVRva0028F2F8Host@@@Z,,0x0033B634,67,Code/GameEngine/Source/Common/Thing/Rva0033B634Image.cpp,matched,linkbody via Rva0028F2F8 pattern tail rva0033B580 pin rva002197A6
