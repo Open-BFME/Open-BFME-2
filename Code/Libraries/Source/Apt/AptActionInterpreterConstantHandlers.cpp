@@ -173,7 +173,7 @@ private:
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
     HANDLER(GetTimer);
     HANDLER(Trace);
-    HANDLER(Greater);
+    HANDLER(Greater); HANDLER(LessThan2);
     HANDLER(SubString); HANDLER(AsciiToChar);
     HANDLER(Delete); HANDLER(Delete2);
     HANDLER(StringEquals);
@@ -1028,3 +1028,28 @@ void AptActionInterpreter::_FunctionAptActionGetTimer(AptActionInterpreter *cons
 {
     p->stack.Push(AptInteger::Create(g_rva00891FA0Value));
 }
+void AptActionInterpreter::_FunctionAptActionLessThan2(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *a=p->stack.At(0);
+    AptValue *b=p->stack.At(1);
+    if(Rva006CD220Get()==7) {
+        if(a->isUndefined() || b->isUndefined()) {
+            p->stack.Pop(2);
+            p->stack.Push(gpUndefinedValue);
+            return;
+        }
+    }
+    int result=0;
+    if(a->isString() && b->isString()) {
+        result=strcmp(b->c_string()->GetInternalString()->rva00620090(),a->c_string()->GetInternalString()->rva00620090())<0;
+    } else if(rva006fc370(a) || rva006fc370(b)) {
+        p->stack.Pop(2); p->stack.Push(gpUndefinedValue); return;
+    } else if(a->isFloat() || b->isFloat()) {
+        result=b->toFloat()<a->toFloat();
+    } else {
+        result=b->toInteger()<a->toInteger();
+    }
+    AptValue *v=AptBoolean::Create(result!=0);
+    p->stack.Pop(2); p->stack.Push(v);
+}
+
