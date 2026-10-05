@@ -62194,3 +62194,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002710EC@Rva002710EC@@QAEXXZ,,0x002710EC,28,Code/GameEngine/Source/Common/Rva002710ECLoop.cpp,matched,pointer-array loop calling vslot 39; goto-check shape; address-derived
 ?rva0025DFE8@Rva0025DFE8@@QAE_NH@Z,,0x0025DFE8,44,Code/GameEngine/Source/Common/Rva0025DFE8Predicate.cpp,matched,bool predicate v46 plus rowed isPlayerConnected; cmp order plus dword; address-derived
 ?rva0023DA79@Rva0023DA79@@QAEPAV1@HH@Z,,0x0023DA79,44,Code/GameEngine/Source/Common/Rva0023DA79Bitset.cpp,matched,memset-16 plus bit-set; int-index with unsigned cast for shr; gate-safe HH
+?rva00260F9E@Rva00260F9E@@QAE_NH@Z,,0x00260F9E,50,Code/GameEngine/Source/Common/Rva00260F9EPredicate.cpp,matched,bool byte-direct return; address-derived
