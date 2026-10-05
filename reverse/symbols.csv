@@ -11436,3 +11436,5 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ??1Rva002BB281Member08@@QAE@XZ,0x002BAD1C,retail REL32 at 0x002BB2A5 in 0x002BB281 targets dup 0x002BAD1C whose 57B body is same clear-plus-free as rowed Rva000427195 dtor 0x001FDEDB except handler
 ?erase@Rva005EE06CVector@@AAEPAURva005EE06CRecord@@PAU2@0@Z,0x005EDA8A,Native108B resize scoped20B record ABI view; fullrowedprovider51B verified; consumedcallsite5EE09A
 ?fill@Rva005EE06CVector@@AAEXPAURva005EE06CRecord@@IABU2@@Z,0x005EDEF3,Native108B resize scoped20B record ABI view; fullrowedprovider258B verified; consumedcallsite5EE0B6
+?erase@Rva005FE974Vector@@AAEPAURva005FE974Record@@PAU2@0@Z,0x005FE4E2,Native108B resize scoped12B record ABI view; fullrowedprovider51B verified; consumedcallsite5FE9A2
+?fill@Rva005FE974Vector@@AAEXPAURva005FE974Record@@IABU2@@Z,0x005FE835,Native108B resize scoped12B record ABI view; fullrowedprovider258B verified; consumedcallsite5FE9BE
