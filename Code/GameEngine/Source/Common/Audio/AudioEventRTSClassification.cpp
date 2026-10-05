@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // AudioEventRTS sound-class mapper and its positional-audio test.
 //
@@ -20,7 +20,36 @@
 // byte +0x4C, sound type +0xB0, control bit 0 at info +0x4C). The decay name
 // is the AsciiString at +0x20 tested with the out-of-line isEmpty.
 
-#include "string_base.h"
+#include "ascii_string.h"
+
+#define AUDIO_EVENT_RTS_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\Common\\Audio\\AudioEventRTS.cpp"
+
+int GetGameAudioRandomValue(int lo, int hi, char *file, int line);
+float GetGameAudioRandomValueReal(float lo, float hi, char *file, int line);
+
+// Rowed address-named helpers of this unit: the filename prefix lookup
+// (returns a string owned by TheAudio) and the filename extension builder.
+const AsciiString *Rva002D9622Get(int audioType);
+AsciiString Rva002DA398Get(int audioType);
+
+enum ObjectID
+{
+	INVALID_ID
+};
+
+enum OwnerType
+{
+	OT_Positional,
+	OT_Drawable,
+	OT_Object
+};
+
+enum AudioType
+{
+	AT_Music,
+	AT_Streaming,
+	AT_SoundEffect
+};
 
 enum PortionToPlay
 {
@@ -30,14 +59,61 @@ enum PortionToPlay
 	PP_Done
 };
 
+struct WeightedSound
+{
+	AsciiString m_name;
+	unsigned int m_weight;
+};
+
+struct WeightedSoundRange
+{
+	WeightedSound *m_begin;
+	WeightedSound *m_end;
+	WeightedSound *m_capacity;
+
+	unsigned int size() const { return m_end - m_begin; }
+	bool empty() const { return m_begin == m_end; }
+};
+
+// Shared lea-field getters the event info's members are read through
+// (+0x0C filename, +0x50 sounds, +0x60 attack sounds, +0x70 decay sounds).
+class Rva001DBA69LeaField { public: void *get() const; };
+class Rva001D96ECLeaField { public: void *get() const; };
+class Rva001D96F0LeaField { public: void *get() const; };
+class Rva001D96F4LeaField { public: void *get() const; };
+
 struct AudioEventInfo
 {
-	unsigned char m_pad00[0x48];
-	unsigned char m_type;
+	const AsciiString *getFilename() const { return (const AsciiString *)((const Rva001DBA69LeaField *)this)->get(); }
+	const WeightedSoundRange *getSounds() const { return (const WeightedSoundRange *)((const Rva001D96ECLeaField *)this)->get(); }
+	const WeightedSoundRange *getAttackSounds() const { return (const WeightedSoundRange *)((const Rva001D96F0LeaField *)this)->get(); }
+	const WeightedSoundRange *getDecaySounds() const { return (const WeightedSoundRange *)((const Rva001D96F4LeaField *)this)->get(); }
+
+	unsigned char m_pad00[0x14];
+	float m_volumeShift;			// +0x14
+	float m_volumeShift2;			// +0x18
+	unsigned char m_pad1C[0x04];
+	float m_pitchShiftMin;			// +0x20
+	float m_pitchShiftMax;			// +0x24
+	float m_pitchShift2Min;			// +0x28
+	float m_pitchShift2Max;			// +0x2C
+	unsigned char m_pad30[0x04];
+	int m_delayMin;				// +0x34
+	int m_delayMax;				// +0x38
+	unsigned char m_pad3C[0x04];
+	int m_lastPlayedIndex;			// +0x40
+	unsigned char m_pad44[0x04];
+	unsigned char m_type;			// +0x48
 	unsigned char m_pad49[0x03];
-	unsigned char m_control;
-	unsigned char m_pad4D[0x63];
-	unsigned int m_soundType;
+	unsigned int m_control;			// +0x4C
+	unsigned char m_pad50[0x0C];
+	unsigned int m_soundsTotalWeight;	// +0x5C
+	unsigned char m_pad60[0x0C];
+	unsigned int m_attackTotalWeight;	// +0x6C
+	unsigned char m_pad70[0x0C];
+	unsigned int m_decayTotalWeight;	// +0x7C
+	unsigned char m_pad80[0x30];
+	unsigned int m_soundType;		// +0xB0
 };
 
 class AudioEventRTS
@@ -47,21 +123,72 @@ public:
 	bool isPositionalAudio(void) const;
 	bool hasMoreLoops(void) const;
 	void advanceNextPlayPortion(void);
+	ObjectID getObjectID(void);
+	void rva002D9ADC(void);
+	void generateFilename(void);
+	AsciiString getFilename(void);
+	void generatePlayInfo(void);
+	void rva002DAAD5(void);
 
 private:
 	void *m_vftable;
-	void *m_filenameToLoad;
-	const AudioEventInfo *m_eventInfo;
-	char m_pad0C[0x14];
-	StringBase<char> m_decayName;
+	AsciiString m_filenameToLoad;		// +0x04
+	AudioEventInfo *m_eventInfo;		// +0x08
+	char m_pad0C[0x10];
+	AsciiString m_attackName;		// +0x1C
+	AsciiString m_decayName;		// +0x20
 	char m_pad24[0x10];
-	unsigned int m_ownerID;
-	int m_ownerType;
+	unsigned int m_ownerID;			// +0x34
+	int m_ownerType;			// +0x38
 	char m_pad3C[0x10];
-	unsigned char m_bypassLoops;
-	char m_pad4D[0x27];
-	PortionToPlay m_portionToPlayNext;
+	unsigned char m_bypassLoops;		// +0x4C
+	unsigned char m_filenameDirty;		// +0x4D
+	unsigned char m_filenameGenerated;	// +0x4E
+	unsigned char m_pad4F;
+	unsigned char m_regenerateFilename;	// +0x50
+	unsigned char m_pad51[0x02];
+	unsigned char m_sequential;		// +0x53
+	float m_pitchShift;			// +0x54
+	float m_pitchShift2;			// +0x58
+	float m_volumeShift;			// +0x5C
+	float m_volumeShift2;			// +0x60
+	float m_delay;				// +0x64
+	int m_playingAudioIndex;		// +0x68
+	char m_pad6C[0x08];
+	PortionToPlay m_portionToPlayNext;	// +0x74
 };
+
+// ?rva002D9686@@YAHIPBUWeightedSoundRange@@@Z
+// Weighted random pick; -1 when the list carries no weight. Static, so MSVC
+// passes the weight in EAX and the list in ECX as retail does.
+static __declspec(noinline) int rva002D9686(unsigned int totalWeight, const WeightedSoundRange *sounds)
+{
+	if (!(totalWeight > 0))
+		return -1;
+
+	unsigned int remainingWeight = GetGameAudioRandomValue(0, totalWeight - 1, AUDIO_EVENT_RTS_FILE, 58);
+	const WeightedSound *soundEntry = sounds->m_begin;
+	const WeightedSound *end = sounds->m_end;
+	while (soundEntry != end)
+	{
+		if (remainingWeight < soundEntry->m_weight)
+			break;
+		remainingWeight -= soundEntry->m_weight;
+		++soundEntry;
+	}
+
+	if (soundEntry == end)
+		return 0;
+	return soundEntry - sounds->m_begin;
+}
+
+// ?getObjectID@AudioEventRTS@@QAE?AW4ObjectID@@XZ
+ObjectID AudioEventRTS::getObjectID(void)
+{
+	if (m_ownerType == OT_Object)
+		return (ObjectID)m_ownerID;
+	return INVALID_ID;
+}
 
 // ?isPositionalAudio@AudioEventRTS@@QBE_NXZ
 bool AudioEventRTS::isPositionalAudio(void) const
@@ -165,7 +292,7 @@ void AudioEventRTS::advanceNextPlayPortion(void)
 		break;
 	case PP_Sound:
 		if (!hasMoreLoops())
-			m_portionToPlayNext = m_decayName.isEmpty() ? PP_Done : PP_Decay;
+			m_portionToPlayNext = ((const StringBase<char> *)&m_decayName)->isEmpty() ? PP_Done : PP_Decay;
 		break;
 	case PP_Decay:
 		m_portionToPlayNext = PP_Done;

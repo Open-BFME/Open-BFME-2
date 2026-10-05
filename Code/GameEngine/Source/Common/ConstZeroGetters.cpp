@@ -87,14 +87,6 @@ int Rva004FC217Get(void)
 	return 0;
 }
 
-// ?Rva002D9557Get@@YAHXZ @ 0x002d9557 (3B): returns 0.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-int Rva002D9557Get(void)
-{
-	return 0;
-}
-
 // ?Rva00592A2CGet@@YAHXZ @ 0x00592a2c (3B): returns 0.
 // Follows a ret (prev C3 at 0x592A2B), 1 .rdata vtable slot, no direct
 // callers, no branch sources. Next starts with mov ebp,imm.
