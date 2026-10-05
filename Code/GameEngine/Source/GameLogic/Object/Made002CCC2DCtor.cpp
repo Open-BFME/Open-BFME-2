@@ -20,6 +20,7 @@ class Made002CCC2D : public Rva00507823
 {
 public:
     Made002CCC2D();
+    virtual ~Made002CCC2D();
 private:
     Rva003623E5Member m_128;
     int m_12c;
