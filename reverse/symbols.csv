@@ -12462,3 +12462,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?_createObject@AptActionInterpreter@@AAEPAVAptObject@@PAVAptValue@@0PBVEAStringC@@H_N@Z,0x00706A40,Original Redwood6 PDB private five-argument method and Godfather MAP name; native706A40..707400 uses interpreter ECX and context/with/name/count/constructor arguments with ret14 and object return; NewObject and InitObject callers corroborate
 ?isPrototype@AptValue@@QBE_NXZ,0x006DC630,Native Extends calls checked existing provider; original AptValue header signature; linker alias binds provider
 ?c_prototype@AptValue@@QBEPAVAptPrototype@@XZ,0x006DD120,Native Extends calls checked existing provider; original AptValue header signature; linker alias binds provider
+?Unset@AptNativeHash@@QAEXQBVEAStringC@@@Z,0x0070B2C0,Native Set null-value branch; original source method; existing191B erase provider alias

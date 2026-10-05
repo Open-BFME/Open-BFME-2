@@ -20,6 +20,11 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 class EAStringC {
 public:
+    unsigned short rva006D2F40() const;
+    bool rva006D3560(const EAStringC *) const;
+    bool rva006D36F0(const EAStringC *) const;
+    void rva006D3CA0(const EAStringC *);
+    EAStringC &operator=(const EAStringC &);
     unsigned int rva006D3750() const;
     unsigned short rva006D3D10() const;
     bool IsEmpty() const;
@@ -49,6 +54,9 @@ class AptNativeHash {
     unsigned int nEventHandlers;
 public:
     AptNativeHash(int size);
+    ~AptNativeHash();
+    void Set(const EAStringC *const,AptValue *const);
+    void Unset(const EAStringC *const);
     void Set__Proto__(AptValue *const value);
     void SetPrototype(AptValue *const value);
     void Unset__Proto__();
@@ -59,6 +67,9 @@ public:
     AsciiString *rva0070AA40();
     void rva0070AB30();
     Entry *rva0070AAA0(Entry *pItem);
+private:
+    void Expand();
+    void HashSet(const EAStringC *const,AptValue *const);
 };
 void AptNativeHash::Set__Proto__(AptValue *const value)
 {
@@ -233,3 +244,209 @@ AptNativeHash::Entry *AptNativeHash::rva0070AAA0(Entry *pItem)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?handle@Gen0089C880@@QAEXXZ=?DestroyGCPointers@AptNativeHash@@QAEXXZ")
+
+void    AptNativeHash::Set(const EAStringC * const pKey, AptValue * const pValue)
+{
+    if (pValue == 0)
+    {
+        Unset(pKey);
+        return;
+    }
+
+    if  (pKey->IsEmpty())
+    {
+        return;
+    }
+
+    unsigned int    h = pKey->rva006D3D10();
+
+    if ((0x699 == h) && (pKey->rva006D3560(Rva0070B4F0GetString(0x78))))
+    {
+        SetPrototype(pValue);
+        return;
+    }
+    else if ((0x6BBD == h) && (pKey->rva006D3560(Rva0070B4F0GetString(0))))
+    {
+        Set__Proto__(pValue);
+        return;
+    }
+
+    if (!mpData)
+    {
+        rva0070AB30();
+    }
+
+    HashSet(pKey, pValue);
+}
+void    AptNativeHash::Expand()
+{
+
+
+    AptNativeHash       TempHash(mnTotalSize * 2);
+    TempHash.rva0070AB30();             //  We will add items, don't forget to allocate ;)
+    EAStringC *   pKey;
+    int             i;
+
+    for(i = 0 ; i < mnTotalSize ; ++i)
+    {
+        
+        pKey = (EAStringC *)&mpData[i].key;
+        if (((AsciiString *)pKey)->hasData() == false)
+        {
+            continue;
+        }
+        if (pKey->IsEmpty())
+        {
+            continue;
+        }
+
+        AptValue *      pValue = mpData[i].value;
+        TempHash.HashSet(pKey, pValue);
+    }
+
+    Entry *   pOldItems = mpData;
+    mpData          = TempHash.mpData;
+    TempHash.mpData = pOldItems;
+    int         iTemp;                     // ONA 2004/4/9: It's possible that we grow several times instead only one
+    iTemp               = TempHash.mnTotalSize; //  So we take the TempHash size to be sure that we have the right size
+    TempHash.mnTotalSize = mnTotalSize;
+    mnTotalSize = iTemp;
+
+
+
+    TempHash.DestroyGCPointers();
+}
+void    AptNativeHash::HashSet(const EAStringC * const pKey, AptValue * const pValue)
+{
+
+    if (!(pKey)) { g_bfmeAptAssertAtE17734("pKey", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptNativeHash.cpp", 0x2a6); if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 } }
+
+
+
+    int         nBoundMin, nBoundMax;
+    int         nFirstFit = -1;
+    unsigned int    h = pKey->rva006D2F40() & (mnTotalSize-1);
+
+    if (mpData[h].key.hasData() == false)
+    {
+        ((EAStringC *)&mpData[h].key)->rva006D3CA0(pKey); //  Validate the string with the new copy
+        rva0070A680(h, pValue);
+        return;
+    }
+
+    if (((EAStringC *)&mpData[h].key)->IsEmpty())
+    {
+        nFirstFit = h;
+    }
+    else
+    {
+        if (((EAStringC *)&mpData[h].key)->rva006D36F0(pKey))
+        {
+            rva0070A610(h, pValue);
+            return;
+        }
+    }
+
+
+    nBoundMin = h - 8;
+    if (nBoundMin < 0)
+    {
+        nBoundMin = 0;
+        nBoundMax = 2 * 8;
+        if (nBoundMax >= mnTotalSize)
+        {
+            nBoundMax = mnTotalSize - 1;
+        }
+    }
+    else
+    {
+        nBoundMax = h + 8;
+        if (nBoundMax > mnTotalSize - 1)
+        {
+            nBoundMax = mnTotalSize - 1;
+            nBoundMin = nBoundMax - (2 * 8);
+            if (nBoundMin < 0)
+            {
+                nBoundMin = 0;
+            }
+        }
+    }
+
+    if (!(nBoundMax < mnTotalSize)) { g_bfmeAptAssertAtE17734("nBoundMax < mnTotalSize", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptNativeHash.cpp", 0x2e5); if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 } }
+    if (!(nBoundMin < nBoundMax)) { g_bfmeAptAssertAtE17734("nBoundMin < nBoundMax", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptNativeHash.cpp", 0x2e6); if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 } }
+
+    int i, nCurrentH;
+
+    nCurrentH = h;
+    i = nBoundMax - h;
+    while(i--)
+    {
+        ++nCurrentH;
+        if (mpData[nCurrentH].key.hasData() == false)
+        {
+            ((EAStringC *)&mpData[nCurrentH].key)->rva006D3CA0(pKey); //  Validate the string with the new copy
+            rva0070A680(nCurrentH, pValue);
+            return;
+        }
+        if (((EAStringC *)&mpData[nCurrentH].key)->IsEmpty())
+        {
+            if (nFirstFit != -1)
+            {
+                nFirstFit = nCurrentH;
+            }
+        }
+        else
+        {
+            if (((EAStringC *)&mpData[nCurrentH].key)->rva006D36F0(pKey))
+            {
+                rva0070A610(nCurrentH, pValue);
+                return;
+            }
+        }
+    }
+
+    nCurrentH = h;
+    i = h - nBoundMin;
+    while(i--)
+    {
+        --nCurrentH;
+        if (mpData[nCurrentH].key.hasData() == false)
+        {
+            ((EAStringC *)&mpData[nCurrentH].key)->rva006D3CA0(pKey); //  Validate the string with the new copy
+            rva0070A680(nCurrentH, pValue);
+            return;
+        }
+        if (((EAStringC *)&mpData[nCurrentH].key)->IsEmpty())
+        {
+            if (nFirstFit != -1)
+            {
+                nFirstFit = nCurrentH;
+            }
+        }
+        else
+        {
+            if (((EAStringC *)&mpData[nCurrentH].key)->rva006D36F0(pKey))
+            {
+                rva0070A610(nCurrentH, pValue);
+                return;
+            }
+        }
+    }
+
+
+
+    if (nFirstFit == -1)
+    {
+        Expand();
+        HashSet(pKey, pValue);
+        return;
+    }
+
+    *(EAStringC *)&mpData[nFirstFit].key = *pKey;
+    rva0070A680(nFirstFit, pValue);
+}
+
+// Later source7c62a2782ef9f3f1 supplies hash algorithms; PC retains the pre-bug884
+// first-fit test !=-1. All probe bounds, assertion lines and full extents checked.
+#pragma comment(linker, "/alternatename:??1AptNativeHash@@QAE@XZ=??1Rva0070A840@@QAE@XZ")
+#pragma comment(linker, "/alternatename:?Unset@AptNativeHash@@QAEXQBVEAStringC@@@Z=?bfmeErase1279@BfmeLookup1279@@QAEXAAUBfmeKey1279@@@Z")
