@@ -12891,3 +12891,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva003B0176@@YAXHHHH@Z,0x003B0176,42B movsd-copy helper calling 0x003AFFF0; 4 int args assumed (p2 used as pointer); read from REL32 at 0x003B02AF in rva003B02A1 0x003B02A1
 ?rva003B5EA5@@YAHHHPAURva003B65Header@@@Z,0x003B5EA5,real prolog at unlisted address inside Ghidra 1818B blob; 3rd arg is the caller header; int args assumed; read from REL32 at 0x003B65CD/0x003B6607
 ?rva003B7448@Rva003B7448@@QAEXH@Z,0x003B7448,member method on +4 taking arg+4; read from REL32 at 0x003B7700 in rva003B76EF 0x003B76EF; int arg assumed
+?rva003B7167@Rva003B761E@@QAEXXZ,0x003B7167,temp cleanup on the 0x20-byte Rva003B761E slot; read from REL32 at 0x003B7663 in rva003B7647 0x003B7647; likely the dtor; identity unproven
