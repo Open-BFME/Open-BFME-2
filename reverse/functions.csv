@@ -61848,3 +61848,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva005C7B96@Rva005C7B96@@QAEXH@Z,,0x005C7B96,75,Code/GameEngine/Source/Common/AptImageKeySetters.cpp,matched,indexed Apt SetState setter via rowed Rva0050E9FEAptCall plus team plus8 or empty plus table g_00C74A98
 ?rva002F370D@Pathfinder@@QAEHXZ,,0x002F370D,43,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp,matched,unlock lane queue 0x1D1F0 clear all via 0x0052DAE9 0x002F301F sibling of 0x002F36E5
 ?rva002F40E7@Pathfinder@@QAEHXZ,,0x002F40E7,46,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp,matched,chain from 0x002F370D plus release 0x0052DE9B stats 0x34 0x3C 0x40 0x44
+?rva002C717E@Rva002A8AB1Record@@QAEXABVAsciiString@@H@Z,,0x002C717E,24,Code/GameEngine/Source/Common/Rva002C717EMethod.cpp,matched,map store via rowed operator[] 14 tactic callers

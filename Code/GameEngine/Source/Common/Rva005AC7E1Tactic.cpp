@@ -253,6 +253,18 @@ public:
 };
 extern Rva002A8F24 *g_00DFEEF8;
 
+class Rva005AC98A
+{
+public:
+	bool rva005AC98A();
+};
+
+class Rva004ECE61
+{
+public:
+	bool rva004ECE61(void *p, int dummy);
+};
+
 class Rva004ECECD
 {
 public:
@@ -288,7 +300,6 @@ public:
 	virtual void v2();
 	virtual bool v3(void *unit, int count);
 	virtual void v6();
-	bool rva005AC98A();
 	bool rva005ACA2D();
 private:
 	ObjectID m_hero;	// +0x58
@@ -311,7 +322,7 @@ bool Rva005AC7E1::v3(void *unit, int count)
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	record->rva002C717E(AsciiString("AIRingHeroTactic_IsRunning"), 1);
-	return Rva004ECECD::v3(unit, count);
+	return reinterpret_cast< Rva004ECE61 * >( this )->rva004ECE61(unit, count);
 }
 
 bool Rva005AC7E1::rva005ACA2D()
@@ -336,7 +347,7 @@ bool Rva005AC7E1::appliesTo(void *)
 	if (!next) {
 		record->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), g_Va00DBA4E4 * 5);
 	} else if (!running && TheGameLogic->getFrame() >= next) {
-		if (rva005ACA2D() && rva005AC98A())
+		if (rva005ACA2D() && reinterpret_cast< Rva005AC98A * >( this )->rva005AC98A())
 			return true;
 		int later = record->rva002C7196(AsciiString("AIRingHeroTactic_NextLogicFrameRun"));
 		record->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), g_Va00DBA4E4 * 5 + later);
@@ -350,5 +361,5 @@ void Rva005AC7E1::v6()
 	m_running = true;
 	m_escorting = false;
 	rva005ACA2D();
-	rva005AC98A();
+	reinterpret_cast< Rva005AC98A * >( this )->rva005AC98A();
 }
