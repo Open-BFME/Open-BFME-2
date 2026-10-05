@@ -56123,3 +56123,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005DA109@Rva005EEDB5Picker@@QAE_NPAVObject@@@Z,,0x005DA109,568,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpecialPowerPickers.cpp,matched,AI special power picker partition filter chain scan
 ??0Radar@@QAE@XZ,,0x002D87B9,207,Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp,matched,Radar ctor via same-TU rva keeps ECX across first call
 ?Rva0033BC53Get@@YAPBVImage@@PAVThingTemplate@@PAX@Z,,0x0033BC53,23,Code/GameEngine/Source/Common/Thing/Rva0033BC53Get.cpp,matched,tail-jmp to rowed ThingTemplate rva0033BA46 with two null guards callers 0x002946C7 0x0029474F
+?rva002C9AC5@Weapon@@QAEHPBVObject@@@Z,,0x002C9AC5,57,Code/GameEngine/Source/GameLogic/Object/WeaponRva002C9AC5.cpp,matched,Weapon bonus reload via rowed computeBonus plus clip time
