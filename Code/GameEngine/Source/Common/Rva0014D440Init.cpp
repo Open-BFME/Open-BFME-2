@@ -15,7 +15,9 @@ public:
 class Rva0014D440Inner
 {
 public:
-	char m_pad00[0xB0];
+	char m_pad00[0x98];
+	void (__stdcall *m_fn98)(void *a, void *b, void *c); // +0x98 member fnptr
+	char m_pad9C[0xB0 - 0x9C];
 	void (__stdcall *m_fnB0)(void *a, void *b, void *c); // +0xB0 member fnptr
 };
 
@@ -33,6 +35,7 @@ public:
 	virtual void slot02(void *p);
 	void rva0014D440(Rva0014D440Outer *o, void *b);
 	void rva0014D474(Rva0014D440Outer *o, void *b);
+	void rva0014D4CB(Rva0014D440Outer *o, void *b);
 };
 
 extern "C" void *__stdcall D3DXMatrixInverse(void *out, void *det, void *in);
@@ -61,4 +64,18 @@ void Rva0014D440Holder::rva0014D474(Rva0014D440Outer *o, void *b)
 		D3DXMatrixTranspose(buf80, buf40);
 	Rva0014D440Inner *inner = o->m_body00;
 	inner->m_fnB0(o, b, buf80);
+}
+
+// ?rva0014D4CB@Rva0014D440Holder@@QAEXPAVRva0014D440Outer@@PAX@Z @0x0014D4CB
+// 87B abutting 0x0014D474 (same TU, same matrix fallback, final via +0x98).
+void Rva0014D440Holder::rva0014D4CB(Rva0014D440Outer *o, void *b)
+{
+	char buf40[0x40];
+	char buf80[0x40];
+	((Rva0007671F *)buf40)->rva0007671F();
+	slot02(buf40);
+	if (D3DXMatrixInverse(buf80, 0, buf40) == 0)
+		D3DXMatrixTranspose(buf80, buf40);
+	Rva0014D440Inner *inner = o->m_body00;
+	inner->m_fn98(o, b, buf80);
 }
