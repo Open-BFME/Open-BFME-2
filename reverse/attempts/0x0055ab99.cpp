@@ -1,3 +1,5 @@
+// ??0Rva00414BA4Element@@QAE@ABU0@@Z
+// partial score=0.93 date=2026-10-05
 // cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0055A91A@Rva0055A91A@@QAEXXZ @ 0x0055A91A 34B
@@ -25,7 +27,6 @@ class Rva0055A91A
 public:
 	void rva0055A91A();
 	void rva0055A93C(Rva0039BCF8 *p);
-	void rva0055A962();
 private:
 	char m_pad00[0x10];
 	Rva0039BCF8 *m_10; // +0x10
@@ -33,21 +34,6 @@ private:
 	_STL::list<int, _STL::allocator<int> > m_list; // +0x18
 	int m_1c; // +0x1C
 };
-
-class Player
-{
-public:
-	char m_pad00[0x3BC];
-	Rva0039BCF8 m_3BC; // +0x3BC
-};
-
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-};
-
-extern PlayerList *ThePlayerList;
 
 void Rva0055A91A::rva0055A91A()
 {
@@ -67,16 +53,6 @@ void Rva0055A91A::rva0055A93C(Rva0039BCF8 *p)
 	m_10 = p;
 	m_14 = p->m_100;
 	((Rva0039C7A5Holder *)p)->add((const ModuleData *)this);
-}
-
-void Rva0055A91A::rva0055A962()
-{
-	if (m_14 == -1 || m_14 < 0)
-		return rva0055A91A();
-	Player *player = ThePlayerList->getNthPlayer(m_14);
-	if (player == 0)
-		return rva0055A91A();
-	rva0055A93C(&player->m_3BC);
 }
 
 struct BfmeAssignExtra
@@ -114,4 +90,39 @@ BfmeAssignRecord44 &BfmeAssignRecord44::operator=(const BfmeAssignRecord44 &othe
 	if (other.m_10 != 0)
 		((Rva0055A91A *)this)->rva0055A93C(other.m_10);
 	return *this;
+}
+
+extern int g_00C3A08C;
+
+struct Rva00414BA4Element
+{
+	Rva00414BA4Element(const Rva00414BA4Element &other);
+	int m_00; // +0x00 (set to &g_00C3A08C)
+	int m_04; // +0x04
+	int m_08; // +0x08
+	int m_0c; // +0x0C
+	Rva0039BCF8 *m_10; // +0x10
+	int m_14; // +0x14
+	_STL::list<int, _STL::allocator<int> > m_list; // +0x18
+	int m_1c; // +0x1C
+	BfmeAssignExtra m_20; // +0x20
+	int m_2c; // +0x28? (to reach 44? Actually 0x20+12=0x2C=44, so no m_2c. Keep 44.)
+};
+
+// ??0Rva00414BA4Element@@QAE@ABU0@@Z present-unmatched
+Rva00414BA4Element::Rva00414BA4Element(const Rva00414BA4Element &other)
+	: m_00((int)&g_00C3A08C),
+	m_04(other.m_04),
+	m_08(other.m_08),
+	m_0c(other.m_0c),
+	m_10(0),
+	m_14(-1),
+	m_list(other.m_list)
+{
+	m_1c = other.m_1c;
+	m_20.v0 = other.m_20.v0;
+	m_20.v1 = other.m_20.v1;
+	m_20.v2 = other.m_20.v2;
+	if (other.m_10 != 0)
+		((Rva0055A91A *)this)->rva0055A93C(other.m_10);
 }
