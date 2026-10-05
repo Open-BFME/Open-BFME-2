@@ -1,5 +1,3 @@
-// ?rva005FFCCB@Rva005FFCCB@@QAEHABUTreeHintRef00217D4C@@@Z
-// partial score=0.92 date=2026-10-02
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /G7
 // ?rva005FFCCB@Rva005FFCCB@@QAEHABUTreeHintRef00217D4C@@@Z @0x005FFCCB 172B: append TreeHint plus CreateArmyPanel Apt via rowed AptCall 0x0050E9FE with hero format. Evidence: callers jmp 0x005FFEE8 plus TheRva00222A8BTarget plus g_Rva0107301CEmptyString plus strings hero CreateArmyPanel plus TreeHint assign 0x002174A4 plus format 0x00038150.
 #include "ascii_string.h"
@@ -41,14 +39,11 @@ private:
 	int m_48;
 };
 
-// ?rva005FFCCB@Rva005FFCCB@@QAEHABUTreeHintRef00217D4C@@@Z present-unmatched
 int Rva005FFCCB::rva005FFCCB(const TreeHintRef00217D4C &arg)
 {
 	int idx = m_48;
-	int t = idx + 3;
-	int off = t * 12;
-	Rva005FFCCBElem *e = (Rva005FFCCBElem *)((char *)this + off);
 	m_48 = idx + 1;
+	Rva005FFCCBElem *e = (Rva005FFCCBElem *)((char *)this + (idx + 3) * 12);
 	e->m_hint = arg;
 	e->m_8 = idx;
 	AsciiString tmp;

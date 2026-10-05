@@ -57390,3 +57390,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva0022C8FBDestroy@@YGXPAURva0022C8FBElem@@@Z,,0x0022C8FB,28,Code/GameEngine/Source/Common/System/Rva0022C8FBDestroy.cpp,matched,unlock destroy at +4 via pin 0x0022630F then game free
 ?rva0043E253@MpGameSetup@@QAEXH@Z,,0x0043E253,188,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp,matched,MpGameSetup handicap combo via TheMultiplayerSettings getColor no commas
 ??1Rva005FF95C@@UAE@XZ,,0x005FF95C,14,Code/GameEngine/Source/Common/Rva005FF95CDtor.cpp,matched,vtable 0x00C7A530 tail-call clear member at plus 4 via deleting dtor caller
+?rva005FFCCB@Rva005FFCCB@@QAEHABUTreeHintRef00217D4C@@@Z,,0x005FFCCB,172,Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp,matched,append TreeHint plus CreateArmyPanel Apt via rowed AptCall 0x0050E9FE with hero format
