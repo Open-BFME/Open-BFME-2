@@ -63372,3 +63372,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva007B6890@@YAXXZ,,0x007B6890,11,Code/GameEngine/Source/Common/Rva007B6890SingletonFwd.cpp,matched,Address-derived singleton virtual forward: global ptr slot2 tail-jmp; 11B shape
 ?Rva00409892@@YAHHH@Z,,0x00409892,23,Code/GameEngine/Source/Common/Rva004097AFWrappers.cpp,matched,Address-derived tagged wrapper: callee(a;b;0x4A;b); 23B shape
 ?Rva004098A9@@YAHHH@Z,,0x004098A9,21,Code/GameEngine/Source/Common/Rva004097AFWrappers.cpp,matched,Address-derived tagged wrapper: callee(a;b;0x41;0); 21B shape
+?check@Rva00224BC9Owner@@QAE_NXZ,,0x00224BC9,18,Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp,matched,Address-derived Apt-global forward of +0x324 slot; 18B shape; thiscall callee
+?rva0039ABFF@ExperienceTracker@@QBE_NXZ,,0x0039ABFF,13,Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp,matched,Address-derived singleton/global forward: const member forward through 0x00DFECC4 to peer-pinned rva00288CFA; peer class name
+?Rva003EFE72@@YGHHH@Z,,0x003EFE72,16,Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp,matched,Address-derived singleton/global forward: free stdcall forward through param object to 0x004FC3DC
+?Rva00437E9C@@YAXH@Z,,0x00437E9C,16,Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp,matched,Address-derived singleton/global forward: free cdecl forward through 0x00E032FC to 0x0054CBEF; peer signature

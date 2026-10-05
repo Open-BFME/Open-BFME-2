@@ -12694,3 +12694,9 @@ _Rva0059E0C1Lookup,0x0059E0C1,REL32 callee decoded from target call bytes of wra
 ?sharedInit@Rva005CDMorph@@QAEXHHHHH@Z,0x005CD1D3,REL32 shared-init callee decoded from target call bytes of morph family; identity unproven
 _g_pRva007B6890,0x00DA6214,global pointer read by singleton virtual forward 0x007B6890; identity unproven
 _Rva004097AFWorker,0x004097AF,REL32 callee decoded from target call bytes of wrappers 0x00409892/0x004098A9; identity unproven
+?method@Rva00224B7DTarget@@QAE_NH@Z,0x00224B7D,REL32 callee decoded from target call bytes of wrapper 0x00224BC9; Apt-global method identity unproven
+_g_pRva00224BC9,0x00DFE4CC,Apt window manager global read by wrapper 0x00224BC9 (peer-pinned role); identity unproven
+_g_pRva0039ABFF,0x00DFECC4,global pointer read by wrapper 0x0039ABFF; identity unproven
+?method@Rva004FC3DCTarget@@QAEHH@Z,0x004FC3DC,REL32 callee decoded from target call bytes of wrapper 0x003EFE72; identity unproven
+?method@Rva0054CBEFTarget@@QAEXH@Z,0x0054CBEF,REL32 callee decoded from target call bytes of wrapper 0x00437E9C; identity unproven
+_g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes same); identity unproven
