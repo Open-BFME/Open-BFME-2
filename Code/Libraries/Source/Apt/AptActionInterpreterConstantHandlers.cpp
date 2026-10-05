@@ -9,7 +9,8 @@
 // and LocalContextT(28B); PC instructions confirm instruction+0, return+14,
 // dictionary item pointer+44. Only the accessed interpreter prefix is modeled.
 // AptValue prefix is vptr+flags (8B); the PC stack Release calls use slot1.
-// Only its first two virtual slots are needed here; this is not a full view.
+// Native Delete uses ContainsNativeHashVirtual at slot4. Original Redwood6
+// PDB order is recorded in AptObject/AptScriptFunction.h; use that prefix.
 // Native arithmetic uses SWF version ==7, not the later source's >=7.
 // Native Pop(2) releases items[count-i] before one count decrement; the later
 // container-based implementation pops individually. Preserve PC sequencing.
@@ -26,11 +27,15 @@ static __forceinline float bfme_fmodf(float x,float y) { return (float)fmod(x,y)
 class EAStringC;
 class AptString;
 class AptInteger;
+class AptNativeHash;
 class AptValue {
     unsigned int m_valueFlags;
 public:
     virtual void AddRef();
     virtual void Release();
+    virtual void ForceDelete();
+    virtual AptNativeHash *GetNativeHashVirtual();
+    virtual bool ContainsNativeHashVirtual() const;
     AptString *c_string() const;
     AptInteger *c_integer() const;
     bool isUndefined() const;
@@ -149,6 +154,7 @@ private:
     HANDLER(CallFunction); HANDLER(CallMethod);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
+    HANDLER(Delete); HANDLER(Delete2);
     HANDLER(StringEquals);
     HANDLER(ToNumber); HANDLER(ToString);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
@@ -829,4 +835,29 @@ void AptActionInterpreter::_FunctionAptActionStringEquals(AptActionInterpreter *
     }
     p->stack.Pop(2);
     p->stack.Push(result);
+}
+
+// The native Delete passes bIsMember=0, unlike the later source branch.
+// Its virtual slot4 predicate corresponds to ContainsNativeHashVirtual;
+// the original AptValue header independently supplies the const bool type.
+void AptActionInterpreter::_FunctionAptActionDelete(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *name=p->stack.At(0);
+    AptValue *object=p->stack.At(1);
+    if(object->ContainsNativeHashVirtual()) {
+        EAStringC text;
+        name->toString(text);
+        p->setVariable(object,c->pCurWith,&text,0,1,1,0);
+    }
+    p->stack.Pop(2);
+    p->stack.Push(AptInteger::Create(1));
+}
+void AptActionInterpreter::_FunctionAptActionDelete2(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *name=p->stack.At(0);
+    EAStringC text;
+    name->toString(text);
+    p->setVariable((AptValue *)c->pCurrentContext,c->pCurWith,&text,0,1,1,0);
+    p->stack.Pop();
+    p->stack.Push(AptInteger::Create(1));
 }
