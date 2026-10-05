@@ -61856,3 +61856,5 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva0051C139@Rva0051CBC6@@QAEHXZ,,0x0051C139,69,Code/Libraries/Source/WWVegas/WWLib/Rva0051C139Method.cpp,matched,chain from 0x0051BF47 vtable slot5 plus rowed callees
 ?rva005F1B18@Rva005F1AF5@@QAEXPBD@Z,,0x005F1B18,41,Code/GameEngine/Source/Common/Rva005F1A5F.cpp,matched,chain from 0x005F1A5F same +0x44 layout as 0x005F1AF5 with rowed callee
 ?rva002D368E@Rva002D368E@@QAEXXZ,,0x002D368E,32,Code/GameEngine/Source/Common/System/Rva002D368E.cpp,matched,dual-subobject reset via mid pointer rowed callees
+??1?$DynamicVectorClass@PAVRender2DClass@@@@UAE@XZ,,0x001A3AB0,45,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,implicit dtor called by the rowed deleting dtor 0x001A3EB0 (REL32); ICF-shared with VectorClass<Render2DClass*> dtor (inline Clear); pinned here before
+??1AptValueNameEntry@@QAE@XZ,,0x006EB6A0,5,Code/GameEngine/Source/Common/Rva00895050InlineContainerSwap.cpp,matched,implicit dtor jmp to rowed EAStringC dtor 0x006D3010; called by funclets 0x007A8380/0x007A8393 of the rowed Rva00895050 (pinned); ICF-shared with Rva006EC170 complete dtor
