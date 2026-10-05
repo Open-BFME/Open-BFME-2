@@ -1,5 +1,7 @@
 // ?rva006FD700@@YGPBDPBDPAVEAStringC@@1@Z
-// partial score=0.95 date=2026-10-05
+// partial score=0.97 date=2026-10-05
+// ?rva006FD700@@YGPBDPBDPAVEAStringC@@1@Z
+// partial score=0.95 date=2026-10-05 (bank) / 0.97 date=2026-10-05 (seat-4)
 // ?rva006FD700@@YGPBDPBDPAVEAStringC@@1@Z
 // ?rva006FD700@@YGPBDPBDPAVEAStringC@@1@Z
 // cl: /O2 /DNDEBUG /MD
@@ -32,13 +34,27 @@
 // Rva006FD340Cluster.cpp. Register roles match retail: p in ebx, cursor in
 // esi, last '=' in edi, outName in ebp.
 //
-// RESIDUE (133B, 13 differing bytes, first diff +0x3A): retail folds the
-// `eq + 1` into edi itself (`inc edi`) before the value append, and re-reads
-// `*q` into al for the trailing '&' test; we compute both separately. Naming
-// the value pointer, incrementing eq in place, and hoisting the '&' character
-// were each tried and each changes the register pairing (see re_attempts.log);
-// this spelling is the closest measured.
+//
 
+// RESIDUE (133B, exact retail size). Every remaining difference is the single
+// interchange of the two loop-local roles: retail keeps the cursor in esi and
+// the last '=' in edi, this build assigns the cursor to edi and the equals
+// pointer to esi, and the swap propagates through the scan, both appends and
+// the trailing '&' test. Nothing structural differs -- the prologue, both
+// release calls, the null test, the do/while scan with its null and '&' tests
+// as the first two statements, both append/decode pairs, the add esp,0x4 and
+// all four epilogue variants match byte for byte, and the size is exactly
+// retail's 133B.
+//
+// Measured this pass, each an isolated single-variable change from this body:
+// declaring eq before q fixes the prologue pair (mov esi,ebx / xor edi,edi) but
+// leaves the same swap (20 differing bytes); a separate value-pointer name is
+// 99 bytes and 135B; folding the increment into the append expression is 76
+// bytes and 134B; the banked eq+1 spelling is 46 bytes and reproduces the
+// 1-byte value-length shift; /O1 is 201 bytes and 122B. So /O2 with ++eq as a
+// statement is the only shape that both matches the size and closes the
+// value-append residue, and the register roles are one coupled assignment that
+// declaration order alone cannot reach.
 class EAStringC
 {
 	void *m_pData;
@@ -79,12 +95,13 @@ const char *__stdcall rva006FD700(const char *p, EAStringC *outName, EAStringC *
 				eq = q;
 			++q;
 		} while (q);
-		if (eq != 0) {
-			((BfmeBufVKG *)outName)->bfmeAppendVKG(p, (unsigned int)(eq - p));
-			rva006FD630(outName);
-			((BfmeBufVKG *)outValue)->bfmeAppendVKG(eq + 1, (unsigned int)(q - (eq + 1)));
-			rva006FD630(outValue);
-		}
+		if (eq == 0)
+			return 0;
+		((BfmeBufVKG *)outName)->bfmeAppendVKG(p, (unsigned int)(eq - p));
+		rva006FD630(outName);
+		++eq;
+		((BfmeBufVKG *)outValue)->bfmeAppendVKG(eq, (unsigned int)(q - eq));
+		rva006FD630(outValue);
 		if (*q == '&')
 			++q;
 		return q;
