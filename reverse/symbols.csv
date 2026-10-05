@@ -14671,3 +14671,16 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??0Rva0024314ARecord@@QAE@ABU0@@Z,0x002419E2
 ??0Rva0028625DRecord@@QAE@ABU0@@Z,0x00285C30
 ??0?$_Rb_tree_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z,0x002F0C32
+?resize@?$hashtable@HHU?$hash@H@_STL@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAEXI@Z,0x00212858
+?insert_unique_noresize@?$hashtable@HHU?$hash@H@_STL@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@HU?$_Nonconst_traits@H@_STL@@HU?$hash@H@2@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@_N@2@ABH@Z,0x00418A12
+??$_Construct@U?$pair@$$CBHURva0007989CRecord@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva0007989CRecord@@@0@ABU10@@Z,0x0007975E
+??$_Construct@U?$pair@$$CBHURva0032EA7FRecord@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva0032EA7FRecord@@@0@ABU10@@Z,0x0032E94B
+??$_Construct@U?$pair@$$CBHURva004F8CE0Record@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva004F8CE0Record@@@0@ABU10@@Z,0x004F868A
+??$_Construct@U?$pair@$$CBHURva005028E7Record@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva005028E7Record@@@0@ABU10@@Z,0x00502667
+??$_Construct@U?$pair@$$CBHURva00534743Record@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva00534743Record@@@0@ABU10@@Z,0x005346D9
+??$_Construct@U?$pair@$$CBHURva00286693Record@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva00286693Record@@@0@ABU10@@Z,0x0028625D
+??$_Construct@U?$pair@$$CBHURva00439943Record@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva00439943Record@@@0@ABU10@@Z,0x004398AB
+??$_Construct@U?$pair@$$CBHURva005DFCA9Record@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva005DFCA9Record@@@0@ABU10@@Z,0x005DFBDE
+??$_Construct@U?$pair@$$CBHURva00501086Record@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva00501086Record@@@0@ABU10@@Z,0x00500CD1
+??$_Construct@URva00293486Record@@U1@@_STL@@YAXPAURva00293486Record@@ABU1@@Z,0x002927CB
+??$_Construct@URva004677FDRecord@@U1@@_STL@@YAXPAURva004677FDRecord@@ABU1@@Z,0x00467763
