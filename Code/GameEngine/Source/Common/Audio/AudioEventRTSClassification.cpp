@@ -116,9 +116,22 @@ struct AudioEventInfo
 	unsigned int m_soundType;		// +0xB0
 };
 
+// Inline boundaries carried from BFME1's AudioEventRTSWeightedChoice.cpp:
+// reading the sound type through retainAudioType and the event info through
+// peekEventInfo reproduces retail's register choices for those chains.
+__forceinline unsigned int retainAudioType(unsigned int type)
+{
+	return type;
+}
+
 class AudioEventRTS
 {
 public:
+	__forceinline const AudioEventInfo *peekEventInfo(void) const
+	{
+		return m_eventInfo;
+	}
+
 	unsigned int getSoundClass(void) const;
 	bool isPositionalAudio(void) const;
 	bool hasMoreLoops(void) const;
@@ -157,6 +170,30 @@ private:
 	char m_pad6C[0x08];
 	PortionToPlay m_portionToPlayNext;	// +0x74
 };
+
+// ?rva002D9686@@YAHIPBUWeightedSoundRange@@@Z
+// Weighted random pick; -1 when the list carries no weight. Static, so MSVC
+// passes the weight in EAX and the list in ECX as retail does.
+static __declspec(noinline) int rva002D9686(unsigned int totalWeight, const WeightedSoundRange *sounds)
+{
+	if (!(totalWeight > 0))
+		return -1;
+
+	unsigned int remainingWeight = GetGameAudioRandomValue(0, totalWeight - 1, AUDIO_EVENT_RTS_FILE, 58);
+	const WeightedSound *soundEntry = sounds->m_begin;
+	const WeightedSound *end = sounds->m_end;
+	while (soundEntry != end)
+	{
+		if (remainingWeight < soundEntry->m_weight)
+			break;
+		remainingWeight -= soundEntry->m_weight;
+		++soundEntry;
+	}
+
+	if (soundEntry == end)
+		return 0;
+	return soundEntry - sounds->m_begin;
+}
 
 // ?getObjectID@AudioEventRTS@@QAE?AW4ObjectID@@XZ
 ObjectID AudioEventRTS::getObjectID(void)
@@ -293,4 +330,79 @@ void AudioEventRTS::rva002D9ADC(void)
 		m_filenameDirty = true;
 		m_regenerateFilename = false;
 	}
+}
+
+// ?generateFilename@AudioEventRTS@@QAEXXZ
+void AudioEventRTS::generateFilename(void)
+{
+	if (!m_filenameDirty || !m_eventInfo)
+		return;
+
+	bool firstTime = !m_filenameGenerated;
+	m_filenameGenerated = true;
+	m_filenameDirty = false;
+
+	bool bare = (m_eventInfo->m_control >> 6) & 1;
+	if (bare)
+		m_filenameToLoad.clear();
+	else
+		m_filenameToLoad = *Rva002D9622Get(m_eventInfo->m_soundType);
+
+	if (retainAudioType(m_eventInfo->m_soundType) != AT_SoundEffect)
+	{
+		m_filenameToLoad.concat(*m_eventInfo->getFilename());
+		return;
+	}
+
+	const WeightedSoundRange *sounds = m_eventInfo->getSounds();
+	unsigned int totalWeight = m_eventInfo->m_soundsTotalWeight;
+	if (totalWeight == 0 || sounds->empty())
+	{
+		m_filenameToLoad = AsciiString::TheEmptyString;
+		return;
+	}
+
+	int which;
+	if ((m_eventInfo->m_control & 2) == 0 && !m_sequential)
+	{
+		if (sounds->size() > 1)
+		{
+			if (firstTime)
+				m_playingAudioIndex = m_eventInfo->m_lastPlayedIndex;
+			do
+			{
+				which = rva002D9686(totalWeight, sounds);
+			} while (which == m_playingAudioIndex);
+			if (firstTime)
+				m_eventInfo->m_lastPlayedIndex = which;
+		}
+		else
+		{
+			which = 0;
+		}
+
+		if (which == -1)
+		{
+			m_filenameToLoad = AsciiString::TheEmptyString;
+			return;
+		}
+		m_playingAudioIndex = which;
+	}
+	else
+	{
+		which = (++m_playingAudioIndex) % sounds->size();
+	}
+
+	const WeightedSound *soundArray = sounds->m_begin;
+	m_filenameToLoad.concat(soundArray[which].m_name);
+	if (!bare)
+		m_filenameToLoad.concat(Rva002DA398Get(retainAudioType(peekEventInfo()->m_soundType)));
+}
+
+// ?getFilename@AudioEventRTS@@QAE?AVAsciiString@@XZ
+AsciiString AudioEventRTS::getFilename(void)
+{
+	if (m_filenameDirty && m_eventInfo != 0)
+		generateFilename();
+	return m_filenameToLoad;
 }
