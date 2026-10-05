@@ -294,6 +294,7 @@ public:
 	Bool rva003F82CF();
 	Int rva003F834C(Int a0);
 	void rva003F8374();
+	void rva003F8361(const class Matrix3D *m);
 	Rva003F7D86Inner *rva003F81B0();			///< pinned 0x003F81B0
 private:
 	char m_lead[4];
@@ -500,4 +501,25 @@ void Rva003F81FDProxy::rva003F8374()
 	if (!inner)
 		return;
 	((Rva003F8076 *)inner)->rva003F8076();
+}
+
+class Matrix3D;
+
+class W3DTerrainVisual
+{
+public:
+	virtual void setWaterTransform(const Matrix3D *m);
+};
+
+// ?rva003F8361@Rva003F81FDProxy@@QAEXPBVMatrix3D@@@Z retail 0x003F8361 19B
+// Evidence: gap lane between 0x003F834C and 0x003F8374 in this TU;
+// same proxy getter rva003F81B0; tail-jmp to rowed
+// ?setWaterTransform@W3DTerrainVisual@@UAEXPBVMatrix3D@@@Z 0x003F8067;
+// caller at 0x005E95E2; ret 4 passthrough.
+void Rva003F81FDProxy::rva003F8361(const Matrix3D *m)
+{
+	Rva003F7D86Inner *inner = rva003F81B0();
+	if (!inner)
+		return;
+	((W3DTerrainVisual *)inner)->W3DTerrainVisual::setWaterTransform(m);
 }

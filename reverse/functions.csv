@@ -55952,3 +55952,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva004D1EB1@Rva004D1EB1@@QAEXG@Z,,0x004D1EB1,64,Code/GameEngine/Source/Common/Rva004D1EB1ClearRange.cpp,matched,STL bitset version of Gen00667F30ClearRange window; callee rowed 0x004D0F63; caller 0x004D217A
 ??1Rva004A9DF3Element@@QAE@XZ,,0x000A9DF3,5,Code/GameEngine/Source/Common/Rva004A9DF3ElementDtor.cpp,matched,jmp to rowed BfmeRefVGO dtor LINK BONUS name
 ?rva003F8374@Rva003F81FDProxy@@QAEXXZ,,0x003F8374,17,Code/GameEngine/Source/Common/VslotProxyForwarders.cpp,matched,leaf proxy getter 0x003F81B0 tail-jmp rowed 0x003F8076
+?rva003F8361@Rva003F81FDProxy@@QAEXPBVMatrix3D@@@Z,,0x003F8361,19,Code/GameEngine/Source/Common/VslotProxyForwarders.cpp,matched,gap proxy getter 0x003F81B0 tail-jmp rowed setWaterTransform 0x003F8067
