@@ -13464,3 +13464,8 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Rva002B3E7ECheck@@YA_NXZ,0x002B3E7E,zero-arg bool check with candidate pointer arriving in EAX (retail mov ebp,eax then bare call then test al,al); callers 0x2B3EEA 0x2B3F1A 0x2B3F62; Ghidra FUN_006b3e7e 88B
 ?rva0040C45C@Rva002B3EFAElem@@QAEXXZ,0x0040C45C,thiscall clearing +0xBC after guarded 0x2B2579/0x4E0632/virtual+0x10 chain via globals 0xDFEF10; Ghidra FUN_0080c45c 57B; void ret
 ?rva0040CBD7@Rva0040CBD7Vec@@QAEXPAPAXH@Z,0x0040CBD7,thiscall lookup-or-null on +0x78 vector via rowed 0x40CB3A find and rowed 0x4F6093 copy ctor; out replaces pointer on hit and nulls on miss; Ghidra FUN_0080cbd7 55B
+?rva002B2BAA@Rva002B4650@@QAE_NXZ,0x002B2BAA,thiscall bool guard via global 0xDFE78C chain plus rowed 0x2B254F plus +0xF4 and +0x78 tests; Ghidra FUN_006b2baa 66B
+?rva002B3DB2@Rva002B4650@@QAEHXZ,0x002B3DB2,thiscall measure from +0x100/+0x104 diff through 0x2B3D81 returning 0 or remainder; Ghidra FUN_006b3db2 30B
+?rva002B3049@@YAXHHHPAEH@Z,0x002B3049,cdecl 5-arg worker looping (end-begin)>>2 through 0x2B2F97; args 4-5 unread; Ghidra FUN_006b3049 47B
+?rva002B3621@Rva002B4C09@@QAE_NXZ,0x002B3621,thiscall bool: +0x160 target non-null with +0x25 flag set; Ghidra FUN_006b3621 23B
+?rva0020E873@@YAHHHPAH@Z,0x0020E873,cdecl 3-arg int return; ICF-shares address with STL find bodies whose identity is unproven for this call site; Ghidra FUN_0060e873 27B
