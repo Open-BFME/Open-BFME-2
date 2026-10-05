@@ -6502,3 +6502,62 @@ void __cdecl rva007B945A()
 	Rva00200667 *p = (Rva00200667 *)&g_Va00E0657C;
 	return p->~Rva00200667();
 }
+
+extern unsigned g_Va00E06654;
+unsigned int g_Va00E06654;
+
+// ?rva007B982F@@YAXXZ @ 0x007B982F (10B). Global basic_string<char> dtor thunk: ecx=&g_Va00E06654 then tail-jmp to rowed BasicStringCharDtor_dup (0x0007FAB3 object ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ). No callers. Honest address name.
+void __cdecl rva007B982F()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00E06654;
+	return p->~basic_string();
+}
+
+extern unsigned g_Va00E06670;
+unsigned int g_Va00E06670;
+
+// ?rva007B9843@@YAXXZ @ 0x007B9843 (10B). Global basic_string<char> dtor thunk: ecx=&g_Va00E06670 then tail-jmp to rowed BasicStringCharDtor_dup (0x0007FAB3 object ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ). No callers. Honest address name.
+void __cdecl rva007B9843()
+{
+	StlNarrowString *p = (StlNarrowString *)&g_Va00E06670;
+	return p->~basic_string();
+}
+
+// Opaque-class view for the thunk below. The destructor is declared only;
+// symbols.csv pins ??1Rva005F00FB@@UAE@XZ to 0x005F00FB
+// (see OpaqueScalarDeletingDtorsB17.cpp).
+class Rva005F00FB
+{
+public:
+	virtual ~Rva005F00FB();
+};
+
+extern unsigned g_Va00E0669C;
+unsigned int g_Va00E0669C;
+
+// ?rva007B993D@@YAXXZ @ 0x007B993D (10B). Global Rva005E9F7B dtor thunk: ecx=&g_Va00E0669C then tail-jmp to pinned ??1Rva005E9F7B@@UAE@XZ (0x005E9F7B; scalar deleting dtor 0x005EA68B). No callers. Honest address name.
+void __cdecl rva007B993D()
+{
+	Rva005E9F7B *p = (Rva005E9F7B *)&g_Va00E0669C;
+	return p->Rva005E9F7B::~Rva005E9F7B();
+}
+
+extern unsigned g_Va00E06778;
+unsigned int g_Va00E06778;
+
+// ?rva007B9997@@YAXXZ @ 0x007B9997 (10B). Global Rva005E9F7B dtor thunk: ecx=&g_Va00E06778 then tail-jmp to pinned ??1Rva005E9F7B@@UAE@XZ (0x005E9F7B; scalar deleting dtor 0x005EA68B). No callers. Honest address name.
+void __cdecl rva007B9997()
+{
+	Rva005E9F7B *p = (Rva005E9F7B *)&g_Va00E06778;
+	return p->Rva005E9F7B::~Rva005E9F7B();
+}
+
+extern unsigned g_Va00E06858;
+unsigned int g_Va00E06858;
+
+// ?rva007B99B5@@YAXXZ @ 0x007B99B5 (10B). Global Rva005F00FB dtor thunk: ecx=&g_Va00E06858 then tail-jmp to pinned ??1Rva005F00FB@@UAE@XZ (0x005F00FB; scalar deleting dtor 0x005F02C4). No callers. Honest address name.
+void __cdecl rva007B99B5()
+{
+	Rva005F00FB *p = (Rva005F00FB *)&g_Va00E06858;
+	return p->Rva005F00FB::~Rva005F00FB();
+}
