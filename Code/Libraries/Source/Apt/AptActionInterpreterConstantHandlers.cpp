@@ -77,7 +77,7 @@ public:
     void toString(EAStringC &) const;
 };
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); EAStringC(const EAStringC &); int GetAt(int) const; int rva006D54B0(int,int); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); EAStringC &Append(const char *const,unsigned int); bool IsEmpty() const; bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); EAStringC(const EAStringC &); int GetAt(int) const; int rva006D54B0(int,int); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
@@ -195,6 +195,9 @@ struct AptActionInterpreter
         bool bEncounteredReturn;
         AptCharacterInst *pParentCharacter;
     };
+private:
+    const char *urlDecode(const char *,EAStringC &,EAStringC &);
+public:
     void loadVariables(AptValue *,AptValue *,const EAStringC *);
     static void getName(AptCIH *,EAStringC &);
     AptBasePtrStack stack;
@@ -2295,3 +2298,48 @@ void AptActionInterpreter::_FunctionAptActionCallFunction(AptActionInterpreter *
     p->debugCallStack.Pop();
     function->Release();
 }
+
+// Original Apt.h 5baf9703 callbacks; PC slots E1775C/E17760 each4B start zero.
+// The old TO_STRING path below passes null on non-string, exactly as retail does.
+AptValue *(__cdecl *g_bfmeAptLoadVariablesAtE1775C)(const char *)=0;
+AptValue *(__cdecl *g_bfmeAptLoadVariablesNullAtE17760)()=0;
+void AptActionInterpreter::loadVariables(AptValue *context,AptValue *with,const EAStringC *url)
+{
+    AptValue *value=0;
+    if(!url) {
+        if(!g_bfmeAptLoadVariablesNullAtE17760) {
+            g_bfmeAptAssertAtE17734("gAptFuncs.pfnLoadVariablesNULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",0x3A3);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        value=g_bfmeAptLoadVariablesNullAtE17760();
+    } else value=g_bfmeAptLoadVariablesAtE1775C(url->rva00620090());
+    EAStringC *text=0;
+    if(value->isString()) text=&value->c_string()->str;
+    else value->toString(*text);
+    const char *cur=text->rva00620090();
+    EAStringC key,val;
+    for(;;) {
+        cur=urlDecode(cur,key,val);
+        if(!cur) break;
+        if(key.IsEmpty()) { Rva006CC110Log(4,"loadVariable for '%s' returned empty variable name\n",url->rva00620090());continue; }
+        AptString *variable=AptString::Create();
+        variable->str=val;
+        setVariable(context,with,&key,variable,1);
+    }
+}
+
+void rva006FD630(EAStringC *);
+const char *AptActionInterpreter::urlDecode(const char *url,EAStringC &key,EAStringC &value)
+{
+    const char *cur=url,*equals=0;
+    key.rva006D3470();value.rva006D3470();
+    for(;cur && *cur && *cur!='&';++cur) if(*cur=='=') equals=cur;
+    if(equals) {
+        key.Append(url,equals-url);rva006FD630(&key);++equals;
+        value.Append(equals,cur-equals);rva006FD630(&value);
+        if(*cur=='&') ++cur;
+    } else cur=0;
+    return cur;
+}
+
+#pragma comment(linker, "/alternatename:?Append@EAStringC@@QAEAAV1@QBDI@Z=?bfmeAppendVKG@BfmeBufVKG@@QAEPAV1@PBDI@Z")
