@@ -62069,3 +62069,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva0057EF87@Rva0057EE5C@@QAEXXZ,,0x0057EF87,123,Code/GameEngine/Source/Common/Rva0057EF87.cpp,matched,shutdown via caller 0x0043DE41 and rowed resize erase close
 ?rva00283262@TerrainLogic@@QAEXPBUCoord3D@@M@Z,,0x00283262,221,Code/GameEngine/Source/Common/TerrainLogicRva00283262.cpp,matched,TerrainLogic same-this rva00282CFB plus PartitionManager iterateObjectsInRange with float radius plus BitSet and holder plus GameLogic destroyObject
 ?rva0032C84F@Rva0032C84F@@QAEXXZ,,0x0032C84F,64,Code/GameEngine/Source/GameLogic/Map/Rva0032C84FMethod.cpp,matched,unlock caller 0x0032D554 rowed nameToKey plus erase
+??0?$pair@$$CBHUBfmePod72@@@_STL@@QAE@ABHABUBfmePod72@@@Z,,0x002E00AF,29,Code/Libraries/Source/WWVegas/WWLib/StlportPairConstructFamily.cpp,matched,unlock caller 0x002E048C pair int plus pod72
