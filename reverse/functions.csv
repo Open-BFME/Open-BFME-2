@@ -56664,3 +56664,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva00362CF2@@UAE@XZ,,0x00362CF2,51,Code/GameEngine/Source/Common/Rva00362D6CDtor.cpp,matched,GlowMaterial dtor via releaseReferences plus BBB554 base
 ?Rva00206923XferList@@YAPAVXfer@@PAV1@PAV?$list@UBfmeSpecialPowerTimer8@@V?$allocator@UBfmeSpecialPowerTimer8@@@_STL@@@_STL@@@Z,,0x00206923,205,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00206923XferList.cpp,matched,leaf Xfer list SpecialPowerTimer8 via Chain 0x00203D86 same skeleton as xferListInt
 ?rva003C1FDE@Rva003C1FDE@@QAEXABVAsciiString@@PAX@Z,,0x003C1FDE,59,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C1FDE.cpp,matched,leaf display flag via virtuals
+?rva00360E64@Rva00360F55@@QAE_NABV1@@Z,,0x00360E64,241,Code/GameEngine/Source/GameLogic/Object/Rva00360E64Equal.cpp,matched,unlock equality for 0x94 record via rowed callees
