@@ -1523,8 +1523,9 @@ void __cdecl rva007B75C4()
 	p->rva001EAF7B();
 }
 
-extern unsigned g_Va00DBD4C8;
-unsigned int g_Va00DBD4C8;
+// The observed 24-byte pool is owned by Rva002E8548Pool.cpp.
+class Rva002E8548;
+extern Rva002E8548 g_Va00DBD4C8;
 
 // ?rva007B7A37@@YAXXZ @ 0x007B7A37 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DBD4C8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B). No callers. Honest address name.
 void __cdecl rva007B7A37()
