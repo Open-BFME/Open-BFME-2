@@ -9060,3 +9060,6 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?rva004690D0@HordeContain@@UAEXH@Z	0x004690D0	51	blocked	same calls and order; cl hoists lea esi [ecx-0x114] with [esi] reads where retail keeps this in esi and reads [esi-0x114] twice; tried barrier in guard and /Os both keep lea t=15 model=muse-08 (stash 0.9 kept)
 ?rva000D42B3@Rva000D42B3@@QAEHXZ	0x000D42B3	272	blocked	W3D bibbuffer ctor with TBib vector plus textures plus filters t=8 model=muse-09
 ?rva002ECD63@Rva002ECD63@@QAEHXZ	0x002ECD63	263	blocked	263B 7-param with movsd SSE plus split plus status bits t=5 model=muse-09
+?rva0030E0AA@Rva0030E0AA@@QAEXXZ	0x0030E0AA	420	blocked	420B EH Dict AsciiString Bfme method unknown class needs full layout t=6 model=muse-spark
+?rva0048740D@Rva0048740D@@QAEXXZ	0x0048740D	115	blocked	BoneFXUpdate virtual slots 0x34 0x3c plus Thing pin needs donor layout t=8 model=muse-spark
+?rva00487480@Rva00487480@@QAEXXZ	0x00487480	116	blocked	same wall as 0x0048740D BoneFXUpdate virtual 0x34 0x3c Thing pin OCL variant t=3 model=muse-spark

@@ -56572,3 +56572,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva007F79F0Callback@@YAXPAVRva007E8810Message@@PAVRva007F7980Browser@@@Z,,0x00664070,15,Code/GameEngine/Source/GameNetwork/V2FeslBrowserEvents.cpp,matched,BFME1 donor V2FeslBrowserEvents b1 0x007F79F0; retail pushes 0xA64070
 ?Rva0023D32DGet@@YAEXZ,,0x0023D32D,12,Code/GameEngine/Source/Common/Rva0023D32DGet.cpp,matched,unlock lane callee row Rva00437EDCGet caller 0x0024096A tests al
 ?rva0023C902@Rva0023C902@@QAEHXZ,,0x0023C902,34,Code/GameEngine/Source/Common/Rva0023C902Check.cpp,matched,thiscall int check plus0xa8 plus Display slot114
+?Rva0058CCF2Write@@YAXPADPAVNetCommandRef@@@Z,,0x0058CCF2,120,Code/GameEngine/Source/GameNetwork/Rva0058CCF2Write.cpp,matched,tagged NetCommand T R S P C D via ji memcpy
