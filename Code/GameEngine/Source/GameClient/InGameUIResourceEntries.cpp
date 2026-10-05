@@ -75,6 +75,7 @@ class ResourceOwnedEntryList
 {
 public:
     void rva004E54ED();
+    void rva004E5542();
     ResourceOwnedEntryNode *head;
 };
 extern "C" void __cdecl free(void *);
@@ -95,6 +96,17 @@ void ResourceOwnedEntryList::rva004E54ED()
     }
     head->next = head;
     head->prev = head;
+}
+
+// Retail 0x004E5542/23B clears entries then frees the head sentinel.
+// Evidence: same ecx forwarded to ResourceOwnedEntryList::rva004E54ED;
+// callers 0x004E5654 and jmp alias 0x004E560B prove thiscall on this class.
+void ResourceOwnedEntryList::rva004E5542()
+{
+    rva004E54ED();
+    ResourceOwnedEntryNode *sentinel = head;
+    if (sentinel)
+        free(sentinel);
 }
 
 class ResourceEntryCollector
