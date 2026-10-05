@@ -8623,3 +8623,4 @@ FUN_0046eb6d	0x0006EB6D	444	blocked	WW3D render 444B many DX8 states plus unclea
 ?rva004D6CAC@Rva004D6CAC@@QAEPAXXZ	0x004D6CAC	75	blocked	vector erase push order plus edi esi swap for this vs loop t=12 model=muse-spark
 ?rva00596B10@Rva00596B10@@QAEXXZ	0x00596B10	146	partial	b-first vs a-first load plus cmova vs branch for two mins t=15 model=muse-04 score=0.93 stash=reverse/attempts/0x00596b10.cpp
 ?Rva003E4860Get@@YG_NPAVParameter@@@Z	0x003E4860	193	partial	ebx vs ebp for obj vs curVal throughout else exact with if-not-n layout t=20 model=muse-04 score=0.97 stash=reverse/attempts/0x003e4860.cpp
+?Rva005FAC2BCreate@@YAPAURva005FAC2BHolder@@PAU1@PBUPayload@Rva005FAAA1@@@Z	0x005FAC2B	50	partial	missing push ecx and EH state and leave vs pop epilogue t=12 model=muse-04 score=0.88 stash=reverse/attempts/0x005fac2b.cpp
