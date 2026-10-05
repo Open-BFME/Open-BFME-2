@@ -45,7 +45,7 @@ public: static void operator delete(void *p,unsigned int n){g_pChainBlockAllocat
  AptStringObject(AptString *);virtual ~AptStringObject();virtual AptValue *objectMemberLookup(AptValue *const,const EAStringC *const) const;AptString *mpStringObject;
 };
 AptStringObject::AptStringObject(AptString *p) : AptObject((AptVirtualFunctionTable_Indices)42) {((AptValue *)p)->AddRef();mpStringObject=p;}
-class EAStringC {void *data;public:EAStringC(const char *);EAStringC(const EAStringC &);~EAStringC();const char *rva00620090() const;unsigned int rva006D3750() const;int rva006D36C0(const EAStringC *) const;bool rva006D3490(const char *) const;bool rva006D3510(const char *) const;};
+class EAStringC {void *data;public:EAStringC(const char *);EAStringC(const EAStringC &);~EAStringC();EAStringC();const char *rva00620090() const;unsigned int rva006D3750() const;int rva006D36C0(const EAStringC *) const;bool rva006D3490(const char *) const;bool rva006D3510(const char *) const;};
 class AptError : public AptObject {
 public: static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}
  AptError(EAStringC);virtual AptValue *objectMemberLookup(AptValue *const,const EAStringC *const) const;virtual bool objectMemberSet(AptValue *const,const EAStringC *const,AptValue *const);EAStringC msMessage,msName;
@@ -69,7 +69,7 @@ typedef char ErrorSize[sizeof(AptError)==40?1:-1];
 // Original PDB ScriptColour is36B with pSprite+20; MAP supplies const-pointer
 // parameter. Donor f1e86798adbb054c supplies semantics. Native6F24E0..6F25C5
 // asserts non-null and only clears pSprite when isCIH fails (later code differs).
-class BfmeAptValue006DCD20 {public: BfmeAptValue006DCD20 *rva006DCF60(bool);int rva006E02B0() const;void setGCRootCount(unsigned int);void factorySetString(const char *);};
+class BfmeAptValue006DCD20 {public: BfmeAptValue006DCD20 *rva006DCF60(bool);int rva006E02B0() const;void setGCRootCount(unsigned int);void factorySetString(const char *);int isSound() const;BfmeAptValue006DCD20 *rva006DCFE0();void rva006DD6C0(EAStringC *);};
 class AptScriptColour : public AptObject {
 public:
  AptScriptColour(AptValue *const);
@@ -168,3 +168,39 @@ AptValue *AptError::objectMemberLookup(AptValue *const context,const EAStringC *
 #pragma comment(linker, "/alternatename:?callback006E9730@@YAPAVAptValue@@PAV1@H@Z=?rva006e9730@@YAPAVAptValue@@PAV1@@Z")
 #pragma comment(linker, "/alternatename:?rva006D36C0@EAStringC@@QBEHPBV1@@Z=?compare008B4260@Rva008B4260StringRef@@QBEHABU1@@Z")
 typedef char FactoryNativeFunctionSize[sizeof(AptNativeFunction)==36?1:-1];
+
+// Sound donor e97b38e0a6efef64 attachSound/stop semantics; native body proves
+// animation+8, exports count+28/table+2C, character array+10 and sound tag6.
+extern AptValue *gpUndefinedValue;
+AptValue *callback006F36B0(AptValue *context,int) {
+ if((unsigned char)((BfmeAptValue006DCD20 *)context)->isSound()) {
+  g_bfmeAptAssertAtE17734("NOT_REACHED","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptSound.cpp",0x6d);
+  if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}
+ }
+ return gpUndefinedValue;
+}
+struct AptActionInterpreter;
+extern AptActionInterpreter g_aptDateInterpreter;
+class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);};
+struct SoundExport {const char *name;int id;};
+struct SoundCharacterValue {int type;int opaque;void *id;};
+struct SoundAnimation {char opaque[0x10];SoundCharacterValue **characters;char opaque2[0x28-0x14];int exportCount;SoundExport *exports;};
+AptValue *callback006F3580(AptValue *context,int) {
+ if((unsigned char)((BfmeAptValue006DCD20 *)context)->isSound()) {
+  BfmeAptValue006DCD20 *name=((AptBasePtrStack *)&g_aptDateInterpreter)->At(0);
+  EAStringC text;
+  AptSound *sound=(AptSound *)((BfmeAptValue006DCD20 *)context)->rva006DCFE0();
+  const SoundAnimation *animation=(const SoundAnimation *)((char *)sound->pParentAnim+8);
+  name->rva006DD6C0(&text);
+  for(int i=0;i<animation->exportCount;++i) {
+   if(text.rva006D3510(animation->exports[i].name)) {
+    if(animation->characters[animation->exports[i].id]->type==6) {
+     sound->zID=animation->characters[animation->exports[i].id]->id;
+     sound->szName=animation->exports[i].name;
+    }
+    break;
+   }
+  }
+ }
+ return gpUndefinedValue;
+}
