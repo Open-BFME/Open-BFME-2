@@ -97,3 +97,12 @@ void *__stdcall rva002EF25B(const Pair &value)
     _STL::_Construct(&node->_M_value_field, value);
     return node;
 }
+
+// Retail's member call supplies ECX but the independently verified34B
+// creator ignores it. Both call views take one stack value pointer and RET4;
+// binding to the address-named stdcall view preserves that full ABI.
+namespace _STL {
+template <> _Rb_tree_node<Pair> *Tree::_M_create_node(const Pair &value);
+}
+#pragma comment(linker, "/alternatename:?_M_create_node@?$_Rb_tree@IU?$pair@$$CBII@_STL@@U?$_Select1st@U?$pair@$$CBII@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBII@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@2@ABU?$pair@$$CBII@2@@Z=?rva002EF25B@@YGPAXABU?$pair@$$CBII@_STL@@@Z")
+template Tree::iterator Tree::_M_insert(_STL::_Rb_tree_node_base*,_STL::_Rb_tree_node_base*,const Pair&,_STL::_Rb_tree_node_base*);
