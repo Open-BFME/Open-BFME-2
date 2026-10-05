@@ -63474,3 +63474,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva0021E741@@YAHHHHH@Z,,0x0021E741,27,Code/GameEngine/Source/Common/RvaForward4To5Family.cpp,matched,Address-derived 4-to-5 const-zero forwarder callee(a;b;c;0;d); 27B shape
 ?Rva002BAE0F@@YAHHHHH@Z,,0x002BAE0F,27,Code/GameEngine/Source/Common/RvaForward4To5Family.cpp,matched,Address-derived 4-to-5 const-zero forwarder callee(a;b;c;0;d); 27B shape
 ?Rva00337C55@@YAHHHHH@Z,,0x00337C55,27,Code/GameEngine/Source/Common/RvaForward4To5Family.cpp,matched,Address-derived 4-to-5 const-zero forwarder callee(a;b;c;0;d); 27B shape
+?fwd@Rva0021BE42@@QAEHHH@Z,,0x0021BE42,32,Code/GameEngine/Source/Common/RvaFindOrMinusOneFamily.cpp,matched,Address-derived find-or-minus-one via rowed finder; 32B shape
+?fwd@Rva0021BE62@@QAEHHH@Z,,0x0021BE62,32,Code/GameEngine/Source/Common/RvaFindOrMinusOneFamily.cpp,matched,Address-derived find-or-minus-one via rowed finder; 32B ternary shape
+?fwd@Rva0021BE82@@QAEHHH@Z,,0x0021BE82,32,Code/GameEngine/Source/Common/RvaFindOrMinusOneFamily.cpp,matched,Address-derived find-or-minus-one via rowed finder; 32B ternary shape

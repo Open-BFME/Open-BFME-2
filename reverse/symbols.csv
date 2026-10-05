@@ -12797,3 +12797,6 @@ _g_pRva003BD424,0x00DFF028,global pointer read by global-this forward 0x003BD424
 _Rva0021E44BForward,0x0021E44B,REL32 callee decoded from target call bytes of wrapper 0x0021E741; identity unproven
 _Rva002B92A7Forward,0x002B92A7,REL32 callee decoded from target call bytes of wrapper 0x002BAE0F; identity unproven
 _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wrapper 0x00337C55; identity unproven
+?run@Rva0021BDABSub@@QAEHH@Z,0x0021BDAB,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE42; identity unproven
+?run@Rva0021BDD3Sub@@QAEHH@Z,0x0021BDD3,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE62; identity unproven
+?run@Rva0021BDFBSub@@QAEHH@Z,0x0021BDFB,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE82; identity unproven
