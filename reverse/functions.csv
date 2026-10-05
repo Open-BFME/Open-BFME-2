@@ -61683,3 +61683,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?append@Rva0056653FOwner@@QAEXABVRva0052BE33@@@Z,,0x0056653F,8,Code/GameEngine/Source/Common/Rva0056654FThunk.cpp,matched,LivingWorld append thunk +0x38 to rowed push_back 0x00566303
 ?append@Rva00566547Owner@@QAEXABVRva003A6F70@@@Z,,0x00566547,8,Code/GameEngine/Source/Common/Rva0056654FThunk.cpp,matched,LivingWorld append thunk +0x54 to rowed push_back 0x0056633A
 ?append@Rva0056656AOwner@@QAEXABVRva0052BEF0@@@Z,,0x0056656A,11,Code/GameEngine/Source/Common/Rva0056654FThunk.cpp,matched,LivingWorld append thunk +0xA8 to rowed push_back 0x00566417
+?copyRect@@YAHPAEHHHHH@Z,,0x000A6270,272,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSmudge_copyRect.cpp,matched,BFME1 donor W3DSmudge_copyRect.cpp plus /O1 /arch:SSE; single masked hit on unclaimed text
