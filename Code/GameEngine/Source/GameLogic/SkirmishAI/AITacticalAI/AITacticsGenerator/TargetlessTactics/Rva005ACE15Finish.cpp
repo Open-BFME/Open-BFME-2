@@ -1,5 +1,5 @@
 // ?rva005ACE15@Rva005ACCE4@@QAEMPBUCoord3D@@00@Z
-// partial score=0.97 date=2026-10-04
+// recovered 2026-10-05 from the 0.97 bank; exact 179/179
 // cl: /O1 /G7 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
 //
 // The "FarmKillSquad" skirmish-AI tactic (vtable 0x00872474; ctor 0x005ACF38
@@ -238,9 +238,13 @@ float Rva005ACCE4::rva005ACDD2(const Coord3D *a, const Coord3D *b)
 float Rva005ACCE4::rva005ACE15(const Coord3D *point, const Coord3D *from, const Coord3D *to)
 {
 	float length = rva005ACDD2(to, from);
-	float t = ((point->x - from->x) * (to->x - from->x)
-		+ (point->y - from->y) * (to->y - from->y)
-		+ (point->z - from->z) * (to->z - from->z)) / (length * length);
+	// Naming the three products separately changes the CSE grouping: retail
+	// keeps the z difference in the register the y product is multiplied by,
+	// which a single inline sum never produces at any term order.
+	const float px = (point->x - from->x) * (to->x - from->x);
+	const float py = (point->y - from->y) * (to->y - from->y);
+	const float pz = (point->z - from->z) * (to->z - from->z);
+	float t = (px + py + pz) / (length * length);
 	Coord3D foot;
 	foot.x = (to->x - from->x) * t + from->x;
 	foot.y = (to->y - from->y) * t + from->y;
