@@ -12120,3 +12120,7 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?Set@Rva000A9DF8ObjC@@QAEXH@Z,0x004D971D,address-derived thiscall single-int method; RETAIL REL32 at 0x004D9ADA in null-guarded forwarder 0x004D9ACE targets this 33B Ghidra body; identity unproven
 ??$_Destroy@PAURva0008B4AFElement@@@_STL@@YAXPAURva0008B4AFElement@@0@Z,0x0008AFDC,address-derived STLport _Destroy for this element view; RETAIL REL32 in vector clear 0x0008B4AF targets this 24B Ghidra body; identity unproven
 ??$_Destroy@PAURva005C84D3Element@@@_STL@@YAXPAURva005C84D3Element@@0@Z,0x005C847B,address-derived STLport _Destroy for this element view; RETAIL REL32 in vector clear 0x005C84D3 targets this 25B Ghidra body; identity unproven
+?Init@Rva000BB3D7Part@@QAEXXZ,0x00007850,address-derived thiscall no-arg method; RETAIL REL32 in return-this wrapper 0x000BB3D7 targets this 101B Ghidra body; identity unproven
+?Init@Rva004FFE72Part@@QAEXXZ,0x0033C432,address-derived thiscall no-arg method; RETAIL REL32 in return-this wrapper 0x004FFE72 targets this 25B Ghidra body; identity unproven
+?Init@Rva00082E1DBase@@QAEXXZ,0x00082D6A,address-derived thiscall no-arg method; RETAIL REL32 in back-adjusted wrapper 0x00082E1D targets this Ghidra body; identity unproven
+?Init@Rva003733B5Base@@QAEXXZ,0x00373373,address-derived thiscall no-arg method; RETAIL REL32 in back-adjusted wrapper 0x003733B5 targets this Ghidra body; identity unproven
