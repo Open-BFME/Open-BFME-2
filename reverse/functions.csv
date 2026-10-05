@@ -61846,3 +61846,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva005FB846@Rva005FB846@@QAEXXZ,,0x005FB846,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed 0x005FB6E2
 ?rva005FB84E@Rva005FB84E@@QAEXXZ,,0x005FB84E,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail-jmp forwarder via member at plus4 to rowed 0x005FB729
 ?rva005C7B96@Rva005C7B96@@QAEXH@Z,,0x005C7B96,75,Code/GameEngine/Source/Common/AptImageKeySetters.cpp,matched,indexed Apt SetState setter via rowed Rva0050E9FEAptCall plus team plus8 or empty plus table g_00C74A98
+?rva002F370D@Pathfinder@@QAEHXZ,,0x002F370D,43,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp,matched,unlock lane queue 0x1D1F0 clear all via 0x0052DAE9 0x002F301F sibling of 0x002F36E5
