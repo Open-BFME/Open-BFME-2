@@ -63480,3 +63480,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva002BFCF5@@YGXUVideoPair@@@Z,,0x002BFCF5,30,Code/GameEngine/Source/Common/RvaPairCopyCallFamily.cpp,matched,Address-derived pair-copy-call; 30B shape
 ?rva003A37DC@Rva000427195@@QAEXUVideoPair@@@Z,,0x003A37DC,30,Code/GameEngine/Source/Common/RvaPairCopyCallFamily.cpp,matched,Address-derived pair-copy-call to stdcall worker; 30B ebp-frame shape
 ?Rva005258F8@@YGXUVideoPair@@@Z,,0x005258F8,30,Code/GameEngine/Source/Common/RvaPairCopyCallFamily.cpp,matched,Address-derived pair-copy-call to stdcall worker; 30B ebp-frame shape
+?copyFrom@Rva005E35B5@@QAEPAV1@PBX@Z,,0x005E35B5,20,Code/GameEngine/Source/Common/RvaMemcpyReturnThisFamily.cpp,matched,Address-derived memcpy-return-this 8 dwords; 20B shape
+?copyFrom@Rva005EEEFF@@QAEPAV1@PBX@Z,,0x005EEEFF,20,Code/GameEngine/Source/Common/RvaMemcpyReturnThisFamily.cpp,matched,Address-derived memcpy-return-this N dwords; 20B shape
+?copyFrom@Rva005F8F00@@QAEPAV1@PBX@Z,,0x005F8F00,20,Code/GameEngine/Source/Common/RvaMemcpyReturnThisFamily.cpp,matched,Address-derived memcpy-return-this N dwords; 20B shape
