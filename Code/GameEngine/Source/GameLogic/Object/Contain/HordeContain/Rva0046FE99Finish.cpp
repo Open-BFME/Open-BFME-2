@@ -1,5 +1,4 @@
 // ?rva0046FE99@HordeContain@@UAEXAAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@@Z
-// partial score=0.97 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -1853,6 +1852,11 @@ void HordeContain::rva0046FE99(_STL::list<Object *> &out)
 	_STL::list<const Object *> copy;
 	for (_STL::list<Object *>::const_iterator c = p.m04->begin(); c != p.m04->end(); ++c)
 		copy.push_back(*c);
+	{
+		void *unused = p.m00;
+		p.m00 = unused;
+		p.m00 = NULL;
+	}
 	_STL::list<const Object *>::iterator o;
 	for (o = copy.begin(); o != copy.end(); ++o)
 		slot42(*o);
