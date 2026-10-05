@@ -63365,3 +63365,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?setupA0@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD2A3,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init installing 0x00C74FA0; 45B sharedInit/last-store/placement-new shape
 ?setupBC@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD2EF,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init installing 0x00C74FBC; 45B sharedInit/last-store/placement-new shape
 ?setupD8@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD34B,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init installing 0x00C74FD8; 45B sharedInit/last-store/placement-new shape
+??1Rva004FF2C0@@UAE@XZ,,0x004FF2C0,18,Code/GameEngine/Source/Common/Rva004FF2C0Dtor.cpp,matched,Opaque derived dtor: vtable install plus +0x2C literal store then tail-jmp opaque base 0x004FBCBE; chain idiom
