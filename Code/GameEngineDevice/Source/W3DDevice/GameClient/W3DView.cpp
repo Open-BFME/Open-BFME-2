@@ -449,6 +449,37 @@ void W3DView::setViewFilterPos(const Coord3D *pos)
 
 
 
+// BFME's CameraClass keeps ZFar (what Get_Depth returns) at +0xF0, where
+// CameraClass::Set_Clip_Planes (0x00133D00) stores it; the shared Zero Hour
+// header places it four bytes later.
+struct BfmeCameraDepthFields
+{
+	unsigned char m_padding0000[0xF0];
+	float m_zFar;
+};
+
+//-------------------------------------------------------------------------------------------------
+/** Returns a world-space ray originating at a given screen pixel position
+	and ending at the far clip plane for current camera. */
+//-------------------------------------------------------------------------------------------------
+void W3DView::getPickRay(const ICoord2D *screen, Vector3 *rayStart, Vector3 *rayEnd)
+{
+	Real logX,logY;
+
+	//W3D Screen coordinates are -1 to 1, so we need to do some conversion:
+	PixelScreenToW3DLogicalScreen(screen->x - m_originX,screen->y - m_originY, &logX, &logY,
+		reinterpret_cast<BFMERetailW3DViewInterface *>(this)->getWidth(),
+		reinterpret_cast<BFMERetailW3DViewInterface *>(this)->getHeight());
+
+	*rayStart = (*reinterpret_cast<CameraClass **>(reinterpret_cast<unsigned char *>(this) + 0x104))->Get_Position();	//get camera location
+	(*reinterpret_cast<CameraClass **>(reinterpret_cast<unsigned char *>(this) + 0x104))->Un_Project(*rayEnd,Vector2(logX,logY));	//get world space point
+	*rayEnd -= *rayStart;	//vector camera to world space point
+	rayEnd->Normalize();	//make unit vector
+	*rayEnd *= reinterpret_cast<const BfmeCameraDepthFields *>(*reinterpret_cast<CameraClass **>(reinterpret_cast<unsigned char *>(this) + 0x104))->m_zFar;	//adjust length to reach far clip plane
+	*rayEnd += *rayStart;	//get point on far clip plane along ray from camera.
+}
+
+
 // BFME moved the shake state and the GlobalData shake tuning; retail reads
 // the angle pair and intensity at W3DView +0x120..+0x128 and the six
 // intensities, the intensity cap and the range at GlobalData +0xB74..+0xB90.
