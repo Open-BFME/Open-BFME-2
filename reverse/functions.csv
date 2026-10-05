@@ -56603,3 +56603,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00375BFF@Rva00375BFF@@QAEXIM@Z,,0x00375BFF,41,Code/GameEngine/Source/Common/System/Rva00375BFFTimerPush.cpp,matched,null-checked uint plus float bitcast to 8B timer via rowed push_back 0x004DE74D
 ??0Rva0021F804@@QAE@ABVAsciiString@@0000@Z,,0x0021F804,114,Code/GameEngine/Source/Common/Rva0021F804Ctor.cpp,matched,5-string ctor via StringBase copy row and Vector_base row ret 0x14
 ?Rva003C2EC9Do@@YGXPBX00@Z,,0x003C2EC9,211,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2EC9.cpp,matched,leaf KindOf counter via rowed callees and pin bfmeCounter
+?Rva003E46B4Get@@YG_NPAVParameter@@00@Z,,0x003E46B4,203,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E46B4Compare.cpp,matched,leaf compare-mask via rowed rva00357B82 and rowed ratio
