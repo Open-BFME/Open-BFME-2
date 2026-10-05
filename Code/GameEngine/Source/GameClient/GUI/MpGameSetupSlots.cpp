@@ -864,7 +864,9 @@ private:
 	_STL::vector<AsciiString> m_maps;
 	int m_flags; // +0x3A4
 	int m_3a8; // +0x3A8
-	unsigned char m_pad3ac[0x3C4 - 0x3AC];
+	int m_sortColumn; // +0x3AC (games list sort column)
+	int m_previousSortColumn; // +0x3B0
+	unsigned char m_pad3b4[0x3C4 - 0x3B4];
 	_STL::vector<bool> m_colorsAvailable; // +0x3C4
 	int m_numColors; // +0x3D8
 	bool m_3dc; // +0x3DC
