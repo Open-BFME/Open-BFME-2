@@ -10,6 +10,7 @@
 
 extern "C" const void *const vtbl_00C4B6C8[];  // folded, 3 classes; via ??_7AnimalAIUpdateModuleData@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C4B6C8=??_7AnimalAIUpdateModuleData@@6B@")
+extern const struct FieldParse g_00C4B748[];
 
 class MultiIniFieldParse;
 struct FieldParse;
@@ -61,5 +62,5 @@ DozerAIUpdateModuleData::DozerAIUpdateModuleData()
 void DozerAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	TransportAIUpdateModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C4B748), 0);
+	parse.add(g_00C4B748, 0);
 }
