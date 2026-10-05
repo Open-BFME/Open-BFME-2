@@ -16420,3 +16420,4 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 FUN_0061fe49	0x0021FE49	421	blocked	uses address-named g_Va00DFE348 escape hatch t=1 model=gpt-6
 ?Rva00042C80Draw@@YAAXXZ	0x00042C80	573	blocked	uses address-named g_Va00DB5FC8 escape hatch t=1 model=gpt-6
 ?rva0029FCD9@Rva0029FCD9@@QAE_NPBD@Z	0x0029FCD9	66	blocked	class identity and boundary not established; packet warns preceding byte FF and caller is unclaimed t=2 model=gpt-6
+?rva00112230@Rva00112230@@QAEXPAPAX@Z	0x00112230	41	partial	frameless-to-frame via /Oy- (28B to 34B); residual is push-ecx plus and-[ebp-4]-0 EH-state slot (7B) plus ecx-vs-eax homes for p/out with knock-on inc/test/mov order; needs EH-state lever or reg-scheduling lever, not tried within slot bound score=0.8 stash=reverse/attempts/0x00112230.cpp
