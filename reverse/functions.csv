@@ -64099,3 +64099,5 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva003BD2A6@@YGXH@Z,,0x003BD2A6,40,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BD270.cpp,matched,guarded GameLogic+0x11C byte setter through rowed 0x0023D68E walker
 ?rva003BD32B@@YGXH@Z,,0x003BD32B,34,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BD32B.cpp,matched,resolves 0x00E031E8+0x10 to Rva004266A1 and forwards (index-1 1) to 0x0042682B
 ?rva003BD36F@@YGXH@Z,,0x003BD36F,34,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BD32B.cpp,matched,resolves 0x00E031E8+0x10 to Rva004266A1 and forwards (index-1 1) to 0x00426914
+?rva003EDDD4@Rva003EDDD4@@QAEXH@Z,,0x003EDDD4,33,Code/GameEngine/Source/Common/Rva003EDDD4Iterators.cpp,matched,walks [this+0x1C this+0x20) invoking pinned 0x0056A4AA per element with the int arg
+?rva003EDDF5@Rva003EDDF5@@QAEXH@Z,,0x003EDDF5,33,Code/GameEngine/Source/Common/Rva003EDDD4Iterators.cpp,matched,walks [this+0x1C this+0x20) invoking pinned 0x00569373 per element with the int arg

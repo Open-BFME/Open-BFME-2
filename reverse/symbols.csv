@@ -13405,3 +13405,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva0023D68E@GameLogic@@QAEXH@Z,0x0023D68E,GameLogic walker over +0xAC/+0x8C links via getDrawable; ret 4; ecx is TheGameLogic at the 0x003BD2A6 call site
 ?rva0042682B@Rva004266A1@@QAEXHE@Z,0x0042682B,void member (int uchar); call-site pushes (index-1 0/1); callee body stores low byte at struct+5; sibling rowed QAEEH family proves class Rva004266A1
 ?rva00426914@Rva004266A1@@QAEXHE@Z,0x00426914,void member (int uchar); call-site pushes (index-1 0/1); callee body stores low byte at struct+6; sibling rowed QAEEH family proves class Rva004266A1
+?rva0056A4AA@Rva0056A4AA@@QAEXH@Z,0x0056A4AA,thiscall void(int); EH prologue body reading [ecx+0x3C]; called once per element from 0x003EDDD4
+?rva00569373@Rva00569373@@QAEXH@Z,0x00569373,thiscall void(int); 30B loop over [ecx+0x58,+0x5C) via 0x0056913D; called once per element from 0x003EDDF5
