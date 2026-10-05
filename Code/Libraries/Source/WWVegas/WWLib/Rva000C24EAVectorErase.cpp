@@ -38,3 +38,13 @@ Rva000C24EA *Rva000C24EAVector::eraseRange(Rva000C24EA *first,Rva000C24EA *last)
  Rva000C24EA *i=Rva000C4795Copy4(last,_M_finish,first,reinterpret_cast<const unsigned char*>(&first)+3);
  Rva000BDCEFDestroy32(i,_M_finish);_M_finish=i;return first;
 }
+
+// C4D52 shifts the suffix unless position is last then destroys the final
+// record using the byte-verified folded string cleanup at796BC.
+#pragma comment(linker, "/alternatename:??1Rva000C24EA@@QAE@XZ=??1?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@QAE@XZ")
+Rva000C24EA *Rva000C24EAVector::eraseOne(Rva000C24EA *position) {
+ _STL::__false_type tag;
+ Rva000C24EA *finish=_M_finish;
+ if(position+1!=finish)Rva000C4795Copy4(position+1,finish,position,&tag);
+ --_M_finish;_M_finish->Rva000C24EA::~Rva000C24EA();return position;
+}
