@@ -60609,3 +60609,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Create@AptInteger@@SAPAVAptValue@@H@Z,,0x006D8520,263,Code/Libraries/Source/Apt/AptValue/AptIntegerCreateBFME2.cpp,matched,Reference-guided pooled integer factory; target type7 pool E18020 union+8 12B allocation and sized cleanup verified
 ?Rva008A4EA0MakeFloat@@YAPAVAptValue@@M@Z,,0x006D8700,263,Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp,matched,Reference-guided pooled float factory; target type6 pool E18024 union+8 12B allocation and sized cleanup verified
 ?rva003F2352@Rva003F2352@@QAEPAV1@PAV1@0@Z,,0x003F2352,31,Code/GameEngine/Source/Common/S5HandleHashCompares.cpp,matched,contiguous after Gen_00528EC0 bfmeDiffers same slot 00DC34DC caller 0x003F2956
+??1Rva005F4179@@UAE@XZ,,0x005F4179,54,Code/GameEngine/Source/Common/Rva005F4179Dtor.cpp,matched,dtor vtable 0x00C79448 base g_00BC6F20 via twin 0x005E129B
