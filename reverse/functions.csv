@@ -63369,3 +63369,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?fwd@Rva005E681EMid@@QAEXXZ,,0x005E681E,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: owned ptr at +4 slot6 tail-jmp; 8B shape
 ?fwd@Rva005E6836Mid@@QAEXXZ,,0x005E6836,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: adj +4 slot 0x08 tail-jmp; 8B shape
 ?fwd@Rva005E3AA2Mid@@QAEXXZ,,0x005E3AA2,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: adj -8 slot 0x0C tail-jmp; 8B shape
+?Rva007B6890@@YAXXZ,,0x007B6890,11,Code/GameEngine/Source/Common/Rva007B6890SingletonFwd.cpp,matched,Address-derived singleton virtual forward: global ptr slot2 tail-jmp; 11B shape
