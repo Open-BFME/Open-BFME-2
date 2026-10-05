@@ -355,12 +355,15 @@ public:
 
 	static void Apply_Render_State_Changes();	// Apply deferred render state changes (will be called automatically by Draw...)
 
+	// BFME2 widened the buffer-typed overload's ranges to 32 bits: the matched
+	// dispatcher at 0x001205B0 (DX8DrawTrianglesDispatch.cpp) forwards all four
+	// as DWORDs, and BoxRenderObjClass::render_box calls it with five pushes.
 	static void Draw_Triangles(
 		unsigned buffer_type,
-		unsigned short start_index,
-		unsigned short polygon_count,
-		unsigned short min_vertex_index,
-		unsigned short vertex_count);
+		unsigned start_index,
+		unsigned polygon_count,
+		unsigned min_vertex_index,
+		unsigned vertex_count);
 	static void Draw_Triangles(
 		unsigned short start_index,
 		unsigned short polygon_count,

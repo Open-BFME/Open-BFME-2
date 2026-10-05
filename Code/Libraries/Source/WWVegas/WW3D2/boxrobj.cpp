@@ -1,4 +1,4 @@
-// cl: /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/bfme2renderobj /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /arch:SSE /G7 /Ireference/shims/bfme2renderobj /Ireference/shims/bfmelight /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // Ported verbatim from the Generals Zero Hour reference
 // (Libraries/Source/WWVegas/WW3D2/boxrobj.cpp); this unit had no counterpart under Code/.
 
@@ -169,6 +169,75 @@ bool										BoxRenderObjClass::IsInitted			= false;
 int										BoxRenderObjClass::DisplayMask		= 0;
 static VertexMaterialClass *		_BoxMaterial								= NULL;
 static ShaderClass					_BoxShader;
+
+// BFME 2's dynamic vertex access takes a format index and a buffer argument
+// (render_box passes 2,5,8,0 to the matched constructor at 0x0013B040) and
+// is 24 bytes, its write lock 12; the layout follows the BfmeSortingVBAccess
+// view used by Line3DClassRender.cpp, whose members are pinned to the matched
+// bodies at 0x0013B040/0x0013A780/0x0013AA00/0x0013AB00.
+class BoxVertexBufferClass;
+
+struct BfmeSortingVBAccess {
+	const FVFInfoClass& FVFInfo;
+	unsigned Type;
+	unsigned formatIndex;
+	unsigned unused_0x0C;
+	unsigned short VertexCount;
+	unsigned short VertexBufferOffset;
+	BoxVertexBufferClass* VertexBuffer;
+
+	BfmeSortingVBAccess(unsigned type, unsigned format_index,
+		unsigned short vertex_count, unsigned buffer);
+	~BfmeSortingVBAccess();
+
+	class WriteLock {
+		BfmeSortingVBAccess* DynamicVBAccess;
+		VertexFormatXYZNDUV2* Vertices;
+		unsigned char targetDeviceGuard[4];
+
+	public:
+		WriteLock(BfmeSortingVBAccess* vb_access);
+		~WriteLock();
+		VertexFormatXYZNDUV2* Get_Formatted_Vertex_Array() { return Vertices; }
+	};
+};
+
+// The dynamic index access is the same 12-byte object as DynamicIBAccessClass,
+// but BFME 2's write lock carries a device guard at +8 (12 bytes); pinned to
+// the matched bodies at 0x00139240/0x00138BE0/0x00138CA0/0x00138D80.
+struct BfmeSortingIBAccess {
+	unsigned Type;
+	unsigned short IndexCount;
+	unsigned short IndexBufferOffset;
+	IndexBufferClass* IndexBuffer;
+
+	BfmeSortingIBAccess(unsigned short type, unsigned short index_count);
+	~BfmeSortingIBAccess();
+
+	class WriteLock {
+		BfmeSortingIBAccess* DynamicIBAccess;
+		unsigned short* Indices;
+		unsigned char targetDeviceGuard[4];
+
+	public:
+		WriteLock(BfmeSortingIBAccess* ib_access);
+		~WriteLock();
+		unsigned short* Get_Index_Array() { return Indices; }
+	};
+};
+
+// Retail binds stage 0 through a by-reference texture slot that the caller
+// releases afterwards (BFME 1 boxrobj.cpp donor).
+extern void BoxSetTexture(unsigned stage, TextureBaseClass*& texture);
+
+class BoxTextureRef {
+	TextureBaseClass* Texture;
+
+public:
+	BoxTextureRef() : Texture(NULL) {}
+	~BoxTextureRef() { if (Texture) Texture->Release_Ref(); }
+	operator TextureBaseClass*&() { return Texture; }
+};
 
 
 /*
@@ -425,7 +494,6 @@ int BoxRenderObjClass::Get_Box_Display_Mask(void)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?BoxRenderObjClass::render_box present-unmatched
 void BoxRenderObjClass::render_box(RenderInfoClass & rinfo,const Vector3 & center,const Vector3 & extent)
 {
 	if (!IsInitted) return;
@@ -447,9 +515,9 @@ void BoxRenderObjClass::render_box(RenderInfoClass & rinfo,const Vector3 & cente
 		
 		int buffer_type = BUFFER_TYPE_DYNAMIC_DX8;
 
-		DynamicVBAccessClass vbaccess(buffer_type,dynamic_fvf_type,NUM_BOX_VERTS);
+		BfmeSortingVBAccess vbaccess(buffer_type,5,NUM_BOX_VERTS,0);
 		{
-			DynamicVBAccessClass::WriteLockClass lock(&vbaccess);
+			BfmeSortingVBAccess::WriteLock lock(&vbaccess);
 			//unsigned char *vb=(unsigned char *) lock.Get_Vertex_Array();
 			VertexFormatXYZNDUV2* vb=lock.Get_Formatted_Vertex_Array();
 
@@ -475,9 +543,9 @@ void BoxRenderObjClass::render_box(RenderInfoClass & rinfo,const Vector3 & cente
 		/*
 		** Dump the faces into the sorting dynamic index buffer.
 		*/
-		DynamicIBAccessClass ibaccess(buffer_type,NUM_BOX_FACES*3);
+		BfmeSortingIBAccess ibaccess(buffer_type,NUM_BOX_FACES*3);
 		{
-			DynamicIBAccessClass::WriteLockClass lock(&ibaccess);
+			BfmeSortingIBAccess::WriteLock lock(&ibaccess);
 			unsigned short * indices = lock.Get_Index_Array();
 			for (int i=0; i<NUM_BOX_FACES; i++) {
 				indices[3*i] = _BoxFaces[i][0];
@@ -491,10 +559,13 @@ void BoxRenderObjClass::render_box(RenderInfoClass & rinfo,const Vector3 & cente
 		*/
 		DX8Wrapper::Set_Material(_BoxMaterial);
 		DX8Wrapper::Set_Shader(_BoxShader);
-		DX8Wrapper::Set_Texture(0,NULL);
+		{
+			BoxTextureRef texture;
+			BoxSetTexture(0,texture);
+		}
 		
-		DX8Wrapper::Set_Index_Buffer(ibaccess,0);
-		DX8Wrapper::Set_Vertex_Buffer(vbaccess);
+		DX8Wrapper::Set_Index_Buffer(*reinterpret_cast<DynamicIBAccessClass *>(&ibaccess),0);
+		DX8Wrapper::Set_Vertex_Buffer(*reinterpret_cast<DynamicVBAccessClass *>(&vbaccess));
 
 		SphereClass sphere;
 		Get_Obj_Space_Bounding_Sphere(sphere); 
@@ -1067,7 +1138,6 @@ int OBBoxRenderObjClass::Class_ID(void) const
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?OBBoxRenderObjClass::Render present-unmatched
 void OBBoxRenderObjClass::Render(RenderInfoClass & rinfo)
 {
 	DX8Wrapper::Set_Transform(D3DTS_WORLD,Transform);
