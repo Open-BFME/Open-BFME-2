@@ -55928,3 +55928,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?Rva002188E4PartialSort@@YAXPAURva004748F0Element@@00HURva004748F0Compare@@@Z,,0x002188E4,94,Code/GameEngine/Source/Common/Q3PartialSort002188E4.cpp,matched,partial-sort via rowed make pop sort heap for FileInfo
 ?Rva00218BD4Sort@@YAXPAURva004748F0Element@@00URva004748F0Compare@@@Z,,0x00218BD4,27,Code/Libraries/Source/WWVegas/WWLib/stlport_fileinfo_sort_00218BD4.cpp,matched,full-sort forwarder via rowed partial-sort
 ?Rva0021889AFinalSort@@YAXPAUQ3SortElem16@@0UQ3SortCompare@@@Z,,0x0021889A,74,Code/GameEngine/Source/Common/Q3FinalInsertionSort0021889A.cpp,matched,final-insertion-sort via rowed insertion-sort and Each
+?rva003F9DB0@Rva003F9DB0@@QAEXXZ,,0x003F9DB0,14,Code/GameEngine/Source/Common/Rva003F9DB0Erase.cpp,matched,calls rowed erase 0x003FA4DB with vector at 0x3C caller 0x00210EBF tail-jmp
