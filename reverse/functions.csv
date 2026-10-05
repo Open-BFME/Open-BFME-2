@@ -63538,3 +63538,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003A2BD4@TeamPrototype@@QAEXXZ,,0x003A2BD4,57,Code/GameEngine/Source/Common/RTS/TeamPrototypeRva003A2BD4.cpp,matched,Factory register plus holder chain via rowed 0x003A2B78 and pinned 0x002AE228 0x002A8AB1 0x004EC072; straightline null guards
 ??0Rva005D2F1D@@QAE@ABURvaS16@@ABURvaS08@@@Z,,0x005D2F1D,34,Code/GameEngine/Source/Common/Rva005D2F1DConcat.cpp,matched,
 ??0Rva005D2F3F@@QAE@ABURvaS24@@ABURvaS08@@@Z,,0x005D2F3F,35,Code/GameEngine/Source/Common/Rva005D2F1DConcat.cpp,matched,
+?rva005D3F93@Rva005D3F93@@QAEX_N@Z,,0x005D3F93,33,Code/GameEngine/Source/Common/Rva005D3F93BitSetter.cpp,matched,
