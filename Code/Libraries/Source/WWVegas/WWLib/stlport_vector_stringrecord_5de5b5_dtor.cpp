@@ -17,7 +17,9 @@
 #include <vector>
 struct BfmeStringRecord005DDD40 {
     UnicodeString text;
-    unsigned int word;
+    // Native updater5DDB66 uses MOVSS/COMISS on source+4. Low-level
+    // copy/assignment providers preserve these four bits without conversion.
+    float word;
     BfmeStringRecord005DDD40();
     BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &);
     BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &);
@@ -37,6 +39,7 @@ public:
 	~Rva005DE5B5();
 	Rva005DE5B5(const Rva005DE5B5 &other);
 	Rva005DE5B5();
+	void setValueRva005DDB66(unsigned,const BfmeStringRecord005DDD40&,bool);
 	void *rva005DE782(unsigned int flags);
 
 private:
@@ -106,3 +109,18 @@ template Rva005DE5B5 *_STL::__uninitialized_fill_n<Rva005DE5B5 *, unsigned int, 
 Rva005DE5B5::Rva005DE5B5() : m_00(AsciiString("-")),m_04(),m_10(-FLT_MAX),m_14(false) {}
 
 #pragma comment(linker, "/alternatename:??0?$_Vector_base@UBfmeStringRecord005DDD40@@V?$allocator@UBfmeStringRecord005DDD40@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeStringRecord005DDD40@@@1@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")
+
+// Native Ghidra [5DDB66,5DDBAB),69B; index bounds on vector4;
+// full31B record assignment5DD6B6 followed by dirty14=true and optional
+// maximum10 update. Float loads/comparison independently type source+4
+// and owner+10; original method name remains unknown. Canonical vector
+// access preserves the target's index register and base/index LEA ordering.
+void Rva005DE5B5::setValueRva005DDB66(unsigned index,const BfmeStringRecord005DDD40&src,bool update) {
+ if(index>=m_04.size())return;
+ m_04[index]=src;
+ m_14=true;
+ if(update) {
+  float value=src.word;
+  if(value>m_10)m_10=value;
+ }
+}
