@@ -12973,3 +12973,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva004F95A8@@YAXPAURva004F6352@@0HHURva004F6352Cmp@@@Z,0x004F95A8,sort-phase helper callee of 0x004F9EF3 read from its REL32 displacement (first last 0 2xlog comp); Ghidra FUN_008f95a8 136B; body unrowed
 ?rva004F9635@Rva004F9E59@@QAEXPAURva004F9635Rec@@@Z,0x004F9635,thiscall spelling of the rowed stdcall sort used by 0x004F9E59 (mov ecx edi before call); same address and arity; additive alias pin
 ?rva004F7767@@YAXPAX0_N@Z,0x004F7767,triple callee of 0x004F941E and 0x004F81DB read from REL32 (vec-begin vec-finish flag-byte); Ghidra FUN_008f7767; body unrowed
+?rva0059614B@Rva0059614B@@QAE_NPAX@Z,0x0059614B,thiscall predicate callee of 0x004E0425 read from its REL32 displacement; Ghidra FUN_0099614b 139B; body unrowed
+?rva004E02D7@Rva004E02D7@@QAEXPAX@Z,0x004E02D7,thiscall void callee of 0x004E0425 read from its REL32 displacement; Ghidra FUN_008e02d7 52B; body unrowed
