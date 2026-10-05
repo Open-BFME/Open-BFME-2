@@ -1,7 +1,5 @@
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z
-// partial score=0.96 date=2026-10-05
-// ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z
-// finish attempt for ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z @0x004320B1, 160B.
+// partial score=0.97 date=2026-10-05
 // cl: /O1 /MD
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z @0x004320B1 160B.
 //
@@ -15,6 +13,16 @@
 // InGameUI is unchanged and was already right: the matched sibling
 // Rva004319F2.cpp fixes slot51 at 0xCC, slot54 at 0xD8 and the byte at 0x9B4,
 // which is exactly retail's [eax+0xcc], [eax+0xc8] and cmp byte [ecx+0x9b4].
+//
+// Two shapes are read off the retail bytes rather than guessed. (1) Retail
+// reads the forwarder at +4 from the CACHED this (mov ecx,[esi+4] at 0x4320CF,
+// i.e. off the callee-save, not off a re-spilled ecx), so the load is hoisted
+// into a local ahead of the dispatch; that alone takes the body from 171B to
+// 167B. (2) Retail keeps TheInGameUI in ecx across the slot-51 and slot-50
+// calls and reads the +0x9B4 byte off that same ecx, so the global is read
+// once into a local after the terrain call rather than re-read per use; with
+// both, the body is exactly 160B, the retail extent, and everything from
+// 0x4320E2 to the end is instruction for instruction retail.
 #include <stddef.h>
 
 struct ICoord2D { int m_x; int m_y; };
@@ -264,6 +272,7 @@ public:
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z present-unmatched
 int Rva004320B1::rva004320B1(GameMessage *msg)
 {
+	Rva00431A4D *fwd = m_04;
 	switch (msg->m_10)
 	{
 	case 3:
@@ -274,15 +283,16 @@ int Rva004320B1::rva004320B1(GameMessage *msg)
 		pixel.m_y = a0->pixel.y;
 		Coord3D world;
 		TheTacticalView->screenToTerrain(&pixel, &world, false);
-		if (TheInGameUI->slot51())
-			TheInGameUI->slot50(&world);
-		if (TheInGameUI->m_9b4 != 0)
+		InGameUI *ui = TheInGameUI;
+		if (ui->slot51())
+			ui->slot50(&world);
+		if (ui->m_9b4 != 0)
 			TheRva0029AA27->rva0029AA27((const S12_0029AA27 *)&world);
 		return 0;
 	}
 	case 6:
 	case 0x10:
-		m_04->rva00431A4D(msg);
+		fwd->rva00431A4D(msg);
 		return ((Rva00431E95 *)this)->rva00431E95(msg);
 	default:
 		return 0;
