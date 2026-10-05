@@ -1,5 +1,6 @@
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
-// partial score=0.92 date=2026-10-05
+// partial score=0.96 date=2026-10-05
+// ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
 // cl: /O2 /DNDEBUG /MD
 // The guard verifier of GeneralAllocatorDebug, at retail 0x006C3020 (156
 // bytes). The sibling of VerifyDelayedFreeFill at 0x006C30C0, and named the
@@ -17,25 +18,14 @@
 //
 // The 0x006C25F0 out parameter is an unsigned length the builder writes through
 // a pointer into the caller's own frame; the guard run itself is returned in
-// eax. A nonzero second argument means "also cover the 8 bytes past the guard",
-// which is where the clamp against block + 16 comes from.
+// eax. A nonzero `mode` argument means "also cover the 8 bytes past the guard",
+// which is where the clamp against the run block + 8 comes from.
 
 // 0x00030E20: the CRT's internal aligned-fill memset, cdecl, three stack
 // arguments. Declared to return unsigned char because the body only tests the
 // result, and retail does that with a byte test (test al,al) rather than the
 // dword test a pointer declaration produces.
 unsigned char __cdecl rva00030E20Fill(void *dst, unsigned int count, unsigned char c);
-
-// 0x006C2FB0: the shared verify-guard report helper, also reached from
-// VerifyDelayedFreeFill at 0x006C30C0.
-//
-// Its own 97-byte body reads the first argument off the stack (`mov edx,[esp+8]`)
-// and returns with a plain ret, so it is a FREE cdecl function whose caller
-// cleans both arguments -- not the thiscall member the 0.92 bank recorded. That
-// is why the report pushes are in retail's order here: the block is the FIRST
-// declared argument and the message the last, and cdecl pushes the last one
-// first. The cost is a trailing `add esp,8` that retail does not have.
-void __cdecl rva006C2FB0Report(void *block, const char *msg);
 
 class GeneralAllocatorDebug
 {
@@ -44,23 +34,23 @@ public:
 	// run and returns it in eax while writing the run length through outLen.
 	// Unnamed body; the spelling is address-derived.
 	//
-	// Retail's push sequence is (0, &outLen, 0, 0, 0xB, runBlock), which is
-	// the reverse of this declaration order because cdecl pushes the last
-	// argument first. The out length is the fourth declared argument, which is
-	// what puts its frame slot at [esp+0x18] for the read-back after the call.
+	// Retail's push sequence is (0, &outLen, 0, 0, 0xB, runBlock), which is the
+	// reverse of the declaration order because cdecl pushes the last argument
+	// first. The out length is the fourth declared argument, which is what puts
+	// its frame slot at [esp+0x18] for the read-back after the call.
 	void *rva006C25F0Run(void *runBlock, int kind, unsigned int zero3,
 	                     unsigned int zero2, unsigned int *outLen, int zero1);
 
-	unsigned int GetBlockSize(const void *block);
+	// 0x006C2FB0 as a thiscall MEMBER, the spelling reverse/symbols.csv pins.
+	// Retail's call site is `push 0x008E7C0C / push ebp / mov ecx,edi / call`
+	// with no add afterward, so the callee cleans both stack arguments: for a
+	// thiscall member the message is the FIRST stack argument and the block the
+	// second, which is the order retail pushes them in. The free __cdecl
+	// spelling gets the same push order only by declaring the message last, and
+	// then necessarily emits the trailing add esp,8 that retail does not have.
+	void rva006C2FB0Report(const char *msg, void *block);
 
-	// 0x006C2FB0 as a MEMBER of the allocator. The callee's own 97-byte body
-	// ends with a plain `ret`, so it cleans nothing itself, but retail's call
-	// site here also carries no `add esp,8` and does pass ecx -- so the member
-	// spelling is the one that reproduces both, at the cost of the push order
-	// (cdecl pushes the last declared argument first, and for thiscall the
-	// message is the second stack argument). The free cdecl spelling gets the
-	// push order right and costs an `add esp,8` plus 16 bytes.
-	void rva006C2FB0Report(void *block, const char *msg);
+	unsigned int GetBlockSize(const void *block);
 
 	bool VerifyGuardFill(void *block, int alsoBeyond, unsigned char mode);
 
@@ -74,45 +64,55 @@ public:
 bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
                                             unsigned char mode)
 {
-	void *const callerBlock = block;
+	// The caller's block. Retail keeps it in ebp and forms both derived
+	// addresses from it -- the flag byte at block+4, the run block at block+8,
+	// and the beyond-the-guard limit at run block + 8 -- so the clamp is a limit
+	// of the CALLER's block and not of the allocator. An earlier bank read the
+	// clamp as `lea edx,[edi+0x10]` with edi holding `this` and moved the limit
+	// onto the allocator; retail's own instruction is `lea edx,[esi+8]` against
+	// esi, which holds the run block (block+8), so the limit is block+0x10.
+	void *callerBlock = block;
 
-	if (*(unsigned char *)((char *)callerBlock + 4) & 4)
-		return true;
+	// A SET flag bit means the block needs no guard, so the verifier passes
+	// immediately. Spelled as the NEGATED condition guarding the WORK rather than
+	// as `if (set) return true`: MSVC7 lays the positive spelling out as
+	// `jne skip-to-return`, while retail jumps OVER the early return when the bit
+	// is CLEAR (`je`) and falls into the early return when it is set. Nesting the
+	// work under the negation is what produces `je`, and it keeps the work out of
+	// both early-return arms.
+	if (!(*(unsigned char *)((char *)callerBlock + 4) & 4)) {
+		// Retail reads the flags dword and tests bit 3 of its HIGH byte, which is
+		// why the test is written against a shifted dword rather than against a
+		// narrowed field: the narrow spelling emits the byte test the body does not
+		// have. A clear bit 3 means the run needs no check, so the body returns
+		// true -- and only a non-zero `mode` overrides that.
+		if (mode || (((this->m_guardFlags >> 8) & 8) != 0)) {
+			unsigned int len;
+			unsigned int *outLen = &len;
+			unsigned char *runBlock = (unsigned char *)callerBlock + 8;
+			unsigned char *built =
+				(unsigned char *)rva006C25F0Run(runBlock, 0xB, 0, 0, outLen, 0);
 
-	// Retail reads the flags dword and tests bit 3 of its HIGH byte, which is
-	// why the test is written against a shifted dword rather than against a
-	// narrowed field: the narrow spelling emits the byte test the body does not
-	// have. The polarity is inverted relative to the delayed-free sibling --
-	// a clear bit 3 means the run needs no check, so the body returns true.
-	if (mode || !(((this->m_guardFlags >> 8) & 8) == 0)) {
-		unsigned int len;
-		unsigned int *outLen = &len;
-		void *runBlock = (char *)callerBlock + 8;
-		unsigned char *built =
-			(unsigned char *)rva006C25F0Run(runBlock, 0xB, 0, 0, outLen, 0);
+			if (built) {
+				unsigned int gotLen = *outLen;
+				unsigned int span = gotLen < 0x40 ? gotLen : 0x40;
+				span += (unsigned int)built;
 
-		if (built) {
-			unsigned int gotLen = *outLen;
-			unsigned int span = gotLen < 0x40 ? gotLen : 0x40;
-			span += (unsigned int)built;
+				if (alsoBeyond) {
+					// RAISE built to the limit rather than lowering it: retail is
+					// `cmp eax,edx / jae skip / mov eax,edx`, so it applies only
+					// when built is still BELOW the limit.
+					unsigned char *beyond = runBlock + 8;
+					if (built < beyond)
+						built = beyond;
+				}
 
-			if (alsoBeyond) {
-				// The clamp limit is a field of the ALLOCATOR, not of the
-				// caller's block: retail forms it with `lea edx,[edi+0x10]`
-				// where edi holds `this`, while the caller's block is in ebp
-				// and the run start is ebp+8. Spelling this against
-				// callerBlock+16 (as an earlier bank did) addresses the wrong
-				// object.
-				unsigned char *beyond = (unsigned char *)this + 0x10;
-				if (built >= beyond)
-					built = beyond;
+				span -= (unsigned int)built;
+
+				if (rva00030E20Fill(built, span, m_guardFillByte) == 0)
+					rva006C2FB0Report(
+						"GeneralAllocatorDebug::VerifyGuardFill failure.", block);
 			}
-
-			span -= (unsigned int)built;
-
-			if (rva00030E20Fill(built, span, m_guardFillByte) == 0)
-				rva006C2FB0Report(block,
-				                  "GeneralAllocatorDebug::VerifyGuardFill failure.");
 		}
 	}
 
