@@ -62395,3 +62395,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00429112@Rva00429112@@QAEHPAUArg@@H@Z,,0x00429112,127,Code/GameEngine/Source/Common/Rva00429112Voice.cpp,matched,finish from stash combined nulls single return enum type shared epilogue
 ?rva00429093@Rva00429093@@QAEHPAUArg@@H@Z,,0x00429093,127,Code/GameEngine/Source/Common/Rva00429093Voice.cpp,matched,finish from stash combined nulls single return enum type shared epilogue
 ?rva00429007@Rva00429007@@QAEHPAUArg@@H@Z,,0x00429007,140,Code/GameEngine/Source/Common/Rva00429007Voice.cpp,matched,finish from stash combined nulls single return enum type shared epilogue
+?rva002B35F7@Rva002BA8F1Logic@@QAEXXZ,,0x002B35F7,42,Code/GameEngine/Source/Common/Rva002B35F7Method.cpp,matched,caller 0x002B4D6B passes this in ecx rowed 0x002D3772 pin 0x002B2B2D
