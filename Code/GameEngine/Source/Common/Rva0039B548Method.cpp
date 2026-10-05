@@ -15,6 +15,7 @@ class Rva003BD306Target
 public:
 	void rva0039B28F(int v);
 	void rva0039B548();
+	void rva0039B2C7(int count, int value);
 private:
 	char m_pad00[8];
 	AsciiString m_str08;
@@ -36,4 +37,10 @@ void Rva003BD306Target::rva0039B548()
 	m_0C = 0;
 	m_20 = 0;
 	rva0039B28F(1);
+}
+
+void Rva003BD306Target::rva0039B2C7(int count, int value)
+{
+	for (; count > 0; --count)
+		rva0039B28F(value);
 }
