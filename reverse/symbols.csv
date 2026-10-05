@@ -13285,3 +13285,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva005E5B82@Rva005E5B82@@QAEHH@Z,0x005E5B82,pin for 0x005E5BF7 tail; address-derived
 ?rva005E3AAA@Rva005E3AAA@@QAEXH@Z,0x005E3AAA,pin for 0x005E3E41 second; address-derived
 ?rva005E4087@Rva005E4087@@QAEXH@Z,0x005E4087,pin for 0x005E4389 second; address-derived
+?rva000B3FD0Empty@Rva000B3FD0Empty@@QAEXXZ,0x000B3FD0,empty for 0x005E51D3 lea pattern; address-derived pin
+?rva005E50E1@Rva005E50E1@@QAEXH@Z,0x005E50E1,pin for 0x005E51D3 second; address-derived
