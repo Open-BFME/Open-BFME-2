@@ -15,6 +15,11 @@
 // container-based implementation pops individually. Preserve PC sequencing.
 // PushThis/PushGlobal push pooled NAME strings, not the context objects.
 // Slots75(NULL) and76(Undefined) share705320; row it only once as Undefined.
+// Preserve fmodf's float argument rounding before the MSVC _CIfmod intrinsic.
+// Native Modulo spills its second conversion to a float slot before the call.
+extern "C" double __cdecl fmod(double,double);
+#pragma intrinsic(fmod)
+static __forceinline float bfme_fmodf(float x,float y) { return (float)fmod(x,y); }
 class AptString;
 class AptInteger;
 class AptValue {
@@ -27,6 +32,7 @@ public:
     bool isUndefined() const;
     bool isInteger() const;
     float toFloat() const;
+    int toInteger() const;
 };
 class AptCIH;
 struct AptCharacterInst;
@@ -80,6 +86,16 @@ public:
             count-=n;
         }
     }
+    __forceinline void Pop()
+    {
+        if (count<=0) {
+            g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping from Stack with 0 elements. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0x98);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        } else {
+            items[count-1]->Release();
+            --count;
+        }
+    }
     int count,capacity;
     AptValue **items;
 };
@@ -109,6 +125,7 @@ private:
     HANDLER(PushString); HANDLER(StringDictByteGetVar); HANDLER(StringDictByteGetMember);
     HANDLER(PushDuplicate); HANDLER(StackSwap); HANDLER(StoreRegister);
     HANDLER(Add); HANDLER(Subtract); HANDLER(Multiply);
+    HANDLER(Divide); HANDLER(Modulo); HANDLER(Increment); HANDLER(Decrement);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
 #undef HANDLER
@@ -375,3 +392,70 @@ void AptActionInterpreter::_FunctionAptActionMultiply(AptActionInterpreter *cons
 #pragma comment(linker, "/alternatename:?c_integer@AptValue@@QBEPAVAptInteger@@XZ=?checkedInteger@BfmeAptValue006DCD20@@QAEPAV1@XZ")
 #pragma comment(linker, "/alternatename:?toFloat@AptValue@@QBEMXZ=?rva006DD460@BfmeAptValue006DCD20@@QAEMXZ")
 #pragma comment(linker, "/alternatename:?GetInt@AptInteger@@QBEHXZ=?Length@?$SimpleVecClass@K@@QBEHXZ")
+
+void AptActionInterpreter::_FunctionAptActionDivide(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *aValue=p->stack.At(0);
+    AptValue *bValue=p->stack.At(1);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (aValue->isUndefined() || bValue->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        float a=aValue->toFloat();
+        float b=bValue->toFloat();
+        if (a==0.f) result=gpUndefinedValue;
+        else result=Rva008A4EA0MakeFloat(b/a);
+    }
+    p->stack.Pop(2);
+    p->stack.Push(result);
+}
+
+void AptActionInterpreter::_FunctionAptActionModulo(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *aValue=p->stack.At(0);
+    AptValue *bValue=p->stack.At(1);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (aValue->isUndefined() || bValue->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        float a=aValue->toFloat();
+        if (a==0.f) result=gpUndefinedValue;
+        else result=Rva008A4EA0MakeFloat(bfme_fmodf(bValue->toFloat(),a));
+    }
+    p->stack.Pop(2);
+    p->stack.Push(result);
+}
+
+void AptActionInterpreter::_FunctionAptActionIncrement(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (value->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        if (value->isInteger()) result=AptInteger::Create(value->toInteger()+1);
+        else result=Rva008A4EA0MakeFloat(value->toFloat()+1.f);
+    }
+    p->stack.Pop();
+    p->stack.Push(result);
+}
+
+void AptActionInterpreter::_FunctionAptActionDecrement(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (value->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) {
+        if (value->isInteger()) result=AptInteger::Create(value->toInteger()-1);
+        else result=Rva008A4EA0MakeFloat(value->toFloat()-1.f);
+    }
+    p->stack.Pop();
+    p->stack.Push(result);
+}
+
+#pragma comment(linker, "/alternatename:?toInteger@AptValue@@QBEHXZ=?toInteger@BfmeAptValue006DCD20@@QBEHXZ")
