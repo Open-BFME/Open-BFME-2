@@ -57,6 +57,12 @@ struct ComboBoxData
 class GameWindow
 {
 public:
+	Int winSetEnabledColor(Int index, Int color);
+	Int winSetEnabledBorderColor(Int index, Int color);
+	Int winSetDisabledColor(Int index, Int color);
+	Int winSetDisabledBorderColor(Int index, Int color);
+	Int winSetHiliteColor(Int index, Int color);
+	Int winSetHiliteBorderColor(Int index, Int color);
 	void winSetEnabledTextColors(int, int);
 	void winSetDisabledTextColors(int, int);
 	void winSetHiliteTextColors(int, int);
@@ -67,6 +73,100 @@ public:
 #ifndef NULL
 #define NULL 0
 #endif
+
+typedef Int Color;
+class BfmeKeyLC;
+
+// BFME moved the child windows to data +0x24/+0x28/+0x2C (drop-down button,
+// edit box, list box: GadgetComboBoxGetText reads the edit box through
+// 0x002C032C, GadgetComboBoxSetText selects in the list box through
+// 0x002C0315). The three accessors keep the names their ledger rows carry,
+// which follow Zero Hour's order: 0x002C032C GadgetComboBoxGetListBox (+0x28),
+// 0x002C02FE GadgetComboBoxGetEditBox (+0x24), 0x002C0315 bfmeGo925A (+0x2C).
+GameWindow *GadgetComboBoxGetListBox(GameWindow *comboBox);
+GameWindow *GadgetComboBoxGetEditBox(GameWindow *comboBox);
+void *bfmeGo925A(BfmeKeyLC *k);
+void GadgetListBoxSetColors(GameWindow *listbox,
+	Color enabledColor, Color enabledBorderColor,
+	Color enabledSelectedItemColor, Color enabledSelectedItemBorderColor,
+	Color disabledColor, Color disabledBorderColor,
+	Color disabledSelectedItemColor, Color disabledSelectedItemBorderColor,
+	Color hiliteColor, Color hiliteBorderColor,
+	Color hiliteSelectedItemColor, Color hiliteSelectedItemBorderColor);
+
+// ?GadgetComboBoxSetColors@@YAXPAVGameWindow@@HHHHHHHHHHHH@Z, retail 0x00322463
+// (509B): the Zero Hour GadgetComboBox.cpp body with its GadgetComboBoxSet*/
+// GadgetButtonSet* inline setters expanded; built /O1 it places uniquely.
+void GadgetComboBoxSetColors( GameWindow *comboBox,
+	Color enabledColor, Color enabledBorderColor,
+	Color enabledSelectedItemColor, Color enabledSelectedItemBorderColor,
+	Color disabledColor, Color disabledBorderColor,
+	Color disabledSelectedItemColor, Color disabledSelectedItemBorderColor,
+	Color hiliteColor, Color hiliteBorderColor,
+	Color hiliteSelectedItemColor, Color hiliteSelectedItemBorderColor )
+{
+	// enabled
+	comboBox->winSetEnabledColor( 0, enabledColor );
+	comboBox->winSetEnabledBorderColor( 0, enabledBorderColor );
+	comboBox->winSetEnabledColor( 1, enabledSelectedItemColor );
+	comboBox->winSetEnabledBorderColor( 1, enabledSelectedItemBorderColor );
+	// disabled
+	comboBox->winSetDisabledColor( 0, disabledColor );
+	comboBox->winSetDisabledBorderColor( 0, disabledBorderColor );
+	comboBox->winSetDisabledColor( 1, disabledSelectedItemColor );
+	comboBox->winSetDisabledBorderColor( 1, disabledSelectedItemBorderColor );
+	// hilite
+	comboBox->winSetHiliteColor( 0, hiliteColor );
+	comboBox->winSetHiliteBorderColor( 0, hiliteBorderColor );
+	comboBox->winSetHiliteColor( 1, hiliteSelectedItemColor );
+	comboBox->winSetHiliteBorderColor( 1, hiliteSelectedItemBorderColor );
+
+	GameWindow *editBox = GadgetComboBoxGetListBox( comboBox );	// data +0x28
+	if (editBox)
+	{
+		editBox->winSetEnabledColor( 0, enabledColor );
+		editBox->winSetEnabledBorderColor( 0, enabledBorderColor );
+		editBox->winSetEnabledColor( 1, enabledSelectedItemColor );
+		editBox->winSetEnabledBorderColor( 1, enabledSelectedItemBorderColor );
+		editBox->winSetDisabledColor( 0, disabledColor );
+		editBox->winSetDisabledBorderColor( 0, disabledBorderColor );
+		editBox->winSetDisabledColor( 1, disabledSelectedItemColor );
+		editBox->winSetDisabledBorderColor( 1, disabledSelectedItemBorderColor );
+		editBox->winSetHiliteColor( 0, hiliteColor );
+		editBox->winSetHiliteBorderColor( 0, hiliteBorderColor );
+		editBox->winSetHiliteColor( 1, hiliteSelectedItemColor );
+		editBox->winSetHiliteBorderColor( 1, hiliteSelectedItemBorderColor );
+	}
+
+	GameWindow *dropDownButton = GadgetComboBoxGetEditBox( comboBox );	// data +0x24
+	if (dropDownButton)
+	{
+		dropDownButton->winSetEnabledColor( 0, enabledColor );
+		dropDownButton->winSetEnabledBorderColor( 0, enabledBorderColor );
+		dropDownButton->winSetEnabledColor( 1, enabledSelectedItemColor );
+		dropDownButton->winSetEnabledBorderColor( 1, enabledSelectedItemBorderColor );
+		dropDownButton->winSetDisabledColor( 0, disabledColor );
+		dropDownButton->winSetDisabledBorderColor( 0, disabledBorderColor );
+		dropDownButton->winSetDisabledColor( 1, disabledSelectedItemColor );
+		dropDownButton->winSetDisabledBorderColor( 1, disabledSelectedItemBorderColor );
+		dropDownButton->winSetHiliteColor( 0, hiliteColor );
+		dropDownButton->winSetHiliteBorderColor( 0, hiliteBorderColor );
+		dropDownButton->winSetHiliteColor( 1, hiliteSelectedItemColor );
+		dropDownButton->winSetHiliteBorderColor( 1, hiliteSelectedItemBorderColor );
+	}
+
+	GameWindow *listBox = (GameWindow *)bfmeGo925A( (BfmeKeyLC *)comboBox );	// data +0x2C
+	if ( listBox )
+	{
+		GadgetListBoxSetColors(listBox,
+			enabledColor, enabledBorderColor,
+			enabledSelectedItemColor, enabledSelectedItemBorderColor,
+			disabledColor, disabledBorderColor,
+			disabledSelectedItemColor, disabledSelectedItemBorderColor,
+			hiliteColor, hiliteBorderColor,
+			hiliteSelectedItemColor, hiliteSelectedItemBorderColor);
+	}
+}
 
 // ?GadgetComboBoxSetMaxChars@@YAXPAVGameWindow@@H@Z, retail 0x003226E7 (28B).
 void GadgetComboBoxSetMaxChars(GameWindow *comboBox, Int maxChars)

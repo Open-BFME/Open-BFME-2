@@ -107,6 +107,20 @@ file-static. Making it `static` landed the reload notices 0x0031E7F0, 0x00289812
 after locals, reordering and branch duplication had all failed. Every reader and writer of that
 byte then belongs in the same unit (the static has no cross-unit name).
 
+An eighth: **retail's `operator delete[]` is nothrow.** A destructor whose inlined member
+teardown calls `delete[]` (a `VectorClass`/`DynamicVectorClass` member) carries no EH state store
+between its body and that teardown in retail; we emit `mov [esp+N],0` there, and usually cache 0
+in `ebx` for it, a few bytes long. Declaring `void __cdecl operator delete[](void *) throw();`
+before the unit's first `#include` lets the compiler drop the store. It closed ~HLodClass
+(0x0019EF70), ~AggregateDefClass (0x001A3C90) and ~NamedPivotMapClass (0x001976F0) with every
+existing row of their units still matching; the constructors' funclet `$L` labels can shift.
+
+Commutative SSE operand order is not set by source order (cl canonicalizes it), but it does move
+with the surrounding IL: reading a member directly instead of through an inline accessor
+(`IsTreeValid` for `Is_Hierarchy_Valid()`, Simple_Evaluate_Bone 0x001A5A60) or binding the operand
+to a local reference before an inline call (the plane clip at 0x00100362) flipped the operands
+where no spelling of the product did.
+
 Two smaller ones. **`inline` is a lever in both directions**: MSVC will not auto-inline a 93-byte
 `SetIdentity` however the file is ordered, and marking it `inline` (with its address taken to keep
 the standalone copy) is what lets two constructors absorb it; conversely a base constructor that

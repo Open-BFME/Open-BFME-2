@@ -1236,3 +1236,20 @@ void Rva005FF8F8::clear()
 		::operator delete(p);
 	}
 }
+
+class Rva004E6A37
+{
+public:
+	Rva004E6935 *m_ptr;
+	~Rva004E6A37();
+};
+
+Rva004E6A37::~Rva004E6A37()
+{
+	Rva004E6935 *p = m_ptr;
+	if (p)
+	{
+		p->Rva004E6935::~Rva004E6935();
+		::operator delete(p);
+	}
+}

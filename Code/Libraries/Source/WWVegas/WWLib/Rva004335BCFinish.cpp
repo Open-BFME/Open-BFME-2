@@ -1,8 +1,15 @@
-// ??0Rva001DA2D5@@QAE@ABV0@@Z
-// partial score=0.98 date=2026-10-04
+// ??0Rva001DA2D5@@QAE@ABV0@@Z retail 0x004335BC 422B
 // cl: /Ireference/shims/bfme2_ascii /G7 /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// ??0Rva001DA2D5@@QAE@ABV0@@Z retail 0x004335BC 422B: copy ctor stores vtable 0x00BDA270 then copies 2 StringBase plus ints plus 5 vectors; evidence vtable plus callees rowed plus caller 0x00433762 derived ctor
+// Copy ctor: installs vtable 0x00BDA270, copies two AsciiString members and
+// 16+11 int members and four /O1 STLport vectors, and zeroes the 4-byte base
+// member at +0x4. Evidence: vtable + every callee rowed; caller 0x00433762 is
+// the derived ctor (installs 0x00C3CB1C at +0x0 and AsciiString at +0xC8).
+// The +0x4 zero goes through the inlined base copy ctor: a derived member init
+// emits a 4-byte read-modify-write `and [esi+4],0` after the EH state, but
+// retail's is a 7-byte pure write `mov [esi+4],0` before it. A volatile base
+// member reproduces that pure-write, pre-EH-state placement exactly; it is a
+// compiler-shape hypothesis for the encoding, not a recovered declaration.
 #include <vector>
 #include "ascii_string.h"
 
@@ -15,7 +22,8 @@ class Rva001DA2D5Base
 public:
 	virtual ~Rva001DA2D5Base();
 	Rva001DA2D5Base() {}
-	Rva001DA2D5Base(const Rva001DA2D5Base &other) { (void)other; }
+	Rva001DA2D5Base(const Rva001DA2D5Base &other) : m_unk04(0) { (void)other; }
+	volatile int m_unk04;
 };
 
 class Rva001DA2D5 : public Rva001DA2D5Base
@@ -24,7 +32,6 @@ public:
 	virtual ~Rva001DA2D5();
 	Rva001DA2D5(const Rva001DA2D5 &other);
 private:
-	int m_unk04;
 	AsciiString m_str08;
 	AsciiString m_str0C;
 	int m_unk10; int m_unk14; int m_unk18; int m_unk1C;
@@ -44,10 +51,8 @@ private:
 	_STL::vector<BfmeE8> m_vecB8;
 };
 
-// ??0Rva001DA2D5@@QAE@ABV0@@Z present-unmatched
 Rva001DA2D5::Rva001DA2D5(const Rva001DA2D5 &other)
 	: Rva001DA2D5Base(other)
-	, m_unk04(0)
 	, m_str08(other.m_str08)
 	, m_str0C(other.m_str0C)
 	, m_unk10(other.m_unk10) , m_unk14(other.m_unk14) , m_unk18(other.m_unk18) , m_unk1C(other.m_unk1C)

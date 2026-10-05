@@ -9347,3 +9347,20 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ?rva0053E17E@Rva0053E17E@@QAEXIM@Z	0x0053E17E	312	blocked	5 diffs xor-mov pushes cmp movss-mulss no lever t=8 model=muse-09 (stash 0.93 kept)
 ?Rva0040F10F@@YGXPAVRva0037EB1D@@@Z	0x0040F10F	142	blocked	neighbour G7 arch flags no change still arg slot reuse t=8 model=muse-08 (stash 0.91 kept)
 ??1Rva005CFDA6@@UAE@XZ	0x005CFDA6	54	blocked	neg sbb and member call wall plus vptr order t=6 model=muse-08
+??0?$vector@UBfmeContainerRecord002CF46E@@V?$allocator@UBfmeContainerRecord002CF46E@@@_STL@@@_STL@@QAE@I@Z	0x00514EAB	120	blocked	name refuted: retail 120B EH ctor (vtables C65F10/C65F0C; global E048DC; calls 0x5B7010 0x36410 0x5B6EFE 0x5126F5); not a vector ctor. t=5 model=muse-spark-1.3-contributor
+?_GRva00065D24@@QAEPAXI@Z	0x00065D24	28	blocked	not a scalar deleting dtor: second call is 0x65D11 not delete; dtor-shape only. t=3 model=muse-spark-1.3-contributor
+?Rva0022216EGet@@YAPBDABVAsciiString@@@Z	0x0022216E	59	blocked	extra add ecx 0x28 vs indexed cmp needs folding t=15 model=muse-03 (stash 0.95 kept)
+?Rva00411336Do@@YAXPAXHPA VW3DFileSystem@@@Z	0x00411336	95	blocked	complex STL hashtable VideoPair needs full template instantiation t=5 model=muse-03
+?erase@Rva00056B72VectorView@@QAEPAXPAX0@Z	0x00056B72	51	blocked	only empty tag address EBP+0F vs native +0B t=12 model=muse-03 (stash 0.980392 kept)
+?forward0@Rva0066F5F0ForwardView@@QAEXXZ	0x0066F5F0	60	blocked	4 INT3-bounded tail jumps 11 12 12 12 not one function and void ABI unproven with no callers t=5 model=muse-03
+?forward1@Rva0066F5F0ForwardView@@QAEXXZ	0x0066F600	44	blocked	3 INT3-bounded tail jumps 12 12 12 not one function and void ABI unproven with no callers t=5 model=muse-03
+?forward3@Rva0066F5F0ForwardView@@QAEXXZ	0x0066F620	12	blocked	tail-jump forwarder void ABI unproven with no callers no vtable slot proof needs class reconciliation t=4 model=muse-03
+?forward2@Rva0066F5F0ForwardView@@QAEXXZ	0x0066F610	28	blocked	2 INT3-bounded tail jumps 12 12 not one function and void ABI unproven with no callers t=3 model=muse-03
+??1StancesBehavior@@UAE@XZ	0x0045F001	103	blocked	vptr stores 0 vs retail 3 vtables plus EH state and dword [ebp-4] 0 vs mov 1 then byte 0 then or -1 size 96 vs 103 t=5 model=muse-03
+?rva005FEC0C@Rva005FEC0C@@QAEXXZ	0x005FEC0C	240	blocked	timer format cmovs idiv edi vs eax wall t=12 model=muse-08
+??1Rva005D1D38@@UAE@XZ	0x005D1D38	87	blocked	EH dtor missing prolog and edi homing needs throwing member at +0xC identity t=15 model=muse-05
+?finish@Rva00504F09FunctionCurve@@QAEXXZ	0x0050503C	174	blocked	pop ebx hoisted before final set call vs retail epilogue; flags /G6 /Os noG7 barrier tried t=12 model=muse-05 (stash 0.97 kept)
+?rva0046E113@HordeContain@@UAE_NPAUCoord3D@@@Z	0x0046E113	320	attempted	bank kept: final scale still loads x then multiplies by inv; tried *=, x*inv, const inv, local Coord3D& c; none produces the movaps inv copy retail uses for x and y. t=6 model=claude-opus-5-5
+?getMinMaxAndCenter@AIGroup@@QAE_NPAUCoord2D@@0PAUCoord3D@@@Z	0x0036D14F	374	attempted	bank kept: same final-scale wall as HordeContain 0x0046E113 plus y-add operand order; local refs for objPos and center and *= spelling leave 19 diffs. t=5 model=claude-opus-5-5
+?Cast_Ray@MeshClass@@UAE_NAAVRayCollisionTestClass@@@Z	0x0014B240	928	attempted	bank kept: all 16 diffs are operand order inside the inlined Matrix3D::Rotate_Vector/Transform_Vector (retail loads v->Z/v->Y before the matrix element); a TU-local copy reproduces the header result, vector-first products and hoisted x/y/z locals do not help. t=8 model=claude-opus-5-5
+?rva00363EC0@Path@@QAEMPAUCoord3D@@0@Z	0x00363EC0	228	attempted	bank kept: the 2-instruction swap is the p reload at the if-join; local refs for *p (function or loop scope), a node position ref and d1/d2 declaration order all keep it after the node->x load. t=4 model=claude-opus-5-5
