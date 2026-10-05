@@ -13456,3 +13456,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva000311E0@GeneralAllocator@Allocator@EA@@QAEIPBXIPADPAGI@Z,0x000311E0,address-derived hex-dump member reached from dump formatter 0x00031430 (5-arg thiscall src/count/ascii/wide/cap); body unrecovered so the name is a candidate not an identity
 ??0Rva0023AE08@@QAE@XZ,0x0023BC36,address-derived primary-base ctor called once from derived ctor 0x0004C43E in base position; body unrecovered so the name is a candidate not an identity
 ?erase@Rva00082XXHintVec@@QAEPAUTreeHintRef00217D4C@@PAU2@0@Z,0x000819EC,address-view alias for rowed vector TreeHintRef00217D4C range erase at same address
+?erase@Rva0005E322TreeView@@QAEIABVAsciiString@@@Z,0x0005B5EA,address-view alias for rowed Rb-tree AsciiString single erase at same address
