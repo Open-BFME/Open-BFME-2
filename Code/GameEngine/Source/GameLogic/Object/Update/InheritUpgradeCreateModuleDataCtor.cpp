@@ -50,10 +50,12 @@ private:
 	Rva003623E5Member m_filter;
 };
 
+extern const void *const g_00C59768[];
+
 // ??0InheritUpgradeCreateModuleData@@QAE@XZ
 InheritUpgradeCreateModuleData::InheritUpgradeCreateModuleData()
 {
-	m_vtable = reinterpret_cast<void *>(0x00C59768);
+	m_vtable = (void *)g_00C59768;
 	m_radius = 0.0f;
 	m_upgrade.clear80();
 	m_filter.construct();
