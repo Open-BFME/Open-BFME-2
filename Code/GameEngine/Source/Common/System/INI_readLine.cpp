@@ -68,7 +68,8 @@ public:
 	char m_tail[0x86C - 0x848];
 };
 
-class Xfer
+// Target proves a raw buffer/size call through slot 9, not its class or method name.
+class BfmeIniTransferSlot09
 {
 public:
 	virtual void _d0() = 0;
@@ -80,10 +81,12 @@ public:
 	virtual void _d6() = 0;
 	virtual void _d7() = 0;
 	virtual void _d8() = 0;
-	virtual void xferUser(void *data, int dataSize) = 0;
+	virtual void slot09(void *data, int dataSize) = 0;
 };
 
-extern Xfer *g_00DDF57C;
+// Sole provider: retail VA 0x00DDF57C contains four initial zero bytes.
+// The clear routine and reader share this pointer without naming its runtime class.
+void *g_00DDF57C = 0;
 
 class INI
 {
@@ -126,6 +129,6 @@ void INI::readLine()
 	}
 	if (g_00DDF57C != 0) {
 		unsigned int len = strlen(m_buffer);
-		g_00DDF57C->xferUser(m_buffer, (int)len);
+		((BfmeIniTransferSlot09 *)g_00DDF57C)->slot09(m_buffer, (int)len);
 	}
 }

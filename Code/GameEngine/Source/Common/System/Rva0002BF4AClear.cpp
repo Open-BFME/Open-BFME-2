@@ -8,7 +8,7 @@ public:
 	void rva00601A8D();
 };
 extern AsciiString g_00DDF5B4;
-extern int g_00DDF57C;
+extern void *g_00DDF57C;
 class Rva0002BF4A
 {
 public:
