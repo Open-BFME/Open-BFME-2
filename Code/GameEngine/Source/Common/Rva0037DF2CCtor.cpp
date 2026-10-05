@@ -10,6 +10,7 @@
 // Callers at 0x001EC15F 0x001EC3FA 0x001EC491 0x001ECD05 0x0040C354.
 #include <string.h>
 #include "ascii_string.h"
+extern const void *const g_00BDF158[];
 class EmptyBase
 {
 public:
@@ -48,6 +49,6 @@ private:
 	int m_90;
 	Rva004E04FD m_94;
 };
-Rva0037DF2C::Rva0037DF2C() : m_vtable(0x00BDF158), m_s04(AsciiString::TheEmptyString), m_f08(0.0f), m_c0C(0), m_90(0)
+Rva0037DF2C::Rva0037DF2C() : m_vtable((unsigned int)g_00BDF158), m_s04(AsciiString::TheEmptyString), m_f08(0.0f), m_c0C(0), m_90(0)
 {
 }
