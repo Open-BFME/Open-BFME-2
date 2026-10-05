@@ -1,8 +1,8 @@
 // ?RequestGameLeave@LANAPI@@UAEXXZ
-// partial score=0.98 date=2026-10-04
-// ?RequestGameLeave@LANAPI@@UAEXXZ
-// partial score=0.97 date=2026-09-29
+// partial score=0.99 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /EHsc
+// ?RequestGameLeave@LANAPI@@UAEXXZ
+// ?RequestGameLeave@LANAPI@@UAEXXZ
 //
 // ?RequestGameLeave@LANAPI@@UAEXXZ, retail 0x0044A0CF, 325 bytes.
 // BFME2 RequestGameLeave via BFME1 donor LANAPIRequestGameLeave.cpp retail 0x00687CE0.
@@ -182,6 +182,11 @@ public:
 	virtual void slot63( void ) = 0;
 	virtual BfmeNetAddress *localAddress( void ) = 0;
 	void Rva004495A2( LANMessage *message, UnsignedInt address );
+
+protected:
+	// removeGame is rowed 0x00449913 as ?removeGame@LANAPI@@IAEXPAVLANGameInfo@@@Z,
+	// so it is protected: declaring it public mangles QAE and leaves this call
+	// unresolved.
 	void removeGame( LANGameInfo *game );
 
 private:
@@ -211,8 +216,14 @@ void LANAPI::RequestGameLeave( void )
 	{
 		BfmeNetAddress *gameAddr = &m_currentGame->m_address;
 		BfmeNetAddress *local = localAddress();
+		// Retail calls the address compare, tests the returned AL against itself
+		// and only then stores 8 unconditionally, branching past the 6 store
+		// when the addresses are equal. Naming the compare result keeps the 8
+		// store downstream of the call; the test form wants AL against itself
+		// rather than against the known-zero EBX.
+		Bool same = gameAddr->Rva00248CBF( local );
 		message.type = 8;
-		if( !gameAddr->Rva00248CBF( local ) )
+		if( !same )
 			message.type = 6;
 	}
 	else
@@ -222,8 +233,12 @@ void LANAPI::RequestGameLeave( void )
 
 	fillInLANMessage( &message );
 
+	// A named static for the empty name: retail keeps that constant load in its
+	// own block reached by a jump, while a bare L"" literal in the conditional
+	// is merged into the fallthrough and costs five bytes of the body.
+	static const WideChar kEmptyName[] = L"";
 	LANGameInfo *game = m_currentGame;
-	wcsncpy( message.gameName, game ? game->getName().str() : ( _WriteBarrier(), L"" ), 0x10 );
+	wcsncpy( message.gameName, game ? game->getName().str() : ( _WriteBarrier(), kEmptyName ), 0x10 );
 	message.gameName[0x10] = 0;
 
 	Rva004495A2( &message, 0 );
