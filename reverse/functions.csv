@@ -64132,3 +64132,7 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?read_chunks@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,,0x0018B790,604,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadChunks.cpp,matched,
 ?rva00151248@Rva00151248@@QAEXXZ,,0x00151248,64,Code/GameEngine/Source/Common/Rva00151248Init.cpp,matched,
 ?rva001514B2@Rva001514B2@@QAEPAXHH@Z,,0x001514B2,30,Code/GameEngine/Source/Common/Rva001514B2Chain.cpp,matched,
+??0Rva001FA5A5@@QAE@XZ,,0x001FA5A5,22,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemTemplateCtor.cpp,matched,honest Rva ctor zeroing plus rowed Rva001F9060 at plus 8
+??0Rva001FBA45@@QAE@XZ,,0x001FBA45,22,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemTemplateCtor.cpp,matched,honest Rva ctor zeroing plus Rva001FA5A5 at plus 8
+??0Rva001FBF37@@QAE@XZ,,0x001FBF37,22,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemTemplateCtor.cpp,matched,honest Rva ctor zeroing plus Rva001FBA45 at plus 8
+??0ParticleSystemTemplate@FXParticleSystem@@QAE@ABVAsciiString@@@Z,0x001FC1E0,0x001FC1E0,81,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemTemplateCtor.cpp,matched,BFME1 ParticleSystemTemplateCtorThunk donor adapted to retail +4 offsets; base 0x1F4E82 name 0x365F0 tail 0x1FBF37 slave 0; factory 0x1FCBD7 same class
