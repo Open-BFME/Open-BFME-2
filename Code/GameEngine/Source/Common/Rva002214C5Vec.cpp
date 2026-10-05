@@ -29,7 +29,22 @@ class FXList;
 
 extern const struct FieldParse SlaveAttackFieldTable;
 extern const char g_Rva0107301CEmptyString[];
-extern "C" void Rva0022104EParseThunk();
+class INI;
+
+// The table entries' parse target: the map value is an object whose first
+// virtual parses from the INI.
+class Rva0022104EParser
+{
+public:
+	virtual void parse(INI *ini) = 0;
+};
+
+// FieldParse parse function 0x0022104E (13B) stored in every entry built
+// below: forward the INI to the entry's userdata object.
+void __cdecl Rva0022104EParse(INI *ini, void *instance, void *store, const void *userData)
+{
+	((Rva0022104EParser *)userData)->parse(ini);
+}
 
 extern _STL::map<int, void *, _STL::less<int>, _STL::allocator<_STL::pair<const int, void *> > > *Rva002213D9Get();
 void __cdecl free(void *);
@@ -45,7 +60,7 @@ void Rva002214C5Get(_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > *out)
     for (; it != last; ++it) {
         BfmeE16 e;
         e.a = it->first.str();
-        e.b = (void *)&Rva0022104EParseThunk;
+        e.b = (void *)&Rva0022104EParse;
         e.c = *(void **)&it->second;
         e.d = 0;
         tmp.push_back(e);
