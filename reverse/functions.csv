@@ -63564,3 +63564,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva00458E2Get@@YGXHPAH00@Z,,0x000458E2,162,Code/Libraries/Source/WWVegas/WW3D2/Rva0045878Video.cpp,matched,
 ?rva000456C9@Rva000456C9@@QAEXPBV?$RefCountPtr@VTextureClass@@@@@Z,,0x000456C9,39,Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp,matched,
 ?rva00058913@Rva00058913@@QAEXPAURva00058913Out@@I@Z,,0x00058913,42,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,
+?rva00043073@Rva00043073@@QAEXMMM_N@Z,,0x00043073,85,Code/Libraries/Source/WWVegas/WW3D2/Rva00043073Gamma.cpp,matched,
