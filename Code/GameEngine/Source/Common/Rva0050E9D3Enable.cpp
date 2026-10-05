@@ -191,6 +191,13 @@ void *Rva0043CCC2Get(void)
 	return Rva0043C9B3Get();
 }
 
+// ?Rva0043CCC7Set@@YAXXZ @0x0043CCC7 10B: sets the singleton's +4 flag byte
+// (the byte Rva0043CCDASet below compares). Address name.
+void Rva0043CCC7Set(void)
+{
+	*((unsigned char *)Rva0043C9B3Get() + 4) = 1;
+}
+
 // ?Rva0043CCDASet@@YAXE@Z @0x0043CCDA 34B.
 // Flag setter on the 0x0043C9B3 singleton block, twin of 0x004E432A above:
 // if the byte arg equals the flag byte at +4 of the block, return; if arg
