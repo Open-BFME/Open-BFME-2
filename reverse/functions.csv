@@ -63533,3 +63533,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003B015D@@YAXHHH@Z,,0x003B015D,25,Code/GameEngine/Source/Common/Rva003BStaticForwards.cpp,matched,Forwards (a1 a2 a3 0 0) to pinned 0x003AFFBE; caller cleans 0x14
 ?rva003B02A1@@YAXHHH@Z,,0x003B02A1,23,Code/GameEngine/Source/Common/Rva003BStaticForwards.cpp,matched,Forwards (a1 a2 0 a3) to pinned 0x003B0176; caller cleans 0x10
 ??0Rva003B76EF@@QAE@PAH@Z,,0x003B76EF,28,Code/GameEngine/Source/Common/Rva003B76EFCtor.cpp,matched,Zeroes +0 then runs pinned 0x003B7448 on +4 with arg+4; /G7 for the and-zero store
+?rva003BBD84@@YGXABVAsciiString@@@Z,,0x003BBD84,64,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBD84.cpp,matched,Mask sweep with constant 1 through pinned Player 0x002AEEA7; same family as rowed 0x003BB233
+?rva003BBDC4@@YGXABVAsciiString@@@Z,,0x003BBDC4,64,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBD84.cpp,matched,Mask sweep with constant 1 through pinned Player 0x002AF037; same family as rowed 0x003BB233
