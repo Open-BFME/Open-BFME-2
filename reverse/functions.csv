@@ -60879,3 +60879,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?reset@Rva002D38EB@@QAEXPAVRva00527CCE@@@Z,,0x002D38EB,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,owning-pointer reset same pointee 0x00527CCE as clear 0x002D38D1 callers 0x002D3F56 0x0042DB96
 ?reset@Rva002D390E@@QAEXPAVRva00527FA2@@@Z,,0x002D390E,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,owning-pointer reset same pointee 0x00527FA2 as clear 0x002D3931 caller 0x002D40A4
 ?rva00283002@Rva00283002@@QAEXXZ,,0x00283002,49,Code/Libraries/Source/WWVegas/WWLib/Rva00283002Clear.cpp,matched,list clear via pinned dtor plus free resetting sentinel abutting CreateNode
+?rva0040CB79@Rva0040CB3AIndexedField@@QBEHPAVRva0040C351@@@Z,,0x0040CB79,63,Code/GameEngine/Source/Common/Rva0040CB3ABinarySearch.cpp,matched,linear index search by Rva0040C351 equality via rowed 0x0040C3BB shares +0x40/+0x44 layout with neighbours
