@@ -10260,3 +10260,4 @@ _M_assign_aux<const BfmeStringRecord00568CE0*>	0x00569F0C	167	blocked	568CE0 TU 
 ?rva002E3978@PolygonTrigger@@QAEXPAH@Z	0x002E3978	155	partial	pop-ecx vs fstp ordering after floor-ceil t=30 model=muse-03 score=0.96 stash=reverse/attempts/0x002e3978.cpp
 ?rva0031FC6A@Rva0031FC08@@QAEXV?$StringBase@D@@@Z	0x0031FC6A	163	partial	mov-ecx-esp vs mov-ebp-10-esp transposed t=35 model=muse-03 score=0.98 stash=reverse/attempts/0x0031fc6a.cpp
 ?rva004FB382@Rva004FB382@@QAE_NXZ	0x004FB382	112	partial	push [eax+0x14] vs retail mov eax,[eax+0x14]+push eax 1B scheduling t=20 model=muse-06 score=0.97 stash=reverse/attempts/0x004fb382.cpp
+?rva006013B7@Rva0060126D@@QAE?AURva006013B7Pair@@ABURva00600F9CElement@@@Z	0x006013B7	155	partial	ret loads tmp via [ebp+0xc] not [eax]; callee 0x006012ED leaves result ptr in eax so caller needs void** return per shape levers 32+465 t=28 model=muse-02 score=0.99 stash=reverse/attempts/0x006013b7.cpp
