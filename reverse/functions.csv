@@ -56147,3 +56147,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0036E0B6@AIGroup@@QBE_NXZ,,0x0036E0B6,45,Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036E071.cpp,matched,same walk as isIdle AI byte 0x3CA unblocks 0x26249D 0x20C83F
 ?Rva003BACCA@@YGXPAVParameter@@@Z,,0x003BACCA,75,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BACCA.cpp,matched,leaf Parameter unused two TacticalView slot 0x5c with g_00BBB9B0 g_00BBB9B4
 ??0Rva0053FDE6@@QAE@ABV0@@Z,,0x0053FF5F,51,Code/Libraries/Source/WWVegas/WW3D2/Rva0053FF5FFinish.cpp,matched,copy ctor pointer-local dword stores schedule the O1 save pair past the first store (sibling 0x53FE2A idiom)
+?rva00602810@Rva00602810@@QAEHXZ,,0x00602810,19,Code/GameEngine/Source/Common/Rva00602810.cpp,matched,honest-address thiscall near Rva006026E0 cluster via inverted neq branch
