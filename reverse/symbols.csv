@@ -13195,3 +13195,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva00016EE40@Rva00016EE40@@QAEPAPAXPAPAXH@Z,0x16EE40,rva000E509B table fetch: address read from the REL32 at 0x000E52CF in 0x000E509B; fresh address-derived name (out, index) returning the out-pointer for the 37B array RefCount bump body
 ?rva000117D89@@YAXPAX0@Z,0x117D89,rva000E509B name resolve: address read from the REL32 at 0x000E536E in 0x000E509B; fresh address-derived cdecl name (out, in) filling the verify string slot
 ?rva000BF9FC@Rva000B8F5AOuter@@QAEXPAXHH@Z,0xBF9FC,rva000BFD77 refill: address read from the REL32 at 0x000BFD98 in 0x000BFD77; fresh address-derived Outer-method name (entry, 1, 0) for the 341B body
+?rva00112898@Rva00113110Holder@@QAEXHHPAX@Z,0x00112898,"retail REL32 at 0x00113148 in 0x00113110 targets 0x00112898 (ecx=esi Holder thiscall 3 stack args [esi+0x58] plus 0 plus 0; 569B Ghidra body sharing +0x5C holder); opaque candidate not identity"
