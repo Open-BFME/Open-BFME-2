@@ -12032,3 +12032,4 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva0013275A@Rva00132D0FHolder@@QAEHXZ,0x0013275A,"retail REL32 at 0x00132D27 in 0x00132D0F targets 0x0013275A (ecx=esi thiscall no args int cmp-1; 42B Ghidra FUN); opaque candidate not identity"
 ?rva00132784@Rva00132D0FHolder@@QAEHXZ,0x00132784,"retail REL32 at 0x00132D33 in 0x00132D0F targets 0x00132784 (ecx=esi thiscall no args int cmp-1; 42B Ghidra FUN); opaque candidate not identity"
 ?rva0014F647@@YAXPAX0@Z,0x0014F647,"retail REL32 in 0x0014F674/0x0014F9E7 targets 0x0014F647 (cdecl 2 stack args no this; 45B Ghidra EH body); opaque candidate not identity"
+?rva00106970@Rva00106C79Holder@@QAE_NHH@Z,0x00106970,"retail REL32 at 0x00106C91 in 0x00106C79 targets 0x00106970 (ecx=esi Holder thiscall 2 stack args a1 a2; 150B Ghidra FUN); opaque candidate not identity"
