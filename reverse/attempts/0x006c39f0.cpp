@@ -1,5 +1,7 @@
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
 // partial score=0.96 date=2026-10-05
+// ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
+// finish attempt for ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z @0x006C39F0, 191B.
 // cl: /O2 /DNDEBUG /MD
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z @ 0x006C39F0 (191B, ret 0x10).
 //
@@ -70,11 +72,15 @@ public:
 bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
                                   unsigned int allocSize, void *buffer)
 {
-	// Declared before the tracking test because retail's tracking-off exit
-	// returns it directly through bl (`mov al,bl`), and preset to 1.
+	// Preset to 1 before the tracking test, and BOTH the tracking-off and the
+	// key-found exit jump to one shared return at the end: retail keeps this
+	// byte in bl and reads it back only through the single mov al,bl epilogue
+	// at 0x6C3A9F. Returning it from two separate points instead lets MSVC
+	// constant-fold the tracking-off exit to mov al,1 and drop the push ebx
+	// the whole rest of the body is built around.
 	bool owned = true;
 	if (!m_tracking)
-		return owned != 0;
+		goto done;
 
 	Rva006C17B0 *table = &m_table;
 	Rva006C17B0Node *node = table->m_array
@@ -85,7 +91,7 @@ bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
 		do
 		{
 			if (node->m_key == key)
-				return owned;
+				goto done;
 			node = node->m_next;
 		} while (node);
 	}
@@ -114,4 +120,7 @@ bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
 	if (owned)
 		rva006C1A50Free(run);
 	return false;
+
+done:
+	return owned != 0;
 }
