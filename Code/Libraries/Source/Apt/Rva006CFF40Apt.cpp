@@ -13,16 +13,21 @@ class AptCIH
 {
 public:
 	virtual void vtableSlot0();
-	bool rva006CFCD0() const;
 	void *rva006CFF40() const;
 private:
 	unsigned char m_pad[0x48];
 	void *m_4C;
 };
 
+class Rva006CFCD0
+{
+public:
+	bool isSpriteInstBase() const;
+};
+
 void *AptCIH::rva006CFF40() const
 {
-	if (!rva006CFCD0()) {
+	if (!((const Rva006CFCD0 *)this)->isSpriteInstBase()) {
 		g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
