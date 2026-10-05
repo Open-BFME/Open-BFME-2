@@ -12479,3 +12479,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?rva005E6A9D@Rva005E6A9D@@QAEXXZ,0x005E6A9D,jump target of 17B forwarder 0x005E6BA3; original name unknown
 ?rva005E6AD8@Rva005E6AD8@@QAEXXZ,0x005E6AD8,jump target of 17B forwarder 0x005E6BB4; original name unknown
 ??4Rva001F8CC2@@QAEAAV0@ABV0@@Z,0x001F8CC2,second-base assign called from 0x001F9CE7 in 0x001F9CCA; vector holder assign; original name unknown
+?getVtblIndex@AptValue@@QBE?AW4AptVirtualFunctionTable_Indices@@XZ,0x006DBB30,Native isObjectOfType or DoesImplementObject call; original source and Godfather MAP signature; verified provider alias
+?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z,0x0070B380,Native isObjectOfType or DoesImplementObject call; original source and Godfather MAP signature; verified provider alias
+?GetAt@AptArray@@QBEPAVAptValue@@H@Z,0x006D8A50,Native isObjectOfType or DoesImplementObject call; original source and Godfather MAP signature; verified provider alias

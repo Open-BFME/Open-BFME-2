@@ -35,6 +35,7 @@ class AptRegister;
 class AptArray;
 class AptNativeHash;
 class AptCIH;
+enum AptVirtualFunctionTable_Indices { AptVFT_ScriptFunctionByteCodeBlock = 45 };
 class AptValue {
     unsigned int m_valueFlags;
 public:
@@ -49,8 +50,8 @@ public:
     AptCIH *c_cih(bool=false);
     AptArray *c_array() const;
     bool getIsDefined() const; bool isBoolean() const; bool isNone() const; bool isScriptFunction() const; bool isNativeFunction() const;
-    int getVtblIndex() const;
     bool isArray() const;
+    AptVirtualFunctionTable_Indices getVtblIndex() const;
     bool isPrototype() const;
     AptPrototype *c_prototype() const;
     bool isLookup() const;
@@ -179,6 +180,7 @@ struct AptActionInterpreter
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
     int doFSCommand(const char *,const char *);
     void stackPushIndirect(AptValue *const);
+    static bool isObjectOfType(AptValue *,AptValue *);
 private:
     AptValue *_doCloneSprite(AptCIH *,AptValue *,AptValue *,AptValue *,int,AptValue *);
     static AptValue *getObject(AptValue *,AptValue *,const EAStringC *);
@@ -223,6 +225,7 @@ private:
     HANDLER(Push);
     HANDLER(Throw);
     HANDLER(Extends);
+    HANDLER(CastOp);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -2079,3 +2082,39 @@ void AptActionInterpreter::_FunctionAptActionStartDragMovie(AptActionInterpreter
     }
     p->stack.rva006E3AA0(n);
 }
+class AptObject : public AptValue { public: bool DoesImplementObject(AptValue *) const; };
+bool AptActionInterpreter::isObjectOfType(AptValue *pObject, AptValue *pInterface)
+{
+    bool bIsOfType=false;
+    if (pObject->ContainsNativeHashVirtual() && pInterface->ContainsNativeHashVirtual()) {
+        AptValue *pFuncPrototype=pInterface->GetNativeHashVirtual()->mpPrototype;
+        if (!pFuncPrototype->isPrototype()) {
+            g_bfmeAptAssertAtE17734("pFuncPrototype->isPrototype()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x2443);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        if (pObject->isCIH()) {
+            AptValue *pProto=pObject->GetNativeHashVirtual()->Get__Proto__();
+            while (pProto) {
+                if (pProto==pFuncPrototype) bIsOfType=true;
+                pProto=pProto->GetNativeHashVirtual()->Get__Proto__();
+            }
+        } else {
+            if (((AptObject *)pObject)->DoesImplementObject(pFuncPrototype)) bIsOfType=true;
+        }
+    } else if (!pObject->isScriptFunction() && !pObject->isObject() && pObject->getVtblIndex()==pInterface->getVtblIndex()) bIsOfType=true;
+    return bIsOfType;
+}
+void AptActionInterpreter::_FunctionAptActionCastOp(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    if (p->stack.count<2) {
+        g_bfmeAptAssertAtE17734("false && \"[APT] Actionscript Cast Op did not find enough parameters. Check Script code.\"", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x24C9);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        p->stack.PopAndPush(p->stack.count,gpUndefinedValue);
+        return;
+    }
+    AptValue *object=p->stack.At(0);
+    AptValue *interfaceValue=p->stack.At(1);
+    if (isObjectOfType(object,interfaceValue)) p->stack.PopAndPush(2,object);
+    else { p->stack.Pop(2); p->stack.PushNoInc(gpUndefinedValue); }
+}
+#pragma comment(linker, "/alternatename:?getVtblIndex@AptValue@@QBE?AW4AptVirtualFunctionTable_Indices@@XZ=?get@Rva006DBB30SarDwordField@@QBEHXZ")
