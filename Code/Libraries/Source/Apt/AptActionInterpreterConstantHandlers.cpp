@@ -29,6 +29,7 @@ static __forceinline float bfme_fmodf(float x,float y) { return (float)fmod(x,y)
 class EAStringC;
 class AptString;
 class AptInteger;
+class AptPrototype;
 class AptLookup;
 class AptRegister;
 class AptArray;
@@ -49,6 +50,8 @@ public:
     bool getIsDefined() const; bool isBoolean() const; bool isNone() const; bool isScriptFunction() const; bool isNativeFunction() const;
     int getVtblIndex() const;
     bool isArray() const;
+    bool isPrototype() const;
+    AptPrototype *c_prototype() const;
     bool isLookup() const;
     bool isRegister() const;
     AptLookup *c_lookup() const;
@@ -147,6 +150,7 @@ public:
             --count;
         }
     }
+    __forceinline int GetSize() const { return count; }
     int count,capacity;
     AptValue **items;
 };
@@ -215,6 +219,7 @@ private:
     HANDLER(End); HANDLER(ToggleQuality); HANDLER(StringLessThan); HANDLER(MBLength); HANDLER(CharToAscii); HANDLER(MBSubString); HANDLER(MBCharToAscii); HANDLER(MBAsciiToChar); HANDLER(BitURShift);
     HANDLER(Push);
     HANDLER(Throw);
+    HANDLER(Extends);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -1799,3 +1804,46 @@ void AptActionInterpreter::_FunctionAptActionNewMethod(AptActionInterpreter *con
     if(object) { p->stack.Push(object); object->Release(); }
     else p->stack.Push(gpUndefinedValue);
 }
+
+class AptNativeHash { public: int mnTotalSize; void *mpData; AptValue *mp__proto__; AptValue *mpPrototype; unsigned int nEventHandlers; __forceinline AptValue *Get__Proto__() const { return mp__proto__; } __forceinline AptValue *GetPrototype() const { return mpPrototype; } __forceinline void SetPrototype(AptValue *p) { if(p) p->AddRef(); if(mpPrototype) mpPrototype->Release(); mpPrototype=p; } __forceinline void Set__Proto__(AptValue *p) { if(p) p->AddRef(); if(mp__proto__) mp__proto__->Release(); mp__proto__=p; } };
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;
+// Accessed AptPrototype prefix: AptValue8 + native hash20 + constructor pointer.
+class AptPrototype : public AptValue {
+    AptNativeHash mNativeHash;
+    AptValue *mp__constructor__;
+public:
+    AptPrototype();
+    static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
+    static void operator delete(void *,unsigned int);
+    __forceinline void SetSuperConstructor(AptValue *p) { AptValue *old=mp__constructor__; mp__constructor__=p; p->AddRef(); if(old) old->Release(); }
+};
+void AptActionInterpreter::_FunctionAptActionExtends(AptActionInterpreter *const p,LocalContextT *const c)
+{
+    if (p->stack.GetSize()<2) {
+        g_bfmeAptAssertAtE17734("pInterpreter->stack.GetSize() >= 2", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x23FE);
+        if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+    AptValue *pSuperClass=p->stack.At(0);
+    AptValue *pSubClass=p->stack.At(1);
+    if (pSuperClass->ContainsNativeHashVirtual() && pSubClass->isScriptFunction()) {
+        AptNativeHash *pSuperHash=pSuperClass->GetNativeHashVirtual();
+        AptNativeHash *pSubHash=pSubClass->GetNativeHashVirtual();
+        AptValue *pSuperPrototype=pSuperHash->GetPrototype();
+        AptValue *pSubPrototype=pSubHash->GetPrototype();
+        if (!pSuperPrototype) { pSuperPrototype=new AptPrototype(); pSuperHash->SetPrototype(pSuperPrototype); }
+        if (!pSubPrototype) { pSubPrototype=new AptPrototype(); pSubHash->SetPrototype(pSubPrototype); }
+        if (!pSubPrototype->isPrototype()) {
+            g_bfmeAptAssertAtE17734("pSubPrototype->isPrototype() && \"Object Extending has invalid prototype object!\"", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x2415);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        pSubPrototype->c_prototype()->SetSuperConstructor(pSuperClass);
+        pSuperClass->setHasClass(1);pSubClass->setHasClass(1);
+        pSubPrototype->GetNativeHashVirtual()->Set__Proto__(pSuperPrototype);
+    } else Rva006CC110Log(3,"--AptWarning-- Actionscript is attempting to use invalid objects in Extends Opcode.");
+    p->stack.Pop(2);
+}
+
+#pragma comment(linker, "/alternatename:??0AptPrototype@@QAE@XZ=??0Rva006DE1A0@@QAE@XZ")
+#pragma comment(linker, "/alternatename:??3AptPrototype@@SAXPAXI@Z=?Rva006F12F0Free@@YAXPAXH@Z")
+#pragma comment(linker, "/alternatename:?isPrototype@AptValue@@QBE_NXZ=?isPrototype@BfmeAptValue006DCD20@@QBEHXZ")
+#pragma comment(linker, "/alternatename:?c_prototype@AptValue@@QBEPAVAptPrototype@@XZ=?rva006DD120@BfmeAptValue006DCD20@@QAEPAV1@XZ")
