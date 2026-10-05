@@ -1,8 +1,4 @@
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
-// partial score=0.98 date=2026-10-05
-// ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
-// partial score=0.98 date=2026-10-05
-// ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
 // cl: /O2 /DNDEBUG /MD
 // The guard verifier of GeneralAllocatorDebug, at retail 0x006C3020 (156
 // bytes). The sibling of VerifyDelayedFreeFill at 0x006C30C0, and named the
@@ -22,6 +18,24 @@
 // a pointer into the caller's own frame; the guard run itself is returned in
 // eax. A nonzero `mode` argument means "also cover the 8 bytes past the guard",
 // which is where the clamp against the run block + 8 comes from.
+//
+// Two corrections the banked attempts carried, both established from retail
+// bytes rather than inferred:
+//
+//   * The failure path RETURNS FALSE. Retail's report call at +0xA7 is followed
+//     by `pop esi / pop edi / xor al,al / pop ebp / ret 0xC` -- a third exit,
+//     eight bytes, with no shared epilogue. Every bank fell out of the report
+//     into one `return true` at the end, which is why none of them emitted those
+//     bytes and all of them came up 7-8 short of retail's 156. That is also what
+//     makes retail's gate branch `je +7` over an INLINE early return rather than
+//     `jne` to a relocated one at the function end: with the early return
+//     spelled literally, MSVC7 reproduces both.
+//   * The beyond-the-guard limit is the END OF THE CALLER'S BLOCK (block+0x10),
+//     not a field of the allocator. Retail forms it with `lea edx,[esi+8]` and
+//     esi holds `lea esi,[ebp+8]`, the run block. Two banks read `this+0x10`
+//     because they took edi for the run block; the rowed, byte-verified MASM
+//     sibling at 0x006C3180 spells the same limit as `lea edx,[edi+8]` with
+//     edi holding `lea [ebp+8]` -- the same block+0x10 value.
 
 // 0x00030E20: the CRT's internal aligned-fill memset, cdecl, three stack
 // arguments. Declared to return unsigned char because the body only tests the
@@ -37,11 +51,18 @@ public:
 	// Unnamed body; the spelling is address-derived.
 	//
 	// Retail's push sequence is (0, &outLen, 0, 0, 0xB, runBlock), which is the
-	// reverse of the declaration order because cdecl pushes the last argument
-	// first. The out length is the fourth declared argument, which is what puts
-	// its frame slot at [esp+0x18] for the read-back after the call.
-	void *rva006C25F0Run(void *runBlock, int kind, unsigned int zero3,
-	                     unsigned int zero2, unsigned int *outLen, int zero1);
+	// reverse of the declaration order because a thiscall member's stack arguments
+	// are pushed right to left exactly as cdecl pushes them. The out length is
+	// therefore the FIFTH declared argument, and that is what puts its frame slot
+	// at [esp+0x18] for the read-back after the call.
+	//
+	// This is the SIX-argument call spelling, distinct from the seven-argument
+	// ?rva006C25F0 the rowed MASM sibling at 0x006C3180 uses: that body pushes a
+	// seventh zero ahead of the out length, so the two callers of this one builder
+	// genuinely pass different arities and need different names. Both are pinned at
+	// 0x006C25F0, and symbols.csv is additive per name, so both resolve.
+	void *rva006C25F0Run6(void *runBlock, int kind, int zero3, int zero2,
+	                      unsigned int *outLen, int zero1);
 
 	// 0x006C2FB0 as a thiscall MEMBER, the calling convention reverse/symbols.csv
 	// pins. Retail's call site is `push 0x008E7C0C / push ebp / mov ecx,edi /
@@ -67,13 +88,12 @@ public:
 	unsigned int m_guardFlags;     // +0x514
 };
 
-// ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z @ 0x006C3020 (156B)
 bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
                                             unsigned char mode)
 {
 	// The caller's block. Retail keeps it in ebp and forms the flag byte at
-	// block+4 and the run block at block+8 from it. The BEYOND-THE-GUARD limit,
-	// by contrast, is a field of the allocator -- see the note at its use below.
+	// block+4 and the run block at block+8 from it. The beyond-the-guard limit
+	// is also derived from it -- see the note at its use below.
 	void *callerBlock = block;
 
 	// The flag byte is read into a named value and the bit compared with `!= 0`.
@@ -88,10 +108,13 @@ bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
 	// exactly as retail's `je 0x6c3035` does. The direct
 	// `if (set) return true;` spelling instead relocates the early return to the
 	// end of the function and branches to it with `jne`.
-	const unsigned char flags = *(const unsigned char *)((const char *)callerBlock + 4);
-	const bool needsGuard = (flags & 4) != 0;
+	unsigned char flags = *(unsigned char *)((char *)callerBlock + 4);
+	const unsigned char beyond = (unsigned char)alsoBeyond;
 
-	if (needsGuard) {
+	if ((flags & 4) != 0) {
+		return true;
+	}
+	{
 		// Retail reads the flags dword and tests bit 3 of its HIGH byte, which is
 		// why the test is written against a shifted dword rather than against a
 		// narrowed field: the narrow spelling emits the byte test the body does
@@ -102,29 +125,30 @@ bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
 			unsigned int *outLen = &len;
 			unsigned char *runBlock = (unsigned char *)callerBlock + 8;
 			unsigned char *built =
-				(unsigned char *)rva006C25F0Run(runBlock, 0xB, 0, 0, outLen, 0);
+				(unsigned char *)rva006C25F0Run6(runBlock, 0xB, 0, 0, outLen, 0);
 
 			if (built) {
 				unsigned int gotLen = *outLen;
 				unsigned int span = gotLen < 0x40 ? gotLen : 0x40;
 				span += (unsigned int)built;
 
-				if (alsoBeyond) {
-					// The limit is a field of the ALLOCATOR, not of the caller's
-					// block. Retail forms it with `lea edx,[edi+0x10]` where edi
-					// holds `this`, while at that point the caller's block is in ebp
-					// and the run block is ebp+8 -- so this is this+0x10 and NOT
-					// runBlock+8. Reading retails `lea edx,[esi+8]` as runBlock+8
-					// addresses the wrong object entirely and raises `built` to the
-					// end of the caller's block.
+				if (beyond != 0) {
+					// The limit is the END OF THE CALLER'S BLOCK, not a field of the
+					// allocator. Retail forms it with `lea edx,[esi+8]` at +0x7D, and
+					// at that point esi holds the run block -- `lea esi,[ebp+8]` at
+					// +0x56 -- so the limit is block+0x10.
+					//
+					// Two banks read this as a field of the allocator (`this+0x10`)
+					// because they took edi for the run block. It is not: edi holds
+					// `this` in this body and is what the fill byte at +0x50B is read
+					// through. The rowed sibling 0x006C3180 settles it -- the same
+					// limit there is `lea edx,[edi+8]` with edi holding `lea
+					// [ebp+8]`, the same block+0x10 value, and that body is matched
+					// and byte-verified.
 					//
 					// The `cmp eax,edx / jae skip / mov eax,edx` shape is a RAISE of
-					// `built` to that limit, applied only when built is still below
-					// it -- so `builtin` keeps the comparison and only the right hand
-					// side moves onto the allocator. The sibling at 0x006C30C0 caps a
-					// LENGTH rather than a pointer, which is why the two banks never
-					// noticed they disagreed about which object the limit is on.
-					unsigned char *builtin = (unsigned char *)this + 0x10;
+					// `built` to that limit, applied only when built is still below it.
+					unsigned char *builtin = runBlock + 8;
 					if (built < builtin)
 						built = builtin;
 				}
@@ -136,6 +160,13 @@ bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
 					// this call pushes the message first, which is retail's order.
 					rva006C2FB0Report(
 						callerBlock, "GeneralAllocatorDebug::VerifyGuardFill failure.");
+					// Retail's third exit: the report is followed immediately by
+					// `pop esi / pop edi / xor al,al / pop ebp / ret 0xC`, so the
+					// verification FAILS rather than reporting and passing on. Every
+					// bank so far fell out of the report into the single shared
+					// `return true`, which is why none of them emitted those eight
+					// bytes and all of them came up 7-8 short.
+					return false;
 				}
 			}
 		}
