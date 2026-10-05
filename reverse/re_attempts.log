@@ -10367,3 +10367,4 @@ FUN_008b7d53	0x004B7D53	141	blocked	vslot10 negative this-adjustment plus EH plu
 ?rva004C0B63@SymbioticStructuresBody@@QAEXXZ	0x004C0B63	239	blocked	needs proven body slot 8 int identity plus float and reload levers; invented iface violates naming; t=20 model=muse-02
 ?rva00408A55@Rva00408A55@@QAEXXZ	0x00408A55	444	blocked	444B SaveGame file-io plus Unicode plus 0x418 frame needs full SaveGame model; t=10 model=muse-02
 ?rva002CB2D1@Rva002C9B80Owner@@QAE_NPAVObject@@PBUCoord3D@@PBX1@Z	0x002CB2D1	139	blocked	movss-subss vs fld-fsub for dz plus fstp-after-call vs fst-before-call plus jb vs ja plus missing fxch t=15 model=muse-08 (stash 0.93 kept)
+?rva00318871@Rva00318871@@QAEXPAVXfer@@@Z	0x00318871	315	blocked	BitFlags15 CommandSet xfer with Xfer virtuals slots 0x28 0x10 8 0x7c 0x6c plus popcount 0x28F528 plus name lookup 0x31852F plus setBitByName plus AsciiString temp plus _bfmeFormatText throw; needs full Xfer vtable and BitFlags layout; t=12 model=muse-12
