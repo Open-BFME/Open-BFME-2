@@ -18,3 +18,5 @@ BfmeStringRecord00111ACF &BfmeStringRecord00111ACF::operator=(const BfmeStringRe
     second = o.second;
     return *this;
 }
+#include <vector>
+template class _STL::vector<BfmeStringRecord00111ACF, _STL::allocator<BfmeStringRecord00111ACF> >;
