@@ -63649,3 +63649,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004E6BD2@Rva004E6BD2@@QAEXI@Z,,0x004E6BD2,36,Code/GameEngine/Source/Common/Rva004E6BD2Advance.cpp,matched,state advance on m_8==4: rowed sweep on m_30 then flip to 1 then rowed clear on m_44; full byte gate
 ?rva004E20AB@@YA_NPBURva004E20ABRec@@0@Z,,0x004E20AB,76,Code/GameEngine/Source/Common/Rva004E20ABEqual.cpp,matched,three-AsciiString-plus-flag equality via rowed compare chain; full byte gate
 ?rva004E67B3@Rva004E67B3@@QAEXI@Z,,0x004E67B3,29,Code/GameEngine/Source/Common/Rva004E67B3Stamp.cpp,matched,timestamp m_48 via timeGetTime import when m_8==2 with flip to 3; full byte gate
+?rva004E583D@Rva004E583D@@QAEXXZ,,0x004E583D,42,Code/GameEngine/Source/Common/Rva004E583DDispat.cpp,matched,frame-gated dispatch: client slot-0x7C counter at m_8 then slot-8 forward of m_4 plus block plus surplus; full byte gate
+?rva004E7A85@Rva004E7A85@@QAEXXZ,,0x004E7A85,82,Code/GameEngine/Source/Common/Rva004E7A85Refresh.cpp,matched,first-shot refresh via collector sweep plus world relationship probe plus logic submit plus collector run; full byte gate
