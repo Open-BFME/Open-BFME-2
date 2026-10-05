@@ -43,6 +43,7 @@ class Rva003197EEListener
 {
 public:
 	virtual void notify(void *);
+	void notifyX(void *);
 };
 
 struct Rva003196A7Call
@@ -130,4 +131,29 @@ void Rva0031980CList::apply(const Rva00319714Call &call)
 		(m_begin[i]->*call.notify)(call.arg, call.value);
 		i = m_index;
 	}
+}
+
+class Rva00319B0AVirt
+{
+public:
+	virtual void v0();
+	virtual void v1();
+};
+
+class Rva00319B0AOwner
+{
+public:
+	void rva00319B0A();
+private:
+	char m_pad0[8];
+	Rva003197EEList m_list;
+	char m_pad1[0x70];
+	Rva00319B0AVirt *m_ptr;
+};
+
+void Rva00319B0AOwner::rva00319B0A()
+{
+	if (m_ptr)
+		m_ptr->v1();
+	m_list.forEach((void (Rva003197EEListener::*)(void *))&Rva003197EEListener::notifyX, this);
 }
