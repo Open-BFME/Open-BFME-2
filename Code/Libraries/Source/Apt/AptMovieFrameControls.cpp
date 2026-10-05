@@ -78,7 +78,7 @@ struct AptPseudoCIH_t {AptControl *control;AptControlInfo *info; AptPseudoCIH_t 
  static void *operator new(unsigned int size){return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(size);}
  static void operator delete(void *,unsigned int);
 };
-class AptPseudoDisplayList {public:void *head;AptCIH *parent;void FindInst(int,AptPseudoCIH_t **,AptPseudoCIH_t **);void Insert(AptPseudoCIH_t *);};
+class AptPseudoDisplayList {public:void *head;AptCIH *parent;void FindInst(int,AptPseudoCIH_t **,AptPseudoCIH_t **);void Insert(AptPseudoCIH_t *); void Remove(AptPseudoCIH_t *); __forceinline void Insert(AptPseudoCIH_t *prev,AptPseudoCIH_t *item) {item->next=prev->next;item->prev=prev;if(item->next)item->next->prev=item;item->prev->next=item;}};
 void AptMovie::DoTemporaryFrameControls(AptPseudoDisplayList *display,int frame) {
  CHECK(frame>=0 && frame<nFrames,0xb2,"nFrame >= 0 && nFrame < (int)nFrames");
  if(frame<0 || frame>=nFrames) return;
@@ -117,3 +117,14 @@ void AptMovie::DoTemporaryFrameControls(AptPseudoDisplayList *display,int frame)
 #pragma comment(linker, "/alternatename:??3AptPseudoCIH_t@@SAXPAXI@Z=?Rva006D8680Free@@YAXPAXH@Z")
 
 #pragma comment(linker, "/alternatename:?rva00706950@Rva00706950@@QAEXPAXPAURva00700090Info@@@Z=?CleanupAfterExecution@AptActionInterpreter@@QAEXPAXPAUAptActionSetup@@@Z")
+
+// Donor34e2ed58628fb991 preserves Insert(prev,item) in both branches.
+// Hoisting it changes native temporary slots and duplicates the epilogue.
+void AptPseudoDisplayList::Insert(AptPseudoCIH_t *item) {
+ AptPseudoCIH_t *prev,*old;
+ FindInst(item->depth,&prev,&old);
+ if(old) {Remove(old);FindInst(item->depth,&prev,&old);Insert(prev,item);}
+ else Insert(prev,item);
+}
+
+#pragma comment(linker, "/alternatename:?Remove@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z=?Rva006F7C70Free@@YGXPAURva006F7C70Item@@@Z")

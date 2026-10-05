@@ -63177,3 +63177,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?ClearPool@AptBoolean@@SAXXZ,,0x006D89E0,55,Code/Libraries/Source/Apt/AptValue/AptScalarClearPoolsBFME2.cpp,matched,Later Integer777b24f0e1dc0929 and Floatdfdaf615e1a3b9ce ClearPool source guide; native full55B through RET independently proves AptBoolean poolE18028 next+8 virtual DestroyGCPointers slot11 and deleting destructor slot14. Existing factory and destroy-slot storage corroborate class; Boolean independently pooled unlike newer singleton donor.
 ?doFrameControls@AptMovie@@QAEXPAVAptDisplayList@@PAVAptCIH@@H@Z,,0x0070F370,559,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
 ?DoTemporaryFrameControls@AptMovie@@QAEXPAVAptPseudoDisplayList@@H@Z,,0x0070F040,776,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
+?Insert@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z,,0x006F8380,101,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,matched,
