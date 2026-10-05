@@ -180,6 +180,7 @@ private:
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
     HANDLER(InitArray);
+    HANDLER(GetProperty); HANDLER(SetProperty);
     HANDLER(GetTimer);
     HANDLER(Trace);
     HANDLER(Greater); HANDLER(LessThan2);
@@ -1232,4 +1233,37 @@ void AptActionInterpreter::_FunctionAptActionInitArray(AptActionInterpreter *con
     for(int i=0;i<n;++i) a->set(i,p->stack.At(i));
     p->stack.rva006FE050(n);
     p->stack.PushNoInc(a);
+}
+
+class BfmeAptValue006DCD20;
+void rva007065e0(int,int,BfmeAptValue006DCD20 *,BfmeAptValue006DCD20 **);
+// Native indexed22-entry StringCode table, exactly the88 bytes at DDC928.
+// Later gaszPropertyNames supplies semantic order; retain address-qualified storage.
+int g_aptPropertyCodesAtDDC928[22]={23,26,25,28,2,17,1,21,22,8,14,16,6,11,4,20,9,5,15,12,24,27};
+void AptActionInterpreter::_FunctionAptActionGetProperty(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *index=p->stack.At(0);
+    AptValue *target=p->stack.At(1);
+    // Snapshot the native output cell at its observed read point.
+    AptValue *volatile resolved;
+    rva007065e0((int)c->pCurrentContext,(int)c->pCurWith,(BfmeAptValue006DCD20 *)target,(BfmeAptValue006DCD20 **)&resolved);
+    AptValue *object=resolved;
+    if(object) {
+        unsigned int n=index->toInteger();
+        AptValue *value=p->getVariable(object,c->pCurWith,Rva0070B4F0GetString(g_aptPropertyCodesAtDDC928[n]),1);
+        p->stack.Pop(2);p->stack.Push(value);
+    } else {p->stack.Pop(2);p->stack.Push(gpUndefinedValue);}
+}
+void AptActionInterpreter::_FunctionAptActionSetProperty(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    AptValue *index=p->stack.At(1);
+    AptValue *target=p->stack.At(2);
+    // Snapshot the native output cell at its observed read point.
+    AptValue *volatile resolved;
+    rva007065e0((int)c->pCurrentContext,(int)c->pCurWith,(BfmeAptValue006DCD20 *)target,(BfmeAptValue006DCD20 **)&resolved);
+    unsigned int n=index->toInteger();
+    AptValue *object=resolved;
+    if(object) p->setVariable(object,c->pCurWith,Rva0070B4F0GetString(g_aptPropertyCodesAtDDC928[n]),value,1);
+    p->stack.Pop(3);
 }
