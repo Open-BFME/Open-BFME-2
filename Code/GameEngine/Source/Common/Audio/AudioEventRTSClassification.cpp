@@ -142,6 +142,7 @@ public:
 	AsciiString getFilename(void);
 	void generatePlayInfo(void);
 	void rva002DAAD5(void);
+	AsciiString rva002DA867(void);
 
 private:
 	void *m_vftable;
@@ -405,4 +406,39 @@ AsciiString AudioEventRTS::getFilename(void)
 	if (m_filenameDirty && m_eventInfo != 0)
 		generateFilename();
 	return m_filenameToLoad;
+}
+
+// ?rva002DA867@AudioEventRTS@@QAE?AVAsciiString@@XZ, RVA 0x002DA867 size 72.
+// Returns the string for the current play portion (+0x74 PP_Attack/Sound/Decay/Done).
+// Evidence: abuts rowed getFilename 0x002DA838 in this TU; switch on +0x74 matches
+// PP enum; case 1 calls rowed getFilename 0x002DA838; case 0 forwards to the rowed
+// +0x1C getter rowed as ?getPath@CDDrive@@UAE?AVAsciiString@@XZ (same offset as
+// m_attackName); case 2 forwards to the rowed +0x20 getter
+// ?get@Rva002D9BC1AsciiField@@QBE?AVAsciiString@@XZ (same offset as m_decayName);
+// default copies AsciiString::TheEmptyString. Callees called by their row names.
+class CDDrive
+{
+public:
+	virtual AsciiString getPath(void);
+};
+
+class Rva002D9BC1AsciiField
+{
+public:
+	AsciiString get(void) const;
+};
+
+AsciiString AudioEventRTS::rva002DA867(void)
+{
+	switch (m_portionToPlayNext)
+	{
+	case PP_Attack:
+		return ((CDDrive *)this)->CDDrive::getPath();
+	case PP_Sound:
+		return getFilename();
+	case PP_Decay:
+		return ((const Rva002D9BC1AsciiField *)this)->Rva002D9BC1AsciiField::get();
+	default:
+		return AsciiString::TheEmptyString;
+	}
 }
