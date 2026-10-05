@@ -435,3 +435,20 @@ void MpGameSetup::rva00442F65(int query, char *result, bool skip)
 		break;
 	}
 }
+
+// Retail 0x0043E512, 175 bytes: the "AptPing03", "AptPing02" or "AptPing01"
+// image for 1, 2 or 3, else none (it ignores the receiver; the online screen
+// calls it on its own panel at +0x70 too). Name unknown.
+const Image *MpGameSetup::rva0043E512(int value)
+{
+	switch (value)
+	{
+	case 1:
+		return TheMappedImageCollection->findImageByName(AsciiString("AptPing03"));
+	case 2:
+		return TheMappedImageCollection->findImageByName(AsciiString("AptPing02"));
+	case 3:
+		return TheMappedImageCollection->findImageByName(AsciiString("AptPing01"));
+	}
+	return 0;
+}
