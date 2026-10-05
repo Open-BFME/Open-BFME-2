@@ -13401,3 +13401,7 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva005D388B@Rva005D388B@@QAE?AUTreeHintRef00217D4C@@XZ,0x005D388B,by-value TreeHintRef getter on +0x24 member (hidden retptr at [ebp-16]); read from REL32 at 0x005D3AB2 in rva005D3A91 0x005D3A91; Ghidra 61B blocked
 ?rva005E4BB7@Rva005E4BB7@@QAEPAXPAX@Z,0x005E4BB7,thiscall on +0x1C member taking out-ptr returning pointer chain for 0x9F3F41; void ptrs assumed; read from REL32 at 0x005E4DBD in rva005E4DAF 0x005E4DAF; Ghidra 120B
 ?newObject@ThingFactory@@QAEPAVObject@@PBVThingTemplate@@PAVTeam@@PBUCreateMask@@_N@Z,0x002D0A23,4-arg factory reached by createViewObject 0x00493845 (template team zeroed 16B params 0); ret 0x10; params type opaque
+?rva002D36AE@Rva002D36AEHost@@QAEXHH@Z,0x002D36AE,thiscall on the 0x00DFF028 host: null-guarded delegate tail-jump to 0x005260FC; ret 8; called with (a g*b) from 0x003BD270
+?rva0023D68E@GameLogic@@QAEXH@Z,0x0023D68E,GameLogic walker over +0xAC/+0x8C links via getDrawable; ret 4; ecx is TheGameLogic at the 0x003BD2A6 call site
+?rva0042682B@Rva004266A1@@QAEXHE@Z,0x0042682B,void member (int uchar); call-site pushes (index-1 0/1); callee body stores low byte at struct+5; sibling rowed QAEEH family proves class Rva004266A1
+?rva00426914@Rva004266A1@@QAEXHE@Z,0x00426914,void member (int uchar); call-site pushes (index-1 0/1); callee body stores low byte at struct+6; sibling rowed QAEEH family proves class Rva004266A1
