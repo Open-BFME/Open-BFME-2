@@ -8976,3 +8976,7 @@ FUN_00588760	0x00188760	389	blocked	WW3D mesh chunk x87 SST plus SSE plus RGB sc
 ?rva00225F81@GameEngine@@QAEXH@Z	0x00225F81	374	blocked	GameEngine headless CreateProcess spawn needs STARTUPINFO layout plus strlen via ji thunk linkage t=20 model=muse-12
 ?rva000F1528@Rva000F1528@@QAE@XZ	0x000F1528	355	blocked	large EH ctor needs 0x4900 class layout with Region3D plus Rva0007671F arrays t=10 model=muse-12
 ?rva005DD06D@Rva005DD1EA@@UAE@XZ	0x005DD06D	126	blocked	vtable slot4 Apt gadget needs AsciiString plus Vector-base plus manual free t=15 model=muse-12
+??0Rva001F4B63@@QAE@ABVRvaSmartPtr12@@ABVRva001F376E@@@Z	0x001F4B63	260	blocked	complex EH ctor 4 walls xorps m78 EHstate helper regs no new idea t=5 model=muse-09
+?rva001FB201@Rva001FB201@@QAEXPAVXfer@@@Z	0x001FB201	535	blocked	large 535B version-gated xfer owner unknown no vtable no caller no ctor 30 members needs layout t=8 model=muse-09
+?rva003F3708@Rva003F3708@@QAEPAUElem003B2540@@H@Z	0x003F3708	49	partial	size exact 49B only lea-mov reg wall plus erase this reload t=20 model=muse-09 score=0.95 stash=reverse/attempts/0x003f3708.cpp
+?Rva002E76D3Get@@YAHXZ	0x002E76D3	118	blocked	uses edi as this without save odd ABI pin-only callee needs caller context t=5 model=muse-09

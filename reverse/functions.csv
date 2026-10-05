@@ -56518,3 +56518,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva006D2D90@@YAXXZ,,0x006D2D90,89,Code/GameEngine/Source/Common/Rva006D2D90Finish.cpp,matched,Dogma pool tuning init: volatile table read keeps retail induction variable; clamp computed once into 32-bit local
 ??1Rva0052A470@@QAE@XZ,,0x0052A470,69,Code/GameEngine/Source/Common/Rva0052A470Dtor.cpp,matched,non-virtual dtor AsciiString plus two vector owners
 ?Rva003E5105Check@@YG_NPAVParameter@@0@Z,,0x003E5105,74,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E5105.cpp,matched,rowed getUnitNamed via g_Va009FE16C and pin rva002F477E via g_Va009FF0F8
+?Rva003E8535Get@@YG_NPAVParameter@@0@Z,,0x003E8535,105,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8535.cpp,matched,ScriptConditions team unit path test via getTeamNamed getUnitNamed Pathfinder pin caller 0x003EC13F
