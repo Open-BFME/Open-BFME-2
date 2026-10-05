@@ -41,3 +41,12 @@ Rva0078D310Host::Rva0078D310Host( void *context )
 {
 	m_memberPointer = &m_member;
 }
+// ??0Rva000A2670@@QAE@PAX@Z @0x000A2670 24B unlock via base ctor row 0x00104F8F plus vtable g_00BC904C unblocks 0x0008F999 0x000A26F7 0x000A26C7
+class Rva000A2670 : public Rva0078D310Host
+{
+public:
+	Rva000A2670(void *context);
+};
+Rva000A2670::Rva000A2670(void *context) : Rva0078D310Host(context)
+{
+}

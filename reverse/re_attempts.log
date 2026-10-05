@@ -8949,3 +8949,4 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	size-exact 331B; retail po
 FUN_006f3f7d	0x002F3F7D	362	blocked	complex 362B 4-arg thiscall unknown owner 10plus callees virtuals SSE globals no donor t=6 model=muse-02
 FUN_00662552	0x00262552	118	blocked	gap AIUpdate layer logic src-dst-flag returns 3-5 needs layout plus global plus pin types t=12 model=muse-02
 FUN_0050bdf8	0x0010BDF8	122	blocked	two 0x74 news with VictoryConditionsInterface ctor pin but VictoryConditions is 0xc4 size mismatch plus vtable g_00BCFA00 plus virtual dtor plus rva0010953E needs donor t=8 model=muse-02
+FUN_00588760	0x00188760	389	blocked	WW3D mesh chunk x87 SST plus SSE plus RGB scale plus globals plus virtuals needs donor t=8 model=muse-02
