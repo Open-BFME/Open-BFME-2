@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /O2 /MD /D_CRTIMP=
 // BFME1 6583b3c1ff21db4a561285717028fdafc780b7db supplies the Math.pow
 // algorithm in game/Libraries/Source/EA/Apt/Rva008A5160MathPow.cpp.
 // Target 6E8990..6E89E8 has two stack arguments, cdecl return, and int3
@@ -129,4 +129,13 @@ AptValue *aptMathAsin(void *self, int argc)
         return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
     return Rva008A4EA0MakeFloat((float)asin(value));
+}
+
+// Native 6E8910..6E894A: checked top value and the CRT floor call.
+AptValue *aptMathFloor(void *self, int argc)
+{
+    if (argc < 1)
+        return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
+    float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
+    return Rva008A4EA0MakeFloat((float)floor(value));
 }
