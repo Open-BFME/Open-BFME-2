@@ -61544,3 +61544,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva005297A0@Rva0052936C@@QAEXPBD@Z,,0x005297A0,61,Code/GameEngine/Source/Common/Rva005297A0Method.cpp,matched,chain on 0x00529628 GetParam index array 6 stride 0x14 clears rowed
 ?rva005298E0@Rva0052936C@@QAEXPBD@Z,,0x005298E0,62,Code/GameEngine/Source/Common/Rva005297A0Method.cpp,matched,chain on 0x00529628 GetParam index array 6 stride 0x14 clears rowed
 ?rva00529A21@Rva0052936C@@QAEXPBD@Z,,0x00529A21,62,Code/GameEngine/Source/Common/Rva005297A0Method.cpp,matched,chain on 0x00529628 GetParam index array 6 stride 0x14 clears rowed
+?rva004340AC@AptSaveLoad@@QAEXXZ,,0x004340AC,134,Code/GameEngine/Source/Common/Rva004340ACMethod.cpp,matched,Apt button-enable refresh via rowed Get and Invoke with pending checks
