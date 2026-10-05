@@ -71,7 +71,12 @@ with (build.ROOT / "reverse" / "functions.csv").open(newline="", encoding="utf-8
             continue
         rva, sz = int(r["target_rva"], 16), int(r["target_size"])
         try:
-            body, relocs = build.read_object_symbol_bytes(o, build.ledger_object_symbol(r), sz)
+            object_symbol = build.ledger_object_symbol(r)
+            if build.is_funclet_row(r, object_symbol):
+                target = build.read_target_bytes(rva, sz)
+                body, relocs, _ = build.read_funclet(r, object_symbol, o, target)
+            else:
+                body, relocs = build.read_object_symbol_bytes(o, object_symbol, sz)
         except Exception:
             continue
         for off, rtype, sym in relocs:

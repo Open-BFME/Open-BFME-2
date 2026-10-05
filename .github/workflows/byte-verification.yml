@@ -46,3 +46,26 @@ jobs:
           sources = [line.strip() for line in os.environ.get('VERIFY_SOURCES', '').splitlines() if line.strip()]
           result = subprocess.run([sys.executable, 'tools/build.py', *sources])
           sys.exit(result.returncode)
+      - name: Report conflicting address references
+        if: failure()
+        shell: python
+        run: |
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          reports = Path('build/ci-diagnostics')
+          reports.mkdir(parents=True, exist_ok=True)
+          for name, symbol in [('game-logic', '?TheGameLogic@@3PAVGameLogic@@A'),
+                               ('virtual-call-thunk', '??_9@$BA@AE')]:
+              with (reports / (name + '.txt')).open('w', encoding='utf-8') as output:
+                  result = subprocess.run([sys.executable, 'tools/dir32.py', symbol],
+                                          stdout=output, stderr=subprocess.STDOUT)
+                  output.write('\nDiagnostic exit code: ' + str(result.returncode) + '\n')
+      - name: Upload address diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: address-diagnostics
+          path: build/ci-diagnostics/
+          if-no-files-found: ignore
