@@ -81,6 +81,7 @@ void GadgetComboBoxSetMaxDisplay(GameWindow *comboBox, int maxDisplay);
 int Rva0043DDF8(int count);
 
 extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
+extern "C" int __cdecl strcmp(const char *left, const char *right);
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 
 class Image;
@@ -137,6 +138,15 @@ class Rva0057EE5C
 {
 public:
 	void rva0057EA0F();
+	// And its unrowed 0x0057E6D8 (5 bytes, a jump to 0x0057E6C1), pinned.
+	void rva0057E6D8();
+};
+
+// The member at +0x244 (rowed under its address name).
+class Rva0057FD6E
+{
+public:
+	void rva0057FD94();
 };
 
 class MpGameSetup
@@ -163,6 +173,14 @@ public:
 	void rva00442F65(int query, char *result, bool skip);
 	const Image *rva0043E512(int value);
 	void rva0043E5C1(int slot, int kind, int value);
+	void OnSortName(const char *unused);
+	void OnSortPlayers(const char *unused);
+	void OnSortIcons(const char *unused);
+	void OnTabSelect(const char *tab);
+
+	// Unrowed 0x0043DC40 (53 bytes; picks the games list sort column, the
+	// same column again toggling to the next value), pinned by address.
+	void rva0043DC40(int column);
 
 	// Unrowed 0x00442C9C (23 bytes), pinned by address.
 	bool rva00442C9C();
@@ -177,7 +195,9 @@ private:
 	Rva0057EE5C m_d0; // +0xD0
 	unsigned char m_pad0d1[0x160 - 0xD1];
 	int m_160; // +0x160
-	unsigned char m_pad164[0x2C3 - 0x164];
+	unsigned char m_pad164[0x244 - 0x164];
+	Rva0057FD6E m_244; // +0x244
+	unsigned char m_pad245[0x2C3 - 0x245];
 	bool m_pending; // +0x2C3
 	bool m_2c4; // +0x2C4
 	unsigned char m_pad2c5[0x2D4 - 0x2C5];
@@ -478,4 +498,14 @@ void MpGameSetup::rva0043E5C1(int slot, int kind, int value)
 	char name[128];
 	sprintf(name, "ConnectionIcon~%d", slot);
 	TheRva00222A8BTarget->rva002239E2(AsciiString(name), image);
+}
+
+// Retail 0x0043DC75, 0x0043DC7F and 0x0043DC89, 10 bytes each: the Apt
+// callbacks the panel registration 0x0044303D binds as
+// "MpGameSetup::OnSortName", "MpGameSetup::OnSortPlayers" and
+// "MpGameSetup::OnSortIcons"; they pick sort column 0, 2 or 4.
+
+void MpGameSetup::OnSortName(const char *)
+{
+	rva0043DC40(0);
 }
