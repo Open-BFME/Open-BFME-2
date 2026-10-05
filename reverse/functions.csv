@@ -64195,3 +64195,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva006CC4A0Init@@YIPAVRva006CC4A0@@PAV1@HH@Z,,0x006CC4A0,32,Code/GameEngine/Source/Common/Rva006CC4A0.cpp,matched,flag-guarded cdecl-2 plus thiscall-0 tail; /O2 for add-cleanup
 ?rva005FFAA7Parse@@YIXPAVRva005FFAA7@@HPAD@Z,,0x005FFAA7,57,Code/GameEngine/Source/Common/Rva005FFAA7.cpp,matched,bool-string parse via isdigit/atoi plus slot-8 virtual; /O1
 ?rva005FFAE0Parse@@YIXPAVRva005FFAA7@@HPAD@Z,,0x005FFAE0,57,Code/GameEngine/Source/Common/Rva005FFAA7.cpp,matched,bool-string parse via isdigit/atoi plus slot-0xC virtual; /O1
+?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
