@@ -57334,3 +57334,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva005FF13A@@UAE@XZ,,0x005FF13A,11,Code/GameEngine/Source/Common/Rva005FF13ADtor.cpp,matched,vtable 0x00C7A478 tail-jmp rowed base 0x005FEF65 via deleting dtor caller
 ?rva005786AA@Rva005786AA@@QAEXPAVRva005D32D4@@@Z,,0x005786AA,35,Code/GameEngine/Source/Common/Rva005786AASet.cpp,matched,setter via pinned dtor 0x005D32D4 and delete shape of Rva0057866DSet
 ??$__uninitialized_fill_n@PAURva005EFD53Element@@IU1@@_STL@@YAPAURva005EFD53Element@@PAU1@IABU1@ABU__false_type@0@@Z,,0x005EF424,37,Code/GameEngine/Source/Common/Rva005EF424FillN.cpp,matched,unlock fill_n stride 4 via pin 0x005F09FF unblocks 0x005EF4A5
+??1Rva005D12E3@@UAE@XZ,,0x005D12E3,54,Code/GameEngine/Source/Common/Rva005D12E3Dtor.cpp,matched,virtual dtor vtable 0x008755B4 clears member at +4 via rowed 0x005D127C base vtable 0x00875278
