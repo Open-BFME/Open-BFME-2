@@ -56452,3 +56452,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?insert@?$vector@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL@@QAEPAVRva0054000B@@PAV3@ABV3@@Z,,0x00540731,152,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0054000b_insert.cpp,matched,vector single-insert 0x28 via rowed Construct copy overflow callers 0x00540A0C sibling 0x00541D10
 ?Rva003BA9AF@@YGXH@Z,,0x003BA9AF,27,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BA9AF.cpp,matched,ret 4 one int null-guarded AudioManager slot 0xf8
 ?Rva003BA9CA@@YGXH@Z,,0x003BA9CA,27,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BA9CA.cpp,matched,ret 4 one int null-guarded AudioManager slot 0xfc
+?rva0033FD77@Rva00367E26@@QAE_NXZ,,0x0033FD77,33,Code/GameEngine/Source/Common/Rva0033FD77Vslot.cpp,matched,vslot 12 vtable 0x00817600 plus rowed isInBusyState 0x004D7309
