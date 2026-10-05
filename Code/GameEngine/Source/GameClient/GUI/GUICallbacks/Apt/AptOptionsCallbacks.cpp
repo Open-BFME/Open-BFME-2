@@ -149,7 +149,6 @@ void AptOptions::EnterAdvancedSettings(const char *unused)
 // "MasterOption0TemplateCustom" (5), so it keeps its address. Reads answer
 // the preset's settings string (the custom one kept at +0x314); writing
 // the custom one warns first when it sorts below +0x308.
-// ?rva00518C0D@AptOptions@@QAEXHPAD_N@Z present-unmatched
 void AptOptions::rva00518C0D(int query, char *value, bool set)
 {
 	if (set)
