@@ -8908,3 +8908,7 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	size-exact 331B; retail po
 ?rva005A7683@Rva005A7683@@QAEXXZ	0x005A7683	422	blocked	same OwnedRecord492 wall as 0x5A7829 frame 0x1FC vs small plus concat plus EH plus virtual 0x18 t=5 model=muse-02
 ?rva005A74D8@Rva005A74D8@@QAEXXZ	0x005A74D8	427	blocked	same OwnedRecord492 wall as 0x5A7829 frame 0x1FC plus CONNDONE plus concat plus EH t=5 model=muse-02
 ?rva005A7C9C@Rva005A7C9C@@QAEXXZ	0x005A7C9C	576	blocked	same OwnedRecord492 wall frame 0x204 plus timeGetTime plus EH t=5 model=muse-02
+?isValidToExecute@CrateCollide@@MBE_NPBVObject@@@Z	0x004BC6C2	288	partial	early xor share plus cmp building vs al t=20 model=muse-05 score=0.99 stash=reverse/attempts/0x004bc6c2.cpp
+?executeCrateBehavior@MoneyCrateCollide@@MBE_NPAVObject@@@Z	0x004BC9E9	244	blocked	Money execute needs EH plus x87 mult plus audio prefix136 opaque plus TheAudio vtables t=15 model=muse-05
+?rva0021219E@Rva0021219E@@QAE_NXZ	0x0021219E	310	blocked	owner unknown no vtable no caller no donor xfer plus Rva003FD789 plus strings t=5 model=muse-05
+?rva005D9CE0@Rva005D9CD5@@QAE_NPAVObject@@@Z	0x005D9CE0	76	partial	extra fld st0 plus fstp st1 vs fstp st0; needs direct float compare without named local t=25 model=muse-05 score=0.94 stash=reverse/attempts/0x005d9ce0.cpp
