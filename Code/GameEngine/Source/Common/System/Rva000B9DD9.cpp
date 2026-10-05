@@ -1,7 +1,3 @@
-// ?rva000B9DD9@Rva000B9DD9@@QAEXABVAsciiString@@@Z
-// partial score=0.98 date=2026-10-01
-// ?rva000B9DD9@Rva000B9DD9@@QAEXABVAsciiString@@@Z
-// partial score=0.98 date=2026-10-01
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD
 // ?rva000B9DD9@Rva000B9DD9@@QAEXABVAsciiString@@@Z 0x000B9DD9 233B
 // Evidence: leaf slot 19 offset 0x4C of 6 W3D Draw vtables Horde Quadruped Supply Truck Tank Sail; prev own 0x000B9C8C; AudioEventRTS ctor set dtor rows; StringBase isEmpty set rows; g_00DEC2D4 vcall slot 0xC; m_5c vcall slot 8.
@@ -113,6 +109,7 @@ void Rva000B9DD9::rva000B9DD9(const AsciiString &s)
 			b = 1;
 		else
 			b = 0;
-		*(unsigned char *)((char *)m5c + 4) = b;
+		Rva000B9DD9Cached *c = m5c;
+		*(unsigned char *)((char *)c + 4) = b;
 	}
 }
