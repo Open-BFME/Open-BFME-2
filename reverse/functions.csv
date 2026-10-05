@@ -64158,3 +64158,5 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0051AF46@AptQuitMenu@@QAEXHPAD_N@Z,,0x0051AF46,115,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptQuitMenuCallbacks.cpp,matched,
 ?Rva0051E262Init@@YA_NHH@Z,,0x0051E262,85,Code/GameEngine/Source/Common/Rva005185D8Init.cpp,matched,
 ?Rva005235A5@@YGHHEH@Z,,0x005235A5,48,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/StrategicPlayerStatusCallbacks.cpp,matched,
+?rva0052A22C@Holder0052A22C@@QAEXPAUObj0052A22C@@@Z,,0x0052A22C,24,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,matched,
+?Rva0052B225@@YAHPAUObj0052B225@@@Z,,0x0052B225,24,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,matched,
