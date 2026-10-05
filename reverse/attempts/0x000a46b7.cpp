@@ -1,6 +1,8 @@
 // ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
 // partial score=0.98 date=2026-10-05
 // ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
+// partial score=0.98 date=2026-10-05
+// ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
 // partial score=0.97 date=2026-10-01
 // ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
 // partial score=0.97 date=2026-10-01
