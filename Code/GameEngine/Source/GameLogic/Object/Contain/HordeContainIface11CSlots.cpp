@@ -2116,3 +2116,23 @@ void HordeContain::rva00468B24(float value)
 	if (m_2EC > g_00BC5CD4)
 		m_2EC = g_00BC5CD4;
 }
+
+// ?rva0046966C@Rva0046966C@@QAEXXZ 0x0046966C 29B StringBase-G validate then outer +0x1D8 test to +0x291. Callers none. Same // cl: as neighbours.
+class Rva0046966C;
+template <> class StringBase<unsigned short>
+{
+	friend class Rva0046966C;
+	void validate() const;
+};
+class Rva0046966C
+{
+public:
+	void rva0046966C();
+};
+
+void Rva0046966C::rva0046966C()
+{
+	((StringBase<unsigned short> *)this)->validate();
+	HordeContainModuleDataFields *outer = *(HordeContainModuleDataFields **)((char *)this - 0x30);
+	*(bool *)((char *)this + 0x291) = (outer->m_1D8 == 0);
+}
