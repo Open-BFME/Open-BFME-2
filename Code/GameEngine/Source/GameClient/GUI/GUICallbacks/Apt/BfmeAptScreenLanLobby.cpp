@@ -16,17 +16,24 @@
 // game-options string, vslot 26 asks the host for serialized game info.
 // LANGameInfo vslot 14 is resetAccepted, and the non-virtual
 // LANGameInfo::rva004477C7 0x004477C7 is the host test (slot 0 is local).
-// GameSlot keeps the team number at +0x1C and the handicap at +0x20.
+// GameSlot keeps the start position at +0x10 (with a second copy at
+// +0x14 that the setter writes alongside it), the team number at +0x1C and
+// the handicap at +0x20. The lobby's object at +0x0C takes the rowed
+// Rva0043DB47DoubleSetter::enable 0x0043DB47.
 
 #include "ascii_string.h"
 
 class GameSlot
 {
 public:
+	int getStartPos() const { return m_startPos; }
 	int getTeamNumber() const { return m_teamNumber; }
 	int getHandicap() const { return m_handicap; }
 
-	unsigned char m_pad00[0x1C];
+	unsigned char m_pad00[0x10];
+	int m_startPos; // +0x10
+	int m_startPos14; // +0x14
+	unsigned char m_pad18[0x1C - 0x18];
 	int m_teamNumber; // +0x1C
 	int m_handicap; // +0x20
 };
@@ -127,11 +134,22 @@ public:
 extern LANAPI *g_00DFE958;
 #define TheLAN g_00DFE958
 
+class Rva0043DB47DoubleSetter
+{
+public:
+	void enable();
+};
+
 class BfmeAptScreenLanLobby
 {
 public:
 	bool applySlotTeam(GameSlot *slot, int team);
 	bool applySlotHandicap(GameSlot *slot, int handicap);
+	bool applySlotStartPos(GameSlot *slot, int startPos);
+
+private:
+	unsigned char m_pad00[0x0C];
+	Rva0043DB47DoubleSetter m_0c; // +0x0C
 };
 
 // Retail 0x004449FD, 198 bytes. BFME2 drops the donor's second
@@ -184,6 +202,35 @@ bool BfmeAptScreenLanLobby::applySlotHandicap(GameSlot *slot, int handicap)
 	{
 		AsciiString options;
 		options.format("Handicap=%d", slot->getHandicap());
+		TheLAN->RequestGameOptions(options, true);
+	}
+	return true;
+}
+
+// Retail 0x00444CA4, 215 bytes: vftable 0x00C3E098 slot 11, "StartPos=%d".
+// Donor applySlotStartPos; BFME2 writes the position twice and, where BFME1
+// set a flag byte on the host path, calls the +0x0C object's enable.
+bool BfmeAptScreenLanLobby::applySlotStartPos(GameSlot *slot, int startPos)
+{
+	if (!TheLAN)
+		return false;
+	LANGameInfo *game = TheLAN->GetMyGame();
+	if (!game)
+		return false;
+
+	slot->m_startPos = startPos;
+	slot->m_startPos14 = startPos;
+	if (game->rva004477C7())
+	{
+		game->resetAccepted();
+		TransportAddress address;
+		TheLAN->requestSerializedGameInfo(true, &address);
+		m_0c.enable();
+	}
+	else
+	{
+		AsciiString options;
+		options.format("StartPos=%d", slot->getStartPos());
 		TheLAN->RequestGameOptions(options, true);
 	}
 	return true;
