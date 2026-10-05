@@ -11,9 +11,14 @@ typedef unsigned char UnsignedByte;
 typedef int Int;
 enum NetCommandType
 {
-	NETCOMMANDTYPE_UNKNOWN = -1
+	NETCOMMANDTYPE_UNKNOWN = -1,
+	NETCOMMANDTYPE_ACKBOTH = 0,
+	NETCOMMANDTYPE_ACKSTAGE1,
+	NETCOMMANDTYPE_ACKSTAGE2
 };
-Int DoesCommandRequireACommandID(NetCommandType type);
+// Callers test only al, so BFME 2's version returns bool; the call resolves
+// through the _N pin at 0x005811B5.
+bool DoesCommandRequireACommandID(NetCommandType type);
 
 class NetCommandMsg
 {
@@ -27,6 +32,35 @@ public:
 	UnsignedInt m_playerID; // +0xC
 	UnsignedShort m_id; // +0x10
 	NetCommandType m_commandType; // +0x14
+
+	UnsignedInt GetTimestamp() { return m_timestamp; }
+	UnsignedInt getPlayerID() { return m_playerID; }
+	UnsignedShort getID() { return m_id; }
+	NetCommandType getNetCommandType() { return m_commandType; }
+};
+
+// The ack getters are out of line in BFME 2; retail folds the three
+// classes' identical bodies onto 0x004543C6 (byte at +0x1E) and 0x004D5767
+// (word at +0x1C), and isEqualCommandMsg calls them there.
+class NetAckBothCommandMsg : public NetCommandMsg
+{
+public:
+	UnsignedShort getCommandID();
+	UnsignedByte getOriginalPlayerID();
+};
+
+class NetAckStage1CommandMsg : public NetCommandMsg
+{
+public:
+	UnsignedShort getCommandID();
+	UnsignedByte getOriginalPlayerID();
+};
+
+class NetAckStage2CommandMsg : public NetCommandMsg
+{
+public:
+	UnsignedShort getCommandID();
+	UnsignedByte getOriginalPlayerID();
 };
 
 class NetCommandNode
@@ -139,7 +173,7 @@ NetCommandRef *NetCommandList::findMessage(UnsignedShort id, UnsignedByte player
 	{
 		NetCommandMsg *msg = retval->m_msg;
 		if (msg != 0 && msg->m_timestamp == frame &&
-			(UnsignedByte)DoesCommandRequireACommandID(msg->m_commandType) &&
+			DoesCommandRequireACommandID(msg->m_commandType) &&
 			msg->m_id == id && msg->m_playerID == player)
 		{
 			return (NetCommandRef *)retval;
@@ -189,4 +223,88 @@ void NetCommandList::appendList(NetCommandList *list)
 
 		msg = next;
 	}
+}
+
+// ?isEqualCommandMsg@NetCommandList@@QAE_NPAVNetCommandMsg@@0@Z, retail
+// 0x0058B174, 271 bytes. Zero Hour's NetCommandList::isEqualCommandMsg with
+// a leading timestamp comparison (the field the 3-arg findMessage matches
+// against its frame argument).
+bool NetCommandList::isEqualCommandMsg(NetCommandMsg *msg1, NetCommandMsg *msg2)
+{
+	if (msg1->GetTimestamp() != msg2->GetTimestamp()) {
+		return false;
+	}
+
+	if (DoesCommandRequireACommandID(msg1->getNetCommandType()) != DoesCommandRequireACommandID(msg2->getNetCommandType())) {
+		return false;
+	}
+
+	// At this point we know that the commands both do or do not require a command id.
+	// Do or do not, there is no try.
+	if (DoesCommandRequireACommandID(msg1->getNetCommandType())) {
+		// Are the commands from the same player?
+		if (msg1->getPlayerID() != msg2->getPlayerID()) {
+			return false;
+		}
+
+		// Do they have the same command ID?
+		if (msg1->getID() != msg2->getID()) {
+			return false;
+		}
+		return true;
+	}
+
+	// Are they the same type?
+	if (msg1->getNetCommandType() != msg2->getNetCommandType()) {
+		return false;
+	}
+
+	// Are they from the same player?
+	if (msg1->getPlayerID() != msg2->getPlayerID()) {
+		return false;
+	}
+
+	if (msg1->getNetCommandType() == NETCOMMANDTYPE_ACKSTAGE1) {
+		NetAckStage1CommandMsg *ack1 = (NetAckStage1CommandMsg *)msg1;
+		NetAckStage1CommandMsg *ack2 = (NetAckStage1CommandMsg *)msg2;
+
+		if (ack1->getOriginalPlayerID() != ack2->getOriginalPlayerID()) {
+			return false;
+		}
+
+		if (ack1->getCommandID() != ack2->getCommandID()) {
+			return false;
+		}
+		return true;
+	}
+
+	if (msg1->getNetCommandType() == NETCOMMANDTYPE_ACKSTAGE2) {
+		NetAckStage2CommandMsg *ack1 = (NetAckStage2CommandMsg *)msg1;
+		NetAckStage2CommandMsg *ack2 = (NetAckStage2CommandMsg *)msg2;
+
+		if (ack1->getOriginalPlayerID() != ack2->getOriginalPlayerID()) {
+			return false;
+		}
+
+		if (ack1->getCommandID() != ack2->getCommandID()) {
+			return false;
+		}
+		return true;
+	}
+
+	if (msg1->getNetCommandType() == NETCOMMANDTYPE_ACKBOTH) {
+		NetAckBothCommandMsg *ack1 = (NetAckBothCommandMsg *)msg1;
+		NetAckBothCommandMsg *ack2 = (NetAckBothCommandMsg *)msg2;
+
+		if (ack1->getOriginalPlayerID() != ack2->getOriginalPlayerID()) {
+			return false;
+		}
+
+		if (ack1->getCommandID() != ack2->getCommandID()) {
+			return false;
+		}
+		return true;
+	}
+
+	return false;
 }
