@@ -196,6 +196,24 @@ public:
 	bool rva00440BDF(bool flag);
 	bool rva0044127C();
 	void rva00443EA8();
+	// And its message handler 0x00442CB3 (690 bytes) and 0x0043FA68 (244
+	// bytes), likewise unrowed and pinned.
+	int rva00442CB3(int msg, unsigned int data1, unsigned int data2);
+	void rva0043FA68(int game);
+};
+
+// The screen's base class (destroyed by 0x005126F5); its message handler
+// 0x0051274F (136 bytes, vftable 0x00C659E8 slot 2) is unrowed and pinned.
+class Rva005126F5
+{
+public:
+	int rva0051274F(int msg, unsigned int data1, unsigned int data2);
+};
+
+class Rva00444362
+{
+public:
+	void rva00444362(void *unused);
 };
 
 class Rva00580172
@@ -366,6 +384,7 @@ public:
 	void rva00445E3E(LANGameInfo *games);
 	bool initLanRva004452A8();
 	int rva00446443();
+	int rva00444826(int msg, unsigned int data1, unsigned int data2);
 
 	// Unrowed 0x004457BC (1006 bytes; rebuilds the games list box), pinned by
 	// address.
@@ -706,5 +725,46 @@ int BfmeAptScreenLanLobby::rva00446443()
 		}
 	}
 	m_panel.rva00443EA8();
+	return 1;
+}
+
+// Retail 0x00444826, 191 bytes: slot 2 of the screen's vftable 0x00C3E0F8,
+// its message handler. Name unknown. Unless held back by +0x6C0 it offers
+// the message to the base class and the +0x288 panel, then handles 1 and 2
+// (sound events 0x1A and 0x1B), the games list's 0x4014 and 0x4015 (select
+// and activate) and the name entry's 0x4032 (submitName); anything else
+// returns what the base (or else the panel) returned.
+int BfmeAptScreenLanLobby::rva00444826(int msg, unsigned int data1, unsigned int data2)
+{
+	if (m_6c0)
+		return 0;
+
+	int result = reinterpret_cast<Rva005126F5 *>(this)->rva0051274F(msg, data1, data2);
+	int panelResult = m_panel.rva00442CB3(msg, data1, data2);
+	if (!result)
+		result = panelResult;
+
+	switch (msg)
+	{
+	case 1:
+		Rva003B3371Call(0x1A);
+		break;
+	case 2:
+		Rva003B3371Call(0x1B);
+		break;
+	case 0x4014:
+		if ((GameWindow *)data1 == m_customGamesList)
+			m_panel.rva0043FA68(reinterpret_cast<Rva00444165 *>(this)->rva00444165());
+		break;
+	case 0x4015:
+		if ((GameWindow *)data1 == m_customGamesList && reinterpret_cast<Rva00444165 *>(this)->rva00444165())
+			reinterpret_cast<Rva00444362 *>(this)->rva00444362((void *)"");
+		break;
+	case 0x4032:
+		submitNameRva00444760();
+		break;
+	default:
+		return result;
+	}
 	return 1;
 }
