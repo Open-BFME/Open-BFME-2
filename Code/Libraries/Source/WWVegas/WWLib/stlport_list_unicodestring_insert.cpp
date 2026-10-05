@@ -29,3 +29,7 @@ inline bool operator==(const UnicodeString &a, const UnicodeString &b) { return 
 bool operator<(const UnicodeString &a, const UnicodeString &b);
 
 template class _STL::list<UnicodeString, _STL::allocator<UnicodeString> >;
+
+// find(first, last, value) @0x00433BEE (42B) and its __find worker @0x00433B96 (39B).
+typedef _STL::list<UnicodeString>::iterator UnicodeStringListIter;
+template UnicodeStringListIter _STL::find<UnicodeStringListIter, UnicodeString>(UnicodeStringListIter, UnicodeStringListIter, const UnicodeString &);
