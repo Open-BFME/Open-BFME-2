@@ -13421,3 +13421,6 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??0Rva001F4D06Base@@QAE@PAX0@Z,0x001F4B63,base ctor called by Rva001F4D06 derived ctor (banked 0x001F4B63 stash names SmartPtr/chain params, unlanded; void* honest); REL32 read from placed 0x001F4D06 body
 ?rva002788C7@Rva002788C7Obj@@QAE_NXZ,0x002788C7,tail-called bool worker on slot0x40 result at Rva001F3828 site; REL32 read from placed 0x001F3828 body
 ?rva001F50BC@@YAXPAXHHH@Z,0x001F50BC,cdecl 4-arg worker called by Rva001F5A6A forwarder (caller cleanup); REL32 read from placed 0x001F5A6A body
+?Set@Rva000A9DF8ObjA@@QAEXH@Z,0x000A9851,address-derived thiscall single-int method; RETAIL REL32 at 0x000A9E04 in null-guarded forwarder 0x000A9DF8 targets this 44B Ghidra body; identity unproven
+?Set@Rva000A9DF8ObjB@@QAEXH@Z,0x000A987D,address-derived thiscall single-int method; RETAIL REL32 at 0x000A9E16 in null-guarded forwarder 0x000A9E0A targets this 44B Ghidra body; identity unproven
+?Set@Rva000A9DF8ObjC@@QAEXH@Z,0x004D971D,address-derived thiscall single-int method; RETAIL REL32 at 0x004D9ADA in null-guarded forwarder 0x004D9ACE targets this 33B Ghidra body; identity unproven
