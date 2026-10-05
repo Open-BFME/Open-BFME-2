@@ -10,6 +10,7 @@
 
 class VertexMaterialClass;
 
+#pragma optimize("s", on)
 class RefCountClass
 {
 public:
@@ -23,6 +24,7 @@ protected:
 private:
 	int m_refs;
 };
+#pragma optimize("", on)
 
 template <class T>
 class ShareBufferClass : public RefCountClass
