@@ -63202,3 +63202,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva001FC3BF@@QAE@ABV0@@Z,,0x001FC3BF,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
 ?rva00544E76@Rva00544C2A@@QAEHXZ,,0x00544E76,59,Code/GameEngine/Source/Common/Rva00544E76.cpp,matched,leaf slot 4 of 0x00869CF8 chains plus18 to slot 0x17C and TheGameLogic plus40 to slot 0x24
 ?Rva00580BBFUnguardedSort@@YAXPAPAX0VRva000795C1Record@@@Z,,0x00580BBF,79,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,unguarded insertion sort wrapper calling 0x00580A54 with 16B record teardown
+?rva002A0D11@Rva002A0D11@@QAEXXZ,,0x002A0D11,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
+?rva0050174A@Rva0050174A@@QAEXXZ,,0x0050174A,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
+?rva002A9ECA@Rva002A9ECA@@QAEXH@Z,,0x002A9ECA,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
+?rva003EE7C2@Rva003EE7C2@@QAEXHH@Z,,0x003EE7C2,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
