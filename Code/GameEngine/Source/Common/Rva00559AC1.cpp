@@ -10,6 +10,7 @@ class Rva00559AC1
 public:
 	int rva00559AC1(int v);
 	const Image *rva00559C25(int side, int v);
+	Rva00559AC1 *rva00559A76(int dummy);
 private:
 	int m_vals[11];
 };
@@ -28,4 +29,22 @@ const Image *Rva00559AC1::rva00559C25(int side, int v)
 {
 	int idx = rva00559AC1(v);
 	return Rva00559B64GetImage(side, idx);
+}
+
+// ?rva00559A76@Rva00559AC1@@QAEPAV1@H@Z @0x00559A76 75B: rank threshold table init.
+// Evidence: leaf with 2 callers; writes m_vals 11 ints matching search class; ret 4 unused arg.
+Rva00559AC1 *Rva00559AC1::rva00559A76(int dummy)
+{
+	m_vals[0] = -1;
+	m_vals[1] = 0;
+	m_vals[10] = 1500;
+	m_vals[9] = 800;
+	m_vals[8] = 500;
+	m_vals[7] = 300;
+	m_vals[6] = 150;
+	m_vals[5] = 50;
+	m_vals[4] = 30;
+	m_vals[3] = 10;
+	m_vals[2] = 5;
+	return this;
 }
