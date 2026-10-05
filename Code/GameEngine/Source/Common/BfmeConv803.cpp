@@ -14,7 +14,8 @@ public:
 	void bfmeTwoEBK(void *x, void *b);
 };
 
-extern void *g_bfmeXEBK;
+// Provides the storage its two bodies reference; no other TU defines it.
+void *g_bfmeXEBK;
 
 class BfmeObjEBL
 {
