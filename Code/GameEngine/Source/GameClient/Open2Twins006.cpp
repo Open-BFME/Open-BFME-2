@@ -14,6 +14,7 @@
 class SubsystemInterface
 {
 public:
+	SubsystemInterface();
 	virtual ~SubsystemInterface();
 
 private:
@@ -132,6 +133,7 @@ typedef std::map<NameKeyType, Open2Held8F75D0 *, std::less<NameKeyType> > Open2M
 class Open2Store8F75D0 : public SubsystemInterface, public Snapshot
 {
 public:
+	Open2Store8F75D0();
 	virtual ~Open2Store8F75D0();
 
 private:
@@ -142,6 +144,27 @@ private:
 Open2Store8F75D0::~Open2Store8F75D0()
 {
 	delete m_map;
+}
+
+// Constructor recovery from BFME1 revision6583b3c1ff21db4a561285717028fdafc780b7db
+// game/GameEngine/Source/Common/System/Rva008F7510ShroudManagerCtor.cpp.
+// Target7398D0..73995F is143B; CF1250/CF1240 lead to this existing
+// owner's rowed deleting destructor739E40 and its Snapshot adjustment739960.
+// The rowed739970 literal names the subsystem ShroudManager. Retail calls
+// rowed base1B4E63 (12B prefix) and allocates70B before rowed214B ctor73E310.
+// The donor's purpose is independently supported; its original class spelling
+// is unknown. Reuse the established Open2Store8F75D0 opaque owner instead of
+// introducing a second class for the same target. The legacy destructor's map
+// pointer spelling is retained as a teardown ABI view; the constructor does
+// not assert that the allocated implementation is that STL map type.
+class ShroudManagerImpl008FBA40CtorView {
+public: ShroudManagerImpl008FBA40CtorView();
+private: unsigned char storage[0x70];
+};
+#pragma comment(linker, "/alternatename:??0ShroudManagerImpl008FBA40CtorView@@QAE@XZ=??0ShroudManagerImpl008FBA40@@QAE@XZ")
+Open2Store8F75D0::Open2Store8F75D0()
+{
+ m_map = reinterpret_cast<Open2Map8F75D0 *>(new ShroudManagerImpl008FBA40CtorView);
 }
 
 class BfmeSinkB
