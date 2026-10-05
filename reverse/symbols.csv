@@ -12965,3 +12965,5 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??$__insertion_sort@PAURva004F6352@@URva004F6352Cmp@@@_STL@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,0x004F8651,Rva004F6352 guarded insertion sort called by final_insertion_sort 0x004F8C99 read from its REL32
 ??$__unguarded_insertion_sort@PAURva004F6352@@URva004F6352Cmp@@@_STL@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,0x004F786C,Rva004F6352 unguarded insertion forwarder called by final_insertion_sort 0x004F8C99 read from its REL32
 ?helper001DA770@@YAXPAVINI@@HPAVAsciiString@@PBD@Z,0x001DA770,shared cdecl audio-block parser called by the five Default-name wrappers 0x001DA980..0x001DAAA8 read from their REL32
+??1H1F8167@@QAE@XZ,0x001F8167,unrowed same-lane body called by chain root 0x001F9025 read from its REL32
+?m001F9B69@H1F9B69@@QAEXXZ,0x001F9B69,unrowed same-shape body called by chain members 0x001FA5BB and 0x001FA5F6 read from their REL32
