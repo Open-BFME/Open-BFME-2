@@ -45,6 +45,7 @@ public:
     virtual bool ContainsNativeHashVirtual() const;
     virtual int getHasClass() const;
     virtual void setHasClass(int);
+    AptValue *findChild(const EAStringC *,AptValue *);
     AptCIH *c_cih(bool=false);
     AptArray *c_array() const;
     bool getIsDefined() const; bool isBoolean() const; bool isNone() const; bool isScriptFunction() const; bool isNativeFunction() const;
@@ -1865,4 +1866,17 @@ int AptActionInterpreter::doFSCommand(const char *szCommand,const char *szParams
     szCommand=&szCommand[strlen(g_bfmeAptFSCommandAtDDC920)];
     g_bfmeAptCommandAtE17758(szCommand,szParams);
     return 1;
+}
+
+AptValue *AptActionInterpreter::getObject(AptValue *current,AptValue *with,const EAStringC *path)
+{
+    EAStringC name;
+    if(path->rva006D3750()==0) return current;
+    AptValue *context;
+    getContext(current,with,path,&context,name);
+    if(context) {
+        AptValue *value=context->findChild(&name,with);
+        if(value && value->ContainsNativeHashVirtual()) return value;
+    }
+    return 0;
 }
