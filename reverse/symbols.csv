@@ -13408,3 +13408,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva0056A4AA@Rva0056A4AA@@QAEXH@Z,0x0056A4AA,thiscall void(int); EH prologue body reading [ecx+0x3C]; called once per element from 0x003EDDD4
 ?rva00569373@Rva00569373@@QAEXH@Z,0x00569373,thiscall void(int); 30B loop over [ecx+0x58,+0x5C) via 0x0056913D; called once per element from 0x003EDDF5
 ?rva003EE7CA@Rva003EE7CA@@QAEHHH@Z,0x003EE7CA,thiscall int(int int): pushes (a1 a2) then virtual slot1 on [this+0x48]; returns its second arg; shared first call of 0x003EEE8E/0x003EEF13/0x003EE8D8; b carries the task-block pointer as int
+?rva003EEE64@Rva003EEE64@@QAEXH@Z,0x003EEE64,thiscall void(int); home-TU chain lane; called with the 0x003EE7CA return from 0x003EF041

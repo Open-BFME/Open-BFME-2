@@ -64104,3 +64104,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva003EEE8E@Rva003EEE8E@@QAEXH@Z,,0x003EEE8E,37,Code/GameEngine/Source/Common/Rva003EEE8EChain.cpp,matched,task-block wrapper chaining pinned 0x003EE7CA into rowed 0x003EEB9F with (arg retval) order
 ?rva003EEF13@Rva003EEF13@@QAEXH@Z,,0x003EEF13,37,Code/GameEngine/Source/Common/Rva003EEE8EChain.cpp,matched,task-block wrapper chaining pinned 0x003EE7CA into rowed 0x003EEBC4 with (arg retval) order
 ?rva003EE8D8@Rva003EE8D8@@QAEXH@Z,,0x003EE8D8,40,Code/GameEngine/Source/Common/Rva003EEE8EChain.cpp,matched,sequential task-block wrapper through pinned 0x003EE7CA into rowed 0x003EE89E
+?rva003EF041@Rva003EF041@@QAEXXZ,,0x003EF041,37,Code/GameEngine/Source/Common/Rva003EF041Guard.cpp,matched,guards on this+0x14; 12B stack block through pinned 0x003EE7CA into pinned 0x003EEE64 chain worker; block address 8 into frame
