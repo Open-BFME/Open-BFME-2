@@ -10890,3 +10890,5 @@ FUN_007b5ea5	0x003B5EA5	1818	blocked	Anchor strings shared with matched initActi
 ?rva0059E098@Rva0059E098Class@@QAEHH@Z	0x0059E098	41	partial	42B framed twin via volatile kept slot; only diff mov-vs-and zero-store (C7 vs 83); callee thiscall-member shape with caller pops; push order hints (a,t) but twin uses (t,a); pin QAEXHH live score=0.9 stash=reverse/attempts/0x0059e098.cpp
 ?rva005B0487@X@@QAEHXZ	0x005B0487	47	blocked	const-ecx exotic: mov ecx,[0xdfe344] then 2 pushes to 0x219F36 with no cleanup and live fallthrough; same unproducible shape as CFAA family t=5 model=muse-spark
 ?rva005B097F@X@@QAEHXZ	0x005B097F	60	blocked	loop calls 0x5B07C1 with reloaded this +3 pushes and no cleanup; exotic shape; virtual tail [eax+0x14] standard t=5 model=muse-spark
+?rva005B1B26@X@@QAEHXZ	0x005B1B26	56	blocked	rep-movsd zero-struct + call 0x5B1A07 with restored this and no cleanup; mov ecx,edx dead unless callee reads ecx; exotic shape t=5 model=muse-spark
+?rva005B486D@X@@QAEHXZ	0x005B486D	34	blocked	call1 0x5B034A takes ecx=m_4+0x27c +1 push with no cleanup (live mov after); exotic; tail jmp + thiscall-0 middle call standard t=5 model=muse-spark
