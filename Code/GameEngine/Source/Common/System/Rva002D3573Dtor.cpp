@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /Ireference/shims/moduledata /O1 /MD /EHsc
 //
 // ??1Rva002D3573@@UAE@XZ retail 0x002D3573 76B.
 // MI dtor: primary GameEngineDeletingBase (size 0xC) at +0 with vtable
@@ -26,17 +26,7 @@ private:
 	char m_pad04[8];
 };
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc();
-	virtual void loadPostProcess();
-	virtual void xfer();
-};
-
-extern const void *const g_00BBB554[];
-inline Snapshot::~Snapshot() { *(const void **)this = g_00BBB554; }
+#include "Common/Snapshot.h"
 
 class Rva002D3573 : public GameEngineDeletingBase, public Snapshot
 {
