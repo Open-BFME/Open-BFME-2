@@ -59602,3 +59602,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??1Rva005F54DA@@QAE@XZ,,0x005F54DA,93,Code/GameEngine/Source/Common/Rva005F54DADtor.cpp,matched,dtor get-gated unload then three inline member clears
 ??0Rva00362DBD@@QAE@H@Z,,0x00362DBD,89,Code/GameEngine/Source/Common/Rva00362DBDCtor.cpp,matched,ModuleData ctor with 9x0x44 array then TheGameClient register
 ?rva005216A6@Rva005216A6@@QAE_NXZ,,0x005216A6,37,Code/GameEngine/Source/Common/Rva005216A6.cpp,matched,unlock via MpGameSetup slots plus TheSkirmishGameInfo
+??$__uninitialized_copy@PAURva001741EBElement@@PAU1@@_STL@@YAPAURva001741EBElement@@PAU1@00ABU__false_type@0@@Z,,0x001733D0,38,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001741eb_fill.cpp,matched,uninit copy stride 0x30 via pinned Construct 0x00173351 callers in insert overflow 0x00173EF9
