@@ -61,7 +61,8 @@ public:
 	virtual void v00();
 	virtual bool v01();
 	virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05();
-	virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09();
+	virtual bool applySlotHero(GameSlot *slot);
+	virtual void v07(); virtual void v08(); virtual void v09();
 	virtual bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
 	virtual void v11(); virtual void v12(); virtual void v13();
 	virtual void v14();
@@ -73,6 +74,10 @@ public:
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
+
+// TheCreateAHeroManager (0x00DFE344), spelled as Rva00406E65.cpp does.
+class Rva00219B9E;
+extern Rva00219B9E *g_00DFE344;
 
 void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
 
@@ -93,6 +98,11 @@ public:
 	void rva0043E4B6(const char *slotText);
 	void rva0043DB6E();
 	bool handlePlayerTemplateSelection(int index);
+	bool rva0043E04D(int index);
+
+	// Unrowed 0x0043DD34 (138 bytes; stores a hero choice on the slot when
+	// the hero manager accepts it), pinned.
+	bool rva0043DD34(GameSlot *slot, int hero);
 
 	// Unrowed 0x0044149C (313 bytes; refreshes a slot's widgets), pinned.
 	void rva0044149C(GameSlot *slot, int index, bool flag);
@@ -111,7 +121,9 @@ private:
 	bool m_2c4; // +0x2C4
 	unsigned char m_pad2c5[0x334 - 0x2C5];
 	GameWindow *m_playerTemplate[8]; // +0x334
-	unsigned char m_pad354[0x3A4 - 0x354];
+	GameWindow *m_handicap[8]; // +0x354
+	GameWindow *m_hero[8]; // +0x374
+	unsigned char m_pad394[0x3A4 - 0x394];
 	int m_flags; // +0x3A4
 };
 
@@ -212,4 +224,28 @@ bool MpGameSetup::handlePlayerTemplateSelection(int index)
 		return false;
 	rva0044149C(slot, index, true);
 	return true;
+}
+
+// Retail 0x0043E04D, 120 bytes: the hero combo box counterpart of
+// handlePlayerTemplateSelection (BFME1 has no hero choice; the name is
+// unknown). Needs the hero manager; a hero accepted by 0x0043DD34 is applied
+// through the owner's applySlotHero (vslot 6).
+bool MpGameSetup::rva0043E04D(int index)
+{
+	if (!g_00DFE344)
+		return false;
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return false;
+
+	GameSlot *slot = game->getSlot(index);
+	if (!slot)
+		return false;
+	m_pending = false;
+	GameWindow *comboBox = m_hero[index];
+	int selected;
+	GadgetComboBoxGetSelectedPos(comboBox, &selected);
+	if (!rva0043DD34(slot, (int)GadgetComboBoxGetItemData(comboBox, selected)))
+		return false;
+	return m_owner->applySlotHero(slot);
 }
