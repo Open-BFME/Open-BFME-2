@@ -27,7 +27,6 @@ private:
 	PlayerTeamList m_playerTeamPrototypes;		// +0x32C
 };
 
-// ?Player::addTeamToList present-unmatched
 void Player::addTeamToList(TeamPrototype *team)
 {
 	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); it != m_playerTeamPrototypes.end(); ++it)
