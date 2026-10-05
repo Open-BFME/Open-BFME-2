@@ -63726,3 +63726,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva004E72C0@@QAE@ABU0@@Z,,0x004E72C0,11,Code/GameEngine/Source/Common/Rva004E72C0Copy.cpp,matched,Copy ctor of a state-free polymorphic base: installs vtable 0xBFCFF8 only
 ??0Rva004E7392@@QAE@ABU0@@Z,,0x004E7392,39,Code/GameEngine/Source/Common/Rva004E7392Copy.cpp,matched,Copy ctor: base copy 0x4E72C0 then vtable 0xBFD010 then two fields
 ??0Rva0053FADE@@QAE@ABV0@@Z,,0x0053FADE,85,Code/GameEngine/Source/Common/Rva0053FADECopy.cpp,matched,User copy ctor: default-constructs Rva00330757Member base then vtable 0xC694DC then zeroes +0x14 and copies AsciiString and two fields
+?rva002E98EA@Pathfinder@@QAEHHH@Z,,0x002E98EA,47,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,matched,
