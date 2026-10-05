@@ -30,7 +30,8 @@ private:
 	char m_pad0[4];
 	Gen0002857EOwner *m_owner;
 	char m_pad1[0x34 - 8];
-	int m_count;
+	// volatile so the read-modify-write is not strength-reduced to `inc`.
+	volatile int m_count;
 };
 
 void Gen0002857E::handle()
