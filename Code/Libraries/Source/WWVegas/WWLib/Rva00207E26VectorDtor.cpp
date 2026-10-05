@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1?$vector@URvaPair00207E26@@V?$allocator@URvaPair00207E26@@@_STL@@@_STL@@QAE@XZ @0x00207E26 63B.
 // 8-byte AsciiString-keyed pair vector dtor: destroys range through rowed
@@ -7,7 +7,7 @@
 // Called by ScriptEngine dtor 0x0020A473 plus Unwind funclets. Element is honest
 // RvaPair address name for 8-byte AsciiString-plus-int layout retail proves.
 #include <vector>
-class AsciiString { public: ~AsciiString(); private: char *m_data; };
+#include "ascii_string.h"
 struct RvaPair00207E26 { AsciiString m_key; int m_value; public: ~RvaPair00207E26(); };
 template _STL::vector<RvaPair00207E26>::~vector();
 
