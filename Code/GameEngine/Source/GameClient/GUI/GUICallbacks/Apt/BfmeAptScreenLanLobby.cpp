@@ -25,7 +25,9 @@
 // The player template goes through the rowed GameSlot::setPlayerTemplate
 // 0x00400E33 and sits at +0x18; the slot name is the UnicodeString at +0x30.
 // GameSlot vslot 5 yields the slot's LANGameSlot (BFME1's vslot 1), whose
-// isLocalPlayer is pinned at 0x0044770F; the color sits at +0x0C.
+// isLocalPlayer is pinned at 0x0044770F; the color sits at +0x0C. The hero
+// byte is the rowed GameSlot::rva003FF16F 0x003FF16F, and +0x5C is the
+// value the hero preference stores.
 
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -43,6 +45,7 @@ public:
 	virtual LANGameSlot *getLANSlot();
 
 	void setPlayerTemplate(int playerTemplate);
+	unsigned char rva003FF16F() const;
 	int getColor() const { return m_color; }
 	int getPlayerTemplate() const { return m_playerTemplate; }
 	int getStartPos() const { return m_startPos; }
@@ -58,6 +61,8 @@ public:
 	int m_handicap; // +0x20
 	unsigned char m_pad24[0x30 - 0x24];
 	UnicodeString m_name; // +0x30
+	unsigned char m_pad34[0x5C - 0x34];
+	int m_5c; // +0x5C
 };
 
 class LANGameSlot : public GameSlot
@@ -182,6 +187,7 @@ public:
 	virtual void v02();
 	virtual bool write();
 
+	void rva0044DC54(int hero);
 	void rva0044DCB9(int color);
 	void rva0044DD1E(int playerTemplate);
 };
@@ -194,6 +200,7 @@ public:
 	bool applySlotStartPos(GameSlot *slot, int startPos);
 	bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
 	bool applySlotColor(GameSlot *slot, int color);
+	bool applySlotHero(GameSlot *slot);
 
 private:
 	unsigned char m_pad00[0x0C];
@@ -355,6 +362,41 @@ bool BfmeAptScreenLanLobby::applySlotColor(GameSlot *slot, int color)
 	if (slot->m_name.compare(local->m_name) == 0)
 	{
 		m_prefs.rva0044DCB9(color);
+		m_prefs.write();
+	}
+	return true;
+}
+
+// Retail 0x004456B8, 260 bytes: vftable 0x00C3E098 slot 6, "Hero=%d". No
+// BFME1 counterpart; the shape is applySlotPlayerTemplate's. Unlike its
+// siblings it takes only the slot (ret 4): the slot already carries the
+// choice, sent as the slot's hero byte and stored to the preferences from
+// +0x5C.
+bool BfmeAptScreenLanLobby::applySlotHero(GameSlot *slot)
+{
+	if (!TheLAN)
+		return false;
+	LANGameInfo *game = TheLAN->GetMyGame();
+	if (!game)
+		return false;
+
+	game->resetAccepted();
+	if (game->rva004477C7())
+	{
+		TransportAddress address;
+		TheLAN->requestSerializedGameInfo(true, &address);
+	}
+	else
+	{
+		AsciiString options;
+		options.format("Hero=%d", slot->rva003FF16F());
+		TheLAN->RequestGameOptions(options, true);
+	}
+
+	GameSlot *local = game->getSlot(game->getLocalSlotNum());
+	if (slot->m_name.compare(local->m_name) == 0)
+	{
+		m_prefs.rva0044DC54(slot->m_5c);
 		m_prefs.write();
 	}
 	return true;
