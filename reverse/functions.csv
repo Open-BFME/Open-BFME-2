@@ -62062,3 +62062,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva000E04CE@Rva000E04CE@@QAEXPAVSegmentedLineClass@@@Z,,0x000E04CE,104,Code/GameEngine/Source/GameLogic/Object/Rva000E04CEUpdate.cpp,matched,rowed callees SegmentedLine virtual slot plus g_00BC2918
 ?rva00275490@Drawable@@QAEXPBURGBColor@@@Z,,0x00275490,83,Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp,matched,chain of 27541E null-peak reset plus envelope state
 ?rva0057E24B@Rva0057E3DB@@QAEXH@Z,,0x0057E24B,18,Code/GameEngine/Source/Common/Rva0057E3DBDtor.cpp,matched,setter via caller 0x0043A0D9 and pinned callee 0x0057E058
+?Rva0052D71AFillN@@YAPAVRva0056616B@@PAV1@IABV1@@Z,,0x0052D71A,40,Code/GameEngine/Source/Common/System/Rva0052D71A.cpp,matched,chain fill_n via rowed 0x0052D6BE stride 0xB8
