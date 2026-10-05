@@ -79,3 +79,26 @@ void StrategicPlayerStatus::OnCloseWindow(const char *unused)
 {
 	Rva0052340DEnable();
 }
+
+#pragma optimize("y", off)
+// ?Rva005235A5@@YGHHEH@Z @0x005235A5 48B
+// Gate for query 0x15 with sub 1/0xF/0x1C and flag bit 0: runs the
+// screen enabler when the flag is set, always answering true when the
+// query pair matches.
+int __stdcall Rva005235A5(int query, unsigned char sub, int flags)
+{
+	if (query != 0x15)
+		return 0;
+	switch (sub)
+	{
+	case 1:
+	case 0xF:
+	case 0x1C:
+		break;
+	default:
+		return 0;
+	}
+	if (flags & 1)
+		Rva0052340DEnable();
+	return 1;
+}
