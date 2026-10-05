@@ -59808,3 +59808,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?setCaptured@Object@@QAEX_N@Z,,0x0028B21E,26,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B238.cpp,matched,ZH Object::setCaptured CAPTURED bit 4 of private status plus438
 ?rva0028B193@Object@@QAEXXZ,,0x0028B193,65,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp,matched,Object helpers refresh plus4C4 maybePrepend plus4CC plus4C8 init then plus250 slot3 tail
 ?rva0028B701@Object@@QAEXM@Z,,0x0028B701,41,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp,matched,Object plus244 module scan float to interface slot43
+?calculateHeightAboveTerrain@Object@@MBEMXZ,,0x0028B569,44,Code/GameEngine/Source/GameLogic/Object/ObjectCalculateHeightAboveTerrain.cpp,matched,ZH Object override Object vtable slot4 z minus TerrainLogic getLayerHeight slot7 with plus40C layer
