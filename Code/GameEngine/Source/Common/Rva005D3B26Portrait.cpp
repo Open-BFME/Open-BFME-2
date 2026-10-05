@@ -23,16 +23,24 @@ struct Rva005D2FD0Inner
 	char m_name[1];
 };
 
+int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
+
 class Rva005D3B26
 {
 public:
 	void rva005D3B26();
+	void rva005D3A91();
+	void rva005D3CFA();
 
 	void *m_unused00;
 	int m_level;
 	Rva005D2FD0Inner *m_inner;
 	char m_pad0C[0x14];
 	const Image *m_image20;
+	char m_pad24[0x0C];
+	bool m_shown30;		// +0x30
+	bool m_31;
+	bool m_32;			// +0x32
 };
 
 void Rva005D3B26::rva005D3B26()
@@ -48,3 +56,19 @@ void Rva005D3B26::rva005D3B26()
 }
 // ?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A: the global at VA 0xdfe4cc is ?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A.
 #pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
+
+// ?rva005D3CFA@Rva005D3B26@@QAEXXZ retail 0x005D3CFA 81B: show the panel once:
+// SetState "_show" through the rowed Rva005FB5E6AptCall (TheRva00222A8BTarget,
+// level, name), set the shown flag at +0x30, refresh 0x005D3A91 (pinned) when
+// the flag at +0x32 is set, then tail-call the portrait refresh above.
+void Rva005D3B26::rva005D3CFA()
+{
+	if (m_shown30)
+		return;
+	const char *name = m_inner ? m_inner->m_name : "";
+	Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_level, name, "SetState", "_show");
+	m_shown30 = true;
+	if (m_32)
+		rva005D3A91();
+	rva005D3B26();
+}
