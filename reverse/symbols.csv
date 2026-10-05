@@ -10690,3 +10690,4 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ?rva0043FA68@Rva004421E1@@QAEXH@Z,0x0043FA68,unrowed 244B thiscall (Ghidra FUN_0083fa68; ret 4) of the LAN lobby +0x288 panel; called from 0x004448C8 with the selected game and from the panel 0x0043FFD1 with 0; address name
 ?rva0043E30F@MpGameSetup@@QAEXHH@Z,0x0043E30F,unrowed 211B thiscall (Ghidra FUN_0083e30f; ret 8) on the LAN lobby MpGameSetup panel; 0x0043E507 calls it with a slot number (1..7) and 0; address name
 ?rva0057EA0F@Rva0057EE5C@@QAEXXZ,0x0057EA0F,unrowed 158B thiscall (Ghidra FUN_0097ea0f; plain ret) on the LAN lobby MpGameSetup panel +0xD0 member (base destroyed by ??1Rva0057EE5C); called from 0x0043DB77; address name
+?s_head@?$CategoryModuleClass@$02@FXParticleSystem@@2PAV12@A,0x009FDD48,0x001F8599 reads DFDD48 twin of 05 pin and exports s_first 02 at same VA
