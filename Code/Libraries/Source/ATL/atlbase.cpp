@@ -166,7 +166,10 @@ class CAtlWinModule : public _ATL_WIN_MODULE70
 {
 public:
     CAtlWinModule();
+    void Term();
 };
+
+extern HINSTANCE g_00E09E64;
 
 CAtlWinModule::CAtlWinModule()
 {
@@ -174,6 +177,12 @@ CAtlWinModule::CAtlWinModule()
     HRESULT hr = AtlWinModuleInit(this);
     if (hr < 0)
         CAtlBaseModule::m_bInitFailed = true;
+}
+
+void CAtlWinModule::Term()
+{
+    AtlWinModuleTerm(this, g_00E09E64);
+    return m_rgWindowClassAtoms.RemoveAll();
 }
 
 template void CSimpleArray<ATOM>::RemoveAll();
