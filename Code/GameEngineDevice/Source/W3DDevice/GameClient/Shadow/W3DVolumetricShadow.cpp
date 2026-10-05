@@ -95,3 +95,71 @@ void W3DVolumetricShadow::resetSilhouette( Int meshIndex )
 	m_numSilhouetteIndices[meshIndex] = 0;
 
 }  // end resetSilhouette
+
+// ?SetGeometry@W3DVolumetricShadow@@IAEXPAVW3DShadowGeometry@@@Z
+// retail 0x000F16B4, 129 bytes: the donor body verbatim (same preamble and
+// BFME_VOLUMETRIC_DELETE_LAYOUT), placed uniquely by recompiling the donor
+// unit at /O1. Callees are the rowed allocateSilhouette 0x000F07C3 and
+// deleteSilhouette 0x000F0803, reached through their pins.
+// setGeometry ================================================================
+void W3DVolumetricShadow::SetGeometry( W3DShadowGeometry *geometry )
+{
+	struct BFMEShadowGeometryMesh
+	{
+		char m_beforeNumVerts[0x28];
+		Int m_numVerts;
+		char m_afterNumVerts[0x08];
+	};
+	struct BFMEShadowGeometry
+	{
+		BFMEShadowGeometryMesh m_meshList[MAX_SHADOW_CASTER_MESHES];
+	};
+
+#ifdef BFME_VOLUMETRIC_DELETE_LAYOUT
+	W3DVolumetricShadow *shadow = this;
+	W3DVolumetricShadow *geometryShadow = (W3DVolumetricShadow *)((char *)this + 0x30);
+#else
+	W3DVolumetricShadow *shadow = (W3DVolumetricShadow *)((char *)this + 0x30);
+	W3DVolumetricShadow *geometryShadow = shadow;
+#endif
+	BFMEShadowGeometry *newGeometry = (BFMEShadowGeometry *)geometry;
+
+	Short numPrevVertices = 0;
+	Short numNewVertices = 0;
+
+	//
+	// our geometry has changed, we need to allocate enough memory for the
+	// silhouette data.  If silhouette data is present it must be reallocated
+	// to accomoddate the new size if smaller
+	//
+
+	// if we had previous geometry how many vertices did it have
+
+	for (Int i=0; i<MAX_SHADOW_CASTER_MESHES; i++)
+	{
+		if( geometryShadow->m_geometry )
+			numPrevVertices = ((BFMEShadowGeometry *)geometryShadow->m_geometry)->m_meshList[i].m_numVerts;
+
+		// now many vertices does our new geometry have
+		if( geometry )
+			numNewVertices = newGeometry->m_meshList[i].m_numVerts;
+
+		//
+		// TODO: Colin, may want to change this in the future
+		// if our new geometry requires more memory allocate it, if it requires
+		// less we'll leave it around for future switches in geometry
+		//
+		if( numNewVertices > numPrevVertices )
+		{
+
+			shadow->deleteSilhouette(i);
+			if( shadow->allocateSilhouette(i, numNewVertices ) == FALSE )
+				return;
+
+		}  // end if
+	}
+
+	// assign the new geometry, possible over an old geometry
+	geometryShadow->m_geometry = geometry;
+
+}  // end SetGeometry
