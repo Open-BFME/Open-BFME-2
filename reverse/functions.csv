@@ -57385,3 +57385,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva004045B4@Rva004045B4@@QAEXHMPBV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z,,0x004045B4,148,Code/Libraries/Source/WWVegas/WWLib/Rva004045B4.cpp,matched,unlock search vector update or append via rowed push_back
 ?rva004E6846@Rva004E6846@@QAEXXZ,,0x004E6846,60,Code/GameEngine/Source/Common/Bfme/Rva004E6846Close.cpp,matched,timeout via timeGetTime firing Rva0043DB23 Close
 ??1Rva004E6A37@@QAE@XZ,,0x004E6A37,23,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,holder dtor via pointee 0x004E6935 and delete abutting clear
+??$__uninitialized_fill_n@PAURva005EFD53Element@@IU1@@_STL@@YAPAURva005EFD53Element@@PAU1@IABU1@ABU__false_type@0@@Z,,0x005EF424,37,Code/GameEngine/Source/Common/Rva005EF424FillN.cpp,matched,unlock fill_n stride 4 via pin 0x005F09FF unblocks 0x005EF4A5
