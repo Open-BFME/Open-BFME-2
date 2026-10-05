@@ -38,6 +38,10 @@ public:
 
 void Rva005CB274();
 
+// Retail pushes the vcall thunk at 0x005CB274 (rowed ??_9@$BBI@AE, slot +0x18).
+// Bind the honest free-function spelling callers use to that row so the push links.
+#pragma comment(linker, "/alternatename:?Rva005CB274@@YAXXZ=??_9@$BBI@AE")
+
 struct SidesListExtra
 {
 	int m_x;
