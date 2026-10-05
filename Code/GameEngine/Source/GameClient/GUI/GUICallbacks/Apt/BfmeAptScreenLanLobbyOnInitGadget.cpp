@@ -159,7 +159,51 @@ class Rva004421E1
 {
 public:
 	void rva0043DE19();
+	// Unrowed 0x0043FFCF (8 bytes), pinned by address.
+	void rva0043FFCF();
 };
+
+class GameModePreferences
+{
+public:
+	UnicodeString rva0044D330();
+};
+
+class EnumeratedIP
+{
+public:
+	void *m_next;
+	unsigned int m_ip; // +0x04
+};
+
+class IPEnumeration
+{
+public:
+	IPEnumeration();
+	~IPEnumeration();
+	EnumeratedIP *getAddresses();
+
+private:
+	void *m_addresses;
+	int m_isWinsockInitialized;
+};
+
+// The two GlobalData fields read here (TheWritableGlobalData, 0x00DFE758).
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
+
+struct Rva004452A8GlobalData
+{
+	unsigned char m_pad000[0x26];
+	unsigned char m_26; // +0x26
+	unsigned char m_pad027[0xA48 - 0x27];
+	unsigned int m_defaultIP; // +0xA48
+};
+
+void GadgetTextEntrySetText(GameWindow *window, UnicodeString text);
+
+// Unrowed 0x00437421 (482 bytes, no arguments), pinned by address.
+void Rva00437421();
 
 // Window manager vslots 44 and 45 are registerTabList and clearTabList
 // (GameWindowManager_registerTabList.cpp; vtable 0x007C7C90). Retail copies
@@ -189,15 +233,33 @@ extern GameWindowManager *TheWindowManager;
 class LANAPI
 {
 public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	LANAPI();
+	virtual void v00();
+	virtual void init();
+	virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05();
+	virtual void v06(); virtual void v07(); virtual void v08();
+	virtual void reset();
+	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
+	virtual void v14();
+	virtual void RequestLocations();
 	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
 	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
 	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
 	virtual void v28();
 	virtual void RequestSetName(UnicodeString name);
+	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33();
+	virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37();
+	virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41();
+	virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45();
+	virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
+	virtual void v50(); virtual void v51(); virtual void v52();
+	virtual bool SetLocalIP(unsigned int ip);
+	virtual void v54(); virtual void v55(); virtual void v56(); virtual void v57();
+	virtual void v58();
+
+	unsigned char m_pad04[0x5D - 0x04];
+	unsigned char m_isInLANMenu; // +0x5D
+	unsigned char m_pad5e[0x60 - 0x5E];
 };
 
 extern LANAPI *g_00DFE958;
@@ -212,6 +274,7 @@ public:
 	void rva00446772();
 	void rva0044469C();
 	void rva00445E3E(LANGameInfo *games);
+	bool initLanRva004452A8();
 
 	// Unrowed 0x004457BC (1006 bytes; rebuilds the games list box), pinned by
 	// address.
@@ -229,7 +292,9 @@ private:
 	int m_6a4; // +0x6A4
 	GameWindow *m_customGamesList; // +0x6A8
 	Rva0031455E m_nameEntry; // +0x6AC
-	unsigned char m_pad6b8[0x6BB - 0x6B8];
+	unsigned char m_pad6b8[0x6B9 - 0x6B8];
+	unsigned char m_6b9; // +0x6B9
+	unsigned char m_socketError; // +0x6BA
 	bool m_6bb; // +0x6BB
 	unsigned char m_pad6bc[0x6C0 - 0x6BC];
 	unsigned char m_6c0; // +0x6C0
@@ -364,4 +429,69 @@ void BfmeAptScreenLanLobby::rva00445E3E(LANGameInfo *games)
 	}
 	rva004457BC();
 	reinterpret_cast<Rva0043DB66ByteOneSetter *>(&m_panel)->enable();
+}
+
+// Retail 0x004452A8, 505 bytes. Donor Open-BFME-1 GUICallbacks/Apt/
+// AptLanLobby.cpp (initLanRva00517D00, BFME1 0x00517D00, the BFME
+// counterpart of Zero Hour's LanLobbyMenuInit), whose address-name pattern it
+// keeps. BFME2 target evidence: it needs the games list and the name entry,
+// creates a 0x60-byte LANAPI, keeps GlobalData +0x26 at +0x6B9, no longer
+// hands the list windows to TheLAN, clamps the name to ten characters, stores
+// it at +0x6A0, and finishes with LANAPI vslots 15 and 58 and 0x00437421.
+bool BfmeAptScreenLanLobby::initLanRva004452A8()
+{
+	if (m_customGamesList == 0)
+		return false;
+	if (m_nameEntry.m_owner != 0)
+	{
+		m_panel.rva0043FFCF();
+		GadgetListBoxReset(m_customGamesList);
+
+		if (!TheLAN)
+		{
+			TheLAN = new LANAPI();
+			m_6b9 = ((Rva004452A8GlobalData *)TheWritableGlobalData)->m_26;
+		}
+		else
+		{
+			TheLAN->reset();
+		}
+
+		unsigned int ip = ((Rva004452A8GlobalData *)TheWritableGlobalData)->m_defaultIP;
+		IPEnumeration IPs;
+
+		if (!ip)
+		{
+			EnumeratedIP *IPlist = IPs.getAddresses();
+			if (!IPlist)
+				return false;
+			ip = IPlist->m_ip;
+		}
+
+		TheLAN->init();
+		TheLAN->m_isInLANMenu = 1;
+		if (TheLAN->SetLocalIP(ip) == false)
+			m_socketError = 1;
+
+		UnicodeString defaultName;
+		defaultName.set(reinterpret_cast<GameModePreferences *>(&m_prefs)->rva0044D330());
+		while (defaultName.getLength() > 10)
+			defaultName.removeLastChar();
+
+		UnicodeString *slot = &m_userName;
+		slot->set(defaultName);
+		if (TheLanguageFilter)
+			TheLanguageFilter->filterLine(defaultName);
+		m_prefs.setUserName(defaultName);
+
+		if (m_nameEntry.m_owner)
+			GadgetTextEntrySetText(m_nameEntry.m_owner, defaultName);
+
+		TheLAN->RequestSetName(defaultName);
+		TheLAN->RequestLocations();
+		TheLAN->v58();
+		Rva00437421();
+		return true;
+	}
+	return false;
 }
