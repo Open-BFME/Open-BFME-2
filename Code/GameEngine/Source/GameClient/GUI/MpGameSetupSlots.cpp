@@ -597,6 +597,32 @@ public:
 	unsigned int m_value; // +0x04
 };
 
+// The game's digest test (Rva003FF1C2.cpp, rowed under its address name):
+// whether any of the 16 bytes at +0xCC is set.
+class Rva003FF1C2
+{
+public:
+	bool rva003FF1C2() const;
+};
+
+// The owner's lazily created holders (Rva0043F103Holder.cpp); 0x0043FA68
+// stores the game at +0x08 of holder 1, the Rva0043DA65 layout.
+struct TargetRef00217D4C;
+
+class Rva0043F103
+{
+public:
+	TargetRef00217D4C *rva0043F103(int index);
+};
+
+// TheRva00222A8BTarget (0x00DFE4CC) as the Apt window manager whose
+// bfmeSetText (0x00225301) AptMapPreviewSetMapTitle.cpp pins.
+class BfmeAptWindowManager
+{
+public:
+	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool flag);
+};
+
 class MpGameSetup
 {
 public:
@@ -671,8 +697,6 @@ public:
 	// all six widget arrays), pinned by address.
 	bool rva00442BCC();
 
-	// Unrowed 0x0043FA68 (244 bytes; stores the game in the owner's holder 1
-	// and shows "APT:JoinGame" or "APT:Continue"), pinned by address.
 	void rva0043FA68(GameInfo *game);
 
 	void rva004404AC(bool enable, int slot);
@@ -2286,4 +2310,25 @@ void MpGameSetup::rva00441B15(int slot)
 	}
 	rva00441693(slot);
 	rva0043F8B3(slot);
+}
+
+// Retail 0x0043FA68, 244 bytes. Name unknown. Hands a game (or 0) to the
+// owner's holder 1, refreshes the +0x60 and +0xD0 members and labels the
+// "APT:JoinGame" button "APT:Continue" when the game has a digest (a saved
+// game), else "APT:JoinGame".
+void MpGameSetup::rva0043FA68(GameInfo *game)
+{
+	((Rva0043DA65 *)((Rva0043F103 *)m_owner)->rva0043F103(1))->m_current = game;
+	m_60.rva0057E058();
+	m_d0.rva0057EA0F();
+	if (game && ((const Rva003FF1C2 *)game)->rva003FF1C2())
+	{
+		AsciiString key("APT:JoinGame");
+		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, TheGameText->fetch("APT:Continue"), false);
+	}
+	else
+	{
+		AsciiString key("APT:JoinGame");
+		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, TheGameText->fetch("APT:JoinGame"), false);
+	}
 }
