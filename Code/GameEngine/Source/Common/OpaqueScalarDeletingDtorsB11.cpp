@@ -36,19 +36,139 @@
 extern "C" const void *const vtbl_00C65518[];  // ??_7Rva0050FAEC@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C65518=??_7Rva0050FAEC@@6B@")
 
+class Object;
+class StateMachine;
+
+class State
+{
+public:
+	State(StateMachine *machine, unsigned int hash);
+	virtual ~State();
+	int m_id;
+	int m_successStateID;
+	int m_failureStateID;
+	void *m_transitionsFirst;
+	void *m_transitionsLast;
+	StateMachine *m_machine;
+	bool m_tail1C;
+	char m_pad1D[3];
+};
+
+class StateMachine
+{
+public:
+	char m_pad00[0x14];
+	Object *volatile m_owner;
+	Object *getOwner() { return m_owner; }
+};
+
+class OpaqueCallResult;
+
+class OpaqueOwnerInterface
+{
+public:
+#define OWNER_SLOT(n) virtual void vslot##n() = 0;
+OWNER_SLOT(00) OWNER_SLOT(01) OWNER_SLOT(02) OWNER_SLOT(03) OWNER_SLOT(04) OWNER_SLOT(05) OWNER_SLOT(06) OWNER_SLOT(07) OWNER_SLOT(08) OWNER_SLOT(09)
+OWNER_SLOT(10) OWNER_SLOT(11) OWNER_SLOT(12) OWNER_SLOT(13) OWNER_SLOT(14) OWNER_SLOT(15) OWNER_SLOT(16) OWNER_SLOT(17) OWNER_SLOT(18) OWNER_SLOT(19)
+OWNER_SLOT(20) OWNER_SLOT(21) OWNER_SLOT(22) OWNER_SLOT(23) OWNER_SLOT(24) OWNER_SLOT(25) OWNER_SLOT(26) OWNER_SLOT(27) OWNER_SLOT(28) OWNER_SLOT(29)
+OWNER_SLOT(30) OWNER_SLOT(31) OWNER_SLOT(32) OWNER_SLOT(33) OWNER_SLOT(34) OWNER_SLOT(35) OWNER_SLOT(36) OWNER_SLOT(37) OWNER_SLOT(38) OWNER_SLOT(39)
+OWNER_SLOT(40) OWNER_SLOT(41) OWNER_SLOT(42) OWNER_SLOT(43) OWNER_SLOT(44) OWNER_SLOT(45) OWNER_SLOT(46) OWNER_SLOT(47) OWNER_SLOT(48) OWNER_SLOT(49)
+OWNER_SLOT(50) OWNER_SLOT(51) OWNER_SLOT(52) OWNER_SLOT(53) OWNER_SLOT(54) OWNER_SLOT(55) OWNER_SLOT(56) OWNER_SLOT(57) OWNER_SLOT(58) OWNER_SLOT(59)
+OWNER_SLOT(60) OWNER_SLOT(61) OWNER_SLOT(62) OWNER_SLOT(63) OWNER_SLOT(64) OWNER_SLOT(65) OWNER_SLOT(66) OWNER_SLOT(67) OWNER_SLOT(68) OWNER_SLOT(69)
+OWNER_SLOT(70) OWNER_SLOT(71) OWNER_SLOT(72) OWNER_SLOT(73) OWNER_SLOT(74) OWNER_SLOT(75) OWNER_SLOT(76) OWNER_SLOT(77) OWNER_SLOT(78) OWNER_SLOT(79)
+OWNER_SLOT(80) OWNER_SLOT(81) OWNER_SLOT(82) OWNER_SLOT(83) OWNER_SLOT(84) OWNER_SLOT(85) OWNER_SLOT(86) OWNER_SLOT(87) OWNER_SLOT(88) OWNER_SLOT(89)
+OWNER_SLOT(90) OWNER_SLOT(91) OWNER_SLOT(92)
+#undef OWNER_SLOT
+	virtual OpaqueCallResult *vslot93() = 0;
+};
+
+class OpaqueCallResult
+{
+public:
+#define RESULT_SLOT(n) virtual void vslot##n() = 0;
+RESULT_SLOT(00) RESULT_SLOT(01) RESULT_SLOT(02) RESULT_SLOT(03) RESULT_SLOT(04)
+RESULT_SLOT(05) RESULT_SLOT(06) RESULT_SLOT(07) RESULT_SLOT(08) RESULT_SLOT(09)
+#undef RESULT_SLOT
+	virtual void vslot10(int value) = 0;
+};
+
+class Object
+{
+public:
+	virtual ~Object();
+	char m_pad04[0x258 - 4];
+	OpaqueOwnerInterface *m_258;
+};
+
+extern void *__cdecl operator new(unsigned int size);
+
+class Rva004885DE
+{
+public:
+	virtual ~Rva004885DE();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	Rva004885DE(Object *owner, int value);
+	char m_pad04[0x38];
+	int m_3C;
+};
+
 struct EmitVtableTag;
 
-class Rva00488D5C
+class Rva00488D5C : public State
 {
 public:
 	Rva00488D5C(EmitVtableTag *);
+	Rva00488D5C(StateMachine *machine, int value);
 public:
 	virtual ~Rva00488D5C();
+	virtual void vslot01();
+	virtual void vslot02();
+	virtual void vslot03();
+	virtual int rva00488906();
+	volatile int m_value;
+	Rva004885DE *volatile m_child;
 };
 
 // ?<Rva00488D5C::Rva00488D5C> absent-from-retail
-Rva00488D5C::Rva00488D5C(EmitVtableTag *)
+Rva00488D5C::Rva00488D5C(EmitVtableTag *) : State(0, 0)
 {
+}
+
+// ??0Rva00488D5C@@QAE@PAVStateMachine@@H@Z, retail 0x00488883 (117 bytes).
+// The state hash and State::m_machine are read from the target constructor;
+// the vptr value is its raw store. Its allocation at +0x20 and owner load
+// through StateMachine+0x14 match the child StateMachine ctor at 0x004885DE.
+// The call through vtable slot 7 follows the child constructor on both arms.
+// ?<Rva00488D5C::Rva00488D5C> present-unmatched
+Rva00488D5C::Rva00488D5C(StateMachine *machine, int value)
+	: State(machine, 0x473A607Fu)
+{
+	m_value = value;
+	Rva004885DE *child = new Rva004885DE(m_machine->getOwner(), value);
+	m_child = child;
+	child->v07();
+}
+
+// ?rva00488906@Rva00488D5C@@UAEHXZ, retail 0x00488906 (54 bytes).
+// Slot 4 of the vtable installed by this class's constructor; owner +0x258
+// supplies the slot-93 result interface, then the retained child handles the
+// final slot-6 call. Names for both interfaces remain address-derived.
+// ?<Rva00488D5C::rva00488906> present-unmatched
+int Rva00488D5C::rva00488906()
+{
+	OpaqueOwnerInterface *object = m_machine->getOwner()->m_258;
+	if (!object)
+		return -2;
+	OpaqueCallResult *result = object->vslot93();
+	result->vslot10(m_value);
+	m_child->v06();
+	return 0;
 }
 
 class Rva004ABFD9

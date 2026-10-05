@@ -3907,6 +3907,58 @@ Bool DozerAIUpdate::canAcceptNewRepair( Object *obj )
 
 }  // end canAcceptNewRepair
 
+// ?rva00488ac9@Rva00488AC9@@QAEXPAVObject@@W4CommandSourceType@@@Z,
+// retail 0x00488AC9 (81 bytes). The body reads its Object at +0x08 and the
+// DozerAIInterface view at +0x3E4, then checks repair acceptance, ActionManager
+// approval and the sole healing benefactor before starting the repair task.
+// It is kept address-derived because the owner class is not independently named.
+class Rva00488AC9
+{
+public:
+	void rva00488AC9(Object *obj, CommandSourceType cmdSource);
+};
+
+// ?<Rva00488AC9::rva00488AC9> present-unmatched
+void Rva00488AC9::rva00488AC9(Object *obj, CommandSourceType cmdSource)
+{
+	Object *dozer = *(Object **)((char *)this + 0x08);
+	DozerAIInterface *self = (DozerAIInterface *)((char *)this + 0x3E4);
+	if (self->canAcceptNewRepair(obj) == FALSE)
+		return;
+	if (TheActionManager->canRepairObject(dozer, obj, cmdSource) == FALSE)
+		return;
+	ObjectID currentRepairer = obj->getSoleHealingBenefactor();
+	if (currentRepairer != INVALID_ID && currentRepairer != *(ObjectID *)((char *)dozer + 0x74))
+		return;
+	self->newTask(DOZER_TASK_REPAIR, obj);
+}
+
+// ?rva00488C48@Rva00488C48@@QBEMXZ, retail 0x00488C48 (72 bytes).
+// The offsets and paired repair routine place this method on the +0x3E4
+// DozerAIInterface view of an AIUpdate object; the final name stays
+// address-derived. The two controlling-player calls and its +0x5C discriminator
+// gate the AI multiplier applied to the host object's +0x6C value.
+class Rva00488C48
+{
+public:
+	Real rva00488C48() const;
+};
+
+// ?<Rva00488C48::rva00488C48> present-unmatched
+Real Rva00488C48::rva00488C48() const
+{
+	Object **dozer = (Object **)((char *)this - 0x3DC);
+	if ((*dozer)->getControllingPlayer() != 0 &&
+		*(int *)((char *)(*dozer)->getControllingPlayer() + 0x5C) == 1)
+	{
+		Object *thing = *(Object **)((char *)this - 0x3E0);
+		void *aiData = *(void **)((char *)TheAI + 0x18);
+		return *(Real *)((char *)thing + 0x6C) * *(Real *)((char *)aiData + 0x88);
+	}
+	Object *thing = *(Object **)((char *)this - 0x3E0);
+	return *(Real *)((char *)thing + 0x6C);
+}
+
 // ------------------------------------------------------------------------------------------------
 /** Issue an order for the Dozer to go repair the target 'obj' */
 // ------------------------------------------------------------------------------------------------
