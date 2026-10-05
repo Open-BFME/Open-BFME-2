@@ -1,24 +1,27 @@
 // ?rva006F1530@@YAXPAVBfmeAptValue006DCD20@@@Z
-// partial score=0.92 date=2026-10-05
-// ?rva006F1530@@YAXPAVBfmeAptValue006DCD20@@@Z
-// partial score=0.92 date=2026-10-05
+// partial score=0.93 date=2026-10-05
+// ?rva006F1530@@YAXPAVBfmeAptValue006DCD20@@@Z @0x006F1530 63B
 // cl: /O2 /DNDEBUG /MD
-// 0x006F1530 (63B) Apt predicate-to-bool: if the value is an XmlNode and its
-// checked cast target carries a non-null inner at +0x20, publish
-// (inner->slot9() != 0) through the MakeBool helper; otherwise publish false.
 //
-// Improvement over the prior banked body: binding the cast result to its own
-// pointer (`p`) before reading m_inner20 reproduces retail's register
-// allocation exactly -- inner in ecx, vtable in eax, `setne cl` -- which the
-// single-expression form got wrong (inner in eax, vtable in edx). The body now
-// matches retail byte-for-byte through 0x6F1557 (64B compiled vs 63B target).
+// Apt predicate-to-bool conversion helper.  Calls the rowed isXmlNode()
+// (0x006DBDE0) and, when its checked cast carries a non-null inner at +0x20,
+// publishes (inner->slot9() != 0) through the rowed MakeBool pin (0x006D88C0);
+// otherwise publishes false.
 //
-// Remaining wall (unchanged): retail does NOT tail-call either MakeBool site;
-// both end `push arg / call 0x6D88C0 / add esp,4 / pop esi / ret`, while /O2
-// tail-calls both (`pop esi / mov [esp+4],arg / jmp 0x6D88C0`). /Oy- restores
-// the two separate non-tail calls but adds an ebp frame retail never builds
-// (67B). No /O1 //O2 //Ox /Oy- //Ob1 or pragma shape reaches two separate
-// non-tail calls without the frame.
+// isXmlNode is declared with the row's own `int QBEHXZ` signature so the call
+// resolves; the `(unsigned char)` test reproduces retail's `test al,al`
+// (84 c0) instead of an int test.  _ReadWriteBarrier after the first MakeBool
+// keeps that call out of tail position, matching retail exactly.  This matches
+// retail byte-for-byte through 0x006F1562 (the whole true path and its non-tail
+// call epilogue); the sole remaining wall is the final MakeBool: MSVC
+// tail-calls it, while retail emits a second `push 0 / call / add esp,4 /
+// pop esi / ret`.  Adding a barrier there instead makes MSVC tail-merge the two
+// call sites into one shared 55B body.  No flag (/O1 /Os /Ox /Ob0 /Ob1 /Oy-
+// /Og-) or source shape reaches retail's two separate, non-merged, frameless
+// call epilogues.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
 class Rva006F1530Inner
 {
 public:
@@ -38,7 +41,7 @@ class BfmeAptValue006DCD20
 {
 public:
 	virtual void vtableSlot0();
-	bool isXmlNode() const;
+	int isXmlNode() const;
 	BfmeAptValue006DCD20 *rva006DD220();
 
 private:
@@ -53,11 +56,12 @@ AptValue *Rva006D88C0MakeBool(bool b);
 
 void rva006F1530(BfmeAptValue006DCD20 *obj)
 {
-	if (obj->isXmlNode()) {
+	if ((unsigned char)obj->isXmlNode()) {
 		BfmeAptValue006DCD20 *p = obj->rva006DD220();
 		Rva006F1530Inner *inner = p->m_inner20;
 		if (inner) {
 			Rva006D88C0MakeBool(inner->slot9() != 0);
+			_ReadWriteBarrier();
 			return;
 		}
 	}
