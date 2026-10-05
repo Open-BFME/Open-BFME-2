@@ -7,6 +7,17 @@
 // stlport_vector_elem36_push_back.cpp (dword + 16-byte block + three dwords +
 // byte); callees rowed/pinned (_Construct 0x001610F0 copy-ctor 0x00161050
 // copy_backward 0x001611B0 overflow 0x001663F0); called from 0x00166A1B.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <vector>
 
 struct Elem36Block16

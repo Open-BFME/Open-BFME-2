@@ -4,6 +4,17 @@
 // ?push_back@?$vector@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL@@QAEXABVRva0054000B@@@Z @0x005406FA 55B
 // Vector growth path striding 0x28 via rowed allocate 0x000B4039 plus rowed copy 0x005400B4 plus Construct 0x00540070 plus fill 0x005400DA plus free 0x00030830.
 // Evidence: callees rowed; callers 0x005406FA 0x00540731; sibling overflow 0x005417C6 same 189B shape.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <vector>
 
 class Rva0054000B

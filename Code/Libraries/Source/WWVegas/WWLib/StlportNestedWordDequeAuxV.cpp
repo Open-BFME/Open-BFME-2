@@ -10,6 +10,17 @@
 // /EHs (the /EHsc sibling TU StlportNestedWordDeque.cpp emits 119 B
 // without it). Evidence: callees rowed 0x00422825 0x0042305C 0x000307F0
 // 0x0042301D 0x00422D48; caller 0x00423C4A in 0x00423BD8.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <deque>
 
 struct BfmeWordValue4

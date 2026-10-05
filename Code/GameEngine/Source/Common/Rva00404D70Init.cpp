@@ -2,6 +2,17 @@
 // stlport
 // ?rva004055F2@Rva00404D70@@QAEXXZ @0x004055F2 146B
 // Evidence: chain lane calls just-landed 0x00404BC5 ctor; reads ecx thiscall void; constructs AsciiString Default via rowed 0x00037BA0 then record via rowed 0x00404BC5 then push_back rowed 0x004055BB with releaseBuffer rowed 0x00036410; floats from 0x00BBB8D8 0x00BC2428 0x00BC7A54; vector at +0x120; neighbours share Rva00404D70 layout.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include "ascii_string.h"
 #include <vector>
 

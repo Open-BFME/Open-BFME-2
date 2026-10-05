@@ -17,6 +17,17 @@
 // Fix from the banked attempt: the found branch copies a into a local before
 // push_back; MSVC coalesces that local into the parameter home, emitting the
 // retail self-store mov eax,[ebp+8] / mov [ebp+8],eax before the push.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <vector>
 #include "ascii_string.h"
 

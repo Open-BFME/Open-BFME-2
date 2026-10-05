@@ -5,6 +5,17 @@
 // uninitialized_copy 0x585CE0, copy_backward, fill, RvaFill 0x585D06, overflow 0x586C56,
 // temp dtor via rowed deque dtor. Evidence: same 258B ret-0x0C shape as AsciiString fill_insert
 // 0x000C0697 and StringRecord fill_inserts; callers unclaimed.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <vector>
 #include <deque>
 

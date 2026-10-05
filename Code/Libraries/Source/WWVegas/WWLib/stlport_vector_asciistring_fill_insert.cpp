@@ -1,6 +1,17 @@
 // cl: /Ireference/shims/bfme2_ascii /G7 /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /EHsc
 // stlport
 // ?_M_fill_insert@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXPAVAsciiString@@IABV3@@Z @0x000C0697 258B: vector AsciiString _M_fill_insert via StringBase copy 0x365F0 plus uninitialized_copy 0x2C4B2 plus copy_backward 0xB6631 plus fill 0xB4300 plus Rva000B9596Fill 0xB9596 plus overflow 0x2D1CF plus releaseBuffer 0x36410. Evidence: same 258B shape as StringRecord fill_insert 0x005EDEF3; ret 0x0C with sar 2 stride 4; callers at 0x000C331A and 0x000C1CA9.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include "ascii_string.h"
 #include <vector>
 namespace _STL

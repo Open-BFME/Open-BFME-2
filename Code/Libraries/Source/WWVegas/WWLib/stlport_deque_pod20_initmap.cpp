@@ -11,6 +11,17 @@
 // which hosts the 152B BfmeE12 initmap at 0x00584D55. Calls rowed
 // allocate 0x00068E15 and _M_create_nodes 0x00421918 (both size-independent
 // 120B node bodies shared with the E12 family).
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <deque>
 struct BfmePod20 { int a[5]; };
 template class _STL::deque<BfmePod20, _STL::allocator<BfmePod20> >;

@@ -3,6 +3,17 @@
 // ?_M_insert_overflow@?$vector@VRva0040AF66@@V?$allocator@VRva0040AF66@@@_STL@@@_STL@@IAEXPAVRva0040AF66@@ABV3@ABU__false_type@2@I_N@Z @ 0x0040B8E8 (183B). Vector fill insert overflow.
 // Evidence: same shape as rowed 0x0040B834 calling rowed copy 0x0040B1CD construct 0x0040B17B fill 0x0040B1F3 clear 0x0040B5FC allocate 0x0040A673; stride 0x68; caller 0x0040BA6A.
 // Finish from stash reverse/attempts/0x0040b8e8.cpp (0.95): private AsciiString replaced by the shared header (same 4B size; element copy is declared-only so no code change).
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include "ascii_string.h"
 #include <vector>
 

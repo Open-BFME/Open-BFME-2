@@ -6,6 +6,17 @@
 // ModuleData push_back, returns count. Evidence: callers 0x0028A551 0x0028A5BC;
 // callees rowed erase 0x0031BD55 push_back 0x004DFCB0 findUpgrade 0x0026F26D;
 // neighbours CrateCreationEntryList.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include "ascii_string.h"
 #include <vector>
 #include <malloc.h>

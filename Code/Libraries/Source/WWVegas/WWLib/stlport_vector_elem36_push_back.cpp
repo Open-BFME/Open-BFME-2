@@ -14,6 +14,17 @@
 // ElementStrideWalks.cpp; the member split (dword + 16-byte block + three
 // dwords + byte) follows the retail construct helper 0x001610F0 which copies
 // +0x04..+0x13 as one block then +0x14/+0x18/+0x1C and the byte at +0x20.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 struct Elem36Block16
 {
 	int m_words[4];

@@ -5,6 +5,17 @@
 // [ebp-1]; retail's call target is the dup 0x0024619A of rowed 0x00360B59, not the copy
 // the default spelling resolves to. ICF twin needs a unique equal_to spelling in its own
 // namespace so the call binds to this TU's own copy, the same recipe as Rva002D0C71.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <hash_map>
 #include <cstddef>
 

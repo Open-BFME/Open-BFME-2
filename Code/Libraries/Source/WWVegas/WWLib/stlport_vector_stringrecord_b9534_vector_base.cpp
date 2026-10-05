@@ -6,6 +6,17 @@
 // vector: proxy ctor 0x0014F3C4 then allocate 0x00395944 with imul 0x18.
 // Needs /G7: home-TU /O1 strength-reduces the imul (allocator-row note).
 // Callers 0x000BCE65 0x000BCEC5 0x00425471 0x0052D524 0x005DE88A.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 class AsciiString { public: AsciiString(const AsciiString &); __forceinline ~AsciiString(); protected: void releaseBuffer(); private: void *m_data; };
 struct BfmeStringRecord000B9534 {
     AsciiString text;

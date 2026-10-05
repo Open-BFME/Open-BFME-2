@@ -9,6 +9,17 @@
 // Rva00381C82AddChatText(Int, UnicodeString, Color); vector array
 // g_00E022F8[2] from stlport_vector_stringrecord_5ddd40_clear.cpp;
 // forEach pattern and forwarder cast from Rva0053947DDtor.cpp/Rva005DC3C1.cpp.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include "unicode_string.h"
 #include <vector>
 

@@ -2,6 +2,17 @@
 // stlport
 // ?rva005AA4C1@Rva005AA4C1@@QAEXPAVArg005AA4C1@@@Z @0x005AA4C1 156B. Identity: fill vector from virtual enumeration then zero-fill via push_back.
 // Evidence: vector<Coord3D> at +4 div 12; virtual slots 0x78 0x8 0x60 0x4; rowed push_back 0x002CE7DC; caller 0x005AA622 same page.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <vector>
 
 struct Coord3D

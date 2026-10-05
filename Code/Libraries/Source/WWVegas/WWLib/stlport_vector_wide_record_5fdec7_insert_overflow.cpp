@@ -8,6 +8,17 @@
 // 0x001F326F and StringRecordVectorGrowthG7 0x005F9B4E siblings: /G7 emits
 // retail imul scaling and edi homing; bfmealloc keeps the two-arg allocate
 // call; _Construct declared so copies call the rowed wide-string construct.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 

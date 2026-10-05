@@ -1,6 +1,17 @@
 // cl: /Ireference/shims/bfme2_ascii /G7 /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /EHsc
 // stlport
 // ?_M_fill_insert@?$vector@UBfmeContainerRecord005FDEC7@@V?$allocator@UBfmeContainerRecord005FDEC7@@@_STL@@@_STL@@QAEXPAUBfmeContainerRecord005FDEC7@@IABU3@@Z retail 0x005FE835 258B. STLport vector _M_fill_insert for the 12-byte wide-string record (word word UnicodeString at +8) matching the 005FDEC7 assignment. Evidence: callers at 0x005FE9BE and 0x005FE96F; callees Container copy_backward 0x005FE089 fill 0x005FE0A6 fill_n 0x005FE3C1 overflow 0x005FE589 plus StringRecord copy 0x005F93E3 ICF twin of the Container copy and dup uninitialized_copy 0x005FE226 ICF twin and wide releaseBuffer 0x00036E70 for the temp dtor.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include "unicode_string.h"
 typedef unsigned short wchar_t;
 #include <vector>
