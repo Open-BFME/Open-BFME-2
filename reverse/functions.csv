@@ -55869,3 +55869,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?setCompletedWaypoint@AIUpdateInterface@@QAEXPBVWaypoint@@@Z,,0x00268AAA,85,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceSetCompletedWaypoint.cpp,matched,pin name and signature callers onExit AIWander AIPanic chain via rva003360D2
 ?rva006C3180@GeneralAllocatorDebug@@QAEXPAUGeneralAllocatorDebugBlock@@@Z,,0x006C3180,150,Code/masm_dumps/VerifyGuardFill.asm,matched,MASM codegen blocker - retail holds the argument in ebp with no frame setup which MSVC 7.1 cannot emit; identity proven from the VerifyGuardFill failure string at 0x008E7C0C
 ?rva00373357@Rva00373357@@QAEXXZ,,0x00373357,28,Code/GameEngine/Source/Common/Rva00373357.cpp,matched,vector erase then free callers unblock 2
+?rva003734C0@Rva003734C0@@QAEXXZ,,0x003734C0,61,Code/GameEngine/Source/Common/Rva003734C0.cpp,matched,map values delete then clear caller dtor 37381C
