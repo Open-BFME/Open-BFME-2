@@ -12543,3 +12543,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?rva006FE580@AptBasePtrStack@@QAEPAVAptValue@@H@Z,0x006FE580,Native runStream calls established stack At provider; address-labelled ABI alias preserves existing provider
 ?At@AptBasePtrStack@@QAEPAVAptValue@@H@Z,0x006FE580,Native slice6DA3A0 uses global value stackE182E0 and signed argument index; existing At66B provider bound by alias with canonical AptValue return
 ??0Rva0014F699@@QAE@ABV0@@Z,0x0014F4E3,twin of Element pin same 76B body callers 0x0014F647 0x00150959
+??1Rva0030AF8FAudioEventRTS@@QAE@XZ,0x0030AF8F,AudioEventRTS dtor stub at 0x0030AF8F (target of thunks 0x007B7AF5 and 0x007B7AFF)
+??1Rva004ABE53Dtor@@QAE@XZ,0x004ABE53,dtor stub at 0x004ABE53 (target of thunk 0x007B89C1)
+??1AptActionInterpreter@@QAE@XZ,0x006FE9C0,AptActionInterpreter dtor at 0x006FE9C0 (target of thunk 0x007B9C50)

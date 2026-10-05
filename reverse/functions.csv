@@ -63119,3 +63119,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva001FC451@Rva001FC451@@QAEXPAX0@Z,,0x001FC451,38,Code/GameEngine/Source/Common/Thing/Rva001FA836ForwardChain.cpp,matched,Rva slot-get then next-link forward chain by REL32 graph
 ??4Rva001FC404@@QAEAAV0@ABV0@@Z,,0x001FC404,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
 ?rva00150959@Rva00150959@@QAEXPAURva001504A1Record@@IABVRva0014F699@@@Z,,0x00150959,258,Code/GameEngine/Source/Common/Rva00150959Insert.cpp,matched,vector fill-insert 76B EH tag callers 0x00150BD7 0x00150A86
+?rva007B7AF5@@YAXXZ,,0x007B7AF5,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF4F8 tail-jmp pinned AudioEventRTS dtor 0x0030AF8F
+?rva007B7AFF@@YAXXZ,,0x007B7AFF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF4B8 tail-jmp pinned AudioEventRTS dtor 0x0030AF8F
+?rva007B89C1@@YAXXZ,,0x007B89C1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E03CE0 tail-jmp pinned dtor 0x004ABE53
+?rva007B9C50@@YAXXZ,,0x007B9C50,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E182E0 tail-jmp pinned AptActionInterpreter dtor 0x006FE9C0

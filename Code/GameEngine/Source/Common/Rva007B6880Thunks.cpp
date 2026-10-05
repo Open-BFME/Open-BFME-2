@@ -6911,6 +6911,61 @@ void __cdecl rva007B82DD()
 	return p->~Rva00422CEETree();
 }
 
+class Rva0030AF8FAudioEventRTS
+{
+public:
+	~Rva0030AF8FAudioEventRTS();
+};
+
+extern unsigned g_Va00DFF4F8;
+unsigned int g_Va00DFF4F8;
+
+// ?rva007B7AF5@@YAXXZ @ 0x007B7AF5 (10B). Global AudioEventRTS dtor thunk: ecx=&g_Va00DFF4F8 then tail-jmp to pinned ??1Rva0030AF8FAudioEventRTS@@QAE@XZ (0x0030AF8F). No callers. Honest address name.
+void __cdecl rva007B7AF5()
+{
+	Rva0030AF8FAudioEventRTS *p = (Rva0030AF8FAudioEventRTS *)&g_Va00DFF4F8;
+	return p->~Rva0030AF8FAudioEventRTS();
+}
+
+extern unsigned g_Va00DFF4B8;
+unsigned int g_Va00DFF4B8;
+
+// ?rva007B7AFF@@YAXXZ @ 0x007B7AFF (10B). Global AudioEventRTS dtor thunk: ecx=&g_Va00DFF4B8 then tail-jmp to pinned ??1Rva0030AF8FAudioEventRTS@@QAE@XZ (0x0030AF8F). No callers. Honest address name.
+void __cdecl rva007B7AFF()
+{
+	Rva0030AF8FAudioEventRTS *p = (Rva0030AF8FAudioEventRTS *)&g_Va00DFF4B8;
+	return p->~Rva0030AF8FAudioEventRTS();
+}
+
+class Rva004ABE53Dtor
+{
+public:
+	~Rva004ABE53Dtor();
+};
+
+// ?rva007B89C1@@YAXXZ @ 0x007B89C1 (10B). Global dtor thunk: ecx=&g_Va00E03CE0 then tail-jmp to pinned ??1Rva004ABE53Dtor@@QAE@XZ (0x004ABE53). No callers. Honest address name.
+void __cdecl rva007B89C1()
+{
+	Rva004ABE53Dtor *p = (Rva004ABE53Dtor *)&g_Va00E03CE0;
+	return p->~Rva004ABE53Dtor();
+}
+
+class AptActionInterpreter
+{
+public:
+	~AptActionInterpreter();
+};
+
+extern unsigned g_Va00E182E0;
+unsigned int g_Va00E182E0;
+
+// ?rva007B9C50@@YAXXZ @ 0x007B9C50 (10B). Global AptActionInterpreter dtor thunk: ecx=&g_Va00E182E0 then tail-jmp to pinned ??1AptActionInterpreter@@QAE@XZ (0x006FE9C0). No callers. Honest address name.
+void __cdecl rva007B9C50()
+{
+	AptActionInterpreter *p = (AptActionInterpreter *)&g_Va00E182E0;
+	return p->~AptActionInterpreter();
+}
+
 
 
 
