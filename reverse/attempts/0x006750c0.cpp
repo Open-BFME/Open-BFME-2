@@ -1,4 +1,6 @@
 // ?handle@Rva008091C0Owner@@QAEXPAVBfmeC994@@HPAD@Z
+// partial score=0.995 date=2026-10-05
+// ?handle@Rva008091C0Owner@@QAEXPAVBfmeC994@@HPAD@Z
 // partial score=0.99 date=2026-09-30
 // ?handle@Rva008091C0Owner@@QAEXPAVBfmeC994@@HPAD@Z
 // partial score=0.99 date=2026-09-30
@@ -87,6 +89,7 @@ struct FeslState
 	void *m_28;
 	void *m_2c;
 	char m_pad30[0x278];
+	int m_count;
 	FeslArray m_array;
 	char m_pad2b0[0x28];
 	Rva00802040Owner *m_owner;
@@ -104,7 +107,6 @@ public:
 	int m_174;
 };
 
-// ?handle@Rva008091C0Owner@@QAEXPAVBfmeC994@@HPAD@Z present-unmatched
 void Rva008091C0Owner::handle(BfmeC994 *message, int gid, char *name)
 {
 	Rva00802040Owner *owner = m_state->m_owner;

@@ -1,4 +1,6 @@
 // ?Rva006ED490Find@@YAPAXPAVBfmeAptValue006DCD20@@PAVEAStringC@@_N@Z
+// partial score=0.99 date=2026-10-05
+// ?Rva006ED490Find@@YAPAXPAVBfmeAptValue006DCD20@@PAVEAStringC@@_N@Z
 // partial score=0.99 date=2026-09-30
 // ?Rva006ED490Find@@YAPAXPAVBfmeAptValue006DCD20@@PAVEAStringC@@_N@Z
 // partial score=0.99 date=2026-09-30
@@ -67,7 +69,6 @@ struct AptCharView {
     AptEntry8 *m_arr1; // +0x2C
 };
 
-// ?Rva006ED490Find@@YAPAXPAVBfmeAptValue006DCD20@@PAVEAStringC@@_N@Z present-unmatched
 void *Rva006ED490Find(BfmeAptValue006DCD20 *v, EAStringC *s, bool flag)
 {
     for (;;) {
@@ -86,7 +87,7 @@ void *Rva006ED490Find(BfmeAptValue006DCD20 *v, EAStringC *s, bool flag)
         if (flag) {
             for (int i = 0; i < d->m_count2; ++i) {
                 if (s->rva006D3510(d->m_arr2[i].name)) {
-                    int idx = d->m_arr2[i].index;
+                    const int idx = d->m_arr2[i].index;
                     return d->m_lookup[idx];
                 }
             }
