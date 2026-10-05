@@ -8862,3 +8862,6 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	size-exact 331B; retail po
 ?rva00591B1B@NetPacket@@QAE_NPAVNetCommandRef@@@Z	0x00591B1B	498	blocked	NetPacket addAck 498B needs full layout plus 5 args plus EH t=15 model=muse-12
 ?Rva005915D6Fill@@YAXPAEPAVNetCommandRef@@@Z	0x005915D6	187	blocked	FillBuffer with S tag plus CDDrive getPath needs donor t=12 model=muse-12
 ?Rva005910B4Write@@YAXPADPAVNetCommandRef@@@Z	0x005910B4	188	partial	shl ecx,1 vs retail add ecx,ecx for len*2 t=20 model=muse-12 score=0.98 stash=reverse/attempts/0x005910b4.cpp
+?rva004B901D@SupplyWarehouseCreate@@UAEXXZ	0x004B901D	118	partial	test-byte-vs-mov-shr-test-al for two bit2 checks t=15 model=muse-04 score=0.93 stash=reverse/attempts/0x004b901d.cpp
+?rva00484FE2@Rva00484FE2@@UAEHHH@Z	0x00484FE2	323	blocked	vslot33 EH-SSE-x87 money-grant needs donor t=10 model=muse-04
+?rva00484C8B@PassiveAreaEffectBehavior@@UAEXXZ	0x00484C8B	361	blocked	single merged next-call vs retail duplicated init-bottom calls with current spilled to ebp-0x10 causing 4B frame shortfall sub esp 68 vs 6c and uniform 4B filter shifts; Object pos-id fixed to standalone 38-74 but loop still merges for-while under O1-GX; mask lea-push vs retail push-eax remains t=25 model=muse-04
