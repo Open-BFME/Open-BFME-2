@@ -431,7 +431,7 @@ struct DX8WrapperStageHelper : public DX8Wrapper
 // Release view for the out-of-line TextureBaseClass::Release_Ref
 // (0x0061ED10); declared early for Invalidate_Cached_Render_States below.
 // Full family comment sits with the Bfme reset views further down.
-struct BfmeResetResource { void Release_Ref(); };
+struct BfmeResetResource { void Add_Ref(); void Release_Ref(); };
 
 // Retail sets this byte while releasing the current render-state buffers
 // (store site 0x0051FD3F). The converted BFME1 tree carries it as an
@@ -495,43 +495,6 @@ void DX8Wrapper::Invalidate_Cached_Render_States(void)
 	}
 
 }
-
-// ?Do_Onetime_Device_Dependent_Shutdowns@DX8Wrapper@@ present-unmatched
-void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
-{
-	/*
-	** Shutdown ww3d systems
-	*/
-	int i;
-	for (i=0;i<MAX_VERTEX_STREAMS;++i) {
-		if (render_state.vertex_buffers[i]) render_state.vertex_buffers[i]->Release_Engine_Ref();
-		REF_PTR_RELEASE(render_state.vertex_buffers[i]);
-	}
-	if (render_state.index_buffer) render_state.index_buffer->Release_Engine_Ref();
-	REF_PTR_RELEASE(render_state.index_buffer);
-	REF_PTR_RELEASE(render_state.material);
-	for (i=0;i<CurrentCaps->Get_Max_Textures_Per_Pass();++i) REF_PTR_RELEASE(render_state.Textures[i]);
-
-
-	TextureLoader::Deinit();
-	SortingRendererClass::Deinit();
-	DynamicVBAccessClass::_Deinit();
-	DynamicIBAccessClass::_Deinit();
-	ShatterSystem::Shutdown();
-	PointGroupClass::_Shutdown();
-	VertexMaterialClass::Shutdown();
-	BoxRenderObjClass::Shutdown();
-	SHD_SHUTDOWN;
-	TheDX8MeshRenderer.Shutdown();
-	MissingTexture::_Deinit();
-
-	if (CurrentCaps) {
-		delete CurrentCaps;
-		CurrentCaps=NULL;
-	}
-
-}
-
 
 // BFME2 Create_Device consumes D3D9 capabilities and adapter identifiers.
 // Its stack and zero-fill prove a 304-byte caps block and a 1100-byte adapter
@@ -1099,7 +1062,7 @@ inline void BfmeEnumerationDesc::add_resolution(int w,int h,int bits)
 
 // This view has the fully proven 0x2E4 DX8Caps layout, including its three
 // StringClass members. Construction calls the verified caps-copy constructor.
-struct BfmeEnumerationCaps {
+struct BfmeEnumerationCaps { int GetMaxTextures() const {return MaxTexturesPerPass;}
  BfmeEnumerationCaps(IDirect3D8 *,const BFME_DeviceCaps9 &,WW3DFormat,const BFME_AdapterIdentifier9 &);
  bool Is_Valid_Display_Format(int,int,D3DFORMAT);
 	int MaxDisplayWidth;
@@ -4883,6 +4846,58 @@ void DX8Wrapper::Shutdown(void)
     delete TheMeshGapFillerContext;
     TheMeshGapFillerContext = 0;
 	IsInitted = false;		// 010803 srj
+}
+
+
+
+// One-time shutdown uses the same proven D3D9 caps layout as enumeration.
+// Native FuncInfo D093D8 state0 unwinds through RefCountPtr dtor17098D:
+// texture slots therefore reset by assignment from a temporary null owner.
+// Native states1/2 prove the caps strings at2D4/2DC/2E0. Callee order is
+// read from1215F0..12176D; ZH names/semantics guide supported phases only.
+#include "../../../../../reference/shims/bfmestreak/ref_ptr.h"
+void Rva00912CF0();
+// The caller proves a no-argument call to the shared RET at B3FD0.
+// Its original phase name is unresolved. W3DNoDraw supplies that exact RET,
+// which reads no arguments and changes no caller-owned stack slots.
+void rva001216E7ShutdownPhase();
+#pragma comment(linker, "/alternatename:?rva001216E7ShutdownPhase@@YAXXZ=?W3DNoDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z")
+void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
+{
+	/*
+	** Shutdown ww3d systems
+	*/
+	int i;
+	for (i=0;i<MAX_VERTEX_STREAMS;++i) {
+		if (render_state.vertex_buffers[i]) render_state.vertex_buffers[i]->Release_Engine_Ref();
+		if (render_state.vertex_buffers[i]) { render_state.vertex_buffers[i]->Release_Ref(); render_state.vertex_buffers[i]=0; }
+	}
+	if (render_state.index_buffer) {
+        render_state.index_buffer->Release_Engine_Ref();
+        if (render_state.index_buffer) {render_state.index_buffer->Release_Ref();render_state.index_buffer=0;}
+    }
+	if (render_state.material) {render_state.material->Release_Ref();render_state.material=0;}
+	for (i=0;i<reinterpret_cast<BfmeEnumerationCaps *>(CurrentCaps)->GetMaxTextures();++i) reinterpret_cast<RefCountPtr<BfmeResetResource> &>(render_state.Textures[i]) = RefCountPtr<BfmeResetResource>();
+
+
+	
+	SortingRendererClass::Deinit();
+	DynamicVBAccessClass::_Deinit();
+	DynamicIBAccessClass::_Deinit();
+	
+	Rva00912CF0();
+    rva001216E7ShutdownPhase();
+	VertexMaterialClass::Shutdown();
+	BoxRenderObjClass::Shutdown();
+	SHD_SHUTDOWN;
+	ShutdownMeshRenderer->Shutdown();
+	reinterpret_cast<BfmeResetMeshRenderer *>(ShutdownMeshRenderer)->Device_Reset_Hook();
+
+	if (CurrentCaps) {
+		delete reinterpret_cast<BfmeEnumerationCaps *>(CurrentCaps);
+		CurrentCaps=NULL;
+	}
+
 }
 
 
