@@ -2423,57 +2423,7 @@ void PeerThreadClass::connectCallback( PEER peer, PEERBool success )
 #endif // SERVER_DEBUGGING
 }
 
-// byte-exact reconstruction: Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadNickErrorCallbackThunk.cpp
-// ?nickErrorCallback@PeerThreadClass@@ present-unmatched
-void PeerThreadClass::nickErrorCallback( PEER peer, Int type, const char *nick )
-{
-	if(type == PEER_IN_USE)
-	{
-		Int len = strlen(nick);
-		std::string nickStr = nick;
-		Int newVal = 0;
-		if (nick[len-1] == '}' && nick[len-3] == '{' && isdigit(nick[len-2]))
-		{
-			newVal = nick[len-2] - '0' + 1;
-			nickStr.erase(len-3, 3);
-		}
-
-		DEBUG_LOG(("Nickname taken: was %s, new val = %d, new nick = %s\n", nick, newVal, nickStr.c_str()));
-
-		if (newVal < 10)
-		{
-			nickStr.append("{");
-			char tmp[2];
-			tmp[0] = '0'+newVal;
-			tmp[1] = '\0';
-			nickStr.append(tmp);
-			nickStr.append("}");
-			// Retry the connect with a similar nick.
-			m_loginName = nickStr;
-			peerRetryWithNick(peer, nickStr.c_str());
-		}
-		else
-		{
-			PeerResponse resp;
-			resp.peerResponseType = PeerResponse::PEERRESPONSE_DISCONNECT;
-			resp.discon.reason = DISCONNECT_NICKTAKEN;
-			TheGameSpyPeerMessageQueue->addResponse(resp);
-
-			// Cancel the connect.
-			peerRetryWithNick(peer, NULL);
-		}
-	}
-	else
-	{
-		PeerResponse resp;
-		resp.peerResponseType = PeerResponse::PEERRESPONSE_DISCONNECT;
-		resp.discon.reason = DISCONNECT_BADNICK;
-		TheGameSpyPeerMessageQueue->addResponse(resp);
-
-		// Cancel the connect.
-		peerRetryWithNick(peer, NULL);
-	}
-}
+// Nickname retry callback is recovered in PeerThreadNickError.cpp.
 
 void disconnectedCallback(PEER peer, const char * reason, void * param)
 {
