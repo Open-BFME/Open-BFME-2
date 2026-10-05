@@ -56703,3 +56703,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva004770A6@HordeTransportContain@@UAEXPAVObject@@@Z,,0x004770A6,56,Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp,matched,slot shape plus 0x20 0x11D layout via HordeGarrison slot29 and rowed Object bit-gate
 ?Rva00590FA5Get@@YAHPBVRva0023E928@@@Z,,0x00590FA5,47,Code/GameEngine/Source/Common/Rva00590FA5Get.cpp,matched,sibling 590F76 shape with 0x1D via rowed 23E928 and releaseBuffer
 ?rva00086C4A@Rva00086C4A@@QAEXXZ,,0x00086C4A,144,Code/GameEngine/Source/GameClient/Rva00086C4AUpdate.cpp,matched,camera lerp ParabolicEase Matrix3D view audio rowed
+?Rva006E6E20Collect@@YAXXZ,,0x006E6E20,346,Code/Libraries/Source/Apt/AptGCRva006E6E20.cpp,matched,AptGC collector via AptGC.cpp151 assert plus rowed callees
