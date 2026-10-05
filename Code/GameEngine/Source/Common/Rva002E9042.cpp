@@ -62,6 +62,7 @@ class Rva002E9042
 {
 public:
 	void rva002E9042(void *p);
+	void rva002E8FE5(void *p);
 private:
 	char m_pf[0x460];
 	Rva005312BE m_grid;
@@ -79,4 +80,19 @@ void Rva002E9042::rva002E9042(void *p)
 		m_grid.rva0053155E(cell.x, cell.y, false, (int)p);
 	}
 	arg->m_48 = 0;
+}
+
+// ?rva002E8FE5@Rva002E9042@@QAEXPAX@Z @0x002E8FE5 93B: set twin of 0x002E9042; WorldToCell then getCell layer 1, fills via 0x0052DA63 and grid 0x0053155E when cell slot empty, sets byte at +0x48
+void Rva002E9042::rva002E8FE5(void *p)
+{
+	Rva002E9042Arg *arg = (Rva002E9042Arg *)p;
+	ICoord2D cell;
+	Rva002E7875WorldToCell(&cell, true, &arg->m_0C);
+	PathfindCell *c = ((Pathfinder *)this)->getCell((PathfindLayerEnum)1, cell.x, cell.y);
+	if (c != 0 && ((Rva0052DA63 *)c)->m_04 == 0)
+	{
+		((Rva0052DA63 *)c)->rva0052DA63(p);
+		m_grid.rva0053155E(cell.x, cell.y, true, (int)p);
+	}
+	arg->m_48 = 1;
 }
