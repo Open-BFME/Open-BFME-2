@@ -1,11 +1,10 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /G7 /DNDEBUG /MD
 //
 // ?rva003743CF@Rva003743CF@@QAEXPAX_N@Z @0x003743CF 79B.
 // BehaviorModule method: esi=[ecx+8] is Object*, calls Object::setStatus
 // row 0x0023DB0E. Object+4 flag test bit 0x20 at +0x115 gates a virtual
-// at [esi+0x250]+0x110 taking (code, struct, 1). First attempt models the
-// certain setStatus tail plus flag check; virtual arg 0x7743BB as int
-// placeholder to read shape before pinning the nearby code.
+// at [esi+0x250]+0x110 taking (callback, struct, 1); the callback at
+// 0x003743BB repeats the setStatus on each object it is handed.
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_PLACEHOLDER = 0
@@ -86,7 +85,7 @@ public:
 	virtual void f65();
 	virtual void f66();
 	virtual void f67();
-	virtual void f68(int a, Rva003743CFParam *b, int c);
+	virtual void f68(void (__cdecl *func)(class Object *obj, void *userData), Rva003743CFParam *b, int c);
 };
 class Object
 {
@@ -98,6 +97,14 @@ private:
 	unsigned char m_pad08[0x250 - 0x08];
 	Rva003743CF250 *m_250;
 };
+// Contain-iterate callback 0x003743BB (20B): apply the same status change to
+// each contained object.
+void __cdecl Rva003743BB(Object *obj, void *userData)
+{
+	Rva003743CFParam *param = (Rva003743CFParam *)userData;
+	obj->setStatus((ObjectStatusTypes)param->m_00, param->m_04);
+}
+
 class Rva003743CF
 {
 public:
@@ -117,7 +124,7 @@ void Rva003743CF::rva003743CF(void *p, bool b)
 		Rva003743CFParam param;
 		param.m_00 = status;
 		param.m_04 = b;
-		target->f68(0x7743BB, &param, 1);
+		target->f68(Rva003743BB, &param, 1);
 	}
 	object->setStatus(*(ObjectStatusTypes *)p, b);
 }
