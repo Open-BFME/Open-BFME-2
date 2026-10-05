@@ -9210,3 +9210,4 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?createWindowStatic@@YAPAVGameWindow@@PADHPAXPAV1@@Z	0x00316BD2	294	partial	ebx vs esi swap for window and callback plus common tail early with backward jne vs late with forward jmp plus 7B t=25 model=muse-06 score=0.93 stash=reverse/attempts/0x00316bd2.cpp
 ?createWindowStatic@@YAPAVGameWindow@@PADHPAXPAV1@@Z	0x00316BD2	294	blocked	edi-esi swap window-parent cb now ebx plus tail early-backward-jne vs late-forward-jmp plus 7B t=30 model=muse-06 (stash 0.93 kept)
 ?rva00142170@Rva00142170@@QAEXXZ	0x00142170	443	blocked	443B recursive SimpleScene traversal ret-40 self-calls no donor within budget t=10 model=muse-02
+?Rva0037D55EGet@@YA?AVUnicodeString@@XZ	0x0037D55E	394	blocked	extra Triple movsd copy plus extra releases plus missing esi edi caching plus add esp batching t=25 model=muse-03
