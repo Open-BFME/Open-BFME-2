@@ -5902,6 +5902,16 @@ void __cdecl rva007B6CAF()
 	return p->RenderObjClass::Update_Sub_Object_Transforms();
 }
 
+extern unsigned g_00E01E41;
+// g_00E01E41: packet annotates VA 0x00E01E41 (data), no name yet.
+
+// ?rva007B7C72@@YAXXZ @ 0x007B7C72 (10B). Global locale uninitialize thunk: ecx=&g_00E01E41 then tail-jmp to pinned ?rva00007670@Rva00007670@@QAEXXZ (0x00007670 twin of rowed ?_S_uninitialize@locale@_STL@@SAXXZ). No callers. Between 0x007B7C68 and 0x007B7C7C. Honest address name.
+void __cdecl rva007B7C72()
+{
+	Rva00007670 *p = (Rva00007670 *)&g_00E01E41;
+	return p->rva00007670();
+}
+
 extern unsigned g_Va00E01E40;
 unsigned int g_Va00E01E40;
 
