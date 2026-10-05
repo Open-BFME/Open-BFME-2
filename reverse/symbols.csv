@@ -12049,3 +12049,6 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva002100E6@Rva0020EE29@@QAEXPAX0@Z,0x002100E6,Rva0020EE29 member used twice by 0x002101C6 with this passthrough plus the arg and a member address; 224B range-7 target, reconstruct later
 ?rva0020F483@Rva0020EE29@@QAEXXZ,0x0020F483,Rva0020EE29 member used by 0x002102CA with this passthrough and no args
 ?rva0020F5B3@Rva0020EE29Inner@@QAEXXZ,0x0020F5B3,inner tail-target of 0x002102CA with this=inner and no args
+?pushBack@DrawableList@@QAEXAAPBVDrawable@@@Z,0x00239E0B,TU-local DrawableList pushBack pinned to rowed list Drawable push_back 0x239E0B decoded from retail call at 0x239FDC for 0x239FCC
+?thru@Rva00239105A@@QAEXXZ,0x0042C5BC,TU-local thru pinned to 7B thunk 0x42C5BC for 0x239105 (range 0 owned elsewhere)
+?tail@Rva00239105B@@QAEXXZ,0x0042CADD,TU-local tail pinned to 7B thunk 0x42CADD for 0x239105 tail-jmp
