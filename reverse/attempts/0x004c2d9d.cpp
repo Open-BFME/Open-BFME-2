@@ -1,7 +1,14 @@
 // ?rva0045108D@LevelGrantSpecialPower@@UAEXXZ
-// partial score=0.96 date=2026-10-04
+// partial score=0.99 date=2026-10-05
 // cl: /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
+// ?rva0045108D@LevelGrantSpecialPower@@UAEXXZ @0x004C2D9D 317B
+// LevelGrantSpecialPower slot 17: the shroud-refresh update. Base slot 17,
+// vector<ObjectID> seen, iterate within the module data's +0xCC of +0x44 over
+// 0x002614DF(obj).link(relationship 4)->link(alive)->link(not obj)->link(player
+// compare), each hit to 0x004C2D2B. Callee rows, class view and the
+// +0x0C/+0x04/+0x10/+0x7C/+0x80/+0xE0 offsets all carry over from the matched
+// LevelGrantSpecialPower.cpp beside this file.
 #include <vector>
 
 enum ObjectID
@@ -425,10 +432,53 @@ void LevelGrantSpecialPower::rva0045108D()
 {
 	SpecialAbilityUpdate::rva0045108D();
 	Object *obj = m_object;
+	const LevelGrantSpecialPowerModuleData *data = getLevelGrantSpecialPowerModuleData();
 	std::vector<ObjectID> seen;
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_44, getLevelGrantSpecialPowerModuleData()->m_CC, 0,
-		Rva002614DFFilter(obj).link(&Rva00260EB1Filter(obj, 4, false))->link(&Rva0026119DFilter())
-			->link(&Rva002611BFFilter(obj))->link(&Rva002614ECFilter(getLevelGrantSpecialPowerModuleData()->m_D0, obj->getControllingPlayer(), true)), 0);
+	// Each filter is a named local. Naming them gives each an explicit stack
+	// home instead of leaving MSVC to place a run of temporaries, which is what
+	// costs the four extra bytes of `sub esp` and the different [ebp-0x..]
+	// offsets. That alone takes the body from 318 to 313 bytes and moves the
+	// first difference from +0x0C to +0x8B, because the whole prologue now
+	// matches. The chain is the same five nodes in the same order.
+	//
+	// The remaining difference is 2 bytes at 0x004C2E28: retail pushes the order
+	// flag (1) FIRST, before the filter addresses, where this build pushes it
+	// last. Retail's call to 0x00625610 ends in `ret 0x18`, six stack arguments,
+	// and its call site pushes five of them individually -- the order flag, then
+	// four filter addresses, then the chain head -- so the four filters are
+	// separate parameters, not one chain head. Spelling that as a five-argument
+	// signature overshoots to 336 bytes, and dropping the links drops to 287.
+	// Neither matches, so the four 0x00625790 link calls and the five pushes
+	// share the same nodes and the argument list is not simply "four addresses
+	// plus a head"; the shape producing both has not been found here.
+	Rva002614ECFilter last(data->m_D0, obj->getControllingPlayer(), true);
+	Rva002611BFFilter parentObj(obj);
+	Rva0026119DFilter alive;
+	Rva00260EB1Filter relationship(obj, 4, false);
+	Rva002614DFFilter notObj(obj);
+	// Naming each filter gives it an explicit stack home instead of leaving
+	// MSVC to place a run of temporaries. That alone takes the body from 318 to
+	// 313 bytes and moves the first difference from +0x0C to +0x8B, because the
+	// whole prologue -- `sub esp`, the `edi`/`esi` split and every [ebp-0x..]
+	// vtable store -- now matches.
+	//
+	// The remaining difference is 2 bytes at 0x004C2E28: retail pushes the
+	// order flag (1) FIRST, before the filter addresses, where this build
+	// pushes it last. Retail's call to 0x00625610 ends in `ret 0x18`, six stack
+	// arguments, and its call site pushes five of them individually: the order
+	// flag, then four filter addresses, then the chain head -- so the four
+	// filters are separate parameters, not one chain head. Spelling that as a
+	// five-argument signature overshoots to 336 bytes (the link calls double
+	// up), and dropping the links drops to 287. Neither matches, so the argument
+	// list is not simply "four addresses plus a head": the four 0x00625790 link
+	// calls and the five pushes share the same nodes, and the shape that
+	// produces both has not been found here.
+	Rva000421C8 *filters = &notObj;
+	filters = filters->link(&relationship);
+	filters = filters->link(&alive);
+	filters = filters->link(&parentObj);
+	filters = filters->link(&last);
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_44, data->m_CC, 0, filters, 0);
 	Object *other;
 	while ((other = hits.next()) != 0)
 		rva004C2D2B(other, seen);
