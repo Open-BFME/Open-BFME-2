@@ -1,5 +1,7 @@
 // ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z
-// partial score=0.985 date=2026-10-04
+// partial score=0.985 date=2026-10-05
+// ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z
+
 // cl: /O2 /DNDEBUG /MD /EHsc
 // ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z, retail 0x006D5160 (306B).
 // Free PBD-plus-string concat returning by value: empty string builds via PBD

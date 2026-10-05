@@ -1,6 +1,8 @@
 // ?Rva001F7F1CGet@@YAXPAXH@Z
 // partial score=0.94 date=2026-10-05
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /arch:SSE
+// ?Rva001F7F1CGet@@YAXPAXH@Z
+
+// cl: /O1 /Oy- /DNDEBUG /MD /GX
 // ?Rva001F7F1CGet@@YAXPAXH@Z, retail 0x001F7F1C (237B).
 // Fills a caller-supplied Float4 from the live particle system: zero the
 // destination, then when TheParticleSystemManager is non-null and its
@@ -22,11 +24,14 @@ struct BfmeParticleSystemHandle { ~BfmeParticleSystemHandle(); void *m_system; v
 // calls for its destructor, is an intrusive doubly-linked-list node unlink that
 // rewrites both neighbour slots (or the owner's +0x9C/+0xA0 sentinel pair when
 // this is the first node) and then clears +4 and +8. That fixes the field order
-// as prev at +0, next at +4, owner at +8.
+// as prev at +0, next at +4, owner at +8 -- the same private view the matched
+// getter 0x001F6C54 declares, with m_ptr at +0.
 class RvaSmartPtr12 {
 public:
     RvaSmartPtr12(const RvaSmartPtr12 &that);
     ~RvaSmartPtr12();
+    // The layout the matched getter 0x001F6C54 declares, with the list
+    // element's held pointer at +0.
     void *m_prev;
     void *m_next;
     void *m_owner;
@@ -39,7 +44,10 @@ struct FinalObj { FinalVtbl *vtbl; };
 struct Float4 { float a; float b; float c; float d; };
 void __cdecl Rva001F7F1CGet(void *obj, int arg)
 {
-    float dest[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+    // The destination is named Float4 rather than a float[4], matching the
+    // element type the callee records: retail's frame puts dest[0] at
+    // ebp-0x28, so the scratch block cannot grow past it.
+    Float4 dest = { 0.0f, 0.0f, 0.0f, 0.0f };
     if (TheParticleSystemManager != 0 && ((Rva001F6C54SmartField *)TheParticleSystemManager)->get().m_prev != 0) {
         RvaSmartPtr12 tmp2 = ((Rva001F6C54SmartField *)TheParticleSystemManager)->get();
         ParticleSystem *sys = (ParticleSystem *)tmp2.m_next;
@@ -47,11 +55,11 @@ void __cdecl Rva001F7F1CGet(void *obj, int arg)
             sys = Make001FCBD7();
         Vec2001F529D v;
         ((Rva001F529D *)sys)->rva001F529D(&v);
-        dest[0] = v.x;
-        dest[1] = v.y;
-        dest[2] = 0.0f;
-        dest[3] = 0.0f;
+        dest.a = v.x;
+        dest.b = v.y;
+        dest.c = 0.0f;
+        dest.d = 0.0f;
     }
     FinalObj *o = (FinalObj *)obj;
-    o->vtbl->slot(obj, arg, dest);
+    o->vtbl->slot(obj, arg, &dest);
 }
