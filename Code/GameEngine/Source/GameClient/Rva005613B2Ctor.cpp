@@ -74,7 +74,6 @@ struct Rva00560A58 { Rva00560A58(); ~Rva00560A58(); };
 struct Rva005613B2 { Rva005613B2(); ~Rva005613B2(); };
 Rva00177860 *g_00E0623C;
 Rva00177860 *g_00E06254;
-// ?Rva00560A58::Rva00560A58 present-unmatched
 Rva00560A58::Rva00560A58() {
  FXParticleSystem::ConcreteModuleClass<FXParticleSystem::QuadTag>::getInstance();
  Rva005C7889Init();
@@ -90,7 +89,5 @@ Rva005613B2::Rva005613B2() {
 Rva00560A58::~Rva00560A58() { delete g_00E0623C; }
 // ?Rva005613B2::~Rva005613B2 present-unmatched
 Rva005613B2::~Rva005613B2() { delete g_00E06254; }
-// ?Rva003A83D4Init present-unmatched
 void Rva003A83D4Init() { static Rva00560A58 publisher; }
-// ?Rva003A8414Init present-unmatched
 void Rva003A8414Init() { static Rva005613B2 publisher; }

@@ -9084,3 +9084,5 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?rva000438CB@Rva000438CB@@QAEXXZ	0x000438CB	738	blocked	big WW3D draw 738B jump tables t=10 model=muse-04
 ?addMapObjects@W3DRoadBuffer@@IAEXXZ	0x000DD47D	671	blocked	needs moderate donor repair t=15 model=muse-04
 ?Rva0023D793Transfer@@YGXHHH@Z	0x0023D793	241	partial	req-bal regs edx-edi vs eax-edx and store order swapped t=30 model=muse-08 score=0.93 stash=reverse/attempts/0x0023d793.cpp
+?dup_00C0E9A8@@YAXXZ	0x0078F47C	22	blocked	bfme1_sweep ranked T3 copy-tier D: ICF-folded in lotrbfme.exe across 2 addresses (dup_00C0E8E8/dup_00C0E9A8 twins); name is a guess on a folded address, refused per over-claim policy like 0x0003CCE0; t=5 model=muse-spark-1.3-contributor
+?Rva003A83D4Init@@YAXXZ	0x0052B84F	69	blocked	drift snapped the 003A83D4 name to 0x0052B84F (69B thunk calling 0x52B81C, different guard tail); true home proven at 0x003A83D4 (64B exact, landed); do not re-serve this address for this symbol; t=10 model=muse-spark-1.3-contributor
