@@ -56515,3 +56515,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0054764C@MoveToGroupOrder@@QAEXPAVObject@@PAVAIUpdateInterface@@PAUCoord3D@@@Z,,0x0054764C,124,Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderRva0054764C.cpp,matched,MoveToGroupOrder order via destination check plus float array temps
 ?xfer@Rva0055B3D9@@UAEXPAVXfer@@@Z,,0x0055B3D9,62,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055B3D9Xfer.cpp,matched,slot-3 xfer Version1 plus member plus floats plus int
 ?rva000338F0@GeneralAllocator@Allocator@EA@@QAEXPAX@Z,,0x000338F0,63,Code/GameEngine/Source/Common/System/memory_pool.cpp,matched,Free-like lock 0x4E4 count 0x18 around freeBlock pin 0x33150 caller _Free
+?rva006D2D90@@YAXXZ,,0x006D2D90,89,Code/GameEngine/Source/Common/Rva006D2D90Finish.cpp,matched,Dogma pool tuning init: volatile table read keeps retail induction variable; clamp computed once into 32-bit local
