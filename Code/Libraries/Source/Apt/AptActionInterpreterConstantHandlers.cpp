@@ -23,6 +23,7 @@ extern "C" double __cdecl fmod(double,double);
 extern "C" double __cdecl fabs(double);
 #pragma intrinsic(fabs)
 static __forceinline float bfme_fmodf(float x,float y) { return (float)fmod(x,y); }
+class EAStringC;
 class AptString;
 class AptInteger;
 class AptValue {
@@ -37,10 +38,11 @@ public:
     float toFloat() const;
     bool toBool() const;
     int toInteger() const;
+    void toString(EAStringC &) const;
 };
 class AptCIH;
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class AptString : public AptValue { public: static AptString *Create(); EAStringC str; };
 class AptInteger : public AptValue { public: static AptValue *Create(int); int GetInt() const; };
 int Rva006CD220Get();
@@ -140,6 +142,7 @@ private:
     HANDLER(BranchAlways); HANDLER(BranchIfTrue); HANDLER(BranchIfFalse); HANDLER(Pop);
     HANDLER(CallFunction); HANDLER(CallMethod);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
+    HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
     HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
 #undef HANDLER
@@ -697,3 +700,38 @@ void AptActionInterpreter::_FunctionAptActionDictCallMethodSetVar(AptActionInter
     if (g_releaseVectorAtE17710->GetNumValues()!=0 && p->stack.count==0)
         g_releaseVectorAtE17710->ReleaseValues();
 }
+
+void AptActionInterpreter::_FunctionAptActionToInteger(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    AptValue *result=0;
+    if (Rva006CD220Get()==7) {
+        if (value->isUndefined()) result=gpUndefinedValue;
+    }
+    if (!result) result=AptInteger::Create(value->toInteger());
+    p->stack.Pop();
+    p->stack.Push(result);
+}
+void AptActionInterpreter::_FunctionAptActionStringLength(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    EAStringC text;
+    value->toString(text);
+    AptValue *result=AptInteger::Create(text.rva006D3750());
+    p->stack.Pop(1);
+    p->stack.Push(result);
+}
+void AptActionInterpreter::_FunctionAptActionGetVariable(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *name=p->stack.At(0);
+    if (!name->isUndefined()) {
+        EAStringC text;
+        name->toString(text);
+        AptValue *value=p->getVariable((AptValue *)c->pCurrentContext,c->pCurWith,&text,1);
+        p->stack.Pop();
+        p->stack.Push(value);
+    }
+}
+
+// Default construction folds with the existing empty-string reset provider.
+#pragma comment(linker, "/alternatename:??0EAStringC@@QAE@XZ=?clear@EAStringC@@QAEAAV1@XZ")
