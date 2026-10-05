@@ -63057,3 +63057,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1Rva001FB9C5@@QAE@XZ,,0x001FB9C5,59,Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp,matched,Rva dtor chain second base plus4 then rva001F4206 holder by REL32 graph
 ??1Rva001FBB64@@QAE@XZ,,0x001FBB64,59,Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp,matched,Rva dtor chain second base plus4 then rva001F4206 holder by REL32 graph
 ?Rva00580776Insert@@YAXPAPAXPAXVRva000795C1Record@@@Z,,0x00580776,88,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,unguarded linear insert with record teardown
+?rva0040C45C@Rva0040C351@@QAEXXZ,,0x0040C45C,57,Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp,matched,clear-on-null lookup-notify over m_bc via pin 0x002B2579 and rowed getter; exact 57B

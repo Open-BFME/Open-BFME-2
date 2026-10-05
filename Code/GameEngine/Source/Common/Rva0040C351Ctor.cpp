@@ -31,6 +31,7 @@ public:
 	Rva0040C351(const Rva0040C351 &o);
 	void rva0040C5FA(class INI *ini);
 	void rva0040C430(const class Rva004E0632 *a);
+	void rva0040C45C();
 private:
 	MemberAC m_ac;
 	int m_b4;
@@ -118,4 +119,47 @@ void Rva0040C351::rva0040C430(const Rva004E0632 *a)
 	if (raw == 0)
 		return;
 	((Rva0040C430Ret *)raw)->slotC(this);
+}
+
+// ?rva0040C45C@Rva0040C351@@QAEXXZ @0x0040C45C 57B.
+// Clear-on-null lookup-and-notify over m_bc: Logic id lookup rowed via pin
+// 0x002B2579 with m_bc, null result clears; Rva004E0632 getter rowed
+// 0x004E0632 zero clears; else virtual slot 4 takes this, then clear.
+// Evidence: thiscall no-arg void ret; and-0 clear; caller at 0x002B3F2C;
+// same m_bc and getter as sibling rva0040C430 above.
+struct Rva002B2579Result;
+class Rva002BA8F1Logic
+{
+public:
+	Rva002B2579Result *rva002B2579(int id);
+};
+extern Rva002BA8F1Logic *g_009FEF10;
+class Rva0040C45CSlot4
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4(Rva0040C351 *arg);
+};
+void Rva0040C351::rva0040C45C()
+{
+	int id = m_bc;
+	if (id == 0)
+		return;
+	Rva002B2579Result *found = g_009FEF10->rva002B2579(id);
+	if (found == 0)
+	{
+		m_bc &= 0;
+		return;
+	}
+	int value = ((const Rva004E0632 *)found)->rva004E0632();
+	if (value == 0)
+	{
+		m_bc &= 0;
+		return;
+	}
+	((Rva0040C45CSlot4 *)(void *)value)->v4(this);
+	m_bc &= 0;
 }
