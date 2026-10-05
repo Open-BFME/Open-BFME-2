@@ -63852,3 +63852,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva00573E7C@@QAE@ABV0@@Z,,0x00573EB8,75,Code/GameEngine/Source/Common/Rva00573E7CCopy.cpp,matched,Copy ctor under existing pin: rowed Rva00573B23 copy then vtable 0xC6E2C8 then the +0x40..+0x5C fields
 ?rva000E473F@Rva000E473F@@QAEXXZ,,0x000E473F,93,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E473F.cpp,matched,
 ?rva000E479C@Rva000E473F@@QAEXXZ,,0x000E479C,234,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E473F.cpp,matched,
+?rva000B8F5A@Rva000B8F5A@@QAEXPADVAsciiString@@@Z,,0x000B8F5A,71,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,
