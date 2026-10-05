@@ -1,3 +1,10 @@
+// ?rva000ADB89@Rva000AD9AB@@QAEXHH_N@Z
+// partial score=0.85 date=2026-10-05
+// BANKED 0xADB89+0xADBE3 (frameless esi puzzle) + landed 0xADC41 context.
+// Frameless thiscall keeps x in esi and this in ecx; every C++ spelling
+// (self alias, direct-this, int xx=x copy, /O1, /O2) emits mov esi,ecx.
+// Framed sibling 0xADC41 landed from same TU. Next: defeat this-caching
+// without SEH, or find the source idiom that pre-copies x to esi.
 // cl: /O1 /MD
 //
 // ?rva000AD9AB@Rva000AD9AB@@QAEXHH_N@Z @0x000AD9AB 83B
@@ -20,6 +27,8 @@ class Rva000AD9AB
 public:
 	void rva000AD9AB(int x, int y, bool value);
 	void rva000AD9FE();
+	void rva000ADB89(int x, int y, bool value);
+	void rva000ADBE3(int x, int y, bool value);
 	void rva000ADC41(int x, int y, unsigned char value);
 
 private:
@@ -70,6 +79,60 @@ void Rva000AD9AB::rva000AD9FE()
 {
 	unsigned char tmp = 0;
 	_STL::fill(m_bits.m_begin, m_bits.m_end, tmp);
+}
+
+// ?rva000ADB89@Rva000AD9AB@@QAEXHH_N@Z @0x000ADB89 90B: bit setter on the
+// +0x68/+0x6C plane with the same bounds/index shape as rva000AD9AB.
+void Rva000AD9AB::rva000ADB89(int x, int y, bool value)
+{
+	int xx = x;
+	if (xx < 0)
+		return;
+	if (y < 0)
+		return;
+	if (y >= m_height)
+		return;
+	if (xx >= m_width)
+		return;
+
+	int index = m_pitch * y + (xx >> 3);
+	if ((unsigned int)index >= m_plane68.size())
+		return;
+
+	unsigned char mask = (unsigned char)(1 << (xx & 7));
+	unsigned char slot = m_plane68[index];
+	if (value)
+		slot |= mask;
+	else
+		slot &= (unsigned char)~mask;
+	m_plane68[index] = slot;
+}
+
+// ?rva000ADBE3@Rva000AD9AB@@QAEXHH_N@Z @0x000ADBE3 94B: bit setter on the
+// +0x80/+0x84 plane, same shape as rva000ADB89.
+void Rva000AD9AB::rva000ADBE3(int x, int y, bool value)
+{
+	int xx = x;
+	if (xx < 0)
+		return;
+	if (y < 0)
+		return;
+	if (y >= m_height)
+		return;
+	if (xx >= m_width)
+		return;
+
+	int index = m_pitch * y + (xx >> 3);
+	if ((unsigned int)index >= m_plane80.size())
+		return;
+
+	unsigned char mask = (unsigned char)(1 << (xx & 7));
+	unsigned char slot = m_plane80[index];
+	if (value)
+		slot |= mask;
+	else
+		slot &= (unsigned char)~mask;
+	m_plane80[index] = slot;
 }
 
 // ?rva000ADC41@Rva000AD9AB@@QAEXHHM@Z @0x000ADC41 64B: byte setter on the

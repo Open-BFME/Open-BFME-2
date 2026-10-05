@@ -64291,3 +64291,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva000A97C9@@YAXPAVRva000A97C9Holder@@@Z,,0x000A97C9,35,Code/GameEngine/Source/Common/Rva000A97C9Clear.cpp,matched,dump range 2 destroy-and-clear; honest address-derived name
 ?rva000A97EC@Rva000A97EC@@QAEPAV1@_N@Z,,0x000A97EC,26,Code/GameEngine/Source/Common/Rva000A97ECRelease.cpp,matched,dump range 2 zero-and-release; honest address-derived name
 ?rva000ADA6D@Rva000ADA6D@@QAEXXZ,,0x000ADA6D,28,Code/GameEngine/Source/Common/Rva000ADA6DFill.cpp,matched,dump range 2 sentinel fill via rowed STL fill; honest address-derived name
+?rva000ADC41@Rva000AD9AB@@QAEXHHE@Z,,0x000ADC41,64,Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp,matched,dump range 2 byte setter on +0x8C plane same family; honest address-derived name
