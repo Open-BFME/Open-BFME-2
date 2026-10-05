@@ -204,7 +204,8 @@ int doPowerDisable( Object *obj, void *userData )
 	}
 	return 1;
 }
-void doFindCommandCenter(Object* obj, void* userData);
+// Defined in PlayerDoFindCommandCenter.cpp (0x002AC5AC); returns int like doPowerDisable.
+int doFindCommandCenter(Object* obj, void* userData);
 
 // ?onPowerBrownOutChange@Player@@QAEX_N@Z @0x002AB8D0
 void Player::onPowerBrownOutChange( Bool brownOut )
@@ -241,7 +242,7 @@ Object* Player::findNaturalCommandCenter()
 	struct { Player* player; Object* obj; } info;
 	info.player = this;
 	info.obj = NULL;
-	iterateObjects(doFindCommandCenter, &info);
+	iterateObjects((ObjectIterateFunc)doFindCommandCenter, &info);
 	return info.obj;
 }
 
