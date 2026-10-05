@@ -24,8 +24,23 @@ public:
 };
 extern ScriptEngine *g_Va009FE16C;
 
-static int __cdecl Cb(Object *, void *)
+struct Rva003C388EObject
 {
+	char m_pad[0x264];
+	void *m_264;
+};
+
+class Rva003BD306Target
+{
+public:
+	void rva0039B28F(bool on);
+};
+
+// Team iterate callback 0x0028870A (28B): pass the action's flag, carried in
+// the userdata, to each member's +0x264 object, then continue.
+int __cdecl Rva0028870A(Object *obj, void *userData)
+{
+	((Rva003BD306Target *)((Rva003C388EObject *)obj)->m_264)->rva0039B28F(userData != 0);
 	return 1;
 }
 
@@ -34,5 +49,5 @@ void __stdcall Rva003C388EDo(Parameter *parm, bool flag)
 	Team *team = g_Va009FE16C->getTeamNamed(parm->m_string, false);
 	if (team == 0)
 		return;
-	team->rva0039DD12(Cb, (void *)flag);
+	team->rva0039DD12(Rva0028870A, (void *)flag);
 }
