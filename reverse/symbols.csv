@@ -13196,3 +13196,5 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva000117D89@@YAXPAX0@Z,0x117D89,rva000E509B name resolve: address read from the REL32 at 0x000E536E in 0x000E509B; fresh address-derived cdecl name (out, in) filling the verify string slot
 ?rva000BF9FC@Rva000B8F5AOuter@@QAEXPAXHH@Z,0xBF9FC,rva000BFD77 refill: address read from the REL32 at 0x000BFD98 in 0x000BFD77; fresh address-derived Outer-method name (entry, 1, 0) for the 341B body
 ?rva00112898@Rva00113110Holder@@QAEXHHPAX@Z,0x00112898,"retail REL32 at 0x00113148 in 0x00113110 targets 0x00112898 (ecx=esi Holder thiscall 3 stack args [esi+0x58] plus 0 plus 0; 569B Ghidra body sharing +0x5C holder); opaque candidate not identity"
+?rva0013275A@Rva00132D0FHolder@@QAEHXZ,0x0013275A,"retail REL32 at 0x00132D27 in 0x00132D0F targets 0x0013275A (ecx=esi thiscall no args int cmp-1; 42B Ghidra FUN); opaque candidate not identity"
+?rva00132784@Rva00132D0FHolder@@QAEHXZ,0x00132784,"retail REL32 at 0x00132D33 in 0x00132D0F targets 0x00132784 (ecx=esi thiscall no args int cmp-1; 42B Ghidra FUN); opaque candidate not identity"
