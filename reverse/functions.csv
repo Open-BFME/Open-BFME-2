@@ -60782,3 +60782,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva005D7272Get@@YG_NPAVObject@@@Z,,0x005D7272,118,Code/GameEngine/Source/Common/Rva005D7272Check.cpp,matched,gap slot6 vtable 0x00875CA4 via Stances victim and speed float
 ?rva005F1B41@Rva005F1B41@@QAEXPBVImage@@@Z,,0x005F1B41,8,Code/GameEngine/Source/Common/Rva005F1B41Forward.cpp,matched,forwarder tail-jmp to rowed 0x005F191E via this+4 callers in 0x005E3753
 ?rva005E5942@Rva005E5942@@QAEXXZ,,0x005E5942,33,Code/GameEngine/Source/Common/Rva005E5942Chain.cpp,matched,chain after 0x00319B0A via Owner at +0x18 and wide validate
+?rva005F62EE@Rva005F62EE@@QAEXPBVImage@@@Z,,0x005F62EE,8,Code/GameEngine/Source/Common/Rva005F62EEForward.cpp,matched,tail forward to rowed 0x005F6096 on member 8
