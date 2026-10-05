@@ -30,22 +30,22 @@ class UnicodeString : private StringBase<WideChar>
 public:
     UnicodeString(const WideChar *text) : StringBase<WideChar>(text) {}
     ~UnicodeString() { ((StringBase<WideChar>*)this)->releaseBuffer(); }
-    Int getLength() const { return ((const StringBase<WideChar>*)this)->getLength(); }
-    WideChar getCharAt(Int index) const { return ((const StringBase<WideChar>*)this)->getCharAt(index); }
+    Int getLength() const;
+    WideChar getCharAt(Int index) const;
     void concat(WideChar c) { ((StringBase<WideChar>*)this)->concat(&c, 1); }
-    void set(const UnicodeString &other) { ((StringBase<WideChar>*)this)->set(*(const StringBase<WideChar>*)&other); }
+    void set(const UnicodeString &other);
 };
 class LanguageFilter { protected: void unHaxor(UnicodeString &word); };
 // Target RVA 0x9C0728 contains these five ignored characters and terminator.
 WideChar ignoredChars[] = L"-_*'\"";
 void LanguageFilter::unHaxor(UnicodeString &word)
 {
-    Int len = word.getLength();
+    Int len = ((const StringBase<WideChar>*)&word)->getLength();
     UnicodeString newWord(L"");
     for (Int i = 0; i < len; ++i) {
-        WideChar c = word.getCharAt(i);
+        WideChar c = ((const StringBase<WideChar>*)&word)->getCharAt(i);
         if ((c == L'p') || (c == L'P')) {
-            if (((i + 1) < len) && ((word.getCharAt(i + 1) == L'h') || (word.getCharAt(i + 1) == L'H'))) {
+            if (((i + 1) < len) && ((((const StringBase<WideChar>*)&word)->getCharAt(i + 1) == L'h') || (((const StringBase<WideChar>*)&word)->getCharAt(i + 1) == L'H'))) {
                 newWord.concat(L'f');
                 ++i;
             } else {
@@ -63,5 +63,5 @@ void LanguageFilter::unHaxor(UnicodeString &word)
         else if (c == L'+') newWord.concat(L't');
         else if (wcsrchr(ignoredChars, c) == 0) newWord.concat(c);
     }
-    word.set(newWord);
+    ((StringBase<WideChar>*)&word)->set(*(const StringBase<WideChar>*)&newWord);
 }
