@@ -187,8 +187,10 @@ struct AptCallDebugStack {
 };
 
 // Original MAP names AptActionSetup; native cleanup reads function name at+8.
-struct AptActionSetup { AptValue *context,*value; const char *name; };
+struct AptActionSetup { AptValue *context,*value; const char *name; int action; };
 void rva007097B0(void *);
+void *AptPushStaticData();
+#pragma comment(linker, "/alternatename:?AptPushStaticData@@YAPAXXZ=?PushStaticData@AptScriptFunctionBase@@SAPAXXZ")
 struct AptActionInterpreter
 {
     struct LocalContextT {
@@ -219,6 +221,7 @@ public:
     AptValue *mpThrownValue; // PC Throw reads/writes+60; donor supplies semantic role.
     // Original Godfather debug/release field100; native Pop reads +0x64.
     int mnStackFrameBase;
+    void *PrepareForExecution(AptActionSetup *);
     void CleanupAfterExecution(void *,AptActionSetup *);
     void callFunction(AptValue *,AptValue *,int);
     bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int=1, int=1, int=0);
@@ -2638,4 +2641,15 @@ Rva006FBDB0::Rva006FBDB0(EAStringC name,int value,int type) {
     *(EAStringC *)this=name;
     context=value;
     action=type;
+}
+
+// Original MAP and source identify PrepareForExecution with saved-state return.
+// Native700090..70016E validates setup16B and debug record allocation.
+void *AptActionInterpreter::PrepareForExecution(AptActionSetup *setup) {
+ if(mpThrownValue) {
+  g_bfmeAptAssertAtE17734("!hasThrownValue()","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",0x875);
+  if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}
+ }
+ debugCallStack.Push(new Rva006FBDB0(setup->name,(int)setup->value,setup->action));
+ return AptPushStaticData();
 }

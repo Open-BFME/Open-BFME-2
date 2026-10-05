@@ -12580,3 +12580,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?_reserve@AptArray@@QAEXH@Z,0x006D9500,Canonical array setter and push/concat native growth call; bound to verified210B resize provider
 ?SetAt@AptArray@@QAEXHPAVAptValue@@@Z,0x006D8AD0,Canonical array setter native index/value write with refcounts; bound to verified140B provider
 ?rva0070A8B0@Rva0070A840@@QAEXXZ,0x0070A8B0,Address-labelled thiscall bridge for native hash shutdown; bound through alternatename to matched AptNativeHash::DestroyGCPointers; full canonical20B hash object and no args
+?AptPushStaticData@@YAPAXXZ,0x00709730,TU alias bound to rowed AptScriptFunctionBase::PushStaticData; same cdecl no-argument pointer-return ABI; PrepareForExecution native call700156 target709730
