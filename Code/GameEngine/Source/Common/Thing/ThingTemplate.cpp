@@ -748,22 +748,8 @@ void ThingTemplate::parsePerUnitSounds( INI* ini, void *instance, void *store, c
 //-------------------------------------------------------------------------------------------------
 /** Parse modules to add to the existing set of modules. */
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::parseAddModule present-unmatched
-void ThingTemplate::parseAddModule(INI *ini, void *instance, void *store, const void *userData)
-{
-	// don't care about the result.
-	ThingTemplate* self = (ThingTemplate*)instance;	
+// Native AddModule parser lives in ThingTemplateParseAddModule.cpp.
 
-	ModuleParseMode oldMode = (ModuleParseMode)self->m_moduleParsingMode;
-	if (oldMode != MODULEPARSE_NORMAL)
-		throw INI_INVALID_DATA;
-
-	self->m_moduleParsingMode = MODULEPARSE_ADD_REMOVE_REPLACE;
-
-	ini->initFromINI(self, self->getFieldParse());
-
-	self->m_moduleParsingMode = oldMode;
-}
 
 //-------------------------------------------------------------------------------------------------
 /** Parse modules to remove from the existing set of modules. */
