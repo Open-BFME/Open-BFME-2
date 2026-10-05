@@ -20,6 +20,7 @@ class EmotionTrackerUpdate
 {
 public:
     bool rva004B0EBC();
+    void rva004B0D4C(int index, void *p);
     void rva004B0D70(int index, void *p, int delay);
 
 private:
@@ -62,6 +63,18 @@ cond:
         goto loop;
     }
     return false;
+}
+
+// ?rva004B0D4C@EmotionTrackerUpdate@@QAEXHPAX@Z, retail 0x004B0D4C (36B):
+// the undelayed sibling directly before rva004B0D70 - same active flag and
+// +0x74 source ID, frame slot cleared to 0. Object+0x24C forwards to it
+// through its outermost container (0x0028EC48).
+void EmotionTrackerUpdate::rva004B0D4C(int index, void *p)
+{
+    m_active[index] = true;
+    m_array30[index] = 0;
+    int v = (p != 0) ? *(int *)((char *)p + 0x74) : 0;
+    m_array60[index] = v;
 }
 
 void EmotionTrackerUpdate::rva004B0D70(int index, void *p, int delay)

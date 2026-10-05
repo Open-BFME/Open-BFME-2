@@ -30,8 +30,22 @@ public:
 class Drawable
 {
 public:
+	void setIndicatorColor(Color color);
 	void changedTeam();
 };
+
+enum TimeOfDay
+{
+	TIME_OF_DAY_NIGHT = 4
+};
+
+class GlobalData
+{
+public:
+	unsigned char m_pad000[0x134];
+	TimeOfDay m_timeOfDay; // +0x134
+};
+extern GlobalData *TheGlobalData;
 
 inline Color GameMakeColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
 {
@@ -47,6 +61,7 @@ public:
 	void removeCustomIndicatorColor();
 	Color getIndicatorColor() const;
 	Color getNightIndicatorColor() const;
+	void rva0028D253();
 
 	const Team *getTeam() const { return m_team; }
 
@@ -137,5 +152,20 @@ Color Object::getNightIndicatorColor() const
 	else
 	{
 		return m_indicatorColor;
+	}
+}
+
+// ?rva0028D253@Object@@QAEXXZ @0x0028D253 (47B): hands the drawable the
+// time-of-day indicator color, the choice Drawable::changedTeam makes, but
+// from the Object side and without the drawable's slot-13 call.
+void Object::rva0028D253()
+{
+	Drawable *draw = m_drawable;
+	if (draw)
+	{
+		if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
+			draw->setIndicatorColor(getNightIndicatorColor());
+		else
+			draw->setIndicatorColor(getIndicatorColor());
 	}
 }

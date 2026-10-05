@@ -28,12 +28,33 @@ public:
 	void rva004590E6();
 };
 
+// The update at Object+0x24C (see EmotionTrackerUpdateRva004B0EBC.cpp for
+// its per-emotion arrays: active flags at +0x24, frames at +0x30, source
+// IDs at +0x60).
+class EmotionTrackerUpdate
+{
+public:
+	void rva004B0D4C(int index, void *source);
+	void rva004B0D70(int index, void *source, int delay);
+	void rva004B0DA0(int index);
+	void rva004B0DAC(int index, float value, int arg);
+};
+
 class Object
 {
 public:
 	void rva0028EBDA(bool flag);
+	void rva0028EC48(int index, void *source);
+	void rva0028EC68(int index, void *source, int delay);
+	void rva0028EC88(int index);
+	void rva0028ECA8(int index, float value, int arg);
 protected:
 	Module *findModule(NameKeyType key) const;
+private:
+	unsigned char m_pad000[0x24C];
+	EmotionTrackerUpdate *m_emotionTracker24C; // +0x24C
+	unsigned char m_pad250[0x274 - 0x250];
+	Object *m_containedBy274; // +0x274
 };
 
 void Object::rva0028EBDA(bool flag)
@@ -47,4 +68,48 @@ void Object::rva0028EBDA(bool flag)
 		m->rva004590C5();
 	else
 		m->rva004590E6();
+}
+
+// Four forwards to the Object+0x24C emotion tracker (retail 0x0028EC48,
+// 0x0028EC68, 0x0028EC88: 32B each; 0x0028ECA8: 51B). The first three
+// climb the +0x274 container chain to the outermost object and forward
+// to its tracker, if any; the fourth forwards to the innermost object in
+// that chain that has a tracker.
+void Object::rva0028EC48(int index, void *source)
+{
+	Object *obj = this;
+	while (obj->m_containedBy274)
+		obj = obj->m_containedBy274;
+	if (obj->m_emotionTracker24C)
+		obj->m_emotionTracker24C->rva004B0D4C(index, source);
+}
+
+void Object::rva0028EC68(int index, void *source, int delay)
+{
+	Object *obj = this;
+	while (obj->m_containedBy274)
+		obj = obj->m_containedBy274;
+	if (obj->m_emotionTracker24C)
+		obj->m_emotionTracker24C->rva004B0D70(index, source, delay);
+}
+
+void Object::rva0028EC88(int index)
+{
+	Object *obj = this;
+	while (obj->m_containedBy274)
+		obj = obj->m_containedBy274;
+	if (obj->m_emotionTracker24C)
+		obj->m_emotionTracker24C->rva004B0DA0(index);
+}
+
+void Object::rva0028ECA8(int index, float value, int arg)
+{
+	Object *obj = this;
+	while (!obj->m_emotionTracker24C)
+	{
+		obj = obj->m_containedBy274;
+		if (!obj)
+			return;
+	}
+	obj->m_emotionTracker24C->rva004B0DAC(index, value, arg);
 }

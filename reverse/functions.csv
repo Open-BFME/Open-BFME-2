@@ -60076,3 +60076,9 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0028F8E0@Drawable@@QAE?AVRva002390CB@@XZ,,0x0028F8E0,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x35 via rowed 0x0027675F
 ?rva0028F8F9@Drawable@@QAE?AVRva002390CB@@XZ,,0x0028F8F9,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x36 via rowed 0x0027675F
 ?rva0028F912@Drawable@@QAE?AVRva002390CB@@XZ,,0x0028F912,25,Code/GameEngine/Source/GameClient/DrawableKeyedLookups.cpp,matched,keyed Drawable lookup key 0x37 via rowed 0x0027675F
+?rva004B0D4C@EmotionTrackerUpdate@@QAEXHPAX@Z,,0x004B0D4C,36,Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateRva004B0EBC.cpp,matched,emotion tracker undelayed set sibling of rva004B0D70
+?rva0028EC48@Object@@QAEXHPAX@Z,,0x0028EC48,32,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028EBDA.cpp,matched,outermost container emotion tracker plus24C forward to 0x004B0D4C
+?rva0028EC68@Object@@QAEXHPAXH@Z,,0x0028EC68,32,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028EBDA.cpp,matched,outermost container emotion tracker plus24C forward to rva004B0D70
+?rva0028EC88@Object@@QAEXH@Z,,0x0028EC88,32,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028EBDA.cpp,matched,outermost container emotion tracker plus24C forward to 0x004B0DA0
+?rva0028ECA8@Object@@QAEXHMH@Z,,0x0028ECA8,51,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028EBDA.cpp,matched,first container with emotion tracker plus24C forward to 0x004B0DAC
+?rva0028D253@Object@@QAEXXZ,,0x0028D253,47,Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp,matched,drawable plus84 setIndicatorColor time-of-day object color
