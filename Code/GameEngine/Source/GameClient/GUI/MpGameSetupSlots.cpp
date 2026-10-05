@@ -1698,6 +1698,45 @@ void MpGameSetup::OnReadyPress(const char *slotText)
 	m_owner->v03(ready);
 }
 
+// Retail 0x0043E1CC, 135 bytes. Name unknown. Kind 0 is refused; kind 1
+// takes the +0x60 member's value (0x0057C621) and, unless the game is
+// locked (+0x8C), on the host refreshes the game (vslots 14 and 15) and
+// stores it at +0x58; then marks the five refresh bytes and hands the value
+// to owner vslot 8 (the LAN screen's setScenario). Other kinds are
+// accepted. Called from 0x00442D08.
+bool MpGameSetup::rva0043E1CC(int which)
+{
+	switch (which)
+	{
+	case 0:
+		return false;
+	case 1:
+		{
+			GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+			int value = m_60.rva0057C621();
+			if (game)
+			{
+				if (game->m_8c)
+					return false;
+				if (m_owner->v01())
+				{
+					game->v14();
+					game->v15();
+					game->m_58 = value;
+				}
+			}
+			m_2c0 = true;
+			m_2bf = true;
+			m_2b9 = true;
+			m_2bd = true;
+			m_2be = true;
+			m_owner->v08(value);
+		}
+		break;
+	}
+	return true;
+}
+
 // Retail 0x0043ECC1, 243 bytes. Name unknown. A slot's color combo box
 // (+0x2F4) selection: a color from -1 up to MultiplayerSettings'
 // getNumColors that differs from the slot's (+0x0C) and, unless -1, from
@@ -1731,4 +1770,78 @@ bool MpGameSetup::rva0043ECC1(int index)
 		}
 	}
 	return m_owner->applySlotColor(slot, color);
+}
+
+// Retail 0x00443C6E, 570 bytes. Name unknown. Installs a game in the panel
+// (the LAN screen's refreshLanGame 0x004467AC and 0x00443E3E path): only
+// when 0x00442C9C allows, with the refresh guard (+0x2C2) held, it records
+// the game, refreshes every slot from 7 down through the per-slot
+// refreshers, enables only the host's player combo boxes (none while the
+// game is locked, +0x8C) and hides slots 6 and 7 in mode 1, refreshes the
+// map cache, selects the game's map and marks everything dirty.
+bool MpGameSetup::rva00443C6E(GameInfo *game, int value)
+{
+	if (!rva00442C9C())
+		return false;
+	m_refreshing = true;
+	m_244.rva0057FD6E();
+	if (!game)
+		return false;
+
+	g_Rva00E02EEC = (LANGameInfo *)game;
+	m_game->m_current = game;
+	rva0043FA68(0);
+	rva0043FA68(game);
+	m_2d0 = value;
+	bool host = m_owner->v01();
+	bool mode1 = m_60.m_mode == 1;
+	for (int slot = 7; slot >= 0; --slot)
+	{
+		rva0043F483(slot);
+		rva0044009D(slot);
+		rva004424E7(slot);
+		rva0043F244(slot, false);
+		rva004406BA(slot);
+		if (game->m_8c)
+			m_player[slot]->winEnable(false);
+		else
+			m_player[slot]->winEnable(host);
+		m_colorCombo[slot].m_window->winEnable(false);
+		m_playerTemplate[slot]->winEnable(false);
+		m_team[slot]->winEnable(false);
+		m_handicap[slot]->winEnable(false);
+		m_hero[slot]->winEnable(false);
+		m_player[slot]->rva0031475A();
+		m_colorCombo[slot].m_window->rva0031475A();
+		m_playerTemplate[slot]->rva0031475A();
+		m_team[slot]->rva0031475A();
+		m_handicap[slot]->rva0031475A();
+		m_hero[slot]->rva0031475A();
+		if (slot >= 6)
+		{
+			m_player[slot]->winHide(mode1);
+			m_colorCombo[slot].m_window->winHide(mode1);
+			m_playerTemplate[slot]->winHide(mode1);
+			m_team[slot]->winHide(mode1);
+			m_handicap[slot]->winHide(mode1);
+			m_hero[slot]->winHide(mode1);
+		}
+	}
+	if (TheMapCache)
+		TheMapCache->updateCache();
+	if (host)
+		rva00443BF3();
+	m_60.m_61 = true;
+	rva00440017(game->getMap());
+	Rva00446A67Set(1);
+	m_3a8 = 0;
+	m_refreshing = false;
+	m_2bc = false;
+	m_2ba = true;
+	m_2b9 = true;
+	m_2c0 = true;
+	m_2bd = true;
+	m_2be = true;
+	m_2bf = true;
+	return true;
 }
