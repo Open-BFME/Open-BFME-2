@@ -10882,3 +10882,4 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??1Rva005F85E1@@QAE@XZ,0x005F85E1,member destructor at +0x20 called by the destructor 0x005F86C3 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
 ??1Rva005FAFB2@@QAE@XZ,0x005FAFB2,member destructor at +0x20 called by the destructor 0x005FB1AD (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
 ??1Rva0040E3EE@@UAE@XZ,0x0040E499,twin of Rva0040E499 dtor same vtable 0x00C394F0 same 0x68 temp in 0x003B93BC ctor 0x40E3EE dtor 0x40E499
+?updateCache@MapCache@@QAEXXZ,0x00305749,"MapCache::updateCache: 98-byte /O1 body called from isValidMap at 0x003057D2 where ZH calls TheMapCache->updateCache(); runs setFPMode then FileSystem createDirectory(getUserMapDir()) then loadUserMaps/writeCacheINI(TRUE)/loadStandardMaps as the ZH source"

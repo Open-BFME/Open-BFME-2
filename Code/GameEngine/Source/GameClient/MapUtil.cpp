@@ -1036,6 +1036,8 @@ Int populateMapListbox( GameWindow *listbox, Bool useSystemMaps, Bool isMultipla
 //-------------------------------------------------------------------------------------------------
 /** Validate a map */
 //-------------------------------------------------------------------------------------------------
+#pragma optimize("t", off)
+#pragma optimize("s", on)
 Bool isValidMap( AsciiString mapName, Bool isMultiplayer )
 {
 	if(!TheMapCache || mapName.isEmpty())
@@ -1054,6 +1056,7 @@ Bool isValidMap( AsciiString mapName, Bool isMultiplayer )
 
 	return FALSE;
 }  // end isValidMap
+#pragma optimize("", on)
 
 //-------------------------------------------------------------------------------------------------
 /** Find a valid map */
