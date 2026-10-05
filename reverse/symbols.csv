@@ -10889,3 +10889,8 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??1Rva001F097A@@QAE@XZ,0x001F077D,non-virtual dtor called directly by scalar deleting dtor 0x001F097A; owning class unproven
 ?rva0044149C@MpGameSetup@@QAEXPAVGameSlot@@H_N@Z,0x0044149C,unrowed 313B thiscall (Ghidra FUN_0084149c; ret 0xC) on the LAN lobby MpGameSetup panel; handlePlayerTemplateSelection 0x00441B07 calls it with (slot and index and 1) after the template is applied; address name
 ?rva0043DD34@MpGameSetup@@QAE_NPAVGameSlot@@H@Z,0x0043DD34,unrowed 138B thiscall (Ghidra; ret 8; returns al) on the LAN lobby MpGameSetup panel; needs the slot and TheCreateAHeroManager (0x00DFE344); called from 0x0043E0A8 with the slot and the hero combo item data; address name
+??1Rva001FC036@@QAE@XZ,0x001FBF4D,non-virtual dtor called directly by scalar deleting dtor 0x001FC036; owning class unproven
+??1Rva00204D6B@@QAE@XZ,0x00204C16,non-virtual dtor called directly by scalar deleting dtor 0x00204D6B; address also carries HolderBase dtor row; owning class unproven
+??1Rva002109F8@@QAE@XZ,0x00210830,non-virtual dtor called directly by scalar deleting dtor 0x002109F8; owning class unproven
+??1Rva00210CF1@@QAE@XZ,0x003FA14B,non-virtual dtor called directly by scalar deleting dtor 0x00210CF1; owning class unproven
+??1Rva002146F7@@QAE@XZ,0x004043FF,non-virtual dtor called directly by scalar deleting dtor 0x002146F7; owning class unproven
