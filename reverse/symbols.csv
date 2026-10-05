@@ -9684,3 +9684,5 @@ _Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified 
 ??0PeerRequest@@QAE@XZ,0x001EF661,Player-left callback38C788 constructs its492B request through independently rowed owning ctor1EF661
 ??1PeerRequest@@QAE@XZ,0x001EF723,Player-left callback38C788 destroys the same492B request through independently verified259B owning cleanup1EF723
 ?getQMBotName@PeerThreadClass@@QAE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ,0x00389F2C,Player-left callback38C788 calls existing30B narrow RVO getter at member490 established by rowed sawMatchbot38AD81; original method name from donor purpose; linker alias uses verified neutral getter
+?allocate@?$allocator@VRva0054000B@@@_STL@@QBEPAVRva0054000B@@IPBX@Z,0x000B4039,ICF fold to Pod40 allocate same 28B imul-0x28 via overflow 0x00540412
+??$__uninitialized_copy@PAVRva0054000B@@PAV1@@_STL@@YAPAVRva0054000B@@PAV1@00ABU__false_type@0@@Z,0x005400B4,non-const twin of const row same 38B via overflow 0x00540412
