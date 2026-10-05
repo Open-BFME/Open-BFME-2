@@ -11441,3 +11441,5 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?remove@Rva005EE11EIcons@@QAEXABVAsciiString@@@Z,0x00524306,Native306B playercount method scopedABI; consumed call verified fullprovider67B; original application type names unproved
 ?setText@Rva005EE11EPlayerCount@@QAEXHPBDABVUnicodeString@@@Z,0x005ED516,Native306B playercount method scopedABI; consumed call verified fullprovider109B; original application type names unproved
 ?resize@Rva005EE11ERecords@@QAEXI@Z,0x005EE0F4,Native306B playercount method scopedABI; consumed call verified fullprovider42B; original application type names unproved
+?rva005A6D47@Rva005A6D47@@QAEXXZ,0x005A6D47,unrowed 101B thiscall (Ghidra FUN_009a6d47) on the global at 0x00E063F8; REL32 read at the Connection::OnRetryConnections callback 0x005DB36A with ECX=that global; address name
+?rva005DB512@Rva005DB3B3@@QAEXPAXHH@Z,0x005DB512,unrowed 224B thiscall (Ghidra FUN_009db512) redrawing one connection grid cell; REL32 reads at 0x005DB604/0x005DB614 and Connection::RedrawGrid 0x005DB662 with ECX=the grid and three pushed arguments; address name
