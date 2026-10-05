@@ -63451,3 +63451,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva000A9DF8@@YAXPAXABVRva000AB3E2Element@@@Z,,0x000A9DF8,18,Code/GameEngine/Source/Common/RvaGuardedConstructTrio.cpp,matched,Address-derived guarded in-place construction; 18B shape
 ?Rva000A9E0A@@YAXPAXABVRva000AB419Element@@@Z,,0x000A9E0A,18,Code/GameEngine/Source/Common/RvaGuardedConstructTrio.cpp,matched,Address-derived guarded in-place construction; 18B shape
 ?Rva004D9ACE@@YAXPAXABVRva004D971D@@@Z,,0x004D9ACE,18,Code/GameEngine/Source/Common/RvaGuardedConstructTrio.cpp,matched,Address-derived guarded in-place construction; 18B shape
+?step@Rva0010BA61@@QAEXXZ,,0x0010BA61,16,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-first-member step; 16B shape
+?step@Rva005962E7@@QAEXXZ,,0x005962E7,16,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-first-member step; 16B shape

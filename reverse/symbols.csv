@@ -12773,3 +12773,7 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?run@Rva0010FBDERun@@QAEXXZ,0x0010FBDE,REL32 callee decoded from target call bytes of null-checked forward 0x000A8ACC; identity unproven
 ??0Rva000AB3E2Element@@QAE@ABV0@@Z,0x000A9851,copy ctor decoded from target call bytes of guarded construction 0x000A9DF8; identity unproven
 ??0Rva000AB419Element@@QAE@ABV0@@Z,0x000A987D,copy ctor decoded from target call bytes of guarded construction 0x000A9E0A; identity unproven
+?prepare@Rva0010BA61@@AAEXXZ,0x00109D64,REL32 helper decoded from target call bytes of helper-member step 0x0010BA61; identity unproven
+?run@Rva0010BA61@@AAEXXZ,0x00108895,REL32 callee decoded from target call bytes of helper-member step 0x0010BA61; identity unproven
+?prepare@Rva005962E7@@AAEXXZ,0x0025C010,opaque alias: same body as rowed Rva0025C010::rva0025C010; helper of step 0x005962E7
+?run@Rva005962E7@@AAEXXZ,0x00596269,REL32 callee decoded from target call bytes of helper-member step 0x005962E7; identity unproven

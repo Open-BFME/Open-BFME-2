@@ -207,3 +207,35 @@ void Rva005E6BB4::step()
 	((Rva000B3FD0Nop *)this)->noop();
 	m_next->run();
 }
+
+class Rva0010BA61
+{
+public:
+	void step();
+
+private:
+	void prepare();
+	void run();
+};
+
+class Rva005962E7
+{
+public:
+	void step();
+
+private:
+	void prepare();
+	void run();
+};
+
+void Rva0010BA61::step()
+{
+	prepare();
+	run();
+}
+
+void Rva005962E7::step()
+{
+	prepare();
+	run();
+}
