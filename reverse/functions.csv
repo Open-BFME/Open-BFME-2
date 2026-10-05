@@ -63084,3 +63084,10 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002461DA@Rva002461DA@@QAEXXZ,,0x002461DA,23,Code/Libraries/Source/WWVegas/WWLib/StlportListRva002461DA.cpp,matched,list clear plus free via base at zero
 ?rva000E9CFB@Rva000E9BAC@@QAEXABVRva000E3A8D@@@Z,,0x000E9CFB,29,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACSetter.cpp,matched,vector assign at 0x4FB60 plus flag at 0x4FB5E via rowed 0xE3A8D
 ?rva005CACDE@GameSpyLoginPreferences@@QAEXVAsciiString@@000@Z,,0x005CACDE,245,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,matched,nick map plus pass date same TU same flags callers unblock
+??4Rva001F9CCA@@QAEAAV0@ABV0@@Z,,0x001F9CCA,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
+??4Rva001FA676@@QAEAAV0@ABV0@@Z,,0x001FA676,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
+??4Rva001FB8BB@@QAEAAV0@ABV0@@Z,,0x001FB8BB,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
+??4Rva001FBA5B@@QAEAAV0@ABV0@@Z,,0x001FBA5B,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
+??4Rva001FBBF6@@QAEAAV0@ABV0@@Z,,0x001FBBF6,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
+??4Rva001FBF9D@@QAEAAV0@ABV0@@Z,,0x001FBF9D,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
+??4Rva001FC231@@QAEAAV0@ABV0@@Z,,0x001FC231,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
