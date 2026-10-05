@@ -167,7 +167,6 @@ void AptTimeLine::PlayerColor(int index, char *value, bool set)
 
 // Retail 0x0051EAD3, 350 bytes: "AptTimeLine::CaHAwardNumber" shows the
 // given (1-based) earned award's name, description and image.
-// ?CaHAwardNumber@AptTimeLine@@QAEXPBD@Z present-unmatched
 void AptTimeLine::CaHAwardNumber(const char *value)
 {
 	unsigned int index = atoi(value) - 1;
