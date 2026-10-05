@@ -98,7 +98,7 @@ struct TurretAIData
 class TurretAI
 {
 public:
-	UnsignedInt friend_getNextIdleMoodTargetFrame();
+	UnsignedInt rva004D837D();
 	void friend_checkForIdleMoodTarget();
 	WhichTurretType friend_getWhichTurret() const { return m_whichTurret; }
 	UnsignedInt getRecenterTime() const { return m_data->m_recenterTime; }
@@ -228,7 +228,7 @@ StateReturnType TurretAIIdleState::update()
 	TurretAI* turret = getTurretAI();
 	turret->friend_checkForIdleMoodTarget();
 
-	return frameToSleepTime(turret->friend_getNextIdleMoodTargetFrame(), m_nextIdleScan);
+	return frameToSleepTime(turret->rva004D837D(), m_nextIdleScan);
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -240,7 +240,7 @@ StateReturnType TurretAIHoldTurretState::update()
 	TurretAI* turret = getTurretAI();
 	turret->friend_checkForIdleMoodTarget();
 
-	return frameToSleepTime(turret->friend_getNextIdleMoodTargetFrame(), m_timestamp);
+	return frameToSleepTime(turret->rva004D837D(), m_timestamp);
 }
 
 //----------------------------------------------------------------------------------------------------------
