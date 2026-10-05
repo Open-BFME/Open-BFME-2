@@ -26,7 +26,7 @@ private:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
-#pragma optimize("t", on)
+#pragma optimize("s", on)
 class RefCountClass
 {
 public:
