@@ -8,6 +8,18 @@
 
 #include "ascii_string.h"
 
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
+
+// TheGlobalData's +0x9D1 flag.
+class GlobalData;
+extern GlobalData *TheGlobalData;
+
+struct AptCreateAHeroGlobalData
+{
+	unsigned char m_pad000[0x9D1];
+	bool m_9d1; // +0x9D1
+};
+
 // A create-a-hero sub-screen: vslot 3 shows it, vslot 4 hides it.
 class AptCreateAHeroPage
 {
@@ -39,6 +51,10 @@ public:
 	void ZoomIn(const char *pressed);
 	void ZoomOut(const char *pressed);
 	void OnShowScreen(const char *screen);
+	// Bound as "CreateAHero::RenderPictureGuard", a render callback: it
+	// pops four arguments and reads none, so their types are unknown.
+	void RenderPictureGuard(const void *origin, const void *extent, void *unused3, void *unused4);
+	void CreateAHeroDemo(int query, char *result, bool skip);
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -72,6 +88,21 @@ void AptCreateAHero::OnTakePicture(const char *unused)
 {
 	if (m_pictureFrames >= 2)
 		m_takePicture = true;
+}
+
+// Retail 0x00513A64, 9 bytes: "CreateAHero::RenderPictureGuard" counts the
+// frames drawn since PrepareToTakePicture.
+void AptCreateAHero::RenderPictureGuard(const void *origin, const void *extent, void *unused3, void *unused4)
+{
+	++m_pictureFrames;
+}
+
+// Retail 0x00513A6D, 59 bytes: "CreateAHeroDemo", an Apt query answering
+// "0" when TheGlobalData's +0x9D1 is set, else "1".
+void AptCreateAHero::CreateAHeroDemo(int query, char *result, bool skip)
+{
+	if (result && query == 0 && !skip)
+		strcpy(result, ((AptCreateAHeroGlobalData *)TheGlobalData)->m_9d1 ? "0" : "1");
 }
 
 // Retail 0x00513AA8, 19 bytes: "AptCreateAHero::RotateLeft".
@@ -133,3 +164,6 @@ void AptCreateAHero::OnShowScreen(const char *screen)
 		Rva005B23D7(0, AsciiString::TheEmptyString, AsciiString::TheEmptyString);
 	}
 }
+
+// Retail's strcpy call lands on the import thunk rowed as ji_00629176.
+#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")

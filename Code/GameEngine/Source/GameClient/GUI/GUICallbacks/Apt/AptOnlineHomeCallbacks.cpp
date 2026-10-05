@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 //
 // BFME2's online home screen Apt callbacks, bound as member pointers by
 // the screen's registration under three spellings of its name
@@ -6,10 +6,38 @@
 // "OnlineHome::NumTickerFields"); that binding is their only reference.
 // They act on one object, viewed here as the first spelling's class.
 
+#include "unicode_string.h"
+
 extern "C" int __cdecl strcmp(const char *left, const char *right);
+extern "C" __declspec(dllimport) void *__stdcall ShellExecuteW(void *window, const unsigned short *operation, const unsigned short *file, const unsigned short *parameters, const unsigned short *directory, int show);
 extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
 
 class GameWindow;
+
+class GameTextInterface
+{
+public:
+	virtual ~GameTextInterface() {}
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+};
+
+extern GameTextInterface *TheGameText;
+
+void bfmeMinimizeCurrentThreadWindow();
 class BfmeKeyLC;
 
 void GadgetListBoxReset(GameWindow *listBox);
@@ -24,6 +52,7 @@ class OnlineHome
 {
 public:
 	void OnOpened(const char *unused);
+	void OfficialSite(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void NumTickerFields(int query, char *result, bool skip);
 
@@ -42,6 +71,16 @@ private:
 void AptOnline::OnlineHome::OnOpened(const char *unused)
 {
 	rva005B977B();
+}
+
+// Retail 0x005B930C, 108 bytes: "AptOnline::OnlineHome::OfficialSite" opens
+// the localized URL:LotrLadder in Internet Explorer and minimizes the game
+// window (AptMpClans::WebSite's pattern).
+void AptOnline::OnlineHome::OfficialSite(const char *unused)
+{
+	UnicodeString url = TheGameText->fetch("URL:LotrLadder");
+	ShellExecuteW(0, L"open", L"IEXPLORE.EXE", url.str(), 0, 5);
+	bfmeMinimizeCurrentThreadWindow();
 }
 
 // Retail 0x005B9B73, 73 bytes: "AptOnlineHome::InitGadgets" keeps the
