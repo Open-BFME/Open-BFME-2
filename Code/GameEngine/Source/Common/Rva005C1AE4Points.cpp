@@ -11,11 +11,18 @@
 // at 0x005C1A85 (8B, `mov ecx,[ecx+0x2c]; mov eax,[ecx]; jmp [eax+8]`, no
 // references).
 #include "ascii_string.h"
+#include "unicode_string.h"
 
 
 class UserPreferences
 {
 public:
+#define V(n) virtual void pad##n();
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12)
+#undef V
+	// Slot 13 takes the current user name (0x005C1ABA).
+	virtual void v13(const UnicodeString &name);
+
 	int rva005358C3(AsciiString arg);
 };
 
@@ -23,7 +30,7 @@ class Holder
 {
 public:
 	virtual void v0();
-	virtual void v1();
+	virtual void v1(void *owner);
 	virtual UserPreferences *v2();
 };
 
@@ -34,6 +41,9 @@ public:
 	virtual void v1();
 	virtual int v2(int idx);
 	int rva005C1AE4(int idx);
+	void rva005C1ABA(const UnicodeString &name);
+	// Unrowed 0x005DD48C (353 bytes), pinned by address.
+	void rva005DD48C();
 	UserPreferences *prefs() { return m_held->v2(); }
 private:
 	char m_pad[0x28];
@@ -45,4 +55,15 @@ static const char *kFactions[] = { "Men", "Elves", "Dwarves", "Isengard", "Mordo
 int Rva005C1A36::rva005C1AE4(int idx)
 {
 	return prefs()->rva005358C3(AsciiString(kFactions[idx]));
+}
+
+// ?rva005C1ABA@Rva005C1A36@@QAEXABVUnicodeString@@@Z @0x005C1ABA 42B
+// (pinned so far as Rva005C1ABA): the skirmish screen's +0x668 member takes
+// the new current user name: the held object's preferences get it (slot
+// 13), the holder is told (slot 1, with this) and 0x005DD48C refreshes.
+void Rva005C1A36::rva005C1ABA(const UnicodeString &name)
+{
+	m_held->v2()->v13(name);
+	m_held->v1(this);
+	rva005DD48C();
 }
