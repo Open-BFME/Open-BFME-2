@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?Rva00056E53New@@YGPAUHashNode00056E53@@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload0005808E@@@_STL@@@Z, retail 0x00056E53 (37B).
 // Hashtable twin of the rowed ?_M_create_node at 0x00056F9E for the same
@@ -9,7 +9,7 @@
 // Stdcall per ret-4; honest-address free function since the owning hashtable
 // type is unproven.
 #include <map>
-class AsciiString { public: AsciiString(const AsciiString &); ~AsciiString(); private: void *m_data; };
+#include "ascii_string.h"
 bool operator<(const AsciiString &, const AsciiString &);
 struct TreeHintPayload0005808E { char m_body[4]; };
 typedef _STL::pair<const AsciiString, TreeHintPayload0005808E> TreeHintPair0005808E;
