@@ -56512,3 +56512,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?finishBuildingSound@DozerAIUpdate@@UAEXXZ,,0x004A99F6,28,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp,matched,Zero Hour DozerAIUpdate::finishBuildingSound; removeAudioEvent at TheAudio slot 0x6C; resets handle at this+0xE8 to 1
 ??BRva005D3311@@QAE?AVAsciiString@@XZ,,0x005D3336,98,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat materializer same shape as Rva005F9852
 ??0Rva000A270F@@QAE@PAX@Z,,0x000A270F,24,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetWindowDrawSlots.cpp,matched,chain via rowed base 0x000A26F7 plus vtable 0x007C90D0
+?rva0054764C@MoveToGroupOrder@@QAEXPAVObject@@PAVAIUpdateInterface@@PAUCoord3D@@@Z,,0x0054764C,124,Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderRva0054764C.cpp,matched,MoveToGroupOrder order via destination check plus float array temps

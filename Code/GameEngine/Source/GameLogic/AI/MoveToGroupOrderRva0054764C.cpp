@@ -1,5 +1,3 @@
-// ?rva0054764C@MoveToGroupOrder@@QAEXPAVObject@@PAVAIUpdateInterface@@PAUCoord3D@@@Z
-// partial score=0.95 date=2026-10-05
 // cl: /MD /O1 /GX /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 //
@@ -289,14 +287,14 @@ void MoveToFormationGroupOrder::xfer(Xfer *xfer)
 // issue rva0036EA01 else branch on m_flag24 to Rva00295A0FCommand or rva0026C26D.
 // Evidence: this+0x18/+0x24 MoveTo layout plus caller 0x005478B5 (slot 4) passing
 // Object+AIUpdate+Coord3D plus rowed callees.
-// ?rva0054764C@MoveToGroupOrder@@QAEXPAVObject@@PAVAIUpdateInterface@@PAUCoord3D@@@Z present-unmatched
 void MoveToGroupOrder::rva0054764C(Object *obj, AIUpdateInterface *aiUpdate, Coord3D *pos)
 {
 	if (rva00547188(obj, (int)pos)) {
-		float x = m_destination.x;
-		float y = m_destination.y;
-		obj->m_31C = *(int *)&x;
-		obj->m_320 = *(int *)&y;
+		float xy[2];
+		xy[0] = m_destination.x;
+		xy[1] = m_destination.y;
+		obj->m_31C = *(int *)&xy[0];
+		obj->m_320 = *(int *)&xy[1];
 		aiUpdate->m_commands.rva0036EA01(&m_destination, CMD_FROM_PLAYER);
 	} else {
 		if (m_flag24)
