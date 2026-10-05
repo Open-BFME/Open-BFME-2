@@ -60193,3 +60193,11 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0039EF46@TeamPrototype@@QAE_NPAVBfmeTab1026@@@Z,,0x0039EF46,64,Code/GameEngine/Source/Common/RTS/TeamPrototypeTeamIterators.cpp,matched,TeamPrototype any team Team 0x0039DF87
 ?hasAnyObjects@TeamPrototype@@QAE_N_N@Z,,0x0039EF86,64,Code/GameEngine/Source/Common/RTS/TeamPrototypeTeamIterators.cpp,matched,TeamPrototype any team Team::hasAnyObjects
 ?rva0039EFC6@TeamPrototype@@QAE_NXZ,,0x0039EFC6,58,Code/GameEngine/Source/Common/RTS/TeamPrototypeTeamIterators.cpp,matched,TeamPrototype any team Team 0x0039E815
+?rva002AB260@Player@@QBE_N_N@Z,,0x002AB260,53,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any 0x0039EDE1
+?rva002AB295@Player@@QBE_NURva0039DDC2Filter@@_N@Z,,0x002AB295,68,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any 0x0039EE21
+?rva002AB2D9@Player@@QBE_NPAVBfmeTab1026@@_N@Z,,0x002AB2D9,57,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any 0x0039EE70
+?rva002AB312@Player@@QBE_NXZ,,0x002AB312,47,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any 0x0039EEB4
+?rva002AB341@Player@@QBE_NURva0039DF1CFilter@@0@Z,,0x002AB341,79,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any 0x0039EEEE
+?rva002AB390@Player@@QBE_NPAVBfmeTab1026@@@Z,,0x002AB390,53,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any 0x0039EF46
+?hasAnyObjects@Player@@QBE_N_N@Z,,0x002AB3C5,53,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any TeamPrototype::hasAnyObjects
+?rva002AB3FA@Player@@QBE_NXZ,,0x002AB3FA,47,Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp,matched,Player team prototype list any 0x0039EFC6
