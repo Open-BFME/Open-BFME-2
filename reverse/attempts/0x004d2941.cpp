@@ -1,3 +1,7 @@
+// ??A?$map@GVAsciiString@@U?$less@G@_STL@@V?$allocator@U?$pair@$$CBGVAsciiString@@@_STL@@@3@@_STL@@QAEAAVAsciiString@@ABG@Z
+// partial score=0.98 date=2026-10-05
+// ??A?$map@GVAsciiString@@U?$less@G@_STL@@V?$allocator@U?$pair@$$CBGVAsciiString@@@_STL@@@3@@_STL@@QAEAAVAsciiString@@ABG@Z
+// partial score=1.0 date=2026-10-05
 // ?operator[] map<unsigned short,AsciiString>
 // partial score=1.0 date=2026-10-05
 // cl: /O1

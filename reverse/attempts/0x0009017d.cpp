@@ -1,4 +1,6 @@
 // ?getFontCharsHandle@@YAPAVFontCharsClass@@PBDM_NH@Z
+// partial score=0.975 date=2026-10-05
+// ?getFontCharsHandle@@YAPAVFontCharsClass@@PBDM_NH@Z
 // partial score=0.99 date=2026-10-03
 // ?getFontCharsHandle@@YAPAVFontCharsClass@@PBDM_NH@Z
 // partial score=0.99 date=2026-09-30

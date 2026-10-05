@@ -7,6 +7,17 @@
 
 #include "ascii_string.h"
 
+struct BfmeStringNoCaseLess
+{
+	bool operator()(const AsciiString &left, const AsciiString &right) const;
+};
+
+// Retail calls the rowed BfmeStringNoCaseLess tree destructor at 0x0002CC38
+// from this body's cleanup, establishing the set's comparator type. Its
+// no-case set and tree constructors compile byte-exact at 0x000D3A71 and
+// 0x002F0BF4 respectively; those target-supported aliases are pinned in
+// reverse/symbols.csv.
+
 bool operator<(const AsciiString &left, const AsciiString &right);
 
 extern const char g_Rva0107301CEmptyString[];
@@ -20,7 +31,7 @@ public:
 	virtual void a3();
 	virtual void a4();
 	virtual void a5();
-	virtual void getFiles(int x0, const char *a1, const char *empty, const char *a2, _STL::set<AsciiString> &out, int x5);
+	virtual void getFiles(int x0, const char *a1, const char *empty, const char *a2, _STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > &out, int x5);
 };
 
 extern ArchiveFileSystem *TheArchiveFileSystem;
@@ -39,13 +50,12 @@ public:
 	virtual bool rva006042B6(const char *a1, const char *a2, int extra);
 };
 
-// ?rva006042B6@Rva0060453B@@UAE_NPBD0H@Z present-unmatched
 bool Rva0060453B::rva006042B6(const char *a1, const char *a2, int extra)
 {
-	_STL::set<AsciiString> files;
+	_STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > files;
 	TheArchiveFileSystem->getFiles(0, a1, "", a2, files, 0);
 	bool result = false;
-	for (_STL::set<AsciiString>::iterator it = files.begin(); it != files.end(); ++it)
+	for (_STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> >::iterator it = files.begin(); it != files.end(); ++it)
 	{
 		const AsciiString &a = *it;
 		const char *t = *(const char **)&a;
