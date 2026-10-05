@@ -60813,3 +60813,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva00438D58Update@@YGXPAVObject@@@Z,,0x00438D58,197,Code/GameEngine/Source/GameLogic/AI/Rva00438D58Update.cpp,matched,free stdcall via getDrawable and local control and audio event
 ?rva0042D632@Rva0042D632@@QAEXXZ,,0x0042D632,74,Code/GameEngine/Source/Common/Rva0042D632Method.cpp,matched,state switch driving Apt SetState fadeOut via rowed invoke plus pin
 ?reset@Rva0042D766@@QAEXPAVRva00578C43@@@Z,,0x0042D766,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,owning-pointer reset same pointee as clear 0x0042D789 via pin 0x00578C43 plus delete
+?rva005E57DB@Rva005E57DB@@QAEXPAX@Z,,0x005E57DB,72,Code/GameEngine/Source/Common/Rva005E57DBMethod.cpp,matched,slot15 vtable 0x00877D90 class 0x005E5A38 vpred slot2 new12 ctor set
