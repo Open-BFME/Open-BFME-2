@@ -12,14 +12,15 @@ void famgenDelete(DX8MeshRendererClass *p) { delete p; }
 class BfmeEnumerationCaps { public: ~BfmeEnumerationCaps(); };
 void famgenDelete(BfmeEnumerationCaps *p) { delete p; }
 
-// ??_GVertexMaterialClass@@UAEPAXI@Z @0x13d550
-class VertexMaterialClass { public: __declspec(noinline) virtual ~VertexMaterialClass(); private: int m_famgen; };
-VertexMaterialClass::~VertexMaterialClass() { m_famgen = 0; }
+// Native 0x0013D550 calls the real destructor at 0x0013C990.
+// vertmaterial.cpp already emits its matching scalar wrapper.
+class VertexMaterialClass { public: virtual ~VertexMaterialClass(); };
 void famgenDelete(VertexMaterialClass *p) { delete p; }
 
-// ??_GBfmeDirtyBase@@UAEPAXI@Z @0x6560c0
-class BfmeDirtyBase { public: __declspec(noinline) virtual ~BfmeDirtyBase(); private: int m_famgen; };
-BfmeDirtyBase::~BfmeDirtyBase() { m_famgen = 0; }
+// Native 0x006560C0 calls the real seven-byte destructor at 0x00658650.
+// Its scalar wrapper is emitted by DirtySock/BfmeDirtyBaseDtor.cpp.
+// Defining a placeholder here emitted a wrong fourteen-byte destructor copy.
+class BfmeDirtyBase { public: virtual ~BfmeDirtyBase(); };
 void famgenDelete(BfmeDirtyBase *p) { delete p; }
 
 // ??_GRva009A45A0CollisionData@@QAEPAXI@Z @0x7588c0
