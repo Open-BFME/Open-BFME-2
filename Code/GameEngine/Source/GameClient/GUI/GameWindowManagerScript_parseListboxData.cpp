@@ -66,9 +66,25 @@ struct ListboxData
 // at 0x00314E6D/0x00314E96/0x00314E42). Declared extern (not static: MSVC
 // rejects defined-never statics with C2129); the decorations are identical
 // and the pin/rows resolve the addresses.
-Int scanShort(const char *source, Short &val);
+static Int scanShort(const char *source, Short &val);
 Int scanInt(const char *source, Int &val);
 Int scanBool(const char *source, Bool &val);
+
+extern "C" __declspec(dllimport) int __cdecl sscanf(const char *buffer, const char *format, ...);
+
+// Local static copy of the 41B sscanf wrapper at 0x00314E6D (rowed from
+// parseTextEntryData_Thunk.cpp, which keeps it static so it emits no global
+// and no other TU can bind to it). Same body as the thunk, so the calls
+// above still emit exactly as verified; internal linkage means no COMDAT
+// conflict with the row owner's copy.
+// ?scanShort@@YAHPBDAAF@Z present-unmatched
+static Int scanShort(const char *source, Short &val)
+{
+	Int temp = 0;
+	Int ret = sscanf(source, "%d", &temp);
+	val = (Short)temp;
+	return ret;
+}
 
 extern "C" __declspec(dllimport) char *__cdecl strtok(char *str, const char *delimiters);
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
