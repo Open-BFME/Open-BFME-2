@@ -8,7 +8,9 @@
 // 0xFC with (rec wide int int). Second arg at +0xC unused proving 5-arg
 // shape with ret 0x14. Dummy virtuals pad GetMap to 21 and Bar to 63.
 //
+#pragma optimize("t", on)
 #include <map>
+#pragma optimize("", on)
 
 typedef unsigned short RawWChar;
 
