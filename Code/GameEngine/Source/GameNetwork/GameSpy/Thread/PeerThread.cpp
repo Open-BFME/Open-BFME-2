@@ -340,7 +340,7 @@ public:
 	void roomJoined( Bool val ) { m_roomJoined = val; }
 	void setQMGroupRoom( Int groupID ) { m_qmGroupRoom = groupID; }
 	void sawEndOfEnumPlayers( void ) { m_sawEndOfEnumPlayers = true; }
-	void sawMatchbot( std::string bot ) { m_sawMatchbot = true; m_matchbotName = bot; }
+	void sawMatchbot(std::string bot); // Target body lives in PeerThreadMatchbot.cpp.
 	QMStatus getQMStatus( void ) { return m_qmStatus; }
 	void handleQMMatch(PEER peer, Int mapIndex, Int seed, char *playerName[MAX_SLOTS], char *playerIP[MAX_SLOTS], char *playerSide[MAX_SLOTS], char *playerColor[MAX_SLOTS], char *playerNAT[MAX_SLOTS]);
 	std::string getQMBotName( void ) { return m_matchbotName; }
