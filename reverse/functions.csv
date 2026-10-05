@@ -62192,3 +62192,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002698E6@Rva002698E6@@QAEPAV1@I@Z,,0x002698E6,28,Code/GameEngine/Source/Common/Rva002698E6Deleting.cpp,matched,scalar deleting shape via pinned dtor 0x268B04 plus rowed delete; address-derived
 ?rva00254008@Rva00254008@@QAEPAV1@I@Z,,0x00254008,28,Code/GameEngine/Source/Common/Rva00254008Deleting.cpp,matched,scalar deleting shape via pinned thunk dtor 0x254024 plus rowed delete; address-derived
 ?rva002710EC@Rva002710EC@@QAEXXZ,,0x002710EC,28,Code/GameEngine/Source/Common/Rva002710ECLoop.cpp,matched,pointer-array loop calling vslot 39; goto-check shape; address-derived
+?rva0025DFE8@Rva0025DFE8@@QAE_NH@Z,,0x0025DFE8,44,Code/GameEngine/Source/Common/Rva0025DFE8Predicate.cpp,matched,bool predicate v46 plus rowed isPlayerConnected; cmp order plus dword; address-derived
