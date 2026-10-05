@@ -1,4 +1,6 @@
 // ?rva005EA2B2@Rva005EA33D@@QAEXHH@Z
+// partial score=0.9718 date=2026-10-05
+// ?rva005EA2B2@Rva005EA33D@@QAEXHH@Z
 // partial score=0.99 date=2026-10-03
 // cl: /O1 /G7 /DNDEBUG /MD /EHs-c- /arch:SSE
 // ?rva005EA2B2@Rva005EA33D@@QAEXHH@Z @ 0x005EA2B2 139B

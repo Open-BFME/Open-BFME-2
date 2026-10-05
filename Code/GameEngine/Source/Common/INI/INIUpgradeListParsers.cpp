@@ -6,10 +6,33 @@
 // 0x004DFCB0).
 //   0x002890D1 104B Upgrades (0x00BFBB30): looks each token up by AsciiString
 //       (rowed findUpgrade 0x0026F26D) into the vector at instance + 0x4C.
+//   0x00339A13 93B NeededUpgrade (0x00C154A8, store): resolves tokens through
+//       the rowed nameToKey 0x00148E1A and findUpgradeByKey 0x0026EEB8. Its
+//       missing-center path writes 0xDEAD0001 into the store parameter slot,
+//       then calls the pinned MSVC throw helper 0x00629094 with the named
+//       ErrorCode ThrowInfo COMDAT at retail VA 0x00CFEEE4.
 
 #include "ascii_string.h"
 
 #define NULL 0
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+enum ErrorCode
+{
+	ERROR_BASE = 0xdead0001,
+	ERROR_BUG = (ERROR_BASE + 0x0000)
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *nameString);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
 
 class UpgradeTemplate;
 
@@ -17,8 +40,13 @@ class UpgradeCenter
 {
 public:
 	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
+	const UpgradeTemplate *findUpgradeByKey(NameKeyType key) const;
 };
 extern UpgradeCenter *TheUpgradeCenter;
+
+extern void __declspec(noreturn) __stdcall _CxxThrowException(void *object, void *throwInfo);
+struct _s__ThrowInfo;
+extern "C" const struct _s__ThrowInfo __identifier("_TI1?AW4ErrorCode@@");
 
 namespace _STL
 {
@@ -44,6 +72,7 @@ class INI
 public:
 	const char *getNextTokenOrNull(const char *seps = 0);
 	static void Rva002890D1_ParseUpgradeList(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva00339A13_ParseUpgradeKeyList(INI *ini, void *instance, void *store, const void *userData);
 };
 
 struct Rva002890D1Owner
@@ -61,5 +90,23 @@ void INI::Rva002890D1_ParseUpgradeList(INI *ini, void *instance, void *, const v
 		const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(AsciiString(token));
 		if (upgrade)
 			((Rva002890D1Owner *)instance)->m_upgrades.push_back(upgrade);
+	}
+}
+
+void INI::Rva00339A13_ParseUpgradeKeyList(INI *ini, void *, void *store, const void *)
+{
+	if (TheUpgradeCenter == NULL)
+	{
+		store = (void *)ERROR_BUG;
+		_CxxThrowException(&store, (void *)&__identifier("_TI1?AW4ErrorCode@@"));
+		__assume(0);
+	}
+
+	const char *token;
+	while ((token = ini->getNextTokenOrNull()) != NULL)
+	{
+		const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgradeByKey(TheNameKeyGenerator->nameToKey(token));
+		if (upgrade)
+			((UpgradeTemplateVector *)store)->push_back(upgrade);
 	}
 }

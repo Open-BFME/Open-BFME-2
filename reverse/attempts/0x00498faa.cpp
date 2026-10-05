@@ -1,5 +1,5 @@
 // ?rva00498FAA@GateOpenAndCloseBehavior@@AAEXXZ
-// partial score=0.97 date=2026-10-05
+// partial score=0.92 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE /GX
 //
 // ?rva00498FAA@GateOpenAndCloseBehavior@@AAEXXZ, retail 0x00498FAA: the
