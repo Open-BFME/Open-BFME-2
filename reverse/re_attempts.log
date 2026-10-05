@@ -8674,3 +8674,5 @@ FUN_008e5559	0x004E5559	96	blocked	ctor 0x4E4F82 and dtor 0x4E5086 on same ebp-0
 ?rva005EB2C9@Rva005EB2C9@@QAEXXZ	0x005EB2C9	30	blocked	2-push clear calls 005EAA83 not 002B0CE7 t=20 model=muse-02
 ??0Rva002C00C1@@QAE@XZ	0x002C00C1	31	blocked	ICF twin callee 0x002BFD13 dup vs canonical 0x00360B59 gate resolves long hashtable name to canonical so new TU cannot match twin call needs dup alias via place_bodies t=15 model=muse-spark
 ??1Rva00210830@@QAE@XZ	0x00210830	323	blocked	323B dtor with manual vector deletes plus virtual call plus 10 EH states needs full class layout t=12 model=muse-12
+?Rva003F907BParse@@YAXPAVINI@@PAVRva003F9004@@@Z	0x003F907B	104	blocked	esi-edi swap persists with honest virtual record model t=8 model=muse-spark (stash 0.92 kept)
+??0Rva003F9FA9@@QAE@ABVAsciiString@@@Z	0x003F9FA9	61	partial	barrier pins ors late align exact but shared header calls StringBase 0x365F0 vs retail AsciiString 0x1D8F56 needs private AsciiString t=15 model=muse-07 score=0.98 stash=reverse/attempts/0x003f9fa9.cpp

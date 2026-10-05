@@ -1,5 +1,5 @@
 // ??0Rva003F9FA9@@QAE@ABVAsciiString@@@Z
-// partial score=0.95 date=2026-10-04
+// partial score=0.98 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva003F9FA9@@QAE@ABVAsciiString@@@Z @0x003F9FA9 61B.
@@ -12,6 +12,9 @@
 // stlport_vector_e16_o1.cpp.
 #include "ascii_string.h"
 #include <vector>
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
 struct BfmeE16 { float x, y, z, w; };
 
@@ -43,6 +46,7 @@ Rva003F9FA9::Rva003F9FA9(const AsciiString &s)
 	, m_20(0)
 	, m_24(0)
 {
+	_ReadWriteBarrier();
 	m_28 = -1;
 	m_2C = -1;
 }
