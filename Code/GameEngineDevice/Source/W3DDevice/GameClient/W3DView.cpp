@@ -427,6 +427,18 @@ void W3DView::screenToWorldAtZ( const ICoord2D *s, Coord3D *w, Real z )
 	w->z = z;
 }
 
+void W3DView::Add_Camera_Shake (const Coord3D & position,float radius,float duration,float power) //WST added 11/13/02
+{
+	Vector3 vpos;
+
+	vpos.X = position.x;
+	vpos.Y = position.y;
+	vpos.Z = position.z;
+
+	(*(CameraShakeSystemClass **)&CameraShakerSystem)->Add_Camera_Shake(
+		vpos, radius, duration, power);
+}
+
 //-------------------------------------------------------------------------------------------------
 /** Sets the view filter mode. */
 //-------------------------------------------------------------------------------------------------
