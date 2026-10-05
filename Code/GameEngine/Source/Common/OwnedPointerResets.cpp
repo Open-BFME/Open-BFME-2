@@ -1532,3 +1532,24 @@ void Rva002D38EB::reset(Rva00527CCE *p)
 		}
 	}
 }
+
+class Rva002D390E
+{
+public:
+	Rva00527FA2 *m_ptr;
+	void reset(Rva00527FA2 *p);
+};
+
+void Rva002D390E::reset(Rva00527FA2 *p)
+{
+	if (p != m_ptr)
+	{
+		Rva00527FA2 *old = m_ptr;
+		m_ptr = p;
+		if (old)
+		{
+			old->Rva00527FA2::~Rva00527FA2();
+			::operator delete(old);
+		}
+	}
+}
