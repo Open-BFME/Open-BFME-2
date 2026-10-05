@@ -637,67 +637,8 @@ void positionStartSpotControls( GameWindow *win, GameWindow *mapWindow, Coord3D 
 }
 TechAndSupplyImages TheSupplyAndTechImageLocations;
 
-void positionAdditionalImages( MapMetaData *mmd, GameWindow *mapWindow, Bool force)
-{
-	TheSupplyAndTechImageLocations.m_supplyPosList.clear();
-	TheSupplyAndTechImageLocations.m_techPosList.clear();
-
-	if( !mmd || !mapWindow || mapWindow->winIsHidden())
-		return;
-	static MapMetaData *prevMMD = NULL;
-	if(force)
-		prevMMD = NULL;
-	// we already populated the supply and tech image locations.
-	if(mmd == prevMMD)
-		return;
-	ICoord2D winMapSize, winMapPos;
-	mapWindow->winGetSize(&winMapSize.x, &winMapSize.y);
-	mapWindow->winGetScreenPosition(&winMapPos.x, &winMapPos.y);
-
-	//SUPPLY_TECH_SIZE
-	ICoord2D ul, lr;
-	findDrawPositions(0,0, winMapSize.x, winMapSize.y,mmd->m_extent, &ul, &lr);
-	Int smallWidth = lr.x - ul.x;
-	Int smallHeight= lr.y - ul.y;
-	
-	Coord3DList::iterator it = mmd->m_supplyPositions.begin();
-		// loop through and make sure we're not on top of anyone else
-	while( it != mmd->m_supplyPositions.end())
-	{
-		
-		ICoord2D markerPos;
-
-		// When we actually draw the map, save off it's screen position and use that instead of the map window's position/size
-		Real position;
-		position = (it->x - mmd->m_extent.lo.x) / (mmd->m_extent.hi.x - mmd->m_extent.lo.x);
-		markerPos.x = (position * smallWidth) - SUPPLY_TECH_SIZE /2 + ul.x;// + winMapPos.x;
-
-		position = (it->y - mmd->m_extent.lo.y) / (mmd->m_extent.hi.y - mmd->m_extent.lo.y);
-		markerPos.y = ((1- position) * smallHeight) - SUPPLY_TECH_SIZE /2 + ul.y;// + winMapPos.y;
-		TheSupplyAndTechImageLocations.m_supplyPosList.push_front(markerPos);
-		it++;
-	}
-
-	it = mmd->m_techPositions.begin();
-		// loop through and make sure we're not on top of anyone else
-	while( it != mmd->m_techPositions.end())
-	{
-
-		ICoord2D markerPos;
-		// When we actually draw the map, save off it's screen position and use that instead of the map window's position/size
-		Real position;
-		position = (it->x - mmd->m_extent.lo.x) / (mmd->m_extent.hi.x - mmd->m_extent.lo.x);
-		markerPos.x = (position * smallWidth) - SUPPLY_TECH_SIZE /2 + ul.x;// + winMapPos.x;
-
-		position = (it->y - mmd->m_extent.lo.y) / (mmd->m_extent.hi.y - mmd->m_extent.lo.y);
-		markerPos.y = ((1- position) * smallHeight) - SUPPLY_TECH_SIZE /2 + ul.y;// + winMapPos.y;
-		TheSupplyAndTechImageLocations.m_techPosList.push_front(markerPos);
-		it++;
-	}
-
-
-	//TheSupplyAndTechImageLocations
-}
+// Byte-verified definition lives in SkirmishPositionAdditionalImages.cpp.
+void positionAdditionalImages(MapMetaData *mmd, GameWindow *mapWindow, Bool force);
 
 void positionStartSpots( AsciiString mapName, GameWindow *buttonMapStartPositions[], GameWindow *mapWindow)
 {
