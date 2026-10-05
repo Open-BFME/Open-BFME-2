@@ -1,5 +1,3 @@
-// ?rva00356413@Rva00355F3E@@UAEXH@Z
-// partial score=0.93 date=2026-10-05
 // cl: /O1 /MD /EHsc
 // ??1Rva00355D66@@UAE@XZ @0x00355D66 73B
 // Intermediate dtor in the Gen_004902A0 family (base dtor rowed at 0x00355C77,
@@ -239,7 +237,7 @@ public:
 	virtual void s13();
 	virtual void s14();
 	virtual void s15();
-	virtual void __stdcall s16(int x);
+	virtual void s16(int x);
 };
 
 extern NetworkInterface *TheNetwork;
@@ -250,12 +248,10 @@ public:
 	virtual void update(int x);
 };
 
-// ?rva00356413@Rva00355F3E@@UAEXH@Z present-unmatched
 void Rva00355F3E::rva00356413(int x)
 {
-	if (TheNetwork == 0)
-		goto skip;
-	TheNetwork->s16(0);
-skip:
+	NetworkInterface *net = TheNetwork;
+	if (net != 0)
+		net->s16(0);
 	((LoadScreen *)this)->LoadScreen::update(x);
 }
