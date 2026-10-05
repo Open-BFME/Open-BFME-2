@@ -206,6 +206,20 @@ int VectorClass<T>::ID(T const &object)
 	return -1;
 }
 
+// DynamicVectorClass<TextureStatisticsStruct>::ID, retail 0x0012A550 (40
+// bytes): slot 4 of the dynamic vector's vftable 0x00BD14EC, missing from the
+// Ghidra inventory; WWLib's linear search over the active entries.
+template<class T>
+int DynamicVectorClass<T>::ID(T const &object)
+{
+	for (int index = 0; index < ActiveCount; index++)
+	{
+		if ((*this)[index] == object)
+			return index;
+	}
+	return -1;
+}
+
 template<class T>
 void VectorClass<T>::Clear()
 {
@@ -273,6 +287,8 @@ template bool VectorClass<TextureStatisticsStruct>::Resize(
 template int VectorClass<TextureStatisticsStruct>::ID(
 	TextureStatisticsStruct const &);
 template void DynamicVectorClass<TextureStatisticsStruct>::Clear();
+template int DynamicVectorClass<TextureStatisticsStruct>::ID(
+	TextureStatisticsStruct const &);
 template bool DynamicVectorClass<TextureStatisticsStruct>::Add(
 	TextureStatisticsStruct const &);
 template VectorClass<TextureStatisticsStruct>::~VectorClass();
