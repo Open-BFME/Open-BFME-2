@@ -10,10 +10,11 @@
 // by the matched fill provider. Original record/vector names are unproved.
 // Scoped ABI views link to independently verified full providers below.
 #include "unicode_string.h"
-struct Rva005FE974Record {unsigned word0,word4;UnicodeString text08;};
+struct Rva005FE974Record {unsigned word0,word4;UnicodeString text08;Rva005FE974Record():word0(0),word4(0){}};
 class Rva005FE974Vector {public:
  unsigned size()const{return finish-start;} Rva005FE974Record*begin(){return start;} Rva005FE974Record*end(){return finish;}
  void resize(unsigned,Rva005FE974Record);
+ void rva005FE9E0(unsigned);
 private:
  Rva005FE974Record*start;Rva005FE974Record*finish;Rva005FE974Record*limit;
  Rva005FE974Record*erase(Rva005FE974Record*,Rva005FE974Record*);
@@ -22,6 +23,11 @@ private:
 void Rva005FE974Vector::resize(unsigned count,Rva005FE974Record value) {
  if(count<size())erase(begin()+count,end());
  else {unsigned extra=count-size();fill(end(),extra,value);}
+}
+
+void Rva005FE974Vector::rva005FE9E0(unsigned count)
+{
+	resize(count, Rva005FE974Record());
 }
 
 
