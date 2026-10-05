@@ -12899,3 +12899,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva004EC072@Player@@QAEXPAVTeamPrototype@@@Z,0x004EC072,Player entry taking this; read from REL32 at 0x003A2C06 in rva003A2BD4 0x003A2BD4
 ?rva003A3B7E@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z,0x003A3B7E,fallback when findPrototype hits an empty inactive team; same (a1,a2) args; read from REL32 at 0x003A3E67 in rva003A3E37 0x003A3E37
 ?rva0052C7A2@Rva0052C7A2@@QAEHXZ,0x0052C7A2,no-arg entry method tail-called from indexed table in rva003B8D4D 0x003B8D4D; read from jmp at 0x003B8D67; identity unproven
+?Rva005D303AFormat@@YA?AVUnicodeString@@HH@Z,0x005D303A,by-value UnicodeString formatter ("%d/%d" via 0x00C380FC) returning hidden retptr at [ebp+8]; read from REL32 at 0x005D3113 in rva005D30EE 0x005D30EE; Ghidra 99B
