@@ -1,5 +1,5 @@
 // ?updateIniSettings@W3DSnowManager@@UAEXXZ
-// partial score=0.96 date=2026-10-04
+// partial score=0.983 date=2026-10-05
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 /*
 ** Copyright 2025 Electronic Arts Inc.
@@ -30,7 +30,10 @@ public:
     virtual void targetSlot11();
     virtual void targetSlot12();
     virtual void targetSlot13();
-    virtual void updateIniSettings();
+    // Pure here, as Code/GameEngine/Source/GameClient/Snow.cpp models it: this base
+    // body is not recovered yet (retail 0x00201165, pinned), so the call below
+    // resolves to the pin through the alternatename at the foot of this unit.
+    virtual void updateIniSettings() = 0;
 protected:
     float *m_startingHeights;
     float m_time, m_velocity, m_fullTimePeriod;
