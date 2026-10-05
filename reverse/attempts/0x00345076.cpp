@@ -1,7 +1,5 @@
 // ?onEnter@AIAttackMeleeHordeWaitPathState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.98 date=2026-10-05
-// ?onEnter@AIAttackMeleeHordeWaitPathState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.98 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // onEnter/onExit overrides of BFME 2 states, each named by its vtable's
