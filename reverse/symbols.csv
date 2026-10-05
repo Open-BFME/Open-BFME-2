@@ -13685,3 +13685,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva0021B7B6Append@Rva0021B7B6@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ?rva00288CA6@Rva00288CFA@@QAEHPAXHH@Z,0x00288CA6,Rva00288CFA int lookup taking an outer pointer plus int plus 0; called from range-17 0x39ADB9 min body; Ghidra FUN_00688ca6 84B; identity unproven
 ?rva00288AF2@Rva00288CFA@@QAEHPAX@Z,0x00288AF2,Rva00288CFA single-pointer lookup; called from range-17 0x39AE30 setup with (arg+4)+0x9c; Ghidra FUN_00688af2 67B; identity unproven
+?rva00112898@Rva00113110Holder@@QAEXHHPAX@Z,0x00112898,"retail REL32 at 0x00113148 in 0x00113110 targets 0x00112898 (ecx=esi Holder thiscall 3 stack args [esi+0x58] plus 0 plus 0; 569B Ghidra body sharing +0x5C holder); opaque candidate not identity"
