@@ -13,3 +13,9 @@ struct Rva003615E5Record {unsigned char unknown[148]; ~Rva003615E5Record();};
 template void _STL::__destroy_aux<Rva003615E5Record*>(Rva003615E5Record*,Rva003615E5Record*,const _STL::__false_type&);
 template void _STL::_Destroy<Rva003615E5Record*>(Rva003615E5Record*,Rva003615E5Record*);
 #pragma comment(linker, "/alternatename:??1Rva003615E5Record@@QAE@XZ=??1Rva00360F55@@QAE@XZ")
+
+// Native [3615E5,361624),63B: vector destructor calls full24B Destroy,
+// then frees start through full17B GameMemory_free30830 if nonnull. EHs
+// preserves the native unwind-state transition before the deallocation.
+// Structural queue's fill-insert label is refuted by this destruction ABI.
+template _STL::vector<Rva003615E5Record>::~vector();
