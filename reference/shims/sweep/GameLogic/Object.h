@@ -298,7 +298,7 @@ public:
 	inline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
 	inline const AIUpdateInterface* getAIUpdateInterface() const { return m_ai; }
 
-	inline AIUpdateInterface *getAI() { return m_ai; }
+	AIUpdateInterface *getAI();	// out of line: retail 0x00313EB6 (Object.cpp) reads +0x19C; this layout has +0x258
 	inline const AIUpdateInterface* getAI() const { return m_ai; }
 
 	inline PhysicsBehavior* getPhysics() { return m_physics; }

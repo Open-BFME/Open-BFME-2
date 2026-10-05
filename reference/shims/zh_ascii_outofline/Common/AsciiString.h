@@ -515,12 +515,7 @@ inline AsciiString& AsciiString::operator=(const char* s)
 // OUT OF LINE: AsciiString::concat(const char* s) folds to a StringBase<char> body in retail (symbols.csv pin)
 
 // -----------------------------------------------------
-inline void AsciiString::concat(const AsciiString& stringSrc)
-{
-	validate();
-	concat(stringSrc.str());
-	validate();
-}
+// OUT OF LINE: AsciiString::concat(const AsciiString&) folds to StringBase<char>::concat 0x00006987 (alias in string_base.cpp)
 
 // -----------------------------------------------------
 inline void AsciiString::concat(const char c)

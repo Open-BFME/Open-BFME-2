@@ -60,3 +60,7 @@ void Rva0024A797_Anchor()
 	Rva0024A797 *p = new Rva0024A797;
 	delete p;
 }
+
+// UpdateModule::~UpdateModule is this body (symbols.csv pins ??1UpdateModule@@UAE@XZ here: the rowed
+// BoredUpdate dtor tail-jumps to it). Shapes that declare it non-virtual reference the QAE spelling.
+#pragma comment(linker, "/alternatename:??1UpdateModule@@QAE@XZ=??1Rva0024A797@@UAE@XZ")
