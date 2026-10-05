@@ -17,6 +17,7 @@ class Rva000795C1Record {
     void *first, *last, *end;
 public:
     Rva000795C1Record(const Rva000795C1Record &);
+    bool compareRva005803C0(void *, void *) const;
     ~Rva000795C1Record() { if (first) free(first); }
 };
 void __cdecl Rva00580FD1IntroSort(void **, void **, void **, int, Rva000795C1Record);
@@ -63,4 +64,18 @@ void __cdecl Rva00580FD1IntroSort(void **first, void **last, void **, int depth,
         Rva00580FD1IntroSort(cut,last,(void **)0,depth,compare);
         last=cut;
     }
+}
+
+// Native580646..580705/191B: STLport median decision tree with same record.
+// Five member calls use ecx=by-value record and two dereferenced pointer values;
+// target comparator5803C0/619 ends RET8. Its application meaning is unknown.
+// ?Rva00580646Median@@YAPAPAXABQAX00VRva000795C1Record@@@Z
+void ** __cdecl Rva00580646Median(void * const &a, void * const &b, void * const &c, Rva000795C1Record compare) {
+    if (compare.compareRva005803C0(a,b)) {
+        if (compare.compareRva005803C0(b,c)) return const_cast<void **>(&b);
+        else if (compare.compareRva005803C0(a,c)) return const_cast<void **>(&c);
+        else return const_cast<void **>(&a);
+    } else if (compare.compareRva005803C0(a,c)) return const_cast<void **>(&a);
+    else if (compare.compareRva005803C0(b,c)) return const_cast<void **>(&c);
+    else return const_cast<void **>(&b);
 }

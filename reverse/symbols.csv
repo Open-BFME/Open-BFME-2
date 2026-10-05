@@ -12326,3 +12326,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?Rva00580646Median@@YAPAPAXABQAX00VRva000795C1Record@@@Z,0x00580646,Address-named median callee read at58103B; three element addresses plus same16B copied record; return reference loaded by caller before partition
 ?Rva00580705Partition@@YAPAPAXPAPAX0PAXVRva000795C1Record@@@Z,0x00580705,Address-named partition callee read at58104B; two4-byte iterators and4-byte median value plus same16B record; iterator result feeds recursive range
 ?Rva00580F7FPartialSort@@YAXPAPAX00VRva000795C1Record@@@Z,0x00580F7F,Address-named depth-exhaustion partial sort callee read at58108C; first and duplicated last plus16B copied record; caller-cleaned ABI
+?compareRva005803C0@Rva000795C1Record@@QBE_NPAX0@Z,0x005803C0,Address-named comparator read at580664/580677/580687/5806BC/5806D2; native5803C0/619 RET8 takes ecx record and two4B elements; application semantics unknown
