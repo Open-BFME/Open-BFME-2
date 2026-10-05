@@ -35,6 +35,13 @@
 // second getControllingPlayer call, so it joins this file too; Team gains
 // its two polymorphic bases here (MemoryPoolObject, Snapshot), which
 // leaves every offset above unchanged.
+//
+// ?teamAboutToBeDeleted@TeamPrototype@@QAEXPAVTeam@@@Z, retail 0x003A2CA5
+// (70 bytes), pinned from the byte-verified TeamFactory::teamAboutToBeDeleted.
+// Zero Hour's body over the same team-list iterator: each team drops its
+// override relationship with the dying team's id (+0x34, TEAM_ID_INVALID for
+// null) through 0x003A2897, whose map-erase body is Zero Hour's
+// Team::removeOverrideTeamRelationship on the +0x118 relation map.
 #include <hash_map>
 #include "Common/Snapshot.h"
 
@@ -169,6 +176,7 @@ class Team : public MemoryPoolObject, public Snapshot
 public:
 	Team *dlink_next_TeamInstanceList() const;
 	void updateState();
+	bool removeOverrideTeamRelationship(unsigned int teamID);
 	Object *getFirstItemIn_TeamMemberList() const { return m_dlinkhead_TeamMemberList; }
 	bool isActive() const { return m_active; }
 	Player *getControllingPlayer() const;
@@ -289,6 +297,7 @@ public:
 	}
 	bool getIsSingleton() const { return (m_flags & TEAM_SINGLETON) != 0; }
 	void updateState();
+	void teamAboutToBeDeleted(Team *team);
 
 private:
 	unsigned char m_pad00[0x18];
@@ -337,5 +346,13 @@ void TeamPrototype::updateState()
 				break;
 			}
 		}
+	}
+}
+
+void TeamPrototype::teamAboutToBeDeleted(Team *team)
+{
+	for (TeamInstanceIterator<Team> iter = iterate_TeamInstanceList(); !iter.done(); iter.advance())
+	{
+		iter.cur()->removeOverrideTeamRelationship(team ? team->getTeamKey() : 0);
 	}
 }
