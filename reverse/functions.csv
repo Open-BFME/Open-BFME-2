@@ -61472,3 +61472,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva007B54E0@@YAXXZ,,0x007B54E0,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,CPUDetectInitClass construction thunk: ecx=&g_Va00E08D38 then tail-jmp to rowed ctor 0x006130C0 via init alias; honest address name
 ?rva0057FDB0@Rva0057FD6E@@QAEX_N@Z,,0x0057FDB0,15,Code/GameEngine/Source/Common/Rva0057FD6EForward.cpp,matched,forwarder via pin 0x005AFCB4 same m64 as siblings
 ?rva0057F002@Rva0057EE5C@@QAEXH@Z,,0x0057F002,52,Code/GameEngine/Source/Common/Rva0057EE5C.cpp,matched,method via pin 0x00559FAC vslot1 and pin 0x0057EF18
+?rva00435B82@Rva00435B82@@QAEPAV1@PAV1@0@Z,,0x00435B82,31,Code/GameEngine/Source/Common/S5HandleHashCompares.cpp,matched,same 31B assign-through-hook shape as 0x003F2352 in this TU plus rowed callee Rva00435441Hook plus caller 0x00435D5E

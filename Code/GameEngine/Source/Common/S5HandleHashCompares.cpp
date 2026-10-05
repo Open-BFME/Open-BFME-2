@@ -150,6 +150,30 @@ private:
 	int m_val; // +0x04
 };
 
+// ?rva00435B82@Rva00435B82@@QAEPAV1@PAV1@0@Z 31B @0x00435B82
+// Retail: dst->m_val = Rva00435441Hook(this->m_val, src->m_val); return dst.
+// Evidence: same 31B assign-through-hook shape as 0x003F2352 in this TU; +4 read order theirs-into-eax-first mine-into-ecx and rowed callee Rva00435441Hook; caller at 0x00435D5E passes tmp arg.
+int Rva00435441Hook(int left, int right);
+
+class Rva00435B82
+{
+public:
+	Rva00435B82 *rva00435B82(Rva00435B82 *dst, Rva00435B82 *src);
+
+private:
+	char m_head[4];
+	int m_val; // +0x04
+};
+
+Rva00435B82 *Rva00435B82::rva00435B82(Rva00435B82 *dst, Rva00435B82 *src)
+{
+	int theirs = src->m_val;
+	int mine = m_val;
+
+	dst->m_val = Rva00435441Hook(mine, theirs);
+	return dst;
+}
+
 bool Rva0056FA50::rva0056FA50(const Rva0056FA50 &other) const
 {
 	int theirs = other.m_val;
