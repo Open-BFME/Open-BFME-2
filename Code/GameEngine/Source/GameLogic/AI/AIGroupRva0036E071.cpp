@@ -24,6 +24,8 @@ class AIUpdateInterface : public BfmeVirtualSlots<113>
 {
 public:
 	virtual Bool pred113() const;
+	char m_pad04[0x3CA - 4];
+	unsigned char m_3CA; // +0x3CA
 };
 
 class Object
@@ -43,6 +45,7 @@ class AIGroup
 {
 public:
 	Bool rva0036E071() const;
+	Bool rva0036E0B6() const;
 
 private:
 	std::list<Object *> m_memberList;
@@ -65,4 +68,24 @@ Bool AIGroup::rva0036E071() const
 			return false;
 	}
 	return true;
+}
+
+// ?rva0036E0B6@AIGroup@@QBE_NXZ, retail 0x0036E0B6, 45 bytes.
+// Next row after rva0036E071. Evidence: same list walk, Object+0x258 AIUpdate,
+// AI byte +0x3CA nonzero returns true, unblocks 0x0026249D and 0x0020C83F.
+Bool AIGroup::rva0036E0B6() const
+{
+	std::list<Object *>::const_iterator i;
+	for (i = m_memberList.begin(); i != m_memberList.end(); ++i)
+	{
+		Object *obj = *i;
+		if (!obj)
+			continue;
+		const AIUpdateInterface *ai = obj->getAIUpdateInterface();
+		if (!ai)
+			continue;
+		if (ai->m_3CA != 0)
+			return true;
+	}
+	return false;
 }
