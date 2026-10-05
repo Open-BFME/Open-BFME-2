@@ -59809,3 +59809,35 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0028B193@Object@@QAEXXZ,,0x0028B193,65,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp,matched,Object helpers refresh plus4C4 maybePrepend plus4CC plus4C8 init then plus250 slot3 tail
 ?rva0028B701@Object@@QAEXM@Z,,0x0028B701,41,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp,matched,Object plus244 module scan float to interface slot43
 ?calculateHeightAboveTerrain@Object@@MBEMXZ,,0x0028B569,44,Code/GameEngine/Source/GameLogic/Object/ObjectCalculateHeightAboveTerrain.cpp,matched,ZH Object override Object vtable slot4 z minus TerrainLogic getLayerHeight slot7 with plus40C layer
+??0Rva0033F2FD@@QAE@PAVStateMachine@@@Z,,0x0033F2FD,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F320@@QAE@PAVStateMachine@@@Z,,0x0033F320,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F364@@QAE@PAVStateMachine@@@Z,,0x0033F364,33,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F38B@@QAE@PAVStateMachine@@@Z,,0x0033F38B,37,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F3B6@@QAE@PAVStateMachine@@_N1@Z,,0x0033F3B6,51,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F3EF@@QAE@PAVStateMachine@@@Z,,0x0033F3EF,37,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F41A@@QAE@PAVStateMachine@@@Z,,0x0033F41A,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F43D@@QAE@PAVStateMachine@@@Z,,0x0033F43D,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F460@@QAE@PAVStateMachine@@@Z,,0x0033F460,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F483@@QAE@PAVStateMachine@@H@Z,,0x0033F483,40,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F4B1@@QAE@PAVStateMachine@@H@Z,,0x0033F4B1,40,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F4DF@@QAE@PAVStateMachine@@H@Z,,0x0033F4DF,37,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F51D@@QAE@PAVStateMachine@@@Z,,0x0033F51D,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F540@@QAE@PAVStateMachine@@@Z,,0x0033F540,37,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F56B@@QAE@PAVStateMachine@@@Z,,0x0033F56B,37,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F596@@QAE@PAVStateMachine@@@Z,,0x0033F596,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F5B9@@QAE@PAVStateMachine@@_N@Z,,0x0033F5B9,36,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F627@@QAE@PAVStateMachine@@@Z,,0x0033F627,33,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F64E@@QAE@PAVStateMachine@@_N@Z,,0x0033F64E,40,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F701@@QAE@PAVStateMachine@@@Z,,0x0033F701,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F724@@QAE@PAVStateMachine@@@Z,,0x0033F724,33,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F74B@@QAE@PAVStateMachine@@@Z,,0x0033F74B,33,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F772@@QAE@PAVStateMachine@@@Z,,0x0033F772,37,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F79D@@QAE@PAVStateMachine@@@Z,,0x0033F79D,37,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F7C8@@QAE@PAVStateMachine@@@Z,,0x0033F7C8,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F7EB@@QAE@PAVStateMachine@@@Z,,0x0033F7EB,29,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F80E@@QAE@PAVStateMachine@@@Z,,0x0033F80E,41,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,State hash ctor packed family
+??0Rva0033F5E3@@QAE@PAVStateMachine@@_N@Z,,0x0033F5E3,28,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,derived State ctor forwarding to 0x0033F5B9
+??0Rva0033F605@@QAE@PAVStateMachine@@_N@Z,,0x0033F605,28,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,derived State ctor forwarding to 0x0033F5B9
+??0Rva0033F67C@@QAE@PAVStateMachine@@_N@Z,,0x0033F67C,28,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,derived State ctor forwarding to 0x0033F64E
+??0Rva0033F69E@@QAE@PAVStateMachine@@_N@Z,,0x0033F69E,28,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,derived State ctor forwarding to 0x0033F64E
+??0Rva0033F6C0@@QAE@PAVStateMachine@@@Z,,0x0033F6C0,26,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp,matched,derived State ctor forwarding false to 0x0033F64E
