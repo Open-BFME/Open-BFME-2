@@ -738,7 +738,7 @@ PeerThreadClass* GameSpyPeerMessageQueue::getThread( void )
 //-------------------------------------------------------------------------
 static void disconnectedCallback(PEER peer, const char * reason, void * param);
 static void roomMessageCallback(PEER peer, RoomType roomType, const char * nick, const char * message, MessageType messageType, void * param);
-static void playerMessageCallback(PEER peer, const char * nick, const char * message, MessageType messageType, void * param);
+void playerMessageCallback(PEER peer, const char * nick, const char * message, MessageType messageType, void * param);
 static void playerJoinedCallback(PEER peer, RoomType roomType, const char * nick, void * param);
 static void playerLeftCallback(PEER peer, RoomType roomType, const char * nick, const char * reason, void * param);
 static void playerChangedNickCallback(PEER peer, RoomType roomType, const char * oldNick, const char * newNick, void * param);
@@ -2429,87 +2429,8 @@ void gameStartedCallback( PEER peer, UnsignedInt IP, const char *message, void *
 	TheGameSpyPeerMessageQueue->addResponse(resp);
 }
 
-void playerMessageCallback(PEER peer, const char * nick, const char * message, MessageType messageType, void * param)
-{
-	PeerResponse resp;
-	resp.peerResponseType = PeerResponse::PEERRESPONSE_MESSAGE;
-	resp.nick = nick;
-	resp.text = MultiByteToWideCharSingleLine(message);
-	resp.message.isPrivate = TRUE;
-	resp.message.isAction = (messageType == ActionMessage);
-	UnsignedInt IP;
-	peerGetPlayerInfoNoWait(peer, nick, &IP, &resp.message.profileID);
-	TheGameSpyPeerMessageQueue->addResponse(resp);
+// Retail callback lives in PeerThreadPlayerMessage.cpp.
 
-
-	PeerThreadClass *t = (PeerThreadClass *)param;
-	DEBUG_ASSERTCRASH(t, ("No Peer thread!"));
-	if (t && (t->getQMStatus() != QM_IDLE && t->getQMStatus() != QM_STOPPED))
-	{
-		if (resp.message.isPrivate && resp.message.profileID == matchbotProfileID)
-		{
-			char *lastStr = NULL;
-			char *cmd = strtok_r((char *)message, " ", &lastStr);
-			if ( cmd && strcmp(cmd, "MBOT:MATCHED") == 0 )
-			{
-				char *mapNumStr = strtok_r(NULL, " ", &lastStr);
-				char *seedStr = strtok_r(NULL, " ", &lastStr);
-				char *playerStr[MAX_SLOTS];
-				char *playerIPStr[MAX_SLOTS];
-				char *playerSideStr[MAX_SLOTS];
-				char *playerColorStr[MAX_SLOTS];
-				char *playerNATStr[MAX_SLOTS];
-				Int numPlayers = 0;
-				for (Int i=0; i<MAX_SLOTS; ++i)
-				{
-					playerStr[i] = strtok_r(NULL, " ", &lastStr);
-					playerIPStr[i] = strtok_r(NULL, " ", &lastStr);
-					playerSideStr[i] = strtok_r(NULL, " ", &lastStr);
-					playerColorStr[i] = strtok_r(NULL, " ", &lastStr);
-					playerNATStr[i] = strtok_r(NULL, " ", &lastStr);
-					if (playerNATStr[i])
-					{
-						++numPlayers;
-					}
-					else
-					{
-						playerStr[i] = NULL;
-						playerIPStr[i] = NULL;
-						playerSideStr[i] = NULL;
-						playerColorStr[i] = NULL;
-						playerNATStr[i] = NULL;
-					}
-				}
-
-				if (numPlayers > 1)
-				{
-					// woohoo!  got everything needed for a match!
-					DEBUG_LOG(("Saw %d-player QM match: map index = %s, seed = %s\n", numPlayers, mapNumStr, seedStr));
-					t->handleQMMatch(peer, atoi(mapNumStr), atoi(seedStr), playerStr, playerIPStr, playerSideStr, playerColorStr, playerNATStr);
-				}
-			}
-			else if ( cmd && strcmp(cmd, "MBOT:WORKING") == 0 )
-			{
-				Int poolSize = 0;
-				char *poolStr = strtok_r(NULL, " ", &lastStr);
-				if (poolStr)
-					poolSize = atoi(poolStr);
-				PeerResponse resp;
-				resp.peerResponseType = PeerResponse::PEERRESPONSE_QUICKMATCHSTATUS;
-				resp.qmStatus.status = QM_WORKING;
-				resp.qmStatus.poolSize = poolSize;
-				TheGameSpyPeerMessageQueue->addResponse(resp);
-			}
-			else if ( cmd && strcmp(cmd, "MBOT:WIDENINGSEARCH") == 0 )
-			{
-				PeerResponse resp;
-				resp.peerResponseType = PeerResponse::PEERRESPONSE_QUICKMATCHSTATUS;
-				resp.qmStatus.status = QM_WIDENINGSEARCH;
-				TheGameSpyPeerMessageQueue->addResponse(resp);
-			}
-		}
-	}
-}
 
 
 
