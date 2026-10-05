@@ -60089,3 +60089,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0022D89D@Rva00077710Value@@QAEPAV1@AAV1@@Z,,0x0022D89D,38,Code/GameEngine/Source/Common/ObfuscatedValueOperators.cpp,matched,returns other ptr EAX holds other at ret callers 0x0022D99A 0x0022DA66
 ?rva0022D99A@Rva00077710Value@@QAEPAV1@AAV1@H@Z,,0x0022D99A,29,Code/GameEngine/Source/Common/ObfuscatedValueOperators.cpp,matched,chain of 0x0022D89D saves old in esi returns dst second param dead ret8
 ?rva005FD0FA@Rva005FD0FA@@QAEXHPBVImage@@@Z,,0x005FD0FA,157,Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp,matched,Apt UpgradeIcon setter via rowed level 0x005FC754 and name 0x005FC75B with empty fallback set clear rowed 0x00524725 0x00524306
+?rva0053FCB3@Rva0053FCB3@@QAEXXZ,,0x0053FCB3,12,Code/GameEngine/Source/Common/Rva0053FCB3Release.cpp,matched,chain from rowed Release 0x0053FA32 holder at +0 per setter siblings
