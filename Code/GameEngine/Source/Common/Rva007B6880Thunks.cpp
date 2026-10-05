@@ -6707,3 +6707,23 @@ void __cdecl rva007AC7F5()
 	FrustumInitThunk *p = (FrustumInitThunk *)&g_Va00DEBD00;
 	return p->init();
 }
+
+// Opaque-class view for the thunk below. The destructor is declared only;
+// symbols.csv pins ??1Rva007A4E6@@QAE@XZ to 0x007A4E6 (101B EH dtor: frees
+// members at +0x10/+0x1C via 0x00030830, clears +0xC via rowed 0x000799D0,
+// destroys +0 via rowed tree dtor 0x00079E55; non-virtual, no vftable store).
+class Rva007A4E6
+{
+public:
+	~Rva007A4E6();
+};
+
+extern unsigned g_Va00DE1FC8;
+unsigned int g_Va00DE1FC8;
+
+// ?rva007B6BE1@@YAXXZ @ 0x007B6BE1 (10B). Global Rva007A4E6 dtor thunk: ecx=&g_Va00DE1FC8 then tail-jmp to pinned ??1Rva007A4E6@@QAE@XZ (0x007A4E6). No callers. Honest address name.
+void __cdecl rva007B6BE1()
+{
+	Rva007A4E6 *p = (Rva007A4E6 *)&g_Va00DE1FC8;
+	return p->~Rva007A4E6();
+}

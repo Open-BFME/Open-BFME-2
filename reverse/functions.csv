@@ -61771,3 +61771,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?Rva004E8D8CParse@@YAXPAVINI@@PAX1PBX@Z,,0x004E8D8C,90,Code/GameEngine/Source/Common/INI/INIRangeCheckedParsers.cpp,matched,FieldParse TargetPriorityModifiers (0x00BFD824); up to 16 reals into the store; INIException past 16
 ?Rva00403233Parse@@YAXPAVINI@@PAX1PBX@Z,,0x00403233,71,Code/GameEngine/Source/Common/INI/INIRangeCheckedParsers.cpp,matched,FieldParse Category (0x00C38698); rowed BitFlags<15>::getSingleBitFromName bit in 1..14 else INIException Invalid Category
 ?rva00082B08@Rva00082B08@@QAEXXZ,,0x00082B08,127,Code/GameEngine/Source/Common/Rva00082B08.cpp,matched,triple erase under one guard plus two vector erases plus conditional tail
+?rva007B6BE1@@YAXXZ,,0x007B6BE1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Global Rva007A4E6 dtor thunk: ecx=&g_Va00DE1FC8 then tail-jmp to pinned dtor 0x007A4E6; honest address name

@@ -9837,3 +9837,4 @@ FUN_00607c02	0x00207C02	498	blocked	huge 0x1A500 object init chain needs ScriptE
 ?rva0040ED4F@Rva0040ED4F@@QAEXH@Z	0x0040ED4F	314	blocked	314B Rva0040ECCF family needs full vector plus forEach plus EH shapes t=15 model=muse-03
 ??0EmotionTrackerUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	0x004B21B9	420	blocked	t=30min; permute v3 ran 1131 trials; byte fitness 0.8756->0.8766, then no gain in 600; no exact match and no source or pin changes
 ??1Rva002D5333@@UAE@XZ	0x002D5333	72	landed	add_match and scoped build verified the 72B destructor; directly called 54B cleanup helper byte-verified at 0x002D4BA5; class remains address-derived
+??1Rva007A4E6@@QAE@XZ	0x007A4E6	101	attempted	101B EH dtor mapped: frees +0x10/+0x1C via 0x30830, clears +0xC via rowed 0x799D0 (touches only [this+0]), destroys +0 via rowed tree dtor 0x79E55; tree at +0 must be <=0xC (holder+flag); thunk 0x7B6BE1 landed via pin; full-body port open t=40 model=muse-spark-1.3-contributor
