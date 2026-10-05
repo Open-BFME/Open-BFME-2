@@ -63384,3 +63384,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1Rva0050174A@@QAE@XZ,,0x0050174A,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape
 ??1Rva005C8565@@QAE@XZ,,0x005C8565,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape
 ??1Rva00603C57@@QAE@XZ,,0x00603C57,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape
+??1Rva004E58ED@@QAE@XZ,,0x004E58ED,8,Code/GameEngine/Source/Common/Rva004E58EDStrRelease.cpp,matched,Address-derived string-release dtor: +0x10 member into releaseBuffer alias; 8B shape
+?cleanup@Rva00330BDBMid@@QAEXXZ,,0x00330BDB,8,Code/GameEngine/Source/Common/RvaNegativeAdjustFwds.cpp,matched,Address-derived negative-adjust explicit-dtor forward; 8B shape
+?cleanup@Rva005CEC55Mid@@QAEXXZ,,0x005CEC55,8,Code/GameEngine/Source/Common/RvaNegativeAdjustFwds.cpp,matched,Address-derived negative-adjust explicit-dtor forward; 8B shape

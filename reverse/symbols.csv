@@ -12707,3 +12707,6 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ??1Rva005016C3Dtor@@QAE@XZ,0x005016C3,REL32 callee decoded from target call bytes of adjustor dtor 0x0050174A; identity unproven
 ??1Rva005C8494Dtor@@QAE@XZ,0x005C8494,REL32 callee decoded from target call bytes of adjustor dtor 0x005C8565; identity unproven
 ??1Rva00603AA8Dtor@@QAE@XZ,0x00603AA8,opaque alias: same body as matched STLport rb-tree dtor row; callee of adjustor dtor 0x00603C57
+?release@Rva00036E70Releaser@@QAEXXZ,0x00036E70,opaque alias: same body as rowed StringBase wide releaseBuffer; callee of string-release dtor 0x004E58ED
+??1Rva0030B706Obj@@QAE@XZ,0x0030B706,REL32 callee decoded from target call bytes of negative-adjust body 0x00330BDB; identity unproven
+??1Rva005CC788Obj@@QAE@XZ,0x005CC788,REL32 callee decoded from target call bytes of negative-adjust body 0x005CEC55; identity unproven
