@@ -7,6 +7,7 @@ class Rva0056FAA5
 {
 public:
 	Rva0056FAA5 *rva0056FAA5(Rva0056FAA5 *dst, Rva0056FAA5 *src);
+	Rva0056FAA5 *rva0056FCF3(Rva0056FAA5 *src);
 private:
 	char m_head[4];
 	int m_04;
@@ -18,4 +19,12 @@ Rva0056FAA5 *Rva0056FAA5::rva0056FAA5(Rva0056FAA5 *dst, Rva0056FAA5 *src)
 	int mine = m_04;
 	dst->m_04 = Rva0056F6E9Hook(mine, other);
 	return dst;
+}
+
+Rva0056FAA5 *Rva0056FAA5::rva0056FCF3(Rva0056FAA5 *src)
+{
+	Rva0056FAA5 tmp;
+	Rva0056FAA5 *res = rva0056FAA5(&tmp, src);
+	m_04 = res->m_04;
+	return this;
 }

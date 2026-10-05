@@ -60755,3 +60755,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva002A7B1C@Rva002A7B1C@@QAEXXZ,,0x002A7B1C,24,Code/GameEngine/Source/Common/RTS/PlayerListRva002A7B1C.cpp,matched,neighbours PlayerList share 0x18 and O1 caller 0x0020D2A6 row 0x002AB429
 ?notify@BfmeSubVfn1A6@@QAEHHPAX@Z,,0x0033FCE1,150,Code/GameEngine/Source/Common/Rva0033FCE1Notify.cpp,matched,linkbody callers AIUpdateInterface internalGetState vtable slots globals g_Va00DBA4E4 TheGameLogic
 ?rva0056FAA5@Rva0056FAA5@@QAEPAV1@PAV1@0@Z,,0x0056FAA5,31,Code/GameEngine/Source/Common/Rva0056FAA5Assign.cpp,matched,unlock read other first Hook assign dst return dst caller 0x0056FCF3
+?rva0056FCF3@Rva0056FAA5@@QAEPAV1@PAV1@@Z,,0x0056FCF3,33,Code/GameEngine/Source/Common/Rva0056FAA5Assign.cpp,matched,chain calls 0x0056FAA5 temp local copies hook result returns this
