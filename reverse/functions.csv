@@ -62058,3 +62058,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva003627B8@Rva003627B8Entry@@QAEXH@Z,,0x003627B8,65,Code/GameEngine/Source/Common/Bfme/Rva003627B8Entry.cpp,matched,entry guard via rowed 0x362499 plus same-this 0x362609 plus rowed 0x419BA5 link clear
 ?rva00362862@Rva00362862Item@@QAEXHH@Z,,0x00362862,68,Code/GameEngine/Source/Common/Bfme/Rva00362862Notify.cpp,matched,vector element notify helper via rowed caller 0x239300 loop aux plus entries plus mask
 ?rva00112153@Rva0011216CSlotQuartet@@QAEXXZ,,0x00112153,25,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSlotQuartet.cpp,matched,abutting FillFourSlots array cleanup via rowed delete-array
+?rva0029DE76@Rva0029DE76@@QAE_NPBUCoord3D@@@Z,,0x0029DE76,164,Code/GameEngine/Source/GameClient/Rva0029DE76Method.cpp,matched,unlock caller 0x0029EAFA rowed shroud plus path test
