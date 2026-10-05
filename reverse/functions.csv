@@ -62835,3 +62835,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003191B1@Rva003193EC@@QAEXXZ,,0x003191B1,41,Code/GameEngine/Source/Common/Rva003193EC.cpp,matched,chain on 0x3190E7 via sum plus notify per packet
 ??0BfmeOpaqueOwnedRecord1432@@QAE@ABU0@@Z,,0x00556375,219,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecord1432CopyCtor.cpp,matched,LINK BONUS name via _Construct dup and deque push_back_aux_v
 ?rva007B70E0@@YAXXZ,,0x007B70E0,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DF3410 tail-jmp pinned RenderObjClass Update_Sub_Object_Transforms 0x0069E440
+?rva007B7A87@@YAXXZ,,0x007B7A87,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF144 tail-jmp pinned Rva00200667 dtor 0x00200667
+?rva007B7A91@@YAXXZ,,0x007B7A91,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF148 tail-jmp pinned Rva00200667 dtor 0x00200667

@@ -6343,6 +6343,27 @@ void __cdecl rva007B8590()
 	return p->~Rva00200667();
 }
 
+extern unsigned g_Va00DFF144;
+unsigned int g_Va00DFF144;
+
+// ?rva007B7A87@@YAXXZ @ 0x007B7A87 (10B). Global Rva00200667 dtor thunk: ecx=&g_Va00DFF144 then tail-jmp to pinned ??1Rva00200667@@QAE@XZ (0x00200667; deleting dtor 0x002821B3). No callers. Honest address name.
+void __cdecl rva007B7A87()
+{
+	Rva00200667 *p = (Rva00200667 *)&g_Va00DFF144;
+	return p->~Rva00200667();
+}
+
+extern unsigned g_Va00DFF148;
+unsigned int g_Va00DFF148;
+
+// ?rva007B7A91@@YAXXZ @ 0x007B7A91 (10B). Global Rva00200667 dtor thunk: ecx=&g_Va00DFF148 then tail-jmp to pinned ??1Rva00200667@@QAE@XZ (0x00200667; deleting dtor 0x002821B3). No callers. Honest address name.
+void __cdecl rva007B7A91()
+{
+	Rva00200667 *p = (Rva00200667 *)&g_Va00DFF148;
+	return p->~Rva00200667();
+}
+
+
 // Tree-destructor stub teardown views for the thunks below. Each destructor
 // is declared only; symbols.csv pins it to its jmp stub, which jumps to a
 // tree-dtor-family body (rowed: 0x00410C7B dup, 0x00410CB9 tree dtor).
