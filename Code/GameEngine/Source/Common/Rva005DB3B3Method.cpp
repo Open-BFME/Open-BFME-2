@@ -100,8 +100,8 @@ class Rva00222A8BTarget
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const unsigned short g_00BC26DC[];
-extern const unsigned short g_00C76704[];
+extern const unsigned short g_00BC26DC[] = { 0 };
+extern const unsigned short g_00C76704[] = { '%', 'd', '.', 0 };
 
 class Rva005DB3B3
 {
