@@ -159,6 +159,7 @@ class Rva00435B82
 {
 public:
 	Rva00435B82 *rva00435B82(Rva00435B82 *dst, Rva00435B82 *src);
+	Rva00435B82 *rva00435D4F(Rva00435B82 *src);
 
 private:
 	char m_head[4];
@@ -172,6 +173,17 @@ Rva00435B82 *Rva00435B82::rva00435B82(Rva00435B82 *dst, Rva00435B82 *src)
 
 	dst->m_val = Rva00435441Hook(mine, theirs);
 	return dst;
+}
+
+// ?rva00435D4F@Rva00435B82@@QAEPAV1@PAV1@@Z 33B @0x00435D4F
+// Retail: tmp via rva00435B82(&tmp src) then m_val = tmp.m_val; return this.
+// Evidence: chain calls rowed 0x00435B82 with tmp at ebp-8 and arg; EBP frame with 8B tmp; caller at 0x00436132; same +4 layout.
+Rva00435B82 *Rva00435B82::rva00435D4F(Rva00435B82 *src)
+{
+	Rva00435B82 tmp;
+	Rva00435B82 *dst = rva00435B82(&tmp, src);
+	m_val = dst->m_val;
+	return this;
 }
 
 bool Rva0056FA50::rva0056FA50(const Rva0056FA50 &other) const
