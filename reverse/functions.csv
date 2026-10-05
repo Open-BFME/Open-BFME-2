@@ -60481,3 +60481,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?doTeamEnableStealth@ScriptActions@@IAEXABVAsciiString@@_N@Z,,0x003C058A,84,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamEnableStealth.cpp,matched,ZH ScriptActions::doTeamEnableStealth
 ?rva003C38EF@ScriptActions@@IAEXPAVParameter@@W4ObjectStatusTypes@@_N@Z,,0x003C38EF,84,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C38EF.cpp,matched,named team members setStatus status flag
 ?rva003C3609@ScriptActions@@IAEXPAVParameter@@@Z,,0x003C3609,110,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C3609.cpp,matched,named team members GameLogic plus184 handle apply
+?doAffectObjectPanelFlagsTeam@ScriptActions@@IAEXABVAsciiString@@0_N@Z,,0x003C5C93,102,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doAffectObjectPanelFlagsTeam.cpp,matched,ZH ScriptActions::doAffectObjectPanelFlagsTeam
