@@ -62365,3 +62365,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0030B706@Rva0030B719Shape@@QBEMXZ,,0x0030B706,19,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,shape float at +0x1C getter refresh via 0x0030B3D1 sibling of getRadius
 ?rva0007E03A@PolygonTrigger@@QAE?AURegion2D@@XZ,,0x0007E03A,19,Code/GameEngine/Source/Common/PolygonTriggerRegionRva0007E03A.cpp,matched,PolygonTrigger region forwarder to shape 0x0030B6E3 via caller 0x002E3954
 ?rva00330BDB@Rva00330BDB@@QBEMXZ,,0x00330BDB,8,Code/GameEngine/Source/Common/Rva00330BDBForwarder.cpp,matched,this-0x34 forwarder to shape float 0x0030B706
+?rva00330C0F@Rva00330C0F@@QAE?AURegion2D@@XZ,,0x00330C0F,19,Code/GameEngine/Source/Common/Rva00330C0FForwarder.cpp,matched,this-0x3C Region2D forwarder to PolygonTrigger 0x0007E03A
