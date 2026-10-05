@@ -165,7 +165,6 @@ void BFME2Encoding1MotionChannel::UnknownSlot4(float frame, Vector3 *value, unsi
     }
 }
 
-// ?BFME2Encoding2MotionChannel::UnknownSlot4 present-unmatched
 void BFME2Encoding2MotionChannel::UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor)
 {
     int whole = (int)frame;
