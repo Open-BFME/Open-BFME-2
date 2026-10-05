@@ -35,3 +35,15 @@ void Rva005D4F0E::rva005D4F0E()
 	m_0C.rva005D4E8B();
 	m_08.clear();
 }
+// ?rva005D4F7D@Rva005D4F7D@@QAEXXZ @0x005D4F7D 7B forwarder via m_p at +0 tail jmp to rowed 0x005D4F0E. Evidence: caller jmp at 0x0057B9EB chain from 0x005D4F0E.
+class Rva005D4F7D
+{
+public:
+	void rva005D4F7D();
+private:
+	Rva005D4F0E *m_p;
+};
+void Rva005D4F7D::rva005D4F7D()
+{
+	m_p->rva005D4F0E();
+}
