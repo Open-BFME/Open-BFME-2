@@ -102,3 +102,28 @@ void W3DView::rotateCamera(Real rotations, Int milliseconds, Bool flag, Real eas
 
 	fields->m_rotateFlag = flag;
 }
+
+void W3DView::rotateCameraTowardObject(ObjectID id, Int milliseconds, Int holdMilliseconds, Real easeIn, Real easeOut, Real trailing)
+{
+	BfmeW3DViewRotateFields *fields = (BfmeW3DViewRotateFields *)this;
+	fields->m_trackObject = true;
+	if (holdMilliseconds<1) holdMilliseconds = 0;
+	fields->m_numHoldFrames = holdMilliseconds/TheW3DFrameLengthInMsec;
+	if (fields->m_numHoldFrames < 1) {
+		fields->m_numHoldFrames = 0;
+	}
+
+	if (milliseconds<1) milliseconds = 1;
+	fields->m_numFrames = milliseconds/TheW3DFrameLengthInMsec;
+	if (fields->m_numFrames < 1) {
+		fields->m_numFrames = 1;
+	}
+	fields->m_curFrame = 0;
+	fields->m_doingRotateCamera = true;
+	fields->m_targetObjectID = id;
+	fields->m_startTimeMultiplier = fields->m_timeMultiplier;
+	fields->m_endTimeMultiplier = fields->m_timeMultiplier;
+	fields->m_ease.setEaseTimes(easeIn, easeOut, (Real)milliseconds);
+
+	fields->m_rcTrailing = trailing;
+}
