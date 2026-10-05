@@ -12803,3 +12803,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?Rva002BFA86Worker@@YGXPAUVideoPair@@@Z,0x002BFA86,REL32 worker decoded from target call bytes of pair-copy-call 0x002BFCF5; identity unproven
 ?Rva002ADCE1Worker@@YGXPAUVideoPair@@@Z,0x002ADCE1,REL32 worker decoded from target call bytes of pair-copy-call 0x003A37DC; identity unproven
 ?Rva00525407Worker@@YGXPAUVideoPair@@@Z,0x00525407,REL32 worker decoded from target call bytes of pair-copy-call 0x005258F8; identity unproven
+??0Rva005F5C77Holder@@QAE@PAXABVAsciiString@@0@Z,0x005E1680,holder ctor at +8 for button 0x005F5C77: ghidra 39B (push esi frame, ret 0xC, 3 stack args); vtable 0x00C779B4 plus arg words at +0xC/+0x10; forwards (a1,a2) to 0x005E1627; called with (arg1,button-temp,arg2[0])
