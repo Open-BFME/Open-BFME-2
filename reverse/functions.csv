@@ -60638,3 +60638,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva003BD306@ScriptActions@@IAEXPAVParameter@@H@Z,,0x003BD306,37,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BC93C.cpp,matched,named unit plus264 object int value
 ?rva003BA943@ScriptActions@@IAEXPAVParameter@@_N@Z,,0x003BA943,44,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BA943.cpp,matched,named unit drawable flag via Drawable 0x002785FB
 ?rva003C207C@ScriptActions@@IAEXPAVParameter@@0H@Z,,0x003C207C,78,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C207C.cpp,matched,named team and unit ID to Team 0x003A23A5
+?Rva003BAF1D@@YGXMMMM@Z,,0x003BAF1D,120,Code/GameEngine/Source/GameLogic/Object/Update/Rva003BAF1DFinish.cpp,matched,free stdcall four floats; deg-to-rad minus TacticalView slot 0x100 base then scaled to slot 0xcc; fusing the normalizeAngle call with its scale keeps the tail on the x87 stack
