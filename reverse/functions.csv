@@ -60349,3 +60349,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0028CDB6@Object@@QAEXXZ,,0x0028CDB6,53,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,same-TU rva0028B511 keeps sub in edx with no extra push
 ?addToBuildList@SidesInfo@@QAEXPAVBuildListInfo@@H@Z,,0x003297FB,68,Code/GameEngine/Source/GameLogic/Map/SidesInfoAddToBuildList.cpp,matched,LINK BONUS SidesInfo list splice via BFME1 donor
 ?rva0033073C@Rva003306B0@@QAEXXZ,,0x0033073C,27,Code/GameEngine/Source/Common/Rva0033073CClear.cpp,matched,chain from 0x003306B0 vector at +0x10 clear via remove-first loop
+??0Rva00343756@@QAE@PAVObject@@HVAsciiString@@@Z,,0x00343756,198,Code/GameEngine/Source/Common/Rva00343756Ctor.cpp,matched,derived StateMachine ctor via base 0x004D79E1 new states defineState
