@@ -61,7 +61,7 @@ private:
 	Header *m_data;
 };
 
-class AsciiString : private StringBase<char>
+class AsciiString : public StringBase<char>
 {
 public:
 	AsciiString() : StringBase<char>() {}
@@ -69,7 +69,7 @@ public:
 	AsciiString(const char *text) : StringBase<char>(text) {}
 	~AsciiString() {}
 	const char *str() const { return StringBase<char>::str(); }
-	const char *reverseFind(char match) const { return StringBase<char>::reverseFind(match); }
+	const char *reverseFind(char match) const;
 	char *getBufferForRead(int length) { return StringBase<char>::getBufferForRead(length); }
 	void __cdecl format(const char *format, ...);
 
@@ -79,7 +79,7 @@ public:
 
 AsciiString GetBasePathFromPath(AsciiString path)
 {
-	const char *separator = path.reverseFind('\\');
+	const char *separator = ((const StringBase<char> &)path).reverseFind('\\');
 	if (separator) {
 		int prefixLength = (int)(separator - path.str());
 		AsciiString base;
@@ -133,7 +133,7 @@ AsciiString GetReadmeFromMap(AsciiString path)
 
 AsciiString GetFileFromPath(AsciiString path)
 {
-	const char *separator = path.reverseFind('\\');
+	const char *separator = ((const StringBase<char> &)path).reverseFind('\\');
 	if (separator) {
 		return separator + 1;
 	}
@@ -142,7 +142,7 @@ AsciiString GetFileFromPath(AsciiString path)
 
 AsciiString GetBaseFileFromFile(AsciiString fname)
 {
-	const char *separator = fname.reverseFind('.');
+	const char *separator = ((const StringBase<char> &)fname).reverseFind('.');
 	if (separator) {
 		int prefixLength = (int)(separator - fname.str());
 		AsciiString base;
@@ -183,7 +183,7 @@ AsciiString GetPicPreviewFromMap(AsciiString path)
 
 AsciiString GetExtensionFromFile(AsciiString fname)
 {
-	const char *separator = fname.reverseFind('.');
+	const char *separator = ((const StringBase<char> &)fname).reverseFind('.');
 	if (separator) {
 		return separator + 1;
 	}
