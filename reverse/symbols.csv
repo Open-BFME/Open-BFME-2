@@ -12084,12 +12084,6 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ??0Rva002B91EDElement@@QAE@ABU0@@Z,0x002B90D6,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002B91ED; element identity unproven; address-derived name
 ??0Rva002E160FElement@@QAE@ABU0@@Z,0x002E134C,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002E160F; element identity unproven; address-derived name
 ??0Rva00423648Element@@QAE@ABU0@@Z,0x004220CD,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00423648; element identity unproven; address-derived name
-??0Rva004C734DElement@@QAE@ABU0@@Z,0x004C7330,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x004C734D; element identity unproven; address-derived name
-??0Rva004F868AElement@@QAE@ABU0@@Z,0x004F802C,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x004F868A; element identity unproven; address-derived name
-??0Rva00502082Element@@QAE@ABU0@@Z,0x00501DD4,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00502082; element identity unproven; address-derived name
-??0Rva00502667Element@@QAE@ABU0@@Z,0x005020AF,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00502667; element identity unproven; address-derived name
-??0Rva00502C53Element@@QAE@ABU0@@Z,0x00502909,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00502C53; element identity unproven; address-derived name
-??0Rva00557C90Element@@QAE@ABU0@@Z,0x005564EB,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00557C90; element identity unproven; address-derived name
 ??0Rva00600F9CElement@@QAE@ABU0@@Z,0x00600F76,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00600F9C; element identity unproven; address-derived name
 ??0Rva002BAE2AElement@@QAE@ABU0@@Z,0x002B9247,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002BAE2A; callee already rowed as the vector<Rva002B72C9> copy ctor so the element is likely that vector; address-derived placeholder name
 ?rva00056BFE@Rva00057B27@@QAEHI@Z,0x00056BFE,reserve-like grower: REL32 read at the count+1 call site in 0x00057B27; owner identity unproven
@@ -12115,3 +12109,9 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ??0Rva005FF912Child@@QAE@PAVRva005FF912@@HH@Z,0x005FF675,child constructor taking owner and two ints: REL32 read at the new-trap-guarded call site in ctor 0x005FF912; owner identity unproven
 ?rva0021BD22@Rva0021BDAccess@@QAEPAXI@Z,0x0021BD22,inner entry of the 0x0021BDAB chain: REL32 read at the first call site in 0x0021BDAB; int-vector lookup at this+0x54 via 0x00388F63; owner class identity unproven
 ?rva0021BD41@Rva0021BDAccess@@QAEHIPAX@Z,0x0021BD41,inner entry of the 0x0021BDAB chain taking index then element pointer: REL32 read at the second call site in 0x0021BDAB; resolves through 0x0021BC0D and rowed 0x00219D85; owner class identity unproven
+??0Rva004C7330Sub@@QAE@ABU0@@Z,0x001F206E,subobject copy constructor: REL32 read at the tail call site in the 29B element copy ctor 0x004C7330; identity unproven
+??0Rva004F802CSub@@QAE@ABU0@@Z,0x004F69D6,subobject copy constructor: REL32 read at the tail call site in the 29B element copy ctor 0x004F802C; identity unproven
+??0Rva00501DD4Sub@@QAE@ABU0@@Z,0x005017B4,subobject copy constructor: REL32 read at the tail call site in the 29B element copy ctor 0x00501DD4; identity unproven
+??0Rva005020AFSub@@QAE@ABU0@@Z,0x00501B33,subobject copy constructor: REL32 read at the tail call site in the 29B element copy ctor 0x005020AF; identity unproven
+??0Rva00502909Sub@@QAE@ABU0@@Z,0x005026EE,subobject copy constructor: REL32 read at the tail call site in the 29B element copy ctor 0x00502909; identity unproven
+??0Rva005564EBSub@@QAE@ABU0@@Z,0x0038630B,subobject copy constructor: REL32 read at the tail call site in the 29B element copy ctor 0x005564EB; identity unproven
