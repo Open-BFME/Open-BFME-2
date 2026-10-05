@@ -62972,3 +62972,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva007B82DD@@YAXXZ,,0x007B82DD,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E0319C tail-jmp pinned Rva00422CEETree 0x00422CEE
 ?rva00564E43@Rva00564E43@@QAEXXZ,,0x00564E43,125,Code/GameEngine/Source/Common/System/Rva00564E43.cpp,matched,finish stash 0.94 plus barrier ordering
 ?rva006013B7@Rva0060126D@@QAE?AURva006013B7Pair@@ABURva00600F9CElement@@@Z,,0x006013B7,155,Code/GameEngine/Source/Common/Rva006013B7.cpp,matched,calls rowed CStrLess Decrement and pinned voidptr insert returning result
+?rva006E0AC0@Rva006E0AC0@@QAEHXZ,,0x006E0AC0,96,Code/Libraries/Source/Apt/Rva006E0AC0.cpp,matched,virtual slot 0xC hash flags loop via GetString and AptValue findChild caller 0x006E2EE0
