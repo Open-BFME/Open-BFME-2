@@ -5,20 +5,24 @@
 // used by W3D headers; only the fixed prefix is read here. Its twelve-byte
 // local allocation reproduces the observed stack layout.
 // Only Load and destruction are invoked here. UnknownSlot declarations
-// preserve observed virtual positions without claiming their original APIs.
+// preserve observed virtual positions without claiming their original APIs;
+// slots 3-5 carry the signatures of their stream-encoding definitions in
+// BFME2StreamMotionChannelEvaluate.cpp so these tables bind to them.
 // Constructors and table identities are independently established by their
 // initialization, load methods, and factory call sites; no table bytes count
 // as executable progress.
 void * __cdecl operator new[](unsigned int);
+class Vector3;
+class Quaternion;
 class ChunkLoadClass { public: unsigned long Read(void *, unsigned long); unsigned long Cur_Chunk_Length(); unsigned long Seek(unsigned long); };
 class BFME2MotionChannel {
 public:
     virtual bool Load(ChunkLoadClass &);
     virtual ~BFME2MotionChannel();
     virtual int UnknownSlot2();
-    virtual void UnknownSlot3();
-    virtual void UnknownSlot4();
-    virtual void UnknownSlot5();
+    virtual void UnknownSlot3(float frame, float *value, unsigned char **cursor);
+    virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
+    virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
     virtual int UnknownSlot6();
     BFME2MotionChannel();
     int Type, Pivot, Count, Components;
@@ -34,16 +38,16 @@ public:
 };
 class BFME2Encoding1MotionChannel : public BFME2StreamMotionChannel {
 public:
-    virtual void UnknownSlot3();
-    virtual void UnknownSlot4();
-    virtual void UnknownSlot5();
+    virtual void UnknownSlot3(float frame, float *value, unsigned char **cursor);
+    virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
+    virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
     virtual int UnknownSlot6();
 };
 class BFME2Encoding2MotionChannel : public BFME2StreamMotionChannel {
 public:
-    virtual void UnknownSlot3();
-    virtual void UnknownSlot4();
-    virtual void UnknownSlot5();
+    virtual void UnknownSlot3(float frame, float *value, unsigned char **cursor);
+    virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
+    virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
     virtual int UnknownSlot6();
 };
 class BFME2Encoding0MotionChannel : public BFME2MotionChannel {
