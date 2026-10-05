@@ -9,6 +9,8 @@ class StateMachine {
 public:
 	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4();
 	virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(int v);
+	virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13();
+	virtual void s14(const Coord3D *pos);
 };
 class Rva00263910 { public: void rva00265667(const Coord3D *pos, int flag); };
 class Rva00368344 {
@@ -16,6 +18,7 @@ public:
 	void rva00368344(const Coord3D *pos, int flag);
 	void rva00368397(const Coord3D *pos, int flag);
 	void rva00368433(const Coord3D *pos, int flag);
+	void rva00368486(const Coord3D *pos, const Waypoint *wp, bool extra);
 private:
 	char m_pad00[8];
 	Object *m_gate08; // +0x08
@@ -58,5 +61,20 @@ void Rva00368344::rva00368433(const Coord3D *pos, int flag)
 	((Rva00263910 *)this)->rva00265667(pos, flag);
 	((AIStateMachine *)this)->setGoalWaypoint((const Waypoint *)flag);
 	m_machine->s8(0x3FD);
+	m_done = 1;
+}
+void Rva00368344::rva00368486(const Coord3D *pos, const Waypoint *wp, bool extra)
+{
+	if (pos == 0)
+		return;
+	if (!m_gate08->rva002907A1())
+		return;
+	((AIStateMachine *)this)->setGoalWaypoint(wp);
+	m_machine->s5();
+	m_machine->s14(pos);
+	if (extra)
+		m_machine->s8(0x3F3);
+	else
+		m_machine->s8(0x3F2);
 	m_done = 1;
 }

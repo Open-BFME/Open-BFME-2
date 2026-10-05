@@ -56488,3 +56488,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva000A2670@@QAE@PAX@Z,,0x000A2670,24,Code/GameEngine/Source/GameClient/GUI/Rva0078D310HostCtor_Rva00104f8f.cpp,matched,unlock via base ctor row 0x00104F8F plus vtable g_00BC904C
 ?rva00368397@Rva00368344@@QAEXPBUCoord3D@@H@Z,,0x00368397,83,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368344.cpp,matched,leaf plus sibling layout plus rowed callees
 ?rva00368433@Rva00368344@@QAEXPBUCoord3D@@H@Z,,0x00368433,83,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368344.cpp,matched,leaf plus sibling layout plus rowed callees
+?rva00368486@Rva00368344@@QAEXPBUCoord3D@@PBVWaypoint@@_N@Z,,0x00368486,94,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368344.cpp,matched,leaf plus sibling layout plus rowed callees
