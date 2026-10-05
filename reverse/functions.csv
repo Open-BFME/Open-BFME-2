@@ -56581,3 +56581,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva00417FF0Parse@@YAXPAVINI@@PAX1PBX@Z,,0x00417FF0,112,Code/GameEngine/Source/Common/Rva00417FF0Finish.cpp,matched,BonusForLevel parse; throws via rowed INIException filler 0x2F681 and pinned _CxxThrowException 0x629094
 ??4Rva0051F6DF@@QAEAAV0@ABV0@@Z,,0x0051F6DF,206,Code/GameEngine/Source/Common/Rva0051F6DFFinish.cpp,matched,vector operator= 20-byte element; copy tag is its own local not derived from another local's address
 ?rva003BEDD1@ScriptActions@@IAEXABVAsciiString@@0@Z,,0x003BEDD1,141,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BEDD1.cpp,matched,neighbours same flags callees rowed caller unclaimed
+?rva003BED01@ScriptActions@@IAEXPAVParameter@@ABVAsciiString@@@Z,,0x003BED01,88,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BED01.cpp,matched,chain neighbours same flags callees rowed
