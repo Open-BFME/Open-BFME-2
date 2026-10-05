@@ -197,6 +197,7 @@ private:
     HANDLER(InitArray);
     HANDLER(GetProperty); HANDLER(SetProperty);
     HANDLER(InitObject);
+    HANDLER(StringAdd);
     HANDLER(GetTimer);
     HANDLER(Trace);
     HANDLER(StrictEquals);
@@ -1714,4 +1715,33 @@ void AptActionInterpreter::_FunctionAptActionInitObject(AptActionInterpreter *co
         p->stack.rva006E3AA0(2*n);
         p->stack.Push(object);object->Release();
     } else {p->stack.rva006FE050(2*n);p->stack.Push(gpUndefinedValue);}
+}
+
+// Native static helper uses pB in EBX and pA on the stack. MSVC chooses
+// that internal ABI from real C++; branch-local destination binding retains
+// the native predicate/member-address ordering (objects seat scheduling fix).
+static AptString *_concatAsStrings(AptValue *a,AptValue *b)
+{
+    AptString *result=AptString::Create();
+    EAStringC *str;
+    if(b->isString()) {str=result->GetInternalString(); *str=*b->c_string()->GetInternalString();}
+    else {str=result->GetInternalString(); b->toString(*str); }
+    if(a->isString()) str->Rva006D4F00Append(*a->c_string()->GetInternalString());
+    else {EAStringC text;a->toString(text);str->Rva006D4F00Append(text);}
+    return result;
+}
+
+void AptActionInterpreter::_FunctionAptActionStringAdd(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *a=p->stack.At(0);
+    AptValue *b=p->stack.At(1);
+    if(Rva006CD220Get()==7) {
+        AptString *undefined=AptString::Create();
+        undefined->SetString(Rva0070B4F0GetString(0xA9)->rva00620090());
+        if(a->isUndefined()) a=undefined;
+        if(b->isUndefined()) b=undefined;
+    }
+    AptValue *result=_concatAsStrings(a,b);
+    p->stack.Pop(2);
+    p->stack.Push(result);
 }
