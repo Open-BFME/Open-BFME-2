@@ -1,0 +1,41 @@
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+//
+// ??1Rva0052A470@@QAE@XZ @0x0052A470 (69B).
+// Non-virtual dtor: AsciiString at +8 plus Rva0052413E at +0x10 plus
+// Rva00524349 at +0x1C via rowed dtors plus releaseBuffer. Reverse destroy
+// order +0x1C +0x10 +8 with EH states 1/0/-1. Evidence: callees rowed
+// 0x00524349 0x0052413E 0x00036410, callers 0x0052A5EA 0x0052A778.
+// Precedent Rva005D4913Dtor.
+#include "ascii_string.h"
+
+class Rva0052413E
+{
+public:
+	~Rva0052413E();
+private:
+	char m_bytes[12];
+};
+
+class Rva00524349
+{
+public:
+	~Rva00524349();
+private:
+	char m_bytes[12];
+};
+
+class Rva0052A470
+{
+public:
+	~Rva0052A470();
+private:
+	char m_pad00[8];
+	AsciiString m_08;
+	char m_pad0C[4];
+	Rva0052413E m_10;
+	Rva00524349 m_1C;
+};
+
+Rva0052A470::~Rva0052A470()
+{
+}
