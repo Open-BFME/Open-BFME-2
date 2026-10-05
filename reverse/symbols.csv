@@ -12061,3 +12061,4 @@ _rva002D6D63@8,0x002D6D63,stdcall factory reached through the sole REL32 at 0x00
 ?rva0020D959@Rva0020D959Host@@QAEXPAVRva0028572AHost@@@Z,0x0020D959,thiscall on global 0xDFE1A8 with this as arg from 0x28572A
 ?rva002910B7@Rva00291198Host@@QAEXPAURva00291198Dest@@@Z,0x002910B7,thiscall with dest arg from 0x291198
 _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with out plus arg
+?rva002E9897@Rva002E9897Host@@QAE_NPAXH@Z,0x002E9897,thiscall with void plus 1 from 0x28ECDB returns bool
