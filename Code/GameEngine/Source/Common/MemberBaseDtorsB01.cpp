@@ -239,6 +239,7 @@ class Rva00576B5E : public Rva00575395
 {
 public:
 	virtual ~Rva00576B5E();
+	void rva00576B99(int a);
 
 private:
 	char m_unmodelled_04[0x4];
@@ -247,6 +248,28 @@ private:
 
 Rva00576B5E::~Rva00576B5E()
 {
+}
+
+class Rva00576B99Target
+{
+public:
+	virtual int v00(int a);
+	char m_pad04[0x3C];
+	int m_40;
+};
+class Rva00577302
+{
+public:
+	void rva005753A4(int a);
+};
+void Rva00576B5E::rva00576B99(int a)
+{
+	Rva00576B99Target *t = *(Rva00576B99Target **)(void *)&m_member;
+	if (t->m_40 == 0) {
+		if (t->v00(a) == 1)
+			return;
+	}
+	((Rva00577302 *)this)->rva005753A4(a);
 }
 
 class Rva005772BF : public Rva00575395
