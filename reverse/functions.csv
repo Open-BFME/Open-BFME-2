@@ -57687,3 +57687,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?eraseOne@Rva000C24EAVector@@QAEPAVRva000C24EA@@PAV2@@Z,,0x000C4D52,55,Code/Libraries/Source/WWVegas/WWLib/Rva000C24EAVectorErase.cpp,matched,Native C4D52..C4D89 single erase; same proven record32 and copy4 ABI as C4DBC; last element cleanup at796BC fully emitted by record string destructor; original owner name unknown; full55B
 ?rva003818E3@Rva003818B0List@@QAEXPAX@Z,,0x003818E3,17,Code/GameEngine/Source/Common/Rva0038153BListenerWalks.cpp,matched,wrapper over forEach with fixed notify
 ?rva005DBEEB@Rva005DB98E@@QAE_NGGH@Z,,0x005DBEEB,66,Code/GameEngine/Source/Common/Rva005DBEEB.cpp,matched,Rva005DB98E indexed notify via forEach precedent
+?iterateCellsAlongLine@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002ED15AInfo@@@Z,,0x002F0CF6,63,Code/GameEngine/Source/GameLogic/AI/PathfinderCoordLineWalk.cpp,matched,Coord3D overload via WorldToCell and rowed walk
