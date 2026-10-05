@@ -13127,3 +13127,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva005B24CDg@@YAXHHH@Z,0x005B24CD,global cdecl-3 call-spelling alias for the rowed (void*,char*,int) member (caller pushes 3 ints); same address as row
 ?rva005B2295@@YAXHHHH@Z,0x005B2295,cdecl 4-arg callee of 0x5B0416 (args r imm a -1 from push order); unrowed chunk start in own lane; signature unproven
 ?rva005B09D8_i@@YAHHHHPAD@Z,0x005B09D8,cdecl 4-arg int-returning call-spelling alias for the pinned cursor helper (caller passes a2 m_4 a1 and (char*)&a1+3); same address as existing pin
+?ReturnFile@Rva0059E2DCBox@@QAEXPAVFileClass@@@Z,0x004FC957,wrapper-call spelling for the 0x59E2DC box method call; true callee is matched W3DFileSystem::Return_File (1 stack arg, callee cleanup); target REL32 from retail call at 0x0059E2EA
