@@ -12960,3 +12960,7 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?tail005E589E@Rva005E589EForwarder@@QAEXXZ,0x005E589E,unrowed no-arg tail target of wrapper 0x005E590F read from its REL32
 ?tail005E6A9D@Rva005E6A9DForwarder@@QAEXXZ,0x005E6A9D,unrowed no-arg tail target of wrapper 0x005E6BA3 read from its REL32
 ?tail005E6AD8@Rva005E6AD8Forwarder@@QAEXXZ,0x005E6AD8,unrowed no-arg tail target of wrapper 0x005E6BB4 read from its REL32
+??$__insertion_sort@PAUS4SortElem12@@US4Cmp002E1690@@@_STL@@YAXPAUS4SortElem12@@0US4Cmp002E1690@@@Z,0x0033215E,S4SortElem12 guarded insertion sort called by final_insertion_sort 0x00332308 read from its REL32
+??$__unguarded_insertion_sort@PAUS4SortElem12@@US4Cmp002E1690@@@_STL@@YAXPAUS4SortElem12@@0US4Cmp002E1690@@@Z,0x00331D67,S4SortElem12 unguarded insertion forwarder called by final_insertion_sort 0x00332308 read from its REL32
+??$__insertion_sort@PAURva004F6352@@URva004F6352Cmp@@@_STL@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,0x004F8651,Rva004F6352 guarded insertion sort called by final_insertion_sort 0x004F8C99 read from its REL32
+??$__unguarded_insertion_sort@PAURva004F6352@@URva004F6352Cmp@@@_STL@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,0x004F786C,Rva004F6352 unguarded insertion forwarder called by final_insertion_sort 0x004F8C99 read from its REL32
