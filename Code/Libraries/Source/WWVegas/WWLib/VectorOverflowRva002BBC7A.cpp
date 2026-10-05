@@ -26,3 +26,4 @@ private: char bytes[52];
 };
 namespace _STL { template<> void _Construct<Rva002BBC7ARecord,Rva002BBC7ARecord>(Rva002BBC7ARecord*,const Rva002BBC7ARecord&); }
 template void _STL::vector<Rva002BBC7ARecord>::_M_insert_overflow(Rva002BBC7ARecord*,const Rva002BBC7ARecord&,const _STL::__false_type&,unsigned int,bool);
+template Rva002BBC7ARecord *_STL::uninitialized_fill_n(Rva002BBC7ARecord *,unsigned int,const Rva002BBC7ARecord &);
