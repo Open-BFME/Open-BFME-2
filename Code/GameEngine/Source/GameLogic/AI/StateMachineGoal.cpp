@@ -109,6 +109,8 @@ struct State
 	virtual Bool vslot30() const;
 	virtual Bool vslot34() const;
 	virtual Bool vslot38() const;
+	virtual void vslot3C();
+	virtual void vslot40();
 	StateReturnType friend_checkForTransitions(StateReturnType status);
 	StateReturnType friend_checkForSleepTransitions(StateReturnType status);
 };
@@ -160,6 +162,7 @@ public:
 	Bool rva002621FC() const;
 	Bool rva0026220D() const;
 	void lock(const char *msg);
+	void rva004D7395();
 };
 
 class TurretStateMachine : public StateMachine
@@ -486,6 +489,15 @@ inline Bool StateMachine::rva0026220D() const
 inline void StateMachine::lock(const char *msg)
 {
 	m_locked = true;
+}
+
+// ?rva004D7395@StateMachine@@QAEXXZ @0x004D7395 15B: slot 13 of the
+// StateMachine vtables (e.g. 0x00C11AF4), between isInBusyState (slot 12)
+// and setGoalObject; tail-calls the current state's slot 16 when there is one.
+void StateMachine::rva004D7395()
+{
+	if (m_currentState != NULL)
+		((State *)m_currentState)->vslot40();
 }
 
 // Header inlines that the units including the header emit as select-any
