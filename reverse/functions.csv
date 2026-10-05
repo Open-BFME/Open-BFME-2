@@ -56520,3 +56520,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003E5105Check@@YG_NPAVParameter@@0@Z,,0x003E5105,74,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E5105.cpp,matched,rowed getUnitNamed via g_Va009FE16C and pin rva002F477E via g_Va009FF0F8
 ?Rva003E8535Get@@YG_NPAVParameter@@0@Z,,0x003E8535,105,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8535.cpp,matched,ScriptConditions team unit path test via getTeamNamed getUnitNamed Pathfinder pin caller 0x003EC13F
 ?Rva003C2E61Do@@YGXPBX00@Z,,0x003C2E61,104,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2E61.cpp,matched,leaf player counter via rowed mask sum and bfmeCounter pin
+?Rva0008FA0DCreate@@YGPAVRva000A26F7@@PAX@Z,,0x0008FA0D,58,Code/GameEngine/Source/Common/Rva0008FA0DCreate.cpp,matched,chain via rowed ctor 0x000A26F7 same 58B shape as siblings
