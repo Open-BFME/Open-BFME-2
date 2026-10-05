@@ -51,21 +51,27 @@ int Pathfinder::rva002E9871(const Coord3D *pos)
 bool Pathfinder::rva002E996E(int a, bool b, bool c, int d)
 {
 	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(d, a);
+	bool out;
 	if (rec == 0)
-		return true;
-	unsigned int tag = rec->m_flags & 0x0F;
-	bool flag = tag == 2;
-	if (!b)
+		out = true;
+	else
 	{
-		if (flag || tag == 1 || tag == 7)
-			flag = true;
+		unsigned val = rec->m_flags;
+		val &= 0x0F;
+		bool flag = val == 2;
+		if (!b)
+		{
+			if (flag || val == 1 || val == 7)
+				flag = true;
+		}
+		if (!c)
+		{
+			if (flag || val == 5)
+				flag = true;
+		}
+		out = flag;
 	}
-	if (!c)
-	{
-		if (flag || tag == 5)
-			flag = true;
-	}
-	return flag;
+	return out;
 }
 // ?rva002E99BD@Pathfinder@@QAEXHPAXPAXPAXH@Z @0x002E99BD 60B: ebp-frame
 // split-out: *a2=nonnull, *a4=tag, *a3=bit18.
