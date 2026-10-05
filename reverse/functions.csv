@@ -61542,3 +61542,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?setLocalPlayer@PlayerList@@QAEXPAVPlayer@@@Z,,0x002A7B34,93,Code/GameEngine/Source/Common/RTS/PlayerList_setLocalPlayer_Rva002A7B34.cpp,matched,Zero Hour body plus BFME 2 shroud and taint manager callback registration through the rowed thunks 0x00739730 and 0x006C0800
 ?Rva00529628Get@@YA_NPBDPAH@Z,,0x00529628,112,Code/GameEngine/Source/Common/Rva00529628Get.cpp,matched,free cdecl bool const-char int-out via GetParam index atoi 0-5 caller 0x005297A0
 ?rva005297A0@Rva0052936C@@QAEXPBD@Z,,0x005297A0,61,Code/GameEngine/Source/Common/Rva005297A0Method.cpp,matched,chain on 0x00529628 GetParam index array 6 stride 0x14 clears rowed
+?rva005298E0@Rva0052936C@@QAEXPBD@Z,,0x005298E0,62,Code/GameEngine/Source/Common/Rva005297A0Method.cpp,matched,chain on 0x00529628 GetParam index array 6 stride 0x14 clears rowed

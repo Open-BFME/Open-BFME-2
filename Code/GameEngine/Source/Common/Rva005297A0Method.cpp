@@ -14,8 +14,9 @@ struct Rva002BED91
 
 struct Rva005297A0Elem
 {
-	Rva000AD6F4 m_a;
-	char m_pad04[8];
+	Rva000AD6F4 m_a0;
+	Rva000AD6F4 m_a4;
+	char m_pad08[4];
 	Rva002BED91 m_b;
 	int m_c;
 };
@@ -24,6 +25,7 @@ class Rva0052936C
 {
 public:
 	void rva005297A0(const char *section);
+	void rva005298E0(const char *section);
 private:
 	char m_pad00[0x64];
 	Rva005297A0Elem m_elems[6];
@@ -39,5 +41,16 @@ void Rva0052936C::rva005297A0(const char *section)
 	Rva005297A0Elem &e = m_elems[index];
 	e.m_b.clear();
 	e.m_c = 0;
-	e.m_a.clear();
+	e.m_a0.clear();
+}
+
+void Rva0052936C::rva005298E0(const char *section)
+{
+	int index;
+	if (!Rva00529628Get(section, &index))
+		return;
+	Rva005297A0Elem &e = m_elems[index];
+	e.m_b.clear();
+	e.m_c = 0;
+	e.m_a4.clear();
 }
