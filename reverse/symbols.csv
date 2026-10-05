@@ -11418,3 +11418,6 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva003F6477Copy@@YAPAURva003F6975Record@@PAU1@00ABURva003F6477Tag@@PAH@Z,0x003F6477,native29 call at3F662C; full50B existing copy loop verified; opaque28B record ABI view
 ?rva003F6619Copy@@YAPAURva003F6975Record@@PAU1@00ABURva003F6975Empty@@@Z,0x003F6619,full29B rehomed C++ copy wrapper; native range erase caller passes an unused tag reference; original template spelling unproved
 ?rva003F6636Destroy@@YAXPAURva003F6975Record@@0@Z,0x003F6636,native range erase call3F6994; full25B28-byte stride destroy verified with rowed60B3F60C8 destructor
+??1Rva003F6EA1Record@@QAE@XZ,0x003F60C8,native108 by-value cleanup; full60B destructor verified; opaque28B record and address-derived ABI view
+?erase@Rva003F6EA1Vector@@AAEPAURva003F6EA1Record@@PAU2@0@Z,0x003F6975,native108 shrink; full51B range erase verified; opaque28B record and address-derived ABI view
+?fill@Rva003F6EA1Vector@@AAEXPAURva003F6EA1Record@@IABU2@@Z,0x003F6BDB,native108 grow; full258B fill insert verified; opaque28B record and address-derived ABI view
