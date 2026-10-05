@@ -63798,3 +63798,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005C834A@Rva005C834AOwner@@QAEXHH@Z,,0x005C834A,37,Code/GameEngine/Source/Common/RangeApplyWrappers.cpp,matched,F34 range-apply wrapper over 0x48-byte elements forwarding two args
 ?rva005C839B@Rva005C839BOwner@@QAEXHH@Z,,0x005C839B,37,Code/GameEngine/Source/Common/RangeApplyWrappers.cpp,matched,F34 range-apply wrapper over 0x48-byte elements forwarding two args
 ?rva00569393@Rva00569393Owner@@QAEXH@Z,,0x00569393,34,Code/GameEngine/Source/Common/RangeApplyWrappers.cpp,matched,F34 pointer-array wrapper forwarding one arg plus owner per element
+?rva005CF22C@Rva005CF22COwner@@QAEXH@Z,,0x005CF22C,78,Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,matched,F78 throwing new plus in-place ctor plus final on member subobject
+?rva005CF6B5@Rva005CF6B5Owner@@QAEXH@Z,,0x005CF6B5,78,Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,matched,F78 throwing new plus in-place ctor plus final on member subobject
+?rva005CF703@Rva005CF703Owner@@QAEXH@Z,,0x005CF703,78,Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,matched,F78 throwing new plus in-place ctor plus final on member subobject

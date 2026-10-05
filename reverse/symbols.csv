@@ -13108,3 +13108,7 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva005C8F50@Rva005C8F50Elem@@QAEXHH@Z,0x005C8F50,pinned per-element method called by the F34 range-apply wrapper 0x005C834A with the wrapper args; name unknown
 ?rva005C90F1@Rva005C90F1Elem@@QAEXHH@Z,0x005C90F1,pinned per-element method called by the F34 range-apply wrapper 0x005C839B with the wrapper args; name unknown
 ?rva005691DB@Rva005691DBHelper@@QAEXPAXH@Z,0x005691DB,pinned per-element method called by the F34 pointer-array wrapper 0x00569393 with the wrapper arg plus owner; name unknown
+??0Rva005CF07EHelper@@QAE@PAURva005CF22CBig@@H@Z,0x005CF07E,in-place constructor of the F78 throwing-new helper 0x005CF22C over (member, arg); name unknown
+?rva00575674@Rva00575674Sub@@QAEXPAX@Z,0x00575674,thiscall final callee of the F78 throwing-new helper 0x005CF22C on the member +0x1C subobject; name unknown
+??0Rva005CF37DHelper@@QAE@PAURva005CF22CBig@@H@Z,0x005CF37D,in-place constructor of the F78 throwing-new helper 0x005CF6B5 over (member, arg); name unknown
+??0Rva005CF4A8Helper@@QAE@PAURva005CF22CBig@@H@Z,0x005CF4A8,in-place constructor of the F78 throwing-new helper 0x005CF703 over (member, arg); name unknown
