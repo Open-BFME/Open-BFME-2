@@ -224,6 +224,42 @@ void CameraShakeSystemClass::Add_Camera_Shake
 
 
 
+void CameraShakeSystemClass::Update_Camera_Shaker(Vector3 camera_position, Vector3 *shaker_angle)
+{
+	MultiListIterator<CameraShakerClass> iterator(&CameraShakerList);
+	
+	Vector3 angles(0,0,0);
+	Matrix3D camera_transform;
 
+	//camera_transform = camera.Get_Transform();
+	//camera_transform.Get_Translation(&camera_position);
+
+	/*
+	** Accumulate the effects of any active camera shakers
+	*/
+
+	for (iterator.First(); !iterator.Is_Done(); iterator.Next()) {
+		iterator.Peek_Obj()->Compute_Rotations(camera_position,&angles);
+	}
+
+	/*
+	** Clamp the result
+	*/
+	for (int i=0; i<3; i++) {
+		WWMath::Clamp(angles[i],-AXIS_ROTATION[i],AXIS_ROTATION[i]);
+	}
+	
+	*shaker_angle = angles;
+
+	/*
+	** Apply to the camera
+	*/
+	/*
+	camera_transform.Rotate_X(angles.X);
+	camera_transform.Rotate_Y(angles.Y);
+	camera_transform.Rotate_Z(angles.Z);
+	camera.Set_Transform(camera_transform);
+	*/
+}
 
 
