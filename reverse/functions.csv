@@ -63376,3 +63376,11 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0039ABFF@ExperienceTracker@@QBE_NXZ,,0x0039ABFF,13,Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp,matched,Address-derived singleton/global forward: const member forward through 0x00DFECC4 to peer-pinned rva00288CFA; peer class name
 ?Rva003EFE72@@YGHHH@Z,,0x003EFE72,16,Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp,matched,Address-derived singleton/global forward: free stdcall forward through param object to 0x004FC3DC
 ?Rva00437E9C@@YAXH@Z,,0x00437E9C,16,Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp,matched,Address-derived singleton/global forward: free cdecl forward through 0x00E032FC to 0x0054CBEF; peer signature
+??1Rva0023863E@@QAE@XZ,,0x0023863E,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty dtor tearing down +4 inner-list member; 8B adjust tail-jmp shape
+??1Rva00229487@@QAE@XZ,,0x0022630F,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; called by scalar deleting dtor 0x00229487; 8B shape
+??1Rva002A9ECA@@QAE@XZ,,0x002A9ECA,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: +8 member teardown; 8B shape
+??1Rva002B0B8E@@QAE@XZ,,0x002B0B8E,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: +4 member teardown; 8B shape
+??1Rva0042581E@@QAE@XZ,,0x0042581E,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: +8 member teardown; 8B shape
+??1Rva0050174A@@QAE@XZ,,0x0050174A,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape
+??1Rva005C8565@@QAE@XZ,,0x005C8565,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape
+??1Rva00603C57@@QAE@XZ,,0x00603C57,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape

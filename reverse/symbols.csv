@@ -12700,3 +12700,10 @@ _g_pRva0039ABFF,0x00DFECC4,global pointer read by wrapper 0x0039ABFF; identity u
 ?method@Rva004FC3DCTarget@@QAEHH@Z,0x004FC3DC,REL32 callee decoded from target call bytes of wrapper 0x003EFE72; identity unproven
 ?method@Rva0054CBEFTarget@@QAEXH@Z,0x0054CBEF,REL32 callee decoded from target call bytes of wrapper 0x00437E9C; identity unproven
 _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes same); identity unproven
+??1Rva002DFAD1Dtor@@QAE@XZ,0x002DFAD1,REL32 callee decoded from target call bytes of adjustor dtor 0x0022630F; identity unproven
+??1Rva00380459Dtor@@QAE@XZ,0x00380459,REL32 callee decoded from target call bytes of adjustor dtor 0x002A9ECA; identity unproven
+??1Rva002B0B32Dtor@@QAE@XZ,0x002B0B32,opaque alias: same body as matched STLport vector dtor row; callee of adjustor dtor 0x002B0B8E
+??1Rva00425756Dtor@@QAE@XZ,0x00425756,opaque alias: same body as matched STLport deque dtor row; callee of adjustor dtor 0x0042581E
+??1Rva005016C3Dtor@@QAE@XZ,0x005016C3,REL32 callee decoded from target call bytes of adjustor dtor 0x0050174A; identity unproven
+??1Rva005C8494Dtor@@QAE@XZ,0x005C8494,REL32 callee decoded from target call bytes of adjustor dtor 0x005C8565; identity unproven
+??1Rva00603AA8Dtor@@QAE@XZ,0x00603AA8,opaque alias: same body as matched STLport rb-tree dtor row; callee of adjustor dtor 0x00603C57
