@@ -65713,3 +65713,5 @@ uw_0075b500,,0x0075B500,10,Code/GameEngine/Source/Main/CreateGameEngine.cpp,matc
 ?rva0049CD4F@Rva0049CD4F@@QAEHPAVRva0049CD4FArg@@@Z,,0x0049CD4F,170,Code/GameEngine/Source/Common/Rva0049CD4F.cpp,matched,kind 1/2/3 then scale a non-positive answer up to 1 by object query 0xD
 ?rva0049862B@Rva0049862B@@QAEHXZ,,0x0049862B,213,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateRva0049862B.cpp,matched,BattlePlanUpdate+0x10 state 0..3 drives the plan helper and the turret calls; always returns 1
 ?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
+?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
+?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
