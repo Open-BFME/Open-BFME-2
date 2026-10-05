@@ -18,6 +18,7 @@ public:
 	bool rva002E98C6(int a, int b);
 	bool rva002E98EA(int a, int b);
 	bool rva002E9919(int a, int b);
+	bool rva002E940F(int a, bool b);
 	bool rva002E9948(int a, int b);
 	bool rva002E996E(int a, bool b, bool c, int d);
 	void rva002E99BD(int a1, void *a2, void *a3, void *a4, int a5);
@@ -130,4 +131,19 @@ bool Pathfinder::rva002E9948(int a, int b)
 {
 	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(b, a);
 	return rec != 0 ? (rec->m_flags & 0x0F) == 5 : true;
+}
+// ?rva002E940F@Pathfinder@@QAE_NH_N@Z @0x002E940F 51B: mid>0x10 and
+// (b==0 or low==0). Forwards (a 1) to rowed 0x001E3647 with ecx passthrough.
+// Evidence: ret 8 two args; test eax null; (flags>>4)&0x3F>0x10 via cl;
+// byte test of second arg; test al 0xf. Callers at 0x002CBF72 0x00345748.
+bool Pathfinder::rva002E940F(int a, bool b)
+{
+	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(1, a);
+	if (rec == 0)
+		return false;
+	unsigned int flags = rec->m_flags;
+	signed char mid = (signed char)((flags >> 4) & 0x3F);
+	if ((int)mid > 0x10 && (b == 0 || (flags & 0x0F) == 0))
+		return true;
+	return false;
 }
