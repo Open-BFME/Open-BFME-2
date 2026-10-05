@@ -110,11 +110,11 @@ void Rva00709F70Set(int, AptValue *);
 class AptBasePtrStack
 {
 public:
+    void rva006E3AA0(int);
     void PopAndPush(int,AptValue *);
     void Push(AptValue *);
     void PushNoInc(AptValue *);
     void rva006FE050(int);
-    void rva006E3AA0(int);
     void rva006FE920();
     __forceinline AptValue *At(int nPos) const
     {
@@ -185,7 +185,7 @@ private:
     static bool getContext(AptValue *,AptValue *,const EAStringC *,AptValue **,EAStringC &);
     AptObject *_createObject(AptValue *,AptValue *,const EAStringC *,int,bool);
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(RemoveSprite); HANDLER(GotoFrame2); HANDLER(CloneSprite); HANDLER(SetTarget); HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
+    HANDLER(StartDragMovie); HANDLER(RemoveSprite); HANDLER(GotoFrame2); HANDLER(CloneSprite); HANDLER(SetTarget); HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1186,7 +1186,9 @@ class AptDisplayList { public: void removeClonedObject(AptCIH *); };
 struct AptSpriteInstBase { unsigned char prefix[0xC]; AptCharacter *character; unsigned char middle[8]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; void *clipActions; AptDisplayList displayList; };
 class AptCIH : public AptValue {
 public:
-    unsigned char prefix[0x48-8];
+    unsigned char prefix[0x1C-8];
+    float matrixTX,matrixTY;
+    unsigned char matrixToParent[0x48-0x24];
     AptCIH *mpDisplayListParent;
     void *mpCharacterInst;
     bool IsLevelInst() const;
@@ -1248,7 +1250,7 @@ void AptActionInterpreter::_FunctionAptActionPrevFrame(AptActionInterpreter *con
 
 struct AptContextRootState { unsigned char prefix[0x54]; AptValue *head; };
 struct AptContextRootDisplay { AptContextRootState *state; };
-class Rva006E34D0 { public: unsigned char prefix[0x30]; AptContextRootDisplay *display; unsigned char middle[0x10]; AptValue *mpDragMC; };
+class Rva006E34D0 { public: unsigned char prefix[0x30]; AptContextRootDisplay *display; unsigned char middle[0x10]; AptValue *mpDragMC; float a,b,c,d,tx,ty; unsigned char toMouse[0x74-0x60]; int mouseX,mouseY; };
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 void AptActionInterpreter::_FunctionAptActionStopDragMovie(AptActionInterpreter *const p, LocalContextT *const c)
 {
@@ -2007,4 +2009,73 @@ __declspec(noinline) unsigned char rva006FD100(int current,int with,EAStringC *v
         default: *dest++=*cur++;break;
         }
     }
+}
+
+__declspec(noinline) unsigned char rva006FEC00(int value, int allowEmpty, EAStringC *src,
+	int *resultSlot, EAStringC *outString)
+{
+	const char *scan = src->rva00620090();
+	char c = *scan++;
+	const int strict = allowEmpty;
+	bool allDigits = true;
+	while (c) {
+		if (c < '0') {
+			allDigits = false;
+			break;
+		}
+		if (c == ':') {
+			allDigits = false;
+			break;
+		}
+		c = *scan++;
+	}
+
+	if (allDigits && !strict) {
+		*outString = *src;
+		*resultSlot = value;
+		return 0;
+	}
+
+	char buf[0x100];
+	unsigned char ok = rva006FD100(value, allowEmpty, src, resultSlot, buf);
+	EAStringC tmp(buf);
+	*outString = tmp;
+	return ok;
+}
+void AptActionInterpreter::_FunctionAptActionStartDragMovie(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *target=p->stack.At(0);
+    if(target->isString()) {
+        AptValue *context=0;
+        EAStringC name;
+        rva006FEC00((int)c->pCurrentContext,(int)c->pCurWith,target->c_string()->GetInternalString(),(int *)&context,&name);
+        target=p->getVariable(context,c->pCurWith,&name,1);
+    }
+    if(!target->isCIH()) {
+        g_bfmeAptAssertAtE17734("pTarget->isCIH()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x11BA);
+        if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+    int n=3;
+    target->AddRef();
+    g_bfmeAptPtrAtE176D0->mpDragMC=target;
+    g_bfmeAptPtrAtE176D0->tx=0.f;
+    g_bfmeAptPtrAtE176D0->ty=0.f;
+    g_bfmeAptPtrAtE176D0->a=-9999.f;
+    g_bfmeAptPtrAtE176D0->b=-9999.f;
+    g_bfmeAptPtrAtE176D0->c=-9999.f;
+    g_bfmeAptPtrAtE176D0->d=-9999.f;
+    if(!p->stack.At(1)->isInteger()) {
+        float mouse=(float)g_bfmeAptPtrAtE176D0->mouseX;
+        g_bfmeAptPtrAtE176D0->tx=mouse-target->c_cih()->matrixTX;
+        mouse=(float)g_bfmeAptPtrAtE176D0->mouseY;
+        g_bfmeAptPtrAtE176D0->ty=mouse-target->c_cih()->matrixTY;
+    }
+    if(p->stack.At(2)->isInteger()) {
+        n+=4;
+        g_bfmeAptPtrAtE176D0->d=p->stack.At(3)->toFloat();
+        g_bfmeAptPtrAtE176D0->c=p->stack.At(4)->toFloat();
+        g_bfmeAptPtrAtE176D0->b=p->stack.At(5)->toFloat();
+        g_bfmeAptPtrAtE176D0->a=p->stack.At(6)->toFloat();
+    }
+    p->stack.rva006E3AA0(n);
 }
