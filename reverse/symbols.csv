@@ -12865,3 +12865,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva0047A699@Rva002C9400ByteField@@QBE_NXZ,0x0047A699,const predicate on the Weapon +4 byte-field reached from 0x343DD8; RETAIL REL32 at 0x00343E72; address-named
 ?rva0036D3A3@BfmeC986@@QAEDHH@Z,0x0036D3A3,two-arg check on same this in rva003724B8 at 0x372509 (REL32); returns byte tested; identity not recovered
 ?rva005494A0@BfmeC986@@QAEXHH@Z,0x005494A0,two-arg step on same this in rva003724B8 at 0x37251E (REL32); return ignored; identity not recovered
+?rva00372B09@BfmeC986@@QAEXHHH@Z,0x00372B09,three-arg fallback on same this in rva00372C74 at 0x372C9E (REL32); range-16 target, name will be reused by its row; identity not recovered

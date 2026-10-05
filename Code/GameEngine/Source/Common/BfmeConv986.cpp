@@ -9,6 +9,27 @@
 // two-arg step (pinned 0x5494A0) and the five-arg send. Identity of the two
 // middle callees not recovered; address-derived BfmeC986 pins.
 
+struct Coord3D;
+
+// The argument block 0x00372571 takes (built inline by its callers).
+struct Rva00372571Params
+{
+	const Coord3D *m_pos;
+	bool m_04;
+	int m_08;
+	int m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	bool m_1C;
+};
+
+class AIGroup
+{
+public:
+	void rva00372571(Rva00372571Params *params, int source);
+};
+
 struct Rva0028AC4EField
 {
 	char m_pad[0x78];
@@ -44,6 +65,9 @@ public:
 	void rva005494A0(int a, int b);
 	void bfmeSend986C(int a, int b, int c, int d, int e);
 	char rva003724B8(int a, int b, int c, int, int e);
+	void rva00372C22(int a, int b, int c, int d);
+	void rva00372C74(int a, int b, int c, int d);
+	void rva00372B09(int a, int b, int c);
 
 private:
 	char m_pad00[4];
@@ -83,4 +107,27 @@ char BfmeC986::rva003724B8(int a, int b, int c, int, int e)
 		bfmeSend986C(a, b, c, e, 0);
 	}
 	return 1;
+}
+
+void BfmeC986::rva00372C22(int a, int b, int c, int d)
+{
+	if (rva003724B8(a, b, 0, c, d))
+		return;
+	Rva00372571Params params;
+	params.m_14 |= -1;
+	params.m_pos = (const Coord3D *)a;
+	params.m_04 = false;
+	params.m_08 = 0;
+	params.m_0C = 0;
+	params.m_10 = 0;
+	params.m_18 = 0;
+	params.m_1C = false;
+	((AIGroup *)this)->rva00372571(&params, b);
+}
+
+void BfmeC986::rva00372C74(int a, int b, int c, int d)
+{
+	if (rva003724B8(a, b, 1, c, d))
+		return;
+	rva00372B09(a, 0x7FFFFFFF, b);
 }
