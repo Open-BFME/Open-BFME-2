@@ -10904,3 +10904,4 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ??1Rva002C5F8E@@QAE@XZ,0x0050549A,non-virtual dtor called directly by scalar deleting dtor 0x002C5F8E; owning class unproven
 ??1Rva002D28FF@@QAE@XZ,0x002D284F,non-virtual dtor called directly by scalar deleting dtor 0x002D28FF; owning class unproven
 ??1Rva002D339F@@QAE@XZ,0x0052710C,non-virtual dtor called directly by scalar deleting dtor 0x002D339F; owning class unproven
+?GadgetListBoxSetColors@@YAXPAVGameWindow@@HHHHHHHHHHHH@Z,0x003240A6,"called with the combo box list child and all twelve colors at 0x00322656, the GadgetListBoxSetColors call of the Zero Hour GadgetComboBoxSetColors body that places uniquely at 0x00322463"
