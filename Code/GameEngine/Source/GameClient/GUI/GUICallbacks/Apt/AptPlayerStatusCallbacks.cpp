@@ -52,6 +52,29 @@ public:
 struct LANGameInfo;
 extern LANGameInfo *g_Rva00E02EEC;
 
+// The objectives (Rva0039B95FCount.cpp's g_00E031E8; its +0x10 list is
+// Rva0051C0E7Ctor.cpp's Rva004266A1, whose rowed 0x004268F6 and 0x004269F7
+// answer two flags of an objective).
+struct Rva0039B95FHolder;
+extern Rva0039B95FHolder *g_00E031E8;
+
+class Rva004266A1
+{
+public:
+	unsigned char rva004268F6(int index);
+	unsigned char rva004269F7(int index);
+};
+
+struct AptPlayerStatusObjectives
+{
+	unsigned char m_pad00[0x10];
+	Rva004266A1 *m_list; // +0x10
+};
+
+// Unrowed 0x004E43F2 (84 bytes; cdecl) maps a shown row to its objective,
+// pinned by address.
+int __cdecl Rva004E43F2(int row);
+
 class AptPlayerStatus
 {
 public:
@@ -61,6 +84,7 @@ public:
 	// keeps its address.
 	void rva004E4A34(const char *unused);
 	void PlayerColor(int slot, char *result, bool set);
+	void Objective(int row, char *result, bool skip);
 
 	// Unrowed 0x004E476C (refreshes the player rows; it checks +0x288
 	// again itself), pinned by address.
@@ -118,6 +142,25 @@ void AptPlayerStatus::PlayerColor(int slot, char *result, bool set)
 	{
 		if (!m_colors.empty() && (unsigned int)slot < m_colors.size())
 			sprintf(result, "%d", m_colors[slot]);
+	}
+}
+
+// Retail 0x004E4446, 131 bytes: "Objective%d" for each of the twelve rows,
+// an Apt query answering the row's objective's two flags as two digits
+// ("00" otherwise).
+void AptPlayerStatus::Objective(int row, char *result, bool skip)
+{
+	strcpy(result, "00");
+	if (m_state == 0 && row >= 0 && row < 12 && !skip && g_00E031E8)
+	{
+		int index = Rva004E43F2(row);
+		Rva004266A1 *list = ((AptPlayerStatusObjectives *)g_00E031E8)->m_list;
+		if (index >= 0 && list)
+		{
+			result[0] = '0' + (list->rva004268F6(index) != 0);
+			result[1] = '0' + (list->rva004269F7(index) != 0);
+			result[2] = 0;
+		}
 	}
 }
 

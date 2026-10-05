@@ -1,13 +1,27 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // BFME2's score screen Apt callbacks, 0x0051BF75 onward, bound by these
 // names ("AptScoreScreen::OnInitialized" ...) as member pointers by the
 // screen's registration; that binding is their only reference. The class
 // is named for the strings' prefix. +0x27C is the screen's state.
 
+#include <vector>
 #include "unicode_string.h"
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
+
+// The objectives summary at +0x288: a count at +4 and up to eight
+// checked flags at +0x28.
+struct AptScoreObjectives
+{
+	unsigned char m_pad00[4];
+	int m_count; // +0x04
+	unsigned char m_pad08[0x28 - 0x08];
+	bool m_checked[8]; // +0x28
+};
 
 class BfmeKeyLC;
 
@@ -75,11 +89,15 @@ public:
 	void Continue(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void RenameCancel(const char *unused);
+	void objectiveChecked(int index, char *result, bool skip);
+	void heroVetUpgrade(int index, char *result, bool skip);
 
 private:
 	unsigned char m_pad000[0x27C];
 	int m_state; // +0x27C
-	unsigned char m_pad280[0x2A0 - 0x280];
+	unsigned char m_pad280[0x288 - 0x280];
+	AptScoreObjectives *m_objectives; // +0x288
+	_STL::vector<bool> m_heroUpgrades; // +0x28C
 	GameWindow *m_units; // +0x2A0
 	GameWindow *m_rename; // +0x2A4
 	int m_renaming; // +0x2A8
@@ -147,3 +165,29 @@ void AptScoreScreen::RenameCancel(const char *unused)
 	if (m_units)
 		m_units->winEnable(true);
 }
+
+// Retail 0x0051BFF4, 86 bytes: "objectiveChecked%d" for each objective,
+// an Apt query answering whether it was checked off.
+void AptScoreScreen::objectiveChecked(int index, char *result, bool skip)
+{
+	if (skip)
+		return;
+	strcpy(result, "0");
+	AptScoreObjectives *objectives = m_objectives;
+	if (objectives && index >= 0 && index < objectives->m_count && index < 8)
+		sprintf(result, "%d", objectives->m_checked[index] != 0);
+}
+
+// Retail 0x0051C992, 122 bytes: "heroVetUpgrade%d" for each of twelve
+// heroes, an Apt query answering whether the hero's veterancy upgraded.
+void AptScoreScreen::heroVetUpgrade(int index, char *result, bool skip)
+{
+	if (skip)
+		return;
+	strcpy(result, "0");
+	if (index >= 0 && (unsigned int)index < m_heroUpgrades.size() && index < 12)
+		sprintf(result, "%d", m_heroUpgrades[index] ? 1 : 0);
+}
+
+// Retail's strcpy call lands on the import thunk rowed as ji_00629176.
+#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
