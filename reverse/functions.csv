@@ -56444,3 +56444,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0025DD48@Rva0025DDD2@@QBEMXZ,,0x0025DD48,46,Code/GameEngine/Source/Common/Rva0025DDD2Float.cpp,matched,wrapper over Transport rva004D4F7A chain sibling DDD2
 ?Rva003BA9E5@@YGXXZ,,0x003BA9E5,21,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BA9E5.cpp,matched,ret 0 no args null-guarded AudioManager slot 0x100
 ?Rva003BAA2D@@YGXM@Z,,0x003BAA2D,25,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAA2D.cpp,matched,ret 4 one float to Display slot 0xd0
+?rva002947A8@Rva00294759@@QAEXXZ,,0x002947A8,46,Code/GameEngine/Source/GameLogic/Object/ObjectRva00294759.cpp,matched,chain from 0x00294759 caller 0x0039F269

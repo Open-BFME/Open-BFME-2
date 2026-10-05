@@ -1,15 +1,17 @@
-// cl: /O1 /G7
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7
 // ?rva00294759@Rva00294759@@QAEXH@Z @0x00294759 79B
 // Unlock: __thiscall ret 4 with int param; this+0x264 is ExperienceTracker
 // (m_24 at +0x24 compared to param); rowed rva0029439D 0x0029439D twice plus
-// virtual slot 0xc4 loop esi times; pin rva0039B4EC 0x0039B4EC (int bool int).
+// virtual slot 0xc4 loop esi times; pin rva0039B4EC 0x0039B4EC (int bool bool).
 // Evidence: callers 0x002947CE 0x002952D5 0x003C7E99; prev ObjectRva002943B2
 // /O1 /G7; next StlportListInsertFootprints /O1.
+#include "ascii_string.h"
 
 class Object
 {
 public:
 	void *rva0029439D();
+	void rva00293275(AsciiString s);
 };
 
 class ExperienceTracker
@@ -78,9 +80,13 @@ class Rva00294759
 {
 public:
 	void rva00294759(int param);
+	void rva002947A8();
 private:
 	char m_pad[0x264];
 	ExperienceTracker *m_exp;
+	char m_pad268[0x494 - 0x268];
+	AsciiString m_494;
+	int m_498;
 };
 
 void Rva00294759::rva00294759(int param)
@@ -103,4 +109,13 @@ void Rva00294759::rva00294759(int param)
 		if (--diff == 0)
 			break;
 	}
+}
+
+// ?rva002947A8@Rva00294759@@QAEXXZ @0x002947A8 46B chain from 0x00294759.
+// Thiscall no args; AsciiString at +0x494 via rowed rva00293275 then int at
+// +0x498 via just-landed rva00294759. Evidence: caller 0x0039F269.
+void Rva00294759::rva002947A8()
+{
+	((Object *)this)->rva00293275(m_494);
+	rva00294759(m_498);
 }
