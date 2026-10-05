@@ -14,7 +14,7 @@ public:
 class Rva003685CF
 {
 public:
-	virtual ~Rva003685CF();
+	virtual ~Rva003685CF() {};
 	Rva003685CF(const BfmeObject872Header &a, const BfmeObject872Header &b);
 	int m_4;
 	BfmeObject872Header m_8;
