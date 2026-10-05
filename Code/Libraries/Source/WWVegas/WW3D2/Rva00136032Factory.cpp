@@ -11,13 +11,19 @@ public:
 	void Release_Ref();
 };
 
+class TextureClass
+{
+public:
+	void Release_Ref();
+};
+
 class HierarchyPrototypeRef
 {
 public:
 	~HierarchyPrototypeRef()
 	{
 		if (m_object != 0)
-			m_object->Release_Ref();
+			((TextureClass *)m_object)->Release_Ref();
 	}
 
 private:
