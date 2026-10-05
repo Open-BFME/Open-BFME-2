@@ -59,6 +59,18 @@ public:
 
 #define TheFileSystem (*(BFME2FileSystemFacade **)&TheFileSystem)
 
+class ArchiveFileSystem
+{
+public:
+	virtual ~ArchiveFileSystem();
+	virtual void A1();
+	virtual void A2();
+	virtual void A3();
+	virtual bool A4(const WideChar *path);
+};
+
+extern ArchiveFileSystem *TheArchiveFileSystem;
+
 class Rva002DCCFB
 {
 public:
@@ -111,4 +123,15 @@ AsciiString __stdcall Rva002DC802BaseName(const AsciiString &in)
 	if (slash)
 		return AsciiString(slash + 1);
 	return in;
+}
+
+// ?doesWideFileExist@BFME2FileSystemFacade@@QAE_NPBG@Z @0x0060068A 11B
+// Facade ignores this and forwards wide path via TheArchiveFileSystem
+// (VA 0x00A06E5C, mangled ?TheArchiveFileSystem@@3PAVArchiveFileSystem@@A)
+// slot 0x10 (A4); retail override at 0x00604873 does _waccess(path,0)==0.
+// Evidence: sole E8 caller rva002DCCFB at 0x002DCD34 in this TU plus
+// parseMod/cmdline callers, ret 4, tail jmp via vtable under /O1.
+__declspec(noinline) bool BFME2FileSystemFacade::doesWideFileExist(const WideChar *path)
+{
+	return TheArchiveFileSystem->A4(path);
 }
