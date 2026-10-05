@@ -55906,3 +55906,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva003F9004@Rva003F9004@@QAEXPBVModuleData@@@Z,,0x003F9004,23,Code/GameEngine/Source/Common/Rva003F9004.cpp,matched,null-checked vector ModuleData push_back at this plus 0xC callers 0x003F90B9 0x003F9162
 ?Rva00218E96Parse@@YAXPAVINI@@HPAV?$vector@UFileInfoStruct@MixFileCreator@@V?$allocator@UFileInfoStruct@MixFileCreator@@@_STL@@@_STL@@@Z,,0x00218E96,300,Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorParse.cpp,matched,INI parse to FileInfo vector via rowed INI StringBase pushback
 ?Rva002183D1SortHeap@@YAXPAURva004748F0Element@@0URva004748F0Compare@@@Z,,0x002183D1,58,Code/GameEngine/Source/Common/Q3SortHeap002183D1.cpp,matched,sort-heap tail via rowed pop-heap Aux for FileInfo partial-sort
+?rva0070DFE0@BfmeAptValue006DCD20@@QAEXXZ,,0x0070DFE0,5,Code/GameEngine/Source/Common/BfmeAptValueRva0070DFE0.cpp,matched,vtable slot 11 thunk to rowed 0x006DE150
