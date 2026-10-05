@@ -8,10 +8,16 @@
 #include <string.h>
 #include "ascii_string.h"
 
+class Rva004D04C9
+{
+public:
+    void *rva004D04E0(int);
+};
+
 struct CommandHistory
 {
 	unsigned int words[0x800];
-	CommandHistory() { memset(words, 0, sizeof(words)); words[0] = 0; }
+	CommandHistory() { reinterpret_cast<Rva004D04C9 *>(this)->rva004D04E0(0); }
 };
 
 class Connection;
@@ -81,3 +87,9 @@ ConnectionManager::ConnectionManager()
 		m_120a0[i] = 1;
 	}
 }
+
+// Retail 0x004D13EA, 14 bytes: default constructor passed by the matched
+// ConnectionManager ehvec constructor for nine 0x2000-byte histories.
+// The target calls the matched zero-and-state setter with zero and returns
+// this. CommandHistory is the donor name already used by the matched parent;
+// array size and callee are independently established by target bytes.
