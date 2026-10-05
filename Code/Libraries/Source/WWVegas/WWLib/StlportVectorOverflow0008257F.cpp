@@ -1,5 +1,5 @@
 // ?_M_insert_overflow@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXPAURva00082BE6Element@@ABU3@ABU__false_type@2@I_N@Z
-// partial score=0.99 date=2026-10-05
+// Continued bank from reverse/attempts/0x0008257f.cpp (wave-3 muse-02).
 // cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?_M_insert_overflow@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXPAURva00082BE6Element@@ABU3@ABU__false_type@2@I_N@Z @0x0008257F 178B
