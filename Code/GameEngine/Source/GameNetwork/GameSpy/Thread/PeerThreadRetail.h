@@ -1,6 +1,7 @@
 // TU-scoped BFME2 GameSpy request/response views; BFME1 donor revision6583b3c1.
 // Request ownership and extent1EC come from native389AAA/1EF661/1EF723 and
-// player-left callback38C788. Its anonymous union retains212 opaque bytes;
+// player-left callback38C788. Assignment38B248 witnesses union copy order and
+// extents; its largest alternative retains212 bytes with unnamed additions;
 // unused donor payload fields do not establish target names or offsets.
 // Target copy/dtor/default-ctor 389C14/38A063/389F77 establish string members
 // through F4 plus vector100 and total extent348. Native callback38B5DB stores
@@ -115,7 +116,6 @@ public:
 
 	union
 	{
-		unsigned int unknown_payload[53];
 		struct
 		{
 			Int profileID;
@@ -125,6 +125,9 @@ public:
 		{
 			Int id;
 		} groupRoom;
+
+		// Native assignment copies another four-byte union alternative here.
+		struct { unsigned int unknown; } unknown_scalar;
 		
 		struct
 		{
@@ -151,29 +154,18 @@ public:
 			UnsignedShort ladPort;
 			UnsignedInt ladPassCRC;
 			Bool restrictGameList;
+			// Native assignment copies this union member as 60 bytes.
+			unsigned int unknown_creation_tail[9];
 		} stagingRoomCreation;
 
 		struct
 		{
-			Int wins[MAX_SLOTS];
-			Int losses[MAX_SLOTS];
-			Int profileID[MAX_SLOTS];
-			Int faction[MAX_SLOTS];
-			Int color[MAX_SLOTS];
-			Int numPlayers;
-			Int maxPlayers;
-			Int numObservers;
-			// Inherited BFME1 shim note (this BFME2 view instead has verified492B extent):
-
-			// BFME's PeerRequest is four bytes larger than the reference's, and
-			// the extra dword is somewhere at or after the union: retail puts
-			// `id` at +0x34 and the UTM union at +0xE4, both exactly where the
-			// reference's layout puts them. gameOptions is the union's largest
-			// member at 172 bytes, so one more Int here is what moves sizeof
-			// from 0x190 to the 0x194 retail's callers reserve. Nothing landed
-			// against this header reads gameOptions, so which field BFME
-			// actually added is still open -- only the size is pinned.
-			Int bfmeExtraGameOption;
+			// Donor field names and eight-entry arrays remain leads. Native only
+			// proves this union alternative spans212 bytes; the extra40 are opaque.
+			Int wins[MAX_SLOTS], losses[MAX_SLOTS], profileID[MAX_SLOTS];
+			Int faction[MAX_SLOTS], color[MAX_SLOTS];
+			Int numPlayers, maxPlayers, numObservers;
+			unsigned int unknown_game_options_tail[10];
 		} gameOptions;
 
 		struct
@@ -198,6 +190,8 @@ public:
 			Int NAT;
 			UnsignedInt exeCRC;
 			UnsignedInt iniCRC;
+			// Native assignment copies 104 bytes; these final words are unnamed.
+			unsigned int unknown_qm_tail[4];
 		} QM;
 
 		struct
@@ -208,7 +202,12 @@ public:
 			Int rankPoints;
 			Int side;
 			Bool preorder;
+			// Native assignment copies 28 bytes; the seventh field is unnamed.
+			unsigned int unknown_stats_tail;
 		} statsToPush;
+
+		// Native assignment ends with a distinct eight-byte alternative.
+		struct { unsigned int unknown[2]; } unknown_pair;
 
 	};
 };
