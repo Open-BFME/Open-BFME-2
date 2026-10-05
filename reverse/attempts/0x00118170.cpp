@@ -1,5 +1,7 @@
 // ?Begin_Render@WW3D@@SA?AW4WW3DErrorType@@_N0ABVVector3@@MP6AXXZ@Z
 // partial score=0.98 date=2026-10-05
+// ?Begin_Render@WW3D@@SA?AW4WW3DErrorType@@_N0ABVVector3@@MP6AXXZ@Z
+// partial score=0.98 date=2026-10-05
 // cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 
 // Clean BFME body for WW3D::Begin_Render at BFME1 donor RVA 0x008FE280; BFME2 native118170..118296.
@@ -77,12 +79,13 @@ public:
 };
 
 
+enum WW3DErrorType { WW3D_ERROR_NONE = 0, WW3D_ERROR_RENDERING = 1 };
 class WW3D
 {
 public:
 	static void Get_Render_Target_Resolution(int &, int &, int &, bool &);
 	static void Update_Movie_Capture(void);
-	static bool Begin_Render(bool, bool, const Vector3 &, float, void (*)(void));
+	static WW3DErrorType Begin_Render(bool, bool, const Vector3 &, float, void (*)(void));
 
 	static bool IsInitted;
 	static bool IsRendering;
@@ -94,16 +97,13 @@ private:
 };
 
 
-bool WW3D::Begin_Render(bool clear, bool clearz, const Vector3 &color,
+WW3DErrorType WW3D::Begin_Render(bool clear, bool clearz, const Vector3 &color,
 	float dest_alpha, void (*network_callback)(void))
 {
-
 	if (!IsInitted)
-		return true;
-
+		return WW3D_ERROR_RENDERING;
 	if (IsRendering)
-		return false;
-
+		return WW3D_ERROR_NONE;
 	{
 		BfmeD3DDevice *device = (BfmeD3DDevice *)DX8Wrapper::D3DDevice;
 		if (device)
@@ -112,25 +112,22 @@ bool WW3D::Begin_Render(bool clear, bool clearz, const Vector3 &color,
 			if (hr != 0)
 			{
 				if (hr == 0x88760868)
-					return false;
+					return WW3D_ERROR_RENDERING;
 				if (hr != 0x88760869)
-					return false;
+					return WW3D_ERROR_RENDERING;
 				DX8Wrapper::Reset_Device(true);
-				return false;
+				return WW3D_ERROR_RENDERING;
 			}
 		}
 	}
-
 	BfmeDynamicVBAccess::_Reset(true);
 	DynamicIBAccessClass::_Reset(true);
 	((Rva0069E440BeginResetHook *)1)->m();
-
 	if (IsCapturing && (!PauseRecord || RecordNextFrame))
 	{
 		WW3D::Update_Movie_Capture();
 		RecordNextFrame = false;
 	}
-
 	if (clear)
 	{
 		IsRendering = true;
@@ -140,7 +137,6 @@ bool WW3D::Begin_Render(bool clear, bool clearz, const Vector3 &color,
 	if (clearz)
 		goto clear_viewport;
 	goto begin_scene;
-
 clear_viewport:
 	{
 		_D3DVIEWPORT8 vp;
@@ -156,8 +152,7 @@ clear_viewport:
 		DX8Wrapper::Set_Viewport(&vp);
 		DX8Wrapper::Clear(clear, clearz, clearz, color, dest_alpha, 1.0f, 0);
 	}
-
 begin_scene:
 	DX8Wrapper::Begin_Scene_Inner();
-	return true;
+	return WW3D_ERROR_RENDERING;
 }
