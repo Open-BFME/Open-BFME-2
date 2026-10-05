@@ -5902,6 +5902,17 @@ void __cdecl rva007B6CAF()
 	return p->RenderObjClass::Update_Sub_Object_Transforms();
 }
 
+extern unsigned g_Va00DF3410;
+unsigned int g_Va00DF3410;
+
+// ?rva007B70E0@@YAXXZ @ 0x007B70E0 (10B). Global RenderObjClass dtor thunk: ecx=&g_Va00DF3410 then tail-jmp to rowed 0x0069E440.
+void __cdecl rva007B70E0()
+{
+	RenderObjClass *p = (RenderObjClass *)&g_Va00DF3410;
+	return p->RenderObjClass::Update_Sub_Object_Transforms();
+}
+
+
 extern unsigned g_00E01E41;
 // g_00E01E41: packet annotates VA 0x00E01E41 (data), no name yet.
 
