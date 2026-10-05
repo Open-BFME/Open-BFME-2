@@ -1,5 +1,5 @@
 // ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z
-// partial score=0.97 date=2026-10-04
+// partial score=0.98 date=2026-10-05
 // cl: /O1 /arch:SSE /MD
 // ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z @0x003FAAA1, 236B.
 // Overlap test via rowed Region3D copy 0x0009AC04 LineSeg ctor 0x000927F9 and Overlap_Test 0x00723870.
@@ -89,6 +89,7 @@ private:
 	char m_00[0x10];
 	Inner1 *m_10;
 };
+
 // ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z present-unmatched
 bool Rva003FAAA1::rva003FAAA1(void *arg)
 {
@@ -103,24 +104,26 @@ bool Rva003FAAA1::rva003FAAA1(void *arg)
 			return false;
 	}
 	Region3D box(*b->GetRegion());
-	Vector3 v2;
-	Vector3 v1;
-	TheGlobal003FAAA1->GetVectors(arg, &v1, &v2);
+	Vector3 b2;
+	Vector3 b1;
+	TheGlobal003FAAA1->GetVectors(arg, &b1, &b2);
 	float scale = g_00BC7000;
-	v2.X *= scale;
-	v2.Y *= scale;
-	v2.Z *= scale;
 	Vector3 p0;
-	p0.X = v1.X;
-	p0.Y = v1.Y;
-	p0.Z = v1.Z;
-	v1.X += v2.X;
-	v1.Y += v2.Y;
-	v1.Z += v2.Z;
+	p0.Z = b1.Z;
+	p0.Y = b1.Y;
+	p0.X = b1.X;
+	b2.X *= scale;
+	b2.Y *= scale;
+	b2.Z *= scale;
+	float sink = p0.X;
+	b1.X += b2.X;
+	b1.Y += b2.Y;
+	b1.Z += b2.Z;
 	Vector3 p1;
-	p1.X = v1.X;
-	p1.Y = v1.Y;
-	p1.Z = v1.Z;
+	p1.X = b1.X;
+	p1.Y = b1.Y;
+	p1.Z = b1.Z;
+	p0.X = sink;
 	LineSegClass seg(p0, p1);
 	if (CollisionMath::Overlap_Test(box, seg) == 1)
 		return false;
