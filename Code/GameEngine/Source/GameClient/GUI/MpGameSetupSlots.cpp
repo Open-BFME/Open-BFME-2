@@ -397,6 +397,8 @@ public:
 	// Unrowed 0x0057CDA1 (34 bytes; ret 0xC: 1 after handling a combo box
 	// selection of its +0x50 window, else 0), pinned by address.
 	int rva0057CDA1(unsigned int msg, unsigned int data1, unsigned int data2);
+	// Unrowed 0x0057CB7D (152 bytes; ret 4, a bool), pinned by address.
+	bool rva0057CB7D(int value);
 
 	unsigned char m_pad00[0x1C];
 	int m_mode; // +0x1C (the panel's +0x7C, MpGameSetupOnInitGadget.cpp's m_hideFlag)
@@ -795,6 +797,7 @@ public:
 	void rva0043FA68(GameInfo *game);
 	void rva0043DE19();
 	int rva00442CB3(unsigned int msg, unsigned int data1, unsigned int data2);
+	bool rva0043DCFA(int value);
 
 	void rva004404AC(bool enable, int slot);
 
@@ -2643,4 +2646,12 @@ int MpGameSetup::rva00442CB3(unsigned int msg, unsigned int data1, unsigned int 
 		return 0;
 	}
 	return 1;
+}
+
+// Retail 0x0043DCFA, 8 bytes. Name unknown. Forwards to the +0x60 member's
+// 0x0057CB7D; callers 0x0024A63A and 0x005A41CE reach it through the panel
+// instance g_Va00E0333C.
+bool MpGameSetup::rva0043DCFA(int value)
+{
+	return m_60.rva0057CB7D(value);
 }
