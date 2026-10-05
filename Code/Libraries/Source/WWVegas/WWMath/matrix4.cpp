@@ -200,3 +200,17 @@ int operator == (const Matrix4x4 & a, const Matrix4x4 & b)
 	}
 	return !res;
 }
+
+// vector4.h's Swap and operator /= sit out of line at the head of this unit's
+// retail range (0x007154B0, 0x00715500, just before Multiply), the row
+// helpers of the header's Gauss-Jordan Matrix4::Inverse; no retail call
+// reaches either. The anchor makes this unit emit its copies for the rows;
+// it is not retail code.
+#pragma inline_depth(0)
+// ?_bfmeMatrix4VectorInlineAnchor@@YAXAAVVector4@@0@Z absent-from-retail
+void _bfmeMatrix4VectorInlineAnchor(Vector4 &a, Vector4 &b)
+{
+	a /= 2.0f;
+	Swap(a, b);
+}
+#pragma inline_depth()
