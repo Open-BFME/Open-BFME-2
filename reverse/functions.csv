@@ -60345,3 +60345,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0059FD3A@Rva0059FD3A@@QAEXXZ,,0x0059FD3A,241,Code/GameEngine/Source/Common/Rva0059FD3APopulate.cpp,matched,combo-box RB population via Gadget calls and GameSpy slots
 ?rva003306B0@Rva003306B0@@QAEXPAVCreateAHeroData@@@Z,,0x003306B0,94,Code/GameEngine/Source/Common/Rva003306B0Remove.cpp,matched,chain rowed callees vector at 0x10
 ??0Rva000A217F@@QAE@PAX@Z,,0x000A217F,24,Code/GameEngine/Source/Common/Rva000A217FCtor.cpp,matched,linkbonus ctor via base 0x000A2137 and g_00BC9020 factory Rva0008FABBCreate
+?rva002E204D@Rva002E204D@@QAEPAVRva002E0D93@@PAV2@@Z,,0x002E204D,61,Code/GameEngine/Source/Common/Rva002E204DErase.cpp,matched,erase pos from 216B array via rowed copy 0x002E1E9A and pin dtor 0x001EB63C
