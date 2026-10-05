@@ -62966,3 +62966,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva00709EC0Get@@YAPAVAptValue@@H@Z,,0x00709EC0,175,Code/Libraries/Source/Apt/AptObject/AptScriptFunctionStatic.cpp,matched,
 ?stackPushIndirect@AptActionInterpreter@@QAEXQAVAptValue@@@Z,,0x006FE610,199,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp,matched,Native full body; donor semantics; checked payload offsets and stack ordering
 ?_FunctionAptActionPush@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,,0x00704B10,57,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp,matched,PC dispatch opcode96; original PDB signature; native complete loop; source0cbfd5f746c89504
+?_FunctionAptActionThrow@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,,0x00706240,163,Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp,matched,

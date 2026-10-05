@@ -163,7 +163,8 @@ struct AptActionInterpreter
     AptBasePtrStack stack;
     unsigned char m_otherStacksAndDebugData[0x40-12];
     AptConstantPool constantPool;
-    unsigned char m_betweenPoolAndFrameBase[0x64-0x48];
+    unsigned char m_betweenPoolAndFrameBase[0x60-0x48];
+    AptValue *mpThrownValue; // PC Throw reads/writes+60; donor supplies semantic role.
     // Original Godfather debug/release field100; native Pop reads +0x64.
     int mnStackFrameBase;
     bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int=1, int=1, int=0);
@@ -199,6 +200,7 @@ private:
     HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
     HANDLER(End); HANDLER(ToggleQuality); HANDLER(StringLessThan); HANDLER(MBLength); HANDLER(CharToAscii); HANDLER(MBSubString); HANDLER(MBCharToAscii); HANDLER(MBAsciiToChar); HANDLER(BitURShift);
     HANDLER(Push);
+    HANDLER(Throw);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -1317,3 +1319,15 @@ void AptActionInterpreter::_FunctionAptActionPush(AptActionInterpreter *const p,
 #pragma comment(linker, "/alternatename:?isRegister@AptValue@@QBE_NXZ=?isRegister@BfmeAptValue006DCD20@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?c_lookup@AptValue@@QBEPAVAptLookup@@XZ=?checkedLookup@BfmeAptValue006DCD20@@QAEPAV1@XZ")
 #pragma comment(linker, "/alternatename:?c_register@AptValue@@QBEPAVAptRegister@@XZ=?checkedRegister@BfmeAptValue006DCD20@@QAEPAV1@XZ")
+
+void AptActionInterpreter::_FunctionAptActionThrow(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    if (p->stack.count<1) {
+        g_bfmeAptAssertAtE17734("pInterpreter->stack.GetSize() >= 1", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x25BC);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+    AptValue *value=p->stack.At(0);
+    value->AddRef();
+    p->mpThrownValue=value;
+    p->stack.Pop();
+}
