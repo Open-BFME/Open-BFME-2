@@ -1,28 +1,57 @@
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z
-// partial score=0.97 date=2026-10-05
+// partial score=0.875 date=2026-10-05
+// ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z
 // cl: /O1 /MD
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z @0x004320B1 160B.
 //
-// The global at 0xDFEA3C is a View*: matched sibling Rva0029B4F9Init.cpp
-// declares that global as View *TheTacticalView and calls its slots 0x170 and
-// 0xC8. Retail's call DWORD PTR [eax+0x168] is therefore View slot 90, which
-// is why screenToTerrain sits behind 90 declarations here. The previous bank
-// modelled this class as a `TacticalView` with screenToTerrain at slot 0 and
-// so emitted call DWORD PTR [eax], which desynchronised the whole tail.
+// IMPROVED over reverse/attempts/0x004320b1.cpp: LCS 120 -> 140 of 160 against
+// the relocation-resolved body, first diff +0x06 -> +0x1D.
 //
-// InGameUI is unchanged and was already right: the matched sibling
-// Rva004319F2.cpp fixes slot51 at 0xCC, slot54 at 0xD8 and the byte at 0x9B4,
-// which is exactly retail's [eax+0xcc], [eax+0xc8] and cmp byte [ecx+0x9b4].
+// (1) THE REGISTER PAIR IS NOT AN ALLOCATOR WALL, IT IS AN INTRANITIAL CALLEE
+//     PROBLEM. Earlier passes concluded "MSVC 7.1 allocates msg to esi and this
+//     to edi" and stopped there. Retail keeps msg in the VOLATILE edx, caches
+//     this in callee-save esi (mov edx,[ebp+8] / push esi / mov esi,ecx), and
+//     then SURVIVES call 0x431A4D with edx intact -- impossible unless the
+//     compiler knows that callee's register usage, i.e. it is intranitial.
+//     Copying Rva00431A4D::rva00431A4D verbatim into this TU (exactly the 23B
+//     body at that address, already landed byte-matched in
+//     Code/GameEngine/Source/Common/Rva00431A4D.cpp) makes the prologue retail
+//     byte for byte. Measured alone: 160B -> 158B, LCS 120 -> 134.
+//     The pass that already tried this used STUB bodies that were not retail's,
+//     which is why it concluded the pair did not move and restored the old
+//     blocker text.
 //
-// Two shapes are read off the retail bytes rather than guessed. (1) Retail
-// reads the forwarder at +4 from the CACHED this (mov ecx,[esi+4] at 0x4320CF,
-// i.e. off the callee-save, not off a re-spilled ecx), so the load is hoisted
-// into a local ahead of the dispatch; that alone takes the body from 171B to
-// 167B. (2) Retail keeps TheInGameUI in ecx across the slot-51 and slot-50
-// calls and reads the +0x9B4 byte off that same ecx, so the global is read
-// once into a local after the terrain call rather than re-read per use; with
-// both, the body is exactly 160B, the retail extent, and everything from
-// 0x4320E2 to the end is instruction for instruction retail.
+// (2) NO HOIST OF THE FORWARDER. The bank hoisted `Rva00431A4D *fwd = m_04`
+//     ahead of the dispatch; retail reads +4 off the cached this inside the
+//     case-6 arm (mov ecx,[esi+4] at 0x4320CF), and the hoist desynchronises the
+//     je target. Removing it is what takes the body to the 160B retail extent
+//     and matches 0x4320CF..0x4320E0 instruction for instruction.
+//
+// (3) The 0x9B4 byte test re-reads TheInGameUI into ecx (mov ecx,ds:0xDFEDF0 /
+//     cmp BYTE PTR [ecx+0x9b4],0) rather than off the cached pointer, and the
+//     copy helper's receiver IS the InGameUI pointer: retail's call to 0x29AA27
+//     at 0x432145 reaches it with ecx untouched, so the helper is reached at
+//     offset 0 rather than through a separate global.
+//
+// STILL OPEN, and now the only defect: the +0x45 region. Retail loads
+// TheInGameUI into ecx before EACH of its three uses (0x43210E, 0x432120,
+// 0x432132); MSVC 7.1 hoists one read into callee-save esi and spends a
+// `mov ecx,esi` pair per use instead. The remaining 20 bytes are exactly that.
+// MEASURED AND REJECTED: `volatile` on the global (169B -- defeats CSE but
+// widens the dispatch jne to a 6-byte near); re-reading the global explicitly
+// at each of the three use sites (169B, same far-jump cost); a `static` and a
+// `__forceinline` accessor around slot50 (169B at /O1, not inlined; 198B at
+// /O2); the ui local declared before the terrain call (130B, MSVC allocates it
+// to the register already carrying msg); a single shared exit through a result
+// variable with break out of both arms (169B); reading the forwarder from a
+// local; and declaring the copy helper as a non-virtual base of InGameUI, which
+// emits `lea ecx,[esi+4]` (154B) because the base is not at offset 0.
+// t=25min model=space-bunny-alpha
+//
+// Unchanged from the bank: the global at 0xDFEA3C is a View*, per matched
+// sibling Rva0029B4F9Init.cpp, so screenToTerrain sits behind 90 declarations;
+// Rva004319F2.cpp fixes InGameUI slot51 at 0xCC, slot50 at 0xC8 and the byte at
+// 0x9B4.
 #include <stddef.h>
 
 struct ICoord2D { int m_x; int m_y; };
@@ -245,6 +274,12 @@ public:
 };
 
 struct S12_0029AA27 { int a; int b; int c; };
+
+class Rva0029AA27At
+{
+public:
+	void rva0029AA27(const S12_0029AA27 *src);
+};
 class Rva0029AA27
 {
 public:
@@ -269,10 +304,17 @@ public:
 	int rva004320B1(GameMessage *msg);
 };
 
+void Rva00431A4D::rva00431A4D(GameMessage *msg)
+{
+	if (msg->m_10 == 6)
+		m_04 = 1;
+	else
+		m_05 = 1;
+}
+
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z present-unmatched
 int Rva004320B1::rva004320B1(GameMessage *msg)
 {
-	Rva00431A4D *fwd = m_04;
 	switch (msg->m_10)
 	{
 	case 3:
@@ -286,13 +328,13 @@ int Rva004320B1::rva004320B1(GameMessage *msg)
 		InGameUI *ui = TheInGameUI;
 		if (ui->slot51())
 			ui->slot50(&world);
-		if (ui->m_9b4 != 0)
-			TheRva0029AA27->rva0029AA27((const S12_0029AA27 *)&world);
+		if (TheInGameUI->m_9b4 != 0)
+			((Rva0029AA27At *)TheInGameUI)->rva0029AA27((const S12_0029AA27 *)&world);
 		return 0;
 	}
 	case 6:
 	case 0x10:
-		fwd->rva00431A4D(msg);
+		m_04->rva00431A4D(msg);
 		return ((Rva00431E95 *)this)->rva00431E95(msg);
 	default:
 		return 0;
