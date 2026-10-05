@@ -134,8 +134,9 @@ public:
 
 extern int g_Va00E06394;
 
-// Unrowed 0x00412A51 plays the named audio event, pinned by address.
-void __cdecl Rva00412A51(const char *eventName);
+// AptGlobalQueryCallbacks.cpp's global Apt callback "PlaySound"
+// (0x00412A51) plays the named audio event.
+void __cdecl PlaySound(const char *eventName);
 
 // The tab each messenger tab index shows (0x00C65734).
 static const int s_tabIds[2] = { 0, 1 };
@@ -540,10 +541,10 @@ void Rva005114BD::rva00511620(int tab, int unused)
 	{
 		TheRva00222A8BTarget->invoke(messenger->m_274, buddy ? "FlashTab0" : "FlashTab1", 0, 0, 0, 0, 0, 0);
 		if (sound && tab != s_tabIds[g_Va00E046BC])
-			Rva00412A51(sound);
+			PlaySound(sound);
 	}
 	else if (sound)
-		Rva00412A51(sound);
+		PlaySound(sound);
 }
 
 // Retail 0x005118B2, 65 bytes: vftable 0x00C659A0 slot 13 frees both tabs
