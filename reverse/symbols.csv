@@ -13281,3 +13281,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??0Rva005F3E93@@QAE@HHHH@Z,0x005F3E93,base for 0x005E54D5; address-derived pin
 ??0Rva005D3506Inner@@QAE@HH@Z,0x005D3506,inner for 0x005D3628 wrapper; address-derived pin
 ?Rva005E4817Forward@@YAXHHHHPA_N@Z,0x005E4817,5-arg cdecl for 0x005E49FD tmp-last; address-derived pin
+?rva005DAA6C@Rva005DAA6C@@QAEHH@Z,0x005DAA6C,pin for 0x005E5BF7; address-derived
+?rva005E5B82@Rva005E5B82@@QAEHH@Z,0x005E5B82,pin for 0x005E5BF7 tail; address-derived
