@@ -1,5 +1,3 @@
-// ?rva003F012F@Rva003F012F@@QAEXXZ
-// partial score=0.93 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 // ?rva003F012F@Rva003F012F@@QAEHXZ @0x003F012F 90B via vec at +0x60 stride 0x18 plus AsciiString at +4 plus lookup 0x00210390 via +0x130
 // Evidence: callees rowed rva00210390 0x00210390; callers 0x003F08F1 plus thunk 0x003F0DC6; unblocks 0x003F08EE; offsets +0x60 start +0x64 finish +0x130 holder +4 str +8 result.
@@ -23,7 +21,7 @@ struct Vec003F012F
 {
 	Entry003F012F *m_start;
 	Entry003F012F *m_finish;
-	int size() const { return (int)(m_finish - m_start) / 0x18; }
+	unsigned size() const { return ((char *)m_finish - (char *)m_start) / 0x18; }
 };
 
 class Rva003F012F
@@ -37,19 +35,18 @@ private:
 	Rva00210390 *m_holder130;
 };
 
-// ?rva003F012F@Rva003F012F@@QAEXXZ present-unmatched
 void Rva003F012F::rva003F012F()
 {
-	if (m_vec60.size() == 0)
+	unsigned idx = 0;
+	if (m_vec60.size() <= 0u)
 		return;
-	int idx = 0;
 	do {
 		void *res = m_holder130->rva00210390(&m_vec60.m_start[idx].m_str04);
 		int val;
-		if (res == 0)
-			val = -1;
-		else
+		if (res != 0)
 			val = *(int *)((char *)res + 0x12c);
+		else
+			val = -1;
 		m_vec60.m_start[idx].m_result08 = val;
 		++idx;
 	} while (idx < m_vec60.size());
