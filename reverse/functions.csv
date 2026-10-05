@@ -62907,3 +62907,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??$copy@PAVSidesInfo@@PAV1@@_STL@@YAPAVSidesInfo@@PAV1@00@Z,,0x0032E8F9,27,Code/Libraries/Source/WWVegas/WWLib/StlportCopyWrapperPairsFamily.cpp,matched,STLport copy wrapper and __copy_ptrs forwarder over the SidesInfo copy loop 0x32DD81
 ?rva007B6E18@@YAXXZ,,0x007B6E18,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEBC98 tail-jmp pinned Rva000E6387 dtor 0x000E6387
 ?rva007B7E3F@@YAXXZ,,0x007B7E3F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E02838 tail-jmp pinned Gen_uwm_00357cd9 dtor 0x00357CD9
+??$copy@PAUBfmeAssignRecord172@@PAU1@@_STL@@YAPAUBfmeAssignRecord172@@PAU1@00@Z,,0x001EBACF,27,Code/Libraries/Source/WWVegas/WWLib/StlportCopyWrapperPairsFamily.cpp,matched,STLport copy wrapper over pinned by-ref __copy_ptrs 0x1EBA13
