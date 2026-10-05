@@ -12569,3 +12569,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??1Rva00362B5ADtor@@QAE@XZ,0x00362B5A,dtor thunk stub at 0x00362B5A to 0x00362B22 (target of thunk 0x007B7CC3)
 ??1Rva003ED94ADtor@@QAE@XZ,0x003ED94A,dtor thunk stub at 0x003ED94A to 0x003ED879 (target of thunk 0x007B80F1)
 ??1Rva003B55F9Dtor@@QAE@XZ,0x003B55F9,dtor thunk stub at 0x003B55F9 to 0x0054FAAC (target of thunks 0x007B82C9 and 0x007B9A37)
+?GetBool@AptBoolean@@QBE_NXZ,0x006D89D0,Native toBool6DD550 boolean branch tail-jumps byte getter; later AptBoolean.inl d8bdfcd7e1b3059a confirms const bool GetBool; alias existing rowed Rva006D89D0ByteField getter
