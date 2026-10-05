@@ -11,6 +11,17 @@
 // 0x000D7C00 0x00101386 0x001016C2 pass this from [ebp+8] with pre-inc copy;
 // layout proven by lea getter 0x00142C40 pop 0x00142DF0 and vector dtor 0x00142E30.
 
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <vector>
 
 class Rva00142DF0String

@@ -4,6 +4,19 @@
 // Evidence: this+0xC vector push_back x6 of new ModuleData ctors 0x57379B 0x5734D7
 // 0x5730FF 0x572EC4 0x572DD4 0x572C5A via rowed push_back 0x004DFCB0 and rowed
 // operator new 0x0002FDA0; EH states 0-5 with -1 before each push_back.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 class ModuleData

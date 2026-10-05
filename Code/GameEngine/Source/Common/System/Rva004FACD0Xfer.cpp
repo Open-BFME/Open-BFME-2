@@ -2,6 +2,19 @@
 // stlport
 // ?Rva004FACD0Xfer@@YAPAVXfer@@PAV1@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z @0x004FACD0 204B evidence: same 204B shape as rowed XferScienceTypeVector 0x00398280 same xferVersion xferTypeName std-vector xferUnsignedInt isSaving; callees rowed Rva004E12D7Parse 0x004E12D7 reserve 0x002A1410 push_back 0x002E01C6 _bfmeFormatText 0x0060C36E plus pin _CxxThrowException 0x00629094; strings std-vector and Vector-must-be-empty-on-load; caller 0x004FAF73.
 // Free-function honest Rva name with Xfer verb; container ScienceType per rowed reserve/push_back rows; elements via rowed Rva004E12D7Parse.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #include <vector>
 
 typedef unsigned char UnsignedByte;

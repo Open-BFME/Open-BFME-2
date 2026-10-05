@@ -5,6 +5,19 @@
 // uninitialized_copy range via rowed 0x004F6AD3. Entry is int key plus
 // Rva004F6093Holder value matching rowed entry ctor 0x0040CB11 and copy
 // 0x004F6335. Same 45B ebp-tag shape as 0x00426B46. Caller at 0x0040E167.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 class Rva004F6093Holder
 {
 public:

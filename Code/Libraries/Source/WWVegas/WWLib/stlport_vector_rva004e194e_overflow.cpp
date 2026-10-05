@@ -6,6 +6,17 @@
 // false_type growth path. Element is 0x14 bytes with rowed copy ctor at 0x0052BE96;
 // _Construct at 0x0052C3D7 and fill_n at 0x005656E4 and uninit copy at 0x0052C987
 // and tidy at 0x00565A42. Caller at 0x0056639E; unblocks 0x00566371.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 
