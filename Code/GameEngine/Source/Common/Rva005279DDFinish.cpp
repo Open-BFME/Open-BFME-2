@@ -18,6 +18,12 @@ public:
 	int rva005CB260(int);
 };
 
+// Retail 0x005CB260 is rowed under the void spelling in
+// Rva005CB260Forwarder.cpp (5B slot-1 forwarder: mov eax,[ecx]; jmp
+// [eax+4], so the int result flows through the tail jump). Bind this
+// TU's int-view spelling to that single definition.
+#pragma comment(linker, "/alternatename:?rva005CB260@Rva005CB260@@QAEHH@Z=?rva005CB260@Rva005CB260@@QAEXXZ")
+
 struct Rva005279DDInner
 {
 	char m_pad8[8];
