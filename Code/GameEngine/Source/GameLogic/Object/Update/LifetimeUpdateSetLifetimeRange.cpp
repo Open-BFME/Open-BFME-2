@@ -47,6 +47,9 @@ class UpdateModuleInterface
 {
 public:
 	virtual void updateSlot();
+	virtual void disabledTypesSlot();
+	// BFME 2's wake slot (rowed UpdateModule default 0x0044DF8D).
+	virtual void rva0044DF8D(UpdateSleepTime wakeDelay);
 };
 
 class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
@@ -70,9 +73,13 @@ class LifetimeUpdate : public UpdateModule
 public:
 	void setLifetimeRange(UnsignedInt minFrames, UnsignedInt maxFrames);
 	void rva003A4AD2();
+	void rva0044DF8D(UpdateSleepTime wakeDelay);
 
 private:
 	UnsignedInt calcSleepDelay(UnsignedInt minFrames, UnsignedInt maxFrames);
+
+	unsigned char m_pad14[0x14];
+	bool m_28; // +0x28
 };
 
 void LifetimeUpdate::setLifetimeRange(UnsignedInt minFrames, UnsignedInt maxFrames)
@@ -85,4 +92,18 @@ void LifetimeUpdate::rva003A4AD2()
 {
 	const LifetimeUpdateModuleData *data = (const LifetimeUpdateModuleData *)getModuleData();
 	setLifetimeRange(data->m_minFrames, data->m_maxFrames);
+}
+
+// ?rva0044DF8D@LifetimeUpdate@@UAEXW4UpdateSleepTime@@@Z, retail 0x003A4AE1
+// (25 bytes): LifetimeUpdate's override of the UpdateModuleInterface wake
+// slot (slot 2 of its {for UpdateModuleInterface} table, after the rowed
+// 0x00253376): unless told to sleep forever, clear +0x28 and reapply the
+// module data's lifetime range through rva003A4AD2 above.
+void LifetimeUpdate::rva0044DF8D(UpdateSleepTime wakeDelay)
+{
+	if (wakeDelay != UPDATE_SLEEP_FOREVER)
+	{
+		m_28 = false;
+		rva003A4AD2();
+	}
 }
