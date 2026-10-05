@@ -199,6 +199,13 @@ void StreakLineClass::Set_Colors( unsigned int num_points, Vector4 *colors )
 
 // These are segment points, and include the start and end point of the
 // entire line. Therefore there must be at least two.
+// BFME 2 keeps the cached-bounding-volumes-valid flag in bit 0x20000 of
+// RenderObjClass::Bits (Set_Point_Location clears it with `and byte [ecx+0x12],
+// 0xFD` at 0x00741C5E; bfmerendobj/rendobj.h carries the same value). The
+// bfmestreak header this unit includes still has Zero Hour's 0x2000, so these
+// setters clear the BFME 2 bit directly.
+enum { BFME_BOUNDING_VOLUMES_VALID = 0x00020000 };
+
 // ?Get_Num_Points@StreakLineClass@@ present-unmatched
 int StreakLineClass::Get_Num_Points(void)
 {
@@ -208,13 +215,12 @@ int StreakLineClass::Get_Num_Points(void)
 
 // Set object-space location for a given point.
 // NOTE: If given position beyond end of point list, do nothing.
-// ?Set_Point_Location@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Point_Location(unsigned int point_idx, const Vector3 &location)
 {
 	if (point_idx < (unsigned int)PointLocations.Count()) {
 		PointLocations[point_idx] = location;
 	}
-	Invalidate_Cached_Bounding_Volumes();
+	Bits &= ~BFME_BOUNDING_VOLUMES_VALID;
 }
 
 // Get object-space location of a given point (if position beyond end of
@@ -336,7 +342,6 @@ float StreakLineClass::Get_Width(void)
 	return LineRenderer.Get_Width();
 }
 
-// ?Set_Width@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Width(float width)
 {
 	// Widths need to be clamped because they are not automatically clamped later (like colors and
@@ -344,7 +349,7 @@ void StreakLineClass::Set_Width(float width)
 	LineRenderer.Set_Width(MAX(width, 0.0f));
 	StreakRenderer.Set_Width(MAX(width, 0.0f));
 
-	Invalidate_Cached_Bounding_Volumes();
+	Bits &= ~BFME_BOUNDING_VOLUMES_VALID;
 }
 
 void StreakLineClass::Set_Color(const Vector3 &color)
@@ -359,12 +364,11 @@ void StreakLineClass::Set_Opacity(float opacity)
 	StreakRenderer.Set_Opacity(opacity);
 }
 
-// ?Set_Noise_Amplitude@StreakLineClass@@ present-unmatched
 void StreakLineClass::Set_Noise_Amplitude(float amplitude)
 {
 	LineRenderer.Set_Noise_Amplitude(WWMath::Fabs(amplitude));
 
-	Invalidate_Cached_Bounding_Volumes();
+	Bits &= ~BFME_BOUNDING_VOLUMES_VALID;
 }
 
 // ?Set_Merge_Abort_Factor@StreakLineClass@@ present-unmatched
