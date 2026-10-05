@@ -10410,3 +10410,9 @@ FUN_008b7d53	0x004B7D53	141	blocked	vslot10 negative this-adjustment plus EH plu
 ?rva004F9F39@Rva004F9F39@@QAEXXZ	0x004F9F39	470	blocked	470B multi-phase vector sort SSE bitfield no donor caller chain unready needs stronger model t=8 model=muse-10
 ?rva00318C32@Rva00318C79Owner@@QAEPAVRva00318C32Ret@@XZ	0x00318C32	71	partial	eax-ecx spill mirror and early lea esi push scheduling only; tried copy-temp and direct-global levers t=20 model=muse-12 score=0.9 stash=reverse/attempts/0x00318c32.cpp
 ??0Rva00567960@@QAE@HPBURva00567CCDInfo@@@Z	0x00567CCD	135	partial	derived vptrs before m10-m14 copies; retail copies first t=30 model=muse-12 score=0.95 stash=reverse/attempts/0x00567ccd.cpp
+?rva003FDD41@Rva003FDD41@@QAEXHHH@Z	0x003FDD41	107	blocked	double-dtor plus EH layout t=18 model=muse-08
+?rva003FDFFB@Rva003FDFFB@@QAEXXZ	0x003FDFFB	99	blocked	same Rva-Bfme double-dtor wall as 0x3FDD41 t=2 model=muse-08
+?rva003FDF1B@Rva003FDF1B@@QAEXXZ	0x003FDF1B	112	blocked	same Rva-Bfme double-dtor wall as 0x3FDD41 t=2 model=muse-08
+?rva003FDF8B@Rva003FDF8B@@QAEXXZ	0x003FDF8B	112	blocked	same Rva-Bfme double-dtor wall as 0x3FDD41 t=2 model=muse-08
+?rva001DA05E@Rva001DA05E@@QAEAAV0@ABV0@@Z	0x001DA05E	180	blocked	vector operator= calls two element types needs retype t=5 model=muse-08
+?rva001DA112@Rva001DA112@@QAEHHH@Z	0x001DA112	140	blocked	same conflicting vector types as 0x1DA05E t=2 model=muse-08
