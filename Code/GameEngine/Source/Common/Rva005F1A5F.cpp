@@ -39,6 +39,7 @@ class Rva005F1AF5
 {
 public:
 	void rva005F1AF5(const char *p);
+	void rva005F1B18(const char *p);
 private:
 	char m_pad[0x44];
 	int m_44;
@@ -48,4 +49,14 @@ void Rva005F1AF5::rva005F1AF5(const char *p)
 {
 	if (Rva005F1A5FGet(p, (int *)&p))
 		m_44 = (int)p;
+}
+
+// ?rva005F1B18@Rva005F1AF5@@QAEXPBD@Z @0x005F1B18 41B: thiscall clearing +0x44 to -1 when parsed index equals stored value via 0x005F1A5F.
+// Evidence: chain from 0x005F1A5F; same +0x44 layout as 0x005F1AF5; rowed callee; no Ghidra entry beyond size.
+void Rva005F1AF5::rva005F1B18(const char *p)
+{
+	if (Rva005F1A5FGet(p, (int *)&p)) {
+		if ((int)p == m_44)
+			m_44 = -1;
+	}
 }
