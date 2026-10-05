@@ -1,11 +1,32 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 //
 // BFME2's score screen Apt callbacks, 0x0051BF75 onward, bound by these
 // names ("AptScoreScreen::OnInitialized" ...) as member pointers by the
 // screen's registration; that binding is their only reference. The class
 // is named for the strings' prefix. +0x27C is the screen's state.
 
-class GameWindow;
+#include "unicode_string.h"
+
+extern "C" int __cdecl strcmp(const char *left, const char *right);
+
+class BfmeKeyLC;
+
+// The list box user data byte +0x12 the score screen sets.
+struct AptScoreListData
+{
+	unsigned char m_pad[0x12];
+	bool m_12; // +0x12
+};
+
+class GameWindow
+{
+public:
+	void *winGetUserData();
+	void winSetUserData(void *data);
+};
+
+void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
+void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
 
 class GameWindowManager
 {
@@ -51,10 +72,14 @@ public:
 	void Timeline(const char *unused);
 	void RestartGame(const char *unused);
 	void Continue(const char *unused);
+	void InitGadgets(const char *name, void *argument, GameWindow *window);
 
 private:
 	unsigned char m_pad000[0x27C];
 	int m_state; // +0x27C
+	unsigned char m_pad280[0x2A0 - 0x280];
+	GameWindow *m_units; // +0x2A0
+	GameWindow *m_rename; // +0x2A4
 };
 
 // Retail 0x0051BF75, 38 bytes: "AptScoreScreen::OnInitialized" focuses
@@ -85,4 +110,26 @@ void AptScoreScreen::Continue(const char *unused)
 {
 	g_009FEF10->rva002B3740();
 	m_state = 3;
+}
+
+// Retail 0x0051C7CC, 124 bytes: "AptScoreScreen::InitGadgets" keeps the
+// "PersistentUnitsListBox" (flagging its data's +0x12) and the emptied
+// "RenameUnitsTextEntry" (at most 20 characters).
+void AptScoreScreen::InitGadgets(const char *name, void *argument, GameWindow *window)
+{
+	if (!window)
+		return;
+	if (strcmp(name, "PersistentUnitsListBox") == 0)
+	{
+		m_units = window;
+		AptScoreListData *data = (AptScoreListData *)window->winGetUserData();
+		data->m_12 = true;
+		window->winSetUserData(data);
+	}
+	else if (strcmp(name, "RenameUnitsTextEntry") == 0)
+	{
+		m_rename = window;
+		GadgetTextEntrySetText(window, UnicodeString::TheEmptyString);
+		bfmeGo924F((BfmeKeyLC *)window, 20);
+	}
 }

@@ -1,9 +1,39 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 //
 // Small OnInitialized / Continue Apt callbacks of four BFME2 screens, each
 // bound by the name it carries ("AptMessenger::OnInitialized" ...) as a
 // member pointer by its screen's registration; that binding is the only
 // reference. Each class is a one-method view named for its string's prefix.
+
+#include "unicode_string.h"
+
+extern "C" int __cdecl strcmp(const char *left, const char *right);
+
+class GameWindow;
+class BfmeKeyLC;
+
+class GameWindowManager
+{
+public:
+#define V(n) virtual void pad##n() = 0;
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
+	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
+	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
+	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
+	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47)
+	V(48)
+#undef V
+	virtual int winSetFocus(GameWindow *window) = 0;
+};
+
+extern GameWindowManager *TheWindowManager;
+
+void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
+void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
+
+// The in-game chat's kept line (Rva004E855CMethod.cpp's g_00E0447C).
+extern UnicodeString g_00E0447C;
 
 // TheShell (VA 0x00E01E48, the ledger's g_Va00A01E48).
 struct GlobalA01E48
@@ -35,10 +65,13 @@ class AptInGameChat
 {
 public:
 	void OnInitialized(const char *unused);
+	void InitGadgets(const char *name, void *argument, GameWindow *window);
 
 private:
 	unsigned char m_pad000[0x27C];
 	int m_state; // +0x27C
+	unsigned char m_pad280[0x284 - 0x280];
+	GameWindow *m_entry; // +0x284
 };
 
 class AptDisconnectScreen
@@ -84,4 +117,19 @@ void AptCampaignReview::Continue(const char *unused)
 	if (g_Va00A01E48)
 		g_Va00A01E48->m_5d = true;
 	Rva0051280EEnable();
+}
+
+// Retail 0x004E84FF, 93 bytes: "AptInGameChat::InitGadgets" restores the
+// kept line into "InGameChatEntry" (at most 110 characters) and focuses it.
+void AptInGameChat::InitGadgets(const char *name, void *argument, GameWindow *window)
+{
+	if (!window)
+		return;
+	if (strcmp(name, "InGameChatEntry") == 0)
+	{
+		GadgetTextEntrySetText(window, g_00E0447C);
+		bfmeGo924F((BfmeKeyLC *)window, 110);
+		TheWindowManager->winSetFocus(window);
+		m_entry = window;
+	}
 }
