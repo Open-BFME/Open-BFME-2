@@ -12903,3 +12903,6 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@ABH@Z,0x00382A92,lower bound for int TreeHintRef00217D4C map
 ??0?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@QAE@ABHABUTreeHintRef00217D4C@@@Z,0x00217607,pair ctor for int TreeHintRef00217D4C
 ?insert@?$map@HUTreeHintRef00217D4C@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHUTreeHintRef00217D4C@@@2@@Z,0x0035926E,hinted map insert for int TreeHintRef00217D4C
+??0Helper005C4D4B@@QAE@PAX@Z,0x005C4D4B,Helper005C4D4B constructor from pointer
+??0Rva005C4B56@@QAE@ABUHelper005C4D4B@@HH@Z,0x005C4DE0,Rva005C4B56 constructor from Helper005C4D4B
+?method_002BFFD4@Rva002D3627Host@@QAEXPAXH0@Z,0x002BFFD4,Rva002D3627Host method called by Rva005C4230 ctor

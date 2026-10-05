@@ -63554,3 +63554,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?reset@Rva005C6C7B@@QAEXXZ,,0x005C6C89,62,Code/GameEngine/Source/Common/Rva005C6C89.cpp,matched,Rva005C6C7B reset method: clears tree and resets member bounds/flags
 ??0Rva005C6C7B@@QAE@XZ,,0x005C6D4D,51,Code/GameEngine/Source/Common/Rva005C6C89.cpp,matched,Rva005C6C7B default constructor: installs vtable 0x00C74918 and clears members
 ??A?$map@HUTreeHintRef00217D4C@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@3@@_STL@@QAEAAUTreeHintRef00217D4C@@ABH@Z,,0x005C6CCC,124,Code/GameEngine/Source/Common/Rva005C6CCC.cpp,matched,map int TreeHintRef00217D4C operator[]: lower bound lookup with hinted insert
+??0Rva005C4230@@QAE@PAXPAUArg1Host005C4280@@@Z,,0x005C4280,182,Code/GameEngine/Source/Common/Rva005C4280.cpp,matched,Rva005C4230 constructor: base ctor with Helper005C4D4B then vtable 0x00C744E8 setup and state transitions
