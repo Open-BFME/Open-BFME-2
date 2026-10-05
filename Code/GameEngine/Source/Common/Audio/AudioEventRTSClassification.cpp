@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // AudioEventRTS sound-class mapper and its positional-audio test.
 //
@@ -13,12 +13,30 @@
 // and the switch structure; BFME 2 moves the class field to +0xB0, adds a
 // class-gated world-bit test and accepts owner types 1..5. Field names are
 // carried from the donor / GeneralsMD, not recovered from BFME 2.
+//
+// Ghidra 0x002DA08C (67B) switches on the portion field +0x74 exactly like
+// GeneralsMD AudioEventRTS::advanceNextPlayPortion and, for PP_Sound, calls
+// Ghidra 0x002D9C07 (40B), whose body is the donor's hasMoreLoops (bypass
+// byte +0x4C, sound type +0xB0, control bit 0 at info +0x4C). The decay name
+// is the AsciiString at +0x20 tested with the out-of-line isEmpty.
+
+#include "string_base.h"
+
+enum PortionToPlay
+{
+	PP_Attack,
+	PP_Sound,
+	PP_Decay,
+	PP_Done
+};
 
 struct AudioEventInfo
 {
 	unsigned char m_pad00[0x48];
 	unsigned char m_type;
-	unsigned char m_pad49[0x67];
+	unsigned char m_pad49[0x03];
+	unsigned char m_control;
+	unsigned char m_pad4D[0x63];
 	unsigned int m_soundType;
 };
 
@@ -27,14 +45,22 @@ class AudioEventRTS
 public:
 	unsigned int getSoundClass(void) const;
 	bool isPositionalAudio(void) const;
+	bool hasMoreLoops(void) const;
+	void advanceNextPlayPortion(void);
 
 private:
 	void *m_vftable;
 	void *m_filenameToLoad;
 	const AudioEventInfo *m_eventInfo;
-	char m_pad0C[0x28];
+	char m_pad0C[0x14];
+	StringBase<char> m_decayName;
+	char m_pad24[0x10];
 	unsigned int m_ownerID;
 	int m_ownerType;
+	char m_pad3C[0x10];
+	unsigned char m_bypassLoops;
+	char m_pad4D[0x27];
+	PortionToPlay m_portionToPlayNext;
 };
 
 // ?isPositionalAudio@AudioEventRTS@@QBE_NXZ
@@ -109,5 +135,40 @@ unsigned int AudioEventRTS::getSoundClass(void) const
 		return 0;
 	default:
 		return 0;
+	}
+}
+
+// ?hasMoreLoops@AudioEventRTS@@QBE_NXZ
+bool AudioEventRTS::hasMoreLoops(void) const
+{
+	if (m_bypassLoops != 0)
+		return false;
+
+	const AudioEventInfo *eventInfo = m_eventInfo;
+	if (eventInfo == 0)
+		return true;
+
+	unsigned int soundType = eventInfo->m_soundType;
+	if (soundType == 0 || soundType == 3 || (eventInfo->m_control & 1) != 0)
+		return true;
+
+	return false;
+}
+
+// ?advanceNextPlayPortion@AudioEventRTS@@QAEXXZ
+void AudioEventRTS::advanceNextPlayPortion(void)
+{
+	switch (m_portionToPlayNext)
+	{
+	case PP_Attack:
+		m_portionToPlayNext = PP_Sound;
+		break;
+	case PP_Sound:
+		if (!hasMoreLoops())
+			m_portionToPlayNext = m_decayName.isEmpty() ? PP_Done : PP_Decay;
+		break;
+	case PP_Decay:
+		m_portionToPlayNext = PP_Done;
+		break;
 	}
 }
