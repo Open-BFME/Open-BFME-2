@@ -1,12 +1,16 @@
-// ?handle@Rva008091C0Owner@@QAEXPAVBfmeC994@@HPAD@Z
-// partial score=0.995 date=2026-10-05
-// ?handle@Rva008091C0Owner@@QAEXPAVBfmeC994@@HPAD@Z
-// partial score=0.99 date=2026-09-30
-// ?handle@Rva008091C0Owner@@QAEXPAVBfmeC994@@HPAD@Z
-// partial score=0.99 date=2026-09-30
 // cl: /O2 /GX- /GS
 // ?handle@Rva008091C0Owner@@QAEXPAVBfmeC994@@HPAD@Z @ 0x006750C0 361B via Fesl handler leaf
 // Evidence: callers Rva0080A280FeslHandler Rva0080A3C0FeslDispatcher, pins d_008091c0 handle
+//
+// Recovered from the banked 0.995 attempt.  Two layout facts were corrected
+// against retail bytes: the entry stride is 8 (`lea eax,[eax+ebx*8]`, so
+// m_name at +0 with a 4-byte tail pad) and FeslState::m_array sits at +0x2A8
+// (the attempt carried a stray int at +0x2A8 that pushed the count to +0x2AC
+// and the owner to +0x2DC; retail loads owner from +0x2D8).
+// The closing lever is register allocation only: passing owner->slot04(n)
+// inline as the bfmeGoCIC argument, with no `void *v` temporary, leaves the
+// loop induction variable in EBX and the array base in EDI so the allocator
+// saves EBX and spills the base exactly as retail does.
 #include <string.h>
 
 extern "C" int sprintf(char *buffer, const char *format, ...);
@@ -66,7 +70,7 @@ public:
 struct FeslEntry
 {
 	char *m_name;
-	int m_pad04;
+	char m_pad04[4];
 };
 
 struct FeslArray
@@ -89,7 +93,6 @@ struct FeslState
 	void *m_28;
 	void *m_2c;
 	char m_pad30[0x278];
-	int m_count;
 	FeslArray m_array;
 	char m_pad2b0[0x28];
 	Rva00802040Owner *m_owner;
@@ -132,7 +135,6 @@ void Rva008091C0Owner::handle(BfmeC994 *message, int gid, char *name)
 		char *n = arr->at(i)->m_name;
 		char buf[0x40];
 		sprintf(buf, "B-%.60s", n);
-		void *v = owner->slot04(n);
-		reinterpret_cast<BfmeThingCIC *>(message)->bfmeGoCIC(buf, v);
+		reinterpret_cast<BfmeThingCIC *>(message)->bfmeGoCIC(buf, owner->slot04(n));
 	}
 }

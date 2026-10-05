@@ -56143,3 +56143,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva000530DF@MilesAudioManager@@QAEXXZ,,0x000530DF,52,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000530DF.cpp,matched,guard over 0x9D4 zero 0xBE4 call row 0x512C4
 ?rva0036E071@AIGroup@@QBE_NXZ,,0x0036E071,69,Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036E071.cpp,matched,same walk as isIdle AI slot 113 plus 0x438 dead bit
 ??0Rva003F86F9@@QAE@HH@Z,,0x003F86F9,47,Code/GameEngine/Source/Common/Rva003F86F9Ctor.cpp,matched,finish ctor two-int base vector at C int at 18 set -1 vtable gate-filled caller 0x003F9147
+?handle@Rva008091C0Owner@@QAEXPAVBfmeC994@@HPAD@Z,,0x006750C0,361,Code/GameEngine/Source/GameNetwork/Rva006750C0Finish.cpp,matched,Fesl handler leaf entry stride 8 and m_array at 0x2A8; inline owner->slot04(n) argument puts loop index in EBX
