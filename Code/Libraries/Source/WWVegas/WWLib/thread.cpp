@@ -38,49 +38,6 @@
 
 // ??1ThreadClass@@ defined in ThreadClassLifecycle.cpp (kept copy for link).
 
-// ?Internal_Thread_Function@ThreadClass@@ present-unmatched
-void __cdecl ThreadClass::Internal_Thread_Function(void* params)
-{
-	ThreadClass* tc=reinterpret_cast<ThreadClass*>(params);
-	tc->running=true;
-	tc->ThreadID = GetCurrentThreadId();
-
-#ifdef _WIN32
-	Register_Thread_ID(tc->ThreadID, tc->ThreadName);
-
-	if (tc->ExceptionHandler != NULL) {
-		__try {
-			tc->Thread_Function();
-		} __except(tc->ExceptionHandler(GetExceptionCode(), GetExceptionInformation())) {};
-	} else {
-		tc->Thread_Function();
-	}
-
-#else //_WIN32
-	tc->Thread_Function();
-#endif //_WIN32
-
-#ifdef _WIN32
-	Unregister_Thread_ID(tc->ThreadID, tc->ThreadName);
-#endif // _WIN32
-	tc->handle=0;
-	tc->ThreadID = 0;
-}
-
-// ?Execute@ThreadClass@@ present-unmatched
-void ThreadClass::Execute()
-{
-	WWASSERT(!handle);	// Only one thread at a time!
-	#ifdef _UNIX
-		// assert(0);
-		return;
-	#else
-		handle=_beginthread(&Internal_Thread_Function,0,this);
-		SetThreadPriority((HANDLE)handle,THREAD_PRIORITY_NORMAL+thread_priority);
-		WWDEBUG_SAY(("ThreadClass::Execute: Started thread %s, thread ID is %X\n", ThreadName, handle));
-	#endif
-}
-
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WWLib/ThreadClassLifecycle.cpp
 // ThreadClass::Set_Priority: defined in ThreadClassLifecycle.cpp (its row's unit).
 
