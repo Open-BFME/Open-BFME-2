@@ -8610,3 +8610,4 @@ STILL OPEN, and now the ONLY thing between this body and a landing: the je DISPL
 ?rva002F301F@Rva002F301F@@QAEXXZ	0x002F301F	26	partial	movzx vs mov al for byte extra at +0xc t=18 model=muse-spark score=0.96 stash=reverse/attempts/0x002f301f.cpp
 FUN_0046eb6d	0x0006EB6D	444	blocked	WW3D render 444B many DX8 states plus unclear cdecl args caller 1855B over lookup budget t=12 model=muse-spark
 ??1Rva005B7FA4@@UAE@XZ	0x005B7FA4	86	partial	missing third vptr store mov [esi] 0xc6db78 before base call; MI 2-base emits 2 stores retail has 3 t=18 model=muse-05 score=0.93 stash=reverse/attempts/0x005b7fa4.cpp
+?Rva005B76ACConvert@@YGXPAVUnicodeString@@VAsciiString@@@Z	0x005B76AC	194	blocked	string GameText fetch-translate 198B vs 194B 9 structural ebx-state and null-check diffs need donor flags t=22 model=muse-05

@@ -117,3 +117,33 @@ void Rva005B6F1E::rva005B6F1E(const unsigned short *a1, const unsigned short *a2
 	if (v != 0)
 		m_ok2 = true;
 }
+// ?rva005B7010@Rva005B7010@@QAEXXZ @0x005B7010 34B
+// COM cleanup adjacent to 0x005B6F1E: releases IUnknown at +0x10 via Release slot +8 then CoUninitialize if HRESULT at +0xC >= 0.
+// Evidence: retail mov eax [esi+0x10] test je mov ecx [eax] push eax call [ecx+8] and [esi+0x10] 0 cmp [esi+0xC] 0 jl jmp IAT CoUninitialize 0x00BBABE0; caller 0x00514EE1; same TU same flags.
+struct IUnknown005B7010
+{
+	virtual HRESULT __stdcall QueryInterface(const GUID &id, void **out) = 0;
+	virtual ULONG __stdcall AddRef() = 0;
+	virtual ULONG __stdcall Release() = 0;
+};
+extern "C" __declspec(dllimport) void __stdcall CoUninitialize();
+class Rva005B7010
+{
+public:
+	void rva005B7010();
+private:
+	char m_pad[0x0C];
+	HRESULT m_hr;
+	IUnknown005B7010 *m_com;
+};
+void Rva005B7010::rva005B7010()
+{
+	if (m_com != 0)
+	{
+		m_com->Release();
+		m_com = 0;
+	}
+	if (m_hr < 0)
+		return;
+	CoUninitialize();
+}
