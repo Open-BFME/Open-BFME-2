@@ -46,6 +46,7 @@ public:
     virtual void AddRef();
     virtual void Release();
 };
+struct AptHashItem;
 class AptNativeHash {
     struct Entry { AsciiString key; AptValue *value; };
     int mnTotalSize;
@@ -70,6 +71,7 @@ public:
     void rva0070AB30();
     Entry *rva0070AAA0(Entry *pItem);
 private:
+    AptHashItem *HashFindKey(const EAStringC *const) const;
     void Expand();
     void HashSet(const EAStringC *const,AptValue *const);
 };
@@ -489,3 +491,70 @@ void AptNativeHash::ClearDataNoDelete()
     }
     nEventHandlers=0;
 }
+
+// Original MAP signature and donor7c62a278 while(i--) loops; native extent
+// through70B178 includes final return7B omitted by prior Ghidra/bank482B size.
+AptHashItem *AptNativeHash::HashFindKey(const EAStringC *const pKey) const
+{
+    if (!pKey) {
+        g_bfmeAptAssertAtE17734("pKey != NULL", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptNativeHash.cpp", 0x351);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) {
+            __asm int 3
+        }
+    }
+    int nIndex = pKey->rva006D2F40() & (mnTotalSize - 1);
+    if (!mpData[nIndex].key.hasData())
+        return 0;
+    if (!((const EAStringC *)&mpData[nIndex].key)->IsEmpty()) {
+        if (((const EAStringC *)&mpData[nIndex].key)->rva006D36F0(pKey))
+            return (AptHashItem *)&mpData[nIndex];
+    }
+    int nBoundMin = nIndex - 8;
+    int nBoundMax;
+    if (nBoundMin < 0) {
+        nBoundMin = 0;
+        nBoundMax = 0x10;
+        if (mnTotalSize <= 0x10)
+            nBoundMax = mnTotalSize - 1;
+    } else {
+        nBoundMax = nIndex + 8;
+        if (nBoundMax > mnTotalSize - 1) {
+            nBoundMax = mnTotalSize - 1;
+            nBoundMin = nBoundMax - 0x10;
+            if (nBoundMin < 0)
+                nBoundMin = 0;
+        }
+    }
+    if (!(nBoundMax < mnTotalSize)) {
+        g_bfmeAptAssertAtE17734("nBoundMax < mnTotalSize", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptNativeHash.cpp", 0x388);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) {
+            __asm int 3
+        }
+    }
+    if (!(nBoundMin < nBoundMax)) {
+        g_bfmeAptAssertAtE17734("nBoundMin < nBoundMax", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptNativeHash.cpp", 0x389);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) {
+            __asm int 3
+        }
+    }
+
+    int current=nIndex,i=nBoundMax-nIndex;
+    while(i--) {
+        ++current;
+        if(!mpData[current].key.hasData()) return 0;
+        if(!((const EAStringC *)&mpData[current].key)->IsEmpty()) {
+            if(((const EAStringC *)&mpData[current].key)->rva006D36F0(pKey)) return (AptHashItem *)&mpData[current];
+        }
+    }
+    current=nIndex;i=nIndex-nBoundMin;
+    while(i--) {
+        --current;
+        if(!mpData[current].key.hasData()) return 0;
+        if(!((const EAStringC *)&mpData[current].key)->IsEmpty()) {
+            if(((const EAStringC *)&mpData[current].key)->rva006D36F0(pKey)) return (AptHashItem *)&mpData[current];
+        }
+    }
+    return 0;
+}
+
+#pragma comment(linker, "/alternatename:?rva0070AF90@Rva0070B380@@QAEPAXABVEAStringC@@@Z=?HashFindKey@AptNativeHash@@ABEPAUAptHashItem@@QBVEAStringC@@@Z")
