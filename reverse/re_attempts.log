@@ -9439,3 +9439,4 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ??1Rva005CEE9F@@UAE@XZ	0x005CEE9F	144	blocked	sibling of blocked 0x005CEE07 same EH frame plus layout refs t=5 model=muse-03
 ??1Rva005CE4FA@@UAE@XZ	0x005CE4FA	185	blocked	sibling of blocked 0x005CEE07 same EH frame plus layout refs t=3 model=muse-03
 ?rva000C7699@Rva000C7699@@QAEXXZ	0x000C7699	135	blocked	draw slot36 EH loop frame plus regs plus release shape t=12 model=muse-03
+??1Rva0057BD01@@QAE@XZ	0x0057BD01	120	blocked	non-virtual model misses vtable 0xc6f26c vs 0 plus EH state 2 vs 4 missing byte stores 3 and 2 implicit member dtors do not arm EH t=10 model=muse-01
