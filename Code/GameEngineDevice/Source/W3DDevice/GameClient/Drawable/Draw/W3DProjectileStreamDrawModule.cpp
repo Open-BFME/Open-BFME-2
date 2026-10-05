@@ -81,6 +81,7 @@ public:
 	T *m_ptr;
 };
 
+#pragma optimize("t", on)
 class ShaderClass
 {
 public:
@@ -89,6 +90,7 @@ public:
 private:
 	unsigned int ShaderBits;
 };
+#pragma optimize("", on)
 
 class SegLineRendererClass
 {
@@ -125,7 +127,7 @@ public:
 	virtual void v17();
 	virtual void *Peek_Scene( void );																					///< slot 18
 	void Set_Points( UnsignedInt num_points, Vector3 *locs );
-	void Set_Texture( const RefCountPtr<TextureClass> &texture );
+	void Set_Texture( TextureClass *texture );
 	void Set_Shader( ShaderClass shader );
 	void Set_Width( Real width );
 	void Set_Texture_Mapping_Mode( SegLineRendererClass::TextureMapMode mode );
@@ -300,7 +302,7 @@ void W3DProjectileStreamDraw::makeOrUpdateLine( Vector3 *points, UnsignedInt poi
 	{
 		// This is one time stuff we only need to do if this is a new and not a change
 		const W3DProjectileStreamDrawModuleData *data = getW3DProjectileStreamDrawModuleData();
-		line->Set_Texture(m_texture);	//set the texture
+		line->Set_Texture((TextureClass *)&m_texture);	//set the texture
 		line->Set_Shader(ShaderClass::_PresetAdditiveSpriteShader);	//pick the alpha blending mode you want - see shader.h for others.
 		line->Set_Width(data->m_width);	//set line width in world units
 		line->Set_Texture_Mapping_Mode(SegLineRendererClass::TILED_TEXTURE_MAP);	//this tiles the texture across the line
