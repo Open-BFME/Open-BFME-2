@@ -52,3 +52,19 @@ done:
 	*(int *)aligned = 0;
 	return true;
 }
+
+// Native [2EB448,2EB46E) retries own verified grow then unlinks head+8.
+void *Rva002E8548::rva002EB448()
+{
+retry:
+	if ( m_head == 0 )
+	{
+		if ( rva002E8548( 0, 0 ) )
+			goto retry;
+		return 0;
+	}
+	void *node = m_head;
+	m_head = *(void **)node;
+	return node;
+}
+
