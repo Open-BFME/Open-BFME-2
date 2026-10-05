@@ -6,9 +6,9 @@
 // binding is their only reference. Zero Hour's firewall refresh (OptionsMenu's
 // ButtonFirewallRefresh) behind the screen's +0x283 flag.
 
-// Zero Hour's FirewallHelperClass and TheFirewallHelper (0x00E063B0); the
-// helper is deleted through its vslot 0 and a separate operator delete
-// (AnimateWindowManager.cpp's spelling).
+// Zero Hour's FirewallHelperClass and g_a063b0 (VA 0x00E063B0, RVA
+// 0x00A063B0); the helper is deleted through its vslot 0 and a separate
+// operator delete (AnimateWindowManager.cpp's spelling).
 class FirewallHelperClass
 {
 public:
@@ -16,12 +16,25 @@ public:
 
 	void flagNeedToRefresh(bool flag);
 	bool behaviorDetectionUpdate();
-	// Rowed as the free ?Rva00595E46Save@@YAXXZ; called here as Zero Hour's
-	// member, pinned by address.
+	// Zero Hour spelling of the body rowed as the free
+	// ?Rva00595E46Save@@YAXXZ; retail RefreshNat keeps the member-call ECX
+	// load (mov ecx,[g_a063b0]) before calling it, so the call must stay a
+	// thiscall for byte-match and alias to the row for linking.
 	void writeFirewallBehavior();
 };
 
-extern FirewallHelperClass *TheFirewallHelper;
+// Rva005A71B1Dtor.cpp's global at VA 0x00E063B0; the name the ledger uses
+// for this address (used by 2 TUs).
+struct Rva00A063B0Obj
+{
+	void *m_vtbl;
+};
+
+extern Rva00A063B0Obj *g_a063b0;
+
+// Alias the Zero Hour member spelling to the rowed free body so the
+// thiscall in RefreshNat links without changing its bytes.
+#pragma comment(linker, "/alternatename:?writeFirewallBehavior@FirewallHelperClass@@QAEXXZ=?Rva00595E46Save@@YAXXZ")
 
 // Rva00595143Firewall.cpp's createFirewallHelper.
 FirewallHelperClass *Rva00595143Get();
@@ -127,22 +140,22 @@ void AptOptions::RefreshNat(const char *unused)
 {
 	if (!m_online)
 		return;
-	if (TheFirewallHelper == 0)
-		TheFirewallHelper = Rva00595143Get();
-	TheFirewallHelper->flagNeedToRefresh(true);
-	if (((Rva00595D95 *)TheFirewallHelper)->rva00595D95() == true)
+	if (g_a063b0 == 0)
+		g_a063b0 = (Rva00A063B0Obj *)Rva00595143Get();
+	((FirewallHelperClass *)g_a063b0)->flagNeedToRefresh(true);
+	if (((Rva00595D95 *)g_a063b0)->rva00595D95() == true)
 	{
-		::operator delete(TheFirewallHelper ? TheFirewallHelper->deleteInstance(0) : 0);
-		TheFirewallHelper = 0;
+		::operator delete(g_a063b0 ? ((FirewallHelperClass *)g_a063b0)->deleteInstance(0) : 0);
+		g_a063b0 = 0;
 	}
-	if (TheFirewallHelper != 0)
+	if (g_a063b0 != 0)
 	{
-		while (TheFirewallHelper->behaviorDetectionUpdate() == false)
+		while (((FirewallHelperClass *)g_a063b0)->behaviorDetectionUpdate() == false)
 			;
-		TheFirewallHelper->writeFirewallBehavior();
-		TheFirewallHelper->flagNeedToRefresh(false);
-		::operator delete(TheFirewallHelper ? TheFirewallHelper->deleteInstance(0) : 0);
-		TheFirewallHelper = 0;
+		((FirewallHelperClass *)g_a063b0)->writeFirewallBehavior();
+		((FirewallHelperClass *)g_a063b0)->flagNeedToRefresh(false);
+		::operator delete(g_a063b0 ? ((FirewallHelperClass *)g_a063b0)->deleteInstance(0) : 0);
+		g_a063b0 = 0;
 	}
 }
 
