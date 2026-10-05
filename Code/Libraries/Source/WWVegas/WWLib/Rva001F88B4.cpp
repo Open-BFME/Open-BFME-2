@@ -14,6 +14,10 @@ public:
 	~RvaSmartPtr12();
 };
 
+namespace _STL {
+template<> void _Construct<RvaSmartPtr12, RvaSmartPtr12>(RvaSmartPtr12 *dest, const RvaSmartPtr12 &source) throw();
+}
+
 class Rva001F88B4
 {
 public:
