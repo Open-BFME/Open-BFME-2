@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c- /Oy- /G7 /arch:SSE
+// cl: /O1 /DNDEBUG /MD /EHs-c- /G7 /arch:SSE
 // ?rva0027541E@Drawable@@QAEXPBURGBColor@@III@Z @0x0027541E 114B evidence: lazy TintEnvelope at +0x68 via rowed new 0x2FDA0 and ctor 0x271826, TintEnvelope::play 0x2744F2 row, float 1.0f via g_Va00BBB8D8, clears bit 2 at +0x114; neighbours Rva00275376/Drawable_rva00275545 same flags.
 struct RGBColor
 {
@@ -11,8 +11,9 @@ class Rva00271826
 {
 public:
 	Rva00271826() throw();
-private:
-	char m_pad[0x50];
+	char m_pad00[0x38];
+	unsigned char m_38;
+	char m_pad39[0x50 - 0x39];
 };
 
 class TintEnvelope
@@ -29,6 +30,7 @@ class Drawable
 {
 public:
 	void rva0027541E(const RGBColor *peak, unsigned int a1, unsigned int a2, unsigned int a3);
+	void rva00275490(const RGBColor *peak);
 private:
 	unsigned char m_pad00[0x68];
 	Rva00271826 *m_68;
@@ -51,4 +53,17 @@ void Drawable::rva0027541E(const RGBColor *peak, unsigned int a1, unsigned int a
 		((TintEnvelope *)m_68)->play(&tmp, 1, 4, 1);
 	}
 	m_114 &= ~4;
+}
+
+void Drawable::rva00275490(const RGBColor *peak)
+{
+	if (peak != 0) {
+		rva0027541E(peak, 0, 0, (unsigned int)-2);
+		m_114 |= 4;
+	} else {
+		if (m_68 == 0)
+			m_68 = new Rva00271826;
+		m_68->m_38 = 0;
+		m_114 &= ~4;
+	}
 }
