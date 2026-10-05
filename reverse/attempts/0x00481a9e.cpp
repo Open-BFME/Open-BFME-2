@@ -1,6 +1,8 @@
 // ?rva00481A9E@Rva0048180C@@QAEXPAVObject@@_NPAURva00481A9EInfo@@@Z
+// partial score=0.97 date=2026-10-05
+// ?rva00481A9E@Rva0048180C@@QAEXPAVObject@@_NPAURva00481A9EInfo@@@Z
 // partial score=0.97 date=2026-10-01
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
+// cl: /O1 /DNDEBUG /MD
 //
 // ?rva00481A9E@Rva0048180C@@QAEXPAVObject@@_NPAURva00481A9EInfo@@@Z @0x00481A9E (225B).
 // Chain from 0x0028FEA7 you landed: healing-benefactor forward plus body
@@ -52,13 +54,20 @@ class Object
 public:
 	Player *getControllingPlayer() const;
 	bool rva0028FEA7(float amount, const Object *source, UnsignedInt extra);
-	bool testWeaponBonusCondition(int condition) const
+	// Retail keeps the whole 32-bit flag word live in eax across the test and the
+	// set: `mov eax,[esi+0x380]` / `mov ecx,eax` / `shr ecx,8` / `test cl,1` /
+	// `jne skip` / `or ah,0x1` / `mov [esi+0x380],eax`. Two facts pin the source:
+	// the read-modify-write is on the WORD (a byte-view accessor collapses the
+	// block to 195-216B because it drops the shared reload), and the OR is a 2-byte
+	// in-place or on `ah` (an `int` shift of the word materialises
+	// `or eax,0x100`, 5B, twice in this body).
+	bool testWeaponBonusCondition(int bit) const
 	{
-		return (m_flags380 & (1 << condition)) != 0;
+		return (m_flags380 & (1 << (bit + 8))) != 0;
 	}
-	void setWeaponBonusCondition(int condition)
+	void setWeaponBonusCondition(int bit)
 	{
-		m_flags380 |= (1 << condition);
+		m_flags380 |= (1 << (bit + 8));
 	}
 
 	char m_pad00[0x254];
@@ -106,11 +115,11 @@ void Rva0048180C::rva00481A9E(Object *tgt, bool flag, Rva00481A9EInfo *info)
 		hasUpgrade = false;
 	if (flag) {
 		if (((Rva0028ADECmpBoolField *)tgt)->get() == true) {
-			if (tgt->testWeaponBonusCondition(8) == false)
-				tgt->setWeaponBonusCondition(8);
+			if (tgt->testWeaponBonusCondition(0) == false)
+				tgt->setWeaponBonusCondition(0);
 			if (hasUpgrade) {
-				if (tgt->testWeaponBonusCondition(15) == false)
-					tgt->setWeaponBonusCondition(15);
+				if (tgt->testWeaponBonusCondition(7) == false)
+					tgt->setWeaponBonusCondition(7);
 			}
 		}
 		BodyModule *body = tgt->m_body;
@@ -122,7 +131,11 @@ void Rva0048180C::rva00481A9E(Object *tgt, bool flag, Rva00481A9EInfo *info)
 		else
 			fsel = info->m_f10;
 		float mult = body->f6();
-		tgt->rva0028FEA7((fsel / (float)g_Va00DBA4E4) * mult, m_owner, info->m_extra);
+		// Retail ends the x87 chain with a single `fmulp st(1),st`, which pops both
+		// operands; the operand order decides whether VC7 emits that pop-pair form
+		// or `fmul st,st(1)` followed by a separate `fstp st(0)` to drop the
+		// divisor. Only this order reaches the pop-pair form.
+		tgt->rva0028FEA7(mult * (fsel / (float)g_Va00DBA4E4), m_owner, info->m_extra);
 	} else {
 		((unsigned char *)&tgt->m_flags380)[1] &= 0x7e;
 	}
