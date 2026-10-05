@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
+// cl: /Ireference/shims/moduledata /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
 //
 // ??1AODCrushCollideModuleData@@UAE@XZ, retail 0x004BC088, 48 bytes.
 // Collide-side ModuleData dtor (ctor rowed at 0x004BBF89 in
@@ -10,24 +10,7 @@
 // +0x24 plus Damage at +0x28 plus filter at +0x2C). Empty derived body;
 // novtable suppresses the derived store retail lacks (Topple precedent).
 
-extern "C" const void *const vtbl_00BBB554[];  // folded, 23 classes; via ??_7BfmeBaseVUQ@@6B@
-#pragma comment(linker, "/alternatename:_vtbl_00BBB554=??_7BfmeBaseVUQ@@6B@")
-
-class Xfer;
-
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc(Xfer *xfer);
-	virtual void loadPostProcess();
-	virtual void xfer(Xfer *xfer);
-};
-
-inline Snapshot::~Snapshot()
-{
-	*(const void **)this = reinterpret_cast<const void *>(((unsigned int)vtbl_00BBB554));
-}
+#include "Common/Snapshot.h"
 
 class Rva00360D26Member
 {
