@@ -62195,3 +62195,5 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva0025DFE8@Rva0025DFE8@@QAE_NH@Z,,0x0025DFE8,44,Code/GameEngine/Source/Common/Rva0025DFE8Predicate.cpp,matched,bool predicate v46 plus rowed isPlayerConnected; cmp order plus dword; address-derived
 ?rva0023DA79@Rva0023DA79@@QAEPAV1@HH@Z,,0x0023DA79,44,Code/GameEngine/Source/Common/Rva0023DA79Bitset.cpp,matched,memset-16 plus bit-set; int-index with unsigned cast for shr; gate-safe HH
 ?rva00260F9E@Rva00260F9E@@QAE_NH@Z,,0x00260F9E,50,Code/GameEngine/Source/Common/Rva00260F9EPredicate.cpp,matched,bool byte-direct return; address-derived
+?rva00287C21@Rva00287C21Host@@QAEXPAURva00287C21Other@@@Z,,0x00287C21,24,Code/GameEngine/Source/Common/Rva00287C21Twins.cpp,matched,honest Rva twins calling rowed setter 0x287552 on sign of +0x49C
+?rva00287C39@Rva00287C21Host@@QAEXPAURva00287C21Other@@@Z,,0x00287C39,24,Code/GameEngine/Source/Common/Rva00287C21Twins.cpp,matched,honest Rva twin of 0x287C21 with inverted sign and 0 value

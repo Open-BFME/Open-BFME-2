@@ -12055,3 +12055,6 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?thru@Rva0023D6D5Callee@@QAEXXZ,0x001EC98E,TU-local thru pinned to 0x1EC98E for 0x23D6D5
 ?dtor@Rva002698E6Dtor@@QAEXXZ,0x00268B04,TU-local dtor pinned to rowed 0x268B04 for 0x2698E6 deleting shape
 ?dtor@Rva00254008Dtor@@QAEXXZ,0x00254024,TU-local dtor pinned to thunk 0x254024 (ILT to rowed GateOpenAndClose dtor) for 0x254008
+_rva002D6D63@8,0x002D6D63,stdcall factory reached through the sole REL32 at 0x00275FAD in 0x00275F3F; two pushed args and no caller cleanup
+?rva00239099@Rva00239099Slot@@QAEXPAX@Z,0x00239099,thiscall slot method called from 0x002766F8 with pushed arg; 1 stack arg
+?rva00287552@Rva00287C21Host@@QAEXPAURva00287C21Other@@H@Z,0x00287552,thiscall setter called from twins 0x287C21/39 with obj+0-or-1
