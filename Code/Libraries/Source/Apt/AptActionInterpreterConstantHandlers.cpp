@@ -191,7 +191,7 @@ private:
     HANDLER(Divide); HANDLER(Modulo); HANDLER(Increment); HANDLER(Decrement);
     HANDLER(Equals); HANDLER(LessThan); HANDLER(And); HANDLER(Or); HANDLER(Not);
     HANDLER(BranchAlways); HANDLER(BranchIfTrue); HANDLER(BranchIfFalse); HANDLER(Pop);
-    HANDLER(NewObject);
+    HANDLER(NewObject); HANDLER(NewMethod);
     HANDLER(CallFunction); HANDLER(CallMethod); HANDLER(With);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
@@ -1779,6 +1779,23 @@ void AptActionInterpreter::_FunctionAptActionNewObject(AptActionInterpreter *con
     int nParams=params->toInteger();
     p->stack.Pop(2);
     AptValue *object=(AptValue *)p->_createObject((AptValue *)c->pCurrentContext,c->pCurWith,&objectName,nParams,true);
+    if(object) { p->stack.Push(object); object->Release(); }
+    else p->stack.Push(gpUndefinedValue);
+}
+
+void AptActionInterpreter::_FunctionAptActionNewMethod(AptActionInterpreter *const p,LocalContextT *const c)
+{
+    AptValue *name=p->stack.At(0);
+    AptValue *context=p->stack.At(1);
+    AptValue *params=p->stack.At(2);
+    EAStringC objectName;
+    name->toString(objectName);
+    int nParams=params->toInteger();
+    p->stack.Pop();
+    p->stack.PopNoDec();
+    p->stack.Pop();
+    AptValue *object=(AptValue *)p->_createObject(context,c->pCurWith,&objectName,nParams,true);
+    context->Release();
     if(object) { p->stack.Push(object); object->Release(); }
     else p->stack.Push(gpUndefinedValue);
 }
