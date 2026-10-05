@@ -336,6 +336,23 @@ void drawAudioLocations( Drawable *draw, void *userData );
 
 
 //-------------------------------------------------------------------------------------------------
+/** Sets the width of the viewport, while maintaining original camera perspective. */
+//-------------------------------------------------------------------------------------------------
+void W3DView::setWidth(Int width)
+{
+	BfmeW3DViewViewportFields *fields = (BfmeW3DViewViewportFields *)this;
+	BfmeW3DViewViewportVtable *view = (BfmeW3DViewViewportVtable *)this;
+	fields->m_width = width;
+
+	Vector2 vMin,vMax;
+	fields->m_3DCamera->Set_Aspect_Ratio((Real)width/(Real)view->getHeight());
+	fields->m_3DCamera->Get_Viewport(vMin,vMax);
+	vMax.X=(Real)(fields->m_originX+width)/(Real)((BfmeDisplayViewportVtable *)TheDisplay)->getWidth();
+	fields->m_3DCamera->Set_Viewport(vMin,vMax);
+	fields->m_3DCamera->Set_View_Plane((Real)width/(Real)((BfmeDisplayViewportVtable *)TheDisplay)->getWidth()*DEG_TO_RADF(50.0f),-1);
+}
+
+//-------------------------------------------------------------------------------------------------
 /** Sets location of top-left view corner on display */
 //-------------------------------------------------------------------------------------------------
 void W3DView::setOrigin( Int x, Int y)
