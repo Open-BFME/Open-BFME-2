@@ -6688,3 +6688,22 @@ void __cdecl rva007B6BF5()
 	Rva007EC44 *p = (Rva007EC44 *)&g_Va00DE2008;
 	return p->Rva007EC44::~Rva007EC44();
 }
+
+// FrustumClass construction view for the thunk below. The rowed ctor
+// (0x000F0F5B, FrustumCtorO1.cpp) is defined in its own TU, so this thunk
+// reproduces the compiler-generated dynamic-initializer shape through an
+// init alias pinned in symbols.csv. The global holds a FrustumClass.
+struct FrustumInitThunk
+{
+	void init();
+};
+
+extern unsigned g_Va00DEBD00;
+unsigned int g_Va00DEBD00;
+
+// ?rva007AC7F5@@YAXXZ @ 0x007AC7F5 (10B). FrustumClass construction thunk: ecx=&g_Va00DEBD00 then tail-jmp to rowed ??0FrustumClass@@QAE@XZ (0x000F0F5B) via init alias. No callers. Honest address name.
+void __cdecl rva007AC7F5()
+{
+	FrustumInitThunk *p = (FrustumInitThunk *)&g_Va00DEBD00;
+	return p->init();
+}
