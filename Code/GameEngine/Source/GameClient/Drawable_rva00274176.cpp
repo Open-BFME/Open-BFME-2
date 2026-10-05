@@ -126,14 +126,75 @@ public:
 	virtual int slot23(int x) = 0;
 };
 
+template <int N> class BitFlags
+{
+public:
+	unsigned m_words[7];
+};
+
+// A KindOfMaskType with two kinds set (rowed 0x0006EE7A).
+struct Rva0006EE7A : public BitFlags<69>
+{
+	Rva0006EE7A(int unused, int b1, int b2);
+};
+
+class Thing
+{
+public:
+	bool isAnyKindOf(const BitFlags<69> &mask) const;
+};
+
+typedef int Color;
+
+class Object : public Thing
+{
+public:
+	Color getIndicatorColor() const;
+	Color getNightIndicatorColor() const;
+};
+
+enum TimeOfDay
+{
+	TIME_OF_DAY_NIGHT = 4
+};
+
+class GlobalData
+{
+public:
+	unsigned char m_pad000[0x134];
+	TimeOfDay m_timeOfDay; // +0x134 (rowed GlobalData::setTimeOfDay)
+};
+extern GlobalData *TheGlobalData;
+
+class GameLogic
+{
+public:
+	unsigned char m_pad000[0x11C];
+	bool m_11C; // +0x11C
+};
+extern GameLogic *TheGameLogic;
+
 class Drawable
 {
 public:
+	virtual void vslot00(); virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
+	virtual void vslot04(); virtual void vslot05(); virtual void vslot06(); virtual void vslot07();
+	virtual void vslot08(); virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
+	virtual void vslot12();
+	virtual void vslot13();
+
 	void rva00274176(bool immediate);
 	void rva00274445(float f);
 	int rva0027434D(int x);
+	void setIndicatorColor(Color color);
+	void changedTeam();
+	void rva00270FAC(bool show);
+
+	Object *getObject() { return m_object; }
 private:
-	unsigned char m_pad0[0x158];
+	unsigned char m_pad0[0xFC - 4];
+	Object *m_object; // +0xFC
+	unsigned char m_padFC[0x158 - 0x100];
 	BfmeDrawableClientIface **m_ifaceBegin;
 	BfmeDrawableClientIface **m_ifaceEnd;
 	unsigned char m_pad1[0x258 - 0x160];
@@ -142,6 +203,8 @@ private:
 	Rva00271C8A m_pendingSet;
 	unsigned char m_pad2[0x443 - 0x33C];
 	bool m_isModelDirty;
+	unsigned char m_pad444[0x454 - 0x444];
+	Color m_indicatorColor; // +0x454, read back by rva00270FAC
 };
 
 void Drawable::rva00274176(bool immediate)
@@ -198,3 +261,35 @@ int Drawable::rva0027434D(int x)
 	return 0;
 }
 #pragma optimize("", on)
+
+// ?setIndicatorColor@Drawable@@QAEXH@Z, retail 0x002741DE (98B): BFME's
+// Drawable::setIndicatorColor. It stores the color at +0x454 and lets the
+// rowed 0x00270FAC (which broadcasts +0x454 to the draw modules when its
+// flag is set, 0 otherwise) show it when the GameLogic +0x11C flag is set
+// or the object is any kind of (0x78, 0xB5) - the same mask the rowed
+// 0x00272414 gates on. Called by changedTeam below with the object color.
+// The named local is what puts the flag in the dead argument slot.
+void Drawable::setIndicatorColor(Color color)
+{
+	m_indicatorColor = color;
+	Object *obj = m_object;
+	bool show = TheGameLogic->m_11C || (obj && obj->isAnyKindOf(Rva0006EE7A(0, 0x78, 0xB5)));
+	rva00270FAC(show);
+}
+
+// ?changedTeam@Drawable@@QAEXXZ, retail 0x002742AC (57B): Zero Hour's
+// Drawable::changedTeam (night color when TheGlobalData's time of day is
+// night) without the fake-structure decal, ending in a tail call to the
+// drawable's virtual slot 13. Called by Object::setCustomIndicatorColor.
+void Drawable::changedTeam()
+{
+	Object *object = getObject();
+	if (object)
+	{
+		if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
+			setIndicatorColor(object->getNightIndicatorColor());
+		else
+			setIndicatorColor(object->getIndicatorColor());
+		vslot13();
+	}
+}

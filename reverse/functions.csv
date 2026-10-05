@@ -59744,3 +59744,5 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?removeCustomIndicatorColor@Object@@QAEXXZ,,0x0028B01E,8,Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp,matched,ZH Object::removeCustomIndicatorColor setCustomIndicatorColor(0)
 ?getIndicatorColor@Object@@QBEHXZ,,0x0028B026,42,Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp,matched,ZH Object::getIndicatorColor team player plus280 else FF000000
 ?getNightIndicatorColor@Object@@QBEHXZ,,0x0028B050,42,Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp,matched,ZH Object::getNightIndicatorColor team player plus284 else FF000000
+?setIndicatorColor@Drawable@@QAEXH@Z,,0x002741DE,98,Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp,matched,BFME Drawable::setIndicatorColor plus454 then 0x00270FAC gated by GameLogic plus11C or kind mask
+?changedTeam@Drawable@@QAEXXZ,,0x002742AC,57,Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp,matched,ZH Drawable::changedTeam night or day object indicator color then vslot13
