@@ -56587,3 +56587,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva0044C205Reset@@YAXXZ,,0x0044C205,114,Code/GameEngine/Source/Common/Rva0044C205Reset.cpp,matched,Reset UI via Network Mouse GameEngine WindowManager Display
 ?Rva003BB1A4Grant@@YGXABVAsciiString@@0@Z,,0x003BB1A4,91,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB1A4.cpp,matched,leaf lane ScriptEngine mask PlayerList UpgradeCenter Player grant
 ?setRefCount@AptValue@@AAEXI@Z,,0x006DBB70,75,Code/Libraries/Source/Apt/AptValue/AptValueRefCountBFME2.cpp,matched,exact-ambiguous copy; assignment proven by verify_string_refs
+?method@Rva009EB8A0@@QAEXXZ,,0x0061EE20,36,Code/Libraries/Source/assetmanager/Rva009EB8A0.cpp,matched,BFME1 byte-identical donor; b1 0x009EB8A0

@@ -10405,3 +10405,5 @@ _xferThreeInts,0x0060BC53,donor_sweep: call target read from retail at a unique 
 ??$__uninitialized_fill_n@PAVRva005DBCD1@@IV1@@_STL@@YAPAVRva005DBCD1@@PAV1@IABV1@ABU__false_type@0@@Z,0x005DBD78,Verified STLport helper alias: full 40B exact from /O1 -GX-; record copy ctor 005DBCD1 fixes vptr and shorts +4/+6; virtual destruction stride8; target overflow calls independently confirm provider
 ?allocate@?$allocator@VRva005DBCD1@@@_STL@@QBEPAVRva005DBCD1@@IPBX@Z,0x00523D6C,Verified STLport helper alias: full 28B exact from /O1 -GX-; record copy ctor 005DBCD1 fixes vptr and shorts +4/+6; virtual destruction stride8; target overflow calls independently confirm provider
 ?_M_clear@?$vector@VRva005DBCD1@@V?$allocator@VRva005DBCD1@@@_STL@@@_STL@@IAEXXZ,0x005659CA,Verified STLport helper alias: full 30B exact from /O1 -GX-; record copy ctor 005DBCD1 fixes vptr and shorts +4/+6; virtual destruction stride8; target overflow calls independently confirm provider
+?d_009f0fa0@@YAXXZ,0x00623600
+?m009F0FA0@Q1Receiver0134FAAC@@QAEXPAVRva009EF0D0Element@@@Z,0x00623600
