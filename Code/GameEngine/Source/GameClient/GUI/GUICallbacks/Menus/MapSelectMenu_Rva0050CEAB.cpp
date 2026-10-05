@@ -158,6 +158,23 @@ void MapSelectMenuShutdown( WindowLayout *layout, void *userData )
 //-------------------------------------------------------------------------------------------------
 /** MapSelect menu update method */
 //-------------------------------------------------------------------------------------------------
+// Retail 0x0050D136, named by the FunctionLexicon row at 0x009BCBC8
+// (MapSelectMenuUpdate). doGameStart is BFME's out-of-line 0x0050D099.
+void doGameStart( void );
+
+void MapSelectMenuUpdate( WindowLayout *layout, void *userData )
+{
+
+	if (startGame && TheShell->isAnimFinished())
+		doGameStart();
+
+	// We'll only be successful if we've requested to 
+	if(isShuttingDown && TheShell->isAnimFinished())
+		shutdownCompleteMapSelectMenu(layout);
+
+
+}  // end MapSelectMenuUpdate
+
 
 //-------------------------------------------------------------------------------------------------
 /** Map select menu input callback */
