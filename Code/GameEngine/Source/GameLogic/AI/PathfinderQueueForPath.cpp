@@ -42,9 +42,11 @@ class Pathfinder
 {
 public:
 	Bool queueForPath(ObjectID id);
+	Bool rva002EBD65(ObjectID id);
 private:
 	unsigned char m_pad[0x1C1E0];
 	PathfindRequestRing m_requestRing;
+	PathfindRequestRing m_requestRing2;
 };
 
 Bool Pathfinder::queueForPath(ObjectID id)
@@ -54,6 +56,17 @@ Bool Pathfinder::queueForPath(ObjectID id)
 		if (!m_requestRing.hasRoom())
 			return false;
 		m_requestRing.push(id);
+	}
+	return true;
+}
+
+Bool Pathfinder::rva002EBD65(ObjectID id)
+{
+	if (!m_requestRing2.contains(id))
+	{
+		if (!m_requestRing2.hasRoom())
+			return false;
+		m_requestRing2.push(id);
 	}
 	return true;
 }
