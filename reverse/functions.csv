@@ -56506,3 +56506,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00373EB6@Rva00373EB6@@QAEEXZ,,0x00373EB6,16,Code/GameEngine/Source/Common/Rva00373EB6.cpp,matched,unsigned-char compare TheGameLogic+0x40 vs this+0x28
 ?rva005D8EA7@Rva005D8C25@@QAE_NPAVObject@@@Z,,0x005D8EA7,47,Code/GameEngine/Source/Common/Rva005D8EA7.cpp,matched,vslot6 plus AI victim plus picker 0x005D8C4C
 ?rva005DDE9F@Rva005DDE69@@QAEMIII@Z,,0x005DDE9F,54,Code/GameEngine/Source/Common/Rva005DDE69Finish.cpp,matched,Range-min sibling of 0x005DDE69 via 0x005DDCE5
+?Rva0042970AGet@@YGPBVCommandButton@@H@Z,,0x0042970A,103,Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0042970AGet.cpp,matched,TheInGameUI vtable 0x12c plus 0xfc Object via rva00290E67 then g_bfmeWorldRV lookup to CommandSet loop 0x20 type 0x18 override id match

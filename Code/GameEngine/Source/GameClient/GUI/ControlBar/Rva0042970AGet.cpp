@@ -1,5 +1,3 @@
-// ?Rva0042970AGet@@YGPBVCommandButton@@H@Z
-// partial score=0.95 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 // Retail 0x0042970A (RVA 0x0042970A) size 103: find command button by override id 0x1c.
 // Evidence: TheInGameUI vtable+0x12c then +0xfc Object then rva00290E67 AsciiString then g_bfmeWorldRV Rva0031D5F8 lookup to CommandSet then getCommandButton loop 0x20 with +0x14==0x18 and Overridable +0x44 +0x1c vs arg.
@@ -75,7 +73,6 @@ struct InGameRet
 	Object *m_obj;
 };
 
-// ?Rva0042970AGet@@YGPBVCommandButton@@H@Z present-unmatched
 const CommandButton *__stdcall Rva0042970AGet(int id)
 {
 	int i;
@@ -85,20 +82,19 @@ const CommandButton *__stdcall Rva0042970AGet(int id)
 	Object *obj = r->m_obj;
 	const AsciiString *name = obj->rva00290E67();
 	set = (CommandSet *)((Rva0031D5F8 *)g_bfmeWorldRV)->rva0031D5F8(name);
-	if (set == 0) {
-		return 0;
-	}
-	for (i = 0; i < 0x20; i++) {
-		btn = set->getCommandButton(i);
-		if (btn == 0) {
-			continue;
-		}
-		if (btn->m_type14 != 0x18) {
-			continue;
-		}
-		const Overridable *ov = btn->m_over44->friend_getFinalOverride();
-		if (ov->m_id1c == id) {
-			return btn;
+	if (set != 0) {
+		for (i = 0; i < 0x20; i++) {
+			btn = set->getCommandButton(i);
+			if (btn == 0) {
+				continue;
+			}
+			if (btn->m_type14 != 0x18) {
+				continue;
+			}
+			const Overridable *ov = btn->m_over44->friend_getFinalOverride();
+			if (ov->m_id1c == id) {
+				return btn;
+			}
 		}
 	}
 	return 0;
