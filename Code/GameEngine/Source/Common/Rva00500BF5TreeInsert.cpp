@@ -34,6 +34,8 @@ public:
     Iterator insertWorker(Rva00500BF5Node *x, Rva00500BF5Node *y,
                           const Rva00500500 &value, Rva00500BF5Node *known_order);
     Iterator insertEqual(const Rva00500500 &value);
+    Iterator insertEqualWorker(const Rva00500500 &value);
+    Iterator insertEqual(Iterator position, const Rva00500500 &value);
 private:
     Rva00500BF5Node *m_header;
     unsigned m_count;
@@ -95,3 +97,55 @@ Rva00500BF5Tree::Iterator Rva00500BF5Tree::insertEqual(const Rva00500500 &value)
 // hidden-result ABI. The declaration keeps MSVC from inspecting the worker
 // when it compiles callers in this unit.
 #pragma comment(linker, "/alternatename:?insertWorker@Rva00500BF5Tree@@QAE?AU?$_Rb_tree_iterator@VRva00500500@@U?$_Nonconst_traits@VRva00500500@@@_STL@@@_STL@@PAURva00500BF5Node@@0ABVRva00500500@@0@Z=?insert@Rva00500BF5Tree@@QAEXAAPAURva00500BF5Node@@PAU2@1ABVRva00500500@@1@Z")
+
+#pragma comment(linker, "/alternatename:?insertEqualWorker@Rva00500BF5Tree@@QAE?AU?$_Rb_tree_iterator@VRva00500500@@U?$_Nonconst_traits@VRva00500500@@@_STL@@@_STL@@ABVRva00500500@@@Z=?insertEqual@Rva00500BF5Tree@@QAE?AU?$_Rb_tree_iterator@VRva00500500@@U?$_Nonconst_traits@VRva00500500@@@_STL@@@_STL@@ABVRva00500500@@@Z")
+
+// Target 0x00500F6E/250B. STLport 4.5.3 insert_equal(hint, value),
+// with the unsigned first-word ordering independently established above.
+Rva00500BF5Tree::Iterator Rva00500BF5Tree::insertEqual(
+    Iterator position, const Rva00500500 &value)
+{
+    Rva00500BF5Node *pos = reinterpret_cast<Rva00500BF5Node *>(position._M_node);
+    if (pos == m_header->left) {
+        if (m_count <= 0)
+            return insertEqualWorker(value);
+        if (!(pos->key < *reinterpret_cast<const unsigned *>(&value)))
+            return insertWorker(pos, pos, value, 0);
+        if (pos->left == pos)
+            return insertWorker(0, pos, value, 0);
+
+        Iterator after = position;
+        ++after;
+        Rva00500BF5Node *next = reinterpret_cast<Rva00500BF5Node *>(after._M_node);
+        if (next == m_header || !(next->key < *reinterpret_cast<const unsigned *>(&value))) {
+            if (pos->right == 0)
+                return insertWorker(0, pos, value, pos);
+            return insertWorker(next, next, value, 0);
+        }
+        return insertEqualWorker(value);
+    } else if (pos == m_header) {
+        if (!(*reinterpret_cast<const unsigned *>(&value) < m_header->right->key))
+            return insertWorker(0, m_header->right, value, pos);
+        return insertEqualWorker(value);
+    } else {
+        Iterator before = position;
+        --before;
+        bool pos_less = pos->key < *reinterpret_cast<const unsigned *>(&value);
+        Rva00500BF5Node *prev = reinterpret_cast<Rva00500BF5Node *>(before._M_node);
+        if (!pos_less && !(*reinterpret_cast<const unsigned *>(&value) < prev->key)) {
+            if (prev->right == 0)
+                return insertWorker(0, prev, value, prev);
+            return insertWorker(pos, pos, value, 0);
+        }
+        Iterator after = position;
+        ++after;
+        Rva00500BF5Node *next = reinterpret_cast<Rva00500BF5Node *>(after._M_node);
+        if (pos_less &&
+            (next == m_header || !(next->key < *reinterpret_cast<const unsigned *>(&value)))) {
+            if (pos->right == 0)
+                return insertWorker(0, pos, value, pos);
+            return insertWorker(next, next, value, 0);
+        }
+        return insertEqualWorker(value);
+    }
+}
