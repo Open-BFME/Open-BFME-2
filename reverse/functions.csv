@@ -56631,3 +56631,5 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva000E2DA4Level@@YAXPAUID3DXEffect@@PBD@Z,,0x000E2DA4,89,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,matched,FX SetVector callback stored at 0x000E2D03; g_00DFE1E4 slot 15 gate then slot 19 float splatted to xyz
 ?Rva00061000@@YAHXZ,,0x003B9977,23,Code/GameEngine/Source/Common/S2DebugCommandRegistrars_Rva003B9977.cpp,matched,BFME1 /Os donor string-anchored ambiguous placement (ambig.py)
 ?Rva000614F0@@YAHXZ,,0x003B9C9A,23,Code/GameEngine/Source/Common/S2DebugCommandRegistrars_Rva003B9C9A.cpp,matched,BFME1 /Os donor string-anchored ambiguous placement (ambig.py)
+?Rva00061510@@YAHXZ,,0x003B9CB1,23,Code/GameEngine/Source/Common/S2DebugCommandRegistrars_Rva003B9CB1.cpp,matched,BFME1 /Os donor string-anchored ambiguous placement (ambig.py)
+?Rva00061530@@YAHXZ,,0x003B9CC8,23,Code/GameEngine/Source/Common/S2DebugCommandRegistrars_Rva003B9CC8.cpp,matched,BFME1 /Os donor string-anchored ambiguous placement (ambig.py)
