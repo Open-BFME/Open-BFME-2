@@ -46,6 +46,7 @@ public:
     virtual void setHasClass(int);
     AptCIH *c_cih(bool=false);
     AptArray *c_array() const;
+    bool getIsDefined() const; bool isBoolean() const; bool isNone() const; bool isScriptFunction() const; bool isNativeFunction() const;
     bool isArray() const;
     bool isLookup() const;
     bool isRegister() const;
@@ -66,7 +67,6 @@ public:
     int toInteger() const;
     void toString(EAStringC &) const;
 };
-class AptCIH;
 struct AptCharacterInst;
 class EAStringC { void *mpData; public: EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
@@ -191,6 +191,7 @@ private:
     HANDLER(GetProperty); HANDLER(SetProperty);
     HANDLER(GetTimer);
     HANDLER(Trace);
+    HANDLER(TypeOf);
     HANDLER(Greater); HANDLER(LessThan2);
     HANDLER(SubString); HANDLER(AsciiToChar);
     HANDLER(Delete); HANDLER(Delete2);
@@ -1164,6 +1165,8 @@ public:
     unsigned char prefix[0x4C-8];
     void *mpCharacterInst;
     bool IsLevelInst() const;
+    bool IsSpriteInst(bool=false) const;
+    bool IsAnimationInst(bool=false) const;
     AptSpriteInstBase *GetSpriteInstBase() const;
     bool IsSpriteInstBase() const;
     void jumpToFrame(int);
@@ -1331,3 +1334,39 @@ void AptActionInterpreter::_FunctionAptActionThrow(AptActionInterpreter *const p
     p->mpThrownValue=value;
     p->stack.Pop();
 }
+void AptActionInterpreter::_FunctionAptActionTypeOf(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *v=p->stack.At(0);
+    AptString *s=AptString::Create();
+    if(v->getIsDefined()) {
+        if(v->isInteger() || v->isFloat()) s->SetString(Rva0070B4F0GetString(0x63)->rva00620090());
+        else if(v->isBoolean()) s->SetString(Rva0070B4F0GetString(0x27)->rva00620090());
+        else if(v->isString()) s->SetString(Rva0070B4F0GetString(0x9d)->rva00620090());
+        else if(v->isObject() || v->isArray()) s->SetString(Rva0070B4F0GetString(0x64)->rva00620090());
+        else if(v->isCIH()) {
+            if(v->c_cih()->IsSpriteInst() || v->c_cih()->IsAnimationInst()) s->SetString(Rva0070B4F0GetString(0x5e)->rva00620090());
+            else if(v->c_cih()->IsLevelInst()) s->SetString(Rva0070B4F0GetString(0xa9)->rva00620090());
+            else s->SetString(Rva0070B4F0GetString(0x64)->rva00620090());
+        }
+        else if(v->isNone()) s->SetString(Rva0070B4F0GetString(0x62)->rva00620090());
+        else if(v->isUndefined()) s->SetString(Rva0070B4F0GetString(0xa9)->rva00620090());
+        else if(v->isScriptFunction() || v->isNativeFunction()) s->SetString(Rva0070B4F0GetString(0x37)->rva00620090());
+    } else s->SetString(Rva0070B4F0GetString(0xa9)->rva00620090());
+    p->stack.Pop(); p->stack.Push(s);
+}
+
+
+#pragma comment(linker, "/alternatename:?getIsDefined@AptValue@@QBE_NXZ=?get@Rva006DBB60ShrNAndField@@QBE_NXZ")
+
+#pragma comment(linker, "/alternatename:?isNone@AptValue@@QBE_NXZ=?rva006DBFA0@BfmeAptValue006DCD20@@QBEHXZ")
+
+#pragma comment(linker, "/alternatename:?isBoolean@AptValue@@QBE_NXZ=?isBoolean@BfmeAptValue006DCD20@@QBEHXZ")
+
+#pragma comment(linker, "/alternatename:?isScriptFunction@AptValue@@QBE_NXZ=?isScriptFunction@BfmeAptValue006DCD20@@QBEHXZ")
+
+#pragma comment(linker, "/alternatename:?isNativeFunction@AptValue@@QBE_NXZ=?isNativeFunction@BfmeAptValue006DCD20@@QBEHXZ")
+
+#pragma comment(linker, "/alternatename:?IsSpriteInst@AptCIH@@QBE_N_N@Z=?rva006E01A0@BfmeAptValue006DCD20@@QBEH_N@Z")
+
+#pragma comment(linker, "/alternatename:?IsAnimationInst@AptCIH@@QBE_N_N@Z=?rva006CBEE0@BfmeAptValue006DCD20@@QBEH_N@Z")
+

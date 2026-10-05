@@ -12434,3 +12434,9 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?isRegister@AptValue@@QBE_NXZ,0x006DC1C0,Native stackPushIndirect calls checked existing provider; original AptValue header504032fc6593aab6 signature; linker alias binds provider
 ?c_lookup@AptValue@@QBEPAVAptLookup@@XZ,0x006DCD50,Native stackPushIndirect calls checked existing provider; original AptValue header504032fc6593aab6 signature; linker alias binds provider
 ?c_register@AptValue@@QBEPAVAptRegister@@XZ,0x006DCDD0,Native stackPushIndirect calls checked existing provider; original AptValue header504032fc6593aab6 signature; linker alias binds provider
+?isNone@AptValue@@QBE_NXZ,0x006DBFA0,Native TypeOf7029A0 direct call target; source headers and existing byte-verified provider confirm predicate ABI; alternatename binds provider
+?isBoolean@AptValue@@QBE_NXZ,0x006DC120,Native TypeOf7029A0 direct call target; source headers and existing byte-verified provider confirm predicate ABI; alternatename binds provider
+?isScriptFunction@AptValue@@QBE_NXZ,0x006DC2B0,Native TypeOf7029A0 direct call target; source headers and existing byte-verified provider confirm predicate ABI; alternatename binds provider
+?isNativeFunction@AptValue@@QBE_NXZ,0x006DC260,Native TypeOf7029A0 direct call target; source headers and existing byte-verified provider confirm predicate ABI; alternatename binds provider
+?IsSpriteInst@AptCIH@@QBE_N_N@Z,0x006E01A0,Native TypeOf7029A0 direct call target; source headers and existing byte-verified provider confirm predicate ABI; alternatename binds provider
+?IsAnimationInst@AptCIH@@QBE_N_N@Z,0x006CBEE0,Native TypeOf7029A0 direct call target; source headers and existing byte-verified provider confirm predicate ABI; alternatename binds provider
