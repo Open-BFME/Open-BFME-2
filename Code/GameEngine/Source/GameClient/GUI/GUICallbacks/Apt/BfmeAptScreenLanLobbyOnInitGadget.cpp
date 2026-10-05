@@ -19,6 +19,31 @@
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
 
+class LANGameInfo;
+
+class GameTextInterface
+{
+public:
+	virtual ~GameTextInterface() {}
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+};
+
+extern GameTextInterface *TheGameText;
+
 class WinInstanceData;
 
 class GameWindow
@@ -116,6 +141,12 @@ public:
 class GameInfo
 {
 public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12();
+	virtual int getLocalSlotNum() const;
+
 	int getNumPlayers() const;
 	int getNumOpenOrOccupiedSlots() const;
 };
@@ -125,7 +156,7 @@ public:
 class LANGameInfo : public GameInfo
 {
 public:
-	unsigned char m_pad000[0x5C];
+	unsigned char m_pad004[0x5C - 0x04];
 	int m_5c; // +0x5C
 	unsigned char m_pad060[0xF5C - 0x60];
 	LANGameInfo *m_next; // +0xF5C
@@ -159,9 +190,54 @@ class Rva004421E1
 {
 public:
 	void rva0043DE19();
-	// Unrowed 0x0043FFCF (8 bytes), pinned by address.
+	// Unrowed panel methods, pinned by address: 0x0043FFCF (8 bytes),
+	// 0x00440BDF (1693 bytes), 0x0044127C (544 bytes), 0x00443EA8 (358 bytes).
 	void rva0043FFCF();
+	bool rva00440BDF(bool flag);
+	bool rva0044127C();
+	void rva00443EA8();
 };
+
+class Rva00580172
+{
+public:
+	bool rva00580172();
+};
+
+class GameEngine
+{
+public:
+	void rva004443E7();
+};
+
+class Rva00222A8BTarget
+{
+public:
+	int invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
+};
+
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+
+// The two GameLogic fields read by the update (TheGameLogic, 0x00DFE78C).
+class GameLogic;
+extern GameLogic *TheGameLogic;
+
+struct Rva00446443GameLogic
+{
+	unsigned char m_pad000[0x40];
+	int m_40; // +0x40
+	unsigned char m_pad044[0x110 - 0x44];
+	int m_110; // +0x110
+};
+
+void __cdecl Rva005118F3Show(int mode, bool show);
+void __cdecl Rva00434160Init(int a, int b, bool c);
+void __cdecl Rva003B3371Call(int value);
+void Rva00444040Enable();
+void GadgetListBoxGetSelected(GameWindow *listbox, int *selected);
+
+// Unrowed 0x0044C0A8 (message box with title, text and callback), pinned.
+void Rva0044C0A8(UnicodeString title, UnicodeString text, void *callback);
 
 class GameModePreferences
 {
@@ -230,6 +306,14 @@ public:
 
 extern GameWindowManager *TheWindowManager;
 
+struct TransportAddress
+{
+	TransportAddress() : m_ip(0), m_port(0) {}
+
+	unsigned int m_ip;
+	unsigned short m_port;
+};
+
 class LANAPI
 {
 public:
@@ -239,12 +323,14 @@ public:
 	virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05();
 	virtual void v06(); virtual void v07(); virtual void v08();
 	virtual void reset();
-	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
-	virtual void v14();
+	virtual void update();
+	virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
 	virtual void RequestLocations();
-	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+	virtual void v16(LANGameInfo *game, TransportAddress *address);
+	virtual void v17(); virtual void v18(); virtual void v19();
 	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
-	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
+	virtual void v24(); virtual void v25(); virtual void v26();
+	virtual void v27(UnicodeString text, int value);
 	virtual void v28();
 	virtual void RequestSetName(UnicodeString name);
 	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33();
@@ -252,9 +338,13 @@ public:
 	virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41();
 	virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45();
 	virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
-	virtual void v50(); virtual void v51(); virtual void v52();
+	virtual void v50();
+	virtual LANGameInfo *v51();
+	virtual void v52();
 	virtual bool SetLocalIP(unsigned int ip);
-	virtual void v54(); virtual void v55(); virtual void v56(); virtual void v57();
+	virtual void v54(); virtual void v55();
+	virtual LANGameInfo *GetMyGame();
+	virtual void v57();
 	virtual void v58();
 
 	unsigned char m_pad04[0x5D - 0x04];
@@ -275,17 +365,22 @@ public:
 	void rva0044469C();
 	void rva00445E3E(LANGameInfo *games);
 	bool initLanRva004452A8();
+	int rva00446443();
 
 	// Unrowed 0x004457BC (1006 bytes; rebuilds the games list box), pinned by
 	// address.
 	void rva004457BC();
 
 private:
-	unsigned char m_pad000[0x288];
+	unsigned char m_pad000[0x274];
+	void *m_owner; // +0x274
+	unsigned char m_pad278[0x288 - 0x278];
 	Rva004421E1 m_panel; // +0x288
 	unsigned char m_pad289[0x304 - 0x289];
 	int m_304; // +0x304
-	unsigned char m_pad308[0x668 - 0x308];
+	unsigned char m_pad308[0x538 - 0x308];
+	int m_538; // +0x538
+	unsigned char m_pad53c[0x668 - 0x53C];
 	Rva00580316 m_668; // +0x668
 	LanLobbyUserNamePrefs m_prefs; // +0x684
 	UnicodeString m_userName; // +0x6A0
@@ -494,4 +589,122 @@ bool BfmeAptScreenLanLobby::initLanRva004452A8()
 		return true;
 	}
 	return false;
+}
+
+// Retail 0x00446443, 815 bytes: slot 5 of the screen's vftable 0x00C3E0F8,
+// the lobby's per-frame update. Name unknown. Unless +0x6C0 holds it back it
+// updates TheLAN and steps the +0x6A4 state machine (0 start-up, 1 game
+// list, 2 leave, 5/6 panel checks, 7 join the selected game, 9 kicked, 11
+// back out), refreshes the buttons, reports a socket error once and returns
+// 1; the +0x288 panel always gets its 0x00443EA8 (retail merges both
+// returns' panel calls).
+int BfmeAptScreenLanLobby::rva00446443()
+{
+	if (m_6c0)
+	{
+		m_panel.rva00443EA8();
+		return 0;
+	}
+	{
+		if (TheLAN)
+			TheLAN->update();
+
+		switch (m_6a4)
+		{
+		case 0:
+			if (initLanRva004452A8())
+			{
+				Rva005118F3Show(0, false);
+				if (m_538)
+					m_6a4 = 2;
+				else
+				{
+					{
+					void *owner = m_owner;
+					TheRva00222A8BTarget->invoke(owner, "StartLobby", 0, 0, 0, 0, 0, 0);
+				}
+					m_6a4 = 1;
+					rva00446386(true);
+					m_6c0 = 0;
+				}
+			}
+			break;
+		case 1:
+			if (reinterpret_cast<Rva00580172 *>(&m_668)->rva00580172() && TheLAN)
+				rva00445E3E(TheLAN->v51());
+			break;
+		case 2:
+			rva00446386(false);
+			m_6a4 = 3;
+			Rva005118F3Show(1, true);
+			TheLAN->v27(UnicodeString((const unsigned short *)L""), 0);
+			break;
+		case 5:
+			if (m_panel.rva00440BDF(true))
+				m_6a4 = 6;
+			else
+			{
+				m_6a4 = 4;
+				{
+					void *owner = m_owner;
+					TheRva00222A8BTarget->invoke(owner, "EnablePlayGame", 0, 0, 0, 0, 0, 0);
+				}
+			}
+			break;
+		case 6:
+			if (!m_panel.rva0044127C())
+			{
+				m_6a4 = 4;
+				{
+					void *owner = m_owner;
+					TheRva00222A8BTarget->invoke(owner, "EnablePlayGame", 0, 0, 0, 0, 0, 0);
+				}
+			}
+			break;
+		case 7:
+		{
+			rva00446386(false);
+			int selected = -1;
+			m_6a4 = 1;
+			GadgetListBoxGetSelected(m_customGamesList, &selected);
+			LANGameInfo *game = (LANGameInfo *)reinterpret_cast<Rva00444165 *>(this)->rva00444165();
+			if (game)
+			{
+				m_6a4 = 8;
+				Rva005118F3Show(1, true);
+				TransportAddress address;
+				TheLAN->v16(game, &address);
+			}
+			break;
+		}
+		case 9:
+		{
+			LANGameInfo *game = TheLAN->GetMyGame();
+			if (!game || game->getLocalSlotNum() == -1)
+			{
+				Rva0044C0A8(TheGameText->fetch("GUI:GSErrorTitle"), TheGameText->fetch("GUI:GSKicked"), 0);
+				reinterpret_cast<GameEngine *>(this)->rva004443E7();
+				m_6a4 = 0;
+			}
+			break;
+		}
+		case 11:
+			reinterpret_cast<Rva004442FD *>(this)->rva004442FD();
+			Rva00434160Init(2, 0x10, false);
+			break;
+		}
+
+		rva0044469C();
+		Rva00446443GameLogic *logic = (Rva00446443GameLogic *)TheGameLogic;
+		if (logic->m_110 == 4 && logic->m_40 == 1)
+			Rva003B3371Call(0x1C);
+		if (m_socketError == 1)
+		{
+			m_socketError = 0;
+			Rva0044C0A8(TheGameText->fetch("GUI:NetworkError"), TheGameText->fetch("GUI:SocketError"), 0);
+			Rva00444040Enable();
+		}
+	}
+	m_panel.rva00443EA8();
+	return 1;
 }
