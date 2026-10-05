@@ -22,3 +22,16 @@ void Rva001164AA::rva001164AA()
 	if (m_flag)
 		return s10();
 }
+// ?rva00101EC3@Rva00101EC3@@QAEXXZ @0x00101EC3 12B leaf via rowed 0x001164AA tail jmp plus caller 0x000880EB
+class Rva00101EC3
+{
+public:
+	void rva00101EC3();
+private:
+	Rva001164AA *m_ptr;
+};
+void Rva00101EC3::rva00101EC3()
+{
+	if (m_ptr != 0)
+		m_ptr->rva001164AA();
+}
