@@ -1,9 +1,5 @@
 // ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
-// partial score=0.99 date=2026-10-05
-// ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
-// partial score=0.99 date=2026-10-05
-// ?rva006D5DA0@EAStringC@@QAE_NPBD@Z
-// partial score=0.94 date=2026-10-05
+// partial score=0.9729 date=2026-10-05
 // Finish pass on the 0.93 bank. Blocker moved: the compare-fold and
 // single-scope-slot are resolved; what remains is the ebx/ebp pair.
 //

@@ -1,4 +1,6 @@
 // ?Rva00361790@@YAHPAVRva00360F55@@@Z
+// partial score=0.9528 date=2026-10-05
+// ?Rva00361790@@YAHPAVRva00360F55@@@Z
 // partial score=0.96 date=2026-10-05
 // ?Rva00361790@@YAHPAVRva00360F55@@@Z
 // partial score=0.96 date=2026-10-05 seat-14-r16 (trials F+G banked)

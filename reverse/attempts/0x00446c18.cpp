@@ -1,4 +1,6 @@
 // ?PopulateTeamComboBox@@YAXHQAPAVGameWindow@@PAVGameInfo@@_N@Z
+// partial score=0.9898 date=2026-10-05
+// ?PopulateTeamComboBox@@YAXHQAPAVGameWindow@@PAVGameInfo@@_N@Z
 // partial score=0.99 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?PopulateTeamComboBox@@YAXHQAPAVGameWindow@@PAVGameInfo@@_N@Z draft: 322B, every instruction right except the comboArray[comboBox] address: retail loads comboArray into eax and the index into ecx (lea esi,[eax+ecx*4]) where cl loads them the other way round (lea esi,[ecx+eax*4]); pointer/reference locals, index[array], unsigned index, local copies, /G7 /Os /Oy- all keep the swap.

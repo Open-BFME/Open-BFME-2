@@ -1,5 +1,7 @@
 // ?rva0048337A@RebuildHoleBehavior@@QAEXPAVObject@@@Z
 // partial score=0.93 date=2026-10-05
+// ?rva0048337A@RebuildHoleBehavior@@QAEXPAVObject@@@Z
+// partial score=0.93 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE /EHsc
 // ?rva0048337A@RebuildHoleBehavior@@QAEXPAVObject@@@Z 0x0048337A 114B evidence: gap between rowed ModuleData dtor 0x0048334A and rowed xfer 0x004833EC; RebuildHoleBehavior layout from rowed dtor 0x0048353E and ctor 0x00483271; rowed destroyObject 0x00242C09 via TheGameLogic plus rowed maskObject plus rowed Rva00391F4E ctor 0x00391F4E plus pinned Rva0028CDEB plus rowed setSelectable plus rowed pathfind add; callers 0x004835F1 0x00483681 0x004836A5; honest Rva name
 class Thing;
