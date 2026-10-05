@@ -11,6 +11,7 @@ class Rva0042D729
 {
 public:
 	void rva0042D729(Rva00577DE1OwningCell *newPtr);
+	void rva0042D74C();
 private:
 	Rva00577DE1OwningCell *m_00;
 };
@@ -23,6 +24,16 @@ void Rva0042D729::rva0042D729(Rva00577DE1OwningCell *newPtr)
 	if (newPtr == old)
 		return;
 	m_00 = newPtr;
+	if (old == 0)
+		return;
+	old->rva00577E3EForwardClear();
+	operator delete(old);
+}
+
+void Rva0042D729::rva0042D74C()
+{
+	Rva00577DE1OwningCell *old = m_00;
+	m_00 = 0;
 	if (old == 0)
 		return;
 	old->rva00577E3EForwardClear();
