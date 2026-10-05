@@ -11,8 +11,26 @@ class Rva004E9600
 {
 public:
     _STL::map<int, int, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > m_map;
+    void *rva004E95D4(void *p);
     bool rva004E9600(void *p);
 };
+
+// ?rva004E95D4@Rva004E9600@@QAEPAXPAX@Z @0x004E95D4 44B
+// The find twin directly before rva004E9600: same key (the int at arg+0x54),
+// same rowed _M_find 0x00388F63, but a hit returns the mapped int as a pointer
+// (+0x14 of the node) and a null arg or a miss returns null. Rva002A8F24.cpp's
+// 0x002A8F24 is the same logic with the map at +0x908. Caller 0x002A8AB1
+// (Rva002A8AE4.cpp), which returns the result as its record pointer.
+void *Rva004E9600::rva004E95D4(void *p)
+{
+    if (p) {
+        int key = *(int *)((char *)p + 0x54);
+        _STL::map<int, int>::iterator it = m_map.find(key);
+        if (it != m_map.end())
+            return (void *)(*it).second;
+    }
+    return 0;
+}
 
 bool Rva004E9600::rva004E9600(void *p)
 {

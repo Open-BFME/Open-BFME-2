@@ -1,0 +1,117 @@
+// ?rva002A8AB1@Rva002A8F24@@QAEPAURva002A8AB1Record@@PAX@Z
+// partial score=0.9 date=2026-10-05
+// cl: /O1 /MD
+// ?rva002A8AE4@Rva002A8F24@@QAEPAURva002A8AE4Record@@PAX@Z @0x002A8AE4 64B.
+// Lookup-or-fallback: look up the void* key via pin-only 0x002A8AB1, and when
+// the record is non-null but its rowed disp8 bool getter 0x002C67CF is false
+// (field +0x178 == -1 per Disp8CmpBoolGetters.cpp), resolve the +0x178
+// player index via rowed PlayerList::getNthPlayer through ThePlayerList and
+// look that player up again. Otherwise return the first record. Evidence:
+// caller 0x005056C7, rowed get/getNthPlayer callees, pin-only lookup,
+// ThePlayerList extern in use by 10 TUs. Honest pin-held names.
+class Player;
+class PlayerList
+{
+public:
+	Player *getNthPlayer(int index);
+};
+extern PlayerList *ThePlayerList;
+
+class Rva002C67CFCmpBoolField
+{
+public:
+	bool get() const;
+	char m_lead[0x178];
+	int m_value;
+};
+
+struct Rva002A8AB1Record : public Rva002C67CFCmpBoolField
+{
+};
+
+struct Rva002A8AE4Record : public Rva002C67CFCmpBoolField
+{
+};
+
+struct Rva002A8B59Data;
+
+class Rva004E9600
+{
+public:
+	void *rva004E95D4(void *p);
+	bool rva004E9600(void *p);
+};
+
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *key);
+	Rva002A8AE4Record *rva002A8AE4(void *key);
+	Rva002A8B59Data *rva002A8B59(void *key);
+	Rva004E9600 *rva002A8B24(void *key);
+};
+
+// ?rva002A8AB1@Rva002A8F24@@QAEPAURva002A8AB1Record@@PAX@Z @0x002A8AB1 51B.
+// Null key returns null; otherwise scan the pointer range at +0x914/+0x918
+// (the one rva002A8B24 scans) and return the first non-null find through
+// 0x004E95D4, the map-int find twin of rowed 0x004E9600, else null. Evidence:
+// directly before 0x002A8AE4 in this TU, same flags; the two callers below
+// and 37 more units call it through this name (symbols.csv pin 0x002A8AB1).
+Rva002A8AB1Record *Rva002A8F24::rva002A8AB1(void *key)
+{
+	Rva002A8AB1Record *result = 0;
+	if (key)
+	{
+		Rva004E9600 **cur = *(Rva004E9600 ***)((char *)this + 0x914);
+		while (cur != *(Rva004E9600 ***)((char *)this + 0x918))
+		{
+			result = (Rva002A8AB1Record *)(*cur)->rva004E95D4(key);
+			if (result)
+				break;
+			cur++;
+		}
+	}
+	return result;
+}
+
+Rva002A8AE4Record *Rva002A8F24::rva002A8AE4(void *key)
+{
+	Rva002A8AB1Record *r = rva002A8AB1(key);
+	if (r != 0 && !r->get())
+	{
+		Player *p = ThePlayerList->getNthPlayer(r->m_value);
+		return (Rva002A8AE4Record *)rva002A8AB1(p);
+	}
+	return (Rva002A8AE4Record *)r;
+}
+
+// ?rva002A8B59@Rva002A8F24@@QAEPAURva002A8B59Data@@PAX@Z, retail 0x002A8B59, 26 bytes.
+// Lookup-or-field: look up void* key via pin-only 0x002A8AB1, and when non-null
+// return the pointer at +0x160, else null. Evidence: packet disassembly,
+// callers (2 matched rows show void* key), prev/next flags, pin-held name.
+Rva002A8B59Data *Rva002A8F24::rva002A8B59(void *key)
+{
+	Rva002A8AB1Record *r = rva002A8AB1(key);
+	return r ? *(Rva002A8B59Data **)((char *)r + 0x160) : 0;
+}
+
+// ?rva002A8B24@Rva002A8F24@@QAEPAVRva004E9600@@PAX@Z, retail 0x002A8B24, 53 bytes.
+// Scan pointer range at +0x914/+0x918, return first whose rowed
+// Rva004E9600::rva004E9600(key) is true, else null. Evidence: gap between
+// 0x002A8AE4 and 0x002A8B59 same TU same flags, callers 0x002A8B77
+// 0x002C6AD7 0x002C6C66, callee rowed 0x004E9600.
+Rva004E9600 *Rva002A8F24::rva002A8B24(void *key)
+{
+	Rva004E9600 *result = 0;
+	Rva004E9600 **cur = *(Rva004E9600 ***)((char *)this + 0x914);
+check:
+	if (cur == *(Rva004E9600 ***)((char *)this + 0x918))
+		goto done;
+	if ((*cur)->rva004E9600(key))
+		result = *cur;
+	cur++;
+	if (result == 0)
+		goto check;
+done:
+	return result;
+}
