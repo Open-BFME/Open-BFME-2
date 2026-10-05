@@ -66,7 +66,7 @@ public:
 	virtual void s04();
 	virtual void rva00539316(const Vector3 *arg);
 	virtual void s06();
-	virtual void s07();
+	virtual void rva005392EC();
 	virtual void s08();
 	virtual void s09();
 	virtual void s10();
@@ -94,4 +94,14 @@ void Rva0053947D::rva00539316(const Vector3 *arg)
 		p->f07(&tmp);
 	}
 	m_18 = *arg;
+}
+
+void Rva0053947D::rva005392EC()
+{
+	int count = s13();
+	for (int i = 0; i < count; ++i)
+	{
+		Rva00539316Elem *p = s15(i);
+		p->f03();
+	}
 }
