@@ -26,7 +26,6 @@ private:
 }
 struct Holder003AD67C
 {
-// ??0Holder003AD67C@@QAE@XZ present-unmatched
 	Holder003AD67C() { FXParticleSystem::ConcreteModuleClass<FXParticleSystem::CylinderEmissionVolumeTag>::getInstance(); }
 	~Holder003AD67C();
 };

@@ -26,7 +26,6 @@ private:
 }
 struct Holder003AD5D7
 {
-// ??0Holder003AD5D7@@QAE@XZ present-unmatched
 	Holder003AD5D7() { FXParticleSystem::ConcreteModuleClass<FXParticleSystem::OutwardEmissionVelocityTag>::getInstance(); }
 	~Holder003AD5D7();
 };

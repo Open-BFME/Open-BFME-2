@@ -26,7 +26,6 @@ private:
 }
 struct Holder003AD69D
 {
-// ??0Holder003AD69D@@QAE@XZ present-unmatched
 	Holder003AD69D() { FXParticleSystem::ConcreteModuleClass<FXParticleSystem::LightningEmissionTag>::getInstance(); }
 	~Holder003AD69D();
 };

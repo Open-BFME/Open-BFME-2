@@ -26,7 +26,6 @@ private:
 }
 struct Holder003AD595
 {
-// ??0Holder003AD595@@QAE@XZ present-unmatched
 	Holder003AD595() { FXParticleSystem::ConcreteModuleClass<FXParticleSystem::HemisphericalEmissionVelocityTag>::getInstance(); }
 	~Holder003AD595();
 };

@@ -26,7 +26,6 @@ private:
 }
 struct Holder003AD6BE
 {
-// ??0Holder003AD6BE@@QAE@XZ present-unmatched
 	Holder003AD6BE() { FXParticleSystem::ConcreteModuleClass<FXParticleSystem::TerrainFireEmissionTag>::getInstance(); }
 	~Holder003AD6BE();
 };
