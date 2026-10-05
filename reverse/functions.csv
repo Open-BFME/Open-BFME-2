@@ -63763,3 +63763,23 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva00541F1F@@QAE@ABV0@@Z,,0x00541F1F,83,Code/GameEngine/Source/Common/Rva00541F1FCopy.cpp,matched,Copy ctor: rowed Rva0053FADE base copy then vtable 0xC69514 then rowed Rva00541913 and Rva00541A6E member copies
 ?rva004CDEED@ActivateModuleSpecialPower@@UAEXXZ,,0x004CDEED,19,Code/GameEngine/Source/GameLogic/Object/Update/ActivateModuleSpecialPowerVslot.cpp,matched,vslot17 of 0085FC88 calls SpecialAbilityUpdate 0x45108D and 0xCDDBA with 0
 ?rva0057FA1C@AptMpClans@@QAEXVUnicodeString@@@Z,,0x0057FA1C,148,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpClansRva0057FA1C.cpp,matched,vslot write plus rowed toUpper trim AsciiFromUnicode plus pin rva0057F7AC plus callers 0x0057FCD8 0x0057FD34
+?rva0004E4BD@Rva0004E4BD@@QAEXXZ,,0x0004E4BD,12,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva000A8AA6@Rva000A8AA6@@QAEXH@Z,,0x000A8AA6,14,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva00271BCC@Rva00271BCC@@QAEXHH@Z,,0x00271BCC,18,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva00068D43@Rva00068D43@@QAEXXZ,,0x00068D43,16,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva000A8AB4@Rva000A8AB4@@QAEXXZ,,0x000A8AB4,12,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva000A8ACC@Rva000A8ACC@@QAEXXZ,,0x000A8ACC,12,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva000A8B23@Rva000A8B23@@QAEXH@Z,,0x000A8B23,14,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva000A8B4B@Rva000A8B4B@@QAEXH@Z,,0x000A8B4B,14,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva000A8C6E@Rva000A8C6E@@QAEXH@Z,,0x000A8C6E,14,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva001EB72F@Rva001EB72F@@QAEXXZ,,0x001EB72F,13,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva001EB75C@Rva001EB75C@@QAEXXZ,,0x001EB75C,13,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva0020EB41@Rva0020EB41@@QAEXXZ,,0x0020EB41,13,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva0029B16A@Rva0029B16A@@QAEXHH@Z,,0x0029B16A,18,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva002A9CDE@Rva002A9CDE@@QAEXHH@Z,,0x002A9CDE,18,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva002A9CF0@Rva002A9CF0@@QAEXH@Z,,0x002A9CF0,18,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva002A9DEC@Rva002A9DEC@@QAEXH@Z,,0x002A9DEC,18,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva0043D15F@Rva0043D15F@@QAEXXZ,,0x0043D15F,16,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva004FC176@Rva004FC176@@QAEXH@Z,,0x004FC176,15,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva005CCB16@Rva005CCB16@@QAEXXZ,,0x005CCB16,13,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
+?rva005D13D5@Rva005D13D5@@QAEXXZ,,0x005D13D5,13,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment

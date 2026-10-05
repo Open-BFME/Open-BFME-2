@@ -11,6 +11,11 @@
 //                                                  referenced stream if any
 //   0x001ECEF6 13B Rva0023D607Holder::rva001ECEF6 - tail call 0x001ECE98 on
 //                                                  the +0x10 member if any
+// Plus twenty wave-3 family members of the same guarded-tailcall shape,
+// each `if (member) member->callee(args...)` with the member at +0x0 (plain
+// or global g_Va00A03314), disp8 (+0x4/+0x8/+0xC/+0x10/+0x20) or disp32
+// (+0x2DC/+0x450/+0x7F4/+0x3850), cleaning 0, 4 or 8 stack bytes to match
+// the forwarded arg count. Callees are pinned here under their addresses.
 // Identities beyond these shapes are not recovered.
 
 typedef bool Bool;
@@ -121,4 +126,418 @@ void Rva0023D607Holder::rva001ECEF6()
 {
 	if (m_10)
 		m_10->rva001ECE98();
+}
+
+class Rva002D335B
+{
+public:
+	void rva002D335B();
+};
+
+class Rva0004E4BD
+{
+public:
+	void rva0004E4BD();
+private:
+	Rva002D335B *m_ptr;
+};
+
+void Rva0004E4BD::rva0004E4BD()
+{
+	if (m_ptr)
+		m_ptr->rva002D335B();
+}
+
+class Rva0010FA6B
+{
+public:
+	void rva0010FA6B(int a);
+};
+
+class Rva000A8AA6
+{
+public:
+	void rva000A8AA6(int a);
+private:
+	Rva0010FA6B *m_ptr;
+};
+
+void Rva000A8AA6::rva000A8AA6(int a)
+{
+	if (m_ptr)
+		m_ptr->rva0010FA6B(a);
+}
+
+class Rva003626AD
+{
+public:
+	void rva003626AD(int a, int b);
+};
+
+class Rva00271BCC
+{
+public:
+	void rva00271BCC(int a, int b);
+private:
+	unsigned char m_pad00[0x450];
+	Rva003626AD *m_450;
+};
+
+void Rva00271BCC::rva00271BCC(int a, int b)
+{
+	if (m_450)
+		m_450->rva003626AD(a, b);
+}
+
+class Rva000EDB47
+{
+public:
+	void rva000EDB47();
+};
+
+class Rva00068D43
+{
+public:
+	void rva00068D43();
+private:
+	unsigned char m_pad00[0x3850];
+	Rva000EDB47 *m_3850;
+};
+
+void Rva00068D43::rva00068D43()
+{
+	if (m_3850)
+		m_3850->rva000EDB47();
+}
+
+class Rva0010FAEA
+{
+public:
+	void rva0010FAEA();
+};
+
+class Rva000A8AB4
+{
+public:
+	void rva000A8AB4();
+private:
+	Rva0010FAEA *m_ptr;
+};
+
+void Rva000A8AB4::rva000A8AB4()
+{
+	if (m_ptr)
+		m_ptr->rva0010FAEA();
+}
+
+class Rva0010FBDE
+{
+public:
+	void rva0010FBDE();
+};
+
+class Rva000A8ACC
+{
+public:
+	void rva000A8ACC();
+private:
+	Rva0010FBDE *m_ptr;
+};
+
+void Rva000A8ACC::rva000A8ACC()
+{
+	if (m_ptr)
+		m_ptr->rva0010FBDE();
+}
+
+class Rva0010FDE9
+{
+public:
+	void rva0010FDE9(int a);
+};
+
+class Rva000A8B23
+{
+public:
+	void rva000A8B23(int a);
+private:
+	Rva0010FDE9 *m_ptr;
+};
+
+void Rva000A8B23::rva000A8B23(int a)
+{
+	if (m_ptr)
+		m_ptr->rva0010FDE9(a);
+}
+
+class Rva0010FEF3
+{
+public:
+	void rva0010FEF3(int a);
+};
+
+class Rva000A8B4B
+{
+public:
+	void rva000A8B4B(int a);
+private:
+	Rva0010FEF3 *m_ptr;
+};
+
+void Rva000A8B4B::rva000A8B4B(int a)
+{
+	if (m_ptr)
+		m_ptr->rva0010FEF3(a);
+}
+
+class Rva0010FFA2
+{
+public:
+	void rva0010FFA2(int a);
+};
+
+class Rva000A8C6E
+{
+public:
+	void rva000A8C6E(int a);
+private:
+	Rva0010FFA2 *m_ptr;
+};
+
+void Rva000A8C6E::rva000A8C6E(int a)
+{
+	if (m_ptr)
+		m_ptr->rva0010FFA2(a);
+}
+
+class Rva001EB68A
+{
+public:
+	void rva001EB68A();
+};
+
+class Rva001EB72F
+{
+public:
+	void rva001EB72F();
+private:
+	unsigned char m_pad00[0x10];
+	Rva001EB68A *m_10;
+};
+
+void Rva001EB72F::rva001EB72F()
+{
+	if (m_10)
+		m_10->rva001EB68A();
+}
+
+class Rva001EB6FE
+{
+public:
+	void rva001EB6FE();
+};
+
+class Rva001EB75C
+{
+public:
+	void rva001EB75C();
+private:
+	unsigned char m_pad00[0x10];
+	Rva001EB6FE *m_10;
+};
+
+void Rva001EB75C::rva001EB75C()
+{
+	if (m_10)
+		m_10->rva001EB6FE();
+}
+
+class Rva0020E9A1
+{
+public:
+	void rva0020E9A1();
+};
+
+class Rva0020EB41
+{
+public:
+	void rva0020EB41();
+private:
+	unsigned char m_pad00[8];
+	Rva0020E9A1 *m_8;
+};
+
+void Rva0020EB41::rva0020EB41()
+{
+	if (m_8)
+		m_8->rva0020E9A1();
+}
+
+class Rva004E5EBE
+{
+public:
+	void rva004E5EBE(int a, int b);
+};
+
+class Rva0029B16A
+{
+public:
+	void rva0029B16A(int a, int b);
+private:
+	unsigned char m_pad00[0x7F4];
+	Rva004E5EBE *m_7F4;
+};
+
+void Rva0029B16A::rva0029B16A(int a, int b)
+{
+	if (m_7F4)
+		m_7F4->rva004E5EBE(a, b);
+}
+
+class Rva004F2ABC
+{
+public:
+	void rva004F2ABC(int a, int b);
+};
+
+class Rva002A9CDE
+{
+public:
+	void rva002A9CDE(int a, int b);
+private:
+	unsigned char m_pad00[0x2DC];
+	Rva004F2ABC *m_2DC;
+};
+
+void Rva002A9CDE::rva002A9CDE(int a, int b)
+{
+	if (m_2DC)
+		m_2DC->rva004F2ABC(a, b);
+}
+
+class Rva004F0819
+{
+public:
+	void rva004F0819(int a);
+};
+
+class Rva002A9CF0
+{
+public:
+	void rva002A9CF0(int a);
+private:
+	unsigned char m_pad00[0x2DC];
+	Rva004F0819 *m_2DC;
+};
+
+void Rva002A9CF0::rva002A9CF0(int a)
+{
+	if (m_2DC)
+		m_2DC->rva004F0819(a);
+}
+
+class Rva004F2C14
+{
+public:
+	void rva004F2C14(int a);
+};
+
+class Rva002A9DEC
+{
+public:
+	void rva002A9DEC(int a);
+private:
+	unsigned char m_pad00[0x2DC];
+	Rva004F2C14 *m_2DC;
+};
+
+void Rva002A9DEC::rva002A9DEC(int a)
+{
+	if (m_2DC)
+		m_2DC->rva004F2C14(a);
+}
+
+struct GlobalA03314;
+extern GlobalA03314 *g_Va00A03314;
+
+class Rva0043CD3C
+{
+public:
+	void rva0043CD3C();
+};
+
+class Rva0043D15F
+{
+public:
+	void rva0043D15F();
+};
+
+void Rva0043D15F::rva0043D15F()
+{
+	Rva0043CD3C *p = (Rva0043CD3C *)g_Va00A03314;
+	if (p)
+		p->rva0043CD3C();
+}
+
+class Rva004E0D19
+{
+public:
+	void rva004E0D19(int a);
+};
+
+class Rva004FC176
+{
+public:
+	void rva004FC176(int a);
+private:
+	unsigned char m_pad00[0x20];
+	Rva004E0D19 *m_20;
+};
+
+void Rva004FC176::rva004FC176(int a)
+{
+	if (m_20)
+		m_20->rva004E0D19(a);
+}
+
+class Rva005CB283
+{
+public:
+	void rva005CB283();
+};
+
+class Rva005CCB16
+{
+public:
+	void rva005CCB16();
+private:
+	unsigned char m_pad00[4];
+	Rva005CB283 *m_4;
+};
+
+void Rva005CCB16::rva005CCB16()
+{
+	if (m_4)
+		m_4->rva005CB283();
+}
+
+class Rva000B3FD0
+{
+public:
+	void rva000B3FD0();
+};
+
+class Rva005D13D5
+{
+public:
+	void rva005D13D5();
+private:
+	unsigned char m_pad00[0xC];
+	Rva000B3FD0 *m_C;
+};
+
+void Rva005D13D5::rva005D13D5()
+{
+	if (m_C)
+		m_C->rva000B3FD0();
 }
