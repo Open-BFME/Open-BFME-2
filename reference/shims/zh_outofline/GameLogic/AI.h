@@ -570,13 +570,7 @@ public:
 		aiDoCommand(&parms);
 	}
 
-	inline void aiForceAttackObject( Object *victim, Int maxShotsToFire, CommandSourceType cmdSource )
-	{
-		AICommandParms parms(AICMD_FORCE_ATTACK_OBJECT, cmdSource);
-		parms.m_obj = victim;
-		parms.m_intValue = maxShotsToFire;
-		aiDoCommand(&parms);
-	}
+	void aiForceAttackObject( Object *victim, Int maxShotsToFire, CommandSourceType cmdSource );	// OUT OF LINE
 
 	inline void aiGuardRetaliate( Object *victim, const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource )
 	{
@@ -595,13 +589,7 @@ public:
 		aiDoCommand(&parms);
 	}
 
-	inline void aiAttackPosition( const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource )
-	{
-		AICommandParms parms(AICMD_ATTACK_POSITION, cmdSource);
-		parms.m_pos = *pos;
-		parms.m_intValue = maxShotsToFire;
-		aiDoCommand(&parms);
-	}
+	void aiAttackPosition( const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource );	// OUT OF LINE
 
 	inline void aiAttackMoveToPosition( const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource )
 	{
@@ -627,11 +615,7 @@ public:
 		aiDoCommand(&parms);
 	}
 
-	inline void aiHunt( CommandSourceType cmdSource )
-	{
-		AICommandParms parms(AICMD_HUNT, cmdSource);
-		aiDoCommand(&parms);
-	}
+	void aiHunt( CommandSourceType cmdSource );	// OUT OF LINE
 
 	inline void aiAttackArea( const PolygonTrigger *areaToGuard, CommandSourceType cmdSource )
 	{
@@ -734,13 +718,7 @@ public:
 		aiDoCommand(&parms);
 	}
 
-	inline void aiGuardPosition( const Coord3D *pos, GuardMode guardMode, CommandSourceType cmdSource )
-	{
-		AICommandParms parms(AICMD_GUARD_POSITION, cmdSource);
-		parms.m_pos = *pos;
-		parms.m_intValue = guardMode;
-		aiDoCommand(&parms);
-	}
+	void aiGuardPosition( const Coord3D *pos, GuardMode guardMode, CommandSourceType cmdSource );	// OUT OF LINE
 
 	inline void aiGuardObject( Object *objToGuard, GuardMode guardMode, CommandSourceType cmdSource )
 	{

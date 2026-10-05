@@ -55,10 +55,11 @@ struct AICommandParms {
 class AICommandInterface {
 public:
 	virtual void aiDoCommand(const AICommandParms *parms) = 0;
-	void aiAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);
+	void aiAttackPositionInlined(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);	// retail inlines aiAttackPosition here; a unit-local name keeps a second copy of it out of the link
 };
 
-__forceinline void AICommandInterface::aiAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource)
+// ?aiAttackPositionInlined@AICommandInterface@@QAEXPBUCoord3D@@HW4CommandSourceType@@@Z absent-from-retail
+__forceinline void AICommandInterface::aiAttackPositionInlined(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource)
 {
 	AICommandParms parms(AICMD_ATTACK_POSITION, cmdSource);
 	parms.m_pos = *pos;
@@ -129,7 +130,7 @@ Object *AttackNugget::create(const Object *primaryObj, const Coord3D *primary, c
 			obj->setWeaponLock(m_slot, LOCKED_TEMPORARILY);
 			Int shots = m_shots;
 			AIUpdateInterface *ai = (AIUpdateInterface*)(container + 0x20);
-			ai->aiAttackPosition(secondary, shots, CMD_FROM_AI);
+			ai->aiAttackPositionInlined(secondary, shots, CMD_FROM_AI);
 		}
 		static NameKeyType key_RadiusDecalUpdate = TheNameKeyGenerator->nameToKey("RadiusDecalUpdate");
 		RadiusDecalUpdate *rd = (RadiusDecalUpdate*)ObjectHack::find(obj, key_RadiusDecalUpdate);
