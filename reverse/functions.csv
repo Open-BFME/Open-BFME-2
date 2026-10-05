@@ -63068,3 +63068,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1Rva001FBEB7@@QAE@XZ,,0x001FBEB7,59,Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp,matched,Rva dtor chain second base plus4 then rva001F4206 holder by REL32 graph
 ?rva002B4B3D@Rva002B4B3D@@QAE_NXZ,,0x002B4B3D,70,Code/GameEngine/Source/Common/Rva002B4B3D.cpp,matched,Rva any-of loop over pointer vector by REL32 graph
 ?rva002E0AEA@Rva002E0AEA@@QAE_NXZ,,0x002E0AEA,70,Code/GameEngine/Source/Common/Rva002B4B3D.cpp,matched,Rva any-of loop over pointer vector by REL32 graph
+??1Rva005011B4@@QAE@XZ,,0x005011B4,8,Code/GameEngine/Source/Common/RvaMemberDtorForwarders.cpp,matched,Member dtor tail at plus4 into rowed dtor
+??1Rva0023863E@@QAE@XZ,,0x0023863E,8,Code/GameEngine/Source/Common/RvaMemberDtorForwarders.cpp,matched,Member dtor tail at plus4 into rowed dtor
