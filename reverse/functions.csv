@@ -59324,3 +59324,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva002E909F@Rva002E909F@@QAE_NPBUCoord3D@@HHPBVObject@@@Z,,0x002E909F,203,Code/GameEngine/Source/Common/Rva002E909F.cpp,matched,11 unclaimed callers; getCell 0x002E6D62 and Get 0x002E6E8A and 0x002E6DC4
 ?rva002EAD62@Rva002EAD62@@QAEXXZ,,0x002EAD62,23,Code/Libraries/Source/WWVegas/WWLib/stlport_auto_ptr_rva0053476A.cpp,matched,holder deleting owned Rva0053476A via rowed dtor and operator delete
 ??1Rva005F566A@@UAE@XZ,,0x005F566A,14,Code/GameEngine/Source/Common/Rva005F566ADtor.cpp,matched,dtor sets vptr then tail-jmps to rowed clear
+?reset@Rva002B4326@@QAEXPAVRva004FA2E2@@@Z,,0x002B4326,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,reset same pointee as clear 0x002B430C via caller 0x002BD50C
