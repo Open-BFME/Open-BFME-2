@@ -31,7 +31,7 @@ struct ID3DXEffect
 	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
 	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
 	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
-	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
+	virtual void v28(); virtual void v29(); virtual long __stdcall SetFloat(D3DXHANDLE parameter, float value); virtual void v31();
 	virtual void v32(); virtual void v33();
 	virtual long __stdcall SetVector(D3DXHANDLE parameter, const Rva000E2409Vector4 *vector);
 };
@@ -52,10 +52,22 @@ struct Rva000E2409Map
 class BaseHeightMapRenderObjClass
 {
 public:
-	char m_pad0000[0x3878];
+	char m_pad0000[0x37C0];
+	struct BfmeTerrain37C0Target *m_37C0;
+	char m_pad37C4[0x3878 - 0x37C4];
 	Rva000E2409Map *m_3878;
 	Rva000E2409Map *m_387c;
 };
+
+struct BfmeTerrain37C0Target
+{
+	char m_pad00[8];
+	int m_08;
+	int m_0C;
+	int m_10;
+};
+
+extern float BfmeGlobalBC2428;
 
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
@@ -172,6 +184,51 @@ void Rva000E2DA4Level(ID3DXEffect *effect, D3DXHANDLE handle)
 		value.x = level;
 		value.y = level;
 		value.z = level;
+	}
+	effect->SetVector(handle, &value);
+}
+
+void Rva000E2F24(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	Rva000E2409Vector4 value;
+	float s = BfmeGlobalBC2428;
+	value.x = s;
+	value.y = s;
+	value.z = 0.0f;
+	value.w = 0.0f;
+	effect->SetVector(handle, &value);
+}
+
+void Rva000E2F77(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	float v = 0.0f;
+	if (TheTerrainRenderObject)
+	{
+		BfmeTerrain37C0Target *t = TheTerrainRenderObject->m_37C0;
+		if (t)
+		{
+			v = (float)t->m_10 * BfmeGlobalBC2428;
+		}
+	}
+	effect->SetFloat(handle, v);
+}
+
+// ?Rva000E2EB7@@YAXPAUID3DXEffect@@PBD@Z present-unmatched
+void Rva000E2EB7(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	Rva000E2409Vector4 value;
+	value.x = 0.0f;
+	value.y = 0.0f;
+	value.z = 0.0f;
+	value.w = 0.0f;
+	if (TheTerrainRenderObject)
+	{
+		if (*(BfmeTerrain37C0Target **)((char *)TheTerrainRenderObject + 0x37C0))
+		{
+			BfmeTerrain37C0Target *t = *(BfmeTerrain37C0Target **)((char *)TheTerrainRenderObject + 0x37C0);
+			value.x = (float)t->m_08 * BfmeGlobalBC2428;
+			value.y = (float)t->m_0C * BfmeGlobalBC2428;
+		}
 	}
 	effect->SetVector(handle, &value);
 }
