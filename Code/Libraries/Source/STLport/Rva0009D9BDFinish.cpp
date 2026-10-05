@@ -36,9 +36,12 @@ class Rva0009D9BD
 {
 public:
 	void rva0009D9BD();
+	void rva0009D9FD();
 
 private:
-	unsigned char m_pad00[0x1C0];
+	unsigned char m_pad00[0x19C];
+	void *m_19C;
+	unsigned char m_pad1A0[0x1C0 - 0x1A0];
 	_STL::vector<void *> m_vec;
 };
 
@@ -50,4 +53,18 @@ void Rva0009D9BD::rva0009D9BD()
 	for (unsigned int i = 0; i < (unsigned)((span[1] - span[0]) >> 2); ++i)
 		g_Rva000DE5DFC->handle(vec[i]);
 	vec.erase(vec.begin(), vec.end());
+}
+
+// ?rva0009D9FD@Rva0009D9BD@@QAEXXZ, retail 0x0009D9FD, 43 bytes.
+// Single-slot prologue to rva0009D9BD: when the +0x19C slot is set, run it
+// through the same global handle thunk, clear it, and tail-jump into the
+// vector version.
+void Rva0009D9BD::rva0009D9FD()
+{
+	void *slot = m_19C;
+	if (slot) {
+		g_Rva000DE5DFC->handle(slot);
+		m_19C = 0;
+		rva0009D9BD();
+	}
 }
