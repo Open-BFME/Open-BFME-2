@@ -13278,3 +13278,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??1Rva0056D76B@@QAE@XZ,0x0056D76B,opaque member dtor called on the +0x258 member by dtor 0x005C9659; identity unproven; address-derived name
 ?Rva005D303A@@YA?AVUnicodeString@@HH@Z,0x005D303A,APT text builder returning UnicodeString by value (hidden pointer): 98B EH body formatting via L"%d/%d" and 0x00037050; retail REL32 at 0x005D3113/0x005D3178/0x005D31DD targets this address
 ??0Rva005E1627@@QAE@HH@Z,0x005E1627,base ctor for 0x005E1680 derived; address-derived pin
+??0Rva005F3E93@@QAE@HHHH@Z,0x005F3E93,base for 0x005E54D5; address-derived pin

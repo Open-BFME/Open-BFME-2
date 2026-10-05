@@ -63915,3 +63915,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005D3153@Rva005D30EE@@QAEXHH@Z,,0x005D3153,101,Code/GameEngine/Source/Common/Rva005D30EEAptSets.cpp,matched,APT text setter pair +0x10 suffix ArmoryPoints via by-value UnicodeString builder 0x005D303A
 ?rva005D31B8@Rva005D30EE@@QAEXHH@Z,,0x005D31B8,101,Code/GameEngine/Source/Common/Rva005D30EEAptSets.cpp,matched,APT text setter pair +0x18 suffix CommandPoints via by-value UnicodeString builder 0x005D303A
 ??0Rva005E1680@@QAE@HHH@Z,,0x005E1680,39,Code/GameEngine/Source/Common/Rva005E1627Ctors.cpp,matched,Derived ctor abc: base 0x005E1627 ab then m_0C=c scalar-before-vptr plus tail subobject zeroing +0x10 after vptr per Rva005E16DA pattern; address-derived
+??0Rva005E54D5@@QAE@HHH@Z,,0x005E54D5,34,Code/GameEngine/Source/Common/Rva005E54D5Ctor.cpp,matched,Derived ctor abc forwards ab0c to base 0x005F3E93 then vtable; address-derived
