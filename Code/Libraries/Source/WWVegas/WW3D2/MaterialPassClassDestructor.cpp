@@ -4,6 +4,11 @@
 // while allowing MSVC to emit the retail array-destructor cleanup sequence.
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
+// Retail's out-of-line RefCountClass deleting-dtor copy is the /O1 form
+// (pop ecx after the delete call); this TU builds /G7 which emits add esp,4
+// instead. Compile just the base class for size so our COMDAT matches the
+// first copy in link order. Code this TU's rows inline keeps this TU's flags.
+#pragma optimize("s", on)
 class RefCountClass
 {
 public:
@@ -18,11 +23,12 @@ public:
 	virtual void Delete_This() { delete this; }
 
 protected:
-	virtual ~RefCountClass() {}
+ 	virtual ~RefCountClass() {}
 
 private:
-	int NumRefs;
+ 	int NumRefs;
 };
+#pragma optimize("", on)
 
 class MaterialPassStage
 {
@@ -38,7 +44,7 @@ private:
 class MaterialPassClass : public RefCountClass
 {
 public:
-	virtual ~MaterialPassClass();
+ 	virtual ~MaterialPassClass();
 
 private:
 	MaterialPassStage Stages[8];
