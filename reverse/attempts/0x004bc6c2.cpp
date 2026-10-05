@@ -1,4 +1,6 @@
 // ?isValidToExecute@CrateCollide@@MBE_NPBVObject@@@Z
+// partial score=0.8757 date=2026-10-05
+// ?isValidToExecute@CrateCollide@@MBE_NPBVObject@@@Z
 // partial score=0.99 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ?isValidToExecute@CrateCollide@@MBE_NPBVObject@@@Z @0x004BC6C2 288B
