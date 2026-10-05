@@ -1,17 +1,12 @@
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
-// partial score=0.97 date=2026-10-05
-// ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
-// partial score=0.96 date=2026-10-05
-// ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
-// retail 0x006C2510 (214B).
-
+// partial score=0.98 date=2026-10-05
 // cl: /O2 /MD /EHsc
 // Unlock lane: landing it makes 0x006C26F0 and 0x006C4730 ready.
 // Evidence: lock at +0x4e4 with AddRef 0x00030DD0 / Release 0x00030DF0 (same
 // layout as Rva006C1F60::rva006C1EB0); hash find at +0x684 via 0x006C1850
 // (key>>3)%bucketCount row; trailing-length helper 0x006C1FE0 stdcall row;
-// ret 0xC three args; thiscall (reads ecx first).
-// Same class as Rva006C1F60 (lock at +0x4e4), extended to +0x684 hash.
+// ret 0xC three args; thiscall (reads ecx first). Retail 0x006C2510 (215B).
+// Same class as Rva006C1F60 (lock at +0x4E4), extended to +0x684 hash.
 struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
@@ -61,6 +56,20 @@ private:
 	Rva006C1850 m_hash;
 };
 
+
+// Forceinline helpers: retail materialises base and size as separate operands
+// at 0x006C255D, which an inlined call expression reproduces where a folded
+// pointer expression does not.
+static __forceinline char *rva006C2510Field(char *base, unsigned int size)
+{
+	return base + size - 10;
+}
+
+static __forceinline unsigned short rva006C2510Trail(char *base, unsigned int size)
+{
+	return *(unsigned short *)(base + size - 10);
+}
+
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z present-unmatched
 // Both arms return trail+2. The store happens only when out!=0; retail tests
 // the out pointer (test esi,esi) and the je skips the body store, not the
@@ -75,17 +84,15 @@ unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 	if (eff == 2)
 		eff = m_67c;
 	if (eff == 0) {
-		char *p = base;
 		unsigned int h = *(unsigned int *)(base - 4);
 		unsigned int size;
 		if ((h & 2) == 0)
 			size = (h & 0x7ffffff8) + 4;
 		else
 			size = h & 0x7ffffff8;
-		unsigned short trail = *(unsigned short *)(p + (int)size - 10);
+		unsigned short trail = rva006C2510Trail(base, size);
 		if (out != 0) {
-			char *const body = p - trail;
-			*out = body + (int)(size - 10);
+			*out = rva006C2510Field(base, size) - trail;
 			result = trail + 2;
 		}
 		else
