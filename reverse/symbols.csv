@@ -12693,3 +12693,4 @@ _Rva0052B1EFLookup,0x0052B1EF,REL32 callee decoded from target call bytes of wra
 _Rva0059E0C1Lookup,0x0059E0C1,REL32 callee decoded from target call bytes of wrapper 0x0059E0F7; identity unproven
 ?sharedInit@Rva005CDMorph@@QAEXHHHHH@Z,0x005CD1D3,REL32 shared-init callee decoded from target call bytes of morph family; identity unproven
 _g_pRva007B6890,0x00DA6214,global pointer read by singleton virtual forward 0x007B6890; identity unproven
+_Rva004097AFWorker,0x004097AF,REL32 callee decoded from target call bytes of wrappers 0x00409892/0x004098A9; identity unproven

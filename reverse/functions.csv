@@ -63370,3 +63370,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?fwd@Rva005E6836Mid@@QAEXXZ,,0x005E6836,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: adj +4 slot 0x08 tail-jmp; 8B shape
 ?fwd@Rva005E3AA2Mid@@QAEXXZ,,0x005E3AA2,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk: adj -8 slot 0x0C tail-jmp; 8B shape
 ?Rva007B6890@@YAXXZ,,0x007B6890,11,Code/GameEngine/Source/Common/Rva007B6890SingletonFwd.cpp,matched,Address-derived singleton virtual forward: global ptr slot2 tail-jmp; 11B shape
+?Rva00409892@@YAHHH@Z,,0x00409892,23,Code/GameEngine/Source/Common/Rva004097AFWrappers.cpp,matched,Address-derived tagged wrapper: callee(a;b;0x4A;b); 23B shape
+?Rva004098A9@@YAHHH@Z,,0x004098A9,21,Code/GameEngine/Source/Common/Rva004097AFWrappers.cpp,matched,Address-derived tagged wrapper: callee(a;b;0x41;0); 21B shape
