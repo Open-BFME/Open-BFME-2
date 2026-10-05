@@ -56680,3 +56680,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva004441C5@BfmeAptScreenLanLobby@@QAEX_NH@Z,,0x004441C5,67,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp,matched,vftable 0x00C3E098 slot18; name unknown; sets view +0x428 to 12 then LANAPI vslot23(+0x88==1) or vslot19(1); ret 8
 ?Rva00590FD4Get@@YAHPAVCDDrive@@@Z,,0x00590FD4,54,Code/GameEngine/Source/Common/Rva00590FD4Get.cpp,matched,CDDrive getPath len plus NetWrapper dataOffset plus 0x14 via sibling Rva0059100AGet pattern
 ?Rva0058CD6AWrite@@YAXPADPAVNetCommandRef@@@Z,,0x0058CD6A,185,Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp,matched,sibling CE23 layout plus import 0x006291A8
+??1Rva00090360@@UAE@XZ,,0x0009045E,108,Code/GameEngine/Source/Common/Rva00090360Dtor.cpp,matched,vtable plus rowed callees plus caller 0x000905D4
