@@ -16,8 +16,12 @@
 class Object;
 typedef void (__cdecl *ContainIterateFunc)(Object *obj, void *userData);
 
-void iterCallback0046258C(Object *obj, void *userData);
-void iterCallback004625AA(Object *obj, void *userData);
+class BfmeObjFCD;
+struct BfmePairFCD;
+void bfmeGoFCD(BfmeObjFCD *o, BfmePairFCD *p);
+class BfmeItem1005;
+struct Rva00220820Pair;
+void __cdecl rva00220820Forward(BfmeItem1005 *receiver, const Rva00220820Pair *value);
 
 struct Coord3D0046255E {
 	float x;
@@ -69,7 +73,7 @@ bool SlaughterHordeContain::rva004625BB(void *a, int b)
 	user.b = b;
 	user.a = a;
 	user.flag = false;
-	iterateContained(iterCallback0046258C, &user, true);
+	iterateContained((ContainIterateFunc)bfmeGoFCD, &user, true);
 	return user.flag == false;
 }
 
@@ -85,7 +89,7 @@ void SlaughterHordeContain::rva004625F0(void *a)
 	user.zero = 0;
 	user.a = a;
 	user.flag = false;
-	iterateContained(iterCallback004625AA, &user, true);
+	iterateContained((ContainIterateFunc)rva00220820Forward, &user, true);
 }
 
 // ?rva0046255E@SlaughterHordeContain@@QAEXPBUCoord3D0046255E@@@Z, retail 0x0046255E, 27 bytes.
