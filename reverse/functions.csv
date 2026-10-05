@@ -64740,3 +64740,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0049D244@Rva0049D244@@QAEMPBVThingTemplate@@@Z,,0x0049D244,122,Code/GameEngine/Source/Common/Rva0049D244Product.cpp,matched,upgrade scale product float at value plus 0xC
 ?rva0049D2BE@Rva0049D2BE@@QAEME@Z,,0x0049D2BE,127,Code/GameEngine/Source/Common/Rva0049D2BEProduct.cpp,matched,flag selects scale byte then upgrade product
 ?rva0049D33D@Rva0049D33D@@QAEME@Z,,0x0049D33D,127,Code/GameEngine/Source/Common/Rva0049D33DProduct.cpp,matched,flag selects scale byte float at value plus 0xC
+?rva004A0670@Rva004A0670@@QAEXPAVObject@@0@Z,,0x004A0670,153,Code/GameEngine/Source/Common/Rva004A0670Copy.cpp,matched,copy pose onto object or owner then face position
