@@ -9349,3 +9349,11 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ??1Rva005CFDA6@@UAE@XZ	0x005CFDA6	54	blocked	neg sbb and member call wall plus vptr order t=6 model=muse-08
 ??0?$vector@UBfmeContainerRecord002CF46E@@V?$allocator@UBfmeContainerRecord002CF46E@@@_STL@@@_STL@@QAE@I@Z	0x00514EAB	120	blocked	name refuted: retail 120B EH ctor (vtables C65F10/C65F0C; global E048DC; calls 0x5B7010 0x36410 0x5B6EFE 0x5126F5); not a vector ctor. t=5 model=muse-spark-1.3-contributor
 ?_GRva00065D24@@QAEPAXI@Z	0x00065D24	28	blocked	not a scalar deleting dtor: second call is 0x65D11 not delete; dtor-shape only. t=3 model=muse-spark-1.3-contributor
+?Rva0022216EGet@@YAPBDABVAsciiString@@@Z	0x0022216E	59	blocked	extra add ecx 0x28 vs indexed cmp needs folding t=15 model=muse-03 (stash 0.95 kept)
+?Rva00411336Do@@YAXPAXHPA VW3DFileSystem@@@Z	0x00411336	95	blocked	complex STL hashtable VideoPair needs full template instantiation t=5 model=muse-03
+?erase@Rva00056B72VectorView@@QAEPAXPAX0@Z	0x00056B72	51	blocked	only empty tag address EBP+0F vs native +0B t=12 model=muse-03 (stash 0.980392 kept)
+?forward0@Rva0066F5F0ForwardView@@QAEXXZ	0x0066F5F0	60	blocked	4 INT3-bounded tail jumps 11 12 12 12 not one function and void ABI unproven with no callers t=5 model=muse-03
+?forward1@Rva0066F5F0ForwardView@@QAEXXZ	0x0066F600	44	blocked	3 INT3-bounded tail jumps 12 12 12 not one function and void ABI unproven with no callers t=5 model=muse-03
+?forward3@Rva0066F5F0ForwardView@@QAEXXZ	0x0066F620	12	blocked	tail-jump forwarder void ABI unproven with no callers no vtable slot proof needs class reconciliation t=4 model=muse-03
+?forward2@Rva0066F5F0ForwardView@@QAEXXZ	0x0066F610	28	blocked	2 INT3-bounded tail jumps 12 12 not one function and void ABI unproven with no callers t=3 model=muse-03
+??1StancesBehavior@@UAE@XZ	0x0045F001	103	blocked	vptr stores 0 vs retail 3 vtables plus EH state and dword [ebp-4] 0 vs mov 1 then byte 0 then or -1 size 96 vs 103 t=5 model=muse-03
