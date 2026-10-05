@@ -62931,3 +62931,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002E2F39@Rva002E2F39@@QAEXABURva002E2D10Record@@@Z,,0x002E2F39,11,Code/GameEngine/Source/Common/Rva002E2F39.cpp,matched,rowed vector pushback tail plus caller
 ?rva00576B99@Rva00576B5E@@QAEXH@Z,,0x00576B99,40,Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,matched,vtable slot 2 of 0x0086E7D4 vslot
 ?addTeamToList@Player@@QAEXPAVTeamPrototype@@@Z,,0x002AE228,42,Code/GameEngine/Source/Common/RTS/PlayerAddTeamToList.cpp,matched,ZH Player::addTeamToList verbatim over the +0x32C team-prototype list then push_back 0x002ADCC7
+??RRva004F81DBGreater@@QBE_NABURva004F6966@@0@Z,,0x004F603F,24,Code/Libraries/Source/WWVegas/WWLib/stlport_pop_heap_rva004f7e61.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
