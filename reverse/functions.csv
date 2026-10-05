@@ -62204,3 +62204,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva00279354@Rva00279354Host@@QAEX_N@Z,,0x00279354,39,Code/GameEngine/Source/Common/Rva00279354.cpp,matched,two-phase init via 0x2743D7 plus 0xA8C9B then conditional 0x2783F6 on bool
 ?rva002784AF@Rva002784AFHost@@QAEXXZ,,0x002784AF,60,Code/GameEngine/Source/Common/Rva002784AF.cpp,matched,triple-byte gate plus virtual v20 forward to 0x278440
 ?rva002856CF@Rva002856CFHost@@QAEXXZ,,0x002856CF,40,Code/GameEngine/Source/Common/Rva002856CF.cpp,matched,inverted-gate refresh if m10==-1 and global m3C>=-1 via 0x20D8F1
+?rva0028F2F8@Rva0028F2F8Host@@QAEPAXXZ,,0x0028F2F8,46,Code/GameEngine/Source/Common/Rva0028F2F8.cpp,matched,flag-gated search via 0x2197A6 returning ptr+8 else aux+30

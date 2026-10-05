@@ -12068,3 +12068,4 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva0027824D@Rva0027824DHost@@QAEXHPAURva0027937BArg@@@Z,0x0027824D,thiscall with int plus ptr from 0x27937B
 ?rva00278440@Rva00278440Host@@QAEXH@Z,0x00278440,thiscall with int from 0x2784AF
 ?rva0020D8F1@Rva0020D8F1Host@@QAEXPAVRva002856CFHost@@@Z,0x0020D8F1,thiscall on global 0xDFE1A8 with this from 0x2856CF
+?rva002197A6@Rva002197A6Host@@QAEPAXH@Z,0x002197A6,thiscall with int from 0x28F2F8 returns bool
