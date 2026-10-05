@@ -12769,3 +12769,7 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?get@Rva001F5DACSlot@@QAEPAXPAX@Z,0x001F5DAC,REL32 finder decoded from target call bytes of chained find 0x001FC357; identity unproven
 ?get@Rva001F5D98Slot@@QAEPAXPAX@Z,0x001F5D98,REL32 finder decoded from target call bytes of chained find 0x001FC451; identity unproven
 ?fwd@Rva001FBA8C@@QAEHHH@Z,0x001FBA8C,chain tail decoded from target call bytes of chained find 0x001FBC43; identity unproven
+?run@Rva0010FAEARun@@QAEXXZ,0x0010FAEA,REL32 callee decoded from target call bytes of null-checked forward 0x000A8AB4; identity unproven
+?run@Rva0010FBDERun@@QAEXXZ,0x0010FBDE,REL32 callee decoded from target call bytes of null-checked forward 0x000A8ACC; identity unproven
+??0Rva000AB3E2Element@@QAE@ABV0@@Z,0x000A9851,copy ctor decoded from target call bytes of guarded construction 0x000A9DF8; identity unproven
+??0Rva000AB419Element@@QAE@ABV0@@Z,0x000A987D,copy ctor decoded from target call bytes of guarded construction 0x000A9E0A; identity unproven
