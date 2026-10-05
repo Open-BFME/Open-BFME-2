@@ -55898,3 +55898,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva003888DE@Rva003888DE@@QAEHH@Z,,0x003888DE,27,Code/GameEngine/Source/Common/Rva003888F9Get.cpp,matched,unlock bounds getter array 1bc sibling
 ?rva00388914@Rva00388914@@QAEHH@Z,,0x00388914,27,Code/GameEngine/Source/Common/Rva003888F9Get.cpp,matched,unlock bounds getter array 1dc sibling
 ?rva0038892F@Rva0038892F@@QAEHH@Z,,0x0038892F,27,Code/GameEngine/Source/Common/Rva003888F9Get.cpp,matched,unlock bounds getter array 1fc sibling
+?rva0055AE75@Rva0055AE75@@QAEHPAVPlayer@@@Z,,0x0055AE75,97,Code/GameEngine/Source/Common/Rva0055AE75Spend.cpp,matched,unlock spend via RTS map Money virtual
