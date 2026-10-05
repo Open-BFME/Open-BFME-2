@@ -12691,3 +12691,4 @@ _Rva004F7780Apply,0x004F7780,REL32 callee decoded from target call bytes of same
 _Rva003FE245Lookup,0x003FE245,REL32 callee decoded from target call bytes of wrapper 0x00318D4E; identity unproven
 _Rva0052B1EFLookup,0x0052B1EF,REL32 callee decoded from target call bytes of wrapper 0x0052B225; identity unproven
 _Rva0059E0C1Lookup,0x0059E0C1,REL32 callee decoded from target call bytes of wrapper 0x0059E0F7; identity unproven
+?sharedInit@Rva005CDMorph@@QAEXHHHHH@Z,0x005CD1D3,REL32 shared-init callee decoded from target call bytes of morph family; identity unproven
