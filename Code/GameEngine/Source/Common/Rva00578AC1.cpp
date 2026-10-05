@@ -26,16 +26,23 @@ public:
 	virtual bool reverseAnimateWindow(AnimateWindow *);
 };
 
+void Rva005CB26A();
+
 class Rva00578AC1
 {
 public:
 	void rva00578AC1(void *arg);
+	void rva00578B4C(void *arg);
 private:
 	int m_00;
 	int m_04;
 	Rva00578A60List m_list08;
-	char m_pad18[0x54 - 0x18];
+	int m_18;
+	Rva00578A60List m_list1C;
+	char m_pad2C[0x54 - 0x2C];
 	bool m_flag54;
+	char m_pad55;
+	bool m_flag56;
 };
 
 void Rva00578AC1::rva00578AC1(void *unused)
@@ -43,4 +50,19 @@ void Rva00578AC1::rva00578AC1(void *unused)
 	(void)unused;
 	m_flag54 = false;
 	m_list08.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow), &m_04);
+}
+
+// ?rva00578B4C@Rva00578AC1@@QAEXPAX@Z, retail 0x00578B4C, 24 bytes.
+// Sets byte at +0x56 then broadcasts callback 0x005CB26A with arg this+0x18 over list at +0x1C via forEach 0x00578A60.
+// Evidence: packet disassembly, sibling 0x00578AC1 pattern, pin Rva005CB26A, caller 0x00578BD4.
+void Rva00578AC1::rva00578B4C(void *unused)
+{
+	(void)unused;
+	m_flag56 = true;
+	union {
+		void (*freeCb)();
+		void (Rva00578A60Listener::*memCb)(void *);
+	} u;
+	u.freeCb = &Rva005CB26A;
+	m_list1C.forEach(u.memCb, &m_18);
 }
