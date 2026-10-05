@@ -56476,3 +56476,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003C388EDo@@YGXPAVParameter@@_N@Z,,0x003C388E,60,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C388E.cpp,matched,ScriptActions team predicate via Rva003C4570 pattern ret 0x8 stdcall
 ?rva0026417F@AIUpdateInterface@@QAEHH@Z,,0x0026417F,59,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceRva0026417F.cpp,matched,AIUpdateInterface m_object at this+8 and template byte 0x109 with 10x rva0028CE7B
 ?rva005D9CE0@Rva005D9CD5@@QAE_NPAVObject@@@Z,,0x005D9CE0,76,Code/GameEngine/Source/Common/Rva005D9CE0.cpp,matched,gap vslot6 plus AI victim plus AoE picker plus float
+?rva00368542@Rva00368542@@QAEXHPBVWaypoint@@@Z,,0x00368542,82,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368542.cpp,matched,leaf plus sibling layout plus rowed callees
