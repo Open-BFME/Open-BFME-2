@@ -63600,3 +63600,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00548183@Rva00548117@@QAEPBVArmorTemplate@@PAXPBVRva00548800@@@Z,,0x00548183,118,Code/GameEngine/Source/GameLogic/Object/Rva00548117.cpp,matched,sibling of 0x00548117 with precheck and subset 0x00548753 caller 0x00355514
 ?rva003EF041@Rva003EF041@@QAEXXZ,,0x003EF041,37,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,guard this+0x14 calls rowed 0x003EE7CA and 0x003EEE64 callers linkbonus
 ?rva003EEE8E@Rva003EEE8E@@QAEXH@Z,,0x003EEE8E,37,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 0x003EE7CA and 0x003EEB9F same TU as prev next
+?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
