@@ -59801,3 +59801,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva000BC9B1@Rva000BC9B1@@QAEX_N@Z,,0x000BC9B1,164,Code/GameEngine/Source/Common/Rva000BC9B1Cleanup.cpp,matched,list B757D at +0x64 via erase copy releaseBuffer plus manager find destroy handle
 ??1Rva005F74BA@@QAE@XZ,,0x005F74BA,26,Code/GameEngine/Source/Common/Rva005F74BADtor.cpp,matched,owning pointer to rowed 0x005F6AB0 via delete for outer array
 ??1Rva005F75C9@@QAE@XZ,,0x005F75C9,139,Code/GameEngine/Source/Common/Rva005F75C9Dtor.cpp,matched,nonvirtual dtor plus narrow wide strings plus rowed dtors plus clear plus 7x rowed array
+??$__uninitialized_copy@PAURva00413B16Element@@PAU1@@_STL@@YAPAURva00413B16Element@@PAU1@00ABU__false_type@0@@Z,,0x004139BB,38,Code/Libraries/Source/WWVegas/WWLib/StlportUninitCopy413B16.cpp,matched,loop via rowed _Construct 0x0041398E stride 0x18 sibling Rva004E32F2UninitCopy
