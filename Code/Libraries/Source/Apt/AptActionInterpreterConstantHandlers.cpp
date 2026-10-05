@@ -185,7 +185,7 @@ private:
     static bool getContext(AptValue *,AptValue *,const EAStringC *,AptValue **,EAStringC &);
     AptObject *_createObject(AptValue *,AptValue *,const EAStringC *,int,bool);
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(GotoFrame2); HANDLER(CloneSprite); HANDLER(SetTarget); HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
+    HANDLER(RemoveSprite); HANDLER(GotoFrame2); HANDLER(CloneSprite); HANDLER(SetTarget); HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1182,7 +1182,8 @@ void AptActionInterpreter::_FunctionAptActionWith(AptActionInterpreter *const p,
 // Keep direct accessor-expression bitfield assignment: a temporary changes MSVC codegen.
 class AptMovie { public: int labelToFrame(const EAStringC *) const; void runFrameActions(AptCIH *,int); };
 struct AptCharacter { unsigned char prefix[8]; AptMovie movie; };
-struct AptSpriteInstBase { unsigned char prefix[0xC]; AptCharacter *character; unsigned char middle[8]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; };
+class AptDisplayList { public: void removeClonedObject(AptCIH *); };
+struct AptSpriteInstBase { unsigned char prefix[0xC]; AptCharacter *character; unsigned char middle[8]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; void *clipActions; AptDisplayList displayList; };
 class AptCIH : public AptValue {
 public:
     unsigned char prefix[0x48-8];
@@ -1937,4 +1938,22 @@ void AptActionInterpreter::_FunctionAptActionTargetPath(AptActionInterpreter *co
     } else {
         p->stack.Pop(); p->stack.Push(gpUndefinedValue);
     }
+}
+
+#pragma comment(linker, "/alternatename:?rva007064f0@@YAPAVBfmeAptValue006DCD20@@HHPAVEAStringC@@@Z=?getObject@AptActionInterpreter@@CAPAVAptValue@@PAV2@0PBVEAStringC@@@Z")
+
+void AptActionInterpreter::_FunctionAptActionRemoveSprite(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *path=p->stack.At(0);
+    AptValue *object;
+    if(!path->isUndefined()) {
+        rva007065e0((int)c->pCurrentContext,(int)c->pCurWith,(BfmeAptValue006DCD20 *)path,(BfmeAptValue006DCD20 **)&object);
+        AptValue *resolved=object;
+        if(resolved && resolved->isCIH()) {
+            AptCIH *cih=resolved->c_cih();
+            AptSpriteInstBase *parent=cih->mpDisplayListParent->GetSpriteInstBase();
+            parent->displayList.removeClonedObject(cih);
+        }
+    }
+    p->stack.Pop();
 }
