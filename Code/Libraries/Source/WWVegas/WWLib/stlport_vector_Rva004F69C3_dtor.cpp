@@ -12,4 +12,6 @@ struct Rva004F69C3
 	void *m_04;
 };
 
-template class _STL::vector<Rva004F69C3, _STL::allocator<Rva004F69C3> >;
+template void _STL::_Destroy<Rva004F69C3 *>(Rva004F69C3 *, Rva004F69C3 *);
+template _STL::vector<Rva004F69C3>::~vector();
+template void _STL::vector<Rva004F69C3>::_M_clear();
