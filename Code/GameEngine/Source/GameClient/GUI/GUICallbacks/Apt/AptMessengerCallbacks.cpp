@@ -433,7 +433,6 @@ void AptMessenger::rva00511AD4(int query, char *value, bool set)
 // Retail 0x00511990, 84 bytes: vftable 0x00C659A0 slot 2, the window
 // message handler: the base class's, then each tab's; a tab that takes the
 // message marks the screen for a refresh.
-// ?rva00511990@AptMessenger@@QAEHHII@Z present-unmatched
 int AptMessenger::rva00511990(int message, unsigned int wParam, unsigned int lParam)
 {
 	int result = ((Rva005126F5 *)this)->rva0051274F(message, wParam, lParam);
