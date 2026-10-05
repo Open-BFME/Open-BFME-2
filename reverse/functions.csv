@@ -56599,3 +56599,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva000581FA@MilesAudioManager@@QAEXABURva0005BA08InfoRef@@H@Z,,0x000581FA,83,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000581FA.cpp,matched,callee of initFilters twin 0x0005BA08 (byte-true call); three 0x1C4 Rva00699180Owner blocks at +0x12C fed via rowed 5818B; type 2 fans out
 ?Rva003BB8EDReveal@@YGXABVAsciiString@@M0@Z,,0x003BB8ED,95,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB8ED.cpp,matched,leaf lane TerrainLogic slot88 ScriptEngine mask ShroudManager pair
 ?Rva003BB1FFAttack@@YGXPAVParameter@@ABVAsciiString@@@Z,,0x003BB1FF,52,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB1FF.cpp,matched,leaf lane getUnitNamed AI258 getAttackInfo store70
+??0Rva003608C9@@QAE@XZ,,0x003608C9,22,Code/GameEngine/Source/Common/DamageFXRva003608C9Ctor.cpp,matched,unlock lane DFX array78 vector iterator caller 0x00360ABA
