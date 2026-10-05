@@ -55,3 +55,15 @@ void Rva000427195::rva002ADCE1(const VideoPair &it) {
   }
  }
 }
+
+// Native Ghidra FUN_007a37dc: 0x003A37DC..0x003A37FA (ret8 at 3A37F7).
+// The reset call at 31E1AB passes its captured two-word cursor. Retail
+// copies both words into a local cursor and passes that local by reference
+// to the rowed chain-erase worker at 2ADCE1. No original container name is
+// inferred from this wrapper or from its generic STLport instruction shape.
+#pragma optimize("y", off)
+void Rva000427195::rva003A37DC(VideoPair p)
+{
+ VideoPair local=p;
+ rva002ADCE1(local);
+}
