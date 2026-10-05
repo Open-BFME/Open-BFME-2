@@ -108,3 +108,14 @@ AptValue *aptMathLog(void *self, int argc)
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
     return Rva008A4EA0MakeFloat((float)log(value));
 }
+
+// Native 6E87C0..6E87F6: complete return followed by int3 padding.
+// BFME1 6583b3c1 game/Libraries/Source/EA/Apt/aptMathAcos.cpp supplies
+// the operation; the target uses checked At(0) and the shared numeric converter.
+AptValue *aptMathAcos(void *self, int argc)
+{
+    if (argc < 1)
+        return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
+    float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
+    return Rva008A4EA0MakeFloat((float)acos(value));
+}
