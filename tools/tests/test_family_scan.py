@@ -21,6 +21,14 @@ sys.path.insert(0, str(TOOLS))
 
 import family_scan
 
+
+def test_local_static_filter_uses_bfme2_atexit():
+    rva = 0x007AC6DD
+    def call_to(target):
+        return b"\xe8" + (target - rva - 5).to_bytes(4, "little", signed=True) + b"\xc3"
+    assert family_scan.registers_a_local_static(call_to(0x006291F8), rva)
+    assert not family_scan.registers_a_local_static(call_to(0x009F6E26), rva)
+
 RET = bytes.fromhex("33 c0 c3")                    # xor eax,eax; ret
 RET4 = bytes.fromhex("8b 44 24 04 89 01 c2 04 00")  # ends C2 04 00, not a C3 byte
 FAKE_RET = bytes.fromhex("b8 00 00 00 c3")          # mov eax,0xC3000000: ends in a C3 byte, no ret

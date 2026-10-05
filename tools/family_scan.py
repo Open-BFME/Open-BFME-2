@@ -278,7 +278,7 @@ def load_attempted():
     return seen, dead
 
 
-ATEXIT_RVA = 0x009F6E26          # _atexit, per reverse/symbols.csv
+ATEXIT_RVA = 0x006291F8          # BFME2 _atexit, per reverse/symbols.csv
 
 
 def registers_a_local_static(body, rva):
