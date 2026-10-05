@@ -33,7 +33,7 @@ public:
 
 }
 
-extern ATL::CImage::CInitGDIPlus g_initGDIPlusAtE09E30;
+ATL::CImage::CInitGDIPlus g_initGDIPlusAtE09E30;
 
 // 0x007B9AEA (22B): CInitGDIPlus atexit teardown.
 void rva007B9AEA()
