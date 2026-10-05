@@ -1,5 +1,8 @@
 // cl: /GX-
 // Rva00802380Owner ctor: vtable, field8=0, three-dword member at +0x18, then field4/24/28.
+// LINK: class truly has virtual dtor (rows ??1/??_G owned by Y2FeslBrowserDestructors.cpp);
+// declared here as plain virtual to keep the implicit vtable store without emitting
+// a second wrong ??_G copy in this TU.
 
 struct V2ZeroInt
 {
@@ -21,7 +24,7 @@ class Rva00802380Owner
 {
 public:
 	__declspec(noinline) Rva00802380Owner();
-	virtual ~Rva00802380Owner();
+	virtual void vfunc() = 0;
 
 	int m_field4;
 	V2ZeroInt m_field8;
