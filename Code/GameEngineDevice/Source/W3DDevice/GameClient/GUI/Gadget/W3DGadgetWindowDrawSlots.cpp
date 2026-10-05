@@ -579,3 +579,13 @@ public:
 Rva000A26F7::Rva000A26F7(void *context) : Rva000A2670(context)
 {
 }
+
+// ??0Rva000A270F@@QAE@PAX@Z @0x000A270F 24B chain via rowed base 0x000A26F7 plus vtable 0x007C90D0
+class Rva000A270F : public Rva000A26F7
+{
+public:
+	Rva000A270F(void *context);
+};
+Rva000A270F::Rva000A270F(void *context) : Rva000A26F7(context)
+{
+}
