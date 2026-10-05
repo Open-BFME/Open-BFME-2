@@ -110,6 +110,7 @@ public:
     void Push(AptValue *);
     void PushNoInc(AptValue *);
     void rva006FE050(int);
+    void rva006E3AA0(int);
     void rva006FE920();
     __forceinline AptValue *At(int nPos) const
     {
@@ -150,6 +151,7 @@ public:
     AptValue **items;
 };
 
+class AptObject;
 struct AptActionInterpreter
 {
     struct LocalContextT {
@@ -175,6 +177,7 @@ private:
     AptValue *_doCloneSprite(AptCIH *,AptValue *,AptValue *,AptValue *,int,AptValue *);
     static AptValue *getObject(AptValue *,AptValue *,const EAStringC *);
     static bool getContext(AptValue *,AptValue *,const EAStringC *,AptValue **,EAStringC &);
+    AptObject *_createObject(AptValue *,AptValue *,const EAStringC *,int,bool);
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
     HANDLER(CloneSprite); HANDLER(SetTarget); HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
@@ -193,6 +196,7 @@ private:
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
     HANDLER(InitArray);
     HANDLER(GetProperty); HANDLER(SetProperty);
+    HANDLER(InitObject);
     HANDLER(GetTimer);
     HANDLER(Trace);
     HANDLER(StrictEquals);
@@ -1692,3 +1696,22 @@ void    AptActionInterpreter::_FunctionAptActionEquals2(AptActionInterpreter * c
     pInterpreter->stack.Push(AptBoolean::Create(nResult != 0));
 }
 
+class Rva8D0D80String;
+class Rva8D0D80Value;
+class Rva8D0D80Table { public: void add(Rva8D0D80String *,Rva8D0D80Value *); };
+void AptActionInterpreter::_FunctionAptActionInitObject(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    int n=p->stack.At(0)->toInteger();
+    p->stack.Pop();
+    AptValue *object=(AptValue *)p->_createObject((AptValue *)c->pCurrentContext,c->pCurWith,Rva0070B4F0GetString(0x64),0,true);
+    if(object) {
+        for(int i=0,reg=0;i<n;++i,reg+=2) {
+            AptValue *value=p->stack.At(reg);
+            AptValue *name=p->stack.At(reg+1);
+            EAStringC text;name->toString(text);
+            ((Rva8D0D80Table *)((char *)object+8))->add((Rva8D0D80String *)&text,(Rva8D0D80Value *)value);
+        }
+        p->stack.rva006E3AA0(2*n);
+        p->stack.Push(object);object->Release();
+    } else {p->stack.rva006FE050(2*n);p->stack.Push(gpUndefinedValue);}
+}
