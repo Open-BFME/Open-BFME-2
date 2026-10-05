@@ -98,6 +98,7 @@ public:
 	// Vtable slot 1, the input handler. Name unknown.
 	int rva0050EBC5(int message, int key, int state);
 	void OnPageUnloaded(const char *name);
+	void OnPageSelected(const char *name);
 
 private:
 	typedef _STL::map<AsciiString, TreeHintRef0051030C> PageMap;
@@ -161,6 +162,31 @@ void Rva00510D0C::OnPageUnloaded(const char *name)
 			m_page = 0;
 		}
 		m_pages.erase(it);
+	}
+}
+
+// Retail 0x00510F41, 125 bytes: "_OnPageSelected". Leaves the current
+// page and shows the named one; an unknown name leaves no page current.
+void Rva00510D0C::OnPageSelected(const char *name)
+{
+	AsciiString key(name);
+	PageMap::iterator it = m_pages.find(key);
+	if (it != m_pages.end())
+	{
+		Rva00510D0CPage *page = (Rva00510D0CPage *)it->second.m_ptr;
+		if (page != m_page)
+		{
+			if (m_page)
+				m_page->v02();
+			m_page = page;
+			page->v01();
+		}
+	}
+	else
+	{
+		if (m_page)
+			m_page->v02();
+		m_page = 0;
 	}
 }
 
