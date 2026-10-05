@@ -64145,3 +64145,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva002076AA@@QAE@XZ,,0x002076AA,56,Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp,matched,Map-base dtor sibling of 0x002075F3 over tree Rva00206632 (CLEAR 0x00206F42)
 ??1Rva00207724@@QAE@XZ,,0x00207724,56,Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp,matched,Map-base dtor sibling of 0x002075F3 over tree Rva0020669C (CLEAR 0x00206F94)
 ??1Rva00207761@@QAE@XZ,,0x00207761,56,Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp,matched,Map-base dtor sibling of 0x002075F3 over tree Rva002066D1 (CLEAR 0x00206FBD)
+?drawTooltip@Mouse@@QAEXXZ,,0x001EF06F,546,Code/GameEngine/Source/GameClient/MouseDrawTooltip.cpp,matched,
