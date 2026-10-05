@@ -55912,3 +55912,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ??1Rva004E5654@@UAE@XZ,,0x004E5654,72,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp,matched,caller 0x004E7DC8 member +0x1C dtor via rowed 0x004E54ED and inlined 0x004E5542
 ?rva004E5911@Rva004E5911@@QAEXVRva0048E730Layout@@@Z,,0x004E5911,27,Code/GameEngine/Source/Common/Bfme/Rva004E592CMethod.cpp,matched,leaf lane thiscall range forward to rowed 0x004E5867 caller 0x004E6177
 ??1Rva004E7DC8@@QAE@XZ,,0x004E7DC8,81,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp,matched,chain lane dtor caller of rowed 0x004E5654 tree list string
+?Rva00421E1CMerge@@YAXAAUMiniList00421E1C@@0VRva00421A16@@@Z,,0x00421E1C,98,Code/Libraries/Source/WWVegas/WWLib/Rva00421E1CMerge.cpp,matched,merge via 0x00421A16 and _Transfer rows caller 0x004236F5
