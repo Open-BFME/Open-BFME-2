@@ -68,7 +68,7 @@ public:
     void toString(EAStringC &) const;
 };
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
@@ -174,7 +174,7 @@ private:
     static AptValue *getObject(AptValue *,AptValue *,const EAStringC *);
     static bool getContext(AptValue *,AptValue *,const EAStringC *,AptValue **,EAStringC &);
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
+    HANDLER(SetTarget); HANDLER(SetTarget2); HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1166,7 +1166,8 @@ struct AptCharacter { unsigned char prefix[8]; AptMovie movie; };
 struct AptSpriteInstBase { unsigned char prefix[0xC]; AptCharacter *character; unsigned char middle[8]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; };
 class AptCIH : public AptValue {
 public:
-    unsigned char prefix[0x4C-8];
+    unsigned char prefix[0x48-8];
+    AptCIH *mpDisplayListParent;
     void *mpCharacterInst;
     bool IsLevelInst() const;
     bool IsSpriteInst(bool=false) const;
@@ -1444,4 +1445,41 @@ void AptActionInterpreter::_FunctionAptActionSetTarget2(AptActionInterpreter *co
         c->pCurWith->AddRef();
     }
     p->stack.Pop();
+}
+
+void AptActionInterpreter::_FunctionAptActionSetTarget(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const char *const *data=(const char *const *)c->pInstruction;
+    c->pInstruction+=4;
+    if((*data)[0]==0) {
+        if(c->pCurWith) c->pCurWith->Release();
+        c->pCurWith=0;
+    } else {
+        if(c->pCurWith) {
+            g_bfmeAptAssertAtE17734("!pLocalContext->pCurWith", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x1D3A);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        EAStringC name(*data);
+        AptValue *target;
+        if((*data)[0]=='/' || (*data)[0]=='.') {
+            const char *path=*data;
+            AptCIH *t=c->pCurrentContext;
+            while(path[0]=='.' && path[1]=='.' && t->mpDisplayListParent) {
+                t=t->mpDisplayListParent;
+                path+=2;
+            }
+            target=t;
+        } else {
+            name.TrimRight("/");
+            target=getObject(c->pCurrentContext,0,&name);
+        }
+        if(!target) {
+            g_bfmeAptAssertAtE17734("pTarget", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x1D51);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        c->pRemoveWithAt=0;
+        c->pCurWith=target;
+        c->pCurWith->AddRef();
+    }
 }
