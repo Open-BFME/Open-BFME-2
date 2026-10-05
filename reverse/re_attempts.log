@@ -9072,3 +9072,5 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ??0Rva00563CAF@@QAE@PAXPAUDrawInfo@@@Z	0x00563CAF	115	partial	ebx for edx plus extra push pop t=15 model=muse-03 score=0.95 stash=reverse/attempts/0x00563caf.cpp
 ?Rva003E5B11Check@@YG_NPAVParameter@@0@Z	0x003E5B11	243	partial	setne vs je-mov for rva003971BF and neg-sbb-inc vs je for Foundation v03 t=25 model=muse-12 score=0.95 stash=reverse/attempts/0x003e5b11.cpp
 ?rva004C1D49@Rva004C1D49@@QAEHXZ	0x004C1D49	322	blocked	vslot DetachableRiderBody slot18 with x87 SSE plus EH plus 10 calls t=5 model=muse-09
+?rva004D3C32@BFMEDisconnectManager@@QAEXHIPAVConnectionManager@@@Z	0x004D3C32	89	blocked	pop ecx cleanup vs add esp and cmp global vs mov+test ecx t=30 model=muse-01 (stash 0.96 kept)
+?_AddHeap@MemoryPool@@YAXII@Z	0x000306B0	128	partial	count store before id vs retail id-then-count; bucket reload after size via shared HeapTable t=25 model=muse-01 score=0.98 stash=reverse/attempts/0x000306b0.cpp

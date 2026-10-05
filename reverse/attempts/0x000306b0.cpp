@@ -1,5 +1,7 @@
 // ?_AddHeap@MemoryPool@@YAXII@Z
-// partial score=0.97 date=2026-09-23
+// partial score=0.98 date=2026-10-05
+// ?_AddHeap@MemoryPool@@YAXII@Z @ 0x000306B0 (128B). Registers a heap id with its size in the MemoryPool heap table.
+// Evidence: export-named _AddHeap; heap table HeapTable at 0x00DE0414 (count +4 records +0xC buckets +0x1EC allocators +0x384); donor BFME1 memory_pool differs (EA GeneralAllocator heaps).
 // BFME 2's memory-pool entry points. `namespace MemoryPool` is retail's own
 // name: every `_`-prefixed function here is exported under it
 // (reverse/exports.csv), and 0x00030730 resolves each export back out of the
@@ -17,9 +19,6 @@
 //   0x00DB35A4  TLS slot holding the calling thread's current heap id
 //   0x00DE0821  set only while _Init runs; _AddHeap is ignored otherwise
 // The variable names are descriptive; retail's are not recoverable.
-
-extern "C" __declspec(dllimport) void *__stdcall TlsGetValue(unsigned long index);
-
 namespace EA
 {
 namespace Allocator
@@ -27,10 +26,8 @@ namespace Allocator
 class GeneralAllocator;
 }
 }
-
 namespace MemoryPool
 {
-
 struct HeapRecord
 {
 	HeapRecord *m_next;
@@ -38,13 +35,11 @@ struct HeapRecord
 	unsigned int m_size;
 	EA::Allocator::GeneralAllocator *m_allocator;
 };
-
 enum
 {
 	MAX_HEAPS = 30,
 	HEAP_BUCKETS = 101
 };
-
 struct HeapTable
 {
 	void *m_win32Heap;
@@ -55,32 +50,11 @@ struct HeapTable
 	unsigned int m_unknown380;	// 0x00DE0794: nothing here reads it
 	EA::Allocator::GeneralAllocator *m_allocators[MAX_HEAPS + 1];
 };
-
 extern HeapTable g_heaps;
 extern unsigned int g_defaultHeapSize;
 extern unsigned long g_heapTlsIndex;
 extern bool g_addingHeaps;
-
-EA::Allocator::GeneralAllocator *_GetHeapAllocator(unsigned int id)
-{
-	if (id == 0 && g_heapTlsIndex != (unsigned long)-1)
-		id = (unsigned int)TlsGetValue(g_heapTlsIndex);
-
-	for (HeapRecord *record = g_heaps.m_buckets[id % HEAP_BUCKETS]; record != 0; record = record->m_next)
-	{
-		if (record->m_id == id)
-			return record->m_allocator;
-	}
-	return g_heaps.m_allocators[0];
-}
-
-EA::Allocator::GeneralAllocator *_GetHeapAllocatorByIndex(unsigned int index)
-{
-	if (index <= (unsigned int)g_heaps.m_count)
-		return g_heaps.m_allocators[index];
-	return 0;
-}
-
+// ?_AddHeap@MemoryPool@@YAXII@Z present-unmatched
 void _AddHeap(unsigned int id, unsigned int size)
 {
 	if (!g_addingHeaps)
@@ -93,7 +67,6 @@ void _AddHeap(unsigned int id, unsigned int size)
 		g_defaultHeapSize = size;
 		return;
 	}
-
 	HeapRecord **bucket = &g_heaps.m_buckets[id % HEAP_BUCKETS];
 	for (HeapRecord *record = *bucket; record != 0; record = record->m_next)
 	{
@@ -103,13 +76,12 @@ void _AddHeap(unsigned int id, unsigned int size)
 			return;
 		}
 	}
-
-	HeapRecord *record = &g_heaps.m_records[count++];
+	HeapRecord *record = &g_heaps.m_records[count];
 	record->m_size = size;
-	record->m_next = *bucket;
+	HeapRecord *head = *bucket;
+	g_heaps.m_count = ++count;
 	record->m_id = id;
-	g_heaps.m_count = count;
+	record->m_next = head;
 	*bucket = record;
 }
-
 }

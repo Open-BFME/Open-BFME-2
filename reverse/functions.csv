@@ -56577,3 +56577,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00255D58@Rva00255D58@@QAE_NPBDPA_N1@Z,,0x00255D58,308,Code/GameEngine/Source/Common/System/KindOfParseToken00255D58.cpp,matched,KindOf token worker via VeterancyLevel sibling same shape
 ?Rva0050D176Set@@YAXXZ,,0x0050D176,377,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu_Rva0050D176.cpp,matched,ZH MapSelectMenu SetDifficultyRadioButton switch with temporaries plus caller 0x0050D541 plus neighbours
 ?rva0002BF4A@Rva0002BF4A@@QAEXXZ,,0x0002BF4A,66,Code/GameEngine/Source/Common/System/Rva0002BF4AClear.cpp,matched,thiscall clear with None plus empty plus globals
+??$__unguarded_insertion_sort@PAUS4SortElem20@@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z,,0x003376BA,23,Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20b.cpp,matched,pin callee 0x00337555 rowed caller matched
