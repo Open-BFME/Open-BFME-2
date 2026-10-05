@@ -60754,3 +60754,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0040C0FE@Rva0040AAD5@@QAE_NABURva0040C0C7Element@@@Z,,0x0040C0FE,39,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0040AAD5Add.cpp,matched,unlocks 0x0040C125 via rowed find and push_back
 ?rva002A7B1C@Rva002A7B1C@@QAEXXZ,,0x002A7B1C,24,Code/GameEngine/Source/Common/RTS/PlayerListRva002A7B1C.cpp,matched,neighbours PlayerList share 0x18 and O1 caller 0x0020D2A6 row 0x002AB429
 ?notify@BfmeSubVfn1A6@@QAEHHPAX@Z,,0x0033FCE1,150,Code/GameEngine/Source/Common/Rva0033FCE1Notify.cpp,matched,linkbody callers AIUpdateInterface internalGetState vtable slots globals g_Va00DBA4E4 TheGameLogic
+?rva0056FAA5@Rva0056FAA5@@QAEPAV1@PAV1@0@Z,,0x0056FAA5,31,Code/GameEngine/Source/Common/Rva0056FAA5Assign.cpp,matched,unlock read other first Hook assign dst return dst caller 0x0056FCF3
