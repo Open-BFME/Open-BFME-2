@@ -1,5 +1,5 @@
 // ?rva0029FEBB@Rva0029FEBB@@QAEXHH@Z
-// partial score=0.91 date=2026-10-05
+// partial score=0.93 date=2026-10-05
 // cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /arch:SSE
 // stlport
 // ?rva0029FEBB@Rva0029FEBB@@QAEXHH@Z retail 0x0029FEBB 324B
@@ -62,14 +62,14 @@ void Rva0029FEBB::rva0029FEBB(int x, int y)
 	else
 	{
 		BfmeSpecialPowerTimer8 &last = m_list.back();
+		int threshInt = (int)(TheMouse->m_12e8 / 3);
+		float thresh = (float)threshInt;
 		int dx = x - (int)last.m_templateID;
 		int dy = y - (int)last.m_readyFrame;
 		Coord3D delta;
 		delta.x = (float)dx;
 		delta.y = (float)dy;
 		delta.z = 0.0f;
-		int threshInt = (int)(TheMouse->m_12e8 / 3);
-		float thresh = (float)threshInt;
 		if (delta.length() < thresh)
 			return;
 		if (delta.length() > thresh * g_Va00BC2428)
