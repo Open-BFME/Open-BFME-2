@@ -63250,3 +63250,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?setFrom@Rva0040D82FHost@@QAIXHPAURva0040D82FArg@@@Z,,0x0040D82F,57,Code/GameEngine/Source/Common/Rva0040D82FSet.cpp,matched,change-detecting setter via cdecl helper and thiscall set
 ?init@Rva004152BCHost@@QAEHHH@Z,,0x004152BC,42,Code/GameEngine/Source/Common/Rva004152BCInit.cpp,matched,test3 no p
 ?outer@Rva00418A8EHost@@QAEHHH@Z,,0x00418A8E,36,Code/GameEngine/Source/Common/Rva00418A8EOuter.cpp,matched,outer via reserve 0x00212858 and applier 0x00418A12
+?guard@Rva0040FC79Host@@QAEXH@Z,,0x0040FC79,71,Code/GameEngine/Source/Common/Rva0040FC79Guard.cpp,matched,guard with v49 arg
