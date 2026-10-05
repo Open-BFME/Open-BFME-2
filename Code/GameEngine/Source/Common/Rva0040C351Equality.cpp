@@ -1,5 +1,3 @@
-// ?rva0040C3BB@Rva0040C351@@QAE_NPBV1@@Z
-// partial score=0.93 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 // ?rva0040C3BB@Rva0040C351@@QAE_NPBV1@@Z @0x0040C3BB (117B):
 // Rva0040C351 equality: first the rowed base Equal at 0x0037E0EC over this
@@ -37,24 +35,13 @@ private:
 	unsigned char m_c5;
 };
 
-// ?rva0040C3BB@Rva0040C351@@QAE_NPBV1@@Z present-unmatched
 bool Rva0040C351::rva0040C3BB(const Rva0040C351 *other)
 {
-	if (Rva0037E0ECEqual(this, other)) {
-		if (m_c5 != other->m_c5)
-			return false;
-		if (m_b4 != other->m_b4)
-			return false;
-		if (m_b8 != other->m_b8)
-			return false;
-		if (m_bc != other->m_bc)
-			return false;
-		if (m_c0 != other->m_c0)
-			return false;
-		if (m_c4 != other->m_c4)
-			return false;
-		return true;
-	} else {
-		return false;
-	}
+	return Rva0037E0ECEqual(this, other)
+		&& m_c5 == other->m_c5
+		&& m_b4 == other->m_b4
+		&& m_b8 == other->m_b8
+		&& m_bc == other->m_bc
+		&& m_c0 == other->m_c0
+		&& m_c4 == other->m_c4;
 }

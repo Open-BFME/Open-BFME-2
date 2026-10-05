@@ -60866,3 +60866,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva00601BBCHelper@@QAE@PAX@Z,,0x00602091,95,Code/GameEngine/Source/Common/System/INIHelperRva00601BBC.cpp,matched,Native ret4 ctor matches existing member initialization then calls602072; EH member unwind verified; helper identity address-derived
 ?rva001DBEB6@GameWindowTransitionsHandler@@QAEXXZ,,0x001DBEB6,283,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerState.cpp,matched,Native vtable BDBC30 slot10 update; lock38; groups24 28 2C 30; flags51 69; MessageStream slot18 message70; reference phase order
 ?rva003FF8B0@GameSlot@@QAE_NE@Z,,0x003FF8B0,215,Code/GameEngine/Source/GameNetwork/GameInfoPlayerCounts.cpp,matched,hero-kind setter inverse of rva003FF16F via Split and hero manager
+?rva0040C3BB@Rva0040C351@@QAE_NPBV1@@Z,,0x0040C3BB,117,Code/GameEngine/Source/Common/Rva0040C351Equality.cpp,matched,Rva0040C351 equality via rowed Equal and tail fields

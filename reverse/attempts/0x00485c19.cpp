@@ -1,5 +1,5 @@
 // ?rva00485C19@StatusBitsEldestFrame@@QAE_NPAVObject@@PBURva00485C19Data@@PBW4NameKeyType@@@Z
-// partial score=0.91 date=2026-10-05
+// partial score=0.97 date=2026-10-05
 // ?rva00485C19@StatusBitsEldestFrame@@QAE_NPAVObject@@PBURva00485C19Data@@PBW4NameKeyType@@@Z
 // cl: /O1 /DNDEBUG /MD /GX
 //
@@ -67,17 +67,19 @@ struct Rva00485C19Ctx
 // ?rva00485C19@StatusBitsEldestFrame@@QAE_NPAVObject@@PBURva00485C19Data@@PBW4NameKeyType@@@Z present-unmatched
 Bool StatusBitsEldestFrame::rva00485C19(Object *obj, const Rva00485C19Data *data, const NameKeyType *key)
 {
-	Player *player = obj->getControllingPlayer();
+	PlayerTeamNode **head;
+	{
+		Player *player = obj->getControllingPlayer();
+		head = (PlayerTeamNode **)((char *)player + 0x32C);
+	}
 	Rva00485C19Ctx ctx;
 	ctx.m_found = 0;
 	ctx.m_best = -1;
 	ctx.m_data = data;
 	ctx.m_key = *key;
-	for (PlayerTeamNode *it = player->m_head32C->m_next; it != player->m_head32C; it = it->m_next)
+	for (PlayerTeamNode *it = (*head)->m_next; it != *head; it = it->m_next)
 		it->m_value->rva0039ED9C(Rva004859A2Callback, &ctx);
-	if (ctx.m_found == 0)
-		return false;
-	if (ctx.m_found->m_id74 != obj->m_id74)
-		return false;
-	return true;
+	if (ctx.m_found != 0 && ctx.m_found->m_id74 == obj->m_id74)
+		return true;
+	return false;
 }
