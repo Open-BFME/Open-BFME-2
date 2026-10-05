@@ -14,12 +14,13 @@ class AptValue {
         unsigned int unknown0:1;
         unsigned int gcMark:1;
         unsigned int releaseAtEnd:1;
-        unsigned int unknown3:1;
+        unsigned int destroyedGC:1;
         unsigned int isDefined:1;
         unsigned int unknown5:1;
         unsigned int refCount:12;
         unsigned int remaining:14;
     } flags;
+    void SetDestroyedGC();
 public:
     unsigned int getRefCount() const;
     void setIsDefined(bool value);
@@ -28,3 +29,8 @@ public:
 unsigned int AptValue::getRefCount() const { return flags.refCount; }
 void AptValue::setIsDefined(bool value) { flags.isDefined=value?1:0; }
 void AptValue::setGCMark(bool value) { flags.gcMark=value?1:0; }
+
+// Original MAP private signature and source230e7c503b5dbf7e name mbDestroyedGC;
+// target independent OR8 confirms bit3 in the established flags+4 prefix.
+void AptValue::SetDestroyedGC() { flags.destroyedGC=1; }
+#pragma comment(linker, "/alternatename:?rva006dbd80@Rva006E0460@@QAEXXZ=?SetDestroyedGC@AptValue@@AAEXXZ")
