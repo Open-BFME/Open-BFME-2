@@ -24,7 +24,7 @@ public:
 };
 }
 
-extern _STL::vector<const ModuleData *> g_vec00200D38;
+_STL::vector<const ModuleData *> g_vec00200D38;
 
 class Rva00200D38
 {
