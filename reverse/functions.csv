@@ -55926,3 +55926,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva0041393F@Rva0041386B@@QAEXPAVINI@@@Z,,0x0041393F,18,Code/GameEngine/Source/Common/Thing/ModuleFactoryCtor.cpp,matched,INI field init forwarder via rowed initFromINI plus table g_00C39AF8 caller 0x00413B95
 ?rva00603944@Rva0060453B@@UAEX_N@Z,,0x00603944,188,Code/GameEngine/Source/Common/Rva00603944.cpp,matched,vslot 1 of vtable 0x0087A94C class of ctor 0x0060453B lang big files
 ?Rva002188E4PartialSort@@YAXPAURva004748F0Element@@00HURva004748F0Compare@@@Z,,0x002188E4,94,Code/GameEngine/Source/Common/Q3PartialSort002188E4.cpp,matched,partial-sort via rowed make pop sort heap for FileInfo
+?Rva00218BD4Sort@@YAXPAURva004748F0Element@@00URva004748F0Compare@@@Z,,0x00218BD4,27,Code/Libraries/Source/WWVegas/WWLib/stlport_fileinfo_sort_00218BD4.cpp,matched,full-sort forwarder via rowed partial-sort
