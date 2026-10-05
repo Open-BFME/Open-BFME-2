@@ -20,3 +20,7 @@ Drawable *Thing::getDrawable(void) const
 {
 	return m_drawable;
 }
+
+// Object::getDrawable is this body in retail (ICF; symbols.csv pin 0x005508E2, callers in matched
+// rows land here). No unit defines the Object spelling any more; bind it.
+#pragma comment(linker, "/alternatename:?getDrawable@Object@@QBEPAVDrawable@@XZ=?getDrawable@Thing@@QBEPAVDrawable@@XZ")

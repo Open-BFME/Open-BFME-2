@@ -184,7 +184,7 @@ public:
 	// ids and binding
 	ObjectID getID() const { return m_id; }												///< this object's unique ID
 	void friend_bindToDrawable( Drawable *draw );									///< set drawable association. for use ONLY by GameLogic!
-	Drawable* getDrawable() const { return m_drawable; }					///< drawable (if any) bound to obj
+	Drawable* getDrawable() const;	// out of line: retail 0x005508E2 reads +0x84 (alias to Thing::getDrawable, ThingGetDrawable.cpp); this layout has +0x80					///< drawable (if any) bound to obj
 
 	ObjectID getProducerID() const { return m_producerID; }
 	void setProducer(const Object* obj);
@@ -378,7 +378,7 @@ public:
 	void getHealthBoxPosition(Coord3D& pos) const;
 	Bool getHealthBoxDimensions(Real &healthBoxHeight, Real &healthBoxWidth) const;
 
-	inline Bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
+	Bool isEffectivelyDead() const;	// out of line: retail 0x0006DFF1 reads +0x438; this layout has +0x297
 	void setEffectivelyDead(Bool dead);
 
 	void markSingleUseCommandUsed() { m_singleUseCommandUsed = true; }
