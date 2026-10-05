@@ -80,7 +80,8 @@ private:
 	unsigned int m_28;
 	unsigned int m_2C;
 	unsigned int m_30;
-	struct Pair34 { unsigned int a, b; Pair34() : a(1), b(1) {} } m_34;
+	unsigned int m_34;
+	unsigned int m_38;
 	unsigned int m_3C;
 	unsigned int m_40;
 	struct V44 { float x,y,z; V44():x(0.0f),y(0.0f),z(0.0f){} } m_44;
@@ -110,6 +111,8 @@ Rva0044EF5E::Rva0044EF5E(Thing *thing, const ModuleData *moduleData)
 	, m_28(0)
 	, m_2C(0)
 	, m_30(0)
+	, m_34(1)
+	, m_38(1)
 	, m_3C(0)
 	, m_40(0)
 	, m_5C(0)
