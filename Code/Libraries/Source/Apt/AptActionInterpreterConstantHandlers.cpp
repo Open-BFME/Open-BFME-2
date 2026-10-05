@@ -171,6 +171,7 @@ private:
     HANDLER(CallFunction); HANDLER(CallMethod);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
+    HANDLER(GetTimer);
     HANDLER(Trace);
     HANDLER(Greater);
     HANDLER(SubString); HANDLER(AsciiToChar);
@@ -1017,4 +1018,13 @@ void AptActionInterpreter::_FunctionAptActionTrace(AptActionInterpreter *const p
     line.Rva006D50A0Append("\n");
     g_bfmeAptLogAtE1773C("%s",line.rva00620090());
     p->stack.Pop();
+}
+
+// PC opcode0x34 at table RVA9DC980 loads the same tick cell reset at
+// RVA6CD019 and advanced at6CD8B3. Later source calls it gnCurTick; reuse
+// the existing address-qualified provider rather than duplicate its storage.
+extern int g_rva00891FA0Value;
+void AptActionInterpreter::_FunctionAptActionGetTimer(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    p->stack.Push(AptInteger::Create(g_rva00891FA0Value));
 }
