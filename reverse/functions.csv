@@ -61743,3 +61743,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ?rva00579D3D@Rva00579AB7@@QAEXHH@Z,,0x00579D3D,89,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp,matched,vslot 3 of 0x0086ED64 via Rva00579AB7 dtor plus rowed Get 0x00579900 and Set 0x00579B17 plus array at 0x2C
 ?rva002B9A85@Rva002B9A85@@QAEXABURva002B9062Element@@@Z,,0x002B9A85,11,Code/GameEngine/Source/Common/Rva002B9A85Push.cpp,matched,unlock tail-jump to rowed push_back 0x002B9062 at plus154
 ?reset@Rva002B90B3@@QAEXPAVRva002B74DE@@@Z,,0x002B90B3,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,reset same pointee as clear 0x002B9099 via callers 0x002BD603 0x002BD64F
+??0Rva0042476C@@QAE@ABV0@@Z,,0x0042476C,61,Code/Libraries/Source/WWVegas/WWLib/Rva0042476C.cpp,matched,copy ctor two vectors calls rowed 0x004244EE and 0x002CFAB9 unblocks 0x00424BF4
