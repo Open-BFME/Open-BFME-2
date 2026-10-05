@@ -23,6 +23,9 @@ class GameWindow
 {
 public:
 	int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *instData, unsigned int mouse));
+	int winEnable(bool enable);
+	int winHide(bool hide);
+	int rva0031475A();
 };
 
 // Unrowed 0x0043E8F1 (427 bytes; cdecl), the map list box tooltip set by
@@ -32,6 +35,18 @@ void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned 
 void *bfmeGo925A(BfmeKeyLC *comboBox);
 
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
+
+enum SlotState
+{
+	SLOT_OPEN = 0,
+	SLOT_PLAYER = 6
+};
+
+struct GameSlotConnectInfo
+{
+	unsigned int m_nat;
+	unsigned short m_port;
+};
 
 class GameSlot
 {
@@ -44,14 +59,24 @@ public:
 	unsigned char m_pad00[0x04];
 	int m_state; // +0x04
 	bool m_accepted; // +0x08
-	unsigned char m_pad09[0x18 - 0x09];
+	unsigned char m_pad09[0x0C - 0x09];
+	int m_color; // +0x0C
+	int m_10; // +0x10
+	int m_14; // +0x14
 	int m_playerTemplate; // +0x18
 	int m_team; // +0x1C
-	unsigned char m_pad20[0x50 - 0x20];
+	int m_20; // +0x20
+	unsigned char m_pad24[0x40 - 0x24];
+	int m_40; // +0x40
+	unsigned char m_pad44[0x50 - 0x44];
 	int m_heroKind; // +0x50 (1 random, 2 or 3 by the hero's +0x48 flag)
 	int m_hero0c; // +0x54 (the hero's +0x0C)
 	int m_hero10; // +0x58 (the hero's +0x10)
 	int m_hero; // +0x5C
+	unsigned char m_pad60[0x1AC - 0x60];
+
+	void setPlayerTemplate(int playerTemplate);
+	void setState(SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo);
 };
 
 // The slot's +0x1A8 name getter (rowed as an AsciiString RVO getter).
@@ -77,11 +102,49 @@ public:
 	virtual bool v12();
 	virtual int v13();
 	virtual void v14();
+	virtual void v15();
 
 	GameSlot *getSlot(int index);
 	AsciiString getMap() const;
 	void setMap(AsciiString map);
+
+	unsigned char m_pad04[0x58 - 0x04];
+	int m_58; // +0x58
+	unsigned char m_pad5c[0x8C - 0x5C];
+	bool m_8c; // +0x8C
+	unsigned char m_pad8d[0xCC - 0x8D];
+	unsigned char m_digest[16]; // +0xCC
 };
+
+// A saved game (the panel's +0x2B0): eight GameSlot copies at +0x4C, the
+// digest it is filed under at +0xDAC, the rules at +0xDBC and the +0xDE8
+// value 0x0043E750 restores; the rowed setters 0x00401FAF, 0x00381D02 and
+// 0x00381CED take it or its parts.
+struct TreeHintOpaque0043671B
+{
+	unsigned char m_pad00[0x4C];
+	GameSlot m_slots[8]; // +0x4C
+	unsigned char m_digest[16]; // +0xDAC
+	unsigned char m_rules[0x28]; // +0xDBC
+	unsigned char m_padde4[0xDE8 - 0xDE4];
+	int m_de8; // +0xDE8
+};
+
+class Rva00401FAF
+{
+public:
+	void rva00401FAF(const TreeHintOpaque0043671B *saved);
+};
+
+class Rva00381D02
+{
+public:
+	void rva00381D02(void *digest);
+};
+
+// Unrowed 0x004361B3 (41 bytes; prints the digest through MD5Print and
+// looks the saved game up by that name), pinned by address.
+TreeHintOpaque0043671B *Rva004361B3(const unsigned char *digest);
 
 // The validated current game at +0x5C (rowed under its address name); the
 // game itself is at +0x08.
@@ -109,12 +172,28 @@ class MultiplayerColorDefinition
 public:
 	unsigned char m_pad[0x10];
 	int m_color; // +0x10
+	unsigned char m_pad14[0x3C - 0x14];
+	bool m_3c; // +0x3C (offered in mode 1)
 };
 
 class MultiplayerSettings
 {
 public:
 	MultiplayerColorDefinition *getColor(int which);
+
+	// Zero Hour's lazily counted getNumColors, inline as there: +0x38 is the
+	// color map's node count.
+	int getNumColors()
+	{
+		if (m_numColors == 0)
+			m_numColors = m_colorCount;
+		return m_numColors;
+	}
+
+	unsigned char m_pad00[0x38];
+	int m_colorCount; // +0x38
+	unsigned char m_pad3c[0x40 - 0x3C];
+	int m_numColors; // +0x40
 };
 
 extern MultiplayerSettings *TheMultiplayerSettings;
@@ -153,10 +232,13 @@ class MpGameSetupOwner
 public:
 	virtual void v00();
 	virtual bool v01();
-	virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05();
+	virtual void v02();
+	virtual void v03(bool ready);
+	virtual bool applySlotColor(GameSlot *slot, int color);
+	virtual void v05();
 	virtual bool applySlotHero(GameSlot *slot);
 	virtual bool bfmeMapChanged(const AsciiString *map);
-	virtual void v08();
+	virtual bool v08(int value);
 	virtual bool setSlotState(GameSlot *slot, int state, const UnicodeString &name);
 	virtual bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
 	virtual void v11();
@@ -253,6 +335,9 @@ public:
 	// the mode at +0x1C), pinned by address.
 	void rva0057E058();
 	void rva0057DFFB(int value);
+	// Unrowed 0x0057C621 (40 bytes; a value read through its +0x68 member
+	// when +0x50 is set), pinned by address.
+	int rva0057C621();
 
 	unsigned char m_pad00[0x1C];
 	int m_mode; // +0x1C (the panel's +0x7C, MpGameSetupOnInitGadget.cpp's m_hideFlag)
@@ -348,6 +433,25 @@ public:
 
 extern GameTextInterface *TheGameText;
 
+// StringBase<char>::isEmpty (0x00001E2F) called out of line and nothrow:
+// OnReadyPress keeps no unwind state around it while the slot's tag
+// temporary is alive. The shared shim declares neither, so the call goes
+// through this one-pointer view (pinned to that body, like
+// Rva002DC681DiskSpaceFinish.cpp's nothrow view).
+class MpGameSetupTagView
+{
+public:
+	bool isEmpty() const throw();
+
+private:
+	void *m_data;
+};
+
+static inline bool tagIsEmpty(const AsciiString &tag)
+{
+	return ((const MpGameSetupTagView *)&tag)->isEmpty();
+}
+
 // Retail expands UnicodeString::isEmpty inline as the header test
 // (m_data == 0 || m_data->length == 0); the shared shim keeps it out of
 // line (as BfmeAptScreenLanLobbyOnInitGadget.cpp also notes).
@@ -363,8 +467,45 @@ GameWindow *MessageBoxOk(UnicodeString title, UnicodeString body, void (*okCallb
 // table of ten labels), pinned by address.
 UnicodeString Rva0055A04C(int kind);
 
+// The game being set up, spelled as LANAPIRemoveGame.cpp's pin does.
+struct LANGameInfo;
+extern LANGameInfo *g_Rva00E02EEC;
+
+class MapCache
+{
+public:
+	void updateCache();
+};
+
+extern MapCache *TheMapCache;
+
 // The panel instance (g_Va00E0333C, cleared by ??1Rva004421E1).
 extern int g_Va00E0333C;
+
+// The +0x2F4 color combo boxes: a one-pointer window wrapper whose copy
+// constructor (0x0027EA56) and empty destructor (0x000B3FD0) are folded
+// bodies; its selected position and item data go through the rowed
+// address-named views 0x00323674 and 0x003236C4.
+class MpGameSetupComboRef
+{
+public:
+	MpGameSetupComboRef(const MpGameSetupComboRef &other);
+	~MpGameSetupComboRef();
+
+	GameWindow *m_window;
+};
+
+class Rva00323674
+{
+public:
+	int rva00323674() const;
+};
+
+class Rva003236C4
+{
+public:
+	int rva003236C4(int index);
+};
 
 // The S5 encoded small integer of S5HandleHashCompares.cpp: a four-byte
 // head and the encoded value at +0x04 (0x003F2330 compares two). The
@@ -408,6 +549,14 @@ public:
 	void OnSortPlayers(const char *unused);
 	void OnSortIcons(const char *unused);
 	void OnTabSelect(const char *tab);
+	void OnReadyPress(const char *slotText);
+	bool rva0043E1CC(int which);
+	bool rva0043ECC1(int index);
+	bool rva00443C6E(GameInfo *game, int value);
+	bool rva0043E750(GameInfo *game);
+
+	// Unrowed 0x0044009D (1039 bytes; ret 4, the slot), pinned by address.
+	void rva0044009D(int slot);
 
 	// Unrowed 0x0043DC40 (53 bytes; picks the games list sort column, the
 	// same column again toggling to the next value), pinned by address.
@@ -450,7 +599,6 @@ public:
 	// pinned by address.
 	void rva004404AC(bool flag, int value);
 
-	// Unrowed 0x004419FA (176 bytes), pinned by address.
 	void rva004419FA();
 
 	void rva004415D5(const AsciiString &map);
@@ -481,7 +629,7 @@ private:
 	unsigned char m_pad191[0x244 - 0x191];
 	Rva0057FD6E m_244; // +0x244
 	unsigned char m_pad245[0x2B0 - 0x245];
-	int m_2b0; // +0x2B0
+	TreeHintOpaque0043671B *m_saved; // +0x2B0
 	unsigned char m_pad2b4[0x2B8 - 0x2B4];
 	bool m_2b8; // +0x2B8
 	bool m_2b9; // +0x2B9
@@ -496,9 +644,10 @@ private:
 	bool m_refreshing; // +0x2C2 (guards the all-slot refreshes)
 	bool m_pending; // +0x2C3
 	bool m_2c4; // +0x2C4
-	unsigned char m_pad2c5[0x2D4 - 0x2C5];
+	unsigned char m_pad2c5[0x2D0 - 0x2C5];
+	int m_2d0; // +0x2D0
 	GameWindow *m_player[8]; // +0x2D4
-	unsigned char m_pad2f4[0x314 - 0x2F4];
+	MpGameSetupComboRef m_colorCombo[8]; // +0x2F4
 	GameWindow *m_team[8]; // +0x314
 	GameWindow *m_playerTemplate[8]; // +0x334
 	GameWindow *m_handicap[8]; // +0x354
@@ -510,6 +659,10 @@ private:
 	unsigned char m_pad39c[0x3A4 - 0x39C];
 	int m_flags; // +0x3A4
 	int m_3a8; // +0x3A8
+	unsigned char m_pad3ac[0x3C4 - 0x3AC];
+	_STL::vector<bool> m_colorsAvailable; // +0x3C4
+	int m_numColors; // +0x3D8
+	bool m_3dc; // +0x3DC
 };
 
 // Retail 0x0043DD02, 50 bytes: the item data of slot's selected player
@@ -928,7 +1081,7 @@ void MpGameSetup::rva0043FFD7()
 	m_game->m_current = 0;
 	rva0043FA68(0);
 	m_3a8 = 0;
-	m_2b0 = 0;
+	m_saved = 0;
 }
 
 // Retail 0x00441685, 14 bytes. Name unknown. 0x004404AC with -1; called
@@ -1470,4 +1623,68 @@ void MpGameSetup::rva004428C9()
 			m_2b9 = true;
 		}
 	}
+}
+
+// Retail 0x004419FA, 176 bytes. Name unknown. Rebuilds the available
+// colors (+0x3C4, one per MultiplayerSettings color, all offered); in mode
+// 1 colors without their +0x3C flag are withdrawn and not counted. +0x3DC
+// is set outside mode 1. Called from 0x004422D4 (0x004422B4 above).
+void MpGameSetup::rva004419FA()
+{
+	if (!TheMultiplayerSettings)
+		return;
+
+	bool mode1 = m_60.m_mode == 1;
+	m_3dc = !mode1;
+	m_numColors = TheMultiplayerSettings->getNumColors();
+	m_colorsAvailable.clear();
+	m_colorsAvailable.resize(m_numColors, true);
+	if (mode1)
+	{
+		int count = m_numColors;
+		for (int i = 0; i < count; ++i)
+		{
+			MultiplayerColorDefinition *def = TheMultiplayerSettings->getColor(i);
+			if (!def || !def->m_3c)
+			{
+				m_colorsAvailable[i] = false;
+				--m_numColors;
+			}
+		}
+	}
+}
+
+// Retail 0x0043ECC1, 243 bytes. Name unknown. A slot's color combo box
+// (+0x2F4) selection: a color from -1 up to MultiplayerSettings'
+// getNumColors that differs from the slot's (+0x0C) and, unless -1, from
+// every other human slot's goes to the owner's applySlotColor (vslot 4).
+// Called from 0x00442DDB.
+bool MpGameSetup::rva0043ECC1(int index)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return false;
+	m_pending = false;
+
+	MpGameSetupComboRef combo(m_colorCombo[index]);
+	int color = ((Rva003236C4 *)&combo)->rva003236C4(((const Rva00323674 *)&combo)->rva00323674());
+	if (color < -1)
+		return false;
+	GameSlot *slot = game->getSlot(index);
+	if (!slot)
+		return false;
+	if (color == slot->m_color)
+		return false;
+	if (color >= TheMultiplayerSettings->getNumColors())
+		return false;
+	if (color != -1)
+	{
+		for (int i = 0; i < 8; ++i)
+		{
+			GameSlot *other = game->getSlot(i);
+			if (other && slot != other && other->isHuman() && color == other->m_color)
+				return false;
+		}
+	}
+	return m_owner->applySlotColor(slot, color);
 }
