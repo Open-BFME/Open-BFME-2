@@ -57144,3 +57144,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0043DB6E@MpGameSetup@@QAEXXZ,,0x0043DB6E,53,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp,matched,MpGameSetup (LAN lobby +0x288 panel): pinned +0xD0 member 0x0057EA0F then with flag 0x40 at +0x3A4 invokes OnClansFlagChange on owner vslot21 movie via rowed 0x0043DB23; name unknown
 ?rva00578AC1@Rva00578AC1@@QAEXPAX@Z,,0x00578AC1,24,Code/GameEngine/Source/Common/Rva00578AC1.cpp,matched,leaf forEach broadcast via sibling pattern
 ?Rva001F8599Parse@@YAXPAVINI@@PAX@Z,,0x001F8599,110,Code/Libraries/Source/WWVegas/WWLib/Rva001F8599Parse.cpp,matched,INI token lookup FX CategoryModuleClass 02 list store at B0 via rva001F43BD
+?Rva001F8607Parse@@YAXPAVINI@@PAX@Z,,0x001F8607,110,Code/Libraries/Source/WWVegas/WWLib/Rva001F8607Parse.cpp,matched,INI token lookup FX CategoryModuleClass 03 list store at B4 via rva001F43BD
