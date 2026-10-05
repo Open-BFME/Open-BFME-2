@@ -1,5 +1,7 @@
 // ?rva00459C58@SiegeDockingBehavior@@UAE_NW4ObjectID@@@Z
 // partial score=0.97 date=2026-10-05
+// ?rva00459C58@SiegeDockingBehavior@@UAE_NW4ObjectID@@@Z
+// partial score=0.97 date=2026-10-05
 // finish round: two structural corrections and one lever no earlier bank used
 // cl: /O1 /DNDEBUG /MD
 //
