@@ -32,6 +32,12 @@
 //    while the weapon's frame (+0x2C) plus its template delay (+0x78, when
 //    not negative) is ahead of TheGameLogic's frame or its rowed
 //    Weapon::getStatus is 5; then succeeds for a negative delay, else fails.
+//  - AIMoveToStateSA::onEnter 0x0034C8C5 (207 bytes; slot 4 of 0x00C11F00):
+//    Zero Hour's AIMoveToState::onEnter with "setAdjustDestination" log
+//    lines 4/5: adjust on, off again when the goal object is the AI's
+//    ignored obstacle (pinned getter 0x0006E009, +0x164), goal position from
+//    the goal object or the machine, the pinned base onEnter, then AI slot
+//    136 when +0x50 is set and the AI is moving (pinned isMoving).
 //  - AIMoveToStateSA::update 0x00347A51 (91 bytes; 0x00C11F00): while +0x50
 //    is set, fails once TheGameLogic's frame passes +0x4C and otherwise
 //    clears condition bit 61 and continues; else follows the machine goal
@@ -144,10 +150,23 @@ template <> class AIComputePathAISlots<0>
 {
 };
 
-class AIUpdateInterface : public AIComputePathAISlots<142>
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+class AIUpdateInterface : public AIComputePathAISlots<136>
 {
 public:
+	virtual void rva0034C988Slot136() = 0;
+	virtual void slot137() = 0;
+	virtual void slot138() = 0;
+	virtual void slot139() = 0;
+	virtual void slot140() = 0;
+	virtual void slot141() = 0;
 	virtual void rva00347F6BSlot142(int value) = 0;
+	ObjectID getIgnoredObstacleID() const;
+	Bool isMoving() const;
 	unsigned char m_pad004[0x3C8 - 0x04];
 	Bool m_bfmeFlag3C8; // +0x3C8
 };
@@ -174,6 +193,7 @@ class Object
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	const Coord3D *getPosition() const { return &m_position; }
+	ObjectID getID() const { return m_id; }
 	const Weapon *getCurrentWeapon(WeaponSlotType *wslot = 0) const;
 	Module *findModule(NameKeyType key) const;
 	void setStatus(ObjectStatusTypes status, Bool set);
@@ -190,7 +210,9 @@ public:
 private:
 	unsigned char m_pad000[0x38];
 	Coord3D m_position; // +0x38
-	unsigned char m_pad044[0x10C - 0x44];
+	unsigned char m_pad044[0x74 - 0x44];
+	ObjectID m_id; // +0x74
+	unsigned char m_pad078[0x10C - 0x78];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x258 - (0x10C + sizeof(Rva0010CBits))];
 	AIUpdateInterface *m_ai; // +0x258
@@ -201,9 +223,12 @@ class StateMachine
 public:
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
+	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
 private:
 	unsigned char m_pad00[0x14];
 	Object *m_owner; // +0x14
+	unsigned char m_pad18[0x24 - 0x18];
+	Coord3D m_goalPosition; // +0x24
 };
 
 class State
@@ -231,13 +256,17 @@ protected:
 class AIInternalMoveToState : public State
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 protected:
 	virtual Bool computePath();
+	void setAdjustsDestination(Bool b) { m_adjustDestination = b; }
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x4C - 0x2C];
+	unsigned char m_pad2C[0x48 - 0x2C];
+	Bool m_adjustDestination; // +0x48
+	unsigned char m_pad49[0x4C - 0x49];
 };
 
 class AIMoveAndTightenState : public AIInternalMoveToState
@@ -385,11 +414,40 @@ void AIAttackMeleeSquishState::onExit(StateExitType status)
 class AIMoveToStateSA : public AIInternalMoveToState
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 private:
 	unsigned int m_bfmeFrame4C; // +0x4C
 	Bool m_bfmeFlag50; // +0x50
 };
+
+StateReturnType AIMoveToStateSA::onEnter()
+{
+	critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 4");
+	setAdjustsDestination(true);
+
+	// If we have a goal object and are trying to ignore it as an obstacle...
+	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	if (getMachine()->getGoalObject())
+	{
+		if (ai && getMachine()->getGoalObject()->getID() == ai->getIgnoredObstacleID())
+		{
+			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 5");
+			setAdjustsDestination(false);
+		}
+	}
+
+	// if we have a goal object, move to it, otherwise move to goal position
+	if (getMachine()->getGoalObject())
+		m_goalPosition = *getMachine()->getGoalObject()->getPosition();
+	else
+		m_goalPosition = *getMachine()->getGoalPosition();
+
+	StateReturnType ret = AIInternalMoveToState::onEnter();
+	if (m_bfmeFlag50 && ai && ai->isMoving())
+		ai->rva0034C988Slot136();
+	return ret;
+}
 
 StateReturnType AIMoveToStateSA::update()
 {
