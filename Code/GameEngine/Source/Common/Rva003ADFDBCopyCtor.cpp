@@ -11,7 +11,7 @@ public:
 	Rva005EA430(const Rva005EA430 &other);
 };
 
-extern "C" char Rva003ADFDB_v0;
+extern const void *const g_00C1D294[];
 extern "C" char Rva003ADFDB_v8;
 
 class Rva003ADFDB
@@ -29,7 +29,7 @@ Rva003ADFDB::Rva003ADFDB(const Rva003ADFDB &that)
 {
 	const void *src = &that;
 	((Rva005EA430 *)this)->Rva005EA430::Rva005EA430(*(const Rva005EA430 *)src);
-	*(void **)this = &Rva003ADFDB_v0;
+	*(const void **)this = g_00C1D294;
 	*(void **)((char *)this + 8) = &Rva003ADFDB_v8;
 }
 
