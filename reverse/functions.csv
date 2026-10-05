@@ -63155,3 +63155,8 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1BfmePod216@@QAE@XZ,,0x0021E50F,164,Code/GameEngine/Source/Common/System/SaveGame/BfmePod216Dtor.cpp,matched,pin BfmePod216 callers 0x0021E77A 0x0021F188 trees rowed free releaseBuffer
 ?rva002103B6@Rva002103B6@@QAEXPAVRva00210390@@@Z,,0x002103B6,119,Code/Libraries/Source/WWVegas/WWLib/Rva002103B6Resolve.cpp,matched,clear Science at 0x2C reserve src count resolve via rowed 0x210390
 ?rva00054899@MilesAudioManager@@QAE_NW4ObjectID@@H@Z,,0x00054899,145,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00054839.cpp,matched,two-list flag-gated search via getObjectID and guarded getter
+??0Rva001FA5A5@@QAE@XZ,,0x001FA5A5,22,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Rva ctor chain zeroed ints then member ctor by REL32 graph
+??0Rva001FBA45@@QAE@XZ,,0x001FBA45,22,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Rva ctor chain zeroed ints then member ctor by REL32 graph
+??0Rva001FBBE4@@QAE@XZ,,0x001FBBE4,18,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Rva ctor chain zeroed ints then member ctor by REL32 graph
+??0Rva001FB8A9@@QAE@XZ,,0x001FB8A9,18,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Rva ctor chain zeroed ints then member ctor by REL32 graph
+??0Rva001F9B52@@QAE@XZ,,0x001F9B52,18,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Rva ctor chain zeroed ints then member ctor by REL32 graph
