@@ -28,6 +28,8 @@ struct AptNativeHash
 class AptValue
 {
 public:
+    AptValue *findChild(const EAStringC *, AptValue *);
+    bool getIsDefined() const;
     virtual void AddRef();
     virtual void Release();
     virtual void ForceDelete();
@@ -146,6 +148,7 @@ struct AptAction_DefineFunction2
     int nParams;
     short nRegisterCount;
     short nFlags;
+    int getDF2Flag(unsigned short f) const { return nFlags & f; }
     const void *aszParams; // Parameter-record pointer; no record access here.
     int nCodeSize;
     AptConstantPool constantPool;
@@ -153,6 +156,7 @@ struct AptAction_DefineFunction2
 class AptScriptFunction2 : public AptScriptFunctionBase
 {
 public:
+    virtual void SetupBeforeExecution(_AptScriptFunctionState *, AptValue *);
     virtual void CleanupAfterExecution(_AptScriptFunctionState *);
     virtual AptConstantPool GetConstantPool();
 protected:

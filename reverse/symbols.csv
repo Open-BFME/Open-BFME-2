@@ -12287,3 +12287,5 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ,0x001FBF37,PC exported template constructor1FC1E0 calls tail+A4 here;22B body zeroes two words then initializes nested tail; original member identity unasserted
 ??4ParticleSystemTemplateTail@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x001FC404,PC exported template assignment1FCED1 calls tail+A4 here after verified base and string assignments; original member identity unasserted
 ??0AptPseudoCIH_t@@QAE@PAUAptControl@@HHPAUAptCharacter@@@Z,0x006F6A50,Original Redwood6 PDB prototype; PC pseudo-display-list ctor6E00E0 supplies four zero arguments; existing101B provider has same native member layout and machine ABI; linker alias binds it
+?findChild@AptValue@@QAEPAV1@PBVEAStringC@@PAV1@@Z,0x006DF9A0
+?getIsDefined@AptValue@@QBE_NXZ,0x006DBB60
