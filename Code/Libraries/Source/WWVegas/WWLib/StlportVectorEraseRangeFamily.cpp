@@ -49,8 +49,10 @@
 //   0x002E2690  0x002E1E9A   0x002AF4ED*  Rva002E2690Element
 //   0x00319B97  0x0031968A   0x00319784   Elem003AF9E0
 //   0x0032BEE8  0x0032A40E   0x0032B580   Rva0032A3A9Element
+//   0x00312C44  0x003120FB*  0x0008B632   BfmeStringHeadRecord184
 //   0x0033790F  0x00337533   0x003376D1   Rva003371B1
 //   0x003B908A  0x003B8B44   0x003B8E13   BfmeAssignRecord104
+//   0x003F5EC4  0x003F5B3E*  0x003F592A   Rva003F610FElement
 //   0x003F6975  0x003F6619   0x003F6636   BfmeStringRecord00111ACF
 //   0x004043AE  0x00403BD2   0x00214B09   Rva004043AEElement
 //   0x0040538F  0x00404CD8*  0x00405337   Rva0040538FElement
@@ -159,6 +161,8 @@ struct Rva002E2690Element;
 struct Elem003AF9E0;
 class Rva0032A3A9Element;
 class Rva003371B1;
+struct Rva003F610FElement;
+struct BfmeStringHeadRecord184;
 struct BfmeAssignRecord104;
 struct BfmeStringRecord00111ACF;
 struct Rva004043AEElement;
@@ -252,5 +256,7 @@ template Rva00586E86Element *_STL::vector<Rva00586E86Element >::erase(Rva00586E8
 template Rva005DC408Element *_STL::vector<Rva005DC408Element >::erase(Rva005DC408Element *, Rva005DC408Element *);
 template Rva005EF8FAElement *_STL::vector<Rva005EF8FAElement >::erase(Rva005EF8FAElement *, Rva005EF8FAElement *);
 template Rva005F8620Element *_STL::vector<Rva005F8620Element >::erase(Rva005F8620Element *, Rva005F8620Element *);
+template Rva003F610FElement *_STL::vector<Rva003F610FElement >::erase(Rva003F610FElement *, Rva003F610FElement *);
+template BfmeStringHeadRecord184 *_STL::vector<BfmeStringHeadRecord184 >::erase(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *);
 struct Rva000B690BRecord;
 template Rva000B690BRecord *_STL::__copy_ptrs<Rva000B690BRecord *, Rva000B690BRecord *>(Rva000B690BRecord *, Rva000B690BRecord *, Rva000B690BRecord *, const _STL::__false_type &);
