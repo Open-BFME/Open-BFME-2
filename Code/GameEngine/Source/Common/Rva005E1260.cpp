@@ -10,7 +10,7 @@ struct Init005E1260
 class Rva005E1260Body
 {
 public:
-	virtual ~Rva005E1260Body();
+	virtual ~Rva005E1260Body() {}
 	int m_ref;
 	int m_a;
 	int m_b;
