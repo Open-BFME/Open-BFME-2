@@ -1,5 +1,7 @@
 // ?Rva003BAA46@@YGXPAVParameter@@_NM@Z
 // partial score=0.97 date=2026-10-05
+// ?Rva003BAA46@@YGXPAVParameter@@_NM@Z
+// partial score=0.97 date=2026-10-05
 // cl: /O1
 // ?Rva003BAA46@@YGXPAVParameter@@_NM@Z @0x003BAA46 144B: free stdcall Parameter* bool float driving TacticalView slots via Object+0x74 Drawable field.
 // Evidence: ret 12 three args; push [esp+8] call ScriptEngine::getUnitNamed row je; push [esi+0x74] call [eax+0x184]; Thing::getDrawable row plus Rva0055A88BDwordField::get row; push eax call [edi+0x19c]; cmp byte [esp+0x10]; call [eax+0x188]; fld [esp+0x10] call [eax+0x190]; fldz push 0 call [eax+0x18c]; caller 0x003CAD35.
