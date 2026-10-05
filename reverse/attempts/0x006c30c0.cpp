@@ -1,6 +1,8 @@
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
 // partial score=0.99 date=2026-10-05
 // ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
+// partial score=0.99 date=2026-10-05
+// ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z
 // cl: /O2 /DNDEBUG /MD
 // The delayed-free guard verifier of GeneralAllocatorDebug, at retail
 // 0x006C30C0 (155 bytes). The sibling of VerifyGuardFill at 0x006C3020.
@@ -72,15 +74,20 @@ public:
 	// this class rather than of the EA allocator it was recovered under.
 	unsigned int GetBlockSize(const void *block);
 
-	// 0x006C2FB0 as a thiscall MEMBER, the spelling reverse/symbols.csv already
-	// pins (?). Retail's own call site is `push 0x008E7C3C / push ebx / mov
-	// ecx,edi / call` with NO add esp,8, so the callee cleans its two stack
-	// arguments; for a thiscall member the message is the FIRST stack argument
-	// and the block the second, and the compiler pushes the message first --
-	// which is retail's order -- then loads ecx with this and never emits an
-	// add. The free __cdecl spelling above gets the push order only by putting
-	// the message LAST, which necessarily costs the trailing add.
-	void rva006C2FB0Report(const char *msg, void *block);
+	// 0x006C2FB0 as a thiscall MEMBER, the calling convention reverse/symbols.csv
+	// already pins. Retail's own call site is `push 0x008E7C3C / push ebx / mov
+	// ecx,edi / call` with NO add esp,8, so the callee cleans both stack
+	// arguments and the LAST push is the FIRST stack argument -- which the
+	// callee's own `mov edx,[esp+8]` confirms is the message.
+	//
+	// MSVC7 pushes a thiscall member's stack arguments right to left, exactly as
+	// it does for cdecl, so the DECLARATION has to be (block, message) to push
+	// the message first. Every earlier bank declared (message, block), which
+	// emitted `push ebx / push 0x008E7C3C`: the wrong push order, and with the
+	// message landing in the wrong stack slot besides. The free __cdecl spelling
+	// gets the push order right only by declaring the message last, and then
+	// necessarily costs the trailing add esp,8 retail does not have.
+	void rva006C2FB0Report(void *block, const char *msg);
 
 	bool VerifyDelayedFreeFill(void *block);
 
@@ -153,12 +160,12 @@ bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 			run += 4;
 
 		if (rva00030E20Fill(run, end - run, (unsigned char)m_fillByte) == 0) {
-			// Message first and block second: for a thiscall member the message is
-			// the first stack argument, so the compiler pushes the message and then
-			// the block, which is retail's order, and loads ecx from the allocator
-			// immediately before the call with no add afterward.
+			// The declaration above takes (block, message) precisely so that this
+			// call pushes the message first: MSVC7 pushes a member's stack
+			// arguments right to left, loads ecx from the allocator immediately
+			// before the call, and emits no add afterward.
 			rva006C2FB0Report(
-				"GeneralAllocatorDebug::VerifyDelayedFreeFill failure.", block);
+				block, "GeneralAllocatorDebug::VerifyDelayedFreeFill failure.");
 			return false;
 		}
 	}
