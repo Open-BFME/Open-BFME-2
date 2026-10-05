@@ -10,13 +10,16 @@ struct Inner54
 	void *m_54;
 };
 
-struct PlayerList
+class PlayerList
 {
+public:
 	char m_pad00[0x10];
 	Inner54 *m_10;
 };
 
-#define ThePlayerList (*(PlayerList **)0x00DFEEE8)
+extern PlayerList *ThePlayerList;
+
+extern const void *const g_00C09840[];
 
 class Rva0030F47A
 {
@@ -36,7 +39,7 @@ private:
 
 Rva0030F47A::Rva0030F47A(void *arg)
 {
-	*(void **)this = (void *)0x00C09840;
+	*(const void **)this = g_00C09840;
 	m_14 = ThePlayerList->m_10->m_54;
 	m_10 = arg;
 	m_1C = 0;
