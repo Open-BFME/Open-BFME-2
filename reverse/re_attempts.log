@@ -9961,3 +9961,4 @@ FUN_005182a0	0x001182A0	399	blocked	big WW3D render 399B with x87 FPU cw plus SS
 ?rva005FEA02@Rva005FE750@@QAEXI@Z	0x005FEA02	96	partial	esi edi swapped for this versus vector plus TheTarget reloc t=15 model=muse-09 score=0.92 stash=reverse/attempts/0x005fea02.cpp
 ?rva00511CE6@AptMessenger@@QAEXXZ	0x00511CE6	310	blocked	AptMessenger refresh needs virtual slot 14 plus 8B array at 28c plus GameText Invoke chain placeholder far t=10 model=muse-09
 ?rva007AFC6B@Rva007ABBF6BlockParseInits@@SAXXZ	0x007AFC6B	73	blocked	gap global init needs atexit target 0x007B816A with no row or pin for push plus SSE floats t=10 model=muse-09
+??1Rva00578189@@UAE@XZ	0x00578189	363	blocked	AsciiString expression-template dtor; first variant 408B plus45 with 17 regions frame 0x74 vs 0x2c extra copies; Fire holder chase plus empty fallback plus Build S12-S16 chain unmodeled t=12 model=muse-spark
