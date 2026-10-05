@@ -60,7 +60,7 @@ public:
 };
 class AptCIH;
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); bool IsEqualTo(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class AptArray { public: AptValue *get(int); void set(int,AptValue *); };
 // PC callbacks occupy two independently zero-initialized slots in gAptFuncs.
 // Member handlers establish the getter/setter ABI; later source names their role.
@@ -79,6 +79,7 @@ extern AptValue *gpGlobalGlobalObject;
 class AptValueVector { public: int GetNumValues() const; void ReleaseValues(); };
 extern AptValueVector *g_releaseVectorAtE17710;
 void Rva006CC110Log(int, const char *, ...);
+extern "C" void (__cdecl *g_bfmeAptLogAtE1773C)(const char *,const char *);
 struct AptConstantPool { int nItems; AptValue **apItems; };
 
 // Native At/PopNoDec inline bodies preserve the original stack semantics.
@@ -170,6 +171,7 @@ private:
     HANDLER(CallFunction); HANDLER(CallMethod);
     HANDLER(CallFuncAndPop); HANDLER(CallFuncSetVar); HANDLER(CallMethodPop); HANDLER(CallMethodSetVar); HANDLER(DictCallFuncPop); HANDLER(DictCallFuncSetVar); HANDLER(DictCallMethodPop); HANDLER(DictCallMethodSetVar);
     HANDLER(ToInteger); HANDLER(StringLength); HANDLER(GetVariable);
+    HANDLER(Trace);
     HANDLER(Greater);
     HANDLER(SubString); HANDLER(AsciiToChar);
     HANDLER(Delete); HANDLER(Delete2);
@@ -994,4 +996,25 @@ void AptActionInterpreter::_FunctionAptActionGreater(AptActionInterpreter *const
         result=b->toInteger()>a->toInteger();
     }
     p->stack.PopAndPush(2,AptBoolean::Create(result!=0));
+}
+
+// PC Trace builds prefix/text/newline before invoking the existing log slot.
+// Its SWF7 undefined temporary and null check are visible in native branches;
+// later source logs directly and therefore only supplies the semantic lead.
+void AptActionInterpreter::_FunctionAptActionTrace(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    EAStringC text;
+    AptString *undefined=0;
+    if(Rva006CD220Get()==7 && value->isUndefined()) {
+        undefined=AptString::Create();
+        undefined->SetString(Rva0070B4F0GetString(0xA9)->rva00620090());
+        undefined->toString(text);
+    }
+    if(!undefined) value->toString(text);
+    EAStringC line("AptTrace: ");
+    line.Rva006D4F00Append(text);
+    line.Rva006D50A0Append("\n");
+    g_bfmeAptLogAtE1773C("%s",line.rva00620090());
+    p->stack.Pop();
 }
