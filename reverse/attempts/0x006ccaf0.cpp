@@ -1,8 +1,6 @@
 // ?rva006ccaf0@@YAXPBD@Z
 // partial score=0.95 date=2026-10-05
-// ?rva006ccaf0@@YAXPBD@Z
-// partial score=0.95 date=2026-10-04
-// ?rva006ccaf0@@YAXPBD@Z
+// cl: /O2 /MD /EHsc
 // cl: /O2 /MD /EHsc
 // ?rva006ccaf0@@YAXPBD@Z @ 0x006CCAF0 (139B).
 //
@@ -37,7 +35,7 @@ public:
 // pushes and both were measured. What the pushes DO show is that the EAStringC
 // sits at [esp+8] and that the caller reloads its own argument straight out of
 // [esp+0x14] rather than spilling it, so the body needs no named local for it.
-const char *rva006CC530(int zero, int zero2, EAStringC &out, int one,
+const char *rva006CC530(int zero, int zero2, EAStringC *out, int one,
                         int oneAgain, int zero3);
 
 class Rva006DCD20
@@ -54,7 +52,7 @@ public:
 	// `push edi / mov edi,[esp+0x1c]` to the head of the frame, which adds four
 	// bytes ahead of everything and shifts every later displacement. A
 	// reference parameter is the one spelling that makes MSVC spend esi here.
-	void rva006DE870(const char *&key);
+	void rva006DE870(const char *key);
 
 	virtual void slot0();
 	virtual void release();
@@ -79,7 +77,7 @@ void rva006ccaf0(const char *name)
 {
 	{
 		EAStringC wanted(name);
-		const char *canonical = rva006CC530(0, 0, wanted, 1, 1, 0);
+		const char *canonical = rva006CC530(0, 0, &wanted, 1, 1, 0);
 
 		Rva006DCD20 *entry = g_bfmeAptNameCacheAtE182E0.rva006FFD80(canonical);
 		entry->slot0();
