@@ -12,7 +12,7 @@ public:
 	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
 };
 
-__forceinline const char *GetStr(const AsciiString &s)
+static __forceinline const char *GetStr(const AsciiString &s)
 {
 	char *t = *(char **)(void *)&s;
 	return t ? t + 8 : g_Rva0107301CEmptyString;
