@@ -1,5 +1,3 @@
-// ?Rva003C3F9EApply@@YGXPAVParameter@@ABVAsciiString@@H@Z
-// partial score=0.93 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?Rva003C3F9EApply@@YGXPAVParameter@@ABVAsciiString@@H@Z @0x003C3F9E 101B: resolve unit via ScriptEngine then SpecialPowerTemplate by name filter via BfmeSubBEC then slot 0x10 plus scaled frame via slot 0x20. Evidence: sibling Rva003C3EC5Apply same getUnitNamed 0x3588E7 via g_Va009FE16C findSpecialPowerTemplate 0x29B6EB via g_00E02D4C BfmeSubBEC 0x28BB9E StringBase copy 0x365F0; caller 0x003CC6BD; ret 0xC stdcall.
 #include "ascii_string.h"
@@ -55,8 +53,7 @@ void __stdcall Rva003C3F9EApply(Parameter *p, const AsciiString &name, int arg3)
 		if (t != 0)
 		{
 			int scaled = g_Va00DBA4E4 * arg3;
-			int base = t->w04();
-			t->w08(base + scaled);
+			t->w08(t->w04() + scaled);
 		}
 	}
 }
