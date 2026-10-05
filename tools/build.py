@@ -1630,6 +1630,24 @@ def funclet_candidates(path, row, target):
             continue
         if holds_funclet(body, relocs, target):
             hits.append(symbol["name"])
+    if len(hits) > 1:
+        # Masking a call can make two different destructors look identical.
+        # Use the already-established callee addresses before reporting an
+        # ambiguity; candidates that still tie remain ambiguous.
+        symbol_map = load_symbol_map()
+        rva = int(row["target_rva"], 16)
+        exact = []
+        for name in hits:
+            body, relocs = read_object_symbol_bytes(path, name, len(target))
+            calls = [(offset, symbol) for offset, kind, symbol in relocs
+                     if kind == 0x0014 and offset < len(target)]
+            if all(offset + 4 <= len(target) and any(
+                    struct.pack("<i", address - (rva + offset + 4))
+                    == target[offset:offset + 4]
+                    for address in symbol_map.get(symbol, ()))
+                   for offset, symbol in calls):
+                exact.append(name)
+        hits = exact
     return hits
 
 
@@ -2409,8 +2427,11 @@ def verify_dir32_consistency(rows):
         trva, tsz = int(row["target_rva"], 16), int(row["target_size"])
         target = read_target_bytes(trva, tsz)
         try:
-            body, relocs = read_object_symbol_bytes(
-                obj, ledger_object_symbol(row), tsz)
+            if is_funclet_row(row, ledger_object_symbol(row)):
+                body, relocs, _ = read_funclet(row, ledger_object_symbol(row), obj, target)
+            else:
+                body, relocs = read_object_symbol_bytes(
+                    obj, ledger_object_symbol(row), tsz)
         except ValueError:
             continue
         for off, rtype, sym in relocs:

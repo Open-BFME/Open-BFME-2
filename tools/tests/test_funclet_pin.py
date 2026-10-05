@@ -70,7 +70,7 @@ def write_object(path, bodies):
     symbol_at = reloc_at + len(relocs) * 10
     header = struct.pack("<HHIIIHH", 0x014C, 1, 0, symbol_at, len(symbols), 0, 0)
     section = struct.pack("<8sIIIIIIHHI", b".text\0\0\0", 0, 0, len(blobs), raw_at,
-                          reloc_at, 0, len(relocs), 0, 0)
+                          reloc_at, 0, len(relocs), 0, 0x20)
     path.write_bytes(header + section + blobs + b"".join(relocs)
                      + b"".join(symbols) + bytes(strings))
     return path
@@ -157,3 +157,36 @@ def test_a_vanished_pin_with_nothing_to_recover_names_the_symbol(tmp_path):
         compile_row(obj, "$L47551")
 
     assert str(exc.value) == "symbol not found in object: $L47551"
+
+
+def test_masked_twins_are_distinguished_by_established_callees(tmp_path, monkeypatch):
+    obj = write_object(tmp_path / "callees.obj",
+                       {"$L47543": BIT0, "$L47547": BIT0, "$L47551": BIT16})
+    original = build.read_object_symbol_bytes
+    rva = int(make_row("$L47551")["target_rva"], 16)
+
+    def read(path, name, size, **kwargs):
+        body, relocs = original(path, name, size, **kwargs)
+        if name in ("$L47543", "$L47547"):
+            return body, [(1, 0x0014, "right" if name == "$L47543" else "wrong"),
+                          relocs[1]]
+        return body, relocs
+
+    displacement = struct.unpack_from("<i", TARGET, 1)[0]
+    address = rva + 5 + displacement
+    monkeypatch.setattr(build, "read_object_symbol_bytes", read)
+    monkeypatch.setattr(build, "load_symbol_map", lambda: {"right": [address], "wrong": [address + 1]})
+    patch = build.compile_function(make_row("$L47551"), {"right": [address]}, obj)
+    assert patch["bytes"] == patch["target"]
+    assert "$L47543" in patch["note"]
+
+
+def test_dir32_gate_uses_reidentified_funclet_instead_of_stale_pin(tmp_path, monkeypatch):
+    obj = write_object(tmp_path / "dir32.obj", {"$L47543": BIT0, "$L47551": BIT16})
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/dir32_consistency_whitelist.txt").write_text("")
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+    monkeypatch.setattr(build, "require_row_object", lambda row: obj)
+    # Both retail rows reference the same guard. Reading the stale longer
+    # body pairs the guard with instruction bytes and invents a second base.
+    build.verify_dir32_consistency([make_row("$L47543"), make_row("$L47551")])
