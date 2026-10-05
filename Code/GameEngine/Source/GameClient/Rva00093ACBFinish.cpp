@@ -77,7 +77,7 @@ private:
     void target_00094652();
     void target_0009322D();
     unsigned char m_target74[0x4];
-    RefCountPtr<TextureClass> m_snowTexture;                  // +0x78
+    BFME2ParticleTextureHandle m_snowTexture;                 // +0x78
     unsigned char m_target7C[0x18];
     float m_targetFloat94, m_targetFloat98, m_targetFloat9C;
     unsigned char m_targetA0[0x10];
