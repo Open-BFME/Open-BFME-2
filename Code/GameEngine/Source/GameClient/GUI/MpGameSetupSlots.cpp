@@ -94,3 +94,9 @@ int Rva0043DDF8(int count)
 {
 	return rva0043DDF8Max(8 - count, 4);
 }
+
+// Retail 0x0043DB23, 26 bytes: invoke an Apt callback with no arguments.
+void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name)
+{
+	target->invoke(owner, name, 0, 0, 0, 0, 0, 0);
+}
