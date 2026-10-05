@@ -10692,3 +10692,4 @@ G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClass
 ?rva0057EA0F@Rva0057EE5C@@QAEXXZ,0x0057EA0F,unrowed 158B thiscall (Ghidra FUN_0097ea0f; plain ret) on the LAN lobby MpGameSetup panel +0xD0 member (base destroyed by ??1Rva0057EE5C); called from 0x0043DB77; address name
 ?s_head@?$CategoryModuleClass@$02@FXParticleSystem@@2PAV12@A,0x009FDD48,0x001F8599 reads DFDD48 twin of 05 pin and exports s_first 02 at same VA
 ?s_head@?$CategoryModuleClass@$03@FXParticleSystem@@2PAV12@A,0x009FDD4C,0x001F8607 reads DFDD4C twin of 05 pin and exports s_first 03 at same VA
+??1Rva005C6D4D@@UAE@XZ,0x005C6C7B,twin of pinned ??1Rva005C6C7B same secondary base as ctor pin ??0Rva005C6D4D for Rva0053ED1A dtor

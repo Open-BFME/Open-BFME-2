@@ -57146,3 +57146,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva001F8599Parse@@YAXPAVINI@@PAX@Z,,0x001F8599,110,Code/Libraries/Source/WWVegas/WWLib/Rva001F8599Parse.cpp,matched,INI token lookup FX CategoryModuleClass 02 list store at B0 via rva001F43BD
 ?Rva001F8607Parse@@YAXPAVINI@@PAX@Z,,0x001F8607,110,Code/Libraries/Source/WWVegas/WWLib/Rva001F8607Parse.cpp,matched,INI token lookup FX CategoryModuleClass 03 list store at B4 via rva001F43BD
 ?rva007B9748@@YAXXZ,,0x007B9748,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_00E06634 tail-jmp pinned dtor 0x005E9F7B
+??1Rva0053ED1A@@UAE@XZ,,0x0053ED78,90,Code/GameEngine/Source/Common/Rva0053ED1ADtor.cpp,matched,dtor vptr stores vector free secondary base
