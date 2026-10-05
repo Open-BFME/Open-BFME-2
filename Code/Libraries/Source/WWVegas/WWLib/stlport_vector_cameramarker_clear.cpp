@@ -19,4 +19,7 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 
 #include <vector>
 class CameraMarker { public: ~CameraMarker(); char m_pad[8]; };
+namespace _STL {
+template <> void _Construct<class CameraMarker, class CameraMarker>(class CameraMarker *, const class CameraMarker &);
+}
 template class _STL::vector<CameraMarker, _STL::allocator<CameraMarker> >;
