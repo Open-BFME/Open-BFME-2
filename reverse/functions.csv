@@ -56649,3 +56649,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva0023D793Transfer@@YGXHHH@Z,,0x0023D793,241,Code/GameEngine/Source/GameLogic/System/Rva0023D793Transfer.cpp,matched,finish lane ternary min-shape caller 0x0037AB1B
 ?rva000B3271@Rva000B3271@@QAEXPBVRadiusDecalTemplate@@@Z,,0x000B3271,81,Code/GameEngine/Source/Common/Rva000B3271.cpp,matched,vtable slot 29 of W3D draws RadiusDecalTemplate at 0x228 via rowed 0x330CDD and BIC pin 0x290FC9 then virtual 0x84
 ?Rva0058CA1BWrite@@YAXPADPAVNetCommandRef@@@Z,,0x0058CA1B,175,Code/GameEngine/Source/GameNetwork/Rva0058CA1BWrite.cpp,matched,sibling Rva0058C96CWrite layout plus getData row
+??1Rva00362D6C@@UAE@XZ,,0x00362D6C,81,Code/GameEngine/Source/Common/Rva00362D6CDtor.cpp,matched,dtor via Rva00419BA5 guard plus member plus BBB554 base

@@ -9121,3 +9121,6 @@ _VP6_ConfigureMvEntropyDecoder	0x001C6EF0	331	partial	third-loop pre-increment p
 ?rva0046D2C3@HordeContain@@UAEPAVObject@@H@Z	0x0046D2C3	175	blocked	register assignment wall this=edi end=esi it=ebx vs ebx/edi/esi t=12 model=muse-spark (stash 0.95 kept)
 ?rva0023E323@Rva0023E323@@QAEXXZ	0x0023E323	171	blocked	owner unknown caller bare thunk no pushes no donor EH StringBase private copy needs friend t=15 model=muse-spark
 ??1Rva00488D5C@@UAE@XZ	0x00488D5C	79	blocked	dtor base WindModuleInfo size GT 0x24 overlaps m_24 no EH without inheritance t=10 model=muse-spark
+?rva0044E1B9@BloodthirstyUpdate@@UAE_NPAVObject@@@Z	0x0044E1B9	105	blocked	register allocation only candidate spilled data in ebx not ebp iface in local not arg slot plus frame t=18 model=muse-12 (stash 0.9 kept)
+?rva005DDBAB@Rva005DDBAB@@QAEXPAVGameWindow@@PAPAH@Z	0x005DDBAB	192	blocked	191B same 69 insns esi-eax ebx-esi swap sub-mem vs sub-reg lea CSE remains t=8 model=muse-12 (stash 0.93 kept)
+?Rva003E5B11Check@@YG_NPAVParameter@@0@Z	0x003E5B11	243	blocked	setne vs je-mov for rva003971BF and neg-sbb-inc vs je for Foundation v03 remains explicit compare no change t=12 model=muse-12 (stash 0.95 kept)
