@@ -511,7 +511,6 @@ int AptMessenger::rva00511E6D()
 // arrived on a tab: flash the messenger button (and the tab while the
 // messenger is up) and, unless that tab is showing, play the buddy or
 // lobby message sound (none for the lobby inside a game's chat).
-// ?rva00511620@Rva005114BD@@UAEXHH@Z present-unmatched
 void Rva005114BD::rva00511620(int tab, int unused)
 {
 	TheRva00222A8BTarget->invoke(0, "MessengerButtonFlash", 0, 0, 0, 0, 0, 0);
