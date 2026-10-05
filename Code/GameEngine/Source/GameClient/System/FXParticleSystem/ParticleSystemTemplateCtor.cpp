@@ -1,8 +1,10 @@
 // cl: /O1 /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
-// ??0ParticleSystemTemplate@FXParticleSystem@@QAE@ABVAsciiString@@@Z @0x001FC1E0 81B
 // ??0Rva001FBF37@@QAE@XZ @0x001FBF37 22B
 // ??0Rva001FBA45@@QAE@XZ @0x001FBA45 22B
 // ??0Rva001FA5A5@@QAE@XZ @0x001FA5A5 22B
+// NOTE: the 81B ParticleSystemTemplate ctor @0x001FC1E0 that seeded this TU
+// now lives in ParticleSystemTemplateCopyCtor.cpp on master; this TU keeps
+// only the three honest 22B Rva tail ctors below.
 // Evidence (TARGET facts, re-read at 5f22f3ba + seat-52-r14/r17 + seat-53-r20):
 // - export row 302 at 0x001FC1E0 = ??0ParticleSystemTemplate@FXParticleSystem@@QAE@ABVAsciiString@@@Z;
 //   Ghidra 0x1FC1E0 81B ParticleSystemTemplate agrees.
@@ -263,11 +265,5 @@ private:
 // Pre-C++11 TU: negative-size typedef fails the compile if a size drifts.
 typedef int OCL12_Check[sizeof(ObjectCreationList) == 12 ? 1 : -1];
 typedef int Tail44_Check[sizeof(Rva001FBF37) == 0x2C ? 1 : -1];
-typedef int TemplateD4_Check[sizeof(ParticleSystemTemplate) == 0xD4 ? 1 : -1];
-ParticleSystemTemplate::ParticleSystemTemplate(const AsciiString &name) :
-    m_name(name)
-{
-    m_slaveTemplate = 0;
-}
 
 }
