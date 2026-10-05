@@ -11911,3 +11911,4 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ??1Rva006022CA@@QAE@XZ,0x006022CA,destructor called by the vtable-referenced scalar deleting dtor 0x006022AE (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva005C67C0@@QAE@XZ,0x001F8167,001F9025 second-base destructor call at001F9043; existing Rva005C9D30 chain donor6583b3c1 structure; original class name unknown
 ?freeNode@Rva00216AF6@@AAEXPAURva00216787Node@@@Z,0x00216787,Native216AF6 clear setsECX and calls216787 node deleter; aliases rowed stdcall Rva00216787Free which ignoresECX; original method spelling unknown
+?freeNode@Rva002A1D02@@AAEXPAX@Z,0x002A14FA,Native2A1D02 clear setsECX then calls rowed2A14FA stdcall deleter; exact node-free body ignoresECX; explicit alternatename to Rva002A14FAFree; original method spelling unknown
