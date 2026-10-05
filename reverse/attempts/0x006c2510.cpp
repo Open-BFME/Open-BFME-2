@@ -1,43 +1,22 @@
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
-// partial score=0.95 date=2026-10-05
+// partial score=0.96 date=2026-10-05
 // ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z
+// retail 0x006C2510 (214B).
 
 // cl: /O2 /MD /EHsc
-// ?rva006C2510@Rva006C1F60@@QAEIPADHPAPAD@Z, retail 0x006C2510, 214 bytes.
 // Unlock lane: landing it makes 0x006C26F0 and 0x006C4730 ready.
 // Evidence: lock at +0x4e4 with AddRef 0x00030DD0 / Release 0x00030DF0 (same
 // layout as Rva006C1F60::rva006C1EB0); hash find at +0x684 via 0x006C1850
 // (key>>3)%bucketCount row; trailing-length helper 0x006C1FE0 stdcall row;
 // ret 0xC three args; thiscall (reads ecx first).
 // Same class as Rva006C1F60 (lock at +0x4e4), extended to +0x684 hash.
-// The lock is taken through the same RAII guard the matched siblings 0x006C1E20
-// and 0x006C3840 use: it parks `this` in esi and the lock in edi, and emits the
-// tail-jump release, which retail's `mov ecx,edi` / call 0x00030DF0 / `mov eax,
-// esi` epilogue proves.
 struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
 
-class Rva00030DD0Guard
+class Rva006C1850Node
 {
 public:
-	Rva00030DD0Guard(Rva00030DD0Lock *lock) : m_lock(lock)
-	{
-		if (m_lock != 0)
-			Rva00030DD0AddRef(m_lock);
-	}
-	~Rva00030DD0Guard()
-	{
-		if (m_lock != 0)
-			Rva00030DF0Release(m_lock);
-	}
-
-private:
-	Rva00030DD0Lock *m_lock;
-};
-
-struct Rva006C1850Node
-{
 	unsigned int m_key;
 	void *m_value;
 	Rva006C1850Node *m_next;
@@ -98,14 +77,18 @@ unsigned int Rva006C1F60::rva006C2510(char *base, int type, char **out)
 			size = (h & 0x7ffffff8) + 4;
 		else
 			size = h & 0x7ffffff8;
-		unsigned short trail = *(unsigned short *)(size + p - 10);
+		unsigned short trail = *(unsigned short *)(p + (int)size - 10);
 		if (out != 0) {
-			// Retail keeps the chunk base and the size separate so the tail
-			// length indexes off the base and the two lea forms come out in
-			// source order: base minus the length, then plus size - 10.
-			char *const body = p - trail;
-			*out = body + (size - 10);
-			result = trail + 2;
+			// Retail reuses the out pointer's register for the result: it tests
+			// esi, writes through esi, and only then overwrites esi with size+2.
+			// It keeps the base in eax and the size in ecx across the block, so
+			// the trailing word is an indexed load off the base rather than a
+			// sum, and the body is the base minus the length before the size is
+			// added back.
+			char *const base = p;
+			char *const body = base - trail;
+			*out = body + (int)(size - 10);
+			result = size + 2;
 		} else {
 			result = trail + 2;
 		}
