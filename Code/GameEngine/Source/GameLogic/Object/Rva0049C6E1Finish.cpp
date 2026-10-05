@@ -71,29 +71,33 @@ public:
 	bool rva0049C6E1(Object *arg);
 };
 
-// ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z present-unmatched
+// ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z
+// Retail lays the value test out with the TRUE return inline and the FALSE
+// return as the out-of-line branch target (test al,al / je FALSE / mov al,1),
+// which only the positive-nested form produces: every failing guard falls out
+// to a single shared `return false` and the success path returns true early.
 bool Rva0049C6E1::rva0049C6E1(Object *arg)
 {
 	void *upgrade = ((Rva0026F0F0 *)TheUpgradeCenter)->rva0026F0F0((const void *)((char *)m_ptr08 + 0x284));
-	if (upgrade == 0)
-		goto ret_false;
-	unsigned char ok;
-	if (arg->m_int274 != 0)
+	if (upgrade != 0)
 	{
-		void *prov = ((Rva0049C5F4 *)this)->rva0049C5F4(arg);
-		if (prov == 0)
-			goto ret_false;
-		ok = ((Rva0049C6E1Prov *)prov)->slot43(upgrade);
+		unsigned char ok;
+		if (arg->m_int274 != 0)
+		{
+			void *prov = ((Rva0049C5F4 *)this)->rva0049C5F4(arg);
+			if (prov != 0)
+			{
+				ok = ((Rva0049C6E1Prov *)prov)->slot43(upgrade);
+				if (ok != 0)
+					return true;
+			}
+		}
+		else
+		{
+			ok = ((BfmeArg985 *)arg)->bfmeHas985C((int)upgrade);
+			if (ok != 0)
+				return true;
+		}
 	}
-	else
-	{
-		ok = ((BfmeArg985 *)arg)->bfmeHas985C((int)upgrade);
-	}
-	if (ok == 0)
-		goto ret_false;
-	goto ret_true;
-ret_true:
-	return true;
-ret_false:
 	return false;
 }
