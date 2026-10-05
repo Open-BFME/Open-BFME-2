@@ -171,8 +171,9 @@ struct AptActionInterpreter
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
     void stackPushIndirect(AptValue *const);
 private:
+    static bool getContext(AptValue *,AptValue *,const EAStringC *,AptValue **,EAStringC &);
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
+    HANDLER(CallFrame); HANDLER(GotoLabel); HANDLER(GotoFrame); HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1159,7 +1160,7 @@ void AptActionInterpreter::_FunctionAptActionWith(AptActionInterpreter *const p,
 // Play/Stop: opcode6/7 dispatch and original PDB establish handler identity.
 // Later source supplies semantics; PC proves CIH+4C and sprite playing bit25+1C.
 // Keep direct accessor-expression bitfield assignment: a temporary changes MSVC codegen.
-class AptMovie { public: int labelToFrame(const EAStringC *) const; };
+class AptMovie { public: int labelToFrame(const EAStringC *) const; void runFrameActions(AptCIH *,int); };
 struct AptCharacter { unsigned char prefix[8]; AptMovie movie; };
 struct AptSpriteInstBase { unsigned char prefix[0xC]; AptCharacter *character; unsigned char middle[8]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; };
 class AptCIH : public AptValue {
@@ -1171,6 +1172,14 @@ public:
     bool IsAnimationInst(bool=false) const;
     AptSpriteInstBase *GetSpriteInstBase() const;
     bool IsSpriteInstBase() const;
+    bool IsCharacterInst() const;
+    __forceinline AptSpriteInstBase *GetCharacterInst() const {
+        if (!IsCharacterInst()) {
+            g_bfmeAptAssertAtE17734("isCharacterInst()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xA5);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        return (AptSpriteInstBase *)mpCharacterInst;
+    }
     void jumpToFrame(int);
     __forceinline AptSpriteInstBase *SpriteBaseInline() const {
         if (!IsSpriteInstBase()) {
@@ -1389,3 +1398,24 @@ void AptActionInterpreter::_FunctionAptActionGotoLabel(AptActionInterpreter *con
     }
 }
 #pragma comment(linker, "/alternatename:?labelToFrame@AptMovie@@QBEHPBVEAStringC@@@Z=?bfmeGo1034F@BfmeF1034@@QAEHH@Z")
+
+void AptActionInterpreter::_FunctionAptActionCallFrame(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *value=p->stack.At(0);
+    int frame=-1;
+    if(value->isString()) {
+        AptValue *labelContext;
+        EAStringC name;
+        getContext(c->pCurrentContext,c->pCurWith,value->c_string()->GetInternalString(),&labelContext,name);
+        frame=labelContext->c_cih()->GetCharacterInst()->character->movie.labelToFrame(&name);
+    } else if(value->isInteger()) frame=value->toInteger();
+    else {
+        g_bfmeAptAssertAtE17734("NOT_REACHED", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x1EFD);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+    p->stack.Pop();
+    if(frame!=-1) c->pCurrentContext->GetCharacterInst()->character->movie.runFrameActions(c->pCurrentContext,frame);
+}
+#pragma comment(linker, "/alternatename:?IsCharacterInst@AptCIH@@QBE_NXZ=?isCharacterInst@BfmeAptValue006DCD20@@QBEHXZ")
+#pragma comment(linker, "/alternatename:?runFrameActions@AptMovie@@QAEXPAVAptCIH@@H@Z=?rva0070F5C0@Rva0070F5C0@@QAEXPAVAptCIH@@H@Z")
+#pragma comment(linker, "/alternatename:?getContext@AptActionInterpreter@@CA_NPAVAptValue@@0PBVEAStringC@@PAPAV2@AAV3@@Z=?rva006FEC00@@YAEHHPAVEAStringC@@PAH0@Z")
