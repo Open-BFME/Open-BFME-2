@@ -13,7 +13,8 @@ unsigned short *__stdcall AtlA2WHelper(unsigned short *, const char *, int, unsi
 extern "C" __declspec(dllimport) char *__stdcall CharUpperA(char *);
 namespace ATL {
 typedef unsigned int (__stdcall *ATLGETTHREADACP)();
-extern ATLGETTHREADACP g_pfnGetThreadACP;
+unsigned int __stdcall _AtlGetThreadACPThunk();
+ATLGETTHREADACP g_pfnGetThreadACP = _AtlGetThreadACPThunk;
 unsigned short *__stdcall CharLowerWFake(unsigned short *text)
 {
     int convert;
