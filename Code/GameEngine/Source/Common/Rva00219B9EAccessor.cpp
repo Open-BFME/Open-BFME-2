@@ -123,6 +123,8 @@ public:
     int rva00219E9F(unsigned int o, unsigned int o2, unsigned int i);
     void *rva00219D85(unsigned int index);
     int rva00219FE3(unsigned int o, unsigned int i);
+    int rva0021BE42(unsigned int o, unsigned int i);
+    int rva0021BF42(unsigned int o, unsigned int outer, unsigned int i);
 };
 void *Rva00219B9E::rva00219B9E(unsigned int index)
 {
@@ -635,4 +637,16 @@ int Rva00219B9E::rva00219FE3(unsigned int o, unsigned int i)
         return -1;
     _ReadWriteBarrier();
     return ((Rva00219B9E *)((char *)m_outer.m_start + (o << 5)))->rva00219C93(i);
+}
+// ?rva0021BF42@Rva00219B9E@@QAEHIII@Z @0x0021BF42 50B: outer 32B at +0x14C selects via middle index then rowed 0x0021BE42. Evidence: same outer shape as 0x00219FE3 51B but miss returns -1 and forwards first and third args; callee rowed 0x0021BE42; caller 0x005B1D0A.
+int Rva00219B9E::rva0021BF42(unsigned int o, unsigned int outer, unsigned int i)
+{
+    Vec32 *v = &m_outer;
+    unsigned int count = Vec32Size(v);
+    if (outer < count) {
+        _ReadWriteBarrier();
+        OuterElem32 *base = v->m_start;
+        return ((Rva00219B9E *)&base[outer])->rva0021BE42(o, i);
+    }
+    return -1;
 }
