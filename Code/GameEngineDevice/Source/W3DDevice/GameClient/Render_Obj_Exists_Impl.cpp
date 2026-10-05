@@ -21,7 +21,9 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(
 	CRITICAL_SECTION *lock);
 
-#pragma optimize("s", on)
+// Native standalone destructor at 0x0061FC60 uses mov/push (10B).
+// Size tuning emitted a 9B push-memory copy; preserve this unit's other bodies.
+#pragma optimize("t", on)
 class CriticalSectionLock
 {
 public:
