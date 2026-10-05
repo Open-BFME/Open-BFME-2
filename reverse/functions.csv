@@ -56465,3 +56465,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva005D9C77@Rva005D9C6C@@QAE_NPAVObject@@@Z,,0x005D9C77,48,Code/GameEngine/Source/Common/Rva005D9C77.cpp,matched,gap vslot6 plus AI victim plus AoE picker
 ?rva005D940A@Rva005D91AB@@QAE_NPAVObject@@@Z,,0x005D940A,46,Code/GameEngine/Source/Common/Rva005D940A.cpp,matched,vslot6 plus AI victim plus picker 0x005D91D2
 ?rva005D916A@Rva005D8EE8@@QAE_NPAVObject@@@Z,,0x005D916A,47,Code/GameEngine/Source/Common/Rva005D916A.cpp,matched,vslot6 plus AI victim plus picker 0x005D8F0F
+?rva005D997C@Rva005D96FA@@QAE_NPAVObject@@@Z,,0x005D997C,47,Code/GameEngine/Source/Common/Rva005D997C.cpp,matched,vslot6 plus AI victim plus picker 0x005D9721
