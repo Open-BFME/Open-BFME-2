@@ -64734,3 +64734,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva004B3B42@Rva004B3B42@@QAEXXZ,,0x004B3B42,70,Code/GameEngine/Source/Common/Rva004B3B42Mask.cpp,matched,player storage copy then bitset or into slot 1
 ?rva0049C67E@Rva0049C67E@@QAEXPAVObject@@@Z,,0x0049C67E,99,Code/GameEngine/Source/Common/Rva0049C67EBegin.cpp,matched,clear then FX at object+0x38 and status 3
 ?rva0048C7BF@Rva0048C7BF@@QAEXXZ,,0x0048C7BF,96,Code/GameEngine/Source/Common/Rva0048C7BFEvent.cpp,matched,audio event from ref and id then TheAudio slot 0x64
+?rva0049D617@Rva0049D617@@QAEXHE@Z,,0x0049D617,104,Code/GameEngine/Source/Common/Rva0049D617Arm.cpp,matched,arm index 0..3 from the frame and the bit table
