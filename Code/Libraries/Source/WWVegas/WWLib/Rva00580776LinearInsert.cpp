@@ -39,3 +39,8 @@ void __cdecl Rva00580A54Sort(void **first, void **last, void **, Rva000795C1Reco
 	for (void **i = first; i != last; ++i)
 		Rva00580776Insert(i, *i, compare);
 }
+
+void __cdecl Rva00580BBFUnguardedSort(void **first, void **last, Rva000795C1Record compare)
+{
+	Rva00580A54Sort(first, last, (void **)0, compare);
+}
