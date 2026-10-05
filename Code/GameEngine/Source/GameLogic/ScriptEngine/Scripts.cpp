@@ -1192,50 +1192,7 @@ void Script::deleteFalseAction(ScriptAction *pAct)
   Script::getUiText - Creates the string to display in the scripts dialog box.
 */
 // byte-exact reconstruction: Code/GameEngine/Source/GameLogic/ScriptEngine/Script_getUiText_Thunk.cpp
-// ?getUiText@Script@@QAE?AVAsciiString@@XZ present-unmatched
-AsciiString Script::getUiText(void) 
-{
-	AsciiString uiText("*** IF ***\r\n");
-	OrCondition *pOr = m_condition;
-	Int count=0;
-
-	while (pOr) {
-		Condition *pCond = pOr->getFirstAndCondition();
-		if (count>0) uiText.concat("  *** OR ***\r\n");
-		count = 0;
-		while (pCond) {
-			if (count>0) {
-				uiText.concat("    *AND* ");
-			} else {
-				uiText.concat("    ");
-			}
-			uiText.concat(pCond->getUiText());
-			uiText.concat("\r\n");
-			pCond = pCond->getNext();
-			count++;
-		}
-		pOr = pOr->getNextOrCondition();
-	}
-	uiText.concat("*** THEN ***\r\n");
-	ScriptAction *pAction = m_action;
-	while (pAction) {
-		uiText.concat("  ");
-		uiText.concat(pAction->getUiText());
-		uiText.concat("\r\n");
-		pAction = pAction->getNext();
-	}
-	pAction = m_actionFalse;
-	if (pAction) {
-		uiText.concat("*** ELSE ***\r\n");
-		while (pAction) {
-			uiText.concat("  ");
-			uiText.concat(pAction->getUiText());
-			uiText.concat("\r\n");
-			pAction = pAction->getNext();
-		}
-	}
-	return uiText;
-}
+// Byte-exact BFME2 UI formatter lives in ScriptGetUiText.cpp.
 
 /**
 * Script::WriteScriptDataChunk - Writes a Scripts chunk.
