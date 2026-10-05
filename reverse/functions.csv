@@ -56453,3 +56453,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?Rva003BA9AF@@YGXH@Z,,0x003BA9AF,27,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BA9AF.cpp,matched,ret 4 one int null-guarded AudioManager slot 0xf8
 ?Rva003BA9CA@@YGXH@Z,,0x003BA9CA,27,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BA9CA.cpp,matched,ret 4 one int null-guarded AudioManager slot 0xfc
 ?rva0033FD77@Rva00367E26@@QAE_NXZ,,0x0033FD77,33,Code/GameEngine/Source/Common/Rva0033FD77Vslot.cpp,matched,vslot 12 vtable 0x00817600 plus rowed isInBusyState 0x004D7309
+??$_M_allocate_and_copy@PAVRva0054000B@@@?$vector@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL@@IAEPAVRva0054000B@@IPAV2@0@Z,,0x0054016A,45,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0054000b_allocate_copy.cpp,matched,allocate_and_copy 0x28 via rowed allocate copy caller 0x005406B7 sibling 0x00319304
