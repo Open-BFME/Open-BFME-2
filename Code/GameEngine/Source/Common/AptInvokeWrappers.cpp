@@ -22,6 +22,8 @@ static inline const char *Rva002162CFStr(const AsciiString &s)
 	return ((const StringBase<char> *)&s)->str();
 }
 
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+
 AsciiString __cdecl Rva0022288EGet(unsigned int value);
 AsciiString __cdecl Rva002228E8Get(float value);
 
@@ -56,4 +58,69 @@ int __cdecl Rva00216496Invoke(Rva00222A8BTarget *target, void *owner, const char
 int __cdecl Rva002D4531Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const int &arg)
 {
 	return target->invoke(owner, name, 1, Rva002162CFStr(Rva00222834Get(arg)), 0, 0, 0, 0);
+}
+
+// ?rva00522A91@Rva00522A91@@QAEXXZ @0x00522A91 107B: close the profile popup.
+// In state 2 (unless the flag at +0x6C2 is set) and in state 4 it sends
+// CloseProfilePopup to the panel's Apt owner (+0x274). It then calls the
+// state's follow-up, 0x00521B56 or 0x005229D3 (both pinned), with 0.
+class Rva00522A91
+{
+public:
+	void rva00522A91();
+	void rva00521841();
+	void rva00521770(int arg);
+	void rva00521B56(int arg);
+	void rva005229D3(int arg);
+private:
+	char m_pad000[0x274];
+	void *m_owner;				// +0x274
+	char m_pad278[0x440];
+	int m_state;				// +0x6B8
+	char m_pad6BC[6];
+	bool m_busy;				// +0x6C2
+};
+
+void Rva00522A91::rva00522A91()
+{
+	switch (m_state)
+	{
+	case 2:
+		if (!m_busy)
+		{
+			TheRva00222A8BTarget->invoke(m_owner, "CloseProfilePopup", 0, 0, 0, 0, 0, 0);
+			rva00521B56(0);
+		}
+		break;
+	case 4:
+		TheRva00222A8BTarget->invoke(m_owner, "CloseProfilePopup", 0, 0, 0, 0, 0, 0);
+		rva005229D3(0);
+		break;
+	}
+}
+
+// ?rva00521841@Rva00522A91@@QAEXXZ @0x00521841 110B: the same panel's back
+// action. States 2-4 close the profile popup and run 0x00521770 (pinned)
+// with 0, and states 8-9 send CloseStats. Any other state tail-calls the
+// rowed Rva00521643Enable.
+void __cdecl Rva00521643Enable();
+
+void Rva00522A91::rva00521841()
+{
+	switch (m_state)
+	{
+	case 2:
+	case 3:
+	case 4:
+		TheRva00222A8BTarget->invoke(m_owner, "CloseProfilePopup", 0, 0, 0, 0, 0, 0);
+		rva00521770(0);
+		break;
+	case 8:
+	case 9:
+		TheRva00222A8BTarget->invoke(m_owner, "CloseStats", 0, 0, 0, 0, 0, 0);
+		break;
+	default:
+		Rva00521643Enable();
+		break;
+	}
 }
