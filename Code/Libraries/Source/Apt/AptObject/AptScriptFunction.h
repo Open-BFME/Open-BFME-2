@@ -7,6 +7,8 @@
 // added virtual methods do NOT describe this PC ABI. Keep the native tag45.
 // Original donor PDB SHA256 ab2b0b616a430aebf85f5cb81d0a0ab73f83bc044d8befa2eb46755543c90d03.
 // Audit: docs/audits/2026-10-05-openbfme2 under the analysis-materials repository.
+class AptNativeFunction;
+class AptDate;
 class AptCIH;
 class AptString;
 class AptArray;
@@ -36,6 +38,9 @@ struct AptNativeHash
 class AptValue
 {
 public:
+    AptNativeFunction *c_nativefunction() const;
+    AptDate *c_date() const;
+    AptCIH *c_cih(bool = false) const;
     bool isArray() const;
     int toInteger() const;
     void toString(EAStringC &) const;

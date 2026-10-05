@@ -99,8 +99,8 @@ inline void AptArray::set(int nIndex,AptValue *value) {
  mnLength=newLength>mnLength?newLength:mnLength;
 }
 
-class EAStringC { void *mpData; public: EAStringC(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(); ~EAStringC(); EAStringC &operator=(const EAStringC &); unsigned int rva006D3750() const; const char *rva00620090() const; bool rva006D3510(const char *) const; };
-class AptInteger { public: static AptValue *Create(int); };
+class EAStringC { void *mpData; public: void rva006D3470(); EAStringC(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(); ~EAStringC(); EAStringC &operator=(const EAStringC &); unsigned int rva006D3750() const; const char *rva00620090() const; bool rva006D3510(const char *) const; };
+class AptInteger { public: static AptValue *Create(int); int GetInt() const; };
 struct R4Word { const char *name; int nIndex; };
 const R4Word *Rva008B8AD0(const char *,unsigned int);
 // Existing shutdown6D92E0 owns these11 zero-initialized cached method slots.
@@ -108,6 +108,7 @@ const R4Word *Rva008B8AD0(const char *,unsigned int);
 // the native function object constructed here, so the reference view is exact.
 class Rva008B8B80Releasable;
 class AptNativeFunction : public AptObject {
+    friend class AptValue;
     void *callback;
 public:
     AptNativeFunction(AptValue *(__cdecl *)(AptValue *,int));
@@ -315,3 +316,58 @@ AptValue *AptArray::sMethod_splice(AptValue *pThis,int nParams) {
  }
  return gpUndefinedValue;
 }
+
+class AptBoolean : public AptValue { public: bool GetBool() const; };
+class AptFloat : public AptValue { public: float GetFloat() const; };
+class AptDate : public AptObject { public: void toString(EAStringC &); };
+class AptError : public AptObject { public: EAStringC msMessage; };
+struct AptActionInterpreter { static void getName(AptCIH *,EAStringC &); };
+EAStringC *Rva0070B4F0GetString(int);
+extern "C" int __cdecl sprintf(char *,const char *,...);
+extern "C" double __cdecl fmod(double,double);
+#pragma intrinsic(fmod)
+static __forceinline float apt_fmodf(float x,float y) { return (float)fmod(x,y); }
+// Source lead230e7c503b5dbf7e AptValue.cpp; native1430B6DD6C0..6DDC56.
+// Native45-tag map and22-entry table independently establish every numeric case
+// below; original donor enum numbering differs after type11. Older native code
+// clears undefined unconditionally, formats native callback addresses, and
+// directly delegates CIH names. Float rounding matches the native fst temporary.
+void AptValue::toString(EAStringC &sBuf) const {
+ if(isUndefined()) {sBuf.rva006D3470();return;}
+ char szTemp[128];
+ switch(((int)mnValueData)>>25) {
+ case 1:case 42:sBuf=c_string()->str;break;
+ case 5:if(((AptBoolean*)this)->GetBool())sBuf=*Rva0070B4F0GetString(168);else sBuf=*Rva0070B4F0GetString(52);break;
+ case 7:sprintf(szTemp,"%d",((AptInteger*)this)->GetInt());sBuf=szTemp;break;
+ case 6:{AptFloat *pF=(AptFloat*)this;if(apt_fmodf(pF->GetFloat(),1.f)==0.f)sprintf(szTemp,"%d",(int)pF->GetFloat());else sprintf(szTemp,"%f",pF->GetFloat());sBuf=szTemp;break;}
+ case 22:{AptArray *pA=c_array();pA->toString(sBuf);break;}
+ case 21:sBuf="[sound]";break;
+ case 9:sprintf(szTemp,"[native function 0x%08x]",c_nativefunction()->callback);sBuf=szTemp;break;
+ case 43:case 44:case 45:sBuf="[function]";break;
+ case 23:case 24:case 25:case 26:case 27:case 31:case 35:case 36:case 39:sBuf="[object Object]";break;
+ case 32:case 33:case 34:sBuf="[object]";break;
+ case 28:sBuf="[object (prototype)]";break;
+ case 29:{AptDate *pA=c_date();pA->toString(sBuf);break;}
+ case 30:sBuf="[MovieClip]";break;
+ case 4:sBuf="[Register]";break;
+ case 8:sBuf="[Lookup]";break;
+ case 11:sBuf="[Extern]";break;
+ case 20:sBuf="[FrameStack]";break;
+ case 37:sBuf="[Extension]";break;
+ case 38:sBuf="[GlobalExtension]";break;
+ case 41:sBuf=((AptError*)this)->msMessage;break;
+ case 13:case 14:case 15:case 18:case 19:AptActionInterpreter::getName(c_cih(),sBuf);break;
+ default:sprintf(szTemp,"[Type=0x%X]",((int)mnValueData)>>25);sBuf=szTemp;break;
+ }
+}
+
+#pragma comment(linker, "/alternatename:?c_nativefunction@AptValue@@QBEPAVAptNativeFunction@@XZ=?rva006DCF20@BfmeAptValue006DCD20@@QAEPAV1@XZ")
+#pragma comment(linker, "/alternatename:?c_date@AptValue@@QBEPAVAptDate@@XZ=?rva006DD160@BfmeAptValue006DCD20@@QAEPAV1@XZ")
+#pragma comment(linker, "/alternatename:?c_cih@AptValue@@QBEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
+#pragma comment(linker, "/alternatename:?GetBool@AptBoolean@@QBE_NXZ=?get@Rva006D89D0ByteField@@QBEEXZ")
+#pragma comment(linker, "/alternatename:?GetFloat@AptFloat@@QBEMXZ=?get@Rva00723490FloatField@@QBEMXZ")
+#pragma comment(linker, "/alternatename:?GetInt@AptInteger@@QBEHXZ=?Length@?$SimpleVecClass@K@@QBEHXZ")
+#pragma comment(linker, "/alternatename:?getName@AptActionInterpreter@@SAXPAVAptCIH@@AAVEAStringC@@@Z=?rva006ffce0@@YAXPAVAptValue@@AAVEAStringC@@@Z")
+#pragma comment(linker, "/alternatename:?rva006DD6C0@BfmeAptValue006DCD20@@QAEXPAVEAStringC@@@Z=?toString@AptValue@@QBEXAAVEAStringC@@@Z")
+#pragma comment(linker, "/alternatename:?rva006DD6C0@BfmeAptValue006DCD20@@QAEXAAVEAStringC@@@Z=?toString@AptValue@@QBEXAAVEAStringC@@@Z")
+#pragma comment(linker, "/alternatename:?rva006DD6C0@Rva006DD6C0@@QAEXPAVEAStringC@@@Z=?toString@AptValue@@QBEXAAVEAStringC@@@Z")
