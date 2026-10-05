@@ -159,7 +159,7 @@ struct AptActionInterpreter
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
 private:
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
+    HANDLER(StopDragMovie); HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1192,3 +1192,12 @@ void AptActionInterpreter::_FunctionAptActionPrevFrame(AptActionInterpreter *con
     cih->SpriteBaseInline()->mbIsPlaying=0;
 }
 #pragma comment(linker, "/alternatename:?IsSpriteInstBase@AptCIH@@QBE_NXZ=?isSpriteInstBase@Rva006CFCD0@@QBE_NXZ")
+
+class Rva006E34D0 { public: unsigned char prefix[0x44]; AptValue *mpDragMC; };
+extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
+void AptActionInterpreter::_FunctionAptActionStopDragMovie(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptValue *drag=g_bfmeAptPtrAtE176D0->mpDragMC;
+    if (drag) drag->Release();
+    g_bfmeAptPtrAtE176D0->mpDragMC=gpUndefinedValue;
+}
