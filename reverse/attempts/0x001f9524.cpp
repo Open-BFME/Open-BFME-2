@@ -95,8 +95,7 @@ public:
 // ?Rva001F9524Convert@@YA?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@PBD@Z present-unmatched
 _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > __cdecl Rva001F9524Convert(const _STL::basic_string<unsigned short, _STL::char_traits<unsigned short>, _STL::allocator<unsigned short> > &wide, const char *extra)
 {
-	unsigned int len;
-	len = strlen(extra);
+	unsigned int len = strlen(extra);
 	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > tmp(
 		_STL::_String_reserve_t(),
 		(unsigned int)((char *)((const _STL::basic_string_w<char, _STL::char_traits<char>, _STL::allocator<char> > &)wide)._M_finish - (char *)((const _STL::basic_string_w<char, _STL::char_traits<char>, _STL::allocator<char> > &)wide)._M_start) + len,
