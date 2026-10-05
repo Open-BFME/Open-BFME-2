@@ -64737,3 +64737,6 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0049D617@Rva0049D617@@QAEXHE@Z,,0x0049D617,104,Code/GameEngine/Source/Common/Rva0049D617Arm.cpp,matched,arm index 0..3 from the frame and the bit table
 ?rva00493AB7@Rva00493AB7@@QAEIXZ,,0x00493AB7,103,Code/GameEngine/Source/Common/Rva00493AB7Ready.cpp,matched,override flag selects player ready frame else logic frame
 ?rva0049D1CA@Rva0049D1CA@@QAEMPBVThingTemplate@@@Z,,0x0049D1CA,122,Code/GameEngine/Source/Common/Rva0049D1CAProduct.cpp,matched,upgrade scale product ecx object reload
+?rva0049D244@Rva0049D244@@QAEMPBVThingTemplate@@@Z,,0x0049D244,122,Code/GameEngine/Source/Common/Rva0049D244Product.cpp,matched,upgrade scale product float at value plus 0xC
+?rva0049D2BE@Rva0049D2BE@@QAEME@Z,,0x0049D2BE,127,Code/GameEngine/Source/Common/Rva0049D2BEProduct.cpp,matched,flag selects scale byte then upgrade product
+?rva0049D33D@Rva0049D33D@@QAEME@Z,,0x0049D33D,127,Code/GameEngine/Source/Common/Rva0049D33DProduct.cpp,matched,flag selects scale byte float at value plus 0xC
