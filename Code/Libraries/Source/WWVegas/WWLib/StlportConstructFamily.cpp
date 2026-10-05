@@ -155,3 +155,13 @@ struct Rva00153729
 	Rva00153729(const Rva00153729 &that);
 };
 template void _STL::_Construct<Rva00153729, Rva00153729>(Rva00153729 *, const Rva00153729 &);
+
+// And _Construct<BfmePod340> (0x004D9B98, copy constructor 0x001E4DEB),
+// called by vector<BfmePod340>'s rowed uninitialized copy/fill and push_back
+// (its overflow row spells the same element Rva004DA181Element).
+struct BfmePod340
+{
+	int a;
+	BfmePod340(const BfmePod340 &that);
+};
+template void _STL::_Construct<BfmePod340, BfmePod340>(BfmePod340 *, const BfmePod340 &);
