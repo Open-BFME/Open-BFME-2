@@ -56222,3 +56222,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva002725B1@Drawable@@QAEHH@Z,,0x002725B1,54,Code/GameEngine/Source/GameClient/Drawable_rva002725B1.cpp,matched,same 0x14C slotA8 walk as 0x0027257B second slot 0x98 1 arg
 ?rva002725E7@Drawable@@QAEHH@Z,,0x002725E7,54,Code/GameEngine/Source/GameClient/Drawable_rva002725E7.cpp,matched,same 0x14C slotA8 walk as 0x002725B1 second slot 0x9C 1 arg
 ?Rva003BA9FA@@YGXMMMM@Z,,0x003BA9FA,51,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BA9FA.cpp,matched,free stdcall four floats to Display slot 0xcc via TheDisplay caller 0x003CAB07
+?Rva003C3175Do@@YGXABVAsciiString@@_N@Z,,0x003C3175,126,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C3175.cpp,matched,lookupUnitByValue DualWeapon static key via rowed callees
