@@ -8693,3 +8693,4 @@ FUN_008e5559	0x004E5559	96	blocked	ctor 0x4E4F82 and dtor 0x4E5086 on same ebp-0
 ?rva005AFEF7@Rva005AFEF7@@QAEHH@Z	0x005AFEF7	277	blocked	GUI dialog vector plus listbox plus EH needs deeper layout t=8 model=muse-08
 ?rva0050B62B@Made002CCB67@@UAEXPBURva0050B62BArg@@PAVObject@@@Z	0x0050B62B	137	partial	deposit tracker lea uses ecx with push1-hoisted above spill vs retail lea eax after spill t=25 model=muse-08 score=0.93 stash=reverse/attempts/0x0050b62b.cpp
 ?rva0050BC25@Made002CCC90@@UAEXPBURva0050BC25Arg@@H@Z	0x0050BC25	288	blocked	EH scope table plus BfmeWideForward PartitionManager DelayedLua layouts need donor sweep t=15 model=muse-08
+?rva0040C3BB@Rva0040C351@@QAE_NPBV1@@Z	0x0040C3BB	117	partial	final m_c4 compare emits sete al not jne plus xor eax inc and fail uses xor al not xor eax t=25 model=muse-18 score=0.93 stash=reverse/attempts/0x0040c3bb.cpp

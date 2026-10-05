@@ -53,3 +53,5 @@ ButterflyDrawModuleTemplate::ButterflyDrawModuleTemplate(
 }
 // _ButterflyDrawModuleTemplate_cvtbl4: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
 #pragma comment(linker, "/alternatename:_ButterflyDrawModuleTemplate_cvtbl4=?vftable_0112B89C@@3HA")
+// _ButterflyDrawModuleTemplate_cvtbl0: the global at VA 0xc1bd60 is _DefaultModuleTemplate05_vtbl0.
+#pragma comment(linker, "/alternatename:_ButterflyDrawModuleTemplate_cvtbl0=_DefaultModuleTemplate05_vtbl0")
