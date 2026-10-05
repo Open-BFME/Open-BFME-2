@@ -12297,3 +12297,15 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??1AptObject@@MAE@XZ,0x006D6470,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
 ??3AptPrototype@@SAXPAXI@Z,0x006F12F0,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
 ?rva0057DFFB@Rva0057E3DB@@QAE_NH@Z,0x0057DFFB,finish 0x0043A0C1 uses al return for m_D0
+??$__copy_trivial@_STL@@YAPAXPBX0PAX@Z,0x000179B0,already rowed
+??$__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z,0x00620840,already rowed
+??$fill_n@PAFIF@_STL@@YAPAFPAFIABF@Z,0x000AD8C9,already rowed short fill_n
+?insert@?$list@PAVRva002ADCC7Obj@@V?$allocator@PAVRva002ADCC7Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva002ADCC7Obj@@U?$_Nonconst_traits@PAVRva002ADCC7Obj@@@_STL@@@2@U32@ABQAVRva002ADCC7Obj@@@Z,0x002ACF9C,ICF freelist insert for list push_back 0x002ADCC7
+?insert@?$list@PAVRva00207B32Obj@@V?$allocator@PAVRva00207B32Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00207B32Obj@@U?$_Nonconst_traits@PAVRva00207B32Obj@@@_STL@@@2@U32@ABQAVRva00207B32Obj@@@Z,0x00207162,list insert for push_back 0x00207B32
+?insert@?$list@PAVRva00242EE7Obj@@V?$allocator@PAVRva00242EE7Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00242EE7Obj@@U?$_Nonconst_traits@PAVRva00242EE7Obj@@@_STL@@@2@U32@ABQAVRva00242EE7Obj@@@Z,0x00241955,list insert for push_back 0x00242EE7
+?insert@?$list@PAVRva00248211Obj@@V?$allocator@PAVRva00248211Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00248211Obj@@U?$_Nonconst_traits@PAVRva00248211Obj@@@_STL@@@2@U32@ABQAVRva00248211Obj@@@Z,0x00247089,list insert for push_back 0x00248211
+?insert@?$list@PAVRva00295969Obj@@V?$allocator@PAVRva00295969Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00295969Obj@@U?$_Nonconst_traits@PAVRva00295969Obj@@@_STL@@@2@U32@ABQAVRva00295969Obj@@@Z,0x002947F0,list insert for push_back 0x00295969
+?insert@?$list@PAVRva004246BDObj@@V?$allocator@PAVRva004246BDObj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva004246BDObj@@U?$_Nonconst_traits@PAVRva004246BDObj@@@_STL@@@2@U32@ABQAVRva004246BDObj@@@Z,0x0042433E,list insert for push_back 0x004246BD
+?insert@?$list@PAVRva00453B06Obj@@V?$allocator@PAVRva00453B06Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00453B06Obj@@U?$_Nonconst_traits@PAVRva00453B06Obj@@@_STL@@@2@U32@ABQAVRva00453B06Obj@@@Z,0x00453AB8,list insert for push_back 0x00453B06
+?insert@?$list@PAVRva00467DB3Obj@@V?$allocator@PAVRva00467DB3Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00467DB3Obj@@U?$_Nonconst_traits@PAVRva00467DB3Obj@@@_STL@@@2@U32@ABQAVRva00467DB3Obj@@@Z,0x00467D8E,list insert for push_back 0x00467DB3
+?insert@?$list@PAVRva005CD018Obj@@V?$allocator@PAVRva005CD018Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva005CD018Obj@@U?$_Nonconst_traits@PAVRva005CD018Obj@@@_STL@@@2@U32@ABQAVRva005CD018Obj@@@Z,0x005CCED5,list insert for push_back 0x005CD018
