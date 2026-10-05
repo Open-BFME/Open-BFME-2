@@ -11,6 +11,11 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #define Matrix4x4 Matrix4
+// Retail treats array delete as nothrow: ~NamedPivotMapClass (0x001976F0) has
+// no EH state store between its WeightInfo teardown and the PivotMapClass
+// base's, which the compiler drops only when delete[] cannot throw.
+void __cdecl operator delete[](void *) throw();
+
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "winbase_shim.h"
 /*
@@ -71,7 +76,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 */
 
 
-// ?NamedPivotMapClass::~NamedPivotMapClass present-unmatched
 NamedPivotMapClass::~NamedPivotMapClass(void)
 {
 }
