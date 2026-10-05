@@ -109,13 +109,3 @@ void Rva00402D7E::copyItems(const Rva00402D7E &other)
 	for (; it != end; ++it)
 		m_items.push_back(new Rva00402C0F(**it));
 }
-
-// ?clearItems@Rva00402D7E@@QAEXXZ present-unmatched
-void Rva00402D7E::clearItems()
-{
-	_STL::vector<Rva00402C0F *>::iterator it = m_items.begin();
-	_STL::vector<Rva00402C0F *>::iterator end = m_items.end();
-	for (; it != end; ++it)
-		delete *it;
-	m_items.clear();
-}
