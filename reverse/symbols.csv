@@ -13425,3 +13425,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva0039E76C@Team@@QAEXM@Z,0x0039E76C,thiscall (float) on the getTeamNamed team; stack-float callee of dump-range-18 0x003BE9DB
 ?rva003A38E9@Team@@QAEXHH@Z,0x003A38E9,thiscall (int,int) on the getTeamNamed team; callee of dump-range-18 0x003BECCD
 ?rva00569AA8@Rva00569AA8@@QAEXXZ,0x00569AA8,thiscall void(); element callee of dump-range-18 0x003EDC16 pointer-array walk
+?rva003EEC63@Rva003EEC63@@QAEXPAXVAsciiString@@HH@Z,0x003EEC63,thiscall (ptr,str-by-value,0,0); stack-balance proves four args; string-copy callee of dump-range-18 0x003EED9D
+?rva004E3B78@Rva004E3B78@@QAEXXZ,0x004E3B78,thiscall void(); tail target of dump-range-18 0x003EED9D on this+8
