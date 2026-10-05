@@ -8,7 +8,11 @@
 // m_name[0x40] at +0x04) plus strcpy-or-"No name" memcpy.
 #include <string.h>
 
-class ThreadClass
+// Retail vtable VA 0x0087B6AC (packet: no name yet). Referenced, never emitted
+// here, so this TU contributes no vftable and no ??_G of its own.
+extern const void *const g_00C7B6AC[];
+
+class __declspec(novtable) ThreadClass
 {
 public:
     ThreadClass(const char *name);
@@ -31,6 +35,7 @@ private:
 // ??0ThreadClass@@QAE@PBD@Z
 ThreadClass::ThreadClass(const char *name)
 {
+    *(const void **)this = g_00C7B6AC;
     m_handle = 0;
     m_priority = 0;
     m_threadId = 0;
