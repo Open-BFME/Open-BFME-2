@@ -55854,3 +55854,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva007B686F@@YAXXZ,,0x007B686F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,global Term thunk via rowed 0x00006AF1 after ctor chain
 ??0BfmeAssignRecord32@@QAE@XZ,,0x001736D6,62,Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_ctor.cpp,matched,default ctor via neighbours push_heap copy stride 0x20 caller 0x00174A8A
 ?rva0006ED36@Rva0006ED36@@QAEXPAX@Z,,0x0006ED36,31,Code/GameEngine/Source/Common/Rva0006ED36Call.cpp,matched,ecx plus 0x814 store plus 0x108 vslot 0x30 plus 7 callers in 0x87D42
+?Rva001E3896Check@@YAHM@Z,,0x001E3896,35,Code/GameEngine/Source/Common/Rva001E3896Check.cpp,matched,fabs 0x629210 plus global 0x00BC28F8 plus 2 callers in 0x1E7CDF
