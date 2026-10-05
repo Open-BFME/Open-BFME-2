@@ -5306,6 +5306,17 @@ void __cdecl rva007B96B2()
 	p->rva001EAF7B();
 }
 
+class QueuedDownload;
+namespace _STL { template <class T, class A = allocator<T> > class list { public: ~list(); }; }
+extern unsigned g_Va00E0657C;
+
+// ?rva007B96BC@@YAXXZ @ 0x007B96BC (10B). Global list dtor thunk: ecx=&g_Va00E0657C then tail-jmp to rowed ??1?$list@VQueuedDownload@@V?$allocator@VQueuedDownload@@@_STL@@@_STL@@QAE@XZ (0x005BD5EE). No callers. Between 0x007B96B2 and 0x007B96C6. Honest address name.
+void __cdecl rva007B96BC()
+{
+	_STL::list<QueuedDownload> *p = (_STL::list<QueuedDownload> *)&g_Va00E0657C;
+	return p->~list();
+}
+
 // ?rva007B96C6@@YAXXZ @ 0x007B96C6 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DA60E8 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
 void __cdecl rva007B96C6()
 {

@@ -9958,3 +9958,6 @@ FUN_005182a0	0x001182A0	399	blocked	big WW3D render 399B with x87 FPU cw plus SS
 ?Rva000B9887Init@@YAXPAXPAUBfmePod32@@@Z	0x000B9887	165	partial	single memory diff mov ecx [0xDFDD04] vs [0] plus branch consequence t=5 model=muse-08 score=0.95 stash=reverse/attempts/0x000b9887.cpp
 ?rva00089A21@W3DView@@QAEXXZ	0x00089A21	524	blocked	second ray interp order movaps divss mulss addss mismatch plus tail loX hiY load order t=28 model=muse-08
 ?rva00089510@Rva00089510@@QAEX_NMH@Z	0x00089510	328	blocked	donor Rva00740440 port close frame 0x10 vs 0x14 clamp ja vs jbe acos push pop globals t=30 model=muse-08
+?rva005FEA02@Rva005FE750@@QAEXI@Z	0x005FEA02	96	partial	esi edi swapped for this versus vector plus TheTarget reloc t=15 model=muse-09 score=0.92 stash=reverse/attempts/0x005fea02.cpp
+?rva00511CE6@AptMessenger@@QAEXXZ	0x00511CE6	310	blocked	AptMessenger refresh needs virtual slot 14 plus 8B array at 28c plus GameText Invoke chain placeholder far t=10 model=muse-09
+?rva007AFC6B@Rva007ABBF6BlockParseInits@@SAXXZ	0x007AFC6B	73	blocked	gap global init needs atexit target 0x007B816A with no row or pin for push plus SSE floats t=10 model=muse-09
