@@ -8748,3 +8748,8 @@ FUN_00863191	0x00463191	56	blocked	vslot104 needs 104-virt class plus this slot7
 ?rva000E49B8@Rva000E48BC@@QAE_NH@Z	0x000E49B8	541	partial	ebx-held-1 plus shr-test plus mgr-end-return plus y-add order plus tail fold t=30 model=muse-10 score=0.93 stash=reverse/attempts/0x000e49b8.cpp
 ?rva000D6A57@Rva000D6A57@@QAEPAVAssetReference@@PAV2@@Z	0x000D6A57	27	blocked	v2 explicit-ctor-plus-return 20/27 sole walls ebp-frame-plus-push-ecx-plus-and-ebp-4-zero vs esp-form refuted new-placement plus volatile-dummy-plus-Oy- t=15 model=muse-14
 ?Rva000D6A3FGet@@YAHXZ	0x000D6A3F	24	blocked	shared wall with 0x000D6A57 same TU same callee same flags same push-ecx-plus-and-ebp-4-zero frame plus direct-vs-new plus Oy- already refuted no new idea t=5 model=muse-14
+?Rva0007E4B5CopyBackward@@YAXXZ	0x0007E4B5	60	blocked	STL 4.5.3 Pod12 gives 48B frame plus movsd vs retail 60B frameless plus explicit movs and O2 gives 86B imul wall t=15 model=muse-05
+??0Rva00052751@@QAE@XZ	0x00052751	27	blocked	needs element ctor at unclaimed 0x51CA2 plus validate fnptr for 5x16 array; element type unproven t=10 model=muse-05
+?Rva000524AALoop@@YAXXZ	0x000524AA	44	blocked	SIB base-index swap lea ecx [esi+eax+0x12c] vs [eax+esi+0x12c] t=10 model=muse-05 (stash 0.97 kept)
+?Rva0005244ALoop@@YAXH@Z	0x0005244A	48	blocked	SIB base-index swap lea ecx [esi+eax+0x12c] vs [eax+esi+0x12c] t=5 model=muse-05 (stash 0.97 kept)
+?Rva0049B98ACheck@@YAXXZ	0x0049B98A	537	blocked	537B aura helper needs full Object/Thing/ModuleData model t=12 model=muse-05

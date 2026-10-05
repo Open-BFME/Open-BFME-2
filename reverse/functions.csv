@@ -56153,3 +56153,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??0Rva0054000B@@QAE@HABVRva0053FDE6@@@Z,,0x0054001B,27,Code/Libraries/Source/WWVegas/WW3D2/Rva0053FDE6Init.cpp,matched,overloaded outer ctor int plus rowed inner copy via Ob0
 ?rva00219757@Rva00219757@@QAEXPAVObject@@@Z,,0x00219757,79,Code/GameEngine/Source/Common/Rva00219757Grant.cpp,matched,rowed getControllingPlayer findUpgrade pin Player rva002AE329 globals TheGameInfo TheUpgradeCenter
 ?rva006C2FB0@Rva006C2D20Sink@@QAEXPBD0@Z,,0x006C2FB0,100,Code/GameEngine/Source/Common/Rva006C2FB0Finish.cpp,matched,log/chat line formatter: 0x300 stack buffer hand-rolled strlen then strcpy appends newline hands remainder to thiscall sink 0x6C2D20
+?rva0049B0BF@Rva0049B0BF@@QAEXPAURva0049B0BFData@@H@Z,,0x0049B0BF,268,Code/GameEngine/Source/Common/Rva0049B0BFMethod.cpp,matched,leaf sharing layout with Rva0049AE5ECheck all callees rowed

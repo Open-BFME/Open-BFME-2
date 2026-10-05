@@ -1,5 +1,3 @@
-// ?rva0049B0BF@Rva0049B0BF@@QAEXPAURva0049B0BFData@@H@Z
-// partial score=0.93 date=2026-10-02
 // cl: /O1 /MD /EHsc /arch:SSE
 //
 // ?rva0049B0BF@Rva0049B0BF@@QAEXPAURva0049B0BFData@@H@Z @ 0x0049B0BF 268B
@@ -60,7 +58,6 @@ private:
 	int m_id3F0;
 };
 
-// ?rva0049B0BF@Rva0049B0BF@@QAEXPAURva0049B0BFData@@H@Z present-unmatched
 void Rva0049B0BF::rva0049B0BF(Rva0049B0BFData *arg, int arg2)
 {
 	m_flag3CA = 1;
@@ -68,18 +65,21 @@ void Rva0049B0BF::rva0049B0BF(Rva0049B0BFData *arg, int arg2)
 	m_id3E8 = arg->m_id74;
 	m_id3EC = arg->m_id74;
 	Coord3D diff;
-	diff.x = obj->m_x38 - arg->m_x38;
-	diff.y = obj->m_y3C - arg->m_y3C;
-	diff.z = obj->m_z40 - arg->m_z40;
+	float ox = obj->m_x38;
+	float oy = obj->m_y3C;
+	float oz = obj->m_z40;
+	diff.x = ox - arg->m_x38;
+	diff.y = oy - arg->m_y3C;
+	diff.z = oz - arg->m_z40;
 	diff.normalize();
 	GeometryInfo g1(arg->m_geoA8);
 	GeometryInfo g2(obj->m_geoA8);
 	float sum = g1.m_field10 + g2.m_field10;
+	float sx = sum * diff.x;
+	float sy = sum * diff.y;
 	float ax = arg->m_x38;
 	float ay = arg->m_y3C;
 	float az = arg->m_z40;
-	float sx = sum * diff.x;
-	float sy = sum * diff.y;
 	Coord3D pt;
 	pt.z = az;
 	pt.x = ax + sx;
