@@ -1,4 +1,6 @@
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
+// partial score=0.95 date=2026-10-05
+// ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z
 // partial score=0.92 date=2026-10-05
 // cl: /O2 /DNDEBUG /MD
 // ?rva006C39F0@Rva006C39F0Owner@@QAE_NIIIPAX@Z @ 0x006C39F0 (191B)
@@ -76,7 +78,7 @@ bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
 	}
 
 	void *run = buffer;
-	unsigned int len = altLen;
+	owned = run == 0;
 	if (!run)
 	{
 		if (!allocSize)
@@ -88,19 +90,13 @@ bool Rva006C39F0Owner::rva006C39F0(unsigned int key, unsigned int altLen,
 
 		*(unsigned short *)run = (unsigned short)allocSize;
 		*(unsigned short *)((unsigned char *)run + allocSize - 2) = 0;
-		len = allocSize;
-	}
-	else
-	{
-		owned = false;
+		altLen = allocSize;
 	}
 
-	if (!table->rva006C21C0(len, run))
-	{
-		if (owned)
-			rva006C1A50Free(run);
-		return false;
-	}
+	if (table->rva006C21C0(altLen, run))
+		return true;
 
-	return true;
+	if (owned)
+		rva006C1A50Free(run);
+	return false;
 }
