@@ -2621,6 +2621,8 @@ def main(only=None):
         except SystemExit as exc:
             if not exc.code:
                 raise
+            if not isinstance(exc.code, int):
+                print(f"{label}: FAIL {exc.code}")
             failed.append(label)
             return None
 

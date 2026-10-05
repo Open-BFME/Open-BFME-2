@@ -41,6 +41,7 @@ def _modules():
 def _stub_gate(monkeypatch, red=()):
     """Replace every check with a recorder; names in `red` fail like the real ones."""
     build, pin_consistency = _modules()
+    check_module_registry = importlib.import_module("check_module_registry")
     calls = []
 
     def check(name, result=None):
@@ -63,6 +64,7 @@ def _stub_gate(monkeypatch, red=()):
     monkeypatch.setattr(build, "verify_source_claims", check("source-claims"))
     monkeypatch.setattr(build, "verify_noop_patch", check("noop"))
     monkeypatch.setattr(pin_consistency, "verify", check("pins"))
+    monkeypatch.setattr(check_module_registry, "verify", check("module-registry"))
     return calls, build
 
 
@@ -137,3 +139,18 @@ def test_a_scoped_run_is_untouched(monkeypatch, capsys):
 
     assert "string-refs" not in calls, "the scoped path must not keep going"
     assert "pins" not in calls, "the scoped path does not run the full-gate checks"
+
+
+def test_string_exit_diagnostic_survives_and_later_checks_run(monkeypatch, capsys):
+    calls, build = _stub_gate(monkeypatch)
+
+    def ambiguous_body():
+        raise SystemExit("ambiguous funclet label in example.cpp")
+
+    monkeypatch.setattr(build, "verify_functions", ambiguous_body)
+    with pytest.raises(SystemExit) as excinfo:
+        build.main()
+
+    assert excinfo.value.code == 1
+    assert "functions: FAIL ambiguous funclet label in example.cpp" in capsys.readouterr().out
+    assert "pins" in calls and "module-registry" in calls and "source-claims" in calls
