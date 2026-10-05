@@ -75,7 +75,7 @@ public:
     void toString(EAStringC &) const;
 };
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); EAStringC(const EAStringC &); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
@@ -231,7 +231,7 @@ private:
     HANDLER(Push);
     HANDLER(Throw);
     HANDLER(Extends);
-    HANDLER(Try);
+    HANDLER(GetUrl); HANDLER(Try);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -2185,3 +2185,32 @@ void AptActionInterpreter::_FunctionAptActionTry(AptActionInterpreter *const p,L
 }
 
 #pragma comment(linker, "/alternatename:?g_bfmeFrameStackAtE1835C@@3PAVAptFrameStack@@A=?spFrameStack@AptScriptFunctionBase@@2PAVAptFrameStack@@A")
+
+// Native 6FDA40..6FDC29; buffer capacity260 inferred from frame allocation,
+// exact declared source bound within alignment padding is not independently known.
+// Load6D1F80 has native-supported original MAP ABI but remains a link backlog.
+extern "C" char *__cdecl strcpy(char *,const char *);
+#pragma intrinsic(strcpy)
+static __forceinline bool bfmeIsFSCommand(const char *s) { return strncmp(s,g_bfmeAptFSCommandAtDDC920,strlen(g_bfmeAptFSCommandAtDDC920))==0; }
+class AptLinker { public: void Load(const EAStringC &,EAStringC); };
+extern AptLinker *g_bfmeAptLinkerAtE176F8;
+void AptActionInterpreter::_FunctionAptActionGetUrl(AptActionInterpreter *const p,LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    struct Data { const char *szUrl,*szWin; };
+    const Data *data=(const Data *)c->pInstruction;
+    c->pInstruction+=sizeof(Data);
+    if (bfmeIsFSCommand(data->szUrl)) p->doFSCommand(data->szUrl,data->szWin);
+    else {
+        char buffer[260];
+        strcpy(buffer,data->szUrl);
+        int nLength=strlen(buffer);
+        if ((buffer[nLength-1]=='f' || buffer[nLength-1]=='F') &&
+            (buffer[nLength-2]=='w' || buffer[nLength-2]=='W') &&
+            (buffer[nLength-3]=='s' || buffer[nLength-3]=='S') && buffer[nLength-4]=='.') {
+            buffer[nLength-4]=0;
+            g_bfmeAptLinkerAtE176F8->Load(EAStringC(buffer),EAStringC(data->szWin));
+        } else if (nLength==0) g_bfmeAptLinkerAtE176F8->Load(EAStringC(""),EAStringC(data->szWin));
+        else Rva006CC110Log(4,"not loading non-swf file: '%s'\n",buffer);
+    }
+}

@@ -12489,3 +12489,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?Destroy@AptPseudoDisplayList@@QAEPAV1@H@Z,0x006E2A00,alias rowed scalar deleting destructor body; native jumpToFrame conditional destroy flag1; alternatename provider
 ??3AptPseudoDisplayList@@SAXPAXI@Z,0x006D8680,sized pool delete unwind counterpart to native8B allocation and ctor; existing node delete provider; alternatename provider
 ?runStream@AptActionInterpreter@@QAEPBEPBEPAVAptCIH@@HPAUAptCharacterInst@@@Z,0x007002C0,Original Godfather Jan26 MAP signature; PC Try 706070 calls native action runner with stream context signed length parent; unrowed provider backlog
+?Load@AptLinker@@QAEXABVEAStringC@@V2@@Z,0x006D1F80,Original Godfather Jan26 MAP signature; native GetUrl6FDA40 calls this linker method with EAString constref plus by-value string; unrowed provider backlog
