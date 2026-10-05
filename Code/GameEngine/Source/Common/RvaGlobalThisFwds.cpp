@@ -1,0 +1,44 @@
+// Three global-this forwards (11B each): mov ecx, [global], jmp <run>.
+// Each loads a singleton pointer into this and tail-jumps its parameterless
+// run method.
+// 0x003BBEDE (global 0x00DFE16C -> 0x002034D5),
+// 0x003BBEE9 (global 0x00DFE16C -> 0x002034DD),
+// 0x003BD424 (global 0x00DFF028 -> 0x002D37BD).
+// Global/callee identities unproven (opaque pins); the wrapper names are
+// address-derived. One ledger row per forward.
+
+class Rva00203AD5Run
+{
+public:
+	void run();
+};
+
+class Rva00203ADDRun
+{
+public:
+	void run();
+};
+
+class Rva002D37BDRun
+{
+public:
+	void run();
+};
+
+extern Rva00203AD5Run *g_pRva003BBEDE;
+extern Rva002D37BDRun *g_pRva003BD424;
+
+void Rva003BBEDE()
+{
+	g_pRva003BBEDE->run();
+}
+
+void Rva003BBEE9()
+{
+	((Rva00203ADDRun *)g_pRva003BBEDE)->run();
+}
+
+void Rva003BD424()
+{
+	g_pRva003BD424->run();
+}

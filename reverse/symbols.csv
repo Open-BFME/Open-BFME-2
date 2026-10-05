@@ -12788,3 +12788,8 @@ _g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes
 ?prepare@Rva005E549EHelper@@QAEXXZ,0x005E549E,REL32 helper decoded from target call bytes of helper-member step 0x005E5554; identity unproven
 ?run@Rva005F327ARun@@QAEXXZ,0x005F327A,REL32 callee decoded from target call bytes of helper-member step 0x005E5554; identity unproven
 ?step@Rva005E590FCaller@@QAEXXZ,0x005E590F,opaque alias: same body as rowed step 0x005E590F; first phase of step 0x005CDDF0 (separate type blocks same-TU inlining)
+?run@Rva00203AD5Run@@QAEXXZ,0x00203AD5,REL32 callee decoded from target call bytes of global-this forward 0x003BBEDE; identity unproven
+?run@Rva00203ADDRun@@QAEXXZ,0x00203ADD,REL32 callee decoded from target call bytes of global-this forward 0x003BBEE9; identity unproven
+?run@Rva002D37BDRun@@QAEXXZ,0x002D37BD,REL32 callee decoded from target call bytes of global-this forward 0x003BD424; identity unproven
+_g_pRva003BBEDE,0x00DFE16C,global pointer read by global-this forwards 0x003BBEDE/0x003BBEE9; identity unproven
+_g_pRva003BD424,0x00DFF028,global pointer read by global-this forward 0x003BD424; identity unproven

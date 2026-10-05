@@ -63462,3 +63462,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?step@Rva0033B1CD@@QAEXXZ,,0x0033B1CD,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-sub step with narrow/wide and chained phases; 17B shape
 ?step@Rva005CDDF0@@QAEXXZ,,0x005CDDF0,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-sub step with narrow/wide and chained phases; 17B shape
 ?step@Rva005E5554@@QAEXXZ,,0x005E5554,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-sub step with narrow/wide and chained phases; 17B shape
+?Rva003BBEDE@@YAXXZ,,0x003BBEDE,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
+?Rva003BBEE9@@YAXXZ,,0x003BBEE9,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
+?Rva003BD424@@YAXXZ,,0x003BD424,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
