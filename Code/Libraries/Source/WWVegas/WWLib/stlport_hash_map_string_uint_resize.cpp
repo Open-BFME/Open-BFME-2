@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable
+// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_HASHTABLE_NEW_NODE_NOFORCEINLINE /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable
 // stlport
 //
 // hashtable<string, unsigned int>::resize at retail 0x0060CD36 (194B).

@@ -570,7 +570,16 @@ private:
   // containing a try block however hard you ask, and retail's inlined copy has
   // no unwind handler around the construct -- it allocates, stores the null
   // next pointer, constructs and returns.
-  __forceinline _Node* _M_new_node(const value_type& __obj)
+  // String-uint _M_insert at 0x0060D1B3 calls _M_new_node out of line
+  // (retail 68B); int _M_insert at 0x00620F60 needs the forced inline.
+  // Default keeps __forceinline; define BFME_HASHTABLE_NEW_NODE_NOFORCEINLINE
+  // in the TU that needs the out-of-line call (string-uint home TU only).
+#ifdef BFME_HASHTABLE_NEW_NODE_NOFORCEINLINE
+#define BFME_HASHTABLE_NEW_NODE_INLINE inline
+#else
+#define BFME_HASHTABLE_NEW_NODE_INLINE __forceinline
+#endif
+  BFME_HASHTABLE_NEW_NODE_INLINE _Node* _M_new_node(const value_type& __obj)
   {
     _Node* __n = _M_num_elements.allocate(1);
     __n->_M_next = 0;
