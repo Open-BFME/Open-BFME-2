@@ -62209,3 +62209,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva002D34FE@Rva002D34FE@@QAEXH@Z,,0x002D34FE,46,Code/GameEngine/Source/Common/Rva002D34FEChain.cpp,matched,
 ?rva002C9BC3@Rva002C9BC3Owner@@QAEXPAX0@Z,,0x002C9BC3,33,Code/GameEngine/Source/Common/Rva002C9BC3Forward.cpp,matched,
 ?rva002C9B80@Rva002C9B80Owner@@QAEXPAXM@Z,,0x002C9B80,67,Code/GameEngine/Source/Common/Rva002C9B80Array.cpp,matched,
+?getDynamicGameLODLevelName@GameLODManager@@QAEPBDW4DynamicGameLODLevel@@@Z,,0x00202605,14,Code/GameEngine/Source/Common/GameLOD.cpp,matched,

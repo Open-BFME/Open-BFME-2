@@ -715,7 +715,6 @@ Int GameLODManager::getDynamicGameLODIndex(AsciiString name)
 	return STATIC_GAME_LOD_UNKNOWN;
 }
 
-// ?getDynamicGameLODLevelName@GameLODManager@@QAEPBDW4DynamicGameLODLevel@@@Z present-unmatched
 const char *GameLODManager::getDynamicGameLODLevelName(DynamicGameLODLevel level)
 {
 	return DynamicGameLODNames[level];
