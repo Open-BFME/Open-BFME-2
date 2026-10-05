@@ -12037,3 +12037,7 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ?rva0020F685@Rva0020FB41Outer@@QAEXXZ,0x0020F685,call-site 0x0020FB48 in Rva0020FB41::rva0020FB41 (0x0020FB41) via lea ecx,[esi-4] with no stack args; Ghidra FUN_0060f685 141B
 ?rva003F20E5@Rva003F209C@@QAEXHH@Z,0x003F20E5,call-site 0x0020FB72 in Rva0020FB41::rva0020FB41 (0x0020FB41); thiscall entry method with two stack args over the +0x2c vector
 ?rva0020F9F6@Rva0020EE29@@QAEPAXPAX00@Z,0x0020F9F6,find-first-vector-entry predicate runner; pinned from the four consistent retail REL32 call sites inside 0x0020F9F6 (own body) and its callers 0x0020FAB4/0x0020FAEA; reconstruction blocked on a save/restore codegen anomaly (see re_attempts.log)
+?rva00212655@Rva00DFE1C8Host@@QAEXH@Z,0x00212655,singleton notify with the +0x30 entry field; call sites 0x0020F795 0x0020F832 0x0020FB8B all pass this=[0x00DFE1C8] plus one pushed dword
+?vecErase@Rva0020FB8BVec14@@QAEPAPAXPAPAX@Z,0x001FF51F,single-position vector erase used by Rva0020FB8B at 0x0020FC03; same body as the rowed overload (reloc-free alias class)
+?vecReserve@Rva0020FB8BVec20@@QAEXI@Z,0x002B712E,ModuleData-vector reserve used by Rva0020FB8B at 0x0020FBE5; same body as the rowed reserve (reloc-free alias class)
+?vecPushBack@Rva0020FB8BVec20@@QAEXAAPAX@Z,0x004DFCB0,ModuleData-vector push_back used by Rva0020FB8B at 0x0020FBF3; same body as the rowed push_back (reloc-free alias class)

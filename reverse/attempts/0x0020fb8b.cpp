@@ -1,3 +1,5 @@
+// ?rva0020FB8B@Rva0020EE29@@QAEXPAURva0020FB8BNode@@@Z
+// partial score=0.9 date=2026-10-05
 // cl: /O1 /Ob1 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?rva0020EE29@Rva0020EE29@@QAEXXZ @0x0020EE29 51B
 // Clears each entry of the pointer vector at inner+0x2c/+0x30 (inner = *(this+8))
