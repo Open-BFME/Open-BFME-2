@@ -113,3 +113,5 @@ void Rva000B9DD9::rva000B9DD9(const AsciiString &s)
 		*(unsigned char *)((char *)c + 4) = b;
 	}
 }
+// ?g_00DEC2D4@@3PAXA: the global at VA 0xdec2d4 is ?g_00DEC2D4@@3PAVAudioManager0029E159@@A.
+#pragma comment(linker, "/alternatename:?g_00DEC2D4@@3PAXA=?g_00DEC2D4@@3PAVAudioManager0029E159@@A")
