@@ -6869,4 +6869,15 @@ void __cdecl rva007B7E3F()
 	return p->~Gen_uwm_00357cd9();
 }
 
+extern unsigned g_Va00DDEF54;
+unsigned int g_Va00DDEF54;
+
+// ?rva007B6A50@@YAXXZ @ 0x007B6A50 (10B). Global locale uninitialize thunk: ecx=&g_Va00DDEF54 then tail-jmp to pinned ?rva00007670@Rva00007670@@QAEXXZ (0x00007670). No callers. Honest address name.
+void __cdecl rva007B6A50()
+{
+	Rva00007670 *p = (Rva00007670 *)&g_Va00DDEF54;
+	return p->rva00007670();
+}
+
+
 
