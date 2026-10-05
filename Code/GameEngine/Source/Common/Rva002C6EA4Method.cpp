@@ -6,7 +6,9 @@
 // 0x002C7196 callee Rb_tree AsciiString pair _M_find row offsets 0x17c map
 // member plus 0x17c header ret 4 one AsciiString arg returning bool.
 // Identity: honest-address thiscall method with one const AsciiString arg.
+#pragma optimize("t", on)
 #include <map>
+#pragma optimize("", on)
 #include "ascii_string.h"
 
 class Rva002C6EA4
