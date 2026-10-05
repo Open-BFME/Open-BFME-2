@@ -1,6 +1,8 @@
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
 // partial score=0.98 date=2026-10-05
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
+// partial score=0.98 date=2026-10-05
+// ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
 // cl: /O2 /DNDEBUG /MD
 // The guard verifier of GeneralAllocatorDebug, at retail 0x006C3020 (156
 // bytes). The sibling of VerifyDelayedFreeFill at 0x006C30C0, and named the
@@ -41,15 +43,19 @@ public:
 	void *rva006C25F0Run(void *runBlock, int kind, unsigned int zero3,
 	                     unsigned int zero2, unsigned int *outLen, int zero1);
 
-	// 0x006C2FB0 as a thiscall MEMBER, the spelling reverse/symbols.csv pins.
-	// Retail's call site is `push 0x008E7C0C / push ebp / mov ecx,edi / call`
-	// with no add afterward, so the callee cleans both stack arguments: for a
-	// thiscall member the message is the FIRST stack argument and the block the
-	// second, and the compiler then pushes the block and the message in retail's
-	// order. The free __cdecl spelling gets the same push order only by
-	// declaring the message last, and then necessarily emits the trailing
-	// add esp,8 that retail does not have.
-	void rva006C2FB0Report(const char *msg, void *block);
+	// 0x006C2FB0 as a thiscall MEMBER, the calling convention reverse/symbols.csv
+	// pins. Retail's call site is `push 0x008E7C0C / push ebp / mov ecx,edi /
+	// call` with no add afterward, so the callee cleans both stack arguments and
+	// the LAST push is the FIRST stack argument -- which the callee's own
+	// `mov edx,[esp+8]` confirms is the message.
+	//
+	// MSVC7 pushes a thiscall member's stack arguments right to left, exactly as
+	// it does for cdecl, so the DECLARATION has to be (block, message) to push
+	// the message first. Every bank so far declared (message, block) and emitted
+	// `push ebp / push 0x008E7C0C`. The free __cdecl spelling gets the push
+	// order right only by declaring the message last, and then necessarily costs
+	// the trailing add esp,8 that retail does not have.
+	void rva006C2FB0Report(void *block, const char *msg);
 
 	unsigned int GetBlockSize(const void *block);
 
@@ -65,12 +71,9 @@ public:
 bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
                                             unsigned char mode)
 {
-	// The caller's block. Retail keeps it in ebp and forms every derived address
-	// from it -- the flag byte at block+4, the run block at block+8, and the
-	// beyond-the-guard limit at run block + 8 -- so the clamp is a limit of the
-	// CALLER's block and not of the allocator. Two earlier banks read retail's
-	// `lea edx,[esi+8]` as `lea edx,[edi+0x10]` with edi holding `this` and moved
-	// the limit onto the wrong object.
+	// The caller's block. Retail keeps it in ebp and forms the flag byte at
+	// block+4 and the run block at block+8 from it. The BEYOND-THE-GUARD limit,
+	// by contrast, is a field of the allocator -- see the note at its use below.
 	void *callerBlock = block;
 
 	// The flag byte is read into a named value and the bit compared with `!= 0`.
@@ -107,19 +110,33 @@ bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
 				span += (unsigned int)built;
 
 				if (alsoBeyond) {
-					// RAISE built to the limit rather than lowering it: retail is
-					// `cmp eax,edx / jae skip / mov eax,edx`, so it applies only
-					// when built is still BELOW the limit.
-					unsigned char *beyond = runBlock + 8;
-					if (built < beyond)
-						built = beyond;
+					// The limit is a field of the ALLOCATOR, not of the caller's
+					// block. Retail forms it with `lea edx,[edi+0x10]` where edi
+					// holds `this`, while at that point the caller's block is in ebp
+					// and the run block is ebp+8 -- so this is this+0x10 and NOT
+					// runBlock+8. Reading retails `lea edx,[esi+8]` as runBlock+8
+					// addresses the wrong object entirely and raises `built` to the
+					// end of the caller's block.
+					//
+					// The `cmp eax,edx / jae skip / mov eax,edx` shape is a RAISE of
+					// `built` to that limit, applied only when built is still below
+					// it -- so `builtin` keeps the comparison and only the right hand
+					// side moves onto the allocator. The sibling at 0x006C30C0 caps a
+					// LENGTH rather than a pointer, which is why the two banks never
+					// noticed they disagreed about which object the limit is on.
+					unsigned char *builtin = (unsigned char *)this + 0x10;
+					if (built < builtin)
+						built = builtin;
 				}
 
 				span -= (unsigned int)built;
 
-				if (rva00030E20Fill(built, span, m_guardFillByte) == 0)
+				if (rva00030E20Fill(built, span, m_guardFillByte) == 0) {
+					// The declaration above takes (block, message) precisely so that
+					// this call pushes the message first, which is retail's order.
 					rva006C2FB0Report(
-						"GeneralAllocatorDebug::VerifyGuardFill failure.", block);
+						callerBlock, "GeneralAllocatorDebug::VerifyGuardFill failure.");
+				}
 			}
 		}
 	}
