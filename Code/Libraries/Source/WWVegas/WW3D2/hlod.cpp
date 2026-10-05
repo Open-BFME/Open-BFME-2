@@ -4,6 +4,11 @@
 // in-constructor call), so it needs the bit setters' bodies.
 #define BFME_RO_DEFINE_VISIBILITY
 
+// Retail treats array delete as nothrow: ~HLodClass (0x0019EF70) frees
+// AdditionalModels' storage with no EH state store between Free() and the
+// base destructor, which the compiler drops only when delete[] cannot throw.
+void __cdecl operator delete[](void *) throw();
+
 // BFME 2 has no W3D memory pools (see Code/Libraries/Source/WWVegas/WWLib/always.h).
 #include "always.h"
 #undef W3DMPO_GLUE
@@ -1400,7 +1405,6 @@ HLodClass & HLodClass::operator = (const HLodClass & that)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::~HLodClass present-unmatched
 HLodClass::~HLodClass(void)
 {
 	Free();
