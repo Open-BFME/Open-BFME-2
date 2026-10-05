@@ -51,6 +51,7 @@ class OptionPreferences : public Rva002E4272
 {
 public:
 	OptionPreferences();
+	virtual ~OptionPreferences();
 };
 
 class FirewallHelperClass
@@ -65,3 +66,7 @@ void FirewallHelperClass::flagNeedToRefresh(Bool flag)
 	(prefs)["FirewallNeedToRefresh"].set(flag ? AsciiString("TRUE") : AsciiString("FALSE"));
 	prefs.write();
 }
+
+// Native OptionPreferences table C04CE8 slot0 -> deleting body2E42D2
+// -> complete destructor2E4272. Keep this binding separate from the local view.
+#pragma comment(linker, "/alternatename:??1OptionPreferences@@UAE@XZ=??1Rva002E4272@@UAE@XZ")

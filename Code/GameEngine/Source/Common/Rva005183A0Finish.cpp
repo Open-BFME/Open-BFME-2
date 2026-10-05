@@ -19,6 +19,7 @@ class OptionPreferences : public Rva002E4272
 {
 public:
 	OptionPreferences();
+	virtual ~OptionPreferences();
 	int Rva002E432EForward();
 	bool getAllHealthBars();
 };
@@ -70,3 +71,7 @@ void Rva005183A0::rva005183FA()
 		m_2BC->winEnable(true);
 	}
 }
+
+// Native OptionPreferences table C04CE8 slot0 -> deleting body2E42D2
+// -> complete destructor2E4272. Keep this binding separate from the local view.
+#pragma comment(linker, "/alternatename:??1OptionPreferences@@UAE@XZ=??1Rva002E4272@@UAE@XZ")
