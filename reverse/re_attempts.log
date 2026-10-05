@@ -8667,3 +8667,4 @@ FUN_008e5559	0x004E5559	96	blocked	ctor 0x4E4F82 and dtor 0x4E5086 on same ebp-0
 ?rva00413A06@Rva00413A06@@QAEXXZ	0x00413A06	30	blocked	cdecl destroy_aux inlines as loop not single call trivial gives 14B non-trivial dtor gives 43B loop need out-of-line single call shared STL inlining wall t=12 model=muse-20
 ?Rva00218E09Introsort@@YAXPAUFileInfoStruct@MixFileCreator@@0HHURva004748F0Compare@@@Z	0x00218E09	141	blocked	introsort median-partition shape 24B over t=12 model=muse-spark
 ?Rva003F907BParse@@YAXPAVINI@@PAVRva003F9004@@@Z	0x003F907B	104	partial	esi-edi swap only plus push edi scheduling t=15 model=muse-spark score=0.92 stash=reverse/attempts/0x003f907b.cpp
+?rva0049639F@Rva0049639F@@QAEHPAU0@Z	0x0049639F	193	blocked	193B mixed E12 vector ops plus string record teardown via 0x004962EA needs holder layout with 5 args unproven t=5 model=muse-12
