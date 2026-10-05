@@ -14572,3 +14572,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??$__unguarded_partition@PAURva00337D21Record@@U1@U?$less@URva00337D21Record@@@_STL@@@_STL@@YAPAURva00337D21Record@@PAU1@0U1@U?$less@URva00337D21Record@@@0@@Z,0x00337655
 ??$__introsort_loop@PAURva00337D21Record@@U1@HU?$less@URva00337D21Record@@@_STL@@@_STL@@YAXPAURva00337D21Record@@00HU?$less@URva00337D21Record@@@0@@Z,0x00337D21
 ??$partial_sort@PAURva00337D21Record@@U?$less@URva00337D21Record@@@_STL@@@_STL@@YAXPAURva00337D21Record@@00U?$less@URva00337D21Record@@@0@@Z,0x00337C55
+??$__push_heap@PAURva003AFFBERecord@@HU1@URva003AFFBERecordCompare@@@_STL@@YAXPAURva003AFFBERecord@@HHU1@URva003AFFBERecordCompare@@@Z,0x003AFE48
