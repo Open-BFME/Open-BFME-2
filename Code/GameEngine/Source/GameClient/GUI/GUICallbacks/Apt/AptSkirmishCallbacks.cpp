@@ -1,12 +1,25 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // BFME2's skirmish screen Apt callbacks, 0x00521741 onward, bound by these
 // names ("AptSkirmish::OnInitialized" ...) as member pointers by the
 // screen's registration; that binding is their only reference. The class
 // is named for the strings' prefix. +0x6B8 is the screen's state, +0x6D0
-// its profile name entry.
+// its profile name entry, +0x698 its SkirmishPreferences (whose user name
+// list the profile callbacks walk; STLport and /EHsc are for them).
 
 #include "unicode_string.h"
+
+#include <list>
+
+// Retail's string comparisons register no unwind state for their
+// temporaries: StringBase<unsigned short>'s compare and compareNoCase are
+// taken not to throw (as the throw() view in stlport_sort_mapmetadata.cpp).
+template <> int StringBase<unsigned short>::compare(const StringBase<unsigned short> &str) const throw();
+template <> int StringBase<unsigned short>::compareNoCase(const StringBase<unsigned short> &str) const throw();
+
+// The user name list's base destructor is the rowed out-of-line 0x00433BD7.
+extern template _STL::_List_base<UnicodeString, _STL::allocator<UnicodeString> >::~_List_base();
 
 class GameWindow;
 
@@ -28,6 +41,11 @@ public:
 extern GameWindowManager *TheWindowManager;
 
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
+void GadgetListBoxGetSelected(GameWindow *listBox, int *selectIndex);
+UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
+void GadgetListBoxSetSelected(GameWindow *listBox, int selectIndex);
+void GadgetListBoxReset(GameWindow *listBox);
+int GadgetListBoxAddEntryText(GameWindow *listBox, UnicodeString text, int color, int row, int column, bool overwrite);
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
 
@@ -54,6 +72,9 @@ extern int g_00E04930;
 class Rva00222A8BTarget;
 extern class Rva00222A8BTarget *TheRva00222A8BTarget;
 
+// MpGameSetupSlots.cpp's 0x0043DB23 runs an Apt function on a movie.
+void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
+
 class Rva00222479ByteOneSetter
 {
 public:
@@ -76,14 +97,20 @@ public:
 	void OnDeleteProfileMenu(const char *unused);
 	void OnChangeProfileMenu(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
+	UnicodeString rva00522697();
+	void OnChangeProfile(const char *unused);
+	void OnDeleteProfile(const char *unused);
+	void OnAddProfileAccept(const char *unused);
 
-	// Unrowed 0x00521CFF (358 bytes) and 0x00522556 (277 bytes), pinned by
-	// address.
+	// Unrowed 0x00521CFF (358 bytes), pinned by address; 0x00522556 is
+	// defined below.
 	void rva00521CFF();
 	void rva00522556();
 
 private:
-	unsigned char m_pad000[0x6B8];
+	unsigned char m_pad000[0x274];
+	void *m_274; // +0x274, the screen's Apt movie
+	unsigned char m_pad278[0x6B8 - 0x278];
 	int m_state; // +0x6B8
 	unsigned char m_pad6bc[0x6C1 - 0x6BC];
 	bool m_6c1; // +0x6C1
@@ -129,6 +156,23 @@ public:
 	virtual void v2();
 	virtual void v3slotC();
 	bool Rva0043B9E8();
+	_STL::list<UnicodeString> getUserNames_Rva0043C2D0();
+	UnicodeString Rva0043B9F5();
+	UnicodeString Rva0043BB88();
+	void Rva0043C2EB(const UnicodeString &name);
+	int Rva0043BBB6(UnicodeString name);
+	void rva0043C612(const UnicodeString &name);
+	void setCurrentUserName(const UnicodeString &name);
+	// Unrowed 0x0043BE7C, pinned by address.
+	void rva0043BE7C();
+};
+
+// The screen's member at +0x668; its unrowed 0x005C1ABA takes the current
+// user name, pinned by address.
+class Rva005C1ABA
+{
+public:
+	void rva005C1ABA(const UnicodeString &name);
 };
 class GameInfo
 {
@@ -249,5 +293,128 @@ void AptSkirmish::InitGadgets(const char *name, void *argument, GameWindow *wind
 		bfmeGoENK((BfmeObjENK *)window, 1);
 		m_profiles = window;
 		rva00522556();
+	}
+}
+
+// Retail 0x00522697, 182 bytes. Name unknown: the profile selected in the
+// "Skirmish::SelectProfile" list, read from the preferences' user names
+// (the empty string with no list or no selection).
+UnicodeString AptSkirmish::rva00522697()
+{
+	if (!m_profiles)
+		return UnicodeString::TheEmptyString;
+	int selected;
+	GadgetListBoxGetSelected(m_profiles, &selected);
+	if (selected == -1)
+		return UnicodeString::TheEmptyString;
+	_STL::list<UnicodeString> names = ((SkirmishPreferences *)((char *)this + 0x698))->getUserNames_Rva0043C2D0();
+	_STL::list<UnicodeString>::iterator it = names.begin();
+	_STL::advance(it, selected);
+	if (it == names.end())
+		return UnicodeString::TheEmptyString;
+	return *it;
+}
+
+// Retail 0x005229D3, 190 bytes: "AptSkirmish::OnChangeProfile" makes the
+// selected profile the current user when it is another one.
+// ?OnChangeProfile@AptSkirmish@@QAEXPBD@Z present-unmatched
+void AptSkirmish::OnChangeProfile(const char *unused)
+{
+	UnicodeString name = rva00522697();
+	SkirmishPreferences *prefs = (SkirmishPreferences *)((char *)this + 0x698);
+	if (name.compare(prefs->Rva0043B9F5()) != 0)
+	{
+		prefs->rva0043BE7C();
+		prefs->v3slotC();
+		prefs->setCurrentUserName(name);
+		prefs->v3slotC();
+		((Rva005C1ABA *)((char *)this + 0x668))->rva005C1ABA(prefs->Rva0043B9F5());
+		m_state = 5;
+	}
+	m_6c1 = true;
+}
+
+// Retail 0x00522556, 277 bytes: refills the "Skirmish::SelectProfile" list
+// with the user names, selecting the current one, and disables the select
+// button when there is none.
+// ?rva00522556@AptSkirmish@@QAEXXZ present-unmatched
+void AptSkirmish::rva00522556()
+{
+	if (!m_profiles)
+		return;
+	GadgetListBoxReset(m_profiles);
+	_STL::list<UnicodeString> names = ((SkirmishPreferences *)((char *)this + 0x698))->getUserNames_Rva0043C2D0();
+	_STL::list<UnicodeString>::iterator it = names.begin();
+	UnicodeString name;
+	int count = 0;
+	int selected = 0;
+	for (; it != names.end(); ++it)
+	{
+		name = *it;
+		GadgetListBoxAddEntryText(m_profiles, name, -1, -1, -1, true);
+		if (name.compareNoCase(((SkirmishPreferences *)((char *)this + 0x698))->Rva0043B9F5()) == 0)
+			selected = count;
+		++count;
+	}
+	if (count == 0)
+	{
+		void *movie = m_274;
+		Rva0043DB23(TheRva00222A8BTarget, movie, "PopupSelectBttnDisable");
+	}
+	GadgetListBoxSetSelected(m_profiles, selected);
+}
+
+// Retail 0x00522833, 229 bytes: "AptSkirmish::OnDeleteProfile" deletes the
+// selected profile; deleting the current user switches to the one the
+// preferences answer next. The list is refilled either way.
+// ?OnDeleteProfile@AptSkirmish@@QAEXPBD@Z present-unmatched
+void AptSkirmish::OnDeleteProfile(const char *unused)
+{
+	UnicodeString name = rva00522697();
+	SkirmishPreferences *prefs = (SkirmishPreferences *)((char *)this + 0x698);
+	bool current = prefs->Rva0043B9F5().compare(name) == 0;
+	prefs->Rva0043C2EB(name);
+	if (current && prefs->Rva0043B9E8())
+	{
+		name = prefs->Rva0043BB88();
+		prefs->setCurrentUserName(name);
+		prefs->v3slotC();
+		((Rva005C1ABA *)((char *)this + 0x668))->rva005C1ABA(prefs->Rva0043B9F5());
+	}
+	rva00522556();
+}
+
+// Retail expands UnicodeString::isEmpty inline as the header test
+// (m_data == 0 || m_data->length == 0); the shared shim keeps it out of
+// line (as MpGameSetupSlots.cpp notes).
+static inline bool unicodeIsEmpty(const UnicodeString &text)
+{
+	const unsigned char *data = *(const unsigned char *const *)&text;
+	return data == 0 || *(const unsigned short *)(data + 4) == 0;
+}
+
+// Retail 0x00521B56, 260 bytes: "AptSkirmish::OnAddProfileAccept" adds the
+// trimmed name typed in the profile entry as a new user and makes it the
+// current one, unless it is empty or already known.
+// ?OnAddProfileAccept@AptSkirmish@@QAEXPBD@Z present-unmatched
+void AptSkirmish::OnAddProfileAccept(const char *unused)
+{
+	if (m_state != 2)
+		return;
+	UnicodeString name = UnicodeString::TheEmptyString;
+	if (m_nameEntry.m_window)
+		name = GadgetTextEntryGetText(m_nameEntry.m_window);
+	name.trim();
+	if (unicodeIsEmpty(name))
+		return;
+	if (((SkirmishPreferences *)((char *)this + 0x698))->Rva0043BBB6(name) < 0)
+	{
+		SkirmishPreferences *prefs = (SkirmishPreferences *)((char *)this + 0x698);
+		prefs->rva0043C612(name);
+		prefs->setCurrentUserName(name);
+		prefs->v3slotC();
+		((Rva005C1ABA *)((char *)this + 0x668))->rva005C1ABA(prefs->Rva0043B9F5());
+		m_6c1 = true;
+		m_state = 5;
 	}
 }
