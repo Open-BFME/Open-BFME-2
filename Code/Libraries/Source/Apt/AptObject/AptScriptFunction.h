@@ -36,6 +36,9 @@ struct AptNativeHash
 class AptValue
 {
 public:
+    bool isArray() const;
+    int toInteger() const;
+    void toString(EAStringC &) const;
     AptArray *c_array() const;
     AptString *c_string() const;
     bool isUndefined() const;

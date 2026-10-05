@@ -24,6 +24,8 @@ extern AptValue *gpUndefinedValue;
 class AptArray : public AptObject {
 public:
     AptArray();
+    void set(int,AptValue*);
+    static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
     static AptValue *sMethod_concat(AptValue *,int);
     static AptValue *sMethod_join(AptValue *,int);
     static AptValue *sMethod_pop(AptValue *,int);
@@ -37,7 +39,7 @@ public:
     static AptValue *sMethod_sortOn(AptValue *,int);
 
     AptValue *At(int);
-    AptValue *get(int i) { if(i>=0 && i<mnLength) { AptValue *v=At(i); if(v) return v; } return gpUndefinedValue; }
+    AptValue *get(int i) { if(i>=0 && i<mnLength) { AptValue *v=At(i); if(!v) v=gpUndefinedValue; return v; } return gpUndefinedValue; }
     static void operator delete(void *p,unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(p,n); }
     virtual AptValue *objectMemberLookup(AptValue *const,const EAStringC *const) const;
     virtual bool objectMemberSet(AptValue *const,const EAStringC *const,AptValue *const);
@@ -160,3 +162,42 @@ AptValue *AptArray::objectMemberLookup(AptValue *const context,const EAStringC *
 #pragma comment(linker, "/alternatename:?sMethod_sortOn@AptArray@@SAPAVAptValue@@PAV2@H@Z=?rva006DA0C0@@YAPAVBfmeAptValue006DCD20@@PAV1@H@Z")
 
 #pragma comment(linker, "/alternatename:?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z=?lookup@Rva0070B380@@QAEPAXABVEAStringC@@@Z")
+
+extern "C" void *__cdecl memmove(void *,const void *,unsigned int);
+AptValue *AptArray::sMethod_shift(AptValue *pThis,int nParams) {
+ AptValue *result=gpUndefinedValue;
+ if(pThis->isArray()) {
+  AptArray *array=pThis->c_array();
+  if(array->mnLength>0) {
+   result=array->get(0);
+   --array->mnLength;
+   if(array->mnLength) memmove(&array->mpValues[0],&array->mpValues[1],sizeof(AptValue*)*array->mnLength);
+   array->mpValues[array->mnLength]=0;
+  }
+ }
+ return result;
+}
+
+#pragma comment(linker, "/alternatename:?isArray@AptValue@@QBE_NXZ=?isArray@BfmeAptValue006DCD20@@QBEHXZ")
+#pragma comment(linker, "/alternatename:?toInteger@AptValue@@QBEHXZ=?toInteger@BfmeAptValue006DCD20@@QBEHXZ")
+
+class AptBasePtrStack { public: AptValue *At(int); int count,capacity; AptValue **values; };
+extern AptBasePtrStack g_aptValueStackAtE182E0;
+AptValue *AptArray::sMethod_slice(AptValue *pThis,int nParams) {
+ if(pThis->isArray()) {
+  AptArray *array=pThis->c_array();
+  AptArray *result=0;
+  int start=0,end=array->mnLength;
+  if(nParams>0) {start=g_aptValueStackAtE182E0.At(0)->toInteger();if(start<0)start=array->mnLength+start;}
+  if(nParams>1) {end=g_aptValueStackAtE182E0.At(1)->toInteger();if(end<0)end=array->mnLength+end;else if(end>array->mnLength)end=array->mnLength;}
+  if(start>end || start<0 || end<0)return gpUndefinedValue;
+  result=new AptArray();
+  for(int i=start;i<end;i++)result->set(result->mnLength,array->At(i));
+  return result;
+ }
+ return gpUndefinedValue;
+}
+
+#pragma comment(linker, "/alternatename:?At@AptBasePtrStack@@QAEPAVAptValue@@H@Z=?At@AptBasePtrStack@@QAEPAVBfmeAptValue006DCD20@@H@Z")
+#pragma comment(linker, "/alternatename:?set@AptArray@@QAEXHPAVAptValue@@@Z=?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z")
+#pragma comment(linker, "/alternatename:?g_aptValueStackAtE182E0@@3VAptBasePtrStack@@A=?g_aptDateInterpreter@@3UAptActionInterpreter@@A")
