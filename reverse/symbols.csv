@@ -11909,3 +11909,4 @@ _floor,0x00629940,call site 0x006F4403 in AptDate::getDayOfWeek (0x006F4290) enc
 ??1Rva004BAEC8@@QAE@XZ,0x004BAEC8,destructor called by the vtable-referenced scalar deleting dtor 0x004BAF11 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva00557CCC@@QAE@XZ,0x00557CCC,destructor called by the vtable-referenced scalar deleting dtor 0x00558F6E (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva006022CA@@QAE@XZ,0x006022CA,destructor called by the vtable-referenced scalar deleting dtor 0x006022AE (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
+??1Rva005C67C0@@QAE@XZ,0x001F8167,001F9025 second-base destructor call at001F9043; existing Rva005C9D30 chain donor6583b3c1 structure; original class name unknown

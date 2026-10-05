@@ -36,8 +36,7 @@ public:
 	{                                                                     \
 	public:                                                               \
 		__declspec(noinline) ~NAME();                                     \
-	};                                                                    \
-	NAME::~NAME() {}
+	};
 
 BFME_CHAIN_SECOND_BASE( 005C67C0 )
 
