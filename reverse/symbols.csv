@@ -12357,3 +12357,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?rva0006AB49@WorldHeightMap@@QBE_NHH@Z,0x0006AB49,retail REL32 at 0x0006B17E in BaseHeightMapRenderObjClass cell query 0x0006B114 with ECX=m_map; same body rowed as ?test@Rva0006AB49BitPlane@@QBE_NHH@Z
 ?rva0006AB98@WorldHeightMap@@QAEEHH@Z,0x0006AB98,retail REL32 at 0x0006B1F1 in BaseHeightMapRenderObjClass cell query 0x0006B187 with ECX=m_map; same body rowed as ?rva0006AB98@Rva0006AB98@@QAEEHH@Z
 ??$__introsort_loop@PAPAURva003C3AB0Item@@PAU1@HURva003C3AB0Cmp@@@_STL@@YAXPAPAURva003C3AB0Item@@00HURva003C3AB0Cmp@@@Z,0x003CA2A7,address read from the retail REL32 in sort 0x003CA3D5; rowed under another name (Rva003CA2A7IntrosortLoop)
+??1DebugCmdInterface@@UAE@XZ,0x006C5930,twin spelling of the MAE pin at the same 7B base-dtor body for the public link-canonical base view used by DebugCmdInterfaceDebugCtor.cpp

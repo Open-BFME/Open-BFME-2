@@ -16,17 +16,18 @@
 class Debug;
 class DebugCmdInterface
 {
-protected:
+public:
 	virtual ~DebugCmdInterface() {}
 
-public:
 	DebugCmdInterface() {}
 
 	enum CommandMode { Normal, Structured, MAX };
 
-	virtual bool Execute(Debug &dbg, const char *cmd, CommandMode cmdmode,
-		unsigned argn, const char *const *argv) = 0;
-	virtual void Delete(void) = 0;
+	// NOTE: no Execute/Delete here. The canonical ??_7DebugCmdInterface@@6B@
+	// copy (first in link order, in WWLib/InlineDtorDeletingDtorsC03.cpp) is
+	// the 1-slot public-dtor vtable; a base view declaring Execute/Delete
+	// emits a 3-slot copy the census rejects. The derived class below still
+	// declares them, so its own vtable keeps the identical 3 slots.
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug/internal.h
