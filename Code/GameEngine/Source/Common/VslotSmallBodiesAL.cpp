@@ -106,12 +106,15 @@ bool Rva00526342::rva00567D96(Int)
 
 // 0x005E1B41 (interface at +0x0C): the pinned 0x005E1AB6(0) of the
 // complete object (the argument is unused).
+class Image;
+struct Rva005D2355In;
+struct Rva005F002CIn;
+class Rva005E1AB6Obj;
 class Rva005E1B41Primary
 {
 public:
 	virtual void primarySlot();
 	void rva005E1AB6(Int a);
-private:
 	Int m_04;
 	Int m_08;
 };
@@ -120,14 +123,73 @@ class Rva005E1B41Iface
 public:
 	virtual void rva005E1B41(Int unused) = 0;
 };
+class Image;
+struct Rva005D2355In;
+struct Rva005F002CIn;
+const Image *Rva005F031DGet(Rva005D2355In *in);
+const Image *Rva005F002CGet(Rva005F002CIn *in);
+class Rva005E197E
+{
+public:
+	void rva005E197E();
+};
+class Rva005E1928
+{
+public:
+	void rva005E1928();
+};
+class Rva005E1AB6Obj
+{
+public:
+	virtual bool v00();
+	virtual void v04(void *p);
+	virtual void v08();
+	virtual void v0c(int n);
+	virtual void v10();
+	virtual void v14(const Image *img);
+	virtual void v18();
+	virtual void v1c(const Image *img);
+};
 class Rva005E1B41 : public Rva005E1B41Primary, public Rva005E1B41Iface
 {
 public:
 	void rva005E1B41(Int unused);
+	Int m_10;
+	Rva005D2355In *m_14;
+	Rva005E1AB6Obj *m_18;
+	Int m_1C;
+	unsigned char m_20;
 };
 void Rva005E1B41::rva005E1B41(Int)
 {
 	rva005E1AB6(0);
+}
+
+// ?rva005E1AB6@Rva005E1B41Primary@@QAEXH@Z @0x005E1AB6 139B: setter for interface at +0x18 with old release via v00/v04 and new init via v04/v0c plus two Image lookups.
+// Evidence: pin ?rva005E1AB6@Rva005E1B41Primary@@QAEXH@Z; callers 0x005E1B46 rowed rva005E1B41 and 0x005E1B86; rowed 0x005E197E 0x005F031D 0x005F002C and pinned 0x005E1928; vtable slots 0/4/c/14/1c.
+void Rva005E1B41Primary::rva005E1AB6(Int a)
+{
+	Rva005E1B41 *full = (Rva005E1B41 *)this;
+	if ((Rva005E1AB6Obj *)a != full->m_18)
+	{
+		if (full->m_18 != 0)
+		{
+			if (full->m_18->v00())
+				((Rva005E197E *)this)->rva005E197E();
+			full->m_18->v04(0);
+		}
+		full->m_18 = (Rva005E1AB6Obj *)a;
+		if (full->m_18 == 0)
+			return;
+		full->m_18->v04((void *)static_cast<Rva005E1B41Iface *>(full));
+		full->m_18->v0c(1 + (full->m_20 != 0));
+		const Image *img1 = Rva005F031DGet(full->m_14);
+		full->m_18->v14(img1);
+		const Image *img2 = Rva005F002CGet((Rva005F002CIn *)full->m_14);
+		full->m_18->v1c(img2);
+		if (full->m_18->v00())
+			((Rva005E1928 *)this)->rva005E1928();
+	}
 }
 
 // 0x00588A9D: the pinned 0x00588A72 on the +0x08 vector (0x3C-byte
