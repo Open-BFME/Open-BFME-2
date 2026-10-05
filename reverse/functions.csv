@@ -62125,3 +62125,4 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva007B96BC@@YAXXZ,,0x007B96BC,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap list dtor thunk via global
 ??0Rva00577838@@QAE@H@Z,,0x00577863,46,Code/GameEngine/Source/Common/Rva00577838Ctor.cpp,matched,vtable plus new 0x10 plus rowed inner ctor via caller 0x0042C9F8
 ?rva0021C970@Rva0021BCA7@@QAEPBVAsciiString@@HI@Z,,0x0021C970,54,Code/GameEngine/Source/Common/System/Rva0021C970Find.cpp,matched,unlock callee rows empty string plus4
+?rva007B6AD2@@YAXXZ,,0x007B6AD2,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_00DE1CCD tail-jmp pinned locale uninit twin 0x00007670

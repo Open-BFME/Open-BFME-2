@@ -5923,6 +5923,16 @@ void __cdecl rva007B6AC8()
 	return p->_STL::vector<BfmeContainerRecord00048139, _STL::allocator<BfmeContainerRecord00048139> >::~vector();
 }
 
+extern unsigned g_00DE1CCD;
+unsigned int g_00DE1CCD;
+
+// ?rva007B6AD2@@YAXXZ @ 0x007B6AD2 (10B). Global locale uninitialize thunk: ecx=&g_00DE1CCD then tail-jmp to pinned ?rva00007670@Rva00007670@@QAEXXZ (0x00007670 twin of rowed ?_S_uninitialize@locale@_STL@@SAXXZ). Between 0x007B6AC8 and 0x007B6ADC. Honest address name.
+void __cdecl rva007B6AD2()
+{
+	Rva00007670 *p = (Rva00007670 *)&g_00DE1CCD;
+	return p->rva00007670();
+}
+
 extern unsigned g_Va00E09DBC;
 unsigned int g_Va00E09DBC;
 
