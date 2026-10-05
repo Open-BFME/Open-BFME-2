@@ -14,6 +14,13 @@ free to choose. What is left is a fixed pattern, and searching the whole of
 generic to identify, or the linker kept several copies), or finds exactly one.
 Exactly one is a placement: that address holds that body.
 
+Several places are not always the end of it. A template instantiated for many
+element types masks to one pattern, and only its call sites tell the copies
+apart. When the ledger (or a pin) already places one of the body's REL32
+callees, every hit whose displacement contradicts that address is a different
+instantiation; if exactly one hit survives every placed callee, and at least
+one callee was placed, that hit is a placement too.
+
 A placement pays twice. Every REL32 in the placed body is now a byte-true call
 site, so the displacement retail wrote there IS the callee's address - for a
 callee nothing else in the ledger may know about. Those become symbols.csv
@@ -105,6 +112,20 @@ def main():
         displacement = struct.unpack_from("<i", blob, rva - text_rva + offset)[0]
         return rva + offset + 4 + displacement
 
+    def placed_callees_agree(rva, relocs):
+        """(every ledger/pin-placed REL32 callee agrees at rva, how many were placed)."""
+        count = 0
+        for offset, kind, symbol in relocs:
+            if kind != IMAGE_REL_I386_REL32:
+                continue
+            address = ledger.get(symbol, pinned.get(symbol))
+            if address is None:
+                continue
+            if address != call_target(rva, offset):
+                return False, count
+            count += 1
+        return True, count
+
     denied = set()
     denylist = build.ROOT / DENYLIST
     if denylist.exists():
@@ -151,6 +172,11 @@ def main():
             pattern = b"".join(re.escape(bytes([byte])) if fixed[index] else b"."
                                for index, byte in enumerate(body))
             hits = [m.start() + text_rva for m in re.finditer(pattern, blob, re.DOTALL)]
+            if len(hits) > 1:
+                checks = {hit: placed_callees_agree(hit, relocs) for hit in hits}
+                hits = [hit for hit in hits if checks[hit][0]]
+                if len(hits) == 1 and not checks[hits[0]][1]:
+                    hits = []
             if len(hits) != 1 or owner(hits[0]):
                 continue
             placed[name] = (hits[0], len(body), source,
