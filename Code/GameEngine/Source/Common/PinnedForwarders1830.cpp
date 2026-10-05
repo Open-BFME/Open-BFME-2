@@ -16,15 +16,27 @@
 typedef bool Bool;
 typedef float Real;
 
+struct Region2D
+{
+	Region2D(const Region2D &that);
+	float x_min;
+	float y_min;
+	float x_max;
+	float y_max;
+};
+
 class Rva0030B719Shape
 {
 public:
 	Real getRadius() const;
+	Region2D rva0030B6E3();
 	void rva0030B3D1();
 private:
-	unsigned char m_pad00[0x20];
-	Real m_radius;
-	Bool m_dirty;
+	unsigned char m_pad00[0x0C];
+	Region2D m_region; // +0x0C
+	unsigned char m_pad1C[0x04]; // +0x1C
+	Real m_radius; // +0x20
+	Bool m_dirty; // +0x24
 };
 
 Real Rva0030B719Shape::getRadius() const
@@ -32,6 +44,13 @@ Real Rva0030B719Shape::getRadius() const
 	if (m_dirty)
 		const_cast<Rva0030B719Shape *>(this)->rva0030B3D1();
 	return m_radius;
+}
+
+Region2D Rva0030B719Shape::rva0030B6E3()
+{
+	if (m_dirty)
+		rva0030B3D1();
+	return m_region;
 }
 
 struct Rva002B3740Item
