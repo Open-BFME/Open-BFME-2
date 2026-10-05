@@ -60819,3 +60819,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva007B7B14@@YAXXZ,,0x007B7B14,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Global Dict teardown: ecx=&g_Va00E00944 then tail-jmp to rowed releaseData 0x0031339C; honest address name
 ?rva007B6CE1@@YAXXZ,,0x007B6CE1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Global Rva00200667 dtor thunk: ecx=&g_Va00DE6194 then tail-jmp to pinned dtor 0x00200667; honest address name
 ?rva007B8590@@YAXXZ,,0x007B8590,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Global Rva00200667 dtor thunk: ecx=&g_Va00E03CE0 then tail-jmp to pinned dtor 0x00200667; honest address name
+?rva002A7761@Rva002A7761@@QAEXXZ,,0x002A7761,44,Code/GameEngine/Source/GameLogic/Object/Rva002A7761Clear.cpp,matched,leaf reset clears BfmePod12 vector via rowed erase
