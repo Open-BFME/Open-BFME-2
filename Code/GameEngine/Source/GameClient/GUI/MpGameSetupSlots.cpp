@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 //
 // Small MpGameSetup members of BFME2's LAN lobby panel (the screen's +0x288
 // object: its callback registration 0x0044303D binds the rowed
@@ -10,7 +10,12 @@
 // base); the per-slot player template combo boxes are at +0x334 (as in
 // MpGameSetupOnInitGadget.cpp); +0x2C4 is a dirty flag.
 
+#include "unicode_string.h"
+
 class GameWindow;
+class BfmeKeyLC;
+
+void *bfmeGo925A(BfmeKeyLC *comboBox);
 
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 
@@ -48,6 +53,9 @@ public:
 void GadgetComboBoxGetSelectedPos(GameWindow *comboBox, int *selected);
 void *GadgetComboBoxGetItemData(GameWindow *comboBox, int index);
 int GadgetComboBoxGetLength(GameWindow *comboBox);
+UnicodeString GadgetComboBoxGetText(GameWindow *comboBox);
+int GadgetListBoxGetNumEntries(GameWindow *listBox);
+int Rva003253BEGet(GameWindow *listBox, int row, int column);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int index, bool silent);
 
 class Rva00222A8BTarget
@@ -64,7 +72,8 @@ public:
 	virtual bool v01();
 	virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05();
 	virtual bool applySlotHero(GameSlot *slot);
-	virtual void v07(); virtual void v08(); virtual void v09();
+	virtual void v07(); virtual void v08();
+	virtual bool setSlotState(GameSlot *slot, int state, const UnicodeString &name);
 	virtual bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
 	virtual void v11();
 	virtual bool applySlotTeam(GameSlot *slot, int team);
@@ -112,7 +121,6 @@ public:
 	// Unrowed 0x0044149C (313 bytes; refreshes a slot's widgets), pinned.
 	void rva0044149C(GameSlot *slot, int index, bool flag);
 
-	// Unrowed 0x0043E30F (211 bytes), pinned by address.
 	void rva0043E30F(int slot, int value);
 
 private:
@@ -126,7 +134,9 @@ private:
 	unsigned char m_pad0d1[0x2C3 - 0xD1];
 	bool m_pending; // +0x2C3
 	bool m_2c4; // +0x2C4
-	unsigned char m_pad2c5[0x314 - 0x2C5];
+	unsigned char m_pad2c5[0x2D4 - 0x2C5];
+	GameWindow *m_player[8]; // +0x2D4
+	unsigned char m_pad2f4[0x314 - 0x2F4];
 	GameWindow *m_team[8]; // +0x314
 	GameWindow *m_playerTemplate[8]; // +0x334
 	GameWindow *m_handicap[8]; // +0x354
@@ -290,6 +300,40 @@ void MpGameSetup::rva0043E3E2(int index, int team)
 		if (team == (int)GadgetComboBoxGetItemData(comboBox, i))
 		{
 			GadgetComboBoxSetSelectedPos(comboBox, i, true);
+			return;
+		}
+	}
+}
+
+// Retail 0x0043E30F, 211 bytes. Name unknown. Selects the player combo box
+// (+0x2D4) entry whose list item data equals the slot state and, on the host
+// (game vslot 12), hands the slot, state and the combo text to the owner's
+// slot-state setter (vslot 9, BfmeAptScreenLanLobby::rva00444B90 for LAN).
+void MpGameSetup::rva0043E30F(int index, int state)
+{
+	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	if (!game)
+		return;
+	GameWindow *comboBox = m_player[index];
+	if (!comboBox)
+		return;
+
+	GameWindow *listBox = (GameWindow *)bfmeGo925A((BfmeKeyLC *)comboBox);
+	int count = GadgetListBoxGetNumEntries(listBox);
+	for (int i = 0; i < count; ++i)
+	{
+		if (Rva003253BEGet(listBox, i, 0) == state)
+		{
+			GadgetComboBoxSetSelectedPos(comboBox, i, false);
+			if (game->v12())
+			{
+				GameSlot *slot = game->getSlot(index);
+				if (slot)
+				{
+					UnicodeString name = GadgetComboBoxGetText(comboBox);
+					m_owner->setSlotState(slot, state, name);
+				}
+			}
 			return;
 		}
 	}
