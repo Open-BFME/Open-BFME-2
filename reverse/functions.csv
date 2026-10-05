@@ -61709,3 +61709,4 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
 ??1Rva005F329E@@QAE@XZ,,0x005F329E,23,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,unlock lane opaque dtor pinned 0x005F2B22 rowed delete
 ??0Rva0032E81D@@QAE@PAX0@Z,,0x0032E81D,29,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0032E81DMethod.cpp,matched,unlock lane ctor meminit order copyctor
 ?rva004361F2@Rva00435B82@@QAEPAV1@PAV1@H@Z,,0x004361F2,29,Code/GameEngine/Source/Common/S5HandleHashCompares.cpp,matched,chain from 0x0043611F via tmp at ebp-8 plus saved plus4 plus ret8
+?rva005CC26E@Rva005CC26E@@QAEHPAX@Z,,0x005CC26E,25,Code/GameEngine/Source/Common/Rva005CC26E.cpp,matched,caller 0x0057491D arg plus 0x10 compared to 0x70 true calls pin 0x005CC23B
