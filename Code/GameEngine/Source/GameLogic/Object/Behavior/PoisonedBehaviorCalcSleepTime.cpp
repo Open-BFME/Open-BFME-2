@@ -52,9 +52,7 @@ public:
 class GameLogic
 {
 public:
-	UnsignedInt getFrame() { return m_frame; }
-
-private:
+	UnsignedInt getFrame();
 	unsigned char m_pad[0x40];
 	UnsignedInt m_frame; // +0x40 (retail; reference header says +0x3C)
 };
@@ -99,7 +97,7 @@ private:
 // ?calcSleepTime@PoisonedBehavior@@IAE?AW4UpdateSleepTime@@XZ @0x00482EFF
 UpdateSleepTime PoisonedBehavior::calcSleepTime()
 {
-	UnsignedInt now = TheGameLogic->getFrame();
+	UnsignedInt now = TheGameLogic->m_frame;
 	if (m_poisonOverallStopFrame == 0 || m_poisonOverallStopFrame == now)
 		return UPDATE_SLEEP_FOREVER;
 	return frameToSleepTime(m_poisonDamageFrame, m_poisonOverallStopFrame);
