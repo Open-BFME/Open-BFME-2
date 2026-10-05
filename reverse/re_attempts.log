@@ -8710,3 +8710,6 @@ FUN_008e5559	0x004E5559	96	blocked	ctor 0x4E4F82 and dtor 0x4E5086 on same ebp-0
 ?rva001B2450@Rva001B2450@@QAEHXZ	0x001B2450	329	blocked	motion decode encoding1 9Bpkt 4comp imul 0x24 same donor wall t=2 model=muse-07
 ?rva0034E3A5@Rva0034E3A5@@QAEHXZ	0x0034E3A5	528	blocked	AI state slot4 528B many callees strings globals Coord2D needs full model t=3 model=muse-07
 ?Rva001B20E5Init@@YA_NXZ	0x001B20E5	83	blocked	sin table fsin EBP frame vs sub esp plus22B 8 regions 2 variants sin sinf same need frame globals investigation t=10 model=muse-07
+?rva001EBEAB@Rva001EBEAB@@QAE...	0x001EBEAB	286	blocked	STL fill_insert mixed Pod172 Assign172 Rva0037DF2C copy needs donor pattern t=15 model=muse-10
+??1Rva005FD628@@QAE@XZ	0x005FD628	79	blocked	dtor needs array ehvec element 0x005FD5D4 plus Wide releases plus Rva0052413E t=30 model=muse-10
+?rva004CB572@Rva004CB572@@QAEXPBX@Z	0x004CB572	343	blocked	vector erase edi-vs-ebx plus frame 0x108-vs-0x188 plus parse offset 337vs343 t=40 model=muse-10
