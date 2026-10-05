@@ -210,6 +210,7 @@ private:
     HANDLER(StrictEquals);
     HANDLER(Equals2);
     HANDLER(Add2);
+    HANDLER(TargetPath);
     HANDLER(TypeOf);
     HANDLER(Greater); HANDLER(LessThan2);
     HANDLER(SubString); HANDLER(AsciiToChar);
@@ -1905,4 +1906,35 @@ void AptActionInterpreter::_FunctionAptActionGotoFrame2(AptActionInterpreter *co
         cih->SpriteBaseInline()->mbIsPlaying=(*data!=0) ? 1 : 0;
     }
     p->stack.Pop();
+}
+// Rehomed from Rva007065E0Cluster.cpp. Preserve its address-named ABI and
+// verified121B body. Visibility lets MSVC prove the output cell does not escape;
+// TargetPath then reuses the dead incoming argument slot as retail does.
+class BfmeAptValue006DCD20;
+BfmeAptValue006DCD20 *rva007064f0(int,int,EAStringC *);
+__declspec(noinline) void rva007065e0(int a,int b,BfmeAptValue006DCD20 *value,BfmeAptValue006DCD20 **out) {
+ AptValue *v=(AptValue *)value;
+ if(v->isCIH(false) || v->ContainsNativeHashVirtual()) {*out=value;return;}
+ if(v->isString()) {*out=rva007064f0(a,b,v->c_string()->GetInternalString());return;}
+ g_bfmeAptAssertAtE17734("NOT_REACHED","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",0x7a6);
+ if(g_bfmeAptBreakOnAssertAtDDC01C) {__asm int 3}
+}
+
+void rva006ffce0(AptValue *,EAStringC &);
+void AptActionInterpreter::_FunctionAptActionTargetPath(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    EAStringC buffer;
+    AptValue *obj=p->stack.At(0);
+    AptValue *volatile out;
+    rva007065e0((int)c->pCurrentContext,(int)c->pCurWith,(BfmeAptValue006DCD20 *)obj,(BfmeAptValue006DCD20 **)&out);
+    AptValue *context=out;
+    if(context) {
+        if(context->isCIH()) rva006ffce0((AptValue *)context->c_cih(),buffer);
+        else buffer="";
+        AptString *s=AptString::Create();
+        s->str=buffer;
+        p->stack.Pop(); p->stack.Push(s);
+    } else {
+        p->stack.Pop(); p->stack.Push(gpUndefinedValue);
+    }
 }
