@@ -47,13 +47,9 @@ public:
 class UpdateModule : public PB_DeepBase, public PB_Iface1, public PB_Iface2
 {
 public:
-    UpdateModule(Thing *thing, const ModuleData *moduleData)
-        : PB_DeepBase(thing, moduleData),
-          m_nextCallFrameAndPhase(0),
-          m_indexInLogic(-1),
-          m_indexInUpdate(-1)
-    {
-    }
+    // Defined once, out of line, in UpdateModuleCtor.cpp (retail 0x00253390): derived
+    // ctors call it, and a copy here would offer the link a second, non-retail body.
+    UpdateModule(Thing *thing, const ModuleData *moduleData);
     virtual ~UpdateModule();
 
 protected:

@@ -25,12 +25,9 @@ class SESU_Iface2 { public: virtual void slot(); };
 class UpdateModule : public SESU_DeepBase, public SESU_Iface1, public SESU_Iface2
 {
 public:
-    UpdateModule(Thing *thing, const ModuleData *moduleData)
-        : SESU_DeepBase(thing, moduleData),
-          m_indexInLogic(-1), m_updateState(-1),
-          m_nextCallFrameAndPhase(0)
-    {
-    }
+    // Defined once, out of line, in UpdateModuleCtor.cpp (retail 0x00253390): derived
+    // ctors call it, and a copy here would offer the link a second, non-retail body.
+    UpdateModule(Thing *thing, const ModuleData *moduleData);
 
 protected:
     void setWakeFrame(Object *, UpdateSleepTime);

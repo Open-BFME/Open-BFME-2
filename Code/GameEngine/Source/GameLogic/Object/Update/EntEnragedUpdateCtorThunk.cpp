@@ -35,9 +35,9 @@ class UpdateModule : public PB_DeepBase, public BehaviorModuleInterface,
 	public UpdateModuleInterface
 {
 public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData)
-		: PB_DeepBase(thing, moduleData), m_field14(0),
-		  m_field18(-1), m_field1C(-1) {}
+	// Defined once, out of line, in UpdateModuleCtor.cpp (retail 0x00253390): derived
+	// ctors call it, and a copy here would offer the link a second, non-retail body.
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
 
 private:

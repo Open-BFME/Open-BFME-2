@@ -29,11 +29,8 @@
 
 #pragma once
 
-// BFME shadow-shim (TU-scoped for DockUpdate.cpp): retail's DockUpdate object
-// combines the merged one-vptr Module base (BFME_MODULE_NO_MPO) with an extra
-// dword after m_indexInLogic, so the DockUpdateInterface subobject stays at
-// +0x20 while m_object sits at +0x8. The extra dword is retail-initialised to
-// -1 (DockUpdate ctor @0x2CD4B0 stores -1 at this+0x1C). Name is a placeholder.
+// Copied from Zero Hour GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
+// (Open-BFME-1 inputs/reference); only the inline ctor definition below is removed.
 
 #ifndef __UpdateModule_H_
 #define __UpdateModule_H_
@@ -150,10 +147,6 @@ private:
 	UnsignedInt m_nextCallFrameAndPhase;	
 	Int m_indexInLogic;
 
-	// BFME-only: retail carries one more dword here (inits to -1), which is what
-	// keeps DockUpdateInterface at +0x20 with the merged one-vptr Module base.
-	Int m_bfmeReserved;
-
 protected:
 
 	// yes, protected: modules should only wake themselves up.
@@ -237,9 +230,10 @@ public:
 	}
 
 };
-// The ctor is not defined inline here. Retail has one body, 0x00253390 (UpdateModuleCtor.cpp),
-// which every derived ctor calls and which stores the -1 at +0x1C (m_bfmeReserved); the
-// inline copy this header carried lacked that store and offered the link a second body.
+// BFME shim (TU-scoped): Zero Hour's UpdateModule.h, unchanged except that the ctor is
+// not defined inline here. Retail has one body, 0x00253390 (UpdateModuleCtor.cpp), which
+// every derived ctor calls; this header's inline copy lacked BFME's -1 store at +0x1C and
+// offered the link a second, non-retail body from each unit that emitted it.
 inline UpdateModule::~UpdateModule() 
 { 
 	DEBUG_ASSERTCRASH(m_indexInLogic == -1, ("destroying an updatemodule still in the logic list"));
