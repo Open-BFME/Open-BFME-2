@@ -54,28 +54,5 @@ BfmeAptValue006DCD20 *rva006DA130(BfmeAptValue006DCD20 *pValue)
 	return g_aptUndefinedAtE18078;
 }
 
-// ?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z @0x006D95E0 (92 bytes).
-// Checked array store at an explicit index: negative indices return, the
-// backing store is grown to nIndex+1 through the pinned resize 0x006D9500,
-// nIndex < mnCapacity is asserted at AptArray.cpp:0x10C, the element is
-// assigned through the rowed setter 0x006D8AD0, and mnLength becomes
-// max(nIndex+1, mnLength). Evidence: five caller sites push (index, value)
-// and this body's own immediate operands; flags shared with the 0x006DA130
-// body in this TU.
-void BfmeAptValue006DCD20::rva006D95E0(int nIndex, BfmeAptValue006DCD20 *pValue)
-{
-	if (nIndex < 0)
-		return;
-
-	int newLength = nIndex + 1;
-	rva006D9500(newLength);
-
-	if (!(nIndex < mnCapacity)) {
-		g_bfmeAptAssertAtE17734("nIndex < mnCapacity", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptArray.cpp", 0x10c);
-		if (g_bfmeAptBreakOnAssertAtDDC01C)
-			__asm int 3
-	}
-
-	rva006D8AD0(nIndex, pValue);
-	mnLength = (newLength > mnLength) ? newLength : mnLength;
-}
+// Setter6D95E0 now lives in AptObject/AptArrayConstructor.cpp, where native
+// callbacks inline it. Its historical symbol aliases the canonical provider.

@@ -25,6 +25,8 @@ class AptArray : public AptObject {
 public:
     AptArray();
     void set(int,AptValue*);
+    void _reserve(int);
+    void SetAt(int,AptValue*);
     static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
     static AptValue *sMethod_concat(AptValue *,int);
     static AptValue *sMethod_join(AptValue *,int);
@@ -79,6 +81,23 @@ typedef char AptArrayNativeSize[sizeof(AptArray)==44?1:-1];
 // Target13-entry table follows the1892B body at6DAD94; all destinations checked.
 // Native numeric fallback omits the later donor context recheck. Native assert
 // line486 and conditional int3 retain existing compiler-barrier convention.
+
+extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
+extern int g_bfmeAptBreakOnAssertAtDDC01C;
+// Historical ledger identity is retained; object-symbol names this exact provider.
+// ?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z
+inline void AptArray::set(int nIndex,AptValue *value) {
+ if(nIndex<0)return;
+ int newLength=nIndex+1;
+ _reserve(newLength);
+ if(!(nIndex<mnCapacity)) {
+  g_bfmeAptAssertAtE17734("nIndex < mnCapacity","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptArray.cpp",0x10c);
+  if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+ }
+ SetAt(nIndex,value);
+ mnLength=newLength>mnLength?newLength:mnLength;
+}
+
 class EAStringC { void *mpData; public: unsigned int rva006D3750() const; const char *rva00620090() const; bool rva006D3510(const char *) const; };
 class AptInteger { public: static AptValue *Create(int); };
 struct R4Word { const char *name; int nIndex; };
@@ -199,5 +218,35 @@ AptValue *AptArray::sMethod_slice(AptValue *pThis,int nParams) {
 }
 
 #pragma comment(linker, "/alternatename:?At@AptBasePtrStack@@QAEPAVAptValue@@H@Z=?At@AptBasePtrStack@@QAEPAVBfmeAptValue006DCD20@@H@Z")
-#pragma comment(linker, "/alternatename:?set@AptArray@@QAEXHPAVAptValue@@@Z=?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z")
+#pragma comment(linker, "/alternatename:?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z=?set@AptArray@@QAEXHPAVAptValue@@@Z")
 #pragma comment(linker, "/alternatename:?g_aptValueStackAtE182E0@@3VAptBasePtrStack@@A=?g_aptDateInterpreter@@3UAptActionInterpreter@@A")
+
+AptValue *AptArray::sMethod_push(AptValue *pThis,int nParams) {
+ if(pThis->isArray()) {
+  AptArray *array=pThis->c_array();
+  for(int i=0;i<nParams;i++)array->set(array->mnLength,g_aptValueStackAtE182E0.At(i));
+  return AptInteger::Create(array->mnLength);
+ }
+ return gpUndefinedValue;
+}
+
+AptValue *AptArray::sMethod_concat(AptValue *pThis,int nParams) {
+ if(pThis->isArray()) {
+  AptArray *array=pThis->c_array();
+  AptArray *result=new AptArray();
+  int i;
+  for(i=0;i<array->mnLength;i++)result->set(result->mnLength,array->At(i));
+  for(i=0;i<nParams;i++) {
+   AptValue *value=g_aptValueStackAtE182E0.At(i);
+   if(value->isArray()) {
+    AptArray *other=value->c_array();
+    for(int j=0;j<other->mnLength;j++)result->set(result->mnLength,other->At(j));
+   } else result->set(result->mnLength,value);
+  }
+  return result;
+ }
+ return gpUndefinedValue;
+}
+
+#pragma comment(linker, "/alternatename:?_reserve@AptArray@@QAEXH@Z=?rva006D9500@Rva006D9500@@QAEXH@Z")
+#pragma comment(linker, "/alternatename:?SetAt@AptArray@@QAEXHPAVAptValue@@@Z=?rva006D8AD0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z")

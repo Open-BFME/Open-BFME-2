@@ -12577,3 +12577,5 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?Insert@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z,0x006F8380,Native70F040 pseudo-node insertion; donor Insert and original PDB node; native101B supplier pending
 ??3AptPseudoCIH_t@@SAXPAXI@Z,0x006D8680,Native throwing20B new unwind free; alias rowed sized pool free provider
 ?Remove@AptPseudoDisplayList@@QAEXPAUAptPseudoCIH_t@@@Z,0x006F7C70,Native6F8380 remove old pseudo-node; rowed stdcall provider ignores ECX and ret4 matches thiscall stack ABI; direct alias
+?_reserve@AptArray@@QAEXH@Z,0x006D9500,Canonical array setter and push/concat native growth call; bound to verified210B resize provider
+?SetAt@AptArray@@QAEXHPAVAptValue@@@Z,0x006D8AD0,Canonical array setter native index/value write with refcounts; bound to verified140B provider
