@@ -19,7 +19,7 @@ public:
 	RefCountClass() : m_refs(1) {}
 	virtual void Delete_This();
 protected:
-	virtual ~RefCountClass();
+	virtual ~RefCountClass() {}
 private:
 	int m_refs;
 };
