@@ -135,6 +135,21 @@ private:
 	char m_unrecovered04[0x28 - 0x04];
 };
 
+class Rva002E9042
+{
+public:
+	void rva002E8FE5(void *p);
+};
+
+class AI
+{
+public:
+	char m_pad[0x10];
+	Rva002E9042 *m_10;
+};
+
+extern AI *g_Va009FF0F8;
+
 class FakePathfindPortalBehaviour : public UpdateModule
 {
 protected:
@@ -181,4 +196,14 @@ void FakePathfindPortalBehaviour::xfer(Xfer *xfer)
 	*xfer == m_32;
 	if (m_32 && xfer->IsLoading())
 		rva004618AB();
+}
+
+// ?rva004618AB@FakePathfindPortalBehaviour@@AAEXXZ @0x004618AB 41B
+// Re-registers both waypoints through the AI pathfinder set-twin 0x002E8FE5
+// and sets +0x32 again. Called from xfer on load when +0x32 is set.
+void FakePathfindPortalBehaviour::rva004618AB()
+{
+	g_Va009FF0F8->m_10->rva002E8FE5(m_28[0]);
+	g_Va009FF0F8->m_10->rva002E8FE5(m_28[1]);
+	m_32 = true;
 }
