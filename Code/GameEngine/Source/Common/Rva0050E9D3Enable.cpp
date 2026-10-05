@@ -184,6 +184,13 @@ void *Rva0043C9B3Get(void)
 	return &g_Va00A03318;
 }
 
+// ?Rva0043CCC2Get@@YAPAXXZ @0x0043CCC2 5B: forwards to the singleton getter
+// above (a tail jump). Address name; nearest neighbour of the users below.
+void *Rva0043CCC2Get(void)
+{
+	return Rva0043C9B3Get();
+}
+
 // ?Rva0043CCDASet@@YAXE@Z @0x0043CCDA 34B.
 // Flag setter on the 0x0043C9B3 singleton block, twin of 0x004E432A above:
 // if the byte arg equals the flag byte at +4 of the block, return; if arg
