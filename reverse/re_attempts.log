@@ -8631,3 +8631,4 @@ FUN_0046eb6d	0x0006EB6D	444	blocked	WW3D render 444B many DX8 states plus unclea
 ?rva00559AF9@Rva00559AC1@@QAEMH@Z	0x00559AF9	82	blocked	explicit else uses esi 86B worse than stash ja 82B t=10 model=muse-10 (stash 0.95 kept)
 ?rva002AC6E1@Rva002AC6B1PlayerTimers@@QAEXPBVSpecialPowerTemplate@@@Z	0x002AC6E1	123	blocked	only esi/edi swapped for list node vs reload plus __real vs g_00BC26EC reloc; tried r-order non-const direct-node split without flip t=18 model=muse-10 (stash 0.96 kept)
 ?rva002AC06A@Rva002AC06A@@QAEXPAVXfer@@@Z	0x002AC06A	318	blocked	ebx edi swap for this zero plus stack ver left cur and test vs cmp; tried ver-left order without flip t=12 model=muse-10 (stash 0.9 kept)
+?Rva00173C04Skin@@YGXPAX0@Z	0x00173C04	500	blocked	500B WW3D skinning with 2 static DynamicVector plus 6 globals plus SSE needs donor t=8 model=muse-spark
