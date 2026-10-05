@@ -365,6 +365,7 @@ struct HeapTable
 };
 
 extern HeapTable g_heaps;
+HeapTable g_heaps;
 extern unsigned long g_heapTlsIndex;
 
 EA::Allocator::GeneralAllocator *_GetHeapAllocator(unsigned int id)

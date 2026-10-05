@@ -83,14 +83,24 @@ unsigned char Rva00110094GetByte(void)
 }
 
 // ?Rva000308D0GetByte@@YAEXZ @ 0x000308D0 (6B) over 0x00DE0818.
+// TU-scoped minimal HeapTable view (+0x404 only). Same tag so ?g_heaps@MemoryPool@@3UHeapTable@1@A
+// resolves to the single memory_pool.cpp BSS definition. Size 0x410, member at +0x404.
+// No second definition, no /alternatename, no initializer, no header edit.
+namespace MemoryPool
+{
+struct HeapTable
+{
+	unsigned char _pad404[0x404];
+	bool m_clearAllocations;
+	unsigned char _tail[0x410 - 0x405];
+};
 
-extern unsigned char g_Va00DE0818;
-// g_Va00DE0818: matched references place it at VA 0xde0818 (zero-filled .bss).
-unsigned char g_Va00DE0818;
+extern HeapTable g_heaps;
+} // namespace MemoryPool
 
 unsigned char Rva000308D0GetByte(void)
 {
-	return g_Va00DE0818;
+	return MemoryPool::g_heaps.m_clearAllocations;
 }
 
 // ?Rva0003C100GetByte@@YAEXZ @ 0x0003C100 (6B) over 0x00DE08A8.
