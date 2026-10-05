@@ -59725,3 +59725,16 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?selectFriendsWrapper@@YA_NPAVDrawable@@PAX@Z,,0x00430000,29,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat_selectFriendsWrapper.cpp,matched,ZH SelectionXlat.cpp wrapper verbatim; engine sweep /O1 /G7 /arch:SSE places it uniquely in the SelectionXlat range; selectFriends pinned 0x0042FE7F from its call
 ?rva0028C15E@Object@@QAE_NHPAMHH@Z,,0x0028C15E,21,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C149.cpp,matched,LINK body four-arg tail-jump via pool 0x00403448
 ?rva0028C173@Object@@QBEHXZ,,0x0028C173,36,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C197.cpp,matched,Object plus250 provider slot31 iface slot96(0) default 1
+?rva0028ACCA@Object@@QAEXH@Z,,0x0028ACCA,18,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 null-checked tail forward to pinned 0x004DE24B
+?rva0028ACDC@Object@@QAEXH@Z,,0x0028ACDC,18,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 null-checked tail forward to pinned 0x004DE4E2
+?rva0028ACEE@Object@@QAEXHH@Z,,0x0028ACEE,18,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 null-checked tail forward to pinned 0x004DE511
+?rva0028AD00@Object@@QAEXHMH@Z,,0x0028AD00,34,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 null-checked float-arg forward call to pinned 0x004DE109
+?rva0028AD22@Object@@QAEXXZ,,0x0028AD22,16,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 null-checked tail forward to pinned 0x004DDD80
+?rva0028AD32@Object@@QAEXXZ,,0x0028AD32,16,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 null-checked tail forward to pinned 0x004DDD6E
+?rva0028AD42@Object@@QBE_NPAUCoord3D@@@Z,,0x0028AD42,20,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 bool forward to pinned 0x004DD80A
+?rva0028AD56@Object@@QBEMXZ,,0x0028AD56,22,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 float forward to rowed 0x004DD843 default 0.0
+?rva0028AD7C@Object@@QAEXXZ,,0x0028AD7C,16,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 null-checked tail forward to pinned 0x004DE2ED
+?rva0028AD8C@Object@@QAEXXZ,,0x0028AD8C,16,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 null-checked tail forward to pinned 0x004DDD92
+?rva0028AD9C@Object@@QBE_NPAUCoord3D@@@Z,,0x0028AD9C,20,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 bool forward to pinned 0x004DD84D
+?rva0028ADB0@Object@@QBE_NXZ,,0x0028ADB0,18,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object plusA4 bool forward to pinned 0x004DD637
+?reloadAllAmmo@Object@@QAEX_N@Z,,0x0028ADC2,19,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,ZH Object::reloadAllAmmo via WeaponSet at plus330 before isOutOfAmmo
