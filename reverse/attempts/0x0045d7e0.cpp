@@ -1,13 +1,20 @@
 // ?Rva0045D7E0Notify@@YAXPAXHH@Z
-// partial score=0.98 date=2026-10-04
+// partial score=0.99 date=2026-10-05
 // cl: /O1 /MD
-//
-// ?Rva0045D7E0Notify@@YAXPAXHH@Z retail 0x0045D7E0 121B.
-// Free notify over 12 vectors at +0x58/+0x88/+0xB8 (4 each stride 0xC).
-// Evidence: chain lane all callees rowed; begin/end pairs per iteration
-// (esi-4/esi -> ObjectCreationList 0x001F0410, esi-0x34/esi-0x30 ->
-// Rva001E11F8 0x001E11F8, esi+0x2C/esi+0x30 -> Rva002CA9CA 0x002CAC6E);
+// ?Rva0045D7E0Notify@@YAXPAXHH@Z @0x0045D7E0 121B. Free-notify pass over the
+// 12 notification vectors of the owner record at +0x58/+0x88/+0xB8 (four
+// slots each, stride 0xC per outer iteration), skipping null entries.
+// Evidence: every callee in the chain is already rowed -- begin/end pairs are
+// read as esi-4/esi -> ?rva001F0410@ObjectCreationList@@QAEXPAX0@Z (0x001F0410),
+// esi-0x34/esi-0x30 -> ?rva001E11F8@@QAEXHH@Z (0x001E11F8), and
+// esi+0x2C/esi+0x30 -> ?rva002CAC6E@Rva002CA9CA@@QAEXHH@Z (0x002CAC6E);
 // neighbours share // cl: /O1 /MD.
+//
+// The loop counter MUST be `volatile`: without it MSVC coalesces the counter
+// onto the dead second-argument slot at [ebp+8] and drops the `push ecx`, so
+// the prologue and frame both differ. volatile forces the dedicated [ebp-4]
+// slot and the extra callee-saved push that retail has. Two residual encoding
+// deltas remain and are recorded in reverse/re_attempts.log.
 class ObjectCreationList
 {
 public:
@@ -44,7 +51,7 @@ struct Rva0045D7E0Host
 // ?Rva0045D7E0Notify@@YAXPAXHH@Z present-unmatched
 void Rva0045D7E0Notify(void *obj, int a, int b)
 {
-	int n = 4;
+	volatile int n = 4;
 	char *esi = (char *)obj + 0x8C;
 	do {
 		ObjectCreationList **p1 = *(ObjectCreationList ***)(esi - 4);
