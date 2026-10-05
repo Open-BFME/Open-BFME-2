@@ -58,11 +58,12 @@ private:
 };
 
 // ??0SpecialDisguiseUpdateModuleData@@QAE@XZ @0x004B0255
+extern const void *const g_00C563F8[];
 SpecialDisguiseUpdateModuleData::SpecialDisguiseUpdateModuleData()
 	: Rva0044EB54()
 {
 	int *disguiseAsTemplate = &m_disguiseAsTemplate;
-	*(unsigned int *)this = 0x00C563F8;
+	*(const void **)this = g_00C563F8;
 	*disguiseAsTemplate = 0;
 	m_disguisedAsEnemy = 0;
 	m_triggerInstantlyOnCreate = false;
