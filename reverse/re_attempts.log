@@ -10404,3 +10404,7 @@ FUN_008b7d53	0x004B7D53	141	blocked	vslot10 negative this-adjustment plus EH plu
 ?sMethod_slice@AptArray@@SAPAVAptValue@@PAV2@H@Z	0x006DA3A0	289	converted	Direct donor4416f7dfadc1781e slice; native289B boundary confirmed ret at6DA4C0; full5/5 normal gate; DIR32 stackE182E0 allocatorE176F4 undefinedE18078 match known providers; t=4 model=gpt-6-astra
 ?rva0015087B@Rva0015087B@@QAEXPAVRva0014F4C2@@IABV2@@Z	0x0015087B	222	blocked	vector fill-insert register allocation wall finish-pos-n pins differ t=25 model=muse-09
 ?rva0015079D@Rva0015079D@@QAEXPAVRva0014F4A1@@IABV2@@Z	0x0015079D	222	blocked	vector fill-insert ebx-edi mirror wall for n-finish plus save order t=30 model=muse-09
+?rva005C98C0@Rva005C98C0@@QAEPAXH@Z	0x005C98C0	54	partial	top xor missing; global host in eax not edx; extra jmp to shared xor t=18 model=muse-10 score=0.93 stash=reverse/attempts/0x005c98c0.cpp
+?rva005C98C0@Rva005C98C0@@QAEPAXH@Z	0x005C98C0	54	blocked	top xor missing; global host in eax not edx; extra jmp to shared xor t=18 model=muse-10 (stash 0.93 kept)
+?rva004F92E3@Rva004F92E3@@QAEXPAX@Z	0x004F92E3	149	partial	edi esi swapped dest src with sub edi esi offset opt and indexed src loads ours 152B vs 149B 56 insns same t=28 model=muse-10 score=0.92 stash=reverse/attempts/0x004f92e3.cpp
+?rva004F9F39@Rva004F9F39@@QAEXXZ	0x004F9F39	470	blocked	470B multi-phase vector sort SSE bitfield no donor caller chain unready needs stronger model t=8 model=muse-10
