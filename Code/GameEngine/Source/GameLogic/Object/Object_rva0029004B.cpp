@@ -11,6 +11,7 @@ class Drawable
 {
 public:
 	void rva00274401();
+	void rva00278644();
 };
 
 extern "C" void _ReadWriteBarrier(void);
@@ -20,6 +21,7 @@ class RetObj
 {
 public:
 	virtual void slot0();
+	virtual void slot1();
 };
 
 class MidObj
@@ -74,6 +76,7 @@ class Object
 {
 public:
 	void rva0029004B();
+	void rva00290095();
 	unsigned char *flagEscape();
 
 private:
@@ -100,6 +103,26 @@ void Object::rva0029004B()
 		RetObj *r = e->m_midC.slot36();
 		if (r != 0)
 			r->slot0();
+	}
+}
+
+// ?rva00290095@Object@@QAEXXZ @0x00290095 (75B).
+// Object flag-and plus Drawable notify plus null-terminated array walk.
+// Evidence: sibling ?rva0029004B@Object (0x0029004B) same TU same flags same offsets; callee
+// 0x00278644 is rowed ?rva00278644@Drawable@@QAEXXZ; retail and 0x9a flag 0xef, gate +0x435, array +0x244.
+void Object::rva00290095()
+{
+	m_flags9A &= (unsigned char)~0x10;
+	_ReadWriteBarrier();
+	if (m_drawable84 != 0)
+		m_drawable84->rva00278644();
+	if (!m_flag435)
+		return;
+	for (Elem0029004B **p = m_arr244; *p != 0; ++p) {
+		Elem0029004B *e = *p;
+		RetObj *r = e->m_midC.slot36();
+		if (r != 0)
+			r->slot1();
 	}
 }
 
