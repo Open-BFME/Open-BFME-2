@@ -64155,3 +64155,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva000A9DF8FireA@@YAXPAVRva000A9DF8ObjA@@H@Z,,0x000A9DF8,18,Code/GameEngine/Source/Common/Rva000A9DF8Fire.cpp,matched,null-guarded single-arg method forwarder; identity unresolved
 ?Rva000A9DF8FireB@@YAXPAVRva000A9DF8ObjB@@H@Z,,0x000A9E0A,18,Code/GameEngine/Source/Common/Rva000A9DF8Fire.cpp,matched,null-guarded single-arg method forwarder; identity unresolved
 ?Rva000A9DF8FireC@@YAXPAVRva000A9DF8ObjC@@H@Z,,0x004D9ACE,18,Code/GameEngine/Source/Common/Rva000A9DF8Fire.cpp,matched,null-guarded single-arg method forwarder; identity unresolved
+?rva0051AF46@AptQuitMenu@@QAEXHPAD_N@Z,,0x0051AF46,115,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptQuitMenuCallbacks.cpp,matched,

@@ -7,6 +7,8 @@
 
 #include "unicode_string.h"
 
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
+
 void __cdecl Rva00434160Init(int a, int b, bool c);
 void __cdecl Rva00511730(int value);
 void __cdecl Rva0051AF0BEnable(int value);
@@ -93,6 +95,10 @@ public:
 	// Bound under the button clip "QuitMenu/Restart/TheButton" (0x0051BD98)
 	// rather than a method name, so it keeps its address.
 	void rva0051B50E(const char *unused);
+	// Retail 0x0051AF46, 115 bytes: Apt query answering the quit-menu
+	// restart-button label: count "1" for query 0, and for query 1 the
+	// Restart/Forfeit/Surrender word matching rva0051B50E's tooltip pick.
+	void rva0051AF46(int query, char *value, bool set);
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -160,6 +166,41 @@ void AptQuitMenu::LoadMenu(const char *unused)
 	else
 		kind = (logic->m_110 == 2) + 1;
 	Rva00434160Init(2, kind, true);
+}
+
+// Retail 0x0051AF46, 115 bytes: Apt query answering the quit-menu
+// restart-button label: count "1" for query 0, and for query 1 the
+// Restart/Forfeit/Surrender word matching rva0051B50E's tooltip pick.
+void AptQuitMenu::rva0051AF46(int query, char *value, bool set)
+{
+	if (!set)
+	{
+		value[0] = '0';
+		value[1] = 0;
+	}
+	switch (query)
+	{
+	case 0:
+		if (set)
+			return;
+		value[0] = '1';
+		return;
+	case 1:
+		break;
+	default:
+		return;
+	}
+	if (set)
+		return;
+	const char *label;
+	GameLogic *logic = TheGameLogic;
+	if (logic == 0 || logic->m_114 == 3)
+		label = "Restart";
+	else if (g_009FEF10 != 0 && g_009FEF10->isSelectionLocked())
+		label = "Surrender";
+	else
+		label = "Forfeit";
+	strcpy(value, label);
 }
 
 // Retail 0x0051B50E, 167 bytes. Name unknown. Shows the restart button's
