@@ -56438,3 +56438,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva004051BC@Rva004051BC@@QAEXHPBUCoord3D@@@Z,,0x004051BC,156,Code/GameEngine/Source/Common/Rva004051BC.cpp,matched,unlock via PlayerList PartitionManager ExperienceTracker pin
 ?rva004D4F7A@Transport@@QBEMXZ,,0x004D4F7A,68,Code/GameEngine/Source/GameNetwork/TransportRva004D5046.cpp,matched,transport stats0 average skipping 40E6C sibling 004D5046
 ?Rva00591036Get@@YAHPAVCDDrive@@@Z,,0x00591036,44,Code/GameEngine/Source/GameNetwork/Rva00591036Get.cpp,matched,CDDrive getPath row 0x002D9BA6 plus releaseBuffer 0x00036410 caller 0x00592A15
+?Rva003BA96F@@YGXMMMMM@Z,,0x003BA96F,64,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BA96F.cpp,matched,ret 20 five float args null-guarded AudioManager slot 0xf4
