@@ -10,6 +10,7 @@ template <class T> class StringBase
 {
     void *m_data;
     StringBase(const StringBase<T> &);
+    void releaseBuffer();
     friend class AsciiString;
 };
 class AsciiString
@@ -19,7 +20,7 @@ public:
     {
         ((StringBase<char> *)this)->StringBase<char>::StringBase(*(const StringBase<char> *)&that);
     }
-    ~AsciiString();
+    ~AsciiString() { ((StringBase<char> *)this)->releaseBuffer(); }
 private:
     void *m_data;
 };
