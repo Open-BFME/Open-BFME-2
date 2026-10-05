@@ -62,6 +62,7 @@ public:
     AptRegister *c_register() const;
     bool isExtern() const;
     AptCIH *c_cih(bool=false) const;
+    unsigned int getRefCount() const;
     bool isCIH(bool=false) const;
     bool isObject() const;
     AptString *c_string() const;
@@ -156,6 +157,7 @@ public:
         }
     }
     __forceinline int GetSize() const { return count; }
+    AptValue *rva006FE580(int);
     int count,capacity;
     AptValue **items;
 };
@@ -200,8 +202,13 @@ private:
 public:
     void loadVariables(AptValue *,AptValue *,const EAStringC *);
     static void getName(AptCIH *,EAStringC &);
+private:
+    struct FunctionTable { int mCheckAlignment; void (__cdecl *mFunctionPointer)(AptActionInterpreter *const,LocalContextT *const); };
+    static FunctionTable sGlobalTable[185];
+public:
     AptBasePtrStack stack;
-    unsigned char m_otherStacksAndDebugData[0x30-12];
+    unsigned char m_otherStacksAndDebugData[0x24-12];
+    struct { int count,capacity; AptValue **items; } thisStack;
     AptScriptFunctionBase *mpCurrentFunction;
     AptCallDebugStack debugCallStack;
     AptConstantPool constantPool;
@@ -263,6 +270,29 @@ private:
     HANDLER(Throw);
     HANDLER(Extends);
     HANDLER(GetUrl2); HANDLER(GetUrl); HANDLER(Try);
+public:
+    static void _FunctionAptActionBitAnd(AptActionInterpreter *const);
+private:
+public:
+    static void _FunctionAptActionBitOr(AptActionInterpreter *const);
+private:
+public:
+    static void _FunctionAptActionBitXor(AptActionInterpreter *const);
+private:
+public:
+    static void _FunctionAptActionBitLShift(AptActionInterpreter *const);
+private:
+public:
+    static void _FunctionAptActionBitRShift(AptActionInterpreter *const);
+private:
+public:
+    static void _FunctionAptActionRandom(AptActionInterpreter *const);
+private:
+    HANDLER(DefineFunction);
+    HANDLER(DefineFunction2);
+    HANDLER(DefineLocal);
+    HANDLER(DefineLocal2);
+    HANDLER(ImplementsOp);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -2178,7 +2208,7 @@ class Rva8D0D80Result { public: void rva006FBED0(); };
 class AptFrameStack;
 extern AptFrameStack *g_bfmeFrameStackAtE1835C;
 // Target 706070..706234; donor supplies semantics; native proves +30 function,
-// +8 frame hash and this 20-byte action header. runStream 7002C0 remains unrowed.
+// +8 frame hash and this 20-byte action header. runStream 7002C0 has a verified provider below.
 struct RuntimeTryBlock { unsigned int trySize,catchSize,finallySize; unsigned char flags; unsigned char unused[2]; unsigned char caughtReg; const char *caughtName; };
 void AptActionInterpreter::_FunctionAptActionTry(AptActionInterpreter *const p,LocalContextT *const c)
 {
@@ -2343,3 +2373,242 @@ const char *AptActionInterpreter::urlDecode(const char *url,EAStringC &key,EAStr
 }
 
 #pragma comment(linker, "/alternatename:?Append@EAStringC@@QAEAAV1@QBDI@Z=?bfmeAppendVKG@BfmeBufVKG@@QAEPAV1@PBDI@Z")
+
+#define RUNTIME_ASSERT(e,line,text) do { if(!(e)) { g_bfmeAptAssertAtE17734(text,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",line);if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 } } } while(0)
+const unsigned char *AptActionInterpreter::runStream(const unsigned char *stream,AptCIH *current,int maximum,AptCharacterInst *parent)
+{
+    if(maximum==-1) {
+        if(thisStack.count>=thisStack.capacity) {
+            g_bfmeAptAssertAtE17734("m_nElements < m_nSize","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h",0x76);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        thisStack.items[thisStack.count++]=(AptValue *)current;((AptValue *)current)->AddRef();
+    }
+    LocalContextT context;
+    context.pCurrentContext=current;context.pCurWith=0;context.pInstruction=stream;context.pRemoveWithAt=0;
+    context.pSuper=getVariable((AptValue *)current,0,Rva0070B4F0GetString(0xA0));
+    context.bEncounteredReturn=false;context.pParentCharacter=parent;
+    int previous=mnStackFrameBase;mnStackFrameBase=stack.GetSize();int before=mnStackFrameBase;
+    while(!mpThrownValue) {
+        RUNTIME_ASSERT(!context.pRemoveWithAt || context.pInstruction <= context.pRemoveWithAt,0xB43,"!context.pRemoveWithAt || context.pInstruction <= context.pRemoveWithAt");
+        if(context.pRemoveWithAt && context.pInstruction==context.pRemoveWithAt) { context.pCurWith->Release();context.pCurWith=0;context.pRemoveWithAt=0; }
+        int action=*context.pInstruction++;
+        if(context.bEncounteredReturn) break;
+        if(maximum>=0 && context.pInstruction-stream>maximum) { stack.Push(gpUndefinedValue);break; }
+        else if(!action) { if(maximum>=0) stack.Push(gpUndefinedValue);break; }
+        RUNTIME_ASSERT(current == 0 || ((AptValue *)current)->getRefCount() > 0,0xB64,"pCurrentContext == NULL || pCurrentContext->getRefCount() > 0");
+        RUNTIME_ASSERT(sGlobalTable[action].mCheckAlignment == action,0xB67,"sGlobalTable[eAction].mCheckAlignment == eAction");
+        sGlobalTable[action].mFunctionPointer(this,&context);
+        int after=stack.GetSize();RUNTIME_ASSERT(after >= before,0xB6F,"nStackSizeCurrent >= nStackSizePre");
+    }
+    int after=stack.GetSize();
+    if(maximum>=0 && after>mnStackFrameBase) stack.rva006E3AA0(after-mnStackFrameBase-1);
+    else if(after>mnStackFrameBase) stack.rva006E3AA0(after-mnStackFrameBase);
+    mnStackFrameBase=previous;
+    if(maximum==-1) {
+        if(thisStack.count<=0) {
+            g_bfmeAptAssertAtE17734("size() > 0","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h",0x7D);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        thisStack.items[thisStack.count-1]->Release();--thisStack.count;
+    }
+    int size=stack.GetSize();bool release=false;
+    if(!size) release=true;else if(size==1 && stack.rva006FE580(0)==gpUndefinedValue) release=true;
+    if(release && g_releaseVectorAtE17710->GetNumValues()!=0) g_releaseVectorAtE17710->ReleaseValues();
+    return context.pInstruction;
+}
+
+class Rva00700170; struct Rva00702B40Payload;
+void rva00702b40(Rva00700170 *,const Rva00702B40Payload *);
+void DX8_Assert();
+// sGlobalTable name is independently present in original Godfather Jan26 MAP.
+// All185 opcode/pointer records independently read at native RVA9DC980.
+// Unused entries preserve the native -1/null pair; folded providers retain existing names.
+AptActionInterpreter::FunctionTable AptActionInterpreter::sGlobalTable[185] = {
+    {0,&_FunctionAptActionEnd},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {4,&_FunctionAptActionNextFrame},
+    {5,&_FunctionAptActionPrevFrame},
+    {6,&_FunctionAptActionPlay},
+    {7,&_FunctionAptActionStop},
+    {8,&_FunctionAptActionToggleQuality},
+    {9,(void (__cdecl *)(AptActionInterpreter *const,LocalContextT *const))&DX8_Assert},
+    {10,&_FunctionAptActionAdd},
+    {11,&_FunctionAptActionSubtract},
+    {12,&_FunctionAptActionMultiply},
+    {13,&_FunctionAptActionDivide},
+    {14,&_FunctionAptActionEquals},
+    {15,&_FunctionAptActionLessThan},
+    {16,&_FunctionAptActionAnd},
+    {17,&_FunctionAptActionOr},
+    {18,&_FunctionAptActionNot},
+    {19,&_FunctionAptActionStringEquals},
+    {20,&_FunctionAptActionStringLength},
+    {21,&_FunctionAptActionSubString},
+    {-1,0},
+    {23,&_FunctionAptActionPop},
+    {24,&_FunctionAptActionToInteger},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {28,&_FunctionAptActionGetVariable},
+    {29,&_FunctionAptActionSetVariable},
+    {-1,0},
+    {-1,0},
+    {32,&_FunctionAptActionSetTarget2},
+    {33,&_FunctionAptActionStringAdd},
+    {34,&_FunctionAptActionGetProperty},
+    {35,&_FunctionAptActionSetProperty},
+    {36,&_FunctionAptActionCloneSprite},
+    {37,&_FunctionAptActionRemoveSprite},
+    {38,&_FunctionAptActionTrace},
+    {39,&_FunctionAptActionStartDragMovie},
+    {40,&_FunctionAptActionStopDragMovie},
+    {41,&_FunctionAptActionStringLessThan},
+    {42,&_FunctionAptActionThrow},
+    {43,&_FunctionAptActionCastOp},
+    {44,&_FunctionAptActionImplementsOp},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {48,(void (__cdecl *)(AptActionInterpreter *const,LocalContextT *const))&_FunctionAptActionRandom},
+    {49,&_FunctionAptActionMBLength},
+    {50,&_FunctionAptActionCharToAscii},
+    {51,&_FunctionAptActionAsciiToChar},
+    {52,&_FunctionAptActionGetTimer},
+    {53,&_FunctionAptActionMBSubString},
+    {54,&_FunctionAptActionMBCharToAscii},
+    {55,&_FunctionAptActionMBAsciiToChar},
+    {-1,0},
+    {-1,0},
+    {58,&_FunctionAptActionDelete},
+    {59,&_FunctionAptActionDelete2},
+    {60,&_FunctionAptActionDefineLocal},
+    {61,&_FunctionAptActionCallFunction},
+    {62,&_FunctionAptActionReturn},
+    {63,&_FunctionAptActionModulo},
+    {64,&_FunctionAptActionNewObject},
+    {65,&_FunctionAptActionDefineLocal2},
+    {66,&_FunctionAptActionInitArray},
+    {67,&_FunctionAptActionInitObject},
+    {68,&_FunctionAptActionTypeOf},
+    {69,&_FunctionAptActionTargetPath},
+    {70,(void (__cdecl *)(AptActionInterpreter *const,LocalContextT *const))&rva00702b40},
+    {71,&_FunctionAptActionAdd2},
+    {72,&_FunctionAptActionLessThan2},
+    {73,&_FunctionAptActionEquals2},
+    {74,&_FunctionAptActionToNumber},
+    {75,&_FunctionAptActionToString},
+    {76,&_FunctionAptActionPushDuplicate},
+    {77,&_FunctionAptActionStackSwap},
+    {78,&_FunctionAptActionGetMember},
+    {79,&_FunctionAptActionSetMember},
+    {80,&_FunctionAptActionIncrement},
+    {81,&_FunctionAptActionDecrement},
+    {82,&_FunctionAptActionCallMethod},
+    {83,&_FunctionAptActionNewMethod},
+    {84,&_FunctionAptActionInstanceOf},
+    {85,(void (__cdecl *)(AptActionInterpreter *const,LocalContextT *const))&rva00702b40},
+    {86,&_FunctionAptActionPushThis},
+    {-1,0},
+    {88,&_FunctionAptActionPushGlobal},
+    {89,&_FunctionAptActionPush0},
+    {90,&_FunctionAptActionPush1},
+    {91,&_FunctionAptActionCallFuncAndPop},
+    {92,&_FunctionAptActionCallFuncSetVar},
+    {93,&_FunctionAptActionCallMethodPop},
+    {94,&_FunctionAptActionCallMethodSetVar},
+    {-1,0},
+    {96,(void (__cdecl *)(AptActionInterpreter *const,LocalContextT *const))&_FunctionAptActionBitAnd},
+    {97,(void (__cdecl *)(AptActionInterpreter *const,LocalContextT *const))&_FunctionAptActionBitOr},
+    {98,(void (__cdecl *)(AptActionInterpreter *const,LocalContextT *const))&_FunctionAptActionBitXor},
+    {99,(void (__cdecl *)(AptActionInterpreter *const,LocalContextT *const))&_FunctionAptActionBitLShift},
+    {100,(void (__cdecl *)(AptActionInterpreter *const,LocalContextT *const))&_FunctionAptActionBitRShift},
+    {101,&_FunctionAptActionBitURShift},
+    {102,&_FunctionAptActionStrictEquals},
+    {103,&_FunctionAptActionGreater},
+    {-1,0},
+    {105,&_FunctionAptActionExtends},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {112,&_FunctionAptActionPushThisVariable},
+    {113,&_FunctionAptActionPushGlobalVariable},
+    {114,&_FunctionAptActionPushZeroSetVar},
+    {115,&_FunctionAptActionPushTrue},
+    {116,&_FunctionAptActionPushFalse},
+    {117,&_FunctionAptActionPushUndefined},
+    {118,&_FunctionAptActionPushUndefined},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {129,&_FunctionAptActionGotoFrame},
+    {-1,0},
+    {131,&_FunctionAptActionGetUrl},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {135,&_FunctionAptActionStoreRegister},
+    {136,&_FunctionAptActionDefineDictionary},
+    {-1,0},
+    {138,(void (__cdecl *)(AptActionInterpreter *const,LocalContextT *const))&DX8_Assert},
+    {139,&_FunctionAptActionSetTarget},
+    {140,&_FunctionAptActionGotoLabel},
+    {-1,0},
+    {142,&_FunctionAptActionDefineFunction2},
+    {143,&_FunctionAptActionTry},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {148,&_FunctionAptActionWith},
+    {-1,0},
+    {150,&_FunctionAptActionPush},
+    {-1,0},
+    {-1,0},
+    {153,&_FunctionAptActionBranchAlways},
+    {154,&_FunctionAptActionGetUrl2},
+    {155,&_FunctionAptActionDefineFunction},
+    {-1,0},
+    {157,&_FunctionAptActionBranchIfTrue},
+    {158,&_FunctionAptActionCallFrame},
+    {159,&_FunctionAptActionGotoFrame2},
+    {-1,0},
+    {161,&_FunctionAptActionPushString},
+    {162,&_FunctionAptActionPushStringDictByte},
+    {163,&_FunctionAptActionPushStringDictWord},
+    {164,&_FunctionAptActionPushStringGetVar},
+    {165,&_FunctionAptActionPushStringGetMember},
+    {166,&_FunctionAptActionPushStringSetVar},
+    {167,&_FunctionAptActionPushStringSetMember},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {-1,0},
+    {174,&_FunctionAptActionStringDictByteGetVar},
+    {175,&_FunctionAptActionStringDictByteGetMember},
+    {176,&_FunctionAptActionDictCallFuncPop},
+    {177,&_FunctionAptActionDictCallFuncSetVar},
+    {178,&_FunctionAptActionDictCallMethodPop},
+    {179,&_FunctionAptActionDictCallMethodSetVar},
+    {180,&_FunctionAptActionPushFloat},
+    {181,&_FunctionAptActionPushByte},
+    {182,&_FunctionAptActionPushWord},
+    {183,&_FunctionAptActionPushDWord},
+    {184,&_FunctionAptActionBranchIfFalse},
+};
+#pragma comment(linker, "/alternatename:?rva006FE580@AptBasePtrStack@@QAEPAVAptValue@@H@Z=?At@AptBasePtrStack@@QAEPAVBfmeAptValue006DCD20@@H@Z")
