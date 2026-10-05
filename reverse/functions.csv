@@ -63811,3 +63811,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005AE7A5@Rva005AE7A5Class@@QAEHH@Z,,0x005AE7A5,33,Code/GameEngine/Source/Common/Rva005AE78AChain.cpp,matched,thiscall member returning callee result unless it equals m_4
 ?rva005A5BAF@Rva005A5BAFClass@@QAEXXZ,,0x005A5BAF,24,Code/GameEngine/Source/Common/Rva005A5BAFCheck.cpp,matched,flag check clearing m_4A0 and calling pinned stdcall callee with 1
 ?rva005AFC21@Rva005AFC21Class@@QAEXPAVGameWindow@@@Z,,0x005AFC21,43,Code/GameEngine/Source/Common/Rva005AFC21Store.cpp,matched,window store with null early-out then list-length and pinned callee calls
+?rva005B0416@@YGXH@Z,,0x005B0416,48,Code/GameEngine/Source/Common/Rva005B0416Calls.cpp,matched,global stdcall threading one arg through three cdecl callees with batched cleanup
+?rva005B129F@Rva005B129FClass@@QAEHHH@Z,,0x005B129F,38,Code/GameEngine/Source/Common/Rva005B129FForward.cpp,matched,thiscall member forwarding to pinned callee and storing result

@@ -13123,3 +13123,7 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva005A57BA@@YGXH@Z,0x005A57BA,stdcall 1-arg callee of 0x5A5BAF (caller pushes 1 and returns; no cleanup); SEH function body; signature unproven
 ?rva005AE6F8@@YAHHHHPAD@Z,0x005AE6F8,cdecl 4-arg int-returning callee of 0x5AE78A (caller adds esp 16; result passes through); arg types guessed (3 int + char buffer); boundary has normal ebp prologue
 ?rva00381618@@YAXPAVGameWindow@@H@Z,0x00381618,cdecl 2-arg callee of 0x5AFC21 (batched caller cleanup; pushes m_C then m_4); SEH function body; signature unproven
+?rva00406ED7g@@YGHH@Z,0x00406ED7,global stdcall-1 call-spelling alias for the rowed member (caller sets no ecx and does NOT clean it: batched add covers only 7 pushes, so the callee cleans its own arg); same address as row
+?rva005B24CDg@@YAXHHH@Z,0x005B24CD,global cdecl-3 call-spelling alias for the rowed (void*,char*,int) member (caller pushes 3 ints); same address as row
+?rva005B2295@@YAXHHHH@Z,0x005B2295,cdecl 4-arg callee of 0x5B0416 (args r imm a -1 from push order); unrowed chunk start in own lane; signature unproven
+?rva005B09D8_i@@YAHHHHPAD@Z,0x005B09D8,cdecl 4-arg int-returning call-spelling alias for the pinned cursor helper (caller passes a2 m_4 a1 and (char*)&a1+3); same address as existing pin
