@@ -1,5 +1,6 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
 // ?top@Shell@@QAEPAVWindowLayout@@XZ @ 0x0035BD7E (13B). Donor ZH GeneralsMD Shell.h top plus BFME1 Shell.cpp top; caller Shell push @0x0035C74A calls top then hidden check then runShutdown slot 3; prev Rva0035BD7BGet next GadgetTextEntryValidateCharacter.
+class AsciiString;
 class WindowLayout
 {
 public:
@@ -13,6 +14,7 @@ public:
 	virtual void s07() = 0;
 	virtual void destroyWindows() = 0;
 	bool isHidden() { return m_hidden; }
+	AsciiString getFilename();
 private:
 	char _pad14[0x10];
 	bool m_hidden;
@@ -142,6 +144,7 @@ public:
 	AsciiString(const AsciiString &other) : StringBase<char>(other) {}
 	~AsciiString() {}
 	bool isEmpty() const { return m_data == 0 || m_data->length == 0; }
+	int compareNoCase(const AsciiString &s) const throw();
 	AsciiString &operator=(const AsciiString &other) { set(other); return *this; }
 };
 
@@ -213,6 +216,7 @@ protected:
 public:
 	virtual ~Shell();
 	WindowLayout *top();
+	WindowLayout *findScreenByFilename(AsciiString filename);
 	void registerWithAnimateManager(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int delayMS);
 	void rva0035BE8F();
 	void loadScheme(AsciiString name);
@@ -235,6 +239,35 @@ WindowLayout *Shell::top()
 		return 0;
 	return m_screenStack[m_screenCount - 1];
 }
+
+// ?findScreenByFilename@Shell@@QAEPAVWindowLayout@@VAsciiString@@@Z @ 0x0035C6B4
+// (150B). Zero Hour's body: walk all sixteen stack slots from +0x0C and return
+// the first screen whose filename (WindowLayout::getFilename, a by-value
+// AsciiString getter folded at 0x00564DF2) compares equal ignoring case
+// (AsciiString::compareNoCase 0x00006A00). No direct reference in retail.
+// Retail keeps no unwind state across the compareNoCase call while the
+// getFilename temporary is live, so the view declares that leaf throw().
+WindowLayout *Shell::findScreenByFilename(AsciiString filename)
+{
+
+	if (filename.isEmpty())
+		return 0;
+
+	// search screen list
+	WindowLayout *screen;
+	int i;
+	for( i = 0; i < 16; i++ )
+	{
+
+		screen = m_screenStack[ i ];
+		if( screen && filename.compareNoCase(screen->getFilename()) == 0 )
+			return screen;
+
+	}  // end for i
+
+	return 0;
+
+}  // end findScreenByFilename
 
 // ?linkScreen@Shell@@IAEXPAVWindowLayout@@@Z @ 0x0035BD8B (26B). Donor BFME1 Shell.cpp linkScreen plus ZH Shell.h protected linkScreen; callee of Shell doPush path; prev top next unlink.
 void Shell::linkScreen(WindowLayout *screen)
