@@ -36,6 +36,7 @@ struct TextureSlot
 	TextureClass *m_ptr;
 };
 
+#pragma optimize("s", on)
 class RefCountClass
 {
 public:
@@ -49,6 +50,7 @@ protected:
 private:
 	int m_refs;
 };
+#pragma optimize("", on)
 
 template <class T>
 class ShareBufferClass : public RefCountClass
