@@ -1,7 +1,5 @@
 // ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z
-// partial score=0.985 date=2026-10-05
-// ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z
-
+// partial score=0.99 date=2026-10-05
 // cl: /O2 /DNDEBUG /MD /EHsc
 // ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z, retail 0x006D5160 (306B).
 // Free PBD-plus-string concat returning by value: empty string builds via PBD
@@ -56,12 +54,20 @@ EAStringC Rva006D5160Plus(const char *text, const EAStringC &str)
 	if (len == 0) {
 		return EAStringC(str);
 	}
-	EAStringC tmp(oldSize + len);
-	char *dst = (char *)tmp.m_pData + 8;
-	memcpy(dst, text, len);
-	memcpy(dst + len, (char *)str.m_pData + 8, oldSize);
-	dst[oldSize + len] = 0;
-	tmp.SetSize((int)(oldSize + len));
-	tmp.m_pData->m_uHash = 0;
+	unsigned int total = oldSize + len;
+	EAStringC tmp(total);
+	// Retail holds the temp's data pointer in edi across the copy ctor, so the
+	// hash store comes off the live register with no reload; naming it inside a
+	// scope that spans SetSize is what makes this compiler keep it there. The
+	// hash store itself reads tmp again, which is the register this shape buys.
+	{
+		EAStringC::StringDataC *const data = tmp.m_pData;
+		char *dst = (char *)data + 8;
+		memcpy(dst, text, len);
+		memcpy(dst + len, (char *)str.m_pData + 8, oldSize);
+		dst[total] = 0;
+		tmp.SetSize((int)total);
+		tmp.m_pData->m_uHash = 0;
+	}
 	return tmp;
 }
