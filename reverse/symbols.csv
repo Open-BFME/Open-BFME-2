@@ -12880,3 +12880,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva00396A5C@Rva00396A5C@@QAEHPAVPlayer@@@Z,0x00396A5C,address read from the retail REL32 at 0x00396B1E in rva00396B0D 0x00396B0D; 177B AsciiString/NameKey map-find body, recovery blocked on StringBase/map models
 ?rva003970E7@Rva0039718B@@QAEHPAVPlayer@@@Z,0x003970E7,address read from the retail REL32 at 0x003971B0 in rva0039718B 0x0039718B; 164B free Ghidra body on the same host (ecx=this), returns dword compared with Player+0x94
 ?rva00796023@@YAHPAVObject@@PAX@Z,0x00796023,iterate callback pushed at retail 0x003960FF in rva003960BD 0x003960BD for Player::iterateObjects over the Rva0036BDD0 box; identity unproven
+?rva00397756@Rva00397756@@QAEXPAUIdRange@@H@Z,0x00397756,GameLogic-outer method (ecx=this-0xc style callers) sweeping one IdRange; free 59B body banked as partial (56/59 scheduler delta); called 4x from rva00397791 0x00397791
