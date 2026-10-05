@@ -317,7 +317,6 @@ UnicodeString AptSkirmish::rva00522697()
 
 // Retail 0x005229D3, 190 bytes: "AptSkirmish::OnChangeProfile" makes the
 // selected profile the current user when it is another one.
-// ?OnChangeProfile@AptSkirmish@@QAEXPBD@Z present-unmatched
 void AptSkirmish::OnChangeProfile(const char *unused)
 {
 	UnicodeString name = rva00522697();
