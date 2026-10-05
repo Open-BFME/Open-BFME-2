@@ -60777,3 +60777,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva0056FA50@Rva0056FA50@@QBE_NABV1@@Z,,0x0056FA50,34,Code/GameEngine/Source/Common/S5HandleHashCompares.cpp,matched,unlock contiguous after 0x0056FA2E same 34B hash-compare reads other then this to rowed Hook tests AA37ACC2
 ?rva0056FA72@Rva0056FA72@@QBE_NABV1@@Z,,0x0056FA72,34,Code/GameEngine/Source/Common/S5HandleHashCompares.cpp,matched,unlock contiguous after 0x0056FA50 same 34B hash-compare reads other then this to rowed Hook tests AA37ACC2
 ?rva0056FD46@Rva0056FAA5@@QAEXF@Z,,0x0056FD46,24,Code/GameEngine/Source/Common/Rva0056FAA5Assign.cpp,matched,unlock movsx word arg twice to rowed Hook stores to plus4 esi this
+?rva0056FD14@Rva0056FAA5@@QAEXH@Z,,0x0056FD14,25,Code/GameEngine/Source/Common/Rva0056FAA5Assign.cpp,matched,unlock dword arg pushed twice to rowed Hook stores to plus4 esi this
