@@ -12912,3 +12912,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?method_005C8DBF@TargetObj005C8DBF@@QAEXM@Z,0x005C8DBF,TargetObj005C8DBF float method called by HostClass005C8E0A::method_005C8E0A
 ?method_005C902A@TargetObj005C8DBF@@QAEXM@Z,0x005C902A,TargetObj005C8DBF float method called by HostClass005C8E0A::method_005C9069
 ?rva0006F94A@RTS3DScene@@QAEPAVW3DDynamicLight@@XZ,0x0006F94A,address-derived scene-pool light allocator reached from 0x4423C createLightPulse; body unrecovered so the name is a candidate not an identity
+?erase@Rva00082XXHintVec@@QAEPAUTreeHintRef00217D4C@@PAU2@0@Z,0x000819EC,address-view alias for rowed vector TreeHintRef00217D4C range erase at same address
