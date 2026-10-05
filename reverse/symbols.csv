@@ -12427,3 +12427,5 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?c_cih@AptValue@@QAEPAVAptCIH@@_N@Z,0x006DCF60,alias of rowed checked CIH cast; native Play Stop REL32 and original donor API; alternatename bound to provider
 ?IsLevelInst@AptCIH@@QBE_NXZ,0x006E03A0,alias of rowed type19 predicate; native Play Stop REL32 and donor IsLevelInst; alternatename bound to provider
 ?GetSpriteInstBase@AptCIH@@QBEPAUAptSpriteInstBase@@XZ,0x006CFF40,alias of rowed AptCIH accessor; native Play Stop REL32; accessor assert proves sprite base; alternatename bound to provider
+?IsSpriteInstBase@AptCIH@@QBE_NXZ,0x006CFCD0,alias of rowed sprite predicate; native Next Prev REL32 and accessor assertion; alternatename provider
+?jumpToFrame@AptCIH@@QAEXH@Z,0x006E2C10,Next Prev opcode handlers call thiscall int RET4; native frame18 bounds and fast path then temporary display merge and queueFrameActions match donor jumpToFrame; helper unrowed

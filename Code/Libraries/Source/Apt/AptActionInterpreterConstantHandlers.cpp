@@ -159,7 +159,7 @@ struct AptActionInterpreter
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
 private:
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
-    HANDLER(Play); HANDLER(Stop);
+    HANDLER(Play); HANDLER(Stop); HANDLER(NextFrame); HANDLER(PrevFrame);
     HANDLER(PushFloat); HANDLER(PushByte); HANDLER(PushWord); HANDLER(PushDWord);
     HANDLER(Return); HANDLER(DefineDictionary); HANDLER(PushStringDictByte); HANDLER(PushStringDictWord);
     HANDLER(PushThis); HANDLER(PushGlobal); HANDLER(Push0); HANDLER(Push1);
@@ -1148,6 +1148,15 @@ public:
     void *mpCharacterInst;
     bool IsLevelInst() const;
     AptSpriteInstBase *GetSpriteInstBase() const;
+    bool IsSpriteInstBase() const;
+    void jumpToFrame(int);
+    __forceinline AptSpriteInstBase *SpriteBaseInline() const {
+        if (!IsSpriteInstBase()) {
+            g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        return (AptSpriteInstBase *)mpCharacterInst;
+    }
     __forceinline void SetIsPlaying(bool play) {
         GetSpriteInstBase()->mbIsPlaying=play ? 1 : 0;
     }
@@ -1169,3 +1178,17 @@ void AptActionInterpreter::_FunctionAptActionStop(AptActionInterpreter *const p,
 #pragma comment(linker, "/alternatename:?c_cih@AptValue@@QAEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
 #pragma comment(linker, "/alternatename:?IsLevelInst@AptCIH@@QBE_NXZ=?rva006E03A0@BfmeAptValue006DCD20@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?GetSpriteInstBase@AptCIH@@QBEPAUAptSpriteInstBase@@XZ=?rva006CFF40@AptCIH@@QBEPAXXZ")
+
+void AptActionInterpreter::_FunctionAptActionNextFrame(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptCIH *cih=c->pCurrentContext->c_cih();
+    cih->jumpToFrame(cih->SpriteBaseInline()->mnFrame+1);
+    cih->SpriteBaseInline()->mbIsPlaying=0;
+}
+void AptActionInterpreter::_FunctionAptActionPrevFrame(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    AptCIH *cih=c->pCurrentContext->c_cih();
+    cih->jumpToFrame(cih->SpriteBaseInline()->mnFrame-1);
+    cih->SpriteBaseInline()->mbIsPlaying=0;
+}
+#pragma comment(linker, "/alternatename:?IsSpriteInstBase@AptCIH@@QBE_NXZ=?isSpriteInstBase@Rva006CFCD0@@QBE_NXZ")
