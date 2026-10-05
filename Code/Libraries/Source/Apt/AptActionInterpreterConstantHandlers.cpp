@@ -21,6 +21,7 @@ class AptInteger { public: static AptValue *Create(int); };
 class AptBoolean { public: static AptValue *Create(bool); };
 AptValue *Rva008A4EA0MakeFloat(float);
 EAStringC *Rva0070B4F0GetString(int);
+extern EAStringC g_eaStringAtE177D4;
 extern AptValue *gpUndefinedValue;
 extern AptValue *gpGlobalGlobalObject;
 struct AptConstantPool { int nItems; AptValue **apItems; };
@@ -48,7 +49,8 @@ private:
     HANDLER(PushTrue); HANDLER(PushFalse); HANDLER(PushUndefined);
     HANDLER(PushThisVariable); HANDLER(PushGlobalVariable); HANDLER(PushZeroSetVar);
     HANDLER(PushString); HANDLER(StringDictByteGetVar); HANDLER(StringDictByteGetMember);
-    HANDLER(SetVariable); HANDLER(GetMember);
+    HANDLER(SetVariable); HANDLER(GetMember); HANDLER(SetMember);
+    HANDLER(PushStringGetVar); HANDLER(PushStringGetMember); HANDLER(PushStringSetVar); HANDLER(PushStringSetMember);
 #undef HANDLER
 };
 void AptActionInterpreter::_FunctionAptActionPushFloat(AptActionInterpreter *const p, LocalContextT *const c)
@@ -169,3 +171,46 @@ void AptActionInterpreter::_FunctionAptActionStringDictByteGetMember(AptActionIn
 // checked-string provider. The global shares the existing four-byte storage.
 #pragma comment(linker, "/alternatename:?c_string@AptValue@@QBEPAVAptString@@XZ=?checkedString@BfmeAptValue006DCD20@@QAEPAV1@XZ")
 #pragma comment(linker, "/alternatename:?gpGlobalGlobalObject@@3PAVAptValue@@A=?g_00E18650@@3VEAStringC@@A")
+
+void AptActionInterpreter::_FunctionAptActionPushStringGetVar(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const char *const *data=(const char *const *)c->pInstruction;
+    c->pInstruction+=4;
+    g_eaStringAtE177D4=*data;
+    AptValue *v=p->getVariable((AptValue *)c->pCurrentContext,c->pCurWith,&g_eaStringAtE177D4,1);
+    p->stack.Push(v);
+}
+
+void AptActionInterpreter::_FunctionAptActionPushStringGetMember(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const char *const *data=(const char *const *)c->pInstruction;
+    c->pInstruction+=4;
+    AptString *s=AptString::Create();
+    s->str=*data;
+    p->stack.Push(s);
+    _FunctionAptActionGetMember(p,c);
+}
+
+void AptActionInterpreter::_FunctionAptActionPushStringSetVar(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const char *const *data=(const char *const *)c->pInstruction;
+    c->pInstruction+=4;
+    AptString *s=AptString::Create();
+    s->str=*data;
+    p->stack.Push(s);
+    _FunctionAptActionSetVariable(p,c);
+}
+
+void AptActionInterpreter::_FunctionAptActionPushStringSetMember(AptActionInterpreter *const p, LocalContextT *const c)
+{
+    c->pInstruction=(const unsigned char *)(((unsigned int)c->pInstruction+3)&~3U);
+    const char *const *data=(const char *const *)c->pInstruction;
+    c->pInstruction+=4;
+    AptString *s=AptString::Create();
+    s->str=*data;
+    p->stack.Push(s);
+    _FunctionAptActionSetMember(p,c);
+}

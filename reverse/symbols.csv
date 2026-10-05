@@ -12365,3 +12365,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?c_string@AptValue@@QBEPAVAptString@@XZ,0x006DCE50,Native7056D0 calls existing checkedString68B; both donor AptValue headers declare const c_string returning AptString; alias binds rowed provider
 ?_FunctionAptActionSetVariable@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x007019B0,Native opcode1D dispatch pointer and PushZeroSetVar705380 direct call; original PDB private static signature
 ?_FunctionAptActionGetMember@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x00703AE0,Native opcode4E dispatch pointer and StringDictByteGetMember705720 direct call; original PDB private static signature
+?_FunctionAptActionSetMember@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x00703CE0,Native opcode4F dispatch pointer and PushStringSetMember705640 direct call; original PDB private static signature
