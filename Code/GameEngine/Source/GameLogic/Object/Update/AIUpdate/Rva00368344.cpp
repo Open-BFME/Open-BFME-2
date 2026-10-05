@@ -15,6 +15,7 @@ class Rva00368344 {
 public:
 	void rva00368344(const Coord3D *pos, int flag);
 	void rva00368397(const Coord3D *pos, int flag);
+	void rva00368433(const Coord3D *pos, int flag);
 private:
 	char m_pad00[8];
 	Object *m_gate08; // +0x08
@@ -45,5 +46,17 @@ void Rva00368344::rva00368397(const Coord3D *pos, int flag)
 	((Rva00263910 *)this)->rva00265667(pos, flag);
 	((AIStateMachine *)this)->setGoalWaypoint((const Waypoint *)flag);
 	m_machine->s8(0x400);
+	m_done = 1;
+}
+void Rva00368344::rva00368433(const Coord3D *pos, int flag)
+{
+	if (pos == 0)
+		return;
+	if (!m_gate08->rva002907A1())
+		return;
+	m_machine->s5();
+	((Rva00263910 *)this)->rva00265667(pos, flag);
+	((AIStateMachine *)this)->setGoalWaypoint((const Waypoint *)flag);
+	m_machine->s8(0x3FD);
 	m_done = 1;
 }
