@@ -1,11 +1,8 @@
 // ?Rva003BAF1D@@YGXMMMM@Z
-// partial score=0.93 date=2026-10-05
+// partial score=0.96 date=2026-10-05
 // cl: /O1 /arch:SSE
 // ?Rva003BAF1D@@YGXMMMM@Z @0x003BAF1D 120B: free stdcall four floats normalizing deg-to-rad minus TacticalView slot 0x100 base then scaling to slot 0xcc.
 // Evidence: ret 16; mov ecx [TheTacticalView] call [eax+0x100]; fld [esp+4] fmul [RADS] fsub normalizeAngle row; fmul [g_00C1FE40]; movss+mulss scales plus cvtt int plus push 0; call [eax+0xcc]; caller 0x003CAEA3.
-extern float g_00BBE358;
-extern float g_00C1FE40;
-extern "C" float RADS_PER_DEGREE;
 float __cdecl normalizeAngle(float v);
 
 class TacticalView
@@ -83,7 +80,10 @@ extern TacticalView *TheTacticalView;
 void __stdcall Rva003BAF1D(float a0, float a1, float a2, float a3)
 {
 	float base = TheTacticalView->s64();
-	float n = normalizeAngle(a0 * RADS_PER_DEGREE - base);
-	float k = n * g_00C1FE40;
-	TheTacticalView->s51(k, (int)(a1 * g_00BBE358), 0, a2 * g_00BBE358, a3 * g_00BBE358);
+	float n = normalizeAngle(a0 * 0.017453292f - base);
+	float k = n * 1000.0f;
+	float f3 = a3 * 1000.0f;
+	float f2 = a2 * 1000.0f;
+	int i1 = (int)(a1 * 1000.0f);
+	TheTacticalView->s51(k, i1, 0, f2, f3);
 }

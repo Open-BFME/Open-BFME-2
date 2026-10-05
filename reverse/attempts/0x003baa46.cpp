@@ -1,5 +1,5 @@
 // ?Rva003BAA46@@YGXPAVParameter@@_NM@Z
-// partial score=0.9 date=2026-10-05
+// partial score=0.97 date=2026-10-05
 // cl: /O1
 // ?Rva003BAA46@@YGXPAVParameter@@_NM@Z @0x003BAA46 144B: free stdcall Parameter* bool float driving TacticalView slots via Object+0x74 Drawable field.
 // Evidence: ret 12 three args; push [esp+8] call ScriptEngine::getUnitNamed row je; push [esi+0x74] call [eax+0x184]; Thing::getDrawable row plus Rva0055A88BDwordField::get row; push eax call [edi+0x19c]; cmp byte [esp+0x10]; call [eax+0x188]; fld [esp+0x10] call [eax+0x190]; fldz push 0 call [eax+0x18c]; caller 0x003CAD35.
@@ -141,13 +141,13 @@ extern TacticalView *TheTacticalView;
 // ?Rva003BAA46@@YGXPAVParameter@@_NM@Z present-unmatched
 void __stdcall Rva003BAA46(Parameter *p, bool b, float f)
 {
+	Drawable *d;
 	Object *o = g_Va009FE16C->getUnitNamed(p);
 	if (!o)
 		return;
 	TheTacticalView->s97(o->m_74);
-	Drawable *d = ((Thing *)o)->getDrawable();
-	int v = ((Rva0055A88BDwordField *)d)->get();
-	TheTacticalView->s103(v);
+	d = ((Thing *)o)->getDrawable();
+	TheTacticalView->s103(((Rva0055A88BDwordField *)d)->get());
 	if (b)
 		TheTacticalView->s98();
 	TheTacticalView->s100(f);

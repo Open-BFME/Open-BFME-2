@@ -1,5 +1,3 @@
-// ?rva004A98D6@Rva004A98D6@@QAEHXZ
-// partial score=0.93 date=2026-10-05
 // cl: /O1 /MD
 // ?rva004A98D6@Rva004A98D6@@QAEHXZ @0x004A98D6 62B: thiscall predicate over two +0x4C0/+0x4C8 machines.
 // Evidence: leaf lane; caller 0x004A99E4 (mov ecx esi; test al al) proves thiscall bool no-arg; true only when both chained vals == 1.
@@ -25,12 +23,14 @@ public:
 	int rva004A98D6();
 };
 
-// ?rva004A98D6@Rva004A98D6@@QAEHXZ present-unmatched
 int Rva004A98D6::rva004A98D6()
 {
 	int v1 = m_p1->m_next ? m_p1->m_next->m_val : 999999;
-	int v2 = m_p2->m_next ? m_p2->m_next->m_val : 999999;
-	if (v1 == 1 && v2 == 1)
-		return 1;
+	if (v1 == 1) {
+		Mid1 *p2 = m_p2;
+		int v2 = p2->m_next ? p2->m_next->m_val : 999999;
+		if (v2 == 1)
+			return 1;
+	}
 	return 0;
 }
