@@ -56192,3 +56192,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??_GRva0057C04F@@QAEPAXI@Z,,0x0042D55B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0057C04F.cpp,matched,chain via rowed dtor 0x0057C04F plus delete
 ?rva0038BD70@Rva0038BDEEReceiver@@QAEXPAX@Z,,0x0038BD70,126,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038BD70Start.cpp,matched,same receiver as openstaging sibling with closedplaying and port format
 ?j_00036124@Glo012F1024Item@@QAEXXZ,,0x0056552C,176,Code/GameEngine/Source/Common/Glo012F1024ItemJ00036124.cpp,matched,BFME1 donor j_00036124 via bfmeEnter caller 0x005669A3 plus Outer at 0x9C plus rowed forwarders
+?rva00340E5E@Rva00340E5E@@QBEMXZ,,0x00340E5E,18,Code/GameEngine/Source/Common/Rva00340E5EFloat.cpp,matched,chain via rowed 0x002627E8 float getter prev 0x00340D70 next 0x00340E70 caller 0x0034E795

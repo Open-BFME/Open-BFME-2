@@ -8789,3 +8789,11 @@ $L62091	0x007AB0D0	25	blocked	Native FuncInfo VA D6490C state0 prior-1 owns acti
 ?rva00740AB4@Rva00740AB4@@QAE_NABVAsciiString@@PAVNotifyTarget@@H@Z	0x00740AB4	281	blocked	complex AsciiString EH set asset needs shared header work t=10 model=muse-05
 ?rva004D2164@Rva004D2164@@QAE_NGH@Z	0x004D2164	75	partial	prologue shrink-wrap early load forces push esi not push mem plus 3B size delta t=25 model=muse-12 score=0.92 stash=reverse/attempts/0x004d2164.cpp
 ?update@AIEnterState@@UAE?AW4StateReturnType@@XZ	0x0035455A	419	partial	zero esi vs edi contain2 edi vs esi float xmm order code reg vs stack t=28 model=muse-12 score=0.93 stash=reverse/attempts/0x0035455a.cpp
+?rva00557AC2@Rva00557AC2@@QAEXXZ	0x00557AC2	66	blocked	callback 0x0055794C needs 0x005573FA 1288B unclaimed plus ghttp STL map frame t=12 model=muse-02
+?rva00557B04@Rva00557B04@@QAEXXZ	0x00557B04	66	blocked	twin of 0x00557AC2 same callback wall 0x00557971 unclaimed plus ghttp STL map frame t=3 model=muse-02
+?rva00557A33@Rva00557A33@@QAEXXZ	0x00557A33	143	blocked	same ghttp map family callback 0x00557927 unclaimed EH AsciiString frame t=3 model=muse-02
+?rva00557996@Rva00557996@@QAEXXZ	0x00557996	157	blocked	same ghttp map family callback 0x00557902 unclaimed EH AsciiString frame t=3 model=muse-02
+?rva00262E24@AIUpdateInterface@@QAEXPAUCoord3D@@@Z	0x00262E24	219	blocked	else-branch xmm allocation differs and 0x200 copy uses offset not add t=20 model=muse-02 (stash 0.93 kept)
+?rva002F301F@Rva002F301F@@QAEXXZ	0x002F301F	26	partial	exact bytes via G7 byte extra but gate needs central retype of 0x002F1F02 int to byte t=25 model=muse-02 score=1.0 stash=reverse/attempts/0x002f301f.cpp
+?rva000062FD@Region2D@@QBE_NABVCoord2D@@0@Z	0x000062FD	294	blocked	first dir load mem-vs-reg plus min-load before max-select plus false at end needs near jumps not early shorts t=18 model=muse-02 (stash 0.92 kept)
+?getMinMaxAndCenter@AIGroup@@QAE_NPAUCoord2D@@0PAUCoord3D@@@Z	0x0036D14F	374	blocked	y-add and mulss operand order plus movaps vs movss tail t=15 model=muse-02 (stash 0.93 kept)
