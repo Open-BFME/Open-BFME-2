@@ -12662,7 +12662,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?rva000EE198@Rva000EE198NullTarget@@QAEXXZ,0x000EE198,null-checked tail jmp target of forwarder 0x00068385; original name unknown
 ?rva000EDB47@Rva000EDB47NullTarget@@QAEXXZ,0x000EDB47,null-checked tail jmp target of forwarder 0x00068D43; original name unknown
 ?rva0010004D@Rva0010004DNullTarget@@QAEXH@Z,0x0010004D,null-checked tail jmp target of forwarder 0x0007E17B; original name unknown
-??0AptNativeFunction@@QAE@P6APAVAptValue@@PAV1@H@Z@Z,0x006D6500,Native36B callback object and original MAP constructor signature; alias to existing exact provider
 ?factoryCreateString@@YAPAVAptValue@@XZ,0x006D7210,Native Error lookup calls original AptString::Create static factory; pointer return ABI alias
 ?factorySetString@BfmeAptValue006DCD20@@QAEXPBD@Z,0x006CBF70,Native Error lookup thiscall string setter; alias to existing AptValue::SetString provider
 ?rva006D36C0@EAStringC@@QBEHPBV1@@Z,0x006D36C0,Native Colour lookup string case-insensitive comparison; const object and one pointer ABI; alias to existing provider
@@ -12676,5 +12675,4 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?callback006E9730@@YAPAVAptValue@@PAV1@H@Z,0x006E9730,Native lookup passes this callback address to36B AptNativeFunction; original MAP and native callFunction706660 establish cdecl context/count returning AptValue pointer; body name remains address-derived
 ?factorySetProperty@AptCIH@@QAEXHM_N@Z,0x006E0930,Native Colour setRGB pushes index8/9/10 float and bool0; helper reads this+44 float-array and bool flag16 at5C and returns ret12; later AptCIH SetProceduralProperty establishes semantic role
 ?factoryGetProperty@AptCIH@@QBEMH@Z,0x006E0920,Native Colour getRGB float-return getter indices8/9/10; alias to existing exact float-array getter with same const thiscall int ABI
-?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z,0x0070B380,Original Godfather MAP signature; native Colour transform calls hash+8 with pointer key; existing lookup@Rva0070B380 provider same thiscall pointer ABI
 ?g_rva00DB81B0Weights@@3QAY0BA@$$CBGA,0x009B81B0,Native codec1D7200 six DIR32 refs with32B row stride; independently verified288 readonly bytes nine16-short rows and16B base alignment; address-qualified identity only
