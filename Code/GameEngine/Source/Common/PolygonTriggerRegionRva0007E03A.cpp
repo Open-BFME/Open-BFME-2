@@ -25,6 +25,7 @@ class PolygonTrigger
 {
 public:
 	Region2D rva0007E03A();
+	void rva002E3954(struct FloatRect0073CE30 *rect);
 private:
 	unsigned char m_pad00[0x08];
 	Rva0030B719Shape m_shape; // +0x08
@@ -33,4 +34,20 @@ private:
 Region2D PolygonTrigger::rva0007E03A()
 {
 	return m_shape.rva0030B6E3();
+}
+
+struct FloatRect0073CE30
+{
+	float x1;
+	float y1;
+	float x2;
+	float y2;
+};
+
+// ?rva002E3954@PolygonTrigger@@QAEXPAUFloatRect0073CE30@@@Z @ 0x002E3954 (36B). PolygonTrigger rect copy: if out is null return; else take region via rowed rva0007E03A 0x0007E03A and copy 16B to out. Callers 0x0035784F 0x00357912 0x003C0169 name it; LINK 2 files 306B. Honest pin name.
+void PolygonTrigger::rva002E3954(FloatRect0073CE30 *rect)
+{
+	if (!rect)
+		return;
+	*(Region2D *)rect = rva0007E03A();
 }
