@@ -6,6 +6,25 @@
 // reference. The scope and class are named for the strings. +0x488 is the
 // screen's state.
 
+class GameWindow;
+
+class GameWindowManager
+{
+public:
+#define V(n) virtual void pad##n() = 0;
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
+	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
+	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
+	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
+	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47)
+	V(48)
+#undef V
+	virtual int winSetFocus(GameWindow *window) = 0;
+};
+
+extern GameWindowManager *TheWindowManager;
+
 class Rva00222A8BTarget;
 extern class Rva00222A8BTarget *TheRva00222A8BTarget;
 
@@ -37,6 +56,11 @@ public:
 	void OnOpenConnectionsScreen(const char *unused);
 	void OnClosingConnectionsScreen(const char *unused);
 	void Refresh(const char *unused);
+	// Bound as "AptOnline::OnOpenCreateDialog" on this screen.
+	void OnOpenCreateDialog(const char *unused);
+
+	// Unrowed 0x005A0DC2 (339 bytes; ret 4, a byte flag), pinned by address.
+	void rva005A0DC2(bool flag);
 
 	// Unrowed 0x005A0D61 (97 bytes; ret 4, a byte flag), pinned by address.
 	void rva005A0D61(bool force);
@@ -46,7 +70,8 @@ private:
 	AptOnlineCustomMatchOwner *m_owner; // +0x58
 	unsigned char m_pad05c[0x488 - 0x5C];
 	int m_state; // +0x488
-	unsigned char m_pad48c[0x4A0 - 0x48C];
+	unsigned char m_pad48c[0x49C - 0x48C];
+	GameWindow *m_createDialog; // +0x49C
 	bool m_popUp; // +0x4A0
 	unsigned char m_pad4a1[0x4D8 - 0x4A1];
 	bool m_connectionsScreen; // +0x4D8
@@ -100,4 +125,13 @@ void AptOnline::CustomMatch::OnClosingConnectionsScreen(const char *unused)
 void AptOnline::CustomMatch::Refresh(const char *unused)
 {
 	rva005A0D61(true);
+}
+
+// Retail 0x005A0F1F, 44 bytes: bound as "AptOnline::OnOpenCreateDialog";
+// focuses the +0x49C window and moves to state 3.
+void AptOnline::CustomMatch::OnOpenCreateDialog(const char *unused)
+{
+	rva005A0DC2(true);
+	TheWindowManager->winSetFocus(m_createDialog);
+	m_state = 3;
 }
