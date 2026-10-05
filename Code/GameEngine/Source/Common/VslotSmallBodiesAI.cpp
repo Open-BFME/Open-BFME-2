@@ -632,3 +632,35 @@ void Rva005770CB::rva005770CB()
 {
 	m_08->m_14.rva0057702E();
 }
+
+// 0x0057709A: derived ctor of Rva005CBA04 storing vtable 0x00C6E8A8, base temp from global 0x00E0660C, outer arg at +8.
+class BfmeFixedStorage002CF0F0
+{
+	char m_bytes[4];
+public:
+	__declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
+};
+extern BfmeFixedStorage002CF0F0 g_00E0660C;
+extern const void *const g_00C6E8A8[];
+
+class Rva005CBA04
+{
+public:
+	virtual ~Rva005CBA04();
+	Rva005CBA04(BfmeFixedStorage002CF0F0 storage);
+private:
+	BfmeFixedStorage002CF0F0 m_storage;
+};
+
+class __declspec(novtable) Rva0057709A : public Rva005CBA04
+{
+public:
+	Rva0057709A(int v);
+private:
+	int m_08;
+};
+
+Rva0057709A::Rva0057709A(int v) : Rva005CBA04(g_00E0660C), m_08(v)
+{
+	*(const void **)this = g_00C6E8A8;
+}
