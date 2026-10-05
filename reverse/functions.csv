@@ -60471,3 +60471,4 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00521770@AptSkirmish@@QAEXPBD@Z,,0x00521770,158,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp,matched,unlock AptSkirmish state 2 3 4 with prefs GameInfo panel enable
 ?rva004B901D@SupplyWarehouseCreate@@UAEXXZ,,0x004B901D,118,Code/GameEngine/Source/GameLogic/Object/Create/SupplyWarehouseCreateRva004B901D.cpp,matched,vslot 12 SupplyWarehouseCreate via barrier for bit2 checks
 ??0Rva0033FC0A@@QAE@PAVObject@@I@Z,,0x00343BC9,213,Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp,matched,derived StateMachine ctor via base 0x004D79E1 three states defineState
+?rva0039DB31@Team@@QAEXPBX@Z,,0x0039DB31,88,Code/GameEngine/Source/Common/RTS/TeamRva0039DB31.cpp,matched,Team member walk contain slot46 else Object rva00293077
