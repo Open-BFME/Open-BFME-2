@@ -586,11 +586,23 @@ void HRawAnimClass::Get_Transform(Matrix3D& mtx, int pividx, float frame ) const
  * HISTORY:                                                                                    *
  *   1/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Get_Visibility@HRawAnimClass@@UAE_NHM@Z present-unmatched
+// BFME 2's bit lookup indexes with shifts (sar 3, and 7) where Zero Hour's
+// BitChannelClass::Get_Bit divides; the shared motchan.h shim keeps Zero
+// Hour's form, so the lookup is spelled out here (HRawAnimClass is a friend).
 bool HRawAnimClass::Get_Visibility(int pividx,float frame)
 {
-	if (NodeMotion[pividx].Vis != NULL) {
-		return (NodeMotion[pividx].Vis->Get_Bit((int)frame) == 1);
+	BitChannelClass *vis = NodeMotion[pividx].Vis;
+	if (vis != NULL) {
+		int f = (int)frame;
+		int value;
+		if ((f < vis->FirstFrame) || (f > vis->LastFrame)) {
+			value = vis->DefaultVal;
+		} else {
+			int bit = f - vis->FirstFrame;
+			uint8 mask = (uint8)(1 << (bit & 7));
+			value = ((*(vis->Bits + (bit >> 3)) & mask) != 0);
+		}
+		return (value == 1);
 	}
 
 	// default to always visible...
