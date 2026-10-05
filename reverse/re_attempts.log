@@ -9369,3 +9369,4 @@ FUN_0047ffed	0x0007FFED	233	blocked	anonymous water-setting dispatch (thiscall +
 ?rva005DC187@Rva005DC3C1@@QAEXGG_N@Z	0x005DC187	266	blocked	symmetric array set with SSE struct clears plus dual forEach needs and-vs-mov plus frame investigation t=20 model=muse-04
 ?rva005DC291@Rva005DC3C1@@QAEXG_N@Z	0x005DC291	304	blocked	same family as 0x005DC187 and 0x005DC070 needs shared and-vs-mov plus frame investigation t=5 model=muse-04
 ?rva0006ABE7@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@_N@Z	0x0006ABE7	214	blocked	esi edi swap throughout t=15 model=muse-04 (stash 0.95 kept)
+??1Rva002B74DE@@QAE@XZ	0x002B74DE	93	blocked	EH needs 3 unwindables states 2-1-0 vs 1 base gives state 0 plus extra base call; frees+clears match same 31 insns 89vs93B t=25 model=muse-10
