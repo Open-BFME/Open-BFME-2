@@ -55923,3 +55923,4 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ??1Rva005B7FA4@@UAE@XZ,,0x005B7FA4,86,Code/GameEngine/Source/Common/Rva005B7FA4Dtor.cpp,matched,MI dtor via middle Rva0056DC6B inline plus bases rowed singleton g_00E06478
 ?Rva0050407AParseColorControlPointBlock@@YAXPAVINI@@PAX1PBX@Z,,0x0050407A,151,Code/GameEngine/Source/Common/Rva0050407AParse.cpp,matched,chain via 0x0050406E ControlPoint pattern table 0x00863CE8 Scale pin Rva002BE7DB row
 ?rva0039561F@Rva0039561F@@QAEHPAVThingTemplate@@@Z,,0x0039561F,93,Code/GameEngine/Source/Common/Rva0039561F.cpp,matched,guarded lookup via rowed getControllingPlayer plus pinned rva0033A69A plus rowed rva003B0CB3 plus unsigned float store
+?rva0041393F@Rva0041386B@@QAEXPAVINI@@@Z,,0x0041393F,18,Code/GameEngine/Source/Common/Thing/ModuleFactoryCtor.cpp,matched,INI field init forwarder via rowed initFromINI plus table g_00C39AF8 caller 0x00413B95
