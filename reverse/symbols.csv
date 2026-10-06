@@ -13402,3 +13402,9 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??0Rva0034290D@@QAE@PAVStateMachine@@HHH@Z,0x0034290D,unrowed 0x74 AI-state ctor taking (outer-this plus 0 plus param plus 0) called from 0x343367; RETAIL REL32 at 0x003434FB
 ??0Rva00342A50@@QAE@PAVStateMachine@@@Z,0x00342A50,unrowed 0x6C AI-state ctor called from 0x3435FB; RETAIL REL32 at 0x0034363B
 ??0Rva00343042@@QAE@PAVStateMachine@@@Z,0x00343042,unrowed 0x58 AI-state ctor called from 0x343838; RETAIL REL32 at 0x00343877
+??0Rva00342978@@QAE@PAVStateMachine@@@Z,0x00342978,unrowed 0x64 AI-state ctor called from 0x3438C7; RETAIL REL32 in 0x343A14
+??0Rva0034301B@@QAE@PAVStateMachine@@@Z,0x0034301B,unrowed 0x58 AI-state ctor called from 0x3444CE; RETAIL REL32 at 0x00344518
+?g_00DBA4E4@@3HA,0x00DBA4E4,int global tripled by 0x344F57 before the table add
+?g_00DFE78C@@3PAXA,0x00DFE78C,table global read at +0x40 by 0x344F57
+?rva00344EB2Gate@@YA_NPAVObject@@PAVThing@@@Z,0x00344EB2,forward pin for the banked 0x344EB2 gate called from 0x344F57; RETAIL REL32 at 0x00344FDA; superseded when the gate lands
+?rva00293D3B@Rva00346C53@@QAEXPAUObjectStatusMask@@@Z,0x00293D3B,thiscall mask hook on the 0x346C53 host taking the built mask; RETAIL REL32 at 0x00346C6F
