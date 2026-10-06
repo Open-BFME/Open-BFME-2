@@ -8,6 +8,10 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include "Common/PartitionSolver.h"
 
+// Declare the rowed copy_backward so this TU calls retail's copy at 0x004C72FE
+// (VectorPairObjectIDCopyBackward.cpp) instead of emitting its own COMDAT copy.
+namespace _STL { template <> PairObjectIDAndUInt *copy_backward<PairObjectIDAndUInt *, PairObjectIDAndUInt *>(PairObjectIDAndUInt *, PairObjectIDAndUInt *, PairObjectIDAndUInt *); }
+
 #pragma inline_depth(0)
 // ?_bfmePartitionSortAnchor@@YAXPAU?$pair@W4ObjectID@@I@_STL@@0P6A_NU12@0@Z@Z absent-from-retail
 void _bfmePartitionSortAnchor(PairObjectIDAndUInt *first, PairObjectIDAndUInt *last, Bool (*cmp)(PairObjectIDAndUInt, PairObjectIDAndUInt))
