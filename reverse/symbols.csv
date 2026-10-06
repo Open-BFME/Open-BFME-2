@@ -13556,3 +13556,9 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva002D9D7C@Rva002D9FD9Owner@@QAEXPAX0@Z,0x002D9D7C,pin for 0x2D9FD9 thiscall (ptr, ptr) void (same body as 0x2D9F9F pin)
 ?rva002DA8AF@Rva002DAAD5Owner@@QAEXXZ,0x002DA8AF,pin for 0x2DAAD5 thiscall void ()
 ?rva002D9ADC@Rva002DAAD5Owner@@QAEXXZ,0x002D9ADC,pin for 0x2DAAD5 thiscall void ()
+?rva000366F0@Rva002E0648M48@@QAEXPAX@Z,0x000366F0,pin for 0x2E0648 thiscall void (void*) on +0x48
+?rva004FB222@Rva002E0648M4C@@QAEXPAX0@Z,0x004FB222,pin for 0x2E0648/0x2E07CC thiscall void (void*,void*) on +0x4c
+?rva002E6184@Rva002E6329Owner@@SAXPAX0000H@Z,0x002E6184,pin for 0x2E6329 static void (void*x5,int)
+?rva0023D007@GameLogic@@QAEXH@Z,0x0023D007,pin for GameLogic sink (int) void (re-added)
+?rva0020E873Find@@YAPAXHHH@Z,0x0020E873,pin for 0x2E10BD cdecl find (dword,dword,dword) returns ptr (same body as rowed _STL find)
+?rva001FF51FErase@Rva002E10BDVec@@QAEXH@Z,0x001FF51F,ICF-alias pin for 0x2E10BD vec erase thiscall (dword) void

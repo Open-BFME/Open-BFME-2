@@ -64684,3 +64684,8 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva002D9F9F@Rva002D9F9FOwner@@QAEXPAVRva002D9F9FArg@@@Z,,0x002D9F9F,58,Code/GameEngine/Source/Common/Rva002D9F9FPair.cpp,matched,
 ?rva002D9FD9@Rva002D9FD9Owner@@QAEXPAVRva002D9FD9Arg@@@Z,,0x002D9FD9,151,Code/GameEngine/Source/Common/Rva002D9FD9Seq.cpp,matched,
 ?rva002DAAD5@Rva002DAAD5Owner@@QAEXXZ,,0x002DAAD5,29,Code/GameEngine/Source/Common/Rva002DAAD5Flag.cpp,matched,
+?rva002E0648@Rva002E0648Owner@@QAEXPAX@Z,,0x002E0648,32,Code/GameEngine/Source/Common/Rva002E0648Pair.cpp,matched,
+?rva002E07CC@Rva002E0648Owner@@QAEXXZ,,0x002E07CC,34,Code/GameEngine/Source/Common/Rva002E0648Pair.cpp,matched,
+?rva002E0BC0@Rva002E071E@@QAEHH@Z,,0x002E0BC0,43,Code/GameEngine/Source/Common/Rva002E0BC0Find.cpp,matched,
+?rva002E6329@@YAPAXPAX0000@Z,,0x002E6329,33,Code/GameEngine/Source/Common/Rva002E6329Forward.cpp,matched,
+?rva002E10BD@Rva002E10BDOwner@@QAEXPAVCreateAHeroData@@@Z,,0x002E10BD,65,Code/GameEngine/Source/Common/Rva002E10BDFind.cpp,matched,
