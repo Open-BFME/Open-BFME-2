@@ -64330,3 +64330,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva00A86CE@@UAE@XZ,,0x000A86CE,64,Code/GameEngine/Source/Common/Rva000A86CEDtor.cpp,matched,novtable dtor handle 0x000A8A37 then ref release 0x00050ED3
 ??1Rva005AFE3F@@UAE@XZ,,0x005AFE3F,71,Code/GameEngine/Source/Common/Rva005AFE3FDtor.cpp,matched,unregister via 0x00381452 getter and 0x002B7250 then clears then base vtable C6FFFC
 ??1Rva0072AED@@UAE@XZ,,0x00072AED,56,Code/GameEngine/Source/Common/Rva00072AEDDtor.cpp,matched,novtable dtor counted ref at +8 then base vtable BC650C
+?rva003FDD29@Rva003FDD29@@QAEEXZ,,0x003FDD29,15,Code/GameEngine/Source/Common/Rva003FDD29.cpp,matched,null-checked tail-jump to pinned 0x0031912E int callee truncated to byte

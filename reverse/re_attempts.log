@@ -11322,3 +11322,6 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ??0Rva0056B525@@QAE@PAX00@Z	0x0056B525	116	partial	push edi order and EH and-dword vs mov-byte plus lea hoisting t=25 model=muse-07 score=0.93 stash=reverse/attempts/0x0056b525.cpp
 ?rva00567F3D@Rva00567F3D@@QAEPAPAVRva00567960@@PAPAV2@H@Z	0x00567F3D	84	partial	missing and [ebp-0x10],0 at +0xb 80v84 rest exact t=25 model=muse-12 score=0.95 stash=reverse/attempts/0x00567f3d.cpp
 ?saveGameWithOptions@GameState@@QAE?AW4SaveCode@@UAvailableGameInfo@@@Z	0x002DD91A	466	blocked	Save-option dispatcher, not ZH missionSave: rowed callees mapped (2DCCFB gate, 2DC74A path, 2DCE24 xfer with which from [ebp+0x30] via 1/6/else ladder); unrowed 0x376E92 (int,int) + 0x41B603 (0xE030D8) + 0x600676-arg shape block direct conversion; revisit after those land. t=20
+?Rva001DAB3FSum@@YAXPAHPAVRva001DA112@@0@Z	0x001DAB3F	50	blocked	range in ecx-edx not esi plus conditional push t=20 model=muse-08
+?rva001FDCE1@Rva001FDCE1@@QAEXPAX@Z	0x001FDCE1	64	blocked	EH ctor class unknown scopetable unclaimed vector plus pin call t=10 model=muse-08
+?Rva00464431Get@@YAHXZ	0x00464431	29	blocked	STL map hint-insert wrapper ABI unclear 3 pushes vs 2 args t=12 model=muse-08
