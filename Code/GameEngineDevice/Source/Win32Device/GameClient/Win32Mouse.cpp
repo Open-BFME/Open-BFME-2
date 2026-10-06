@@ -4,7 +4,8 @@
 // BFME 1 conversions in reference/open-bfme-1/game/GameEngineDevice/Source/
 // Win32Device/GameClient/Win32Mouse_*.cpp as the shape donors.
 //
-//   0x00041839 translateEvent       273B  switch on msg-0x200, table after the ret
+//   0x00041839 translateEvent       317B  switch on msg-0x200, table after the ret
+//   0x00041A0B update                 5B  tail jump to Mouse::update 0x001EDE3A
 //   0x00041A83 setCursor             81B  Mouse::setCursor 0x001EEFD2, then SetCursor
 //   0x00041B10 getMouseEvent         89B  calls translateEvent 0x00041839
 //   0x00041BA6 initCursorResources  323B  "data\cursors\%s%d.%s" / "%s.%s", ".cur"
@@ -132,6 +133,7 @@ public:
 	enum { NUM_MOUSE_EVENTS = 256 };
 
 	virtual ~Mouse();
+	virtual void update(void);
 	virtual void setCursor(MouseCursor cursor);
 	bool rva001EDE26() const;
 
@@ -148,6 +150,7 @@ HCURSOR cursorResources[Mouse::NUM_MOUSE_CURSORS][8];
 class Win32Mouse : public Mouse
 {
 public:
+	virtual void update(void);
 	virtual void initCursorResources(void);
 	virtual void setCursor(MouseCursor cursor);
 
@@ -306,6 +309,12 @@ void Win32Mouse::translateEvent(UnsignedInt eventIndex, MouseIO *result)
 			break;
 		}
 	}
+}
+
+void Win32Mouse::update(void)
+{
+	// extend
+	Mouse::update();
 }
 
 void Win32Mouse::setCursor(MouseCursor cursor)

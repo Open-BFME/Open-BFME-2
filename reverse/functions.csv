@@ -65516,3 +65516,6 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?getMouseEvent@Win32Mouse@@MAEEPAUMouseIO@@_N@Z,,0x00041B10,89,Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp,matched,
 ?processMouseEvent@Mouse@@AAEXH@Z,,0x001EE069,608,Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp,matched,ZH/BFME1 processMouseEvent at BFME2 offsets; sole caller createStreamMessages 0x001EE630
 ?createStreamMessages@Mouse@@UAEXXZ,,0x001EE630,1085,Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp,matched,ZH/BFME1 createStreamMessages; Win32Mouse vtable 0x007C2478 slot 16; BFME2 sends raw position last
+?updateMouseData@Mouse@@IAEXXZ,,0x001EDCB1,107,Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp,matched,ZH Mouse::updateMouseData; getMouseEvent slot 0x74; tail-called by Mouse::update
+?update@Mouse@@UAEXXZ,,0x001EDE3A,11,Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp,matched,ZH Mouse::update; Win32Mouse::update 0x00041A0B tail-jumps here
+?update@Win32Mouse@@UAEXXZ,,0x00041A0B,5,Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp,matched,ZH Win32Mouse::update; Win32Mouse vtable 0x007C2478 slot 10

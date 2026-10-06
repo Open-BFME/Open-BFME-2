@@ -4,6 +4,8 @@
 // conversions (reference/open-bfme-1/game/GameEngine/Source/GameClient/Input/
 // Mouse_processMouseEvent.cpp, Mouse_createStreamMessages.cpp) as the donors.
 //
+//   0x001EDCB1 updateMouseData        107B  getMouseEvent is vtable slot 29 (+0x74)
+//   0x001EDE3A update                  11B  tail jump to updateMouseData
 //   0x001EDC41 moveMouse              112B
 //   0x001EDD1C checkForDrag           100B
 //   0x001EE069 processMouseEvent      608B  calls checkForDrag and moveMouse
@@ -20,7 +22,7 @@
 // clears the event array and both records): m_buttonActivity byte +0x1288;
 // m_mouseEvents[256] from +0x130C (stride 0x3C); m_currMouse +0x4F0C;
 // m_prevMouse +0x4F48; clamp bounds min/max X then Y from +0x4F84;
-// m_inputFrame +0x4F94; m_inputMovesAbsolute byte +0x4F9C; m_eventsThisFrame
+// m_inputFrame +0x4F94; m_deadInputFrame +0x4F98; m_inputMovesAbsolute byte +0x4F9C; m_eventsThisFrame
 // +0x4FFC; the left/right click ages +0x5000/+0x5004. TheKeyboard's modifier
 // word is at +0x0C. BFME 2 moves the raw mouse position message (3) after
 // the click-age messages, where both Zero Hour and BFME 1 send it first.
@@ -29,6 +31,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned char UnsignedByte;
 typedef unsigned short UnsignedShort;
+typedef bool Bool;
 
 struct ICoord2D
 {
@@ -89,6 +92,9 @@ enum GameWindowMessage
 	GWM_RIGHT_DRAG
 };
 
+#define MOUSE_NONE		0x00
+#define MOUSE_LOST		0xFF
+
 enum
 {
 	MOUSE_EVENT_NONE = 0,
@@ -142,9 +148,22 @@ public:
 	enum { CLICK_SENSITIVITY = 5 };
 
 	virtual ~Mouse();
-	virtual void createStreamMessages( void );
+	virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
+	virtual void vslot04(); virtual void vslot05(); virtual void vslot06();
+	virtual void vslot07(); virtual void vslot08(); virtual void vslot09();
+	virtual void update( void );													// slot 10
+	virtual void vslot11(); virtual void vslot12(); virtual void vslot13();
+	virtual void vslot14(); virtual void vslot15();
+	virtual void createStreamMessages( void );						// slot 16
+	virtual void vslot17(); virtual void vslot18(); virtual void vslot19();
+	virtual void vslot20(); virtual void vslot21(); virtual void vslot22();
+	virtual void vslot23(); virtual void vslot24(); virtual void vslot25();
+	virtual void vslot26(); virtual void vslot27(); virtual void vslot28();
 
 protected:
+	virtual UnsignedByte getMouseEvent( MouseIO *result, Bool flush ) = 0;	// slot 29 (+0x74)
+
+	void updateMouseData( void );
 	void checkForDrag( void );
 	void moveMouse( Int x, Int y, Int relOrAbs );
 
@@ -162,13 +181,55 @@ private:
 	Int m_minY;
 	Int m_maxY;
 	UnsignedInt m_inputFrame;
-	char m_pad4F98[0x4F9C - 0x4F98];
+	UnsignedInt m_deadInputFrame;
 	UnsignedByte m_inputMovesAbsolute;
 	char m_pad4F9D[0x4FFC - 0x4F9D];
 	Int m_eventsThisFrame;
 	Int m_leftClickAge;
 	Int m_rightClickAge;
 };
+
+//-------------------------------------------------------------------------------------------------
+/** Get the latest mouse events from the device */
+//-------------------------------------------------------------------------------------------------
+void Mouse::updateMouseData( )
+{
+	static Bool busy = false;
+	Int index = 0;
+	UnsignedByte result;
+
+	// prevent reentrancy in the event we make this mouse multi-threaded
+	if( busy == false )
+	{
+
+		busy = true;
+
+		// Get latest mouse events from DirectX
+		do
+		{
+			do
+			{
+				result = getMouseEvent( &m_mouseEvents[ index ], true );
+			}
+			while( result == MOUSE_LOST );
+			index++;
+		}
+		while( (result != MOUSE_NONE) &&
+					 (index < sizeof( m_mouseEvents ) / sizeof( MouseIO )) );
+
+		busy = false;
+
+	}  // end if
+
+	if( index > 0 )
+		m_eventsThisFrame = index - 1;
+	else
+		m_eventsThisFrame = 0;
+
+	if( index != 0 )
+		m_deadInputFrame = m_inputFrame;
+
+}  // end updateMouseData
 
 //-------------------------------------------------------------------------------------------------
 /** Move the mouse in either relative or absolute coords */
@@ -365,6 +426,20 @@ void Mouse::processMouseEvent( Int index )
 	m_prevMouse = m_currMouse;
 
 }
+
+//-------------------------------------------------------------------------------------------------
+/** Update the states of the mouse position and buttons */
+//-------------------------------------------------------------------------------------------------
+void Mouse::update( void )
+{
+
+	// increment input frame
+	m_inputFrame++;
+
+	// update the mouse data
+	updateMouseData( );
+
+}  // end update
 
 //-------------------------------------------------------------------------------------------------
 /** Create the stream messages for the mouse events of this frame */
