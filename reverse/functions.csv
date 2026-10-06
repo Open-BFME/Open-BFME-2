@@ -64654,3 +64654,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?Rva004B2B64_ParseReplaceObject@INI@@SAXPAV1@PAX1PBX@Z,,0x004B2B64,128,Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateFieldParse.cpp,matched,ReplaceObject FieldParse table 0x00C56D20 via pinned initFromINIMulti and ModuleData push_back fold
 ??0Rva00204612@@QAE@XZ,,0x00204612,12,Code/GameEngine/Source/Common/Rva00204612Ctor.cpp,matched,ctor wrapper over rowed base Rva003B39C7
 ??1Rva00204D66@@QAE@XZ,,0x00204D66,5,Code/GameEngine/Source/Common/Rva00204D66Dtor.cpp,matched,dtor tail-jmp to rowed base Rva003B39C7
+?Rva00274E7DInit@@YAXXZ,,0x00274E7D,1147,Code/GameEngine/Source/Common/System/Rva00274E7DInit.cpp,matched,UI image table init via ImageCollection and rva finds

@@ -11654,3 +11654,8 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva002E57C6@Rva002E57C6@@QAE_NPBD@Z	0x002E57C6	928	blocked	928B GameText str parser no donor first variant 298B missing 222-insn state machine File Debug vtable unknown t=15 model=muse-02
 ?rva00272FB6@Rva00272FB6@@QAEXXZ	0x00272FB6	1682	blocked	address-named g_Va00DBA4E4 and g_Va00BBB8D8 counted hatch skip per section5 t=2 model=muse-02
 ??0Rva0038AAEBThreadObject@@QAE@PAVMutexClass@@@Z	0x0038AAEB	662	blocked	address-named g_Rva0107301CEmptyString counted hatch skip per section5 t=2 model=muse-02
+??0FlammableUpdateModuleData@@QAE@XZ	0x0048D541	203	blocked	ADDRESS-NAMED g_Va00DBA4E4 use is counted hatch t=2 model=muse-10
+?rva0024792F@GameLogic@@QAEXABVAsciiString@@HH@Z	0x0024792F	79	blocked	exact size 79B REMAINS mov esi ecx early before pushes vs retail late after pushes plus and ebp-4 0 before Rva args vs after Rva call; tried buf+manual-dtor (loses EH 54B), /Os, ref-slot form, throw removal t=25 model=muse-spark (stash 0.95 kept)
+?rva002747F9@Rva002747F9@@QAEXH@Z	0x002747F9	1129	blocked	1129B Drawable sync copy with 5 rowed calls plus virtual dispatch loop over 1000B wall for this seat t=10 model=muse-spark
+?moveAlongWaypointPath@W3DView@@AAEXH@Z	0x00086F56	1276	blocked	ADDRESS-NAMED g_Va00BBB8D8 g_Va007C26F0 escape hatch refused t=2 model=muse-spark
+?rva0048DC51@Rva0048DC51@@QAEXPAUArg1@@PAUOutVec@@@Z	0x0048DC51	809	blocked	complex 809B Bezier 4x sincos EH no donor need 4pt layout t=12 model=muse-spark
