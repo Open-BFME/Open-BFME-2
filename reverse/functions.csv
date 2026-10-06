@@ -64369,3 +64369,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva005CD78BGet@@YGEPAX@Z,,0x005CD78B,41,Code/GameEngine/Source/Common/Rva005CD78B.cpp,matched,rows 0x005CCB3E 0x005CCB37 0x005CCB6B sibling 0x005CD762
 ?rva005CD31C@Rva005CD31C@@QAEXXZ,,0x005CD31C,47,Code/GameEngine/Source/Common/Rva005CD31C.cpp,matched,rows 0xB3FD0 0x5CCB5B pin 0x2BF6A7 sibling 0x005CD378
 ?rva005CD563@@YAXPAVRva005CD1A9@@PAX111@Z,,0x005CD563,147,Code/GameEngine/Source/Common/Rva005CD3AAFamily.cpp,matched,Refcounted Rva005CDMorph D8 factory helper
+?rva005D772D@Rva00049D20@@QAEHH@Z,,0x005D772D,24,Code/GameEngine/Source/Common/Rva005D772D.cpp,matched,callers 0x00573918 0x005D77BB 0x005EEB1C table layout from Rva00049D20Get and Rva005D7766
