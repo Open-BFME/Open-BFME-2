@@ -16,13 +16,11 @@ public:
 	};
 };
 
-class AsciiString
+template <typename T>
+class StringBase
 {
 public:
-	AsciiString &operator=(const AsciiString &that);
-
-private:
-	char m_pad[4];
+	void set(const StringBase<T> &that);
 };
 
 class Rva0031AB7F : public FXParticleSystem::StreakDrawModuleTemplate
@@ -31,7 +29,7 @@ public:
 	Rva0031AB7F &operator=(const Rva0031AB7F &that);
 
 private:
-	AsciiString m_0010;
+	StringBase<char> m_0010;
 	int m_0014[32];
 	int m_0094;
 	int m_0098;
@@ -40,7 +38,7 @@ private:
 Rva0031AB7F &Rva0031AB7F::operator=(const Rva0031AB7F &that)
 {
 	FXParticleSystem::StreakDrawModuleTemplate::operator=(that);
-	m_0010 = that.m_0010;
+	m_0010.set(that.m_0010);
 	for (int i = 0; i < 32; i++)
 		m_0014[i] = that.m_0014[i];
 	m_0094 = that.m_0094;
