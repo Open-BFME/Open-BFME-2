@@ -492,7 +492,6 @@ name,address,notes
 ??$__copy@PAVAsciiString@@PAV1@H@_STL@@YAPAVAsciiString@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x000B4431,TU spelling of the AsciiString bulk copy worker for VectorAsciiStringErase.cpp; body rowed as dup_000b4431
 ??$__copy@PAVBfmeStringTailRecord156@@PAV1@H@_STL@@YAPAVBfmeStringTailRecord156@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x001D9BA4,STLport __copy for this element view: REL32 read at 0x001D9B9A in the byte-verified __copy_ptrs forwarder 0x001D9B87 (range erase 0x001D9D24); ledger spelling there: ?Rva001D9BA4Copy@@YAPAVRva000A8CAE@@PAV1@00@Z
 ??$__copy@PAVProductionPrerequisite@@PAV1@H@_STL@@YAPAVProductionPrerequisite@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x0033E9DE,ICF twin of rowed Rva0033E9DECopy 50B loop via assign; call site 0x002D0F36 passes tag plus null
-??$__copy@PAVProxyClass@@PAV1@H@_STL@@YAPAVProxyClass@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x00119AD0,"Ghidra helper called by target erase shifts 0x74-byte ProxyClass elements using rowed ProxyClass::operator= at 0x118E50; matches the random-access pointer-range copy"
 ??$__copy@PAVRva00151DAB@@PAV1@H@_STL@@YAPAVRva00151DAB@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x00152004,STLport __copy for this element view: REL32 read at 0x00152091 in the byte-verified __copy_ptrs forwarder 0x0015207E (range erase 0x00152157); ledger spelling there: ?Rva00152004Copy@@YAPAVRva00151E30@@PAV1@00@Z
 ??$__copy@PAVRva0040AEE3@@PAV1@H@_STL@@YAPAVRva0040AEE3@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x0040B218,twin of rowed Rva0040B218Copy same 47B body caller 0x0040B350 passes tag plus 0
 ??$__copy@PAVRva004BA1C8@@PAV1@H@_STL@@YAPAVRva004BA1C8@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x004BA2E9,ICF twin of rowed Rva004BA2E9Copy 50B loop via assign; call site 0x004BA324 passes tag plus null
@@ -507,7 +506,6 @@ name,address,notes
 ??$__copy_aux@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z,0x000179B0,harvested from retail REL32 displacement at 0x00015F50
 ??$__copy_aux@U?$_Bit_iter@_NPB_N@_STL@@U?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@2@@_STL@@YA?AU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@0@U?$_Bit_iter@_NPB_N@0@0U10@ABU__false_type@0@@Z,0x0038925D,STLport bit-iterator copy worker called from the retail REL32 in the 50B copy wrapper at 0x003893F2; same decorated callee the vector-bool TU emits
 ??$__copy_backward@PAUBfmeE12Key@@PAU1@H@_STL@@YAPAUBfmeE12Key@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x000CA187,ICF with BfmeE12's __copy_backward rowed here: the BfmeE12Key copy_backward chain reaches it
-??$__copy_backward@PAUElem36@@PAU1@H@_STL@@YAPAUElem36@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x001611B0,"alias pin: 0x001611B0 already pinned for the Rva001D28F0Element instantiation; RETAIL REL32 at +0x0009 of vector insert 0x001665B0 targets the same worker; element identity unproven for both names"
 ??$__copy_backward@PAURva001D28F0Element@@PAU1@H@_STL@@YAPAURva001D28F0Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x001611B0,callee REL32 read by locate.py from a unique masked-byte placement emitted by Rva001D25F0VectorInsertOverflow.cpp
 ??$__copy_backward@PAURva003A35A0Element@@PAU1@H@_STL@@YAPAURva003A35A0Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x003115CC,"Native insert312E04/214B and overflow312CFD/191B call graph; helper entire body and native call targets independently verified against its existing ledger range; ABI uses the evidenced184B Rva element. BF1 donor1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 Rva003A3A90.cpp /O1 allocator-only existing shim. Covered helper binding, not a new recovery or original type name."
 ??$__copy_backward@PAURva003F61C6Record@@PAU1@H@_STL@@YAPAURva003F61C6Record@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x003F5584,Native258Bfill3F61C6 directcall or fullgenericdispatch provider; separatelyrowed fullbody; scoped48Bnontrivial vector element ABI no originalapplicationtypename claimed
@@ -1542,7 +1540,6 @@ name,address,notes
 ??0?$_Vector_base@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE8@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as matched BfmeE16 row); LivingWorldRegionConnectionCtor TU vector<BfmeE8> member
 ??0?$_Vector_base@UBfmePod104@@V?$allocator@UBfmePod104@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod104@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor same 29B as matched BfmeE16 row; Rva003F610FElement default ctor member
 ??0?$_Vector_base@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmePod28@@@1@@Z,0x00540F8F,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
-??0?$_Vector_base@UBfmePod36@@V?$allocator@UBfmePod36@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmePod36@@@1@@Z,0x00162800,element size read from the body's own open-coded arithmetic at 0x0016282B lea ecx,[edi+edi*8] + add ecx,ecx + add ecx,ecx = n*36, matching the 0x24 stride of the copy loop at 0x00166110; not an ICF fold onto a smaller base ctor - the REL32 at 0x00166144 is the place this address was read from
 ??0?$_Vector_base@UBfmePod40@@V?$allocator@UBfmePod40@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmePod40@@@1@@Z,0x0053FF92,address read from the REL32 displacement at a placed body
 ??0?$_Vector_base@UBfmePod48@@V?$allocator@UBfmePod48@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmePod48@@@1@@Z,0x003F4443,address read from the REL32 displacement at a placed body
 ??0?$_Vector_base@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod68@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor same 29B as rowed BfmeE16 row; Rva00153565Register TU vector<BfmePod68> member
@@ -1964,7 +1961,6 @@ name,address,notes
 ??0Elem003AF7A0@@QAE@ABU0@@Z,0x005DBCD1,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??0Elem003AF8C0@@QAE@ABU0@@Z,0x004EE1A9,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??0Elem003AF9E0@@QAE@ABU0@@Z,0x0052BB9A,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
-??0Elem36@@QAE@ABU0@@Z,0x00161050,"alias pin: same 77B copy-ctor body already rowed as ??0Rva00161050@@QAE@ABU0@@Z; RETAIL REL32 at 0x0016661E in vector insert 0x001665B0 targets 0x00161050 and the caller here mangles for the Elem36 element name; binding the two names is the /alternatename idiom used at stlport_construct_pod80_rva.cpp"
 ??0ElvenWoodSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C38D5,(Thing*;ModuleData*) ctor called by ElvenWoodSpecialPower::friend_newModuleInstance (0x00251C7C); class from the ModuleFactory registration literal
 ??0ElvenWoodSpecialPowerModuleData@@QAE@XZ,0x004C3DA9,frameless 75B ctor over pinned SpecialPower base 0x4930A0 with vtable 0xC5CF38 and vector member at +0x7C via 0x211E58 and float at +0x90 and zeros matching own table 0x85D018; sole raw caller is ModuleData factory 0x251CB4 which news 0x9C
 ??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z,0x001F3550,exported BFME2 base copy constructor called by SphereEmissionVolumeInfo
@@ -2308,10 +2304,6 @@ name,address,notes
 ??0Rva0033FC0A@@QAE@PAVObject@@I@Z,0x00343BC9,"constructor (ret 8: owner, name key) installing vftable 0x00C11D50 (slot-2 name literal MoveOntoWallStateMachine, dtor rowed as Rva0033FC0A) after the StateMachine base 0x004D79E1; REL32 from AIMoveOntoWallState::xfer 0x00343D33 after a 0x3C-byte operator new, with key 0xD30E2FB3"
 ??0Rva00342843@@QAE@PAVStateMachine@@I@Z,0x0034286E,second Rva00342843 ctor forwarding (machine hash) to the AIInternalMoveToState pin 0x0033F279; same vtable 0x008124D8 and member shape as rowed 0x00342843; base for leaf ctors 0x00342892 0x003428AF 0x003428CC
 ??0Rva00342BAE@@QAE@PAVStateMachine@@_N@Z,0x00342BAE,AIInternalMoveToState-derived ctor (machine flag) with float/int/bool members; true size 70 (ghidra 33B extent is short); base for leaf ctors 0x00342C47 0x00342D19
-??0Rva0033CopyBase@@QAE@ABV0@@Z,0x0020492B
-??0Rva0033FC0A@@QAE@PAVObject@@I@Z,0x00343BC9,"constructor (ret 8: owner, name key) installing vftable 0x00C11D50 (slot-2 name literal MoveOntoWallStateMachine, dtor rowed as Rva0033FC0A) after the StateMachine base 0x004D79E1; REL32 from AIMoveOntoWallState::xfer 0x00343D33 after a 0x3C-byte operator new, with key 0xD30E2FB3"
-??0Rva00342843@@QAE@PAVStateMachine@@I@Z,0x0034286E,second Rva00342843 ctor forwarding (machine hash) to the AIInternalMoveToState pin 0x0033F279; same vtable 0x008124D8 and member shape as rowed 0x00342843; base for leaf ctors 0x00342892 0x003428AF 0x003428CC
-??0Rva00342BAE@@QAE@PAVStateMachine@@_N@Z,0x00342BAE,AIInternalMoveToState-derived ctor (machine flag) with float/int/bool members; true size 70 (ghidra 33B extent is short); base for leaf ctors 0x00342C47 0x00342D19
 ??0Rva003525E0Pair@@QAE@ABV0@@Z,0x003B3FCD,Rva003525E0Pair copy ctor called by Rva003529B0 clone ctor 0x003B410E; donor Rva003529B0Clone.cpp member-without-body
 ??0Rva003529B0@@QAE@PBV0@@Z,0x003B410E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0Rva00355D66@@QAE@XZ,0x00355D4E,ICF twin of Rva00490470 ctor for Rva00355F3E base at retail 0x00355EFF read from its REL32 displacement; body unrowed
@@ -2325,8 +2317,6 @@ name,address,notes
 ??0Rva003862EDMember@@QAE@ABV0@@Z,0x0038630B,address read from the retail REL32 at 0x003862ED in CompositeRvoGetters::get; member copy ctor for the +0x84 RVO getter
 ??0Rva00389DF1Member@@QAE@ABV0@@Z,0x005559FC,address read from the retail REL32 at 0x00389DF1 in CompositeRvoGetters::get; member copy ctor for the +0x1B0 RVO getter
 ??0Rva00389E0FMember@@QAE@ABV0@@Z,0x00555616,address read from the retail REL32 at 0x00389E0F in CompositeRvoGetters::get; member copy ctor for the +0x340 RVO getter
-??0Rva00394173Member@@QAE@ABV0@@Z,0x00332106,address read from the retail REL32 at 0x00394173 in CompositeRvoGetters::get; member copy ctor for the +0x754 RVO getter
-??0Rva0038AAEBThreadObject@@QAE@PAVMutexClass@@@Z,0x0038AAEB,target startThread at 0x38B1C0 calls this at 0x38B224 with ECX=new object and a pointer to queue MutexClass +0x6C; allocation size 0x4B0 and constructor-installed vtable 0xC1989C independently support the worker-object role; Ghidra boundary 0x38AAEB/662; address-derived opaque class view
 ??0Rva00394173Member@@QAE@ABV0@@Z,0x00332106,address read from the retail REL32 at 0x00394173 in CompositeRvoGetters::get; member copy ctor for the +0x754 RVO getter
 ??0Rva003959FA@@QAE@ABVBfmeFixedStorage0004543D@@@Z,0x003959FA,"one-mask partition filter ctor: +0x04 link cleared, vftable 0x00C1A25C, the mask copied to +0x08 through 0x0004543D, ret 4; REL32 in StructureCreep 0x005ABEA2"
 ??0Rva0039DDC2Filter@@QAE@ABU0@@Z,0x0004543D,ICF twin of the rowed 28-byte copy constructor ??0BfmeFixedStorage0004543D (also pinned as BitFlags<116>'s): REL32 read at 0x0039EE45 in the byte-verified TeamPrototype::rva0039EE21 copying its by-value filter for the rowed Team::rva0039DDC2 and at 0x002AB2B3 in Player::rva002AB295
@@ -2363,8 +2353,6 @@ name,address,notes
 ??0Rva003AE092View@@QAE@ABV0@@Z,0x003AE0AF,Address-named copy-constructor ABI view for native clone3AE092; complete native29B clone calls matched38B copy ctor3AE0AF with its receiver as sole argument; targetallocation32B independently establishes extent. Explicit linker alias to existing verified constructor symbol; original class name and individual layout remain unknown. BF1 donor1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 Q2HeapCopyClones.cpp /O1 /MD EH off.
 ??0Rva003AEA42@@QAE@ABV0@@Z,0x003AEA42,retail 0x3AEA42/97 calls rowed base 0x3AEEB3 plus rep copy 128B; caller outer 0x3AEA15; Rva owner for unclaimed middle (prior partial 0.97 stash)
 ??0Rva003B0344@@QAE@ABVRvaSmartPtr12@@@Z,0x003B0454,264B EH ctor of the 0x00C1D9B0 class (pinned dtor 0x003B00D6-family 0x003B0344); base-constructs Rva003B00D6; ObjectCreationList/vector layout reconciliation still open
-??0Rva003B31ADMember@@QAE@XZ,0x003B31AD,alias of the rowed Rva003B31ADMember construct; PassiveAreaEffectBehaviorModuleDataCtor TU default-init spelling
-??0Rva003B417E@@QAE@XZ,0x003B417E,member default ctor decoded from target call bytes of chained ctor 0x003B44DC; identity unproven
 ??0Rva003B31ADMember@@QAE@XZ,0x003B31AD,alias of the rowed Rva003B31ADMember construct; PassiveAreaEffectBehaviorModuleDataCtor TU default-init spelling
 ??0Rva003B417E@@QAE@XZ,0x003B417E,member default ctor decoded from target call bytes of chained ctor 0x003B44DC; identity unproven
 ??0Rva003B7DC0Record@@QAE@XZ,0x004E15FB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
@@ -3857,7 +3845,6 @@ name,address,notes
 ??1ProductionSpeedBonusModuleData@@UAE@XZ,0x004C3064,dtor called by audited wrapper RVA 0x004C3048; retail registration ProductionSpeedBonus -> data factory RVA 0x00251AFE -> ctor RVA 0x004C2FE6; primary vptr store RVA 0x004C300E
 ??1ProductionUpdate@@UAE@XZ,0x0049E1BF,"dtor called by audited wrapper RVA 0x0049E34C; retail slot 4 -> RVA 0x0049E15E uses class-name string ""ProductionUpdate"""
 ??1PropagandaTowerBehaviorModuleData@@UAE@XZ,0x00481BCE,dtor called by audited wrapper RVA 0x00481BB2; retail registration PropagandaTowerBehavior -> data factory RVA 0x0024C21B -> ctor RVA 0x0048197C; primary vptr store RVA 0x00481988
-??1ProxyClass@@QAE@XZ,0x00118800,"ProxyClass has a 0x74-byte first-member refcounted texture handle; its destructor matches the rowed TextureStatisticsStruct release-only body at this ICF address; target erase calls it per 0x74-byte element"
 ??1Q1ReceiverLocalSet@@QAE@XZ,0x0006C94B,TU-private view (assetmanager_impl.cpp) of a struct whose first member is an STLport set: its implicit destructor is the bare tail jump to the _Rb_tree destructor 0x0006BF2A that ICF folds for every such holder (45 call sites); the assetmanager unwind funclets 0x007A7550/0x007A7580 destroy their local set holder by jumping here; original class name unknown
 ??1Q1ReceiverLockGuard@@QAE@XZ,0x0061FC60,TU-private twin (assetmanager_impl.cpp) of CriticalSectionLock: its destructor LeaveCriticalSection(m_lock) is byte-identical to ??1CriticalSectionLock at this address beside the rowed ??0CriticalSectionLock 0x0061FC40; the three assetmanager unwind funclets 0x007A7558/0x007A7560/0x007A7650 jump here; original class name unknown
 ??1QueuedDownload@@QAE@XZ,0x005BC5F9,address read from the REL32 displacement at a placed body
@@ -4095,9 +4082,6 @@ name,address,notes
 ??1Rva0025E4CD@@UAE@XZ,0x0025E4CD,"destructor the scalar deleting destructor 0x0025E51D calls (REL32 at 0x0025E520; vtable 0x00BF6040#0); opaque address name"
 ??1Rva00260A3C@@UAE@XZ,0x00260A3C,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x453F5; identity unproven, address-derived name
 ??1Rva0026E1A6@@QAE@XZ,0x0026E1A6,TU-local member dtor for the +0x3ac field of the 0x33DDA1 teardown; RETAIL REL32 in 0x33DDA1 targets 0x26E1A6 (56B EH body freeing its +0 member via 0x66DEE4 plus 0x30830)
-??1Rva0025E4CD@@UAE@XZ,0x0025E4CD,"destructor the scalar deleting destructor 0x0025E51D calls (REL32 at 0x0025E520; vtable 0x00BF6040#0); opaque address name"
-??1Rva00260A3C@@UAE@XZ,0x00260A3C,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x453F5; identity unproven, address-derived name
-??1Rva0026E1A6@@QAE@XZ,0x0026E1A6,TU-local member dtor for the +0x3ac field of the 0x33DDA1 teardown; RETAIL REL32 in 0x33DDA1 targets 0x26E1A6 (56B EH body freeing its +0 member via 0x66DEE4 plus 0x30830)
 ??1Rva0026E7EA@@UAE@XZ,0x0026E7EA,"destructor the scalar deleting destructor 0x0026E81A calls (REL32 at 0x0026E81D; vtable 0x00BFA3A4#0); opaque address name"
 ??1Rva0026E836@@UAE@XZ,0x0026E836,opaque SEH base dtor (5 vptrs +0/+0xC/+0x10/+0x20/+0x24 plus member cleanup); 3 derived 39B dtors tail-call it; identity unproven
 ??1Rva0026E9BDBase@@UAE@XZ,0x0026E836,DeployStyle dtor TU spelling for the opaque SEH base dtor; same body as pinned ??1Rva0026E836@@UAE@XZ
@@ -4120,9 +4104,6 @@ name,address,notes
 ??1Rva002A983D@@UAE@XZ,0x002A983D,"destructor the vector deleting destructor 0x002B3105 calls and hands to the eh vector destructor iterator (DIR32 at 0x002B3114); opaque address name"
 ??1Rva002AE5CFRecord@@QAE@XZ,0x001EB63C
 ??1Rva002B0B32Dtor@@QAE@XZ,0x002B0B32,opaque alias: same body as matched STLport vector dtor row; callee of adjustor dtor 0x002B0B8E
-??1Rva002B644A@@EAE@XZ,0x004FC05C,dtor installs its own vftable 0x00BFE280 (bytes at ++19) and is the REL32 callee of the slot-0 ??_G at 0x002B647C
-??1Rva002B74DE@@QAE@XZ,0x002B74DE,pointee destructor called by the owning-pointer reset 0x002B9099 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
-??1Rva002B905DDtor@@QAE@XZ,0x002B905D,dtor thunk stub at 0x002B905D to 0x00433BD7 (target of thunk 0x007B839B)
 ??1Rva002B644A@@EAE@XZ,0x004FC05C,dtor installs its own vftable 0x00BFE280 (bytes at ++19) and is the REL32 callee of the slot-0 ??_G at 0x002B647C
 ??1Rva002B74DE@@QAE@XZ,0x002B74DE,pointee destructor called by the owning-pointer reset 0x002B9099 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva002B905DDtor@@QAE@XZ,0x002B905D,dtor thunk stub at 0x002B905D to 0x00433BD7 (target of thunk 0x007B839B)
@@ -4186,10 +4167,6 @@ name,address,notes
 ??1Rva0033DDA1E14@@QAE@XZ,0x0046C94B,TU-local element dtor for the 2x0x14 array at +0x3c4; pushed as the ehvec-dtor address in 0x33DDA1; body is a 5B tail-jump to 0x46BF2A
 ??1Rva0033DDA1E4@@QAE@XZ,0x0088BA39,TU-local element dtor for the 5x4 array at +0x7c; pushed as the ehvec-dtor address in 0x33DDA1; body tail-jumps to the 0x36410 string fold
 ??1Rva0033DDA1E8@@QAE@XZ,0x004C9F38,TU-local element dtor for the 0x38x8 array at +0x124; pushed as the ehvec-dtor address in 0x33DDA1
-??1Rva0033DDA1@@UAE@XZ,0x0033DDA1,"destructor the scalar deleting destructor 0x0033E90B calls (REL32 at 0x0033E90E; vtable 0x00C10C4C#0); opaque address name"
-??1Rva0033DDA1E14@@QAE@XZ,0x0046C94B,TU-local element dtor for the 2x0x14 array at +0x3c4; pushed as the ehvec-dtor address in 0x33DDA1; body is a 5B tail-jump to 0x46BF2A
-??1Rva0033DDA1E4@@QAE@XZ,0x0088BA39,TU-local element dtor for the 5x4 array at +0x7c; pushed as the ehvec-dtor address in 0x33DDA1; body tail-jumps to the 0x36410 string fold
-??1Rva0033DDA1E8@@QAE@XZ,0x004C9F38,TU-local element dtor for the 0x38x8 array at +0x124; pushed as the ehvec-dtor address in 0x33DDA1
 ??1Rva003516F3@@UAE@XZ,0x003516F3,"destructor the scalar deleting destructor 0x00352B25 calls (REL32 at 0x00352B28; vtable 0x00C14CD0#0); opaque address name"
 ??1Rva00355BDA@@UAE@XZ,0x00355BDA,"destructor the scalar deleting destructor 0x00355BBE calls (REL32 at 0x00355BC1; vtable 0x00C14E14#0); opaque address name"
 ??1Rva003561BE@@UAE@XZ,0x003561BE,"destructor the scalar deleting destructor 0x0035686D calls (REL32 at 0x00356870; vtable 0x00C14EBC#0); opaque address name"
@@ -4202,9 +4179,6 @@ name,address,notes
 ??1Rva00360D26Member@@QAE@XZ,0x00360D26,opaque pool-aware member destructor at +0x8/+0xC of TransportContainModuleData; 13B forwarder body to pool op 0x360CB0; called twice by the 0x1DFA48 dtor
 ??1Rva00360F55@@QAE@XZ,0x00360FDB,Rva00360F55 stack-record cleanup directly following its 0x360F55 construction in the 0x3623E5 EH body; 128B Ghidra boundary; record/destructor identity inferred from paired local lifetime
 ??1Rva003615E5Dtor@@QAE@XZ,0x003615E5,dtor at 0x003615E5 (target of thunk 0x007B7CAF)
-??1Rva003623E5Filter@@QAE@XZ,0x00360D26,Filter member teardown folding with the opaque pool-aware dtors at this address per the DynamicPortalBehaviourModuleData dtor call site
-??1Rva003623E5Member@@QAE@XZ,0x00360D26,twin of pool-aware member dtor for DamageFieldUpdateModuleData dtor 0x0049116A filter call
-??1Rva00362B5ADtor@@QAE@XZ,0x00362B5A,dtor thunk stub at 0x00362B5A to 0x00362B22 (target of thunk 0x007B7CC3)
 ??1Rva003623E5Filter@@QAE@XZ,0x00360D26,Filter member teardown folding with the opaque pool-aware dtors at this address per the DynamicPortalBehaviourModuleData dtor call site
 ??1Rva003623E5Member@@QAE@XZ,0x00360D26,twin of pool-aware member dtor for DamageFieldUpdateModuleData dtor 0x0049116A filter call
 ??1Rva00362B5ADtor@@QAE@XZ,0x00362B5A,dtor thunk stub at 0x00362B5A to 0x00362B22 (target of thunk 0x007B7CC3)
@@ -4361,10 +4335,6 @@ name,address,notes
 ??1Rva004318D8@@QAE@XZ,0x004318D8,destructor called by the vtable-referenced scalar deleting dtor 0x00431A64 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva00431FB5@@UAE@XZ,0x00431FB5,opaque dtor called by the scalar deleting dtor at 0x00432151 (vtable 0x00C3C9AC#4); identity unproven; address-derived name
 ??1Rva00435CDBDtor@@QAE@XZ,0x00435CDB,dtor thunk stub at 0x00435CDB to 0x00435B00 (target of thunk 0x007B83B9)
-??1Rva0042D92E@@QAE@XZ,0x0042D92E,destructor called by the unreferenced scalar deleting dtor 0x0042DFD9 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
-??1Rva004318D8@@QAE@XZ,0x004318D8,destructor called by the vtable-referenced scalar deleting dtor 0x00431A64 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
-??1Rva00431FB5@@UAE@XZ,0x00431FB5,opaque dtor called by the scalar deleting dtor at 0x00432151 (vtable 0x00C3C9AC#4); identity unproven; address-derived name
-??1Rva00435CDBDtor@@QAE@XZ,0x00435CDB,dtor thunk stub at 0x00435CDB to 0x00435B00 (target of thunk 0x007B83B9)
 ??1Rva00435DE7@@UAE@XZ,0x00435DE7,opaque dtor called by the scalar deleting dtor at 0x00436197 (vtable 0x00C3CDC8#0); identity unproven; address-derived name
 ??1Rva0043A351@@UAE@XZ,0x0043A351,opaque dtor called by the scalar deleting dtor at 0x0043AE0C (vtable 0x00C3D478#0); identity unproven; address-derived name
 ??1Rva0043A396@@UAE@XZ,0x0043A396,opaque dtor called by the scalar deleting dtor at 0x0043AE28 (vtable 0x00C3D50C#0); identity unproven; address-derived name
@@ -4445,10 +4415,6 @@ name,address,notes
 ??1Rva004FD1BC@@UAE@XZ,0x004FD1BC,opaque dtor called by the scalar deleting dtor at 0x004FD85E (vtable 0x00C63564#0); identity unproven; address-derived name
 ??1Rva004FF2C0@@UAE@XZ,0x004FF2C0,opaque dtor called by the scalar deleting dtor at 0x004FF2D2 (vtable 0x00C63B34#0); identity unproven; address-derived name
 ??1Rva005011AADtor@@QAE@XZ,0x005011AA,dtor thunk stub at 0x005011AA to 0x00500D68 (target of thunk 0x007B9071)
-??1Rva005011B4@@QAE@XZ,0x005011B4,destructor called by the unreferenced scalar deleting dtor 0x0050160D (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
-??1Rva005016C3Dtor@@QAE@XZ,0x005016C3,REL32 callee decoded from target call bytes of adjustor dtor 0x0050174A; identity unproven
-??1Rva0050174A@@QAE@XZ,0x0050174A,destructor called by the unreferenced scalar deleting dtor 0x00501D7A (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
-??1Rva00502D03Dtor@@QAE@XZ,0x00502D03,dtor at 0x00502D03 (target of thunk 0x007B9049)
 ??1Rva005011B4@@QAE@XZ,0x005011B4,destructor called by the unreferenced scalar deleting dtor 0x0050160D (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva005016C3Dtor@@QAE@XZ,0x005016C3,REL32 callee decoded from target call bytes of adjustor dtor 0x0050174A; identity unproven
 ??1Rva0050174A@@QAE@XZ,0x0050174A,destructor called by the unreferenced scalar deleting dtor 0x00501D7A (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
@@ -5768,9 +5734,6 @@ name,address,notes
 ?GetDbghelpHandle@DebugStackwalk@@SAPAXXZ,0x0003C0F0,returns g_dbghelp (0x00DE08AC) as in debug_stack.cpp; its result feeds GetModuleFileNameA in Debug::PostStaticInit
 ?GetFirstAptValue@AptValueGC_PoolManager@@QAEPAVAptValue@@XZ,0x006D2CB0,"auto-pin (permute --pins): REL32 call target read from retail in 0x006e6f80, whose banked body is byte-exact once this call resolves"
 ?GetFloat@AptFloat@@QBEMXZ,0x00723490,Native value converter6DD6C0 direct call; original AptValue header504032fc6593aab6 checked-cast signatures and source230e7c503b5dbf7e scalar/name roles; existing byte-verified provider bound by alias; no new layout or virtual slots
-?GetDbghelpHandle@DebugStackwalk@@SAPAXXZ,0x0003C0F0,returns g_dbghelp (0x00DE08AC) as in debug_stack.cpp; its result feeds GetModuleFileNameA in Debug::PostStaticInit
-?GetFirstAptValue@AptValueGC_PoolManager@@QAEPAVAptValue@@XZ,0x006D2CB0,"auto-pin (permute --pins): REL32 call target read from retail in 0x006e6f80, whose banked body is byte-exact once this call resolves"
-?GetFloat@AptFloat@@QBEMXZ,0x00723490,Native value converter6DD6C0 direct call; original AptValue header504032fc6593aab6 checked-cast signatures and source230e7c503b5dbf7e scalar/name roles; existing byte-verified provider bound by alias; no new layout or virtual slots
 ?GetFrameCount@Profile@@SAIXZ,0x006C53B0,CSV frame loops; independently held getter reads Profile frame count at VA 0xE0C1F4; donor semantic name
 ?GetFrameEntry@Debug@@AAEPAUFrameHashEntry@1@IIPBDH@Z,0x0003A1B0,retail REL32 from Debug::LogBegin at 0x0003ACAA; BFME2 frame-hash lookup
 ?GetFunction@Id@ProfileFuncLevel@@QBEPBDXZ,0x0065CE90,CSV name/address/source/line operand positions; donor empty-data getter folds with held 32-bit zero body; thiscall no stack args
@@ -6181,11 +6144,6 @@ name,address,notes
 ?Rva0051B8EA@@YAXXZ,0x0051B8EA,unrowed 5B jump to 0x0051B4F7 (Ghidra thunk_FUN_0091b4f7); REL32 read at AptPalantir::OnBttnOptions 0x002D30C7 (no arguments and no ECX setup); address name
 ?Rva0051ED7ETail@@YAXXZ,0x0051ED7E,tail jmp from 0x0051BF47 free no this same address as AptTimeLine pin
 ?Rva00525407Worker@@YGXPAUVideoPair@@@Z,0x00525407,REL32 worker decoded from target call bytes of pair-copy-call 0x005258F8; identity unproven
-?Rva0052C2CACopy@@YAPAURva00565FC1Pair@@PAU1@00ABURva00565FC1Tag@@@Z,0x0052C2CA,address-derived ABI view; REL32 decoded from reference-guided overflow 0x00565FC1; tag uses final argument padding
-?Rva0052C404Construct@@YAXPAXPBX@Z,0x0052C404,target copy 0x0052C9AD calls Construct at 0x0052C9BB; boundary 0x0052C404/45 callable 2-arg honest pin for rowed 0-arg dup same bytes
-?Rva00530212Helper@@YGXPAVObject@@HHH@Z,0x00530212
-?Rva00541214Worker@@YAHHHHPAD@Z,0x00541214,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
-?Rva00541231Worker@@YAHHHHPAD@Z,0x00541231,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
 ?Rva0052C2CACopy@@YAPAURva00565FC1Pair@@PAU1@00ABURva00565FC1Tag@@@Z,0x0052C2CA,address-derived ABI view; REL32 decoded from reference-guided overflow 0x00565FC1; tag uses final argument padding
 ?Rva0052C404Construct@@YAXPAXPBX@Z,0x0052C404,target copy 0x0052C9AD calls Construct at 0x0052C9BB; boundary 0x0052C404/45 callable 2-arg honest pin for rowed 0-arg dup same bytes
 ?Rva00530212Helper@@YGXPAVObject@@HHH@Z,0x00530212
@@ -6684,7 +6642,6 @@ name,address,notes
 ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@ABU?$pair@$$CBHH@2@@Z,0x004ABCC9,map<int int> _M_create_node for the 0x2CFxxx tree (allocates 0x14 via 0x307F0 plus 4B value copy); sole caller is _M_clone_node 0x2CF6B1
 ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@ABU?$pair@$$CBHH@2@@Z,0x00382B7F,address read from the retail REL32 in the body at 0x0038341E
 ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHM@_STL@@U?$_Select1st@U?$pair@$$CBHM@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHM@_STL@@@2@ABU?$pair@$$CBHM@2@@Z,0x005C6728
-?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHPAU_SBServer@@@_STL@@U?$_Select1st@U?$pair@$$CBHPAU_SBServer@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAU_SBServer@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHPAU_SBServer@@@_STL@@@2@ABU?$pair@$$CBHPAU_SBServer@@@2@@Z,0x005E42B1,target Ghidra boundary 0x5E42B1/34 is called twice by 0x5E4415 with ECX=tree and the source-pair pointer on the stack. It allocates 0x18 bytes, passes the new node's +0x10 payload to target pair-copy helper 0x5E3EB9/18, returns the node, and callee-cleans one argument. The map<int,SBServer*> template identity is donor/source-derived; the 24B allocation and 8B pair payload agree with target code.
 ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@ABU?$pair@$$CBHUBfmePod8@@@2@@Z,0x0039F5DC,address read from the REL32 displacement at +0x29 of the body at 0x00422890
 ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHURva002F1DA1Mapped@@@_STL@@@2@ABU?$pair@$$CBHURva002F1DA1Mapped@@@2@@Z,0x002EF239,callee read from retail REL32 in the int-keyed multimap _Rb_tree _M_insert 0x002F0D4E (byte-exact modulo relocs in StlportIntMapInsertFamily.cpp)
 ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHURva0032EB87Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0032EB87Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0032EB87Mapped@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHURva0032EB87Mapped@@@_STL@@@2@ABU?$pair@$$CBHURva0032EB87Mapped@@@2@@Z,0x0032EA7F,callee read from retail REL32 in the int-keyed _Rb_tree _M_insert 0x0032EAD6 (byte-exact modulo relocs in StlportIntMapInsertFamily.cpp)
@@ -8612,7 +8569,6 @@ name,address,notes
 ?clear@PlayerRelationHashMap@@QAEXXZ,0x001DBCDC,TU view of the +4 relation hash map cleared by the byte-verified ~PlayerRelationMap 0x002AD078 (Zero Hour m_map.clear()) read from its REL32 displacement; ICF-folded hashtable clear rowed under another instantiation name
 ?clear@ProductionPrerequisite@@QAEXXZ,0x004F5227,frameless helper clearing +0x00 via erase 0x4F50E2 and +0x0C via erase 0x532803; sole caller is default ctor 0x4F527A
 ?clear@RadiusDecal@@QAEXXZ,0x00330DBA,address read from the REL32 displacement at a placed body
-?clear@Rva0009990D@@QAEXXZ,0x0009990D,target endThread call at 0x3890AA passes ECX=this+0x74; target helper clears the owned pointer and destroys/frees its LockClass payload; address-derived helper identity
 ?clear@Rva000AD6F4@@QAEXXZ,0x000AD6F4,opaque guarded-delete helper (nulls member at +0 then ::delete via slot-0 plus operator delete); called with +4 adjust from 14B vptr bodies; exact method unproven
 ?clear@Rva000C6D44ListProxy74@@QAEXXZ,0x00239D49,opaque 4B list-proxy clear ABI for Pod248 dtor 0xC6D44; retail E8 at 0xC6D61 with ecx=esi+0x74 targets 0x239D49; payload 32B per ctor 0xC6A4D->0xB92D2 and copy 0xC6B17->0xBDA52 (primary ledger RVAs 0xB92D2/0xBDA52); not AsciiString identity
 ?clear@Rva00180023@@QAEXXZ,0x0004D75B,fold twin of BfmeResetTextureRef clear; generic 4B holder Release via 0x61ED10 then zero; called by Rva00180023 assign 0x0017FF45 on type mismatch
@@ -9027,8 +8983,6 @@ name,address,notes
 ?erase@?$vector@URva003A35A0Element@@V?$allocator@URva003A35A0Element@@@_STL@@@_STL@@QAEPAURva003A35A0Element@@PAU3@0@Z,0x00312C44,callee of filterAppend 0x00312EDA read from its REL32 displacement; w3-g26
 ?erase@?$vector@URva005EFDE9Element@@V?$allocator@URva005EFDE9Element@@@_STL@@@_STL@@QAEPAURva005EFDE9Element@@PAU3@0@Z,0x005EF8FA,candidate helper target decoded from vector resize 0x005EFDE9; address-derived four-byte element view
 ?erase@?$vector@URva00601A3AElement@@V?$allocator@URva00601A3AElement@@@_STL@@@_STL@@QAEPAURva00601A3AElement@@PAU3@0@Z,0x0060194C,Native REL32 at601A79 of two-vector clear601A71 targets fullrowed38B range erase60194C; identical12B record pointer/storage ABI and ret8; call-only alias to verified existing view
-?erase@?$vector@URva00601A3AElement@@V?$allocator@URva00601A3AElement@@@_STL@@@_STL@@QAEPAURva00601A3AElement@@PAU3@0@Z,0x0060194C,Native REL32 at601A79 of two-vector clear601A71 targets fullrowed38B range erase60194C; identical12B record pointer/storage ABI and ret8; call-only alias to verified existing view
-?erase@?$vector@URva00B6CF1@@V?$allocator@URva00B6CF1@@@_STL@@@_STL@@QAEPAURva00B6CF1@@PAU3@0@Z,0x000C0628,"Ghidra target dtor at 0x004B5214 calls this vector range cleanup for its +0x13C Rva00B6CF1-style elements; callee destroys the range then resets vector end"
 ?erase@?$vector@USegInfo@W3DRopeDraw@@V?$allocator@USegInfo@W3DRopeDraw@@@_STL@@@_STL@@QAEPAUSegInfo@W3DRopeDraw@@PAU34@0@Z,0x002BF70F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?erase@?$vector@UW3DRopeDrawSegInfo@@V?$allocator@UW3DRopeDrawSegInfo@@@_STL@@@_STL@@QAEPAUW3DRopeDrawSegInfo@@PAU3@0@Z,0x002BF70F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?erase@?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@PAV32@0@Z,0x0007A7AA,"STLport 4.5.3 vector<basic_string<char>> range erase at 0x7A7AA: body pushes copy helper 0x7A401 and range destroy 0x798BE and stores first as new finish; callee of BfmeRva00C7B388 0x60F0CE vector clear; body recovery blocked - this is a naming pin only"
@@ -9184,8 +9138,6 @@ name,address,notes
 ?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
 ?free@@YAXPAX@Z,0x00030830,CRT free reached through the C++-linkage declaration STLport 4.5.3 compiles against; same body as _free at this address, and the C++ decoration is what makes the caller emit the unwind state store retail carries
 ?free@_STL@@YAXPAX@Z,0x00030830,"the _STL-namespace spelling of the same C++-linkage free already pinned at this address as ?free@@YAXPAX@Z; STLport headers declare free inside _STL so an inlined ~basic_string emits this decoration while a .cpp body calling the extern ""C"" import emits __imp__free - ios_base::~ios_base at 0x0001C220 carries both forms and the byte check discriminates because retail encodes 0x00030830 in that call displacement"
-?free@@YAXPAX@Z,0x00030830,CRT free reached through the C++-linkage declaration STLport 4.5.3 compiles against; same body as _free at this address, and the C++ decoration is what makes the caller emit the unwind state store retail carries
-?free@_STL@@YAXPAX@Z,0x00030830,the _STL-namespace spelling of the same C++-linkage free already pinned at this address as ?free@@YAXPAX@Z; STLport headers declare free inside _STL so an inlined ~basic_string emits this decoration while a .cpp body calling the extern "C" import emits __imp__free - ios_base::~ios_base at 0x0001C220 carries both forms and the byte check discriminates because retail encodes 0x00030830 in that call displacement
 ?freeBlock@Rva00033E90@@QAEXPAX@Z,0x00033150,address-derived member tail target reached from 0x00033E90
 ?freeBlock@Rva006D2A60@@QAEXPAXH@Z,0x006D2A60,"opaque thiscall (block,size) for pool object 0x00E176F4; called by the Rva006CBF40-family scalar deleting dtors as mov ecx,[0xE176F4] + push size + push block"
 ?freeBlock@Rva006DB270@@QAEXPAXH@Z,0x006DB270,opaque thiscall (block,size); called as mov ecx,[0xE176E8] + push 8 + push esi + E8 from 0x006CEAD0:0x6CEAF9; identity unproven
@@ -9553,7 +9505,6 @@ name,address,notes
 ?get_allocator@?$vector@VRva0054103E@@V?$allocator@VRva0054103E@@@_STL@@@_STL@@QBE?AV?$allocator@VRva0054103E@@@2@XZ,0x0021983A,STLport callee for this element view: REL32 read at 0x0054148B in the byte-verified vector copy ctor 0x0054147B; ledger spelling there: ?get_allocator@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBE?AV?$allocator@VAsciiString@@@2@XZ
 ?get_allocator@?$vector@VSaveMapPreview@@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@QBE?AV?$allocator@VSaveMapPreview@@@2@XZ,0x0021983A,Complete7-byte allocator getter alias independently verified; direct SaveMapPreview vector-copy callee
 ?get_allocator@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBE?AV?$allocator@W4ScienceType@@@2@XZ,0x0021983A,stateless 7B allocator getter folded with the rowed vectorAsciiString body; direct ScienceType vector-copy callee read from the retail REL32 at 0x0054879E
-?get_allocator@BfmeRva00166110@@QBE?AV?$allocator@UBfmePod36@@@_STL@@XZ,0x001627F0,empty allocator returned by value, the hidden return pointer is the whole 7-byte body at 0x001627F0 (8b 44 24 04 / c2 04 00), identical to the rowed wide-string get_allocator; the REL32 at 0x00166125 is the place this address was read from
 ?get_bone_links@MeshGeometryClass@@IAEPAG_N@Z,0x0016A0C0,Load_W3D call-site callee
 ?get_deformed_vertices@MeshModelClass@@QAEXPAVVector3@@0PBVHTreeClass@@@Z,0x0016BF40,"MeshModelClass skin deformation worker called from Get_Deformed_Vertices 0x001499D0; Ghidra boundary 0x0016BF40; donor name from meshgeometry.h"
 ?get_deformed_vertices@MeshModelClass@@QAEXPAVVector3@@PBVHTreeClass@@@Z,0x0016B680,read from the REL32s at 0x00149A31/0x00149A48 in the placed MeshClass::Get_Deformed_Vertices(Vector3*) (0x00149A10) - Zero Hour calls Model->get_deformed_vertices(dst_vert, htree) there
@@ -10011,10 +9962,6 @@ name,address,notes
 ?moveAllies@Pathfinder@@QAEXPAVObject@@PAVPath@@_N@Z,0x002F3C09,address read from the REL32 displacement at 0x0026DB0E in privateMoveAwayFromUnit 0x0026D765 with ECX = TheAI+0x10 and (owner / new path / a Bool) where Zero Hour calls moveAllies(obj path); the third argument is BFME2's; name donor-carried; body unrowed
 ?moveAlongWaypointPath@W3DView@@AAEXH@Z,0x00086F56,read from the REL32 at 0x000892CB in W3DView::cameraModLookToward (called with 1 when the camera path is in waypoint mode as the BFME 1 donor does); the 1276B body there calls normAngle three times (0x000871D7 0x000871F0 0x00087218) and the ParabolicEase evaluator as Zero Hour moveAlongWaypointPath
 ?multiByteToWideChar@@YAHPBDHPAGH@Z,0x006CB730,CP_ACP MultiByteToWideChar forwarder read from REL32 at placed convertToWide 0x0023436C; single caller
-?moveAllies@Pathfinder@@QAEXPAVObject@@PAVPath@@_N@Z,0x002F3C09,address read from the REL32 displacement at 0x0026DB0E in privateMoveAwayFromUnit 0x0026D765 with ECX = TheAI+0x10 and (owner / new path / a Bool) where Zero Hour calls moveAllies(obj path); the third argument is BFME2's; name donor-carried; body unrowed
-?moveAlongWaypointPath@W3DView@@AAEXH@Z,0x00086F56,read from the REL32 at 0x000892CB in W3DView::cameraModLookToward (called with 1 when the camera path is in waypoint mode as the BFME 1 donor does); the 1276B body there calls normAngle three times (0x000871D7 0x000871F0 0x00087218) and the ParabolicEase evaluator as Zero Hour moveAlongWaypointPath
-?multiByteToWideChar@@YAHPBDHPAGH@Z,0x006CB730,CP_ACP MultiByteToWideChar forwarder read from REL32 at placed convertToWide 0x0023436C; single caller
-?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@ABVAsciiString@@@Z,0x0009FA65,29-byte __thiscall wrapper: inlines AsciiString::str() (m_data ? m_data+8 : the "" literal at 0x00BBAC1C) then tail-calls the proven const char* overload at 0x00148E1A - that inner REL32 is the identity evidence
 ?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z,0x00148E1A,Full retail body independently decoded from 0x00548E1A through its ret 0x00548EFF (232 bytes); this-pointer accesses the NameKeyGenerator socket table and next-id state exactly as the proven NameKeyGenerator::nameToKey(const char*) source body, and HCompressed constructor/loader call this target
 ?nameToKey@NameKeyGenerator@@QAEIPBD@Z,0x00148E1A,address read from the REL32 displacement at a placed body
 ?negative_sign@?$moneypunct@D$0A@@_STL@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@XZ,0x0000EA70,STLport moneypunct getter; emitted full 27-byte body has no relocations and equals retail byte for byte; linker-folded with the same virtual-slot string getter
@@ -10029,11 +9976,6 @@ name,address,notes
 ?next@BfmeWideResult@@QAEPAVObject@@XZ,0x00045623,"range-query handle: the payload's next hit (+0x0C cursor over 8-byte entries up to +0x04) or 0; REL32 in StructureCreep slot 7 0x005AC549; the body is the matched ?bfmeGoEOF@BfmeThingEOF row"
 ?nextToken@Rva0033B84ETok@@QAE_NPAV1@PBD@Z,0x00036D90,TU-local spelling for narrow StringBase nextToken; RETAIL REL32 in 0x33B84E quoted-arm split targets 0x36D90
 ?noop@Rva000B3FD0Nop@@QAEXXZ,0x000B3FD0,opaque alias: the known folded empty body shared by many rows; identity unproven
-?normalizeAngle@@YAMM@Z,0x00238954,address read from the REL32 displacement at a placed body
-?note@Rva00056BFESub@@QAEXH@Z,0x00056BFE,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
-?note@Rva000E0322Sub@@QAEXH@Z,0x000E0322,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
-?note@Rva00212858Sub@@QAEXH@Z,0x00212858,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
-?note@Rva0053F1ECSub@@QAEXH@Z,0x0053F1EC,opaque alias of the rowed Armor hashtable resize at the same address; identity unproven
 ?normalizeAngle@@YAMM@Z,0x00238954,address read from the REL32 displacement at a placed body
 ?note@Rva00056BFESub@@QAEXH@Z,0x00056BFE,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
 ?note@Rva000E0322Sub@@QAEXH@Z,0x000E0322,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
@@ -10153,10 +10095,6 @@ name,address,notes
 ?prefMapIncrement@@YAPAUPrefMapNodeShim@@PAU1@@Z,0x00024250,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?prepFile@INI@@IAE_NABVAsciiString@@W4INILoadType@@@Z,0x0002D2C1,thiscall (&filename loadType) called once at the head of each INI load variant 0x0002DA4B/0x0002DC75/0x0002DD38 before the readLine loop; name and signature carried from BFME1 ini.cpp prepFile (donor); body unrowed
 ?prepare@Rva0010BA61@@AAEXXZ,0x00109D64,REL32 helper decoded from target call bytes of helper-member step 0x0010BA61; identity unproven
-?prepare@Rva0019BC00Owner@@QAEXH@Z,0x0032C1F7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?prepare@Rva002BC470StateAction@@QAEXPAX0@Z,0x00265667,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
-?prepare@Rva005962E7@@AAEXXZ,0x0025C010,opaque alias: same body as rowed Rva0025C010::rva0025C010; helper of step 0x005962E7
-?prepare@Rva005E549EHelper@@QAEXXZ,0x005E549E,REL32 helper decoded from target call bytes of helper-member step 0x005E5554; identity unproven
 ?prepare@Rva0019BC00Owner@@QAEXH@Z,0x0032C1F7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?prepare@Rva002BC470StateAction@@QAEXPAX0@Z,0x00265667,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?prepare@Rva005962E7@@AAEXXZ,0x0025C010,opaque alias: same body as rowed Rva0025C010::rva0025C010; helper of step 0x005962E7
@@ -10351,9 +10289,6 @@ name,address,notes
 ?release@Rva0020453CHolderBase@@QAEXXZ,0x0020453C,retail REL32 from ~ScriptEngine 0x20A31E; called on the debug-window holder held at 0xDFE154 right after its inline dtor stores vtable 0xBE39F4; clears +4 when +4 and +8 are set
 ?release@Rva0033B1CDNarrow@@QAEXXZ,0x00036410,opaque alias: same body as rowed narrow StringBase releaseBuffer; first phase of step 0x0033B1CD
 ?release@Rva0033B1CDWide@@QAEXXZ,0x00036E70,opaque alias: same body as rowed wide StringBase releaseBuffer; second phase of step 0x0033B1CD
-?release@Rva0020453CHolderBase@@QAEXXZ,0x0020453C,retail REL32 from ~ScriptEngine 0x20A31E; called on the debug-window holder held at 0xDFE154 right after its inline dtor stores vtable 0xBE39F4; clears +4 when +4 and +8 are set
-?release@Rva0033B1CDNarrow@@QAEXXZ,0x00036410,opaque alias: same body as rowed narrow StringBase releaseBuffer; first phase of step 0x0033B1CD
-?release@Rva0033B1CDWide@@QAEXXZ,0x00036E70,opaque alias: same body as rowed wide StringBase releaseBuffer; second phase of step 0x0033B1CD
 ?release@Rva0048C200String@@QAEXXZ,0x00036410,callee of 0Rva0048C200Owner (0x00201998) at the site its BFME1 donor calls it; may be an ICF alias
 ?release@Rva004E1579StringCleanup@@QAEXXZ,0x00036410,"Native ParseEnableRegion4E1579 cleanup calls verifiedStringBase-char releaseBuffer36410/133 onrecordfield+4. One-pointer thiscallABI route; alias binds actualexisting canonical provider. No new originalclass identity."
 ?release@Rva006D0F20@@QAEXXZ,0x006D0F20,opaque thiscall member (no args); called as mov ecx,esi + E8 from destroy helper 0x006D1210:0x6D121B; identity unproven
@@ -10510,40 +10445,6 @@ name,address,notes
 ?run@Rva005E6A9DRun@@QAEXXZ,0x005E6A9D,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
 ?run@Rva005E6AD8Run@@QAEXXZ,0x005E6AD8,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
 ?run@Rva005F327ARun@@QAEXXZ,0x005F327A,REL32 callee decoded from target call bytes of helper-member step 0x005E5554; identity unproven
-?run@Rva001BE790@@QAEXXZ,0x0028FF9E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?run@Rva001EB68ARun@@QAEXXZ,0x001EB68A,REL32 callee decoded from target call bytes of null-checked forward 0x001EB72F; identity unproven
-?run@Rva001EB6FERun@@QAEXXZ,0x001EB6FE,REL32 callee decoded from target call bytes of null-checked forward 0x001EB75C; identity unproven
-?run@Rva00203AD5Run@@QAEXXZ,0x00203AD5,REL32 callee decoded from target call bytes of global-this forward 0x003BBEDE; identity unproven
-?run@Rva00203ADDRun@@QAEXXZ,0x00203ADD,REL32 callee decoded from target call bytes of global-this forward 0x003BBEE9; identity unproven
-?run@Rva0020E9A1Run@@QAEXXZ,0x0020E9A1,REL32 callee decoded from target call bytes of null-checked forward 0x0020EB41; identity unproven
-?run@Rva0021BDABSub@@QAEHH@Z,0x0021BDAB,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE42; identity unproven
-?run@Rva0021BDD3Sub@@QAEHH@Z,0x0021BDD3,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE62; identity unproven
-?run@Rva0021BDFBSub@@QAEHH@Z,0x0021BDFB,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE82; identity unproven
-?run@Rva002D37BDRun@@QAEXXZ,0x002D37BD,REL32 callee decoded from target call bytes of global-this forward 0x003BD424; identity unproven
-?run@Rva002E3876Sub@@QAEXH@Z,0x002E3876,REL32 callee decoded from target call bytes of adjust-call-echo 0x00330C22; identity unproven
-?run@Rva003626ADRun@@QAEXHH@Z,0x003626AD,REL32 callee decoded from target call bytes of null-checked forward 0x00271BCC; identity unproven
-?run@Rva003EF264Sub@@QAEXHH@Z,0x003EF264,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
-?run@Rva0040F7E5Runner@@QAEXXZ,0x0040F7E5,REL32 callee decoded from target call bytes of find-then-run 0x0040FAFE; identity unproven
-?run@Rva004E5EBERun@@QAEXHH@Z,0x004E5EBE,REL32 callee decoded from target call bytes of null-checked forward 0x0029B16A; identity unproven
-?run@Rva004F0819Run@@QAEXH@Z,0x004F0819,REL32 callee decoded from target call bytes of null-checked forward 0x002A9CF0; identity unproven
-?run@Rva004F2ABCRun@@QAEXHH@Z,0x004F2ABC,REL32 callee decoded from target call bytes of null-checked forward 0x002A9CDE; identity unproven
-?run@Rva004F2C14Run@@QAEXH@Z,0x004F2C14,REL32 callee decoded from target call bytes of null-checked forward 0x002A9DEC; identity unproven
-?run@Rva0052B737Sub@@QAEXHH@Z,0x0052B737,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
-?run@Rva0053863ESub@@QAEXH@Z,0x0053863E,REL32 callee decoded from target call bytes of adjust-call-echo 0x0030BEE6; identity unproven
-?run@Rva00538674Sub@@QAEXH@Z,0x00538674,REL32 callee decoded from target call bytes of adjust-call-echo 0x0030BEF9; identity unproven
-?run@Rva00548527Runner@@QAEXXZ,0x00548527,REL32 callee decoded from target call bytes of find-then-run 0x0035519E; identity unproven
-?run@Rva00548632Runner@@QAEXXZ,0x00548632,REL32 callee decoded from target call bytes of find-then-run 0x003551D3; identity unproven
-?run@Rva005962E7@@AAEXXZ,0x00596269,REL32 callee decoded from target call bytes of helper-member step 0x005962E7; identity unproven
-?run@Rva005CB283Run@@QAEXXZ,0x005CB283,REL32 callee decoded from target call bytes of null-checked forward 0x005CCB16; identity unproven
-?run@Rva005D13C2Run@@QAEXXZ,0x005D13C2,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
-?run@Rva005E18D0Run@@QAEXXZ,0x005E18D0,REL32 callee decoded from target call bytes of helper-member step 0x005E1906; identity unproven
-?run@Rva005E18DCRun@@QAEXXZ,0x005E18DC,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
-?run@Rva005E1B9ARun@@QAEXXZ,0x005E1B9A,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
-?run@Rva005E254CRun@@QAEXXZ,0x005E254C,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
-?run@Rva005E589ERun@@QAEXXZ,0x005E589E,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
-?run@Rva005E6A9DRun@@QAEXXZ,0x005E6A9D,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
-?run@Rva005E6AD8Run@@QAEXXZ,0x005E6AD8,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
-?run@Rva005F327ARun@@QAEXXZ,0x005F327A,REL32 callee decoded from target call bytes of helper-member step 0x005E5554; identity unproven
 ?run@Rva007E8AC0@@QAEXXZ,0x00655B50
 ?run@Rva007EB6C0Cleanup@@QAEXXZ,0x00658650,shared cleanup of the VptrCleanup ??_G bodies; rowed ??1BfmeDirtyBase lives here
 ?run@Rva007FA650Cleanup@@QAEXXZ,0x00666BA0
@@ -10646,15 +10547,6 @@ name,address,notes
 ?rva000F1018@W3DShadowGeometry@@QAEHPAVMeshModelClass@@HPAV1@@Z,0x000F1018,retail REL32 inside 0x000F1F60 resolves to this address; Ghidra bounds the callee at 424 bytes; method uses W3DShadowGeometry this and MeshModelClass index parent arguments; address-derived name and helper purpose remains inferred from BFME1 donor
 ?rva000F4017@Rva000F42F7Host@@QAEXH@Z,0x000F4017,"member a vtable slot 0x000F42F7 calls with a constant argument; opaque address name"
 ?rva0010004D@Rva0010004DNullTarget@@QAEXH@Z,0x0010004D,null-checked tail jmp target of forwarder 0x0007E17B; original name unknown
-?rva000E7C20SciencePrereqMemo@ScienceStore@@ABE_NPBVPlayer@@W4ScienceType@@PAX@Z,0x001FFAA1,address read from the REL32 displacement at a placed body
-?rva000EA2C0@Rva000EA2C0NullTarget@@QAEXH@Z,0x000EA2C0,null-checked tail jmp target of forwarder 0x00068283; original name unknown
-?rva000EA644@Rva000EA644NullTarget@@QAE_NH@Z,0x000EA644,"method a null-checked vtable-slot forwarder tail-jumps to (ret 4); opaque address name"
-?rva000EDB47@Rva000EDB47NullTarget@@QAEXXZ,0x000EDB47,null-checked tail jmp target of forwarder 0x00068D43; original name unknown
-?rva000EE198@Rva000EE198NullTarget@@QAEXXZ,0x000EE198,null-checked tail jmp target of forwarder 0x00068385; original name unknown
-?rva000F0A75@W3DVolumetricShadowManager@@QAEXPAX@Z,0x000F0A75,"W3DVolumetricShadowManager member taking an owner, called from vtable slot 0x000F168B; opaque address name"
-?rva000F1018@W3DShadowGeometry@@QAEHPAVMeshModelClass@@HPAV1@@Z,0x000F1018,retail REL32 inside 0x000F1F60 resolves to this address; Ghidra bounds the callee at 424 bytes; method uses W3DShadowGeometry this and MeshModelClass index parent arguments; address-derived name and helper purpose remains inferred from BFME1 donor
-?rva000F4017@Rva000F42F7Host@@QAEXH@Z,0x000F4017,"member a vtable slot 0x000F42F7 calls with a constant argument; opaque address name"
-?rva0010004D@Rva0010004DNullTarget@@QAEXH@Z,0x0010004D,null-checked tail jmp target of forwarder 0x0007E17B; original name unknown
 ?rva00106970@Rva00106C79Holder@@QAE_NHH@Z,0x00106970,"retail REL32 at 0x00106C91 in 0x00106C79 targets 0x00106970 (ecx=esi Holder thiscall 2 stack args a1 a2; 150B Ghidra FUN); opaque candidate not identity"
 ?rva0010713A@W3DProjectedShadowManager@@QAEXPAX@Z,0x0010713A,"W3DProjectedShadowManager member taking an owner, called from vtable slot 0x001074C8; opaque address name"
 ?rva00108895@Rva0010BA2COwner@@QAEXXZ,0x00108895,ordinary no-argument thiscall from native ctor0x10BA2C and reinitializer0x10BA61; resource-owner layout and vtable refute former VictoryConditions reset identity; original method name unknown
@@ -10694,10 +10586,6 @@ name,address,notes
 ?rva00150BF9@Rva00150BF9@@QAEXH@Z,0x00150BF9,"41B grow wrapper variant 1 (RET4 thiscall int); sole caller 0x150C97 family; same-TU body to follow, pin temporary"
 ?rva00150C22@Rva00150C22@@QAEXH@Z,0x00150C22,"41B grow wrapper variant 2; caller 0x150CD0"
 ?rva00150C4B@Rva00150C4B@@QAEXH@Z,0x00150C4B,"41B grow wrapper variant 3; caller 0x150D09"
-?rva0015326D@Rva0015326D@@QAEPAXHH@Z,0x0015326D,tail-jump target of the 0x1514B2 pointer-chase chain (this/+0x14/+8 with two int args); address-derived name, signature from the call shape
-?rva00153f08@Rva00154058Holder@@QAEXPAX@Z,0x00153F08,"set-surface worker for the holder ctor at 0x00154058; Ghidra boundary 336B; address-derived name"
-?rva00170B4E@Rva00170BFF@@QAEPAXABVRva00170999@@@Z,0x00170B4E,"member spelling of the 34B node buy already rowed at this address as free ?Rva00170B4EBuynode@@YGPAXABVRva00170999@@@Z; both buy call sites in insert 0x00170BFF at 0x00170C27 and 0x00170C40 load ecx from edi first, and the 0x00170E6B caller passes ecx too, so the member shape is what retail emits; the callee own ret 4 shows it consumes no ECX parameter so the body is identical either way"
-?rva00170BFF@Rva00170BFF@@QAE?AURva00170EFEIter@@PAURva00170EFENode@@0ABVRva00170999@@0@Z,0x00170BFF,Direct calls from 0x00170EFE pass the hidden iterator result slot plus x y value and w to this 136-byte insertion worker; its observed ret 0x14 agrees with that ABI. Address-derived class view; original type identity unknown
 ?rva0015326D@Rva0015326D@@QAEPAXHH@Z,0x0015326D,tail-jump target of the 0x1514B2 pointer-chase chain (this/+0x14/+8 with two int args); address-derived name, signature from the call shape
 ?rva00153f08@Rva00154058Holder@@QAEXPAX@Z,0x00153F08,"set-surface worker for the holder ctor at 0x00154058; Ghidra boundary 336B; address-derived name"
 ?rva00170B4E@Rva00170BFF@@QAEPAXABVRva00170999@@@Z,0x00170B4E,"member spelling of the 34B node buy already rowed at this address as free ?Rva00170B4EBuynode@@YGPAXABVRva00170999@@@Z; both buy call sites in insert 0x00170BFF at 0x00170C27 and 0x00170C40 load ecx from edi first, and the 0x00170E6B caller passes ecx too, so the member shape is what retail emits; the callee own ret 4 shows it consumes no ECX parameter so the body is identical either way"
@@ -10920,10 +10808,6 @@ name,address,notes
 ?rva002AE8CF@Player@@QAEXPBVAsciiString@@MH@Z,0x002AE8CF,"Player member (ret 0xC): (list entry, float bonus, int frames); REL32 callee of ProductionSpeedBonus slot 10 0x004C2F6A at 0x004C2FB0, once per module-data list entry on the owner's controlling player; body unrowed"
 ?rva002AEEA7@Player@@QAEXH@Z,0x002AEEA7,Player method taking int 1 in the 0x003BBD84 mask sweep; read from REL32 at 0x003BBDB5; identity unproven
 ?rva002AF037@Player@@QAEXH@Z,0x002AF037,Player method taking int 1 in the 0x003BBDC4 mask sweep; read from REL32 at 0x003BBDF5; identity unproven
-?rva002AE329@Player@@QAEXPBVUpgradeTemplate@@HH@Z,0x002AE329,"Player member (ret 0xC): (upgrade template, 2, 0); REL32 callee of SalvageCrateCollide::executeCrateBehavior 0x004BD442 for a player-type (+0x04 == 0) upgrade; Zero Hour addUpgrade(template, UPGRADE_STATUS_COMPLETE) plus a BFME2 flag; address-named"
-?rva002AE8CF@Player@@QAEXPBVAsciiString@@MH@Z,0x002AE8CF,"Player member (ret 0xC): (list entry, float bonus, int frames); REL32 callee of ProductionSpeedBonus slot 10 0x004C2F6A at 0x004C2FB0, once per module-data list entry on the owner's controlling player; body unrowed"
-?rva002AEEA7@Player@@QAEXH@Z,0x002AEEA7,Player method taking int 1 in the 0x003BBD84 mask sweep; read from REL32 at 0x003BBDB5; identity unproven
-?rva002AF037@Player@@QAEXH@Z,0x002AF037,Player method taking int 1 in the 0x003BBDC4 mask sweep; read from REL32 at 0x003BBDF5; identity unproven
 ?rva002B0D00@Player@@QAEXXZ,0x002B0D00,"Player member PlayerList slot 15 calls on each of the twenty players; REL32 at 0x002A7AF0; identity not recovered"
 ?rva002B2210@Rva00373EC6@@QAEXI@Z,0x002B2210,"stealth helper flags setter (the Object::rva0028F4BC result); REL32 in BroadcastStealthUpdate::update 0x004A3723 with the flags masked by module data +0x140"
 ?rva002B2579@Rva002BA8F1Logic@@QAEPAURva002B2579Result@@H@Z,0x002B2579,PC audio owner-position worker2DA1CC direct call; target disassembly verifies thiscall and return ABI; original receiver identity unasserted
@@ -10986,9 +10870,6 @@ name,address,notes
 ?rva002EF2A6@Pathfinder@@QAEXPAVObject@@@Z,0x002EF2A6,"TheAI +0x10 (the pathfinder) member taking the owner; REL32 in AIUpdate slot 139 0x0026413B; identity not recovered"
 ?rva002F0DD6@Rva002F1DDCTree@@QAE?AURva002F1DDCIter@@PAURva002F1DDCNode@@0ABVRva002F1DDCValue@@0@Z,0x002F0DD6,Direct calls from 0x002F1DDC pass the hidden iterator result slot plus x y value and w to this 136-byte insertion worker; its observed ret 0x14 agrees with that ABI. Address-derived class view; original type identity unknown
 ?rva002F23A6@Rva002F23A6@@QAE_NPAVObject@@HHPAUCoord3D@@0@Z,0x002F23A6,TU-local five-arg dispatch reached via the +0x10 member of the global at 0xDFF0F8; RETAIL REL32 in 0x341C54 targets 0x2F23A6 (1215B EH body)
-?rva002EF2A6@Pathfinder@@QAEXPAVObject@@@Z,0x002EF2A6,"TheAI +0x10 (the pathfinder) member taking the owner; REL32 in AIUpdate slot 139 0x0026413B; identity not recovered"
-?rva002F0DD6@Rva002F1DDCTree@@QAE?AURva002F1DDCIter@@PAURva002F1DDCNode@@0ABVRva002F1DDCValue@@0@Z,0x002F0DD6,Direct calls from 0x002F1DDC pass the hidden iterator result slot plus x y value and w to this 136-byte insertion worker; its observed ret 0x14 agrees with that ABI. Address-derived class view; original type identity unknown
-?rva002F23A6@Rva002F23A6@@QAE_NPAVObject@@HHPAUCoord3D@@0@Z,0x002F23A6,TU-local five-arg dispatch reached via the +0x10 member of the global at 0xDFF0F8; RETAIL REL32 in 0x341C54 targets 0x2F23A6 (1215B EH body)
 ?rva002F477E@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@1H@Z,0x002F477E,"TheAI +0x10 (the pathfinder) member: ret 0x10 with (object, from, to, 0) returning a bool path test; REL32 in ScriptConditions 0x003E5D7F (the unit, its position, the found object's position, 0) and in ActionManager 0x0041C9F0; identity not recovered"
 ?rva002F6075@Pathfinder@@QAEPAVPath@@PAVObject@@PBUCoord3D@@@Z,0x002F6075,"TheAI +0x10 (the pathfinder) member (owner, destination) returning the Path stored at AIUpdate+0x140; REL32 in AIUpdate slot 139 0x00264154; identity not recovered"
 ?rva002FE193@AI@@SA_NPAVObject@@0@Z,0x002FE193,opaque cdecl Bool(Object *owner, Object *nemesis) beside the AI statics (EH body); REL32 callee of AIGuardOuterState::onEnter 0x00543A8E after the owner check, a false result ends the state
@@ -11024,11 +10905,6 @@ name,address,notes
 ?rva0033B217@Rva002CF1E2Node@@QAEXXZ,0x0033B217,"address read from retail REL32 at 0x002CF1EA in 0x002CF1E2 list walk (E8 -> 0x33B217); Ghidra 315B FUN_0073b217 factory family (mov eax-ID/call 0xA29188); thiscall no-stack-args void return per call site; opaque address name, pin candidate-not-proof"
 ?rva0033B84EAppend@Rva0033AFBB@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for the join-append helper: caller codegen (ecx=edi receiver setup at both 0x33B84E call sites) proves a worker-member call; callee body ignores its receiver so the YG row verifies unchanged; RETAIL REL32s in 0x33B84E
 ?rva0033C247@MyRecord@@QAEXPAX@Z,0x0033C247,TU-local record fill from the 0x33E102 arg; RETAIL REL32 in 0x33E102 targets 0x33C247 (11B forwarder pushing record plus string-const into 0x2DE78)
-?rva0033C259@ThingTemplate@@QBEMH@Z,0x0033C259,address read from the REL32 displacement at 0x00268B64 in chooseLocomotorSet 0x00268B20 with ECX = the owner's template and the new locomotor set; returns a float on the x87 stack (0.0 when the template's +0x3A4 is zero) that the caller stores at AIUpdate +0x1F8; body unrowed
-?rva0033FD98@@YAXPAVRva00343F8A@@PAX@Z,0x0033FD98,TU-local no-goal callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x33FD98 when getGoalObject is null
-?rva003412DB@Rva003412DB@@QAEXXZ,0x003412DB,address-derived callee of matched slot 0x00341339; retail jmp rel32 targets 0x003412DB; Ghidra FUN bounds 94 bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
-?rva00341891@Rva00341796@@QAEXXZ,0x00341891,second name for the body rowed as ?onEnter@AIHarvestState@@UAE?AW4StateReturnType@@XZ; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
-?rva00343DD8@@YAXPAVRva00343F8A@@PAX@Z,0x00343DD8,TU-local goal-path callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x343DD8 when getGoalObject is non-null
 ?rva0033C259@ThingTemplate@@QBEMH@Z,0x0033C259,address read from the REL32 displacement at 0x00268B64 in chooseLocomotorSet 0x00268B20 with ECX = the owner's template and the new locomotor set; returns a float on the x87 stack (0.0 when the template's +0x3A4 is zero) that the caller stores at AIUpdate +0x1F8; body unrowed
 ?rva0033FD98@@YAXPAVRva00343F8A@@PAX@Z,0x0033FD98,TU-local no-goal callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x33FD98 when getGoalObject is null
 ?rva003412DB@Rva003412DB@@QAEXXZ,0x003412DB,address-derived callee of matched slot 0x00341339; retail jmp rel32 targets 0x003412DB; Ghidra FUN bounds 94 bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
@@ -11080,25 +10956,12 @@ name,address,notes
 ?rva003705C2@AIGroup@@QAEXXZ,0x003705C2,tail-callee of AIGroup 0x00372C05 on the same this (REL32 jmp at 0x372C1B); void-void thiscall; identity not recovered
 ?rva00372571@AIGroup@@QAEXPAURva00372571Params@@H@Z,0x00372571,"AIGroup member taking a 0x20-byte argument block (+0x00 a position pointer, +0x14 -1, the rest zero) and a command source, ret 8; REL32 in script action 0x003C2662 with ECX the team's new group, the block built inline and 1; identity not recovered (a group move order in shape)"
 ?rva00372B09@BfmeC986@@QAEXHHH@Z,0x00372B09,three-arg fallback on same this in rva00372C74 at 0x372C9E (REL32); range-16 target, name will be reused by its row; identity not recovered
-?rva003705C2@AIGroup@@QAEXXZ,0x003705C2,tail-callee of AIGroup 0x00372C05 on the same this (REL32 jmp at 0x372C1B); void-void thiscall; identity not recovered
-?rva00372571@AIGroup@@QAEXPAURva00372571Params@@H@Z,0x00372571,"AIGroup member taking a 0x20-byte argument block (+0x00 a position pointer, +0x14 -1, the rest zero) and a command source, ret 8; REL32 in script action 0x003C2662 with ECX the team's new group, the block built inline and 1; identity not recovered (a group move order in shape)"
-?rva00372B09@BfmeC986@@QAEXHHH@Z,0x00372B09,three-arg fallback on same this in rva00372C74 at 0x372C9E (REL32); range-16 target, name will be reused by its row; identity not recovered
 ?rva00373D28@Rva00373EC6@@QAEPAV1@PAVObject@@@Z,0x00373D28,"member spelling of the matched stealth helper switch (ret 4, ECX set by the caller); REL32 in BroadcastStealthUpdate::update 0x004A3706 with the object"
 ?rva00376A62Contains@Rva00376B1EObjectTypesView@@QAE_NABV?$StringBase@D@@@Z,0x00376A62,Native ObjectTypes prefix contains ABI alias; 376B25 directcall reaches existing34B contains row; same thiscall bool with const4B StringBase char reference; linker alias resolves real provider; address-view owner not original method identity
 ?rva0037EEB9@Rva0037F32F@@QAEXPBVThingTemplate@@@Z,0x0037EEB9,"member (ret 4) of the object at Player +0x738 taking a ThingTemplate, the removal twin of rva0037F32F: BuildableHeroListUpgrade::upgradeRemovalImplementation 0x004B8484 feeds it each listed hero template"
 ?rva0037F32F@Rva0037F32F@@QAEXPBVThingTemplate@@PAVPlayer@@@Z,0x0037F32F,"member (EH, ret 8) of the object at Player +0x738 taking a ThingTemplate and the Player; BuildableHeroListUpgrade::upgradeImplementation 0x004B837F feeds it each listed hero template"
 ?rva00380459@Rva00380459@@QAEXH@Z,0x00380459,tail jmp target of 8B forwarder 0x002A9ECA (ret 4); original name unknown
 ?rva00390533@Rva00390533@@QAE_NXZ,0x00390533,TU-local flag-pair check (bit31 of +0x118 or bit8 of +0x114); RETAIL REL32 in 0x341C54 targets 0x390533
-?rva00392092@Rva00392092Target@@QAEXXZ,0x00392092,"method a vtable-slot forwarder tail-jumps to (ret 0); opaque address name"
-?rva00395E53@CastleBehavior@@QAEPAVPolygonTrigger@@H@Z,0x00395E53,"CastleBehavior member (ret 4): the castle area polygon trigger for an index; REL32 at 0x003E6FF3 in ScriptConditions::rva003E6ED0 with indices 1..7, null ending the walk; address-named"
-?rva00396A5C@Rva00396A5C@@QAEHPAVPlayer@@@Z,0x00396A5C,address read from the retail REL32 at 0x00396B1E in rva00396B0D 0x00396B0D; 177B AsciiString/NameKey map-find body, recovery blocked on StringBase/map models
-?rva003970E7@Rva0039718B@@QAEHPAVPlayer@@@Z,0x003970E7,address read from the retail REL32 at 0x003971B0 in rva0039718B 0x0039718B; 164B free Ghidra body on the same host (ecx=this), returns dword compared with Player+0x94
-?rva00397429@CastleBehavior@@QAEPAVObject@@ABVAsciiString@@@Z,0x00397429,"CastleBehavior member (ret 4): the object nearest the castle whose template name equals the argument (99999 start distance); REL32 at 0x003C73E4 in ScriptActions::rva003C739D with an area parameter's string"
-?rva00397756@Rva00397756@@QAEXPAUIdRange@@H@Z,0x00397756,GameLogic-outer method (ecx=this-0xc style callers) sweeping one IdRange; free 59B body banked as partial (56/59 scheduler delta); called 4x from rva00397791 0x00397791
-?rva00397CC9@Rva0039834C@@QAEPAXABURva0039627D@@@Z,0x00397CC9,twin member for tree insert mov ecx edi ICF with free row
-?rva0039ABFF@ExperienceTracker@@QBE_NXZ,0x0039ABFF,"ExperienceTracker bool member with no arguments (forwards to a 0x00DFECC4 member); REL32 callee of VeterancyCrateCollide::isValidToExecute 0x004BCEF0 at 0x004BCF4E where Zero Hour asks canGainExpForLevel; address-named"
-?rva0039AE04@ExperienceTracker@@QBE_NXZ,0x0039AE04,"bool member of the tracker at Object +0x264 (+0x34 owner kind test 0x3E; beside ExperienceTracker xfer 0x0039AFC8); REL32 in LevelGrantSpecialPower 0x004C2B8A"
-?rva0039AEBC@Rva0039B0C9@@QAEXH@Z,0x0039AEBC,thiscall worker on this taking the +4 dword; read from REL32 at 0x0039B0D4 in rva0039B0C9 0x0039B0C9; 158B free body; identity unproven
 ?rva00392092@Rva00392092Target@@QAEXXZ,0x00392092,"method a vtable-slot forwarder tail-jumps to (ret 0); opaque address name"
 ?rva00395E53@CastleBehavior@@QAEPAVPolygonTrigger@@H@Z,0x00395E53,"CastleBehavior member (ret 4): the castle area polygon trigger for an index; REL32 at 0x003E6FF3 in ScriptConditions::rva003E6ED0 with indices 1..7, null ending the walk; address-named"
 ?rva00396A5C@Rva00396A5C@@QAEHPAVPlayer@@@Z,0x00396A5C,address read from the retail REL32 at 0x00396B1E in rva00396B0D 0x00396B0D; 177B AsciiString/NameKey map-find body, recovery blocked on StringBase/map models
@@ -11128,15 +10991,6 @@ name,address,notes
 ?rva003A3717@Team@@QAE_NABVAsciiString@@@Z,0x003A3717,"call-site agreement: sole caller, the matched rva003E859E (TEAM_HAS_CUSTOM_STATE handler) 0x003E859E, calls it on the named Team with the state Parameter string; body looks the name up in the +0x48 container via the rowed 0x0041534B"
 ?rva003A37DC@Rva000427195@@QAEXUVideoPair@@@Z,0x003A37DC,video-map pair erase callee of reset at 0x0031E09E; honest address-derived name
 ?rva003A3B7E@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z,0x003A3B7E,fallback when findPrototype hits an empty inactive team; same (a1,a2) args; read from REL32 at 0x003A3E67 in rva003A3E37 0x003A3E37
-?rva003A3DBE@TeamFactory@@QAEPAVTeam@@PAURva003A2FD4Proto@@H@Z,0x003A3DBE,"TheTeamFactory: a team on the prototype (null prototype gives null; a singleton prototype's +0x334 team is reused, else a new 0x13C-byte Team); REL32 in StructureCreep slot 6 0x005ABAF6"
-?rva003A547E@Rva003A547ETarget@@QAEXH@Z,0x003A547E,"method a vtable-slot forwarder tail-jumps to (ret 4); opaque address name"
-?rva003AFFBE@@YAXHHHHH@Z,0x003AFFBE,50B idiv+rep-movsd helper calling 0x003AFE48; 5 int args assumed; read from REL32 at 0x003B016D in rva003B015D 0x003B015D
-?rva003B015D@@YAXHHD@Z,0x003B015D,static 5-push forwarder into 0x003AFFBE; 3rd param is char (callers mov-al the byte); read from REL32 at 0x003B0427 in rva003B0412 0x003B0412
-?rva003B0176@@YAXHHHH@Z,0x003B0176,42B movsd-copy helper calling 0x003AFFF0; 4 int args assumed (p2 used as pointer); read from REL32 at 0x003B02AF in rva003B02A1 0x003B02A1
-?rva003B224D@IgnorePreferences@@QAE?AVRva00385B78SavedMap@@XZ,0x003B224D,native loadSavedIgnoreList100 213B ignores getter at call385BA6; complete rowed provider independently verified; address-derived consumed tree view and hidden-return ABI
-?rva003B5EA5@@YAHHHPAURva003B65Header@@@Z,0x003B5EA5,real prolog at unlisted address inside Ghidra 1818B blob; 3rd arg is the caller header; int args assumed; read from REL32 at 0x003B65CD/0x003B6607
-?rva003B7167@Rva003B761E@@QAEXXZ,0x003B7167,temp cleanup on the 0x20-byte Rva003B761E slot; read from REL32 at 0x003B7663 in rva003B7647 0x003B7647; likely the dtor; identity unproven
-?rva003B7448@Rva003B7448@@QAEXH@Z,0x003B7448,member method on +4 taking arg+4; read from REL32 at 0x003B7700 in rva003B76EF 0x003B76EF; int arg assumed
 ?rva003A3DBE@TeamFactory@@QAEPAVTeam@@PAURva003A2FD4Proto@@H@Z,0x003A3DBE,"TheTeamFactory: a team on the prototype (null prototype gives null; a singleton prototype's +0x334 team is reused, else a new 0x13C-byte Team); REL32 in StructureCreep slot 6 0x005ABAF6"
 ?rva003A547E@Rva003A547ETarget@@QAEXH@Z,0x003A547E,"method a vtable-slot forwarder tail-jumps to (ret 4); opaque address name"
 ?rva003AFFBE@@YAXHHHHH@Z,0x003AFFBE,50B idiv+rep-movsd helper calling 0x003AFE48; 5 int args assumed; read from REL32 at 0x003B016D in rva003B015D 0x003B015D
@@ -11180,10 +11034,6 @@ name,address,notes
 ?rva004083FF@Rva005B023A@@QAEXH@Z,0x004083FF,address-derived callee of matched slot 0x005B023A; retail REL32 targets 0x004083FF; Ghidra FUN bounds 1082 bytes; thiscall on the caller object one arg ret 4; callee body remains unclaimed; no named identity inferred
 ?rva004089C7@Rva0021937DTarget@@QAEXHH@Z,0x004089C7,middle call of the 0x0021937D triple forward taking the owner member and 1: REL32 read there; owner identity unproven
 ?rva00409F1B@Rva00409F1B@@QAEXHH@Z,0x00409F1B,thiscall (mov esi plus ecx prolog) reached from 0x33C965 with two int args after the 0x31D5F8 lookup hit; RETAIL REL32 at 0x0033CA6B; address-named
-?rva0040A32F@Rva0040A3F9@@QAEPAVCreateAHeroData@@H@Z,0x0040A32F,unrowed 28B thiscall (Ghidra FUN_0080a32f; ret 4) on the CreateAHeroData pointer vector of Rva0040A3F9Find.cpp: the entry at an index or 0 past the end; called from 0x0043DD5D and 0x004414FF; address name
-?rva0040D3FF@Rva0040D3FF@@QAEHXZ,0x0040D3FF,tail jmp target of 11B forwarder 0x0023D0B7 at GameLogic+0x184; original name unknown
-?rva0040DF77@Rva0040DF77@@QAEXXZ,0x0040DF77,address-derived callee of matched slot 0x0040E0C5; retail REL32 targets 0x0040DF77; Ghidra FUN bounds 180 bytes; thiscall no args; ret; callee body remains unclaimed; no named identity inferred
-?rva0040F497@@YGXHHH@Z,0x0040F497,3-zero-arg helper called by BfmeY1038::rva0040F7E5 0x0040F7E5; retail callee cleans 12 (stdcall) but the caller bytes only need the address
 ?rva0040A32F@Rva0040A3F9@@QAEPAVCreateAHeroData@@H@Z,0x0040A32F,unrowed 28B thiscall (Ghidra FUN_0080a32f; ret 4) on the CreateAHeroData pointer vector of Rva0040A3F9Find.cpp: the entry at an index or 0 past the end; called from 0x0043DD5D and 0x004414FF; address name
 ?rva0040D3FF@Rva0040D3FF@@QAEHXZ,0x0040D3FF,tail jmp target of 11B forwarder 0x0023D0B7 at GameLogic+0x184; original name unknown
 ?rva0040DF77@Rva0040DF77@@QAEXXZ,0x0040DF77,address-derived callee of matched slot 0x0040E0C5; retail REL32 targets 0x0040DF77; Ghidra FUN bounds 180 bytes; thiscall no args; ret; callee body remains unclaimed; no named identity inferred
@@ -11374,10 +11224,6 @@ name,address,notes
 ?rva004E37CF@Rva004E37CF@@QAEXAAVAsciiString@@PAVRva003BB730Record@@@Z,0x004E37CF,tail jmp target of 8B forwarder 0x003EE7C2 (ret 8); original name unknown
 ?rva004E476C@AptPlayerStatus@@QAEXXZ,0x004E476C,unrowed player-row refresh of the player status screen (Ghidra FUN_008e476c; EH frame; checks +0x288 == 1 itself); REL32 read at the screen's OnInitialized callback 0x004E4A3D with ECX = this; address name
 ?rva004E5EBE@Rva004E5EBENullTarget@@QAEXHH@Z,0x004E5EBE,null-checked tail jmp target of 18B forwarder; original name unknown
-?rva004E21D5@Rva004E2E58@@QAEXXZ,0x004E21D5,Address-derived thiscall container value-cleanup; independently proven41B Ghidra boundary; caller3EE9F7 passes owning member this+8; node traversal reads payload+14 and calls4E2199 without removing nodes
-?rva004E37CF@Rva004E37CF@@QAEXAAVAsciiString@@PAVRva003BB730Record@@@Z,0x004E37CF,tail jmp target of 8B forwarder 0x003EE7C2 (ret 8); original name unknown
-?rva004E476C@AptPlayerStatus@@QAEXXZ,0x004E476C,unrowed player-row refresh of the player status screen (Ghidra FUN_008e476c; EH frame; checks +0x288 == 1 itself); REL32 read at the screen's OnInitialized callback 0x004E4A3D with ECX = this; address name
-?rva004E5EBE@Rva004E5EBENullTarget@@QAEXHH@Z,0x004E5EBE,null-checked tail jmp target of 18B forwarder; original name unknown
 ?rva004E7B0C@Rva004E7B0CHolder@@QAEXXZ,0x004E7B0C,"forwarder (mov ecx, [ecx] / jmp 0x004E7A85) of the holder at TheInGameUI +0x58C; TerrainResourceClientBehavior slot 17 0x004CC5FA calls it before raising its +0x0C flag"
 ?rva004E7D1D@Rva004E7B0CHolder@@QAEXXZ,0x004E7D1D,"forwarder (mov ecx, [ecx] / jmp 0x004E7CEF) of the holder at TheInGameUI +0x58C; TerrainResourceClientBehavior slot 18 0x004CC61A calls it before clearing its +0x0C flag"
 ?rva004EAFBD@Rva004EAFBD@@QAE?AUCoord3D@@XZ,0x004EAFBD,"wall planner position (asserts in AIWall.cpp; Coord3D by hidden pointer); REL32 in 0x004EB962"
@@ -11405,8 +11251,6 @@ name,address,notes
 ?rva004F0819@Rva004F0819NullTarget@@QAEXH@Z,0x004F0819,null-checked tail jmp target of 18B forwarder; original name unknown
 ?rva004F2ABC@Rva004F2ABCNullTarget@@QAEXHH@Z,0x004F2ABC,null-checked tail jmp target of 18B forwarder; original name unknown
 ?rva004F2C14@Rva004F2C14NullTarget@@QAEXH@Z,0x004F2C14,null-checked tail jmp target of 18B forwarder; original name unknown
-?rva004FD37F@Rva004FD37F@@QAEXPBVModuleData@@@Z,0x004FD37F,"holder append reached by Rva004FD719Parse at 0x004FD719; abuts rowed Rva004FD448 0x004FD448"
-?rva005016C3@Rva005016C3@@QAEXXZ,0x005016C3,tail jmp target of 8B forwarder 0x0050174A (ret 0); original name unknown
 ?rva004FD37F@Rva004FD37F@@QAEXPBVModuleData@@@Z,0x004FD37F,"holder append reached by Rva004FD719Parse at 0x004FD719; abuts rowed Rva004FD448 0x004FD448"
 ?rva005016C3@Rva005016C3@@QAEXXZ,0x005016C3,tail jmp target of 8B forwarder 0x0050174A (ret 0); original name unknown
 ?rva005045E0@Rva005045E0@@QAEXPAVXfer@@@Z,0x005045E0,address-derived callee of matched slot 0x003FD321; retail REL32 targets 0x005045E0; Ghidra FUN bounds 162 bytes; thiscall on the +0x0C member (Xfer*) ret 4; callee body remains unclaimed; no named identity inferred
@@ -11480,8 +11324,6 @@ name,address,notes
 ?rva00576D0D@Rva00576D0D@@QAEXXZ,0x00576D0D,address-derived callee of matched slot 0x00576DCD; retail jmp rel32 targets 0x00576D0D; Ghidra FUN bounds 192 bytes; thiscall on the +0x08 object 0 arg(s) ret; callee body remains unclaimed; no named identity inferred
 ?rva0057718D@Rva0057718D@@QAEXXZ,0x0057718D,address-derived callee of matched slot 0x005772FA; retail jmp rel32 targets 0x0057718D; Ghidra FUN bounds 103 bytes; thiscall on the +0x08 object 0 arg(s) ret; callee body remains unclaimed; no named identity inferred
 ?rva00577944@Rva005F83B9@@QAEXXZ,0x00577944,thiscall helper refreshing the +4 slot pair for notifier 0x005F83B9: tail-jumps to 0x005C674A after two calls through [esi+4]; called with this and no stack args
-?rva0057B16D@Rva0057B5AA@@QAEXXZ,0x0057B16D,unrowed 170B thiscall (Ghidra FUN_0097b16d) on the WOTR panel built by 0x0057B5AA; REL32 read at its _OnScrollBarLoaded 0x0057B595 with ECX=the panel; address name
-?rva0057C499@Rva0057C499@@QAEXHH@Z,0x0057C499,thiscall forwarder target of 0x005D4EA8 taking two dwords; int args assumed; read from REL32 at 0x005D4EAD in rva005D4EA8 0x005D4EA8; Ghidra 73B
 ?rva0057B16D@Rva0057B5AA@@QAEXXZ,0x0057B16D,unrowed 170B thiscall (Ghidra FUN_0097b16d) on the WOTR panel built by 0x0057B5AA; REL32 read at its _OnScrollBarLoaded 0x0057B595 with ECX=the panel; address name
 ?rva0057C499@Rva0057C499@@QAEXHH@Z,0x0057C499,thiscall forwarder target of 0x005D4EA8 taking two dwords; int args assumed; read from REL32 at 0x005D4EAD in rva005D4EA8 0x005D4EA8; Ghidra 73B
 ?rva0057C621@Rva0057E3DB@@QAEHXZ,0x0057C621,unrowed 40B thiscall (Ghidra FUN_0097c621; returns eax) on the MpGameSetup +0x60 member: reads a value through its +0x68 member when +0x50 is set; called from 0x0043E1EA; address name
@@ -11592,10 +11434,6 @@ name,address,notes
 ?rva005D2F84@Rva005D2F84@@QAEXXZ,0x005D2F84,address-derived callee of matched slot 0x00578636; retail jmp rel32 targets 0x005D2F84; Ghidra FUN bounds None bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
 ?rva005D2F8A@Rva005D2F8A@@QAEXXZ,0x005D2F8A,address-derived callee of matched slot 0x0057863E; retail jmp rel32 targets 0x005D2F8A; Ghidra FUN bounds None bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
 ?rva005D388B@Rva005D388B@@QAE?AUTreeHintRef00217D4C@@XZ,0x005D388B,by-value TreeHintRef getter on +0x24 member (hidden retptr at [ebp-16]); read from REL32 at 0x005D3AB2 in rva005D3A91 0x005D3A91; Ghidra 61B blocked
-?rva005D2F7E@Rva005D2F7E@@QAEXXZ,0x005D2F7E,address-derived callee of matched slot 0x0057862E; retail jmp rel32 targets 0x005D2F7E; Ghidra FUN bounds None bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
-?rva005D2F84@Rva005D2F84@@QAEXXZ,0x005D2F84,address-derived callee of matched slot 0x00578636; retail jmp rel32 targets 0x005D2F84; Ghidra FUN bounds None bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
-?rva005D2F8A@Rva005D2F8A@@QAEXXZ,0x005D2F8A,address-derived callee of matched slot 0x0057863E; retail jmp rel32 targets 0x005D2F8A; Ghidra FUN bounds None bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
-?rva005D388B@Rva005D388B@@QAE?AUTreeHintRef00217D4C@@XZ,0x005D388B,by-value TreeHintRef getter on +0x24 member (hidden retptr at [ebp-16]); read from REL32 at 0x005D3AB2 in rva005D3A91 0x005D3A91; Ghidra 61B blocked
 ?rva005D3A91@Rva005D3B26@@QAEXXZ,0x005D3A91,unrowed thiscall (Ghidra FUN_009d3a91) on the same panel object; callee of ?rva005D3CFA@Rva005D3B26@@QAEXXZ at retail 0x005D3D3C read from its REL32 displacement; body unrowed
 ?rva005D3CA6@Rva005D3C2B@@QAEXPAX@Z,0x005D3CA6,unrowed 39B thiscall (Ghidra FUN_009d3ca6; ret 4) storing its argument at +0x18 when it changes (the selection); REL32 read at the WOTR UI selection setter 0x005785B6 and _OnSelectionUILoaded 0x005789D3 with ECX = the +0x50 Rva005D3C2B object; address name
 ?rva005D3F8D@Rva005D3F8D@@QAEXXZ,0x005D3F8D,address-derived callee of matched slot 0x0057A36A; retail jmp rel32 targets 0x005D3F8D; Ghidra FUN bounds 6 bytes; thiscall on the +0x08 member 0 arg(s) ret; callee body remains unclaimed; no named identity inferred
@@ -11628,7 +11466,6 @@ name,address,notes
 ?rva005E2180@Rva005E2180@@QAEXXZ,0x005E2180,jump target of 17B forwarder 0x005E2226; original name unknown
 ?rva005E254C@Rva005E254C@@QAEXXZ,0x005E254C,jump target of 17B forwarder 0x005E25DE; original name unknown
 ?rva005E4BB7@Rva005E4BB7@@QAEPAXPAX@Z,0x005E4BB7,thiscall on +0x1C member taking out-ptr returning pointer chain for 0x9F3F41; void ptrs assumed; read from REL32 at 0x005E4DBD in rva005E4DAF 0x005E4DAF; Ghidra 120B
-?rva005E509F@Rva005E509FCallView@@QAEXXZ,0x005E509F,"auto-pin (permute --pins): REL32 call target read from retail in 0x005e6894, whose banked body is byte-exact once this call resolves"
 ?rva005E589E@Rva005E589E@@QAEXXZ,0x005E589E,jump target of 17B forwarder 0x005E590F; original name unknown
 ?rva005E58ED@Rva005E58EDNullTarget@@QAEXXZ,0x005E58ED,null-checked tail jmp target of forwarder 0x005CD9F2; original name unknown
 ?rva005E69AC@Rva005E69AC@@QAEXXZ,0x005E69AC,jump target of 17B forwarder 0x005E6A00; original name unknown
@@ -11649,7 +11486,6 @@ name,address,notes
 ?rva005F3F9A@Rva005F3F9A@@QAEXXZ,0x005F3F9A,address-derived callee of matched slot 0x005F3FF4; retail jmp rel32 targets 0x005F3F9A; Ghidra FUN bounds 90 bytes; thiscall on the +0x08 object 0 arg(s) ret; callee body remains unclaimed; no named identity inferred
 ?rva005F40B0@Rva005F40B0@@QAEXXZ,0x005F40B0,address-derived callee of matched slot 0x005F41AF; retail jmp rel32 targets 0x005F40B0; Ghidra FUN bounds 123 bytes; thiscall on the +0x08 object 0 arg(s) ret; callee body remains unclaimed; no named identity inferred
 ?rva005F6B0B@SpecialAbilityUpdate@@QBEPBVSpecialPowerTemplate@@XZ,0x005F6B0B,"the module data +0x38 special power template (the matched disp8 pointer-chase getter row); REL32 in CurseSpecialPower 0x004CCF20, followed by friend_getFinalOverride and the +0x54 radius"
-?rva005F9330@Rva005F9330@@QAEXXZ,0x005F9330,address-derived callee of matched forwarder 0x005FD8C1; retail mov ecx [ecx+4] then E9 67 BA FF FF at +3 targets 0x005F9330; Ghidra FUN_009f9330 independently bounds 52 bytes; callee body remains unclaimed; no named identity inferred
 ?rva005F963A@Rva005F963A@@QAEXH@Z,0x005F963A,address-derived callee of matched slot 0x005F97AC; retail jmp rel32 targets 0x005F963A; Ghidra FUN bounds 77 bytes; thiscall one arg ret 4; callee body remains unclaimed; no named identity inferred
 ?rva005F9687@Rva005F9687@@QAEXH@Z,0x005F9687,address-derived callee of matched slot 0x005F97B4; retail jmp rel32 targets 0x005F9687; Ghidra FUN bounds 77 bytes; thiscall one arg ret 4; callee body remains unclaimed; no named identity inferred
 ?rva00601A8D@Rva00601BBCHelper@@QAEXXZ,0x00601A8D,"address read from the retail REL32 at 0x00601C11 in the INI helper destructor 0x00601BF3; clears the member at +4 and deletes the pointers held in the +0x28 vector"
@@ -11834,8 +11670,6 @@ name,address,notes
 ?set@BfmeQuickMatchSlot@@QAEXABV1@@Z,0x000366F0,callee of bfmeAttach (0x00538C6D) at the site its BFME1 donor calls it; may be an ICF alias
 ?set@BfmeSortElem20Tail@@QAEXABV1@@Z,0x00332217,REL32 from the retail 39-byte assignment at 0x003372EC calls with ecx at S4SortElem20+8; BFME1 donor assigns the three-pointer tail here, target type identity remains donor-derived
 ?set@GeometryInfo@@QAEXW4GeometryType@@_NMMM@Z,0x006BFF50,Five-argument GeometryInfo extent setter called once with x87 float args by the 0x50B74 ctor; ret 0x14 callee-clean
-?set@GeometryInfo@@QAEXW4GeometryType@@_NMMM@Z,0x006BFF50,Five-argument GeometryInfo extent setter called once with x87 float args by the 0x50B74 ctor; ret 0x14 callee-clean
-?set@Rva0009990D@@QAEXPAX@Z,0x000998EA,target startThread at 0x38B1C0 calls this at 0x38B200 with ECX=queue+0x74 and the new LockClass pointer on the stack; boundary 0x998EA/35 replaces the owner and destroys/frees any old LockClass via matched helpers; address-derived owner method
 ?set@Rva0035D6F9Holder@@QAEXPAVRva0035D53C@@@Z,0x005F69CE,ICF twin of rowed dup_005f69ce 10B setter stores holder+0x10 call site 0x0035D722 in factory 0x0035D6F9 matches retail
 ?set@Rva0035E327Holder@@QAEXPAVRva0035E2E6@@@Z,0x005F69CE,ICF twin of rowed dup_005f69ce 10B setter stores holder+0x10; call site 0x0035E366 in factory 0x0035E327 matches retail
 ?set@Rva0035E650Holder@@QAEXPAVRva0035E60B@@@Z,0x005F69CE,ICF twin of rowed dup_005f69ce 10B setter stores holder+0x10; call site 0x0035E68F in factory 0x0035E650 matches retail
@@ -11998,8 +11832,6 @@ name,address,notes
 ?step@Gen0035F050@@QAEHXZ,0x00542890,"Gen0035F050::step, read off the REL32 displacement of ?poll@Gen0035F050@@QAE_NHHHHH@Z at 0x0054297E"
 ?step@Rva005E590FCaller@@QAEXXZ,0x005E590F,opaque alias: same body as rowed step 0x005E590F; first phase of step 0x005CDDF0 (separate type blocks same-TU inlining)
 ?step@U1CallReceiver_005C5BD0@@QAEXH@Z,0x001F6537,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?step@U1CallReceiver_005C5BD0@@QAEXH@Z,0x001F6537,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?stop@Rva006105F0@@QAEXXZ,0x006105F0,target endThread call at 0x3890B2 passes ECX=m_thread with no stack args; aliases the already matched ThreadClass::Stop body using an address-derived name because the donor header exposes a different overload
 ?stopAllBoneFX@BoneFXUpdate@@QAEXXZ,0x00487A95,address read from the REL32 displacement at a placed body
 ?stopHostingAlready@PeerThreadClass@@QAEXPAX@Z,0x0038D526,callee of QRTeamKeyCallback (0x0038DE7B) at the site its BFME1 donor calls it; may be an ICF alias
 ?store@Rva00802B30Element@@QAEXPBVRva007FBEF0GameRecord@@@Z,0x0066EC60
@@ -12274,22 +12106,6 @@ _Rva0021E44BForward,0x0021E44B,REL32 callee decoded from target call bytes of wr
 _Rva002B5873Apply,0x002B5873,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
 _Rva002B641FApply,0x002B641F,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
 _Rva002B92A7Forward,0x002B92A7,REL32 callee decoded from target call bytes of wrapper 0x002BAE0F; identity unproven
-_Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equality
-_Rva00311602CopyRecords,0x00311602,"Native wrapper003120FB REL32 resolves existing ledger worker00311602/54; 5 cdecl arguments first last result empty iterator tag address null distance; linker alias binds existing verified source provider. Address-derived ABI route only; application identity unknown."
-_Rva00331BD7Apply,0x00331BD7,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
-_Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wrapper 0x00337C55; identity unproven
-_Rva003B0176Apply,0x003B0176,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
-_Rva003B8E13DestroyRecords,0x003B8E13,"Native003F5254 calls existing verified ledger provider003B8E13; call ABI and stride104 independently read from target; linker alias to exact existing provider. Address-view route only; no application class inferred."
-_Rva003BE532Apply,0x003BE532,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
-_Rva003F417EConstructRecords,0x003F417E,"Native003F5254 calls existing verified ledger provider003F417E; call ABI and stride104 independently read from target; linker alias to exact existing provider. Address-view route only; no application class inferred."
-_Rva003F421DCopyRecords,0x003F421D,"Native wrapper003B8B44 calls existing ledger worker003F421D; 5 cdecl arguments first last result empty iterator tag address null distance. Alias binds existing verified source provider; address-derived ABI route only."
-_Rva003FE245Lookup,0x003FE245,REL32 callee decoded from target call bytes of wrapper 0x00318D4E; identity unproven
-_Rva004097AFWorker,0x004097AF,REL32 callee decoded from target call bytes of wrappers 0x00409892/0x004098A9; identity unproven
-_Rva004143A4CopyRecords,0x004143A4,"Native wrapper00414403 calls existing ledger worker004143A4; 5 cdecl arguments first last result empty iterator tag address null distance. Alias binds existing verified source provider; address-derived ABI route only."
-_Rva004F73B3Apply,0x004F73B3,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
-_Rva004F7780Apply,0x004F7780,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
-_Rva0052B1EFLookup,0x0052B1EF,REL32 callee decoded from target call bytes of wrapper 0x0052B225; identity unproven
-_Rva0059E0C1Lookup,0x0059E0C1,REL32 callee decoded from target call bytes of wrapper 0x0059E0F7; identity unproven
 _Rva0030CAF8CursorEqual,0x0007E394,twin of dup_0007e394 29B exact cursor equality
 _Rva00311602CopyRecords,0x00311602,"Native wrapper003120FB REL32 resolves existing ledger worker00311602/54; 5 cdecl arguments first last result empty iterator tag address null distance; linker alias binds existing verified source provider. Address-derived ABI route only; application identity unknown."
 _Rva00331BD7Apply,0x00331BD7,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
@@ -13590,51 +13406,3 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva0052E3E6@Rva0052E3E6@@QAEXPAX0@Z,0x0052E3E6,member taking two opaque pointers on the 0x00DFF0F8+0x10 object; REL32 callee of dump-range-18 0x003C35AA; identity unproven
 ?rva00209811@ScriptEngine@@QAEXABVAsciiString@@PAX@Z,0x00209811,ScriptEngine member taking (name ref, opaque); REL32 callee of dump-range-18 0x003C35AA; identity unproven
 ?rva002B07A9@Player@@QAE_NPAX@Z,0x2B07A9,Player EH-framed slot initializer called by PlayerList 0x2A7F2A
-?rva00409F1B@Rva00409F1B@@QAEXHH@Z,0x00409F1B,thiscall (mov esi plus ecx prolog) reached from 0x33C965 with two int args after the 0x31D5F8 lookup hit; RETAIL REL32 at 0x0033CA6B; address-named
-?g_00DFE758@@3PAXA,0x00DFE758,flag-holder global tested at +0x1110 by 0x33C965 before the 0x31D5F8 lookup
-?g_00E01CFC@@3PAXA,0x00E01CFC,lookup-table global receiving the 0x31D5F8 call in 0x33C965
-?Rva003430A3Check@@YA_NPAXPAVObject@@H@Z,0x003430A3,free goal check called from 0x343DD8 with (esi plus ebp plus edi); RETAIL REL32 at 0x00343E9B; recovery is blocked so this spelling only serves the call
-?rva0047A699@Rva002C9400ByteField@@QBE_NXZ,0x0047A699,const predicate on the Weapon +4 byte-field reached from 0x343DD8; RETAIL REL32 at 0x00343E72; address-named
-?rva0036D3A3@BfmeC986@@QAEDHH@Z,0x0036D3A3,two-arg check on same this in rva003724B8 at 0x372509 (REL32); returns byte tested; identity not recovered
-?rva005494A0@BfmeC986@@QAEXHH@Z,0x005494A0,two-arg step on same this in rva003724B8 at 0x37251E (REL32); return ignored; identity not recovered
-?rva00372B09@BfmeC986@@QAEXHHH@Z,0x00372B09,three-arg fallback on same this in rva00372C74 at 0x372C9E (REL32); range-16 target, name will be reused by its row; identity not recovered
-??0Rva003862EDMember@@QAE@ABV0@@Z,0x0038630B,address read from the retail REL32 at 0x003862ED in CompositeRvoGetters::get; member copy ctor for the +0x84 RVO getter
-??0Rva00389DF1Member@@QAE@ABV0@@Z,0x005559FC,address read from the retail REL32 at 0x00389DF1 in CompositeRvoGetters::get; member copy ctor for the +0x1B0 RVO getter
-??0Rva00389E0FMember@@QAE@ABV0@@Z,0x00555616,address read from the retail REL32 at 0x00389E0F in CompositeRvoGetters::get; member copy ctor for the +0x340 RVO getter
-??0Rva00394173Member@@QAE@ABV0@@Z,0x00332106,address read from the retail REL32 at 0x00394173 in CompositeRvoGetters::get; member copy ctor for the +0x754 RVO getter
-?rva00369217@Rva0036A88AOwner@@QAEXH@Z,0x00369217,address read from the retail REL32 at 0x0036A88A+ in Rva0036A88AOwner::rva0036A88A (push 0 same-this call; rowed under GiantBirdNormalFlightState::onExit, same address)
-?rva00369064@Rva0036A88AOwner@@QAEHXZ,0x00369064,address read from the retail REL32 at 0x0036A88A+ in Rva0036A88AOwner::rva0036A88A (same-this no-arg call, result returned)
-?rva0036914D@Rva0036A88AOwner@@QAEHXZ,0x0036914D,address read from the retail REL32 at 0x0036A88A+ in Rva0036A88AOwner::rva0036A88A (same-this no-arg call, result returned)
-?rva00396A5C@Rva00396A5C@@QAEHPAVPlayer@@@Z,0x00396A5C,address read from the retail REL32 at 0x00396B1E in rva00396B0D 0x00396B0D; 177B AsciiString/NameKey map-find body, recovery blocked on StringBase/map models
-?rva003970E7@Rva0039718B@@QAEHPAVPlayer@@@Z,0x003970E7,address read from the retail REL32 at 0x003971B0 in rva0039718B 0x0039718B; 164B free Ghidra body on the same host (ecx=this), returns dword compared with Player+0x94
-?rva00796023@@YAHPAVObject@@PAX@Z,0x00796023,iterate callback pushed at retail 0x003960FF in rva003960BD 0x003960BD for Player::iterateObjects over the Rva0036BDD0 box; identity unproven
-?rva00397756@Rva00397756@@QAEXPAUIdRange@@H@Z,0x00397756,GameLogic-outer method (ecx=this-0xc style callers) sweeping one IdRange; free 59B body banked as partial (56/59 scheduler delta); called 4x from rva00397791 0x00397791
-??0Rva003B0344@@QAE@ABVRvaSmartPtr12@@@Z,0x003B0454,264B EH ctor of the 0x00C1D9B0 class (pinned dtor 0x003B00D6-family 0x003B0344); base-constructs Rva003B00D6; ObjectCreationList/vector layout reconciliation still open
-?rva003B015D@@YAXHHD@Z,0x003B015D,static 5-push forwarder into 0x003AFFBE; 3rd param is char (callers mov-al the byte); read from REL32 at 0x003B0427 in rva003B0412 0x003B0412
-?rva0039BB0A@Rva0039BD28@@QAEHXZ,0x0039BB0A,thiscall returning int stored to +0x314; read from REL32 at 0x0039BD4A in rva0039BD28 0x0039BD28; identity unproven
-?rva0039BC85@Rva0039BD28@@QAEHXZ,0x0039BC85,thiscall returning int stored to +0x318; read from REL32 at 0x0039BD57 in rva0039BD28 0x0039BD28; identity unproven
-?rva0039AEBC@Rva0039B0C9@@QAEXH@Z,0x0039AEBC,thiscall worker on this taking the +4 dword; read from REL32 at 0x0039B0D4 in rva0039B0C9 0x0039B0C9; 158B free body; identity unproven
-?rva003AFFBE@@YAXHHHHH@Z,0x003AFFBE,50B idiv+rep-movsd helper calling 0x003AFE48; 5 int args assumed; read from REL32 at 0x003B016D in rva003B015D 0x003B015D
-?rva003B0176@@YAXHHHH@Z,0x003B0176,42B movsd-copy helper calling 0x003AFFF0; 4 int args assumed (p2 used as pointer); read from REL32 at 0x003B02AF in rva003B02A1 0x003B02A1
-?rva003B5EA5@@YAHHHPAURva003B65Header@@@Z,0x003B5EA5,real prolog at unlisted address inside Ghidra 1818B blob; 3rd arg is the caller header; int args assumed; read from REL32 at 0x003B65CD/0x003B6607
-?rva003B7448@Rva003B7448@@QAEXH@Z,0x003B7448,member method on +4 taking arg+4; read from REL32 at 0x003B7700 in rva003B76EF 0x003B76EF; int arg assumed
-?rva003B7167@Rva003B761E@@QAEXXZ,0x003B7167,temp cleanup on the 0x20-byte Rva003B761E slot; read from REL32 at 0x003B7663 in rva003B7647 0x003B7647; likely the dtor; identity unproven
-?rva002AEEA7@Player@@QAEXH@Z,0x002AEEA7,Player method taking int 1 in the 0x003BBD84 mask sweep; read from REL32 at 0x003BBDB5; identity unproven
-?rva002AF037@Player@@QAEXH@Z,0x002AF037,Player method taking int 1 in the 0x003BBDC4 mask sweep; read from REL32 at 0x003BBDF5; identity unproven
-?rva002AE228@Rva003A2BD4M08@@QAEXPAVTeamPrototype@@@Z,0x002AE228,m08 entry taking this; read from REL32 at 0x003A2BDF in rva003A2BD4 0x003A2BD4
-?rva002A8AB1@PlayerList@@QAEPAVPlayer@@PAVRva003A2BD4M08@@@Z,0x002A8AB1,PlayerList lookup by m08 returning Player; read from REL32 at 0x003A2BFA in rva003A2BD4 0x003A2BD4
-?rva004EC072@Player@@QAEXPAVTeamPrototype@@@Z,0x004EC072,Player entry taking this; read from REL32 at 0x003A2C06 in rva003A2BD4 0x003A2BD4
-?rva003A3B7E@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z,0x003A3B7E,fallback when findPrototype hits an empty inactive team; same (a1,a2) args; read from REL32 at 0x003A3E67 in rva003A3E37 0x003A3E37
-?rva0052C7A2@Rva0052C7A2@@QAEHXZ,0x0052C7A2,no-arg entry method tail-called from indexed table in rva003B8D4D 0x003B8D4D; read from jmp at 0x003B8D67; identity unproven
-?Rva005D303AFormat@@YA?AVUnicodeString@@HH@Z,0x005D303A,by-value UnicodeString formatter ("%d/%d" via 0x00C380FC) returning hidden retptr at [ebp+8]; read from REL32 at 0x005D3113 in rva005D30EE 0x005D30EE; Ghidra 99B
-?rva0057C499@Rva0057C499@@QAEXHH@Z,0x0057C499,thiscall forwarder target of 0x005D4EA8 taking two dwords; int args assumed; read from REL32 at 0x005D4EAD in rva005D4EA8 0x005D4EA8; Ghidra 73B
-?rva005D388B@Rva005D388B@@QAE?AUTreeHintRef00217D4C@@XZ,0x005D388B,by-value TreeHintRef getter on +0x24 member (hidden retptr at [ebp-16]); read from REL32 at 0x005D3AB2 in rva005D3A91 0x005D3A91; Ghidra 61B blocked
-?rva005E4BB7@Rva005E4BB7@@QAEPAXPAX@Z,0x005E4BB7,thiscall on +0x1C member taking out-ptr returning pointer chain for 0x9F3F41; void ptrs assumed; read from REL32 at 0x005E4DBD in rva005E4DAF 0x005E4DAF; Ghidra 120B
-?read_v3_materials@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,0x0018A750,REL32 call in the 0x15 (W3D_CHUNK_MATERIALS3) arm of MeshModelClass::read_chunks at retail 0x0018B80A with MeshModel this plus cload plus context; SEH body at a Ghidra-undivided start after deleting-dtor thunks
-?read_vertex_influences@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@@Z,0x0016B1A0,REL32 call in the 0x0E (W3D_CHUNK_VERTEX_INFLUENCES) arm of MeshModelClass::read_chunks at retail 0x0018B84D and in the same arm position of MeshGeometryClass::read_chunks at 0x0016D3DB with geometry this plus cload
-?read_Rva0018AF70@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,0x0018AF70,REL32 call in the undefined-0x50 arm of MeshModelClass::read_chunks at retail 0x0018B8D7 with MeshModel this plus cload plus context; SEH body with new/delete plus 0x1525FB/0x152E4D; identity unproven, address-derived name
-?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z,0x0018A070,REL32 call in the MeshModelClass::Load_W3D tail at retail 0x0018BD49 with model this plus the load context; sole caller; ZH meshmdlio.cpp install_materials position (transfers materials, frees nothing)
-?rva0015326D@Rva0015326D@@QAEPAXHH@Z,0x0015326D,tail-jump target of the 0x1514B2 pointer-chase chain (this/+0x14/+8 with two int args); address-derived name, signature from the call shape
-_xferThreeInts,0x0060BC53,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-dup_7e86b0,0x00655770
-rva009C7380WeightPairs,0x009B84E0
