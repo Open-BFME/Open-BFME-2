@@ -38,6 +38,7 @@ void __cdecl Rva00580B5CInsertionSort(void **, void **, Rva000795C1Record);
 void __cdecl Rva00580BBFUnguardedSort(void **, void **, Rva000795C1Record);
 void __cdecl Rva00580ED0PartialSortImpl(void **, void **, void **, void **, Rva000795C1Record);
 void __cdecl Rva00580C0E(void **, void **, void **, void *, Rva000795C1Record, void **);
+void __cdecl Rva00580C6F(void **, void **, Rva000795C1Record, void **, void **);
 // Native580D38..580DBF/135B; STLport final insertion pass at threshold16.
 // /G7 reproduces the byte-sized alignment mask and schedules the record copy.
 // ?Rva00580D38FinishSort@@YAXPAPAX0VRva000795C1Record@@@Z
@@ -116,4 +117,11 @@ void __cdecl Rva00580F7FPartialSort(void **first, void **middle, void **last, Rv
 // ?Rva00580CE2@@YAXPAPAX00VRva000795C1Record@@@Z
 void __cdecl Rva00580CE2(void **first, void **last, void **, Rva000795C1Record compare) {
     Rva00580C0E(first, last - 1, last - 1, *(last - 1), compare, (void **)0);
+}
+
+// The adjacent heap routine uses this wrapper with its target-proven iterator
+// pair and 16B comparator; the helper and template identity stay address-only.
+// ?Rva00580DBF@@YAXPAPAX0VRva000795C1Record@@@Z
+void __cdecl Rva00580DBF(void **first, void **last, Rva000795C1Record compare) {
+    Rva00580C6F(first, last, compare, (void **)0, (void **)0);
 }
