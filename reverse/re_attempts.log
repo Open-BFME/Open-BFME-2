@@ -14897,3 +14897,5 @@ FUN_0068e01f	0x0028E01F	218	blocked	requires forbidden address-named global g_Va
 ?Rva00559CE5@@YA?AVUnicodeString@@HH@Z	0x00559CE5	39	partial	t=18min model=gpt-6-luna clean UnicodeString forwarder compiles to same 39-byte shape except cleanup is pop ecx instead of retail add esp 4 across source signature and target flags score=0.95 stash=reverse/attempts/0x00559ce5.cpp
 ?rva000570C8@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z	0x000570C8	71	blocked	return normalization remains two bytes short after six variants t=16 model=gpt-6
 ?moveDownMusicSystems@MilesAudioManager@@QAEXHW4MusicSystem@@HH@Z	0x00057297	69	blocked	identity and parameter layout unproven; donor moveDownMusicSystems has incompatible signature and control flow t=4 model=gpt-6.1-sol
+?rva000587C6@Rva0060FE2@@QAEXXZ	0x000587C6	254	blocked	same object at +0xB48 is erased as vector<BfmePod8> and reserved as vector<BfmeE8>; a clean typed model is unresolved and casts to unrelated types are prohibited t=5 model=gpt-6
+?rva00242C86@GameLogic@@QAEXXZ	0x00242C86	151	blocked	identity and target record layout remain unproven from available donor evidence t=12 model=gpt-6.1

@@ -66195,3 +66195,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva003F4DAE@Rva003F468D@@QAEHH@Z,,0x003F4DAE,28,Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp,matched,battle side participant count from span size
 ?rva0005774F@MilesAudioManager@@QAEXHHH@Z,,0x0005774F,56,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,target offsets and callers support address-named music stack helper
 ?rva0005876E@MilesAudioManager@@QAEXHHHH@Z,,0x0005876E,88,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,same manager fields and music transition callees
+?rva0059B1A2@Rva0059B1A2@@QAEHPAD@Z,,0x0059B1A2,37,Code/GameEngine/Source/Common/System/Rva0059B1A2Write.cpp,matched,address-derived string writer combines rowed AsciiStringPlusText and pair writers
