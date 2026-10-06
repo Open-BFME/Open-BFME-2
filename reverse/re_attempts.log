@@ -12125,3 +12125,9 @@ FUN_00478e78	0x00078E78	285	blocked	ji_ thunk 0-arg row called with args needs a
 FUN_0076a5bb	0x0036A5BB	417	blocked	ADDRESS-NAMED g_Va009FF0F8 use refused per packet t=1 model=muse-08
 ?rva00588E44@Rva00588E44@@QAEXPAX@Z	0x00588E44	285	blocked	complex STL virtual slots A4 108 118 unknown arg struct first variant 351B vs 285B direct vs indirect needs strong model t=15 model=muse-08
 ?rva00588F61@Rva0047A040Base9E0@@QAEXPAXPAVObject@@1@Z	0x00588F61	153	blocked	STL EH list plus virtuals 118 7C 84 plus aiExit first variant 230B vs 153B needs strong model t=12 model=muse-08
+?rva004406BA@MpGameSetup@@QAEXH@Z	0x004406BA	792	blocked	heroBox/def edi/ebx vs retail ebx/edi only; 792B exact 252 insns; decl-order copy-alias const tried no change t=25 model=muse-03 (stash 0.973 kept)
+?rva0044A3BF@LANAPI@@QAEXXZ	0x0044A3BF	659	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString packet says skip t=1 model=muse-03
+?rva00353C8B@Rva00353C8B@@QAEHXZ	0x00353C8B	648	blocked	ADDRESS-NAMED g_Va00DBA4E4 packet says skip t=1 model=muse-03
+?update@AIFollowWaypointPathState@@UAE?AW4StateReturnType@@XZ	0x00353F13	737	blocked	ADDRESS-NAMED g_Va009FF0F8 t=1 model=muse-03
+?update@AIIdleState@@UAE?AW4StateReturnType@@XZ	0x0035389E	455	blocked	ADDRESS-NAMED g_Va009FF0F8 and unrowed callee 0x0034405D t=1 model=muse-03
+??0Rva0057FE6B@@QAE@PAUTargetRef00217D4C@@H_N@Z	0x0057FF3E	95	partial	zero-reuse xor-ecx vs test plus missing EH state1 for Holder58 and mov-vs-and zero stores t=25 model=muse-03 score=0.93 stash=reverse/attempts/0x0057ff3e.cpp

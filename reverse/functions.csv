@@ -64918,3 +64918,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva00588D99@Rva0047A040Base9E0@@QAEXPAVObject@@@Z,,0x00588D99,135,Code/GameEngine/Source/GameLogic/Object/Contain/Rva00588D24.cpp,matched,leaf callers HordeTransportContain HordeGarrisonContain drawable gate local-player message
 ?rva00588E20@Rva0047A040Base9E0@@QAEXPAVObject@@@Z,,0x00588E20,36,Code/GameEngine/Source/GameLogic/Object/Contain/Rva00588D24.cpp,matched,unlock abuts 0x00588D99 callers 0x00477101 0x00479BBC
 ?onEnter@AIRampageState@@UAE?AW4StateReturnType@@XZ,,0x0034BD1B,221,Code/GameEngine/Source/GameLogic/AI/AIRampageStateOnEnter.cpp,matched,slot 4 of vtable 0x00811A08 sibling onExit 0x0034BDF8
+??0Rva0057F2DE@@QAE@PAUTargetRef00217D4C@@@Z,,0x0057F486,150,Code/GameEngine/Source/Common/Rva0057F2DE.cpp,matched,vtable 0x00C6F584 base pin 0x002D2C34 GameSpy 0x005CAB59 holder refcount
