@@ -206,6 +206,16 @@ class SkirmishSetup(unittest.TestCase):
         self.assertEqual(g.u32(self.SLOT1 + gs.SLOT_STATE), gs.SLOT_EASY_AI)
         self.assertEqual((g.mem[("byte", self.SLOT1 + 8)], g.mem[("byte", self.SLOT1 + 9)]), (1, 1))
 
+    def test_fixed_seed_replaces_the_time_seed(self):
+        g = self.game()
+        g.mem[self.INFO + gs.SEED_OFF] = 1791300000                    # time(0)
+        gs.skirmish_setup(True, seed=7)(g, 1, None)
+        self.assertEqual(g.u32(self.INFO + gs.SEED_OFF), 7)
+        g2 = self.game()
+        g2.mem[self.INFO + gs.SEED_OFF] = 1791300000
+        gs.skirmish_setup(True)(g2, 1, None)                            # no seed: left alone
+        self.assertEqual(g2.u32(self.INFO + gs.SEED_OFF), 1791300000)
+
     def test_no_ai_leaves_slot_one_closed(self):
         g = self.game()
         gs.skirmish_setup(False)(g, 1, None)

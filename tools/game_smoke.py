@@ -2,8 +2,9 @@
 """Unattended BFME2 gameplay scenarios (skirmish, save/load, replay determinism), judged deterministically.
 
   python3 tools/game_smoke.py skirmish --game-dir SANDBOX [--retail] [--seconds 120]
-  python3 tools/game_smoke.py record   --game-dir SANDBOX --retail --seconds 120 --replay smoke
-  python3 tools/game_smoke.py playback --game-dir SANDBOX [--retail] --replay smoke [--perturb-frame N]
+  python3 tools/game_smoke.py record   --game-dir SANDBOX --retail --seconds 120
+  python3 tools/game_smoke.py determinism --game-dir SANDBOX [--retail] [--perturb-frame N]
+  python3 tools/game_smoke.py playback --game-dir SANDBOX [--retail] --replay NAME
   python3 tools/game_smoke.py save     --game-dir SANDBOX [--retail] --save-after 30
   python3 tools/game_smoke.py load     --game-dir SANDBOX [--retail]
 
@@ -18,15 +19,20 @@ drives it with the engine's own start-up switches, not clicks:
             makes slot 1 an easy AI. Judged from GameLogic's own state, read
             every second: pass = game mode is skirmish (2), the logic frame
             advanced at least --min-frames, no crash, a non-blank window.
-  record    a skirmish whose replay (the engine always records one, as
-            "Last Replay") is kept as <appdata>/.../Replays/<name>.rep.
-  playback  `-file <name>.rep`: the engine plays the replay back. A breakpoint
-            on RecorderClass::handleCRCMessage (retail 0x37D0A7) logs each
-            logic CRC: the recorded ones and the ones this image computes
-            while re-simulating. pass = at least --min-crcs pairs compared, none
-            differ, the playback reached the record run's last logic frame.
-            --perturb-frame N xors the logic random seed at frame N: the
-            positive control, which must end `desync`.
+  record    the reference run: a seeded (--seed, GameInfo+0x50) AI skirmish
+            whose logic CRCs the harness takes every --crc-every frames by
+            remote-calling GameLogic::getCRC(0) between logic frames (from a
+            GameEngine::update breakpoint). Retail makes no CRCs of its own in
+            a skirmish and records replays only for LAN/online games.
+  determinism  the same seeded skirmish again (no human input, so identical
+            logic input); pass = its CRCs equal the record run's on every
+            common frame (>= --min-crcs). --perturb-frame N xors the logic
+            random seed at frame N: the positive control, which must end
+            `desync`. A rebuilt image is judged against retail's record.
+  playback  (LAN/online replays; not exercised yet) `-file <name>.rep` (from
+            <appdata>/.../Replays): the engine plays a replay back; the
+            harness CRCs are compared with --record-json and the engine's own
+            RecorderClass::handleCRCMessage (retail 0x37D0A7) calls are logged.
   save      a skirmish; --save-after seconds in, GameState::autoSave() is
             called on the main thread at the top of an engine frame (remote
             call from the GameEngine::update breakpoint); the new save is kept
@@ -92,6 +98,7 @@ RVA = {
 }
 FRAME_OFF, MODE_OFF = 0x40, 0x110
 SLOTS_OFF, SLOT_STATE, SLOT_EASY_AI = 0x18, 4, 2
+SEED_OFF = 0x50                   # GameInfo::setSeed (retail 0x3FF328) stores here; -file seeds it with time(0)
 # -file takes the short form: ConvertShortMapPathToLongMapPath (retail 0x3BA06E)
 # turns "maps\<name>.map" into "maps\<name>\<name>.map", the map cache's key.
 SKIRMISH_MAP = r"maps\map mp tournament udun.map"
@@ -672,18 +679,22 @@ def sandbox_profile(appdata):
     return Path(appdata) / LEAF
 
 
-def skirmish_setup(ai):
+def skirmish_setup(ai, seed=None):
     """At GameEngine::init's -file branch, after slot 0 became "Test", finish
     what the skirmish menu would have done: TheGameInfo = TheSkirmishGameInfo
     (retail's -file path leaves it null and GameLogic::update's CRC step then
     faults at 0x24578B), and with `ai` slot 1 becomes an easy AI (state 2,
-    accepted and has-map set as GameSlot::setState does)."""
+    accepted and has-map set as GameSlot::setState does). A `seed` replaces the
+    time(0) seed, so two runs of one image simulate the same game."""
     def handler(game, tid, ctx):
         info = game.global_ptr("TheSkirmishGameInfo")
         if not info:
             return False
         game.write(game.va("TheGameInfo"), struct.pack("<I", info))
         game.res["setup"] = {"TheGameInfo": hex(info)}
+        if seed is not None:
+            game.write(info + SEED_OFF, struct.pack("<I", seed & 0xFFFFFFFF))
+            game.res["setup"]["seed"] = seed
         slot = game.u32(info + SLOTS_OFF + 4)
         if ai and slot:
             game.res["setup"]["slot1_state_before"] = game.u32(slot + SLOT_STATE)
@@ -799,7 +810,7 @@ def finish(a, name, out):
 
 def cmd_skirmish(a, keep_replay=None):
     samples = []
-    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai))]
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed))]
     hook = FrameHook(every=a.crc_every, modes=(a.mode,)) if keep_replay else None
     if hook:
         handlers.append(("GameEngine::update", hook))
@@ -843,7 +854,7 @@ def cmd_save(a):
         if started and not hook.save_requested and samples[-1][0] - started[0] >= a.save_after:
             hook.save_requested = True
         return why
-    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai)), ("GameEngine::update", hook)]
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
     res = out["run"]
     new = [q for q in find_saves(a.appdata) if q.name not in before]
@@ -887,6 +898,44 @@ def cmd_load(a):
     return finish(a, "load", out)
 
 
+def perturb_tick(a, game, frame, perturbed):
+    """Positive control: xor the logic random seed once at --perturb-frame."""
+    if a.perturb_frame is not None and not perturbed and frame and frame >= a.perturb_frame:
+        seed = game.va("theGameLogicSeed")
+        v = game.u32(seed)
+        game.write(seed, struct.pack("<I", v ^ 0x5A5A5A5A))
+        perturbed.update(frame=frame, seed_before=hex(v))
+
+
+def cmd_determinism(a):
+    """Twin run: the same seeded AI skirmish as `record` (no human input, so the
+    logic sees identical inputs) must produce the record run's harness CRCs
+    frame for frame. Retail GameLogic only records a replay for LAN/online
+    games (RecorderClass starts recording on MSG_NEW_GAME modes 1 and 5 only,
+    retail 0x37D484..0x37D48E), so this is the replay check a skirmish allows.
+    pass = at least --min-crcs common frames, none differ."""
+    record = json.loads(Path(a.record_json or OUT / "record_retail.json").read_text())
+    samples, perturbed = [], {}
+    hook = FrameHook(every=a.crc_every, modes=(a.mode,))
+    base_tick = skirmish_tick(a, samples, a.mode)
+
+    def tick(game):
+        perturb_tick(a, game, samples[-1][1] if samples else None, perturbed)
+        return base_tick(game)
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed)), ("GameEngine::update", hook)]
+    game, out = launch(a, f'-file "{a.map}"', handlers, tick)
+    crc = pair_crcs([(f, c, False) for f, c in record.get("crcs", [])] + [(f, c, True) for f, c in hook.crcs])
+    out.update(samples=samples[::5], crcs=hook.crcs, perturbed=perturbed or None, record_seed=record["run"].get(
+        "setup", {}).get("seed"), crc=dict(crc, mismatches=crc["mismatches"][:10],
+                                           unpaired_recorded=crc["unpaired_recorded"][:10],
+                                           unpaired_computed=crc["unpaired_computed"][:10]))
+    res = out["run"]
+    out["outcome"] = judge_playback(crc, None, None, a.min_crcs, crash_outcome(res))
+    if out["outcome"] == "pass" and out["record_seed"] != a.seed:
+        out["outcome"] = "seed-differs"
+    return finish(a, "determinism_perturbed" if a.perturb_frame is not None else "determinism", out)
+
+
 def cmd_playback(a):
     events, samples = [], []
     perturbed = {}
@@ -902,11 +951,7 @@ def cmd_playback(a):
         modes = game.res.setdefault("modes", [])
         if not modes or modes[-1][1] != mode:
             modes.append((game.seconds(), mode, frame))
-        if a.perturb_frame is not None and not perturbed and frame and frame >= a.perturb_frame:
-            seed = game.va("theGameLogicSeed")
-            v = game.u32(seed)
-            game.write(seed, struct.pack("<I", v ^ 0x5A5A5A5A))
-            perturbed.update(frame=frame, seed_before=hex(v))
+        perturb_tick(a, game, frame, perturbed)
         recent = [f for t, f, m in samples if t >= samples[-1][0] - 15]   # playback over: frame still for 15 s
         if len(samples) > 20 and frame and len(set(recent)) == 1:
             return "frames-stopped"
@@ -935,7 +980,7 @@ def cmd_playback(a):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("scenario", choices=["skirmish", "record", "playback", "save", "load"])
+    ap.add_argument("scenario", choices=["skirmish", "record", "determinism", "playback", "save", "load"])
     ap.add_argument("--game-dir", type=Path, required=True)
     ap.add_argument("--appdata", type=Path, help="sandbox user-data root (default GAME_DIR/../appdata)")
     ap.add_argument("--retail", action="store_true", help="control: retail's own game.dat")
@@ -943,6 +988,7 @@ def main(argv=None):
     ap.add_argument("--map", default=SKIRMISH_MAP)
     ap.add_argument("--mode", type=int, default=2, help="GameLogic game mode of a skirmish")
     ap.add_argument("--no-ai", action="store_true")
+    ap.add_argument("--seed", type=lambda v: int(v, 0), default=1, help="skirmish seed (GameInfo+0x50)")
     ap.add_argument("--seconds", type=float, default=60, help="skirmish seconds to simulate")
     ap.add_argument("--min-frames", type=int, default=100)
     ap.add_argument("--timeout", type=float, default=240)
@@ -971,6 +1017,8 @@ def main(argv=None):
         return cmd_skirmish(a)
     if a.scenario == "record":
         return cmd_skirmish(a, keep_replay=a.replay)
+    if a.scenario == "determinism":
+        return cmd_determinism(a)
     if a.scenario == "save":
         return cmd_save(a)
     if a.scenario == "load":
