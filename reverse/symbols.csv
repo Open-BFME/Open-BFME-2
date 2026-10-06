@@ -13655,3 +13655,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?insert@?$map@IVWeaponTemplateSetHead@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@2@U32@ABU?$pair@$$CBIVWeaponTemplateSetHead@@@2@@Z,0x00464431,callee of byte-true lookup-or-create at 0x00464923
 ?rva00498725@@YAPAXPAX@Z,0x00498725,callee of ?rva004B0942@Rva004B0942@@QAEPAXXZ
 ?rva004500A3@Rva004500A3@@QAEXHHHHH@Z,0x004500A3,callee of ?rva0049C51A@Rva0049C51A@@QAEXHHHHH@Z
+?rva0028BAC0@Rva0028BAC0@@QAEXXZ,0x0028BAC0,callee of ?rva004AD9E0@Rva004ADC88@@QAEXXZ
+?rva004DD2C0@Rva004DD2C0@@QAEXXZ,0x004DD2C0,callee of ?rva004B0E9C@Rva004B0E9C@@QAEXXZ
