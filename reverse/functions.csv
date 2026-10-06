@@ -64285,3 +64285,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva00301621Dtor@@QAE@XZ,,0x00301621,53,Code/GameEngine/Source/Common/Rva00301621Dtor.cpp,matched,two list<int> members via rowed _List_base dtor 0x004EC395
 ?rva002D3726@Rva002D3726@@QAEXPAUObj00526309@@@Z,,0x002D3726,24,Code/GameEngine/Source/Common/System/Rva002D3726Forwarder.cpp,matched,null-guarded forward via mid plus C0 to rowed 0x00526333
 ?rva0052A287@Rva0052A287@@QAEXPAUObj0052A22C@@@Z,,0x0052A287,7,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,matched,unlock forwarder via holder plus caller 0x002D3651
+?rva0005B96D@MilesAudioManager@@QAEXPAX@Z,,0x0005B96D,155,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005B96D.cpp,matched,BFME1 donor 0x006B1A00 twin type dispatch on PlayingAudio+0x14 with rowed callees and mss32 IAT

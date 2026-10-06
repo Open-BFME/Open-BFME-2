@@ -11282,3 +11282,6 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ??1Rva003EE1BE@@UAE@XZ	0x003EE1BE	126	blocked	missing mov-eax-end-cache and mov-byte-1-before-free tried while for-locals if-guard empty-base PtrArray t=25 model=muse-04 (stash 0.9 kept)
 ?rva0052B10F@Rva0052B10F@@QAEXXZ	0x0052B10F	112	partial	1B early-add CSE needs cmp-disp8 plus late-add-after-push t=30 model=muse-04 score=0.99 stash=reverse/attempts/0x0052b10f.cpp
 ?rva0052B17F@Rva0052B17F@@QAEXXZ	0x0052B17F	112	partial	1B early-add CSE needs cmp-disp8 plus late-add-after-push t=20 model=muse-04 score=0.99 stash=reverse/attempts/0x0052b17f.cpp
+?rva002EE4DE@Pathfinder@@QAEHPAVObject@@PBUCoord3D@@PAU3@@Z	0x002EE4DE	364	blocked	SSE Pathfinder Object layout plus info struct plus float global unknown t=15 model=muse-09
+??0Rva00150DFD@@QAE@H@Z	0x00150DFD	87	partial	tail mov-or order swapped only EH states plus size exact t=20 model=muse-09 score=0.95 stash=reverse/attempts/0x00150dfd.cpp
+?rva005294FC@Rva0052936C@@QAEXH@Z	0x005294FC	217	partial	ebx-edi swap for this-index plus mov-esi-mem vs push-mem plus mov-ecx-eax scheduling t=20 model=muse-09 score=0.9 stash=reverse/attempts/0x005294fc.cpp
