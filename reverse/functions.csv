@@ -66152,3 +66152,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva00537FCC@Rva00537FCC@@QAEXAAVDataChunkInput@@PAX@Z,,0x00537FCC,145,Code/GameEngine/Source/Common/Rva00537FCCLoad.cpp,matched,chain lane loader via rowed setters readAsciiString readReal readByte
 ?linkUpgrade@UpgradeCenter@@QAEXPAVUpgradeTemplate@@@Z,,0x0026EED0,34,Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp,matched,Zero Hour donor linkUpgrade adapted to BFME2 list head and links
 ?Rva0044C277Wait@@YA_NXZ,,0x0044C277,79,Code/GameEngine/Source/Common/Rva0044C277Wait.cpp,matched,target timing poll checks TheGameInfo readiness and resets state on timeout
+?rva005E3A76@Rva005E3A76@@QAEXXZ,,0x005E3A76,44,Code/GameEngine/Source/Common/Rva005E3A76Slot.cpp,matched,
