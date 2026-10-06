@@ -177,12 +177,35 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
+class Matrix3D;
+struct Coord3D;
+
 class DrawModule
 {
 public:
 	virtual void vslot00(); virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
 	virtual void vslot04(); virtual void vslot05();
 	virtual void onDrawableBoundToObject();
+	virtual void vslot07(); virtual void vslot08(); virtual void vslot09(); virtual void vslot10();
+	virtual void vslot11(); virtual void vslot12(); virtual void vslot13(); virtual void vslot14();
+	virtual void vslot15(); virtual void vslot16(); virtual void vslot17(); virtual void vslot18();
+	virtual void vslot19(); virtual void vslot20(); virtual void vslot21(); virtual void vslot22();
+	virtual void vslot23(); virtual void vslot24(); virtual void vslot25(); virtual void vslot26();
+	virtual void vslot27(); virtual void vslot28(); virtual void vslot29(); virtual void vslot30();
+	virtual void vslot31(); virtual void vslot32(); virtual void vslot33(); virtual void vslot34();
+	virtual void vslot35(); virtual void vslot36(); virtual void vslot37();
+	virtual void reactToTransformChange(const Matrix3D *oldMtx, const Coord3D *oldPos, float oldAngle);
+};
+
+// Elements of the null-terminated list at Drawable+0x154; slot 11 takes the
+// same transform-change arguments.
+class Rva002742E5Listener
+{
+public:
+	virtual void vslot00(); virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
+	virtual void vslot04(); virtual void vslot05(); virtual void vslot06(); virtual void vslot07();
+	virtual void vslot08(); virtual void vslot09(); virtual void vslot10();
+	virtual void reactToTransformChange(const Matrix3D *oldMtx, const Coord3D *oldPos, float oldAngle);
 };
 
 class Drawable
@@ -203,19 +226,26 @@ public:
 	void rva00270FAC(bool show);
 
 	Object *getObject();
+protected:
+	virtual void reactToTransformChange(const Matrix3D *oldMtx, const Coord3D *oldPos, float oldAngle);
 private:
 	unsigned char m_pad0[0xFC - 4];
 	Object *m_object; // +0xFC
 	unsigned char m_padFC[0x14C - 0x100];
 	DrawModule **m_drawModules; // +0x14C
-	unsigned char m_pad150[0x158 - 0x150];
+	unsigned char m_pad150[0x154 - 0x150];
+	Rva002742E5Listener **m_listeners154; // +0x154
 	BfmeDrawableClientIface **m_ifaceBegin;
 	BfmeDrawableClientIface **m_ifaceEnd;
-	unsigned char m_pad1[0x258 - 0x160];
+	unsigned char m_pad160[0x244 - 0x160];
+	int m_244; // +0x244, reset to -1 by reactToTransformChange
+	unsigned char m_pad248[0x258 - 0x248];
 	Rva00271C8A m_conditionState;
 	Rva00271C8A m_pendingClear;
 	Rva00271C8A m_pendingSet;
-	unsigned char m_pad2[0x443 - 0x33C];
+	unsigned char m_pad2[0x3A9 - 0x33C];
+	bool m_3A9; // +0x3A9, set by reactToTransformChange
+	unsigned char m_pad3AA[0x443 - 0x3AA];
 	bool m_isModelDirty;
 	unsigned char m_pad444[0x454 - 0x444];
 	Color m_indicatorColor; // +0x454, read back by rva00270FAC
@@ -340,3 +370,25 @@ void Drawable::friend_bindToObject(Object *obj)
 	}
 }
 #pragma optimize("", on)
+
+// ?reactToTransformChange@Drawable@@MAEXPBVMatrix3D@@PBUCoord3D@@M@Z, retail
+// 0x002742E5 (104B), slot 9 of the Drawable vtable at 0x007FB0A4 (entry
+// 0x007FB0C8). Zero Hour's draw-module broadcast (DrawModule slot 38) after
+// BFME resets +0x244 to -1 and sets the +0x3A9 flag, followed by the same
+// arguments to the optional null-terminated listener list at +0x154.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+void Drawable::reactToTransformChange(const Matrix3D *oldMtx, const Coord3D *oldPos, float oldAngle)
+{
+	m_244 = -1;
+	m_3A9 = true;
+	_ReadWriteBarrier();
+	for (DrawModule **dm = m_drawModules; *dm; ++dm)
+	{
+		(*dm)->reactToTransformChange(oldMtx, oldPos, oldAngle);
+	}
+	for (Rva002742E5Listener **l = m_listeners154; l && *l; ++l)
+	{
+		(*l)->reactToTransformChange(oldMtx, oldPos, oldAngle);
+	}
+}

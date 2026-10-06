@@ -11534,3 +11534,7 @@ FUN_00914fe9	0x00514FE9	88	blocked	ADDRESS-NAMED g_Va00A01E48 escape hatch t=1 m
 ?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ID@Z	0x00029380	272	partial	old-p swap fixed but two xor ecx zero temps vs mov immediate at -9 and -0x15 remain plus f1 new_finish f2 slots and edx ecx swap t=25 model=muse-19 score=0.96 stash=reverse/attempts/0x00029380.cpp
 ?rva002CF5FF@Rva002CF5FF@@QAEXXZ	0x002CF5FF	177	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use is refused hatch per packet t=2 model=muse-19
 ?rva005FC064@Rva005FC064@@QAEXXZ	0x005FC064	280	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use refused hatch per packet t=1 model=muse-19
+FUN_007c37c0	0x003C37C0	206	blocked	ADDRESS-NAMED g_Va009FE16C use refused t=1 model=muse-10
+?rva0058113D@Rva0058113D@@QAEPAVLANGameInfo@@I@Z	0x0058113D	87	partial	register swap eax-ecx plus push-mem vs mov-push t=18 model=muse-10 score=0.93 stash=reverse/attempts/0x0058113d.cpp
+FUN_0061b7b6	0x0021B7B6	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use refused t=1 model=muse-10
+?cameraModFinalZoom@W3DView@@UAEXMMM@Z	0x000865DB	295	blocked	Retail extent 0x000865DB..0x00086702 RET12 W3DView vftable slot30 BFME1 6583b3c1 algorithm target fields virtual +0xEC same-TU XMM0 helper /O1 /arch:SSE /G7 emits 295B. Diff only +0x4B..+0x51 push ecx precedes add eax [esi+0x1AC] whereas retail adds then pushes. Waypoint branch matches. Retail-order reassoc and /G7 removal tried shape guide has no push-add lever t=15 model=muse-10 (stash 0.976 kept)

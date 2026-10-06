@@ -64620,3 +64620,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@QAE@XZ,,0x00288B47,5,Code/GameEngine/Source/Common/System/CrateCreationEntryListClear.cpp,matched,auto-row=allowed_symbols
 ??0RadarEvent@@QAE@XZ,,0x002D7CD9,7,Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp,matched,auto-row=allowed_symbols
 _ciChannelTableCompareFn,,0x006B10B0,6,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatChannel.c,matched,auto-row=allowed_symbols
+?reactToTransformChange@Drawable@@MAEXPBVMatrix3D@@PBUCoord3D@@M@Z,,0x002742E5,104,Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp,matched,vtable slot 9 drawmodule broadcast via ZH donor
