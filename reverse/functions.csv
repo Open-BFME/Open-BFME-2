@@ -65228,3 +65228,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ??_GRva00270025@@UAEPAXI@Z,,0x00274E5B,34,Code/GameEngine/Source/Common/Rva00270025Ctor.cpp,matched,deleting dtor for vtable 0x007FAD34 calls cleanup 0x00270041
 ?rva003B68E8@ScriptList@@QAEPAXABV?$StringBase@D@@@Z,,0x003B68E8,41,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListRva003B6911.cpp,matched,sibling of ScriptList second-subrecord lookup; target uses first subrecord at +0x0C
 ?rva003F934B@Rva003F934B@@QAEXXZ,,0x003F934B,15,Code/GameEngine/Source/Common/Rva00603110TinyBodies.cpp,matched,four retail zero stores at offsets 0x14 through 0x20 address based class inferred from caller
+?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
