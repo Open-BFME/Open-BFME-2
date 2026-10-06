@@ -17,9 +17,12 @@ struct Vec001DCDAF
     float z;
 };
 
+extern float g_00DBA4FC;
+
 class Rva001DCDAF
 {
 public:
+    void rva001DCD8C();
     bool rva001DCDAF(Arg001DCDAF const *a, Vec001DCDAF const *b, Vec001DCDAF const *c);
     float rva001DCE4C(Arg001DCDAF const *a);
 
@@ -62,3 +65,10 @@ float Rva001DCDAF::rva001DCE4C(Arg001DCDAF const *a)
 {
     return (float)a->u4 - m_4;
 }
+
+void Rva001DCDAF::rva001DCD8C()
+{
+    m_0 -= g_00DBA4FC;
+    m_4 -= g_00DBA4FC;
+}
+
