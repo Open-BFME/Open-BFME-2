@@ -346,3 +346,17 @@ all 219 of those units gained nothing (and SSE broke four).
 So: retail was built a unit at a time and neighbours in the same directory
 disagree. Sweep per unit, keep per unit, and do not look for a tree-wide
 setting.
+
+**Superseded (2026-10): flags come from the retail region.** Fingerprinting the
+image (research/25) shows a per-project build after all: BFME2 GameEngine and
+GameEngineDevice are `/O1 /arch:SSE /G7`, WW3D2 `/O2 /arch:SSE /G7`, WWLib and
+the third-party block `/O2` blend. `/G7` looked "mostly wrong" above only
+because the gate never compared `.text$x`: retail's static-guard funclets are
+`and al,0FEh`, which only `/G7` emits. `tools/flag_defaults.py` now gives
+every `Code/` TU the `/O`, `/arch` and `/G` of the region holding most of its
+rows (`reverse/retail_inventory/flag_regions.csv`); every other `// cl:` token
+still counts. A file's own codegen flags count only when
+`reverse/flag_overrides.csv` lists it. Never edit that file or an overridden
+file's codegen flags by hand: run `python3 tools/flag_defaults.py propose
+<source>`, which compiles both ways and records an override only when the
+region default loses a row.

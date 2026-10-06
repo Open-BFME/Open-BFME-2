@@ -14,6 +14,7 @@ import sys
 import threading
 from pathlib import Path
 
+import flag_defaults
 from coffar import RELOC_WIDTH, read_archive
 from gen_case_shims import ensure_case_shims
 from portable_lock import lock, unlock
@@ -756,8 +757,10 @@ def source_extra_flags(source):
                 # leading '/' arguments as Windows paths.
                 flags = [f.replace("/", "-", 1) if f.startswith("/") else f
                          for f in _source_flag_tokens(line[len("// cl:") :])]
-                return [_current_bfme1_include_flag(flag, source) for flag in flags]
-    return []
+                return flag_defaults.apply(
+                    source, [_current_bfme1_include_flag(flag, source) for flag in flags])
+    # The region decides /O, /arch and /G for Code/ sources (tools/flag_defaults.py).
+    return flag_defaults.apply(source, [])
 
 
 def compiler_command(source, output):

@@ -78,6 +78,8 @@ while IFS= read -r path; do
         # never compiled.
         Code/*.cpp|Code/*.c|Code/*.asm) staged_sources+=("$path") ;;
         reverse/pin_consistency_baseline.csv|reverse/gate_baseline.txt) baseline_changed=1 ;;
+        # Region flags decide how every Code/ TU compiles (tools/flag_defaults.py).
+        reverse/retail_inventory/flag_regions.csv|reverse/flag_overrides.csv) wide_change=1 ;;
         reverse/functions.csv|reverse/symbols.csv|reverse/deleted_rows.csv|reverse/re_attempts.log) ledger_changed=1 ;;
         # A stash-only commit changes no ledger and no source, so without this
         # it takes the early exit below and check_csv never validates the very
@@ -195,6 +197,7 @@ fi
 #    claims, malformed rows, missing sources. Turns union-merge corruption into
 #    an immediate loud failure instead of someone else's red build later.
 python3 tools/check_csv.py --staged || fail "ledger integrity (see above)"
+python3 tools/flag_defaults.py check || fail "flag overrides edited by hand (see above)"
 
 # 1b) Identity, not bytes. reverse/symbols.csv is an ADDITIVE candidate list:
 #     the REL32 resolver keeps the first pinned address that reproduces retail,
