@@ -13625,6 +13625,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva002D2C34@Rva002D2C34@@QAEXXZ,0x002D2C34,0-arg base ctor called by 0x0056DC4C tiny ctor; honest address-derived name
 ?rva00286772@Rva00286772Manager@@QAE_NPAVPolygonTrigger@@H@Z,0x00286772,callee of ?Rva003E8FEE@@YG_NPAVParameter@@@Z
 ?rva00208DB8@ScriptEngine@@QAEPAXVAsciiString@@@Z,0x00208DB8,callee of ?Rva003E9029@@YG_NPBVAsciiString@@@Z
-?rva0046247D@Rva0046247D@@QAEPAXAAURva0046247DPair@@@Z,0x0046247D,callee of ?rva00464286@OpenContain@@UAEXXZ
-?rva0036AE51@Rva0036AE51ListView@@QAE?AV?$list@HV?$allocator@H@_STL@@@_STL@@XZ,0x0036AE51,callee of ?rva00464286@OpenContain@@UAEXXZ
 ?rva00463AD3@Rva00463AD3@@QAEXH@Z,0x00463AD3,callee of ?rva004642D3@SlaughterHordeContain@@UAEXXZ
