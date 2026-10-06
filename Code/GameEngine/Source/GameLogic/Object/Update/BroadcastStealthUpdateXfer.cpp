@@ -121,8 +121,16 @@ public:
 			++n;
 		return n;
 	}
-	void push_back(const ObjectID &value);
 	BridgeBehaviorObjectIDNode *m_node;
+};
+
+// Declared, never defined here: the definition is the matched row
+// ?append@Rva002A1B6FNativeList@@QAEXABQAX@Z at 0x002A1B6F
+// (Code/GameEngine/Source/Common/Rva002A1316.cpp).
+class Rva002A1B6FNativeList
+{
+public:
+	void append(void *const &value);
 };
 
 class UpdateModule
@@ -187,7 +195,7 @@ void BroadcastStealthUpdate::xfer(Xfer *xfer)
 		for (UnsignedInt i = 0; i < count; ++i)
 		{
 			XferObjectID(xfer, &id);
-			m_28.push_back(id);
+			reinterpret_cast<Rva002A1B6FNativeList *>(&m_28)->append(reinterpret_cast<void *const &>(id));
 		}
 	}
 }
