@@ -56,8 +56,20 @@
 // Worker twin 0x004AABB4 without its docking-trace lines: for a bridge
 // (kind-of bit 22 on the template, Thing +0x04 then +0x108) it picks the
 // reachable tower (bridge interface vslot 1, four towers, the pinned
-// isPathAvailable) whose position (the pinned findGoodBuildOrRepairPosition
+// isPathAvailable) whose position (the rowed findGoodBuildOrRepairPosition
 // 0x00489039) is nearest, else it finds the target's position.
+//
+// ?findGoodBuildOrRepairPosition@DozerAIUpdate@@IAE_NPBVObject@@0AAUCoord3D@@@Z,
+// retail 0x00489039, 421 bytes. Donor: BFME 1's
+// DozerAIUpdateFindGoodBuildOrRepairPosition.cpp (a member there too) over
+// ZH's static: bias the target's position towards us by half its major
+// radius (GeometryInfo at Object +0xA8, radius +0x10), take the nearest
+// labeled contact point (the pinned AIUpdateInterface helper 0x0026872B,
+// named by its own trace line; BFME 2 passes skipCollideTest true), else
+// findPositionAround (rowed 0x00285202) within 100 and a 10 z delta for
+// ground units, ignoring the target for flyers. WWMath's Vector3 inlines
+// (member-wise copy and assignment) give retail's offset arithmetic; the
+// member-wise Coord3D copy is BFME 2's own (coord3d.cpp).
 //
 // ?newTask@DozerAIUpdate@@UAEXW4DozerTask@@PAVObject@@@Z, retail 0x00489A07,
 // 666 bytes (dozer interface vslot 12, so its this is the +0x3E4
@@ -77,10 +89,19 @@
 // class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line normalize (rowed 0x000035B6) that newTask calls; same three floats
 struct Coord3D
 {
+	Coord3D() {}
+	// member-wise, as BFME 2's own (coord3d.cpp)
+	Coord3D(const Coord3D &that)
+	{
+		x = that.x;
+		y = that.y;
+		z = that.z;
+	}
+	void normalize();
+
 	float x;
 	float y;
 	float z;
-	void normalize();
 };
 
 typedef bool Bool;
@@ -310,6 +331,7 @@ public:
 	virtual void v101(); virtual void v102(); virtual void v103(); virtual void v104(); virtual void v105(); virtual void v106(); virtual void v107(); virtual void v108(); virtual void v109();
 	virtual Bool isIdle() const; // vslot 110 (+0x1B8)
 	Bool isPathAvailable(const Coord3D *destination) const;
+	Bool findNearestLabeledContactPointOnTarget(Object *target, Coord3D *result, const Coord3D *workingPosition, Bool skipCollideTest);
 protected:
 	virtual ~AIUpdateInterface();
 private:
@@ -334,6 +356,16 @@ public:
 	}
 private:
 	unsigned int m_words[19];
+};
+
+class GeometryInfo
+{
+public:
+	Real getMajorRadius() const { return m_majorRadius; }
+private:
+	unsigned char m_pad00[0x10];
+	Real m_majorRadius; // +0x10
+	unsigned char m_pad14[0x5C - 0x14];
 };
 
 enum KindOfType
@@ -370,6 +402,8 @@ class Object : public Thing
 public:
 	ObjectID getID() const { return m_id; }
 	void rva0028AFE7(Object *builder);
+	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
+	Bool isUsingAirborneLocomotor() const;
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	void rva0028AE6D();
@@ -384,7 +418,9 @@ public:
 private:
 	unsigned char m_pad044[0x74 - 0x44];
 	ObjectID m_id; // +0x74
-	unsigned char m_pad078[0x10C - 0x78];
+	unsigned char m_pad078[0xA8 - 0x78];
+	GeometryInfo m_geometryInfo; // +0xA8
+	unsigned char m_pad104[0x10C - 0x104];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
@@ -401,6 +437,59 @@ private:
 };
 
 extern GameLogic *TheGameLogic;
+
+class WWMath
+{
+public:
+	static float __fastcall Inv_Sqrt(float val);
+};
+
+// WWMath's Vector3 (its inline members, WWINLINE as __forceinline).
+class Vector3
+{
+public:
+	float X;
+	float Y;
+	float Z;
+
+	__forceinline Vector3(void) {}
+	__forceinline Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
+	__forceinline Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
+	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
+	__forceinline float Length2(void) const { return X*X + Y*Y + Z*Z; }
+	__forceinline void Normalize(void)
+	{
+		float len2 = Length2();
+		if (len2 != 0.0f)
+		{
+			float oolen = WWMath::Inv_Sqrt(len2);
+			X *= oolen;
+			Y *= oolen;
+			Z *= oolen;
+		}
+	}
+	__forceinline friend Vector3 operator*(const Vector3 &a, float k) { return Vector3((a.X * k), (a.Y * k), (a.Z * k)); }
+};
+
+struct FindPositionOptions
+{
+	FindPositionOptions() : flags(0), minRadius(0.0f), maxRadius(0.0f), startAngle(-99999.9f),
+		maxZDelta(1e10f), ignoreObject(0), sourceToPathToDest(0), relationshipObject(0) {}
+	UnsignedInt flags;
+	Real minRadius;
+	Real maxRadius;
+	Real startAngle;
+	Real maxZDelta;
+	const Object *ignoreObject;
+	const Object *sourceToPathToDest;
+	const Object *relationshipObject;
+};
+
+class PartitionManager
+{
+public:
+	static Bool findPositionAround(const Coord3D *center, const FindPositionOptions *options, Coord3D *result);
+};
 
 enum BridgeTowerType
 {
@@ -750,4 +839,48 @@ void DozerAIUpdate::newTask(DozerTask task, Object *target)
 
 	// reset the dozer behavior so that it can re-evluate which task to continue working on
 	m_dozerMachine->resetToDefaultState();
+}
+
+Bool DozerAIUpdate::findGoodBuildOrRepairPosition(const Object *me, const Object *target, Coord3D &positionOut)
+{
+	// The place we go to build or repair is the closest spot from us to them
+	Coord3D ourPosition = *me->getPosition();
+	Coord3D theirPosition = *target->getPosition();
+
+	Coord3D bestPosition = theirPosition; // This answer is the best, as it includes findPositionAround
+	Coord3D workingPosition = theirPosition; // But if findPositionAround fails, we need to say something.
+
+	Vector3 offset(ourPosition.x - theirPosition.x,
+		ourPosition.y - theirPosition.y,
+		ourPosition.z - theirPosition.z);
+	offset.Normalize();
+	// This scaler makes FindPositionAround bias towards our side
+	offset = offset * (target->getGeometryInfo().getMajorRadius() / 2);
+
+	workingPosition.x += offset.X;
+	workingPosition.y += offset.Y;
+	workingPosition.z += offset.Z;
+
+	// this is a little cheesy... the idea is that we can only choose a location that is pretty close
+	// in z to the desired one. this prevents us from choosing a space at the bottom of a cliff when
+	// the space we want is at the top of the cliff. ideally we should do a funky terrain-zone compare
+	// but that isn't well-exposed... (srj)
+	const Real MAX_Z_DELTA = 10.0f;
+
+	FindPositionOptions fpOptions;
+	fpOptions.minRadius = 0.0f;
+	fpOptions.maxRadius = 100.0f;
+	fpOptions.sourceToPathToDest = me; // This makes it find a place forWhom can get to.
+	if (!me->isUsingAirborneLocomotor())
+		fpOptions.maxZDelta = MAX_Z_DELTA;
+	if (me->isUsingAirborneLocomotor())
+		fpOptions.ignoreObject = target; // Flyers can ignore stuff, so they can approach right over the target if they want.
+
+	Bool spotFound = findNearestLabeledContactPointOnTarget((Object *)target, &bestPosition, &workingPosition, true);
+	if (!spotFound)
+		spotFound = PartitionManager::findPositionAround(&workingPosition, &fpOptions, &bestPosition);
+
+	positionOut = spotFound ? bestPosition : workingPosition;
+
+	return spotFound;
 }
