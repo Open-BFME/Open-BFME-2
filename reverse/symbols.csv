@@ -14994,9 +14994,3 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?resetAll@SubsystemInterfaceList@@QAEXXZ,0x001B4F6D,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
 ?HideControlBar@@YAX_N@Z,0x00402960,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
 ??0XferSave@@QAE@XZ,0x0060D1F7,BFMECRCWriter base reconciliation with rowed XferSave dtor 0x60D0B3 and native init; same constructor target already pinned as Rva009D8630BlockWriter; preserves +0x40 full and +0x44 CRC
-?rva002C995D@BfmeRangedWeaponTemplate@@QAEMPAX0M@Z,0x002C995D,pin for BfmeRangedWeaponTemplate float view thiscall (void*,void*,float)
-?rva002C98E2@BfmeRangedWeaponTemplate@@QAEMPAX@Z,0x002C98E2,pin for BfmeRangedWeaponTemplate float view thiscall (void*)
-?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z,0x002C760B,pin for 0x2C777E mask bit-setter thiscall (zero + 7 ids) returns this
-?clear@Rva002DEE9A0E0C@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
-?clear@Rva002DEE9A0E10@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
-?rva002DE311@Rva002DEE9AOwner@@QAEXXZ,0x002DE311,pin for 0x2DEE9A thiscall void () on this
