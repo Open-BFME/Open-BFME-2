@@ -64316,3 +64316,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva001E2906@@UAE@XZ,,0x001E2906,76,Code/GameEngine/Source/Common/Rva001E2906Dtor.cpp,matched,two-base dtor list clear 0x0023DAA5 then base 0x001E27C6
 ??1Rva00524BB4@@UAE@XZ,,0x00524BB4,75,Code/GameEngine/Source/Common/Rva00524BB4Dtor.cpp,matched,clear 0x00524A4C then ref +0x34 via 0x0007DEEF then GameEngineDeletingBase dtor
 ??1Rva00222061@@UAE@XZ,,0x00221FFA,74,Code/GameEngine/Source/Common/Rva00222061Dtor.cpp,matched,tree +0x28 via 0x00221E02 then member +0xC via 0x002218D0 then GameEngineDeletingBase dtor
+?rva004AB90A@LargeGroupAudioUpdate@@QAEXXZ,,0x004AB90A,152,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB90A.cpp,matched,linkbody 48B callers at 004ABA7C 004ABB40 layout from 004AB9A2 and slots
