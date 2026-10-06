@@ -77,6 +77,27 @@ private:
 	Rva003F8090 **m_end10;
 };
 
+class Rva003F812C
+{
+public:
+	void rva003F812C();
+private:
+	char m_pad00[0x14];
+	Rva003F80E6 **m_begin14;
+	Rva003F80E6 **m_end18;
+	char m_pad1C[4];
+	unsigned char m_flag20;
+};
+
+void Rva003F812C::rva003F812C()
+{
+	Rva003F80E6 **p = m_begin14;
+	Rva003F80E6 **end = m_end18;
+	m_flag20 = 0;
+	for (; p != end; ++p)
+		(*p)->rva003F80E6();
+}
+
 void Rva003F80E6::rva003F80E6()
 {
 	Rva003F8090 **p = m_begin0C;
