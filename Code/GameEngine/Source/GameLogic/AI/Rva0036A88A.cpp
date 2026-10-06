@@ -1,6 +1,9 @@
-// ?rva0036A88A@Rva0036A88AOwner@@QAEHXZ
-// partial score=0.9 date=2026-10-06
-// cl: /O1 /MD /arch:SSE
+// cl: /O1 /MD /arch:SSE /Oy- /Op
+// Retail 0x0036A88A, 239 bytes. The target guard-state owner is not named;
+// Rva0036A88AOwner remains an address-derived view. Target fields +0x3C/+0x40
+// and calls are supported by retail accesses and REL32 sites; no donor name is
+// asserted. Coordinate ordering uses the byte-matched sibling barrier pattern.
+
 //
 // ?rva0036A88A@Rva0036A88AOwner@@QAEHXZ @0x0036A88A 239B
 // Guard-state tick on the +0x18 machine: when TheGameLogic's frame passes
@@ -28,6 +31,8 @@ enum ObjectID
 	INVALID_OBJECT_ID = 0
 };
 
+// class-gate: allow Coord3D canonical header is data-only; this byte-verified
+// call uses the existing Coord3D::GetLengthEstimate thiscall at 0x00003ACE.
 struct Coord3D
 {
 	Real x, y, z;
@@ -119,6 +124,9 @@ private:
 	Coord3D m_pos; // +0x28
 };
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
 // ?rva00369217@Rva0036A88AOwner@@QAEXH@Z pins 0x00369217 (rowed as
 // GiantBirdNormalFlightState::onExit; same address, direct call here).
 // ?rva00369064@Rva0036A88AOwner@@QAEHXZ pins 0x00369064.
@@ -131,7 +139,7 @@ int Rva0036A88AOwner::rva0036A88A()
 		if (m_machine->lookForInnerTarget())
 			return -2;
 	}
-	Rva00369FDFGuardMachine *machine = m_machine;
+	const Rva00369FDFGuardMachine *machine = m_machine;
 	Object *obj = TheGameLogic->findObjectByID(machine->m_targetToGuard);
 	Coord3D target;
 	if (obj != NULL) {
@@ -142,10 +150,19 @@ int Rva0036A88AOwner::rva0036A88A()
 			return rva0036914D();
 		team->rva0039E5B9(&target);
 	}
-	Real dx = m_pos.x - target.x;
-	Real dy = m_pos.y - target.y;
-	Real dz = m_pos.z - target.z;
-	Coord3D delta(dx, dy, dz);
+	const Coord3D *position = &m_pos;
+	Real dx = position->x;
+	Real dy = position->y;
+	Real dz = position->z;
+	_ReadWriteBarrier();
+	dx -= target.x;
+	dy -= target.y;
+	dz -= target.z;
+	_ReadWriteBarrier();
+	Coord3D delta;
+	delta.x = dx;
+	delta.y = dy;
+	delta.z = dz;
 	if (delta.GetLengthEstimate() > BfmeGlobalBC2428) {
 		m_pos = target;
 		((StateMachine *)m_machine)->setGoalPosition(&m_pos);

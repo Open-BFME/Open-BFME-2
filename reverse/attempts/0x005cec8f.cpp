@@ -1,4 +1,6 @@
 // ?Rva005CEC8FCreate@@YAPAVRva005CEC8F@@PAV1@PBUPayload@Rva005CEAE6@@@Z
+// partial score=0.8052 date=2026-10-06
+// ?Rva005CEC8FCreate@@YAPAVRva005CEC8F@@PAV1@PBUPayload@Rva005CEAE6@@@Z
 // partial score=0.92 date=2026-10-04
 // Rva005CEC8FCreate, retail 0x005CEC8F, 50 bytes.
 // Free __cdecl creator: guarded new of the payload class with +4 refcount and

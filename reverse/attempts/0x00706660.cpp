@@ -1,7 +1,7 @@
 // ?callFunction@AptActionInterpreter@@QAEXPAVAptValue@@0H@Z
-// partial score=0.908 date=2026-10-06
-// cl: /O2 /MD /EHsc
-#include "../Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h"
+// partial score=0.926 date=2026-10-06
+// cl: /O2 /MD /EHsc /ICode/Libraries/Source/Apt/AptObject
+#include "AptScriptFunction.h"
 class BfmeAptValue006DCD20 { public: bool isNativeFunction() const; bool isScriptFunction() const; BfmeAptValue006DCD20 *rva006DCF20(); BfmeAptValue006DCD20 *rva006DCEE0(); };
 struct NativeFunctionView { char opaque[0x20]; AptValue *(__cdecl *function)(AptValue *,int); };
 class AptCIH : public AptValue { char opaque[0x5c-8]; public: unsigned int state; bool IsLevelInst() const; AptCIH *GetRootAnimation(); void *GetAnimationInst(); };
