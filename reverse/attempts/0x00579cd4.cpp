@@ -1,5 +1,5 @@
 // ?rva00579CD4@Rva00579AB7@@QAEXUIntPair579CD4@@@Z
-// partial score=0.9 date=2026-10-06
+// partial score=0.93 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?rva00579CD4@Rva00579AB7@@QAEXUIntPair579CD4@@@Z @0x00579CD4 105B: vslot 1 of 0x0086ED64, two-int setter at +0x24 with change detection via 8B compare 0x0007E394, fetch via rowed Rva00579868Get 0x00579868, set index 0 via rowed rva00579B17 0x00579B17.
 // Evidence: vtable 0x0086ED64 class of ??1Rva00579AB7 0x00579AB7 plus sibling setters rva00579D3D/rva00579D96 same Get/Set pattern plus releaseBuffer 0x00036E70.
@@ -40,8 +40,12 @@ private:
 // ?rva00579CD4@Rva00579AB7@@QAEXUIntPair579CD4@@@Z present-unmatched
 void Rva00579AB7::rva00579CD4(IntPair579CD4 p)
 {
-	if (rva0007E394CursorEqual(p, m_pair))
+	IntPair579CD4 *slot = &m_pair;
+	if (rva0007E394CursorEqual(p, *slot))
 		return;
-	((Rva00579B17 *)this)->rva00579B17(0, Rva00579868Get(p.a, p.b));
-	m_pair = p;
+	int b = p.b;
+	int a = p.a;
+	((Rva00579B17 *)this)->rva00579B17(0, Rva00579868Get(a, b));
+	slot->b = b;
+	slot->a = a;
 }
