@@ -15022,3 +15022,4 @@ Rva00521B16	0x00521B16	50	blocked	Ghidra boundary 0x00521B16/50; body copies a U
 ?rva005D7011@Rva005D7011@@QAE_NPAVObject@@@Z	0x005D7011	377	blocked	vtable slot14 shared base needs virtual layout plus list traversal t=12 model=muse-spark
 ??0Rva005D1ADE@@QAE@PAX0H@Z	0x005D1BA1	270	blocked	complex 270B GameText-UnicodeString ctor needs deeper RE t=15 model=muse-07
 ?rva004E00D9@Rva004E00BAOwner@@QAEXXZ	0x004E00D9	98	partial	second loop exact via empty guard; first loop swapped edi-ebx and erase push via esi+0x14 vs edi+4 t=25 model=muse-spark score=0.95 stash=reverse/attempts/0x004e00d9.cpp
+?d_007e8b00@@YAXXZ	0x00655B90	549	blocked	pin YAXXZ is void-void but retail takes 3 args returns int so clean void definition cannot match bytes and table at 0xCE0E20 has no ledger owner t=20 model=muse-14

@@ -77,6 +77,14 @@ private:
 	int m_68;
 	int m_6c;
 };
+class Rva00342C97 : public Rva00342BAE
+{
+public:
+	Rva00342C97(StateMachine *machine);
+private:
+	int m_68;
+	int m_6c;
+};
 
 Rva00342C47::Rva00342C47(StateMachine *machine, bool flag)
 	: Rva00342BAE(machine, flag)
@@ -84,6 +92,12 @@ Rva00342C47::Rva00342C47(StateMachine *machine, bool flag)
 }
 
 Rva00342D19::Rva00342D19(StateMachine *machine)
+	: Rva00342BAE(machine, false), m_68(0), m_6c(0)
+{
+}
+
+// ??0Rva00342C97@@QAE@PAVStateMachine@@@Z @0x00342C97 34B evidence: gap between ConstIntGetters3 rows; same shape as Rva00342D19 false-flag plus-0x68 0x6c; base row 0x00342BAE; vtable 0x00812A70 store; caller 0x00352308
+Rva00342C97::Rva00342C97(StateMachine *machine)
 	: Rva00342BAE(machine, false), m_68(0), m_6c(0)
 {
 }
