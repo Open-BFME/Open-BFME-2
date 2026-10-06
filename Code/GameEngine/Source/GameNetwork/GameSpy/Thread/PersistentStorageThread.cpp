@@ -48,17 +48,31 @@ public:
 class PSPlayerAllStats
 {
 public:
+	PSPlayerAllStats &operator=(const PSPlayerAllStats &that);
 	void setOpenPlayStats(Rva003844D7 stats);
 	void setStrategicStats(Rva0038454E stats);
 	void setTournamentStats(Rva00385333 stats);
 
 private:
 	Int m_id;						// +0x000
-	unsigned char m_pad004[4];
+	Int m_unk004;					// +0x004 copied by operator= @0x003874B0
 	Rva00385333 m_tournamentStats;				// +0x008
 	Rva003844D7 m_openPlayStats;				// +0x1B0
 	Rva0038454E m_strategicStats;				// +0x340
 };
+
+// ??4PSPlayerAllStats@@QAEAAV0@ABV0@@Z 0x003874B0 73B: thiscall operator= copies
+// m_id plus three stats blocks via their out-of-line operator=; evidence pins
+// for the three callees naming PSPlayerAllStats set* at +0x008 +0x1B0 +0x340.
+PSPlayerAllStats &PSPlayerAllStats::operator=(const PSPlayerAllStats &that)
+{
+	m_id = that.m_id;
+	m_unk004 = that.m_unk004;
+	m_tournamentStats = that.m_tournamentStats;
+	m_openPlayStats = that.m_openPlayStats;
+	m_strategicStats = that.m_strategicStats;
+	return *this;
+}
 
 // PSPlayerAllStats::setOpenPlayStats, retail 0x00555AE7.
 void PSPlayerAllStats::setOpenPlayStats(Rva003844D7 stats)
