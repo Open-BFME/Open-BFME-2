@@ -17,6 +17,14 @@ namespace _STL
 	typedef _List_base<int, allocator<int> > ListBaseInt;
 }
 
+class Rva00200667
+{
+public:
+	~Rva00200667();
+private:
+	void *m_header;
+};
+
 class Rva0031FAF0
 {
 public:
@@ -57,7 +65,7 @@ private:
 	char m_pad94[0xBC];
 	int m_150;
 	int m_154;
-	_STL::ListBaseInt m_lists[6];
+	Rva00200667 m_lists[6];
 	_STL::ListBaseInt m_list170;
 };
 
