@@ -64400,3 +64400,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002A8B73@Rva002A8F24@@QAEPAXPAXH@Z,,0x002A8B73,25,Code/GameEngine/Source/Common/Rva002A8AE4.cpp,matched,linkbody lookup then search via rowed callees callers 0x004EDC65
 ?rva0004232F@Rva0004232FNullTarget@@QAEXXZ,,0x0004232F,5,Code/GameEngine/Source/Common/Rva0004232FNullTarget.cpp,matched,LINK forwarder to vslot 0x30 new file
 ?rva0059A1C1@Rva0059A1C1@@QAEHPAVTeam@@@Z,,0x0059A1C1,151,Code/GameEngine/Source/Common/Rva0059A1C1.cpp,matched,chain of 0x002A8B73 team sum vs max via rowed callees
+?rva005EF366@Rva005EF2BE@@QAEXXZ,,0x005EF366,104,Code/GameEngine/Source/Common/AptStateCalls.cpp,matched,linkbody tooltip via GameText Mouse flag 0x3E

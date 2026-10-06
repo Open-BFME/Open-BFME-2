@@ -13,6 +13,28 @@
 // ?rva005EF2BE@Rva005EF2BE@@QAEXHH@Z @0x005EF2BE 105B SetCommandPointsState value + _show
 // ?rva005EF327@Rva005EF2BE@@QAEXXZ   @0x005EF327 63B  SetCommandPointsState _hide
 #include "ascii_string.h"
+#include "unicode_string.h"
+
+struct RGBColor { float red, green, blue; };
+
+class Mouse
+{
+public:
+	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
+};
+
+class GameTextInterface
+{
+public:
+	virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c();
+	virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c();
+	virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2c();
+	virtual void v30(); virtual void v34(); virtual void v38();
+	virtual UnicodeString fetch(const char *label, bool *exists = 0);
+};
+
+extern GameTextInterface *TheGameText;
+extern Mouse *TheMouse;
 
 class Rva00222A8BTarget
 {
@@ -71,6 +93,7 @@ class Rva005EF2BE
 public:
 	void rva005EF2BE(int a, int b);
 	void rva005EF327();
+	void rva005EF366();
 private:
 	unsigned int m_level;		// +0x00
 	StringBase<char> m_name;	// +0x04
@@ -105,6 +128,16 @@ void Rva005EF2BE::rva005EF327()
 		m_shown = false;
 		m_3E = false;
 	}
+}
+
+// ?rva005EF366@Rva005EF2BE@@QAEXXZ @0x005EF366 104B: flag +0x3E gates GameText fetch plus Mouse tooltip.
+// Target evidence: byte [ecx+0x3E] je then TheGameText slot 0x3c fetch STRATEGICHUD:ArmyCurrentOverMaxCommandPointsTooltip then Mouse rva001EEA6D -1 0 1.0f; caller jmp 0x005EF3F9.
+void Rva005EF2BE::rva005EF366()
+{
+	if (!m_3E)
+		return;
+	UnicodeString msg = TheGameText->fetch("STRATEGICHUD:ArmyCurrentOverMaxCommandPointsTooltip");
+	TheMouse->rva001EEA6D(msg, -1, 0, 1.0f);
 }
 
 // ?rva005FFC8B@Rva005FFC8B@@QAEXABUTreeHintRef00217D4C@@@Z @0x005FFC8B 64B:
