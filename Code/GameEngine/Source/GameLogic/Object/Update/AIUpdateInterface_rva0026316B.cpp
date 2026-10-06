@@ -13,7 +13,7 @@ struct Coord3D
 	float z;
 };
 
-class TurretStateMachine
+class StateMachine
 {
 public:
 	void setGoalPosition(const Coord3D *pos);
@@ -60,7 +60,7 @@ void AIUpdateInterface::rva0026316B(void *a, int b)
 	MiniArg1 *arg = (MiniArg1 *)a;
 	m_machine->clear();
 	m_machine->slot14(a);
-	((TurretStateMachine *)m_machine)->setGoalPosition(&arg->m_pos);
+	((StateMachine *)m_machine)->setGoalPosition(&arg->m_pos);
 	m_field48 = b;
 	m_machine->setState(0x46);
 }

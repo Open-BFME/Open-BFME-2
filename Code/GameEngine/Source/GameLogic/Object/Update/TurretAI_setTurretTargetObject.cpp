@@ -37,6 +37,13 @@ public:
 	int m_id;
 };
 
+// The unlimited-range goal setter is StateMachine's (0x00262224).
+class StateMachine
+{
+public:
+	void setGoalPosition(const Coord3D* pos);
+};
+
 class TurretStateMachine
 {
 public:
@@ -55,7 +62,6 @@ public:
 	virtual void slot30();
 	virtual void slot34();
 	virtual void setGoalObject(Object* obj);
-	void setGoalPosition(const Coord3D* pos);
 	int getCurrentStateID() const;
 	TurretState* m_state;
 };
@@ -144,7 +150,7 @@ void TurretAI::setTurretTargetPosition(const Coord3D* pos)
 
 	m_machine->setGoalObject(0);
 	if (pos)
-		m_machine->setGoalPosition(pos);
+		((StateMachine *)m_machine)->setGoalPosition(pos);
 	m_target = pos ? TARGET_POSITION : TARGET_NONE;
 	m_targetWasSetByIdleMood = false;
 

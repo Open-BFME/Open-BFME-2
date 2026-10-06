@@ -224,16 +224,12 @@ class StateMachine
 public:
 	Object *getOwner() const { return m_owner; }
 	const Waypoint *getGoalWaypoint() const { return m_goalWaypoint; }
+	void setGoalPosition(const Coord3D *pos);
 private:
 	unsigned char m_pad00[0x14];
 	Object *m_owner; // +0x14
 	unsigned char m_pad18[0x48 - (0x14 + sizeof(Object *))];
 	const Waypoint *m_goalWaypoint; // +0x48
-};
-class TurretStateMachine : public StateMachine
-{
-public:
-	void setGoalPosition(const Coord3D *pos);
 };
 class State
 {
@@ -318,7 +314,7 @@ StateReturnType AIFollowWaypointPathExactState::onEnter()
 	if (!ai->getCurLocomotor())
 		return STATE_FAILURE;
 
-	((TurretStateMachine *)m_machine)->setGoalPosition(currentWaypoint->getLocation());
+	m_machine->setGoalPosition(currentWaypoint->getLocation());
 
 	Coord2D groupOffset;
 	groupOffset.x = groupOffset.y = 0.0f;
