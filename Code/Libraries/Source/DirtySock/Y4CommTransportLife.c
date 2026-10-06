@@ -739,13 +739,13 @@ void Rva00818FF0( struct Rva00816BF0Comm *comm, const char *text )
  */
 int Rva00818620( struct Rva00816BF0Comm *comm )
 {
-	struct Rva00816F60Message message;
+	struct Rva00816F60Message packet;
 
-	message.m_length = 0;
-	message.m_code = 1;
-	message.m_value = comm->m_sessionHash;
+	packet.m_length = 0;
+	packet.m_code = 1;
+	packet.m_value = comm->m_sessionHash;
 
-	return Rva00817030( comm, &message );
+	return Rva00817030( comm, &packet );
 }
 
 /* 0x00819260 RESETS THE CONNECTION without touching the buffers themselves --
