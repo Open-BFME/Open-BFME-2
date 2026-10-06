@@ -250,6 +250,7 @@ public:
     void onPlayingAudioDeleted(PlayingAudio &playingAudioBeingDeleted);
     void releaseMilesHandles(PlayingAudio &playing);
     void moveUpMusicSystems(int newMusicSystem, int viewType, int arg);
+    void rva0005AC61(int viewType, int newMusicSystem, int arg);
     bool startNextLoop(PlayingAudioRef &looping);
     void getAppropriateSampleHandleForPlayingAudio(PlayingAudioRef &playing, void **sample, void **sample3D);
 
@@ -284,6 +285,14 @@ void MilesAudioManager::moveUpMusicSystems(int newMusicSystem, int viewType, int
 {
     putPlayingMusicOnStack(viewType, arg);
     m_activeMusicSystem[viewType] = (MusicSystem)newMusicSystem;
+}
+
+// Retail @ 0x0005AC61 gates the move-up helper on the per-view active system.
+// Its direct caller supplies the view, requested system, and playback flag.
+void MilesAudioManager::rva0005AC61(int viewType, int newMusicSystem, int arg)
+{
+    if (newMusicSystem > m_activeMusicSystem[viewType])
+        moveUpMusicSystems(newMusicSystem, viewType, arg);
 }
 
 bool MilesAudioManager::startNextLoop(PlayingAudioRef &looping)
