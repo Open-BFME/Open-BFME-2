@@ -22,6 +22,7 @@ struct IterBase
 	const HashTableClass *m_table;
 	IterBase(HashTableClass *t) : m_table(t) {}
 };
+#pragma optimize("s", off)
 class HashTableIteratorClass : public IterBase
 {
 	int m_index;
@@ -32,9 +33,12 @@ public:
 	virtual ~HashTableIteratorClass() {}
 	void First();
 	void Next();
-	bool Is_Done() { return m_cur == 0; }
+	bool Is_Done();
 	HashableClass *Get_Current() { return m_cur; }
 };
+#pragma optimize("", on)
+// ?Is_Done@HashTableIteratorClass@@QAE_NXZ present-unmatched
+inline bool HashTableIteratorClass::Is_Done() { return m_cur == 0; }
 class Base8
 {
 public:
