@@ -20,10 +20,9 @@ public:
 class Object
 {
 public:
-	BodyModuleInterface *getBodyModule() const;
+	BodyModuleInterface *getBodyModule() const { return m_body; }
 private:
 	unsigned char m_pad000[0x254];
-public:
 	BodyModuleInterface *m_body;	// +0x254
 };
 class ModuleData;
@@ -55,6 +54,6 @@ public:
 };
 UpdateSleepTime ObjectRecoveryHelper::update()
 {
-	m_object->m_body->rvaSlot3();
+	m_object->getBodyModule()->rvaSlot3();
 	return UPDATE_SLEEP_FOREVER;
 }

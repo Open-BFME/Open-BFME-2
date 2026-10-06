@@ -6,9 +6,7 @@
 // Donor: GeneralsMD AIPathfind.cpp PathfindLayer::getCell, unchanged in
 // BFME 2. Target layout read from the body: cells (column pointers) +4,
 // width +8, height +0xC, origin +0x10/+0x14; 16-byte cells whose type is the
-// low nibble at +0xC, CELL_IMPASSABLE = 5. getType is deliberately not
-// declared here: the inline body would emit a COMDAT copy that loses to the
-// ZH-header copy from PartitionManager, so the check reads the nibble directly.
+// low nibble at +0xC, CELL_IMPASSABLE = 5.
 
 typedef int Int;
 
@@ -21,6 +19,9 @@ public:
 		CELL_IMPASSABLE = 5
 	};
 
+	CellType getType() const { return (CellType)m_type; }
+
+private:
 	char m_pad00[0x0C];
 	unsigned char m_type : 4;
 	unsigned char m_flags : 4;
@@ -51,7 +52,7 @@ PathfindCell *PathfindLayer::getCell(Int x, Int y)
 	if (x < 0 || x >= m_width) return 0;
 	if (y < 0 || y >= m_height) return 0;
 	PathfindCell *cell = &m_layerCells[x][y];
-	if (cell->m_type == PathfindCell::CELL_IMPASSABLE) {
+	if (cell->getType() == PathfindCell::CELL_IMPASSABLE) {
 		return 0; // Impassable cells are ignored.
 	}
 	return cell;

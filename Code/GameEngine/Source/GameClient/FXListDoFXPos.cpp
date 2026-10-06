@@ -63,7 +63,7 @@ extern FXListStore *TheFXListStore;
 class Player
 {
 public:
-	Int getPlayerIndex() const;
+	Int getPlayerIndex() const { return m_playerIndex; }
 
 	char m_pad[0x54];
 	Int m_playerIndex;
@@ -141,7 +141,7 @@ void FXList::doFXPos(const Coord3D *pos, const Matrix3D *mtx, float speed, const
 	}
 	if (!list->m_disabled) {
 		if (pos != NULL) {
-			int key = ThePlayerList->getLocalPlayer()->m_playerIndex;
+			int key = ThePlayerList->getLocalPlayer()->getPlayerIndex();
 			if (TheShroudManager->getShroudStatusForPlayer(key, pos) != CELLSHROUD_CLEAR)
 				return;
 		}
@@ -169,13 +169,10 @@ void FXList::doFXObj(const Object *primary, const Object *secondary) const
 	}
 	if (!list->m_disabled && primary != NULL) {
 		if (primary->m_shroudClearingBehavior != NULL) {
-			if (primary->getShroudStatusForPlayer(ThePlayerList->getLocalPlayer()->m_playerIndex) > 2)
+			if (primary->getShroudStatusForPlayer(ThePlayerList->getLocalPlayer()->getPlayerIndex()) > 2)
 				return;
-		} else {
-			int key2 = ThePlayerList->getLocalPlayer()->m_playerIndex;
-			if (TheShroudManager->getShroudStatusForPlayer(key2, primary->getPosition()) != CELLSHROUD_CLEAR) {
-				return;
-			}
+		} else if (TheShroudManager->getShroudStatusForPlayer(ThePlayerList->getLocalPlayer()->getPlayerIndex(), primary->getPosition()) != CELLSHROUD_CLEAR) {
+			return;
 		}
 	}
 	for (FXNuggetNode *node = list->m_nuggets->m_next; node != list->m_nuggets; node = node->m_next) {
