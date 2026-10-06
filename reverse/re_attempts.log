@@ -11420,3 +11420,4 @@ FUN_00479ed4	0x00079ED4	29	blocked	hint-insert forwarder to rowed 0x79D14 same t
 ?rva002B3DD0@Rva002B4650@@QAEHXZ	0x002B3DD0	20	partial	20B exact size REMAINS 1 SIB byte lea eax eax+ecx-1 vs ecx+eax-1 tried 4 spellings plus O2 t=12 model=muse-07 score=0.95 stash=reverse/attempts/0x002b3dd0.cpp
 ?rva00212655@Rva00DFE1C8Host@@QAEXH@Z	0x00212655	102	blocked	frame plus missing payload null-test t=30 model=muse-14
 ?rva00245F14@GameLogic@@QAEXUMyEntry@@@Z	0x00245F14	101	partial	push_back MyList vs rowed Rva pointer list and AsciiString list at 0x1C0 need resolution; bytes exact 0 regions t=25 model=muse-20 score=0.97 stash=reverse/attempts/0x00245f14.cpp
+?rva004E3A6E@Rva004E3CD0@@QAEXXZ	0x004E3A6E	266	partial	rva003EEC63 this-arg order swapped lea-push before mov-mov t=25 model=muse-05 score=0.96 stash=reverse/attempts/0x004e3a6e.cpp
