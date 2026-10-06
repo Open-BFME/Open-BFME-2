@@ -1,15 +1,15 @@
 // ?rva0052AF95@Rva0052AF95@@QAEXXZ
 // partial score=0.96 date=2026-10-06
-// cl: /O1 /EHsc /MD
+// ?rva0052AF95@Rva0052AF95@@QAEXXZ
+// partial score=0.96 date=2026-10-06
+// ?rva0052AF95@Rva0052AF95@@QAEXXZ
+// partial score=0.96 date=2026-10-06
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD
 // ?rva0052AF95@Rva0052AF95@@QAEXXZ, RVA 0x0052AF95 size 110.
 // Chain lane: calls 0x002DA651 just landed; all callees rowed. Evidence:
 // same-page neighbours VslotSmallBodiesAM / Rva0052B024Loop share /O1;
 // ctor 0x002DA651 builds 0x88-byte audio prefix, TheAudio slot 0x64 consumes
 // it, dtor 0x002D9A43 tears down, then rowed 0x005391A9 on same this.
-struct OpaqueRefElement4
-{
-	void *referent;
-};
 struct Holder14
 {
 	char m_pad00[0x10];
@@ -20,11 +20,17 @@ struct Holder38
 	char m_pad00[0x18];
 	int m_id;
 };
+#include "Common/BfmeAudioEventPrefix136.h"
+
 struct Rva002DA651
 {
 	Rva002DA651(const OpaqueRefElement4 &, int);
-	virtual ~Rva002DA651();
+	void *m_vtbl;
 	char m_pad[0x84];
+	__forceinline ~Rva002DA651()
+	{
+		((BfmeAudioEventPrefix136 *)this)->BfmeAudioEventPrefix136::~BfmeAudioEventPrefix136();
+	}
 };
 class AudioManager
 {

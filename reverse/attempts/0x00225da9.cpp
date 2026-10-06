@@ -1,4 +1,6 @@
 // ?rva00225DA9@GameEngine@@QAEXXZ
+// partial score=0.9911 date=2026-10-06
+// ?rva00225DA9@GameEngine@@QAEXXZ
 // partial score=0.97 date=2026-10-05
 // cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE /G7
 //

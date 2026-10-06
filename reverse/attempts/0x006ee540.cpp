@@ -1,5 +1,7 @@
 // ?rva006ee540@@YAPAVAptValue@@PAV1@@Z
 // partial score=0.95 date=2026-10-06
+// ?rva006ee540@@YAPAVAptValue@@PAV1@@Z
+// partial score=0.95 date=2026-10-06
 // cl: /O2 /DNDEBUG /MD /EHsc
 // Target 0x006EE3B0 (393B) and 0x006EE540 (373B), with entry/return boundaries
 // confirmed in game.dat. reverse/string_xrefs.tsv names their callback slots
