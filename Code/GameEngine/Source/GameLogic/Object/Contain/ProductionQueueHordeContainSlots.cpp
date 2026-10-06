@@ -19,6 +19,14 @@ public:
 	char bfmeHas1026(int a, int b);
 };
 
+class Object;
+class Player;
+class Rva2225E0Filter
+{
+public:
+	bool accepts(Object *obj, Player *player);
+};
+
 struct Rva0048130E
 {
 	BfmeTab1026 m_tab;
@@ -144,7 +152,7 @@ void ProductionQueueHordeContain::rva004813B3(ObjectID id, Object *obj)
 	int slot2 = r->s02();
 	for (Rva0048130E *p = md->m_begin; p != md->m_end; ++p)
 	{
-		if (p->m_tab.bfmeHas1026((int)obj, 0))
+		if (((Rva2225E0Filter *)&p->m_tab)->accepts(obj, (Player *)0))
 		{
 			void *thing = g_009FF000->rva002D06CA(&p->m_str);
 			r->s08(thing, -1, slot2, -1, 0, &AsciiString::TheEmptyString, 0);
