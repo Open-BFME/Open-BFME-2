@@ -41,6 +41,7 @@ struct Rva0043B2E2 {
   iterator rva0043B3A1Hidden(Rva0043B2E2Node *a, Rva0043B2E2Node *b, const int *v, Rva0043B2E2Node *c);
   _STL::pair<iterator, bool> rva0043B429(const V &v);
   iterator rva0043B535(iterator position, const V &v);
+  iterator rva0043B6BA(iterator position, const V &v);
 };
 void Rva0043B2E2::rva0043B35D(iterator first, iterator last) {
   typedef V VV;
@@ -183,6 +184,15 @@ Rva0043B2E2::iterator Rva0043B2E2::rva0043B535(iterator position, const V &v)
 	}
 }
 
+// Target 0x0043B6BA is a 29B iterator-returning forwarder to the rowed
+// hint-insert worker at 0x0043B535. Its ret 0xC and unchanged ECX support the
+// same tree receiver; the address-derived method name does not claim a source
+// library symbol beyond that structural relationship.
+Rva0043B2E2::iterator Rva0043B2E2::rva0043B6BA(iterator position, const V &v)
+{
+	return rva0043B535(position, v);
+}
+
 void Rva0043B2E2::clear()
 {
 	rva0043B334();
@@ -195,5 +205,4 @@ void Rva0043B2E2::clear()
 // free body ignores the dead this in ecx per Rva004152E6NewNode precedent.
 #pragma comment(linker, "/alternatename:?rva0043B30F@Rva0043B2E2@@QAEPAXPBX@Z=?Rva0043B30FNewNode@@YGPAXPBX@Z")
 #pragma comment(linker, "/alternatename:?rva0043B3A1Hidden@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@PAURva0043B2E2Node@@0PBH0@Z=?rva0043B3A1@Rva0043B2E2@@QAEXAAPAURva0043B2E2Node@@PAU2@1PBH1@Z")
-
 
