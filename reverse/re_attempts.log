@@ -11440,3 +11440,4 @@ FUN_00479ed4	0x00079ED4	29	blocked	hint-insert forwarder to rowed 0x79D14 same t
 ?rva00463AD3@Rva00463AD3@@QAEXH@Z	0x00463AD3	411	blocked	ADDRESS-NAMED g_Va00BBB8D8 at 0x007BB8D8 counted escape hatch plus 411B damage kill wall t=2 model=muse-08
 ?rva004099CA@CreateAHeroData@@QAEEPAVAsciiString@@H@Z	0x004099CA	172	blocked	branch order fail-between vs fail-after jne-vs-je and cmp-ja-vs-jbe 0-mem-reg-diffs 172B-67insns-exact-size t=20 model=muse-10 (stash 0.97 kept)
 FUN_009fd197	0x005FD197	186	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use refused t=2 model=muse-10
+?rva003FDDAC@Rva003FDDAC@@QAEXXZ	0x003FDDAC	110	partial	ref-add plus eh-state-0 hoisted above check and ctor vs retail late t=28 model=muse-04 score=0.85 stash=reverse/attempts/0x003fddac.cpp
