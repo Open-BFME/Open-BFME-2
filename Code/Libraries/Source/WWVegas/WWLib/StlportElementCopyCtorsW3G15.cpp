@@ -121,3 +121,16 @@ Rva00557C90Element::Rva00557C90Element(const Rva00557C90Element &o)
 	, m_04(o.m_04)
 {
 }
+
+struct Rva0050245DElement
+{
+	int m_00;
+	Rva005020AFSub m_04;
+	Rva0050245DElement(const int &a, const Rva005020AFSub &b);
+};
+
+Rva0050245DElement::Rva0050245DElement(const int &a, const Rva005020AFSub &b)
+	: m_00(a)
+	, m_04(b)
+{
+}
