@@ -1,5 +1,5 @@
 // ?rva002B6D18@Rva002B6D18@@QAE_NHHHH@Z
-// partial score=0.9 date=2026-10-06
+// partial score=0.95 date=2026-10-06
 // cl: /O1 /MD
 // ?rva002B6D18@Rva002B6D18@@QAE_NHHHH@Z @0x002B6D18 109B: __thiscall bool
 // probe of the 6C9F family with four args. Passes the rowed 0x2B2C40
@@ -64,11 +64,11 @@ bool Rva002B6D18::rva002B6D18(int a1, int a2, int a3, int a4)
 		Rva003193EC *on;
 		if (a3 > a1) {
 			diff = a3 - a1;
-			on = (Rva003193EC *)a3;
+			on = (Rva003193EC *)y;
 		}
 		else {
 			diff = a1 - a3;
-			on = (Rva003193EC *)a1;
+			on = (Rva003193EC *)x;
 		}
 		if (on->rva003193EC(diff))
 			goto trueret;
