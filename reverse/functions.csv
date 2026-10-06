@@ -7289,7 +7289,7 @@ _CommSRPSend,,0x006817B0,498,Code/Libraries/Source/DirtySock/commsrp.cpp,matched
 _CommSRPListen,,0x00682560,577,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,bfme1 commsrp source; bind and listen with remap callback
 _CommSRPConnect,,0x00682870,547,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,bfme1 commsrp source; outbound connect with peer fill
 _Rva00812DD0,,0x0067ECD0,497,Code/Libraries/Source/DirtySock/Y4CommTapi.cpp,matched,bfme1 Y4CommTapi source; TAPI factory via op-table
-_Rva00812FD0,,0x0067EED0,267,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 Y4CommTickIdle source; TAPI worker message pump
+_Rva00812FD0,,0x0067EED0,291,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 Y4CommTickIdle source; TAPI worker message pump
 _Rva008139A0,,0x0067F8A0,158,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 Y4CommTickIdle source; TAPI release and teardown
 _Rva00815780,,0x00681680,5,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,op-table stub; empty frame
 _Rva00815890,,0x00681790,17,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,op-table stub; bare tick read

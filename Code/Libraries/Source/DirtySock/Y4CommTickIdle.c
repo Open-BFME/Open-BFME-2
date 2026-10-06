@@ -1414,12 +1414,12 @@ void __stdcall Rva00813100( int port, int kind, void *comm, int size,
 
 int Rva00812FD0( struct Rva00814700Comm *argument )
 {
-	struct Rva00812FD0Message message;
+	struct Rva00812FD0Message msg;
 	int iResult;
 	struct Rva00814700Comm *comm;
 
 	comm = argument;
-	PeekMessageA( &message, 0, 0, 0, 0 );
+	PeekMessageA( &msg, 0, 0, 0, 0 );
 	iResult = Rva0081BDA2( comm->m_endpoint + 4,
 		GetModuleHandleA( 0 ), Rva00813100, 0,
 		comm->m_endpoint );
@@ -1431,10 +1431,10 @@ int Rva00812FD0( struct Rva00814700Comm *argument )
 	}
 
 	comm->m_state = 2;
-	while ( GetMessageA( &message, 0, 0, 0 ) != 0 )
+	while ( GetMessageA( &msg, 0, 0, 0 ) != 0 )
 	{
-		TranslateMessage( &message );
-		DispatchMessageA( &message );
+		TranslateMessage( &msg );
+		DispatchMessageA( &msg );
 	}
 
 	comm->m_state = 1;
