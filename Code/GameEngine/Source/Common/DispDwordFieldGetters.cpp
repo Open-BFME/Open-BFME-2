@@ -201,6 +201,34 @@ BFME_DISP_DWORD_GETTER(Rva004F612ADwordField, 0x494)
 BFME_DISP_DWORD_GETTER(Rva00505266DwordField, 0x15C)
 BFME_DISP_DWORD_GETTER(Rva0051825BDwordField, 0x17C4)
 BFME_DISP_DWORD_GETTER(Rva00524F12DwordField, 0x988)
+
+// ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
+class Rva00524F35
+{
+public:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0c;
+	int m_10;
+	unsigned char m_14;
+	unsigned char m_15;
+	unsigned char m_16;
+	Rva00524F35& rva00524F35(int v);
+};
+
+Rva00524F35& Rva00524F35::rva00524F35(int v)
+{
+	m_08 = -1;
+	m_0c = -1;
+	m_10 = -1;
+	m_00 = v;
+	m_04 = 0;
+	m_14 = 0;
+	m_15 = 0;
+	m_16 = 0;
+	return *this;
+}
 BFME_DISP_DWORD_GETTER(Rva0057429ADwordField, 0x26C)
 BFME_DISP_DWORD_GETTER(Rva0059EB33DwordField, 0x2B0)
 BFME_DISP_DWORD_GETTER(Rva005B2666DwordField, 0x414)

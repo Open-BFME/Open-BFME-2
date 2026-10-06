@@ -66042,3 +66042,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva002E6D2F@Rva002E6CFE@@QAE_NXZ,,0x002E6D2F,19,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,
 ?rva002E6D42@@YAHHH@Z,,0x002E6D42,18,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,
 ?rva002E6D54@@YAHHH@Z,,0x002E6D54,14,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,
+?rva00524F35@Rva00524F35@@QAEAAV1@H@Z,,0x00524F35,37,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,
