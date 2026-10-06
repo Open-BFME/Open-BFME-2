@@ -13836,3 +13836,13 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00628770@Rva00628770Impl@@QAE?AUBfmeWideResult@@PBUCoord3D@@MHHPAVRva000421C8@@H@Z,0x00628770,"PartitionManager range-query implementation (525 bytes, SEH frame) behind +0x10: position, float radius, 0, distance type, filter chain, order; called from iterateObjectsInRange 0x00625610; same address as the int-typed ?bfmeMakeWideResult pin"
 ?rva00628040@Rva00628040Impl@@QAEPAVObject@@PBUCoord3D@@MHHPAVRva000421C8@@@Z,0x00628040,"PartitionManager closest-object implementation (1827 bytes) behind +0x10: position, float radius, 0, distance type, filter chain; called from getClosestObject 0x00625360; same address as the int-typed ?bfmeFwd1050 pin"
 
+?rva0005EA8F@Rva0005F279Host@@QAEXPAVRva0005F279Elem@@@Z,0x0005EA8F,dump range 1 loop callees for 0x5F279
+?rva000FF5E6@Rva0007E90ECallee@@QAEXH@Z,0x000FF5E6,dump range 1 marker callee for 0x7E90E
+?rva000B89E9@Rva000B8F5AOuter@@QAEHHPAM@Z,0x000B89E9,rva000BADE7 tail: address read from the REL32 at 0x000BAEA5 in 0x000BADE7; fresh address-derived Outer-method name (probe, float out) for the 1393B body; push order (out then probe) proves (probe, out) against the B8440 twin guess
+?rva000C0386@Rva000B8F5AOuter@@QAEXXZ,0x000C0386,rva000C144A probe: address read from the REL32 at 0x000C1450 in 0x000C144A; fresh address-derived Outer-method name for the 19B counter check (global 0xDE1B40 vs +0xB8, shared tail 0xBFDFE)
+?rva002C995D@BfmeRangedWeaponTemplate@@QAEMPAX0M@Z,0x002C995D,pin for BfmeRangedWeaponTemplate float view thiscall (void*,void*,float)
+?rva002C98E2@BfmeRangedWeaponTemplate@@QAEMPAX@Z,0x002C98E2,pin for BfmeRangedWeaponTemplate float view thiscall (void*)
+?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z,0x002C760B,pin for 0x2C777E mask bit-setter thiscall (zero + 7 ids) returns this
+?clear@Rva002DEE9A0E0C@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
+?clear@Rva002DEE9A0E10@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
+?rva002DE311@Rva002DEE9AOwner@@QAEXXZ,0x002DE311,pin for 0x2DEE9A thiscall void () on this
