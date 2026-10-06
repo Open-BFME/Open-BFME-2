@@ -64614,3 +64614,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva000D0091@W3DStreakDraw@@QAEXXZ,,0x000D0091,534,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp,matched,W3DStreakDraw streak update via BFME1 donor
 ?rva002B6C9F@Rva002B6C9F@@QAE_NHHH@Z,,0x002B6C9F,70,Code/GameEngine/Source/Common/Rva002B6C9F.cpp,matched,Fails on failed 0x2B2C40 or 0x2B6BCF else normalized 0x3193EC
 ?rva005E5CF9@Rva005E5CF9@@QAE?AURvaF1Handle@@H@Z,,0x005E5CF9,84,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,chain callee 0x005F589E rowed new 0x28 this+8 hidden-ret handle
+?Rva00525E07@Holder00525E07@@QAEXPBVAsciiString@@H@Z,,0x00525E07,78,Code/GameEngine/Source/Common/Rva00525E07MaxUpdate.cpp,matched,Range-27 walk via findObjectByID and StringBase compare

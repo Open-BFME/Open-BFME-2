@@ -1,5 +1,3 @@
-// ?Rva00525E07@Holder00525E07@@QAEXPBVAsciiString@@H@Z
-// partial score=0.95 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD
 // Range-27 object name max-update walk.
 // ?Rva00525E07@Holder00525E07@@QAEXPBVAsciiString@@H@Z @0x00525E07 78B
@@ -17,6 +15,19 @@ enum ObjectID
 };
 
 class Object;
+
+struct NameHolder00525E07
+{
+	char m_pad[0x64];
+	AsciiString m_name;
+};
+
+struct Object00525E07
+{
+	char m_pad[4];
+	NameHolder00525E07 *m_holder;
+	NameHolder00525E07 *getHolder() const { return m_holder; }
+};
 
 class GameLogic
 {
@@ -57,12 +68,11 @@ void Holder00525E07::Rva00525E07(const AsciiString *name, int value)
 		int b = value;
 		do
 		{
-			Object *o = TheGameLogic->findObjectByID((ObjectID)node->m_8);
+			Object00525E07 *o = (Object00525E07 *)TheGameLogic->findObjectByID((ObjectID)node->m_8);
 			if (o != 0)
 			{
-				AsciiString *s = (AsciiString *)*(int *)((char *)o + 4);
-				s = (AsciiString *)((char *)s + 0x64);
-				if (((const StringBase<char> *)s)->compare(*(const StringBase<char> *)name) == 0)
+				NameHolder00525E07 *h = o->getHolder();
+				if (((const StringBase<char> *)&h->m_name)->compare(*(const StringBase<char> *)name) == 0)
 				{
 					if (b > node->m_10)
 						node->m_10 = b;
