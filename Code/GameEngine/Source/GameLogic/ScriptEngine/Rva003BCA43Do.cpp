@@ -7,9 +7,9 @@ public:
 	void undoNamedMapReveal(const AsciiString &name);
 	void rva00357D52(const AsciiString &name);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 void __stdcall Rva003BCA43Do(const AsciiString &name)
 {
-	g_Va009FE16C->undoNamedMapReveal(name);
-	g_Va009FE16C->rva00357D52(name);
+	TheScriptEngine->undoNamedMapReveal(name);
+	TheScriptEngine->rva00357D52(name);
 }

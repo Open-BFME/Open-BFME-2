@@ -61,7 +61,7 @@ public:
 };
 
 extern TerrainLogic *TheTerrainLogic;
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class Rva0026163A
 {
@@ -84,7 +84,7 @@ bool Rva0026163A::rva0026163A(const Coord3D *target)
 	sourcePos.z += m_obj->m_geom.getMaxHeightAbovePosition();
 	if (!TheTerrainLogic->checkClear(&sourcePos, &targetPos))
 		return false;
-	AI *ai = g_Va009FF0F8;
+	AI *ai = TheAI;
 	if (ai != 0)
 	{
 		Pathfinder *pf = ai->m_pathfinder;

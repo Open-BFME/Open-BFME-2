@@ -73,7 +73,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);	// 0x002D06CA
 };
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 void __cdecl ji_006291ae();
 
@@ -227,7 +227,7 @@ protected:
 bool UnitCrateCollide::executeCrateBehavior(Object *other)
 {
 	unsigned int remaining = m_moduleData->m_unitCount;
-	void *tmpl = g_009FF000->rva002D06CA(&m_moduleData->m_unitType);
+	void *tmpl = TheThingFactory->rva002D06CA(&m_moduleData->m_unitType);
 	if (tmpl == 0)
 		return false;
 	for (; remaining > 0; --remaining)
@@ -235,7 +235,7 @@ bool UnitCrateCollide::executeCrateBehavior(Object *other)
 		Team *creationTeam = other->getControllingPlayer()->getDefaultTeam();
 		CreateMask mask;
 		((void (__cdecl *)(void *, int, unsigned int))&ji_006291ae)(&mask, 0, 0x10);
-		Object *newObj = ((ThingFactory *)g_009FF000)->newObject((const ThingTemplate *)tmpl, creationTeam, &mask, false);
+		Object *newObj = ((ThingFactory *)TheThingFactory)->newObject((const ThingTemplate *)tmpl, creationTeam, &mask, false);
 		if (newObj != 0)
 		{
 			Coord3D creationPoint;

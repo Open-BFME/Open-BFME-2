@@ -3,9 +3,7 @@
 #include <math.h>
 
 extern float GetGameClientRandomValueReal(float lo, float hi, char *file, int line);
-extern const float BfmeZeroRange;
 extern float g_Va007C26F0;
-extern float g_Va00BBB8D8;
 extern float g_00C1B310;
 // g_00C1B310: matched references place it at VA 0xc1b310 (retail .rdata value 6.2831855f).
 float g_00C1B310 = 6.2831855f;
@@ -42,7 +40,7 @@ void Rva003AED3E::Rva003A5572()
 	const char *file = "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\System\\FXParticleSystem\\fxpswindmodule.cpp";
 	switch (m_at20) {
 	case 3:
-		if (m_at34 == BfmeZeroRange)
+		if (m_at34 == 0.0f)
 			m_at34 = GetGameClientRandomValueReal(m_at38, m_at3C, (char *)file, 0x154);
 		m_at30 += m_at34;
 		if (m_at30 > g_00C1B310)
@@ -57,7 +55,7 @@ void Rva003AED3E::Rva003A5572()
 			float halfRange = (upper - lower) * g_Va007C26F0;
 			float fabsInput = halfRange - m_at30 + lower;
 			float fabsResult = (float)fabs(fabsInput);
-			float speed = (g_Va00BBB8D8 - fabsResult / halfRange) * m_at34;
+			float speed = (1.0f - fabsResult / halfRange) * m_at34;
 			if (speed < g_00C1B4F0)
 				speed = g_00C1B4F0;
 			if (m_at58) {

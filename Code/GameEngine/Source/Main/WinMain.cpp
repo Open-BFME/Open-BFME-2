@@ -1219,7 +1219,7 @@ public:
 	bool m_bfmeTeardownEngineFirst;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 // The two singletons torn down after GameMain; both are released through
 // their virtual destructor in slot 0 with a global delete.
@@ -1403,7 +1403,7 @@ extern "C" int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		delete TheVersion;
 		TheVersion = 0;
 
-		if (TheGlobalData->m_bfmeTeardownEngineFirst)
+		if (TheWritableGlobalData->m_bfmeTeardownEngineFirst)
 		{
 			if (TheGameEngine)
 			{

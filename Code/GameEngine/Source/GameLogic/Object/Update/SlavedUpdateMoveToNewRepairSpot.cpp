@@ -70,7 +70,6 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-extern float g_00BC746C;
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 float Cos(float value);
 float Sin(float value);
@@ -185,7 +184,7 @@ void SlavedUpdate::moveToNewRepairSpot()
 	Object *master = TheGameLogic->findObjectByID((ObjectID)m_slaver);
 	if (data->m_repairRange)
 	{
-		Real randomDirection = GetGameLogicRandomValueReal(0.0f, g_00BC746C, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\SlavedUpdate.cpp", 828);
+		Real randomDirection = GetGameLogicRandomValueReal(0.0f, 6.2831855f, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\SlavedUpdate.cpp", 828);
 		m_guardPointOffset.set(master->getPosition());
 		m_guardPointOffset.x += Cos(randomDirection) * data->m_repairRange;
 		m_guardPointOffset.y += Sin(randomDirection) * data->m_repairRange;

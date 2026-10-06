@@ -4,7 +4,7 @@
 // Honest-address ctor (naming rule).
 #include <list>
 
-struct Coord3D { float x, y, z; };
+#include "../../../Include/Lib/Coord3D.h"
 
 class Rva00330757Member
 {

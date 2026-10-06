@@ -9,7 +9,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Rva00358752Opaque
 {
@@ -50,8 +50,8 @@ public:
 
 void __stdcall Rva003C5825Do(Parameter *p, const AsciiString &name, const AsciiString &lookupName)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(p);
-	Object *obj2 = ((Rva00358752Opaque *)g_Va009FE16C)->lookupUnitByValue(lookupName);
+	Object *obj = TheScriptEngine->getUnitNamed(p);
+	Object *obj2 = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(lookupName);
 	if (obj == 0 || obj2 == 0)
 		return;
 	const AsciiString *s = obj->rva00290E67();

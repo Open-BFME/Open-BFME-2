@@ -16,7 +16,7 @@ public:
     void releaseSlot(W3DVertexBufferSlot *slot);
     void releaseSlot(W3DIndexBufferSlot *slot);
 };
-extern W3DBufferManager *g_00DEC3C0;
+extern class W3DBufferManager *TheW3DBufferManager;
 class Rva000F26DC {
 public:
     void rva000F074E(int a, int b);
@@ -35,12 +35,12 @@ void Rva000F26DC::rva000F074E(int a, int b)
         return;
     W3DBufferManager::W3DVertexBufferSlot *vb = m_b[b + a * 0xA0];
     if (vb != 0) {
-        g_00DEC3C0->releaseSlot(vb);
+        TheW3DBufferManager->releaseSlot(vb);
         m_b[b + a * 0xA0] = 0;
     }
     W3DBufferManager::W3DIndexBufferSlot *ib = m_c[b + a * 0xA0];
     if (ib != 0) {
-        g_00DEC3C0->releaseSlot(ib);
+        TheW3DBufferManager->releaseSlot(ib);
         m_c[b + a * 0xA0] = 0;
     }
     p->Rva000EFC45::~Rva000EFC45();

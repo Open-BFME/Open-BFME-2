@@ -85,7 +85,7 @@ public:
 	int m_A88; // +0xA88
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 // What Object::rva0028BCF4 hands back: slot 5 runs on it.
 class Rva00454501Peer : public Rva00454430Slots<5>
@@ -477,7 +477,7 @@ bool GettingBuiltBehavior::rva004533B2()
 		if (data()->m_20 < 0.0f)
 		{
 			int out = 0;
-			ready = !m_object->rva0028C264(&out, TheGlobalData->m_A88) && body->rva004533B2Slot5() < 1.0f;
+			ready = !m_object->rva0028C264(&out, TheWritableGlobalData->m_A88) && body->rva004533B2Slot5() < 1.0f;
 		}
 		else
 			ready = body->rva0045342FSlot8() == 3;

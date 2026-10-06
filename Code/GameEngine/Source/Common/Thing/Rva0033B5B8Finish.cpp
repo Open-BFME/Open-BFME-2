@@ -8,9 +8,7 @@
 // getNth rows; factory global 0x9FE960. The unnamed temporary is what makes
 // MSVC keep the hidden-return pointer in ebx across getNthData (a named local
 // is rematerialized as lea and loses the byte).
-template <typename T> class StringBase {
-public: ~StringBase(); bool isEmpty() const;
-private: void releaseBuffer(); void *m_data; };
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 // Retail's public ~StringBase<char> is the releaseBuffer body at 0x36410; an
 // inline body here would be emitted as a COMDAT copy every other unit binds to.
 #pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
@@ -27,9 +25,6 @@ enum ModuleType
 // class-gate: allow AsciiString reference-cast parameter only; no AsciiString
 // member is constructed, assigned or destroyed here, so this view emits no
 // COMDAT and cannot differ from the shared header at link.
-class AsciiString : public StringBase<char>
-{
-};
 class ModuleFactory
 {
 public:

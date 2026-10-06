@@ -26,7 +26,6 @@ static __forceinline long fast_round(float f)
 	return i;
 }
 
-extern const float BfmeZeroRange;
 extern float g_00BBB9AC;
 extern const struct FieldParse g_00C75344[];
 
@@ -52,8 +51,8 @@ void Rva005D00A6::rva005CFC12(INI *ini)
 	v.a = g_00BBB9AC;
 	v.b = g_00BBB9AC;
 	ini->initFromINI(&v, g_00C75344);
-	if (v.a >= BfmeZeroRange)
+	if (v.a >= 0.0f)
 		m_08 = fast_round(fast_floor(v.a * 1000.0f + 0.5f));
-	if (v.b >= BfmeZeroRange)
+	if (v.b >= 0.0f)
 		m_0c = fast_round(fast_floor(v.b * 1000.0f + 0.5f));
 }

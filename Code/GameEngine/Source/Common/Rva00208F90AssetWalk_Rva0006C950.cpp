@@ -11,36 +11,8 @@
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <set>
 
-template <typename T>
-class StringBase
-{
-public:
-	StringBase() {}
-	StringBase(const StringBase<T> &other);
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-	char *m_data;
-};
-
-class AsciiString : private StringBase<char>
-{
-public:
-	AsciiString(const AsciiString &other)
-	{
-		((StringBase<char> *)this)->StringBase<char>::StringBase(
-			*(const StringBase<char> *)&other);
-	}
-	~AsciiString();
-
-	const char *str() const
-	{
-		return m_data ? m_data + 8 : "";
-	}
-
-	bool isNotEmpty() const
-	{
-		return m_data != 0 && *(const unsigned short *)(m_data + 4) != 0;
-	}
-};
 
 AsciiString operator+(AsciiString left, const char *right);
 

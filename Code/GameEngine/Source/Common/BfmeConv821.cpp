@@ -46,10 +46,7 @@ void BfmeThingCEE::doCall(void *a, char *b)
 }
 
 // class-gate: allow AsciiString private view - donor preamble placeholder only; GameLogic::find's AsciiString is passed by reference and never emitted into this placed body
-class AsciiString
-{
-	char m_data[4];
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class CommandButton
 {

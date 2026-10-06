@@ -14,7 +14,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class TerrainLogic
 {
 public:
@@ -31,7 +31,7 @@ extern TerrainLogic *TheTerrainLogic;
 
 void __stdcall Rva003BD116Set(Parameter *p1, void *p2)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(p1);
+	Object *obj = TheScriptEngine->getUnitNamed(p1);
 	if (obj == 0)
 		return;
 	void *base = TheTerrainLogic->s34(p2);

@@ -32,11 +32,7 @@ struct Rva005EEE74AptMode
 
 // A render callback's position and size: two floats each (the type is
 // inferred from use).
-struct Coord2D
-{
-	float x;
-	float y;
-};
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 
 // TheDisplay, through Rva000A4826Call.cpp's view.
 class Display;

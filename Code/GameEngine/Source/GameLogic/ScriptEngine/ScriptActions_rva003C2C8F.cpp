@@ -41,16 +41,16 @@ protected:
 	friend void __stdcall Rva003C2C8FDo(Parameter *a, Parameter *b);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003C2C8FDo(Parameter *a, Parameter *b)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(a);
+	Object *obj = TheScriptEngine->getUnitNamed(a);
 	if (obj == 0)
 		return;
 	ExperienceTracker *tracker = obj->m_264;
 	if (tracker == 0)
 		return;
-	ScriptCounter *counter = g_Va009FE16C->bfmeCounter(b->m_string);
+	ScriptCounter *counter = TheScriptEngine->bfmeCounter(b->m_string);
 	counter->m_value = (int)tracker->m_10;
 }

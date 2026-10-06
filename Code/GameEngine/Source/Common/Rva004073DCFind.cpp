@@ -8,32 +8,8 @@
 // the local result (state 1) and the by-value temporary (state 2), so the
 // function returns AsciiString by value rather than filling an out pointer
 // by placement copy as the banked 0.80 attempt did.
-template <typename T> class StringBase
-{
-	friend class AsciiString;
-private:
-	struct Header
-	{
-		int m_refCount;
-		unsigned short m_numCharsAllocated;
-	};
-	StringBase() : m_data(0) {}
-	StringBase(const StringBase &o);
-	void releaseBuffer();
-	Header *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class AsciiString
-{
-public:
-	AsciiString() {}
-	AsciiString(const AsciiString &o) : m_data(o.m_data) {}
-	AsciiString &operator=(const AsciiString &o);
-	~AsciiString() { m_data.releaseBuffer(); }
-	bool isEmpty() const { return m_data.m_data == 0 || m_data.m_data->m_numCharsAllocated == 0; }
-private:
-	StringBase<char> m_data;
-};
 
 class Rva002B224BDwordField
 {

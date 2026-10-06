@@ -30,9 +30,7 @@ public:
 
 extern Rva002A8F24 *g_00DFEEF8;
 
-extern float g_Va00BBB8D8;
 extern float g_secondsPerLogicFrame;
-extern const float BfmeZeroRange;
 extern const float g_00BC26EC;
 
 class Rva002C693B
@@ -61,7 +59,7 @@ void Rva002C693B::rva002C693B()
 			m_16C = 1;
 			return;
 		}
-		if (!(data->m_a4 > BfmeZeroRange))
+		if (!(data->m_a4 > 0.0f))
 			return;
 		m_170 = t / data->m_a4;
 		break;
@@ -74,13 +72,13 @@ void Rva002C693B::rva002C693B()
 			m_16C = 2;
 			return;
 		}
-		if (!(sum > BfmeZeroRange))
+		if (!(sum > 0.0f))
 			return;
 		m_170 = t / sum;
 		break;
 	}
 	case 2:
-		m_170 = g_Va00BBB8D8;
+		m_170 = 1.0f;
 		break;
 	default:
 		return;

@@ -55,7 +55,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *s);
 };
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 void Rva003063A9XferThingTemplate(Xfer *xfer, const ThingTemplate **thing)
 {
@@ -63,5 +63,5 @@ void Rva003063A9XferThingTemplate(Xfer *xfer, const ThingTemplate **thing)
 	xfer->operator==(tmp);
 	if (!xfer->IsLoading())
 		return;
-	*thing = (const ThingTemplate *)g_009FF000->rva002D06CA(&tmp);
+	*thing = (const ThingTemplate *)TheThingFactory->rva002D06CA(&tmp);
 }

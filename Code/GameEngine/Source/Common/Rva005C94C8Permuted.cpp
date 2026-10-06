@@ -41,7 +41,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 struct Rva005C94C8Parent
 {
@@ -70,7 +70,7 @@ UnicodeString Rva005C94C8Get(void *objPtr)
 		obj = (Rva005C94C8Obj *)obj->m_parent;
 		return TheGameText->fetch(((Rva005C94C8Parent *)obj)->m_label);
 	}
-	void *found = g_009FF000->rva002D06CA(&obj->m_key);
+	void *found = TheThingFactory->rva002D06CA(&obj->m_key);
 	if (!found)
 		return TheGameText->fetch(obj->m_parent->m_label);
 	UnicodeString *payloadText = (UnicodeString *)((char *)found + 0x58);

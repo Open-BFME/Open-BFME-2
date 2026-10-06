@@ -96,7 +96,7 @@ public:
 
 // The global at this VA is theDebug; this name aliases it rather than
 // defining a second variable the rest of the game never sees.
-extern Debug *TheBfmeAwakenDebug;
+extern class Debug *theDebug;
 #pragma comment(linker, "/alternatename:?TheBfmeAwakenDebug@@3PAVDebug@@A=?theDebug@@3PAVDebug@@A")
 
 const char *bfmeTabEYC[2] = { "Low", "High" };
@@ -115,11 +115,11 @@ Int GameLODManager::getAudioLODIndex(const AsciiString &name)
 	if (bfmeRva000387C0())
 	{
 		Debug::SkipNext(true);
-		TheBfmeAwakenDebug->slot60();
+		theDebug->slot60();
 		// Nested (no named report temp): retail keeps the slot6C result in
 		// eax straight into the slot38 dispatch, and evaluates the
 		// operator<< name operand first (push [esp+8] before the lit push).
-		operator<<(TheBfmeAwakenDebug->slot6C(0, 0, 0)->slot38("GameLODManager::getAudioLODIndex - Invalid LOD name '"), name).slot38("'").slot4C(2);
+		operator<<(theDebug->slot6C(0, 0, 0)->slot38("GameLODManager::getAudioLODIndex - Invalid LOD name '"), name).slot38("'").slot4C(2);
 	}
 
 	return -1;

@@ -50,7 +50,7 @@ public:
 	Short m_firewallPortAllocationDelta;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -64,7 +64,7 @@ Short OptionPreferences::getFirewallPortAllocationDelta()
 {
 	OptionPreferences::const_iterator it = find("FirewallPortAllocationDelta");
 	if (it == end()) {
-		return TheGlobalData->m_firewallPortAllocationDelta;
+		return TheWritableGlobalData->m_firewallPortAllocationDelta;
 	}
 
 	Short delta = atoi(it->second.str());

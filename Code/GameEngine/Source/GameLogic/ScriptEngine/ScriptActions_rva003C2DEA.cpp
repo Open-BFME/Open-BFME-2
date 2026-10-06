@@ -70,11 +70,11 @@ protected:
 	friend void __stdcall Rva003C2DEADo(Parameter *a, Parameter *b);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003C2DEADo(Parameter *a, Parameter *b)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(a->m_string, false);
+	Team *team = TheScriptEngine->getTeamNamed(a->m_string, false);
 	if (team == 0)
 		return;
 	int total = 0;
@@ -82,6 +82,6 @@ void __stdcall Rva003C2DEADo(Parameter *a, Parameter *b)
 		Object *obj = it.cur();
 		total += obj->m_p4->m_618;
 	}
-	ScriptCounter *c = g_Va009FE16C->bfmeCounter(b->m_string);
+	ScriptCounter *c = TheScriptEngine->bfmeCounter(b->m_string);
 	c->m_value = total;
 }

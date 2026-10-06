@@ -29,7 +29,7 @@ public:
 	ObjectTypes *getObjectTypes(const AsciiString &s);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class ScriptActions
 {
@@ -44,7 +44,7 @@ public:
 	void *rva002D06CA(const AsciiString *s);
 };
 
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 struct BfmeWorldRV;
 extern struct BfmeWorldRV *g_bfmeWorldRV;
@@ -71,10 +71,10 @@ void __cdecl rva003BE11C(const ThingTemplate *tmpl, const CommandButton *button)
 
 void ScriptActions::rva003C42B9(Parameter *param, const AsciiString &a, const AsciiString &b)
 {
-	Object *unit = g_Va009FE16C->getUnitNamed(param);
+	Object *unit = TheScriptEngine->getUnitNamed(param);
 	if (unit == 0)
 		return;
-	ObjectTypes *types = g_Va009FE16C->getObjectTypes(b);
+	ObjectTypes *types = TheScriptEngine->getObjectTypes(b);
 	const ThingTemplate *tmpl;
 	if (types != 0)
 	{
@@ -84,7 +84,7 @@ void ScriptActions::rva003C42B9(Parameter *param, const AsciiString &a, const As
 		tmpl = *(const ThingTemplate *const *)((const char *)obj + 4);
 	}
 	else
-		tmpl = (const ThingTemplate *)g_009FF000->rva002D06CA(&b);
+		tmpl = (const ThingTemplate *)TheThingFactory->rva002D06CA(&b);
 	if (tmpl == 0)
 		return;
 	const CommandButton *button = ((ControlBar *)g_bfmeWorldRV)->findCommandButton(a);

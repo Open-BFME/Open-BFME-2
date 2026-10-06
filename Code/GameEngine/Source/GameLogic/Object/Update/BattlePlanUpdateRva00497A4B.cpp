@@ -60,7 +60,7 @@ public:
 	void *rva002D06CA(const AsciiString *name);
 };
 
-extern Rva002D06CA *g_009FF000; // ?g_009FF000@@3PAVRva002D06CA@@A
+extern class Rva002D06CA *TheThingFactory; // ?g_009FF000@@3PAVRva002D06CA@@A
 
 class Player
 {
@@ -106,7 +106,7 @@ void BattlePlanUpdate::rva00497A4B()
 		return;
 	Payload00497A4B *payload = m_payload;
 	Object *obj = m_object;
-	void *tmpl = g_009FF000->rva002D06CA(&payload->m_templateName);
+	void *tmpl = TheThingFactory->rva002D06CA(&payload->m_templateName);
 	if (tmpl == 0)
 		return;
 	Player *player = ThePlayerList->m_player;
@@ -115,7 +115,7 @@ void BattlePlanUpdate::rva00497A4B()
 	CreateMask mask;
 	ji_006291ae(&mask, 0, 0x10);
 	Team *team = player->m_team;
-	Object *newObj = ((ThingFactory *)g_009FF000)->newObject((const ThingTemplate *)tmpl, team, &mask, false);
+	Object *newObj = ((ThingFactory *)TheThingFactory)->newObject((const ThingTemplate *)tmpl, team, &mask, false);
 	if (newObj == 0)
 		return;
 	m_visionID = newObj->m_id74;

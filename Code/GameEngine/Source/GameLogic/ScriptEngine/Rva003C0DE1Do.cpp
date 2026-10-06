@@ -41,7 +41,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString, bool);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 namespace Rva002EFB20
 {
 void __cdecl helper(void *obj, bool flag);
@@ -49,7 +49,7 @@ void __cdecl helper(void *obj, bool flag);
 
 void __stdcall Rva003C0DE1Do(const AsciiString &teamName, bool flag)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
 	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {

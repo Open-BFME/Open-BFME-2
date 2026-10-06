@@ -94,12 +94,7 @@ public:
 	unsigned char m_minimum;
 };
 
-class Coord2D
-{
-public:
-	float x;
-	float y;
-};
+#include "../../../../../Libraries/Include/Lib/Coord2D.h"
 
 class Rva000BB710
 {

@@ -12,7 +12,7 @@ extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
 // TheGlobalData's +0x9D4 (the demo kind the queries compare against).
 class GlobalData;
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 struct AptGlobalQueryData
 {
@@ -122,10 +122,10 @@ void __cdecl Rva0041273C(int query, char *result, bool skip)
 	switch (query)
 	{
 	case 1:
-		strcpy(result, ((AptGlobalQueryData *)TheGlobalData)->m_demoKind == 1 ? "1" : "0");
+		strcpy(result, ((AptGlobalQueryData *)TheWritableGlobalData)->m_demoKind == 1 ? "1" : "0");
 		break;
 	case 2:
-		strcpy(result, ((AptGlobalQueryData *)TheGlobalData)->m_demoKind == 2 ? "1" : "0");
+		strcpy(result, ((AptGlobalQueryData *)TheWritableGlobalData)->m_demoKind == 2 ? "1" : "0");
 		break;
 	}
 }

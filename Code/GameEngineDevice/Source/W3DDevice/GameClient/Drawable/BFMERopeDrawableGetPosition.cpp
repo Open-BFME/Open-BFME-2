@@ -4,12 +4,7 @@
 // getPosition body carries the same interpolation logic but uses BFME2 member
 // offsets; the rebuild helper's target identity remains address-derived.
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 struct BfmeVector3
 {

@@ -49,7 +49,7 @@ public:
 	char m_pad[0xAD0];
 	WeaponBonusSet *m_weaponBonusSet;
 };
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 class WeaponTemplate
 {
 public:
@@ -69,7 +69,7 @@ void Weapon::computeBonus(const Object *source, WeaponBonusConditionFlags extra,
 {
 	bonus.clear();
 	UnsignedInt flags = source->m_weaponBonusCondition | extra;
-	WeaponBonusSet *global = TheGlobalData->m_weaponBonusSet;
+	WeaponBonusSet *global = TheWritableGlobalData->m_weaponBonusSet;
 	if (global)
 		global->appendBonuses(flags, bonus);
 	WeaponBonusSet *own = m_template->m_extraBonus;

@@ -6,12 +6,7 @@
 // Donor ZH Scripts.cpp Parameter::setCoord3D with DEBUG_ASSERTCRASH compiled
 // out (/DNDEBUG). Caller at 0x003B5D0F.
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Parameter
 {

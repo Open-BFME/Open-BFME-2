@@ -42,12 +42,7 @@ private:
 	int m_dist;
 };
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 struct FortyEight
 {

@@ -45,11 +45,11 @@ class ScriptEngine
 public:
 	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 bool __stdcall Rva003E52EBCheck(Parameter *a, CondA003E52EB *b, CondB003E52EB *c)
 {
-	int mask = g_Va009FE16C->rva00357475(a->m_10, 0);
+	int mask = TheScriptEngine->rva00357475(a->m_10, 0);
 	Player *pl = ThePlayerList->getPlayerFromMask(mask);
 	if (!pl)
 		return false;

@@ -39,14 +39,14 @@ class ScriptEngine
 public:
     int rva00357B82(Parameter *playerParm);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 extern float g_Va00BCF628;
 
 bool __stdcall Rva003E46B4Get(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm)
 {
     float threshold = (float)pValParm->m_int * g_Va00BCF628;
-    int mask = g_Va009FE16C->rva00357B82(pMaskParm);
+    int mask = TheScriptEngine->rva00357B82(pMaskParm);
     while (mask) {
         Player *pl = ThePlayerList->getEachPlayerFromMask(mask);
         float ratio = pl->m_ratio1BC.rva004DF161();

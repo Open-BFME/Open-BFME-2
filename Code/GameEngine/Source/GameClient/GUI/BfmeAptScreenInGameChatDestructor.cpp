@@ -2,24 +2,8 @@
 // class-gate: allow AsciiString donor TU-local StringBase-derived view emits the retail 116B dtor at 0x004E83EB; its temporary calls the out-of-line StringBase ctor 0x00037BA0 and dtor 0x00036410, which the shared header force-inlines
 #include "../../../Include/GameClient/BfmeAptScreenBaseLayout.h"
 
-template <typename T> class StringBase
-{
-	friend class AsciiString;
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-private:
-	StringBase(const T *text);
-	StringBase(const StringBase<T> &other);
-	void releaseBuffer();
-
-	void *m_data;
-};
-
-class AsciiString : private StringBase<char>
-{
-public:
-	AsciiString(const char *text) : StringBase<char>(text) {}
-	~AsciiString() { ((StringBase<char> *)this)->releaseBuffer(); }
-};
 
 class _bfme_AptGameWindow
 {

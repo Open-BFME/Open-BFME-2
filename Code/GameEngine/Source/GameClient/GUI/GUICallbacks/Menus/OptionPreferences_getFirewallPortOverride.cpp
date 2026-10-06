@@ -50,7 +50,7 @@ public:
 	UnsignedShort m_firewallPortOverride;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -64,7 +64,7 @@ UnsignedShort OptionPreferences::getFirewallPortOverride()
 {
 	OptionPreferences::const_iterator it = find("FirewallPortOverride");
 	if (it == end()) {
-		return TheGlobalData->m_firewallPortOverride;
+		return TheWritableGlobalData->m_firewallPortOverride;
 	}
 
 	return atoi(it->second.str());

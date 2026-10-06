@@ -3,7 +3,6 @@
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buf, const char *fmt, ...);
 extern "C" int __cdecl lua_getinfo(void *L, const char *what, void *ar);
 void __cdecl bfmeLogMsg574(const char *msg);
-extern const char g_00BBE498[];
 
 struct LuaAr
 {
@@ -55,5 +54,5 @@ void __cdecl Rva00333BCALog(void *L, LuaAr *ar)
 		sprintf(buf, " [%.70s]", ar->short_src);
 		bfmeLogMsg574(buf);
 	}
-	bfmeLogMsg574(g_00BBE498);
+	bfmeLogMsg574("\012");
 }

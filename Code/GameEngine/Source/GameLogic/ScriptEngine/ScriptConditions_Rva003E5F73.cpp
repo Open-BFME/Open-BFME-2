@@ -13,7 +13,7 @@ public:
 	int rva00357B82(Parameter *p);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Player
 {
@@ -58,7 +58,7 @@ struct CondC003E5F73
 
 bool __stdcall Rva003E5F73Check(Parameter *param, CondA003E5F73 *a, CondB003E5F73 *b, CondC003E5F73 *c)
 {
-	int mask = g_Va009FE16C->rva00357B82(param);
+	int mask = TheScriptEngine->rva00357B82(param);
 	int limit = c->m_limit;
 	int total = 0;
 

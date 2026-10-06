@@ -14,7 +14,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 struct Rva005FED61Payload
 {
@@ -32,7 +32,7 @@ public:
 
 void Rva005FED61::rva005FED61(const AsciiString *key, int delta)
 {
-	void *raw = g_009FF000->rva002D06CA(key);
+	void *raw = TheThingFactory->rva002D06CA(key);
 	if (raw == 0)
 		return;
 	int idx = ((Rva005FED61Payload *)raw)->m_idx5C4;

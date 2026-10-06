@@ -51,7 +51,7 @@ public:
 
 int strcmp(const char *a, const char *b);
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -65,7 +65,7 @@ Bool OptionPreferences::getLanguageFilter(void)
 {
 	OptionPreferences::const_iterator it = find("LanguageFilter");
 	if (it == end())
-		return TheGlobalData->m_languageFilter;
+		return TheWritableGlobalData->m_languageFilter;
 
 	if (strcmp(it->second.str(), "yes") == 0) {
 		return true;

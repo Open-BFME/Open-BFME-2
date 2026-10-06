@@ -18,7 +18,7 @@ public:
 	Team *getTeamNamed(AsciiString name, bool b);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Team
 {
@@ -52,7 +52,7 @@ public:
 
 void BfmeApplierBH::rva003C4145(void *owner, const AsciiString &powerName, const AsciiString &teamName)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed(teamName, false);
 	if (team == 0)
 		return;
 	if (!team->hasAnyObjects(false))

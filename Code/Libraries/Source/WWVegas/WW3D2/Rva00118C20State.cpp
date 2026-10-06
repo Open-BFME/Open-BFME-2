@@ -3,7 +3,7 @@
 extern int g_Va00DB5FC4;
 extern int g_Va00DB5FC0;
 extern int g_Va00DB5FBC;
-extern int g_00DB5FB4;
+extern int g_Va00DB5FB4;
 extern int g_00DB5FB0;
 extern unsigned int g_Va00DEC4A8;
 extern unsigned int g_Va00DEC4A4;
@@ -24,7 +24,7 @@ void Rva00118C20(void)
 		g_Va00DB5FC4 = 5;
 		g_Va00DEC4A4 = 0;
 		g_Va00DEC4A0 = 0;
-		int tmp = g_00DB5FB4;
+		int tmp = g_Va00DB5FB4;
 		g_Va00DEC4A8 = 1;
 		g_Va00DB5FBC = 7;
 		g_00DB5FB0 = tmp;

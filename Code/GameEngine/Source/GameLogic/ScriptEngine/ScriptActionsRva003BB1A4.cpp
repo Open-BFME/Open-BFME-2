@@ -8,7 +8,7 @@ class ScriptEngine
 public:
 	int rva00357475(const AsciiString &name, bool *matched);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class Player;
 class PlayerList
 {
@@ -35,7 +35,7 @@ public:
 };
 void __stdcall Rva003BB1A4Grant(const AsciiString &playerName, const AsciiString &upgradeName)
 {
-	int mask = g_Va009FE16C->rva00357475(playerName, 0);
+	int mask = TheScriptEngine->rva00357475(playerName, 0);
 	if (mask == 0)
 		return;
 	while (mask != 0) {

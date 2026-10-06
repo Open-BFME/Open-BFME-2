@@ -82,12 +82,12 @@ public:
 	Team *getTeamNamed(AsciiString name, bool b);
 	Object *getUnitNamed(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 bool __stdcall Rva003E803DGet(Parameter *p0, Parameter *p1)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(p0->m_string, false);
-	Object *unit = g_Va009FE16C->getUnitNamed(p1);
+	Team *team = TheScriptEngine->getTeamNamed(p0->m_string, false);
+	Object *unit = TheScriptEngine->getUnitNamed(p1);
 	if (team == 0 || unit == 0)
 		return false;
 	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); ((Rva001705A0DlinkIterator<Object> *)&iter)->advance()) {

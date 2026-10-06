@@ -28,12 +28,7 @@
 // CloudBreakSpecialPower 0x004C482B (80 bytes, vftable 0x00C5D3C8): helpers
 // 0x004C4621 (with the location) and 0x004C4582, then clears +0x98 of the
 // g_00DFEC68 manager.
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 template <int N> class BitFlags
 {

@@ -40,7 +40,7 @@ extern Display *TheDisplay;
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 class GlobalData;
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 class GlobalLanguage;
 extern GlobalLanguage *TheGlobalLanguageData;
 
@@ -113,7 +113,7 @@ void Mouse::drawTooltip()
 	int delay = m_tooltipDelayTime;
 	if (m_tooltipDelay >= 0)
 		delay = m_tooltipDelay;
-	if (*reinterpret_cast<unsigned char *>(reinterpret_cast<char *>(TheGlobalData) + 0x9C1))
+	if (*reinterpret_cast<unsigned char *>(reinterpret_cast<char *>(TheWritableGlobalData) + 0x9C1))
 		delay = 0;
 	if (now - m_4FD8 >= (unsigned int)delay)
 	{
@@ -128,7 +128,7 @@ void Mouse::drawTooltip()
 		m_1308 = 0;
 	if (*reinterpret_cast<int *>(reinterpret_cast<char *>(TheScriptEngine) + 0x1A138) != 0)
 		return;
-	if (*reinterpret_cast<unsigned char *>(reinterpret_cast<char *>(TheGlobalData) + 0x9BF)
+	if (*reinterpret_cast<unsigned char *>(reinterpret_cast<char *>(TheWritableGlobalData) + 0x9BF)
 		&& m_1308 && TheDisplay != 0 && !m_1288 && !m_12FC.isEmpty())
 	{
 		if (m_12F8.compare(m_12FC) != 0)

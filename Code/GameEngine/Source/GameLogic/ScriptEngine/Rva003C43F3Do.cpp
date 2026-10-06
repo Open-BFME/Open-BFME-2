@@ -14,7 +14,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString, bool);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0,
@@ -45,7 +45,7 @@ public:
 };
 void __stdcall Rva003C43F3Do(const AsciiString &teamName, const AsciiString &playerName, Object *obj)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed(teamName, false);
 	NameKeyType key = TheNameKeyGenerator->nameToKey(playerName);
 	Player *player = ThePlayerList->findPlayerWithNameKey(key);
 	if (team == 0)

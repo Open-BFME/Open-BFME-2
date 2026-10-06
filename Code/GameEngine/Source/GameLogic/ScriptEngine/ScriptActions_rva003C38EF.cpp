@@ -51,7 +51,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString, bool);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 // A script parameter: its string at +0x10, as in Zero Hour's Parameter.
 class Parameter
@@ -71,7 +71,7 @@ protected:
 
 void ScriptActions::rva003C38EF(Parameter *pTeam, ObjectStatusTypes status, bool set)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(pTeam->getString(), false);
+	Team *team = TheScriptEngine->getTeamNamed(pTeam->getString(), false);
 	if (team == 0)
 		return;
 	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {

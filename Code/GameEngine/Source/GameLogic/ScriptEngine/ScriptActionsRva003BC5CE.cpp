@@ -10,7 +10,7 @@ class ScriptEngine
 public:
 	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Sub08
 {
@@ -44,7 +44,7 @@ public:
 
 void __stdcall Rva003BC5CESet(const AsciiString &name, int val)
 {
-	int mask = g_Va009FE16C->rva00357475(name, 0);
+	int mask = TheScriptEngine->rva00357475(name, 0);
 	if (mask == 0)
 		return;
 	do {

@@ -97,7 +97,7 @@ public:
 	AsciiString m_specialPowerViewObjectName;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class Player
 {
@@ -180,7 +180,7 @@ void SpecialPowerModule::createViewObject(const Coord3D *location)
 	if (visionRange == 0 || visionDuration == 0)
 		return; // We don't want a view object at all.
 
-	AsciiString objectName = TheGlobalData->m_specialPowerViewObjectName;
+	AsciiString objectName = TheWritableGlobalData->m_specialPowerViewObjectName;
 	if (objectName.isEmpty())
 		return;
 

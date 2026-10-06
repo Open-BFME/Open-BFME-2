@@ -15,12 +15,12 @@ public:
 };
 struct BfmeWorldRV;
 extern struct BfmeWorldRV *g_bfmeWorldRV;
-extern int g_00DBA4E8;
+extern int g_009BA4E8;
 void __stdcall Rva003BB556Set(const AsciiString &name, int v)
 {
 	const CommandButton *btn = ((ControlBar *)(void *)g_bfmeWorldRV)->findCommandButton(name);
 	if (btn) {
-		int q = g_00DBA4E8 * v / 10;
+		int q = g_009BA4E8 * v / 10;
 		if (q % 2 == 1)
 			++q;
 		((CommandButton *)btn)->m_00F8 = q;

@@ -50,7 +50,7 @@ public:
 	Bool m_alternateMouseSetup;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -64,7 +64,7 @@ Bool OptionPreferences::getAlternateMouseSetup(void)
 {
 	OptionPreferences::const_iterator it = find("AlternateMouseSetup");
 	if (it == end())
-		return TheGlobalData->m_alternateMouseSetup;
+		return TheWritableGlobalData->m_alternateMouseSetup;
 
 	if (strcmp(it->second.str(), "yes") != 0) {
 		return true;

@@ -92,7 +92,7 @@ Maybe project onto a deformed terrain patch that molds to trays/bibs.
 #define DEFAULT_RENDER_TARGET_WIDTH			512
 #define DEFAULT_RENDER_TARGET_HEIGHT		512
 
-W3DProjectedShadowManager *TheW3DProjectedShadowManager=NULL;	//global singleton
+extern class W3DProjectedShadowManager *TheW3DProjectedShadowManager;	//global singleton
 ProjectedShadowManager	*TheProjectedShadowManager;				//global singleton with simpler interface.
 extern const FrustumClass *shadowCameraFrustum;	//defined in W3DShadow.
 ///@todo: Externs from volumetric shadow renderer - these need to be moved into W3DBufferManager

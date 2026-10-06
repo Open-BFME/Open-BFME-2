@@ -21,11 +21,7 @@ struct Coord3D
 	float z;
 };
 
-struct Coord2D
-{
-	float x;
-	float y;
-};
+#include "../../../Include/Lib/Coord2D.h"
 
 class BuildListInfo
 {

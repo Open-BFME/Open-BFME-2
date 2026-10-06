@@ -50,7 +50,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool exact);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class TerrainLogic
 {
@@ -78,7 +78,7 @@ public:
 
 void __stdcall Rva003C353BDo(Parameter *teamParm, void *p2)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)teamParm->getString(), false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamParm->getString(), false);
 	if (team == 0)
 		return;
 	void *base = TheTerrainLogic->s34(p2);

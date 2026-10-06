@@ -22,7 +22,7 @@ public:
 	Object *getUnitNamed(Parameter *);
 	Team *getTeamNamed(AsciiString, bool = false);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class Object
 {
 public:
@@ -38,8 +38,8 @@ protected:
 };
 void ScriptActions::rva003BED01(Parameter *unitParam, const AsciiString &teamName)
 {
-	Object *unit = g_Va009FE16C->getUnitNamed(unitParam);
-	Team *team = g_Va009FE16C->getTeamNamed(teamName, true);
+	Object *unit = TheScriptEngine->getUnitNamed(unitParam);
+	Team *team = TheScriptEngine->getTeamNamed(teamName, true);
 	if (unit == 0)
 		return;
 	if (team == 0)

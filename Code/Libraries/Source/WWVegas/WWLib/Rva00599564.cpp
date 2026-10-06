@@ -70,7 +70,7 @@ public:
 };
 
 extern Rva002A8F24 *g_00DFEEF8;
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 class Rva00599564
 {
@@ -103,7 +103,7 @@ void Rva00599564::rva00599564(Object *obj)
 				goto done;
 docall:
 			void *r = s->v02();
-			void *q = g_009FF000->rva002D06CA(&m_str);
+			void *q = TheThingFactory->rva002D06CA(&m_str);
 			s->v08(q, -1, r, -1, zero, &AsciiString::TheEmptyString, zero);
 		}
 	}

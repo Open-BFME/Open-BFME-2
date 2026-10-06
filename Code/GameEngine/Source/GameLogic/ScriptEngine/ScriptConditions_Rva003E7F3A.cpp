@@ -18,7 +18,7 @@ class ScriptEngine
 public:
     Object *getUnitNamed(Parameter *parameter);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Object
 {
@@ -33,7 +33,7 @@ bool __stdcall Rva003E7F3AGet(Parameter *p1, Parameter *p2)
 {
     if (!p1 || !p2)
         return false;
-    Object *obj = g_Va009FE16C->getUnitNamed(p1);
+    Object *obj = TheScriptEngine->getUnitNamed(p1);
     if (!obj)
         return false;
     AsciiString tmp = p2->getString();

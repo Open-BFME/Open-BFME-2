@@ -52,7 +52,7 @@ public:
 	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int a, Rva000421C8 *filter, int b);
 };
 extern PartitionManager *ThePartitionManager;
-extern void *g_00DFE750;
+extern void *g_Va00DFE750;
 
 class BfmeFixedStorage0004543D
 {
@@ -89,7 +89,7 @@ void TerrainLogic::rva00283262(const Coord3D *a, float b)
 {
 	if (a == 0)
 		return;
-	if (g_00DFE750 == 0)
+	if (g_Va00DFE750 == 0)
 		return;
 	if (ThePartitionManager == 0)
 		return;

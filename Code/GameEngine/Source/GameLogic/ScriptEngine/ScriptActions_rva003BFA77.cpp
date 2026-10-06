@@ -45,11 +45,11 @@ public:
 	void attemptDamage(DamageInfo *info);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003BFA77Do(const Parameter &p, int amount)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed((Parameter *)&p);
+	Object *obj = TheScriptEngine->getUnitNamed((Parameter *)&p);
 	if (obj == 0)
 		return;
 	Rva00263895Member dmg;

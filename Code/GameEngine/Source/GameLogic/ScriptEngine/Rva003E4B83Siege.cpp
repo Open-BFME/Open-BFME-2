@@ -18,7 +18,7 @@ class ScriptEngine
 public:
     Object *getUnitNamed(Parameter *parameter);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class NameKeyGenerator
 {
@@ -48,7 +48,7 @@ protected:
 
 bool __stdcall Rva003E4B83Get(Parameter *pUnitParm)
 {
-    Object *obj = g_Va009FE16C->getUnitNamed(pUnitParm);
+    Object *obj = TheScriptEngine->getUnitNamed(pUnitParm);
     if (obj == 0)
         return false;
     static NameKeyType siegeKey = TheNameKeyGenerator->nameToKey("SiegeDeploySpecialPower");

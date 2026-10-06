@@ -40,10 +40,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_BFME_5B = 0x5B
 };
 
-struct Coord3D
-{
-	Real x, y, z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Rva0010CBits
 {

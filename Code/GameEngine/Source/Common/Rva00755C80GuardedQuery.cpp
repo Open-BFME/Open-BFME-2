@@ -21,13 +21,13 @@ public:
 };
 
 extern Gen01304B64 *g_Va01304B64;
-extern int g_Va01304B5C;
+extern int g_Va001FDEB0;
 
 // @?Rva00755C80@@YAXXZ 0x00755C80
 void Rva00755C80(void)
 {
 	if (g_Va01304B64)
-		g_Va01304B5C = g_Va01304B64->bfmeQuery();
+		g_Va001FDEB0 = g_Va01304B64->bfmeQuery();
 }
 
 // The global(s) below are defined elsewhere under another name at the same

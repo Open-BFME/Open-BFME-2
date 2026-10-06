@@ -49,7 +49,7 @@ public:
 	Bool m_firewallSendDelay;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -63,7 +63,7 @@ Bool OptionPreferences::getSendDelay(void)
 {
 	OptionPreferences::const_iterator it = find("SendDelay");
 	if (it == end())
-		return TheGlobalData->m_firewallSendDelay;
+		return TheWritableGlobalData->m_firewallSendDelay;
 
 	if (_strcmpi(it->second.str(), "yes") == 0) {
 		return true;

@@ -28,6 +28,8 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # Shared work claims are empty-tree marker commits, not game-source commits.
     case "${_remote_ref:-}" in refs/claims/*) continue ;; esac
     [ "$local_sha" = "$ZERO" ] && continue   # deleting a remote ref
+    # The build below reads the working-tree ledgers: they must be the pushed commit's.
+    python3 tools/ledger_guard.py --commit "$local_sha" || fail "working-tree ledgers differ from $local_sha (see above)"
 
     python3 tools/check_csv.py --ref "$local_sha" || fail "ledger integrity at $local_sha (see above)"
 

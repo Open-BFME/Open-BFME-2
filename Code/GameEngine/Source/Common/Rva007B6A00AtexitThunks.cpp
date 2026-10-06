@@ -157,7 +157,7 @@ public:
 	virtual ~GeometryInfo();
 };
 
-extern unsigned g_Va00DDE0AC;
+extern unsigned int g_00DDE0AC;
 extern unsigned g_Va00DE1DC0;
 extern unsigned g_Va00DEBC64;
 extern unsigned g_Va00DEBCA0;
@@ -255,7 +255,7 @@ extern unsigned g_Va00E176A0;
 // ?rva007B6AE7@@YAXXZ @ 0x007B6AE7 (10B): ecx=&g_Va00DDE0AC, tail-jump to rowed ?Term@CAtlWinModule@ATL@@QAEXXZ (0x00006AF1)
 void __cdecl rva007B6AE7()
 {
-	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_Va00DDE0AC;
+	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_00DDE0AC;
 	p->Term();
 }
 
@@ -500,7 +500,7 @@ void __cdecl rva007B7AA5()
 // ?rva007B7C87@@YAXXZ @ 0x007B7C87 (10B): ecx=&g_Va00DDE0AC, tail-jump to rowed ?Term@CAtlWinModule@ATL@@QAEXXZ (0x00006AF1)
 void __cdecl rva007B7C87()
 {
-	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_Va00DDE0AC;
+	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_00DDE0AC;
 	p->Term();
 }
 
@@ -857,7 +857,7 @@ void __cdecl rva007B9734()
 // ?rva007B9825@@YAXXZ @ 0x007B9825 (10B): ecx=&g_Va00DDE0AC, tail-jump to rowed ?Term@CAtlWinModule@ATL@@QAEXXZ (0x00006AF1)
 void __cdecl rva007B9825()
 {
-	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_Va00DDE0AC;
+	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_00DDE0AC;
 	p->Term();
 }
 
@@ -899,7 +899,7 @@ void __cdecl rva007B9AB0()
 // ?rva007B9B00@@YAXXZ @ 0x007B9B00 (10B): ecx=&g_Va00DDE0AC, tail-jump to rowed ?Term@CAtlWinModule@ATL@@QAEXXZ (0x00006AF1)
 void __cdecl rva007B9B00()
 {
-	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_Va00DDE0AC;
+	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_00DDE0AC;
 	p->Term();
 }
 
@@ -913,7 +913,7 @@ void __cdecl rva007B9B0A()
 // ?rva007B9B14@@YAXXZ @ 0x007B9B14 (10B): ecx=&g_Va00DDE0AC, tail-jump to rowed ?Term@CAtlWinModule@ATL@@QAEXXZ (0x00006AF1)
 void __cdecl rva007B9B14()
 {
-	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_Va00DDE0AC;
+	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_00DDE0AC;
 	p->Term();
 }
 
@@ -927,7 +927,7 @@ void __cdecl rva007B9B1E()
 // ?rva007B9B28@@YAXXZ @ 0x007B9B28 (10B): ecx=&g_Va00DDE0AC, tail-jump to rowed ?Term@CAtlWinModule@ATL@@QAEXXZ (0x00006AF1)
 void __cdecl rva007B9B28()
 {
-	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_Va00DDE0AC;
+	ATL::CAtlWinModule *p = (ATL::CAtlWinModule *)&g_00DDE0AC;
 	p->Term();
 }
 

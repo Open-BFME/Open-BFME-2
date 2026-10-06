@@ -1,5 +1,3 @@
-// ?Rva004B2B64_ParseReplaceObject@INI@@SAXPAV1@PAX1PBX@Z
-// partial score=0.9 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
 //
 // Object-record FieldParse procs (names address-derived):
@@ -54,7 +52,11 @@ private:
 	unsigned char m_unreconstructed_08[0x18 - 0x08];
 };
 
-class Rva004B2B2F
+class ModuleData
+{
+};
+
+class Rva004B2B2F : public ModuleData
 {
 public:
 	Rva004B2B2F();
@@ -80,42 +82,30 @@ private:
 	LivingWorldRegionConnection *m_finish;
 	LivingWorldRegionConnection *m_endOfStorage;
 };
-template <> class vector<const Rva004B2B2F *, allocator<const Rva004B2B2F *> >
+template <> class vector<const ModuleData *, allocator<const ModuleData *> >
 {
 public:
-	void push_back(const Rva004B2B2F *const &x);
+	void push_back(const ModuleData *const &x);
 private:
-	const Rva004B2B2F **m_start;
-	const Rva004B2B2F **m_finish;
-	const Rva004B2B2F **m_endOfStorage;
+	const ModuleData **m_start;
+	const ModuleData **m_finish;
+	const ModuleData **m_endOfStorage;
 };
 }
 
 struct Rva004B2B64Owner
 {
 	unsigned char m_unreconstructed_00[0xC8];
-	_STL::vector<const Rva004B2B2F *, _STL::allocator<const Rva004B2B2F *> > m_entries;	// +0xC8
+	_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > m_entries;	// +0xC8
 };
-
-// ?Rva003F341E_ParseConnections@INI@@SAXPAV1@PAX1PBX@Z
-void INI::Rva003F341E_ParseConnections(INI *ini, void *, void *store, const void *)
-{
-	const char *token = ini->getNextTokenOrNull(ini->separators());
-	while (token)
-	{
-		LivingWorldRegionConnection connection;
-		connection.m_regionName.set(token);
-		((_STL::vector<LivingWorldRegionConnection, _STL::allocator<LivingWorldRegionConnection> > *)store)->push_back(connection);
-		token = ini->getNextTokenOrNull(ini->separators());
-	}
-}
 
 // ?Rva004B2B64_ParseReplaceObject@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva004B2B64_ParseReplaceObject(INI *ini, void *instance, void *, const void *)
 {
 	MultiIniFieldParse p;
+	Rva004B2B2F *entry = 0;
 	p.add(g_00C56D20, 0);
-	Rva004B2B2F *entry = new Rva004B2B2F;
+	entry = new Rva004B2B2F;
 	ini->initFromINIMulti(entry, p);
 	((Rva004B2B64Owner *)instance)->m_entries.push_back(entry);
 }

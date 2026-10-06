@@ -26,12 +26,12 @@ public:
 	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 
 void __stdcall Rva003BC0A7Set(const AsciiString &name, int amount)
 {
-	int mask = g_Va009FE16C->rva00357475(name, 0);
+	int mask = TheScriptEngine->rva00357475(name, 0);
 	if (mask == 0)
 		return;
 	do {

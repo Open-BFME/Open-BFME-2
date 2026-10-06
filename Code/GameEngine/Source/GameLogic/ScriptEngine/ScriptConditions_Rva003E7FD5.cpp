@@ -23,7 +23,7 @@ class ScriptEngine
 public:
     PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class TacticalView
 {
 public:
@@ -52,7 +52,7 @@ public:
 
 bool __stdcall Rva003E7FD5Get(Parameter *p)
 {
-    PolygonTrigger *trig = g_Va009FE16C->getQualifiedTriggerAreaByName(p->getString());
+    PolygonTrigger *trig = TheScriptEngine->getQualifiedTriggerAreaByName(p->getString());
     if (trig)
     {
         float f[3];

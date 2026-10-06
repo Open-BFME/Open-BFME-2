@@ -7,7 +7,7 @@ public:
 	void *rva00419154();
 };
 
-extern Rva0041811D *g_00E030B8;
+extern class Rva0041811D *g_Va00E030B8;
 
 class Rva0033A674
 {
@@ -22,6 +22,6 @@ void *Rva0033A674::rva0033A674()
 {
 	if (m_ptr != 0)
 		return m_ptr;
-	Rva0041811D *table = g_00E030B8;
+	Rva0041811D *table = g_Va00E030B8;
 	return table->rva00419154();
 }

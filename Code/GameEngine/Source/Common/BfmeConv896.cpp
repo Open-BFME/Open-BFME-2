@@ -56,11 +56,11 @@ public:
 	Object *getUnitNamed(Parameter *p);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall bfmeGoFGE(void *a, void *b, void *c)
 {
-	Object *r = g_Va009FE16C->getUnitNamed((Parameter *)a);
+	Object *r = TheScriptEngine->getUnitNamed((Parameter *)a);
 
 	if (r)
 		r->setStatus((ObjectStatusTypes)(int)b, (int)c);

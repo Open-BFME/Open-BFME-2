@@ -38,18 +38,18 @@ public:
 	Rva002A9DFE *m_handler08;
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003BF9FADo(const AsciiString &a1, float f, const AsciiString &a3)
 {
-	TeamPrototype *proto = g_Va009FE16C->rva003570D1(a1);
+	TeamPrototype *proto = TheScriptEngine->rva003570D1(a1);
 	if (proto == 0)
 		return;
 	Rva002A9DFE *handler = proto->m_handler08;
 	if (handler == 0)
 		return;
 	if (!a3.isEmpty()) {
-		Team *team = g_Va009FE16C->getTeamNamed(a3, false);
+		Team *team = TheScriptEngine->getTeamNamed(a3, false);
 		if (team == 0)
 			return;
 		Coord3D pos;

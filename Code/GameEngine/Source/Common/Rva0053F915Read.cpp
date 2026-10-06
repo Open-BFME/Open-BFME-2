@@ -15,15 +15,7 @@ template <typename T> struct StringInlineData
 	T m_text[1];
 };
 
-template <typename T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-	void set(const StringBase<T> &other);
-private:
-	void releaseBuffer();
-	StringInlineData<T> *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 // Existing public narrow teardown spelling resolves to the verified
 // 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
@@ -31,11 +23,6 @@ template <> StringBase<char>::~StringBase();
 #pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
 
 
-class AsciiString : public StringBase<char>
-{
-public:
-	__forceinline AsciiString &operator=(const AsciiString &other) { set(other); return *this; }
-};
 
 class DataChunkInput
 {

@@ -69,6 +69,13 @@ public:
 private:
 	char m_pad[0x18 - 4];
 };
+class TerrainCollisionModuleInfo {
+public:
+	TerrainCollisionModuleInfo(const TerrainCollisionModuleInfo &other);
+	virtual ~TerrainCollisionModuleInfo();
+private:
+	char m_pad[0x1c - 4];
+};
 }
 class Rva003AEE16 : public Intermediate3AEE16, public FXParticleSystem::LifeEventModuleInfo
 {
@@ -88,3 +95,22 @@ Rva003AEE16::Rva003AEE16(const Rva003AEE16 &other)
 }
 // ??1Rva003AEE16@@UAE@XZ present-unmatched
 Rva003AEE16::~Rva003AEE16() {}
+
+class Rva003AF076 : public Intermediate3AEE16, public FXParticleSystem::TerrainCollisionModuleInfo
+{
+public:
+	Rva003AF076(const Rva003AF076 &other);
+	virtual ~Rva003AF076();
+private:
+	int m_3c;
+	unsigned char m_40;
+};
+Rva003AF076::Rva003AF076(const Rva003AF076 &other)
+	: Intermediate3AEE16(other)
+	, FXParticleSystem::TerrainCollisionModuleInfo((const FXParticleSystem::TerrainCollisionModuleInfo &)other)
+	, m_3c(other.m_3c)
+	, m_40(other.m_40)
+{
+}
+// ??1Rva003AF076@@UAE@XZ present-unmatched
+Rva003AF076::~Rva003AF076() {}

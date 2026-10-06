@@ -7,10 +7,7 @@
 #pragma comment(linker, "/alternatename:??RRva002E5C15Comp@@QBE_NPBUStringLookUp@@PBD@Z=?Rva002E56B3Less@@YG_NPBUStringLookUp@@PBD@Z")
 #pragma comment(linker, "/alternatename:??RRva002E5C61Comp@@QBE_NPBDPBUStringLookUp@@@Z=?Rva002E56E2Greater@@YG_NPBDPBUStringLookUp@@@Z")
 
-struct AsciiString
-{
-	void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 struct StringLookUp
 {

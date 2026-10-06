@@ -281,7 +281,7 @@ public:
 	char m_pad00[0x0C];
 	AsciiString m_mapName;	// +0x0C
 };
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 // A file-level AsciiString in .bss that a template name may also match.
 extern const AsciiString g_00E06448;
@@ -417,7 +417,7 @@ void Rva005ADA40::rva005AE0AD(Xfer *xfer)
 Rva0041E912Template *Rva005ADA40::rva005ADCBE(int notFirst, const _STL::vector<Rva0041E912Template *> &list)
 {
 	Rva0041E912Template *chosen = 0;
-	const MapMetaData *map = TheMapCache->findMap(TheGlobalData->m_mapName);
+	const MapMetaData *map = TheMapCache->findMap(TheWritableGlobalData->m_mapName);
 	if (map) {
 		bool open = rva005AD964();
 		_STL::vector<Rva0041E912Template *> candidates;

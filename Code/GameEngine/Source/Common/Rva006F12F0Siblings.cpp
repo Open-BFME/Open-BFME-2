@@ -11,10 +11,10 @@ class Rva006D2A60
 public:
     void freeBlock(void *block, int size);
 };
-extern Rva006D2A60 *g_bfmeChainBlockAllocatorAtE176F4;
+extern class Rva006D2A60 *g_pChainBlockAllocatorF4;
 void __cdecl Rva006F12F0Free(void *block, int size)
 {
-    g_bfmeChainBlockAllocatorAtE176F4->freeBlock(block, size);
+    g_pChainBlockAllocatorF4->freeBlock(block, size);
 }
 
 // The global(s) below are defined elsewhere under another name at the same

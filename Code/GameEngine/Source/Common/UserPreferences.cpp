@@ -107,7 +107,7 @@ public:
 	UnicodeString rva002360FC() const;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 // ?boolAsStr@@YA?AVAsciiString@@_N@Z @0x3B194E
 AsciiString boolAsStr(Bool val)
@@ -160,7 +160,7 @@ Bool UserPreferences::load(const UnicodeString &fname)
 {
 	clear();
 
-	m_filename = TheGlobalData->rva002360FC();
+	m_filename = TheWritableGlobalData->rva002360FC();
 	m_filename.concat(fname);
 
 	FILE *fp = _wfopen(m_filename.str(), L"r");
@@ -380,7 +380,7 @@ IgnorePreferences::~IgnorePreferences()
 // stats files.
 Bool deleteFileInGlobalDataDir(const UnicodeString &name)
 {
-	UnicodeString path = TheGlobalData->rva002360FC();
+	UnicodeString path = TheWritableGlobalData->rva002360FC();
 	path.concat(name);
 	Bool success = false;
 	switch (_wunlink(path.str())) {

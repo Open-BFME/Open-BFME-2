@@ -162,7 +162,6 @@ void Rva00699180Owner::rva000520C6()
 	}
 }
 
-extern float g_Va00BBB8D8;
 
 // ?rva000522DF@Rva00699180Owner@@QAEXM@Z retail 0x000522DF 46B
 // Unlock: clamp volume 0..1 into m_vol at +0x98 then refreshAll.
@@ -172,8 +171,8 @@ void Rva00699180Owner::rva000522DF(float volume)
 	float v;
 	if (0.0f > volume)
 		v = 0.0f;
-	else if (volume > g_Va00BBB8D8)
-		v = g_Va00BBB8D8;
+	else if (volume > 1.0f)
+		v = 1.0f;
 	else
 		v = volume;
 	m_vol = v;

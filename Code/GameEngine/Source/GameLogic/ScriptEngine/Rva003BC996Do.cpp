@@ -27,7 +27,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class AIGroup;
 
@@ -38,7 +38,7 @@ extern int g_Va00DBA4E4;
 // ?rva002736BA@Drawable@@QAEXABV?$StringBase@D@@H@Z present-unmatched
 void __stdcall Rva003BC996Do(Parameter *param, const StringBase<char> &animName, float f)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(param);
+	Object *obj = TheScriptEngine->getUnitNamed(param);
 	if (obj == 0)
 		return;
 	Drawable *d = obj->getDrawable();

@@ -55,16 +55,16 @@ public:
 	char bfmeCallFBC(void *a, void *b, int c, void *d);
 };
 
-extern ScriptEngine *g_Va009FE16C;
-extern AI *g_Va009FF0F8;
+extern class ScriptEngine *TheScriptEngine;
+extern class AI *TheAI;
 extern struct BfmeWorldRV *g_bfmeWorldRV;
 
 void __stdcall Rva003C1020Do(const AsciiString &teamName, const AsciiString &cmdName, Parameter *unitParm)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
-	AIGroup *group = g_Va009FF0F8->createGroup();
+	AIGroup *group = TheAI->createGroup();
 	team->getTeamAsAIGroup(group);
 	const CommandButton *button = ((ControlBar *)g_bfmeWorldRV)->findCommandButton(cmdName);
 	if (button == 0)
@@ -79,7 +79,7 @@ void __stdcall Rva003C1020Do(const AsciiString &teamName, const AsciiString &cmd
 	}
 	if (src == 0)
 		return;
-	Object *target = g_Va009FE16C->getUnitNamed(unitParm);
+	Object *target = TheScriptEngine->getUnitNamed(unitParm);
 	if (target == 0)
 		return;
 	if (!((BfmeObjFBC *)button)->bfmeCallFBC(src, target, 0, (void *)1))

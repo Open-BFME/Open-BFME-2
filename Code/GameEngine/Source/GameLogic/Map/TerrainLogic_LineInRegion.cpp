@@ -12,10 +12,7 @@ typedef bool Bool;
 #define TRUE true
 #define FALSE false
 
-struct Coord2D
-{
-	Real x, y;
-};
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 
 struct Region2D
 {

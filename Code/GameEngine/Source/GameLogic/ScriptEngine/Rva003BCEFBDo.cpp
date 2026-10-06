@@ -28,7 +28,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Rva00A027B8
 {
@@ -65,7 +65,7 @@ extern class Rva00A027B8 *g_00A027B8;
 
 void __stdcall Rva003BCEFBDo(Parameter *param)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(param);
+	Object *obj = TheScriptEngine->getUnitNamed(param);
 	if (obj == 0)
 		return;
 	Rva003BCEFBIface *iface = (Rva003BCEFBIface *)obj->rva0028BCF4();

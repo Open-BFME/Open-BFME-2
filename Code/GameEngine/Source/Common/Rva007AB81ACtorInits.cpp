@@ -114,14 +114,14 @@ void __cdecl rva007B9B00();
 void __cdecl rva007B9B14();
 void __cdecl rva007B9B28();
 
-extern unsigned g_Va00DDE070;
-extern unsigned g_Va00DDE071;
-extern unsigned g_Va00DDE0AC;
+extern unsigned int g_00DDE070;
+extern unsigned int g_00DDE071;
+extern unsigned int g_00DDE0AC;
 extern unsigned g_Va00DDEB24;
 extern unsigned g_Va00DE4878;
 extern unsigned g_Va00DEDC80;
 extern unsigned g_Va00DEE5D8;
-extern unsigned g_Va00DF6F30;
+extern unsigned int g_Va009F6F30;
 extern unsigned g_Va00DFE180;
 extern unsigned g_Va00DFE1E8;
 extern unsigned g_Va00DFE280;
@@ -160,21 +160,21 @@ struct Rva007AB81ACtorInits
 // ?rva007AB81A@Rva007AB81ACtorInits@@SAXXZ @ 0x007AB81A (22B): ??0CAtlWinModule@ATL@@QAE@XZ on VA 0x00DDE0AC, atexit(0x007B686F)
 void Rva007AB81ACtorInits::rva007AB81A()
 {
-	( (ATL::CAtlWinModule *)&g_Va00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
+	( (ATL::CAtlWinModule *)&g_00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
 	atexit( rva007B686F );
 }
 
 // ?rva007AB830@Rva007AB81ACtorInits@@SAXXZ @ 0x007AB830 (22B): ??0_Loc_init@ios_base@_STL@@QAE@XZ on VA 0x00DDE071, atexit(0x007B685A)
 void Rva007AB81ACtorInits::rva007AB830()
 {
-	( (_STL::ios_base::_Loc_init *)&g_Va00DDE071 )->_STL::ios_base::_Loc_init::_Loc_init();
+	( (_STL::ios_base::_Loc_init *)&g_00DDE071 )->_STL::ios_base::_Loc_init::_Loc_init();
 	atexit( rva007B685A );
 }
 
 // ?rva007AB846@Rva007AB81ACtorInits@@SAXXZ @ 0x007AB846 (22B): ??0Init@ios_base@_STL@@QAE@XZ on VA 0x00DDE070, atexit(0x007B6864)
 void Rva007AB81ACtorInits::rva007AB846()
 {
-	( (_STL::ios_base::Init *)&g_Va00DDE070 )->_STL::ios_base::Init::Init();
+	( (_STL::ios_base::Init *)&g_00DDE070 )->_STL::ios_base::Init::Init();
 	atexit( rva007B6864 );
 }
 
@@ -188,7 +188,7 @@ void Rva007AB81ACtorInits::rva007AB8A0()
 // ?rva007ABC99@Rva007AB81ACtorInits@@SAXXZ @ 0x007ABC99 (22B): ??0CAtlWinModule@ATL@@QAE@XZ on VA 0x00DDE0AC, atexit(0x007B6AE7)
 void Rva007AB81ACtorInits::rva007ABC99()
 {
-	( (ATL::CAtlWinModule *)&g_Va00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
+	( (ATL::CAtlWinModule *)&g_00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
 	atexit( rva007B6AE7 );
 }
 
@@ -216,7 +216,7 @@ void Rva007AB81ACtorInits::rva007ACC20()
 // ?rva007ACE30@Rva007AB81ACtorInits@@SAXXZ @ 0x007ACE30 (22B): ??0SegLineRendererClass@@QAE@XZ on VA 0x00DF6F30, atexit(0x007B71C0)
 void Rva007AB81ACtorInits::rva007ACE30()
 {
-	( (SegLineRendererClass *)&g_Va00DF6F30 )->SegLineRendererClass::SegLineRendererClass();
+	( (SegLineRendererClass *)&g_Va009F6F30 )->SegLineRendererClass::SegLineRendererClass();
 	atexit( rva007B71C0 );
 }
 
@@ -244,7 +244,7 @@ void Rva007AB81ACtorInits::rva007AD9D2()
 // ?rva007AEC78@Rva007AB81ACtorInits@@SAXXZ @ 0x007AEC78 (22B): ??0CAtlWinModule@ATL@@QAE@XZ on VA 0x00DDE0AC, atexit(0x007B7C87)
 void Rva007AB81ACtorInits::rva007AEC78()
 {
-	( (ATL::CAtlWinModule *)&g_Va00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
+	( (ATL::CAtlWinModule *)&g_00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
 	atexit( rva007B7C87 );
 }
 
@@ -258,7 +258,7 @@ void Rva007AB81ACtorInits::rva007B494C()
 // ?rva007B4C22@Rva007AB81ACtorInits@@SAXXZ @ 0x007B4C22 (22B): ??0CAtlWinModule@ATL@@QAE@XZ on VA 0x00DDE0AC, atexit(0x007B9825)
 void Rva007AB81ACtorInits::rva007B4C22()
 {
-	( (ATL::CAtlWinModule *)&g_Va00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
+	( (ATL::CAtlWinModule *)&g_00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
 	atexit( rva007B9825 );
 }
 
@@ -293,20 +293,20 @@ void Rva007AB81ACtorInits::rva007B54F0()
 // ?rva007B5558@Rva007AB81ACtorInits@@SAXXZ @ 0x007B5558 (22B): ??0CAtlWinModule@ATL@@QAE@XZ on VA 0x00DDE0AC, atexit(0x007B9B00)
 void Rva007AB81ACtorInits::rva007B5558()
 {
-	( (ATL::CAtlWinModule *)&g_Va00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
+	( (ATL::CAtlWinModule *)&g_00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
 	atexit( rva007B9B00 );
 }
 
 // ?rva007B5587@Rva007AB81ACtorInits@@SAXXZ @ 0x007B5587 (22B): ??0CAtlWinModule@ATL@@QAE@XZ on VA 0x00DDE0AC, atexit(0x007B9B14)
 void Rva007AB81ACtorInits::rva007B5587()
 {
-	( (ATL::CAtlWinModule *)&g_Va00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
+	( (ATL::CAtlWinModule *)&g_00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
 	atexit( rva007B9B14 );
 }
 
 // ?rva007B55B3@Rva007AB81ACtorInits@@SAXXZ @ 0x007B55B3 (22B): ??0CAtlWinModule@ATL@@QAE@XZ on VA 0x00DDE0AC, atexit(0x007B9B28)
 void Rva007AB81ACtorInits::rva007B55B3()
 {
-	( (ATL::CAtlWinModule *)&g_Va00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
+	( (ATL::CAtlWinModule *)&g_00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
 	atexit( rva007B9B28 );
 }

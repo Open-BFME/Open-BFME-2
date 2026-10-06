@@ -2,25 +2,8 @@
 // class-gate: allow AsciiString donor TU-local StringBase-derived view emits the retail dtor at 0x0051CBC6; its temporary calls the out-of-line StringBase ctor 0x00037BA0 and releaseBuffer 0x00036410 like the InGameChat and CampaignReview precedents
 #include "../../../Include/GameClient/BfmeAptScreenBaseLayout.h"
 
-template <typename T> class StringBase
-{
-	friend class AsciiString;
-	friend class Rva0051CBC6;
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-private:
-	StringBase(const T *text);
-	StringBase(const StringBase<T> &other);
-	void releaseBuffer();
-
-	void *m_data;
-};
-
-class AsciiString : private StringBase<char>
-{
-public:
-	AsciiString(const char *text) : StringBase<char>(text) {}
-	~AsciiString() { ((StringBase<char> *)this)->releaseBuffer(); }
-};
 
 class _bfme_AptGameWindow
 {

@@ -7,10 +7,7 @@
 
 #include "matrix3d.h"
 
-struct Coord2D
-{
-	float x, y;
-};
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 
 class Object
 {

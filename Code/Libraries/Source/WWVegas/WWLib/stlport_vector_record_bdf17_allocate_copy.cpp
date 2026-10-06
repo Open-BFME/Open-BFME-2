@@ -14,7 +14,7 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 }
 #pragma optimize("", on)
 
-class AsciiString { public: AsciiString(); AsciiString(const AsciiString &); __forceinline ~AsciiString(); protected: void releaseBuffer(); private: void *m_data; };
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include <vector>
 // Opaque 12B AsciiString-vector member: only the out-of-line range-destroy
 // call appears in the record dtor, pinned at 0x2CC70 (GenericObjectCreationNugget

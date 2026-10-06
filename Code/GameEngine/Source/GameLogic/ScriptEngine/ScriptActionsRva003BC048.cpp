@@ -29,12 +29,12 @@ public:
 	unsigned int m_val04;
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 
 void __stdcall Rva003BC048Set(const AsciiString &name, int amount)
 {
-	int mask = g_Va009FE16C->rva00357475(name, 0);
+	int mask = TheScriptEngine->rva00357475(name, 0);
 	if (mask == 0)
 		return;
 	do {

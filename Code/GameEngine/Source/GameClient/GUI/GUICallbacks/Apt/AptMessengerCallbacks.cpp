@@ -162,11 +162,7 @@ extern Rva00511730State *g_Va00E046B8;
 
 // A render callback's position and size: two floats each (the type is
 // inferred from use).
-struct Coord2D
-{
-	float x;
-	float y;
-};
+#include "../../../../../../Libraries/Include/Lib/Coord2D.h"
 
 class Rva005B000C;
 

@@ -13,7 +13,6 @@
 extern "C" __declspec(dllimport) double __cdecl ceil(double);
 
 extern float g_parseDurationMsecScale;
-extern float g_00BBE358;
 
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 
@@ -79,7 +78,7 @@ void ScriptEngine::setTimer(ScriptAction *action, bool millisecondTimer, bool ra
 			value = (float)GetGameLogicRandomValue((int)value, (int)max, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\ScriptEngine.cpp", 0x9c4);
 		}
 		float prod = g_parseDurationMsecScale * value;
-		prod *= g_00BBE358;
+		prod *= 1e+03f;
 		float tmp = (float)ceil(prod);
 		result = fast_float2long_round(tmp);
 		counter->m_isMillisecondTimer = true;

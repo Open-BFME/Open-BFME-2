@@ -14,7 +14,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 class INI
 {
@@ -63,14 +63,14 @@ enum ErrorCode
 void INI::Rva0033940F_Parse(INI *ini, void *, void *store, const void *)
 {
 	const char *token = ini->getNextToken(0);
-	if (g_009FF000 == 0) {
+	if (TheThingFactory == 0) {
 		throw ERROR_BUG;
 	}
 	if (_strcmpi(token, "None") == 0) {
 		*(void **)store = 0;
 		return;
 	}
-	void *result = g_009FF000->rva002D06CA(&AsciiString(token));
+	void *result = TheThingFactory->rva002D06CA(&AsciiString(token));
 	if (result == 0 && bfmeRva000387C0()) {
 		_bfme_debugRecordCallsite(1);
 		theDebug->SkipNext();

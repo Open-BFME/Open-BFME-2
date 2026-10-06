@@ -20,7 +20,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class Radar;
 extern Radar *TheRadar;
 class Rva002D88A4
@@ -37,7 +37,7 @@ extern Rva001DDAE1 *g_00DFDC30;
 extern float g_00BC2918;
 void __stdcall Rva003BB79DDo(Parameter *p, void *extra)
 {
-	Object *o = g_Va009FE16C->getUnitNamed(p);
+	Object *o = TheScriptEngine->getUnitNamed(p);
 	if (!o)
 		return;
 	const Coord3D *pos = o->getPosition();

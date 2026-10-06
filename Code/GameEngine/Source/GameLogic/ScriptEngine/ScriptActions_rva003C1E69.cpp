@@ -13,7 +13,7 @@ public:
 	Team *getTeamNamed(AsciiString name, bool flag);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Rva003C1E69 {
 public:
@@ -22,5 +22,5 @@ public:
 
 Team *Rva003C1E69::rva003C1E69(const AsciiString &, const AsciiString &a2)
 {
-	return g_Va009FE16C->getTeamNamed(a2, false);
+	return TheScriptEngine->getTeamNamed(a2, false);
 }

@@ -17,12 +17,7 @@
 // Rva00336B23AICommand.cpp). Names by address.
 extern "C" void __cdecl free(void *p);
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object;
 

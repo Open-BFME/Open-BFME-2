@@ -35,14 +35,7 @@ typedef float Real;
 
 #include "ascii_string.h"
 
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
-	Coord3D( const Coord3D &c ) { x = c.x; y = c.y; z = c.z; }
-	~Coord3D() {}
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Vector3
 {

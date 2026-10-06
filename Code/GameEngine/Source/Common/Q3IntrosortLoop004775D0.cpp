@@ -21,37 +21,11 @@
 // noinline keeps the separate retail partition call; copies/releases use
 // actual StringBase<char> constructors and releaseBuffer, not dummy owners.
 
-template <class T>
-class StringBase
-{
-private:
-	StringBase(const StringBase<T> &other);
-	StringBase<T> &operator=(const StringBase<T> &other)
-	{
-		set(other);
-		return *this;
-	}
-
-private:
-	~StringBase() { releaseBuffer(); }
-	void releaseBuffer();
-public:
-	void set(const StringBase<T> &other);
-private:
-	void *m_data;
-
-	friend struct Q3SortElem16;
-	friend class AsciiString;
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 // The real inline AsciiString forwarding layer is needed by the retail
 // by-value copy schedule; its implicit destructor runs StringBase cleanup.
 // class-gate: allow AsciiString the donor's own view; the placed bodies are byte-exact under it
-class AsciiString : private StringBase<char>
-{
-public:
-    AsciiString(const AsciiString &other) : StringBase<char>(other) {}
-};
 
 struct Q3SortElem16
 {

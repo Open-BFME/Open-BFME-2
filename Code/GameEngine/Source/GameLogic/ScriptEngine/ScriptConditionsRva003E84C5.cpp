@@ -32,7 +32,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool b);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class Waypoint
 {
 public:
@@ -61,11 +61,11 @@ public:
 	char m_pad[0x10];
 	Pathfinder *m_pf;
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 bool __stdcall Rva003E84C5Get(Parameter *p0, Parameter *p1)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(p0->m_string, false);
+	Team *team = TheScriptEngine->getTeamNamed(p0->m_string, false);
 	if (!team)
 		return false;
 	Object *teamObj = team->rva0039E8EB();
@@ -74,6 +74,6 @@ bool __stdcall Rva003E84C5Get(Parameter *p0, Parameter *p1)
 	Waypoint *way = TheTerrainLogic->findWaypoint(p1->m_string);
 	if (!way)
 		return false;
-	Pathfinder *pf = g_Va009FF0F8->m_pf;
+	Pathfinder *pf = TheAI->m_pf;
 	return pf->rva002F477E(teamObj, &teamObj->m_pos, &way->m_location, 0);
 }

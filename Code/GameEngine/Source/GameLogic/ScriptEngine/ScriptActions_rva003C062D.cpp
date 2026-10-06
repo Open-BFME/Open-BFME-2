@@ -68,7 +68,7 @@ class ScriptEngine
 public:
     Team *getTeamNamed(AsciiString team, Bool exact);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern float g_Va007C26F0;
 
 class ScriptActions
@@ -79,7 +79,7 @@ protected:
 
 void ScriptActions::rva003C062D(const AsciiString &teamName, float value)
 {
-    Team *team = g_Va009FE16C->getTeamNamed(teamName, false);
+    Team *team = TheScriptEngine->getTeamNamed(teamName, false);
     if (!team)
         return;
     for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); it.cur() != 0; ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {

@@ -22,12 +22,7 @@
 // callers 0x002C9863/0x002CB2EA/0x002CB4D1.
 #include <math.h>
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object
 {

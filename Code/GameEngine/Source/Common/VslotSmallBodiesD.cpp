@@ -38,7 +38,7 @@ Int Rva00271B3C::rva00271B3C(const Rva00271B3CArg *arg)
 
 // slots at VA 0x00BFD00C and 0x00BFD024: a function-local static id taken
 // from the running counter at VA 0x00DFEE18 on first use.
-__declspec(selectany) Int g_00DFEE18 = 0;
+extern int g_00DFEE18;
 class Rva0029B1EA
 {
 public:

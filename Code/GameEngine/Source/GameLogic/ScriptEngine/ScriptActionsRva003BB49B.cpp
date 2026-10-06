@@ -8,7 +8,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class GameLogic
 {
 public:
@@ -17,7 +17,7 @@ public:
 extern GameLogic *TheGameLogic;
 void __stdcall Rva003BB49BDestroy(Parameter *p)
 {
-	Object *o = g_Va009FE16C->getUnitNamed(p);
+	Object *o = TheScriptEngine->getUnitNamed(p);
 	if (!o)
 		return;
 	TheGameLogic->destroyObject(o);

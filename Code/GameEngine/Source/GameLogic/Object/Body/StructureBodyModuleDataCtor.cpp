@@ -37,7 +37,7 @@ public:
 	AsciiString m_healingBuff;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class FXList;
 class FXListStore
@@ -70,7 +70,7 @@ private:
 inline StructureBodyModuleData::StructureBodyModuleData()
 	: m_vtable(reinterpret_cast<const void *>(0x00BF4028))
 {
-	AsciiString &healingDefault = TheGlobalData->m_healingBuff;
+	AsciiString &healingDefault = TheWritableGlobalData->m_healingBuff;
 	if (!healingDefault.isEmpty())
 		m_healingBuffFx = TheFXListStore->findFXList(healingDefault.c_str());
 }

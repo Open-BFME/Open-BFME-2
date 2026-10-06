@@ -11,7 +11,7 @@
 #include <vector>
 #include <map>
 #include "unicode_string.h"
-class AsciiString : private StringBase<char> { public: __forceinline AsciiString(const AsciiString &o) : StringBase<char>(o) {} __forceinline ~AsciiString() {} bool isEmpty() const; };
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class Xfer;
 class Snapshot { public: __forceinline virtual ~Snapshot() {} virtual void crc(Xfer *); virtual const char *typeName() const; virtual void xfer(Xfer *); };
 typedef _STL::map<int,int> IntegerMap;

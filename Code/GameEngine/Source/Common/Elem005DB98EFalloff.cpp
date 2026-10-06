@@ -18,7 +18,6 @@
 // rva005DB928 call, which cl only does when that callee was compiled earlier
 // in the same TU.
 extern float g_Va00BBB8D8;
-extern const float BfmeZeroRange;
 
 struct Elem005DB98E
 {
@@ -37,7 +36,7 @@ public:
 float Elem005DB98E::rva005DB928()
 {
 	if (m_08 <= g_Va00BBB8D8)
-		return BfmeZeroRange;
+		return 0.0f;
 	double t = (double)m_08 - (double)m_0C - (double)g_Va00BBB8D8;
 	if (t < 0.0)
 		t = 0.0;

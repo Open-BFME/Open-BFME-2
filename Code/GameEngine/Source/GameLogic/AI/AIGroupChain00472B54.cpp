@@ -68,7 +68,7 @@ public:
 	Object *findObjectByID(ObjectID id);
 };
 
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 extern GameLogic *TheGameLogic;
 
 class Gate250
@@ -160,7 +160,7 @@ void Rva00472B54::rva00472B54(Object *obj, CommandSourceType src)
 	_STL::list<int> **ppsrclist = (_STL::list<int> **)&buf[4];
 	for (_STL::list<int>::iterator it = (*ppsrclist)->begin(); it != (*ppsrclist)->end(); ++it)
 		snap.push_back(*it);
-	AIGroup *grp = g_Va009FF0F8->createGroup();
+	AIGroup *grp = TheAI->createGroup();
 	for (_STL::list<int>::iterator it = snap.begin(); it != snap.end(); ++it)
 		slotA8(*it);
 	for (_STL::map<int, int>::iterator it = m_map.begin(); it != m_map.end(); ++it) {
@@ -169,7 +169,7 @@ void Rva00472B54::rva00472B54(Object *obj, CommandSourceType src)
 			grp->add(o);
 	}
 	grp->groupEnter(obj, src);
-	g_Va009FF0F8->rva002FE712(grp);
+	TheAI->rva002FE712(grp);
 }
 
 // Retail's data references in this unit's matched rows land on globals defined

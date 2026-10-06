@@ -8,9 +8,9 @@ public:
 	BfmeStringRecord00204A30 *rva00358853(const AsciiString &name, const AsciiString &text0, float word1, const AsciiString &text1, int word2);
 	void doNamedMapReveal(const AsciiString &revealName);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 void __stdcall Rva003BCA12Do(const AsciiString &text0, const AsciiString &text1, const AsciiString &name)
 {
-	g_Va009FE16C->rva00358853(name, text0, 0.0f, text1, 1);
-	g_Va009FE16C->doNamedMapReveal(name);
+	TheScriptEngine->rva00358853(name, text0, 0.0f, text1, 1);
+	TheScriptEngine->doNamedMapReveal(name);
 }

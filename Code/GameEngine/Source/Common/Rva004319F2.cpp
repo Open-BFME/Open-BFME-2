@@ -3,12 +3,7 @@
 // Evidence: chain via 0x0029AA3F; TheInGameUI virtuals 0xCC and 0xD8 plus byte 0x9B4;
 // rowed Rva0029AA3F 0x0029AA3F and 0x0029A9FF; callers 0x00431E5A 0x00431E95;
 // prev Rva004319D4 next Rva00431A34.
-struct Coord3D
-{
-	float m_x;
-	float m_y;
-	float m_z;
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 class Rva0029AA3F
 {

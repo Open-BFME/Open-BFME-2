@@ -9,23 +9,7 @@
 // count at +0x10, mov ecx,esi before the allocator call. Structural
 // inference: the shape is STLport hashtable insert_unique_noresize; the class
 // names stay placeholders because no target evidence names the table.
-template <typename T> class StringBase {
-    friend class AsciiString;
-    friend class UnicodeString;
-    StringBase(const StringBase &);
-    __forceinline ~StringBase() { releaseBuffer(); }
-    void releaseBuffer();
-public:
-    int compare(const StringBase &other) const;
-private:
-    void *m_data;
-};
-class AsciiString : private StringBase<char> {
-public:
-    __forceinline AsciiString(const AsciiString &other) : StringBase<char>(other) {}
-    __forceinline ~AsciiString() {}
-    AsciiString &operator=(const AsciiString &other);
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class Rva004181F5 {
 public:
     Rva004181F5(const Rva004181F5 &other);

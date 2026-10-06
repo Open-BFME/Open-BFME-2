@@ -65,7 +65,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool exact);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Parameter
 {
@@ -79,7 +79,7 @@ public:
 
 void __stdcall Rva003C36FEDo(Parameter *parm, bool flag)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)parm->getString(), false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)parm->getString(), false);
 	if (team == 0)
 		return;
 	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {

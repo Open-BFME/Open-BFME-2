@@ -9,7 +9,7 @@ public:
 	int rva002FEEAD(Object *obj, float range, unsigned int flags);
 };
 
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 struct Rva00458BE1Sub
 {
@@ -34,6 +34,6 @@ unsigned char Rva00458BE1::rva00458BE1()
 	if (sub->m_limit == 0)
 		return 1;
 	Object *obj = m_obj;
-	int found = g_Va009FF0F8->rva002FEEAD(obj, sub->m_range, 0x20);
+	int found = TheAI->rva002FEEAD(obj, sub->m_range, 0x20);
 	return (unsigned char)(found >= sub->m_limit);
 }

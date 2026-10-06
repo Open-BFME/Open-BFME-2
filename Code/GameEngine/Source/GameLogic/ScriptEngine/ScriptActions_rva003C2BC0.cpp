@@ -44,13 +44,13 @@ protected:
 	friend void __stdcall Rva003C2BC0Do(Parameter *a, Parameter *b);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 
 void __stdcall Rva003C2BC0Do(Parameter *a, Parameter *b)
 {
 	int total = 0;
-	int mask = g_Va009FE16C->rva00357475(a->m_string, (bool *)0);
+	int mask = TheScriptEngine->rva00357475(a->m_string, (bool *)0);
 	while (mask != 0) {
 		Player *p = ThePlayerList->getEachPlayerFromMask(mask);
 		if (p != 0) {
@@ -59,6 +59,6 @@ void __stdcall Rva003C2BC0Do(Parameter *a, Parameter *b)
 				total += r->m_4;
 		}
 	}
-	ScriptCounter *c = g_Va009FE16C->bfmeCounter(b->m_string);
+	ScriptCounter *c = TheScriptEngine->bfmeCounter(b->m_string);
 	c->m_value = total;
 }

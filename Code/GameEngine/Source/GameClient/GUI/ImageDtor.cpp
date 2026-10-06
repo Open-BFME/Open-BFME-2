@@ -30,11 +30,7 @@ struct ICoord2D
 	int y;
 };
 
-struct Coord2D
-{
-	float x;
-	float y;
-};
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 
 struct Region2D
 {

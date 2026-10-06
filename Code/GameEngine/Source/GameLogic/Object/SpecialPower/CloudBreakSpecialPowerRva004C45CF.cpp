@@ -3,7 +3,7 @@
 class AsciiString;
 struct Coord3D { float x; float y; float z; };
 class Rva002D06CA { public: void *rva002D06CA(const AsciiString *key); };
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 void __cdecl ji_006291ae();
 class ThingTemplate;
 class Team;
@@ -13,12 +13,12 @@ class ThingFactory { public: Object *newObject(const ThingTemplate *tmpl, Team *
 class Thing { public: void setPosition(const Coord3D *pos); };
 void __stdcall Rva004C45CFCreate(const Coord3D *pos, const AsciiString *name)
 {
-    void *tmpl = g_009FF000->rva002D06CA(name);
+    void *tmpl = TheThingFactory->rva002D06CA(name);
     if (tmpl == 0)
         return;
     CreateMask mask;
     ((void (__cdecl *)(void *, int, unsigned int))&ji_006291ae)(&mask, 0, 0x10);
-    Object *obj = ((ThingFactory *)g_009FF000)->newObject((const ThingTemplate *)tmpl, 0, &mask, false);
+    Object *obj = ((ThingFactory *)TheThingFactory)->newObject((const ThingTemplate *)tmpl, 0, &mask, false);
     if (obj == 0)
         return;
     ((Thing *)obj)->setPosition(pos);

@@ -49,9 +49,7 @@ struct Coord3DBase
 	float z;
 };
 
-struct Coord3D : public Coord3DBase
-{
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 // BFME2's Xfer: operator== overloads, grouped by cl at the first overload
 // slot in reverse declaration order (Rva004E0513Xfer.cpp has the same view).

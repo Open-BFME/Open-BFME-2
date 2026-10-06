@@ -138,7 +138,7 @@ extern unsigned g_Va00DDF58C;
 extern unsigned g_Va00DDF5B4;
 extern unsigned g_Va00DE0878;
 extern unsigned g_Va00DE1CCC;
-extern unsigned g_Va00DE1CCD;
+extern unsigned int g_00DE1CCD;
 extern unsigned g_Va00DE2008;
 extern unsigned g_Va00DEC008;
 extern unsigned g_Va00DEE93C;
@@ -213,7 +213,7 @@ void Rva007ABBB3CtorInits::rva007ABBE0()
 // 0x007ABCAF (22B): ??0_Loc_init@ios_base@_STL@@QAE@XZ on VA 0x00DE1CCD, atexit(0x007B6AD2)
 void Rva007ABBB3CtorInits::rva007ABCAF()
 {
-	( (_STL::ios_base::_Loc_init *)&g_Va00DE1CCD )->_STL::ios_base::_Loc_init::_Loc_init();
+	( (_STL::ios_base::_Loc_init *)&g_00DE1CCD )->_STL::ios_base::_Loc_init::_Loc_init();
 	atexit( rva007B6AD2 );
 }
 

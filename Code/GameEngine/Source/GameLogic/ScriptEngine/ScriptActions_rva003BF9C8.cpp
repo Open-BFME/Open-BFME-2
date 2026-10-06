@@ -27,11 +27,11 @@ public:
 	Rva002A9DCF *m_handler08;
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003BF9C8Do(const AsciiString &a1)
 {
-	TeamPrototype *proto = g_Va009FE16C->rva003570D1(a1);
+	TeamPrototype *proto = TheScriptEngine->rva003570D1(a1);
 	if (proto == 0)
 		return;
 	Rva002A9DCF *handler = proto->m_handler08;

@@ -140,7 +140,7 @@ public:
 	char m_pad000[0xE9C];
 	bool m_E9C;		// +0xE9C
 };
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 typedef unsigned NameKeyType;
 
@@ -210,7 +210,7 @@ int ObjectBroadcastEventToEnemies(lua_State *state)
 	Rva00261058 player(object, false);
 	enemies.link(&player);
 
-	if (TheGlobalData->m_E9C) {
+	if (TheWritableGlobalData->m_E9C) {
 		Coord3D pos;
 		pos.x = object->getPosition()->x;
 		pos.y = object->getPosition()->y;

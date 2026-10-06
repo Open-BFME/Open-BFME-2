@@ -9,32 +9,8 @@
 // (unwind state 0), and keeps the invoker's result in esi across that
 // teardown. The banked 0.93 attempt used a named local, an extern empty
 // string and a void return.
-template <typename T> class StringBase
-{
-	friend class AsciiString;
-private:
-	struct Header
-	{
-		int m_refCount;
-		unsigned short m_numCharsAllocated;
-		unsigned short m_pad;
-		T *peek() { return (T *)(this + 1); }
-	};
-	StringBase() : m_data(0) {}
-	StringBase(const StringBase<T> &other);
-	void releaseBuffer();
-	Header *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class AsciiString
-{
-public:
-	AsciiString(const AsciiString &other) : m_data(other.m_data) {}
-	~AsciiString() { m_data.releaseBuffer(); }
-	const char *str() const { return m_data.m_data ? m_data.m_data->peek() : ""; }
-private:
-	StringBase<char> m_data;
-};
 
 AsciiString Rva00222834Get(int val);
 

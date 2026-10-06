@@ -1,6 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 // ?rva000B2F38@Rva000B2F38@@QAE_NM@Z 0x000B2F38 131B evidence: iface at +0x50 slot3 int vs 0x19 slot47 ptr then int slot5 float slot6 with fild fmul fdivr plus BfmeZeroRange comiss divss store +0x9c bool return; callers at 0x000B3770/0x000B7104 unblocks 0x000B7074; neighbours 0x000B2D4D/0x000B304B same flags
-extern const float BfmeZeroRange;
 
 class Rva000B2F38B;
 class Rva000B2F38A
@@ -52,7 +51,7 @@ bool Rva000B2F38::rva000B2F38(float v)
 	float f = (float)n * 1e+03f;
 	float m = b->t06();
 	float g = f / m;
-	if (g > 0.0f && v > BfmeZeroRange)
+	if (g > 0.0f && v > 0.0f)
 	{
 		m_f = g / v;
 		return true;

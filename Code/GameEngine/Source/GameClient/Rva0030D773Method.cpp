@@ -36,7 +36,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *g_00DFF000;
+extern class Rva002D06CA *TheThingFactory;
 
 class Rva0030D773
 {
@@ -57,13 +57,13 @@ void Rva0030D773::rva0030D773(int val)
 	case 0:
 		{
 			AsciiString tmp("WallHubTemplate");
-			m_thing = g_00DFF000->rva002D06CA(&tmp);
+			m_thing = TheThingFactory->rva002D06CA(&tmp);
 		}
 		break;
 	case 1:
 		{
 			AsciiString tmp("ExpansionLocatorTemplate");
-			m_thing = g_00DFF000->rva002D06CA(&tmp);
+			m_thing = TheThingFactory->rva002D06CA(&tmp);
 		}
 		break;
 	}

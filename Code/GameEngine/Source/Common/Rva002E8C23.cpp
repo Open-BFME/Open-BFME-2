@@ -21,3 +21,12 @@ int __cdecl Rva002E8C23Call(int a1, unsigned char a2, Rva002E8C23Param *a3)
 	rva002E79A8(a1, a2, a3->m00->m00, a3->m00->m04, bits);
 	return a1;
 }
+
+// ?Rva002E8C4DCall@@YAHHEPAURva002E8C23Pair@@H@Z @0x002E8C4D 33B: free cdecl wrapper
+// passing through two ints plus fields from ptr+0/+4 to pinned 0x002E79A8;
+// evidence pin ?rva002E79A8@@YAXHEHHH@Z and LINK 5 files plus adjacent row 0x002E8C23.
+int __cdecl Rva002E8C4DCall(int a1, unsigned char a2, Rva002E8C23Pair *a3, int a4)
+{
+	rva002E79A8(a1, a2, a3->m00, a3->m04, a4);
+	return a1;
+}

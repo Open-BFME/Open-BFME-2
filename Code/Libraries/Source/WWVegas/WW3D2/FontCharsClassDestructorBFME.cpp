@@ -98,7 +98,7 @@ public:
 };
 
 // VA 0x0134AEAC: the shared GDI state the constructor at 0x00940610 creates.
-extern FontCharsClassGdiState *g_fontCharsGdiState0134AEAC;
+extern class FontCharsClassGdiState *g_fontCharsGdiState;
 
 class FontCharsClass : public W3DMPO, public RefCountClass
 {
@@ -137,9 +137,9 @@ FontCharsClass::~FontCharsClass()
 
 	Free_Character_Arrays();
 
-	g_fontCharsGdiState0134AEAC->m_refs--;
-	if (g_fontCharsGdiState0134AEAC->m_refs == 0) {
-		delete g_fontCharsGdiState0134AEAC;
-		g_fontCharsGdiState0134AEAC = 0;
+	g_fontCharsGdiState->m_refs--;
+	if (g_fontCharsGdiState->m_refs == 0) {
+		delete g_fontCharsGdiState;
+		g_fontCharsGdiState = 0;
 	}
 }

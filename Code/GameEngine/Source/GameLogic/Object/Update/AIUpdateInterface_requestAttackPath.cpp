@@ -69,7 +69,7 @@ private:
 	char m_pad00[0x10];
 	Pathfinder *m_pathfinder;
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class Path;
 
@@ -270,5 +270,5 @@ void AIUpdateInterface::requestAttackPath(ObjectID victimID, const Coord3D *vict
 	}
 
 	m_waitingForPath = true;
-	g_Va009FF0F8->pathfinder()->queueForPath(getObject()->getID());
+	TheAI->pathfinder()->queueForPath(getObject()->getID());
 }

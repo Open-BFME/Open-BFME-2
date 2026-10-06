@@ -10,7 +10,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 extern "C" __declspec(dllimport) double __cdecl floor(double);
 
 extern float g_00BBE358;
-extern float g_Va00BC26F0;
 extern float g_Va007C26F0;
 // ?g_Va00BC26F0@@3MA: the global at VA 0xbc26f0 is ?g_Va007C26F0@@3MA.
 #pragma comment(linker, "/alternatename:?g_Va00BC26F0@@3MA=?g_Va007C26F0@@3MA")
@@ -65,7 +64,7 @@ void Rva005D25F2::rva005D2B2F(int idx, float val)
 	float vv = *(const volatile float *)&val;
 	float s = vv * g_00BBE358;
 	e->m_14 = t;
-	s = s + g_Va00BC26F0;
+	s = s + 0.5f;
 	double d = floor(s);
 	float f = (float)d;
 	int ni = fast_round005D2B2F(f);

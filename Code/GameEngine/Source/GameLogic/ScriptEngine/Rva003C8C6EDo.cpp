@@ -61,11 +61,11 @@ public:
 };
 
 class ScriptEngine;
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003C8C6EDo(const AsciiString &unitName)
 {
-	Object *obj = ((Rva00358752Opaque *)g_Va009FE16C)->lookupUnitByValue(unitName);
+	Object *obj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(unitName);
 	if (!obj)
 		return;
 	ObjectKind *kind = (ObjectKind *)obj->m_04;

@@ -39,14 +39,7 @@ private:
 	unsigned char m_bytes[0x58];
 };
 
-class AsciiString
-{
-public:
-	AsciiString() : m_data(0) {}
-	~AsciiString();
-private:
-	void *m_data;
-};
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class OpenContainModuleData
 {

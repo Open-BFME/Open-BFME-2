@@ -131,7 +131,7 @@ public:
 	Pathfinder *pathfinder() { return m_pathfinder; }
 };
 
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class AIUpdateInterface
 {
@@ -150,7 +150,7 @@ void AIUpdateInterface::chooseGoodLocomotorFromCurrentSet()
 {
 	Locomotor *prevLoco = m_curLocomotor;
 	Object *obj = m_object;
-	Pathfinder *pf = g_Va009FF0F8->pathfinder();
+	Pathfinder *pf = TheAI->pathfinder();
 	Locomotor *newLoco = pf->rva002E74C6((PathfindLayerEnum)obj->rva0028B511(), &m_locomotorSet, obj->getPosition());
 	if (newLoco == NULL)
 	{

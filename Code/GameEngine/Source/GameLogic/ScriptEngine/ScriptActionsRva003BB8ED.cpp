@@ -31,7 +31,7 @@ class ScriptEngine
 public:
 	int rva00357475(const AsciiString &name, bool *matched);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
 class Rva00739A30
@@ -49,7 +49,7 @@ void __stdcall Rva003BB8EDReveal(const AsciiString &where, float radius, const A
 	TerrainLogicResult *loc = TheTerrainLogic->slot88(where);
 	if (loc == 0)
 		return;
-	int mask = g_Va009FE16C->rva00357475(playerName, 0);
+	int mask = TheScriptEngine->rva00357475(playerName, 0);
 	((Rva00739A30 *)TheShroudManager)->rva00739A30(&loc->m_pair, radius, mask);
 	((Rva00739BE0 *)TheShroudManager)->rva00739BE0(&loc->m_pair, radius, mask);
 }

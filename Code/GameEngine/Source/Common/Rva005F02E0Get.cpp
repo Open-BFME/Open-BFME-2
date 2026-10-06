@@ -17,7 +17,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 class ThingTemplate
 {
@@ -42,7 +42,7 @@ const Image *Rva005F02E0Get(void *in)
 {
 	Rva005F02E0Mid *mid = ((Rva005F02E0In *)in)->m_mid;
 	void *found;
-	if (!mid || !(found = g_009FF000->rva002D06CA(&mid->m_name)))
+	if (!mid || !(found = TheThingFactory->rva002D06CA(&mid->m_name)))
 		return 0;
 	ThingTemplate *tmpl = (ThingTemplate *)found;
 	const Image *img = tmpl->rva0033B580();

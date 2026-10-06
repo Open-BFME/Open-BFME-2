@@ -217,7 +217,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class Rva003BBFB1Holder
 {
 public:
@@ -265,7 +265,7 @@ public:
 #define Rva00DFEDF0_BFB1 (*(Rva003BBFB1Holder **)&TheInGameUI)
 void __stdcall Rva003BBFB1Select(Parameter *p)
 {
-	Object *o = g_Va009FE16C->getUnitNamed(p);
+	Object *o = TheScriptEngine->getUnitNamed(p);
 	if (o)
 		Rva00DFEDF0_BFB1->s39(o);
 }
@@ -320,7 +320,7 @@ public:
 #define Rva00DFEDF0_BFD6 (*(Rva003BBFD6Holder **)&TheInGameUI)
 void __stdcall Rva003BBFD6Select(Parameter *p)
 {
-	Object *o = g_Va009FE16C->getUnitNamed(p);
+	Object *o = TheScriptEngine->getUnitNamed(p);
 	if (o)
 		Rva00DFEDF0_BFD6->s40(o);
 }
@@ -334,7 +334,7 @@ public:
 };
 void __stdcall Rva003BB274Ai(Parameter *p, int v)
 {
-	Object *o = g_Va009FE16C->getUnitNamed(p);
+	Object *o = TheScriptEngine->getUnitNamed(p);
 	if (!o)
 		return;
 	AIUpdateInterface *ai = *(AIUpdateInterface **)((char *)o + 0x258);
@@ -356,7 +356,7 @@ public:
 };
 void __stdcall Rva003BBF23Disable(Parameter *p, bool b)
 {
-	Object *o = g_Va009FE16C->getUnitNamed(p);
+	Object *o = TheScriptEngine->getUnitNamed(p);
 	if (!o)
 		return;
 	o->setDisabledUntil(DISABLED_TYPE_3, b ? 0x3FFFFFFF : 0);

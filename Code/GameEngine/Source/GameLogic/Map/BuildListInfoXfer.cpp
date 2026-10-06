@@ -139,12 +139,7 @@ enum ObjectID
 
 void XferObjectID( Xfer *xfer, ObjectID *value );
 
-class Coord2D
-{
-public:
-	float x;
-	float y;
-};
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 
 class BuildListInfo
 {

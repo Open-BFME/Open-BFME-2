@@ -13,7 +13,7 @@
 // 0x0023D68E GameLogic walker (pinned; ecx arrives as TheGameLogic, which the
 // caller holds across the compare) and then stores the byte. Argument stays
 // a full dword in ebx (no movzx), hence int rather than unsigned char.
-extern int g_00DBA4E8;
+extern int g_009BA4E8;
 
 class Rva002D36AEHost
 {
@@ -25,7 +25,7 @@ extern Rva002D36AEHost *g_00DFF028;
 
 void __stdcall rva003BD270(int a, int b)
 {
-	g_00DFF028->rva002D36AE(a, g_00DBA4E8 * b);
+	g_00DFF028->rva002D36AE(a, g_009BA4E8 * b);
 }
 
 class GameLogic

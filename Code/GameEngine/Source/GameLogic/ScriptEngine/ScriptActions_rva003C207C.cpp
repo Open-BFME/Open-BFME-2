@@ -36,7 +36,7 @@ public:
 	Team *getTeamNamed(AsciiString, bool);
 	Object *getUnitNamed(Parameter *unitParam);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class ScriptActions
 {
@@ -46,10 +46,10 @@ protected:
 
 void ScriptActions::rva003C207C(Parameter *pTeam, Parameter *pUnit, int value)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(pTeam->getString(), false);
+	Team *team = TheScriptEngine->getTeamNamed(pTeam->getString(), false);
 	if (!team)
 		return;
-	Object *obj = g_Va009FE16C->getUnitNamed(pUnit);
+	Object *obj = TheScriptEngine->getUnitNamed(pUnit);
 	if (!obj)
 		return;
 	team->rva003A23A5(obj->getID(), value);

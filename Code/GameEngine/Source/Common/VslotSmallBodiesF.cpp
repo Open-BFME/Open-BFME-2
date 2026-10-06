@@ -171,7 +171,7 @@ Bool Rva00545B72::rva00545B72(Int unused)
 // slots at VA 0x00C6CEC8 and 0x00C6CEEC: a function-local static id taken
 // from the running counter at VA 0x00DFEE18 on first use (the same counter
 // as VslotSmallBodiesD's 0x0029B1EA).
-__declspec(selectany) Int g_00DFEE18 = 0;
+extern int g_00DFEE18;
 class Rva00567793
 {
 public:

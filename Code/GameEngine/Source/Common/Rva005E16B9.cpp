@@ -10,7 +10,7 @@ public:
 	const Image *findImageByName(const AsciiString &name);
 };
 
-extern ImageCollection *g_00DFF078;
+extern class ImageCollection *TheMappedImageCollection;
 
 class Rva005E16B9
 {
@@ -23,6 +23,6 @@ public:
 const Image *Rva005E16B9::rva005E16B9()
 {
 	if (!((const StringBase<char> *)&m_8)->isEmpty())
-		return g_00DFF078->findImageByName(m_8);
+		return TheMappedImageCollection->findImageByName(m_8);
 	return 0;
 }

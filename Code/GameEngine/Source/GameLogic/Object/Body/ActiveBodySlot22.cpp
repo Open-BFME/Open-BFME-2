@@ -124,7 +124,7 @@ public:
 	char m_pad000[0xE9C];
 	bool m_E9C;		// +0xE9C
 };
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class ActiveBodyModuleData
 {
@@ -154,7 +154,7 @@ void ActiveBody::rva004BF9ED()
 		return;
 	{
 		Object *obj = getObject();
-		if (TheGlobalData->m_E9C) {
+		if (TheWritableGlobalData->m_E9C) {
 			Coord3D pos;
 			pos.x = obj->getPosition()->x;
 			pos.y = obj->getPosition()->y;

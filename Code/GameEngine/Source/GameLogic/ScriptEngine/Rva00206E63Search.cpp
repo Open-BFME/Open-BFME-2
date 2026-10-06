@@ -72,12 +72,12 @@ public:
 };
 
 class ScriptEngine;
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __cdecl Rva00206E63Search(INI *ini)
 {
     Rva003B39C7 tmp;
     ini->initFromINI(&tmp, g_00BE3908);
-    if (g_Va009FE16C)
-        ((Rva00205A8D *)g_Va009FE16C)->rva00205A8D((Arg205A8D *)&tmp);
+    if (TheScriptEngine)
+        ((Rva00205A8D *)TheScriptEngine)->rva00205A8D((Arg205A8D *)&tmp);
 }

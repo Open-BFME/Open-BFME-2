@@ -9,7 +9,7 @@
 // static is never read anywhere in .text, so each copy keeps an honest address
 // name and its static stays TU-local here as it was in its own unit.
 
-extern int g_00DBA4E8;
+extern int g_009BA4E8;
 
 struct Rva007AB7F0HalfRateInits
 {
@@ -444,7 +444,7 @@ struct Rva007AB7F0HalfRateInits
 	static int s_##init; \
 	void Rva007AB7F0HalfRateInits::init() \
 	{ \
-		s_##init = g_00DBA4E8 / 2; \
+		s_##init = g_009BA4E8 / 2; \
 	}
 
 // ?rva007AB7F0@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AB7F0 (16B), static at VA 0x00DDE030

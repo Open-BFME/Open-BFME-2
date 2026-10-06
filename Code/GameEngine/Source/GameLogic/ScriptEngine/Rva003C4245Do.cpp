@@ -13,7 +13,7 @@ public:
 	Object *getUnitNamed(Parameter *p);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Rva00358752Opaque
 {
@@ -56,8 +56,8 @@ public:
 
 void __stdcall Rva003C4245Do(Parameter *param, const AsciiString &a, const AsciiString &b)
 {
-	Object *src = g_Va009FE16C->getUnitNamed(param);
-	Object *target = ((Rva00358752Opaque *)g_Va009FE16C)->lookupUnitByValue(b);
+	Object *src = TheScriptEngine->getUnitNamed(param);
+	Object *target = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(b);
 	const SpecialPowerTemplate *tmpl = g_00E02D4C->findSpecialPowerTemplate(a);
 	if (src == 0 || tmpl == 0 || target == 0)
 		return;

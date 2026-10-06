@@ -35,7 +35,7 @@ public:
 	Pathfinder *m_path10;
 };
 
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class Pathfinder
 {
@@ -48,6 +48,6 @@ bool __stdcall Rva0041C9C4Check(Object *obj, const Coord3D *coord, const Overrid
 	const Overridable *final = over->friend_getFinalOverride();
 	if ((((unsigned char)(final->m_18 >> 6)) & 1) == 0)
 		return true;
-	Pathfinder *pf = g_Va009FF0F8->m_path10;
+	Pathfinder *pf = TheAI->m_path10;
 	return pf->rva002F477E(obj, &obj->m_pos38, coord, 0);
 }

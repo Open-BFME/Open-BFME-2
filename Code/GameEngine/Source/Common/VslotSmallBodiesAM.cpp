@@ -173,7 +173,7 @@ void Rva004523E9::rva004B471F()
 
 // 0x00452D8C and 0x00452D98: store the argument (resp. 0xFFFFFE) at VA
 // 0x00DC908C.
-extern Int g_rva00452D8CValue;
+extern int g_Va00DC908C;
 class Rva00452D8C
 {
 public:
@@ -182,11 +182,11 @@ public:
 };
 void Rva00452D8C::rva00452D8C(Int a)
 {
-	g_rva00452D8CValue = a;
+	g_Va00DC908C = a;
 }
 void Rva00452D8C::rva00452D98()
 {
-	g_rva00452D8CValue = 0xFFFFFE;
+	g_Va00DC908C = 0xFFFFFE;
 }
 
 // 0x00466E58 (four tables): the +0x13C byte of the +0x04 object.

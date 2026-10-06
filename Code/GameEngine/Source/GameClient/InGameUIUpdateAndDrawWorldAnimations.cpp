@@ -19,12 +19,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 struct ICoord2D
 {
@@ -46,7 +41,6 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-extern const float BfmeZeroRange;
 extern int g_Va00DBA4E4;
 extern UnsignedInt g_00DFEE08;
 
@@ -239,7 +233,7 @@ void InGameUI::updateAndDrawWorldAnimations()
 				continue;
 			}
 
-			if (wad->m_zRisePerSecond != BfmeZeroRange)
+			if (wad->m_zRisePerSecond != 0.0f)
 				wad->m_worldPos.z += wad->m_zRisePerSecond / (Real)g_Va00DBA4E4;
 		}
 

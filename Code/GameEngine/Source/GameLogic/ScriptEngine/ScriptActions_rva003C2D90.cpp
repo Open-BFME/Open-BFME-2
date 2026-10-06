@@ -47,18 +47,18 @@ protected:
 	friend void __stdcall Rva003C2D90Do(Parameter *a, Parameter *b);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 
 void __stdcall Rva003C2D90Do(Parameter *a, Parameter *b)
 {
-	int mask = g_Va009FE16C->rva00357475(a->m_string, (bool *)0);
+	int mask = TheScriptEngine->rva00357475(a->m_string, (bool *)0);
 	if (mask == 0)
 		return;
 	Player *player = ThePlayerList->getPlayerFromMask(mask);
 	if (player == 0)
 		return;
 	int v = player->m_60.rva002A7461();
-	ScriptCounter *c = g_Va009FE16C->bfmeCounter(b->m_string);
+	ScriptCounter *c = TheScriptEngine->bfmeCounter(b->m_string);
 	c->m_value = v;
 }

@@ -11,7 +11,7 @@ class Eva
 public:
 	void rva001DE2DA(int ev, const Coord3D *pos, int unused);
 };
-extern Eva *g_00DFDC30;
+extern class Eva *TheEva;
 class Rva005CC966
 {
 public:
@@ -24,5 +24,5 @@ public:
 void Rva005CC966::rva005CC966()
 {
 	const Coord3D *pos = m_flag ? &m_pos : 0;
-	g_00DFDC30->rva001DE2DA(m_event, pos, 0);
+	TheEva->rva001DE2DA(m_event, pos, 0);
 }

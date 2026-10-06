@@ -38,14 +38,14 @@ public:
 	Object *getUnitNamed(Parameter *p);
 	int rva00357B82(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Rva002D06CA
 {
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 enum NameKeyType
 {
@@ -83,13 +83,13 @@ protected:
 
 bool __stdcall Rva003E5017Check(Parameter *a, Parameter *b, Parameter *c)
 {
-	void *payload = g_009FF000->rva002D06CA(&c->m_string10);
+	void *payload = TheThingFactory->rva002D06CA(&c->m_string10);
 	if (!payload)
 		return false;
-	Object *obj = g_Va009FE16C->getUnitNamed(b);
+	Object *obj = TheScriptEngine->getUnitNamed(b);
 	if (!obj)
 		return false;
-	int mask = g_Va009FE16C->rva00357B82(a);
+	int mask = TheScriptEngine->rva00357B82(a);
 	if (!mask)
 		return false;
 	Player *player = ThePlayerList->getPlayerFromMask(mask);

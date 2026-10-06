@@ -66,7 +66,7 @@ public:
 	Pathfinder *m_pathfinder;
 };
 
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
@@ -240,7 +240,7 @@ StateReturnType AIAttackPursueTargetState::updateInternal()
 		Bool viewBlocked = false;
 		if (ai->isDoingGroundMovement() && !victim->isSignificantlyAboveTerrain())
 		{
-			Pathfinder *pf = g_Va009FF0F8->m_pathfinder;
+			Pathfinder *pf = TheAI->m_pathfinder;
 			viewBlocked = pf->isAttackViewBlockedByObstacle(source, source->m_position, victim, victim->m_position);
 		}
 		if (!viewBlocked && victim->m_physics && weapon->isWithinAttackRange(source, victim, 0.0f, 1))

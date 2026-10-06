@@ -24,7 +24,7 @@ public:
 	char m_pad[0x10];
 	Pathfinder *m_10;
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 class Rva00262B53
 {
 public:
@@ -38,6 +38,6 @@ bool Rva00262B53::rva00262B53(const Coord3D *pos)
 	if (!pos)
 		return false;
 	Object *obj = m_8;
-	Pathfinder *pf = g_Va009FF0F8->m_10;
+	Pathfinder *pf = TheAI->m_10;
 	return pf->rva002F477E(obj, &obj->m_38, pos, 0);
 }

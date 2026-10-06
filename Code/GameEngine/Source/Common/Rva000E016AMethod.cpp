@@ -6,11 +6,7 @@ struct BfmeE12
 {
 	char m_data[12];
 };
-struct Coord3D
-{
-	float x, y, z;
-	Coord3D(const Coord3D &that);
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 namespace _STL
 {
 struct __false_type { __false_type() {} };

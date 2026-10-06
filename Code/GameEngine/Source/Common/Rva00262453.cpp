@@ -72,7 +72,7 @@ public:
 	Bool rva0036E0B6() const;
 };
 
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class Rva00262453
 {
@@ -122,7 +122,7 @@ void Rva00262453::rva0026249D()
 	if (m_0A)
 		return;
 	if (m_09) {
-		AIGroup *grp = g_Va009FF0F8->createGroup();
+		AIGroup *grp = TheAI->createGroup();
 		Team *team = m_00->m_08->m_team;
 		team->getTeamAsAIGroup(grp);
 		if (!grp->isIdle())

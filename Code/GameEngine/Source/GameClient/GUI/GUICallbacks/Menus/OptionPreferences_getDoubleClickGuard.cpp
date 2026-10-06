@@ -49,7 +49,7 @@ public:
 	Bool m_doubleClickGuard;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -63,7 +63,7 @@ Bool OptionPreferences::getDoubleClickGuard(void)
 {
 	OptionPreferences::const_iterator it = find("DoubleClickGuard");
 	if (it == end())
-		return TheGlobalData->m_doubleClickGuard;
+		return TheWritableGlobalData->m_doubleClickGuard;
 
 	if (strcmp(it->second.str(), "yes") == 0) {
 		return true;

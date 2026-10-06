@@ -113,11 +113,21 @@ while IFS= read -r path; do
     esac
 done < <(git diff --cached --name-only --diff-filter=A | grep -E '\.(cpp|c|h|hpp|asm)$' || true)
 
+# Data identity (shadow): staged sources' DIR32 data references against
+# reverse/data_ledger.csv; fails only when reverse/data_check_baseline.txt grew.
+# It runs before the early exit below, which a baseline-only commit takes.
+python3 tools/data_check.py --staged || fail "data identity: staged data_check_baseline.txt grew (see above)"
+
 if [ "${#staged_sources[@]}" -eq 0 ] && [ "$ledger_changed" -eq 0 ] \
    && [ "$wide_change" -eq 0 ] && [ "$baseline_changed" -eq 0 ] \
    && [ "$attempts_changed" -eq 0 ]; then
     exit 0
 fi
+
+# The build reads the WORKING-TREE ledgers. An unstaged row edit (a rename the
+# staged units need) would make them verify green against rows this commit does
+# not contain, leaving HEAD inconsistent; refuse before anything is verified.
+python3 tools/ledger_guard.py --staged || fail "unstaged ledger edits would be verified instead of the staged ledger (see above)"
 
 if [ "$wide_change" -ne 0 ]; then
     # Byte-verify only the ledger sources the changed headers can reach

@@ -13,9 +13,8 @@ public:
 private:
     char _s[0x4265c];
 };
-extern W3DBufferManager *g_00DEC3C0;
+extern class W3DBufferManager *TheW3DBufferManager;
 // g_00DEC3C0: matched references place it at VA 0xdec3c0 (zero-filled .bss).
-W3DBufferManager * g_00DEC3C0;
 class TCBSpline3DClass {
 public:
     class TCBClass;
@@ -86,7 +85,7 @@ Rva000F1A32::Rva000F1A32()
     m_4 = 0;
     m_8 = new Rva000F0AF7;
     W3DBufferManager *mgr = new W3DBufferManager;
-    g_00DEC3C0 = mgr;
+    TheW3DBufferManager = mgr;
     if (g_00DEBE14 < 0x3e8)
         g_00DEBE0C.Resize(0x3e8, 0);
     if (g_00DEBE2C < 0x3e8)

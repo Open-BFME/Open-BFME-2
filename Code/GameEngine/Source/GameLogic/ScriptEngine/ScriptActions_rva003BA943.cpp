@@ -23,7 +23,7 @@ class ScriptEngine
 public:
     Object *getUnitNamed(Parameter *unitParam);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class ScriptActions
 {
@@ -33,7 +33,7 @@ protected:
 
 void ScriptActions::rva003BA943(Parameter *pUnit, bool flag)
 {
-    Object *obj = g_Va009FE16C->getUnitNamed(pUnit);
+    Object *obj = TheScriptEngine->getUnitNamed(pUnit);
     if (!obj)
         return;
     Drawable *draw = obj->getDrawable();
