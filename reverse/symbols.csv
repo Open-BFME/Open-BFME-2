@@ -14887,3 +14887,18 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?clear@?$_List_base@VRva00525119@@V?$allocator@VRva00525119@@@_STL@@@_STL@@QAEXXZ,0x23daa5,Independent complete39B typed helper proof from witnessed scratch object; same observed ABI and primitive storage as existing rowed provider; native52611D float-pointer sort call chain; original application element type unknown
 dup_7e86b0,0x00655770
 rva009C7380WeightPairs,0x009B84E0
+?dup_0013623C@@YAXXZ,0x0013623C,"Retail REL32 calls at 0x001364C0 resolve to this unique byte-matched row at 0x0013623C; synthetic dup alias only, original C++ identity remains unknown."
+?dup_002057A8@@YAXXZ,0x002057A8,"Retail REL32 calls at 0x00206AF4 resolve to this unique byte-matched row at 0x002057A8; synthetic dup alias only, original C++ identity remains unknown."
+?dup_0020596A@@YAXXZ,0x0020596A,"Retail REL32 calls at 0x00206AD2 resolve to this unique byte-matched row at 0x0020596A; synthetic dup alias only, original C++ identity remains unknown."
+?dup_0020D5E6@@YAXXZ,0x0020D5E6,"Retail REL32 calls at 0x0020D62A resolve to this unique byte-matched row at 0x0020D5E6; synthetic dup alias only, original C++ identity remains unknown."
+?dup_0020F321@@YAXXZ,0x0020F321,"Retail REL32 calls at 0x0020F580 resolve to this unique byte-matched row at 0x0020F321; synthetic dup alias only, original C++ identity remains unknown."
+?dup_00211F6D@@YAXXZ,0x00211F6D,"Retail REL32 calls at 0x0021236B resolve to this unique byte-matched row at 0x00211F6D; synthetic dup alias only, original C++ identity remains unknown."
+?dup_0021781D@@YAXXZ,0x0021781D,"Retail REL32 calls at 0x00217858, 0x00217883, 0x00218B73, 0x00218DE4 resolve to this unique byte-matched row at 0x0021781D; synthetic dup alias only, original C++ identity remains unknown."
+?dup_0022112D@@YAXXZ,0x0022112D,"Retail REL32 calls at 0x00221215 resolve to this unique byte-matched row at 0x0022112D; synthetic dup alias only, original C++ identity remains unknown."
+?dup_00222DBF@@YAXXZ,0x00222DBF,"Retail REL32 calls at 0x00223116 resolve to this unique byte-matched row at 0x00222DBF; synthetic dup alias only, original C++ identity remains unknown."
+?dup_0023FC3E@@YAXXZ,0x0023FC3E,"Retail REL32 calls at 0x00240C9D resolve to this unique byte-matched row at 0x0023FC3E; synthetic dup alias only, original C++ identity remains unknown."
+?dup_0023FC6B@@YAXXZ,0x0023FC6B,"Retail REL32 calls at 0x00240D26 resolve to this unique byte-matched row at 0x0023FC6B; synthetic dup alias only, original C++ identity remains unknown."
+?dup_002A8C17@@YAXXZ,0x002A8C17,"Retail REL32 calls at 0x002A8D1F resolve to this unique byte-matched row at 0x002A8C17; synthetic dup alias only, original C++ identity remains unknown."
+?dup_002BF35B@@YAXXZ,0x002BF35B,"Retail REL32 calls at 0x002BF74C resolve to this unique byte-matched row at 0x002BF35B; synthetic dup alias only, original C++ identity remains unknown."
+?dup_002CF954@@YAXXZ,0x002CF954,"Retail REL32 calls at 0x002CF9F3, 0x002CFAA2 resolve to this unique byte-matched row at 0x002CF954; synthetic dup alias only, original C++ identity remains unknown."
+?dup_0056EE16@@YAXXZ,0x0056EE16,"Retail REL32 call at 0x0056F487 resolves to this unique byte-matched row at 0x0056EE16; synthetic dup alias only, original C++ identity remains unknown."
