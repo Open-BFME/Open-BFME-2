@@ -32,6 +32,7 @@ EXTERN ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ:PROC
 EXTERN BasicStringCharDtor_dup:PROC
 EXTERN ??1Q1ReceiverLocalSet@@QAE@XZ:PROC
 EXTERN ??1BfmeWideResult@@QAE@XZ:PROC
+EXTERN ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ:PROC
 EXTERN ??1SBServer@@QAE@XZ:PROC
 
 _TEXT SEGMENT
@@ -2164,6 +2165,23 @@ PUBLIC ?rva007A78F8@@YAXXZ
 cleanup_done_007A78F8:
     ret
 ?rva007A78F8@@YAXXZ ENDP
+
+; Unwind@00ba7c38 at RVA 0x007A7C38; 39-byte interval ends at tail-jump.
+; Retail selects null or [ebp-16] + 12 into [ebp-20], then tail-jumps to matched folded FXParticleSystem destructor at 0x0049B47C.
+PUBLIC ?rva007A7C38@@YAXXZ
+?rva007A7C38@@YAXXZ PROC
+    cmp DWORD PTR [ebp-16], 0
+    jz NEAR PTR cleanup_null_007A7C38
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 12
+    mov DWORD PTR [ebp-20], eax
+    jmp NEAR PTR cleanup_ready_007A7C38
+cleanup_null_007A7C38:
+    mov DWORD PTR [ebp-20], 0
+cleanup_ready_007A7C38:
+    mov ecx, DWORD PTR [ebp-20]
+    jmp ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ
+?rva007A7C38@@YAXXZ ENDP
 
 ; Unwind@00bab0e9 at RVA 0x007AB0E9; 25-byte interval ends at RET.
 ; Retail tests and clears bit 1 at [ebp-24], then takes the cleanup object address at [ebp-20] and tail-jumps to AsciiString at 0x0048BA39.
