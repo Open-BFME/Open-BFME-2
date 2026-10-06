@@ -1,5 +1,3 @@
-// ?rva002BF4F3@Rva002BF4F3@@QAE_NPAVRenderObjClass@@PBVVector3@@PAV3@H_N@Z
-// partial score=0.93 date=2026-10-01
 // cl: /O1 /Ireference/shims/bfme2ray /Ireference/shims/bfme2renderobj /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // ?rva002BF4F3@Rva002BF4F3@@QAE_NPAVRenderObjClass@@PBVVector3@@PAV3@H_N@Z @0x002BF4F3 189B unlock: AABox early-out then down-cast via rowed 0x002BF198; callers 0x002BF5B0 0x002BF935; box getter slot 0x108; float -1.0f via g_00BBB9AC
 
@@ -40,7 +38,11 @@ public:
 
 extern float g_00BBB9AC;
 
-bool __stdcall Rva002BF198Cast(RenderObjClass *obj, const Vector3 &start, const Vector3 &dir, Vector3 *out, int collisionType, bool checkHidden);
+class Rva00DFEF18Host
+{
+public:
+	bool Cast(RenderObjClass *obj, const Vector3 &start, const Vector3 &dir, Vector3 *out, int collisionType, bool checkHidden);
+};
 
 class Rva002BF4F3
 {
@@ -48,7 +50,6 @@ public:
 	bool rva002BF4F3(RenderObjClass *obj, const Vector3 *pt, Vector3 *out, int collisionType, bool checkHidden);
 };
 
-// ?rva002BF4F3@Rva002BF4F3@@QAE_NPAVRenderObjClass@@PBVVector3@@PAV3@H_N@Z present-unmatched
 bool Rva002BF4F3::rva002BF4F3(RenderObjClass *obj, const Vector3 *pt, Vector3 *out, int collisionType, bool checkHidden)
 {
 	const AABoxClass *box = obj->GetBoundingBox();
@@ -68,5 +69,5 @@ bool Rva002BF4F3::rva002BF4F3(RenderObjClass *obj, const Vector3 *pt, Vector3 *o
 	dir.X = 0.0f;
 	dir.Y = 0.0f;
 	dir.Z = g_00BBB9AC;
-	return Rva002BF198Cast(obj, start, dir, out, collisionType, checkHidden);
+	return ((Rva00DFEF18Host *)this)->Cast(obj, start, dir, out, collisionType, checkHidden);
 }

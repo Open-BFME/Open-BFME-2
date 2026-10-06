@@ -64523,3 +64523,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002C108F@Rva0008FF12Host@@QAEXXZ,,0x002C108F,185,Code/GameEngine/Source/Common/Rva0008FF12HostRva002C108F.cpp,matched,vslot41 pin host caller drawWindow TheAudio
 ??$_Construct@VRva00285BEC@@V1@@_STL@@YAXPAVRva00285BEC@@ABV1@@Z,,0x0028625D,45,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva00285bec.cpp,matched,EH placement copy via rowed copy ctor 0x00285C30 same shape as 0x00481514 caller 0x00286693
 ?rva005CFFE8@Rva005CFFE8@@QAEXXZ,,0x005CFFE8,76,Code/GameEngine/Source/Common/Rva005CFFE8.cpp,matched,chain from 0x005EC4AF sibling of 0x005D1129
+?rva002BF4F3@Rva002BF4F3@@QAE_NPAVRenderObjClass@@PBVVector3@@PAV3@H_N@Z,,0x002BF4F3,189,Code/Libraries/Source/WWVegas/WW3D2/Rva002BF4F3.cpp,matched,AABox early-out then Host Cast via pin at 0x002BF198 with box slot 0x108 and callers 0x002BF5B0 0x002BF935
