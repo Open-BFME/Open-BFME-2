@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva0023D377@@QAE@XZ, retail 0x0023D377, 8 bytes.
 // Dtor tail-jmp to rowed ??1Rva00438FC5@@QAE@XZ at 0x00438FC5;
 // add ecx,4 then jmp. Member at +4 with 4B pad at +0; empty dtor lets the

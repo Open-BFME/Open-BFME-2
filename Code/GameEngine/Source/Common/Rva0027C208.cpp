@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0027C208@Rva0027C208@@QAEPAXPAX@Z @0x0027C208 16B
 // Evidence: thiscall wrapper pushes incoming arg then virtual slot 0x18 then returns arg; caller 0x00281568.
 class Rva0027C208Base

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB
 // ?rva002AAD23@Rva002AAD23@@QAE_NPBD@Z @0x002AAD23 47B: BitFlags-style set via getSingleBitFromName then or bit; caller 0x002AC15B; unblocks 0x002AC06A.
 template <unsigned int NUMBITS>
 class BitFlags

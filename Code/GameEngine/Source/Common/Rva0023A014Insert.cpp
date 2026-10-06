@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0023A014@Rva0023A014@@QAEXPBUBfmeStringRecord00239B46@@@Z @0x0023A014 26B: list insert end via rowed insert 0x00239E80. Evidence: caller at 0x0023ABB1 same record as 0x00239B46.
 #include <list>

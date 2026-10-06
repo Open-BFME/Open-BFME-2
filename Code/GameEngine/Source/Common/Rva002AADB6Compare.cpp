@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva002AADB6Compare@@YAHPAVRva002AADB6Reader@@0H@Z @0x002AADB6 (135B).
 // Target facts: cdecl with three arguments (both callers, 0x002ABC62 and
 // 0x0032AF42, pop 12 bytes). Each caller builds two stack reader adaptors

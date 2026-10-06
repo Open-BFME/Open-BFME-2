@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 // ??1Rva0026E7EA@@UAE@XZ @0x0026E7EA 48B
 // ModuleData dtor: tears down the Rva0026E5B9 member at +0x04 through the rowed
 // dtor at 0x0026E5B9, then restores the Snapshot base vtable 0x00BBB554.

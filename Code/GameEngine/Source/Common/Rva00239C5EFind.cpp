@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva00239C5E@Rva00239C5E@@QAEPAXV?$StringBase@D@@@Z @0x00239C5E 89B: circular-list find by string key at this+0xF4 compare node+8 return node+8 else NULL. Evidence: same head offset as 0x002399EB callers at 0x0023ACB3 0x0023B5D5 callees compare 0x000069D6 releaseBuffer 0x00036410.
 template <typename T> class StringBase
 {

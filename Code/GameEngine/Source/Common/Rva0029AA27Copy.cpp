@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0029AA27@Rva0029AA27@@QAEXPBUS12_0029AA27@@@Z @0x0029AA27 24B
 // Guarded 12-byte copy via movsd string; caller at 0x00432145; unlock.
 struct S12_0029AA27

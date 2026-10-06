@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00262436@Rva00262436@@QAEPAV1@H@Z, retail 0x00262436, 29 bytes.
 // Thiscall setter with one int-sized arg returning this: store arg at +0x00 then zero +0x04

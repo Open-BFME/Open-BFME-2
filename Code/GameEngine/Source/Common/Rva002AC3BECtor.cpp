@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ??0Rva002AC3BE@@QAE@PAX@Z @0x002AC3BE 34B: holder ctor storing void* at +0
 // then default vector<BfmeE16> at +4 via rowed Vector_base 0x00211E58 with

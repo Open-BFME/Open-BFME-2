@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?xfer@Rva002AC340@@MAEXPAVXfer@@@Z @0x004213FC 171B
 // Slot 3 (offset 0x0C) of vtable 0x007FDD6C (class of ??0Rva002AC340@@QAE@XZ):

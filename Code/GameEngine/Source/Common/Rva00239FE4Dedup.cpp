@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00239FE4@Rva00239FE4@@QAEXPBVModuleData@@@Z @0x00239FE4 48B: vector dedup at this+0xE8 via push_back 0x004DFCB0. Evidence: caller at 0x00362E00 same vector shape as 0x00423A68.
 // The emitted unsigned max copy must match retail RVA 0x00013740.

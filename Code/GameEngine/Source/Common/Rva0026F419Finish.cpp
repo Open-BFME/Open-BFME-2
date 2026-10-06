@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ??0Rva0026F419@@QAE@XZ @0x0026F419 44B
 // ctor: baseConstruct via inlined Rva0026F419Base, vtable 0x007FABB8, zero

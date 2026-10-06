@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Set@Rva0023D229@@QAEXH@Z, retail 0x0023D229, 35 bytes.
 // mov eax,[esp+4] test jl cmp 8 jge mov edx,[global] imul 0x1c mov edx,[edx+0x40] mov [eax+ecx+0x1cc],edx ret 4.
 // Evidence: unlock lane; thiscall ret 4 with 0-7 guard; global 0x009FE78C same as 0x0023D339.

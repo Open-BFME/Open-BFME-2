@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0029FB80Store@@YGPAXPAPAX@Z retail 0x0029FB80 28B
 // Freelist store via rowed pop 0x002393E2 on pool 0xDA60E8 plus *arg into
 // node+8. Returns node (EAX at ret) to keep lea-test; plain if.

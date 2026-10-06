@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00285708@Rva00285708Host@@QAEXXZ @ 0x00285708 34B: guarded refresh via global 0xDFE1A8 callee 0x20D925 then stamp TheGameLogic frame. Evidence: rowed rva0020D925 0x0020D925 plus TheGameLogic 0x009FE78C plus g_00DFE1A8 0x00DFE1A8 plus sibling Rva002856CF plus sibling Rva0028572A plus callers 0x00285B91 0x00285C30.
 class Rva0020DXXX
 {

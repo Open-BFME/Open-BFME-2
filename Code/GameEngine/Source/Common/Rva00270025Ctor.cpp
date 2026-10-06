@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva00270025@@QAE@XZ @0x00270025 28B
 // ?rva00270041@Rva00270025@@QAEXXZ @0x00270041 43B
 // ?rva0027006C@Rva00270025@@QAEXH@Z @0x0027006C 44B

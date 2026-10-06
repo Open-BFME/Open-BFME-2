@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00263546@Rva00263546@@QBE_NPBV1@@Z @0x00263546 (35B).
 // Rva00263546 overlap test: returns true when any of the 19 dwords at +0

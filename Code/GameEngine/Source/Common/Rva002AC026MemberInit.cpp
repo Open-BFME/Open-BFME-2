@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?init@Rva002AC026Member@@QAEPAXPAX@Z @0x002AC026 (40B): freelist list-base init.
 // Constructs the allocator proxy at this via rowed 0x0014F3C4, pops a sentinel
 // node from the pool object at 0x009BBD2C via rowed FreelistPool::pop

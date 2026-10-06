@@ -1,4 +1,4 @@
-// cl: /O1 /Og /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // Rva0029E159::rva0029E159 @0x0029E159 150B
 // Audio handle from source string plus two floats: empty check via 0x1E2F;
 // AudioEventRTS temp via ctor 0x79514 plus AsciiString assign 0x366F0 plus

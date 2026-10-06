@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // 0x00289371 (73 bytes): clear() of the hash table the ExperienceLevels
 // store (vftable 0x00BFB8F4, class Rva00289ABD) holds by pointer at +0x10;

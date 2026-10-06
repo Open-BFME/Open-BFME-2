@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00285BEC@@UAE@XZ retail 0x00285BEC 68B
 // ??0Rva00285BEC@@QAE@ABV0@@Z retail 0x00285C30 88B: copy ctor copies +8/+0xC from src then m_10=-1 then rowed rva00285708. Evidence: same vptrs BFB700/BFB6F0 plus BBB554 base plus single caller 0x00286279.
 // Two-base dtor: own vptrs BFB700 at +0 and BFB6F0 at +4, then under EH

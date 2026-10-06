@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00271C1C@Rva00271C1C@@QAEXXZ @0x00271C1C 28B
 // Frame sum via TheGameLogic: if TheGameLogic then m384 = m04[0x558] + frame.
 // Prev Rva00271B03MaxFrame 0x00271B03 35B max-tracking via TheGameLogic frame

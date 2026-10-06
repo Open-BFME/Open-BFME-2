@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0028BBE1@Rva0028BBE1@@QAEXPAX@Z @0x0028BBE1 18B: holder at +0x23c forwards to rowed Rva004DF2E2::rva004DF3B0 tail-jmp; caller 0x003512D2 in 0x003511E3 unblocks it; neighbours share /O1
 class Rva004DF2E2
 {

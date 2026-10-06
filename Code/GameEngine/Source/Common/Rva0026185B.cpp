@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0026185B@Rva0026185B@@QAE_NPAVObject@@@Z, retail 0x0026185B, 71 bytes.
 // Chain from Object::rva002931BA (rowed 0x002931BA): if arg Object template
 // dword +0x108 low byte carries 0x80 or 0x04 return false; else if

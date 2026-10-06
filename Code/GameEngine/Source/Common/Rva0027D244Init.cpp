@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva0027D244@Rva0027D244@@QAEPAV1@H@Z, retail 0x0027D244, 50 bytes.
 // Thiscall init of a 0x1C-byte struct: zeroes floats at +0/+4/+8, zeroes
 // dwords at +0xC/+0x14, copies global float VA 0x00BC876C to +0x10, stores

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0029A94F@Rva0029A94F@@QAEXXZ @0x0029A94F 101B. Loop over GlobalData count at +0xA94 clearing ptr slots at this+0x544 via g_00DFF080 slot 0x34 and TheGameClient slot 0x74 then tail to g_00DFF080 slot 0x38. Evidence: retail immediates 0x00DFE758 TheWritableGlobalData 0x00DFE77C TheGameClient 0x00DFF080 plus callers 0x0029BB8B 0x002A242A.
 extern class GlobalData *TheWritableGlobalData;
 extern class ClientFrameSubsystem *TheGameClient;

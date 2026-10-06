@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva002861EFFill@@YAPAXPAXIPBX@Z, retail 0x002861EF, 37 bytes. Array fill of 6-byte records via rowed copy 0x002861B0. Called from 0x00287BB8. Neighbours share /O1.
 void __cdecl Rva002861B0Copy(void *dst, const void *src);
 void *__cdecl Rva002861EFFill(void *dst, unsigned int count, const void *src)

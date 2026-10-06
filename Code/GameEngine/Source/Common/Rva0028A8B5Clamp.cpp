@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0028A8B5@Rva0028A8B5@@QBEXPAM@Z @0x0028A8B5 45B: clamp float* between members +0x4C0 (max) and +0x4C4 (min) via SSE comiss.
 // Evidence: called from Object::getVisionRange 0x0028DDE0 with this=[esi+4] and arg=stack float; retail movss lea comiss mov add movss comiss mov; callers 2.
 class Rva0028A8B5

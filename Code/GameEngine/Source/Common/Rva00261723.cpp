@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00261723@Rva00261723@@QAE_NPAVArg00261723@@@Z, retail 0x00261723, 45 bytes.
 // Float-to-ICoord helper: cvttss2si arg +0x38/+0x3C floats to ICoord x/y with
 // z 0, then PolygonTrigger::pointInTrigger (pin 0x002E3A13) on this +0x08.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0023309A@@QAE@XZ @0x0023309A 158B
 // retail 0x0023309A (158 bytes). Derived BFME2NativeNetwork ctor: inline base

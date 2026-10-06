@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0023C902@Rva0023C902@@QAE_NXZ @0x0023C902 34B: thiscall bool check of +0xa8 plus Display slot 0x114.
 // Evidence: cmp byte [ecx+0xa8] je false; TheDisplay row plus virtual +0x114 test je false else true; callers 0x0043CBB6 0x004E41E9 0x0050EC50 0x0051B3AE 0x005234D9 unblocks 4.
 class Display

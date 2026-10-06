@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0025C0FF@Rva0025C0FF@@QAEXXZ, retail 0x0025C0FF, 53 bytes.
 // Clears the node list headed at this+0x1c: each node yields its successor via
 // vtable slot 152 (0x260), is torn down via vtable slot 0 with flag 0, and its

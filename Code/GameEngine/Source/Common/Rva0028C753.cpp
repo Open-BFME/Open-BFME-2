@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028C753@Rva0028C753@@QAEPAXI@Z @0x0028C753 42B
 // Bit-present table lookup twin of 0x0028C6FB: if bit (idx&31) of word (idx>>5) at +0 is set return table[idx] else 0.
 // Evidence: same test plus mov eax [idx*4+VA 0x00DA5F30]; callers 0x00292550 0x0045D908;

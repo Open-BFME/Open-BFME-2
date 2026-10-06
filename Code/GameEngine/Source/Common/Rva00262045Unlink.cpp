@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00262045@Rva00262045@@QAEXPAUNode00262045@@@Z, retail 0x00262045, 50 bytes.
 // Doubly-linked unlink: if arg null or head +0x0C null return; if arg next

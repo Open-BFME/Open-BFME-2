@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva002ADD75Equal@@YAHPBUAsciiRange002ADD75@@0@Z @0x002ADD75 (61B): AsciiString range pair equal.
 // Checks the two 8-byte ranges (begin/end) have equal size via sub-xor-test
 // -4 then delegates to rowed Rva002ACFFBEqual at 0x002ACFFB for

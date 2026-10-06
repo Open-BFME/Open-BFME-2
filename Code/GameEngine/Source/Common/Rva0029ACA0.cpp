@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0029ACA0@Rva0029ACA0@@QAEXHI@Z @0x0029ACA0 39B
 // Unlock lane: missing callee of 0x0029ACC7 loop (calls with (0,i) for i in 0..24).
 // Evidence: frameless thiscall ret 8; guards (arg1!=0 return and (unsigned)arg2>=0x19

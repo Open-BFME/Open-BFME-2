@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00245EDF@GameLogic@@QAE_NPAXPAH@Z, retail 0x00245EDF, 53 bytes.
 // GameLogic lookup via Rva00056F61 at +0x10 over AsciiString at arg +0x64:
 // rowed iter-find 0x0041534B plus hidden-pointer Iter plus node+8 to out.

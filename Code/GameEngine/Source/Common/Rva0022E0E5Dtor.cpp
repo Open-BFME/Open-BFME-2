@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva0022E0E5@@UAE@XZ retail 0x001B4D16 77B
 // Own vptr 0x00BD7678 (slot-0 ??_G at 0x001B4D63). The body clears the
 // STLport list member at +0x0C through the rowed _List_base clear 0x001B4C7A,

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0027D1A4Forward@@YGXPAXMH@Z, retail 0x0027D1A4, 34 bytes.
 // Free __stdcall null-guarded forwarder via global 0x009FF080 to slot16 (0x40)
 // with (void*, float, int). Callers 0x4C3B6C/0x4C4A03. Same manager family as

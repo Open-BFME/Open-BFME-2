@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?Rva0025E46DReset@@YAXXZ @0x0025E46D 96B
 // Free network reset: destroy the current TheNetwork (0x00DFEA28), then
 // allocate a 0x40-byte BFME2NativeNetwork, construct it through the rowed

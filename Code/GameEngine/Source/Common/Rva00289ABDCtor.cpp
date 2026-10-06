@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00289ABD@@QAE@XZ retail 0x00289ABD 263 bytes v3.
 // Ctor with baseConstruct then vector<BfmeE16> at +0x14 plus bool at +0x24 plus map at +0x28,

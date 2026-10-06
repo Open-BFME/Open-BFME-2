@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002A9EFB@Rva002A9EFB@@QAEXH@Z @ 0x002A9EFB (20B). Unlock lane saturated
 // subtract. Evidence: lea eax=[ecx+0x31C]; sub [eax],ecx-arg; jns skip else
 // and [eax],0; ret 4. Callers at 0x00451179 0x004942CA pass dword.

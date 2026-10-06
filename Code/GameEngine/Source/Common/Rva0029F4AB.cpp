@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // ?rva0029F4AB@Rva0029F4AB@@QAEXXZ retail 0x0029F4AB 133B
 // Window lookup for ControlBar.wnd:RightHUD plus partition clear and +0x5CC peer
 // release. Evidence: string literal; TheWindowManager slot 0xF0; TheNameKeyGenerator

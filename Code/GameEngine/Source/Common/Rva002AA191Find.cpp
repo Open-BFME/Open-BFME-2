@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002AA191@Rva002AA191@@QAEHPBVObject@@@Z @0x002AA191 46B: 10-slot find via Rva004D6BCD::rva004D6BCD returns index or -1; callers 0x00273C6C 0x00278FEA; unblocks 0x00273C47.
 class Object;
 class Rva004D6BCD

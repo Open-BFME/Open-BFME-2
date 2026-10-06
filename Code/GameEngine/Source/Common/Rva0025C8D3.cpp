@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0025C8D3@Rva0025C6E2Elem@@QAEXPAVW3DDisplay@@HH@Z @0x0025C8D3 171B
 // Element image draw: early-out on null image or id mismatch, then single
 // W3DDisplay draw call whose four float coords are unsigned virtual results

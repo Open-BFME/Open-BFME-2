@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002B22AF@Rva002B22AF@@QAEXPAVRva002B22AFArg@@@Z @0x002B22AF 68B
 // __thiscall virtual forwarder: passes this+0x00/+0x08/+0x0C/+0x10/+0x14 to

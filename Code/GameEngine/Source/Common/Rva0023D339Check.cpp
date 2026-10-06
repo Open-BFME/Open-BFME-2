@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0023D339Get@@YA_NXZ, retail 0x0023D339, 34 bytes.
 // mov eax,[g1] mov eax,[eax+0x122c] imul eax,[gInt] mov ecx,[g2] imul 60 cmp [ecx+0x40],eax sbb inc ret.
 // Evidence: unlock lane; caller 0x005101EB tests al with no args.

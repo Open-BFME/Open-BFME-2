@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque multiple-inheritance destructors tail-calling Rva0026E836::~
 // Rva0026E836 at 0x0026E836 (pinned opaque SEH base dtor: five vptrs at

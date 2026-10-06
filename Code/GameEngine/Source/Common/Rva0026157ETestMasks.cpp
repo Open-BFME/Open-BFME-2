@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Oy- /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // Dedicated TU for the 16-byte dual-mask tester at retail 0x0026157E
 // (66 bytes, leaf, no calls). Tests that the exempt mask is disjoint from
 // this mask and the required mask is a subset of it, one dword at a time

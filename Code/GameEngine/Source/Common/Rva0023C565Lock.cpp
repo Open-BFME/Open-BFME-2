@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Scoped lock around the subsystem at 0xDFDC14 (theBfmeDfdc14)
 // ??0Rva0023C565@@QAE@XZ @ 0x0023C565 22B: calls theBfmeDfdc14->lock()
 // ??1Rva0023C565@@QAE@XZ @ 0x0023C57B 16B: calls theBfmeDfdc14->unlock()

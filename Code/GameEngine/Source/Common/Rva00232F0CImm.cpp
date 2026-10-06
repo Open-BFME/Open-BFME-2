@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00232F0C@Rva00232F0C@@QAEXXZ @0x00232F0C 67B unlock lane.
 // Evidence: callee ImmGetCompositionStringW thunk 0x0065561C rowed; caller 0x00233C97; buffer +0x1024 len 0x800 index GCS_RESULTSTR 0x800.
 long __stdcall ji_0065561c(void *himc, unsigned long idx, void *buf, unsigned long len);

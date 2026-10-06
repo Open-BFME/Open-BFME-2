@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 // The carved 32-byte body walks the circular list rooted at this+0x24 and
 // returns whether the list contains at least one node. No caller or type table

@@ -1,4 +1,4 @@
-// cl: /O2 /MD /GX
+// cl: /MD /GX
 // ?rva00239105@Rva00239105@@QAEXXZ @0x00239105 (29B): two-member dispatcher.
 // Retail: esi=ecx; ecx=[esi+0x18]; je skip; call 0x42C5BC; ecx=[esi+0x1C];
 // test; pop esi; je ret; jmp 0x42CADD (tail). No stack args (ret, not ret N).

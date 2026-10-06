@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0023D661@Rva0023D661@@QAEXH@Z @ 0x0023D661 45B: calls Object::rva0028B31A on each node from +0xAC head via +0x8C next then tails to TheAudio slot 0x180
 // Evidence: chain from just-landed 0x0028B31A; global 0x009FE6E8 is TheAudio per GameLogicSetGamePaused and ScriptActions siblings; slot 0x180 follows audioSlot178 convention.
 class Object

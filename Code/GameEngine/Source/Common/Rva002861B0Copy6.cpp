@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva002861B0Copy@@YAXPAXPBX@Z @0x002861B0 25B.
 // Null-checked 6-byte copy (dword + word) with caller-cleaned __cdecl.

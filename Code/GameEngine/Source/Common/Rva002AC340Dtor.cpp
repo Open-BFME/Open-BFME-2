@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // ??1Rva002AC340@@MAE@XZ @0x002AC366 (60B): Rva002AC340 dtor.
 // Stores own vtable 0x007FDD6C, frees the BfmeE16 vector buffer at +8 via

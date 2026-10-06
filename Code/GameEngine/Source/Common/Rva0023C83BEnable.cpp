@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0023C83B@Rva0023C83B@@QAEPAV1@XZ @0x0023C83B, 35B.
 // Window close enabler returning this: GetSystemMenu on 0x00DDE024 then

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0025E4CD@@UAE@XZ retail 0x0025E4CD 80B
 // Own vptr BF6040; under EH state 0 the object at +0xC is destroyed through
 // the rowed non-virtual dtor ??1Rva004D2344@@QAE@XZ 0x004D2344 and freed with

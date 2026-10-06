@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00298C0B@Rva00298C0B@@QAEXPAVTeam@@@Z 107B @0x00298C0B: team scan via 250 plus recurse plus aiIdle.
 // Evidence: retail this plus0x250 virtual slot 0x118 plus 0x250 null plus recurse plus rva00298AE4 pin plus aiIdle row. Callers at 0x003A2D3A 0x003A2DA2 plus self.
 class Team;

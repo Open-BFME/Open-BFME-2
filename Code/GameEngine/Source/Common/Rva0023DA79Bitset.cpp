@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 // ?rva0023DA79@Rva0023DA79@@QAEPAV1@HH@Z @0x0023DA79 (44B): memset-16 plus
 // bit-set returning this. Retail: push esi; push 16; esi=ecx; push 0;
 // push esi; call memset (0x6291AE import); ecx=[esp+24] (index); edx=0;

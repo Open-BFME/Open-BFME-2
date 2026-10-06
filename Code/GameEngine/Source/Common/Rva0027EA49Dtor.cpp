@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /G7
+// cl: /MD
 // ??1Rva0027EA49@@QAE@XZ, RVA 0x0027EA49, 13 bytes.
 // Holder dtor releasing TargetRef pointer at +4 via rowed fastcall 0x0007DEEF.
 // Evidence: tail-jmp to ?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oy-
+// cl: /MD /Oy-
 // ?rva00238FF3@Rva00238E1B@@QAEXPAVRva00238FF3Arg@@@Z @0x00238FF3 72B
 // Leaf walk: set the "drawables" phase on the host, then call w14 for every
 // node on the m_head list, then clear the arg slot through v31 and finish v06.

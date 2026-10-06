@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Op /Oi /Oy-
+// cl: /MD /Op /Oi /Oy-
 // ??0Rva0027C36A@@QAE@ABV0@@Z @0x0027C410 228B
 // Evidence: probe pointer increment
 #include <cstring>

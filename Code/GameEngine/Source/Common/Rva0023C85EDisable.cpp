@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0023C85EDisable@@YAXXZ @0x0023C85E, 29B.
 // Free helper disabling the main window close item: GetSystemMenu on the

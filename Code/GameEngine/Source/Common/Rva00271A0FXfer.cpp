@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 
 // ?rva00271A0F@Rva00271A0F@@QAEXPAVXfer@@@Z, RVA 0x00271A0F, 113B.
 // Chain lane: calls Rva0030612AXfer 0x0030612A (3-float helper, rowed).

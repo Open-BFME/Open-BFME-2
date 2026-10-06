@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002714CA@Rva002714CA@@QAEXXZ retail 0x002714CA 28 bytes.
 // TheAudio slot 0x6c removeAudioEvent with handle at +0x148 then set to 1.

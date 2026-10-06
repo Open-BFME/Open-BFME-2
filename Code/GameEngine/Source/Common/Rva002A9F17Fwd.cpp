@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva002A9F17@Rva002A9F17@@QAEXPBV?$StringBase@D@@@Z @0x002A9F17 30B forward to 0x00421520 via holder at +0x318 when global at 0x00E03158 is present
 #include "ascii_string.h"
 

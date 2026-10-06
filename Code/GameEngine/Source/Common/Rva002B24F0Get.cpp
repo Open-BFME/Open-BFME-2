@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002B24F0Get@@YAHPAURva002B24F0Obj@@PAX@Z, retail 0x002B24F0, 24 bytes.
 // Free function forwarding to virtual slot 0x94 (37) on its first arg:
 // obj->Get("LivingWorldRegionVictoryFlags", out, 4) with this in ecx. Frameless

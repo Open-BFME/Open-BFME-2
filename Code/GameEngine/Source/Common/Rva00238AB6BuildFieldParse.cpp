@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?buildFieldParse@Rva00238AB6@@SAXAAVMultiIniFieldParse@@@Z @0x00238AB6 17B single add table 0x00BED3E0 offset 0.
 // Evidence: unlock lane single-table shape via rowed add 0x0002BC6E; caller 0x0004171A.
 class MultiIniFieldParse;

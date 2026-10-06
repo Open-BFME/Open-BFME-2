@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00261B7E@Rva002611F2@@UAE_NPAVObject@@@Z retail 0x00261B7E 125 bytes.
 // Vslot 1 filter checking arg template flags 0x108 0x10E plus this obj

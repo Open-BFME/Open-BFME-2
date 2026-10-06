@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00285672@Rva00285672@@QBE_NABV1@@Z @ 0x00285672 42B
 // Lexicographic less on two dwords at +8/+0xC. Callers at 0x00286227 0x0028624A
 // 0x002868AC 0x00286E52 0x00286E8E pass node+0x10 as this and key+0x10 as arg

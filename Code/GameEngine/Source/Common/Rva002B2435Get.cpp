@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002B2435Get@@YAHPAURva002B2435Obj@@PAX@Z, retail 0x002B2435, 24 bytes.
 // Free function forwarding to virtual slot 0x94 (37) on its first arg:
 // obj->Get("LivingWorldTurnPhase", out, 4) with this in ecx. Frameless

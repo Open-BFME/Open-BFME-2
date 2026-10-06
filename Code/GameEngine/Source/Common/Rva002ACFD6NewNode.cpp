@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?Rva002ACFD6NewNode@@YGPAXPBX@Z @0x002ACFD6 37B: hashtable node allocator
 // for the AsciiString-keyed 12-byte node family (next+pair) that callers

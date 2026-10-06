@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Open-BFME: conditional flag reset reconstructed from retail RVA 0x002918E0.
 
 class Rva002918E0Object

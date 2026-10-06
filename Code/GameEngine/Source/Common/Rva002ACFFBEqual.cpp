@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva002ACFFBEqual@@YA_NPAV?$StringBase@D@@00@Z @0x002ACFFB (44B): AsciiString range equal.
 // Compares [first1,last1) against first2 element-wise via rowed StringBase<char>::compare
 // 0x000069D6, returning false on first mismatch and true when the range is exhausted.

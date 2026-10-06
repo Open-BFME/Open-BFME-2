@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00298E6A@Rva00298E6A@@QAEXXZ retail 0x00298E6A 63B
 // Unlock body: +0x250 slot-31 chain then tail slot-0x1e0 else Object::findAttributeModifierPoolUpdate plus Rva002983DAVector::EraseRange clear.
 // Evidence: prev BfmeSubBGB 0x00298893 same +0x250/w31 pattern; findAttributeModifierPoolUpdate row 0x0028BDD7; EraseRange row 0x002983DA; callers 0x00475EA2 0x004BDA67.

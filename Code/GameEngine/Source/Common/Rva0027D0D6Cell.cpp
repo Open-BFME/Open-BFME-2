@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD
+// cl: /MD
 // ?rva0027D0D6@Rva0027D0D6@@QAEHPAM@Z, retail 0x0027D0D6 206B. Unlock: clamp xy to bounds from vtable slot10 then grid index via floor.
 // Evidence: callees rowed floor and slot10 virtual; caller 0x00283642 unclaimed; honest address name.
 extern "C" __declspec(dllimport) double __cdecl floor(double);

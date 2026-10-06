@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0025E406@Rva0025E4CD@@UAE?AVUnicodeString@@H@Z @0x0025E406 103B
 // Slot 47 (0xBC) of vtable 0x7F6040 (Rva0025E4CD). Returns player name via rowed
 // ConnectionManager::getPlayerName or TheEmptyString when manager at +0xC is null.

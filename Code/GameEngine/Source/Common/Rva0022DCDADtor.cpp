@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva0022DCDA@@QAE@XZ retail 0x0022DCDA 63B
 // Member dtor at +0x0C of the dtor 0x00414166. Vector-shaped: the body
 // destroys [start, finish) through the rowed range destroy 0x0022D941, then

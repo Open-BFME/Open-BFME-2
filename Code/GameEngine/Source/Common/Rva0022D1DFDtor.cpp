@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva0022D1DF@@QAE@XZ @0x0022D1DF 53B
 // Non-virtual dtor over AsciiString at +0 and rowed member ??1Rva0022D01B@@QAE@XZ
 // at +4. Retail calls the +4 dtor first (lea ecx [esi+4] call 0x0022D01B) then

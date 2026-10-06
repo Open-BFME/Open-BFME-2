@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva0027D1C6@Rva0027D1C6@@QAEPAV1@XZ, retail 0x0027D1C6, 41 bytes.
 // Thiscall init: clears +0/+4/+8 to 0.0f, +0xc/+0x14 to 0,
 // sets +0x10 from global float VA 0x00BC876C (data 0x007C876C).

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Void chase with virtual tail call: if the pointer at +0x2DC is null
 // fall off the end (ret 4 with address residue) else tail-jump to its

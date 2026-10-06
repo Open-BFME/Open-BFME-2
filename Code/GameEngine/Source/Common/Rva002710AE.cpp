@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 // Rva002710AE::rva002710AE at RVA 0x002710AE, 57B. Unlock lane: all callees rowed (slot 0x14 bool,
 // getDesiredGatherers 0x005508E2). Caller at 0x004A1B0C in 0x004A1A69.

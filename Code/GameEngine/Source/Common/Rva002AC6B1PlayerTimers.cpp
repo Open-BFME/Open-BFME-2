@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /ICode/GameEngine/Source/Common
+// cl: /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /ICode/GameEngine/Source/Common
 // stlport
 // Semantic donor: reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source/Common/RTS/Player.cpp (pointer6d9434269)
 // addNewSharedSpecialPowerTimer/getOrStartSpecialPowerReadyFrame. Native2AC6B1/48 and

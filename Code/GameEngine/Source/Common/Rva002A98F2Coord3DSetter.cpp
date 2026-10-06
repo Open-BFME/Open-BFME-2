@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ?set@Rva002A98F2Coord3DSetter@@QAEXUCoord3D@@@Z retail 0x002A98F2 17B
 // Thiscall setter copying a Coord3D passed by value into +0x0C (three movsd
 // from the argument block, ret 0xC). Sits in the Player-side gap beside the

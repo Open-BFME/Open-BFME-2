@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00283401Insert@@YGPAPAURva00283401Node@@PAPAU1@PAU1@PBX@Z, RVA 0x00283401, 37 bytes.
 // List insert helper: creates node via rowed 0x00282FE0 then splices between
 // pos and pos->m_next; stores node to *out and returns out.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0026163A@Rva0026163A@@QAE_NPBUCoord3D@@@Z RVA 0x0026163A 151B
 // Evidence: calls GeometryInfo::getMaxHeightAbovePosition 0x006BD7C0, TheTerrainLogic virtual +0x3c,
 //   Pathfinder::isAttackViewBlockedByObstacle(Object*,Coord3D*) 0x002F3B9C; donor ZH PartitionManager

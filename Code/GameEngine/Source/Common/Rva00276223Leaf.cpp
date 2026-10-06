@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva00276223@Rva00276223@@QAEXVAsciiString@@_NH@Z @0x00276223 107B: __thiscall leaf iterating null-terminated Element* array at +0x14C via vtable+0xA8 then StringBase-sliced forward to vtable+0x8C.
 // The flag argument is a bool: its only caller, AttachedModelFXNugget::doFXObj 0x001E0878, pushes the byte member at +0x14C unextended.
 // Evidence: callers 0x001E08C5 unclaimed; callees rowed StringBase copy 0x000365F0 and releaseBuffer 0x00036410; neighbours Rva00275D9FGet /O1 and BFMERopeDrawableGetPosition /O1 /EHsc.

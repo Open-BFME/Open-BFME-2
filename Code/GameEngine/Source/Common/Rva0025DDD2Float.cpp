@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0025DDD2@Rva0025DDD2@@QBEMXZ @0x0025DDD2 46B: float wrapper over
 // Transport::rva004D5046. Follows +0x0C to holder then +0x12024 to Transport
 // per BFMEConnectionManager layout; null at either step yields 0.0f.

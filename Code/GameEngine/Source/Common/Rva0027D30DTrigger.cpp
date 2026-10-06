@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva0027D30D@Rva0027D30D@@QAEXPAUCoord3D@@H@Z, retail 0x0027D30D, 58 bytes.
 // Thiscall counter plus trigger pointer: converts float triple at [ebp+8]
 // via cvttss2si to ICoord3D temp, calls rowed

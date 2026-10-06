@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002A9BBD@Rva002A9BBD@@QAEPAXXZ retail 0x002A9BBD 23B
 // Pointer-chase getter with virtual tail call: if the pointer at +0x2DC

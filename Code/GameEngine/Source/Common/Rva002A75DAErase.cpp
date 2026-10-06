@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Single-element vector erase at retail 0x002A75DA (55 bytes). Dedicated TU.
 //

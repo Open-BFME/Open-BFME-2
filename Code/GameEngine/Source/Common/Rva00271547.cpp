@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00271547@Rva002716Holder@@QAEXXZ retail 0x00271547 186 bytes.
 // Holder+0x14c NULL-terminated module array shared with Rva002716Broadcast siblings.
 // ThePlayerList local at +0x10 TheInGameUI slot 0x10C GameMessage 0x3ED.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ??0Rva002A996F@@QAE@XZ retail 0x002A996F 37B
 // Zeroes +0 +4 +8 as float 0 plus +0xC as int 0 then +0x10 from FLT_MAX

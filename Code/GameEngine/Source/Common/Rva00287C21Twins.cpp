@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 struct Rva00287C21Other
 {
 	unsigned char m_pad[0x49C];

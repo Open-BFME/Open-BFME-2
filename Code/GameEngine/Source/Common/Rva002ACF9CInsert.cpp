@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva002ACF9CInsert@@YGPAPAXPAPAXPAX0@Z @0x002ACF9C (37B): freelist node insert.
 // Allocates a node through rowed ?Rva002AC04EAlloc@@YGPAXPAPAX@Z (same pool
 // at 0x009BBD2C), links it after pos (next at +4: node+0=pos node+4=old

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /G7
+// cl: /MD
 // ?Rva0027DC65Check@@YAEPAM@Z, retail 0x0027DC65, 141 bytes.
 // Free __cdecl check on 3-float point: null TerrainLogic -> 0; getExtent
 // bounds (lo.x<p.x<hi.x, lo.y<p.y<hi.y) else refresh via slot13 copy;

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0023C420@Rva0023C420@@QAEXXZ @0x0023C420, 20B.
 // Null-checked virtual-slot-7 plus operator delete. Retail does

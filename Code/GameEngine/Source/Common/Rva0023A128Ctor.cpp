@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??0Rva0023A128@@QAE@PAX0H@Z @0x0023A128 130B.
 // Constructor of an object registered on two lists through the rowed append
 // 0x005A0B4C: itself (first base at +0) on the holder passed as a1, and its

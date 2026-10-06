@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Single-element vector erase @0x002606AF, 55B; 8-byte element.
 // Masked twin of Rva0040DC1F erase.
 

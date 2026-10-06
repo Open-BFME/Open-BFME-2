@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?get@Rva002AA201IndexedByteField@@QBEEH@Z @ 0x002AA201 (14B): indexed byte
 // getter (mov eax,[esp+4] / mov al,[eax+ecx+0x340] / ret 4). Caller at 0x003E4C56
 // passes [eax+0x54] with ecx=esi and tests al; prev 0x002AA14D is the Bonuses

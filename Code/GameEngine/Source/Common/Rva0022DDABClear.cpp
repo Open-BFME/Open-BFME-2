@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0022DDAB@Rva0022DDAB@@QAEXXZ @0x0022DDAB 73B: hash-bucket clear over the table at +4/+8 with count at +0x10. Retail loops buckets and walks each chain calling just-landed free 0x0022DBAA then nulls the bucket. Same 73B shape as ?rva0022DD62 at 0x0022DD62. Evidence: chain packet calls just-landed 0x0022DBAA; caller at 0x0022DF2F; unblocks 0x0022DF1A.
 class Rva0022DBAA
 {

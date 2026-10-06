@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00271496@Rva00271496@@QAEXXZ retail 0x00271496 30 bytes.
 // If handle at +0x344 non-null call DisplayStringManager slot 0x3C free then

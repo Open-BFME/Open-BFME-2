@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002A9ACC@Rva002A9ACC@@QAEXPBVDict@@@Z retail 0x002A9ACC 105B
 // Two Dict color reads via rowed NameKey caches at 0x00DBDE64 and 0x00DBDE6C

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 //
 // ?rva002707FA@Rva002707FA@@QAEXE@Z, retail 0x002707FA, 29 bytes. Chain lane:
 // calls 0x003626CE (rowed Rva003626CE::rva003626CE in Rva00409930SlotArray.cpp)

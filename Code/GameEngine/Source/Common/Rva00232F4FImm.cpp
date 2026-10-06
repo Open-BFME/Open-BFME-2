@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00232F4F@Rva00232F4F@@QAEXXZ, retail 0x00232F4F, 46 bytes. IME property
 // gate beside Rva00232F0C: GetKeyboardLayout(0) then rowed ImmGetProperty
 // thunk 0x00655622 with index 4; bit 0x12 selects dword field +0x3030 and

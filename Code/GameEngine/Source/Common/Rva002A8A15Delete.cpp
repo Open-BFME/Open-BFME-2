@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002A8A15@Rva002A8A15@@QAEPAXH@Z @0x002A8A15 28B clear via rowed 0x004E9337 then cond delete via rowed 0x0002FD60 return this
 class Rva004E9337
 {

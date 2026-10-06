@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ??1Rva002A8BB9@@QAE@XZ @ 0x002A8BB9 (53B). Gap between erase 0x002A8B8C and
 // clear 0x002A8BEE of RvaTreeEraseClearFamily.cpp; same flags plus shared
 // ascii header first. Non-virtual dtor of an address-derived class with two

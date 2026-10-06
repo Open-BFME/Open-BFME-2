@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0023D29F@Rva0023D29F@@QAEXXZ, retail 0x0023D29F, 57 bytes.
 // If TheNetwork set and !isPacketRouter return; else emit GameMessage 0x6a5 with +0x38 and set +0x3c.
 // Evidence: leaf lane; caller 0x0023DA1E; slots 0xAC bool and 0x48 GameMessage*(int) per NetworkInterfaceFramePacing/Rva0051B09BEnable; rowed appendIntegerArgument 0x0030F936.

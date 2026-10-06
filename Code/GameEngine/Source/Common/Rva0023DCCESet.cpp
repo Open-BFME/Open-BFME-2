@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0023DCCE@Rva0023DCCE@@QAEXABVAsciiString@@ABUOpaqueRefElement4@@1@Z — RVA 0x0023DCCE, 122B.
 // Conditional copy-or-clear: if arg string empty or global flag [0x009FE758]+0x9AD set,
 // release AsciiString member +0x84 and clear two OpaqueRef members +0x88/+0x8c, flag +0x72=0;

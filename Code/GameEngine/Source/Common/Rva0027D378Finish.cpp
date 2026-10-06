@@ -1,5 +1,5 @@
 // ?rva0027D378@Rva0027D378@@QAEHPAXH@Z
-// cl: /O1 /G7 /MD /Oy-
+// cl: /MD /Oy-
 // Countdown on target struct: take = min(amount, target+0x28), subtract,
 // if depleted call manager slot31 with target+0xC, reset via rowed
 // ?rva0027D098@Rva0027D098@@QAEXXZ, then this+0x1910 = TheGameLogic+0x40.

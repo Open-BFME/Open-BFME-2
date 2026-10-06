@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00270190Free@@YAXXZ, retail 0x00270190, 24 bytes. Leaf lane.
 // Frees global g_00DFEB78 (data 0x009FEB78) via rowed ??_V@YAXPAX@Z

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00239BD8Alloc@@YGPAXPAPAX@Z @0x00239BD8 28B: freelist node alloc.
 // Pops a 0x10 node from the pool object at 0x009BA5E0 (same pool whose
 // head at 0x009BA5E8 the 0x00239380 clear drains to) via rowed

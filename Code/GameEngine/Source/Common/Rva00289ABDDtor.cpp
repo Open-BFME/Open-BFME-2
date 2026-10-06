@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva00289ABD@@UAE@XZ, retail 0x00289D7A, 239 bytes.
 // Dtor: vptr, delete m_rva20 Record, delete vector<void*> elements + erase, slot9 cleanup, delete hash tables, tree dtor, free vec storage, base dtor.

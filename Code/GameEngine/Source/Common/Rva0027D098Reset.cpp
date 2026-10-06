@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva0027D098@Rva0027D098@@QAEXXZ, retail 0x0027D098, 62 bytes.
 // Thiscall reset: zeroes triples at +0/+1C and ints at +C, sets +28/+2C/+2D to 1.
 // Evidence: caller 0x0027D378 passes its esi struct via ecx and counts down +0x28.

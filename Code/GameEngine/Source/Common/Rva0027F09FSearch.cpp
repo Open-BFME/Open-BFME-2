@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0027F09F@Rva0027F09F@@QAEXHH@Z @0x0027F09F 52B
 // Search pointer array at +0x578..+0x57C for entry whose target +0xC equals key then run rowed countdown on same this.
 // Evidence: callees rva0027D378 0x0027D378 rowed; caller 0x00288227 unclaimed 1599B; array step 4 element deref +0xC compare.

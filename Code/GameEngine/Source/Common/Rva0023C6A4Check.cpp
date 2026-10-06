@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0023C6A4@Rva0023C6A4@@QAE_NXZ @0x0023C6A4, 33B.
 // Mode-plus-singleton predicate: true when m_unk114==3, the 0xDFEF10

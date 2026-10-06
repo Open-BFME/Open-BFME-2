@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 //
 // Rva00232F84 layout at 0x00232F84, 184 bytes.
 //

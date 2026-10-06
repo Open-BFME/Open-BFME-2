@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002399EB@Rva002399EB@@QAEPAXG@Z, retail 0x002399EB, 37 bytes.
 // Circular-list find: head at this+0xF4, key word at node+0xC, return node+8 else NULL.
 // Evidence: caller 0x0023B68C; prev 0x00239435 next 0x00239AF4 same flags.

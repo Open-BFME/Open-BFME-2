@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME: virtual getter comparison reconstructed from retail RVA 0x002857B0.
 
 class Rva002857B0Target

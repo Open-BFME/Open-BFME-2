@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00275D9FGet@@YA_NPBVRva00263546@@@Z @0x00275D9F 47B: one-time init global mask then overlap test.
 // Evidence: chain of 0x001E4912 you landed; callers at 0x00277585 0x00279294 0x002792A0; globals 0xDFEBF0 0xDFEC3C.
 class Rva001E4912

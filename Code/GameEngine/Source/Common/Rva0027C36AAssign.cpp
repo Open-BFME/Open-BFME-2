@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Fix over the banked 0.94 attempt: the four 12-byte {int, float, int}
 // records at +0x6C are copied through the record's own member-wise operator=
 // (defined inline), not field by field in the loop; that is what makes cl copy

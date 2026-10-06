@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /O2 /Ob0 /Ireference/open-bfme-1/Code/GameEngine/Source/Common
+// cl: /Ireference/shims/bfmecamera /Ob0 /Ireference/open-bfme-1/Code/GameEngine/Source/Common
 
 struct Rva0025A3F0Inner
 {

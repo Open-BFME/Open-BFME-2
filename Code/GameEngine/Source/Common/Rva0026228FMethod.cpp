@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0026228F@Rva0026228F@@QAEXHH@Z, retail 0x0026228F, 26 bytes.
 // Thiscall leaf with two int-sized args: push arg2 then FLT_MAX from global

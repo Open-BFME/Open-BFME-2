@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /Oi
+// cl: /MD /Oi
 // ??0Rva0027C36A@@QAE@XZ @0x0027C36A 166B
 // Evidence: thiscall default ctor returns this; two vector-iterator arrays at +0x6c Region3D x4 and +0x9c 6B x2; floats zeroed via movss; callers 11 including 0x00280C4C.
 #include <cstring>

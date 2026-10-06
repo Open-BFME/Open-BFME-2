@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /Op
+// cl: /MD /Op
 // ?rva00261988@Rva001E438B@@QAEPAMPAMPAV1@@Z RVA 0x00261988 24B
 // Evidence: calls Rva001E438B::rva001E438B 0x001E438B with dst and src+0x38, returns dst;
 //   thiscall pass-through ecx proven by caller 0x00261B3F mov ecx,[esi+8]; unblocks 0x003698CD 0x00261ABB 0x00296065.

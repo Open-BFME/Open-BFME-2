@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva002701F4@@QAE@XZ @0x002701F4 45B
 // Honest ctor for 0x90-byte member at +0x3AC in 0x2797BD holder.
 // Evidence: 2x Matrix3D 0x30 via 0x000423C5 plus 4x Coord3D 0x0C via ehvec 0x00629512;

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00271C68@Rva00271C68@@QAEXH@Z retail 0x00271C68 17 bytes.
 // Conditional bit setter if arg equals 26 then or 4 at +0x118. Unblocks

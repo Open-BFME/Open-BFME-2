@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 // ?rva0023D46F@Rva0023D46F@@QAEPAV1@PAVBfmeDfe6e4@@@Z @0x0023D46F (24B):
 // refcounted pointer setter returning this. Retail: push esi; esi=ecx;
 // ecx=[esp+8]; [esi]=ecx; je skip; call BfmeDfe6e4::_M_rva00625476 (0x225476)

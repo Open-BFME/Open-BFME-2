@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0029AA3F@Rva0029AA3F@@QAEXXZ @0x0029AA3F 35B. Emit 0x467 then location at +0x9B8. Evidence: rowed appendLocationArgument 0x0030F9BB global MessageStreamSubsystem slot 0x48 appendType pattern Rva005D1F45 caller 0x00431A21.
 struct Coord3D
 {

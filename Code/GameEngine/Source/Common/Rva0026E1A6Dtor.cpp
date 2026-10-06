@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva0026E1A6@@QAE@XZ retail 0x0026E1A6 56B
 // TU-local member dtor for the +0x3AC field of the 0x0033DDA1 teardown. The
 // body runs the rowed LocomotorSetType tree clear 0x0026DEE4 on this, then

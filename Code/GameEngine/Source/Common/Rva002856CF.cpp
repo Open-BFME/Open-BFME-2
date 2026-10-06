@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 class Rva002856CFHost;
 class Rva0020D8F1Host
 {

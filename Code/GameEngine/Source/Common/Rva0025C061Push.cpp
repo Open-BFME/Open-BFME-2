@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0025C061@Rva0025C061@@QAEXPAX@Z, retail 0x0025C061, 28 bytes.
 // Reads ScienceType at arg+0x74 and pushes it into the vector<ScienceType> at
 // this+4 (callee ?push_back@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXABW4ScienceType@@@Z

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0023D30FCall@@YGXHHH@Z, retail 0x0023D30F, 30 bytes.
 // cmp [flag],0 je; mov ecx,[target] test ecx je; mov eax,[ecx] jmp [eax+0x108]; ret 0xc.
 // Evidence: unlock lane; ret 0xc means 3-arg stdcall forwarding to slot 0x108.

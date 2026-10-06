@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 // ?rva00239FCC@Rva00239FCC@@QAEXHPAVDrawable@@@Z @0x00239FCC (24B):
 // indexed list push_back. Retail: eax=&arg2; push eax; eax=arg1;
 // ecx=this+eax*4+0xF8; call list<Drawable*>::push_back (0x239E0B); ret 8.

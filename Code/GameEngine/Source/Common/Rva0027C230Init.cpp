@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva0027C230@Rva0027C230@@QAEPAV1@H@Z @0x0027C230 75B
 // Evidence: thiscall init with one int param stored at +0x10; caller 0x00283845; floats zeroed via movss.
 class Rva0027C230

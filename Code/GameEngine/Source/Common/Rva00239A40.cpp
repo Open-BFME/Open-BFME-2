@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00239A40@Rva00239A40@@QAEXVAsciiString@@@Z @0x00239A40 93B: this+0xBC AsciiString set from by-value arg, then TacticalView slot 0x224/0x228 on empty.
 // Evidence: callees set@StringBase isEmpty@StringBase releaseBuffer, TheTacticalView extern, caller 0x003CC38C. Honest address name.
 #include "ascii_string.h"

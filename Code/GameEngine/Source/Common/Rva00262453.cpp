@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00262453@Rva00262453@@QAEXPAVSequentialScript@@_NH@Z, retail 0x00262453, 74 bytes.
 // Evidence: same +4/+8/+9/+0A/+0B layout as Rva00262436 setter; old ptr at

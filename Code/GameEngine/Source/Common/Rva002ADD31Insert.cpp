@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva002ADD31@Rva002ADD31@@QAEPAXPBX@Z retail 0x002ADD31 68B
 // Evidence: hashtable insert same 68B shape as sibling 0x002CFB4C via pin resize 0x00212858 plus rowed bucketIndex 0x00223149 plus thiscall NewNode 0x002ACFD6; buckets at +4 count at +0x10 return node+4; caller 0x002AE4C5
 #include "ascii_string.h"

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??4Rva00235A37@@QAEAAV0@ABV0@@Z @0x00235A37 127B
 // Copy assignment over 4 ints plus 7 AsciiStrings plus byte at +0x2C via
 // pin-only AsciiString assign 0x000366F0. Evidence: unlock lane unblocks

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 // ?rva0023D6D5@Rva0023D6D5@@QAEXH@Z @0x0023D6D5 (27B): global-guarded call.
 // Retail: ecx=[0xDFDC8C]; cmp [ecx+0x10],0; je ret; cmp byte [esp+4],0;
 // jne ret; call 0x1EC98E (pinned TU-local); ret 4. Single stack arg (int,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0029A778@Rva0029A778@@QAEPAV1@ABV1@@Z @0x0029A778 39B. Copy UnicodeString at +0 via rowed StringBase wide set then 3 dwords at +4 +8 +0xC return this. Evidence: callee set StringBase wide 0x00037150 caller 0x0029BAD5.
 #include "unicode_string.h"
 

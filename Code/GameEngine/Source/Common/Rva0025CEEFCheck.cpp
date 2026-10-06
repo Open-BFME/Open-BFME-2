@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0025CEEFCheck@@YA_N_N@Z @0x0025CEEF 59B evidence: sole caller 0x0025D7B6; global VA 0x009FE720; vtable slot 10 refresh; 8-byte records +0x10/+0x14 bounds; wanted flag differs
 
 extern class Rva0025CEEFHost *g_009FE720;

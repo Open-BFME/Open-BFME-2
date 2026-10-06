@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Rva002716 broadcast family: 5 homogeneous thiscall helpers iterating NULL-terminated
 // Rva002716Entry array at holder+0x14c, calling virtual 0xA8 to get Rva002716Target then
 // virtual 0x1C/0x20/0x40/0x48/0x4C with 3/2/1/0/1 int args. Honest address names; identity unproven.

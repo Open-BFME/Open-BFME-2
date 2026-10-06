@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0025C010@Rva0025C010@@QAEXXZ, retail 0x0025C010, 53 bytes.
 // Prunes the vector<ObjectID> at this+4, erasing entries whose
 // GameLogic::findObjectByID (rowed in GameLogicFindObjectByID.cpp) returns

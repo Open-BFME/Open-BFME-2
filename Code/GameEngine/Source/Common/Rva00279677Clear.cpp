@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 // ?rva00279677@Rva00279677@@QAEXXZ @0x00279677 65B
 // Vector clear at +0x36c: deletes each element via first virtual (int 0) then operator delete, then erases range.

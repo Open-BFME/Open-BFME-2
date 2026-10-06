@@ -1,6 +1,6 @@
 // ?rva00256F84@Rva00256F84@@QAEXXZ
 // partial score=0.97 date=2026-09-30
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00256F84@Rva00256F84@@QAEXXZ @0x00256F84 49B
 // Intrusive list clear through a sentinel head at +0: first link pinned for
 // the empty test, head re-read each iteration, rowed StringBase-tail dtor

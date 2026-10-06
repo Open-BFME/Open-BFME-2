@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0023E7B4@Rva0023E7B4@@QAEPAXG@Z — RVA 0x0023E7B4, 37B.
 // Circular intrusive-list search: head ptr at +0x1c0, node next at +0,
 // key word at +0xc, hit returns node+8 else NULL.

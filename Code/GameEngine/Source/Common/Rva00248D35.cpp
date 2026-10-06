@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00248D35@Rva00248D35@@QAEXHH@Z, retail 0x00248D35, 43 bytes.
 // Index*0x1D0 plus GameSlot::isHuman at +0xDC plus set int at +0x2A8.

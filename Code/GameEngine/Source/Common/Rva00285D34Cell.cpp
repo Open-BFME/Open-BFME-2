@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00285D34@Rva00285D34@@QAEHHH@Z @0x00285D34 (145B):
 // Grid cell-type lookup: null grid returns 0, else each coordinate is
 // divided by the 10-unit tile, biased by g_Va007C26F0 and floored to a row

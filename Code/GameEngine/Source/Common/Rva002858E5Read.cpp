@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002858E5@Rva002858E5@@QAE_NPAMPAH1111@Z @ 0x002858E5 195B
 // Grid cell-field read for a world pos: floor((x+g_Va007C26F0)*INV) row/col via IAT
 // floor, bounds-check vs +0x78/+0x7C, imul 0x14 cell lookup, outs are word +4/+6 and

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00232E9A@Rva00232E9A@@QAEXXZ @0x00232E9A 114B unlock lane.
 // Evidence: next Rva00232F0C same ImmGetCompositionStringW thunk 0x0065561C rowed; caller 0x00233CDF; GCS_COMPSTR 8 plus GCS_CURSORPOS 0x80.
 long __stdcall ji_0065561c(void *himc, unsigned long idx, void *buf, unsigned long len);

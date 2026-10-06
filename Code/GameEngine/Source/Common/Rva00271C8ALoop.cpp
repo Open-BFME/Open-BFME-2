@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00271C8A@Rva00271C8A@@QAEXPBH0@Z retail 0x00271C8A 44 bytes.
 // 19-dword loop this[i] = ((~a[i] & this[i]) | b[i]). Unlocks 7 callers

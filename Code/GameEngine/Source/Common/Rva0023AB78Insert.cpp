@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0023AB78@Rva0023AB78@@QAEXVAsciiString@@G@Z @0x0023AB78 101B: build BfmeStringRecord00239B46 from AsciiString plus short then list insert via rowed 0x0023A014. Evidence: caller 0x0023ACD6 0x0023AD69; same record as 0x00239B46 with text plus short0.
 #include <list>

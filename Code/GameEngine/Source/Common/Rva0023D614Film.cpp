@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0023D614Set@@YAXPAV?$StringBase@D@@@Z, retail 0x0023D614, 77 bytes.
 // push ebp frame with buf[60], GetGameClientRandomValue clamp sprintf set.
 // Evidence: unlock lane; callers push none (this in arg); format StillImage_Film%02d.

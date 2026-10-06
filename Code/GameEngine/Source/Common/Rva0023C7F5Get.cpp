@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0023C7F5Get@@YGHHH@Z @0x0023C7F5, 70B.
 // Returns 1 or 3 based on GameLogic mode (+0x110 ==1/5 triggers Network check)

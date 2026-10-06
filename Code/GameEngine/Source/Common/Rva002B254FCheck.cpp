@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B254F@Rva002B254F@@QAEHXZ @0x002B254F 31B.
 // Guard on own +0xB4 then global Rva003B8BAA bool chase; returns 1/0 int.
 // Evidence: retail cmp [ecx+0xB4],0; je; mov ecx,[0x00E02D6C]; call 0x003B8B85 rowed bool;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /arch:SSE
+// cl: /MD /EHsc
 // ?rva00238A61@Rva00238A61@@QAEXXZ @0x00238A61 85B
 // Evidence: rowed OptionPreferences ctor 0x002E434E and getVolume 0x002E4B2D
 // plus rowed Rva002E4272 dtor 0x002E4272 (OptionPreferences dtor pin); global

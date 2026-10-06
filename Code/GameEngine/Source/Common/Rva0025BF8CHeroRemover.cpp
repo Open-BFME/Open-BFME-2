@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Oy- /DNDEBUG /MD /EHsc
 // stlport
 // ?rva0025BF8C@Rva0025BF8C@@QAE_NPAX@Z, retail 0x0025BF8C, 59 bytes.
 // Vector find-and-erase returning bool: loads CreateAHeroData* at arg+0x74 into

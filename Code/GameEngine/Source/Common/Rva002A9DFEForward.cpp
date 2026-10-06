@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002A9DFE@Rva002A9DFE@@QAEXPAXM0@Z @0x002A9DFE 39B
 // Evidence: caller 0x003BF9FA passes (esi=float-Coord*) with ecx=[esi+8]; vtable slot 0x28; holder at +0x2DC shared with neighbour 0x002A9DB8.

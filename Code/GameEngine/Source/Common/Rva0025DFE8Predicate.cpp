@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 // ?rva0025DFE8@Rva0025DFE8@@QAE_NH@Z @0x0025DFE8 (44B): bool predicate with
 // vcall plus rowed fallback. Retail: esi=ecx; eax=[esi]; call [eax+0xB8]
 // (v46); cmp [esp+8],eax; jne else; eax=0; cmp [esi+16],1; sete al; jmp ret;

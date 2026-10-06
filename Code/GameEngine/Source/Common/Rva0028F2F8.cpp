@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 struct Rva0028F2F8Aux
 {
 	unsigned char m_pad[0x11F];

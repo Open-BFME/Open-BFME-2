@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0023C6C5@BfmeGlob939D@@QAEDXZ @0x0023C6C5, 56B.
 // Multiplayer-plus-helper predicate: true when in a multiplayer game, else

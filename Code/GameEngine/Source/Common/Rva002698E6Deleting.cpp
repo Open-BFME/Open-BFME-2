@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 // ?rva002698E6@Rva002698E6@@QAEPAV1@I@Z @0x002698E6 (28B): scalar deleting
 // dtor shape (call dtor, test flags bit0, conditional operator delete,
 // return this). Retail: push esi; esi=ecx; call dtor 0x268B04; test byte

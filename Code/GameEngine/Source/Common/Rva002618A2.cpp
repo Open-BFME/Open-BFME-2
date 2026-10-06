@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002618A2@Rva002618A2@@QAEPAV1@HHHH@Z, retail 0x002618A2, 88 bytes.
 // BitFlags7 init: memset 0x1c then set bits b1 b2 b3; first arg unused (always 0 in callers).
 // Evidence: caller 0x00261CCF pushes 0 0x6d 7 0x59 with this 0x00DFEA9C; sibling 0x002618FA 6-arg 5-bit same first-0 pattern; neighbours 0x0026185B/0x002619A0; BitFlags<69> 7 words.

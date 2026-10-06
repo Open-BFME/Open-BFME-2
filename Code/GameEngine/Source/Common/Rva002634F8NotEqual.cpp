@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva002634F8NotEqual@@YA_NPBX0@Z @0x002634F8 (21B).
 // Free inequality wrapper: returns !Rva002634E0Equal(a b) for the 16-byte

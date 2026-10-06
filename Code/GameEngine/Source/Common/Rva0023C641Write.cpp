@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0023C641@Rva0023C641@@QAEXPBD@Z @0x0023C641, 37B.
 // File-write helper: if m_file18 then fputs(str,m_file) plus fflush(m_file).

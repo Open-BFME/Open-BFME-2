@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00271A80@Rva00271A80@@QAEXM@Z retail 0x00271A80 106B
 // Evidence: unlock lane; caller 0x002758F3; prev Xfer 0x00271A0F plus next Loop 0x00271AEA same dir same /O1; and [0xF0] 0 plus cmp byte [0xE4] plus movss plus comiss 0 plus 1.0 plus lerp to int via cvttss2si; ret 4.

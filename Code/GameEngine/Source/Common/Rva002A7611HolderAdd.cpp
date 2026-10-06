@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002A77C1@Rva002A7611Holder@@QAEXHW4ObjectID@@PBX@Z @0x002A77C1 87B.
 // Rva002A7611Holder::rva002A77C1(int value, ObjectID id, const void *block):
 // add twin of 0x002A7611 remove. Constructs a 12-byte record at [ebp-0x18]

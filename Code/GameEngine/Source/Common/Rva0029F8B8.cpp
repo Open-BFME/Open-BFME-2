@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // ?rva0029F8B8@Rva0029F8B8@@QAE?AVRva0043FC20@@XZ retail 0x0029F8B8 130B
 // By-value getter over +0x7AC member with GlobalLanguage +0x104 override.
 // Evidence: copy ctor row 0x0029D81D twice plus isEmpty/set/releaseBuffer rows;

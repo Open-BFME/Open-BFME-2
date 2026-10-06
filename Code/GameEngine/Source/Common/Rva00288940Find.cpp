@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva00288940Find@@YGPBXPBX@Z retail 0x00288940 56 bytes.
 // Free circular-list first-match scan via rowed Overridable::friend_getFinalOverride 0x00288609
 // plus TU-local noinline Rva0028867DCheck copy for the static ESI call shape.

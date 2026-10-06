@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??0Rva0029E067@@QAE@ABU0@@Z @0x0029E067 127B
 // Copy ctor: StringBase<char> at +0/+4 via pin 0x000365F0 plus int/byte tail
 // +8..+30. Unblocks 0x0029FB63; caller 0x0029E14E.

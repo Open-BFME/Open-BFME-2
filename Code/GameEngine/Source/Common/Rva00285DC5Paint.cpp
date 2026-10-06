@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00285DC5@Rva00285DC5@@QAEXHHHHHHH_N@Z @ 0x00285DC5 382B
 // Grid row-range paint over fixed column: bounds-checks row/col against +0x78/+0x7C,
 // clamps ranges, converts coords via 0.5/10.0 floats, skips cells where

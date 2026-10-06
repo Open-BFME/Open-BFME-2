@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva002864E6@Rva00285DC5@@QAEXPAMMHHHH_N@Z @ 0x002864E6 310B
 // Circle/disc paint delegating to Rva00285DC5 row-range paint: converts world pos
 // via 0.1f/0.5 floor/ceil through IAT floor/ceil, then midpoint loop calling

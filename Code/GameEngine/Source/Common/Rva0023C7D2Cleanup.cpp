@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0023C7D2@Rva0023C7D2@@QAEXXZ @0x0023C7D2 35B
 // Evidence: leaf lane called from 3 unclaimed sites; neighbours 0x0023C7B0 0x0023C7F5; unfolded vf0(0)+free delete idiom per CDownloadDtor and DX8MeshRendererClass_Invalidate_Thunk precedents.
 void __cdecl operator delete(void *ptr);

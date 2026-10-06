@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?get@Rva002722AA@@QBEPAXXZ, retail 0x002722AA, 19 bytes.
 // ?get@Rva002722BD@@QBEPAXXZ, retail 0x002722BD, 19 bytes.
 // Branched LEA getters selecting interpolated versus logic blocks via

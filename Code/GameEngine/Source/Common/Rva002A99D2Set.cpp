@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002A99D2@Rva002A99D2@@QAEXPAX@Z @0x002A99D2 40B
 // Evidence: caller 0x002A8104; slot 0 takes int 0 and returns block freed via rowed ??3@YAXPAX@Z; field +0x278 overwritten with incoming arg.

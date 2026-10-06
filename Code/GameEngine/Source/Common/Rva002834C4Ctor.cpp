@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva002834C4@@QAE@XZ, RVA 0x002834C4, 34 bytes.
 // Ctor: base Rva00330757Member at +0, int at +0x10 set to 1, vector BfmeE16 at +0x14.

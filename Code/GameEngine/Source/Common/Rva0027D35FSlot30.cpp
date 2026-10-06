@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva0027D35F@Rva0027D35F@@QAEXPAURva0027D35FArg@@H@Z, retail 0x0027D35F, 25 bytes.
 // Thiscall (Arg*,int-dummy-ret8) via global 0x009FF080 to slot30 (0x78)
 // with (Arg+0xc, this byte+0). Caller 0x27EA13. Neighbours 0x27D347 (slot29)

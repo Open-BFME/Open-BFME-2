@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0023C666@Rva0023C666@@QAEHXZ @0x0023C666, 62B.
 // Mode-plus-helper predicate: true when this mode word at +0x110 is 0 or 6,

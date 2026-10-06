@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002A9DCF@Rva002A9DCF@@QAEXPAX@Z @0x002A9DCF 29B
 // Evidence: slot 0x24 (v9) with (ptr 1) forwarding like sibling Rva002A9DB8Forward slot 15; holder at +0x2DC shared with neighbours; caller 0x003BF9C8 pushes ptr.

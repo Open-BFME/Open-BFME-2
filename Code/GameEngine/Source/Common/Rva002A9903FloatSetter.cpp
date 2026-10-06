@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /arch:SSE
+// cl: /MD /DNDEBUG
 // ?set@Rva002A9903FloatSetter@@QAEXM@Z retail 0x002A9903 14B
 // Thiscall float setter storing its argument at +0x20 (movss / movss, ret 4).
 // Sits in the Player-side gap between the Coord3D setter 0x002A98F2 and the

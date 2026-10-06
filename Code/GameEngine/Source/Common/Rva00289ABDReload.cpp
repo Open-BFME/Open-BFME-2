@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // INI reload slots of the ExperienceLevels store (vftable 0x00BFB8F4, class
 // Rva00289ABD; its constructor is 0x00289ABD):

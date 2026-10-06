@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0029E03E@Rva0029B667@@QAEXXZ @0x0029E03E 41B.
 // Chain from 0x0029B667 twin of 0x0029E015: same-this call proves Rva0029B667 class, relink head. Caller 0x0029FB18. Unlocks 0x0029FB03.
 struct Rva0029B667Node {

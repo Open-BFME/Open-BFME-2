@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00271423@Rva00271423@@QAEPAVMatrix3D@@XZ retail 0x00271423 115B.
 // Time-gated Matrix3D interpolate: if m_378 <= GetTime return m_1a0, if m_204 == GetTime return m_1d0,
 // else Lerp(m_170, m_1a0, TheGameEngine+0x3c, m_1d0), cache time, return m_1d0.

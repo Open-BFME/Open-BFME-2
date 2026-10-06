@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva0022DB29@@QAE@XZ @0x0022DC62 57B: hash-table scalar dtor clears via rowed 0x0022DB29 then inline bucket-handle member dtor frees array at +4. Evidence: chain packet plus outer 0x00418298 lea-ecx-+0xC call plus 5B jmp at 0x0022DE29.
 extern "C" void __cdecl free(void *block) throw(...);
 

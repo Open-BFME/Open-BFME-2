@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 // ?rva00260F9E@Rva00260F9E@@QAE_NH@Z @0x00260F9E (50B): bool with vcall.
 // Retail: esi=ecx; ecx=[esp+8] (arg); call Object::rva0028C197 (0x28C197
 // rowed) on arg; test eax,eax; je skip; push [esi+8]; edx=[eax];

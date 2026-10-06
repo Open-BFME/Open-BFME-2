@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva002AC04EAlloc@@YGPAXPAPAX@Z @0x002AC04E (28B): freelist node alloc.
 // Pops a 0x10 node from the pool object at 0x009BBD2C via rowed
 // ?pop@FreelistPool@@QAEPAXXZ, stores the caller's pointed value into

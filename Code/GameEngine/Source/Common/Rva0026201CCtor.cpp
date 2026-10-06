@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0026201C@@QAE@XZ, retail 0x00262002, 26 bytes.
 // Rva0026201C ctor beside the rowed dtor: baseConstruct 0x001B4E63 then zero

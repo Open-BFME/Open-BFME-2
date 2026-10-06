@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002A14FAFree@@YGXPAX@Z @0x002A14FA 28B
 // Free wrapper around rowed dtor 0x0029E00D plus rowed _free 0x00030830.
 // Calls dtor on p+4 unconditionally then frees p when non-null.

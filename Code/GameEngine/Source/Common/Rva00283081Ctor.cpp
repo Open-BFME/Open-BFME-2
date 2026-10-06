@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /arch:SSE
+// cl: /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00283081@@QAE@MH@Z, RVA 0x004DFC59, 59 bytes.
 // Ctor twin of dtor 0x00283081/0x004DFED8: vstore vtable RVA 0x008615D4,

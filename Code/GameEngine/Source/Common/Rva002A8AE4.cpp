@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002A8AE4@Rva002A8F24@@QAEPAURva002A8AE4Record@@PAX@Z @0x002A8AE4 64B.
 // Lookup-or-fallback: look up the void* key via pin-only 0x002A8AB1, and when
 // the record is non-null but its rowed disp8 bool getter 0x002C67CF is false

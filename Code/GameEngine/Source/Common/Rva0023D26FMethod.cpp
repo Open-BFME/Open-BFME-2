@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0023D26F@Rva0023D26F@@QAEX_N@Z, retail 0x0023D26F, 48 bytes.
 // push esi mov esi ecx vcall +0x24 inc [esi+0x38] TheNetwork null-check vcall +0x38 byte [esi+0x3c]=0 cond byte [esi+0x9d]=1 ret 4.
 // Evidence: leaf lane; callers 0x002BE596 0x002BE674 0x00377B30; global VA 0xdfea28 TheNetwork; members +0x38 +0x3c +0x9d.

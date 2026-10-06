@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00288BBA@@QAE@ABVAsciiString@@@Z retail 0x00288BBA 58 bytes.
 // Converting ctor over vector<BfmeE16> plus AsciiString at +0x0C via rowed StringBase copy.

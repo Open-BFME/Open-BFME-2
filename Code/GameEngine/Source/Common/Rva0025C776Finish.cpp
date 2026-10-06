@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0 /G7 /arch:SSE
+// cl: /Ob0
 // ?rva0025C776@BfmeStrVM0@@QAEXHMMMMHH@Z @0x0025C776 131B
 // Third BfmeStrVM0 block setter, sibling of rva0025C6E2/rva0025C72C in
 // Rva0025C6E2.cpp: same object model, the +0x110/+0x124/+0x138 scalar block.

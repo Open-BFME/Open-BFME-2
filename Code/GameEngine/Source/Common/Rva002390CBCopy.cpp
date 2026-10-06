@@ -1,6 +1,6 @@
 // Complete29-byte constructor: pointer field plus atomic-refcounted member.
 // Identity follows the independently decoded A8C7C member operation.
-// cl: /O2 /Ob0 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob0 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 class Rva0036CA00Str {
     void *m_item;
 public:

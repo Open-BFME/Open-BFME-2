@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00286116Free@@YAXPAX@Z @0x00286116 22B and ?Rva00286136Free@@YAXPAX@Z @0x00286136 22B.
 // Null-checked pooled-object frees via rowed ?FreeObject@Rva00065964ObjectPool@@QAEXPAX@Z @0x00065964.

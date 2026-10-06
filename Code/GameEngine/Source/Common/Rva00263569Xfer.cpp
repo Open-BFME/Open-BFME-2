@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00263569Xfer@@YAPAVXfer@@PAV1@PAH@Z
 //
 // retail 0x00263569 (89 bytes). Xfer GuardTargetType[2] with version 2 check

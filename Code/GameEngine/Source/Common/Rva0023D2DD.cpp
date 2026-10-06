@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0023D2DD@Rva0023D2DD@@QAEXXZ, retail 0x0023D2DD, 50 bytes.
 // Switch on dword at +0x114 storing to +0x110 (0->8, 1->1, 2->5).
 // Evidence: leaf lane; caller 0x002BE697; sub/dec/dec chain is /O1 switch lowering.

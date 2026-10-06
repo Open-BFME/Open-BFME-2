@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002A8A81@Rva002A8A81@@QAEMPAX@Z @0x002A8A81 48B search int[16] at +4 for key=[[arg+4]+0x520] return float[16] at +0x44 else BfmeZeroRange caller 0x00357051
 extern const float BfmeZeroRange; // ?BfmeZeroRange@@3MB
 struct Mid002A8A81 { char _pad[0x520]; int m_520; };

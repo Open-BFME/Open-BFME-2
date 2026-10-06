@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0027D3CBForward@@YGXPAXHHH@Z, retail 0x0027D3CB, 14 bytes.
 // Free __stdcall forwarder via global 0x009FF080 to slot32 (0x80)
 // Rva0027D88E (void*,float,float,float) as ints to avoid x87 shuffling

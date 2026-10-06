@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE /MD /G7 /Op
+// cl: /MD /Op
 //
 // ?rva0028E8D4@Rva0028E8D4@@QBEXPAM@Z, retail 0x0028e8d4, 41 bytes. Banked partial (score 0.9) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

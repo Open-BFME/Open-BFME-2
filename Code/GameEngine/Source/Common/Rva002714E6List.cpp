@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002714E6@Rva002714E6@@QAEXPAPAV1@@Z retail 0x002714E6 36 bytes.
 // Doubly-linked push-front with next +0x104 prev +0x108 via head pointer.

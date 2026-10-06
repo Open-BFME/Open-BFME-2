@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??_GRva0024A797@@UAEPAXI@Z at retail 0x002533E0 (28B): emitted scalar
 // deleting destructor for the opaque MI middle Rva0024A797 (25B order-B body

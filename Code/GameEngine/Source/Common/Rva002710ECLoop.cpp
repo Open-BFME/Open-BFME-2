@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 // ?rva002710EC@Rva002710EC@@QAEXXZ @0x002710EC (28B): pointer-array loop
 // calling vslot 39. Retail: esi=[ecx+0x14C]; jmp inc; call [eax+0x9C];
 // inc: esi+=4; ecx=[esi]; test; jne call; pop esi; ret. No E8; single

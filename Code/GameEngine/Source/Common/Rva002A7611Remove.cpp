@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva002A7611@Rva002A7611@@QAEXHH@Z @0x002A7611 51B
 // Evidence: thiscall ret 8; walks the 12-byte BfmeE12 vector at +0x20

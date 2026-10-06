@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque multiple-inheritance destructors tail-calling Rva0024A797::~
 // Rva0024A797 at 0x0024A797 (pinned opaque MI base: three vptrs tail-jumping

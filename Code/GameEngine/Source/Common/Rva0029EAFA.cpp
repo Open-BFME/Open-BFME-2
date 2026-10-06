@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG /G7 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // ?rva0029EAFA@Rva0029EAFA@@QAEXPBVGameMessage@@@Z @0x0029EAFA 232B
 // evidence: chain from 0x0029DE76; rowed GameMessage::getArgument plus Object::rva002907A1 plus Rva0029ACA0::rva0029ACC7
 struct Coord3D

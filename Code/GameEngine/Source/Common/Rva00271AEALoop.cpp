@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00271AEA@Rva00271AEA@@QAEXXZ retail 0x00271AEA 25 bytes.
 // Null-terminated array loop at +0x14C calling virtual slot 0x3C on each.

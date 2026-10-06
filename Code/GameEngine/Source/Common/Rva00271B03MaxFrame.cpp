@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // TheGameLogic is the global at 0x00DFE78C; the banked attempt read it
 // through a literal-address macro, which changed the load order.
 //

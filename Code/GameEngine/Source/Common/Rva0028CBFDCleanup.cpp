@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0028CBFD@Rva0028CBFD@@QAEXXZ @0x0028CBFD 127B.
 // Three null-terminated array walks calling virtual slot 0xC/0x40/0x38 then slot 4 on result.
 // Evidence: 12 callers including 0x002B0DBA 0x00455B17; prev 0x0028CBE1 adjacent; offsets +0x244 +0x84 +0x154 +0x150.

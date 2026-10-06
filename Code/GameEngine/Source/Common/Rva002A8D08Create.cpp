@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva002A8D08Create@@YGPAXPAX@Z @0x002A8D08 37B alloc 12 via rowed 0x000307F0 zero +4 via rowed dup 0x002A8C17 return ptr arg src caller 0x002A9059
 #include <memory>

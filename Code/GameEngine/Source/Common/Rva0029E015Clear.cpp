@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0029E015@Rva0029B63A@@QAEXXZ @0x0029E015 41B.
 // Chain from 0x0029B63A same-this call proves Rva0029B63A class: if m_4 clear list via that row then re-link head to self.
 // Callers 0x0029FACC 0x0029FAB2 0x002A3E55. Unlocks 0x002A3E24.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0025BFE3@@QAE@XZ, retail 0x0025BFC7, 28 bytes.
 // Default ctor for the Rva0025BFE3 base (vtable 0x007F5D30): constructs the
