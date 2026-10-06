@@ -64605,3 +64605,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Add@Rva005B5C02List@@QAE_NPAURva005B5C02Entry@@@Z,,0x0040A384,45,Code/GameEngine/Source/Common/Rva005B5C02ListAdd.cpp,matched,leaf caller 0x005B5C62 via rowed find and pinned Use
 ??1Rva001DF057@@UAE@XZ,,0x001DF057,154,Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp,matched,virtual dtor two vptrs list free hash vector tree
 ?rva0036FB57@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z,,0x0036FB57,110,Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036FB57.cpp,matched,AIGroup bfme ready step plus waypoint mode switch
+?rva00423AEC@Rva00423AEC@@QAE_NPAVPlayer@@PAVRva0029FB3BMember@@@Z,,0x00423AEC,147,Code/Libraries/Source/WWVegas/WWLib/Rva00423AEC.cpp,matched,unlock roster filter callees rowed Player+0x730 Object+0x74
