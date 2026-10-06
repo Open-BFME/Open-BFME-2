@@ -64416,3 +64416,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?ObjectHasUpgrade@@YAHPAUlua_State@@@Z,,0x003355B2,224,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHasUpgrade.cpp,matched,Lua binding via sibling HideSubObject plus UpgradeCenter
 ??1Rva005E12D1@@UAE@XZ,,0x005E12D1,99,Code/GameEngine/Source/Common/Rva005E12D1Dtor.cpp,matched,owner unlock check via vcall twin then inline ref release then Rva005E129B base dtor
 ??1Rva005E6D0D@@QAE@XZ,,0x005E6D0D,103,Code/GameEngine/Source/Common/Rva005E6D0DDtor.cpp,matched,self-erase from container then owner unlock check then inline ref release and base vptr restore
+??1Rva005746AF@@UAE@XZ,,0x005746D2,104,Code/GameEngine/Source/Common/Rva0057473AMethod.cpp,matched,hint unlock check via chased owner and vcall twin then inline TreeHintRef release
