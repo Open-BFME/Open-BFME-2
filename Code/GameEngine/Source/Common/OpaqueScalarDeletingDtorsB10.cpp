@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/moduledata
 //
 // Opaque scalar deleting destructors, batch B10: 28-byte wrappers that
 // call the destructor, test bit 0 of the flags, conditionally free through
@@ -32,6 +32,8 @@
 //   0x0043D3BE  0x0043D1C9  0x00C3D7F8#0
 //   0x00444067  0x0052163E  0x00C3DFA8#0, 0x00C67840#0
 //   0x00488D1F  0x00488D3B  0x00C4B510#0
+
+#include "Common/Snapshot.h"
 
 struct EmitVtableTag;
 
@@ -250,16 +252,34 @@ Rva0043A396::Rva0043A396(EmitVtableTag *)
 {
 }
 
-class Rva0043B660
+// The member's semantic identity is unresolved; its direct destructor call
+// and +4 placement are the only facts used here.
+class Rva0043B4B4
+{
+public:
+	~Rva0043B4B4();
+private:
+	void *m_payload;
+};
+
+class Rva0043B660 : public Snapshot
 {
 public:
 	Rva0043B660(EmitVtableTag *);
 public:
 	virtual ~Rva0043B660();
+private:
+	Rva0043B4B4 m_member04;
 };
 
 // ?<Rva0043B660::Rva0043B660> absent-from-retail
 Rva0043B660::Rva0043B660(EmitVtableTag *)
+{
+}
+
+// The target installs the derived vtable then destroys the +4 subobject. Its
+// base-vtable store is supported by target bytes at 0x0043B68C.
+Rva0043B660::~Rva0043B660()
 {
 }
 
