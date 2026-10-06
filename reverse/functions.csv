@@ -66099,3 +66099,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ??1Rva005026B6@@QAE@XZ,,0x005026B6,56,Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp,matched,map-base dtor via CLEAR 0x0050247A same 56B GX shape as siblings
 ??1Rva0050298D@@QAE@XZ,,0x0050298D,56,Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp,matched,56B GX map-base dtor via CLEAR 0x00502787 same shape as Rva005026B6
 ??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z,,0x00546926,64,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderCtor.cpp,matched,stores vtable 0x0086A314 base holder rowed 0x00548A25 set at 0x18 rowed 0x000D3A71 bool at 0x24 false caller 0x00355AD7
+?rva00537E7C@Rva00537E7C@@QAEX_N@Z,,0x00537E7C,20,Code/GameEngine/Source/Common/Rva00537E7CSetter.cpp,matched,caller 0x00537FCC bool setter siblings share this
