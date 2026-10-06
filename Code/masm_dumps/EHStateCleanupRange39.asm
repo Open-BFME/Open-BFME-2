@@ -102,7 +102,7 @@ cleanup_done_007970E4:
 ?rva007970E4@@YAXXZ ENDP
 
 ; Unwind@00b97360 at RVA 0x00797360; 24-byte interval ends at RET.
-; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base EBP-16 + 0x1B594; element size 20; count 56; destructor pointer 0x00931FCF.
+; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base [ebp-16] + 0x1B594, element size 20, count 56 and destructor pointer 0x00931FCF.
 PUBLIC ?rva00797360@@YAXXZ
 ?rva00797360@@YAXXZ PROC
     push 00931FCFh
@@ -116,7 +116,7 @@ PUBLIC ?rva00797360@@YAXXZ
 ?rva00797360@@YAXXZ ENDP
 
 ; Unwind@00b973c8 at RVA 0x007973C8; 24-byte interval ends at RET.
-; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base EBP-16 + 0x1B594; element size 20; count 56; destructor pointer 0x00931FCF.
+; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base [ebp-16] + 0x1B594, element size 20, count 56 and destructor pointer 0x00931FCF.
 PUBLIC ?rva007973C8@@YAXXZ
 ?rva007973C8@@YAXXZ PROC
     push 00931FCFh
@@ -311,6 +311,20 @@ PUBLIC ?rva0079879F@@YAXXZ
 cleanup_done_0079879F:
     ret
 ?rva0079879F@@YAXXZ ENDP
+
+; Unwind@00b98c97 at RVA 0x00798C97; 24-byte interval ends at RET.
+; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base [ebp-16] + 0x94, element size 12, count 6 and destructor pointer 0x0078356C.
+PUBLIC ?rva00798C97@@YAXXZ
+?rva00798C97@@YAXXZ PROC
+    push 0078356Ch
+    push 6
+    push 12
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 94h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00798C97@@YAXXZ ENDP
 
 ; Unwind@00b995e6 at RVA 0x007995E6; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
