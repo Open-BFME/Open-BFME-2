@@ -12427,3 +12427,6 @@ FUN_00b41152	0x00741152	1100	blocked	over 1000B needs strong model t=1 model=mus
 ?rva0020EBA0@Rva0020EBA0@@QAEXXZ	0x0020EBA0	249	blocked	sar vs test-eax-fffffffc remains; method-style Get fixes missing mov-ecx-g but breaks callee names vs rows; __assume forces sar but spills mov [ebp-14] t=30 model=muse-spark (stash 0.96 kept)
 FUN_007731cb	0x003731CB	173	blocked	ADDRESS-NAMED global g_Va009FF0F8 use is counted escape hatch per packet - skip t=1 model=muse-spark
 FUN_00850635	0x00450635	642	blocked	ADDRESS-NAMED global g_Va00BBB8D8 use is counted escape hatch per packet - skip t=1 model=muse-spark
+?rva00044018@Rva00044018@@QAEXI@Z	0x00044018	479	blocked	address-named floats g_Va00BBB8D8 and g_Va007C26F0 new use refused per packet t=1 model=muse-spark
+??0Rva00052568@@QAE@XZ	0x00052568	125	partial	this-save mov [ebp-10] hoisted before stores 0-C vs retail after 6 stores; size-insns exact 125B-42 via RvaBase 0-C with declared dtor for state0; tried empty-base base0-8 Os volatile t=25 model=muse-spark score=0.96 stash=reverse/attempts/0x00052568.cpp
+?rva004779F9@HordeTransportContain@@QAEXXZ	0x004779F9	250	blocked	callee 0x588B8A row is stdcall free but all 11 callers set ecx=this+0x11D Rva0047A040Base9E0 helper; thiscall model is byte-exact but gate refuses name; needs central retype or twin row t=20 model=muse-07

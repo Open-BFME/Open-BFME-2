@@ -1,7 +1,5 @@
 // ??0Rva00052568@@QAE@XZ
-// partial score=0.9129 date=2026-10-06
-// ??0Rva00052568@@QAE@XZ
-// partial score=0.93 date=2026-10-05
+// partial score=0.96 date=2026-10-06
 // cl: /EHsc /O1 /DNDEBUG /MD
 class TextureBaseClass
 {
@@ -25,8 +23,12 @@ public:
 private:
 	T *Referent;
 };
-class Rva00052568
+class RvaBase
 {
+public:
+	RvaBase() : m_0(0), m_1(0), m_2(1), m_3(0), m_4(0), m_8(0), m_C(0) {}
+	~RvaBase();
+protected:
 	unsigned char m_0;
 	unsigned char m_1;
 	unsigned char m_2;
@@ -34,6 +36,9 @@ class Rva00052568
 	int m_4;
 	int m_8;
 	int m_C;
+};
+class Rva00052568 : public RvaBase
+{
 	unsigned char m_10;
 	char m_pad11[3];
 	int m_14;
@@ -53,7 +58,7 @@ public:
 	Rva00052568();
 };
 Rva00052568::Rva00052568()
-	: m_0(0), m_1(0), m_2(1), m_3(0), m_4(0), m_8(0), m_C(0), m_10(0)
+	: m_10(0)
 	, m_14(0), m_18(0), m_1C(0)
 	, m_2C(0), m_30(0), m_34(0), m_38(0), m_3C(0), m_40(0), m_44(0)
 {
