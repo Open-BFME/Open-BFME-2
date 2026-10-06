@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva003F83FE@Rva003F83FE@@QAEPAXH@Z @0x003F83FE 31B.
 // Index AsciiString array at +0xC and forward via rowed Rva002104B6.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?rva003F036E@Rva003F02E4@@QAEHXZ, retail 0x003F036E, 32 bytes.
 // Predicate: true when the pointer vector at +0x164 is non-empty, else when

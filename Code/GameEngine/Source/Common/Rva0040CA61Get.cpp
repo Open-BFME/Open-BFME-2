@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva0040CA61Get@@YGHPAU_Rva0040CA61Arg@@@Z, retail 0x0040CA61, 55 bytes.
 // Free __stdcall sum of RankInfo m_34 over 1..m_1C via TheRankInfoStore get.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // ?rva003FE05E@Rva003FE05E@@QAEXXZ @0x003FE05E 85B: __thiscall refresh of +0x4C TreeHintRef from +0x38 int via Helper0056BABF else clear. Evidence: rowed TreeHintRef op= 0x002174A4 plus rowed clear 0x002BED91 plus pinned Helper0056BABF plus rowed Release 0x0007DEEF plus sibling setter 0x003FE0B3 same op-release shape plus callers 0x003FE125 0x003FE550.
 struct TargetRef00217D4C
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 // ?Rva0040D041Get@@YGPBVAsciiString@@H@Z @0x0040D041 26B: chain from bfmeFind1038 0x0040D008 returns +0x64 AsciiString or TheEmptyString when null. Evidence: calls rowed 0x0040D008; TheEmptyString 0x009E0878; same TU family as rowed Rva0040D366Get 0x0040D366.
 class BfmeY1038

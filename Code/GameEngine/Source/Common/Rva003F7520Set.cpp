@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD /Ireference/open-bfme-1/Code/GameEngine/Source/Common
+// cl: /Ireference/shims/bfmecamera /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD /Ireference/open-bfme-1/Code/GameEngine/Source/Common
 
 class Rva003F7520
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva003FAC3F@Rva003FAC3F@@QAEXXZ @0x003FAC3F 68B
 // Unlock over global 0x00DFE6E8. Evidence: m_2c gate >=5, m_14 null and +0xB0
 // checks, global slot 0x8c with 1 1 0 else slot 0x6c with m_2c, then m_2c=1.

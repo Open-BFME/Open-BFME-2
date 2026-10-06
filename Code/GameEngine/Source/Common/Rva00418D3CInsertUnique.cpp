@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00418D3C@Rva00418BFB@@QAE?AURva00418BFBPair@@ABURva00418BFBKey@@@Z @ 0x00418D3C 166B: tree insert_unique
 // calling rowed 0x00418BB7 less plus rowed _M_decrement 0x000242C0 and rowed 0x00418C33 Minsert.
 // Unblocks 0x00418DE2. Evidence: chain packet calls 0x00418C33 shape matches STL insert_unique.

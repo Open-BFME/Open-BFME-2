@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00419BA5@Rva00419BA5@@QAEXXZ, retail 0x00419BA5, 19 bytes.
 // Deletes result of virtual slot0 call with null-this guard: xor eax eax,

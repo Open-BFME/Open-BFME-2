@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /O2 /Ireference/open-bfme-1/Code/GameEngine/Source/Common
+// cl: /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/GameEngine/Source/Common
 
 class Vector3
 {

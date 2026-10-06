@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?rva003F02E4@Rva003F02E4@@QAE_NXZ, retail 0x003F02E4, 82 bytes.
 // Unlock lane: predicate on +0x13C==-1 then +0x11C flag then list

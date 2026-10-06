@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0041B8C7@@QAE@XZ, retail 0x0041B8B5, 18 bytes.
 // Ctor beside the rowed dtor 0x0041B8C7 in GameEngineDeletingBaseDerived.cpp.

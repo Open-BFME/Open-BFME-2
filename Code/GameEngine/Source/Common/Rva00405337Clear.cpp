@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 //
 // ?Rva00405337Clear@@YAXPAX0@Z @0x00405337 25B
 // Range clear over 0x18-byte records with a StringBase<char> at +0.

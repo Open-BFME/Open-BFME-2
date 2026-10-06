@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Oy- /DNDEBUG /MD /GX-
 // ?rva003F1A25@Rva003F1A25@@QAEXP8Rva003F11C7Listener@@AEXPAXH@Z0H@Z @0x003F1A25 31B
 // Evidence: forwards its 3 args to Rva003F11C7List::forEach 0x003F11C7 twice first on this+4 then tail on global 0x00E02E88; callers 0x003F1C80 0x003F1CC6; row for forEach in Rva003F0CB9ListenerWalks.cpp; mirrors Rva003F1A03Broadcast.cpp.
 class Rva003F11C7Listener

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?find@Rva0040CB3AIndexedField@@QBEHH@Z @0x0040CB3A 63B and ?findBySecond@Rva0040CC1BIndexedField@@QBEHH@Z @0x0040CC1B 33B
 // and ?get@Rva0040CB3AIndexedField@@QBEHH@Z @0x0040CBB8 31B
 // Binary search over sorted 8-byte entries at +0x40/+0x44 keyed by first dword; returns index or -1.

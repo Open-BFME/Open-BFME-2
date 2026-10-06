@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0041FE0E@@QAE@XZ, retail 0x0041FDF8, 22 bytes.
 // Rva0041FE0E ctor: baseConstruct 0x001B4E63 then zero +0x0C then vtable

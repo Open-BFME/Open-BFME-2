@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva003F83B5@Rva003F83B5@@QAE?AVUnicodeString@@XZ, retail 0x003F83B5, 36 bytes.
 // Fetches UnicodeString via TheGameText slot 0x38 from AsciiString at
 // +0x18. GameTextInterface declaration copied verbatim from

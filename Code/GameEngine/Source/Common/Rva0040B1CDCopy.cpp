@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0040B1CDCopy@@YAPAVRva0040AF66@@PAV1@00@Z @ 0x0040B1CD (38B). Uninitialized copy range of Rva0040AF66 via rowed Construct.
 // Evidence: retail loops calling rowed ?Rva0040B17BConstruct 0x0040B17B stride 0x68 comparing first to last returning result end; callers 0x0040B929 0x0040B974 in 0x0040B8E8; same 38B shape as rowed 0x0040B2FD and 0x003F29D2.
 class Rva0040AF66

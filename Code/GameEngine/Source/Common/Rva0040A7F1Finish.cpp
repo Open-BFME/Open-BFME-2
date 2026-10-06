@@ -1,5 +1,5 @@
 // ?rva0040A7F1@Rva0040A7F1@@QBEHH@Z @0x0040A7F1 30B
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Evidence: unlock lane; unsigned bounds-checked index over an int range, the
 // +4/+8 twin of the matched sibling Rva0040A7D5 (begin-end at +0/+4). Count is
 // the byte-difference m_end-m_begin shifted right arithmetically by 2 and then

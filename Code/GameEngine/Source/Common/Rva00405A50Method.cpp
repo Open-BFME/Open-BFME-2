@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ?rva00405A50@Rva00405A50@@QAEXXZ @0x00405A50 (87B):
 // Forwards provider TreeHintRef at +0x2A4 to theRadarWindowOverrideSource.

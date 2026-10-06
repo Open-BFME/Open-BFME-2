@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva00402F28Item@@QAE@XZ retail 0x00402F23 5B.
 // Evidence: a lone tail jump to the rowed Rva003F9FE6 dtor 0x003FA0C7. The

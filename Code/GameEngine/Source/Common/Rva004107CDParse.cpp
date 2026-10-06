@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD
 // ?Rva004107CDParse@@YAXPAXPBD@Z @0x004107CD 321B: free cdecl parsing _light and _frame= tokens via GetParam plus sscanf plus virtuals at +0x10 +0x14 plus AsciiString at +8.
 // Evidence: callers at 0x004120E4 with void-star plus char-star plus caller-cleaned 8B; strings _light _frame= _AnimMode plus "%d=%f,%f,%f" plus IAT _strnicmp sscanf atoi isdigit; rowed StringBase compare set releaseBuffer plus pin Rva004128F0GetParam; vtable offsets +0x10 int-float-float-float plus +0x14 int-AsciiString.
 #include "ascii_string.h"

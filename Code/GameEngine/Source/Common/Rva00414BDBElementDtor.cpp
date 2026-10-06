@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva00414BDBElement@@QAE@XZ retail 0x001DDEC3 60B
 // Element dtor reached from the 0x00414BDB vector insert overflow. Members in
 // reverse order: the inline CRT buffer member at +0x20 frees its block, then

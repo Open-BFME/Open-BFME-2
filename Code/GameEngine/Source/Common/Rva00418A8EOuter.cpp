@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?outer@Rva00418A8EHost@@QAEHHH@Z @0x00418A8E 36B
 class Rva000427195
 {

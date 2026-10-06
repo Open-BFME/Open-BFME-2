@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0040D280Set@@YGXPAVObject@@H@Z @0x0040D280 67B.
 // Free __stdcall (ret 8) taking Object plus int. Looks up BfmeY1038 via
 // rowed-pin bfmeFind1038, derives int via rowed Rva0040C985::rva0040CA24,

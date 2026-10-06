@@ -1,6 +1,6 @@
 // ?setFrom@Rva0040D82FHost@@QAIXHPAURva0040D82FArg@@@Z
 // partial score=0.95 date=2026-10-05
-// cl: /O1 /MD
+// cl: /MD
 //
 // Change-detecting setter at retail 0x0040D82F (57B). Reads a candidate int
 // out of the argument's +0x1C through a 3-arg cdecl helper, compares it with

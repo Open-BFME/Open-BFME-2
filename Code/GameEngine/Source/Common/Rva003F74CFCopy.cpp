@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003F74CFCopy@@YAPAVRva004F6093Holder@@PAV1@00@Z @0x003F74CF 38B.
 // Honest __uninitialized_copy for the 4-byte Rva004F6093Holder through the
 // rowed 0x002B2FE2 null-checked placement copy.

@@ -1,4 +1,4 @@
-// cl: /arch:SSE /MD
+// cl: /MD
 // ?rva003F7478@Rva003F7478@@QAEXM@Z @0x003F7478 40B
 // Conditional scale of the +0x24 float by g_Va00BBB8D8/arg when arg exceeds
 // BfmeZeroRange. Evidence: rowed-adjacent SSE sibling Rva003F74A0Mul at

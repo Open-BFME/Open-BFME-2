@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004074B6@Rva004074B6@@QAEXABVAsciiString@@@Z retail 0x004074B6 25B
 // Evidence: unlock lane; NameKey at +0x30 via TheNameKeyGenerator 0x00DF36A4 nameToKey 0x0009FA65 precedent NameKeyGeneratorRvaLowercaseKey plus memory findWeaponTemplate; caller 0x00408150; prev StringRecordCopy same /O1.

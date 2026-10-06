@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva00406BB0@@QAE@ABV0@@Z @0x00406BB0 67B
 // Copy ctor storing vtable 0x00838BA4 via inline base copy then member wide
 // string at +4 via rowed StringBase copy ctor 0x00037050 and int at +8.

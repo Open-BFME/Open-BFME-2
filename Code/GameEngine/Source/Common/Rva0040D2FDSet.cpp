@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /Oy-
+// cl: /DNDEBUG /MD /Oy-
 // ?Rva0040D2FDSet@@YGXHHPAURva0040D2FDVec@@@Z @0x0040D2FD 79B: chain from bfmeFind1038 0x0040D008 clears +0x2c scales int arg by g_00DBA4F4 to +0x30 copies vec pair to +0x58/+0x5c. Evidence: calls rowed 0x0040D008; single caller jmp at 0x0023D05A; prev/next in Common.
 class BfmeY1038
 {

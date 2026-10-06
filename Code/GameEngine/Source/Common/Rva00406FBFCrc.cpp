@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00406FBF@Rva00406FBF@@QAEXPAE@Z @0x00406FBF 29B: thiscall CRC updater setting byte at +4 then storing CRC::Memory(data 4 old) at +0. Callee rowed 0x00619AC0. Callers 0x00407093 0x004070B0 pass stack pointer. Owner unknown so honest-address name.
 // ?rva00406FDC@Rva00406FBF@@QAEXPAE@Z @0x00406FDC 29B: same class same shape with len 1. Abuts 0x00406FBF. Caller 0x004070CE. Same CRC row.
 class CRC

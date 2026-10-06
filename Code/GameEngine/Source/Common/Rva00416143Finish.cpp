@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Og /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva00416143@Rva00416143@@QAEXABVAsciiString@@@Z, retail 0x00416143, 174 bytes. Banked partial (score 0.96) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

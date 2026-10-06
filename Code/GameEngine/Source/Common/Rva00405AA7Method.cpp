@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ?rva00405AA7@Rva00405AA7@@QAEXXZ @0x00405AA7 (34B):
 // Clears +0x2A4 via rowed Rva000AD6F4::clear then notifies

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva003F9DDA@Rva003F9DDA@@QAEXABUBfmeE8@@@Z @ 0x003F9DDA 8B: inline vector push_back forwarder via plus0x3c to rowed push_back 0x00539A2E. Evidence: add ecx 0x3c plus jmp plus caller 0x00210ECF ret4.
 struct BfmeE8 { unsigned int a; unsigned int b; };
 namespace _STL {

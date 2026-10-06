@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0042008F@Rva00420110@@QAE_NXZ, retail 0x0042008F, 60 bytes. Vslot 18
 // of vtable 0x00C3BA28: if m_86 set or GameInfo slot 0x50 true then false;
 // else bounds-check m_68 in [0,20) and tail-call virtual slot 0x38 with

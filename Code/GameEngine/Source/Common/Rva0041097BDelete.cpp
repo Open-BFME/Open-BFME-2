@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0041097B@Rva0041097B@@QAEXPAX@Z, retail 0x0041097B, 28 bytes. Chain lane:
 // hashtable node delete for Rva004104C9 value (val at +4). Destroys val via

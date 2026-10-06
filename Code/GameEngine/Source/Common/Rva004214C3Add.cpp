@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 // ?rva004214C3@Rva004214C3@@QAEXPBVModuleData@@@Z @0x004214C3 93B
 // Add-if-absent with duplicate throw: Find via rowed 0x00421263 then INIException
 // 0x0002F681 on dup else push_back via rowed 0x004DFCB0. Evidence: chain lane;

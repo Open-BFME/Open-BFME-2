@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 // ??4Rva004213A2@@QAEAAV0@ABV0@@Z @0x004213A2 57B
 // Copy-assign with empty base plus AsciiString at +0x10 UnicodeString at +0x14
 // vector<uint> at +0x18. Evidence: unlock lane; callees rowed 0x001FD28E

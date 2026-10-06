@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva0041F431@Rva0041F431@@QAEPAV1@XZ @0x0041F431 24B.
 // Zeroes 16B record (int 0 plus three float 0.0) and returns this. Evidence:
 // caller at 0x001DDB66 builds 16B stack record for BfmeFloat4Record use.

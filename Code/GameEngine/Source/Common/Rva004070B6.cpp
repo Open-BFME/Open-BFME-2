@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004070B6Update@@YAXPAX00PAVRva00406FBF@@@Z @0x004070B6 30B: free cdecl 4-arg helper calling virtual slot 0x90 on arg1 with arg2 then Rva00406FBF::rva00406FDC(arg2) with this=arg4 arg3 unused. Evidence: chain via 0x00406FDC now ready; same family as 0x0040707E slot 0x78; retail mov ecx/push/call [eax+0x90] then push/mov ecx/call 0x406FDC.
 class Rva00406FBF
 {

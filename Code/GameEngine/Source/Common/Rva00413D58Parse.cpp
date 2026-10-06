@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Oy- /DNDEBUG /MD /GX-
 // ?Rva00413D58Parse@@YAXPAVINI@@@Z, retail 0x00413D58, 115 bytes.
 // INI type dispatch for AutoResolveReinforcementSchedule: getNextToken(0),
 // strcmpi against "Attacker" (index 1) / "Defender" (index 0), then

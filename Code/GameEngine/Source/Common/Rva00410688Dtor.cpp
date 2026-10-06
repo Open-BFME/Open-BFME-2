@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ??1Rva00410688@@QAE@XZ at 0x00410688 (57B).
 // Dtor with AsciiString at +0 plus TargetRef at +4 released via rowed
 // fastcall 0x7DEEF. Evidence: releaseBuffer row 0x36410, 5 callers,

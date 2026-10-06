@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // ?rva003FE0EB@Rva003FE05E@@QAE?AUTreeHintRef00217D4C@@XZ @0x003FE0EB 83B: __thiscall TreeHintRef getter that refreshes +0x4C via rowed rva003FE05E when +0x38 link differs then returns +0x4C with AddRef. Evidence: rowed rva003FE05E 0x003FE05E plus pinned helper 0x002E0BC0 plus global g_009FEF10 plus sibling layouts 0x003FE0B3 0x003FE05E.
 struct TargetRef00217D4C
 {

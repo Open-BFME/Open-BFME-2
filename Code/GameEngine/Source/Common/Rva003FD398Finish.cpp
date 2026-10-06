@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // ??0Rva00064390@@QAE@XZ @0x003FD398 47B. Default ctor for the ring hero's
 // shared template-state record: zeroes the four leading floats and the int at
 // +0x18, then stores the shared float g_Va007C26F0 into +0x10/+0x14.

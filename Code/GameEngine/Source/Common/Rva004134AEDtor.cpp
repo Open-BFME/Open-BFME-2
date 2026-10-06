@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 //
 // ??1Rva004134AE@@QAE@XZ, retail 0x004134AE, 53 bytes.
 // Non-virtual dtor over GameEngineDeletingBase with tree member at +0xC.

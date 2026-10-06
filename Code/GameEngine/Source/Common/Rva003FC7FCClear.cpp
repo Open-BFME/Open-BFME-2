@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva003FC7FC@Rva003FC7FC@@QAEXXZ @0x003FC7FC 48B:
 // Clear particle handle at +0x1C and ID at +0x28: if handle.m_system then
 // destroy by ID via TheParticleSystemManager then dtor handle and clear

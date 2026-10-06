@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0041BB26Check@@YGEPAVRva0041BB26Obj@@HH@Z @0x0041BB26 35B
 // Free function at 0x0041BB26 (35B): null-check then MaterialPassClass::Peek_Texture.
 // Evidence: rowed callee ?Peek_Texture@MaterialPassClass@@QBEPAVTextureClass@@H@Z; caller 0x0029CE57; ret 0xc with third arg unused like neighbours Rva0041B8D2 and Rva0041BB87.

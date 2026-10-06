@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00421520@Rva00421520@@QAEXPAVRva004210B0@@PBV?$StringBase@D@@@Z @0x00421520 82B
 // Chain from 0x004213DB: search vector<ModuleData*> at +0x0C by name at +0x10
 // via rowed StringBase compare 0x000069D6 with dup guard via rowed 0x001E35DF

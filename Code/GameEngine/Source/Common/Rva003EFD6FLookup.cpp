@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva003EFD6F@Rva003EFD6F@@QAEPAUValue003EFD6F@@PBVRva002E071E@@@Z @ 0x003EFD6F (68B).
 // Thiscall lookup returning +0x10c on find+compare success else +0x108.

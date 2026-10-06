@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva003EF703Remove@@YGXPAURva003C4CF0Span@@H@Z, retail 0x003EF703, 37 bytes.
 // Free __stdcall remove-by-value: indexOf over two-pointer int span then
 // vector<void*> erase at found slot; no-op when indexOf returns -1.

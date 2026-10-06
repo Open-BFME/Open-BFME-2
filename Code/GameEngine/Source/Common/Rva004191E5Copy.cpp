@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD
 //
 // ??0Rva004191E5@@QAE@ABU0@@Z @0x004191E5 73B: copy constructor of a record
 // holding an AsciiString at +0, a 12-byte member copied by the unrowed copy

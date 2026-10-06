@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva003EF08B@Rva003EF13E@@QAEXH@Z @0x003EF08B 179B. Chain via 0x003EF041.
 // Retail: kind at this+0x44 selects faction from arg+0x13c/0x140 else -1;
 // if arg+0x1a2 and faction!=-1 does tmp rva003EE7CA/84A forward then

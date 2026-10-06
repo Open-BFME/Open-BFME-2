@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ?rva00407137@Rva00407137@@QAEXABVUnicodeString@@@Z retail 0x00407137 88B
 // Evidence: unlock lane; AsciiString from UnicodeString 0x00038250 plus CRC::String 0x00619B00 plus releaseBuffer 0x00036410; caller 0x004071AA; prev StringRecordCopy same /O1 /EHsc.

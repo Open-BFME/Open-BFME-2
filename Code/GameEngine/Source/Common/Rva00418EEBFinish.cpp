@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00418EEB@Rva00418EEB@@QAE_NPAXPBX@Z @ 0x00418EEB 146B: map lower_bound plus bit search
 // calls rowed 0x00418BFB lower_bound and rowed 0x000242C0 decrement.
 // Evidence: chain packet calls 0x00418BFB, head+8 begin check, 8-entry loop.

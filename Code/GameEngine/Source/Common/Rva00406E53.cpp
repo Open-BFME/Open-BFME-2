@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00406E53@Rva00406E53@@QAEHXZ @0x00406E53 18B
 // Unlock lane: forwards this+0xC and this+0x10 to rowed
 // Rva00219B9E::rva00219E74 on g_00DFE344; callers 0x0040891A 0x0040899F

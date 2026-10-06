@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00410619@Rva00410619@@QAEXPAURva00410619Arg@@@Z, retail 0x00410619 111B.
 // Syncs GameWindow enabled bit with bool at +0 when AsciiString at +4 matches
 // arg AsciiString at +0x10 via strncmp IAT. Evidence: strncmp FF15,

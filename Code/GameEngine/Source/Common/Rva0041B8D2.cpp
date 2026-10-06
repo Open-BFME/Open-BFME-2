@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0041B8D2Check@@YGEPAVRva0041B8D2Obj@@0H@Z @0x0041B8D2 70B
 // Evidence: caller 0x0029C8B9 in 0x0029C823; unblocks 0x0029C823; offsets +4/+0x5ec/+0x258; virtual slots +0x178/+0x18.
 struct Rva0041B8D2Inner { char pad[0x5ec]; unsigned char flag; };

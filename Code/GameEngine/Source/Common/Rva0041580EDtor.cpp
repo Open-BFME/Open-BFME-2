@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0041580E@@QAE@XZ @0x004159AA 56B chain via rowed 0x00415886.
 // Destructor: cleanup via 0x00415886 then free head if non-null. Evidence:
 // ECX passthrough to rowed 0x00415886 at 0x004159BF, lea ecx [esi+8] member

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /Op
+// cl: /DNDEBUG /MD /Op
 //
 // ?rva003FBA0E@Rva003FBA0E@@QAEXHHHHHM@Z, retail 0x003fba0e, 74 bytes. Banked partial (score 0.9) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

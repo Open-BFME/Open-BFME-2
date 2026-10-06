@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Two methods of the placeholder class Rva004076EE (its matched getter
 // 0x004076EE returns the Object for the ObjectID at +4; same TU flags), retail

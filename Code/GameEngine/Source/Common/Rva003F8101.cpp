@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva003F8101@Rva003F8101@@QAEPAXXZ @0x003F8101 38B.
 // Find entry in ptr array [+0xC,+0x10) whose +8 id equals g_009FEF10+0xF4 else null.

@@ -1,5 +1,5 @@
 // ??0Rva0045EF90Object@@QAE@XZ
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ??0Rva0045EF90Object@@QAE@XZ, retail 0x004103E7 58B. Default ctor of
 // Rva0045EF90Object (vtable 0x00839630): inlined base ctor sets +4 to -1,
 // then the derived vptr store, then the field group (non-trivial member so

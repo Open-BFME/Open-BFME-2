@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva003F0FD1@Rva003F0FD1@@QAEXXZ @0x003F0FD1 (115B):
 // __thiscall void check over AsciiString at +0x18; formats

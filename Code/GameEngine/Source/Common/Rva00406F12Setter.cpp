@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00406F12@Rva00406F12@@QAE_NH@Z @0x00406F12 21B: conditional setter comparing +0x2C and setting bit 8 at +0x38. Sibling of 0x00406EFD. Owner unknown so honest-address name.
 class Rva00406F12
 {

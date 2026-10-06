@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // RVA 0x00418BB7 44B free less-compare over two dwords at +4 then +0.
 // Called by the 0x00418BFB search loop plus 0x00418C33 and 0x00418D3C.
 struct Rva00418BB7Key {

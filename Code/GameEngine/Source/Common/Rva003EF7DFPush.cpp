@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva003EF7DF@Rva003EF7DF@@QAEXPAURva003EF7DFDest@@H@Z, retail 0x003EF7DF, 48 bytes.
 // __thiscall lookup-and-collect: indexes this record-pointer span via the
 // just-landed 0x003EF648 and push_backs the hit into the dest vector at +4.

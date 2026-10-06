@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /EHsc
 // ?Rva0040AA73Load@@YGXXZ @0x0040AA73 98B
 // Free AwardSystem INI loader via temp INI plus rowed ctor 0x2CDB0 plus
 // StringBase ctor 0x37BA0 plus pinned loadFile 0x2DC75 plus rowed dtor

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00423D0DCreate@@YGHPAXH@Z @0x00423D0D 34B (name TBD, free stdcall)
 extern void *rva000307F0_new(unsigned size, int dummy);
 extern void rva00423648_init(void *p, int a);

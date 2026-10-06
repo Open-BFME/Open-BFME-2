@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00406E8F@Rva00406E8F@@QAEHI@Z @0x00406E8F 24B
 // Forward to rowed 0x00219F00 via global g_00DFE344.
 // Retail: push esp+4 push ecx+10 push ecx+0c mov ecx global call.

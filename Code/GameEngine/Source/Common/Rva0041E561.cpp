@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0041E561@Rva0041E4A3@@QAEXXZ @0x0041E561 329B: vslot 1 of vtable 0x0083AEA8.
 // Evidence: this+0xC vector push_back x6 of new ModuleData ctors 0x57379B 0x5734D7

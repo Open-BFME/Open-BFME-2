@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0041F28C@Rva0041F28C@@QAEPAMH@Z, retail 0x0041F28C, 28 bytes.
 // Index-selected float field accessor: arg 0 -> +0x04, arg 1 -> +0x08,

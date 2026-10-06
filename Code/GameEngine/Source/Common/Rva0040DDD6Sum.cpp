@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0040DDD6@Rva0040DDD6@@QAEHXZ @0x0040DDD6 64B. Vector sum-and-erase: iterate
 // backwards over m_vec at +0x40, skip entries whose pointee +0xC4 is 0, sum
 // pointee +0x90, erase via rowed 0x0040DC1F. Evidence: 4-push erase shape,

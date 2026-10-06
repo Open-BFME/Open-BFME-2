@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 // ?rva003F0DA5@Rva003F0DA5@@QAE_NPAVCreateAHeroData@@@Z, retail 0x003F0DA5, 33 bytes.
 // __thiscall bool contains via rowed _STL::find at 0x0020E873 over CreateAHeroData*

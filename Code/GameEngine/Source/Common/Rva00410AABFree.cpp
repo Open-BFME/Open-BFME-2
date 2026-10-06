@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva00410AABFree@@YGXPAX@Z at 0x00410AAB (28B).
 // Free helper: destroys Rva00410688 at +4 via rowed dtor then frees via
 // rowed operator delete 0x30830. Evidence: 3 callers in 0x410D05/0x410D96,

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva004194D6@Rva004194D6@@QAEXXZ, retail 0x004194D6, 52 bytes.
 // State gate at +0x38 with 8-float threshold check at +0x14 against global at 0x00BBAEAC; sets 1 or 0.
 // Evidence: callers 0x00419510 0x00419577 share +0x38 state; prev stlport next ConstIntGetters; float loop with comiss ja matches SSE shape.

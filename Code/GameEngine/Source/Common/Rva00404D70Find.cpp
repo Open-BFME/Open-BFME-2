@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
 // stlport
 // ?rva00404D70@Rva00404D70@@QAEHABVAsciiString@@@Z @0x00404D70 117B
 // Range find over 0x18-byte records with AsciiString at +0 via

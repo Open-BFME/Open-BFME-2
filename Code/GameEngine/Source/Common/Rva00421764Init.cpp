@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva00421764@@QAE@PBXH0@Z @0x00421764 49B
 // Init 3-arg thiscall: +0=arg2 +4=*(arg1+0x74) +0x10/+0x14=arg3[0/1] +0x18/+0x1c=0.0f.
 // Evidence: unlock lane; ret 0xc; caller 0x0042513A; neighbours Disp8ByteSetters and ClientRandomValue.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva003F012F@Rva003F012F@@QAEHXZ @0x003F012F 90B via vec at +0x60 stride 0x18 plus AsciiString at +4 plus lookup 0x00210390 via +0x130
 // Evidence: callees rowed rva00210390 0x00210390; callers 0x003F08F1 plus thunk 0x003F0DC6; unblocks 0x003F08EE; offsets +0x60 start +0x64 finish +0x130 holder +4 str +8 result.
 #include "ascii_string.h"

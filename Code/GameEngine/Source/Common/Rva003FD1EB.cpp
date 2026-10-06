@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003FD1EB@Rva003FD1EB@@QAEIXZ @0x003FD1EB 15B: __thiscall unsigned refcount dec
 // Evidence: retail test+JBE skip dec (unsigned >0 check) then reload+ret;
 // callers at 0x002B8B6C; neighbours Rva003FD1C5Xfer/Rva003FD2C2Xfer share /O1 /MD;

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004031F3@Rva004031F3@@QAEXPAUObj@@PAUInfo@@@Z @0x004031F3 64B
 // Four-step virtual fetch: call slot 31 with this, if info byte at +1 >= 3
 // call slot 27 with &m1, then slot 30 with &m2 and &m3. Evidence: vtable

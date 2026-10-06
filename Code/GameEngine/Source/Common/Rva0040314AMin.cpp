@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva0040314A@Rva0040314A@@QAEIXZ @0x0040314A 20B, call sites 0x00403DAC,
 // 0x00403DB9 and 0x004040C7. Unsigned min with a zero guard: when the cap at
 // +0x0C is set, the smaller of +0x08 and +0x0C, else +0x08.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00410D96@Rva00410D96@@QAEXXZ, retail 0x00410D96, 73 bytes. Chain lane:
 // hashtable clear over buckets at +4/+8 with count at +0x10. Walks each chain

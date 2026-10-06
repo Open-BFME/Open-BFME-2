@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // ??1Rva0040BFAA@@UAE@XZ @ 0x0040BFAA (74B). Dtor with vtable 0x008392E0 calling two vector dtors then base.
 // Evidence: retail stores vtable 0x00C392E0 then calls rowed 0x0040B59F at +0x18 and 0x0040BEBA at +0x0C then rowed GameEngineDeletingBase 0x001B4E74; caller 0x0040C0AB deleting dtor.
 class GameEngineDeletingBase

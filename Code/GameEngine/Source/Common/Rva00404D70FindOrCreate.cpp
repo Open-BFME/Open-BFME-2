@@ -1,4 +1,4 @@
-// cl: /G7 /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
 // stlport
 // ?rva00405684@Rva00404D70@@QAEPAUBfmeStringRecord00404BF3@@ABVAsciiString@@@Z @0x00405684 105B
 // Evidence: calls rowed find 0x00404D70 tests 0x7fffffff scales 0x18 from start at +0x120; else ctor row 0x00404BC5 push_back row 0x004055BB releaseBuffer row 0x00036410 returns finish-0x18; caller 0x00215D96 passes AsciiString for initFromINI.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0040FB2E@Rva0040FB2E@@QAEAAUOpaqueRefElement4@@ABU2@@Z @ 0x0040FB2E 8B
 // Tail-jmp wrapper returning m_elem = other via rowed OpaqueRefElement4::operator=.

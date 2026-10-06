@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?guard@Rva0040FC79Host@@QAEXH@Z @0x0040FC79 71B
 class GameWindowManager
 {

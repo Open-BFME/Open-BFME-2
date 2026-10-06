@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /Op
+// cl: /DNDEBUG /MD /Op
 // ?rva003FBA58@Rva003FBA58@@QAEXXZ @0x003FBA58 140B
 // Chain lane: calls 0x003FB9C8 just landed; vtable slot 10 of 0x008747B8
 // (class of ??1Rva005C4B1B). Prev 0x003FBA0E in Rva003FBA0ERva003FBA0E.cpp

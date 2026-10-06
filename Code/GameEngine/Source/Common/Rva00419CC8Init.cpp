@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva00419CC8Init@@YAXXZ, retail 0x00419CC8, 12 bytes. Pushes global
 // 0x00E030D0 then calls rowed ?Rva00419CB2Init@@YAXPAX@Z. Evidence: packet

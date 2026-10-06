@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Oy- /DNDEBUG /MD /GX-
 // ?rva004135CD@Rva004135CD@@QAEXPAVINI@@@Z @0x004135CD 65B
 // INI parse validator: initFromINI(this) through table 0x00839A78 (rowed
 // 0x0002DE78), then throw INIException code 3 with the retail message when

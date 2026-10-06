@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0041BB87IsRelated@@YGEPAVObject@@0H@Z @0x0041BB87 65B
 // Evidence: caller 0x0029CB07; rowed rva002931F5 0x002931F5 and rva0028C1A9 0x0028C1A9; virtual slot +8 on rva0028C1A9 result.
 

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva003FD9FA@Rva003FD9FA@@QAEXPBVRvaSmartPtr12@@HHH@Z @0x003FD9FA 31B:
 // Chain from 0x003FC7C7: calls rowed rva003FC7C7 with first arg then copies 12B stack args to +0xAC.
 // Evidence: callee row Rva003FC7FCClear.cpp, ret 0x10, copy 3x movsd.

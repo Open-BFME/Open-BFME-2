@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva003FD1C5@Rva003FD1C5@@MAEXPAVXfer@@@Z, retail 0x003FD1C5, 38 bytes.
 // Unlock: persists uint at +0x04 via Xfer slot 0x78 and bool at +0x08 via

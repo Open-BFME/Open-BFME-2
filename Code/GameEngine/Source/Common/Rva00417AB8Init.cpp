@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva00417AB8@Rva00417AB8@@QAEPAV1@XZ @0x00417AB8 43B.
 // Unlock lane: thiscall init (ret, no args) writing +0x00=0 (and [m],0 under
 // /O1), +0x04=0xF4240, +0x08=0x0A, +0x0c/+0x10/+0x14=float from global

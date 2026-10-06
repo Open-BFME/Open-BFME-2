@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?init@Rva004152BCHost@@QAEHHH@Z @0x004152BC 42B
 struct Rva004152BCInner
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00418CC8@Rva00418CC8@@QAE_NPAUOut00418CC8@@@Z @0x00418CC8 96B evidence: between Rva00418BFB inserts 0x00418C33 and 0x00418D3C; tree decrement via rowed 0x000242C0 plus BitFlags any via rowed 0x0023C58B; 8-bit scan over flags at +0x10; 1 stack arg ret 4
 
 namespace _STL

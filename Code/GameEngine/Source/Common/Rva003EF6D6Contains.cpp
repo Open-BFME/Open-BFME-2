@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva003EF6D6Contains@@YG_NPAURva003EF6D6Span@@PAURva003EF6D6Entry@@@Z, retail 0x003EF6D6, 45 bytes.
 // Free __stdcall contains check over a two-pointer span of entry pointers;
 // compares each element pointer to the value arg and returns true on hit

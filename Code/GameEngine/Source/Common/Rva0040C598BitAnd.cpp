@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0040C598@Rva0040C598@@QAEXPBH@Z, retail 0x0040C598, 25 bytes.
 // Target evidence: leaf bit-AND loop over 32 dwords; 1 caller at 0x0040C85B; no vtable;
 // prev ConstIntGetters4 next DispDwordLeaFieldGetters.

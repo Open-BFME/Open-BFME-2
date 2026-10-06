@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva00407A6A@Rva00407A6A@@QAE_NABVUnicodeString@@@Z retail 0x00407A6A 124B
 // Evidence: unlock lane; wide compare 0x00006A7A plus set pin 0x00037150 plus isEmpty 0x00001E2F plus CoCreateGuid IAT plus format 0x00038150 plus string 0x00838C88; callers 0x00409375 0x005B4C10; prev Rva004076EE same /O1.

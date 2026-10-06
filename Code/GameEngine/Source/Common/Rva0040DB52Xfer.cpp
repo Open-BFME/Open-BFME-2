@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // ?xfer@Rva0040DB52@@MAEXPAVXfer@@@Z retail 0x0040E6F6 132B
 // Slot 3 xfer of Rva0040DB52 (vtable 0x008394CC): version {1,1} then +0x04 +0x0c(bool) +0x10(ModuleData) then isLoading erase of ScienceType vec at +0x14 and ptr vec at +0x20 then vector helpers.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 // ??1Rva003FAFB9@@UAE@XZ @0x003FAFB9 82B chain from 0x003FAC3F
 // Dtor: stores 0x00837A08, calls rowed rva003FAC3F, holder Release_Ref at +0x14,
 // StringBase releaseBuffer at +4, restores 0x00BBB554. Evidence: EH prolog,

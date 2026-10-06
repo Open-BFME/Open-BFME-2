@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?rva00413D46@Rva00413D46@@QAEXPAVINI@@@Z, retail 0x00413D46, 18 bytes.
 // INI table forward: ini->initFromINI(this) through table 0x00839D54 (rowed
 // 0x0002DE78). Same recipe as sibling Rva00413DCCParse without the throw

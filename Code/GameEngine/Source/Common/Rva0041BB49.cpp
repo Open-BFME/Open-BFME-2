@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0041BB49Check@@YG_NPAVObject@@PBUCoord3D@@HH@Z @0x0041BB49 62B
 // Free function at 0x0041BB49 (62B): Object guard then shroud status != 2.
 // Evidence: rowed callees ?rva0028BD5D@Object@@QBEPAXH@Z and ?getControllingPlayer@Object@@QBEPAVPlayer@@XZ and ?getShroudStatusForPlayer@PartitionManager@@QBE?AW4CellShroudStatus@@HPBUCoord3D@@@Z with extern TheShroudManager; caller 0x0029CBE3 pushes 0/[ebp+16?]/[ebp+8]/eax for 4 args ret 0x10; like neighbours Rva0041BB26 and Rva0041BB87.

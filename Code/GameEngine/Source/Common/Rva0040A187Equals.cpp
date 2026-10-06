@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0040A187@Rva0040A187@@QBE_NPBX@Z @0x0040A187 37B
 // Evidence: leaf lane; null arg returns false else ([this+0]==[arg+0xC]
 // and [this+4]==[arg+0x10]); bool return tested via al at 7 call sites in 0x0040A283.

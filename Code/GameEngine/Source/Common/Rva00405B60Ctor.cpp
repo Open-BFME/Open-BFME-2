@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??0Rva00405B60@@QAE@ABV0@@Z @0x00405B60 (45B):
 // Derived copy ctor: calls base 0x00405A45 with (int)&o, installs vtable

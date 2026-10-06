@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva003EFDDB@Rva003EFDDBHolder@@QAEXHPAURva003EFDDBOut@@@Z, retail 0x003EFDDB, 26 bytes.
 // __thiscall method comparing this+0x13C with a stack int and storing 0

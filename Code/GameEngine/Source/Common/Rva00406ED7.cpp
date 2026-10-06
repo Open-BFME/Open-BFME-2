@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00406ED7@Rva00406ED7@@QAEPBVCommandButton@@H@Z @0x00406ED7 38B
 // Unlock lane: bounds-checked (unsigned idx < 15) lookup of AsciiString at
 // this+0x80 stride 12 via ControlBar::findCommandButton row 0x0031BE3C on

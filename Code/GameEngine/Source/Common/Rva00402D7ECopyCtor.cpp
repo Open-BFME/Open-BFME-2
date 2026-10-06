@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 //
 // Rva00402D7E retail 0x00402C8A..0x00402E30: dtor 119B, copyItems 125B,

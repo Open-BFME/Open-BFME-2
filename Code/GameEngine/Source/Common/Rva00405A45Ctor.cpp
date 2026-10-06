@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??0Rva00405A45@@QAE@H@Z @0x00405A45 (11B):
 // Vtable-store ctor: installs vtable 0x00838958 at [this], ignores 4-byte

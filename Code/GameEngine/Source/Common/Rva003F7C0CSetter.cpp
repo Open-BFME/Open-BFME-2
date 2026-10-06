@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003F7C0C@Rva003F7C0C@@QAEXPAX@Z, retail 0x003F7C0C (35B).
 // Evidence: unlock lane; caller 0x003F8F2B SessionTask::ParseINI sets +0x14 to new 0x20 INI object; callee operator delete 0x0002FD60 rowed; virtual slot0 with 0 then delete.
 

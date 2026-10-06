@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 #include "ascii_string.h"
 
 // ?rva00420110@Rva00420110@@QAEXXZ, retail 0x00420110, 111 bytes. HideEndGame

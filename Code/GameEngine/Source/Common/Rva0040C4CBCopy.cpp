@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0040C4CB@Rva0040C4CB@@QAEEPAXH@Z @0x0040C4CB 51B. Copy via rowed
 // 0x0037DE0E plus int param +0xA8 and this +0xC0 to dest +0xAC, return 1/0.
 // Evidence: chain of 0x0037DE0E row, ret 8, caller 0x0040D7A8 passes stack

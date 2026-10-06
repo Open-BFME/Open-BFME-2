@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004031DD@Rva004031DD@@QAEEH@Z retail 0x004031DD 22B
 // Unsigned frame-vs-slot check: return TheGameLogic+0x40 < this[index] at +0x30.
 // Evidence: mov eax [TheGameLogic] mov eax [eax+0x40] mov edx esp+4 cmp setb ret 4;

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0040C9A4@Rva0040C985@@QAEMXZ, retail 0x0040C9A4, 80 bytes.
 //
 // Same-class neighbour of Rva0040C985Init.cpp (class layout and TheGameLogic

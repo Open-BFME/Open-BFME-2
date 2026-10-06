@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00414081@Rva00414081@@QAEXPAVINI@@@Z, retail 0x00414081, 18 bytes.
 // INI parse wrapper over rowed ?initFromINI@INI@@QAEXPAXPBUFieldParse@@@Z with table 0x00C39EB8.
 // Caller at 0x004142D7 in 0x0041428F passes INI in esi and object in ecx; same 18B shape as rowed 0x00415C56.

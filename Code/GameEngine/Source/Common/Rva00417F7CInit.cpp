@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva00417F7C@@QAE@ABV?$StringBase@D@@@Z @0x00417F7C 62B.
 // Ctor takes const StringBase<char>& at [ebp+8] for member
 // at +0 via rowed private copy 0x000365F0, BitFlags<11> at +4 via rowed

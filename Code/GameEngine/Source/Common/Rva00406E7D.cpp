@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00406E7D@Rva00406E7D@@QAEHXZ @0x00406E7D 18B
 // Unlock lane: forwards this+0xC and this+0x10 to rowed
 // Rva00219B9E::rva00219ED5 on g_00DFE344; sibling of 0x00406E53.

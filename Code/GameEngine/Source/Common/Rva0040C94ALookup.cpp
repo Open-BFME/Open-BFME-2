@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0040C94ALookup@@YAPAVPlayer@@H@Z @0x0040C94A 35B.
 // Id-to-player lookup: pinned Logic id lookup 0x002B488E with the int id,
 // null check returning 0, then rowed PlayerList get 0x002A7A6F with Result+0x54.

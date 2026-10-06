@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva003F83D9@Rva003F83D9@@QAENH@Z @0x003F83D9 37B.
 // Double from AsciiString array at +0xC via atof with empty fallback.

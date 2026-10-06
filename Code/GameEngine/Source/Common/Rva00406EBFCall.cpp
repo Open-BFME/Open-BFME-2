@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00406EBF@Rva00406EBF@@QAEXPAVXfer@@@Z @0x00406EBF 24B: thiscall wrapper forwarding Xfer arg to virtual slot 3 with byte flag at +0x70 set around the call. Callers 0x00409966 and 0x00409A3D pass stack Xfer object. Owner unknown so honest-address name.
 class Xfer;
 class Rva00406EBF

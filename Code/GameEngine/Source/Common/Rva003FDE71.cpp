@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003FDE71@Rva003FDE71@@QAEXXZ @0x003FDE71 27B: __thiscall void method iterating
 // pointer range [+0x2C,+0x30) calling rowed Rva0056B95E::rva0056B95E(). Evidence:
 // retail loads begin/end from ecx+0x2C/0x30 steps 4 derefs each with no stack arg;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003EFE3E@Rva003EFE3E@@QAEXH@Z, retail 0x003EFE3E, 37 bytes.
 // Store int at +0x140, if global g_009FE1C8->m_268 non-null call its
 // Rva003EF13E::rva003EF08B with this as int (pin takes int). Evidence: rowed

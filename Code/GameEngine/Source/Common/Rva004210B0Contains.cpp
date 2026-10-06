@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004210B0@Rva004210B0@@QAE_NPBVModuleData@@@Z @0x004210B0 32B
 // Linear search of vector<ModuleData*> at +8 for pointer equality.
 // Evidence: __thiscall via ecx plus ret 4; mov eax [ecx+8] mov ecx [ecx+0xc] loop;

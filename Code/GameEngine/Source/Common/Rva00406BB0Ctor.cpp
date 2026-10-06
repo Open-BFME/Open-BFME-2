@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva00406BB0@@QAE@ABV?$StringBase@G@@H@Z @0x00406B6A 70B: ctor with wide string + int.
 // Layout from rowed copy ctor 0x00406BB0 in Rva00406BB0CopyCtor.cpp: base with
 // declared dtor for EH state 0, StringBase<wchar_t> at +4 via rowed copy ctor

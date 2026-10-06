@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0040A937Equal@@YA_NPBVRva0040A7D5@@0@Z @0x0040A937 99B
 // Evidence: chain lane; equal-size non-empty element-wise compare via 0x0040A7D5 row; callers at 0x0040ABBF 0x0040ABD4 0x0040ABE5 0x0040ABF6.
 class Rva0040A7D5

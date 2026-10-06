@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva0040C351@@QAE@XZ @0x0040C351 (77B).
 // Derived of rowed Rva0037DF2C ctor 0x0037DF2C (same this, no offset) with own
 // vtable 0x00C3944C at +0x0 overwriting base vtable, member at +0xAC with base

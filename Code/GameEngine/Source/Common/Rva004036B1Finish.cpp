@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oy- /G7
+// cl: /MD /Oy-
 // ?rva004036B1@Rva004036B1@@QAE_NPAXPAMPBV?$StringBase@D@@@Z @0x004036B1 (92B)
 // Thiscall range find over 0x14-byte elems comparing key at +0 then an
 // optional StringBase filter against the inner pointer list at +8/+0xC via

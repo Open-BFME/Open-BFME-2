@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Oy- /DNDEBUG /MD /GX-
 // Six TeamDefeatCondition-style ParseINI helpers recovered from the
 // ?Rva004FD77CParse@@YAXPAVINI@@PAVRva004FD3E2@@@Z recipe at 0x004FD77C.
 // Same operand-masked shape: null-check the INI and holder, new a record,

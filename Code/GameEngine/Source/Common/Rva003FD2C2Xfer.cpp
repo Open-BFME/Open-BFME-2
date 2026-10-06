@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva003FD2C2@Rva003FD2C2@@MAEXPAVXfer@@@Z, retail 0x003FD2C2, 52 bytes.
 // Chain: calls 0x003FD1C5 which just landed (base Rva003FD1C5 handling

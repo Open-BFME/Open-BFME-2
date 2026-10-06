@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Og /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva004161F1Notify@@YAXVAsciiString@@VUnicodeString@@@Z @0x004161F1 198B
 // Buddy multiple-online notification: TheGameText fetch Buddy string plus set
 // via 0x00037150; releaseBuffer 0x00036E70; UnicodeString format via 0x006CB660;

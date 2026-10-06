@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0040D380Get@@YGHH@Z @0x0040D380 22B: chain from bfmeFind1038 0x0040D008 returns +0x2c or 1 when null. Evidence: calls rowed 0x0040D008; single caller jmp at 0x0023D07B; prev/next in Common.
 class BfmeY1038
 {

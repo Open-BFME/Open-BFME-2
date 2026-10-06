@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva00404927@Rva00404927@@QAEHPAVRva00404781@@H@Z retail 0x00404927 54B
 // Evidence: __thiscall ret 8 takes Rva00404781* plus int; reads m_a[idx] m_b[idx] at +0 +0x50 like Rva00404781; mul by [ecx+8] [ecx+4] sub compare vs [ecx+0x10]*[ecx+0x0C]; callers 0x00404D14 0x0056C1D2
 class Rva00404781

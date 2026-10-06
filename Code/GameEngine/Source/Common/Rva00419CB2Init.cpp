@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva00419CB2Init@@YAXPAX@Z, retail 0x00419CB2, 22 bytes. memset 4 bytes to
 // 0 then bitwise-NOT the dword (sets to -1). Evidence: call to rowed memset

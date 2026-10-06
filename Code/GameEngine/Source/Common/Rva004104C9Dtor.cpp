@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/reference/shims/stringinline
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/reference/shims/stringinline
 //
 // ??1Rva004104C9@@QAE@XZ, retail 0x004104C9, 53 bytes. Unlock lane: pair of
 // AsciiString at +0 and Rva0045EF90Object at +4. Ctor 0x004106C1 builds the

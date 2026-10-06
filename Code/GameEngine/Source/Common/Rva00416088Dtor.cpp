@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ??1Rva00416088@@QAE@XZ @0x00416088 (54B): string record dtor.
 // Releases AsciiStrings at +8/+0xC via rowed releaseBuffer at 0x00036410
 // (+0xC first with EH state 0 then +8). Ints at +0/+4 trivial. Same shape

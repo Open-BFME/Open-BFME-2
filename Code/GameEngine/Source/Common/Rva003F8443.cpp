@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva003F8443@Rva003F8443@@QAEPAURva002E1948Entry@@H@Z @0x003F8443 25B.
 // Index AsciiString array at +0xC and find via rowed Rva002B48E1.

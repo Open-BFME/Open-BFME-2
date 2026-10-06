@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 // ?rva003FAB93@Rva003FAB93@@QAEXXZ @0x003FAB93 172B
 // Chain over 0x002D982A. Evidence: m_2c gate <5, m_14 referent null and +0xB0 flag,
 // TheAudio 0x009FE6E8 slot 0x8c with 1 1 0, BfmeAudioEventPrefix136 ctor 0x002D982A

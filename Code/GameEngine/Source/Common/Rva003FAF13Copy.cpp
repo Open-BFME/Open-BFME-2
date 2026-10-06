@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /EHsc /MD /DNDEBUG
 // ??0Rva003FAFB9@@QAE@ABV0@@Z @0x003FAF13 166B
 // Copy ctor of the 0x00837A08 class (dtor 0x003FAFB9 methods 0x003FAB93 and 0x003FAC3F).
 // Evidence: vtable store 0x00837A08 StringBase copy 0x365F0 at +4 pos movs +8/+C/+10

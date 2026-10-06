@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0040327B@Rva0040327B@@QAEPAXPAVObject@@@Z retail 0x0040327B 88B
 // Guarded indexed fetch from +0xb4 array: if !m_d0 return m_b4[0]; if !obj
 // return m_b4[0]; pool=obj->findAttributeModifierPoolUpdate else return m_b4[0];

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva003F87A9@@UAE@XZ retail 0x003F87A9 86B
 // Own vptr C37318; under EH state 0 the file pointers in the vector at +0xC are
 // handed back through the rowed for-each

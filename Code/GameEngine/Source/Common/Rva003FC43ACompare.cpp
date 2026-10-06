@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?Rva003FC43ACompare@@YAHPAVRva003FC43A@@0H@Z @0x003FC43A (136B):
 // Case-insensitive chunked compare of two virtual streams: total sizes via

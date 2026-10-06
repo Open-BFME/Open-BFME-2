@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva0041F449@Rva0041F449@@QAEPAV?$StringBase@D@@ABV2@@Z @0x0041F449 43B.
 // Linear search over StringBase pointer range [+4,+8) via rowed compare
 // 0x000069D6; returns matching element or 0. Evidence: caller at 0x005DA6BB

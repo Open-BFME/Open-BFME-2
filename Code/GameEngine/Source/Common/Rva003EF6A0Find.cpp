@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva003EF6A0Find@@YGPAURva003EF6A0Entry@@PAURva003EF6A0Span@@H@Z, retail 0x003EF6A0, 54 bytes.
 // Free __stdcall search of a two-pointer span of entry pointers for the entry
 // whose +0 key equals the int arg; returns the entry pointer or null. Callees

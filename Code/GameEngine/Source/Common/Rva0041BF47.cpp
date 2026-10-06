@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0041BF47Get@@YG_NPAVObject@@0H@Z @0x0041BF47 91B. Free stdcall bool
 // (Object *a, Object *b, int unused): a/b non-null, a template +0x109
 // bit 0x40 set, a->getRelationship(b)==2 (ALLIES), b->testStatus(2),

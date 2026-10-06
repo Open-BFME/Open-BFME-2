@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 // ??1Rva004211CA@@UAE@XZ @ 0x004211CA 92B
 // Dtor with vtable 0x0083BDFC, Ascii at +0x10, Unicode at +0x14, heap at +0x18
 // freed via _free, then base Rva001E3624 pinned dtor. Unblocks deleting dtor

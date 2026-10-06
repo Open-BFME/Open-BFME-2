@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 // ?rva003FDEAD@Rva003FDEAD@@QAEXXZ @0x003FDEAD 110B: __thiscall void method guarding on +0x14 ref and +0x38 then BfmeAudioEventPrefix136(ref 1) plus +0x70 from +0x38->+0x54 then TheAudio addAudioEvent slot 0x64. Evidence: rowed ctor 0x002D97D6 plus rowed dtor 0x002D9A43 plus TheAudio 0x009FE6E8 plus caller 0x003191CA plus sibling Rva003184B8 same slot pattern.
 #include "Common/BfmeAudioEventPrefix136.h"
 

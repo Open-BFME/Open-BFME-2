@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva003FC780@Rva003FB65C@@QAEPAVHTreeClass@@PBVAsciiString@@H@Z @0x003FC780 71B
 // Chain after rva003FB65C: releases old HTree at +0x18 via ref at +4 slot00 clears
 // then GetAnimTree via AsciiString first-dword t+8 or empty stores calls rva003FB65C returns tree.

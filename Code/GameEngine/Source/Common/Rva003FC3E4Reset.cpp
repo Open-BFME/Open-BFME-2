@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003FC3E4@Rva003FC3E4@@QAEXXZ @0x003FC3E4 (68B):
 // Mesh texture reset walk: if +0x8 collection set take count via slot28;

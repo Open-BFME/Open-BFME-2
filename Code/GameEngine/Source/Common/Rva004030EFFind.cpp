@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 // ?Rva004030EFFind@@YGHPBD@Z @0x004030EF 58B
 // Index lookup in the pointer table g_00DC1B68: return the index of the
 // first entry that strcmp-matches the argument, else 0. Evidence: the

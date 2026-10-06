@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ??1Rva004209CC@@UAE@XZ, retail 0x004209CC, 65 bytes.
 // Virtual dtor: installs vtable 0x0083BD40, frees heap pointer at +0x0C via
 // rowed _free 0x00030830, calls rowed base GameEngineDeletingBase dtor

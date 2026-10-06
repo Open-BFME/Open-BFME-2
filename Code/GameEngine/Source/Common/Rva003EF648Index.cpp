@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva003EF648Index@@YGHPAURva003EF648Span@@H@Z, retail 0x003EF648, 46 bytes.
 // Free __stdcall index lookup over a two-pointer span of record pointers;
 // compares the value against the first dword of each pointed-to record and

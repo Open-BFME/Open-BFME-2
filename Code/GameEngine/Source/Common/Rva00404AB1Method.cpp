@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00404AB1@Rva00404AB1@@QAEXPAVXfer@@@Z, retail 0x00404AB1, 82 bytes.
 // Evidence: __thiscall Xfer* (ret 4); Version1 via rowed 0x000053EE then 20x
 // float pair via Xfer slot 0x70 plus 2x uint via slot 0x78. Layout mirrors

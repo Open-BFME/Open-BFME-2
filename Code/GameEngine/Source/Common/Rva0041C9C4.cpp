@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0041C9C4Check@@YG_NPAVObject@@PBUCoord3D@@PBVOverridable@@@Z, retail 0x0041C9C4, 52 bytes.
 // Evidence: free stdcall 3 args ret 0xC; a3 via rowed Overridable::friend_getFinalOverride 0x00288609 tests bit6 of +0x18; AI global g_Va009FF0F8 +0x10 Pathfinder pinned rva002F477E with obj a1 pos+0x38 coord a2 zero.
 struct Coord3D

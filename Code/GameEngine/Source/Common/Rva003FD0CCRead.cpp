@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva003FD0CC@Rva003FD0CC@@QAEXPADHH@Z RVA 0x003FD0CC size 129: composite string+text slice copy; caller 0x003FD05E passes PlusText prefix, length via AsciiStringPlusText 0x002DBF50, empty fallback g_Rva0107301CEmptyString, memcpy 0x006291A8.
 #include "ascii_string.h"
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int n);

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00415EF8Close@@YAXXZ @0x00415EF8 46B chain via 0x00516EE9.
 // If g_Va00A04904 and g_Va00A03094 are set call Rva00517048 close then clear
 // three globals. Evidence: caller 0x00415F0B sets ecx from g_Va00A04904;

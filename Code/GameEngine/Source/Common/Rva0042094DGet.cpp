@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0042094D@Rva0042094D@@QAEHH@Z, retail 0x0042094D, 24 bytes.
 // Bounded array getter: returns m_data[index] for 0 <= index < 8 else 0.
 // Array at +4 (8 ints). Evidence: ret 4 plus scale-4 load plus jl/jge to xor;

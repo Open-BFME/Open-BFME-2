@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
 // ??1Rva0040DB52@@UAE@XZ @0x0040DB52 81B. ModuleData-like dtor: vtable 0x008394CC
 // then frees at +0x20 and +0x14 via rowed _free at 0x00030830, then restores
 // Snapshot base vtable 0x007BB554. Evidence: two test-je-free sequences with EH

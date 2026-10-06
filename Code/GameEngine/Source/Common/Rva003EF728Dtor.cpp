@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 //
 // ??1Rva003EF728@@QAE@XZ @ 0x003EF728 (86B).
 // Non-virtual dtor freeing three heap blocks at +0x20/+0x14/+0x0 via

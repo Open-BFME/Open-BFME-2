@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0041355DParse@@YAXPAVINI@@@Z @0x0041355D 88B: parse Pod16 via rowed 0x0041330C then insert into global store map.
 // Evidence: chain lane calls just-landed 0x0041330C, rowed _M_insert 0x00256583 via insert_unique, float literal g_Va00BBB8D8, global g_00E03040 with map at +0xC.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Listener broadcast at retail 0x0041E717 (27B). Walks the pointer range at
 // +0x1C/+0x20 and invokes virtual slot 1 on each element through its own

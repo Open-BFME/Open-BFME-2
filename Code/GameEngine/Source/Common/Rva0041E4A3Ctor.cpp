@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0041E4A3@@QAE@XZ @0x0041E4A3 33B: opaque ctor over 0xC base plus vector at +0xC.
 // Evidence: calls rowed base 0x001B4E63 (twin-pinned as GameEngineDeletingBase ctor)

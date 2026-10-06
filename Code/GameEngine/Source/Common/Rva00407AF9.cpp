@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?Rva00407AF9Run@@YA_NABVAsciiString@@0@Z @0x00407AF9 202B: cdecl bool building command line from two AsciiStrings plus g_00BBD40C via rowed concat then _mbscpy to 256B stack buf then CreateProcessA plus WaitForSingleObject plus CloseHandle. Evidence: memset 0x6291AE STARTUPINFO 0x44 concat 0x6987 0x5629 _mbscpy 0x629176 CreateProcessA IAT WaitForSingleObject CloseHandle releaseBuffer 0x36410 ret; callers 0x409744 0x40976F.
 #include "ascii_string.h"
 #include <string.h>

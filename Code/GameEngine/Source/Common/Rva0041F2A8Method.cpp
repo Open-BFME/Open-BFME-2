@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva0041F2A8@Rva0041F28C@@QAEMPAX@Z @ 0x0041F2A8 (104B). Lerp selector on
 // Rva0041F28C floats via Rva002A8AB1 record (index +0x16c, t +0x170) through
 // global g_00DFEEF8 pin 0x002A8AB1. Case 0 blends +4/+8, case 1 blends

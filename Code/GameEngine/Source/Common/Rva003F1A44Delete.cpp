@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Rva003F1A44Delete @0x003F1A44 27B: null-checked delete of an Rva003F0C6C.
 // Evidence: retail reads its pointer from [esp+8] not ecx, calls the rowed
 // ??1Rva003F0C6C@@QAE@XZ @0x003F0C6C then operator delete 0x0002FD60, and

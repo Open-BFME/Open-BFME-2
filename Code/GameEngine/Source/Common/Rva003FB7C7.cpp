@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva003FB7C7@Rva003FB7C7@@QAEXXZ @0x003FB7C7 20B
 // Honest address-derived placeholder: method Rva003FB7C7 in new opaque class
 // Rva003FB7C7. Same-page adjacency to vslot 0x003FB6C5 (slot 7 of

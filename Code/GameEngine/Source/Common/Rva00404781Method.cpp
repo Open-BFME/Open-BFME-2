@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva00404781@Rva00404781@@QAEXMHH@Z retail 0x00404781 77B
 // Evidence: __thiscall float int int ret 0xC; touches +0x50[i] +0xA4 then +0[i] +0xA0; stride 0xA8 from caller 0x0056C4D3 imul; callers 0x00405180 0x0056C505
 // ?rva0040475C@Rva00404781@@QAEXXZ retail 0x0040475C 37B

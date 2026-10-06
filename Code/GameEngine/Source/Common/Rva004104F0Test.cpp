@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // ?test@Rva004104F0@@QAE_NI@Z, retail 0x000788C0 (19B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/Common/Rva004104F0Test.cpp

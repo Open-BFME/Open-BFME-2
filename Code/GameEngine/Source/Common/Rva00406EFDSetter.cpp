@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00406EFD@Rva00406EFD@@QAE_NH@Z @0x00406EFD 21B: conditional setter comparing stack arg with +0x10 and setting bit 2 at +0x38. Caller 0x00407012 passes 0. Owner unknown so honest-address name.
 // ?rva00407004@Rva00406EFD@@QAE_NH@Z @0x00407004 28B: when the argument
 // differs from +0x0C, stores it, calls rva00406EFD(0) and ORs 0xEF into the

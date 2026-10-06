@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // ?Rva003EF9DCFill@@YGXPAURva003EF9DCNode@@PAV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@@Z, retail 0x003EF9DC, 46 bytes.
 // Free __stdcall drain of a +0x28-linked list into a vector<ObjectID> by

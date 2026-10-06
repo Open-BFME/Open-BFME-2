@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0040C3BB@Rva0040C351@@QAE_NPBV1@@Z @0x0040C3BB (117B):
 // Rva0040C351 equality: first the rowed base Equal at 0x0037E0EC over this
 // and other, then the six tail fields at +0xB4 +0xB8 +0xBC +0xC0 +0xC4 +0xC5.

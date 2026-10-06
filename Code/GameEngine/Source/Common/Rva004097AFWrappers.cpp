@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Two retail wrappers (23B + 21B) over the shared callee at 0x004097AF.
 // 0x00409892: push [esp+8], push 0x4A, push [esp+0x10], push [esp+0x10],
 //   call, add esp, 0x10, ret -> callee(a, b, 0x4A, b).

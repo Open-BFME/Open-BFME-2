@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // Rva004073DCFind, retail 0x004073DC, 177 bytes, __stdcall, sole caller
 // 0x004086D4. Walks the null-terminated pointer array returned by the rowed
 // Rva002B224BDwordField::get 0x002B224B while the result is still empty;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD
 //
 // ??0Rva004188B6@@QAE@ABU0@@Z @0x004188B6 89B: copy constructor of a 32-byte
 // record: two 12-byte members copied by the unrowed copy constructor 0x004186F2

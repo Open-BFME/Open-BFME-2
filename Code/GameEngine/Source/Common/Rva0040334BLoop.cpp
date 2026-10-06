@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva0040334B@Rva0040334B@@QAEXPAVObject@@@Z @0x0040334B 55B unlock lane loop via Object pin.
 // Evidence: cmp stack arg null then loop +0x20 to +0x24 step 0x10 calling pinned Object rva0028EA91 0x0028EA91 with string +4 and int +8 minus TheGameLogic+0x40; caller 0x00470A38.
 #include "ascii_string.h"

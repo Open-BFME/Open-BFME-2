@@ -1,4 +1,4 @@
-// cl: /arch:SSE /MD
+// cl: /MD
 // ?rva003F74A0@Rva003F74A0@@QAEXM@Z @0x003F74A0 19B.
 // Float multiply-assign of the +0x28 member.
 // Evidence: retail movss xmm0,[esp+4]; mulss xmm0,[ecx+0x28];

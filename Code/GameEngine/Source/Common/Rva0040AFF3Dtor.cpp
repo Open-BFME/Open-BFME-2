@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Fix over the banked 0.93 attempt, from the retail unwind map: five states,
 // the first two destroying real vector members at +0x04 and +0x10 (folded

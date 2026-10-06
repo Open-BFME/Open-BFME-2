@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00406F51Find@@YG_NPBVRva002B224BDwordField@@PAX1@Z @0x00406F51 75B: array search.
 // If a3 null return false; else get array via rowed get 0x002B224B, walk null-
 // terminated 4B array, via virtual +0xA8 get obj, via virtual +0x38 test (a2,a3)

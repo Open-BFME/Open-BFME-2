@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0041A00F@Rva0041A00F@@QAEXXZ retail 0x0041A00F 56B method.
 // Evidence: clears +0x80 via rowed 0x0009990D; stops thread +0x74
 // via rowed 0x006105F0; virtual slot0 with 0 plus delete 0x0002FD60;

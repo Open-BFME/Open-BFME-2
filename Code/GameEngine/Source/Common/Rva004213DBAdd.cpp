@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004213DB@Rva004210B0@@QAEXPBVModuleData@@@Z @0x004213DB 33B
 // Add-if-absent over vector<ModuleData*> at +8: contains check via rowed
 // 0x004210B0 then push_back via rowed 0x004DFCB0. Same this and same arg

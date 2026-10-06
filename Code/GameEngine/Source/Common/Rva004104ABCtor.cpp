@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 
 // ??0Rva004104AB@@QAE@_NPBD@Z, retail 0x004104AB 30B.
 // thiscall ctor with ret 8: bool flag at +0 plus AsciiString at +4 built

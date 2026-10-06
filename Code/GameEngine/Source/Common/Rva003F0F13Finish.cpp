@@ -1,4 +1,4 @@
-// cl: /Os /MD /arch:SSE
+// cl: /MD
 // stlport
 // ?rva003F0F13@Rva003F0F13@@QAEXPAURva003F0F13Elem@@@Z, retail 0x003F0F13, 53 bytes.
 // __thiscall copy-first-or-zero helper over an _STL::vector of 8-byte elements

@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD
+// cl: /Ob2 /EHs /MD
 // ??1Rva00420110@@UAE@XZ, retail 0x004201FA, 62 bytes. Derived dtor of
 // Rva00420110 over Rva0041FE0E over GameEngineDeletingBase: installs derived
 // vtable 0x00C3BA28 then calls rowed this->rva00420110 0x00420110 then

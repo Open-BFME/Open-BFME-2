@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Nine broadcast methods of the registry the Rva0056AC26 destructor reaches
 // through its +0x10 owner (0x003F88A7 is the call it makes there): each hands

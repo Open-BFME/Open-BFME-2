@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0041C21BIsVisible@@YG_NPAVPlayer@@PAVObject@@H@Z @0x0041C21B 122B
 // Free function at 0x0041C21B (122B): visibility/relationship check.
 // Evidence: callers 0x00261478 (36B, pushes [esi+8]/arg/[esi+0x10]) and 0x0030ECD6 (767B);

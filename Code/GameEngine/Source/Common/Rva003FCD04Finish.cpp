@@ -1,6 +1,6 @@
 // ?Rva003FCD04Compare@@YAHPAX0H@Z
 // partial score=0.93 date=2026-09-30
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva003FCD04Compare@@YAHPAX0H@Z @0x003FCD04 (84B):
 // Free-function wrapper around chunked stream compare 0x003FC43A: builds two

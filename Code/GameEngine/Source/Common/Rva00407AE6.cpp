@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00407AE6@Rva004076EE@@QAEXW4ModelConditionFlagType@@I@Z, retail 0x00407AE6 (19 bytes).
 // Leaf method on the Rva004076EE holder (ObjectID at +4): fetch the Object

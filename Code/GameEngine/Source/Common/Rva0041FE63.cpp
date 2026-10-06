@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0041FE63@Rva00420110@@UAEXXZ @0x0041FE63 35B
 // Vslot 31 of vtable 0x0083BA28 (class Rva00420110). Evidence: byte at +0x10
 // gates DWORD delta at +0x14 via winmm timeGetTime against 0x1b58 timeout

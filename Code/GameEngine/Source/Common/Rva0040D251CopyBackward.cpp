@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0040D251CopyBackward@@YAPAVRva0040D0A4Entry@@PAV1@00@Z, retail 0x0040D251, 47 bytes.
 // copy_backward for Rva0040D0A4Entry 8-byte entries using rowed assignment
 // 0x0040D0A4. Same shape as Rva005EF000CopyBackward for holders. Caller at

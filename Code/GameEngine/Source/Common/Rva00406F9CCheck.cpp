@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00406F9C@Rva00406F9C@@QAE_NPBX@Z @0x00406F9C 35B: 32-dword intersect test.
 // If any [this+i] & [other+i] for i in 0..31 return true else false. Ret 4 is
 // thiscall with one arg. Abuts 0x00406F51 (same /O1 /MD). Unblocks 11 incl 5

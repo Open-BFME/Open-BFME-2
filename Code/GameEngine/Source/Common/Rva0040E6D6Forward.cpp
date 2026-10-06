@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Null-guarded member forward at retail 0x0040E6D6 (32B). Reads the
 // argument's +0x1C word into the argument slot, then forwards the slot's

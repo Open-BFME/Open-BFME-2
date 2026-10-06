@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 // ?rva0041FE86@Rva0041FE86@@QAEXXZ, retail 0x0041FE86, 101 bytes. Init method:
 // zeroes the 20-dword array at +0x18 plus the 20-byte array at +0x70 then sets

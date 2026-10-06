@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003F2947@Rva003F2352@@QAEPAV1@PAV1@@Z @0x003F2947 33B, dump range 18.
 // Same-class sibling of the rowed 0x003F2352 assign-through-hook: builds an

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva003FE792@@QAE@UTreeHintRef00217D4C@@H@Z @0x003FE792 56B: ctor storing vtable 0x00837E88 plus TreeHintRef at +8 with AddRef plus ints plus Release of input on non-null. Evidence: callees rowed Release 0x0007DEEF plus caller 0x0031A0AB; same TreeHint shape as rowed setter 0x005C96A9.
 struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *) throw();

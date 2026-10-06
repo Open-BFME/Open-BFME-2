@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva00415AE0@@QAE@XZ retail 0x00415AE0 53B
 // Destroys the rowed Rva0041580E member at +8 (dtor 0x004159AA) under EH
 // state 0, then the AsciiString at +0 through releaseBuffer 0x00036410.

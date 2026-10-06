@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00415C56@Rva00415C56@@QAEXPAVINI@@@Z, retail 0x00415C56 (18B).
 // INI parse wrapper over rowed ?initFromINI@INI@@QAEXPAXPBUFieldParse@@@Z
 // with CrowdResponse field table 0x00C3A304. Caller at 0x00415E2A in

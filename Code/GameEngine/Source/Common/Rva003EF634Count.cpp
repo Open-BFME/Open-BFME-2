@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva003EF634Count@@YGHPAURva003EF634Node@@@Z, retail 0x003EF634, 20 bytes.
 // Free __stdcall function counting nodes via +0x28 next pointers starting
