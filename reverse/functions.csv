@@ -63823,3 +63823,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Apply@Rva005A8666Box@@QAEXHGH@Z,,0x005A86C0,219,Code/GameEngine/Source/Common/Rva005A8666Box.cpp,matched,validated triple apply with pair linking and gated consumer plus setter
 ?Run@Rva005B5AC3Box@@QAEXXZ,,0x005B5AC3,32,Code/GameEngine/Source/Common/Rva005B5AC3Box.cpp,matched,non-negative one-shot forwarding composed constant through pinned cdecl callee
 ?Run@Rva005B5B0CBox@@QAEXH@Z,,0x005B5B0C,45,Code/GameEngine/Source/Common/Rva005B5B0CBox.cpp,matched,manager sub-object handoff with byte flags and arg-free tail callee
+?Run@Rva005B57C6Box@@QAEXPAD@Z,,0x005B57C6,52,Code/GameEngine/Source/Common/Rva005B57C6Box.cpp,matched,sscanf scan forwarding to pinned 3-arg callee

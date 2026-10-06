@@ -13152,3 +13152,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?Rva005B23D7Wrap@@YAXHHH@Z,0x005B23D7,wrapper-call spelling for the 0x5B5AC3 one-shot (cdecl 3 ints; true callee matched as Rva005B23D7HeroPowersDescription); target REL32 from retail call at 0x005B5AD5
 ?UseSub@Rva005B5B0CMgr@@QAEXPAX@Z,0x0021A428,wrapper-call spelling for the 0x5B5B0C manager handoff (thiscall 1 arg callee cleanup); target REL32 from retail call at 0x005B5B1E
 ?Rva00513866Free@@YAXXZ,0x00513866,free-function spelling for the 0x5B5B0C tail callee (no ecx or stack setup at the site); target REL32 from retail call at 0x005B5B30
+?M54ed@Rva005B57C6Box@@QAEXHPADH@Z,0x005B54ED,wrapper-call spelling for the 0x5B57C6 scan forwarder (thiscall taking int char* int; true callee is the 382B dump body); target REL32 from retail call at 0x005B57F0
