@@ -64929,3 +64929,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva006E4390@Rva006E4390@@QAEXXZ,,0x006E4390,240,Code/Libraries/Source/Apt/Rva006E4390.cpp,matched,unlock lane AptCIH container button sprite virtual slot1
 ?rva003F830F@Rva003F81FDProxy@@QAEXPAX@Z,,0x003F830F,61,Code/GameEngine/Source/Common/Rva003F830F.cpp,matched,unlock lane proxy getter plus loop callback
 ?rva0046E8EE@HordeContain@@UAEXXZ,,0x0046E8EE,422,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046E8EE.cpp,matched,vtable slot 28 HordeContain TransportContain chain
+?rva00479B3A@Rva00479B3A@@QAEXPAVObject@@@Z,,0x00479B3A,69,Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainRva00479B3A.cpp,matched,GarrisonContain chain drawable reset
