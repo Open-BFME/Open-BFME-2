@@ -4,7 +4,7 @@
 // BfmeZeroRange. Evidence: rowed-adjacent SSE sibling Rva003F74A0Mul at
 // 0x003F74A0; externs BfmeZeroRange and g_Va00BBB8D8 named by packet;
 // callers at 0x002BCADF and 0x003F220D.
-extern const float BfmeZeroRange;
+// The data ledger identifies the shared read-only operand as float +0.0.
 extern float g_Va00BBB8D8;
 
 class Rva003F7478
@@ -17,7 +17,7 @@ public:
 
 void Rva003F7478::rva003F7478(float f)
 {
-	if (f > BfmeZeroRange)
+	if (f > 0.0f)
 	{
 		float t = g_Va00BBB8D8 / f;
 		m_float24 *= t;

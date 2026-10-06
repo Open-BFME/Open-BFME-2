@@ -6,7 +6,7 @@
 // [arg+0x258]+0x1f8 * g_secondsPerLogicFrame (x87 fld/fmul). Called at 0x0026C890.
 // Owner identity unproven, honest Rva name.
 
-extern const float BfmeZeroRange;
+// The data ledger identifies the shared read-only operand as float +0.0.
 extern float g_secondsPerLogicFrame;
 
 struct Rva001E3E6DMidA
@@ -39,9 +39,9 @@ private:
 float Rva001E3E6D::rva001E3E6D(Rva001E3E6DArg *p)
 {
 	if (p == 0)
-		return BfmeZeroRange;
+		return 0.0f;
 	Rva001E3E6DMidB *mid = p->m_p258;
 	if (mid == 0)
-		return BfmeZeroRange;
+		return 0.0f;
 	return m_p04->m_val138 * mid->m_val1F8 * g_secondsPerLogicFrame;
 }

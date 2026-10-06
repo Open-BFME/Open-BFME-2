@@ -10,7 +10,7 @@ public:
 	int m_int18;
 };
 
-extern const float BfmeZeroRange;
+// The data ledger identifies the shared read-only operand as float +0.0.
 
 extern class GlobalData *TheWritableGlobalData;
 
@@ -66,7 +66,7 @@ float Rva0039205C::rva00392D1D(unsigned int index)
 		((Rva00392092Target *)this)->rva00392092();
 	if (index < (unsigned int)m_count00)
 		return m_array08[index].m_float0C;
-	return BfmeZeroRange;
+	return 0.0f;
 }
 
 void Rva0039205C::rva00392196(unsigned int index, int value)

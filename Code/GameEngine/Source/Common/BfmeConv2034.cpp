@@ -2,7 +2,7 @@ extern "C" double sqrt(double x);
 
 #pragma intrinsic(sqrt)
 
-extern const float BfmeZeroRange;
+// The data ledger identifies the shared read-only operand as float +0.0.
 
 class BfmePosEJ
 {
@@ -38,7 +38,7 @@ float bfmeSignedEJ(const BfmePosEJ *p, BfmeObjEJ *o)
 
 	float d = (float)sqrt(s) - b->m_bfmeRadiusEJ;
 
-	if (d < BfmeZeroRange)
+	if (d < 0.0f)
 		return -(d * d);
 
 	return d * d;

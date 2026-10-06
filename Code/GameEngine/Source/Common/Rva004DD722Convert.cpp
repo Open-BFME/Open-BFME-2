@@ -5,13 +5,13 @@
 // Evidence: callers at 0x004DD846 0x004DE0DE 0x004DE4FA 0x004DE518 push one int;
 // BfmeZeroRange extern name in use plus g_integerToFloatScale float ref; prev/next both /O1.
 
-extern const float BfmeZeroRange;
+// The data ledger identifies the shared read-only operand as float +0.0.
 extern float g_integerToFloatScale;
 
 float __cdecl Rva004DD722Get(int value)
 {
 	if (value == 0)
-		return BfmeZeroRange;
+		return 0.0f;
 	return (float)value * g_integerToFloatScale;
 }
 

@@ -6,7 +6,7 @@
 // ?BfmeZeroRange@@3MB; callers at 0x00062D68 0x002EF82D 0x002EF846 0x002EF8E0.
 
 bool __cdecl Rva001E3679(int index);
-extern const float BfmeZeroRange;
+// The data ledger identifies the shared read-only operand as float +0.0.
 
 struct Rva002E7482Item
 {
@@ -27,6 +27,6 @@ private:
 float Rva002E7482::rva002E7482(int index)
 {
 	if (!Rva001E3679(index))
-		return BfmeZeroRange;
+		return 0.0f;
 	return (float)m_items[index].m_val;
 }
