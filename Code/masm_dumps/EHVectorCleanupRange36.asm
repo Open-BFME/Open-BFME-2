@@ -348,5 +348,31 @@ PUBLIC ?rva007613F8@@YAXXZ
     ret
 ?rva007613F8@@YAXXZ ENDP
 
+; Unwind@00b6199e: six 12-byte elements at [ebp-0x10] + 0xc8.
+PUBLIC ?rva0076199E@@YAXXZ
+?rva0076199E@@YAXXZ PROC
+    push 47FAB3h
+    push 6
+    push 0Ch
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0C8h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0076199E@@YAXXZ ENDP
+
+; Unwind@00b61a18: two 4-byte elements at [ebp-0x10] + 0x264.
+PUBLIC ?rva00761A18@@YAXXZ
+?rva00761A18@@YAXXZ PROC
+    push 88BA39h
+    push 2
+    push 4
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 264h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00761A18@@YAXXZ ENDP
+
 _TEXT ENDS
 END
