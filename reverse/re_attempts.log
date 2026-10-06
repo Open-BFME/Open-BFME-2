@@ -10799,3 +10799,4 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva00218787@Rva00218787@@QAEAAMABH@Z	0x00218787	124	blocked	frame 0xc vs 0x10 tmp -0x18 vs -0x1c EHs-EHsc no change t=10 model=muse-08 (stash 0.9 kept)
 ?rva004BE47D@DetachableRiderBody@@UAEHXZ	0x004BE47D	513	blocked	513B DetachableRider slot29 needs rider layout plus drawable calls t=5 model=muse-08
 ?rva005481F9@Rva00548117@@QAEXW4ObjectID@@H@Z	0x005481F9	110	partial	mov edi,[eax] vs [ebp-4] sret slot addr only diff tail fixed t=15 model=muse-10 score=0.99 stash=reverse/attempts/0x005481f9.cpp
+?rva005CCCFC@Rva005CCCD0@@QAEXXZ	0x005CCCFC	58	partial	branch jle+mov vs retail cmovg pair and next-load after cmp t=25 model=muse-03 score=0.93 stash=reverse/attempts/0x005cccfc.cpp

@@ -63691,3 +63691,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002C8754@Rva002C8754@@QAEXPAVINI@@PAX@Z,,0x002C8754,234,Code/GameEngine/Source/Common/Rva002C8754.cpp,matched,234B driver same shape as 0x0033B84E sibling via worker 0x002C82C8
 ??0Rva002B91EDElement@@QAE@ABU0@@Z,,0x002B90D6,103,Code/GameEngine/Source/Common/Rva002B91EDElementCopy.cpp,matched,0x34B element copy ctor via pinned Rva002B5558 copy and rowed Rva002B55AE copy then seven words; existing pin name
 ?rva0023D096@GameLogic@@QAEHH@Z,,0x0023D096,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,chain forwarder GameLogic+0x184 tail jmp to 0x0040D3B6 via opaque pin
+??1Rva00289ABD@@UAE@XZ,,0x00289D7A,239,Code/GameEngine/Source/Common/Rva00289ABDDtor.cpp,matched,pin dtor layout mirrors ctor slot9 cleanup caller deleting dtor
