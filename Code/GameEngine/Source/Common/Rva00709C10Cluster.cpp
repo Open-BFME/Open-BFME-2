@@ -26,6 +26,14 @@
 // The Rva006D6360 base forwarder 0x006DCC00, whose own layout (Rva006DCC00Forwarder.cpp)
 // is two dwords then an AptNativeHash beginning at +0x08. Only the forwarder call
 // and the base's eight-byte extent reach this body; the member names are not used.
+// Retail reaches the forwarder through the rowed link thunk 0x0070DFD0
+// (?rva0070DFD0@Rva0070DFD0@@QAEXXZ in VslotSmallBodiesAJ.cpp), so call it by that
+// row name (cast this; same address, thunk tail-jmps to the forwarder).
+class Rva0070DFD0
+{
+public:
+	void rva0070DFD0();
+};
 class Rva006D6360
 {
 public:
@@ -91,7 +99,7 @@ private:
 // and setGCMark 0x006DBC50; layout from Rva00709B80Slot11.cpp.
 void Rva00709B80::rva00709D80()
 {
-	rva006DCC00();
+	((Rva0070DFD0 *)this)->rva0070DFD0();
 
 	if (m_28)
 	{
