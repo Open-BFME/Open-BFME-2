@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/BfmeRectVNH_ctor.cpp (donor revision

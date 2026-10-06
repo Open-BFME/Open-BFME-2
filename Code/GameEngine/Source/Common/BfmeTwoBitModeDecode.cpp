@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 struct Rva009B4680State;
 int __cdecl Rva009B4680Normalize(Rva009B4680State *p);

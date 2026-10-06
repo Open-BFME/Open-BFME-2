@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: add two 8-word rows and pack to unsigned bytes.  Retail
 // 0x009C6ED0, 66 bytes.

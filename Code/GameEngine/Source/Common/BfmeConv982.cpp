@@ -1,5 +1,5 @@
 // Open-BFME5 conversions.
-// cl: /O1 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
+// cl: /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
 //
 // Bodies ported from Open-BFME-1's GameEngine/Source/Common/BfmeConv982.cpp
 // (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus

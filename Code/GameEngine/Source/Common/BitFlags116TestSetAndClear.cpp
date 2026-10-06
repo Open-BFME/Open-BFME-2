@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?testSetAndClear@?$BitFlags@$0HE@@@QBE_NABV1@0@Z @0x0030A146
 // Seven-dword mustBeSet/mustBeClear test, donor

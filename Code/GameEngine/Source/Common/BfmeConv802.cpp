@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ?bfmeGoEBC@BfmeThingEBC@@QAEXPAX@Z, retail 0x00460A85 (19B) and
 // ?bfmeGoEBD@BfmeThingEBD@@QAEXXZ, retail 0x003862CA (17B). Ported from
 // Open-BFME-1 Code/GameEngine/Source/Common/BfmeConv802.cpp (BFME1 0x001F8660

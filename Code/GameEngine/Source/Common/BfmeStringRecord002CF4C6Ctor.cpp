@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ??0BfmeStringRecord002CF4C6@@QAE@ABVAsciiString@@0IIE@Z @0x0033B13B 79B
 // Evidence: vector element type BfmeStringRecord002CF4C6 via rowed push_back 0x0033D433 caller 0x0033D751;

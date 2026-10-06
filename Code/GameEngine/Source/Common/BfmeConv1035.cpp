@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // retail 0x0028447F, 32 bytes. Donor game/GameEngine/Source/Common/BfmeConv1035.cpp
 // recompiled /Os emits this body byte-identically on unclaimed .text. Dedicated

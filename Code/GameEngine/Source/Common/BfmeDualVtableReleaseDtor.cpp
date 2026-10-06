@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Open-BFME5: SEH scalar dtor at retail 0x003367E0 (80B). Sets derived
 // vftable 0x010E7530, optionally calls virtual slot+4 on the object held at

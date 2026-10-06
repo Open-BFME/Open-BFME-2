@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ, retail 0x0006ce57, 20 bytes. Banked partial (score 0.85) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

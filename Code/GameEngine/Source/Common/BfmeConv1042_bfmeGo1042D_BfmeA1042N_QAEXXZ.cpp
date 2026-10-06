@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME5 conversions.
 //
 // ?bfmeGo1042D@BfmeA1042N@@QAEXXZ, retail 0x0044BD79, 41 bytes. Both callee pins

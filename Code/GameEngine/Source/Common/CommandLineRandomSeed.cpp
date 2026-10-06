@@ -2,7 +2,7 @@
 // BFME2 live -randomSeed table81FBD0 -> 3B9D2C (full51B).
 // Unlike the donor: no global null guard, reset to zero with no value,
 // and return1 on every path. atoi named IAT BBA624 independently verified.
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 #include <stdlib.h>
 class GlobalData {
 public:

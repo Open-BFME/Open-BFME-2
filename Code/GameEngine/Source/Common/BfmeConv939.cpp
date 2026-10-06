@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Bodies ported from Open-BFME-1's GameEngine/Source/Common/BfmeConv939.cpp
 // (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus

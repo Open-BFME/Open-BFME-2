@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: vertical-edge sibling of bfmeFilterBlockByIndexMmx -- same
 // strength-table lookup and 1/4 constant vectors, but filters across rows

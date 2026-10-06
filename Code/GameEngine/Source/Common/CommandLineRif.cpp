@@ -2,7 +2,7 @@
 // BFME2 live -rif table81FBB8 identifies3B94D6..3B94F0 (27 bytes).
 // Field name describes only the observed switch request at +11C9; no expanded
 // meaning of RIF is asserted. The command word is shared with parseNoAudio.
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 class GlobalData {
 public:
     char prefix[0x11c9];

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // The base init stores retail vtable 0x00C0BBF8, not bfmeInitTC's 0x00C67840,
 // so it needs its own symbol for the DIR32 check.
 extern "C" unsigned char bfmeVftTCBase[];

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: unpack 8 source bytes, add dest words, pack to unsigned bytes.
 // Retail 0x009C6C60, 75 bytes.

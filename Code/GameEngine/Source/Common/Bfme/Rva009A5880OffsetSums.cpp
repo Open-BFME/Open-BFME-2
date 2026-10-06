@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/Bfme
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common/Bfme
 // Both entry points read the same base at +0x244 and distinct dword offsets.
 struct Rva009A5880Offsets
 {

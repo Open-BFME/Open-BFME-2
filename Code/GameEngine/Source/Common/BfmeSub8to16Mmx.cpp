@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: unpack 8 source bytes to words and subtract the destination
 // words in place.  Retail 0x009C6E80, 66 bytes.

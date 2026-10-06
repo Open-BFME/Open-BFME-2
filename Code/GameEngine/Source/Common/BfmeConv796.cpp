@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // ?bfmeGoDYF@@YAXPBD@Z
 // retail 0x0041270D, 36 bytes. Dedicated TU ported from the Open-BFME-1

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 
 // A reference parameter forwarded to a sibling member taking the object BY
 // VALUE: the copy is built in the argument area by the StringBase<char>

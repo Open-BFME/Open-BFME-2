@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 //
 // Open-BFME5: the replay-control window load at retail 0x0043E3E0, 40 bytes.
 // The window name is built straight into the by-value argument slot, so the

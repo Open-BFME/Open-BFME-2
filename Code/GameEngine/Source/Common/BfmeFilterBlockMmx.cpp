@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: two-pass MMX interpolation filter over a 2x4 pixel block --
 // vertical differences for four source rows are staged into a scratch

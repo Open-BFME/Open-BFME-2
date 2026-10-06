@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: average two 8-byte rows into words.  Retail 0x009C6DE0, 84 bytes.
 

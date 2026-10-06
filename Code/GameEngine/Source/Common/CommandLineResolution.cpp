@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // EA BFME1 CommandLine.cpp parseXRes/parseYRes reference flow.
 // BFME2 live -xres table81FB70 identifies3B969B (45B); field is +30.
 #include <stdlib.h>

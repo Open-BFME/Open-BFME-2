@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // A record made around an item it then wakes, four numbers passed to a kept
 // address, an item let go of, and the same question asked twice over.
 

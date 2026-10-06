@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?appendMessageList@CommandList@@QAEXPAVGameMessage@@@Z
 // retail 0x0030F880, 34 bytes. Dedicated TU.
 //

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: vertical-edge sibling of bfmeDeblockEdgeByIndexMmx -- same
 // table-index lookup through the shared spread table (g_rva01356A9C) and the

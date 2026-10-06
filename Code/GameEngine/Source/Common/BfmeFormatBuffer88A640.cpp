@@ -1,4 +1,4 @@
-// cl: /O2 /Oy-
+// cl: /Oy-
 // A varargs message formatted into a half-kilobyte frame buffer and then
 // dropped: nothing here reads the text back. The frame pointer is kept, which
 // is what puts the buffer at ebp-0x200 and the argument list at ebp+0xc.

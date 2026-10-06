@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?Rva00217B07Each@@YAXPAUBfmeElemQR@@0PAX@Z @0x00217B07 23B
 // Unlock thin __cdecl wrapper forwarding to rowed bfmeEachQR at 0x002178FD
 // with a hard 0 third arg. Evidence: push push-0 push push plus call plus add

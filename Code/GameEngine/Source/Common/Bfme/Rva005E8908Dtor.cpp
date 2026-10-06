@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva005E8908@@QAE@XZ @0x005E8908 54B
 // Non-virtual dtor releasing two wide strings at +0x14/+0x18 via rowed
 // releaseBuffer 0x00036E70 with EH states 0 then -1 and homed this for

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BfmeThingTXA presence test: twelve-byte frameless predicate with one shape:
 //
 //     xor eax,eax / cmp [slot],eax / setne al / ret

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva0025C4A4@BfmeStrVM0@@QAEHH@Z @0x0025C4A4 79B evidence: same class BfmeStrVM0 as neighbours rva0025C46E in BfmeConv1435.cpp with mutexes at +0x40 +0x44; guarded virtual slot +0x18c with arg 3 via BFMEDX8DeviceLock RAII Lock 0x0011F520 Assert 0x00120F50; ret 4 one int arg int return for xor eax epilogue
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();

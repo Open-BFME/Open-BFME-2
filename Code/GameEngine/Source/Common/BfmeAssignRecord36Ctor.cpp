@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ??0BfmeAssignRecord36@@QAE@PBDH@Z, retail 0x001512F1, 69 bytes.
 // BfmeAssignRecord36 two-arg ctor: AsciiString defaults zero +0/+8 then rowed

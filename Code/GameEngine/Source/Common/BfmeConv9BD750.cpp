@@ -1,4 +1,4 @@
-// cl: /O2 /Z7
+// cl: /Z7
 //
 // VP6 adaptive edge filter, wide variant. Genuine hand-vectorized MMX retail
 // body (movd/punpcklbw/pcmpgtb/pandn, plain 64-bit MMX only, no SSE2/xmm).

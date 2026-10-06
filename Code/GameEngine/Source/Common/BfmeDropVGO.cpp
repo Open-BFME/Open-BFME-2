@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?bfmeDropVGO@@YAXPAX@Z 0x006D0440 32B: pool drop via teardown plus freeBlock.
 // Evidence: leaf with LINK BONUS (2 files await bfmeDropVGO); 6 matched callers incl BfmeRefVGO dtor; pins teardown 0x006D0280 freeBlock 0x006DB270; pool 0x00A176E8 size 0x1C; donor bfmeDropA pattern.
 class Rva006D0280

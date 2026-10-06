@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?bfmeDoBOE@BfmeSinkBOE@@QAEXPAX0@Z @0x005B7454 600B
 // BFME2 port of Open-BFME-1 game/GameEngine/Source/Common/BfmeSinkBOE_bfmeDoBOE.cpp: same DisplayString slots plus GameGetColorComponents plus clamp plus color assembly plus style switch.
 // Evidence: retail cvttss2si dimensions into +0x40 +0x44 then list walk at +0x14 then heightChunk /3 push 3 idiv then perc branches with movss 1.0 plus GameGetColorComponents 0x002D2A9F plus clamp 0-255 plus GameMakeColor shl-or plus style switch with setColor +0x28 draw +0x38 getSize +0x3C; pin names BfmeSinkBOE::bfmeDoBOE; caller 0x00514CFD bfmeGoBOE; BFME2 outer pad 0x14 vs donor 0x10 for list at +0x14 widths at +0x40.

@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/GameEngine/Source/Common
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/GameEngine/Source/Common
 
 class BfmeTagZBRefCounted
 {

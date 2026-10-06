@@ -1,4 +1,4 @@
-// cl: /Os
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?bfmeGo1057C@@YAXHHH@Z @ 0x0006628A (39B): same D3D device global load as
 // bfmeGo1054E but the vtable slot is +0x114 and both counters are bumped.
 // Ported from Open-BFME-1 Code/GameEngine/Source/Common/BfmeConv1057.cpp.

@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 // Near-miss donor from Open-BFME-1 BfmeConv1435.cpp
 // (?bfmeTickVM0@BfmeStrVM0@@QAEXXZ @0x0040FE40):
 // retail predicate virtual is at slot +0x114 (not +0xF0).

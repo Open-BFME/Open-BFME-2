@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?bfmeAskRV@BfmeMemberRV@@QAE_NXZ @0x002AA231 (20B)
 // Returns true when bytes at +0x33a and +0x734 are zero.
 // Evidence 40+ callers plus BfmeThingRV picker plus two pins.

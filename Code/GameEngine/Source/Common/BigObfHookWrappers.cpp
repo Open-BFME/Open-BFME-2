@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Twenty-two 89-byte __cdecl anti-tamper hook wrappers, one shape. Ported from
 // the Open-BFME-1 donor game/GameEngine/Source/Common/BigObfHookWrappers.cpp
 // (reference/open-bfme-1 @ 6583b3c1), whose thirty-two BFME 1 members are the

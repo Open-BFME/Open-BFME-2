@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Four more: a limit picked by a global switch, a search through a two-level
 // list, a commit of two pending bytes, and a mask add.
 

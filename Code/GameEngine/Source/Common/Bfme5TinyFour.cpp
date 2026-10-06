@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Four more tiny ones: a field address with a shared default, a stamp and a
 // flag cleared together, an emptiness test that answers through the carry, and
 // a flag written into a singleton.

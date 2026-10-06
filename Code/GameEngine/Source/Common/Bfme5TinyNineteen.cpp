@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Three more: a push at the head of the owner's list, a snapshot that copies a
 // word and a three-word struct, and a search along a global list that hands
 // back the node it stopped on.

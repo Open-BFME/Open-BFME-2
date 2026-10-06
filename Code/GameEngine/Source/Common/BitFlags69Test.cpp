@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?test@?$BitFlags@$0EF@@@QBE_NPBX@Z @0x002615C0
 // KindOf-mask intersection over seven dwords, called by the rowed

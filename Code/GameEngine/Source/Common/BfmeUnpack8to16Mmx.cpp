@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: 8-row unpack of 8 source bytes to 8 words via MMX.  Retail
 // 0x009C6E40, 53 bytes.  MSVC 7.1 does not emit this MMX loop from C++.

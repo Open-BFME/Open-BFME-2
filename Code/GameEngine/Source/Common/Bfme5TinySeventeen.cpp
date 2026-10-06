@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Five more tiny ones: a pair of floats accumulated from a caller's pair, a
 // search for the first free slot of twelve, an unsigned count turned into a
 // float and subtracted, a countdown that reloads itself, and a pair written

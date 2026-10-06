@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /Oy-
 // Open-BFME5: ATL 7.1 CAtlBaseModule::AddResourceInstance.
 
 typedef void *HINSTANCE;

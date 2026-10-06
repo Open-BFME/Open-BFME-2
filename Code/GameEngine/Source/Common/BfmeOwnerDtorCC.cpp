@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/BfmeOwnerDtorCC.cpp (donor revision

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob2
 //
 // Open-BFME5: the mixed copy constructor at retail 0x00415FAB,
 // 125 bytes: a word, three narrow strings, a word and two wide strings.

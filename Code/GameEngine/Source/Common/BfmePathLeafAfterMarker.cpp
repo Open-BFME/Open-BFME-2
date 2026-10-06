@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 extern "C" __declspec(dllimport) char * __cdecl strrchr(const char *text, int character);
 extern "C" __declspec(dllimport) int __cdecl strncmp(const char *a, const char *b, unsigned int n);

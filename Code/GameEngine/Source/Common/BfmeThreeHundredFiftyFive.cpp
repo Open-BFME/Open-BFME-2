@@ -1,4 +1,4 @@
-// cl: /O2 /Os
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 extern "C" unsigned char bfmeVftUD[];
 
 void bfmeFreeUD(void *what);

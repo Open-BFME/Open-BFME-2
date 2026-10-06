@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME5 conversions.
 // ?rva003724B8@BfmeC986@@QAEDHHHHH@Z, retail 0x003724B8, 137 bytes.
 // BfmeC986-family guarded dispatch (same callee trio as rowed bfmeGo986C

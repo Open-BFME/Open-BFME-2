@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0025C134@BfmeStrVM0@@UAEXPAV1@@Z @0x0025C134 25B vslot 35 of 0x007F5DA0
 // Forwards member +0x1c through slot 0x25c of the argument and stores it back.
 // Callees all rowed or pinned. Neighbour Rva0025C0FFClear.cpp uses /O1 /MD.

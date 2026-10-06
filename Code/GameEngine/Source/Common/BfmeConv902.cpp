@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /EHsc
+// cl: /MD /EHsc
 // BFME 1 donor 6583b3c1ff21db4a561285717028fdafc780b7db:
 // game/GameEngine/Source/GameClient/GUI/Rva00435270ApplyLayout.cpp.
 // Target 0x00260787 (126B) is the callee of this TU's existing iterator.

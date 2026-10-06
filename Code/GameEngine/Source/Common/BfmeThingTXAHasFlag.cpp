@@ -10,7 +10,7 @@
 // load the slot into a register first); hence the shard TU, split on
 // mismatch per the landed-TU flag law. Identity beyond the slot is not
 // recovered, so the body keeps its Rva name.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 extern unsigned int g_Va00DEC3DC;
 // ?g_Va00DEC3DC@@3IA: the global at this VA is ?Movie@WW3D@@0PAVFrameGrabClass@@A; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?g_Va00DEC3DC@@3IA=?Movie@WW3D@@0PAVFrameGrabClass@@A")

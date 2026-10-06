@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Donor: Open-BFME-1 6d9434269164392c5ba62aaa7c15a86b5b020d76,
 // game/GameEngine/Source/Common/Bfme5DictStringPresence.cpp, compiled /O1.
 // Target: complete 86B extent at 0x00329EE9. The owner remains unknown; the donor supplies the string/dictionary interpretation. Retail

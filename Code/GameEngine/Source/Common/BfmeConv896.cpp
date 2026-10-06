@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME5 conversions.
 //
 // ?bfmeGoFGE@@YGXPAX00@Z, retail 0x003C38CA, 37 bytes. Both callee identities

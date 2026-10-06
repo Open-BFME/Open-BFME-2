@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 
 // ?Rva00412DD8Get@@YA?AVAsciiString@@PBD@Z, retail 0x00412DD8 158B.
 // Free AsciiString(const char*) normalizer: null uses the "" literal at

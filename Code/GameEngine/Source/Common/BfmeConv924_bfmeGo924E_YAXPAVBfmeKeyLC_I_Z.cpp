@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // Three bodies from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/BfmeConv924.cpp, each recompiled /Os

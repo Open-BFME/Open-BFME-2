@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 // ??0BfmeStringRecord00404BF3@@QAE@ABVAsciiString@@@Z retail 0x00404BC5 46B
 // Evidence: __thiscall ret 4 takes string; calls rowed 0x000365F0 StringBase copy; zeroes +4 +8 +C +10 +14 via movss; callers 0x0040561A 0x004056B4 build vector<BfmeStringRecord00404BF3>; returns this
 #include "ascii_string.h"

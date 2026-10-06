@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Five more: another two-member swap, a chain depth, a size over a sixty-byte
 // element, an all-zero test and a one-bit store.
 

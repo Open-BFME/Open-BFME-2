@@ -7,7 +7,7 @@
 // vtable C7A9A8 whose slot4 target604873 tests _waccess(path,0)==0.
 // UnicodeString narrow ctor6CB6D0 has an explicit retail export. The PE
 // import table independently names _wstat at BBA4AC and _waccess at BBA400.
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 #include <sys/stat.h>
 typedef unsigned short Wide;
 class AsciiString;

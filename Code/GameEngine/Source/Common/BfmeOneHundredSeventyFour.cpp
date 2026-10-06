@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Three errands handed straight on: one to a holder that may not be there, one
 // to a part of the record itself, and one that asks first which of two to run.
 

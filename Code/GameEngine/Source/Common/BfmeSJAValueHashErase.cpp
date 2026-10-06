@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 //
 // ?erase@?$hash_map@VAsciiString@@URva004609B0Mapped@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@URva004609B0Mapped@@@_STL@@@6@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBVAsciiString@@URva004609B0Mapped@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@URva004609B0Mapped@@@_STL@@@2@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva004609B0Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@URva004609B0Mapped@@@_STL@@@2@@2@@Z @0x00411066 30B leaf hash_map iterator eraser via explicit instantiation like ArmorHashMapErase.

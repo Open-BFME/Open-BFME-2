@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?find@Rva004CABE5Store@@QAE_NHPAURva002C99FB@@PBVRva000CF0D6@@@Z @0x004CABE5 74B.
 // Find BfmeObject544 in vector via bit test plus indexed assign.

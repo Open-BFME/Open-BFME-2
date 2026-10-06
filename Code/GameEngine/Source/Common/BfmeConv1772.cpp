@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Retail vtable 0x0107C7D0: BfmeParserBindingBaseVE's vftable, i.e.
 // ??_7BfmeParserBindingBaseVE@@6B@ (targets/game/reverse/dir32_addresses.csv).
 // The declaration carries no C++ name: __identifier spells the retail symbol

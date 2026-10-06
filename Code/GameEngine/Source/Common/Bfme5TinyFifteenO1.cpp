@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Bfme5TinyFifteen.cpp (donor revision

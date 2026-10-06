@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva0070DFE0@BfmeAptValue006DCD20@@QAEXXZ, retail 0x0070DFE0, 5 bytes.
 // 5B jmp thunk to rowed ?rva006DE150@Rva006DE150@@QAEXXZ at 0x006DE150.

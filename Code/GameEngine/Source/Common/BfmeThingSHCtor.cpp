@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ??0BfmeThingSH@@QAE@XZ @0x000FE2A3 182B.
 // Evidence: stores vtable bfmeVftSH at +0x0 and nulls +0x4 like

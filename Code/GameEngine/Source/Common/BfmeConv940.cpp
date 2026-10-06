@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?bfmeGo940G@BfmeThing940G@@QAEXXZ
 // retail 0x004B8CC9, 21 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/BfmeConv940.cpp (reference/open-bfme-1 @ 6d943426).

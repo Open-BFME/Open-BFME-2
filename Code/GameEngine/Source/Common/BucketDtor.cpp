@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Bucket::~Bucket, retail 0x00148B19, 14 bytes. Dedicated TU so
 // NameKeyGenerator.cpp keeps its matched bodies. Sets the vtable then

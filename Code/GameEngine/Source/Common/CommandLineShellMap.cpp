@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // EA BFME1 CommandLine.cpp parseNoShellMap; BFME2 live table81FB58.
 // Retail3B945E full32B disables shell map+AF0 and sets adjacent flag+AF1.
 // BFME2 INI table7E94B0/7E94C0 names ShellMapOn/ShellMapOffByCommandArgument.

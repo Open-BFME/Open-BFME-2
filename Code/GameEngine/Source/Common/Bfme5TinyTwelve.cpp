@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Four more tiny ones: a flag set only in one mode, a table lookup behind a
 // null guard, a choice between two objects and a digit parsed out of a
 // string. The last two answer through the pointer first, which is what keeps

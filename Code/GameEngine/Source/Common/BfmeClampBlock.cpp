@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0
+// cl: /Ob0
 
 // ?bfmeClampBlock@@YAXPAEPAFHH@Z
 // Eight rows of eight signed 16-bit samples, each clamped to 0..255 and

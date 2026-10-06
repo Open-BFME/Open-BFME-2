@@ -1,4 +1,4 @@
-// cl: /O1 /GR- /EHsc- /Ireference/open-bfme-1/game/GameEngine/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /GR- /EHsc- /Ireference/open-bfme-1/game/GameEngine/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
 // Bodies ported from Open-BFME-1's GameEngine/Source/Common/BfmeConv803.cpp
 // (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus

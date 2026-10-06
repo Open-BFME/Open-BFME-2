@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?m@T_009f4fb0@@QAEXPAURva009F5970StateInit@@@Z @ 0x006276E0 (129B)
 //

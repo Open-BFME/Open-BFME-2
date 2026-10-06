@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // BFME1 T3CommandLineParsers global-flag family; BFME2 live table81FBA0
 // binds -preferLocalFiles to3B9455 (9 bytes). The -mod handler independently
 // sets the same global at VA E06940. Global name is descriptive.

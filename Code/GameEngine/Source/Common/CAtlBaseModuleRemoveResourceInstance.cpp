@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Open-BFME5: ATL 7.1 CAtlBaseModule::RemoveResourceInstance.
 //
 // The implementation and member layout are recovered from the pristine

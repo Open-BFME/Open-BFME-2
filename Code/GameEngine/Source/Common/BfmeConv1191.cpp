@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP=
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP=
 // Open-BFME5 conversions.
 // Native dump50C69D loads the fprintf IAT at00BBA5C4; use that import
 // instead of an unresolved synthetic global. The ten four-byte handles use

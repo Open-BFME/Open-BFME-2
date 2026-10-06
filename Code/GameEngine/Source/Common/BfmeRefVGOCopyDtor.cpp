@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BfmeRefVGO copy constructor, retail 0x000A9806 (28B). The BFME1 donor
 // (BfmeConv1355.cpp) only carries bfmeAssignVGO; the copy is the same
 // single-pointer acquire through the shared VGO refcount helpers: copy the

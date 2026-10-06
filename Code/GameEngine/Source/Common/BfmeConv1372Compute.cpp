@@ -1,4 +1,4 @@
-// cl: /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 class BfmePartVID
 {

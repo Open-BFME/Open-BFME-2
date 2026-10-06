@@ -1,4 +1,4 @@
-// cl: /O2 /Z7
+// cl: /Z7
 //
 // VP6 adaptive four-neighbour diagonal block filter. Genuine hand-vectorized
 // MMX/SSE2 retail body (movd/punpcklbw/pcmpgtb/movq2dq/psraw), not compiler

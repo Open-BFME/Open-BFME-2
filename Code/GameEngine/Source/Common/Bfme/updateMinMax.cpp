@@ -1,4 +1,4 @@
-// cl: /O2 /Ob1 /GX- /GS /arch:SSE
+// cl: /Ob1 /GX- /GS
 // ?updateMinMax@@YAXPAMM0@Z, retail 0x000057D0, 33 bytes.
 // Float min/max update: lowers `val` into *min when it is below the current
 // minimum, otherwise raises *max when it is above the current maximum.

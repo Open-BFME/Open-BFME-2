@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003C41BA@BfmeApplierBH@@QAEXPAXABVAsciiString@@0@Z @0x003C41BA 80B.
 // BfmeApplierBH helper that resolves a SpecialPowerTemplate by name and applies
 // it when the TerrainLogic helper is present. Evidence: calls rowed

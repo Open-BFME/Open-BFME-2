@@ -1,4 +1,4 @@
-// cl: /O2 /Z7
+// cl: /Z7
 //
 // VP6 SSE2 byte filter installed in the SSE CPU tier's dispatch slot 19.
 // Retail builds three aligned 16-byte byte patterns, then applies them with

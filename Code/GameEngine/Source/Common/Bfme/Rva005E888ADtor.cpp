@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva005E888A@@QAE@XZ @0x005E888A 8B
 // Non-virtual dtor holding rowed member Rva005F83DF at +4 via tail-jmp.
 // No vptr and no EH frame. Unlocks 0x005E88C1.

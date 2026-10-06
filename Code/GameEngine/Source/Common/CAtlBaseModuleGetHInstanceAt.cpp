@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Open-BFME5: ATL 7.1 CAtlBaseModule::GetHInstanceAt.
 //
 // Ghidra identifies retail 0x009F6A42 as GetHInstanceAt.  Its member layout

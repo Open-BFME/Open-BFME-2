@@ -9,7 +9,7 @@
 // a visible definition there would reschedule its caller (Bucket new law).
 // /O1 is load-bearing: size-opt emits the cmp-mem head plus the reload tail,
 // while /O2 forwards the load (mov eax plus test, no reload).
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 class BfmeSub932C
 {

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ??1Sub005CD540Outer@@QAE@XZ
 // retail 0x001FA95A, 23 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/BigChainBaseDtors.cpp (reference/open-bfme-1 @

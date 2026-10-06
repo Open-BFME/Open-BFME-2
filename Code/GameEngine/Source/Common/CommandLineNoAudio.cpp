@@ -3,7 +3,7 @@
 // BFME2 INI table7E8FF0..7E9040 independently identifies all six fields.
 // AmbientStreamsOn is +9A1; VideoOn is +9A3 and is not touched here.
 // BFME2CommandFlags is a descriptive name for the retail word at VA DC1170.
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 class GlobalData {
 public:
     char prefix[0x99c];

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0BfmePod60@@QAE@XZ @0x00587500 72B: default ctor of the 60-byte element.
 // Stores: floats +0/+4/+8 zeroed via xorps+movss, byte +0xC set to 1,
 // dword +0x10 zeroed, 4x8B block +0x14 constructed via ??_H then zeroed

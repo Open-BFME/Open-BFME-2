@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2 /Oy-
+// cl: /DNDEBUG /MD /Oy-
 //
 // Open-BFME5: VP6-style MMX in-loop deblocking filter across a horizontal
 // edge, writing four adjacent rows (y-2, y-1, y, y+1).  Looks its per-block

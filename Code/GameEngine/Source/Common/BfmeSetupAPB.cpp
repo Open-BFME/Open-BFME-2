@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c- /Ireference/open-bfme-1/inputs/reference/shims/iniexception
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c- /Ireference/open-bfme-1/inputs/reference/shims/iniexception
 //
 // Bodies ported from Open-BFME-1's GameEngine/Source/Common/BfmeSetupAPB.cpp
 // (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus

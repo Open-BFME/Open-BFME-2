@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME5 conversions.
 //
 // ?bfmeGo1001A@BfmeA1001@@QAEXPAX@Z, retail 0x004F33BD, 47 bytes.

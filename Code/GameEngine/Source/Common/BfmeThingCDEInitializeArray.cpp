@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // ?initializeArray@BfmeThingCDE@@QAEXH@Z
 //
 // Array storage for the CDE node table: new[] of 0x10-byte slots through the

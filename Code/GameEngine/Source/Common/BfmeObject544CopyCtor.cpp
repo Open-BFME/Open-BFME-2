@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0BfmeObject544@@QAE@ABU0@@Z @0x004CAD61 103B.
 // Copy ctor: three member copy ctors then scalar tail copies at +0x218/+0x21C.

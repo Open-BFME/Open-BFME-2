@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Retail's AudioManager singleton (0x012ED668); only its null-ness is tested.
 class AudioManager;
 

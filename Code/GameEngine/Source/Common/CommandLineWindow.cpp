@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // EA BFME1 CommandLine.cpp parseWin; BFME2 live -win table81FB80.
 // Retail3B955D full17B sets GlobalData+2C, also tested by debug DLL loader.
 class GlobalData {

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?bfmeGoCAE@BfmeThingCAE@@QAEHXZ, retail 0x004C0E68, 35 bytes. Ported from
 // BFME1 BfmeConv565 (BfmeThingCAE::bfmeGoCAE returns 3, RunCAE at slot 8
 // offset 0x20); head 0xD0 to 0xF0 per retail (same as DHB precedent at

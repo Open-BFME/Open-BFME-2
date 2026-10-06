@@ -1,4 +1,4 @@
-// cl: /Os
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?bfmeGoELHa@@YAXPAX@Z @ 0x00075311 (25B): the same D3D device global load
 // again, one argument and the vtable slot +0x164; only the 0xDEDA98 counter
 // follows. Ported from Open-BFME-1 Code/GameEngine/Source/Common/

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0028BB9E@BfmeSubBEC@@QAEPAXPAX@Z, retail 0x0028BB9E, 67 bytes.
 // BfmeSubBEC filtered find: same holder layout as BfmeConv448FindBEC.cpp
 // (list at +0x244, entry query at +0xC). Slot 0x20 returns a candidate,

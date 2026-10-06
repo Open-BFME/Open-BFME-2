@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva005E8AAF@@UAE@XZ @0x005E8AAF 48B
 // Virtual dtor with member Rva005E8908 at +8 via rowed dtor 0x005E8908 then
 // storing base vtable 0x007C6F20 via empty inline base dtor. Same recipe as

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005E8095@Rva005E8095@@QAEXI@Z @0x005E8095 104B
 // Vector reserve for Rva005E71C6Ref: if capacity - start >= n return; else if
 // start!=0 allocate_and_copy via rowed 0x005E7229 plus clear via rowed 0x005E8077

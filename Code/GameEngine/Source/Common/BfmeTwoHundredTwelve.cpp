@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Three errands: a piece asked and settled before its next is read, three rows
 // of pieces each run to the end, and a target marked and asked before it is
 // ?bfmeGetIJ@BfmeThingIJ@@QAEHXZ

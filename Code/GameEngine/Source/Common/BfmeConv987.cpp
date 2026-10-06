@@ -1,4 +1,4 @@
-// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common /Os
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // stlport
 // Open-BFME5 conversions.
 

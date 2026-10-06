@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Three more: a constructor seeded from three globals, a two-level
 // comparator, and an angle from an inline arctangent.
 

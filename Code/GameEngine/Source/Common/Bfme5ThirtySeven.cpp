@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Six more: a complement that hands itself back, a clamped difference, a size
 // test, a band search, a flag test, and a counter that reports when it fills a
 // mask.

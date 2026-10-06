@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Four more tiny ones: a value taken from a source or zeroed, a singleton
 // field tested for zero, an identity test against a singleton, and a choice
 // between two fields.

@@ -20,4 +20,4 @@ void BfmeSubmitter1283::bfmeSubmitColors1283(int a1, int a2, int a3, int a4, int
 		bfmeSubmit1283(a1, a2, a3, a4, a5, a6, a7, 0, a9, a10, a11, 0);
 	}
 }
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 
 // ??M@YA_NABUBfmeStringRecord00448113@@0@Z @ 0x00448D3C (23B). Free operator< for
 // BfmeStringRecord00448113 (two UnicodeStrings from StringRecordInlineCopyBFME2.cpp).

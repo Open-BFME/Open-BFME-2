@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // ?bfmeGoDGH@@YGXPAX0@Z, retail 0x00212183, 27 bytes. The free function at
 // 0x002120C2 is pinned as ?rva002120C2@Rva002120C2@@YGPAXPAX@Z from this body's

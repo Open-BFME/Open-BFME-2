@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // EA BFME1 CommandLine.cpp parseFile; BFME2's live -file table entry
 // identifies RVA3BA233 and the complete 63-byte body.
 // Initial file is +ABC. The adjacent +AB8 name below is descriptive:

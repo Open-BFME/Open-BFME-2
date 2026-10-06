@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Bfme939Helper's matched callers use the dword at this+0x1C as an integer
 // gate (BfmeGlob939D::bfmeCall939D at 0x0023C6FD). Retail 0x0030F2C7 is the

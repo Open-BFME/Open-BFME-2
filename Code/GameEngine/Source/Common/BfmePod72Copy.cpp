@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD
 //
 // ??0BfmePod72@@QAE@ABU0@@Z @0x002DFC1B 219B: existing pin (copy constructor
 // called by the byte-verified _Construct 0x002DFD82; also 0x002E00C1). The

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: same MMX block filter as bfmeFilterBlockByIndexMmx, run twice
 // back to back on two adjacent four-column strips -- retail re-derives the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?setBitByName@?$BitFlags@$0BDA@@@QAE_NPBD@Z, retail 0x000B65CE, 47 bytes.
 // BitFlags<304>::setBitByName: static getSingleBitFromName 0x000B42CA then
 // set(i) as words[i>>5] |= 1u << (i&31), bool true/false. Donor ZH

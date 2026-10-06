@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Three errands: a run told two things, a held thing swapped for another with
 // the counts kept straight, and two things compared for sameness.
 // ?bfmeSameGX@@YAHPAVBfmeThingGX@@0@Z

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: vertical-edge sibling of bfmeFilterBlockByIndexMmx, same shape
 // as bfmeFilterRowByIndex8Mmx but over three four-pixel groups (a

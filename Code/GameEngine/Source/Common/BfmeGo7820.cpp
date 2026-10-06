@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 
 extern int g_bfmeTableC7E0;
 // g_bfmeTableC7E0: matched references place it at VA 0xdfda58 (zero-filled .bss).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Open-BFME5: BfmeB1137's virtual material-pass cleanup at retail 0x006E1EB0.
 // The constructor/destructor neighbors install vtable 0x00D1E23C; slot 3 is
 // this body.  Its witnessed fields are the guard byte at +0x54 and the byte

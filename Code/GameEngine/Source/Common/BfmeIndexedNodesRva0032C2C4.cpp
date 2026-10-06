@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0032C2C4@BfmeIndexedNodesFM@@QAEXXZ @0x0032C2C4 51B
 // Release chained indexed nodes with a nonzero +6 link.
 // Evidence: same-this call to rowed ?bfmeRelease@BfmeIndexedNodesFM@@QAEXH@Z

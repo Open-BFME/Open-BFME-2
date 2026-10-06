@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Two bodies that look a value up in their vector and erase the first match.
 //
 // The search is written out at the call site -- the value goes into a register

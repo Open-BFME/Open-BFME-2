@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: pack 8 words to signed bytes and xor 0x80.  Retail 0x009C76D0,
 // 62 bytes.

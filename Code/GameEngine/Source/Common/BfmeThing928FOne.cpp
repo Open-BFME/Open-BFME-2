@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
 // stlport
 // ?bfmeOne928F@BfmeThing928F@@QAEXXZ, retail 0x0010C6C4 (193B). Ported from
 // Open-BFME-1 game/GameEngine/Source/Common/BfmeConv928.cpp:159

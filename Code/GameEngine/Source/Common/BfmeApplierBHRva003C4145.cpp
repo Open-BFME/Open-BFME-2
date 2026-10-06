@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail 0x003C4145 (RVA 0x003C4145) size 117: BfmeApplierBH apply power at team pos.
 // Evidence: ScriptEngine 0xDFE16C getTeamNamed then Team hasAnyObjects then rva0039E5B9 Coord3D then SpecialPowerStore 0xE02D4C findSpecialPowerTemplate then bfmeApplyBH pin 0x3C069B.
 #include "ascii_string.h"

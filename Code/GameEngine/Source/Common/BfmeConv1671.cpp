@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Retail's call target is the import slot 0x00BBA4E0, which reverse/functions.csv
 // rows as ?ji_00629a7e@@YAXXZ -- msvcr71.dll's vsprintf. The donor's placeholder
 // name carries no target evidence, so the real export name is used here. The

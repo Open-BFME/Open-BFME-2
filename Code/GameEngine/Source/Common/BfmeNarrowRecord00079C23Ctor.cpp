@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
 // stlport
 // ??0BfmeNarrowRecord00079C23@@QAE@XZ @0x000797C4 87B. Unlock lane: default ctor
 // over 3 narrow strings + 2 ints; first two strings from empty literal at

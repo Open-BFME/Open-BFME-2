@@ -1,4 +1,4 @@
-// cl: /Os
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?bfmeGo1054E@@YAXHH@Z @ 0x000753EF (35B): the D3D device global at 0xDEDA34
 // is loaded straight rather than through BFME 1's DX8Wrapper::_Get_D3D_Device8,
 // which retails as a separate getter; the vtable slot is +0xB0 and the counter

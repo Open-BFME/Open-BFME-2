@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Four more tiny ones: two two-part tests, a pair written into an object that
 // may not be there, and a widen-the-range helper whose two stores are merged
 // into one -- both write through whichever pointer the branch left in the

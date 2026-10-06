@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??1BfmeStrVM0@@UAE@XZ, retail 0x0025D686, 111 bytes.
 // Destructor of BfmeStrVM0: stores vtable 0x7F5DA0 then runs the field-reset
 // helper rva0025D19E and the list-clear rva0025C0FF on the same this, then

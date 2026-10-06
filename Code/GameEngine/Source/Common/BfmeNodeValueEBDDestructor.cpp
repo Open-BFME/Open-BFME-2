@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // The value destructor reached by the matched EBD tree erase and scalar
 // deleting destructor. Retail adjusts this by four before tailcalling the
 // mapped-value destructor at 0x0038240F.

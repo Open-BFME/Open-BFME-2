@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail RVA 0x00324992, 21 bytes.
 // bfmeGoENK, the ENK sub-object byte setter.
 // Ported from Open-BFME-1 BfmeConv880.cpp; the set byte is m_bfmeC at +0x11

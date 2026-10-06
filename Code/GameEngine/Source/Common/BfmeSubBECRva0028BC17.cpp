@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0028BC17@BfmeSubBEC@@QAEXPAX@Z @0x0028BC17 18B: forward to rowed Rva004DF3F8::rva004DF3F8 when holder at +0x23c is non-null; tail-jmp; caller 0x004DF314 unblocks 0x004DF2FC; neighbours BfmeSubBECFilteredFind and BfmeConv448FindBEC share layout
 class Rva004DF3F8
 {

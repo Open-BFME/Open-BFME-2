@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??4BfmeAssignRecord32@@QAEAAU0@ABU0@@Z at 0x00173499 (56B). Copy-assign 32B record.
 // Evidence: pinned name; Rva00072A94 assign 0x72A94 for +0 plus loop 6 at +8;
 // dword at +4; callers include copy_backward plus fill plus linear_insert.

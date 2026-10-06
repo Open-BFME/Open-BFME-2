@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ??4BfmeAssignRecord36@@QAEAAU0@ABU0@@Z, retail 0x00151336, 119 bytes.
 // operator= for 36-byte assign record: first AsciiString at +0 via

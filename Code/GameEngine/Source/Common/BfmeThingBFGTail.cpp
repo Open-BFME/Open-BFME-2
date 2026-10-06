@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?bfmeTailBFG@BfmeThingBFG@@QAEXXZ @0x0025EF23 206B.
 // LINK BONUS body for BfmeConv455.cpp: tail init with exact SSE store order that clean C++ reorders (250 vs 206B with extra global reloads).
 // Evidence: jmp tail from bfmeGoBFG in BfmeConv455.cpp plus pins plus retail offsets. Inline asm like siblings BfmeConv1440/1463 for exactness.

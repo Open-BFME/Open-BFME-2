@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // EA BFME1/Zero Hour CommandLine.cpp parseScriptDebug, adapted to BFME2's
 // retained command-table entries. Names follow their exact table tokens.
 // -scriptDebug2: table RVA81FB88 maps string C1FC50 to handler3B976B (39B).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?bfmeGo928F@BfmeThing928F@@QAEXXZ, retail 0x0010C80A (27B). Ported from
 // Open-BFME-1 Code/GameEngine/Source/Common/BfmeConv928.cpp (BFME1 0x007B4F80).
 // Trimmed to the placed three-call dispatcher; siblings declared-only here.

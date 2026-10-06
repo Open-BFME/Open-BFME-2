@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail 0x003C4070 (RVA 0x003C4070) size 213: BfmeApplierBH skirmish power sweep.
 // Evidence: ScriptEngine 0xDFE16C getSkirmishEnemyPlayer then SpecialPowerStore 0xE02D4C findSpecialPowerTemplate then Overridable 0x54 range vs 50.0f then PlayerList mask loop then Player vtable+0x10 then bfmeApplyBH pin 0x3C069B.
 #include "ascii_string.h"

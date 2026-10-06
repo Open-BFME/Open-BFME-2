@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 //
 // Retail 0x0002C621 (27B): ?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z.
 // Hidden-retptr __cdecl factory building the 8-byte BfmePairEL return buffer

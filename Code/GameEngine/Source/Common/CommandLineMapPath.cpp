@@ -3,7 +3,7 @@
 // Independently audited full retail extent 3BA06E..3BA232 (453 bytes), not
 // the incomplete 10-byte inventory head. StringBase reference spelling names
 // the existing audited pin; the label object uses AsciiString's format member.
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 #include <time.h>
 template<class T> class StringBase;
 void ConvertShortMapPathToLongMapPath(StringBase<char>& mapName,StringBase<char>& fileLabel);

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Open-BFME5: same MMX block filter as bfmeFilterBlockMmx, but self
 // contained -- looks the coefficient qword up from the retail strength

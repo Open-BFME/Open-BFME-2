@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Six more: a reset, two walks over a circular list, a two-flag veto reached
 // by a back-step, a float read behind two guards, and a fill.
 

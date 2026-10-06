@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Open-BFME5 conversions.
 //
 // ?bfmeStepTDB@@YAXXZ, retail 0x0011DC20 (58B). Called once by the rowed

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?bfmeBigAllocPR@@YAPAXI@Z (retail 0x00023790, 5 bytes) and
 // ?bfmeBigFreePM@@YAXPAX@Z (retail 0x000237A0, 5 bytes): out-of-line

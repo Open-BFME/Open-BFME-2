@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 //
 // Open-BFME5: a destructor at retail 0x0092A3D0, 90 bytes.  The body resets
 // the holder before the eight-element array is torn down by the iterator.

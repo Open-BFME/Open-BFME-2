@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0025D19E@BfmeStrVM0@@QAEXXZ, retail 0x0025D19E, 103 bytes.
 // Field reset of BfmeStrVM0: clears flags at +0x64/+0x10C, and when a timer is
 // present runs the predicate-guarded release (rowed rva0025D10F), polls the

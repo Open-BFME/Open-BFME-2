@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?bfmeForgetCC@BfmeRegistryCC@@QAEXPAX@Z @0x000480ED 47B. Vector find-and-erase
 // on vector<CreateAHeroData*> at this+0x2a4 via rowed find 0x0020E873 and rowed

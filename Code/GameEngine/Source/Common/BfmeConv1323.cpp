@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Open-BFME5 conversions.
 
 // BFME1 imports this helper under its own slot name; retail BFME2 slot

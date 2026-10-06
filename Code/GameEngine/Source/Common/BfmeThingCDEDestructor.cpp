@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2
+// cl: /DNDEBUG /MD /EHs-c- /Ob2
 // ?bfmeDtorCDE@BfmeThingCDE@@QAEXXZ
 //
 // Ported from Open-BFME-1 Code/Libraries/Source/shroudmanager/shroudmanager_data.cpp.

@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Five more: a guarded four-word copy, an indexed read behind a size test, a
 // two-flag global check, a three-argument constructor, and a visibility
 // test.

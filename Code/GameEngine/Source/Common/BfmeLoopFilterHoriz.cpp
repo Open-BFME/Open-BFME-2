@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 // Deblocking loop filter run across a horizontal block edge, eight columns
 // wide.  The four taps live at -2*stride .. +1*stride; the filter strength is

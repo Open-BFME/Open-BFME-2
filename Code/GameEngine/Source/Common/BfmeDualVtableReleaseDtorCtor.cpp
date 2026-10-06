@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // BfmeDualVtableReleaseDtor::BfmeDualVtableReleaseDtor(int), retail
 // 0x0020429D (120 bytes; exact Ghidra extent). The FX particle-editor loader built in

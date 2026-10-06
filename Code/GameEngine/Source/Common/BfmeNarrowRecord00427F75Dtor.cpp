@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1BfmeNarrowRecord00427F75@@QAE@XZ retail 0x0022CCEF 59B
 // Implicit-shape dtor: the member at +0x0C runs the rowed clear-then-free
 // dtor 0x0022C5DA (rowed as ??1Rva00226856@@QAE@XZ), then the inline CRT

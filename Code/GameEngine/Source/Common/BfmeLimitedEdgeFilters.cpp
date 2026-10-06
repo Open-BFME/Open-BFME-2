@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 // Deblocking edge filters whose correction is passed through the limited
 // adjust used by this codec: the raw filter value is folded to

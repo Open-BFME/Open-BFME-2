@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002DBA6A@BfmeSubobject00229875@@QAEXXZ, retail 0x002DBA6A, 79 bytes.
 // Clear/reset of BfmeSubobject00229875: calls slot-4 virtual (+0x10) on each

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 //
 // Open-BFME5: the five-parameter constructor at retail 0x003BEA30, 111 bytes.
 // The leading eight bytes are a plain by-reference struct copy; the flag
