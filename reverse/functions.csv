@@ -64495,3 +64495,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva004C45CFCreate@@YGXPBUCoord3D@@PBVAsciiString@@@Z,,0x004C45CF,82,Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerRva004C45CF.cpp,matched,rowed callees plus g_009FF000 plus caller 0x004C4621 plus neighbours
 ?rva0025E406@Rva0025E4CD@@UAE?AVUnicodeString@@H@Z,,0x0025E406,103,Code/GameEngine/Source/Common/Rva0025E4CDSlot47.cpp,matched,vtable slot 47 Rva0025E4CD getPlayerName or TheEmptyString
 ?rva00285708@Rva00285708Host@@QAEXXZ,,0x00285708,34,Code/GameEngine/Source/Common/Rva00285708.cpp,matched,guarded refresh via global 0xDFE1A8 callee 0x20D925 then stamp TheGameLogic frame
+?rva002E0764@Rva002E0764@@QAEXPAVRva00319CED@@@Z,,0x002E0764,27,Code/GameEngine/Source/Common/Rva002E0764Sub.cpp,matched,callee rowed 0x004E1755 ret4 clamp sibling /O1
