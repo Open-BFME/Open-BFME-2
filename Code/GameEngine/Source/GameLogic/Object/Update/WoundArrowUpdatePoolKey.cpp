@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004C6999@WoundArrowUpdate@@SA?AW4NameKeyType@@XZ @0x4C6999
 // (69B): cached pool-name key for WoundArrowUpdate. The class
 // identity comes from the pool-name string the body pushes

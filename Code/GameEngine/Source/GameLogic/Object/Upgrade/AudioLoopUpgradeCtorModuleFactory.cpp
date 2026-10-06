@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Open-BFME5: ModuleFactory's create proc 0x0011E0B0 allocates 0x30 and
 // reaches this body, which identifies AudioLoopUpgrade.
 //

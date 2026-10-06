@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0CommandPointsUpgradeModuleData@@QAE@XZ, retail 0x00254891, 65 bytes.
 // EH ctor over the rowed Rva00253487Base base (0x253487, frameless and

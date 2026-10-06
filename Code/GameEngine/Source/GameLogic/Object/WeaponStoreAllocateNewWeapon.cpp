@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?allocateNewWeapon@WeaponStore@@QBEPAVWeapon@@PBVWeaponTemplate@@W4WeaponSlotType@@@Z @0x0028AA81 58B
 // Donor: reference/open-bfme-1/Code/GameEngine/Source/GameLogic/Object/WeaponStore_allocateNewWeapon_Thunk.cpp

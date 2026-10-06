@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG
+// cl: /MD /GX /DNDEBUG
 //
 // ??0ArmorUpgradeModuleData@@QAE@XZ, retail 0x00254556, 42 bytes.
 // Frameless store-only ctor over the rowed Rva00253487Base base

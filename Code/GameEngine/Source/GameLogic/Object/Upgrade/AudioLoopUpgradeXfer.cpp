@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@AudioLoopUpgrade@@MAEXPAVXfer@@@Z, retail 0x004B7E75, 72 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable RVA 0x00858CC4 (VA 0x00C58CC4,

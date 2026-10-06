@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva003360D2@BfmeObjectEventDispatch@@QAEXHPAXPAUBfmeDelayedLuaEventList@@@Z retail 0x003360D2 25B
 // Forwards slot at +0x14 indexed by int to rowed invoke pin 0x00334634 with object and event list.
 // Evidence: same this as sibling rva00335FE1 dispatch loop; caller 0x00268AAA passes (2, [this+8], &DelayedLuaEventList).

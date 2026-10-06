@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004B8C57@LockWeaponCreate@@SA?AW4NameKeyType@@XZ @0x004B8C57
 // (69B): cached pool-name key for LockWeaponCreate. The class
 // identity comes from the pool-name string the body pushes

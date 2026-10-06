@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?isOwnersCurWeaponOnTurret@TurretAI@@QBE_NXZ,
 // retail 0x004D8762, 47 bytes. Dedicated TU.

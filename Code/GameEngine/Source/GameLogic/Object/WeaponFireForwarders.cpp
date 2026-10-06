@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object
 struct Coord3D
 {
 	float x;

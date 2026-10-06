@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?Rva002CA8E8Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x002CA8E8 (90B): the
 // ClearNuggets FieldParse proc of the WeaponTemplate table (row 0x00C011D8).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1DoCommandUpgrade@@MAE@XZ 32B @0x004B4BA1: four vptr stores at
 // +0/+0x0C/+0x10/+0x18 then tail-jmp to UpgradeModule base dtor twin

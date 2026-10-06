@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?onExit@WeaponFireSpecialAbilityUpdate@@MAEX_N0@Z, retail 0x00492930, 161
 // bytes: slot 13 of WeaponFireSpecialAbilityUpdate's primary vtable 0x00C4E090

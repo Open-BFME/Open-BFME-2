@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?xfer@DelayedLuaEventList@@UAEXPAVXfer@@@Z, retail 0x003316D2, 68 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x007C9CF0 installed by the rowed ctor

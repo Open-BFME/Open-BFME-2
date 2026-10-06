@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0WeaponBonusUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B5633, 49 bytes.
 // WeaponBonusUpgrade behavior ctor over the pinned UpgradeModule base

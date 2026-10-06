@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Isolated Lua FearFactor binding (136B): ObjectSetFearFactor 0x00335851.
 // TARGET FACTS (retail decode in-lane this seat):

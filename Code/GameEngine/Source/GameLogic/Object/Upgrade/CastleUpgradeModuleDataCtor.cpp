@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0CastleUpgradeModuleData@@QAE@XZ, retail 0x00255836 (36 bytes).
 // Frameless ctor over the rowed OpenContain base (0x253487): base call then

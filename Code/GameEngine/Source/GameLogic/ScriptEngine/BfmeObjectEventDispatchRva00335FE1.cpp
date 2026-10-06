@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00335FE1@BfmeObjectEventDispatch@@QAEXPBVWeaponTemplateSetHead@@0PAX@Z retail 0x00335FE1 122B
 // Dispatch loop over 0x9C stride array from +0xBC to +0xC0. Each element is the
 // rowed Rva003317B0 check class (int plus WeaponTemplateSetHead plus 19-int

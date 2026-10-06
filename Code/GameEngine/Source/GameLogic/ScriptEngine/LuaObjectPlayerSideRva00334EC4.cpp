@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Lua ObjectPlayerSide 0x00334EC4 (106B) + ObjectTemplateName 0x00334FAB (98B),
 // dedicated TU. Home TU Code/GameEngine/Source/GameLogic/ScriptEngine/

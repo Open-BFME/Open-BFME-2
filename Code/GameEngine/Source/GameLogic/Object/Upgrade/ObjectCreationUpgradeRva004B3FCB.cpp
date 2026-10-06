@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004B3FCB@UpdateModule@@QAEXXZ @0x004B3FCB 17B evidence vtable 0x0085762C slot 1 plus callers none plus base loadPostProcess plus StringBase validate
 // Virtual slot 1 of ObjectCreationUpgrade's UpdateModule vtable at +8: calls
 // UpdateModule::loadPostProcess on this, then tail-jmps to StringBase validate

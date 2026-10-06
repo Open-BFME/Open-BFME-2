@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ObjectCreationUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B40A6, 68 bytes.
 // ObjectCreationUpgrade behavior ctor: UpgradeMux 0-arg base at +0 (pinned

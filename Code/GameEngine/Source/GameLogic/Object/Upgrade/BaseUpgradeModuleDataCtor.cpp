@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /Oy-
+// cl: /MD /GX /DNDEBUG /Oy-
 //
 // ??0BaseUpgradeModuleData@@QAE@XZ, retail 0x004B3698, 98 bytes. EH ctor
 // over the rowed Rva00253487Base base (0x253487, frameless and

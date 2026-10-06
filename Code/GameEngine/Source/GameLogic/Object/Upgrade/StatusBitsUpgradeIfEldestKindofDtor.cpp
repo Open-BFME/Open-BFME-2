@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1StatusBitsUpgradeIfEldestKindof@@UAE@XZ, retail 0x004B4AFA, 5 bytes.
 // StatusBitsUpgradeIfEldestKindof behavior dtor: trivial tail-jmp to the

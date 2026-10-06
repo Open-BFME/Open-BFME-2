@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // DelayedUpgrade::upgradeImplementation, retail 0x004B3CC2 (121 bytes): slot
 // 10 of the +0x10 UpgradeMux vtable 0x00C572E0 (the recipe of

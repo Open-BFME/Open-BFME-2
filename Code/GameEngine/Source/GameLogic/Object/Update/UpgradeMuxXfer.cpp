@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?upgradeMuxXfer@UpgradeMux@@MAEXPAVXfer@@@Z, retail 0x004CE397, 34 bytes.
 // Virtual slot 16 (offset 0x40) of UpgradeMux member vtable 0x0083FC88 (class

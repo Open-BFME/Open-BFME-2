@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?reloadWithBonus@Weapon@@IAEXPBVObject@@ABVWeaponBonus@@_N@Z @0x002CDB99 164B
 // BFME1 donor: Code/GameEngine/Source/GameLogic/Object/Weapon.cpp reloadWithBonus.
 // BFME2 diverges per retail: provider-gated ammo (getRemainingAmmo), conditional

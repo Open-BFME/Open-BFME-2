@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // StatusBitsUpgradeIfEldestKindof mux slot 2 (vtable 0x00C579D8 at +0x10),
 // retail 0x004B4AFF (125 bytes): false unless the eldest-of-kind helper at

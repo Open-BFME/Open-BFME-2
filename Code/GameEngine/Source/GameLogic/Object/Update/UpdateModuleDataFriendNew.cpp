@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // friend_newModuleData data factories for Update modules. Each one's identity is
 // ModuleFactory's addModule registration, which pushes the module name with

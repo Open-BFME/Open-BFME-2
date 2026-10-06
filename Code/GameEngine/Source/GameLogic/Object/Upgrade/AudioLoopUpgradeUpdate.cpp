@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva004B7B87@AudioLoopUpgrade@@QAEHXZ, retail 0x004B7B87, 35 bytes.
 // ?rva004B7DE0@AudioLoopUpgrade@@QAEXXZ, retail 0x004B7DE0, 46 bytes.

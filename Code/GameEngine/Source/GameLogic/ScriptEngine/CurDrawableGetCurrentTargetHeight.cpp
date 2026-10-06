@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // CurDrawableGetCurrentTargetHeight (0x00332D29, 76B): the Lua callback the
 // registration at 0x00335EEC pushes with lua_pushcclosure (nargs 0) and the

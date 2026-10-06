@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // The <Something>Nugget field callbacks of the INI `Weapon` block: BFME2's
 // WeaponTemplate FieldParse table at 0x00800B48 pairs each nugget keyword with

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??1CommandPointsUpgradeModuleData@@UAE@XZ, retail 0x00255959, 51 bytes.
 // ModuleData dtor: tears down the RequiredObject filter at +0x11C through

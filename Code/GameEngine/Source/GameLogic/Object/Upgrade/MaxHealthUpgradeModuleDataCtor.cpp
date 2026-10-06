@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX- /DNDEBUG /arch:SSE
+// cl: /MD /GX- /DNDEBUG
 //
 // ??0MaxHealthUpgradeModuleData@@QAE@XZ, retail 0x004B62C4, 36 bytes.
 // Frameless store-only ctor over the rowed Rva00253487Base base

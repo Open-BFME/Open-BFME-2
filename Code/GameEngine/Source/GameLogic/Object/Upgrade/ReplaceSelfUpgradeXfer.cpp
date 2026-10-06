@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@ReplaceSelfUpgrade@@MAEXPAVXfer@@@Z, retail 0x004B6FF7, 44 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00858B10 (class of rowed ctor

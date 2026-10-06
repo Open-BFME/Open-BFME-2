@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // Three SpellRechargeModifierUpgrade overrides on the vtables its matched ctor

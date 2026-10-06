@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /MD /EHsc
 #include "Common/BfmeAudioEventPrefix136.h"
 // PC Lua registrations identify both handlers (audit lua-bindings.json).
 // Reference guides: BFME1 CurDrawablePlaySound.cpp and ObjectPlaySound.cpp

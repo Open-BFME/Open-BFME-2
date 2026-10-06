@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 extern "C" __declspec(dllimport) unsigned int __stdcall timeGetTime(void);
 extern class View *TheTacticalView;
 class Rva0044325Holder

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Ported from Open-BFME-1's Weapon_getRemainingAmmo.cpp (landed there against
 // retail 0x001E5660). BFME2 keeps the shape with different offsets: the ammo
 // descriptor sits at WeaponTemplate+0x120 (BFME1 +0x4E8) and the owner's ammo

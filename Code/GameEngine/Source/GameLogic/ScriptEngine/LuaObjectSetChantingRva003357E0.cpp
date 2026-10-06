@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Isolated Lua chanting binding (113B): ObjectSetChanting 0x003357E0.
 // Reference-guided port of Open-BFME-1's

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@WallUpgradeUpdate@@MAEXPAVXfer@@@Z, retail 0x004AB273, 95 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00854780 (class of rowed dtor

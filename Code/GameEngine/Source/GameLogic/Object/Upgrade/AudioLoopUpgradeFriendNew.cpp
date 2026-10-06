@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@AudioLoopUpgrade@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00250760, 56 bytes. Dedicated TU: retail news 0x30 (push-imm8)

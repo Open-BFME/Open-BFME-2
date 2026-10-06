@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // LevelUpUpgrade's UpgradeMux overrides (+0x10 vtable 0x00C57418; the recipe
 // of RemoveUpgradeUpgradeRemovalImplementation.cpp), the experience tracker

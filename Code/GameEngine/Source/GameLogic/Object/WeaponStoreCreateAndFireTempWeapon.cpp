@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?createAndFireTempWeapon@WeaponStore@@QAEXPBVWeaponTemplate@@PBVObject@@PBUCoord3D@@@Z @0x002CE904 96B
 // Donor: ZH Weapon.h WeaponStore::createAndFireTempWeapon plus BFME1 Weapon.cpp
 //   (allocate plus loadAmmoNow plus fireWeapon plus deleteInstance). Target adds

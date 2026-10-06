@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0CommandPointsUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B8661, 49 bytes.
 // CommandPointsUpgrade behavior ctor over the pinned UpgradeModule base

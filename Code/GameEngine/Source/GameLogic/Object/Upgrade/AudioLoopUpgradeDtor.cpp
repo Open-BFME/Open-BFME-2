@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1AudioLoopUpgrade@@MAE@XZ, retail 0x004B7B20, 97 bytes.
 // AudioLoopUpgrade behavior dtor: restores the five vptrs (+0x00 0xC58CC4,

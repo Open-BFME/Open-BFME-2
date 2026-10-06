@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?ObjectCreateAndFireTempWeapon@@YAHPAUlua_State@@@Z, retail 0x0033541C 186B.
 // Lua binding: fire temp weapon from named template at object pos.
 // Evidence: pinned name, rowed lua_gettop 0x00746F30, rowed Rva00990030Lookup

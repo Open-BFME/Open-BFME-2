@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Two WeaponSet slot-search leaves (retail 0x002C73F7/37 + 0x002C741C/43).
 // Both scan the six slots at +0x8 for the first entry whose state link at

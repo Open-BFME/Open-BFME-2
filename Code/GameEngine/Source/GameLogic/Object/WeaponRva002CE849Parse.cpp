@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // stlport
 // ?Rva002CE849Parse@@YAXPAVINI@@PAX@Z @0x002CE849 97B: INI X/Y float plus unsigned parse pushing Coord3D to vector at +0x4C via rowed push_back 0x002CE7DC.
 // Evidence: chain lane calls 0x002CE7DC; callees rowed getNextSubToken 0x2E06B scanReal 0x2EDA5 scanUnsignedInt 0x2ED3A; no callers.

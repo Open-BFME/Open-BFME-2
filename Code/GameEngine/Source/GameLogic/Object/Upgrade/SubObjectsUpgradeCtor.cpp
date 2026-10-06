@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0SubObjectsUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B4D63,
 // 64 bytes. Behavior-side ctor completing the SubObjectsUpgrade file-unit

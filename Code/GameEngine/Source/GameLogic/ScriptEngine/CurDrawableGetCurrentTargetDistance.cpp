@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // CurDrawableGetCurrentTargetDistance (0x00333125, 93B): the Lua callback the
 // registration at 0x00335ED2 pushes with lua_pushcclosure (nargs 0) and the

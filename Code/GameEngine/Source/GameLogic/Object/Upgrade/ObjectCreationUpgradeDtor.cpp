@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1ObjectCreationUpgrade@@MAE@XZ, retail 0x004B3F90, 36 bytes.
 // ObjectCreationUpgrade behavior dtor: four vptr stores (+0x00 0x857660

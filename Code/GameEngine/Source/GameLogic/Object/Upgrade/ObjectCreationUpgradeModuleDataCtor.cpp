@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??0ObjectCreationUpgradeModuleData@@QAE@XZ, retail 0x004B425B, 128 bytes.
 // Frameless zero-init ctor: explicit vtable 0x00C577C8, two zero ints at

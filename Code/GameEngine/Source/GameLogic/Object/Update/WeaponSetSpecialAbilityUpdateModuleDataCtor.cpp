@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0WeaponSetSpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x004923E2,
 // 32 bytes. Weapon-set ability data over own INI table 0x00BEF008

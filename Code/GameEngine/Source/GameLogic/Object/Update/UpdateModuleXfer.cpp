@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // stlport
 //
 // ?xfer@UpdateModule@@QAEXPAVXfer@@@Z retail 0x0044DF9F

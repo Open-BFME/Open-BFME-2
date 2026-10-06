@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // ??1Weapon@@MAE@XZ @0x002CC39E 97B
 // Donor: reference/open-bfme-1/Code/GameEngine/Source/GameLogic/Object/WeaponDestructorThunk.cpp

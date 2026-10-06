@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AllowBannerSpawnUpgrade::upgradeImplementation, retail 0x004B8510 (8 bytes),
 // and upgradeRemovalImplementation, retail 0x004B8518 (8 bytes): slots 10 and 8

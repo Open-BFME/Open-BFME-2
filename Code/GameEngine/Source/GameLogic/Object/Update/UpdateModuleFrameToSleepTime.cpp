@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?frameToSleepTime@UpdateModule@@IAE?AW4UpdateSleepTime@@IIII@Z,
 // retail 0x0044DF28, 51 bytes. UpdateModule sleep-time helper: returns the

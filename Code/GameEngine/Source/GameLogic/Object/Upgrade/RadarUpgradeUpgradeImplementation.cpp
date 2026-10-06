@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /G7
+// cl: /DNDEBUG /MD
 //
 // RadarUpgrade::upgradeImplementation, retail 0x004B488F (68 bytes): slot 10
 // of the +0x10 UpgradeMux vtable 0x00C57848 installed by the matched

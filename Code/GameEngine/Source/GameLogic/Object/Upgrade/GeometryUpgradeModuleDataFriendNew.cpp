@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@GeometryUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00250642, 84 bytes. Dedicated TU: the factory news 0x13C, runs

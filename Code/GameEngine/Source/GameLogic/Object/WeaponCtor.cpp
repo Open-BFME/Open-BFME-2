@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Weapon@@IAE@ABV0@@Z @0x002CC2FC 162B
 // Donor: reference/open-bfme-1/Code/GameEngine/Source/GameLogic/Object/WeaponCopyConstructor.cpp

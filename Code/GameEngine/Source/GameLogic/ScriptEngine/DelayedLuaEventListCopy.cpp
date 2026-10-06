@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004A8DDE@DelayedLuaEventList@@QAEAAV1@ABV1@@Z @0x004A8DDE 44B
 // __thiscall DelayedLuaEventList& (const DelayedLuaEventList&): copy 3x 0x18
 // elements at +4 via rowed Rva0028BC20 copy ctor 0x004A8D17, return *this.

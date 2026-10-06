@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@ObjectCreationUpgrade@@MAEXPAVXfer@@@Z @0x004B421D (62B).
 // Slot 3 (offset 0x0C) of vtable 0x0085762C (class of ??1ObjectCreationUpgrade

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // StealthUpgrade::upgradeImplementation, retail 0x004B53C5 (13 bytes), and
 // StealthUpgrade::upgradeRemovalImplementation, retail 0x004B53D2 (13 bytes): slots 10 and

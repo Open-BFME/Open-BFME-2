@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004B5783@WeaponSetUpgradeSecondary@@QAEXXZ retail 0x004B5783 39B
 // Slot 20 of vtable 0x00857F68 class Rva004B55C8; Object mask clear via data+0x118 then UpgradeModule remove then vslot 9 with 0.
 // Evidence: vtable 0x00857F68 slot 20 plus sibling 0x004B5765 pattern plus rowed 0x00290AC1 0x004CE4A8 plus prev 0x004B5765 next 0x004B57AA.

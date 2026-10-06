@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // UpgradeModule model-condition helpers, retail UpgradeModule.cpp block (after
 // the matched UpgradeMux ctor 0x004CE2A3, upgradeMuxXfer 0x004CE397 and

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0StatusBitsUpgradeIfEldestKindofModuleData@@QAE@XZ, retail 0x002547D1,
 // 58 bytes. StatusBits-eldest data over the rowed StatusBitsUpgrade-

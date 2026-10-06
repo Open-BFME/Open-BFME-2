@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?xfer@GeometryUpgrade@@MAEXPAVXfer@@@Z, retail 0x004B6C02, 55 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x008589C0 (class of rowed ctor

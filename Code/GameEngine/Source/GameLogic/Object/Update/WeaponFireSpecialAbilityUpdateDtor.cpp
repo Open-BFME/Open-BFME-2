@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 
 // ??1WeaponFireSpecialAbilityUpdate@@UAE@XZ @0x0049256B 106B
 // BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdateDestructorThunk.cpp

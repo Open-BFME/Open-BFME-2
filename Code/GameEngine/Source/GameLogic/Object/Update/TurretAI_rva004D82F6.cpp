@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004D82F6@TurretAI@@QAEXXZ, retail 0x004D82F6, 26 bytes.
 // Evidence: unlock lane; TheAudio at VA 0xdfe6e8 (?TheAudio@@3PAVAudioManager@@A);
 // slot 0x6c removeAudioEvent precedent Drawable_rva002743D7; +0x20 audio handle then store 1;

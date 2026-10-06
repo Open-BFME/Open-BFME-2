@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // WeaponTemplate delay/clip min-max duration parsers, retail 0x002C9055 (225B)
 // and 0x002C9136 (225B). Homogeneous twins, same table family.

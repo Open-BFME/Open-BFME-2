@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004B5765@WeaponSetUpgradeSecondary@@QAEXXZ @0x004B5765 30B
 // Chain after 0x0028D86F: UpgradeModule apply plus Object WeaponSet bitset OR.

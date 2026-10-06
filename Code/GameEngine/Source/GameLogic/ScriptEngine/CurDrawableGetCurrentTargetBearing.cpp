@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // CurDrawableGetCurrentTargetBearing (0x00333182, 89B): the Lua callback the
 // registration at 0x00335F0B pushes with lua_pushcclosure (nargs 0) and the

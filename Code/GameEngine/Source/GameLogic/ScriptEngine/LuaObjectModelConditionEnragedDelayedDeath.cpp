@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Isolated Lua object-state bindings packet (358B): ObjectTestModelCondition
 // 0x0033500D (130B), ObjectSetEnragedState 0x003358D9 (113B),

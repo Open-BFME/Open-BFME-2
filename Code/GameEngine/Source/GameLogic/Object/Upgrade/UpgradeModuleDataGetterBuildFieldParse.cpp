@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Upgrade ModuleData::buildFieldParse procs with a shared-table-getter head:
 // each registers the base upgrade table through the shared table getter

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // BFME1 Weapon::reloadAmmo with BFME2's six-field bonus record.
 class Object;
 class WeaponBonus

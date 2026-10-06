@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /GX
 //
 // CurDrawableSetTransitionAnimState (0x003331DB, 64B): the Lua callback the
 // registration at 0x00335F40 pushes with lua_pushcclosure (nargs 0) and the

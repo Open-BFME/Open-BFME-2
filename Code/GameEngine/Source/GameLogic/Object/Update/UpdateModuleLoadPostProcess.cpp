@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?loadPostProcess@UpdateModule@@MAEXXZ, retail 0x0058B03E, 5 bytes.
 // Zero Hour UpdateModule.cpp: `void UpdateModule::loadPostProcess( void )

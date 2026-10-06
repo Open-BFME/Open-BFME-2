@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // AttributeModifierUpgrade::upgradeImplementation, retail 0x004B678D (32
 // bytes), and upgradeRemovalImplementation, retail 0x004B67AD (47 bytes):

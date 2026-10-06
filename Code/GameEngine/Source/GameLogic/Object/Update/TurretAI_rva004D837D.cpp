@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004D837D@TurretAI@@QAEIXZ, retail 0x004D837D, 29 bytes.
 // Evidence: unlock lane; +0x10 m_owner (TurretAI_setTurretTargetObject layout);
 // +0x258 ptr then +0x21c val else TheGameLogic+0x40 frame; callers 0x4D83D1 0x4D8448 0x4D88AC;

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // KindOfMaskType::getNameFromSingleBit, retail 0x00306218, 26 bytes.
 //

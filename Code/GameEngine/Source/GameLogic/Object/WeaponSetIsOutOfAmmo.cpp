@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?isOutOfAmmo@WeaponSet@@QBE_NXZ @0x002C73CE, 41B.
 // WeaponSet::isOutOfAmmo. Returns true when every present weapon reports

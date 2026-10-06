@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004B8EC1@SupplyWarehouseCreate@@SA?AW4NameKeyType@@XZ @0x004B8EC1
 // (69B): cached pool-name key for SupplyWarehouseCreate. The class
 // identity comes from the pool-name string the body pushes

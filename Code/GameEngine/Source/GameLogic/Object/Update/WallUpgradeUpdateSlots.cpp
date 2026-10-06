@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two WallUpgradeUpdate overrides on the interface vtables its matched ctor
 // 0x004AB317 installs over UpdateModule: 0x00C54768 at +0x20 and 0x00C54764 at

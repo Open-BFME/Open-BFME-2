@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 // ?parsePerVetLevelPSys@@YAXPAVINI@@PAX1PBX@Z @0x002C8FC0 (66B): Weapon
 // veterancy parse verb split from Weapon.cpp (its INI.h declares only the
 // static scanIndexList form). Local INI mirrors INI_parseIndexList.cpp

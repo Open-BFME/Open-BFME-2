@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ToggleMountedSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004ADAB5, 74 bytes.
 // ToggleMountedSpecialAbilityUpdate behavior ctor over the pinned Rva0044EF5E

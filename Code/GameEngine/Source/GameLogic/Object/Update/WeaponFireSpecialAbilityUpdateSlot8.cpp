@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // WeaponFireSpecialAbilityUpdate slot 8 of its +0x20 interface table
 // 0x00C4E05C (installed by the ctors 0x00492590 and 0x0049274A), retail

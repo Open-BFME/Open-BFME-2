@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ArmorUpgrade::upgradeImplementation, retail 0x004B34B5 (192 bytes): slot 10
 // of the +0x10 UpgradeMux vtable 0x00C57058 that the matched

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva002C9DF5@Weapon@@QBEXPBVObject@@PBX@Z
 //
 // retail 0x002C9DF5 (83 bytes). Unlock: Player iterate with template+0x28 squared range.

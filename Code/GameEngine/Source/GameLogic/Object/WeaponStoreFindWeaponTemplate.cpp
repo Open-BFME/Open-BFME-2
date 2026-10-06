@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
 //
 // WeaponStore::findWeaponTemplate, retail 0x002CB8BF, 67 bytes.
 //

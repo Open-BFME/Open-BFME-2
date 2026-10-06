@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /DNDEBUG /MD
+// cl: /GX- /DNDEBUG /MD
 //
 // ?friend_newModuleData@ArmorUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x002545DB, 52 bytes. Dedicated TU: the factory news 0x120, runs

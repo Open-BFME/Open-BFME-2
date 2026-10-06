@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@WeaponModeSpecialPowerUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z.
 // Identity: ModuleFactory registers this data factory under "WeaponModeSpecialPowerUpdate"

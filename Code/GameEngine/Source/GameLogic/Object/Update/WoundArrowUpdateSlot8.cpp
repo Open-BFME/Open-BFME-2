@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004C69FA@WoundArrowUpdate@@UAE_NH@Z, retail 0x004C69FA, 38 bytes: slot 8
 // of the vtable 0x00C5DEDC that WoundArrowUpdate's ctors (0x004C6929,

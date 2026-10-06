@@ -1,4 +1,4 @@
-// cl: /O1 /Oi /DNDEBUG /MD
+// cl: /Oi /DNDEBUG /MD
 // ??0Condition@@QAE@XZ 0x003B26DF 48B
 // Evidence: vtable 0x81F3F8 (Condition sibling of ScriptAction 0x81F3FC);
 // zero type/parms/next, rep-stosd parms (/Oi), trailing ints and flags;

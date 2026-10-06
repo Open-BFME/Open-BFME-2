@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1TurretAI@@MAE@XZ retail 0x004D86C1 86B
 // Zero Hour TurretAI::~TurretAI shape: stopRotOrPitchSound (the rowed
 // ?rva004D82F6@TurretAI 0x004D82F6) then delete the turret state machine at

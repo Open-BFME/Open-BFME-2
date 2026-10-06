@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?getPriority@AttackPriorityInfo@@QBEMPBVObject@@0_N@Z
 // retail 0x00357CDE, 116 bytes (Ghidra FUN_00757cde).

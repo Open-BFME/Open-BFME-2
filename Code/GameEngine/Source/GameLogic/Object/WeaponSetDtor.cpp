@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1WeaponSet@@UAE@XZ retail 0x002C7311 81B
 // Zero Hour WeaponSet::~WeaponSet shape: delete each of the six weapon slots
 // at +8 when set; then the inline Snapshot-style base dtor restores BBB554.

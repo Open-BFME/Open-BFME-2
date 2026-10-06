@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ??0WeaponSet@@QAE@XZ @0x002C72D5, 60B.
 // WeaponSet::WeaponSet. Zero-initializing ctor: vtable 0x0080089C plus null

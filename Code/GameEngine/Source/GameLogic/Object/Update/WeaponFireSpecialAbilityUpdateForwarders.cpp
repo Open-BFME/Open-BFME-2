@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two WeaponFireSpecialAbilityUpdate primary-vtable (0x00C4E090) slots that
 // defer to the SpecialAbilityUpdate base entries of 0x00C3FBA8, named by the

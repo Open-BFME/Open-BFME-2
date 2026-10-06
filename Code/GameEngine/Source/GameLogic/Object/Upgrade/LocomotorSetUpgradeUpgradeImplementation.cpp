@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // LocomotorSetUpgrade::upgradeImplementation, retail 0x004B3F58 (35 bytes), and
 // LocomotorSetUpgrade::upgradeRemovalImplementation, retail 0x004B3F7B (21 bytes): slots 10 and

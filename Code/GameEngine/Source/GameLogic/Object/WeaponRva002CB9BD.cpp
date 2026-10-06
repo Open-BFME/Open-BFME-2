@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX- /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
 typedef int Int;
 typedef float Real;
 struct ICoord2D { Int x; Int y; };

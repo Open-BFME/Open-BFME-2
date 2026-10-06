@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // UnpauseSpecialPowerUpgrade::upgradeImplementation, retail 0x004B54E9 (102
 // bytes), and upgradeRemovalImplementation, retail 0x004B5574 (84 bytes): slots

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ExperienceScalarUpgrade::upgradeImplementation, retail 0x004B6213 (35 bytes), and
 // ExperienceScalarUpgrade::upgradeRemovalImplementation, retail 0x004B6236 (35 bytes): slots 10 and

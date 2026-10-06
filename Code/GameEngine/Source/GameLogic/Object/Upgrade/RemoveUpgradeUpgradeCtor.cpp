@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0RemoveUpgradeUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B7FA4, 49 bytes.
 // RemoveUpgradeUpgrade behavior ctor over the pinned UpgradeModule base

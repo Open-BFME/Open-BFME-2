@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?loadPostProcess@AudioLoopUpgrade@@MAEXXZ, retail 0x004B7BAA, 17 bytes.
 // Slot 1 (offset 0x4) of vtable 0x00858CC4 (class of rowed dtor

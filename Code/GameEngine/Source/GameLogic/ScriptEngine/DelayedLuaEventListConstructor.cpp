@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: DelayedLuaEventList::DelayedLuaEventList, retail 0x000EDBB0, 84
 // bytes. The body carried only a machine byte-dump row; reverse/reloc_names.csv

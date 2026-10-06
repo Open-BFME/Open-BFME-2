@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic
 //
 // Retail 0x00194810: split name on the first '/'. Hit returns (prefix, suffix);
 // miss returns (AsciiString::TheEmptyString, name). Pair construction is the

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?Rva003354D6@@YAHPAUlua_State@@_N@Z, retail 0x003354D6 220B.
 // Gap between CreateAndFire 0x0033541C and HasUpgrade 0x003355B2, same flags.
 // Grants/removes player or object upgrades by bool arg.

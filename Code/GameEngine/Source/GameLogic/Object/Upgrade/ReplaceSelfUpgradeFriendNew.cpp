@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@ReplaceSelfUpgrade@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00250696, 56 bytes. Dedicated TU: retail news 0x20 (push-imm8)

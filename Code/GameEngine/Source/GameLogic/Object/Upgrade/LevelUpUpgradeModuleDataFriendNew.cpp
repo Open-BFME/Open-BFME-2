@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?friend_newModuleData@LevelUpUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0025469E, 52 bytes. Dedicated TU: the factory news 0x120, runs

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // DataChunkOutput::writeNameKey, retail 0x00307D29 (true 92 bytes; the 10B
 // reloc row covers only the SEH-prologue head: mov eax,cookie + call

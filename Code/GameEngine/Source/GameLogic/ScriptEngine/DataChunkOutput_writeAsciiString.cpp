@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // DataChunkOutput::writeAsciiString, retail 0x00307033, 91 bytes.
 //

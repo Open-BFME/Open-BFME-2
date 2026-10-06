@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
 //
 // ?isWithinAttackRange@Weapon@@QBE_NPBVObject@@0MH@Z @0x002CB933 52B
 // Evidence: pinned name; BFME1 donor game/GameEngine/Source/GameLogic/Object/Weapon_isWithinAttackRange.cpp

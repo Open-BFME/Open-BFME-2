@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two DoCommandUpgrade overrides on the upgrade-mux vtable 0x00C57B10 that its
 // matched ctor 0x004B4C2E installs at +0x10, compiled with that subobject

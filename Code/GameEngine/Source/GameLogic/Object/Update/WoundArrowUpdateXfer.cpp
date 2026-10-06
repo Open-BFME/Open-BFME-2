@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@WoundArrowUpdate@@MAEXPAVXfer@@@Z @0x004C6963 54B: slot 3 (offset 0x0C)
 // of vtable 0x0085DF10 (class of ??0WoundArrowUpdate ctor 0x004C6905).

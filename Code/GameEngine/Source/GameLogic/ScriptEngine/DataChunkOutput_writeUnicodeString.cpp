@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7
+// cl: /Ireference/shims/bfme2_ascii
 //
 // DataChunkOutput::writeUnicodeString, retail 0x0030708E, 99 bytes.
 //

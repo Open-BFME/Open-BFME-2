@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?ObjectHasUpgrade@@YAHPAUlua_State@@@Z, retail 0x003355B2 224B.
 // Lua binding: true (1.0) when the object has the named upgrade.
 // Evidence: pinned name, rowed lua_gettop 0x00746F30, rowed Rva00990030Lookup

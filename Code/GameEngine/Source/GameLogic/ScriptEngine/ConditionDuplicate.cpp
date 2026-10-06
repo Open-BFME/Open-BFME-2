@@ -1,4 +1,4 @@
-// cl: /O1 /Oi /DNDEBUG /MD /EHsc
+// cl: /Oi /DNDEBUG /MD /EHsc
 // ?duplicate@Condition@@QBEPAV1@XZ @0x003B5B07 157B chain from typed ctor 0x003B5AC7.
 // Evidence: calls new 0x0002FDA0 typed ctor 0x003B5AC7 Rva assign 0x003B270F plus self recursion for next chain; pin exists; donor BFME1 Condition_duplicate.cpp run() const deep copy with both-bounds loop and flag copies.
 typedef bool Bool;

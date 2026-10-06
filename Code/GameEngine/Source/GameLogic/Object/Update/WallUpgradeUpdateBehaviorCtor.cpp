@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0WallUpgradeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004AB317,
 // 121 bytes. Behavior-side ctor completing the WallUpgradeUpdate file-unit

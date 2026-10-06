@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // CurDrawablePrevAnimFraction (0x00332DDC, 61B): the Lua callback the
 // registration at 0x00335F26 pushes with lua_pushcclosure (nargs 0) and the

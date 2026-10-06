@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??1ObjectCreationUpgradeModuleData@@UAE@XZ, retail 0x004B45E8, 84 bytes.
 // ModuleData dtor: destroys the three AsciiStrings at +0x128 (state 2) then

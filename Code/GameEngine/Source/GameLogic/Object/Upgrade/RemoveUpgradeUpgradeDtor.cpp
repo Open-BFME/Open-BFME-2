@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: RemoveUpgradeUpgrade module dtor via UpgradeModule multi-inheritance.
 // ??1RemoveUpgradeUpgrade@@MAE@XZ, retail 0x004B7F01, 32 bytes: four vptr stores

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Retail 0x0049283E (242 bytes): WeaponFireSpecialAbilityUpdate::rva0049283E,
 // slot 22 of the primary vtable 0x00C4E090 that the matched

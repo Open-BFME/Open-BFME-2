@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004B6B04@@YGXPAVBfmeObjF9@@PAXD@Z, retail 0x004B6B04, 37 bytes.
 // Free __stdcall helper called by the two unclaimed GeometryUpgrade bodies

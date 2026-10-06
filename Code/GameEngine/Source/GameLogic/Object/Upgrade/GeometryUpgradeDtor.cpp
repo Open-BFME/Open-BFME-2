@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1GeometryUpgrade@@UAE@XZ, retail 0x004B6C55, 53 bytes. Behavior-side
 // module dtor: destroys the AsciiString upgrade-name at +0x1C via the

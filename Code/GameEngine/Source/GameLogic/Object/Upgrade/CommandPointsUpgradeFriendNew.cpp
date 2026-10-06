@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@CommandPointsUpgrade@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x002508EE, 56 bytes. Dedicated TU: retail news 0x1C (push-imm8)

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0ToppleUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004A8201,
 // 157 bytes. Behavior-side ctor (rowed instance factory 0x24F080 news

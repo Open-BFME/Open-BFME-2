@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // CommandPointsUpgrade::upgradeImplementation, retail 0x004B86AE (44 bytes),
 // and upgradeRemovalImplementation, retail 0x004B86DA (54 bytes): slots 10

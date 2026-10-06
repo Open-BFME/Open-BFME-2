@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // TooltipUpgrade::upgradeRemovalImplementation, retail 0x004B7ADB (69
 // bytes): slot 8 of the +0x10 UpgradeMux vtable 0x00C58BC0 (slot 10 is the

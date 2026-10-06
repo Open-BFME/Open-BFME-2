@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: ArmorUpgrade module dtor via UpgradeModule multi-inheritance.
 // ??1ArmorUpgrade@@MAE@XZ, retail 0x004B33FD, 32 bytes: four vptr stores

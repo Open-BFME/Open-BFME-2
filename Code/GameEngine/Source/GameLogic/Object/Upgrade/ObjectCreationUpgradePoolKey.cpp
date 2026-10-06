@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004B3FF5@ObjectCreationUpgrade@@SA?AW4NameKeyType@@XZ @0x004B3FF5
 // (69B): cached pool-name key for ObjectCreationUpgrade. The class
 // identity comes from the pool-name string the body pushes

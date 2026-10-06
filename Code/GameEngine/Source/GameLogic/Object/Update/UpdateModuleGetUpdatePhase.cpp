@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ, retail 0x0022C4CB, 4 bytes.
 // BFME1/Zero Hour UpdateModule.h: `virtual SleepyUpdatePhase getUpdatePhase() const

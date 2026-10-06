@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0LevelUpUpgradeModuleData@@QAE@XZ, retail 0x0025467E, 32 bytes.
 // Frameless ctor over the rowed Rva00253487Base base (0x253487):

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Lua ObjectTeamName (0x00334E51, 115B): the Lua callback the registration at
 // 0x00338489 pushes with lua_pushcclosure and names with lua_setglobal

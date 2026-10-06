@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // WeaponBonusUpgrade::upgradeImplementation, retail 0x004B5680 (11 bytes): slot
 // 10 of the +0x10 UpgradeMux vtable 0x00C57F20 installed by the matched

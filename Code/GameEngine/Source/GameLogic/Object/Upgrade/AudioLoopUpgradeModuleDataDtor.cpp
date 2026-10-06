@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/moduledata
+// cl: /GX /DNDEBUG /MD /Ireference/shims/moduledata
 //
 // ??1AudioLoopUpgradeModuleData@@UAE@XZ, retail 0x004B7C4C, 58 bytes.
 // AudioLoop upgrade ModuleData dtor: restores own vtable 0x00C58CF8, releases

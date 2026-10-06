@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?friend_checkForIdleMoodTarget@TurretAI@@QAEXXZ, retail 0x004D88AC, 74 bytes.
 // Dedicated TU. Zero Hour TurretAI::friend_checkForIdleMoodTarget verbatim:

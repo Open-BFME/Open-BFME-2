@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?removeSelfAsTargeter@TurretAI@@AAEXXZ,
 // retail 0x004D825F, 57 bytes. Dedicated TU.

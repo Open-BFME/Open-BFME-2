@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0DoCommandUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B4C2E, 49 bytes.
 // DoCommandUpgrade behavior ctor over the pinned UpgradeModule base

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /arch:SSE /MD /DNDEBUG
+// cl: /Oy- /MD /DNDEBUG
 //
 // ?positionProjectileForLaunch@Weapon@@SAXPAVObject@@PBV2@W4WeaponSlotType@@H@Z
 // retail 0x002CA753, 187 bytes (Ghidra FUN_006ca753).

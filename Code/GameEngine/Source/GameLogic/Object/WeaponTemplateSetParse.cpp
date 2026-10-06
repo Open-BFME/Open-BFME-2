@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // WeaponTemplateSet FieldParse procs (retail WeaponSet.cpp run 0x002C726C..
 // 0x002C8C7A), split from the Zero Hour port in WeaponSet.cpp because the BFME 2

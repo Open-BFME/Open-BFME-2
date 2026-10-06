@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // stlport
 // ?rva0033A888@Rva002C752F@@QAEXXZ @0x0033A888 (81B).
 // Ctor-like init for the six-slot WeaponSet block: resets the bitset at

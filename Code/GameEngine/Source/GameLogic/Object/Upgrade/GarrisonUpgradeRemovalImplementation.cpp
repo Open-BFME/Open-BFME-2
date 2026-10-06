@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GarrisonUpgrade::upgradeRemovalImplementation, retail 0x004B58FF (131 bytes):
 // slot 8 of the +0x10 UpgradeMux vtable 0x00C58040 installed by the matched

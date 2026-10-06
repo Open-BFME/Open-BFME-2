@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // UpgradeMux overrides of four BFME update/upgrade modules that carry their
 // UpgradeMux at +0x20 (each class's ctor installs the UpgradeMux vtable there:

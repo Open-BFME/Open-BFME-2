@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1ReplaceSelfUpgrade@@MAE@XZ, retail 0x004B70EB, 5 bytes.
 // ReplaceSelfUpgrade behavior dtor: trivial tail-jmp to the UpgradeModule

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0AllowBannerSpawnUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B8587, 49 bytes.
 // AllowBannerSpawnUpgrade behavior ctor over the pinned UpgradeModule base

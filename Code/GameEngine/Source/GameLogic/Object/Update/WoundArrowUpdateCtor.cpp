@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0WoundArrowUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C6905, 56 bytes.
 // WoundArrowUpdate behavior ctor over the pinned Rva0044EF5E intermediate

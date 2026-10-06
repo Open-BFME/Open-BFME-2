@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Slot-17 overrides of ToggleHiddenSpecialAbilityUpdate (vftable 0x00C552D8)
 // and ToggleDeploySpecialAbilityUpdate (vftable 0x00C55370), named by their

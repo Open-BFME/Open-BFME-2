@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004B7E3C@AudioLoopUpgrade@@UAEXH@Z, retail 0x004B7E3C, 57 bytes.
 // Sits between the Disp8 getter at 0x004B7E23 and the rowed

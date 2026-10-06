@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@BuildableHeroListUpgrade@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0025087E, 56 bytes. Dedicated TU: retail news 0x1C (push-imm8)

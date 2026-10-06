@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 // Module-data destructors named from ModuleFactory registrations (name ->
 // newModuleData -> ctor -> vtable -> deleting dtor -> dtor). Each is the
 // same-shape sibling of UpgradeModuleData's destructor (0x255A42): the

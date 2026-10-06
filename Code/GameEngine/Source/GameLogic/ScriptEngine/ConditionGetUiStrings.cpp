@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getUiStrings@Condition@@QAEHQAVAsciiString@@@Z, retail 0x003B39B2, 21 bytes.
 // Thin wrapper: fetch the ConditionTemplate for m_conditionType (+4) via the

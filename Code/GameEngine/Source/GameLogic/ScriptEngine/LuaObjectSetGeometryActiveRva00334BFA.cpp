@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?ObjectSetGeometryActive@@YAHPAUlua_State@@@Z @0x00334BFA 165B: Lua binding setting geometry-active flag via BfmeObjF9::setFlag at Object+0xA8 from name index2 and bool index3. Evidence: pinned name plus rowed gettop Lookup type find tostring StringBase Lookup setFlag release plus TheGameLogic plus siblings 0x00334A3D 0x00334D16 same flags.
 #include "ascii_string.h"
 struct lua_State;

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?friend_getTurretTarget@TurretAI@@QBE?AW4TurretTargetType@@AAPAVObject@@AAUCoord3D@@@Z,
 // retail 0x004D81F1, 110 bytes. Dedicated TU.

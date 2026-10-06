@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /GX /arch:SSE /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /GX /DNDEBUG /MD
 //
 // ??1ToppleUpdateModuleData@@UAE@XZ, retail 0x004A83A7, 48 bytes.
 // ModuleData dtor: tears down the StumpName string at +0x10 through the

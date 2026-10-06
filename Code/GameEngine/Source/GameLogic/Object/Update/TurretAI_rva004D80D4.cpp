@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004D80D4@TurretAI@@QAEXXZ, retail 0x004D80D4, 26 bytes.
 // Gap between ??1Rva004D7E61 (TurretStateMachine dtor) and Disp8 setters.
 // TurretAI layout from TurretAI_setTurretTargetObject.cpp: machine at +0x14,

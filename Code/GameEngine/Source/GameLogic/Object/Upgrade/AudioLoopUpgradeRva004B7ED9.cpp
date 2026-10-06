@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004B7ED9@AudioLoopUpgrade@@QAEPAVBfmeFixedStorage002CF0F0@@PAV2@@Z 0x004B7ED9 40: slot 19 mask init.
 // Evidence: vtable 0x00858C70 slot 19; callees rowed BitFlags 0x5E5963 and FixedStorage copy 0x2CF0F0; donor AudioLoopUpgradeCtorModuleFactory.
 typedef int Int;

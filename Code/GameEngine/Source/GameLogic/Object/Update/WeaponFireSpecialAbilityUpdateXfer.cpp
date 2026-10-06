@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@WeaponFireSpecialAbilityUpdate@@MAEXPAVXfer@@@Z @ 0x004925E5 160B: slot 3.
 // BFME1 donor WeaponFireSpecialAbilityUpdate_xfer.cpp reuse: Version(1,2) via
 // slot 0x28 then base SpecialAbilityUpdate xfer via rowed 0x0044F996 then IsCRC

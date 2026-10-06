@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@WeaponSetUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z.
 // Identity: ModuleFactory registers this data factory under "WeaponSetUpgrade"

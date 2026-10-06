@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // MaxHealthUpgrade::upgradeImplementation, retail 0x004B6357 (51 bytes), and
 // MaxHealthUpgrade::upgradeRemovalImplementation, retail 0x004B638A (51 bytes):

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // DataChunkOutput::writeInt, retail 0x00306CFF (24 bytes).
 // DataChunkOutput::writeReal, retail 0x00306CFF (24 bytes, ICF-folded).

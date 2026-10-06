@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004B59B7@CostModifierUpgrade@@SA?AW4NameKeyType@@XZ @0x004B59B7
 // (69B): cached pool-name key for CostModifierUpgrade. The class
 // identity comes from the pool-name string the body pushes

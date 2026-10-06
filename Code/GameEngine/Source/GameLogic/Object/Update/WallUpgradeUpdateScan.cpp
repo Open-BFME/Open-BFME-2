@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // WallUpgradeUpdate members that query the partition manager through a
 // filter chain (layout as WallUpgradeUpdateBehaviorCtor.cpp: +0x08 the

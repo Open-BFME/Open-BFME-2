@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004B9471@InheritUpgradeCreate@@SA?AW4NameKeyType@@XZ @0x004B9471
 // (69B): cached pool-name key for InheritUpgradeCreate. The class
 // identity comes from the pool-name string the body pushes

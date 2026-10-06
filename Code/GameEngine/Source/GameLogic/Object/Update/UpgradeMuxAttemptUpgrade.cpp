@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?forceRefreshUpgrade@UpgradeMux@@UAEXXZ, retail 0x004CE270, 12 bytes.
 // ?attemptUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z, retail 0x004CE27C, 33 bytes.

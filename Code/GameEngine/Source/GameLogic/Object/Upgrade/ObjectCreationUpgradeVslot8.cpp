@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva004B463C@ObjectCreationUpgrade@@QAEXXZ, retail 0x004B463C, 189 bytes.
 // Vslot 8 of vtable 0x00857660 for ObjectCreationUpgrade (ctor 0x004B40A6).

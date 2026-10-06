@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object
 // class-gate: allow AsciiString retail inlines the copy ctor at the call site; this proved codegen view reproduces it
 // class-gate: allow StringBase same inline view; base body at 0x00887B60
 // Open-BFME5: Weapon::getName, retail 0x001C2DC0.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002C752F@Rva002C752F@@QAEXXZ @0x002C752F, 134B.
 // Six-slot clear: zeroes bitset at +0x04 (0x10), tail bytes/dword at

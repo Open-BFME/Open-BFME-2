@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /arch:SSE /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 //
 // ?parseScatterTarget@WeaponTemplate@@CAXPAVINI@@PAX1PBX@Z, retail 0x002CE813
 // (54B). Zero Hour's WeaponTemplate::parseScatterTarget (Weapon.cpp) on the

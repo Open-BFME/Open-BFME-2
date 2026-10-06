@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000494AF3@WeaponModeSpecialPowerUpdate@@SA?AW4NameKeyType@@XZ @0x494af3
 // (69B): cached pool-name key for WeaponModeSpecialPowerUpdate. The class
 // identity comes from the pool-name string the body pushes

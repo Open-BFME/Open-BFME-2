@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002C75D1@WeaponSet@@QBE_NHH@Z @0x002C75D1, 41B.
 // WeaponSet slot auto-choose check. Returns true when the per-slot byte at

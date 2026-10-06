@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@StatusBitsUpgradeIfEldestKindof@@MAEXPAVXfer@@@Z, retail 0x004B4B7C, 37 bytes.
 // Slot 3 of the vftable 0x00C57ADC whose slot-2 name getter returns

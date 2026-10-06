@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // StatusBitsUpgrade::upgradeImplementation and upgradeRemovalImplementation,
 // retail 0x004B49AD and 0x004B49E2 (53 bytes each). The BFME1 donor confirms
