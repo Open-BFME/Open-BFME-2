@@ -9,7 +9,7 @@ class ScriptEngine
 public:
 	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class PlayerList
 {
 public:
@@ -23,8 +23,8 @@ public:
 };
 void __stdcall Rva003BB713Set(const AsciiString &name1, Object *obj, const AsciiString &name2)
 {
-	int mask1 = g_Va009FE16C->rva00357475(name2, 0);
-	int mask2 = g_Va009FE16C->rva00357475(name1, 0);
+	int mask1 = TheScriptEngine->rva00357475(name2, 0);
+	int mask2 = TheScriptEngine->rva00357475(name1, 0);
 	Player *p1 = ThePlayerList->getPlayerFromMask(mask1);
 	Player *p2 = ThePlayerList->getPlayerFromMask(mask2);
 	if (p1 && p2)

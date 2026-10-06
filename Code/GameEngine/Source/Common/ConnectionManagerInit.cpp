@@ -28,7 +28,7 @@ public:
 	unsigned int m_C20;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 extern unsigned int g_007ED97C;
 
 struct ConnSlot
@@ -110,9 +110,9 @@ unsigned char BFMEConnectionManager::rva004CEF58(int slot)
 	unsigned int m40 = TheGameLogic->m_40;
 	unsigned int timeout;
 	if (m40 < g_007ED97C)
-		timeout = TheGlobalData->m_C20 << 2;
+		timeout = TheWritableGlobalData->m_C20 << 2;
 	else
-		timeout = TheGlobalData->m_C20;
+		timeout = TheWritableGlobalData->m_C20;
 	unsigned long elapsed = now - conn->m_34C;
 	return (unsigned char)(timeout >= elapsed);
 }
@@ -140,7 +140,7 @@ unsigned char BFMEConnectionManager::rva004CEFC2(int slot, unsigned int timeoutP
 	if (m40 >= g_007ED97C)
 		timeout = timeoutParam;
 	else
-		timeout = TheGlobalData->m_C20 << 2;
+		timeout = TheWritableGlobalData->m_C20 << 2;
 	unsigned long elapsed = now - conn->m_34C;
 	return (unsigned char)(timeout >= elapsed);
 }

@@ -6,7 +6,7 @@
 // proven 0x680B3 pattern: +0x3850 call plus +0x3854 tail jmp into pinned
 // 0x000EA1F3/0x000E6FC8. Honest address-derived names.
 
-extern void *g_00DE2000;
+extern void *W3DGCData00DE2000;
 
 class Rva00066A9ASub
 {
@@ -30,7 +30,7 @@ public:
 void Rva00066A9AHost::rva00066A9A()
 {
 	headA();
-	Rva00066A9ASub *g = (Rva00066A9ASub *)g_00DE2000;
+	Rva00066A9ASub *g = (Rva00066A9ASub *)W3DGCData00DE2000;
 	if (g)
 		g->headB();
 	if (m_3850)

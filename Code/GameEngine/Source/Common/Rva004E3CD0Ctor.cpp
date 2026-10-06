@@ -29,7 +29,6 @@ struct BfmeE16 { float x, y, z, w; };
 
 typedef _STL::vector<BfmeE16, _STL::allocator<BfmeE16> > E16Vec;
 
-extern float g_Va00BBB8D8;
 
 class Rva004E3CD0
 {
@@ -48,7 +47,7 @@ private:
 
 Rva004E3CD0::Rva004E3CD0() : m_10(0)
 {
-    float one = g_Va00BBB8D8;
+    float one = 1.0f;
     m_20 = false;
     m_21 = false;
     m_22 = true;

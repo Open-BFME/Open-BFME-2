@@ -59,7 +59,7 @@ extern DeviceObj *g_deviceObj;
 extern VertexBufferClass *g_vb;
 extern int g_quadIndex;
 extern unsigned g_fvfShader;
-extern unsigned g_numberOfDX8Calls;
+extern unsigned int number_of_DX8_calls;
 VertexBufferClass *g_vb;
 int g_quadIndex;
 unsigned g_fvfShader;
@@ -128,7 +128,7 @@ void Rva00075A23Draw(int width, int height)
 	}
 	DX8Wrapper::Set_Vertex_Buffer(g_vb, 0);
 	g_deviceObj->m_vtable->m_setVertexShader(g_deviceObj, g_fvfShader);
-	++g_numberOfDX8Calls;
+	++number_of_DX8_calls;
 	DX8Wrapper::bfmeRva00120700(g_quadIndex * 4, 2);
 	if (++g_quadIndex >= 50)
 		g_quadIndex = 0;

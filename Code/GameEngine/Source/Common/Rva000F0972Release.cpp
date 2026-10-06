@@ -16,7 +16,7 @@ class W3DBufferManager
 public:
 	void rva00115FF1();
 };
-extern W3DBufferManager *g_00DEC3C0;
+extern class W3DBufferManager *TheW3DBufferManager;
 class Rva000F0912
 {
 public:
@@ -35,7 +35,7 @@ void Rva000F0912::rva000F0972()
 		g_00DEBCE0->f2();
 	if (g_00DEBCDC != 0)
 		g_00DEBCDC->f2();
-	W3DBufferManager *mgr = g_00DEC3C0;
+	W3DBufferManager *mgr = TheW3DBufferManager;
 	g_00DEBCE0 = 0;
 	g_00DEBCDC = 0;
 	if (mgr != 0)

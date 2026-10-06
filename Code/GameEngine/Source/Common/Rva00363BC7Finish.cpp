@@ -7,7 +7,6 @@
 // 0x001E3572 0x00365F4B; len kept in ST0 via local. The literal (not a named
 // extern global) is what puts the `movss xmm1,[out]` load before the 1.0f load.
 
-extern float g_Va00BCF628;
 
 struct Coord2D
 {
@@ -38,15 +37,15 @@ void *Rva00363BC7::rva00363BC7(Coord2D *out, float *outLen)
 	if (m_08 == 0) {
 		out->y = 0.0f;
 		out->x = 0.0f;
-		*outLen = g_Va00BCF628;
+		*outLen = 0.01f;
 		return 0;
 	}
 	out->x = m_08->m_x0C - m_0C;
 	out->y = m_08->m_y10 - m_10;
 	float len = out->length();
 	*outLen = len;
-	if (g_Va00BCF628 > len) {
-		*outLen = g_Va00BCF628;
+	if (0.01f > len) {
+		*outLen = 0.01f;
 	}
 	float inv = 1.0f / *outLen;
 	out->x *= inv;

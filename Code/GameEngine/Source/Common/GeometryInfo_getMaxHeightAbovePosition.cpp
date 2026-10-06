@@ -66,11 +66,10 @@ Real GeometryInfo::getMaxHeightAbovePosition(void) const
 	return best;
 }
 
-extern const float BfmeZeroRange;
 
 Real GeometryInfo::rva006BD830(void) const
 {
-	Real best = BfmeZeroRange;
+	Real best = 0.0f;
 
 	for (const BfmeShape *shape = m_shapes; shape != m_shapesEnd; ++shape)
 	{
@@ -79,7 +78,7 @@ Real GeometryInfo::rva006BD830(void) const
 		if (!shape->m_flag21)
 			continue;
 
-		Real height = BfmeZeroRange;
+		Real height = 0.0f;
 		switch (shape->m_type)
 		{
 			case GEOMETRY_SPHERE:

@@ -4,7 +4,6 @@
 // Evidence: caller 0x002E53FA passes int and uses result for StringBase::set,
 // string literal 0x007D0FA4 "Unknown", table at 0x00DB96B0, default at 0x00BBE8E8.
 extern const char *g_00DB96B0[];
-extern const char g_00BBE8E8[];
 
 const char *__stdcall Rva00202678Get(int i)
 {
@@ -12,7 +11,7 @@ const char *__stdcall Rva00202678Get(int i)
 		return g_00DB96B0[i];
 	if (i == -1)
 		return "Unknown";
-	return g_00BBE8E8;
+	return "?";
 }
 
 // The global(s) below are defined elsewhere under another name at the same

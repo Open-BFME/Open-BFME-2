@@ -14,7 +14,7 @@ public:
 	int rva00357475(const AsciiString &name, bool *flag);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class SpecialPowerStore
 {
@@ -65,7 +65,7 @@ public:
 
 void BfmeApplierBH::rva003C4070(const AsciiString &a, const AsciiString &b)
 {
-	Player *enemy = g_Va009FE16C->getSkirmishEnemyPlayer();
+	Player *enemy = TheScriptEngine->getSkirmishEnemyPlayer();
 	if (enemy == 0)
 		return;
 	void *unk54 = *(void **)((char *)enemy + 0x54);
@@ -79,7 +79,7 @@ void BfmeApplierBH::rva003C4070(const AsciiString &a, const AsciiString &b)
 		ov = ((const Overridable *)tmpl)->friend_getFinalOverride();
 		f = ov->m_54;
 	}
-	int mask = g_Va009FE16C->rva00357475(a, 0);
+	int mask = TheScriptEngine->rva00357475(a, 0);
 	if (mask == 0)
 		return;
 	Player *p;

@@ -12,7 +12,6 @@ private:
 	unsigned int m_bits[8];
 };
 
-extern const char g_00BBE498[];
 
 class Rva000467B2
 {
@@ -39,7 +38,7 @@ void Rva000467B2::rva000467B2(AsciiString *out, int maxPerLine)
 		if (count >= maxPerLine)
 		{
 			count = 0;
-			((StringBase<char> *)out)->concat(g_00BBE498);
+			((StringBase<char> *)out)->concat("\012");
 		}
 		first = false;
 		((StringBase<char> *)out)->concat(name);

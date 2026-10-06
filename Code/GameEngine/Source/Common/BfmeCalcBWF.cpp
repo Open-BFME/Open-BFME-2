@@ -1,7 +1,6 @@
 // BFME coordinate transform at RVA 0x0087E0D0; callers carry the angle as float bits.
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
-extern const float BfmeZeroRange;
 class BfmeRetBWF { public: float x; float y; float z; };
 class BfmeCalcBWF
 {
@@ -13,9 +12,9 @@ private:
 bool BfmeCalcBWF::bfmeCalcBWF(BfmeRetBWF *one, float angle, BfmeRetBWF *two)
 {
 	BfmeRetBWF *source = *(BfmeRetBWF * volatile *)&one;
-	const float firstZero = BfmeZeroRange;
+	const float firstZero = 0.0f;
 	*two = *source;
-	if (m_field0x8 == firstZero && m_field0xc == BfmeZeroRange) return false;
+	if (m_field0x8 == firstZero && m_field0xc == 0.0f) return false;
 	float sine=(float)sin(angle); float cosine=(float)cos(angle);
 	two->x += cosine*m_field0x8 + sine*m_field0xc;
 	two->y += sine*m_field0x8 + cosine*m_field0xc;
@@ -27,4 +26,3 @@ bool BfmeCalcBWF::bfmeCalcBWF(BfmeRetBWF *one, float angle, BfmeRetBWF *two)
 // Six matched BFME2 references across five sources place this scalar at
 // VA 0x00BBAEAC, whose four initialized bytes are zero. BfmeZeroRange is
 // the existing project alias; this placement does not establish a retail owner.
-extern const float BfmeZeroRange = 0.0f;

@@ -251,13 +251,11 @@ struct Rva0029AA27At2 : Rva0029AA27
 {
 };
 
-extern View *TheTacticalView;
-extern InGameUI *TheInGameUI;
+extern class View *TheTacticalView;
+extern class InGameUI *TheInGameUI;
 extern Rva0029AA27 *TheRva0029AA27;
 extern void *g_ks_30f4ea;
 
-View *TheTacticalView;
-InGameUI *TheInGameUI;
 Rva0029AA27 *TheRva0029AA27;
 void *g_ks_30f4ea;
 

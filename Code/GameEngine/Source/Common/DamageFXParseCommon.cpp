@@ -83,7 +83,6 @@ struct DamageDFX
 };
 
 class Object;
-extern const float BfmeZeroRange;
 class FXList;
 class DamageFX
 {
@@ -200,7 +199,7 @@ void DamageFX::parseTime(INI *ini, void *instance, void *store, const void *user
 // equality; caller 0x003608DF passes (index amount Object) and forwards to doFXObj.
 void *DamageFX::rva003605E3(int damageType, float amount, const Object *unused)
 {
-	if (amount == BfmeZeroRange)
+	if (amount == 0.0f)
 		return 0;
 	if (amount >= m_dfx[damageType][0].m_amountForMajorFX)
 		return m_dfx[damageType][0].m_majorDamageFXList;

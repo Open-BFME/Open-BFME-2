@@ -46,7 +46,6 @@ public:
 };
 extern GameLogic *TheGameLogic;
 extern "C" void *theLogicRandomLogFile;
-extern const float BfmeZeroRange;
 
 class Rva00395F57
 {
@@ -87,7 +86,7 @@ bool Rva00395F57::canUnpack(bool checkTimer)
 		goto returnState;
 	if (!checkTimer)
 		goto returnState;
-	if (m_timer > BfmeZeroRange)
+	if (m_timer > 0.0f)
 		return false;
 returnState:
 	return stateReady;

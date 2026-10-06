@@ -16,7 +16,7 @@ public:
 	Object *getUnitNamed(Parameter *p);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class TerrainLogic
 {
@@ -95,7 +95,7 @@ public:
 
 void __stdcall Rva003C4003Apply(Parameter *p, const AsciiString &name, void *arg3)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(p);
+	Object *obj = TheScriptEngine->getUnitNamed(p);
 	const SpecialPowerTemplate *found = g_00E02D4C->findSpecialPowerTemplate(name);
 	if (obj != 0 && found != 0)
 	{

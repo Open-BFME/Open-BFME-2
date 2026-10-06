@@ -13,7 +13,6 @@ public:
 
 extern GameLogic *TheGameLogic;
 extern float g_00BC26EC;
-extern float g_Va00BBB8D8;
 
 class Rva0049B2C1
 {
@@ -29,5 +28,5 @@ float Rva0049B2C1::rva0049B2C1()
 {
 	unsigned a = m_20 - TheGameLogic->m_40;
 	unsigned b = m_20 - m_24;
-	return g_Va00BBB8D8 - (float)a / (float)b;
+	return 1.0f - (float)a / (float)b;
 }

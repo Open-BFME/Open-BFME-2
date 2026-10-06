@@ -14,7 +14,7 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-extern int g_00DBA4E8;
+extern int g_009BA4E8;
 // ?g_00DBA4E8@@3HA: the global at this VA is ?g_009BA4E8@@3HA; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?g_00DBA4E8@@3HA=?g_009BA4E8@@3HA")
 
@@ -57,9 +57,9 @@ void Rva004B4DBF::rva004B4DBF(float *p1, float *p2)
 			return;
 	}
 	if (a->m_148 != 0.0f)
-		*p1 = 1.0f / a->m_148 / (float)g_00DBA4E8;
+		*p1 = 1.0f / a->m_148 / (float)g_009BA4E8;
 	else
 		*p1 = 0.0f;
 	if (a->m_14C != 0.0f)
-		*p2 = 1.0f / a->m_14C / (float)g_00DBA4E8;
+		*p2 = 1.0f / a->m_14C / (float)g_009BA4E8;
 }

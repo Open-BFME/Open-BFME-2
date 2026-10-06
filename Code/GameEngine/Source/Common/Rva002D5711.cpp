@@ -9,7 +9,7 @@ class ImageCollection
 public:
 	const Image *findImageByName(const AsciiString &n);
 };
-extern ImageCollection *g_00DFF078;
+extern class ImageCollection *TheMappedImageCollection;
 
 struct AsciiStringRef
 {
@@ -39,7 +39,7 @@ void Rva002D5711::rva002D5711(const AsciiString &name)
 		AsciiStringPlusString plus;
 		plus.m_string = &tmp;
 		plus.m_second.m_string = &name;
-		m_image1C = g_00DFF078->findImageByName(plus);
+		m_image1C = TheMappedImageCollection->findImageByName(plus);
 	} else
 		m_image1C = 0;
 }

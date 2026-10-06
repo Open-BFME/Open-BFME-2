@@ -3,8 +3,6 @@
 // ?rva002CCE53@Weapon@@QBEMXZ @0x002CCE53 128B evidence: Weapon neighbours prev
 // deleting dtor next getStatus plus computeStatus row; float div via
 // BfmeZeroRange and 1.0 plus 2pow32 fixup; Rva000B2EB5 precedent flags.
-extern const float BfmeZeroRange;
-extern float g_Va00BBB8D8;
 enum WeaponStatus
 {
 	READY_TO_FIRE,
@@ -58,26 +56,26 @@ float Weapon::rva002CCE53() const
 	switch (s)
 	{
 	case READY_TO_FIRE:
-		return g_Va00BBB8D8;
+		return 1.0f;
 	case OUT_OF_AMMO:
-		return BfmeZeroRange;
+		return 0.0f;
 	case PRE_ATTACK:
-		return BfmeZeroRange;
+		return 0.0f;
 	case BETWEEN_FIRING_SHOTS:
 	case RELOADING_CLIP:
 	case WEAPON_STATUS_5:
 		break;
 	default:
-		return BfmeZeroRange;
+		return 0.0f;
 	}
 	unsigned int cur = TheGameLogic->m_frame;
 	if (cur >= m_frame18)
-		return g_Va00BBB8D8;
+		return 1.0f;
 	unsigned int total = m_frame18 - m_frame28;
 	if (total == 0)
-		return g_Va00BBB8D8;
+		return 1.0f;
 	unsigned int done = total - m_frame18 + cur;
 	if (done >= total)
-		return g_Va00BBB8D8;
+		return 1.0f;
 	return (float)done / (float)total;
 }

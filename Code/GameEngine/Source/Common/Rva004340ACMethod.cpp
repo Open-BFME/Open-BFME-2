@@ -4,8 +4,6 @@
 // Pin return type note: pin 0x00433F7F declares int; body dereferences result as AptSaveLoadPending (+0x28 +0xde4) so cast follows the Load() precedent in AptSaveLoadCallbacks.cpp.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_00BBFDDC[];
-extern const char g_00BBFDE0[];
 class GameWindow;
 GameWindow *Rva00222547Get(GameWindow *w);
 int __cdecl Rva002D3409Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *const &a);
@@ -43,8 +41,8 @@ void AptSaveLoad::rva004340AC()
 	if (m_294 != 2)
 		return;
 	AptSaveLoadPending *pending = (AptSaveLoadPending *)rva00433F7F();
-	const char *zero = g_00BBFDDC;
-	const char *deleteVal = pending ? g_00BBFDE0 : zero;
+	const char *zero = "0";
+	const char *deleteVal = pending ? "1" : zero;
 	const char *loadVal = deleteVal;
 	if (m_mode == 0x10 && pending && pending->m_kind == 6 && pending->m_de4 == 0)
 		loadVal = zero;

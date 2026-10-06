@@ -15,7 +15,7 @@
 
 typedef unsigned int UnsignedInt;
 
-extern UnsignedInt g_bfmeFlagsAPB;
+extern unsigned int BFME2CommandFlags;
 extern bool g_bfmeOnAPB;
 extern bool g_bfmeDoneAPB;
 #include "Common/INIException.h"
@@ -23,7 +23,7 @@ extern bool g_bfmeDoneAPB;
 int bfmeSetupAPB(void)
 {
 	g_bfmeDoneAPB = true;
-	g_bfmeFlagsAPB |= 0x20000;
+	BFME2CommandFlags |= 0x20000;
 	if (g_bfmeOnAPB)
 	{
 		throw INIException(3, "Do not specify both -deepCRC and -liteCRC in your commandline arguments.");

@@ -72,8 +72,8 @@ public:
 	BFMEPathfinderMapShim *m_shim;
 };
 
-extern AI *g_Va009FF0F8;
-extern ScriptEngine *g_Va009FE16C;
+extern class AI *TheAI;
+extern class ScriptEngine *TheScriptEngine;
 
 struct BfmeWorldRV
 {
@@ -116,9 +116,9 @@ public:
 
 void Rva002A9BF2::rva002A9D02(int a1, Object *obj, int a3)
 {
-	((Rva002039B6Host *)g_Va009FE16C)->rva002039B6();
-	g_Va009FF0F8->m_shim->rva002E718A(obj);
-	g_Va009FF0F8->m_shim->addObjectToPathfindMap(obj);
+	((Rva002039B6Host *)TheScriptEngine)->rva002039B6();
+	TheAI->m_shim->rva002E718A(obj);
+	TheAI->m_shim->addObjectToPathfindMap(obj);
 	obj->rva0028D99A(true);
 	if (m_window)
 		((GameWindowVirt *)m_window)->v8(a1, obj);

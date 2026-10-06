@@ -2,7 +2,6 @@
 // ?rva000A9C39@Rva000A9C39@@QAEXPBVTextureBaseClass@@@Z @0x000A9C39 142B
 // __thiscall UV scaler: if m_15 set or tex null dword return; fu=1.0f/(float)(unsigned)w via fdivr 1.0f; fv same; u0 u1 u2 *=fu then v0 v1 v2 *=fv with fv kept in ST0.
 // Evidence: EBP frame ret4; cmp [esi+0x15] jne end; cmp [edi] je end; calls to TextureBaseClass width 0x001327D8 height 0x00132802; fild-jge-fadd 2^32-fdivr 1.0f g_Va00BBB8D8; fld-fmul-fstp order with fld st0 trick; caller at 0x000AA2C0.
-extern float g_Va00BBB8D8;
 class TextureBaseClass
 {
 public:
@@ -32,9 +31,9 @@ void Rva000A9C39::rva000A9C39(const TextureBaseClass *tex)
 	if (*(const int *)tex == 0)
 		return;
 	unsigned w = (unsigned)tex->rva001327D8();
-	float fu = g_Va00BBB8D8 / (float)w;
+	float fu = 1.0f / (float)w;
 	unsigned h = (unsigned)tex->rva00132802();
-	float fv = g_Va00BBB8D8 / (float)h;
+	float fv = 1.0f / (float)h;
 	m_15 = 1;
 	m_u0 *= fu;
 	m_u1 *= fu;

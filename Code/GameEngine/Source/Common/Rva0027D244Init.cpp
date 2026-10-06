@@ -64,7 +64,7 @@ public:
 	Pathfinder *m_10;
 };
 
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 Rva0027D244 *Rva0027D244::rva0027D244(int v)
 {
@@ -103,11 +103,11 @@ void Rva0027D244::rva0027D276(Rva0027D244 *a, Rva0027D244 *b)
 	float d2 = dx * dx + dy * dy;
 	if (m_0C != 0 && d2 >= m_10)
 		return;
-	Pathfinder *pf = g_Va009FF0F8->m_10;
+	Pathfinder *pf = TheAI->m_10;
 	Object *obj = (Object *)m_18;
 	if (!pf->rva002F477E(obj, &obj->m_38, (const Coord3D *)a, 0))
 		return;
-	pf = g_Va009FF0F8->m_10;
+	pf = TheAI->m_10;
 	obj = (Object *)m_18;
 	if (!pf->rva002ED219(&obj->m_38, (const Coord3D *)a))
 		return;

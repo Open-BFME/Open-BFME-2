@@ -41,7 +41,7 @@ public:
 	char m_pad[0x10];
 	Pathfinder *m_pathfinder;
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 extern int TheMixFileInfoPool;
 void Rva0052DBCDInit(void);
@@ -88,7 +88,7 @@ int Rva004DD9E3::rva004DD9E3(int a1, int x, int y)
 		if (l == 0) {
 			break;
 		}
-		Pathfinder *pf = g_Va009FF0F8->m_pathfinder;
+		Pathfinder *pf = TheAI->m_pathfinder;
 		PathfindCell *cell = pf->getCell(l, x, y);
 		if (cell == 0) {
 			continue;
