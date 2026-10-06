@@ -65157,3 +65157,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?Rva0051CC8DFormat@@YG?AVAsciiString@@V1@@Z,,0x0051CC8D,249,Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenScoreFormat.cpp,matched,callers 0x0051CFBA 0x0051D04D separator GlobalLanguage+0x10 idiv3 grouping
 ?rva005C7C6D@Rva005C7C6D@@QAEXH@Z,,0x005C7C6D,8,Code/GameEngine/Source/Common/Rva005C7A29Overlay.cpp,matched,gap plus4 tail to rowed Rva005C7BE1 via caller 0x005C38DB
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
+?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
