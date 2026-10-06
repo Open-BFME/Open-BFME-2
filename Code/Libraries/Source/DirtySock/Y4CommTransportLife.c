@@ -1111,7 +1111,7 @@ void Rva008186C0( struct Rva00816BF0Comm *comm,
  */
 void Rva00818AD0( struct Rva00816BF0Comm *comm )
 {
-	struct Rva00816F60Message message;
+	struct Rva00816F60Message packet;
 
 	if ( comm->m_sendReadOffset != comm->m_sendWriteOffset
 		&& comm->m_sendAckOffset == comm->m_sendWriteOffset )
@@ -1124,12 +1124,12 @@ void Rva00818AD0( struct Rva00816BF0Comm *comm )
 	}
 	else
 	{
-		message.m_code = comm->m_sendSequence;
+		packet.m_code = comm->m_sendSequence;
 		comm->m_reportedSequence = comm->m_recvSequence;
-		message.m_value = comm->m_reportedSequence - 1;
-		message.m_length = 0;
+		packet.m_value = comm->m_reportedSequence - 1;
+		packet.m_length = 0;
 
-		Rva00817030( comm, &message );
+		Rva00817030( comm, &packet );
 	}
 }
 
