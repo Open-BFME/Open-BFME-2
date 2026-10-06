@@ -64988,3 +64988,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0053EF92@Rva0053ED1A@@QAEXXZ,,0x0053EF92,28,Code/GameEngine/Source/Common/Rva0053ED1AUpdates.cpp,matched,gap between EF7B and EFAE same class reset plus sync clear
 ?secondarySetCount@Rva005C6D4D@@QAEXH@Z,,0x005C6F9D,144,Code/GameEngine/Source/Common/Rva005C6D4DSecondarySetCount.cpp,matched,pinned name 2 callers RB_tree clear rowed vtable slots
 ??0Rva002AABEE@@QAE@VAsciiString@@IABV?$vector@IV?$allocator@I@_STL@@@_STL@@ABV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@3@@Z,,0x002AF581,110,Code/GameEngine/Source/Common/RTS/Rva002AF581Ctor.cpp,matched,ctor builds level-value record per Rva002AABEE layout
+?rva006E47C0@Rva006E34D0@@QAEXXZ,,0x006E47C0,708,Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp,matched,leaf lane caller 0x006CD330 pin Rva006E34D0 GC mark

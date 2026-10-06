@@ -12423,3 +12423,7 @@ FUN_00b41152	0x00741152	1100	blocked	over 1000B needs strong model t=1 model=mus
 ?rva0048A3B9@Object@@QAEX_NPAVObject@@@Z	0x0048A3B9	292	blocked	nonstandard convention this-in-ESI other-in-EDI bool-on-stack plain-ret cannot model as thiscall t=22 model=muse-spark
 ?registerObject@PartitionManager@@QAEXPAVObject@@@Z	0x002D7FEC	512	partial	511of512 same-insns-1 test-dword-vs-test-byte and stack-slot-rotation and push-mem-vs-mov remain t=38 model=muse-spark score=0.94 stash=reverse/attempts/0x002d7fec.cpp
 ?registerObject@PartitionManager@@QAEXPAVObject@@@Z	0x002D7FEC	512	partial	512of512 size-exact 164of165 insns jns-vs-jge plus stack-slot-rotation and push-mem-vs-mov remain t=25 model=muse-spark score=0.95 stash=reverse/attempts/0x002d7fec.cpp
+?rva0020EBA0@Rva0020EBA0@@QAEXXZ	0x0020EBA0	249	partial	sar vs test-eax-fffffffc and missing mov-ecx-g before Get t=25 model=muse-spark score=0.96 stash=reverse/attempts/0x0020eba0.cpp
+?rva0020EBA0@Rva0020EBA0@@QAEXXZ	0x0020EBA0	249	blocked	sar vs test-eax-fffffffc remains; method-style Get fixes missing mov-ecx-g but breaks callee names vs rows; __assume forces sar but spills mov [ebp-14] t=30 model=muse-spark (stash 0.96 kept)
+FUN_007731cb	0x003731CB	173	blocked	ADDRESS-NAMED global g_Va009FF0F8 use is counted escape hatch per packet - skip t=1 model=muse-spark
+FUN_00850635	0x00450635	642	blocked	ADDRESS-NAMED global g_Va00BBB8D8 use is counted escape hatch per packet - skip t=1 model=muse-spark
