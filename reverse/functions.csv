@@ -64789,3 +64789,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?Rva003EC9CD@@YAKPBDHK@Z,,0x003EC9CD,70,Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp,matched,counted case-insensitive CRC with inline a-z fold volatile keeps ecx plus memory not
 ?Rva003E8FEE@@YG_NPAVParameter@@@Z,,0x003E8FEE,59,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8FEE.cpp,matched,trigger-area plus manager gate via getQualifiedTriggerAreaByName and pinned 0x286772
 ?Rva003E9029@@YG_NPBVAsciiString@@@Z,,0x003E9029,57,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8FEE.cpp,matched,AsciiString plus ScriptEngine 0x208DB8 plus LivingWorld 0xB0 0x2104B6 booleanized
+?Rva003C0E87Do@@YGXABVAsciiString@@H@Z,,0x003C0E87,130,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C0E87.cpp,matched,lookup unit plus SupplyWarehouseDockUpdate module int dispatch via cached NameKey sibling of 0x3C3175
