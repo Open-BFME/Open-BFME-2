@@ -3,7 +3,9 @@
 Each rule research 31 / the round-2 review found missing has a positive control
 (the pilot's rule passes it, this one fails it) and a negative control."""
 import collections
+import os
 import struct
+import subprocess
 import sys
 from pathlib import Path
 
@@ -477,6 +479,53 @@ def test_unit_whose_copy_the_link_did_not_select_is_not_measured():
     assert u["linked"] == 0x1000 and "not_selected" not in u
 
 
+def _three_rejected_twins():
+    """One row calling three twin candidates, each rejected for another reason:
+    t1 has no map definition, t2's extent is longer than retail's row, t3's bytes
+    differ. Returns the row's failures."""
+    a = Path("x/a.obj")
+    code = b"\xe8\0\0\0\0" * 3
+    row = ([_sec(1, ".text", 15, relocs=[(1, 1, lc.REL32), (6, 2, lc.REL32), (11, 3, lc.REL32)])],
+           {0: _sym(0, "?f@@YAXXZ", 1), 1: _sym(1, "?t1@@YAXXZ", 0), 2: _sym(2, "?t2@@YAXXZ", 0),
+            3: _sym(3, "?t3@@YAXXZ", 0)}, code)
+    tw = ([_sec(1, ".text", 0x20, ptr=4)], {0: _sym(0, "?t2@@YAXXZ", 1), 1: _sym(1, "?t3@@YAXXZ", 1, value=0x10)},
+          b"\0" * 4 + b"\x55\x8b\xec\x33\xc0\x5d\xc3\x90" + b"\xcc" * 8 + b"\x33\xc0\xc3" + b"\xcc" * 13)
+    I, R = bytearray(0x2000), bytearray(0x2000)
+    for k, (lt, rt) in enumerate(((0x1C00, 0x1D00), (0x1C20, 0x1D20), (0x1C40, 0x1D40))):
+        _put(I, 0x1000 + 5 * k, b"\xe8" + struct.pack("<i", lt - (0x1005 + 5 * k)))
+        _put(R, 0x1000 + 5 * k, b"\xe8" + struct.pack("<i", rt - (0x1005 + 5 * k)))
+    _put(I, 0x1C40, b"\x33\xc0\xc3")
+    _put(R, 0x1D40, b"\x31\xc0\xc3")                                   # t3: a byte differs
+    objs = FakeObjs({"b.obj": tw})
+    objs.cache[a] = row
+    u = {"id": 0, "obj": str(a), "sec": 1, "secname": ".text", "size": 15, "head": "?f@@YAXXZ",
+         "head_cls": lc.EXTERNAL, "starts": [0x1000],
+         "rows": [{"name": "?f@@YAXXZ", "rva": 0x1000, "size": 15, "off": 0, "sym": "?f@@YAXXZ"}]}
+    mapped = ({"?f@@YAXXZ": 0x1000}, {},
+              [(0x1000, "?f@@YAXXZ", "a.obj"), (0x1C00, "?t1@@YAXXZ", "gone.obj"),
+               (0x1C20, "?t2@@YAXXZ", "b.obj"), (0x1C40, "?t3@@YAXXZ", "b.obj")], {"?f@@YAXXZ": "a.obj"})
+    m = lc.Measure([u], [], mapped, I, R, {".text": (0x1000, 0x1000)}, {}, {}, {}, objs,
+                   {0x1000: 15, 0x1D00: 3, 0x1D20: 3, 0x1D40: 3})
+    return m.run()[0]["fails"]
+
+
+def test_row_failures_do_not_depend_on_the_hash_seed():
+    """A cold and a cached cycle of one snapshot gave different link_status.csv
+    (so different receipt cores) with identical links: a row's twin-rejected
+    failures came out in set order, which follows each process's string hash
+    seed. They now come out in address order, under every seed."""
+    want = ["twin-rejected:no map definition", "twin-rejected:extent differs", "twin-rejected:bytes"]
+    assert _three_rejected_twins() == want
+    here = Path(__file__).resolve().parent
+    seen = set()
+    for seed in ("0", "1", "2", "3", "4", "5", "6", "7"):
+        res = subprocess.run([sys.executable, "-c", "import test_link_cycle as t; print(t._three_rejected_twins())"],
+                             cwd=here, capture_output=True, text=True, check=True,
+                             env=dict(os.environ, PYTHONHASHSEED=seed, PYTHONDONTWRITEBYTECODE="1"))
+        seen.add(res.stdout.strip())
+    assert seen == {str(want)}
+
+
 def test_object_identity_ignores_time_stamp_and_debug_records(tmp_path):
     def ident(raw):
         return lc.object_identity(lc.parse_coff(bytes(raw)) + (bytes(raw),))
@@ -507,6 +556,18 @@ def test_receipt_core_leaves_out_times_and_history():
     cold = dict(r, date_utc="then", seconds={"total": 99}, links=[{"secs": 1}, {"secs": 2}], warm_start={})
     assert lc.digest_of(lc.receipt_core(r)) == lc.digest_of(lc.receipt_core(cold))
     assert lc.digest_of(lc.receipt_core(r)) != lc.digest_of(lc.receipt_core(dict(r, series={"credit_unique_bytes": 4})))
+    env = dict(r, measure_env={"capstone": "5.0.7"})                   # the decoder is bound
+    assert lc.digest_of(lc.receipt_core(env)) != lc.digest_of(lc.receipt_core(dict(env, measure_env={"capstone": "6"})))
+
+
+def test_text_digests_ignore_the_hosts_line_endings(tmp_path):
+    """git archive writes text with the host's core.autocrlf endings: two builders
+    of one commit must bind one tool digest and one ledger digest."""
+    (tmp_path / "crlf.py").write_bytes(b"a = 1\r\nb = 2\r\n")
+    (tmp_path / "lf.py").write_bytes(b"a = 1\nb = 2\n")
+    (tmp_path / "other.py").write_bytes(b"a = 1\nb = 3\n")
+    assert lc.text_sha256(tmp_path / "crlf.py") == lc.text_sha256(tmp_path / "lf.py")
+    assert lc.text_sha256(tmp_path / "other.py") != lc.text_sha256(tmp_path / "lf.py")
 
 
 if __name__ == "__main__":

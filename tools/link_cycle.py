@@ -61,8 +61,12 @@ fixes of research 29, 31 and the round-2 review:
      per-TU provenance (provenance.json: source, sha256, dependency record,
      object identity; an object not current for its source is refused).
      `core_sha256` digests the reproducible part: a cold and a cached run of
-     the same inputs must give the same core. Warm-start caches (quarantine,
-     stubs) are reused only for the objects they were computed from.
+     the same inputs must give the same core (nothing in it may follow a
+     process's string hash seed; text inputs are digested with LF line ends;
+     the interpreter and decoder versions are bound). Warm-start caches
+     (quarantine, stubs) are reused only for the objects they were computed
+     from, and only a loop that reached its fixed point (no drift, no new
+     unresolved name) is authoritative.
      `--snapshot REV` measures an immutable export of REV (git archive with
      submodules) in its own directory, with its own outputs and no shared
      object store; only such a receipt is `authoritative`.
@@ -602,6 +606,14 @@ def unique_bytes(spans):
     return total
 
 
+def twin_edges(edges):
+    """The ("twin", lt, rt) edges of an edge set, in address order. Edge sets hold
+    strings, whose hashes change per process (PYTHONHASHSEED): anything that
+    iterates one for its side effects (failure text, the order twins and their
+    datums are first seen) must sort it, or two runs of the same link disagree."""
+    return sorted(e for e in edges if e[0] == "twin")
+
+
 def greatest_closure(ok, edges, bad_targets=("fill", "stub"), unknown_closes=False):
     """Nodes that are ok and reach only ok nodes (cycles optimistic). An edge to a
     node kind in `bad_targets` (fillers, stubs), or to a node `ok` does not hold
@@ -1093,8 +1105,8 @@ class Measure:
             rec["unpinned"] += 0 if pinned else 1
         self.settle_twins()
         for rec in out:
-            for e in list(rec["edges"]):
-                if e[0] == "twin" and not self.twins.get((e[1], e[2]), (False,))[0]:
+            for e in twin_edges(rec["edges"]):
+                if not self.twins.get((e[1], e[2]), (False,))[0]:
                     rec["fails"].append(f"twin-rejected:{self.twins.get((e[1], e[2]), (0, 'unjudged'))[1]}")
         return out
 
@@ -1138,8 +1150,8 @@ class Measure:
                 continue
             f, e, _, data, rels = self.relocs(lt, rt, size, o, ys.sec, ys.value, ys.name)
             body[(lt, rt)] = (f, e, data, rels)
-            for x in e:
-                if x[0] == "twin" and (x[1], x[2]) not in body:
+            for x in twin_edges(e):
+                if (x[1], x[2]) not in body:
                     self.twins.setdefault((x[1], x[2]), None)
                     work.append((x[1], x[2]))
 
@@ -1190,13 +1202,33 @@ def git(*args, cwd=None):
     return subprocess.run(["git", *args], capture_output=True, text=True, cwd=cwd or ROOT).stdout.strip()
 
 
+def text_bytes(path):
+    """A text file's bytes with CRLF read as LF: git (and `git archive`, so every
+    snapshot) writes a text file with the host's core.autocrlf line endings, and
+    two builders of one commit must bind the same digest."""
+    return Path(path).read_bytes().replace(b"\r\n", b"\n")
+
+
+def text_sha256(path):
+    return hashlib.sha256(text_bytes(path)).hexdigest()
+
+
 def tool_digest():
     """This file as run, plus the tree's build and census modules it imports."""
     h = hashlib.sha256()
-    h.update(b"link_cycle.py\0" + Path(__file__).read_bytes())
+    h.update(b"link_cycle.py\0" + text_bytes(__file__))
     for n in TOOL_FILES[1:]:
-        h.update(n.encode() + b"\0" + (ROOT / "tools" / n).read_bytes())
+        h.update(n.encode() + b"\0" + text_bytes(ROOT / "tools" / n))
     return h.hexdigest()
+
+
+def measure_env():
+    """The interpreter and the decoders the measure's verdicts depend on (capstone
+    reads the operands the hard-coded-address and EH funclet checks judge)."""
+    import platform
+    import pefile
+    return {"python": platform.python_version(), "pefile": getattr(pefile, "__version__", "?"),
+            "capstone": getattr(sys.modules.get("capstone"), "__version__", None)}
 
 
 def object_identity(o):
@@ -1353,11 +1385,11 @@ def input_state():
                   "dirty": bool(git("status", "--porcelain", "--untracked-files=no")),
                   "diff_sha256": hashlib.sha256(diff).hexdigest()}
     root = build.vc71_root()
-    return dict(commit, tool_digest=tool_digest(), retail_sha256=sha256(build.EXE),
+    return dict(commit, tool_digest=tool_digest(), measure_env=measure_env(), retail_sha256=sha256(build.EXE),
                 toolchain_sha256={n: sha256(root / "Vc7/bin" / n) for n in ("link.exe", "cl.exe", "lib.exe")},
-                inputs={"functions_csv": sha256(ROOT / "reverse/functions.csv"),
-                        "symbols_csv": sha256(ROOT / "reverse/symbols.csv"),
-                        "ghidra_functions_csv": sha256(ROOT / "reverse/ghidra_functions.csv")})
+                inputs={"functions_csv": text_sha256(ROOT / "reverse/functions.csv"),
+                        "symbols_csv": text_sha256(ROOT / "reverse/symbols.csv"),
+                        "ghidra_functions_csv": text_sha256(ROOT / "reverse/ghidra_functions.csv")})
 
 
 def provenance(rows, present, objs, out):
@@ -1431,7 +1463,7 @@ def receipt_core(receipt):
     """The reproducible part of a receipt: what a cold and a cached run of the same
     inputs must agree on. Times, dates, link history and the warm-start path are
     left out; the core's sha256 is the receipt's identity."""
-    keep = ("rules", "commit", "submodules", "snapshot", "dirty", "diff_sha256", "tool_digest",
+    keep = ("rules", "commit", "submodules", "snapshot", "dirty", "diff_sha256", "tool_digest", "measure_env",
             "retail_sha256", "toolchain_sha256", "inputs", "objects_digest", "provenance_sha256", "objects",
             "objects_missing", "compile_failed", "currency_proofs", "quarantine_sha256", "stubs_sha256",
             "not_ordered", "not_ordered_bytes", "analyze",
@@ -1617,6 +1649,7 @@ def cycle(args):
                              "import_entries": sum(map(len, entries.values())),
                              "imports_not_in_retail": len(imp_missing)},
                    final_link={"exit": code, "codes": dict(sorted(d["codes"].items())),
+                               "drift": len(culprits), "new_unresolved": len(d["unresolved"]),
                                "force_duplicates": len(diagnostics(log)["duplicates"]),
                                "force_duplicate_diagnostics": d["codes"].get("LNK4006", 0)},
                    series=res)
@@ -1625,7 +1658,11 @@ def cycle(args):
     moved = sorted(k for k in start if start[k] != end.get(k))
     if objects_digest(Objects(present), present) != obj_digest:
         moved.append("objects_digest")
-    receipt["authoritative"] = bool(start.get("snapshot")) and not moved and not warm["stale"] and not compile_failed
+    # a loop stopped by --max-iter before its link stopped drifting (or found new unresolved
+    # names) is not a fixed point: a warm start from its caches links something else
+    converged = not culprits and not d["unresolved"]
+    receipt["authoritative"] = (bool(start.get("snapshot")) and not moved and not warm["stale"]
+                                and not compile_failed and converged)
     times["total"] = round(time.time() - t_all)
     receipt["seconds"] = times
     receipt["core_sha256"] = digest_of(receipt_core(receipt))
