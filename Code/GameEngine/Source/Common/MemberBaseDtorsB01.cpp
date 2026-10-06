@@ -304,11 +304,14 @@ void Rva00576B5E::rva00576ACB(void *unused, void *lookup)
 		((Rva005768CBCall *)((char *)this - 0xC))->rva005768CB(lookup);
 }
 
+class GameMessage;
+
 class Rva005772BF : public Rva00575395
 {
 public:
 	virtual ~Rva005772BF();
 	void rva00577324(const void *buf, int len);
+	int rva005771F4(GameMessage *message);
 
 private:
 	char m_unmodelled_04[0x4];
@@ -518,4 +521,36 @@ int Rva00574910::rva00574910(void *arg)
 	if (((Rva005C9BE3Call *)((char *)this + 0x28))->rva005C9BE3(arg) == 1)
 		return 1;
 	return ((Rva005CBC95Call *)this)->rva005CBC95(arg);
+}
+
+
+struct IRegion2D;
+class Rva005D1F45
+{
+public:
+	int rva005D1F45(IRegion2D *region, int value);
+	int rva005D1FD3(GameMessage *message);
+};
+class Rva005CD8F7Call
+{
+public:
+	int rva005CD8F7(void *arg);
+};
+class Rva005CD690Call
+{
+public:
+	int rva005CD690(void *arg);
+};
+
+// Target evidence: adjacent Rva005772BF methods and its vtable support the
+// class association. This body reads +0x14/+0x18/+0x28 and short-circuits on
+// result 1; the rowed 0x005D1FD3 call identifies the argument as GameMessage*.
+int Rva005772BF::rva005771F4(GameMessage *message)
+{
+	Rva005D1F45 *dispatcher = *(Rva005D1F45 **)((char *)this + 0x14);
+	if ((!dispatcher || dispatcher->rva005D1FD3(message) != 1)
+		&& ((Rva005CD8F7Call *)((char *)this + 0x18))->rva005CD8F7(message) != 1
+		&& ((Rva005CD690Call *)((char *)this + 0x28))->rva005CD690(message) != 1)
+		return ((Rva005CBC95Call *)this)->rva005CBC95(message);
+	return 1;
 }
