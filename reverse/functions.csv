@@ -65714,3 +65714,4 @@ uw_0075b500,,0x0075B500,10,Code/GameEngine/Source/Main/CreateGameEngine.cpp,matc
 ?rva0049862B@Rva0049862B@@QAEHXZ,,0x0049862B,213,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateRva0049862B.cpp,matched,BattlePlanUpdate+0x10 state 0..3 drives the plan helper and the turret calls; always returns 1
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
 ?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
+?rva0008F32C@@YAXXZ,,0x0008F32C,69,Code/GameEngine/Source/Common/Rva0008F32CFactory.cpp,matched,dump range 2 EH factory via new honest names
