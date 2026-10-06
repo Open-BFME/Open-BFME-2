@@ -225,6 +225,7 @@ class Rva00575D45 : public Rva00575395
 {
 public:
 	virtual ~Rva00575D45();
+	int rva00575D88(const void *buf, int len);
 
 private:
 	char m_unmodelled_04[0x4];
@@ -336,6 +337,40 @@ public:
 	int rva005753AC(const void *buffer, int bytes);
 };
 
+// 0x00575D88: vtable slot 3 of the 0x00C6E664 table owned by Rva00575D45.
+// Its +0x8 holder points to an object with a +0x28 delegate. The target bytes
+// call delegate slot 3 and fall back to the rowed write method on -1/null.
+template <int N>
+class Rva00575D88Slots : public Rva00575D88Slots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]);
+};
+template <>
+class Rva00575D88Slots<0>
+{
+};
+class Rva00575D88Dispatch : public Rva00575D88Slots<3>
+{
+public:
+	virtual int write(const void *buf, int len);
+};
+struct Rva00575D88Holder
+{
+	char m_pad00[0x28];
+	Rva00575D88Dispatch *m_28;
+};
+int Rva00575D45::rva00575D88(const void *buf, int len)
+{
+	Rva00575D88Dispatch *delegate = ((Rva00575D88Holder *)*(void **)(void *)&m_member)->m_28;
+	if (delegate) {
+		int result = delegate->write(buf, len);
+		if (result != -1)
+			return result;
+	}
+	return ((Rva005753AC *)this)->rva005753AC(buf, len);
+}
+
 void Rva005772BF::rva00577324(const void *buf, int len)
 {
 	Rva005D1F14 *p = ((Rva005772BFHolder *)*(void **)(void *)&m_member)->m_14;
@@ -441,4 +476,3 @@ private:
 Rva005FB1AD::~Rva005FB1AD()
 {
 }
-
