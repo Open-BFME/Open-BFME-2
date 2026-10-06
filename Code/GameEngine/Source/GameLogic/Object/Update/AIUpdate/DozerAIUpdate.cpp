@@ -3853,7 +3853,7 @@ Object *DozerAIUpdate::construct( const ThingTemplate *what,
 // ------------------------------------------------------------------------------------------------
 /** Given our current task and repair target, can we accept this as a new repair target */
 // ------------------------------------------------------------------------------------------------
-// ?canAcceptNewRepair@DozerAIUpdate@@UAE_NPAVObject@@@Z present-unmatched
+// ?canAcceptNewRepair@DozerAIUpdate@@UAE_NPAVObject@@@Z
 Bool DozerAIUpdate::canAcceptNewRepair( Object *obj )
 {
 
@@ -3876,8 +3876,9 @@ Bool DozerAIUpdate::canAcceptNewRepair( Object *obj )
 			return FALSE;
 
 		// check for repairing any tower on the same bridge
-		if( currentRepair->isKindOf( KINDOF_BRIDGE_TOWER ) && 
-				obj->isKindOf( KINDOF_BRIDGE_TOWER ) )
+		const unsigned int towerMask = 0x01000000;
+		if( ( *(const unsigned int *)((const char *)*(const void **)((const char *)currentRepair + 4) + 0x108) & towerMask ) && 
+				( *(const unsigned int *)((const char *)*(const void **)((const char *)obj + 4) + 0x108) & towerMask ) )
 		{
 			BridgeTowerBehaviorInterface *currentTowerInterface = NULL;
 			BridgeTowerBehaviorInterface *newTowerInterface = NULL;

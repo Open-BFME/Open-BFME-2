@@ -66324,3 +66324,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004AE8FA@DetachableRiderUpdate@@QAEXXZ,,0x004AE8FA,15,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp,matched,caller ReplenishUnits rva004842DD via rowed setWakeFrame
 ?rva005F09F7@Rva005F09F7@@QAEXXZ,,0x005F09F7,8,Code/GameEngine/Source/Common/Rva005F0647Deleting.cpp,matched,forwarder via plus4 to rowed rva005F09BC plus caller same-this
 ??1Rva005764F9@@UAE@XZ,,0x005764F9,87,Code/GameEngine/Source/Common/Rva005764F9Dtor.cpp,matched,vtable 0x00C6E78C calls rowed get and setters base dtor
+?canAcceptNewRepair@DozerAIUpdate@@UAE_NPAVObject@@@Z,,0x00489895,126,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp,matched,Zero Hour DozerAIUpdate::canAcceptNewRepair adapted to BFME 2 inline bridge tower mask check
