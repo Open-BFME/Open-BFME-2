@@ -1,0 +1,76 @@
+// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// ?Rva00402B19Parse@@YAXPAVINI@@@Z @0x00402B19 202B: the
+// LivingWorldBuildingIconTemplate block parser. Same shape as the
+// LivingWorld sub-object parsers in Rva0056BF1FParse.cpp: map.ini override
+// (INI type 2) and reload (type 5) throw INIException(8, ...), then the
+// template is made by name through TheLivingWorldManager (0x002140DB news the
+// 0x1C-byte Rva00402BE3 and files it in the +0x280 map) and filled from the
+// shared 0x0056B767 table plus its own table 0x00C38380, whose +0x10/+0x14/
+// +0x18 fields and +0x04 list are Rva00402BE3's. Reached through a block
+// parse table, not a direct call; the address name stays.
+#include "ascii_string.h"
+
+class INIException
+{
+public:
+	INIException(int argCount, const char *format, ...);
+	char *mFailureMessage;
+	int m_argumentCount;
+	INIException(const INIException &that);
+	~INIException();
+};
+
+struct FieldParse
+{
+	const char *token;
+	void (__cdecl *parse)(void *ini, void *instance, void *store, const void *userData);
+	const void *userData;
+	int offset;
+};
+
+class MultiIniFieldParse
+{
+public:
+	MultiIniFieldParse();
+	void add(const FieldParse *fields, unsigned extraOffset);
+
+private:
+	char m_pad[0x84];
+};
+
+class INI
+{
+public:
+	const char *getNextToken(const char *seps);
+	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);
+
+	int m_00;
+	int m_04;
+	int m_type;
+};
+
+class Rva00402BE3;
+
+class LivingWorldManager
+{
+public:
+	Rva00402BE3 *rva002140DB(const AsciiString &name);
+};
+
+extern LivingWorldManager *TheLivingWorldManager;
+
+int Rva0056B767Get(void);
+extern const FieldParse g_00C38380[];
+
+void Rva00402B19Parse(INI *ini)
+{
+	if (ini->m_type == 2)
+		throw INIException(8, "Cannot override Living World objects in map.ini");
+	if (ini->m_type == 5)
+		throw INIException(8, "LivingWorldBuildingIconTemplate does not support rapid iteration");
+	Rva00402BE3 *icon = TheLivingWorldManager->rva002140DB(AsciiString(ini->getNextToken(0)));
+	MultiIniFieldParse parse;
+	parse.add((const FieldParse *)Rva0056B767Get(), 0);
+	parse.add(g_00C38380, 0);
+	ini->initFromINIMulti(icon, parse);
+}
