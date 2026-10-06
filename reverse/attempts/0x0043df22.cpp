@@ -1,5 +1,5 @@
 // ?rva0043DF22@MpGameSetup@@QAEHXZ
-// partial score=0.9 date=2026-10-05
+// partial score=0.8363 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
 //
 // Small MpGameSetup members of BFME2's LAN lobby panel (the screen's +0x288
@@ -142,6 +142,10 @@ void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name)
 
 // Retail 0x0043DF22, 79 bytes: the number of accepted human players that are
 // not observing in the current game.
+// Fresh explain_mismatch retained the 79-byte boundary; the only remaining
+// difference is the callee-saved register assignment (retail game in EDI and
+// loop index in EBX). A five-minute permutation (1450 trials, best 0.8363),
+// flag sweep, and offset sweep produced no exact body.
 int MpGameSetup::rva0043DF22()
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
