@@ -94,7 +94,7 @@ public:
 class Rva00579731
 {
 public:
-	~Rva00579731();
+	virtual ~Rva00579731();
 };
 
 class Rva0057A4E7
@@ -798,11 +798,11 @@ void __cdecl rva007B94B4()
 	p->~Rva00574499();
 }
 
-// ?rva007B94C8@@YAXXZ @ 0x007B94C8 (10B): ecx=&g_Va00E0631C, tail-jump to rowed ??1Rva00579731@@QAE@XZ (0x00579731)
+// ?rva007B94C8@@YAXXZ @ 0x007B94C8 (10B): ecx=&g_Va00E0631C, tail-jump to rowed ??1Rva00579731@@UAE@XZ (0x00579731)
 void __cdecl rva007B94C8()
 {
 	Rva00579731 *p = (Rva00579731 *)&g_Va00E0631C;
-	p->~Rva00579731();
+	p->Rva00579731::~Rva00579731();
 }
 
 // ?rva007B94D2@@YAXXZ @ 0x007B94D2 (10B): ecx=&g_Va00E06360, tail-jump to rowed ??1Rva0057A4E7@@QAE@XZ (0x0057A4E7)
