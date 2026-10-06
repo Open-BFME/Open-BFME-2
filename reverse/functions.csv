@@ -66203,3 +66203,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva003F819A@Rva003F81FDProxy@@QAEPAXXZ,,0x003F819A,17,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,proxy class from rowed selector call and forwarding body
 ?rva003F80E6@Rva003F80E6@@QAEXXZ,,0x003F80E6,27,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,address-derived list layout from retail offsets and rowed element callee
 ?rva003F812C@Rva003F812C@@QAEXXZ,,0x003F812C,31,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,address-derived list owner and flag offsets from retail instruction stream
+?rva005CC20D@Rva005CC20D@@QAEXE@Z,,0x005CC20D,46,Code/GameEngine/Source/Common/Rva005CC20D.cpp,matched,unlock lane setter via Rva005CD5FA shape with int Enable and slot2 forward
