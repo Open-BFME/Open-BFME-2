@@ -63930,3 +63930,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005E2371@Rva005E2371@@QAEXH@Z,,0x005E2371,53,Code/GameEngine/Source/Common/Rva005E2371Wrap.cpp,matched,Getter plus forwarder plus clear via rowed trio; ignores int; address-derived
 _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,matched,Cdecl loop over begin-end step 0x18 calling pinned 0x005DDBAB ab then out b4-b0 stores; address-derived
 ?rva005D20E5@Rva005D20E5@@QAEXXZ,,0x005D20E5,44,Code/GameEngine/Source/Common/Rva005D20E5Wrap.cpp,matched,Empty then guard +0x14 then pinned pair plus virtual slot; address-derived
+?rva005DB5F2@Rva005DB5F2@@QAEXHHH@Z,,0x005DB5F2,54,Code/GameEngine/Source/Common/Rva005DB5F2Fwd.cpp,matched,Interior this-0x58 forwards abc then acb to pinned 0x005DB512 then b to rowed 0x005DB3B3; address-derived
