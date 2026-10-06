@@ -442,7 +442,7 @@ def write_coff(path, sections, syms):
                                                           flags)
     symtab = bytearray()
     for name, sec, value, cls in syms:
-        symtab += coff_name(name, strings) + struct.pack("<IhHBB", value, sec, 0, cls, 0)
+        symtab += coff_name(name, strings) + struct.pack("<IHHBB", value, sec & 0xFFFF, 0, cls, 0)
     strings[0:4] = struct.pack("<I", len(strings))
     path.write_bytes(struct.pack("<HHIIIHH", 0x14C, len(sections), 0, hdr_end + len(blob), len(syms), 0, 0)
                      + shdr + blob + symtab + strings)
@@ -593,6 +593,9 @@ ABSOLUTE = {"__except_list": 0}         # exsup.asm: an FS: offset, not an addre
 REL32, EXTERNAL, WEAK = 0x14, 2, 105
 COMDAT = 0x1000
 LINK_STATUS = ROOT / "build" / "link_cycle" / "link_status.csv"
+# byte-true placeholders, not authored code: never overlaid from a path spec
+GENERATED = ("Code/gen_small/", "Code/gen_asm/", "Code/masm_dumps/")
+GENERATED_KIND = re.compile(r"(?:^|;)gen-(?:alias|import)(?:;|$)")
 SETS = {   # link_cycle.py's certification (link_status.csv columns), real rows only
     "closed": lambda s: s["placed"] == "1" and s["closed_strict"] == "1",
     "shift-safe": lambda s: s["placed"] == "1" and s["self_strict"] == "1" and s["hardcoded"] == "0",
@@ -642,7 +645,8 @@ def overlay_rows(specs, status=LINK_STATUS):
             if not (ROOT / prefix).exists():
                 raise SystemExit(f"boot_image: overlay set {spec!r} is not {'/'.join(SETS)}, rows:FILE, rva:LIST "
                                  "or a tree path")
-            out.update({k: r for k, r in by_key.items() if r["source"].startswith(prefix)})
+            out.update({k: r for k, r in by_key.items() if r["source"].startswith(prefix)
+                        and not r["source"].startswith(GENERATED) and not GENERATED_KIND.search(r.get("notes", ""))})
     return [out[k] for k in sorted(out)]
 
 
@@ -729,10 +733,14 @@ def identities(r):
     return out
 
 
-def import_entry_name(sym):
-    """Retail's import name for an `__imp_` reference (a C name loses `_` and stdcall @N)."""
+def import_entry_names(sym):
+    """Retail import names an `__imp_` reference can denote: a C name without its
+    `_` and stdcall @N, or (mss32 exports decorated names) as spelled."""
     rest = sym[len("__imp_"):]
-    return rest if rest.startswith("?") else re.sub(r"@\d+$", "", rest[1:] if rest.startswith("_") else rest)
+    if rest.startswith("?"):
+        return {rest}
+    bare = rest[1:] if rest.startswith("_") else rest
+    return {bare, re.sub(r"@\d+$", "", bare)}
 
 
 def object_datum(o, sec, q):
@@ -811,10 +819,19 @@ def bind_unit(u, r, ctx):
             bind["internal"] += 1
         elif y.sec == 0 and y.name.startswith("__imp_"):
             e = ctx["iat"].get(t)
-            if kind != DIR32 or add or e is None or (e[1] or "") != import_entry_name(y.name):
+            if kind != DIR32 or add or e is None or (e[1] or "") not in import_entry_names(y.name):
                 return f"import-differs:{y.name}"
             relocs.append((o, kind, "__imp_" + import_symbol(e)))
             bind["import"] += 1
+        elif t in ctx["iat"]:
+            # retail reads an import slot here through a name standing in for it (a global pinned
+            # at the slot): the image's slots are the linker's, so it binds to the import itself
+            if kind != DIR32 or add or 0 < y.sec <= len(secs):
+                return f"import-slot-differs:{y.name}"
+            if y.name in ctx["ident"] and t not in ctx["ident"][y.name]:
+                return f"identity-differs:{y.name}"
+            relocs.append((o, kind, "__imp_" + import_symbol(ctx["iat"][t])))
+            bind["import-slot-by-other-name"] += 1
         else:
             named = y.cls in (EXTERNAL, WEAK) and (y.name in ctx["ident"] or y.name in ctx["authored"])
             defined = 0 < y.sec <= len(secs)
