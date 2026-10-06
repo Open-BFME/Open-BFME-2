@@ -1260,5 +1260,74 @@ PUBLIC ?rva007891e8@@YAXXZ
 cleanup_done_007891e8:
     ret
 ?rva007891e8@@YAXXZ ENDP
+
+; Unwind@00b892ea at RVA 0x007892EA; 27-byte vector cleanup ends at RET.
+; Target passes [ebp-20]+0xdc to the rowed iterator with element size 0x1d0 count 8 and raw dtor VA 0x00847B0E.
+PUBLIC ?rva007892ea@@YAXXZ
+?rva007892ea@@YAXXZ PROC
+    push 00847B0Eh
+    push 8
+    push 1D0h
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 0DCh
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007892ea@@YAXXZ ENDP
+
+; Unwind@00b89325 at RVA 0x00789325; 27-byte vector cleanup ends at RET.
+; Target passes [ebp-16]+0xdc to the rowed iterator with element size 0x1d0 count 8 and raw dtor VA 0x00847B0E.
+PUBLIC ?rva00789325@@YAXXZ
+?rva00789325@@YAXXZ PROC
+    push 00847B0Eh
+    push 8
+    push 1D0h
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0DCh
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00789325@@YAXXZ ENDP
+
+; Unwind@00b8937e at RVA 0x0078937E; 25-byte vector cleanup ends at RET.
+; Target passes [ebp-0xe40] to the rowed iterator with element size 0x1ac count 8 and raw dtor VA 0x006294FD.
+PUBLIC ?rva0078937e@@YAXXZ
+?rva0078937e@@YAXXZ PROC
+    push 006294FDh
+    push 8
+    push 1ACh
+    lea eax, DWORD PTR [ebp-0E40h]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078937e@@YAXXZ ENDP
+
+; Unwind@00b89417 at RVA 0x00789417; 24-byte vector cleanup ends at RET.
+; Target passes [ebp-16]+0x40e0c to the rowed iterator with element size 12 count 8 and raw dtor VA 0x004B3FD0.
+PUBLIC ?rva00789417@@YAXXZ
+?rva00789417@@YAXXZ PROC
+    push 004B3FD0h
+    push 8
+    push 0Ch
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 40E0Ch
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00789417@@YAXXZ ENDP
+
+; Unwind@00b8947e at RVA 0x0078947E; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-20] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva0078947e@@YAXXZ
+?rva0078947e@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0078947e
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0078947e:
+    ret
+?rva0078947e@@YAXXZ ENDP
 _TEXT ENDS
 END

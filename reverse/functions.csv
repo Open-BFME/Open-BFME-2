@@ -64951,3 +64951,8 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva00788f9e@@YAXXZ,,0x00788F9E,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and AsciiString tail-call bytes matched
 ?rva007891cf@@YAXXZ,,0x007891CF,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and UnicodeString thunk tail-call bytes matched
 ?rva007891e8@@YAXXZ,,0x007891E8,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and UnicodeString thunk tail-call bytes matched
+?rva007892ea@@YAXXZ,,0x007892EA,27,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; vector iterator inputs and raw element destructor address are target bytes
+?rva00789325@@YAXXZ,,0x00789325,27,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; vector iterator inputs and raw element destructor address are target bytes
+?rva0078937e@@YAXXZ,,0x0078937E,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; vector iterator inputs and raw element destructor address are target bytes
+?rva00789417@@YAXXZ,,0x00789417,24,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; vector iterator inputs and raw element destructor address are target bytes
+?rva0078947e@@YAXXZ,,0x0078947E,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and AsciiString tail-call bytes matched
