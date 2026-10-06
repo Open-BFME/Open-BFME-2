@@ -13004,3 +13004,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??0Rva004186F2@@QAE@ABV0@@Z,0x004186F2,12-byte member copy constructor REL32 callee at 0x004188CC and 0x004188DC in record copy 0x004188B6; identity unproven; address-derived name
 ?rva00256499Append@Rva00256499@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for KindOf join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ??0Rva00419035@@QAE@ABV0@@Z,0x00419035,12-byte member copy constructor REL32 callee at 0x0041920B in record copy 0x004191E5 (+4); identity unproven; address-derived name
+??_7GameSpyStagingRoom@@6B@,0x00C19440,GameSpyStagingRoom vtable installed by copy ctor 0x003835F4 (mov [esi] imm at 0x00383632); slot0 is rowed ??_GGameSpyStagingRoom 0x00383768; slots 12-14 are rowed ZH amIHost/getLocalSlotNum/resetAccepted
