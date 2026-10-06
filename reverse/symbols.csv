@@ -13847,3 +13847,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??1LANPreferences@@UAE@XZ,0x0044D285,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
 ??1LANGameSlot@@UAE@XZ,0x00447B0E,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
 ?setSlotPointer@GameInfo@@QAEXHPAVGameSlot@@@Z,0x003FF332,callee of ??0LANGameInfo@@QAE@XZ
+?GameInfoToAsciiString@@YA?AVAsciiString@@PBVGameInfo@@_N@Z,0x00400AF8,callee of ?GenerateGameOptionsString@@YA?AVAsciiString@@XZ
