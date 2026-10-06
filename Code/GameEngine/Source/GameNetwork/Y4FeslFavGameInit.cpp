@@ -42,3 +42,20 @@ void Rva0080A940Owner::initFromMessage( Rva007E8810Message *msg )
 	m_gap168[ 0 ] = 0;
 	finish();
 }
+
+// ?rva0066F730@Rva0066F730@@QAEXPAVRva007E8810Message@@@Z @0x0066F730 8B
+// member forwarder to rowed ?initFromMessage@Rva0080A940Owner@@QAEXPAVRva007E8810Message@@@Z
+// (0x00676840; message arg passes through the shared stack slot). No callers.
+// Honest address name.
+class Rva0066F730
+{
+public:
+	void rva0066F730(Rva007E8810Message *msg);
+private:
+	char m_pad[0x18];
+	Rva0080A940Owner *m_member;
+};
+void Rva0066F730::rva0066F730(Rva007E8810Message *msg)
+{
+	return m_member->initFromMessage(msg);
+}

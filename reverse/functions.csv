@@ -64701,3 +64701,9 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva000C144A@Rva000B8F5A@@QAEHXZ,,0x000C144A,35,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,
 ?rva000C14BD@Rva000B8F5A@@QAEPAXH@Z,,0x000C14BD,56,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,
 ?rva0014D722@Rva0014D722This@@QAEXPAVRva0014D722Outer@@PAX@Z,,0x0014D722,143,Code/GameEngine/Source/Common/Rva0014D722Init.cpp,matched,
+?rva00657D30@Rva00657D30@@QAEXXZ,,0x00657D30,8,Code/GameEngine/Source/GameNetwork/Rva007EAD30Send.cpp,matched,Member forwarder to rowed send 0x00657CD0; honest address name
+?rva00657DC0@Rva00657DC0@@QAEXXZ,,0x00657DC0,8,Code/GameEngine/Source/GameNetwork/Rva007EAD30Send.cpp,matched,Member forwarder to rowed send 0x00657D60; honest address name
+?rva0066F730@Rva0066F730@@QAEXPAVRva007E8810Message@@@Z,,0x0066F730,8,Code/GameEngine/Source/GameNetwork/Y4FeslFavGameInit.cpp,matched,Member forwarder to rowed 0x00676840 message passthrough; honest address name
+?rva0066F740@Rva0066F740@@QAEXPAURva00809500Entry@@@Z,,0x0066F740,8,Code/GameEngine/Source/GameNetwork/Y4FeslFavGameAddress_notify.cpp,matched,Member forwarder to rowed 0x006768B0 entry passthrough; honest address name
+?rva0066F750@Rva0066F750@@QAEXPAURva00809500Entry@@@Z,,0x0066F750,8,Code/GameEngine/Source/GameNetwork/Rva0080AA80LanTheater.cpp,matched,Member forwarder to rowed 0x00676980 entry passthrough; honest address name
+?rva0066F760@Rva0066F760@@QAEXPAURva00809500Entry@@@Z,,0x0066F760,8,Code/GameEngine/Source/GameNetwork/Y4FeslEcnlNotify.cpp,matched,Member forwarder to rowed 0x00675AF0 entry passthrough; honest address name

@@ -90,3 +90,33 @@ void Rva007EADC0Owner::send()
 			reinterpret_cast<int>(&rva007EADA0BindCallback), this);
 	}
 }
+
+// ?rva00657D30@Rva00657D30@@QAEXXZ @0x00657D30 8B member forwarder to rowed
+// ?send@Rva007EAD30Owner@@QAEXXZ (0x00657CD0). No callers. Honest address name.
+class Rva00657D30
+{
+public:
+	void rva00657D30();
+private:
+	char m_pad[4];
+	Rva007EAD30Owner *m_member;
+};
+void Rva00657D30::rva00657D30()
+{
+	return m_member->send();
+}
+
+// ?rva00657DC0@Rva00657DC0@@QAEXXZ @0x00657DC0 8B member forwarder to rowed
+// ?send@Rva007EADC0Owner@@QAEXXZ (0x00657D60). No callers. Honest address name.
+class Rva00657DC0
+{
+public:
+	void rva00657DC0();
+private:
+	char m_pad[4];
+	Rva007EADC0Owner *m_member;
+};
+void Rva00657DC0::rva00657DC0()
+{
+	return m_member->send();
+}

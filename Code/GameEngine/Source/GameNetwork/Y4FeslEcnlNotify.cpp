@@ -75,3 +75,20 @@ void Rva00809BF0Owner::notify( Rva00809500Entry *entry )
 	msg->m_f0c = sink->m_f0c;
 	Rva007F93E0( msg, "->L", m_field10 );
 }
+
+// ?rva0066F760@Rva0066F760@@QAEXPAURva00809500Entry@@@Z @0x0066F760 8B member
+// forwarder to rowed ?notify@Rva00809BF0Owner@@QAEXPAURva00809500Entry@@@Z
+// (0x00675AF0; entry arg passes through the shared stack slot). No callers.
+// Honest address name.
+class Rva0066F760
+{
+public:
+	void rva0066F760(Rva00809500Entry *entry);
+private:
+	char m_pad[0x18];
+	Rva00809BF0Owner *m_member;
+};
+void Rva0066F760::rva0066F760(Rva00809500Entry *entry)
+{
+	return m_member->notify(entry);
+}
