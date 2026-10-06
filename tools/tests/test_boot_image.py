@@ -240,5 +240,56 @@ class OverlayCheck(unittest.TestCase):
         self.assertEqual(counts["authored-bytes-differ"], 1)
 
 
+class Bisect(unittest.TestCase):
+    """boot_smoke --bisect: deterministic halving to the rows that fail alone."""
+    def setUp(self):
+        try:
+            import boot_smoke
+        except (ImportError, ValueError, OSError):
+            self.skipTest("boot_smoke needs Win32")
+        self.bs = boot_smoke
+        self.rows = [{"target_rva": f"0x{0x1000 + 0x10 * k:08X}", "name": f"f{k}", "source": "Code/x.cpp",
+                      "target_size": "16"} for k in range(37)]
+        self.runs = []
+
+    def fake_smoke(self, bad):
+        def smoke(a, rows=None, tag="boot"):
+            got = {r["name"] for r in rows}
+            self.runs.append(len(got))
+            return {"outcome": "crash-at-x" if bad(got) else "reached-menu"}
+        return smoke
+
+    def run_bisect(self, bad, executed=None):
+        saved = self.bs.smoke
+        self.bs.smoke = self.fake_smoke(bad)
+        try:
+            return self.bs.bisect_rows(None, self.rows, executed)
+        finally:
+            self.bs.smoke = saved
+
+    def test_one_guilty_row_is_found(self):
+        guilty, steps = self.run_bisect(lambda names: "f23" in names)
+        self.assertEqual([r["name"] for r in guilty], ["f23"])
+        self.assertLessEqual(len(steps), 2 * 6)
+
+    def test_only_executed_units_are_candidates(self):
+        guilty, _ = self.run_bisect(lambda names: "f5" in names, executed={0x1050, 0x1060})
+        self.assertEqual([r["name"] for r in guilty], ["f5"])
+        self.assertEqual(self.runs[0], 1)
+
+    def test_an_interaction_is_reported_together(self):
+        guilty, _ = self.run_bisect(lambda names: {"f2", "f30"} <= names)
+        self.assertEqual(len(guilty), 37)           # neither half fails alone: the whole set is the finding
+
+    def test_queue_items_carry_the_rows(self):
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            path = self.bs.write_queue(self.rows[3:4], "crash-at-x", tmp / "q.json")
+            items = json.loads(path.read_text())["items"]
+            self.assertEqual((items[0]["target_rva"], items[0]["name"], items[0]["size"]), ("0x00001030", "f3", 16))
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+
 if __name__ == "__main__":
     unittest.main()
