@@ -66377,3 +66377,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva003FD02E@Rva003FD02E@@QAEHPAD@Z,,0x003FD02E,40,Code/GameEngine/Source/Common/Rva003FD02EWrite.cpp,matched,vtable slot 2 at 0x00837C20 via two rowed writes
 ?rva002C5FBA@Rva002C5FBA@@QAEPAXH@Z,,0x002C5FBA,17,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,null-checked forwarder to rowed AITargetChooser plus caller
 ?reset@Rva0042C1BC@@QAEXPAVRva0057417E@@@Z,,0x0042C1BC,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,leaf reset same pointee as clear 0x0042C1DF via 2 callers in 0x0042C342
+?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z,,0x00477B69,57,Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainOnDie.cpp,matched,Secondary +0x28 target vtable and one-pointer ABI support onDie; module-data flag/helper meaning remains unnamed; direct callee 0x0047778B has an address-derived pin
