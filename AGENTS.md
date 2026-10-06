@@ -4,6 +4,25 @@ Before continuing work, reread `AGENTS.md` if 24 hours have elapsed
 since the last read. Reread it immediately whenever a user message
 or commit message reports an edit to `AGENTS.md`.
 
+## Verifier upgrade in progress (October 2026)
+
+Stricter gate checks land over the next few days: string literals compared
+with their terminator, exact switch jump tables, bytes past a row's extent,
+`gen-alias` only as an exact token with a byte-identical callee,
+`symbols.csv` validation (RVAs only, no data pins, no second name on an owned
+address), limits on `object-symbol=` alias rows, `.c`/`.asm` sources checked
+by the hook, and a real-link measurement that will become the progress figure.
+Until they land:
+
+- do not edit `tools/build.py`, `.githooks/`, `pin_consistency_baseline.csv`
+  or any whitelist except to fix a verifier bug;
+- add no new `gen-alias` notes, data pins, `object-symbol=` rows,
+  `/alternatename` pragmas, `// class-gate: allow` comments or
+  `present-unmatched` markers; additions made now are counted against the new
+  baselines;
+- keep matching as usual. Rows the new checks flag will be served as a queue,
+  so there is nothing to pre-empt.
+
 # Contributing
 
 Several agents push to `origin/master` continuously. Keep each change small,
