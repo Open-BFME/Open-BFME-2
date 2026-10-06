@@ -13842,3 +13842,4 @@ _D3DXMatrixTranspose@8	0x0062AF44	6	partial	exact 6B FF25 jmp; disp32 is IAT rel
 ?canGetRepairedAt@BFMEActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z	0x0041BBE4	189	blocked	unresolved callee 0x0041B85D already blocked EDI ESI register passing wall; gate cannot resolve t=6 model=muse-02
 ?rva000E8734@Rva000E8734@@QAEHABVAsciiString@@0HH00@Z	0x000E8734	649	blocked	virtual-heavy WW3D 649B no donor 1 variant 481B register+frame wall t=20 model=muse-02
 ?rva006C33D0@Rva006C1F60@@QAEXHH@Z	0x006C33D0	643	blocked	register allocation wall xor-edi vs test lea-vs-add and thresh-head swap t=20 model=muse-spark
+?Rva00210AB8Parse@@YAXPAVINI@@PAVRva0020F77C@@@Z	0x00210AB8	128	partial	missing test esi esi je null guard before dtor-delete tail semicolon Os and typed-alias levers fold the same t=25 model=muse-spark score=0.95 stash=reverse/attempts/0x00210ab8.cpp
