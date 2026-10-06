@@ -66372,3 +66372,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??1Rva005764F9@@UAE@XZ,,0x005764F9,87,Code/GameEngine/Source/Common/Rva005764F9Dtor.cpp,matched,vtable 0x00C6E78C calls rowed get and setters base dtor
 ?rva00528FE0@Rva00528FE0@@QAE_NXZ,,0x00528FE0,6,Code/GameEngine/Source/Common/Rva00528FE0Getter.cpp,matched,ptr-chase byte at +0x2D caller 0x002D66A2
 ?rva004E0CB6@Rva004E0B60@@QAEXXZ,,0x004E0CB6,21,Code/GameEngine/Source/Common/Rva004E0ADBFamily.cpp,matched,caller 0x004FC437 tail to rowed rva004E0C49 via m_2C Holder0052B003
+?rva003F7465@Rva003F7478@@QAEXM@Z,,0x003F7465,19,Code/GameEngine/Source/Common/Rva003F7478Scale.cpp,matched,SSE scale of plus20 float same class as rowed plus24
