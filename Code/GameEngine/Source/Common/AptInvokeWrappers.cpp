@@ -70,9 +70,6 @@ class Rva00522A91
 public:
 	void rva00522A91();
 	void rva00521841();
-	void rva00521770(int arg);
-	void rva00521B56(int arg);
-	void rva005229D3(int arg);
 private:
 	char m_pad000[0x274];
 	void *m_owner;				// +0x274
@@ -80,6 +77,16 @@ private:
 	int m_state;				// +0x6B8
 	char m_pad6BC[6];
 	bool m_busy;				// +0x6C2
+};
+
+// Row owners for the follow-up calls (same panel object, rowed in
+// AptSkirmishCallbacks.cpp): 0x00521770, 0x00521B56, 0x005229D3.
+class AptSkirmish
+{
+public:
+	void rva00521770(const char *unused);
+	void OnAddProfileAccept(const char *unused);
+	void OnChangeProfile(const char *unused);
 };
 
 void Rva00522A91::rva00522A91()
@@ -90,12 +97,12 @@ void Rva00522A91::rva00522A91()
 		if (!m_busy)
 		{
 			TheRva00222A8BTarget->invoke(m_owner, "CloseProfilePopup", 0, 0, 0, 0, 0, 0);
-			rva00521B56(0);
+			((AptSkirmish *)this)->OnAddProfileAccept(0);
 		}
 		break;
 	case 4:
 		TheRva00222A8BTarget->invoke(m_owner, "CloseProfilePopup", 0, 0, 0, 0, 0, 0);
-		rva005229D3(0);
+		((AptSkirmish *)this)->OnChangeProfile(0);
 		break;
 	}
 }
@@ -114,7 +121,7 @@ void Rva00522A91::rva00521841()
 	case 3:
 	case 4:
 		TheRva00222A8BTarget->invoke(m_owner, "CloseProfilePopup", 0, 0, 0, 0, 0, 0);
-		rva00521770(0);
+		((AptSkirmish *)this)->rva00521770(0);
 		break;
 	case 8:
 	case 9:
