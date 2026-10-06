@@ -11358,3 +11358,7 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva00540A88@Rva0054080A@@QAEPAXPAX@Z	0x00540A88	123	blocked	EH clone new+copy+dual setters needs 3 EH states 1-0-2 vs 0-1-minus1 t=18 model=muse-10
 ?rva005093C6@Made002CC774@@QAEXPAUInput005093C6@@PBUCoord3D@@@Z	0x005093C6	348	blocked	Made spawn 348B EH frame with 3 callee-saved vs 2 and static flag reg t=15 model=muse-10
 ?rva005E5BF7@Rva005CDA3D@@QAEHH@Z	0x005E5BF7	30	blocked	tail-jmp wall O1 emits call plus push for second target while retail reuses stack with mov pop jmp and O2 plus inverted branch worse t=25 model=muse-07
+?rva00567F3D@Rva00567F3D@@QAEPAPAVRva00567960@@PAPAV2@H@Z	0x00567F3D	84	blocked	missing and [ebp-0x10],0 at +0xb 80v84 rest exact t=12 model=muse-12 (stash 0.95 kept)
+?rva00318FA1@Rva00318FA1@@QAEPAVRva0020E89C@@XZ	0x00318FA1	29	blocked	test ecx mask vs sar ecx 4 on empty-vector check t=15 model=muse-12 (stash 0.93 kept)
+?rva0040D701@Rva0040D701@@QAE_NPAX@Z	0x0040D701	302	blocked	complex 302B EH vector loop with 10 callees needs donor lead t=5 model=muse-12
+?rva005E1928@Rva005E1928@@QAEXXZ	0x005E1928	86	blocked	86B EH Helper-plus-assign-plus-virtual needs donor RvaF6Ret-TreeHint pattern t=20 model=muse-12
