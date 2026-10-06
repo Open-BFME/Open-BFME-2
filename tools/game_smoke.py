@@ -98,6 +98,10 @@ RVA = {
 }
 FRAME_OFF, MODE_OFF = 0x40, 0x110
 SLOTS_OFF, SLOT_STATE, SLOT_EASY_AI = 0x18, 4, 2
+# GameSlot+0x18 is the player template (GameSlot::setPlayerTemplate, retail 0x400E33).
+# GameSlot::setState leaves -2, the observer, so a -file game has no factions and an
+# empty world; -1 (random) is resolved at game start from the game's seed.
+SLOT_TEMPLATE, TEMPLATE_RANDOM = 0x18, -1
 SEED_OFF = 0x50                   # GameInfo::setSeed (retail 0x3FF328) stores here; -file seeds it with time(0)
 # -file takes the short form: ConvertShortMapPathToLongMapPath (retail 0x3BA06E)
 # turns "maps\<name>.map" into "maps\<name>\<name>.map", the map cache's key.
@@ -138,6 +142,19 @@ def judge_playback(crc, recorded_last=None, played_last=None, min_pairs=3, crash
         return "no-crcs"
     if recorded_last is not None and (played_last or 0) < recorded_last - slack:
         return "playback-short"
+    return "pass"
+
+
+def judge_record(outcome, crcs, min_crcs=3):
+    """A reference run is usable only if its skirmish passed, it has enough CRCs,
+    and they change: a constant CRC means a world where nothing happens (no
+    factions), which any image would trivially reproduce."""
+    if outcome != "pass":
+        return outcome
+    if len(crcs) < min_crcs:
+        return "no-crcs"
+    if len({c for _, c in crcs}) == 1:
+        return "crc-constant"
     return "pass"
 
 
@@ -379,6 +396,7 @@ class Game:
         ev = ctypes.create_string_buffer(256)
         self.t0 = time.time()
         next_tick = self.t0 + tick_every
+        next_note = self.t0 + 30
         res = self.res
         try:
             while True:
@@ -388,6 +406,10 @@ class Game:
                     break
                 if tick and self.pid and now >= next_tick:
                     next_tick = now + tick_every
+                    if now >= next_note:                 # progress on stderr, so a stuck run shows where
+                        next_note = now + 30
+                        print(f"game_smoke: {self.seconds()} s, logic {self.logic()}, {len(self.bps)} bps",
+                              file=sys.stderr, flush=True)
                     why = tick(self)
                     if why:
                         res["stopped"] = why
@@ -465,9 +487,9 @@ class Game:
                                        seconds=self.seconds())
                             break
                 k.ContinueDebugEvent(pid, tid, status)
-            if res.get("stopped") not in ("exit", "crash") and self.pid:
-                res["windows"] = [(t, r) for t, r, _ in boot_smoke.windows_of(self.pid)]
-                res["screenshot"] = capture(self.pid, OUT / f"{self.pid}.png")
+            if res.get("stopped") not in ("exit", "crash", "profile-redirect-failed") and self.pid:
+                res["windows"], res["screenshot"] = self._while_serving(lambda: (
+                    [(t, r) for t, r, _ in boot_smoke.windows_of(self.pid)], capture(self.pid, OUT / f"{self.pid}.png")))
         finally:
             for h, *_ in self.procs.values():
                 k.TerminateProcess(h, 1)
@@ -509,6 +531,56 @@ class Game:
                                   "report": msg.split(b"\0")[0].decode("latin1"),
                                   "returns": [hex(w - self.base) for w in words if self.base <= w < self.base + size][:24]}
         return False
+
+    def _while_serving(self, work, limit=30.0):
+        """Run `work` (window enumeration and capture send messages to the game's
+        main thread) on a worker thread while this, the debugger thread, keeps
+        serving debug events: with a breakpoint left armed the main thread would
+        sit in a debug event nobody continues and the capture would hang. All
+        breakpoints are taken out first; a remote call already under way still
+        returns through _returned."""
+        import threading
+        k = self.k
+        removed = set(self.bps)
+        for va, (orig, _) in list(self.bps.items()):
+            self.write(va, orig, code=True)
+        self.bps.clear()
+        box = {}
+        worker = threading.Thread(target=lambda: box.update(r=work()), daemon=True)
+        worker.start()
+        ev = ctypes.create_string_buffer(256)
+        t_end = time.time() + limit
+        while worker.is_alive() and time.time() < t_end:
+            if not k.WaitForDebugEvent(ev, 100):
+                continue
+            code, pid, tid = (int.from_bytes(ev.raw[o:o + 4], "little") for o in (0, 4, 8))
+            status = DBG_CONTINUE
+            if code == CREATE_PROCESS:
+                k.CloseHandle(int.from_bytes(ev.raw[16:24], "little"))
+            elif code == LOAD_DLL and int.from_bytes(ev.raw[16:24], "little"):
+                k.CloseHandle(int.from_bytes(ev.raw[16:24], "little"))
+            elif code == EXCEPTION:
+                exc = int.from_bytes(ev.raw[16:20], "little")
+                addr = int.from_bytes(ev.raw[32:40], "little")
+                at = next((x for x in (addr, addr - 1) if x in self.calls), None)
+                old = next((x for x in (addr, addr - 1) if x in removed), None)
+                if pid == self.pid and exc in INT3 and at is not None:
+                    self._returned(tid, at)
+                elif pid == self.pid and exc in INT3 and old is not None:   # hit just before the byte went back
+                    h, ctx = self._context(tid)
+                    if ctx is not None:
+                        ctx.eip = old
+                        k.Wow64SetThreadContext(wt.HANDLE(h), ctypes.byref(ctx))
+                        k.CloseHandle(h)
+                elif exc in SINGLE_STEP and pid == self.pid:
+                    self.stepping.pop(tid, None)
+                elif exc not in INT3:
+                    status = DBG_NOT_HANDLED
+            k.ContinueDebugEvent(pid, tid, status)
+            if code == EXIT_PROCESS and pid == self.pid:
+                break
+        worker.join(1.0)
+        return box.get("r", (None, None))
 
     def _loaded(self):
         """WOW64 loader breakpoint of game.dat: imports are bound, nothing ran yet.
@@ -598,7 +670,12 @@ def skirmish_setup(ai, seed=None):
         if seed is not None:
             game.write(info + SEED_OFF, struct.pack("<I", seed & 0xFFFFFFFF))
             game.res["setup"]["seed"] = seed
-        slot = game.u32(info + SLOTS_OFF + 4)
+        slots = [game.u32(info + SLOTS_OFF + 4 * i) for i in (0, 1)]
+        game.res["setup"]["templates_before"] = [game.u32(sl + SLOT_TEMPLATE) if sl else None for sl in slots]
+        for sl in slots[:2 if ai else 1]:
+            if sl:
+                game.write(sl + SLOT_TEMPLATE, struct.pack("<i", TEMPLATE_RANDOM))
+        slot = slots[1]
         if ai and slot:
             game.res["setup"]["slot1_state_before"] = game.u32(slot + SLOT_STATE)
             game.write(slot + SLOT_STATE, struct.pack("<I", SLOT_EASY_AI))
@@ -662,8 +739,10 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
     if a.retail:
         exe, rva_map = boot_smoke.boot_image.build.EXE, None
     else:
-        rep = json.loads((boot_smoke.OUT / "boot.json").read_text())
-        exe, rva_map = boot_smoke.OUT / "boot.exe", piece_mover(rep["pieces_map"])
+        rep = json.loads((boot_smoke.OUT / f"{a.image}.json").read_text())
+        if not boot_smoke.boot_image.image_ok(rep):
+            raise SystemExit(f"game_smoke: build/boot/{a.image} did not link and check clean")
+        exe, rva_map = boot_smoke.OUT / f"{a.image}.exe", piece_mover(rep["pieces_map"])
     boot_smoke.prepare_sandbox_profile(a.appdata)       # refuses an appdata inside the real AppData
     shutil.copyfile(exe, gd / "game.dat")
     before = {"guard": {str(g): boot_smoke.snapshot(g) for g in a.guard}}
@@ -701,7 +780,8 @@ def finish(a, name, out):
         out["outcome"] = "profile-changed"
     if any(out["guard"].values()):
         out["outcome"] = "guard-violation"
-    (OUT / f"{name}{'_retail' if a.retail else ''}.json").write_text(json.dumps(out, indent=1, default=str))
+    out["image"] = "retail" if a.retail else a.image
+    (OUT / f"{name}_{out['image']}.json").write_text(json.dumps(out, indent=1, default=str))
     print(json.dumps(out, indent=1, default=str))
     return 0 if out["outcome"] == "pass" else 1
 
@@ -719,14 +799,7 @@ def cmd_skirmish(a, keep_replay=None):
     res = out["run"]
     out["outcome"] = judge_skirmish(samples, a.mode, a.min_frames, crash_outcome(res), res.get("screenshot"))
     if keep_replay:
-        rdir = sandbox_profile(a.appdata) / "Replays"
-        last = sorted(rdir.glob("*.BfME2Replay"), key=lambda p: p.stat().st_mtime) if rdir.exists() else []
-        if last:
-            shutil.copyfile(last[-1], rdir / f"{keep_replay}.rep")
-            out["replay"] = {"source": last[-1].name, "kept": str(rdir / f"{keep_replay}.rep"),
-                             "bytes": last[-1].stat().st_size}
-        elif out["outcome"] == "pass":
-            out["outcome"] = "no-replay"
+        out["outcome"] = judge_record(out["outcome"], hook.crcs, a.min_crcs)
     return finish(a, "record" if keep_replay else "skirmish", out)
 
 
@@ -780,7 +853,7 @@ def cmd_load(a):
     first logic frame seen is at or past the frame the save was taken at (a new
     game would start at 0) and the logic then advances --min-frames."""
     samples = []
-    rec = json.loads((OUT / f"save{'_retail' if a.retail else ''}.json").read_text()) if a.saved_frame is None else None
+    rec = json.loads((OUT / f"save_{'retail' if a.retail else a.image}.json").read_text()) if a.saved_frame is None else None
     saved_frame = a.saved_frame if a.saved_frame is not None else rec["save"]["frame"]
     hook = FrameHook(at_first=True, modes=(a.mode,))
     game, out = launch(a, f"-file {a.save_name}", [("GameEngine::update", hook)], skirmish_tick(a, samples, a.mode))
@@ -882,6 +955,8 @@ def main(argv=None):
     ap.add_argument("--game-dir", type=Path, required=True)
     ap.add_argument("--appdata", type=Path, help="sandbox user-data root (default GAME_DIR/../appdata)")
     ap.add_argument("--retail", action="store_true", help="control: retail's own game.dat")
+    ap.add_argument("--image", default="boot",
+                    help="without --retail: the image `boot_image.py link --tag TAG` wrote (build/boot/TAG.exe)")
     ap.add_argument("--args", default="-win -xres 1024 -yres 768")
     ap.add_argument("--map", default=SKIRMISH_MAP)
     ap.add_argument("--mode", type=int, default=2, help="GameLogic game mode of a skirmish")

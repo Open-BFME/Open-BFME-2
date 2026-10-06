@@ -74,6 +74,18 @@ class JudgeSkirmish(unittest.TestCase):
         self.assertEqual(gs.judge_skirmish(s, SKIRMISH, 100, crash="exit-0x29a"), "exit-0x29a")
 
 
+class JudgeRecord(unittest.TestCase):
+    def test_changing_crcs_pass(self):
+        self.assertEqual(gs.judge_record("pass", [(25, 1), (50, 2), (75, 3)]), "pass")
+
+    def test_constant_crcs_mean_an_empty_world(self):            # seen live: observers only
+        self.assertEqual(gs.judge_record("pass", [(f, 841115588) for f in (25, 50, 75, 100)]), "crc-constant")
+
+    def test_too_few_or_failed_run(self):
+        self.assertEqual(gs.judge_record("pass", [(25, 1)]), "no-crcs")
+        self.assertEqual(gs.judge_record("exit-0x1", [(25, 1), (50, 2), (75, 3)]), "exit-0x1")
+
+
 class PieceMover(unittest.TestCase):
     def test_moves_retail_rva_into_its_piece(self):
         move = gs.piece_mover([[".text", 0x1000, 0x5000, 0x2000], [".data", 0x9F0000, 0x9F8000, 0x20000]])
@@ -181,6 +193,17 @@ class SkirmishSetup(unittest.TestCase):
         g2.mem[self.INFO + gs.SEED_OFF] = 1791300000
         gs.skirmish_setup(True)(g2, 1, None)                            # no seed: left alone
         self.assertEqual(g2.u32(self.INFO + gs.SEED_OFF), 1791300000)
+
+    def test_players_get_random_factions_not_observer(self):
+        g = self.game()
+        slot0 = 0x6200000
+        g.mem[self.INFO + gs.SLOTS_OFF] = slot0
+        g.mem[slot0 + gs.SLOT_TEMPLATE] = 0xFFFFFFFE                    # -2, observer
+        g.mem[self.SLOT1 + gs.SLOT_TEMPLATE] = 0xFFFFFFFE
+        gs.skirmish_setup(True)(g, 1, None)
+        self.assertEqual(g.res["setup"]["templates_before"], [0xFFFFFFFE, 0xFFFFFFFE])
+        self.assertEqual([g.u32(slot0 + gs.SLOT_TEMPLATE), g.u32(self.SLOT1 + gs.SLOT_TEMPLATE)],
+                         [0xFFFFFFFF, 0xFFFFFFFF])
 
     def test_no_ai_leaves_slot_one_closed(self):
         g = self.game()
