@@ -13536,3 +13536,5 @@ FUN_009a52fe	0x005A52FE	820	blocked	ADDRESS-NAMED g_Rva hatch t=1 model=muse-08
 ?v7@Rva005AAB91@@UAEXXZ	0x005AB085	160	blocked	esi edi swap persists across def-order inline and G7 trials t=18 model=muse-01 (stash 0.9 kept)
 ?updateCache@MapCache@@QAEXXZ	0x00305749	98	blocked	needs 4 unrowed callees 0x3006C4 0x3006E1 0x303409 0x30529C donor MapCache updateCache t=8 model=muse-01
 ?rva0055DDD1@Rva0055DDD1@@QAEXXZ	0x0055DDD1	1295	blocked	ADDRESS-NAMED g_Va00E06220 hatch plus 1295B over strong-model limit t=3 model=muse-01
+?rva004FD8B8@Rva004FD6F9@@QAEXABVAsciiString@@AAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z	0x004FD8B8	150	partial	151B vs 150B 1B over frame wall found at ebp-4 vs ebp+8 loop regs edi ebx swapped t=25 model=muse-01 score=0.88 stash=reverse/attempts/0x004fd8b8.cpp
+?rva0057CB7D@Rva0057E3DB@@QAE_NH@Z	0x0057CB7D	152	partial	164B vs 152B esi edi swapped throughout plus globals t=20 model=muse-01 score=0.82 stash=reverse/attempts/0x0057cb7d.cpp
