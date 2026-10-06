@@ -709,6 +709,30 @@ Rva004EA149::~Rva004EA149()
 	rva004EA264();
 }
 
+// Target identity: each five-byte boundary forwards the unchanged this
+// pointer to its rowed destructor. Keep both wrapper types address-derived.
+class Rva004E95CF
+{
+public:
+	void rva004E95CF();
+};
+
+void Rva004E95CF::rva004E95CF()
+{
+	((Rva004E9419 *)this)->~Rva004E9419();
+}
+
+class Rva004EA2FC
+{
+public:
+	void rva004EA2FC();
+};
+
+void Rva004EA2FC::rva004EA2FC()
+{
+	((Rva004EA149 *)this)->~Rva004EA149();
+}
+
 // ??1Rva004FCA9C@@QAE@XZ @0x004FCC48 56B -> Rva004FCA9C::rva004FCBCD
 class Rva004FCA9C
 {
