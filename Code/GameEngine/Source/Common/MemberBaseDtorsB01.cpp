@@ -476,3 +476,46 @@ private:
 Rva005FB1AD::~Rva005FB1AD()
 {
 }
+
+class Rva005CC26E
+{
+public:
+	int rva005CC26E(void *arg);
+};
+class Rva00574910Dispatch
+{
+public:
+	virtual int gap0();
+	virtual int gap1();
+	virtual int check(void *arg);
+};
+class Rva005C9BE3Call
+{
+public:
+	int rva005C9BE3(void *arg);
+};
+class Rva005CBC95Call
+{
+public:
+	int rva005CBC95(void *arg);
+};
+class Rva00574910
+{
+public:
+	int rva00574910(void *arg);
+};
+
+// Target evidence: calls 0x005CC26E on this+0x5C, virtual slot 2 through the
+// pointer at this+0x54, 0x005C9BE3 on this+0x28, then 0x005CBC95 on this.
+// Address-derived class and offsets do not establish the original identity.
+int Rva00574910::rva00574910(void *arg)
+{
+	if (((Rva005CC26E *)((char *)this + 0x5C))->rva005CC26E(arg) == 1)
+		return 1;
+	Rva00574910Dispatch *dispatch = *(Rva00574910Dispatch **)((char *)this + 0x54);
+	if (dispatch && dispatch->check(arg) == 1)
+		return 1;
+	if (((Rva005C9BE3Call *)((char *)this + 0x28))->rva005C9BE3(arg) == 1)
+		return 1;
+	return ((Rva005CBC95Call *)this)->rva005CBC95(arg);
+}
