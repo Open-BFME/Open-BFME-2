@@ -73,6 +73,19 @@
 // (+0x4C) with RequestGameCreate's slot sequence, takes the host's login and
 // host names (+0x1A/+0x1C) into slot 0 and reports to OnGameJoin; a game that
 // is gone reports RET_UNKNOWN. update first calls slot 30 with true.
+//
+// LANAPI::handleRequestGameLeave, retail 0x00582498 (740 bytes), message
+// types 6 and 8 (update passes true for 8, false for 6 and for the leave it
+// fabricates for a timed-out player): Zero Hour's body with addresses. In a
+// game not in progress, a leaving host (slot 0's address) makes us
+// OnHostLeave (slot 36), drop and delete the game and re-add ourselves to the
+// lobby players (looked up by the local address, slot 63/64); any other
+// player's slot is opened (by the host through setSlot first), reported to
+// OnPlayerLeave (slot 37), the acceptances reset (GameInfo vslot 14) and the
+// game info re-sent to the sender through slot 26. In the lobby the game
+// named at +0x1E is found in the list (+0x10, next +0xF5C); only with the
+// flag is it removed and deleted (clearing the current game if it is that
+// one) before OnGameList (slot 32) runs.
 
 typedef int Int;
 typedef bool Bool;
@@ -88,6 +101,11 @@ extern "C" void * __cdecl memcpy( void *dest, const void *source, unsigned int c
 
 #include "ascii_string.h"
 #include "unicode_string.h"
+
+// Retail registers no unwind state for a name compared with text:
+// StringBase<unsigned short>::compare is taken not to throw (as in
+// LANAPIAddGame.cpp).
+template <> int StringBase<unsigned short>::compare( const unsigned short *str ) const throw();
 
 // The ledger's inequality test of two addresses (0x00248CDD) is a method of
 // a class named by its address; an empty base puts it on BfmeNetAddress.
@@ -160,8 +178,17 @@ struct GameSlotConnectInfo
 	UnsignedShort m_port;
 };
 
+// A zeroed connection info built at the call, as setState's no-connection
+// argument.
+struct NoConnectInfo : public GameSlotConnectInfo
+{
+	NoConnectInfo( void ) { m_nat = 0; m_port = 0; }
+	const GameSlotConnectInfo *self( void ) const { return this; }
+};
+
 enum SlotState
 {
+	SLOT_OPEN = 0,
 	SLOT_PLAYER = 6
 };
 
@@ -208,7 +235,8 @@ public:
 	virtual ~GameInfo( void );
 	BFME_VSLOT(01) BFME_VSLOT(02) BFME_VSLOT(03) BFME_VSLOT(04)
 	BFME_VSLOT(05) BFME_VSLOT(06) BFME_VSLOT(07) BFME_VSLOT(08) BFME_VSLOT(09)
-	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14)
+	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13)
+	virtual void resetAccepted( void ) = 0;		// slot 14
 	BFME_VSLOT(15) BFME_VSLOT(16) BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
 	BFME_VSLOT(20) BFME_VSLOT(21) BFME_VSLOT(22)
 	virtual UnicodeString getName( void ) = 0;	// slot 23
@@ -250,10 +278,12 @@ public:
 	const BfmeNetAddress *getAddress( Int slot ) const { return &m_slots[slot].m_address; }
 	const LANSlotAddress *getSlotAddresses( void ) const { return (const LANSlotAddress *)&m_slots[0].m_address; }
 	Bool getIsDirectConnect( void ) const { return m_isDirectConnect; }
+	LANGameInfo *getNext( void ) { return m_next; }
 
 private:
 	LANGameSlot m_slots[MAX_SLOTS];			// +0xDC, addresses from +0x114
-	UnsignedByte m_preF68[0xF68 - 0xF5C];
+	LANGameInfo *m_next;				// +0xF5C
+	UnsignedByte m_preF68[0xF68 - 0xF60];
 	Bool m_isDirectConnect;				// +0xF68
 };
 
@@ -369,6 +399,10 @@ struct LANMessage
 		struct
 		{
 			WideChar gameName[17];			// +0x1E
+		} GameToLeave;
+		struct
+		{
+			WideChar gameName[17];			// +0x1E
 			LANAPIInterface::ChatType chatType;	// +0x40
 			WideChar message[101];			// +0x44
 		} Chat;
@@ -393,10 +427,12 @@ public:
 	BFME_VSLOT(25)
 	virtual void rva004497EC( Bool isPublic, BfmeNetAddress *ip );	// slot 26
 	BFME_VSLOT(27) BFME_VSLOT(28) BFME_VSLOT(29)
-	BFME_VSLOT(30) BFME_VSLOT(31) BFME_VSLOT(32)
+	BFME_VSLOT(30) BFME_VSLOT(31)
+	virtual void OnGameList( LANGameInfo *gameList );	// slot 32
 	virtual void rva00248E87( void );		// slot 33, the player list refresh
 	virtual void OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, LANMessage *msg );
-	BFME_VSLOT(35) BFME_VSLOT(36)
+	BFME_VSLOT(35)
+	virtual void OnHostLeave( void );		// slot 36
 	virtual void OnPlayerLeave( UnicodeString player );	// slot 37
 	BFME_VSLOT(38)
 	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
@@ -410,7 +446,8 @@ public:
 	BFME_VSLOT(47)
 	virtual void OnNameChange( BfmeNetAddress *from, UnicodeString newName );
 	virtual LANGameInfo *LookupGame( UnicodeString gameName );
-	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53) BFME_VSLOT(54)
+	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53)
+	virtual Bool AmIHost( void );			// slot 54
 	BFME_VSLOT(55) BFME_VSLOT(56)
 	virtual void fillInLANMessage( LANMessage *msg ) = 0;	// slot 57
 	BFME_VSLOT(58) BFME_VSLOT(59)
@@ -435,10 +472,11 @@ protected:
 	void handleGameOptions( LANMessage *msg, const BfmeNetAddress *sender, Bool flag );
 	void handleChat( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleJoinAccept( LANMessage *msg, const BfmeNetAddress *sender );
+	void handleRequestGameLeave( LANMessage *msg, const BfmeNetAddress *sender, Bool flag );
 
 	UnsignedByte m_pre0C[0x0C - 4];
 	LANPlayer *m_lobbyPlayers;			// +0x0C
-	UnsignedByte m_pre14[0x14 - 0x10];
+	LANGameInfo *m_games;				// +0x10
 	UnicodeString m_name;				// +0x14
 	AsciiString m_userName;				// +0x18
 	AsciiString m_hostName;				// +0x1C
@@ -712,5 +750,79 @@ void LANAPI::handleJoinAccept( LANMessage *msg, const BfmeNetAddress *sender )
 		}
 		m_pendingAction = ACT_NONE;
 		m_expiration = 0;
+	}
+}
+
+void LANAPI::handleRequestGameLeave( LANMessage *msg, const BfmeNetAddress *sender, Bool flag )
+{
+	if( !m_inLobby && m_currentGame && !m_currentGame->isGameInProgress() )
+	{
+		Int player = 0;
+		const LANSlotAddress *slot = m_currentGame->getSlotAddresses();
+		do
+		{
+			if( slot->m_address.Rva00248CBF( sender ) )
+			{
+				if( player == 0 )
+				{
+					OnHostLeave();
+					removeGame( m_currentGame );
+					::delete m_currentGame;
+					m_currentGame = 0;
+
+					LANPlayer *lanPlayer = LookupPlayer( getLocalAddress() );
+					if( !lanPlayer )
+					{
+						lanPlayer = new LANPlayer;
+						lanPlayer->m_address = *getLocalAddress();
+					}
+					else
+					{
+						removePlayer( lanPlayer );
+					}
+					lanPlayer->m_name.set( UnicodeString( m_name ) );
+					lanPlayer->m_host.translate( m_hostName.str() );
+					lanPlayer->m_login.translate( m_userName.str() );
+					lanPlayer->m_lastHeard = timeGetTime();
+					addPlayer( lanPlayer );
+				}
+				else
+				{
+					if( AmIHost() )
+					{
+						LANGameSlot slot;
+						slot.setState( SLOT_OPEN, UnicodeString::TheEmptyString, NoConnectInfo().self() );
+						m_currentGame->setSlot( player, slot );
+					}
+					OnPlayerLeave( UnicodeString( msg->name ) );
+					((GameSlot *)m_currentGame->rva00447773( player ))->setState( SLOT_OPEN, UnicodeString::TheEmptyString, NoConnectInfo().self() );
+					m_currentGame->resetAccepted();
+					rva004497EC( false, (BfmeNetAddress *)sender );
+				}
+				break;
+			}
+			++player;
+			++slot;
+		} while( player < MAX_SLOTS );
+	}
+	else if( m_inLobby )
+	{
+		LANGameInfo *game = m_games;
+		while( game )
+		{
+			if( game->getName().compare( msg->GameToLeave.gameName ) == 0 )
+			{
+				if( flag )
+				{
+					removeGame( game );
+					if( game == m_currentGame )
+						m_currentGame = 0;
+					::delete game;
+				}
+				OnGameList( m_games );
+				break;
+			}
+			game = game->getNext();
+		}
 	}
 }
