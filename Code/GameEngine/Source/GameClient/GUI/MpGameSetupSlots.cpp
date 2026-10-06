@@ -416,7 +416,9 @@ public:
 
 	unsigned char m_pad00[0x1C];
 	int m_mode; // +0x1C (the panel's +0x7C, MpGameSetupOnInitGadget.cpp's m_hideFlag)
-	unsigned char m_pad20[0x61 - 0x20];
+	unsigned char m_pad20[0x50 - 0x20];
+	GameWindow *m_50; // +0x50 (strategic scenario combo, AptMapPreview +0x50)
+	unsigned char m_pad54[0x61 - 0x54];
 	bool m_61; // +0x61
 	unsigned char m_pad62[0x70 - 0x62];
 };
@@ -629,6 +631,8 @@ public:
 	void rva0057C597(bool enable);
 	// Rowed 0x0057C57B: the start position a button window shows, or -1.
 	int rva0057C57B(int window);
+	// Rowed 0x0057CD66: reselects the strategic scenario campaign.
+	void rva0057CD66();
 };
 
 // The +0x60 member's next selectable slot from a start (rowed 0x0057CA78
@@ -2670,4 +2674,18 @@ int AptMpGameSetup::rva00442CB3(unsigned int msg, unsigned int data1, unsigned i
 bool AptMpGameSetup::rva0043DCFA(int value)
 {
 	return m_60.rva0057CB7D(value);
+}
+
+// Retail 0x0057CDA1, 34 bytes (?rva0057CDA1@Rva0057E3DB@@QAEHIII@Z): the
+// +0x60 member's window message handler for 0x4026 from its +0x50 combo box,
+// reselecting the campaign through rowed AptMapPreview 0x0057CD66, else 0.
+// Caller 0x00442D00 in AptMpGameSetup::rva00442CB3.
+int Rva0057E3DB::rva0057CDA1(unsigned int msg, unsigned int data1, unsigned int data2)
+{
+	if (msg == 0x4026 && (GameWindow *)data1 == m_50)
+	{
+		((AptMapPreview *)this)->rva0057CD66();
+		return 1;
+	}
+	return 0;
 }
