@@ -51,7 +51,8 @@ public:
     void rva00706950(void *a, Rva00700090Info *info);
 };
 
-extern char g_aptDateInterpreter;
+struct AptActionInterpreter;
+extern struct AptActionInterpreter g_aptDateInterpreter;
 
 struct Rva0070F5C0Entry
 {
