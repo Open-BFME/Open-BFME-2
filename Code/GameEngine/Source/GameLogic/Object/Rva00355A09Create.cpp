@@ -24,11 +24,20 @@ private:
 	char m_pad[0x1C];
 };
 
+class SynchronizeGroupOrder
+{
+public:
+	SynchronizeGroupOrder(Rva0036E346 *holder);
+private:
+	char m_pad[0x28];
+};
+
 class Rva003559B5Host
 {
 public:
 	void rva00355A09(int a, Rva0036E346 *b, int c);
 	void rva00355A5D(int a, Rva0036E346 *b, int c);
+	void rva00355AB1(int a, Rva0036E346 *b);
 	void Attach(int a, Rva003559B5Val *v);
 };
 
@@ -42,6 +51,13 @@ void Rva003559B5Host::rva00355A09(int a, Rva0036E346 *b, int c)
 void Rva003559B5Host::rva00355A5D(int a, Rva0036E346 *b, int c)
 {
 	ChangeStanceGroupOrder *p = new ChangeStanceGroupOrder(b, c);
+	if (p)
+		Attach(a, (Rva003559B5Val *)p);
+}
+
+void Rva003559B5Host::rva00355AB1(int a, Rva0036E346 *b)
+{
+	SynchronizeGroupOrder *p = new SynchronizeGroupOrder(b);
 	if (p)
 		Attach(a, (Rva003559B5Val *)p);
 }

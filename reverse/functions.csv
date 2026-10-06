@@ -66180,3 +66180,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005F4AA3@Rva005F4AA3@@QAEXXZ,,0x005F4AA3,22,Code/GameEngine/Source/Common/Rva005F4AA3Update.cpp,matched,address-derived helper installs the two vtables identified by retail operands
 ?rva005F422C@Rva005F422C@@QAEXXZ,,0x005F422C,40,Code/GameEngine/Source/Common/Rva005F422CDtor.cpp,matched,address-derived destructor installs retail vtable and releases caller-owned tree hint ref
 ??0Rva000AF01A@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x000AF01A,104,Code/GameEngine/Source/Common/Rva000AEFAA.cpp,matched,NamedCameras parser binding constructor follows adjacent binding siblings and caller construction site
+?rva00355AB1@Rva003559B5Host@@QAEXHPAVRva0036E346@@@Z,,0x00355AB1,81,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,matched,retail allocates and constructs SynchronizeGroupOrder then attaches it like adjacent matched host methods

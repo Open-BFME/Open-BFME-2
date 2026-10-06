@@ -14865,3 +14865,7 @@ FUN_00761817	0x00361817	162	blocked	two align variants (162B int-parameter and 1
 ??0Rva005F4179@@QAE@PAX@Z	0x005F412B	78	blocked	six variants exhausted; 78B layouts retain EH/control-flow mismatch and member constructor emits unmatched helpers agent=luna-02
 ?rva00059EAE@MilesAudioManager@@QAEAAVRva00051ADA@@AAV2@PBVAsciiString@@@Z	0x00059EAE	206	blocked	align diff remains 22 B short with iterator return and EH local shapes unresolved t=8 model=gpt-6
 ??1Rva005E5018@@QAE@XZ	0x005E5018	119	blocked	shared virtual-base dtor call sites at adjusted offsets 0x1c and 0x20 but vtable and vbptr target classes remain unidentified so no clean layout model t=6 model=gpt-6
+??0Rva005CFA87@@QAE@XZ	0x005D044C	187	blocked	requires forbidden address-named global g_Va00E05FAC t=3 model=GPT-6
+FUN_0068e01f	0x0028E01F	218	blocked	requires forbidden address-named global g_Va00DFED30 t=2 model=GPT-6
+?doSpecialPowerAtLocation@Object@@QAEXPAX@Z	0x0028E0F9	88	blocked	pin encodes one pointer while retail caller passes four stack args and donor has five t=12 model=GPT-6
+?rva003F4A46@Rva003F4A46@@QAEXHHPAVArmyComparator@@@Z	0x003F4A46	117	blocked	owner and comparator identity unproven; candidate still has memory and codegen differences t=9 model=Codex
