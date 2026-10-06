@@ -65051,3 +65051,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ??1Rva00577EB2@@QAE@XZ,,0x00577EB2,63,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp,matched,vector dtor member +0x44 of Rva00577FA7 caller 0x00577FC5 via rowed 0x005F97BC and free
 ?rva002B269E@Rva002B269E@@QAE_NH@Z,,0x002B269E,50,Code/GameEngine/Source/Common/Rva002B269ECheck.cpp,matched,leaf null-gated id compare plus rowed 0x2E0BC0 and byte 0x10b
 ?rva002B2B2D@Rva002BA8F1Logic@@QAEPAURva002B3740Item@@XZ,,0x002B2B2D,18,Code/GameEngine/Source/Common/Rva002B2B2DForward.cpp,matched,leaf view forward via rowed 0x0020EAF6 plus 0xB0 0xB8
+?rva002B2579@Rva002BA8F1Logic@@QAEPAURva002B2579Result@@H@Z,,0x002B2579,23,Code/GameEngine/Source/Common/Rva002B2579Forward.cpp,matched,leaf null-gated forward via rowed 0x0020EEF4 plus 0xB0
