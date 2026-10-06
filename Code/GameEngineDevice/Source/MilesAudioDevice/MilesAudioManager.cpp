@@ -240,6 +240,7 @@ public:
     void rva000562A2(int key, const void *value);
     void rva000567C5(int argument);
     void rva0005A92A(int key, Rva0005A084Vector *output);
+    void rva0005774F(int viewType, MusicSystem newMusicSystem, int arg);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
     AudioEventRTS *findLowestPrioritySound(AudioEventRTS *event);
     float rva0005A9F8(void *ref, int a, int b);
@@ -534,6 +535,15 @@ AudioEventRTS *MilesAudioManager::findLowestPrioritySound(AudioEventRTS *event)
         }
     }
     return lowestEvent;
+}
+
+// Address-derived music-stack operation. The target checks +0xB3C and clears
+// the selected deque at +0xA4C using its matched clear helper.
+void MilesAudioManager::rva0005774F(int viewType, MusicSystem newMusicSystem, int arg)
+{
+    if (m_activeMusicSystem[viewType] == newMusicSystem)
+        removeCurrentlyPlayingMusic(viewType, arg);
+    m_musicStack[viewType][newMusicSystem].clear();
 }
 
 bool __cdecl Rva000515E4Less(const Rva000515E4Key *x, const Rva000515E4Key *y)
