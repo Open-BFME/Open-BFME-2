@@ -8,8 +8,10 @@
 // Each destructor is declared, not defined, so the call resolves to its pin
 // in reverse/symbols.csv; the dummy tag constructors (no retail counterpart)
 // only make this TU emit each vtable and with it the deleting destructor.
-// Owner identities are not recovered, and these declarations model no layout
-// (docs/reconstruction/deleting-destructor-identity-audit.md).
+// Other owner identities are not recovered. The address-derived
+// Rva0057682F view below records only the layout inferred from its target
+// constructor, vtable, and destructor thunk; its original class identity and
+// field types remain unknown.
 //
 //   wrapper     dtor        vtable#slot
 //   0x00574E4E  0x00574C1B  0x00C6E4A4#0
@@ -139,16 +141,45 @@ Rva00576803::Rva00576803(EmitVtableTag *)
 {
 }
 
-class Rva0057682F
+// TU-local opaque base view. Target constructor 0x005D1BA1 writes its vptr,
+// then members at +0x0C and +0x10; its paired destructor at 0x005D1ADE
+// restores vtable 0x00C75694. The exact field identities are unknown.
+class Rva005D1ADE
+{
+public:
+	Rva005D1ADE(void *, void *, int);
+	virtual ~Rva005D1ADE();
+private:
+	void *m_unknown04;
+	void *m_unknown08;
+	void *m_unknown0C;
+	void *m_unknown10;
+};
+
+class Rva0057682F : public Rva005D1ADE
 {
 public:
 	Rva0057682F(EmitVtableTag *);
+	Rva0057682F(void *, void *, int);
 public:
 	virtual ~Rva0057682F();
+private:
+	void *m_unknown14;
 };
 
 // ?<Rva0057682F::Rva0057682F> absent-from-retail
-Rva0057682F::Rva0057682F(EmitVtableTag *)
+Rva0057682F::Rva0057682F(EmitVtableTag *) : Rva005D1ADE(0, 0, 0)
+{
+}
+
+// Target evidence: vtable 0x00C6E7B0 is the slot-0 table used by the deleting
+// destructor at 0x00576813; its slot points to the 0x0057682F thunk. That
+// thunk tail-jumps to 0x005D1ADE. The base relationship and opaque layout are
+// structural inferences; the address-derived class name does not claim the
+// original retail identity.
+Rva0057682F::Rva0057682F(void *owner, void *baseArg, int mode)
+	: Rva005D1ADE(*(void **)(reinterpret_cast<char *>(owner) + 0x14), baseArg, mode),
+	  m_unknown14(owner)
 {
 }
 

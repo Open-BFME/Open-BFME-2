@@ -66086,3 +66086,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva00557927@@YAHHHHHHPAX@Z,,0x00557927,37,Code/GameEngine/Source/GameNetwork/GameSpy/Rva005579CallbackAdapters.cpp,matched,callback forwards five stack arguments to address-derived callee 0x005570AB
 ?rva0055794C@@YAHHHHHHPAX@Z,,0x0055794C,37,Code/GameEngine/Source/GameNetwork/GameSpy/Rva005579CallbackAdapters.cpp,matched,callback forwards five stack arguments to address-derived callee 0x005573FA
 ?rva00557971@@YAHHHHHHPAX@Z,,0x00557971,37,Code/GameEngine/Source/GameNetwork/GameSpy/Rva005579CallbackAdapters.cpp,matched,callback forwards five stack arguments to address-derived callee 0x00557304
+??0Rva0057682F@@QAE@PAX0H@Z,,0x0057664C,40,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB13.cpp,matched,address-derived identity from slot-0 dtor thunk at 0x0057682F; vtable 0x00C6E7B0; base and layout inferred from paired ctor/dtor 0x005D1BA1/0x005D1ADE

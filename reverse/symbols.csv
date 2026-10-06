@@ -14148,3 +14148,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva005570AB@Rva005570AB@@QAEHHHHHH@Z,0x005570AB,Ghidra extent and direct callback-adapter call target; context stays in ECX and five stack arguments are passed; address-derived method identity unresolved
 ?rva005573FA@Rva005573FA@@QAEHHHHHH@Z,0x005573FA,Ghidra extent and direct callback-adapter call target; context stays in ECX and five stack arguments are passed; address-derived method identity unresolved
 ?rva00557304@Rva00557304@@QAEHHHHHH@Z,0x00557304,Ghidra extent and direct callback-adapter call target; context stays in ECX and five stack arguments are passed; address-derived method identity unresolved
+??0Rva005D1ADE@@QAE@PAX0H@Z,0x005D1BA1,address-derived constructor pin; Ghidra function start 0x005D1BA1 size 270; paired vtable and destructor evidence at 0x00C75694
