@@ -13417,3 +13417,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva003EDE44@Rva0020DXXXElem@@QAEXH@Z,0x003EDE44,element worker called with int param in Rva0020D8F1 range loop; REL32 read from placed 0x0020D8F1 body
 ?rva003EDF69@Rva0020DXXXElem@@QAEXH@Z,0x003EDF69,element worker called with int param in Rva0020D925 range loop; REL32 read from placed 0x0020D925 body
 ?rva003EDFD8@Rva0020DXXXElem@@QAEXH@Z,0x003EDFD8,element worker called with int param in Rva0020D959 range loop; REL32 read from placed 0x0020D959 body
+?rva0020ED51@@YGXPAXHH@Z,0x0020ED51,stdcall 3-arg worker called by Rva0020F2F1/09 forwarder twins (callee cleanup, no ecx); REL32 read from placed 0x0020F2F1 body

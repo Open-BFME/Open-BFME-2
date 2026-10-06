@@ -64154,3 +64154,5 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0020D925@Rva0020DXXX@@QAEXH@Z,,0x0020D925,52,Code/GameEngine/Source/GameLogic/System/Rva0020D7F9Family.cpp,matched,guarded range apply via 0x3EDF69
 ?rva0020D959@Rva0020DXXX@@QAEXH@Z,,0x0020D959,52,Code/GameEngine/Source/GameLogic/System/Rva0020D7F9Family.cpp,matched,guarded range apply via 0x3EDFD8
 ??1Rva0020DXXX@@UAE@XZ,,0x0020D9EC,53,Code/GameEngine/Source/GameLogic/System/Rva0020D7F9Family.cpp,matched,implicit dtor via member+base
+?rva0020F2F1@@YGXPAXH@Z,,0x0020F2F1,24,Code/Libraries/Source/WWVegas/WWLib/Rva0020F2F1Forwarders.cpp,matched,
+?rva0020F309@@YGXPAXH@Z,,0x0020F309,24,Code/Libraries/Source/WWVegas/WWLib/Rva0020F2F1Forwarders.cpp,matched,
