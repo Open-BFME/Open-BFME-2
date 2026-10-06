@@ -13566,3 +13566,6 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva005288BD@Rva002D363E90@@QAEXXZ,0x005288BD,pin for 0x2D363E thiscall void () on +0x90
 ?rva0052A287@Rva002D363E88@@QAEXH@Z,0x0052A287,pin for 0x2D363E thiscall void (int) on +0x8c (same body as rowed Rva0052A287 forwarder)
 ?rva0052854C@Rva002D363E90@@QAEXH@Z,0x0052854C,pin for 0x2D363E thiscall void (int) on +0x90 (same body as rowed Rva0052854C)
+?rva00067494@Rva000677CAHost@@QAEXHHHHHHPAEPA_N@Z,0x00067494,dump range 1 wrapper callee for 0x677CA
+?rva0005106A@Rva0005F279Elem@@QAE_NXZ,0x0005106A,dump range 1 loop callees for 0x5F279
+?rva0005EA8F@Rva0005F279Host@@QAEXPAVRva0005F279Elem@@@Z,0x0005EA8F,dump range 1 loop callees for 0x5F279
