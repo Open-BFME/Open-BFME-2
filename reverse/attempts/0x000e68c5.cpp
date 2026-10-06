@@ -1,4 +1,6 @@
-// cl: /MD /EHsc
+// ?Rva000E68C5SwayOffsets@@YAXPAUID3DXEffect@@PBD@Z
+// partial score=0.98 date=2026-10-06
+// cl: /O1 /arch:SSE /G7 /MD /EHsc
 // ??1Rva000E6387@@UAE@XZ @0x000E6387 57B: destructor of the FX parameter
 // binder registered as "Vegetation" (address-derived name Rva000E6387, as
 // pinned). Target facts: vtable 0x00BCEA04 = { ??_G 0x000E63C0 (rowed),
@@ -9,28 +11,12 @@
 // "Terrain") and resets to the base vtable; the EH state around the erase
 // covers the base subobject. Callers: rowed ??_G 0x000E63C0 and the gap
 // thunk 0x007B6E18 on the singleton g_Va00DEBC98.
-//
-// ?ResolveBindings@Rva000E6387@@... @0x000E67E3 149B: vtable slot 1. Splits
-// the parameter name through the rowed Rva001530E9Parse 0x001530E9 and binds
-// "BaseTexture" (0x00BCE5A0), "IsAlphaBlendEnabled" (0x00BCEAA0) and
-// "SwayOffsets" (0x00BCEA94, element 0 or unbracketed only) through the
-// rowed FXShaderParameterBinder::AddBinding, the WaterDraw dispatcher's
-// pattern without a base-binder fallback.
-// Rva000E6878IsAlphaBlendEnabled 0x000E6878 77B: TRUE unless both
-// TheWritableGlobalData and the vegetation buffer g_009EBC90 exist, else
-// !GlobalData+0xD45 && !buffer slot 4 (pure in the W3DVegetationBufferBase
-// vtable 0x00BCEAB4); ID3DXEffect::SetBool is slot 22 (+0x58).
-// Rva000E69E6BaseTexture 0x000E69E6 190B: the buffer's +0x38 texture
-// (by-value getter 0x000E6AA4, 28B) or the rowed white texture 0x00132E76,
-// through SetTexture slot 52 (+0xD0).
-// Rva000E68C5SwayOffsets 0x000E68C5 289B is pinned in reverse/symbols.csv; its
-// near-exact body (ZH W3DTreeBuffer sway interpolation, one induction-variable
-// base apart) is banked in reverse/attempts/0x000e68c5.cpp.
-// g_009EBC90 is the buffer the draw method 0x000E66B8 stores as `this`.
 
 void __cdecl Rva001532E1Erase(const char *name);
 void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
+extern "C" __declspec(dllimport) double __cdecl floor(double);
+extern "C" void *__cdecl memset(void *destination, int value, unsigned int bytes);
 
 typedef const char *D3DXHANDLE;
 typedef int BOOL;
@@ -39,6 +25,11 @@ typedef int BOOL;
 
 struct IDirect3DBaseTexture8;
 class DummyPtrType;
+
+struct D3DXVECTOR4
+{
+	float x, y, z, w;
+};
 
 struct ID3DXEffect
 {
@@ -52,7 +43,8 @@ struct ID3DXEffect
 	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
 	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
 	virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
-	virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
+	virtual long __stdcall SetVectorArray(D3DXHANDLE parameter, const D3DXVECTOR4 *vectors, unsigned int count);
+	virtual void v37(); virtual void v38(); virtual void v39();
 	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
 	virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
 	virtual void v48(); virtual void v49(); virtual void v50(); virtual void v51();
@@ -101,6 +93,35 @@ private:
 
 RefCountPtr<TextureClass> Rva00132E76WhiteTexture();
 
+__forceinline long FloatToLong(float f)
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
+
+class Vector3
+{
+public:
+	Vector3() {}
+	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
+	Vector3 &operator*=(float k) { X *= k; Y *= k; Z *= k; return *this; }
+	friend Vector3 operator*(float k, const Vector3 &a) { return Vector3(a.X * k, a.Y * k, a.Z * k); }
+	friend Vector3 operator+(const Vector3 &a, const Vector3 &b) { return Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z); }
+	float X;
+	float Y;
+	float Z;
+};
+
+enum
+{
+	MAX_SWAY_TYPES = 10,
+	NUM_SWAY_ENTRIES = 100
+};
+
 class Rva000E6AC0
 {
 public:
@@ -110,6 +131,12 @@ public:
 
 	char m_pad004[0x38 - 4];
 	RefCountPtr<TextureClass> m_38;
+	char m_pad03c[0x90 - 0x3c];
+	Vector3 m_swayOffsets[NUM_SWAY_ENTRIES];
+	int m_curSwayVersion;
+	float m_curSwayOffset[MAX_SWAY_TYPES];
+	float m_curSwayStep[MAX_SWAY_TYPES];
+	float m_curSwayFactor[MAX_SWAY_TYPES];
 };
 
 extern Rva000E6AC0 *g_009EBC90;
@@ -210,6 +237,31 @@ void Rva000E6878IsAlphaBlendEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
 		effect->SetBool(handle, !TheWritableGlobalData->m_D45 && !buffer->slot04());
 	else
 		effect->SetBool(handle, TRUE);
+}
+
+void Rva000E68C5SwayOffsets(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+	D3DXVECTOR4 sway[MAX_SWAY_TYPES + 1];
+	memset(sway, 0, sizeof(sway));
+	Rva000E6AC0 *buffer = g_009EBC90;
+	if (buffer)
+	{
+		for (int i = 0; i < MAX_SWAY_TYPES; i++)
+		{
+			int minOffset = FloatToLong((float)floor(buffer->m_curSwayOffset[i]));
+			if (minOffset >= 0 && minOffset + 1 < NUM_SWAY_ENTRIES)
+			{
+				float f2 = buffer->m_curSwayOffset[i] - minOffset;
+				float f1 = 1.0f - f2;
+				Vector3 swayFactor = f1 * buffer->m_swayOffsets[minOffset] + f2 * buffer->m_swayOffsets[minOffset + 1];
+				float factor = buffer->m_curSwayFactor[i];
+				sway[i + 1].x = swayFactor.X * factor;
+				sway[i + 1].y = swayFactor.Y * factor;
+				sway[i + 1].z = swayFactor.Z * factor;
+			}
+		}
+	}
+	effect->SetVectorArray(handle, sway, MAX_SWAY_TYPES + 1);
 }
 
 void Rva000E69E6BaseTexture(ID3DXEffect *effect, D3DXHANDLE handle)
