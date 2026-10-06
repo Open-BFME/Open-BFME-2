@@ -5,17 +5,17 @@
 // The existing128-byte prefix destructor owns the native teardown.
 // BfmeStringTailRecord144 remains a compatibility name; this opaque
 // forwarding view neither allocates the record nor claims its member layout.
-class BfmeStringTailRecord144
-{
+// BFME1 donor repair0c5e8ba5c0 names the canonical endpoint through a
+// typed member pointer; retain this entry and name its cleanup directly.
+class BfmeStringTailRecord144 {
 public:
     ~BfmeStringTailRecord144();
-private:
-    void releasePrefix();
 };
-
-#pragma comment(linker, "/alternatename:?releasePrefix@BfmeStringTailRecord144@@AAEXXZ=??1BfmeStringTailRecord144@@UAE@XZ")
-
+extern "C" void __identifier("??1BfmeStringTailRecord144@@UAE@XZ")();
 BfmeStringTailRecord144::~BfmeStringTailRecord144()
 {
-    releasePrefix();
+    typedef void (BfmeStringTailRecord144::*Cleanup)();
+    union { void (*entry)(); Cleanup call; } endpoint =
+        { __identifier("??1BfmeStringTailRecord144@@UAE@XZ") };
+    (this->*endpoint.call)();
 }
