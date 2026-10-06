@@ -80,62 +80,62 @@ int CommUDPWrite(void *ref, void *packet)
 int CommUDPConnect(void *ref, const char *addr, int bind, int peer)
 {
 	int result;
-	int peerPort;
-	int bindPort;
-	unsigned int address;
+	int iConnPort;
+	int iListenPort;
+	unsigned int uAddr;
 	void *socket;
-	unsigned char bindAddress[0x10];
-	unsigned char peerAddress[0x10];
+	unsigned char bindaddr[0x10];
+	unsigned char peeraddr[0x10];
 	unsigned int temp;
 
-	*(unsigned short *)&peerAddress[0] = 2;
-	*(unsigned short *)&peerAddress[2] = 0;
-	*(unsigned int *)&peerAddress[4] = 0;
-	*(unsigned int *)&peerAddress[8] = 0;
-	*(unsigned int *)&peerAddress[12] = 0;
-	*(unsigned short *)&bindAddress[0] = 2;
-	*(unsigned short *)&bindAddress[2] = 0;
-	*(unsigned int *)&bindAddress[4] = 0;
-	*(unsigned int *)&bindAddress[8] = 0;
-	*(unsigned int *)&bindAddress[12] = 0;
-	result = Rva007FFDD0(&address, &bindPort, &peerPort, addr);
+	*(unsigned short *)&peeraddr[0] = 2;
+	*(unsigned short *)&peeraddr[2] = 0;
+	*(unsigned int *)&peeraddr[4] = 0;
+	*(unsigned int *)&peeraddr[8] = 0;
+	*(unsigned int *)&peeraddr[12] = 0;
+	*(unsigned short *)&bindaddr[0] = 2;
+	*(unsigned short *)&bindaddr[2] = 0;
+	*(unsigned int *)&bindaddr[4] = 0;
+	*(unsigned int *)&bindaddr[8] = 0;
+	*(unsigned int *)&bindaddr[12] = 0;
+	result = Rva007FFDD0(&uAddr, &iListenPort, &iConnPort, addr);
 	if ((result & 3) != 3) {
 		return -3;
 	}
-	if (peerPort == 0) {
-		peerPort = bindPort;
-		++bindPort;
+	if (iConnPort == 0) {
+		iConnPort = iListenPort;
+		++iListenPort;
 	}
 	Rva00818FF0(ref, addr);
 	Rva007FE780Printf("CommUdpConnect: addr=%08x, bind=%d, peer=%d connident=0x%08x\n",
-	                   address, bindPort, peerPort, *(int *)((char *)ref + 0x94));
+	                   uAddr, iListenPort, iConnPort, *(int *)((char *)ref + 0x94));
 	socket = Rva007FD2D0(2, 2, 0);
 	if (socket == 0) {
 		return -4;
 	}
-	bindAddress[2] = (unsigned char)(bindPort >> 8);
-	bindAddress[3] = (unsigned char)bindPort;
-	result = Rva007FD510(socket, bindAddress, 0x10);
+	bindaddr[2] = (unsigned char)(iListenPort >> 8);
+	bindaddr[3] = (unsigned char)iListenPort;
+	result = Rva007FD510(socket, bindaddr, 0x10);
 	if (result < 0) {
-		Rva007FE780Printf("CommUDPConnect: bind to %d failed with %d\n", bindPort, result);
-		bindAddress[2] = 0;
-		bindAddress[3] = 0;
-		result = Rva007FD510(socket, bindAddress, 0x10);
+		Rva007FE780Printf("CommUDPConnect: bind to %d failed with %d\n", iListenPort, result);
+		bindaddr[2] = 0;
+		bindaddr[3] = 0;
+		result = Rva007FD510(socket, bindaddr, 0x10);
 		Rva007FE780Printf("CommUDPConnect: bind to 0 with result %d\n", result);
 	}
 	if (result < 0) {
 		Rva007FD3F0(socket);
 		return -5;
 	}
-	temp = address;
-	peerAddress[7] = (unsigned char)temp; temp >>= 8;
-	peerAddress[6] = (unsigned char)temp; temp >>= 8;
-	peerAddress[5] = (unsigned char)temp; temp >>= 8;
-	peerAddress[4] = (unsigned char)temp;
-	peerAddress[2] = (unsigned char)(peerPort >> 8);
-	peerAddress[3] = (unsigned char)peerPort;
+	temp = uAddr;
+	peeraddr[7] = (unsigned char)temp; temp >>= 8;
+	peeraddr[6] = (unsigned char)temp; temp >>= 8;
+	peeraddr[5] = (unsigned char)temp; temp >>= 8;
+	peeraddr[4] = (unsigned char)temp;
+	peeraddr[2] = (unsigned char)(iConnPort >> 8);
+	peeraddr[3] = (unsigned char)iConnPort;
 	*(int *)((char *)ref + 0xD4) = 0;
-	return Rva00819590(ref, socket, peerAddress);
+	return Rva00819590(ref, socket, peeraddr);
 }
 
 extern "C" {
