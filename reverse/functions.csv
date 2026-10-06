@@ -65532,3 +65532,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva003FD27E@Rva003FD2C2@@QAE_NXZ,,0x003FD27E,68,Code/GameEngine/Source/Common/Rva003FD27E.cpp,matched,banked partial finished: exact under the address region default flags (reverse/retail_inventory/flag_regions.csv)
 ?rva005CD737@Rva005CD737@@QAEEPAX@Z,,0x005CD737,43,Code/GameEngine/Source/Common/Rva005CD737.cpp,matched,banked partial finished: exact under the address region default flags (reverse/retail_inventory/flag_regions.csv)
 ??1Rva005D3C2B@@UAE@XZ,,0x005D3C2B,123,Code/GameEngine/Source/Common/Rva005D3C2BDtor.cpp,matched,banked partial finished: exact under the address region default flags (reverse/retail_inventory/flag_regions.csv)
+?GadgetComboBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x00322E6D,1867,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBoxSystem.cpp,matched,
