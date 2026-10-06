@@ -28,11 +28,30 @@ public:
 	char rva002B6BCF(int a1, int a2, int a3, int *pa3);
 };
 
+class Rva003193EC
+{
+public:
+	bool rva003193EC(int v);
+};
+
 class Rva002B6C9F
 {
 public:
+	bool rva002B6C9F(int a1, int a2, int a3);
 	bool rva002B6CE5(int a1, int a2, int a3);
 };
+
+bool Rva002B6C9F::rva002B6C9F(int a1, int a2, int a3)
+{
+	if (!((Rva002B2C40 *)this)->rva002B2C40((Arg54 *)a1, (Arg54 *)a3))
+		return false;
+	else if (!((Rva002B6BCF *)this)->rva002B6BCF(a1, a2, a3, &a1))
+		return false;
+	else {
+		unsigned char r = ((Rva003193EC *)a3)->rva003193EC(a1);
+		return r;
+	}
+}
 
 bool Rva002B6C9F::rva002B6CE5(int a1, int a2, int a3)
 {
