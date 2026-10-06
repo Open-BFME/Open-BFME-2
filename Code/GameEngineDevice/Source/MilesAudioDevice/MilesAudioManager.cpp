@@ -245,6 +245,7 @@ public:
     void removeCurrentlyPlayingMusic(int viewType, int arg);
     void rva00057151(int viewType, int musicSystem, int resume);
     void moveDownMusicSystems(int viewType, MusicSystem newMusicSystem, int arg, int resume);
+    void rva0005774F(int viewType, int musicSystem, int arg);
     bool addAudioEventMusic(BfmePoolRef10 &event, int requestType, int append);
     Rva00051107AudioRequest *rva00051107(void);
     void onPlayingAudioDeleted(PlayingAudio &playingAudioBeingDeleted);
@@ -388,6 +389,13 @@ void MilesAudioManager::moveDownMusicSystems(int viewType, MusicSystem newMusicS
     }
     if (!m_musicStack[viewType][newMusicSystem].empty())
         rva00057151(viewType, newMusicSystem, resume);
+}
+
+void MilesAudioManager::rva0005774F(int viewType, int musicSystem, int arg)
+{
+    if (m_activeMusicSystem[viewType] == musicSystem)
+        removeCurrentlyPlayingMusic(viewType, arg);
+    m_musicStack[viewType][musicSystem].clear();
 }
 
 
