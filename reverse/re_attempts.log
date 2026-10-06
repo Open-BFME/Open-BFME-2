@@ -13360,3 +13360,15 @@ FUN_00764551	0x00364551	1120	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va00BBB8D8 plu
 ?newObject@ThingFactory@@QAEPAVObject@@PBVThingTemplate@@PAVTeam@@PBUCreateMask@@_N@Z	0x002D0A23	275	blocked	ADDRESS-NAMED plus unrowed 0x23CAE7 0x2934E7 t=2 model=muse-10
 ?rva006E6060@Rva006E6060@@QAEXXZ	0x006E6060	865	blocked	over 800B Apt EH init t=2 model=muse-10
 ??0VictoryConditions@@QAE@XZ	0x0004CDCD	91	blocked	unresolved callee 0x001FA69F itself blocked wall List-plus4C-needs-4B t=8 model=muse-10
+?rva0004C99B@Rva004C743@@UAEXXZ	0x0004C99B	102	blocked	unresolved callee 0x0023A1BB 2493B wall plus Matrix3D inverse t=2 model=muse-10
+?getAimPosition@WeaponTemplate@@QAEPAUCoord3D@@PAU2@PBVObject@@1H@Z	0x002CAB3A	308	blocked	unresolved callees 0x002CAAFA stashed 0.95 wall plus 0x002904DC 636B t=2 model=muse-10
+?setCameraTransform@W3DView@@AAEXXZ	0x0008BE6B	953	blocked	953B wall unresolved callees 0x0008A653 1148B plus 0x00089A21 t=2 model=muse-10
+?rva0039321C@Rva0039321C@@QAE_NPAXPAXPAXPAXH@Z	0x0039321C	1026	blocked	over 1000B wall per section 8 dead ends t=2 model=muse-10
+?bfmeAccept@BfmeSinkC@@QAEXPAVBfmeFlagTarget@@@Z	0x006C0F50	508	blocked	callee 0x006C1680 logged blocked gate cannot resolve t=3 model=muse-10
+?rva00393741@Rva00393741@@QAE_NPAXH@Z	0x00393741	206	blocked	callee 0x00391CE3 logged blocked gate cannot resolve t=2 model=muse-10
+?rva000DF11E@Rva000DF11E@@QAEXPAH0H@Z	0x000DF11E	1038	blocked	over 1000B wall per section 8 t=4 model=muse-10
+?rva00104359@Rva00104359@@QAEXXZ	0x00104359	710	blocked	710B float/SSE/x87 geometry no donor in budget t=8 model=muse-10
+?rva00148520@Rva00148520@@QAEXXZ	0x00148520	1379	blocked	ADDRESS-NAMED g_Va00DF3678 plus 1379B vslot t=3 model=muse-10
+?loadBridges@W3DBridgeBuffer@@QAEXPAVW3DTerrainLogic@@_N@Z	0x000DFB3C	371	blocked	needs callee 0xDF612 which needs 2774B wall t=5 model=muse-10
+?rva0058EB82@NetPacket@@QAE_NPAVNetCommandRef@@@Z	0x0058EB82	621	blocked	621B NetPacket EH needs exact donor t=15 model=muse-10
+??0W3DStreakDraw@@QAE@PAVThing@@PBVModuleData@@@Z	0x000D02A7	406	blocked	406B streakdraw ctor needs donor t=4 model=muse-10
