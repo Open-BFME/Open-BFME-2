@@ -372,6 +372,47 @@ def test_shifted_link_checks_every_relocation_moves():
     assert sh.code(0x1000, 6, masked, rels) == "no shifted link"
 
 
+def test_field_retail_relocates_must_carry_a_relocation():
+    """The boot overlay's field check found 25 closed-strict rows (e.g.
+    ?Rva0006182EGet: `mov eax,0x461834`, an immediate) holding a code address
+    retail relocates. Not a data VA, not a row start: the operand scan passed it,
+    and an unrelocated word does not move in the shifted link either."""
+    code = b"\xb8" + struct.pack("<I", B + 0x1834) + b"\xc3"              # mov eax,0x401834; ret
+    I, S = bytearray(0x4000), bytearray(0x4000)
+    _put(I, 0x1000, code)
+    _put(S, 0x1000, code)
+    sh = _shifted(I, S)
+    assert sh.code(0x1000, 6, set(), [], 0x1000) is None                 # what the old rule saw
+    sh.sites = [0x1001]                                                   # retail's table relocates it
+    assert sh.code(0x1000, 6, set(), [], 0x1000) == "retail relocates a hardcoded field"
+    assert lc.unrelocated_sites([0x1001], 0x1000, 6, [(1, lc.REL32, False)]) == [1]
+    _put(S, 0x1001, struct.pack("<I", lc.SHIFT_BASE + 0x1834))           # negative control: relocated
+    assert sh.code(0x1000, 6, {1, 2, 3, 4}, [(1, lc.DIR32, False)], 0x1000) is None
+    # a datum (a pointer table) whose second slot is a hard-coded address
+    node = {"rels": [(0, lc.DIR32, False)], "masked": {0, 1, 2, 3}}
+    sh.sites = [0x3100, 0x3104]
+    for buf, base in ((I, B), (S, lc.SHIFT_BASE)):
+        _put(buf, 0x3000, struct.pack("<II", base + 0x1000, B + 0x1000))
+    assert sh.data((0x3000, 0x3100, 8), node) == "retail relocates a hardcoded field"
+    node["rels"].append((4, lc.DIR32, False))
+    node["masked"] |= {4, 5, 6, 7}
+    _put(S, 0x3004, struct.pack("<I", lc.SHIFT_BASE + 0x1000))
+    assert sh.data((0x3000, 0x3100, 8), node) is None
+
+
+def test_retail_relocation_table_resumes_after_overwritten_blocks():
+    def block(page, offs):
+        ents = [0x3000 | o for o in offs] + ([0] if len(offs) % 2 else [])
+        return struct.pack("<II", page, 8 + 2 * len(ents)) + b"".join(struct.pack("<H", e) for e in ents)
+    head = block(0x1000, [0x10, 0x20]) + block(0x2000, [0x4])
+    tail = b"".join(block(0x9000 + 0x1000 * k, [0x8]) for k in range(17))
+    blob = head + b"\xff" * 40 + tail + b"\0" * 16                        # an overwrite between them
+    sites, lost = lc.reloc_table_sites(blob)
+    assert sites[:3] == [0x1010, 0x1020, 0x2004] and len(sites) == 3 + 17 and sites[3] == 0x9008
+    assert lost == (0x3000, 0x9000)
+    assert lc.reloc_table_sites(head)[1] is None                          # an intact table: nothing lost
+
+
 def test_shift_failure_invalidates_the_dependent_closure():
     """link-cycle-1 only flagged the row; its callers kept closed credit."""
     ok = {("unit", 1): True, ("unit", 2): True, ("unit", 3): True, ("datum", 9): False}

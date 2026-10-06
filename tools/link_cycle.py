@@ -728,6 +728,174 @@ def hardcoded_operands(code, va, masked, lo, hi, starts=frozenset()):
     return out
 
 
+# ---------------------------------------------------------------- retail's relocations
+# bfme2_game.dat keeps link.exe's base relocations in its blank-named section; the
+# unwrapper wrote the rebuilt import directory over part of it, losing .text pages
+# 0x6A6000..0x6E8FFF, which a linear sweep recovers (research and validation:
+# boot_image.py on fix/p4-boot-bfme2: recall 99.46% / 100%, 2 false of 20,825 on the
+# covered pages next to the hole). Every site retail relocates is an address: a row's
+# or datum's bytes that hold it with no relocation of their own hard-code it, whether
+# or not the value looks like a data address or a row start.
+RELOC_SECTION = b"        "
+FUNCLETS = REGIONS[1][0]
+
+
+def parse_reloc_blocks(blob, p=0):
+    """(HIGHLOW site RVAs, pages, offset after the last block) of a base relocation
+    table from offset p; stops at the first block that is not well formed."""
+    sites, pages = [], []
+    while p + 8 <= len(blob):
+        page, size = struct.unpack_from("<II", blob, p)
+        if size < 8 or size % 2 or page % 0x1000 or p + size > len(blob) or (pages and page <= pages[-1]):
+            break
+        for (e,) in struct.iter_unpack("<H", blob[p + 8:p + size]):
+            if e >> 12 == 3:
+                sites.append(page + (e & 0xFFF))
+            elif e >> 12:
+                raise ValueError(f"base relocation type {e >> 12} at page {page:#x}")
+        pages.append(page)
+        p += size
+    return sites, pages, p
+
+
+def reloc_table_sites(blob):
+    """(sorted site RVAs, (first lost page, end of the lost pages) or None): the
+    table, resumed after the overwritten blocks."""
+    sites, pages, stop = parse_reloc_blocks(blob)
+    for q in range(stop, len(blob) - 8, 2):
+        more, morepages, end = parse_reloc_blocks(blob, q)
+        if len(morepages) > 16 and pages and morepages[0] > pages[-1] and blob[end:].strip(b"\0") == b"":
+            return sorted(sites + more), (pages[-1] + 0x1000, morepages[0])
+    return sorted(sites), None
+
+
+def recover_reloc_sites(text, tstart, size_of_image, lo, hi, starts):
+    """Absolute-address dword sites in .text [lo, hi) by a linear sweep that
+    resynchronises at every known function start (boot_image.recover_sites): 4-byte
+    imm operands (not branches) and 4-byte displacements inside the image, and the
+    entries of `[reg*4 + table]` jump tables. An immediate into .text counts only
+    when it is a known start, a funclet, or neither three printable characters nor
+    a 2^n / 2^n-1 mask."""
+    import capstone as cs
+    tend = tstart + len(text)
+    img_lo, img_hi = BASE + 0x1000, BASE + size_of_image
+    startset = set(starts)
+
+    def code_imm(v):
+        t = v - BASE
+        if not tstart <= t < tend or t in startset or t >= FUNCLETS:
+            return True
+        text_like = all(0x20 <= c < 0x7F for c in v.to_bytes(4, "little")[:3])
+        return not (text_like or v & (v + 1) == 0 or v & (v - 1) == 0)
+    md = cs.Cs(cs.CS_ARCH_X86, cs.CS_MODE_32)
+    md.detail = True
+    sites, byte_tables, dw_tables, inline_data = set(), set(), {}, {}
+
+    def table(t, fs):
+        q = t
+        while q + 4 <= tend and (q == t or q not in startset):
+            v = struct.unpack_from("<I", text, q - tstart)[0] - BASE
+            if not (fs <= v < q):
+                break
+            sites.add(q)
+            q += 4
+        return q
+    k = max(bisect.bisect_right(starts, lo - 0x1000) - 1, 0)
+    a, fstart = starts[k], starts[k]
+    while a < min(hi, tend):
+        if a in startset:
+            fstart = a
+        if a in dw_tables:
+            q = table(a, fstart)
+            if q > a:
+                a = q
+                continue
+        j = bisect.bisect_right(starts, a)
+        nxt = starts[j] if j < len(starts) else tend
+        if a in byte_tables:
+            a = min([nxt] + [t for t in dw_tables if t > a])
+            continue
+        ins = next(md.disasm(text[a - tstart:min(tend, a + 16) - tstart], a, 1), None)
+        if ins is None or a + ins.size > nxt:
+            a = nxt
+            continue
+        branch = ins.group(cs.CS_GRP_JUMP) or ins.group(cs.CS_GRP_CALL)
+        for op in ins.operands:
+            if op.type == cs.x86.X86_OP_IMM and not branch and ins.imm_size == 4:
+                v = op.imm & 0xFFFFFFFF
+                if img_lo <= v < img_hi and code_imm(v):
+                    sites.add(a + ins.imm_offset)
+                    if tstart <= v - BASE < FUNCLETS and v - BASE not in startset:
+                        inline_data.setdefault(v - BASE, fstart)
+            elif op.type == cs.x86.X86_OP_MEM and ins.disp_size == 4:
+                d = op.mem.disp & 0xFFFFFFFF
+                if img_lo <= d < img_hi:
+                    sites.add(a + ins.disp_offset)
+                    t = d - BASE
+                    if not op.mem.index and tstart <= t < FUNCLETS and t not in startset:
+                        inline_data.setdefault(t, fstart)
+                    if a < t < tend and op.mem.index:
+                        if op.size == 4 and op.mem.scale == 4:
+                            dw_tables.setdefault(t, fstart)
+                        else:
+                            byte_tables.add(t)
+        a += ins.size
+    for t, fs in dw_tables.items():
+        table(t, fs)
+    for t, fs in inline_data.items():      # e.g. /RTC frame descriptors {count, vars*}, {offset, size, name*}
+        for q in range(t, min(t + 0x100, tend - 3), 4):
+            v = struct.unpack_from("<I", text, q - tstart)[0]
+            if fs <= v - BASE < t + 0x100:
+                sites.add(q)
+            elif not (v < 0x100 or v >= 0xFFFFFF00):
+                break
+    return sorted(x for x in sites if lo <= x < hi)
+
+
+_RETAIL_SITES = {}
+
+
+def retail_reloc_sites(path=None):
+    """(sorted RVAs retail relocates: its table plus the recovered lost pages, info)."""
+    import pefile
+    path = Path(path or build.EXE)
+    if path in _RETAIL_SITES:
+        return _RETAIL_SITES[path]
+    pe = pefile.PE(str(path), fast_load=True)
+    sec = next((s for s in pe.sections if s.Name == RELOC_SECTION), None)
+    if sec is None:
+        _RETAIL_SITES[path] = ([], {"table_sites": 0, "lost_pages": None, "recovered_sites": 0})
+        return _RETAIL_SITES[path]
+    sites, lost = reloc_table_sites(sec.get_data())
+    rec = []
+    if lost:
+        t = next(s for s in pe.sections if s.Name.rstrip(b"\0") == b".text")
+        text = t.get_data()[:t.Misc_VirtualSize]
+        starts = set()
+        for p, col in (("reverse/functions.csv", "target_rva"), ("reverse/ghidra_functions.csv", "rva")):
+            with (ROOT / p).open(newline="", encoding="utf-8") as f:
+                starts |= {int(r[col], 16) for r in csv.DictReader(f) if r.get(col)}
+        rec = recover_reloc_sites(text, t.VirtualAddress, pe.OPTIONAL_HEADER.SizeOfImage, lost[0], lost[1],
+                                  sorted(starts))
+    info = {"table_sites": len(sites), "lost_pages": [hex(x) for x in lost] if lost else None,
+            "recovered_sites": len(rec)}
+    _RETAIL_SITES[path] = (sorted(set(sites) | set(rec)), info)
+    return _RETAIL_SITES[path]
+
+
+def unrelocated_sites(sites, rva, size, rels):
+    """Offsets in [rva, rva+size) where retail relocates a dword and the linked
+    bytes carry no DIR32 relocation: a hard-coded address."""
+    have = {fo for fo, ty, absolute in rels if ty == DIR32 and not absolute}
+    out = []
+    i = bisect.bisect_left(sites, rva)
+    while i < len(sites) and sites[i] + 4 <= rva + size:
+        if sites[i] - rva not in have:
+            out.append(sites[i] - rva)
+        i += 1
+    return out
+
+
 # ---------------------------------------------------------------- measure
 class Measure:
     def __init__(self, units, chunks, mapped, I, R, isecs, rimports, limports, pins, objs, ledger_starts,
@@ -1690,11 +1858,12 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
     m = Measure(units, chunks, mapped, I, R, isecs, rimp, limp, pins, objs, ledger_starts)
     recs = m.run()
     textsz = rsecs[".text"][1]
-    sh = Shifted(out, I, isecs, rsecs, have_shift, shift_base, {BASE + r["row"]["rva"] for r in recs})
+    sites, sites_info = retail_reloc_sites()
+    sh = Shifted(out, I, isecs, rsecs, have_shift, shift_base, {BASE + r["row"]["rva"] for r in recs}, sites)
     hard = {}
     for rec in recs:
         if rec["measured"]:
-            why = sh.code(rec["linked"], rec["row"]["size"], rec["masked"], rec["rels"])
+            why = sh.code(rec["linked"], rec["row"]["size"], rec["masked"], rec["rels"], rec["row"]["rva"])
             if why:
                 hard[id(rec)] = why
     # The closure graph. Nodes: units, certified twins, datums (through data
@@ -1711,7 +1880,7 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
         n = ("twin", k[0], k[1])
         ok[n] = good and not sh.code(k[0], ledger_starts[k[1]], {j for fo, _, _ in m.twin_rels.get(k, ())
                                                                    for j in range(fo, fo + 4)},
-                                     m.twin_rels.get(k, ()))
+                                     m.twin_rels.get(k, ()), k[1])
         edges[n] |= m.twin_edges.get(k, set())
     for key, node in m.dnodes.items():
         n = ("datum", key)
@@ -1799,6 +1968,7 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
         kinds[(n[0], "closed" if n in closed else "open")] += 1
     res["closure_nodes"] = {f"{a}_{b}": c for (a, b), c in sorted(kinds.items())}
     res["shift"] = sh.summary()
+    res["retail_relocations"] = sites_info
     res["retail_text_bytes"] = textsz
     res["link_status_sha256"] = sha256(status)
     return res
@@ -1809,9 +1979,14 @@ class Shifted:
     identical, every non-relocation byte equal, and every relocated word must move
     by exactly the base delta (DIR32; REL32 and absolutes do not move). Checked
     for rows' code, twins, every datum of the closure and EH tables. Without a
-    shifted link every check fails: the base adjustment is unverified."""
+    shifted link every check fails: the base adjustment is unverified. Apart from
+    the shifted link, every dword retail's own base relocations name inside a row,
+    twin or datum must carry a DIR32 relocation in the linked bytes (`sites`:
+    retail_reloc_sites); one that does not is a hard-coded address."""
+    sites = ()
 
-    def __init__(self, out, I, isecs, rsecs, have_shift, shift_base, starts):
+    def __init__(self, out, I, isecs, rsecs, have_shift, shift_base, starts, sites=()):
+        self.sites = sites
         self.I, self.delta, self.base_s = I, (shift_base or 0) - BASE, shift_base
         self.lo, self.hi = BASE + rsecs[".rdata"][0], BASE + max(s + z for _, s, z in rsecs.all)
         self.starts = starts
@@ -1840,21 +2015,26 @@ class Shifted:
                 return "relocation not adjusted"
         return None
 
-    def code(self, at, size, masked, rels):
-        """None, or why code at `at` does not follow a rebase: a hard-coded retail
-        data VA or row start no relocation covers, or a shifted-link difference."""
+    def code(self, at, size, masked, rels, rva=None):
+        """None, or why code at `at` (retail's at `rva`) does not follow a rebase: a
+        hard-coded retail data VA or row start no relocation covers, a field retail
+        relocates that the linked code does not, or a shifted-link difference."""
         if hardcoded_operands(self.I[at:at + size], at + BASE, masked, self.lo, self.hi, self.starts):
             return self._note("code", "hardcoded address")
+        if rva is not None and unrelocated_sites(self.sites, rva, size, rels):
+            return self._note("code", "retail relocates a hardcoded field")
         if self.S is None:
             return self._note("code", self.why)
         return self._note("code", self.words(at, size, masked, rels))
 
     def data(self, key, node):
-        if self.S is None:
-            return self._note("datum", self.why)
-        start, _, size = key
+        start, rstart, size = key
         if size <= 0 or start < 0 or start + size > len(self.I):
             return None                                   # already failed as data-extent
+        if unrelocated_sites(self.sites, rstart, size, node.get("rels", ())):
+            return self._note("datum", "retail relocates a hardcoded field")
+        if self.S is None:
+            return self._note("datum", self.why)
         return self._note("datum", self.words(start, size, node.get("masked", set()), node.get("rels", ())))
 
     def eh(self, lt):
