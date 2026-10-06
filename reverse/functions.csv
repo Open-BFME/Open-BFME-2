@@ -65068,3 +65068,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ??0Rva00545D7E@@QAE@PAVStateMachine@@@Z,,0x00545D7E,44,Code/GameEngine/Source/Common/Rva00545D7ECtor.cpp,matched,State hash CDECC1F9 plus vtables
 ?rva0030682A@Rva0030682A@@QAEPAXPAX0@Z,,0x0030682A,230,Code/GameEngine/Source/GameLogic/Object/Rva0030682AGet.cpp,matched,callers 0x00362561 0x00362A3B ModuleInfo donor Debug pattern like Rva0033BA46
 ??1Rva0046468D@@QAE@XZ,,0x0046468D,5,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046468DDtor.cpp,matched,novtable empty dtor tail-jmp to rowed base
+??0?$DynamicVectorClass@PAVFontCharsBuffer@@@@QAE@IPBQAVFontCharsBuffer@@@Z,,0x00196770,94,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp,matched,drift exact-ambiguous anchor votes 7
