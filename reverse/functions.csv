@@ -64071,3 +64071,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva00318C8D@Rva00318C8DOwner@@QAEPAVRva0020E89C@@XZ,,0x00318C8D,23,Code/GameEngine/Source/Common/Rva00318C8DLookup.cpp,matched,forwards this+0x2c through g_009FEF10+0xB0 to rowed 0x0020EAF6
 ?isWithinAttackRange@Weapon@@QBE_NPBVObject@@0MH@Z,,0x002CB933,52,Code/GameEngine/Source/GameLogic/Object/WeaponIsWithinAttackRange.cpp,matched,pinned name donor BFME1 Weapon_isWithinAttackRange plus 0x38 positions
 ?rva005C8F50@Rva005C8F50Elem@@QAEXHH@Z,,0x005C8F50,74,Code/GameEngine/Source/Common/Rva005C8F50Method.cpp,matched,caller 005C835D vector erase plus TargetObj notify
+??1Rva0056B9A2@@UAE@XZ,,0x0056B9A2,80,Code/GameEngine/Source/Common/Rva0056B9A2Dtor.cpp,matched,dtor via AsciiString str to rva002C004F base Rva005C4B1B

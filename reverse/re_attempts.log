@@ -11011,3 +11011,4 @@ Unwind@00b96b6c	0x00796B6C	25	blocked	t=20min model=gpt-6-luna; verified Ghidra 
 Unwind@00b96a09	0x00796A09	25	void	t=10min model=gpt-6-luna; retracting the C++-only block after sibling 0x00796D77 byte-matched the same 25B state-bit cleanup through the permitted MASM SEH path; retrying with that verified recipe.
 Unwind@00b96b6c	0x00796B6C	25	void	t=10min model=gpt-6-luna; retracting the C++-only block after sibling 0x00796D77 byte-matched the same 25B state-bit cleanup through the permitted MASM SEH path; retrying with that verified recipe.
 ?rva004F922C@Rva004F922C@@QAEXH@Z	0x004F922C	183	blocked	STL map-vector EH heavy no class vtable donor t=5 model=muse-10
+?rva00480E9A@Rva00480E9A@@QAEXH@Z	0x00480E9A	328	blocked	gap slot32 328B multi-callee EH float STL needs full TU modeling t=6 model=muse-07
