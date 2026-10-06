@@ -21,7 +21,9 @@ class GameLogic
 {
 public:
 	Object *findObjectByID(ObjectID id);
-	char m_pad00[0x110];
+	char m_pad00[0x40];
+	UnsignedInt m_40;
+	char m_pad44[0xCC];
 	Int m_110;
 };
 extern GameLogic *TheGameLogic;
@@ -135,8 +137,9 @@ class Rva00222A8BTarget
 public:
 	void rva002233A6(Int a);
 };
-extern Rva00222A8BTarget *g_rva00513838Target;
-extern void *g_rva00513838Other;
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+struct GlobalA01E48;
+extern struct GlobalA01E48 *g_Va00A01E48;
 class Rva00513838
 {
 public:
@@ -144,9 +147,9 @@ public:
 };
 bool Rva00513838::rva00513838()
 {
-	if (TheGameLogic && g_rva00513838Other && TheGameLogic->m_110 != 7)
+	if (TheGameLogic && g_Va00A01E48 && TheGameLogic->m_110 != 7)
 	{
-		g_rva00513838Target->rva002233A6(1);
+		TheRva00222A8BTarget->rva002233A6(1);
 		return false;
 	}
 	return true;
@@ -156,8 +159,8 @@ bool Rva00513838::rva00513838()
 // 0x00E032E0 and 0x00E04908 are clear answers 1, running the rowed
 // 0x0051AF0B with 0 when bit 0 of the third argument is set; else 0.
 void Rva0051AF0BEnable(Int a);
-extern Int g_rva0051B125A;
-extern Int g_rva0051B125B;
+extern Int g_Va00E032E0;
+extern Int g_Va00A04908;
 class Rva0051B125
 {
 public:
@@ -170,7 +173,7 @@ Int Rva0051B125::rva0051B125(Int msg, unsigned char b, Int c)
 		switch (b)
 		{
 		case 1:
-			if (g_rva0051B125A == 0 && g_rva0051B125B == 0)
+			if (g_Va00E032E0 == 0 && g_Va00A04908 == 0)
 			{
 				if (c & 1)
 					Rva0051AF0BEnable(0);
@@ -511,13 +514,7 @@ void Rva004EE113::rva004EE113(Int, Int a, Int b)
 
 // 0x00573E2B: state 3 clears +0x54 and sets +0x58 to the current frame plus
 // 30 per unit of the Int at VA 0x00DBA4E4; the state is stored at +0x10.
-extern Int g_rva00573E2BSeconds;
-struct Rva00573E2BLogic
-{
-	char m_pad00[0x40];
-	UnsignedInt m_frame;
-};
-extern Rva00573E2BLogic *g_rva00573E2BLogic;
+extern Int g_Va00DBA4E4;
 class Rva00573E2B
 {
 public:
@@ -535,7 +532,7 @@ void Rva00573E2B::rva00573E2B(Int state)
 	if (state == 3)
 	{
 		m_54 = false;
-		m_58 = (Int)((float)g_rva00573E2BLogic->m_frame + (float)g_rva00573E2BSeconds * 30.0f);
+		m_58 = (Int)((float)TheGameLogic->m_40 + (float)g_Va00DBA4E4 * 30.0f);
 	}
 	m_10 = state;
 }
@@ -553,6 +550,6 @@ private:
 void Rva00516EA7::rva00516EA7()
 {
 	m_27C = true;
-	if (g_rva00513838Target)
-		g_rva00513838Target->rva002233A6(1);
+	if (TheRva00222A8BTarget)
+		TheRva00222A8BTarget->rva002233A6(1);
 }
