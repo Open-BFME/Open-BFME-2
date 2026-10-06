@@ -20,4 +20,7 @@ namespace _STL {
 template<> void _Construct<Rva0054000B, Rva0054000B>(Rva0054000B *, const Rva0054000B &);
 }
 
-template _STL::vector<Rva0054000B, _STL::allocator<Rva0054000B> >::vector(unsigned int, const Rva0054000B &, const _STL::allocator<Rva0054000B> &);
+// Emit the rowed fill_n directly instead of via the vector fill ctor: the
+// vector instantiation also emits allocator::allocate, whose /O1 lea+shl copy
+// loses to the /G7 imul copy kept by stlport_overflow_rva0054000b.cpp.
+template Rva0054000B *_STL::__uninitialized_fill_n<Rva0054000B *, unsigned int, Rva0054000B>(Rva0054000B *, unsigned int, const Rva0054000B &, const _STL::__false_type &);
