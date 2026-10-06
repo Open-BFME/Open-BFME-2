@@ -64151,3 +64151,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??0Rva001F4D06@@QAE@PAX0@Z,,0x001F4D06,28,Code/GameEngine/Source/Common/Rva001F4D06Ctor.cpp,matched,
 ??1Rva000E6387@@UAE@XZ,,0x000E6387,57,Code/GameEngine/Source/Common/Rva000E6387VegetationBinderDtor.cpp,matched,Vegetation FX binder dtor erases its registration via rowed 0x1532E1 like the Terrain binder
 ?rva004EDD4D@Rva00506909Item@@QAEXPAURva005059A1Unit@@@Z,,0x004EDD4D,93,Code/GameEngine/Source/Common/Rva004EDDD3.cpp,matched,leaf vec base edi end ebx caller 0x00505AE6 find rowed erase rowed
+??1Rva001095B2@@UAE@XZ,,0x001095B2,94,Code/GameEngine/Source/Common/Rva001095B2Dtor.cpp,matched,derived dtor deletes owned objects at +0x58/+0x5C then restores base vtable 0x7CEFA0
