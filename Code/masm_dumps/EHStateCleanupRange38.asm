@@ -2068,5 +2068,21 @@ cleanup_done_007961b5:
     ret
 ?rva007961b5@@YAXXZ ENDP
 
+
+; Unwind@00b963cf at RVA 0x007963CF; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-28] then loads ECX from [ebp+8] only when set.
+; Tail-jumps to the matched UnicodeString destructor at 0x005B804E; parent identity/layout remain unproven.
+PUBLIC ?rva007963cf@@YAXXZ
+?rva007963cf@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-28]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007963cf
+    and DWORD PTR [ebp-28], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1UnicodeString@@QAE@XZ
+cleanup_done_007963cf:
+    ret
+?rva007963cf@@YAXXZ ENDP
+
 _TEXT ENDS
 END
