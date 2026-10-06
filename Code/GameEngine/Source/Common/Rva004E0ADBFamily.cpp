@@ -21,7 +21,6 @@ class Rva004E0705
 public:
 	bool rva004E08A9(bool check);
 };
-
 class Rva004E0A96
 {
 public:
@@ -73,6 +72,11 @@ public:
 
 extern Rva004E0918 g_00E04424;
 
+struct Holder0052B003
+{
+	void rva0052B003(int value);
+};
+
 class Rva004E0B60
 {
 public:
@@ -81,13 +85,15 @@ public:
 	void rva004E0C49();
 	bool rva004E0CCB();
 	void rva004E0D19(int arg);
+	void rva004E0CB6();
 
 private:
 	char m_pad[8];
 	Rva004E0918 m_08;
 	char m_pad09[0x20 - 0x09];
 	int m_20;
-	char m_pad24[0x30 - 0x24];
+	char m_pad24[0x2C - 0x24];
+	Holder0052B003 *m_2C;
 	Rva004E0C49Elem **m_30;
 	Rva004E0C49Elem **m_34;
 };
@@ -148,4 +154,14 @@ void Rva004E0B60::rva004E0D19(int arg)
 {
 	Rva004EFour f = { 0x9CB265, 0, 0, 0 };
 	rva004E0B9B(f, (int)this, arg);
+}
+
+// ?rva004E0CB6@Rva004E0B60@@QAEXXZ @ 0x004E0CB6 (21B).
+// Calls Holder0052B003::rva0052B003(0) at 0x0052B003 through m_2C, then
+// tail-jmps to rowed rva004E0C49. Caller 0x004FC437. Class proven by the
+// tail edge and prev/next in this TU.
+void Rva004E0B60::rva004E0CB6()
+{
+	m_2C->rva0052B003(0);
+	rva004E0C49();
 }
