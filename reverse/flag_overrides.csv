@@ -66,7 +66,6 @@ Code/GameEngine/Source/Common/BfmeConv1440.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1441.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1443.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1444.cpp,-Od,1,1,region default loses rows
-Code/GameEngine/Source/Common/BfmeConv1445.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1453.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1454.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1456.cpp,-Od,1,1,region default loses rows
@@ -500,6 +499,7 @@ Code/Libraries/Source/Apt/AptMathCallbacksBFME2.cpp,-O2,17,3,region default lose
 Code/Libraries/Source/Apt/AptMathClipStack.cpp,-O2,6,1,region default loses rows
 Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,-O2,10,1,region default loses rows
 Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp,-O2,12,8,region default loses rows
+Code/Libraries/Source/Apt/AptObject/AptCIHProceduralAllocation.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp,-O2,13,3,region default loses rows
 Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies.cpp,-O2,6,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp,-O2,1,1,region default loses rows
@@ -636,6 +636,7 @@ Code/Libraries/Source/WWVegas/WWLib/STLSlGlobalBoolReverse.cpp,-Od,1,1,region de
 Code/Libraries/Source/WWVegas/WWLib/STLSlGlobalBoolSpliceAfter3.cpp,-Od,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/StlportDequeIntAux.cpp,,2,2,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/StlportNarrowAppendCStr.cpp,-Od,1,1,region default loses rows
+Code/Libraries/Source/WWVegas/WWLib/StlportNarrowAppendString.cpp,-Od,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/bufffile.cpp,-arch:SSE -G7,9,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp,-arch:SSE -G7,33,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/ini.cpp,-arch:SSE -G7,109,4,region default loses rows
@@ -720,6 +721,6 @@ Code/Libraries/Source/WWVegas/WWMath/vp.cpp,-arch:SSE -G7,26,21,region default l
 Code/Libraries/Source/WWVegas/wwshade/ShdDefFactoryClassDelete.cpp,,1,1,region default loses rows
 Code/Libraries/Source/assetmanager/Rva0061FFD0Cluster.cpp,,1,1,region default loses rows
 Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,,17,6,region default loses rows
-Code/Libraries/Source/profile/ProfileIdFrames.cpp,,14,2,region default loses rows
-Code/Libraries/Source/profile/ProfileReAllocMemory.cpp,,1,1,region default loses rows
+Code/Libraries/Source/profile/profile.cpp,,12,1,region default loses rows
+Code/Libraries/Source/profile/profile_highlevel.cpp,,17,2,region default loses rows
 Code/stlport/BasicStringNarrowSizeCtor.cpp,-Od,1,1,region default loses rows

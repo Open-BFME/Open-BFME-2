@@ -427,6 +427,17 @@ def cmd_propose(args):
     write_overrides(entries)
 
 
+def cmd_prune(_args):
+    """Drop overrides whose source is gone or no longer sits in a region."""
+    entries = dict(overrides())
+    gone = [s for s in entries if not (ROOT / s).exists() or source_region(s) is None]
+    for source in gone:
+        del entries[source]
+        print(f"  dropped {source}")
+    write_overrides(entries)
+    print(f"pruned {len(gone)} stale override(s); {len(entries)} remain")
+
+
 def cmd_check(_args):
     """Every override's `// cl:` codegen flags still equal the recorded ones."""
     bad = 0
@@ -492,12 +503,13 @@ def main(argv=None):
     p = sub.add_parser("propose", help="decide the override for named sources")
     p.add_argument("sources", nargs="+")
     sub.add_parser("check", help="override flags still equal their `// cl:` lines")
+    sub.add_parser("prune", help="drop overrides for sources that are gone")
     p = sub.add_parser("strip", help="drop redundant codegen tokens from `// cl:` lines")
     p.add_argument("--dir", default="Code/")
     p.add_argument("--scan", help="only sources this default-mode scan proved green")
     args = parser.parse_args(argv)
     handler = {"generate": cmd_generate, "overrides": cmd_overrides,
-               "propose": cmd_propose, "check": cmd_check, "strip": cmd_strip}[args.command]
+               "propose": cmd_propose, "check": cmd_check, "prune": cmd_prune, "strip": cmd_strip}[args.command]
     return handler(args) or 0
 
 
