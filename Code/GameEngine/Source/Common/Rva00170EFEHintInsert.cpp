@@ -50,6 +50,12 @@ public:
 typedef Rva00170DB7Out (Rva00170BFF::*Rva00170EFEFindFn)(
 	const Rva00170999 &);
 
+// Bind the hidden-return spelling to the address already rowed under the
+// explicit-out void spelling. Both are ret 0x14 with the same five pushes
+// (hidden/out first); only the name differs, so the alias keeps retail bytes
+// while letting this file link to the rowed worker.
+#pragma comment(linker, "/alternatename:?rva00170BFF@Rva00170BFF@@QAE?AURva00170EFEIter@@PAURva00170EFENode@@0ABVRva00170999@@0@Z=?rva00170BFF@Rva00170BFF@@QAEXPAPAXPAURva00170BFFNode@@1ABVRva00170999@@1@Z")
+
 Rva00170EFEIter Rva00170BFF::rva00170EFE(Rva00170EFEIter position,
 	const Rva00170999 &value)
 {
