@@ -65037,3 +65037,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ??0MyRecord@@QAE@XZ,,0x0033B0EF,52,Code/GameEngine/Source/Common/MyRecordCtor.cpp,matched,record ctor via BitFlags plus helper
 ?rva004BD9F2@Rva004BD9F2@@QAEMXZ,,0x004BD9F2,19,Code/GameEngine/Source/GameLogic/Object/Body/Rva004BD9F2.cpp,matched,honest address name movsx fild float from signed byte
 ?Rva004BD7AEGet@@YGMPAU_Rva004BD7AE@@@Z,,0x004BD7AE,38,Code/GameEngine/Source/GameLogic/Object/Body/Rva004BD7AE.cpp,matched,honest address name stdcall float gated by int
+?Rva004BDFCBTest@@YAEPBVObject@@0@Z,,0x004BDFCB,139,Code/GameEngine/Source/Common/Rva004BDFCB.cpp,matched,honest address name two-object range and player check
