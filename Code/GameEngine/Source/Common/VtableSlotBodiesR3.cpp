@@ -587,6 +587,17 @@ void Rva001F01E8::rva0025EF01(int, int, int, int, int, int, int)
 {
 }
 
+// The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
+class Object;
+class Rva000421C8
+{
+public:
+	virtual ~Rva000421C8();
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *m_next;
+};
+
 // 0x00260E1E: one shifted left by the +0x54 word of the object at +8.
 struct Rva00260E1ETarget
 {
@@ -594,16 +605,15 @@ struct Rva00260E1ETarget
 	int m_shift54;
 };
 
-class Rva00260E1E
+class Rva00260E2AFilter : public Rva000421C8
 {
 public:
-	int rva00260E1E();
+	virtual int getPlayerMask();
 private:
-	char m_pad00[8];
 	Rva00260E1ETarget *m_target08;
 };
 
-int Rva00260E1E::rva00260E1E()
+int Rva00260E2AFilter::getPlayerMask()
 {
 	return 1 << m_target08->m_shift54;
 }
@@ -615,15 +625,15 @@ struct Rva0026118BTarget
 	int m_value258;
 };
 
-class Rva0026118B
+class Rva0026118BFilter : public Rva000421C8
 {
 public:
-	bool rva0026118B(Rva0026118BTarget *target);
+	virtual bool allow(Object *target);
 };
 
-bool Rva0026118B::rva0026118B(Rva0026118BTarget *target)
+bool Rva0026118BFilter::allow(Object *target)
 {
-	return target->m_value258 != 0;
+	return ((Rva0026118BTarget *)target)->m_value258 != 0;
 }
 
 // 0x00285703: the 16-bit constant 1.

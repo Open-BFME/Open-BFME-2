@@ -145,28 +145,37 @@ public:
 };
 void Rva0025EEF5::rva0025EEF5(Int value, Int, Int, Int, Int, Int) { slot21(value); }
 
-// vtable 0x00C1FDE0#2: the field at +8, complemented unless the byte at +0xC.
-class Rva002613A3
+// The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
+class Object;
+class Rva000421C8
 {
 public:
-	Int rva002613A3();
+	virtual ~Rva000421C8();
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *m_next;
+};
+
+// vtable 0x00C1FDE0#2: the field at +8, complemented unless the byte at +0xC.
+class Rva002613AFFilter : public Rva000421C8
+{
+public:
+	virtual Int getPlayerMask();
 private:
-	char m_pad00[0x08];
 	Int m_08;
 	Bool m_0C;
 };
-Int Rva002613A3::rva002613A3() { return m_0C ? m_08 : ~m_08; }
+Int Rva002613AFFilter::getPlayerMask() { return m_0C ? m_08 : ~m_08; }
 
 // vtable 0x00C07190#1: does the stack argument differ from +8.
-class Rva002614DF
+class Rva002614DFFilter : public Rva000421C8
 {
 public:
-	Bool rva002614DF(Int value);
+	virtual Bool allow(Object *value);
 private:
-	char m_pad00[0x08];
-	Int m_08;
+	Object *m_08;
 };
-Bool Rva002614DF::rva002614DF(Int value) { return value != m_08 ? true : false; }
+Bool Rva002614DFFilter::allow(Object *value) { return value != m_08 ? true : false; }
 
 // vtable 0x00BC7568#85: store the float argument at +0x50.
 class Rva0008BB5C

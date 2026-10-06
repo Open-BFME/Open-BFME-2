@@ -1,6 +1,6 @@
 // cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
-// ?bfmeGoFBC@BfmeThingFBC@@QAE_NPAX@Z
+// ?allow@Rva002614BCFilter@@UAE_NPAVObject@@@Z (BFME1 donor ?bfmeGoFBC@BfmeThingFBC)
 // retail 0x002614BC, 35 bytes. Dedicated TU ported from the Open-BFME-1
 // donor game/GameEngine/Source/Common/BfmeConv891.cpp. Recompiled /Os the
 // donor body is byte-identical to retail once relocations are masked (unique
@@ -21,10 +21,23 @@ public:
 	char bfmeCallFBC(void *x, void *a, int z, void *y);
 };
 
-struct BfmeThingFBC
+// The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
+class Object;
+class Rva000421C8
 {
-	bool bfmeGoFBC(void *a);
-	unsigned char m_bfmeHead[8];
+public:
+	virtual ~Rva000421C8();
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *m_next;
+};
+
+// Partition filter vftable 0x00C1FE34 slot 1, built inline by script action
+// 0x003BDE5D (Zero Hour's PartitionFilterValidCommandButtonTarget there).
+class Rva002614BCFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *a);
 	void *m_bfme8;
 	BfmeObjFBC *m_bfmeObj;
 	char m_bfme10;
@@ -32,7 +45,7 @@ struct BfmeThingFBC
 	void *m_bfme14;
 };
 
-bool BfmeThingFBC::bfmeGoFBC(void *a)
+bool Rva002614BCFilter::allow(Object *a)
 {
 	return m_bfmeObj->bfmeCallFBC(m_bfme8, a, 0, m_bfme14) == m_bfme10;
 }

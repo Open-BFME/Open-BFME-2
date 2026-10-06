@@ -195,6 +195,17 @@ Int Rva002C0E1B::rva002C0E1B(Int value)
 	return 0;
 }
 
+// The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
+class Object;
+class Rva000421C8
+{
+public:
+	virtual ~Rva000421C8();
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *m_next;
+};
+
 // vtable 0x00BFAD28#2: the bit (+8)->+0x54 as a mask, complemented unless the
 // byte at +0xC is set.
 struct Rva00261368Source
@@ -202,16 +213,15 @@ struct Rva00261368Source
 	char m_pad00[0x54];
 	Int m_54;
 };
-class Rva00261368
+class Rva0026137EFilter : public Rva000421C8
 {
 public:
-	Int rva00261368();
+	virtual Int getPlayerMask();
 private:
-	char m_pad00[0x08];
 	Rva00261368Source *m_08;
 	Bool m_0C;
 };
-Int Rva00261368::rva00261368()
+Int Rva0026137EFilter::getPlayerMask()
 {
 	Int mask = 1 << m_08->m_54;
 	return m_0C ? mask : ~mask;
