@@ -13433,3 +13433,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002872BA@Rva002872BA@@QAEXPAXHH@Z,0x002872BA,thiscall (ptr,int,int) on the manager global; area-writer callee of dump-range-18 0x003C3A3F
 ?rva003BD4C3@@YAXPAX00@Z,0x003BD4C3,cdecl-3 call-site spelling of the banked-blocked heap insert; only spells the 0x003C4B2D else-arm call
 ?rva00372C22@AIGroup@@QAEXPAUCoord3D@@HHH@Z,0x00372C22,AIGroup member taking (coord, int, int, int) with thiscall this; REL32 callee of dump-range-18 0x003BEA10 alongside rowed 0x00372571; identity unproven
+?rva0039E9A1@Team@@QAEXPAUCoord3D@@@Z,0x0039E9A1,Team member taking a Coord3D out-pointer; REL32 callee of dump-range-18 0x003BEBD6 alongside rowed 0x0039DC9E; identity unproven
