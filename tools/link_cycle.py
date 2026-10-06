@@ -1403,7 +1403,8 @@ def receipt_core(receipt):
     left out; the core's sha256 is the receipt's identity."""
     keep = ("rules", "commit", "submodules", "snapshot", "dirty", "diff_sha256", "tool_digest",
             "retail_sha256", "toolchain_sha256", "inputs", "objects_digest", "provenance_sha256", "objects",
-            "objects_missing", "currency_proofs", "quarantine_sha256", "stubs_sha256", "not_ordered", "not_ordered_bytes", "analyze",
+            "objects_missing", "compile_failed", "currency_proofs", "quarantine_sha256", "stubs_sha256",
+            "not_ordered", "not_ordered_bytes", "analyze",
             "scaffold", "final_link", "series")
     return {k: receipt[k] for k in keep if k in receipt}
 
@@ -1457,14 +1458,29 @@ def cycle(args):
     census.refuse_unsupported_ledgers()
     start = input_state()                      # bound at START, re-proved before recording
     rows = census.ledger()
+    compile_failed = []
     if args.build:
         t = time.time()
         os.environ.setdefault("BUILD_POOL", str(max(1, (os.cpu_count() or 2) - 2)))
         build.ensure_case_shims()
-        build.compile_rows(rows, census.compile_sources(rows), strict=True)
+        sources = census.compile_sources(rows)
+        try:
+            build.compile_rows(rows, sources, strict=True)
+        except SystemExit as e:
+            # every other TU still compiled (the pool drains); a failed TU's object, old or
+            # absent, is left out of the link and named in the receipt
+            compile_failed = sorted(Path(s).relative_to(ROOT).as_posix() for s in sources
+                                    if Path(s).suffix.lower() != build.LIB_SUFFIX
+                                    and not build.compile_is_current(Path(s), build.obj_path(Path(s))))
+            print(f"link_cycle: {len(compile_failed)} TU(s) failed to compile ({e}): {compile_failed[:5]}",
+                  flush=True)
         times["compile"] = round(time.time() - t)
     t = time.time()
     present, missing = census.objects(rows)
+    failed_objs = {build.obj_path(ROOT / s) for s in compile_failed}
+    if failed_objs:
+        missing = list(missing) + [p for p in present if p in failed_objs]
+        present = [p for p in present if p not in failed_objs]
     objs = Objects(present)
     units, astat = analyze(rows, objs)
     obj_digest = objects_digest(objs, present)
@@ -1558,7 +1574,8 @@ def cycle(args):
     receipt = dict(start, tool="link_cycle", rules="link-cycle-2",
                    date_utc=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
                    objects_digest=obj_digest, provenance_sha256=prov_digest, objects=len(present),
-                   objects_missing=len(missing), currency_proofs=proofs, warm_start=warm,
+                   objects_missing=len(missing), compile_failed=compile_failed, currency_proofs=proofs,
+                   warm_start=warm,
                    quarantine_sha256=digest_of(sorted(quarantine)), stubs_sha256=digest_of(sorted(stubs)),
                    links=history, iterations=iters, quarantined_units=len(quarantine),
                    not_ordered=dict(sorted(reasons.items())), not_ordered_bytes=dict(sorted(rbytes.items())),
@@ -1576,7 +1593,7 @@ def cycle(args):
     moved = sorted(k for k in start if start[k] != end.get(k))
     if objects_digest(Objects(present), present) != obj_digest:
         moved.append("objects_digest")
-    receipt["authoritative"] = bool(start.get("snapshot")) and not moved and not warm["stale"]
+    receipt["authoritative"] = bool(start.get("snapshot")) and not moved and not warm["stale"] and not compile_failed
     times["total"] = round(time.time() - t_all)
     receipt["seconds"] = times
     receipt["core_sha256"] = digest_of(receipt_core(receipt))
