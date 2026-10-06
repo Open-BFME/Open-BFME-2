@@ -1,0 +1,9 @@
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+// cl: /O1 /Ob0 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
+#include <hash_map>
+
+struct Rva0050078DElement { Rva0050078DElement();Rva0050078DElement(const Rva0050078DElement&);~Rva0050078DElement();Rva0050078DElement&operator=(const Rva0050078DElement&);char bytes[1]; bool operator<(const Rva0050078DElement&)const; bool operator==(const Rva0050078DElement&)const; };
+namespace _STL {template<> struct hash<Rva0050078DElement> { unsigned operator()(const Rva0050078DElement&) const; };}
+template class _STL::hash_map<int,Rva0050078DElement>;
