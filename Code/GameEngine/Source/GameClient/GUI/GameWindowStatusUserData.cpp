@@ -14,7 +14,12 @@ typedef unsigned int UnsignedInt;
 typedef int Int;
 typedef int Color;
 class GameFont;
-class WinInstanceData;
+
+class WinInstanceData
+{
+public:
+	Int getTextLength(void);
+};
 
 class GameWindow
 {
@@ -38,6 +43,7 @@ public:
 	Int winNextTab(void);
 	Int winPrevTab(void);
 	GameWindow *winGetOwner(void);
+	Int winGetTextLength(void);
 
 private:
 	char m_pad00[0x08];
@@ -123,3 +129,12 @@ GameWindow *GameWindow::winGetPrev(void) { return m_prev; }
 // return 0.
 Int GameWindow::winNextTab(void) { return 0; }
 Int GameWindow::winPrevTab(void) { return 0; }
+
+// winGetTextLength (0x00313D64, 8 bytes): Zero Hour's forward to the
+// instance data's text length, `add ecx, 0x30` then a jump to the rowed
+// WinInstanceData::getTextLength (0x000A3DCC). GadgetListboxCreateScrollbar
+// calls it for the listbox title test.
+Int GameWindow::winGetTextLength(void)
+{
+	return reinterpret_cast<WinInstanceData *>(m_instData30)->getTextLength();
+}
