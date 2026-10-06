@@ -59,6 +59,8 @@ public:
 	int m_sequence;
 	int m_field14;
 	char m_tail18[ 8 ];
+
+	virtual ~Rva00808CB0LanGameEntry();
 };
 
 class Rva00808920LanGame : public Gen007F0130

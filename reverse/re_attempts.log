@@ -14674,3 +14674,4 @@ Rva0076D3D2	0x0076D3D2	25	blocked	boundary: 25-byte Ghidra Unwind body ends at r
 ??0Rva004D7C0D@@QAE@XZ	0x004D7C0D	29	blocked	same unresolved State-derived class layout and hash argument semantics as 0x004D7B98 t=2 model=gpt-6.1-sol
 ??0Rva005E8DCF@@QAE@PAXPAURva005E8DCFIn@@@Z	0x005E8DCF	149	blocked	ctor EH scope plus holder 0x005E1680 HHH vs String mismatch plus vtable layout t=18 model=muse-spark
 ??1Rva00574499@@QAE@XZ	0x005744DD	251	blocked	EH-state off-by-one plus esi-edi swap plus TheGameText load unresolved plus lea-vs-mov-add shape 237-vs-251B t=10 model=muse-09
+?rva002A8AB1@Rva002A8F24@@QAEPAURva002A8AB1Record@@PAX@Z	0x002A8AB1	51	blocked	loop rotated entry-jmp vs top-test cmp-je same 51B 19insns; goto and for-break both rotate under /O1 region t=20 model=muse-18 (stash 0.93 kept)
