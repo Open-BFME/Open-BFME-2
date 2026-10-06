@@ -13,6 +13,7 @@ class Rva002A9BF2
 {
 public:
 	void *rva002A9BF2();
+	bool fromGate(Rva002A9BF2 *key);
 };
 
 struct AIDiffEntry
@@ -58,6 +59,24 @@ extern float g_Va00BBB8D8;
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
 bool __stdcall Rva0058AF47Check(Rva002A9BF2 *p)
+{
+	int diff = (int)p->rva002A9BF2();
+	AIDiffEntry e = g_00DFEEF8->m_table[diff];
+	float num = (float)e.m_num;
+	float den = (float)e.m_den;
+	float ratio = num / den;
+	if (ratio < 1.0f)
+	{
+		int r = GetGameLogicRandomValue(0, e.m_den - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIDifficulty.cpp", 0x40);
+		return r < e.m_num;
+	}
+	return true;
+}
+
+// Same 108 bytes as the stdcall above. The caller at 0x004B332D is thiscall-shaped:
+// push the player, call the getter, mov ecx, eax, call. This name is the
+// identical-code fold of that call site.
+bool Rva002A9BF2::fromGate(Rva002A9BF2 *p)
 {
 	int diff = (int)p->rva002A9BF2();
 	AIDiffEntry e = g_00DFEEF8->m_table[diff];
