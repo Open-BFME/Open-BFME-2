@@ -13157,3 +13157,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?Use@Rva005B5C02Entry@@QAEXPAX@Z,0x00409359,wrapper-call spelling for the 0x5B5C02 entry use (thiscall 1 arg callee cleanup); target REL32 from retail call at 0x005B5C5A
 ?List@Rva005B5C02Mgr@@QAEPAURva005B5C02List@@XZ,0x0021F797,wrapper-call spelling for the 0x5B5C02 manager list fetch (thiscall 0 args); target REL32 from retail call at 0x005B5C48
 ?Add@Rva005B5C02List@@QAEXPAURva005B5C02Entry@@@Z,0x0040A384,wrapper-call spelling for the 0x5B5C02 list add (thiscall 1 arg callee cleanup); target REL32 from retail call at 0x005B5C62
+?M3@Rva005B5C70Sub@@QAEXPAURva005B5C70Entry@@HH@Z,0x005B21DA,wrapper-call spelling for the 0x5B5C70 +0x27C sub-object triple consumer (thiscall 3 args callee cleanup); target REL32 from retail call at 0x005B5CB0
