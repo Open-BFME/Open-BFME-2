@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD
 //
 // ?rva00142C80@Rva00142C80@@QAEPAXXZ, RVA 0x00142C80, 14B.
 // Indexed lea from array at +0xB8 by index at +0x138.
@@ -19,6 +19,8 @@
 // ?rva00308139@Rva00308139@@QAEXABVAsciiString@@@Z, retail 0x00308139, 29B.
 // AsciiString assign to member+0x80 via pinned operator= then flag+0x88=1.
 // Caller 0x392A9. Same flags.
+
+#include "ascii_string.h"	// shared AsciiString: operator= expands to StringBase<char>::set (0x000366F0), as retail
 
 struct Rva003080AARef
 {
@@ -69,14 +71,6 @@ Rva003080AARef *Rva003080AA::rva003080AA(int i)
 	return m_itemsB8[i];
 }
 
-class AsciiString
-{
-public:
-	AsciiString &operator=(const AsciiString &other);
-private:
-	char m_pad[8];
-};
-
 class Rva00308139
 {
 public:
@@ -84,6 +78,7 @@ public:
 private:
 	char m_pad00[0x80];
 	AsciiString m_str80;
+	char m_pad84[4];
 	bool m_flag88;
 };
 
@@ -105,7 +100,7 @@ public:
 private:
 	char m_pad00[0x8c];
 	AsciiString m_str8C;
-	char m_pad94[0x9c - 0x94];
+	char m_pad90[0x9c - 0x90];
 	bool m_flag9C;
 };
 

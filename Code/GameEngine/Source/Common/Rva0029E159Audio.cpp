@@ -21,6 +21,7 @@ template <typename T> class StringBase
 	StringBase(const StringBase<T> &that);
 	void releaseBuffer();
 public:
+	void set(const StringBase<T> &that);	// rowed 0x000366F0
 	StringBase() : m_data(0) {}
 	~StringBase() { releaseBuffer(); }
 	bool isEmpty() const;
@@ -34,7 +35,9 @@ public:
 	AsciiString() {}
 	AsciiString(const AsciiString &that) : StringBase<char>(that) {}
 	~AsciiString() {}
-	AsciiString &operator=(const AsciiString &other);
+	// Inline, as retail expands it: StringBase<char>::set (0x000366F0) is called directly, not the
+	// out-of-line copy at 0x00001733 the ledger rows ??4AsciiString on (link census, 2026-10-06).
+	AsciiString &operator=(const AsciiString &other) { set(other); return *this; }
 };
 
 class AudioEventRTS

@@ -24,7 +24,8 @@ private:
 
 Rva00381E56 &Rva00381E56::operator=(const Rva00381E56 &other)
 {
-	m00 = other.m00;
+	// AsciiString::operator= as retail expands it (this unit is /Ob0): StringBase<char>::set 0x000366F0
+	((StringBase<char> *)&m00)->set(*(const StringBase<char> *)&other.m00);
 	m04.set(other.m04);
 	m08 = other.m08;
 	m0C = other.m0C;
