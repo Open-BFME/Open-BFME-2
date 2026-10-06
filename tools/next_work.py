@@ -995,7 +995,7 @@ def similar_candidates(claimed, claimed_ranges):
 
 
 def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
-                   packets=(), similar=(), repair=(), link=()):
+                   packets=(), similar=(), repair=(), link=(), repair_turn=True):
     queues = {
         "repair": ("gate-debt repair", repair),
         "link": ("link-cycle repair", link),
@@ -1009,7 +1009,16 @@ def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
     }
     if tier:
         return queues[tier]
-    # Repairs first: a row a gate excuses, or one the real link cannot place, is
+    if not repair_turn:
+        # Repairs are capped (repair_queue.repair_turn): off-turn they wait unless
+        # nothing else is servable, so no seat is ever left idle.
+        order = [name for name in queues if name not in ("repair", "link", "similar")]
+        for name in order + ["repair", "link"]:
+            label, candidates = queues[name]
+            if candidates:
+                return label, candidates
+        return "validated queue", []
+    # On a repair turn, repairs first: a row a gate excuses, or one the real link cannot place, is
     # wrong code already counted as progress; fixing it is credited (progress_v2).
     for name in ("repair", "link", "packet", "named", "harvest", "structural", "ghidra", "anchored"):
         label, candidates = queues[name]
@@ -1244,6 +1253,9 @@ def main():
                     help="stable zero-based partition for concurrent workers")
     ap.add_argument("--big", action="store_true",
                     help="sort structural candidates by size (byte yield) instead of alignment")
+    ap.add_argument("--repair-every", type=int, metavar="N",
+                    help="serve a repair on about 1 default pick in N, rotated per agent "
+                         "(default BFME_REPAIR_EVERY or 3; 1 = always, 0 = only when nothing else)")
     ap.add_argument("--include-logged", action="store_true",
                     help="keep candidates already recorded no-match in "
                          "reverse/re_attempts.log (they are dropped by default)")
@@ -1303,7 +1315,7 @@ def main():
         suppressed = (dropped_named + dropped_drift + dropped_structural
                       + dropped_ghidra + dropped_anchored + dropped_similar)
 
-    repair = repair_queue.repair_items() if args.tier in (None, "repair") else []
+    repair = repair_queue.all_repair_items() if args.tier in (None, "repair") else []
     link, link_note = repair_queue.link_items() if args.tier in (None, "link") else ([], "")
     busy = claims.busy_rvas()
     repair = apply_shard(without_busy(repair, busy), args.shard)
@@ -1385,8 +1397,10 @@ def main():
     if args.tier is None and not landability.preempts(packets):
         withheld = len(packets)
         packets = []
+    turn = args.tier is not None or repair_queue.repair_turn(args.repair_every)
     label, candidates = selected_queue(args.tier, drifts, structural, ghidra_absent,
-                                       anchored, named, packets, similar_q, repair=repair, link=link)
+                                       anchored, named, packets, similar_q, repair=repair, link=link,
+                                       repair_turn=turn)
     candidate, acquired = (claim_choice(candidates, label) if args.claim else
                            (weighted_choice(candidates) if candidates else None, []))
     deferred = sum(1 for c in candidates if c.get("deferred_attempts"))
