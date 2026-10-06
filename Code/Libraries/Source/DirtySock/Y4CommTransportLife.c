@@ -1175,7 +1175,7 @@ int Rva00819090( struct Rva00816BF0Comm *comm,
 	 * the walk pointer, then the buffer. */
 	int iResult;
 	struct Rva00816BF0Comm *p;
-	char local[ 0x10 ];
+	char glueaddr[ 0x10 ];
 
 	if ( comm->m_state != 1 )
 	{
@@ -1186,7 +1186,7 @@ int Rva00819090( struct Rva00816BF0Comm *comm,
 	Rva00816DF0( comm, 0 );
 	Rva00819260( comm );
 
-	memset( local, 0, 0x10 );
+	memset( glueaddr, 0, 0x10 );
 	memset( comm->m_peer, 0, 0x10 );
 
 	for ( p = g_Rva0130B188List; p != 0; p = p->m_next )
@@ -1200,10 +1200,10 @@ int Rva00819090( struct Rva00816BF0Comm *comm,
 		if ( p == comm || p->m_socket == 0 )
 			continue;
 
-		if ( Rva007FDB60( p->m_socket, 'bind', local, 0x10 ) < 0 )
+		if ( Rva007FDB60( p->m_socket, 'bind', glueaddr, 0x10 ) < 0 )
 			continue;
 
-		if ( Rva007FF720( address, local ) == 0 )
+		if ( Rva007FF720( address, glueaddr ) == 0 )
 		{
 			Rva00816DF0( comm, p->m_socket );
 			Rva007FD3F0( socket );
