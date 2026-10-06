@@ -40,9 +40,18 @@
 // SYSTEM chat line before refreshing the slot list (0x00248D84). willTransfer
 // is the pinned cdecl 0x00300E42 on the game, whatever the metadata says.
 //
+// LANAPI::OnGameStart, retail 0x002495CC (814 bytes), slot 42: Open-BFME-1's
+// LANAPIOnGameStart.cpp without the preferences save, with BFME 2's hero
+// transfer check (0x0044C3D4, failing with GUI:CouldNotTransferHero) ahead of
+// the map transfer (DoAnyMapTransfers 0x0044D06D, MapCache::updateCache,
+// findMap, failing with GUI:CouldNotTransferMap). On success it starts the
+// game, sets TheWritableGlobalData's pending file (+0xAC0) to the map, posts
+// MSG_NEW_GAME (0x1E) with GAME_LAN, sets TheGameLogic's byte +0x9D and seeds
+// the logic random. Retail tail-merges the two failure paths' OnChat calls.
+//
 // LANAPI slot 43, retail 0x0024900D (576 bytes): a BFME 2 twin of
-// OnGameStart (slot 42), whose body it repeats with the map transfer swapped
-// for another check. Named by address. Like BFME 1's OnGameStart
+// OnGameStart (slot 42), whose body it repeats up to the hero check and then
+// starts a living-world game without the map transfer. Named by address. Like BFME 1's OnGameStart
 // (Open-BFME-1's LANAPIOnGameStart.cpp) without the preferences save: leave
 // the LAN menu (+0x40), create the network (the rowed 0x0025E46D),
 // bind it and the game (+0x38) to the local address with the port bumped by
@@ -50,7 +59,7 @@
 // parseUserList and TheGameLogic's two-flag 0x00376E92. When the cdecl
 // transfer check 0x0044C3D4 fails, leave by our own name, drop and ::delete
 // the game and TheNetwork, raise GUI:ErrorStartingGame /
-// GUI:CouldNotTransferHero in the message box 0x0044C0A8 and post the body
+// GUI:CouldNotTransferHero in MessageBoxOk (0x0044C0A8) and post the body
 // text as a SYSTEM line from no address. Otherwise start the game (vslot
 // 11), poke the living-world manager and logic, post message 0x1F with the
 // game's +0x58 and 1 when 0x00E0333C is set, and seed the logic random from
@@ -147,9 +156,18 @@ public:
 class MapCache
 {
 public:
+	void updateCache( void );
 	const MapMetaData *findMap( AsciiString mapName );
 };
 extern MapCache *TheMapCache;
+
+class GlobalData
+{
+public:
+	UnsignedByte m_preAC0[0xAC0];
+	AsciiString m_pendingFile;			// +0xAC0
+};
+extern GlobalData *TheWritableGlobalData;
 
 class GameInfo
 {
@@ -282,6 +300,9 @@ class GameLogic
 {
 public:
 	void rva00376E92( Bool first, Bool second );
+
+	UnsignedByte m_pre9D[0x9D];
+	Bool m_bfme9D;					// +0x9D, set as a LAN game starts
 };
 extern GameLogic *TheGameLogic;
 
@@ -331,7 +352,9 @@ extern MessageStream *MessageStreamSubsystem;
 extern Int g_Va00E0333C;
 
 Bool Rva0044C3D4( void );
-void Rva0044C0A8( UnicodeString title, UnicodeString body, void *callback );
+class GameWindow;
+GameWindow *MessageBoxOk( UnicodeString titleString, UnicodeString bodyString, void (*okCallback)( void ) );
+Bool DoAnyMapTransfers( GameInfo *game );
 void InitGameLogicRandom( UnsignedInt seed );
 
 #define BFME_VSLOT(n) virtual void slot##n( void ) = 0;
@@ -354,7 +377,8 @@ public:
 	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
 	virtual void OnChat( const UnicodeString &player, const BfmeNetAddress *ip,
 		const UnicodeString &message, LANAPIInterface::ChatType format );
-	BFME_VSLOT(41) BFME_VSLOT(42)
+	BFME_VSLOT(41)
+	virtual void OnGameStart( void );
 	virtual void rva0024900D( void );
 	BFME_VSLOT(44)
 	BFME_VSLOT(45) BFME_VSLOT(46) BFME_VSLOT(47) BFME_VSLOT(48) BFME_VSLOT(49)
@@ -523,6 +547,87 @@ void LANAPI::OnHasMap( const BfmeNetAddress *ip, Bool status )
 	Rva00248D84Enable();
 }
 
+void LANAPI::OnGameStart( void )
+{
+	if( m_currentGame )
+	{
+		m_isInLANMenu = false;
+
+		CreateTheNetwork();
+		BfmeNetAddress localAddress = *getLocalAddress();
+		localAddress.m_port += 8;
+		TheNetwork->setLocalAddress( &localAddress );
+		TheNetwork->initTransport();
+		LANGameInfo *game = m_currentGame;
+		game->m_localAddress = localAddress;
+
+		for( Int i = 0; i < MAX_SLOTS; ++i )
+		{
+			GameSlot *slot = m_currentGame->getSlot( i );
+			if( m_currentGame->getSlot( i )->isHuman() )
+			{
+				BfmeNetAddress address = slot->m_address;
+				address.m_port += 8;
+				slot->m_address = address;
+			}
+		}
+
+		TheNetwork->parseUserList( m_currentGame );
+		TheGameLogic->rva00376E92( false, false );
+
+		Bool heroesOk = Rva0044C3D4();
+		if( !heroesOk )
+		{
+			OnPlayerLeave( m_name );
+			removeGame( m_currentGame );
+			::delete m_currentGame;
+			m_currentGame = 0;
+			m_inLobby = true;
+			if( TheNetwork )
+			{
+				::delete TheNetwork;
+				TheNetwork = 0;
+			}
+			MessageBoxOk( TheGameText->fetch( "GUI:ErrorStartingGame" ),
+				TheGameText->fetch( "GUI:CouldNotTransferHero" ), 0 );
+			OnChat( UnicodeString::TheEmptyString, NoAddress().self(),
+				TheGameText->fetch( "GUI:CouldNotTransferHero" ), LANAPIInterface::LANCHAT_SYSTEM );
+			return;
+		}
+
+		Bool filesOk = DoAnyMapTransfers( m_currentGame );
+
+		TheMapCache->updateCache();
+		if( !filesOk || TheMapCache->findMap( m_currentGame->getMap() ) == 0 )
+		{
+			OnPlayerLeave( m_name );
+			removeGame( m_currentGame );
+			::delete m_currentGame;
+			m_currentGame = 0;
+			m_inLobby = true;
+			if( TheNetwork )
+			{
+				::delete TheNetwork;
+				TheNetwork = 0;
+			}
+			MessageBoxOk( TheGameText->fetch( "GUI:ErrorStartingGame" ),
+				TheGameText->fetch( "GUI:CouldNotTransferMap" ), 0 );
+			OnChat( UnicodeString::TheEmptyString, NoAddress().self(),
+				TheGameText->fetch( "GUI:CouldNotTransferMap" ), LANAPIInterface::LANCHAT_SYSTEM );
+			return;
+		}
+
+		m_currentGame->startGame( 0 );
+		TheWritableGlobalData->m_pendingFile = m_currentGame->getMap();
+
+		GameMessage *msg = MessageStreamSubsystem->appendMessage( 0x1E );
+		msg->appendIntegerArgument( 1 );
+		TheGameLogic->m_bfme9D = true;
+
+		InitGameLogicRandom( m_currentGame->getSeed() );
+	}
+}
+
 void LANAPI::rva0024900D( void )
 {
 	if( m_currentGame )
@@ -564,7 +669,7 @@ void LANAPI::rva0024900D( void )
 				::delete TheNetwork;
 				TheNetwork = 0;
 			}
-			Rva0044C0A8( TheGameText->fetch( "GUI:ErrorStartingGame" ),
+			MessageBoxOk( TheGameText->fetch( "GUI:ErrorStartingGame" ),
 				TheGameText->fetch( "GUI:CouldNotTransferHero" ), 0 );
 			OnChat( UnicodeString::TheEmptyString, NoAddress().self(),
 				TheGameText->fetch( "GUI:CouldNotTransferHero" ), LANAPIInterface::LANCHAT_SYSTEM );

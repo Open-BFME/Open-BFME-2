@@ -66282,3 +66282,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?OnHasMap@LANAPI@@UAEXPBUBfmeNetAddress@@_N@Z,,0x002498FA,526,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,matched,
 ??0Rva0044BA4E@@QAE@URva004F6986Member@@0@Z,,0x0044BCAB,85,Code/GameEngine/Source/Common/Rva004F6986Dtor.cpp,matched,
 ?rva0024900D@LANAPI@@UAEXXZ,,0x0024900D,576,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,matched,
+?OnGameStart@LANAPI@@UAEXXZ,,0x002495CC,814,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,matched,LANAPI vtable 0x0083E680 slot 42 (ZH LANAPI.h order: before OnGameStartTimer); BFME 1 donor LANAPIOnGameStart.cpp body (createTheNetwork; port+8 rebinding; DoAnyMapTransfers/updateCache/findMap failure with GUI:CouldNotTransferMap; pendingFile; MSG_NEW_GAME 0x1E + GAME_LAN) with BFME 2's hero-transfer check 0x0044C3D4 (GUI:CouldNotTransferHero) first and TheGameLogic+0x9D set; strings read from retail
