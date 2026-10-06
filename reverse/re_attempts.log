@@ -11113,3 +11113,6 @@ Rva005177EB	0x005177EB	369	blocked	EH-state Apt body (ebp-4 state machine, or -1
 ?rva00346C53@Rva00346C53@@QAEXW4ObjectStatusTypes@@_N@Z	0x00346C53	35	converted	first-try exact after struct fix; landed 35B t=10 model=muse-spark
 ?rva00346B6D@Rva00346B6D@@QAEXH@Z	0x00346B6D	80	converted	double-returning slot virtual plus struct-embedded float sink; landed 80B t=25 model=muse-spark
 ?rva0034BFFF@@YGXPAVObject@@@Z	0x0034BFFF	54	converted	first-try exact; landed 54B t=8 model=muse-spark
+?Rva003BC67ASet@@YGXABVAsciiString@@H@Z	0x003BC67A	77	blocked	callee 0x002A9ECA rowed as dtor but retail calls it as int-taking int-returning converter for setAIDifficulty - ledger mistype t=12 model=muse-06
+?insert@?$vector@URva00504755Record@@V?$allocator@URva00504755Record@@@_STL@@@_STL@@QAEPAURva00504755Record@@PAU3@ABU3@@Z	0x00504D57	161	blocked	movss vs movsd float copy plus ecx vs esi and esp 0x18 vs 0x1c 9B short t=18 model=muse-06 (stash 0.91 kept)
+?rva00171067@Rva00171067@@QAEXABVAssetReference@@@Z	0x00171067	164	blocked	frame 0x40 vs 0x38 offsets plus8 header in edi vs mem extra lea tmp reload pop order t=10 model=muse-06 (stash 0.96 kept)
