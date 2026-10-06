@@ -58,7 +58,6 @@ public:
 extern GameLogic *TheGameLogic;
 extern const float BfmeZeroRange;
 extern float g_00BBB9AC;
-extern double g_00BC26F8;
 
 struct Sub08
 {
@@ -138,7 +137,7 @@ double Rva002DA0CF::rva002DA0CF()
 	if (m_24 == g_00BBB9AC) {
 		if (m_08 != 0)
 			return m_08->m_10 * m_2C;
-		return m_2C * g_00BC26F8;
+		return m_2C * 0.5;
 	}
 	return m_2C * m_24;
 }
