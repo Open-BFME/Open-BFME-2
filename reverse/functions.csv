@@ -64980,3 +64980,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0039ADB9@Rva0039ADB9@@QAEMMH@Z,,0x0039ADB9,51,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0039ADB9Min.cpp,matched,Range-17 float min against pinned int lookup
 ??0Rva0039AE30@@QAE@PAVRva0039AE30Arg@@@Z,,0x0039AE30,69,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0039AE30Setup.cpp,matched,Range-17 setup with pinned lookup
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
+?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
