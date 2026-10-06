@@ -42,6 +42,12 @@ private:
 	char m_pad04[0x38];
 };
 
+class Rva005C6C7B
+{
+public:
+	void reset();
+};
+
 class GameWindow
 {
 public:
@@ -99,8 +105,9 @@ public:
 class Rva0053ED1A : public GameEngineDeletingBase, public Rva005C6D4D
 {
 public:
-	void rva0053EF7B();
-	void rva0053EFAE();
+  void rva0053EF7B();
+  void rva0053EF92();
+  void rva0053EFAE();
 	void rva0053EFC7(WindowList &list);
 	void rva0053EF2E();
 private:
@@ -116,6 +123,14 @@ void Rva0053ED1A::rva0053EF7B()
 		static_cast<Rva005C6D4D *>(this)->v5();
 	else
 		rva0053EF2E();
+}
+
+void Rva0053ED1A::rva0053EF92()
+{
+	((Rva005C6C7B *)((char *)this + 12))->reset();
+	rva0053EF2E();
+	m_at54 = 0;
+	m_at58 = 0;
 }
 
 void Rva0053ED1A::rva0053EFAE()

@@ -12418,3 +12418,5 @@ FUN_0048458a	0x0008458A	1422	blocked	over 1000B needs strong model t=1 model=mus
 FUN_0086beac	0x0046BEAC	863	blocked	ADDRESS-NAMED g_Va00BBB8D8 g_Va009FF0F8 new uses refused t=1 model=muse-02
 FUN_00b402c0	0x007402C0	661	blocked	ADDRESS-NAMED 3 uses new use refused t=1 model=muse-02
 FUN_00b41152	0x00741152	1100	blocked	over 1000B needs strong model t=1 model=muse-02
+?rva00514950@Rva00514EAB@@QAEHHHH@Z	0x00514950	331	blocked	register wall state in eax vs retail ecx with movzx temp swapped ecx vs eax all 6 reg diffs 0 structural 331B exact t=18 model=muse-06 (stash 0.96 kept)
+?rva001E4ABE@Rva001E4ABE@@QAEHHH@Z	0x001E4ABE	754	blocked	ADDRESS-NAMED g_Va globals a new use is refused per packet t=2 model=muse-06
