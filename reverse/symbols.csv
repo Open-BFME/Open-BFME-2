@@ -13569,3 +13569,4 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva00067494@Rva000677CAHost@@QAEXHHHHHHPAEPA_N@Z,0x00067494,dump range 1 wrapper callee for 0x677CA
 ?rva0005106A@Rva0005F279Elem@@QAE_NXZ,0x0005106A,dump range 1 loop callees for 0x5F279
 ?rva0005EA8F@Rva0005F279Host@@QAEXPAVRva0005F279Elem@@@Z,0x0005EA8F,dump range 1 loop callees for 0x5F279
+?rva000FF5E6@Rva0007E90ECallee@@QAEXH@Z,0x000FF5E6,dump range 1 marker callee for 0x7E90E
