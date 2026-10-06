@@ -9,6 +9,8 @@
 // StrategicHUD::StatsDisplayImpl::rva00579D3D @0x00579D3D 89B slot 3 of same vtable.
 // Int array setter at +0x2C with same Get/Set pattern via StrategicHUD::FormatBonusText
 // 0x00579900 and index+1.
+// StrategicHUD::StatsDisplayImpl::rva00579DF8 @0x00579DF8 79B slot 7: the
+// power points at +0x3C, shown on row 5 via rowed Rva00579A2FGet 0x00579A2F.
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -18,6 +20,7 @@ namespace StrategicHUD
 	UnicodeString FormatBonusText(int value);
 	class StatsDisplayImpl;
 }
+UnicodeString __cdecl Rva00579A2FGet(int value);
 
 class StrategicHUD::StatsDisplayImpl
 {
@@ -25,6 +28,7 @@ public:
 	void SetRowText(int index, const UnicodeString &text);	// 0x00579B17
 	void rva00579D96(float value);
 	void rva00579D3D(int index, int value);
+	void rva00579DF8(int value);
 
 private:
 	void *m_vptr;
@@ -34,6 +38,7 @@ private:
 	int m_2C[2];
 	char m_pad34[0x38 - 0x34];
 	float m_38;
+	int m_3C;
 };
 
 void StrategicHUD::StatsDisplayImpl::rva00579D96(float value)
@@ -52,5 +57,14 @@ void StrategicHUD::StatsDisplayImpl::rva00579D3D(int index, int value)
 	{
 		SetRowText(index + 1, StrategicHUD::FormatBonusText(value));
 		*slot = value;
+	}
+}
+
+void StrategicHUD::StatsDisplayImpl::rva00579DF8(int value)
+{
+	if (value != m_3C)
+	{
+		SetRowText(5, Rva00579A2FGet(value));
+		m_3C = value;
 	}
 }

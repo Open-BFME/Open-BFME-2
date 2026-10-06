@@ -16,6 +16,7 @@ namespace StrategicHUD
 	UnicodeString FormatCommandPointsText(int a, int b);
 	UnicodeString FormatResourceMultiplierText(float v);
 }
+UnicodeString Rva00579A2FGet(int a);
 
 template <typename T>
 class StringBase
@@ -25,6 +26,7 @@ class StringBase
 	friend UnicodeString StrategicHUD::FormatBonusText(int);
 	friend UnicodeString StrategicHUD::FormatCommandPointsText(int, int);
 	friend UnicodeString StrategicHUD::FormatResourceMultiplierText(float);
+	friend UnicodeString Rva00579A2FGet(int);
 
 	StringBase(const StringBase<T> &that);
 	void releaseBuffer();
@@ -49,6 +51,7 @@ class UnicodeString
 	friend UnicodeString StrategicHUD::FormatBonusText(int);
 	friend UnicodeString StrategicHUD::FormatCommandPointsText(int, int);
 	friend UnicodeString StrategicHUD::FormatResourceMultiplierText(float);
+	friend UnicodeString Rva00579A2FGet(int);
 public:
 	UnicodeString() {}
 	UnicodeString(const UnicodeString &that) : m_data(that.m_data) {}
@@ -115,6 +118,19 @@ UnicodeString StrategicHUD::FormatResourceMultiplierText(float v)
 		const wchar_t *fmt = fetched.m_data.m_data ? fetched.m_data.m_data->data : (const wchar_t *)&g_Va007BB5C4;
 		tmp.format(fmt, v);
 	}
+	return tmp;
+}
+
+// ?Rva00579A2FGet@@YA?AVUnicodeString@@H@Z retail 0x00579A2F 136B: the
+// power-points sibling formats with a literal L"%d" (0x00BC9260) and leaves
+// the fetched label unread; caller the stats-display ctor 0x00579E82.
+UnicodeString Rva00579A2FGet(int a)
+{
+	UnicodeString tmp;
+	Bool exists;
+	UnicodeString fetched = TheGameText->fetch("STRATEGICHUD:StatsPowerPoints", &exists);
+	if (exists)
+		tmp.format(L"%d", a);
 	return tmp;
 }
 
