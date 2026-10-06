@@ -38,6 +38,7 @@ import argparse
 import collections
 import csv
 import json
+import os
 import struct
 import subprocess
 import sys
@@ -272,6 +273,10 @@ def write_baseline(entries):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("sources", nargs="*")
+    parser.add_argument("--sources-from", metavar="FILE",
+                        help="also verify the NUL- or newline-separated sources in FILE ('-': stdin); "
+                             "the pre-commit hook passes its list this way because Windows caps a "
+                             "command line at 32,767 characters")
     parser.add_argument("--all", action="store_true", help="every matched row (shadow run)")
     parser.add_argument("--objdir", help="read objects from this directory")
     parser.add_argument("--json", help="write every verdict to this file")
@@ -280,6 +285,10 @@ def main(argv=None):
     parser.add_argument("--assert-shrink-only", metavar="REV",
                         help="fail if the baseline has a key that REV's baseline lacks")
     args = parser.parse_args(argv)
+    if args.sources_from:
+        data = sys.stdin.buffer.read() if args.sources_from == "-" else Path(args.sources_from).read_bytes()
+        entries = data.split(b"\0") if b"\0" in data else [l.rstrip(b"\r") for l in data.split(b"\n")]
+        args.sources += [os.fsdecode(entry) for entry in entries if entry]
 
     if args.assert_shrink_only:
         old = subprocess.run(["git", "show", f"{args.assert_shrink_only}:reverse/eh_baseline.csv"],

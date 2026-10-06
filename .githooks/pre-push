@@ -19,6 +19,33 @@ run_build() {
     esac
 }
 
+# Windows caps a native command line at 32,767 UTF-16 units ("Argument list too
+# long"). Twice an argument's UTF-8 length plus quotes and a space bounds its
+# quoted size, leaving room for the interpreter and script path.
+measure_argument() {
+    local LC_ALL=C
+    argument_bytes=$((2 * ${#1} + 3))
+}
+# build_chunks MESSAGE SELECTOR...: byte-verify every selector, failing with MESSAGE.
+build_chunks() {
+    local message="$1" chunk=() chunk_bytes=0 selector
+    shift
+    for selector in "$@"; do
+        measure_argument "$selector"
+        [ "$argument_bytes" -le 24000 ] || fail "byte-verify selector exceeds argument limit: $selector"
+        if [ "${#chunk[@]}" -ne 0 ] && [ "$((chunk_bytes + argument_bytes))" -gt 24000 ]; then
+            BUILD_POOL="${BUILD_POOL:-4}" run_build "${chunk[@]}" || fail "$message"
+            chunk=()
+            chunk_bytes=0
+        fi
+        chunk+=("$selector")
+        chunk_bytes=$((chunk_bytes + argument_bytes))
+    done
+    if [ "${#chunk[@]}" -ne 0 ]; then
+        BUILD_POOL="${BUILD_POOL:-4}" run_build "${chunk[@]}" || fail "$message"
+    fi
+}
+
 refs="$(cat || true)"
 
 ZERO=0000000000000000000000000000000000000000
@@ -124,16 +151,9 @@ PY
     # yet falls back to merge-base, which on a fork rebased onto a much newer
     # upstream can list thousands of sources. Windows caps the argument list, so
     # one giant ./build.sh call dies with "Argument list too long" and the push
-    # fails for an environment reason rather than a byte mismatch.
-    if [ "${#verify[@]}" -ne 0 ]; then
-        chunk=200
-        i=0
-        while [ "$i" -lt "${#verify[@]}" ]; do
-            BUILD_POOL="${BUILD_POOL:-4}" run_build "${verify[@]:$i:$chunk}" \
-                || fail "byte-verify of outgoing sources (see above)"
-            i=$((i + chunk))
-        done
-    fi
+    # fails for an environment reason rather than a byte mismatch. A fixed count
+    # of 200 sources still overflows once their paths average ~160 characters.
+    build_chunks "byte-verify of outgoing sources (see above)" "${verify[@]}"
     echo "PRE-PUSH OK (${#verify[@]} outgoing source(s) byte-verified)"
 done <<< "$refs"
 # Publisher rollout (tools/publisher_hook.py; mode in reverse/publisher_mode): shadow submits the landed range as a unit in the background and never fails the push; enforce queues it and refuses (exit 3).

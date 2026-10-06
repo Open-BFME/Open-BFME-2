@@ -72,5 +72,8 @@ def test_push_refuses_a_ledger_that_is_not_the_pushed_commits(repo):
 def test_hooks_guard_before_any_build(hook, call):
     text = (TOOLS.parent / ".githooks" / hook).read_text(encoding="utf-8")
     assert call in text
-    first_build = re.search(r"BUILD_POOL=", text)
-    assert first_build and text.index(call) < first_build.start()
+    # A function definition (build_chunks) runs nothing where it stands; find the first
+    # build the hook actually executes, inline or through the chunking helper.
+    executed = re.sub(r"(?ms)^\w+\(\) \{\n.*?^\}\n", "", text)
+    first_build = re.search(r"BUILD_POOL=|^\s*build_chunks ", executed, re.M)
+    assert first_build and executed.index(call) < first_build.start()

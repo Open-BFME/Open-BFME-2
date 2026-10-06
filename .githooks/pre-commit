@@ -19,6 +19,35 @@ run_build() {
     esac
 }
 
+# Windows caps a native command line at 32,767 UTF-16 units; past it Bash
+# reports "Argument list too long" and the hook dies on a large commit. Lists
+# reach Python on stdin; the build, which takes selectors only as arguments,
+# runs in chunks. Twice an argument's UTF-8 length plus quotes and a space
+# bounds its quoted size, leaving room for the interpreter and script path.
+measure_argument() {
+    local LC_ALL=C
+    argument_bytes=$((2 * ${#1} + 3))
+}
+# build_chunks MESSAGE SELECTOR...: byte-verify every selector, failing with MESSAGE.
+build_chunks() {
+    local message="$1" chunk=() chunk_bytes=0 selector
+    shift
+    for selector in "$@"; do
+        measure_argument "$selector"
+        [ "$argument_bytes" -le 24000 ] || fail "byte-verify selector exceeds argument limit: $selector"
+        if [ "${#chunk[@]}" -ne 0 ] && [ "$((chunk_bytes + argument_bytes))" -gt 24000 ]; then
+            BUILD_POOL="${BUILD_POOL:-4}" run_build "${chunk[@]}" || fail "$message"
+            chunk=()
+            chunk_bytes=0
+        fi
+        chunk+=("$selector")
+        chunk_bytes=$((chunk_bytes + argument_bytes))
+    done
+    if [ "${#chunk[@]}" -ne 0 ]; then
+        BUILD_POOL="${BUILD_POOL:-4}" run_build "${chunk[@]}" || fail "$message"
+    fi
+}
+
 # No two tracked paths may differ only in case — such a pair cannot check out on
 # Windows/macOS (case-insensitive FS), silently dropping a file and breaking those
 # clones. Reflects the staged index, so a colliding add is caught before it lands.
@@ -37,17 +66,17 @@ fi
 # costs nothing and closes it.
 mapfile -t staged_tools < <(git diff --cached --name-only --diff-filter=ACM -- 'tools/*.py')
 if [ "${#staged_tools[@]}" -ne 0 ]; then
-    python3 - "${staged_tools[@]}" <<'PY' || fail "python syntax error in a staged tool (see above)"
-import ast, sys
+    printf '%s\0' "${staged_tools[@]}" | python3 -c '
+import ast, os, sys
 bad = 0
-for path in sys.argv[1:]:
+for path in map(os.fsdecode, sys.stdin.buffer.read().split(b"\0")[:-1]):
     try:
         ast.parse(open(path, encoding="utf-8").read(), filename=path)
     except SyntaxError as exc:
         print("  %s:%s: %s" % (path, exc.lineno, exc.msg), file=sys.stderr)
         bad = 1
 sys.exit(bad)
-PY
+' || fail "python syntax error in a staged tool (see above)"
 fi
 
 # Direction: conversions run asm -> C++, never the reverse. Byte-verification
@@ -153,20 +182,7 @@ if [ "$wide_change" -ne 0 ]; then
             [ -z "${unstaged[$path]:-}" ] || fail "unstaged edits in $path: the scoped header gate would verify the wrong bytes"
         done
         echo "pre-commit: header/shim change — scoped gate over ${#header_deps[@]} dependent source(s)" >&2
-        chunk=()
-        chunk_bytes=0
-        for path in "${header_deps[@]}"; do
-            if [ "${#chunk[@]}" -ne 0 ] && [ "$((chunk_bytes + ${#path} + 3))" -gt 24000 ]; then
-                BUILD_POOL="${BUILD_POOL:-4}" run_build "${chunk[@]}" || fail "scoped header gate (see above)"
-                chunk=()
-                chunk_bytes=0
-            fi
-            chunk+=("$path")
-            chunk_bytes=$((chunk_bytes + ${#path} + 3))
-        done
-        if [ "${#chunk[@]}" -ne 0 ]; then
-            BUILD_POOL="${BUILD_POOL:-4}" run_build "${chunk[@]}" || fail "scoped header gate (see above)"
-        fi
+        build_chunks "scoped header gate (see above)" "${header_deps[@]}"
     else
         rm -f "$header_deps_out"
         echo "pre-commit: header/shim change — running FULL gate (header_dependents could not bound it)" >&2
@@ -182,9 +198,17 @@ fi
 
 # The build verifies file contents on disk; refuse if a file being committed
 # also has unstaged edits, or we would be proving the wrong bytes.
+# One `git diff` for the whole worktree, not one per source: 1,500 staged sources
+# cost ~1,500 Git processes here otherwise, and a path is matched exactly rather
+# than as a pathspec.
+unstaged_out=$(mktemp)
+git diff --name-only -z > "$unstaged_out" || { rm -f "$unstaged_out"; fail "listing unstaged edits"; }
+declare -A unstaged_paths=()
+while IFS= read -r -d '' path; do unstaged_paths["$path"]=1; done < "$unstaged_out"
+rm -f "$unstaged_out"
 dirty=()
 for path in "${staged_sources[@]}"; do
-    if ! git diff --quiet -- "$path"; then
+    if [ -n "${unstaged_paths[$path]:-}" ]; then
         dirty+=("$path")
     fi
 done
@@ -242,7 +266,8 @@ fi
 
 # 2) Every function defined in staged sources must be declared in the ledger.
 if [ "${#staged_sources[@]}" -ne 0 ]; then
-    python3 tools/find_declared_unmatched.py --fail --staged "${staged_sources[@]}" \
+    printf '%s\0' "${staged_sources[@]}" \
+        | python3 tools/find_declared_unmatched.py --fail --staged --paths-from - \
         || fail "staged sources define functions the ledger does not declare (see above)"
 fi
 
@@ -257,24 +282,28 @@ done < <(python3 tools/delta_sources.py --staged)
 
 # Parked reconstruction drafts (whitelisted zero-matched-row sources) have
 # nothing to byte-verify; build.py errors on a filter that matches no rows.
+# NUL-separated both ways: print() ends a line in CR LF on Windows, so the CR-
+# suffixed key `read` produced never matched and this filter removed nothing.
 if [ "${#verify_set[@]}" -ne 0 ]; then
-    while IFS= read -r path; do
-        unset "verify_set[$path]"
-    done < <(python3 - "${!verify_set[@]}" <<'PY'
-import csv, sys
+    unclaimed_out=$(mktemp)
+    printf '%s\0' "${!verify_set[@]}" | python3 -c '
+import csv, os, sys
 claimed = {r["source"] for r in csv.DictReader(open("reverse/functions.csv"))
            if r.get("status") == "matched"}
-for p in sys.argv[1:]:
-    if p not in claimed:
-        print(p)
-PY
-    )
+for p in sys.stdin.buffer.read().split(b"\0")[:-1]:
+    if os.fsdecode(p) not in claimed:
+        sys.stdout.buffer.write(p + b"\0")
+' > "$unclaimed_out" || { rm -f "$unclaimed_out"; fail "filtering claimed sources (see above)"; }
+    while IFS= read -r -d '' path; do
+        unset "verify_set[$path]"
+    done < "$unclaimed_out"
+    rm -f "$unclaimed_out"
 fi
 
 if [ "${#verify_set[@]}" -ne 0 ]; then
-    BUILD_POOL="${BUILD_POOL:-4}" run_build "${!verify_set[@]}" \
-        || fail "byte-verify of changed sources (see above)"
-    python3 tools/eh_verify.py "${!verify_set[@]}" || fail "exception data differs from retail (see above)"
+    build_chunks "byte-verify of changed sources (see above)" "${!verify_set[@]}"
+    printf '%s\0' "${!verify_set[@]}" | python3 tools/eh_verify.py --sources-from - \
+        || fail "exception data differs from retail (see above)"
 fi
 
 echo "PRE-COMMIT OK (ledger integrity + ${#verify_set[@]} source(s) byte-verified)"
