@@ -11374,3 +11374,6 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva0052B10F@Rva0052B10F@@QAEXXZ	0x0052B10F	112	blocked	same early-add CSE wall as sibling 0x0052B17F; barrier and Os O2 tried there with no change; no NEW idea t=5 model=muse-04
 ?rva0052B5FD@Rva0052B5FD@@QAEXABVAsciiString@@@Z	0x0052B5FD	55	blocked	and-test vs xor-cmp-mov for new-null plus state persists under EHsc and delete-throw; no NEW lever t=15 model=muse-04 (stash 0.98 kept)
 ?rva0044FEB6@SpecialAbilityUpdate@@QAEPAVObject@@XZ	0x0044FEB6	183	partial	ebx-vs-edi newObj holder plus cmp-bl-vs-0 and push-xor-pop ebx missing t=25 model=muse-04 score=0.93 stash=reverse/attempts/0x0044feb6.cpp
+?rva005421AA@Rva00541EB8@@UAEPAVRva0053FC99@@PAV2@@Z	0x005421AA	123	blocked	EH new-copy-setter-release vslot needs donor t=15 model=muse-08
+?updateInternal@AIAttackPursueTargetState@@AAE?AW4StateReturnType@@XZ	0x0034939E	515	partial	movss mulss order swapped for 0.95 multiply t=25 model=muse-08 score=0.95 stash=reverse/attempts/0x0034939e.cpp
+?update@Rva0033F364@@UAE?AW4StateReturnType@@XZ	0x003492BD	225	partial	frame-check jb vs jae plus extra 2B jmp trampoline t=28 model=muse-08 score=0.95 stash=reverse/attempts/0x003492bd.cpp
