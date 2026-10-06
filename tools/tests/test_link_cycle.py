@@ -177,13 +177,16 @@ def test_repeated_section_names_are_all_kept():
 
 def test_communal_global_is_sized_by_its_reference():
     I, R = bytearray(0x6000), bytearray(0x6000)
-    ref = ([_sec(1, ".text", 8)], {0: _sym(0, "?TheX@@3PAVX@@A", 0, value=4)}, b"")   # COMMON, 4 bytes
+    ref = ([_sec(1, ".text", 8)], {0: _sym(0, "?TheX@@3PAVX@@A", 0)}, b"")            # an extern
+    definer = ([_sec(1, ".text", 8)], {0: _sym(0, "?TheX@@3PAVX@@A", 0, value=4)}, b"")  # COMMON, 4 bytes
+    objs = FakeObjs({})
+    objs.cache = {Path("d.obj"): definer}
     m = _measure(I, R, [], [(0x3000, "?TheX@@3PAVX@@A", "other.obj")], pub={"?TheX@@3PAVX@@A": 0x3000},
-                 pubobj={"?TheX@@3PAVX@@A": "other.obj"})
+                 pubobj={"?TheX@@3PAVX@@A": "other.obj"}, objs=objs)
     assert m.data_ref(0x3000, 0x3100, "?TheX@@3PAVX@@A", ref[1][0], ref, 0)[0] == []
     _put(R, 0x3102, b"")                                   # retail holds a non-zero byte there
     m = _measure(I, R, [], [(0x3000, "?TheX@@3PAVX@@A", "other.obj")], pub={"?TheX@@3PAVX@@A": 0x3000},
-                 pubobj={"?TheX@@3PAVX@@A": "other.obj"})
+                 pubobj={"?TheX@@3PAVX@@A": "other.obj"}, objs=objs)
     assert m.data_ref(0x3000, 0x3100, "?TheX@@3PAVX@@A", ref[1][0], ref, 0)[0] == ["data-content:?TheX@@3PAVX@@A"]
 
 

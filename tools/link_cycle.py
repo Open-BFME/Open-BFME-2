@@ -760,10 +760,10 @@ class Measure:
         else:                                        # defined elsewhere: the map names its object
             S, ob = self.pub.get(tn), self.pubobj.get(tn)
             found = self.objs.lookup(ob, tn) if ob else None
-            if S is not None and not found and y is not None and y.sec == 0 and y.value > 0:
-                # a communal (uninitialized) global: the reference carries its size, and the
-                # map names an object that does not define it
-                return S, y.value, lt - S, o, None, 0, S
+            if S is not None and not found and self.communal(tn):
+                # an uninitialized global: a COMMON record sizes it (the linker takes the
+                # largest), and the map names an object that does not define it
+                return S, self.communal(tn), lt - S, o, None, 0, S
             if S is None or not found:
                 return None
             o, ys = found
@@ -774,6 +774,16 @@ class Measure:
         v0 = vals[i] if i >= 0 else 0
         v1 = vals[i + 1] if i + 1 < len(vals) else sec.size
         return lt - (P - v0), v1 - v0, P - v0, o, sec, v0, S
+
+    def communal(self, name):
+        """Size of a COMMON global across every parsed link object (0: none)."""
+        if getattr(self, "commons", None) is None:
+            self.commons = {}
+            for o in list(self.objs.cache.values()):
+                for z in (o[1].values() if o else ()):
+                    if z.sec == 0 and z.cls == EXTERNAL and z.value > 0:
+                        self.commons[z.name] = max(self.commons.get(z.name, 0), z.value)
+        return self.commons.get(name, 0)
 
     def data_ref(self, lt, rt, tn, y, o, addend):
         """(failures, code edges, pinned?) of one data reference beyond the 1:1 rule:
