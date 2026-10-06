@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 //
 // Retail 0x0044B49B, 191 bytes. BFME1 LANAPI::reset supplies the operation;
 // target body evidence sets the list heads at +0x0C/+0x10, LANGameInfo::next
@@ -6,6 +6,11 @@
 // address pair at +0x34, flags at +0x40/+0x41, current game at +0x44, and
 // transport at +0x50. Target Transport update takes a false Bool, unlike the
 // BFME1 no-argument method.
+//
+// ??1LANPlayer@@QAE@XZ, retail 0x00447ACA, 68 bytes. Non-virtual dtor over
+// three UnicodeString members at +0/+4/+8 (releaseBuffer 0x00036E70 in
+// reverse order with EH states 1/0/-1), then next at +0x10 for reset's walk.
+// Callers: reset 0x0044B50D and ??_G in this file, plus Rva00447B0E 0x00447B3B.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -45,16 +50,26 @@ private:
 
 void __cdecl operator delete(void *memory);
 
+#include "unicode_string.h"
+
 class LANPlayer
 {
 public:
-	~LANPlayer(void);
+	~LANPlayer();
 	LANPlayer *getNext(void) const { return m_next; }
 
 private:
-	UnsignedByte m_beforeNext[0x10];
-	LANPlayer *m_next;
+	UnicodeString m_s00; // +0x00
+	UnicodeString m_s04; // +0x04
+	UnicodeString m_s08; // +0x08
+	UnsignedByte m_pad0C[4]; // +0x0C
+	LANPlayer *m_next; // +0x10
 };
+
+// ??1LANPlayer@@QAE@XZ @0x00447ACA
+LANPlayer::~LANPlayer()
+{
+}
 
 extern LANGameInfo *g_Rva00E02EEC;
 
