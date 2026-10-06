@@ -15,3 +15,43 @@ Bool8 Rva0056EE5F::rva0056EE5F()
 	GetStringFromRegistry("", "Registered", val);
 	return (Bool8)(((const StringBase<char> &)val).compareNoCase("true") == 0);
 }
+
+// 0x00571C60: target bytes conditionally call two address-derived helpers
+// using this, then compare the matched 0x0056EE5F result with the byte at
+// +0xD2. Offsets and call relationships are target evidence; field meanings
+// and the containing class identity remain unknown.
+class Rva00571B75Call
+{
+public:
+	void rva00571B75();
+};
+class Rva005706D4Call
+{
+public:
+	void rva005706D4();
+};
+class Rva00571C60
+{
+public:
+	void rva00571C60();
+
+private:
+	char m_pad00[0xC5];
+	Bool8 m_c5;
+	char m_padC6[0x0C];
+	Bool8 m_d2;
+};
+void Rva00571C60::rva00571C60()
+{
+	if (m_c5) {
+		((Rva00571B75Call *)this)->rva00571B75();
+		((Rva005706D4Call *)this)->rva005706D4();
+	}
+	Bool8 *cached = &m_d2;
+	Bool8 value = ((Rva0056EE5F *)this)->rva0056EE5F();
+	if (*cached != value) {
+		((Rva005706D4Call *)this)->rva005706D4();
+		value = ((Rva0056EE5F *)this)->rva0056EE5F();
+		*cached = value;
+	}
+}
