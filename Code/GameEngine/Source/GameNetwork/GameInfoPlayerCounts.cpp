@@ -108,12 +108,14 @@ public:
 	void rva003FF1A7(int v);
 	bool isOpen() const { return m_state == SLOT_OPEN; }
 	Int getPlayerTemplate() const { return m_playerTemplate; }
+	Int getTeamNumber() const { return m_teamNumber; }
 
 private:
 	Int m_state;                    // +0x04
 	char m_pad08[0x10];             // +0x08
 	Int m_playerTemplate;           // +0x18
-	char m_pad1C[0x1C];             // +0x1C..+0x37
+	Int m_teamNumber;               // +0x1C
+	char m_pad20[0x18];             // +0x20..+0x37
 	BfmeNetAddress m_addr38;        // +0x38
 	char m_pad40[0x10];             // +0x40
 public:
@@ -139,14 +141,38 @@ private:
 class GameInfo
 {
 public:
+	// Vtable 0x008193C8: getLocalSlotNum is slot 13 (+0x34), isSandbox slot
+	// 20 (+0x50). The other slots are not reconstructed in this TU.
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0c() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1c() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2c() = 0;
+	virtual void slot30() = 0;
+	virtual Int getLocalSlotNum() const = 0;
+	virtual void slot38() = 0;
+	virtual void slot3c() = 0;
+	virtual void slot40() = 0;
+	virtual void slot44() = 0;
+	virtual void slot48() = 0;
+	virtual void slot4c() = 0;
+	virtual bool isSandbox();
+
 	Int getNumPlayers() const;
 	Int getNumNonObserverPlayers() const;
 	Int getNumOpenOrOccupiedSlots() const;
 	const GameSlot *getConstSlot(Int slotNum) const;
-	bool isHeroDataReadyForSlot(unsigned short slotNum) const;
 	bool rva003FF457() const;
+	bool isHeroDataReadyForSlot(unsigned short slotNum) const;
 private:
-	char m_pad[0x18];
+	char m_pad[0x14];
 	GameSlot *m_slot[MAX_SLOTS];
 };
 
@@ -253,6 +279,59 @@ Int GameInfo::getNumOpenOrOccupiedSlots() const
 	return numSlots;
 }
 
+// ?isSandbox@GameInfo@@UAE_NXZ @0x003FF3E3 (116B): vtable slot 20, after
+// isSkirmish (18) and isMultiPlayer (19) as in BFME1/ZH GameInfo.cpp. ZH body
+// (every other occupied slot on the local team), plus a BFME2 observer path:
+// with no local slot the first occupied slot's team stands in. The team
+// number is the +0x1C dword after the player template.
+bool GameInfo::isSandbox()
+{
+	Int localSlotNum = getLocalSlotNum();
+	Int localTeam = -1;
+	if (localSlotNum < 0)
+	{
+		for (Int i = 0; i < MAX_SLOTS; ++i)
+		{
+			const GameSlot *slot = getConstSlot(i);
+			if (slot->isOccupied())
+			{
+				localTeam = slot->getTeamNumber();
+				break;
+			}
+		}
+	}
+	else
+	{
+		localTeam = getConstSlot(localSlotNum)->getTeamNumber();
+	}
+	for (Int i = 0; i < MAX_SLOTS; ++i)
+	{
+		if (i == localSlotNum)
+			continue;
+
+		const GameSlot *slot = getConstSlot(i);
+		if (slot->isOccupied() && (slot->getTeamNumber() < 0 || slot->getTeamNumber() != localTeam))
+			return false;
+	}
+	return true;
+}
+
+// ?rva003FF457@GameInfo@@QBE_NXZ @0x003FF457 (63B): the all-slots form of
+// isHeroDataReadyForSlot below, scanning the slot array directly: false when any
+// occupied slot has the +0x50 kind set but no +0x64 block. One caller,
+// 0x0044C285.
+bool GameInfo::rva003FF457() const
+{
+	if (!m_slot)
+		return true;
+	for (int i = 0; i < MAX_SLOTS; ++i) {
+		const GameSlot *slot = m_slot[i];
+		if (slot->isOccupied() && slot->m_50 != 0 && !slot->rva64())
+			return false;
+	}
+	return true;
+}
+
 bool GameInfo::isHeroDataReadyForSlot(unsigned short slotNum) const
 {
 	if (m_slot && slotNum < MAX_SLOTS) {
@@ -326,20 +405,4 @@ void GameSlot::rva003FF1A7(int v)
 		return;
 	m_5c = v;
 	Rva00559FAC(v, &m_60);
-}
-
-// ?rva003FF457@GameInfo@@QBE_NXZ @0x003FF457 63B: checks occupied slots for
-// a slot with an unset +0x60 state while +0x50 is set. Class identity comes
-// from the caller loading TheGameInfo; these fields remain mechanically named.
-bool GameInfo::rva003FF457() const
-{
-	if (m_slot == 0)
-		return true;
-	for (Int i = 0; i < MAX_SLOTS; ++i)
-	{
-		const GameSlot *slot = m_slot[i];
-		if (slot->isOccupied() && slot->m_50 && !slot->rva64())
-			return false;
-	}
-	return true;
 }
