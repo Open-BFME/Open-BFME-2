@@ -14089,3 +14089,7 @@ rva009C7380WeightPairs,0x009B84E0
 ??0GameTextManager@@QAE@XZ,0x002E63AA,callee of ?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ
 ??0CreateAHeroData@@QAE@HHHABVUnicodeString@@HHH@Z,0x00409C3D,callee of ??0GameSlot@@QAE@XZ
 ??4CreateAHeroData@@QAEAAV0@ABV0@@Z,0x00409359,callee of ?reset@GameSlot@@UAEXXZ
+?animateSpecialPowerShortcut@ControlBar@@QAEX_N@Z,0x0031AF54,callee of ?HideControlBar@@YAX_N@Z at 0x00402A30 with false; body is ZH ControlBar::animateSpecialPowerShortcut (shortcut parent +0xD8 and its animate manager +0x14 checked; winGetUserData scan; registerGameWindow 500ms or reverseAnimateWindow)
+?rva0031AFDE@ControlBar@@QAEHXZ,0x0031AFDE,ControlBar +0x29C mode flip 0<->1 returning the new mode; called on TheControlBar by ?ShowControlBar@@YAX_N@Z 0x00402AA2 and ?ToggleControlBar@@YAX_N@Z 0x00402B08
+?rva002D4240@RadarWindowOverrideSource@@QAEX_N@Z,0x002D4240,callee of ?HideControlBar@@YAX_N@Z (true) and ?ShowControlBar@@YAX_N@Z (false) on the 0x00DFF028 global; BFME1 donor's AptPalantir::hide position
+?rva000CF155@InGameUI@@QAEPAVRva005CB260@@XZ,0x000CF155,callee on TheInGameUI in ?HideControlBar@@YAX_N@Z 0x00402A72 and ?ShowControlBar@@YAX_N@Z 0x00402AE4; 12B null-checked this+0x10 base conversion folded with the gen-alias row; result feeds the 0x005CB260 forwarder
