@@ -90,17 +90,17 @@ struct Rva002F0DD6Less {
 };
 typedef _STL::_Rb_tree<unsigned int,Pair,_STL::_Select1st<Pair>,Rva002F0DD6Less,_STL::allocator<Pair> > Tree;
 
-namespace _STL { template <> void _Construct<Pair,Pair>(Pair *, const Pair &); }
+namespace _STL { void dup_0060C9D9(Pair *, const Pair &); }
 
-// Full unsigned-pair construction independently byte-equals the existing
-// 23-byte signed-pair provider at60C9D9. This is a copy-shape/ABI binding.
-#pragma comment(linker, "/alternatename:??$_Construct@U?$pair@$$CBII@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBII@0@ABU10@@Z=??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z")
+// The target has a full 23-byte two-word copy at 0x0060C9D9, but its
+// instantiated identity is unknown; use an address-derived call placeholder.
+#pragma comment(linker, "/alternatename:?dup_0060C9D9@_STL@@YAXPAU?$pair@$$CBII@1@ABU21@@Z=??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z")
 // Native [2EF25B,2EF27D),34B RET4 ignores incoming ECX and uses the
 // global pool. A stdcall address-named view preserves that observed ABI.
 void *__stdcall rva002EF25B(const Pair &value)
 {
     _STL::_Rb_tree_node<Pair> *node = (_STL::_Rb_tree_node<Pair> *)g_Va00DBD4C8.rva002EB448();
-    _STL::_Construct(&node->_M_value_field, value);
+    _STL::dup_0060C9D9(&node->_M_value_field, value);
     return node;
 }
 
