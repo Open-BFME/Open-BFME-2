@@ -14086,3 +14086,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z,0x0037E6E8,callee of ?rva0049CD4F@Rva0049CD4F@@QAEHPAVRva0049CD4FArg@@@Z
 ?rva00497FF3@BattlePlanUpdate@@QAEXH@Z,0x00497FF3,callee of ?rva0049862B@Rva0049862B@@QAEHXZ
 ?rva0021F47E@CreateAHeroCRC@@QAEXXZ,0x0021F47E,callee of ?getCRC@CreateAHeroCRC@@QAEIXZ
+??0GameTextManager@@QAE@XZ,0x002E63AA,callee of ?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ
