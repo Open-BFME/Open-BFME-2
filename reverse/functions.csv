@@ -66148,3 +66148,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004C9FE0@AnimationSoundTree@@QAEPAUAnimationSoundTreeNode@@PBX@Z,,0x004C9FE0,56,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp,matched,tree search member comparator against node payload target branches and child offsets from retail
 ??0Rva00419CFB@@QAE@PAX@Z,,0x00419CFB,29,Code/GameEngine/Source/Common/Rva00419CFBConstructor.cpp,matched,derived ThreadClass constructor from caller allocation and observed vtable
 ?rva00435CFE@Rva00435CFE@@QAEXG@Z,,0x00435CFE,24,Code/Libraries/Source/WWVegas/WWLib/Rva00435CFEUpdate.cpp,matched,address-named field update with rowed Hook
+?rva00433403@Rva004EC166@@QAEXABVAsciiString@@@Z,,0x00433403,49,Code/GameEngine/Source/Common/Rva00433403.cpp,matched,class from rowed wrapper and string fields from retail offsets
