@@ -79,7 +79,7 @@ public:
     AIGroup *createGroup();
     void rva002FE712(AIGroup *grp);
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class AIUpdateInterface
 {
@@ -147,10 +147,10 @@ void Rva004ECECD::rva004ED08A()
     Rva004ECECDNode *begin = m_begin;
     Rva004ECECDNode *end = m_end;
     for (Rva004ECECDNode *it = begin; it != end; ++it) {
-        AIGroup *grp = g_Va009FF0F8->createGroup();
+        AIGroup *grp = TheAI->createGroup();
         Team *t = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(it->m_model);
         t->getTeamAsAIGroup(grp);
         grp->rva00372C05();
-        g_Va009FF0F8->rva002FE712(grp);
+        TheAI->rva002FE712(grp);
     }
 }

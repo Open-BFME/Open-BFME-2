@@ -6,7 +6,6 @@
 
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-extern const char g_00BBFDDC[];
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
@@ -131,7 +130,7 @@ void Rva006E3230::rva006E4A90()
 			}
 			else
 			{
-				g_bfmeAptAssertAtE17734(g_00BBFDDC, "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x62d);
+				g_bfmeAptAssertAtE17734("0", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x62d);
 				if (g_bfmeAptBreakOnAssertAtDDC01C)
 					__debugbreak();
 			}

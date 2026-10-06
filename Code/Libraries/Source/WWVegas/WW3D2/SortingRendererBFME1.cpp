@@ -494,7 +494,7 @@ struct BFME2TextureRef { void *Ptr; };
 void BFME2Set_Texture(unsigned stage, const struct BFME2TextureRef &texture);
 extern unsigned TheBoxTextureDirtyMask;
 // ?g_00DEE5DC@@3PAVVertexMaterialClass@@A: the global at this VA is ?ScreenMaterial@@3PAVVertexMaterialClass@@A; this name is an alias for it.
-extern VertexMaterialClass * g_00DEE5DC;
+extern class VertexMaterialClass *ScreenMaterial;
 #pragma comment(linker, "/alternatename:?g_00DEE5DC@@3PAVVertexMaterialClass@@A=?ScreenMaterial@@3PAVVertexMaterialClass@@A")
 extern struct IDirect3DDevice8 *g_d3dDevice;
 extern unsigned g_00DEDA4C;
@@ -509,10 +509,10 @@ void Rva0012D4D0Apply(RenderStateStruct &render_state)
 	VertexMaterialClass *mat = render_state.material;
 	if (mat)
 		mat->Add_Ref();
-	if (g_00DEE5DC)
-		g_00DEE5DC->Release_Ref();
+	if (ScreenMaterial)
+		ScreenMaterial->Release_Ref();
 	TheBoxTextureDirtyMask |= 0x4000;
-	g_00DEE5DC = mat;
+	ScreenMaterial = mat;
 	for (int i = 0; i < *(const int *)((const unsigned char *)DX8Wrapper::Get_Current_Caps() + 0x2b0); ++i)
 		BFME2Set_Texture(i, reinterpret_cast<const struct BFME2TextureRef &>(render_state.Textures[i]));
 	if (render_state.material->Get_Lighting()) {

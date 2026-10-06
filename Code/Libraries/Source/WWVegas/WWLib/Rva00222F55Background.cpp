@@ -15,8 +15,6 @@ private:
     void *m_324;
 };
 
-extern const char g_00BBFDDC[];
-extern const char g_00BBFDE0[];
 
 void Rva00222A8BTarget::rva00222F55(bool flag)
 {
@@ -24,13 +22,13 @@ void Rva00222A8BTarget::rva00222F55(bool flag)
         return;
     switch (m_31C) {
     case 2: {
-        const char *val = flag ? g_00BBFDE0 : g_00BBFDDC;
+        const char *val = flag ? "1" : "0";
         invoke(m_324, "HideInGameBackground", 1, val, 0, 0, 0, 0);
         m_320 = 2;
         break;
     }
     case 1: {
-        const char *val = flag ? g_00BBFDE0 : g_00BBFDDC;
+        const char *val = flag ? "1" : "0";
         invoke(m_324, "HideFrontEndBackground", 1, val, 0, 0, 0, 0);
         m_320 = 1;
         break;

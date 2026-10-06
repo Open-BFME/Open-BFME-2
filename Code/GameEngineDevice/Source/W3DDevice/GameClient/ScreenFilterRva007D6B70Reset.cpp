@@ -99,7 +99,7 @@ static __forceinline void filterSetPixelShader(void *shader)
 //   SetPixelShader(+calls only) behavior pairing per seat-45-r7. Bound the
 //   same global-to-member way as g_00DEDA4C->matrix_changes precedent.
 // All addresses DIR32-masked by the gate, never hardcoded.
-extern unsigned g_00DEDA98;
+extern unsigned int number_of_DX8_calls;
 extern unsigned g_00DEDA60;
 // ?g_00DEDA98@@3IA: the global at VA 0xdeda98 is ?number_of_DX8_calls@@3IA.
 #pragma comment(linker, "/alternatename:?g_00DEDA98@@3IA=?number_of_DX8_calls@@3IA")
@@ -128,7 +128,7 @@ void Rva007D6B70::reset(void)
 		DX8Wrapper::Textures[0]->Release();
 		DX8Wrapper::Textures[0] = 0;
 		filterSetTexture(0, 0);
-		++g_00DEDA98;
+		++number_of_DX8_calls;
 		++g_00DEDA60;
 	}
 	if (DX8Wrapper::Textures[1])
@@ -136,7 +136,7 @@ void Rva007D6B70::reset(void)
 		DX8Wrapper::Textures[1]->Release();
 		DX8Wrapper::Textures[1] = 0;
 		filterSetTexture(1, 0);
-		++g_00DEDA98;
+		++number_of_DX8_calls;
 		++g_00DEDA60;
 	}
 	if (DX8Wrapper::Textures[2])
@@ -144,7 +144,7 @@ void Rva007D6B70::reset(void)
 		DX8Wrapper::Textures[2]->Release();
 		DX8Wrapper::Textures[2] = 0;
 		filterSetTexture(2, 0);
-		++g_00DEDA98;
+		++number_of_DX8_calls;
 		++g_00DEDA60;
 	}
 	if (DX8Wrapper::Textures[3])
@@ -152,7 +152,7 @@ void Rva007D6B70::reset(void)
 		DX8Wrapper::Textures[3]->Release();
 		DX8Wrapper::Textures[3] = 0;
 		filterSetTexture(3, 0);
-		++g_00DEDA98;
+		++number_of_DX8_calls;
 		++g_00DEDA60;
 	}
 	if (DX8Wrapper::Textures[4])
@@ -160,10 +160,10 @@ void Rva007D6B70::reset(void)
 		DX8Wrapper::Textures[4]->Release();
 		DX8Wrapper::Textures[4] = 0;
 		filterSetTexture(4, 0);
-		++g_00DEDA98;
+		++number_of_DX8_calls;
 		++g_00DEDA60;
 	}
 	filterSetPixelShader(0);
-	++g_00DEDA98;
+	++number_of_DX8_calls;
 	DX8Wrapper::Invalidate_Cached_Render_States();
 }

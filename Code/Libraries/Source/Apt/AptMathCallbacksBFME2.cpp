@@ -207,17 +207,14 @@ AptValue *aptMathMax(void *self, int argc)
 // Native 6E8620..6E8678: round to nearest with ties away from zero using
 // shared zero and half literals, then the CRT integer helper. BFME1 6583b3c1
 // aptMathRound supplies the algorithm; checked stack access is target-specific.
-extern const float g_aptNumberZeroAtBBAEAC;
-extern const float g_aptMathHalfAtBC26F0;
 AptValue *aptMathRound(void *self, int argc)
 {
     if (argc <= 0) return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
-    if (value > g_aptNumberZeroAtBBAEAC) {
-        value += g_aptMathHalfAtBC26F0;
+    if (value > 0.0f) {
+        value += 0.5f;
         return AptInteger::Create((int)value);
     }
-    value -= g_aptMathHalfAtBC26F0;
+    value -= 0.5f;
     return AptInteger::Create((int)value);
 }
-extern const float g_aptMathHalfAtBC26F0 = 0.5f;

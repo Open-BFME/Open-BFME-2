@@ -12,7 +12,7 @@ class Team;
 class AI;
 class Rva004ECECD;
 class TeamFactory;
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 extern TeamFactory *TheTeamFactory;
 class Rva0039F761Owner
 {
@@ -87,11 +87,11 @@ void Rva004ECECD::rva004ED1A1(int id, Object *victim)
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
 	{
-		AIGroup *group = g_Va009FF0F8->createGroup();
+		AIGroup *group = TheAI->createGroup();
 		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
 		team->getTeamAsAIGroup(group);
 		group->groupAttackObjectPrivate(false, victim, 0x7fffffff, (CommandSourceType)0);
-		g_Va009FF0F8->rva002FE712(group);
+		TheAI->rva002FE712(group);
 		node->m_10 = 0;
 	}
 }
@@ -105,11 +105,11 @@ void Rva004ECECD::rva004ED1FD(int id, const struct Coord3D *p)
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
 	{
-		AIGroup *group = g_Va009FF0F8->createGroup();
+		AIGroup *group = TheAI->createGroup();
 		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
 		team->getTeamAsAIGroup(group);
 		((BfmeC986 *)group)->rva00372B09((int)p, 0x7fffffff, 0);
-		g_Va009FF0F8->rva002FE712(group);
+		TheAI->rva002FE712(group);
 		node->m_10 = 0;
 	}
 }
@@ -127,7 +127,7 @@ void Rva004ECECD::rva004ED257(int id, const struct Coord3D *p)
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
 	{
-		AIGroup *group = g_Va009FF0F8->createGroup();
+		AIGroup *group = TheAI->createGroup();
 		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
 		team->getTeamAsAIGroup(group);
 		Rva00372571Params params;
@@ -140,7 +140,7 @@ void Rva004ECECD::rva004ED257(int id, const struct Coord3D *p)
 		params.m_18 = 0;
 		params.m_1C = false;
 		group->rva00372571(&params, 0);
-		g_Va009FF0F8->rva002FE712(group);
+		TheAI->rva002FE712(group);
 		node->m_10 = 0;
 	}
 }

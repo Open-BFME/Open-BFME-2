@@ -11,7 +11,7 @@ class Q1Receiver0134FAAC {
 public:
     void m009F0FA0(Rva009EF0D0Element *);
 };
-extern Q1Receiver0134FAAC *g_q1Receiver0134FAAC;
+extern class Q1Receiver0134FAAC *TheQ1Receiver;
 class Rva009EB8A0 {
 public:
     void method();
@@ -21,6 +21,6 @@ private:
 };
 void Rva009EB8A0::method()
 {
-    if ((word0004 & 0xff0000) != 0x30000 && g_q1Receiver0134FAAC)
-        g_q1Receiver0134FAAC->m009F0FA0(reinterpret_cast<Rva009EF0D0Element *>(this));
+    if ((word0004 & 0xff0000) != 0x30000 && TheQ1Receiver)
+        TheQ1Receiver->m009F0FA0(reinterpret_cast<Rva009EF0D0Element *>(this));
 }

@@ -122,7 +122,7 @@ void MeshClass::Get_Deformed_Vertices(Vector3 *dst_vert)
 // byte gate; the names keep the literal addresses out of the source).
 extern int g_rva009f36b0;
 extern int g_rva009f36ac;
-extern int g_rva009eda78;
+extern int G00DEDA78;
 extern int g_rva009eda24;
 
 class Rva00149BB0Inner
@@ -149,7 +149,7 @@ void MeshClass::rva00149bb0()
 	Rva00149BB0Inner *inner = model->m_inner;
 	if (inner->m_flagB8 != 0 || inner->m_flag108 != 0)
 	{
-		g_rva009eda78 = g_rva009f36b0;
+		G00DEDA78 = g_rva009f36b0;
 		g_rva009eda24 = g_rva009f36ac;
 	}
 }

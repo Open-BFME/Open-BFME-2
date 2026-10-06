@@ -10,12 +10,11 @@
 
 extern int g_stat10;			// 0x00DEE894, number of live entries (capped at 3)
 extern int g_Va00DEE8E8[];		// 0x00DEE8E8, three-entry buffer
-extern int g_Va00DEE910;		// 0x00DEE910, monotone source value
+extern int g_stat8;		// 0x00DEE910, monotone source value
 
 // Defined here (DebugStatisticsBegin pattern for g_statN): .bss runtime
 // buffer/source at distinct VAs, not the g_stat array, so no alias.
 int g_Va00DEE8E8[3];
-int g_Va00DEE910;
 
 // ?Rva00129640Get@@YAHH@Z @ 0x00129640 (23B)
 int Rva00129640Get(int index)
@@ -34,14 +33,14 @@ void Rva00129690(void)
 		return;
 
 	if (count == 0) {
-		g_Va00DEE8E8[0] = g_Va00DEE910;
+		g_Va00DEE8E8[0] = g_stat8;
 	} else {
 		int sum = 0;
 
 		for (int i = 0; i < count; i++)
 			sum += g_Va00DEE8E8[i];
 
-		g_Va00DEE8E8[count] = g_Va00DEE910 - sum;
+		g_Va00DEE8E8[count] = g_stat8 - sum;
 	}
 
 	g_stat10 = count + 1;

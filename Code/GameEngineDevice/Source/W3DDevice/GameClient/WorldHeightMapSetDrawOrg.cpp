@@ -22,7 +22,7 @@ public:
 	unsigned char m_pad4D;
 	Bool m_drawEntireTerrain;	// +0x4E
 };
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 class WorldHeightMap
 {
 public:
@@ -45,11 +45,11 @@ Bool WorldHeightMap::setDrawOrg(Int xOrg, Int yOrg)
 	newY = yOrg;
 	newWidth = m_drawWidthX;
 	newHeight = m_drawHeightY;
-	if (TheGlobalData && TheGlobalData->m_stretchTerrain) {
+	if (TheWritableGlobalData && TheWritableGlobalData->m_stretchTerrain) {
 		newWidth=STRETCH_DRAW_WIDTH;
 		newHeight=STRETCH_DRAW_HEIGHT;
 	}
-	if (TheGlobalData && TheGlobalData->m_drawEntireTerrain) {
+	if (TheWritableGlobalData && TheWritableGlobalData->m_drawEntireTerrain) {
 		newWidth=m_width;
 		newHeight=m_height;
 	}

@@ -50,7 +50,7 @@ private:
 	static unsigned int SyncTime;
 };
 
-extern int g_00DBA4E8;
+extern int g_009BA4E8;
 
 class Rva003093F6Bases
 {
@@ -80,7 +80,7 @@ void Rva00080858Mean(ID3DXEffect *effect, D3DXHANDLE handle)
 	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
 	if (bases)
 	{
-		float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_00DBA4E8;
+		float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_009BA4E8;
 		bases->rva003093F6();
 		value = bases->rva0030822F(time);
 	}
@@ -98,7 +98,7 @@ void Rva00080858Mean(ID3DXEffect *effect, D3DXHANDLE handle)
 		Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0; \
 		if (bases)                                                        \
 		{                                                                 \
-			float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_00DBA4E8;     \
+			float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_009BA4E8;     \
 			bases->rva003093F6();                                         \
 			value = bases->GETTER(time, GROUP);                           \
 		}                                                                 \
@@ -142,7 +142,7 @@ void Rva00080F95Mean2(ID3DXEffect *effect, D3DXHANDLE handle)
 	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
 	if (bases)
 	{
-		float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_00DBA4E8;
+		float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_009BA4E8;
 		bases->rva003093F6();
 		value = bases->rva0030822F(time);
 		Rva0008103AAdjust(&value.x);
@@ -160,7 +160,7 @@ void Rva00081242Bases03X2(ID3DXEffect *effect, D3DXHANDLE handle)
 	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
 	if (bases)
 	{
-		float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_00DBA4E8;
+		float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_009BA4E8;
 		bases->rva003093F6();
 		value = bases->rva00308325(time, 0);
 		Rva000812E1Scale(&value.x);
