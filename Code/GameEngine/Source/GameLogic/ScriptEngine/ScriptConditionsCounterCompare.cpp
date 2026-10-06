@@ -10,9 +10,7 @@
 class Parameter
 {
 public:
-	// dllimport+forceinline keeps the row's inlined +8 mov while suppressing
-	// our differing out-of-line copy (ScriptConditions_evaluateMusicHasCompleted precedent).
-	__declspec(dllimport) __forceinline int getInt() const { return m_integer; }
+	int getInt() const { return m_integer; }
 	const AsciiString &getString() const { return m_string; }
 private:
 	char m_unknown[8];

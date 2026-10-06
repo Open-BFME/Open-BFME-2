@@ -16,7 +16,7 @@ class Parameter
 {
 public:
 	const AsciiString &getString() const { return m_string; }
-	__declspec(dllimport) __forceinline int getInt() const { return m_int; }
+	int getInt() const { return m_int; }
 	unsigned char m_beforeInt[8];
 	int m_int;
 	float m_real;
@@ -45,7 +45,7 @@ public:
 	void AppendDebugMessage(const AsciiString &, bool);
 };
 extern ScriptEngine *TheScriptEngine;
-bool g_00E02E34;
+extern bool g_00E02E34;
 
 class ScriptConditions
 {

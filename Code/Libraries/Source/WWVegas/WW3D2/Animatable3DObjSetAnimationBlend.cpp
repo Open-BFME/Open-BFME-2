@@ -14,7 +14,7 @@
 class RefCountClass
 {
 public:
-	__declspec(dllimport) __forceinline void Add_Ref( void ) { NumRefs++; }
+	void Add_Ref( void ) { NumRefs++; }
 
 protected:
 	virtual ~RefCountClass();	// vtable pointer at +0x00

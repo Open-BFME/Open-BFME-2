@@ -9,10 +9,7 @@
 // alternate descriptor124. Texture slots78 and arraysC8 select the descriptor.
 class TextureClass {
 public:
-    // Retail Add_Ref is the /O1 inc copy kept by BfmeMapPictureTextureCtor;
-    // dllimport+forceinline keeps this TU's inlined add (matched Peek_Texture)
-    // while suppressing our differing out-of-line copy (MeshMatDescBufferAccessors precedent).
-    __declspec(dllimport) __forceinline void Add_Ref() { ++RefCount; }
+    void Add_Ref() { ++RefCount; }
     void Release_Ref();
 private:
     unsigned char Prefix[4];
@@ -23,9 +20,7 @@ class BfmeHandleCX {
 public:
     TextureClass *p;
     BfmeHandleCX() : p(0) {}
-    // Retail copy is the inc body at 0x000424BB; dllimport+forceinline keeps
-    // Peek_Texture's inlined add while suppressing our differing out-of-line copy.
-    __declspec(dllimport) __forceinline BfmeHandleCX(const BfmeHandleCX &other) : p(other.p) { if (p) p->Add_Ref(); }
+    BfmeHandleCX(const BfmeHandleCX &other) : p(other.p) { if (p) p->Add_Ref(); }
     ~BfmeHandleCX() { if (p) p->Release_Ref(); }
     __forceinline operator const RefCountPtr<TextureClass> &() const {
         return *reinterpret_cast<const RefCountPtr<TextureClass> *>(this);

@@ -46,11 +46,6 @@ public:
     void Release_Ref();
 };
 
-class TextureBaseClass {
-public:
-    void Release_Ref();
-};
-
 class BfmeHandleCX {
 public:
     TextureClass *p;
@@ -63,13 +58,9 @@ public:
     }
     bool operator==(const BfmeHandleCX &other) const { return p==other.p; }
     bool operator!=(const BfmeHandleCX &other) const { return p!=other.p; }
-    // Calls TextureBaseClass::Release_Ref so the emitted ??1/??_E copies match
-    // the first copy in link order (MaterialCollectorDestructor precedent);
-    // same 0x61ED10 body as TextureClass::Release_Ref (ICF alias), so the
-    // row's inlined releases keep their bytes.
     ~BfmeHandleCX() {
         if (p) {
-            ((TextureBaseClass *)p)->Release_Ref();
+            p->Release_Ref();
         }
     }
 };
@@ -114,9 +105,7 @@ class MeshLoadContextClass {
     unsigned char targetContextGapBeforeTextures[0x18];
     DynamicVectorClass<BfmeHandleCX> Textures;
     int Vertex_Material_Count() { return VertexMaterials.Count(); }
-    // dllimport+forceinline keeps the row's inlined count while suppressing
-    // our differing out-of-line copy (MeshModelReadTextureIds precedent).
-    __declspec(dllimport) __forceinline int Texture_Count() { return Textures.Count(); }
+    int Texture_Count() { return Textures.Count(); }
     int Shader_Count() { return Shaders.Count(); }
     BfmeHandleCX Peek_Legacy_Texture(int index);
     ShaderClass Peek_Legacy_Shader(int legacy_material_index) {

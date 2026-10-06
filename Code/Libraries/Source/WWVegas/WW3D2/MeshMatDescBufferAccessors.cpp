@@ -24,10 +24,7 @@ VertexMaterialClass *MatBufferClass::Peek_Element(int index)
 class TextureClass
 {
 public:
-    // Retail Add_Ref is the /O1 inc copy kept by BfmeMapPictureTextureCtor;
-    // dllimport+forceinline keeps this TU's inlined add (matched Set_Element)
-    // while suppressing our differing out-of-line copy.
-    __declspec(dllimport) __forceinline void Add_Ref() { ++RefCount; }
+    void Add_Ref() { ++RefCount; }
     void Release_Ref();
 private:
     void *VTable;

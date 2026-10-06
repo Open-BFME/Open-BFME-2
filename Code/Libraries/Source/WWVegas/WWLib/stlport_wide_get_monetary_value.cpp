@@ -131,7 +131,7 @@ public:
 		return _M_c;
 	}
 
-	__declspec(dllimport) __forceinline istreambuf_iterator &operator++() { _M_bumpc(); return *this; }
+	istreambuf_iterator &operator++() { _M_bumpc(); return *this; }
 
 	__declspec(dllimport) __forceinline istreambuf_iterator operator++(int)
 	{
