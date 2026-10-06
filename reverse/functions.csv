@@ -65126,3 +65126,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva002654E9@Rva002654E9@@QAEXXZ,,0x002654E9,19,Code/GameEngine/Source/GameLogic/Object/Rva002654E9Apply.cpp,matched,caller jmp at 0x0026893A abuts 0x002654FC via rowed Object setStatus
 ?parseMiscEvaData@INI@@SAXPAV1@@Z,,0x001DCFE5,70,Code/GameEngine/Source/Common/INI_parseMiscEvaData.cpp,matched,BlockParse MiscEvaData token parse donor BFME1 Eva.cpp TheEva+0x80
 ?rva0056D9C1@Rva0056D9C1@@QAEHHII@Z,,0x0056D9C1,78,Code/GameEngine/Source/Common/Rva0056D9C1Handler.cpp,matched,REF slot 0x0086DB48 tail-jmp pinned base 0x0051274F global g_00DFEF18 msg 0x1b dispatcher
+?rva002FE13D@Rva002FE13D@@QAEEPAVObject@@@Z,,0x002FE13D,86,Code/GameEngine/Source/Common/Rva002FE13DHandler.cpp,matched,REF slot 0x008071B8 flags 0x438 bits 1 8 pinned 0x390533 0x28D156
