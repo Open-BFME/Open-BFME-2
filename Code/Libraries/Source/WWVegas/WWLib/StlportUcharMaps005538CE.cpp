@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 //
 // Three STLport 4.5.3 maps keyed by unsigned char, emitted back to back in the
@@ -19,7 +19,8 @@
 // folded), and their signedness is not observable here; short and int are
 // stand-ins for that.
 #include <map>
-// Use the verified 34-byte creator supplied by stlport_modulefactory_map_copy.
+// The common pair/clone unit supplies the short creator; the copy unit
+// supplies the dword creator. Both native bodies are verified at 34 bytes.
 // The generic malloc-based copy emits 32 different bytes at this native target.
 typedef _STL::pair<const unsigned char, int> BfmeByteDwordNodeValue;
 typedef _STL::_Rb_tree<unsigned char, BfmeByteDwordNodeValue,
@@ -48,15 +49,31 @@ BfmeByteWordNodeTree::operator=(const BfmeByteWordNodeTree &other);
 template <> BfmeByteDwordNodeTree &
 BfmeByteDwordNodeTree::operator=(const BfmeByteDwordNodeTree &other);
 
-template class _STL::_Rb_tree<unsigned char, _STL::pair<const unsigned char, short>,
-	_STL::_Select1st<_STL::pair<const unsigned char, short> >, _STL::less<unsigned char>,
-	_STL::allocator<_STL::pair<const unsigned char, short> > >;
-template class _STL::_Rb_tree<unsigned char, _STL::pair<const unsigned char, int>,
-	_STL::_Select1st<_STL::pair<const unsigned char, int> >, _STL::less<unsigned char>,
-	_STL::allocator<_STL::pair<const unsigned char, int> > >;
-template class _STL::map<unsigned char, short, _STL::less<unsigned char>,
-	_STL::allocator<_STL::pair<const unsigned char, short> > >;
-template class _STL::map<unsigned char, int, _STL::less<unsigned char>,
-	_STL::allocator<_STL::pair<const unsigned char, int> > >;
-template class _STL::map<unsigned char, float, _STL::less<unsigned char>,
-	_STL::allocator<_STL::pair<const unsigned char, float> > >;
+// Emit the rowed insertion and lookup members, rather than whole maps.
+template BfmeByteWordNodeTree::iterator
+BfmeByteWordNodeTree::_M_insert(_STL::_Rb_tree_node_base *, _STL::_Rb_tree_node_base *,
+    const BfmeByteWordNodeValue &, _STL::_Rb_tree_node_base *);
+template _STL::pair<BfmeByteWordNodeTree::iterator, bool>
+BfmeByteWordNodeTree::insert_unique(const BfmeByteWordNodeValue &);
+template BfmeByteWordNodeTree::iterator
+BfmeByteWordNodeTree::insert_unique(BfmeByteWordNodeTree::iterator, const BfmeByteWordNodeValue &);
+typedef _STL::map<unsigned char, short, _STL::less<unsigned char>,
+    _STL::allocator<BfmeByteWordNodeValue> > BfmeByteWordMap;
+template BfmeByteWordMap::iterator
+BfmeByteWordMap::insert(BfmeByteWordMap::iterator, const BfmeByteWordNodeValue &);
+template short &BfmeByteWordMap::operator[](const unsigned char &);
+template BfmeByteDwordNodeTree::iterator
+BfmeByteDwordNodeTree::_M_insert(_STL::_Rb_tree_node_base *, _STL::_Rb_tree_node_base *,
+    const BfmeByteDwordNodeValue &, _STL::_Rb_tree_node_base *);
+template _STL::pair<BfmeByteDwordNodeTree::iterator, bool>
+BfmeByteDwordNodeTree::insert_unique(const BfmeByteDwordNodeValue &);
+template BfmeByteDwordNodeTree::iterator
+BfmeByteDwordNodeTree::insert_unique(BfmeByteDwordNodeTree::iterator, const BfmeByteDwordNodeValue &);
+typedef _STL::map<unsigned char, int, _STL::less<unsigned char>,
+    _STL::allocator<BfmeByteDwordNodeValue> > BfmeByteDwordMap;
+template BfmeByteDwordMap::iterator
+BfmeByteDwordMap::insert(BfmeByteDwordMap::iterator, const BfmeByteDwordNodeValue &);
+template int &BfmeByteDwordMap::operator[](const unsigned char &);
+typedef _STL::map<unsigned char, float, _STL::less<unsigned char>,
+    _STL::allocator<_STL::pair<const unsigned char, float> > > BfmeByteFloatMap;
+template float &BfmeByteFloatMap::operator[](const unsigned char &);
