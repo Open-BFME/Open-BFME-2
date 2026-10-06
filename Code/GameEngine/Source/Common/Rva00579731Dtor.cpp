@@ -11,6 +11,7 @@
 // 0x00E0631C is destroyed by the atexit thunk 0x007B94C8. The destructor
 // resets no vptr, so it is the implicit one, virtual through the base.
 #include "ascii_string.h"
+#include "unicode_string.h"
 #include <vector>
 
 class INI
@@ -50,6 +51,63 @@ struct WinMainTitlePair : Rva000B3F84Pair
 Rva000B3F84Pair Rva00108B93Make(const char *src);
 WinMainTitlePair operator+(const Rva000B3F84Pair &left, const char *right);
 
+// The stat hint handed to the stats display's tooltip: a reference-counted
+// object (count at +4, released through the rowed 0x0007DEEF) built by the
+// pinned 0x005398CD from a title and a help text, as InGameHotSpotSimpleHelp
+// builds it.
+struct TargetRef00217D4C
+{
+	virtual void *destroy(unsigned int flags);
+	int references;
+};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+
+struct TreeHintRef00217D4C
+{
+	TreeHintRef00217D4C(TargetRef00217D4C *p) : m_ptr(p)
+	{
+		if (m_ptr)
+			m_ptr->references++;
+	}
+	__forceinline ~TreeHintRef00217D4C()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C(m_ptr);
+	}
+
+	TargetRef00217D4C *m_ptr;
+};
+
+class Rva005398CD
+{
+public:
+	Rva005398CD(const UnicodeString &first, const UnicodeString &second);
+
+private:
+	char m_opaque[12];
+};
+
+class GameTextInterface
+{
+public:
+	virtual ~GameTextInterface() {}
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2C() = 0;
+	virtual void slot30() = 0;
+	virtual void slot34() = 0;
+	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
+};
+extern GameTextInterface *TheGameText;
+
 class Rva0022167C {
 public:
 	Rva0022167C(const AsciiString &name);
@@ -68,6 +126,7 @@ class Rva00579731 : public Rva0022167C {
 public:
 	Rva00579731();
 	virtual void rva0057A09F(INI *ini);
+	TreeHintRef00217D4C rva00579770(int stat);
 private:
 	Rva005796FC m_at8[6];
 };
@@ -114,6 +173,22 @@ void Rva00579731::rva0057A09F(INI *ini)
 	table.push_back(*(const BfmeE16 *)g_emptyFieldParseTable);
 	ini->initFromINI(this, (const FieldParse *)&table[0]);
 }
+// ?rva00579770@Rva00579731@@QAE?AUTreeHintRef00217D4C@@H@Z @0x00579770 248B:
+// the hint for one stat line, from the localized title and help labels the
+// INI block gave it (an empty label leaves its text empty). Caller the stats
+// display's OnStatRollOver 0x00579B81 on this global (0x00E0631C).
+TreeHintRef00217D4C Rva00579731::rva00579770(int stat)
+{
+	const Rva005796FC &row = m_at8[stat];
+	UnicodeString title;
+	if (!((const StringBase<char> *)&row.m_title)->isEmpty())
+		title = TheGameText->fetch(row.m_title);
+	UnicodeString help;
+	if (!((const StringBase<char> *)&row.m_help)->isEmpty())
+		help = TheGameText->fetch(row.m_help);
+	return TreeHintRef00217D4C((TargetRef00217D4C *)new Rva005398CD(title, help));
+}
+
 // ??1Rva005796FC@@QAE@XZ: rowed in stlport_vector_stringrecord_b94d2_allocate_copy.cpp but that TU emits ??1BfmeStringRecord000B94D2@@QAE@XZ; bind this spelling.
 #pragma comment(linker, "/alternatename:??1Rva005796FC@@QAE@XZ=??1BfmeStringRecord000B94D2@@QAE@XZ")
 // ??0Rva005796FC@@QAE@XZ: the pair ctor 0x0007E81F is ICF-folded; the ledger compiles it as ??0DataChunkInfo@@QAE@XZ.
