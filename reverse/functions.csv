@@ -64638,3 +64638,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva005481F9@Rva00548117@@QAEXW4ObjectID@@H@Z,,0x005481F9,110,Code/GameEngine/Source/GameLogic/Object/Rva005481F9.cpp,matched,caller 0x00355245 list at +4 find 0x0029B694 armor 0x00355155 virtual edx+1c
 ?rva002B5334@Rva002B5334@@QAEXXZ,,0x002B5334,92,Code/GameEngine/Source/Common/Rva002B5334.cpp,matched,finish lane for-loop recount unsigned index rowed find plus pinned worker
 ?Rva00355201Apply@@YGXHPAX0@Z,,0x00355201,86,Code/GameEngine/Source/GameLogic/Object/Rva00355201.cpp,matched,chain from 0x005481F9 range at +4/+8 armor 0x0035516C flags from kind
+?ParseAudioEventBlock@@YAXPAVINI@@PAX1PBX@Z,,0x004E18B5,129,Code/GameEngine/Source/Common/ParseAudioEventBlock.cpp,matched,LivingWorld ParseAudioEventBlock inline record append thunk

@@ -1,5 +1,3 @@
-// ?ParseAudioEventBlock@@YAXPAVINI@@PAX1PBX@Z
-// partial score=0.9 date=2026-10-05
 // cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
 //
 // ParseAudioEventBlock, retail 0x004E18B5 (129B), and its append thunk
@@ -69,11 +67,7 @@ private:
 
 extern const FieldParse g_00C61C68[];
 
-// ?append@Rva0056654FOwner@@QAEXABVRva004E18A2@@@Z
-void Rva0056654FOwner::append(const Rva004E18A2 &record)
-{
-	m_audioEvents.push_back(record);
-}
+// append rowed in Rva0056654FThunk.cpp; declared only
 
 // ?ParseAudioEventBlock@@YAXPAVINI@@PAX1PBX@Z
 void ParseAudioEventBlock(INI *ini, void *instance, void *, const void *)
