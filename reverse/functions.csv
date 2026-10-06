@@ -64468,3 +64468,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva0022DCDA@@QAE@XZ,,0x0022DCDA,63,Code/GameEngine/Source/Common/Rva0022DCDADtor.cpp,matched,range destroy over start and finish then inline CRT storage member
 ??1BfmeNarrowRecord00427F75@@QAE@XZ,,0x0022CCEF,59,Code/GameEngine/Source/Common/BfmeNarrowRecord00427F75Dtor.cpp,matched,tree member dtor at +0xC then inline CRT buffer member
 ??1Rva0026E1A6@@QAE@XZ,,0x0026E1A6,56,Code/GameEngine/Source/Common/Rva0026E1A6Dtor.cpp,matched,LocomotorSetType tree clear then inline CRT header member
+?rva005CB91E@Rva005CB91E@@QAEHH@Z,,0x005CB91E,179,Code/GameEngine/Source/Common/Rva005CB91E.cpp,matched,priority encoder via rowed lookups plus virtual checks plus callers

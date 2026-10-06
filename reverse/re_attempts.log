@@ -11410,3 +11410,4 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva0042D480@Rva0042D480@@QAE_NXZ	0x0042D480	19	blocked	global null path needs shared ret reusing zero but O1 emits separate xor plus ret and int form adds movzx t=20 model=muse-07
 FUN_00613c6e	0x00213C6E	293	blocked	dual-path INI-Xfer-like virtuals 0x4-0x7c plus Rva00056F61 table at +0x204 with EH AsciiString temps and 0x34 new via Rva00210EF1 needs donor layout beyond quick box t=10 model=muse-06
 FUN_00479ed4	0x00079ED4	29	blocked	hint-insert forwarder to rowed 0x79D14 same this hidden ret0c: ours 24B 3xpush-mem vs retail 29B push-ecx-mov-eax shape needs lever beyond 6-variant box t=18 model=muse-06
+?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z	0x00334AF3	263	partial	second bool sbb eax vs sbb al plus inc eax vs inc al t=18 model=muse-spark score=0.99 stash=reverse/attempts/0x00334af3.cpp
