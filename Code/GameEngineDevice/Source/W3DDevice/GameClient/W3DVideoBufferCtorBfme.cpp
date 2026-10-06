@@ -36,7 +36,7 @@ private:
 class W3DVideoSurfaceHandle
 {
 public:
-    ~W3DVideoSurfaceHandle();
+    ~W3DVideoSurfaceHandle() {}
 
 private:
     void *m_surface;
@@ -45,8 +45,8 @@ private:
 class Rva00739C70State
 {
 public:
-    Rva00739C70State();
-    ~Rva00739C70State();
+    Rva00739C70State() {}
+    ~Rva00739C70State() {}
 
 private:
     int m_value_00;
