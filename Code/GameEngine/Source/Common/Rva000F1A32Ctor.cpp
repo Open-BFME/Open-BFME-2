@@ -21,12 +21,46 @@ public:
     class TCBClass;
 };
 class TCBSpline3DClass::TCBClass {
-    char _b[1];
-};
-template <class T> class DynamicVectorClass {
 public:
-    virtual bool Resize(int len, const T *items);
+    float Tension;
+    float Continuity;
+    float Bias;
 };
+template<class T> class VectorClass {
+public:
+    VectorClass(int size = 0, T const *array = 0);
+    virtual ~VectorClass();
+    virtual bool operator==(VectorClass const &) const;
+    virtual bool Resize(int size, T const *array = 0);
+    virtual void Clear();
+    virtual int ID(T const *);
+    virtual int ID(T const &);
+protected:
+    T *Vector;
+    int VectorMax;
+    bool IsValid;
+    bool IsAllocated;
+    bool VectorClassPad[2];
+};
+template<class T> class DynamicVectorClass : public VectorClass<T> {
+public:
+    DynamicVectorClass(int size = 0, T const *array = 0);
+    virtual ~DynamicVectorClass();
+    virtual bool Resize(int size, T const *array = 0);
+    virtual void Clear();
+    virtual int ID(T const *);
+    virtual int ID(T const &);
+protected:
+    int ActiveCount;
+    int GrowthStep;
+};
+template<class T>
+DynamicVectorClass<T>::DynamicVectorClass(int size, T const *array) :
+    VectorClass<T>(size, array)
+{
+    GrowthStep = 10;
+    ActiveCount = 0;
+}
 extern int g_00DEBE14;
 // g_00DEBE14: matched references place it at VA 0xdebe14 (zero-filled .bss).
 int g_00DEBE14;
