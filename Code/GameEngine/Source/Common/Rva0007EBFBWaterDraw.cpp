@@ -27,6 +27,9 @@
 // Rva000806F3BasesParams.cpp for "Mean" and "Bases03X".."Bases811Z" the same
 // way. Its handle and registry stay in ebx/edi because every arm passes them
 // before the arms are cross-jumped into one call.
+// The "PCAWater_M" member's dispatcher 0x00080E30 is the same body over the
+// second binding's ten callbacks (Mean2, Bases03X2..Bases811Z2), which scale
+// the vector by 1.6f.
 //
 // Compiler shape: /O1 throughout (push-imm SetBool arms cross-jumped into one
 // call, pop ecx cleanups and the dispatcher's ebp frame); with /O2 the
@@ -37,6 +40,7 @@
 // ??1Rva0007EBFB@@UAE@XZ                                             @0x0007EC44  67B
 // ?ResolveBindings@Rva0007EBFB@@UAEXPBD0PAVFXShaderParameterBinder@@@Z @0x0007FFED 233B
 // ?ResolveBindings@Rva0007EBFB_Member0@@UAEXPBD0PAVFXShaderParameterBinder@@@Z @0x000806F3 357B
+// ?ResolveBindings@Rva0007EBFB_Member1@@UAEXPBD0PAVFXShaderParameterBinder@@@Z @0x00080E30 357B
 // ?Rva000800D6BlendUsingTerrainAlpha@@YAXPAUID3DXEffect@@PBD@Z      @0x000800D6  36B
 // ?Rva000800FATransparentWaterDepth@@YAXPAUID3DXEffect@@PBD@Z       @0x000800FA  55B
 // ?Rva00080131MinWaterOpacity@@YAXPAUID3DXEffect@@PBD@Z             @0x00080131  55B
@@ -284,6 +288,16 @@ void Rva00080BDCBases47Z(ID3DXEffect *effect, D3DXHANDLE handle);
 void Rva00080C71Bases811X(ID3DXEffect *effect, D3DXHANDLE handle);
 void Rva00080D06Bases811Y(ID3DXEffect *effect, D3DXHANDLE handle);
 void Rva00080D9BBases811Z(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva00080F95Mean2(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva00081242Bases03X2(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva00081324Bases03Y2(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva000813FDBases03Z2(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva000814D6Bases47X2(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva000815AFBases47Y2(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva00081688Bases47Z2(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva00081761Bases811X2(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva0008183ABases811Y2(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva00081913Bases811Z2(ID3DXEffect *effect, D3DXHANDLE handle);
 
 Rva0007EBFB::Rva0007EBFB()
 {
@@ -347,6 +361,36 @@ void Rva0007EBFB_Member0::ResolveBindings(const char *name, const char *handle, 
 			registry->AddBinding(Rva00080D06Bases811Y, handle);
 		else if (_strcmpi(path.m_name, "Bases811Z") == 0)
 			registry->AddBinding(Rva00080D9BBases811Z, handle);
+	}
+}
+
+void Rva0007EBFB_Member1::ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry)
+{
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, handle, registry);
+	if (name)
+	{
+		Rva001530E9Path path;
+		Rva001530E9Parse(name, &path);
+		if (_strcmpi(path.m_name, "Mean") == 0)
+			registry->AddBinding(Rva00080F95Mean2, handle);
+		else if (_strcmpi(path.m_name, "Bases03X") == 0)
+			registry->AddBinding(Rva00081242Bases03X2, handle);
+		else if (_strcmpi(path.m_name, "Bases03Y") == 0)
+			registry->AddBinding(Rva00081324Bases03Y2, handle);
+		else if (_strcmpi(path.m_name, "Bases03Z") == 0)
+			registry->AddBinding(Rva000813FDBases03Z2, handle);
+		else if (_strcmpi(path.m_name, "Bases47X") == 0)
+			registry->AddBinding(Rva000814D6Bases47X2, handle);
+		else if (_strcmpi(path.m_name, "Bases47Y") == 0)
+			registry->AddBinding(Rva000815AFBases47Y2, handle);
+		else if (_strcmpi(path.m_name, "Bases47Z") == 0)
+			registry->AddBinding(Rva00081688Bases47Z2, handle);
+		else if (_strcmpi(path.m_name, "Bases811X") == 0)
+			registry->AddBinding(Rva00081761Bases811X2, handle);
+		else if (_strcmpi(path.m_name, "Bases811Y") == 0)
+			registry->AddBinding(Rva0008183ABases811Y2, handle);
+		else if (_strcmpi(path.m_name, "Bases811Z") == 0)
+			registry->AddBinding(Rva00081913Bases811Z2, handle);
 	}
 }
 
