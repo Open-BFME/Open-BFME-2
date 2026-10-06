@@ -13288,3 +13288,5 @@ FUN_00764551	0x00364551	1120	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va00BBB8D8 plu
 ?rva0020D86C@Rva0020DXXX@@QAE?AVRva003ED658@@XZ	0x0020D86C	133	blocked	needs 0x003EDD68 landed banked 0.98 by muse-01 t=2 model=muse-01
 ?rva0046129A@Rva0046129A@@QAEXXZ	0x0046129A	149	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString plus g_Va009FF0F8 new use refused plus 2 unclaimed callees t=1 model=muse-01
 ?rva00541F72@Rva00541F72@@QAEXXZ	0x00541F72	90	blocked	needs 2 unclaimed callees 0x00541955 281B plus 0x00541AB0 281B t=1 model=muse-01
+?rva0024A178@LANAPI@@UAEXABVUnicodeString@@ABUBfmeNetAddress@@0H@Z	0x0024A178	464	blocked	complex 464B 4-way chat switch needs donor first variant 497B with control-flow diffs t=15 model=muse-04
+?rva0058219D@Rva0058219D@@QAEXXZ	0x0058219D	234	blocked	ADDRESS-NAMED g_Va009FE958 plus complex slot logic t=3 model=muse-04
