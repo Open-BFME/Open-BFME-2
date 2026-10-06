@@ -351,7 +351,8 @@ class Identity:
         path, variants = self.kept(name)
         if path is None:
             if self.at.get(t):
-                return "alias", sorted(self.owner_names(t))[0]
+                # bind to the symbol the owner's object defines, not a ledger label
+                return "alias", min(build.ledger_object_symbol(r) for r in self.at[t])
             return "unowned", "undefined"
         st = self.certify(path, name, t)
         if not self.at.get(t):
