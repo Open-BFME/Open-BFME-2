@@ -64175,3 +64175,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0005CA03@MilesAudioManager@@QAEXPAXMH@Z,,0x0005CA03,114,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp,matched,owner voice plus pinned 5BE59 setup; address name
 ?rva0005CA75@MilesAudioManager@@QAEXH@Z,,0x0005CA75,109,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp,matched,sub poke plus pinned 5BE59 with g_ floats; address name
 ??1Rva008B77D@@UAE@XZ,,0x0008B77D,54,Code/GameEngine/Source/Common/Rva0008B77DDtor.cpp,matched,dtor destroys vector at +0x2C via rowed 0x8B64A then base vtable 0x7C745C
+?rva00383784@Rva00386374@@UAEXVGameSpyStagingRoom@@@Z,,0x00383784,79,Code/GameEngine/Source/GameNetwork/GameSpy/Rva00386374Slot44.cpp,matched,vslot44 0xB0 of 0x00C19500 forwards by-value StagingRoom to slot 0xAC
