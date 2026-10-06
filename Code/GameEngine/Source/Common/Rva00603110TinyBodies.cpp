@@ -36,3 +36,25 @@ void __stdcall Rva0060C1B0(void *out, const AsciiString *name)
 	if (item != 0)
 		*(void **)out = item->m_value;
 }
+
+// ?rva003F934B@Rva003F934B@@QAEXXZ, RVA 0x003F934B, 15 bytes.
+// Called on a pointer loaded from caller offset 0x2c4; the four zeroed slots
+// are inferred from the retail stores at this object's offsets 0x14 through 0x20.
+class Rva003F934B
+{
+public:
+	char m_padding[0x14];
+	unsigned int m_slot14;
+	unsigned int m_slot18;
+	unsigned int m_slot1C;
+	unsigned int m_slot20;
+	void rva003F934B();
+};
+
+void Rva003F934B::rva003F934B()
+{
+	m_slot14 = 0;
+	m_slot18 = 0;
+	m_slot1C = 0;
+	m_slot20 = 0;
+}
