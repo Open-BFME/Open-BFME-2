@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Single-key 'acct' setup writers. Same one-argument shape as the rowed
 // bfmeSetupPair_00656490 family (Bfme5SetupPairs.cpp), minus the second key:

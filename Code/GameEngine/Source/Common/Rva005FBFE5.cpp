@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005FBFE5@Rva005FBFE5@@QAEXH@Z @0x005FBFE5 69B
 // SetResultState setter: m_04 level m_08 name holder +8 m_20 state.
 // Evidence: chain via rowed 0x0050E9FE AptCall; caller 0x005FC1A1; prev 0x005FBEBA;

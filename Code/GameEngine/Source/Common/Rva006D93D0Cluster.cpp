@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Apt array clear at retail 0x006D93D0 (195 bytes), reconstructed from the
 // retail ABI. Layout follows Rva006D94A0Cluster.cpp (m_data +0x20, mnCapacity
 // +0x24, mnLength +0x28); the two assert triples name AptArray.cpp lines

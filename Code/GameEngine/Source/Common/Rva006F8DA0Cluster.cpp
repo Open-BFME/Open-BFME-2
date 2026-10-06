@@ -1,4 +1,4 @@
-// cl: /O2 /MD /Oy /EHs
+// cl: /MD /Oy /EHs
 //
 // ??1Rva006F8D70@@UAE@XZ @0x006F8DA0 103B: complete destructor of the
 // Rva006F8D70 family (vtable 0x008EC9CC, deleting dtor 0x006F8D70, size 0x20).

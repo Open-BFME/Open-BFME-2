@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva0070DFB0@Rva006D6470Owner@@UAEHPAXPAURva008A4570Owner@@@Z @0x0070DFB0 29B
 // Evidence: vslot slot 7 (0x1C) of 0x008EA264 and others; calls rowed nameEquals
 // with "registerClass"; global at 0x00E18064 masked via neg/sbb/and; ret 8

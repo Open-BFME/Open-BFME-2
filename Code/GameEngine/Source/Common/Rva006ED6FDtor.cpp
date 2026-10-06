@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva006ED6F@@UAE@XZ retail 0x0006ED6F 116B
 // MI dtor: own vftables at +0 (SimpleSceneClass part) and +0x108
 // (GameEngineDeletingBase part). Removes the held render object from the scene

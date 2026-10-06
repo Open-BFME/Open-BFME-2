@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005FA89CInit@@YIPAVRva005FA89C@@PAV1@HHHPAURva005FA89CC@@@Z @0x005FA89C
 // 41B evidence: fastcall init (this, fwd-passthrough-in-edx, a, b, c)
 // chaining to pinned ?rva005FF0F6@@YIXPAVRva005FF0F6Obj@@HHHH@Z @0x005FF0F6

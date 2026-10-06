@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005F6A30@Rva005F6A30@@QAEXXZ retail 0x005F6A30 20 bytes.
 // Evidence: leaf lane conditional virtual slot 0x08 on member +4 with outer this as arg plus byte clear +0x18 plus caller 0x005F6A90.
 // Model: __thiscall method over member pointer at +4 cleaned via virtual slot 2 taking outer plus flag at +0x18.

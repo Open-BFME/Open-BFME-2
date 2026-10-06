@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00603C5F@Rva00604465@@QAEHPBD@Z @0x00603C5F 68B: vtable slot 3 method checking tree lookup with normalized path. Evidence: vtable 0x0087A94C slot 3 plus rowed ji_00629176 plus rowed Rva00605365 plus rowed rva00603C0F plus neighbours 0x00603C57 0x00603CA3.
 class Rva00603C0F { public: const void *rva00603C0F(const char *a, const char *b); };
 void __cdecl ji_00629176();

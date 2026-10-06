@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005FA854@Rva005FA854@@QAE_NXZ @0x005FA854 32B evidence: thiscall bool
 // over m_00; null yields false; else pinned thiscall-0
 // ?rva005FEC0C@Rva005FA854Inner@@QAEXXZ @0x005FEC0C on m_00 (ecx already

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005F2792@Rva005F2792@@QAEXXZ, retail 0x005F2792, 102 bytes.
 // Key builder: formats "_level%u.%s_OnUnitIconSlotLoaded%d" from m_info->m_level,
 // team name at m_info->m_holder+8 (else g_Rva0107301CEmptyString) and m_slot,

@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva006d7b60@@YAPAVAptString@@PAVBfmeAptValue006DCD20@@HH@Z @ 0x006D7B60 (285B).
 // Apt clamped two-operand string builder, sibling of the rowed 0x006D7A60
 // (242B, Rva006D7A60Finish.cpp) which supplies the /O2 /MD /EHsc flags and the

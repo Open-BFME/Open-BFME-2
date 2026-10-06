@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva006F12F0Free@@YAXPAXH@Z 0x006F12F0 22B: chain pool free forwarder,
 // recovered from the ?Rva006D8680Free@@YAXPAXH@Z recipe at 0x006D8680.
 // Same operand-masked shape: load the block and size arguments, then thiscall

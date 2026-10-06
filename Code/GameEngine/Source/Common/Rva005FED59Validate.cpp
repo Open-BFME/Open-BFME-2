@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005FED59@Rva005FED59@@QBEXXZ @0x005FED59 8B
 // Tail-jmp to rowed ?validate@?$StringBase@G@@ABEXXZ at 0x000B3FD0

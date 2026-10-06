@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva0070DFF0@Rva0070DFF0@@QAEXPAVRva8D0D80Value@@E@Z @0x0070DFF0 107B
 // Evidence: EH frame with EAStringC "__INTERFACEs__" local; Table::add pin 0x0070B410
 // via this+8; byte flag at this+0x1C from second arg; ret 8 (Value* + uchar);

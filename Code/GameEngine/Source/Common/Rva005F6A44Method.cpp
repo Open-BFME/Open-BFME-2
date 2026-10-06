@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005F6A44@Rva005F6A44@@QAEXXZ retail 0x005F6A44 20 bytes.
 // Evidence: leaf lane conditional virtual slot 0x0C on member +4 with outer this as arg plus byte set +0x18 plus caller 0x005F6A98; twin of rowed 0x005F6A30 which clears the flag and calls slot 0x08.
 class Rva005F6A44Member

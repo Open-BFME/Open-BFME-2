@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005FBE82@Rva005FBE82@@QAEXPBDP81@AEXH@Z@Z @0x005FBE82 56B: leaf __thiscall with (char const*, callback). Evidence: reads ecx as this, ret 8, isdigit+atoi range 0-4 then ecx=[this] push idx call [second arg].
 class Rva005FBE82
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Listener-list walks around 0x005F211B.  Each list's forEach packs a vcall
 // member-function pointer and its arguments into a stack call record and

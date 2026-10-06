@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // 0x00614200   5B   8b 44 24 04 c3   mov eax,[esp+4] ; ret
 //

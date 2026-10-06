@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs
+// cl: /Ireference/shims/bfme2_ascii /MD /EHs
 // ??1Rva005FF5F6@@QAE@XZ retail 0x005FF5F6 99B
 // Non-virtual dtor with an empty body: member dtors in reverse order under EH
 // states 3..0 -- the buffer +0x30 (inline CRT free of its block), UnicodeString

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?allocBlock@Rva006D2A60@@QAEPAXH@Z @ 0x006D29E0 (127B). Retail's class is the
 // AptValueGCAllocator (assert literals name AptValueGCAllocator.cpp/.h); the
 // address-derived class name matches the already-published pin at this RVA.

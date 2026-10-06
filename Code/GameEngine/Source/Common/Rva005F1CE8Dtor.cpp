@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva005F1CE8@@UAE@XZ @0x005F1CE8 14B: virtual dtor sets vtable g_00C79138 then tail-jmps to rowed holder clear 0x005F1B90.
 // Evidence: vtable store plus add ecx 4 plus jmp to rowed 0x005F1B90; caller deleting dtor 0x005F1D2B plus thunk 0x005E3585.
 class Rva005F1B90

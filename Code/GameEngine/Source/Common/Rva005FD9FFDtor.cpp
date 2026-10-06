@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva005FD9FF@@UAE@XZ @0x005FD9FF 14B
 // Virtual dtor storing its vtable then tail-jumping to the +4 holder's rowed
 // clear 0x005FD95E (OwnedPointerResets.cpp). Called by the scalar deleting

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva005F6941@@QAE@XZ, RVA 0x005F6924, 29B. Unlock lane ctor stores vtable plus zeroes.
 // Calls: none. Evidence: vtable 0x00879790 at [this] plus zeroes at +4 +8 +0xC +0x10 +0x14 plus byte +0x18, caller 0x005F7776, next dtor 0x005F6941 59B.
 class Rva005F6941

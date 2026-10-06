@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHs-c- /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHs-c- -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?Rva0060C1B0@@YGXPAXPBVAsciiString@@@Z
 // retail 0x003F92BB, 31 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/Rva00603110TinyBodies.cpp

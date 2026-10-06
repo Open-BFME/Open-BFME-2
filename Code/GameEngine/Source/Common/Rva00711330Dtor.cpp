@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // Opaque destructor with a member clear tail-calling
 // Rva006D6470Owner::~Rva006D6470Owner at 0x006D6470.

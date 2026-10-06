@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva006003A5@Rva006003FC@@QAEXPAVObject@@@Z @0x006003A5 8B vslot.
 // Retail add ecx,8 then jmp performUpgradeFX 0x0047A69C. Evidence: vslot lane;
 // slot 2 of 0x0087A638 class of ??1Rva006003FC@@UAE@XZ; pin-only callee

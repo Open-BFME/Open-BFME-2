@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006D7D00@@YAPAVAptString@@PAVRva006DD6C0@@@Z @0x006D7D00 118B (cdecl).
 // Apt string-value conversion callback: builds an EAStringC temporary with
 // clear() 0x006D2F90, has the source object (arg, ecx) fill it through the

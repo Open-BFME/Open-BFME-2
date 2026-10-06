@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva005F4B57@Rva005F4B57@@QAEXXZ @0x005F4B57 56B: thiscall void method
 // gated by byte +0x30 then forwarding to Rva005FD956 via rowed helpers.

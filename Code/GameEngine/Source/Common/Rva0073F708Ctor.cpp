@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva0073F708@@QAE@PAXH@Z @0x0073F708 112B.
 // Stores the first argument, allocates an 8-byte thread object (vtable
 // 0x007C93A0, handle nulled before the vtable store, so the handle lives in

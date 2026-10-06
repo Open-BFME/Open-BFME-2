@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /MD /DNDEBUG
+// cl: /GX- /MD /DNDEBUG
 // ?Rva005F5B0FNotify@@YAXPAURva005F5B0FA@@PAURva005F5B0FB@@@Z @0x005F5B0F 104B
 // Iterates RB-tree map at second arg +0x10 keyed at node +0x10 via rowed _M_increment.
 // Looks up each key with rowed IndexedField get at first arg +0x78 and checks result +0xBC.

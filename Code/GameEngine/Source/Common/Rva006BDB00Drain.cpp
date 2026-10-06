@@ -1,4 +1,4 @@
-// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -DWIN32 -D_WINDOWS -MD /Os
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -DWIN32 -D_WINDOWS -MD
 // Drain the node at +0x10. When +0xC is null and +0x7C is set, run
 // BfmeThingCDE::bfmeGoCDE on that pointer; otherwise the sibling at 0x006BD1A0.
 

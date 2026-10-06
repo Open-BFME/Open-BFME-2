@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /MD /DNDEBUG
+// cl: /GX- /MD /DNDEBUG
 // ?Rva005F4B8FCopy@@YAPAHPAU_Rb_tree_node_base@_STL@@0PAHABUinput_iterator_tag@2@1@Z, retail 0x005F4B8F, 37 bytes.
 // __copy with input_iterator_tag for map<int void*> RB nodes: copies int keys at +16 to int array.
 // Evidence: STL _algobase __copy(first last result input_iterator_tag Distance asterisk); caller 0x005F4DA7 passes NULL Distance; callee _M_increment 0x00024250 rowed.

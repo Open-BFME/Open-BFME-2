@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005FA874@Rva005FA874@@QAEXXZ, RVA 0x005FA874, 30 bytes.
 // Guarded delete of pointer at +0 (three-AsciiString record): if non-null run rowed ??1Rva005FEBC8 then rowed ??3 delete then null the slot.
 // Evidence: callees rowed 0x005FEBC8 in RvaAsciiStringTripleDtors.cpp and 0x0002FD60 in mem_ops.cpp; callers 0x005E9625 0x005EC09B; neighbours 0x005FA393 0x005FA8F5 share /O1 /MD.

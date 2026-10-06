@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva006003AD@Rva006003FC@@QAEXXZ @0x006003AD 8B vslot tail-forward.
 // Retail add ecx,8 then jmp 0x005FFB81 ?rva005FFB81@Rva005FFB81@@QAEXXZ.
 // Evidence: vslot lane slot 1 (offset 0x4) of 0x0087A638 class of

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00600352Init@@YIPAVRva00600352@@PAV1@HHHHH@Z @0x00600352 39B evidence:
 // fastcall init (this, fwd-dead-forwarded, a, b, c, d-dead): chains to
 // pinned fastcall ?rva00600305@@YIXPAVRva00600305Obj@@HHHH@Z @0x00600305

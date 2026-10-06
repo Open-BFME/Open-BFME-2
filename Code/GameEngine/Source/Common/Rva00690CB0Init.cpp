@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?init@Rva00690CB0Owner@@QAE_NXZ retail 0x005B7107, 307 bytes.
 // Ported from the Open-BFME-1 donor game/GameEngine/Source/Common/

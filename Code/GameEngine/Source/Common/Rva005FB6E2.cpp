@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 // ?rva005FB6E2@Rva005FB6E2@@QAEXXZ @0x005FB6E2 71B: __thiscall Apt eliminated-state setter via rowed AptCall 0x005FB5E6 with team+8 or empty string plus SetState plus _eliminated. Evidence: call-site mov ecx at 0x005FB846 plus TheRva00222A8BTarget plus level at +4 plus team at +8.
 class Rva00222A8BTarget;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);

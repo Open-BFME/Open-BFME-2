@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva006D88B0@@UAEPAXI@Z, retail 0x006D8880, 35 bytes.
 // Scalar deleting destructor for Rva006D88B0 (vtable 0x008EA600, slot 14
 // offset 0x38 per tf.py vslot). Calls the rowed complete dtor at 0x006D88B0

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Apt array helpers from the retail ABI at 0x006D94A0..0x006DA557. Layout
 // (m_data +0x20, mnCapacity +0x24, mnLength +0x28) and the array-value role
 // follow the rowed helpers in AptValueArrayAt.cpp and Rva006D94A0Cluster.cpp;

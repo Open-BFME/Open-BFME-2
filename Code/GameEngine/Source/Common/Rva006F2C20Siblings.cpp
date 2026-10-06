@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006F2C20@Rva006F2C20@@UAEXXZ @0x006F2C20 45B
 // Recovered from the ?rva0070DF80@Rva006DE2B0@@ recipe at 0x0070DF80. Same
 // operand-masked shape: call the +0 object's forwarder, then if the AptRef at

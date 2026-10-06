@@ -1,5 +1,5 @@
 // ?VerifyGuardFill@GeneralAllocatorDebug@@QAE_NPAXHE@Z
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // The guard verifier of GeneralAllocatorDebug, at retail 0x006C3020 (156
 // bytes). The sibling of VerifyDelayedFreeFill at 0x006C30C0, and named the
 // same way: this body carries its own retail failure string

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva006C4460@Rva006C4460@@QAEHHHHHHHHH@Z @ 0x006C4460 194B
 //

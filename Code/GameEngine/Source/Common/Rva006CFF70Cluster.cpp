@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Address-derived recovery of the 59-byte chain-node prepend at RVA 0x006CFF70
 // (ret 4, this in ecx, one const& argument). Identity is proven by its own

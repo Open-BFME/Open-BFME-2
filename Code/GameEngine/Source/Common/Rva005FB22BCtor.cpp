@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005FB22B@@QAE@PBX@Z @ 0x005FB22B 24B
 // Honest address-name ctor beside Rva005FA393Dtor. Target evidence: 24B
 // retail stores vtable VA 0x879F04 at [this], zeroes +4, copies *arg to +8,

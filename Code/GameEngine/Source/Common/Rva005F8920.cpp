@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 // ?rva005F8920@Rva005F8920@@QAEXXZ @0x005F8920 102B evidence: thiscall member
 // guards on just-landed __cdecl ?Rva005F88F4Get@@YAHH@Z @0x005F88F4 (m_18) and
 // its result's virtual slot 7 (+0x1C, m_20), then builds count = 1|5 from

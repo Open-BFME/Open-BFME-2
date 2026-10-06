@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva006d7a60@@YAPAVAptString@@PAVBfmeAptValue006DCD20@@HH@Z @ 0x006D7A60 (242B).
 // Apt two-operand string builder, the same family as the recovered 0x006D74E0
 // in Rva006D74E0Cluster.cpp and the matched 0x006D7350 in Rva006D7350Finish.cpp,

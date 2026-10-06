@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva005FF207Format@@YA?AVUnicodeString@@H@Z @ 0x005FF207 (96B).
 // Conditional Unicode format into temp then return by value (hidden pointer).

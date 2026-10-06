@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva005FF328@Rva005FF328@@QAEX_N@Z @ 0x005FF328 101B
 // Guarded SetSelectionOverlayState via rowed AptCall 0x0050E9FE with _show else _over or _hide.

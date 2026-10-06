@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // GetTickCount-based seconds counter. The indirect call reaches the IAT slot at
 // 0x00BBA294, which reverse/symbols.csv pins as kernel32.dll!GetTickCount, and

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?rva005FFC26@Rva005FFC26@@QAEXH@Z, retail 0x005FFC26 101 bytes.
 // Unlock: missing callee of 0x005FFED5; landing makes it ready.

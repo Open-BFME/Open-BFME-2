@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 // ??1Rva005F6051@@QAE@XZ @0x005F6051 69B
 // Destructor destroying members in reverse declaration order: vector-like
 // member at +0x18 through rowed 0x005242D7, vector-like member at +0xC through

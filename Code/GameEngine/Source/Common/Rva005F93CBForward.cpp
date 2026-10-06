@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005F93CB@Rva005F93CB@@QAEX_N@Z @0x005F93CB 8B forwarder to 0x005F921F.
 // Evidence: jmp to rowed 0x005F921F; callers 0x005E96A3 0x005E9DF3; neighbours Rva005F9364Region.
 class Rva005F921F

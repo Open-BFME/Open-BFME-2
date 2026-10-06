@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005F6220@Rva005F6220@@QAEXABVUnicodeString@@@Z retail 0x005F6220 103B
 // Evidence: format APT:_level%u.%s_LeaderQuantity via rowed 0x00038150; pinned bfmeSetText 0x00225301; rowed releaseBuffer 0x00036410; globals 0x009FE4CC 0x007BAC1C; caller 0x005F67CA; precedent Rva005FB770 103B method Rva005FDF1C
 #include "ascii_string.h"

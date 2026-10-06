@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva005F18C1@@QAE@XZ @0x005F18C1 93B: dtor with AsciiString at +0x04 plus Rva0052413E at +0x08 plus Rva005242D7 at +0x14 plus two UnicodeString at +0x20 and +0x24.
 // Evidence: calls rowed releaseBuffer narrow 0x00036410 plus rowed dtors 0x0052413E and 0x005242D7 plus rowed releaseBuffer wide 0x00036E70 twice; callers 0x005F1B5C and 0x005F1B9C.
 #include "ascii_string.h"

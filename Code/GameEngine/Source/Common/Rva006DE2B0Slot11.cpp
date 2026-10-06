@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva0070DF60@Rva006DE2B0@@UAEXXZ @0x0070DF60 30B.
 // Virtual slot 11 (offset 0x2C) of vtable 0x008EB150 (class of rowed dtor
 // ??1Rva006DE2B0@@UAE@XZ in Rva006D63C0Derived.cpp). Releases the AptRef

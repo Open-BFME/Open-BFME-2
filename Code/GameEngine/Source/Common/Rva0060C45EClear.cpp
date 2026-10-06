@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 
 // ?clear@Rva0060C45E@@QAEXXZ
 // RVA 0x0060C45E, size 11. Clears dword at +0x14 if nonzero

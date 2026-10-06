@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005F62EE@Rva005F62EE@@QAEXPBVImage@@@Z @0x005F62EE 8B. Tail-forward to
 // rowed 0x005F6096 on member +8. Evidence: mov ecx [ecx+8] then jmp to rowed
 // ?rva005F6096@Rva005F6096@@QAEXPBVImage@@@Z in AptImageKeySetters.cpp.

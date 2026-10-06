@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005F69F5@@UAE@XZ retail 0x005F69F5 59 bytes.
 // Evidence: unlock lane vtable stores at this plus conditional virtual slot 0x18 on member +4 with outer this as arg plus EH prolog plus caller 0x005F6AB0 sibling of 0x005F6941.
 // Model: virtual dtor over empty base, member pointer at +4 cleaned via virtual slot 6 taking outer.

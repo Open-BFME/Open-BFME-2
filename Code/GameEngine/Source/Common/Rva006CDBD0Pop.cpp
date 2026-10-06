@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006CDBD0@Rva006CDBD0@@QAEXXZ @0x006CDBD0 32B evidence calls rowed freeBlock size 8 via g_pChainBlockAllocator plus head link at +4
 class Rva006DB270
 {

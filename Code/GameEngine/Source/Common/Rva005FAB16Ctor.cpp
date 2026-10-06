@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005FAB16@@QAE@ABUPayload005FAB16@@@Z, RVA 0x005FAB16, 30 bytes.
 // Ctor storing vtable 0x00879EB4 at +0, zeroing +4, copying 16 bytes from
 // arg+0 to this+8 via 4x movsd. Evidence: caller 0x005FAC76; vtable DIR32

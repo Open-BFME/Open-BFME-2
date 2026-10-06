@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva00604374@Rva00604374@@QAEPAXABVRva0060426C@@@Z @0x00604374 34B node alloc 0x20 via rowed 0x000307F0 then rowed Construct 0x00604289 at +0x10. Evidence: callers 0x00604400 0x00604419 in insert 0x006043CE same shape as Rva00397CC9Alloc.
 #include <memory>

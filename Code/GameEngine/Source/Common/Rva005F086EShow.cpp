@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva005F086E@Rva005F086E@@QAEX_N@Z @ 0x005F086E (86B): guarded SetRegionFortressIconState fire via rowed 0x0050E9FE with _show/_hide and prefix from +8 else empty. Evidence: same shape as Rva005F921F 91B and Rva005FD677 91B; callees rowed 0x0050E9FE; strings SetRegionFortressIconState _show _hide empty fallback; global TheRva00222A8BTarget; guard m_4D.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

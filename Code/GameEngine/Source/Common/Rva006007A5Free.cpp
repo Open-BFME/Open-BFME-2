@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva006007A5@Rva006007A5@@QAEXPAX@Z @0x006007A5 45B. Recursive list/tree
 // free helper: if node null return else loop over siblings at +8 recursing

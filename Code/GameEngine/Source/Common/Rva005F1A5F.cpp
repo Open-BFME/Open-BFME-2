@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Oy-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Oy-
 // ?Rva005F1A5FGet@@YA_NPBDPAH@Z @0x005F1A5F 150B: free cdecl bool const-char plus int-out with index GetParam plus empty plus isdigit plus atoi 0-5.
 // Evidence: unlock lane; string index plus atoi plus releaseBuffer; pin Rva004128F0GetParam plus IAT isdigit atoi; extern g_Rva0107301CEmptyString; callers 0x005F1B02 0x005F1B25.
 #include "ascii_string.h"

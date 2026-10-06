@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005FA8F5@Rva005FA8F5@@QAEPAURva005FA8F5Entry@@H@Z, RVA 0x005FA8F5, 39 bytes.
 // Linear search of inline stride-8 entries at +0x34 by key at +0 against int
 // arg; count at +0x4C. Returns &entries[i] on match else one-past-end.

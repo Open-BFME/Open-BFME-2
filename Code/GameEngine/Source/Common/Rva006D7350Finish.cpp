@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva006D7350@@YAPAXPAVRva006DCE50Opaque@@@Z @0x006D7350 177B (cdecl).
 //
 // Apt value-to-display-string worker. Reads index 0 of the AptBasePtrStack

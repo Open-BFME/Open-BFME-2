@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ??1Rva005FBF97Elem@@QAE@XZ @ 0x005FBF97 78B
 // Non-virtual dtor: audio remove-event helper 0x005FBEBA (handle at +0x24) then members +0x10 Rva0052413E +0x0C UnicodeString +0x08 AsciiString in reverse. Callers in OpaqueScalarDeletingDtors use it for clear and deleting dtor.
 #include "ascii_string.h"

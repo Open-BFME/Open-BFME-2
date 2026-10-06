@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005F1B41@Rva005F1B41@@QAEXPBVImage@@@Z @ 0x005F1B41 8B
 // Evidence: tail-jmp to rowed ?rva005F191E@Rva005F191E@@QAEXPBVImage@@@Z at 0x005F191E; two callers in 0x005E3753; prev/next neighbours in AptImageKeySetters.cpp
 class Image;

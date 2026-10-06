@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Rva006BE630BitQuery.cpp (donor revision

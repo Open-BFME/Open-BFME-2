@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // Bit setters for flags byte at +0x34 (33B/37B/39B):
 //  ?setBit0@Rva005FC64AOwner@@QAEXE@Z @0x005FC64A 33B
 //  ?setBit1@Rva005FC66BOwner@@QAEXE@Z @0x005FC66B 37B

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005F83F4@Rva005F83F4@@QAEXABURva005F83F4Data@@@Z @0x005F83F4 20B.
 // Evidence: unlock lane; 3x movsd 12B from arg to [m_04+0x0C];

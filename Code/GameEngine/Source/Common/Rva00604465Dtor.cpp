@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // Target boundary and destructor purpose established independently from
 // the native EH cleanup and deleting wrapper604572/vtableC7A94C slot0.
 // Prefix views call already verified7B/56B providers; no donor payload name

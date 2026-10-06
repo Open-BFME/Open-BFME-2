@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva005FED61@Rva005FED61@@QAEXPBVAsciiString@@H@Z @0x005FED61 56B
 // Leaf thiscall (AsciiString key, int delta): looks the key up through

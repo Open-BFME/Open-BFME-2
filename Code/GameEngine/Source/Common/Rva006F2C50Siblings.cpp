@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva006F2C50@Rva006F2C50@@UAEXXZ @0x006F2C50 30B.
 // Recovered from the ?Rva0070DF60@Rva006DE2B0@@UAEXXZ recipe at 0x0070DF60.
 // Same operand-masked shape: release the AptRef member through vtable slot 1,

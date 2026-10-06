@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006FBC10@Rva006FBC90Owner@@UAEXXZ @0x006FBC10 25B, vslot 11 of
 // 0x008ED880 (the Rva006FBC90Owner dtor class, slot 13 is the matched
 // rva006FBC30). Releases the +0x1C AptValue when set, then tail-jumps to the

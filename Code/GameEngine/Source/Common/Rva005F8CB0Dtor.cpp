@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva005F8CB0@@UAE@XZ retail 0x005F8CB0 79 bytes.
 // Virtual dtor with two bases and one member. Evidence: EH_prolog with two
 // vptr stores at +0/+8 then member at +0x1c via rowed 0x005E8908 then base

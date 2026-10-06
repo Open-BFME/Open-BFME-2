@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva006CD3F0Get@@YAHPAX@Z @0x006CD3F0 75B evidence Apt.cpp eType assert plus get row plus byte table g_00CE8B70 plus type 0x25 field
 // Apt.cpp's assert hook and break-on-assert flag, which every Apt unit's
 // asserts read. Matched DIR32 references across 44 units place the hook at

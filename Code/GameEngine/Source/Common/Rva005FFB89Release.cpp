@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??1Rva005FFB89@@QAE@XZ @ 0x005FFB89 (61B).
 // Dtor of 8-byte record with two hint-ref holders at +0 and +4.

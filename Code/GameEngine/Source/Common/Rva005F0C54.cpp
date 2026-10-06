@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva005F0C54@Rva005F0C54@@QAEXABVUnicodeString@@@Z @0x005F0C54 109B
 // __thiscall method over +4 level +8 Outer +0x40 UnicodeString +0x4C shown flag.
 // Compares arg vs member via rowed StringBase compare 0x00006A7A then rowed

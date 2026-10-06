@@ -1,5 +1,5 @@
 // ?rva006C2FB0@Rva006C2D20Sink@@QAEXPBD0@Z
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Log/chat line formatter, 0x006C2FB0, 100 bytes. Copies the second stack
 // argument into a 0x300-byte stack buffer, appends a newline after it, then

@@ -1,6 +1,6 @@
 // ??0Rva006CBDE0@@QAE@HPAXPAVAptValue@@@Z
 // partial score=0.95 date=2026-09-30
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva006CBDE0@@QAE@HPAXPAVAptValue@@@Z @0x006CBDE0 200B Apt value ctor.
 // Retail calls base BfmeAptValue(type,0), clears EAStringC at +8, stores vtable
 // 0x008E8C24, inits 15 floats (1.0 at +0x0c/+0x18/+0x24/+0x28/+0x2c/+0x30 else

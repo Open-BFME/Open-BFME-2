@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Apt array bodies recovered from the retail ABI at 0x006D94A0..0x006DA557.
 // The class name and member offsets follow the rowed array helpers in
 // Code/Libraries/Source/Apt/AptValue/AptValueArrayAt.cpp (m_data +0x20,

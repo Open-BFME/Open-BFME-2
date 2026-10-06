@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005F8F14Init@@YIXPAVRva005F8F14@@H0PAH@Z @0x005F8F14 29B evidence:
 // fastcall (this, dead-edx, src, ptr) copying 32 bytes (rep movsd, count 8
 // via push/pop for /O1 size) from src to this, then m_20 = *ptr; ret 8.

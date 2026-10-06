@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005F7670@Rva005F7670@@QAEXABVUnicodeString@@@Z retail 0x005F7670 190B
 // Evidence: format APT:_level%u.%s_UnitName via rowed 0x00038150; pinned bfmeSetText 0x00225301; rowed releaseBuffer 0x00036410; rowed compare 0x00006A7A and set 0x00037150; AptCall row 0x005FB5E6 with SetUnitNameState _show; globals 0x009FE4CC 0x007BAC1C; caller forwarder 0x005F772E; precedent Rva005FB770 cached compare plus Rva005FB6E2 once flag
 #include "ascii_string.h"

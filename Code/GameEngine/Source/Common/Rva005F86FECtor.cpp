@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 // ??0Rva005F86FE@@QAE@PAX0@Z @0x005F86FE 73B
 // Constructor: own vtable 0x00C79CB8, heap member at +4 allocated via rowed
 // operator new 0x0002FDA0 (0x2C bytes) and constructed by pinned 0x005F8671

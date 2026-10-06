@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005F8FCC@Rva005F8FCC@@QAEPAXI@Z @0x005F8FCC 34B.
 // Deleting-dtor shape: releases holder at +0 via rowed fastcall Release at
 // 0x0007DEEF then conditionally deletes this when flag bit0 is set and

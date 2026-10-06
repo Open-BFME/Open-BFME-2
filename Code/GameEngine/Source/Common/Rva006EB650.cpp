@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006EB650@Rva006EB650@@QAEXABV1@@Z, retail 0x006EB650 (78B).
 // Evidence: leaf caller at 0x006EF640; callee ??4EAStringC@@QAEAAV0@ABV0@@Z rowed; layout 0x20B with EAStringC at +0 and conditional -1-kept fields at +14/+18/+1C.
 class EAStringC

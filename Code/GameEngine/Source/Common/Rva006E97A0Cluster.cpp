@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Singleton releaser sitting between the S4 two-member destructors and the
 // 0x006E9xxx block. Clears the pointer at 0x00E1818C after one slot-1 virtual

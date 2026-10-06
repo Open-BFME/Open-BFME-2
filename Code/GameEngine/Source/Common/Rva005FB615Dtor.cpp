@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /MD
+// cl: /Ireference/shims/bfme2_ascii /Oy- /MD
 // ??1Rva005FB615@@QAE@XZ @ 0x005FB615 81B
 // Non-virtual dtor with members +0x28 UnicodeString +0x18 Rva005242D7 +0x0C Rva0052413E +0x08 AsciiString in reverse. Siblings share layout and flags.
 #include "ascii_string.h"

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /G7
+// cl: /MD
 //
 // ?Rva0027D815@Rva0062AF7@@UAEMMM@Z retail 0x0027D815 70 bytes.
 // Vslot 25 (offset 0x64) of vtable 0x007C5890 primary of ??1Rva0062AF7@@UAE@XZ

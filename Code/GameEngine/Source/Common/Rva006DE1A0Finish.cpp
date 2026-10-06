@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva006DE1A0@@QAE@XZ @ 0x006DE1A0 107B Apt ctor with hash member.
 // Evidence: neighbours AptValuePtrStackTop plus Rva006DE2B0Slot7 share /O2 /MD;
 // EH prolog with scopetable so plus /EHsc; rowed AptNativeHash ctor 0x0070A740

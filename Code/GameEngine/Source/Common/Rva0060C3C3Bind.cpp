@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 //
 // ?rva0060C3C3@Rva0060C3C3@@QAE_NPAURva0060C3C3Stream@@PAH@Z @0x0060C3C3 155B.
 // Stream-header bind method: if this+0x14 already bound return false; else read

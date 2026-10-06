@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva006DE150@Rva006DE150@@QAEXXZ @0x006DE150 12B.
 // Sets bit 3 of the flag word at +4 then tail-calls
 // AptNativeHash::DestroyGCPointers on the member at +8 (add ecx,8 plus jmp).

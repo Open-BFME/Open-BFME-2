@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0070A5C0@Rva0070A5C0@@..., retail 0x0070A5C0 (8B).
 // +8 forwarder over embedded BfmeTab1034 tail-jumping to bfmeFind1034F at 0x0070B380.
 // Evidence: add ecx 8 plus jmp; 21 callers pass one pointer/int arg and consume pointer return via vtable slot 0xC;

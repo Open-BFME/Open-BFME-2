@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva006F8460@@UAE@XZ retail 0x006F8460 37B dtor.
 // Evidence: vtable 0x008EC9CC at +0; m_10 freed via member dtor 0x0070A840

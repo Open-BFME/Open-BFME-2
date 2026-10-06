@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Address-derived recovery of 0x006CC880 (186 bytes), the Apt shutdown tail.
 // Retail asserts Apt.cpp:0x45E "bInitialized" when the init flag 0x00E17700 is
 // clear, then bails unless the Apt object pointer 0x00E176D0 is non-null.

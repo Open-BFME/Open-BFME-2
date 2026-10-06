@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005FBEBA@Rva005FBEBA@@QAEXXZ @0x005FBEBA 30B: audio remove-event setter via TheAudio slot 0x6c plus handle at +0x24 reset to 1. Evidence: TheAudio plus removeAudioEvent precedent Rva004CBF9AClear plus 3 callers.
 typedef unsigned int AudioHandle;
 class AudioManager

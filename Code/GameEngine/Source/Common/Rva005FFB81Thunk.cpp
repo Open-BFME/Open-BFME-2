@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005FFB81@Rva005FFB81@@QAEXXZ @ 0x005FFB81 (8B).
 // Forward to inner reset via pointer at +4 with tail jmp.

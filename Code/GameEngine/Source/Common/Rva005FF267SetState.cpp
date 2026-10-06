@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva005FF267@Rva005FF267@@QAEXH@Z @ 0x005FF267 69B
 // Apt SetState via rowed AptCall 0x0050E9FE with team prefix or empty fallback and state table.

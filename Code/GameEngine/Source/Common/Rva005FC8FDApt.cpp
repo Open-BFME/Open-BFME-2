@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005FC8FD@Rva005FC8FD@@QAEXXZ @0x005FC8FD 227B: triple Apt overlay setter via rowed AptCall 0x0050E9FE with SetState plus SetNotThereOverlayState plus SetDisbandingOverlayState. Evidence: callers jmp 0x005FC9F8 plus TheRva00222A8BTarget plus g_Rva0107301CEmptyString plus strings _selected _up _show _hide.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

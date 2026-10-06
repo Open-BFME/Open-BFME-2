@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005F74D4@Rva005F74D4@@QAEXPAVRva005F6AB0@@@Z retail 0x005F74D4 35B
 // Evidence: cmp new vs old at +0 then store new before dtor plus delete; rowed dtor 0x005F6AB0 plus rowed operator delete 0x0002FD60; caller 0x005F8015; precedent plus4 forwarder file layout
 class Rva005F6AB0

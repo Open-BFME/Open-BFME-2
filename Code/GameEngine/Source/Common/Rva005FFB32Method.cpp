@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005FFB32@Rva005FFB32@@QAEXXZ @ 0x005FFB32 (51B).
 // Reset notifier if present then reset each entry whose head pointer is set.

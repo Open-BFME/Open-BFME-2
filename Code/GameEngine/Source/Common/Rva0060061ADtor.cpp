@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva0060061A@@UAE@XZ @0x0060061A 75B. Virtual dtor: stores vtable 0x0087A660
 // then frees globals 0x00A06E5C and 0x00A06E54 via virtual slot0 with arg 0
 // plus operator delete and nulls them. Evidence: same vtable as prev

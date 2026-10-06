@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva005FED2A@@QAE@HHH@Z @0x005FED2A 35B
 // Ctor slot: stores vtable 0x0087A448, base Rva005FF912 at +0 via rowed
 // 0x005FF912 with (b,c), int at +8 from (a). Ret 0xC.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005F2FEF@Rva005F2FEF@@QAEXABVUnicodeString@@@Z retail 0x005F2FEF 191B
 // Evidence: SetMemberNameState _show plus APT:_level%u.%s_MemberName via rowed format 0x00038150 and pinned bfmeSetText 0x00225301; rowed compare 0x00006A7A set 0x00037150 release 0x00036410 AptCall 0x005FB5E6; globals 0x009FE4CC 0x007BAC1C; caller forwarder 0x005F3272; precedent Rva005F7670 UnitName show plus cached
 #include "ascii_string.h"

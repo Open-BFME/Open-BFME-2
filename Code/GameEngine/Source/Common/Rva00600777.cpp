@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00600777Set@@YAXPAD@Z @0x00600777 46B free cdecl copy into TheLangDir.
 // Retail push esi; push arg; mov esi TheLangDir; push esi; call _mbscpy;
 // pop ecx twice; mov ecx G00A06E54; push 1; push "*.BIG"; store

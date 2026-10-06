@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005FAD8D@@QAE@XZ, retail 0x005FAD8D, 98 bytes.
 // Non-virtual dtor (QAE) with derived vptr 0x00879ED4 then base vptr 0x00875284,
 // erase via rowed 0x002B7250 through +4->+0x14->+8, conditional virtual calls

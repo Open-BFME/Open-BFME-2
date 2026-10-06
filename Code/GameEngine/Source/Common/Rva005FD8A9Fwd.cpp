@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005FD8A9@Rva005FD8A9@@QAEX_N@Z retail 0x005FD8A9 8B
 // Evidence: chain via 0x005FD677 row; mov ecx [ecx+4] jmp tail; caller 0x005F5587; neighbours 0x005FD788/0x005FD8E5
 struct Rva005FD677

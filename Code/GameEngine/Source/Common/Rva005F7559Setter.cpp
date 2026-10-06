@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005F7559@Rva005F6AB0@@QAEXH@Z retail 0x005F7559 85 bytes.
 // Evidence: vslot 9 offset 0x24 of vtable 0x00879828 class Rva005F6AB0; cached index at +0x14 vs array at 0x00C78D64; owner at +0x1c with level at +4 and team at +8 with name at +8 plus empty fallback g_Rva0107301CEmptyString 0x007BAC1C; rowed Rva005252CDInvoke 0x005252CD with SetQueuedIconSlotState plus TheRva00222A8BTarget 0x009FE4CC; int at +0x20.
 class Rva00222A8BTarget

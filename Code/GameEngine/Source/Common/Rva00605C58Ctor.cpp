@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva00605C6A@@QAE@XZ @0x00605C58 18B.
 // Chain from 0x00605C91: calls rowed base ctor then stores vtable 0x0087AAE0.

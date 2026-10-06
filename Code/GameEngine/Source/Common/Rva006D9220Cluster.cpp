@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // AptArray::~AptArray at retail 0x006D9220 (188 bytes); rowed here under the
 // existing opaque pin ??1Rva006DA560@@UAE@XZ because the class name itself is
 // not in the binary. Identity evidence: the three assert strings live in

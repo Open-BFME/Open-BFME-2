@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva005F1295@@QAE@XZ retail 0x005F1295 105B
 // Non-virtual dtor with an empty body: member dtors in reverse order under EH
 // states 4..0 -- UnicodeString +0x40 (releaseBuffer 0x00036E70), the range

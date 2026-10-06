@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005F92D5@Rva005F92D5@@QAEX_N@Z @0x005F92D5 91B twin of 0x005F927A SetButtonState Retreat _up/_disabled.
 // Evidence: rowed AptCall 0x005F8EDA; strings _up _disabled SetButtonState Retreat; empty fallback g_Rva0107301CEmptyString; manager TheRva00222A8BTarget; flag at +0x62 vs twin +0x61.
 class Rva00222A8BTarget;

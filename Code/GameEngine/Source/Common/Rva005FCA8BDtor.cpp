@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva005FCA8B@@QAE@XZ retail 0x005FCA8B 89B
 // Non-virtual dtor: under EH state 2 the owner at +0 broadcasts itself to the
 // listener list at its +8 through the rowed forEach 0x005FCA6D with a vcall

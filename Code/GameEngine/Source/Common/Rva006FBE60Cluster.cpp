@@ -1,4 +1,4 @@
-// cl: /O2 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // Rva006FBE60::rva006FBE60, retail 0x006FBE60 (29 B).
 // Result-table forwarder: pick the live Rva8D0D80Result list (the global at
 // 0x00E1835C, else the +0x28 member) and tail-jump to the row-blocked

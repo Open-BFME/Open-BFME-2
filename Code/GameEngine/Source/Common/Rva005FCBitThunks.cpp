@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Member chase thunks to the +0x34 bit setters (8B each):
 //  ?rva005FC6F7@Rva005FC6F7@@QAEXE@Z @0x005FC6F7 -> ?setBit0@Rva005FC64AOwner@@QAEXE@Z
 //  ?rva005FC70A@Rva005FC70A@@QAEXE@Z @0x005FC70A -> ?setBit1@Rva005FC66BOwner@@QAEXE@Z

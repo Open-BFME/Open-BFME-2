@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva006DE210@Rva006DE2B0@@UAEPAXHABVEAStringC@@@Z @0x006DE210 34B.
 // Virtual slot 7 (offset 0x1C) of vtable 0x008EB150 (class of rowed dtor
 // ??1Rva006DE2B0@@UAE@XZ in Rva006D63C0Derived.cpp). Returns the AptValue

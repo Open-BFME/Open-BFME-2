@@ -1,4 +1,4 @@
-// cl: /O2 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ?rva006FBED0@Rva8D0D80Result@@QAEXXZ @ 0x006FBED0 (150B).
 //
 // Address-derived recovery of the Rva8D0D80Result delayed-free flush that

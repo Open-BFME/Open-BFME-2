@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva006006D9@Rva0060061A@@QAEXPAX@Z @0x006006D9 158B
 // Leaf between Rva0060061A dtor and Rva00600777Set: news Rva00604A5F and Rva0060453B
 // into TheArchiveFileSystem and G00A06E54 then virtual A1 plus Helper v1 plus

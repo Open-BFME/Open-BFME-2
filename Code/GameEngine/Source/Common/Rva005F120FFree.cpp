@@ -4,7 +4,7 @@
 // EH frame unlike its 63B twins at 0x005EF8BB/0x005F11D0. The post-call reload
 // matches a second m_first read after the call.
 // Evidence: same Clear+free shape; callers at 0x005EFC14/0x005F1268/0x005F13B0.
-// cl: /O1 /MD
+// cl: /MD
 struct Rva005F0647;
 void __cdecl Rva005EF5EFClear(Rva005F0647 *first, Rva005F0647 *last);
 extern "C" void __cdecl free(void *block);

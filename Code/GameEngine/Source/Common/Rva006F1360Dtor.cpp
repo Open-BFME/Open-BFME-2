@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // Opaque destructor with member clears tail-calling Rva006D6470::~
 // Rva006D6470 at 0x006D6470 (pinned opaque SEH base dtor; identity unproven).

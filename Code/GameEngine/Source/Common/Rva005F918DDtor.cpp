@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva005F918D@@QAE@XZ, RVA 0x005F918D, 57 bytes.
 // Dtor of 16-byte record {holder +0, words +4/+8, UnicodeString +0xC}.
 // Releases wide string at +0xC via 0x36E70 then TargetRef at +0 via 0x7DEEF.

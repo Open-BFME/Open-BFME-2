@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0073EE55@@UAE@XZ retail 0x0073EE55 82B
 // Virtual dtor with no own vptr store (novtable). Under EH state 1 the member
 // at +8 runs the rowed ?set@Rva0040F9D@@QAE_NXZ 0x00040F9D and the object

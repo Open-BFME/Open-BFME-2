@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /EHsc /MD
 // ??0Rva005F5C77@@QAE@PAXPAURva005F5C77In@@@Z @0x005F5C77 174B
 // Button constructor sibling of 0x005F5F2B (same 174B shape, same callees,
 // differing only in vtables and image global): three-base object (Base0 at +0

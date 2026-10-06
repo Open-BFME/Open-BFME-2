@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva005F23B2@@QAE@XZ, retail 0x005F23B2, 84 bytes.
 // Evidence: chain lane calls rowed clear 0x005F22D2 plus forEach 0x005F2230 with forwarder 0x005CB260 plus member dtor 0x005F21F8 plus free 0x00030830; consecutive with ctor 0x005F2381 and method 0x005F2406.
 extern "C" void __cdecl free(void *block);

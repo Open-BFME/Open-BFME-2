@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00600BFBInit@@YIPAVRva00600BFB@@PAV1@HPAHH@Z @0x00600BFB 29B evidence:
 // fastcall init (this, fwd-dead-forwarded, a, b): m_00 = *a; sub-object at
 // +4 takes pinned fastcall ?rva00200A40@@YIXPAURva00200A40Sub@@HH@Z

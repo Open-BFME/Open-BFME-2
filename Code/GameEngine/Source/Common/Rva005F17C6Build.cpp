@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 //
 // ?Rva005F17C6Build@@YA?AURva005F17C6S16@@ABURva005F17C6S12@@H@Z, retail 0x005F17C6, 39 bytes.
 // Free function building a 16-byte struct from a 12-byte struct plus a dword:

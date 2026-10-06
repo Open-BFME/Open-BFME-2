@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /EHsc /MD
 // ??0Rva005F589E@@QAE@HPAX@Z, retail 0x005F589E (174B).
 // Button ctor same 174B shape as sibling 0x005F5C77: three-base object (Base0 at +0
 // with int at +4, image holder at +8 built by pinned 0x005E1680 from a "button"

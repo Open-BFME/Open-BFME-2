@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME: 22-byte adjustor unregister at 0x006BD6C0, address-derived name.
 // Converted out of game/gen_asm/d_0069c4f0.asm.
 //

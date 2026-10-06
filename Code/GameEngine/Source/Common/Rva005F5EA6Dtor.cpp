@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /EHsc /MD
+// cl: /DNDEBUG /EHsc /MD
 // ??1Rva005F5EA6@@UAE@XZ @0x005F5EA6 97B: dtor via rowed erase 0x002B7250 plus pinned 0x005E12D1; caller deleting dtor 0x005F5F0F
 class CreateAHeroData;
 

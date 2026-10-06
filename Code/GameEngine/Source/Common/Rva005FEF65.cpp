@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva005FEF65@@UAE@XZ @0x005FEF65 75B
 // Virtual dtor freeing buffer at +0x18 via _free and destroying member at +8.
 // Evidence: _free 0x00030830 rowed, pinned ??1Rva005FF95C@@UAE@XZ,

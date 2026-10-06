@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005FB400@@QAE@PBX@Z @0x005FB400 24B: honest ctor storing vtable VA 0x00C79F24 at [this] plus zeroes +4 plus copies *arg to +8. Evidence: caller new 0xc at 0x005FB46F plus ret 4 plus precedent Rva005FB22BCtor same 24B shape.
 class __declspec(novtable) Rva005FB400
 {

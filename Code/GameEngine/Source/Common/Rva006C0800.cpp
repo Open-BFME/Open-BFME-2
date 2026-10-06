@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva006C0800@Rva006C0800@@QAEXW4PointModeEnum@PointGroupClass@@@Z @ 0x006C0800 8B
 // Honest address name: tail jmp loading member at +0x10 then jumping to rowed
 // PointGroupClass::Set_Point_Mode. Same PointModeEnum signature forwards.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005FC19E@Rva005FC19E@@QAEXH@Z retail 0x005FC19E 8B
 // Evidence: chain tail forwarder to rowed 0x005FBFE5 via +0x04 with same int arg; caller 0x005EA4E8; prev shares // cl: /O1 /MD
 class Rva005FBFE5

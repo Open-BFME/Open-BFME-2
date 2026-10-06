@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Refcount release helper from the 0x006E05B0 neighbourhood. A __thiscall
 // member that asserts nRefCount > 0 (AptCIH.cpp:631), then returns early when

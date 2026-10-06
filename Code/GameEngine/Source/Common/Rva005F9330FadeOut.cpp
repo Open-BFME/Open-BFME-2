@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005F9330@Rva005F9330@@QAEXXZ @0x005F9330 52B
 // Honest address name: __thiscall FadeOut AptCall with team-name fallback, twin of 0x005C394D Go.
 // Target evidence: retail mov eax,[ecx+8] test je add 8 plus pushes, rowed 0x00524EF4 callee, literal FadeOut, manager TheRva00222A8BTarget, empty fallback g_Rva0107301CEmptyString, state 2 at +0x18, caller jmp at 0x005FD8C4.

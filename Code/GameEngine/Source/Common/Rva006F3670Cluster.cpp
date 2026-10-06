@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Address-derived AptValue cleanup helper at 0x006F3670 (51 bytes). The body
 // calls the rowed sound-type predicate ?isSound@BfmeAptValue006DCD20@@QBEHXZ
 // (0x006DC3F0), the rowed checked cast ?rva006DCFE0@... (0x006DCFE0), frees the

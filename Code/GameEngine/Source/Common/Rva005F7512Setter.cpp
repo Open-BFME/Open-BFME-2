@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005F7512@Rva005F6A58@@QAEXHH@Z @0x005F7512 44B: vslot 12 of Rva005F6A58 vtable 0x008797F4 forwards to rowed Rva005F6CA8 rva005F6E85 0x005F6E85 when args differ from +0x20 +0x24.
 class Rva005F6CA8
 {

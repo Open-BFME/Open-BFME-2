@@ -10,7 +10,7 @@
 // Record application identity remains unknown. These are 36-byte ABI views;
 // the nested group preserves the donor constructor-worker layout, and the
 // existing named constructor supplies copy behavior independently of it.
-// cl: /O2 /Ob1 /G6 /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc_alloconly
+// cl: /Ob1 /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc_alloconly
 // stlport
 #include <memory>
 #pragma comment(linker, "/alternatename:?releaseBuffer@BfmeTailBE@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")

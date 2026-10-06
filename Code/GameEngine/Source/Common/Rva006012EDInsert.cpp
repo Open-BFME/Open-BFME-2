@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva006012ED@Rva0060126D@@QAEXPAPAXPAX1PBX1@Z @0x006012ED 146B lane=chain
 // Evidence: calls 0x006012A2 just landed plus rowed CStrLess 0x006038D4 Rebalance 0x00025490; prev 0x006012C4 next 0x0060137F same family; caller 0x0060142F in 0x006013B7; unblocks 0x006013B7.

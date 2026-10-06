@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0073F4F3@@QAE@XZ @0x0073F4F3 105B.
 // Dtor with EH states destroying +0x28/+0x20 Rva0040EDB then +0x1c cleanup
 // then +0x14/+0x0c Rva0040EDB then +0x08 cleanup. Evidence: chain lane packet

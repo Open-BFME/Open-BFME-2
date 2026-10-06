@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva005F88D6Get@@YAHH@Z @0x005F88D6 30B evidence: arg null check plus
 // global g_009FEF10 null check plus pinned thiscall lookup
 // ?rva002B2579@Rva002BA8F1Logic@@QAEPAURva002B2579Result@@H@Z @0x002B2579

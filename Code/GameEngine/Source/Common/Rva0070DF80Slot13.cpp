@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva0070DF80@Rva006DE2B0@@UAEXXZ @0x0070DF80 45B
 // Evidence: vtable slot 13 (0x34) of 0x008EB150 (Rva006DE2B0 dtor class);
 // calls rowed forwarder 0x006DCC00 (Rva006D6360::rva006DCC00 add 8 to mark);

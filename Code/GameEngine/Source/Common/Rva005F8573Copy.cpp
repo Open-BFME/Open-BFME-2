@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva005F8573Copy@@YAPAURva005F8536@@PAU1@00@Z @0x005F8573 47B.
 // Evidence: chain lane; stride-8 copy via rowed 0x005F8536 assignment;

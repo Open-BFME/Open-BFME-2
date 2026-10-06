@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque destructor at 0x005F7750 (14B): stores its vtable, adjusts this to
 // the member at +0x04, and tail-calls the guarded-delete helper at 0x005F7736

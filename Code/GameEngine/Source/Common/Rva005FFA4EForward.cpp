@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva005FFA4E@Rva005FFA4E@@QAEXH@Z @ 0x005FFA4E 8B
 // Forwarder: this+4 holds Rva005FF450 object; tail-jmps to its 0x005FF9D8 SetUnitIconCount.

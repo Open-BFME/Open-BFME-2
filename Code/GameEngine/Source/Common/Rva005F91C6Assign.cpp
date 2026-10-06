@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // ??4Rva005F91C6@@QAEAAU0@ABU0@@Z @0x005F91C6 45B: memberwise assignment of a
 // record holding a TreeHintRef00217D4C at +0 (rowed operator= 0x002174A4), two

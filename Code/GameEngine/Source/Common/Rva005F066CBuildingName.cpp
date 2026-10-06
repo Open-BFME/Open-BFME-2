@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva005F066CSet@@YAXHPAURva005F066COuter@@ABVUnicodeString@@@Z @0x005F066C 103B caller 0x005F0C54, format APT:_level BuildingName via 0x00038150
 template <typename T> struct BfmeStringData
 {

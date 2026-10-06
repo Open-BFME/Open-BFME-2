@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?rva005FFED5@Rva005FFED5@@QAEXH@Z @ 0x005FFED5 8B
 // Forwarder: this+4 holds Rva005FFC26 object; tail-jmps to its SetState 0x005FFC26.

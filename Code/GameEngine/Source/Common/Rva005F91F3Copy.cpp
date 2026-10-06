@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ??0Rva005F91F3@@QAE@ABURva005F91F3Src@@@Z, RVA 0x005F91F3, 36 bytes.
 // Converting copy: dest {word0 +0, word1 +4, UnicodeString +8} from src
 // {header +0, word0 +4, word1 +8, UnicodeString +0xC}. Retail copies

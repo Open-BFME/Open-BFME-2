@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /DNDEBUG /MD
+// cl: /Ob2 /EHsc /DNDEBUG /MD
 #include "../../Include/Common/Rva00041004Lock.h"
 
 struct EmitVtableTag;

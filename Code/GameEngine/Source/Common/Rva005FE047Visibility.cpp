@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva005FE047@Rva005FE047@@QAEXXZ @ 0x005FE047 66B
 // First-fire guard at +0x34 with player-name fallback and APT Fire for SetPlayerNameVisibility.

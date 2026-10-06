@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0
+// cl: /Ob0
 
 int rva0066b3e0(int a, int b)
 {

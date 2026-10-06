@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00605C91@@QAE@XZ, retail 0x00605C91 (22B).
 // Unlock: ctor calls rowed ModuleData 0x006024FD then or handle -1 at +0x14
 // then vtable 0x00C7AB28; unblocks 0x00605C58; callers 0x00605C5B;

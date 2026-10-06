@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005F6AB0@@UAE@XZ retail 0x005F6AB0 56 bytes.
 // Evidence: chain lane calls helper 0x005F697C then base dtor 0x005F69F5 plus vtable at this sibling of 0x005F6A58.
 // Model: virtual dtor over rowed base Rva005F69F5 with helper call via cast.

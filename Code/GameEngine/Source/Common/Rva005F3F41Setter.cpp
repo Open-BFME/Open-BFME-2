@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?set@Rva005F3F41Outer@@QAEXE@Z @0x005F3F41 35B gap between
 // ?get@Rva005F3F3AByteChaseField@@QBEEXZ and ?get@Rva005F3F64ByteChaseField@@QBEEXZ
 // in Disp8ByteChaseGetters.cpp. Sets [m_sub+0x14] to the byte param and, when

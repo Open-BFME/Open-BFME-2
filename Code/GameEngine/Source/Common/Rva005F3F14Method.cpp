@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005F3F14@Rva005F3F14@@QAEXXZ @0x005F3F14 38B.
 // Evidence: retail unlock-lane body with rowed slot1 0x005CB260 and pinned
 // no-arg int 0x005CB265 getters on +0x08 pointer compared against +0x10 int

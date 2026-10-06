@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ?rva005F83B9@Rva005F83B9@@QAEXXZ @0x005F83B9 38B
 // Notifier walking the 8-byte-entry range [+0x20,+0x24): runs the pinned
 // thiscall helper 0x00577944 first, then virtual slot #1 on each non-null

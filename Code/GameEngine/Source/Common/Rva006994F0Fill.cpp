@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME5: clean C++ conversion of the embedded byte-table fill.
 
 class Rva006994F0Owner

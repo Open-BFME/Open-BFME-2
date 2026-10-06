@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva006E9580@Rva006E9580@@QAE_NHPAVEAStringC@@PAVBfmeAptValue006DCD20@@@Z @ 0x006E9580, 333B.
 // vslot slot 8 (offset 0x20) of vtable 0x008EC85C (class of ??1S4Dtor00587B30@@UAE@XZ).
 // Evidence: two EAStringC members at +0x20/+0x24 (dtor destroys both via 0x006D3010);

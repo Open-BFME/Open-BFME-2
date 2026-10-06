@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // Retail 0x006ABC60 is the non-virtual destructor for an owner containing a
 // six-element 12-byte vector, an AsciiString tree, and a trailing helper.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /arch:SSE2 /Oi
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /Oi
 // Combined TU: thiscall refreshPair (0x00699180) + setVolumes (0x006999C0).
 // Helper body is the real member; no stand-in.
 //

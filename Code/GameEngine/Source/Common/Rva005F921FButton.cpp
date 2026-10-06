@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005F921F@Rva005F921F@@QAEX_N@Z @0x005F921F 91B slot Apt SetButtonState AutoResolve _up/_disabled.
 // Evidence: callers 0x005F93CB jmp thunk; callees rowed AptCall 0x005F8EDA; strings _up _disabled SetButtonState AutoResolve; empty fallback g_Rva0107301CEmptyString; manager TheRva00222A8BTarget; vtables none free method via ecx.
 class Rva00222A8BTarget;

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // Constructor of a BFME2NativeNetwork-derived object, sitting after the
 // GameEngineDeletingBase-derived destructor pair. It plants the shared base

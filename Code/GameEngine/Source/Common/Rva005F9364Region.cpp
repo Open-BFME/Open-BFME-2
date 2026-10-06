@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005F9364@Rva005F9364@@QAEXABVUnicodeString@@@Z @ 0x005F9364 103B
 // Honest address name: __thiscall Apt RegionName key setter, twin of 0x005FB770 PlayerName.
 // Target evidence: 103B retail, EH_prolog, format string

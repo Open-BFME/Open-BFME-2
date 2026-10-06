@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005F20C5@Rva005F20C5@@QAEXPAURva005F20C5Node@@@Z, retail 0x005F20C5, 45 bytes.
 // Evidence: unlock lane; recursive self-call at 0x005F20D7 plus game free row 0x00030830; callers at 0x005F20D7 self and 0x005F2100 in 0x005F20F2; node +8 next plus +0xC child freed in loop.
 extern "C" void __cdecl free(void *p);

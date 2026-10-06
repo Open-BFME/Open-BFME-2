@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva0070A840@@QAEPAXI@Z @0x006DB3C0 35B evidence calls pinned ??1Rva0070A840 plus pool free via g_pChainBlockAllocator size 0x14 matching retail push
 class Rva006DB270
 {

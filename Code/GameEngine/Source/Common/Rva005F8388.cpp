@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005F8388@Rva005F8388@@QAEXXZ @0x005F8388 33B
 // Evidence: chain lane, calls rowed 0x00577966 tail; no caller/vtable, honest Rva name.
 class Virt005F8388Helper

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();

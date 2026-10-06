@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 // ??0Rva005F6806@@QAE@PAXPAXPAX@Z @0x005F6806 100B
 // Constructor: base at +0 built by pinned 0x005F3E93 from (a1, a2, 1, a3),
 // own vtable 0x00C796D0, pointer member at +8 allocated via rowed operator

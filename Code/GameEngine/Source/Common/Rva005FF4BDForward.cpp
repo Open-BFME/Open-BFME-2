@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva005FF4BD@Rva005FF4BD@@QAEXH@Z @ 0x005FF4BD 8B
 // Forwarder: this+4 holds Rva005FF267 object; tail-jmps to its SetState.

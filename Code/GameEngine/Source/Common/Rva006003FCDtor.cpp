@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??1Rva006003FC@@UAE@XZ @0x006003FC 54B and ??_GRva006003FC@@UAEPAXI@Z
 // @0x006004A5 28B. Dual-vtable dtor: stores derived vtable 0x0087A638,

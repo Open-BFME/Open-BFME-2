@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructor tail-calling Rva006F1360::~
 // Rva006F1360 at 0x006F1360 (matched opaque dtor with member clears in

@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /MD /Ireference/shims/sweep
+// cl: /MD /Ireference/shims/sweep
 // PE proves RVA62AF4A is FF25 through IAT BBA9C8:
 // d3dx9_27.dll!D3DXVec4Transform. The existing validated SDK types
 // supply the 16B vector, 64B matrix, stdcall12 and pointer-result ABI.

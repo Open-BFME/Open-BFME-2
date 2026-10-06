@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva005F88F4Get@@YAHH@Z @0x005F88F4 44B evidence: same null-guard head as
 // 0x005F88D6 (arg plus g_009FEF10 via pinned thiscall lookup
 // ?rva002B2579@Rva002BA8F1Logic@@QAEPAURva002B2579Result@@H@Z @0x002B2579),

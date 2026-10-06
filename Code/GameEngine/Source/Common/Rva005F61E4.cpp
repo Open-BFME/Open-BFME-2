@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 // ?rva005F61E4@Rva005F61E4@@QAEXXZ @ 0x005F61E4 60B chain via rowed AptCall 0x005FB5E6.
 // Flag clearer with _hide literal, flag byte at +0x37, team +8 level +4.
 // Evidence: EBP frame, rowed AptCall, literals _hide and SetLeaderRankProgressBarState,

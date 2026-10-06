@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005FD48E@Rva005FD48E@@QAEXXZ retail 0x005FD48E 28B
 // Evidence: loop over 2 entries at +0x20 stride 0x18 calling rowed 0x001FF3A9; tail-jmp wrapper 0x005FD4F7 adjusts this+4; qualified call reproduces retail direct E8 to virtual forwarder
 class Rva001FF3A9

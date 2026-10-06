@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??1Rva005F54DA@@QAE@XZ @0x005F54DA 93B. Dtor calling get-gated unload then three clears.
 // Evidence: 2 callers incl clear@Rva005F55FA, callees rowed get@Rva0057C22FByteChaseField

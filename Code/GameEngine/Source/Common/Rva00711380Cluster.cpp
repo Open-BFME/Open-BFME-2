@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Apt object next to the 0x00711350 deleting destructor: a non-polymorphic bits
 // member at +0x1C and one argument at +0x20 over the Rva006D6360 Apt base, then

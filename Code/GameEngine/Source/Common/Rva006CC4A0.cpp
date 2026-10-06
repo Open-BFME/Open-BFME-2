@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva006CC4A0Init@@YIPAVRva006CC4A0@@PAV1@HH@Z @0x006CC4A0 32B evidence:
 // fastcall init (this, fwd-dead-in-edx, arg): pinned thiscall-0
 // ?rva00ADAFA0@Rva006CC4A0@@QAEXXZ @0x00ADAFA0 on this (ecx ambient);

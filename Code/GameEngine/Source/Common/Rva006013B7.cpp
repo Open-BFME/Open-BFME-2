@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva006013B7@Rva0060126D@@QAE?AURva006013B7Pair@@ABURva00600F9CElement@@@Z @0x006013B7 155B lane=chain
 // Evidence: calls 0x006012ED just landed plus rowed CStrLess 0x006038D4 Decrement 0x000242C0; prev 0x0060137F next 0x0060146B same family; callers 0x0060145F 0x006014E3; unblocks 0x0060147B.

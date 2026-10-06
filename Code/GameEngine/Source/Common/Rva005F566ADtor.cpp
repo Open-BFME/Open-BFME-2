@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??1Rva005F566A@@UAE@XZ @0x005F566A 14B: dtor sets vptr then tail-jmps to rowed clear 0x005F55FA; caller deleting dtor 0x005F5678
 class Rva005F55FA {
 public:

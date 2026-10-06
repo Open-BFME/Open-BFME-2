@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva005F8FA2Copy@@YAPAURva005F8FA2Dst@@PAU1@PAURva005F8FA2Src@@H@Z @0x005F8FA2 42B.
 // Evidence: finish lane; 8-dword src plus dword tail via temp to 9-dword dest;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005FD677@Rva005FD677@@QAEX_N@Z retail 0x005FD677 91B
 // Evidence: chain via 0x005F8EDA AptCall; suffix _up/_disabled; inner name at +8 else g_Rva0107301CEmptyString; level at +4 flag at 0x4c; neighbours 0x005FD53E/0x005FD788; caller 0x005FD8A9
 class Rva00222A8BTarget;

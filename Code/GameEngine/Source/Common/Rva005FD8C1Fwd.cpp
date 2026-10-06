@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005FD8C1@Rva005FD8C1@@QAEXXZ @0x005FD8C1 8B
 // Honest address name: __thiscall forwarder to rowed 0x005F9330.
 // Target evidence: retail mov ecx,[ecx+4] jmp 0x005F9330, rowed callee ?rva005F9330@Rva005F9330@@QAEXXZ, caller call at 0x005E95EC with no pushes, chain lane from just-landed 0x005F9330.

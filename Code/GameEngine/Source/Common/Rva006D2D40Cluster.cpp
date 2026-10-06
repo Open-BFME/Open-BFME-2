@@ -1,4 +1,4 @@
-// cl: /O2 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?CleanPool@AptValueGC_PoolManager@@QAEXXZ @ 0x006D2D40, 71 bytes.
 //

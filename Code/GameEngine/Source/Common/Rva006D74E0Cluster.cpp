@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Address-derived recovery of two Apt string helpers in the 0x006D74E0
 // cluster.
 //

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006C0810@Rva006C0810@@QAEXPBURegion3D@@M@Z @ 0x006C0810 8B
 // Honest address name: tail jmp loading member at +0x10 then jumping to rowed
 // Gen_008812D0::bfmeSetRegion. Same (const Region3D*, float) signature forwards.

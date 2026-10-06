@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva005F2406@Rva005F2406@@QAEXH@Z @0x005F2406 51B insert int into set at +0x10 then broadcast
 // If set<int>::insert 0x000BC15D reports new key, forEach 0x005F224E over list at +0

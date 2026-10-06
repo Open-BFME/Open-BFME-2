@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructors tail-calling Rva006DE350::~
 // Rva006DE350 at 0x006DE350 (pinned opaque dtor asserting IsDestroyedGC with

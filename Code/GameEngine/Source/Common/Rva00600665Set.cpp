@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00600665Set@@YAXPAD@Z @0x00600665 17B free cdecl copy into g_00DD509C ("English" buffer).
 // Retail push arg; push global; call _mbscpy via 0x00629176; pop ecx twice; ret.
 // Evidence: sibling Rva00600777Set copies to TheLangDir via same _mbscpy; data xref 0x009D509C

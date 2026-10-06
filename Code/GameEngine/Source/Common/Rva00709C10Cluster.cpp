@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Rva00709C10Cluster.cpp
 //
 // 0x00709D80 (113 bytes): virtual slot 13 (offset 0x34) of vtable 0x008EE8C8 and

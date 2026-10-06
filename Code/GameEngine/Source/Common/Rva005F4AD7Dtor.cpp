@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??1Rva005F4AD7@@QAE@XZ @0x005F4AD7 22B
 // ??0Rva005F4AD7@@QAE@ABU0@@Z @0x005F4AB9 30B copy-ctor abutting the dtor.
 // ??4Rva005F4AD7@@QAEAAU0@ABU0@@Z @0x005FD4FF 63B assign same Holder trio.

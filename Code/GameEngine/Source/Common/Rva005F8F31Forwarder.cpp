@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva005F8F31@Rva005F8F31@@QAEXXZ @0x005F8F31 13B.
 // Evidence: chain lane; callee 0x005CB260 ?rva005CB260@Rva005CB260@@QAEXXZ rowed;

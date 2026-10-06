@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 // retail global: RTS3DScene *W3DDisplay::m_3DScene (0x012F8058),
 // mangled ?m_3DScene@W3DDisplay@@2PAVRTS3DScene@@A.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /G7
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005FD8E5@Rva005FD788@@QAEXHHH@Z retail 0x005FD8E5 113B
 // Evidence: chain from 0x005FD53E you landed; calls Get 0x005FD53E and rva005FD788 0x005FD788 and releaseBuffer 0x00036E70; entry stride 0x18 base 0x1C offsets 0x10 0x14; string CP literal; /G7 for retail imul 0x18; caller 0x005FD959 jmp
 template <typename T> struct BfmeStringData

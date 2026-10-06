@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva00709E00@Rva00709B80@@QAEXXZ @0x00709E00 68B
 // Virtual slot 11 (offset 0x2C) of vtable 0x008EE8C8 (class of ??1Rva00709B80@@UAE@XZ).
 // Evidence: vtable slot annotation; tail-jmp to pinned ?rva0070DFE0@BfmeAptValue006DCD20@@QAEXXZ;

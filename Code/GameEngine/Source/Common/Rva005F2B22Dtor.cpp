@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva005F2B22@@QAE@XZ retail 0x005F2B22 84B
 // Non-virtual dtor of a polymorphic class: own vptr C79218; under EH state 1,
 // when the holder at +0x20 is empty and the Apt window manager global

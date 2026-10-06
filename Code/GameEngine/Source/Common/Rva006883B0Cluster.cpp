@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 //
 // One-argument sibling of Rva0081D520Owner::broadcast (Rva0081D520Owner.cpp):
 // the same listener-pointer span at +0x14/+0x18 walked with the /O2 array

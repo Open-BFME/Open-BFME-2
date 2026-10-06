@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005F697C@Rva005F697C@@QAEXXZ retail 0x005F697C 18 bytes.
 // Evidence: unlock lane conditional virtual slot 0x18 on member +4 with outer this as arg plus callers 0x005F6A58 0x005F6AB0 sibling of dtors 0x005F6941 0x005F69F5.
 // Model: __thiscall method over member pointer at +4 cleaned via virtual slot 6 taking outer.

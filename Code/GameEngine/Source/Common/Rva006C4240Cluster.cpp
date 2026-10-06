@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Two adjacent lock-guarded argument-staging wrappers of one object type.
 // The near file Rva006C21C0.cpp supplies /O2 /DNDEBUG /MD; /EHsc is added

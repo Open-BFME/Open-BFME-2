@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva006ED2A0@@QAE@XZ, retail 0x006ED1E0, 177 bytes.
 // Default ctor for Rva006ED2A0 (vtable 0x008ECB9C, same as dtor 0x006ED2A0):
 // base sets +0x14/+0x04/+0x0c/+0x10, clears +0x18/+0x1c, inits +0x28/+0x2c/

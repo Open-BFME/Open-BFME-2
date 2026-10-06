@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs
+// cl: /Ireference/shims/bfme2_ascii /MD /EHs
 // ??1Rva005F2F80Elem@@QAE@XZ retail 0x005F2F80 111B
 // Non-virtual dtor of a polymorphic element: own vptr C79290, empty body,
 // member dtors in reverse order under EH states 4..0 -- UnicodeString +0x48

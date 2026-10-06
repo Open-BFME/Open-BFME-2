@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005FA91C@Rva005FA91C@@QAEXH@Z, RVA 0x005FA91C, 96 bytes.
 // Builds GameMessage type 0x6B4 via MessageStreamSubsystem slot 0x48 and
 // appends five ints: [[this+4]+0x14]+0x34, [this+4]+0x18, [this+4]+0x1C,

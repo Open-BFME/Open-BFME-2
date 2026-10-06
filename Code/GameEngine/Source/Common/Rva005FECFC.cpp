@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005FECFCInit@@YIXPAVRva005FECFC@@HH@Z @0x005FECFC 35B evidence:
 // fastcall init (this, fwd-dead-in-edx, arg): m_14 = timeGetTime() plus
 // arg times 1000; then pinned thiscall-0

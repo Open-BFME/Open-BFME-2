@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006FBC30@Rva006FBC90Owner@@UAEXXZ @0x006FBC30 45B
 // Evidence: vtable slot 13 (0x34) of 0x008ED880 (Rva006FBC90Owner dtor class);
 // same mark triple as 0x0070DF80 (m_ctor +0x1C get/setGCMark/slot13 CALL) then

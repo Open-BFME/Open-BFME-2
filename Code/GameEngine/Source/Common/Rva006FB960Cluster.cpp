@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Four Apt-neighbourhood bodies around 0x006FB960..0x006FC130, in the
 // BfmePicker1284.cpp page of Code/GameEngine/Source/Common.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005FFAA7Parse@@YIXPAVRva005FFAA7@@HPAD@Z @0x005FFAA7 57B and
 // ?rva005FFAE0Parse@@YIXPAVRva005FFAA7@@HPAD@Z @0x005FFAE0 57B evidence:
 // fastcall bool-string parsers (this, fwd-dead-in-edx, s): null s returns;

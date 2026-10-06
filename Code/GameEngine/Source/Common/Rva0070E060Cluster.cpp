@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Rva0070E060::rva0070E060, retail 0x0070E060 (148 B).
 // Byte-flag getter plus interface lookup of the same table class as the rowed
 // sibling Rva0070DFF0 0x0070DFF0: writes the low byte of the +0x1C flag to the

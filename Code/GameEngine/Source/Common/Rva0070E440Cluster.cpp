@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Rva0070E440::rva0070E440, retail 0x0070E440 (151 B).
 // Asserts the out pointer (the AptRenderingContext.cpp "pMatrix" assert at line
 // 0x49 through the shared g_bfmeAptAssertAtE17734 hook), then writes the six-float box at

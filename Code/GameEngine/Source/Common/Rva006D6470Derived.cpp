@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructors tail-calling the matched
 // Rva006D6470Owner::~ at 0x006D6470 (constructor row at 0x006D6410).
