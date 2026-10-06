@@ -64978,11 +64978,3 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0021B7B6@Rva0021B7B6@@QAEXPAVINI@@PAX@Z,,0x0021B7B6,234,Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp,matched,Bitstring-list INI driver same shape as KindOf Rva00256499; worker is rowed 0x0021AAFE; Append mirrors prototype member spelling; dest nearest-neighbour 0x0021B775
 ?_M_fill_insert@?$vector@URva003F3277Record@@V?$allocator@URva003F3277Record@@@_STL@@@_STL@@QAEXPAURva003F3277Record@@IABU3@@Z,,0x003F35E3,265,Code/Libraries/Source/WWVegas/WWLib/Rva003F35E3VectorFillInsert.cpp,matched,STLport fill_insert for 12-byte address-derived element; target calls rowed copy backward fill fill_n and overflow workers; vector uint helper use informs ABI view not application identity
 ?rva0039ADB9@Rva0039ADB9@@QAEMMH@Z,,0x0039ADB9,51,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0039ADB9Min.cpp,matched,Range-17 float min against pinned int lookup
-?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
-?getAttackRange@BfmeRangedWeaponTemplate@@QBEMPBVObject@@ABVWeaponBonus@@PBUCoord3D@@@Z,,0x002C99C4,55,Code/GameEngine/Source/GameLogic/Object/Rva002C99C4AttackRange.cpp,matched,
-?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z,,0x002C777E,257,Code/GameEngine/Source/Common/Rva002C777EBuild.cpp,matched,
-?rva002DEE9A@Rva002DEE9AOwner@@QAEXXZ,,0x002DEE9A,41,Code/GameEngine/Source/Common/Rva002DEE9AClear.cpp,matched,
-?rva002DEE9A@Rva002DEE9AOwner@@QAEXXZ,,0x002DEE9A,41,Code/GameEngine/Source/Common/Rva002DEE9AClear.cpp,matched,
-?rva002E3A39@Rva002E3A39Owner@@QAEXPBX@Z,,0x002E3A39,46,Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp,matched,
-?rva002E713F@Rva002E713FOwner@@QAEXXZ,,0x002E713F,57,Code/GameEngine/Source/Common/Rva002E713FGuard.cpp,matched,
-?rva002E7023@@YAXXZ,,0x002E7023,68,Code/GameEngine/Source/Common/Rva002E7023Walk.cpp,matched,dump-range-12 global+call list walk via TheGameLogic getFirstObject and +0x8C chain with +0x258/+0x140 checks
