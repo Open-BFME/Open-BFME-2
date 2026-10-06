@@ -13001,3 +13001,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??0Rva002B5558@@QAE@ABV0@@Z,0x002B72EC,copy constructor REL32 callee at 0x002B90EC (+0 member of Rva002B91EDElement copy 0x002B90D6); layout matches BfmeAssignRecord52 whose +0 is Rva002B5558 (dtor/op= rowed); identity unproven
 ?method@Rva0040D3B6Sub@@QAEHH@Z,0x0040D3B6,tail jmp target of 11B forwarder 0x0023D096 at GameLogic+0x184 identity unproven
 ?rva00210D1D@Rva00210D1D@@QAEXPAURva002130CFOwner@@@Z,0x00210D1D,base step REL32 callee at 0x002130D8 in attach override 0x002130CF (ret 4); identity unproven; address-derived name
+??0Rva004186F2@@QAE@ABV0@@Z,0x004186F2,12-byte member copy constructor REL32 callee at 0x004188CC and 0x004188DC in record copy 0x004188B6; identity unproven; address-derived name

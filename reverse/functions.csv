@@ -63693,3 +63693,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0023D096@GameLogic@@QAEHH@Z,,0x0023D096,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,chain forwarder GameLogic+0x184 tail jmp to 0x0040D3B6 via opaque pin
 ??1Rva00289ABD@@UAE@XZ,,0x00289D7A,239,Code/GameEngine/Source/Common/Rva00289ABDDtor.cpp,matched,pin dtor layout mirrors ctor slot9 cleanup caller deleting dtor
 ?rva002130CF@Rva002130CF@@QAEXPAURva002130CFOwner@@@Z,,0x002130CF,39,Code/GameEngine/Source/Common/Rva002130CFAttach.cpp,matched,Attach override: pinned base step then append listener base to owner list
+??0Rva004188B6@@QAE@ABU0@@Z,,0x004188B6,89,Code/GameEngine/Source/Common/Rva004188B6Copy.cpp,matched,32B record copy ctor via pinned member copy 0x004186F2 twice and AsciiString copy
