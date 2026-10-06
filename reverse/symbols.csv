@@ -13653,12 +13653,3 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?ModuleFactoryHookAt0047A6A4@@YAXPAXH0@Z,0x0047A6A4,Neutral optional registration callback at RVA 0047A6A4; third pointer in 00257CB8 registration passed to slot+8 by 002573EE; 002567B9 invokes slot with three cdecl args; original name and semantics unasserted.
 ??1Rva0038465B@@QAE@XZ,0x0038465B,address-derived 5-byte forwarding thunk reached by unwind cleanup 0x0078228F; retail E9 at this address targets rowed body 0x00383EB2; class identity unproven
 ?insert@?$map@IVWeaponTemplateSetHead@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@2@U32@ABU?$pair@$$CBIVWeaponTemplateSetHead@@@2@@Z,0x00464431,callee of byte-true lookup-or-create at 0x00464923
-?rva00498725@@YAPAXPAX@Z,0x00498725,callee of ?rva004B0942@Rva004B0942@@QAEPAXXZ
-?rva004500A3@Rva004500A3@@QAEXHHHHH@Z,0x004500A3,callee of ?rva0049C51A@Rva0049C51A@@QAEXHHHHH@Z
-?rva0028BAC0@Rva0028BAC0@@QAEXXZ,0x0028BAC0,callee of ?rva004AD9E0@Rva004ADC88@@QAEXXZ
-?rva004DD2C0@Rva004DD2C0@@QAEXXZ,0x004DD2C0,callee of ?rva004B0E9C@Rva004B0E9C@@QAEXXZ
-?rva0045CD6E@Rva004A78B8@@QAE_NH@Z,0x0045CD6E,callee of ?rva004A78B8@Rva004A78B8@@QAE_NH@Z
-?rva00373D23@Rva00373EC6@@QAEXXZ,0x00373D23,callee of ?rva004A33EE@BroadcastStealthUpdate@@QAEXXZ
-?rva0037E915@Rva0037E915@@QAEPAXH@Z,0x0037E915,callee of ?rva0049CCF0@Rva0049CCF0@@QAEXH@Z
-?rva002ACECC@Player@@QAEXW4ObjectID@@@Z,0x002ACECC,callee of ?rva00489E2E@AIUpdateInterface@@QAEXXZ
-?rva0028DCC4@Object@@QAEXXZ,0x0028DCC4,callee of ?rva00489E2E@AIUpdateInterface@@QAEXXZ
