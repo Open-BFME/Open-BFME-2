@@ -20,6 +20,33 @@ UNMATCHED_MARKER_RE = re.compile(
     r"^\s*//\s*(\S+)\s+(present-unmatched|absent-from-retail)\b", re.MULTILINE
 )
 
+# Ignore punctuation inside comments and literals while finding the end of a
+# signature. The retail compiler predates C++ raw string literals.
+SIGNATURE_TOKEN_RE = re.compile(
+    r'''//[^\n]*|/\*[\s\S]*?\*/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|[(){};]'''
+)
+
+
+def is_declaration(text, after_open_paren):
+    """A semicolon after the complete parameter list, before a body, is a prototype.
+
+    Keep ambiguous/incomplete signatures as definition candidates: this only
+    excludes a declaration when its terminating semicolon is actually seen.
+    """
+    depth = 1
+    for match in SIGNATURE_TOKEN_RE.finditer(text, after_open_paren):
+        token = match.group()
+        if token == "(":
+            depth += 1
+        elif token == ")" and depth:
+            depth -= 1
+        elif depth == 0:
+            if token == ";":
+                return True
+            if token == "{":
+                return False
+    return False
+
 
 def load_claims_whitelist():
     if not CLAIMS_WHITELIST.exists():
@@ -138,7 +165,11 @@ def find_defined_functions(text: str):
     # body is then read as ordinary code. Fourteen such files made this checker
     # report a class called NAME and fail a commit. Normalise first: the parse
     # below cares about lines, not about how they were terminated.
-    for line in text.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+    next_line_offset = 0
+    for line in normalized.split("\n"):
+        line_offset = next_line_offset
+        next_line_offset += len(line) + 1
         stripped = line.strip()
         # A function definition written inside a #define body is not a
         # definition -- it is macro text, and the identifiers in it are
@@ -213,12 +244,12 @@ def find_defined_functions(text: str):
         while namespace_stack and namespace_stack[-1][1] > brace_depth:
             namespace_stack.pop()
 
-        # a definition's signature line never ends with ';' — that's a call
-        # statement or prototype (e.g. `BASECLASS::Read(buffer, size);`)
-        if stripped.endswith(";"):
+        # Inspect the complete signature: prototypes can span lines, and a
+        # definition's first line can end with a semicolon inside a comment.
+        match = definition_pattern.match(line)
+        if match and is_declaration(normalized, line_offset + match.end()):
             match = None
-        else:
-            match = definition_pattern.match(line)
+            symbol_comment = None
         # A call wrapped across lines -- `Bar::call(a,` inside a body -- ends in
         # ',' like a wrapped definition signature does. Brace counting alone
         # cannot tell them apart (braces in strings and #if branches skew it, and
