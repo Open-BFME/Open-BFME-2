@@ -18,8 +18,8 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long ms);
 // ret: it is cdecl, cast to CreateThread's stdcall start type.
 unsigned long __cdecl bfmeVM0WorkerThread(void *param);
 
-extern __int64 g_bfmeVM0Total;
-extern __int64 g_bfmeVM0Quotient;
+__int64 g_bfmeVM0Total;
+__int64 g_bfmeVM0Quotient;
 extern double g_bfmeVM0Scale;
 // g_bfmeVM0Scale: matched references place it at VA 0xdfea10 (zero-filled .bss).
 double g_bfmeVM0Scale;
