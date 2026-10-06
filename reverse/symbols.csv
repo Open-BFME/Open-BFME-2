@@ -13003,3 +13003,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva00210D1D@Rva00210D1D@@QAEXPAURva002130CFOwner@@@Z,0x00210D1D,base step REL32 callee at 0x002130D8 in attach override 0x002130CF (ret 4); identity unproven; address-derived name
 ??0Rva004186F2@@QAE@ABV0@@Z,0x004186F2,12-byte member copy constructor REL32 callee at 0x004188CC and 0x004188DC in record copy 0x004188B6; identity unproven; address-derived name
 ?rva00256499Append@Rva00256499@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for KindOf join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
+??0Rva00419035@@QAE@ABV0@@Z,0x00419035,12-byte member copy constructor REL32 callee at 0x0041920B in record copy 0x004191E5 (+4); identity unproven; address-derived name
