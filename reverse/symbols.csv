@@ -13837,11 +13837,3 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00628040@Rva00628040Impl@@QAEPAVObject@@PBUCoord3D@@MHHPAVRva000421C8@@@Z,0x00628040,"PartitionManager closest-object implementation (1827 bytes) behind +0x10: position, float radius, 0, distance type, filter chain; called from getClosestObject 0x00625360; same address as the int-typed ?bfmeFwd1050 pin"
 
 ?Rva00447CA9@@YAXPAVLANGameInfo@@PADH@Z,0x00447CA9,callee of ?Rva0044802D@@YAXPADH@Z
-?rva0005EA8F@Rva0005F279Host@@QAEXPAVRva0005F279Elem@@@Z,0x0005EA8F,dump range 1 loop callees for 0x5F279
-?rva000FF5E6@Rva0007E90ECallee@@QAEXH@Z,0x000FF5E6,dump range 1 marker callee for 0x7E90E
-?rva000B89E9@Rva000B8F5AOuter@@QAEHHPAM@Z,0x000B89E9,rva000BADE7 tail: address read from the REL32 at 0x000BAEA5 in 0x000BADE7; fresh address-derived Outer-method name (probe, float out) for the 1393B body; push order (out then probe) proves (probe, out) against the B8440 twin guess
-?rva000C0386@Rva000B8F5AOuter@@QAEXXZ,0x000C0386,rva000C144A probe: address read from the REL32 at 0x000C1450 in 0x000C144A; fresh address-derived Outer-method name for the 19B counter check (global 0xDE1B40 vs +0xB8, shared tail 0xBFDFE)
-?init@Rva002ECE6AInfo@@QAEPAU1@PAX000HHH@Z,0x002ECD63,thiscall query builder (ecx=0x60-byte Rva002ECE6AInfo, ret 0x1c = 7 stack args) called via retail REL32 from wrappers 0x002F1AF4 and 0x002F1B66; body stores the 7 args into the query and returns it (mov eax ebx); inter-target at 0x002ECC0D+342, ghidra 263B
-?init@Rva002ED01EInfo@@QAEPAU1@PAX00@Z,0x002E931F,thiscall query builder (ecx=0x58-byte Rva002ED01EInfo, ret 0xc = 3 stack args) called via retail REL32 from wrapper 0x002F1B32; body stores the 3 args into the query and returns it (mov eax ebx); ghidra 136B
-?init@Rva002ED15AInfo@@QAEPAU1@PAX00@Z,0x002ED0CC,thiscall query builder (ecx=0x5C-byte Rva002ED15AInfo, ret 0xc = 3 stack args) called via retail REL32 from wrapper 0x002F1BA2; body stores the 3 args into the query and returns it (mov eax ebx); ghidra 142B
-?rva002EBC14@@YAPAUICoord2D@@PAU1@PAXPBUCoord3D@@@Z,0x002EBC14,free cdecl cell resolver (32B frameless): WorldToCell(out=a, IsOdd 0x002EBBFB(b), c) and return a; called via retail REL32 from 0x002EDF44 and 0x002EDF7C with (tmp, obj, obj+0x38); same return-first-arg idiom as rowed thiscall sibling 0x002EBC34
