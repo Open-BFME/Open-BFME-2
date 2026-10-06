@@ -14028,3 +14028,4 @@ FUN_0063e3ce	0x0023E3CE	602	blocked	EH-prolog large-frame MapCache body t=1 mode
 ?rva0039D92A@Rva0039D92AOwner@@QAEPAURva0039D92ANode@@H@Z	0x0039D92A	42	partial	46B vs 42B func in esi not edi adj in edi not esi key order swapped t=20 model=muse-04 score=0.9 stash=reverse/attempts/0x0039d92a.cpp
 ?rva0044F4F7@Rva0044F4F7@@QAEHXZ	0x0044F4F7	316	blocked	316B float-x87-SSE pin-only needs donor t=8 model=muse-04
 ?rva0049D07A@Rva0049D07A@@QAEXXZ	0x0049D07A	154	blocked	154B 5 virtual slots need donor vtable t=5 model=muse-04
+?rva0027C330@Rva0027C330@@QAEXXZ	0x0027C330	58	blocked	push8-pop-ebx vs mov plus ptr-count loop shape indicates O1 vs O2 t=8 model=muse-02

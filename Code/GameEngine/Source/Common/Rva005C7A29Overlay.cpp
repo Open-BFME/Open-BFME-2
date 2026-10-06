@@ -78,3 +78,26 @@ void Rva005C7C5D::rva005C7C65(bool show)
 {
 	return m_04->rva005C7A85(show);
 }
+
+// Retail 0x005C7C75, 8 bytes: adjust this by +4 then tail-jmp to rowed
+// Rva005C7B96::rva005C7B96(int). Callers 0x005679DA 0x005C3818.
+// ?rva005C7C75@Rva005C7C75@@QAEXH@Z
+class Rva005C7B96
+{
+public:
+	void rva005C7B96(int index);
+};
+
+class Rva005C7C75
+{
+public:
+	void rva005C7C75(int index);
+private:
+	char _pad0[4];
+	Rva005C7B96 *m_04;
+};
+
+void Rva005C7C75::rva005C7C75(int index)
+{
+	return m_04->rva005C7B96(index);
+}
