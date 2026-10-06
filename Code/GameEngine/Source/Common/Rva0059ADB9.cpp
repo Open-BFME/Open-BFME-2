@@ -83,3 +83,30 @@ void Rva0059AE55::rva0059AE55(void *source, void **slot)
 	m_prefix = *(Rva0059AE55Prefix *)source;
 	m_value = *slot;
 }
+
+// ?rva0059AC4D@Rva0059AC4D@@QAEXPAX@Z @0x0059AC4D 33B
+// Target evidence: clamps the argument object's unsigned dword at +0x2D0 to
+// 2, stores it, then calls the address-derived helper at 0x0059ABC9 with the
+// same ECX and object argument. Domain identity remains unknown.
+struct Rva0059AC4DArg
+{
+	char m_pad[0x2D0];
+	unsigned int m_value;
+};
+
+class Rva0059AC4D
+{
+public:
+	void rva0059AC4D(void *object);
+	void rva0059ABC9(void *object);
+};
+
+void Rva0059AC4D::rva0059AC4D(void *object)
+{
+	Rva0059AC4DArg *arg = (Rva0059AC4DArg *)object;
+	unsigned int value = arg->m_value;
+	if (value > 2)
+		value = 2;
+	arg->m_value = value;
+	rva0059ABC9(object);
+}
