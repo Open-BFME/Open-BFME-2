@@ -59,6 +59,17 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     python3 tools/pin_consistency.py --check || fail "pin consistency (see above)"
     python3 tools/pin_consistency.py --assert-shrink-only "$base" --at "$local_sha" \
         || fail "pin_consistency_baseline.csv grew across the outgoing range (see above)"
+    # Verifier code and baselines: every outgoing commit that changes one
+    # carries a Verifier-Change trailer, and shrink-only lists do not grow.
+    # Judged by the checker as of the remote tip, so an outgoing edit to the
+    # checker cannot approve itself.
+    if git cat-file -e "$base:tools/protected_paths.py" 2>/dev/null; then
+        git show "$base:tools/protected_paths.py" | python3 - --range "$base" "$local_sha" \
+            || fail "protected verifier/baseline change in outgoing range (see above)"
+    elif git cat-file -e "$local_sha:tools/protected_paths.py" 2>/dev/null; then
+        git show "$local_sha:tools/protected_paths.py" | python3 - --range "$base" "$local_sha" \
+            || fail "protected verifier/baseline change in outgoing range (see above)"
+    fi
     python3 tools/pin_admission.py --range "$base" "$local_sha" \
         || fail "pin/alias admission across the outgoing range (see above)"
     if git cat-file -e "$base:tools/gate_baseline.py" 2>/dev/null; then
