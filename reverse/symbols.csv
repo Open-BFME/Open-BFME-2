@@ -13475,3 +13475,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002B488E@Rva002BA8F1Logic@@QAEHPAX@Z,0x002B488E,banked 83B int table scan with per-pass recount; address holds for callers until conversion; see attempts/0x2b488e.cpp
 ?rva002E2D8D@Rva002E2903Player@@QAEXPAX@Z,0x002E2D8D,thiscall with 1 pointer arg on the 0x2B51F8 find result; Ghidra FUN_006e2d8d 428B, head not decoded
 ?rva0031912E@Rva0031912E@@QAEHXZ,0x0031912E,thiscall with 0 stack args seen at 0x2B4C35 site; return ignored there; banked 0.93 partial kept
+?rva002B5EB5@Rva002B5EB5@@QAE_NXZ,0x002B5EB5,thiscall bool with 0 stack args seen at 0x2B5F8A site; 213B body fresh unattempted
