@@ -11,8 +11,7 @@ struct Coord3D
 class Pathfinder
 {
 public:
-	void *rva001E3647(int a, int b);
-	void *rva001E3647Pos(int a, const Coord3D *pos);
+ 	void *rva001E3647Pos(int a, const Coord3D *pos);
 	int rva002E9871(const Coord3D *pos);
 	bool rva002E9897(int a, int b);
 	bool rva002E98C6(int a, int b);
@@ -50,7 +49,7 @@ int Pathfinder::rva002E9871(const Coord3D *pos)
 // ?Pathfinder::rva002E996E present-unmatched
 bool Pathfinder::rva002E996E(int a, bool b, bool c, int d)
 {
-	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(d, a);
+	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(d, (const Coord3D *)a);
 	bool out;
 	if (rec == 0)
 		out = true;
@@ -77,7 +76,7 @@ bool Pathfinder::rva002E996E(int a, bool b, bool c, int d)
 // split-out: *a2=nonnull, *a4=tag, *a3=bit18.
 void Pathfinder::rva002E99BD(int a1, void *a2, void *a3, void *a4, int a5)
 {
-	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(a5, a1);
+	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(a5, (const Coord3D *)a1);
 	if (rec == 0)
 	{
 		*(unsigned char *)a2 = 0;
@@ -94,7 +93,7 @@ void Pathfinder::rva002E99BD(int a1, void *a2, void *a3, void *a4, int a5)
 // ?rva002E9897@Pathfinder@@QAE_NHH@Z @0x002E9897 47B: tag&0xf in {1,7}.
 bool Pathfinder::rva002E9897(int a, int b)
 {
-	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(b, a);
+	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(b, (const Coord3D *)a);
 	if (rec != 0)
 	{
 		int tag = rec->m_flags & 0x0F;
@@ -105,13 +104,13 @@ bool Pathfinder::rva002E9897(int a, int b)
 // ?rva002E98C6@Pathfinder@@QAE_NHH@Z @0x002E98C6 36B: tag&0xf == 2.
 bool Pathfinder::rva002E98C6(int a, int b)
 {
-	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(b, a);
+	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(b, (const Coord3D *)a);
 	return rec != 0 ? (rec->m_flags & 0x0F) == 2 : false;
 }
 // ?rva002E98EA@Pathfinder@@QAEHHH@Z @0x002E98EA 47B: tag==4 && bit17.
 int Pathfinder::rva002E98EA(int a, int b)
 {
-	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(b, a);
+	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(b, (const Coord3D *)a);
 	if (rec != 0)
 	{
 		int val = rec->m_flags;
@@ -130,7 +129,7 @@ int Pathfinder::rva002E98EA(int a, int b)
 // ?rva002E9919@Pathfinder@@QAEHHH@Z @0x002E9919 47B: tag==2 && !bit16.
 int Pathfinder::rva002E9919(int a, int b)
 {
-	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(b, a);
+	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(b, (const Coord3D *)a);
 	if (rec != 0)
 	{
 		int val = rec->m_flags;
@@ -149,7 +148,7 @@ int Pathfinder::rva002E9919(int a, int b)
 // ?rva002E9948@Pathfinder@@QAE_NHH@Z @0x002E9948 38B: null->true else tag==5.
 bool Pathfinder::rva002E9948(int a, int b)
 {
-	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(b, a);
+	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(b, (const Coord3D *)a);
 	return rec != 0 ? (rec->m_flags & 0x0F) == 5 : true;
 }
 // ?rva002E940F@Pathfinder@@QAE_NH_N@Z @0x002E940F 51B: mid>0x10 and
@@ -158,7 +157,7 @@ bool Pathfinder::rva002E9948(int a, int b)
 // byte test of second arg; test al 0xf. Callers at 0x002CBF72 0x00345748.
 bool Pathfinder::rva002E940F(int a, bool b)
 {
-	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647(1, a);
+	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(1, (const Coord3D *)a);
 	if (rec == 0)
 		return false;
 	unsigned int flags = rec->m_flags;
