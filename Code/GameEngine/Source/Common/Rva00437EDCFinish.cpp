@@ -97,3 +97,11 @@ bool Rva0054D222Prompt::prompt(int kind, const UnicodeString &title,
  }
  return false;
 }
+
+// Native [54D3E1,54D438)87B thiscall RET16: entered by43802B;
+// next EH prologue establishes its end. Native child pointer is at4.
+bool Rva0054D3E1Prompt::prompt(int kind, const UnicodeString &title,
+ const UnicodeString &message, TreeHintRef00217D4C callback)
+{
+ return m_child04->prompt(kind, title, message, callback);
+}
