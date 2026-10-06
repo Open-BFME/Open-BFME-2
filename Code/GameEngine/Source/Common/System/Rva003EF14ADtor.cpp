@@ -264,3 +264,17 @@ void Rva00072FE6::rva00072FE6()
         count04 = 0;
     }
 }
+
+// Target identity: the five-byte boundary at 0x004E2E53 preserves this and
+// tail-jumps to the rowed no-argument destructor at 0x004E2990. Keep the
+// wrapper's method name address-derived; its enclosing target type is unknown.
+class Rva004E2E53
+{
+public:
+    void rva004E2E53();
+};
+
+void Rva004E2E53::rva004E2E53()
+{
+    ((Rva004E2990 *)this)->~Rva004E2990();
+}
