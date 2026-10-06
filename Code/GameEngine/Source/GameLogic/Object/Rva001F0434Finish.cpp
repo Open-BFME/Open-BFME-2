@@ -38,3 +38,15 @@ bool ObjectCreationList::rva001F0434(void *a1, void *a2)
 	}
 	return ok;
 }
+
+// ?Rva004C30BC@@YAHPAVObjectCreationList@@PAX1@Z @ 0x004C30BC (28B).
+// Ghidra boundary and the ret at 0x004C30D7 bound the body. Retail null-checks
+// the explicit list pointer, then forwards the two stack arguments to the
+// rowed ObjectCreationList member at 0x001F0434. The movzx after the byte
+// result supports an int return; the address identity is unknown.
+int __cdecl Rva004C30BC(ObjectCreationList *list, void *a1, void *a2)
+{
+	if (list != 0)
+		return list->rva001F0434(a1, a2);
+	return 0;
+}

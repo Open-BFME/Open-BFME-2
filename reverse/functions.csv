@@ -65789,3 +65789,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva005E3A76@Rva005E3A76@@QAEXXZ,,0x005E3A76,44,Code/GameEngine/Source/Common/Rva005E3A76Slot.cpp,matched,
 ?Rva004DD722Get@@YAMH@Z,,0x004DD722,25,Code/GameEngine/Source/Common/Rva004DD843Getter.cpp,matched,
 ?rva004DE511@Rva004DD843@@QAEXHH@Z,,0x004DE511,27,Code/GameEngine/Source/Common/Rva004DD843Getter.cpp,matched,
+?Rva004C30BC@@YAHPAVObjectCreationList@@PAX1@Z,,0x004C30BC,28,Code/GameEngine/Source/GameLogic/Object/Rva001F0434Finish.cpp,matched,
