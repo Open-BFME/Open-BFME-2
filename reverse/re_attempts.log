@@ -14494,3 +14494,6 @@ _Rva00437FB3	0x00437FB3	120	partial	Two callback refcount copies and the direct 
 ?Rva0029A5CAGet@@YAXXZ	0x0029A5CA	12	blocked	owner and signature unproven; caller packet omits ECX setup t=2 model=gpt-6.1-sol
 ?rva0029A224@Rva0029A224@@QAEHH@Z	0x0029A224	26	blocked	int return body matches load and comparisons but retail true path uses xor/inc/jump rather than mov immediate t=8 model=GPT-6
 ?rva0029AB48@InGameUI@@QAEXEPAE@Z	0x0029AB48	187	partial	branch span and global relocation differ in gate t=12 model=gpt-6 score=0.93 stash=reverse/attempts/0x0029ab48.cpp
+?rva0029AD12@Rva0029AD12@@QAEXXZ	0x0029AD12	487	blocked	large rendering routine identity and target class layout remain unproven from table neighbours t=3 model=gpt-6
+?rva003B7C47@Rva003B7C47@@QAEHPBDAAURva003B7C47Item@@@Z	0x003B7C47	329	blocked	ModuleDataList insertion identity remains uncertain and required record layout plus 0x782629 constructor unresolved t=4 model=gpt-6
+?rva003B7448@Rva003B7448@@QAEXH@Z	0x003B7448	264	blocked	pinned int parameter is dereferenced as a source pointer and required vtable global has no approved name t=1 model=gpt-6

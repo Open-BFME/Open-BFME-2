@@ -53,7 +53,46 @@ private:
 public:
 	bool rva00054839(AudioEventRTS *event);
 	bool rva00054899(ObjectID arg1, int arg2);
+	bool rva00055426(int arg);
 };
+
+struct AudioObjectContext;
+
+class ClientFrameSubsystem
+{
+public:
+	virtual void slot00(void);
+	virtual void slot01(void);
+	virtual void slot02(void);
+	virtual void slot03(void);
+	virtual void slot04(void);
+	virtual void slot05(void);
+	virtual void slot06(void);
+	virtual void slot07(void);
+	virtual void slot08(void);
+	virtual void slot09(void);
+	virtual void slot10(void);
+	virtual void slot11(void);
+	virtual void slot12(void);
+	virtual void slot13(void);
+	virtual void slot14(void);
+	virtual void slot15(void);
+	virtual AudioObjectContext *slot16(int id);
+};
+
+struct AudioObjectID
+{
+	unsigned char m_pad[0x74];
+	ObjectID m_id;
+};
+
+struct AudioObjectContext
+{
+	unsigned char m_pad[0xFC];
+	AudioObjectID *m_object;
+};
+
+extern ClientFrameSubsystem *TheGameClient;
 
 bool MilesAudioManager::rva00054839(AudioEventRTS *event)
 {
@@ -104,4 +143,17 @@ bool MilesAudioManager::rva00054899(ObjectID arg1, int arg2)
 		}
 	}
 	return false;
+}
+
+bool MilesAudioManager::rva00055426(int arg)
+{
+	if (arg == 0)
+		return false;
+
+	AudioObjectContext *context = TheGameClient->slot16(arg);
+	ObjectID objectID = ObjectID_Zero;
+	if (context != 0 && context->m_object != 0)
+		objectID = context->m_object->m_id;
+
+	return rva00054899(objectID, arg);
 }

@@ -65759,3 +65759,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ??0Rva0037BADD@@QAE@XZ,,0x0037BADD,112,Code/GameEngine/Source/GameNetwork/Rva0037BADDGameInfoCtor.cpp,matched,same slot construction pattern as SkirmishGameInfo donor identity unproven
 ?rva0029AF1C@InGameUI@@QAEHXZ,,0x0029AF1C,35,Code/GameEngine/Source/GameClient/InGameUI_rva0029AF1C.cpp,matched,InGameUI table adjacency and virtual slot dispatch
 ?rva0029AAC8@Rva0029AA3F@@QAEXPBUCoord3D@@@Z,,0x0029AAC8,24,Code/GameEngine/Source/Common/Rva0029AA3F.cpp,matched,address derived setter null guarded Coord3D copy to offset 0x99c
+?rva00055426@MilesAudioManager@@QAE_NH@Z,,0x00055426,61,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00054839.cpp,matched,MilesAudioManager method inferred from adjacent methods and caller context
