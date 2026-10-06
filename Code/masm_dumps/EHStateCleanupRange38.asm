@@ -2204,5 +2204,110 @@ cleanup_done_00792364:
     ret
 ?rva00792364@@YAXXZ ENDP
 
+; Unwind@00b92eb6 at RVA 0x00792EB6; target byte boundary is 25 bytes.
+; State bit 0 gates [ebp+8] cleanup through RVA 0x005B804E; parent
+; identity and concrete cleanup-object type remain unknown.
+PUBLIC ?rva00792eb6@@YAXXZ
+?rva00792eb6@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-28h]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00792eb6
+    and DWORD PTR [ebp-28h], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1UnicodeString@@QAE@XZ
+cleanup_done_00792eb6:
+    ret
+?rva00792eb6@@YAXXZ ENDP
+
+; Unwind@00b93094 at RVA 0x00793094; target byte boundary is 25 bytes.
+; State bit 0 gates [ebp-14] cleanup through RVA 0x005F8F96; parent
+; identity and concrete local type remain unknown.
+PUBLIC ?rva00793094@@YAXXZ
+?rva00793094@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-10h]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00793094
+    and DWORD PTR [ebp-10h], -2
+    lea ecx, [ebp-14h]
+    jmp ??1Rva005F8F96@@QAE@XZ
+cleanup_done_00793094:
+    ret
+?rva00793094@@YAXXZ ENDP
+
+; Unwind@00b93a65 at RVA 0x00793A65; target byte boundary is 25 bytes.
+; State bit 0 gates [ebp-5c] cleanup through RVA 0x0048BA39; parent
+; identity and concrete local type remain unknown.
+PUBLIC ?rva00793a65@@YAXXZ
+?rva00793a65@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-14h]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00793a65
+    and DWORD PTR [ebp-14h], -2
+    lea ecx, [ebp-5Ch]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00793a65:
+    ret
+?rva00793a65@@YAXXZ ENDP
+
+; Unwind@00b93a86 at RVA 0x00793A86; target byte boundary is 25 bytes.
+; State bit 1 gates [ebp-60] cleanup through RVA 0x0048BA39; parent
+; identity and concrete local type remain unknown.
+PUBLIC ?rva00793a86@@YAXXZ
+?rva00793a86@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-14h]
+    and eax, 2
+    jz NEAR PTR cleanup_done_00793a86
+    and DWORD PTR [ebp-14h], -3
+    lea ecx, [ebp-60h]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00793a86:
+    ret
+?rva00793a86@@YAXXZ ENDP
+
+; Unwind@00b93a9f at RVA 0x00793A9F; target byte boundary is 25 bytes.
+; State bit 2 gates [ebp-48] cleanup through RVA 0x0048BA39; parent
+; identity and concrete local type remain unknown.
+PUBLIC ?rva00793a9f@@YAXXZ
+?rva00793a9f@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-14h]
+    and eax, 4
+    jz NEAR PTR cleanup_done_00793a9f
+    and DWORD PTR [ebp-14h], -5
+    lea ecx, [ebp-48h]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00793a9f:
+    ret
+?rva00793a9f@@YAXXZ ENDP
+
+; Unwind@00b93ad8 at RVA 0x00793AD8; target byte boundary is 25 bytes.
+; State bit 3 gates [ebp+8] cleanup through RVA 0x0048BA39; parent
+; identity and concrete cleanup-object type remain unknown.
+PUBLIC ?rva00793ad8@@YAXXZ
+?rva00793ad8@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-14h]
+    and eax, 8
+    jz NEAR PTR cleanup_done_00793ad8
+    and DWORD PTR [ebp-14h], -9
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00793ad8:
+    ret
+?rva00793ad8@@YAXXZ ENDP
+
+; Unwind@00b93ba5 at RVA 0x00793BA5; target byte boundary is 25 bytes.
+; State bit 0 gates [ebp+8] cleanup through folded RVA 0x0007FAB3;
+; parent and concrete object identity remain unknown.
+PUBLIC ?rva00793ba5@@YAXXZ
+?rva00793ba5@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-18h]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00793ba5
+    and DWORD PTR [ebp-18h], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+cleanup_done_00793ba5:
+    ret
+?rva00793ba5@@YAXXZ ENDP
+
 _TEXT ENDS
 END
