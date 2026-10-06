@@ -41,6 +41,9 @@ struct Coord2D {
 };
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
+// PreRTS includes the shared STL iterator shim; restore this TU's verified
+// frame-pointer setting before AnimateWindow emits its inline accessors.
+#pragma optimize("y", on)
 #include "GameClient/ProcessAnimateWindow.h"
 #include "GameClient/AnimateWindowManager.h"
 #include "GameClient/GameWindow.h"
