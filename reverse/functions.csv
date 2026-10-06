@@ -63842,3 +63842,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva003444CE@@QAE@PAVObject@@0VAsciiString@@@Z,,0x003444CE,174,Code/GameEngine/Source/GameLogic/AI/Rva003444CEStates.cpp,matched,Two-state StateMachine ctor with rva004D750F hook in B952-family shape first-try exact; pins the unrowed 0x58 state ctor 0x34301B
 ??0Rva00540517@@QAE@ABV0@@Z,,0x00540517,66,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00540517CopyCtor.cpp,matched,Copy ctor: default-constructs Rva00330757Member then rowed vector copy 0x540295 then dword
 ??0Rva00540845@@QAE@ABV0@@Z,,0x00540845,67,Code/GameEngine/Source/Common/Rva00540845Copy.cpp,matched,Copy ctor: rowed Rva0053FADE base copy then vtable 0xC694F8 then Rva00540517 member copy
+?Rva00567B6DAdd@@YAXPAVRva005C3F02@@PBUPayload@Rva005677B9@@@Z,,0x00567B6D,106,Code/GameEngine/Source/Common/Rva00567B6DAdd.cpp,matched,caller 0x00568021 container plus payload ctor row and Add row
