@@ -64407,3 +64407,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva0025E4CD@@UAE@XZ,,0x0025E4CD,80,Code/GameEngine/Source/Common/Rva0025E4CDDtor.cpp,matched,global delete of +0xC via pinned non-virtual dtor then inline base and GameEngineDeletingBase dtor
 ??1Rva005BEA22@@QAE@XZ,,0x005BEA22,78,Code/GameEngine/Source/Common/Rva005BEA22Dtor.cpp,matched,global delete of +0 then inline buffer member dtor freeing with CRT free
 ??1Rva003516F3@@UAE@XZ,,0x003516F3,96,Code/GameEngine/Source/Common/Rva003516F3Dtor.cpp,matched,guarded global delete of +0x4C then inline buffer member free then pinned Gen_uwm_004d759c base dtor
+??1Rva0032989F@@UAE@XZ,,0x0032989F,103,Code/GameEngine/Source/Common/Rva0032989FDtor.cpp,matched,global delete of counted pointer array then inline base dtor calling Q1Forwardee0000871A handle
