@@ -1,5 +1,6 @@
 """Native fold proof must cover the full emitted bodies and their call edges."""
 import struct
+import pytest
 
 from test_gate_exploits import RDATA, TEXT, coff, gate  # noqa: F401
 
@@ -17,15 +18,17 @@ PROXY_BODY = bytes.fromhex('8bc18b4c24088908c20800')
 
 
 def fixture(gate, *, vector_body=VECTOR_BODY, proxy_body=PROXY_BODY,
-            nested=PROXY, vector_chars=TEXT, called=0x2000, proxy_called=0x2100):
+            nested=PROXY, vector_chars=TEXT, called=0x2000, proxy_called=0x2100,
+            caller_opcode=0xE8, caller_addend=0):
     gate.obj.write_bytes(coff(
-        [('.text', TEXT, b'\xe8\0\0\0\0\xc3', [(1, 1, 20)]),
+        [('.text', TEXT, bytes([caller_opcode]) + struct.pack('<i', caller_addend)
+          + b'\xc3', [(1, 1, 20)]),
          ('.text$v', vector_chars, vector_body, [(19, 2, 20)]),
          ('.text$p', TEXT, proxy_body, [])],
         [('_f', 0, 1, 0x20, 2, 0),
          (VECTOR, 0, 2, 0x20, 2, 0),
          (nested, 0, 3, 0x20, 2, 0)]))
-    gate.memory[0x1000] = b'\xe8' + struct.pack('<i', called - 0x1005) + b'\xc3'
+    gate.memory[0x1000] = bytes([caller_opcode]) + struct.pack('<i', called - 0x1005) + b'\xc3'
     native = bytearray(VECTOR_BODY)
     native[19:23] = struct.pack('<i', proxy_called - 0x2017)
     gate.memory[0x2000] = bytes(native)
@@ -38,6 +41,22 @@ def fixture(gate, *, vector_body=VECTOR_BODY, proxy_body=PROXY_BODY,
 def test_complete_emitted_fold_and_nested_proxy_pass(gate):
     fixture(gate)
     assert gate.gate()
+
+
+def test_direct_tail_jump_to_emitted_fold_passes(gate):
+    fixture(gate, caller_opcode=0xE9)
+    assert gate.gate()
+
+
+@pytest.mark.parametrize('addend', [1, -1, 4])
+def test_caller_addend_is_not_discarded(gate, addend):
+    fixture(gate, caller_addend=addend)
+    assert not gate.gate()
+
+
+def test_non_branch_caller_relocation_is_not_a_fold_call(gate):
+    fixture(gate, caller_opcode=0xB8)
+    assert not gate.gate()
 
 
 def test_changed_constructor_byte_fails(gate):

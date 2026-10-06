@@ -1819,8 +1819,14 @@ def compile_function(row, symbol_map, output):
                 else:
                     called = (target_rva + offset + 4
                               + struct.unpack_from("<i", target, offset)[0]) & 0xFFFFFFFF
-                    proof = stlport_folds.prove(
-                        sys.modules[__name__], sym_name, called, output, symbol_map)
+                    # A fold proves the named callee's entry, not an interior
+                    # target encoded by a COFF addend. Only direct calls/jumps
+                    # with zero addends may use this proof.
+                    proof = None
+                    if (offset >= 1 and compiled[offset - 1] in (0xE8, 0xE9)
+                            and compiled[offset:offset + 4] == b"\0" * 4):
+                        proof = stlport_folds.prove(
+                            sys.modules[__name__], sym_name, called, output, symbol_map)
                     if proof is None:
                         unresolved.append(sym_name)
                     else:
