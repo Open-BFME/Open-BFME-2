@@ -292,17 +292,56 @@ Rva003EF36E::Rva003EF36E(EmitVtableTag *)
 {
 }
 
+struct Elem003B2540
+{
+	char m_pad[8];
+	int m_key;
+	char m_pad2[12];
+};
+namespace _STL {
+template <class T> class allocator
+{
+};
+template <class T, class A = allocator<T> > class vector
+{
+public:
+	T *_M_start;
+	T *_M_finish;
+	T *_M_end_of_storage;
+	T *erase(T *);
+};
+}
+
 class Rva003F332E
 {
 public:
 	Rva003F332E(EmitVtableTag *);
 public:
 	virtual ~Rva003F332E();
+	Elem003B2540 *rva003F3708(int key);
+
+	char m_pad[0x1a8 - 4];
+	_STL::vector<Elem003B2540> m_vec;
 };
 
 // ?<Rva003F332E::Rva003F332E> absent-from-retail
 Rva003F332E::Rva003F332E(EmitVtableTag *)
 {
+}
+
+// ?rva003F3708@Rva003F332E@@QAEPAUElem003B2540@@H@Z @0x003F3708 49B
+Elem003B2540 *Rva003F332E::rva003F3708(int key)
+{
+	Elem003B2540 *it = m_vec._M_start;
+	Elem003B2540 *end = m_vec._M_finish;
+	if (it == end)
+		return it;
+	do {
+		if (it->m_key == key)
+			return m_vec.erase(it);
+		++it;
+	} while (it != end);
+	return it;
 }
 
 class Rva003F6A91
