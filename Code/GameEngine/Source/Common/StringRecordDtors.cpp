@@ -127,3 +127,29 @@ Rva00111B25Record *Rva00111B5A::rva00111B5A( const char *name )
 	}
 	return 0;
 }
+
+// 0x000C4D34 (30B) is the one-argument STLport resize wrapper for
+// BfmeStringRecord000B94D2. Its callee at 0x000C4733 grows through the rowed
+// _M_fill_insert specialization at 0x000C225D and destroys the by-value
+// record through the rowed destructor at 0x000B6CF1. The separate caller at
+// 0x008B5293 advances the range by eight bytes. These target relationships
+// establish the element type; the vector's owning class remains unknown.
+namespace _STL
+{
+template <class Type> class allocator {};
+
+template <class Type, class Allocator> class vector
+{
+public:
+	typedef unsigned int size_type;
+	void resize(size_type newSize, Type value);
+	void resize(size_type newSize) { resize(newSize, Type()); }
+
+private:
+	Type *m_start;
+	Type *m_finish;
+	Type *m_endOfStorage;
+};
+
+template void vector<BfmeStringRecord000B94D2, allocator<BfmeStringRecord000B94D2> >::resize(unsigned int);
+}
