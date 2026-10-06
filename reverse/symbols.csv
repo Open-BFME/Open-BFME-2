@@ -13453,3 +13453,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva005E18D0@Rva005E18D0@@QAEXXZ,0x005E18D0,jump target of 17B forwarder 0x005E1906; original name unknown
 ?rva005E18DC@Rva005E18DC@@QAEXXZ,0x005E18DC,jump target of 17B forwarder 0x005E1917; original name unknown
 ?rva0029B967@InGameUI@@IAEXPAVDrawable@@@Z,0x0029B967,selectDrawable target0x002A3805; ret4; accesses argument Object pointer+FC and selected list+20; native receiver unchanged
+?rva000311E0@GeneralAllocator@Allocator@EA@@QAEIPBXIPADPAGI@Z,0x000311E0,address-derived hex-dump member reached from dump formatter 0x00031430 (5-arg thiscall src/count/ascii/wide/cap); body unrecovered so the name is a candidate not an identity
