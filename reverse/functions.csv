@@ -64634,3 +64634,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva001F45F4@ParticleSystem@@QAEX_N@Z,,0x001F45F4,56,Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F45F4.cpp,matched,Slave-chain flag setter via Make001FCBD7 with barrier
 ?rva004FD37F@Rva004FD37F@@QAEXPBVModuleData@@@Z,,0x004FD37F,99,Code/GameEngine/Source/Common/Rva004FD37F.cpp,matched,caller 0x004FD752 rowed insert_equal push_back sibling 0x004FD3E2
 ??1Rva005694C8@@QAE@XZ,,0x005694C8,5,Code/Libraries/Source/WWVegas/WWLib/Rva005694C8Dtor.cpp,matched,5B dtor jmp to rowed Rb_tree dtor
+?rva00796023@@YAHPAVObject@@PAX@Z,,0x00396023,154,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396023Search.cpp,matched,LINK BONUS names it free int Object void neighbour Rva003960BDSearch box with 2 Vecs flag18

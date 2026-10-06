@@ -1,5 +1,3 @@
-// ?rva00796023@@YAHPAVObject@@PAX@Z
-// partial score=0.9 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
 // ?rva00796023@@YAHPAVObject@@PAX@Z @0x00396023 154B evidence: LINK BONUS names it free int(Object void*) neighbour Rva003960BDSearch box with 2 Vecs flag18 callees rowed findModule CastleBehavior key plus pinned trigger tests
 enum NameKeyType { NAMEKEY_INVALID = 0 };
@@ -11,7 +9,6 @@ class Object { public: char m_pad00[4]; void *m_04; protected: Module *findModul
 struct ObjectHack : public Object { Module *get(NameKeyType k) const { return findModule(k); } };
 struct BoxVec { int a; int b; int c; };
 struct Box { BoxVec m_00; BoxVec m_0C; unsigned char m_18; };
-// ?rva00796023@@YAHPAVObject@@PAX@Z present-unmatched
 int __cdecl rva00796023(Object *obj, void *userData)
 {
 	if ((((unsigned char *)obj->m_04)[0x117] & 1) == 0)
@@ -20,8 +17,6 @@ int __cdecl rva00796023(Object *obj, void *userData)
 	if (beh == 0)
 		return 1;
 	int i = 0;
-	if ((((char *)beh->m_84 - (char *)beh->m_80) & -4) <= 0)
-		return 1;
 	Box *box = (Box *)userData;
 	for (; i < ((((char *)beh->m_84 - (char *)beh->m_80)) >> 2); ++i)
 	{
