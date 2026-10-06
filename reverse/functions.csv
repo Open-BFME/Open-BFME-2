@@ -63847,3 +63847,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002E112A@Rva002E112A@@QAE_NPAVRva00319CED@@@Z,,0x002E112A,43,Code/GameEngine/Source/Common/Rva002E112A.cpp,matched,unlock rowed callees setle compare
 ?rva00499C6C@OneRingPenaltyUpdate@@AAEXXZ,,0x00499C6C,172,Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499C6C.cpp,matched,OneRing helper via rowed ring status audio and BfmeC987
 ?rva0049924B@GateOpenAndCloseBehavior@@AAEX_N@Z,,0x0049924B,138,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorRva0049924B.cpp,matched,Gate helper via pathfind state and flag vectors
+??0Rva0055B0CC@@QAE@ABV0@@Z,,0x0055B182,166,Code/GameEngine/Source/Common/Rva0055B182Copy.cpp,matched,User copy ctor: scalars and AsciiString copied then both int lists default-constructed then reassigned via rowed list op=
+??0Rva00573B23@@QAE@ABV0@@Z,,0x00573AC8,91,Code/GameEngine/Source/Common/Rva00573AC8Copy.cpp,matched,Copy ctor: Rva0055B0CC base copy 0x55B182 then vtable 0xC6E270 then AsciiString and four floats

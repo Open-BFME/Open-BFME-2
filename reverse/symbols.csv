@@ -13188,3 +13188,5 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?g_00DFE78C@@3PAXA,0x00DFE78C,table global read at +0x40 by 0x344F57
 ?rva00344EB2Gate@@YA_NPAVObject@@PAVThing@@@Z,0x00344EB2,forward pin for the banked 0x344EB2 gate called from 0x344F57; RETAIL REL32 at 0x00344FDA; superseded when the gate lands
 ??_7Rva00540845@@6B@,0x00C694F8,Rva00540845 vtable installed by its copy ctor 0x00540845 (mov [esi] imm at 0x0054086B) after the Rva0053FADE base copy
+??_7Rva0055B0CC@@6B@,0x00C6B900,Rva0055B0CC vtable installed by its copy ctor 0x0055B182 (mov [esi] imm at 0x0055B195)
+??_7Rva00573B23@@6B@,0x00C6E270,Rva00573B23 vtable: slot 0 rowed ??_GRva00573B23 0x00573C60; installed by ctor 0x00573A9B and copy ctor 0x00573AC8; 0x00C6E2A0 is the same table from slot 12
