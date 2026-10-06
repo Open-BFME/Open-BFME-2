@@ -66189,3 +66189,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva001F4A90@Rva001F4A90Host@@QAEXPBDHH@Z,,0x001F4A90,113,Code/Libraries/Source/WWVegas/WWLib/Rva001F4A90Select.cpp,matched,Draw Physics Update dispatch via rowed 0x1530E9 plus import strcmp; lea selects embedded members; slot1 with ext-a2-a3
 ?rva0020EEF4@Rva0020EEF4Outer@@QAEHH@Z,,0x0020EEF4,74,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEF4Search.cpp,matched,Predicate search via inner plus8 vector calling pinned 0x3F08D7; int preserves eax; reload count idiom
 ?rva005E3A76@Rva005E3A76@@QAEXXZ,,0x005E3A76,44,Code/GameEngine/Source/Common/Rva005E3A76Slot.cpp,matched,
+?rva00500606@@YA?AVRva00500606Range@@H@Z,,0x00500606,83,Code/GameEngine/Source/Common/Rva00500606EqualRange.cpp,matched,Address-derived map lookup copies the mapped two-tree value and returns the first tree equal_range(1); type ownership remains unknown
