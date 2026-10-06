@@ -22,10 +22,10 @@
 // Every class here is address-named after the slot body; only the rowed base
 // constructors carry names from the ledger.
 
-class Rva003AC8D7Slot0	{ public: virtual void s0(); int m_a; };
-class Rva003AC8D7Slot1	{ public: virtual void s0(); };
-class Rva003AC8D7Slot1N	{ public: virtual void s0(); int m_a; };
-class Rva003AC8D7Slot2	{ public: virtual void s0(); };
+class Rva003AC8D7Slot0	{ public: virtual void s0() {} int m_a; };
+class Rva003AC8D7Slot1	{ public: virtual void s0() {} };
+class Rva003AC8D7Slot1N	{ public: virtual void s0() {} int m_a; };
+class Rva003AC8D7Slot2	{ public: virtual void s0() {} };
 
 class Rva003AC8D7Primary
 {
