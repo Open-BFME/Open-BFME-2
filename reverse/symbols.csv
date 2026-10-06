@@ -14211,3 +14211,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva005ECFE4@@QAE@PAX00@Z,0x005ECE81,callee of ?rva005ED15D@Rva005ECFE4@@SAPAXPAX00@Z
 ?rva004AA4FE@Rva004AABB4@@QAE_NPAVObject@@0PAUCoord3D@@@Z,0x004AA4FE,callee of ?rva004AABB4@Rva004AABB4@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z
 ?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
+?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
