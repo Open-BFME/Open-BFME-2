@@ -66340,3 +66340,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0049CCF0@Rva0049CCF0@@QAEXH@Z,,0x0049CCF0,52,Code/GameEngine/Source/Common/Rva0049CCF0Forward.cpp,matched,controlling-player lookup into virtual slot 0x2C
 ?rva004AF63E@RespawnUpdate@@QAEXXZ,,0x004AF63E,350,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF63E.cpp,matched,RespawnUpdate death entry: level rule lookup then death fx disabled and revival slot
 ?rva004B0FEB@Rva004B0FEB@@QAE_NPAVObject@@@Z,,0x004B0FEB,367,Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCheck.cpp,matched,target gate over status bits relationship filter and pathfinder
+?rva00489913@Rva00489913@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z,,0x00489913,244,Code/GameEngine/Source/GameLogic/Object/Update/Rva00489913Nearest.cpp,matched,bridge endpoint scan keeps the nearest squared distance
