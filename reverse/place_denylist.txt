@@ -142,3 +142,6 @@ _io_writeto
 
 # w5-sol: 0x00626EF0 refused; see re_attempts.log and build/w5_gate_0x00626EF0.log
 ??$__copy@PAURva00626EF0Element@@PAU1@H@_STL@@YAPAURva00626EF0Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z
+
+# w5-sol: 0x000B4431 refused; see re_attempts.log and build/w5_gate_0x000B4431.log
+??$__copy@PAURva000B4431Element@@PAU1@H@_STL@@YAPAURva000B4431Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z
