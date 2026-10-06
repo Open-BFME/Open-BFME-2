@@ -64904,3 +64904,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva004649A1@@YAXPAVINI@@PAX1PBX@Z,,0x004649A1,87,Code/GameEngine/Source/Common/Thing/BoneSpecificConditionStateRva004649A1.cpp,matched,target FieldParse table pairs BoneSpecificConditionState with this callback; parses unsigned key and 0x4C flag set then stores through rowed lookup 0x00464923; owning class unproven
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
 ?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
+?rva0008F32C@@YAXXZ,,0x0008F32C,69,Code/GameEngine/Source/Common/Rva0008F32CFactory.cpp,matched,dump range 2 EH factory via new honest names

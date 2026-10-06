@@ -13674,3 +13674,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva005D4395@Rva005D4395@@QAEXXZ,0x005D4395,read from REL32 at 0x005D475D in rva005D472C 0x005D472C (thiscall no-arg); Ghidra boundary 0x5D4395/158 unclaimed
 ?rva006CD4A0@EAStringC@@QBE_NXZ,0x006CD4A0,Address-derived pointer predicate: REL32 at 0070B692 in StringPool initializer; target10B compares the first pointer with null; existing owner AsciiString::hasData is a folded structural match; no original EA method name asserted.
 ?rva0057DB97@Rva0057DFFB@@QAEXXZ,0x0057DB97,rva0057DB97 call: address read from the REL32 e8 89 fb ff ff at 0x0057E009 in 0x0057DFFB; ECX-this no-stack-args method on same subobject per caller neighbourhood
+??0Rva0010461F@@QAE@XZ,0x0010461F,callee of ?rva0008F32C@@YAXXZ
