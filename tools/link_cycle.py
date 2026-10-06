@@ -458,11 +458,14 @@ def make_import_libs(entries, outdir):
 
 def zz_objects(objs, placed, ordered_names, zzdir):
     """Private copies with every unplaced code section renamed .text$zz, so unplaced
-    code lands after retail's last group instead of inside it."""
+    code lands after retail's last group instead of inside it. Every link input
+    is a short name in zzdir (o00000.obj: such a copy, else a hard link to the
+    object): link.exe 7.1 cannot open a path past MAX_PATH, and object names run
+    to 150 characters. zzdir/names.json maps the names back (read_map)."""
     zzdir.mkdir(parents=True, exist_ok=True)
     placed_secs = {(u["obj"], u["sec"]) for u in placed}
-    out, renamed = [], 0
-    for p in objs.paths:
+    out, renamed, names, modified = [], 0, {}, []
+    for k, p in enumerate(objs.paths):
         secs, syms, raw = objs.get(p)
         d = bytearray(raw)
         opt = struct.unpack_from("<H", d, 16)[0]
@@ -479,14 +482,32 @@ def zz_objects(objs, placed, ordered_names, zzdir):
             struct.pack_into("8s", d, 20 + opt + 40 * (s.idx - 1), b".text$zz")
             hit = True
             renamed += 1
+        q = zzdir / ("o%05d.obj" % k)
+        names[q.name] = Path(p).name.lower()
         if hit:
-            q = zzdir / p.name
+            modified.append(q.name)
             if not q.exists() or q.read_bytes() != d:
+                q.unlink(missing_ok=True)          # never write through a hard link to the object
                 q.write_bytes(bytes(d))
-            out.append(q)
-        else:
-            out.append(p)
+        elif not (q.exists() and os.path.samefile(p, q)):
+            q.unlink(missing_ok=True)
+            try:
+                os.link(p, q)
+            except OSError:
+                import shutil
+                shutil.copyfile(p, q)
+        out.append(q)
+    (zzdir / "names.json").write_text(json.dumps({"names": names, "modified": modified}))
     return out, renamed
+
+
+def zz_names(out):
+    """({short link name: object basename}, [short names of modified copies])."""
+    try:
+        d = json.loads((out / "zzobj" / "names.json").read_text())
+        return d["names"], d["modified"]
+    except (OSError, ValueError, KeyError):
+        return {}, []
 
 
 def link(tag, inputs, order, entry, base, outdir):
@@ -524,7 +545,7 @@ def diagnostics(log):
 MAPLINE = re.compile(r"^\s*([0-9a-f]{4}):([0-9a-f]{8})\s+(\S+)\s+([0-9a-f]{8})\s+(?:f\s+)?(?:i\s+)?(\S+)\s*$")
 
 
-def read_map(text, base):
+def read_map(text, base, names=None):
     """(publics {name: rva}, statics {(name, objbase): rva}, sorted [(rva, name, objbase)],
     {public: objbase})."""
     pub, stat, allsyms, static, pubobj = {}, {}, [], False, {}
@@ -536,6 +557,7 @@ def read_map(text, base):
             continue
         va = int(m.group(4), 16) - base
         ob = m.group(5).split(":")[-1].lower()
+        ob = (names or {}).get(ob, ob)
         if static:
             stat.setdefault((m.group(3), ob), va)
         else:
@@ -1548,7 +1570,9 @@ def cycle(args):
             shift = pool.submit(link, "shift", inputs, order, entry, args.shift_base, out)
         log, code, secs = link("base", inputs, order, entry, BASE, out)
         d = diagnostics(log)
-        mapped = read_map((out / "base.map").read_text(encoding="latin-1"), BASE)
+        if not (out / "base.map").exists():
+            raise SystemExit(f"link_cycle: the base link wrote no map (exit {code}): {log[:2000]}")
+        mapped = read_map((out / "base.map").read_text(encoding="latin-1"), BASE, zz_names(out)[0])
         culprits, nmiss = drift_culprits(items, mapped[0])
         history.append({"link": f"iter{iters}", "secs": round(secs), "exit": code, "placed_units": len(placed),
                         "drift": len(culprits), "missing_names": nmiss, "new_unresolved": len(d["unresolved"])})
@@ -1609,16 +1633,15 @@ def cycle(args):
 
 def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_base):
     pe, I, isecs, limp = pe_view(out / "base.exe")
-    mapped = read_map((out / "base.map").read_text(encoding="latin-1"), BASE)
+    names, modified = zz_names(out)
+    mapped = read_map((out / "base.map").read_text(encoding="latin-1"), BASE, names)
     ledger_starts = {}
     for u in units:
         for r in u["rows"]:
             ledger_starts[r["rva"]] = max(ledger_starts.get(r["rva"], 0), r["size"])
     # the linked image's code pointers live in the map's object basenames: index zz copies too
-    zz = out / "zzobj"
-    if zz.exists():
-        for p in zz.iterdir():
-            objs.by_base[p.name.lower()] = p
+    for q in modified:                 # a renamed copy is the bytes the link read
+        objs.by_base[names[q]] = out / "zzobj" / q
     m = Measure(units, chunks, mapped, I, R, isecs, rimp, limp, pins, objs, ledger_starts)
     recs = m.run()
     textsz = rsecs[".text"][1]
