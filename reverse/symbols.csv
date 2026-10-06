@@ -14152,3 +14152,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva004EDF03@AITactic@@QAEXXZ,0x004EDF03,Restored missing collaborator binding from the held-back generator: direct native REL32s at 505932 and 505A4F respectively; AITactic and Team identities agree with existing start and NotifyTeamCancelled providers; member purpose remains address named
 ?rva004ED6D2@AITactic@@QAEXPAVTeam@@@Z,0x004ED6D2,Restored missing collaborator binding from the held-back generator: direct native REL32s at 505932 and 505A4F respectively; AITactic and Team identities agree with existing start and NotifyTeamCancelled providers; member purpose remains address named
 ?GadgetTextEntryUpdateComposition@@YA_NPAVGameWindow@@@Z,0x00320B3C,callee of ?GadgetTextEntryInsertCharacter@@YA_NPAVGameWindow@@I@Z and GadgetTextEntryInput (which tests its bool)
+?rva00432AEB@Rva0043283C@@QAEHH@Z,0x00432AEB,callee of ?GadgetTextEntrySystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
