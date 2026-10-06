@@ -189,3 +189,65 @@ void AIUpgradeScienceBuilder::buildExpansionUpgrades()
 		m_3C = TheGameLogic->getFrame();
 	}
 }
+
+// Address-derived range-30 body at 0x00597FC5 (66 bytes). Target bytes pass
+// this-0x0C to the rowed 0x005977D3, 0x0059781D, and
+// AIUpgradeScienceBuilder::buildExpansionUpgrades at 0x00597E30. They then
+// walk the begin/end pair at this+0x18/+0x1C and call 0x005975C0 for entries
+// whose byte at +0x34 is set. The 0x00597983 callee has a string-xref lead
+// into this file, but its identity remains unknown.
+class Rva005977D3
+{
+public:
+	void rva005977D3();
+};
+
+class Rva0059781D
+{
+public:
+	void rva0059781D();
+};
+
+class Rva00597983
+{
+public:
+	void rva00597983();
+};
+
+class Rva005975C0
+{
+public:
+	void rva005975C0();
+	unsigned char m_pad00[0x34];
+	bool m_34;
+};
+
+class Rva00597FC5
+{
+public:
+	void rva00597fc5();
+
+private:
+	unsigned char m_pad00[0x18];
+	void **m_begin; // +0x18
+	void **m_end;   // +0x1C
+};
+
+void Rva00597FC5::rva00597fc5()
+{
+	char *subobject = reinterpret_cast<char *>(this) - 0x0C;
+	reinterpret_cast<Rva005977D3 *>(subobject)->rva005977D3();
+	reinterpret_cast<Rva0059781D *>(subobject)->rva0059781D();
+	reinterpret_cast<Rva00597983 *>(subobject)->rva00597983();
+	reinterpret_cast<AIUpgradeScienceBuilder *>(subobject)->buildExpansionUpgrades();
+
+	void **end = m_end;
+	void **it = m_begin;
+	while (it != end)
+	{
+		Rva005975C0 *entry = reinterpret_cast<Rva005975C0 *>(*it);
+		if (entry->m_34)
+			entry->rva005975C0();
+		++it;
+	}
+}
