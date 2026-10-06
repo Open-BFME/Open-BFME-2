@@ -66170,3 +66170,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva00582EB0@LANAPI@@QAEXPAULANMessage@@PBUBfmeNetAddress@@_N@Z,,0x00582EB0,273,Code/GameEngine/Source/GameNetwork/LANAPIRva00582EB0.cpp,matched,target field offsets and LANAPI caller support address identity
 ?rva0039B749@ScoreKeeper@@QAEHXZ,,0x0039B749,13,Code/GameEngine/Source/Common/RTS/ScoreKeeperDestroyedWorkersBfme2.cpp,matched,ScoreKeeper inferred from neighboring methods and caller field offset 118
 ?rva0039B773@ScoreKeeper@@QAEHXZ,,0x0039B773,13,Code/GameEngine/Source/Common/RTS/ScoreKeeperDestroyedWorkersBfme2.cpp,matched,ScoreKeeper inferred from neighboring methods and caller field offset 170
+??1TransportAIUpdateModuleData@@UAE@XZ,,0x0026E1FC,107,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdateModuleDataDestructor.cpp,matched,BFME1 destructor shape adapted to target offsets and single owned pointer
