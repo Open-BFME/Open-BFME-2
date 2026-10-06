@@ -65194,3 +65194,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?init@LANAPI@@UAEXXZ,,0x00449BAA,256,Code/GameEngine/Source/GameNetwork/LANAPIInit.cpp,matched,LANAPI vtable 0x0083E680 slot1; BFME1 donor LANAPI::init (0x00685690) ported verbatim with members shifted +4; _EA_RTS_HEADLESS port probe 8086..8093 then lobby state and user/computer names
 ?rva0029B34B@Rva0029B380@@QAEXXZ,,0x0029B34B,53,Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp,matched,same elem release pattern as 0x0029B380 in TU
 ??1Rva005CCD3E@@QAE@XZ,,0x005CCD3E,26,Code/GameEngine/Source/Common/Rva005CCD3EDtor.cpp,matched,dtor clears ptr via delete plus LINK 0x005CCDDD plus true 26B tail is thunk
+?Rva0058D041Write@@YAXPAEPAVNetCommandRef@@@Z,,0x0058D041,161,Code/GameEngine/Source/GameNetwork/NetPacketRva0058D041Write.cpp,matched,packet markers and caller establish serializer shape

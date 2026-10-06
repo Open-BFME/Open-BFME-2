@@ -14156,3 +14156,9 @@ FUN_0063e3ce	0x0023E3CE	602	blocked	EH-prolog large-frame MapCache body t=1 mode
 ?Rva004FDA72Get@@YAHXZ	0x004FDA72	85	blocked	global 0x00A063EC is ADDRESS-NAMED g_Va00E063EC new use is counted escape hatch t=2 model=muse-01
 ?rva004FD699@Rva004FD699@@QAEXPBVModuleData@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z	0x004FD699	96	partial	90B vs 96B swapped begin-end loads and 6B self-store mov eax ebp+8 before push_back t=20 model=muse-01 score=0.94 stash=reverse/attempts/0x004fd699.cpp
 ?rva004FD013@Rva004FCE73@@QAEXHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAH@Z	0x004FD013	199	partial	198B vs 199B out-in-edi vs out-on-stack j-on-stack vs j-in-edi TheLivingWorldLogic via eax vs ecx dtor epilogue lea vs cmp-pop t=25 model=muse-01 score=0.97 stash=reverse/attempts/0x004fd013.cpp
+FUN_00620928	0x00220928	382	blocked	shared g_00DFE490 has conflicting owned types and alternate-name workaround is disallowed t=8 model=gpt-6
+FUN_00620D1E	0x00220D1E	175	blocked	g_00DFE490 conflicting shared views and stored-table identity insufficient to settle owner t=5 model=gpt-6
+?GenerateNextCommandID@@YAGXZ	0x005811A8	13	blocked	declaration-only global emitted at address zero despite established shared static; needs an allowed data owner name t=10 model=gpt-6
+?Rva0031ABD9SetBorder@@YAXPAVGameWindow@@H@Z	0x0031ABD9	96	blocked	two source shapes remain 47B over and have wrong stack cleanup; exact shared-call control flow unresolved t=12 model=gpt-6
+?rva0058D18C@NetPacket@@QAE_NPAVNetCommandRef@@@Z	0x0058D18C	133	blocked	two semantically aligned variants compile identically at 142B; register and argument stack shape remains 9B over t=9 model=gpt-6
+?Rva0058D041Write@@YAXPAEPAVNetCommandRef@@@Z	0x0058D041	161	blocked	exact body has unresolved getData callee row and adding a pin is forbidden t=12 model=gpt-6

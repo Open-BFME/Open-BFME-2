@@ -1,6 +1,6 @@
 // ?Rva0058D041Write@@YAXPAEPAVNetCommandRef@@@Z
 // partial score=0.97 date=2026-10-01
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?Rva0058D041Write@@YAXPAEPAVNetCommandRef@@@Z @0x0058D041 161B.
 // NetPacket wrapper serialize T S F R P C D plus getData pointer.
 // Evidence: leaf lane plus donor TSRFPCD markers plus caller 0x00592BC5.
@@ -43,10 +43,9 @@ public:
 class NetWrapperCommandMsg : public NetCommandMsg
 {
 public:
-	void *getData();
+	UnsignedByte *getData();
 };
 
-// ?Rva0058D041Write@@YAXPAEPAVNetCommandRef@@@Z present-unmatched
 void Rva0058D041Write(UnsignedByte *dst, NetCommandRef *ref)
 {
 	NetWrapperCommandMsg *cmd = (NetWrapperCommandMsg *)ref->getCommand();
