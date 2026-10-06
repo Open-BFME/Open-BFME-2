@@ -11037,3 +11037,4 @@ Unwind@00b96b6c	0x00796B6C	25	void	t=10min model=gpt-6-luna; retracting the C++-
 ?rva0034BFFF@@YGXPAVObject@@@Z	0x0034BFFF	54	converted	first-try exact; landed 54B t=8 model=muse-spark
 ?rva003591F4@Rva003591F4@@QAEXH_N@Z	0x003591F4	33	partial	id gate 32/33 exact except push-placeholder quirk: retail push-ecx plus mov-esp-fill vs cl push-eax; systematic across all 3 callers of 0x58DC2 but trigger unknown (not byte-size; DWORD fill). t=20 model=muse-spark score=0.97 stash=reverse/attempts/0x003591f4.cpp
 ??1Rva00359290@@UAE@XZ	0x00359290	86	converted	implicit vstore plus pin beats explicit global (which mis-stores state as vptr); landed 86B t=15 model=muse-spark
+?rva003597A8@Rva003597A8@@QAEXHH@Z	0x003597A8	27	partial	forwarder 24/27 exact from add-ecx onward. WALL (3B): arg eval order -- retail push-a1 then lea-a2 vs cl lea-a2 then push-a1. pins for both callees. score=0.89 stash=reverse/attempts/0x003597a8.cpp
