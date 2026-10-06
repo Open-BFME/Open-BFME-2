@@ -11328,3 +11328,7 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva0057FC75@Rva0057F2DE@@QAE_NIII@Z	0x0057FC75	234	blocked	register wall this-in-esi-vs-edi plus window-in-edi-vs-esi plus extra mov-eax-edi plus EH states swapped t=25 model=muse-02 (stash 0.93 kept)
 ?rva002CC4DD@Weapon@@QAEXXZ	0x002CC4DD	155	partial	ebx-vs-edi regalloc plus spill lea-vs-add push order t=18 model=muse-02 score=0.93 stash=reverse/attempts/0x002cc4dd.cpp
 ??0Rva0056B599@@QAE@PAX0H@Z	0x0056B599	122	blocked	EH ctor 3 vtables overwrite param2 List type unknown FuncInfo UNCLAIMED layout off by 4 t=12 model=muse-spark
+?rva002E1155@Rva002E112A@@QAE_NPAVRva00319CED@@@Z	0x002E1155	57	blocked	callee-saved rotation this-edi mem-ebx a-ebp b-esi vs retail esi edi ebx ebp size-exact 57B t=10 model=muse-05 (stash 0.93 kept)
+?rva004ED52E@Rva004ECECD@@QAE_NPAVTeam@@@Z	0x004ED52E	365	blocked	second-loop break form keeps begin in edi redundant check moved size 363 vs 365 t=12 model=muse-05 (stash 0.92 kept)
+?rva00278341@Drawable@@QAE_NH_N@Z	0x00278341	181	blocked	181B EH first skeleton 155B minus26 8 regions audio event and arg struct sizes and vector EH states unknown t=15 model=muse-05
+?rva0031996D@Rva003193EC@@QAEPAXPAPAXABV?$StringBase@D@@@Z	0x0031996D	101	partial	frame dead dword push ecx and ebp-4 plus add eax 0x40 vs offset plus esi edi swap t=25 model=muse-05 score=0.9 stash=reverse/attempts/0x0031996d.cpp
