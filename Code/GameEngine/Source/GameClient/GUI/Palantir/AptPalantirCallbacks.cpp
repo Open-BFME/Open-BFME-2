@@ -55,6 +55,63 @@ private:
 	unsigned char m_pad00[0x18];
 };
 
+// The next three wrappers allocate these payloads and forward their own
+// address plus one caller argument. Allocation sizes are target evidence;
+// payload field layouts and meanings remain unknown.
+class Rva005288C4Payload
+{
+public:
+	Rva005288C4Payload(void *owner, void *argument);
+
+private:
+	unsigned char m_pad00[0xDC];
+};
+
+class Rva00529FC5Payload
+{
+public:
+	Rva00529FC5Payload(void *owner, void *argument);
+
+private:
+	unsigned char m_pad00[0xDC];
+};
+
+class Rva0052AD30Payload
+{
+public:
+	Rva0052AD30Payload(void *owner, void *argument);
+
+private:
+	unsigned char m_pad00[0x230];
+};
+
+class Rva00528AC3
+{
+public:
+	Rva00528AC3(void *argument);
+
+private:
+	void *m_0;
+};
+
+class Rva0052A244
+{
+public:
+	Rva0052A244(void *argument);
+
+private:
+	void *m_0;
+};
+
+class Rva0052AF1C
+{
+public:
+	Rva0052AF1C(void *argument);
+
+private:
+	void *m_0;
+};
+
 // The holders' rowed resets (OwnedPointerResets.cpp's views; the same
 // holders' clears are rowed under other names below).
 class Rva002D38AE
@@ -501,6 +558,30 @@ void AptPalantir::OnHeroSelectLoaded(const char *path)
 // 0x00527FA7. Payload layout and semantics are not established.
 Rva00527FA2::Rva00527FA2(int level, const AsciiString &name)
 	: m_0(new Rva00527FA7(level, name))
+{
+}
+
+// Retail 0x00528AC3, 67 bytes: called at 0x002D5835 for the four-byte slot
+// at caller this+0x90. It allocates 0xDC bytes and forwards this plus the
+// caller's EDI argument to 0x005288C4. Payload semantics are unknown.
+Rva00528AC3::Rva00528AC3(void *argument)
+	: m_0(new Rva005288C4Payload(this, argument))
+{
+}
+
+// Retail 0x0052A244, 67 bytes: called at 0x002D5825 for the four-byte slot
+// at caller this+0x8C. It allocates 0xDC bytes and forwards this plus the
+// caller's EDI argument to 0x00529FC5. Payload semantics are unknown.
+Rva0052A244::Rva0052A244(void *argument)
+	: m_0(new Rva00529FC5Payload(this, argument))
+{
+}
+
+// Retail 0x0052AF1C, 67 bytes: called at 0x002D5845 for the four-byte slot
+// at caller this+0x94. It allocates 0x230 bytes and forwards this plus the
+// caller's EDI argument to 0x0052AD30. Payload semantics are unknown.
+Rva0052AF1C::Rva0052AF1C(void *argument)
+	: m_0(new Rva0052AD30Payload(this, argument))
 {
 }
 
