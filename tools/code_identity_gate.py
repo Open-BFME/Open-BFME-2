@@ -102,7 +102,11 @@ def check(sources, staged_names, *, full=False):
         sorted({r["source"] for r in allowed.census.ledger()}))
     if alts:
         targets = {}
-        for rec in allowed.scan(ident, allowed.census.ledger() if full else rows):
+        everything = allowed.census.ledger()
+        if not full:                         # only the rows whose objects reference an alias
+            objs = set().union(*(ident.defs.referrers.get(a, set()) for _, a, _ in alts))
+            everything = [r for r in everything if str(allowed.row_object(r)) in objs]
+        for rec in allowed.scan(ident, everything):
             targets.setdefault(rec[3], set()).add(rec[4])
         for path, a, b in alts:
             verdict = allowed.judge_alternatename(ident, a, b, targets)

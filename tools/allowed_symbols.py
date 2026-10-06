@@ -166,12 +166,18 @@ def _object_defs(path):
         if s["storage"] == EXTERNAL and s["name"] not in out:
             raw, size, relocs = o.body(s)
             out[s["name"]] = (digest(raw, size, relocs), size, o.exclusive(s))
-    return str(path), out
+    refs = frozenset(s["name"] for s in o.symbols.values() if s["storage"] == EXTERNAL and s["section"] == 0)
+    return str(path), (out, refs)
+
+
+class _Defs(collections.defaultdict):
+    referrers = None
 
 
 def definitions(objs):
     """{name: [(object path, digest, size, exclusive)]} in link order, cached per
-    object by (mtime, size) in build/allowed_symbols/defs.pickle."""
+    object by (mtime, size) in build/allowed_symbols/defs.pickle; `.referrers`
+    is {name: {object path}} of the objects referencing it undefined."""
     cache_file = OUT / "defs.pickle"
     cache = {}
     if cache_file.exists():
@@ -183,7 +189,8 @@ def definitions(objs):
     for p in objs:
         st = p.stat()
         stamp[str(p)] = (st.st_mtime_ns, st.st_size)
-    todo = [p for p in objs if cache.get(str(p), (None,))[0] != stamp[str(p)]]
+    todo = [p for p in objs if cache.get(str(p), (None,))[0] != stamp[str(p)]
+            or not isinstance(cache[str(p)][1], tuple)]
     if todo:
         workers = build._pool_size()
         if workers > 1 and len(todo) > 64:
@@ -191,14 +198,19 @@ def definitions(objs):
                 found = list(pool.map(_object_defs, todo, chunksize=64))
         else:
             found = [_object_defs(p) for p in todo]
-        for path, defs in found:
-            cache[path] = (stamp[path], defs or {})
+        for path, facts in found:
+            cache[path] = (stamp[path], facts or ({}, frozenset()))
         OUT.mkdir(parents=True, exist_ok=True)
         cache_file.write_bytes(pickle.dumps(cache))
-    out = collections.defaultdict(list)
+    out = _Defs(list)
+    referrers = collections.defaultdict(set)
     for p in objs:
-        for name, (dg, size, excl) in cache[str(p)][1].items():
+        defs, refs = cache[str(p)][1]
+        for name, (dg, size, excl) in defs.items():
             out[name].append((str(p), dg, size, excl))
+        for name in refs:
+            referrers[name].add(str(p))
+    out.referrers = referrers
     return out
 
 
