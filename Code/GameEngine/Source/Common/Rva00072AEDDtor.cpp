@@ -16,6 +16,12 @@ public:
 class Rva0072AEDRef
 {
 public:
+	Rva0072AEDRef(const Rva0072AEDRef &other) : m_ptr(other.m_ptr)
+	{
+		if (m_ptr)
+			++m_ptr->m_count;
+	}
+
 	~Rva0072AEDRef()
 	{
 		Rva0072AEDCounted *p = m_ptr;
@@ -39,12 +45,22 @@ class __declspec(novtable) Rva0072AED : public Rva0072AEDBase
 {
 public:
 	virtual ~Rva0072AED();
+	Rva0072AEDRef rva00072AC3();
 
 private:
 	Rva0072AEDRef m_08; // +0x08
 };
 
+// ?rva00072AC3@Rva0072AED@@QAE?AVRva0072AEDRef@@XZ @ 0x00072AC3 (27B),
+// Ghidra boundary and exact ret-4 extent. Target bytes copy the reference
+// at this+8 into the hidden return buffer and increment its pointee count at
+// +4 when non-null. The adjacent rowed destructor supports the same +8/+4
+// reference layout; the method's class relationship remains an inference.
+Rva0072AEDRef Rva0072AED::rva00072AC3()
+{
+	return m_08;
+}
+
 Rva0072AED::~Rva0072AED()
 {
 }
-
