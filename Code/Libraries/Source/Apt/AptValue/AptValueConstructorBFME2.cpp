@@ -7,7 +7,7 @@
 // are unknown. This body is not the DrawableModule constructor.
 class BfmeAptValue006DCD20
 {
-    virtual void vtableSlot0();
+    virtual void vtableSlot0() {}
     unsigned int m_flags;
     void setTypeAt006DBBC0(int type);
 public:
