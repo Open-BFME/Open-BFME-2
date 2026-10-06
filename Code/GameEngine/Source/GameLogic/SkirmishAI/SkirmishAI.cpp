@@ -5,12 +5,68 @@
 // bytes. When a slave AI dies its units go to the player whose index is at
 // +0x178.
 
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+
 typedef int Int;
+
+extern "C" void *memset(void *s, int c, unsigned n);
+
+// Rowed byte getter at 0x002AA22A reads Player+0x734; rowed dword getter at
+// 0x005C4AF5 reads Team+0x40 (next team in the prototype's instance list).
+class Rva002AA22AByteField
+{
+public:
+	unsigned char get() const;			// 0x002AA22A
+};
+
+class Rva005C4AF5DwordField
+{
+public:
+	int get() const;				// 0x005C4AF5
+};
+
+typedef int (Rva005C4AF5DwordField::*TeamNext)() const;
+
+template<int NUMBITS>
+class BitFlags
+{
+public:
+	// Retail sub esp,0x2c leaves 0x24 bytes for kinds+member-ptr(8): kinds is
+	// 0x24 bytes here; only the low 0x1c is memset (retail push 0x1c) with the
+	// three ors below. N=69 mangles to $0EF (A=0..P=15 hex digits).
+	union
+	{
+		unsigned int m_words[9];
+		unsigned char m_bytes[0x24];
+	};
+};
+
+class Team;
+
+// TeamPrototype view: instance-list head is TeamFactory's +0x334 pattern
+// (TeamFactoryFindTeam/TeamPrototypeTeamIterators precedent).
+class TeamPrototype
+{
+public:
+	unsigned char m_pad[0x334];
+	Team *m_firstTeam;				// +0x334
+};
+
+struct ListNode
+{
+	ListNode *m_next;				// +0x00
+	ListNode *m_prev;				// +0x04
+	TeamPrototype *m_value;			// +0x08
+};
 
 // Player view: rva002AE2ED (rowed) grants this player the other player's
 // sciences; +0x24 is copied from the dying AI's player (retail-measured).
-class Player
+// +0x2EC is the destination team (TeamDidPartialEnter 0x0039E9FD precedent);
+// +0x32C is the prototype list head (list object with sentinel); the byte
+// getter above proves +0x734.
+class Player : public Rva002AA22AByteField
 {
+	friend class SkirmishAI;
 public:
 	void rva002AE2ED(Player *other);			// 0x002AE2ED
 	Int getField24() const { return m_field24; }
@@ -19,6 +75,10 @@ public:
 private:
 	unsigned char m_pad00[0x24];
 	Int m_field24;						// +0x24
+	unsigned char m_pad28[0x2EC - 0x28];
+	Team *m_team2EC;					// +0x2EC
+	unsigned char m_pad2F0[0x32C - 0x2F0];
+	ListNode *m_listHead32C;				// +0x32C list sentinel
 };
 
 class PlayerList
@@ -30,6 +90,16 @@ public:
 extern PlayerList *ThePlayerList;
 
 class Object;
+
+// Team view: transferKindOfUnitsTo is the rowed kind-filtered twin at
+// 0x0039E6D1 (TeamDidPartialEnter.cpp); the +0x40 next link is the rowed
+// Rva005C4AF5DwordField getter above, reached here through a member pointer
+// so the call stays indirect like retail's.
+class Team : public Rva005C4AF5DwordField
+{
+public:
+	void transferKindOfUnitsTo(Team *newTeam, const BitFlags<69> &kinds);	// 0x0039E6D1
+};
 
 // SkirmishAI's AIBuilder base sits at offset 0; its onUnitCreated (WB name,
 // unrowed 0x004EC3AC) takes the new unit, an object and a horde flag.
@@ -100,4 +170,43 @@ void SkirmishAI::onHordeCreated(Object *object, Object *other)
 {
 	if (!m_disabled168)
 		AIBuilder::onUnitCreated(object, other, true);
+}
+
+// ?transferUnitsToPlayer@SkirmishAI@@QAEXPAVPlayer@@@Z @0x002C6AFA (152B).
+// Identity (target): pinned name (lane=named); callers 0x002C6BD8
+// (doSpecialSlaveAIDying) and 0x002C6BF8 (doSpecialMasterAIDying) both hand
+// the master player's entry; prev 0x002C6AA8/next 0x002C6B92 live in this TU.
+// Retail skips human/defeated players (byte field +0x734), hands the dying
+// AI player's teams (list at m_player+0x32C, instances at +0x334, next at
+// Team+0x40) to the new owner's +0x2EC team, filtered to KINDOF bits 3/90/14
+// (memset 0x1c plus three ors). No donor.
+void SkirmishAI::transferUnitsToPlayer(Player *player)
+{
+	if (player->get() != 0)
+		return;
+	Team *newTeam = player->m_team2EC;
+	Player *src = m_player;
+	ListNode **listAddr = &src->m_listHead32C;
+	BitFlags<69> kinds;
+	memset(&kinds, 0, 0x1c);
+	kinds.m_words[0] |= 8;
+	kinds.m_bytes[11] |= 4;
+	kinds.m_bytes[1] |= 0x40;
+	ListNode *head = *listAddr;
+	ListNode *cur = head->m_next;
+	if (cur == head)
+		return;
+	TeamNext next = &Rva005C4AF5DwordField::get;
+	do
+	{
+		TeamPrototype *proto = cur->m_value;
+		Team *team = proto->m_firstTeam;
+		while (team != 0)
+		{
+			team->transferKindOfUnitsTo(newTeam, kinds);
+			if (team != 0)
+				team = (Team *)(team->*next)();
+		}
+		cur = cur->m_next;
+	} while (cur != head);
 }
