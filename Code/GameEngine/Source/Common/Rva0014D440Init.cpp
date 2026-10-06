@@ -1,16 +1,18 @@
 // cl: /O1 /DNDEBUG /MD
 //
-// ?rva0014D440@Rva0014D440Holder@@QAEXPBV2@0@Z placeholder (renamed below).
+// ?rva0014D440@Rva0014D440Holder@@QAEXPAVRva0014D440Outer@@PAX@Z placeholder (renamed below).
 // @0x0014D440 52B void. Retail (this=esi Holder with vtable slot02 at +8,
-// 2 args ret 8): char buf[0x40] at ebp-0x40; ((Rva0007671F*)buf)->rva()
-// via pin 0x0007671F; this->slot02(&buf); outer=[ebp+8];
+// 2 args ret 8): char buf[0x40] at ebp-0x40; ctor ??0Rva0007671F@@QAE@XZ
+// via row 0x0007671F; this->slot02(&buf); outer=[ebp+8];
 // inner=outer->m_body00; inner->slot44(outer,[ebp+0xC],&buf) via 45-virtual
 // iface (idx44, 3 args). Names opaque; pin proves nothing.
 class Rva0007671F
 {
 public:
-	void rva0007671F(void);
+	Rva0007671F();
 };
+
+inline void *operator new(unsigned int, void *p) { return p; }
 
 class Rva0014D440Inner
 {
@@ -44,7 +46,7 @@ extern "C" void *__stdcall D3DXMatrixTranspose(void *out, void *in);
 void Rva0014D440Holder::rva0014D440(Rva0014D440Outer *o, void *b)
 {
 	char buf[0x40];
-	((Rva0007671F *)buf)->rva0007671F();
+	new (buf) Rva0007671F();
 	slot02(buf);
 	Rva0014D440Inner *inner = o->m_body00;
 	inner->m_fnB0(o, b, buf);
@@ -58,7 +60,7 @@ void Rva0014D440Holder::rva0014D474(Rva0014D440Outer *o, void *b)
 {
 	char buf40[0x40];
 	char buf80[0x40];
-	((Rva0007671F *)buf40)->rva0007671F();
+	new (buf40) Rva0007671F();
 	slot02(buf40);
 	if (D3DXMatrixInverse(buf80, 0, buf40) == 0)
 		D3DXMatrixTranspose(buf80, buf40);
@@ -72,7 +74,7 @@ void Rva0014D440Holder::rva0014D4CB(Rva0014D440Outer *o, void *b)
 {
 	char buf40[0x40];
 	char buf80[0x40];
-	((Rva0007671F *)buf40)->rva0007671F();
+	new (buf40) Rva0007671F();
 	slot02(buf40);
 	if (D3DXMatrixInverse(buf80, 0, buf40) == 0)
 		D3DXMatrixTranspose(buf80, buf40);
