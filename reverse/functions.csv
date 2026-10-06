@@ -63684,3 +63684,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0044D986@GameModePreferences@@QAE?AVAsciiString@@XZ,,0x0044D986,290,Code/GameEngine/Source/Common/GameModePreferences.cpp,matched,
 ?rva007B700A@@YAXXZ,,0x007B700A,26,Code/GameEngine/Source/Common/Rva007B7024Cluster.cpp,matched,
 ?rva007B7230@@YAXXZ,,0x007B7230,35,Code/GameEngine/Source/Common/Rva007B7024Cluster.cpp,matched,
+??0BfmePod72@@QAE@ABU0@@Z,,0x002DFC1B,219,Code/GameEngine/Source/Common/BfmePod72Copy.cpp,matched,72B record memberwise copy ctor via rowed AsciiString and vector<uint> copies; existing pin name
