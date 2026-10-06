@@ -38,3 +38,7 @@ struct Rva00337C55Less
 };
 
 template void _STL::partial_sort<Rva003371B1 *, Rva00337C55Less>(Rva003371B1 *, Rva003371B1 *, Rva003371B1 *, Rva00337C55Less);
+
+// Retail 0x003372EC is rowed as ??0Rva002E9E70 (copy ctor) but serves as the
+// assignment this sort family calls; alias our assignment name to that row.
+#pragma comment(linker, "/alternatename:??4Rva003371B1@@QAEAAV0@ABV0@@Z=??0Rva002E9E70@@QAE@ABV0@@Z")
