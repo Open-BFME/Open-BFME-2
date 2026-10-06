@@ -29,14 +29,14 @@ private:
 void *Rva00293330::rva00293330(unsigned int key)
 {
 	_STL::map<unsigned int, void *>::iterator it = m_map.find(key);
-	if (it != m_map.end())
+	if (!(it == m_map.end()))
 		return it->second;
 	if (key != 0)
 		return 0;
 	if (m_map.size() <= 0)
 		return 0;
 	it = m_map.begin();
-	if (it != m_map.end())
+	if (!(it == m_map.end()))
 		return it->second;
 	return 0;
 }
