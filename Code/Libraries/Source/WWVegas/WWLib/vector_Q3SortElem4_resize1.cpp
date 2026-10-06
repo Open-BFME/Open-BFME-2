@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
 // Open-BFME5: the one-argument resize of the same STLport vector of four-byte
 // string elements as vector_Q3SortElem4_resize.cpp.  Retail 0x009CD960, 28

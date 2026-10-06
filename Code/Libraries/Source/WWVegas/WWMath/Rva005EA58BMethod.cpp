@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva005EA58B@Rva005EA58B@@QAEXXZ @0x005EA58B 50B thiscall validate unicode strings in 2 ranges
 // Validates StringBase<G> at holder+8 for each elem in 2 ranges at this+0x1c; callees rowed validate 0x000B3FD0; caller jmp 0x005EA8DE
 // ?rva005EA8C4@Rva005EA58B@@QAEXXZ @0x005EA8C4 31B thiscall slot2 plus validate plus tail 0x005EA58B caller jmp 0x005EA91D

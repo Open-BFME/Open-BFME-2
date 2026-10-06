@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 struct Coord2DBase { float x; float y; };
 class Rva009F4070PositionProvider {
 public:

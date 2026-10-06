@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: the default STLport 4.5.3 wide time_put constructor at retail
 // 0x00408ED0, 108 bytes. This is the wide specialization of the constructor

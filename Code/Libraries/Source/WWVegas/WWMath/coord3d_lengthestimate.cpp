@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Coord3D::GetLengthEstimate at 0x00003ACE.
 //
 // Retail inlines the 2D estimate three times - once for the comparison and

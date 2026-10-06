@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2 /Oi
+// cl: /Oi
 
 #include <math.h>
 

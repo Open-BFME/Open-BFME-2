@@ -1,4 +1,4 @@
-// cl: /arch:SSE /Oy- /O1
+// cl: /Oy-
 // Donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath/
 // sphere.h, vector3.h and wwmath.h. Matched target Init/ctor corroborate the
 // center/radius offsets; caller 0x72256 uses this operation on a sphere copy.

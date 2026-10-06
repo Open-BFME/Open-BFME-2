@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 
 // ??_GGridCullSystemClass, the scalar deleting destructor in vtable 0xCEFCB0
 // slot 0 (retail 0x0071B170).  The class is declared locally only so its

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0RGBColor@@QAE@H@Z at 0x00006538, the header-inline constructor that
 // forwards to setFromInt.
 //

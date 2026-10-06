@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Coord2D::Rotate(const Coord2D &, float) at 0x000039BB.
 //
 // Split out of coord2d.cpp because this is the one body in the class whose

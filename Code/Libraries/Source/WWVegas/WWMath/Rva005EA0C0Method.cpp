@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva005EA0C0@Rva005EA183@@QAEXXZ @0x005EA0C0 47B new-8 link Set tail-slot1 vtable g_00C78174 callers jmp 0x005EA260 0x005EA44A
 // new Rva005EA0C0Link(this as system) Set via rowed Rva00575674 tail virtual slot1 on holder ptr
 class AABTreeCullSystemClass;

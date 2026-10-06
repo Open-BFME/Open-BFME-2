@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_fill_n@PAUBfmeStringRecord005ED5F3@@IU1@@_STL@@YAPAUBfmeStringRecord005ED5F3@@PAU1@IABU1@ABU__false_type@0@@Z @0x005ED8AC 37B: vector fill helper for 20-byte BfmeStringRecord005ED5F3 (UnicodeString plus 4 words). Evidence: calls rowed _Construct 0x005ED68C; stride 0x14; callers are vector insert paths 0x005ED99F 0x005EDB2B.
 // The emitted unsigned max copy must match retail RVA 0x00013740.

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // The two narrow (const char *, int) comparison workers, split out of
 // string_base.cpp for one flag: /arch:SSE. Both bodies pick the shorter of the

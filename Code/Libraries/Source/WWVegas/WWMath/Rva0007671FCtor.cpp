@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva0007671F@@QAE@XZ @0x0007671F (22B).
 // Honest address ctor for a 0x40 class whose first (and only) member is

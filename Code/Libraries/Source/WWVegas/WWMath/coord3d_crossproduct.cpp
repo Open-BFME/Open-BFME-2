@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 struct Coord3DBase
 {

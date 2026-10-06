@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/shims/sweep
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/shims/sweep
 // ?rva000FF50D@Rva000FF50D@@QAEXXZ, retail 0x000FF50D, 217 bytes.
 // Evidence: unlock lane; .wak/.wb literals plus fopen/fwrite/fclose IAT;
 // WaterTracks saveTracks donor (W3DWaterTracks.cpp saveTracks with .wak,

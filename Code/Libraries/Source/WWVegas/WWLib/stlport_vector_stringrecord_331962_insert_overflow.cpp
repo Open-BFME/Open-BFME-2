@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?_M_insert_overflow@?$vector@UBfmeStringRecord000331962@@V?$allocator@UBfmeStringRecord000331962@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord000331962@@ABU3@ABU__false_type@2@I_N@Z, retail 0x003323F1, 183 bytes.
 // Vector overflow via rowed allocate pin 0x395928 plus workers 0x331BAC 0x331B6A plus Construct pin 0x331B3D plus Clear pin 0xC05EC.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva005EAA06@Rva005EAA06@@QAEXHHH@Z @0x005EAA06 53B vector-like allocate fill chain from 0x005EA1B1
 // allocate via rowed _STL allocator for 4B elements then fill float from int
 struct BfmeE12;

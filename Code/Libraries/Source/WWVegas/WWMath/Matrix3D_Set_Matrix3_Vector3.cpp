@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE2 /MD
+// cl: /MD
 //
 // Matrix3D::Set(const Matrix3 &, const Vector3 &), retail 0x00711E70, 118 bytes.
 // Dedicated TU so matrix3d.cpp's other matched bodies stay untouched.

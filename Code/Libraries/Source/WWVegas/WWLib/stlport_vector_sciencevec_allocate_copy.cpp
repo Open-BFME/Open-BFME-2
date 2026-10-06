@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ??$_M_allocate_and_copy@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@?$vector@V?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@V?$allocator@V?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@2@@_STL@@IAEPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@1@IPAV21@0@Z @0x001FFA2D 45B
 // Chain lane: vector<FillSciVec>::_M_allocate_and_copy via allocator twin

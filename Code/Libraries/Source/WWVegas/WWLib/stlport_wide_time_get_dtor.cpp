@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: the default STLport 4.5.3 wide time_get destructor at retail
 // 0x00409040, 73 bytes, and the scalar deleting destructor at 0x00409020 that

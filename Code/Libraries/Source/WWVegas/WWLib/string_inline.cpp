@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O2
+// cl: /Ireference/shims/bfme2_ascii
 
 // The AsciiString and UnicodeString members retail emits from a translation
 // unit built for speed, the same split string_base_inline.cpp records for

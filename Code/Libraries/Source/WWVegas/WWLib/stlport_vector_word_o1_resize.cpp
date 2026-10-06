@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 //
 // Word-element vector single-argument resize (retail 0x00157E50, 15 bytes),
 // tail-calling the two-argument form in stlport_vector_word_o1.cpp with a

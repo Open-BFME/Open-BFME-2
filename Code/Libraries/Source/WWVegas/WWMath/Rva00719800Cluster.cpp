@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Address-derived box predicate next to MinMaxAABoxClass::Init_Empty (0x7197D0,
 // aabox.cpp) and CollisionMath::Overlap_Test (0x719830). Compares two packed

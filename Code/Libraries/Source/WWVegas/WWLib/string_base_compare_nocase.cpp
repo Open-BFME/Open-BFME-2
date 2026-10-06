@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // WideCharCompare::compareNoCase at 0x00005344 (80B).
 //

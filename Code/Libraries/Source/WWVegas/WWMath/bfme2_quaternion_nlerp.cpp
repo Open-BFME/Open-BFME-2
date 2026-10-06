@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 // Descriptive BFME2 name; original retail function name is unrecovered.
 // RVA 0x00717550: shortest-path normalized quaternion interpolation,
 // called by encoding-0 channel evaluation at 0x001B3313. The retail dot

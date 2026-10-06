@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Straw::Get, retail 0x00615560, 19 bytes.
 // Kept out of straw.cpp so the landed dtor/Get_From keep their flags.

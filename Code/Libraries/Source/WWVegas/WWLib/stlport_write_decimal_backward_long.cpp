@@ -1,4 +1,4 @@
-// cl: -O2 -G6 -EHsc -MD -D_STLP_USE_STATIC_LIB
+// cl: -EHsc -MD -D_STLP_USE_STATIC_LIB
 // stlport
 //
 // STLport signed decimal writer, the long instantiation of

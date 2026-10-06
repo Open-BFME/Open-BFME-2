@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /arch:SSE /O1
+// cl: /DNDEBUG /MD /EHsc
 //
 // Matrix3D inequality: twelve float compares with early-out, the == core
 // inlined into !=. Donor: the BFME1 reconstruction of the same upstream

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmevector /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /O1 /DNDEBUG /MD /EHsc /arch:SSE2
+// cl: /Ireference/shims/bfmevector /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /DNDEBUG /MD /EHsc
 //
 // VectorClass<Vector3>::VectorClass(int, Vector3 const *) at 0x000F0D2F,
 // 150 bytes. It is the base-class constructor of every DynamicVectorClass

@@ -1,4 +1,4 @@
-// cl: -O2 -G6 -EHsc -MD -D_STLP_USE_STATIC_LIB
+// cl: -EHsc -MD -D_STLP_USE_STATIC_LIB
 // stlport
 //
 // STLport 4.5.3 signed decimal writer, the __int64 instantiation. The

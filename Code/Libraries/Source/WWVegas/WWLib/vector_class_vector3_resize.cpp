@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2 /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad
+// cl: /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad
 // VectorClass<Vector3>::Resize, native [0x000F0BF1,0x000F0CD4), RET8.
 // Semantic source: Open-BFME-1 6583b3c1ff21db4a561285717028fdafc780b7db,
 // game/Libraries/Source/WWVegas/WWLib/vector.h and WWMath/vector3.h.

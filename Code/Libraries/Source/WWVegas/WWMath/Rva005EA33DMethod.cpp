@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHs-c- /arch:SSE
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva005EA33D@Rva005EA33D@@QAEXXZ @ 0x005EA33D 89B
 // Honest address name: __thiscall scan of two 0x24-element ranges for first a>b, then scaled callback.
 // Target evidence: 89B retail, frameless SSE (movss/comiss/divss/mulss), divisor at edx+0x18,

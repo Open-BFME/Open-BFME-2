@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva005EA635@@QAE@XZ @0x005EA635 86B ctor with AsciiString temp plus base plus vtable
 // Constructs AsciiString DynamicAutoResolveDialog passes to base Rva00221635 then installs vtable g_00C781B8 and +8=10; base needs dtor for EH states per lever
 #include "ascii_string.h"

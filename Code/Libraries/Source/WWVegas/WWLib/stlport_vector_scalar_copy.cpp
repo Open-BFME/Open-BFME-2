@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // STLport 4.5.3 vector copy at 0x2CFAB9. Retail allocates a four-byte-element
 // range, then uses the established __copy_trivial helper at 0x179B0.

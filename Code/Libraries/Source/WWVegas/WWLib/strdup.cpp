@@ -1,4 +1,4 @@
-// cl: /O2 /G6 /Oi /DNDEBUG /MD
+// cl: /Oi /DNDEBUG /MD
 //
 // strdup, retail 0x006C4C70, 57 bytes. Inlined strlen, two-argument
 // byte allocator (size, tag 0), then memcpy as rep movsd/movsb.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME1 StringBase<T>::peek() transferred to BFME2.  This private accessor is
 // kept in a TU-scoped layout mirror so the shared StringBase header stays
 // unchanged while both explicit instantiations retain their retail boundary.

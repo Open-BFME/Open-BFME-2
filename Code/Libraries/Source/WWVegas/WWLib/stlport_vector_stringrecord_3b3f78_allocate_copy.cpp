@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /G7
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // BFME2's 20-byte BfmeStringRecord003B3F78 vector allocation/copy helper at RVA 0x3B469A.
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's

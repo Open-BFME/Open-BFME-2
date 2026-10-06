@@ -1,4 +1,4 @@
-// cl: -O2 -G6 -EHsc -MD -D_STLP_USE_STATIC_LIB
+// cl: -EHsc -MD -D_STLP_USE_STATIC_LIB
 // stlport
 //
 // STLport unsigned decimal writer, the unsigned __int64 instantiation of

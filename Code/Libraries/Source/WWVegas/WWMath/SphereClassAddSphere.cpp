@@ -1,4 +1,4 @@
-// cl: /O2 /MD /arch:SSE
+// cl: /MD
 // Donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath/
 // sphere.h, vector3.h and wwmath.h. Matched target Init/ctor corroborate the
 // center/radius offsets; caller 0x19E2A3 (HLodClass::Update_Obj_Space_Bounding_Volumes)

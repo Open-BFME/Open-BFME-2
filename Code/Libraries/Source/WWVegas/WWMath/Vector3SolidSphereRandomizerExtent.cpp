@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Get_Maximum_Extent@Vector3SolidSphereRandomizer@@UAEMXZ,
 // retail 0x007234A0 (4 bytes, fld [ecx+4]; ret).
