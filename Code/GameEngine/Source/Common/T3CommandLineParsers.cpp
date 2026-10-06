@@ -96,7 +96,7 @@ public:
 };
 
 extern GlobalData *TheWritableGlobalData;				///< retail [0x012ED5C8]
-extern UnsignedInt TheCommandLineFlags;					///< retail [0x012A6FA0]
+extern unsigned int BFME2CommandFlags;					///< retail [0x012A6FA0]
 
 extern bool g_flag12ED4D8;								///< retail [0x012ED4D8]
 extern bool g_flag12ED4D9;								///< retail [0x012ED4D9]
@@ -119,7 +119,7 @@ Int Rva00061260_parse(char *args[], int num)
 	{
 		Int value = atoi(args[1]);
 		g_value12A6F30 = value;
-		TheCommandLineFlags |= 0x2000;
+		BFME2CommandFlags |= 0x2000;
 		g_value12A6FA8 = value;
 	}
 	return 2;
@@ -132,7 +132,7 @@ Int Rva000612B0_parse(char *args[], int num)
 	{
 		Int value = atoi(args[1]);
 		g_value12A6F34 = value;
-		TheCommandLineFlags |= 0x4000;
+		BFME2CommandFlags |= 0x4000;
 		g_value12A6FA8 = value;
 	}
 	return 2;
@@ -145,7 +145,7 @@ Int Rva00061490_parse(char *args[], int num)
 	{
 		Int value = atoi(args[1]);
 		g_value12A7040 = value;
-		TheCommandLineFlags |= 0x8000;
+		BFME2CommandFlags |= 0x8000;
 		g_value12A6FB0 = value;
 	}
 	return 2;

@@ -21,7 +21,7 @@ public:
 	const Image *findImageByName(const AsciiString &name);
 };
 
-extern ImageCollection *g_00DFF078;
+extern class ImageCollection *TheMappedImageCollection;
 
 Image *bfmeCreateMapPictureImage(const AsciiString &mapName);
 
@@ -63,7 +63,7 @@ void AptMapPreview::rva0057D10F(MapMetaData *map)
 	{
 		{
 			AsciiString tmp("MissingMap");
-			img = (Image *)g_00DFF078->findImageByName(tmp);
+			img = (Image *)TheMappedImageCollection->findImageByName(tmp);
 		}
 		m_ownsImage = false;
 	}

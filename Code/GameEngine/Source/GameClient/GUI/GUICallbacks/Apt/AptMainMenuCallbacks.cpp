@@ -159,7 +159,7 @@ extern GameEngine *TheGameEngine;
 
 // TheGlobalData's +0x28 (the frame rate TheGameEngine vslot 18 takes back).
 class GlobalData;
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 // OpaqueScalarDeletingDtorsB12.cpp's g_Va00E048DC (the open resource
 // holder).
@@ -535,7 +535,7 @@ void AptMainMenu::CreditsExit(const char *unused)
 	m_state = 0;
 	m_2a4.clear();
 	TheShell->m_5d = false;
-	((GameEngineRate *)TheGameEngine)->v18(((AptMainMenuGlobalData *)TheGlobalData)->m_28);
+	((GameEngineRate *)TheGameEngine)->v18(((AptMainMenuGlobalData *)TheWritableGlobalData)->m_28);
 }
 
 // Retail 0x00514B8D, 20 bytes. Name unknown. State 5 while the resource

@@ -52,7 +52,7 @@ public:
 	Int m_yResolution;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -64,8 +64,8 @@ public:
 // ?getResolution@OptionPreferences@@QAEXPAH0@Z
 void OptionPreferences::getResolution(Int *xres, Int *yres)
 {
-	*xres = TheGlobalData->m_xResolution;
-	*yres = TheGlobalData->m_yResolution;
+	*xres = TheWritableGlobalData->m_xResolution;
+	*yres = TheWritableGlobalData->m_yResolution;
 
 	OptionPreferences::const_iterator it = find("Resolution");
 	if (it == end())

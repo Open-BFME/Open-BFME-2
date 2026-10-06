@@ -8,7 +8,7 @@ public:
 	void rva002D3389(void *p);
 };
 
-extern int g_00DBA4E8;
+extern int g_009BA4E8;
 
 struct Rva002D3772Pair
 {
@@ -20,7 +20,7 @@ struct Rva002D3772Pair
 // ??0Rva002D3772Pair@@QAE@HM@Z present-unmatched
 inline Rva002D3772Pair::Rva002D3772Pair(int a, float b)
 {
-	m_scaled = (int)((float)g_00DBA4E8 * b);
+	m_scaled = (int)((float)g_009BA4E8 * b);
 	m_arg = a;
 }
 

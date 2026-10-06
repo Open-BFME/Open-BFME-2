@@ -11,7 +11,7 @@
 // /G7: retail scales by 3, 5 and 10 with imul where blended /O1 emits lea.
 
 extern int g_Va00DBA4E4;
-extern int g_00DBA4E8;
+extern int g_009BA4E8;
 
 extern int g_00DE1B50;
 extern int g_00DFEB98;
@@ -90,7 +90,7 @@ void Rva007ABC6FFrameRateInits::rva007ABC6F()
 // ?rva007AC08C@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AC08C (18B): global at VA 0x00DE204C, named as the TU that reads it names it
 void Rva007ABC6FFrameRateInits::rva007AC08C()
 {
-	g_Va00DE204C = 1000 / g_00DBA4E8;
+	g_Va00DE204C = 1000 / g_009BA4E8;
 }
 
 // ?rva007AD7F3@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AD7F3 (14B): global at VA 0x00DFE18C, named as the TU that reads it names it
@@ -120,7 +120,7 @@ void Rva007ABC6FFrameRateInits::rva007ADE88()
 // ?rva007ADEF6@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007ADEF6 (16B): global at VA 0x00DFEB98, also read elsewhere in .text
 void Rva007ABC6FFrameRateInits::rva007ADEF6()
 {
-	g_00DFEB98 = g_00DBA4E8 / 2;
+	g_00DFEB98 = g_009BA4E8 / 2;
 }
 
 // ?rva007ADF60@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007ADF60 (14B): global at VA 0x00DFEBB0, also read elsewhere in .text
@@ -168,7 +168,7 @@ void Rva007ABC6FFrameRateInits::rva007AEE6B()
 // ?rva007AF85F@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AF85F (16B): global at VA 0x00E02D9C, also read elsewhere in .text
 void Rva007ABC6FFrameRateInits::rva007AF85F()
 {
-	g_00E02D9C = g_00DBA4E8 / 2;
+	g_00E02D9C = g_009BA4E8 / 2;
 }
 
 // ?rva007B014F@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B014F (16B): TU-local static at VA 0x00E030F0, never read in .text
@@ -234,7 +234,7 @@ void Rva007ABC6FFrameRateInits::rva007B1A27()
 // ?rva007B3B50@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B3B50 (16B): global at VA 0x00E05F24, named as the TU that reads it names it
 void Rva007ABC6FFrameRateInits::rva007B3B50()
 {
-	g_00E05F24 = g_00DBA4E8 / 2;
+	g_00E05F24 = g_009BA4E8 / 2;
 }
 
 // ?rva007B3FCA@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B3FCA (14B): global at VA 0x00E062F4, also read elsewhere in .text
@@ -258,7 +258,7 @@ void Rva007ABC6FFrameRateInits::rva007B43BD()
 // ?rva007B440F@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B440F (16B): global at VA 0x00E063E8, also read elsewhere in .text
 void Rva007ABC6FFrameRateInits::rva007B440F()
 {
-	g_00E063E8 = g_00DBA4E8 / 2;
+	g_00E063E8 = g_009BA4E8 / 2;
 }
 
 // ?rva007B4BC6@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B4BC6 (14B): global at VA 0x00E06648, named as the TU that reads it names it

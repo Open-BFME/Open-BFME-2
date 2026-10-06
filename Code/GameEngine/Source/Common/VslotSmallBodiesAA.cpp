@@ -93,7 +93,7 @@ ParticleSystemTemplate *ParticleSystemManager::rva001F9343(const AsciiString &na
 {
 	return findTemplate(name);
 }
-extern ParticleSystemManager *g_rva001E0C77Manager;
+extern class ParticleSystemManager *TheParticleSystemManager;
 class Rva001E0C77
 {
 public:
@@ -104,5 +104,5 @@ private:
 };
 ParticleSystemTemplate *Rva001E0C77::rva001E0C77(Int a, Int)
 {
-	return g_rva001E0C77Manager->rva001F9343(*(const AsciiString *)&m_148, a);
+	return TheParticleSystemManager->rva001F9343(*(const AsciiString *)&m_148, a);
 }

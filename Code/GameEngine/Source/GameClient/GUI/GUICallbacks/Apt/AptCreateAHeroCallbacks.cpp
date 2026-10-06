@@ -12,7 +12,7 @@ extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
 // TheGlobalData's +0x9D1 flag.
 class GlobalData;
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 struct AptCreateAHeroGlobalData
 {
@@ -107,7 +107,7 @@ void AptCreateAHero::RenderPictureGuard(const void *origin, const void *extent, 
 void AptCreateAHero::CreateAHeroDemo(int query, char *result, bool skip)
 {
 	if (result && query == 0 && !skip)
-		strcpy(result, ((AptCreateAHeroGlobalData *)TheGlobalData)->m_9d1 ? "0" : "1");
+		strcpy(result, ((AptCreateAHeroGlobalData *)TheWritableGlobalData)->m_9d1 ? "0" : "1");
 }
 
 // Retail 0x00513AF4, 23 bytes: bound as "CreateAHero"; hands the value to

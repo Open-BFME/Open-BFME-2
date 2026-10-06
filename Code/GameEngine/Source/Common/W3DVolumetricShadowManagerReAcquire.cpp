@@ -54,7 +54,7 @@ class W3DBufferManager
 public:
 	bool rva0011604D();
 };
-extern W3DBufferManager *g_00DEC3C0;
+extern class W3DBufferManager *TheW3DBufferManager;
 class Rva000F0912
 {
 public:
@@ -82,7 +82,7 @@ bool W3DVolumetricShadowManager::ReAcquireResources()
 		if (dev->CreateVertexBuffer(0x18000, 0x208, 0, 0, (void **)&g_00DEBCDC, 0) < 0)
 			return false;
 	}
-	W3DBufferManager *mgr = g_00DEC3C0;
+	W3DBufferManager *mgr = TheW3DBufferManager;
 	if (mgr != 0)
 	{
 		if (!mgr->rva0011604D())

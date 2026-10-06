@@ -49,7 +49,7 @@ public:
 	Int m_firewallBehavior;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -63,7 +63,7 @@ Int OptionPreferences::getFirewallBehavior()
 {
 	OptionPreferences::const_iterator it = find("FirewallBehavior");
 	if (it == end())
-		return TheGlobalData->m_firewallBehavior;
+		return TheWritableGlobalData->m_firewallBehavior;
 
 	Int behavior = atoi(it->second.str());
 	if (behavior < 0)

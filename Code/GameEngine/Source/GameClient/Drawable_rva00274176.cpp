@@ -164,7 +164,7 @@ public:
 	unsigned char m_pad000[0x134];
 	TimeOfDay m_timeOfDay; // +0x134 (rowed GlobalData::setTimeOfDay)
 };
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class GameLogic
 {
@@ -330,7 +330,7 @@ void Drawable::changedTeam()
 	Object *object = m_object;
 	if (object)
 	{
-		if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
+		if (TheWritableGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
 			setIndicatorColor(object->getNightIndicatorColor());
 		else
 			setIndicatorColor(object->getIndicatorColor());
@@ -355,7 +355,7 @@ void Drawable::friend_bindToObject(Object *obj)
 		{
 			setIndicatorColor(TheGameLogic->m_indicatorColor);
 		}
-		else if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
+		else if (TheWritableGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
 		{
 			setIndicatorColor(obj->getNightIndicatorColor());
 		}

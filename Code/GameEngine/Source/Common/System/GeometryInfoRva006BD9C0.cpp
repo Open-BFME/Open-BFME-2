@@ -17,9 +17,7 @@
 typedef bool Bool;
 typedef float Real;
 
-extern float g_Va00BBB8D8;
 extern float g_Va00BBAEAC;
-extern float g_Va00BC26F0;
 
 enum GeometryType
 {
@@ -106,11 +104,11 @@ void GeometryInfo::rva006BD9C0(GeometryShape &out) const
 			continue;
 		if (1 != numShapes)
 		{
-			if (!(it->m_majorRadius >= g_Va00BBB8D8))
+			if (!(it->m_majorRadius >= 1.0f))
 			{
-				if (!(it->m_minorRadius >= g_Va00BBB8D8))
+				if (!(it->m_minorRadius >= 1.0f))
 				{
-					if (!(it->m_height >= g_Va00BBB8D8))
+					if (!(it->m_height >= 1.0f))
 						continue;
 				}
 			}
@@ -125,11 +123,11 @@ void GeometryInfo::rva006BD9C0(GeometryShape &out) const
 		maxZ = bfmeMax(maxZ, it->m_height);
 	}
 
-	Real major = (bounds.hi.x - bounds.lo.x) * g_Va00BC26F0;
+	Real major = (bounds.hi.x - bounds.lo.x) * 0.5f;
 	out.m_type = GEOMETRY_BOX;
 	out.m_majorRadius = major;
 	out.m_offset.z = 0.0f;
-	Real minor = (bounds.hi.y - bounds.lo.y) * g_Va00BC26F0;
+	Real minor = (bounds.hi.y - bounds.lo.y) * 0.5f;
 	out.m_minorRadius = minor;
 	out.m_offset.x = major + bounds.lo.x;
 	out.m_offset.y = minor + bounds.lo.y;

@@ -32,7 +32,7 @@ public:
 	Object *findObjectByID(ObjectID id);
 };
 
-extern GameLogic *g_009FE78C;
+extern class GameLogic *TheGameLogic;
 
 struct Rva002F1BD5Data
 {
@@ -77,7 +77,7 @@ int Rva002F1BD5::rva002F1BD5(int a1, Rva002F1BD5Arg *a2, int a3, int a4)
 		return 0;
 	Rva002F1BD5Data *p = a2->m_00;
 	int id = p ? p->m_28 : 0;
-	Object *obj = g_009FE78C->findObjectByID((ObjectID)id);
+	Object *obj = TheGameLogic->findObjectByID((ObjectID)id);
 	if (obj == 0)
 		return 0;
 	if ((obj->m_04->m_110 & 4) == 0)

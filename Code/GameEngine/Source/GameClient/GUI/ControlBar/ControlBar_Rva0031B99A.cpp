@@ -350,7 +350,7 @@ extern volatile Drawable *g_Rva012F340C;
 #endif
 
 // PUBLIC /////////////////////////////////////////////////////////////////////////////////////////
-ControlBar *TheControlBar = NULL;
+extern class ControlBar *TheControlBar;
 
 void (Coord3D::*g_controlBarCoord3DSet)( const Coord3D * ) = &Coord3D::set;
 

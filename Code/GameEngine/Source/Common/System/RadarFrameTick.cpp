@@ -88,7 +88,6 @@ private:
 
 extern GameLogic *TheGameLogic;
 extern int g_Va00DBA4E4;
-extern float g_00BC7508;
 extern float g_00BC26EC;
 
 class TerrainLogic;
@@ -177,7 +176,7 @@ void Radar::rva002D7DD5()
 		return;
 	unsigned int dt = TheGameLogic->getFrame() - m_lastFrame;
 	float fdt = (float)dt;
-	float limit = (float)g_Va00DBA4E4 * g_00BC7508;
+	float limit = (float)g_Va00DBA4E4 * 3.0f;
 	if (fdt > limit) {
 		RadarPrimary *core = (RadarPrimary *)((char *)this - 4);
 		core->refreshTerrain(TheTerrainLogic);

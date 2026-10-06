@@ -49,7 +49,7 @@ public:
 	Bool m_displayForeignLanguage;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -63,7 +63,7 @@ Bool OptionPreferences::getDisplayForeignLanguage(void)
 {
 	OptionPreferences::const_iterator it = find("DisplayForeignLanguage");
 	if (it == end())
-		return TheGlobalData->m_displayForeignLanguage;
+		return TheWritableGlobalData->m_displayForeignLanguage;
 
 	if (strcmp(it->second.str(), "yes") == 0) {
 		return true;

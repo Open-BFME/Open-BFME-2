@@ -28,7 +28,7 @@ public:
 
 // Matched DIR32 at 0x003E73E7 establishes TheControlBar at VA 0x00E01CFC.
 // This address is in the PE .data zero-fill tail, so retail starts it null.
-ControlBar *TheControlBar = 0;
+extern class ControlBar *TheControlBar;
 
 // ?hideSpecialPowerShortcut@ControlBar@@QAEXXZ
 void ControlBar::hideSpecialPowerShortcut( void )

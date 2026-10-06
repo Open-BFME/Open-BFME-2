@@ -50,7 +50,7 @@ public:
 	Real m_keyboardDefaultScrollFactor;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -64,7 +64,7 @@ Real OptionPreferences::getScrollFactor(void)
 {
 	OptionPreferences::const_iterator it = find("ScrollFactor");
 	if (it == end())
-		return TheGlobalData->m_keyboardDefaultScrollFactor;
+		return TheWritableGlobalData->m_keyboardDefaultScrollFactor;
 
 	Int factor = atoi(it->second.str());
 	if (factor < 0)

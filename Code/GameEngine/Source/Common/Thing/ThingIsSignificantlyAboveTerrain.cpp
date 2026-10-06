@@ -18,7 +18,7 @@ public:
 	unsigned char m_pad000[0xC4];
 	Real m_gravity; // +0xC4
 };
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 struct Rva0030AD8BTemplate
 {
@@ -46,7 +46,7 @@ public:
 Bool Thing::rva0030AD8B(Real offset) const
 {
 	if ((m_template->m_kindOfByte11F & 0x81) == 0)
-		return getHeightAboveTerrain() + offset > -(3 * 3) * TheGlobalData->m_gravity;
+		return getHeightAboveTerrain() + offset > -(3 * 3) * TheWritableGlobalData->m_gravity;
 	return false;
 }
 

@@ -11,7 +11,7 @@ class ImageCollection {
 public:
     const Image *findImageByName(const AsciiString &n);
 };
-extern ImageCollection *g_00DFF078;
+extern class ImageCollection *TheMappedImageCollection;
 
 class Rva002E2903Player {
 public:
@@ -32,7 +32,7 @@ class Rva002D06CA {
 public:
     void *rva002D06CA(const AsciiString *s);
 };
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 class ThingTemplate {
 public:
@@ -52,7 +52,7 @@ const Image *Rva005D2355Get(Rva005D2355In *in)
 {
     const AsciiString &s = in->str18;
     if (!((const StringBase<char> *)&s)->isEmpty()) {
-        void *v = g_009FF000->rva002D06CA(&s);
+        void *v = TheThingFactory->rva002D06CA(&s);
         if (v != 0)
             return ((ThingTemplate *)v)->rva0033BA46();
     }
@@ -62,7 +62,7 @@ const Image *Rva005D2355Get(Rva005D2355In *in)
         Rva005D2355Holder *h = *(Rva005D2355Holder **)((char *)p + 0x40);
         const AsciiString &s2 = *(const AsciiString *)((char *)h + 0x30);
         if (!((const StringBase<char> *)&s2)->isEmpty())
-            return g_00DFF078->findImageByName(s2);
+            return TheMappedImageCollection->findImageByName(s2);
     }
     return 0;
 }
@@ -74,7 +74,7 @@ const Image *Rva005F031DGet(Rva005D2355In *in)
 {
     const AsciiString &s = in->str18;
     if (!((const StringBase<char> *)&s)->isEmpty()) {
-        void *v = g_009FF000->rva002D06CA(&s);
+        void *v = TheThingFactory->rva002D06CA(&s);
         if (v != 0)
             return ((ThingTemplate *)v)->rva0033B580();
     }
@@ -84,7 +84,7 @@ const Image *Rva005F031DGet(Rva005D2355In *in)
         Rva005D2355Holder *h = *(Rva005D2355Holder **)((char *)p + 0x40);
         const AsciiString &s2 = *(const AsciiString *)((char *)h + 0x30);
         if (!((const StringBase<char> *)&s2)->isEmpty())
-            return g_00DFF078->findImageByName(s2);
+            return TheMappedImageCollection->findImageByName(s2);
     }
     return 0;
 }

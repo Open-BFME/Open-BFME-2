@@ -11,7 +11,7 @@
 #include "ascii_string.h"
 
 class ScriptEngine;
-extern ScriptEngine *g_Va009FE16C; // ?g_Va009FE16C@@3PAVScriptEngine@@A
+extern class ScriptEngine *TheScriptEngine; // ?g_Va009FE16C@@3PAVScriptEngine@@A
 class GameLogic;
 extern GameLogic *TheGameLogic; // ?TheGameLogic@@3PAVGameLogic@@A
 class GlobalData;
@@ -66,7 +66,7 @@ private:
 
 void Rva00377064::rva00377064(int a, int b, int c)
 {
-	((Rva00203BCDDwordSlot *)g_Va009FE16C)->set(1);
+	((Rva00203BCDDwordSlot *)TheScriptEngine)->set(1);
 	TheGameLogic->m_a4 = b;
 	TheGameLogic->m_110 = a;
 	if (!TheWritableGlobalData->m_ac0.isEmpty()) {

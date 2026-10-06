@@ -49,7 +49,7 @@ public:
 	Bool m_refreshNet;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -63,7 +63,7 @@ Bool OptionPreferences::getRefreshNet(void)
 {
 	OptionPreferences::const_iterator it = find("RefreshNet");
 	if (it == end())
-		return TheGlobalData->m_refreshNet;
+		return TheWritableGlobalData->m_refreshNet;
 
 	if (strcmp(it->second.str(), "yes") == 0) {
 		return true;

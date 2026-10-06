@@ -165,7 +165,7 @@ public:
 	UnsignedInt m_defaultIP;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 // ?getLANIPAddress@OptionPreferences@@QAEIXZ @0x2E4F98
 UnsignedInt OptionPreferences::getLANIPAddress(void)
@@ -181,5 +181,5 @@ UnsignedInt OptionPreferences::getLANIPAddress(void)
 		}
 		IPlist = IPlist->getNext();
 	}
-	return TheGlobalData->m_defaultIP;
+	return TheWritableGlobalData->m_defaultIP;
 }

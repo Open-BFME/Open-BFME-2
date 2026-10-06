@@ -11,7 +11,7 @@ public:
 	const Image *findImageByName(const AsciiString &name);
 };
 
-extern ImageCollection *g_00DFF078;
+extern class ImageCollection *TheMappedImageCollection;
 
 struct Rva000B9C8CData
 {
@@ -42,7 +42,7 @@ const Image *Rva000B9C8C::rva000B9C8C()
 		{
 			((StringBase<char> *)&m_name)->set(*(const StringBase<char> *)&a);
 			if (!d->m_b.isEmpty())
-				m_img = g_00DFF078->findImageByName(a);
+				m_img = TheMappedImageCollection->findImageByName(a);
 			else
 				m_img = 0;
 		}
