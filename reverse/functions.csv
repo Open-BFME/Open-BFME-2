@@ -65003,3 +65003,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 uw_00777e88,,0x00777E88,25,Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp,matched,gen-funclet;parent=??0BfmeSubobject00229875@@QAE@XZ;object-symbol=$L4160
 uw_0077af33,,0x0077AF33,24,Code/GameEngine/Source/Common/Rva0031FAF0Dtor.cpp,matched,gen-funclet;parent=??1Rva0031FAF0@@QAE@XZ;object-symbol=$L1232
 uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp,matched,gen-funclet;parent=??0ControlBarScheme@@QAE@XZ;object-symbol=$L51427
+?rva00600BC6@Rva00600991@@QAEXPAX0@Z,,0x00600BC6,35,Code/GameEngine/Source/Common/Rva00600BC6Wrapper.cpp,matched,thiscall-2 wrapper via pinned 0x600991 then 4+1 copy to out; /O1
