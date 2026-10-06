@@ -63336,6 +63336,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva00318D4E@@YAII@Z,,0x00318D4E,21,Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp,matched,Address-derived lookup-or-zero: p=lookup(key); return p?p->value@0x38:0; 21B shape
 ?Rva0052B225@@YAII@Z,,0x0052B225,24,Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp,matched,Address-derived lookup-or-zero: p=lookup(key); return p?p->value:0; lookup at 0x0052B1EF with value at +0xBC
 ?Rva0059E0F7@@YAII@Z,,0x0059E0F7,24,Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp,matched,Address-derived lookup-or-zero: p=lookup(key); return p?p->value:0; lookup at 0x0059E0C1 with value at +0xBC
+?Rva0059E0F7@@YAII@Z,,0x0059E0F7,21,Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp,matched,Address-derived lookup-or-zero: p=lookup(key); return p?p->value:0; lookup at 0x0059E0C1 with value at +0xBC
 ?setup84@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD257,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init: sharedInit then last-arg store then placement-new vtable; 45B shape
 ?setupA0@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD2A3,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init installing 0x00C74FA0; 45B sharedInit/last-store/placement-new shape
 ?setupBC@Rva005CDMorph@@QAEPAV1@HHHHH@Z,,0x005CD2EF,45,Code/GameEngine/Source/Common/RvaMorphInitFamily.cpp,matched,Address-derived morph-init installing 0x00C74FBC; 45B sharedInit/last-store/placement-new shape
@@ -64159,8 +64160,8 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva0051E262Init@@YA_NHH@Z,,0x0051E262,85,Code/GameEngine/Source/Common/Rva005185D8Init.cpp,matched,
 ?Rva005235A5@@YGHHEH@Z,,0x005235A5,48,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/StrategicPlayerStatusCallbacks.cpp,matched,
 ?rva0052A22C@Holder0052A22C@@QAEXPAUObj0052A22C@@@Z,,0x0052A22C,24,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,matched,
-?Rva0052B225@@YAHPAUObj0052B225@@@Z,,0x0052B225,24,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,matched,
 ?Rva005258F8@@YGXHH@Z,,0x005258F8,30,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,matched,
 ?Rva005243FA@@YAXHHH@Z,,0x005243FA,27,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,matched,
 ?rva0052B003@Holder0052B003@@QAEXH@Z,,0x0052B003,33,Code/GameEngine/Source/Common/Rva0052B003Loop.cpp,matched,
 ?Rva00526309@Holder00526309@@QAEXPAUObj00526309@@@Z,,0x00526309,42,Code/GameEngine/Source/Common/Rva00526309Dispatcher.cpp,matched,
+?Rva00525D9A@Holder00525D9A@@QAEXPAUObj00525D9A@@@Z,,0x00525D9A,102,Code/GameEngine/Source/Common/Rva00525D9AListAppend.cpp,matched,

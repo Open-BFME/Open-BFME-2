@@ -13428,7 +13428,6 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva0051B09B@Rva0051BED7@@QAEXXZ,0x0051B09B,this-shaped call site in the 0x0051BED7 poll (mov ecx,esi with no stack args); rowed free fn Rva0051B09BEnable lives here; address from retail REL32
 ?rva0051DE3D@State0051E262@@QAEXXZ,0x0051DE3D,thiscall tail of 0x0051E262 score-screen init (REL32 at 0x0051E2AE); Ghidra 1061B EH body unrecovered; address name
 ?rva00529DA9@Holder0052A22C@@QAEXH@Z,0x00529DA9,thiscall callee of null-guarded forwarder 0x0052A22C (REL32 at 0x0052A23C); Ghidra 112B body unrecovered; address name
-?Rva0052B1EF@@YAPAURec0052B225@@PAUObj0052B225@@@Z,0x0052B1EF,free helper for null-guarded getter 0x0052B225 (REL32 at 0x0052B22A); Ghidra 54B EH body unrecovered; address name
 ?Rva00525407@@YGXPAUPair005258F8@@@Z,0x00525407,stdcall spelling of the 0x005258F8 callee (retail has no caller cleanup); Ghidra 114B unrecovered
 ?Rva0052408B@@YAXHHHPAD@Z,0x0052408B,free callee of forwarder 0x005243FA (REL32 at 0x0052440B); Ghidra 179B body unrecovered; address name
 ?Rva00525CC5@@YGXPAUObj00526309@@@Z,0x00525CC5,stdcall callee of flag dispatcher 0x00526309 (REL32 at 0x0052631A); Ghidra 213B unrecovered; address name
@@ -13437,3 +13436,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva005657FE@Elem0052BFE1@@QAE_NHH@Z,0x005657FE,thiscall predicate for stride search 0x0052BFE1 (REL32 at 0x0052C00F); Ghidra 103B unrecovered; address name
 ?Rva00525CC5@Holder00526309@@QAEXPAUObj00526309@@@Z,0x00525CC5,thiscall callee of flag dispatcher 0x00526309 (REL32 at 0x0052631A); Ghidra 213B unrecovered; address name
 ?Rva00525D9A@Holder00526309@@QAEXPAUObj00526309@@@Z,0x00525D9A,thiscall callee of flag dispatcher 0x00526309 (REL32 at 0x0052632B); Ghidra 102B unrecovered; address name
+?Rva005258F8@Holder00525D9A@@QAEXHUNodeRef00525D9A@@@Z,0x005258F8,thiscall notify of range list-append 0x00525D9A (REL32 at 0x00525DF4) takes id plus by-value node wrapper; body rowed as stdcall ?Rva005258F8@@YGXHH@Z; address name
