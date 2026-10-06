@@ -26,7 +26,13 @@ public:
 	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
 };
 
-extern const char *TheVeterancyNames[];
+const char *TheVeterancyNames[] = {
+	"REGULAR",
+	"VETERAN",
+	"ELITE",
+	"HEROIC",
+	0,
+};
 
 typedef int VeterancyLevel;
 
