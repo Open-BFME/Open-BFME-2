@@ -67,3 +67,13 @@ void famgenDelete(Rva001EB940 *p) { delete p; }
 // ??_GRva004DCE8E@@QAEPAXI@Z @0x004B0D0C 28B: calls ~Rva004DCE8E 0x004DCE8E
 class Rva004DCE8E { public: ~Rva004DCE8E(); };
 void famgenDelete(Rva004DCE8E *p) { delete p; }
+
+// Target facts: 0x0052BBD7 is a complete 28B scalar deleting wrapper. Its
+// direct destructor call at +3 reaches 0x004E366E, then it tests flag bit 0,
+// conditionally calls operator delete, returns this, and uses ret 4. The
+// existing Rva004E364F constructor is at 0x004E364F, and the destructor pin
+// for that view maps to 0x004E366E. Inference: this wrapper belongs to that
+// class; its layout and broader owner remain unclaimed.
+// ??_GRva004E364F@@QAEPAXI@Z @0x0052BBD7 28B
+class Rva004E364F { public: ~Rva004E364F(); };
+void famgenDelete(Rva004E364F *p) { delete p; }
