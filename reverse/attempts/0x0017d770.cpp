@@ -1,4 +1,6 @@
 // ?rva00916CD0@PointGroupClass@@QAEXPAEHH@Z
+// partial score=0.9575 date=2026-10-06
+// ?rva00916CD0@PointGroupClass@@QAEXPAEHH@Z
 // partial score=0.9574619 date=2026-10-05
 // cl: /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // Banked partial for retail 0x0017D770 (1583B, UV fill helper called from Render 0x0017F3DE).
