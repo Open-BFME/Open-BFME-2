@@ -2,16 +2,17 @@
 .model flat
 assume fs:nothing
 
-; Address-named MSVC 7.1 EH unwind state cleanups from dump range 39.
+; Address-named MSVC 7.1 EH cleanups and unwind state helpers from dump range 39.
 ; Retail boundaries and control flow are verified from bytes; the state mask,
 ; frame displacement, cleanup-object operation, and destructor target are
-; taken from each body. Parent functions and concrete class identities remain
+; taken from each body. Parent functions, field layouts and concrete cleanup identities remain
 ; unknown. VC7.1 C++ __try/__finally probes failed to reproduce this compiler
 ; helper shape, so these bodies use the permitted MASM path for SEH blockers.
 
 EXTERN ??1AsciiString@@QAE@XZ:PROC
 EXTERN ??1UnicodeString@@QAE@XZ:PROC
 EXTERN ?call@Rva002E3A80Holder@@QAEXXZ:PROC
+EXTERN ??_M@YGXPAXIHP6EX0@Z@Z:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b96a09 at RVA 0x00796A09; 25-byte interval ends at RET.
@@ -97,6 +98,34 @@ PUBLIC ?rva007970E4@@YAXXZ
 cleanup_done_007970E4:
     ret
 ?rva007970E4@@YAXXZ ENDP
+
+; Unwind@00b97360 at RVA 0x00797360; 24-byte interval ends at RET.
+; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base EBP-16 + 0x1B594; element size 20; count 56; destructor pointer 0x00931FCF.
+PUBLIC ?rva00797360@@YAXXZ
+?rva00797360@@YAXXZ PROC
+    push 00931FCFh
+    push 56
+    push 20
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 1B594h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00797360@@YAXXZ ENDP
+
+; Unwind@00b973c8 at RVA 0x007973C8; 24-byte interval ends at RET.
+; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base EBP-16 + 0x1B594; element size 20; count 56; destructor pointer 0x00931FCF.
+PUBLIC ?rva007973C8@@YAXXZ
+?rva007973C8@@YAXXZ PROC
+    push 00931FCFh
+    push 56
+    push 20
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 1B594h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007973C8@@YAXXZ ENDP
 
 ; Unwind@00b975a4 at RVA 0x007975A4; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-16], then loads the cleanup pointer from [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
