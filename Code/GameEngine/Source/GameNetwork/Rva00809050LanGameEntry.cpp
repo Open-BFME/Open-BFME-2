@@ -21,6 +21,7 @@ public:
 // is the matched PrototypeClass/BfmeMsg body and its 7B destructor is BfmeMsg.
 #pragma comment(linker, "/alternatename:??0Rva007E86B0Base@@QAE@XZ=??0PrototypeClass@@QAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva007E86B0Base@@UAE@XZ=??1BfmeMsg@@UAE@XZ")
+#pragma comment(linker, "/alternatename:??1Rva00808CB0LanGameEntry@@UAE@XZ=??1BfmeMsg@@UAE@XZ")
 
 class Rva00808CB0LanGameEntry : public Rva007E86B0Base
 {
