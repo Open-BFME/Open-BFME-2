@@ -64931,3 +64931,8 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0046E8EE@HordeContain@@UAEXXZ,,0x0046E8EE,422,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046E8EE.cpp,matched,vtable slot 28 HordeContain TransportContain chain
 ?rva00479B3A@Rva00479B3A@@QAEXPAVObject@@@Z,,0x00479B3A,69,Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainRva00479B3A.cpp,matched,GarrisonContain chain drawable reset
 ?rva003973EB@Rva003973EB@@QAE_NPAVPlayer@@H@Z,,0x003973EB,62,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003973EBFind.cpp,matched,Range-17 int-tree key check via rowed _M_find; unsigned count read
+?rva00787453@@YAXXZ,,0x00787453,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; cleanup state and direct STLport destructor transfer are target bytes
+?rva007875b8@@YAXXZ,,0x007875B8,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; cleanup state and direct holder-call transfer are target bytes
+?rva00787601@@YAXXZ,,0x00787601,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; cleanup state and direct holder-call transfer are target bytes
+?rva0078776d@@YAXXZ,,0x0078776D,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; cleanup state and direct holder-call transfer are target bytes
+?rva007877a2@@YAXXZ,,0x007877A2,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; cleanup state and direct holder-call transfer are target bytes
