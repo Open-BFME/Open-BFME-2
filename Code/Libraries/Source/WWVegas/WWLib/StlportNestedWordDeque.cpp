@@ -18,7 +18,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct BfmeWordValue4
 {
     unsigned int bits;
-    BfmeWordValue4();
+    BfmeWordValue4() {}
     ~BfmeWordValue4() {}
 };
 
@@ -28,6 +28,7 @@ typedef _STL::deque<BfmeWordValue4, _STL::allocator<BfmeWordValue4> > InnerDeque
 typedef _STL::deque<InnerDeque, _STL::allocator<InnerDeque> > OuterDeque;
 namespace _STL {
 template<> OuterDeque::~deque();
+template<> void OuterDeque::_M_push_back_aux_v(const InnerDeque &);
 }
 
 typedef char WordSize[sizeof(BfmeWordValue4) == 4 ? 1 : -1];
