@@ -26,6 +26,22 @@
 // box count, preferred dock, the three flags, the machines); new in BFME 2:
 // +0x4A0, the +0x4A8 point, the +0x4B4 flag and +0x4CC (set to 1, where ZH
 // copied its supplies-depleted voice). The preferred dock is zeroed first.
+//
+// ??0WorkerStateMachine@@QAE@PAVObject@@@Z, retail 0x004A9D79, 169 bytes. As
+// in ZH: the StateMachine base (rowed 0x004D79E1; name key 0xF80D13C5, flag
+// false; vtable 0x00854058, the rowed Rva004A9964 dtor's), then ActAsDozer
+// (rowed ctor 0x004A992A) with asDozerConditions (retail .rdata 0x00854410)
+// and ActAsSupplyTruck (rowed ctor 0x004A9947) with asTruckConditions
+// (0x008543F8), plain operator new of 0x20 bytes each.
+//
+// The two condition tests, ZH's supplyTruckSubMachineWantsToEnter (retail
+// 0x004A9975, 70 bytes) and supplyTruckSubMachineReadyToLeave (0x004A99BB,
+// 59), and WorkerAIUpdate::isSupplyTruckBrainActiveAndBusy (0x004A98D6, 62)
+// that the second calls: the machine owner's AI (Object +0x258), its AI
+// state (the rowed getCurrentStateID 0x00262FC3) and forced-wanting flag
+// (the supply truck interface at +0x3E8, vslot 12, reading +0x4BC); BFME 2
+// also accepts AI state 47 besides AI_DOCK. The brain test reads the worker
+// and supply truck machines' current state ids (+0x04 state, its +0x04 id).
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 typedef bool Bool;
@@ -47,6 +63,31 @@ enum StateReturnType
 	STATE_FAILURE
 };
 
+typedef UnsignedInt StateID;
+enum { INVALID_STATE_ID = 999999 };
+
+class StateMachine;
+
+struct State
+{
+public:
+	virtual ~State();
+	StateID getID() const { return m_ID; }
+	StateMachine *getMachine() const { return m_machine; }
+protected:
+	StateID m_ID; // +0x04
+	unsigned char m_pad08[0x18 - 0x08];
+	StateMachine *m_machine; // +0x18
+	unsigned char m_pad1C[0x20 - 0x1C];
+};
+
+struct StateConditionInfo
+{
+	Bool (*test)(State *thisState, void *userData);
+	StateID toStateID;
+	void *userData;
+};
+
 class StateMachine
 {
 public:
@@ -54,30 +95,72 @@ public:
 	virtual void slot01(); virtual void slot02(); virtual void slot03();
 	virtual void slot04(); virtual void slot05(); virtual void slot06();
 	virtual StateReturnType initDefaultState();
+	void defineState(StateID id, struct State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = 0);
+	StateID getCurrentStateID() const { return m_currentState ? m_currentState->getID() : INVALID_STATE_ID; }
+	Object *getOwner() const { return m_owner; }
+protected:
+	State *m_currentState; // +0x04
+	unsigned char m_pad08[0x14 - 0x08];
+	Object *m_owner; // +0x14
+	unsigned char m_pad18[0x3C - 0x18]; // operator new size 0x3C
 };
 
-class WorkerStateMachine : public StateMachine
+// BFME 2's StateMachine constructor (owner, name key, flag), rowed by
+// address as ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z; the key is
+// taken as one dword, as in the dozer machine's TU.
+class Rva004D759C : public StateMachine
+{
+public:
+	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
+	virtual ~Rva004D759C();
+};
+
+// ZH's ActAsDozerState (rowed ctor 0x004A992A).
+class Rva004A992A : public State
+{
+public:
+	Rva004A992A(StateMachine *machine);
+};
+
+// ZH's ActAsSupplyTruckState (rowed ctor 0x004A9947).
+class Rva004A9947 : public State
+{
+public:
+	Rva004A9947(StateMachine *machine);
+};
+
+enum
+{
+	AS_DOZER = 0,
+	AS_SUPPLY_TRUCK
+};
+
+class WorkerStateMachine : public Rva004D759C
 {
 public:
 	WorkerStateMachine(Object *owner);
-private:
-	unsigned char m_pad04[0x3C - 0x04];
+	virtual ~WorkerStateMachine();
+
+	static Bool supplyTruckSubMachineWantsToEnter(State *thisState, void *userData);
+	static Bool supplyTruckSubMachineReadyToLeave(State *thisState, void *userData);
 };
 
 class DozerPrimaryStateMachine : public StateMachine
 {
 public:
 	DozerPrimaryStateMachine(Object *owner);
-private:
-	unsigned char m_pad04[0x3C - 0x04];
+};
+
+enum
+{
+	ST_IDLE = 0,
+	ST_BUSY
 };
 
 class SupplyTruckStateMachine : public StateMachine
 {
 public:
 	SupplyTruckStateMachine(Object *owner);
-private:
-	unsigned char m_pad04[0x3C - 0x04];
 };
 
 class ObjectModule
@@ -131,10 +214,26 @@ class AIUpdateInterface : public UpdateModule, public AICommandInterface, public
 {
 public:
 	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+	Int getCurrentStateID() const;
 protected:
 	virtual ~AIUpdateInterface();
 private:
 	unsigned char m_pad28[0x3E4 - 0x28];
+};
+
+class Object
+{
+public:
+	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+private:
+	unsigned char m_pad000[0x258];
+	AIUpdateInterface *m_ai; // +0x258
+};
+
+enum AIStateType
+{
+	AI_DOCK = 14, // ZH's numbering (AI_IDLE 0 .. AI_DEAD 13)
+	AI_STATE_47 = 47 // BFME 2's second supply state
 };
 
 class DozerAIInterface
@@ -147,6 +246,10 @@ class SupplyTruckAIInterface
 {
 public:
 	virtual void supplyTruckSlot0() = 0;
+	virtual void st01() = 0; virtual void st02() = 0; virtual void st03() = 0; virtual void st04() = 0;
+	virtual void st05() = 0; virtual void st06() = 0; virtual void st07() = 0; virtual void st08() = 0;
+	virtual void st09() = 0; virtual void st10() = 0; virtual void st11() = 0;
+	virtual Bool isForcedIntoWantingState() const = 0; // vslot 12 (+0x30)
 };
 
 class WorkerAIInterface3EC
@@ -179,6 +282,8 @@ public:
 	virtual void dozerSlot0();
 	virtual void supplyTruckSlot0();
 	virtual void workerSlot0();
+	virtual Bool isForcedIntoWantingState() const;
+	Bool isSupplyTruckBrainActiveAndBusy();
 protected:
 	virtual ~WorkerAIUpdate();
 private:
@@ -266,4 +371,59 @@ void WorkerAIUpdate::createMachines()
 
 		m_workerMachine->initDefaultState();
 	}
+}
+
+WorkerStateMachine::WorkerStateMachine(Object *owner) : Rva004D759C(owner, 0xF80D13C5, false)
+{
+	static const StateConditionInfo asDozerConditions[] =
+	{
+		{ supplyTruckSubMachineWantsToEnter, AS_SUPPLY_TRUCK, 0 },
+		{ 0, 0, 0 } // keep last
+	};
+
+	static const StateConditionInfo asTruckConditions[] =
+	{
+		{ supplyTruckSubMachineReadyToLeave, AS_DOZER, 0 },
+		{ 0, 0, 0 } // keep last
+	};
+
+	// order matters: first state is the default state.
+	defineState(AS_DOZER, new Rva004A992A(this), INVALID_STATE_ID, INVALID_STATE_ID, asDozerConditions);
+	defineState(AS_SUPPLY_TRUCK, new Rva004A9947(this), INVALID_STATE_ID, INVALID_STATE_ID, asTruckConditions);
+}
+
+Bool WorkerStateMachine::supplyTruckSubMachineWantsToEnter(State *thisState, void *userData)
+{
+	Object *owner = thisState->getMachine()->getOwner();
+	WorkerAIUpdate *update = (WorkerAIUpdate *)owner->getAIUpdateInterface();
+	if (!update)
+	{
+		return false;
+	}
+	Int masterState = update->getCurrentStateID();
+
+	// If I detect a Supply force message, or if I have been put straight in
+	// dock, then the worker master part of me wants to switch to the Supply
+	// sub-brain.
+	return update->isForcedIntoWantingState() || (masterState == AI_DOCK) || (masterState == AI_STATE_47);
+}
+
+Bool WorkerStateMachine::supplyTruckSubMachineReadyToLeave(State *thisState, void *userData)
+{
+	Object *owner = thisState->getMachine()->getOwner();
+	WorkerAIUpdate *update = (WorkerAIUpdate *)owner->getAIUpdateInterface();
+	if (!update)
+	{
+		return false;
+	}
+
+	// It isn't ready to leave if it is on its way in. Active and Busy means
+	// it isn't doing anything Supply related.
+	return !supplyTruckSubMachineWantsToEnter(thisState, 0) && update->isSupplyTruckBrainActiveAndBusy();
+}
+
+Bool WorkerAIUpdate::isSupplyTruckBrainActiveAndBusy()
+{
+	return (m_workerMachine->getCurrentStateID() == AS_SUPPLY_TRUCK)
+		&& (m_supplyTruckStateMachine->getCurrentStateID() == ST_BUSY);
 }
