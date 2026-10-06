@@ -355,6 +355,11 @@ public:
 		unsigned short polygon_count,
 		unsigned short min_vertex_index,
 		unsigned short vertex_count);
+#ifdef BFME_SORTING_DWORD_DRAW
+	// Retail 0x00120620 receives all four ranges as DWORDs.
+	static void Draw_Triangles(unsigned start_index, unsigned polygon_count,
+		unsigned min_vertex_index, unsigned vertex_count);
+#endif
 	static void Draw_Triangles(
 		unsigned short start_index,
 		unsigned short polygon_count,

@@ -1,4 +1,4 @@
-// cl: /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/zhmd /G7 /arch:SSE /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /DBFME_SORTING_DWORD_DRAW /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/zhmd /G7 /arch:SSE /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // stlport
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
@@ -730,8 +730,8 @@ void SortingRendererClass::Flush_Sorting_Pool()
 
 // ?Draw_Triangles@DX8Wrapper@@ present-unmatched
 				DX8Wrapper::Draw_Triangles(
-					start_index*3,
-					count_to_render,
+					static_cast<unsigned short>(start_index*3),
+					static_cast<unsigned short>(count_to_render),
 					state->min_vertex_index,
 					state->vertex_count);
 
@@ -750,8 +750,8 @@ void SortingRendererClass::Flush_Sorting_Pool()
 
 // ?Draw_Triangles@DX8Wrapper@@ present-unmatched
 		DX8Wrapper::Draw_Triangles(
-			start_index*3,
-			count_to_render,
+			static_cast<unsigned short>(start_index*3),
+			static_cast<unsigned short>(count_to_render),
 			state->min_vertex_index,
 			state->vertex_count);
 	}
@@ -868,3 +868,65 @@ extern unsigned int g_00DEDA98;
 #pragma comment(linker, "/alternatename:?BfmeCurrentCaps@@3PAEA=?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A")
 // ?g_00DEDA98@@3IA: the global at VA 0xdeda98 is ?number_of_DX8_calls@@3IA.
 #pragma comment(linker, "/alternatename:?g_00DEDA98@@3IA=?number_of_DX8_calls@@3IA")
+
+// Retail 0x0012FE00..0x001303F0, 1520 bytes, ending at RET (no padding).
+// BFME1 sortingrenderer.cpp at d6db6bfa4fd3 provides the sorted-insertion
+// algorithm. Target evidence: DX8DrawTrianglesDispatch's call at 0x00120613
+// passes an xyz center (not a full SphereClass) and four DWORD ranges; this
+// body checks every range before narrowing. Its node offsets agree with
+// SortingNodeStructDtor.cpp: state +0x0C, depth +0x29C, ranges +0x2A0..+0x2A6.
+// The original source name is not independently proved; retain the neutral
+// ABI spelling already used by the verified dispatch and PointGroup bank.
+struct TargetCenter3 {
+	float x, y, z;
+	TargetCenter3(float a, float b, float c) : x(a), y(b), z(c) {}
+};
+class BfmeSortingDispatchAt0012FE00 {
+public:
+	static void Insert(const TargetCenter3& center, unsigned start_index,
+		unsigned polygon_count, unsigned min_vertex_index, unsigned vertex_count);
+};
+
+void BfmeSortingDispatchAt0012FE00::Insert(const TargetCenter3& center,
+	unsigned start_index, unsigned polygon_count, unsigned min_vertex_index,
+	unsigned vertex_count)
+{
+	if (!WW3D::Is_Sorting_Enabled()) {
+		DX8Wrapper::Draw_Triangles(start_index, polygon_count, min_vertex_index, vertex_count);
+		return;
+	}
+	if (polygon_count > 65535 || vertex_count > 65535 ||
+		start_index > 65535 || min_vertex_index > 65535) return;
+	DX8_RECORD_SORTING_RENDER(polygon_count, vertex_count);
+	SortingNodeStruct* state = Get_Sorting_Struct();
+	DX8Wrapper::Get_Render_State(reinterpret_cast<RenderStateStruct&>(state->sorting_state));
+	state->start_index = start_index;
+	state->polygon_count = polygon_count;
+	state->min_vertex_index = min_vertex_index;
+	state->vertex_count = vertex_count;
+
+	const Matrix4& a = state->sorting_state.world;
+	const Matrix4& b = state->sorting_state.view;
+	const TargetCenter3& v = center;
+	// Only depth is consumed: project the center through world * view.
+	// Float intermediates preserve retail's 2,1,0,3 dot-product addition
+	// order. Plain expressions reassociate to 2,1,3,0 (16 operand bytes differ).
+	// At 0x0013031E the world[0][0] read precedes view[0][2]; the ordered
+	// read below preserves that last otherwise-commuted pair without spills.
+	state->transformed_center =
+		(((float)(a[2][2]*b[2][2]) + (float)(a[2][1]*b[1][2]) + a[2][0]*b[0][2]) + a[2][3]*b[3][2])*v.z +
+		(((float)(a[1][2]*b[2][2]) + (float)(a[1][1]*b[1][2]) + a[1][0]*b[0][2]) + a[1][3]*b[3][2])*v.y +
+		(((float)(a[0][2]*b[2][2]) + (float)(a[0][1]*b[1][2]) + ((const volatile float&)a[0][0])*b[0][2]) + a[0][3]*b[3][2])*v.x +
+		(((float)(a[3][2]*b[2][2]) + (float)(a[3][1]*b[1][2]) + a[3][0]*b[0][2]) + a[3][3]*b[3][2]);
+
+	SortingNodeStruct* node = sorted_list.Head();
+	while (node) {
+		if (state->transformed_center > node->transformed_center) {
+			if (sorted_list.Head() == sorted_list.Tail()) sorted_list.Add_Head(state);
+			else state->Insert_Before(node);
+			break;
+		}
+		node = node->Succ();
+	}
+	if (!node) sorted_list.Add_Tail(state);
+}

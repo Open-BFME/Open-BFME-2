@@ -1,8 +1,11 @@
 // ?rva00913AF0@PointGroupClass@@QAEXH_N@Z
 // partial score=1.0 date=2026-10-06
+// ?rva00913AF0@PointGroupClass@@QAEXH_N@Z
+// partial score=1.0 date=2026-10-06
 // Full body byte-exact; integration still blocked, so this is not progress.
 // link_check --new-variants rejects new Set_Shader and Set_Transform COMDAT
-// copies. The sorting Insert provider at 0x0012FE00 is also still missing.
+// copies. The sorting Insert provider at 0x0012FE00 is now recovered in
+// SortingRendererBFME1.cpp; the remaining blocker is COMDAT reconciliation.
 // cl: /DBFME_WWSTRING_CTOR_BUFFER_RELOAD /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/banked_segline /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // PointGroup vertex-buffer submission, retail RVA 0x00179B50, 3377 bytes.
 // Ported from Open-BFME-1 PointGroupClassSubmit.cpp at 6583b3c1ff;
