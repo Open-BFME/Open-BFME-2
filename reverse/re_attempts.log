@@ -14491,3 +14491,6 @@ _Rva00437FB3	0x00437FB3	120	partial	Two callback refcount copies and the direct 
 ??0LANGameInfo@@QAE@XZ	0x004481D4	162	blocked	base and derived vtable ownership emits zero vptr instead of 0x00C3E518 and LANAPI::GetLocalIP slot and return layout unresolved t=22 model=gpt-6
 ??0LANGameSlot@@QAE@XZ	0x00448150	59	blocked	retail initializes LANPlayer subobject and serial time fields with a distinct layout but donor declaration unavailable; vptr relocation remains unresolved t=16 model=gpt-6
 ??0SkirmishGameInfo@@QAE@XZ	0x0022C45B	112	blocked	base-subobject layout cannot place embedded GameSlot array at retail +0xDC; tested both base orders and retail vptr still unresolved t=18 model=gpt-6
+?Rva0029A5CAGet@@YAXXZ	0x0029A5CA	12	blocked	owner and signature unproven; caller packet omits ECX setup t=2 model=gpt-6.1-sol
+?rva0029A224@Rva0029A224@@QAEHH@Z	0x0029A224	26	blocked	int return body matches load and comparisons but retail true path uses xor/inc/jump rather than mov immediate t=8 model=GPT-6
+?rva0029AB48@InGameUI@@QAEXEPAE@Z	0x0029AB48	187	partial	branch span and global relocation differ in gate t=12 model=gpt-6 score=0.93 stash=reverse/attempts/0x0029ab48.cpp
