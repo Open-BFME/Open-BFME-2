@@ -66035,3 +66035,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ??0Gen_00920A20@@QAE@H@Z,,0x0013EA00,43,Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen00920BC0Handle.cpp,matched,
 ?rva001DCD05@Rva001DCD05@@QAEPAXXZ,,0x001DCD05,23,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,
 ?rva001DCD8C@Rva001DCDAF@@QAEXXZ,,0x001DCD8C,35,Code/GameEngine/Source/GameLogic/System/Rva001DCDAF.cpp,matched,
+?rva001DCE3E@Rva001DCDAF@@QAEXXZ,,0x001DCE3E,14,Code/GameEngine/Source/GameLogic/System/Rva001DCDAF.cpp,matched,

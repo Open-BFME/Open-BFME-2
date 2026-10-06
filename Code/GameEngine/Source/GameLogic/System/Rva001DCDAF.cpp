@@ -24,6 +24,7 @@ class Rva001DCDAF
 public:
     void rva001DCD8C();
     bool rva001DCDAF(Arg001DCDAF const *a, Vec001DCDAF const *b, Vec001DCDAF const *c);
+    void rva001DCE3E();
     float rva001DCE4C(Arg001DCDAF const *a);
 
 private:
@@ -71,4 +72,10 @@ void Rva001DCDAF::rva001DCD8C()
     m_0 -= g_00DBA4FC;
     m_4 -= g_00DBA4FC;
 }
+
+void Rva001DCDAF::rva001DCE3E()
+{
+    m_4 = -1.0f;
+}
+
 
