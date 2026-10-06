@@ -65212,3 +65212,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva002E3A39@Rva002E3A39Owner@@QAEXPBX@Z,,0x002E3A39,46,Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp,matched,
 ?rva002E713F@Rva002E713FOwner@@QAEXXZ,,0x002E713F,57,Code/GameEngine/Source/Common/Rva002E713FGuard.cpp,matched,
 ?rva002E7023@@YAXXZ,,0x002E7023,68,Code/GameEngine/Source/Common/Rva002E7023Walk.cpp,matched,dump-range-12 global+call list walk via TheGameLogic getFirstObject and +0x8C chain with +0x258/+0x140 checks
+?rva005E3A76@Rva005E3A76@@QAEXXZ,,0x005E3A76,44,Code/GameEngine/Source/Common/Rva005E3A76Slot.cpp,matched,
