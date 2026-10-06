@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0058731DCheck@@YAPAVRva0058731DHost@@PAV1@H@Z @0x0058731D 88B: verify
 // via vtable slot 30 with an int out-param seeded to 4; on change format an
 // XferException and throw it, else invoke vtable slot 19 four times with a

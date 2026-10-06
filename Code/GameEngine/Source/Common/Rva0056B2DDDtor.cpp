@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva0056B2DD@@UAE@XZ @0x0056B2DD 113B. Dtor unregistering via rowed erase
 // 0x002B7250, conditional rowed call 0x003EE966 through g_009FE1C8+0x268,
 // then base dtor 0x0056AC26. Evidence: deleting-dtor caller at 0x0056B49B;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva00567847@@QAE@ABV0@@Z @0x00567CA6 39B: copy constructor of the
 // two-field class whose constructor is the rowed ??0Rva00567847 (0x00567847,

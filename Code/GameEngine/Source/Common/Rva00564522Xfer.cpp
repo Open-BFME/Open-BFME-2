@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00564522@Rva00564522@@QAEXPAVXfer@@@Z @0x00564522 45B.
 // Xfer tail for the +0x10 subobject of Rva003AE2A9 (caller 0x0056454F is
 // its slot-3 xfer and passes this+0x10): Version1 via rowed 0x000053EE,

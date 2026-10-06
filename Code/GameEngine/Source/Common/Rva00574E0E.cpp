@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00574E0E@Rva00574E0E@@QAEXH@Z @0x00574E0E 32B evidence: calls rowed erase
 // 0x002B7250 with null-guarded this and clears holder at +0x64; sibling of
 // Rva00574E2E (+0x68 guard -0xC) with holder +0x64 guard -8.

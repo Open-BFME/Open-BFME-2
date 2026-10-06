@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??$__uninitialized_fill_n@PAVRva0052BDE6@@IV1@@_STL@@YAPAVRva0052BDE6@@PAV1@IABV1@ABU__false_type@0@@Z @0x00565643 (37B).
 // _STL::__uninitialized_fill_n<Rva0052BDE6> retail 37 bytes. Dedicated TU

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva0054D974@@QAE@XZ @0x0054D974 205B. Non-virtual dtor clearing three
 // list<int> at +0x00/+0x04/+0x08 each holding Rva0054D8D8 pointers at node+8.

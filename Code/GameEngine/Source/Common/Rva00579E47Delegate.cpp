@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00579E47@Rva00579E47@@QAEAAV1@PBUDelegateDesc@@@Z @0x00579E47 (59B):
 // delegate-wrapper ctor (unlock lane, missing callee of 69 free functions).
 // News 0x10-byte ref-counted impl (vtable RVA 0x0086ECB4), copies 8-byte

@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ??0Rva0055EFE1@@QAE@I@Z, retail 0x0055EFE1, 31 bytes.
 //
 // Derived of Rva00563FE1 (rowed 0x00563FE1 in T4VtableSetCtors.cpp) taking the

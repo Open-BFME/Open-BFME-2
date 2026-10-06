@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005890A6@Rva005890A6@@QAEX_N@Z retail 0x005890A6 71B pause-like helper
 // operating on the +0x24 subobject (whole+0x28 available +0x2C count +0x30

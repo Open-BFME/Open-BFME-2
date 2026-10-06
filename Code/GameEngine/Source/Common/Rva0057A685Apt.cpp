@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva0057A685Set@@YAXHPAPAURva0057A685Team@@H@Z @0x0057A685 195B.
 // Free Apt PhaseTitle setter: GameText table lookup then format APT:_level%u.%s_PhaseTitle then bfmeSetText.
 // Evidence: unlock lane plus callers 0x0057ABBD 0x0057B917 plus precedents Rva005F6220Apt Rva005FF450Apt GameSlotSetState fetch slot 0x3C plus globals TheGameText TheRva00222A8BTarget g_Rva0107301CEmptyString plus string APT:_level%u.%s_PhaseTitle.

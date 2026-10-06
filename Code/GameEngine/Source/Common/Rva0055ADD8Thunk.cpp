@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0055ADD8@Rva0055ADD8@@QAEHH@Z @ 0x0055ADD8, 10 bytes.
 // Thunk forwarding constant 3 to vtable slot 7 ignoring its int arg.
 // Evidence: retail mov eax [ecx] push 3 call [eax+0x1C] ret 4; callers

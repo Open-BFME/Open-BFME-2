@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0057A8F9@Rva0057A8F9@@QAEXXZ @0x0057A8F9 52B
 // CloseList Apt call: prefix from +0x10 name+8 or empty string then AptCall with CloseList set +0x14 to 3. Evidence: sibling Rva0057A92DApt OpenList pattern; rowed AptCall 0x00524EF4; strings CloseList; globals TheRva00222A8BTarget g_Rva0107301CEmptyString; caller 0x0057AC14.
 class Rva00222A8BTarget

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0056D3E3@Rva0056D3E3@@QAEXXZ @ 0x0056D3E3 26B.
 // Free wrapper for Rva0056C996: load m_ptr, clear with and [ecx],0, if non-null call dtor then operator delete.
 // Evidence: caller 0x0056D3FD lea ecx [esi+8] then call, callees rowed dtor 0x0056C996 and delete 0x0002FD60.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0057A272Get@@YAPAGXZ @0x0057A272 62B
 // Time separator one-time init via GetLocaleInfoW with ':' fallback.
 // Evidence: GetLocaleInfoW(0x800 0x1E) into 5-WCHAR buffer at 0x00E06354 flag at 0x00E0635E caller 0x0057A62B.

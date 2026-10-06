@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructor tail-calling Rva00578C0E::~
 // Rva00578C0E at 0x00578C0E (row in FreeMemberDeleters.cpp: null-checked

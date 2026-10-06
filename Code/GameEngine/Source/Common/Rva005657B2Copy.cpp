@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva005657B2Copy@@YAPAXPAX00@Z @0x005657B2 47B.
 // Counted copy over 0x10-stride records through the rowed 0x00564DCB
 // operator=: count from (srcEnd - src) >> 4, both ends advanced by 0x10

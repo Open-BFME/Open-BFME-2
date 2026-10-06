@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0Rva0058AD7A@@QAE@H@Z, retail 0x0058AD4D, 45 bytes.
 // Base ctor for Rva0058AD7A (vtable 0x0087091C, same as rowed dtor 0x0058AD7A
 // in Rva0058AD7ABase.cpp). Called from derived ctor 0x005EE2E6 with arg 5.

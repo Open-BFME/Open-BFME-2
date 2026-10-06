@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00568721Less@@YG_NPBX0@Z @0x00568721 53B. Stdcall word+nibble ordering
 // for the 0x005687xx sort family. Retail compares word at +0x44 unsigned
 // greater-true then nibble at +0x47 high-4-bits unsigned less-true via

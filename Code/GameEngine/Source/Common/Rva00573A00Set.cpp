@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00573A00@Rva00573A00@@QAEXPBUCoord3D@@@Z @0x00573A00 53B
 // Method: copies 12B Coord3D arg to +0x30, then z = TerrainLogic height(x y 0).
 // Global 0x00DFEC50 is TheTerrainLogic; virtual slot +0x18 returns float.

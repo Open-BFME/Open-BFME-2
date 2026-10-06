@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005691DB@Rva005691DB@@QAEXPAVBitRange@@PAX@Z @0x005691DB 145B.
 // Clear-on-match scan: notify the 4 slots at +0x2C via pinned 0x005C834A,

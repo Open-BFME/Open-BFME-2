@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00587422Fill@@YAPAVRva00587375@@PAV1@IPBV1@PBX@Z @0x00587422 37B
 // Array fill_n 0x3C structs: dest+=0x3C count times via rowed 0x00587410,
 // returns end. 4th void* unused (callers push byte addresses, callee ignores).

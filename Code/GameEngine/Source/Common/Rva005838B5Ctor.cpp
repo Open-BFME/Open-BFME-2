@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva005838B5@Rva005838B5@@QAEXXZ RVA 0x005838B5 39B
 // Evidence: leaf lane; stores vtable 0x0086FC30; calls rowed base

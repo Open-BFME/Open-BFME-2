@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva005543D5@Rva005543D5@@QAEXXZ @0x005543D5 142B
 // Guarded lazy init: if m_64 nonzero return; else new LockClass(m_9C -1)

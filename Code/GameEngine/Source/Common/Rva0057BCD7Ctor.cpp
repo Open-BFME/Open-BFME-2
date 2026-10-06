@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0057BCD7@@QAE@XZ @0x0057BCD7 21B
 // Honest ctor with member at +4 via rowed Rva00330757Member ctor 0x00330757.
 // Donor: Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004FAC6BCtor.cpp

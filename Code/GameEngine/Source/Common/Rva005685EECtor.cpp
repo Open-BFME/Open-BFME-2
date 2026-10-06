@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0Rva005685EE@@QAE@PAXPAXPAX@Z @0x0056858C 98B.
 // Constructor: base Rva005C3549(a,b,c) (pinned 0x005C3697), store vptr

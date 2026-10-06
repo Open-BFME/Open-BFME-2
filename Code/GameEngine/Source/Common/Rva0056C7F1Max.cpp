@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /arch:SSE
+// cl: /Oy- /DNDEBUG /MD /GX
 // ?rva0056C7F1@Rva0056C7F1@@QAEXPAUFloatPair@@00@Z @0x0056C7F1 170B: thiscall
 // with 3 stack args (ret 0xC). Scales this+0x30/+0x34 int pairs (+0x24/+0x28)
 // by the float pair from the TheRva00222A8BTarget virtual at +0x3C into a and

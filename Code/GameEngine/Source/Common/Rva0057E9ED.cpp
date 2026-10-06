@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0057E9ED@Rva0057E97A@@QAEXIH@Z @0x0057E9ED 34B
 // Bounded store to the +0xB4 int vector of the Rva0057E97A window holder:
 // size is (finish-start)/4 via sub+sar, index in [esp+4] checked against it,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva0055B0CC@@UAE@XZ @ 0x0055B0CC, 122 bytes.
 // Destructor for the opaque owner established by its vtable, constructor at

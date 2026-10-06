@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00552CF9@Rva00552CF9@@QAEXPBV1@@Z 0x00552CF9 130B: thiscall copies fields and three sub-objects via virtuals slot 0x14 0x10 0x10; caller 0x0055941D
 class Sub8
 {

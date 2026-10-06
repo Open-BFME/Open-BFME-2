@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ??0Rva0055F9B4@@QAE@ABVRvaSmartPtr12@@H@Z, retail 0x0055F9B4, 171 bytes.
 
 class RvaSmartPtr12

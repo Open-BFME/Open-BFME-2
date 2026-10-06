@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva0057BAF8@Rva0057BAF8@@QAEX_N@Z, retail 0x0057BAF8, 86 bytes.
 // Toggle-button Apt state via rowed AptCall 0x0050E9FE with _enabled/_disabled.

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 // ?rva0056B8F4@Rva0056B8F4@@QAEXI@Z @0x0056B8F4 53B:
 // Rva0056B8F4::rva0056B8F4 stores arg to +0xbc, reads virtual 0x44 twice,
 // notifies via virtual 0x30 when changed. Caller 0x003FDE1A loops over

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005766B3@@QAE@HHH@Z @0x005766B3 32B: ctor stores 3 args at +4/+8/+0xC plus vtable 0x0086E7D0 at +0. Evidence: retail mov stores plus vtable imm plus ret 12 plus caller at 0x00576778; prev Disp0DwordImmSetters next Rva0057702EClear.
 class Rva005766B3
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00568C36@Rva00568C36@@QAE_NPBVRva00568C36Provider@@@Z @0x00568C36 24B:
 // virtual-range overlap wrapper. Calls provider vtable slot 7 (+0x1C) for a
 // const Rva003CDDB0Range then tail-calls rowed Rva003CDDB0Range::method at

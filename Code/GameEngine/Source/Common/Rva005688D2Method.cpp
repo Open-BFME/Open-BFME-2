@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005688D2@Rva005688D2@@QAEXPAMH@Z @0x005688D2 78B: two-float out at [esp+4] gated by mode at [esp+8]; base float at [ecx+0x3C]+0x10 scaled by g_00BC6C50; callers 0x005689C3 0x00569B03; same +0x2C/+0x3C layout as Rva00568920/Rva005686C1
 //
 // ?rva00568991@Rva005688D2@@QAEHXZ @0x00568991 116B: slot-weighted sum.

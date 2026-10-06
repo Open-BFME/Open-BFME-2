@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005686C1@Rva005686C1@@QAEHH@Z @0x005686C1 24B: bounds-checked indexed
 // dword getter returning 0 on out-of-range. Reads ecx plus int index with
 // ret 4. Array of 4 dwords at +0x2C. Caller at 0x005C938B in 0x005C9311 passes

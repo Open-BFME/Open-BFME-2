@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob0
+// cl: /Ireference/shims/bfme2_ascii /Ob0
 // stlport
 //
 // ??4Rva00568B4E@@QAEAAV0@ABV0@@Z @0x00568B4E 51B: copy-assign with two AsciiStrings

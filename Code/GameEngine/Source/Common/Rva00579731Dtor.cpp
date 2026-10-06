@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva00579731@@QAE@XZ, retail 0x00579731 63B.
 // Evidence: chain lane calls just-landed 0x0022167C plus element dtor 0x005796FC with size 8 count 6 at this+8; callers 0x00579CBB 0x007B94CD.
 // Rva0022167C is 8B polymorphic holder from Rva0022161BClear.cpp; element is 8B BfmeStringRecord000B94D2 pair.

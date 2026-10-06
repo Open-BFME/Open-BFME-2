@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 //
 // ?rva0054E86D@Rva0054F434@@UAE_NH@Z @0x0054E86D 47B

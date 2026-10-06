@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 //
 // ??1Rva00574499@@QAE@XZ, retail 0x00574499, 68 bytes.
 // Evidence: EH prolog unwind states 1..0 tear down two strings at +0x0C down to +0x08

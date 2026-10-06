@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00568C1A@Rva00568C1A@@QAEXXZ @0x00568C1A 28B.
 // Fan-out: run every element of the +0x58/+0x5C pointer range through

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0054FC14@Rva0054FC14@@QAEXXZ retail 0x0054FC14 70B.
 // Clear lock at +0xB0 then stop plus virtual-destroy plus delete 10 thread slots at +0x80.
 // Evidence: clear 0x0009990D, Stop 0x006105F0, virtual slot 0 with 0, delete 0x0002FD60, caller 0x0054FFC3.

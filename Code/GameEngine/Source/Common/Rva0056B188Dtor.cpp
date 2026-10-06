@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0056B188@@UAE@XZ retail 0x0056B188 98B
 // Own vptrs C6D3A8 (+0), C6D36C (+8, inside the first base) and C6D35C
 // (+0x14, second base). Under EH state 1, when the owner at +0x18 is set the

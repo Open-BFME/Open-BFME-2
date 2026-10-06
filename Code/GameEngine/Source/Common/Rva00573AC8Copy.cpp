@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0Rva00573B23@@QAE@ABV0@@Z @0x00573AC8 91B: copy constructor of
 // Rva00573B23 (layout from Rva00573B23Ctor.cpp). It copies the base through

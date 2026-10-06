@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0056956D@Rva0056956D@@QAEXXZ @0x0056956D 133B.
 // Per-element resolve-and-arm: for each [m_begin,m_end) element stride 0x14,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0057C71F@Rva0057C71F@@QAEPAXH@Z @0x0057C71F 155B evidence: leaf 2 callers; callees rowed getConstSlot getMap findMap rva0043DA65 rva0020EAF6 rva004FCA5A; globals g_009FEF10 TheMapCache
 #include "ascii_string.h"
 class Rva0043DA65

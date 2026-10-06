@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00402F28Item@@QAE@PAX@Z @0x0056BEFB 36B. Ctor via pinned 0x0056B7E4 init plus vtable 0x00C37898 and bytes 0,1,0 at +0x58..0x5A. Evidence: same pad 0x58 as Rva0056B63E sibling, vtable and 3-byte layout match Rva00402F28Item copy ctor 0x00402F28, caller 0x0056BFA6.
 class Rva0056B7E4
 {

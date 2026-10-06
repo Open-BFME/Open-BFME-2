@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00575540@@QAE@PAX00@Z @0x00575540 (36B):
 // Sibling of ??0Rva0057551C@@QAE@PAX00@Z @0x0057551C (same vtable 0x00C6E614,
 // same m4/m8, swapped tail: here m0c=0 via and and m10=arg3, there m10=0 and

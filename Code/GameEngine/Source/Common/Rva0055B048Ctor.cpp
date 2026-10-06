@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /Ireference/shims/bfmelist /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0055B0CC@@QAE@XZ @0x0055B048 113B evidence vtable 0x0086B900 plus dtor layout plus lists plus floats plus caller cluster
 // Constructor for the opaque owner of dtor 0x0055B0CC: vtable store, float

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00574C1B@@UAE@XZ retail 0x00574C1B 83B
 // Two-base dtor: own vptrs C6E4A4 (+0) and C6E4C0 (+0x10); under EH state 1
 // the +0x10 subobject is unregistered from the list at +4 of the owner held

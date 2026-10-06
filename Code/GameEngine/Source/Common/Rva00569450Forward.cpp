@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00569450@@YAHPAX00@Z @0x00569450 27B.
 // __cdecl forwarder: bool out-param at [ebp-1] plus the three arguments go

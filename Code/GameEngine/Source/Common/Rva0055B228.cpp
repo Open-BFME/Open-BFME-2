@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /Ireference/shims/bfmelist /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0055B228@Rva0055B0CC@@QAEXXZ @0x0055B228 62B
 // Vslot 5 method via m_04 plus list m_14 size plus m_18.

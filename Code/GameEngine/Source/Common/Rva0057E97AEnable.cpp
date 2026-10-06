@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0057E97A@Rva0057E97A@@QAEXXZ @0x0057E97A 115B
 // Toggles a window list: reads holder at +0x58 via rowed 0x0043DA65 (row types
 // int but retail uses the return as an object pointer for slot-0x30 bool check;

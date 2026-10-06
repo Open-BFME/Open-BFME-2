@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0057A7CE@Rva0057A7CE@@QAEXXZ @0x0057A7CE 55B
 // ?rva0057A805@Rva0057A7CE@@QAEXXZ @0x0057A805 55B
 // FadeOut Apt call with level at +0xC and prefix from +0x10 (+8 name) then flag 0 at +0x24 with early-out when 0. Evidence: vslot slot 2 of 0x0086F118 class Rva0057AD6E; rowed AptCall 0x00524EF4; strings FadeOut; globals TheRva00222A8BTarget g_Rva0107301CEmptyString; sibling Rva0057A92DApt pattern.

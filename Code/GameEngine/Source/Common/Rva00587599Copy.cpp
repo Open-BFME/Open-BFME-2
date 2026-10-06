@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00587599Copy@@YAPAVRva00587375@@PBV1@0PAV1@PBX@Z @0x00587599 38B
 // Range copy 0x3C structs: while first!=last via rowed 0x00587410,
 // advances both, returns result end. 4th void* unused.

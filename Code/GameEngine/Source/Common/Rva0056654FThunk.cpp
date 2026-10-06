@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?append@Rva0056654FOwner@@QAEXABVRva004E18A2@@@Z @0x0056654F 8B: tail-jump.
 // Adds 0x78 then jumps to the rowed vector<Rva004E18A2>::push_back 0x005663A8
 // (the record whose virtual dtor is rowed at 0x004E18A2). Caller is the

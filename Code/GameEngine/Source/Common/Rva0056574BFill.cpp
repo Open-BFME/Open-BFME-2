@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0056574BFill@@YAPAXPAXIPBX@Z @0x0056574B (37B).
 // __uninitialized_fill_n over 0x10-stride pair elements. Evidence: loop

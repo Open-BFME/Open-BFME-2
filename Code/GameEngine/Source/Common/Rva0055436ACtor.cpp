@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ??0Rva0055436A@@QAE@PAX@Z @0x0055436A 79B
 // Thread-subclass ctor: ThreadClass(0) base plus int-pointer map at +0x5C

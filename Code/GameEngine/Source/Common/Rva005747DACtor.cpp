@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva005747DA@@QAE@HH@Z retail 0x005747DA 31B
 // Derived ctor of rowed base Rva005746AF (0x005746AF): passes first int arg
 // to base, stores second int arg at +0x10 and overwrites vtable with 0x0086E3CC.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva005746AF@@QAE@H@Z retail 0x005746AF 35B
 // Ctor storing vtable 0x0086E3B0 then int arg at +4 then timeGetTime at +8
 // then zero at +0xC via and [mem],0. Evidence: vtable store at [this],

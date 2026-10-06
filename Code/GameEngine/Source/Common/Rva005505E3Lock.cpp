@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005505E3@Rva005505E3@@QAEXXZ @0x005505E3 29B.
 // Scoped CriticalSection lock of member at +0xA0 via rowed 0x00613B60 plus 0x00613B80.
 // Evidence: callees rowed 0x00613B60 0x00613B80; caller 0x0055105B in 0x00550FDD.

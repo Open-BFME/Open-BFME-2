@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva00576C4B@@UAE@XZ @0x00576C4B 186B: virtual dtor unregistering listener base at +0xC via rowed erase 0x002B7250 then conditional ptr-chase release then member teardown. Evidence: three vtable stores plus base restores 0x0086E7F0/0x0086E7E8/0x0086E7E4 to 0x007DBA74/0x0086E788; erase caller plus deleting-dtor caller at 0x00576DD5; callees all rowed.
 class CreateAHeroData;
 class Rva002B7250

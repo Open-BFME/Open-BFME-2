@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ?_M_insert_overflow@?$vector@URva0056644EElement@@V?$allocator@URva0056644EElement@@@_STL@@@_STL@@IAEXPAURva0056644EElement@@ABU3@ABU__false_type@2@I_N@Z retail 0x0056644E 180B

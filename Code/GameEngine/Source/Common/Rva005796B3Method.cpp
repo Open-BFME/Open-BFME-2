@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005796B3@Rva005796B3@@QAEXPAX@Z @0x005796B3 73B
 // Thiscall setter for +0x18 pointer with +0x1C flag: if new==old return; if
 // old!=0 and flag!=0 and old virtual int getter == flag then old slot1

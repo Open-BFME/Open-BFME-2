@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00564C08@Rva00564C08@@QAEXXZ @0x00564C08 56B.
 // Applies the singleton finder to a 12-byte record range: for each record
 // from +0xA8 to +0xAC, looks up the AsciiString at +0x4 through the rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva00589051@@MAEXPAVXfer@@@Z retail 0x00589051 40B xfer with single
 // ObjectID at +0x14. Evidence: Version1 via rowed 0x000053EE then base

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00578690@Rva00578690@@QAEXXZ @0x00578690 26B: nulling deleter via explicit virtual dtor plus global operator delete.
 // Evidence: callees rowed 0x005D25F2 ??1Rva005D25F2@@UAE@XZ and rowed 0x0002FD60 ??3@YAXPAX@Z; callers 0x005787FB 0x00578CBC; same 26B shape as Rva005786E7Deleter sibling.
 class Rva005D25F2

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0056B63E@@QAE@PAX@Z @0x0056B63E 42B.
 // Constructor: run the pinned 0x0056B7E4 initializer on this, clear the

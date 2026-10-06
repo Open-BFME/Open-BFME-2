@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0055F290WriteHeader@@YAXPBXPAVFile@@PAI@Z, retail 0x0055F290, 216 bytes.
 // Module header INI writer for category 3, same 216B shape as 0x0055E891 (cat 4)

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0054CC1B@Rva0054CC1B@@QAEXXZ @0x0054CC1B (26B).
 // Releasing wrapper for ??1Rva0054C941: takes pointer at +0, nulls it with

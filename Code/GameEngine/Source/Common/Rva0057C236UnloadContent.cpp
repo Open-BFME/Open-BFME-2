@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0057C236@Rva0057C236@@QAEXXZ @0x0057C236 54B
 // UnloadContent Apt setter via rowed AptCall 0x00524EF4 with team+8 or empty string.
 // Evidence: retail pushes TheRva00222A8BTarget plus [esi] plus team+8-or-empty plus UnloadContent,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva0056D690@@UAE@XZ retail 0x0056D690 62 bytes.
 // Virtual dtor: vptr 0x0086DAC4, AsciiString at +0x26C via shared header,
 // base Rva005C9659 rowed via pin 0x005C9659.

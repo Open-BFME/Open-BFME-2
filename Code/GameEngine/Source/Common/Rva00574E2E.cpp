@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00574E2E@Rva00574E2E@@QAEXH@Z @0x00574E2E 32B evidence: calls rowed erase 0x002B7250 with null-guarded this and clears holder at +0x68; no callers
 // Holder erase with dummy int arg like Rva005CC2C5 but holder at +0x68 and arg is parent-guarded this.
 class CreateAHeroData;

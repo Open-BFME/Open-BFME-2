@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Oy- /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?EraseRange@Rva00566B81Vector@@QAEPAVRva00566695@@PAV2@0@Z @0x00566B81 51B.
 // Range-erase via rowed CopyRange 0x00566A9A plus rowed DestroyRange 0x003F0CA1.
 // Evidence: chain lane; callers at 0x00566BF0 plus 0x00566D46; same 51B shape

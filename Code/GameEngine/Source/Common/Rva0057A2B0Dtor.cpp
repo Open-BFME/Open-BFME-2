@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva0057A2B0@@UAE@XZ @0x0057A2B0 84B: MI dtor over 8B trivial first base
 // plus Rva005D40A6 second base at +8. Evidence: MI vptr prologue pair plus
 // virtual slot6 call through member at +0x54 plus rowed ??1Rva005D40A6 at

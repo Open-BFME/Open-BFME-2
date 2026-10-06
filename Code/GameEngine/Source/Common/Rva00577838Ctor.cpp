@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ??0Rva00577838@@QAE@H@Z @0x00577863 46B: ctor stores vtable 0x00C6E978 then news 0x10 bytes and constructs Rva00577846 with outer this plus int arg storing result at +4. Evidence: calls rowed 0x00577846 plus rowed new 0x0002FDA0 plus caller 0x0042C9F8 plus dtor 0x00577838 plus holder dtor 0x00577010.
 class Rva00577846;
 

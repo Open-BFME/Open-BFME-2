@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00568920@Rva00568920@@QBE_NXZ @0x00568920 25B: all-nonzero test over
 // four dwords at +0x2C. Returns false on first zero else true. Same +0x2C
 // 4-entry layout as indexed getter 0x005686C1. Caller at 0x00568939 tests al.

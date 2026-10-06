@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0056B613@Rva0056B613@@QAEXH@Z @0x0056B613 43B.
 // Gated forward: when the +0x5E flag is set, run pinned 0x002B269E on the

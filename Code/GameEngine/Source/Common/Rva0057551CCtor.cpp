@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0057551C@@QAE@PAX00@Z @0x0057551C (36B):
 // Ctor with manual vtable: m10=0 via and, m4/m8/mC from args, vtable
 // 0x00C6E614 stored 4th (after m10/m4/m8, before mC) to match retail order.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005786E7@Rva005786E7@@QAEXXZ @0x005786E7 26B
 // Evidence: chain via rowed dtor 0x005D3731 and operator delete 0x0002FD60;
 // member at +0 nulled then deleted; callers 0x00578939 0x00578CA4

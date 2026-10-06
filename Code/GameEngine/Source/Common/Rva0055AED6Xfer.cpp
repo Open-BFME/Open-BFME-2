@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?Rva0055AED6@Rva0055B0CC@@UAEXPAVXfer@@PAX@Z, retail 0x0055AED6, 205 bytes.
 // Virtual slot 12 (offset 0x30) of vtable 0x00870A98 (RVA, VA 0x00C70A98,

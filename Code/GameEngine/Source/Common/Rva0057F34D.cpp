@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0057F34D@Rva0057F34D@@QAEXXZ @0x0057F34D 92B
 // Evidence: unlock lane, caller 0x0043DE4C in 0x0043DE19 (ecx=esi+0x190 subobject), rowed clear 0x0052493F on this, literal AptMpClans::InitGadgets via pin 0x0041149A, stores +0xA8 +0xA0 +0xA4.
 #include "ascii_string.h"

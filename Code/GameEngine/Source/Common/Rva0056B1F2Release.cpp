@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0056B1F2@Rva0056B1F2@@QAEXPAX@Z @0x0056B1F2 38B.
 // Conditional release: when the +4 slot equals the argument, run rowed

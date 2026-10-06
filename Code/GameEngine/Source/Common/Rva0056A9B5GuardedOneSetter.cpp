@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // RVA 0x0056A9B5 sets byte at +0x1E to 1 when bytes at +0x1C and +0x1D are both nonzero.
 class Rva0056A9B5
 {

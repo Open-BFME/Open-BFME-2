@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00573F9F@Rva00573F03@@UAEXPAVXfer@@PAX@Z @0x00573F9F 116B
 // Xfer slot 12 (0x30) of Rva00573F03 (vtable 0x0086E2C8, derived of Rva00573B23):
 // Version(1,1), Coord +0x40 via 0x60, float +0x4c via 0x70, int +0x50 via 0x7c,

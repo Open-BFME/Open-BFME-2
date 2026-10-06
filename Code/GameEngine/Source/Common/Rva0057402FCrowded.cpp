@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ?rva00573CFB@Rva00573F03@@UAEHPAVPlayer@@@Z, retail 0x0057402F, 316
 // bytes: slot 4 of the derived build order Rva00573F03 (vftable 0x00C6E2F8,

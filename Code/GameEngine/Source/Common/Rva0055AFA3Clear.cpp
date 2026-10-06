@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /Ireference/shims/bfmelist /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0055AFA3@Rva0055B0CC@@QAEXXZ @ 0x0055AFA3, 28 bytes.
 // Vtable slot 1 of 0x0086B900 (class of ??0Rva0055B0CC@@QAE@XZ) and siblings.

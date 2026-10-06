@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ?rva00572E0F@Rva00572DE8@@QAEXPAVRva002C5D8B@@PAVPlayer@@H@Z @0x00572E0F 174B
 // Slot 1 of vtable 0x0086E094 (class Rva00572DE8, ctor 0x00572DD4 in Rva00572DE8Ctor.cpp).
 // Evidence: vtable slot, chain via 0x002C5D8B, neighbours Rva005CB23CDerived and DispDwordLeaFieldGetters.

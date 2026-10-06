@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0057AC27@Rva0057AC27@@QAEXH@Z, retail 0x0057AC27 104B. Unlock: selected-index Apt SetCurrentItemState show/hide via TheRva00222A8BTarget.
 // Evidence: callees AptCall 0x005FB5E6 rowed; strings _show _hide SetCurrentItemState literals; EmptyString and TheRva00222A8BTarget externs; callers 0x0057AD58 0x0057B3B5.
 class Rva00222A8BTarget;

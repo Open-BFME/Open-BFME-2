@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva0057FE6B@@UAE@XZ @0x0057FE6B 99B
 // Evidence: unlock lane, vtable store 0x0086F64C, +0x64 virtual slot2 f2(0) with delete like neighbour 0x0057FECE, +0x58 ReleaseTreeHintRef00217D4C row 0x0007DEEF, base dtor pin 0x005248D0, callers 0x00442251 0x0057FFA0.
 struct TargetRef00217D4C

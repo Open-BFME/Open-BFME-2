@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?rva0056FAA5@Rva0056FAA5@@QAEPAV1@PAV1@0@Z @0x0056FAA5 31B
 // Evidence: unlock lane; reads +0x04 of other then this hands to rowed Rva0056F6E9Hook leaves pop-pop assigns dst+0x04 returns dst; caller 0x0056FCF3; prev S5HandleHashCompares read-order lever
 int Rva0056F6E9Hook(int a, int b);

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005748B7@Rva005748B7@@QAEXPAURva002BED91@@@Z retail 0x005748B7 59B.
 // Evidence: callers at 0x005749AF 0x00574A82 0x00574D2F 0x00574D4F; callees rowed get 0x0042D6B4 clear 0x002BED91 forwarder 0x005CB260 plus pin ?rva005CB265@Rva005CB265@@UAEHXZ at 0x005CB265.
 class Rva0042D6B4PtrChaseField

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva005832D0Set@@YGXABVAsciiString@@@Z @0x005832D0 137B
 // Free file-transfer loading map-name setter: filename after last backslash
 // via rowed reverseFind 0x00035930, fallback to inlined str() with empty at

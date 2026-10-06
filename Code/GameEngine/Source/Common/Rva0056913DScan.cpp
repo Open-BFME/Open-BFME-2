@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0056913D@Rva0056913D@@QAEXPAVBitRange@@PAX@Z @0x0056913D 158B.
 // Twin of 0x005691DB (see Rva005691DBScan.cpp for the recipe): same slot

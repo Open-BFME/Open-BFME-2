@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 void operator delete(void *);
 

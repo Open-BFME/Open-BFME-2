@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00583202Set@@YGXH@Z @0x00583202 206B
 // File-transfer loading time setter: clamps a seconds count at zero, splits
 // minutes/seconds, formats via TheGameText "MapTransfer:Timeout" fetch into a

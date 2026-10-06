@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0056B296@Rva0056B296@@QAEXPAX@Z @0x0056B296 71B.
 // Twin-slot conditional release: twin of 0x0056B1F2 on the +4 slot (but

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ??0Rva00567960@@QAE@HPBURva00567CCDInfo@@@Z @0x00567CCD 135B.
 // MI ctor for Rva00567960 (dtor at 0x00567960 proves the class and its
 // +8 second base): zeroes +4, builds AsciiString "Button", constructs the

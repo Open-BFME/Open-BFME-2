@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 // ?rva00559A11@Rva00559A11@@QAEPAV1@H@Z @0x00559A11 101B: rank table init with two floats.
 // Evidence: leaf with 2 callers; or/and -1/0 plus 9 ints descending and 2 float globals; ret 4 returning this.
 extern float g_00BC7508;

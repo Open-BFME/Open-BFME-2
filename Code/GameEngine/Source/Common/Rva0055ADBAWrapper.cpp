@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0055ADBA@Rva00506FE9Hit@@QAEXPAX@Z retail 0x0055ADBA 30B: wrapper loads global 0x00DFEEF8 to get record for arg then removes this via rowed 0x004EC276; evidence pin plus callees rowed plus 6 matched callers
 struct Rva002A8AB1Record;
 class Rva002A8F24

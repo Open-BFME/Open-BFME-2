@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva00583015Destroy@@YAXXZ @0x00583015 31B
 // Singleton destroy for global 0x00A06398 (created by 0x005836B5 via 0x00583359).
 // Evidence: mov ecx [0x00A06398] test je mov eax [ecx] push 0 call [eax] push eax

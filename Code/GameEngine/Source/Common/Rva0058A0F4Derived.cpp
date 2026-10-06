@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructors tail-calling Rva0058A0F4::~
 // Rva0058A0F4 at 0x0058A0F4 (pinned opaque SEH base dtor: four vptrs at

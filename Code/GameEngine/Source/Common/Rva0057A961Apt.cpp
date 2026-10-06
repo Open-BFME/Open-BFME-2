@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0057A961@Rva0057A961@@QAEX_N@Z @0x0057A961 86B.
 // Expand-button Apt state setter: early-out on cached byte +0x25, then AptCall SetExpandButtonState with "_up"/"_disabled".
 // Evidence: unlock lane plus caller 0x0057B499 push 1 plus callee row ?Rva0050E9FEAptCall plus strings SetExpandButtonState _up _disabled plus globals TheRva00222A8BTarget g_Rva0107301CEmptyString.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00565898@Rva00565898@@QAEPAVRva00564B1A@@PAV2@0@Z @0x00565898 (51B).
 // Erase-like thiscall ret 8: new_finish = Copy(last m_finish first extra) then

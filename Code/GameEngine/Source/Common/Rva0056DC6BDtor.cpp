@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva0056DC6B@@UAE@XZ retail 0x0056DC6B 11B.
 // Store vtable 0x0086DB78 then tail-jmp base dtor ??1Rva005248D0@@UAE@XZ.

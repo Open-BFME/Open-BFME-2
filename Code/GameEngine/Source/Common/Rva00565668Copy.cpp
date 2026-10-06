@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00565668Copy@@YAPAVRva00564B1A@@PAV1@00PAD@Z @0x00565668 (29B).
 // 4-arg cdecl wrapper over rowed 3-arg Copy 0x00564CD4. Forwards first/last/dest

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ??0Rva00577F77@@QAE@PAXH@Z @0x00577F77 48B: ctor calls base 0x005C6D4D then stores args to +0x3c/+0x40 then sets vtable g_00C6EA28 then constructs vector<BfmeE16> at +0x44. Evidence: unlock packet calls pin-only base plus rowed Vector_base plus caller 0x005782F4 pushes parent plus int.
 #include <vector>

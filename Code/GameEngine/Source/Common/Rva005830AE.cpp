@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005830AE@Rva005830AE@@QAEXH@Z @0x005830AE 115B
 // Free-standing progress tooltip updater: null-checked slot 0x40 on 0x9FEA28,
 // empty-string Mouse tooltip via 0x37050/0x1EEA6D, then slots 0x5C 0x28 0x28 0x28 0x30.

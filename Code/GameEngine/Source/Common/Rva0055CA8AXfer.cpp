@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva0055CA8A@@MAEXPAVXfer@@@Z at 0x0055CA8A size 34
 // Evidence: unlock lane; vtable slot 3 of 0x00817300/0x0081D00C/0x0081C730;
 // Version1 via rowed 0x000053EE then bool at +0x20 via Xfer slot 0x90;

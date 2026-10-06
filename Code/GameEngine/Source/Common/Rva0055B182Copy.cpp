@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /Ireference/shims/bfmelist /Ireference/shims/bfme2_ascii /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0055B0CC@@QAE@ABV0@@Z @0x0055B182 166B: user-written copy constructor
 // of the opaque owner whose ctor/dtor are the rowed 0x0055B048/0x0055B0CC

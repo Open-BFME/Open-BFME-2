@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0057BAC4@Rva0057BAC4@@QAEXXZ @0x0057BAC4 52B unlock lane Apt Close via rowed call.
 // Evidence: same shape as Rva0057BAF8Toggle 86B; prefix +0x18 plus 8 else g_Rva0107301CEmptyString; level +0x14; function Close; sets +0x28 to 3; callers 0x0057BBCA 0x0057BC3D.
 class Rva00222A8BTarget;

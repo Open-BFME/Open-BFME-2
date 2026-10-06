@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva0054D8D8@@QAE@XZ @0x0054D8D8 128B. Non-virtual dtor with EH: three
 // UnicodeString at +0x00/+0x04/+0x08, two list<AsciiString> at +0x1C/+0x20,

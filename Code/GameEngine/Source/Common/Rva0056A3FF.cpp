@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHsc /Oy- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva0056A3FF@Rva0056A3FF@@QAEXPAVHostClass005C8E0A@@PAV?$vector@VRva00568A20@@V?$allocator@VRva00568A20@@@_STL@@@_STL@@@Z, retail 0x0056A3FF, 171 bytes.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva005686F5@@YGPAXPBURva005686F5Elem@@@Z @0x005686F5 44B.
 // Null-guarded two-stage name lookup: if g_00DFE1A8 is null return 0,

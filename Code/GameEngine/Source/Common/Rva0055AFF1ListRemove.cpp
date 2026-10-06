@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0055AFF1@Rva0055AFF1@@QAEXH@Z @ 0x0055AFF1, 46 bytes.
 // Single-erase of int value from list at +0x1C. Evidence: retail walks nodes

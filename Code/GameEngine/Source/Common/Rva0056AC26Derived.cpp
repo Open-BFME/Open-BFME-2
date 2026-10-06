@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque multiple-inheritance destructors tail-calling Rva0056AC26::~
 // Rva0056AC26 at 0x0056AC26 (pinned opaque MI base dtor: SEH, vptrs at

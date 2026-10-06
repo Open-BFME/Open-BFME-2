@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0058AE1EGet@@YGHPAX@Z 0x0058AE1E 24B evidence: AIUpdateInterface+0x258 victim !=0 via rowed getCurrentVictim; ret 4 stdcall
 class Object;
 class AIUpdateInterface

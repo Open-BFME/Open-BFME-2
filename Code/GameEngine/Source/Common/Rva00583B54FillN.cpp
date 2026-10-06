@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ?Rva00583B54FillN@@YAPAVRva002337F0@@PAV1@IABURva002337F0Blk@@@Z @0x00583B54 27B
 // Dispatcher creating Tag at [ebp-1] and tail-calling FillN 0x00583A84.
 // Evidence: push ebp mov ebp esp push ecx lea eax [ebp-1] push eax push [ebp+0x10] push [ebp+0xc]

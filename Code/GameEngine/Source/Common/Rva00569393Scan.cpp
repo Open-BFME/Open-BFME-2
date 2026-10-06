@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00569393@Rva00569393@@QAEXPAX@Z @0x00569393 34B.
 // Cursor loop over the +0x58/+0x5C pointer vector: for each element call the

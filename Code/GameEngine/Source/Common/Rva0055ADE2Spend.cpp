@@ -1,4 +1,4 @@
-// cl: /O1 /G6 /arch:SSE /MD
+// cl: /MD
 // Retail compares the two floats with fcomi, a P6 instruction MSVC 7.1 emits
 // only under /arch:SSE; /O1 /G6 alone gives fcom/fnstsw.
 // ?rva0055ADE2@Rva0055ADE2@@QAEXPAVPlayer@@@Z @0x0055ADE2 147B

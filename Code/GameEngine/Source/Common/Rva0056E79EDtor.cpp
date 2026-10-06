@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva0056E79E@@UAE@XZ @0x0056E79E 171B
 // Dtor with AptOnlineLogin::InitGadgets close plus WindowManager/IMEManager plus GameSpy at +0x60 plus AsciiString at +0xd8 plus base 0x005248D0.
 // Evidence: vtable stores 0x0086DBBC/0x0086DB78; g_Va00E062EC guard; string literal; _bfme_closeAptScreen pin; TheWindowManager+0xb4 TheIMEManager+0x40; releaseBuffer at +0xd8; GameSpy dtor; base dtor pin.

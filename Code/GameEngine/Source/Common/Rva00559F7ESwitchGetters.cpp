@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Integer switch helpers near GameSpy preferences 0x00559F7E..0x00559FAC (46B).
 // Sibling 2-case switch returners emitting push-imm8/pop-eax under /O1.

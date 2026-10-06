@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?rva00567A27@Rva00567960@@QAEXXZ @0x00567A27 66B
 // vslot 2 of 0x0086CEF0 (+8 of Rva00567960): BfmeMsgDN msg(holder+0x14, this+0xc) then ControlBar::bfmeShowDN via g_bfmeWorldRV.
 // Evidence: ret no args thiscall; pin ?bfmeShowDN@ControlBar@@QAEXPAUBfmeMsgDN@@@Z 0x00405C04; global g_bfmeWorldRV ?g_bfmeWorldRV@@3PAUBfmeWorldRV@@A; this+8 deref +0x14 and this+0xc; donor BfmeConv1941 BfmeMsgDN virtual dtor plus 2-int inline ctor.

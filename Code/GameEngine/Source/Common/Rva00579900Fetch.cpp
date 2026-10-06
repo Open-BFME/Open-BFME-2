@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?Rva00579900Get@@YA?AVUnicodeString@@H@Z retail 0x00579900 149B
 // Evidence: unlock; TheGameText fetch slot 0x3C STRATEGICHUD:StatsBonus; UnicodeString format 0x006CB5D0; releaseBuffer 0x00036E70; copy ctor 0x00037050; callers 0x00579D3D 0x00579E82; precedent Rva005D38C8Fetch.cpp single-int
 typedef unsigned short wchar_t;

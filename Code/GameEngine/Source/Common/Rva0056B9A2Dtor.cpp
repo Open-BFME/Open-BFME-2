@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_CRTIMP= /Ireference/shims/bfme2_ascii
+// cl: /MD /EHsc /D_CRTIMP= /Ireference/shims/bfme2_ascii
 //
 // ??1Rva0056B9A2@@UAE@XZ @0x0056B9A2 (80B)
 

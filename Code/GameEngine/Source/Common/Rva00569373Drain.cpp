@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00569373@Rva00569373@@QAEXPAX@Z @0x00569373 32B.
 // Drain loop over the +0x58/+0x5C pointer vector: while begin != end, call

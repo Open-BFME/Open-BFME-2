@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva005765D1@@QAE@PAXHH@Z @0x005765D1 90B: ctor stores vtable 0x0086E7A4 at +0 plus arg1 at +8 over base Rva005D19F8(a,b), then ptr-chase getters with virtual call. Evidence: retail mov stores plus vtable imm plus ret 12 plus base call 0x005D19F8 plus getters 0x00328A83/0x0042D697 plus virtual 0x005CC208 plus caller 0x00576A9F chain; prev Disp0DwordImmSetters next Rva005766B3Ctor.
 class Rva00328A83PtrChaseField
 {

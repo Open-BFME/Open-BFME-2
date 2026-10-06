@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // vector<Rva00568A20>::_M_allocate_and_copy, retail 0x00568D68, 45 bytes.
 // Allocates n slots through the end-of-storage proxy (12-byte allocator

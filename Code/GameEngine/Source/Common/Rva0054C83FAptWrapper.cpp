@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?Rva0054C83FAptCall@@YAHPAVRva00222A8BTarget@@PAXPBD2PAPBDPA_N@Z @0x0054C83F 56B
 // Free APT call wrapper: forwards Target as `this` plus caller args and the
 // bool-to-string selector at 0x004E678B to the thiscall AptCall twin at

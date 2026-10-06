@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva0057A4E7@@QAE@XZ @0x0057A4E7 53B.
 // Non-virtual dtor: inline AsciiString member at +8 torn down via releaseBuffer
 // with EH state 0 then member at +0 destroyed via 0x0022167C. No vptr store.

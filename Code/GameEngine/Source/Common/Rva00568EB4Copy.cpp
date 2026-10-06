@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00568EB4Copy@@YAPAVRva00568B4E@@PAV1@00@Z @0x00568EB4 50B: range-copy loop
 // over 0x14-byte Rva00568B4E elements: count is (last-first) via idiv 0x14,

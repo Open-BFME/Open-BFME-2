@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?Rva00567B6DAdd@@YAXPAVRva005C3F02@@PBUPayload@Rva005677B9@@@Z, retail 0x00567B6D, 106 bytes.
 // Caller 0x00568021 passes container in first arg and 2-dword payload in second; twin new-0x10 plus refcount-add pattern of 0x005CE2BA family.
 

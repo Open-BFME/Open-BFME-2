@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva0057E3DB@@UAE@XZ @0x0057E3DB 129B
 // MI dtor: derived vptr 0x86F390 at +0 on entry, base vptrs 0x86E350 at +0
 // and 0x8363B8 at +4 at exit. Members +0x0C freed via rowed _free 0x30830,

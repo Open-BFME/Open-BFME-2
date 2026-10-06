@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva00577846@@QAE@PAVRva00577838@@H@Z @0x00577846 29B: stores vtable 0x00C6E980 at [this] plus args at +4/+8 plus byte 0 at +0xc. Evidence: caller 0x00577863 passes outer this and outer arg. ret 8.
 class Rva00577838
 {

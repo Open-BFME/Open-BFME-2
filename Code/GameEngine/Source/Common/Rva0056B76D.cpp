@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0056B76D@Rva0056B76D@@QAE_NE@Z, 0x0056B76D, 51B: honest predicate over +0x50..+0x53 with flags byte. Evidence: leaf, ret 4, test 4/1/2 chain, caller 0x005C4B4D.
 class Rva0056B76D
 {

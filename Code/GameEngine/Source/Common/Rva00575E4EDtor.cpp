@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva00575E4E@@UAE@XZ @0x00575E4E 78B. Destructor unregistering a two-base
 // listener from its parent holder through the rowed erase 0x002B7250.
 // Evidence: deleting-dtor caller at 0x00576041 calls this then operator delete;

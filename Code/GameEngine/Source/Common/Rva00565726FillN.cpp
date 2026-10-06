@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$__uninitialized_fill_n@PAVRva004E18A2@@IV1@@_STL@@YAPAVRva004E18A2@@PAV1@IABV1@ABU__false_type@0@@Z 0x00565726 37B evidence: chain via 0x0052BD16 just landed; stride 0x10 via 16B opaque; caller 0x00565F78; precedent Rva00565685FillN same flags recipe.
 class Rva004E18A2
 {

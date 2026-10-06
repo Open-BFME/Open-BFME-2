@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0057EF87@Rva0057EE5C@@QAEXXZ @0x0057EF87 123B
 // Shutdown of the MpGameSetup +0xD0 member: refresh via pinned 0x0057EF18,
 // clear +0x58 target +8, resize Drawable vector +0x7C to 10, rowed clear

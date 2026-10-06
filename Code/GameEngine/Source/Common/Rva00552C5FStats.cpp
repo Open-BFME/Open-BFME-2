@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00552C5FGet@@YAEXZ 0x00552C5F 27B: free returns 1 if stats connected else init==0; callers 0x0055819C
 extern "C" int __cdecl IsStatsConnected();
 extern "C" int __cdecl InitStatsConnection(int);

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00574EA2@Rva00574EA2@@QAEXXZ retail 0x00574EA2 71B method.
 // Evidence: lazy caches +0x6C +0x74 via rowed getters 0x0042D6D6
 // 0x0042D6C6; listeners +8 +0xC via rowed append 0x005A0B4C;

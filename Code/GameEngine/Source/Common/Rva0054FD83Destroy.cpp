@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$__destroy_aux@U?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UPodPayload20@@U?$_Nonconst_traits@UPodPayload20@@@_STL@@@0@0ABU__false_type@0@@Z retail 0x0054FD83 33B.
 // Range destroy over deque<PodPayload20> via string dtor plus _M_increment 0x0054FA88.

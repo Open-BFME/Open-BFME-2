@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva0056D76B@@QAE@XZ retail 0x0056D76B 57B
 // The ref holder at +8 is released through the rowed fastcall
 // ReleaseTreeHintRef00217D4C 0x0007DEEF when set (EH state 0), then the

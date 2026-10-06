@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0056AF4B@@QAE@PAXHH@Z @0x0056AF4B 45B.
 // Constructor: run the pinned EH 0x0056AD80 initializer with the first

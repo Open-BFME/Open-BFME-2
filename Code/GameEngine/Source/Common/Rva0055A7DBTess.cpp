@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc
+// cl: /MD /EHsc
 // stlport
 // ?rva0055A7DB@Rva0055A246@@QAEXHPAX@Z @0x0055A7DB (176B): Bezier tessellation fill of Coord3D vector via Rva005C76C0 forward-difference iterator. Evidence: prev 0x0055A627 same flags Rva0055A246; rowed ctor 0x005C7448 int plus Rva0055A246 source; rowed rva005C74B1 init plus rva005C743B done plus rva005C7636 advance plus LeaField get 0x0053998C at +0x38; rowed erase Gen_p12pod plus resize Coord3D; ret 8 two stack args; callers 0x003904DE 0x0045B8E1 0x0048DF3A.
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's

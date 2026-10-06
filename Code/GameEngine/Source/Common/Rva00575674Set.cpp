@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00575674@Rva00575674@@QAEXPAVObject@@@Z @0x00575674 (38B):
 // Pooled-object setter with self-assign guard: if (p == m_ptr) return;
 // old = m_ptr; m_ptr = p; toFree = old ? old->deleteInstance(0) : 0;

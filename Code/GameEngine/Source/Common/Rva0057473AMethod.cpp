@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0057473A@Rva005746AF@@UAEXXZ retail 0x0057473A 120B
 // Virtual slot 1 of 0x0086E3B0 (base Rva005746AF ctor 0x005746AF) and 0x0086E3CC (derived Rva005747DA).
 // Evidence: vtable slot 1 shared by both ctors; timeGetTime throttle 1000ms on +8; TreeHintRef at +0xC via rowed op= 0x002174A4 and Release 0x0007DEEF;

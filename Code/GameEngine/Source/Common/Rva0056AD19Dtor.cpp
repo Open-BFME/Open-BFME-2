@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0056AD19@@UAE@XZ retail 0x0056AD19 88B
 // Own vptrs C6D1EC (+0) and C6D1B0 (+8, inside the first base); the member at
 // +0x14 is emptied in the body through the rowed ?clear@Rva002BED91

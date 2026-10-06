@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00579D96@Rva00579AB7@@QAEXM@Z @0x00579D96 98B slot 5 of 0x0086ED64.
 // Float setter with change detection: if arg != m_38, fetch UnicodeString via
 // rowed Rva00579995Get 0x00579995, set indexed text via rowed rva00579B17

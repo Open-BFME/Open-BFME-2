@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva00577AE9AptCall@@YAHPAVRva00222A8BTarget@@PAXPBD2PAHPAM444@Z @0x00577AE9 314B: Apt forward with 1 int plus 4 floats.
 // Builds 5 AsciiStrings via rowed 0x00222834 and 0x002228E8, passes their text
 // or g_Rva0107301CEmptyString as 5 args to thiscall twin rva00222B19

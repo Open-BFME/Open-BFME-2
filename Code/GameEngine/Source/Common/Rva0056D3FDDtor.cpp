@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva0056D3FD@@UAE@XZ @0x0056D3FD 59B
 // Opaque dtor called by the rowed ??_G 0x0056D61F (vtable 0x00C6DAA4#0).
 // Same shape as the rowed ??1Rva00539926 (Rva005396E6Dtor.cpp): store own

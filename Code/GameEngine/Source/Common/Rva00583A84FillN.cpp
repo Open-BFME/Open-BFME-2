@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ?Rva00583A84FillN@@YAPAVRva002337F0@@PAV1@IABURva002337F0Blk@@ABUTag@@@Z @0x00583A84 37B
 // FillN helper looping count times calling rowed Init 0x00583A72 then add 0x1c dec jne returning end.
 // Evidence: push esi mov esi [esp+8] push edi mov edi [esp+0x10] test jbe push [esp+0x14] push esi call 0x00583A72;

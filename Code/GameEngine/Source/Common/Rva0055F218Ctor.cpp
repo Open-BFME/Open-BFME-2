@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /arch:SSE
+// cl: /DNDEBUG /MD /EHs
 // ??0Rva0055F218@@QAE@IAAUSrc0055F218@@@Z, retail 0x0055F218, 120 bytes.
 // UInt-plus-template ctor: forwards the dword to the rowed base
 // ??0Rva0055EFE1@@QAE@I@Z at 0x0055EFE1, subobject defaults at +0xC/+0x10/+0x14/+0x15,

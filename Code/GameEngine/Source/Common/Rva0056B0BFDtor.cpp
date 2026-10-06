@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva0056B0BF@@UAE@XZ @0x0056B0BF 90B. Dtor with three vptrs unregistering
 // via rowed erase 0x002B7250 then base dtor 0x0056AC26.
 // Evidence: caller at 0x0056B359 is deleting dtor; sibling shape of 0x00575E4E

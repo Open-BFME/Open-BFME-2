@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva00555B79@@QAE@XZ, retail 0x00555B79, 8 bytes. Unlock lane: empty dtor
 // over member at +4 via pinned ??1Gen_uw_00385371@@QAE@XZ (add ecx,4; jmp).

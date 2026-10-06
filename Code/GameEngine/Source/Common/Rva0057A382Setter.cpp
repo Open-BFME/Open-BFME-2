@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0057A382@Rva0057A382@@QAEXXZ @0x0057A382 39B
 // Evidence: caller 0x0057A748 sets +0x58=0 +0x5C=1; callee row ?rva005D3F6D@Rva005D3F6D@@QAEXH@Z; neighbours share /O1 /MD
 extern int g_00E06374;

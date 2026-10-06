@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0057FECE@Rva0057FECE@@QAEXXZ @0x0057FECE 112B
 // Evidence: unlock lane, caller 0x0043DE57 in 0x0043DE19 (ecx=esi+0x244 subobject), global g_Va00E06394, virtual slot 2 on +0x64 with delete, rowed clear 0x0052493F on this, literal AptMpChat::InitGadgets via pin 0x0041149A.
 #include "ascii_string.h"

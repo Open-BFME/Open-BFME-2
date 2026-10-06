@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0057A3B2Get@@YAHH@Z @0x0057A3B2 33B
 // Linear search of 6-entry key/value table at 0x00C6EF40; returns value or -1.
 // Evidence: callers at 0x0057AB2B 0x0057AB36 pass int and use signed result.

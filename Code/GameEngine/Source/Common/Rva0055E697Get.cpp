@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0055E697@Rva0055E697@@QAEXHHHHH@Z, retail 0x0055E697, 61 bytes.
 // Vslot 7 getter: three GameClientRandomVariables at +0x24/+0x30/+0x3C via
 // rowed getValue 0x002341A1 into out Vector3 at first arg plus four ignored

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005778E3@Rva005778E3@@QAEHXZ @ 0x005778E3 (25B):
 // Acquire counterpart to 0x005778FC release on double-indirect holder at +0x40;
 // bumps flag at +0xC and count at +0x10 returning the old flag. Evidence: caller

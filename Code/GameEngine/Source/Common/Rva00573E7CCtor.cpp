@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Os /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0Rva00573E7C@@QAE@XZ @0x00573E7C (60B).
 // Ctor of Rva00573F03-family (vtable 0x0086E2C8): calls base Rva00573B23

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oy-
+// cl: /MD /Oy-
 //
 // ?Rva00573512Check@@YGHPAUThing@@PAX@Z, retail 0x00573512, 180 bytes. Banked partial (score 0.98) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

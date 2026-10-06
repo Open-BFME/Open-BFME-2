@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?rva00567D70@Rva00567960@@QAEXXZ @0x00567D70 38B
 // vslot 3 (offset 0xC) of vtable 0x0086CEF0 (class Rva00567960).
 // Evidence: ret no args thiscall; pin ?rva00567A6E@Rva00525E55@@QAEXH@Z 0x00567A6E; row ?rva005C394D@Rva005C394D@@QAEXXZ 0x005C394D; this+8 ptr plus this+0xC int then inner +0xC slot 0x18 returning target for tail jmp.

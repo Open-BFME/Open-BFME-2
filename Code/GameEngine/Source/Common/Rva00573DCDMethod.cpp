@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00573DCD@Rva00573B23@@QAEMH@Z @0x00573DCD 77B
 // Vtable slot 9 float method: ThingTemplate lookup via AsciiString at +0xC and ObjectID at +8.
 // Evidence: vtable slot 9 of 0x0086E270 0x0086E2C8 0x00870B38; callees rowed 0x002D06CA 0x00049DC5

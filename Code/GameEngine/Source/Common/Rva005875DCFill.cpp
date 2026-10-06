@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva005875DCFill@@YAXPAVRva00587375@@IPBV1@@Z @0x005875DC 27B
 // 3-arg fill wrapper: forwards dest count src plus dummy byte to rowed 4-arg
 // 0x00587422. Unblocks 0x00587DCD.

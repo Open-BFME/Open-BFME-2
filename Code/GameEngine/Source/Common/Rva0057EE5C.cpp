@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // ??1Rva0057EE5C@@UAE@XZ @0x0057EE5C 141B
 // Evidence: unlock dtor stores vtable 0x0086F4F0 frees +0xB4 +0x7C +0x70 +0x64 via rowed _free 0x00030830 releases +0x58 via rowed fastcall ReleaseTreeHintRef 0x0007DEEF then pinned base dtor 0x005248D0. Callers 0x0044227B 0x0057EEF1 0x0043DAC3. Prev VectorObjectIDFillInsert next Rva0057F2DE.
 struct TargetRef00217D4C;

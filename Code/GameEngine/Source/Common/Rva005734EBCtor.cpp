@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005734EB@@QAE@XZ @0x005734D7 20B
 // Ctor: base Rva005CB22A holder constructed with NULL at +0, then our own
 // vtable is stored; returns this. The rowed dtor ??1Rva005734EB@@UAE@XZ in

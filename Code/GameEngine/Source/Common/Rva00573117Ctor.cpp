@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00573117@@QAE@XZ @0x005730FF 24B
 // Ctor: base Rva005CB22A holder constructed with (void *)3 at +0, int at +8
 // zeroed, then own vtable stored; returns this. Sibling family of

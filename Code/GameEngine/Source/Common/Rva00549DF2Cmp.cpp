@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00549DF2Cmp@@YGIPAX0@Z @0x00549DF2 39B
 // Unsigned word compare at +0x5DA via double chase. Evidence:

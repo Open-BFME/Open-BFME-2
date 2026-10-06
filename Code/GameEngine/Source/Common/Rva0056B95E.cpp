@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 // ?rva0056B95E@Rva0056B95E@@QAEXXZ @0x0056B95E 18B:
 // Rva0056B95E::rva0056B95E forwards virtual 0x44 result to virtual 0x30.
 // Caller 0x003FDE71. Vtable slots 0x30/0x44 from retail.

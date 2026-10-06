@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /MD /GX-
 // ?Rva00590F76Get@@YAHPBVRva004D6119@@@Z @0x00590F76 (47B):
 // Free __cdecl size helper: copies the +0x1c UnicodeString via the rowed
 // value-returning getter @0x004D6119 into the dead incoming argument home

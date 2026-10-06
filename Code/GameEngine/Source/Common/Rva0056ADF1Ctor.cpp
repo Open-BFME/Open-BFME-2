@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0056ADF1@@QAE@PAXH@Z @0x0056ADF1 53B.
 // Constructor: run the pinned 0x0056AD80 initializer, null +0x14, install

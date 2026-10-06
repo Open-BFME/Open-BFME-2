@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ?Rva00583B11Copy@@YAPAVRva002337F0@@PAV1@00ABUTag@@@Z @0x00583B11 38B
 // Copy helper looping first to last calling rowed Init 0x00583A72 then add 0x1c returning end.
 // Evidence: push esi mov esi [esp+0x10] push edi mov edi [esp+0xc] jmp cmp edi [esp+0x10] jne

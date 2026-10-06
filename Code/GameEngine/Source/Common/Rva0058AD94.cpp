@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0058AD94@Rva0058AD94@@QAEXH@Z 0x0058AD94 11B evidence: m0C at +0xC shared with Rva0058ADA8 neighbour; v04 slot 0x10; ret 4 int arg unused
 class Rva0058AD94
 {

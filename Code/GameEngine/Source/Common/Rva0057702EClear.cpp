@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0057702E@Rva0057702E@@QAEXXZ @ 0x0057702E (30B):
 // Guarded clear on pointer at +0; nulls it then operator-deletes the virtual
 // result at slot 4 with arg 0 or null. Evidence: 7 callers including 115B bodies

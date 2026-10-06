@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0056AF94@@QAE@PAX@Z @0x0056AF94 31B.
 // Constructor: run the pinned EH 0x0056AD80 initializer, then install the

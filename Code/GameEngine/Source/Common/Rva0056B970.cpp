@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0056B970@Rva0056B970@@QAEXI@Z @0x0056B970 20B:
 // Rva0056B970::rva0056B970 early-outs unless byte at +0x5d of ptr at +0xac,
 // then tail-calls virtual 0x1c forwarding arg. Caller 0x003FDE50.

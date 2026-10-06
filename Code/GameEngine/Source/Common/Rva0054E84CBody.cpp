@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0054E84C@Rva0054E84C@@QAE_NXZ @0x0054E84C 33B: honest-address list scan.
 // Evidence: callers 8x in 0x0054E8DC; no callees; circular list via [ecx] next and [ecx+8] string byte; returns OR over nodes.

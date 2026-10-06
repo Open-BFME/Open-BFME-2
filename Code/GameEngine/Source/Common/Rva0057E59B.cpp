@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0057E59B@Rva0057E97A@@QAEXH_N@Z @0x0057E59B 26B
 // Window enable helper of the Rva0057E97A holder: w = m_begin[index] at +0x7C,
 // if w is null skip, else w->winEnable(enable) via rowed 0x00313BEC.

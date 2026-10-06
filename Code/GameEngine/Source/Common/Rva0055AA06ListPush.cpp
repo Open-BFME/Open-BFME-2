@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0055AA06@Rva0055AA06@@QAEXPBUCoord3D@@@Z @ 0x0055AA06, 49 bytes.
 // Push TheGameLogic+0x40 onto list at +0x18 inc count at +0x1C copy 12B to +0x20.

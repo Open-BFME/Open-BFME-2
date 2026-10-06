@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva0056B126@@UAE@XZ, RVA 0x0056B126, 90 bytes.
 // Dtor with three vptrs unregistering via rowed erase 0x002B7250 then base dtor 0x0056AC26.
 // Evidence: caller at 0x0056B3D9 is deleting dtor; sibling shape of 0x0056B0BF with holder at parent+4.

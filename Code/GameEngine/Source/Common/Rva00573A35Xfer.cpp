@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00573A35@Rva00573B23@@UAEXPAVXfer@@PAX@Z @0x00573A35 102B
 // Xfer slot 12 (0x30) of Rva00573B23 (vtable 0x0086E270): Version(1,2) then
 // ObjectID when minimum==1, then AsciiString +0x2c via 0x6c, Coord +0x30 via

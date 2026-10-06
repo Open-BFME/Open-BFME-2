@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0058ADA8@Rva0058ADA8@@QAEXH@Z 0x0058ADA8 40B evidence: leaf via vslots 8 and 0x14; m0C at +0xC m18 at +0x18; called from 0x004B333C
 class Rva0058ADA8
 {

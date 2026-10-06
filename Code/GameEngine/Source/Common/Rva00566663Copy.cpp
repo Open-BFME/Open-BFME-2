@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00566663Copy@@YAPAURva004FAFF2@@PAU1@00@Z, retail 0x00566663, 50 bytes.
 // Array copy of Rva004FAFF2 via rowed assign with 0x58 stride.
 // Evidence: count via (end-begin)/0x58 idiv; loop assign plus 0x58 bumps; caller 0x00566933; unblocks 0x00566920.

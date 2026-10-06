@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva0057ACEB@@QAE@PBURva0057ACEBData@@@Z @0x0057ACEB 59B
 // Refcounted holder ctor: news 0x10 impl with vtable 0x0086F090 and copies 8B arg.
 // Evidence: stores vtable at new obj, callers pass 8B struct ptr with ecx=temp.

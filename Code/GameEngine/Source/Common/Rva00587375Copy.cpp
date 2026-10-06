@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00587375@Rva00587375@@QAEXPBV1@@Z @0x00587375 70B
 // Struct copy 0x3C bytes: dwords +0 +4 +8, byte +0xC, dword +0x10,
 // 8-dword block +0x14 via struct assign (rep movsd 8), dword +0x34,

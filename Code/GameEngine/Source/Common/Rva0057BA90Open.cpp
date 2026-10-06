@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0057BA90@Rva0057BA90@@QAEXXZ @0x0057BA90 52B leaf lane Apt Open via rowed call.
 // Evidence: same shape as Rva0057BAC4Close 52B; prefix +0x18 plus 8 else g_Rva0107301CEmptyString; level +0x14; function Open; sets +0x28 to 1; callers 0x0057BC31 0x0057BC20.
 class Rva00222A8BTarget;

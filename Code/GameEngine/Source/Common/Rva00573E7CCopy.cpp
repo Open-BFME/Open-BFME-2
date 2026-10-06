@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0Rva00573E7C@@QAE@ABV0@@Z @0x00573EB8 75B (existing pin): order-object
 // copy constructor. It copies the base through the rowed Rva00573B23 copy

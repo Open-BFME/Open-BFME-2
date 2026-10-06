@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0057605D@@UAE@XZ retail 0x00575E9C 78B
 // Two-base dtor: own vptrs C6E6A0 at +0 and C6E690 at +8; under EH state 1
 // the body unregisters the +8 subobject from the list at +8 of the object

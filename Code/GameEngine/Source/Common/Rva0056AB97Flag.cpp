@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0056AB97@Rva0056AB97@@QAE_NXZ @0x0056AB97 41B.
 // Guarded flag-set: false when the +0x14 record fails pinned 0x0056A989,

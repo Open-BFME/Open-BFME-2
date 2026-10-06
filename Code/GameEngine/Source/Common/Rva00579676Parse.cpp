@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00579676Parse@@YA_NPBDPAH@Z @0x00579676 (32B): atoi range check 0<=v<6
 // (unlock lane, missing callee of 0x00579B81/0x00579C00 delegate methods).
 // Parses int via IAT atoi, rejects <0 or >=6, stores to *out and returns true.

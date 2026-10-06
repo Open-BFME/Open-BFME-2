@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque five-vptr MI destructor tail-calling the pinned 0x24A797 base.
 // Retail 0x00589079 (39B) stores four vptrs plus the const 0xC70108 at +0x24,

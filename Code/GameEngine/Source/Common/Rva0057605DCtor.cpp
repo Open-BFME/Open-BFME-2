@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva0057605D@@QAE@HPAUParent0057605D@@@Z @0x0057605D 84B.
 // Constructor of a listener-registering object: a first polymorphic base
 // holding the int argument at +4, the Rva002BA8F1Listener interface as a

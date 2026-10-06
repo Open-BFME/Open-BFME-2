@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 // ?rva0056C0F0@Rva0056C0F0@@QAEXIPAUVec3@@@Z @0x0056C0F0 125B. Div-mod cell index to world x/y via scale plus TerrainLogic slot 0x18 height for z. Evidence: caller 0x004052DA passes index plus 12B out; two div dword ptr [ecx] plus unsigned fild correction; TheTerrainLogic plus g_Va007C26F0.
 class TerrainLogic
 {

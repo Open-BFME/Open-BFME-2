@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 struct Rva00552F2E
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0057EF18@AptMpGameRules@@QAEXXZ @0x0057EF18 46B
 // Clears the +0x7C widget vector via rowed voidptr erase then rowed Drawable
 // resize to 10, clears +0x89, then tail jmps to pinned 0x0057ED2B. Evidence:

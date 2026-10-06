@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva00573B23@@UAE@XZ @0x00573B23 59B
 // Dtor: vptr store, inline StringBase<char> member dtor at +0x2c (inlined to
 // a direct releaseBuffer call, arming EH state 0), then the virtual public

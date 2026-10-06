@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0054C88A@Rva0054C88A@@QAE_NXZ @0x0054C88A 14B
 // Ptr-chase nonzero test through this+4 to int at +0x14. Evidence: retail
 // mov eax [ecx+4] xor ecx cmp [eax+0x14] ecx setne; caller at 0x00437EDC

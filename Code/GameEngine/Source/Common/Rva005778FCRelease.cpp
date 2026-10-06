@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005778FC@Rva005778FC@@QAEXXZ @ 0x005778FC (24B):
 // Guarded refcount release on double-indirect holder at +0x40; decrements count
 // at +0x10 and clears flag at +0xC when it reaches zero. Evidence: sole caller

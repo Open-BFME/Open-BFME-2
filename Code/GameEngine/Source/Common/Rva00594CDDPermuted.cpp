@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /Oy- /Op
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /Oy- /Op
 //
 // ??0FirewallHelperClass@@QAE@XZ, retail 0x00594cdd, 154 bytes. Banked partial (score 0.92) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
