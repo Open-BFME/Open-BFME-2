@@ -242,5 +242,16 @@ class FallThrough(unittest.TestCase):
         self.assertEqual(boot_relayout.fallthrough_pins(r, [whole], sites), {})
 
 
+
+class TruncatedTable(unittest.TestCase):
+    """A vtable an object defines shorter than retail's is not owned (own-data boot of
+    every row: WWDebug/DebugConstructor's 4-byte ??_7Debug@@6B@ vs retail's 49 slots)."""
+    def test_debug_vtable_continues_past_one_slot(self):
+        import boot_relayout
+        r = boot_image.Retail()
+        sites = set(boot_image.all_sites(r)[0])
+        self.assertTrue(boot_relayout.table_continues(r, 0x7BE810, 4, sites))
+        self.assertFalse(boot_relayout.table_continues(r, 0x7BE810, 196, sites))   # all 49 slots
+
 if __name__ == "__main__":
     unittest.main()

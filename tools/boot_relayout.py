@@ -300,6 +300,15 @@ def datum_extent(o, sec, q):
     return lo, len(raw)
 
 
+def table_continues(r, rlo, n, siteset):
+    """Whether retail's table of code pointers runs on past [rlo, rlo + n): the last
+    dword of the object's datum and the one after it are both relocation sites into
+    .text. A vtable an object defines shorter than retail's (a private class view)
+    would otherwise be owned, and a virtual call past its end reads garbage."""
+    last, nxt = rlo + n - 4, rlo + n
+    return all(a in siteset and r.section_of(r.u32(a) - bi.RETAIL_BASE) == ".text" for a in (last, nxt))
+
+
 def is_writable(r, rlo, o, sec):
     return r.section_of(rlo) in (".data", "STLPORT_") or bool(o[0][sec - 1].flags & WRITABLE)
 
@@ -312,6 +321,7 @@ def plan_own(r, live, refs, by_target, objs, banned=(), sites=()):
     relocations are not exactly retail's sites there stays retail's."""
     spans = sorted((u.rva, u.rva + u.size) for u in live)
     los = [s[0] for s in spans]
+    siteset = set(sites)
 
     def in_live(site):
         i = bisect.bisect_right(los, site) - 1
@@ -342,6 +352,8 @@ def plan_own(r, live, refs, by_target, objs, banned=(), sites=()):
             relocs = [x for x in secs[sec - 1].relocs if lo - 4 < x[0] < lo + n]
             if shared:
                 why[rlo] = (n, "writable-shared-with-retail-code")
+            elif n >= 4 and table_continues(r, rlo, n, siteset):
+                why[rlo] = (n, "code-pointer-table-continues-in-retail")
             elif any(not lo <= x[0] <= lo + n - 4 or x[2] != bi.DIR32 for x in relocs):
                 why[rlo] = (n, "reloc-not-dir32-inside")
             elif {rlo + x[0] - lo for x in relocs} != set(sites[bisect.bisect_left(sites, rlo):
