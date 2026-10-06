@@ -418,6 +418,23 @@ private:
 	UnsignedInt m_nextEnemyScanTime; // +0x20
 	Coord3D m_guardeePos; // +0x24
 };
+// Second-system inner state onEnter (dump range 16 head, 0x36A3E9/315): same
+// centre/area/radius/new-attack pattern as AIGuardInnerState::onEnter 0x54379B
+// on the second guard machine layout (target +0x3C, team +0x40, area +0x44,
+// pos +0x48, nemesis +0x68). Address-derived owner; retry from reference body.
+class Rva0036A3E9GuardInnerState : public State
+{
+public:
+	virtual StateReturnType onEnter();
+private:
+	Rva00369FDFGuardMachine *getGuardMachine() { return (Rva00369FDFGuardMachine *)getMachine(); }
+	unsigned char m_pad1C[0x20 - 0x1C];
+	ExitConditions m_exitConditions; // +0x20
+	AIAttackState *m_attackState; // +0x3C
+	Bool m_bfmeRestart; // +0x40
+	unsigned char m_pad41[0x44 - 0x41];
+	UnsignedInt m_bfmeDeadline; // +0x44
+};
 
 StateReturnType AIGuardAttackAggressorState::onEnter( void )
 {
@@ -786,4 +803,44 @@ StateReturnType Rva0036A979GuardIdleState::update( void )
 		}
 	}
 	return STATE_SLEEP(m_nextEnemyScanTime - now);
+}
+StateReturnType Rva0036A3E9GuardInnerState::onEnter(void)
+{
+	Rva00369FDFGuardMachine *guard = getGuardMachine();
+	Object *targetToGuard = guard->findTargetToGuardByID();
+	Team *teamToGuard = guard->findTeamToGuardByID();
+	Coord3D pos;
+	if (targetToGuard)
+		pos = *targetToGuard->getPosition();
+	else if (teamToGuard)
+		teamToGuard->rva0039E5B9(&pos);
+	else
+		pos = *getGuardMachine()->getPositionToGuard();
+	Object *nemesis = TheGameLogic->findObjectByID(getGuardMachine()->getNemesisID());
+	if (nemesis == NULL)
+	{
+		return STATE_SUCCESS;
+	}
+	m_exitConditions.m_center = pos;
+	Real range = AIGuardMachine::getStdGuardRange(getMachineOwner());
+	m_exitConditions.m_radiusSqr = range * range;
+	m_exitConditions.m_conditionsToConsider = (ExitConditions::ATTACK_ExitIfOutsideRadius | ExitConditions::ATTACK_ExitIfNoUnitFound);
+	const PolygonTrigger *area = getGuardMachine()->getAreaToGuard();
+	if (area)
+	{
+		m_exitConditions.m_radiusSqr = area->getShape()->getRadius() * area->getShape()->getRadius();
+		area->getCenterPoint(&m_exitConditions.m_center);
+	}
+	else
+	{
+		Real range2 = AIGuardMachine::getStdGuardRange(getMachineOwner());
+		m_exitConditions.m_radiusSqr = range2 * range2;
+	}
+	m_attackState = new AIAttackState(getMachine(), false, true, false, &m_exitConditions);
+	m_attackState->getMachine()->setGoalObject(nemesis);
+	StateReturnType returnVal = m_attackState->onEnter();
+	if (returnVal == STATE_CONTINUE) {
+		return STATE_CONTINUE;
+	}
+	return STATE_SUCCESS;
 }
