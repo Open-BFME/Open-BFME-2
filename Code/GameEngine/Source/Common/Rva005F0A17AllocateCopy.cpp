@@ -7,9 +7,15 @@
 // as Rva004F6352AllocateCopy.cpp. Prior ObjectID pin at this RVA was a false
 // identity: ObjectID emits the 31B trivial copy, retail calls the 38B ctor copy.
 
+struct Rva005EFD53Shared
+{
+	char m_pad[8];
+	long m_refs;
+};
+
 struct Rva005EFD53Element
 {
-	char m_pad[4];
+	Rva005EFD53Shared *m_ptr;
 
 public:
 	Rva005EFD53Element(const Rva005EFD53Element &that);
@@ -74,3 +80,22 @@ Type *_STL::vector<Type, Allocator>::_M_allocate_and_copy(size_type n,
 }
 
 template Rva005EFD53Element *_STL::vector<Rva005EFD53Element, _STL::allocator<Rva005EFD53Element> >::_M_allocate_and_copy<Rva005EFD53Element *>(unsigned int, Rva005EFD53Element *, Rva005EFD53Element *);
+
+// ??$_Construct@URva005EFD53Element@@U1@@_STL@@YAXPAURva005EFD53Element@@ABU1@@Z @0x005F09FF 24B.
+// Copy-constructs Element with AddRef at +8. Called by 6 matched rows.
+// Evidence: retail null-check p plus copy ptr plus null-check plus inc refs.
+namespace _STL
+{
+template <class T1, class T2>
+void _Construct(T1 *p, const T2 &value);
+}
+
+template <>
+void _STL::_Construct<Rva005EFD53Element, Rva005EFD53Element>(Rva005EFD53Element *p, const Rva005EFD53Element &x)
+{
+	if (!p)
+		return;
+	p->m_ptr = x.m_ptr;
+	if (p->m_ptr)
+		++p->m_ptr->m_refs;
+}

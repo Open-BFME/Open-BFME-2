@@ -14997,3 +14997,5 @@ Rva00521B16	0x00521B16	50	blocked	Ghidra boundary 0x00521B16/50; body copies a U
 ?rva004F1653@AIPlayer@@QAEXXZ	0x004F1653	430	blocked	indirect next via ICF winGetStatus plus 24B iterator dual names plus script 5-arg plus virtual 0x1B8 need donor t=20 model=muse-spark
 ?Rva004F1256Get@@YAHPAUCoord@@HM@Z	0x004F1256	386	blocked	stub-only after 3 sessions 386B player-team-object scoring loop with sqrt and ThingTemplate calls needs full reconstruction beyond timebox t=5 model=muse-spark
 ?rva00479DCD@Rva00479DCD@@QAEXPAVObject@@H@Z	0x00479DCD	149	blocked	callee 0x00588B8A needs thiscall twin: 3 call sites set ecx to this+0x9c0 before E8 to stdcall row YGHPAX; stdcall shape loses ebp and mov ecx (138B vs 149B 5 regions); int return used as vtable object needs honest pointer model t=25 model=muse-spark
+?rva005F05D7@Rva005F05D7@@QAEHXZ	0x005F05D7	15	blocked	add-vs-disp count getter t=18 model=muse-06
+??0Rva005F00FB@@QAE@XZ	0x005F005B	160	blocked	ctor needs vptr plus and-loops plus base pin t=25 model=muse-06

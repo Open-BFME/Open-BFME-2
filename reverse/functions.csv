@@ -66362,3 +66362,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva00528C0C@Rva00528C0C@@QAEXXZ,,0x00528C0C,36,Code/GameEngine/Source/Common/Rva00528C0CFirer.cpp,matched,same firer shape as 0x00528BDD via ShowCommandInterface
 ?rva003FDC46@Rva003FDC46@@QAEXXZ,,0x003FDC46,165,Code/GameEngine/Source/Common/Rva003FDC46.cpp,matched,enable twin of 0x003FDAEB via RVO gets and enables
 ?rva003FDD15@Rva003FDD15Host@@QAEXXZ,,0x003FDD15,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,chain after 0x003FDC46 tail to 0x003FBA58
+??$_Construct@URva005EFD53Element@@U1@@_STL@@YAXPAURva005EFD53Element@@ABU1@@Z,,0x005F09FF,24,Code/GameEngine/Source/Common/Rva005F0A17AllocateCopy.cpp,matched,STL Construct with AddRef via plus8 plus 6 matched callers
