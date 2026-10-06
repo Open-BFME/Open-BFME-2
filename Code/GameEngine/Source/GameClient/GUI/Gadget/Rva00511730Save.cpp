@@ -43,8 +43,9 @@ extern Rva00511730State *g_Va00E046B8;
 class GameSpyInfoInterface;
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class LANAPI;
-extern LANAPI *TheLAN;
+struct Global009FE958;
+extern Global009FE958 *g_Va009FE958;
+#define TheLAN g_Va009FE958
 
 // TheGameLogic (0x00DFE78C): the game mode at +0x110.
 class GameLogic
