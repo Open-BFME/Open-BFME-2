@@ -65,6 +65,7 @@ private:
 class Rva00064640Record
 {
 public:
+	Rva00064640Record(const Rva00064640Record &other);
 	int m_00;
 	int m_04;
 	int m_08;
@@ -73,6 +74,10 @@ public:
 	float m_14;
 	unsigned int m_18;
 };
+
+namespace _STL {
+template <> void _Construct<Rva00064640Record, Rva00064640Record>(Rva00064640Record *, const Rva00064640Record &);
+}
 
 struct Rva00474431Pair
 {
