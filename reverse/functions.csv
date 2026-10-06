@@ -63549,3 +63549,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00538CEF@Rva00538CEF@@QAEPAVRva0020E89C@@XZ,,0x00538CEF,40,Code/GameEngine/Source/GameClient/GUI/Rva00538CEFLookup.cpp,matched,returns view lookup of last element via g_009FEF10 and rowed 0x20EAF6
 ?Rva00580705Partition@@YAPAPAXPAPAX0PAXVRva000795C1Record@@@Z,,0x00580705,113,Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp,matched,STLport unguarded_partition median intro family
 ?rva003EEEB3@Rva003EEEB3@@QAEXH@Z,,0x003EEEB3,96,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 0x003EE7CA loop with nested forward
+?rva003EEF38@Rva003EEF38@@QAEXH@Z,,0x003EEF38,104,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 0x003EE7CA loop saving to +0x14

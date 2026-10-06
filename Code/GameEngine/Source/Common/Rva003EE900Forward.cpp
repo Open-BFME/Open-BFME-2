@@ -383,3 +383,29 @@ void Rva003EEEB3::rva003EEEB3(Int p)
 		}
 	}
 }
+
+// ?rva003EEF38@Rva003EEF38@@QAEXH@Z @0x003EEF38 104B chain via 0x003EE7CA+0x003EEA63 loop saving to +0x14
+// Retail: map 68/1 at owner+8 then loop over int array; per nonzero v calls
+// this->rva003EE7CA(&tmp,v) and this->rva003EEA63(v,ret) then m_saved=v.
+class Rva003EEF38
+{
+public:
+	void rva003EEF38(Int p);
+private:
+	char m_pad[8];
+	Rva004E35D5 m_owner;
+	Int m_saved;
+};
+void Rva003EEF38::rva003EEF38(Int p)
+{
+	((Rva004E3629 *)&m_owner)->rva004E3629(g_Rva00E02E68, 1);
+	Int *arr = (Int *)p;
+	for (unsigned int i = 0; i < (unsigned int)((arr[1] - arr[0]) >> 2); ++i) {
+		Int v = *(Int *)(arr[0] + i * 4);
+		if (v != 0) {
+			Int tmp[3];
+			((Rva003EEA63 *)this)->rva003EEA63(v, ((Rva003EE7CA *)this)->rva003EE7CA((Int)&tmp, v));
+			m_saved = v;
+		}
+	}
+}
