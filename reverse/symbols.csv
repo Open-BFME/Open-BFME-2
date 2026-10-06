@@ -13405,3 +13405,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva003A1626@Team@@QAEXPAX0HPAV1@@Z,0x003A1626,Team member taking (two opaque pointers, int, team); REL32 callee of dump-range-18 0x003C21E5; identity unproven
 ?rva0052E3E6@Rva0052E3E6@@QAEXPAX0@Z,0x0052E3E6,member taking two opaque pointers on the 0x00DFF0F8+0x10 object; REL32 callee of dump-range-18 0x003C35AA; identity unproven
 ?rva00209811@ScriptEngine@@QAEXABVAsciiString@@PAX@Z,0x00209811,ScriptEngine member taking (name ref, opaque); REL32 callee of dump-range-18 0x003C35AA; identity unproven
+?rva002B07A9@Player@@QAE_NPAX@Z,0x2B07A9,Player EH-framed slot initializer called by PlayerList 0x2A7F2A
