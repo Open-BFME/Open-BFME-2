@@ -13990,3 +13990,4 @@ FUN_0063e3ce	0x0023E3CE	602	blocked	EH-prolog large-frame MapCache body t=1 mode
 ?doSpecialPower@Rva004C8C78@@UAEXI@Z	0x004C8C78	163	blocked	EH helper vs inline plus register what vs opts plus list walk and base pushes 268B vs 163B t=25 model=muse-01
 ?rva0047CDCE@HordeSiegeEngineContain@@UAE_NH@Z	0x0047CDCE	62	blocked	needs /G6 for leave plus push ecx plus jmp sharing region gives /O1 /arch:SSE /G7 0 register wall 72B vs 62B t=30 model=muse-01
 ?doSpecialPowerAtLocation@DevastateSpecialPower@@UAEXPBUCoord3D@@I@Z	0x004C82E5	472	blocked	does not compile: forward-declared Player/FXList/Money/TerrainLogic/WeaponStore used as complete types plus missing member layouts t=5 model=muse-01
+?rva0047CAEB@Rva0047CAEB@@QAEPAVBfmeObject872Header@@PAV2@PAVObject@@@Z	0x0047CAEB	84	blocked	register allocation only: obj in edi not stack and filter via add not lea and out in esi not stack; 87B vs 84B t=20 model=muse-01 (stash 0.93 kept)

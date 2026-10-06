@@ -104,3 +104,18 @@ void Rva004FDB57::rva004FDB57(AsciiString arg)
 	slot = arg;
 	m_id1004 = TheGameSpyInfo->_M_slot_120(arg);
 }
+
+class Rva004FDB04 {
+	char m_pad[0x1B8];
+	AsciiString m_name1B8;
+	int m_id1BC;
+public:
+	void rva004FDB04(AsciiString arg);
+};
+
+void Rva004FDB04::rva004FDB04(AsciiString arg)
+{
+	AsciiString &slot = m_name1B8;
+	slot = arg;
+	m_id1BC = TheGameSpyInfo->_M_slot_120(arg);
+}
