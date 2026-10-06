@@ -14855,3 +14855,4 @@ FUN_00761817	0x00361817	162	blocked	two align variants (162B int-parameter and 1
 ?rva0039B16F@ExperienceTracker@@QAEXM_N000M@Z	0x0039B16F	115	blocked	rowed Rva0039AF9B receiver cannot be represented without unrelated cast or unsupported inheritance t=4 model=gpt-6
 ?calcCostToBuild@UpgradeTemplate@@QBEIPAVPlayer@@I@Z	0x0026EF50	315	blocked	BFME2 body adds player upgrade filtering and difficulty scaling absent from donor; modeled virtual slot and player/global ABI still produce major structural/register mismatches after one C++ variant t=12min model=gpt-6.1-sol
 ?rva00403744@AttributeModifierPoolUpdate@@QAEXPBV?$StringBase@D@@@Z	0x00403744	483	blocked	required global RVA 0x009FE1D4 has no data-ledger name and address aliases are prohibited t=3 model=gpt-6
+?rva00240E18@Rva00240E18@@QAEX_N@Z	0x00240E18	164	blocked	external float literal ownership and vector end-field address shape unresolved after four variants t=5 model=GPT-6

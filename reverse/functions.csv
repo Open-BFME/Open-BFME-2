@@ -66172,3 +66172,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0039B773@ScoreKeeper@@QAEHXZ,,0x0039B773,13,Code/GameEngine/Source/Common/RTS/ScoreKeeperDestroyedWorkersBfme2.cpp,matched,ScoreKeeper inferred from neighboring methods and caller field offset 170
 ??1TransportAIUpdateModuleData@@UAE@XZ,,0x0026E1FC,107,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdateModuleDataDestructor.cpp,matched,BFME1 destructor shape adapted to target offsets and single owned pointer
 ?rva0050F5DF@Rva00510D0C@@QAEHHHH@Z,,0x0050F5DF,124,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp,matched,vtable 0x00C6568C slot 2 current page plus map plus base 0x0051274F
+?Rva0024080FAdd@@YAXPAXPAV?$list@HV?$allocator@H@_STL@@@_STL@@@Z,,0x0024080F,34,Code/GameEngine/Source/Common/Rva0024080FObjectIdList.cpp,matched,address callback reads integer at object offset 74 and appends to list int
