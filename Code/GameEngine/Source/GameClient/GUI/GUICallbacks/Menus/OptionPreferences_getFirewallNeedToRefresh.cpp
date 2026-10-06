@@ -58,7 +58,7 @@ Bool OptionPreferences::getFirewallNeedToRefresh()
 
 	Bool retval = false;
 	AsciiString str = it->second;
-	if (str.compareNoCase("TRUE") == 0) {
+	if (((const StringBase<char> &)str).compareNoCase("TRUE") == 0) {
 		retval = true;
 	}
 	return retval;

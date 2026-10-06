@@ -11589,3 +11589,4 @@ FUN_008ee9e9	0x004EE9E9	245	blocked	adapted stash to pin name without hatches sc
 ?rva0037B326@Rva0037BBED@@UAEXXZ	0x0037B326	171	blocked	isEmpty polarity add-vs-lea still differs t=15 model=muse-01 (stash 0.9 kept)
 ?rva0045F084@StancesBehavior@@QAE_NH@Z	0x0045F084	408	partial	ebx edi swap for oldStance and value; cmp edx eax vs cmp eax edx; test ebx vs test edi; size exact via visible noinline rva0045ED4B t=30 model=muse-01 score=0.97 stash=reverse/attempts/0x0045f084.cpp
 ?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourc	0x0026C0D6	122	blocked	vslot slot41 0.9 wall complex virtual calls no NEW idea t=1 model=muse-06
+?bfmeHas985C@BfmeArg985@@QAEDH@Z	0x002940B9	305	partial	lea vs add plus edi vs ecx register choice t=30 model=muse-17 score=0.93 stash=reverse/attempts/0x002940b9.cpp
