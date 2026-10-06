@@ -66363,3 +66363,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva003FDC46@Rva003FDC46@@QAEXXZ,,0x003FDC46,165,Code/GameEngine/Source/Common/Rva003FDC46.cpp,matched,enable twin of 0x003FDAEB via RVO gets and enables
 ?rva003FDD15@Rva003FDD15Host@@QAEXXZ,,0x003FDD15,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,chain after 0x003FDC46 tail to 0x003FBA58
 ??$_Construct@URva005EFD53Element@@U1@@_STL@@YAXPAURva005EFD53Element@@ABU1@@Z,,0x005F09FF,24,Code/GameEngine/Source/Common/Rva005F0A17AllocateCopy.cpp,matched,STL Construct with AddRef via plus8 plus 6 matched callers
+?rva005EF3EE@Rva005EF3EE@@QAEXXZ,,0x005EF3EE,8,Code/GameEngine/Source/Common/Rva005EF3DE.cpp,matched,adjacent forwarder to rowed HideCommandPoints 0x005EF327 same layout as 0x005EF3DE
