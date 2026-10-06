@@ -101,6 +101,15 @@
 // direct-connect host's (+0x34) with no current game; any other sender's
 // announce refreshes OnGameList. Retail keeps the current game in a register
 // across the address compare, so it is read once.
+//
+// LANAPI::handleRequestLocations, retail 0x00581795 (495 bytes), message type
+// 0: Zero Hour's body (Open-BFME-1's LANAPIHandleRequestLocationsThunk.cpp).
+// In the lobby we broadcast a lobby announce (type 2) and note the resend
+// time (+0x3C); as host (slot 0's address is ours) we broadcast a game
+// announce (type 1) with the options from 0x0044802D, the name, the
+// in-progress flag and the game's 16 bytes at +0xCC, as handleRequestGameInfo
+// does. Either way the sender is (re)added to the lobby players exactly as
+// handleLobbyAnnounce does it.
 
 typedef int Int;
 typedef bool Bool;
@@ -356,6 +365,10 @@ public:
 // BFME 1's writeLANGameInfo: serializes the game into a message's options.
 void Rva00447CA9( LANGameInfo *game, char *buffer, Int size );
 
+// fillCurrentLANGameInfo: the current game's options, as Open-BFME-1 names
+// BFME's helper.
+void Rva0044802D( char *buffer, Int size );
+
 void Rva00446A77Enable( void );
 
 class LANAPIInterface
@@ -507,6 +520,7 @@ protected:
 	void handleJoinAccept( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleRequestGameLeave( LANMessage *msg, const BfmeNetAddress *sender, Bool flag );
 	void handleGameAnnounce( LANMessage *msg, const BfmeNetAddress *sender );
+	void handleRequestLocations( LANMessage *msg, const BfmeNetAddress *sender );
 
 	UnsignedByte m_pre0C[0x0C - 4];
 	LANPlayer *m_lobbyPlayers;			// +0x0C
@@ -936,4 +950,58 @@ void LANAPI::handleGameAnnounce( LANMessage *msg, const BfmeNetAddress *sender )
 		}
 		OnGameList( m_games );
 	}
+}
+
+void LANAPI::handleRequestLocations( LANMessage *msg, const BfmeNetAddress *sender )
+{
+	if( m_inLobby )
+	{
+		LANMessage reply;
+		fillInLANMessage( &reply );
+		reply.LANMessageType = 2;	// MSG_LOBBY_ANNOUNCE
+
+		Rva004495A2( &reply, 0 );
+		m_lastResendTime = timeGetTime();
+	}
+	else
+	{
+		// In game - are we a game host?
+		if( m_currentGame )
+		{
+			if( m_currentGame->getAddress( 0 )->Rva00248CBF( getLocalAddress() ) )
+			{
+				LANMessage reply;
+				fillInLANMessage( &reply );
+				reply.LANMessageType = 1;	// MSG_GAME_ANNOUNCE
+				Rva0044802D( reply.GameInfo.options, g_lanMaxOptionsLength );
+				wcsncpy( reply.GameInfo.gameName, m_currentGame->getName().str(), g_lanGameNameLength );
+				reply.GameInfo.gameName[g_lanGameNameLength] = 0;
+				reply.GameInfo.inProgress = m_currentGame->isGameInProgress();
+				memcpy( reply.GameInfo.bfmeTail, m_currentGame->m_bfmeCC, sizeof( reply.GameInfo.bfmeTail ) );
+
+				Rva004495A2( &reply, 0 );
+			}
+		}
+	}
+
+	// Add the player to the lobby player list
+	LANPlayer *player = LookupPlayer( sender );
+	if( !player )
+	{
+		player = new LANPlayer;
+		player->m_address = *sender;
+	}
+	else
+	{
+		removePlayer( player );
+	}
+
+	player->m_name.set( UnicodeString( msg->name ) );
+	player->m_host.translate( msg->hostName );
+	player->m_login.translate( msg->userName );
+	player->m_lastHeard = timeGetTime();
+
+	addPlayer( player );
+
+	OnNameChange( &player->m_address, player->m_name );
 }
