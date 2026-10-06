@@ -9,6 +9,15 @@
 // IAT 3D release call; callers 0x000603C7 0x0006076B.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 typedef void *HSAMPLE;
 
 extern "C" __declspec(dllimport) void __stdcall AIL_release_3D_sample_handle(HSAMPLE sample);

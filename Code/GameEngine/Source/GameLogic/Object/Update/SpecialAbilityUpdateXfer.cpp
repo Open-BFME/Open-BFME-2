@@ -18,6 +18,15 @@
 // Callers include 0x00490CA4 0x00492606 0x00492E31 0x00494E78 0x0049C425.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 class AsciiString;
 class UnicodeString;
 class PooledString;

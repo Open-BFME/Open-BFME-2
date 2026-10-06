@@ -7,6 +7,15 @@
 // caller 0x00293FA7; CameraMarker layout 8B proven by rowed dtor and copy assignment 0x0028876F.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 #include "ascii_string.h"
 
 struct CameraMarker

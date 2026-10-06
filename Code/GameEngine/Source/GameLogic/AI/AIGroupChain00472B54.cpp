@@ -9,6 +9,15 @@
 // _M_increment 0x00024250; virtual slots 0x98/0x118/0xA8; map at +0x54;
 // neighbours ContainModuleDeletingDtors/HordeContainRva00473125.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include <map>
 
 enum CommandSourceType

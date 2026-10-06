@@ -6,6 +6,15 @@
 // here calls rowed Rva0036CA00Str _M_create_node at 0x00053DA3 then list hook insertion; caller 0x00055486.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 class Rva0036CA00Str { public: unsigned char m_data[4]; };
 
 bool operator==(const Rva0036CA00Str &a, const Rva0036CA00Str &b);

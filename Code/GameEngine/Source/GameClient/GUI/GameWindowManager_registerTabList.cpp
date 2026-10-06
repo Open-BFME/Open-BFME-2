@@ -4,6 +4,15 @@
 // GameWindowManager::registerTabList; BFME1 donor GameWindowManager.cpp registerTabList verbatim (m_tabList.clear then m_tabList=tabList); vtable 0x007C7C90 slot 44 offset 0xB0; slots 42-43 winNextTab/winPrevTab rowed in GameWindowManager_winPrevTab.cpp with m_tabList at +0x30 m_modalHead at +0x24; donor header order winNextTab winPrevTab registerTabList clearTabList; ZH header GameWindowManager.h; no callers; callees rowed int list via ICF pins (clear 0x0023DAA5 assign 0x002C54EE base dtor 0x004EC395); flags need bfmelist/bfmealloc shims for base-dtor call plus /EHs for or -1 state (map-insert precedent).
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 class GameWindow;
 
 typedef _STL::list<GameWindow *> GameWindowList;
