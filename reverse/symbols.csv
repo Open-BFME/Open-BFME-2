@@ -15566,3 +15566,19 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?helper001DA770@@YAXPAVINI@@HPAVAsciiString@@PBD@Z,0x001DA770,shared cdecl audio-block parser called by the five Default-name wrappers 0x001DA980..0x001DAAA8 read from their REL32
 ??1H1F8167@@QAE@XZ,0x001F8167,unrowed same-lane body called by chain root 0x001F9025 read from its REL32
 ?m001F9B69@H1F9B69@@QAEXXZ,0x001F9B69,unrowed same-shape body called by chain members 0x001FA5BB and 0x001FA5F6 read from their REL32
+?rva0052B10F@Rva0052B10F@@QAEXXZ,0x0052B10F,thiscall no-arg no-ret callee of gate 0x004E0A58 read from its REL32 displacement; Ghidra FUN_0092b10f 112B; body unrowed
+?rva004E9C13@Rva004E9C13@@QAEXXZ,0x004E9C13,tail-call target of 0x004E9F6E (mov ecx esi then jmp); Ghidra range size 405B; body unrowed
+?rva004F418A@Rva004F418A@@QAEXXZ,0x004F418A,tail-call target of 0x004F4927 (mov ecx esi pop esi then jmp); dump-range-25 target 500B; body unrowed
+?rva004F95A8@@YAXPAURva004F6352@@0HHURva004F6352Cmp@@@Z,0x004F95A8,sort-phase helper callee of 0x004F9EF3 read from its REL32 displacement (first last 0 2xlog comp); Ghidra FUN_008f95a8 136B; body unrowed
+?rva004F9635@Rva004F9E59@@QAEXPAURva004F9635Rec@@@Z,0x004F9635,thiscall spelling of the rowed stdcall sort used by 0x004F9E59 (mov ecx edi before call); same address and arity; additive alias pin
+?rva004F7767@@YAXPAX0_N@Z,0x004F7767,triple callee of 0x004F941E and 0x004F81DB read from REL32 (vec-begin vec-finish flag-byte); Ghidra FUN_008f7767; body unrowed
+?rva0059614B@Rva0059614B@@QAE_NPAX@Z,0x0059614B,thiscall predicate callee of 0x004E0425 read from its REL32 displacement; Ghidra FUN_0099614b 139B; body unrowed
+?rva004E02D7@Rva004E02D7@@QAEXPAX@Z,0x004E02D7,thiscall void callee of 0x004E0425 read from its REL32 displacement; Ghidra FUN_008e02d7 52B; body unrowed
+??0Rva0052B278@@QAE@PAX00@Z,0x0052B278,EH-guarded ctor callee of 0x004E063F read from its REL32 displacement (new 0x44 with lookup parent extra); body unrowed
+?rva0052B003@Rva0052B278@@QAEX_N@Z,0x0052B003,thiscall bool callee of 0x004E063F read from its REL32 displacement; body unrowed
+?rva004E0918@Rva004E0918@@QAEXPAX@Z,0x004E0918,EH packet callee of 0x004E0ADB read from its REL32 displacement; Ghidra range body 112B; body unrowed
+?rva004E0988@Rva004E0918@@QAEXPAX@Z,0x004E0988,EH packet callee of 0x004E0B02 read from its REL32 displacement; Ghidra range body 115B; body unrowed
+?rva003B8E89@Rva003B8E89@@QAEPAXPAX@Z,0x003B8E89,thiscall lookup callee of 0x004E1755 and 0x004E23C1 read from REL32 (host plus key); body unrowed
+?rva004E50C8@Rva004E50C8@@QAEXXZ,0x004E50C8,thiscall void callee of 0x004E52DC read from its REL32 displacement; body unrowed
+?rva004E701E@Rva004E7277@@QAEXXZ,0x004E701E,thiscall void callee of 0x004E7277 read from its REL32 displacement (same this); body unrowed
+?rva004E72C0@Rva004E7277@@QAEXPAX@Z,0x004E72C0,thiscall void callee of 0x004E7392 read from its REL32 displacement (same this plus arg); body unrowed
