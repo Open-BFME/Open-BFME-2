@@ -14908,3 +14908,4 @@ FUN_0068e01f	0x0028E01F	218	blocked	requires forbidden address-named global g_Va
 ??0BfmeVectorRecord001B4A39@@QAE@XZ	0x001B4B92	198	partial	same-size vector endpoint access differs in addressing form; direct offsets name same vector endpoints as retail lea-based accesses t=20 model=gpt-6 score=0.93 stash=reverse/attempts/0x001b4b92.cpp
 ?rva001B4E82@Rva001B4E82@@QAEXPAVCreateAHeroData@@@Z	0x001B4E82	41	blocked	erase callee resolves to vector<CreateAHeroData*> specialization rather than retail vector<void*> owner t=7 model=GPT-6
 ?rva00055E6C@Rva00055E6C@@QAE_NPBDHH@Z	0x00055E6C	350	blocked	stored callback behavior fits MilesAudioManager layout but slot identity and retail argument types remain unproven after donor search t=4 model=GPT-6
+FUN_005b4d7f	0x001B4D7F	136	blocked	packet globals at 0x007D7710 and 0x009FD93C have no data-ledger names and g_Rva fallbacks are forbidden t=5 model=GPT-6
