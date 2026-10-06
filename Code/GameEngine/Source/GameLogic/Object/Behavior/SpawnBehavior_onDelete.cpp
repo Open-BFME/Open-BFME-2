@@ -151,7 +151,7 @@ void SpawnBehavior::onDelete()
 	const SpawnBehaviorModuleData *modData = m_moduleData;
 	if (modData->m_spawnedRequireSpawner)
 	{
-		for (_STL::list<ObjectID>::iterator it = m_spawnIDs.begin(); it != m_spawnIDs.end(); )
+		for (_STL::list<ObjectID>::iterator it = m_spawnIDs.begin(); it._M_node != m_spawnIDs.end()._M_node; )
 		{
 			Object *obj = TheGameLogic->findObjectByID(*it);
 			if (obj)

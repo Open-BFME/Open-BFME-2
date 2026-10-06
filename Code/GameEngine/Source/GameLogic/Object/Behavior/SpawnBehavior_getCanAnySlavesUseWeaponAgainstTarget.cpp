@@ -78,7 +78,7 @@ private:
 CanAttackResult SpawnBehavior::getCanAnySlavesUseWeaponAgainstTarget(AbleToAttackType attackType, const Object *victim, const Coord3D *pos, CommandSourceType cmdSource)
 {
 	Bool invalidShot = false;
-	for (_STL::list<ObjectID>::iterator it = m_spawnIDs.begin(); it != m_spawnIDs.end(); ++it)
+	for (_STL::list<ObjectID>::iterator it = m_spawnIDs.begin(); it._M_node != m_spawnIDs.end()._M_node; ++it)
 	{
 		Object *obj = TheGameLogic->findObjectByID(*it);
 		if (obj)

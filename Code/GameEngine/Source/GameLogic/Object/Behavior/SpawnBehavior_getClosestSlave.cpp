@@ -76,7 +76,7 @@ Object *SpawnBehavior::getClosestSlave(const Coord3D *pos)
 	Object *closest = NULL;
 	Real closestDistance;
 	_STL::list<ObjectID>::iterator end = m_spawnIDs.end();
-	for (_STL::list<ObjectID>::iterator it = m_spawnIDs.begin(); it != end; ++it)
+	for (_STL::list<ObjectID>::iterator it = m_spawnIDs.begin(); it._M_node != end._M_node; ++it)
 	{
 		Object *obj = TheGameLogic->findObjectByID(*it);
 		if (obj)

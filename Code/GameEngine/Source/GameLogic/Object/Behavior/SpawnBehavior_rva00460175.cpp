@@ -155,7 +155,7 @@ void SpawnBehavior::rva00460175(int count)
 		return;
 	if (total == 0)
 		return;
-	for (_STL::list<ObjectID>::iterator it = m_spawnIDs.begin(); it != m_spawnIDs.end(); )
+	for (_STL::list<ObjectID>::iterator it = m_spawnIDs.begin(); it._M_node != m_spawnIDs.end()._M_node; )
 	{
 		Object *obj = TheGameLogic->findObjectByID(*it);
 		++it;
