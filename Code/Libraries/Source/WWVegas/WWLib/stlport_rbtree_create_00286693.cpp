@@ -36,5 +36,6 @@ _STL::_Rb_tree<TreeKey00286693, TreePair00286693, _STL::_Select1st<TreePair00286
 	return node;
 }
 
-// Explicit instantiation so the specialization above is emitted.
-template class _STL::_Rb_tree<TreeKey00286693, TreePair00286693, _STL::_Select1st<TreePair00286693>, _STL::less<TreeKey00286693>, _STL::allocator<TreePair00286693> >;
+// Explicit instantiation of only this member so the specialization above is
+// emitted without dragging whole-class COMDATs (_S_minimum/_S_maximum/iterator).
+template Tree00286693::_Link_type Tree00286693::_M_create_node(const TreePair00286693 &);
