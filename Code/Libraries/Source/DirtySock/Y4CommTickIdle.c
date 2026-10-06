@@ -775,18 +775,18 @@ int Rva007FD7A0( void *socket, int backlog );
 int Rva00814FE0( struct Rva008151E0Comm *comm, const char *text )
 {
 	int result;
-	unsigned char address[ 16 ];
+	unsigned char bindaddr[ 16 ];
 	void *socket;
 
 	if ( comm->m_state != 1 || comm->m_socket != 0 )
 		return -2;
 
-	*(unsigned short *)&address[ 0 ] = 2;
-	*(unsigned short *)&address[ 2 ] = 0;
-	*(unsigned int *)&address[ 4 ] = 0;
-	*(unsigned int *)&address[ 8 ] = 0;
-	*(unsigned int *)&address[ 12 ] = 0;
-	if ( ( Rva007FFCB0( (struct Rva008151E0Address *)address, text ) & 2 ) == 0 )
+	*(unsigned short *)&bindaddr[ 0 ] = 2;
+	*(unsigned short *)&bindaddr[ 2 ] = 0;
+	*(unsigned int *)&bindaddr[ 4 ] = 0;
+	*(unsigned int *)&bindaddr[ 8 ] = 0;
+	*(unsigned int *)&bindaddr[ 12 ] = 0;
+	if ( ( Rva007FFCB0( (struct Rva008151E0Address *)bindaddr, text ) & 2 ) == 0 )
 		return -3;
 
 	Rva00815170( (struct Rva00814700Comm *)comm );
@@ -796,7 +796,7 @@ int Rva00814FE0( struct Rva008151E0Comm *comm, const char *text )
 		return -4;
 
 	result = Rva007FD510( comm->m_socket,
-		(struct Rva008151E0Address *)address, 16 );
+		(struct Rva008151E0Address *)bindaddr, 16 );
 	if ( result < 0 )
 	{
 		Rva007FD3F0( comm->m_socket );
