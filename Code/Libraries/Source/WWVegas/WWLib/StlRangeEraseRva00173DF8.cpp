@@ -2,7 +2,7 @@
 // stlport
 #include "../../../../../vendor/stlport/stl/_algobase.h"
 #include <vector>
-struct Rva0017341BWords {unsigned words[12];};
+#include "StlRecordRva0017341B.h"
 namespace _STL {
 template<> Rva0017341BWords* __copy(Rva0017341BWords*,Rva0017341BWords*,Rva0017341BWords*,const random_access_iterator_tag&,int*);
 }
@@ -15,4 +15,4 @@ template Rva0017341BWords* _STL::vector<Rva0017341BWords>::erase(Rva0017341BWord
 // copies [last,finish) into first, stores the new finish and returns first.
 // Native126B helper proves48B stride and twelve scalar word copies; no
 // application record identity or deeper layout is inferred. The loop's
-// pointer-bias near miss is banked separately at reverse/attempts/0017341b.
+// matching helper now shares StlRecordRva0017341B.h with these callers.
