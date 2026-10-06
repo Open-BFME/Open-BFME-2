@@ -11645,3 +11645,11 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva0038037C@Rva00380200@@QAE_NH@Z	0x0038037C	221	blocked	complex x87 floor cmovg frame far t=15 model=muse-05
 ?rva00380459@Rva00380200@@QAEHH@Z	0x00380459	64	blocked	loop two-call layout far t=15 model=muse-05
 ?rva003805BB@Rva00380200@@QAE_NM_N@Z	0x003805BB	281	blocked	large complex floor loop far t=15 model=muse-05
+?rva000858EE@@YAXPAURva000858EEVec@@U1@1@Z	0x000858EE	89	blocked	finish wall score 0.95 pure SSE reg assignment const-first xmm3 hoisted load no new idea t=5 model=muse-spark
+?rva00272C42@Rva00272C42@@QAEXH@Z	0x00272C42	25	blocked	inner in ecx vs retail eax missing mov ecx eax 2B; vtable jmp match under O2; tried O1 worse plus shape guide no lever t=8 model=muse-spark (stash 0.9 kept)
+?rva000A3E4F@Rva000A3E4F@@QAEXHPAVWinInstanceData@@@Z	0x000A3E4F	274	blocked	stash ABI confused: retail mov ebx eax at entry fits neither fastcall nor thiscall plus stash carries present-unmatched hatch plus stack-slot wall t=6 model=muse-spark
+?rva00240EEF@Rva00240EEF@@QAEPAVObject@@VAsciiString@@PBUCoord3D@@@Z	0x00240EEF	347	blocked	address-named g_Va009FF0F8 plus alternatename and present-unmatched hatches cannot land without counted escape hatch t=5 model=muse-02
+?run@Rva004F2C14Run@@QAEXH@Z	0x004F2C14	850	blocked	address-named g_Va009FE16C requires counted escape hatch cannot land t=3 model=muse-02
+?rva002E57C6@Rva002E57C6@@QAE_NPBD@Z	0x002E57C6	928	blocked	928B GameText str parser no donor first variant 298B missing 222-insn state machine File Debug vtable unknown t=15 model=muse-02
+?rva00272FB6@Rva00272FB6@@QAEXXZ	0x00272FB6	1682	blocked	address-named g_Va00DBA4E4 and g_Va00BBB8D8 counted hatch skip per section5 t=2 model=muse-02
+??0Rva0038AAEBThreadObject@@QAE@PAVMutexClass@@@Z	0x0038AAEB	662	blocked	address-named g_Rva0107301CEmptyString counted hatch skip per section5 t=2 model=muse-02
