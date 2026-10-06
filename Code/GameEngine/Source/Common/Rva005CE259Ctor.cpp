@@ -8,7 +8,7 @@ class Rva005CE259
 public:
 	struct Payload { int v[2]; };
 	Rva005CE259(const Payload *src);
-	virtual ~Rva005CE259();
+	virtual ~Rva005CE259() {}
 private:
 	int m_ref; // +4
 	Payload m_data; // +8
