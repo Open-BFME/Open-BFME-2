@@ -64751,3 +64751,6 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva004A3E3E@Rva004A3E3E@@QAEXPAVObject@@H@Z,,0x004A3E3E,198,Code/GameEngine/Source/Common/Rva004A3E3EExit.cpp,matched,spawn exit door fieldwise coord then pathfinder
 ?rva004B0942@Rva004B0942@@QAEPAXXZ,,0x004B0942,26,Code/GameEngine/Source/Common/Rva004B0942Cache.cpp,matched,cache slot +0x20 from the dword at +8
 ?rva0049C51A@Rva0049C51A@@QAEXHHHHH@Z,,0x0049C51A,57,Code/GameEngine/Source/Common/Rva0049C51AForward.cpp,matched,forward five args when the id lookup misses or +0x69 is clear
+?rva004AD9E0@Rva004ADC88@@QAEXXZ,,0x004AD9E0,77,Code/GameEngine/Source/Common/Rva004ADC88Hide.cpp,matched,drop the object at +8 then destroy it
+?rva004ADC88@Rva004ADC88@@QAEXXZ,,0x004ADC88,96,Code/GameEngine/Source/Common/Rva004ADC88Hide.cpp,matched,write 1.0f on the drawable then tail-call the drop
+?rva004B0E9C@Rva004B0E9C@@QAEXXZ,,0x004B0E9C,32,Code/GameEngine/Source/Common/Rva004B0E9CClear.cpp,matched,call 0x004DD2C0 and clear the slot at +0x9C
