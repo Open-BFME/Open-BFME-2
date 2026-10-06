@@ -1,11 +1,5 @@
-// ?rva0029137E@Object@@QAE_NAAVAsciiString@@@Z
-// partial score=0.93 date=2026-10-01
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
-// ?rva0029137E@Object@@QAE_NAAVAsciiString@@@Z
-// 0x0029137E 109B unlock Object bool fill AsciiString via template plus Team check.
-// Evidence: rowed rva0028F518 0x0028F518; ThePlayerList 0x009FEEE8; bfmeAskRV 0x002AA231;
-// getRelationship 0x003A0FD2 cmp 2; set 0x000366F0 isEmpty 0x00001E2F neg-sbb-inc;
-// callers 0x0029EE98 0x004E769E; prev ObjectRva00291298.
+// ?rva0029137E@Object@@QAE_NAAVAsciiString@@@Z @0x0029137E 109B: Object bool fill AsciiString via template plus Team check. Evidence: rowed rva0028F518 ThePlayerList bfmeAskRV getRelationship cmp 2 set isEmpty neg-sbb-inc callers 0x0029EE98 0x004E769E. Stash 0.93 tmpl in edi vs retail eax.
 #include "ascii_string.h"
 
 enum Relationship
@@ -57,7 +51,6 @@ private:
 	Team *m_team304;
 };
 
-// ?rva0029137E@Object@@QAE_NAAVAsciiString@@@Z present-unmatched
 bool Object::rva0029137E(AsciiString &out)
 {
 	if (!rva0028F518())
@@ -68,12 +61,12 @@ bool Object::rva0029137E(AsciiString &out)
 	if (!member || !myTeam)
 		return false;
 	if (member->bfmeAskRV()) {
-		if (myTeam->getRelationship(member->m_team2ec) == REL_ALLY)
+		Team *other = member->m_team2ec;
+		if (myTeam->getRelationship(other) == REL_ALLY)
 			return false;
 	}
-	ObjectTmplPart *tmpl = m_p04;
-	if (!tmpl)
+	if (!m_p04)
 		return false;
-	((StringBase<char> *)&out)->set(*(const StringBase<char> *)&tmpl->m_str5c);
+	((StringBase<char> *)&out)->set(*(const StringBase<char> *)&m_p04->m_str5c);
 	return !((const StringBase<char> *)&out)->isEmpty();
 }

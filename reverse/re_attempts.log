@@ -11431,3 +11431,6 @@ FUN_00479ed4	0x00079ED4	29	blocked	hint-insert forwarder to rowed 0x79D14 same t
 ?onEnter@Rva003429B9@@UAE?AW4StateReturnType@@XZ	0x0034D1C8	381	blocked	ADDRESS-NAMED g_Va00DBA4E4 at 0x009BA4E4 counted escape hatch plus present-unmatched marker wall t=5 model=muse-08
 ?rva004C4621@CloudBreakSpecialPower@@QAEXPBUCoord3D@@@Z	0x004C4621	377	blocked	address-named globals g_Va007C26F0 g_Va00BBB8D8 refused t=5 model=muse-spark
 ?rva004C4940@Rva004C4940@@QAEPAVObject@@PBUCoord3D@@PBVAsciiString@@@Z	0x004C4940	110	partial	second je to xor not mov 74 1e vs 74 1a t=20 model=muse-spark score=0.99 stash=reverse/attempts/0x004c4940.cpp
+?rva00382767@Rva00386374@@QAEXH@Z	0x00382767	24	blocked	vslot73 24B EH-prolog-only stub with UNCLAIMED handler 0x0077F543 no this-use looks like funclet owned by gen_uw t=3 model=muse-08
+?rva00486F35@Rva00486F35@@QAEHXZ	0x00486F35	219	blocked	ADDRESS-NAMED g_Va00E038B8 at 0x00A038B8 counted escape hatch twice plus EH LaserUpdate wall t=2 model=muse-08
+?rva00291A8C@Rva00291A8C@@QAEXMMMMABVAsciiString@@@Z	0x00291A8C	240	blocked	240B physics sincos x87 plus 153-slot virtual 0x264 plus 3-string compare loop needs Object Physics AI layout beyond quick box t=8 model=muse-08
