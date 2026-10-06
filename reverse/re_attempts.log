@@ -11549,3 +11549,4 @@ FUN_0061b7b6	0x0021B7B6	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use r
 ?Rva003BFF50Do@@YGXPBVAsciiString@@HPAVRGBColor@@@Z	0x003BFF50	156	blocked	ADDRESS-NAMED globals g_Va009FE16C g_Va00DBA4E4 new use refused t=1 model=muse-08
 ?Rva003BF4CFD0@@YGXPBVAsciiString@@0_N1@Z	0x003BF4CF	303	blocked	ADDRESS-NAMED globals g_Va009FE16C g_Va009FF0F8 g_Va00BBB8D8 new use refused t=1 model=muse-08
 ?initKeyNames@Keyboard@@QAEXXZ	0x002306B8	8023	converted	Open-BFME-1 Keyboard::initKeyNames donor ported with BFME 2 layout (+0x81C names; byte shift2Key +0x0E) plus German-layout tail; exact first compile; t=25 model=claude-opus-5-5
+?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ABV12@@Z	0x0002B250	57	converted	owner rename of inline-asm placeholder bfmeFwdVMX to STLport append(const string&) in real C++ (/Od /Ob2; sibling StlportNarrowAppendCStr frame pattern; 76-byte retained slot); t=40 model=claude-opus-5-5

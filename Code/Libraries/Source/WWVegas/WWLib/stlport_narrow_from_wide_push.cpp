@@ -1,19 +1,7 @@
 // cl: /EHs /O1 /MD /D_STLP_USE_STATIC_LIB
 // stlport
-// ?Rva001F949DConvert@@YA?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@D@Z 0x001F949D 135B evidence: rowed wide get_allocator 0x001627F0 narrow reserve-ctor 0x00027150 bfmeFwdVMX 0x0002B250 narrow push_back 0x0000C330 narrow copy-ctor 0x00009170 free 0x00030830 caller writeINI 0x001FB449
+// ?Rva001F949DConvert@@YA?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@D@Z 0x001F949D 135B evidence: rowed wide get_allocator 0x001627F0 narrow reserve-ctor 0x00027150 narrow append(const string&) 0x0002B250 narrow push_back 0x0000C330 narrow copy-ctor 0x00009170 free 0x00030830 caller writeINI 0x001FB449
 extern "C" void __cdecl free(void *block);
-
-struct BfmeObjVMX
-{
-	int a;
-	int b;
-};
-
-class BfmeStrVMX
-{
-public:
-	void bfmeFwdVMX(BfmeObjVMX *p);
-};
 
 namespace _STL
 {
@@ -51,6 +39,7 @@ public:
 	basic_string(_Reserve_t, size_type n, const allocator<char> &a);
 	basic_string(const basic_string &that);
 	allocator<unsigned short> get_allocator() const;
+	basic_string &append(const basic_string &s);
 	void push_back(char c);
 	__declspec(dllimport) __forceinline ~basic_string()
 	{
@@ -82,7 +71,9 @@ _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > __cdec
 		_STL::_String_reserve_t(),
 		(unsigned int)((char *)((const _STL::basic_string_w<char, _STL::char_traits<char>, _STL::allocator<char> > &)wide)._M_finish - (char *)((const _STL::basic_string_w<char, _STL::char_traits<char>, _STL::allocator<char> > &)wide)._M_start) + 1,
 		*(const _STL::allocator<char> *)&wide.get_allocator());
-	((BfmeStrVMX *)&tmp)->bfmeFwdVMX((BfmeObjVMX *)&wide);
+	// The retail call appends the wide string's storage through the narrow
+	// append(const string&): its start/finish pointers are read as a char range.
+	tmp.append((const _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > &)wide);
 	tmp.push_back(extra);
 	return tmp;
 }
