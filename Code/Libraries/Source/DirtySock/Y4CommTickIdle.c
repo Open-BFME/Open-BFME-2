@@ -537,15 +537,15 @@ int Rva00813A50( struct Rva00813E50Comm *comm, const char *text,
 
 int Rva00813D00( struct Rva00813E50Comm *comm, char *text )
 {
-	char address[ 64 ];
+	char resolve[ 64 ];
 
 	if ( comm->m_state != 2 )
 		return -2;
 
 	if ( *text < '0' || *text > '9' )
 	{
-		Rva00813A50( comm, text, address, 64, 0 );
-		text = address;
+		Rva00813A50( comm, text, resolve, 64, 0 );
+		text = resolve;
 	}
 
 	comm->m_port = 0;
