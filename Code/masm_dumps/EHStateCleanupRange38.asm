@@ -1329,5 +1329,75 @@ PUBLIC ?rva0078947e@@YAXXZ
 cleanup_done_0078947e:
     ret
 ?rva0078947e@@YAXXZ ENDP
+
+; Unwind@00b895a0 at RVA 0x007895A0; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-16] and tail-jumps with [ebp-32] to the rowed UnicodeString thunk.
+PUBLIC ?rva007895a0@@YAXXZ
+?rva007895a0@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007895a0
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-32]
+    jmp ??1Rva002606AFDtor@@QAE@XZ
+cleanup_done_007895a0:
+    ret
+?rva007895a0@@YAXXZ ENDP
+
+; Unwind@00b89799 at RVA 0x00789799; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-20] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva00789799@@YAXXZ
+?rva00789799@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00789799
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00789799:
+    ret
+?rva00789799@@YAXXZ ENDP
+
+; Unwind@00b897c4 at RVA 0x007897C4; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-16] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva007897c4@@YAXXZ
+?rva007897c4@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007897c4
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007897c4:
+    ret
+?rva007897c4@@YAXXZ ENDP
+
+; Unwind@00b89807 at RVA 0x00789807; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-28] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva00789807@@YAXXZ
+?rva00789807@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-28]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00789807
+    and DWORD PTR [ebp-28], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00789807:
+    ret
+?rva00789807@@YAXXZ ENDP
+
+; Unwind@00b89842 at RVA 0x00789842; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-24] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva00789842@@YAXXZ
+?rva00789842@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00789842
+    and DWORD PTR [ebp-24], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00789842:
+    ret
+?rva00789842@@YAXXZ ENDP
 _TEXT ENDS
 END
