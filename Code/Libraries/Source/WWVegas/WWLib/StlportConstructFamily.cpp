@@ -27,11 +27,27 @@ struct Rva001DF3F1Element
 	Rva001DF3F1Element(const Rva001DF3F1Element &that);
 };
 
+class Rva00394173Member
+{
+public:
+	int m_00;
+	Rva00394173Member(const Rva00394173Member &that);
+};
+
 struct Rva003328B6Element
 {
-	int a;
+	int m_00;
+	int m_04;
+	Rva00394173Member m_08;
 	Rva003328B6Element(const Rva003328B6Element &that);
 };
+
+Rva003328B6Element::Rva003328B6Element(const Rva003328B6Element &that)
+	: m_00(that.m_00)
+	, m_04(that.m_04)
+	, m_08(that.m_08)
+{
+}
 
 struct Rva00413B16Element
 {
