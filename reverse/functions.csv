@@ -64665,3 +64665,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva001EB6FE@Rva001EB6FE@@QAEXXZ,,0x001EB6FE,36,Code/GameEngine/Source/Common/Rva001EB6FEFlag.cpp,matched,
 ?rva001EB68A@Rva001EB6FE@@QAEXXZ,,0x001EB68A,27,Code/GameEngine/Source/Common/Rva001EB6FEFlag.cpp,matched,
 ?rva00177E95@@YAXPAMHMMMH@Z,,0x00177E95,50,Code/Libraries/Source/WWVegas/WW3D2/Rva00177E95Fill.cpp,matched,
+?rva001E702E@Rva001E702E@@QAEXPAVThing@@HH@Z,,0x001E702E,37,Code/GameEngine/Source/Common/Rva001E702EForward.cpp,matched,

@@ -13540,3 +13540,4 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva0015D5B0@MeshMatDescClass@@QAEXH@Z,0x0015D5B0,thiscall (int); called from 0x199FA5 with (0)
 ?rva001DDCC5@Rva001DDCC5@@QAEXPAX@Z,0x001DDCC5,thiscall (ptr); copy helper called from 0x1DE3E3
 ?rva001EB456@Rva001EB456@@QAEXHH@Z,0x001EB456,thiscall (int;int); called from 0x1EB6FE with (1;1)
+?rva001E685F@Rva001E685F@@QAEXHHH@Z,0x001E685F,thiscall (int;int;int); forwarder target of 0x1E702E; true types unproven (address-derived)
