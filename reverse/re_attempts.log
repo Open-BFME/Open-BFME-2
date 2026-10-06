@@ -13945,3 +13945,22 @@ FUN_0067cd63	0x0027CD63	285	blocked	ADDRESS-NAMED g_Va00DBA4E4 new use refused t
 FUN_0063e99a	0x0023E99A	1217	blocked	over-1000B with mid-function WARN and EH prolog t=2 model=muse-12
 FUN_0063e3ce	0x0023E3CE	602	blocked	EH-prolog large-frame MapCache body t=1 model=muse-12
 ?Rva0023958B@@YAHPAX_N@Z	0x0023958B	462	blocked	large 462B EH logo callback multi-global needs full RE t=5 model=muse-12
+?onDelete@DozerAIUpdate@@UAEXXZ	0x00489CA1	104	blocked	onDelete needs inline word1-bit5 clear plus notify and tail finishBuildingSound vs ZH out-of-line push 0x35 plus ret t=15 model=muse-12
+?rva0047676B@HorseHordeContain@@UAE_NM@Z	0x0047676B	163	blocked	HorseHordeContain slot112 float x87 list plus turnrate plus normalizeAngle no donor needs vtable mapping t=12 model=muse-12
+?rva0047E0CE@TunnelContain@@UAE_NH@Z	0x0047E0CE	157	blocked	TunnelContain slot42 EH plus STL list plus unclaimed code refs 0x78B7B6 0x47DAEA needs donor t=8 model=muse-12
+?rva0047EA58@Rva0047EA58@@QAEXXZ	0x0047EA58	100	blocked	SiegeEngineContain slot10 EH plus STL list plus unclaimed EH handler needs donor t=6 model=muse-12
+?rva00541FCC@Rva00542225@@QAEXHABURegion3D@@@Z	0x00541FCC	155	blocked	unlock list forEach with member-fn listeners plus vector insert plus Region3D needs reconstruction t=10 model=muse-12
+?rva004C6A20@SpecialAbilityUpdate@@UAE_XZ	0x004C6A20	347	blocked	SpecialAbilityUpdate slot0 347B needs donor vtable mapping t=5 model=muse-12
+?rva004DE7C2@ObjectSMCHelper@@UAE_XZ	0x004DE7C2	157	blocked	ObjectSMCHelper slot0 157B needs donor mapping t=5 model=muse-12
+?rva0048B33F@DynamicShroudClearingRangeUpdate@@UAE_XZ	0x0048B33F	454	blocked	DynamicShroud slot0 454B exceeds timebox needs donor mapping t=4 model=muse-12
+?rva0044E374@BloodthirstyUpdate@@UAE_XZ	0x0044E374	309	blocked	Bloodthirsty slot0 309B EH plus unclaimed handler needs donor t=4 model=muse-12
+?rva004AF92F@RespawnUpdate@@UAE_XZ	0x004AF92F	466	blocked	Respawn slot0 466B exceeds timebox t=3 model=muse-12
+?rva004BB176@EvacuateDamage@@UAE_XZ	0x004BB176	539	blocked	EvacuateDamage slot0 539B exceeds timebox t=3 model=muse-12
+?xfer@GiantBirdAIUpdate@@UAEXPAVXfer@@@Z	0x0036AC73	390	blocked	GiantBird xfer needs ctor offsets none matched t=10 model=muse-12
+?onEnter@AIBackAwayState@@UAE?AW4StateReturnType@@XZ	0x0034CC00	314	partial	second SSE dest-plus-dir-times-40 scheduling xmm1-plus-xmm0 interleaved stores vs retail xmm0-1-2-plus-xmm3 batched stores t=18 model=muse-12 score=0.93 stash=reverse/attempts/0x0034cc00.cpp
+?rva0036B961@GiantBirdAIUpdate@@QAEXXZ	0x0036B961	278	blocked	ref slot33 GiantBirdAIUpdate private-command STL-vector-plus-EH-plus-idiv needs second-arg-type plus virtual-slot-30-signature full RE t=8 model=muse-12
+?rva003FD27E@Rva003FD2C2@@QAE_NXZ	0x003FD27E	68	partial	first-call m1c push via eax-temp vs direct plus second-call deg via mov-push vs fld-fstp plus leave vs mov-esp-ebp t=22 model=muse-12 score=0.93 stash=reverse/attempts/0x003fd27e.cpp
+?rva005FAD05@Rva005FAD05@@QAEXXZ	0x005FAD05	68	blocked	ref slot1 unknown-table smart-ptr-clone new-0x18-plus-rep-movsd-plus-refcount needs arg-return-types plus donor t=6 model=muse-12
+?Rva00318ABBParse@@YAXPAVINI@@@Z	0x00318ABB	78	blocked	ref free INI-parse-plus-tailjmp needs AsciiString-global-types plus FieldParse-table plus GlobalWeatherSystem-plus-8-virtual-slot14 full RE t=10 model=muse-12
+?rva0036B103@Rva0036B103@@QAEXXZ	0x0036B103	10	blocked	ghidra 10B vs 1124B to-next-start EH-prolog slot0 GiantBirdAIUpdate likely over-1000B wall t=3 model=muse-12
+?doSpecialPowerAtObject@SpecialPowerModule@@UAEXPAVObject@@I@Z	0x004C504E	338	blocked	slot11 AtObject proven via neighbour AtLocation plus decl-order plus Object-plus-0x250 plus ret8 plus ZH donor AtObject needs MI-minus-8-minus-10-c plus Defector-0x27 plus status plus BitFlags substantial reconstruction t=12 model=muse-12

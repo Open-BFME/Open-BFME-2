@@ -13,6 +13,8 @@
 typedef int Int;
 typedef bool Bool;
 
+void __cdecl operator delete(void *p);
+
 #define VSLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
 #define VSLOTS16(p) VSLOTS4(p##0) VSLOTS4(p##1) VSLOTS4(p##2) VSLOTS4(p##3)
 
@@ -71,6 +73,7 @@ public:
 	void rva00045086(Bool on);
 	void rva000450A3(Int a, Int b, Int c);
 	Bool rva000466FA();
+	void rva000466B9();
 	void rva00046791();
 	Int rva00049F4F(Rva00049F4FObject *obj);
 private:
@@ -117,6 +120,22 @@ void W3DDisplay::rva00046791()
 {
 	for (Rva00046791Item **it = m_2a4; it != m_2a8; ++it)
 		(*it)->rva000467A5Slot();
+}
+
+// vtable 0x00BC3C80#100
+void W3DDisplay::rva000466B9()
+{
+	if (m_184 == 0)
+		return;
+	Rva00260A3C *p = m_188;
+	if (p == 0)
+		return;
+	if (p->test())
+		return;
+	p->Rva00260A3C::~Rva00260A3C();
+	operator delete(p);
+	m_188 = 0;
+	m_184 = 0;
 }
 
 // vtable 0x00BC3C80#37
