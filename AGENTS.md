@@ -4,29 +4,31 @@ Before continuing work, reread `AGENTS.md` if 24 hours have elapsed
 since the last read. Reread it immediately whenever a user message
 or commit message reports an edit to `AGENTS.md`.
 
-## Verifier upgrade in progress (October 2026)
+## Verifier upgrade (October 2026): live rules
 
 **`master` is locked by the maintainers until the tooling fixes are
 completed.** Pushes are rejected: keep work in local commits or banked
 attempts, do not retry pushes in a loop, and rebase once this notice is
 removed.
 
-Stricter gate checks land over the next few days: string literals compared
-with their terminator, exact switch jump tables, bytes past a row's extent,
-`gen-alias` only as an exact token with a byte-identical callee,
-`symbols.csv` validation (RVAs only, no data pins, no second name on an owned
-address), limits on `object-symbol=` alias rows, `.c`/`.asm` sources checked
-by the hook, and a real-link measurement that will become the progress figure.
-Until they land:
+The step-3 gate checks are live in the hooks. They refuse:
 
-- do not edit `tools/build.py`, `.githooks/`, `pin_consistency_baseline.csv`
-  or any whitelist except to fix a verifier bug;
-- add no new `gen-alias` notes, data pins, `object-symbol=` rows,
-  `/alternatename` pragmas, `// class-gate: allow` comments or
-  `present-unmatched` markers; additions made now are counted against the new
-  baselines;
-- keep matching as usual. Rows the new checks flag will be served as a queue,
-  so there is nothing to pre-empt.
+- a commit that edits `tools/` gate code, `.githooks/` or a baseline/whitelist
+  without a `Verifier-Change: <reason>` trailer (commit-msg hook);
+- any added line in `reverse/gate_baseline.txt` (keyed debt; delete a line
+  when you fix its row, never add one);
+- a string literal shorter than retail's, a switch whose jump table maps a
+  case to the wrong target, or compiled bytes past a row's extent that differ
+  from retail (a body longer than its row: raise the extent);
+- a new `symbols.csv` pin that is not an in-image RVA in code, or that puts a
+  second real name on an address that already has one (rename the owner);
+- `gen-alias` other than as an exact notes token whose masked callee is a
+  byte-and-relocation twin; new `object-symbol=` alias rows.
+
+`.c` and `.asm` sources are byte-verified like `.cpp`. Still pending: the
+publisher (steps 1-2), escape-hatch counters, local static data checks and
+the link-based progress figure; until then add no `/alternatename` pragmas,
+`// class-gate: allow` comments or `present-unmatched` markers beyond need.
 
 Full plan and evidence: `docs/verifier_upgrade_plan.md`.
 
