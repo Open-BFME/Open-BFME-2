@@ -101,7 +101,8 @@ struct ListboxData
 	GameWindow *upButton;
 	GameWindow *downButton;
 	GameWindow *slider;
-	unsigned char m_pad28[0x30 - 0x28];
+	Int totalHeight;
+	unsigned char m_pad2C[0x30 - 0x2C];
 	Int m_field30;
 	Int selectPos;
 };
@@ -176,13 +177,68 @@ public:
 
 extern Keyboard *TheKeyboard;
 
-// The one-pointer drop-down toggle at 0x00323736 (named for its first rowed
-// caller), called on a copy of the combo window.
+// The one-pointer combo wrapper of MpGameSetupSlots.cpp; its 0x00323736 is
+// the drop-down toggle (BFME1 Rva004B5C90::invoke), pinned there by address.
 class MpGameSetupComboRef
 {
 public:
 	void rva00323736(bool flag);
+
+	GameWindow *m_window;
 };
+
+void Rva003248F5Show(GameWindow *listBox, bool hide);
+
+void MpGameSetupComboRef::rva00323736(bool hide)
+{
+	GameWindow *listBox = ((ImageComboBoxData *)m_window->winGetUserData())->listBox;
+	if (!listBox)
+		return;
+
+	ICoord2D windowSize;
+	if (hide)
+	{
+		ICoord2D listSize;
+		if (listBox->winIsHidden())
+			return;
+		m_window->winGetSize(&windowSize.x, &windowSize.y);
+		listBox->winGetSize(&listSize.x, &listSize.y);
+		listBox->winHide(true);
+		GameWindow *current = m_window;
+		if (TheWindowManager->winGetLoneWindow() == current)
+			TheWindowManager->winSetLoneWindow(NULL);
+		m_window->winSetSize(windowSize.x, windowSize.y - listSize.y);
+	}
+	else
+	{
+		ICoord2D listSize;
+		if (!listBox->winIsHidden())
+			return;
+		TheWindowManager->winSetLoneWindow(m_window);
+		listBox->winHide(false);
+		m_window->winGetSize(&windowSize.x, &windowSize.y);
+		ListboxData *listData = (ListboxData *)((ImageComboBoxData *)m_window->winGetUserData())->listBox->winGetUserData();
+		ImageComboBoxData *comboData = (ImageComboBoxData *)m_window->winGetUserData();
+		listData->m_field30 = listData->selectPos;
+		listSize = windowSize;
+		Int total = listData->totalHeight + 8;
+		Int maximum = comboData->maxListHeight;
+		Int height;
+		if (maximum >= total)
+		{
+			height = total;
+			Rva003248F5Show(listBox, true);
+		}
+		else
+		{
+			height = maximum;
+			Rva003248F5Show(listBox, false);
+		}
+		m_window->winSetSize(windowSize.x, windowSize.y + height);
+		listBox->winSetPosition(0, windowSize.y);
+		listBox->winSetSize(listSize.x, height);
+	}
+}
 
 void Rva006CC9A0(Int a, Int b, Int c);
 
