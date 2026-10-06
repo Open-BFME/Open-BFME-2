@@ -22,6 +22,13 @@ class RenameEdit(unittest.TestCase):
         self.assertIn('"g_Va009FE16C"', out)              # literals untouched
         self.assertNotIn("extern ScriptEngine *g_Va009FE16C", out)
 
+    def test_comments_before_the_declaration_survive(self):
+        text = "// cl: /O1\n//\n// note\nextern ScriptEngine *g_Va009FE16C;\nvoid f() { g_Va009FE16C->run(); }\n"
+        out = ds.rename_edit("g_Va009FE16C", "TheScriptEngine", DECL, False)(text)
+        self.assertEqual(out, "// cl: /O1\n//\n// note\n" + DECL + "\nvoid f() { TheScriptEngine->run(); }\n")
+        lit = "// cl: /O1\n// note\nextern const char g_s[];\nconst char *f() { return g_s; }\n"
+        self.assertEqual(ds.literal_edit("g_s", '"."')(lit), '// cl: /O1\n// note\nconst char *f() { return "."; }\n')
+
     def test_user_definition_is_left_alone(self):
         text = "ScriptEngine *g_Va009FE16C = 0;\nvoid f() { g_Va009FE16C->run(); }\n"
         self.assertEqual(ds.rename_edit("g_Va009FE16C", "TheScriptEngine", DECL, False)(text), text)

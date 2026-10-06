@@ -123,6 +123,19 @@ def is_function(stmt, ident):
     return re.search(rf"(?<![\w$]){re.escape(ident)}\s*\(", stmt) is not None
 
 
+def comments(text):
+    return sorted(m.group(0) for m in NON_CODE.finditer(text) if m.group(0)[:2] in ("//", "/*"))
+
+
+def keep_comments(edit):
+    """An edit that would drop or change a comment (a `// cl:` flag line among
+    them) is refused: these rewrites touch code only."""
+    def guarded(text):
+        out = edit(text)
+        return out if comments(out) == comments(text) else text
+    return guarded
+
+
 def rename_edit(old, new, decl_new, define_to_extern, expr=None):
     """text -> text: N -> C (or `expr`, a cast of C) in code; with
     define_to_extern, file-scope definitions of N (or the C they became) are
@@ -134,14 +147,17 @@ def rename_edit(old, new, decl_new, define_to_extern, expr=None):
         for start, end, stmt in reversed(statements(text, old)):
             if is_function(stmt, old):
                 return text                               # a function of that name: not ours
+            # the statement proper: `start` also covers the comments and blank
+            # lines before it (blanked in `stmt`, same offsets); they stay
+            core = start + len(stmt) - len(stmt.lstrip())
             if is_extern(stmt):
                 if "," in stmt:
                     return text                           # a multi-declarator line: leave the file alone
-                text = text[:start] + text[start:end].replace(text[start:end].strip(), decl_new) + text[end:]
+                text = text[:core] + decl_new + text[end:]
             elif define_to_extern:
                 if "," in stmt.split("=")[0] or "{" in stmt:
                     return text
-                text = text[:start] + text[start:end].replace(text[start:end].strip(), decl_new) + text[end:]
+                text = text[:core] + decl_new + text[end:]
             else:
                 return text                               # a definition we were not cleared to drop
         text = sub_code(text, word, expr or new)
@@ -150,7 +166,7 @@ def rename_edit(old, new, decl_new, define_to_extern, expr=None):
             at = dl_lead(text)
             text = text[:at] + decl_new + nl + text[at:]
         return dedupe_externs(text, decl_new)
-    return edit
+    return keep_comments(edit)
 
 
 def dl_lead(text):
@@ -172,15 +188,15 @@ def literal_edit(old, literal):
         for start, end, stmt in reversed(statements(text, old)):
             if not is_extern(stmt) or "," in stmt:
                 return text                               # defined here, or shared declarator
-            lo = text.rfind("\n", 0, start) + 1
+            core = start + len(stmt) - len(stmt.lstrip())
+            lo = text.rfind("\n", 0, core) + 1
             hi = text.find("\n", end)
             hi = len(text) if hi < 0 else hi + 1
-            line = text[lo:hi]
-            if line.strip() != text[start:end].strip():
-                return text
+            if text[lo:hi].strip() != text[core:end].strip():
+                return text                               # shares its line with other code
             text = text[:lo] + text[hi:]
         return sub_code(text, word, literal)
-    return edit
+    return keep_comments(edit)
 
 
 def c_string(raw):
