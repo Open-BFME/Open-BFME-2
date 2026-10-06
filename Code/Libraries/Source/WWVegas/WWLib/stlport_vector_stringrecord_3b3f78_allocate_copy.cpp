@@ -19,10 +19,13 @@ struct BfmeStringRecord003B3F78 {
     unsigned char flag;
     unsigned short short0;
     unsigned int word2;
-    BfmeStringRecord003B3F78();
     BfmeStringRecord003B3F78(const BfmeStringRecord003B3F78 &o);
 };
 #include <memory>
 template void _STL::_Construct<BfmeStringRecord003B3F78,BfmeStringRecord003B3F78>(BfmeStringRecord003B3F78*,const BfmeStringRecord003B3F78&);
 #include <vector>
-template class _STL::vector<BfmeStringRecord003B3F78, _STL::allocator<BfmeStringRecord003B3F78> >;
+template BfmeStringRecord003B3F78 *_STL::__uninitialized_copy<const BfmeStringRecord003B3F78 *, BfmeStringRecord003B3F78 *>(const BfmeStringRecord003B3F78 *, const BfmeStringRecord003B3F78 *, BfmeStringRecord003B3F78 *, const _STL::__false_type &);
+template BfmeStringRecord003B3F78 *_STL::__uninitialized_fill_n<BfmeStringRecord003B3F78 *, unsigned int, BfmeStringRecord003B3F78>(BfmeStringRecord003B3F78 *, unsigned int, const BfmeStringRecord003B3F78 &, const _STL::__false_type &);
+template BfmeStringRecord003B3F78 *_STL::vector<BfmeStringRecord003B3F78, _STL::allocator<BfmeStringRecord003B3F78> >::_M_allocate_and_copy<const BfmeStringRecord003B3F78 *>(unsigned int, const BfmeStringRecord003B3F78 *, const BfmeStringRecord003B3F78 *);
+template void _STL::vector<BfmeStringRecord003B3F78, _STL::allocator<BfmeStringRecord003B3F78> >::push_back(const BfmeStringRecord003B3F78 &);
+template void _STL::vector<BfmeStringRecord003B3F78, _STL::allocator<BfmeStringRecord003B3F78> >::reserve(unsigned int);
