@@ -271,16 +271,8 @@ void GameWindowManager::init( void )
 //-------------------------------------------------------------------------------------------------
 /** Reset window system */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::reset present-unmatched
-void GameWindowManager::reset( void )
-{
-
-	// destroy all windows left
-	winDestroyAll();
-	if(TheTransitionHandler)
-		TheTransitionHandler->reset();
-
-}  // end reset
+// GameWindowManager::reset: defined in GameWindowManagerModal.cpp (its row's unit).
+  // end reset
 
 //-------------------------------------------------------------------------------------------------
 /** Update cycle for game widnow manager */
@@ -504,32 +496,8 @@ void GameWindowManager::unlinkChildWindow( GameWindow *window )
 //-------------------------------------------------------------------------------------------------
 /** this gets called from winHide() when a window hides itself */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::windowHiding present-unmatched
-void GameWindowManager::windowHiding( GameWindow *window )
-{
-
-	// if this window has keyboard focus remove it
-	if( m_keyboardFocus == window )
-		m_keyboardFocus = NULL;
-
-	// if this is the modal head, unset it
-	if( m_modalHead && m_modalHead->window == window )
-		winUnsetModal( window );
-
-	// if this is the captor, it shall no longer be
-	if( m_mouseCaptor == window )
-		winCapture( NULL );
-
-	//
-	// since hiding a parent will also hide the children, when a parent
-	// hides we must call this same method for all the children so they
-	// each have a chance to go through this logic
-	//
-	GameWindow *child;
-	for( child = window->winGetChild(); child; child = child->winGetNext() )
-		windowHiding( child );
-
-}  // end windowHiding
+// GameWindowManager::windowHiding: defined in GameWindowManagerModal.cpp (its row's unit).
+  // end windowHiding
 
 //-------------------------------------------------------------------------------------------------
 /** Hide all windows in a certain range of id's (inclusive) */
@@ -546,18 +514,8 @@ void GameWindowManager::windowHiding( GameWindow *window )
 //-------------------------------------------------------------------------------------------------
 /** Captures the mouse capture. */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::winCapture present-unmatched
-Int GameWindowManager::winCapture( GameWindow *window )
-{
-
-	if( m_mouseCaptor != NULL)
-		return WIN_ERR_MOUSE_CAPTURED;
-
-	m_mouseCaptor = window;
-
-	return WIN_ERR_OK;
-
-}  // end WinCapture
+// GameWindowManager::winCapture: defined in GameWindowManagerModal.cpp (its row's unit).
+  // end WinCapture
 
 //-------------------------------------------------------------------------------------------------
 /** Releases the mouse capture. */
@@ -1346,68 +1304,15 @@ Int GameWindowManager::winDestroyAll( void )
 /** Sets selected window into a modal state.  This window will get
 	* put at the top of a modal stack */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::winSetModal present-unmatched
-Int GameWindowManager::winSetModal( GameWindow *window )
-{
-	ModalWindow *modal;
-
-	if( window == NULL )
-		return WIN_ERR_INVALID_WINDOW;
-
-	// verify requesting window is a root window
-	if( window->m_parent != NULL )
-	{
-		DEBUG_LOG(( "WinSetModal: Non Root window attempted to go modal." ));
-		return WIN_ERR_INVALID_PARAMETER;			// return error if not
-	}
-	// Allocate new Modal Window Entry
-	modal = newInstance(ModalWindow);
-	if( modal == NULL )
-	{
-		DEBUG_LOG(( "WinSetModal: Unable to allocate space for Modal Entry." ));
-		return WIN_ERR_GENERAL_FAILURE;
-	}
-
-	// Put new entry at top of list
-	modal->window = window;
-	modal->next = m_modalHead;
-	m_modalHead = modal;
-
-	return WIN_ERR_OK;
-
-}  // end WinSetModal
+// GameWindowManager::winSetModal: defined in GameWindowManagerModal.cpp (its row's unit).
+  // end WinSetModal
 
 //-------------------------------------------------------------------------------------------------
 /** pops window off of the modal stack.  If this window is not the top
 	* of the modal stack an error will occur. */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::winUnsetModal present-unmatched
-Int GameWindowManager::winUnsetModal( GameWindow *window )
-{
-	ModalWindow *next;
-
-	if( window == NULL )
-		return WIN_ERR_INVALID_WINDOW;
-
-	// verify entry is at top of list
-	if( (m_modalHead == NULL) || (m_modalHead->window != window) )
-	{
-
-		// return error if not
-		DEBUG_LOG(( "WinUnsetModal: Invalid window attempting to unset modal (%d)\n", 
-								window->winGetWindowId() ));
-		return WIN_ERR_GENERAL_FAILURE;
-
-	}  // end if
-
-	// remove from top of list
-	next = m_modalHead->next;
-	m_modalHead->deleteInstance();
-	m_modalHead = next;
-
-	return WIN_ERR_OK;
-
-}  // end WinUnsetModal
+// GameWindowManager::winUnsetModal: defined in GameWindowManagerModal.cpp (its row's unit).
+  // end WinUnsetModal
 
 //-------------------------------------------------------------------------------------------------
 /** Get the grabbed window */

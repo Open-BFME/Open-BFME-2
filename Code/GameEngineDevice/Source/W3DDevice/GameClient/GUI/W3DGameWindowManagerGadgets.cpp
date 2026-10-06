@@ -1,7 +1,7 @@
 // cl: /O1 /G7 /DNDEBUG /MD /ICode/GameEngine/Source/GameClient/GUI
 //
 // Device-side gadget factory overrides in the window manager vtable at VA
-// 0x00BC7C8C (scalar deleting dtor ??_GRva008FCA3, slot 1). Each one picks one
+// 0x00BC7C90 (scalar deleting dtor ??_GRva008FCA3 in slot 0). Each one picks one
 // of two rowed device factories by status bit 0x80 of the create record,
 // stores it at record+0x18 and forwards the call unchanged to the shared
 // gadget factory (GameWindowManager_RecordFactories.cpp). This is Zero Hour's
@@ -49,7 +49,7 @@ public:
 	GameWindow *rva0008FE84(GadgetCreateView *view, GameFont *font, bool flag);
 };
 
-// vtable 0x00BC7C8C#20
+// vtable 0x00BC7C90 slot 19
 GameWindow *Rva008FCA3::rva0008FCE3(GadgetCreateView *view, GameFont *font, bool flag)
 {
 	if (view->status & GADGET_CREATE_IMAGE)
@@ -59,7 +59,7 @@ GameWindow *Rva008FCA3::rva0008FCE3(GadgetCreateView *view, GameFont *font, bool
 	return gogoGadgetPushButton(view, font, flag);
 }
 
-// vtable 0x00BC7C8C#28
+// vtable 0x00BC7C90 slot 27
 GameWindow *Rva008FCA3::rva0008FD0E(GadgetCreateView *view, StaticTextDataView *data, GameFont *font, bool flag)
 {
 	if (view->status & GADGET_CREATE_IMAGE)
@@ -69,7 +69,7 @@ GameWindow *Rva008FCA3::rva0008FD0E(GadgetCreateView *view, StaticTextDataView *
 	return gogoGadgetStaticText(view, data, font, flag);
 }
 
-// vtable 0x00BC7C8C#22
+// vtable 0x00BC7C90 slot 21
 GameWindow *Rva008FCA3::rva0008FD3D(GadgetCreateView *view, GameFont *font, bool flag)
 {
 	if (view->status & GADGET_CREATE_IMAGE)
@@ -79,7 +79,7 @@ GameWindow *Rva008FCA3::rva0008FD3D(GadgetCreateView *view, GameFont *font, bool
 	return gogoGadgetCheckBox(view, font, flag);
 }
 
-// vtable 0x00BC7C8C#23
+// vtable 0x00BC7C90 slot 22
 GameWindow *Rva008FCA3::rva0008FD68(GadgetCreateView *view, RadioButtonDataView *data, GameFont *font, bool flag)
 {
 	if (view->status & GADGET_CREATE_IMAGE)
@@ -89,7 +89,7 @@ GameWindow *Rva008FCA3::rva0008FD68(GadgetCreateView *view, RadioButtonDataView 
 	return gogoGadgetRadioButton(view, data, font, flag);
 }
 
-// vtable 0x00BC7C8C#24
+// vtable 0x00BC7C90 slot 23
 GameWindow *Rva008FCA3::rva0008FD97(GadgetCreateView *view, TabControlDataView *data, GameFont *font, bool flag)
 {
 	if (view->status & GADGET_CREATE_IMAGE)
@@ -99,7 +99,7 @@ GameWindow *Rva008FCA3::rva0008FD97(GadgetCreateView *view, TabControlDataView *
 	return gogoGadgetTabControl(view, data, font, flag);
 }
 
-// vtable 0x00BC7C8C#27
+// vtable 0x00BC7C90 slot 26
 GameWindow *Rva008FCA3::rva0008FE84(GadgetCreateView *view, GameFont *font, bool flag)
 {
 	if (view->status & GADGET_CREATE_IMAGE)
