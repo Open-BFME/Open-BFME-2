@@ -67251,3 +67251,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva005B4AD9@Rva005B4BDB@@QAEXH@Z,,0x005B4AD9,258,Code/GameEngine/Source/Common/Rva005B4BDB.cpp,matched,REF AptCreateAHero NamePrompt handler GadgetTextEntryGetText isEmpty TheGameText fetch Rva00437E84
 ??0Rva000AB910@@QAE@ABVAsciiString@@@Z,,0x000AB910,70,Code/GameEngine/Source/Common/Rva000AB910Ctor.cpp,matched,target offsets support string integer and two maps
 ??0Rva0022A9DDSubsystem@@QAE@XZ,,0x0022DF79,55,Code/GameEngine/Source/GameClient/Rva0022DF79SubsystemCtor.cpp,matched,GameEngine init caller names subsystem; matching sibling constructor recipe
+?rva00574910@Rva00574910@@QAEHPAX@Z,,0x00574910,73,Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,matched,Target calls rowed 0x005CC26E at this+0x5C; virtual slot 2 via this+0x54; direct helper at this+0x28 then fallback 0x005CBC95; address-derived identity and field purposes remain unknown
