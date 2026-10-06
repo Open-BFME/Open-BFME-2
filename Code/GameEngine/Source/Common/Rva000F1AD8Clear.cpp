@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /O1 /G7 /MD /EHsc
 // ?rva000F1AD8@Rva000F1AD8@@QAEXXZ @0x000F1AD8 95B
 // Evidence: unlock lane calls rowed First Next Reset plus virtual release; table at +0; iterator on stack.
 class HashableClass {
