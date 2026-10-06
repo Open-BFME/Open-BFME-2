@@ -337,12 +337,20 @@ Rva00040ECE::Rva00040ECE()
 }
 
 // ??0Rva000421C8@@QAE@XZ @0x000421C8 13B, vtable VA 0xbc26e0
+// The partition filter base. Retail's vftable has three slots: the deleting
+// dtor 0x000421D5, __purecall 0x0003B810 (allow) and the shared `or eax,-1`
+// body 0x0036CC7A (getPlayerMask), the view the other filter units declare.
+class Object;
 class Rva000421C8 : public RvaSmallVtableZeroBase
 {
 public:
 	Rva000421C8();
 	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
 };
+
+#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
 
 inline Rva000421C8::Rva000421C8()
 {
