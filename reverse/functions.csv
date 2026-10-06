@@ -63688,3 +63688,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004D5D55@NetGameCommandMsg@@QAE?AVAsciiString@@XZ,,0x004D5D55,154,Code/GameEngine/Source/GameNetwork/NetGameCommandMsgContents.cpp,matched,vtable slot 3 NetGameCommandMsg format with GameMessage type name
 ?rva003EEF13@Rva003EEF13@@QAEXH@Z,,0x003EEF13,37,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 0x003EE7CA and 0x003EEBC4 same TU as prev next
 ?rva003EE8D8@Rva003EE8D8@@QAEXH@Z,,0x003EE8D8,40,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 0x003EE7CA and 0x003EE89E same TU as prev next
+?rva002C8754@Rva002C8754@@QAEXPAVINI@@PAX@Z,,0x002C8754,234,Code/GameEngine/Source/Common/Rva002C8754.cpp,matched,234B driver same shape as 0x0033B84E sibling via worker 0x002C82C8
