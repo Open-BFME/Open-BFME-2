@@ -65790,3 +65790,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?Rva004DD722Get@@YAMH@Z,,0x004DD722,25,Code/GameEngine/Source/Common/Rva004DD843Getter.cpp,matched,
 ?rva004DE511@Rva004DD843@@QAEXHH@Z,,0x004DE511,27,Code/GameEngine/Source/Common/Rva004DD843Getter.cpp,matched,
 ?Rva004C30BC@@YAHPAVObjectCreationList@@PAX1@Z,,0x004C30BC,28,Code/GameEngine/Source/GameLogic/Object/Rva001F0434Finish.cpp,matched,
+?rva004E00BA@Rva004E00BAOwner@@QAEXPAVObject@@@Z,,0x004E00BA,31,Code/GameEngine/Source/GameLogic/Object/Rva004E00BA.cpp,matched,Ghidra boundary and ret 4; vector at this+4 and callee call at 0x004DFF2C from bytes; address-derived labels preserve unresolved identities
