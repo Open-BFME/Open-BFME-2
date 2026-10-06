@@ -64990,3 +64990,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ??0Rva002AABEE@@QAE@VAsciiString@@IABV?$vector@IV?$allocator@I@_STL@@@_STL@@ABV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@3@@Z,,0x002AF581,110,Code/GameEngine/Source/Common/RTS/Rva002AF581Ctor.cpp,matched,ctor builds level-value record per Rva002AABEE layout
 ?rva006E47C0@Rva006E34D0@@QAEXXZ,,0x006E47C0,708,Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp,matched,leaf lane caller 0x006CD330 pin Rva006E34D0 GC mark
 ??1Rva000525E5@@QAE@XZ,,0x000525E5,125,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000525E5.cpp,matched,vector deleting dtor 0x5277C size 0x48 via MM plus pin 0x51038
+??_ERva000525E5@@QAEPAXI@Z,,0x0005277C,75,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000525E5VectorDeletingDtor.cpp,matched,vector deleting dtor size 0x48 via MM plus rowed dtor
