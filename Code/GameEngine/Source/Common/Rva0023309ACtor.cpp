@@ -83,3 +83,18 @@ Rva0023309A::Rva0023309A()
 		m_b[i] = 0;
 	}
 }
+
+// ?rva002331BB@Rva002331BB@@QAEPAVRva0023309A@@XZ @0x002331BB 53B.
+// The retail body allocates 0x3064 bytes then invokes the ctor immediately;
+// that size matches this object's modeled extent. The owning class remains
+// address-named because the sole caller is an unclaimed large function.
+class Rva002331BB
+{
+public:
+	Rva0023309A *rva002331BB();
+};
+
+Rva0023309A *Rva002331BB::rva002331BB()
+{
+	return new Rva0023309A;
+}
