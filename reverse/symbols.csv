@@ -13008,11 +13008,6 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??_7GameSpyStagingRoom@@6B@,0x00C19440,GameSpyStagingRoom vtable installed by copy ctor 0x003835F4 (mov [esi] imm at 0x00383632); slot0 is rowed ??_GGameSpyStagingRoom 0x00383768; slots 12-14 are rowed ZH amIHost/getLocalSlotNum/resetAccepted
 ??0Rva001408C0Target@@QAE@ABU0@@Z,0x004ABCE6,polymorphic base copy constructor REL32 callee at 0x004ABF5D in Rva004ABFD9 copy 0x004ABF47 (base at offset 0 is the key that object registers in 0x00E03CE0); identity unproven
 ??_7Rva004ABFD9@@6B@,0x00C549F8,Rva004ABFD9 vtable installed by copy ctor 0x004ABF47 (mov [esi] imm at 0x004ABF6D); slot0 is rowed ??_GRva004ABFD9 0x004AC021
-?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
-??1Rva0042D4B3@@UAE@XZ,0x00577E3E,virtual dtor called by the scalar deleting dtor 0x0042D4B3; thiscall read from its REL32
-?rva0040F497@@YGXHHH@Z,0x0040F497,3-zero-arg helper called by BfmeY1038::rva0040F7E5 0x0040F7E5; retail callee cleans 12 (stdcall) but the caller bytes only need the address
-??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
-?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
 ?copyFrom@Rva004E1FE4TreeCopyView@@QAEXABV1@@Z,0x004E1FE4,opaque 12-byte copy member; native REL32 at 0x004E2C92 and Ghidra FUN_008E1FE4 boundary 165B establish destination; source identity inferred
 ??0Rva004E1D4EVectorCopyView@@QAE@ABV0@@Z,0x004E1D4E,opaque 12-byte vector copy view; native REL32 at 0x004E2CA2 reaches Ghidra FUN_008E1D4E boundary 71B; source identity inferred
 ??0Rva0037BBED@@QAE@XZ,0x0037BB98,constructor called with this by AptSaveLoad 0x0043448C; vtable 0x00C18828 matches rowed destructor 0x0037BBED
