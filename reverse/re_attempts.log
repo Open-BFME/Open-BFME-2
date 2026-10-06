@@ -11411,3 +11411,5 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 FUN_00613c6e	0x00213C6E	293	blocked	dual-path INI-Xfer-like virtuals 0x4-0x7c plus Rva00056F61 table at +0x204 with EH AsciiString temps and 0x34 new via Rva00210EF1 needs donor layout beyond quick box t=10 model=muse-06
 FUN_00479ed4	0x00079ED4	29	blocked	hint-insert forwarder to rowed 0x79D14 same this hidden ret0c: ours 24B 3xpush-mem vs retail 29B push-ecx-mov-eax shape needs lever beyond 6-variant box t=18 model=muse-06
 ?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z	0x00334AF3	263	partial	second bool sbb eax vs sbb al plus inc eax vs inc al t=18 model=muse-spark score=0.99 stash=reverse/attempts/0x00334af3.cpp
+?rva004E9EA1@Rva004E9EA1@@QAEHXZ	0x004E9EA1	177	blocked	177B needs 31-slot vtable plus 2 loops plus vector pushback plus scan beyond 6-variant box t=5 model=muse-02
+??1Rva004E9657@@QAE@XZ	0x004E9657	185	blocked	185B dtor with RB-tree walk plus vector plus map teardown needs full layout beyond box t=3 model=muse-02
