@@ -11,10 +11,28 @@
 // player's living-world id (+0x3AC) and fold the RTS score keeper into it.
 class ScoreKeeper;
 
+// ObjectCountMap is a 12-byte tree header. The stride is explicit in the
+// indexed map accessor at 0x0039C3AC and the shape agrees with the matched
+// ScoreKeeper map counter at 0x0039BEC3.
+struct ObjectCountMap
+{
+	void *m_header;
+	int m_pad04;
+	int m_pad08;
+};
+
 class LivingWorldScoreKeeper
 {
 public:
 	void rva004EE950(ScoreKeeper *rtsScoreKeeper);
+
+private:
+	unsigned char m_pad000[0x74];
+	unsigned int m_scoreTotal; // +0x74, incremented by 0x0039B718
+	unsigned char m_pad078[0x3C];
+	ObjectCountMap m_primaryMap;   // +0xB4
+	ObjectCountMap m_secondaryMap; // +0xC0
+	ObjectCountMap m_indexedMap;   // +0xCC, receives twenty source maps
 };
 
 class Rva002E2903Player
@@ -40,6 +58,20 @@ class ScoreKeeper
 	unsigned char m_bytes[4];
 };
 
+class Rva0039B709
+{
+public:
+	unsigned int rva0039B718();
+};
+
+class Rva0039C3AC
+{
+public:
+	ObjectCountMap *rva0039C3AC(int index);
+};
+
+extern void __cdecl rva004EE8B8(ObjectCountMap *destination, ObjectCountMap *source);
+
 class Player
 {
 public:
@@ -62,4 +94,20 @@ void Player::accumulateRTSBattleStatsIntoLivingWorldScoreKeeper()
 	if (lwPlayer)
 		lwPlayer->getScoreKeeper()->rva004EE950(&m_scoreKeeper);
 	m_accumulatedIntoLivingWorld = true;
+}
+
+// Identity (target): called on the living-world player's +0x2C8 score keeper
+// with Player's +0x3BC ScoreKeeper by the matched accumulation path above.
+// Layout (target): adds the rowed 0x0039B718 value at +0x74; merges source maps
+// at +0x1F0 and +0x2EC into +0xB4 and +0xC0; then folds the twenty maps returned
+// by 0x0039C3AC into the single map at +0xCC. The helper's exact name is kept
+// address-derived at 0x004EE8B8.
+void LivingWorldScoreKeeper::rva004EE950(ScoreKeeper *rtsScoreKeeper)
+{
+	m_scoreTotal += ((Rva0039B709 *)rtsScoreKeeper)->rva0039B718();
+	rva004EE8B8(&m_primaryMap, (ObjectCountMap *)((char *)rtsScoreKeeper + 0x1F0));
+	rva004EE8B8(&m_secondaryMap, (ObjectCountMap *)((char *)rtsScoreKeeper + 0x2EC));
+	Rva0039C3AC *scoreMaps = (Rva0039C3AC *)rtsScoreKeeper;
+	for (int i = 0; i < 20; ++i)
+		rva004EE8B8(&m_indexedMap, scoreMaps->rva0039C3AC(i));
 }
