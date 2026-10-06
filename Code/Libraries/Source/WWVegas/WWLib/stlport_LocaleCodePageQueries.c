@@ -318,6 +318,26 @@ char *Rva0084EF30(LocaleCodePageObject_0084EED0 *object)
     }
 }
 
+// Rva00850560 (retail 0x000236F0, 159B): locale long-date/time formatter.
+// The BFME1 donor supplies the operation order; retail proves its locale type,
+// conversion calls, buffer addresses and appended separator. The output is
+// the existing FndLang storage at its retail address.
+extern char __FndLang[];
+extern char *Rva0084ED20Tail(LocaleCodePageObject_0084EED0 *object);
+char *Rva00850560(LocaleCodePageObject_0084EED0 *object)
+{
+    LCID locale = object->locale;
+    GetLocaleInfoA(locale, 0x20, locale_buffer_0084ECE0, 0x104);
+    {
+        char *buffer = locale_buffer_0084ECE0;
+        __ConvertFromACP(buffer, 0x50, object->codePage);
+        strcpy(__FndLang, Rva0084DE40Tail(buffer));
+        strcat(__FndLang, " ");
+        strcat(__FndLang, Rva0084ED20Tail(object));
+        return __FndLang;
+    }
+}
+
 /* BFME1 donor: game/stlport/LocaleCodePageQueries.c at 10af19f44a.
  * BFME2 evidence: unique 420-byte placement at RVA 0x00021EB0; the return
  * ends the 308-byte instruction stream and switch tables fill the rest.

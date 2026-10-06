@@ -14742,3 +14742,4 @@ FUN_00459ce6	0x00059CE6	197	blocked	frame and register allocation diverge across
 ?rva0031AD94@ControlBar@@QAEXXZ	0x0031AD94	26	partial	retail tests AL while the resolved int getter compiles to test eax after four variants t=12 model=gpt-6.1-sol score=0.97 stash=reverse/attempts/0x0031ad94.cpp
 ?rva0031AD94@ControlBar@@QAEXXZ	0x0031AD94	26	blocked	retail tests AL while the correct int getter call optimizes to test eax; low-byte mask and union did not change bytes after six variants t=20 model=gpt-6.1-sol (stash 0.97 kept)
 ?rva0021E9D8@Rva0021E9D8@@QAEHIABVAsciiString@@00@Z	0x0021E9D8	129	partial	register allocation and vector pointer scheduling remain after six variants t=7 model=GPT-6 score=0.93 stash=reverse/attempts/0x0021e9d8.cpp
+?optimizeGroundPath@Path@@QAEXH@Z	0x00363FA4	522	blocked	three variants leave material control flow and register differences t=6 model=GPT-6

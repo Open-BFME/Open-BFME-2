@@ -66104,3 +66104,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva0050F68A@Rva0050F6AD@@QAEXPAVRva0050ED58@@@Z,,0x0050F68A,35,Code/GameEngine/Source/Common/System/Rva0050F6AD.cpp,matched,holder assign via rowed dtor and delete with same-class clear neighbour
 ?rva0050F10B@Rva0050F10B@@QAEXPBD@Z,,0x0050F10B,119,Code/GameEngine/Source/Common/System/Rva0050F10B.cpp,matched,REF at 0x0051076D via rowed GetParam and clear with IAT atoi
 ?rva002EF663@Pathfinder@@QAE_NPBUCoord3D@@W4PathfindLayerEnum@@0I@Z,,0x002EF663,41,Code/GameEngine/Source/GameLogic/AI/PathfinderBlingBinderQuery.cpp,matched,same Pathfinder this forwarded to rva002EED41 with stack context
+_Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleCodePageQueries.c,matched,BFME1 donor plus retail call and buffer evidence
