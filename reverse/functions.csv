@@ -64355,3 +64355,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva0056BDFCParse@@YAXPAVINI@@PAX1PBX@Z,,0x0056BDFC,255,Code/GameEngine/Source/Common/Rva0056BDFCParse.cpp,matched,chain via 0x0056BDC8 plus sibling 0x0056BF1F same shape plus tables 0x00C6D690 and 0x00C6D8F8
 ?rva0059CEE4@Rva0059CEE4@@QAEMHPAXPAPAX@Z,,0x0059CEE4,75,Code/GameEngine/Source/Common/Rva0059CEE4Func.cpp,matched,this+0x0c int to float callee 0x004FFB00 float globals
 ?rva0057C71F@Rva0057C71F@@QAEPAXH@Z,,0x0057C71F,155,Code/GameEngine/Source/Common/Rva0057C71F.cpp,matched,leaf 2 callers rowed callees globals g_009FEF10 TheMapCache
+?rva002B8860@Rva002B8860@@QAEXXZ,,0x002B8860,140,Code/GameEngine/Source/Common/Rva002B8860.cpp,matched,guard 0x168 globals vector erase clear forEach tail endgame caller 0x002B9DC7
