@@ -17,6 +17,10 @@ template <class T> class allocator
 public:
 	T *allocate(unsigned int n, const void *hint) const;
 };
+template <class InputIter, class ForwardIter>
+ForwardIter __uninitialized_copy(InputIter first, InputIter last, ForwardIter result, const __false_type &);
+template <class ForwardIter, class Size, class T>
+ForwardIter __uninitialized_fill_n(ForwardIter first, Size n, const T &x, const __false_type &);
 }
 
 class Xfer;
@@ -42,9 +46,6 @@ typedef char SaveMapPreviewSizeCheck[sizeof(SaveMapPreview) == 0x14 ? 1 : -1];
 #pragma optimize("y", on)
 inline void *__cdecl operator new(unsigned int, void *p) { return p; }
 #pragma optimize("", on)
-
-SaveMapPreview *__cdecl Rva002DBEFFUninitCopy(SaveMapPreview *first, SaveMapPreview *last, SaveMapPreview *result, const _STL::__false_type &);
-SaveMapPreview *__cdecl Rva002DBF28FillN(SaveMapPreview *first, unsigned int n, const SaveMapPreview &value, const _STL::__false_type &);
 
 class Rva00565A42
 {
@@ -75,7 +76,7 @@ void Rva002DDD48::rva002DDD48(SaveMapPreview *pos, const SaveMapPreview &x, cons
 	const unsigned int &maxv = old_size < n ? n : old_size;
 	unsigned int len = old_size + maxv;
 	SaveMapPreview *new_start = (SaveMapPreview *)m_alloc.allocate(len, 0);
-	SaveMapPreview *new_finish = Rva002DBEFFUninitCopy(m_start, pos, new_start, *(const _STL::__false_type *)((char *)&at_end + 3));
+	SaveMapPreview *new_finish = _STL::__uninitialized_copy<const SaveMapPreview *, SaveMapPreview *>((const SaveMapPreview *)m_start, (const SaveMapPreview *)pos, new_start, *(const _STL::__false_type *)((char *)&at_end + 3));
 	if (n == 1)
 	{
 		if (new_finish != 0)
@@ -84,11 +85,11 @@ void Rva002DDD48::rva002DDD48(SaveMapPreview *pos, const SaveMapPreview &x, cons
 	}
 	else
 	{
-		new_finish = Rva002DBF28FillN(new_finish, n, x, *(const _STL::__false_type *)((char *)&at_end + 3));
+		new_finish = _STL::__uninitialized_fill_n<SaveMapPreview *, unsigned int, SaveMapPreview>(new_finish, n, x, *(const _STL::__false_type *)((char *)&at_end + 3));
 	}
 	if (!at_end)
 	{
-		new_finish = Rva002DBEFFUninitCopy(pos, m_finish, new_finish, *(const _STL::__false_type *)((char *)&at_end + 3));
+		new_finish = _STL::__uninitialized_copy<const SaveMapPreview *, SaveMapPreview *>((const SaveMapPreview *)pos, (const SaveMapPreview *)m_finish, new_finish, *(const _STL::__false_type *)((char *)&at_end + 3));
 	}
 	((Rva00565A42 *)this)->rva00565A42();
 	SaveMapPreview *new_end = new_start + len;
