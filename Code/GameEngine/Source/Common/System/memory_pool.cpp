@@ -81,6 +81,8 @@ public:
 	bool rva00032830(const void *block, int addressType);	// ValidateAddress-like
 	bool rva00032920(const void *block);			// owns-address test
 	bool rva000329E0(int level);				// ValidateHeap-like
+	int rva000327E0(const void *blockData, unsigned int left, char *dst);
+	int rva00031430(const void *block, unsigned int left, char *dst);
 	unsigned int rva00032A20(const void *block);		// GetUsableSize-like
 	unsigned int rva006C1D10(const void *block);		// fast usable-size with tail call to 0x32A20 caller 0x6C36FD
 	void *rva00031680(const void *block);	// intrusive-list search unblocking 0x31BB0 0x31D00 0x32920
@@ -224,6 +226,28 @@ bool GeneralAllocator::rva00031BB0(const void *block)
 		}
 	}
 	return false;
+}
+
+// ?rva000327E0@GeneralAllocator@Allocator@EA@@QAEHPBXIPAD@Z
+// Target evidence: retail locks with this+0x4E4/+0x18 around the call to
+// 0x00031430, passing blockData-8, left, and dst. The same allocator this and
+// lock layout are established by the matched 0x32A20 sibling; the helper's
+// address-derived role as the block formatter is supported by 0x353F0.
+int GeneralAllocator::rva000327E0(const void *blockData, unsigned int left, char *dst)
+{
+	Lock *lock = m_4E4;
+	if (lock != 0)
+	{
+		EnterCriticalSection(lock);
+		++lock->m_count;
+	}
+	int result = rva00031430((const char *)blockData - 8, left, dst);
+	if (lock != 0)
+	{
+		--lock->m_count;
+		LeaveCriticalSection(lock);
+	}
+	return result;
 }
 
 // ?rva00032A20@GeneralAllocator@Allocator@EA@@QAEIPBX@Z @0x00032A20 146B
