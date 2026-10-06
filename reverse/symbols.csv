@@ -15391,3 +15391,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva001e6007@Rva001E6007@@QAEXIIMM@Z,0x001E6007,"Ghidra boundary FUN_005e6007 is 1295 bytes; exact direct-call target at 0x001E707D receives the four forwarded dwords in ECX with ret 16; semantic identity unknown"
 ?rva001e7053@Rva001E7053@@QAEXIIMM@Z,0x001E7053,"address-derived call target; Ghidra boundary FUN_005e7053 is 52 bytes; exact REL32 caller 0x001E7C2B; semantic identity unknown"
 ?rva001e8c1b@Rva001E8C1B@@QAEXIIMM@Z,0x001E8C1B,"address-derived call target; Ghidra boundary FUN_005e8c1b is 744 bytes; exact REL32 caller 0x001E9045; semantic identity unknown"
+?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
