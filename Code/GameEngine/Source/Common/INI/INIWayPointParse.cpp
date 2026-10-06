@@ -22,6 +22,16 @@ struct Rva0046133BWayPoint
 	int m_type;
 };
 
+// Rowed 8-byte vector push_back at 0x00539A2E
+// (stlport_vector_e8_allocate_copy.cpp). Same layout as Rva0046133BWayPoint
+// (two ints); retail calls it directly, so this TU calls the row name via
+// cast. Declaration only: the definition lives in the row owner.
+struct BfmeE8
+{
+	int a;
+	int b;
+};
+
 namespace _STL
 {
 template <class T> class allocator
@@ -37,6 +47,11 @@ private:
 	Rva0046133BWayPoint *m_finish;
 	Rva0046133BWayPoint *m_endOfStorage;
 };
+template <> class vector<BfmeE8, allocator<BfmeE8> >
+{
+public:
+	void push_back(const BfmeE8 &x);
+};
 }
 
 // ?Rva0046133BParse@@YAXPAVINI@@PAX1PBX@Z
@@ -51,5 +66,5 @@ void Rva0046133BParse(INI *ini, void *, void *store, const void *)
 		wayPoint.m_type = 3;
 	else if (type.compare("PreClimb") == 0)
 		wayPoint.m_type = 4;
-	((_STL::vector<Rva0046133BWayPoint, _STL::allocator<Rva0046133BWayPoint> > *)store)->push_back(wayPoint);
+	((_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > *)store)->push_back(*(const BfmeE8 *)&wayPoint);
 }
