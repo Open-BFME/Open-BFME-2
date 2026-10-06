@@ -24,6 +24,7 @@ EXTERN ??1RefHolder@Rva005CCC07@@QAE@XZ:PROC
 EXTERN ??1BfmePoolRef10@@QAE@XZ:PROC
 EXTERN ??1BfmeStringTailRecord156@@QAE@XZ:PROC
 EXTERN ?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ:PROC
+EXTERN ??1Rva005F4179@@UAE@XZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b96a09 at RVA 0x00796A09; 25-byte interval ends at RET.
@@ -1599,6 +1600,51 @@ PUBLIC ?rva007A3701@@YAXXZ
 cleanup_done_007A3701:
     ret
 ?rva007A3701@@YAXXZ ENDP
+
+; Unwind@00ba377a at RVA 0x007A377A; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then uses [ebp-20] + 20 as ECX and tail-jumps to matched Rva005F4179 virtual destructor at 0x005F4179.
+PUBLIC ?rva007A377A@@YAXXZ
+?rva007A377A@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A377A
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp-20]
+    add ecx, 20
+    jmp ??1Rva005F4179@@UAE@XZ
+cleanup_done_007A377A:
+    ret
+?rva007A377A@@YAXXZ ENDP
+
+; Unwind@00ba37a0 at RVA 0x007A37A0; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then uses [ebp-20] + 36 as ECX and tail-jumps to matched Rva005F4179 virtual destructor at 0x005F4179.
+PUBLIC ?rva007A37A0@@YAXXZ
+?rva007A37A0@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A37A0
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp-20]
+    add ecx, 36
+    jmp ??1Rva005F4179@@UAE@XZ
+cleanup_done_007A37A0:
+    ret
+?rva007A37A0@@YAXXZ ENDP
+
+; Unwind@00ba37d1 at RVA 0x007A37D1; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then uses [ebp-20] + 48 as ECX and tail-jumps to matched Rva005F4179 virtual destructor at 0x005F4179.
+PUBLIC ?rva007A37D1@@YAXXZ
+?rva007A37D1@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A37D1
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp-20]
+    add ecx, 48
+    jmp ??1Rva005F4179@@UAE@XZ
+cleanup_done_007A37D1:
+    ret
+?rva007A37D1@@YAXXZ ENDP
 
 ; Unwind@00ba497e at RVA 0x007A497E; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
