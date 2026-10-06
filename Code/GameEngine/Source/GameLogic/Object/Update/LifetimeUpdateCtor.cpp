@@ -90,6 +90,9 @@ class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	// Declared only: retail's ~UpdateModule (0x0024A797, pin) restores the three vtables and
+	// tail-jumps on; the implicit one here compiled to a 5-byte jmp the link could keep.
+	virtual ~UpdateModule();
 
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);

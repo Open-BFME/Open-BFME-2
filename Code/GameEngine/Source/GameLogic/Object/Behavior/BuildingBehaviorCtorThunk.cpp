@@ -28,6 +28,9 @@ public:
     // Defined once, out of line, in UpdateModuleCtor.cpp (retail 0x00253390): derived
     // ctors call it, and a copy here would offer the link a second, non-retail body.
     UpdateModule(Thing *thing, const ModuleData *moduleData);
+    // Declared only: retail's ~UpdateModule (0x0024A797, pin) restores the three vtables and
+    // tail-jumps on; the implicit one here compiled to a 5-byte jmp the link could keep.
+    virtual ~UpdateModule();
 
 protected:
     void setWakeFrame(Object *, UpdateSleepTime);
