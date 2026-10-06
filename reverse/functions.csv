@@ -12579,7 +12579,6 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva0028D4DDGet@@YAHXZ,,0x0028D4DD,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva003E46B1Get@@YAHXZ,,0x003E46B1,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?Rva003FE25AGet@@YAHXZ,,0x003FE25A,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
-?Rva00449A26Get@@YAHXZ,,0x00449A26,3,Code/GameEngine/Source/Common/ConstZeroGetters.cpp,matched,33C0C3 zero returner; prev C3 with no vtable and no callers; opaque name
 ?bfmeAttachAlways@Gen009D6E10@@QAEPAV1@PAVBfmePeer@@@Z,,0x0060D565,47,Code/GameEngine/Source/Common/Gen009D90D0.cpp,matched,BFME1 donor Gen009D90D0 with O1 for eax coloring; bfmeReset pinned
 ?Rva001ED62EGet@@YAHXZ,,0x001ED62E,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret c036e8; prev C3 with no vtable and no callers; opaque name
 ?Rva002009FBGet@@YAHXZ,,0x002009FB,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret c1ee54; prev C3 with no vtable and no callers; opaque name
@@ -66275,3 +66274,6 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?RequestChat@LANAPI@@UAEXVUnicodeString@@W4ChatType@LANAPIInterface@@H@Z,,0x0044A652,267,Code/GameEngine/Source/GameNetwork/LANAPIRequestGameLeave.cpp,matched,ZH LANAPI::RequestChat (BFME1 lanapi.cpp same body); LANAPI vtable 83E680 slot21; MSG_CHAT 11 with chatType +40 and 100-char message +44; OnChat vslot40 by-reference with vslot64 local address; unread third stack arg typed Int from caller pushes 381830/444916; full267B exact
 ?RequestEnableMPSetupUI@LANAPI@@UAEX_N@Z,,0x0044A75D,171,Code/GameEngine/Source/GameNetwork/LANAPIRequestGameLeave.cpp,matched,BFME1 LANAPIRequestEnableMPSetupUI.cpp donor (retail 686780); LANAPI vtable 83E680 slot22; MSG_ENABLE_MPSETUP_UI 12 with Bool +40 then Transport update; full171B exact
 ?RequestHasMap@LANAPI@@UAEXXZ,,0x0044A3BF,659,Code/GameEngine/Source/GameNetwork/LANAPIRequestGameLeave.cpp,matched,
+?LookupGameByListOffset@LANAPI@@UAEPAVLANGameInfo@@H@Z,,0x004498F0,35,Code/GameEngine/Source/GameNetwork/LANAPIAmIHost.cpp,matched,
+?AmIHost@LANAPI@@UAEHXZ,,0x004499FF,42,Code/GameEngine/Source/GameNetwork/LANAPIAmIHost.cpp,matched,
+?rva00449B79@LANAPI@@UAE_NXZ,,0x00449B79,22,Code/GameEngine/Source/GameNetwork/LANAPIAmIHost.cpp,matched,
