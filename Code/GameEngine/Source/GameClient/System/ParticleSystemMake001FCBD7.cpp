@@ -13,30 +13,8 @@
 // literal. Its ZA names and layouts are not treated as BFME2 facts; the types
 // below follow BFME2 constructor/vtable/callback evidence.
 
-template <typename T>
-class StringBase
-{
-    friend class AsciiString;
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-private:
-    StringBase(const char *text);
-
-public:
-    ~StringBase(void);
-
-private:
-    T *m_data;
-};
-
-class AsciiString : public StringBase<char>
-{
-public:
-    AsciiString(const char *text) : StringBase<char>(text)
-    {
-    }
-
-    ~AsciiString(void);
-};
 
 namespace FXParticleSystem
 {

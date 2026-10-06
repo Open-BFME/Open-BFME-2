@@ -13,7 +13,7 @@
 #undef _STLP_DEFAULT_CONSTRUCTED
 #define _STLP_DEFAULT_CONSTRUCTED(_TTp) _TTp()
 #include <map>
-class AsciiString { public: AsciiString(const AsciiString &); ~AsciiString(); protected: void releaseBuffer(); private: void *m_data; };
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 bool operator<(const AsciiString &, const AsciiString &);
 // Retail pair destructor 0x0022187B releases its non-null mapped pointer
 // through the shared rowed fastcall 0x0007DEEF before destroying the

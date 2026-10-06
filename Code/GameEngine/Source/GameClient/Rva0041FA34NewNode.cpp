@@ -11,13 +11,7 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <memory>
 
-class AsciiString
-{
-public:
-	AsciiString(const AsciiString &other);
-private:
-	char m_pad[4];
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 struct NoCaseTreeValue4
 {

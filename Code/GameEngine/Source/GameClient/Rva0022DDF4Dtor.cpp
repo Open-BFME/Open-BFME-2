@@ -6,8 +6,7 @@
 // Prev 0x0022DBC6 (MapMetaData dtor) and next 0x00232920 share no TU; new file
 // beside MapMetaDataCopy.cpp copies its // cl: line. MapMetaData size 0x100
 // from its SizeCheck; owner identity unproven, honest Rva name.
-template<class T> class StringBase { void *m_data; void releaseBuffer(); public: StringBase(const StringBase &); void set(const StringBase &); protected: __forceinline ~StringBase() { releaseBuffer(); } };
-class AsciiString : private StringBase<char> { public: __forceinline AsciiString(const AsciiString &o) : StringBase<char>(o) {} void set(const AsciiString &o) { StringBase<char>::set(o); } __forceinline ~AsciiString() {} };
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class MapMetaData
 {

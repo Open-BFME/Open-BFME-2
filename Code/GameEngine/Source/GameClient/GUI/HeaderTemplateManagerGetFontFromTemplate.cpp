@@ -18,32 +18,9 @@
 // returns the matching template.  Its direct-body pin lets the resolver
 // derive the retail ILT 0x0004881A without adding an ILT identity claim.
 
-template <typename T> class StringBase
-{
-friend class AsciiString;
-
-private:
-	StringBase( const StringBase<T> &other );
-	void releaseBuffer( void );
-};
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 // class-gate: allow AsciiString the donor's own view; the placed bodies are byte-exact under it
-class AsciiString
-{
-public:
-	AsciiString( const AsciiString &other )
-	{
-		((StringBase<char> *)this)->StringBase<char>::StringBase(
-			*(const StringBase<char> *)&other);
-	}
-	~AsciiString()
-	{
-		((StringBase<char> *)this)->StringBase<char>::releaseBuffer();
-	}
-
-private:
-	char *m_data;
-};
 
 class GameFont;
 

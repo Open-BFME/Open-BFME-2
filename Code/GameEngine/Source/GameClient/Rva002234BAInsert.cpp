@@ -6,13 +6,7 @@
 // 0x00223149, allocates node via rowed 0x002230FF, links old head, bumps
 // count, returns value at +4. Same shape as landed 0x00223854 68B insert.
 // Callers 0x0022363A. Returns pair pointer for LINK BONUS style callers.
-class AsciiString
-{
-public:
-	~AsciiString();
-private:
-	char m_pad[4];
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 struct NoCaseTreeValue4
 {

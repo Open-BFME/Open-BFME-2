@@ -14,7 +14,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 
-class AsciiString { public: AsciiString(const AsciiString &); __forceinline ~AsciiString(); protected: void releaseBuffer(); private: void *m_data; };
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 struct BfmeStringRecord000B950F {
     unsigned int word0;
     AsciiString text;

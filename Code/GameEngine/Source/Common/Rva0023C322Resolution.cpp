@@ -15,16 +15,7 @@
 typedef bool Bool;
 typedef int Int;
 
-class AsciiString : public StringBase<char>
-{
-public:
-	AsciiString() {}
-	AsciiString(const char *text) : StringBase<char>(text) {}
-	AsciiString(const AsciiString &other) : StringBase<char>(other) {}
-	~AsciiString() {}
-	AsciiString &operator=(const AsciiString &other);
-	void format(const char *fmt, ...);
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 bool operator<(const AsciiString &left, const AsciiString &right);
 

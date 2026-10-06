@@ -5,20 +5,8 @@
 // via pinned ?set@?$StringBase@G@@QAEXABV1@@Z, returning this with ret 4.
 // Six callers inside 0x002D1101 prove the thiscall assign shape; owning
 // class is otherwise unproven, so the honest address name stands.
-class AsciiString
-{
-public:
-	AsciiString &operator=(const AsciiString &other);
-	char m_pad[4]; // +0, size 4 so m_wide sits at +4
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-template <typename T> class StringBase
-{
-public:
-	void set(const StringBase &other);
-private:
-	T *m_data;
-};
 
 struct Rva002CEF4B
 {

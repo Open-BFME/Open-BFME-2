@@ -8,26 +8,13 @@
 // releaseBuffer 0x00036410. Reverse of the 0x004D632D getter.
 // Evidence: callers 0x004D19D4 0x004D2E21 plus TheGameState 0x009FF08C.
 #pragma optimize("sy", on)
-template <typename T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-	void set(const StringBase<T> &other);
-private:
-	void releaseBuffer();
-	T *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 // Existing public narrow teardown spelling resolves to the verified
 // 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
 template <> StringBase<char>::~StringBase();
 #pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
 
-class AsciiString : public StringBase<char>
-{
-public:
-	__forceinline AsciiString &operator=(const AsciiString &other) { set(other); return *this; }
-};
 #pragma optimize("", on)
 class GameState
 {

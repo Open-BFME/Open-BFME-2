@@ -5,7 +5,7 @@
 // Evidence: chain lane calls just-landed Rb_tree copy 0x0052D25D; vtable 0x00861F68 stored at [this] matches dtor 0x004E32F2 class; caller 0x0052D4BE.
 // Tree member uses 24B private AsciiString so its copy call mangles to the landed Rb_tree<int AsciiString> row; size not in mangling.
 #include <map>
-class AsciiString { public: unsigned char m_data[24]; };
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 typedef _STL::_Rb_tree<int, _STL::pair<const int, AsciiString>, _STL::_Select1st<_STL::pair<const int, AsciiString> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, AsciiString> > > HAsciiStringMapTree;
 class Rva004E32F2
 {

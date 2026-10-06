@@ -3,20 +3,8 @@
 // assignment target, shared with Rva000C3380Copy); the donor's local
 // BfmeUniVIA::bfmeSetVIA label names the same bytes.
 
-template <class T> class StringBase
-{
-public:
-	void set(const StringBase<T> &other);
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class AsciiString
-{
-public:
-	AsciiString &operator=(const AsciiString &other);
-
-private:
-	char m_bfmePad[4];
-};
 
 struct BfmeElemVIA
 {

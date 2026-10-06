@@ -23,16 +23,7 @@ template <typename T> struct StringInlineData
 	T m_text[1];
 };
 
-template <typename T> class StringBase
-{
-	friend class AsciiString;
-	friend class LANAPI;
-	StringBase(const char *str);
-	StringBase(const StringBase &other);
-	void releaseBuffer();
-public:
-	StringInlineData<T> *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class AsciiString;
 
@@ -65,13 +56,6 @@ struct LANMessage
 	char m_tail[0x30];
 };
 
-class AsciiString : private StringBase<char>
-{
-public:
-	AsciiString(const char *s) : StringBase<char>(s) {}
-	~AsciiString() { releaseBuffer(); }
-	const char *str() const { return m_data != 0 ? m_data->m_text : ""; }
-};
 
 class LANAPI
 {

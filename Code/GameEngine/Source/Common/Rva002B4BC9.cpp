@@ -13,11 +13,7 @@
 // Boundary: Ghidra FUN_006b4bc9-adjacent 64B; successor 0x2B4C09 is the
 // next range target. Names are address-derived except the rowed isEmpty.
 // class-gate: allow AsciiString TU-local isEmpty-only view; the shared header defines isEmpty inline and the compiler would inline it, erasing the rowed out-of-line call at 0x00001E2F that retail makes here.
-class AsciiString
-{
-public:
-	bool isEmpty() const;
-};
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 struct Rva002B4BC9Arg
 {
