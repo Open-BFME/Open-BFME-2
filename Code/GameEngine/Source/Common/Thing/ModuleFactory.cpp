@@ -340,251 +340,261 @@ ModuleFactory::~ModuleFactory( void )
 	* to objects or drawables as modules needs to add a template
 	* for that class here */
 //-------------------------------------------------------------------------------------------------
-// ?ModuleFactory::init present-unmatched
-void ModuleFactory::init( void )
+// The retail initializer is in ModuleFactoryInit.cpp. These reference headers
+// also own 42 matched inline bodies which disappear if no TU takes the factory
+// addresses. Keep their emission explicit, as ascii_string.cpp does for its
+// inline owners. This compiler anchor is not a recovered retail function.
+#define BFME_EMIT_MODULE_FACTORIES(cls) \
+    *instances++ = &cls::friend_newModuleInstance; \
+    *data++ = &cls::friend_newModuleData
+// ?bfmeEmitModuleFactoryInlines absent-from-retail
+void bfmeEmitModuleFactoryInlines(NewModuleProc *instances, NewModuleDataProc *data)
 {
 
+
 	// behavior modules
-	addModule( AutoHealBehavior );
-	addModule( GrantStealthBehavior );
-	addModule( NeutronBlastBehavior );
-	addModule( BridgeBehavior );
-	addModule( BridgeScaffoldBehavior );
-	addModule( BridgeTowerBehavior );
-	addModule( CountermeasuresBehavior );
-	addModule( DumbProjectileBehavior );
-	addModule( PhysicsBehavior );
-	addModule( InstantDeathBehavior );
-	addModule( SlowDeathBehavior );
-	addModule( HelicopterSlowDeathBehavior );
-	addModule( NeutronMissileSlowDeathBehavior );
-	addModule( CaveContain );
-	addModule( OpenContain );
-	addModule( OverchargeBehavior );
-	addModule( HealContain );
-	addModule( GarrisonContain );
-	addModule( InternetHackContain );
-	addModule( TransportContain );
-	addModule( RiderChangeContain );
-	addModule( RailedTransportContain );
-	addModule( MobNexusContain );
-	addModule( TunnelContain );
-	addModule( OverlordContain );
-	addModule( HelixContain );
-	addModule( ParachuteContain );
+	BFME_EMIT_MODULE_FACTORIES( AutoHealBehavior );
+	BFME_EMIT_MODULE_FACTORIES( GrantStealthBehavior );
+	BFME_EMIT_MODULE_FACTORIES( NeutronBlastBehavior );
+	BFME_EMIT_MODULE_FACTORIES( BridgeBehavior );
+	BFME_EMIT_MODULE_FACTORIES( BridgeScaffoldBehavior );
+	BFME_EMIT_MODULE_FACTORIES( BridgeTowerBehavior );
+	BFME_EMIT_MODULE_FACTORIES( CountermeasuresBehavior );
+	BFME_EMIT_MODULE_FACTORIES( DumbProjectileBehavior );
+	BFME_EMIT_MODULE_FACTORIES( PhysicsBehavior );
+	BFME_EMIT_MODULE_FACTORIES( InstantDeathBehavior );
+	BFME_EMIT_MODULE_FACTORIES( SlowDeathBehavior );
+	BFME_EMIT_MODULE_FACTORIES( HelicopterSlowDeathBehavior );
+	BFME_EMIT_MODULE_FACTORIES( NeutronMissileSlowDeathBehavior );
+	BFME_EMIT_MODULE_FACTORIES( CaveContain );
+	BFME_EMIT_MODULE_FACTORIES( OpenContain );
+	BFME_EMIT_MODULE_FACTORIES( OverchargeBehavior );
+	BFME_EMIT_MODULE_FACTORIES( HealContain );
+	BFME_EMIT_MODULE_FACTORIES( GarrisonContain );
+	BFME_EMIT_MODULE_FACTORIES( InternetHackContain );
+	BFME_EMIT_MODULE_FACTORIES( TransportContain );
+	BFME_EMIT_MODULE_FACTORIES( RiderChangeContain );
+	BFME_EMIT_MODULE_FACTORIES( RailedTransportContain );
+	BFME_EMIT_MODULE_FACTORIES( MobNexusContain );
+	BFME_EMIT_MODULE_FACTORIES( TunnelContain );
+	BFME_EMIT_MODULE_FACTORIES( OverlordContain );
+	BFME_EMIT_MODULE_FACTORIES( HelixContain );
+	BFME_EMIT_MODULE_FACTORIES( ParachuteContain );
 #ifdef ALLOW_SURRENDER
-	addModule( POWTruckBehavior );
-	addModule( PrisonBehavior );
-	addModule( PropagandaCenterBehavior );
+	BFME_EMIT_MODULE_FACTORIES( POWTruckBehavior );
+	BFME_EMIT_MODULE_FACTORIES( PrisonBehavior );
+	BFME_EMIT_MODULE_FACTORIES( PropagandaCenterBehavior );
 #endif
-	addModule( PropagandaTowerBehavior );
-	addModule( BunkerBusterBehavior );
-	addModule( FireWeaponWhenDamagedBehavior );
-	addModule( FireWeaponWhenDeadBehavior );
-	addModule( GenerateMinefieldBehavior );
-	addModule( ParkingPlaceBehavior );
-	addModule( FlightDeckBehavior );
-	addModule( PoisonedBehavior );
-	addModule( RebuildHoleBehavior );
-	addModule( SupplyWarehouseCripplingBehavior );
-	addModule( TechBuildingBehavior );
-	addModule( MinefieldBehavior );
-	addModule( BattleBusSlowDeathBehavior );
-	addModule( JetSlowDeathBehavior );
-	addModule( RailroadBehavior );
-	addModule( SpawnBehavior );
+	BFME_EMIT_MODULE_FACTORIES( PropagandaTowerBehavior );
+	BFME_EMIT_MODULE_FACTORIES( BunkerBusterBehavior );
+	BFME_EMIT_MODULE_FACTORIES( FireWeaponWhenDamagedBehavior );
+	BFME_EMIT_MODULE_FACTORIES( FireWeaponWhenDeadBehavior );
+	BFME_EMIT_MODULE_FACTORIES( GenerateMinefieldBehavior );
+	BFME_EMIT_MODULE_FACTORIES( ParkingPlaceBehavior );
+	BFME_EMIT_MODULE_FACTORIES( FlightDeckBehavior );
+	BFME_EMIT_MODULE_FACTORIES( PoisonedBehavior );
+	BFME_EMIT_MODULE_FACTORIES( RebuildHoleBehavior );
+	BFME_EMIT_MODULE_FACTORIES( SupplyWarehouseCripplingBehavior );
+	BFME_EMIT_MODULE_FACTORIES( TechBuildingBehavior );
+	BFME_EMIT_MODULE_FACTORIES( MinefieldBehavior );
+	BFME_EMIT_MODULE_FACTORIES( BattleBusSlowDeathBehavior );
+	BFME_EMIT_MODULE_FACTORIES( JetSlowDeathBehavior );
+	BFME_EMIT_MODULE_FACTORIES( RailroadBehavior );
+	BFME_EMIT_MODULE_FACTORIES( SpawnBehavior );
 
 	// die modules
-	addModule( DestroyDie );
-	addModule( FXListDie );
-	addModule( CrushDie );
-	addModule( DamDie );
-	addModule( CreateCrateDie );
-	addModule( CreateObjectDie );
-	addModule( EjectPilotDie );
-	addModule( SpecialPowerCompletionDie );
-	addModule( RebuildHoleExposeDie );
-	addModule( UpgradeDie );
-	addModule( KeepObjectDie );
+	BFME_EMIT_MODULE_FACTORIES( DestroyDie );
+	BFME_EMIT_MODULE_FACTORIES( FXListDie );
+	BFME_EMIT_MODULE_FACTORIES( CrushDie );
+	BFME_EMIT_MODULE_FACTORIES( DamDie );
+	BFME_EMIT_MODULE_FACTORIES( CreateCrateDie );
+	BFME_EMIT_MODULE_FACTORIES( CreateObjectDie );
+	BFME_EMIT_MODULE_FACTORIES( EjectPilotDie );
+	BFME_EMIT_MODULE_FACTORIES( SpecialPowerCompletionDie );
+	BFME_EMIT_MODULE_FACTORIES( RebuildHoleExposeDie );
+	BFME_EMIT_MODULE_FACTORIES( UpgradeDie );
+	BFME_EMIT_MODULE_FACTORIES( KeepObjectDie );
 
 	// update modules
-	addModule( AssistedTargetingUpdate );
-	addModule( AutoFindHealingUpdate );
-	addModule( BaseRegenerateUpdate );
-	addModule( StealthDetectorUpdate );
-	addModule( StealthUpdate );
-	addModule( DeletionUpdate );
-	addModule( SmartBombTargetHomingUpdate );
-	addModule( DynamicShroudClearingRangeUpdate );
-	addModule( DeployStyleAIUpdate );
-	addModule( AssaultTransportAIUpdate );
-	addModule( HordeUpdate );
-	addModule( ToppleUpdate );
-	addModule( EnemyNearUpdate );
-	addModule( LifetimeUpdate );
-	addModule( RadiusDecalUpdate );
-	addModule( EMPUpdate );
-  addModule( LeafletDropBehavior );
-	addModule( AutoDepositUpdate );
-	addModule( WeaponBonusUpdate );
-	addModule( MissileAIUpdate );
-	addModule( NeutronMissileUpdate );
-	addModule( FireSpreadUpdate );
-	addModule( FireWeaponUpdate );
-	addModule( FlammableUpdate );
-	addModule( FloatUpdate );
-	addModule( TensileFormationUpdate );
-	addModule( HeightDieUpdate );
-	addModule( ChinookAIUpdate );
-	addModule( JetAIUpdate );
-	addModule( AIUpdateInterface );
-	addModule( SupplyTruckAIUpdate );
-	addModule( DeliverPayloadAIUpdate );
-	addModule( HackInternetAIUpdate );
-	addModule( DynamicGeometryInfoUpdate );
-	addModule( FirestormDynamicGeometryInfoUpdate );
-	addModule( LaserUpdate );
-	addModule( PointDefenseLaserUpdate );
-	addModule( CleanupHazardUpdate );
-	addModule( CommandButtonHuntUpdate );
-	addModule( PilotFindVehicleUpdate );
-	addModule( DemoTrapUpdate );
-	addModule( ParticleUplinkCannonUpdate );
-	addModule( SpectreGunshipUpdate );
-	addModule( SpectreGunshipDeploymentUpdate );
-	addModule( BaikonurLaunchPower );
-	addModule( BattlePlanUpdate );
-	addModule( ProjectileStreamUpdate );
-	addModule( QueueProductionExitUpdate );
-	addModule( RepairDockUpdate );
+	BFME_EMIT_MODULE_FACTORIES( AssistedTargetingUpdate );
+	BFME_EMIT_MODULE_FACTORIES( AutoFindHealingUpdate );
+	BFME_EMIT_MODULE_FACTORIES( BaseRegenerateUpdate );
+	BFME_EMIT_MODULE_FACTORIES( StealthDetectorUpdate );
+	BFME_EMIT_MODULE_FACTORIES( StealthUpdate );
+	BFME_EMIT_MODULE_FACTORIES( DeletionUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SmartBombTargetHomingUpdate );
+	BFME_EMIT_MODULE_FACTORIES( DynamicShroudClearingRangeUpdate );
+	BFME_EMIT_MODULE_FACTORIES( DeployStyleAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( AssaultTransportAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( HordeUpdate );
+	BFME_EMIT_MODULE_FACTORIES( ToppleUpdate );
+	BFME_EMIT_MODULE_FACTORIES( EnemyNearUpdate );
+	BFME_EMIT_MODULE_FACTORIES( LifetimeUpdate );
+	BFME_EMIT_MODULE_FACTORIES( RadiusDecalUpdate );
+	BFME_EMIT_MODULE_FACTORIES( EMPUpdate );
+  BFME_EMIT_MODULE_FACTORIES( LeafletDropBehavior );
+	BFME_EMIT_MODULE_FACTORIES( AutoDepositUpdate );
+	BFME_EMIT_MODULE_FACTORIES( WeaponBonusUpdate );
+	BFME_EMIT_MODULE_FACTORIES( MissileAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( NeutronMissileUpdate );
+	BFME_EMIT_MODULE_FACTORIES( FireSpreadUpdate );
+	BFME_EMIT_MODULE_FACTORIES( FireWeaponUpdate );
+	BFME_EMIT_MODULE_FACTORIES( FlammableUpdate );
+	BFME_EMIT_MODULE_FACTORIES( FloatUpdate );
+	BFME_EMIT_MODULE_FACTORIES( TensileFormationUpdate );
+	BFME_EMIT_MODULE_FACTORIES( HeightDieUpdate );
+	BFME_EMIT_MODULE_FACTORIES( ChinookAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( JetAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( AIUpdateInterface );
+	BFME_EMIT_MODULE_FACTORIES( SupplyTruckAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( DeliverPayloadAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( HackInternetAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( DynamicGeometryInfoUpdate );
+	BFME_EMIT_MODULE_FACTORIES( FirestormDynamicGeometryInfoUpdate );
+	BFME_EMIT_MODULE_FACTORIES( LaserUpdate );
+	BFME_EMIT_MODULE_FACTORIES( PointDefenseLaserUpdate );
+	BFME_EMIT_MODULE_FACTORIES( CleanupHazardUpdate );
+	BFME_EMIT_MODULE_FACTORIES( CommandButtonHuntUpdate );
+	BFME_EMIT_MODULE_FACTORIES( PilotFindVehicleUpdate );
+	BFME_EMIT_MODULE_FACTORIES( DemoTrapUpdate );
+	BFME_EMIT_MODULE_FACTORIES( ParticleUplinkCannonUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SpectreGunshipUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SpectreGunshipDeploymentUpdate );
+	BFME_EMIT_MODULE_FACTORIES( BaikonurLaunchPower );
+	BFME_EMIT_MODULE_FACTORIES( BattlePlanUpdate );
+	BFME_EMIT_MODULE_FACTORIES( ProjectileStreamUpdate );
+	BFME_EMIT_MODULE_FACTORIES( QueueProductionExitUpdate );
+	BFME_EMIT_MODULE_FACTORIES( RepairDockUpdate );
 #ifdef ALLOW_SURRENDER
-	addModule( PrisonDockUpdate );
+	BFME_EMIT_MODULE_FACTORIES( PrisonDockUpdate );
 #endif
-	addModule( RailedTransportDockUpdate );
-	addModule( DefaultProductionExitUpdate );
-	addModule( SpawnPointProductionExitUpdate );
-	addModule( SpyVisionUpdate );
-	addModule( SlavedUpdate );
-	addModule( MobMemberSlavedUpdate );
-	addModule( OCLUpdate );
-	addModule( SpecialAbilityUpdate );
-	addModule( MissileLauncherBuildingUpdate );
-	addModule( SupplyCenterProductionExitUpdate );
-	addModule( SupplyCenterDockUpdate );
-	addModule( SupplyWarehouseDockUpdate );
-	addModule( DozerAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( RailedTransportDockUpdate );
+	BFME_EMIT_MODULE_FACTORIES( DefaultProductionExitUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SpawnPointProductionExitUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SpyVisionUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SlavedUpdate );
+	BFME_EMIT_MODULE_FACTORIES( MobMemberSlavedUpdate );
+	BFME_EMIT_MODULE_FACTORIES( OCLUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SpecialAbilityUpdate );
+	BFME_EMIT_MODULE_FACTORIES( MissileLauncherBuildingUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SupplyCenterProductionExitUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SupplyCenterDockUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SupplyWarehouseDockUpdate );
+	BFME_EMIT_MODULE_FACTORIES( DozerAIUpdate );
 #ifdef ALLOW_SURRENDER
-	addModule( POWTruckAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( POWTruckAIUpdate );
 #endif
-	addModule( RailedTransportAIUpdate );
-	addModule( ProductionUpdate );
-	addModule( ProneUpdate );
-	addModule( StickyBombUpdate );
-	addModule( FireOCLAfterWeaponCooldownUpdate );
-	addModule( HijackerUpdate );
-	addModule( StructureToppleUpdate );
-	addModule( StructureCollapseUpdate );
-	addModule( BoneFXUpdate );
-	addModule( RadarUpdate );
-	addModule( AnimationSteeringUpdate );
-	addModule( TransportAIUpdate );
-	addModule( WanderAIUpdate );
-	addModule( WaveGuideUpdate );
-	addModule( WorkerAIUpdate );
-	addModule( PowerPlantUpdate );
-	addModule( CheckpointUpdate );
+	BFME_EMIT_MODULE_FACTORIES( RailedTransportAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( ProductionUpdate );
+	BFME_EMIT_MODULE_FACTORIES( ProneUpdate );
+	BFME_EMIT_MODULE_FACTORIES( StickyBombUpdate );
+	BFME_EMIT_MODULE_FACTORIES( FireOCLAfterWeaponCooldownUpdate );
+	BFME_EMIT_MODULE_FACTORIES( HijackerUpdate );
+	BFME_EMIT_MODULE_FACTORIES( StructureToppleUpdate );
+	BFME_EMIT_MODULE_FACTORIES( StructureCollapseUpdate );
+	BFME_EMIT_MODULE_FACTORIES( BoneFXUpdate );
+	BFME_EMIT_MODULE_FACTORIES( RadarUpdate );
+	BFME_EMIT_MODULE_FACTORIES( AnimationSteeringUpdate );
+	BFME_EMIT_MODULE_FACTORIES( TransportAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( WanderAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( WaveGuideUpdate );
+	BFME_EMIT_MODULE_FACTORIES( WorkerAIUpdate );
+	BFME_EMIT_MODULE_FACTORIES( PowerPlantUpdate );
+	BFME_EMIT_MODULE_FACTORIES( CheckpointUpdate );
 
 	// upgrade modules
-	addModule( CostModifierUpgrade );
-	addModule( ActiveShroudUpgrade );
-	addModule( ArmorUpgrade );
-	addModule( CommandSetUpgrade );
-	addModule( GrantScienceUpgrade );
-	addModule( PassengersFireUpgrade );
-	addModule( StatusBitsUpgrade );
-	addModule( SubObjectsUpgrade );
-	addModule( StealthUpgrade );
-	addModule( RadarUpgrade );
-	addModule( PowerPlantUpgrade );
-	addModule( LocomotorSetUpgrade );
-	addModule( ObjectCreationUpgrade );
-	addModule( ReplaceObjectUpgrade );
-	addModule( ModelConditionUpgrade );
-	addModule( UnpauseSpecialPowerUpgrade );
-	addModule( WeaponBonusUpgrade );
-	addModule( WeaponSetUpgrade );
-	addModule( WeaponBonusUpgrade );
-	addModule( ExperienceScalarUpgrade );
-	addModule( MaxHealthUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( CostModifierUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( ActiveShroudUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( ArmorUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( CommandSetUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( GrantScienceUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( PassengersFireUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( StatusBitsUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( SubObjectsUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( StealthUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( RadarUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( PowerPlantUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( LocomotorSetUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( ObjectCreationUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( ReplaceObjectUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( ModelConditionUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( UnpauseSpecialPowerUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( WeaponBonusUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( WeaponSetUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( WeaponBonusUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( ExperienceScalarUpgrade );
+	BFME_EMIT_MODULE_FACTORIES( MaxHealthUpgrade );
 
 	// create modules
-	addModule( LockWeaponCreate );
-	addModule( PreorderCreate );
-	addModule( SupplyCenterCreate );
-	addModule( SupplyWarehouseCreate );
-	addModule( SpecialPowerCreate );
-	addModule( GrantUpgradeCreate );
-	addModule( VeterancyGainCreate );
+	BFME_EMIT_MODULE_FACTORIES( LockWeaponCreate );
+	BFME_EMIT_MODULE_FACTORIES( PreorderCreate );
+	BFME_EMIT_MODULE_FACTORIES( SupplyCenterCreate );
+	BFME_EMIT_MODULE_FACTORIES( SupplyWarehouseCreate );
+	BFME_EMIT_MODULE_FACTORIES( SpecialPowerCreate );
+	BFME_EMIT_MODULE_FACTORIES( GrantUpgradeCreate );
+	BFME_EMIT_MODULE_FACTORIES( VeterancyGainCreate );
 
 	// damage modules
-	addModule( BoneFXDamage );
-	addModule( TransitionDamageFX );
+	BFME_EMIT_MODULE_FACTORIES( BoneFXDamage );
+	BFME_EMIT_MODULE_FACTORIES( TransitionDamageFX );
 
 	// collide modules
-	addModule( FireWeaponCollide );
-	addModule( SquishCollide );
+	BFME_EMIT_MODULE_FACTORIES( FireWeaponCollide );
+	BFME_EMIT_MODULE_FACTORIES( SquishCollide );
 
-	addModule( HealCrateCollide );
-	addModule( MoneyCrateCollide );
-	addModule( ShroudCrateCollide );
-	addModule( UnitCrateCollide );
-	addModule( VeterancyCrateCollide );
-	addModule( ConvertToCarBombCrateCollide );
-	addModule( ConvertToHijackedVehicleCrateCollide );
-	addModule( SabotageCommandCenterCrateCollide );
-	addModule( SabotageFakeBuildingCrateCollide );
-	addModule( SabotageInternetCenterCrateCollide );
-	addModule( SabotageMilitaryFactoryCrateCollide );
-	addModule( SabotagePowerPlantCrateCollide );
-	addModule( SabotageSuperweaponCrateCollide );
-	addModule( SabotageSupplyCenterCrateCollide );
-	addModule( SabotageSupplyDropzoneCrateCollide );
-	addModule( SalvageCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( HealCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( MoneyCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( ShroudCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( UnitCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( VeterancyCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( ConvertToCarBombCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( ConvertToHijackedVehicleCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( SabotageCommandCenterCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( SabotageFakeBuildingCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( SabotageInternetCenterCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( SabotageMilitaryFactoryCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( SabotagePowerPlantCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( SabotageSuperweaponCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( SabotageSupplyCenterCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( SabotageSupplyDropzoneCrateCollide );
+	BFME_EMIT_MODULE_FACTORIES( SalvageCrateCollide );
 
 	// body modules
-	addModule( InactiveBody );
-	addModule( ActiveBody );
-	addModule( HighlanderBody );
-	addModule( ImmortalBody );
-	addModule( StructureBody );
-	addModule( HiveStructureBody );
-	addModule( UndeadBody );
+	BFME_EMIT_MODULE_FACTORIES( InactiveBody );
+	BFME_EMIT_MODULE_FACTORIES( ActiveBody );
+	BFME_EMIT_MODULE_FACTORIES( HighlanderBody );
+	BFME_EMIT_MODULE_FACTORIES( ImmortalBody );
+	BFME_EMIT_MODULE_FACTORIES( StructureBody );
+	BFME_EMIT_MODULE_FACTORIES( HiveStructureBody );
+	BFME_EMIT_MODULE_FACTORIES( UndeadBody );
 
 	// contain modules
 	// (none)
 
 	// special power modules
-	addModule( CashHackSpecialPower );
-	addModule( DefectorSpecialPower );
+	BFME_EMIT_MODULE_FACTORIES( CashHackSpecialPower );
+	BFME_EMIT_MODULE_FACTORIES( DefectorSpecialPower );
 #ifdef ALLOW_DEMORALIZE
-	addModule( DemoralizeSpecialPower );
+	BFME_EMIT_MODULE_FACTORIES( DemoralizeSpecialPower );
 #endif
-	addModule( OCLSpecialPower );
-	addModule( FireWeaponPower );
-	addModule( SpecialAbility );
-	addModule( SpyVisionSpecialPower );
-	addModule( CashBountyPower );
-	addModule( CleanupAreaPower );
+	BFME_EMIT_MODULE_FACTORIES( OCLSpecialPower );
+	BFME_EMIT_MODULE_FACTORIES( FireWeaponPower );
+	BFME_EMIT_MODULE_FACTORIES( SpecialAbility );
+	BFME_EMIT_MODULE_FACTORIES( SpyVisionSpecialPower );
+	BFME_EMIT_MODULE_FACTORIES( CashBountyPower );
+	BFME_EMIT_MODULE_FACTORIES( CleanupAreaPower );
 
 	// destroy modules
 	// (none)
 
 	// client update modules
-	addModule( AnimatedParticleSysBoneClientUpdate );
-	addModule( SwayClientUpdate );
-	addModule( BeaconClientUpdate );
+	BFME_EMIT_MODULE_FACTORIES( AnimatedParticleSysBoneClientUpdate );
+	BFME_EMIT_MODULE_FACTORIES( SwayClientUpdate );
+	BFME_EMIT_MODULE_FACTORIES( BeaconClientUpdate );
 
-}  // end init
+}
+#undef BFME_EMIT_MODULE_FACTORIES
+
 
 //-------------------------------------------------------------------------------------------------
 // ?ModuleFactory::findModuleInterfaceMask present-unmatched
