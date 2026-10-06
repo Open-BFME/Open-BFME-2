@@ -79,9 +79,25 @@ void rva005CD43D(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *p4)
 	}
 }
 
+class Rva005CDMorph : public TargetRef00217D4C
+{
+public:
+	Rva005CDMorph(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *p4);
+	char m_pad[0x24 - sizeof(TargetRef00217D4C)];
+};
+
 void rva005CD4D0(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *p4)
 {
 	BfmeRefPtr item(new Rva005CD2EF(container, p1, p2, p3, p4));
+	{
+		BfmeRefPtr copy(item);
+		container->AddItem(&copy);
+	}
+}
+
+void rva005CD563(Rva005CD1A9 *container, void *p1, void *p2, void *p3, void *p4)
+{
+	BfmeRefPtr item(new Rva005CDMorph(container, p1, p2, p3, p4));
 	{
 		BfmeRefPtr copy(item);
 		container->AddItem(&copy);
