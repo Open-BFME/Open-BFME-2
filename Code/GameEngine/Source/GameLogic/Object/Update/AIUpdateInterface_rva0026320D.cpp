@@ -24,7 +24,7 @@ public:
 class BfmeSubVfn1A6
 {
 public:
-	void notify(int a, void *b);
+	int notify(int a, void *b);
 };
 
 class RetState
