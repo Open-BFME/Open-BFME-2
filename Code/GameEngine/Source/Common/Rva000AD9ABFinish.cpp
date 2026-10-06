@@ -20,6 +20,7 @@ class Rva000AD9AB
 public:
 	void rva000AD9AB(int x, int y, bool value);
 	void rva000AD9FE();
+	void rva000ADB89(int x, int y, bool value);
 	void rva000ADBE3(int x, int y, bool value);
 	void rva000ADC41(int x, int y, unsigned char value);
 
@@ -71,6 +72,35 @@ void Rva000AD9AB::rva000AD9FE()
 {
 	unsigned char tmp = 0;
 	_STL::fill(m_bits.m_begin, m_bits.m_end, tmp);
+}
+
+// ?rva000ADB89@Rva000AD9AB@@QAEXHH_N@Z @0x000ADB89 90B: bit setter on the
+// +0x68/+0x6C plane, same shape as rva000ADBE3 (early x copy, inlined
+// size/operator[], cur-load before mask).
+void Rva000AD9AB::rva000ADB89(int x, int y, bool value)
+{
+	int xx = x;
+	if (xx < 0)
+		return;
+	if (y < 0)
+		return;
+	if (y >= m_height)
+		return;
+	if (xx >= m_width)
+		return;
+
+	int index = m_pitch * y + (xx >> 3);
+	int size = (int)m_plane68.size();
+	if ((unsigned int)index >= (unsigned int)size)
+		return;
+
+	unsigned char cur = m_plane68[index];
+	unsigned char mask = (unsigned char)(1 << (xx & 7));
+	if (value)
+		cur |= mask;
+	else
+		cur &= (unsigned char)~mask;
+	m_plane68[index] = cur;
 }
 
 // ?rva000ADBE3@Rva000AD9AB@@QAEXHH_N@Z @0x000ADBE3 94B: bit setter on the
