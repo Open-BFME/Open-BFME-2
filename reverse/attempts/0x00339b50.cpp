@@ -1,5 +1,7 @@
 // ?Rva00339B50_ParseSpecialAbilities@INI@@SAXPAV1@PAX1PBX@Z
 // partial score=0.93 date=2026-10-06
+// ?Rva00339B50_ParseSpecialAbilities@INI@@SAXPAV1@PAX1PBX@Z
+// partial score=0.93 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /GX
 // Rva00339B50_ParseSpecialAbilities (retail 0x00339B50, 74 bytes), in the INI
 // parse run beside Rva00339AF1_ParseSciences. Each remaining token is looked
