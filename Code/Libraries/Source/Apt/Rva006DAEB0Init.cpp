@@ -1,12 +1,10 @@
-// ?rva006DAEB0@Rva006DAEB0@@QAEPAV1@IHHIEEEEE@Z
-// partial score=0.9752 date=2026-10-05
-// ?rva006DAEB0@Rva006DAEB0@@QAEPAV1@IHHIEEEEE@Z
-// partial score=0.984 date=2026-10-05
-// ?rva006DAEB0@Rva006DAEB0@@QAEPAV1@IHHIEEEEE@Z
-// partial score=0.983 date=2026-10-05
 // cl: /O2 /MD
-// ?rva006DAEB0@Rva006DAEB0@@QAEPAV1@IHHIEEEEE@Z @0x006DAEB0 226B: Dogma pool manager init with table and pool allocs
-// Evidence: neighbour DogmaPoolFree 0x006DB090 same layout +0 +4 +8 +C +10 +14 +18; caller 0x006CC380; two g_00E17728 allocs with memset 0 and 0x0D; offsets match Rva006DB270 freeBlock class
+// ?rva006DAEB0@Rva006DAEB0@@QAEPAV1@IHHIEEEEE@Z @0x006DAEB0 226B
+// Target evidence: two calls through the allocator at 0x00E17728 followed by
+// table zero-fill, a 0x0D pool fill and initialization of the pool header.
+// Structural inference: the state prefix agrees with matched allocBlock
+// 0x006DB160 and freeBlock 0x006DB270. The real owner name is not pinned by
+// target evidence, so this method keeps its address-derived identifier.
 #include <string.h>
 extern void *(__cdecl *g_00E17728)(unsigned int);
 struct _DOGMA_MemPool {
@@ -28,15 +26,8 @@ class Rva006DAEB0 {
 public:
     Rva006DAEB0 *rva006DAEB0(unsigned int a1, int a2, int dummy, unsigned int maxSize, unsigned char off0, unsigned char flag0, unsigned char off1, unsigned char flag1, unsigned char off2);
 };
-// ?rva006DAEB0@Rva006DAEB0@@QAEPAV1@IHHIEEEEE@Z present-unmatched
-// Seat 5 r10051554: hoisting `inner = a1 - 15` above the m_b1/m_b2 shift-store
-// pairs fixes the add-ebp-0xf1 placement (the bank had it after them), moving the
-// first diff from +0xA7 to +0xA6. Residual is the pair ORDER only: retail emits
-// shr cl,+0x11 then shr dl,+0x12; cl emits the dl pair first. Byte-pointer stores,
-// int-typed b1/b2, computing both shifts before both stores, swapping the
-// declaration order, and /O2 /Ob1 /Ob2 /Ot /arch:SSE /Oy- all fail to reorder it;
-// /O1 and /O2 /Oy- drop the size (193B / 223B) so /O2 bare is the only viable
-// family. Not source-controllable at /O2.
+// Keep the pool byte stores ordered as retail before computing the pool size.
+// The volatile lvalues preserve the two ordered writes without changing the field layout.
 Rva006DAEB0 *Rva006DAEB0::rva006DAEB0(unsigned int a1, int a2, int dummy, unsigned int maxSize, unsigned char off0, unsigned char flag0, unsigned char off1, unsigned char flag1, unsigned char off2)
 {
     m_table = 0;
@@ -53,11 +44,11 @@ Rva006DAEB0 *Rva006DAEB0::rva006DAEB0(unsigned int a1, int a2, int dummy, unsign
     memset(m_firstPool, 0x0d, a1);
     m_b0 = (unsigned char)(off0 >> 2);
     _DOGMA_MemPool *pool = (_DOGMA_MemPool *)m_firstPool;
-    unsigned int inner = a1 - 15;
     unsigned char b1 = (unsigned char)(off1 >> 2);
-    m_b1 = b1;
+    *reinterpret_cast<volatile unsigned char *>(&m_b1) = b1;
     unsigned char b2 = (unsigned char)(off2 >> 2);
-    m_b2 = b2;
+    *reinterpret_cast<volatile unsigned char *>(&m_b2) = b2;
+    unsigned int inner = a1 - 15;
     pool->mpNextPool = 0;
     pool->mnPoolSize = inner;
     pool->mnPoolFree = inner;
