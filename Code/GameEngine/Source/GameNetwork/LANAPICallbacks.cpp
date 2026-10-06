@@ -39,6 +39,23 @@
 // it, post "GUI:PlayerNoMap[WillTransfer]" with the slot's name (+0x30) as a
 // SYSTEM chat line before refreshing the slot list (0x00248D84). willTransfer
 // is the pinned cdecl 0x00300E42 on the game, whatever the metadata says.
+//
+// LANAPI slot 43, retail 0x0024900D (576 bytes): a BFME 2 twin of
+// OnGameStart (slot 42), whose body it repeats with the map transfer swapped
+// for another check. Named by address. Like BFME 1's OnGameStart
+// (Open-BFME-1's LANAPIOnGameStart.cpp) without the preferences save: leave
+// the LAN menu (+0x40), create the network (the rowed 0x0025E46D),
+// bind it and the game (+0x38) to the local address with the port bumped by
+// 8, bump every human slot's address (+0x38) the same way, then
+// parseUserList and TheGameLogic's two-flag 0x00376E92. When the cdecl
+// transfer check 0x0044C3D4 fails, leave by our own name, drop and ::delete
+// the game and TheNetwork, raise GUI:ErrorStartingGame /
+// GUI:CouldNotTransferHero in the message box 0x0044C0A8 and post the body
+// text as a SYSTEM line from no address. Otherwise start the game (vslot
+// 11), poke the living-world manager and logic, post message 0x1F with the
+// game's +0x58 and 1 when 0x00E0333C is set, and seed the logic random from
+// +0x50. The check result is named (filesOk) for retail's cmp al,bl; the
+// zero address is a temporary so its stores sink below the text fetch.
 
 typedef int Int;
 typedef bool Bool;
@@ -53,9 +70,16 @@ typedef unsigned short WideChar;
 struct BfmeNetAddress
 {
 	Bool Rva00248CBF( const BfmeNetAddress *other ) const;
+	const BfmeNetAddress *self( void ) const { return this; }
 
 	UnsignedInt m_ip;
 	UnsignedShort m_port;
+};
+
+// The zero address of a SYSTEM line nobody sent, built as a temporary.
+struct NoAddress : public BfmeNetAddress
+{
+	NoAddress( void ) { m_ip = 0; m_port = 0; }
 };
 
 class LANAPIInterface
@@ -79,6 +103,7 @@ class GameSlot
 {
 public:
 	void setMapAvailability( Bool hasMap );
+	Bool isHuman( void ) const;
 	Int getColor( void ) const { return m_color; }
 	const UnicodeString &getName( void ) const { return m_name; }
 
@@ -87,6 +112,10 @@ private:
 	Int m_color;					// +0x0C
 	UnsignedByte m_pre30[0x30 - 0x10];
 	UnicodeString m_name;				// +0x30
+	UnsignedByte m_pre38[0x38 - 0x34];
+
+public:
+	BfmeNetAddress m_address;			// +0x38
 };
 
 struct LANSlotAddress
@@ -102,9 +131,10 @@ public:
 	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
 	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
 	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v12(); virtual void v13(); virtual void v14();
+	virtual UnicodeString fetch( const char *label, Bool *exists = 0 );	// slot 15 (+0x3C)
 	virtual void v16();
-	virtual const UnicodeString *fetch( const char *label, Bool *exists );	// slot 17 (+0x44)
+	virtual const UnicodeString *fetchPointer( const char *label, Bool *exists );	// slot 17 (+0x44)
 };
 extern GameTextInterface *TheGameText;
 
@@ -124,15 +154,36 @@ extern MapCache *TheMapCache;
 class GameInfo
 {
 public:
+	virtual ~GameInfo();
+	virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
+	virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8();
+	virtual void v9(); virtual void v10();
+	virtual void startGame( Int gameID );		// slot 11 (+0x2C)
+
 	GameSlot *getSlot( Int slotNum );
 	AsciiString getMap( void ) const;
 
 	Bool isGameInProgress( void ) const { return m_inProgress; }
+	UnsignedInt getSeed( void ) const { return m_seed; }
 
 protected:
-	UnsignedByte m_pre11[0x11];
+	UnsignedByte m_pre11[0x11 - 4];
 	Bool m_inProgress;				// +0x11
-	UnsignedByte m_preDC[0xDC - 0x12];
+	UnsignedByte m_pre38[0x38 - 0x12];
+
+public:
+	BfmeNetAddress m_localAddress;			// +0x38
+
+protected:
+	UnsignedByte m_pre50[0x50 - 0x40];
+	UnsignedInt m_seed;				// +0x50
+	UnsignedByte m_pre58[0x58 - 0x54];
+
+public:
+	Int m_bfme58;					// +0x58
+
+protected:
+	UnsignedByte m_preDC[0xDC - 0x5C];
 	LANSlotAddress m_slots[MAX_SLOTS];		// +0xDC, addresses from +0x114
 };
 
@@ -156,7 +207,9 @@ public:
 
 	const BfmeNetAddress *getHostAddress( void ) const { return &m_slots[0].m_address; }
 };
-typedef Rva004482FB LANGameInfo;
+class LANGameInfo : public Rva004482FB
+{
+};
 
 class MultiplayerColorDefinition
 {
@@ -207,6 +260,80 @@ public:
 
 void Rva00248D84Enable( void );
 
+// BFME 2's createTheNetwork: replaces TheNetwork with a new BFME2NativeNetwork.
+void Rva0025E46DReset( void );
+
+class NetworkInterface
+{
+public:
+	virtual ~NetworkInterface();
+	virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
+	virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8();
+	virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12();
+	virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16();
+	virtual void parseUserList( const GameInfo *game );		// slot 17 (+0x44)
+	virtual void setLocalAddress( const BfmeNetAddress *address );	// slot 18 (+0x48)
+	virtual void v19();
+	virtual void initTransport( void );				// slot 20 (+0x50)
+};
+extern NetworkInterface *TheNetwork;
+
+class GameLogic
+{
+public:
+	void rva00376E92( Bool first, Bool second );
+};
+extern GameLogic *TheGameLogic;
+
+class LivingWorldManager
+{
+public:
+	void rva0021427A( void );
+};
+extern LivingWorldManager *TheLivingWorldManager;
+
+class LivingWorldLogic
+{
+public:
+	UnsignedByte m_preEC[0xEC];
+	Int m_bfmeEC;					// +0xEC
+};
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+class Rva002D3627Host
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9();
+	virtual void rva10( Int value );			// slot 10 (+0x28)
+};
+extern Rva002D3627Host *g_00DFEF18;
+
+class GameMessage
+{
+public:
+	void appendIntegerArgument( Int arg );
+};
+
+class MessageStream
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16(); virtual void v17();
+	virtual GameMessage *appendMessage( Int type );	// slot 18 (+0x48)
+};
+extern MessageStream *MessageStreamSubsystem;
+
+extern Int g_Va00E0333C;
+
+Bool Rva0044C3D4( void );
+void Rva0044C0A8( UnicodeString title, UnicodeString body, void *callback );
+void InitGameLogicRandom( UnsignedInt seed );
+
 #define BFME_VSLOT(n) virtual void slot##n( void ) = 0;
 
 class LANAPI
@@ -227,7 +354,9 @@ public:
 	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
 	virtual void OnChat( const UnicodeString &player, const BfmeNetAddress *ip,
 		const UnicodeString &message, LANAPIInterface::ChatType format );
-	BFME_VSLOT(41) BFME_VSLOT(42) BFME_VSLOT(43) BFME_VSLOT(44)
+	BFME_VSLOT(41) BFME_VSLOT(42)
+	virtual void rva0024900D( void );
+	BFME_VSLOT(44)
 	BFME_VSLOT(45) BFME_VSLOT(46) BFME_VSLOT(47) BFME_VSLOT(48) BFME_VSLOT(49)
 	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53)
 	virtual Int AmIHost( void ) = 0;
@@ -240,9 +369,11 @@ protected:
 	UnicodeString m_name;				// +0x14
 	UnsignedByte m_pre3C[0x3C - 0x18];
 	UnsignedInt m_lastResendTime;			// +0x3C
-	UnsignedByte m_pre41[0x41 - 0x40];
+	Bool m_isInLANMenu;				// +0x40
 	Bool m_inLobby;					// +0x41
 	LANGameInfo *m_currentGame;			// +0x44
+
+	void removeGame( LANGameInfo *game );
 };
 
 #undef BFME_VSLOT
@@ -382,12 +513,78 @@ void LANAPI::OnHasMap( const BfmeNetAddress *ip, Bool status )
 	{
 		UnicodeString text;
 		if( willTransfer )
-			text.format( TheGameText->fetch( "GUI:PlayerNoMapWillTransfer", 0 ),
+			text.format( TheGameText->fetchPointer( "GUI:PlayerNoMapWillTransfer", 0 ),
 				m_currentGame->getLANSlot( i )->getName().str(), mapDisplayName.str() );
 		else
-			text.format( TheGameText->fetch( "GUI:PlayerNoMap", 0 ),
+			text.format( TheGameText->fetchPointer( "GUI:PlayerNoMap", 0 ),
 				m_currentGame->getLANSlot( i )->getName().str(), mapDisplayName.str() );
 		OnChat( UnicodeString( L"SYSTEM" ), getLocalAddress(), text, LANAPIInterface::LANCHAT_SYSTEM );
 	}
 	Rva00248D84Enable();
+}
+
+void LANAPI::rva0024900D( void )
+{
+	if( m_currentGame )
+	{
+		m_isInLANMenu = false;
+
+		Rva0025E46DReset();
+		BfmeNetAddress localAddress = *getLocalAddress();
+		localAddress.m_port += 8;
+		TheNetwork->setLocalAddress( &localAddress );
+		TheNetwork->initTransport();
+		LANGameInfo *game = m_currentGame;
+		game->m_localAddress = localAddress;
+
+		for( Int i = 0; i < MAX_SLOTS; ++i )
+		{
+			GameSlot *slot = m_currentGame->getSlot( i );
+			if( m_currentGame->getSlot( i )->isHuman() )
+			{
+				BfmeNetAddress address = slot->m_address;
+				address.m_port += 8;
+				slot->m_address = address;
+			}
+		}
+
+		TheNetwork->parseUserList( m_currentGame );
+		TheGameLogic->rva00376E92( false, false );
+
+		Bool filesOk = Rva0044C3D4();
+		if( !filesOk )
+		{
+			OnPlayerLeave( m_name );
+			removeGame( m_currentGame );
+			::delete m_currentGame;
+			m_currentGame = 0;
+			m_inLobby = true;
+			if( TheNetwork )
+			{
+				::delete TheNetwork;
+				TheNetwork = 0;
+			}
+			Rva0044C0A8( TheGameText->fetch( "GUI:ErrorStartingGame" ),
+				TheGameText->fetch( "GUI:CouldNotTransferHero" ), 0 );
+			OnChat( UnicodeString::TheEmptyString, NoAddress().self(),
+				TheGameText->fetch( "GUI:CouldNotTransferHero" ), LANAPIInterface::LANCHAT_SYSTEM );
+			return;
+		}
+
+		m_currentGame->startGame( 0 );
+		if( TheLivingWorldManager )
+			TheLivingWorldManager->rva0021427A();
+		TheLivingWorldLogic->m_bfmeEC = 0;
+		TheGameLogic->rva00376E92( false, false );
+		g_00DFEF18->rva10( 1 );
+
+		GameMessage *msg = MessageStreamSubsystem->appendMessage( 0x1F );
+		if( msg && g_Va00E0333C )
+		{
+			msg->appendIntegerArgument( m_currentGame->m_bfme58 );
+			msg->appendIntegerArgument( 1 );
+		}
+
+		InitGameLogicRandom( m_currentGame->getSeed() );
+	}
 }

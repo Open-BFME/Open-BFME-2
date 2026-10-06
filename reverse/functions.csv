@@ -66281,3 +66281,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?OnChat@LANAPI@@UAEXABVUnicodeString@@PBUBfmeNetAddress@@0W4ChatType@LANAPIInterface@@@Z,,0x0024A178,464,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,matched,
 ?OnHasMap@LANAPI@@UAEXPBUBfmeNetAddress@@_N@Z,,0x002498FA,526,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,matched,
 ??0Rva0044BA4E@@QAE@URva004F6986Member@@0@Z,,0x0044BCAB,85,Code/GameEngine/Source/Common/Rva004F6986Dtor.cpp,matched,
+?rva0024900D@LANAPI@@UAEXXZ,,0x0024900D,576,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,matched,
