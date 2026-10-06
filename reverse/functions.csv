@@ -66109,3 +66109,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?Rva00324AE5Update@@YAXPAVGameWindow@@H_N@Z,,0x00324AE5,84,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxAdjustDisplay.cpp,matched,
 ?Rva003249D2@@YAXPAVGameWindow@@_N@Z,,0x003249D2,275,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxAdjustSlider.cpp,matched,
 ?rva003F3708@Rva003F332E@@QAEPAUElem003B2540@@H@Z,,0x003F3708,49,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp,matched,
+?clear@ConnectionVec@@QAEXXZ,,0x003F3739,11,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp,matched,
