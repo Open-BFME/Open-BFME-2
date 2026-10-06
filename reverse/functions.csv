@@ -64511,3 +64511,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??0Rva00285BEC@@QAE@ABV0@@Z,,0x00285C30,88,Code/GameEngine/Source/Common/Rva00285BECDtor.cpp,matched,copy ctor same vptrs plus src plus 708
 ?rva005B1830@Rva005B1830@@QAEXXZ,,0x005B1830,211,Code/GameEngine/Source/Common/Rva005B1830MyHero.cpp,matched,loop rowed 0x005B129F plus MyHero strings via rowed 0x005241DF
 ?rva00448352@Rva004482FB@@QAEXHURva00447B0E@@@Z,,0x00448352,106,Code/GameEngine/Source/Common/Rva004482FBDtor.cpp,matched,prev owns 8x0x1D0 at 0xDC imul 0x1D0 ret 0x1D4 by-value plus index0 setMap
+?rva005B1A07@Rva005B1A07@@QAEXIUBfmePod20@@@Z,,0x005B1A07,73,Code/GameEngine/Source/Common/Rva005B1A07.cpp,matched,index pod20 via rowed 0x005B129F else fill_insert 0x005B1748
