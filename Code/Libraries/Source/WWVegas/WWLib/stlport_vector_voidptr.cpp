@@ -26,3 +26,10 @@ template class _STL::vector<void *, _STL::allocator<void *> >;
 #pragma comment(linker, "/alternatename:?bfmeThrow1154@BfmeS1154@@QAEXXZ=??1?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?bfmeRangeErrorQX@BfmeThingQX@@QAEXXZ=??1?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?grow@Rva0082C300Buf@@AAEXXZ=??1?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ")
+
+// Target bytes at 0x00023A50 establish a framed cdecl int return of 0x10.
+// The address-derived name preserves the unresolved semantic identity.
+int Rva00023A50(void)
+{
+	return 0x10;
+}
