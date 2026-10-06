@@ -13872,3 +13872,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??1Rva00523EC0Marker@@QAE@XZ,0x0029D7C2,member dtor for the Rva007B6880Thunks.cpp thunk 0x00523EC0; identical bytes serve this teardown (ICF; rowed as ??1CameraMarker)
 ?rva003F300A@Rva003F300A@@QAEXXZ,0x003F300A,placeholder thiscall 0-arg callee of dump 0x0020E9F2 loop; REL32 read from retail
 ?rva003F3708@Rva003F3708@@QAEXH@Z,0x003F3708,placeholder thiscall 1-int-arg callee of dump 0x0020EA22 loop; REL32 read from retail
+?rva003F08D7@Rva003F08D7@@QAEHH@Z,0x003F08D7,placeholder int(int) twin for bool pin; retail tests eax not al
