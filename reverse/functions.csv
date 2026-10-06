@@ -63887,3 +63887,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00529698@Rva0052936C@@QAEXPBD@Z,,0x00529698,264,Code/GameEngine/Source/Common/Rva00529698Method.cpp,matched,chain from 0x00529628 via rowed getters plus AfterLevel GetLevel plus new Set with elem addresses as ints
 ??0Rva0056B89F@@QAE@PAX0H@Z,,0x0056BA07,156,Code/GameEngine/Source/Common/Rva0056BA07.cpp,matched,ctor via Helper Base Helper 1 arg2 sets BC C0 C4 calls predicate
 ?setPlayerType@Player@@QAEXW4PlayerType@@_N@Z,,0x002A9A18,180,Code/GameEngine/Source/Common/RTS/PlayerSetPlayerType.cpp,matched,BFME1/ZH donor Player::setPlayerType with BFME2 skirmish-global condition and plain new of AISkirmishPlayer or AIPlayer
+?isSkirmishAIPlayer@Player@@QAE_NXZ,,0x002A9B7B,23,Code/GameEngine/Source/Common/RTS/PlayerAiQueries.cpp,matched,BFME1/ZH donor: m_ai ternary to AIPlayer vslot 11
+?rva002A9CB8@Player@@QAE_NXZ,,0x002A9CB8,18,Code/GameEngine/Source/Common/RTS/PlayerAiQueries.cpp,matched,Donor Player::isSupplySourceAttacked forwarder under existing pin; tail-jumps to pinned AIPlayer 0x4F1138
