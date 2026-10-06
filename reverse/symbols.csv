@@ -14372,3 +14372,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva0028DCC4@Object@@QAEXXZ,0x0028DCC4,callee of ?rva00489E2E@AIUpdateInterface@@QAEXXZ
 ?rva00493251@Rva00493251@@QAE_NXZ,0x00493251,callee of ?rva0049329E@Rva0049329E@@QAEXXZ
 ?rva002A9365@Rva002A8F24@@QAEXPAVObject@@@Z,0x002A9365,callee of ?rva004B3AFF@Rva004B3AFF@@QAEXXZ
+?rva003B1244@SpecialPowerStore@@QAE_NPAVObject@@PBVSpecialPowerTemplate@@@Z,0x003B1244,callee of ?rva004B2F7B@Rva004B2F7B@@QAE_NPBVSpecialPowerTemplate@@@Z
