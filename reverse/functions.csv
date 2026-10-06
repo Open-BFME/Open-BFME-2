@@ -64358,3 +64358,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002B8860@Rva002B8860@@QAEXXZ,,0x002B8860,140,Code/GameEngine/Source/Common/Rva002B8860.cpp,matched,guard 0x168 globals vector erase clear forEach tail endgame caller 0x002B9DC7
 ?rva00542BE2@Rva00542BE2@@QAE_NPBVObject@@@Z,,0x00542BE2,55,Code/GameEngine/Source/Common/Rva00542BE2Check.cpp,matched,chain packet owner at +0xc double getCurrentWeapon gate to isWithinAttackRange
 ?Rva003BBEF4@@YGXHM@Z,,0x003BBEF4,47,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp,matched,leaf caller 0x003CC3CC literal 1000.0f TheInGameUI slot 0x5c ceil ftol2 x87
+?rva0028BC58@Object@@QAEPAXH@Z,,0x0028BC58,60,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BC58.cpp,matched,Object plus244 array via plus0C slot28 then slot30 byte-tested int arg
