@@ -63597,3 +63597,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??4Rva0007C49F@@QAEAAV0@ABV0@@Z,,0x0007C49F,39,Code/GameEngine/Source/Common/Rva0007C49FAssign.cpp,matched,CameraClass-derived memberwise op= via rowed CameraClass op= and vector op=
 ?rva005CCB6B@Rva005CCB6B@@QAEXXZ,,0x005CCB6B,8,Code/GameEngine/Source/Common/Rva005CCB6BForwarder.cpp,matched,tail-jmp to rowed 0x005CC966 chain from own landing
 ?rva004FC9CE@Rva004FC9CE@@QAEPAXABVRva0059E2FD@@@Z,,0x004FC9CE,62,Code/GameEngine/Source/Common/Rva004FC9CE.cpp,matched,chain search over plus98 range via rowed contains then find else key
+?rva00548183@Rva00548117@@QAEPBVArmorTemplate@@PAXPBVRva00548800@@@Z,,0x00548183,118,Code/GameEngine/Source/GameLogic/Object/Rva00548117.cpp,matched,sibling of 0x00548117 with precheck and subset 0x00548753 caller 0x00355514

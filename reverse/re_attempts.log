@@ -10677,3 +10677,6 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva006E4150@Rva006E4150@@QAEXXZ	0x006E4150	562	blocked	AptTimerFunc dispatcher 562B with 15 callees and asserts; no BFME1 donor for AptTimerFunc t=15 model=muse-12
 ?rva005967B3@Rva0059675A@@QAEXXZ	0x005967B3	341	blocked	vslot 341B diverged across 6 shapes: frame 8B plus x87-vs-SSE muls plus ucomis guard plus pin arity plus ebx temp t=30 model=muse-12
 ?rva007405A9@Rva00740242@@QAEXHHHH@Z	0x007405A9	312	blocked	vslot 312B 6 shapes without exact: frame fixed but xmm round-robin plus w-h home swap plus fh fresh slot persist t=35 model=muse-12
+?rva00548984@Rva00548984@@QAEXXZ	0x00548984	133	blocked	133B recursion with hero remove Science erase Armor find self-call and dup alias YAXXZ vs thiscall plus virtuals t=12 model=muse-10
+?rva00548464@Rva0054840A@@QAEXHH@Z	0x00548464	195	blocked	195B Rva0054840A-like with list push find insert plus Armor find and direct plus8 plusC writes needs ctor layout and ObjectID find shape t=10 model=muse-10
+??1Rva0040FB4A@@QAE@XZ	0x0040FB4A	82	blocked	82B dtor with MI puzzle both calls ECX=this for BfmeQuickMatch finish and Rva00538C5F dtor plus global pin and plus24 member no donor t=10 model=muse-10

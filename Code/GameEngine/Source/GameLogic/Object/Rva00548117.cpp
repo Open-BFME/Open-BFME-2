@@ -34,6 +34,7 @@ class Rva00548800
 {
 public:
 	bool rva00548800(const ListHeroPtr *list);
+	bool rva00548753(const Rva00548800 &other);
 };
 
 class Rva00548117
@@ -42,6 +43,7 @@ class Rva00548117
 	_STL::list<NameKeyType> m_list;
 public:
 	const ArmorTemplate *rva00548117(void *a1, const ListHeroPtr *a2);
+	const ArmorTemplate *rva00548183(void *a1, const Rva00548800 *a2);
 };
 
 const ArmorTemplate *Rva00548117::rva00548117(void *a1, const ListHeroPtr *a2)
@@ -56,6 +58,28 @@ const ArmorTemplate *Rva00548117::rva00548117(void *a1, const ListHeroPtr *a2)
 			if (nxt != (Node *)m_list._M_node._M_data) {
 				armor2 = g_00E01E18->rva00355155((NameKeyType)nxt->_M_data);
 				if (armor2 && ((Rva00548800 *)armor2)->rva00548800(a2))
+					return armor2;
+			}
+		}
+		cur = (Node *)cur->_M_next;
+	}
+	return 0;
+}
+
+const ArmorTemplate *Rva00548117::rva00548183(void *a1, const Rva00548800 *a2)
+{
+	typedef _STL::list<NameKeyType>::_Node Node;
+	Node *cur = (Node *)((Node *)m_list._M_node._M_data)->_M_next;
+	while (cur != (Node *)m_list._M_node._M_data) {
+		if ((NameKeyType)cur->_M_data == (NameKeyType)*(const int *)((const char *)a2 + 0x10))
+			return 0;
+		const ArmorTemplate *armor2 = 0;
+		const ArmorTemplate *armor1 = g_00E01E18->rva00355155((NameKeyType)cur->_M_data);
+		if (armor1 && armor1->check(a1)) {
+			Node *nxt = (Node *)cur->_M_next;
+			if (nxt != (Node *)m_list._M_node._M_data) {
+				armor2 = g_00E01E18->rva00355155((NameKeyType)nxt->_M_data);
+				if (armor2 && ((Rva00548800 *)armor2)->rva00548753(*a2))
 					return armor2;
 			}
 		}
