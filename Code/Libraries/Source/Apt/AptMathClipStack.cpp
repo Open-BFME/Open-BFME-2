@@ -32,7 +32,7 @@ public:
     void freeBlock(void *pBlock, int size);
 };
 
-extern void *g_00E180F8;
+void *g_00E180F8;
 extern Rva006DB270 *g_pChainBlockAllocator;
 
 AptMath::ClipTransform_t *AptMath::m_pStackBase;
