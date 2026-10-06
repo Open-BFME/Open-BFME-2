@@ -244,12 +244,34 @@ void StrategicHUD::ChecklistUIImpl::OnExpandButtonClicked(const char *unused)
 // The panel frame movie, built from the loaded movie's level and path by
 // the unrowed constructor 0x005D4FBA (pinned by address); the owning
 // pointer at +0x34 is viewed through its rowed reset and clear.
+// The pending hint at +0x30: a reference to the shared hint object, cleared
+// through the rowed 0x002BED91.
+struct TreeHintRef00217D4C
+{
+	void *m_ptr;
+};
+
+class Rva002BED91
+{
+public:
+	void clear();
+};
+
 class Rva005D4FFC
 {
 public:
 	Rva005D4FFC(int level, const AsciiString &path);
+	// Unrowed 0x005D508E (hands its Impl the hint), pinned by address.
+	void rva005D508E(const TreeHintRef00217D4C &hint);
 
 	unsigned char m_pad[0x4];
+};
+
+// The panel frame's rowed per-frame update.
+class Rva005D4E84
+{
+public:
+	void rva005D4E84();
 };
 
 class Rva0057B993
@@ -291,13 +313,19 @@ public:
 	void OnToggleButtonClicked(const char *unused);
 	void OnClosed(const char *unused);
 	void OnOpened(const char *unused);
+	void rva0057BBBB();
+
+	// Rowed in Rva0057BAF8Toggle.cpp.
+	void SetToggleButtonEnabled(bool enabled);
 
 private:
 	unsigned char m_pad00[0x04];
 	Rva0057BC45List m_listeners; // +0x04
 	unsigned char m_pad14[0x28 - 0x14];
 	int m_state; // +0x28
-	unsigned char m_pad2c[0x34 - 0x2C];
+	bool m_2C; // +0x2C: the toggle button may be used
+	unsigned char m_pad2d[0x30 - 0x2D];
+	TreeHintRef00217D4C m_hint; // +0x30
 	Rva0057B993 m_panelFrame; // +0x34
 };
 
@@ -347,4 +375,29 @@ void StrategicHUD::SelectionDetailsUIImpl::OnOpened(const char *unused)
 		m_state = 2;
 		m_listeners.forEach(reinterpret_cast<void (Rva0057BC45Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initAnimateWindow), this);
 	}
+}
+
+// Retail 0x0057BBBB, 101 bytes. Name unknown. The selection details'
+// per-frame update, reached from the HUD's (0x0042D577) on its +0x34 slot:
+// without +0x2C it closes an open panel and disables the toggle button;
+// it hands the panel frame the pending hint and updates the frame; then it
+// enables the toggle button only when allowed and open or closed.
+void StrategicHUD::SelectionDetailsUIImpl::rva0057BBBB()
+{
+	if (!m_2C)
+	{
+		if (m_state == 2)
+			((Rva0057BAC4 *)this)->rva0057BAC4();
+		SetToggleButtonEnabled(false);
+	}
+	if (m_panelFrame.m_ptr != 0)
+	{
+		if (m_hint.m_ptr != 0)
+		{
+			m_panelFrame.m_ptr->rva005D508E(m_hint);
+			((Rva002BED91 *)&m_hint)->clear();
+		}
+		((Rva005D4E84 *)m_panelFrame.m_ptr)->rva005D4E84();
+	}
+	SetToggleButtonEnabled(m_2C && (m_state == 2 || m_state == 0));
 }
