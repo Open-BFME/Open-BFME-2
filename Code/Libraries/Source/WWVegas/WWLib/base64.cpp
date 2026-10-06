@@ -1,4 +1,4 @@
-// cl: /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // WWLib Base64 encoder/decoder, verbatim from the Generals reference, by way
 // of the conversion Open-BFME-1 already landed for the same file - the two
 // engines share this translation unit unchanged.

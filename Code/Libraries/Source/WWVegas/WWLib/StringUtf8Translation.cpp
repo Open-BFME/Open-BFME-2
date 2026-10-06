@@ -3,7 +3,7 @@
 // Retail uses two-pass UTF-8 conversion through the independently recovered
 // platform wrappers. Empty/failed input releases the buffer; success stores
 // the written character count excluding the terminator in the 16-bit length.
-// cl: /Ireference/shims/bfme2_ascii /O2 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 #include "unicode_string.h"
 typedef unsigned short Wide;
 int BFME2Utf8ToWide(const char*,int,Wide*,int);

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /arch:SSE /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??1BfmePod248@@QAE@XZ, retail 0x000C6D44 214B.

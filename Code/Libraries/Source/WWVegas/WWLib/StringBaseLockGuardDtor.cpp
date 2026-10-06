@@ -1,4 +1,4 @@
-// cl: /O2 /EHs
+// cl: /EHs
 #include "../../../../GameEngine/Include/Common/Rva00041004Lock.h"
 // ??1Rva000358B0@@QAE@XZ @0x000358B0 35B
 // String lock guard destructor: if the +4 locked flag is set, leaves the

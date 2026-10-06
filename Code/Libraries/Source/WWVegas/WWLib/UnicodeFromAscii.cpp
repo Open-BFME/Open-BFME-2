@@ -3,7 +3,7 @@
 // Export ??0UnicodeString@@QAE@ABVAsciiString@@@Z identifies6CB6D0 (91B).
 // Masked code also matches the reverse conversion at38250; the export and
 // callee translate(const char*)6CB5F0 prove this identity independently.
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 #include "ascii_string.h"
 #include "unicode_string.h"
 // LINK-COMDAT: StringBase<G> default ctor kept as /O1 (and) from

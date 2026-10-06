@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Win32 conversion-wrapper family used by BFME1 UnicodeString/GameSpy code.
 // BFME2 retail uses CP_UTF8 (65001), not the system ANSI code page.
 // Descriptive function names; ABI and complete bodies independently audited

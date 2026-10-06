@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 //
 // ?rva00100354@?$SimpleDynVecClass@VVector3@@@@QAE_NABVVector3@@@Z, retail 0x00100354, 14 bytes.
 // Forwards to 2-arg Add with hint 0: push 0; push arg; call Add; ret 4.

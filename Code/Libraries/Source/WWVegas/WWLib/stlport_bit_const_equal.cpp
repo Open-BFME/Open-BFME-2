@@ -1,5 +1,5 @@
 // stlport
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // STLport 4.5.3 equal<_Bit_const_iterator, _Bit_const_iterator> (retail
 // 0x0043EAC9, 84 bytes); pristine definitions are in vendor/stlport.
 // Target facts: Ghidra entry 0x0043EAC9/84 compares three packed-bit iterator

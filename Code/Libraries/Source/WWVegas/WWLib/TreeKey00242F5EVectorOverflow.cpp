@@ -1,4 +1,4 @@
-// cl: /G7 /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // STLport 4.5.3 _M_insert_overflow; reference headers at BFME1 revision
 // 6d9434269164392c5ba62aaa7c15a86b5b020d76, BFME2 bfmealloc shim.

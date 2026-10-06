@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX /G7
+// cl: /DNDEBUG /MD /GX
 // ThreadClass 1-arg ctor, retail 0x00610430 (72 bytes). Dedicated TU:
 // ThreadClassLifecycle.cpp already holds 3 matched rows without /G7, and
 // /G7 flips the strcpy-loop increment from inc-edx to retail add-edx-1

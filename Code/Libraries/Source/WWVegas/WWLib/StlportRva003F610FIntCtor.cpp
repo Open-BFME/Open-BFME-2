@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva003F610FElement@@QAE@H@Z @0x003F55D6 113B: int ctor (int plus two vectors plus tail20 with reserve 4)
 // Evidence: same 48-byte layout as default ctor 0x003F5322 copy ctor 0x003F54DC dtor 0x003F535B; Vector_base 0x00211E58 twice then reserve 0x002B712E and 0x003F5192; m_00 and m_1C[0] store the int arg.

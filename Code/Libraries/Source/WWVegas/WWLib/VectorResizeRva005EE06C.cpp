@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 // Target Ghidra [5EE06C,5EE0D8),108B. Native signed stride20 and
 // RET24 prove count plus a by-value20B record. UnicodeString owns word0;
 // the remaining four words retain opaque semantics from the matched record

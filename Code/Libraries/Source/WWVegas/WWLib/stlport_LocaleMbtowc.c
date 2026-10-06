@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // STLport 4.5.3 Win32 _Locale_mbtowc.
 
 typedef unsigned int size_t;

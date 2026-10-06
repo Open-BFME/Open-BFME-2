@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // STLport 4.5.3 Win32 locale code-page helpers.
 // The default-locale and ctype-name entry points retain the donor workers
 // (__GetLocaleName, __ConvertToCP, __GetDefaultCP). The donor's Rva* probe

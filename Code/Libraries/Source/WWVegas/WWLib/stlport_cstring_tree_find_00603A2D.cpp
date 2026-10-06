@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ??$_M_find@PBD@?$_Rb_tree@PBDU?$pair@QBDURva00603A00Mapped@@@_STL@@U?$_Select1st@U?$pair@QBDURva00603A00Mapped@@@_STL@@@2@URva006038D4Less@@V?$allocator@U?$pair@QBDURva00603A00Mapped@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@QBDURva00603A00Mapped@@@_STL@@@1@ABQBD@Z @ 0x00603A2D (82B).
 // C-string keyed _Rb_tree _M_find in the 0x00600854-0x00604518 strcmp-keyed family.

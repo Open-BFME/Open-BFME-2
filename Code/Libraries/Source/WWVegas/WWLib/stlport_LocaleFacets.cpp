@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // STLport 4.5.3 numeric, monetary and time locale facets.
 /*
  * Copyright (c) 1999

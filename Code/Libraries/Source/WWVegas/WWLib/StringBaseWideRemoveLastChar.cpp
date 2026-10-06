@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME2 1.06 StringBase<wchar_t>::removeLastChar, RVA 0x000376E0 241B.
 // Pinned ?removeLastChar@?$StringBase@G@@QAEXXZ (wide twin of pinned narrow
 // ?removeLastChar@?$StringBase@D@@QAEXXZ at 0x00036C50).

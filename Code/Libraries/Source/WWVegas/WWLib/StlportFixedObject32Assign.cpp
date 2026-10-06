@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ??4Rva000B419E@@QAEAAU0@ABU0@@Z @0x000B419E 81B: copy-assignment for 32B struct with AsciiString at +0 plus 28B tail.
 // Evidence: thiscall ret 4 returning this; rowed AsciiString::operator= 0x000366F0 on +0 then 6 dword plus 4 byte copies; same flags as StlportFixedObject60Copy sibling; caller 0x000BDC2C on list node data; unblocks 0x000BDBFA.
 #include "ascii_string.h"

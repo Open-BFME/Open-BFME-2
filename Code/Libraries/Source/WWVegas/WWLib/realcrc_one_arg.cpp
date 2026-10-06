@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // One-argument CRC-32 string hash at retail 0x003EC922 (49 bytes). Same
 // table-driven accumulation as the two-argument family in realcrc.cpp, but a
 // standalone one-shot wrapper: a null or empty input

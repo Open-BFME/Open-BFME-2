@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME2 1.06 StringBase<char>::toUpper, RVA 0x00036B60 233B.
 // Copy-on-write duplicate via rowed byte allocator tagged rts 0x737472 then per-char toupper via IAT.
 // Evidence: ghidra toUpper, sibling toLower 0x00036A70 233B same shape/flags, releaseBuffer 0x00036410,

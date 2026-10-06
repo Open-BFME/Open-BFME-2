@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva00556306@@QAE@ABHABURva005564EBSub@@@Z @0x00556306 29B
 // Two-argument element constructor: int plus subobject (0x38630B). Retail

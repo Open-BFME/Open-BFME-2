@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Triple-deque (deque<deque<deque<BfmeWordValue4>>>>) push_back fast path @0x00424CEA 45B.
 // Same stock STLport 4.5.3 header body as the rowed double-nested sibling 0x00423C26 (45B);

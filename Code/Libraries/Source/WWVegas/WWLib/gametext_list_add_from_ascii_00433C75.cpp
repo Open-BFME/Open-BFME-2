@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // Target evidence at 0x00433C75: empty ASCII input becomes TheNullChr; other
 // input is fetched as Unicode through GameTextInterface slot 0x38. Both paths
 // pass the result and clear flag to the verified 0x00433C18 list helper.

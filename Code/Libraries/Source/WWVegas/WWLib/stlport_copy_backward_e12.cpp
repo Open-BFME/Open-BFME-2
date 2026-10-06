@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // STLport copy_backward for 12-byte POD (BfmeE12 stand-in) at retail 0x0051C94D, 27 bytes.
 // Pinned callee ??$__copy_backward_ptrs@PAUBfmeE12@@PAU1@@_STL@@YAPAUBfmeE12@@PAU1@00ABU__false_type@0@@Z 0x000B6813.

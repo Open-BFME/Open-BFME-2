@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 // QuotedPrintableToAsciiString as retail compiled it for BFME 2: no length
 // cap, plain str() access and an own static buffer. Body from the Zero Hour
 // donor (GameEngine/Source/Common/System/QuotedPrintable.cpp); the missing

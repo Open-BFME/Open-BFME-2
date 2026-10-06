@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 // Free node create at 0x00383D2D 34B calling rowed byte allocate plus rowed Construct for Rva003829E5. Evidence: prev same flags plus callees 0x000307F0 plus 0x0038350D plus ret 4 plus callers 0x00384240 plus 0x00384259.
 #include <memory>

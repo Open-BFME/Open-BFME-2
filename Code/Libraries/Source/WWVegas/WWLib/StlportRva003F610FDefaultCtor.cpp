@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
 // stlport
 // ??0Rva003F610FElement@@QAE@XZ @0x003F5322 57B: default ctor (int plus vector<int> plus vector<BfmeAssignRecord104> plus 5 dwords)
 // Evidence: adjacent dtor ??1Rva003F610FElement@@QAE@XZ @0x003F535B and copy ctor ??0Rva003F610FElement@@QAE@ABU0@@Z @0x003F54DC prove class Rva003F610FElement layout; retail zeroes m_00 then constructs two vectors then zeroes tail.

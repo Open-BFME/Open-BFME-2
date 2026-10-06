@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME2 1.06 StringBase<wchar_t>::toUpper, RVA 0x000375E0 251B.
 // Wide twin of ?toLower@?$StringBase@G@@QAEXXZ at 0x000374E0, per-char towupper via IAT.
 // Copy-on-write duplicate via rowed byte allocator tagged rts 0x737472 then

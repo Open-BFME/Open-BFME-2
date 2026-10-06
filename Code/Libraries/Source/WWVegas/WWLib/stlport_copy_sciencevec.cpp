@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00339A8DCopy@@YAPAV?$vector@HV?$allocator@H@_STL@@@_STL@@PAV12@00PAXH@Z @0x00339A8D 50B forward copy via rowed 0x0021C21B stride 0xC with dummy trailing args.
 // Retail: push ebp / mov ebp esp / mov eax [ebp+c] / sub eax [ebp+8] / push 0xc / cdq / pop ecx / idiv ecx / test eax eax / jle / push esi / mov esi eax / push [ebp+8] / mov ecx [ebp+0x10] / call 0x21C21B / add [ebp+8] 0xc / add [ebp+0x10] 0xc / dec esi / jne / pop esi / mov eax [ebp+0x10] / pop ebp / ret.

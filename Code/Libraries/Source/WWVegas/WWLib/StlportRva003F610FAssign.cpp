@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /Oi /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /Oi /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??4Rva003F610FElement@@QAEAAU0@ABU0@@Z @0x003F554C 56B vector assign plus tail20.
 // Evidence: same 48-byte layout as int ctor 0x003F55D6 in StlportRva003F610FIntCtor.cpp; m_00 then vector m_04 via 4-byte assign 0x0026F4F4 then m_10 via Vector104 assign 0x003F5254 then tail20 rep movsd; callers 0x003F55A8/0x003F58CD/0x003F5914.

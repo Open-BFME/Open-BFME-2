@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ?Rva00173A60MakeHeap@@YAXPAUBfmeAssignRecord32@@0P6A_NABU1@1@Z@Z @0x00173A60 83B make_heap helper for vector<BfmeAssignRecord32>.
 // Retail builds heap via adjust_heap 0x001738C3 walk from (len-2)/2 down with 0x20 stride; frameless no EH.
 // Evidence: chain from adjust_heap 0x001738C3; caller at 0x00173BE4; len from last-first stride.

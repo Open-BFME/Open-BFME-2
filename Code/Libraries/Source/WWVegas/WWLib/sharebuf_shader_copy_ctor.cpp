@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ShareBufferClass<ShaderClass> copy constructor. Twin of the landed
 // Vector2 body; ShaderClass is one dword so the loop is a raw copy.

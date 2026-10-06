@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0?$ShareBufferClass@VVector2@@@@QAE@HPBDH@Z, retail 0x000D1D33 (149 bytes).
 //

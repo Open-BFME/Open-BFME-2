@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 //
 // ??$__copy_backward@PAUBfmePod248@@PAU1@H@_STL@@YAPAUBfmePod248@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z @0x000C7977 54B.

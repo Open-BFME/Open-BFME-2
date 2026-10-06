@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // STLport 4.5.3 reference headers, BFME1 revision 6d9434269164392c5ba62aaa7c15a86b5b020d76.
 // Retail 0x425400/33 destroys 40-byte outer word-deques via the independently

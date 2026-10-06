@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva00414476Destroy@@YAXPAURva00414476Element@@0H@Z, retail 0x00414476, 26 bytes.
 // Range destroy stepping 0x30 calling virtual dtor with 0; called by pinned _Destroy 0x00414508 for 48B Rva00414BDBElement.
 // Same shape as sibling 0x0041445C stride 0x2C; element is virtual to reproduce call [eax] shape.

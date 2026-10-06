@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // STLport 4.5.3 ios_base callback-array grow (retail 0x0001BEC0, 147B).
 // Distinct TU under WWLib: Code/stlport/ is not an allowed root for a new
 // source. Donor-verbatim except for the import repair the sweep packet

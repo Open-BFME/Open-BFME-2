@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002EAD62@Rva002EAD62@@QAEXXZ RVA 0x002EAD62 size 23: holder release deleting owned Rva0053476A via its rowed dtor and operator delete; callers are large free functions plus Unwind jmp refs; neighbour STLport vector TUs.
 class Rva0053476A

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Tagged array operator new, retail 0x006C4C30, 22 bytes.
 // Same game-allocator table as mem_ops.cpp, memory class 2, with the

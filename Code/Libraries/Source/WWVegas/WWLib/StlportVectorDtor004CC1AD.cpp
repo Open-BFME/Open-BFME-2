@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1?$vector@UBfmeStringTailRecord156@@V?$allocator@UBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ @0x004CC1AD 63B.
 // Vector dtor sibling of 0x2CC70 (StlportAsciiStringVectorDtor.cpp): destroys the

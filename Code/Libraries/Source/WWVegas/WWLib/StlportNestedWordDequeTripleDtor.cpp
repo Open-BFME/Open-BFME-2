@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHs /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // STLport 4.5.3; BFME1 reference headers 6d9434269164392c5ba62aaa7c15a86b5b020d76.
 // Complete retail destructor 0x425756/87 destroys the proven three-level deque

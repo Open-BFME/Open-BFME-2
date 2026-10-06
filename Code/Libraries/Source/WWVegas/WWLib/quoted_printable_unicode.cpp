@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 // QuotedPrintableToUnicodeString as retail compiled it for BFME 2
 // (0x005355F2, 205 bytes): no length cap, plain str() access and an own
 // static buffer -- the same BFME2 shape as the Ascii sibling in

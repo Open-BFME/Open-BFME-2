@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ??$_M_allocate_and_copy@PAURva005C8624Element@@@?$vector@URva005C8624Element@@V?$allocator@URva005C8624Element@@@_STL@@@_STL@@IAEPAURva005C8624Element@@IPAU2@0@Z

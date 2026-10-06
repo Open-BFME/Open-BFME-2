@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 #include "../../../../GameEngine/Include/Common/Rva00041004Lock.h"
 // ?Rva00035C90Get@@YAPAVRva00041004@@XZ @0x00035C90 93B
 // ?Rva00035DF0Get@@YAPAVRva00041004@@XZ @0x00035DF0 93B

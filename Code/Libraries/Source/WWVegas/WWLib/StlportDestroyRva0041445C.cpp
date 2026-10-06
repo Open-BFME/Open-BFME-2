@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva0041445CDestroy@@YAXPAURva0041445CElement@@0H@Z, retail 0x0041445C, 26 bytes.
 // Range destroy stepping 0x2C calling virtual dtor with 0; called by pinned _Destroy 0x004144F0.
 // Same stride as BfmePod44 neighbours; element is virtual to reproduce call [eax] shape.

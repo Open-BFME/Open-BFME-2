@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ??$_Construct@URva00414BDBElement@@U1@@_STL@@YAXPAURva00414BDBElement@@ABU1@@Z, retail 0x00414A76, 45 bytes.
 // True _Construct for 48-byte vector element: null-tests dest then copy-constructs

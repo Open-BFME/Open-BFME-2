@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /O2 /Ob2 /EHsc
+// cl: /DNDEBUG /MD /Ob2 /EHsc
 /*
 ** Copyright 2025 Electronic Arts Inc.
 ** SPDX-License-Identifier: GPL-3.0-or-later

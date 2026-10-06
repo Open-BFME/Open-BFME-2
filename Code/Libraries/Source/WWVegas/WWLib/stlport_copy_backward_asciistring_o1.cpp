@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$copy_backward@PAVAsciiString@@PAV1@@_STL@@YAPAVAsciiString@@PAV1@00@Z 0x000B6631 29B evidence: 5-push tag dispatch to rowed __copy_backward worker 0x000B4460; caller at 0x000C070C in 0x000C0697; chain from landed 0x000B4460
 #include "ascii_string.h"

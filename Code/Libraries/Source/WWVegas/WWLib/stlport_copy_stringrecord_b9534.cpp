@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$copy@PAUBfmeStringRecord000B9534@@PAU1@@_STL@@YAPAUBfmeStringRecord000B9534@@PAU1@00@Z @0x000B6782 29B
 // _STL::copy forwarding wrapper retail 29 bytes. Pushes NULL distance and a tag local then calls the rowed 5-arg __copy at 0x000B448F.

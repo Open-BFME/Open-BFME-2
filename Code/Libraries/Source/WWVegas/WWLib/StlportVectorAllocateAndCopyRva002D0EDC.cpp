@@ -6,7 +6,7 @@
 // Rva002D0EDCElement is an address-derived 92-byte non-trivial emitter view.
 // Its target Construct chain reaches the matched GeometryInfo copy constructor
 // at 0x000929E8, but no complete element layout is claimed by this TU.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
 

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 // Target Ghidra [5FE974,5FE9E0),108B. Native signed stride12 and
 // RET16 prove count plus a by-value12B record. The matched35B assignment
 // 5FDEC7 copies opaque words0/4 and sets UnicodeString8. Native cleanup

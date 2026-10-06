@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /Oy-
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /Oy-
 
 // Target evidence: the byte-verified __pop_heap worker at 0x003376EA calls
 // this 172-byte helper at +0x3F. Its loop scales indexes by 20, compares the

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // Native push_back601A3A identifies this overflow60197D and its 12-byte stride.
 // STLport 4.5.3 supplies the algorithm; the opaque name preserves the rowed

@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ShareBufferClass<Vector4> copy constructor. Twin of the landed Vector2
 // and Vector3 bodies.

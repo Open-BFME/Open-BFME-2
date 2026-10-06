@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??$_Construct@VRva004E32F2@@V1@@_STL@@YAXPAVRva004E32F2@@ABV1@@Z, retail 0x0052D4A2, 45 bytes.
 // _STL::_Construct<Rva004E32F2,Rva004E32F2> null-guarded placement-new copy

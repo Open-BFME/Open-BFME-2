@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00434D7A@@QAE@PAI0@Z @0x00434D7A 141B: stack-object ctor calls rowed 0x004349C3 for seeds then imul-xor chain over 8 dwords; sibling of 0x00434C67 with c3=0x48000A07; caller 0x00435474.
 void __cdecl Rva004349C3Get(unsigned *a, unsigned *b);

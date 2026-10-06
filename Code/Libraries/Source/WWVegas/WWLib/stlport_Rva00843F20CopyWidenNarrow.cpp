@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // STLport 4.5.3 range copies, two of the six bodies in the BFME1 donor
 // game/stlport/Rva00843F20CopyWidenNarrow.cpp (b1 0x00843FB0..0x008440C2):

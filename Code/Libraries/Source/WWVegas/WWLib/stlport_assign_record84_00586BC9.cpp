@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??4BfmeAssignRecord84@@QAEAAU0@ABU0@@Z @0x00586BC9 78B
 // Copy assignment over int veda3 veda3 byte ints dequeE12 int via rowed deque

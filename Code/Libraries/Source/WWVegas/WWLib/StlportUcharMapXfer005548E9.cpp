@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?Rva005548E9Xfer@@YGXPAVMapHolder@@PAVXferStub@@@Z @0x005548E9 177B unlock lane map uchar-short xfer.
 // Evidence: callers at 0x005550A0 0x00555109 0x0055573B 0x00555988; callees map op[] 0x00554816 inc 0x00024250 clear 0x003828B6; honest address names.

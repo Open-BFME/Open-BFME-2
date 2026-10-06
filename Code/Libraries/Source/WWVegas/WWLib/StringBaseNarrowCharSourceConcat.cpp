@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?concat@?$StringBase@D@@QAEXABV?$CharSource@D@@@Z @0x00036A30 60B
 // Narrow StringBase CharSource concat: twin of wide 0x000374A0 same 60B shape.
 // Evidence: pinned ensure 0x000364A0 and rowed set 0x000368C0 in same TU family,

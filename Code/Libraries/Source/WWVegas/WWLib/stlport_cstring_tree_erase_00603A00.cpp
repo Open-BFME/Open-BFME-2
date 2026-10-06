@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?_M_erase@?$_Rb_tree@PBDU?$pair@QBDURva00603A00Mapped@@@_STL@@U?$_Select1st@U?$pair@QBDURva00603A00Mapped@@@_STL@@@2@U?$less@PBD@2@V?$allocator@U?$pair@QBDURva00603A00Mapped@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@QBDURva00603A00Mapped@@@_STL@@@2@@Z @ 0x00603A00 (45B).
 // ?clear@?$_Rb_tree@PBDU?$pair@QBDURva00603A00Mapped@@@_STL@@U?$_Select1st@U?$pair@QBDURva00603A00Mapped@@@_STL@@@2@U?$less@PBD@2@V?$allocator@U?$pair@QBDURva00603A00Mapped@@@_STL@@@2@@_STL@@QAEXXZ @ 0x00603A7F (41B).

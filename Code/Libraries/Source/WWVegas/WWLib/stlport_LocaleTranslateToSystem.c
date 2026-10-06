@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // STLport 4.5.3 __TranslateToSystem (edx-in wrapper) + sibling statics.
 // Retail 0x0084F190 calls file-static __GetLCIDFromName (0x0084F020) with the
 // MSVC private register convention (lname=edx, lcid*=ebx, cp on stack).

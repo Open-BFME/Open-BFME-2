@@ -1,5 +1,5 @@
 // ?reserve@?$vector@URva004DA181Element@@V?$allocator@URva004DA181Element@@@_STL@@@_STL@@QAEXI@Z @0x004DA039 126B: STLport vector reserve for 340-byte element. Capacity and size via idiv 0x154; reuses rowed POD allocate_and_copy 0x004D9C1C and POD allocate 0x004D94B3 plus rowed Rva _M_clear 0x004DA01B. Caller 0x004DA426. Evidence: same shape as template reserve; retail calls POD helpers per packet.
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 struct BfmePod340 {
 	int a[85];

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 // ??$_Construct@VRva0054000B@@V1@@_STL@@YAXPAVRva0054000B@@ABV1@@Z @0x00540070 18B
 // Null-guarded placement copy over the 40-byte element whose copy ctor is the

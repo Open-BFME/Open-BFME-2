@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 //
 // SimpleDynVecClass<Vector3>::Add, retail 0x001002C5, 65 bytes.
 // Dedicated TU so segline.cpp keeps its matched bodies.

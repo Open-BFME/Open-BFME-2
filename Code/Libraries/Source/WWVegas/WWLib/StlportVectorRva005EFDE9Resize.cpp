@@ -1,4 +1,4 @@
-// cl: /G7 /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Retail evidence: this is the 105-byte Ghidra body at 0x005EFDE9. It calls
 // the rowed range erase at 0x005EF8FA and the fill-insert candidate at

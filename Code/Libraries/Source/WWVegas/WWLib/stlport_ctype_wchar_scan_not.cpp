@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // STLport 4.5.3 src/ctype.cpp: ctype<wchar_t>::do_scan_is/do_scan_not.
 

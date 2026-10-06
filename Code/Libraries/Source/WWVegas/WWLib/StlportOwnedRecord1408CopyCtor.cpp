@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0BfmeOpaqueOwnedRecord1408@@QAE@ABU0@@Z @0x00556450 155B
 // Copy ctor for the 1408-byte (0x580) opaque deque record. Layout from retail:

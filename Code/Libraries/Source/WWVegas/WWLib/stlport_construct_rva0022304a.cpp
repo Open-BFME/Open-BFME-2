@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$_Construct@VRva0022304A@@V1@@_STL@@YAXPAVRva0022304A@@ABV1@@Z @0x002238B4 45B
 // STLport placement copy of the AsciiString-keyed pair Rva0022304A through its rowed copy

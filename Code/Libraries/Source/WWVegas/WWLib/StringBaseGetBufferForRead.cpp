@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc
+// cl: /EHsc
 // ?getBufferForRead@?$StringBase@D@@QAEPADH@Z @0x00036640 173B
 // ?getBufferForRead@?$StringBase@G@@QAEPAGH@Z @0x000370A0 174B
 // Narrow/wide StringBase getBufferForRead: keep a unique buffer with spare

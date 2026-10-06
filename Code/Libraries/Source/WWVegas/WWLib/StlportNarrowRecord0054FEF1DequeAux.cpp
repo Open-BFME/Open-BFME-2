@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHs /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?_M_push_back_aux_v@?$deque@UBfmeNarrowRecord0054FEF1@@V?$allocator@UBfmeNarrowRecord0054FEF1@@@_STL@@@_STL@@IAEXABUBfmeNarrowRecord0054FEF1@@@Z @0x00550098 130B.
 // deque<BfmeNarrowRecord0054FEF1> auxiliary push-back: temp copy via rowed 0x0054FEF1, reserve via folded 0x0042305C, 0x78 node via 0x000307F0, Construct via rowed 0x0054FF6E, set_node, string cleanup via 0x00030830.

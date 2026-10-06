@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ShareBufferClass<Vector2> copy constructor at 0x0015CD00.
 //

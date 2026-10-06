@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$_Construct@URva001DD1B3@@U1@@_STL@@YAXPAURva001DD1B3@@ABU1@@Z @0x001DD3AA 18B
 // Null-guarded placement copy over the 36-byte element whose real copy ctor
 // is the rowed Rva001DD1B3 copy at 0x001DD1B3.

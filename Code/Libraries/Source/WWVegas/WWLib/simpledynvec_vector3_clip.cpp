@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD
+// cl: /MD
 //
 // ?rva00100362@?$SimpleDynVecClass@VVector3@@@@QBEXABVPlaneClass@@AAV1@@Z, retail 0x00100362, 518 bytes.
 // Clip polygon against plane into dest. Donor logic VisPolyClass::Clip in

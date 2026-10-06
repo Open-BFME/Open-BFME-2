@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva0017351CInsert@@YAXPAUBfmeAssignRecord32@@U1@P6A_NABU1@2@Z@Z @0x0017351C 86B insertion helper for vector<BfmeAssignRecord32>.
 // Retail backward walk with 0x20 stride; predicate via funcptr at +0x2c (caller cleans __cdecl).
 // Copies prev to hole while comp(value prev) true then places value; value by value needs EH dtor.

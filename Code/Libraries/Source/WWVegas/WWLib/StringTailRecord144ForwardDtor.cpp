@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Native entry RVA0x00050FC4 is a complete five-byte JMP to0x002D9A43.
 // The rowed single-record Destroy at0x00053E2B tail-calls this entry;
 // the next independent entry starts at0x00050FC9. Both take only ECX.

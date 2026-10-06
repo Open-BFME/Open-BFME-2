@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP=
+// cl: /EHsc /MD /D_CRTIMP=
 // STLport 4.5.3 vector resize with a one-byte element passed by value.
 // The element's actual retail type is not yet established; char fixes its size.
 // Shape follows Open-BFME-1 vector_ICoord2D_resize.cpp. The retail call site

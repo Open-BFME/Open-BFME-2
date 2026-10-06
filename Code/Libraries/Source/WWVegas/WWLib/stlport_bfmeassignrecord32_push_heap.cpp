@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva00173572PushHeap@@YAXPAUBfmeAssignRecord32@@HHU1@P6A_NABU1@2@Z@Z @0x00173572 135B push_heap helper for vector<BfmeAssignRecord32>.
 // Retail percolates hole up while comp(parent value) true with 0x20 stride; value by value needs EH dtor.
 // Evidence: chain from landed assign 0x00173499; caller 0x001738C3 adjust_heap passes first hole top value comp; binary-search-free parent walk.

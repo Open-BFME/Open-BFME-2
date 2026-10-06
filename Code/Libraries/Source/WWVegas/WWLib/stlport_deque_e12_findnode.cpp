@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00422544Find@@YGHPAVRva00422544List@@@Z, retail 0x00422544, 244 bytes.
 // __stdcall: if g_00DC84F5 is set and the global deque<BfmeE12> range is

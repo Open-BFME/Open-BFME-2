@@ -2,7 +2,7 @@
 // (start/finish/end at +0/+4/+8) with 24-byte elements. The target calls the
 // matched allocate/copy helper at 0x0047A6C0 and the shared 24-byte allocator
 // at 0x00395944. The element's application type and payload are not established.
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_MEMBER_TEMPLATES /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_MEMBER_TEMPLATES /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
 

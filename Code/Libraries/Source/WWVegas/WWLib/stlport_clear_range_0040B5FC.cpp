@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0040B5FC@Rva0040B5FC@@QAEXXZ @ 0x0040B5FC (30B). Clear holder over 0x68 elements via rowed _Destroy.
 // Evidence: retail pushes [esi+4] [esi] then calls rowed ??$_Destroy@PAURva0040AFF3 0x0040B547 then frees [esi]; caller 0x0040B8E8 vector assign; same 30B shape as rowed 0x0040B5DE.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 // ?erase@?$vector@UBfmeObject476@@V?$allocator@UBfmeObject476@@@_STL@@@_STL@@QAEPAUBfmeObject476@@PAU3@0@Z @0x001FEFB9 51B: range erase over vector<BfmeObject476>. Shifts tail down with rowed __copy_ptrs 0x001FEF62 then destroys vacated tail with rowed _Destroy 0x001FD6A4 stores new finish returns first. Evidence: retail 51B push-ebp frame plus lea-tag at ebp+b plus copy then destroy shape calling rowed copy_ptrs and Destroy; callers 0x001FF21D 0x001FF26B; sibling BfmeAssignRecord172 erase 0x001EBDFA 51B prvalue false_type tag shape.
 struct BfmeObject476

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 //
 // ??0BfmeStringTailRecord156@@QAE@ABV0@@Z @0x001D9975, 27 bytes.

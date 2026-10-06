@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 //
 // ?set@?$StringBase@G@@QAEXPBGHH@Z, retail 0x00037E90, 96 bytes.
 // StringBase<wchar_t> substring setter: measures the source with wcslen

@@ -1,4 +1,4 @@
-// cl: /O1 -GX- /Ireference/shims/bfmealloc
+// cl: -GX- /Ireference/shims/bfmealloc
 // stlport
 // vector<Rva0014F4C2>::_M_insert_overflow @0x001503EC, 181B.
 #include <stl/_algobase.h>

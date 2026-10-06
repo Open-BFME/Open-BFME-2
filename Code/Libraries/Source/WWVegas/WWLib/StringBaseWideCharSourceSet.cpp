@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?set@?$StringBase@G@@QAEXABV?$CharSource@G@@@Z @0x00037330 220B
 // Wide StringBase CharSource setter: reuse when capacity allows else allocate
 // via the rowed byte allocator with the 0x737472 tag. Evidence: pinned name,

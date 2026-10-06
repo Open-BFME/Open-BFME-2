@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ??$__unguarded_insertion_sort_aux@PAUBfmeAssignRecord32@@U1@P6A_NABU1@0@Z@_STL@@YAXPAUBfmeAssignRecord32@@00P6A_NABU1@1@Z@Z @0x00173841 46B insertion sort aux for vector<BfmeAssignRecord32>.
 // Loops over [first last) with 0x20 stride; copies each via rowed 0x00173731 then calls.
 /// Rowed linear insert 0x0017351C with pred at +0x14; dummy NULL at +0x10 via forwarder 0x001739CD.

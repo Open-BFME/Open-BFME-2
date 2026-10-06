@@ -1,4 +1,4 @@
-// cl: /G7 /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?_M_insert_overflow@?$vector@VRva001ED03C@@V?$allocator@VRva001ED03C@@@_STL@@@_STL@@IAEXPAVRva001ED03C@@ABV3@ABU__false_type@2@I_N@Z @0x001ED476 183B.
 // STLport vector<Rva001ED03C> growth path; same 183B shape as rowed 0x001ED13A for 36-byte element.

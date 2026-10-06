@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 // Target Ghidra [5DE7D1,5DE833),98B. RET12 and signed stride8
 // independently prove count plus a by-value8B record. The shared
 // UnicodeString owns the first word; second word semantics remain opaque.

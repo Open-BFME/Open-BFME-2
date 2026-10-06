@@ -1,5 +1,5 @@
 // ?rva0040C0FE@Rva0040AAD5@@QAE_NABURva0040C0C7Element@@@Z
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva0040C0FE@Rva0040AAD5@@QAE_NABURva0040C0C7Element@@@Z, retail 0x0040C0FE 39B:

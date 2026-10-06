@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ??$_Construct@VRva00585B16@@V1@@_STL@@YAXPAVRva00585B16@@ABV1@@Z @0x005859C6 45B.

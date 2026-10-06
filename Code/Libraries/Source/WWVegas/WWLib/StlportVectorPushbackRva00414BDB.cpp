@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?push_back@?$vector@URva00414BDBElement@@V?$allocator@URva00414BDBElement@@@_STL@@@_STL@@QAEXABURva00414BDBElement@@@Z, retail 0x00414F27, 55 bytes.
 // STLport 4.5.3 vector<Rva00414BDBElement>::push_back sibling of Rva0052BDE6 push_back at 0x005662CC (55B same flags).

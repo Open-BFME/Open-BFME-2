@@ -1,4 +1,4 @@
-// cl: /O1 -GX- /Ireference/shims/bfmealloc
+// cl: -GX- /Ireference/shims/bfmealloc
 // stlport
 // STLport 4.5.3 _vector.h, also present in BFME 1 donor
 // 6583b3c1ff21db4a561285717028fdafc780b7db. Original application type unknown.

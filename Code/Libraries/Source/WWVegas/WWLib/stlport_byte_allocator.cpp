@@ -1,4 +1,4 @@
-// cl: /O2 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // STLport's raw byte allocator at BFME2 RVA 0x000307F0 (22 bytes).
 // Its matched indirect call forwards (bytes, memory class 3, hint) through

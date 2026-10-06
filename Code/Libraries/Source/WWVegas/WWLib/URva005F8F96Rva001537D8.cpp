@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ??4?$vector@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z, retail 0x001537d8, 180 bytes. Banked partial (score 0.98) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

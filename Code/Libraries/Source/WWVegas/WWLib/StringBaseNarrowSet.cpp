@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 //
 // ?set@?$StringBase@D@@QAEXPBDHH@Z, retail 0x00037C10, 93 bytes.
 // StringBase<char> substring setter: measures the source with strlen

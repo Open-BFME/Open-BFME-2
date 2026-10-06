@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // vector<UnicodeString>::~vector, retail 0x59F7C: same-shape sibling of the
 // AsciiString instantiation at 0x2CC70 (StlportAsciiStringVectorDtor.cpp).

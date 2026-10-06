@@ -6,7 +6,7 @@
 // BfmePod20 is a size-only emitter view (five DWORDs); no concrete application
 // record identity or field layout is claimed. Target evidence establishes a
 // 0x14 stride and the helper-call ABI, not the retail type name.
-// cl: /O1 /G7 /Ob0 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ob0 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
 

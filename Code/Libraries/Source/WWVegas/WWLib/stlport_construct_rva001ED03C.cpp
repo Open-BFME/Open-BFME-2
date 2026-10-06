@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??$_Construct@VRva001ED03C@@V1@@_STL@@YAXPAVRva001ED03C@@ABV1@@Z @0x001ED1F1 45B.
 // Null-guarded placement copy over the 0x24-byte element whose real copy ctor

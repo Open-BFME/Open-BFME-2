@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ShareBufferClass<Vector3> copy constructor. Twin of the landed Vector2
 // body in sharebuf_vector2_copy_ctor.cpp.

@@ -1,4 +1,4 @@
-// cl: /O1 -GX- /Ireference/shims/bfmealloc
+// cl: -GX- /Ireference/shims/bfmealloc
 // stlport
 // vector<Rva0014F480>::_M_insert_overflow @0x00150282, 181B.
 // Masked twin of Rva005DBCD1 overflow 0x005DC499.

@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii
+// cl: /Ireference/shims/bfme2_ascii
 // Native 007B9C10..007B9C1A: the atexit callback registered by 007B6740.
 // That initializer constructs UnicodeString::TheEmptyString at VA00E0C898
 // through 00326BE6 and passes this callback to atexit. The callback calls

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /G7
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 // The two quoted-printable encoders as retail compiled them for BFME 2:
 // UnicodeStringToQuotedPrintable (0x0053544C, 250 bytes) and
 // AsciiStringToQuotedPrintable (0x00535546, 172 bytes). Bodies adapted from

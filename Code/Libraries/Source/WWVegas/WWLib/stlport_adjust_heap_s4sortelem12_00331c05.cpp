@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /Oy- -Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /EHsc /MD /Oy- -Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // stlport
 //
 // STLport __adjust_heap<S4SortElem12*, int, S4SortElem12,

@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /O1 /EHsc- /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc- /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??$_Destroy@U?$_Deque_iterator@UBfmeOpaqueOwnedRecord1432@@U?$_Nonconst_traits@UBfmeOpaqueOwnedRecord1432@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeOpaqueOwnedRecord1432@@U?$_Nonconst_traits@UBfmeOpaqueOwnedRecord1432@@@_STL@@@0@0@Z @0x00556323 41B

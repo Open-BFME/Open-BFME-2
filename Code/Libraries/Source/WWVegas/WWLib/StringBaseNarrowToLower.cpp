@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME2 1.06 StringBase<char>::toLower, RVA 0x00036A70 233B.
 // Pinned explicit export ?toLower@?$StringBase@D@@QAEXXZ, alias pin ?toLower@AsciiString@@QAEXXZ.
 // Copy-on-write duplicate via rowed byte allocator tagged rts 0x737472 then per-char tolower via IAT.

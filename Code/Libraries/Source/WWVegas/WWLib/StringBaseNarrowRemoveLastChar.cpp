@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME2 1.06 StringBase<char>::removeLastChar, RVA 0x00036C50 228B.
 // Pinned explicit export ?removeLastChar@?$StringBase@D@@QAEXXZ.
 // Copy-on-write tail trim: fast in-place when unique with spare capacity

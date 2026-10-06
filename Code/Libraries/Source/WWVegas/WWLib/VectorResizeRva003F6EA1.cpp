@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 // Native 108B by-value resize: RET32; opaque record width28.
 // Callees: erase3F6975; fill3F6BDB; dtor3F60C8.
 // Target Ghidra [3F6EA1,3F6F0D),108B. Native division by28 and

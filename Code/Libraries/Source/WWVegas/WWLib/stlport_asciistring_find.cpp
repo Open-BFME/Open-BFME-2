@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??$__find@PAVAsciiString@@PBD@_STL@@YAPAVAsciiString@@PAV1@0ABQBDABUrandom_access_iterator_tag@0@@Z @0x00136401 171B
 // STLport 4.5.3 random-access __find over AsciiString for a const char* key.

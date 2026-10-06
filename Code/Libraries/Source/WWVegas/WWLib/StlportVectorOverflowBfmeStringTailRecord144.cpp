@@ -8,7 +8,7 @@
 // The field declaration below follows the separately verified target layout
 // documented in stlport_stringtailrecord144_dtor.cpp; it is not a size guess.
 // The out-of-line copy constructor is target-pinned at 0x51B40.
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/G7) compile a different copy, and retail kept another unit's. This unit-local

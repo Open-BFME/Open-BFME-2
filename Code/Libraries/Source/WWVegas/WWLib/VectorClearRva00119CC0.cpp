@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // Reference: STLport4.5.3 vector::_M_clear. Retail119CC0..119CF1 is
 // delimited by int3 padding. The loop strides0x74 and calls the destructor

@@ -5,7 +5,7 @@
 //
 // Rva003F610FElement is only an address-derived 48-byte non-trivial emitter
 // view. The target's application record identity and field layout are unknown.
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/G7) compile a different copy, and retail kept another unit's. This unit-local

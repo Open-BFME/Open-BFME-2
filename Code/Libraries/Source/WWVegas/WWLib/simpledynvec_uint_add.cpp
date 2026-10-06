@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 //
 // SimpleDynVecClass<unsigned>::Add. Twin of the landed Vector3 body
 // with a four-byte element.

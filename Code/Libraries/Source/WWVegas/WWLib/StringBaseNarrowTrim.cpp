@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHs-c-
+// cl: /MD /EHs-c-
 // BFME2 1.06 StringBase<char>::trim, RVA 0x00037CF0.
 // Narrow sibling of the reconstructed wide trim: skip leading space,
 // set the remainder, then remove trailing whitespace one character at a time.

@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 #include "../../../../GameEngine/Include/Common/Rva00041004Lock.h"
 // The shared headers declare these members with the access/virtual spelling
 // the referring objects use; this TU emits the paired definition spelling.

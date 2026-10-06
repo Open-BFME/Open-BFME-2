@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // STLport 4.5.3 locale collation helper (_Locale_strcmp, retail 0x00021C40).
 // Distinct TU under WWLib: Code/stlport/ is not an allowed root for a new
 // source, so this donor body lives here like stlport_EnumLocalesProcA.cpp.

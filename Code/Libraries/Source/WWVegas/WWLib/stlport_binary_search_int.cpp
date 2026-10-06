@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // binary_search<int*, int> @0x0040AD75 56B: lower_bound through the rowed
 // __lower_bound<int*, int, less<int>, int> worker 0x0040AC58, then
