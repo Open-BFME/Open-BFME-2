@@ -2213,6 +2213,34 @@ cleanup_done_007A81B8:
     ret
 ?rva007A81B8@@YAXXZ ENDP
 
+; Unwind@00ba8458 at RVA 0x007A8458; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then loads the cleanup pointer from [ebp+4] and tail-jumps to matched address-derived BfmeRefVGO handle destructor thunk at 0x000A9DF3.
+PUBLIC ?rva007A8458@@YAXXZ
+?rva007A8458@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A8458
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp+4]
+    jmp ??1Rva004A9DF3Element@@QAE@XZ
+cleanup_done_007A8458:
+    ret
+?rva007A8458@@YAXXZ ENDP
+
+; Unwind@00ba8488 at RVA 0x007A8488; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+4] and tail-jumps to matched address-derived BfmeRefVGO handle destructor thunk at 0x000A9DF3.
+PUBLIC ?rva007A8488@@YAXXZ
+?rva007A8488@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A8488
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+4]
+    jmp ??1Rva004A9DF3Element@@QAE@XZ
+cleanup_done_007A8488:
+    ret
+?rva007A8488@@YAXXZ ENDP
+
 ; Unwind@00bab0e9 at RVA 0x007AB0E9; 25-byte interval ends at RET.
 ; Retail tests and clears bit 1 at [ebp-24], then takes the cleanup object address at [ebp-20] and tail-jumps to AsciiString at 0x0048BA39.
 PUBLIC ?rva007AB0E9@@YAXXZ
