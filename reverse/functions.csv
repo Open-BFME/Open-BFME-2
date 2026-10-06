@@ -63671,12 +63671,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva00413B16Element@@QAE@ABU0@@Z,,0x00413951,61,Code/GameEngine/Source/Common/Rva00413B16ElementCopy.cpp,matched,Element copy ctor via rowed vector<uint> copy and pinned member copy 0x004137C6; existing pin name
 ?doQuickMatch@PeerThreadClass@@AAEXPAX@Z,,0x0038E684,1875,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,ZH/BFME1 donor on BFME2 thread layout via view; file-static matchbotProfileID; _snprintf import and C++-linkage STLport free reproduce retail
 ??0Rva0050055D@@QAE@ABV0@@Z,,0x0050055D,61,Code/GameEngine/Source/Common/Rva0050055DCopy.cpp,matched,Copy ctor of two int-ptr trees via rowed Rb_tree copies
-?notifyAll@Rva0041E717Broadcast@@QAEXXZ,,0x0041E717,27,Code/GameEngine/Source/Common/Rva0041E717Broadcast.cpp,matched,vtable-slot-1 broadcast over the +0x1C/+0x20 pointer range
-?forwardFrom@Rva0040E6D6Host@@QAIXHPAURva0040E6D6Arg@@@Z,,0x0040E6D6,32,Code/GameEngine/Source/Common/Rva0040E6D6Forward.cpp,matched,fastcall member forward with dead EDX param; arg-slot reuse into subobject method 0x002E01C6
-??_GRva0042D4B3@@UAEPAXI@Z,,0x0042D4B3,27,Code/GameEngine/Source/Common/Rva0042D4B3ScalarDeletor.cpp,matched,scalar deleting dtor via pinned virtual dtor thunk 0x00577E3E and rowed scalar delete
-?Rva0040D041Get@@YGPBVAsciiString@@H@Z,,0x0040D041,26,Code/GameEngine/Source/Common/Rva0040D041Get.cpp,matched,second string member at +0x64 with TheEmptyString fallback
-?Rva0040D3D5Get@@YGHH@Z,,0x0040D3D5,18,Code/GameEngine/Source/Common/Rva0040D3D5Get.cpp,matched,dword member at +0x30 with 0 fallback
-?rva0040F7E5@BfmeY1038@@QAEXXZ,,0x0040F7E5,24,Code/GameEngine/Source/Common/Rva0040F7E5Advance.cpp,matched,state advance 3 to 4 through the 3-zero helper 0x0040F497
 ?rva00423D0DCreate@@YGPAXH@Z,,0x00423D0D,34,Code/GameEngine/Source/Common/Rva00423D0DCreate.cpp,matched,free allocator test
 ??0Rva00433390@@QAE@H@Z,,0x00433390,48,Code/Libraries/Source/WWVegas/WWLib/Rva00433390Ctor.cpp,matched,derived ctor vtable 0x00C3CB1C over base 0x001DA19E plus BitFlags 0x003B31AD plus int members; sibling 0x00433762 family
 ?Rva00425421Parse@@YAXPAVINI@@PAX@Z,,0x00425421,57,Code/GameEngine/Source/Common/Rva00425421Parse.cpp,matched,INI wrapper 2-entry FieldParse Row plus 0x004251C4 via rowed initFromINI 0x0002DE78
