@@ -39,7 +39,8 @@ class Rva002120A4
 public:
 	Int rva002120A4(NameKeyType key);
 };
-extern Rva002120A4 *g_rva003F409FMap;
+class LivingWorldManager;
+extern LivingWorldManager *TheLivingWorldManager;
 class Rva003F409F
 {
 public:
@@ -50,7 +51,7 @@ public:
 };
 void Rva003F409F::rva003F409F(bool b)
 {
-	Rva003F409FTarget *target = (Rva003F409FTarget *)g_rva003F409FMap->rva002120A4(m_30);
+	Rva003F409FTarget *target = (Rva003F409FTarget *)reinterpret_cast<Rva002120A4 *>(TheLivingWorldManager)->rva002120A4(m_30);
 	if (target)
 		target->v12(b);
 }
@@ -116,7 +117,8 @@ struct Rva002B89BBInfo
 	char m_pad00[0x14];
 	Int m_14;
 };
-extern Rva002B8644 *g_rva002B89BBOwner;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002B89BB
 {
 public:
@@ -128,7 +130,7 @@ private:
 bool Rva002B89BB::rva002B89BB(Rva002B89BBArg *arg)
 {
 	if (arg->m_54 == m_04->m_14 && !arg->m_75)
-		g_rva002B89BBOwner->rva002B8644((Int)arg);
+		reinterpret_cast<Rva002B8644 *>(TheLivingWorldLogic)->rva002B8644((Int)arg);
 	return true;
 }
 
