@@ -64854,3 +64854,5 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0020F27E@Rva0020F27EHost@@QAE_NHH@Z,,0x0020F27E,36,Code/Libraries/Source/WWVegas/WWLib/Rva0020F27EPair.cpp,matched,Index via rowed EAF6 then pinned EA58 bool forward
 ?rva0020F2A2@Rva0020F2A2Host@@QAE_NHPAX@Z,,0x0020F2A2,79,Code/Libraries/Source/WWVegas/WWLib/Rva0020F2A2Dispatch.cpp,matched,Bool dispatch via EAF6 plus rowed 0x20E493 copy then F27E; int copy avoids x87
 ??4Rva001FFEE9@@QAEAAV0@ABV0@@Z,,0x001FFEE9,81,Code/GameEngine/Source/Common/Rva001FFEE9Assign.cpp,matched,Copy assign via base placeholder plus int plus UnicodeString sets plus custom plus tail; 8B pad
+?rva002B894D@Rva002B894DHost@@QAEXH@Z,,0x002B894D,55,Code/GameEngine/Source/Common/Rva002B894DTwins.cpp,matched,adjacent 55B twins backwards scan elem+0x34 vs arg then 0x2B7DE6; == variant
+?rva002B8984@Rva002B894DHost@@QAEXH@Z,,0x002B8984,55,Code/GameEngine/Source/Common/Rva002B894DTwins.cpp,matched,adjacent 55B twins backwards scan elem+0x34 vs arg then 0x2B7DE6; != variant
