@@ -4,8 +4,22 @@
 // Evidence: next to ScriptEngine 0x00357AF8 same flags; playerVectors[20] at
 // +0x1A3A8 from ScriptEngine_dtor; vector<ObjectID>::erase rowed 0x0025BF5D;
 // caller 0x003E4455 pushes index id 1 with ScriptEngine singleton.
-#define _STLP_NO_EXCEPTIONS 1
-#include <vector>
+// _STL::vector<ObjectID> minimal view: begin/end inline (as retail inlines
+// them), erase declared only so the call reaches the retail copy in
+// Code/GameEngine/Source/Common/Rva004D6BF0Erase.cpp instead of emitting a
+// wrong COMDAT here.
+namespace _STL {
+template <class T> class allocator {};
+template <class T, class A = allocator<T> > class vector {
+public:
+	T *m_start;
+	T *m_finish;
+	T *m_end;
+	T *begin() { return m_start; }
+	T *end() { return m_finish; }
+	T *erase(T *pos);
+};
+}
 
 enum ObjectID
 {
