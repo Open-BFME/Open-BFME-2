@@ -21,6 +21,13 @@
 // tasks 0-2) and going home (rowed ctor 0x0048896B), every success and
 // failure id idle except the idle state's INVALID_STATE_ID.
 //
+// The idle conditions, retail 0x0048899D (75 bytes), 0x004889E8 (76) and
+// 0x00488A34 (77), ZH's isBuildMostImportant, isRepairMostImportant and
+// isFortifyMostImportant in table order: the machine owner's AI (Object
+// +0x258), its dozer interface (AI vslot 93) and idleness (vslot 110),
+// then whether the most recent command (dozer vslot 5) is the state's
+// task. Their State parameter is spelled struct, as the rowed defineState.
+//
 // ??0DozerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004894F5,
 // 239 bytes. Target evidence: the body runs the pinned AIUpdateInterface
 // ctor 0x0026E9BD and the implicit ctor of the all-_purecall interface at
@@ -75,8 +82,11 @@ public:
 	virtual void slot04(); virtual void slot05(); virtual void slot06();
 	virtual StateReturnType initDefaultState();
 	void defineState(StateID id, struct State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = 0);
+	Object *getOwner() const { return m_owner; }
 protected:
-	unsigned char m_pad04[0x3C - 0x04]; // operator new size 0x3C
+	unsigned char m_pad04[0x14 - 0x04];
+	Object *m_owner; // +0x14
+	unsigned char m_pad18[0x3C - 0x18]; // operator new size 0x3C
 };
 
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by
@@ -94,8 +104,11 @@ struct State
 {
 public:
 	virtual ~State();
+	Object *getMachineOwner() const { return m_machine->getOwner(); }
 protected:
-	unsigned char m_pad04[0x20 - 0x04];
+	unsigned char m_pad04[0x18 - 0x04];
+	StateMachine *m_machine; // +0x18
+	unsigned char m_pad1C[0x20 - 0x1C];
 };
 
 // ZH's DozerPrimaryIdleState (rowed ctor 0x004886C7).
@@ -199,20 +212,49 @@ public:
 	virtual void slot0();
 };
 
+class DozerAIInterface
+{
+public:
+	virtual void slot0() = 0;
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual DozerTask getMostRecentCommand() = 0; // vslot 5
+};
+
 class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24
 {
 public:
 	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+	// Primary vtable slots 1-92 (slot 0 is the destructor).
+	virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09(); virtual void v10();
+	virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20();
+	virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30();
+	virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40();
+	virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49(); virtual void v50();
+	virtual void v51(); virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55(); virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59(); virtual void v60();
+	virtual void v61(); virtual void v62(); virtual void v63(); virtual void v64(); virtual void v65(); virtual void v66(); virtual void v67(); virtual void v68(); virtual void v69(); virtual void v70();
+	virtual void v71(); virtual void v72(); virtual void v73(); virtual void v74(); virtual void v75(); virtual void v76(); virtual void v77(); virtual void v78(); virtual void v79(); virtual void v80();
+	virtual void v81(); virtual void v82(); virtual void v83(); virtual void v84(); virtual void v85(); virtual void v86(); virtual void v87(); virtual void v88(); virtual void v89(); virtual void v90();
+	virtual void v91(); virtual void v92();
+	virtual DozerAIInterface *getDozerAIInterface(); // vslot 93 (+0x174)
+	virtual void v94(); virtual void v95(); virtual void v96(); virtual void v97(); virtual void v98(); virtual void v99(); virtual void v100();
+	virtual void v101(); virtual void v102(); virtual void v103(); virtual void v104(); virtual void v105(); virtual void v106(); virtual void v107(); virtual void v108(); virtual void v109();
+	virtual Bool isIdle() const; // vslot 110 (+0x1B8)
 protected:
 	virtual ~AIUpdateInterface();
 private:
 	unsigned char m_pad28[0x3E4 - 0x28];
 };
 
-class DozerAIInterface
+class Object
 {
 public:
-	virtual void slot0() = 0;
+	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+private:
+	unsigned char m_pad000[0x258];
+	AIUpdateInterface *m_ai; // +0x258
 };
 
 inline void zeroCoord(Coord3D &c)
@@ -303,6 +345,72 @@ DozerPrimaryStateMachine::DozerPrimaryStateMachine(Object *owner) : Rva004D759C(
 	defineState(DOZER_PRIMARY_REPAIR, new Rva00488D5C(this, DOZER_TASK_REPAIR), DOZER_PRIMARY_IDLE, DOZER_PRIMARY_IDLE);
 	defineState(DOZER_PRIMARY_FORTIFY, new Rva00488D5C(this, DOZER_TASK_FORTIFY), DOZER_PRIMARY_IDLE, DOZER_PRIMARY_IDLE);
 	defineState(DOZER_PRIMARY_GO_HOME, new Rva0048896B(this), DOZER_PRIMARY_IDLE, DOZER_PRIMARY_IDLE);
+}
+
+Bool DozerPrimaryStateMachine::isBuildMostImportant(State *thisState, void *userData)
+{
+	Object *dozer = thisState->getMachineOwner();
+	AIUpdateInterface *ai = dozer->getAIUpdateInterface();
+	if (!ai)
+	{
+		return FALSE;
+	}
+	DozerAIInterface *dozerAI = ai->getDozerAIInterface();
+	if (!dozerAI)
+	{
+		return FALSE;
+	}
+
+	if (!ai->isIdle())
+		return FALSE; // busy doing something else
+
+	// if the most important task is us then return true
+	DozerTask task = dozerAI->getMostRecentCommand();
+	return task == DOZER_TASK_BUILD;
+}
+
+Bool DozerPrimaryStateMachine::isRepairMostImportant(State *thisState, void *userData)
+{
+	Object *dozer = thisState->getMachineOwner();
+	AIUpdateInterface *ai = dozer->getAIUpdateInterface();
+	if (!ai)
+	{
+		return FALSE;
+	}
+	DozerAIInterface *dozerAI = ai->getDozerAIInterface();
+	if (!dozerAI)
+	{
+		return FALSE;
+	}
+
+	if (!ai->isIdle())
+		return FALSE; // busy doing something else
+
+	// if the most important task is us then return true
+	DozerTask task = dozerAI->getMostRecentCommand();
+	return task == DOZER_TASK_REPAIR;
+}
+
+Bool DozerPrimaryStateMachine::isFortifyMostImportant(State *thisState, void *userData)
+{
+	Object *dozer = thisState->getMachineOwner();
+	AIUpdateInterface *ai = dozer->getAIUpdateInterface();
+	if (!ai)
+	{
+		return FALSE;
+	}
+	DozerAIInterface *dozerAI = ai->getDozerAIInterface();
+	if (!dozerAI)
+	{
+		return FALSE;
+	}
+
+	if (!ai->isIdle())
+		return FALSE; // busy doing something else
+
+	// if the most important task is us then return true
+	DozerTask task = dozerAI->getMostRecentCommand();
+	return task == DOZER_TASK_FORTIFY;
 }
 
 void DozerAIUpdate::createMachines()
