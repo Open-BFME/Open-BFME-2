@@ -81,10 +81,10 @@ extern GlobalA01E48 *g_Va00A01E48;
 extern int g_Va00A04908;
 void __cdecl free(void *p);
 
-struct FreePtr
+struct AptFreePtr
 {
 	void *p;
-	~FreePtr() { if (p) free(p); }
+	~AptFreePtr() { if (p) free(p); }
 };
 
 class __multiple_inheritance AptOptions : public _bfme_AptGameWindow, public BfmeAptFunctorMarker
@@ -93,7 +93,7 @@ public:
 	virtual ~AptOptions();
 private:
 	char m_pad21C[0x6C];
-	FreePtr m_288;
+	AptFreePtr m_288;
 	char m_pad28C[0x10];
 	int m_29C;
 	int m_2A0;
