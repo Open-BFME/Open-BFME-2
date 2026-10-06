@@ -1,4 +1,6 @@
 // ?rva003A3E37@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z
+// partial score=0.7749 date=2026-10-06
+// ?rva003A3E37@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z
 // partial score=0.93 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
 // ?rva003A3E37@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z @0x003A3E37 61B
