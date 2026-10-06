@@ -50,6 +50,11 @@ private:
 	void groupAttackObjectPrivate(bool a, Object *victim, int b, CommandSourceType c);
 	friend class Rva004ECECD;
 };
+class BfmeC986
+{
+public:
+	void rva00372B09(int a, int b, int c);
+};
 class AI
 {
 public:
@@ -86,6 +91,24 @@ void Rva004ECECD::rva004ED1A1(int id, Object *victim)
 		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
 		team->getTeamAsAIGroup(group);
 		group->groupAttackObjectPrivate(false, victim, 0x7fffffff, (CommandSourceType)0);
+		g_Va009FF0F8->rva002FE712(group);
+		node->m_10 = 0;
+	}
+}
+
+// ?rva004ED1FD@Rva004ECECD@@QAEXHPBUCoord3D@@@Z @ 0x004ED1FD 90B.
+// Gap-lane like rva004ED1A1 but move-order via pinned 0x00372B09 with
+// (p, 0x7fffffff, 0). Same rowed find/create/fill/destroy plus globals.
+// Evidence: pin QAEXHPBUCoord3D; callers 0x004ED274 0x004ED362 0x005A9EBA 0x005A9F31.
+void Rva004ECECD::rva004ED1FD(int id, const struct Coord3D *p)
+{
+	Rva004ECECDNode *node = rva004ECF05(id);
+	if (node != 0)
+	{
+		AIGroup *group = g_Va009FF0F8->createGroup();
+		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
+		team->getTeamAsAIGroup(group);
+		((BfmeC986 *)group)->rva00372B09((int)p, 0x7fffffff, 0);
 		g_Va009FF0F8->rva002FE712(group);
 		node->m_10 = 0;
 	}
