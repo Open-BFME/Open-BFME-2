@@ -49,8 +49,15 @@ public:
 	void rva0028AE6D();
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Object *getContainedBy() const { return m_containedBy; }
- 	void setModelConditionState(unsigned int mc);
- 	__forceinline void clearModelConditionState(unsigned int mc)
+	__forceinline void setModelConditionState(unsigned int mc)
+	{
+		if (m_modelConditionFlags.test(mc) == 0)
+		{
+			m_modelConditionFlags.set(mc);
+			rva0028AE6D();
+		}
+	}
+	__forceinline void clearModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) != 0)
 		{
@@ -58,7 +65,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-public:
+private:
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad008[0x10C - 0x08];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
@@ -132,13 +139,9 @@ void PhysicsBehavior::rva003906BF()
 	Object *obj = m_object;
 	const ThingTemplate *tmpl = obj->getTemplate();
 	const Object *container = obj->getContainedBy();
- 	if (tmpl->m_610 >= 100.0f || (container && container->getTemplate()->m_610 >= 100.0f))
+	if (tmpl->m_610 >= 100.0f || (container && container->getTemplate()->m_610 >= 100.0f))
 		return;
-	if (obj->m_modelConditionFlags.test(4 * 32 + 0) == 0)
-	{
-		obj->m_modelConditionFlags.set(4 * 32 + 0);
-		obj->rva0028AE6D();
-	}
+	obj->setModelConditionState(4 * 32 + 0);
 	m_5C = true;
 	m_58 = ((const PhysicsBehaviorModuleData *)m_moduleData)->m_20;
 	setWakeFrame(obj, UPDATE_SLEEP_NONE);

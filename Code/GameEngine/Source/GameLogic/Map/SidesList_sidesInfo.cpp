@@ -12,12 +12,11 @@
 
 class BuildListInfo
 {
-	friend class SidesInfo;
 public:
 	BuildListInfo(const BuildListInfo &that);
 	virtual void *deleteInstance(int pool);
-	BuildListInfo *getNext() const;
-	void setNextBuildList(BuildListInfo *next);
+	BuildListInfo *getNext() const { return m_nextBuildList; }
+	void setNextBuildList(BuildListInfo *next) { m_nextBuildList = next; }
 
 private:
 	char m_body[0x28];
@@ -141,11 +140,11 @@ SidesInfo::SidesInfo(const SidesInfo &that) :
 {
 	try {
 		BuildListInfo *tail = 0;
-		for (BuildListInfo *thatBL = that.m_pBuildList; thatBL; thatBL = thatBL->m_nextBuildList) {
+		for (BuildListInfo *thatBL = that.m_pBuildList; thatBL; thatBL = thatBL->getNext()) {
 			BuildListInfo *thisBL = new BuildListInfo(*thatBL);
-			thisBL->m_nextBuildList = 0;
+			thisBL->setNextBuildList(0);
 			if (tail)
-				tail->m_nextBuildList = thisBL;
+				tail->setNextBuildList(thisBL);
 			else
 				m_pBuildList = thisBL;
 			tail = thisBL;

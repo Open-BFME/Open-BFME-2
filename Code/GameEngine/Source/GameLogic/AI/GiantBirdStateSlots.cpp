@@ -84,10 +84,10 @@ public:
 class Object
 {
 public:
-	AIUpdateInterface *getAI();
+	AIUpdateInterface *getAI() { return m_ai; }
 	const Coord3D *getPosition() const { return &m_position; }
 	void setStatus(ObjectStatusTypes status, Bool set);
-	void rva0028ACEE(int pos, int value);
+	void rva0028ACEE(const Coord3D *pos, int value);
 	const Rva0028AC4EEntry *rva0028AC4E() const;
 	void rva0028AE6D();
 	__forceinline void clearModelConditionBit(int bit)
@@ -98,6 +98,7 @@ public:
 			rva0028AE6D();
 		}
 	}
+private:
 	unsigned char m_pad000[0x38];
 	Coord3D m_position; // +0x38
 	unsigned char m_pad044[0x10C - 0x44];
@@ -147,7 +148,7 @@ void GiantBirdNormalFlightState::onExit(StateExitType status)
 	Object *owner = getMachineOwner();
 	owner->clearModelConditionBit(103);
 	owner->clearModelConditionBit(72);
-	owner->rva0028ACEE((int)owner->getPosition(), 1);
+	owner->rva0028ACEE(owner->getPosition(), 1);
 	owner->setStatus(OBJECT_STATUS_BFME_5A, false);
 	owner->setStatus(OBJECT_STATUS_BFME_5B, false);
 	if (owner->rva0028AC4E())
@@ -184,11 +185,11 @@ void AIGiantBirdSwoopState::onExit(StateExitType status)
 	owner->clearModelConditionBit(61);
 	owner->clearModelConditionBit(103);
 	owner->clearModelConditionBit(72);
-	AIUpdateInterface *ai = owner->m_ai;
+	AIUpdateInterface *ai = owner->getAI();
 	if (ai)
 	{
 		ai->rva00369359Slot142(0);
 		ai->setCurrentVictim(0);
 	}
-	owner->rva0028ACEE((int)owner->getPosition(), 1);
+	owner->rva0028ACEE(owner->getPosition(), 1);
 }

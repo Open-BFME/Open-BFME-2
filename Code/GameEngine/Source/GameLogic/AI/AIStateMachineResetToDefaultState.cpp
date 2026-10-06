@@ -37,7 +37,8 @@ public:
 class Object
 {
 public:
-	AIUpdateInterface *getAI();
+	AIUpdateInterface *getAI() { return m_ai; }
+private:
 	unsigned char m_pad000[0x258];
 	AIUpdateInterface *m_ai; // +0x258
 };
@@ -89,7 +90,7 @@ StateReturnType AIStateMachine::resetToDefaultState()
 	}
 	StateReturnType tmp = StateMachine::resetToDefaultState();
 
-	AIUpdateInterface *ai = getOwner()->m_ai;
+	AIUpdateInterface *ai = getOwner()->getAI();
 	if (ai)
 		ai->friend_notifyStateMachineChanged();
 
@@ -106,7 +107,7 @@ StateReturnType AIStateMachine::setState(StateID newStateID)
 	StateID oldID = getCurrentStateID();
 	StateReturnType tmp = StateMachine::setState(newStateID);
 
-	AIUpdateInterface *ai = getOwner()->m_ai;
+	AIUpdateInterface *ai = getOwner()->getAI();
 	if (ai && oldID != newStateID)
 		ai->friend_notifyStateMachineChanged();
 

@@ -45,11 +45,9 @@ class BehaviorModule : public BfmeObjectModule, public BehaviorModuleInterface
 class Object
 {
 public:
-	BehaviorModule **getBehaviorModules() const;
+	BehaviorModule **getBehaviorModules() const { return m_modules244; }
 
-	// +0x244 behavior-module array read directly (not via getBehaviorModules:
-	// retail's rowed getBehaviorModules reads +0x18C; this TU's +0x244 read is a
-	// distinct member proven by this body's own bytes).
+private:
 	char m_pad[0x244];
 	BehaviorModule **m_modules244;
 };
@@ -70,7 +68,7 @@ BridgeBehaviorInterface *BridgeBehavior::getBridgeBehaviorInterfaceFromObject(Ob
 	// get the bridge behavior module
 	BehaviorModule **bmi;
 	BridgeBehaviorInterface *bbi;
-	for (bmi = obj->m_modules244; *bmi; ++bmi)
+	for (bmi = obj->getBehaviorModules(); *bmi; ++bmi)
 	{
 		bbi = (*bmi)->getBridgeBehaviorInterface();
 		if (bbi)

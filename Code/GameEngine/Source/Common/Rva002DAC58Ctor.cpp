@@ -3,31 +3,31 @@
 // Evidence: vtable 0x00803D64 store; callees baseConstruct 0x001B4E63; data g_00DFF088 0x009FF088; caller 0x0022E874; neighbour dtor 0x002DAC58.
 extern int g_00DFF088;
 
-extern "C" const void *const vtbl_00C03D64[];  // ??_7Rva002DAC58@@6B@
-#pragma comment(linker, "/alternatename:_vtbl_00C03D64=??_7Rva002DAC58@@6B@")
-
-class BFME2NativeNetwork
+class __declspec(novtable) BFME2NativeNetwork
 {
 public:
 	BFME2NativeNetwork *baseConstruct();
+	__forceinline BFME2NativeNetwork() { baseConstruct(); }
+private:
+	virtual void unused() = 0;
+	char m_flag;
+	int m_value;
 };
 
 struct Rva002DAC58Node;
 
-class Rva002DAC58
+class Rva002DAC58 : public BFME2NativeNetwork
 {
-	int m_pad00[3];
-	Rva002DAC58Node *m_list0C;
-	Rva002DAC58Node *m_list10;
 public:
 	Rva002DAC58();
+private:
+	Rva002DAC58Node *m_list0C;
+	Rva002DAC58Node *m_list10;
 };
 
 Rva002DAC58::Rva002DAC58()
+	: m_list0C(0)
+	, m_list10(0)
 {
-	((BFME2NativeNetwork *)this)->baseConstruct();
-	m_list0C = 0;
-	m_list10 = 0;
-	*(void **)this = (void *)((unsigned int)vtbl_00C03D64);
 	g_00DFF088 = 1;
 }

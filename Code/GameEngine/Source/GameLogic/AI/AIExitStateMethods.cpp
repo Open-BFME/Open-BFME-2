@@ -90,8 +90,9 @@ class Object
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	ObjectID getID() const { return m_id; }
-	ContainModuleInterface *getContain() const;
-	AIUpdateInterface *getAI();
+	ContainModuleInterface *getContain() const { return m_contain; }
+	AIUpdateInterface *getAI() { return m_ai; }
+private:
 	unsigned char m_pad00[0x04];
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad08[0x74 - 0x08];
@@ -108,7 +109,8 @@ public:
 	virtual void setGoalObject(const Object *obj) = 0;
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
-	StateID getCurrentStateID() const;
+	inline StateID getCurrentStateID() const;
+private:
 	State *m_currentState; // +0x04
 	unsigned char m_pad08[0x14 - 0x08];
 	Object *m_owner; // +0x14
@@ -123,7 +125,8 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
-	StateID getID() const;
+	StateID getID() const { return m_ID; }
+protected:
 	StateMachine *getMachine() const { return m_machine; }
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
 	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
@@ -131,9 +134,12 @@ public:
 	unsigned char m_pad08[0x18 - 0x08];
 	StateMachine *m_machine; // +0x18
 };
+// ?StateMachine::getCurrentStateID absent-from-retail
+inline StateID StateMachine::getCurrentStateID() const
+{
+	return m_currentState ? m_currentState->getID() : INVALID_STATE_ID;
+}
 extern Bool g_00E03624;
-// g_00E03624: matched references place it at VA 0xe03624 (zero-filled .bss).
-Bool g_00E03624;
 class GameLogic
 {
 public:
@@ -160,7 +166,7 @@ StateReturnType AIExitState::onEnter()
 	Object* goal = getMachineGoalObject();
 	if (goal)
 	{
-		ContainModuleInterface* contain = goal->m_contain;
+		ContainModuleInterface* contain = goal->getContain();
 		if (contain)
 		{
 			contain->onObjectWantsToEnterOrExit(obj, WANTS_TO_EXIT);
@@ -183,7 +189,7 @@ void AIExitState::onExit( StateExitType status )
 		Object* goal = TheGameLogic->findObjectByID(m_entryToClear);
 		if (goal)
 		{
-			ContainModuleInterface* contain = goal->m_contain;
+			ContainModuleInterface* contain = goal->getContain();
 			if (contain)
 			{
 				contain->onObjectWantsToEnterOrExit(getMachineOwner(), WANTS_NEITHER);
@@ -200,12 +206,11 @@ StateReturnType AIExitState::update()
 	Object* goal = getMachineGoalObject();
 	if (goal)
 	{
-		AIUpdateInterface* goalAI = goal->m_ai;
+		AIUpdateInterface* goalAI = goal->getAI();
 		if (goalAI && goalAI->getAiFreeToExit(obj) == WAIT_TO_EXIT)
 			return STATE_CONTINUE;
 
-		ContainModuleInterface *goalContain = goal->m_contain;
-		ExitInterface* goalExitInterface = goalContain ? goalContain->getContainExitInterface() : NULL;
+		ExitInterface* goalExitInterface = goal->getContain() ? goal->getContain()->getContainExitInterface() : NULL;
 		if( goalExitInterface == NULL )
 			return STATE_FAILURE;
 
@@ -219,9 +224,7 @@ StateReturnType AIExitState::update()
 		g_00E03624 = m_bfmeFlag24;
 		goalExitInterface->exitObjectViaDoor(obj, exitDoor);
 		g_00E03624 = false;
-		StateMachine *mach = getMachine();
-		StateID curID = mach->m_currentState ? mach->m_currentState->m_ID : INVALID_STATE_ID;
-		if (curID != m_ID)
+		if( getMachine()->getCurrentStateID() != getID() )
 			return STATE_CONTINUE;// Not sucess, because exitViaDoor has changed us to FollowPath, and if we say Success, our machine will think FollowPath succeeded
 		else
 			return STATE_SUCCESS;
