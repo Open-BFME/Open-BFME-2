@@ -7127,7 +7127,7 @@ _Rva00813100@24,,0x0067F000,1468,Code/Libraries/Source/DirtySock/Rva00813100Conn
 ?Rva007FDFF0Connect@@YAPAXPBDH@Z,,0x0066A4C0,494,Code/Libraries/Source/DirtySock/Rva007FDFF0Connect.cpp,matched,bfme1 DirtySock connect exact source; ret-truncated unique hit; Win32 imports by slot identity
 _Rva0080B1B0,,0x006770B0,678,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 DirtySock module exact source; pinned address; default-name VA retargeted to this image
 ??$_Construct@VBuddyResponse@@V1@@_STL@@YAXPAVBuddyResponse@@ABV1@@Z,,0x005507B0,24,Code/GameEngine/Source/GameNetwork/GameSpy/BuddyResponseDequePushBackAux.cpp,matched,bfme1 GameSpy sweep exact placement; verbatim source import
-?Rva007ECD90@@YAHPADHPBDH@Z,,0x00659CC0,182,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,matched,bfme1 DirtySock EBAE0 exact source; ret-truncated unique hit
+?Rva007ECD90@@YAHPADHPBDH@Z,,0x00659CC0,207,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,matched,bfme1 DirtySock EBAE0 exact source; ret-truncated unique hit
 _Rva0081AE20,,0x00686D20,450,Code/Libraries/Source/DirtySock/Rva00819630TapiTransport.cpp,matched,bfme1 DirtySock Tapi exact source; ret-truncated unique hit
 ??1Gen0080ACD0@@UAE@XZ,,0x00676730,264,Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp,matched,bfme1 DirtySock scalar exact source; fixed-sweep unique hit; upgrades pin to row
 ??_GGen007EB140@@UAEPAXI@Z,,0x006580E0,35,Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp,matched,bfme1 DirtySock scalar exact source; fixed-sweep unique hit; callees pinned

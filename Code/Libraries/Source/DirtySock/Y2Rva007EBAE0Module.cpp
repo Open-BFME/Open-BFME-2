@@ -567,9 +567,9 @@ int Rva007ECAF0( char *record, int size, const char *name, int flags )
 int Rva007ECD90( char *record, int size, const char *name, int value )
 {
 	char *p;
-	char strField[ 0x120 ];
+	char item[ 0x120 ];
 
-	p = Rva007EC730( record, strField, name );
+	p = Rva007EC730( record, item, name );
 
 	for( ; value != 0; value <<= 8 )
 	{
@@ -582,7 +582,7 @@ int Rva007ECD90( char *record, int size, const char *name, int value )
 
 	*p = 0;
 
-	return Rva007EC780( ( unsigned char * )record, size, strField );
+	return Rva007EC780( ( unsigned char * )record, size, item );
 }
 
 // Mirrors the definition in Y4CivilTime.c, which is C.  Duplicated rather than
