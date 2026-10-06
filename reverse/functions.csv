@@ -64490,3 +64490,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva005016C3Dtor@@QAE@XZ,,0x005016C3,135,Code/GameEngine/Source/Common/Rva005016C3Dtor.cpp,matched,dtor tree at 0x4c plus five checked frees via rowed 0x00500E05 rowed free 0x00030830 member 0x0050174A
 ?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z,,0x00334AF3,263,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectPermanently.cpp,matched,pinned plus donor plus rowed callees plus siblings uchar second arg
 ??1Rva005F0584@@QAE@XZ,,0x005F0584,75,Code/GameEngine/Source/Common/Rva005F0584Dtor.cpp,matched,non-virtual MI dtor: listener slot 0 notify then inline base vftable restores
+??4BfmeSubobject0022CE19@@QAEAAU0@ABU0@@Z,,0x002DDC76,149,Code/GameEngine/Source/Common/System/SaveGame/BfmeSubobject0022CE19Assign.cpp,matched,chain caller of 0x002DBC1F via rowed sets and vector assign
