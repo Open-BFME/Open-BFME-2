@@ -63827,3 +63827,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Run@Rva005B5B39Box@@QAEXPAD@Z,,0x005B5B39,89,Code/GameEngine/Source/Common/Rva005B5B39Box.cpp,matched,digit-string slot apply with ctype imports and pinned resolver plus triple
 ?Run@Rva005B5C02Box@@QAEXXZ,,0x005B5C02,110,Code/GameEngine/Source/Common/Rva005B5C02Box.cpp,matched,list-entry apply with rowed getters and pinned use plus add
 ?Run@Rva005B5C70Box@@QAEXH@Z,,0x005B5C70,132,Code/GameEngine/Source/Common/Rva005B5C70Box.cpp,matched,flagged entry apply with rowed getters and pinned consumer plus UI fire
+?Run@Rva005B692FBox@@QAEXXZ,,0x005B692F,56,Code/GameEngine/Source/Common/Rva005B692FBox.cpp,matched,conditional sub-object poke with pinned helper and manager plus setter

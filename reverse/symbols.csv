@@ -13158,3 +13158,6 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?List@Rva005B5C02Mgr@@QAEPAURva005B5C02List@@XZ,0x0021F797,wrapper-call spelling for the 0x5B5C02 manager list fetch (thiscall 0 args); target REL32 from retail call at 0x005B5C48
 ?Add@Rva005B5C02List@@QAEXPAURva005B5C02Entry@@@Z,0x0040A384,wrapper-call spelling for the 0x5B5C02 list add (thiscall 1 arg callee cleanup); target REL32 from retail call at 0x005B5C62
 ?M3@Rva005B5C70Sub@@QAEXPAURva005B5C70Entry@@HH@Z,0x005B21DA,wrapper-call spelling for the 0x5B5C70 +0x27C sub-object triple consumer (thiscall 3 args callee cleanup); target REL32 from retail call at 0x005B5CB0
+?Rva005B6755Helper@@YAXXZ,0x005B6755,free-function spelling for the 0x5B692F conditional helper (no ecx setup; entry ecx flows through; true callee is the 474B dump body); target REL32 from retail call at 0x005B6939
+?UseSub@Rva005B692FMgr@@QAEXPAX@Z,0x0021A428,wrapper-call spelling for the 0x5B692F manager handoff (thiscall 1 arg callee cleanup); target REL32 from retail call at 0x005B694F
+?Poke@Rva005B692FSub@@QAEXH@Z,0x005B034A,wrapper-call spelling for the 0x5B692F sub-object poke (thiscall 1 arg; true callee matched as dword setter 0x5B034A); target REL32 from retail call at 0x005B695B
