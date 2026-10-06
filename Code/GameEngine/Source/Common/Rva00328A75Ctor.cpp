@@ -11,6 +11,9 @@ class BfmeParserRegistryVE;
 
 void *__cdecl operator new(unsigned int);
 
+extern const void *const g_00C0D8C4[];
+#pragma comment(linker, "/alternatename:?g_00C0D8C4@@3QBQBXB=??_7Rva00328A75@@6B@")
+
 class Rva00328C5E
 {
 public:
@@ -24,13 +27,15 @@ class Rva00328A75
 {
 public:
 	Rva00328A75(int a, int b, int c, BfmeParserRegistryVE *registry, const AsciiString *label);
-	virtual ~Rva00328A75();
+	~Rva00328A75();
 private:
+	const void *m_vtable;
 	Rva00328C5E *m_04;
 	int m_08;
 };
 
 Rva00328A75::Rva00328A75(int a, int b, int c, BfmeParserRegistryVE *registry, const AsciiString *label)
 {
+	*(const void **)this = g_00C0D8C4;
 	m_04 = new Rva00328C5E(reinterpret_cast<int>(this), a, b, c, registry, label);
 }
