@@ -2189,5 +2189,20 @@ cleanup_done_007922c7:
     ret
 ?rva007922c7@@YAXXZ ENDP
 
+; Unwind@00b92364 at RVA 0x00792364; target byte boundary is 25 bytes.
+; State bit 0 gates [ebp+8] cleanup through matched RVA 0x005F8F96;
+; parent identity and cleanup-object layout remain unknown.
+PUBLIC ?rva00792364@@YAXXZ
+?rva00792364@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-3Ch]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00792364
+    and DWORD PTR [ebp-3Ch], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva005F8F96@@QAE@XZ
+cleanup_done_00792364:
+    ret
+?rva00792364@@YAXXZ ENDP
+
 _TEXT ENDS
 END
