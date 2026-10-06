@@ -12,6 +12,8 @@ Goal: Source code that rebuilds BFME 2's engine binary (`game.dat`) byte-for-byt
 
 [![BFME 2 rebuild progress](docs/progress.svg)](tools/progress.py)
 
+[![rules-v2](docs/progress_v2.svg)](tools/progress_v2.py)
+
 ### What the bars measure
 
 * **Rebuilt from source**: code rebuilding to the original game.dat's exact bytes, partly generated code or prebuilt libraries.
