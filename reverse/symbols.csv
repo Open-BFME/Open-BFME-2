@@ -13264,3 +13264,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva0016801A@Rva0016801A@@QAEPAXH@Z,0x0016801A,"init builder (vtab BD41AC, conditional 0x167F88); called from 0x1683A7 with (this,n), reads second slot in place"
 ?rva0017480C@Rva0017480C@@QAEXHUBfmeAssignRecord32@@@Z,0x0017480C,"100B grower true signature (int plus by-value 32B record); 0x174A8A passes it in place"
 ?rva001DF88C@Rva001DF88C@@QAEXHVRva001DE6E1@@@Z,0x001DF88C,"108B EH grower true signature (int plus by-value record); 0x1DF8F8 passes it in place"
+??0AIPlayer@@QAE@PAVPlayer@@@Z,0x004F04FC,AIPlayer(Player*) ctor: installs the AIPlayer vftable 0x00C62DC8 (slot-2 name getter 0x004F05BA returns AIPlayer) and stores the player at +0x0C; REL32 at 0x004EF3AC in AISkirmishPlayer(Player*) and 0x002A9A8D; body unrowed

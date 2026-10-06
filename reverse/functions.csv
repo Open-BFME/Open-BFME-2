@@ -63876,3 +63876,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva001683A7@Rva001683A7@@QAEPAV1@H@Z,,0x001683A7,28,Code/GameEngine/Source/Common/Rva001683A7Init.cpp,matched,dump range 5 builder via 0x16801A init plus vtable stamp
 ?rva00174A8A@Rva00174A8A@@QAEXH@Z,,0x00174A8A,35,Code/GameEngine/Source/Common/Rva00174A8AAdapter.cpp,matched,dump range 5 scratch adapter via in-place record temp and rowed ctor
 ?rva001DF8F8@Rva001DF8F8@@QAEXH@Z,,0x001DF8F8,35,Code/GameEngine/Source/Common/Rva001DF8F8Adapter.cpp,matched,dump range 5 scratch adapter via in-place record temp and rowed ctor
+??0AISkirmishPlayer@@QAE@PAVPlayer@@@Z,,0x004EF3A3,116,Code/GameEngine/Source/GameLogic/AI/AISkirmishPlayerCtor.cpp,matched,ZH AISkirmishPlayer ctor: pinned AIPlayer(Player*) base then defense fields zeroed then frame from TheGameLogic and setCanBuildUnits
