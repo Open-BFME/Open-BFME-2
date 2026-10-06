@@ -11327,3 +11327,4 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?Rva00464431Get@@YAHXZ	0x00464431	29	blocked	STL map hint-insert wrapper ABI unclear 3 pushes vs 2 args t=12 model=muse-08
 ?rva0057FC75@Rva0057F2DE@@QAE_NIII@Z	0x0057FC75	234	blocked	register wall this-in-esi-vs-edi plus window-in-edi-vs-esi plus extra mov-eax-edi plus EH states swapped t=25 model=muse-02 (stash 0.93 kept)
 ?rva002CC4DD@Weapon@@QAEXXZ	0x002CC4DD	155	partial	ebx-vs-edi regalloc plus spill lea-vs-add push order t=18 model=muse-02 score=0.93 stash=reverse/attempts/0x002cc4dd.cpp
+??0Rva0056B599@@QAE@PAX0H@Z	0x0056B599	122	blocked	EH ctor 3 vtables overwrite param2 List type unknown FuncInfo UNCLAIMED layout off by 4 t=12 model=muse-spark
