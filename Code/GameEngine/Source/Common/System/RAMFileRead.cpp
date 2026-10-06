@@ -64,6 +64,7 @@ void __cdecl operator delete[](void *block);
 class File
 {
 public:
+	File();
 	enum seekMode { START, CURRENT, END };
 
 	virtual ~File();								// slot 0
@@ -106,6 +107,10 @@ protected:
 class RAMFile : public File
 {
 public:
+	RAMFile();
+	virtual ~RAMFile();
+	virtual void close(void);
+	virtual int write(const void *buffer, int bytes);
 	virtual bool open(const char *filename, int access);	// slot 1
 	virtual bool open(File *file);				// slot 17
 	virtual int read(void *buffer, int bytes);
@@ -115,13 +120,24 @@ public:
 	virtual bool scanReal(float &newReal);
 	virtual bool scanString(AsciiString &newString);
 	virtual char *readEntireAndClose(void);
+	// ?RAMFile::convertToRAMFile present-unmatched
+	virtual File *convertToRAMFile(void) { return this; }
 	virtual bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
+	virtual bool copyDataToFile(File *file);
 
 protected:
 	char *m_data;	// +0x14
 	int m_pos;	// +0x18
 	int m_size;	// +0x1c
 };
+
+// ??0RAMFile@@QAE@XZ, RVA 0x006054E7 (29 bytes). Table 0x0087AA00
+// contains the verified RAMFile read/seek/close/scan methods; the constructor
+// calls File 0x006024FD and clears data/position/size at +0x14/+0x18/+0x1C.
+// The former DieModuleData spelling was refuted by this independent identity.
+RAMFile::RAMFile() : m_data(0), m_pos(0), m_size(0)
+{
+}
 
 int RAMFile::read(void *buffer, int bytes)
 {

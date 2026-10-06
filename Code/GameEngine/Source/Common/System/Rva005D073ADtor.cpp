@@ -3,13 +3,17 @@
 // caller establish the destructor identity. Retail calls the rowed
 // Rva002B7250::rva002B7250 on TheLivingWorldLogic+0x2C, passing the +8 base.
 // The two vtable addresses and stores are target evidence; the two-base model
-// and CreateAHeroData base relationship are structural inferences from those
-// stores and the callee parameter. Shape follows neighboring MI dtors
+// and two-base model are structural inferences from those stores and the
+// callee parameter. A parameter's ledger spelling does not establish a
+// CreateAHeroData base: that class's verified table is 0x00C38D88, whereas
+// this body restores 0x00C62A14. Shape follows neighboring MI dtors
 // Rva005D06CB and Rva005D078B.
-class CreateAHeroData
+class CreateAHeroData; // retained only for the existing callee ABI spelling
+
+class Rva005D073ASecondBase
 {
 public:
-	virtual ~CreateAHeroData() {}
+	virtual ~Rva005D073ASecondBase() {}
 };
 
 class Rva002B7250
@@ -34,7 +38,7 @@ private:
 	int m_04;
 };
 
-class Rva005D073A : public Rva005D073AFirstBase, public CreateAHeroData
+class Rva005D073A : public Rva005D073AFirstBase, public Rva005D073ASecondBase
 {
 public:
 	virtual ~Rva005D073A();
@@ -42,5 +46,6 @@ public:
 
 Rva005D073A::~Rva005D073A()
 {
-	TheLivingWorldLogic->m_holder2C.rva002B7250(static_cast<CreateAHeroData *>(this));
+	TheLivingWorldLogic->m_holder2C.rva002B7250(
+		reinterpret_cast<CreateAHeroData *>(static_cast<Rva005D073ASecondBase *>(this)));
 }

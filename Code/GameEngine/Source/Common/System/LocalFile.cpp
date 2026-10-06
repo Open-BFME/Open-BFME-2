@@ -229,8 +229,22 @@ class RAMFile : public File
 public:
 	RAMFile();
 	virtual ~RAMFile();
+	// The constructor and the two emitted RAMFile tables must use one
+	// declaration order: File overrides, then open(File*) at 17,
+	// openFromArchive at 18 and copyDataToFile at 19 (retail 0x0087AA00).
+	virtual bool open(const char *filename, int access);
 	virtual bool open( File *file );
 	virtual void close( void );
+	virtual int read(void *buffer, int bytes);
+	virtual int write(const void *buffer, int bytes);
+	virtual int seek(int pos, seekMode mode);
+	virtual void nextLine(char *buf, int bufSize);
+	virtual bool scanInt(int &value);
+	virtual bool scanReal(float &value);
+	virtual bool scanString(AsciiString &value);
+	virtual char *readEntireAndClose();
+	virtual File *convertToRAMFile();
+	virtual bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
 	virtual bool copyDataToFile( File *file );
 
 protected:
@@ -242,6 +256,7 @@ protected:
 class StreamingArchiveFile : public RAMFile
 {
 public:
+	StreamingArchiveFile();
 	virtual ~StreamingArchiveFile();
 	virtual bool open( const char *filename, int access );
 	virtual bool open( File *file );
@@ -255,6 +270,16 @@ protected:
 	int m_startingPos;	// +0x24
 	int m_curPos;		// +0x28
 };
+
+// ??0StreamingArchiveFile@@QAE@XZ, RVA 0x00605A28 (29 bytes).
+// The installed table 0x0087AA50 contains the verified streaming archive
+// openFromArchive/read/seek/close methods; its base call is RAMFile 0x6054E7.
+// Zeroed fields at +0x20/+0x24/+0x28 are file/start/current position.
+// The former EjectPilotDieModuleData spelling came from a shape-only placement.
+StreamingArchiveFile::StreamingArchiveFile()
+	: m_file(0), m_startingPos(0), m_curPos(0)
+{
+}
 
 class FileSystem
 {

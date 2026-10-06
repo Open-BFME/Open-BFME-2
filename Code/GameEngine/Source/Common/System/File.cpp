@@ -40,24 +40,26 @@ static const unsigned long FILE_INFINITE = 0xFFFFFFFF;
 class File
 {
 public:
+	File();
 	virtual ~File();
 	virtual bool open(const char *filename, int access);
 	virtual void close();
 	enum seekMode { START, CURRENT, END };
 	enum { TEXT = 0x20 };
 
-	virtual int read(void *buffer, int bytes);
-	virtual int write(const void *buffer, int bytes);
-	virtual int seek(int bytes, seekMode mode);
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
+	// Retail File table 0x0087A808 has _purecall in these abstract slots.
+	virtual int read(void *buffer, int bytes) = 0;
+	virtual int write(const void *buffer, int bytes) = 0;
+	virtual int seek(int bytes, seekMode mode) = 0;
+	virtual void nextLine(char *buffer, int size) = 0;
+	virtual bool scanInt(int &value) = 0;
+	virtual bool scanReal(float &value) = 0;
+	virtual bool scanString(AsciiString &value) = 0;
 	virtual bool print(const char *format, ...);
 	virtual int size();
 	virtual int position();
-	virtual char *readEntireAndClose();
-	virtual void slot14();
+	virtual char *readEntireAndClose() = 0;
+	virtual File *convertToRAMFile() = 0;
 	virtual void lock();
 	virtual void unlock();
 
@@ -77,6 +79,16 @@ private:
 	unsigned char m_pad0E[2];
 	FileHandle m_mutex;
 };
+
+// ??0File@@QAE@XZ, RVA 0x006024FD (70 bytes). Identity is established
+// by the File table 0x0087A808 (size/position/print/lock/unlock) and the
+// verified RAMFile constructor's base call. The earlier ModuleData name
+// mistook File's filename/access/open/deleteOnClose/mutex fields for INI data.
+File::File()
+	: m_nameStr(), m_access(0), m_isOpen(0), m_deleteOnClose(0), m_mutex(0)
+{
+	m_nameStr.set("<no file>");
+}
 
 void File::lock()
 {

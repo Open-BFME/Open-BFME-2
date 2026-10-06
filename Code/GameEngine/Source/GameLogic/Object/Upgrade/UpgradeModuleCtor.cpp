@@ -21,8 +21,8 @@ extern "C" const void *const vtbl_00C57328[];  // folded, 41 classes; via ??_7Al
 extern "C" const void *const vtbl_00C58790[];  // folded, 55 classes; via ??_7AODHordeContain@@6BIface2C@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C58790=??_7AODHordeContain@@6BIface2C@@@")
 
-extern "C" const void *const vtbl_00C42720[];  // ??_7FireWeaponWhenDeadBehavior@@6BUpgradeMux@@@
-#pragma comment(linker, "/alternatename:_vtbl_00C42720=??_7FireWeaponWhenDeadBehavior@@6BUpgradeMux@@@")
+extern "C" const void *const vtbl_00C42720[];  // ??_7UpgradeModule@@6BUpgradeMux@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C42720=??_7UpgradeModule@@6BUpgradeMux@@@")
 
 class Thing;
 class ModuleData;

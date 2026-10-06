@@ -2032,7 +2032,6 @@ name,address,notes
 ??0DetachableRiderUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004AE883,(Thing*;ModuleData*) ctor called by DetachableRiderUpdate::friend_newModuleInstance (0x0024F86D); class from the ModuleFactory registration literal
 ??0DevastateSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C81E3,(Thing*;ModuleData*) ctor called by DevastateSpecialPower::friend_newModuleInstance (0x0025261B); class from the ModuleFactory registration literal
 ??0DevastateSpecialPowerModuleData@@QAE@XZ,0x004C84BD,Devastate ModuleData ctor for 0x90 factory; table offsets fit; vtable 0xC5E518; partial banked 0x004c84bd
-??0DieModuleData@@QAE@XZ,0x006054E7,address read from the REL32 displacement at a placed body
 ??0DieMuxData@@QAE@XZ,0x004CE534
 ??0DistLODClass@@QAE@ABV0@@Z,0x003AEADD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0DockUpdateModuleData@@QAE@XZ,0x005896B0,address read from the REL32 displacement at a placed body
@@ -2069,7 +2068,6 @@ name,address,notes
 ??0FakePathfindPortalBehaviourModuleData@@QAE@XZ,0x00372DB8,ctor call in the byte-true FakePathfindPortalBehaviour data factory (ModuleFactory registers it under "FakePathfindPortalBehaviour")
 ??0FellBeastSwoopPowerModuleData@@QAE@XZ,0x004923E2,ctor call in the byte-true FellBeastSwoopPower data factory (ModuleFactory registers it under "FellBeastSwoopPower")
 ??0FeslEchoMessage@@QAE@PADH@Z,0x00655900
-??0File@@QAE@XZ,0x006024FD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0FileSystem@@QAE@XZ,0x00063517,callee of ?createFileSystem@GameEngine@@MAEPAVFileSystem@@XZ at retail 0x00042004 read from its REL32 displacement; ICF alias onto ??0W3DGhostObjectManager@@QAE@XZ (matched)
 ??0FireWeaponWhenDeadBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00482D80,(Thing*;ModuleData*) ctor called by FireWeaponWhenDeadBehavior::friend_newModuleInstance (0x0024C333); class from the ModuleFactory registration literal
 ??0FlammableUpdateModuleData@@QAE@XZ,0x0048D541
@@ -2215,7 +2213,6 @@ name,address,notes
 ??0ModelConditionSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x00490D3F,(Thing*;ModuleData*) ctor called by ModelConditionSpecialAbilityUpdate::friend_newModuleInstance (0x0024D670); class from the ModuleFactory registration literal
 ??0ModelConditionUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B64E5,(Thing*;ModuleData*) ctor called by ModelConditionUpgrade::friend_newModuleInstance (0x0025050E); class from the ModuleFactory registration literal
 ??0ModelConditionUpgradeModuleData@@QAE@XZ,0x004B6428,EH ctor over base 0x253487; vtable 0x00BF2558; condition members at +0x118/+0x164; sole raw caller is ModuleData factory 0x250546 which news 0x1B8
-??0ModuleData@@QAE@XZ,0x006024FD,address read from the REL32 displacement at DieModuleData ctor 0x6054E7
 ??0Money@@QAE@ABV0@@Z,0x00063BE4
 ??0MonsterDockDataMember@@QAE@XZ,0x003623E5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0MoveToFormationGroupOrder@@QAE@ABV0@@Z,0x0054804C,callee read from retail REL32 at a given-back caller; byte-verified in the solo fork as Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (row not yet given back)
@@ -2302,7 +2299,6 @@ name,address,notes
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z,0x003A7C4C,BFME2 export; the module template copy constructor the ConcreteModuleTemplate wrapper calls
 ??0QuadDrawModuleTemplate@FXParticleSystem@@QAE@XZ,0x003A7BF5,BFME2 export; the module template default constructor the ConcreteModuleTemplate wrapper calls
 ??0QueueProductionExitUpdateModuleData@@QAE@XZ,0x002541FA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??0RAMFile@@QAE@XZ,0x006054E7,RAMFile ctor: calls the File base ctor 0x006024FD then zeroes m_data m_pos m_size and installs RAMFile vtable 0x0087AA00 (slot 0 ??_GRAMFile); BFME1 ??0RAMFile matched 29B; called by LocalFile::convertToRAMFile and the StreamingArchiveFile ctor
 ??0RadarMarkerClientUpdateModuleData@@QAE@XZ,0x004C9C98,sole caller is the 0x252B11 factory pushing the rowed MarkerTypeUpdateModuleData proc; installs vtable 0xC5EDF8 and fits the 0x0C news size
 ??0RadarUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004A0C72,(Thing*;ModuleData*) ctor called by RadarUpdate::friend_newModuleInstance (0x0024E9A1); class from the ModuleFactory registration literal
 ??0RadarUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B478E,(Thing*;ModuleData*) ctor called by RadarUpgrade::friend_newModuleInstance (0x00250006); class from the ModuleFactory registration literal
@@ -5186,7 +5182,6 @@ name,address,notes
 ??1UDP@@QAE@XZ,0x00594918,"UDP socket destructor (rowed as ??1UDPDrain); address read from the retail REL32 at 0x004D5176 in Transport slot clear 0x004D5133, which deletes the slot socket"
 ??1UnicodeString@@QAE@XZ,0x00036E70,"folded body of BFME2's 5-byte ~UnicodeString tail-jump at 0x5B804E (e9 1d ee a7 ff, jmp 0x36E70) which the ledger rows at 0x5B804E; retail call sites that inline the destructor encode this body directly, measured at GadgetCheckBoxSetText +0x37 where the object reloc names ??1UnicodeString@@QAE@XZ and retail's e8 targets 0x36E70 not the thunk; both candidate addresses resolve to this one body so the add is additive"
 ??1UpdateModule@@UAE@XZ,0x0024A797,tail target of rowed BoredUpdate dtor 0x49669A which reinstalls BoredUpdate vptrs before the tail jump so it is the direct UpdateModule base dtor
-??1UpgradeModule@@MAE@XZ,0x0046089D,twin of rowed FireWeaponWhenDead dtor for ArmorUpgrade base call
 ??1UpgradeModuleData@@UAE@XZ,0x00255A42
 ??1UpgradeSoundSelectorClientBehaviorModuleData@@UAE@XZ,0x004CBAEA,dtor called by audited wrapper RVA 0x004CBACE; retail registration UpgradeSoundSelectorClientBehavior -> data factory RVA 0x00252C64 -> ctor RVA 0x004CB9F3; primary vptr store RVA 0x004CB9FF
 ??1Video@@QAE@XZ,0x00689500,native verified vector cleanup calls 0x00689F52; existing 119B element destructor owns +18 and releases strings +8/+4/+0; shared Video layout
