@@ -23,6 +23,7 @@ typedef int Int;
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include <string>
+#include <map>
 #include <stdlib.h>
 #include <string.h>
 
@@ -111,15 +112,51 @@ class MapMetaData
 	char m_pad00[0x20];
 public:
 	Int m_numPlayers;               // +0x20
+	bool m_isMultiplayer;           // +0x24
+	bool m_isScenarioMP;            // +0x25
+	bool m_isOfficial;              // +0x26
 };
 
-class MapCache
+bool operator<(const AsciiString &left, const AsciiString &right);
+
+namespace _STL
+{
+template <> struct less<AsciiString>
+{
+	bool operator()(const AsciiString &left, const AsciiString &right) const
+	{
+		return left < right;
+	}
+};
+}
+
+class MapCache : public _STL::map<AsciiString, MapMetaData>
 {
 public:
 	const MapMetaData *findMap(AsciiString mapName);
 };
 
 extern MapCache *TheMapCache;
+
+class Image;
+
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+
+extern ImageCollection *TheMappedImageCollection;
+
+// The game's 16-byte digest test (Rva003FF1C2.cpp, rowed under its address
+// name, as MpGameSetupSlots.cpp calls it).
+class Rva003FF1C2
+{
+public:
+	bool rva003FF1C2() const;
+};
+
+int __cdecl Rva00559EDCCompare(int *a, int *b);
 
 // setState's connection record: the address dword and port word, both
 // zeroed for a fresh slot.
@@ -224,7 +261,7 @@ public:
 	virtual void slot0c() = 0;
 	virtual void slot10() = 0;
 	virtual void slot14() = 0;
-	virtual void slot18() = 0;
+	virtual const Image *rva00401015(Int kind);
 	virtual void slot1c() = 0;
 	virtual void slot20() = 0;
 	virtual void slot24() = 0;
@@ -751,6 +788,53 @@ AsciiString GameInfoToAsciiString(const GameInfo *game, bool withNames)
 	concatChar(optionsString, ';');
 
 	return optionsString;
+}
+
+// ?rva00401015@GameInfo@@UAEPBVImage@@H@Z @0x00401015 (342B), vtable slot 6
+// (+0x18): the lobby icon for the game. Kind 1 is the non-default rules icon
+// (the +0x60 rules against the defaults Rva00559FAC gives for the +0x5C mode);
+// kind 0 is, in mode 0, the user-map icon for a map the cache lacks or does
+// not mark official (+0x26), and in mode 1 the resumed-save icon when the
+// +0xCC digest is set. The unused UnicodeString is retail's (constructed and
+// destroyed, state 1). The compare count goes through a local: tested in place
+// it becomes test eax,eax where retail compares against the zero in EBX.
+const Image *GameInfo::rva00401015(Int kind)
+{
+	const Image *image = NULL;
+	switch (kind)
+	{
+	case 1:
+	{
+		Int defaults[10];
+		Rva00559FAC(m_5c, defaults);
+		Int numDiffs = Rva00559EDCCompare(defaults, m_60);
+		if (numDiffs != 0)
+			image = TheMappedImageCollection->findImageByName(AsciiString("AptLobbyNonDefaultSettings"));
+		break;
+	}
+	case 0:
+	{
+		UnicodeString tooltip;
+		switch (m_5c)
+		{
+		case 0:
+		{
+			AsciiString map = getMap();
+			map.toLower();
+			MapCache::iterator it = TheMapCache->find(map);
+			if (it == TheMapCache->end() || !(*it).second.m_isOfficial)
+				image = TheMappedImageCollection->findImageByName(AsciiString("AptUserMapNotConquered"));
+			break;
+		}
+		case 1:
+			if (((const Rva003FF1C2 *)this)->rva003FF1C2())
+				image = TheMappedImageCollection->findImageByName(AsciiString("AptLobbyResumeSavedGame"));
+			break;
+		}
+		break;
+	}
+	}
+	return image;
 }
 
 // The "M=" value's first three characters are the map contents mask in hex.
