@@ -14,16 +14,19 @@ private:
 	StringBase(const T *text);
 	StringBase(const StringBase<T> &other);
 	~StringBase();
+	void releaseBuffer();
 
 	void *m_data;
 };
 
-class AsciiString : private StringBase<char>
+class AsciiString
 {
 public:
-	AsciiString(const char *text) : StringBase<char>(text) {}
-	AsciiString(const AsciiString &other) : StringBase<char>(other) {}
-	~AsciiString() {}
+	AsciiString(const char *text) { ((StringBase<char> *)this)->StringBase<char>::StringBase(text); }
+	AsciiString(const AsciiString &other) { ((StringBase<char> *)this)->StringBase<char>::StringBase(*(const StringBase<char> *)&other); }
+	~AsciiString() { ((StringBase<char> *)this)->releaseBuffer(); }
+private:
+	void *m_text;
 };
 
 class _bfme_AptGameWindow
