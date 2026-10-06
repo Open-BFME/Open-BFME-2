@@ -64674,3 +64674,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z,,0x002C777E,257,Code/GameEngine/Source/Common/Rva002C777EBuild.cpp,matched,
 ?rva002CB967@Weapon@@QAEXPBVObject@@0@Z,,0x002CB967,86,Code/GameEngine/Source/GameLogic/Object/Rva002CB967LOS.cpp,matched,
 ?rva002CE280@Weapon@@QAEXM_N@Z,,0x002CE280,138,Code/GameEngine/Source/GameLogic/Object/Rva002CE280Ammo.cpp,matched,
+?rva002D2F32@Rva002D2F32Owner@@QAEXXZ,,0x002D2F32,109,Code/GameEngine/Source/Common/Rva002D2F32Post.cpp,matched,
