@@ -36,6 +36,7 @@ void __cdecl Rva005810B6Sort(void **first, void **last, Rva000795C1Record compar
 
 void __cdecl Rva00580B5CInsertionSort(void **, void **, Rva000795C1Record);
 void __cdecl Rva00580BBFUnguardedSort(void **, void **, Rva000795C1Record);
+void __cdecl Rva00580ED0PartialSortImpl(void **, void **, void **, void **, Rva000795C1Record);
 // Native580D38..580DBF/135B; STLport final insertion pass at threshold16.
 // /G7 reproduces the byte-sized alignment mask and schedules the record copy.
 // ?Rva00580D38FinishSort@@YAXPAPAX0VRva000795C1Record@@@Z
@@ -99,4 +100,12 @@ void ** __cdecl Rva00580705Partition(void **first, void **last, void *pivot, Rva
         *last = tmp;
         ++first;
     }
+}
+
+// Called only when the rowed introsort loop exhausts its depth budget. The
+// three iterator arguments and comparator copy are target-supported by that
+// call site; the helper's address-derived identity remains provisional.
+// ?Rva00580F7FPartialSort@@YAXPAPAX00VRva000795C1Record@@@Z
+void __cdecl Rva00580F7FPartialSort(void **first, void **middle, void **last, Rva000795C1Record compare) {
+    Rva00580ED0PartialSortImpl(first, middle, last, (void **)0, compare);
 }
