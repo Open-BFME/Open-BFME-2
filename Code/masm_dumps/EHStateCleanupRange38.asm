@@ -268,5 +268,75 @@ PUBLIC ?rva007803c1@@YAXXZ
 cleanup_done_007803c1:
     ret
 ?rva007803c1@@YAXXZ ENDP
+
+; Unwind@00b804a6 at RVA 0x007804A6; 24-byte array cleanup ends at RET.
+; Target passes [ebp-24]+0xd0 with size 12 count 8 and raw dtor VA 0x00542D70.
+PUBLIC ?rva007804a6@@YAXXZ
+?rva007804a6@@YAXXZ PROC
+    push 00542D70h
+    push 8
+    push 0Ch
+    mov eax, DWORD PTR [ebp-24]
+    add eax, 0D0h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007804a6@@YAXXZ ENDP
+
+; Unwind@00b8059a at RVA 0x0078059A; 24-byte array cleanup ends at RET.
+; Same target type and array parameters as 0x7804A6; frame slot is [ebp-16].
+PUBLIC ?rva0078059a@@YAXXZ
+?rva0078059a@@YAXXZ PROC
+    push 00542D70h
+    push 8
+    push 0Ch
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0D0h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078059a@@YAXXZ ENDP
+
+; Unwind@00b812ad at RVA 0x007812AD; 24-byte array cleanup ends at RET.
+; Target passes [ebp-16]+0x1fc with size 12 count 20 and raw dtor VA 0x00757CD9.
+PUBLIC ?rva007812ad@@YAXXZ
+?rva007812ad@@YAXXZ PROC
+    push 00757CD9h
+    push 14h
+    push 0Ch
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 1FCh
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007812ad@@YAXXZ ENDP
+
+; Unwind@00b8138c at RVA 0x0078138C; 24-byte array cleanup ends at RET.
+; Same target type and array parameters as 0x7812AD; frame slot is [ebp-20].
+PUBLIC ?rva0078138c@@YAXXZ
+?rva0078138c@@YAXXZ PROC
+    push 00757CD9h
+    push 14h
+    push 0Ch
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 1FCh
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078138c@@YAXXZ ENDP
+
+; Unwind@00b817fb at RVA 0x007817FB; 24-byte array cleanup ends at RET.
+; Target passes [ebp-16]+0x118 with size 4 count 32 and raw dtor VA 0x0088BA39.
+PUBLIC ?rva007817fb@@YAXXZ
+?rva007817fb@@YAXXZ PROC
+    push 0088BA39h
+    push 20h
+    push 4
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 118h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007817fb@@YAXXZ ENDP
 _TEXT ENDS
 END
