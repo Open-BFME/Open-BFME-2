@@ -63966,3 +63966,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??0Rva0056AF94@@QAE@PAX@Z,,0x0056AF94,31,Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp,matched,ctor via pinned EH 0x0056AD80 then vftables at +0/+8; unblocks 0x0056AF4B
 ??0Rva0056ADF1@@QAE@PAXH@Z,,0x0056ADF1,53,Code/GameEngine/Source/Common/Rva0056ADF1Ctor.cpp,matched,ctor via pinned 0x0056AD80 plus vtbl externs and g_00DFEF10 int plus arg
 ??0Rva0056B63E@@QAE@PAX@Z,,0x0056B63E,42,Code/GameEngine/Source/Common/Rva0056B63ECtor.cpp,matched,ctor via pinned 0x0056B7E4 on this plus flag clears plus vtbl extern and count 15
+?rva0056B1F2@Rva0056B1F2@@QAEXPAX@Z,,0x0056B1F2,38,Code/GameEngine/Source/Common/Rva0056B1F2Release.cpp,matched,conditional release via rowed 0x002B7250; ternary gives branchless neg-sbb-and select
