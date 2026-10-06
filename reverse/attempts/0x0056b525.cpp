@@ -1,5 +1,5 @@
 // ??0Rva0056B525@@QAE@PAX00@Z
-// partial score=0.93 date=2026-10-06
+// partial score=0.95 date=2026-10-06
 // cl: /O1 /EHsc /MD
 // ??0Rva0056B525@@QAE@PAX00@Z @0x0056B525 116B. Ctor via base 0x0056AD80 then listener register.
 // Evidence: calls pinned 0x0056AD80 with arg1; stores arg2/arg3 at +0x18/+0x1C and byte 0 at +0x20;
@@ -33,8 +33,6 @@ extern "C" const void *const vtbl_00C6D40C[];
 extern "C" const void *const vtbl_00C6D3D0[];
 extern "C" const void *const vtbl_00C6D3BC[];
 
-extern "C" void __cdecl _ReadWriteBarrier();
-
 struct UnwindB
 {
 	UnwindB() {}
@@ -59,7 +57,6 @@ Rva0056B525::Rva0056B525(void *a1, void *a2, void *a3)
 {
 	((Rva0056AD80 *)this)->rva0056AD80(a1);
 	*(volatile unsigned int *)((char *)this + 0x14) = ((unsigned int)vtbl_00C3702C);
-	_ReadWriteBarrier();
 	*(volatile unsigned int *)this = ((unsigned int)vtbl_00C6D40C);
 	*(volatile unsigned int *)((char *)this + 8) = ((unsigned int)vtbl_00C6D3D0);
 	*(volatile unsigned int *)((char *)this + 0x14) = ((unsigned int)vtbl_00C6D3BC);

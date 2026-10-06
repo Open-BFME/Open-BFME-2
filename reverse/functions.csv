@@ -64479,3 +64479,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1SkirmishGameInfo@@UAE@XZ,,0x0022C516,69,Code/GameEngine/Source/GameNetwork/SkirmishGameInfoDtor.cpp,matched,slot record array via vector dtor iterator then rowed base Rva00382FA7 dtor
 ?rva005CB9D1@Rva005CB9D1@@QAE_NH@Z,,0x005CB9D1,34,Code/GameEngine/Source/Common/Rva005CB9D1.cpp,matched,caller 0x005CBAE6 jmp plus rowed callee 0x005CB91E
 ?rva002E02F0@Rva002E02F0@@QAEXHPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z,,0x002E02F0,107,Code/GameEngine/Source/Common/Rva002E02F0.cpp,matched,clear Science vector refill from hashtable gated by Check
+?rva002B3288@Rva002B3288@@QAE_NXZ,,0x002B3288,70,Code/GameEngine/Source/Common/Rva002B3288.cpp,matched,vector all-of loop via pred pin caller 0x002B53C0

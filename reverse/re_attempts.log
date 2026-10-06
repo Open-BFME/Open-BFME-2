@@ -11413,3 +11413,8 @@ FUN_00479ed4	0x00079ED4	29	blocked	hint-insert forwarder to rowed 0x79D14 same t
 ?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z	0x00334AF3	263	partial	second bool sbb eax vs sbb al plus inc eax vs inc al t=18 model=muse-spark score=0.99 stash=reverse/attempts/0x00334af3.cpp
 ?rva004E9EA1@Rva004E9EA1@@QAEHXZ	0x004E9EA1	177	blocked	177B needs 31-slot vtable plus 2 loops plus vector pushback plus scan beyond 6-variant box t=5 model=muse-02
 ??1Rva004E9657@@QAE@XZ	0x004E9657	185	blocked	185B dtor with RB-tree walk plus vector plus map teardown needs full layout beyond box t=3 model=muse-02
+??0Rva0056B372@@QAE@PAX00@Z	0x0056B372	103	blocked	volatile keeps BFDF68 store layout exact REMAINS mov byte [ebp-4]1 vs dword plus push-and order tried no-base plus dummy locals 124B extra dtor calls need members t=15 model=muse-07 (stash 0.9 kept)
+??0Rva0056B525@@QAE@PAX00@Z	0x0056B525	116	partial	removed ReadWriteBarrier call 115B vs 116B REMAINS push edi before push-arg vs after-mov plus and-0 after first call vs mov-1 before plus lea edi after loads vs before t=18 model=muse-07 score=0.95 stash=reverse/attempts/0x0056b525.cpp
+?rva0056B7A0@Rva003F9FE6@@QAEEH@Z	0x0056B7A0	62	blocked	early rets vs shared epilogue plus test tried nested plus barrier-pragma plus O2 plus setne all keep 60B vs 62B t=22 model=muse-07
+?setLocal@Rva002BA8F1Logic@@QAEXPAVRva002E2903Player@@@Z	0x002B38F7	216	partial	216B exact size REMAINS mov-add-push in eax vs esi plus push1 before-add vs after t=25 model=muse-07 score=0.97 stash=reverse/attempts/0x002b38f7.cpp
+?rva002B3DD0@Rva002B4650@@QAEHXZ	0x002B3DD0	20	partial	20B exact size REMAINS 1 SIB byte lea eax eax+ecx-1 vs ecx+eax-1 tried 4 spellings plus O2 t=12 model=muse-07 score=0.95 stash=reverse/attempts/0x002b3dd0.cpp
