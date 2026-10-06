@@ -13793,3 +13793,6 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?clear@Rva002DEE9A0E0C@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
 ?clear@Rva002DEE9A0E10@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
 ?rva002DE311@Rva002DEE9AOwner@@QAEXXZ,0x002DE311,pin for 0x2DEE9A thiscall void () on this
+?init@Rva002ECE6AInfo@@QAEPAU1@PAX000HHH@Z,0x002ECD63,thiscall query builder (ecx=0x60-byte Rva002ECE6AInfo, ret 0x1c = 7 stack args) called via retail REL32 from wrappers 0x002F1AF4 and 0x002F1B66; body stores the 7 args into the query and returns it (mov eax ebx); inter-target at 0x002ECC0D+342, ghidra 263B
+?init@Rva002ED01EInfo@@QAEPAU1@PAX00@Z,0x002E931F,thiscall query builder (ecx=0x58-byte Rva002ED01EInfo, ret 0xc = 3 stack args) called via retail REL32 from wrapper 0x002F1B32; body stores the 3 args into the query and returns it (mov eax ebx); ghidra 136B
+?init@Rva002ED15AInfo@@QAEPAU1@PAX00@Z,0x002ED0CC,thiscall query builder (ecx=0x5C-byte Rva002ED15AInfo, ret 0xc = 3 stack args) called via retail REL32 from wrapper 0x002F1BA2; body stores the 3 args into the query and returns it (mov eax ebx); ghidra 142B
