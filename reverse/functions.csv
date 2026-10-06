@@ -65035,3 +65035,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva0059B115@Rva0059B115@@QBEHXZ,,0x0059B115,13,Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp,matched,Target bytes call rowed AsciiStringPlusText::length at 0x002DBF50 then add dword at this+0x10; address-derived name preserves unresolved containing type and field semantics.
 ?rva0033A865@Rva0033A865@@QAEXXZ,,0x0033A865,35,Code/GameEngine/Source/Common/System/Rva0033A865.cpp,matched,record init via memset plus EmptyString set
 ??0MyRecord@@QAE@XZ,,0x0033B0EF,52,Code/GameEngine/Source/Common/MyRecordCtor.cpp,matched,record ctor via BitFlags plus helper
+?rva004BD9F2@Rva004BD9F2@@QAEMXZ,,0x004BD9F2,19,Code/GameEngine/Source/GameLogic/Object/Body/Rva004BD9F2.cpp,matched,honest address name movsx fild float from signed byte
