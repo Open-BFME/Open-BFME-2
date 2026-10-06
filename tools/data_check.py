@@ -21,7 +21,8 @@ fails when the file gained a line against git REF. In shadow mode (the
 default) findings are printed and the exit status is 0; --enforce exits 1 on
 a finding outside the baseline.
 
-  python3 tools/data_check.py --staged          # pre-commit: staged C/C++ sources
+  python3 tools/data_check.py --staged          # pre-commit: staged C/C++ sources;
+                                                # fails (any mode) if the staged baseline grew
   python3 tools/data_check.py SOURCE...
   python3 tools/data_check.py --all [--write-baseline [--init]]
   python3 tools/data_check.py --assert-shrink-only HEAD
@@ -133,6 +134,17 @@ def main(argv=None):
             print("data_check: baseline gained", "\t".join(key))
         return 1 if grown else 0
     started = time.time()
+    if args.staged and "reverse/data_check_baseline.txt" in subprocess.run(
+            ["git", "diff", "--cached", "--name-only"], cwd=ROOT, capture_output=True, text=True).stdout.split():
+        old = subprocess.run(["git", "show", "HEAD:reverse/data_check_baseline.txt"], cwd=ROOT,
+                             capture_output=True, text=True)
+        staged = subprocess.run(["git", "show", ":reverse/data_check_baseline.txt"], cwd=ROOT,
+                                capture_output=True, text=True)
+        grown = read_baseline(staged.stdout) - read_baseline(old.stdout) if old.returncode == 0 else set()
+        if grown:   # the baseline is shrink-only even in shadow mode
+            for key in sorted(grown):
+                print("data_check: baseline gained", "	".join(key))
+            return 1
     ledger = dl.load()
     if not ledger:
         print("data_check: no reverse/data_ledger.csv; nothing to check")
