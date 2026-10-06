@@ -14068,3 +14068,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??0PartitionFilterRejectBuildings@@QAE@PAVObject@@@Z,0x002611F2,callee pin for the given-back PartitionFilterRejectBuildings callers: the fork names the class; upstream rows the ctor under placeholder Rva002611F2 (kept: its eh_baseline entry is keyed by that name)
 ?rva00208A09@ScriptEngine@@QAEXVAsciiString@@ABV2@@Z,0x00208A09,ScriptEngine member taking (by-value string, string ref); REL32 callee of dump-range-18 0x003C2019; identity unproven
 
+?GadgetListboxCreateScrollbar@@YAXPAVGameWindow@@@Z,0x0032449E,"cdecl listbox scroll bar builder (Ghidra 677B); called by gogoGadgetListBox 0x002C1395 (REL32 at 0x002C145D) only when list data +0xA (scrollBar) is set, as in Zero Hour GadgetListBox.cpp"
