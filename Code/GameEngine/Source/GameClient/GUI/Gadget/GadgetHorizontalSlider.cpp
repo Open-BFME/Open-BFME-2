@@ -11,6 +11,9 @@
 // bit (+0xC & 0x10); a track click pages by a fifth of the width, clamps with
 // the ZH x/y slip (x + size.y on the right edge), and sends GGM_LEFT_DRAG to
 // itself and 0x4010 to the owner.
+//
+// GadgetHorizontalSliderSystem 0x00321E5C (779B, Ghidra boundary): as in
+// BFME1, with a 13 pixel thumb (resize and set range subtract 0xD).
 typedef int Int;
 typedef bool Bool;
 typedef float Real;
@@ -67,7 +70,7 @@ enum { GWS_PUSH_BUTTON = 0x00000001, GWS_MOUSE_TRACK = 0x00000400 };
 #define BitClear(x, i) ((x) &= ~(i))
 
 // A user constructor makes cl order x + size.x with the scalar first, as
-// retail does here (the vertical bodies match either way).
+// retail does in both callbacks here (the vertical bodies match either way).
 struct ICoord2D
 {
 	ICoord2D() {}
@@ -289,6 +292,159 @@ WindowMsgHandledType GadgetHorizontalSliderInput(GameWindow *window, UnsignedInt
 				default:
 					return MSG_IGNORED;
 			}
+			break;
+		}
+
+		default:
+			return MSG_IGNORED;
+	}
+
+	return MSG_HANDLED;
+}
+
+WindowMsgHandledType GadgetHorizontalSliderSystem(GameWindow *window, UnsignedInt msg,
+	WindowMsgData mData1, WindowMsgData mData2)
+{
+	SliderData *s = (SliderData *)window->winGetUserData();
+	WinInstanceData *instData = window->winGetInstanceData();
+	ICoord2D size, childSize, childCenter, childRelativePos;
+
+	window->winGetSize(&size.x, &size.y);
+
+	switch (msg)
+	{
+		case GBM_SELECTED:
+			TheWindowManager->winSendSystemMsg(window->winGetOwner(),
+				GSM_SLIDER_CLICKED, (WindowMsgData)window, 0);
+			break;
+
+		case GGM_LEFT_DRAG:
+		{
+			Int mousex = mData2 & 0xFFFF;
+			Int x, y, delta;
+			GameWindow *child = window->winGetChild();
+
+			window->winGetScreenPosition(&x, &y);
+
+			child->winGetSize(&childSize.x, &childSize.y);
+			child->winGetScreenPosition(&childCenter.x, &childCenter.y);
+			child->winGetPosition(&childRelativePos.x, &childRelativePos.y);
+			childCenter.x += childSize.x / 2;
+			childCenter.y += childSize.y / 2;
+
+			// ignore drag attempts when the mouse is right or left of slider
+			// totally and put the dragging thumb back at the slider pos
+			if (mousex > x + size.x)
+			{
+				TheWindowManager->winSendSystemMsg(window, GSM_SET_SLIDER, s->maxVal, 0);
+				// tell owner i moved
+				TheWindowManager->winSendSystemMsg(window->winGetOwner(),
+					GSM_SLIDER_TRACK, (WindowMsgData)window, s->maxVal);
+				break;
+			}
+			else if (mousex < x)
+			{
+				TheWindowManager->winSendSystemMsg(window, GSM_SET_SLIDER, s->minVal, 0);
+				// tell owner i moved
+				TheWindowManager->winSendSystemMsg(window->winGetOwner(),
+					GSM_SLIDER_TRACK, (WindowMsgData)window, s->minVal);
+				break;
+			}
+
+			if (childCenter.x < x + childSize.x / 2)
+			{
+				child->winSetPosition(0, 0);
+				s->position = s->minVal;
+			}
+			else if (childCenter.x >= x + size.x - childSize.x / 2)
+			{
+				Int rightPos = size.x - childSize.x;
+				child->winSetPosition(rightPos, 0);
+				s->position = s->maxVal;
+			}
+			else
+			{
+				delta = childCenter.x - childSize.x / 2 - x;
+
+				// Calc slider position
+				s->position = (Int)(delta / s->numTicks) + s->minVal;
+
+				if (s->position > s->maxVal)
+					s->position = s->maxVal;
+				if (s->position < s->minVal)
+					s->position = s->minVal;
+			}
+
+			// tell owner i moved
+			TheWindowManager->winSendSystemMsg(window->winGetOwner(),
+				GSM_SLIDER_TRACK, (WindowMsgData)window, s->position);
+			break;
+		}
+
+		case GSM_SET_SLIDER:
+		{
+			Int newPos = (Int)mData1;
+			GameWindow *child = window->winGetChild();
+
+			if (newPos < s->minVal || newPos > s->maxVal)
+				break;
+
+			s->position = newPos;
+
+			// Translate to window coords
+			newPos = (Int)((newPos - s->minVal) * s->numTicks);
+
+			child->winSetPosition(newPos, 0);
+			break;
+		}
+
+		case GSM_SET_MIN_MAX:
+		{
+			ICoord2D size;
+			GameWindow *child = window->winGetChild();
+
+			window->winGetSize(&size.x, &size.y);
+
+			s->minVal = (Int)mData1;
+			s->maxVal = (Int)mData2;
+			s->numTicks = (Real)(size.x - HORIZONTAL_SLIDER_THUMB_WIDTH)
+				/ (Real)(s->maxVal - s->minVal);
+			s->position = s->minVal;
+
+			child->winSetPosition(0, 0);
+			break;
+		}
+
+		case GWM_CREATE:
+			break;
+
+		case GWM_DESTROY:
+			delete (SliderData *)window->winGetUserData();
+			break;
+
+		case GWM_INPUT_FOCUS:
+		{
+			if (mData1 == false)
+				BitClear(instData->m_state, WIN_STATE_HILITED);
+			else
+				BitSet(instData->m_state, WIN_STATE_HILITED);
+
+			TheWindowManager->winSendSystemMsg(window->winGetOwner(), GGM_FOCUS_CHANGE,
+				mData1, window->winGetWindowId());
+			*(Bool *)mData2 = true;
+			break;
+		}
+
+		case GGM_RESIZED:
+		{
+			Int height = (Int)mData2;
+
+			s->numTicks = (Real)((Int)mData1 - HORIZONTAL_SLIDER_THUMB_WIDTH)
+				/ (Real)(s->maxVal - s->minVal);
+
+			GameWindow *thumb = window->winGetChild();
+			if (thumb)
+				thumb->winSetSize(HORIZONTAL_SLIDER_THUMB_WIDTH, height);
 			break;
 		}
 
