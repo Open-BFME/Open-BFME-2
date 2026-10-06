@@ -1,5 +1,3 @@
-// ?rva005E261C@Rva005E261C@@QAEXXZ
-// partial score=0.9 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
 // ?rva005E261C@Rva005E261C@@QAEXXZ @0x005E261C 40B.
 // If +0x20 dword <0 return; else calls pinned 0x005E2460 (this-only void).
@@ -48,9 +46,8 @@ void Rva005E261C::rva005E261C()
 	if (m_20 < 0)
 		return;
 	((Rva005E2460 *)this)->rva005E2460();
-	Rva005E261CInner *o = m_8;
-	if (o->m_8flag == 0)
+	if (m_8->m_8flag == 0)
 		return;
-	o->rva005E261CSlot();
+	m_8->rva005E261CSlot();
 	((Rva005E2439 *)this)->rva005E2439();
 }

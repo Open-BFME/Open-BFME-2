@@ -11384,3 +11384,6 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?Rva00094E2CGet@@YGMMMM@Z	0x00094E2C	147	blocked	frame 0x14 vs 0x1c dy spills to arg slot vs frame no improvement from arg locals t=10 model=muse-06 (stash 0.92 kept)
 ?rva005C6D9C@Rva005C6D9C@@QAEHH@Z	0x005C6D9C	513	blocked	EH-heavy 513B with Display virtuals STL TreeHintMap plus Rva0027EA49 set x87-SSE mix needs full class layout beyond quick box t=12 model=muse-06
 ?rva00796023@@YAHPAVObject@@PAX@Z	0x00396023	154	partial	branch layout only 0 mem 0 reg beh-null jne-inline vs je-shared plus early test-jg vs test-jle-push-split t=25 model=muse-06 score=0.9 stash=reverse/attempts/0x00396023.cpp
+?rva005E2E3A@Rva005E2E3A@@QAEXH_N@Z	0x005E2E3A	87	blocked	register wall this-edx-vs-esi flag-ebx-vs-mem slot-esi-vs-edi t=12 model=muse-spark
+?rva005E2E91@Rva005E2E91@@QAEHH@Z	0x005E2E91	92	blocked	same register wall as 0x005E2E3A this-edx-vs-esi slot-esi-vs-edi t=8 model=muse-spark
+?rva005E2EED@Rva005E2EED@@QAEXH@Z	0x005E2EED	92	blocked	same register wall as 0x005E2E3A 0x005E2E91 this-edx-vs-esi slot-esi-vs-edi t=5 model=muse-spark
