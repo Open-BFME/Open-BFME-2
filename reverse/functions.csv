@@ -64334,3 +64334,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002EDFBD@Pathfinder@@QAEHPBUCoord3D@@PAU2@@Z,,0x002EDFBD,60,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EDFBD.cpp,matched,rowed callees 0x002E7B02 0x002EB3D7 callers validate thiscall
 ?rva002ED219@Pathfinder@@QAE_NPBUCoord3D@@0@Z,,0x002ED219,29,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002ED219.cpp,matched,rowed callee 0x002EADE1 callers validate thiscall
 ??0Rva00402F28Item@@QAE@PAX@Z,,0x0056BEFB,36,Code/GameEngine/Source/Common/Rva0056BEFBCtor.cpp,matched,ctor via pinned 0x0056B7E4 plus vtable 0x00C37898 and bytes 0 1 0
+?rva003FDE1A@Rva003FDE1AHelper@@QAEXH@Z,,0x003FDE1A,54,Code/GameEngine/Source/Common/Rva003FDE1A.cpp,matched,loop over 2C-30 forwarding to rowed 0x0056B8F4 then virtual 0x20 with byte row
