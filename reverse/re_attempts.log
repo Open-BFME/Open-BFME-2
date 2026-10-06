@@ -11344,3 +11344,6 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva00347CA3@Rva00347CA3@@QAEHXZ	0x00347CA3	359	blocked	vslot6 359B AI tighten x87 Coord virtuals fprintf boundary 359vs425 neighbors blocked needs full AI donor t=10 model=muse-06
 ?rva003FB508@Rva003FB508@@QAEHH@Z	0x003FB508	234	blocked	INI token loop 234B Ascii nextToken Veterancy append self-loop needs full INI donor t=8 model=muse-06
 ?rva0042B068@Rva0042B068@@QAEHHHH@Z	0x0042B068	30	blocked	push ecx dummy plus mov esp fill vs push edx direct and edx holds c not a; tried direct no-temps _a-only O1 Os Oy- all same t=25 model=muse-06 (stash 0.91 kept)
+?rva00319028@Rva00319028@@QAEPAXPAXHH@Z	0x00319028	125	partial	missing push ecx and-0 frame slot plus leave-vs-pop 120vs125B 0 reg 0 mem t=22 model=muse-05 score=0.96 stash=reverse/attempts/0x00319028.cpp
+?rva00319028@Rva00319028@@QAE?AVRva004F6093Holder@@HH@Z	0x00319028	125	blocked	Holder RVO gives guard but swaps esi edi plus tail reloads 113vs125B 8 reg 4 mem t=25 model=muse-05 (stash 0.96 kept)
+?rva002EBE54@Rva002EBE54@@QAEHHHHHHH@Z	0x002EBE54	590	blocked	590B x87 SSE 6-arg Pathfinder needs arch SSE plus 10 calls beyond 6-variant box t=5 model=muse-05

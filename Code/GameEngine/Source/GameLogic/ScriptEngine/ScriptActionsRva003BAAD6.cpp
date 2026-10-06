@@ -361,3 +361,42 @@ void __stdcall Rva003BBF23Disable(Parameter *p, bool b)
 		return;
 	o->setDisabledUntil(DISABLED_TYPE_3, b ? 0x3FFFFFFF : 0);
 }
+
+// ?Rva003BBEF4@@YGXHM@Z @0x003BBEF4 47B leaf caller 0x003CC3CC globals g_00BBE358 TheInGameUI slot 0x5c ceil ftol2 x87
+// Evidence: fld [esp+8] fmul g_00BBE358 fstp call ceil call ftol2 then TheInGameUI vslot 0x5c with first arg and int result ret 8.
+// Shape lever x87-operand-order: extern float puts const first; literal loads local first like retail. Trying 1000.0f (msec scale).
+extern "C" __declspec(dllimport) double __cdecl ceil(double);
+class Rva003BBEF4Holder
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14();
+	virtual void s15();
+	virtual void s16();
+	virtual void s17();
+	virtual void s18();
+	virtual void s19();
+	virtual void s20();
+	virtual void s21();
+	virtual void s22();
+	virtual void s23(int a1, int a2);
+};
+#define Rva00DFEDF0_BBEF4 (*(Rva003BBEF4Holder **)&TheInGameUI)
+void __stdcall Rva003BBEF4(int a1, float a2)
+{
+	int v = (int)ceil(a2 * 1000.0f);
+	Rva00DFEDF0_BBEF4->s23(a1, v);
+}
