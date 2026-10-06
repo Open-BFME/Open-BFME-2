@@ -48,6 +48,8 @@ PROTECTED = (
     "tools/pin_admission.py", "tools/gate_baseline.py", "tools/check_module_registry.py",
     "tools/protected_paths.py", "tools/hatch_counters.py", "tools/retail_inventory.py",
     "tools/publisher.py", "tools/publisher_pre_push.sh", "tools/publisher_fixtures/*",
+    # data identity: the pre-commit check and the ledger it reads
+    "tools/data_check.py", "tools/data_ledger.py", "reverse/data_ledger.csv",
     # the advisory audit: its judge allowlist (judges.json), canaries and harness
     "tools/audit/*",
     "tools/publisher_gate.py", "tools/publisher_hook.py", "tools/publisher_service.py",
