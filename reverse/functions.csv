@@ -8250,7 +8250,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?rva0004859EA@CreateObjectDie@@SA?AW4NameKeyType@@XZ,,0x004859EA,69,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDiePoolKey.cpp,matched,
 ?rva000485A2F@CreateObjectDieIfEldestKindof@@SA?AW4NameKeyType@@XZ,,0x00485A2F,69,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofPoolKey.cpp,matched,
 ?rva000486155@CrushDie@@SA?AW4NameKeyType@@XZ,,0x00486155,69,Code/GameEngine/Source/GameLogic/Object/Die/CrushDie.cpp,matched,
-?rva0004864C9@DestroyDie@@SA?AW4NameKeyType@@XZ,,0x004864C9,69,Code/GameEngine/Source/GameLogic/Object/Die/DestroyDiePoolKey.cpp,matched,
+?rva0004864C9@DestroyDie@@SA?AW4NameKeyType@@XZ,,0x004864C9,69,Code/GameEngine/Source/GameLogic/Object/Die/DestroyDie.cpp,matched,
 ?rva000486598@FXListDie@@SA?AW4NameKeyType@@XZ,,0x00486598,69,Code/GameEngine/Source/GameLogic/Object/Die/FXListDiePoolKey.cpp,matched,
 ?rva00048B16A@DynamicShroudClearingRangeUpdate@@SA?AW4NameKeyType@@XZ,,0x0048B16A,69,Code/GameEngine/Source/GameLogic/Object/Update/DynamicShroudClearingRangeUpdatePoolKey.cpp,matched,
 ?rva00048B690@FireSpreadUpdate@@SA?AW4NameKeyType@@XZ,,0x0048B690,69,Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdatePoolKey.cpp,matched,
