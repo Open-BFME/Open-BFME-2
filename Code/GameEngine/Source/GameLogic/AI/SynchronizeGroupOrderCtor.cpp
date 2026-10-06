@@ -17,11 +17,14 @@ template <> struct less<AsciiString> {
 };
 }
 
+class Rva0036E346;
+
 class GroupOrder
 {
 public:
 	GroupOrder();
 	GroupOrder(const GroupOrder &other);
+	GroupOrder(Rva0036E346 *holder);
 	virtual ~GroupOrder();
 private:
 	unsigned char m_pad04[0x18 - 4];
@@ -32,6 +35,7 @@ class SynchronizeGroupOrder : public GroupOrder
 public:
 	SynchronizeGroupOrder();
 	SynchronizeGroupOrder(const SynchronizeGroupOrder &other);
+	SynchronizeGroupOrder(Rva0036E346 *holder);
 	virtual ~SynchronizeGroupOrder();
 	SynchronizeGroupOrder *rva005469FD();
 private:
@@ -56,4 +60,12 @@ SynchronizeGroupOrder::SynchronizeGroupOrder(const SynchronizeGroupOrder &other)
 SynchronizeGroupOrder *SynchronizeGroupOrder::rva005469FD()
 {
 	return new SynchronizeGroupOrder(*this);
+}
+
+// ??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z @0x00546926 64B evidence: stores vtable 0x0086A314; base GroupOrder holder rowed 0x00548A25; set at +0x18 via rowed 0x000D3A71; bool at +0x24 false; caller 0x00355AD7.
+SynchronizeGroupOrder::SynchronizeGroupOrder(Rva0036E346 *holder)
+	: GroupOrder(holder)
+	, m_18()
+{
+	m_24 = false;
 }
