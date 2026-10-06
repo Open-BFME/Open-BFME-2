@@ -67333,3 +67333,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?xfer@WorkerAIUpdate@@MAEXPAVXfer@@@Z,,0x004AA1DB,453,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateXfer.cpp,matched,WorkerAIUpdate xfer: AIUpdateInterface base Version(1 2) three tasks docks machines TheAudio slot 88
 ?rva000E6FC8@Rva000E6FC8@@QAEXXZ,,0x000E6FC8,27,Code/GameEngine/Source/Common/Rva000E6FC8.cpp,matched,GlobalData +0xD45 selects 0x14 or 2 then thiscall 0x000E6D94
 ?rva000EA1F3@Rva000E6FC8@@QAEXXZ,,0x000EA1F3,39,Code/GameEngine/Source/Common/Rva000EA1F3.cpp,matched,GlobalData +0xD45 selects 0x14 else byte +0x62 selects 7 or 4 then thiscall 0x000E6D94
+?rva000E07F4@@YAHPAVRva000E07F4Obj@@PAVRva000E07F4Host@@@Z,,0x000E07F4,34,Code/GameEngine/Source/Common/Rva000E07F4.cpp,matched,cdecl returns 1; kind bit 0x80 or null skips thiscall 0x000E0584
