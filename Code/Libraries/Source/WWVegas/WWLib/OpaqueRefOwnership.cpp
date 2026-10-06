@@ -9,10 +9,25 @@ class OpaqueRefCounted
 public:
     virtual ~OpaqueRefCounted();
     void Add_Ref() { InterlockedIncrement(&refs); }
+    bool rva00050EFA();
     void Release_Ref();
 private:
     long refs;
 };
+
+// ?rva00050EFA@OpaqueRefCounted@@QAE_NXZ, retail 0x00050EFA, 31B.
+// Atomically acquires a reference only while the prior count is positive;
+// on a dead object it undoes the increment and returns false. Class identity
+// and the count offset are established by the adjacent ownership methods.
+bool OpaqueRefCounted::rva00050EFA()
+{
+    long count = InterlockedIncrement(&refs);
+    if (count <= 1) {
+        InterlockedDecrement(&refs);
+        return false;
+    }
+    return true;
+}
 
 void OpaqueRefCounted::Release_Ref()
 {
