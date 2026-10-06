@@ -64924,3 +64924,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ??0Rva0051268C@@QAE@PAX@Z,,0x0051268C,94,Code/GameEngine/Source/GameClient/GUI/BfmeAptGameWindowConstructor.cpp,matched,factory 0x002D1E55 size 0x27C and dtor 0x005126F5 same vtables
 ?rva00285B66@@YA_NPBX0@Z,,0x00285B66,43,Code/GameEngine/Source/Common/Rva00285B66.cpp,matched,caller pointInTrigger 0x002E3A13 and LINK BONUS file
 ?rva00542067@Rva00542225@@QAEXXZ,,0x00542067,70,Code/GameEngine/Source/Common/Rva00542067.cpp,matched,leaf via caller 0x00542256 no commas
+?Rva004361B3@@YAPAUTreeHintOpaque0043671B@@PBE@Z,,0x004361B3,41,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp,matched,Target reads digest pointer; rowed _MD5Print formats its 16 bytes and address-derived 0x4360B3 lookup receives the resulting AsciiString by value; callee rel32 and MpGameSetup caller confirm chain
