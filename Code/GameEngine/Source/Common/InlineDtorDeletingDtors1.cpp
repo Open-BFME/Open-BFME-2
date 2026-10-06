@@ -132,11 +132,46 @@ class Rva005753E9
 public:
 	Rva005753E9(EmitVtableTag *);
 	virtual ~Rva005753E9() {}
+	void rva0057544B();
 };
 
 // ?<Rva005753E9::Rva005753E9> absent-from-retail
 Rva005753E9::Rva005753E9(EmitVtableTag *)
 {
+}
+
+class Rva005CCB4CCall
+{
+public:
+	bool rva005CCB4C();
+};
+class Rva005CCB3EByteChaseField
+{
+public:
+	unsigned char get() const;
+};
+class Rva005CCB5B
+{
+public:
+	void rva005CCB5B();
+};
+class Rva005CCB7B
+{
+public:
+	void rva005CCB7B(bool value);
+};
+
+// Target evidence: this is slot 13 of the table at 0x00C6E5C4, whose slot 10
+// contains the rowed deleting dtor at 0x005753E9. The existing 0x005CCB5B,
+// 0x005CCB3E, and 0x005CCB7B rows show the target helper chain. The vtable
+// association is structural; the method's purpose and class identity remain
+// unproven beyond the address-derived Rva005753E9 view.
+void Rva005753E9::rva0057544B()
+{
+	if (!((Rva005CCB4CCall *)this)->rva005CCB4C())
+		return ((Rva005CCB5B *)this)->rva005CCB5B();
+	((Rva005CCB7B *)this)->rva005CCB7B(
+		!((Rva005CCB3EByteChaseField *)this)->get());
 }
 
 // ??_GRva005754FF@@UAEPAXI@Z @0x005754FF 29B: slot 0 of the vtable it stores, VA 0x00C6E60C
