@@ -246,8 +246,18 @@ void StrategicHUD::ChecklistUIImpl::OnExpandButtonClicked(const char *unused)
 // pointer at +0x34 is viewed through its rowed reset and clear.
 // The pending hint at +0x30: a reference to the shared hint object, cleared
 // through the rowed 0x002BED91.
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+
 struct TreeHintRef00217D4C
 {
+	// ??1TreeHintRef00217D4C@@QAE@XZ present-unmatched
+	__forceinline ~TreeHintRef00217D4C()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+
 	void *m_ptr;
 };
 
@@ -274,18 +284,48 @@ public:
 	void rva005D4E84();
 };
 
-class Rva0057B993
-{
-public:
-	void reset(Rva005D4FFC *p);
-
-	Rva005D4FFC *m_ptr;
-};
-
 class Rva0057B9B6
 {
 public:
 	void clear();
+};
+
+class Rva0057B993
+{
+public:
+	void reset(Rva005D4FFC *p);
+	// ??1Rva0057B993@@QAE@XZ present-unmatched
+	__forceinline ~Rva0057B993() { ((Rva0057B9B6 *)this)->clear(); }
+
+	Rva005D4FFC *m_ptr;
+};
+
+// The rowed 0x0052413E's object, at +0x1C.
+class Rva0052413E
+{
+public:
+	~Rva0052413E();
+
+private:
+	unsigned char m_pad[0xC];
+};
+
+// The listener-list interface (vtable 0x00C6F248, nine pure slots and no
+// destructor slot): its rowed destructor frees the list storage at +4.
+class Rva0057BCEC
+{
+public:
+	virtual void slot00() = 0;
+	~Rva0057BCEC();
+
+protected:
+	Rva0057BC45List m_listeners; // +0x04
+};
+
+class Rva001FF3A9
+{
+public:
+	virtual void rva001FF3A9();
 };
 
 // The rowed open and close bodies.
@@ -305,9 +345,10 @@ namespace StrategicHUD {
 class SelectionDetailsUIImpl;
 }
 
-class StrategicHUD::SelectionDetailsUIImpl
+class StrategicHUD::SelectionDetailsUIImpl : public Rva0057BCEC
 {
 public:
+	~SelectionDetailsUIImpl();
 	void OnPanelFrameLoaded(const char *name);
 	void OnPanelFrameUnloaded(const char *name);
 	void OnToggleButtonClicked(const char *unused);
@@ -319,9 +360,9 @@ public:
 	void SetToggleButtonEnabled(bool enabled);
 
 private:
-	unsigned char m_pad00[0x04];
-	Rva0057BC45List m_listeners; // +0x04
-	unsigned char m_pad14[0x28 - 0x14];
+	int m_14;
+	AsciiString m_18;
+	Rva0052413E m_1C;
 	int m_state; // +0x28
 	bool m_2C; // +0x2C: the toggle button may be used
 	unsigned char m_pad2d[0x30 - 0x2D];
@@ -400,4 +441,12 @@ void StrategicHUD::SelectionDetailsUIImpl::rva0057BBBB()
 		((Rva005D4E84 *)m_panelFrame.m_ptr)->rva005D4E84();
 	}
 	SetToggleButtonEnabled(m_2C && (m_state == 2 || m_state == 0));
+}
+
+// Retail 0x0057BD01, 120 bytes: the destructor (vtable 0x00C6F26C), run by
+// the HUD's owning-pointer reset 0x0042D87D. It tells the listeners first
+// (slot 0, through the shared forwarder 0x001FF3A9).
+StrategicHUD::SelectionDetailsUIImpl::~SelectionDetailsUIImpl()
+{
+	m_listeners.forEach((void (Rva0057BC45Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
 }

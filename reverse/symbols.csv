@@ -3851,6 +3851,7 @@ name,address,notes
 ??1Gen_uwm_0057a23c@@QAE@XZ,0x0057A23C,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uwm_0057a243@@QAE@XZ,0x0057A243,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uwm_0057bcec@@QAE@XZ,0x0057BCEC,gen-uw-pin dtor target read from the retail funclet bytes
+??1Rva0057BCEC@@QAE@XZ,0x0057BCEC,non-virtual spelling of the rowed listener-list interface dtor: its vtable 0x00C6F248 holds nine __purecall slots and no dtor slot; direct call from the SelectionDetailsUIImpl dtor 0x0057BD67
 ??1Gen_uwm_0057c03b@@QAE@XZ,0x0057C03B,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uwm_0057c3b6@@QAE@XZ,0x0057C3B6,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uwm_0057c51e@@QAE@XZ,0x0057C51E,gen-uw-pin dtor target read from the retail funclet bytes
