@@ -28,6 +28,17 @@
 // (LANGameInfo::getSlotNum, the rowed 0x004483BC on the class named for the
 // LANGameInfo destructor 0x004482FB; GameInfo::getSlot; MultiplayerSettings
 // ::getColor), default -1.
+//
+// LANAPI::OnHasMap, retail 0x002498FA (526 bytes), slot 39. Zero Hour's body
+// in BFME 2's shape (Open-BFME-1's LANAPIOnHasMap_Bfme.cpp): as host
+// (AmIHost, vslot 54, read as its low byte as every retail caller does),
+// find the sender among the eight slot addresses (+0x114, 0x1D0 apart), set
+// that slot's map availability (GameSlot::setMapAvailability on the slot from
+// the rowed 0x00447773), then name the map -- the cached metadata's
+// bfme_getDisplayName(true) or the raw map path -- and, when the player lacks
+// it, post "GUI:PlayerNoMap[WillTransfer]" with the slot's name (+0x30) as a
+// SYSTEM chat line before refreshing the slot list (0x00248D84). willTransfer
+// is the pinned cdecl 0x00300E42 on the game, whatever the metadata says.
 
 typedef int Int;
 typedef bool Bool;
@@ -36,6 +47,7 @@ typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 typedef unsigned short WideChar;
 
+#include "ascii_string.h"
 #include "unicode_string.h"
 
 struct BfmeNetAddress
@@ -58,37 +70,91 @@ public:
 	};
 };
 
+enum
+{
+	MAX_SLOTS = 8
+};
+
 class GameSlot
 {
 public:
+	void setMapAvailability( Bool hasMap );
 	Int getColor( void ) const { return m_color; }
+	const UnicodeString &getName( void ) const { return m_name; }
 
 private:
 	UnsignedByte m_pre0C[0x0C];
 	Int m_color;					// +0x0C
+	UnsignedByte m_pre30[0x30 - 0x10];
+	UnicodeString m_name;				// +0x30
 };
+
+struct LANSlotAddress
+{
+	UnsignedByte m_pre38[0x38];
+	BfmeNetAddress m_address;			// slot +0x38
+	UnsignedByte m_rest[0x1D0 - 0x40];
+};
+
+class GameTextInterface
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16();
+	virtual const UnicodeString *fetch( const char *label, Bool *exists );	// slot 17 (+0x44)
+};
+extern GameTextInterface *TheGameText;
+
+class MapMetaData
+{
+public:
+	UnicodeString bfme_getDisplayName( Bool full );
+};
+
+class MapCache
+{
+public:
+	const MapMetaData *findMap( AsciiString mapName );
+};
+extern MapCache *TheMapCache;
 
 class GameInfo
 {
 public:
 	GameSlot *getSlot( Int slotNum );
+	AsciiString getMap( void ) const;
 
 	Bool isGameInProgress( void ) const { return m_inProgress; }
 
 protected:
 	UnsignedByte m_pre11[0x11];
 	Bool m_inProgress;				// +0x11
-	UnsignedByte m_pre114[0x114 - 0x12];
-	BfmeNetAddress m_hostAddress;			// +0x114, slot 0's address
+	UnsignedByte m_preDC[0xDC - 0x12];
+	LANSlotAddress m_slots[MAX_SLOTS];		// +0xDC, addresses from +0x114
 };
 
-// LANGameInfo, under the ledger's name for the class of its destructor.
-class Rva004482FB : public GameInfo
+Bool Rva00300E42( GameInfo *game );
+
+// LANGameInfo, under the ledger's names for the classes of its getLANSlot
+// (0x00447773) and its destructor (0x004482FB).
+class Rva00447773 : public GameInfo
+{
+public:
+	void *rva00447773( Int index );			// getLANSlot
+
+	GameSlot *getLANSlot( Int index ) { return (GameSlot *)rva00447773( index ); }
+	const BfmeNetAddress *getSlotAddress( Int index ) const { return &m_slots[index].m_address; }
+};
+
+class Rva004482FB : public Rva00447773
 {
 public:
 	Int rva004483BC( UnicodeString name );		// getSlotNum
 
-	const BfmeNetAddress *getHostAddress( void ) const { return &m_hostAddress; }
+	const BfmeNetAddress *getHostAddress( void ) const { return &m_slots[0].m_address; }
 };
 typedef Rva004482FB LANGameInfo;
 
@@ -157,12 +223,14 @@ public:
 	BFME_VSLOT(30) BFME_VSLOT(31) BFME_VSLOT(32) BFME_VSLOT(33) BFME_VSLOT(34)
 	BFME_VSLOT(35) BFME_VSLOT(36)
 	virtual void OnPlayerLeave( UnicodeString player );
-	BFME_VSLOT(38) BFME_VSLOT(39)
+	BFME_VSLOT(38)
+	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
 	virtual void OnChat( const UnicodeString &player, const BfmeNetAddress *ip,
 		const UnicodeString &message, LANAPIInterface::ChatType format );
 	BFME_VSLOT(41) BFME_VSLOT(42) BFME_VSLOT(43) BFME_VSLOT(44)
 	BFME_VSLOT(45) BFME_VSLOT(46) BFME_VSLOT(47) BFME_VSLOT(48) BFME_VSLOT(49)
-	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53) BFME_VSLOT(54)
+	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53)
+	virtual Int AmIHost( void ) = 0;
 	BFME_VSLOT(55) BFME_VSLOT(56) BFME_VSLOT(57) BFME_VSLOT(58) BFME_VSLOT(59)
 	BFME_VSLOT(60) BFME_VSLOT(61) BFME_VSLOT(62) BFME_VSLOT(63)
 	virtual BfmeNetAddress *getLocalAddress( void ) = 0;
@@ -278,4 +346,48 @@ void LANAPI::OnChat( const UnicodeString &player, const BfmeNetAddress *ip,
 			break;
 		}
 	}
+}
+
+void LANAPI::OnHasMap( const BfmeNetAddress *ip, Bool status )
+{
+	if( !(UnsignedByte)AmIHost() )
+		return;
+
+	LANGameInfo *game = m_currentGame;
+	Int i;
+	for( i = 0; i < MAX_SLOTS; ++i )
+	{
+		if( game->getSlotAddress( i )->Rva00248CBF( ip ) )
+		{
+			game->getLANSlot( i )->setMapAvailability( status );
+			break;
+		}
+	}
+	if( i == MAX_SLOTS )
+		return;
+
+	UnicodeString mapDisplayName;
+	const MapMetaData *mapData = TheMapCache->findMap( m_currentGame->getMap() );
+	Bool willTransfer = Rva00300E42( m_currentGame );
+	if( mapData )
+	{
+		mapDisplayName.format( L"%ls", ((MapMetaData *)mapData)->bfme_getDisplayName( true ).str() );
+	}
+	else
+	{
+		mapDisplayName.format( L"%hs", m_currentGame->getMap().str() );
+	}
+
+	if( !status )
+	{
+		UnicodeString text;
+		if( willTransfer )
+			text.format( TheGameText->fetch( "GUI:PlayerNoMapWillTransfer", 0 ),
+				m_currentGame->getLANSlot( i )->getName().str(), mapDisplayName.str() );
+		else
+			text.format( TheGameText->fetch( "GUI:PlayerNoMap", 0 ),
+				m_currentGame->getLANSlot( i )->getName().str(), mapDisplayName.str() );
+		OnChat( UnicodeString( L"SYSTEM" ), getLocalAddress(), text, LANAPIInterface::LANCHAT_SYSTEM );
+	}
+	Rva00248D84Enable();
 }

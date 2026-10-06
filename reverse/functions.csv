@@ -66279,3 +66279,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva00449B79@LANAPI@@UAE_NXZ,,0x00449B79,22,Code/GameEngine/Source/GameNetwork/LANAPIAmIHost.cpp,matched,
 ?OnPlayerLeave@LANAPI@@UAEXVUnicodeString@@@Z,,0x0024A0C7,177,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,matched,
 ?OnChat@LANAPI@@UAEXABVUnicodeString@@PBUBfmeNetAddress@@0W4ChatType@LANAPIInterface@@@Z,,0x0024A178,464,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,matched,
+?OnHasMap@LANAPI@@UAEXPBUBfmeNetAddress@@_N@Z,,0x002498FA,526,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,matched,
