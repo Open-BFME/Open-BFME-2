@@ -556,5 +556,18 @@ PUBLIC ?rva00763984@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva00763984@@YAXXZ ENDP
+
+; Unwind@00b6ab62: five 4-byte elements at [ebp-0x10] + 0xa8.
+PUBLIC ?rva0076AB62@@YAXXZ
+?rva0076AB62@@YAXXZ PROC
+    push 50F149h
+    push 5
+    push 4
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0A8h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0076AB62@@YAXXZ ENDP
 _TEXT ENDS
 END
