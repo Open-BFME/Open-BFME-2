@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 
 // GameInfo player-count file-unit plus the two GameSlot predicates the
 // counts call through. BFME1 GameNetwork/GameInfo.cpp donor shapes, with two
@@ -18,6 +18,9 @@
 // unidentified, hence the address name.
 
 typedef int Int;
+
+#include "ascii_string.h"
+#include "unicode_string.h"
 
 enum { MAX_SLOTS = 8 };
 
@@ -88,6 +91,30 @@ public:
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 
+class MapMetaData
+{
+	char m_pad00[0x20];
+public:
+	Int m_numPlayers;               // +0x20
+};
+
+class MapCache
+{
+public:
+	const MapMetaData *findMap(AsciiString mapName);
+};
+
+extern MapCache *TheMapCache;
+
+// setState's connection record: the address dword and port word, both
+// zeroed for a fresh slot.
+struct GameSlotConnectInfo
+{
+	GameSlotConnectInfo() : m_ip(0), m_port(0) {}
+	unsigned int m_ip;
+	unsigned short m_port;
+};
+
 struct BfmeNetAddress
 {
 	bool Rva00248CBF(const BfmeNetAddress *other) const;
@@ -98,7 +125,12 @@ struct BfmeNetAddress
 class GameSlot
 {
 public:
+	GameSlot();
+	GameSlot(const GameSlot &);
+	virtual ~GameSlot();
 	virtual void reset();
+	void setState(SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo);
+	bool isHuman() const { return m_state == SLOT_PLAYER; }
 	bool isOccupied() const;
 	bool isAI() const;
 	Int rva003FF145(const BfmeNetAddress *other) const;
@@ -136,6 +168,7 @@ public:
 private:
 	char m_pad68[0x1A4 - 0x68];     // +0x68..+0x1A3
 	unsigned char m_occupancy;      // +0x1A4
+	char m_pad1A5[0x1AC - 0x1A5];   // +0x1A5..+0x1AB (AsciiString at +0x1A8)
 };
 
 class GameInfo
@@ -159,7 +192,7 @@ public:
 	virtual Int getLocalSlotNum() const = 0;
 	virtual void slot38() = 0;
 	virtual void slot3c() = 0;
-	virtual void slot40() = 0;
+	virtual void adjustSlotsForMap();
 	virtual void slot44() = 0;
 	virtual void slot48() = 0;
 	virtual void slot4c() = 0;
@@ -168,12 +201,18 @@ public:
 	Int getNumPlayers() const;
 	Int getNumNonObserverPlayers() const;
 	Int getNumOpenOrOccupiedSlots() const;
+	GameSlot *getSlot(Int slotNum);
 	const GameSlot *getConstSlot(Int slotNum) const;
+	void setSlot(Int slotNum, GameSlot slotInfo);
 	bool rva003FF457() const;
 	bool isHeroDataReadyForSlot(unsigned short slotNum) const;
 private:
 	char m_pad[0x14];
-	GameSlot *m_slot[MAX_SLOTS];
+	GameSlot *m_slot[MAX_SLOTS];    // +0x18
+	char m_pad38[0x08];
+	AsciiString m_mapName;          // +0x40
+	char m_pad44[0x18];
+	Int m_5c;                       // +0x5C
 };
 
 // ?isOccupied@GameSlot@@QBE_NXZ
@@ -248,6 +287,17 @@ const GameSlot *GameInfo::getConstSlot(Int slotNum) const
 	if (slotNum < 0 || slotNum >= MAX_SLOTS)
 		return 0;
 	return m_slot[slotNum];
+}
+
+// ?getSlot@GameInfo@@QAEPAVGameSlot@@H@Z
+// Unrowed second definition, as getConstSlot above: the row lives in
+// GameInfoGetSlot.cpp, but adjustSlotsForMap needs same-TU visibility into
+// it (it writes only EAX) to keep its first loop's index in EDX.
+GameSlot *GameInfo::getSlot(Int slotNum)
+{
+	if (m_slot == 0)
+		return 0;
+	return (slotNum < 0 || slotNum >= MAX_SLOTS) ? 0 : m_slot[slotNum];
 }
 
 // ?getNumNonObserverPlayers@GameInfo@@QBEHXZ
@@ -405,4 +455,81 @@ void GameSlot::rva003FF1A7(int v)
 		return;
 	m_5c = v;
 	Rva00559FAC(v, &m_60);
+}
+
+// ?adjustSlotsForMap@GameInfo@@UAEXXZ @0x0040052C (599B): vtable slot 16
+// (+0x40). BFME1/ZH GameInfo.cpp adjustSlotsForMap: count the occupied
+// slots, then open free slots while the map (+0x20 player count of the
+// MapCache entry for the +0x40 map name) has room and close the rest. BFME2
+// also counts the human slots among the occupied ones and, when the +0x5C
+// mode is 1, opens free slots only while fewer than two are human (counting
+// each opened slot as one) and closes the others.
+void GameInfo::adjustSlotsForMap()
+{
+	const MapMetaData *md = TheMapCache->findMap(m_mapName);
+	if (md != 0)
+	{
+		Int numPlayers = md->m_numPlayers;
+		Int numPlayerSlots = 0;
+		Int numHumanSlots = 0;
+		Int i;
+
+		for (i = 0; i < MAX_SLOTS; ++i)
+		{
+			GameSlot *tempSlot = getSlot(i);
+			if (tempSlot->isOccupied())
+			{
+				++numPlayerSlots;
+				if (tempSlot->isHuman())
+					++numHumanSlots;
+			}
+		}
+
+		for (i = 0; i < MAX_SLOTS; ++i)
+		{
+			GameSlot *slot = getSlot(i);
+			if (numPlayers > numPlayerSlots)
+			{
+				if (!(slot->isOccupied()))
+				{
+					if (m_5c == 1)
+					{
+						if (numHumanSlots < 2)
+						{
+							GameSlot newSlot;
+							GameSlotConnectInfo connectInfo;
+							newSlot.setState(SLOT_OPEN, UnicodeString::TheEmptyString, &connectInfo);
+							setSlot(i, newSlot);
+							++numHumanSlots;
+						}
+						else
+						{
+							GameSlot newSlot;
+							GameSlotConnectInfo connectInfo;
+							newSlot.setState(SLOT_CLOSED, UnicodeString::TheEmptyString, &connectInfo);
+							setSlot(i, newSlot);
+						}
+					}
+					else
+					{
+						GameSlot newSlot;
+						GameSlotConnectInfo connectInfo;
+						newSlot.setState(SLOT_OPEN, UnicodeString::TheEmptyString, &connectInfo);
+						setSlot(i, newSlot);
+						++numPlayerSlots;
+					}
+				}
+			}
+			else
+			{
+				if (!(slot->isOccupied()))
+				{
+					GameSlot newSlot;
+					GameSlotConnectInfo connectInfo;
+					newSlot.setState(SLOT_CLOSED, UnicodeString::TheEmptyString, &connectInfo);
+					setSlot(i, newSlot);
+				}
+			}
+		}
+	}
 }
