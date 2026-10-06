@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2's campaign menu screen Apt callbacks, 0x00521172 onward, bound by
 // these names ("AptCampaignMenu::OnBttnMainMenu" ...) as member pointers by

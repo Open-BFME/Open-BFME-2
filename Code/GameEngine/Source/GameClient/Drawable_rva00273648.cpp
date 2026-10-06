@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00273648@Drawable@@QAEX PAX@Z @0x00273648 34B: Drawable module walk at +0x14c calling slot 0xEC; callers 0x00275F24 0x00275F33; unblocks 0x00275DCE.
 class DrawModule00273648
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // CommandSet::getCommandButton, retail 0x00409EE8 (51 bytes), after Zero
 // Hour's GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp (GeneralsMD

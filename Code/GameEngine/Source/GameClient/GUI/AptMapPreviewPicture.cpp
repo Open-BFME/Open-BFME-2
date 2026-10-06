@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE2 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0057D10F@AptMapPreview@@QAEXPAVMapMetaData@@@Z @0x0057D10F 139B
 // Evidence: caller 0x0057E058 passes MapMetaData* (same slot as bfmeSetMapTitle
 // 0x0057C8D1 and bfmeSetMapDescription 0x0057C892); callee bfmeCreateMapPictureImage

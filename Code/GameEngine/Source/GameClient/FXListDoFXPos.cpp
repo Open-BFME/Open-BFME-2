@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Oy- /DNDEBUG /MD /GX-
 //
 // ?doFXPos@FXList@@QBEXPBUCoord3D@@PBVMatrix3D@@M0@Z
 // retail 0x001E296E, 168 bytes. Dedicated TU.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?advance@Rva000411084@@QAEPAXXZ, retail 0x003F7925 (47B).
 // Shard TU: the EvaMessageName TU owns next/messageToName under the same
 // flags, and defining the 47B advance there would capture next's out-of-line

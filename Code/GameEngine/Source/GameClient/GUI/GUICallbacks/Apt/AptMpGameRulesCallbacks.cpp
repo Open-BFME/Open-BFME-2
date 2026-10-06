@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2's lobby game rules panel (the MpGameSetup panel's +0xD0 member)
 // Apt callback "AptMpGameRules::Reset", 0x0057E6DD, bound by that name as

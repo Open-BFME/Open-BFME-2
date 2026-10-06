@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7
+// cl: /DNDEBUG /MD /EHsc /Oy-
 //
 // ?getCurrentClientBonePositions@Drawable@@QBEHPBDHPAUCoord3D@@PAVMatrix3D@@H@Z,
 // retail 0x002727C8, 107 bytes. Dedicated TU.

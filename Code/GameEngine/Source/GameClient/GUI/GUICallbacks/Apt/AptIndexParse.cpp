@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva005D2505Get@@YA_NPBDPAH@Z @0x005D2505 112B
 // Evidence: rowed Rva004128F0GetParam with index literal plus atoi import plus 0-6 range plus out int plus callers at 0x005D26D6 0x005D27CB 0x005D2809 0x005D2901 0x005D2943 0x005D2A34 plus AptRowListCallbacks OnRowHidden shape.
 #include "ascii_string.h"

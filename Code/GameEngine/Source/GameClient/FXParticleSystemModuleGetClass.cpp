@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME1 ConcreteModuleTemplate forwarding accessor transferred to BFME2.
 
 namespace FXParticleSystem

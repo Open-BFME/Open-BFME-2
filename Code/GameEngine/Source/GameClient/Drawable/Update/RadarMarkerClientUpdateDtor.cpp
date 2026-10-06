@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1RadarMarkerClientUpdate@@UAE@XZ, retail 0x004C9C38, 69 bytes.
 //
 // RadarMarkerClientUpdate dtor: restores the derived vtable 0x00C5EDB8 then

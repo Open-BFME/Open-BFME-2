@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // Lift CommandButton::parseCommand to clean C++.
 //
 // An INI name-to-index lookup: take the next token, walk a null-terminated table

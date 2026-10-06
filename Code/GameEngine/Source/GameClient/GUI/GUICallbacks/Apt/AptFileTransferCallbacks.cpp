@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2's map file transfer screen Apt query bound as
 // "FileTransfer:PlayerColor:%d" for each slot index by the screen's

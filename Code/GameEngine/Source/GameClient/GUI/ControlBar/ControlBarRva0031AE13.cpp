@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0031AE13@ControlBar@@QAEXXZ @ 0x0031AE13 128B: ControlBar button-large
 // image refresh via TheWindowManager->winGetWindowFromId(NULL,
 // TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonLarge")) then

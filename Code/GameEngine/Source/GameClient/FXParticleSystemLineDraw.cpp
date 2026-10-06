@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE2
+// cl: /MD
 // ?rva0055CD70@Rva0055CD70@@QAEXMMM@Z at 0x0055CD70 size 124
 // Evidence: vslot lane slot 4 of 0x0081D02C and 0x0081C750 LineEmissionVolumeInfo copies; two points from +0x24 six floats plus x y z then TacticalView slot 0x2c color 0xccaaffff; pattern from stash 0x0055CAEF.
 

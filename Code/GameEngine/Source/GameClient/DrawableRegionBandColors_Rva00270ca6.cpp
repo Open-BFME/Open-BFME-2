@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHs-c- -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
+// cl: -DNDEBUG -MD -EHs-c- -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
 // BFME1 donor: game/GameEngine/Source/GameClient/DrawableRegionBandColors.cpp
 // at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24, compiled with the flags above.
 // Original owner and source-level function/type names are not established.

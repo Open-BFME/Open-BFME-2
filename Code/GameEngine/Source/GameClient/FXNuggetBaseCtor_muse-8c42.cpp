@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva001DFEAABase@@QAE@XZ @0x001DFEAA 117B
 // FXNugget-family shared base ctor. Donor: BFME1 FXNugget ctor
 // (reference/open-bfme-1/Code/GameEngine/Source/GameClient/FXNuggetConstructor.cpp)

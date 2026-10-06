@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??4Rva004C9B8F@@QAEAAV0@ABV0@@Z, retail 0x004C9B8F, 45 bytes.
 //
 // Honest smart-pointer assignment: self-check then Add_Ref the incoming

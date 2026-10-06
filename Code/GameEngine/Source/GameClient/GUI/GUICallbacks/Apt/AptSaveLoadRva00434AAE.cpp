@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Retail 0x00434AAE (220 bytes), reached on the AptSaveLoad screen after its
 // FileNameTextEntry is set. The target reads the field at +0x290, gets the

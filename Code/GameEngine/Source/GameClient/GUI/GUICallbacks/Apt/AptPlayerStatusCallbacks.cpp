@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHs-
+// cl: /DNDEBUG /MD /EHs-
 //
 // BFME2's in-game player status screen Apt callback
 // "AptPlayerStatus::InitGadgets", 0x004E40C7, bound by that name as a

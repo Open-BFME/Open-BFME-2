@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHs /O1 -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHs -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 // class-gate: allow AsciiString donor TU-local StringBase-derived view emits the retail dtor at 0x0051CBC6; its temporary calls the out-of-line StringBase ctor 0x00037BA0 and releaseBuffer 0x00036410 like the InGameChat and CampaignReview precedents
 #include "../../../Include/GameClient/BfmeAptScreenBaseLayout.h"
 

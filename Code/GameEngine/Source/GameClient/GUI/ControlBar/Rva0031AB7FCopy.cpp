@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??4Rva0031AB7F@@QAEAAV0@ABV0@@Z @ 0x0031AB7F 80B: copy assign via base
 // StreakDrawModuleTemplate assign plus AsciiString at +0x10 plus 32-dword
 // copy +0x14..+0x93 plus +0x94/+0x98. Evidence: rowed base assign 0x001FD28E

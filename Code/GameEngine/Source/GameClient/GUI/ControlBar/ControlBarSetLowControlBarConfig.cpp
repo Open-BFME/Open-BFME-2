@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?setLowControlBarConfig@ControlBar@@IAEXXZ retail 0x0031B134, 136 bytes.
 // Zero Hour ControlBar::setLowControlBarConfig over the BFME 2 offsets:

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0031AC39@Rva0031AC39@@QAEXXZ @0x0031AC39 22B: walk the +0x2C list calling
 // rowed image resolve 0x0035B77D on each node via its +0x18 next. Evidence:
 // chain lane callee rowed 0x0035B77D; same ECX-this plus ret plus 22B loop shape

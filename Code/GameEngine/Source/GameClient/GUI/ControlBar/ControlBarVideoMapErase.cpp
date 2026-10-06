@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // Native 0x002ADCE1..0x002ADD31 (Ghidra FUN_006adce1, ret at 2ADD2E).
 // Reference algorithm: STLport 4.5.3 stl/_hashtable.c erase(iterator),
 // vendored by BFME1 6583b3c1ff21db4a561285717028fdafc780b7db.

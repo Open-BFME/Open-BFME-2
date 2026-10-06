@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0031B1BC@ControlBar@@QAEXPBVImage@@0000000@Z @0x0031B1BC 84B ControlBar image slots set then refresh.
 // Evidence: 8 dword stores +0x250 +0x254 +0x258 +0x25C +0x260 +0x264 +0x270 +0x274 then rowed rva0031AE13 0x0031AE13; ret 0x20; caller 0x0031EDD6; layout precedent Rva0031AE13 and Rva0031AA86.
 class Image;

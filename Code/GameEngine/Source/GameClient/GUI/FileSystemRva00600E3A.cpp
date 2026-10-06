@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 // ?Rva00600E3AGet@@YG_NPBD0@Z @0x00600E3A 289B: FileSystem 2-arg existence with outbuf via gate archive lang English local. Evidence: callers 0x00077BF8 0x002E5D62 0x002E698B; callees rowed pinned; vtable offsets 0x28 0x10.
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *fmt, ...);
 

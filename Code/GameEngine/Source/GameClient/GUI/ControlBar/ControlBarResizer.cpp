@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ResizerWindow constructor, retail 0x001DB6FD (31B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarResizer.cpp

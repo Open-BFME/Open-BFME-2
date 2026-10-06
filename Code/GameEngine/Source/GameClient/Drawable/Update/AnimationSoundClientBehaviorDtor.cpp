@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1AnimationSoundClientBehavior@@UAE@XZ @0x004C9DC9 80B
 // AnimationSound dtor: restores derived primary 0xC5EE80 plus +0x0C
 // 0xC5EE74, unlists this through the 0x00A032D0 container via rowed

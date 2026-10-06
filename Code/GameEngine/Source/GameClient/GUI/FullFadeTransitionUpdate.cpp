@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?update@FullFadeTransition@@UAEXH@Z
 // retail 0x0035F241, 114 bytes. Virtual slot 2 (offset 0x8) of vtable 0x0081663C,
 // the FullFadeTransition class (init 0x0035F1DF just landed from this TU family).

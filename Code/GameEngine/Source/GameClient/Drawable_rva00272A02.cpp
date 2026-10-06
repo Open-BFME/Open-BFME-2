@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00272A02@Drawable@@QAEX_N@Z, retail 0x00272A02, 54 bytes.
 // Flag plus broadcast: bit 2 at +0x114 follows the bool arg, then walk

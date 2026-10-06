@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 //
 // AttachedModelFXNugget slots (class and members as in
 // AttachedModelFXNuggetCtor.cpp: model name +0x148, randomly-rotate flag

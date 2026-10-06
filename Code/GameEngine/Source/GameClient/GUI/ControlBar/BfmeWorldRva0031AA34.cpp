@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0031AA34@BfmeWorldRV@@QAEXH@Z @ 0x0031AA34 23B: BfmeWorldRV flag set at
 // +0x28 then InGameUI slot47 call. Evidence: sibling 0x0031AA4B shares
 // +0x28/slot47 shape plus caller 0x002A38E9 plus rowed TheInGameUI.

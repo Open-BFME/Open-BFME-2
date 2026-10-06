@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00055041AsciiHash@@YGIPBVAsciiString@@@Z, retail 0x00055041 (28B).
 // Shard TU: AsciiString chars-or-empty forwarder into the STLport string
 // hash. The chars live 8 past the StringBase header (ref_count plus

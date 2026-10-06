@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0CameraShakerVolumeFXNugget@@QAE@XZ 76B @0x1E0714: no-arg ctor called by
 // CameraShakerVolumeFXNugget::parse (0x001E1595) for the CameraShakerVolume

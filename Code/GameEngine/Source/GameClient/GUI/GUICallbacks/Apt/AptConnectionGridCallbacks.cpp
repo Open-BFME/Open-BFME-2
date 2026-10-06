@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // The online connection grid's Apt callbacks "Connection::RedrawGrid",
 // 0x005DB647, and "Connection::OnRetryConnections", 0x005DB36A, bound as

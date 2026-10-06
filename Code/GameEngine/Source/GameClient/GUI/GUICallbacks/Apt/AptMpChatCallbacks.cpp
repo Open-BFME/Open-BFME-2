@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // BFME2's lobby chat panel Apt callbacks "AptMpChat::Send" (0x0057FDE0)
 // and "AptMpChat::InitGadgets" (0x0057FDEF), bound by those names as member

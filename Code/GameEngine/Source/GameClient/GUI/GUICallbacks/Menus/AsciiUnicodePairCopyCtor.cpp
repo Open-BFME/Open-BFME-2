@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 
 // Open-BFME5: compiler-generated copy ctor of a 0x20-byte record whose first
 // two members are AsciiString then UnicodeString, retail 0x004F97B0, 117 bytes.

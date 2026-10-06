@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD
+// cl: /EHsc /MD
 // ?setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z @0x0031C5C8 469B chain: ControlBar observer bar switch
 // Evidence: donor BFME1 ControlBar::setControlBarSchemeByPlayerTemplate (ButtonPlaceBeacon/IdleWorker/General statics, winGetWindowFromId NULL+id, FactionObserver compare, switchToContext 9/0, m_isObserverCommandBar +0x20c, winHide/winEnable, switchControlBarStage DEFAULT, hidePurchaseScience); callers none; manager callee 0x31FD0D now rowed.
 enum NameKeyType

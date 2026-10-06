@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ControlBar::updateRightHUDImage ported from the BFME1 donor
 // (reference/open-bfme-1/Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp).

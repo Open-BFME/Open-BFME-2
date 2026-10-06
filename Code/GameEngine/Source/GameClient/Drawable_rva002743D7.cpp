@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7
+// cl: /DNDEBUG /MD /EHsc /Oy-
 //
 // ?rva002743D7@Drawable@@QAEXXZ, retail 0x002743D7, 42 bytes.
 // Drawable audio-handle release plus opaque holder clear: TheAudio slot 0x6c

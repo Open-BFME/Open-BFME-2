@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // FontLibrary font-list maintenance, Zero Hour GameFont.cpp (BFME 1 donor
 // game/GameEngine/Source/GameClient/GUI/GameFont.cpp, same bodies):

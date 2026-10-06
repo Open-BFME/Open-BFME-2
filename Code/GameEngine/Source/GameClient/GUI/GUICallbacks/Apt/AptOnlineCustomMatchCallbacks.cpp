@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2's online custom match screen Apt callbacks, 0x0059EC65 onward,
 // bound by these names ("AptOnline::CustomMatch::PlayGame" ...) as member

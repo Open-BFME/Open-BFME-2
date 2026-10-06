@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME1 FX particle module parser transferred to the BFME2 parser-table
 // address.  The body is intentionally kept separate from the factory TU so
 // each exported parser has an independently verifiable boundary.

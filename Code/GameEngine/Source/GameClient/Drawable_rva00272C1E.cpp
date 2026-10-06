@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7
+// cl: /DNDEBUG /MD /EHsc /Oy-
 // ?rva00272C1E@Drawable@@QAE_NXZ retail 0x00272C1E 36 bytes.
 // OR-accumulate slotDC over null-terminated Elem array at +0x14C. Evidence: same +0x14C walk as neighbours Drawable_rva00272BE7 0x00272BE7 and Drawable_rva0027267D 0x0027267D; prev 0x00272BE7 same flags.
 class Elem

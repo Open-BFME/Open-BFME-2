@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?bfmeShowDisconnectScreen@@YAXXZ @0x00512DE1 104B: show DisconnectScreen.apt unless up.
 // Target evidence: g_Va00A048CC jne ret then g_Va00E05FAC int-as-receiver method 0x0054CBEF then Rva004E400DEnable Rva004E855CClose Rva0051B11CEnable then TheInGameUI slot 0x178 with 1 then TheWindowManager slot 0x80 with DisconnectScreen.apt then slot 0 with 0; caller turnOnScreen 0x004D4179.
 #include "ascii_string.h"

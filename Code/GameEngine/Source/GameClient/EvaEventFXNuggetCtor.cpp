@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0EvaEventFXNugget@@QAE@XZ 46B @0x1DFFFA: no-arg ctor called by
 // EvaEventFXNugget::parse (0x001E12AD) for the EvaEvent FXList keyword;

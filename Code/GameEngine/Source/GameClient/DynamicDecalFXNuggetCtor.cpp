@@ -1,5 +1,5 @@
 // ??0DynamicDecalFXNugget@@QAE@XZ
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0DynamicDecalFXNugget@@QAE@XZ 147B @0x1E0429: no-arg ctor called by
 // DynamicDecalFXNugget::parse (0x001E149D) for the DynamicDecal FXList

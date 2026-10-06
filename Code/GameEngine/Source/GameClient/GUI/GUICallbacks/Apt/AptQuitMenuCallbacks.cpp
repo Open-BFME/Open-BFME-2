@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's in-game quit menu Apt callbacks, 0x0051AFB9 onward, bound by
 // these names ("AptQuitMenu::RestartMission" ...) as member pointers by the

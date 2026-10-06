@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 // Target Ghidra [5EE11E,5EE250),306B; thiscall RET4.
 // Native literals identify the consumed APT operation SetPlayerCount and
 // PlayerIcon%d removal followed by clearing PlayerName/NumRegions/NumUnits.

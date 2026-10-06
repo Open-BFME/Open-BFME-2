@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?fadeIn@Drawable@@QAEXI@Z @0x002707A8 82B, ?fadeOut@Drawable@@QAEXI@Z @0x00270756 82B.
 // BFME2 Drawable fade pair transferred from BFME1 donor

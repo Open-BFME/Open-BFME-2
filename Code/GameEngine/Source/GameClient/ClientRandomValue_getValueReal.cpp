@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?GetGameClientRandomValueReal@@YAMMMPADH@Z @ 0x00234111 (72B) trial port
 // from Open-BFME-1 Code/GameEngine/Source/Common/System/random_value.cpp
 // (69B). Dedicated TU so GameClientRandomVariable::getValue keeps its

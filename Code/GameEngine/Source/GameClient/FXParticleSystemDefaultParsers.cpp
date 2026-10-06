@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME1 DefaultModuleTemplate parser wrappers transferred to BFME2.  Each
 // specialization preserves the retail table address while sharing the
 // established INI::initFromINI call shape.

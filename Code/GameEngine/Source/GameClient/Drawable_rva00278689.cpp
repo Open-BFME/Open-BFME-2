@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00278689@Drawable@@QAE_NABVAsciiString@@_N1@Z, retail 0x00278689, 80 bytes.
 // Drawable find-DrawModule-by-tag via TheNameKeyGenerator, matching the +0x14C

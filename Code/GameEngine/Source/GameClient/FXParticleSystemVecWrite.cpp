@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0055CE92Write@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABUVec001F8810@@@Z at 0x0055CE92 size 24
 // Evidence: chain lane via 0x001F89E2; conditional Vec write skipping zero IsZero 0x0055CCEF on +0x14 then tail-jmp Write; neighbours are parsers in same dir.
 

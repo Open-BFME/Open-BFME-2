@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
 // ?setControlBarSchemeByPlayerTemplate@ControlBarSchemeManager@@QAEXPBVPlayerTemplate@@_N@Z @0x0031FD0D 316B unlock: ControlBarSchemeManager side selection by PlayerTemplate side
 // Evidence: donor BFME1/ZH ControlBarSchemeManager::setControlBarSchemeByPlayerTemplate (Small/Observer/Default literals, compare vs compareNoCase, Display width/height over res, findControlBarScheme Default fallback, init tail); callers at 0x31ADF9 0x31C5E7; unblocks 0x31C5C8; layout m_currentScheme+0 m_multiplyer+4 list+0xC from ControlBarScheme init TU; callees rowed StringBase copy/concat/compare/compareNoCase/set/releaseBuffer init find.

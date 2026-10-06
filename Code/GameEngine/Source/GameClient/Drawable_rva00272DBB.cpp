@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00272DBB@Drawable@@QAEXPAVObject@@@Z, retail 0x00272DBB, 51 bytes.
 // Guarded draw-module walk: when the Object arg is non-null and

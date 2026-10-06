@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // FX nugget doFXPos/doFXObj slot bodies (classes, member offsets and type ids
 // as in their ctor units; behaviour follows Zero Hour's FXList.cpp). Kept out

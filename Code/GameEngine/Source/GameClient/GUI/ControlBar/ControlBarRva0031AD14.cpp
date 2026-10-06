@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0031AD14@ControlBar@@QAEXHHHHH@Z @ 0x0031AD14 52B: ControlBar 5-dword
 // store to +0x218..+0x228. Evidence: gap between 0x0031ACF5 and 0x0031AE13
 // plus callers 0x0031E94C and 0x0031ED2C plus EBP frame with ret 0x14.

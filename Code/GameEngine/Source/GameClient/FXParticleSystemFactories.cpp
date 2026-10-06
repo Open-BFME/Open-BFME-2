@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2
+// cl: /EHsc
 #include <memory>
 
 // The module factories, split out of FXParticleSystemModules.cpp for one flag.

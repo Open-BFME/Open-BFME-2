@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 #include "ascii_string.h"
 
 // ??0BfmeQuickMatchScreenBase@@QAE@XZ, retail 0x00538C0E, 81 bytes.

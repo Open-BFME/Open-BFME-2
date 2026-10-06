@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2's online shell screen Apt callbacks, 0x00516EC0 onward, bound by
 // these names ("AptOnline::Options", "AptOnline::ShellExit") as member

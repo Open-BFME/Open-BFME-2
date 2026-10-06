@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /G7
+// cl: /DNDEBUG /MD
 // ?rva0031AEFF@Rva0031AEFF@@QAEXXZ @0x0031AEFF 85B: blink countdown at +0x294 with flag +0x290 and window +0x298; modulo 15 toggles winEnable via winGetStatus bit3. Evidence: packet disasm with rowed winEnable 0x00313BEC and pinned winGetStatus 0x0030F45F at same ICF address as getName rows.
 class GameWindow
 {

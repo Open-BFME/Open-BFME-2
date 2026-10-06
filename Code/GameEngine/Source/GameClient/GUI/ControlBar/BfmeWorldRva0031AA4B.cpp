@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0031AA4B@BfmeWorldRV@@QAEXH@Z @ 0x0031AA4B 59B: BfmeWorldRV flag set at
 // +0x28 then InGameUI slot70 check with slot47/slot55 calls. Evidence:
 // caller 0x0029F34F passes g_bfmeWorldRV as this plus rowed TheInGameUI.

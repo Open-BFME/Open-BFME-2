@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?setSelectable@Drawable@@QAEX_N@Z 0x00271700 69B
 // Drawable::setSelectable transferred from BFME1 donor
 // reference/open-bfme-1/game/GameEngine/Source/GameClient/Drawable.cpp:4436

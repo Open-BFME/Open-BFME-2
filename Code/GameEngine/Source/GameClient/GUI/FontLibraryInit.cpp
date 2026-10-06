@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 // stlport
 //
 // ?init@FontLibrary@@UAEXXZ, retail 0x00217561, 89 bytes.

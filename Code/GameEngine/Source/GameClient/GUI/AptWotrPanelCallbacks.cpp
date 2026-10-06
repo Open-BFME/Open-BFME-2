@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Apt callbacks of two War of the Ring in-game panels, bound as member
 // pointers under "<movie>_On..." names (the movie name each constructor is

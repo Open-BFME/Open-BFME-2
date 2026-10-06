@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?doFXObj@EvaEventFXNugget@@UBEXPBVObject@@0@Z 118B @0x001E0028: slot 2 of
 // the EvaEventFXNugget vtable 0x00BDD754 (class and the owner/ally/enemy

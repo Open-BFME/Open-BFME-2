@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // Small OnInitialized / Continue Apt callbacks of four BFME2 screens, each
 // bound by the name it carries ("AptMessenger::OnInitialized" ...) as a

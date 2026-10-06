@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0031AFDE@Rva0031AFDE@@QAEHXZ @0x0031AFDE 83B: toggle int at +0x29c between 0 and 1 then MSG 0x3ec bool true then InGameUI slot 0x110 then return field. Evidence: packet disasm with rowed appendBoolean 0x0030F963 and globals MessageStreamSubsystem TheInGameUI.
 class GameMessage
 {

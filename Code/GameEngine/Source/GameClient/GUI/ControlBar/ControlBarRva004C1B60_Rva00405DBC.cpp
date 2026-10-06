@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/ControlBar
+// cl: -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/ControlBar
 // Retail RVA 004C1B60 /156. Named UI callers establish the ControlBar
 // receiver (the BfmeConv1022 caller loads VA012F33F8/TheControlBar); the method and temporary adapter retain address-derived names.
 // The adapter installs vtable VA10FD964 with six slots. Its base table

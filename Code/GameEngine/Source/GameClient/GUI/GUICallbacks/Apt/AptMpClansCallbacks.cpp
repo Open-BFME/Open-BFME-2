@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's lobby clans panel (the MpGameSetup panel's +0x190 member) Apt
 // callbacks "AptMpClans::WebSite" (0x0057F41A) and "AptMpClans::InitGadgets"

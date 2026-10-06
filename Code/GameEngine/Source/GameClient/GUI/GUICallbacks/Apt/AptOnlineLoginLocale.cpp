@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2's online login screen Apt callback "AptOnline::Login::AcceptLocale",
 // 0x00572571, bound by that name as a member pointer by the screen's

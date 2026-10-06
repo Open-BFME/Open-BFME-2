@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0027290C@Drawable@@QAEXH@Z @ 0x0027290C (35B): Drawable first-module
 // setter: stores key at +0x44C then forwards it via module slot 0x5C.
 // ?rva00272870@Drawable@@QAEXH@Z @ 0x00272870 (37B): guarded twin at +0xA8

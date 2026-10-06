@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00272A38@Drawable@@QAEXXZ retail 0x00272A38 25 bytes.
 // Void walk over null-terminated Elem array at +0x14C calling slot34. Evidence: same +0x14C walk as neighbour Drawable_rva00272A02 0x00272A02; prev 0x00272A02 same flags.
 class Elem

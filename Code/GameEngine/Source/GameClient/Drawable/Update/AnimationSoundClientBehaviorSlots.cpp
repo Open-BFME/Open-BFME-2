@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Three AnimationSoundClientBehavior overrides that hand the object to the
 // container g_004C9DC9Container (0x00E032D0, the one its matched dtor

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 //
 // ?openFile@FileSystem@@QAEPAVFile@@PBDHH@Z, retail 0x00600C34, 329 bytes.
 // BFME2 lang-aware open: gate, archive lang "%s\%s" + "lang\%s\%s"/English,

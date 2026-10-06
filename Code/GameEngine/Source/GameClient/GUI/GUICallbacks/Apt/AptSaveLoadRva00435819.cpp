@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Address-derived AptSaveLoad callback at 0x00435819 (738 bytes). The
 // retail body reads the filename text entry at +0x290, game list +0x288,

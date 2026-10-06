@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 //
 // ??0FunctorBindingSingle@@QAE@P8FunctorTargetSingle@@AEXXZPAV1@@Z
 // retail 0x005C39B2, 18 bytes. Dedicated TU ported from the Open-BFME-1 donor

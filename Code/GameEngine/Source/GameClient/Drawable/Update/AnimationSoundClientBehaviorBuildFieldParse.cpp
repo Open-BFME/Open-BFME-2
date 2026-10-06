@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Client-side Drawable behavior ModuleData::buildFieldParse procs.
 //

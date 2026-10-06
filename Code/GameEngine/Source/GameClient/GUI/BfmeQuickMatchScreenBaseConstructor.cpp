@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: BfmeQuickMatchScreenBase's constructor, retail 0x00470620, 86
 // bytes. The body carried only a machine byte-dump row; reverse/reloc_names.csv

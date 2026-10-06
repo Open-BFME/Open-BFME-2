@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE2 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // BFME 2 map-picture loader at RVA 0x0057CDC3, 328 bytes.
 // The bfme names describe recovered behavior, not original source spellings.
 // Caller 0x0057D10F passes MapMetaData+0x50, owns the returned Image at

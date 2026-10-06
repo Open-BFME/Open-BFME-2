@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs-
 //
 // BFME2's online login screen link buttons "AptOnline::Login::OfficialSite",
 // "::GameSpy" and "::ServiceTerms", 0x0056E998 onward, bound by those names

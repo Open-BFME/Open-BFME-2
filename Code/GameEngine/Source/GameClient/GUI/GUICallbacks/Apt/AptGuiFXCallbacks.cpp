@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2's GuiFX screen Apt callback "AptGuiFX::OnInitialized", a static
 // callback bound by that name through the holder 0x0023E8D8 by the

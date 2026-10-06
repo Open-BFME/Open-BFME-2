@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD
+// cl: /GX /MD
 //
 // BFME2's online quick match screen Apt callbacks
 // "AptOnline::OnlineQuickMatch::WidenSearch" (0x005BAA2B) and "::Cancel"

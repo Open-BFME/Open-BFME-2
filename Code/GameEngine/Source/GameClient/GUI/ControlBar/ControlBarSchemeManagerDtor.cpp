@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/ini_bfme2 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Include /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/ini_bfme2 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Include /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 // ??1ControlBarSchemeManager@@QAE@XZ, retail 0x003204D9, 101 bytes. Manager dtor: deletes each scheme via rowed Rva0031FAF0 dtor then clears list at +0xC and nulls current at +0x0.
 // Evidence: donor ZH ControlBarSchemeManager::~ControlBarSchemeManager; deleting-dtor caller at 0x0031AA18; layout m_currentScheme+0x0 multiplyer+0x4 list+0xC from ControlBarScheme.cpp init TU; callees rowed 0x32002C 0x2FD60 0x23DAA5 0x4EC395.

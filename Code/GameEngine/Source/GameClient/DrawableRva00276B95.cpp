@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?rva00276B95@Drawable@@QAEXXZ, RVA 0x00276B95, 20B. Unlock lane: flag
 // byte at +0x43C via lea plus cmp-je early-out then clear plus tail-jmp to

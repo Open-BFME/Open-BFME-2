@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002725E7@Drawable@@QAEHH@Z retail 0x002725E7 54 bytes.
 // Scan null-terminated Elem array at +0x14C: e = elem->slotA8; if e then v = e->slot9C(a); if v return v else next. Evidence: same +0x14C walk and slot 0xA8 as neighbour Drawable_rva002725B1 0x002725B1 but second slot 0x9C with 1 arg; prev 0x002725B1 same flags.
 class Elem2

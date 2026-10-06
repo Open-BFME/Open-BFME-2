@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's messenger screen Apt callbacks "AptMessenger::OnButtonSend",
 // "AptMessenger::OnBttn_0" and "AptMessenger::OnBttn_1", bound by those

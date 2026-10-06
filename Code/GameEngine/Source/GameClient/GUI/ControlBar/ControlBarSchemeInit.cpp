@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /G7 /arch:SSE /MD
+// cl: /Ireference/shims/bfme2_ascii /Oy- /MD
 // ?init@ControlBarScheme@@QAEXXZ
 // Native boundary: Ghidra FUN_0071ed2c, 0x0031ED2C..0x0031F743 (ret at F742).
 // Donor: Open-BFME-1 6583b3c1ff21db4a561285717028fdafc780b7db,

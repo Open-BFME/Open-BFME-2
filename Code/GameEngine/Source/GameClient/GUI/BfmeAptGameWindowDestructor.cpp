@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // BFME1 donor6583b3c1ff21db4a561285717028fdafc780b7db:
 // game/GameEngine/Source/GameClient/GUI/Rva00465430AptGameWindowDestructor.cpp.
 // Donor supplies the two-base/string teardown structure. Target5126F5/90B

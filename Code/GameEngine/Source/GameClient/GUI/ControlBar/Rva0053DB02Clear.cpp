@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0053DB02@Rva0053DB02@@QAEXXZ @0x0053DB02 43B
 // __thiscall clearing 32 GameWindow slots at +0xDC via rowed Rva003284ED with 0
 // plus int array at +0x15C. Evidence: push 0x20 pop edi loop with esi from ecx+0xDC

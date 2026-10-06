@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ?rva00272AD5@Drawable@@QAEPAVObject@@XZ, retail 0x00272AD5, 214 bytes.
 // A Drawable member (callers at 0x00278A38, 0x00278B6C and 0x00278BFA in

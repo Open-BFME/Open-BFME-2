@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Apt callbacks of the War of the Ring icon slot widgets, bound as member
 // pointers under "<movie>_On..." names (a movie name plus a fixed suffix)

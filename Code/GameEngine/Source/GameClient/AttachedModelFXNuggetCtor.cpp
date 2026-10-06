@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0AttachedModelFXNugget@@QAE@XZ 46B @0x1E084A: no-arg ctor called by
 // AttachedModelFXNugget::parse (0x001E168D) for the AttachedModel FXList

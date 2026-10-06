@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003F7954@Rva003F7954@@QAEXXZ @0x003F7954 40B
 // Reset for the Eva bucket owner: clears table at +8 via rowed 0x003A2A41
 // then zeroes +0x1C and sets +0x20/+0x24/+0x28 to 1.0f from 0x00BBB8D8.

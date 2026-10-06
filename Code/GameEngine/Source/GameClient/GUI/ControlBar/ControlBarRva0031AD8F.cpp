@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // Retail thunk at 0x0031AD8F (5B) calls the matched free enabler at
 // 0x0043C96F. RET at 0x0031AD8E and the next start at 0x0031AD94
 // corroborate the thunk inventory extent; its JMP targets that provider.

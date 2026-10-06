@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's Bink movie window Apt callback "_CallOnLastFrame", a free
 // function bound by that name through the holder 0x0023E8D8 by the movie

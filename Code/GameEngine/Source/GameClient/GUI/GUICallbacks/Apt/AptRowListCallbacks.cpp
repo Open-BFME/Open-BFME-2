@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Apt callbacks of a list of up to eight row movies (destructor 0x005105D7,
 // so the class keeps the name its rowed deleting destructor gives it). Its

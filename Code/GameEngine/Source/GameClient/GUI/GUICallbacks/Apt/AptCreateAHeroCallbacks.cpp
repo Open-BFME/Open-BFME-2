@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // BFME2's create-a-hero screen Apt callbacks, 0x00513A47 onward, bound by
 // these names ("AptCreateAHero::PrepareToTakePicture" ...) as member

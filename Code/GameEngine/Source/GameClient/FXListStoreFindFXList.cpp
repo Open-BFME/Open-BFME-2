@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Oy- /DNDEBUG /MD /GX-
 //
 // ?findFXList@FXListStore@@QBEPBVFXList@@PBD@Z,
 // retail 0x001E281A, 69 bytes. Dedicated TU.

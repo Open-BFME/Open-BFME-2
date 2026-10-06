@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7
+// cl: /DNDEBUG /MD /EHsc /Oy-
 //
 // ?rva0027675F@Drawable@@QAE?AVRva002390CB@@H@Z, retail 0x0027675F (166B):
 // a keyed Drawable lookup returning an Rva002390CB record by value. Key -1

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?rva00538AB0@BfmeQuickMatchScreenBase@@UAEX_N@Z, retail 0x00538AB0, 44 bytes.
 // Slot 4 (offset 0x10) of vtable 0x00839608 installed by the rowed ctor

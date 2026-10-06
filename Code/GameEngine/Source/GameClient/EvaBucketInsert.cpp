@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003F78A9@Rva000427195@@QAEPAV<out>@@PAXPBVAsciiString@@@Z @0x003F78A9 124B
 // Hash-table find-or-insert for the Eva bucket map. Evidence: calls rowed
 // bucketIndex 0x00223149, rowed StringBase compare 0x000069D6 and the just

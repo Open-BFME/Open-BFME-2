@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00270FAC@Drawable@@QAEX_N@Z @0x00270FAC 66B
 // Drawable broadcast over draw modules at +0x14C via slot 0xA8 to slot 0x54 with int from +0x454 gated by flag at +0x3AA.
 // Evidence: callers 0x003C36C0 0x003C36FE call Thing::getDrawable (ICF twin at 0x005508E2) then this; same +0x14C/0xA8 walk as Drawable_rva002724FD 0x002724FD; Drawable+0xFC is object (InGameUI_selectMatchingAcrossMap); honest Drawable method name.

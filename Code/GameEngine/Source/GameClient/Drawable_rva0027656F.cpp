@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva0027656F@Drawable@@QAEXHVAsciiString@@@Z, retail 0x0027656F, 101 bytes.
 // Drawable broadcaster over draw modules at this+0x14C via slot 0xA8

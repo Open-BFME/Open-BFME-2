@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7
+// cl: /DNDEBUG /MD /EHsc /Oy-
 //
 // ?rva00272BE7@Drawable@@QAEXXZ @0x00272BE7 (55B):
 // Drawable dual null-terminated walk: draw modules at +0x14C via slot 0x70

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2's strategic (War of the Ring) player status screen Apt callbacks,
 // "StrategicPlayerStatus::OnCloseWindow" (0x00523481) and two Apt queries,

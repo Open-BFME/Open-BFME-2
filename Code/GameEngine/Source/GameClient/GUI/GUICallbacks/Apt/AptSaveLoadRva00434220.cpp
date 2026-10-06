@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Target evidence at 0x00434220: chooses a localized multiplayer save-denied
 // message, displays it with the SaveGameProgress title, then sets screen state
 // +0x27C to 22. The neighboring AptSaveLoad callbacks establish the screen.

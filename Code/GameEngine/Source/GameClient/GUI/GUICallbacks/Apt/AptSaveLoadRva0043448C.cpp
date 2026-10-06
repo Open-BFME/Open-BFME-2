@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail 0x0043448C checks the selected saved-game name through the
 // Rva0037BBED object and chooses state 17 or the existing state helper.
 #include "unicode_string.h"

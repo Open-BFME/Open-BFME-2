@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva003F7BB4@Rva003F7BB4@@QAEXABURva003F7B22Element@@@Z @0x003F7BB4 8B
 // Tail-jmp forwarder adding 0x2c then calling rowed vector push_back 0x003F7B22.

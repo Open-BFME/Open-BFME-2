@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0057FA1C@AptMpClans@@QAEXVUnicodeString@@@Z @0x0057FA1C 148B: clan setter with toUpper trim length check via Ascii conversion plus prefs write.
 // Evidence: chain from just-landed clan add 0x005CAE04; prefs at +0x58 clan at +0xAC same TU; wide toUpper 0x375E0 trim 0x37F70 AsciiFromUnicode 0x38250 write vslot 3 clan text 0x57F7AC pin; callers 0x57FCD8 0x57FD34.
 #include "unicode_string.h"

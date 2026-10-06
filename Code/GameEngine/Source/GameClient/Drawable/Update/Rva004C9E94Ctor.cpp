@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva004C9E94@@QAE@ABVRva0036CA00Str@@PBHMABVWeaponTemplateSetHead@@2@Z @0x004C9E94 95B
 // ctor with 5 args: Rva0036CA00Str ref +0x8, int ptr +0xC, float +0x10,
 // WeaponTemplateSetHead refs +0x14/+0x18. Members +0 int, +4 str, +8 float,

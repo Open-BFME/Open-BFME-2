@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003F797C@Rva000427195@@QAEPAXPAXPBVAsciiString@@@Z @0x003F797C 36B
 // Ensure-capacity wrapper over the Eva bucket find-or-insert. Evidence: calls
 // pin-only resize 0x00212858 with size+1 then rowed 0x003F78A9; same table

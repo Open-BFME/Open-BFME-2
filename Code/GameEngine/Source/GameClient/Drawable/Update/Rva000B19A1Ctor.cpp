@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0Rva000B19A1@@QAE@PAVThing@@PBVModuleData@@@Z at retail 0x000B19A1
 // (26B). Dedicated TU (its base-callers live elsewhere; its own base,

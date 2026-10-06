@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 // ?rva005D14C0@Rva005D14C0@@QAEXXZ @ 0x005D14C0, 86 bytes.
 // Target evidence: the body begins at 0x005D14C0 and returns at 0x005D1515.
 // It invokes the row-view fade/dispatch helper at 0x005D13C2, reads the

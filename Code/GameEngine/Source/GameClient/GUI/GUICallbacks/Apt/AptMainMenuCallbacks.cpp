@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // BFME2's main menu screen Apt callbacks, 0x00514A9B onward. The screen's
 // registration binds each by the name it carries here ("AptMainMenu::

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?draw@ControlBarArrowTransition@@UAEXXZ @0x0035D924 221B: vslot draw slot 4 offset 0x10 of vtable 0x00816530.
 // Evidence: same vtable as matched ControlBarArrow update 0x0035D75D slot 2; observed init 0x0035D83E slot 1
 // plus reverse 0x0035D1BD slot 3 (clears +0x08/+0x09) plus skip forwarder 0x0035D781 slot 6.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // BfmeAptScreenBase constructor at retail 0x00477BC0 (210B).
 
 class WinInstanceData

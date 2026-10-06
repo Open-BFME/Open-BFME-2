@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME1 hemispherical velocity-template constructor transferred to BFME2.
 // The three subobjects retain their BFME2 retail vtables after the spherical
 // base constructor runs.

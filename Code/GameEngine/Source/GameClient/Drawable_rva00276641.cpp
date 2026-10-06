@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00276641@Drawable@@QAE_NPAVUnicodeString@@@Z, retail 0x00276641 109B.
 // Drawable wide-label fetch via rowed 0x00274CB2 Ascii slot plus TheGameText

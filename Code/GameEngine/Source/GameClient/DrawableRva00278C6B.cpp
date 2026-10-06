@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva00278C6B@Drawable@@QAEXXZ @0x00278C6B 17B: Drawable flag check at +0x44B,
 // calls pinned Host 0x002783F6 with 0 when set. Evidence: packet disasm,

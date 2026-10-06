@@ -1,6 +1,6 @@
 // ?rva0031AF54@Rva0031AF54@@QAEX_N@Z
 // partial score=0.92 date=2026-09-30
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0031AF54@Rva0031AF54@@QAEX_N@Z @0x0031AF54 120B: search 10-window list at +0xA8 count +0xD0 for first with userData then animate via manager +0x14 and window +0xD8. Evidence: packet disasm with rowed winGetUserData 0x005C4ACD and registerGameWindow 0x0053B843 reverseAnimateWindow 0x0053B417 and virtual slot 9 at +0x24.
 class GameWindow
 {

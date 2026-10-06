@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0031AEAE@ControlBar@@QAEXPAH0@Z @ 0x0031AEAE 27B: ControlBar copy
 // +0x288/+0x28C to out params. Evidence: gap between 0x0031AE13 and
 // 0x0031AEC9 plus caller 0x0009FA82 plus ret 8 two-pointer shape.

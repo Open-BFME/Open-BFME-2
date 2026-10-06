@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // BFME2's disconnect screen Apt callbacks "AptDisconnectScreen::Kick"
 // (0x00512D55; votes to kick the player in the given slot),

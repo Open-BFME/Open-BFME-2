@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /G7 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's online shell Apt callbacks "AptOnline::ShellUnloadScreen",
 // 0x005171A3, and "AptOnline::ShellLoadScreen", 0x00517724, bound by those

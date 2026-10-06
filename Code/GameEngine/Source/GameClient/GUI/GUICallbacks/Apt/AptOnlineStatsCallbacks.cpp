@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2's online stats screen Apt callback "AptOnline::Stats::CurrentTab",
 // 0x005B8F04, bound by that name as a member pointer by the screen's

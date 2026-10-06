@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00272393@Drawable@@QAEXH@Z, retail 0x00272393, 45 bytes.
 // Draw-module walk at this+0x14C via slot 0xA8, forwarding int arg to

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /G7 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?init@CountUpTransition@@UAEXPAVGameWindow@@@Z @0x0035F739 349B: virtual slot 1 of vtable 0x0081667C, CountUpTransition::init. Ported from Open-BFME-1 GameWindowTransitionsStyles.cpp CountUpTransition::init; winGetSize winGetScreenPosition winIsHidden early-out, GetText set, virtual update startFrame, translate atoi countState frameLength MIN, format SetText. Evidence: vslot slot1 plus donor plus rows winGetSize winGetScreenPosition winIsHidden GetText translate atoi plus prev CountUpTransitionDestructorThunk next CountUpTransitionUpdate.
 #include "ascii_string.h"
 #include "unicode_string.h"

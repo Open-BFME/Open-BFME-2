@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail RVA 0x0057C8D1, 205 bytes. AptMapPreview is anchored by its
 // registered callback names; member and APT manager names describe recovered
 // behavior because their original spellings are unknown.

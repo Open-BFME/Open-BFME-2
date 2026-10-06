@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 
 struct Coord2D
 {

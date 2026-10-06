@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
 // ?setControlBarScheme@ControlBarSchemeManager@@QAEXVAsciiString@@@Z @0x0031FC6A 163B
 // Evidence: BFME1 donor ControlBarScheme.cpp ControlBarSchemeManager::setControlBarScheme(AsciiString) (find + Display w/h over res + store + init, no assert in retail); caller at 0x0031BA80 passes ControlBar+0x44; callee findControlBarScheme AsciiString pin 7520 at 0x0031FC08 (ICF alias onto StringBase row) + init row 0x0031ED2C + TheDisplay; layout m_currentScheme+0 m_multiplyer+4 list+0xC from setControlBarSchemeByPlayerTemplate TU; shape-lever AsciiString inline forwarder fixes mov-ecx-esp transposition.

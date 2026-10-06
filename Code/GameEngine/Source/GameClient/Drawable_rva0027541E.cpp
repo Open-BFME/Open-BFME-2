@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c- /G7 /arch:SSE
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva0027541E@Drawable@@QAEXPBURGBColor@@III@Z @0x0027541E 114B evidence: lazy TintEnvelope at +0x68 via rowed new 0x2FDA0 and ctor 0x271826, TintEnvelope::play 0x2744F2 row, float 1.0f via g_Va00BBB8D8, clears bit 2 at +0x114; neighbours Rva00275376/Drawable_rva00275545 same flags.
 struct RGBColor
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // CommandButton::isReady(const Object *), retail 0x0035B069 (135 bytes),
 // pinned. Zero Hour's body (GameClient/GUI/ControlBar/ControlBar.cpp) with

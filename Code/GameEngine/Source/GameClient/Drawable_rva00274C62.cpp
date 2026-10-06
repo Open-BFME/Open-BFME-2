@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00274C62@Drawable@@QAE_NPAVAsciiString@@@Z, retail 0x00274C62, 38 bytes.
 // Drawable AsciiString slot at this+0x348 via rowed isEmpty plus rowed set.

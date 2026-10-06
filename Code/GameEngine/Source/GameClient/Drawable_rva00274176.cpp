@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7
+// cl: /DNDEBUG /MD /EHsc /Oy-
 //
 // ?rva00274176@Drawable@@QAEX_N@Z, retail 0x00274176, 104 bytes.
 // Drawable apply-pending over condition state at this+0x258 via rowed helper

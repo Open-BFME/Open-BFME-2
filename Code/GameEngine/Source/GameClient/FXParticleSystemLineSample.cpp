@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE2
+// cl: /MD
 // ?rva0055CDEC@Rva0055CDEC@@QAE?AUCoord3D0055CDEC@@IIII@Z at 0x0055CDEC size 166
 // Evidence: vslot slot7 of 0x0081D02C and 0x0081C750 Line info; lerp between +0x24 and +0x30 with random 0-1 file fxpsemitterlinevolumemodule.cpp line 0x72; pattern from Box slot6 Rva005F8890.
 

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 //
 // BFME2's global Apt queries, free functions bound by these names
 // ("InBetaDemo", "InGame", "DoTrace" ...) through the free-function holder

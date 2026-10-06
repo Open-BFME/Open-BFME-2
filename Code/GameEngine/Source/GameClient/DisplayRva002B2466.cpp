@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?rva002B2466@Display@@QAEXMMMM@Z, RVA 0x002B2466, 138 bytes.
 // Display method scaling four normalized floats by the display dimensions.

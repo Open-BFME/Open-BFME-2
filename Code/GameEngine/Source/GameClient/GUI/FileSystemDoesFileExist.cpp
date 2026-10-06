@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 //
 // ?doesFileExist@FileSystem@@QBE_NPBD@Z, retail 0x00600D7D, 189 bytes.
 // Dedicated TU. BFME2 checks a path gate, local (+0xC), archive (+0x14),

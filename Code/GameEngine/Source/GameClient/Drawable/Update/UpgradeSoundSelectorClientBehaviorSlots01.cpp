@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Slots 0 and 1 of the vtable 0x00BEFEA4 that UpgradeSoundSelectorClientBehavior's
 // ctor 0x00252CB5 installs at +0x0C (slot 2 is UpgradeSoundSelectorClientBehaviorSlot2.cpp),

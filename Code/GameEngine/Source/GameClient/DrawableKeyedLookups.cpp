@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7
+// cl: /DNDEBUG /MD /EHsc /Oy-
 //
 // Twenty-three keyed Drawable lookups, each 25 bytes: forward the hidden
 // return pointer and a constant key (0x21..0x37) to the Drawable member at

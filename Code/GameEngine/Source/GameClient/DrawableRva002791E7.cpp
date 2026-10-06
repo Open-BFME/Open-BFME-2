@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002791E7@Drawable@@QAEXABVModelConditionFlags@@II@Z @0x002791E7 296B.
 // BFME 1 donor naming: Drawable::replaceModelConditionState in
 // reference/open-bfme-1/game/GameEngine/Source/GameClient/DrawableVisualState.cpp.

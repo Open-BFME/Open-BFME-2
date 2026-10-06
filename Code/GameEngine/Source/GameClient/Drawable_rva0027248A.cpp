@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0027248A@Drawable@@QAEXHH@Z, retail 0x0027248A, 58 bytes.
 // Guarded broadcaster: when the +0xFC pointer is set, walk the +0x14C draw

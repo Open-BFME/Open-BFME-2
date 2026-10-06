@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2's online quick match screen Apt callbacks, 0x005BA344 onward, and
 // the login screen's CancelLogin, bound by these names

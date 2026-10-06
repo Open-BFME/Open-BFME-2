@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?update@CountUpTransition@@UAEXH@Z @0x0035F896 337B: virtual slot 2 of vtable 0x0081667C, CountUpTransition::update. Ported from Open-BFME-1 GameWindowTransitionsStyles.cpp CountUpTransition::update; range-check start +0x10 end +0x14, start/end hide blocks, frameLength +0x04 hide, counting block with current +0x38 countState +0x3c intValue +0x34 drawState +0x28 format via g_Va007C9260 SetText, final fullText +0x2c SetText. Evidence: vslot slot2 like FullFade/TextOnFrame update rows plus donor plus callers none plus prev/next CountUpTransitionDestructorThunk.
 #include "ascii_string.h"
 #include "unicode_string.h"

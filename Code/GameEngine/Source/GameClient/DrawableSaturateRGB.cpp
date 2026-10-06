@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?saturateRGB@Drawable@@QAEXAAURGBColor@@M@Z retail 0x002701A8, 76 bytes: the
 // Zero Hour Drawable.cpp body, which a /G7 /arch:SSE build places uniquely.

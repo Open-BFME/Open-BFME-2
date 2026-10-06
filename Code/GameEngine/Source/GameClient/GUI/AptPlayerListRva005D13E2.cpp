@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 // ?rva005D13E2@Rva005D13E2@@QAEXXZ @ 0x005D13E2, 201 bytes.
 // Target evidence: PE RVA 0x005D13E2 begins with push ecx and returns at
 // 0x005D14AA; 0x005D14AB begins the next body. The method counts the pointer

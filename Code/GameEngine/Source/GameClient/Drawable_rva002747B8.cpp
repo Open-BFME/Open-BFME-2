@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva002747B8@Rva002747B8@@QAEXMMM@Z @0x002747B8 65B
 // Subobject at caller+0x8c (0x50B alloc at 0x00276BBD via ctor 0x00271826):

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva002786D9@Drawable@@QAEXPAVXfer@@@Z, retail 0x002786D9, 400 bytes.
 // Drawable xferDrawableModules: version via rowed Version1 0x000053EE then
 // IsStoring then UShort count at +0x14C array (3 types) then per-module

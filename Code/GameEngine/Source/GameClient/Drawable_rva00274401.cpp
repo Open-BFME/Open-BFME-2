@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7
+// cl: /DNDEBUG /MD /EHsc /Oy-
 //
 // ?rva00274401@Drawable@@QAEXXZ, retail 0x00274401, 68 bytes.
 // Drawable conditional reset plus array notify: if +0x44a flag set clear it

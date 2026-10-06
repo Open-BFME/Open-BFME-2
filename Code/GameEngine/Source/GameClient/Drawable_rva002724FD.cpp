@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7
+// cl: /DNDEBUG /MD /EHsc /Oy-
 //
 // ?rva002724FD@Drawable@@QAEXABVAsciiString@@HHMM@Z, retail 0x002724FD, 72 bytes.
 // Drawable broadcaster over draw modules at this+0x14C via non-const

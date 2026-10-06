@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's LAN lobby screen: the per-slot option setters and their siblings
 // that the lobby's callback vftable at 0x00C3E098 holds (slot 12 is

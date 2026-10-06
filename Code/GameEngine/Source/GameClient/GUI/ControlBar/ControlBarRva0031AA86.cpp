@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0031AA86@ControlBar@@QAEHXZ @ 0x0031AA86 152B: ControlBar ButtonGeneral
 // refresh via TheWindowManager->winGetWindowFromId(NULL,
 // TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonGeneral")) then

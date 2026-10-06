@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0031AE01@ControlBar@@QAEXXZ @ 0x0031AE01 18B: ControlBar set +0x24 to 3
 // then +0x48 window winHide(true). Evidence: gap between 0x0031AD48 and
 // 0x0031AE13 sharing +0x24 layout plus caller 0x0031B99A plus rowed winHide.

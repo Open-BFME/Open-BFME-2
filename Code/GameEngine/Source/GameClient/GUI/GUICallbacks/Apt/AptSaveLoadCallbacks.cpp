@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // BFME2's save/load screen Apt callbacks, 0x00433DB1 onward, bound by these
 // names ("AptSaveLoad::OnClosed" ...) as member pointers by the screen's

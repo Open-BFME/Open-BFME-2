@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // BFME2's online home screen Apt callbacks, bound as member pointers by
 // the screen's registration under three spellings of its name

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's options screen Apt callbacks "AptOptions::RefreshNat",
 // 0x005182AB, and "AptOptions::EnterAdvancedSettings", 0x0051889D, bound by

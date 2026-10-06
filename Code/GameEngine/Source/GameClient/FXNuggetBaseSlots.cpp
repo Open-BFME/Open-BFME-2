@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // The two concrete slots of the FXNugget-family base vftable 0x00BDC940
 // (tools/vftable_map.py: ~dtor, purecall, 0x001DFF1F, purecall, 0x001DFF5D),
 // inherited unchanged by the nugget vftables (EvaEvent 0x00BDD754, Sound

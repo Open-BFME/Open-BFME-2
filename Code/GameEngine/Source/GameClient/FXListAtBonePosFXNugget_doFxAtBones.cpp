@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 
 enum { MAX_BONE_POINTS = 40 };
 

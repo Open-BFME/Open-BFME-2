@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva00077BF8Get@@YG_NABVAsciiString@@PBD@Z @0x00077BF8 33B: FileSystem existence wrapper extracting str with empty fallback then forwarding to 0x00600E3A. Evidence: callers 0x00077C19 0x00077E05 0x002E5D62; callee rowed; empty global g_Rva0107301CEmptyString.
 #include "ascii_string.h"
 extern const char g_Rva0107301CEmptyString[];

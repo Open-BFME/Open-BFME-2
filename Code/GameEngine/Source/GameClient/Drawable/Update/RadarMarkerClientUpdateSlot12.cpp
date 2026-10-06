@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?clientUpdate@RadarMarkerClientUpdate@@UAEXXZ, retail 0x004C9CF7, 128 bytes.
 // Slot 12 of the vtable 0x00C5EDB8 that the matched RadarMarkerClientUpdate

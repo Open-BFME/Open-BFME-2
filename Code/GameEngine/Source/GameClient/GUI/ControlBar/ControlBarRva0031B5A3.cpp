@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva0031B5A3@ControlBar@@QAEXPBVPlayer@@@Z @0x0031B5A3 106B ControlBar arrow group refresh for local player.
 // Evidence: isLocalPlayer rowed 0x002A9D89; money via ThePlayerList 0x009FEEE8 plus 0x10 plus 0x24 vs +0x27C; TheTransitionHandler 0x00DFDC14 null plus TheInGameUI 0x009FEDF0 bytes 0x15 0x16; ControlBarArrow literal via rowed StringBase ctor 0x00037BA0 plus setGroup rowed 0x001DC252; sets +0x278 and +0x28; callers 0x002A9F95 0x002A9FED 0x002A9FFE; neighbours share /O1.
 #include "ascii_string.h"

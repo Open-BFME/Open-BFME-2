@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Target boundary 0x0025C378/25 (Ghidra). Retail stores the argument at
 // Display+0x0C, then conditionally dispatches through TheMouse's vtable slot

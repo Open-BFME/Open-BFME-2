@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0BfmeMapPictureTexture@@QAE@PBD@Z,
 // retail 0x002DB93E, 85 bytes. Dedicated TU.

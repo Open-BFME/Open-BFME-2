@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00272835@Drawable@@QAE_NHH@Z retail 0x00272835 59B
 // Evidence: unlock lane; member +0x14C array of ptrs; virtual slot 0xA4 returns ptr plus slot 0x14 takes 2 ints returns bool; callees all rowed-pinned; callers 9 incl 0x000B710D 0x000B75FF 0x000CFDFB; prev-next Drawable same flags.

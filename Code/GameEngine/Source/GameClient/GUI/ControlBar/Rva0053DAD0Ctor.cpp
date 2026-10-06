@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0053DAD0@@QAE@H@Z @0x0053DAD0 22B
 // __thiscall ctor storing vtable g_00C69310 plus 0 at +4 plus int arg at +8.
 // Evidence: mov eax ecx plus mov ecx esp+4 plus and eax+4 0 plus mov eax vtable

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // Donor: Open-BFME-1 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
 // game/GameEngine/Source/Common/BfmeCommandLookupYI.cpp, recompiled /O1.
 // Target: complete 117B entry at RVA 005257F6, between a preceding RET

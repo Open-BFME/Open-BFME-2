@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // Target evidence at 0x00433DFE: Apt query callback over the Save/Load label
 // and the Campaign/Skirmish/Replay/WOTR/WOTRMP mode bits. The surrounding
 // save/load callbacks establish the screen and state field at +0x27C.

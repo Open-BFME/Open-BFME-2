@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002761F3@Drawable@@QAEXPBH0@Z @0x002761F3 48B: set pendingClear at +0x2A4 and pendingSet at +0x2F0 from 19-dword masks then apply with immediate true.
 // Evidence: callee Drawable_rva00274176.cpp layout plus rowed 0x00274176 via caller 0x000BFC16; rep movsd 0x13.
 
