@@ -235,5 +235,3 @@ tail 0x00685200 _CommUDPConnect
 tail 0x00685820 _Rva00819920
 tail 0x00686D20 _Rva0081AE20
 tail 0x00686F10 _Rva0081B010
-truncated 0x001A5900 ?Update_Sub_Object_Transforms@Animatable3DObjClass@@MAEXXZ
-truncated 0x006C9300 ?FormatURLFromRegistry@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@000@Z
