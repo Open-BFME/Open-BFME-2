@@ -64508,3 +64508,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva00603C5F@Rva00604465@@QAEHPBD@Z,,0x00603C5F,68,Code/GameEngine/Source/Common/Rva00603C5F.cpp,matched,vtable slot 3 plus rowed callees plus neighbours
 ?rva001FF36A@Rva001FF36A@@QAE_NHHHHHH@Z,,0x001FF36A,63,Code/GameEngine/Source/Common/Rva001FF36A.cpp,matched,pin name caller 0x002EBABF callee 0x002E8548
 ?rva0029137E@Object@@QAE_NAAVAsciiString@@@Z,,0x0029137E,109,Code/GameEngine/Source/GameLogic/Object/ObjectRva0029137E.cpp,matched,finish 0.93 via round-robin copy of other team plus direct tmpl
+??0Rva00285BEC@@QAE@ABV0@@Z,,0x00285C30,88,Code/GameEngine/Source/Common/Rva00285BECDtor.cpp,matched,copy ctor same vptrs plus src plus 708
