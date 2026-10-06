@@ -7,12 +7,7 @@
 // else mov al,1; caller 0x000D252F in 0x000D2301; global 0x00DFE74C is
 // TheShroudManager per PartitionManagerRva003BCFC9.cpp.
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 enum CellShroudStatus
 {

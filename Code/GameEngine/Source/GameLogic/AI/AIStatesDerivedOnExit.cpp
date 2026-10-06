@@ -78,10 +78,7 @@ template <> class AIDeadStateAISlots<0>
 {
 };
 class Object;
-struct Coord3D
-{
-	float x, y, z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 // What the path's 0x003642DF returns by value (16 bytes): a node and a
 // position (as in AIUpdateInterfacePrivateCommands.cpp). Unnamed.
 struct Rva003642DFNode;

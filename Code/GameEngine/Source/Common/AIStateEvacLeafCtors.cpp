@@ -11,10 +11,7 @@
 // so this TU defines only the two rowed leaves.
 
 class StateMachine;
-struct Coord3D
-{
-	float x, y, z;
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 class State
 {
 public:

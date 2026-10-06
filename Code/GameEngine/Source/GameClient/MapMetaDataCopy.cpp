@@ -16,7 +16,7 @@
 #include <set>
 #include "unicode_string.h"
 class AsciiString : private StringBase<char> { public: __forceinline AsciiString(const AsciiString &o) : StringBase<char>(o) {} void set(const AsciiString &o) { StringBase<char>::set(o); } __forceinline ~AsciiString(); };
-struct Coord3D { float x,y,z; };
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 struct Region3D { Coord3D lo,hi; Region3D(const Region3D &); };
 typedef _STL::list<Coord3D> Coord3DList;
 // Instantiate the reference coordinate-list copy and its typed helpers.

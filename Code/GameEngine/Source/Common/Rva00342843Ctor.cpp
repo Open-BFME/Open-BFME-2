@@ -7,10 +7,7 @@
 // AIFollowWaypointPathExactState ctor pattern (base + vtable + members).
 // Evidence: base pin 0x0033F279 AIInternalMoveToState ctor; caller 0x00351D8C.
 class StateMachine;
-struct Coord3D
-{
-	float x, y, z;
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 class State
 {
 public:

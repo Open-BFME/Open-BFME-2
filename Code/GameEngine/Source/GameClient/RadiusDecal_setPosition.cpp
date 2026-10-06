@@ -8,12 +8,7 @@
 // matched 33 bytes there): when the shadow holder at +0x04 is present, copy
 // the world-space centre into its Coord3D at +0x08.
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 struct RadiusDecalShadow
 {
