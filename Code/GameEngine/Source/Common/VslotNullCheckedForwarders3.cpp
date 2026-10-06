@@ -313,3 +313,46 @@ void Rva0007E17BNullForwarder::rva0007E17B(Int a0)
 		m_member->rva0010004D(a0);
 }
 
+// Two more with a ret 4 tail: 0x000B22E4 +0x4 -> rowed Shadow::rva00330995
+// (1 arg); 0x004FC176 +0x20 -> 0x004E0D19 (1 arg, address-derived pin).
+class Shadow
+{
+public:
+	void rva00330995(Int a0);
+};
+
+class Rva000B22E4NullForwarder
+{
+public:
+	void rva000B22E4(Int a0);
+private:
+	char m_lead[0x4];
+	Shadow *m_member;
+};
+
+void Rva000B22E4NullForwarder::rva000B22E4(Int a0)
+{
+	if (m_member)
+		m_member->rva00330995(a0);
+}
+
+class Rva004E0D19NullTarget
+{
+public:
+	void rva004E0D19(Int a0);
+};
+
+class Rva004FC176NullForwarder
+{
+public:
+	void rva004FC176(Int a0);
+private:
+	char m_lead[0x20];
+	Rva004E0D19NullTarget *m_member;
+};
+
+void Rva004FC176NullForwarder::rva004FC176(Int a0)
+{
+	if (m_member)
+		m_member->rva004E0D19(a0);
+}

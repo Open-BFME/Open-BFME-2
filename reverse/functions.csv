@@ -63476,3 +63476,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005F83B9@Rva005F83B9@@QAEXXZ,,0x005F83B9,38,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,matched,notifier over 8-byte-entry range via pinned helper plus virtual slot 1 on non-null heads; frameless /O1
 ??0Rva005F86FE@@QAE@PAX0@Z,,0x005F86FE,73,Code/GameEngine/Source/Common/Rva005F86FECtor.cpp,matched,ctor with new-Heap member via pinned 0x005F8671 on rowed operator new; /O1 /EHsc
 ?Rva005F88D6Get@@YAHH@Z,,0x005F88D6,30,Code/GameEngine/Source/Common/Rva005F88D6Get.cpp,matched,null-checked global-logic lookup head; sibling of banked 0x005F88F4; /O1
+?rva000B22E4@Rva000B22E4NullForwarder@@QAEXH@Z,,0x000B22E4,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
+?rva004FC176@Rva004FC176NullForwarder@@QAEXH@Z,,0x004FC176,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
