@@ -89,17 +89,29 @@ struct Rva005F0832NameHolder
 	char m_pad[8];
 	char m_name[1];
 };
-struct Rva005F0832
+// StrategicHUD::RegionDetailsStructuresMovieClip::Impl::HideBuildingName
+// (WorldBuilder name, StrategicHUDRegionDetailsStructuresMovieClip.cpp: the
+// SetBuildingNameState _hide pair of ShowBuildingName on the same +0x4C flag).
+namespace StrategicHUD
 {
+class RegionDetailsStructuresMovieClip
+{
+public:
+	class Impl;
+};
+}
+class StrategicHUD::RegionDetailsStructuresMovieClip::Impl
+{
+public:
 	char m_pad0[4];
 	void *m_level;
 	Rva005F0832NameHolder *m_holder;
 	char m_pad1[0x4C - 0xC];
 	bool m_flag;
-	void rva005F0832();
+	void HideBuildingName();
 };
 
-void Rva005F0832::rva005F0832()
+void StrategicHUD::RegionDetailsStructuresMovieClip::Impl::HideBuildingName()
 {
 	if (m_flag)
 	{
@@ -115,13 +127,13 @@ void Rva005F0832::rva005F0832()
 struct Rva005F09D7
 {
 	char m_pad[4];
-	Rva005F0832 *m_target;
+	StrategicHUD::RegionDetailsStructuresMovieClip::Impl *m_target;
 	void rva005F09D7();
 };
 
 void Rva005F09D7::rva005F09D7()
 {
-	return m_target->rva005F0832();
+	return m_target->HideBuildingName();
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

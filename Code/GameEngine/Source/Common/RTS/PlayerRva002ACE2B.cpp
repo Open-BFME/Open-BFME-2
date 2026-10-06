@@ -1,6 +1,6 @@
 // cl: /MD /GX-
 // stlport
-// ?rva002ACE2B@Player@@QAEHPAX@Z @0x002ACE2B 161B: Player method iterating
+// ?getProductionCostChangeByObjectFilterID@Player@@QAEHPAX@Z @0x002ACE2B 161B: Player method iterating
 // list at +0x6f4 of Rva002AC3BE entries (vector<float> at +4, ObjectID at
 // +0x10, void* at +0). For each entry resolves Object via TheGameLogic
 // findObjectByID, skips null and KindOf 0x44, matches *(int*)m_00 vs arg,
@@ -61,13 +61,13 @@ struct Rva002ACE2BEntry
 class Player
 {
 public:
-	int rva002ACE2B(void *arg);
+	int getProductionCostChangeByObjectFilterID(void *arg);
 private:
 	char m_pad[0x6f4];
 	_STL::list<int> m_list6f4;
 };
 
-int Player::rva002ACE2B(void *arg)
+int Player::getProductionCostChangeByObjectFilterID(void *arg)
 {
 	int i = 0;
 	float f = 0.0f;

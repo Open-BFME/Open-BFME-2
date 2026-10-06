@@ -6,38 +6,38 @@
 // Each forwards (name, 1) to the AITactic base ctor 0x004ED3D1 (declared
 // here, pinned in reverse/symbols.csv) and installs its own vtable. Same
 // base + vtable shape as the landed SimpleAttack ctor
-// (??0Rva005AA647@@QAE@XZ @0x005AA6B4, which calls 0x005DC722 with the
+// (??0AISimpleAttackTactic@@QAE@XZ @0x005AA6B4, which calls 0x005DC722 with the
 // SimpleAttack name). Class views are minimal: vtable width beyond the
 // dtor/deleting-dtor slots is unproven and not declared.
 #include "ascii_string.h"
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	Rva004ECECD(const AsciiString &name, int flags);
-	virtual ~Rva004ECECD();
+	AITactic(const AsciiString &name, int flags);
+	virtual ~AITactic();
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	Rva005DC73C(const AsciiString &name);
-	virtual ~Rva005DC73C();
+	AITacticOffensive(const AsciiString &name);
+	virtual ~AITacticOffensive();
 };
 
-Rva005DC73C::Rva005DC73C(const AsciiString &name)
-	: Rva004ECECD(name, 1)
+AITacticOffensive::AITacticOffensive(const AsciiString &name)
+	: AITactic(name, 1)
 {
 }
 
-class Rva005DCB27 : public Rva004ECECD
+class AITacticDefensive : public AITactic
 {
 public:
-	Rva005DCB27(const AsciiString &name);
-	virtual ~Rva005DCB27();
+	AITacticDefensive(const AsciiString &name);
+	virtual ~AITacticDefensive();
 };
 
-Rva005DCB27::Rva005DCB27(const AsciiString &name)
-	: Rva004ECECD(name, 1)
+AITacticDefensive::AITacticDefensive(const AsciiString &name)
+	: AITactic(name, 1)
 {
 }

@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii_common /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/reference/shims/stringbaseascii /Ireference/open-bfme-1/inputs/reference/shims/buildlistinfo /Ireference/open-bfme-1/inputs/reference/shims/moduledata /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Map /Ireference/shims/bfmealloc /D_CRTIMP=
 //
-// ?updateTeam@Rva0019BE80TeamRec@@QAEXH@Z
+// ?addToIndex@TeamsInfoRec@@QAEXH@Z
 // retail 0x0032D103, 288 bytes. Dedicated TU ported from the Open-BFME-1
 // donor game/GameEngine/Source/GameLogic/Map/Rva0019B850TeamRecUpdate.cpp (reference/open-bfme-1 @ 6d943426).
 // The donor body does not place at BFME 1's flags; compiled /O1 it is
@@ -8,7 +8,7 @@
 // unclaimed .text). Only the placed body is defined here; the donor's
 // other definitions are omitted.
 // stlport
-// Retail 0x0019B850, 396 bytes. Keep the established updateTeam name:
+// BFME 1 retail 0x0019B850, 396 bytes (the donor called it updateTeam; WorldBuilder names it TeamsInfoRec::addToIndex):
 // 0x0019BA40 and 0x0019BC00 call this one-index thiscall through ILT 0x26EE.
 // The map key is (teamOwner, teamName). The vector at +0x0C contains
 // 16-byte records: a Dict at +0x0C and a tree node link at +8.
@@ -40,13 +40,14 @@ struct TeamRecord0019B850 {
     _STL::_Rb_tree_node_base* field08;
     Dict field0c;
 };
-class Rva0019BE80TeamRec {
+class TeamsInfoRec
+{
     _STL::map<TeamKey0019B850,int,TeamLess0019B850> field00;
     _STL::vector<TeamRecord0019B850> field0c;
 public:
-    void updateTeam(int index);
+    void addToIndex(int index);
 };
-void Rva0019BE80TeamRec::updateTeam(int index) {
+void TeamsInfoRec::addToIndex(int index) {
     TeamRecord0019B850* team = field0c.begin() + index;
     TeamKey0019B850 key(team->field0c.getAsciiString(TheKey_teamOwner),team->field0c.getAsciiString(TheKey_teamName));
     team->field08 = field00.find(key)._M_node;

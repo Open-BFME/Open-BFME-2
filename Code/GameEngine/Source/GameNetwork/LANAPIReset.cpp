@@ -33,7 +33,7 @@ struct LANMessage
 class Transport
 {
 public:
-	Bool Rva004D54C1(Bool active);
+	Bool update(Bool active);
 };
 
 class LANGameInfo
@@ -164,7 +164,7 @@ void LANAPI::reset(void)
 		Rva004495A2(&message, 0);
 	}
 
-	m_transport->Rva004D54C1(false);
+	m_transport->update(false);
 
 	LANGameInfo *game = m_games;
 	while (game)

@@ -1,6 +1,6 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva004FCDCF@Rva004FCDCF@@QAEXPAXPAXPAH@Z, retail 0x004FCDCF, 114 bytes.
+// ?QueryRegionsAndNumbers@PlayerDefeatCondition@LivingWorldScenario@@QAEXPAXPAXPAH@Z, retail 0x004FCDCF, 114 bytes.
 // Caller 0x004FD4D4 passes player plus vector plus maxOut; duplicate check by +0x12c then push_back plus max update.
 #include <vector>
 
@@ -26,17 +26,23 @@ public:
 
 extern Rva002BA8F1Logic *g_009FEF10;
 
-class Rva004FCDCF
+class LivingWorldScenario
 {
 public:
-	void rva004FCDCF(void *a1, _STL::vector<const ModuleData *> *vec, int *maxOut);
+	class PlayerDefeatCondition;
+};
+
+class LivingWorldScenario::PlayerDefeatCondition
+{
+public:
+	void QueryRegionsAndNumbers(void *a1, _STL::vector<const ModuleData *> *vec, int *maxOut);
 private:
 	char m_pad[0x10];
 	int m_10;
 	unsigned char m_14;
 };
 
-void Rva004FCDCF::rva004FCDCF(void *a1, _STL::vector<const ModuleData *> *vec, int *maxOut)
+void LivingWorldScenario::PlayerDefeatCondition::QueryRegionsAndNumbers(void *a1, _STL::vector<const ModuleData *> *vec, int *maxOut)
 {
 	if (m_14 != 0) {
 		Rva002104B6 *mgr = g_009FEF10->m_B0;

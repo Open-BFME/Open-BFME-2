@@ -2,7 +2,7 @@
 // ?Rva003BF71EDo@@YGXABVAsciiString@@0@Z @0x003BF71E 142B
 // Script team guard via TerrainLogic slot 0x88 getWaypointByName plus
 // getTeamNamed pin 0x003584E9 with false, createGroup pin 0x002FEC4B,
-// getTeamAsAIGroup pin 0x003A0F62, then rowed rva003703CF guard with
+// getTeamAsAIGroup pin 0x003A0F62, then rowed groupGuardPosition guard with
 // waypoint Coord3D at +0x0C plus 0 and 1.
 // Evidence: TheTerrainLogic 0x009FEC50, TheScriptEngine 0x009FE16C,
 // TheAI 0x009FF0F8; caller 0x003CB5C2; precedents Rva003C2A29Script.cpp
@@ -58,7 +58,7 @@ public:
 class AIGroup
 {
 public:
-	void rva003703CF(const Coord3D *pos, GuardMode mode, CommandSourceType src);
+	void groupGuardPosition(const Coord3D *pos, GuardMode mode, CommandSourceType src);
 };
 
 extern TerrainLogic *TheTerrainLogic;
@@ -79,5 +79,5 @@ void __stdcall Rva003BF71EDo(const AsciiString &teamName, const AsciiString &way
 	position.x = way->location()->x;
 	position.y = way->location()->y;
 	position.z = way->location()->z;
-	group->rva003703CF(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
+	group->groupGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
 }

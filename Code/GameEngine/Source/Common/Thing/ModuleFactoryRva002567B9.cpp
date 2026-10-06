@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
-// ?rva002567B9@ModuleFactory@@QAEXABVAsciiString@@HW4ModuleType@@HH@Z @0x002567B9 49B
+// ?GetAssetList@ModuleFactory@@QAEXABVAsciiString@@HW4ModuleType@@HH@Z @0x002567B9 49B
 // ModuleFactory create helper: null first arg returns; else findModuleTemplate
 // (rowed 0x0025674F); null template or null create fn at +8 returns; else call
 // the cdecl create fn with the three pointer args. Evidence: unlock lane;
@@ -21,12 +21,12 @@ public:
 		int m_04;
 		void (__cdecl *m_create08)(int a, int b, int c);
 	};
-	void rva002567B9(const AsciiString &name, int a, ModuleType type, int b, int c);
+	void GetAssetList(const AsciiString &name, int a, ModuleType type, int b, int c);
 protected:
 	const ModuleTemplate *findModuleTemplate(const AsciiString &name, ModuleType type);
 };
-// ?rva002567B9@ModuleFactory@@QAEXABVAsciiString@@HW4ModuleType@@HH@Z
-void ModuleFactory::rva002567B9(const AsciiString &name, int a, ModuleType type, int b, int c)
+// ?GetAssetList@ModuleFactory@@QAEXABVAsciiString@@HW4ModuleType@@HH@Z
+void ModuleFactory::GetAssetList(const AsciiString &name, int a, ModuleType type, int b, int c)
 {
 	if (a == 0)
 		return;

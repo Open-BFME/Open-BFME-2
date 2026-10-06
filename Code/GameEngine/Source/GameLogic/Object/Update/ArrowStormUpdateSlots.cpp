@@ -2,12 +2,12 @@
 //
 // ArrowStormUpdate's slot-15 and slot-17 overrides (vftable 0x00C4D700,
 // slot-2 name getter "ArrowStormUpdate"). Each first runs the base
-// SpecialAbilityUpdate slot (pinned rva00450D9A / rva0045108D) and carries
+// SpecialAbilityUpdate slot (pinned rva00450D9A / triggerAbilityEffect) and carries
 // that slot's address name, which cl 7.1 needs to place the override; the
 // method identities are not established. The +0x88 list is the one the
 // rowed ArrowStormUpdate::xfer transfers.
 //
-// ?rva0045108D@ArrowStormUpdate@@UAEXXZ, retail 0x00490A74, 81 bytes.
+// ?triggerAbilityEffect@ArrowStormUpdate@@UAEXXZ, retail 0x00490A74, 81 bytes.
 // Slot 17: with module data +0xDC clear and an empty list, sets the flag at
 // +0x98; otherwise retries the pinned bool member 0x0049083C up to module
 // data +0xD4 times, keeping its result in +0x98, until it succeeds.
@@ -50,7 +50,7 @@ public:
 	virtual void s12(); virtual void s13(); virtual void s14();
 	virtual void rva00450D9A();
 	virtual void s16();
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 protected:
 	const ModuleData *m_moduleData; // +0x04
 	unsigned char m_pad08[0x88 - 0x08];
@@ -60,7 +60,7 @@ class ArrowStormUpdate : public SpecialAbilityUpdate
 {
 public:
 	virtual void rva00450D9A();
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 
 private:
 	bool rva0049083C();
@@ -73,10 +73,10 @@ private:
 	bool m_98;
 };
 
-// ?rva0045108D@ArrowStormUpdate@@UAEXXZ @0x00490A74
-void ArrowStormUpdate::rva0045108D()
+// ?triggerAbilityEffect@ArrowStormUpdate@@UAEXXZ @0x00490A74
+void ArrowStormUpdate::triggerAbilityEffect()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	const ArrowStormUpdateModuleData *data = (const ArrowStormUpdateModuleData *)m_moduleData;
 	if (!data->m_DC && m_88.empty())
 	{

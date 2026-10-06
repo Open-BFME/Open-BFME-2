@@ -1,6 +1,7 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// AptPlayer::PeekGameWindow (WorldBuilder name, AptPlayer.cpp line 1515: bounds-checked level slot lookup).
 
-// ?rva0022252D@Rva0022252D@@QAEPAXH@Z, retail 0x0022252D, 26 bytes.
+// was ?rva0022252D@Rva0022252D@@QAEPAXH@Z, retail 0x0022252D, 26 bytes.
 // Bounds-checked slot lookup: 14 entries at this+0xD4 stride 0x28 return
 // element pointer else null. Callers 0x004115CF 0x00412017 pass level from
 // Rva004128BBGetLevel through global 0x009FE4CC. Honest address class.
@@ -10,16 +11,16 @@ struct Rva0022252DElem
 	char pad[0x24];
 };
 
-class Rva0022252D
+class AptPlayer
 {
 public:
-	void *rva0022252D(int index);
+	void *PeekGameWindow(int index);
 private:
 	char m_pad[0xD4];
 	Rva0022252DElem m_elems[14];
 };
 
-void *Rva0022252D::rva0022252D(int index)
+void *AptPlayer::PeekGameWindow(int index)
 {
 	if ((unsigned int)index >= 14)
 		return 0;

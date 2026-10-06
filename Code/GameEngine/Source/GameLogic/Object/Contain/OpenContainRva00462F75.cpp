@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD
 // stlport
 //
-// ?rva00462F75@OpenContain@@UAEXPAVObject@@@Z, retail 0x00462F75 62 bytes.
+// ?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z, retail 0x00462F75 62 bytes.
 // OpenContain slot 13 (offset 0x34) of vtable 0x008435E8 and 13 sibling
 // Contain vtables; called by SiegeEngineContain and HordeSiegeEngineContain
 // slot 13 overrides. Iterates list<int> at +0x54 comparing node data at +8
@@ -29,14 +29,14 @@ public:
 	virtual void s10() = 0;
 	virtual void s11() = 0;
 	virtual void s12() = 0;
-	virtual void rva00462F75(Object *rider);
+	virtual void removeFromContainList(Object *rider);
 private:
 	unsigned char m_pad04[0x54 - 4];
 	_STL::list<int> m_list54;
 	int m_count58;
 };
 
-void OpenContain::rva00462F75(Object *rider)
+void OpenContain::removeFromContainList(Object *rider)
 {
 	_STL::list<int>::iterator end = m_list54.end();
 	for (_STL::list<int>::iterator it = m_list54.begin(); it != end;)

@@ -1,5 +1,5 @@
 // cl: /MD
-// ??0Rva00524B7A@@QAE@XZ @0x00524B7A 58B
+// ??0MovieWindowPlayback@@QAE@XZ @0x00524B7A 58B
 // Ctor with explicit vtable in the middle via single-class model plus
 // baseConstruct through a cast. Calls rowed base 0x001B4E63; sole caller
 // Locomotor 0x005C9716 at +0x218. Single-class keeps source order per
@@ -15,10 +15,10 @@ public:
 	BFME2NativeNetwork *baseConstruct();
 };
 
-class Rva00524B7A
+class MovieWindowPlayback
 {
 public:
-	Rva00524B7A();
+	MovieWindowPlayback();
 
 private:
 	void *m_vtable;
@@ -37,7 +37,7 @@ private:
 	int m_34;
 	int m_38;
 };
-Rva00524B7A::Rva00524B7A()
+MovieWindowPlayback::MovieWindowPlayback()
 {
 	((BFME2NativeNetwork *)this)->baseConstruct();
 	m_24 &= 0xF8;

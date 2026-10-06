@@ -380,6 +380,8 @@ public:
 
 	Bool isEffectivelyDead() const;	// out of line: retail 0x0006DFF1 reads +0x438; this layout has +0x297
 	void setEffectivelyDead(Bool dead);
+	void rva0028BAC0();	// retail 0x0028BAC0, BFME 2 member unnamed in WB (pinned)
+	void rva0028DCC4();	// retail 0x0028DCC4, BFME 2 member unnamed in WB (pinned)
 
 	void markSingleUseCommandUsed() { m_singleUseCommandUsed = true; }
 	Bool hasSingleUseCommandBeenUsed() const { return m_singleUseCommandUsed; }

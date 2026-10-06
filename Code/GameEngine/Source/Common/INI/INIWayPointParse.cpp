@@ -1,11 +1,12 @@
 // cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
-// ?Rva0046133BParse@@YAXPAVINI@@PAX1PBX@Z, retail 0x0046133B (176B): the
+// DynamicPortalBehaviourData::parseWayPoint, retail 0x0046133B (176B): the
 // WayPoint FieldParse proc (row 0x00C42A58, store +0x120). Reads "Index" (an
 // int) and "Type" sub-tokens; the type maps Walk / Climb / PreClimb to 2 / 3 / 4
 // (left unset otherwise) and the {index, type} pair is appended to the vector
-// at the store (8-byte-element push_back fold 0x00539A2E). Name
-// address-derived.
+// at the store (8-byte-element push_back fold 0x00539A2E). WorldBuilder
+// names it (DynamicPortalBehaviour.cpp line 90, the same Index/Type tokens
+// and Walk/Climb/PreClimb strings).
 
 #include "ascii_string.h"
 
@@ -54,8 +55,13 @@ public:
 };
 }
 
-// ?Rva0046133BParse@@YAXPAVINI@@PAX1PBX@Z
-void Rva0046133BParse(INI *ini, void *, void *store, const void *)
+class DynamicPortalBehaviourData
+{
+public:
+	static void parseWayPoint(INI *ini, void *instance, void *store, const void *userData);
+};
+
+void DynamicPortalBehaviourData::parseWayPoint(INI *ini, void *, void *store, const void *)
 {
 	Rva0046133BWayPoint wayPoint;
 	wayPoint.m_index = ini->scanInt(ini->getNextSubToken("Index"));

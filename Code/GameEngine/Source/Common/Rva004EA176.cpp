@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
+// AIEconomyBuilder::getFarmTemplateName (WorldBuilder name, AIEconomyBuilder.cpp lines 99..101: the +0x14 player through 0x002A8AB1).
 #include "ascii_string.h"
 
 struct Rva002A8AB1Record;
@@ -10,15 +11,15 @@ public:
 
 extern Rva002A8F24 *g_00DFEEF8;
 
-class Rva004EA176
+class AIEconomyBuilder
 {
 public:
-	AsciiString rva004EA176();
+	AsciiString getFarmTemplateName();
 	char m_pad00[0x14];
 	void *m_14;
 };
 
-AsciiString Rva004EA176::rva004EA176()
+AsciiString AIEconomyBuilder::getFarmTemplateName()
 {
 	Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(m_14);
 	void *p160 = *(void **)((char *)rec + 0x160);

@@ -6,10 +6,10 @@
 // caller 0x0040C4D9, neighbours Rva0037DCA5Get and Rva0037DF2CCtor.
 #include <string.h>
 #include "ascii_string.h"
-class Rva0037E270
+class UnitRevivalEntry
 {
 public:
-	void rva0037E3D9(const AsciiString &arg);
+	void setThingTemplateName(const AsciiString &arg);
 };
 class Rva001EAFC1
 {
@@ -32,7 +32,7 @@ unsigned char Rva0037DE0E::rva0037DE0E(void *destPtr)
 {
 	char *dest = (char *)destPtr;
 	char *src = (char *)this;
-	((Rva0037E270 *)dest)->rva0037E3D9(*(const AsciiString *)(src + 4));
+	((UnitRevivalEntry *)dest)->setThingTemplateName(*(const AsciiString *)(src + 4));
 	*(int *)(dest + 8) = *(int *)(src + 8);
 	*(int *)(dest + 0xC) = *(int *)(src + 0xC);
 	memcpy(dest + 0x14, src + 0x10, 128);

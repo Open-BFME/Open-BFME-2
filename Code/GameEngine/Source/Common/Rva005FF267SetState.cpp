@@ -3,7 +3,7 @@
 // ?rva005FF267@Rva005FF267@@QAEXH@Z @ 0x005FF267 69B
 // Apt SetState via rowed AptCall 0x0050E9FE with team prefix or empty fallback and state table.
 // Evidence: caller jmp 0x005FF4C0; globals TheRva00222A8BTarget g_Rva0107301CEmptyString;
-// string SetState; layout +4 level +8 team +0x24 state matches Rva005FF450; precedent Rva005FFC26SetState.
+// string SetState; layout +4 level +8 team +0x24 state matches StrategicHUD::BattlePromptArmyPanelMovieClip::Impl; precedent Rva005FFC26SetState.
 class Rva00222A8BTarget;
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

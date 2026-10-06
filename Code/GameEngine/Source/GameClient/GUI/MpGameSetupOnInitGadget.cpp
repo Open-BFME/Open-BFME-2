@@ -1,8 +1,10 @@
 // cl: /Oy- /DNDEBUG /MD /Oi-
 
-// MpGameSetup gadget initialization callback, retail 0x0043EB1D (420B).
+// AptMpGameSetup gadget initialization callback, retail 0x0043EB1D (420B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/GUI/MpGameSetupOnInitGadget.cpp
-// (MpGameSetup::_bfme_onInitGadget, BFME1 0x00525AB0). BFME2 target evidence
+// (donor name AptMpGameSetup::_bfme_onInitGadget, BFME1 0x00525AB0; BFME2 name
+// InitGadgets from WorldBuilder AptMpGameSetup.cpp:1396-1449 and the retail
+// "MpGameSetup::InitGadgets" string). BFME2 target evidence
 // (all retail-measured): no GameType/MapType branches and no mapListReady
 // gate; the MapList branch stores the window at +0x394 and applies five
 // column widths {8, 2, 0x46, 10, 10}; the name parses via the msvcr71 sscanf
@@ -11,8 +13,8 @@
 // 0x83DF71), PlayerTemplate (+0x334), Team (+0x314), Color (+0x2F4 via the
 // rowed list<int> const_iterator ctor), Handicap (+0x354) or Hero (+0x374);
 // every taken branch falls into the hide tail (index >= 6 with the +0x7C
-// flag set hides the window). The MpGameSetup screen exists in BFME2
-// (MpGameSetup::InitGadgets dispatch names in .rdata); the method name is
+// flag set hides the window). The AptMpGameSetup screen exists in BFME2
+// (AptMpGameSetup::InitGadgets dispatch names in .rdata); the method name is
 // the BFME1 donor identity for this same role and gadget-name set.
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
@@ -48,10 +50,10 @@ namespace _STL
 	typedef _List_iterator<int, _Const_traits<int> > ListIntConstIterator;
 }
 
-class MpGameSetup
+class AptMpGameSetup
 {
 public:
-	void _bfme_onInitGadget(const char *name, void *argument, GameWindow *window);
+	void InitGadgets(const char *name, void *argument, GameWindow *window);
 
 private:
 	unsigned char m_pad0[0x7c];
@@ -66,8 +68,8 @@ private:
 	GameWindow *m_mapList;
 };
 
-// ?_bfme_onInitGadget@MpGameSetup@@QAEXPBDPAXPAVGameWindow@@@Z
-void MpGameSetup::_bfme_onInitGadget(const char *name, void *, GameWindow *window)
+// ?InitGadgets@AptMpGameSetup@@QAEXPBDPAXPAVGameWindow@@@Z
+void AptMpGameSetup::InitGadgets(const char *name, void *, GameWindow *window)
 {
 	if (window == 0)
 		return;

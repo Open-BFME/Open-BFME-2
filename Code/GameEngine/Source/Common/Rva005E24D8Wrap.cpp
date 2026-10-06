@@ -1,5 +1,6 @@
 // cl: /DNDEBUG /MD
-// ?rva005E24D8@Rva005E24D8@@QAEXH@Z @0x005E24D8 104B indexed guard.
+// StrategicInGameUI::RegionDetailsStructuresPage::Impl::SetSelectedIconIndex (WorldBuilder name, line 501: deselect the old +0x20 icon, select the new, show the selection name).
+// was ?rva005E24D8@Rva005E24D8@@QAEXH@Z @0x005E24D8 104B indexed guard.
 // If arg == +0x20 return; if +0x20 < 0 skip first region (virtual slot on
 // +8 object with +8 flag, rowed this-only call, first indexed bool-false
 // call via rowed 0x005E2144 class); then +0x20 = arg, if arg < 0 return;
@@ -44,10 +45,18 @@ public:
 	void rva005E2439();
 };
 
-class Rva005E24D8
+namespace StrategicInGameUI
+{
+class RegionDetailsStructuresPage
 {
 public:
-	void rva005E24D8(int a);
+	class Impl;
+};
+}
+class StrategicInGameUI::RegionDetailsStructuresPage::Impl
+{
+public:
+	void SetSelectedIconIndex(int a);
 protected:
 	unsigned char m_pad[8];
 	Rva005E24D8Inner *m_8;
@@ -57,7 +66,7 @@ protected:
 	int m_20;
 };
 
-void Rva005E24D8::rva005E24D8(int a)
+void StrategicInGameUI::RegionDetailsStructuresPage::Impl::SetSelectedIconIndex(int a)
 {
 	if (a == m_20)
 		return;

@@ -172,10 +172,10 @@ private:
 	PortionToPlay m_portionToPlayNext;	// +0x74
 };
 
-// ?rva002D9686@@YAHIPBUWeightedSoundRange@@@Z
+// ?getRandomSoundIndexByWeight@@YAHIPBUWeightedSoundRange@@@Z
 // Weighted random pick; -1 when the list carries no weight. Static, so MSVC
 // passes the weight in EAX and the list in ECX as retail does.
-static __declspec(noinline) int rva002D9686(unsigned int totalWeight, const WeightedSoundRange *sounds)
+static __declspec(noinline) int getRandomSoundIndexByWeight(unsigned int totalWeight, const WeightedSoundRange *sounds)
 {
 	if (!(totalWeight > 0))
 		return -1;
@@ -372,7 +372,7 @@ void AudioEventRTS::generateFilename(void)
 				m_playingAudioIndex = m_eventInfo->m_lastPlayedIndex;
 			do
 			{
-				which = rva002D9686(totalWeight, sounds);
+				which = getRandomSoundIndexByWeight(totalWeight, sounds);
 			} while (which == m_playingAudioIndex);
 			if (firstTime)
 				m_eventInfo->m_lastPlayedIndex = which;

@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
-// ?Rva0025E46DReset@@YAXXZ @0x0025E46D 96B
+// ?CreateTheNetwork@@YAXXZ @0x0025E46D 96B
 // Free network reset: destroy the current TheNetwork (0x00DFEA28), then
 // allocate a 0x40-byte BFME2NativeNetwork, construct it through the rowed
 // constructor 0x0025DB6D (its only caller is the call at 0x0025E4A8 here),
@@ -26,7 +26,7 @@ private:
 
 extern NetworkInterface *TheNetwork;
 
-void Rva0025E46DReset()
+void CreateTheNetwork()
 {
 	::delete TheNetwork;
 	TheNetwork = new BFME2NativeNetwork;

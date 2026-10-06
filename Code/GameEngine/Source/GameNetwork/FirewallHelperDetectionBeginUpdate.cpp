@@ -11,7 +11,7 @@
 // 0x0059517F) takes the destination port before blitzme (4321 =
 // MANGLER_PORT, 4322 for the "different destination port" sends);
 // closeSpareSocket is the rowed 0x0059534A, byteAdjust the rowed 0x00594DC0
-// and CRC_Memory the rowed BFMEComputeCRC; all reached through the
+// and CRC_Memory the rowed ComputeCRC; all reached through the
 // address-named views the other units use.
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it

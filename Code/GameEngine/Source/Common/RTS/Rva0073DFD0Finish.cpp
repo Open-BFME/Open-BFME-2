@@ -1,9 +1,9 @@
 // ?reset@ShroudManager@@QAEXXZ
 // cl: /O2 /DNDEBUG /MD /EHsc
 //
-// ShroudManagerImpl008FBA40::reset (221B @0x008FBB50): zero a Region3D,
+// ShroudManagerImpl::reset (221B @0x008FBB50): zero a Region3D,
 // setRegion(&empty, 0.0f), delete[] elements, elements = new Element[1].
-// BFME2's class layout is the one in ShroudManagerImpl008FBA40.cpp
+// BFME2's class layout is the one in ShroudManagerImpl.cpp
 // (elements at +0x2C, bool enabled at +0x68) and its element is 0xA8 bytes.
 // Address-derived names only.
 

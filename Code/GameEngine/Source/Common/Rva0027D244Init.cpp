@@ -53,7 +53,7 @@ public:
 class Pathfinder
 {
 public:
-	bool rva002F477E(class Object *obj, const struct Coord3D *from, const struct Coord3D *to, int v);
+	bool QuickDoesPathExist(class Object *obj, const struct Coord3D *from, const struct Coord3D *to, int v);
 	bool rva002ED219(const struct Coord3D *a, const struct Coord3D *b);
 };
 
@@ -105,7 +105,7 @@ void Rva0027D244::rva0027D276(Rva0027D244 *a, Rva0027D244 *b)
 		return;
 	Pathfinder *pf = TheAI->m_10;
 	Object *obj = (Object *)m_18;
-	if (!pf->rva002F477E(obj, &obj->m_38, (const Coord3D *)a, 0))
+	if (!pf->QuickDoesPathExist(obj, &obj->m_38, (const Coord3D *)a, 0))
 		return;
 	pf = TheAI->m_10;
 	obj = (Object *)m_18;

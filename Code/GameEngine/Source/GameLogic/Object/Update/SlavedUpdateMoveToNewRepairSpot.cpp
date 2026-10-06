@@ -5,7 +5,7 @@
 // BFME2 deltas read from retail bytes (repairRange wander with Real random
 // 0..2*PI at line 828, altitude from repairMin/Max at line 833, PANIC
 // locomotor set with ultra-accurate + precise-Z, move via rowed
-// AICommandInterface rva0026C26D). Neighbours 0x004A1C10 endRepair and
+// AICommandInterface aiMoveToPosition). Neighbours 0x004A1C10 endRepair and
 // 0x004A2258 caller in same SlavedUpdate block; module-data offsets from
 // SlavedUpdateModuleDataCtor (repairRange +0x28, min +0x2C, max +0x30);
 // Object position +0x38 and AI +0x258; AI curLocomotor +0x1F0 and
@@ -100,7 +100,7 @@ class AICommandInterface
 {
 public:
 	virtual void aiDoCommand(const void *parms);
-	void rva0026C26D(const Coord3D *pos, Int v);
+	void aiMoveToPosition(const Coord3D *pos, Int v);
 };
 
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
@@ -196,7 +196,7 @@ void SlavedUpdate::moveToNewRepairSpot()
 		{
 			ai->chooseLocomotorSet(LOCOMOTORSET_PANIC);
 			ai->getCurLocomotor()->setUltraAccurate(true);
-			ai->m_commands.rva0026C26D(&m_guardPointOffset, CMD_FROM_AI);
+			ai->m_commands.aiMoveToPosition(&m_guardPointOffset, CMD_FROM_AI);
 			Locomotor *locomotor = ai->getCurLocomotor();
 			if (locomotor)
 				locomotor->setUsePreciseZPos(true);

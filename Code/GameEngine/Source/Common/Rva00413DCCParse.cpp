@@ -1,5 +1,6 @@
 // cl: /Oy- /DNDEBUG /MD /GX-
-// ?rva00413DCC@Rva00413DCC@@QAEXPAVINI@@@Z @0x00413DCC 65B
+// LivingWorldAutoResolveResourceBonus::parseBonusIniSubBlock (WorldBuilder name, lines 44..45: initFromINI then the MinResourceBonus check).
+// was ?rva00413DCC@Rva00413DCC@@QAEXPAVINI@@@Z @0x00413DCC 65B
 // INI parse validator: initFromINI(this) through table 0x00839E58 (rowed
 // 0x0002DE78), then throw INIException code 3 with the retail message when
 // the int at +0 is negative. Same recipe as Rva004135CDParse (filler
@@ -22,15 +23,15 @@ struct INIException
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct Rva00413DCCThrowInfoAnchor { int a; int b; int c; int d; };
 static const Rva00413DCCThrowInfoAnchor rva00413DCCThrowInfoAnchor = { 0, 0, 0, 0 };
-class Rva00413DCC
+class LivingWorldAutoResolveResourceBonus
 {
 public:
-	void rva00413DCC(INI *ini);
+	void parseBonusIniSubBlock(INI *ini);
 private:
 	int m_value00;
 };
-// ?rva00413DCC@Rva00413DCC@@QAEXPAVINI@@@Z
-void Rva00413DCC::rva00413DCC(INI *ini)
+// was ?rva00413DCC@Rva00413DCC@@QAEXPAVINI@@@Z
+void LivingWorldAutoResolveResourceBonus::parseBonusIniSubBlock(INI *ini)
 {
 	ini->initFromINI(this, &g_00839E58);
 	if (m_value00 < 0)

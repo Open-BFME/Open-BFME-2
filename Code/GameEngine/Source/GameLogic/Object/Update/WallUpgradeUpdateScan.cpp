@@ -180,7 +180,7 @@ public:
 class Pathfinder
 {
 public:
-	int rva002E9871(const Coord3D *pos);		// 0x002E9871
+	int GetGroundLayer(const Coord3D *pos);		// 0x002E9871
 	bool rva002EDFF9(Object *obj, Coord3D *pos);	// 0x002EDFF9
 	bool adjustDestination(Object *obj, const LocomotorSet &locoSet, Coord3D *dest,
 		const Coord3D *groupDest);		// 0x002FCFCF
@@ -231,7 +231,7 @@ extern PartitionManager *ThePartitionManager;
 class WallUpgradeUpdate
 {
 public:
-	void rva004AB415();
+	void scanForBuildingAndPossess();
 	void rva004AB57E();
 private:
 	const void *m_vtable;
@@ -241,7 +241,7 @@ private:
 	ObjectID m_28;			// +0x28
 };
 
-void WallUpgradeUpdate::rva004AB415()
+void WallUpgradeUpdate::scanForBuildingAndPossess()
 {
 	if (m_28 != INVALID_ID)
 		return;
@@ -277,7 +277,7 @@ void WallUpgradeUpdate::rva004AB57E()
 			pos.x = obj->m_pos.x;
 			pos.y = obj->m_pos.y;
 			pos.z = obj->m_pos.z;
-			if (pathfinder->rva002E9871(&pos) == 1 && pathfinder->rva002EDFF9(obj, &pos))
+			if (pathfinder->GetGroundLayer(&pos) == 1 && pathfinder->rva002EDFF9(obj, &pos))
 				continue;
 			AIUpdateInterface *ai = obj->m_ai;
 			Coord3D offset;

@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ?rva002A7F2A@PlayerList@@QAEPAVPlayer@@PAX@Z @0x002A7F2A 49B
+// ?createClonedAllyFor@PlayerList@@QAEPAVPlayer@@PAX@Z @0x002A7F2A 49B
 // Evidence: thiscall ret 4 over the BFME2 PlayerList layout (count +0x14,
 // inline player pointer array +0x18, see PlayerList_getNthPlayer.cpp). Like
 // the BFME1 reference PlayerList::newGame (reference/open-bfme-1/Code/
@@ -21,7 +21,7 @@ public:
 class PlayerList
 {
 public:
-	Player *rva002A7F2A(void *data);
+	Player *createClonedAllyFor(void *data);
 
 private:
 	unsigned char m_pad[0x14];
@@ -29,7 +29,7 @@ private:
 	Player *m_players[20]; // +0x18
 };
 
-Player *PlayerList::rva002A7F2A(void *data)
+Player *PlayerList::createClonedAllyFor(void *data)
 {
 	if (m_playerCount < 19)
 	{

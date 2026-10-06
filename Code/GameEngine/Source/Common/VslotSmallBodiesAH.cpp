@@ -35,9 +35,9 @@ Int Rva00656A30::rva00656A30()
 	return secondSlot()->get();
 }
 
-// 0x006EBE50 and 0x00711AB0: the rowed BfmeWrapper1279 0x006F8190 on the
+// 0x006EBE50 and 0x00711AB0: the rowed AptDisplayList 0x006F8190 on the
 // +0x24 (resp. +0x1C) member.
-class BfmeWrapper1279
+class AptDisplayList
 {
 public:
 	void rva006F8190();
@@ -48,7 +48,7 @@ public:
 	void rva006EBE50();
 private:
 	char m_pad00[0x24];
-	BfmeWrapper1279 m_24;
+	AptDisplayList m_24;
 };
 void Rva006EBE50::rva006EBE50()
 {
@@ -60,7 +60,7 @@ public:
 	void rva00711AB0();
 private:
 	char m_pad00[0x1C];
-	BfmeWrapper1279 m_1C;
+	AptDisplayList m_1C;
 };
 void Rva00711AB0::rva00711AB0()
 {
@@ -85,7 +85,7 @@ class ShroudManager
 public:
 	void reset();
 };
-class ShroudManagerImpl008FBA40
+class ShroudManagerImpl
 {
 public:
 	void drainPending();
@@ -132,7 +132,7 @@ public:
 	void rva00739710();
 private:
 	char m_pad00[0x10];
-	ShroudManagerImpl008FBA40 *m_10;
+	ShroudManagerImpl *m_10;
 };
 void Rva00739710::rva00739710()
 {

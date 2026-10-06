@@ -1,6 +1,6 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva0060D10A@XferSave@@QAEEPAVXfer@@H_N@Z @0x0060D10A 169B
+// ?Open@XferSave@@QAEEPAVXfer@@H_N@Z @0x0060D10A 169B
 // XferSave open-style writer. Evidence: neighbours 0x0060D0B3/0x0060D24D same TU,
 // ALAE 0x45414c41 and 2STR 0x52545332 tags, 4 Xfer slot-4 writes checked for 4,
 // vector erase at 0x31BD55 plus hashtable clears at 0x60CFB6/0x1DBCDC.
@@ -39,7 +39,7 @@ typedef std::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>, std::e
 class XferSave {
 public:
     virtual ~XferSave();
-    unsigned char rva0060D10A(Xfer *stream, int arg2, bool arg3);
+    unsigned char Open(Xfer *stream, int arg2, bool arg3);
 private:
     Xfer *volatile m_stream;
     bool m_flag;
@@ -48,7 +48,7 @@ private:
     FXListMap m_fx;
     ArmorMap m_armor;
 };
-unsigned char XferSave::rva0060D10A(Xfer *stream, int arg2, bool arg3)
+unsigned char XferSave::Open(Xfer *stream, int arg2, bool arg3)
 {
     if (m_stream != 0)
         return 0;

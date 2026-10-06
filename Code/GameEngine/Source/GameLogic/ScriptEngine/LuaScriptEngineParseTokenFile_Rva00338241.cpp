@@ -1,5 +1,7 @@
 // cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
-// ?rva00338241@LuaScriptEngine@@QAEXPBD_N@Z, retail 0x00338241, 214 bytes.
+// ?LoadXML@LuaScriptEngine@@QAEXPBD_N@Z, retail 0x00338241, 214 bytes.
+// Name: WorldBuilder's LuaScriptEngine.cpp:825-847 LoadXML (openFile, new[],
+// lexer, ProcessSageElement loop, delete[]).
 // BFME2 ParseTokenFile over LuaScriptEngine: openFile 3-arg plus size plus
 // new[] plus read plus close plus Rva00542806 init plus finish loop plus
 // ParseToken plus delete[]. Ported from Open-BFME-1
@@ -81,14 +83,14 @@ class BfmeLexEAN;
 class __declspec(novtable) LuaScriptEngine
 {
 public:
-	void rva00338241(const char *filename, Bool keepOpen);
-	void rva002EC770ParseToken(BfmeLexEAN *parser);
+	void LoadXML(const char *filename, Bool keepOpen);
+	void ProcessSageElement(BfmeLexEAN *parser);
 private:
 	char m_pad[0xD8];
 	unsigned char m_keepOpen;
 };
 
-void LuaScriptEngine::rva00338241(const char *filename, Bool keepOpen)
+void LuaScriptEngine::LoadXML(const char *filename, Bool keepOpen)
 {
 	File *file = TheFileSystem->openFile(filename, 0x41, 0);
 	if (file != 0)
@@ -108,7 +110,7 @@ void LuaScriptEngine::rva00338241(const char *filename, Bool keepOpen)
 				break;
 			if (--status != 0)
 				return;
-			rva002EC770ParseToken((BfmeLexEAN *)&parser);
+			ProcessSageElement((BfmeLexEAN *)&parser);
 		}
 		m_keepOpen = 0;
 		operator delete[](source);

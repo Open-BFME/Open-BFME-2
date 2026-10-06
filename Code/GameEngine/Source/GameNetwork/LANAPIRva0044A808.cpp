@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// LANAPI::rva0044A808, retail 0x0044A808, 249 bytes.
+// LANAPI::RequestGameOptions, retail 0x0044A808, 249 bytes.
 // LANAPI vtable slot 25. Chain via BfmeNetAddress compare 0x00248CBF plus
 // slot 57 message fill plus strncpy name plus pinned helper 0x004495A2 plus
 // 8 slots stride 0x1D0 plus slot 64 address plus slot 45 notify.
@@ -126,7 +126,7 @@ public:
 	virtual void slot63() = 0;
 	virtual BfmeNetAddress *slot64() = 0;
 	void Rva004495A2(LANMessage *msg, UnsignedInt val);
-	void rva0044A808(AsciiString str, int, UnsignedInt val);
+	void RequestGameOptions(AsciiString str, int, UnsignedInt val);
 
 private:
 	UnsignedByte m_beforeLobby[0x41 - 4];
@@ -136,7 +136,7 @@ private:
 };
 
 
-void LANAPI::rva0044A808(AsciiString str, int, UnsignedInt val)
+void LANAPI::RequestGameOptions(AsciiString str, int, UnsignedInt val)
 {
 	if (m_currentGame == 0)
 		return;

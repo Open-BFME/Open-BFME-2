@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
-// ?rva0059FD3A@Rva0059FD3A@@QAEXXZ @ 0x0059FD3A (241B).
+// ?PopulateLobbyComboBox@AptOnlineCustomMatch@@QAEXXZ @ 0x0059FD3A (241B).
 // Combo-box population from GameSpy map: reset, iterate RB tree from slot 3,
 // skip entries matching slot 8 or with m_f != 1, add Unicode text with color
 // g_00DB91A0, set item data to m_a, select entry matching slot 12.
@@ -100,16 +100,16 @@ public:
 extern G00E05FB4Provider *g_00E05FB4;
 extern int g_00DB91A0;
 
-class Rva0059FD3A
+class AptOnlineCustomMatch
 {
 public:
-	void rva0059FD3A();
+	void PopulateLobbyComboBox();
 private:
 	char m_pad[0x490];
 	GameWindow *m_combo;
 };
 
-void Rva0059FD3A::rva0059FD3A()
+void AptOnlineCustomMatch::PopulateLobbyComboBox()
 {
 	GameWindow *combo = m_combo;
 	if (combo == 0)

@@ -80,7 +80,7 @@ class Object
 public:
 	Player *getControllingPlayer() const;
 	Bool rva002943B2(const Player *p);
-	Real rva000B4542(const Coord3D *pos) const;
+	Real GetRelativeAngle(const Coord3D *pos) const;
 	unsigned char m_pad00[0x38];
 	Coord3D m_position; // +0x38
 	Real m_44; // +0x44
@@ -166,7 +166,7 @@ StateReturnType Rva0033F364::update()
 	else
 	{
 		Real add = owner->m_44;
-		Real rel = owner->rva000B4542(&goal->m_position);
+		Real rel = owner->GetRelativeAngle(&goal->m_position);
 		((Thing *)owner)->setOrientation(rel + add);
 		return STATE_CONTINUE;
 	}

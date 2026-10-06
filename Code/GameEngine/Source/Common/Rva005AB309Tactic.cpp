@@ -3,8 +3,8 @@
 // The "ReturnTheRing" skirmish-AI tactic (vtable 0x00872284; ctor 0x005AB3BE
 // in Rva004ECECDTacticCtors.cpp, dtor 0x005AB309 and ??_G in
 // Rva005DCC24Derived.cpp, slot 9 in Rva004ECECDTacticCreate.cpp). Base chain,
-// all address-derived: Rva005DCC24 (ctor 0x005DCC0A) over Rva005DC73C over
-// the AITactic.cpp object Rva004ECECD. Layout: +0x58 int, +0x5C the ring
+// all address-derived: Rva005DCC24 (ctor 0x005DCC0A) over AITacticOffensive over
+// the AITactic.cpp object AITactic. Layout: +0x58 int, +0x5C the ring
 // holder's id (found by 0x005AB45B), +0x60 the escort target's id, +0x64
 // "escort reached", +0x65 "team created". The owner's TheSkirmishAIManager
 // record keeps this unit's AIReturnTheRingTactic_IsRunning key (global
@@ -212,30 +212,30 @@ public:
 };
 extern Rva002A8F24 *g_00DFEEF8;
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual void v3();
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual void initializeTeamTemplate();
 	virtual void v4();
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
+	virtual void update();
 	virtual void v8();
-	virtual Rva004ECECD *create();
+	virtual AITactic *create();
 	Team *rva004ECECD(int index);
 	unsigned char rva004ED169();
-	void rva004ED2ED(int index, Object *target);
+	void teamGarrisonObject(int index, Object *target);
 	void rva004ED372(const Coord3D *point);
-	void rva004ED748(int a, int b);
+	void end(int a, int b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 	char m_pad04[0x10 - 4];
 	bool m_running;			// +0x10
 	char m_pad11[0x24 - 0x11];
@@ -243,20 +243,20 @@ public:
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005AB309 : public Rva005DC73C
+class AIReturnTheRingTactic : public AITacticOffensive
 {
 public:
-	virtual ~Rva005AB309();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
+	virtual ~AIReturnTheRingTactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
-	virtual void v7();
-	bool rva005AB45B();
-	bool rva005AB4B9();
-	Object *rva005AB5B7();
-	bool rva005AB66A();
-	void rva005AB6DC();
+	virtual void run();
+	virtual void update();
+	bool findRingBearer();
+	bool buildReturnTeam();
+	Object *findClosestFortress();
+	bool garrisonFortress();
+	void moveToFortress();
 private:
 	unsigned int m_58;	// +0x58
 	ObjectID m_holder;	// +0x5C
@@ -272,25 +272,25 @@ static inline Rva002A8AB1Record *aiData(Player *owner)
 	return g_00DFEEF8->rva002A8AB1(owner);
 }
 
-bool Rva005AB309::appliesTo(void *)
+bool AIReturnTheRingTactic::canRun(void *)
 {
 	if (!aiData(m_owner)->rva002C7196(AIReturnTheRingTactic_IsRunning)
-		&& rva005AB45B())
+		&& findRingBearer())
 		return true;
 	return false;
 }
 
-void Rva005AB309::v2()
+void AIReturnTheRingTactic::cleanUp()
 {
 	if (m_created)
 		aiData(m_owner)->rva002C717E(AIReturnTheRingTactic_IsRunning, 0);
 }
 
-void Rva005AB309::xfer(Xfer *xfer)
+void AIReturnTheRingTactic::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	Rva004ECECD::xfer(xfer);
+	AITactic::xfer(xfer);
 	*xfer == m_58;
 	XferObjectID(xfer, &m_holder);
 	XferObjectID(xfer, &m_target);
@@ -298,7 +298,7 @@ void Rva005AB309::xfer(Xfer *xfer)
 	*xfer == m_created;
 }
 
-Object *Rva005AB309::rva005AB5B7()
+Object *AIReturnTheRingTactic::findClosestFortress()
 {
 	Rva005AB309Holder *holder = (Rva005AB309Holder *)g_00DFEEF8->rva002A8F24(m_owner);
 	Rva005C4AD1LeaField *field = holder->m_08;
@@ -323,21 +323,21 @@ Object *Rva005AB309::rva005AB5B7()
 	return nearest;
 }
 
-bool Rva005AB309::rva005AB66A()
+bool AIReturnTheRingTactic::garrisonFortress()
 {
 	Object *target = TheGameLogic->findObjectByID(m_target);
 	if (!target || (target->m_438 & 1))
-		target = rva005AB5B7();
+		target = findClosestFortress();
 	if (target) {
-		rva004ED2ED(0, target);
+		teamGarrisonObject(0, target);
 		return true;
 	}
 	return false;
 }
 
-void Rva005AB309::rva005AB6DC()
+void AIReturnTheRingTactic::moveToFortress()
 {
-	Object *obj = rva005AB5B7();
+	Object *obj = findClosestFortress();
 	if (obj) {
 		m_target = obj->getID();
 		rva004ED372(obj->getPosition());
@@ -347,26 +347,26 @@ void Rva005AB309::rva005AB6DC()
 	}
 }
 
-void Rva005AB309::v7()
+void AIReturnTheRingTactic::update()
 {
 	if (m_running && rva004ED169()) {
 		if (m_reached)
-			rva004ED748(0, 0);
-		else if (rva005AB66A())
+			end(0, 0);
+		else if (garrisonFortress())
 			m_reached = true;
 	}
 }
 
-void Rva005AB309::v6()
+void AIReturnTheRingTactic::run()
 {
 	if (!aiData(m_owner)->rva002C7196(AIReturnTheRingTactic_IsRunning)) {
 		Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
-		if (rva005AB4B9()) {
+		if (buildReturnTeam()) {
 			record->rva002C717E(AIReturnTheRingTactic_IsRunning, 1);
-			rva005AB6DC();
+			moveToFortress();
 			m_created = true;
 		}
 	}
 	if (!m_created)
-		rva004ED748(0, 0);
+		end(0, 0);
 }

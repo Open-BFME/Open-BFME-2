@@ -1,0 +1,92 @@
+// ?Show@StrategicVeterancy@@QAE_NXZ
+// partial score=0.9 date=2026-10-06
+// cl: /O1 /EHsc /MD
+// StrategicVeterancy.cpp -- StrategicVeterancy members at their WorldBuilder
+// home (reverse/wb_name_leads.csv: WB's debug build names the file and each
+// method); retail supplies the bytes.
+//
+// Layout (target evidence): the object holds its implementation at +0x00,
+// which keeps the Apt level at +0x04, the display state at +0x08 (0 hidden,
+// 1 shown, 2 fading in, 3-4 later states) and an enable word at +0x0C.
+
+typedef int Int;
+typedef bool Bool;
+
+// The Apt player (VA 0x00DFE4CC, address-named in the ledger): WB names its
+// slot callees AptPlayer::ShowLevel (rowed 0x002224FE) and HideLevel
+// (pinned 0x0022277D); 0x00516F21 sends an Apt movie a state message.
+class Rva00222A8BTarget
+{
+public:
+	void rva0022277D(void *level);			// 0x0022277D, WB AptPlayer::HideLevel
+};
+
+class Rva002224FE
+{
+public:
+	Bool rva002224FE(Int level);			// 0x002224FE, WB AptPlayer::ShowLevel
+};
+
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+void Rva00516F21Invoke(Rva00222A8BTarget *player, void *level, const char *message, const char *arg);	// 0x00516F21
+
+// TheLivingWorldLogic (VA 0x00DFEF10) and its rowed check 0x002B254F.
+class Rva002B254F
+{
+public:
+	Int rva002B254F();					// 0x002B254F
+};
+
+extern Rva002B254F *g_00DFEF10;
+
+class StrategicVeterancy
+{
+public:
+	Bool Show();
+	void Hide();
+
+private:
+	struct Impl
+	{
+		void *m_vtbl;
+		void *m_level;					// +0x04
+		Int m_state;					// +0x08
+		Int m_enabled;					// +0x0C
+	};
+
+	Impl *m_impl;						// +0x00
+};
+
+// StrategicVeterancy::Show, retail 0x005EC1A4 (121 bytes): nothing without
+// the Apt player, while the living world check holds, or when disabled; a
+// hidden display shows its level, a display past fading in fades in again.
+Bool StrategicVeterancy::Show()
+{
+	if (TheRva00222A8BTarget == 0 || (unsigned char)g_00DFEF10->rva002B254F() != 0 || m_impl->m_enabled == 0)
+		return false;
+
+	switch (m_impl->m_state)
+	{
+	case 3:
+	case 4:
+		Rva00516F21Invoke(TheRva00222A8BTarget, m_impl->m_level, "SetState", "_fadeIn");
+		m_impl->m_state = 2;
+		break;
+	case 0:
+		((Rva002224FE *)TheRva00222A8BTarget)->rva002224FE((Int)m_impl->m_level);
+		m_impl->m_state = 1;
+		break;
+	}
+	return true;
+}
+
+// StrategicVeterancy::Hide, retail 0x005EC21D (33 bytes): a displayed level
+// is hidden and the state cleared.
+void StrategicVeterancy::Hide()
+{
+	if (m_impl->m_state != 0)
+	{
+		TheRva00222A8BTarget->rva0022277D(m_impl->m_level);
+		m_impl->m_state = 0;
+	}
+}

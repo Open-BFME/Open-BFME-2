@@ -10,10 +10,10 @@
 extern "C" void free(void *block);
 void operator delete(void *block);
 
-class Rva005DC73C
+class AITacticOffensive
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 };
 
 struct Rva005AA55DData
@@ -22,17 +22,17 @@ struct Rva005AA55DData
 	void *m_buf;
 };
 
-class Rva005AA55D : public Rva005DC73C
+class AIFlankAttackTactic : public AITacticOffensive
 {
 public:
-	virtual ~Rva005AA55D();
+	virtual ~AIFlankAttackTactic();
 
 private:
 	unsigned char m_pad[0x54];
 	Rva005AA55DData *m_data;
 };
 
-Rva005AA55D::~Rva005AA55D()
+AIFlankAttackTactic::~AIFlankAttackTactic()
 {
 	Rva005AA55DData *data = m_data;
 	if (data != 0) {

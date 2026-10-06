@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc /Oy-
-// ?rva0052557E@Rva0052557E@@QAEXPAX@Z, retail 0x0052557E 100B chain via 0x0052519D Fire.
+// ?OnHeroAttacked@Impl@InGameHeroSelectInterface@@QAEXPAX@Z, retail 0x0052557E 100B chain via 0x0052519D Fire.
 // Searches 16-entry table at +0x48 for p->+0x74 matching entry+8 skipping sentinel [[+0x10]+0x10].
 // Evidence: callee rowed Rva0052519DFire 0x0052519D; callers 0x005258B2 jmp thunk plus 0x002D3756 guard; data PlayButtonAttackedEffect plus g_Rva0107301CEmptyString plus TheRva00222A8BTarget.
 #include "ascii_string.h"
@@ -9,7 +9,13 @@ extern const char g_Rva0107301CEmptyString[];
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
-class Rva0052557E
+class InGameHeroSelectInterface
+{
+public:
+	class Impl;
+};
+
+class InGameHeroSelectInterface::Impl
 {
 public:
 	void *m_00;
@@ -23,10 +29,10 @@ public:
 		void *obj;
 		unsigned char pad[0x14];
 	} m_slots[16];
-	void rva0052557E(void *p);
+	void OnHeroAttacked(void *p);
 };
 
-void Rva0052557E::rva0052557E(void *p)
+void InGameHeroSelectInterface::Impl::OnHeroAttacked(void *p)
 {
 	void *sentinel = *(void **)((char *)m_10 + 0x10);
 	for (int i = 0; i < 16; ++i)

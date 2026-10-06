@@ -13,6 +13,59 @@
 // 0x251622 (news 0x80) is the only raw caller. Supersedes nothing (no pin);
 // the FreeLifeBody sibling shares the base and vtable.
 
+// vftable_map identifies the 31 slots at 0x00C5BC48 from both installers;
+// every target is a matched body. No data_xrefs row bounds this table.
+extern "C" void __cdecl c5bc48Slot0(void);
+#pragma comment(linker, "/alternatename:_c5bc48Slot0=??_GRva004C1B7B@@UAEPAXI@Z")
+extern "C" void __cdecl c5bc48Slot1(void);
+#pragma comment(linker, "/alternatename:_c5bc48Slot1=??1Coord2D@@QAE@XZ")
+extern "C" void __cdecl c5bc48Slot2(void);
+#pragma comment(linker, "/alternatename:_c5bc48Slot2=?name@Rva00065212Named@@QBEPBDXZ")
+extern "C" void __cdecl c5bc48Slot3(void);
+#pragma comment(linker, "/alternatename:_c5bc48Slot3=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
+extern "C" void __cdecl c5bc48Slot4(void);
+#pragma comment(linker, "/alternatename:_c5bc48Slot4=?IsCRC@Xfer@@UBE_NXZ")
+extern "C" void __cdecl c5bc48Slot7(void);
+#pragma comment(linker, "/alternatename:_c5bc48Slot7=?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
+extern "C" void __cdecl c5bc48Slot14(void);
+#pragma comment(linker, "/alternatename:_c5bc48Slot14=?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z")
+extern "C" void __cdecl c5bc48Slot16(void);
+#pragma comment(linker, "/alternatename:_c5bc48Slot16=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+
+extern const void *const g_00C5BC48[] = {
+	(const void *)&c5bc48Slot0,
+	(const void *)&c5bc48Slot1,
+	(const void *)&c5bc48Slot2,
+	(const void *)&c5bc48Slot3,
+	(const void *)&c5bc48Slot4,
+	(const void *)&c5bc48Slot4,
+	(const void *)&c5bc48Slot4,
+	(const void *)&c5bc48Slot7,
+	(const void *)&c5bc48Slot4,
+	(const void *)&c5bc48Slot4,
+	(const void *)&c5bc48Slot4,
+	(const void *)&c5bc48Slot4,
+	(const void *)&c5bc48Slot4,
+	(const void *)&c5bc48Slot4,
+	(const void *)&c5bc48Slot14,
+	(const void *)&c5bc48Slot4,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot16,
+	(const void *)&c5bc48Slot7
+};
+
 class RespawnBodyModuleData
 {
 public:
@@ -44,7 +97,7 @@ DelayedDeathBodyModuleData::DelayedDeathBodyModuleData()
 	m_delayedDeathTime = 0;
 	m_invulnerableFX = 0;
 	m_prerequisite = 0;
-	*(unsigned int *)this = 0x00C5BC48;
+	*(unsigned int *)this = (unsigned int)g_00C5BC48;
 	m_immortal = 1;
 	m_doHealthCheck = 1;
 }

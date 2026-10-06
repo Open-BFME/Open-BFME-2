@@ -44,8 +44,8 @@ class TerrainResourceClientBehavior : public Rva00BEFE48TerrainBase
 {
 public:
     virtual ~TerrainResourceClientBehavior();
-    virtual void rva004CC5FA();
-    virtual void rva004CC61A();
+    virtual void createSelectionFeedback();
+    virtual void removeSelectionFeedback();
 private:
     bool m_0C;
 };

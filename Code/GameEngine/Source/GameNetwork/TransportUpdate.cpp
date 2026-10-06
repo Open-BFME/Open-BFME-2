@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?Rva004D54C1@Transport@@QAE_N_N@Z, retail 0x004D54C1 (115B).
+// ?update@Transport@@QAE_N_N@Z, retail 0x004D54C1 (115B).
 // Zero Hour's Transport::update (Transport.cpp) for BFME 2's transport, which
 // owns eight UDP sockets (12-byte slots from +0x40E0C) instead of one: a failed
 // receive or send makes the update fail only when some socket reports
@@ -33,17 +33,17 @@ struct TransportSocketSlot
 class Transport
 {
 public:
-	Bool Rva004D54C1(Bool flag);
+	Bool update(Bool flag);
 	Bool rva004D4D08(Bool flag);
 	Bool rva004D4BA7();
-	void clearSlot_Rva004D5133(unsigned short slot);
+	void RemoveSocketForSlot(unsigned short slot);
 
 private:
 	char m_pad00000[0x40E0C];
 	TransportSocketSlot m_sockets[8]; // +0x40E0C
 };
 
-Bool Transport::Rva004D54C1(Bool flag)
+Bool Transport::update(Bool flag)
 {
 	Bool retval = true;
 	if (rva004D4D08(flag) == false)
@@ -71,10 +71,10 @@ Bool Transport::Rva004D54C1(Bool flag)
 	return retval;
 }
 
-// ?clearSlot_Rva004D5133@Transport@@QAEXG@Z, retail 0x004D5133 (116B).
+// ?RemoveSocketForSlot@Transport@@QAEXG@Z, retail 0x004D5133 (116B).
 // Close one of the eight socket slots: the socket is deleted only when no
 // other slot shares it, then the slot is cleared.
-void Transport::clearSlot_Rva004D5133(unsigned short slot)
+void Transport::RemoveSocketForSlot(unsigned short slot)
 {
 	if (slot < 8)
 	{

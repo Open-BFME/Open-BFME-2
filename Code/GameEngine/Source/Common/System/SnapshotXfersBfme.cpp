@@ -159,16 +159,56 @@ protected:
 	virtual void xfer( Xfer *xfer );
 };
 
+// ExperienceLevelStore's scalar table (its accessors live in
+// ExperienceLevelSystem.cpp): an STLport vector<Real> at +0x00, the name at +0x0C.
+class ExperienceScalarTable
+{
+public:
+	int size() const { return m_end - m_begin; }
+	Real *m_begin;
+	Real *m_end;
+	Real *m_endOfStorage;
+	AsciiString m_name;			// +0x0C
+};
+
+class ExperienceLevelStore
+{
+public:
+	ExperienceScalarTable *FindExperienceScalarTableByName(const AsciiString &name) const;	// 0x00288AF2
+};
+
+extern ExperienceLevelStore *TheExperienceLevelStore;
+
+// What the owner's +0x04 points at: only the scalar-table name at +0x9C is read.
+struct Rva0039AE75Source
+{
+	char m_unrecovered00[ 0x9C ];
+	AsciiString m_scalarTableName;																									///< 0x9C
+};
+
+// The owner is the ExperienceTracker whose constructor (0x0039AEBC) news this
+// object with itself as the argument and keeps it at +0x2C.
+struct Rva0039AE75Owner
+{
+	void *m_vtable;
+	Rva0039AE75Source *m_parent;																										///< 0x04
+};
+
 class Rva0039AE75
 {
+public:
+	Rva0039AE75( Rva0039AE75Owner *owner );
+	Real bfmeAt( Int value ) const;
 protected:
 	virtual ~Rva0039AE75();
 	virtual void crc( Xfer *xfer );
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x08 - 0x04 ];
+	Int indexFor( Int value ) const;
+	Rva0039AE75Owner *m_owner;																												///< 0x04
 	Real m_bfmeReal08;																												///< 0x08
 	Int m_bfmeValue0C;																												///< 0x0C
+	ExperienceScalarTable *m_bfmeTable10;																							///< 0x10
 };
 
 // The 0x44-byte BuffManager entries: only the slot-3 xfer is used.
@@ -421,6 +461,51 @@ void Rva0039AE75::xfer( Xfer *xfer )
 	*xfer == m_bfmeReal08;
 	*xfer == m_bfmeValue0C;
 }  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+// Rva0039AE75's constructor, retail 0x0039AE30 (69 bytes; stores vftable
+// 0x00C1AD60, called only from the ExperienceTracker constructor at 0x0039AF3C
+// after a 0x14-byte operator new), Rva0039AE75::indexFor, retail 0x0039AE92
+// (42 bytes), and Rva0039AE75::bfmeAt, retail 0x0039B145 (42 bytes), its only
+// caller (call at 0x0039B161).
+// Ported from Open-BFME-1 game/GameEngine/Source/GameLogic/Object/BfmeThingEFEAt.cpp,
+// BfmeThingEFEClampIndex.cpp and BfmeThingEFECtor.cpp (donor revision 177ae72da755fb4adc35cb2b3fcf291e14174ad3;
+// donor flags /DNDEBUG /MD /EHsc, recompiled /O1). Target facts: the donor
+// indexFor body compiled /O1 places uniquely at 0x0039AE92 by masked whole-.text
+// search; WorldBuilder's unnamed bodies at its counterparts (WB 0xFA0EC0 and
+// 0xFA0E60, matched by call graph) read the same fields: the Int at +0x0C that
+// this class's xfer 0x0039AD0B saves, and a begin/end Real table at +0x10.
+// Carried from the donor: the method names (the donor tree's own inventions;
+// retail and WB name neither) and the table's element type. Unlike BFME 1,
+// BFME 2 keeps the clamp out of line, and its constructor reads the table name
+// straight from the owner's +0x04 object at +0x9C (no template override walk)
+// and looks it up through the rowed ExperienceLevelStore::FindExperienceScalarTableByName.
+// ------------------------------------------------------------------------------------------------
+Rva0039AE75::Rva0039AE75( Rva0039AE75Owner *owner ) :
+	m_owner( owner ),
+	m_bfmeReal08( 1.0f ),
+	m_bfmeValue0C( 1 ),
+	m_bfmeTable10( 0 )
+{
+	m_bfmeTable10 = TheExperienceLevelStore->FindExperienceScalarTableByName( m_owner->m_parent->m_scalarTableName );
+}
+
+Int Rva0039AE75::indexFor( Int value ) const
+{
+	Int index = value - m_bfmeValue0C;
+	if ( index <= 0 )
+		return 0;
+	if ( index >= m_bfmeTable10->size() )
+		return m_bfmeTable10->size() - 1;
+	return index;
+}
+
+Real Rva0039AE75::bfmeAt( Int value ) const
+{
+	if ( m_bfmeTable10->size() == 0 )
+		return 1.0f;
+	return m_bfmeTable10->m_begin[ indexFor( value ) ];
+}
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method */

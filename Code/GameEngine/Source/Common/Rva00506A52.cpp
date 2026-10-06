@@ -3,7 +3,7 @@
 // ?rva00506A52@Rva00506A52@@QAEXXZ @ 0x00506A52 168B (placeholder, real signature TBD)
 // Chain from 0x005AD6C3: iterates hash_map buckets via rowed bucket_count,
 // fetches Object* per index via rowed rva0025BFF8, filters via rowed
-// rva00506A0C plus +0x520==12, news 0x10 Rva005AD6C3 from Object and
+// rva00506A0C plus +0x520==12, news 0x10 AINavyUnitBattleShip from Object and
 // push_backs into vector at this+4. Evidence: calls at 0x00506A6B/75/8B/99/
 // AC4/DB, new 0x10 at 0x00506AAE, vector at [edi+4], Player at [edi].
 // The emitted unsigned max copy must match retail RVA 0x00013740.
@@ -65,11 +65,11 @@ public:
 	int m_field04;
 };
 
-class Rva005AD6C3 : public Rva005DCC4B
+class AINavyUnitBattleShip : public Rva005DCC4B
 {
 public:
-	Rva005AD6C3(const Rva005DCC4BSource *source);
-	virtual ~Rva005AD6C3();
+	AINavyUnitBattleShip(const Rva005DCC4BSource *source);
+	virtual ~AINavyUnitBattleShip();
 
 	int m_field08;
 	int m_field0C;
@@ -108,7 +108,7 @@ void Rva00506A52::rva00506A52()
 		void *inner = *(void **)((char *)obj + 4);
 		if (*(int *)((char *)inner + 0x520) != 12)
 			continue;
-		Rva005AD6C3 *nw = new Rva005AD6C3((const Rva005DCC4BSource *)obj);
+		AINavyUnitBattleShip *nw = new AINavyUnitBattleShip((const Rva005DCC4BSource *)obj);
 		const ModuleData *tmp = (const ModuleData *)nw;
 		m_04.push_back(tmp);
 	}

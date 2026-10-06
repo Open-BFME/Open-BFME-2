@@ -1,4 +1,6 @@
 // ?rva002AC06A@Rva002AC06A@@QAEXPAVXfer@@@Z
+// partial score=0.8811 date=2026-10-05
+// ?rva002AC06A@Rva002AC06A@@QAEXPAVXfer@@@Z
 // partial score=0.9 date=2026-10-03
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?rva002AC06A@Rva002AC06A@@QAEXPAVXfer@@@Z @0x002AC06A 318B: KindOf BitFlags xfer.

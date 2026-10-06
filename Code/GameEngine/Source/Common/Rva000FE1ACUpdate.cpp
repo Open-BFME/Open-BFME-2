@@ -1,10 +1,10 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva000FE1AC@Rva000FE001@@QAEXXZ @0x000FE1AC 91B.
+// ?rva000FE1AC@WaterTracksRenderSystem@@QAEXXZ @0x000FE1AC 91B.
 // Container at +0x10 tail iterated via FeNode +0xb0 next; +0x3c flag selects
-// +0x74 += 0x21 vs rva000FE001 move; time base g_00DEC224 init flag and
+// +0x74 += 0x21 vs releaseTrack move; time base g_00DEC224 init flag and
 // g_00DEC220 with timeGetTime IAT; caller 0x00100068; callee
-// ?rva000FE001@Rva000FE001 rowed. _ReadWriteBarrier is reconstruction shaping
+// ?releaseTrack@WaterTracksRenderSystem rowed. _ReadWriteBarrier is reconstruction shaping
 // to keep sub mem + add mem (without it cl folds to mov [mem],eax).
 
 struct FeNode
@@ -18,10 +18,10 @@ struct FeNode
 	FeNode *m_prev;
 };
 
-class Rva000FE001
+class WaterTracksRenderSystem
 {
 public:
-	void rva000FE001(FeNode *other);
+	void releaseTrack(FeNode *other);
 	void rva000FE1AC();
 
 private:
@@ -40,7 +40,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-void Rva000FE001::rva000FE1AC()
+void WaterTracksRenderSystem::rva000FE1AC()
 {
 	if (!(g_00DEC224 & 1))
 	{
@@ -58,7 +58,7 @@ void Rva000FE001::rva000FE1AC()
 		if (node->m_flag3c != 0)
 			node->m_74 += 0x21;
 		else
-			rva000FE001(node);
+			releaseTrack(node);
 		node = next;
 	}
 }

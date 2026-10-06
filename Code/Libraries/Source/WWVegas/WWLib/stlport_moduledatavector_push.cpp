@@ -35,7 +35,7 @@ void Rva00423A68::rva00423A68(const ModuleData *p)
 	m_vec.push_back(p);
 }
 
-// ?rva00423A75@Rva00423A75@@QAE_NPAVRva001EB130Holder@@PAVPlayer@@0@Z
+// ?getValidObjectList@FormationAssistant@@QAE_NPAVRva001EB130Holder@@PAVPlayer@@0@Z
 // retail 0x00423A75, 119 bytes.
 #include <list>
 
@@ -74,16 +74,16 @@ struct RvaListNode
 	Object *m_obj;
 };
 
-class Rva00423A75
+class FormationAssistant
 {
 public:
-	bool rva00423A75(Rva001EB130Holder *input, Player *player, Rva001EB130Holder *output);
+	bool getValidObjectList(Rva001EB130Holder *input, Player *player, Rva001EB130Holder *output);
 private:
 	char m_pad[0x20];
 	BfmeTab1026 m_tab;
 };
 
-bool Rva00423A75::rva00423A75(Rva001EB130Holder *input, Player *player, Rva001EB130Holder *output)
+bool FormationAssistant::getValidObjectList(Rva001EB130Holder *input, Player *player, Rva001EB130Holder *output)
 {
 	output->rva001EB130();
 	if (!player)

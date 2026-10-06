@@ -11,7 +11,7 @@
 // - ThingFactory::newObject takes four args (template, team, 16-byte zeroed
 //   creation params, false); the params type is opaque, contents all zero.
 // - getDefaultTeam() is an inline Player+0x2EC read.
-// - Extra viewObject->bfmeRefreshPartitionCells() between setShroudClearingRange
+// - Extra viewObject->updateShroudNow() between setShroudClearingRange
 //   and the DeletionUpdate lookup (rowed 0x0028C11A body).
 // - DeletionUpdate reached via protected Object::findModule (friend access);
 //   static DeletionUpdate key via TheNameKeyGenerator (/O1 static-guard EH).
@@ -70,7 +70,7 @@ class Object : public Thing
 public:
 	Player *getControllingPlayer() const;
 	void setShroudClearingRange(Real range);
-	void bfmeRefreshPartitionCells();
+	void updateShroudNow();
 protected:
 	Module *findModule(NameKeyType key) const;
 	friend class SpecialPowerModule;
@@ -199,7 +199,7 @@ void SpecialPowerModule::createViewObject(const Coord3D *location)
 
 	viewObject->setPosition(location);
 	viewObject->setShroudClearingRange(visionRange);
-	viewObject->bfmeRefreshPartitionCells();
+	viewObject->updateShroudNow();
 
 	static NameKeyType key_DeletionUpdate = TheNameKeyGenerator->nameToKey("DeletionUpdate");
 	DeletionUpdate *dup = (DeletionUpdate *)viewObject->findModule(key_DeletionUpdate);

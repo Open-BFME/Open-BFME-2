@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?rva004E0BDC@Rva004E0BDC@@QAEXABURva004E0790Inner@@@Z @0x004E0BDC 109B ensure Inner at +0x3c via new plus copy ctor 0x0040D688 or assign 0x004E09FB then store +0x18 to +0xB4; chain via 0x0040D688
+// ?updateArmySummaryEntryRepresentation@LivingWorldBuilding@@QAEXABURva004E0790Inner@@@Z @0x004E0BDC 109B ensure Inner at +0x3c via new plus copy ctor 0x0040D688 or assign 0x004E09FB then store +0x18 to +0xB4; chain via 0x0040D688
 void *__cdecl operator new(unsigned int size);
 void __cdecl operator delete(void *p);
 
@@ -28,10 +28,10 @@ struct Rva004E0790Inner
 	Rva004E0790Inner &rva004E09FB(const Rva004E0790Inner &other);
 };
 
-class Rva0040C351
+class ArmySummaryEntry
 {
 public:
-	Rva0040C351(const Rva0040C351 &o);
+	ArmySummaryEntry(const ArmySummaryEntry &o);
 private:
 	char m_pad[0xC8];
 };
@@ -43,10 +43,10 @@ public:
 	Rva004E0790Inner *m_ptr;
 };
 
-class Rva004E0BDC
+class LivingWorldBuilding
 {
 public:
-	void rva004E0BDC(const Rva004E0790Inner &arg);
+	void updateArmySummaryEntryRepresentation(const Rva004E0790Inner &arg);
 private:
 	char m_pad00[0x18];
 	int m_18;
@@ -54,10 +54,10 @@ private:
 	Rva004E0790 m_3c;
 };
 
-void Rva004E0BDC::rva004E0BDC(const Rva004E0790Inner &arg)
+void LivingWorldBuilding::updateArmySummaryEntryRepresentation(const Rva004E0790Inner &arg)
 {
 	if (!m_3c.m_ptr) {
-		Rva0040C351 *p = new Rva0040C351(*reinterpret_cast<const Rva0040C351 *>(&arg));
+		ArmySummaryEntry *p = new ArmySummaryEntry(*reinterpret_cast<const ArmySummaryEntry *>(&arg));
 		m_3c.rva004E08F6(reinterpret_cast<Rva004E0790Inner *>(p));
 	}
 	else {

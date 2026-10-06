@@ -16,7 +16,7 @@ class Pathfinder;
 class TerrainLogic;
 class Weapon {
 public:
-    int rva002CB9BD(const Object *source, const Coord3D *pos, const Object *victim);
+    int isClearGoalFiringLineOfSightTerrain(const Object *source, const Coord3D *pos, const Object *victim);
 protected:
     void getFiringLineOfSightOrigin(const Object *shooter, Coord3D &origin) const;
 public:
@@ -42,7 +42,7 @@ public:
     virtual int v15(Coord3D *a, Coord3D *b);
 };
 extern TerrainLogic *TheTerrainLogic;
-int Weapon::rva002CB9BD(const Object *source, const Coord3D *pos, const Object *victim)
+int Weapon::isClearGoalFiringLineOfSightTerrain(const Object *source, const Coord3D *pos, const Object *victim)
 {
     Coord3D firingOrigin;
     firingOrigin.x = pos->x;

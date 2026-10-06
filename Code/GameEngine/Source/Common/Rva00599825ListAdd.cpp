@@ -1,8 +1,8 @@
-// ?rva00599825@Rva00599825@@QAEXH@Z
+// ?rva00599825@AIDozerManager@@QAEXH@Z
 // partial score=0.92 date=2026-09-29
 // cl: /GX- /MD
 //
-// ?rva00599825@Rva00599825@@QAEXH@Z, retail 0x00599825, 75 bytes.
+// ?rva00599825@AIDozerManager@@QAEXH@Z, retail 0x00599825, 75 bytes.
 // Guarded list add: resolve the id via TheGameLogic::findObjectByID, require
 // object+0x304 to equal cmp+0x2EC, skip when the id is already in the list
 // at +0, else push it. Evidence: rowed findObjectByID 0x00049DC5 and list
@@ -144,11 +144,11 @@ struct Rva599825Node
 	int m_value;
 };
 
-class Rva00599825
+class AIDozerManager
 {
 public:
 	void rva00599825(int id);
-	void rva0059992A(Xfer *xfer);
+	void DoXfer(Xfer *xfer);
 private:
 	_STL::list<int> m_ids;
 	unsigned char m_pad[0xC - sizeof(_STL::list<int>)];
@@ -156,7 +156,7 @@ private:
 	bool m_flag10;
 };
 
-void Rva00599825::rva00599825(int id)
+void AIDozerManager::rva00599825(int id)
 {
 	int myId = id;
 	Object *obj = TheGameLogic->findObjectByID((ObjectID)id);
@@ -172,12 +172,15 @@ void Rva00599825::rva00599825(int id)
 	m_ids.push_back(id);
 }
 
-// ?rva0059992A@Rva00599825@@QAEXPAVXfer@@@Z, retail 0x0059992A, 177 bytes.
+// AIDozerManager::DoXfer, retail 0x0059992A, 177 bytes (WorldBuilder name: WB's
+// SkirmishAI/AIDozerManager.cpp body carries the __FUNCTION__ string
+// "AIDozerManager::DoXfer", asserts numDozers == m_dozers.size() and calls
+// XferObjectID, list clear and findObjectByID as retail does).
 // Xfer with Version(1,1) plus bool at +0x10 plus uint count plus list<int>
 // at +0 via rowed XferObjectID 0x003060B2 with IsStoring/IsLoading split.
 // Evidence: rowed clear 0x0023DAA5 and push_back 0x0005548F; same class and
 // TU as rowed 0x00599825; caller 0x004EC1D9.
-void Rva00599825::rva0059992A(Xfer *xfer)
+void AIDozerManager::DoXfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;

@@ -213,22 +213,22 @@ void Rva0051C2E2::rva0051C2E2(int *row, const AsciiString &label, int bonus)
 	}
 }
 
-// ?rva00583121@Rva00583121@@QAEXHHVUnicodeString@@@Z @0x00583121 225B: one
+// ?ProcessProgress@AptFileTransferPopup@@QAEXHHVUnicodeString@@@Z @0x00583121 225B: one
 // file-transfer row. For a valid player (0..7) whose Apt slot at +0x5C is
 // assigned (-1 means none), it sets FileTransfer::Status%d to the text, then
 // calls SetBarTo with the slot and the percentage as "%d" strings through
 // the rowed Rva00222A8BTarget::invoke (owner 13, two arguments).
 
-class Rva00583121
+class AptFileTransferPopup
 {
 public:
-	void rva00583121(int player, int percent, UnicodeString text);
+	void ProcessProgress(int player, int percent, UnicodeString text);
 private:
 	char m_pad00[0x5C];
 	int m_slots[8];				// +0x5C
 };
 
-void Rva00583121::rva00583121(int player, int percent, UnicodeString text)
+void AptFileTransferPopup::ProcessProgress(int player, int percent, UnicodeString text)
 {
 	if (player < 0 || player >= 8)
 		return;
@@ -246,7 +246,7 @@ void Rva00583121::rva00583121(int player, int percent, UnicodeString text)
 }
 
 // ?rva0057C7BA@Rva0057E3DB@@QAEXH@Z @0x0057C7BA 216B: the lobby map title
-// (the existing pin's class, the MpGameSetup panel's +0x60 member). It keeps
+// (the existing pin's class, the AptMpGameSetup panel's +0x60 member). It keeps
 // the game type at +0x1C and sets APT:LobbyMapTiltle (the retail spelling)
 // to that label's own game text for type 0 and GUI:GameTypeScenario for
 // type 1.
@@ -326,13 +326,13 @@ Rva00582FC1::~Rva00582FC1()
 	g_Va00E06398 = 0;
 }
 
-// ?rva0043A15D@Rva0043A15D@@QAEXHH@Z @0x0043A15D 99B: SetBarTo on the panel's
+// ?processProgress@AptLoadScreen@@QAEXHH@Z @0x0043A15D 99B: SetBarTo on the panel's
 // Apt owner (+0x8C) with the slot's id from the table at +0xB0 and the
 // percentage, both formatted by sprintf "%d".
-class Rva0043A15D
+class AptLoadScreen
 {
 public:
-	void rva0043A15D(int slot, int percent);
+	void processProgress(int slot, int percent);
 private:
 	char m_pad00[0x8C];
 	void *m_owner;				// +0x8C
@@ -340,7 +340,7 @@ private:
 	int m_ids[1];				// +0xB0
 };
 
-void Rva0043A15D::rva0043A15D(int slot, int percent)
+void AptLoadScreen::processProgress(int slot, int percent)
 {
 	char idText[64];
 	char percentText[64];

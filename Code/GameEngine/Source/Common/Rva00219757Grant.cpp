@@ -1,6 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 #include "ascii_string.h"
-// ?rva00219757@Rva00219757@@QAEXPAVObject@@@Z, retail 0x00219757, 79 bytes.
+// CreateAHeroManager::UnbindHeroFromObjectAndUpdate, retail 0x00219757, 79
+// bytes (WorldBuilder name; WB's body asserts the object, tests the same
+// KindOf bit, then findUpgrade(this+0x190) and the player call with 2, 1).
 // Leaf: grants upgrade from this+0x190 AsciiString via UpgradeCenter to
 // controlling player when Object+4 flag 0x11F has 0x40 and globals allow.
 // Evidence: rowed getControllingPlayer 0x0028AFA9 and findUpgrade 0x0026F26D
@@ -40,16 +42,16 @@ public:
 	void rva002AE329(const UpgradeTemplate *upgrade, int a, int b);
 };
 
-class Rva00219757
+class CreateAHeroManager
 {
 public:
-	void rva00219757(Object *obj);
+	void UnbindHeroFromObjectAndUpdate(Object *obj);
 private:
 	unsigned char m_pad[0x190];
 	AsciiString m_upgrade;
 };
 
-void Rva00219757::rva00219757(Object *obj)
+void CreateAHeroManager::UnbindHeroFromObjectAndUpdate(Object *obj)
 {
 	if (!obj)
 		return;

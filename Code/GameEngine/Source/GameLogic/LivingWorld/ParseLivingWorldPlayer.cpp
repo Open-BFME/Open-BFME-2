@@ -68,10 +68,10 @@ class Rva002E0A0A
 	char opaque[40];
 };
 
-class Rva0052D394
+class LivingWorldCampaign
 {
 public:
-	void rva0052D394(const Rva002E0A0A &arg);
+	void AddPlayer(const Rva002E0A0A &arg);
 };
 
 void Rva002E1D22Parse(INI *ini, void *instance)
@@ -101,7 +101,7 @@ void Rva002E1D22Parse(INI *ini, void *instance)
 			goto done;
 	}
 append:
-	((Rva0052D394 *)instance)->rva0052D394(*(const Rva002E0A0A *)&record);
+	((LivingWorldCampaign *)instance)->AddPlayer(*(const Rva002E0A0A *)&record);
 done:;
 }
 

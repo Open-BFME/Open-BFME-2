@@ -7,8 +7,11 @@
 // callback interface BfmeAptScreenLanLobby.cpp views sits at +0x27C).
 //
 // Donor: Open-BFME-1 GUICallbacks/Apt/BfmeAptScreenLanLobby_onInitGadget.cpp
-// (BfmeAptScreenLanLobby::_bfme_onInitGadget, BFME1 0x005187F0); the name is
+// (donor BfmeAptScreenLanLobby::_bfme_onInitGadget, BFME1 0x005187F0); the name is
 // the donor's identity for the same role and "LanLobby::" gadget names.
+// BFME2 name: WorldBuilder's AptLanLobby.cpp:1419-1442 asserts in
+// AptLanLobby::InitGadgets with this body, and retail holds the
+// "AptLanLobby::InitGadgets" callback string.
 // BFME2 target evidence: only CustomGamesList (stored at +0x6A8, games
 // tooltip 0x00445BAA) and NameEntry remain; NameEntry's link helper at
 // +0x6AC (destroyed by ??1Rva0031455E) attaches through its vslot 1 and
@@ -56,8 +59,8 @@ class BfmeKeyLC;
 
 void GadgetListBoxReset(GameWindow *window);
 void GadgetTextEntrySetText(GameWindow *window, UnicodeString text);
-void __cdecl Rva0032060D(GameWindow *window, int value);
-void bfmeGo924F(BfmeKeyLC *key, unsigned short value);
+void __cdecl GadgetTextEntrySetValidationFlags(GameWindow *window, int value);
+void GadgetTextEntrySetMaxChars(BfmeKeyLC *key, unsigned short value);
 
 // The custom games list tooltip, unrowed 0x00445BAA (507 bytes; BFME1's is
 // Rva00518150LanLobbyTooltip), pinned by address.
@@ -121,12 +124,6 @@ class Rva004442FD
 {
 public:
 	void rva004442FD();
-};
-
-class Rva00444165
-{
-public:
-	int rva00444165();
 };
 
 // Enables (rva00444083) or disables (rva004440F4) the create (1) and join
@@ -222,12 +219,6 @@ class Rva00580172
 {
 public:
 	bool rva00580172();
-};
-
-class GameEngine
-{
-public:
-	void rva004443E7();
 };
 
 class Rva00222A8BTarget
@@ -376,17 +367,19 @@ public:
 extern LANAPI *g_00DFE958;
 #define TheLAN g_00DFE958
 
-class BfmeAptScreenLanLobby
+class AptLanLobby
 {
 public:
-	void _bfme_onInitGadget(const char *name, void *argument, GameWindow *window);
+	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void rva00446386(bool enable);
 	void submitNameRva00444760();
 	void rva00446772();
 	void rva0044469C();
 	void rva00445E3E(LANGameInfo *games);
-	bool initLanRva004452A8();
-	int rva00446443();
+	bool InitTheLan();
+	int OnUpdateData();
+	int GetValidSelectedGameInfo();
+	void rva004443E7();
 	int rva00444826(int msg, unsigned int data1, unsigned int data2);
 
 	// Unrowed 0x004457BC (1006 bytes; rebuilds the games list box), pinned by
@@ -428,7 +421,7 @@ private:
 	unsigned char m_6c0; // +0x6C0
 };
 
-void BfmeAptScreenLanLobby::_bfme_onInitGadget(const char *name, void *, GameWindow *window)
+void AptLanLobby::InitGadgets(const char *name, void *, GameWindow *window)
 {
 	if (window != 0)
 	{
@@ -440,9 +433,9 @@ void BfmeAptScreenLanLobby::_bfme_onInitGadget(const char *name, void *, GameWin
 		}
 		else if (strcmp(name, "LanLobby::NameEntry") == 0)
 		{
-			bfmeGo924F((BfmeKeyLC *)window, 0x0c);
+			GadgetTextEntrySetMaxChars((BfmeKeyLC *)window, 0x0c);
 			GadgetTextEntrySetText(window, UnicodeString::TheEmptyString);
-			Rva0032060D(window, 0x80);
+			GadgetTextEntrySetValidationFlags(window, 0x80);
 			m_nameEntry.attach(window);
 			m_6c0 = 0;
 		}
@@ -454,7 +447,7 @@ void BfmeAptScreenLanLobby::_bfme_onInitGadget(const char *name, void *, GameWin
 // manager's tab list with a one-entry list holding that window; when it
 // turns off it only clears the tab list. /GX (not /EHsc) keeps retail's
 // state reset before the list's destructor, as for registerTabList.
-void BfmeAptScreenLanLobby::rva00446386(bool enable)
+void AptLanLobby::rva00446386(bool enable)
 {
 	if (enable == m_6bb)
 		return;
@@ -478,7 +471,7 @@ void BfmeAptScreenLanLobby::rva00446386(bool enable)
 // 0x00516C50), whose address-name pattern it keeps. BFME2 keeps the last
 // user name at +0x6A0 and the preferences at +0x684; LANAPI vslot 29 is the
 // donor's RequestSetName.
-void BfmeAptScreenLanLobby::submitNameRva00444760()
+void AptLanLobby::submitNameRva00444760()
 {
 	GameWindow *entry = m_nameEntry.m_owner;
 	UnicodeString text = GadgetTextEntryGetText(entry);
@@ -496,7 +489,7 @@ void BfmeAptScreenLanLobby::submitNameRva00444760()
 // Name unknown. Hands the preferences to the +0x668 object, writes them,
 // clears the tab list (rva00446386), runs the screen's rowed 0x004442FD and
 // tail-calls the +0x288 panel's 0x0043DE19.
-void BfmeAptScreenLanLobby::rva00446772()
+void AptLanLobby::rva00446772()
 {
 	m_668.rva00580316(&m_prefs);
 	m_prefs.write();
@@ -508,7 +501,7 @@ void BfmeAptScreenLanLobby::rva00446772()
 // Retail 0x0044469C, 196 bytes. Name unknown. In state 1 with a non-blank
 // name entered, the join button follows whether the game from 0x00444165 has
 // a free slot and the create button is enabled; otherwise both are disabled.
-void BfmeAptScreenLanLobby::rva0044469C()
+void AptLanLobby::rva0044469C()
 {
 	bool hasName = false;
 	bool canJoin = false;
@@ -525,7 +518,7 @@ void BfmeAptScreenLanLobby::rva0044469C()
 		if (notBlank)
 		{
 			hasName = true;
-			GameInfo *game = (GameInfo *)reinterpret_cast<Rva00444165 *>(this)->rva00444165();
+			GameInfo *game = (GameInfo *)GetValidSelectedGameInfo();
 			if (game)
 			{
 				int players = game->getNumPlayers();
@@ -547,7 +540,7 @@ void BfmeAptScreenLanLobby::rva0044469C()
 // Retail 0x00445E3E, 77 bytes. Name unknown. Rebuilds the +0x668 object from
 // the games in TheLAN's list whose +0x5C matches the screen's +0x304, then
 // refreshes the games list box (0x004457BC) and enables the +0x288 panel.
-void BfmeAptScreenLanLobby::rva00445E3E(LANGameInfo *games)
+void AptLanLobby::rva00445E3E(LANGameInfo *games)
 {
 	reinterpret_cast<Rva00601941 *>(&m_668)->rva00601941();
 	for (LANGameInfo *game = games; game; game = game->m_next)
@@ -566,7 +559,7 @@ void BfmeAptScreenLanLobby::rva00445E3E(LANGameInfo *games)
 // creates a 0x60-byte LANAPI, keeps GlobalData +0x26 at +0x6B9, no longer
 // hands the list windows to TheLAN, clamps the name to ten characters, stores
 // it at +0x6A0, and finishes with LANAPI vslots 15 and 58 and 0x00437421.
-bool BfmeAptScreenLanLobby::initLanRva004452A8()
+bool AptLanLobby::InitTheLan()
 {
 	if (m_customGamesList == 0)
 		return false;
@@ -631,7 +624,7 @@ bool BfmeAptScreenLanLobby::initLanRva004452A8()
 // back out), refreshes the buttons, reports a socket error once and returns
 // 1; the +0x288 panel always gets its 0x00443EA8 (retail merges both
 // returns' panel calls).
-int BfmeAptScreenLanLobby::rva00446443()
+int AptLanLobby::OnUpdateData()
 {
 	if (m_6c0)
 	{
@@ -645,7 +638,7 @@ int BfmeAptScreenLanLobby::rva00446443()
 		switch (m_6a4)
 		{
 		case 0:
-			if (initLanRva004452A8())
+			if (InitTheLan())
 			{
 				Rva005118F3Show(0, false);
 				if (m_538)
@@ -700,7 +693,7 @@ int BfmeAptScreenLanLobby::rva00446443()
 			int selected = -1;
 			m_6a4 = 1;
 			GadgetListBoxGetSelected(m_customGamesList, &selected);
-			LANGameInfo *game = (LANGameInfo *)reinterpret_cast<Rva00444165 *>(this)->rva00444165();
+			LANGameInfo *game = (LANGameInfo *)GetValidSelectedGameInfo();
 			if (game)
 			{
 				m_6a4 = 8;
@@ -716,7 +709,7 @@ int BfmeAptScreenLanLobby::rva00446443()
 			if (!game || game->getLocalSlotNum() == -1)
 			{
 				Rva0044C0A8(TheGameText->fetch("GUI:GSErrorTitle"), TheGameText->fetch("GUI:GSKicked"), 0);
-				reinterpret_cast<GameEngine *>(this)->rva004443E7();
+				rva004443E7();
 				m_6a4 = 0;
 			}
 			break;
@@ -748,7 +741,7 @@ int BfmeAptScreenLanLobby::rva00446443()
 // (sound events 0x1A and 0x1B), the games list's 0x4014 and 0x4015 (select
 // and activate) and the name entry's 0x4032 (submitName); anything else
 // returns what the base (or else the panel) returned.
-int BfmeAptScreenLanLobby::rva00444826(int msg, unsigned int data1, unsigned int data2)
+int AptLanLobby::rva00444826(int msg, unsigned int data1, unsigned int data2)
 {
 	if (m_6c0)
 		return 0;
@@ -768,10 +761,10 @@ int BfmeAptScreenLanLobby::rva00444826(int msg, unsigned int data1, unsigned int
 		break;
 	case 0x4014:
 		if ((GameWindow *)data1 == m_customGamesList)
-			m_panel.rva0043FA68(reinterpret_cast<Rva00444165 *>(this)->rva00444165());
+			m_panel.rva0043FA68(GetValidSelectedGameInfo());
 		break;
 	case 0x4015:
-		if ((GameWindow *)data1 == m_customGamesList && reinterpret_cast<Rva00444165 *>(this)->rva00444165())
+		if ((GameWindow *)data1 == m_customGamesList && GetValidSelectedGameInfo())
 			reinterpret_cast<Rva00444362 *>(this)->rva00444362((void *)"");
 		break;
 	case 0x4032:
@@ -785,27 +778,27 @@ int BfmeAptScreenLanLobby::rva00444826(int msg, unsigned int data1, unsigned int
 
 // Retail 0x0044432B, 23 bytes: "AptLanLobby::OnOptionsBttn". Leaves the
 // lobby (0x004442FD) and opens the options screen through 0x005185D8.
-void BfmeAptScreenLanLobby::OnOptionsBttn(const char *unused)
+void AptLanLobby::OnOptionsBttn(const char *unused)
 {
 	reinterpret_cast<Rva004442FD *>(this)->rva004442FD();
 	Rva005185D8Init(false, false, true, false);
 }
 
 // Retail 0x00444342, 8 bytes: "AptLanLobby::OnExitBttn".
-void BfmeAptScreenLanLobby::OnExitBttn(const char *unused)
+void AptLanLobby::OnExitBttn(const char *unused)
 {
 	Rva00444040Enable();
 }
 
 // Retail 0x0044434A, 13 bytes: "AptLanLobby::OnStartGameBttn" moves the
 // update's state machine (+0x6A4) to 5.
-void BfmeAptScreenLanLobby::OnStartGameBttn(const char *unused)
+void AptLanLobby::OnStartGameBttn(const char *unused)
 {
 	m_6a4 = 5;
 }
 
 // Retail 0x00444376, 20 bytes: "AptLanLobby::OnLoadGameBttn", state 1 to 11.
-void BfmeAptScreenLanLobby::OnLoadGameBttn(const char *unused)
+void AptLanLobby::OnLoadGameBttn(const char *unused)
 {
 	if (m_6a4 == 1)
 		m_6a4 = 11;
@@ -813,7 +806,7 @@ void BfmeAptScreenLanLobby::OnLoadGameBttn(const char *unused)
 
 // Retail 0x0044438A, 93 bytes: "AptLanLobby::OnLoadScreen" resets the
 // state and hands the panel (0x004422B4) the game mode named by the screen.
-void BfmeAptScreenLanLobby::OnLoadScreen(const char *mode)
+void AptLanLobby::OnLoadScreen(const char *mode)
 {
 	m_6a4 = 0;
 	if (strcmp(mode, "LanOpenPlay") == 0)
@@ -835,7 +828,7 @@ void BfmeAptScreenLanLobby::OnLoadScreen(const char *mode)
 
 // Retail 0x00444F5D, 63 bytes: "AptLanLobby::OnCreateGameBttn", state 1
 // to 2, and the name entry's text saved as the user name.
-void BfmeAptScreenLanLobby::OnCreateGameBttn(const char *unused)
+void AptLanLobby::OnCreateGameBttn(const char *unused)
 {
 	if (m_6a4 == 1)
 		m_6a4 = 2;

@@ -9,10 +9,10 @@ public:
 	void rva005DB512(int a, int b, int c);
 };
 
-class Rva005DB3B3
+class AptConnectionScreen
 {
 public:
-	void rva005DB3B3(int b);
+	void UpdateSlotName(int b);
 };
 
 class Rva005DB5F2
@@ -32,5 +32,5 @@ void Rva005DB5F2::rva005DB5F2(int a, int b, int c)
 	Rva005DB5F2Container *o = (Rva005DB5F2Container *)((char *)this - 0x58);
 	o->rva005DB512(a, b, c);
 	o->rva005DB512(a, c, b);
-	((Rva005DB3B3 *)o)->rva005DB3B3(b);
+	((AptConnectionScreen *)o)->UpdateSlotName(b);
 }

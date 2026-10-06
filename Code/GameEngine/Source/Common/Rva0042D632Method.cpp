@@ -1,5 +1,7 @@
 // cl: /MD
-// ?rva0042D632@Rva0042D632@@QAEXXZ @0x0042D632 74B: state switch on inner +8 driving Apt invokes.
+// StrategicHUD::HUD::FadeOut @0x0042D632 74B (WorldBuilder name, StrategicHUD.cpp
+// line 494): state switch on the Impl +8 driving Apt invokes; state 1 hides the
+// level (0x0022277D, WB AptPlayer::HideLevel), state 2 starts _fadeOut.
 // Evidence: rowed free invoke 0x00516F21 (strings SetState _fadeOut) plus pin 0x0022277D;
 // caller 0x0042C39A; neighbours 0x0042D55B 0x0042D697.
 
@@ -20,25 +22,28 @@ struct Rva0042D632Inner
 	unsigned int m_08;
 };
 
-class Rva0042D632
+namespace StrategicHUD
+{
+class HUD
 {
 public:
-	void rva0042D632();
+	void FadeOut();
 private:
-	Rva0042D632Inner *m_00;
+	Rva0042D632Inner *m_impl;
 };
+}
 
-void Rva0042D632::rva0042D632()
+void StrategicHUD::HUD::FadeOut()
 {
-	switch (m_00->m_08)
+	switch (m_impl->m_08)
 	{
 	case 1:
-		TheRva00222A8BTarget->rva0022277D(m_00->m_04);
-		m_00->m_08 = 0;
+		TheRva00222A8BTarget->rva0022277D(m_impl->m_04);
+		m_impl->m_08 = 0;
 		break;
 	case 2:
-		Rva00516F21Invoke(TheRva00222A8BTarget, m_00->m_04, "SetState", "_fadeOut");
-		m_00->m_08 = 3;
+		Rva00516F21Invoke(TheRva00222A8BTarget, m_impl->m_04, "SetState", "_fadeOut");
+		m_impl->m_08 = 3;
 		break;
 	}
 }

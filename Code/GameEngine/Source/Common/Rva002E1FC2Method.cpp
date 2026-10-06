@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfmelist /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
-// ?rva002E1FC2@Rva002E1FC2@@QAEXXZ 0x002E1FC2 139 merge second map minus first via rowed increment fetch and forEach vtable 0x00875590 callers 0x0020F53F
+// ?CheckForRemovedMultiRegionBonuses@LivingWorldPlayer@@QAEXXZ 0x002E1FC2 139 merge second map minus first via rowed increment fetch and forEach vtable 0x00875590 callers 0x0020F53F
 #define _STLP_NO_EXCEPTIONS 1
 #include <map>
 
@@ -60,10 +60,10 @@ public:
 	virtual void notify(void *, int, int);
 };
 
-class Rva002E1FC2
+class LivingWorldPlayer
 {
 public:
-	void rva002E1FC2();
+	void CheckForRemovedMultiRegionBonuses();
 private:
 	char m_pad0[4];
 	Rva002E1E6FList m_list;
@@ -72,7 +72,7 @@ private:
 	_STL::map<int, int> m_map2;
 };
 
-void Rva002E1FC2::rva002E1FC2()
+void LivingWorldPlayer::CheckForRemovedMultiRegionBonuses()
 {
 	_STL::map<int, int>::iterator it1 = m_map1.begin();
 	_STL::map<int, int>::iterator it2 = m_map2.begin();

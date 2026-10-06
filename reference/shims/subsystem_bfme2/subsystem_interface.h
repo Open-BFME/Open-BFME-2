@@ -33,7 +33,10 @@ public:
 	void setName(AsciiString name) { m_name = name; }
 	AsciiString getName(void);
 protected:
-	AsciiString m_name;
+	// BFME2 layout: the base ctor (0x001B4E63) clears a byte at +0x04 and the
+	// dtor (0x001B4E74) destroys m_name at +0x08; the byte's role is unknown.
+	Bool m_flag;		// +0x04
+	AsciiString m_name;	// +0x08
 };
 
 // The registry GameEngine::init drives; retail keeps it at 0x0134C6C8.

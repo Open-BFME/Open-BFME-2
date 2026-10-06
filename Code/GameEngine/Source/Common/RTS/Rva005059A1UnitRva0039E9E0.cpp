@@ -2,7 +2,7 @@
 // ?rva0039E9E0@Rva005059A1Unit@@QAEXXZ @0x0039E9E0 47B
 // Unit teardown via Team transfer or Object fallback. If the +0x30 team's
 // +8 link carries a +0x2EC unit different from this transfer to it via rowed
-// Team::transferUnitsTo else drain +0x38 via pinned Object::rva00298AE4.
+// Team::transferUnitsTo else drain +0x38 via pinned Object::setTeam.
 // Evidence: pin owner pin callers at 0x004F06E5 and 0x005059A1 rowed callees.
 class Team
 {
@@ -12,7 +12,7 @@ public:
 class Object
 {
 public:
-    void rva00298AE4(Team *t);
+    void setTeam(Team *t);
 };
 struct Rva0039Mid
 {
@@ -46,7 +46,7 @@ void Rva005059A1Unit::rva0039E9E0()
             o = m38;
             if (o == 0)
                 break;
-            o->rva00298AE4(0);
+            o->setTeam(0);
         } while (o != 0);
     }
 }

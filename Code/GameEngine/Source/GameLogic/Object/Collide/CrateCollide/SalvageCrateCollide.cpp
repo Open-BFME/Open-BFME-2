@@ -168,7 +168,7 @@ public:
 class Player
 {
 public:
-	int rva002A9E36(int amount);	// 0x002A9E36
+	int ScaleMoney(int amount);	// 0x002A9E36
 	void rva002AE329(const UpgradeTemplate *upgrade, int status, int flag);	// 0x002AE329
 	char m_pad000[0x5C];
 	int m_5C;			// +0x5C (1 a computer player)
@@ -291,7 +291,7 @@ void SalvageCrateCollide::doMoney(Object *other)
 		}
 		Player *player = other->getControllingPlayer();
 		if (player) {
-			money = player->rva002A9E36(money);
+			money = player->ScaleMoney(money);
 			player->m_money.rva003B0D7C(money, &player->m_3BC, true);
 		}
 		UnicodeString moneyString;

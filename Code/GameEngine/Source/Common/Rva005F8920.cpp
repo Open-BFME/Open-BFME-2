@@ -1,5 +1,8 @@
 // cl: /EHsc /DNDEBUG /MD
-// ?rva005F8920@Rva005F8920@@QAEXXZ @0x005F8920 102B evidence: thiscall member
+// StrategicInGameUI::QueueUnitButton::OnLeftClicked @0x005F8920 102B: WorldBuilder
+// name (StrategicInGameUIQueueUnitButton.cpp lines 217..227, same isShift 1|5
+// repeat of message 0x6AC); a virtual, at VA 0x00C79CD4 in its vtable.
+// Evidence: thiscall member
 // guards on just-landed __cdecl ?Rva005F88F4Get@@YAHH@Z @0x005F88F4 (m_18) and
 // its result's virtual slot 7 (+0x1C, m_20), then builds count = 1|5 from
 // rowed Keyboard::isShift @0x00232683 over fresh global g_00DFE720 and loops
@@ -44,20 +47,23 @@ public:
 	virtual bool rva005F8920Check(int arg);	// slot 7 (+0x1C)
 };
 
-class Rva005F8920
+namespace StrategicInGameUI
+{
+class QueueUnitButton
 {
 public:
-	void rva005F8920();
+	virtual void OnLeftClicked();
 private:
-	char m_pad[0x18];
+	char m_pad04[0x18 - 4];
 	int m_18;
 	int m_1C;
 	int m_20;
 };
+}
 
 int __cdecl Rva005F88F4Get(int arg);
 
-void Rva005F8920::rva005F8920()
+void StrategicInGameUI::QueueUnitButton::OnLeftClicked()
 {
 	Rva005F8920Result *res = (Rva005F8920Result *)Rva005F88F4Get(m_18);
 	if (!res || !res->rva005F8920Check(m_20))

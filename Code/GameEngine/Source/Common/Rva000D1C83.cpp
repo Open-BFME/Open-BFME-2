@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?rva000D1C83@Rva000D1C83@@QAEXXZ @0x000D1C83 158B
+// ?allocateBuffBuffers@W3DBuffBuffer@@QAEXXZ @0x000D1C83 158B
 // VB/IB container init: releases existing pair via rowed Rva0074011F,
 // allocates BfmeDynamicNativeVB(0x142,0x7534,1,0) and DX8IndexBuffer(0xea64,1),
 // zeroes +0x08/+0x0C, stamps +0x10=0x7530 +0x14=0xea60.
@@ -39,10 +39,10 @@ private:
 	unsigned char m_pad[0x18]; // sizeof 0x18 (new 0x18)
 };
 
-class Rva000D1C83 : public Rva0074011F
+class W3DBuffBuffer : public Rva0074011F
 {
 public:
-	void rva000D1C83();
+	void allocateBuffBuffers();
 
 private:
 	void *m_08; // +0x08
@@ -51,7 +51,7 @@ private:
 	int m_14; // +0x14
 };
 
-void Rva000D1C83::rva000D1C83()
+void W3DBuffBuffer::allocateBuffBuffers()
 {
 	if (m_p0 || m_p1)
 		Rva0074011F::rva0074011F();

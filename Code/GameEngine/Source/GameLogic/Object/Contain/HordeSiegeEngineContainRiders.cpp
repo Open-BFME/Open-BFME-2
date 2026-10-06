@@ -151,7 +151,7 @@ class OpenContain
 	, public IfaceFC
 {
 public:
-	virtual void rva00462F75(Object *rider);
+	virtual void removeFromContainList(Object *rider);
 	virtual void rva004638F1(Object *rider);
 };
 class TransportContain : public OpenContain
@@ -167,14 +167,14 @@ private:
 class HordeSiegeEngineContain : public HordeTransportContain
 {
 public:
-	virtual void rva00462F75(Object *rider);
+	virtual void removeFromContainList(Object *rider);
 	virtual void rva004638F1(Object *rider);
 private:
 	_STL::list<int> m_list128; // +0x128
 	int m_12C; // +0x12C
 	bool m_130; // +0x130
 };
-void HordeSiegeEngineContain::rva00462F75(Object *rider)
+void HordeSiegeEngineContain::removeFromContainList(Object *rider)
 {
 	SiegeEngineContainModuleData *data = (SiegeEngineContainModuleData *)m_moduleData;
 	if (data->m_18C.bfmeHas1026((int)rider, (int)m_object->getControllingPlayer()) && data->m_190 > 0)
@@ -186,7 +186,7 @@ void HordeSiegeEngineContain::rva00462F75(Object *rider)
 		return;
 	}
 	clearModelConditionBit(rider, 6 * 32 + 17);
-	HordeTransportContain::rva00462F75(rider);
+	HordeTransportContain::removeFromContainList(rider);
 }
 void HordeSiegeEngineContain::rva004638F1(Object *rider)
 {

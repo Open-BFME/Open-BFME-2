@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva0045108D@GiveOrRestoreUpgradeSpecialPower@@UAEXXZ 0x004CD1B9 275B evidence: slot 17 of vtable 0x0085FA40; base SpecialAbilityUpdate rva0045108D pin 0x0045108D; ModuleData +0xCC UpgradeToGive +0xD0 toggle from rowed ctor 0x004CD0B1; Curse slot-17 precedent
+// ?triggerAbilityEffect@GiveOrRestoreUpgradeSpecialPower@@UAEXXZ 0x004CD1B9 275B evidence: slot 17 of vtable 0x0085FA40; base SpecialAbilityUpdate triggerAbilityEffect pin 0x0045108D; ModuleData +0xCC UpgradeToGive +0xD0 toggle from rowed ctor 0x004CD0B1; Curse slot-17 precedent
 #include "ascii_string.h"
 
 class UpgradeTemplate;
@@ -38,7 +38,7 @@ public:
 class SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 protected:
 	const void *m_moduleData;
 	Object *m_object;
@@ -56,7 +56,7 @@ public:
 class GiveOrRestoreUpgradeSpecialPower : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 private:
 	const GiveOrRestoreUpgradeSpecialPowerModuleData *getData() const
 	{
@@ -68,9 +68,9 @@ private:
 	AsciiString m_8C;
 };
 
-void GiveOrRestoreUpgradeSpecialPower::rva0045108D()
+void GiveOrRestoreUpgradeSpecialPower::triggerAbilityEffect()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	Object *obj = m_object;
 	const GiveOrRestoreUpgradeSpecialPowerModuleData *data = getData();
 	if (!obj)

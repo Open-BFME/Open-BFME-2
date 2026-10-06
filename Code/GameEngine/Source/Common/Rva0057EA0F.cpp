@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 // ?rva0057EA0F@Rva0057EE5C@@QAEXXZ @0x0057EA0F 158B
-// Refresh of the MpGameSetup +0xD0 member: reads holder at +0x58 via rowed
+// Refresh of the AptMpGameSetup +0xD0 member: reads holder at +0x58 via rowed
 // 0x0043DA65, caches [edi+0x14] at +0x5C, copies the 0x28B block at +0x60 to
 // +0x8C via rowed 0x002DB9B6 or resets via pinned 0x00559FAC after __cdecl
 // compare 0x00559EDC, then vslot1(10 0) and rowed 0x0057E97A before tail jmp

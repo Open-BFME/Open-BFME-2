@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
-// ?rva003075A3@DataChunkInput@@QAE?AVUnicodeString@@XZ @0x003075A3 158B
+// ?readUnicodeString@DataChunkInput@@QAE?AVUnicodeString@@XZ @0x003075A3 158B
 // DataChunkInput counted-string reader (readUnicodeString shape): reads u16
 // len via virtual read, decrements, getBufferForRead, reads len*2 bytes, null
 // terms wide, returns UnicodeString by value via StringBase copy plus release.
@@ -50,7 +50,7 @@ public:
 class DataChunkInput
 {
 public:
-    UnicodeString rva003075A3();
+    UnicodeString readUnicodeString();
 
 protected:
     void decrementDataLeft(Int size);
@@ -63,7 +63,7 @@ private:
     InputChunk *m_chunkStack;
 };
 
-UnicodeString DataChunkInput::rva003075A3(void)
+UnicodeString DataChunkInput::readUnicodeString(void)
 {
     UnsignedShort len;
     m_file->read(&len, sizeof(UnsignedShort));

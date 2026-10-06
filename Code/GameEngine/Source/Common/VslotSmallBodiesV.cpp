@@ -48,30 +48,48 @@ public:
 	Int m_4C;
 	char m_pad50[0x08];
 };
-class Rva00131CA5
+//
+// Names: WorldBuilder's texture.cpp defines these three as the PreLoad of
+// TextureAsset's nested factories (Factory :1031, MissingFactory :1041,
+// RecolorFactoryDecal :1115), each asserting m_impl (+0x14) is NULL before
+// creating the impl; retail keeps them in that order (0x00131C63, 0x00131CA5,
+// 0x00131D54) and RecolorFactoryDecal's sits in its factory vftable.
+class TextureAsset
 {
 public:
-	void rva00131CA5();
-	void rva00131D54();
-private:
-	char m_pad00[0x14];
-	Rva0013107A *m_14;
-	char m_pad18[0x18];
-	Int m_30;
-	Int m_34;
-	char m_pad38[0x04];
-	const char *m_3C;
+	class Factory;
+	class MissingFactory
+	{
+	public:
+		void PreLoad();
+	private:
+		char m_pad00[0x14];
+		Rva0013107A *m_impl;
+		char m_pad18[0x18];
+		Int m_30;
+		Int m_34;
+	};
+	class RecolorFactoryDecal
+	{
+	public:
+		void PreLoad();
+	private:
+		char m_pad00[0x14];
+		Rva0013107A *m_impl;
+		char m_pad18[0x24];
+		const char *m_3C;
+	};
 };
-void Rva00131CA5::rva00131CA5()
+void TextureAsset::MissingFactory::PreLoad()
 {
-	m_14 = new Rva0013107A;
-	m_14->m_44 = m_30;
-	m_14->m_4C = m_34;
+	m_impl = new Rva0013107A;
+	m_impl->m_44 = m_30;
+	m_impl->m_4C = m_34;
 }
-void Rva00131CA5::rva00131D54()
+void TextureAsset::RecolorFactoryDecal::PreLoad()
 {
-	m_14 = new Rva0013107A;
-	m_14->rva00131259(m_3C);
+	m_impl = new Rva0013107A;
+	m_impl->rva00131259(m_3C);
 }
 
 // 0x001E30F5: unless +0x14C is set, looks up the +0x154 key in the registry
@@ -205,26 +223,26 @@ Int Rva002616D1::rva002616EB(const Rva002616D1Arg *arg) const
 // 0x00131C63 (texture tables beside 0x00131CA5): a new 0x58-byte surface at
 // +0x14 taking the +0x30/+0x34/+0x38 words, then the rowed loader 0x00131259
 // with the +0x18 name.
-class Rva00131C63
+class TextureAsset::Factory
 {
 public:
-	void rva00131C63();
+	void PreLoad();
 private:
 	char m_pad00[0x14];
-	Rva0013107A *m_14;
+	Rva0013107A *m_impl;
 	const char *m_18;
 	char m_pad1C[0x14];
 	Int m_30;
 	Int m_34;
 	Int m_38;
 };
-void Rva00131C63::rva00131C63()
+void TextureAsset::Factory::PreLoad()
 {
-	m_14 = new Rva0013107A;
-	m_14->m_44 = m_30;
-	m_14->m_4C = m_34;
-	m_14->m_48 = m_38;
-	m_14->rva00131259(m_18);
+	m_impl = new Rva0013107A;
+	m_impl->m_44 = m_30;
+	m_impl->m_4C = m_34;
+	m_impl->m_48 = m_38;
+	m_impl->rva00131259(m_18);
 }
 
 // 0x00105FE4 and 0x00106036: the rowed 0x00154320 (resp. 0x00154370) with

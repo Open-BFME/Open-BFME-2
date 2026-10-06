@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva005F921F@Rva005F921F@@QAEX_N@Z @0x005F921F 91B slot Apt SetButtonState AutoResolve _up/_disabled.
+// StrategicHUD::BattlePromptMovieClip::Impl::SetAutoResolveButtonEnabled @0x005F921F 91B (WorldBuilder name, StrategicHUDBattlePromptMovieClip.cpp; same SetButtonState AutoResolve _up/_disabled) slot Apt SetButtonState AutoResolve _up/_disabled.
 // Evidence: callers 0x005F93CB jmp thunk; callees rowed AptCall 0x005F8EDA; strings _up _disabled SetButtonState AutoResolve; empty fallback g_Rva0107301CEmptyString; manager TheRva00222A8BTarget; vtables none free method via ecx.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
@@ -12,10 +12,19 @@ struct Rva005F921FHolder
 	char m_name[1];
 };
 
-class Rva005F921F
+namespace StrategicHUD
+{
+class BattlePromptMovieClip
 {
 public:
-	void rva005F921F(bool flag);
+	class Impl;
+};
+}
+
+class StrategicHUD::BattlePromptMovieClip::Impl
+{
+public:
+	void SetAutoResolveButtonEnabled(bool flag);
 private:
 	char m_pad00[4];
 	void *m_level04;
@@ -24,7 +33,7 @@ private:
 	bool m_flag60;
 };
 
-void Rva005F921F::rva005F921F(bool flag)
+void StrategicHUD::BattlePromptMovieClip::Impl::SetAutoResolveButtonEnabled(bool flag)
 {
 	if (m_flag60 == flag)
 		return;

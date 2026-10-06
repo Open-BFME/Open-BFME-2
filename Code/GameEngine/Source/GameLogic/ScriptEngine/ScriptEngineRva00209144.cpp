@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
-// ?rva00209144@ScriptEngine@@IAEXPAVScriptAction@@H_N1@Z, retail 0x00209144, 436 bytes. Banked partial (score 0.92) closed by tools/permute.py;
+// ?setCounter@ScriptEngine@@IAEXPAVScriptAction@@H_N1@Z, retail 0x00209144, 436 bytes. Banked partial (score 0.92) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
 //
 // Evidence: unlock lane, prev evaluateCounter 0x00208F61 next addCounter
@@ -71,10 +71,10 @@ public:
 	void *rva002086C5(AsciiString name);
 protected:
 	ScriptCounter *bfmeCounter(AsciiString name);
-	void rva00209144(ScriptAction *action, int randomKind, bool copyFrom, bool isFloat);
+	void setCounter(ScriptAction *action, int randomKind, bool copyFrom, bool isFloat);
 };
 
-void ScriptEngine::rva00209144(ScriptAction *action, int randomKind, bool copyFrom, bool isFloat)
+void ScriptEngine::setCounter(ScriptAction *action, int randomKind, bool copyFrom, bool isFloat)
 {
 	ScriptCounter *counter = bfmeCounter(action->getParameter(0)->m_string);
 	if (!counter)

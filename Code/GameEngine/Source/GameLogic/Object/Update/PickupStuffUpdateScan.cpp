@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// PickupStuffUpdate::rva004920B5, retail 0x004920B5 (118 bytes), pinned by
+// PickupStuffUpdate::updateInactive, retail 0x004920B5 (118 bytes), pinned by
 // address from its caller PickupStuffUpdate::update (0x0049212B), which runs
 // it on the primary `this` while the +0x20 flag is clear. Once the logic
 // frame passes the last scan frame (+0x24) plus g_Va00DBA4E4 times the
@@ -50,7 +50,7 @@ public:
 class PickupStuffUpdate
 {
 public:
-	void rva004920B5();
+	void updateInactive();
 private:
 	void *m_vptr;
 	const PickupStuffUpdateModuleData *m_moduleData;	// +0x04
@@ -59,7 +59,7 @@ private:
 	bool m_20;			// +0x20
 	unsigned int m_lastScanFrame;	// +0x24
 };
-void PickupStuffUpdate::rva004920B5()
+void PickupStuffUpdate::updateInactive()
 {
 	if ((float)TheGameLogic->getFrame() > (float)g_Va00DBA4E4 * m_moduleData->m_scanDelay + (float)m_lastScanFrame) {
 		if (m_object->m_258->m_34 == 0) {

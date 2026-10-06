@@ -2,13 +2,20 @@
 //
 // BFME2's LAN lobby screen: the per-slot option setters and their siblings
 // that the lobby's callback vftable at 0x00C3E098 holds (slot 12 is
-// applySlotTeam). Retail places them together at 0x0044440C..0x004457BC,
+// MpOwnerSelectTeam). Retail places them together at 0x0044440C..0x004457BC,
 // after Rva00444525Init (which pushes "LanLobby.apt").
 //
 // Donor: Open-BFME-1 game/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/
 // BfmeAptScreenLanLobby_*.cpp (f57439f7f4). Identity is carried per body by
 // its option key string ("Team=%d", ...) and by the shared call pattern;
-// BFME1's class and method names are donor names, not target facts.
+// BFME1's class and method names are donor names, not target facts. The
+// BFME2 names (class AptLanLobby; MpOwnerSelectTeam, MpOwnerSelectHandicap,
+// MpOwnerSelectPlayer, MpOwnerSelectStartPosition, MpOwnerGetLocalPlayerName,
+// MpOwnerPrintMessage, MpOwnerSelectColor, MpOwnerSelectPlayerTemplate,
+// MpOwnerSelectHero) come from WorldBuilder's AptLanLobby.cpp, which asserts
+// in each body with the same callees and option strings, and from retail's own
+// "AptLanLobby::..." callback strings. The other rva-named members keep
+// address names.
 //
 // Target facts (all read from retail): TheLAN is the global at 0x009FE958
 // (defined in Rva00446A77Enable.cpp; the g_00DFE958 spelling is aliased
@@ -16,7 +23,7 @@
 // game-options string, vslot 26 asks the host for serialized game info.
 // LANAPI vslot 55 returns the local player name by value.
 // LANGameInfo vslot 14 is resetAccepted, and the non-virtual
-// LANGameInfo::rva004477C7 0x004477C7 is the host test (slot 0 is local).
+// LANGameInfo::amIHost 0x004477C7 is the host test (slot 0 is local).
 // GameSlot keeps the start position at +0x10 (with a second copy at
 // +0x14 that the setter writes alongside it), the team number at +0x1C and
 // the handicap at +0x20. The lobby's object at +0x0C takes the rowed
@@ -27,7 +34,7 @@
 // 0x00400E33 and sits at +0x18; the slot name is the UnicodeString at +0x30.
 // GameSlot vslot 5 yields the slot's LANGameSlot (BFME1's vslot 1), whose
 // isLocalPlayer is pinned at 0x0044770F; the color sits at +0x0C. The hero
-// byte is the rowed GameSlot::rva003FF16F 0x003FF16F, and +0x5C is the
+// byte is the rowed GameSlot::encodeHero 0x003FF16F, and +0x5C is the
 // value the hero preference stores.
 
 #include "ascii_string.h"
@@ -61,7 +68,7 @@ public:
 	void setState(SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo);
 	bool isAI() const;
 	SlotState getState() const { return m_state; }
-	unsigned char rva003FF16F() const;
+	unsigned char encodeHero() const;
 	int getColor() const { return m_color; }
 	int getPlayerTemplate() const { return m_playerTemplate; }
 	int getStartPos() const { return m_startPos; }
@@ -121,7 +128,7 @@ public:
 class LANGameInfo : public GameInfo
 {
 public:
-	bool rva004477C7() const;
+	bool amIHost() const;
 };
 
 struct TransportAddress
@@ -279,22 +286,22 @@ public:
 	void rva0044DD1E(int playerTemplate);
 };
 
-class BfmeAptScreenLanLobby
+class AptLanLobby
 {
 public:
-	bool applySlotTeam(GameSlot *slot, int team);
-	bool applySlotHandicap(GameSlot *slot, int handicap);
-	bool applySlotStartPos(GameSlot *slot, int startPos);
-	bool applySlotPlayerTemplate(GameSlot *slot, int playerTemplate);
-	bool applySlotColor(GameSlot *slot, int color);
-	bool applySlotHero(GameSlot *slot);
-	void copyLanNameRva00444D7B(UnicodeString &dest);
+	bool MpOwnerSelectTeam(GameSlot *slot, int team);
+	bool MpOwnerSelectHandicap(GameSlot *slot, int handicap);
+	bool MpOwnerSelectStartPosition(GameSlot *slot, int startPos);
+	bool MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate);
+	bool MpOwnerSelectColor(GameSlot *slot, int color);
+	bool MpOwnerSelectHero(GameSlot *slot);
+	void MpOwnerGetLocalPlayerName(UnicodeString &dest);
 	void saveRulesRva00444279();
 	bool setScenarioRva0044440C(int scenario);
 	bool bfmeMapChanged(const AsciiString *mapName);
-	bool rva00444B90(GameSlot *slot, SlotState state, int unused);
+	bool MpOwnerSelectPlayer(GameSlot *slot, SlotState state, int unused);
 	void rva00444DC3(bool starting);
-	void rva004448E5(const UnicodeString &text, int kind);
+	void MpOwnerPrintMessage(const UnicodeString &text, int kind);
 	void rva0044421C();
 	void rva004441C5(bool flag, int unused);
 
@@ -311,7 +318,7 @@ private:
 
 // Retail 0x004449FD, 198 bytes. BFME2 drops the donor's second
 // resetAccepted on the host path.
-bool BfmeAptScreenLanLobby::applySlotTeam(GameSlot *slot, int team)
+bool AptLanLobby::MpOwnerSelectTeam(GameSlot *slot, int team)
 {
 	if (!TheLAN)
 		return false;
@@ -321,7 +328,7 @@ bool BfmeAptScreenLanLobby::applySlotTeam(GameSlot *slot, int team)
 
 	slot->m_teamNumber = team;
 	game->resetAccepted();
-	if (game->rva004477C7())
+	if (game->amIHost())
 	{
 		TransportAddress address;
 		TheLAN->requestSerializedGameInfo(true, &address);
@@ -336,10 +343,10 @@ bool BfmeAptScreenLanLobby::applySlotTeam(GameSlot *slot, int team)
 }
 
 // Retail 0x00444AC3, 205 bytes: vftable 0x00C3E098 slot 5, "Handicap=%d".
-// BFME1 has no handicap option; the body is applySlotTeam's donor shape
+// BFME1 has no handicap option; the body is MpOwnerSelectTeam's donor shape
 // (including its second resetAccepted on the host path) over +0x20, and the
 // name follows that family.
-bool BfmeAptScreenLanLobby::applySlotHandicap(GameSlot *slot, int handicap)
+bool AptLanLobby::MpOwnerSelectHandicap(GameSlot *slot, int handicap)
 {
 	if (!TheLAN)
 		return false;
@@ -349,7 +356,7 @@ bool BfmeAptScreenLanLobby::applySlotHandicap(GameSlot *slot, int handicap)
 
 	slot->m_handicap = handicap;
 	game->resetAccepted();
-	if (game->rva004477C7())
+	if (game->amIHost())
 	{
 		game->resetAccepted();
 		TransportAddress address;
@@ -367,7 +374,7 @@ bool BfmeAptScreenLanLobby::applySlotHandicap(GameSlot *slot, int handicap)
 // Retail 0x00444CA4, 215 bytes: vftable 0x00C3E098 slot 11, "StartPos=%d".
 // Donor applySlotStartPos; BFME2 writes the position twice and, where BFME1
 // set a flag byte on the host path, calls the +0x0C object's enable.
-bool BfmeAptScreenLanLobby::applySlotStartPos(GameSlot *slot, int startPos)
+bool AptLanLobby::MpOwnerSelectStartPosition(GameSlot *slot, int startPos)
 {
 	if (!TheLAN)
 		return false;
@@ -377,7 +384,7 @@ bool BfmeAptScreenLanLobby::applySlotStartPos(GameSlot *slot, int startPos)
 
 	slot->m_startPos = startPos;
 	slot->m_startPos14 = startPos;
-	if (game->rva004477C7())
+	if (game->amIHost())
 	{
 		game->resetAccepted();
 		TransportAddress address;
@@ -396,7 +403,7 @@ bool BfmeAptScreenLanLobby::applySlotStartPos(GameSlot *slot, int startPos)
 // Retail 0x004455B2, 262 bytes: vftable 0x00C3E098 slot 10,
 // "PlayerTemplate=%d". Donor applySlotPlayerTemplate; BFME2 calls the
 // out-of-line setPlayerTemplate and compares the slot names in place.
-bool BfmeAptScreenLanLobby::applySlotPlayerTemplate(GameSlot *slot, int playerTemplate)
+bool AptLanLobby::MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate)
 {
 	if (!TheLAN)
 		return false;
@@ -406,7 +413,7 @@ bool BfmeAptScreenLanLobby::applySlotPlayerTemplate(GameSlot *slot, int playerTe
 
 	slot->setPlayerTemplate(playerTemplate);
 	game->resetAccepted();
-	if (game->rva004477C7())
+	if (game->amIHost())
 	{
 		TransportAddress address;
 		TheLAN->requestSerializedGameInfo(true, &address);
@@ -431,7 +438,7 @@ bool BfmeAptScreenLanLobby::applySlotPlayerTemplate(GameSlot *slot, int playerTe
 // Donor Rva00518BF0LanColor.cpp (BFME1 named it by address); a non-host
 // only sends its own slot's color, and the local color preference is stored
 // through the rowed GameModePreferences::rva0044DCB9 0x0044DCB9.
-bool BfmeAptScreenLanLobby::applySlotColor(GameSlot *slot, int color)
+bool AptLanLobby::MpOwnerSelectColor(GameSlot *slot, int color)
 {
 	if (!TheLAN)
 		return false;
@@ -440,7 +447,7 @@ bool BfmeAptScreenLanLobby::applySlotColor(GameSlot *slot, int color)
 		return false;
 
 	slot->m_color = color;
-	if (game->rva004477C7())
+	if (game->amIHost())
 	{
 		TransportAddress address;
 		TheLAN->requestSerializedGameInfo(true, &address);
@@ -468,11 +475,11 @@ bool BfmeAptScreenLanLobby::applySlotColor(GameSlot *slot, int color)
 }
 
 // Retail 0x004456B8, 260 bytes: vftable 0x00C3E098 slot 6, "Hero=%d". No
-// BFME1 counterpart; the shape is applySlotPlayerTemplate's. Unlike its
+// BFME1 counterpart; the shape is MpOwnerSelectPlayerTemplate's. Unlike its
 // siblings it takes only the slot (ret 4): the slot already carries the
 // choice, sent as the slot's hero byte and stored to the preferences from
 // +0x5C.
-bool BfmeAptScreenLanLobby::applySlotHero(GameSlot *slot)
+bool AptLanLobby::MpOwnerSelectHero(GameSlot *slot)
 {
 	if (!TheLAN)
 		return false;
@@ -481,7 +488,7 @@ bool BfmeAptScreenLanLobby::applySlotHero(GameSlot *slot)
 		return false;
 
 	game->resetAccepted();
-	if (game->rva004477C7())
+	if (game->amIHost())
 	{
 		TransportAddress address;
 		TheLAN->requestSerializedGameInfo(true, &address);
@@ -489,7 +496,7 @@ bool BfmeAptScreenLanLobby::applySlotHero(GameSlot *slot)
 	else
 	{
 		AsciiString options;
-		options.format("Hero=%d", slot->rva003FF16F());
+		options.format("Hero=%d", slot->encodeHero());
 		TheLAN->RequestGameOptions(options, true);
 	}
 
@@ -505,7 +512,7 @@ bool BfmeAptScreenLanLobby::applySlotHero(GameSlot *slot)
 // Retail 0x00444D7B, 72 bytes: vftable 0x00C3E098 slot 14. Donor
 // AptScreenLanLobbyCopyName.cpp (BFME1 copyLanNameRva005171A0), unchanged;
 // the original name is unknown, so the address stays in it.
-void BfmeAptScreenLanLobby::copyLanNameRva00444D7B(UnicodeString &dest)
+void AptLanLobby::MpOwnerGetLocalPlayerName(UnicodeString &dest)
 {
 	if (TheLAN)
 		dest = TheLAN->GetMyName();
@@ -515,14 +522,14 @@ void BfmeAptScreenLanLobby::copyLanNameRva00444D7B(UnicodeString &dest)
 // counterpart; the name is unknown. It asks for the serialized game info
 // and, on the host, stores the game's ten rule ints (+0x60) through the
 // rowed GameModePreferences::rva0044DDFB ("Rules") before writing.
-void BfmeAptScreenLanLobby::saveRulesRva00444279()
+void AptLanLobby::saveRulesRva00444279()
 {
 	if (!TheLAN)
 		return;
 	TransportAddress address;
 	TheLAN->requestSerializedGameInfo(true, &address);
 	LANGameInfo *game = TheLAN->GetMyGame();
-	if (game && game->rva004477C7())
+	if (game && game->amIHost())
 	{
 		m_prefs.rva0044DDFB(game->m_rules);
 		m_prefs.write();
@@ -533,7 +540,7 @@ void BfmeAptScreenLanLobby::saveRulesRva00444279()
 // counterpart; the name is unknown. Stores the strategic scenario through
 // the rowed GameModePreferences::setStrategicScenario, writes the
 // preferences and refreshes the serialized game info.
-bool BfmeAptScreenLanLobby::setScenarioRva0044440C(int scenario)
+bool AptLanLobby::setScenarioRva0044440C(int scenario)
 {
 	LANGameInfo *game = TheLAN->GetMyGame();
 	if (!game)
@@ -551,7 +558,7 @@ bool BfmeAptScreenLanLobby::setScenarioRva0044440C(int scenario)
 // vslots called after the map size are 15 (resetStartSpots, rowed in
 // LANGameInfo's vtable 0x00C3E518), 16 and 14 (resetAccepted); slot 16 takes
 // the donor's adjustSlotsForMap name by Zero Hour's declaration order.
-bool BfmeAptScreenLanLobby::bfmeMapChanged(const AsciiString *mapName)
+bool AptLanLobby::bfmeMapChanged(const AsciiString *mapName)
 {
 	LANGameInfo *game = TheLAN->GetMyGame();
 	if (!game)
@@ -580,7 +587,7 @@ bool BfmeAptScreenLanLobby::bfmeMapChanged(const AsciiString *mapName)
 // there too). LANAPI vslot 37 is the donor's OnPlayerLeave. BFME2 skips the
 // update when a non-player slot already has the state, and resets the
 // accepted flags only when the AI-ness changes.
-bool BfmeAptScreenLanLobby::rva00444B90(GameSlot *slot, SlotState state, int unused)
+bool AptLanLobby::MpOwnerSelectPlayer(GameSlot *slot, SlotState state, int unused)
 {
 	if (!TheLAN)
 		return false;
@@ -618,7 +625,7 @@ bool BfmeAptScreenLanLobby::rva00444B90(GameSlot *slot, SlotState state, int unu
 // 0x00437E84 (type 4) and, if LANAPI vslot 54 holds, calls vslot 22 with 0;
 // BFME2 drops BFME1's vslot 14 call on the other path. Otherwise it passes 1
 // to 0x00437E9C.
-void BfmeAptScreenLanLobby::rva00444DC3(bool starting)
+void AptLanLobby::rva00444DC3(bool starting)
 {
 	if (starting)
 	{
@@ -637,7 +644,7 @@ void BfmeAptScreenLanLobby::rva00444DC3(bool starting)
 // LANAPI vslot 64 (with 3) and post the result under L"SYSTEM" through
 // vslot 40; kind 1 first hands (L"", text) to 0x0044C0A8 while
 // g_Va00E046B8 is unset. Kind 2 goes to vslot 21 as (text, 3, 0).
-void BfmeAptScreenLanLobby::rva004448E5(const UnicodeString &text, int kind)
+void AptLanLobby::MpOwnerPrintMessage(const UnicodeString &text, int kind)
 {
 	if (!TheLAN)
 		return;
@@ -660,7 +667,7 @@ void BfmeAptScreenLanLobby::rva004448E5(const UnicodeString &text, int kind)
 
 // Retail 0x0044421C, 36 bytes: vftable 0x00C3E098 slot 15. Name unknown;
 // the start notice's LANAPI vslot 54 test and vslot 22 call, with 1.
-void BfmeAptScreenLanLobby::rva0044421C()
+void AptLanLobby::rva0044421C()
 {
 	if (TheLAN && TheLAN->v54())
 		TheLAN->v22(1);
@@ -669,7 +676,7 @@ void BfmeAptScreenLanLobby::rva0044421C()
 // Retail 0x004441C5, 67 bytes: vftable 0x00C3E098 slot 18. Name unknown;
 // it sets +0x428 to 12, then passes either (+0x88 == 1) to LANAPI vslot 23
 // or 1 to vslot 19.
-void BfmeAptScreenLanLobby::rva004441C5(bool flag, int unused)
+void AptLanLobby::rva004441C5(bool flag, int unused)
 {
 	if (!TheLAN)
 		return;

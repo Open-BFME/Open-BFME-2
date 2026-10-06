@@ -15,7 +15,7 @@ typedef unsigned char UnsignedByte;
 // as `crc >> 31` the compiler folds the byte and the carry together and adds
 // crc*2 last; written as the branch it keeps retail's order, adding the byte to
 // crc*2 first and the carry after.
-UnsignedInt BFMEComputeCRC(const UnsignedByte *data, UnsignedInt length, UnsignedInt crc)
+UnsignedInt ComputeCRC(const UnsignedByte *data, UnsignedInt length, UnsignedInt crc)
 {
 	if (data != 0) {
 		while (length > 0) {

@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ?rva002C693B@Rva002C693B@@QAEXXZ @0x002C693B 258B
+// ?updatePhase@SkirmishAI@@QAEXXZ @0x002C693B 258B
 // Evidence: unlock lane sibling 002C68CE prev Rva002C68CE next stlport caller
 // 0x002C6BFF callee rva002A8B59 pin plus TheGameLogic plus ThePlayerList area
 // g_00DFEEF8 globals g_Va00BBB8D8 g_secondsPerLogicFrame BfmeZeroRange
@@ -33,10 +33,10 @@ extern Rva002A8F24 *g_00DFEEF8;
 extern float g_secondsPerLogicFrame;
 extern const float g_00BC26EC;
 
-class Rva002C693B
+class SkirmishAI
 {
 public:
-	void rva002C693B();
+	void updatePhase();
 
 private:
 	char m_pad[0x15C];
@@ -47,7 +47,7 @@ private:
 	int m_174;
 };
 
-void Rva002C693B::rva002C693B()
+void SkirmishAI::updatePhase()
 {
 	Rva002A8B59Data *data = g_00DFEEF8->rva002A8B59(m_15C);
 	unsigned int delta = TheGameLogic->m_40 - (unsigned int)m_174;

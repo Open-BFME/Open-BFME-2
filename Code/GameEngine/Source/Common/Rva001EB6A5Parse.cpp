@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// ?rva001EB6A5@Rva001EB6A5@@QAE_NPAURva001EB6A5Out@@@Z, retail 0x001EB6A5, 89 bytes.
+// ?fillCampaignMenuContent@LinearCampaign@@QAE_NPAURva001EB6A5Out@@@Z, retail 0x001EB6A5, 89 bytes.
 // Finish from stash 0.93 (eax edx swap for add base idx): copies m_C0 to out+8,
 // add is (m_C3==0 and m_C0!=0) ? 1 : 0, idx is base m_0C plus add via rowed
 // rva001EB3A6 returning BfmeAssignRecord36, null gives false else out strings
@@ -27,10 +27,10 @@ struct Rva001EB6A5Out
 	unsigned char m_flag;
 };
 
-class Rva001EB6A5
+class LinearCampaign
 {
 public:
-	bool rva001EB6A5(Rva001EB6A5Out *out);
+	bool fillCampaignMenuContent(Rva001EB6A5Out *out);
 private:
 	char m_00[4];
 	Rva001EB3A6 *m_04;
@@ -42,7 +42,7 @@ private:
 	unsigned char m_C3;
 };
 
-bool Rva001EB6A5::rva001EB6A5(Rva001EB6A5Out *out)
+bool LinearCampaign::fillCampaignMenuContent(Rva001EB6A5Out *out)
 {
 	unsigned char *pC0 = &m_C0;
 	out->m_flag = *pC0;

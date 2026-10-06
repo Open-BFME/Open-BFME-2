@@ -14,10 +14,18 @@ struct Rva005F2FEFTeam
 	char m_name[1];
 };
 
-class Rva005F2FEF
+namespace StrategicHUD {
+class ArmyDetailsMovieClip
 {
 public:
-	void rva005F2CBA(float progress);
+	class Impl;
+};
+}
+
+class StrategicHUD::ArmyDetailsMovieClip::Impl
+{
+public:
+	void ShowMemberRankProgress(float progress);
 private:
 	char m_pad00[8];
 	void *m_level08;
@@ -28,7 +36,7 @@ private:
 	unsigned char m_flags58;
 };
 
-void Rva005F2FEF::rva005F2CBA(float progress)
+void StrategicHUD::ArmyDetailsMovieClip::Impl::ShowMemberRankProgress(float progress)
 {
 	if (progress != m_progress50) {
 		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;

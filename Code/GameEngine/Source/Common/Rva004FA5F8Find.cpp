@@ -1,4 +1,4 @@
-// ?rva004FA5F8@Rva004FA5F8@@QAEPAVRva002E2903Player@@XZ @0x004FA5F8 32B.
+// ?getOwningPlayer@LivingWorldBuildingNuggetSpawnArmy@@QAEPAVRva002E2903Player@@XZ @0x004FA5F8 32B.
 // Chain from the LivingWorld id find at 0x002B51F8: follows this+4 then +0x24
 // and returns null when the inner pointer is null else the find result for id at +0x13C.
 // Callers in 0x004FA83E and 0x004FA9B1 families. TU-local honest-address views.
@@ -8,8 +8,8 @@ extern Rva002BA8F1Logic *g_009FEF10;
 #define TheRva00DFEF10 g_009FEF10
 struct Rva004FA5F8B { char pad[0x13C]; int id; };
 struct Rva004FA5F8A { char pad[0x24]; Rva004FA5F8B *b; };
-struct Rva004FA5F8 { char pad0[4]; Rva004FA5F8A *a; Rva002E2903Player *rva004FA5F8(); };
-Rva002E2903Player *Rva004FA5F8::rva004FA5F8()
+struct LivingWorldBuildingNuggetSpawnArmy { char pad0[4]; Rva004FA5F8A *a; Rva002E2903Player *getOwningPlayer(); };
+Rva002E2903Player *LivingWorldBuildingNuggetSpawnArmy::getOwningPlayer()
 {
     Rva004FA5F8A *aa = *(Rva004FA5F8A **)((char *)this + 4);
     Rva004FA5F8B *bb = *(Rva004FA5F8B **)((char *)aa + 0x24);

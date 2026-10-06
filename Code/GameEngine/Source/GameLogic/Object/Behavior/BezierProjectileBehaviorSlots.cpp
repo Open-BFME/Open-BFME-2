@@ -23,7 +23,7 @@
 // when +0x20 slot 4 accepts it.
 // ?rva0045B4E2@BezierProjectileBehavior@@UAEXH@Z, retail 0x0045B4E2, 15
 // bytes: +0x20 slot 5; kills the owner (damage type 8, death type 0).
-// ?rva0045B936@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z,
+// ?projectileLaunchAtObjectOrPosition@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z,
 // retail 0x0045B936, 197 bytes: +0x20 slot 0, the shape of ZH
 // MissileAIUpdate::projectileLaunchAtObjectOrPosition plus a transform
 // argument: stores the launcher ID (+0x28) and bonus condition (+0x74), the
@@ -189,7 +189,7 @@ protected:
 class Rva0045BF06Iface
 {
 public:
-	virtual void rva0045B936(Object *victim, const Coord3D *victimPos, Object *launcher, int wslot,
+	virtual void projectileLaunchAtObjectOrPosition(Object *victim, const Coord3D *victimPos, Object *launcher, int wslot,
 		int specificBarrel, const Rva0045B936Arg *arg6, Rva002CBA7C *helper, const Matrix3D *mtx) = 0;
 	virtual void gap1() = 0;
 	virtual ObjectID getLauncherID() const = 0;
@@ -211,7 +211,7 @@ public:
 	virtual bool rva0045BF06(Object *victim);
 	virtual void rva0045B4C0(Object *victim, int a2, int a3);
 	virtual void rva0045B4E2(int unused);
-	virtual void rva0045B936(Object *victim, const Coord3D *victimPos, Object *launcher, int wslot,
+	virtual void projectileLaunchAtObjectOrPosition(Object *victim, const Coord3D *victimPos, Object *launcher, int wslot,
 		int specificBarrel, const Rva0045B936Arg *arg6, Rva002CBA7C *helper, const Matrix3D *mtx);
 private:
 	ObjectID m_28; // +0x28 launcher
@@ -260,8 +260,8 @@ void BezierProjectileBehavior::rva0045B4E2(int)
 	m_object->kill(DAMAGE_TYPE_8, DEATH_NORMAL);
 }
 
-// ?rva0045B936@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z @0x0045B936
-void BezierProjectileBehavior::rva0045B936(Object *victim, const Coord3D *victimPos, Object *launcher, int wslot,
+// ?projectileLaunchAtObjectOrPosition@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z @0x0045B936
+void BezierProjectileBehavior::projectileLaunchAtObjectOrPosition(Object *victim, const Coord3D *victimPos, Object *launcher, int wslot,
 	int specificBarrel, const Rva0045B936Arg *arg6, Rva002CBA7C *helper, const Matrix3D *mtx)
 {
 	m_28 = launcher ? launcher->getID() : INVALID_ID;

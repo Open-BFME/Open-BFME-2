@@ -1,5 +1,7 @@
 // cl: /MD
-// ?rva0059EE96@Rva0059EE96@@QAEXEE@Z @0x0059EE96 76B: guarded Enable/Disable AptCall.
+// AptOnlineCustomMatch (WorldBuilder names 0x0059EEE2 UpdateHostStartGameButton,
+// AptOnlineCustomMatch.cpp lines 4429..4432, which calls 0x0059EE96 on the same this).
+// ?rva0059EE96 @0x0059EE96 76B: guarded Enable/Disable AptCall.
 // If force a1 is clear and flag +0x4C1 already equals value a0 return; else
 // store flag, pick literal EnableButtonPlayGame vs DisableButtonPlayGame by a0,
 // get prefix via virtual slot 0x28, load level via m58 plus 0x274, then rowed
@@ -90,7 +92,7 @@ struct Mid0059EE96
 	void *m_level274;
 };
 
-class Rva0059EE96
+class AptOnlineCustomMatch
 {
 public:
 	virtual void f00();
@@ -105,7 +107,7 @@ public:
 	virtual void f09();
 	virtual const char *f10();
 	void rva0059EE96(unsigned char a0, unsigned char a1);
-	void rva0059EEE2();
+	void UpdateHostStartGameButton();
 private:
 	char m_pad04[0x58 - 4];
 	Mid0059EE96 *m_mid58;
@@ -113,7 +115,7 @@ private:
 	unsigned char m_flag4C1;
 };
 
-void Rva0059EE96::rva0059EE96(unsigned char a0, unsigned char a1)
+void AptOnlineCustomMatch::rva0059EE96(unsigned char a0, unsigned char a1)
 {
 	if (!a1)
 	{
@@ -134,7 +136,7 @@ void Rva0059EE96::rva0059EE96(unsigned char a0, unsigned char a1)
 	}
 }
 
-void Rva0059EE96::rva0059EEE2()
+void AptOnlineCustomMatch::UpdateHostStartGameButton()
 {
 	if (!TheGameSpyInfo)
 		return;

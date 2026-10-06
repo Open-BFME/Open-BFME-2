@@ -14,52 +14,52 @@ public:
 	virtual ~Rva005DCC24();
 };
 
-class Rva005AAB91 : public Rva005DCC24
+class AIRoamingDefenseTactic : public Rva005DCC24
 {
 public:
-	virtual ~Rva005AAB91();
+	virtual ~AIRoamingDefenseTactic();
 };
 
-Rva005AAB91::~Rva005AAB91()
+AIRoamingDefenseTactic::~AIRoamingDefenseTactic()
 {
 }
 
-class Rva005AB125 : public Rva005DCC24
+class AIStartWoTRBattleTactic : public Rva005DCC24
 {
 public:
-	virtual ~Rva005AB125();
+	virtual ~AIStartWoTRBattleTactic();
 };
 
-Rva005AB125::~Rva005AB125()
+AIStartWoTRBattleTactic::~AIStartWoTRBattleTactic()
 {
 }
 
-class Rva005AB309 : public Rva005DCC24
+class AIReturnTheRingTactic : public Rva005DCC24
 {
 public:
-	virtual ~Rva005AB309();
+	virtual ~AIReturnTheRingTactic();
 };
 
-Rva005AB309::~Rva005AB309()
+AIReturnTheRingTactic::~AIReturnTheRingTactic()
 {
 }
 
-class Rva005AC7E1 : public Rva005DCC24
+class AIRingHeroTactic : public Rva005DCC24
 {
 public:
-	virtual ~Rva005AC7E1();
+	virtual ~AIRingHeroTactic();
 };
 
-Rva005AC7E1::~Rva005AC7E1()
+AIRingHeroTactic::~AIRingHeroTactic()
 {
 }
 
-class Rva005ACCE4 : public Rva005DCC24
+class AIFarmKillSquad : public Rva005DCC24
 {
 public:
-	virtual ~Rva005ACCE4();
+	virtual ~AIFarmKillSquad();
 };
 
-Rva005ACCE4::~Rva005ACCE4()
+AIFarmKillSquad::~AIFarmKillSquad()
 {
 }

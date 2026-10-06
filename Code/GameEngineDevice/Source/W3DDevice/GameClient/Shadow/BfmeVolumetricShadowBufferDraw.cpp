@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?drawAndRelease@BfmeVolumetricShadowBufferLocks@@QAEXH@Z @0x00107865 252B via BFME1 BfmeVolumetricShadowBufferDraw donor
+// ?drawAndRelease@W3DVolumetricShadowManagerV2@@QAEXH@Z @0x00107865 252B via BFME1 BfmeVolumetricShadowBufferDraw donor
 // Evidence: frees vertex/index WriteLocks at +0xc/+0x10 via rowed dtors plus operator delete; 30000 compares at +0x14/+0x18 with div; rowed Record_DX8_Polys plus CurrentCaps+0x90 check plus rowed Set_DX8_Render_State plus D3DDevice Draw slot 82; BFME1 donor BfmeVolumetricShadowBufferDraw.cpp names drawAndRelease.
 class VertexBufferClass
 {
@@ -49,7 +49,7 @@ public:
 
 typedef long (__stdcall *BfmeDrawIndexedPrimitive)(IDirect3DDevice8 *, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned);
 
-class BfmeVolumetricShadowBufferLocks
+class W3DVolumetricShadowManagerV2
 {
 	VertexBufferClass *m_vertexBuffer;
 	IndexBufferClass *m_indexBuffer;
@@ -63,7 +63,7 @@ public:
 	void drawAndRelease(int frontFace);
 };
 
-void BfmeVolumetricShadowBufferLocks::drawAndRelease(int frontFace)
+void W3DVolumetricShadowManagerV2::drawAndRelease(int frontFace)
 {
 	VertexBufferClass::WriteLockClass *vertexLock = m_vertexLock;
 	if (vertexLock != 0) {

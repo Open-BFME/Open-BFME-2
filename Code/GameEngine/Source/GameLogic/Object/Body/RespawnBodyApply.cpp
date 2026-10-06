@@ -23,7 +23,7 @@ public:
     Player *getControllingPlayer() const;
     bool testStatus(ObjectStatusTypes) const;
     void rva0029A12B();
-    void rva00298517(DamageInfo *);
+    void onDie(DamageInfo *);
 protected:
     Module *findModule(NameKeyType) const;
     friend struct Rva004C1395Owner;
@@ -80,7 +80,7 @@ void Rva004C1395Owner::apply(float amount, DamageInfo *info)
                 } else {
                     respawn->rva004AF63E();
                 }
-                obj->rva00298517(info);
+                obj->onDie(info);
             }
         } else if (respawn) {
             respawn->rva004AF182();

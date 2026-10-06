@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
-// ScriptActions::rva003C97D2, retail 0x003C97D2, 495 bytes (called from the
+// ScriptActions::doAttackMoveTeamTowardsNearest, retail 0x003C97D2, 495 bytes (called from the
 // action dispatcher 0x003CA4BE at 0x003CD33A). The team twin of
 // ScriptActions::rva003C951B (ScriptActions_Rva003C951B.cpp): every member
 // of the named team with an AI gets AICMD 0x49 (AICommandInterface::
@@ -159,11 +159,11 @@ extern ScriptEngine *TheScriptEngine;
 class ScriptActions
 {
 public:
-	void rva003C97D2(const AsciiString &teamName, const AsciiString &objectType,
+	void doAttackMoveTeamTowardsNearest(const AsciiString &teamName, const AsciiString &objectType,
 		const AsciiString &playerName);
 };
 
-void ScriptActions::rva003C97D2(const AsciiString &teamName, const AsciiString &objectType,
+void ScriptActions::doAttackMoveTeamTowardsNearest(const AsciiString &teamName, const AsciiString &objectType,
 	const AsciiString &playerName)
 {
 	Team *team = TheScriptEngine->getTeamNamed(teamName, false);

@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// Rva0052DE5B::rva0052DE5B (retail 0x0052DE5B, 64 bytes): finish-reset that
+// PathfindCell::ReleaseInfo (retail 0x0052DE5B, 64 bytes): finish-reset that
 // releases the node buffer back to the pool at 0x00A049D0 when the low nibble
 // of the state flags is not 4, the node exists, five dwords at +0x14 are all
 // zero, the backlink at +0x38 is null and the node flags at +0x2c have none of
@@ -18,7 +18,7 @@ private:
 	void bfmeLinkInto(MixFileInfoBuffer **head);
 public:
 	void releaseInto(void *pool);
-	friend class Rva0052DE5B;
+	friend class PathfindCell;
 };
 
 extern int TheMixFileInfoPool;
@@ -78,16 +78,16 @@ struct Rva0052DFB1Arg
 	int m_value;
 };
 
-class Rva0052DE5B
+class PathfindCell
 {
 public:
-	void rva0052DE5B();
+	void ReleaseInfo();
 	void rva0052DED3();
-	Rva0052DE5B *rva0052DFF2();
+	PathfindCell *rva0052DFF2();
 	bool rva0052DFB1(const Rva0052DFB1Arg *arg);
 	bool rva0052DEEF(const Rva0052DEEFArg *a, bool b, In002E6BA1 *c);
 	void rva0052DAE9(bool flag);
-	void rva0052DC29(MixFileInfoBuffer **head);
+	void PutOnClosedList(MixFileInfoBuffer **head);
 	void rva0052DAFF();
 
 private:
@@ -98,7 +98,7 @@ private:
 	unsigned int m_flags;
 };
 
-void Rva0052DE5B::rva0052DE5B()
+void PathfindCell::ReleaseInfo()
 {
 	if ((m_flags & 0xf) == 4)
 		return;
@@ -118,22 +118,22 @@ void Rva0052DE5B::rva0052DE5B()
 	m_node = 0;
 }
 
-void Rva0052DE5B::rva0052DED3()
+void PathfindCell::rva0052DED3()
 {
 	m_4 = 0;
 	m_8 = 0xffff;
 	m_flags = (m_flags & 0xff000010) | 0x10;
-	rva0052DE5B();
+	ReleaseInfo();
 }
 
-Rva0052DE5B *Rva0052DE5B::rva0052DFF2()
+PathfindCell *PathfindCell::rva0052DFF2()
 {
 	m_node = 0;
 	rva0052DED3();
 	return this;
 }
 
-bool Rva0052DE5B::rva0052DFB1(const Rva0052DFB1Arg *arg)
+bool PathfindCell::rva0052DFB1(const Rva0052DFB1Arg *arg)
 {
 	bool result = false;
 	unsigned int flags = m_flags;
@@ -147,13 +147,13 @@ bool Rva0052DE5B::rva0052DFB1(const Rva0052DFB1Arg *arg)
 	{
 		m_flags &= ~0xfu;
 		node->m_value = 0;
-		rva0052DE5B();
+		ReleaseInfo();
 		result = true;
 	}
 	return result;
 }
 
-void Rva0052DE5B::rva0052DAE9(bool flag)
+void PathfindCell::rva0052DAE9(bool flag)
 {
 	if (flag)
 		m_node->m_nodeFlags |= 8u;
@@ -161,7 +161,7 @@ void Rva0052DE5B::rva0052DAE9(bool flag)
 		m_node->m_nodeFlags &= ~8u;
 }
 
-void Rva0052DE5B::rva0052DC29(MixFileInfoBuffer **head)
+void PathfindCell::PutOnClosedList(MixFileInfoBuffer **head)
 {
 	if ((m_node->m_nodeFlags & 0x10) != 0)
 		return;
@@ -169,13 +169,13 @@ void Rva0052DE5B::rva0052DC29(MixFileInfoBuffer **head)
 	((MixFileInfoBuffer *)m_node)->bfmeLinkInto(head);
 }
 
-void Rva0052DE5B::rva0052DAFF()
+void PathfindCell::rva0052DAFF()
 {
 	((MixFileInfoBuffer *)m_node)->bfmeUnlink();
 	m_node->m_nodeFlags &= ~0x10u;
 }
 
-bool Rva0052DE5B::rva0052DEEF(const Rva0052DEEFArg *a, bool b, In002E6BA1 *c)
+bool PathfindCell::rva0052DEEF(const Rva0052DEEFArg *a, bool b, In002E6BA1 *c)
 {
 	unsigned int low = m_flags & 0xFu;
 	if (low != 0 && low != 5)
@@ -187,7 +187,7 @@ bool Rva0052DE5B::rva0052DEEF(const Rva0052DEEFArg *a, bool b, In002E6BA1 *c)
 		if (node == 0)
 			return true;
 		node->m_value &= 0;
-		rva0052DE5B();
+		ReleaseInfo();
 		return true;
 	}
 	m_flags = (m_flags & ~0xBU) | 4U;

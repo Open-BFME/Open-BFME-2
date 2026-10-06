@@ -18,12 +18,18 @@ struct BfmePod8
 	int a[2];
 };
 
-struct BfmeE16
+// The +0x180 member is a 12-byte vector whose elements have a destructor:
+// retail's teardown at 0x004684F1 calls the rowed vector dtor 0x00467FCC
+// (RvaVectorDtorFamily.cpp: range destroy 0x00467DCD, then free), not a
+// trivially destructible vector's base dtor.
+struct Elem00467DCD;
+
+struct Rva00467FCC
 {
-	float x;
-	float y;
-	float z;
-	float w;
+	~Rva00467FCC();
+	Elem00467DCD *m_start;
+	Elem00467DCD *m_finish;
+	Elem00467DCD *m_end;
 };
 
 #include "ascii_string.h"
@@ -119,7 +125,7 @@ private:
 	float m_exitFadeTime;
 	bool m_fadeReverse;
 	float m_releaseSnappyness;
-	_STL::vector<BfmeE16> m_upgradeTrigger;
+	Rva00467FCC m_upgradeTrigger;
 };
 
 TransportContainModuleData::~TransportContainModuleData()

@@ -44,17 +44,17 @@ extern GameLogic *TheGameLogic;
 
 class AI;
 
-class BFMEPathfinderMapShim
+class Pathfinder
 {
 public:
-	void rva002E718A(Object *obj);
+	void RemoveObjectFromPathfindMap(Object *obj);
 };
 
 class AI
 {
 public:
 	char m_pad[0x10];
-	BFMEPathfinderMapShim *m_shim;
+	Pathfinder *m_shim;
 };
 
 extern AI *TheAI;
@@ -106,7 +106,7 @@ void Rva004ADC88::rva004AD9E0()
 	if (obj->getDrawable() != 0)
 		((Rva002716Holder *)obj->getDrawable())->rva00271601(1);
 	if (TheAI != 0)
-		TheAI->m_shim->rva002E718A(obj);
+		TheAI->m_shim->RemoveObjectFromPathfindMap(obj);
 	TheGameLogic->destroyObject(obj);
 }
 

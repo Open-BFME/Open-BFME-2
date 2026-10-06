@@ -28,15 +28,24 @@ class Rva005EE11ERecords {public:
 private:Rva005EE11ERecord *start,*finish,*limit;
 };
 class Rva005EE11EIcons {public:void remove(const AsciiString&);private:void*words[3];};
-class Rva005EE11EPlayerCount {public:
- void setPlayerCountRva005EE11E(int);
- void setText(int,const char*,const UnicodeString&);
+namespace StrategicHUD {
+class RegionAwardMovieClip
+{
+public:
+	class Impl;
+};
+}
+
+class StrategicHUD::RegionAwardMovieClip::Impl
+{public:
+ void SetPlayerCount(int);
+ void SetPlayerString(int,const char*,const UnicodeString&);
 private:
  unsigned word0;int level;AsciiString name;
  char pad0c[0xc];Rva005EE11EIcons icons;char pad24[0x20];
  Rva005EE11ERecords records;
 };
-void Rva005EE11EPlayerCount::setPlayerCountRva005EE11E(int count){
+void StrategicHUD::RegionAwardMovieClip::Impl::SetPlayerCount(int count){
  int desired=count;
  if(desired==records.size())return;
  Rva0052519DFire(g_bfmeAptWindowManager,reinterpret_cast<void*>(level),name.str(),"SetPlayerCount",&count);
@@ -53,15 +62,14 @@ void Rva005EE11EPlayerCount::setPlayerCountRva005EE11E(int count){
  }
  records.resize(desired);
  if(oldCount<desired) {for(count=oldCount;count<desired;++count){
-  setText(count,"PlayerName",UnicodeString::TheEmptyString);
-  setText(count,"NumRegions",UnicodeString::TheEmptyString);
-  setText(count,"NumUnits",UnicodeString::TheEmptyString);
+  SetPlayerString(count,"PlayerName",UnicodeString::TheEmptyString);
+  SetPlayerString(count,"NumRegions",UnicodeString::TheEmptyString);
+  SetPlayerString(count,"NumUnits",UnicodeString::TheEmptyString);
  }
 }
 }
 
 #pragma comment(linker, "/alternatename:?remove@Rva005EE11EIcons@@QAEXABVAsciiString@@@Z=?rva00524306@Rva00524306@@QAEXABV?$StringBase@D@@@Z")
 
-#pragma comment(linker, "/alternatename:?setText@Rva005EE11EPlayerCount@@QAEXHPBDABVUnicodeString@@@Z=?rva005ED516@Rva005ED445@@QAEXHPBDABVUnicodeString@@@Z")
 
 #pragma comment(linker, "/alternatename:?resize@Rva005EE11ERecords@@QAEXI@Z=?resize@Rva005EE06CVector@@QAEXI@Z")

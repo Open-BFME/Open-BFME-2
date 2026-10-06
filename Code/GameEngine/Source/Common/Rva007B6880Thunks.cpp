@@ -1,5 +1,14 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva007B6880@@YAXXZ @ 0x007B6880 (10B). Global setter thunk: ecx=&g_Va00DDEB24 then tail-jmp to rowed ?apply@Rva00019EC0DwordImmSetter@@QAEXXZ (0x00019EC0) which sets [ecx],0xBBC8D4. No callers. Prev 0x007B5860 (Rva00CE12FCMutex.cpp) next 0x007B7270 (BfmeConv804.cpp). Honest address name; no donor.
+extern "C" const void *const vtbl_00CE3934[];  // ??_7Rva00669510@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00CE3934=??_7Rva00669510@@6B@")
+
+extern "C" const void *const vtbl_00CE36A0[];  // ??_7Rva006680E0@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00CE36A0=??_7Rva006680E0@@6B@")
+
+extern "C" const void *const vtbl_00CE3168[];  // ??_7Rva006655B0@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00CE3168=??_7Rva006655B0@@6B@")
+
 class Rva00019EC0DwordImmSetter
 {
 public:
@@ -6799,7 +6808,7 @@ unsigned int g_Va00DD828C;
 // ?rva007B9B90@@YAXXZ @ 0x007B9B90 (11B). Vftable store thunk: g_Va00DD828C = 0x00CE3168 (vftable stored as slot 10 by the rowed ??_GRva006655B0 deleting dtor) then ret. No callers. Honest address name.
 void __cdecl rva007B9B90()
 {
-	g_Va00DD828C = 0x00CE3168;
+	g_Va00DD828C = ((unsigned int)vtbl_00CE3168);
 }
 
 extern unsigned g_Va00DD8314;
@@ -6808,7 +6817,7 @@ unsigned int g_Va00DD8314;
 // ?rva007B9BA0@@YAXXZ @ 0x007B9BA0 (11B). Vftable store thunk: g_Va00DD8314 = 0x00CE36A0 (vftable stored as slot 10 by the rowed ??_GRva006680E0 deleting dtor) then ret. No callers. Honest address name.
 void __cdecl rva007B9BA0()
 {
-	g_Va00DD8314 = 0x00CE36A0;
+	g_Va00DD8314 = ((unsigned int)vtbl_00CE36A0);
 }
 
 extern unsigned g_Va00DD83B4;
@@ -6817,7 +6826,7 @@ unsigned int g_Va00DD83B4;
 // ?rva007B9BB0@@YAXXZ @ 0x007B9BB0 (11B). Vftable store thunk: g_Va00DD83B4 = 0x00CE3934 (vftable stored as slot 10 by the rowed ??_GRva00669510 deleting dtor) then ret. No callers. Honest address name.
 void __cdecl rva007B9BB0()
 {
-	g_Va00DD83B4 = 0x00CE3934;
+	g_Va00DD83B4 = ((unsigned int)vtbl_00CE3934);
 }
 
 // Opaque-class view for the thunk below. The destructor is declared only;

@@ -29,7 +29,7 @@ public:
 
 protected:
 	void removeGame( LANGameInfo *game );
-	Bool rva00449969( LANGameInfo *game );
+	Bool ValidateGameInfo( LANGameInfo *game );
 };
 
 void LANAPI::removeGame( LANGameInfo *game )
@@ -55,7 +55,7 @@ void LANAPI::removeGame( LANGameInfo *game )
 // same +0x10 head and +0xF5C next proven by removeGame above. Honest
 // address name (protected like removeGame/addGame); three callers in
 // unclaimed lobby/game bodies. Unlock lane.
-Bool LANAPI::rva00449969( LANGameInfo *game )
+Bool LANAPI::ValidateGameInfo( LANGameInfo *game )
 {
 	if( game == 0 )
 		return false;

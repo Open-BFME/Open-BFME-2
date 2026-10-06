@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva002972DE@Rva002972DE@@QAEXPAVRva004B555F@@@Z retail 0x002972DE 130B
+// ?AddCreateAHeroSpecialPowerUpgrade@Object@@QAEXPAVRva004B555F@@@Z retail 0x002972DE 130B
 // Chain from 0x004B555F; unused name copy plus Science dedup at this+0x4A4 via rowed push_back.
 // Evidence: callers plus rowed 0x004B555F 0x000365F0 0x00036410 0x002E01C6 plus prev 0x00295A0F next 0x00297360.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
@@ -36,16 +36,16 @@ struct Rva004B555FHolder
 	ScienceType m_science;
 };
 
-class Rva002972DE
+class Object
 {
 public:
-	void rva002972DE(Rva004B555F *arg);
+	void AddCreateAHeroSpecialPowerUpgrade(Rva004B555F *arg);
 private:
 	char m_pad[0x4A4];
 	_STL::vector<ScienceType> m_sciences;
 };
 
-void Rva002972DE::rva002972DE(Rva004B555F *arg)
+void Object::AddCreateAHeroSpecialPowerUpgrade(Rva004B555F *arg)
 {
 	if (!arg)
 		return;

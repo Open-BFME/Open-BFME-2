@@ -9,7 +9,11 @@ class Rva005D3AF2
 public:
 	void rva005D3AF2();
 };
-class Rva005D3B26
+namespace StrategicHUD {
+class SelectionUIImpl;
+}
+
+class StrategicHUD::SelectionUIImpl
 {
 public:
 	void rva005D3A91();
@@ -36,7 +40,7 @@ void Rva005D3CA6::rva005D3CA6(void *v)
 	((Rva005D3AF2 *)this)->rva005D3AF2();
 	m_18 = v;
 	if (m_32)
-		((Rva005D3B26 *)this)->rva005D3A91();
+		((StrategicHUD::SelectionUIImpl *)this)->rva005D3A91();
 }
 void Rva005D3CA6::rva005D3DD5(const TreeHintRef00217D4C &v)
 {
@@ -44,5 +48,5 @@ void Rva005D3CA6::rva005D3DD5(const TreeHintRef00217D4C &v)
 		((Rva005D3AF2 *)this)->rva005D3AF2();
 	m_24 = v;
 	if (m_30 && m_32)
-		((Rva005D3B26 *)this)->rva005D3A91();
+		((StrategicHUD::SelectionUIImpl *)this)->rva005D3A91();
 }

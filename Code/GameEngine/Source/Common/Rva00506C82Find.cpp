@@ -3,7 +3,7 @@
 // search 8 GameSlots via TheGameInfo->getSlot(i) for slot whose m_ip key
 // (NameKeyGenerator->nameToKey at +0x34) equals arg key at +0x50; return slot
 // else 0. Callers 0x00506D41 0x00598CDE 0x005AA0FF 0x005AD967 0x005ADAC5
-// 0x005ADD7E. Prev Rva00506B74 /O1 /MD. Honest free-function Find plus Arg
+// 0x005ADD7E. Prev AIBaseBuilder /O1 /MD. Honest free-function Find plus Arg
 // view; GameSlot m_ip +0x34 from GameSlotSetState, globals TheGameInfo
 // and TheNameKeyGenerator DIR32 from retail.
 #include "ascii_string.h"

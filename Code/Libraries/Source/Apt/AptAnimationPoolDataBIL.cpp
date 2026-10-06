@@ -32,7 +32,7 @@ struct AptAnimationPoolData {
     ButtonHitTestRecord *aButtonInstanceList;
     void clearBIL();
     void appendButtonToBIL(AptCIH *button, AptMatrix *matrix);
-    void rva006E3640(AptCIH *button);
+    void removeFromBIL(AptCIH *button);
 };
 void AptAnimationPoolData::clearBIL()
 {
@@ -47,14 +47,14 @@ void AptAnimationPoolData::appendButtonToBIL(AptCIH *button, AptMatrix *matrix)
     ++mBILCount;
 }
 
-// ?rva006E3640@AptAnimationPoolData@@QAEXPAVAptCIH@@@Z @0x006E3640 180B.
+// ?removeFromBIL@AptAnimationPoolData@@QAEXPAVAptCIH@@@Z @0x006E3640 180B.
 // Removes a button from the BIL: scans entries for the pointer, asserts the
 // button non-null (AptCIH.h:181) and its type field 0xE via the SarDword view
 // (AptAnimation.cpp:1236), Releases it, memmoves the tail down one 28-byte
 // entry and decrements the count. Evidence: unlock lane, callers
 // 0x006E2690/0x006E2B40; layout/stride shared with clearBIL/append above;
 // strings pinned by reverse/string_xrefs.tsv.
-void AptAnimationPoolData::rva006E3640(AptCIH *button)
+void AptAnimationPoolData::removeFromBIL(AptCIH *button)
 {
     for (int i = 0; i <= mBILCount - 1; ++i) {
         if (button == aButtonInstanceList[i].pCIH) {

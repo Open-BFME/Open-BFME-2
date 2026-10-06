@@ -1,6 +1,6 @@
-// ?rva002CCE53@Weapon@@QBEMXZ
+// ?getPercentReadyToFire@Weapon@@QBEMXZ
 // cl: /DNDEBUG /MD
-// ?rva002CCE53@Weapon@@QBEMXZ @0x002CCE53 128B evidence: Weapon neighbours prev
+// ?getPercentReadyToFire@Weapon@@QBEMXZ @0x002CCE53 128B evidence: Weapon neighbours prev
 // deleting dtor next getStatus plus computeStatus row; float div via
 // BfmeZeroRange and 1.0 plus 2pow32 fixup; Rva000B2EB5 precedent flags.
 enum WeaponStatus
@@ -35,7 +35,7 @@ extern GameLogic *TheGameLogic;
 class Weapon
 {
 public:
-	float rva002CCE53() const;
+	float getPercentReadyToFire() const;
 	WeaponStatus computeStatus(bool *cacheable) const;
 private:
 	char m_pad00[4];
@@ -50,7 +50,7 @@ private:
 	unsigned int m_frame28;
 };
 
-float Weapon::rva002CCE53() const
+float Weapon::getPercentReadyToFire() const
 {
 	WeaponStatus s = computeStatus(0);
 	switch (s)

@@ -1,4 +1,5 @@
 // cl: /MD
+// FormationTranslator::WaitForSecondButtonDownStateHandler::Restart (WorldBuilder name, FormationTranslator.cpp lines 373..378: re-emits the stored pixel and ints and pushes a new 8B state).
 // ?rva00431C35@Rva00431C35@@QAEXPAX@Z @0x00431C35 104B: thiscall method emitting GameMessage via MessageStream slot 0x4c then helper new 8B with vtable 0x0083C97C plus final Rva00575674 call. Evidence: unlock lane; MessageStreamSubsystem global 0x00A00950; rowed appendPixel 0x0030F9D8 appendInteger 0x0030F936 new 0x0002FDA0 rva00575674 0x00575674; vtables g_00C3C97C; callers 0x00431CB7 0x00431E4D 0x004320A4.
 struct ICoord2D
 {
@@ -48,7 +49,12 @@ public:
 	void rva00575674(Object *o);
 };
 
-class Rva00431C35
+class FormationTranslator
+{
+public:
+	class WaitForSecondButtonDownStateHandler;
+};
+class FormationTranslator::WaitForSecondButtonDownStateHandler
 {
 	void *m_00;
 	void *m_04;
@@ -57,12 +63,12 @@ class Rva00431C35
 	int m_14;
 	int m_18;
 public:
-	void rva00431C35(void *p);
+	void Restart(void *p);
 };
 
 void *__cdecl operator new(unsigned int size);
 
-void Rva00431C35::rva00431C35(void *p)
+void FormationTranslator::WaitForSecondButtonDownStateHandler::Restart(void *p)
 {
 	Rva00431C35Param *par = (Rva00431C35Param *)p;
 	int v = par->m_08;

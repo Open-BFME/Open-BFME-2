@@ -1,64 +1,78 @@
-// ?Rva005E6CA1Get@@YAPAURva005E6CA1Out@@PAU1@PAURva005E6CA1Obj@@@Z
-// partial score=0.96 date=2026-10-02
+// ?FindLeaderEntry@StrategicInGameUI@@YA?AULeaderEntry@1@PAULivingWorldArmy@@@Z
+// partial score=0.97 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs-c-
-// ?Rva005E6CA1Get@@YAPAVRva005E6CA1Out@@PAV1@PAVRva005E6CA1Obj@@@Z, retail 0x005E6CA1, 108 bytes. Linear search of indexed field via rowed gets 0x0040CB2C/0x0040CC0E and StringBase compare 0x000069D6. Called from 0x005E6DFA. Neighbours share /O1.
+// StrategicInGameUIHeroArmyDetailsPanel.cpp -- StrategicInGameUI hero army
+// details helpers at their WorldBuilder home (reverse/wb_name_leads.csv: WB's
+// debug build names the file and StrategicInGameUI::FindLeaderEntry); retail
+// supplies the bytes.
+//
+// Layout (target evidence): the army's summary at +0x78 holds 8-byte entries
+// between +0x40 and +0x44, read through the rowed accessors 0x0040CB2C (the
+// entry) and 0x0040CC0E (its id); an entry's name is at +0x04 and the army's
+// leader name at +0x18.
 #include "ascii_string.h"
+
+typedef int Int;
+
+struct ArmySummaryEntry
+{
+	Int m_00;
+	StringBase<char> m_name;				// +0x04
+};
+
 class Rva0040CB2CIndexedField
 {
 public:
-	int get(int index) const;
+	Int get(Int index) const;				// 0x0040CB2C, ArmySummary::GetEntry
+
 	char m_pad[0x40];
-	char *m_begin;
-	char *m_end;
+	char *m_begin;						// +0x40
+	char *m_end;						// +0x44
 };
+
 class Rva0040CC0EIndexedField
 {
 public:
-	int get(int index) const;
-	char m_pad[0x40];
-	char *m_begin;
-	char *m_end;
+	Int get(Int index) const;				// 0x0040CC0E, ArmySummary::GetEntryID
 };
-struct Rva005E6CA1Node
-{
-	int m_00;
-	StringBase<char> m_str04;
-};
-struct Rva005E6CA1Out
-{
-	int m_first;
-	int m_second;
-};
-struct Rva005E6CA1Obj
+
+struct LivingWorldArmy
 {
 	char m_pad00[0x18];
-	StringBase<char> m_key18;
-	char m_pad1C[0x5C];
-	Rva0040CB2CIndexedField *m_78;
+	StringBase<char> m_leaderName;				// +0x18
+	char m_pad1C[0x78 - 0x1c];
+	Rva0040CB2CIndexedField *m_summary;			// +0x78
 };
-Rva005E6CA1Out *__cdecl Rva005E6CA1Get(Rva005E6CA1Out *out, Rva005E6CA1Obj *obj)
+
+namespace StrategicInGameUI
 {
-	Rva0040CB2CIndexedField *f = obj->m_78;
-	int idx = 0;
-	int cnt = (int)(f->m_end - f->m_begin) >> 3;
-	if (cnt <= 0)
-		goto empty;
+	struct LeaderEntry
 	{
-		StringBase<char> *key = &obj->m_key18;
-		do {
-			int secondVal = f->get(idx);
-			Rva005E6CA1Node *node = (Rva005E6CA1Node *)secondVal;
-			if (node->m_str04.compare(*key) == 0) {
-				int firstVal = ((Rva0040CC0EIndexedField *)f)->get(idx);
-				out->m_first = firstVal;
-				out->m_second = secondVal;
-				return out;
-			}
-			++idx;
-		} while (idx < cnt);
+		LeaderEntry(Int entryID, ArmySummaryEntry *entry) : m_entryID(entryID), m_entry(entry) {}
+
+		Int m_entryID;
+		ArmySummaryEntry *m_entry;
+	};
+
+	LeaderEntry FindLeaderEntry(LivingWorldArmy *army);
+}
+
+// StrategicInGameUI::FindLeaderEntry, retail 0x005E6CA1 (108 bytes): the
+// army summary entry named like the army's leader, with its id; both zero
+// when none is.
+StrategicInGameUI::LeaderEntry StrategicInGameUI::FindLeaderEntry(LivingWorldArmy *army)
+{
+	Rva0040CB2CIndexedField *summary = army->m_summary;
+	Int count = (Int)(summary->m_end - summary->m_begin) >> 3;
+	ArmySummaryEntry *entry;
+	Int i;
+	for (i = 0; i < count; ++i)
+	{
+		entry = (ArmySummaryEntry *)summary->get(i);
+		if (entry->m_name.compare(army->m_leaderName) == 0)
+			goto found;
 	}
-empty:
-	out->m_first = 0;
-	out->m_second = 0;
-	return out;
+	return LeaderEntry(0, 0);
+found:
+	return LeaderEntry(((Rva0040CC0EIndexedField *)summary)->get(i), entry);
 }

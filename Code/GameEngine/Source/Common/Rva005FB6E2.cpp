@@ -1,5 +1,5 @@
 // cl: /Oy- /MD
-// ?rva005FB6E2@Rva005FB6E2@@QAEXXZ @0x005FB6E2 71B: __thiscall Apt eliminated-state setter via rowed AptCall 0x005FB5E6 with team+8 or empty string plus SetState plus _eliminated. Evidence: call-site mov ecx at 0x005FB846 plus TheRva00222A8BTarget plus level at +4 plus team at +8.
+// ?ShowEliminated@Impl@DynamicAutoResolvePlayerPanelMovieClip@StrategicHUD@@QAEXXZ @0x005FB6E2 71B: __thiscall Apt eliminated-state setter via rowed AptCall 0x005FB5E6 with team+8 or empty string plus SetState plus _eliminated. Evidence: call-site mov ecx at 0x005FB846 plus TheRva00222A8BTarget plus level at +4 plus team at +8.
 class Rva00222A8BTarget;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
@@ -9,11 +9,19 @@ struct Rva005FB6E2Team
     char m_pad[8];
     char m_name[1];
 };
-class Rva005FB6E2
+namespace StrategicHUD {
+class DynamicAutoResolvePlayerPanelMovieClip
 {
 public:
-    void rva005FB6E2();
-    void rva005FB729();
+	class Impl;
+};
+}
+
+class StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl
+{
+public:
+    void ShowEliminated();
+    void ShowSurvived();
 private:
     char m_pad0[4];
     void *m_level;
@@ -24,7 +32,7 @@ private:
     bool m_b4C;
     bool m_b4D;
 };
-void Rva005FB6E2::rva005FB6E2()
+void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::ShowEliminated()
 {
     if (m_done != 0)
         return;
@@ -38,7 +46,7 @@ void Rva005FB6E2::rva005FB6E2()
     m_b4D = false;
     m_done = 1;
 }
-void Rva005FB6E2::rva005FB729()
+void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::ShowSurvived()
 {
     if (m_done != 0)
         return;

@@ -10,7 +10,7 @@
 // count/limit in EDI/ESI (calling the pin as an opaque extern instead spills
 // the pointer to ESI and the count to EBX).
 //
-// ?rva003FF496@GameInfo@@QBE_NG@Z @0x003FF496 62B: false only when the slot
+// ?isHeroDataReadyForSlot@GameInfo@@QBE_NG@Z @0x003FF496 62B: false only when the slot
 // at the given index is occupied, its +0x50 dword is set and the +0x64 block
 // it guards with the +0x60 byte is absent; true otherwise (including an
 // out-of-range index). The same same-TU visibility of isOccupied keeps the
@@ -75,7 +75,7 @@ struct Vec32
 	OuterElem32 *m_end;
 };
 
-class Rva00219B9E
+class CreateAHeroManager
 {
 	char m_pad[0x14C];
 public:
@@ -86,7 +86,7 @@ public:
 	int rva00219D52(unsigned int o);
 };
 
-extern Rva00219B9E *g_00DFE344;
+extern CreateAHeroManager *TheCreateAHeroManager;
 
 struct BfmeNetAddress
 {
@@ -103,8 +103,8 @@ public:
 	bool isAI() const;
 	Int rva003FF145(const BfmeNetAddress *other) const;
 	bool isObserver() const;
-	unsigned char rva003FF16F() const;
-	bool rva003FF8B0(unsigned char v);
+	unsigned char encodeHero() const;
+	bool decodeHero(unsigned char v);
 	void rva003FF1A7(int v);
 	bool isOpen() const { return m_state == SLOT_OPEN; }
 	Int getPlayerTemplate() const { return m_playerTemplate; }
@@ -143,7 +143,7 @@ public:
 	Int getNumNonObserverPlayers() const;
 	Int getNumOpenOrOccupiedSlots() const;
 	const GameSlot *getConstSlot(Int slotNum) const;
-	bool rva003FF496(unsigned short slotNum) const;
+	bool isHeroDataReadyForSlot(unsigned short slotNum) const;
 	bool rva003FF457() const;
 private:
 	char m_pad[0x18];
@@ -179,12 +179,12 @@ bool GameSlot::isObserver() const
 	return m_playerTemplate == PLAYERTEMPLATE_OBSERVER;
 }
 
-// ?rva003FF16F@GameSlot@@QBEEXZ
+// ?encodeHero@GameSlot@@QBEEXZ
 // No donor: the byte the LAN lobby's hero setter 0x004456B8 sends as
 // "Hero=%d". Kind 1 is a plain yes, kinds 2 and 3 pack the +0x5C or the
 // +0x54/+0x58 pair through the rowed Rva0056BD91Pack 0x0056BD91; the kind
 // field +0x50 and the packed fields are unidentified, hence the address name.
-unsigned char GameSlot::rva003FF16F() const
+unsigned char GameSlot::encodeHero() const
 {
 	switch (m_50)
 	{
@@ -253,7 +253,7 @@ Int GameInfo::getNumOpenOrOccupiedSlots() const
 	return numSlots;
 }
 
-bool GameInfo::rva003FF496(unsigned short slotNum) const
+bool GameInfo::isHeroDataReadyForSlot(unsigned short slotNum) const
 {
 	if (m_slot && slotNum < MAX_SLOTS) {
 		const GameSlot *slot = m_slot[slotNum];
@@ -263,13 +263,13 @@ bool GameInfo::rva003FF496(unsigned short slotNum) const
 	return true;
 }
 
-// ?rva003FF8B0@GameSlot@@QAE_NE@Z @0x003FF8B0 215B. GameSlot hero-kind setter,
-// inverse of rva003FF16F: kind 0 clears, 1 sets plain, hi==1 stores hero index
+// ?decodeHero@GameSlot@@QAE_NE@Z @0x003FF8B0 215B. GameSlot hero-kind setter,
+// inverse of encodeHero: kind 0 clears, 1 sets plain, hi==1 stores hero index
 // +0x5C and resolves +0x54/+0x58 via TheCreateAHeroManager 0x00DFE344, else
 // kind 3 stores hi-2/lo. Evidence: +0x50/+0x54/+0x58/+0x5C layout, rowed
 // Rva0056BDA5Split 0x0056BDA5, pinned rva0021F797/rva0040A32F, rowed
 // rva00219D52, callers 0x0024A6C6 0x00401A5D 0x00401D6C 0x00448BF0 0x005A431B.
-bool GameSlot::rva003FF8B0(unsigned char v)
+bool GameSlot::decodeHero(unsigned char v)
 {
 	m_50 = 0;
 	m_54 = 0;
@@ -288,10 +288,10 @@ bool GameSlot::rva003FF8B0(unsigned char v)
 	if (hi == 1) {
 		m_50 = 2;
 		unsigned int idx = lo;
-		if (idx >= (unsigned int)g_00DFE344->m_158)
+		if (idx >= (unsigned int)TheCreateAHeroManager->m_158)
 			return false;
 		m_5c = (int)idx;
-		Rva0040A3F9 *heroes = g_00DFE344->rva0021F797();
+		Rva0040A3F9 *heroes = TheCreateAHeroManager->rva0021F797();
 		CreateAHeroData *data = heroes->rva0040A32F(m_5c);
 		if (data == 0)
 			return true;
@@ -302,12 +302,12 @@ bool GameSlot::rva003FF8B0(unsigned char v)
 	unsigned int hi2 = hi;
 	--hi2;
 	--hi2;
-	Vec32 *outer = &g_00DFE344->m_outer;
+	Vec32 *outer = &TheCreateAHeroManager->m_outer;
 	unsigned int outerCount = (unsigned int)(((char *)outer->m_finish - (char *)outer->m_start) >> 5);
 	if (hi2 >= outerCount)
 		return false;
 	unsigned int lo2 = lo;
-	int inner = g_00DFE344->rva00219D52(hi2);
+	int inner = TheCreateAHeroManager->rva00219D52(hi2);
 	if (lo2 >= (unsigned int)inner)
 		return false;
 	m_50 = 3;

@@ -9,7 +9,7 @@
 #include <string.h>
 
 extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long hostlong);
-unsigned int __cdecl BFMEComputeCRC(const unsigned char *data, unsigned int len, unsigned int seed);
+unsigned int __cdecl ComputeCRC(const unsigned char *data, unsigned int len, unsigned int seed);
 
 struct Rva00594DC0Msg
 {
@@ -80,7 +80,7 @@ bool Rva0059517F::rva0059517F(unsigned long a1, unsigned short a2, unsigned shor
 	pkt.m_04 = 0xF00E;
 	pkt.m_0A = a2;
 	((Rva00594DC0 *)this)->rva00594DC0((Rva00594DC0Msg *)&pkt);
-	unsigned int crc = BFMEComputeCRC((const unsigned char *)&pkt.m_04, 0x10, 0);
+	unsigned int crc = ComputeCRC((const unsigned char *)&pkt.m_04, 0x10, 0);
 	pkt.m_crc = htonl(crc);
 	pkt._len = 0x14;
 	void *entry = ((FirewallHelperClass *)this)->rva00594D77(a2);
@@ -106,7 +106,7 @@ bool Rva0059517F::rva00595213(UDP *udp, unsigned long address, unsigned short pa
 	pkt.m_06 = packetID;
 	pkt.m_04 = 0xF00E;
 	((Rva00594DC0 *)this)->rva00594DC0((Rva00594DC0Msg *)&pkt);
-	unsigned int crc = BFMEComputeCRC((const unsigned char *)&pkt.m_04, 0x10, 0);
+	unsigned int crc = ComputeCRC((const unsigned char *)&pkt.m_04, 0x10, 0);
 	pkt.m_crc = htonl(crc);
 	pkt._len = 0x14;
 	((Rva00594C12 *)udp)->rva00594C12((const char *)&pkt, 0x14, address, port);

@@ -5,7 +5,11 @@ class Rva002D38D1
 public:
 	void clear();
 };
-class Rva00578AC1
+namespace StrategicHUD {
+class Palantir;
+}
+
+class StrategicHUD::Palantir
 {
 public:
 	void rva005785A2(void *p);
@@ -23,7 +27,7 @@ private:
 	char m_00[0x18];
 	Rva002D38D1 m_18;
 	char m_gap[0x24 - 0x18 - 4];
-	Rva00578AC1 *m_24;
+	StrategicHUD::Palantir *m_24;
 	char m_gap2[0x2C - 0x24 - 4];
 	Rva005796B3 *m_2C;
 };

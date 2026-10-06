@@ -1,4 +1,5 @@
 extern void *g_bfmeVftTQD[];
+extern int vftable_01129D30;
 
 class BfmeSinkTQD
 {
@@ -35,7 +36,7 @@ public:
 // Retail 0x006587C0 (27 bytes); target extent is bracketed by int3 padding.
 BfmeThingTQD::BfmeThingTQD()
 {
-	m_bfmeVft = reinterpret_cast<void *>(0x00CE157C);
+	m_bfmeVft = &vftable_01129D30;
 	m_bfmeField4 = reinterpret_cast<void *>(0x00A587B0);
 	m_bfmeField8 = 0;
 	m_bfmeItem = 0;

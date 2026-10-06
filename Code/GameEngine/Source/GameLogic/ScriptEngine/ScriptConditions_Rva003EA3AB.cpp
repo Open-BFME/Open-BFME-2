@@ -145,7 +145,7 @@ public:
 	AsciiString m_string;	// +0x10
 };
 
-void Rva00566E6CParse(Parameter *typeParm, ObjectTypes *types);	// 0x00566E6C
+void Script_objectTypesFromParam(Parameter *typeParm, ObjectTypes *types);	// 0x00566E6C
 
 class PlayerList
 {
@@ -177,7 +177,7 @@ bool ScriptConditions::rva003EA3AB(const AsciiString &unitName, Parameter *typeP
 	while (mask) {
 		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
 		ObjectTypesTemp types;
-		Rva00566E6CParse(typeParm, types.m_types);
+		Script_objectTypesFromParam(typeParm, types.m_types);
 		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(theObj->getPosition(),
 			theObj->getVisionRange(), 0,
 			Rva0026137EFilter(player, true).link(Rva0026119DFilter().link(Rva00261058(theObj, false).link(

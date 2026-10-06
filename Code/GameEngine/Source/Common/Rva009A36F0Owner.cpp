@@ -1,5 +1,5 @@
-// Retail 0x007592E0 (?apply@Rva009A36F0Owner@@QAEXPAVRva009A36F0Param@@@Z).
-// BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/Common/Rva009A36F0Owner.cpp
+// Retail 0x007592E0 (?UnRegisterObject@CollisionManagerImpl@@QAEXPAVRva009A36F0Param@@@Z).
+// BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/Common/CollisionManagerImpl.cpp
 // (b1 0x009A36F0, // cl: /O2 /Ob0). The b2 body at 0x007592E0 is the same
 // function: this = ebx (list-head pointer at +8, flag byte at +0xC06D),
 // param = edi (virtual +0x18 void f(int), +0x1c returns a thing pointer).
@@ -45,10 +45,10 @@ public:
 
 void __cdecl operator delete(void *block);
 
-class Rva009A36F0Owner
+class CollisionManagerImpl
 {
 public:
-	void apply(Rva009A36F0Param *param);
+	void UnRegisterObject(Rva009A36F0Param *param);
 	void unlinkChain(Rva009A36F0Thing *thing);
 
 private:
@@ -58,7 +58,7 @@ private:
 	unsigned char m_flag;
 };
 
-void Rva009A36F0Owner::apply(Rva009A36F0Param *param)
+void CollisionManagerImpl::UnRegisterObject(Rva009A36F0Param *param)
 {
 	if (param == 0)
 		return;

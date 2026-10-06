@@ -457,7 +457,7 @@ public:
 	virtual Object *rva0046D372() = 0; virtual void gap71() = 0; virtual void gap72() = 0; virtual void gap73() = 0;
 	virtual void rva0046F8B2() = 0; virtual void gap75() = 0; virtual void gap76() = 0; virtual void gap77() = 0;
 	virtual void rva00468FDC() = 0; virtual void rva00473ADF() = 0; virtual bool rva0046A381(Object *target) = 0; virtual bool rva0046A46F() = 0;
-	virtual bool rva0046A2EC(Object *target) = 0; virtual bool rva0046A416() = 0; virtual bool rva0047306E(Object *obj, int a2) = 0; virtual bool rva00468DCD(Object *obj) = 0;
+	virtual bool rva0046A2EC(Object *target) = 0; virtual bool rva0046A416() = 0; virtual bool canEngageInMelee(Object *obj, int a2) = 0; virtual bool rva00468DCD(Object *obj) = 0;
 	virtual void rva004730B0(Object *target) = 0; virtual bool rva0046A4C8() = 0; virtual void gap88() = 0; virtual void rva00468D7D(Object *obj) = 0;
 	virtual void gap90() = 0; virtual void gap91() = 0; virtual void rva0046D384(Team *team) = 0; virtual void gap93() = 0;
 	virtual void gap94() = 0; virtual int rva004697CD() = 0; virtual int rva0046D3FC(Rva2225E0Filter *filter) = 0; virtual int rva00468F68() = 0;
@@ -565,7 +565,7 @@ public:
 	virtual void rva00468FDC();
 	virtual bool rva0046A46F();
 	virtual bool rva0046A416();
-	virtual bool rva0047306E(Object *obj, int a2);
+	virtual bool canEngageInMelee(Object *obj, int a2);
 	virtual bool rva00468DCD(Object *obj);
 	virtual bool rva0046A4C8();
 	virtual void rva0046981C();
@@ -731,11 +731,11 @@ bool HordeContain::rva00468C7B(Coord3D *pos)
 	return false;
 }
 
-// ?rva0047306E@HordeContain@@UAE_NPAVObject@@H@Z @0x0047306E: slot 84, for the
+// ?canEngageInMelee@HordeContain@@UAE_NPAVObject@@H@Z @0x0047306E: slot 84, for the
 // argument's AI: idles it (CMD_FROM_AI) and answers true when its slot 113
 // does, else answers its slot 110; false without an AI. The second argument
 // is not read.
-bool HordeContain::rva0047306E(Object *obj, int)
+bool HordeContain::canEngageInMelee(Object *obj, int)
 {
 	AIUpdateInterface *ai = obj->m_ai;
 	if (!ai)

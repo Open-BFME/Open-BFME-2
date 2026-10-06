@@ -85,7 +85,7 @@ public:
 class DynamicVBAccessClass
 {
 public:
-	static void bfmeRva0013A7D0( void );
+	static void Init( void );
 };
 
 class DX8Wrapper
@@ -147,7 +147,7 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Inits( void )
 	VertexMaterialClass::Init();
 	Rva0017E210Init();
 	Rva00177923Init();
-	DynamicVBAccessClass::bfmeRva0013A7D0();
+	DynamicVBAccessClass::Init();
 	Set_Default_Global_Render_States();
 }
 // ?g_dx8FilterMode@@3W4TextureFilterMode@TextureFilterClass@@A: the global at VA 0xdb5f9c is ?TextureFilter@WW3D@@0HA.

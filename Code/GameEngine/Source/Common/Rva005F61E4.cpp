@@ -1,5 +1,6 @@
 // cl: /Oy- /MD
-// ?rva005F61E4@Rva005F61E4@@QAEXXZ @ 0x005F61E4 60B chain via rowed AptCall 0x005FB5E6.
+// StrategicHUD::HeroArmyDetailsMovieClip::Impl::HideLeaderRankProgress (WorldBuilder name, line 219: SetLeaderRankProgressBarState _hide when shown).
+// was ?rva005F61E4@Rva005F61E4@@QAEXXZ @ 0x005F61E4 60B chain via rowed AptCall 0x005FB5E6.
 // Flag clearer with _hide literal, flag byte at +0x37, team +8 level +4.
 // Evidence: EBP frame, rowed AptCall, literals _hide and SetLeaderRankProgressBarState,
 // empty g_Rva0107301CEmptyString, manager TheRva00222A8BTarget, caller jmp 0x005F6309.
@@ -12,10 +13,18 @@ struct Rva005F61E4Team
     char m_pad[8];
     const char *m_name;
 };
-class Rva005F61E4
+namespace StrategicHUD
+{
+class HeroArmyDetailsMovieClip
 {
 public:
-    void rva005F61E4();
+	class Impl;
+};
+}
+class StrategicHUD::HeroArmyDetailsMovieClip::Impl
+{
+public:
+    void HideLeaderRankProgress();
 private:
     char m_pad0[4];
     unsigned int m_level;
@@ -23,7 +32,7 @@ private:
     char m_pad0C[0x37 - 0x0C];
     unsigned char m_flag;
 };
-void Rva005F61E4::rva005F61E4()
+void StrategicHUD::HeroArmyDetailsMovieClip::Impl::HideLeaderRankProgress()
 {
     if (!m_flag)
         return;

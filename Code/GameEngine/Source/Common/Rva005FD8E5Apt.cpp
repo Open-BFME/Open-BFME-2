@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?rva005FD8E5@Rva005FD788@@QAEXHHH@Z retail 0x005FD8E5 113B
-// Evidence: chain from 0x005FD53E you landed; calls Get 0x005FD53E and rva005FD788 0x005FD788 and releaseBuffer 0x00036E70; entry stride 0x18 base 0x1C offsets 0x10 0x14; string CP literal; /G7 for retail imul 0x18; caller 0x005FD959 jmp
+// ?SetCommandPoints@Impl@ArmyUnitSwapperMovieClip@StrategicHUD@@QAEXHHH@Z retail 0x005FD8E5 113B
+// Evidence: chain from 0x005FD53E you landed; calls Get 0x005FD53E and SetSlotString 0x005FD788 and releaseBuffer 0x00036E70; entry stride 0x18 base 0x1C offsets 0x10 0x14; string CP literal; /G7 for retail imul 0x18; caller 0x005FD959 jmp
 template <typename T> struct BfmeStringData
 {
 	int refCount;
@@ -29,22 +29,31 @@ struct Rva005FD8E5Entry
 	int m_a16;
 	int m_b20;
 };
-struct Rva005FD788
+namespace StrategicHUD {
+class ArmyUnitSwapperMovieClip
 {
+public:
+	class Impl;
+};
+}
+
+class StrategicHUD::ArmyUnitSwapperMovieClip::Impl
+{
+public:
 	char m_pad0[4];
 	int m_level4;
 	Rva005FD788Inner *m_inner8;
 	char m_padC[16];
 	Rva005FD8E5Entry m_entries[1];
-	void rva005FD788(int index, const char *suffix, const UnicodeString &text);
-	void rva005FD8E5(int index, int a, int b);
+	void SetSlotString(int index, const char *suffix, const UnicodeString &text);
+	void SetCommandPoints(int index, int a, int b);
 };
-void Rva005FD788::rva005FD8E5(int index, int a, int b)
+void StrategicHUD::ArmyUnitSwapperMovieClip::Impl::SetCommandPoints(int index, int a, int b)
 {
 	Rva005FD8E5Entry *entry = &m_entries[index];
 	if (a == entry->m_a16 && b == entry->m_b20)
 		return;
-	rva005FD788(index, "CP", Rva005FD53EGet(a, b));
+	SetSlotString(index, "CP", Rva005FD53EGet(a, b));
 	entry->m_a16 = a;
 	entry->m_b20 = b;
 }
@@ -52,11 +61,11 @@ void Rva005FD788::rva005FD8E5(int index, int a, int b)
 struct Rva005FD956
 {
 	char m_pad0[4];
-	Rva005FD788 *m_p4;
+	StrategicHUD::ArmyUnitSwapperMovieClip::Impl *m_p4;
 	void rva005FD956(int index, int a, int b);
 };
 
 void Rva005FD956::rva005FD956(int index, int a, int b)
 {
-	m_p4->rva005FD8E5(index, a, b);
+	m_p4->SetCommandPoints(index, a, b);
 }

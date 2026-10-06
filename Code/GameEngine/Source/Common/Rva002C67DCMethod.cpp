@@ -1,6 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
-// ?rva002C67DC@Rva002C67DC@@QAE_NXZ @0x002C67DC 105B
+// ?isAPartialBrain@SkirmishAI@@QAE_NXZ @0x002C67DC 105B
 // Evidence: unlock lane, prev Disp8CmpBoolGetters 0x002C67CF next stlport
 // rb_tree 0x002C6C93, 1 caller 0x002AB44A, callees getNthPlayer row plus
 // DispByteFieldGetters row plus rva002A8AB1 pin, globals ThePlayerList and
@@ -47,10 +47,10 @@ struct Rva002C67DC15C
 	int m_54;
 };
 
-class Rva002C67DC
+class SkirmishAI
 {
 public:
-	bool rva002C67DC();
+	bool isAPartialBrain();
 
 private:
 	char m_pad[0x15C];
@@ -59,7 +59,7 @@ private:
 	int m_178;
 };
 
-bool Rva002C67DC::rva002C67DC()
+bool SkirmishAI::isAPartialBrain()
 {
 	if (m_178 != -1)
 		return true;

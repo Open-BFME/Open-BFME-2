@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /GX- /Op
 //
-// ?rva0028FAD1@Object@@QAEXPAV1@@Z, retail 0x0028fad1, 158 bytes. Banked partial (score 0.96) closed by tools/permute.py;
+// ?onContainedBy@Object@@QAEXPAV1@@Z, retail 0x0028fad1, 158 bytes. WB confirms Object::onContainedBy;
 // the body is the banked one up to statement/operand order and local types.
 // Evidence: unlock; callers 0x4648B1 and 0x4F5784 pass Object* this with Object* arg;
 // sets containedBy +0x274 and +0x27C from TheGameLogic+0x40; bit0 at +0x439;
@@ -79,7 +79,7 @@ class Object
 public:
 	void setStatus(ObjectStatusTypes bit, bool flag);
 	void Rva0028CDEB(ObjectStatusMask *mask);
-	void rva0028FAD1(Object *arg);
+	void onContainedBy(Object *arg);
 
 private:
 	void *m_vtable;
@@ -100,7 +100,7 @@ struct RetBits
 	int test(int i) { return (m_bits[i >> 5] >> (i & 31)) & 1; }
 };
 
-void Object::rva0028FAD1(Object *arg)
+void Object::onContainedBy(Object *arg)
 {
 	if (m_p04->m_flag & 0x80) {
 		m_bit439 &= (unsigned char)~1;

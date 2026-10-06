@@ -3,7 +3,7 @@
 // read through g_Va00BBAEAC, g_Va00BC7468 are compiler literals holding the retail
 // values, not extern globals, which is what gives retail's operand order.
 
-// ?rva00271108@Rva00271108@@QAE_NHHHMMMH@Z retail 0x00271108 190B.
+// ?handleWeaponFireFX@Drawable@@QAE_NHHHMMMH@Z retail 0x00271108 190B.
 // Unlock lane: float guard vs pooled 0.0 at 0x00BBAEAC, adjust angle at
 // [ebp+0x1c] via [esi+0xfc]+0x44 and global at 0x00BC7468, Cos/Sin scale by
 // [ebp+0x18] into [esi+0x13c]+0x1c/+0x24, then null-terminated list at
@@ -103,10 +103,10 @@ struct Accum
 	float m_24;
 };
 
-class Rva00271108
+class Drawable
 {
 public:
-	bool rva00271108(int a0, int a1, int a2, float a3, float a4, float a5, int a6);
+	bool handleWeaponFireFX(int a0, int a1, int a2, float a3, float a4, float a5, int a6);
 
 private:
 	char m_pre[0xfc];
@@ -117,7 +117,7 @@ private:
 	Node **m_list;
 };
 
-bool Rva00271108::rva00271108(int a0, int a1, int a2, float a3, float a4, float a5, int a6)
+bool Drawable::handleWeaponFireFX(int a0, int a1, int a2, float a3, float a4, float a5, int a6)
 {
 	if (a4 != 0.0f) {
 		if (m_fc != 0)

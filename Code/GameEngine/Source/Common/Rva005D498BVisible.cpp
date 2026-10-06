@@ -1,5 +1,6 @@
 // cl: /MD
-// ?rva005D498B@Rva005D498B@@QAEX_N@Z @0x005D498B 66B: guarded SetVisible fire via rowed 0x005277D9 with prefix from +8 else empty. Evidence: same shape as 0x005D4949 SetEnabled 66B plus rowed Fire callee plus strings SetVisible and empty fallback g_Rva0107301CEmptyString plus global TheRva00222A8BTarget; guard m_25 vs bool arg; caller jmp at 0x005D49D8.
+// AptScrollBar::Impl::SetVisible (WorldBuilder name, AptScrollBar.cpp line 123: SetVisible fired on change of +0x25).
+// was ?rva005D498B@Rva005D498B@@QAEX_N@Z @0x005D498B 66B: guarded SetVisible fire via rowed 0x005277D9 with prefix from +8 else empty. Evidence: same shape as 0x005D4949 SetEnabled 66B plus rowed Fire callee plus strings SetVisible and empty fallback g_Rva0107301CEmptyString plus global TheRva00222A8BTarget; guard m_25 vs bool arg; caller jmp at 0x005D49D8.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 extern const char g_Rva0107301CEmptyString[];
@@ -9,10 +10,15 @@ struct Rva005D498BInner
 	char m_pad8[8];
 	char m_name[1];
 };
-class Rva005D498B
+class AptScrollBar
 {
 public:
-	void rva005D498B(bool v);
+	class Impl;
+};
+class AptScrollBar::Impl
+{
+public:
+	void SetVisible(bool v);
 private:
 	char m_pad00[4];
 	void *m_level04;
@@ -20,7 +26,7 @@ private:
 	char m_pad0C[0x25 - 0x0C];
 	bool m_25;
 };
-void Rva005D498B::rva005D498B(bool v)
+void AptScrollBar::Impl::SetVisible(bool v)
 {
 	if (v == m_25)
 		return;

@@ -2,7 +2,7 @@
 //
 // ?Rva003C8A15Do@@YGXPAVParameter@@ABVAsciiString@@1@Z @0x003C8A15 (128B).
 // Unit guard in trigger area via getQualifiedTriggerAreaByName plus
-// getUnitNamed plus waypoint 0x88 plus rva0036F629 else rva0036F5BB.
+// getUnitNamed plus waypoint 0x88 plus aiGuardAreaFromPosition else rva0036F5BB.
 // Evidence: callees rowed 0x0035768D 0x003588E7, caller 0x003CB6CD 0x003CB708.
 // Precedent Rva003C8B62Do Rva003C87F1Do.
 #include "ascii_string.h"
@@ -42,7 +42,7 @@ extern TerrainLogic *TheTerrainLogic;
 class AICommandInterface
 {
 public:
-	void rva0036F629(const PolygonTrigger *area, int v, CommandSourceType src, const Coord3D *pos);
+	void aiGuardAreaFromPosition(const PolygonTrigger *area, int v, CommandSourceType src, const Coord3D *pos);
 	void rva0036F5BB(const PolygonTrigger *area, int v, CommandSourceType src);
 };
 
@@ -80,7 +80,7 @@ void __stdcall Rva003C8A15Do(Parameter *unitParam, const AsciiString &areaName, 
 	Waypoint *wp = ((TerrainLogicByValue *&)TheTerrainLogic)->getWaypointByName(wayName);
 	AIUpdateInterface *ai = obj->getAI();
 	if (wp)
-		ai->m_command.rva0036F629(area, 0, CMD_FROM_SCRIPT, wp->location());
+		ai->m_command.aiGuardAreaFromPosition(area, 0, CMD_FROM_SCRIPT, wp->location());
 	else
 		ai->m_command.rva0036F5BB(area, 0, CMD_FROM_SCRIPT);
 }

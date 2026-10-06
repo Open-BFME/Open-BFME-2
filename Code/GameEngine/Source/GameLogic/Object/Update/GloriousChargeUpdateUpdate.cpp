@@ -27,7 +27,7 @@
 // 0x00260EB1), alive and passes 0x002611BF for this object onto the +0x88
 // list (0x002A1B6F). /GX for the filter temporaries.
 // Retail 0x004AD8E3 (195 bytes): the slot-17 override (base 0x0045108D,
-// pinned SpecialAbilityUpdate::rva0045108D) that update() calls each frame of
+// pinned SpecialAbilityUpdate::triggerAbilityEffect) that update() calls each frame of
 // the charge: after the base, refresh the list (0x004AD7B6) and for each
 // listed object still alive call 0x0028EA91 with "RohanCharge", set condition
 // bit 6*32+9 and store this object's ID at its +0x44C; retail then sets bit 3
@@ -76,7 +76,7 @@ class Object
 {
 public:
 	void rva0028AE6D();
-	bool rva0028EA91(const AsciiString &name, int n);	// 0x0028EA91
+	bool addAttributeModifierToPool(const AsciiString &name, int n);
 	Drawable *getDrawable() const;
 	bool isKindOf(KindOfType t) const;
 	const Coord3D *getPosition() const { return &m_pos; }
@@ -253,7 +253,7 @@ public:
 	virtual void slot13(); virtual void slot14();
 	virtual void slot15(); // 0x00450D9A, GloriousChargeUpdate 0x004AD554
 	virtual void slot16();
-	virtual void rva0045108D(); // slot 17; GloriousChargeUpdate 0x004AD8E3
+	virtual void triggerAbilityEffect(); // slot 17; GloriousChargeUpdate 0x004AD8E3
 private:
 	unsigned char m_pad24[0x88 - 0x24];
 };
@@ -320,7 +320,7 @@ UpdateSleepTime GloriousChargeUpdate::update()
 			((Rva00270619 *)draw)->Rva00270619Clear(0x10);
 		return UPDATE_SLEEP_FOREVER;
 	}
-	rva0045108D();
+	triggerAbilityEffect();
 	return (UpdateSleepTime)getGloriousChargeData()->m_D0;
 }
 void GloriousChargeUpdate::rva004AD7B6()
@@ -337,7 +337,7 @@ void GloriousChargeUpdate::rva004AD7B6()
 }
 void GloriousChargeUpdate::rva004AD8E3()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	rva004AD7B6();
 	if (!m_88.empty())
 	{
@@ -346,7 +346,7 @@ void GloriousChargeUpdate::rva004AD8E3()
 			Object *object = TheGameLogic->findObjectByID(*it);
 			if (object)
 			{
-				object->rva0028EA91(AsciiString("RohanCharge"), -1);
+				object->addAttributeModifierToPool(AsciiString("RohanCharge"), -1);
 				setModelConditionBit(object, 6 * 32 + 9);
 				object->m_44C = m_object->getID();
 			}

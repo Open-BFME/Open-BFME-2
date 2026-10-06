@@ -1,4 +1,6 @@
 // ?rva0033B217@Rva0033B217@@QAEXXZ
+// partial score=0.8481 date=2026-10-05
+// ?rva0033B217@Rva0033B217@@QAEXXZ
 // partial score=0.92 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
 // ?rva0033B217@Rva0033B217@@QAEXXZ @0x0033B217 315B evidence six GameText fetches into wide members callers 0x002CF1EA rowed set 0x00037150 release 0x00036E70 TheGameText

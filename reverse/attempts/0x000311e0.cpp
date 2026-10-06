@@ -1,18 +1,5 @@
 // ?rva000311E0@GeneralAllocator@Allocator@EA@@QAEIPBXIPADPAGI@Z
-// partial score=0.98 date=2026-10-05
-#include <string.h>
-
-namespace EA
-{
-namespace Allocator
-{
-class GeneralAllocator
-{
-public:
-	unsigned int rva000311E0(const void *src, unsigned int count, char *ascii, unsigned short *wide, unsigned int cap);
-};
-// ?rva000311E0@GeneralAllocator@Allocator@EA@@QAEIPBXIPADPAGI@Z
-// partial score=0.93 date=2026-10-01
+// partial score=0.8638 date=2026-10-05
 // BFME 2's memory-pool entry points. `namespace MemoryPool` is retail's own
 // name: every `_`-prefixed function here is exported under it
 // (reverse/exports.csv), and 0x00030730 resolves each export back out of the
@@ -312,20 +299,20 @@ unsigned int GeneralAllocator::rva000311E0(const void *src_, unsigned int count,
 	{
 		if (cap == 0)
 			return 0;
-		if (ascii != 0)
+		if (0 != ascii)
 			*ascii = 0;
 		if (wide == 0)
 			return 0;
 		*wide = 0;
 		return 0;
 	}
-	char *a_hold = ascii;
 	unsigned short *w_hold = wide;
-	unsigned int limit = (cap - 2) >> 2;
-	char hex[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+	unsigned char hex[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+	int limit = (cap - 2) >> 2;
+	char *a_hold = ascii;
 	if (limit > count)
 		limit = count;
-	if (a_hold != 0)
+	if (0 != a_hold)
 	{
 		memset(a_hold, ' ', cap);
 		a_hold[cap - 1] = 0;
@@ -339,21 +326,22 @@ unsigned int GeneralAllocator::rva000311E0(const void *src_, unsigned int count,
 		a_hold[limit * 3 - 1] = '\t';
 	if (w_hold != 0)
 		w_hold[limit * 3 - 1] = '\t';
-	if (limit == 0)
+	if (0 == limit)
 		return 0;
-	char *ap = a_hold;
 	unsigned short *wp = w_hold;
-	for (unsigned int i = 0; i < limit; ++i)
+	char *ap = a_hold;
+	unsigned int i = 0;
+	while (i < limit)
 	{
 		unsigned char c = src[i];
 		char hi = hex[c >> 4];
 		char lo = hex[c & 0xF];
-		if (a_hold != 0)
+		if (0 != a_hold)
 		{
 			ap[0] = hi;
 			ap[1] = lo;
-			char d = (char)src[i];
-			if (d < 0x20 || d >= 0x7F || d == '"' || d == '\'')
+			const char d = (char)src[i];
+			if (0x20 > d || d >= 0x7F || d == '"' || d == '\'')
 				a_hold[limit * 3 + i] = '.';
 			else
 				a_hold[limit * 3 + i] = d;
@@ -362,14 +350,15 @@ unsigned int GeneralAllocator::rva000311E0(const void *src_, unsigned int count,
 		{
 			wp[0] = (unsigned short)hi;
 			wp[1] = (unsigned short)lo;
-			char d = (char)src[i];
+			const char d = (char)src[i];
 			if (d < 0x20 || d == '"' || d == '\'')
 				w_hold[limit * 3 + i] = '.';
 			else
 				w_hold[limit * 3 + i] = d;
 		}
-		ap += 3;
-		wp += 3;
+		i++;
+		ap = ap + (3);
+		wp = wp + (3);
 	}
 	return 0;
 }
@@ -377,5 +366,175 @@ unsigned int GeneralAllocator::rva000311E0(const void *src_, unsigned int count,
 }
 }
 
+// ?Rva00031660Unlink@@YGXPAX@Z @ 0x00031660 (25B):
+// intrusive doubly-linked unlink with next at +0x18 and prev at +0x1C.
+// Caller 0x00033E05 in 0x00033D50; direct double-load shape proves the two
+// one-line stores rather than hoisted temps.
+void __stdcall Rva00031660Unlink(void *node)
+{
+	*(void **)((char *)*(void **)((char *)node + 0x18) + 0x1C) = *(void **)((char *)node + 0x1C);
+	*(void **)((char *)*(void **)((char *)node + 0x1C) + 0x18) = *(void **)((char *)node + 0x18);
 }
+
+namespace MemoryPool
+{
+
+enum AllocType
+{
+};
+
+struct HeapRecord
+{
+	HeapRecord *m_next;
+	unsigned int m_id;
+	unsigned int m_size;
+	EA::Allocator::GeneralAllocator *m_allocator;
+};
+
+enum
+{
+	MAX_HEAPS = 30,
+	HEAP_BUCKETS = 101
+};
+
+struct HeapTable
+{
+	void *m_win32Heap;
+	int m_count;
+	int m_reserved;
+	HeapRecord m_records[MAX_HEAPS];
+	HeapRecord *m_buckets[HEAP_BUCKETS];
+	unsigned int m_unknown380;	// 0x00DE0794: nothing here reads it
+	EA::Allocator::GeneralAllocator *m_allocators[MAX_HEAPS + 1];
+	EA::Allocator::GeneralAllocator *m_defaultAllocator;
+	bool m_clearAllocations;
+	int m_initCount;
+	bool m_shutDown;
+	bool m_addingHeaps;
+};
+
+extern HeapTable g_heaps;
+extern unsigned long g_heapTlsIndex;
+
+EA::Allocator::GeneralAllocator *_GetHeapAllocator(unsigned int id)
+{
+	if (id == 0 && g_heapTlsIndex != (unsigned long)-1)
+		id = (unsigned int)TlsGetValue(g_heapTlsIndex);
+
+	for (HeapRecord *record = g_heaps.m_buckets[id % HEAP_BUCKETS]; record != 0; record = record->m_next)
+	{
+		if (record->m_id == id)
+			return record->m_allocator;
+	}
+	return g_heaps.m_allocators[0];
+}
+
+EA::Allocator::GeneralAllocator *_GetHeapAllocatorByIndex(unsigned int index)
+{
+	if (index <= (unsigned int)g_heaps.m_count)
+		return g_heaps.m_allocators[index];
+	return 0;
+}
+
+void *_Allocate(unsigned int size, AllocType type, unsigned int heap)
+{
+	EA::Allocator::GeneralAllocator *allocator = _GetHeapAllocator(heap);
+	if (g_heaps.m_clearAllocations)
+		return allocator->rva00035210(size, 1, 0);
+	return allocator->rva00035080(size, 0);
+}
+
+void *_Reallocate(void *block, unsigned int size, AllocType type, unsigned int heap)
+{
+	EA::Allocator::GeneralAllocator *allocator = _GetHeapAllocator(heap);
+	return allocator->rva00035190(block, size, 0);
+}
+
+void _Free(void *block, AllocType type)
+{
+	if (g_heaps.m_shutDown)
+		return;
+	if (block == 0)
+		return;
+	for (int i = 0; i <= g_heaps.m_count; ++i)
+	{
+		if (g_heaps.m_allocators[i]->rva00032920(block))
+		{
+			g_heaps.m_allocators[i]->rva000338F0(block);
+			return;
+		}
+	}
+}
+
+bool _IsValidBlock(void *block, unsigned int heap)
+{
+	EA::Allocator::GeneralAllocator *allocator = _GetHeapAllocator(heap);
+	return allocator->rva00032830(block, 1);
+}
+
+unsigned int _GetBlockSize(void *block, unsigned int heap)
+{
+	if (block == 0)
+		return 0;
+	EA::Allocator::GeneralAllocator *allocator = _GetHeapAllocator(heap);
+	return allocator->rva00032A20(block);
+}
+
+unsigned int _GetBlockHeap(void *block)
+{
+	if (block == 0)
+		return 0;
+	for (int i = 0; i <= g_heaps.m_count; ++i)
+	{
+		if (g_heaps.m_allocators[i]->rva00032920(block))
+		{
+			if (i == 0)
+				return 0;
+			return g_heaps.m_records[i - 1].m_id;
+		}
+	}
+	return 0;
+}
+
+void _VerifyIntegrity()
+{
+	for (int i = 0; i <= g_heaps.m_count; ++i)
+		g_heaps.m_allocators[i]->rva000329E0(3);
+}
+
+void _Exit()
+{
+	if (--g_heaps.m_initCount != 0)
+		return;
+
+	for (int i = 0; i <= g_heaps.m_count; ++i)
+	{
+		// The heap's four-character id, spelled for a log line the release
+		// build compiles out; only the byte stores survive.
+		char name[8];
+		char *p = &name[4];
+		// Retail walks a pointer to this record's id and reads the previous
+		// record's (heap i is record i-1; heap 0 is the default and has none).
+		unsigned int *ids = &g_heaps.m_records[i].m_id;
+		if (ids != &g_heaps.m_records[0].m_id)
+		{
+			unsigned int id = ids[-(int)(sizeof(HeapRecord) / sizeof(unsigned int))];
+			for (int shift = 0; shift < 32; shift += 8)
+			{
+				unsigned int c = id >> shift;
+				if (c == 0)
+					break;
+				*--p = (char)c;
+			}
+		}
+
+		void *report = g_heaps.m_allocators[i]->rva000353B0(0, 0x1f, true, 0, 0);
+		for (const EA::Allocator::BlockInfo *block = g_heaps.m_allocators[i]->rva00032F60(report, 0x1f); block != 0;
+			block = g_heaps.m_allocators[i]->rva00032F60(report, 0x1f))
+		{
+		}
+		g_heaps.m_allocators[i]->rva00033E90(report);
+	}
+}
+
 }

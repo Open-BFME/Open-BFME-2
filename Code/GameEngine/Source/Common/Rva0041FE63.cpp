@@ -1,12 +1,12 @@
 // cl: /MD
-// ?rva0041FE63@Rva00420110@@UAEXXZ @0x0041FE63 35B
-// Vslot 31 of vtable 0x0083BA28 (class Rva00420110). Evidence: byte at +0x10
+// ?rva0041FE63@VictoryConditions@@UAEXXZ @0x0041FE63 35B
+// Vslot 31 of vtable 0x0083BA28 (class VictoryConditions). Evidence: byte at +0x10
 // gates DWORD delta at +0x14 via winmm timeGetTime against 0x1b58 timeout
 // then tail-jmps vtable slot 24 (offset 0x60).
 
 extern "C" __declspec(dllimport) unsigned int __stdcall timeGetTime();
 
-class Rva00420110
+class VictoryConditions
 {
 public:
 	virtual void d00();
@@ -48,7 +48,7 @@ private:
 	unsigned int m_14;
 };
 
-void Rva00420110::rva0041FE63()
+void VictoryConditions::rva0041FE63()
 {
 	if (m_10 == 0)
 		return;

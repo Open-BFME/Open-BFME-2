@@ -1,6 +1,8 @@
 // ?Rva003BBB51Set@@YGX_N@Z
+// partial score=0.7027 date=2026-10-06
+// ?Rva003BBB51Set@@YGX_N@Z
 // partial score=0.92 date=2026-10-01
-// cl: /O1
+// cl: /O1 /G7
 // ?Rva003BBB51Set@@YGX_N@Z @0x003BBB51 45B leaf caller 0x003CBF4F globals TheDisplay TheWritableGlobalData slot 0x138 bytes 0xBE8 0xBEA
 // Evidence: cmp byte [esp+4],0 mov ecx,[TheDisplay] mov edx,[TheWritableGlobalData] mov eax,[ecx] je select 0xBE8 else 0xBEA push edx call [eax+0x138] ret 4.
 class Display

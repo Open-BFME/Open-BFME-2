@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
-// ?rva005D13E2@Rva005D13E2@@QAEXXZ @ 0x005D13E2, 201 bytes.
+// ?SetupMovieClipPlayers@Impl@RegionAwardDialog@StrategicInGameUI@@QAEXXZ @ 0x005D13E2, 201 bytes.
 // Target evidence: PE RVA 0x005D13E2 begins with push ecx and returns at
 // 0x005D14AA; 0x005D14AB begins the next body. The method counts the pointer
 // range at +0x10..+0x14, forwards that count to 0x005EE250, and for each
@@ -22,7 +22,15 @@ public:
 extern ImageCollection *TheMappedImageCollection;
 
 class Rva0020E89C;
-class Rva005D13E2;
+namespace StrategicInGameUI {
+class RegionAwardDialog
+{
+public:
+	class Impl;
+};
+}
+
+
 class Rva002BA8F1Logic;
 class Object;
 
@@ -61,10 +69,10 @@ private:
 class Rva005D13BDStorage : public Rva005EE014BaseView
 {
 public:
-	Rva005D13BDStorage(Rva005D13E2 *owner, int first, int second);
+	Rva005D13BDStorage(StrategicInGameUI::RegionAwardDialog::Impl *owner, int first, int second);
 
 private:
-	Rva005D13E2 *m_owner;
+	StrategicInGameUI::RegionAwardDialog::Impl *m_owner;
 };
 
 class Rva00575674
@@ -108,14 +116,14 @@ public:
 };
 
 struct Rva002E0D02Arg;
-int __cdecl Rva002E0D02Get(Rva002E0D02Arg *arg);
+int __cdecl CountOwnedUnits(Rva002E0D02Arg *arg);
 
-class Rva005D13E2
+class StrategicInGameUI::RegionAwardDialog::Impl
 {
 public:
-	void rva005D13E2();
-	void rva005D17B2(int first, const AsciiString &second);
-	Rva0020E89C *rva005D137D();
+	void SetupMovieClipPlayers();
+	void OnMovieClipLoaded(int first, const AsciiString &second);
+	Rva0020E89C *GetRegion();
 	void rva005D1527();
 
 private:
@@ -136,7 +144,7 @@ struct Rva005D13E2LoopTemps
 	Rva005ED976 *currentView;
 };
 
-void Rva005D13E2::rva005D13E2()
+void StrategicInGameUI::RegionAwardDialog::Impl::SetupMovieClipPlayers()
 {
 	int count = (int)(m_entriesEnd - m_entriesBegin);
 	reinterpret_cast<Rva005EE250 *>(m_rowView)->rva005EE250(count);
@@ -160,37 +168,37 @@ void Rva005D13E2::rva005D13E2()
 		temps.currentView->rva005ED851(index, regions);
 
 		temps.currentView = m_rowView;
-		int units = Rva002E0D02Get((Rva002E0D02Arg *)entry);
+		int units = CountOwnedUnits((Rva002E0D02Arg *)entry);
 		temps.currentView->rva005ED859(index, units);
 	}
 
 	m_rowView->rva005ED861(0);
 }
 
-// ?rva005D137D@Rva005D13E2@@QAEPAVRva0020E89C@@XZ @ 0x005D137D, 26 bytes.
+// ?GetRegion@Impl@RegionAwardDialog@StrategicInGameUI@@QAEPAVRva0020E89C@@XZ @ 0x005D137D, 26 bytes.
 // Target evidence: Ghidra FUN_009d137d reads the +4 dword through this+8,
 // loads the holder at TheLivingWorldLogic+0xB0 (singleton VA 0x00DFEF10),
 // and passes that index to the rowed 0x0020EAF6 wrapper. The receiver and
 // nested key views are address-derived; their original type names are unknown.
-Rva0020E89C *Rva005D13E2::rva005D137D()
+Rva0020E89C *StrategicInGameUI::RegionAwardDialog::Impl::GetRegion()
 {
 	Rva0020EAF6View *holder = *(Rva0020EAF6View **)((char *)g_009FEF10 + 0xB0);
 	return holder->rva0020EAF6(m_key->m_index);
 }
 
-// ??0Rva005D13BDStorage@@QAE@PAVRva005D13E2@@HH@Z @ 0x005D1335, 35 bytes.
+// ??0Rva005D13BDStorage@@QAE@PAVImpl@RegionAwardDialog@StrategicInGameUI@@HH@Z @ 0x005D1335, 35 bytes.
 // Target evidence: FUN_009d1335 receives a 12-byte child at ECX, calls the
 // 0x005EE014 constructor with two stack dwords, stores its parent at +8, and
 // writes vtable 0x00C755C0. The +0..+7 base view follows 0x005EE014's writes;
 // the C++ class and original member names remain inferred.
 __declspec(noinline) Rva005D13BDStorage::Rva005D13BDStorage(
-	Rva005D13E2 *owner, int first, int second)
+	StrategicInGameUI::RegionAwardDialog::Impl *owner, int first, int second)
 	: Rva005EE014BaseView(first, second), m_owner(owner)
 {
 	*(void **)this = (void *)vtbl_00C755C0;
 }
 
-// ?rva005D17B2@Rva005D13E2@@QAEXHABVAsciiString@@@Z @ 0x005D17B2, 148 bytes.
+// ?OnMovieClipLoaded@Impl@RegionAwardDialog@StrategicInGameUI@@QAEXHABVAsciiString@@@Z @ 0x005D17B2, 148 bytes.
 // Target evidence: the 148-byte FUN_009d17b2 entry has an EH prologue and
 // ret 8; it lazily allocates a 12-byte child at this+0x0C, initializes it
 // from this and an integer plus an AsciiString reference, and stores it through the rowed holder
@@ -199,13 +207,13 @@ __declspec(noinline) Rva005D13BDStorage::Rva005D13BDStorage(
 // refreshes through the rowed 0x005D13E2 body. The receiver relationship
 // comes from those call sites and offsets; the original class and parameter
 // meanings remain unknown.
-void Rva005D13E2::rva005D17B2(int first, const AsciiString &second)
+void StrategicInGameUI::RegionAwardDialog::Impl::OnMovieClipLoaded(int first, const AsciiString &second)
 {
 	if (m_rowView == 0) {
 		Rva005D13BDStorage *child = new Rva005D13BDStorage(this, first, (int)&second);
 		((Rva00575674 *)&m_rowView)->rva00575674((Object *)child);
-		m_rowView->rva005ED976(Rva005C95ECGet(rva005D137D()));
+		m_rowView->rva005ED976(Rva005C95ECGet(GetRegion()));
 		rva005D1527();
-		rva005D13E2();
+		SetupMovieClipPlayers();
 	}
 }

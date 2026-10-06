@@ -5,7 +5,7 @@
 // boundary 0x00327490/250 and caller 0x002C130F/134, which invokes
 // ComputeTabRegion then CreateSubPanes then ShowSubPane as the donor factory
 // does. Target stores and the call through manager slot +0x88 establish
-// the single-record ABI; snapshotCreateView 0x003146DC and rva003174CB
+// the single-record ABI; snapshotCreateView 0x003146DC and duplicateGadget
 // establish its 0x34-byte size and zeroer 0x0022239C. Field names are
 // structural inferences from the donor arguments; the first word serves
 // as parent here and as id in other callers. Retail leaves the width and

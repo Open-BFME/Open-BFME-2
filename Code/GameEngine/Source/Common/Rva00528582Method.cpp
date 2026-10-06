@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00528582@Rva00528582@@QAEXH@Z retail 0x00528582 101B
+// ?HideButtons@Impl@AptInGameSideCommandBar@@QAEXH@Z retail 0x00528582 101B
 // Evidence: loop dec count at +0xD8 elem stride 12 like sibling 0x00528309; Fire 0x00525338 via TheRva00222A8BTarget plus m_04 plus m_18 plus SetButtonState plus count plus _hide; clear +4 via 0x002BED91 plus or +8 -1; callers 0x005285EF 0x00528738
 struct Rva002BED91
 {
@@ -23,10 +23,16 @@ struct Rva00528582Elem
 	int m_c;
 };
 
-class Rva00528582
+class AptInGameSideCommandBar
 {
 public:
-	void rva00528582(int v);
+	class Impl;
+};
+
+class AptInGameSideCommandBar::Impl
+{
+public:
+	void HideButtons(int v);
 private:
 	char m_pad00[4];
 	void *m_04;
@@ -37,7 +43,7 @@ private:
 	int m_count;
 };
 
-void Rva00528582::rva00528582(int v)
+void AptInGameSideCommandBar::Impl::HideButtons(int v)
 {
 	while (m_count > v)
 	{

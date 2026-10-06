@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva0052DC97@Rva0052DC97@@QAEHPBVRva002E6C79@@@Z, retail 0x0052DC97, 170 bytes.
+// ?CalcCostSoFar@PathfindCell@@QAEHPBVRva002E6C79@@@Z, retail 0x0052DC97, 170 bytes.
 // Path cost with dx/dy zero guard word+10/14 flag+14 second-point dot and 0/4/8/16.
 // this+0 holds point, arg is Rva002E6C79 with m_ptr at +0 to point with x+0 y+4
 // word+0x12, this byte+0xE flag. Callee Rva002E6C79 returns pointer pair but its
@@ -25,17 +25,17 @@ public:
 	void *m_ptr;
 };
 
-class Rva0052DC97
+class PathfindCell
 {
 public:
-	int rva0052DC97(const Rva002E6C79 *a);
+	int CalcCostSoFar(const Rva002E6C79 *a);
 private:
 	Rva0052DC97Pt *m_0;
 	char _04[10];
 	unsigned char m_0E;
 };
 
-int Rva0052DC97::rva0052DC97(const Rva002E6C79 *a)
+int PathfindCell::CalcCostSoFar(const Rva002E6C79 *a)
 {
 	if (a == 0)
 		return 0;

@@ -1,6 +1,6 @@
 // cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 //
-// ?rva002EC770ParseTokenEvents@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z
+// ?ProcessEventsElement@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z
 // retail 0x003371F4, 195 bytes. Dedicated TU ported from the Open-BFME-1
 // donor game/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseTokenEvents.cpp (reference/open-bfme-1 @ 6d943426).
 // The donor body does not place at BFME 1's flags; compiled /O1 it is
@@ -11,6 +11,9 @@
 // Retail string/call pairs establish InternalEvent -> 002E2970, ScriptedEvent
 // -> 002E9590, ModelConditionEvent -> 002E9680, ObjectStatusEvent -> 002E9AA0.
 // All receive the unchanged engine ECX and parser stack argument; each returns ret 4.
+// BFME2 names from WorldBuilder's LuaScriptEngine.cpp: ProcessEventsElement
+// (:904-932, same Events / InternalEvent / ScriptedEvent / ModelConditionEvent /
+// ObjectStatusEvent dispatch) and ProcessInternalEvent for 0x00332C7A.
 typedef int Int;
 
 extern "C" int strcmp(const char *, const char *);
@@ -28,16 +31,11 @@ public:
 };
 
 // InternalEvent dispatch uses the established event-flag host ABI at the same this.
-class Rva002E2970Host
-{
-public:
-	void applyNameFlags(XmlNameSlotList *xml);
-};
-
 class __declspec(novtable) LuaScriptEngine
 {
 public:
-	void rva002EC770ParseTokenEvents(BfmeLexEAN *parser);
+	void ProcessEventsElement(BfmeLexEAN *parser);
+	void ProcessInternalEvent(XmlNameSlotList *xml);
 	void rva002E9AA0ParseObjectStatusEvent(BfmeLexEAN *parser);
 	void rva002E9590ParseScriptedEvent(BfmeLexEAN *parser);
 	void rva002E9680ParseModelConditionEvent(BfmeLexEAN *parser);
@@ -45,7 +43,7 @@ public:
 };
 
 
-void LuaScriptEngine::rva002EC770ParseTokenEvents(BfmeLexEAN *parser)
+void LuaScriptEngine::ProcessEventsElement(BfmeLexEAN *parser)
 {
 	char *tail = parser->getTailEAN();
 	int cmpEvents = strcmp(tail, "Events");
@@ -64,7 +62,7 @@ void LuaScriptEngine::rva002EC770ParseTokenEvents(BfmeLexEAN *parser)
 		cmp = strcmp(tag, "InternalEvent");
 		if (cmp == 0)
 		{
-			((Rva002E2970Host *)this)->applyNameFlags((XmlNameSlotList *)parser);
+			ProcessInternalEvent((XmlNameSlotList *)parser);
 			goto checkFinish;
 		}
 

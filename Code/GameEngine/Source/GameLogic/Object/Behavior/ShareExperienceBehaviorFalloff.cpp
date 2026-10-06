@@ -1,5 +1,5 @@
 // cl: /GX /MD /DNDEBUG
-// ?rva0047FFFE@ShareExperienceBehavior@@QAEMPAVCoord3D@@PAUPos0047FFFE@@@Z @ 0x0047FFFE 149B
+// ?GetDropOffValue@ShareExperienceBehavior@@QAEMPAVCoord3D@@PAUPos0047FFFE@@@Z @ 0x0047FFFE 149B
 // Unlock: ShareExperience distance falloff between ModuleData radii. Evidence:
 // contiguous gap after ??1ShareExperienceBehaviorModuleData 0x0047FFCE and before
 // caller 0x00480093; ecx+4 is ModuleData with floats +8/+0xC matching ctor TU
@@ -38,10 +38,10 @@ class ShareExperienceBehavior
 public:
 	void *m_vtbl;
 	ShareExperienceBehaviorModuleData *m_moduleData;
-	float rva0047FFFE(Coord3D *a, Pos0047FFFE *b);
+	float GetDropOffValue(Coord3D *a, Pos0047FFFE *b);
 };
 
-float ShareExperienceBehavior::rva0047FFFE(Coord3D *a, Pos0047FFFE *b)
+float ShareExperienceBehavior::GetDropOffValue(Coord3D *a, Pos0047FFFE *b)
 {
 	ShareExperienceBehaviorModuleData *md = m_moduleData;
 	if (md->m_0C == g_Va00BBB8D8)

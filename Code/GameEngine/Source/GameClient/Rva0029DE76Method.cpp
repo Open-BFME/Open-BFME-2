@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 // ?rva0029DE76@Rva0029DE76@@QAE_NPBUCoord3D@@@Z @0x0029DE76 164B
-// evidence: unlock caller 0x0029EAFA; rowed PartitionManager::getShroudStatusForPlayer plus Object::rva002907A1 plus Rva00264274 path test
+// evidence: unlock caller 0x0029EAFA; rowed PartitionManager::getShroudStatusForPlayer plus Object::rva002907A1 plus AIUpdateInterface::isQuickPathAvailable 0x00264274 path test
 enum CellShroudStatus
 {
 	SHROUD_CLEAR = 0
@@ -42,10 +42,10 @@ public:
 	unsigned char m_11a;
 };
 
-class Rva00264274
+class AIUpdateInterface
 {
 public:
-	bool rva00264274(const Coord3D *dest);
+	bool isQuickPathAvailable(const Coord3D *destination) const;
 };
 
 class Object
@@ -57,7 +57,7 @@ public:
 	char m_pad08[0xfc - 8];
 	Object *m_fc;
 	char m_pad100[0x258 - 0x100];
-	Rva00264274 *m_path;
+	AIUpdateInterface *m_ai;
 };
 
 struct ListNode
@@ -162,16 +162,16 @@ bool Rva0029DE76::rva0029DE76(const Coord3D *pos)
 	{
 		Object *v = node->m_obj;
 		Object *inner = v ? v->m_fc : (Object *)0;
-		Rva00264274 *path = inner ? inner->m_path : (Rva00264274 *)0;
+		AIUpdateInterface *ai = inner ? inner->m_ai : (AIUpdateInterface *)0;
 		if (!inner)
 			continue;
 		if (!inner->rva002907A1())
 			continue;
 		if ((inner->m_aux->m_11a & 0x80) != 0)
 			return true;
-		if (!path)
+		if (!ai)
 			continue;
-		if (path->rva00264274(pos))
+		if (ai->isQuickPathAvailable(pos))
 			return true;
 	}
 	return false;

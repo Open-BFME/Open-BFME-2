@@ -2,7 +2,7 @@
 // stlport
 // ?rva0020443D@Rva0020453CHolderBase@@UAEXPBD@Z @0x0020443D 138B
 // slot 8 of vtable 0x00BE39F4 (RVA 0x007E39F4), class of ??1Rva0020453CHolderBase.
-// Reloads one FXParticleSystem block by name: calls slot 7, then INI::rva0002DD38
+// Reloads one FXParticleSystem block by name: calls slot 7, then INI::loadBlock
 // with "Data\INI\FXParticleSystem.ini", "FXParticleSystem", name, load type 1 and null Xfer.
 // Evidence: vtable slot 8, INI ctor 0x0002CDB0/dtor 0x0002CE5B, StringBase PBD 0x00037BA0 x3,
 // loadNamedBlock 0x0002DD38 whose only caller 0x002044A5 passes those literals, EH prolog 0x00629188.
@@ -35,7 +35,7 @@ class INI
 public:
 	INI();
 	~INI();
-	bool rva0002DD38(AsciiString filename, AsciiString blockType, AsciiString blockName, INILoadType loadType, Xfer *pXfer);
+	bool loadBlock(AsciiString filename, AsciiString blockType, AsciiString blockName, INILoadType loadType, Xfer *pXfer);
 
 private:
 	void *m_file;
@@ -75,5 +75,5 @@ void Rva0020453CHolderBase::rva0020443D(const char *name)
 {
 	dummy7();
 	INI ini;
-	ini.rva0002DD38("Data\\INI\\FXParticleSystem.ini", "FXParticleSystem", name, INI_LOAD_OVERWRITE, 0);
+	ini.loadBlock("Data\\INI\\FXParticleSystem.ini", "FXParticleSystem", name, INI_LOAD_OVERWRITE, 0);
 }

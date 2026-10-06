@@ -1,5 +1,6 @@
 // cl: /MD
-// ?rva0021AD5D@Rva0021AD5D@@QAEPAXI@Z @0x0021AD5D 43B
+// CreateAHeroManager::CreateAHeroSubClass::GetBlingGroupNameKey @0x0021AD5D 43B
+// (WorldBuilder name; WB's body walks the same tree with _M_increment)
 // Indexed Rb_tree accessor: size at +0x28 bounds-checks the index, header at
 // +0x24 provides begin via +8 (leftmost), then _M_increment walks the index
 // steps through rowed 0x00024250, returning the payload pointer at node+0x10.
@@ -16,14 +17,18 @@ public:
     static _Rb_tree_node_base *__cdecl _M_increment(_Rb_tree_node_base *);
 };
 }
-class Rva0021AD5D {
+class CreateAHeroManager {
+public:
+    class CreateAHeroSubClass;
+};
+class CreateAHeroManager::CreateAHeroSubClass {
     char m_pad[0x24];
     _STL::_Rb_tree_node_base *m_header;
     unsigned m_size;
 public:
-    void *rva0021AD5D(unsigned int index);
+    void *GetBlingGroupNameKey(unsigned int index);
 };
-void *Rva0021AD5D::rva0021AD5D(unsigned int index)
+void *CreateAHeroManager::CreateAHeroSubClass::GetBlingGroupNameKey(unsigned int index)
 {
     if (index < m_size) {
         _STL::_Rb_tree_node_base *node = m_header->_M_left;

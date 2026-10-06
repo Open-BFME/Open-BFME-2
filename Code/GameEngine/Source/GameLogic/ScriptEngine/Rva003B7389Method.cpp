@@ -1,5 +1,5 @@
 // cl: /MD /GX-
-// ?rva003B7389@ScriptList@@QAEXPAXPAURva003B3204@@@Z @0x003B7389 (60B):
+// ?deleteScriptRef@ScriptList@@QAEXPAXPAURva003B3204@@@Z @0x003B7389 (60B):
 // unlink a node from the +4 link chain of the passed list head, then drop
 // its subrecord entry through the rowed Rva003B573E::rva003B71B4 on this+0x2c
 // (layout-compatible 0x20B subrecord per ScriptListCtor), clear it through
@@ -24,11 +24,11 @@ public:
 class ScriptList
 {
 public:
-	void rva003B7389(void *list, struct Rva003B3204 *node);
+	void deleteScriptRef(void *list, struct Rva003B3204 *node);
 };
 
-// ?rva003B7389@ScriptList@@QAEXPAXPAURva003B3204@@@Z
-void ScriptList::rva003B7389(void *list, struct Rva003B3204 *node)
+// ?deleteScriptRef@ScriptList@@QAEXPAXPAURva003B3204@@@Z
+void ScriptList::deleteScriptRef(void *list, struct Rva003B3204 *node)
 {
 	Rva003B3204 **link = (Rva003B3204 **)((char *)list + 4);
 	for (;;) {

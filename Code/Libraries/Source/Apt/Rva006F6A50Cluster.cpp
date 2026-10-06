@@ -75,7 +75,7 @@ void Rva006F7AC0List::rva006F7AF0(int arg)
 }
 
 // ---------------------------------------------------------------------------
-// AptDisplayList.cpp bodies: BfmeQuery1279 root holder and the BfmeWrapper1279
+// AptDisplayList.cpp bodies: BfmeQuery1279 root holder and the AptDisplayList
 // owner that allocates it.  The BFME1 donor names both classes.
 
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
@@ -192,12 +192,12 @@ BfmeQuery1279::~BfmeQuery1279()
 	m_root->v2();
 }
 
-class BfmeWrapper1279
+class AptDisplayList
 {
 public:
-	BfmeWrapper1279();
-	~BfmeWrapper1279();
-	void rva006F80C0(bool flag);
+	AptDisplayList();
+	~AptDisplayList();
+	void clear(bool flag);
 	void rva006F8190();
 	void rva006F76B0();
 	void rva006F79B0(void *arg1, void *arg2);
@@ -205,28 +205,28 @@ public:
 	BfmeQuery1279 *m_query;
 };
 
-// ??0BfmeWrapper1279@@QAE@XZ @0x006F7FF0 103B: allocate the 4-byte BfmeQuery1279
+// ??0AptDisplayList@@QAE@XZ @0x006F7FF0 103B: allocate the 4-byte BfmeQuery1279
 // through the pool and construct it; the EH frame is the throwing new.
-BfmeWrapper1279::BfmeWrapper1279() : m_query(new BfmeQuery1279())
+AptDisplayList::AptDisplayList() : m_query(new BfmeQuery1279())
 {
 }
 
-// ??1BfmeWrapper1279@@QAE@XZ @0x006F84F0 93B
-BfmeWrapper1279::~BfmeWrapper1279()
+// ??1AptDisplayList@@QAE@XZ @0x006F84F0 93B
+AptDisplayList::~AptDisplayList()
 {
-	rva006F80C0(false);
+	clear(false);
 	delete m_query;
 }
 
-// ?rva006F8190@BfmeWrapper1279@@QAEXXZ @0x006F8190 142B
-void BfmeWrapper1279::rva006F8190()
+// ?rva006F8190@AptDisplayList@@QAEXXZ @0x006F8190 142B
+void AptDisplayList::rva006F8190()
 {
 	if (m_query == 0) {
 		g_bfmeAptAssertAtE17734("pState", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x602);
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	}
-	rva006F80C0(false);
+	clear(false);
 	delete m_query;
 	m_query = 0;
 }
@@ -274,7 +274,7 @@ Rva006F6A50::Rva006F6A50(void *descriptor, int second, int third, int fourth)
 }
 
 // ---------------------------------------------------------------------------
-// Rva006F8D70 (0x20 bytes) ctor: vtable + a BfmeWrapper1279 sub-object at +0x1C
+// Rva006F8D70 (0x20 bytes) ctor: vtable + a AptDisplayList sub-object at +0x1C
 // and an AptNativeHash at +0x10.  Its deleting dtor (0x006F8D70), complete dtor
 // (0x006F8DA0) and the vtable RVA 0x008ED398 already exist in the ledger.
 
@@ -323,7 +323,7 @@ public:
 	virtual ~Rva006F8D70();
 
 	char m_pad18[4];
-	BfmeWrapper1279 m_holder;
+	AptDisplayList m_holder;
 };
 
 // ??0Rva006F8D70@@QAE@XZ @0x006F8550 134B
@@ -388,7 +388,7 @@ void BfmeQuery1279::rva006F6FB0(int key, AptCIH *pNewItem)
 }
 
 // ---------------------------------------------------------------------------
-// BfmeWrapper1279 child-list walk at 0x006F79B0: starts at m_query->m_root->next
+// AptDisplayList child-list walk at 0x006F79B0: starts at m_query->m_root->next
 // and for each defined node that is not kind 19 with a negative pData->+4 calls
 // AptCIH::rva006E1C40 with the walk's two arguments.  The kind-19 inline
 // predicate carries the AptCIH.h:0xD8 "this" assertion.
@@ -407,8 +407,8 @@ static __forceinline int rva006F79B0IsType19(const AptCIH *pNode)
 	return 0;
 }
 
-// ?rva006F79B0@BfmeWrapper1279@@QAEXPAX0@Z @0x006F79B0 126B
-void BfmeWrapper1279::rva006F79B0(void *arg1, void *arg2)
+// ?rva006F79B0@AptDisplayList@@QAEXPAX0@Z @0x006F79B0 126B
+void AptDisplayList::rva006F79B0(void *arg1, void *arg2)
 {
 	AptCIH *node = (AptCIH *)m_query->m_root->m_54;
 	while (node != 0) {
@@ -439,8 +439,8 @@ public:
 	int m_nElements;
 };
 
-// ?rva006F76B0@BfmeWrapper1279@@QAEXXZ @0x006F76B0 100B
-void BfmeWrapper1279::rva006F76B0()
+// ?rva006F76B0@AptDisplayList@@QAEXXZ @0x006F76B0 100B
+void AptDisplayList::rva006F76B0()
 {
 	AptCIH *node = (AptCIH *)m_query->m_root->m_54;
 	Rva006F7540 array;
@@ -450,7 +450,7 @@ void BfmeWrapper1279::rva006F76B0()
 	}
 }
 
-// ?rva006F80C0@BfmeWrapper1279@@QAEX_N@Z @0x006F80C0 202B chain from bfmeErase1279.
+// ?clear@AptDisplayList@@QAEX_N@Z @0x006F80C0 202B chain from bfmeErase1279.
 // Walks m_query list via +0x54 saving next; v0 then skip undefined; provider
 // slot 3 lookup compare erase via 0x70B380/BfmeLookup; unlink+finish; flag
 // clears GC root + AptCIH 1; release-vector GC check; v1 then next.
@@ -499,7 +499,7 @@ class CullSystemClass
 {
 protected:
 	CullableClass *Get_First_Collected_Object_Internal();
-	friend class BfmeWrapper1279;
+	friend class AptDisplayList;
 };
 class AptValueVector
 {
@@ -508,7 +508,7 @@ public:
 };
 extern AptValueVector *g_releaseVectorAtE17710;
 extern void *g_00E182E0;
-void BfmeWrapper1279::rva006F80C0(bool flag)
+void AptDisplayList::clear(bool flag)
 {
 	BfmeQuery1279 *query = m_query;
 	if (query == 0)

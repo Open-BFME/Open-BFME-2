@@ -1,5 +1,5 @@
 // cl: /MD /EHsc
-// ?rva005FC8FD@Rva005FC8FD@@QAEXXZ @0x005FC8FD 227B: triple Apt overlay setter via rowed AptCall 0x0050E9FE with SetState plus SetNotThereOverlayState plus SetDisbandingOverlayState. Evidence: callers jmp 0x005FC9F8 plus TheRva00222A8BTarget plus g_Rva0107301CEmptyString plus strings _selected _up _show _hide.
+// ?Update@Impl@ArmyMemberIconMovieClip@StrategicHUD@@QAEXXZ @0x005FC8FD 227B: triple Apt overlay setter via rowed AptCall 0x0050E9FE with SetState plus SetNotThereOverlayState plus SetDisbandingOverlayState. Evidence: callers jmp 0x005FC9F8 plus TheRva00222A8BTarget plus g_Rva0107301CEmptyString plus strings _selected _up _show _hide.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 extern const char g_Rva0107301CEmptyString[];
@@ -11,10 +11,18 @@ struct Rva005FC8FDInner
 	char m_name[1];
 };
 
-class Rva005FC8FD
+namespace StrategicHUD {
+class ArmyMemberIconMovieClip
 {
 public:
-	void rva005FC8FD();
+	class Impl;
+};
+}
+
+class StrategicHUD::ArmyMemberIconMovieClip::Impl
+{
+public:
+	void Update();
 private:
 	char m_pad0[8];
 	void *m_8;
@@ -23,7 +31,7 @@ private:
 	unsigned char m_34;
 };
 
-void Rva005FC8FD::rva005FC8FD()
+void StrategicHUD::ArmyMemberIconMovieClip::Impl::Update()
 {
 	if (!(m_34 & 0x10)) {
 		const char *state = (m_34 & 1) ? "_selected" : "_up";

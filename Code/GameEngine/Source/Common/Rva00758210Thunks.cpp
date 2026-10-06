@@ -4,7 +4,7 @@
 // ?rva00758230@Rva00758230@@QAEXPAURva009A29A0Window@@@Z @0x00758230 8B,
 // ?rva00758240@Rva00758240@@QAEXPAVRva009A36F0Param@@@Z @0x00758240 8B.
 // Homogeneous member thunks: mov ecx,[ecx+0x10] then tail-jmp to the rowed
-// target (markState 0x758900, WindowManager::set 0x758940, Owner::apply
+// target (markState 0x758900, WindowManager::set 0x758940, Owner::UnRegisterObject
 // 0x7592E0). Callers are 0x243FEE and the CritterEmitter vslot 0x4C8DE2.
 // Honest address names; wrapper holds the target pointer at +0x10. Shape
 // follows Rva007B6880Thunks (/O1 tail-jmp).
@@ -24,10 +24,10 @@ public:
 };
 
 class Rva009A36F0Param;
-class Rva009A36F0Owner
+class CollisionManagerImpl
 {
 public:
-	void apply(Rva009A36F0Param *param);
+	void UnRegisterObject(Rva009A36F0Param *param);
 };
 
 class Rva00758210
@@ -67,12 +67,12 @@ public:
 
 private:
 	char m_pad[0x10];
-	Rva009A36F0Owner *m_ptr;
+	CollisionManagerImpl *m_ptr;
 };
 
 void Rva00758240::rva00758240(Rva009A36F0Param *param)
 {
-	return m_ptr->apply(param);
+	return m_ptr->UnRegisterObject(param);
 }
 
 // Whole clean BF1 UnclaimedMemberTailForwarders.cpp supplies the pattern;

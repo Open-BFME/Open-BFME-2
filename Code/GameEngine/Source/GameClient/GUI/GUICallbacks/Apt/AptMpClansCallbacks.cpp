@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// BFME2's lobby clans panel (the MpGameSetup panel's +0x190 member) Apt
+// BFME2's lobby clans panel (the AptMpGameSetup panel's +0x190 member) Apt
 // callbacks "AptMpClans::WebSite" (0x0057F41A) and "AptMpClans::InitGadgets"
 // (0x0057F9A3), bound by those names as member pointers by the panel's
 // registration 0x0057FAB0; that binding is their only reference. The class
@@ -50,7 +50,7 @@ public:
 	virtual void v02();
 	virtual bool write();
 
-	void rva005CAE72(const AsciiString &clan, const AsciiString &member);
+	void deleteClan(const AsciiString &clan, const AsciiString &member);
 };
 void GadgetListBoxSetColumnWidths(GameWindow *listBox, int columns, int *widths);
 
@@ -63,7 +63,7 @@ public:
 
 	// Unrowed 0x0057F7AC (372 bytes; sets the clan name text) and the
 	// player list refill 0x0057F5ED, pinned by address.
-	void rva0057F7AC(const UnicodeString &name);
+	void PopulateMyClans(const UnicodeString &name);
 	void rva0057F5ED();
 
 private:
@@ -101,7 +101,7 @@ void AptMpClans::InitGadgets(const char *name, void *argument, GameWindow *windo
 	else if (strcmp(name, "ClanName") == 0)
 	{
 		m_clanName = window;
-		rva0057F7AC(UnicodeString::TheEmptyString);
+		PopulateMyClans(UnicodeString::TheEmptyString);
 		rva0057F5ED();
 	}
 }
@@ -114,8 +114,8 @@ void AptMpClans::Delete(const char *unused)
 	if (m_clanName)
 	{
 		AsciiString member(GadgetComboBoxGetText(m_clanName));
-		m_prefs.rva005CAE72(m_clan, member);
+		m_prefs.deleteClan(m_clan, member);
 		m_prefs.write();
-		rva0057F7AC(UnicodeString::TheEmptyString);
+		PopulateMyClans(UnicodeString::TheEmptyString);
 	}
 }

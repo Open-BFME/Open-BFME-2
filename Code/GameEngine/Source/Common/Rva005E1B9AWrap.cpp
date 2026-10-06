@@ -1,5 +1,6 @@
 // cl: /DNDEBUG /MD
-// ?rva005E1B9A@Rva005E1B9A@@QAEXXZ @0x005E1B9A 42B.
+// StrategicInGameUI::RegionDetailsArmiesPage::Impl::Update (WorldBuilder name, line 496: PopulateIconSlots when dirty, release +0x28, then refresh).
+// was ?rva005E1B9A@Rva005E1B9A@@QAEXXZ @0x005E1B9A 42B.
 // If +0x20 byte nonzero calls pinned 0x005E1B4E (this-only void).
 // Then if +0x28 dword nonzero calls pinned 0x005E19CA (this+int void) with it
 // and clears +0x28. Tail-jmps to pinned 0x005EF3F6 with this+0x0C.
@@ -22,10 +23,18 @@ public:
 	void rva005EF3F6();
 };
 
-class Rva005E1B9A
+namespace StrategicInGameUI
+{
+class RegionDetailsArmiesPage
 {
 public:
-	void rva005E1B9A();
+	class Impl;
+};
+}
+class StrategicInGameUI::RegionDetailsArmiesPage::Impl
+{
+public:
+	void Update();
 protected:
 	unsigned char m_pad[0x20];
 	unsigned char m_20;
@@ -33,7 +42,7 @@ protected:
 	int m_28;
 };
 
-void Rva005E1B9A::rva005E1B9A()
+void StrategicInGameUI::RegionDetailsArmiesPage::Impl::Update()
 {
 	if (m_20 != 0)
 		((Rva005E1B4E *)this)->rva005E1B4E();

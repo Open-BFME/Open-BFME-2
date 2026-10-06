@@ -4,7 +4,7 @@
 // Adds one order pointer to the vector at this+0x04 via the rowed
 // vector<const ModuleData*>::push_back 0x004DFCB0. Layout proven by the
 // neighbouring Rva005DCE08 dtor (same +0x04 vector) and the caller
-// 0x005AE084 in Rva005ADA40::rva005ADE1D which passes an Rva00573E7C*.
+// 0x005AE084 in AIBase::parseTemplateIntoPhases which passes an Rva00573E7C*.
 // Identity is address-derived; pin names the class and signature.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.

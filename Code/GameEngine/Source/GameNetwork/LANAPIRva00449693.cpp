@@ -35,7 +35,7 @@ private:
 class Transport
 {
 public:
-	Bool Rva004D54C1( Bool flag );
+	Bool update( Bool flag ); // Transport::update, 0x004D54C1
 };
 
 class LANGameInfo
@@ -146,7 +146,7 @@ void LANAPI::rva00449693( Bool arg )
 	fillInLANMessage( &msg );
 	Rva0044802D( msg.m_payload, sizeof( msg.m_payload ) );
 	Rva004495A2( &msg, 0 );
-	m_transport->Rva004D54C1( false );
+	m_transport->update( false );
 	if( arg )
 		slot43();
 	else

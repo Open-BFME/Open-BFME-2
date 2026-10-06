@@ -140,7 +140,7 @@ public:
 class SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();	// slot 17 (0x0045108D)
+	virtual void triggerAbilityEffect();	// slot 17 (0x0045108D)
 	Object *getObject() const { return m_object; }
 protected:
 	const void *m_moduleData;	// +0x04
@@ -172,7 +172,7 @@ void ReplaceObjectUpdate::rva004B2A60(Object *obj)
 }
 void ReplaceObjectUpdate::rva004B2D28()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	if (getObject()) {
 		const ReplaceObjectUpdateModuleData *data = getReplaceObjectData();
 		for (Rva004B2A9D **it = data->m_C8; it != data->m_CC; ++it) {

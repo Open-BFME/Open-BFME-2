@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva005DBEEB@Rva005DB98E@@QAE_NGGH@Z @0x005DBEEB 66B.
-// Rva005DB98E indexed notify: bounds-checked element via rowed 0x005DB98E,
+// ?rva005DBEEB@PortNegotiationSchema@@QAE_NGGH@Z @0x005DBEEB 66B.
+// PortNegotiationSchema indexed notify: bounds-checked element via rowed 0x005DB98E,
 // Elem time smooth via rowed 0x005DB885, then list at +0x04 forEach with
 // notify 0x005CB260. Evidence: callers 0x005A80CF; callees all rowed;
 // neighbours 0x005DBE6A/0x005DC3C1; same forEach cast shape as
@@ -36,10 +36,10 @@ public:
 	void rva005DB8F7(float a, float b, float c);
 };
 
-class Rva005DB98E
+class PortNegotiationSchema
 {
 public:
-	void *rva005DB98E(unsigned short x, unsigned short y);
+	void *peekPing(unsigned short x, unsigned short y);
 	bool rva005DBEEB(unsigned short x, unsigned short y, int a);
 	bool rva005DBE95(unsigned short x, unsigned short y, float a, float b, float c);
 private:
@@ -47,9 +47,9 @@ private:
 	Rva005DBE6AList m_list;
 };
 
-bool Rva005DB98E::rva005DBEEB(unsigned short x, unsigned short y, int a)
+bool PortNegotiationSchema::rva005DBEEB(unsigned short x, unsigned short y, int a)
 {
-	void *elem = rva005DB98E(x, y);
+	void *elem = peekPing(x, y);
 	if (!elem)
 		return false;
 	((Elem005DB98E *)elem)->rva005DB885(a);
@@ -57,11 +57,11 @@ bool Rva005DB98E::rva005DBEEB(unsigned short x, unsigned short y, int a)
 	return true;
 }
 
-// ?rva005DBE95@Rva005DB98E@@QAE_NGGMMM@Z @0x005DBE95 86B: float triple setter
+// ?rva005DBE95@PortNegotiationSchema@@QAE_NGGMMM@Z @0x005DBE95 86B: float triple setter
 // sibling of 0x005DBEEB with rowed 0x005DB8F7 plus same forEach.
-bool Rva005DB98E::rva005DBE95(unsigned short x, unsigned short y, float a, float b, float c)
+bool PortNegotiationSchema::rva005DBE95(unsigned short x, unsigned short y, float a, float b, float c)
 {
-	void *elem = rva005DB98E(x, y);
+	void *elem = peekPing(x, y);
 	if (!elem)
 		return false;
 	((Elem005DB98E *)elem)->rva005DB8F7(a, b, c);

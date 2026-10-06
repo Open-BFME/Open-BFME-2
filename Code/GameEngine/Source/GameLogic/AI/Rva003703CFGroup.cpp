@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva003703CF@AIGroup@@QAEXPBUCoord3D@@W4GuardMode@@W4CommandSourceType@@@Z @0x003703CF 65B
+// ?groupGuardPosition@AIGroup@@QAEXPBUCoord3D@@W4GuardMode@@W4CommandSourceType@@@Z @0x003703CF 65B
 // AIGroup forward of aiGuardPosition to each member via rowed 0x0036F46A,
 // null position returns, same list-at-+0 plus Object+0x258 plus +0x20 loop.
 // Evidence: calls 0x0036F46A; callers 0x0037864E 0x003BF7A0 0x004F2BE3;
@@ -48,12 +48,12 @@ public:
 class AIGroup
 {
 public:
-	void rva003703CF(const Coord3D *pos, GuardMode mode, CommandSourceType cmdSource);
+	void groupGuardPosition(const Coord3D *pos, GuardMode mode, CommandSourceType cmdSource);
 private:
 	std::list<Object *> m_memberList;
 };
 
-void AIGroup::rva003703CF(const Coord3D *pos, GuardMode mode, CommandSourceType cmdSource)
+void AIGroup::groupGuardPosition(const Coord3D *pos, GuardMode mode, CommandSourceType cmdSource)
 {
 	if (pos == 0)
 		return;

@@ -18,7 +18,7 @@ public:
     virtual void v2();
     virtual void v3();
     virtual unsigned char v4();
-    unsigned char rva0060D10A(Xfer *stream, int arg2, bool arg3);
+    unsigned char Open(Xfer *stream, int arg2, bool arg3);
 private:
     void *volatile m_stream;
     bool m_flag;
@@ -40,7 +40,7 @@ unsigned char Rva0060D4C9::rva0060D4C9(Xfer *stream)
         m_44 = 0;
         return 1;
     }
-    if (!rva0060D10A(stream, 1, !v4()))
+    if (!Open(stream, 1, !v4()))
         return 0;
     m_44 = 0;
     return 1;

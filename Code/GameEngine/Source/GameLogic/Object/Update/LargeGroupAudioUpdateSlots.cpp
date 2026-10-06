@@ -53,7 +53,7 @@ struct LargeGroupAudioUpdateModuleData
 class BehaviorModule : public Rva004ABB37Slots<5>
 {
 public:
-	virtual void rva004ABB37() = 0;
+	virtual void onObjectCreated() = 0;
 	virtual void gap6() = 0;
 	virtual void gap7() = 0;
 	virtual void rva004ABB46() = 0;
@@ -100,7 +100,7 @@ class LargeGroupAudioUpdate : public BehaviorModule, public BehaviorModuleInterf
 	public UpdateModuleInterface, public Rva004ABA71Iface, public Rva004ABABCIface
 {
 public:
-	virtual void rva004ABB37();
+	virtual void onObjectCreated();
 	virtual void rva004ABB46();
 	virtual void rva004ABA71();
 	virtual void rva004ABA79();
@@ -116,9 +116,9 @@ private:
 	bool m_8D; // +0x8D
 };
 
-// ?rva004ABB37@LargeGroupAudioUpdate@@UAEXXZ, retail 0x004ABB37, 15 bytes:
+// ?onObjectCreated@LargeGroupAudioUpdate@@UAEXXZ, retail 0x004ABB37, 15 bytes:
 // primary slot 5.
-void LargeGroupAudioUpdate::rva004ABB37()
+void LargeGroupAudioUpdate::onObjectCreated()
 {
 	if (!m_8D)
 		rva004AB90A();

@@ -151,7 +151,7 @@ void AptSpellStore::OnRollOutBttnSpell(const char *name)
 }
 
 // Retail 0x0043C8A3, 65 bytes: "AptSpellStore::InputEnabled", an Apt
-// query callback like MpGameSetup's 0x00442F65.
+// query callback like AptMpGameSetup's 0x00442F65.
 void AptSpellStore::InputEnabled(int query, char *result, bool skip)
 {
 	if (query == 0 && !skip)

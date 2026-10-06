@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?Rva00322699@@YAXPAVGameWindow@@H@Z, retail 0x00322699 (38B).
+// ?GadgetComboBoxSetValidationFlags@@YAXPAVGameWindow@@H@Z, retail 0x00322699 (38B).
 // Null-checks the window and its user data, ORs the Int arg into the data
 // dword at +0x0C, then copies that dword to the child at +0x14 (+0x0C) when
 // present. Callers pass 4 (0x00570522/0x0057F7EE with Reset+SetMaxChars).
@@ -27,7 +27,7 @@ struct Rva00322699Parent
 	Rva00322699Child *child;
 };
 
-void Rva00322699(GameWindow *window, Int value)
+void GadgetComboBoxSetValidationFlags(GameWindow *window, Int value)
 {
 	if (!window)
 		return;

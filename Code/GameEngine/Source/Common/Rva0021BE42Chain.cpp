@@ -1,58 +1,68 @@
 // cl: /MD
-// ?rva0021BE42@Rva00219B9E@@QAEHII@Z @0x0021BE42 32B
-// ?rva0021BE62@Rva00219B9E@@QAEHII@Z @0x0021BE62 32B
-// ?rva0021BE82@Rva00219B9E@@QAEHII@Z @0x0021BE82 32B
-// Three-level lookups through rowed 0x00219B9E: the second index selects the
-// 216-byte element, null yields -1 via or eax,-1, else the first index is
-// forwarded through the middle entries 0x0021BDAB/0x0021BDD3/0x0021BDFB
-// (each a two-level forward via 0x0021BD22/0x0021BD41 differing only by the
-// +4/+8/+0xC element offset, both pinned). Same this-passthrough into rowed
-// 0x00219B9E as 0x00219C00/0x00219C3E proves the Rva00219B9E owner, and the
-// or-eax,-1 null path matches rowed 0x00219C93. Middle-entry owner class
-// identity is unproven.
-class Rva00219B9E
+// CreateAHeroManager::CreateAHeroClass::GetAttributeMinValue/MaxValue/
+// DefaultValue (0x0021BE42/0x0021BE62/0x0021BE82, 32B) and
+// CreateAHeroManager::CreateAHeroSubClass::GetAttributeMinValue/MaxValue/
+// DefaultValue (0x0021BDAB/0x0021BDD3/0x0021BDFB, 40B), named by WorldBuilder
+// (reverse/wb_name_leads.csv; WB asserts attrib at CreateAHero.cpp:713).
+// Retail callees agree: each class getter selects the subclass through
+// 0x00219B9E (null yields -1 via or eax,-1) and forwards the attribute to the
+// subclass getter of the same name, which looks the attribute up through
+// 0x0021BD22 then reads it through 0x0021BD41 at +4/+8/+0xC (both unnamed in
+// WB; 0x0021BD22 is rowed in Rva0021BD22Find.cpp, 0x0021BD41 pinned).
+typedef unsigned int UnsignedInt;
+
+class CreateAHeroManager
 {
 public:
-	void *rva00219B9E(unsigned int index);
-	int rva0021BE42(unsigned int o, unsigned int i);
-	int rva0021BE62(unsigned int o, unsigned int i);
-	int rva0021BE82(unsigned int o, unsigned int i);
+	class CreateAHeroSubClass
+	{
+	public:
+		int *rva0021BD22(int attribute) const;
+		int rva0021BD41(UnsignedInt attribute, void *p) const;
+		int GetAttributeMinValue(UnsignedInt attribute) const;
+		int GetAttributeMaxValue(UnsignedInt attribute) const;
+		int GetAttributeDefaultValue(UnsignedInt attribute) const;
+	};
+
+	class CreateAHeroClass
+	{
+	public:
+		int GetAttributeMinValue(UnsignedInt attribute, UnsignedInt subClassIndex);
+		int GetAttributeMaxValue(UnsignedInt attribute, UnsignedInt subClassIndex);
+		int GetAttributeDefaultValue(UnsignedInt attribute, UnsignedInt subClassIndex);
+
+	private:
+		const CreateAHeroSubClass *rva00219B9E(UnsignedInt subClassIndex) const;	// 0x00219B9E
+	};
 };
 
-class Rva0021BDAccess
-{
-public:
-	void *rva0021BD22(unsigned int o);
-	int rva0021BD41(unsigned int o, void *p);
-	int rva0021BDAB(unsigned int o);
-	int rva0021BDD3(unsigned int o);
-	int rva0021BDFB(unsigned int o);
-};
+typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;
+typedef CreateAHeroManager::CreateAHeroSubClass CreateAHeroSubClass;
 
-int Rva00219B9E::rva0021BE42(unsigned int o, unsigned int i)
+int CreateAHeroClass::GetAttributeMinValue(UnsignedInt attribute, UnsignedInt subClassIndex)
 {
-	void *p = rva00219B9E(i);
-	return p ? ((Rva0021BDAccess *)p)->rva0021BDAB(o) : -1;
+	const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
+	return p ? p->GetAttributeMinValue(attribute) : -1;
 }
 
-int Rva00219B9E::rva0021BE62(unsigned int o, unsigned int i)
+int CreateAHeroClass::GetAttributeMaxValue(UnsignedInt attribute, UnsignedInt subClassIndex)
 {
-	void *p = rva00219B9E(i);
-	return p ? ((Rva0021BDAccess *)p)->rva0021BDD3(o) : -1;
+	const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
+	return p ? p->GetAttributeMaxValue(attribute) : -1;
 }
 
-int Rva00219B9E::rva0021BE82(unsigned int o, unsigned int i)
+int CreateAHeroClass::GetAttributeDefaultValue(UnsignedInt attribute, UnsignedInt subClassIndex)
 {
-	void *p = rva00219B9E(i);
-	return p ? ((Rva0021BDAccess *)p)->rva0021BDFB(o) : -1;
+	const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
+	return p ? p->GetAttributeDefaultValue(attribute) : -1;
 }
 
-// Middle entries of the chain: two-level forwards through rowed 0x00219B9E
-// into 0x0021BD22, then into 0x0021BD41 with the element offset (+4/+8/+0xC).
+// Subclass getters: look the attribute up through 0x0021BD22, then read it
+// through 0x0021BD41 with the entry offset (+4/+8/+0xC).
 // The if/else-return form (not early return, not ternary) reproduces
 // retail's jne-forward layout with the or-eax,-1 fall-through, and the
 // (index, pointer) argument order reproduces the add-then-push sequence.
-int Rva0021BDAccess::rva0021BDAB(unsigned int o)
+int CreateAHeroSubClass::GetAttributeMinValue(UnsignedInt o) const
 {
 	int r;
 	void *p = rva0021BD22(o);
@@ -63,7 +73,7 @@ int Rva0021BDAccess::rva0021BDAB(unsigned int o)
 	return r;
 }
 
-int Rva0021BDAccess::rva0021BDD3(unsigned int o)
+int CreateAHeroSubClass::GetAttributeMaxValue(UnsignedInt o) const
 {
 	int r;
 	void *p = rva0021BD22(o);
@@ -74,7 +84,7 @@ int Rva0021BDAccess::rva0021BDD3(unsigned int o)
 	return r;
 }
 
-int Rva0021BDAccess::rva0021BDFB(unsigned int o)
+int CreateAHeroSubClass::GetAttributeDefaultValue(UnsignedInt o) const
 {
 	int r;
 	void *p = rva0021BD22(o);

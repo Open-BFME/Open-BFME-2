@@ -24,16 +24,16 @@ void _bfme_closeAptScreen(const AsciiString &name);
 
 extern int g_Va00E04478;
 
-class __multiple_inheritance BfmeAptScreenInGameChat
+class __multiple_inheritance AptInGameChat
 	: public _bfme_AptGameWindow, public BfmeAptFunctorMarker
 {
 public:
-	virtual ~BfmeAptScreenInGameChat();
+	virtual ~AptInGameChat();
 };
 
-// ??1BfmeAptScreenInGameChat@@UAE@XZ @0x004E83EB 116B
+// ??1AptInGameChat@@UAE@XZ @0x004E83EB 116B (WB AptInGameChat.cpp line 224 names the class and its InitGadgets screen key)
 // Evidence: unlock lane, AptInGameChat::InitGadgets literal, base pin 0x005126F5, current-window global g_Va00E04478, caller 0x004E84E6.
-BfmeAptScreenInGameChat::~BfmeAptScreenInGameChat()
+AptInGameChat::~AptInGameChat()
 {
 	if (g_Va00E04478 == (int)this)
 	{

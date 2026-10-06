@@ -4,8 +4,8 @@
 // The "StructureCreep" skirmish-AI tactic (vtable 0x008722EC; ctor 0x005AB91D
 // in Rva004ECECDTacticCtors.cpp, slot 9 0x005AB9AF in
 // Rva004ECECDTacticCreate.cpp). Base chain, all address-derived: Rva005DCC24
-// (ctor 0x005DCC0A, dtor 0x005DCC24) over Rva005DC73C over the AITactic.cpp
-// object Rva004ECECD. Layout: +0x58 an ObjectID, +0x5C, +0x64, +0x68
+// (ctor 0x005DCC0A, dtor 0x005DCC24) over AITacticOffensive over the AITactic.cpp
+// object AITactic. Layout: +0x58 an ObjectID, +0x5C, +0x64, +0x68
 // counters, +0x60 the owned build order (Rva00573B23, 0x40 bytes), +0x6C the
 // index of the structure name last picked from the owner's list.
 //
@@ -169,7 +169,7 @@ class AICommandInterface
 {
 public:
 	void aiIdle(CommandSourceType source);			// 0x001E8A38
-	void rva0026C26D(const Coord3D *point, int source);	// move to the point
+	void aiMoveToPosition(const Coord3D *point, int source);	// move to the point
 };
 
 struct Rva005AB7E5AI
@@ -182,7 +182,7 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;
-	void rva00298AE4(Team *team);
+	void setTeam(Team *team);
 	char m_pad000[4];
 	Rva005AB7E5Template *m_04;	// +0x04
 	char m_pad008[0x38 - 8];
@@ -228,7 +228,7 @@ public:
 	Coord3D rva004EBF4B();
 };
 
-class Rva00599825
+class AIDozerManager
 {
 public:
 	void rva00599825(int id);
@@ -424,7 +424,7 @@ struct Rva002A8AB1Record
 	void rva002C717E(const AsciiString &key, int value);
 	int rva002C7196(const AsciiString &key);
 	char m_pad000[0x140];
-	Rva00599825 m_140;		// +0x140
+	AIDozerManager m_140;		// +0x140
 	char m_pad141[0x160 - 0x141];
 	Rva005AB7E5Names *m_160;	// +0x160
 	Rva002C5FE8 *m_164;	// +0x164
@@ -480,49 +480,49 @@ struct Rva00573A00
 	void rva00573A00(const Coord3D *p);
 };
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual void v2();
-	virtual void v3();
+	virtual ~AITactic();
+	virtual void cleanUp();
+	virtual void initializeTeamTemplate();
 	virtual void v4();
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
+	virtual void run();
 	virtual void v8();
-	virtual Rva004ECECD *create();
-	void rva004ED748(int a, int b);
+	virtual AITactic *create();
+	void end(int a, int b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 	char m_pad04[0x24 - 4];
 	Player *m_owner;		// +0x24
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005DCC24 : public Rva005DC73C
+class Rva005DCC24 : public AITacticOffensive
 {
 public:
 	virtual ~Rva005DCC24();
 };
 
-class Rva005AB7E5 : public Rva005DCC24
+class AIStructureCreepTactic : public Rva005DCC24
 {
 public:
-	virtual ~Rva005AB7E5();
-	virtual void v2();
+	virtual ~AIStructureCreepTactic();
+	virtual void cleanUp();
 	virtual void xfer(Xfer *xfer);
-	bool rva005ABEA2();
-	AsciiString rva005ABA59();
+	bool findBestInterestZone();
+	AsciiString getBuildTemplateName();
 	bool rva005ABCFE(Coord3DBase *out, const AsciiString &name);
-	bool rva005AC0B5(const AsciiString &name);
-	bool rva005AB9EE(Object *obj);
+	bool validateTemplateName(const AsciiString &name);
+	bool isOffensiveBuilding(Object *obj);
 	bool rva005AC294();
-	void rva005AC40C();
-	virtual void v7();
+	void moveDozerAway();
+	virtual void update();
 private:
 	ObjectID m_58;		// +0x58
 	unsigned int m_5C;	// +0x5C
@@ -537,7 +537,7 @@ private:
 	unsigned int m_nextRun;	// +0x7C
 };
 
-Rva005AB7E5::~Rva005AB7E5()
+AIStructureCreepTactic::~AIStructureCreepTactic()
 {
 	if (m_order) {
 		((Rva00506FE9Hit *)m_order)->rva0055ADBA(m_owner);
@@ -546,9 +546,9 @@ Rva005AB7E5::~Rva005AB7E5()
 	}
 }
 
-void Rva005AB7E5::xfer(Xfer *xfer)
+void AIStructureCreepTactic::xfer(Xfer *xfer)
 {
-	Rva004ECECD::xfer(xfer);
+	AITactic::xfer(xfer);
 	XferObjectID(xfer, &m_58);
 	*xfer == m_5C;
 	*xfer == m_64;
@@ -567,7 +567,7 @@ void Rva005AB7E5::xfer(Xfer *xfer)
 	}
 }
 
-bool Rva005AB7E5::rva005AB9EE(Object *obj)
+bool AIStructureCreepTactic::isOffensiveBuilding(Object *obj)
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	for (unsigned int i = 0; i < record->m_160->m_names.size(); ++i) {
@@ -578,7 +578,7 @@ bool Rva005AB7E5::rva005AB9EE(Object *obj)
 	return false;
 }
 
-AsciiString Rva005AB7E5::rva005ABA59()
+AsciiString AIStructureCreepTactic::getBuildTemplateName()
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	if (m_next == -1) {
@@ -591,7 +591,7 @@ AsciiString Rva005AB7E5::rva005ABA59()
 	return record->m_160->m_names[m_next];
 }
 
-void Rva005AB7E5::v2()
+void AIStructureCreepTactic::cleanUp()
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	if (m_running) {
@@ -600,12 +600,12 @@ void Rva005AB7E5::v2()
 	}
 	Object *obj = TheGameLogic->findObjectByID(m_58);
 	if (obj && !(obj->m_438 & 1)) {
-		obj->rva00298AE4(obj->getControllingPlayer()->m_defaultTeam);
+		obj->setTeam(obj->getControllingPlayer()->m_defaultTeam);
 		record->m_140.rva00599825(m_58);
 	}
 }
 
-bool Rva005AB7E5::rva005ABEA2()
+bool AIStructureCreepTactic::findBestInterestZone()
 {
 	Rva002C5FE8 *sites = g_00DFEEF8->rva002A8AB1(m_owner)->m_164;
 	if (sites->m_begin != sites->m_end) {
@@ -635,15 +635,15 @@ bool Rva005AB7E5::rva005ABEA2()
 // vftable slots (0x0036CC7A); bind the declaration to that row.
 #pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
 
-Rva005ABEA2Site *rva005AB7C4(Player *owner, int id)
+Rva005ABEA2Site *getMyZone(Player *owner, int id)
 {
 	Rva002C5FE8 *sites = g_00DFEEF8->rva002A8AB1(owner)->m_164;
 	return (Rva005ABEA2Site *)sites->rva002C5FE8(id);
 }
-bool Rva005AB7E5::rva005AC0B5(const AsciiString &name)
+bool AIStructureCreepTactic::validateTemplateName(const AsciiString &name)
 {
 	Player *owner = m_owner;
-	Rva005ABEA2Site *site = rva005AB7C4(owner, m_68);
+	Rva005ABEA2Site *site = getMyZone(owner, m_68);
 	Rva005ABEA2Mask mustBeSet;
 	Rva005ABEA2Mask mustBeClear;
 	mustBeSet.set(7);
@@ -658,7 +658,7 @@ bool Rva005AB7E5::rva005AC0B5(const AsciiString &name)
 	_STL::set<AsciiString> names;
 	Object *obj;
 	while ((obj = hits.next()) != 0) {
-		if (rva005AB9EE(obj)) {
+		if (isOffensiveBuilding(obj)) {
 			objects.push_back(obj);
 			Rva005AB7E5Template *tmpl = obj->m_04;
 			names.insert(tmpl->m_name);

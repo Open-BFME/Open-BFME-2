@@ -1,5 +1,6 @@
 // cl: /MD /EHsc
-// ?rva004E6B38@Rva004E6B38@@QAEXXZ @ 0x004E6B38 (69B): flag-guarded Hide callback via Rva0043DB23 then two OwnedPointerResets clears. Callers at 0x004E6B8E and 0x004E724B and jmp at 0x004E7019. Callees rowed 0x00524021 0x0043DB23 0x004E6A1D. Global TheRva00222A8BTarget and string Hide.
+// InGameNotificationBoxMovieClip::CloseImmediately (WorldBuilder name, InGameNotificationBoxMovieClip.cpp line 230: unless state 0/1, clear, Hide, state 1, then clear both held pointers).
+// was ?rva004E6B38@Rva004E6B38@@QAEXXZ @ 0x004E6B38 (69B): flag-guarded Hide callback via Rva0043DB23 then two OwnedPointerResets clears. Callers at 0x004E6B8E and 0x004E724B and jmp at 0x004E7019. Callees rowed 0x00524021 0x0043DB23 0x004E6A1D. Global TheRva00222A8BTarget and string Hide.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 void __cdecl Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
@@ -22,10 +23,10 @@ public:
 	Rva004E6935 *m_ptr;
 	void clear();
 };
-class Rva004E6B38
+class InGameNotificationBoxMovieClip
 {
 public:
-	void rva004E6B38();
+	void CloseImmediately();
 	unsigned char m_pad00[4];
 	void *m_owner;
 	int m_state;
@@ -35,7 +36,7 @@ public:
 	Rva004E6A1D m_hold40;
 	Rva004E6A1D m_hold44;
 };
-void Rva004E6B38::rva004E6B38()
+void InGameNotificationBoxMovieClip::CloseImmediately()
 {
 	if (m_state != 0 && m_state != 1)
 	{

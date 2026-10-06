@@ -2,7 +2,7 @@
 //
 // ?rva00272AD5@Drawable@@QAEPAVObject@@XZ, retail 0x00272AD5, 214 bytes.
 // A Drawable member (callers at 0x00278A38, 0x00278B6C and 0x00278BFA in
-// Drawable::rva0027893E): the closest object to the drawable's position
+// Drawable::onComingOutOfShroud): the closest object to the drawable's position
 // (+0x38) within the +0x80 float of the global at 0x00DFDC30 that has kind
 // 0x7A or 0x9E and passes alive, the member-less 0x002611DD filter, the
 // player filter over ThePlayerList's +0x10 player, and the 0x00261790

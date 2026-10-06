@@ -1,4 +1,6 @@
 // ?showRallyPoint@ControlBar@@QAEXPBUCoord3D@@@Z
+// partial score=0.8257 date=2026-10-05
+// ?showRallyPoint@ControlBar@@QAEXPBUCoord3D@@@Z
 // partial score=0.93 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?showRallyPoint@ControlBar@@QAEXPBUCoord3D@@@Z @0x0031B892 264B
@@ -112,7 +114,7 @@ void ControlBar::showRallyPoint(const Coord3D *loc)
 		{
 			Drawable *found = TheGameClient->findDrawableByID(m_rallyPointDrawableID);
 			TheGameClient->destroyDrawable(found);
-			m_rallyPointDrawableID = 0;
+			const m_rallyPointDrawableID = 0;
 		}
 	}
 	else

@@ -1,5 +1,7 @@
 // cl: /MD
-// ?update@Rva0042D5DD@@QAEXXZ @0x0042D5DD 85B: Apt fade-state update via rowed Rva00516F21Invoke 0x00516F21 (SetState/_fadeIn) or rowed Rva002224FE 0x002224FE on the manager at 0x00DFE4CC. Evidence: count at inner +8 selecting Invoke path (3-4) or setter path (0); strings verified; REL32s to rowed callees.
+// StrategicHUD::HUD::Show @0x0042D5DD 85B (WorldBuilder name, StrategicHUD.cpp line
+// 462; state 0 shows the level via 0x002224FE, WB AptPlayer::ShowLevel, then 1;
+// states 3..4 start _fadeIn and go to 2): Apt fade-state update via rowed Rva00516F21Invoke 0x00516F21 (SetState/_fadeIn) or rowed Rva002224FE 0x002224FE on the manager at 0x00DFE4CC. Evidence: count at inner +8 selecting Invoke path (3-4) or setter path (0); strings verified; REL32s to rowed callees.
 class Rva00222A8BTarget
 {
 public:
@@ -23,24 +25,27 @@ struct Rva0042D5DDInner
 	int m_08;
 };
 
-class Rva0042D5DDHost
+namespace StrategicHUD
+{
+class HUD
 {
 public:
-	void update();
+	void Show();
 private:
-	Rva0042D5DDInner *m_00;
+	Rva0042D5DDInner *m_impl;
 };
+}
 
-void Rva0042D5DDHost::update()
+void StrategicHUD::HUD::Show()
 {
-	int c = m_00->m_08;
+	int c = m_impl->m_08;
 	if (c != 0) {
 		if (c > 2 && c <= 4) {
-			Rva00516F21Invoke(TheRva00222A8BTarget, m_00->m_04, "SetState", "_fadeIn");
-			m_00->m_08 = 2;
+			Rva00516F21Invoke(TheRva00222A8BTarget, m_impl->m_04, "SetState", "_fadeIn");
+			m_impl->m_08 = 2;
 		}
 		return;
 	}
-	((Rva002224FE *)TheRva00222A8BTarget)->rva002224FE((int)m_00->m_04);
-	m_00->m_08 = 1;
+	((Rva002224FE *)TheRva00222A8BTarget)->rva002224FE((int)m_impl->m_04);
+	m_impl->m_08 = 1;
 }

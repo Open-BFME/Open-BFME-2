@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /GX
 //
-// ?rva004AEFAD@RespawnUpdate@@UAEMPAH@Z, retail 0x004AEFAD, 94 bytes.
+// ?getPercentReady@RespawnUpdate@@UAEMPAH@Z, retail 0x004AEFAD, 94 bytes.
 // Vslot 13 (offset 0x34) of vtable 0x008556B0 (VA 0x00C556B0), class of
 // ??0RespawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z in
 // Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp.
@@ -57,7 +57,7 @@ struct GameLogicFrame
 class RespawnUpdate : public UpdateModule
 {
 public:
-	virtual float rva004AEFAD(int *out);
+	virtual float getPercentReady(int *out);
 private:
 	float m_20;
 	unsigned int m_24;
@@ -71,7 +71,7 @@ private:
 	unsigned char m_41;
 };
 
-float RespawnUpdate::rva004AEFAD(int *out)
+float RespawnUpdate::getPercentReady(int *out)
 {
 	if (out)
 		*out = m_3C;

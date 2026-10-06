@@ -179,7 +179,7 @@ public:
 extern Rva002A8F24 *g_00DFEEF8;
 
 // What slot 1 hands the pick to (0x002C5D8B forwards to 0x002C5CF7).
-class Rva002C5D8B
+class AITarget
 {
 public:
 	void rva002C5CF7(const Coord3D *pos, float radius, int id);	// 0x002C5CF7
@@ -195,11 +195,11 @@ struct Rva00573117 : Rva005CB22A
 {
 	Rva00573117();
 	virtual ~Rva00573117();
-	virtual void rva0057327E(Rva002C5D8B *choice, Player *player, int unused);
+	virtual void rva0057327E(AITarget *choice, Player *player, int unused);
 	bool rva00573122(Player *player);	// 0x00573122
 };
 
-void Rva00573117::rva0057327E(Rva002C5D8B *choice, Player *player, int unused)
+void Rva00573117::rva0057327E(AITarget *choice, Player *player, int unused)
 {
 	if (!rva00573122(player))
 		return;

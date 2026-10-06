@@ -14,7 +14,10 @@ public:
 	bool rva002B2BAA();
 	int rva002B3DB2();
 	int rva002B4650();
+	int rva002B3DD0();
 };
+
+extern int g_Va00DBA4E4;
 
 int Rva002B4650::rva002B4650()
 {
@@ -24,4 +27,13 @@ int Rva002B4650::rva002B4650()
 			return ++n;
 	}
 	return 0;
+}
+
+// ?rva002B3DD0@Rva002B4650@@QAEHXZ @0x002B3DD0 20B: the 0x2B3DB2 measure
+// rounded up to whole units of g_Va00DBA4E4 (lea eax,[eax+ecx-1]; xor edx;
+// div). Callers 0x00574306 0x005750AA. Summing the measure first, in
+// unsigned arithmetic, gives retail's lea operand order.
+int Rva002B4650::rva002B3DD0()
+{
+	return ((unsigned int)rva002B3DB2() + (unsigned int)g_Va00DBA4E4 - 1) / (unsigned int)g_Va00DBA4E4;
 }

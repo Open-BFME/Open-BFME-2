@@ -1,6 +1,8 @@
 // cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
-// ?rva0020DEB0@Rva0020DEB0@@QAEPAVOverridable@@XZ @0x0020DEB0 91B: cleanup of two
+// LargeGroupAudio::removeOverrides @0x0020DEB0 91B (WorldBuilder name,
+// LargeGroupAudio.cpp lines 537..557: deleteOverrides over both lists, clear,
+// copy, then the +0x34 overrides): cleanup of two
 // pointer vectors then tail to Overridable::deleteOverrides. Evidence: rowed
 // callees deleteOverrides 0x001E35ED erase 0x0031BD55 dup-assign 0x0026F4F4 and
 // validate 0x000B3FD0; caller 0x0020DFD3; neighbours SubsystemNameGetters/next Rva0020DFFBRegister.
@@ -12,13 +14,13 @@ public:
 };
 
 template <typename T> class StringBase {
-    friend class Rva0020DEB0;
+    friend class LargeGroupAudio;
     void validate() const;
 };
 
-class Rva0020DEB0 {
+class LargeGroupAudio {
 public:
-    Overridable *rva0020DEB0();
+    Overridable *removeOverrides();
 private:
     char m_pad00[0x10];
     _STL::vector<unsigned int> m_vec10;
@@ -27,7 +29,7 @@ private:
     Overridable *m_34;
 };
 
-Overridable *Rva0020DEB0::rva0020DEB0()
+Overridable *LargeGroupAudio::removeOverrides()
 {
     for (unsigned int *it = m_vec1C.begin(); it != m_vec1C.end(); ++it) {
         ((Overridable *)*(void * const *)it)->deleteOverrides();

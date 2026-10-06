@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva005DBA9C@Rva005DB98E@@QAE_N_N@Z retail 0x005DBA9C 177B
+// ?rva005DBA9C@PortNegotiationSchema@@QAE_N_N@Z retail 0x005DBA9C 177B
 // Unlock human/slot scan for m_arr2 value 3; same class/offsets as neighbours.
 // Retail funnels both branches' success through the single `return true;` after
 // the if/else (true loop jumps forward over the false loop), which also reads
@@ -17,7 +17,7 @@ public:
 	bool isHuman() const;
 };
 
-class Rva005DB98E
+class PortNegotiationSchema
 {
 	char m_pad0[0x14];
 	unsigned short m_cur;
@@ -28,13 +28,13 @@ class Rva005DB98E
 	char m_pad2[0x8b8 - 0x86c];
 	GameSlot **m_slots;
 public:
-	void* rva005DB98E(unsigned short x, unsigned short y);
-	int rva005DB9BC(unsigned short x, unsigned short y);
+	void* peekPing(unsigned short x, unsigned short y);
+	int GetConnectionState(unsigned short x, unsigned short y);
 	bool rva005DBA60(unsigned short x);
 	bool rva005DBA9C(bool flag);
 };
 
-bool Rva005DB98E::rva005DBA9C(bool flag)
+bool PortNegotiationSchema::rva005DBA9C(bool flag)
 {
 	if (m_cur >= 8)
 		return true;

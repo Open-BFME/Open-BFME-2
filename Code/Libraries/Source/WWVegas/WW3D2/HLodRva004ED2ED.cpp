@@ -1,6 +1,6 @@
 // cl: /O1 /MD
 //
-// ?rva004ED2ED@Rva004ECECD@@QAEXHPAVObject@@@Z @ 0x004ED2ED, 85 bytes.
+// ?rva004ED2ED@AITactic@@QAEXHPAVObject@@@Z @ 0x004ED2ED, 85 bytes.
 // HLod group-fill helper like rowed sibling 0x004ED1A1: find node via rowed
 // 0x004ECF05 then create AI group, fill via Team, issue group order via rowed
 // 0x00372BB9 with (victim, 0), destroy group via rowed 0x002FE712, clear +0x10.
@@ -10,7 +10,7 @@ class Object;
 class AIGroup;
 class Team;
 class AI;
-class Rva004ECECD;
+class AITactic;
 class TeamFactory;
 extern class AI *TheAI;
 extern TeamFactory *TheTeamFactory;
@@ -34,20 +34,20 @@ class AI
 {
 public:
 	AIGroup *createGroup();
-	void rva002FE712(AIGroup *group);
+	void destroyGroup(AIGroup *group);
 };
 class Team
 {
 public:
 	void getTeamAsAIGroup(AIGroup *group);
 };
-class Rva004ECECD
+class AITactic
 {
 public:
 	Rva004ECECDNode *rva004ECF05(int id);
 	void rva004ED2ED(int id, Object *victim);
 };
-void Rva004ECECD::rva004ED2ED(int id, Object *victim)
+void AITactic::rva004ED2ED(int id, Object *victim)
 {
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
@@ -56,7 +56,7 @@ void Rva004ECECD::rva004ED2ED(int id, Object *victim)
 		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
 		team->getTeamAsAIGroup(group);
 		group->rva00372BB9(victim, 0);
-		TheAI->rva002FE712(group);
+		TheAI->destroyGroup(group);
 		node->m_10 = 0;
 	}
 }

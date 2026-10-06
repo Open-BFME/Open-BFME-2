@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00552CF9@Rva00552CF9@@QAEXPBV1@@Z 0x00552CF9 130B: thiscall copies fields and three sub-objects via virtuals slot 0x14 0x10 0x10; caller 0x0055941D
+// ?rva00552CF9@PSPlayerAllStats@@QAEXPBV1@@Z 0x00552CF9 130B: thiscall copies fields and three sub-objects via virtuals slot 0x14 0x10 0x10; caller 0x0055941D
 class Sub8
 {
 public:
@@ -55,7 +55,7 @@ public:
 	char m_pad146[0x150 - 0x146];
 	int m_150;
 };
-class Rva00552CF9
+class PSPlayerAllStats
 {
 public:
 	int m_0;
@@ -77,16 +77,16 @@ public:
 	unsigned short m_484;
 	char m_pad486[0x490 - 0x486];
 	int m_490;
-	void rva00552CF9(const Rva00552CF9 *src);
+	void rva00552CF9(const PSPlayerAllStats *src);
 	void rva00552E9E(int v);
 	void rva00552CB8();
-	void rva00552CDE(int v);
+	void setID(int v);
 	void rva00552D7B(const Rva00552D7BSrc *src);
 	void rva00552DDA(const Rva00552DDASrc *src);
 	void rva00552E3C(const Rva00552E3CSrc *src);
 };
 
-void Rva00552CF9::rva00552CDE(int v)
+void PSPlayerAllStats::setID(int v)
 {
 	m_490 = v;
 	m_300 = v;
@@ -94,7 +94,7 @@ void Rva00552CF9::rva00552CDE(int v)
 	m_0 = v;
 }
 
-void Rva00552CF9::rva00552CF9(const Rva00552CF9 *src)
+void PSPlayerAllStats::rva00552CF9(const PSPlayerAllStats *src)
 {
 	if (m_0 && m_0 != src->m_0)
 		return;
@@ -115,14 +115,14 @@ void Rva00552CF9::rva00552CF9(const Rva00552CF9 *src)
 	m_1B0.copy(&src->m_1B0);
 	m_340.copy(&src->m_340);
 }
-void Rva00552CF9::rva00552E9E(int v)
+void PSPlayerAllStats::rva00552E9E(int v)
 {
 	m_484 = (unsigned short)v;
 	m_2F4 = (unsigned short)v;
 	m_14C = (unsigned short)v;
 	m_4 = (unsigned short)v;
 }
-void Rva00552CF9::rva00552CB8()
+void PSPlayerAllStats::rva00552CB8()
 {
 	m_0 = 0;
 	m_4 = 0;
@@ -130,7 +130,7 @@ void Rva00552CF9::rva00552CB8()
 	m_1B0.d0();
 	m_340.d0();
 }
-void Rva00552CF9::rva00552D7B(const Rva00552D7BSrc *src)
+void PSPlayerAllStats::rva00552D7B(const Rva00552D7BSrc *src)
 {
 	if (m_0 && m_0 != src->m_150)
 		return;
@@ -149,7 +149,7 @@ void Rva00552CF9::rva00552D7B(const Rva00552D7BSrc *src)
 	}
 	m_8.copy(&src->m_8_0);
 }
-void Rva00552CF9::rva00552DDA(const Rva00552DDASrc *src)
+void PSPlayerAllStats::rva00552DDA(const Rva00552DDASrc *src)
 {
 	if (m_0 && m_0 != src->m_150)
 		return;
@@ -168,7 +168,7 @@ void Rva00552CF9::rva00552DDA(const Rva00552DDASrc *src)
 	}
 	m_1B0.copy(&src->m_1B0_0);
 }
-void Rva00552CF9::rva00552E3C(const Rva00552E3CSrc *src)
+void PSPlayerAllStats::rva00552E3C(const Rva00552E3CSrc *src)
 {
 	if (m_0 && m_0 != src->m_150)
 		return;

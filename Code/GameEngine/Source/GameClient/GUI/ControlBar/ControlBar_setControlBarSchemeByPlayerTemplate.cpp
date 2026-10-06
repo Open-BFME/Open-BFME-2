@@ -109,7 +109,7 @@ class ControlBar
 {
 public:
 	void setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt);
-	void rva0031BF64(int ctx, void *param);
+	void switchToContext(int ctx, void *param);
 	void switchControlBarStage(ControlBarStages stage);
 private:
 	char _head[0x44];
@@ -135,7 +135,7 @@ void ControlBar::setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt)
 	if (pt == ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey("FactionObserver")))
 	{
 		m_isObserverCommandBar = true;
-		rva0031BF64(CB_CONTEXT_OBSERVER_LIST, 0);
+		switchToContext(CB_CONTEXT_OBSERVER_LIST, 0);
 
 		if (buttonPlaceBeacon)
 			buttonPlaceBeacon->winHide(true);
@@ -146,7 +146,7 @@ void ControlBar::setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt)
 	}
 	else
 	{
-		rva0031BF64(CB_CONTEXT_NONE, 0);
+		switchToContext(CB_CONTEXT_NONE, 0);
 		m_isObserverCommandBar = false;
 
 		if (buttonPlaceBeacon)

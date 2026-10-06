@@ -489,17 +489,17 @@ bool Rva005EEDB5Picker::rva005D874A(Object *source)
 // The picker 0x005D9F97 runs on: +0x14 a radius. Retail's class is
 // Rva005D9F70 (vftable 0x00C76494, slot 0 its deleting dtor); this view's
 // name is address-derived only.
-class Rva005DA0D0
+class AISpecialPowerElendil
 {
 public:
 	float getRadius() const { return m_14; }
-	bool rva005D9F97(Object *source);
+	bool shouldActivate(Object *source);
 private:
 	char m_pad00[0x14];
 	float m_14;		// +0x14
 };
 
-bool Rva005DA0D0::rva005D9F97(Object *source)
+bool AISpecialPowerElendil::shouldActivate(Object *source)
 {
 	if (source->m_258->getCurrentVictim() && source->m_254->rva005D874AValue() < 0.7f) {
 		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(source->getPosition(), getRadius(), 0,
@@ -588,7 +588,7 @@ bool Rva005EEDB5Picker::rva005DA109(Object *source)
 
 // The picker behind vftable 0x00C764EC (slot 0 0x005DA35E, Rva005DA353's
 // deleting dtor); slots 7 and 8 are both 0x005CB9FA there.
-class Rva005DA37APicker
+class AISpecialPowerSelfBuff
 {
 public:
 	virtual void v0();
@@ -597,12 +597,12 @@ public:
 	virtual void v3();
 	virtual void v4();
 	virtual void v5();
-	virtual bool rva005DA37A(Object *source);
+	virtual bool shouldActivate(Object *source);
 	virtual bool rva005DA37AEnemy(Object *obj);	// slot 7
 	virtual bool rva005DA37AOther(Object *obj);	// slot 8
 };
 
-bool Rva005DA37APicker::rva005DA37A(Object *source)
+bool AISpecialPowerSelfBuff::shouldActivate(Object *source)
 {
 	if (source->m_258->getCurrentVictim()) {
 		if (source->m_254->rva005D874AValue() < 0.4f)

@@ -41,7 +41,7 @@ class Rva0038404A { public: void rva00384E8E(void); };
 class Rva00383AFF { public: void rva00383AFF(void); };
 class Rva00383A28 { public: void rva00383A28(void); };
 class Rva00072FE6 { public: void rva00072FE6(void); };
-class Rva00552CF9 { public: void rva00552CB8(void); };
+class PSPlayerAllStats { public: void rva00552CB8(void); };
 
 class GameWindow;
 class GameSpyGroupRoom;
@@ -294,7 +294,7 @@ public:
 	virtual void slot51(void);
 	virtual Bool rva00381DC4(void);
 	virtual GameSpyStagingRoom *getCurrentStagingRoom(void);
-	virtual Bool rva00383207(GameSpyStagingRoom *room);
+	virtual Bool validateStagingRoom(GameSpyStagingRoom *room);
 	virtual void slot55(void);
 	virtual void slot56(void);
 	virtual void slot57(void);
@@ -615,8 +615,8 @@ Bool PlayerInfo::isIgnored(void)
 	return (m_profileID) ? TheGameSpyInfo->isSavedIgnored(m_profileID) : TheGameSpyInfo->isIgnored(m_name);
 }
 
-// ?rva00383207@GameSpyInfo@@UAE_NPAVGameSpyStagingRoom@@@Z @0x00383207 55B
-Bool GameSpyInfo::rva00383207(GameSpyStagingRoom *room)
+// ?validateStagingRoom@GameSpyInfo@@UAE_NPAVGameSpyStagingRoom@@@Z @0x00383207 55B
+Bool GameSpyInfo::validateStagingRoom(GameSpyStagingRoom *room)
 {
 	StagingRoomMap::iterator it = m_stagingRooms.begin();
 	while (it != m_stagingRooms.end())
@@ -769,7 +769,7 @@ void GameSpyInfo::reset(void)
 	m_internalIP = m_externalIP = 0;
 	((Rva00383A28 *)&m_savedIgnoreMap)->rva00383A28();
 	((Rva00072FE6 *)&m_preorderPlayers)->rva00072FE6();
-	((Rva00552CF9 *)m_cachedLocalPlayerStats)->rva00552CB8();
+	((PSPlayerAllStats *)m_cachedLocalPlayerStats)->rva00552CB8();
 	m_additionalDisconnects = -1;
 	m_unk163C = false;
 }

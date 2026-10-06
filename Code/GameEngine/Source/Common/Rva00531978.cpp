@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00531978@Rva00531978@@QAEXPAVXfer@@@Z @ 0x00531978 (204B): __thiscall unpack 20-bit field via Xfer ushort slot 0x80; IsCRC gate slot 0x0C; caller 0x005343BC.
+// ?DoXfer@CellType@PathfindZoneManager@@QAEXPAVXfer@@@Z @ 0x00531978 (204B): __thiscall unpack 20-bit field via Xfer ushort slot 0x80; IsCRC gate slot 0x0C; caller 0x005343BC.
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -68,13 +68,19 @@ public:
 protected:
 	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
 };
-class Rva00531978
+class PathfindZoneManager
 {
 public:
-	void rva00531978(Xfer *xfer);
+	class CellType;
+};
+
+class PathfindZoneManager::CellType
+{
+public:
+	void DoXfer(Xfer *xfer);
 	unsigned int m_val;
 };
-void Rva00531978::rva00531978(Xfer *xfer)
+void PathfindZoneManager::CellType::DoXfer(Xfer *xfer)
 {
 	if (!xfer->IsCRC())
 		return;

@@ -40,7 +40,7 @@ enum { MAX_MESSAGES = 0x80 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long netlong);
 
-UnsignedInt BFMEComputeCRC(const UnsignedByte *data, UnsignedInt length, UnsignedInt crc);
+UnsignedInt ComputeCRC(const UnsignedByte *data, UnsignedInt length, UnsignedInt crc);
 
 #pragma pack(push, 1)
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetworkDefs.h
@@ -101,7 +101,7 @@ Bool Transport::queueSend(NetPacketAddress *addr, const UnsignedByte *data, Int 
 
 found:
 
-	UnsignedInt crc = BFMEComputeCRC(data, len, 0);
+	UnsignedInt crc = ComputeCRC(data, len, 0);
 
 	m_outBuffer[i].addr = addr->ip;
 	m_outBuffer[i].port = addr->port;

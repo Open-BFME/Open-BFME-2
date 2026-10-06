@@ -1,6 +1,6 @@
-// ?rva002966A0@Object@@QAEXPAVPlayer@@0@Z
+// ?onCapture@Object@@QAEXPAVPlayer@@0@Z
 // cl: /DNDEBUG /MD /GX
-// Object::rva002966A0 at 0x002966A0, 169 bytes. Banked at 0.93 behind two walls:
+// Object::onCapture at 0x002966A0, 169 bytes. Banked at 0.93 behind two walls:
 //
 //   1. The banked file had lost its `// cl:` line, so it silently compiled under
 //      the BASE flags at 176 bytes and failed at +0x5 with two extra callee-saved
@@ -105,10 +105,10 @@ class Object
 {
 public:
 	void setScriptStatus(ObjectScriptStatusBit bit, bool set);
-	void rva002966A0(Player *a, Player *b);
+	void onCapture(Player *a, Player *b);
 };
 
-void Object::rva002966A0(Player *a, Player *b)
+void Object::onCapture(Player *a, Player *b)
 {
 	Rva002966A0Holder *holder = *(Rva002966A0Holder **)((char *)this + 0x258);
 	if (holder != 0 && a != b)

@@ -42,7 +42,7 @@ public:
 	RENDER_SLOT(032) RENDER_SLOT(033) RENDER_SLOT(034) RENDER_SLOT(035)
 	RENDER_SLOT(036) RENDER_SLOT(037) RENDER_SLOT(038) RENDER_SLOT(039)
 	RENDER_SLOT(040)
-	virtual void _bfme_ro_v41(); // target slot 41; donor semantic analogue is _bfme_ro_v40
+	virtual void Removed_Added_Sub_Objects_From_Bones(); // target slot 41; donor semantic analogue is _bfme_ro_v40
 	RENDER_SLOT(042) RENDER_SLOT(043) RENDER_SLOT(044) RENDER_SLOT(045)
 	RENDER_SLOT(046) RENDER_SLOT(047) RENDER_SLOT(048) RENDER_SLOT(049)
 	RENDER_SLOT(050) RENDER_SLOT(051) RENDER_SLOT(052) RENDER_SLOT(053)
@@ -115,7 +115,7 @@ public:
 class HLodClass : public BfmeRenderObjSlots
 {
 public:
-	virtual void _bfme_ro_v41();
+	virtual void Removed_Added_Sub_Objects_From_Bones();
 	virtual void Update_Obj_Space_Bounding_Volumes();
 	char RenderObjFields[0x70];
 	SceneClass *Scene; // target +0x78
@@ -123,7 +123,7 @@ public:
 	BfmeModelArray AdditionalModels; // target +0x138
 };
 
-void HLodClass::_bfme_ro_v41(void)
+void HLodClass::Removed_Added_Sub_Objects_From_Bones(void)
 {
 	int additional_count = AdditionalModels.Count();
 	if (additional_count == 0) {

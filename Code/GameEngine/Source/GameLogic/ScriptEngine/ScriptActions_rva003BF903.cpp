@@ -3,7 +3,7 @@
 // ?Rva003BF903Do@@YGXABVAsciiString@@H@Z @0x003BF903 108B.
 // Script team waypoint via getTeamNamed then TerrainLogic slot 0x88,
 // createGroup, getTeamAsAIGroup, followWaypointPathExact with 1.
-// Evidence: rowed getTeamNamed createGroup getTeamAsAIGroup rva0037024D,
+// Evidence: rowed getTeamNamed createGroup getTeamAsAIGroup groupHarvest,
 // externs g_Va009FE16C TheTerrainLogic g_Va009FF0F8, caller 0x003CB797.
 #include "ascii_string.h"
 typedef bool Bool;
@@ -29,7 +29,7 @@ public:
 class AIGroup
 {
 public:
-	void rva0037024D(const Coord3D *pos, CommandSourceType src);
+	void groupHarvest(const Coord3D *pos, CommandSourceType src);
 };
 class TerrainLogic
 {
@@ -61,5 +61,5 @@ void __stdcall Rva003BF903Do(const AsciiString &teamName, int way)
 	if (group == 0)
 		return;
 	team->getTeamAsAIGroup(group);
-	group->rva0037024D((const Coord3D *)((char *)obj + 0xc), CMD_FROM_SCRIPT);
+	group->groupHarvest((const Coord3D *)((char *)obj + 0xc), CMD_FROM_SCRIPT);
 }

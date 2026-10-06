@@ -1,5 +1,5 @@
 // cl: /O1 /DNDEBUG /MD
-// ??1Rva0040C351@@UAE@XZ @0x0040C39E (29B). Dtor of Rva0040C351 (own vtable
+// ??1ArmySummaryEntry@@UAE@XZ @0x0040C39E (29B). Dtor of ArmySummaryEntry (own vtable
 // 0x00C3944C, member at +0xAC with derived vtable 0x00C3945C restored to base
 // 0x00BC6F20 by the inlined member dtor), tail-jmp to base dtor. Same layout
 // as the neighbour ctor TU Rva0040C351Ctor.cpp; base dtor is rowed under the
@@ -27,16 +27,16 @@ struct MemberAC
 // ??1MemberAC@@QAE@XZ present-unmatched
 __forceinline MemberAC::~MemberAC() { m_vtable = (void *)g_00BC6F20; }
 
-class __declspec(novtable) Rva0040C351 : public Rva0037DF2C
+class __declspec(novtable) ArmySummaryEntry : public Rva0037DF2C
 {
 public:
-	Rva0040C351();
-	virtual ~Rva0040C351();
+	ArmySummaryEntry();
+	virtual ~ArmySummaryEntry();
 private:
 	MemberAC m_ac;
 };
 
-Rva0040C351::~Rva0040C351()
+ArmySummaryEntry::~ArmySummaryEntry()
 {
 	*(const void **)this = g_00C3944C;
 	MemberAC *p = &m_ac;

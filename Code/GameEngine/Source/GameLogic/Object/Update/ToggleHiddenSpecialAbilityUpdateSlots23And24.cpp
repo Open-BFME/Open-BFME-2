@@ -6,7 +6,7 @@
 // slot 23 when the owner has status 0x10 and slot 24 otherwise; these rows
 // keep that unit's address names. Method identities are not established.
 //
-// ?rva004AE2D0@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ, retail 0x004AE2D0,
+// ?turnOff@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ, retail 0x004AE2D0,
 // 196 bytes: with status 0x10 set on the owner, clears it, clears condition
 // bit 8*32+3 (notifying through the rowed Object::rva0028AE6D), clears
 // weapon-set flag 0x3D, passes false to slot 9 of the owner's special power
@@ -15,7 +15,7 @@
 // "InvisibilityUpdate" module (found by its cached name key) through
 // 0x004A39D0.
 //
-// ?rva004AE394@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ, retail 0x004AE394,
+// ?turnOn@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ, retail 0x004AE394,
 // 279 bytes: the reverse, only when the +0x20 interface's slot 8 answers
 // true for a null argument, the owner lacks status 0x10 and has an AI
 // (Object+0x258): passes true to the special power module's slot 9, idles
@@ -176,15 +176,15 @@ protected:
 class ToggleHiddenSpecialAbilityUpdate : public UpdateModuleView, public SpecialPowerUpdateInterface
 {
 public:
-	virtual void rva004AE2D0();
-	virtual void rva004AE394();
+	virtual void turnOff();
+	virtual void turnOn();
 private:
 	unsigned char m_pad24[0x88 - 0x24];
 	unsigned int m_88; // +0x88
 };
 
-// ?rva004AE2D0@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ @0x004AE2D0
-void ToggleHiddenSpecialAbilityUpdate::rva004AE2D0()
+// ?turnOff@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ @0x004AE2D0
+void ToggleHiddenSpecialAbilityUpdate::turnOff()
 {
 	Object *obj = m_object;
 	if (!obj || !obj->testStatus(HIDDEN_STATUS))
@@ -209,8 +209,8 @@ void ToggleHiddenSpecialAbilityUpdate::rva004AE2D0()
 		invisibility->rva004A39D0(false);
 }
 
-// ?rva004AE394@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ @0x004AE394
-void ToggleHiddenSpecialAbilityUpdate::rva004AE394()
+// ?turnOn@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ @0x004AE394
+void ToggleHiddenSpecialAbilityUpdate::turnOn()
 {
 	if (!rva004AE394Slot8(0))
 		return;

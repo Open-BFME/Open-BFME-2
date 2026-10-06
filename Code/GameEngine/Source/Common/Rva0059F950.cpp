@@ -169,13 +169,17 @@ public:
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class Rva0059FC45
+// AptOnlineCustomMatch::OnBttnCancel, retail 0x0059FC45 (90B): WorldBuilder
+// name (AptOnlineCustomMatch.cpp line 1890). State 8 only clears +0x333;
+// otherwise it saves the slot preferences (0x0059F950 on the same this),
+// leaves the GameSpy room, notifies the +0x70 member and resets the state.
+class AptOnlineCustomMatch
 {
 public:
-	void rva0059FC45(int dummy);
+	void OnBttnCancel(int unused);
 };
 
-void Rva0059FC45::rva0059FC45(int)
+void AptOnlineCustomMatch::OnBttnCancel(int)
 {
 	if (*(int *)((char *)this + 0x488) == 8) {
 		*(bool *)((char *)this + 0x333) = false;

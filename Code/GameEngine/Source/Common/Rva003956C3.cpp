@@ -9,7 +9,7 @@ public:
 class Player
 {
 public:
-	class Object* rva002AB22A(const void* pos) const;
+	class Object* findClosestObjectToPosWithValidLivingWorldArmyID(const void* pos) const;
 };
 class Rva003956C3
 {
@@ -23,7 +23,7 @@ void* Rva003956C3::rva003956C3()
 {
 	Object* obj = m_obj;
 	Player* player = obj->getControllingPlayer();
-	Object* best = player->rva002AB22A((const void*)((char*)obj + 0x38));
+	Object* best = player->findClosestObjectToPosWithValidLivingWorldArmyID((const void*)((char*)obj + 0x38));
 	if (best != 0)
 		return *(void**)((char*)best + 0x45c);
 	return 0;

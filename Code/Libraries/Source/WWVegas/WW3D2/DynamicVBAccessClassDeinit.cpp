@@ -20,7 +20,7 @@ class DynamicVBAccessClass
 {
 public:
 	static void _Deinit();
-	static void bfmeRva0013A7D0();
+	static void Init();
 };
 
 extern bool bfmeDynamicVBInUse[15];
@@ -70,7 +70,7 @@ void DynamicVBAccessClass::_Deinit()
 // without the sorting half -- every native pool is released, marked free,
 // resized to 5000 and rewound, and its FVF record rebuilt from the format
 // table.  Zero Hour has no counterpart, so the name is address-derived.
-void DynamicVBAccessClass::bfmeRva0013A7D0()
+void DynamicVBAccessClass::Init()
 {
 	int n = 0;
 	for (int i = 0; i < 15; i++) {

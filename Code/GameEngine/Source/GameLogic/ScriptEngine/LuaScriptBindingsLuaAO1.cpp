@@ -185,8 +185,16 @@ public:
 
 AsciiString DescribeObject( const Object *object );
 
-// ?Rva00334DDFObjectDescribe@@YAHPAUlua_State@@@Z
-int Rva00334DDFObjectDescribe( lua_State *state )
+// ?ObjectDescription@LuaScriptEngine@@SAHPAUlua_State@@@Z: WorldBuilder's
+// LuaScriptEngine.cpp:1981 names this Lua callback LuaScriptEngine::ObjectDescription
+// (same lookup, lua_type/lua_pushnil, findObjectByID, DescribeObject sequence).
+class LuaScriptEngine
+{
+public:
+	static int ObjectDescription( lua_State *state );
+};
+
+int LuaScriptEngine::ObjectDescription( lua_State *state )
 {
 	unsigned id = Rva00990030Lookup( state, 1 );
 	if( !id && lua_type( state, 1 ) != 1 )

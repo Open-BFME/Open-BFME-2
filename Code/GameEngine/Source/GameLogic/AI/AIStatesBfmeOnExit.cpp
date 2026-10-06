@@ -110,8 +110,8 @@ class Object;
 class Pathfinder
 {
 public:
-	Bool rva002EE7EE(const Coord3D *pos, Object *obj, Coord3D *dest);
-	Bool rva002F477E(Object *obj, const Coord3D *from, const Coord3D *to, int flag);
+	Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *dest);
+	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int flag);
 };
 class AI
 {
@@ -560,14 +560,14 @@ StateReturnType AIPrepareForBoarding::onEnter()
 {
 	Object *owner = getMachineOwner();
 	Coord3D dest;
-	Bool found = TheAI->pathfinder()->rva002EE7EE(owner->getPosition(), owner, &dest);
+	Bool found = TheAI->pathfinder()->getClosestPointOnLand(owner->getPosition(), owner, &dest);
 	Object *goal = getMachine()->getGoalObject();
 	getMachine()->setGoalObject(0);
 	if (found)
 	{
 		if (!goal)
 			return (StateReturnType)STATE_FAILURE;
-		if (TheAI->pathfinder()->rva002F477E(goal, goal->getPosition(), &dest, 0))
+		if (TheAI->pathfinder()->QuickDoesPathExist(goal, goal->getPosition(), &dest, 0))
 			return (StateReturnType)STATE_FAILURE;
 	}
 	return (StateReturnType)STATE_SUCCESS;
@@ -577,7 +577,7 @@ StateReturnType AIPrepareForBoarding::update()
 {
 	Object *owner = getMachineOwner();
 	Coord3D dest;
-	if (TheAI->pathfinder()->rva002EE7EE(owner->getPosition(), owner, &dest))
+	if (TheAI->pathfinder()->getClosestPointOnLand(owner->getPosition(), owner, &dest))
 	{
 		owner->getAI()->m_commands.aiIdle(CMD_FROM_AI);
 		return (StateReturnType)STATE_FAILURE;

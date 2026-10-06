@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ?rva0056956D@Rva0056956D@@QAEXXZ @0x0056956D 133B.
+// ?setupAllDuckingTargets@LargeGroupAudioSoundKeyPair@@QAEXXZ @0x0056956D 133B.
 // Per-element resolve-and-arm: for each [m_begin,m_end) element stride 0x14,
 // if its +0xC is null and the thiscall-view lookup (alias-pinned 0x005686F5,
 // free __stdcall body ignores ecx) finds a Rva00569543 record, dedup-push
@@ -41,11 +41,11 @@ struct Rva0056956DElem
 	char m_pad2[3];
 };
 
-class Rva0056956D
+class LargeGroupAudioSoundKeyPair
 {
 public:
 	void *rva005686F5(const Rva0056956DElem *e);
-	void rva0056956D();
+	void setupAllDuckingTargets();
 private:
 	char m_pad[0x14];
 	Rva0056956DElem *m_begin;	// +0x14
@@ -54,7 +54,7 @@ private:
 	Rva005C836F *m_slots[4];	// +0x2C
 };
 
-void Rva0056956D::rva0056956D()
+void LargeGroupAudioSoundKeyPair::setupAllDuckingTargets()
 {
 	for (Rva0056956DElem *e = m_begin; e != m_end; ++e) {
 		if (e->m_key != 0)

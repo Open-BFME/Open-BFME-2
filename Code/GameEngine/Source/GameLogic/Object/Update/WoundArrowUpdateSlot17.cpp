@@ -1,9 +1,9 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva0045108D@WoundArrowUpdate@@UAEXXZ, retail 0x004C6B7B, 163 bytes.
+// ?triggerAbilityEffect@WoundArrowUpdate@@UAEXXZ, retail 0x004C6B7B, 163 bytes.
 // Slot 17 of the vftable 0x00C5DF10 whose slot-2 name getter returns
 // "WoundArrowUpdate" (installed by the ctor 0x004C68C1). Raises the flag at
-// +0x88, runs the base SpecialAbilityUpdate slot 17 (pinned rva0045108D,
+// +0x88, runs the base SpecialAbilityUpdate slot 17 (pinned triggerAbilityEffect,
 // whose address name it carries so cl 7.1 places it in slot 17), then for a
 // live target (the ability's ObjectID at +0x40 through the rowed
 // GameLogic::findObjectByID) and an owner with an AI (Object+0x258): sets
@@ -130,7 +130,7 @@ public:
 	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
 	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
 	virtual void s16();
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
@@ -142,16 +142,16 @@ protected:
 class WoundArrowUpdate : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 private:
 	bool m_88;
 };
 
-// ?rva0045108D@WoundArrowUpdate@@UAEXXZ @0x004C6B7B
-void WoundArrowUpdate::rva0045108D()
+// ?triggerAbilityEffect@WoundArrowUpdate@@UAEXXZ @0x004C6B7B
+void WoundArrowUpdate::triggerAbilityEffect()
 {
 	m_88 = true;
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 
 	Object *me = m_object;
 	Object *target = TheGameLogic->findObjectByID(m_targetID);

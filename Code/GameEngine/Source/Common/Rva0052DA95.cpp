@@ -1,12 +1,12 @@
 // cl: /DNDEBUG /MD
-// ?rva0052DA95@Rva0052DA95@@QAE_NH@Z, retail 0x0052DA95, 47 bytes.
+// ?StartPathfind@PathfindCell@@QAE_NH@Z, retail 0x0052DA95, 47 bytes.
 // Holder reset via rowed MixFileInfoBuffer::bfmeUnlink 0x002E6BE2 then field clears.
 // Evidence: unlock lane unblocking 7 callers; callee rowed; offsets +8 +0x10 +0x12 +0x2c bits.
 class MixFileInfoBuffer
 {
 private:
 	void bfmeUnlink();
-	friend class Rva0052DA95;
+	friend class PathfindCell;
 	char _pad00[8];
 public:
 	int m_08;
@@ -17,15 +17,15 @@ public:
 	unsigned int m_2c;
 };
 
-class Rva0052DA95
+class PathfindCell
 {
 public:
-	bool rva0052DA95(int arg);
+	bool StartPathfind(int arg);
 private:
 	MixFileInfoBuffer *m_buf;
 };
 
-bool Rva0052DA95::rva0052DA95(int)
+bool PathfindCell::StartPathfind(int)
 {
 	m_buf->bfmeUnlink();
 	m_buf->m_08 = 0;

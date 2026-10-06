@@ -42,7 +42,9 @@ void Rva0025C061::rva0025C061(void *holder)
 {
 	m_sciences.push_back((ScienceType)*(int *)((char *)holder + 0x74));
 }
-// ?rva00596635@Rva00596635@@QAE_NPAX@Z @0x00596635 72B
+// AIStructureStats::Register @0x00596635 72B (WorldBuilder name,
+// AIStructureStats.cpp line 28; WB calls AIStatBase::addObject, retail
+// 0x0025C061, in the else branch). The value pushed is the object's +0x74.
 // __thiscall predicate over holder arg: requires Rva005964ECGet(holder)!=0,
 // then if inner(+4)[0x123]&1 pushes Science at holder+0x74 into derived
 // vector at this+0x10, else calls base Rva0025C061::rva0025C061(holder).
@@ -51,14 +53,15 @@ void Rva0025C061::rva0025C061(void *holder)
 // [eax+123]1 je to base call else vector push_back via 0x2E01C6; callers at
 // 0x004E0216; this+0x10 vector, base+0x04 vector (base size 0x10).
 int __stdcall Rva005964ECGet(void *holder);
-class Rva00596635 : public Rva0025C061
+class Object;
+class AIStructureStats : public Rva0025C061
 {
 public:
-	bool rva00596635(void *holder);
+	bool Register(Object *holder);
 private:
 	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_sciences10;
 };
-bool Rva00596635::rva00596635(void *holder)
+bool AIStructureStats::Register(Object *holder)
 {
 	if (((unsigned char)Rva005964ECGet(holder)) != 0)
 	{

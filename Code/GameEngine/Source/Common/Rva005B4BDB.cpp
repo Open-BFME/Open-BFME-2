@@ -52,7 +52,7 @@ public:
 	void *bfmeFindLC();
 };
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
-void bfmeGo924F(BfmeKeyLC *k, unsigned short w);
+void GadgetTextEntrySetMaxChars(BfmeKeyLC *k, unsigned short w);
 class Rva005B4BDBOuter
 {
 public:
@@ -92,5 +92,5 @@ void Rva005B4BDB::rva005B4C3C()
 	if (m_window08 == 0)
 		return;
 	GadgetTextEntrySetText(m_window08, m_outer04->m_inner.m_wide08);
-	bfmeGo924F((BfmeKeyLC *)m_window08, 0x16);
+	GadgetTextEntrySetMaxChars((BfmeKeyLC *)m_window08, 0x16);
 }

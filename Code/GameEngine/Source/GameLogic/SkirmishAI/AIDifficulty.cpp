@@ -44,10 +44,11 @@ public:
 	Rva002A8AB1Record *rva002A8AB1(void *key);
 };
 
-class Rva0058AFB3
+class AIDifficulty
 {
 public:
-	bool rva0058AFB3(void *key);
+	bool allowEconomyUpgrade(Rva002A9BF2 *p);
+	bool allowOffensiveTactic(Rva002A9BF2 *p);
 };
 
 extern Rva002A8F24 *g_00DFEEF8;
@@ -71,9 +72,13 @@ bool __stdcall Rva0058AF47Check(Rva002A9BF2 *p)
 	return true;
 }
 
-bool Rva0058AFB3::rva0058AFB3(void *key)
+// AIDifficulty::allowOffensiveTactic @0x0058AFB3 139B, caller 0x00506193.
+// Named from WorldBuilder AIDifficulty.cpp: its asserts span lines 79..91 and
+// the roll below passes line 91 (0x5b); callees 0x002A9BF2, 0x002A8AB1 and
+// GetGameLogicRandomValue agree.
+bool AIDifficulty::allowOffensiveTactic(Rva002A9BF2 *key)
 {
-	int diff = (int)((Rva002A9BF2 *)key)->rva002A9BF2();
+	int diff = (int)key->rva002A9BF2();
 	if (diff == 0)
 	{
 		Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(key);
@@ -92,13 +97,13 @@ bool Rva0058AFB3::rva0058AFB3(void *key)
 	return true;
 }
 
-// ?Rva0058AEBCCheck@@YG_NPAVRva002A9BF2@@@Z @0x0058AEBC 139B, caller 0x004EA88C.
+// ?allowEconomyUpgrade@AIDifficulty@@QAE_NPAVRva002A9BF2@@@Z @0x0058AEBC 139B, caller 0x004EA88C.
 // Free stdcall chance test like 0x0058AF47 but with the +0x04/+0x08 num/den
 // columns and a record-gated early-out: fails when rec->m_cc + rec->m_d0
 // reaches e.m_1C, passes when num/den reaches 1.0, otherwise rolls the rowed
 // GetGameLogicRandomValue(0, den - 1) with the AIDifficulty.cpp __FILE__
 // literal and line 0x2d, and passes when the roll is below num.
-bool __stdcall Rva0058AEBCCheck(Rva002A9BF2 *p)
+bool AIDifficulty::allowEconomyUpgrade(Rva002A9BF2 *p)
 {
 	int diff = (int)p->rva002A9BF2();
 	AIDiffEntry e = g_00DFEEF8->m_table[diff];

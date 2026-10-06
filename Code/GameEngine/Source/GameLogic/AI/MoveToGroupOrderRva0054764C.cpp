@@ -163,8 +163,8 @@ public:
 class AICommandInterface
 {
 public:
-	void rva0036EA01(const Coord3D *position, CommandSourceType cmdSource);
-	void rva0026C26D(const Coord3D *pos, int cmdSource);
+	void aiMoveToPositionAmphibious(const Coord3D *position, CommandSourceType cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, int cmdSource);
 };
 
 class AIUpdateInterface
@@ -284,7 +284,7 @@ void MoveToFormationGroupOrder::xfer(Xfer *xfer)
 
 // ?rva0054764C@MoveToGroupOrder@@QAEXPAVObject@@PAVAIUpdateInterface@@PAUCoord3D@@@Z, retail 0x0054764C 124B.
 // Chain from 0x00547188: if destination check passes copy x/y to obj+0x31C and
-// issue rva0036EA01 else branch on m_flag24 to Rva00295A0FCommand or rva0026C26D.
+// issue aiMoveToPositionAmphibious else branch on m_flag24 to Rva00295A0FCommand or aiMoveToPosition.
 // Evidence: this+0x18/+0x24 MoveTo layout plus caller 0x005478B5 (slot 4) passing
 // Object+AIUpdate+Coord3D plus rowed callees.
 void MoveToGroupOrder::rva0054764C(Object *obj, AIUpdateInterface *aiUpdate, Coord3D *pos)
@@ -295,11 +295,11 @@ void MoveToGroupOrder::rva0054764C(Object *obj, AIUpdateInterface *aiUpdate, Coo
 		xy[1] = m_destination.y;
 		obj->m_31C = *(int *)&xy[0];
 		obj->m_320 = *(int *)&xy[1];
-		aiUpdate->m_commands.rva0036EA01(&m_destination, CMD_FROM_PLAYER);
+		aiUpdate->m_commands.aiMoveToPositionAmphibious(&m_destination, CMD_FROM_PLAYER);
 	} else {
 		if (m_flag24)
 			((Rva00295A0FCommands *)&aiUpdate->m_commands)->Rva00295A0FCommand(pos, 0x7FFFFFFF, 0);
 		else
-			aiUpdate->m_commands.rva0026C26D(pos, 0);
+			aiUpdate->m_commands.aiMoveToPosition(pos, 0);
 	}
 }

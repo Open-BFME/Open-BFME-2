@@ -15,23 +15,23 @@ public:
 	virtual ~Rva004EDCE9();
 };
 
-class Rva005DC73C : public Rva004EDCE9
+class AITacticOffensive : public Rva004EDCE9
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 };
 
-Rva005DC73C::~Rva005DC73C()
+AITacticOffensive::~AITacticOffensive()
 {
 }
 
-class Rva005DCB27 : public Rva004EDCE9
+class AITacticDefensive : public Rva004EDCE9
 {
 public:
-	virtual ~Rva005DCB27();
+	virtual ~AITacticDefensive();
 };
 
-Rva005DCB27::~Rva005DCB27()
+AITacticDefensive::~AITacticDefensive()
 {
 }
 

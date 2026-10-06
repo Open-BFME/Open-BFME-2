@@ -25,15 +25,15 @@ class TerrainResourceClientBehavior
 {
 public:
 	virtual ~TerrainResourceClientBehavior();
-	virtual void rva004CC5FA();
-	virtual void rva004CC61A();
+	virtual void createSelectionFeedback();
+	virtual void removeSelectionFeedback();
 private:
 	const ModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 	bool m_0C;			// +0x0C
 };
 
-void TerrainResourceClientBehavior::rva004CC5FA()
+void TerrainResourceClientBehavior::createSelectionFeedback()
 {
 	if (!m_0C)
 	{
@@ -43,7 +43,7 @@ void TerrainResourceClientBehavior::rva004CC5FA()
 	}
 }
 
-void TerrainResourceClientBehavior::rva004CC61A()
+void TerrainResourceClientBehavior::removeSelectionFeedback()
 {
 	if (m_0C)
 	{

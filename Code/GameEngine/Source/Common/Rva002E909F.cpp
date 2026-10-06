@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva002E909F@Rva002E909F@@QAE_NPBUCoord3D@@HHHPBVObject@@@Z retail 0x002E909F 203 bytes.
+// ?IsValidMovementPositionForObject@Pathfinder@@QAE_NPBUCoord3D@@HHHPBVObject@@@Z retail 0x002E909F 203 bytes.
 // Pathfinder layer check over INV-scaled cell with Object-gated second lookup via 0x002E6DC4.
 // Evidence: 11 unclaimed callers; callees rowed getCell 0x002E6D62 Rva002E6E8AGet 0x002E6E8A Object 0x0028AC62 0x0028AFBB 0x002E6DC4; LINK chain from 0x002E9042; flags from next 0x002E9B31.
 extern "C" float INV;
@@ -31,10 +31,13 @@ public:
 	int m_0C;
 };
 
+class Object;
+
 class Pathfinder
 {
 public:
 	PathfindCell *getCell(PathfindLayerEnum layer, int x, int y);
+	bool IsValidMovementPositionForObject(const Coord3D *pos, int layer, int a3, const Object *obj);
 };
 
 int __cdecl Rva002E6E8AGet(int v);
@@ -72,13 +75,7 @@ struct Rva002E6DC4P1
 	unsigned char m_C;
 };
 
-class Rva002E909F
-{
-public:
-	bool rva002E909F(const Coord3D *pos, int layer, int a3, const Object *obj);
-};
-
-bool Rva002E909F::rva002E909F(const Coord3D *pos, int layer, int a3, const Object *obj)
+bool Pathfinder::IsValidMovementPositionForObject(const Coord3D *pos, int layer, int a3, const Object *obj)
 {
 	int ix = (int)(pos->x * INV);
 	int iy = (int)(pos->y * INV);

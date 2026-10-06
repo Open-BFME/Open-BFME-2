@@ -1,19 +1,28 @@
 // cl: /MD /EHsc
-// ?Rva005D38C8Get@@YA?AVUnicodeString@@HH@Z retail 0x005D38C8 158B
+// StrategicHUD::FormatCommandPointsString retail 0x005D38C8 158B and
+// StrategicHUD::SetCommandPointsString retail 0x005D3966 132B: WorldBuilder
+// names both (StrategicHUDSelectionUIImpl.cpp; SetCommandPointsString assert
+// line 52, the _CP key). The clip name stays the opaque holder this unit
+// already models.
 // Evidence: unlock; TheGameText fetch slot 0x3C STRATEGICHUD:ArmyUnitSwapperCP; UnicodeString format 0x006CB5D0; releaseBuffer 0x00036E70; copy ctor 0x00037050; caller 0x005D3966
 typedef unsigned short wchar_t;
 typedef bool Bool;
 
 template <typename T> class StringBase;
 class UnicodeString;
-UnicodeString Rva005D38C8Get(int a, int b);
+struct Rva005D2FD0Outer;
+namespace StrategicHUD
+{
+	UnicodeString FormatCommandPointsString(int a, int b);
+	void SetCommandPointsString(int level, Rva005D2FD0Outer *outer, int a, int b);
+}
 
 template <typename T>
 class StringBase
 {
 	friend class AsciiString;
 	friend class UnicodeString;
-	friend UnicodeString Rva005D38C8Get(int, int);
+	friend UnicodeString StrategicHUD::FormatCommandPointsString(int, int);
 
 	StringBase(const StringBase<T> &that);
 	void releaseBuffer();
@@ -41,7 +50,7 @@ template <> StringBase<char>::~StringBase();
 
 class UnicodeString
 {
-	friend UnicodeString Rva005D38C8Get(int, int);
+	friend UnicodeString StrategicHUD::FormatCommandPointsString(int, int);
 public:
 	UnicodeString() {}
 	UnicodeString(const UnicodeString &that) : m_data(that.m_data) {}
@@ -104,7 +113,7 @@ public:
 extern GameTextInterface *TheGameText;
 extern unsigned short g_Va007BB5C4;
 
-UnicodeString Rva005D38C8Get(int a, int b)
+UnicodeString StrategicHUD::FormatCommandPointsString(int a, int b)
 {
 	UnicodeString tmp;
 	if (b >= 0) {
@@ -118,12 +127,12 @@ UnicodeString Rva005D38C8Get(int a, int b)
 	return tmp;
 }
 
-// ?Rva005D3966Set@@YAXHPAURva005D2FD0Outer@@HH@Z retail 0x005D3966 132B
+// StrategicHUD::SetCommandPointsString retail 0x005D3966 132B
 // Evidence: chain from 0x005D38C8; APT:_level%u.%s_CP via 0x00038150; bfmeSetText pin 0x00225301; release wide 0x00036E70 ansi 0x00036410; callers 0x005D3A0A 0x005D3F46
-void __cdecl Rva005D3966Set(int level, Rva005D2FD0Outer *outer, int a, int b)
+void StrategicHUD::SetCommandPointsString(int level, Rva005D2FD0Outer *outer, int a, int b)
 {
 	AsciiString key;
 	const char *mid = outer->m_ptr ? outer->m_ptr->m_name : "";
 	key.format("APT:_level%u.%s_CP", level, mid);
-	g_bfmeAptWindowManager->bfmeSetText(key, Rva005D38C8Get(a, b), true);
+	g_bfmeAptWindowManager->bfmeSetText(key, FormatCommandPointsString(a, b), true);
 }

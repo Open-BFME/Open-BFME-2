@@ -3,7 +3,7 @@
 // 0x0020E37C (Rva002104C7::rva0020E374 forwards a1 as object and a2 as arg).
 // Stores low byte of void* arg at this+0x1A2 and inner(this+0x198)+0x2C; when
 // zero runs g_009FEF10->m_B0->rva0020EA22(this+0x12C); then if
-// g_009FE1C8->m_268 non-null runs it->rva003EF08B((int)this). Types follow
+// g_009FE1C8->m_268 non-null runs it->SyncRegion((int)this). Types follow
 // rowed callees and g_ externs in use.
 class Rva0020EA22Outer
 {
@@ -20,17 +20,17 @@ public:
 
 extern Rva002BA8F1Logic *g_009FEF10;
 
-class Rva003EF13E
+class LivingWorldRegionEffectsManager
 {
 public:
-	void rva003EF08B(int value);
+	void SyncRegion(int value);
 };
 
 class Rva0021294A
 {
 public:
 	char m_pad[0x268];
-	Rva003EF13E *m_268;
+	LivingWorldRegionEffectsManager *m_268;
 };
 
 extern Rva0021294A *g_009FE1C8;
@@ -62,7 +62,7 @@ void Rva003EFDF5Host::rva003EFDF5(void *a)
 	inner->m_2C = v;
 	if (v == 0)
 		g_009FEF10->m_B0->rva0020EA22(m_12C);
-	Rva003EF13E *obj = g_009FE1C8->m_268;
+	LivingWorldRegionEffectsManager *obj = g_009FE1C8->m_268;
 	if (obj)
-		obj->rva003EF08B((int)this);
+		obj->SyncRegion((int)this);
 }

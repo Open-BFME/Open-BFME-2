@@ -1,6 +1,6 @@
 // cl: /MD
-// ?rva005D7766@Rva005D7706@@QAE_NPAVObject@@@Z, retail 0x005D7766, 221 bytes.
-// Evidence: slot 6 of 0x00875DB4 class Rva005D7706, terrain table via TheTerrainLogic+0x584 with shroud check then 0x005EE8DD.
+// ?shouldActivate@AISpellBookTreeKiller@@QAE_NPAVObject@@@Z, retail 0x005D7766, 221 bytes.
+// Evidence: slot 6 of 0x00875DB4 class AISpellBookTreeKiller, terrain table via TheTerrainLogic+0x584 with shroud check then 0x005EE8DD.
 class Object;
 class Player;
 struct Coord3D
@@ -70,13 +70,13 @@ public:
 	bool rva005EE8DD(const Coord3D *pos, Object *source);
 };
 
-class Rva005D7706
+class AISpellBookTreeKiller
 {
 public:
-	bool rva005D7766(Object *source);
+	bool shouldActivate(Object *source);
 };
 
-bool Rva005D7706::rva005D7766(Object *source)
+bool AISpellBookTreeKiller::shouldActivate(Object *source)
 {
 	Rva00049D20 *tbl = TheTerrainLogic->m_584;
 	Coord3D best;

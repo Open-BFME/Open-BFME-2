@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD
 //
 // ?rva0045C812@BezierProjectileBehavior@@QAEXPBVObject@@@Z @0x0045C812 62B
-// Bezier fire-temp-weapon plus list push calling rowed WeaponStore::rva002CE8AA 0x002CE8AA and pinned push_back 0x002A1B6F
+// Bezier fire-temp-weapon plus list push calling rowed WeaponStore::handleProjectileDetonation 0x002CE8AA and pinned push_back 0x002A1B6F
 // Evidence: unlock packet 0x0045C812 between PoolKey 0x0045BFD9 and dtor 0x0045C959; Bezier offsets 0x2C 0x40 0x74 0x7C from xfer 0x0045CA8E; Object +0x38 +0x74 from WeaponStoreCreateAndFireTempWeapon; caller 0x0045CDCB
 struct Coord3D
 {
@@ -37,7 +37,7 @@ public:
 class WeaponStore
 {
 public:
-	void rva002CE8AA(const WeaponTemplate *wt, const Coord3D *pos1, const Object *source, const Coord3D *pos2, int x);
+	void handleProjectileDetonation(const WeaponTemplate *wt, const Coord3D *pos1, const Object *source, const Coord3D *pos2, int x);
 };
 
 extern WeaponStore *TheWeaponStore;
@@ -108,7 +108,7 @@ private:
 
 void BezierProjectileBehavior::rva0045C812(const Object *obj)
 {
-	TheWeaponStore->rva002CE8AA(m_weapon40, &m_coord2C, (const Object *)*(void **)((char *)this + 8), &obj->m_position, m_int74);
+	TheWeaponStore->handleProjectileDetonation(m_weapon40, &m_coord2C, (const Object *)*(void **)((char *)this + 8), &obj->m_position, m_int74);
 	ObjectID id = obj->m_id;
 	m_list7C.push_back(id);
 }

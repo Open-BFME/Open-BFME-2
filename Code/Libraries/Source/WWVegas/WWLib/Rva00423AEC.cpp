@@ -8,7 +8,7 @@
 
 class Object;
 class Player;
-class Rva0018BB10Roster;
+class Squad;
 class Rva0029FB3BMember;
 class Rva002A1B6FNativeList;
 class Rva2225E0Filter;
@@ -30,7 +30,7 @@ public:
 	unsigned char m_438;
 };
 
-class Rva0018BB10Roster
+class Squad
 {
 public:
 	const VecObjectPtr &rva004D6CAC();
@@ -40,7 +40,7 @@ class Player
 {
 public:
 	char m_pad[0x730];
-	Rva0018BB10Roster *m_roster;
+	Squad *m_roster;
 };
 
 class Rva0029FB3BMember
@@ -76,7 +76,7 @@ bool Rva00423AEC::rva00423AEC(Player *player, Rva0029FB3BMember *out)
 	out->reset();
 	if (!player)
 		return false;
-	Rva0018BB10Roster *roster = player->m_roster;
+	Squad *roster = player->m_roster;
 	if (!roster)
 		return false;
 	const VecObjectPtr &objects = roster->rva004D6CAC();

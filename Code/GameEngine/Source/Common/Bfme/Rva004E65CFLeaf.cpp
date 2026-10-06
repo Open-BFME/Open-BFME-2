@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?rva004E65CF@Rva004E65CF@@QAEXXZ @0x004E65CF 191B
+// ?createPotentialClaimDecal@Impl@PlaceTerrainResourceClaimantFeedback@@QAEXXZ @0x004E65CF 191B
 // Leaf method on the 0x004E669A class (same this, +4/+8/+0xC/+0x1C): builds an
 // AudioEventRTS temp from the +4 param-block string, scales the +0xC float by
 // 2.0f into two audio floats, plays it through g_00DEC2D4 slot 8 into +0x1C,
@@ -91,7 +91,13 @@ extern float g_Va00BC28F4;
 // g_Va00BC28F4: matched references place it at VA 0xbc28f4 (retail .rdata value 2.0f).
 float g_Va00BC28F4 = 2.0f;
 
-class Rva004E65CF
+class PlaceTerrainResourceClaimantFeedback
+{
+public:
+	class Impl;
+};
+
+class PlaceTerrainResourceClaimantFeedback::Impl
 {
 	void *m_00;
 	Rva004E65CFParams *m_04;
@@ -102,10 +108,10 @@ class Rva004E65CF
 	int m_18;
 	Rva00330995 *m_1C;
 public:
-	void rva004E65CF();
+	void createPotentialClaimDecal();
 };
 
-void Rva004E65CF::rva004E65CF()
+void PlaceTerrainResourceClaimantFeedback::Impl::createPotentialClaimDecal()
 {
 	AudioEventRTS ev;
 	ev.m_first = m_04->m_sound;

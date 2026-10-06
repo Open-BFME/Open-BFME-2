@@ -156,15 +156,15 @@ struct Rva005C1A8DInner
 	char m_pad00[0x04];
 	char *m_04;
 };
-class Rva005C1A8D
+class AptSkirmishStats
 {
 public:
-	char *rva005C1A8D();
+	char *GetRankPointValue();
 private:
 	char m_pad00[0x2C];
 	Rva005C1A8DInner *m_2C;
 };
-char *Rva005C1A8D::rva005C1A8D()
+char *AptSkirmishStats::GetRankPointValue()
 {
 	if (m_2C == 0)
 		return g_rva005C1A8DDefault;

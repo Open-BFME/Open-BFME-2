@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva005EEB7B@Rva005EEB7B@@QAEXPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAVPlayer@@@Z, retail 0x005EEB7B, 123 bytes.
+// ?findUnitInCombat@AISpellBookBase@@QAEXPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAVPlayer@@@Z, retail 0x005EEB7B, 123 bytes.
 // Collects ModuleData entries for objects whose current victim is controlled.
 // Evidence: caller 0x005D7B65 passes this+0x28 with vector+Player; callees rowed;
 // global g_00DFEEF8 map lookup then LeaField+4 range, TheGameLogic findObjectByID,
@@ -89,13 +89,13 @@ struct IdRange
 	ObjectID *m_end;
 };
 
-class Rva005EEB7B
+class AISpellBookBase
 {
 public:
-	void rva005EEB7B(_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *vec, Player *player);
+	void findUnitInCombat(_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *vec, Player *player);
 };
 
-void Rva005EEB7B::rva005EEB7B(_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *vec, Player *player)
+void AISpellBookBase::findUnitInCombat(_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *vec, Player *player)
 {
 	void *store = g_00DFEEF8->rva002A8F24(player);
 	Rva005C4AD1LeaField *holder = *(Rva005C4AD1LeaField **)store;

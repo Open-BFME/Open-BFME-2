@@ -1,6 +1,6 @@
 // cl: /Ob2 /EHs /MD
-// ??1Rva00420110@@UAE@XZ, retail 0x004201FA, 62 bytes. Derived dtor of
-// Rva00420110 over Rva0041FE0E over GameEngineDeletingBase: installs derived
+// ??1VictoryConditions@@UAE@XZ, retail 0x004201FA, 62 bytes. Derived dtor of
+// VictoryConditions over Rva0041FE0E over GameEngineDeletingBase: installs derived
 // vtable 0x00C3BA28 then calls rowed this->rva00420110 0x00420110 then
 // installs base vtable 0x00C3B988 via inlined base dtor then calls rowed
 // GameEngineDeletingBase dtor 0x001B4E74 with __EH_prolog 0x00629188.
@@ -25,14 +25,14 @@ inline Rva0041FE0E::~Rva0041FE0E()
 {
 }
 
-class Rva00420110 : public Rva0041FE0E
+class VictoryConditions : public Rva0041FE0E
 {
 public:
-	virtual ~Rva00420110();
+	virtual ~VictoryConditions();
 	void rva00420110();
 };
 
-Rva00420110::~Rva00420110()
+VictoryConditions::~VictoryConditions()
 {
 	rva00420110();
 }

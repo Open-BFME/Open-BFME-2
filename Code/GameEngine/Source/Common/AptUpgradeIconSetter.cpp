@@ -1,5 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva005FD0FA@Rva005FD0FA@@QAEXHPBVImage@@@Z @0x005FD0FA 157B
+// StrategicHUD::ArmyUnitIconMovieClip::SetUpgradeIconImage @0x005FD0FA 157B
+// (WorldBuilder name: WB's body carries the __FUNCTION__ string
+// "StrategicHUD::ArmyUnitIconMovieClip::SetUpgradeIconImage"; the two
+// roll-over handlers share its this)
 // Apt UpgradeIcon setter with index: same family as AptImageKeySetters.cpp.
 // Early-out when the indexed slot already holds the image, otherwise format
 // "_level%u.%s_UpgradeIcon%d" from the rowed level getter 0x005FC754 and the
@@ -38,10 +41,14 @@ private:
 
 extern const char g_Rva0107301CEmptyString[];
 
-class Rva005FD0FA
+namespace StrategicHUD {
+class ArmyUnitIconMovieClip;
+}
+
+class StrategicHUD::ArmyUnitIconMovieClip
 {
 public:
-	void rva005FD0FA(int index, const Image *image);
+	void SetUpgradeIconImage(int index, const Image *image);
 	void OnUpgradeIconRollOver(const char *value);
 	void OnUpgradeIconRollOut(const char *value);
 private:
@@ -54,7 +61,7 @@ private:
 	int m_current; // +0x4c
 };
 
-void Rva005FD0FA::rva005FD0FA(int index, const Image *image)
+void StrategicHUD::ArmyUnitIconMovieClip::SetUpgradeIconImage(int index, const Image *image)
 {
 	const Image *&slot = m_slot[index];
 	if (image == slot)
@@ -78,7 +85,7 @@ void Rva005FD0FA::rva005FD0FA(int index, const Image *image)
 // "_level<n>._OnUpgradeIconRollOver" callback, bound as a member pointer by
 // its constructor 0x005FD251 (that binding is its only reference): the
 // rolled-over slot becomes current when it holds an image.
-void Rva005FD0FA::OnUpgradeIconRollOver(const char *value)
+void StrategicHUD::ArmyUnitIconMovieClip::OnUpgradeIconRollOver(const char *value)
 {
 	if (value && isdigit(*value))
 	{
@@ -90,7 +97,7 @@ void Rva005FD0FA::OnUpgradeIconRollOver(const char *value)
 
 // Retail 0x005FD0A4, 58 bytes: "_OnUpgradeIconRollOut", bound alongside;
 // rolling out of the current slot clears it.
-void Rva005FD0FA::OnUpgradeIconRollOut(const char *value)
+void StrategicHUD::ArmyUnitIconMovieClip::OnUpgradeIconRollOut(const char *value)
 {
 	if (value && isdigit(*value))
 	{

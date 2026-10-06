@@ -1,7 +1,5 @@
 // ?ExecuteAction@@YAHPAUlua_State@@@Z
-// partial score=0.9164 date=2026-10-06
-// ?ExecuteAction@@YAHPAUlua_State@@@Z
-// partial score=0.97 date=2026-10-05
+// partial score=0.9164 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
 #include <string.h>
 

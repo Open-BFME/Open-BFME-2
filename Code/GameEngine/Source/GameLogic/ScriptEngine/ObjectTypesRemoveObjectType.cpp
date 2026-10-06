@@ -61,7 +61,7 @@ AsciiString *Rva003769C2StringVector::erase(AsciiString *position) {
 // Native ObjectTypes storage prefix from the established constructor family:
 // vptr/list-name occupy the first8 bytes, and the observed vector starts+8.
 // This address view introduces no additional private ObjectTypes definition.
-class Rva00376B1EObjectTypesView {
+class ObjectTypes {
  unsigned char prefix[8];
  Rva003769C2StringVector values;
 public:
@@ -69,8 +69,8 @@ public:
  void remove(const AsciiString &name);
 };
 StringBase<char> *Rva000BD22FFind(StringBase<char> *,StringBase<char> *,const StringBase<char> &);
-// ?remove@Rva00376B1EObjectTypesView@@QAEXABVAsciiString@@@Z
-void Rva00376B1EObjectTypesView::remove(const AsciiString &name) {
+// ?remove@ObjectTypes@@QAEXABVAsciiString@@@Z
+void ObjectTypes::remove(const AsciiString &name) {
  const StringBase<char> &needle=*reinterpret_cast<const StringBase<char> *>(&name);
  if(rva00376A62Contains(needle)) {
   AsciiString *position=reinterpret_cast<AsciiString *>(Rva000BD22FFind(
@@ -79,4 +79,4 @@ void Rva00376B1EObjectTypesView::remove(const AsciiString &name) {
   values.erase(position);
  }
 }
-#pragma comment(linker, "/alternatename:?rva00376A62Contains@Rva00376B1EObjectTypesView@@QAE_NABV?$StringBase@D@@@Z=?rva00376A62@Rva00376A62@@QAE_NABV?$StringBase@D@@@Z")
+#pragma comment(linker, "/alternatename:?rva00376A62Contains@ObjectTypes@@QAE_NABV?$StringBase@D@@@Z=?rva00376A62@Rva00376A62@@QAE_NABV?$StringBase@D@@@Z")

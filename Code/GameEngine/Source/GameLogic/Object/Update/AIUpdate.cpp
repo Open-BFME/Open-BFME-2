@@ -2018,37 +2018,13 @@ void AIUpdateInterface::friend_setGoalObject(Object *obj)
 //-------------------------------------------------------------------------------------------------
 /** Is there a path at all that exists from us to the destination location */
 //-------------------------------------------------------------------------------------------------
-// ?isPathAvailable@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::isPathAvailable( const Coord3D *destination ) const
-{
-	
-	// sanity
-	if( destination == NULL )
-		return FALSE;
-
-	const Coord3D *myPos = getObject()->getPosition();
-
-	return TheAI->pathfinder()->clientSafeQuickDoesPathExist( m_locomotorSet, myPos, destination );
-
-}  // end isPathAvailable
+// AIUpdateInterface::isPathAvailable: defined in AIUpdateInterface_isPathAvailable.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Is there a path (computed using the less accurate but quick method )
 	* at all that exists from us to the destination location */
 //-------------------------------------------------------------------------------------------------
-// ?isQuickPathAvailable@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::isQuickPathAvailable( const Coord3D *destination ) const
-{
-	
-	// sanity
-	if( destination == NULL )
-		return FALSE;
-
-	const Coord3D *myPos = getObject()->getPosition();
-
-	return TheAI->pathfinder()->clientSafeQuickDoesPathExistForUI( m_locomotorSet, myPos, destination );
-
-}  // end isQuickPathAvailable
+// AIUpdateInterface::isQuickPathAvailable: defined in AIUpdate/AIUpdateInterface_isQuickPathAvailable.cpp (its row's unit).
 
 
 
@@ -3380,24 +3356,7 @@ void AIUpdateInterface::privateForceAttackObject( Object *victim, Int maxShotsTo
 }
 
 //-----------------------------------------------------------------------------------------
-// ?privateGuardRetaliate@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateGuardRetaliate( Object *victim, const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource )
-{
-	if (!victim) {
-		return;
-	}
-
-	getStateMachine()->clear();
-	getStateMachine()->setGoalObject( victim );
-	setGoalPositionClipped( pos, cmdSource );
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_GUARD_RETALIATE );
-
-	// do this after setting it as the current state, as the max-shots-to-fire is reset in AttackState::onEnter()
-	Weapon* weapon = getObject()->getCurrentWeapon();
-	if (weapon)
-		weapon->setMaxShotCount(maxShotsToFire);
-}
+// AIUpdateInterface::privateGuardRetaliate: defined in AIUpdate/AIUpdateInterface_privateGuardRetaliate.cpp (its row's unit).
 
 //----------------------------------------------------------------------------------------
 /**

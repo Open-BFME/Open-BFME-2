@@ -1,23 +1,30 @@
 // cl: /MD /EHsc
-// ?Rva00579900Get@@YA?AVUnicodeString@@H@Z retail 0x00579900 149B
+// StrategicHUD::FormatBonusText retail 0x00579900 149B,
+// StrategicHUD::FormatCommandPointsText 0x00579868 152B and
+// StrategicHUD::FormatResourceMultiplierText 0x00579995 154B: WorldBuilder
+// names each (StrategicHUDStatsDisplayImpl.cpp lines 203, 187, 219) by the
+// same STRATEGICHUD:Stats* labels.
 // Evidence: unlock; TheGameText fetch slot 0x3C STRATEGICHUD:StatsBonus; UnicodeString format 0x006CB5D0; releaseBuffer 0x00036E70; copy ctor 0x00037050; callers 0x00579D3D 0x00579E82; precedent Rva005D38C8Fetch.cpp single-int
 typedef unsigned short wchar_t;
 typedef bool Bool;
 
 template <typename T> class StringBase;
 class UnicodeString;
-UnicodeString Rva00579900Get(int a);
-UnicodeString Rva00579868Get(int a, int b);
-UnicodeString Rva00579995Get(float v);
+namespace StrategicHUD
+{
+	UnicodeString FormatBonusText(int a);
+	UnicodeString FormatCommandPointsText(int a, int b);
+	UnicodeString FormatResourceMultiplierText(float v);
+}
 
 template <typename T>
 class StringBase
 {
 	friend class AsciiString;
 	friend class UnicodeString;
-	friend UnicodeString Rva00579900Get(int);
-	friend UnicodeString Rva00579868Get(int, int);
-	friend UnicodeString Rva00579995Get(float);
+	friend UnicodeString StrategicHUD::FormatBonusText(int);
+	friend UnicodeString StrategicHUD::FormatCommandPointsText(int, int);
+	friend UnicodeString StrategicHUD::FormatResourceMultiplierText(float);
 
 	StringBase(const StringBase<T> &that);
 	void releaseBuffer();
@@ -39,9 +46,9 @@ private:
 
 class UnicodeString
 {
-	friend UnicodeString Rva00579900Get(int);
-	friend UnicodeString Rva00579868Get(int, int);
-	friend UnicodeString Rva00579995Get(float);
+	friend UnicodeString StrategicHUD::FormatBonusText(int);
+	friend UnicodeString StrategicHUD::FormatCommandPointsText(int, int);
+	friend UnicodeString StrategicHUD::FormatResourceMultiplierText(float);
 public:
 	UnicodeString() {}
 	UnicodeString(const UnicodeString &that) : m_data(that.m_data) {}
@@ -75,7 +82,7 @@ public:
 extern GameTextInterface *TheGameText;
 extern unsigned short g_Va007BB5C4;
 
-UnicodeString Rva00579900Get(int a)
+UnicodeString StrategicHUD::FormatBonusText(int a)
 {
 	UnicodeString tmp;
 	Bool exists;
@@ -87,7 +94,7 @@ UnicodeString Rva00579900Get(int a)
 	return tmp;
 }
 
-UnicodeString Rva00579868Get(int a, int b)
+UnicodeString StrategicHUD::FormatCommandPointsText(int a, int b)
 {
 	UnicodeString tmp;
 	Bool exists;
@@ -99,7 +106,7 @@ UnicodeString Rva00579868Get(int a, int b)
 	return tmp;
 }
 
-UnicodeString Rva00579995Get(float v)
+UnicodeString StrategicHUD::FormatResourceMultiplierText(float v)
 {
 	UnicodeString tmp;
 	Bool exists;

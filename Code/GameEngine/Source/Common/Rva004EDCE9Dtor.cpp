@@ -9,10 +9,10 @@
 // LINK BONUS 156B file waits for this name.
 #include "ascii_string.h"
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	void rva004ED748(int a, int b);
+	void end(int a, int b);
 };
 
 extern "C" void __cdecl free(void *p);
@@ -42,5 +42,5 @@ private:
 
 Rva004EDCE9::~Rva004EDCE9()
 {
-	((Rva004ECECD *)this)->rva004ED748(0, 1);
+	((AITactic *)this)->end(0, 1);
 }

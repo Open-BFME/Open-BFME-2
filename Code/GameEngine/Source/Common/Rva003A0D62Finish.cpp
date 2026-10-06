@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
-// ?rva003A0D62@Rva003A0D62@@QAEXABVRva0039D769@@@Z @0x003A0D62 166B.
+// ?addUnitInfo@TeamPrototype@@QAEXABVRva0039D769@@@Z @0x003A0D62 166B.
 // Evidence: unlock lane; the 0x18-stride array is Rva0039D5A9::m_items[7]
 // at +0x130 (m_sum at +0x12c, count at +0xAC -> +0x1D8); StringBase compare
 // row 0x0039D769 assign row; total at +0x2D4; max 7.
@@ -28,17 +28,17 @@ public:
 	int m_countAC;
 };
 
-class Rva003A0D62
+class TeamPrototype
 {
 public:
-	void rva003A0D62(const Rva0039D769 &src);
+	void addUnitInfo(const Rva0039D769 &src);
 	char m_pad[0x12c];
 	Rva0039D5A9 m_sum;
 	char m_pad2[0xf8];
 	int m_total;
 };
 
-void Rva003A0D62::rva003A0D62(const Rva0039D769 &src)
+void TeamPrototype::addUnitInfo(const Rva0039D769 &src)
 {
 	int i = 0;
 	if (m_sum.m_countAC > 0)

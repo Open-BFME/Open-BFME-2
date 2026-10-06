@@ -47,7 +47,7 @@ public:
     void rva006F6D30(void *arg);
 };
 
-class Rva006E3230
+class AptActionQueueC
 {
 public:
     void rva006E39A0();
@@ -111,7 +111,7 @@ private:
     AptValue *m_pValue6C;
     char _pad70[0x9c - 0x70];
     AptValue *m_pValue9C;
-    Rva006E3230 *m_pActionPool;
+    AptActionQueueC *m_pActionPool;
     char _padA4[4];
     int m_nCountA8;
 };

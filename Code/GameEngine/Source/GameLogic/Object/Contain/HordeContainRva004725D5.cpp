@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva004725D5@HordeContain@@UAEXPAVObject@@@Z, retail 0x004725D5, 75 bytes.
+// ?gatherUnitBack@HordeContain@@UAEXPAVObject@@@Z, retail 0x004725D5, 75 bytes.
 // Slot 38 of ??_7HordeContain 0x00C45050 (the last of the slots 34 to 38 it
 // adds over OpenContain's 34; HorseHordeContain and AODHordeContain keep it).
 // Erases the object's ID from the keyed tree at +0x170 (rowed erase-by-key
@@ -87,13 +87,13 @@ class HordeContain : public OpenContainView
 {
 public:
 	virtual void s22(); virtual void s23(); virtual void s24(); virtual void s25();
-	virtual void rva004725D5(Object *obj);
+	virtual void gatherUnitBack(Object *obj);
 private:
 	Rva002EE9B7 m_170;
 };
 
-// ?rva004725D5@HordeContain@@UAEXPAVObject@@@Z @0x004725D5
-void HordeContain::rva004725D5(Object *obj)
+// ?gatherUnitBack@HordeContain@@UAEXPAVObject@@@Z @0x004725D5
+void HordeContain::gatherUnitBack(Object *obj)
 {
 	ObjectID id = obj->getID();
 	m_170.rva0046EDEF(reinterpret_cast<const int &>(id));

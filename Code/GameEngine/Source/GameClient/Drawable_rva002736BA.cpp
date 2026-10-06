@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /G7
-// ?rva002736BA@Drawable@@QAEXABV?$StringBase@D@@H@Z @0x002736BA 155B: Drawable find-or-create Anim2D at +0x354 slot 10 via container g_00DFF068 and TheGameLogic frame; neighbours Drawable_rva00273648 Drawable_rva00273755; callers 0x0036E1C3 0x003BC996.
+// ?setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z @0x002736BA 155B: Drawable find-or-create Anim2D at +0x354 slot 10 via container g_00DFF068 and TheGameLogic frame; neighbours Drawable_rva00273648 Drawable_rva00273755; callers 0x0036E1C3 0x003BC996.
 #include "ascii_string.h"
 
 struct Rva002D752DNode;
@@ -50,14 +50,14 @@ class Drawable
 {
 public:
 	void rva002736A8();
-	void rva002736BA(const StringBase<char> &name, int val);
+	void setEmoticon(const StringBase<char> &name, int val);
 };
 
 // ?rva002736A8@Drawable@@QAEXXZ present-unmatched
 // ?rva002D752D@Rva002D752D@@QAEPAURva002D752DNode@@ABV?$StringBase@D@@@Z present-unmatched
 // ?rva00270BA8@Rva00270BA8@@QAEPAVRva00270025@@XZ present-unmatched
 // ??0Anim2D@@QAE@PAURva002D752DNode@@PAVRva002D752D@@@Z present-unmatched
-void Drawable::rva002736BA(const StringBase<char> &name, int val)
+void Drawable::setEmoticon(const StringBase<char> &name, int val)
 {
 	rva002736A8();
 	Rva002D752DNode *found = g_00DFF068->rva002D752D(name);

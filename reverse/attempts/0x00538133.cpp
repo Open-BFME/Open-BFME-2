@@ -1,4 +1,6 @@
 // ??1Rva00538133@@UAE@XZ
+// partial score=0.8478 date=2026-10-06
+// ??1Rva00538133@@UAE@XZ
 // partial score=0.95 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs
 // ??1Rva00538133@@UAE@XZ @ 0x00538133 134B
@@ -8,6 +10,7 @@
 // +0x20/+0x24 (releaseBuffer 0x00036410 rowed). Two non-virtual bases push the
 // vbptr to +0x18: empty vptr base for the final store, holder (int + list) for
 // the list at +8. /EHs keeps the state around the extern C free.
+#include <stdlib.h>
 #include "ascii_string.h"
 
 class Rva0053805DBase;
@@ -34,7 +37,7 @@ public:
 	~Rva00537F56List();
 };
 
-extern "C" void __cdecl free(void *);
+// (CRT prototype from the standard header)
 
 namespace _STL
 {

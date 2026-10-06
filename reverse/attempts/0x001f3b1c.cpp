@@ -1,4 +1,6 @@
 // ?rva001F3B1C@Rva001F3B1C@@QAEXM@Z
+// partial score=0.7598 date=2026-10-06
+// ?rva001F3B1C@Rva001F3B1C@@QAEXM@Z
 // partial score=0.9 date=2026-10-01
 // cl: /O1 /MD /arch:SSE
 // ?rva001F3B1C@Rva001F3B1C@@QAEXM@Z @0x001F3B1C 247B. Rotates three (x,y) pairs
@@ -6,8 +8,9 @@
 // 0x0062920A/0x00629216) then clears byte at +0x1a0. Same family as
 // Rva001F38C1Slot::set bulk copy plus 0x1a0 clear; callers at
 // 0x000C7351/0x001E20FD. Honest Rva name.
-extern "C" double __cdecl cos(double v);
-extern "C" double __cdecl sin(double v);
+// (CRT prototype from the standard header)
+// (CRT prototype from the standard header)
+#include <math.h>
 class Rva001F3B1C {
 public:
     void rva001F3B1C(float angle);

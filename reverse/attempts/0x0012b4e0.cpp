@@ -1,6 +1,8 @@
 // ?Check_Texture_Compression_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z
+// partial score=0.7907 date=2026-10-06
+// ?Check_Texture_Compression_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z
 // partial score=0.75 date=2026-09-10
-// cl: /G7 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD /G6
 //
 // DX8Caps::Check_Texture_Compression_Support, retail 0x0012B4E0, 98 bytes.
 // Dedicated TU so dx8caps.cpp cannot see this definition. The five DXT flags

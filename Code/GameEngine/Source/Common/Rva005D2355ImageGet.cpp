@@ -36,7 +36,7 @@ extern class Rva002D06CA *TheThingFactory;
 
 class ThingTemplate {
 public:
-    const Image *rva0033B580();
+    const Image *getButtonImage();
     const Image *rva0033BA46();
 };
 
@@ -76,7 +76,7 @@ const Image *Rva005F031DGet(Rva005D2355In *in)
     if (!((const StringBase<char> *)&s)->isEmpty()) {
         void *v = TheThingFactory->rva002D06CA(&s);
         if (v != 0)
-            return ((ThingTemplate *)v)->rva0033B580();
+            return ((ThingTemplate *)v)->getButtonImage();
     }
     int id = in->id54;
     Rva002E2903Player *p = g_009FEF10->find(id, 0);

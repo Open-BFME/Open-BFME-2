@@ -1,5 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /GX- /DNDEBUG /MD
-// ?rva000B9C8C@Rva000B9C8C@@QAEPBVImage@@XZ 0x000B9C8C 92B
+// W3DScriptedModelDraw::getButtonImage 0x000B9C8C 92B (WorldBuilder name,
+// W3DScriptedModelDraw.cpp line 3537: same compareNoCase/set/findImageByName
+// refresh of the cached +0x2E0 image); a virtual inherited by seven draw vtables.
 // Evidence: leaf slot 52 of W3D Draw vtables; cached-image refresh comparing AsciiString at data+0x5C against member at +0x2E4 via rowed compareNoCase then set; empty check on StringBase at data+0x60 via rowed isEmpty; else rowed findImageByName through g_00DFF078.
 
 #include "ascii_string.h"
@@ -20,19 +22,19 @@ struct Rva000B9C8CData
 	StringBase<char> m_b;
 };
 
-class Rva000B9C8C
+class W3DScriptedModelDraw
 {
 public:
-	const Image *rva000B9C8C();
+	virtual const Image *getButtonImage();
 private:
-	unsigned char m_pad[0x14];
+	unsigned char m_pad04[0x14 - 4];
 	Rva000B9C8CData *m_data;
 	unsigned char m_pad18[0x2E0 - 0x18];
 	const Image *m_img;
 	AsciiString m_name;
 };
 
-const Image *Rva000B9C8C::rva000B9C8C()
+const Image *W3DScriptedModelDraw::getButtonImage()
 {
 	Rva000B9C8CData *d = m_data;
 	if (d != 0)

@@ -1,5 +1,5 @@
 // cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
-// ?rva00603944@Rva0060453B@@UAEX_N@Z @0x00603944 188B: vslot 1 of vtable 0x0087A94C (class of ??0Rva0060453B@@QAE@XZ). Loads lang big files. Evidence: vtable slot 1; strings "%s*.big" "lang\" "lang\%sAudio.big" "EnglishAudio.big" "*.big" "apt\"; global TheArchiveFileSystem; buffers g_00DD509C g_Rva0107301CEmptyString.
+// ?init@Win32BIGFileSystem@@UAEX_N@Z @0x00603944 188B: vslot 1 of vtable 0x0087A94C (class of ??0Win32BIGFileSystem@@QAE@XZ). Loads lang big files. Evidence: vtable slot 1; strings "%s*.big" "lang\" "lang\%sAudio.big" "EnglishAudio.big" "*.big" "apt\"; global TheArchiveFileSystem; buffers g_00DD509C g_Rva0107301CEmptyString.
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *fmt, ...);
 
 class ArchiveFileSystem
@@ -17,11 +17,11 @@ extern ArchiveFileSystem *TheArchiveFileSystem;
 extern char g_00DD509C[];
 extern const char g_Rva0107301CEmptyString[];
 
-class Rva0060453B
+class Win32BIGFileSystem
 {
 public:
-	virtual ~Rva0060453B();
-	virtual void rva00603944(bool flag);
+	virtual ~Win32BIGFileSystem();
+	virtual void init(bool flag);
 	virtual void V2();
 	virtual void V3();
 	virtual void V4();
@@ -31,7 +31,7 @@ public:
 	virtual void S8(const char *a, const char *b, int c);
 };
 
-void Rva0060453B::rva00603944(bool flag)
+void Win32BIGFileSystem::init(bool flag)
 {
 	char buf[0x104];
 

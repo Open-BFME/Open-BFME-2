@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfmevector /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
-// ?rva004ED1A1@Rva004ECECD@@QAEXHPAVObject@@@Z @0x004ED1A1 92B
+// ?teamAttackObject@AITactic@@QAEXHPAVObject@@@Z @0x004ED1A1 92B
 // HLod attack helper: find node via rowed 0x004ECF05 then create AI group, fill via Team, attack victim, destroy group, clear +0x10.
-// Evidence: chain via 0x004ECF05; callees rowed createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 rva002FE712 0x002FE712 plus pins findInstance 0x0039F761 groupAttackObjectPrivate 0x0036FD64; globals g_Va009FF0F8 TheTeamFactory; ret 8 two args.
+// Evidence: chain via 0x004ECF05; callees rowed createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 destroyGroup 0x002FE712 plus pins findInstance 0x0039F761 groupAttackObjectPrivate 0x0036FD64; globals g_Va009FF0F8 TheTeamFactory; ret 8 two args.
 class Object;
 enum CommandSourceType
 {
@@ -10,9 +10,9 @@ enum CommandSourceType
 class AIGroup;
 class Team;
 class AI;
-class Rva004ECECD;
+class AITactic;
 class TeamFactory;
-extern class AI *TheAI;
+extern AI *g_Va009FF0F8;
 extern TeamFactory *TheTeamFactory;
 class Rva0039F761Owner
 {
@@ -48,7 +48,7 @@ public:
 	void rva00372571(Rva00372571Params *params, int source);
 private:
 	void groupAttackObjectPrivate(bool a, Object *victim, int b, CommandSourceType c);
-	friend class Rva004ECECD;
+	friend class AITactic;
 };
 class BfmeC986
 {
@@ -59,20 +59,20 @@ class AI
 {
 public:
 	AIGroup *createGroup();
-	void rva002FE712(AIGroup *group);
+	void destroyGroup(AIGroup *group);
 };
 class Team
 {
 public:
 	void getTeamAsAIGroup(AIGroup *group);
 };
-class Rva004ECECD
+class AITactic
 {
 public:
 	Rva004ECECDNode *rva004ECF05(int id);
-	void rva004ED1A1(int id, Object *victim);
-	void rva004ED1FD(int id, const struct Coord3D *p);
-	void rva004ED257(int id, const struct Coord3D *p);
+	void teamAttackObject(int id, Object *victim);
+	void teamAttackMove(int id, const struct Coord3D *p);
+	void teamForceMove(int id, const struct Coord3D *p);
 	void rva004ED342(void *p);
 	void rva004ED372(const struct Coord3D *p);
 private:
@@ -82,52 +82,52 @@ private:
 	char m_pad1C[0x8];
 	Rva002A9BF2 *m_24;
 };
-void Rva004ECECD::rva004ED1A1(int id, Object *victim)
+void AITactic::teamAttackObject(int id, Object *victim)
 {
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
 	{
-		AIGroup *group = TheAI->createGroup();
+		AIGroup *group = g_Va009FF0F8->createGroup();
 		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
 		team->getTeamAsAIGroup(group);
 		group->groupAttackObjectPrivate(false, victim, 0x7fffffff, (CommandSourceType)0);
-		TheAI->rva002FE712(group);
+		g_Va009FF0F8->destroyGroup(group);
 		node->m_10 = 0;
 	}
 }
 
-// ?rva004ED1FD@Rva004ECECD@@QAEXHPBUCoord3D@@@Z @ 0x004ED1FD 90B.
-// Gap-lane like rva004ED1A1 but move-order via pinned 0x00372B09 with
+// ?teamAttackMove@AITactic@@QAEXHPBUCoord3D@@@Z @ 0x004ED1FD 90B.
+// Gap-lane like teamAttackObject but move-order via pinned 0x00372B09 with
 // (p, 0x7fffffff, 0). Same rowed find/create/fill/destroy plus globals.
 // Evidence: pin QAEXHPBUCoord3D; callers 0x004ED274 0x004ED362 0x005A9EBA 0x005A9F31.
-void Rva004ECECD::rva004ED1FD(int id, const struct Coord3D *p)
+void AITactic::teamAttackMove(int id, const struct Coord3D *p)
 {
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
 	{
-		AIGroup *group = TheAI->createGroup();
+		AIGroup *group = g_Va009FF0F8->createGroup();
 		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
 		team->getTeamAsAIGroup(group);
 		((BfmeC986 *)group)->rva00372B09((int)p, 0x7fffffff, 0);
-		TheAI->rva002FE712(group);
+		g_Va009FF0F8->destroyGroup(group);
 		node->m_10 = 0;
 	}
 }
 
-// ?rva004ED257@Rva004ECECD@@QAEXHPBUCoord3D@@@Z @0x004ED257 150B
-// Guarded move-order helper: if +0x24 difficulty source is null delegate to rowed rva004ED1FD, else node via 0x004ECF05 then create AI group, fill via Team, issue group move via 0x00372571 with position block, destroy group, clear +0x10.
-// Evidence: same TU/class as rva004ED1A1 siblings; callees rowed rva002A9BF2 0x002A9BF2 rva004ECF05 0x004ECF05 createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 rva002FE712 0x002FE712 plus pins rva004ED1FD 0x004ED1FD findInstance 0x0039F761 rva00372571 0x00372571; globals g_Va009FF0F8 TheTeamFactory; ret 8 two args.
-void Rva004ECECD::rva004ED257(int id, const struct Coord3D *p)
+// ?teamForceMove@AITactic@@QAEXHPBUCoord3D@@@Z @0x004ED257 150B
+// Guarded move-order helper: if +0x24 difficulty source is null delegate to rowed teamAttackMove, else node via 0x004ECF05 then create AI group, fill via Team, issue group move via 0x00372571 with position block, destroy group, clear +0x10.
+// Evidence: same TU/class as teamAttackObject siblings; callees rowed rva002A9BF2 0x002A9BF2 rva004ECF05 0x004ECF05 createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 destroyGroup 0x002FE712 plus pins teamAttackMove 0x004ED1FD findInstance 0x0039F761 rva00372571 0x00372571; globals g_Va009FF0F8 TheTeamFactory; ret 8 two args.
+void AITactic::teamForceMove(int id, const struct Coord3D *p)
 {
 	if (m_24->rva002A9BF2() == 0)
 	{
-		rva004ED1FD(id, p);
+		teamAttackMove(id, p);
 		return;
 	}
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
 	{
-		AIGroup *group = TheAI->createGroup();
+		AIGroup *group = g_Va009FF0F8->createGroup();
 		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
 		team->getTeamAsAIGroup(group);
 		Rva00372571Params params;
@@ -140,27 +140,27 @@ void Rva004ECECD::rva004ED257(int id, const struct Coord3D *p)
 		params.m_18 = 0;
 		params.m_1C = false;
 		group->rva00372571(&params, 0);
-		TheAI->rva002FE712(group);
+		g_Va009FF0F8->destroyGroup(group);
 		node->m_10 = 0;
 	}
 }
 
-// ?rva004ED342@Rva004ECECD@@QAEXPAX@Z @ 0x004ED342 (48B). Loop over Rva004ECECDNode range calling rowed rva004ED1A1-style helper rva004ED1FD. Count is (m_end-m_begin)/0x14 via idiv. No donor. Callers 0x005A9BB4 0x005AA66A. Honest pin name.
-void Rva004ECECD::rva004ED342(void *p)
+// ?rva004ED342@AITactic@@QAEXPAX@Z @ 0x004ED342 (48B). Loop over Rva004ECECDNode range calling rowed teamAttackObject-style helper teamAttackMove. Count is (m_end-m_begin)/0x14 via idiv. No donor. Callers 0x005A9BB4 0x005AA66A. Honest pin name.
+void AITactic::rva004ED342(void *p)
 {
 	unsigned int count = (unsigned int)(m_end - m_begin);
 	for (unsigned int i = 0; i < count; ++i)
-		rva004ED1FD((int)i, (const struct Coord3D *)p);
+		teamAttackMove((int)i, (const struct Coord3D *)p);
 }
 
-// ?rva004ED372@Rva004ECECD@@QAEXPBUCoord3D@@@Z @0x004ED372 48B
+// ?rva004ED372@AITactic@@QAEXPBUCoord3D@@@Z @0x004ED372 48B
 // Loop over Rva004ECECDNode range calling rowed 0x004ED257 with same point; count is (m_end-m_begin)/0x14 via idiv like sibling 0x004ED342.
 // Evidence: chain via just-landed 0x004ED257; callers 0x004EDA76 0x005A991D 0x005AB713 pass getPosition and record points; pin QAEXPBUCoord3D const Coord3D spelling.
-void Rva004ECECD::rva004ED372(const struct Coord3D *p)
+void AITactic::rva004ED372(const struct Coord3D *p)
 {
 	unsigned int count = (unsigned int)(m_end - m_begin);
 	for (unsigned int i = 0; i < count; ++i)
-		rva004ED257((int)i, p);
+		teamForceMove((int)i, p);
 }
 
 // Retail's data references in this unit's matched rows land on globals defined

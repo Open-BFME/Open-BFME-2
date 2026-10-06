@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 #include "ascii_string.h"
 
-// ?rva00420110@Rva00420110@@QAEXXZ, retail 0x00420110, 111 bytes. HideEndGame
+// ?rva00420110@VictoryConditions@@QAEXXZ, retail 0x00420110, 111 bytes. HideEndGame
 // plus score-screen transition: when the Apt target is present and +0x10 is
 // set, invoke (void*)13 "HideEndGame" with rest 0, clear +0x10, set
 // TheDisplay byte at +0x140 to 1, then when the multiplayer gate answers
@@ -54,7 +54,7 @@ public:
 	void setGroup(AsciiString groupName, bool immediate);
 };
 
-class Rva00420110
+class VictoryConditions
 {
 public:
 	void rva00420110();
@@ -65,7 +65,7 @@ private:
 	unsigned char m_85;
 };
 
-void Rva00420110::rva00420110()
+void VictoryConditions::rva00420110()
 {
 	if (TheRva00222A8BTarget != 0 && m_10 != 0)
 	{

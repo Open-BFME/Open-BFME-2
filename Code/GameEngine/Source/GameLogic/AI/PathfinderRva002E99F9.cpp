@@ -1,5 +1,5 @@
 // cl: /MD
-// Dump lane range 13: ?rva002E99F9 @0x002E99F9 211B. Two-position cell
+// Dump lane range 13: ?FindBrokenBridge @0x002E99F9 211B. Two-position cell
 // resolution (TerrainLogic layers, then Pathfinder cells) feeding the
 // union-find subobject at +0x460 through the pinned 0x0053241F/0x00531FD4
 // thunks. Param a2 is overwritten with a ushort result (dead after the
@@ -53,18 +53,18 @@ class Pathfinder
 {
 public:
 	PathfindCell *rva002E8BF8(PathfindLayerEnum layer, const Coord3D *pos);
-	int rva002E99F9(Rva002E99F9Arg1 *a1, const Coord3D * volatile a2, const Coord3D *a3);
+	int FindBrokenBridge(Rva002E99F9Arg1 *a1, const Coord3D * volatile a2, const Coord3D *a3);
 private:
 	char m_pad0[0x460];
 	Rva002E99F9Sub460 m_sub460;
 };
-// ?rva002E99F9@Pathfinder@@QAEHPAURva002E99F9Arg1@@RBUCoord3D@@PBU3@@Z
+// ?FindBrokenBridge@Pathfinder@@QAEHPAURva002E99F9Arg1@@RBUCoord3D@@PBU3@@Z
 // @0x002E99F9 211B. a2 is top-level volatile: retail observably writes the
 // dead param slot (mov [ebp+0xc]) after the fifth sub-call, and the
 // qualifier keeps that store. Flags /O1 /MD /G7: /G7 lowers the ushort
 // cell-field loads as plain 16-bit mov (no movzx) like the rowed
 // Rva00531A44 find in the same family.
-int Pathfinder::rva002E99F9(Rva002E99F9Arg1 *a1, const Coord3D * volatile a2, const Coord3D *a3)
+int Pathfinder::FindBrokenBridge(Rva002E99F9Arg1 *a1, const Coord3D * volatile a2, const Coord3D *a3)
 {
 	PathfindLayerEnum layerA3 = TheTerrainLogic->getLayerForDestination(0, a3);
 	PathfindLayerEnum layerA2 = TheTerrainLogic->getLayerForDestination(0, a2);

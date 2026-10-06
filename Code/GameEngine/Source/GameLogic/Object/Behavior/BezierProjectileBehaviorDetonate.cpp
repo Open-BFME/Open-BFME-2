@@ -144,7 +144,7 @@ public:
 class WeaponStore
 {
 public:
-	void rva002CE8AA(const WeaponTemplate *tmpl, const Coord3D *launchPos, const Object *source,
+	void handleProjectileDetonation(const WeaponTemplate *tmpl, const Coord3D *launchPos, const Object *source,
 		const Coord3D *pos, int bonus);	// 0x002CE8AA
 	void rva002CE964(const WeaponTemplate *tmpl, const Object *source, const Object *victim);	// 0x002CE964
 };
@@ -211,7 +211,7 @@ void BezierProjectileBehavior::rva0045C026()
 		if (victim && m_detonationWeaponTmpl->m_131)
 			TheWeaponStore->rva002CE964(m_detonationWeaponTmpl, source, victim);
 		else
-			TheWeaponStore->rva002CE8AA(m_detonationWeaponTmpl, &m_launchPos, source, obj->getPosition(),
+			TheWeaponStore->handleProjectileDetonation(m_detonationWeaponTmpl, &m_launchPos, source, obj->getPosition(),
 				m_extraBonusFlags);
 		if (m_moduleData->m_detonateCallsKill)
 			obj->kill(DAMAGE_RVA0045C026_8, DEATH_RVA0045C026_10);

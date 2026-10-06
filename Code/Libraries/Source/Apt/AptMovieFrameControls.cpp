@@ -77,7 +77,7 @@ void AptMovie::doFrameControls(AptDisplayList *display,AptCIH *inst,int frame) {
 }
 
 #pragma comment(linker, "/alternatename:?rva007002C0@Rva007002C0@@QAEXHPAXH0@Z=?runStream@AptActionInterpreter@@QAEPBEPBEPAVAptCIH@@HPAUAptCharacterInst@@@Z")
-#pragma comment(linker, "/alternatename:?removeObject@AptDisplayList@@QAEXPAH@Z=?bfmeForward1279@BfmeWrapper1279@@QAEXPAUBfmeInput1279@@@Z")
+#pragma comment(linker, "/alternatename:?removeObject@AptDisplayList@@QAEXPAH@Z=?bfmeForward1279@AptDisplayList@@QAEXPAUBfmeInput1279@@@Z")
 #pragma comment(linker, "/alternatename:?AptDebuggerPrint@@YAXHPBDZZ=?Rva006CC110Log@@YAXHPBDZZ")
 
 // Temporary controls: donor semantic guide; native preserves old always-true

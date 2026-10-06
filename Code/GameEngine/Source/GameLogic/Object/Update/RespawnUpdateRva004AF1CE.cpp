@@ -1,6 +1,6 @@
 // cl: /MD /GX
 //
-// ?rva004AF1CE@RespawnUpdate@@QAEPAVObject@@XZ, retail 0x004AF1CE, 143 bytes.
+// ?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ, retail 0x004AF1CE, 143 bytes.
 // A RespawnUpdate member (layout as RespawnUpdateCtor.cpp: +0x04 the module
 // data, +0x08 the object; caller 0x004AFA17 in the unrowed 0x004AF92F): the
 // closest object within 1000000 of ours that passes the 0x00260E2A filter
@@ -85,7 +85,7 @@ struct RespawnUpdateModuleData
 class RespawnUpdate
 {
 public:
-	Object *rva004AF1CE();
+	Object *searchForSuitableSpawnAtObject();
 
 private:
 	const void *m_vtable;
@@ -93,7 +93,7 @@ private:
 	Object *m_object;				// +0x08
 };
 
-Object *RespawnUpdate::rva004AF1CE()
+Object *RespawnUpdate::searchForSuitableSpawnAtObject()
 {
 	Object *obj = m_object;
 	const RespawnUpdateModuleData *md = m_moduleData;

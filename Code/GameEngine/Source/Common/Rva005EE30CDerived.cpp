@@ -33,13 +33,13 @@ Rva005D736E::~Rva005D736E()
 {
 }
 
-class Rva005D7706 : public Rva005EE30C
+class AISpellBookTreeKiller : public Rva005EE30C
 {
 public:
-	virtual ~Rva005D7706();
+	virtual ~AISpellBookTreeKiller();
 };
 
-Rva005D7706::~Rva005D7706()
+AISpellBookTreeKiller::~AISpellBookTreeKiller()
 {
 }
 

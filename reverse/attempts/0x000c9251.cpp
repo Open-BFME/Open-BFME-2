@@ -1,4 +1,7 @@
 // ?init@OrnamentData@@QAEXXZ
+// partial score=0.4291 date=2026-10-06
+// ?init@OrnamentData@@QAEXXZ
+// cl: /O2 /DNDEBUG /MD /G7 /arch:SSE
 // partial score=0.96 date=2026-09-25
 // Probe: OrnamentData::init.
 class OrnamentData

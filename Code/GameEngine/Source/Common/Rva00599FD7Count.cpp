@@ -1,6 +1,6 @@
 // cl: /GX-
 //
-// ?Rva00599FD7Count@@YGHPAVTeam@@@Z @0x00599FD7 69B
+// ?getCurNumUnits@AITeamBuilder@@QAEHPAVTeam@@@Z @0x00599FD7 69B
 // Count team members whose template kind bytes have bit 8 at +0x108 or bit 4
 // at +0x113. Evidence: unlock lane, iterate at 0x00263864 plus advance,
 // ret-4 single Team arg, 2 callers, OR of two byte tests, honest Count verb.
@@ -48,7 +48,13 @@ public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
 
-int __stdcall Rva00599FD7Count(Team *team)
+class AITeamBuilder
+{
+public:
+	int getCurNumUnits(Team *team);
+};
+
+int AITeamBuilder::getCurNumUnits(Team *team)
 {
 	int count = 0;
 	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); ((Rva001705A0DlinkIterator<Object> &)iter).advance()) {

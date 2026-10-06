@@ -34,32 +34,27 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-class Rva003F0466
+// LivingWorldRegion::GetFortressDisplayName (0x003F0466) and
+// GetFortressDisplayDescription (0x003F04E0): WorldBuilder names
+// (LivingWorldRegion.cpp lines 1478 and 1486), the labels at +0x124 / +0x128
+// fetched through TheGameText unless empty.
+class LivingWorldRegion
 {
 public:
-	UnicodeString rva003F0466();
+	UnicodeString GetFortressDisplayName();
+	UnicodeString GetFortressDisplayDescription();
 private:
 	char m_pad[0x124];
-	AsciiString m_label;
+	AsciiString m_fortressNameLabel;			// +0x124
+	AsciiString m_fortressDescriptionLabel;		// +0x128
 };
 
-// 0x003F04E0 is the same getter via the AsciiString at +0x128 (caller 0x005E2644).
-
-UnicodeString Rva003F0466::rva003F0466()
+UnicodeString LivingWorldRegion::GetFortressDisplayName()
 {
-	return !((const StringBase<char> *)&m_label)->isEmpty() ? TheGameText->fetchLabel(m_label) : UnicodeString::TheEmptyString;
+	return !((const StringBase<char> *)&m_fortressNameLabel)->isEmpty() ? TheGameText->fetchLabel(m_fortressNameLabel) : UnicodeString::TheEmptyString;
 }
 
-class Rva003F04E0
+UnicodeString LivingWorldRegion::GetFortressDisplayDescription()
 {
-public:
-	UnicodeString rva003F04E0();
-private:
-	char m_pad[0x128];
-	AsciiString m_label;
-};
-
-UnicodeString Rva003F04E0::rva003F04E0()
-{
-	return !((const StringBase<char> *)&m_label)->isEmpty() ? TheGameText->fetchLabel(m_label) : UnicodeString::TheEmptyString;
+	return !((const StringBase<char> *)&m_fortressDescriptionLabel)->isEmpty() ? TheGameText->fetchLabel(m_fortressDescriptionLabel) : UnicodeString::TheEmptyString;
 }

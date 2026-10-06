@@ -1,8 +1,8 @@
 // cl: /MD
-// ?rva005312BE@Rva005312BE@@QAEXXZ @ 0x005312BE (66B): __thiscall clears byte at +0x34 of each 0x44-sized entry.
-// ?rva00531300@Rva005312BE@@QAEXXZ @ 0x00531300 (66B): same shape sets byte to 1.
-// ?rva00531431@Rva005312BE@@QAEXHH@Z @ 0x00531431 (80B): bounded setter writes byte at +0x35 and flag at +0x1BA30.
-// ?rva00531512@Rva005312BE@@QAEEHH@Z @ 0x00531512 (76B): bounded getter returns entry flag or 0.
+// ?rva005312BE@PathfindZoneManager@@QAEXXZ @ 0x005312BE (66B): __thiscall clears byte at +0x34 of each 0x44-sized entry.
+// ?rva00531300@PathfindZoneManager@@QAEXXZ @ 0x00531300 (66B): same shape sets byte to 1.
+// ?MarkDirty@PathfindZoneManager@@QAEXHH@Z @ 0x00531431 (80B): bounded setter writes byte at +0x35 and flag at +0x1BA30.
+// ?IsPassable@PathfindZoneManager@@QAEEHH@Z @ 0x00531512 (76B): bounded getter returns entry flag or 0.
 // Offsets 0x1BA38/0x1BA3C/0x1BA40 shared with Rva005315B0IntPairField in Disp32IntPairFieldGetters.cpp.
 // Callers at 0x002F960C 0x002FA743 0x002FB050 0x002FCA6F 0x002FD573. Owner unknown so honest address name.
 class Rva00531132
@@ -21,18 +21,18 @@ public:
 	unsigned char m_35;
 	char m_pad1[0x44 - 0x34 - 2];
 };
-class Rva005312BE
+class PathfindZoneManager
 {
 public:
 	void rva005312BE();
 	void rva00531300();
 	void rva00531481();
-	void rva00531431(int a, int b);
+	void MarkDirty(int a, int b);
 	void rva005314C6(int a, int b, unsigned char c);
-	unsigned char rva00531512(int a, int b);
-	void rva00531342(struct Rva005312BERect *r);
+	unsigned char IsPassable(int a, int b);
+	void MarkDirty(struct Rva005312BERect *r);
 	void rva0053155E(int a, int b, bool add, int value);
-	int rva0053161A(int a, int b, int index);
+	int GetPortal(int a, int b, int index);
 	bool rva005315C8(int a, int b);
 	char m_pad[0x1BA30];
 	unsigned char m_flag1BA30;
@@ -48,7 +48,7 @@ struct Rva005312BERect
 	int x1;
 	int y1;
 };
-void Rva005312BE::rva005312BE()
+void PathfindZoneManager::rva005312BE()
 {
 	for (int i = 0; i < m_outer; ++i)
 	{
@@ -56,7 +56,7 @@ void Rva005312BE::rva005312BE()
 			m_ppItems[i][j].m_cleared = 0;
 	}
 }
-void Rva005312BE::rva00531481()
+void PathfindZoneManager::rva00531481()
 {
 	m_flag1BA30 = 1;
 	for (int i = 0; i < m_outer; ++i)
@@ -65,7 +65,7 @@ void Rva005312BE::rva00531481()
 			m_ppItems[i][j].m_35 = 1;
 	}
 }
-void Rva005312BE::rva00531300()
+void PathfindZoneManager::rva00531300()
 {
 	for (int i = 0; i < m_outer; ++i)
 	{
@@ -73,7 +73,7 @@ void Rva005312BE::rva00531300()
 			m_ppItems[i][j].m_cleared = 1;
 	}
 }
-unsigned char Rva005312BE::rva00531512(int a, int b)
+unsigned char PathfindZoneManager::IsPassable(int a, int b)
 {
 	if (a < 0 || b < 0)
 		return 0;
@@ -83,7 +83,7 @@ unsigned char Rva005312BE::rva00531512(int a, int b)
 		return 0;
 	return m_ppItems[i][j].m_cleared;
 }
-void Rva005312BE::rva00531431(int a, int b)
+void PathfindZoneManager::MarkDirty(int a, int b)
 {
 	m_flag1BA30 = 1;
 	if (a < 0 || b < 0)
@@ -94,10 +94,10 @@ void Rva005312BE::rva00531431(int a, int b)
 		return;
 	m_ppItems[i][j].m_35 = 1;
 }
-// ?rva005314C6@Rva005312BE@@QAEXHHE@Z, retail 0x005314C6, 76 bytes.
+// ?rva005314C6@PathfindZoneManager@@QAEXHHE@Z, retail 0x005314C6, 76 bytes.
 // Bounded setter writes byte at +0x34 with value; gap between 0x00531481 and 0x00531512.
 // Callers at 0x002F368A 0x002F36AD; shares 0x1BA38/0x1BA3C/0x1BA40 stride 0x44.
-void Rva005312BE::rva005314C6(int a, int b, unsigned char c)
+void PathfindZoneManager::rva005314C6(int a, int b, unsigned char c)
 {
 	if (a < 0 || b < 0)
 		return;
@@ -108,7 +108,7 @@ void Rva005312BE::rva005314C6(int a, int b, unsigned char c)
 	m_ppItems[i][j].m_cleared = c;
 }
 
-void Rva005312BE::rva00531342(Rva005312BERect *r)
+void PathfindZoneManager::MarkDirty(Rva005312BERect *r)
 {
 	if (r->x1 < r->x0)
 		return;
@@ -133,8 +133,8 @@ void Rva005312BE::rva00531342(Rva005312BERect *r)
 			m_ppItems[i][j].m_35 = 1;
 	}
 }
-// ?rva0053155E@Rva005312BE@@QAEXHH_NH@Z @ 0x0053155E (82B): bounded forward to Rva00531132 set; callers at 0x002E9033 0x002E9090.
-void Rva005312BE::rva0053155E(int a, int b, bool add, int value)
+// ?rva0053155E@PathfindZoneManager@@QAEXHH_NH@Z @ 0x0053155E (82B): bounded forward to Rva00531132 set; callers at 0x002E9033 0x002E9090.
+void PathfindZoneManager::rva0053155E(int a, int b, bool add, int value)
 {
 	if (a < 0 || b < 0)
 		return;
@@ -149,7 +149,7 @@ void Rva005312BE::rva0053155E(int a, int b, bool add, int value)
 // Same signed16-unit coordinate division, header offsets and44h cell stride
 // as the rowed grid getter/setter siblings above. Original owner and word
 // identity remain unknown; this only returns the selected stored bits.
-int Rva005312BE::rva0053161A(int a, int b, int index)
+int PathfindZoneManager::GetPortal(int a, int b, int index)
 {
 	if (a < 0 || b < 0)
 		return 0;
@@ -159,10 +159,10 @@ int Rva005312BE::rva0053161A(int a, int b, int index)
 		return 0;
 	return m_ppItems[i][j].m_set.rva0053117F(index);
 }
-// ?rva005315C8@Rva005312BE@@QAE_NHH@Z, retail 0x005315C8, 82 bytes.
+// ?rva005315C8@PathfindZoneManager@@QAE_NHH@Z, retail 0x005315C8, 82 bytes.
 // Leaf: bounded check whether cell count is positive; shares 0x1BA38/0x1BA3C/0x1BA40 stride 0x44.
 // Caller at 0x002F7C3F; sibling getter 0x00531512 shape.
-bool Rva005312BE::rva005315C8(int a, int b)
+bool PathfindZoneManager::rva005315C8(int a, int b)
 {
 	if (a < 0 || b < 0)
 		return false;

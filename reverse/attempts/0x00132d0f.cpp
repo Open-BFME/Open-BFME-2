@@ -1,4 +1,6 @@
-// ?rva00132D0F@Rva00132D0FHolder@@QAEHXZ
+// ?rva00132D0F@Rva00132D0FHolder@@QAE_NXZ
+// partial score=0.99 date=2026-10-06
+// ?rva00132D0F@Rva00132D0FHolder@@QAE_NXZ
 // partial score=0.85 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 //
@@ -33,23 +35,16 @@ public:
 class Rva00132D0FHolder
 {
 public:
-	int rva00132D0F(void);
+	bool rva00132D0F(void);
 	int rva0013275A(void);
 	int rva00132784(void);
 private:
 	Rva00132D0FIface *m_00; // +0x00
 };
 
-int Rva00132D0FHolder::rva00132D0F(void)
+bool Rva00132D0FHolder::rva00132D0F(void)
 {
-	Rva00132D0FIface *m = m_00;
-	if (m != 0) {
-		if (m->slot17())
-			return 1;
-	}
-	if (rva0013275A() == 1) {
-		if (rva00132784() == 1)
-			return 1;
-	}
-	return 0;
+	if (m_00 && m_00->slot17())
+		return true;
+	return rva0013275A() == 1 && rva00132784() == 1;
 }

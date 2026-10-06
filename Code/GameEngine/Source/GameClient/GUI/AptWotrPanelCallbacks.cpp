@@ -98,7 +98,11 @@ public:
 	void rva0057A92D();
 };
 
-class Rva0057B5AA
+namespace StrategicHUD {
+class ChecklistUIImpl;
+}
+
+class StrategicHUD::ChecklistUIImpl
 {
 public:
 	void OnClosed(const char *unused);
@@ -120,14 +124,14 @@ private:
 };
 
 // Retail 0x0057A3D7, 13 bytes: bound as "<movie>_OnClosed" (0x0057B7E5).
-void Rva0057B5AA::OnClosed(const char *unused)
+void StrategicHUD::ChecklistUIImpl::OnClosed(const char *unused)
 {
 	if (m_state == 3)
 		m_state = 0;
 }
 
 // Retail 0x0057A3E4, 16 bytes: bound as "<movie>_OnOpen" (0x0057B774).
-void Rva0057B5AA::OnOpen(const char *unused)
+void StrategicHUD::ChecklistUIImpl::OnOpen(const char *unused)
 {
 	if (m_state == 1)
 		m_state = 2;
@@ -135,14 +139,14 @@ void Rva0057B5AA::OnOpen(const char *unused)
 
 // Retail 0x0057A4DC, 11 bytes: bound as "<movie>_OnScrollBarUnloaded"
 // (0x0057B703).
-void Rva0057B5AA::OnScrollBarUnloaded(const char *unused)
+void StrategicHUD::ChecklistUIImpl::OnScrollBarUnloaded(const char *unused)
 {
 	m_scrollBar.clear();
 }
 
 // Retail 0x0057B4F9, 177 bytes: bound as "<movie>_OnScrollBarLoaded"
 // (0x0057B6A3): builds the scroll bar once, listens to it and refreshes.
-void Rva0057B5AA::OnScrollBarLoaded(const char *name)
+void StrategicHUD::ChecklistUIImpl::OnScrollBarLoaded(const char *name)
 {
 	Rva000AD6F4 *scrollBar = &m_scrollBar;
 	if (scrollBar->m_ptr == 0)
@@ -155,7 +159,7 @@ void Rva0057B5AA::OnScrollBarLoaded(const char *name)
 
 // Retail 0x0057AC0C, 27 bytes: bound as "<movie>_OnExpandButtonClicked"
 // (0x0057B859): collapses an open panel, expands a closed one.
-void Rva0057B5AA::OnExpandButtonClicked(const char *unused)
+void StrategicHUD::ChecklistUIImpl::OnExpandButtonClicked(const char *unused)
 {
 	int state = m_state;
 	if (state == 2)
@@ -204,7 +208,11 @@ public:
 	void rva0057BAC4();
 };
 
-class Rva0057BD79
+namespace StrategicHUD {
+class SelectionDetailsUIImpl;
+}
+
+class StrategicHUD::SelectionDetailsUIImpl
 {
 public:
 	void OnPanelFrameLoaded(const char *name);
@@ -224,7 +232,7 @@ private:
 
 // Retail 0x0057B9F1, 148 bytes: bound as "<movie>_OnPanelFrameLoaded"
 // (0x0057BEE4).
-void Rva0057BD79::OnPanelFrameLoaded(const char *name)
+void StrategicHUD::SelectionDetailsUIImpl::OnPanelFrameLoaded(const char *name)
 {
 	if (m_panelFrame.m_ptr == 0)
 		m_panelFrame.reset(new Rva005D4FFC(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
@@ -232,14 +240,14 @@ void Rva0057BD79::OnPanelFrameLoaded(const char *name)
 
 // Retail 0x0057BA85, 11 bytes: bound as "<movie>_OnPanelFrameUnloaded"
 // (0x0057BF3A).
-void Rva0057BD79::OnPanelFrameUnloaded(const char *name)
+void StrategicHUD::SelectionDetailsUIImpl::OnPanelFrameUnloaded(const char *name)
 {
 	((Rva0057B9B6 *)&m_panelFrame)->clear();
 }
 
 // Retail 0x0057BC2A, 27 bytes: bound as "<movie>_OnToggleButtonClicked"
 // (0x0057BFC9): opens a closed panel, closes an open one.
-void Rva0057BD79::OnToggleButtonClicked(const char *unused)
+void StrategicHUD::SelectionDetailsUIImpl::OnToggleButtonClicked(const char *unused)
 {
 	int state = m_state;
 	if (state == 0)
@@ -250,7 +258,7 @@ void Rva0057BD79::OnToggleButtonClicked(const char *unused)
 
 // Retail 0x0057BC9E, 27 bytes: bound as "<movie>_OnClosed" (0x0057BE19);
 // finishes closing and tells the listeners (animation slot 2).
-void Rva0057BD79::OnClosed(const char *unused)
+void StrategicHUD::SelectionDetailsUIImpl::OnClosed(const char *unused)
 {
 	if (m_state == 3)
 	{
@@ -261,7 +269,7 @@ void Rva0057BD79::OnClosed(const char *unused)
 
 // Retail 0x0057BCB9, 30 bytes: bound as "<movie>_OnOpened" (0x0057BE5B);
 // finishes opening and tells the listeners (animation slot 1).
-void Rva0057BD79::OnOpened(const char *unused)
+void StrategicHUD::SelectionDetailsUIImpl::OnOpened(const char *unused)
 {
 	if (m_state == 1)
 	{

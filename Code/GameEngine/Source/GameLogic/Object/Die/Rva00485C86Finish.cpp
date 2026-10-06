@@ -10,7 +10,7 @@
 // Evidence: the literal "CreateObjectDieIfEldestKindof" appears in the caller at 0x00485D11 and
 // passes the same `this`; vtable slot 12. Callees are all rowed: findUpgrade 0x0026F26D,
 // getControllingPlayer 0x0028AFA9, Player::rva002AB87D 0x002AB87D, Object::rva00290D2B 0x00290D2B,
-// GameLogic::findObjectByID 0x00049DC5 and ObjectCreationList::rva001F08D3 0x001F08D3.
+// GameLogic::findObjectByID 0x00049DC5 and ObjectCreationList::create 0x001F08D3.
 // ModuleData view: OCL at +0x38, the upgrade name vector at +0x40 (begin) / +0x44 (end).
 //
 // Register shape (this is what the bytes pin down, and the reason the naive port mismatched):
@@ -71,7 +71,7 @@ extern GameLogic *TheGameLogic;
 class ObjectCreationList
 {
 public:
-	void rva001F08D3(void *a1, void *a2, void *a3);
+	void create(void *a1, void *a2, void *a3);
 };
 
 class DieModule
@@ -125,6 +125,6 @@ void CreateObjectDieIfEldestKindof::rva00485C86(const DamageInfo *damageInfo)
 	ObjectCreationList *ocl = data->m_ocl38;
 	if (ocl == 0)
 		return;
-	ocl->rva001F08D3(*(Object **)((char *)this - 8),
+	ocl->create(*(Object **)((char *)this - 8),
 		TheGameLogic->findObjectByID(damageInfo->m_sourceID08), (void *)0);
 }

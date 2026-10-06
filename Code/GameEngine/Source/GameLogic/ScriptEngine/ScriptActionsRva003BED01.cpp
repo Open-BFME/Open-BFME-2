@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?rva003BED01@ScriptActions@@IAEXPAVParameter@@ABVAsciiString@@@Z @ 0x003BED01 (88B). Binds a unit to a team with a virtual hook.
-// Evidence: neighbours doSetTeamState 0x003BEC9B doTeamAttackTeam 0x003BED59 same flags; callees getUnitNamed getTeamNamed isEmpty rva00298AE4 iterate rowed getAttackInfo pinned; caller 1 unclaimed.
+// ?doNamedSetTeam@ScriptActions@@IAEXPAVParameter@@ABVAsciiString@@@Z @ 0x003BED01 (88B). Binds a unit to a team with a virtual hook.
+// Evidence: neighbours doSetTeamState 0x003BEC9B doTeamAttackTeam 0x003BED59 same flags; callees getUnitNamed getTeamNamed isEmpty setTeam iterate rowed getAttackInfo pinned; caller 1 unclaimed.
 #include "ascii_string.h"
 class Parameter;
 class Team;
@@ -26,7 +26,7 @@ extern class ScriptEngine *TheScriptEngine;
 class Object
 {
 public:
-	void rva00298AE4(Team *team);
+	void setTeam(Team *team);
 };
 class Team
 {
@@ -34,9 +34,9 @@ class Team
 class ScriptActions
 {
 protected:
-	void rva003BED01(Parameter *, const AsciiString &);
+	void doNamedSetTeam(Parameter *, const AsciiString &);
 };
-void ScriptActions::rva003BED01(Parameter *unitParam, const AsciiString &teamName)
+void ScriptActions::doNamedSetTeam(Parameter *unitParam, const AsciiString &teamName)
 {
 	Object *unit = TheScriptEngine->getUnitNamed(unitParam);
 	Team *team = TheScriptEngine->getTeamNamed(teamName, true);
@@ -47,5 +47,5 @@ void ScriptActions::rva003BED01(Parameter *unitParam, const AsciiString &teamNam
 	BfmeUnitHook *hook = *(BfmeUnitHook **)((char *)unit + 0x250);
 	if (hook != 0)
 		hook->slot21(team);
-	unit->rva00298AE4(team);
+	unit->setTeam(team);
 }

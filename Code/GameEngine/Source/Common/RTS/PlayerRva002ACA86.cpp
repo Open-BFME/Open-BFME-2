@@ -1,5 +1,5 @@
 // cl: /MD /GX-
-// ?rva002ACA86@Player@@QAEXHPBVGameMessage@@@Z @0x002ACA86 117B: Player GameMessage ObjectID fill.
+// ?processCreateTeamGameMessage@Player@@QAEXHPBVGameMessage@@@Z @0x002ACA86 117B: Player GameMessage ObjectID fill.
 // Evidence: prev PlayerRva002AC673 next PlayerRva002ACD09 same flags; +0x708 10-slot array
 // matches Rva002AA191 m_entries; callees Clear 0x004D6C29 getArgument 0x0030F4EA
 // findObjectByID 0x00049DC5 Find 0x002AA1BF Add 0x004D6C7C TheGameLogic; caller 0x00377BD7.
@@ -52,13 +52,13 @@ public:
 class Player
 {
 public:
-	void rva002ACA86(int index, const GameMessage *msg);
+	void processCreateTeamGameMessage(int index, const GameMessage *msg);
 private:
 	char m_pad[0x708];
 	void *m_array[10];
 };
 
-void Player::rva002ACA86(int index, const GameMessage *msg)
+void Player::processCreateTeamGameMessage(int index, const GameMessage *msg)
 {
 	if (index < 0 || index >= 10)
 		return;

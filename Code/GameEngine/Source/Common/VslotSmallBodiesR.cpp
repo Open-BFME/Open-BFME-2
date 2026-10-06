@@ -39,15 +39,15 @@ struct Rva0018E6B0Entry
 	Int m_1C;
 	Int m_20;
 };
-class Rva0018E6B0
+class HRawAnimClass
 {
 public:
-	bool rva0018E6B0(Int i) const;
+	bool Has_VisibilityF(Int i) const;
 private:
 	char m_pad00[0x50];
 	Rva0018E6B0Entry *m_50;
 };
-bool Rva0018E6B0::rva0018E6B0(Int i) const
+bool HRawAnimClass::Has_VisibilityF(Int i) const
 {
 	return m_50[i].m_1C != 0;
 }

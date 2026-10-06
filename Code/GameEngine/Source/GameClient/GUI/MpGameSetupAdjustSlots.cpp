@@ -1,12 +1,12 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?rva0043EDB4@MpGameSetup@@QAEXXZ @0x0043EDB4 543B.
-// MpGameSetup slot-count balancer: counts AI + open + human non-observer
+// ?rva0043EDB4@AptMpGameSetup@@QAEXXZ @0x0043EDB4 543B.
+// AptMpGameSetup slot-count balancer: counts AI + open + human non-observer
 // slots, closes/converts down to the map's max (+0x20) or opens/converts up.
-// Evidence: neighbours 0x0043EB1D (MpGameSetup::_bfme_onInitGadget) and
+// Evidence: neighbours 0x0043EB1D (AptMpGameSetup::_bfme_onInitGadget) and
 // 0x0043F103; calls rowed rva0043DA65 (game at +0x5C), v12 (+0x30),
 // getMap/findMap via TheMapCache, getSlot/isAI/isHuman/isObserver/
-// setPlayerTemplate and rowed rva0043E30F; owner +0x58 vslot +0x28
+// setPlayerTemplate and rowed ChangePlayerSelection; owner +0x58 vslot +0x28
 // applySlotPlayerTemplate; mode flag +0x7C == 1 early-out; game +0x8C
 // early-out; MapMetaData max at +0x20. Row dup_0029B257 TYPES wrong:
 // retail calls thiscall bool open test at 0x0029B257 whose row is gen-alias
@@ -87,11 +87,11 @@ public:
 	virtual bool applySlotTeam(GameSlot *slot, int team);
 };
 
-class MpGameSetup
+class AptMpGameSetup
 {
 public:
 	void rva0043EDB4();
-	void rva0043E30F(int slot, int value);
+	void ChangePlayerSelection(int slot, int value);
 private:
 	unsigned char m_pad000[0x58];
 	MpGameSetupOwner *m_owner;
@@ -100,7 +100,7 @@ private:
 	int m_mode;
 };
 
-void MpGameSetup::rva0043EDB4()
+void AptMpGameSetup::rva0043EDB4()
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -141,7 +141,7 @@ void MpGameSetup::rva0043EDB4()
 				continue;
 			if (!slot->isOpen())
 				continue;
-			rva0043E30F(i, 1);
+			ChangePlayerSelection(i, 1);
 			--count;
 		}
 		for (int i = 7; i >= 0; --i)
@@ -153,7 +153,7 @@ void MpGameSetup::rva0043EDB4()
 				continue;
 			if (!slot->isAI())
 				continue;
-			rva0043E30F(i, 1);
+			ChangePlayerSelection(i, 1);
 			--count;
 		}
 		for (int i = 7; i >= 0; --i)
@@ -202,7 +202,7 @@ void MpGameSetup::rva0043EDB4()
 				continue;
 			if (slot->isHuman())
 				continue;
-			rva0043E30F(i, 0);
+			ChangePlayerSelection(i, 0);
 			++count;
 		}
 	}

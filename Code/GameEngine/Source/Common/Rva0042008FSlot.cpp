@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva0042008F@Rva00420110@@QAE_NXZ, retail 0x0042008F, 60 bytes. Vslot 18
+// ?isLocalAlliedVictory@VictoryConditions@@QAE_NXZ, retail 0x0042008F, 60 bytes. Vslot 18
 // of vtable 0x00C3BA28: if m_86 set or GameInfo slot 0x50 true then false;
 // else bounds-check m_68 in [0,20) and tail-call virtual slot 0x38 with
 // m_dword18[m_68]. Evidence: callers none; callees rowed GameInfo 0x00A02EEC
@@ -64,10 +64,10 @@ public:
 };
 extern Radar *TheRadar;
 
-class Rva00420110
+class VictoryConditions
 {
 public:
-	virtual ~Rva00420110();
+	virtual ~VictoryConditions();
 	virtual void v01() = 0;
 	virtual void v02() = 0;
 	virtual void v03() = 0;
@@ -94,8 +94,8 @@ public:
 	virtual void v24() = 0;
 	virtual void v25() = 0;
 	virtual bool v26(Player *p) = 0;
-	bool rva0042008F();
-	void rva0041FFAD();
+	bool isLocalAlliedVictory();
+	void cachePlayerPtrs();
 private:
 	char m_pad04[0x8];
 	int m_0C;
@@ -109,7 +109,7 @@ private:
 	unsigned char m_86;
 };
 
-bool Rva00420110::rva0042008F()
+bool VictoryConditions::isLocalAlliedVictory()
 {
 	if (m_86 != 0)
 		return false;
@@ -121,7 +121,7 @@ bool Rva00420110::rva0042008F()
 	return v14(m_dword18[idx]);
 }
 
-// ?rva0041FFAD@Rva00420110@@QAEXXZ @0x0041FFAD 106B
+// ?cachePlayerPtrs@VictoryConditions@@QAEXXZ @0x0041FFAD 106B
 // Vslot 17 of vtable 0x00C3BA28 (offset 0x44). If not multiplayer return;
 // else poll 20 players via ThePlayerList slot, count true from own slot
 // 0x68, zero m_dword18 tail, then if m_68<0 set m_84/m_86 and TheRadar+0x11.
@@ -129,7 +129,7 @@ bool Rva00420110::rva0042008F()
 // init 0x0041FE86 and slot 0x0042008F; callees rowed isMultiplayer
 // 0x0037B18C getNthPlayer 0x002A7A29 plus own slot 0x68; globals
 // g_bfme939Helper ThePlayerList TheRadar as packet annotates.
-void Rva00420110::rva0041FFAD()
+void VictoryConditions::cachePlayerPtrs()
 {
 	if (!g_bfme939Helper->isMultiplayer())
 		return;

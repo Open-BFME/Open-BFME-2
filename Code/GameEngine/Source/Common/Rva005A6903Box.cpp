@@ -1,5 +1,7 @@
 // cl: -GR- -EHsc-
-// ?Run@Rva005A6903Box@@QAEXH@Z @0x005A6903 92B: bounds-checked slot refresh.
+// NAT::processPlayerJoin @0x005A6903 92B (WorldBuilder name, its
+// __FUNCTION__ string "NAT::processPlayerJoin"; WB calls
+// PortNegotiationSchema::playerJoin where retail calls 0x005DC291): bounds-checked slot refresh.
 // Index >= 8 returns early; else the +0x28 sub-object consumes the index,
 // the +0x38 field of m_8[idx] stores through the m_90C[idx] pointer, the
 // pinned predicate gates on, +0x10 stamps 1 with an early-out when the index
@@ -17,7 +19,7 @@ struct Rva005A6903Sub
 	void DoX(int idx);
 };
 
-struct Rva005A6903Box
+struct NAT
 {
 	char pad0[8];
 	Rva005A6903Obj **m_8;
@@ -31,15 +33,15 @@ struct Rva005A6903Box
 	int m_8EC[8];
 	int *m_90C[8];
 
-	bool Check();
-	void Run(int idx);
+	bool rva005A6709();
+	void processPlayerJoin(int idx);
 };
 
 // 0x005A671D ignores incoming ecx (loads its context from the 0xE063FC
 // global first thing), so it is spelled as a free function: no ecx setup.
 int Rva005A671DNext();
 
-void Rva005A6903Box::Run(int idx)
+void NAT::processPlayerJoin(int idx)
 {
 	if ((unsigned short)idx >= 8)
 		return;
@@ -48,7 +50,7 @@ void Rva005A6903Box::Run(int idx)
 	Rva005A6903Obj *o = m_8[idx];
 	int *p = m_90C[idx];
 	*p = o->m_38;
-	if (!Check())
+	if (!rva005A6709())
 		return;
 	if (idx == m_14) {
 		m_10 = 1;

@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?Rva003C87F1Do@@YGXPAVParameter@@ABVAsciiString@@@Z @0x003C87F1 (121B).
+// ?doNamedAttackFollowWaypoints@ScriptActions@@IAEXPAVParameter@@ABVAsciiString@@@Z @0x003C87F1 (121B).
 // Named follow waypoints exact via getUnitNamed plus closest waypoint plus
 // leaveGroup plus aiFollowWaypointPathExact. Evidence: callees rowed
 // getUnitNamed 0x003588E7 aiFollow 0x0036ECE7, caller 0x003CA812.
@@ -67,7 +67,13 @@ public:
 
 extern ScriptEngine *TheScriptEngine;
 
-void __stdcall Rva003C87F1Do(Parameter *unitParam, const AsciiString &pathName)
+class ScriptActions
+{
+protected:
+	void doNamedAttackFollowWaypoints(Parameter *unitParam, const AsciiString &pathName);
+};
+
+void ScriptActions::doNamedAttackFollowWaypoints(Parameter *unitParam, const AsciiString &pathName)
 {
 	Object *unit = TheScriptEngine->getUnitNamed(unitParam);
 	if (!unit)

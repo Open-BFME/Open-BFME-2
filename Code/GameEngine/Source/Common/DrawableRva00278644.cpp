@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ?rva00278644@Drawable@@QAEXXZ retail 0x00278644 69B Drawable one-shot
+// ?setAudible@Drawable@@QAEXXZ retail 0x00278644 69B Drawable one-shot
 // audio trigger: +0x44A flag once via rowed Drawable::rva002784EB then Host
 // 0x002783F6 with 0, then walk null-terminated +0x154 table calling vslot
 // 0x30 and vslot 0. Caller 0x002900A9; LINK names no new pin.
@@ -24,7 +24,7 @@ class Drawable
 {
 public:
 	void rva002784EB();
-	void rva00278644();
+	void setAudible();
 private:
 	unsigned char m_pad00[0x154];
 	Rva00278644Item **m_154; // +0x154
@@ -38,7 +38,7 @@ public:
 	void rva002783F6(int v);
 };
 
-void Drawable::rva00278644()
+void Drawable::setAudible()
 {
 	unsigned char *flag = (unsigned char *)this + 0x44A;
 	if (*flag != 0)

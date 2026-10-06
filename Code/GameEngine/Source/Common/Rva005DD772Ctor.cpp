@@ -69,13 +69,13 @@ Rva005DD822::Rva005DD822(unsigned int v) {
 // Same 8B UnicodeString+float record (m04 at +4). Color is (m04==f) green
 // 0xFF64FF64 else white -1 via ucomiss+lahf+test+jp. Then rowed
 // GadgetListBoxAddEntryText with *this base plus (color a b true) returning
-// idx in esi, then rowed Rva0032434ASet(win idx b 2). Caller 0x005DDC2D.
+// idx in esi, then rowed GadgetListBoxJustifyEntry(win idx b 2). Caller 0x005DDC2D.
 // Unblocks 0x005DDBAB.
 
 class GameWindow;
 
 int GadgetListBoxAddEntryText(GameWindow *win, UnicodeString txt, int c, int a, int b, bool flag);
-void Rva0032434ASet(GameWindow *win, int x, int y, int z);
+void GadgetListBoxJustifyEntry(GameWindow *win, int x, int y, int z);
 
 class Rva005DD88A : public UnicodeString
 {
@@ -88,7 +88,7 @@ int Rva005DD88A::rva005DD88A(GameWindow *win, int a, int b, float f)
 {
 	int color = (m04 == f) ? 0xFF64FF64 : -1;
 	int idx = GadgetListBoxAddEntryText(win, *(UnicodeString *)this, color, a, b, true);
-	Rva0032434ASet(win, idx, b, 2);
+	GadgetListBoxJustifyEntry(win, idx, b, 2);
 	return idx;
 }
 

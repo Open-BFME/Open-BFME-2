@@ -5,7 +5,7 @@
 // addss and store.
 // Elem005DB98E::rva005DB885 @0x005DB885 95B
 // Elem time smoothing: delta from timeGetTime, 0<delta<10000 gates float update of m_04/m_0C then m_10 stamp.
-// Evidence: caller 0x005DBF09 passes eax from rva005DB98E as this with dword arg; same Elem005DB98E layout and IAT timeGetTime as next 0x005DB8F7.
+// Evidence: caller 0x005DBF09 passes eax from peekPing as this with dword arg; same Elem005DB98E layout and IAT timeGetTime as next 0x005DB8F7.
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
 struct Elem005DB98E

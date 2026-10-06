@@ -41,7 +41,7 @@ public:
 };
 
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
-void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
+void GadgetTextEntrySetMaxChars(BfmeKeyLC *textEntry, unsigned short maxLength);
 
 class GameWindowManager
 {
@@ -152,7 +152,7 @@ void AptScoreScreen::InitGadgets(const char *name, void *argument, GameWindow *w
 	{
 		m_rename = window;
 		GadgetTextEntrySetText(window, UnicodeString::TheEmptyString);
-		bfmeGo924F((BfmeKeyLC *)window, 20);
+		GadgetTextEntrySetMaxChars((BfmeKeyLC *)window, 20);
 	}
 }
 

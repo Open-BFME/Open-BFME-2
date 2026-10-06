@@ -124,12 +124,12 @@ Int BfmeAptValue006DCD20::rva006E0510() const
 	return rva006E04A0() != 0;
 }
 
-// 0x006E3490: the rowed BfmeWrapper1279 0x006F80C0(false) on the +0x24
+// 0x006E3490: the rowed AptDisplayList 0x006F80C0(false) on the +0x24
 // member.
-class BfmeWrapper1279
+class AptDisplayList
 {
 public:
-	void rva006F80C0(bool b);
+	void clear(bool b);
 };
 class Rva006E3490
 {
@@ -137,9 +137,9 @@ public:
 	void rva006E3490();
 private:
 	char m_pad00[0x24];
-	BfmeWrapper1279 m_24;
+	AptDisplayList m_24;
 };
 void Rva006E3490::rva006E3490()
 {
-	m_24.rva006F80C0(false);
+	m_24.clear(false);
 }

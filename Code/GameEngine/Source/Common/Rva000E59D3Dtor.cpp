@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 // ??1Rva000E59D3@@UAE@XZ retail 0x000E59D3 82B
-// Own vptr BCE9E0; under EH state 2 the rowed ?rva000E473F@Rva000E473F@@QAEXXZ
+// Own vptr BCE9E0; under EH state 2 the rowed ?rva000E473F@W3DFloorBuffer@@QAEXXZ
 // 0x000E473F runs on this object; then member dtors -- the STLport list base
 // at +0x18 (rowed ??1?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ
 // 0x004EC395) and the texture handle at +0x14 (rowed
@@ -40,7 +40,7 @@ public:
 	TextureClass *m_texture;
 };
 
-class Rva000E473F
+class W3DFloorBuffer
 {
 public:
 	void rva000E473F();
@@ -65,5 +65,5 @@ private:
 
 Rva000E59D3::~Rva000E59D3()
 {
-	reinterpret_cast<Rva000E473F *>(this)->rva000E473F();
+	reinterpret_cast<W3DFloorBuffer *>(this)->rva000E473F();
 }

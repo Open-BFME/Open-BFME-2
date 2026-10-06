@@ -22,10 +22,10 @@ private:
 	char m_rest[0x20C];
 };
 
-class Rva00524B7A
+class MovieWindowPlayback
 {
 public:
-	Rva00524B7A();
+	MovieWindowPlayback();
 private:
 	void *m_vtable;
 	char m_basePad[8];
@@ -51,7 +51,7 @@ class Locomotor : public BfmeAptScreenBase
 public:
 	Locomotor(const LocomotorTemplate *tmpl);
 private:
-	Rva00524B7A m_218;
+	MovieWindowPlayback m_218;
 	int m_254;
 	int m_258[4];
 	unsigned char m_268;

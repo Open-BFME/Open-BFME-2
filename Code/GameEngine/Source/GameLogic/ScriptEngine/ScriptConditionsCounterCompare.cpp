@@ -49,10 +49,10 @@ extern ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {
 protected:
-	bool evaluateCounterCompareRva003E7CBA(Condition *condition);
+	bool evaluateCounterCounter(Condition *condition);
 };
 
-bool ScriptConditions::evaluateCounterCompareRva003E7CBA(Condition *condition)
+bool ScriptConditions::evaluateCounterCounter(Condition *condition)
 {
 	int left = 0;
 	ScriptCounter *counter = (ScriptCounter *)TheScriptEngine->rva002086C5(condition->getParameter(0)->getString());

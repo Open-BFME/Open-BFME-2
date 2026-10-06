@@ -1,6 +1,7 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfme_windowvideo /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// BaseTemplateLibrary::addToSideBasesMap (WorldBuilder name, AIBaseTemplate.cpp line 334: find or insert the side entry in the +0x0C hash map and add the base).
 // stlport
-// ?rva0041E9D2@Rva0041E9D2@@QAE_NW4NameKeyType@@PBVModuleData@@@Z @0x0041E9D2 53B: Armor find plus ObjectLookup slot plus Rva0041E875 push wrapper. Evidence: callees rowed M_find 0x002888D4 plus findSlot 0x0041F4E5 plus 0x0041E8E6 caller 0x0041EEB3 unlocks 0x0041ED84.
+// was ?rva0041E9D2@Rva0041E9D2@@QAE_NW4NameKeyType@@PBVModuleData@@@Z @0x0041E9D2 53B: Armor find plus ObjectLookup slot plus Rva0041E875 push wrapper. Evidence: callees rowed M_find 0x002888D4 plus findSlot 0x0041F4E5 plus 0x0041E8E6 caller 0x0041EEB3 unlocks 0x0041ED84.
 
 enum NameKeyType
 {
@@ -15,7 +16,7 @@ public:
 	float m_damageCoefficient[38];
 };
 
-class Rva0041E9D2;
+class BaseTemplateLibrary;
 
 namespace rts
 {
@@ -51,7 +52,7 @@ template <class V> struct _Hashtable_node
 };
 template <class Val, class Key, class HF, class ExK, class EqK, class All> class hashtable
 {
-	friend class ::Rva0041E9D2;
+	friend class ::BaseTemplateLibrary;
 	typedef _Hashtable_node<Val> _Node;
 private:
 	template <class KT> _Node *_M_find(const KT &) const;
@@ -76,15 +77,15 @@ public:
 	void rva0041E8E6(const ModuleData *arg);
 };
 
-class Rva0041E9D2
+class BaseTemplateLibrary
 {
 public:
-	bool rva0041E9D2(NameKeyType key, const ModuleData *md);
+	bool addToSideBasesMap(NameKeyType key, const ModuleData *md);
 private:
 	char m_pad[12];
 };
 
-bool Rva0041E9D2::rva0041E9D2(NameKeyType key, const ModuleData *md)
+bool BaseTemplateLibrary::addToSideBasesMap(NameKeyType key, const ModuleData *md)
 {
 	ArmorHashtable *ht = (ArmorHashtable *)((char *)this + 12);
 	ObjectLookupMap *om = (ObjectLookupMap *)((char *)this + 12);

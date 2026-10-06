@@ -1,5 +1,5 @@
 // ?rva00564743@Rva005646BC@@UAEXXZ
-// partial score=0.93 date=2026-10-02
+// partial score=0.7868 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /arch:SSE
 // ?rva00564743@Rva005646BC@@UAEXXZ, retail 0x00564743, 443 bytes.
 // Leaf: vtable slot 1 of Rva005646BC class; terrain-collision FX check via

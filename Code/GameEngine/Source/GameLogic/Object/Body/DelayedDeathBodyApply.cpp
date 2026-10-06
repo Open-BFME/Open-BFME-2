@@ -1,5 +1,5 @@
 // cl: /MD
-// ?apply@Rva004C167EOwner@@QAEXMPAUDamageInfo@@@Z
+// ?internalChangeHealth@DelayedDeathBody@@QAEXMPAUDamageInfo@@@Z
 // RVA 004C167E, DelayedDeathBody secondary BodyModule interface slot +0x80.
 // Negative offsets address the primary module data and object through the
 // unchanged interface receiver; the qualified owner preserves that provenance.
@@ -15,7 +15,7 @@ class Object { public:
  // name carries that access; only the friend below may call it here.
 protected:
  Module *findModule(NameKeyType) const;
- friend struct Rva004C167EOwner;
+ friend class DelayedDeathBody;
 };
 class NameKeyGenerator { public: unsigned int nameToKey(const char*); };
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -27,16 +27,18 @@ struct Rva004C167EData {
  unsigned char gap79[3]; const UpgradeTemplate *upgrade7C;
 };
 struct Rva004C1395Owner { void apply(float,DamageInfo*); };
-struct Rva004C167EOwner {
+class DelayedDeathBody
+{
+public:
  // Unused virtual slot signatures are placeholders, not ABI claims.
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0c();
  virtual float health();
  unsigned char beforeF0[0xec]; unsigned char started; unsigned char checked;
  Rva004C167EData *data() const {return *(Rva004C167EData**)((char*)this-12);}
  Object *object() const {return *(Object**)((char*)this-8);}
- void apply(float,DamageInfo*);
+ void internalChangeHealth(float,DamageInfo*);
 };
-void Rva004C167EOwner::apply(float amount,DamageInfo *info)
+void DelayedDeathBody::internalChangeHealth(float amount,DamageInfo *info)
 {
  Object *obj=object();
  const Rva004C167EData *module=data();

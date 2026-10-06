@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva00578AC1@Rva00578AC1@@QAEXPAX@Z, retail 0x00578AC1, 24 bytes.
+// ?rva00578AC1@Palantir@StrategicHUD@@QAEXPAX@Z, retail 0x00578AC1, 24 bytes.
 // Clears byte at +0x54 then broadcasts callback 0x005CB265 with arg this+4 over list at +8 via forEach 0x00578A60.
 // Evidence: packet disassembly, prev forEach row, slot-3 update dispatch thunk, sibling 0x00578B4C pattern, caller 0x00578B7F.
 //
@@ -148,7 +148,11 @@ public:
 	void clear();
 };
 
-class Rva00578AC1
+namespace StrategicHUD {
+class Palantir;
+}
+
+class StrategicHUD::Palantir
 {
 public:
 	void rva00578AC1(void *arg);
@@ -186,17 +190,17 @@ private:
 	bool m_flag56;
 };
 
-void Rva00578AC1::rva00578AC1(void *unused)
+void StrategicHUD::Palantir::rva00578AC1(void *unused)
 {
 	(void)unused;
 	m_flag54 = false;
 	m_list08.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::updateAnimateWindow), &m_04);
 }
 
-// ?rva00578B4C@Rva00578AC1@@QAEXPAX@Z, retail 0x00578B4C, 24 bytes.
+// ?rva00578B4C@Palantir@StrategicHUD@@QAEXPAX@Z, retail 0x00578B4C, 24 bytes.
 // Sets byte at +0x56 then broadcasts callback 0x005CB26A with arg this+0x18 over list at +0x1C via forEach 0x00578A60.
 // Evidence: packet disassembly, sibling 0x00578AC1 pattern, target slot-4 dispatch thunk, caller 0x00578BD4.
-void Rva00578AC1::rva00578B4C(void *unused)
+void StrategicHUD::Palantir::rva00578B4C(void *unused)
 {
 	(void)unused;
 	m_flag56 = true;
@@ -205,7 +209,7 @@ void Rva00578AC1::rva00578B4C(void *unused)
 
 // Retail 0x005785A2, 25 bytes. Name unknown. Keeps the selection and hands
 // it to the selection UI.
-void Rva00578AC1::rva005785A2(void *selection)
+void StrategicHUD::Palantir::rva005785A2(void *selection)
 {
 	if (selection != m_selection)
 	{
@@ -216,20 +220,20 @@ void Rva00578AC1::rva005785A2(void *selection)
 }
 
 // Retail 0x00578761, 151 bytes: bound as "<movie>_OnCommandUILoaded".
-void Rva00578AC1::OnCommandUILoaded(const char *name)
+void StrategicHUD::Palantir::OnCommandUILoaded(const char *name)
 {
 	if (m_commandUI.m_ptr == 0)
 		m_commandUI.rva0057866D(new Rva005D25F2(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
 }
 
 // Retail 0x005787F8, 11 bytes: bound as "<movie>_OnCommandUIUnloaded".
-void Rva00578AC1::OnCommandUIUnloaded(const char *name)
+void StrategicHUD::Palantir::OnCommandUIUnloaded(const char *name)
 {
 	((Rva00578690 *)&m_commandUI)->rva00578690();
 }
 
 // Retail 0x00578803, 148 bytes: bound as "<movie>_OnRegionStatsTrayLoaded".
-void Rva00578AC1::OnRegionStatsTrayLoaded(const char *name)
+void StrategicHUD::Palantir::OnRegionStatsTrayLoaded(const char *name)
 {
 	if (m_regionStatsTray.m_ptr == 0)
 		m_regionStatsTray.rva005786AA(new Rva005D32D4(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
@@ -237,27 +241,27 @@ void Rva00578AC1::OnRegionStatsTrayLoaded(const char *name)
 
 // Retail 0x00578897, 11 bytes: bound as
 // "<movie>_OnRegionStatsTrayUnloaded".
-void Rva00578AC1::OnRegionStatsTrayUnloaded(const char *name)
+void StrategicHUD::Palantir::OnRegionStatsTrayUnloaded(const char *name)
 {
 	((Rva005786CD *)&m_regionStatsTray)->clear();
 }
 
 // Retail 0x005788A2, 148 bytes: bound as "<movie>_OnRegionUILoaded".
-void Rva00578AC1::OnRegionUILoaded(const char *name)
+void StrategicHUD::Palantir::OnRegionUILoaded(const char *name)
 {
 	if (m_regionUI.m_ptr == 0)
 		m_regionUI.reset(new Rva005D3731(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
 }
 
 // Retail 0x00578936, 11 bytes: bound as "<movie>_OnRegionUIUnloaded".
-void Rva00578AC1::OnRegionUIUnloaded(const char *name)
+void StrategicHUD::Palantir::OnRegionUIUnloaded(const char *name)
 {
 	((Rva005786E7 *)&m_regionUI)->rva005786E7();
 }
 
 // Retail 0x00578941, 167 bytes: bound as "<movie>_OnSelectionUILoaded";
 // also hands the new selection UI the current selection.
-void Rva00578AC1::OnSelectionUILoaded(const char *name)
+void StrategicHUD::Palantir::OnSelectionUILoaded(const char *name)
 {
 	if (m_selectionUI.m_ptr == 0)
 	{
@@ -268,14 +272,14 @@ void Rva00578AC1::OnSelectionUILoaded(const char *name)
 }
 
 // Retail 0x005789E8, 11 bytes: bound as "<movie>_OnSelectionUIUnloaded".
-void Rva00578AC1::OnSelectionUIUnloaded(const char *name)
+void StrategicHUD::Palantir::OnSelectionUIUnloaded(const char *name)
 {
 	((Rva00578724 *)&m_selectionUI)->clear();
 }
 
 // Retail 0x00578A7E, 67 bytes: bound as "<movie>_OnOptionsButtonClicked";
 // starts the options button's open (mode 0) or close (mode 2) animation.
-void Rva00578AC1::OnOptionsButtonClicked(const char *unused)
+void StrategicHUD::Palantir::OnOptionsButtonClicked(const char *unused)
 {
 	int mode = ((Rva00578A7EAptMode *)TheRva00222A8BTarget)->m_mode;
 	if (mode == 0)
@@ -286,14 +290,14 @@ void Rva00578AC1::OnOptionsButtonClicked(const char *unused)
 
 // Retail 0x00578AD9, 24 bytes: bound as "<movie>_OnOptionsButtonRollOver"
 // (rva00578AC1 is its "_OnOptionsButtonRollOut").
-void Rva00578AC1::OnOptionsButtonRollOver(const char *unused)
+void StrategicHUD::Palantir::OnOptionsButtonRollOver(const char *unused)
 {
 	m_flag54 = true;
 	m_list08.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow), &m_04);
 }
 
 // Retail 0x00578AF1, 67 bytes: bound as "<movie>_OnObjectivesButtonClicked".
-void Rva00578AC1::OnObjectivesButtonClicked(const char *unused)
+void StrategicHUD::Palantir::OnObjectivesButtonClicked(const char *unused)
 {
 	int mode = ((Rva00578A7EAptMode *)TheRva00222A8BTarget)->m_mode;
 	if (mode == 0)
@@ -304,7 +308,7 @@ void Rva00578AC1::OnObjectivesButtonClicked(const char *unused)
 
 // Retail 0x00578B34, 24 bytes: bound as "<movie>_OnObjectivesButtonRollOut"
 // (rva00578B4C is its "_OnObjectivesButtonRollOver").
-void Rva00578AC1::OnObjectivesButtonRollOut(const char *unused)
+void StrategicHUD::Palantir::OnObjectivesButtonRollOut(const char *unused)
 {
 	m_flag56 = false;
 	m_list1C.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::updateAnimateWindow), &m_18);

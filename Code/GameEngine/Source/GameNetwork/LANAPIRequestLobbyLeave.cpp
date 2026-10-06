@@ -20,7 +20,7 @@ struct LANMessage
 class Transport
 {
 public:
-	Bool Rva004D54C1( Bool argument );
+	Bool update( Bool argument );
 };
 
 class LANAPI
@@ -100,5 +100,5 @@ void LANAPI::RequestLobbyLeave( Bool forced )
 	Rva004495A2( &message, 0 );
 
 	if( forced )
-		m_transport->Rva004D54C1( false );
+		m_transport->update( false );
 }

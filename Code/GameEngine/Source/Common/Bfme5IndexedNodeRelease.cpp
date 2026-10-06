@@ -45,7 +45,7 @@ struct BfmeIndexedNodeFM
 	BfmeMapObjectExtra m_extra;
 };
 
-class BfmeIndexedNodesFM
+class TeamsInfoRec
 {
 public:
 	__declspec(noinline) void bfmePrepareRelease(int index);
@@ -60,8 +60,8 @@ private:
 	short m_freeHead;
 };
 
-// ?bfmeRelease@BfmeIndexedNodesFM@@QAEXH@Z
-void BfmeIndexedNodesFM::bfmeRelease(int index)
+// ?bfmeRelease@TeamsInfoRec@@QAEXH@Z
+void TeamsInfoRec::bfmeRelease(int index)
 {
 	bfmePrepareRelease(index);
 
@@ -80,8 +80,8 @@ void BfmeIndexedNodesFM::bfmeRelease(int index)
 // The owner/layout and release sequence are shared with bfmeRelease above;
 // the original method name is unknown. The +4/+6 reciprocal chain links
 // are independently visible in bfmePrepareRelease at 0x00197750.
-// ?clearChainedNodesAt00197860@BfmeIndexedNodesFM@@QAEXXZ present-unmatched
-void BfmeIndexedNodesFM::clearChainedNodesAt00197860()
+// ?clearChainedNodesAt00197860@TeamsInfoRec@@QAEXXZ present-unmatched
+void TeamsInfoRec::clearChainedNodesAt00197860()
 {
 	int index = m_nodes[0].m_previous;
 	while (index)
@@ -105,7 +105,7 @@ void BfmeIndexedNodesFM::clearChainedNodesAt00197860()
 
 // Retail 0x00197750, 125 bytes. Unlink from the per-key chain; if removing
 // its head, update the tree payload or erase the now-empty tree entry.
-void BfmeIndexedNodesFM::bfmePrepareRelease(int index)
+void TeamsInfoRec::bfmePrepareRelease(int index)
 {
 	BfmeIndexedNodeFM *node = &m_nodes[index];
 	short previous = node->m_chainPrevious;

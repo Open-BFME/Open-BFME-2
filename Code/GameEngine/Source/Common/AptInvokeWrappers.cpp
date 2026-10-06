@@ -84,7 +84,7 @@ private:
 class AptSkirmish
 {
 public:
-	void rva00521770(const char *unused);
+	void OnProfilePopupCancel(const char *unused);
 	void OnAddProfileAccept(const char *unused);
 	void OnChangeProfile(const char *unused);
 };
@@ -121,7 +121,7 @@ void Rva00522A91::rva00521841()
 	case 3:
 	case 4:
 		TheRva00222A8BTarget->invoke(m_owner, "CloseProfilePopup", 0, 0, 0, 0, 0, 0);
-		((AptSkirmish *)this)->rva00521770(0);
+		((AptSkirmish *)this)->OnProfilePopupCancel(0);
 		break;
 	case 8:
 	case 9:

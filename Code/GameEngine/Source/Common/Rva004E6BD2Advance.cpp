@@ -1,6 +1,7 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// InGameNotificationBoxMovieClip::OnClosed (WorldBuilder name, line 318: from state 4 clear, state 1, release the +0x44 hold).
 //
-// ?rva004E6BD2@Rva004E6BD2@@QAEXI@Z @0x004E6BD2 36B.
+// was ?rva004E6BD2@Rva004E6BD2@@QAEXI@Z @0x004E6BD2 36B.
 // State advance when m_8 holds 4: run the rowed 0x00524021 sweep on the
 // +0x30 member, flip m_8 to 1, then run the rowed 0x004E6A1D clear on the
 // +0x44 member. The +0x44 address is taken before the m_8 store, which is
@@ -22,10 +23,10 @@ private:
 	void *m_ptr;
 };
 
-class Rva004E6BD2
+class InGameNotificationBoxMovieClip
 {
 public:
-	void rva004E6BD2(unsigned int flags);
+	void OnClosed(unsigned int flags);
 private:
 	char m_pad[8];
 	int m_8;
@@ -35,7 +36,7 @@ private:
 	Rva004E6A1D m_44;
 };
 
-void Rva004E6BD2::rva004E6BD2(unsigned int flags)
+void InGameNotificationBoxMovieClip::OnClosed(unsigned int flags)
 {
 	(void)flags;
 	if (m_8 == 4) {

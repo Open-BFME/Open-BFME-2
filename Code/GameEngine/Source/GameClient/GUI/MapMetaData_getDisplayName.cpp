@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail RVA 0x00300C7E, 142 bytes (the reloc size 10 is stale).
 // MapMetaData::bfme_getDisplayName, the player-count-suffixed display-name
-// getter called by AptMapPreview::bfmeSetMapTitle. The base name comes from
+// getter called by AptMapPreview::UpdateMapTitle. The base name comes from
 // the sibling bfme_getBaseDisplayName TU; when requested and the count reaches
 // two, a " (%d)" suffix is formatted (UnicodeString::format is a __cdecl
 // member, so this rides the stack: push count, push format, push this) and

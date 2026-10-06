@@ -98,8 +98,8 @@ bool Rva0053EC7D::rva0053ECD1(Int i)
 class ObjectCreationList
 {
 public:
-	void rva001F08D3(void *a, void *b, void *c);
-	void rva001F0878(void *a, void *b, void *c, Int d);
+	void create(void *a, void *b, void *c);
+	void create(void *a, void *b, void *c, Int d);
 };
 struct Rva0050962BArg
 {
@@ -120,13 +120,13 @@ void Rva0050962B::rva0050962B(const Rva0050962BArg *a, void *b)
 {
 	ObjectCreationList *list = m_128;
 	if (list)
-		list->rva001F08D3(TheGameLogic->findObjectByID(a->m_08), b, 0);
+		list->create(TheGameLogic->findObjectByID(a->m_08), b, 0);
 }
 void Rva0050962B::rva0050965A(const Rva0050962BArg *a, void *b)
 {
 	ObjectCreationList *list = m_128;
 	if (list)
-		list->rva001F0878(TheGameLogic->findObjectByID(a->m_08), b, 0, 0);
+		list->create(TheGameLogic->findObjectByID(a->m_08), b, 0, 0);
 }
 
 // 0x00513838: false after the rowed 0x002233A6(1) on the object at VA
@@ -243,12 +243,16 @@ Int Rva005B4BDB::rva005B4C97(Int msg, Int window, Int c)
 
 // 0x005D3CCD: a new +0x20 value is stored between the rowed 0x005D3B9A and
 // 0x005D3B26 (both only while +0x30 is set).
-class Rva005D3B26
+namespace StrategicHUD {
+class SelectionUIImpl;
+}
+
+class StrategicHUD::SelectionUIImpl
 {
 public:
 	void rva005D3B26();
 };
-class Rva005D3B9A : public Rva005D3B26
+class Rva005D3B9A : public StrategicHUD::SelectionUIImpl
 {
 public:
 	void rva005D3B9A();
@@ -273,10 +277,10 @@ void Rva005D3B9A::rva005D3CCD(Int value)
 
 // 0x005EEDF5: the pinned Object 0x00297000 on the argument with the +0x08
 // button and the object whose id is held at +0x1C, then forgets the id.
-class Rva005EEDF5
+class AISpecialPowerTargetEnemy
 {
 public:
-	void rva005EEDF5(Object *obj);
+	void activate(Object *obj);
 private:
 	Int m_00;
 	Int m_04;
@@ -284,7 +288,7 @@ private:
 	char m_pad0C[0x10];
 	ObjectID m_1C;
 };
-void Rva005EEDF5::rva005EEDF5(Object *obj)
+void AISpecialPowerTargetEnemy::activate(Object *obj)
 {
 	obj->rva00297000(m_08, TheGameLogic->findObjectByID(m_1C), 1, 0);
 	m_1C = INVALID_ID;
@@ -303,15 +307,15 @@ class Rva005EE816
 public:
 	bool rva005EE8DD(const Coord3D *pos, Object *obj);
 };
-class Rva005D7AEC : public Rva005EE816
+class AISpellBookBuffTerrain : public Rva005EE816
 {
 public:
-	bool rva005D7AEC(Object *obj);
+	bool shouldActivate(Object *obj);
 private:
 	char m_pad00[0x28];
 	Rva005EEA20 m_28;
 };
-bool Rva005D7AEC::rva005D7AEC(Object *obj)
+bool AISpellBookBuffTerrain::shouldActivate(Object *obj)
 {
 	Object *pick = m_28.rva005EEA20(obj->getControllingPlayer(), true, true);
 	if (pick && !(pick->m_04->m_113 & 4))

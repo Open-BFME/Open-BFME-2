@@ -1,13 +1,13 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// Small MpGameSetup members of BFME2's LAN lobby panel (the screen's +0x288
+// Small AptMpGameSetup members of BFME2's LAN lobby panel (the screen's +0x288
 // object: its callback registration 0x0044303D binds the rowed
-// MpGameSetup::_bfme_onInitGadget 0x0043EB1D, and ??1Rva004421E1 0x004421E1
+// AptMpGameSetup::_bfme_onInitGadget 0x0043EB1D, and ??1Rva004421E1 0x004421E1
 // destroys it). Names are unknown, so each keeps its address.
 //
 // Target facts (all read from retail): the owning screen's interface is
-// at +0x58 (BFME1's MpGameSetup kept its owner at +0x04 behind a smaller
+// at +0x58 (BFME1's AptMpGameSetup kept its owner at +0x04 behind a smaller
 // base); the per-slot player template combo boxes are at +0x334 (as in
 // MpGameSetupOnInitGadget.cpp); +0x2C4 is a dirty flag.
 
@@ -342,24 +342,24 @@ struct Rva00219F8EMask
 };
 
 // TheCreateAHeroManager (0x00DFE344), spelled as Rva00406E65.cpp does.
-class Rva00219B9E
+class CreateAHeroManager
 {
 public:
 	// Unrowed 0x0021F797 (16 bytes; runs 0x0021F47E and returns +0x174),
 	// pinned by address.
 	Rva0040A3F9 *rva0021F797();
-	void *rva00219F8E(unsigned int a, unsigned int b);
+	void *GetFactionMaskType(unsigned int a, unsigned int b);
 
 	__forceinline bool allowsSide(unsigned int a, unsigned int b, int side)
 	{
-		return ((Rva00219F8EMask *)rva00219F8E(a, b))->test(side);
+		return ((Rva00219F8EMask *)GetFactionMaskType(a, b))->test(side);
 	}
-	// Unrowed 0x0021A6C8 (a hero for a side, scanning the +0x174 list),
-	// pinned by address.
-	CreateAHeroData *rva0021A6C8(int side);
-	// Unrowed 0x0021B13A (122 bytes; ret 8; the label for a hero key, a
-	// static default when unknown), pinned by address.
-	const AsciiString &rva0021B13A(int key0c, int key10);
+	// CreateAHeroManager::GetDefaultHero 0x0021A6C8 (a hero for a side,
+	// scanning the +0x174 list).
+	CreateAHeroData *GetDefaultHero(int side);
+	// CreateAHeroManager::GetSubClassNameTag 0x0021B13A (the label for a
+	// class/subclass key, a static default when unknown).
+	const AsciiString &GetSubClassNameTag(unsigned int classIndex, unsigned int subClassIndex);
 };
 
 class PlayerTemplate
@@ -376,7 +376,7 @@ public:
 };
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
-extern Rva00219B9E *g_00DFE344;
+extern CreateAHeroManager *TheCreateAHeroManager;
 
 void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
 int Rva0043F1A4(Rva00222A8BTarget *target, void *owner, const char *name, const int &value, const char *const &text);
@@ -734,25 +734,25 @@ public:
 
 void _bfme_closeAptScreen(const AsciiString &name);
 
-class MpGameSetup
+class AptMpGameSetup
 {
 public:
-	int rva0043DD02(int slot);
+	int GetDisplayedPlayerTemplateIndex(int slot);
 	void rva0043DC0F();
 	void rva0043E49C(const UnicodeString &text);
-	void rva0043E4B6(const char *slotText);
+	void OnKickPlayer(const char *slotText);
 	void rva0043DB6E();
 	bool handlePlayerTemplateSelection(int index);
-	bool rva0043E04D(int index);
+	bool HandleHeroSelection(int index);
 	void rva0043E3E2(int index, int team);
 
-	bool rva0043DD34(GameSlot *slot, int hero);
+	bool SetSlotHeroData(GameSlot *slot, int hero);
 
-	void rva0044149C(GameSlot *slot, int index, bool flag);
+	void UpdateHeroToFaction(GameSlot *slot, int index, bool flag);
 
-	void rva0043E30F(int slot, int value);
+	void ChangePlayerSelection(int slot, int value);
 	void rva0043E253(int slot);
-	void rva00442F65(int query, char *result, bool skip);
+	void ExternFunc(int query, char *result, bool skip);
 	const Image *rva0043E512(int value);
 	void rva0043E5C1(int slot, int kind, int value);
 	void OnSortName(const char *unused);
@@ -762,10 +762,10 @@ public:
 	void OnReadyPress(const char *slotText);
 	bool rva0043E1CC(int which);
 	bool rva0043ECC1(int index);
-	bool rva00443C6E(GameInfo *game, int value);
-	bool rva0043E750(GameInfo *game);
-	bool rva0044127C();
-	void rva00441693(int slot);
+	bool Init(GameInfo *game, int value);
+	bool InitGameInfoFromSaveGame(GameInfo *game);
+	bool WaitStartGame();
+	void UpdatePlayerTemplateDisplay(int slot);
 
 	// Unrowed 0x0043DF22 (the number of accepted seated humans; banked) and
 	// 0x00440BDF (1693 bytes; ret 4), pinned by address.
@@ -801,7 +801,7 @@ public:
 	// Unrowed 0x004422DD (522 bytes), called by 0x00442A19, pinned by
 	// address.
 	void rva004422DD();
-	void rva00441B15(int slot);
+	void UpdateSlot(int slot);
 
 	// Unrowed 0x00442BCC (208 bytes; walks the slots through the encoded
 	// handle iterator of S5HandleHashCompares.cpp, true when every one has
@@ -815,19 +815,19 @@ public:
 
 	void rva004404AC(bool enable, int slot);
 
-	void rva0043F8B3(int slot);
+	void UpdateHeroDisplay(int slot);
 
-	void rva004419FA();
+	void InitAvailableColors();
 
 	void rva004415D5(const AsciiString &map);
-	void rva0043FB5C(int index);
+	void UpdateReadyIcon(int index);
 	bool rva0043FC1F(int kind, bool reset);
-	bool rva004409D2();
+	bool HandleClanChange();
 	bool rva00442A68(int index);
-	bool rva00443EA8();
+	bool OnUpdate();
 	void rva0043EDB4();
 
-	void rva004428C9();
+	void UpdateClans();
 	void rva00443BF3();
 
 	// Unrowed 0x00443538 (1723 bytes; ret 4, its argument a flag mask),
@@ -888,7 +888,7 @@ private:
 
 // Retail 0x0043DD02, 50 bytes: the item data of slot's selected player
 // template, or -1 without a combo box.
-int MpGameSetup::rva0043DD02(int slot)
+int AptMpGameSetup::GetDisplayedPlayerTemplateIndex(int slot)
 {
 	GameWindow *comboBox = m_playerTemplate[slot];
 	if (!comboBox)
@@ -899,7 +899,7 @@ int MpGameSetup::rva0043DD02(int slot)
 }
 
 // Retail 0x0043DC0F, 49 bytes.
-void MpGameSetup::rva0043DC0F()
+void AptMpGameSetup::rva0043DC0F()
 {
 	if (m_2c4)
 	{
@@ -912,7 +912,7 @@ void MpGameSetup::rva0043DC0F()
 
 // Retail 0x0043E49C, 26 bytes: shows a text through the owner's vslot 17
 // (kind 1); its callers in 0x00440BDF pass fetched or built UnicodeStrings.
-void MpGameSetup::rva0043E49C(const UnicodeString &text)
+void AptMpGameSetup::rva0043E49C(const UnicodeString &text)
 {
 	rva0043DC0F();
 	m_owner->v17(text, 1);
@@ -952,7 +952,7 @@ int Rva0043F1A4(Rva00222A8BTarget *target, void *owner, const char *name, const 
 
 // Retail 0x0043E4B6, 92 bytes: when game vslot 12 holds, a slot given by
 // number (1..7) that is neither open nor closed goes to 0x0043E30F.
-void MpGameSetup::rva0043E4B6(const char *slotText)
+void AptMpGameSetup::OnKickPlayer(const char *slotText)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (game && game->v12())
@@ -962,33 +962,33 @@ void MpGameSetup::rva0043E4B6(const char *slotText)
 		{
 			GameSlot *gameSlot = game->getSlot(slot);
 			if (gameSlot && gameSlot->m_state != 0 && gameSlot->m_state != 1)
-				rva0043E30F(slot, 0);
+				ChangePlayerSelection(slot, 0);
 		}
 	}
 }
 
 // Retail 0x0043DB6E, 53 bytes: refreshes the +0xD0 member and, with flag
 // 0x40 set, tells the owner's Apt movie "OnClansFlagChange".
-void MpGameSetup::rva0043DB6E()
+void AptMpGameSetup::rva0043DB6E()
 {
 	m_d0.rva0057EA0F();
 	if (m_flags & 0x40)
 		Rva0043DB23(TheRva00222A8BTarget, m_owner->v21(), "OnClansFlagChange");
 }
 
-// Retail 0x00441AAA, 107 bytes. Donor Open-BFME-1 MpGameSetup.cpp
+// Retail 0x00441AAA, 107 bytes. Donor Open-BFME-1 AptMpGameSetup.cpp
 // (handlePlayerTemplateSelection, BFME1 0x00524C30). BFME2 reads the choice
 // through 0x0043DD02, treats an unchanged template as handled, applies a new
 // one through the owner's applySlotPlayerTemplate (vslot 10) and then
 // refreshes the slot (0x0044149C).
-bool MpGameSetup::handlePlayerTemplateSelection(int index)
+bool AptMpGameSetup::handlePlayerTemplateSelection(int index)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
 		return false;
 
 	m_pending = false;
-	int playerTemplate = rva0043DD02(index);
+	int playerTemplate = GetDisplayedPlayerTemplateIndex(index);
 	if (playerTemplate < -2)
 		return false;
 	GameSlot *slot = game->getSlot(index);
@@ -996,7 +996,7 @@ bool MpGameSetup::handlePlayerTemplateSelection(int index)
 		return false;
 	if (playerTemplate != slot->m_playerTemplate && !m_owner->applySlotPlayerTemplate(slot, playerTemplate))
 		return false;
-	rva0044149C(slot, index, true);
+	UpdateHeroToFaction(slot, index, true);
 	return true;
 }
 
@@ -1004,9 +1004,9 @@ bool MpGameSetup::handlePlayerTemplateSelection(int index)
 // handlePlayerTemplateSelection (BFME1 has no hero choice; the name is
 // unknown). Needs the hero manager; a hero accepted by 0x0043DD34 is applied
 // through the owner's applySlotHero (vslot 6).
-bool MpGameSetup::rva0043E04D(int index)
+bool AptMpGameSetup::HandleHeroSelection(int index)
 {
-	if (!g_00DFE344)
+	if (!TheCreateAHeroManager)
 		return false;
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -1019,7 +1019,7 @@ bool MpGameSetup::rva0043E04D(int index)
 	GameWindow *comboBox = m_hero[index];
 	int selected;
 	GadgetComboBoxGetSelectedPos(comboBox, &selected);
-	if (!rva0043DD34(slot, (int)GadgetComboBoxGetItemData(comboBox, selected)))
+	if (!SetSlotHeroData(slot, (int)GadgetComboBoxGetItemData(comboBox, selected)))
 		return false;
 	return m_owner->applySlotHero(slot);
 }
@@ -1028,7 +1028,7 @@ bool MpGameSetup::rva0043E04D(int index)
 // team combo box (+0x314); in mode 1 an unset team (-1) on a slot that is not
 // closed becomes 1 for slot 1 and 0 otherwise, and the host (game vslot 12)
 // applies it through the owner's applySlotTeam (vslot 12).
-void MpGameSetup::rva0043E3E2(int index, int team)
+void AptMpGameSetup::rva0043E3E2(int index, int team)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -1065,7 +1065,7 @@ void MpGameSetup::rva0043E3E2(int index, int team)
 // (+0x2D4) entry whose list item data equals the slot state and, on the host
 // (game vslot 12), hands the slot, state and the combo text to the owner's
 // slot-state setter (vslot 9, BfmeAptScreenLanLobby::rva00444B90 for LAN).
-void MpGameSetup::rva0043E30F(int index, int state)
+void AptMpGameSetup::ChangePlayerSelection(int index, int state)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -1102,7 +1102,7 @@ void MpGameSetup::rva0043E30F(int index, int state)
 // Evidence: callers 0x004427E8; callees all rowed; TheMultiplayerSettings
 // getColor(-1) plus GadgetComboBoxReset/AddEntry/SetItemData/SetSelectedPos/
 // SetMaxDisplay and UnicodeString::format; neighbours 0x0043E132/0x0043E30F.
-void MpGameSetup::rva0043E253(int slot)
+void AptMpGameSetup::rva0043E253(int slot)
 {
 	if (!m_handicap[slot])
 		return;
@@ -1123,7 +1123,7 @@ void MpGameSetup::rva0043E253(int slot)
 // panel's registration 0x0044303D. Unless told to skip, it writes "1" or "0"
 // for query 0 (owner vslot 1), 1 (0x00442C9C), 2 (mode +0x160 is 1 with a
 // current game) or 3 (flag 0x80 at +0x3A4). Name unknown.
-void MpGameSetup::rva00442F65(int query, char *result, bool skip)
+void AptMpGameSetup::ExternFunc(int query, char *result, bool skip)
 {
 	switch (query)
 	{
@@ -1149,7 +1149,7 @@ void MpGameSetup::rva00442F65(int query, char *result, bool skip)
 // Retail 0x0043E512, 175 bytes: the "AptPing03", "AptPing02" or "AptPing01"
 // image for 1, 2 or 3, else none (it ignores the receiver; the online screen
 // calls it on its own panel at +0x70 too). Name unknown.
-const Image *MpGameSetup::rva0043E512(int value)
+const Image *AptMpGameSetup::rva0043E512(int value)
 {
 	switch (value)
 	{
@@ -1166,7 +1166,7 @@ const Image *MpGameSetup::rva0043E512(int value)
 // Retail 0x0043E5C1, 264 bytes. Name unknown. Shows a slot's connection
 // state as the Apt image "ConnectionIcon~<slot>": failed, waiting,
 // connecting, or (kind 4) the ping image for the value.
-void MpGameSetup::rva0043E5C1(int slot, int kind, int value)
+void AptMpGameSetup::rva0043E5C1(int slot, int kind, int value)
 {
 	const Image *image = 0;
 	switch (kind)
@@ -1195,17 +1195,17 @@ void MpGameSetup::rva0043E5C1(int slot, int kind, int value)
 // "MpGameSetup::OnSortName", "MpGameSetup::OnSortPlayers" and
 // "MpGameSetup::OnSortIcons"; they pick sort column 0, 2 or 4.
 
-void MpGameSetup::OnSortName(const char *)
+void AptMpGameSetup::OnSortName(const char *)
 {
 	rva0043DC40(0);
 }
 
-void MpGameSetup::OnSortPlayers(const char *)
+void AptMpGameSetup::OnSortPlayers(const char *)
 {
 	rva0043DC40(2);
 }
 
-void MpGameSetup::OnSortIcons(const char *)
+void AptMpGameSetup::OnSortIcons(const char *)
 {
 	rva0043DC40(4);
 }
@@ -1214,7 +1214,7 @@ void MpGameSetup::OnSortIcons(const char *)
 // (bound by 0x0044303D; 0x0043E4B6 above is bound the same way as
 // "MpGameSetup::OnKickPlayer"). The chat tab refreshes the +0x244 member and
 // the rules tab the +0xD0 member; the clans and map tabs need nothing.
-void MpGameSetup::OnTabSelect(const char *tab)
+void AptMpGameSetup::OnTabSelect(const char *tab)
 {
 	if (strcmp(tab, "ChatTab") == 0)
 		m_244.rva0057FD94();
@@ -1232,7 +1232,7 @@ void MpGameSetup::OnTabSelect(const char *tab)
 // member's mode or +0x394 is set; then 0x00442BCC decides (a tail jump).
 // Callers 0x00442FA7 (query 1 above), 0x00443C7C, the LAN screen's
 // 0x004467C7 and 0x005216AF.
-bool MpGameSetup::rva00442C9C()
+bool AptMpGameSetup::rva00442C9C()
 {
 	if (m_60.m_mode == 0 && m_mapList == 0)
 		return false;
@@ -1242,7 +1242,7 @@ bool MpGameSetup::rva00442C9C()
 // Retail 0x004427C5, 53 bytes. Name unknown. Refreshes one slot's widgets
 // through five per-slot members (0x0043E253 is the handicap combo box).
 // Only caller 0x00442813 (0x004427FA below).
-void MpGameSetup::rva004427C5(int slot)
+void AptMpGameSetup::rva004427C5(int slot)
 {
 	rva0043F483(slot);
 	rva0043F244(slot, false);
@@ -1254,7 +1254,7 @@ void MpGameSetup::rva004427C5(int slot)
 // Retail 0x004427FA, 46 bytes. Name unknown. Runs 0x004427C5 on all eight
 // slots unless a refresh is already under way (+0x2C2). Called from
 // 0x00443F09.
-void MpGameSetup::rva004427FA()
+void AptMpGameSetup::rva004427FA()
 {
 	if (m_refreshing)
 		return;
@@ -1267,7 +1267,7 @@ void MpGameSetup::rva004427FA()
 // Retail 0x00442A19, 79 bytes. Name unknown. With a current game, runs
 // 0x004422DD and then (under the same +0x2C2 guard) 0x00441B15 on all eight
 // slots, setting the +0x2BD and +0x2BE flags. Called from 0x00443F41.
-void MpGameSetup::rva00442A19()
+void AptMpGameSetup::rva00442A19()
 {
 	if (!m_game->rva0043DA65())
 		return;
@@ -1276,7 +1276,7 @@ void MpGameSetup::rva00442A19()
 		return;
 	m_refreshing = true;
 	for (int slot = 0; slot < 8; ++slot)
-		rva00441B15(slot);
+		UpdateSlot(slot);
 	m_2bd = true;
 	m_2be = true;
 	m_refreshing = false;
@@ -1284,7 +1284,7 @@ void MpGameSetup::rva00442A19()
 
 // Retail 0x0043FFCF, 8 bytes. Name unknown. 0x0043FA68 without a game; the
 // LAN screen's 0x004452DA calls it on its +0x288 panel.
-void MpGameSetup::rva0043FFCF()
+void AptMpGameSetup::rva0043FFCF()
 {
 	rva0043FA68(0);
 }
@@ -1294,7 +1294,7 @@ void MpGameSetup::rva0043FFCF()
 // 0x004421DA; declared here as a plain member, which compiles the same):
 // resets the +0x244 member, clears the +0x60 member's +0x61 flag,
 // g_Va00A0335C and the current game, then 0x0043FA68 without a game.
-void MpGameSetup::rva0043FFD7()
+void AptMpGameSetup::rva0043FFD7()
 {
 	m_244.rva0057FD6E();
 	m_60.m_61 = false;
@@ -1307,7 +1307,7 @@ void MpGameSetup::rva0043FFD7()
 
 // Retail 0x00441685, 14 bytes. Name unknown. 0x004404AC with -1; called
 // from 0x00441BBA (inside 0x00441B15).
-void MpGameSetup::rva00441685(bool flag)
+void AptMpGameSetup::rva00441685(bool flag)
 {
 	rva004404AC(flag, -1);
 }
@@ -1315,18 +1315,18 @@ void MpGameSetup::rva00441685(bool flag)
 // Retail 0x004422B4, 41 bytes. Name unknown. Hands a mode to the +0x60 and
 // +0xD0 members, then 0x004419FA. Called from the LAN screen 0x004443DE and
 // from 0x00522BD5 and 0x005A5CF6.
-void MpGameSetup::rva004422B4(int mode)
+void AptMpGameSetup::rva004422B4(int mode)
 {
 	m_60.rva0057C7BA(mode);
 	m_d0.rva0057F002(mode);
-	rva004419FA();
+	InitAvailableColors();
 }
 
 // Retail 0x00440017, 134 bytes. Name unknown. A different map for the
 // current game goes to GameInfo::setMap and the owner's bfmeMapChanged
 // (vslot 7); then five refresh flags are set. Callers 0x00441679,
 // 0x00442E62, 0x00442E7F and 0x00443E3E.
-void MpGameSetup::rva00440017(const AsciiString &map)
+void AptMpGameSetup::rva00440017(const AsciiString &map)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (game)
@@ -1349,7 +1349,7 @@ void MpGameSetup::rva00440017(const AsciiString &map)
 // without one it selects nothing (an empty list) or the first row and
 // hands the empty or first map to 0x00440017. Callers 0x00443C2B and
 // 0x00443E28.
-void MpGameSetup::rva004415D5(const AsciiString &map)
+void AptMpGameSetup::rva004415D5(const AsciiString &map)
 {
 	if (!m_mapList)
 		return;
@@ -1385,7 +1385,7 @@ void MpGameSetup::rva004415D5(const AsciiString &map)
 // 0x00443538 with 0x1B, selects the game's map (0x004415D5), sets +0x2BD
 // and, with flag 1 at +0x3A4, gives the map list box the 0x0043E8F1
 // tooltip. Callers 0x00443E20 and 0x00443EED.
-void MpGameSetup::rva00443BF3()
+void AptMpGameSetup::rva00443BF3()
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -1404,7 +1404,7 @@ void MpGameSetup::rva00443BF3()
 // the host slot 0 and occupied non-human slots show "_disabledChecked";
 // a human slot is checked once accepted and enabled only for the local
 // slot (game vslot 13). Callers 0x0043FCAE and 0x00441B55.
-void MpGameSetup::rva0043FB5C(int index)
+void AptMpGameSetup::UpdateReadyIcon(int index)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -1454,7 +1454,7 @@ Gen_00528EC0 Gen_00528EC0::operator++(int)
 // owner, and posts "GUI:RuleChangeWarning" plus the rule's name, or for
 // kind 10 with reset "GUI:RuleResetWarning", through owner vslot 17.
 // Reached only through 0x0043FE01 below.
-bool MpGameSetup::rva0043FC1F(int kind, bool reset)
+bool AptMpGameSetup::rva0043FC1F(int kind, bool reset)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -1486,7 +1486,7 @@ bool MpGameSetup::rva0043FC1F(int kind, bool reset)
 		((Rva00381CED *)game)->rva00381CED(&m_rules);
 		game->v14();
 		for (int slot = 0; slot < 8; ++slot)
-			rva0043FB5C(slot);
+			UpdateReadyIcon(slot);
 		m_owner->v02();
 
 		UnicodeString message;
@@ -1520,7 +1520,7 @@ public:
 // to the panel instance's 0x0043FC1F (a tail jump).
 void Rva0043DABD::rva0043FE01(int kind, bool reset)
 {
-	MpGameSetup *setup = (MpGameSetup *)g_Va00E0333C;
+	AptMpGameSetup *setup = (AptMpGameSetup *)g_Va00E0333C;
 	if (setup)
 		setup->rva0043FC1F(kind, reset);
 }
@@ -1529,18 +1529,18 @@ void Rva0043DABD::rva0043FE01(int kind, bool reset)
 // slot: a listed hero gives kind 2 or 3 (by its +0x48 flag) and its +0x0C
 // and +0x10; -2 is kind 1 and anything else unlisted becomes -1. False
 // without a slot or hero manager, or when nothing changes. Called from
-// 0x0043E0A8 (rva0043E04D above).
-bool MpGameSetup::rva0043DD34(GameSlot *slot, int hero)
+// 0x0043E0A8 (HandleHeroSelection above).
+bool AptMpGameSetup::SetSlotHeroData(GameSlot *slot, int hero)
 {
 	if (!slot)
 		return false;
-	if (!g_00DFE344)
+	if (!TheCreateAHeroManager)
 		return false;
 
 	int field0c = 0;
 	int field10 = 0;
 	int kind;
-	Rva0040A3F9 *heroes = g_00DFE344->rva0021F797();
+	Rva0040A3F9 *heroes = TheCreateAHeroManager->rva0021F797();
 	CreateAHeroData *entry = heroes->rva0040A32F(hero);
 	if (entry)
 	{
@@ -1570,7 +1570,7 @@ bool MpGameSetup::rva0043DD34(GameSlot *slot, int hero)
 // differs from the local slot's (game vslot 13) translated +0x1A8 name, sets
 // +0x2BB and hands the slot and text to owner vslot 13. Reached only
 // through 0x00440AA0 below.
-bool MpGameSetup::rva004409D2()
+bool AptMpGameSetup::HandleClanChange()
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -1606,9 +1606,9 @@ public:
 // the panel instance's 0x004409D2 (a tail jump).
 void Rva0043DAE0::rva00440AA0()
 {
-	MpGameSetup *setup = (MpGameSetup *)g_Va00E0333C;
+	AptMpGameSetup *setup = (AptMpGameSetup *)g_Va00E0333C;
 	if (setup)
-		setup->rva004409D2();
+		setup->HandleClanChange();
 }
 
 // Retail 0x00442A68, 266 bytes. Name unknown. A slot's player combo box
@@ -1617,7 +1617,7 @@ void Rva0043DAE0::rva00440AA0()
 // 9); then 0x004424E7 refreshes the slot, +0x2B9 is set and, in mode 1,
 // opening or leaving an open slot (state 0) refreshes slots 1..7 through
 // 0x0043F483. Called from 0x00442DFF.
-bool MpGameSetup::rva00442A68(int index)
+bool AptMpGameSetup::rva00442A68(int index)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -1668,9 +1668,9 @@ bool MpGameSetup::rva00442A68(int index)
 // manager's hero for the side; a stored change goes to the owner's
 // applySlotHero. Then 0x004406BA and 0x0043E04D refresh the slot's widgets.
 // Called from handlePlayerTemplateSelection (0x00441B07).
-void MpGameSetup::rva0044149C(GameSlot *slot, int index, bool flag)
+void AptMpGameSetup::UpdateHeroToFaction(GameSlot *slot, int index, bool flag)
 {
-	if (!slot || !g_00DFE344 || !ThePlayerTemplateStore)
+	if (!slot || !TheCreateAHeroManager || !ThePlayerTemplateStore)
 		return;
 
 	int playerTemplate = slot->m_playerTemplate;
@@ -1679,11 +1679,11 @@ void MpGameSetup::rva0044149C(GameSlot *slot, int index, bool flag)
 	if (pt)
 		side = pt->rva001FD234();
 	int heroIndex = slot->m_hero;
-	Rva0040A3F9 *heroes = g_00DFE344->rva0021F797();
+	Rva0040A3F9 *heroes = TheCreateAHeroManager->rva0021F797();
 	CreateAHeroData *hero = heroes->rva0040A32F(heroIndex);
 	if (playerTemplate == -2)
 	{
-		if (rva0043DD34(slot, -1))
+		if (SetSlotHeroData(slot, -1))
 			m_owner->applySlotHero(slot);
 	}
 	else
@@ -1696,24 +1696,24 @@ void MpGameSetup::rva0044149C(GameSlot *slot, int index, bool flag)
 			else if (playerTemplate == -1)
 				replace = false;
 			else
-				replace = !g_00DFE344->allowsSide(hero->m_0c, hero->m_10, side);
+				replace = !TheCreateAHeroManager->allowsSide(hero->m_0c, hero->m_10, side);
 		}
 		else
 			replace = flag;
 		if (replace)
 		{
 			if (playerTemplate == -1)
-				rva0043DD34(slot, -2);
+				SetSlotHeroData(slot, -2);
 			else
 			{
-				CreateAHeroData *data = g_00DFE344->rva0021A6C8(side);
-				if (data && rva0043DD34(slot, heroes->findIndex(data)))
+				CreateAHeroData *data = TheCreateAHeroManager->GetDefaultHero(side);
+				if (data && SetSlotHeroData(slot, heroes->findIndex(data)))
 					m_owner->applySlotHero(slot);
 			}
 		}
 	}
 	rva004406BA(index);
-	rva0043E04D(index);
+	HandleHeroSelection(index);
 }
 
 // Retail 0x00443EA8, 358 bytes. Name unknown. The panel's update: unless a
@@ -1723,7 +1723,7 @@ void MpGameSetup::rva0044149C(GameSlot *slot, int index, bool flag)
 // +0x244 member too. Otherwise a set +0x2B8 refreshes the +0xD0 and +0x60
 // members. Callers 0x0044675C (the LAN screen's update), 0x0052230B and
 // 0x005A6563.
-bool MpGameSetup::rva00443EA8()
+bool AptMpGameSetup::OnUpdate()
 {
 	bool changed = false;
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
@@ -1769,7 +1769,7 @@ bool MpGameSetup::rva00443EA8()
 		if (m_2bb && haveLocal)
 		{
 			m_2bb = false;
-			rva004428C9();
+			UpdateClans();
 			changed = true;
 		}
 		if (m_2bd)
@@ -1804,7 +1804,7 @@ bool MpGameSetup::rva00443EA8()
 // going through the owner's applySlotTeam (vslot 12) and setting +0x2B9;
 // AI slots are first set to state 1 through 0x0043E30F. The +0x190 member
 // is refreshed first. Called from the update 0x00443F8B.
-void MpGameSetup::rva004428C9()
+void AptMpGameSetup::UpdateClans()
 {
 	int mode = m_rules.m_04;
 	if (mode != 1)
@@ -1825,7 +1825,7 @@ void MpGameSetup::rva004428C9()
 			continue;
 		AsciiString tag = ((Rva003821B9AsciiField *)slot)->get();
 		if (slot->isAI())
-			rva0043E30F(i, 1);
+			ChangePlayerSelection(i, 1);
 		unsigned int team;
 		if (slot->isHuman() && !slot->isObserver() && !tag.isEmpty())
 		{
@@ -1850,7 +1850,7 @@ void MpGameSetup::rva004428C9()
 // colors (+0x3C4, one per MultiplayerSettings color, all offered); in mode
 // 1 colors without their +0x3C flag are withdrawn and not counted. +0x3DC
 // is set outside mode 1. Called from 0x004422D4 (0x004422B4 above).
-void MpGameSetup::rva004419FA()
+void AptMpGameSetup::InitAvailableColors()
 {
 	if (!TheMultiplayerSettings)
 		return;
@@ -1880,7 +1880,7 @@ void MpGameSetup::rva004419FA()
 // slot given by number (1..7) asks to toggle its ready state, which in
 // rules mode 1 needs a clan tag ("CLAN:ErrorMissingClanAffiliation") and
 // team 0 or 1 ("CLAN:ErrorOnlyTwoClans"); the answer goes to owner vslot 3.
-void MpGameSetup::OnReadyPress(const char *slotText)
+void AptMpGameSetup::OnReadyPress(const char *slotText)
 {
 	if (!*slotText)
 	{
@@ -1925,7 +1925,7 @@ void MpGameSetup::OnReadyPress(const char *slotText)
 // stores it at +0x58; then marks the five refresh bytes and hands the value
 // to owner vslot 8 (the LAN screen's setScenario). Other kinds are
 // accepted. Called from 0x00442D08.
-bool MpGameSetup::rva0043E1CC(int which)
+bool AptMpGameSetup::rva0043E1CC(int which)
 {
 	switch (which)
 	{
@@ -1963,7 +1963,7 @@ bool MpGameSetup::rva0043E1CC(int which)
 // getNumColors that differs from the slot's (+0x0C) and, unless -1, from
 // every other human slot's goes to the owner's applySlotColor (vslot 4).
 // Called from 0x00442DDB.
-bool MpGameSetup::rva0043ECC1(int index)
+bool AptMpGameSetup::rva0043ECC1(int index)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -2000,7 +2000,7 @@ bool MpGameSetup::rva0043ECC1(int index)
 // refreshers, enables only the host's player combo boxes (none while the
 // game is locked, +0x8C) and hides slots 6 and 7 in mode 1, refreshes the
 // map cache, selects the game's map and marks everything dirty.
-bool MpGameSetup::rva00443C6E(GameInfo *game, int value)
+bool AptMpGameSetup::Init(GameInfo *game, int value)
 {
 	if (!rva00442C9C())
 		return false;
@@ -2073,7 +2073,7 @@ bool MpGameSetup::rva00443C6E(GameInfo *game, int value)
 // the host's gets its saved state again, a saved human seat reopening),
 // then the digest, rules and +0xDE8 value, and marks +0x2BA and +0x2BD.
 // Called from the LAN screen (0x00446874, 0x004468E0).
-bool MpGameSetup::rva0043E750(GameInfo *game)
+bool AptMpGameSetup::InitGameInfoFromSaveGame(GameInfo *game)
 {
 	if (m_owner->v01())
 	{
@@ -2140,7 +2140,7 @@ bool MpGameSetup::rva0043E750(GameInfo *game)
 // (1), a listed hero's name plus "VALUE:Default" (2, heroes with +0x48) or
 // the manager's label for the hero key (3). Nothing while a saved game is
 // pending (+0x2B0). Callers 0x004405CD, 0x004409AA, 0x00441D5E.
-void MpGameSetup::rva0043F8B3(int slot)
+void AptMpGameSetup::UpdateHeroDisplay(int slot)
 {
 	if (m_saved)
 		return;
@@ -2167,7 +2167,7 @@ void MpGameSetup::rva0043F8B3(int slot)
 		case 2:
 			{
 				int heroIndex = gameSlot->m_hero;
-				Rva0040A3F9 *heroes = g_00DFE344->rva0021F797();
+				Rva0040A3F9 *heroes = TheCreateAHeroManager->rva0021F797();
 				CreateAHeroData *hero = heroes->rva0040A32F(heroIndex);
 				if (hero && hero->m_48)
 				{
@@ -2180,7 +2180,7 @@ void MpGameSetup::rva0043F8B3(int slot)
 			{
 				int key0c = gameSlot->getHeroKey0c();
 				int key10 = gameSlot->getHeroKey10();
-				text = TheGameText->fetchLabel(g_00DFE344->rva0021B13A(key0c, key10));
+				text = TheGameText->fetchLabel(TheCreateAHeroManager->GetSubClassNameTag(key0c, key10));
 			}
 			break;
 		}
@@ -2197,7 +2197,7 @@ void MpGameSetup::rva0043F8B3(int slot)
 // is up the first pass stores the text entry, tells the owner (vslot 16)
 // and arms a final five seconds, the second starts the game (0x00440BDF).
 // Callers 0x004411BD, the LAN screen's update 0x004465A8 and 0x005A6542.
-bool MpGameSetup::rva0044127C()
+bool AptMpGameSetup::WaitStartGame()
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -2270,7 +2270,7 @@ bool MpGameSetup::rva0044127C()
 // The local slot, or an AI run by this host, selects the row holding the
 // template; the local slot then applies a pending hero choice (+0x2B4,
 // -3 for none) and re-checks its hero (0x0044149C). Called from 0x00441D56.
-void MpGameSetup::rva00441693(int slot)
+void AptMpGameSetup::UpdatePlayerTemplateDisplay(int slot)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -2327,18 +2327,18 @@ void MpGameSetup::rva00441693(int slot)
 			{
 				GadgetComboBoxSetSelectedPos(comboBox, i, false);
 				if (local && m_pendingHero == -3)
-					rva0044149C(gameSlot, slot, false);
+					UpdateHeroToFaction(gameSlot, slot, false);
 				break;
 			}
 		}
 	}
 	if (local && m_pendingHero != -3 && playerTemplate >= -1)
 	{
-		rva0043DD34(gameSlot, m_pendingHero);
+		SetSlotHeroData(gameSlot, m_pendingHero);
 		if (m_pendingHero == gameSlot->m_hero)
 		{
 			m_pendingHero = -3;
-			rva0044149C(gameSlot, slot, false);
+			UpdateHeroToFaction(gameSlot, slot, false);
 		}
 	}
 }
@@ -2349,7 +2349,7 @@ void MpGameSetup::rva00441693(int slot)
 // accepted/map state), the player name or state, the color, team and
 // handicap selections, the template box and the hero text. Called per slot
 // from 0x00442A45.
-void MpGameSetup::rva00441B15(int slot)
+void AptMpGameSetup::UpdateSlot(int slot)
 {
 	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
 	if (!game)
@@ -2358,7 +2358,7 @@ void MpGameSetup::rva00441B15(int slot)
 	if (!gameSlot)
 		return;
 
-	rva0043FB5C(slot);
+	UpdateReadyIcon(slot);
 	if (game->isLocked())
 		rva004404AC(false, -1);
 	else if (game->v12() && gameSlot->isAI())
@@ -2384,7 +2384,7 @@ void MpGameSetup::rva00441B15(int slot)
 			GadgetComboBoxSetText(*player, name);
 	}
 	else
-		rva0043E30F(slot, gameSlot->m_state);
+		ChangePlayerSelection(slot, gameSlot->m_state);
 	if (!game->v12() && m_player[slot])
 		m_player[slot]->winEnable(false);
 
@@ -2423,15 +2423,15 @@ void MpGameSetup::rva00441B15(int slot)
 			}
 		}
 	}
-	rva00441693(slot);
-	rva0043F8B3(slot);
+	UpdatePlayerTemplateDisplay(slot);
+	UpdateHeroDisplay(slot);
 }
 
 // Retail 0x0043FA68, 244 bytes. Name unknown. Hands a game (or 0) to the
 // owner's holder 1, refreshes the +0x60 and +0xD0 members and labels the
 // "APT:JoinGame" button "APT:Continue" when the game has a digest (a saved
 // game), else "APT:JoinGame".
-void MpGameSetup::rva0043FA68(GameInfo *game)
+void AptMpGameSetup::rva0043FA68(GameInfo *game)
 {
 	((Rva0043DA65 *)((Rva0043F103 *)m_owner)->rva0043F103(1))->m_current = game;
 	m_60.rva0057E058();
@@ -2449,12 +2449,12 @@ void MpGameSetup::rva0043FA68(GameInfo *game)
 }
 
 // Retail 0x0043DE19, 265 bytes. Name unknown; it extends BFME1's
-// MpGameSetup::shutdown (Open-BFME-1 MpGameSetup.cpp: the background
+// AptMpGameSetup::shutdown (Open-BFME-1 AptMpGameSetup.cpp: the background
 // block, then closing "MpGameSetup::GadgetInit"). Shuts the panel down:
 // its members, the six widget arrays, the map list and saved game, the
 // "MpGameSetup::InitGadgets" screen, the panel's own state and the eight
 // "ConnectionIcon~<slot>" Apt names.
-void MpGameSetup::rva0043DE19()
+void AptMpGameSetup::rva0043DE19()
 {
 	rva0043DC0F();
 	m_60.rva0057D5E5();
@@ -2536,7 +2536,7 @@ void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned 
 // host, handicap, hero; any marks +0x2B9), a map list selection and the
 // start position buttons (0x4008 moves the slot on to the next selectable
 // one, 0x4009 just clears it). Called by the LAN lobby screen 0x00444861.
-int MpGameSetup::rva00442CB3(unsigned int msg, unsigned int data1, unsigned int data2)
+int AptMpGameSetup::rva00442CB3(unsigned int msg, unsigned int data1, unsigned int data2)
 {
 	if (m_244.rva0057FD7B(msg, data1, data2))
 		return 1;
@@ -2600,7 +2600,7 @@ int MpGameSetup::rva00442CB3(unsigned int msg, unsigned int data1, unsigned int 
 				}
 				else if (control == m_hero[i])
 				{
-					rva0043E04D(i);
+					HandleHeroSelection(i);
 					m_2b9 = true;
 					break;
 				}
@@ -2667,7 +2667,7 @@ int MpGameSetup::rva00442CB3(unsigned int msg, unsigned int data1, unsigned int 
 // Retail 0x0043DCFA, 8 bytes. Name unknown. Forwards to the +0x60 member's
 // 0x0057CB7D; callers 0x0024A63A and 0x005A41CE reach it through the panel
 // instance g_Va00E0333C.
-bool MpGameSetup::rva0043DCFA(int value)
+bool AptMpGameSetup::rva0043DCFA(int value)
 {
 	return m_60.rva0057CB7D(value);
 }

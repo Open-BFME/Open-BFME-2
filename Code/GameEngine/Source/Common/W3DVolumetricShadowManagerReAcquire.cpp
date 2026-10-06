@@ -52,7 +52,7 @@ Rva000F0972Releasable * g_00DEBCDC = 0;
 class W3DBufferManager
 {
 public:
-	bool rva0011604D();
+	bool ReAcquireResources();
 };
 extern class W3DBufferManager *TheW3DBufferManager;
 class Rva000F0912
@@ -85,7 +85,7 @@ bool W3DVolumetricShadowManager::ReAcquireResources()
 	W3DBufferManager *mgr = TheW3DBufferManager;
 	if (mgr != 0)
 	{
-		if (!mgr->rva0011604D())
+		if (!mgr->ReAcquireResources())
 			return false;
 	}
 	return true;

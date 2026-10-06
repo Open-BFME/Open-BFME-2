@@ -154,9 +154,9 @@ public:
 	void rva00293DAC(WeaponSetType wst);
 	void rva00293E08(WeaponSetType wst);
 	void rva0029130C(int mode);
-	void rva00293955(ModelConditionFlagType mc);
-	void rva00293A05(ModelConditionFlagType mc);
-	void rva00293AAB(ModelConditionFlagType a, ModelConditionFlagType b);
+	void clearModelConditionStateForHorde(ModelConditionFlagType mc);
+	void setModelConditionStateForHorde(ModelConditionFlagType mc);
+	void clearAndSetModelConditionStateForHorde(ModelConditionFlagType a, ModelConditionFlagType b);
 	void rva001E42F2(const int *x);
 	void rva00293BBF(const int *x);
 	void rva001E431E(const int *x);
@@ -214,38 +214,6 @@ void Object::rva00290758(int a, int b)
 	if (m_84)
 		m_84->Rva0027164EBroadcast(a, b);
 }
-void Object::rva00293DAC(WeaponSetType wst)
-{
-	Object *top = rva002931F5(false);
-	if (top)
-	{
-		Rva00293DACIface *iface = (Rva00293DACIface *)top->rva0028C197();
-		if (iface)
-		{
-			Rva00293DACRange range;
-			iface->rva00293DACSlot66(&range);
-			for (Rva00293DACNode *node = range.m_list->m_head->m_next; node != range.m_list->m_head; node = node->m_next)
-				node->m_object->setWeaponSetFlag(wst);
-			top->setWeaponSetFlag(wst);
-		}
-	}
-}
-void Object::rva00293E08(WeaponSetType wst)
-{
-	Object *top = rva002931F5(false);
-	if (top)
-	{
-		Rva00293DACIface *iface = (Rva00293DACIface *)top->rva0028C197();
-		if (iface)
-		{
-			Rva00293DACRange range;
-			iface->rva00293DACSlot66(&range);
-			for (Rva00293DACNode *node = range.m_list->m_head->m_next; node != range.m_list->m_head; node = node->m_next)
-				node->m_object->clearWeaponSetFlag(wst);
-			top->clearWeaponSetFlag(wst);
-		}
-	}
-}
 void Object::rva0029130C(int mode)
 {
 	const Rva0010CBits *bits = &m_conditionBits;
@@ -265,7 +233,7 @@ void Object::rva0029130C(int mode)
 		if (bits->test(546)) { m_conditionBits.clear(546); rva0028AE6D(); }
 	}
 }
-void Object::rva00293955(ModelConditionFlagType mc)
+void Object::clearModelConditionStateForHorde(ModelConditionFlagType mc)
 {
 	Object *top = rva002931F5(false);
 	if (top)
@@ -281,7 +249,7 @@ void Object::rva00293955(ModelConditionFlagType mc)
 		}
 	}
 }
-void Object::rva00293A05(ModelConditionFlagType mc)
+void Object::setModelConditionStateForHorde(ModelConditionFlagType mc)
 {
 	Object *top = rva002931F5(false);
 	if (top)
@@ -297,7 +265,7 @@ void Object::rva00293A05(ModelConditionFlagType mc)
 		}
 	}
 }
-void Object::rva00293AAB(ModelConditionFlagType a, ModelConditionFlagType b)
+void Object::clearAndSetModelConditionStateForHorde(ModelConditionFlagType a, ModelConditionFlagType b)
 {
 	Object *top = rva002931F5(false);
 	if (top)
@@ -323,70 +291,6 @@ void Object::rva00293AAB(ModelConditionFlagType a, ModelConditionFlagType b)
 				top->m_conditionBits.setIndex(b);
 				top->rva0028AE6D();
 			}
-		}
-	}
-}
-void Object::rva00293BBF(const int *x)
-{
-	Object *top = rva002931F5(false);
-	if (top)
-	{
-		Rva00293DACIface *iface = (Rva00293DACIface *)top->rva0028C197();
-		if (iface)
-		{
-			Rva00293DACRange range;
-			iface->rva00293DACSlot66(&range);
-			for (Rva00293DACNode *node = range.m_list->m_head->m_next; node != range.m_list->m_head; node = node->m_next)
-				node->m_object->rva001E42F2(x);
-			top->rva001E42F2(x);
-		}
-	}
-}
-void Object::rva00293C1B(const int *x)
-{
-	Object *top = rva002931F5(false);
-	if (top)
-	{
-		Rva00293DACIface *iface = (Rva00293DACIface *)top->rva0028C197();
-		if (iface)
-		{
-			Rva00293DACRange range;
-			iface->rva00293DACSlot66(&range);
-			for (Rva00293DACNode *node = range.m_list->m_head->m_next; node != range.m_list->m_head; node = node->m_next)
-				node->m_object->rva001E431E(x);
-			top->rva001E431E(x);
-		}
-	}
-}
-void Object::rva00293C77(const int *a, const int *b)
-{
-	Object *top = rva002931F5(false);
-	if (top)
-	{
-		Rva00293DACIface *iface = (Rva00293DACIface *)top->rva0028C197();
-		if (iface)
-		{
-			Rva00293DACRange range;
-			iface->rva00293DACSlot66(&range);
-			for (Rva00293DACNode *node = range.m_list->m_head->m_next; node != range.m_list->m_head; node = node->m_next)
-				node->m_object->rva0028CFB2(a, b);
-			top->rva0028CFB2(a, b);
-		}
-	}
-}
-void Object::rva00293CD9(const int *a, bool b)
-{
-	Object *top = rva002931F5(false);
-	if (top)
-	{
-		Rva00293DACIface *iface = (Rva00293DACIface *)top->rva0028C197();
-		if (iface)
-		{
-			Rva00293DACRange range;
-			iface->rva00293DACSlot66(&range);
-			for (Rva00293DACNode *node = range.m_list->m_head->m_next; node != range.m_list->m_head; node = node->m_next)
-				node->m_object->rva0028CFF5(a, b);
-			top->rva0028CFF5(a, b);
 		}
 	}
 }

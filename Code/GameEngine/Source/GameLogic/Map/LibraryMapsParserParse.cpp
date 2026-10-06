@@ -20,7 +20,7 @@ class DataChunkInput
 {
 public:
 	int readInt();
-	AsciiString rva0030750A();
+	AsciiString readAsciiString();
 };
 
 class DataChunkInfo;
@@ -48,7 +48,7 @@ bool LibraryMapsParser::parse(DataChunkInput &file, DataChunkInfo *info)
 		values.reserve(count);
 		do
 		{
-			values.push_back(file.rva0030750A());
+			values.push_back(file.readAsciiString());
 			--count;
 		} while (count > 0);
 	}

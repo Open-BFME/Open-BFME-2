@@ -1,4 +1,6 @@
 // ?rva005AB4B9@Rva005AB309@@QAE_NXZ
+// partial score=0.8892 date=2026-10-05
+// ?rva005AB4B9@Rva005AB309@@QAE_NXZ
 // partial score=0.92 date=2026-10-04
 // cl: /O1 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
 //

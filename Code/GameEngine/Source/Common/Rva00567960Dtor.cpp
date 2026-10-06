@@ -7,7 +7,17 @@ public:
 	virtual ~Rva005C7CBB();
 };
 
-class Rva00567960Base
+// Two levels of base: the dtor's last store is the root's folded abstract
+// vtable 0x00BC6F20 (__purecall in slot 2), while the ctor at 0x00567CCD
+// builds the +0 base with 0x00C7A630, Rva00567960Base's own vtable; the
+// intermediate store between the two is dead and MSVC drops it.
+class Rva00567960Root
+{
+public:
+	virtual ~Rva00567960Root() {}
+};
+
+class Rva00567960Base : public Rva00567960Root
 {
 public:
 	virtual ~Rva00567960Base() {}

@@ -35,14 +35,20 @@ BFME_LITERAL_NAME_GETTER(Rva001B5830Named, "6.1.0.5")
 // Opaque address-derived name.
 BFME_LITERAL_NAME_GETTER(Rva00603938Named, "English")
 
-// Rva00215EA4StateName @ 0x00215ea4 (45B): maps a small state index to its
+// BannerUI::GetStateString @ 0x00215ea4 (45B): maps a small state index to its
 // name string (0 -> _available, 1 -> _engaging, 2 -> _waiting,
 // 3 -> _disabled, anything else -> NULL). The retail body is a
 // sub/dec/je decision chain over four adjacent B8-literal arms with a
-// shared xor-eax default tail; a plain switch reproduces it. The owning
-// enum is unidentified, so the name stays address-derived. Stdcall-arg
+// shared xor-eax default tail; a plain switch reproduces it. WorldBuilder
+// names it (BannerUI.cpp line 117, the same four suffix strings) as a free
+// function in BannerUI's scope; the state enum is unidentified. Stdcall-arg
 // shape (mov eax,[esp+4]) with a cdecl tail (plain ret).
-const char *Rva00215EA4StateName(int state)
+namespace BannerUI
+{
+	const char *GetStateString(int state);
+}
+
+const char *BannerUI::GetStateString(int state)
 {
 	switch (state) {
 	case 0:

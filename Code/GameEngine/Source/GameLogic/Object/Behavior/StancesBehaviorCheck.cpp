@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva0045EDD5@StancesBehavior@@QAE_NH@Z @0x0045EDD5 87B evidence: chain via rowed map-find 0x4260DE plus StancesBehavior neighbours Xfer-NameKey share /O1 plus caller 0x4751E5 plus vtable slots 0x7c and 0x260 plus global g_00E031D4
+// ?changeStanceFromXfer@StancesBehavior@@QAE_NH@Z @0x0045EDD5 87B evidence: chain via rowed map-find 0x4260DE plus StancesBehavior neighbours Xfer-NameKey share /O1 plus caller 0x4751E5 plus vtable slots 0x7c and 0x260 plus global g_00E031D4
 class Thing;
 class ModuleData;
 
@@ -63,10 +63,10 @@ class StancesBehavior
 	Holder250 *m_08;
 	char m_0C[0x28];
 public:
-	bool rva0045EDD5(int arg);
+	bool changeStanceFromXfer(int arg);
 };
 
-bool StancesBehavior::rva0045EDD5(int arg)
+bool StancesBehavior::changeStanceFromXfer(int arg)
 {
 	IfaceA *iface = m_08->m_250;
 	IfaceBig *b;

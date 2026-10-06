@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
-// ?Rva003BE2DBSet@@YGXPAVParameter@@PBVAsciiString@@H@Z @0x003BE2DB 176B
+// ?doUnpackBase@ScriptActions@@IAEXPAVParameter@@PBVAsciiString@@H@Z @0x003BE2DB 176B
 // (dump range 18). Unit-plus-mask module gate: resolves the unit through
 // rowed ScriptEngine 0x003588E7 getUnitNamed, requires its controlling
 // player to be the rowed ScriptEngine 0x00205C93 current player, resolves
@@ -27,7 +27,7 @@ public:
 };
 
 class Object;
-void __stdcall Rva003BE2DBSet(Parameter *p1, const AsciiString *str, int flag);
+class ScriptActions;
 
 class Object
 {
@@ -35,7 +35,7 @@ public:
 	Player *getControllingPlayer() const;
 protected:
 	Module *findModule(NameKeyType key) const;
-	friend void __stdcall Rva003BE2DBSet(Parameter *p1, const AsciiString *str, int flag);
+	friend class ScriptActions;
 };
 
 class ScriptEngine
@@ -68,7 +68,13 @@ public:
 	void rva00399C6C(int a, int b);
 };
 
-void __stdcall Rva003BE2DBSet(Parameter *p1, const AsciiString *str, int flag)
+class ScriptActions
+{
+protected:
+	void doUnpackBase(Parameter *p1, const AsciiString *str, int flag);
+};
+
+void ScriptActions::doUnpackBase(Parameter *p1, const AsciiString *str, int flag)
 {
 	Object *obj = TheScriptEngine->getUnitNamed(p1);
 	if (obj == 0)

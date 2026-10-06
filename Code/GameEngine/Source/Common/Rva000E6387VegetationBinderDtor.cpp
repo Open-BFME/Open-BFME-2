@@ -12,21 +12,21 @@
 
 void __cdecl Rva001532E1Erase(const char *name);
 
-class Rva0015354E;
+class FXShaderParameterBinder;
 
 // FX parameter binder base: vtable 0x00BC6F24 = { deleting dtor, __purecall }.
 class Base
 {
 public:
 	virtual ~Base() {}
-	virtual void bind(const char *name, const char *handle, Rva0015354E *registry) = 0;
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry) = 0;
 };
 
 class Rva000E6387 : public Base
 {
 public:
 	virtual ~Rva000E6387();
-	virtual void bind(const char *name, const char *handle, Rva0015354E *registry);
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
 
 Rva000E6387::~Rva000E6387()

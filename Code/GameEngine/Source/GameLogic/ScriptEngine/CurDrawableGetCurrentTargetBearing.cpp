@@ -10,7 +10,7 @@
 // BFME2, +0x78 in BFME1) / owner (+0x0C) / target (+0xFC) null-guard chain and
 // the same pushnumber-or-pushnil return-1 idiom, keeping the donor's repeated
 // owner->m_target reads. BFME2 is new here: the payload is the target's
-// relative angle through pinned Object::rva000B4542 (0x000B4542) normalized
+// relative angle through pinned Object::GetRelativeAngle (0x000B4542) normalized
 // with rowed normalizeAngle (0x00238954) instead of the donor's
 // sqrt/difference.
 
@@ -30,7 +30,7 @@ struct Coord3D
 class Object
 {
 public:
-	float rva000B4542(const Coord3D *pos) const;
+	float GetRelativeAngle(const Coord3D *pos) const;
 	char m_pad000[0x38C];
 	Coord3D m_bearingPos;	// +0x38C
 };
@@ -62,7 +62,7 @@ int CurDrawableGetCurrentTargetBearing(lua_State *state)
 		LuaTargetOwner *owner = drawable->m_owner;
 		if (owner != 0) {
 			if (owner->m_target != 0) {
-				lua_pushnumber(state, normalizeAngle(owner->m_target->rva000B4542(&owner->m_target->m_bearingPos)));
+				lua_pushnumber(state, normalizeAngle(owner->m_target->GetRelativeAngle(&owner->m_target->m_bearingPos)));
 			}
 			else {
 				lua_pushnil(state);

@@ -24,13 +24,13 @@ Rva00596B05::~Rva00596B05()
 {
 }
 
-class Rva0059734B : public Rva0055B0CC
+class AIUpgrade : public Rva0055B0CC
 {
 public:
-	virtual ~Rva0059734B();
+	virtual ~AIUpgrade();
 };
 
-Rva0059734B::~Rva0059734B()
+AIUpgrade::~AIUpgrade()
 {
 }
 

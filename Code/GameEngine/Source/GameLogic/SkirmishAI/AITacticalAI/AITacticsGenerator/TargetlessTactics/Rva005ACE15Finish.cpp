@@ -1,11 +1,11 @@
-// ?rva005ACE15@Rva005ACCE4@@QAEMPBUCoord3D@@00@Z
+// ?rva005ACE15@AIFarmKillSquad@@QAEMPBUCoord3D@@00@Z
 // recovered 2026-10-05 from the 0.97 bank; exact 179/179
 // cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "FarmKillSquad" skirmish-AI tactic (vtable 0x00872474; ctor 0x005ACF38
 // in Rva004ECECDTacticCtors.cpp, dtor 0x005ACCE4 and ??_G, slot 9 0x005ACFAB
 // in Rva004ECECDTacticCreate.cpp). Base chain, all address-derived:
-// Rva005DCC24 over Rva005DC73C over the AITactic.cpp object Rva004ECECD.
+// Rva005DCC24 over AITacticOffensive over the AITactic.cpp object AITactic.
 // Layout: +0x58 and +0x5C object ids, +0x60 "farm" (the ctor's one-in-five
 // roll). The owner's TheSkirmishAIManager record keeps
 // AIFarmKillSquad_IsRunning and AIFarmKillSquad_FrameNextRun.
@@ -160,36 +160,36 @@ public:
 };
 extern Rva002A8F24 *g_00DFEEF8;
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual void v3();
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual void initializeTeamTemplate();
 	virtual void v4();
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
+	virtual void update();
 	virtual void v8();
-	virtual Rva004ECECD *create();
+	virtual AITactic *create();
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 	char m_pad04[0x24 - 4];
 	void *m_owner;			// +0x24
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005ACCE4 : public Rva005DC73C
+class AIFarmKillSquad : public AITacticOffensive
 {
 public:
-	virtual ~Rva005ACCE4();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
+	virtual ~AIFarmKillSquad();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
 	virtual void xfer(Xfer *xfer);
 	float rva005ACDD2(const Coord3D *a, const Coord3D *b);
 	float rva005ACE15(const Coord3D *point, const Coord3D *from, const Coord3D *to);
@@ -199,7 +199,7 @@ private:
 	bool m_farm;		// +0x60
 };
 
-bool Rva005ACCE4::appliesTo(void *)
+bool AIFarmKillSquad::canRun(void *)
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	if (!m_farm && record->m_16C <= 0)
@@ -213,7 +213,17 @@ bool Rva005ACCE4::appliesTo(void *)
 	return false;
 }
 
-float Rva005ACCE4::rva005ACDD2(const Coord3D *a, const Coord3D *b)
+void AIFarmKillSquad::cleanUp()
+{
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
+	record->rva002C717E(AIFarmKillSquad_IsRunning, 0);
+	record->rva002C717E(AIFarmKillSquad_FrameNextRun, TheGameLogic->getFrame()
+		+ GetGameLogicRandomValue(g_00E06438, g_00E0643C,
+			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\TargetlessTactics\\AIFarmKillSquad.cpp",
+			337));
+}
+
+float AIFarmKillSquad::rva005ACDD2(const Coord3D *a, const Coord3D *b)
 {
 	Coord3D d;
 	d.x = a->x;
@@ -225,7 +235,7 @@ float Rva005ACCE4::rva005ACDD2(const Coord3D *a, const Coord3D *b)
 	return d.length();
 }
 
-float Rva005ACCE4::rva005ACE15(const Coord3D *point, const Coord3D *from, const Coord3D *to)
+float AIFarmKillSquad::rva005ACE15(const Coord3D *point, const Coord3D *from, const Coord3D *to)
 {
 	float length = rva005ACDD2(to, from);
 	// Naming the three products separately changes the CSE grouping: retail
@@ -242,11 +252,11 @@ float Rva005ACCE4::rva005ACE15(const Coord3D *point, const Coord3D *from, const 
 	return rva005ACDD2(point, &foot);
 }
 
-void Rva005ACCE4::xfer(Xfer *xfer)
+void AIFarmKillSquad::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	Rva004ECECD::xfer(xfer);
+	AITactic::xfer(xfer);
 	XferObjectID(xfer, &m_58);
 	XferObjectID(xfer, &m_5C);
 }

@@ -26,10 +26,10 @@ public:
 
 extern Rva002A8F24 *g_00DFEEF8;
 
-class Rva005EEAC6
+class AISpellBookBase
 {
 public:
-	bool rva005EEAC6(Player *a1, Player *a2, Coord3D *out);
+	bool findDenseStructureCenter(Player *a1, Player *a2, Coord3D *out);
 };
 
 class Rva005EE816
@@ -39,7 +39,7 @@ public:
 	bool rva005D7D93(Object *source);
 private:
 	char m_pad00[0x28];
-	Rva005EEAC6 m_28;
+	AISpellBookBase m_28;
 };
 
 bool Rva005EE816::rva005D7D93(Object *source)
@@ -53,7 +53,7 @@ bool Rva005EE816::rva005D7D93(Object *source)
 	pos.x = 0.0f;
 	pos.y = 0.0f;
 	pos.z = 0.0f;
-	if (m_28.rva005EEAC6((Player *)v, source->getControllingPlayer(), &pos))
+	if (m_28.findDenseStructureCenter((Player *)v, source->getControllingPlayer(), &pos))
 		return rva005EE8DD(&pos, source);
 	return false;
 }

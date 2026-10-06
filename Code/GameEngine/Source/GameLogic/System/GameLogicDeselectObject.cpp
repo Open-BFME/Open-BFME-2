@@ -6,7 +6,7 @@
 // controls it, clears flag +0x121 bit 2 and notifies its contain) - called
 // whether or not a group was made. Player::getCurrentSelectionAsAIGroup is
 // 0x002AA164 (forwards to the +0x730 selection), setCurrentlySelectedAIGroup
-// 0x002ACC53; TheAI->destroyGroup is the rowed AI::rva002FE712;
+// 0x002ACC53; TheAI->destroyGroup is the rowed AI::destroyGroup;
 // InGameUI::deselectDrawable is InGameUI slot 67 (0x10C).
 
 #include <stddef.h>
@@ -49,7 +49,7 @@ class AI
 {
 public:
 	AIGroup *createGroup(void);
-	void rva002FE712(AIGroup *group); // destroyGroup
+	void destroyGroup(AIGroup *group); // destroyGroup
 };
 
 class InGameUISlots
@@ -117,7 +117,7 @@ void GameLogic::deselectObject(Object *obj, PlayerMaskType playerMask, Bool affe
 		if (actuallyRemoved) {
 			if (!deleted) {
 				player->setCurrentlySelectedAIGroup(group);
-				TheAI->rva002FE712(group);
+				TheAI->destroyGroup(group);
 			} else {
 				player->setCurrentlySelectedAIGroup(NULL);
 			}

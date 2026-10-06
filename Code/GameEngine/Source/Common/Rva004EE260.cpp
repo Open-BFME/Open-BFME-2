@@ -1,10 +1,10 @@
 // cl: /MD
-// ?rva004EE260@Rva004EE260@@QAEXHPAVRva003F498A@@PAX@Z, retail 0x004EE260, 219 bytes.
+// ?rva004EE260@Rva004EE260@@QAEXHPAVLivingWorldBattle@@PAX@Z, retail 0x004EE260, 219 bytes.
 // Chain via 0x003F486C: same time-less head as 0x004EE0C6 (rva003F486C then
 // rva003F4798 into +0xD4/+0xD8) plus a pair-vector scan counting into
 // +0x88/+0x8C/+0x9C/+0xA0/+0xA4. Evidence: rowed 0x003F486C 0x003F4798;
 // prev Rva004EE037Div /O1 /MD; ret 0xC three args first unused.
-class Rva003F498A
+class LivingWorldBattle
 {
 public:
 	bool rva003F486C(int id);
@@ -55,7 +55,7 @@ struct Rva004EE260Q
 class Rva004EE260
 {
 public:
-	void rva004EE260(int unused, Rva003F498A *p, void *qraw);
+	void rva004EE260(int unused, LivingWorldBattle *p, void *qraw);
 private:
 	char m_pad00[0x88];
 	int m_88;
@@ -71,7 +71,7 @@ private:
 	int m_E8;
 };
 
-void Rva004EE260::rva004EE260(int unused, Rva003F498A *p, void *qraw)
+void Rva004EE260::rva004EE260(int unused, LivingWorldBattle *p, void *qraw)
 {
 	(void)unused;
 	if (p->rva003F486C(m_E8)) {

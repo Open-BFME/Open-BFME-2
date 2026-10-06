@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// ??1Rva00282500@@UAE@XZ, RVA 0x00282500, 174 bytes.
+// ??1Waypoint@@UAE@XZ, RVA 0x00282500, 174 bytes.
 // Dtor of unknown class with vtable 0x007FB21C: unlinks +0x18/+0x1c node
 // via g_Va00DFEC54 head, clears TerrainLogic+0x56c tree, then member dtors.
 // Evidence: callees all rowed (0x00280AB6, 0x00360D26, 0x00036410 x5);
@@ -34,16 +34,16 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Rva00282500
+class Waypoint
 {
 public:
-	virtual ~Rva00282500();
+	virtual ~Waypoint();
 private:
 	unsigned char m_pad04[0x4];
 	AsciiString m_08;
 	unsigned char m_pad0C[0xC];
-	Rva00282500 *m_prev;
-	Rva00282500 *m_next;
+	Waypoint *m_prev;
+	Waypoint *m_next;
 	unsigned char m_pad20[0x30];
 	AsciiString m_50;
 	AsciiString m_54;
@@ -54,7 +54,7 @@ private:
 	Rva00360D26Member m_bc;
 };
 
-Rva00282500::~Rva00282500()
+Waypoint::~Waypoint()
 {
 	if (m_next)
 		m_next->m_prev = m_prev;

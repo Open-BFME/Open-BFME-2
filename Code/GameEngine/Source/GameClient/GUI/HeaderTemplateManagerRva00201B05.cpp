@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii -DNDEBUG -MD -EHsc /Os /G7 -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 // stlport
-// ?rva00201B05@HeaderTemplateManager@@QAEXXZ @0x00201B05 76B
+// ?populateGameFonts@HeaderTemplateManager@@QAEXXZ @0x00201B05 76B
 // HeaderTemplateManager font refresh loop. Evidence: caller 0x00201BD0 loads
 // HeaderTemplate.ini then calls here; prev 0x00201AE2 getNextHeader and next
 // 0x00201C39 newHeaderTemplate prove HeaderTemplateManager owner; rowed callees
@@ -60,14 +60,14 @@ typedef char HeaderTemplateSizeCheck[(sizeof(HeaderTemplate) == 20) ? 1 : -1];
 class HeaderTemplateManager
 {
 public:
-	void rva00201B05();
+	void populateGameFonts();
 	void init();
 private:
 	typedef std::list<HeaderTemplate *> HeaderTemplateList;
 	HeaderTemplateList m_headerTemplateList;
 };
 
-void HeaderTemplateManager::rva00201B05()
+void HeaderTemplateManager::populateGameFonts()
 {
 	for (HeaderTemplateList::iterator it = m_headerTemplateList.begin(); it != m_headerTemplateList.end(); ++it)
 	{
@@ -81,5 +81,5 @@ void HeaderTemplateManager::init()
 {
 	INI ini;
 	ini.loadFile("HeaderTemplate.ini", INI_LOAD_OVERWRITE, NULL);
-	rva00201B05();
+	populateGameFonts();
 }

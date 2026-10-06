@@ -12,7 +12,7 @@ extern "C" char *__cdecl _mbscat(char *, const char *);
 class AptSaveLoad
 {
 public:
-	void Rva00433DFE(int query, char *value, bool set);
+	void Externs(int query, char *value, bool set);
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -24,7 +24,7 @@ private:
 	int m_mode;
 };
 
-void AptSaveLoad::Rva00433DFE(int query, char *value, bool set)
+void AptSaveLoad::Externs(int query, char *value, bool set)
 {
 	if (!set)
 	{

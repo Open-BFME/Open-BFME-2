@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /Oi /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
-// ?rva000550F7@Rva00699180Owner@@QAEXPAUHolder@@H@Z @0x000550F7 120B.
+// ?volumeAdjustingSoundStopping@GlobalVolumeData@MilesAudioManager@@QAEXPAUHolder@@H@Z @0x000550F7 120B.
 // Chain from 0x52098: removes a volume entry matching outer float+key then
 // refreshes the channel. Outer vector lives at +0xB8 via holder indirection.
 
@@ -31,14 +31,20 @@ struct Holder
 	VecInner *m_inner;
 };
 
-class Rva00699180Owner
+class MilesAudioManager
+{
+public:
+	class GlobalVolumeData;
+};
+
+class MilesAudioManager::GlobalVolumeData
 {
 public:
 	void refreshPair(int a, int b);
 	void rva00051FFE(int b);
 	void rva00052048(int idx);
 	void rva00052098(int b);
-	void rva000550F7(Holder *o, int key);
+	void volumeAdjustingSoundStopping(Holder *o, int key);
 
 	char m_pad0[4];
 	float m_base[12];
@@ -57,7 +63,7 @@ struct Entry
 	int key;
 };
 
-void Rva00699180Owner::rva000550F7(Holder *o, int key)
+void MilesAudioManager::GlobalVolumeData::volumeAdjustingSoundStopping(Holder *o, int key)
 {
 	_STL::vector<BfmePod8> &outer = o->m_inner->m_vec;
 	BfmePod8 *p = outer.begin();

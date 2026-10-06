@@ -8,10 +8,10 @@
 // Function and argument names are the retail strings; class names are
 // address-derived.
 //
-// ?rva0057A861@Rva0057A861@@QAEXH@Z  @0x0057A861 92B  SetTimeRemainingState _show + value
-// ?rva0057A8BD@Rva0057A861@@QAEXXZ   @0x0057A8BD 60B  SetTimeRemainingState _hide
-// ?rva005EF2BE@Rva005EF2BE@@QAEXHH@Z @0x005EF2BE 105B SetCommandPointsState value + _show
-// ?rva005EF327@Rva005EF2BE@@QAEXXZ   @0x005EF327 63B  SetCommandPointsState _hide
+// ?DoShowTimeRemaining@ChecklistUIImpl@StrategicHUD@@QAEXH@Z  @0x0057A861 92B  SetTimeRemainingState _show + value
+// ?DoHideTimeRemaining@ChecklistUIImpl@StrategicHUD@@QAEXXZ   @0x0057A8BD 60B  SetTimeRemainingState _hide
+// ?ShowCommandPoints@Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAEXHH@Z @0x005EF2BE 105B SetCommandPointsState value + _show
+// ?HideCommandPoints@Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAEXXZ   @0x005EF327 63B  SetCommandPointsState _hide
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -51,11 +51,15 @@ void Rva0057A5A8Set(int level, Rva0057A5A8Team **ppTeam, int totalSeconds);
 struct Rva005EF096Outer;
 void Rva005EF096Set(int level, Rva005EF096Outer *outer, int a, int b);
 
-class Rva0057A861
+namespace StrategicHUD {
+class ChecklistUIImpl;
+}
+
+class StrategicHUD::ChecklistUIImpl
 {
 public:
-	void rva0057A861(int seconds);
-	void rva0057A8BD();
+	void DoShowTimeRemaining(int seconds);
+	void DoHideTimeRemaining();
 private:
 	char m_pad00[8];
 	unsigned int m_level;		// +0x08
@@ -65,7 +69,7 @@ private:
 	bool m_shown;				// +0x48
 };
 
-void Rva0057A861::rva0057A861(int seconds)
+void StrategicHUD::ChecklistUIImpl::DoShowTimeRemaining(int seconds)
 {
 	if (!m_shown)
 	{
@@ -79,7 +83,7 @@ void Rva0057A861::rva0057A861(int seconds)
 	}
 }
 
-void Rva0057A861::rva0057A8BD()
+void StrategicHUD::ChecklistUIImpl::DoHideTimeRemaining()
 {
 	if (m_shown)
 	{
@@ -88,12 +92,20 @@ void Rva0057A861::rva0057A8BD()
 	}
 }
 
-class Rva005EF2BE
+namespace StrategicHUD {
+class RegionDetailsArmiesMovieClip
 {
 public:
-	void rva005EF2BE(int a, int b);
-	void rva005EF327();
-	void rva005EF366();
+	class Impl;
+};
+}
+
+class StrategicHUD::RegionDetailsArmiesMovieClip::Impl
+{
+public:
+	void ShowCommandPoints(int a, int b);
+	void HideCommandPoints();
+	void Update();
 private:
 	unsigned int m_level;		// +0x00
 	StringBase<char> m_name;	// +0x04
@@ -105,7 +117,7 @@ private:
 	bool m_3E;					// +0x3E
 };
 
-void Rva005EF2BE::rva005EF2BE(int a, int b)
+void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::ShowCommandPoints(int a, int b)
 {
 	if (a != m_a || b != m_b)
 	{
@@ -120,7 +132,7 @@ void Rva005EF2BE::rva005EF2BE(int a, int b)
 	}
 }
 
-void Rva005EF2BE::rva005EF327()
+void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::HideCommandPoints()
 {
 	if (m_shown)
 	{
@@ -130,9 +142,9 @@ void Rva005EF2BE::rva005EF327()
 	}
 }
 
-// ?rva005EF366@Rva005EF2BE@@QAEXXZ @0x005EF366 104B: flag +0x3E gates GameText fetch plus Mouse tooltip.
+// ?Update@Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAEXXZ @0x005EF366 104B: flag +0x3E gates GameText fetch plus Mouse tooltip.
 // Target evidence: byte [ecx+0x3E] je then TheGameText slot 0x3c fetch STRATEGICHUD:ArmyCurrentOverMaxCommandPointsTooltip then Mouse rva001EEA6D -1 0 1.0f; caller jmp 0x005EF3F9.
-void Rva005EF2BE::rva005EF366()
+void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::Update()
 {
 	if (!m_3E)
 		return;

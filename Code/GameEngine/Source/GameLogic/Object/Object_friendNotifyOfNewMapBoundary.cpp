@@ -45,16 +45,10 @@ public:
 	void registerObject(Object *object);
 };
 
-class BFMEPathfinderMapShim
-{
-public:
-	void addObjectToPathfindMap(Object *object);
-};
-
 class Pathfinder
 {
 public:
-	void addObjectToPathfindMap(Object *object);
+	void AddObjectToPathfindMap(Object *object);
 };
 
 class AI
@@ -107,7 +101,7 @@ enum ObjectPrivateStatus
 void Object::friend_notifyOfNewMapBoundary()
 {
 	reinterpret_cast<PartitionManager *>(TheRadar)->registerObject(this);
-	reinterpret_cast<BFMEPathfinderMapShim *>(TheAI->pathfinder())->addObjectToPathfindMap(this);
+	TheAI->pathfinder()->AddObjectToPathfindMap(this);
 
 	Region3D mapExtent;
 	TheTerrainLogic->getExtent(&mapExtent);

@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva0030750A@DataChunkInput@@QAE?AVAsciiString@@XZ @0x0030750A 153B
+// ?readAsciiString@DataChunkInput@@QAE?AVAsciiString@@XZ @0x0030750A 153B
 // DataChunkInput counted-string reader (readAsciiString shape): reads u16 len
 // via virtual read, decrements, getBufferForRead, reads bytes, null terms,
 // returns AsciiString by value via StringBase copy plus releaseBuffer.
@@ -78,7 +78,7 @@ public:
 class DataChunkInput
 {
 public:
-    AsciiString rva0030750A();
+    AsciiString readAsciiString();
 
 protected:
     void decrementDataLeft(Int size);
@@ -91,7 +91,7 @@ private:
     InputChunk *m_chunkStack;
 };
 
-AsciiString DataChunkInput::rva0030750A(void)
+AsciiString DataChunkInput::readAsciiString(void)
 {
     UnsignedShort len;
     m_file->read(&len, sizeof(UnsignedShort));

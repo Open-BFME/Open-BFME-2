@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva005388F7@Rva005388C2@@QAEAAV1@ABV1@@Z @0x005388F7 53B
+// ?rva005388F7@QuadStrip2D@@QAEAAV1@ABV1@@Z @0x005388F7 53B
 // Holder copy-assign via rowed vector<BfmePod16> assign then flag and conditional region copy.
 // Evidence: callee 0x00538782 row vector<BfmePod16> assign; prev 0x005388C2 holder copy same layout region+flag; next 0x00538A0B holder load same layout.
 struct BfmePod16 { int a[4]; };
@@ -28,10 +28,10 @@ private:
 	T *m_end;
 };
 }
-class Rva005388C2
+class QuadStrip2D
 {
 public:
-	Rva005388C2 &rva005388F7(const Rva005388C2 &other);
+	QuadStrip2D &rva005388F7(const QuadStrip2D &other);
 	void rva005389D9(const BfmeFloat4Record00469C61 &x);
 private:
 	_STL::vector<BfmePod16, _STL::allocator<BfmePod16> > m_vec;
@@ -39,7 +39,7 @@ private:
 	float m_1c;
 	unsigned char m_20;
 };
-Rva005388C2 &Rva005388C2::rva005388F7(const Rva005388C2 &other)
+QuadStrip2D &QuadStrip2D::rva005388F7(const QuadStrip2D &other)
 {
 	m_vec = other.m_vec;
 	m_20 = other.m_20;
@@ -50,7 +50,7 @@ Rva005388C2 &Rva005388C2::rva005388F7(const Rva005388C2 &other)
 	return *this;
 }
 
-void Rva005388C2::rva005389D9(const BfmeFloat4Record00469C61 &x)
+void QuadStrip2D::rva005389D9(const BfmeFloat4Record00469C61 &x)
 {
 	((_STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> > *)&m_vec)->push_back(x);
 	m_20 = 1;

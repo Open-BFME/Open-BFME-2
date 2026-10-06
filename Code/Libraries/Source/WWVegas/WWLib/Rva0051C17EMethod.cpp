@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-// ?rva0051C17E@Rva0051C17E@@QAEXH@Z @0x0051C17E 195B: thiscall update via GadgetTextEntryGetText then wide set plus listbox add with winEnable guards; evidence rowed GadgetTextEntryGetText 0x00320AAB wide set 0x00037150 winEnable 0x00313BEC listbox 0x00326BEC copy 0x00037050 release 0x00036E70 caller 0x0051C4B8 globals g_00DD16C4
+// ?OnButtonRenameAccept@AptScoreScreen@@QAEXH@Z @0x0051C17E 195B: thiscall update via GadgetTextEntryGetText then wide set plus listbox add with winEnable guards; evidence rowed GadgetTextEntryGetText 0x00320AAB wide set 0x00037150 winEnable 0x00313BEC listbox 0x00326BEC copy 0x00037050 release 0x00036E70 caller 0x0051C4B8 globals g_00DD16C4
 #include "unicode_string.h"
 
 class GameWindow {
@@ -17,9 +17,10 @@ struct Rva0051C17EInner {
 	UnicodeString m_A0;
 };
 
-class Rva0051C17E {
+class AptScoreScreen
+{
 public:
-	void rva0051C17E(int dummy);
+	void OnButtonRenameAccept(int dummy);
 private:
 	char _00[0x2A0];
 	GameWindow *m_2A0;
@@ -28,7 +29,7 @@ private:
 	int m_2AC;
 };
 
-void Rva0051C17E::rva0051C17E(int dummy)
+void AptScoreScreen::OnButtonRenameAccept(int dummy)
 {
 	(void)dummy;
 	if (!m_2A8)

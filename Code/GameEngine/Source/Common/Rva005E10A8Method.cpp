@@ -1,5 +1,6 @@
 // cl: /MD
-// ?rva005E10A8@Rva005E10A8@@QAEXH@Z retail 0x005E10A8 176B
+// StrategicHUD::CommandButtonMovieClip::Impl::OnInitialized (WorldBuilder name, line 234: replay Enable / ShowProductionCount / ShowTimerOverlay ... for the cached +0x41.. flags).
+// was ?rva005E10A8@Rva005E10A8@@QAEXH@Z retail 0x005E10A8 176B
 // Evidence: chain via rowed Fire 0x005277D9 triple Enable ShowProductionCount ShowTimerOverlay using level +0x08 prefix +0x0C from +8 else empty plus flags +0x41 +0x42 +0x43 and bool temps 0 1 1 plus final +0x40 to 1; same Fire shape as Rva00527890Move.cpp; ret 4 dummy int
 struct Rva005E10A8Inner
 {
@@ -12,10 +13,18 @@ extern Rva00222A8BTarget *TheRva00222A8BTarget;
 extern const char g_Rva0107301CEmptyString[];
 void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, bool *flagPtr);
 
-class Rva005E10A8
+namespace StrategicHUD
+{
+class CommandButtonMovieClip
 {
 public:
-	void rva005E10A8(int dummy);
+	class Impl;
+};
+}
+class StrategicHUD::CommandButtonMovieClip::Impl
+{
+public:
+	void OnInitialized(int dummy);
 private:
 	char m_pad00[8];
 	void *m_level08;
@@ -27,7 +36,7 @@ private:
 	bool m_flag43;
 };
 
-void Rva005E10A8::rva005E10A8(int dummy)
+void StrategicHUD::CommandButtonMovieClip::Impl::OnInitialized(int dummy)
 {
 	(void)dummy;
 	const char *empty = g_Rva0107301CEmptyString;

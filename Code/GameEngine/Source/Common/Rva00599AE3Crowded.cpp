@@ -1,7 +1,7 @@
 // cl: /MD /GX
 //
-// ?rva00599AE3@Rva00599825@@QAE_NPAVObject@@@Z, retail 0x00599AE3, 281 bytes.
-// A member of the skirmish-AI owner record's +0x140 object list (Rva00599825,
+// ?rva00599AE3@AIDozerManager@@QAE_NPAVObject@@@Z, retail 0x00599AE3, 281 bytes.
+// A member of the skirmish-AI owner record's +0x140 object list (AIDozerManager,
 // Rva00599825ListAdd.cpp: +0x0C the owner player): whether at most two alive
 // objects allied (flags 4) to that player, of a kind among 3, 7 and 90 and of
 // none of kind 205, stand within 300 of the object. The filters are BFME2's
@@ -105,7 +105,7 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-class Rva00599825
+class AIDozerManager
 {
 public:
 	bool rva00599AE3(Object *obj);
@@ -114,7 +114,7 @@ private:
 	Player *m_player;	// +0x0C
 };
 
-bool Rva00599825::rva00599AE3(Object *obj)
+bool AIDozerManager::rva00599AE3(Object *obj)
 {
 	Rva00599AE3Mask kinds;
 	kinds.set(3);

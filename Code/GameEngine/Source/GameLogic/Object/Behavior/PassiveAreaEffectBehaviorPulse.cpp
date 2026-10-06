@@ -18,7 +18,7 @@
 // module's object as the source, then plays the FXList at +0x34.
 //
 // ?rva00484A08@PassiveAreaEffectBehavior@@UAEXPAVObject@@@Z, retail 0x00484A08, 95 bytes.
-// Slot 16: the attribute pulse. Runs the pinned Object::rva0028EA91(-1) on
+// Slot 16: the attribute pulse. Runs Object::addAttributeModifierToPool(-1) on
 // every name of the module data's AsciiString vector at +0x14, then gives the
 // object's AttributeModifierPoolUpdate (rowed finder 0x0028BDD7) the entry at
 // +0x2C until the current frame plus the delay at +0x10 (rowed 0x00403415),
@@ -74,7 +74,7 @@ class Object
 public:
 	bool rva0028C264(int *out, int frames);
 	bool rva0028FEA7(float amount, const Object *source, unsigned int delay);
-	bool rva0028EA91(const AsciiString &name, int value);
+	bool addAttributeModifierToPool(const AsciiString &name, int value);
 	bool isEffectivelyDead() const { return (m_438 & 1) != 0; }
 	BodyModule *getBodyModule() const { return m_body; }
 private:
@@ -173,7 +173,7 @@ void PassiveAreaEffectBehavior::rva00484A08(Object *obj)
 
 	const PassiveAreaEffectBehaviorModuleData *d = m_moduleData;
 	for (const AsciiString *it = d->m_14Begin; it != d->m_14End; ++it)
-		obj->rva0028EA91(*it, -1);
+		obj->addAttributeModifierToPool(*it, -1);
 
 	AttributeModifierPoolUpdate *pool = obj->findAttributeModifierPoolUpdate();
 	if (pool)

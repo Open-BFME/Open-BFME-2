@@ -1,9 +1,9 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva0045108D@FlingPassengerSpecialAbilityUpdate@@UAEXXZ, retail 0x00494FCC, 162 bytes.
+// ?triggerAbilityEffect@FlingPassengerSpecialAbilityUpdate@@UAEXXZ, retail 0x00494FCC, 162 bytes.
 // Slot 17 of the vftable whose slot-2 name getter returns
 // "FlingPassengerSpecialAbilityUpdate". Runs the base SpecialAbilityUpdate
-// slot 17 (pinned rva0045108D, whose address name it carries so cl 7.1
+// slot 17 (pinned triggerAbilityEffect, whose address name it carries so cl 7.1
 // places it in slot 17), then, when the owner's contain module (Object+0x250)
 // reports a passenger (its slot 69), takes the passenger its slot 79 hands
 // back: fires the module-data weapon (+0xD4) from the owner at it through
@@ -106,7 +106,7 @@ public:
 	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
 	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
 	virtual void s16();
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
@@ -115,13 +115,13 @@ protected:
 class FlingPassengerSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 };
 
-// ?rva0045108D@FlingPassengerSpecialAbilityUpdate@@UAEXXZ @0x00494FCC
-void FlingPassengerSpecialAbilityUpdate::rva0045108D()
+// ?triggerAbilityEffect@FlingPassengerSpecialAbilityUpdate@@UAEXXZ @0x00494FCC
+void FlingPassengerSpecialAbilityUpdate::triggerAbilityEffect()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 
 	Object *me = m_object;
 	const FlingPassengerSpecialAbilityUpdateModuleData *data =

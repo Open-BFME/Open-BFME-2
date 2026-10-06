@@ -5,7 +5,7 @@
 // the victim list at +0x24 using TheGameLogic frame at +0x40 and per-entry
 // Weapon/status/flag at +0/+4/+8. Same class as the neighbouring
 // DamageFieldUpdate dtor 0x0049122C; callees are rowed getStatus 0x002CCFC7
-// and Weapon::rva002CE7A4 0x002CE7A4. Caller at 0x004914AA proves a
+// and Weapon::forceFireWeapon 0x002CE7A4. Caller at 0x004914AA proves a
 // thiscall void(Object*) method; honest DamageFieldUpdate naming.
 enum WeaponStatus
 {
@@ -30,7 +30,7 @@ class Weapon
 {
 public:
 	WeaponStatus getStatus() const;
-	Object *rva002CE7A4(const Object *source, const Object *target);
+	Object *forceFireWeapon(const Object *source, const Object *target);
 };
 
 class GameLogic
@@ -86,7 +86,7 @@ void DamageFieldUpdate::rva004911AE(Object *other)
 	{
 		if (m_weapon20->getStatus() != READY_TO_FIRE)
 			return;
-		m_weapon20->rva002CE7A4(m_obj08, other);
+		m_weapon20->forceFireWeapon(m_obj08, other);
 		return;
 	}
 	unsigned int frame = TheGameLogic->m_frame;
@@ -97,7 +97,7 @@ void DamageFieldUpdate::rva004911AE(Object *other)
 			continue;
 		if (entry->m_weapon00->getStatus() != READY_TO_FIRE)
 			continue;
-		entry->m_weapon00->rva002CE7A4(m_obj08, other);
+		entry->m_weapon00->forceFireWeapon(m_obj08, other);
 		if (entry->m_flag08 == 0)
 			continue;
 		entry->m_frame04 = (unsigned int)-1;

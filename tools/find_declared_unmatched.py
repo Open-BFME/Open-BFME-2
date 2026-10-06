@@ -178,13 +178,25 @@ def find_defined_functions(text: str):
             # cleared so a stale one cannot leak past it.
             candidate = stripped[3:].strip()
             parts = candidate.split()
+            # `// ?<mangled>,` -- a ledger row's name pasted with its trailing
+            # separator -- names the same symbol; the comma is not part of it.
+            if parts and parts[0].endswith(","):
+                parts[0] = parts[0].rstrip(",")
+                candidate = " ".join(parts)
             if len(parts) == 1 or (len(parts) >= 2 and parts[1] in
                                    ("present-unmatched", "absent-from-retail")):
                 symbol_comment = candidate
             else:
                 symbol_comment = None
             continue
-        is_namespace_line = stripped.startswith("namespace ") or stripped.startswith("namespace\t") or stripped.startswith("namespace {")
+        is_namespace_line = (stripped.startswith("namespace ") or stripped.startswith("namespace\t")
+                             or stripped.startswith("namespace {")
+                             or re.match(r'extern\s+"C(?:\+\+)?"\s*\{', stripped) is not None)
+        # Brace depth of the innermost namespace (or extern "C" block) this line
+        # sits in. An out-of-class Qualified::name definition only ever appears
+        # at that depth; deeper means inside a function or class body.
+        floor = namespace_stack[-1][1] if namespace_stack else 0
+        in_block = brace_depth > floor
 
         open_count = line.count("{")
         close_count = line.count("}")
@@ -207,6 +219,15 @@ def find_defined_functions(text: str):
             match = None
         else:
             match = definition_pattern.match(line)
+        # A call wrapped across lines -- `Bar::call(a,` inside a body -- ends in
+        # ',' like a wrapped definition signature does. Brace counting alone
+        # cannot tell them apart (braces in strings and #if branches skew it, and
+        # trusting it hid real definitions in W3DRoadBuffer.cpp), so a line is
+        # read as a call only when it is also indented: every out-of-class
+        # definition in this tree starts its signature in column 0.
+        if match and stripped.endswith(",") and in_block and line[:1] in (" ", "\t"):
+            match = None
+            symbol_comment = None  # a marker written over the call named the call
         if match:
             class_name = match.group(1)
             method_name = match.group(2)

@@ -243,28 +243,28 @@ bool GeneralAllocator::rva00031BB0(const void *block)
 // ?rva00032DF0@GeneralAllocator@Allocator@EA@@QAEPAXI@Z present-unmatched
 void *GeneralAllocator::rva00032DF0(unsigned int size)
 {
-	int rounded = size + 0x101E;
+	long rounded = size + 0x101E;
 	rounded = rounded & (0xFFFFF000);
 	if (rounded >= size)
 	{
-		int allocType = 0x3000;
+		unsigned long allocType = 0x3000;
 		if (m_coreFlags)
 			allocType = 0x103000;
 		void *base = VirtualAlloc(0, rounded, allocType, 4);
 		if (base != 0)
 		{
 			m_coreBytes = m_coreBytes + (rounded);
-			void *aligned;
 			++m_coreCount;
-			long usable = rounded - 0x10;
+			unsigned int usable = rounded - 0x10;
+			void *aligned;
 			unsigned int misalign = (unsigned int)base & 7;
 			if (misalign)
 			{
-				unsigned long adjust = 8 - misalign;
+				int adjust = 8 - misalign;
 				// Commuted and still [ecx+eax]: SIB order is reg-driven here, not source order.
-				usable -= adjust;
 				aligned = adjust + (char *)base;
 				((unsigned int *)aligned)[0] = adjust;
+				usable -= adjust;
 				((unsigned int *)aligned)[1] = (usable - adjust) | 2;
 			}
 			else
@@ -274,12 +274,12 @@ void *GeneralAllocator::rva00032DF0(unsigned int size)
 				((unsigned int *)base)[1] = usable | 2;
 			}
 			char *footer = (char *)aligned + usable;
-			((unsigned int *)footer)[0] = usable;
 			((unsigned int *)footer)[1] = 0x13;
+			((unsigned int *)footer)[0] = usable;
 			void *oldTail = m_coreList.m_prev;
 			CoreLink *coreSentinel = &m_coreList;
-			((void **)footer)[2] = coreSentinel;
 			((void **)footer)[3] = oldTail;
+			((void **)footer)[2] = coreSentinel;
 			coreSentinel->m_prev = footer;
 			*(void **)((char *)oldTail + 8) = footer;
 			return (char *)aligned + 8;

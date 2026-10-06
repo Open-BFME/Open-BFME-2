@@ -120,7 +120,7 @@ private:
 	mutable AsciiString m_key;
 };
 
-// Target-backed GameSlot fields: MpGameSetup::rva0043DD34 reads/writes
+// Target-backed GameSlot fields: AptMpGameSetup::rva0043DD34 reads/writes
 // +0x50 through +0x5C; the +0x5C dword setter is rowed at 0x003FF0E7.
 class GameSlot
 {
@@ -155,13 +155,13 @@ public:
 	CreateAHeroData *rva0040A32F(int index);
 };
 
-class Rva00219B9E
+class CreateAHeroManager
 {
 public:
 	Rva0040A3F9 *rva0021F797();
 };
 
-extern Rva00219B9E *g_00DFE344;
+extern CreateAHeroManager *TheCreateAHeroManager;
 
 // ?write@GameModePreferences@@UAE_NXZ @0x44D50D
 Bool GameModePreferences::write(void)
@@ -250,7 +250,7 @@ Bool GameModePreferences::rva0044D774(GameSlot *slot)
 {
 	if (!slot)
 		return false;
-	if (!g_00DFE344)
+	if (!TheCreateAHeroManager)
 		return false;
 	slot->m_heroKind = 0;
 	slot->m_hero0c = 0;
@@ -267,7 +267,7 @@ Bool GameModePreferences::rva0044D774(GameSlot *slot)
 		((Rva003FF0E7DwordSlot *)slot)->set(hero);
 		return true;
 	}
-	Rva0040A3F9 *heroes = g_00DFE344->rva0021F797();
+	Rva0040A3F9 *heroes = TheCreateAHeroManager->rva0021F797();
 	CreateAHeroData *entry = heroes->rva0040A32F(hero);
 	if (!entry)
 		return true;

@@ -6,6 +6,9 @@
 // module-template destructor onto. Named templates whose destructors share
 // the fold ride in the same TU under the same standalone shape.
 
+extern "C" const void *const vtbl_00C1C780[];  // folded, 35 classes; via ??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C1C780=??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")
+
 extern "C" const void *const vtbl_00BBB554[];  // folded, 23 classes; via ??_7BfmeBaseVUQ@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BBB554=??_7BfmeBaseVUQ@@6B@")
 
@@ -33,7 +36,7 @@ inline DefaultModuleTemplate<1>::~DefaultModuleTemplate()
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -50,7 +53,7 @@ inline DefaultModuleTemplate<2>::~DefaultModuleTemplate()
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -67,7 +70,7 @@ inline DefaultModuleTemplate<3>::~DefaultModuleTemplate()
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -84,7 +87,7 @@ inline DefaultModuleTemplate<0>::~DefaultModuleTemplate()
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -101,7 +104,7 @@ inline DefaultModuleTemplate<6>::~DefaultModuleTemplate()
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -150,7 +153,7 @@ inline CylindricalEmissionVelocityModuleTemplate::~CylindricalEmissionVelocityMo
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -166,7 +169,7 @@ inline OrthoEmissionVelocityModuleTemplate::~OrthoEmissionVelocityModuleTemplate
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -182,7 +185,7 @@ inline LightningDrawModuleTemplate::~LightningDrawModuleTemplate()
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -198,7 +201,7 @@ inline LightningEmissionModuleTemplate::~LightningEmissionModuleTemplate()
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -214,7 +217,7 @@ inline RenderObjectUpdateModuleTemplate::~RenderObjectUpdateModuleTemplate()
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -230,7 +233,7 @@ inline TerrainFireEmissionModuleTemplate::~TerrainFireEmissionModuleTemplate()
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 
@@ -246,7 +249,7 @@ inline OutwardEmissionVelocityModuleTemplate::~OutwardEmissionVelocityModuleTemp
     *(volatile unsigned int *)info = ((unsigned int)vtbl_00BBB554);
 
     unsigned char *base = this ? (unsigned char *)this + 4 : 0;
-    *(volatile unsigned int *)base = 0x00C1C780;
+    *(volatile unsigned int *)base = ((unsigned int)vtbl_00C1C780);
     *(volatile unsigned int *)this = ((unsigned int)vtbl_00BBB52C);
 }
 

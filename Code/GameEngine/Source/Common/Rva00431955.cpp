@@ -1,4 +1,5 @@
 // cl: /MD
+// FormationTranslator::WaitForSecondButtonDownStateHandler::IsFirstButtonStillDown (WorldBuilder name, FormationTranslator.cpp lines 316..328: the same TheMouse button pointer test chosen by +0x08 == 4).
 // ?rva00431955@Rva00431955@@QAE_NXZ @0x00431955 35B: thiscall bool check of +8 against 4 selecting Mouse +0x4F24 or +0x4F30 null test. Evidence: unlock lane; global TheMouse; caller 0x00431B79.
 class Mouse
 {
@@ -11,16 +12,21 @@ public:
 
 extern Mouse *TheMouse;
 
-class Rva00431955
+class FormationTranslator
+{
+public:
+	class WaitForSecondButtonDownStateHandler;
+};
+class FormationTranslator::WaitForSecondButtonDownStateHandler
 {
 	int m_00;
 	int m_04;
 	int m_08;
 public:
-	bool rva00431955();
+	bool IsFirstButtonStillDown();
 };
 
-bool Rva00431955::rva00431955()
+bool FormationTranslator::WaitForSecondButtonDownStateHandler::IsFirstButtonStillDown()
 {
 	void *p;
 	if (m_08 == 4)

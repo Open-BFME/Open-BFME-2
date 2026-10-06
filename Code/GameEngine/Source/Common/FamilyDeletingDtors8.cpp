@@ -23,9 +23,10 @@ void famgenDelete(Rva004E7DC8 *p) { delete p; }
 class Rva002C589B { public: ~Rva002C589B(); };
 void famgenDelete(Rva002C589B *p) { delete p; }
 
-// ??_GRva005ADA40@@QAEPAXI@Z @0x00506B58 28B: calls rowed ~Rva005ADA40 0x005ADA40
-class Rva005ADA40 { public: ~Rva005ADA40(); };
-void famgenDelete(Rva005ADA40 *p) { delete p; }
+// ??_GAIBase@@QAEPAXI@Z @0x00506B58 28B: calls rowed ~AIBase 0x005ADA40
+class AIBase
+{ public: ~AIBase(); };
+void famgenDelete(AIBase *p) { delete p; }
 
 // ??_GRva0052A470@@QAEPAXI@Z @0x0052A5E7 28B: calls rowed ~Rva0052A470 0x0052A470
 class Rva0052A470 { public: ~Rva0052A470(); };

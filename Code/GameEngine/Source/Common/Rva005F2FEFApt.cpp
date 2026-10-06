@@ -25,17 +25,25 @@ struct Rva005F2FEFTeam
 	char m_name[1];
 };
 
-class Rva005F2FEF
+namespace StrategicHUD {
+class ArmyDetailsMovieClip
 {
 public:
-	void rva005F2FEF(const UnicodeString &text);
+	class Impl;
+};
+}
+
+class StrategicHUD::ArmyDetailsMovieClip::Impl
+{
+public:
+	void ShowMemberName(const UnicodeString &text);
 	void rva005F2897();
-	void rva005F2953();
-	void rva005F298F();
-	void rva005F29CB();
-	void rva005F2B76(int rank);
-	void rva005F2CBA(float progress);
-	void rva005F2D41(int val);
+	void HideMemberRank();
+	void HideMemberRankProgress();
+	void HideCommandPoints();
+	void ShowMemberRank(int rank);
+	void ShowMemberRankProgress(float progress);
+	void ShowCommandPoints(int val);
 private:
 	char m_pad00[8];
 	void *m_level08;
@@ -72,7 +80,7 @@ extern GameTextInterface *TheGameText;
 
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
-void Rva005F2FEF::rva005F2FEF(const UnicodeString &text)
+void StrategicHUD::ArmyDetailsMovieClip::Impl::ShowMemberName(const UnicodeString &text)
 {
 	if (!(m_flags58 & 1)) {
 		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
@@ -88,7 +96,7 @@ void Rva005F2FEF::rva005F2FEF(const UnicodeString &text)
 	}
 }
 
-void Rva005F2FEF::rva005F2897()
+void StrategicHUD::ArmyDetailsMovieClip::Impl::rva005F2897()
 {
 	if (m_flags58 & 1) {
 		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
@@ -104,7 +112,7 @@ void Rva005F2FEF::rva005F2897()
 	}
 }
 
-void Rva005F2FEF::rva005F2953()
+void StrategicHUD::ArmyDetailsMovieClip::Impl::HideMemberRank()
 {
 	if (m_flags58 & 2) {
 		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
@@ -113,7 +121,7 @@ void Rva005F2FEF::rva005F2953()
 	}
 }
 
-void Rva005F2FEF::rva005F298F()
+void StrategicHUD::ArmyDetailsMovieClip::Impl::HideMemberRankProgress()
 {
 	if (m_flags58 & 4) {
 		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
@@ -122,7 +130,7 @@ void Rva005F2FEF::rva005F298F()
 	}
 }
 
-void Rva005F2FEF::rva005F29CB()
+void StrategicHUD::ArmyDetailsMovieClip::Impl::HideCommandPoints()
 {
 	if (m_flags58 & 8) {
 		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
@@ -144,7 +152,7 @@ public:
 	void rva005F3272(const UnicodeString &text);
 private:
 	char m_pad00[4];
-	Rva005F2FEF *m_member04;
+	StrategicHUD::ArmyDetailsMovieClip::Impl *m_member04;
 };
 
 void Rva005F2A32::rva005F2A32()
@@ -154,37 +162,37 @@ void Rva005F2A32::rva005F2A32()
 
 void Rva005F2A32::rva005F2A3A()
 {
-	m_member04->rva005F2953();
+	m_member04->HideMemberRank();
 }
 
 void Rva005F2A32::rva005F2A42()
 {
-	m_member04->rva005F298F();
+	m_member04->HideMemberRankProgress();
 }
 
 void Rva005F2A32::rva005F2A4A()
 {
-	m_member04->rva005F29CB();
+	m_member04->HideCommandPoints();
 }
 
 void Rva005F2A32::rva005F2F41(int rank)
 {
-	m_member04->rva005F2B76(rank);
+	m_member04->ShowMemberRank(rank);
 }
 
 void Rva005F2A32::rva005F2F49(float progress)
 {
-	m_member04->rva005F2CBA(progress);
+	m_member04->ShowMemberRankProgress(progress);
 }
 
 void Rva005F2A32::rva005F2F5C(int val)
 {
-	m_member04->rva005F2D41(val);
+	m_member04->ShowCommandPoints(val);
 }
 
 void Rva005F2A32::rva005F3272(const UnicodeString &text)
 {
-	m_member04->rva005F2FEF(text);
+	m_member04->ShowMemberName(text);
 }
 
 AsciiString Rva00222834Get(int val);
@@ -201,7 +209,7 @@ int __cdecl Rva005F2A52AptCall(Rva00222A8BTarget *target, void *level, const cha
 	return target->rva00222B19(level, prefix, function, 3, GetStr005F2A52(Rva00222834Get(*pInt)), (void *)GetStr005F2A52(Rva002228E8Get(*pF1)), (void *)GetStr005F2A52(Rva002228E8Get(*pF2)), 0, 0);
 }
 
-void Rva005F2FEF::rva005F2B76(int rank)
+void StrategicHUD::ArmyDetailsMovieClip::Impl::ShowMemberRank(int rank)
 {
 	if (rank != m_rank4C) {
 		UnicodeString tmp;
@@ -223,7 +231,7 @@ void Rva005F2FEF::rva005F2B76(int rank)
 	}
 }
 
-void Rva005F2FEF::rva005F2D41(int val)
+void StrategicHUD::ArmyDetailsMovieClip::Impl::ShowCommandPoints(int val)
 {
 	if (val != m_cmdPts54) {
 		UnicodeString tmp;

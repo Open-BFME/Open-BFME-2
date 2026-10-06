@@ -34,14 +34,14 @@ void __cdecl Rva00437EAC(int flags, const UnicodeString &title,
 class AptSaveLoad
 {
 public:
-	void Rva00434220(int result);
+	void MultiplayerSaveGameDenied(int result);
 
 private:
 	unsigned char m_pad000[0x27C];
 	int m_state;
 };
 
-void AptSaveLoad::Rva00434220(int result)
+void AptSaveLoad::MultiplayerSaveGameDenied(int result)
 {
 	UnicodeString message;
 	switch (result)

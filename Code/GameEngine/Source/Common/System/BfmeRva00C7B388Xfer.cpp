@@ -5,10 +5,14 @@
 // "%i=0x%x [byte]", "version: %i", "'%s' [ascii]" -- through the variadic
 // helper at 0x0060D5F2, which either writes one indent unit per open block or
 // formats into a 1 KB buffer and hands the text to the stream at +8.  A flag at
-// +4 suppresses the indent once, after a label has been printed.  No string
-// names the class, so its name is derived from the vtable address; the method
-// names are the base Xfer's, mapped slot by slot (the operator== run is laid
-// out in reverse declaration order, as Xfer.cpp explains).
+// +4 suppresses the indent once, after a label has been printed.  Retail keeps
+// no string naming the class; the name XferSaveAsText (renamed from the
+// address-derived BfmeRva00C7B388) is target evidence from WorldBuilder's
+// debug xfer_debug.cpp, whose ~XferSaveAsText (asserting !m_file, the stream
+// at +8, then destroying the vector at +0x0C) aligns with the destructor at
+// 0x0060DED5 and whose XferSaveAsText::XferRawBytes aligns with 0x0060D66E.
+// The method names are the base Xfer's, mapped slot by slot (the operator==
+// run is laid out in reverse declaration order, as Xfer.cpp explains).
 //
 // The base class and the value types below are Xfer.cpp's model verbatim, so
 // the vtable lines up with the shipped one.
@@ -203,12 +207,12 @@ struct BfmeRva00C7B388Stream
     virtual void Write(const char *text, int length);
 };
 
-class BfmeRva00C7B388 : public Xfer
+class XferSaveAsText : public Xfer
 {
 public:
-    static void __cdecl Print(BfmeRva00C7B388 *self, const char *format, ...);
+    static void __cdecl Print(XferSaveAsText *self, const char *format, ...);
 
-    virtual ~BfmeRva00C7B388();
+    virtual ~XferSaveAsText();
 
     virtual Xfer &operator==(bool &value);
     virtual Xfer &operator==(char &value);
@@ -249,7 +253,7 @@ private:
 
 // 0x0060D5F2: with no format, one indent unit per open block; otherwise the
 // formatted text, measured and handed to the stream.
-void __cdecl BfmeRva00C7B388::Print(BfmeRva00C7B388 *self, const char *format, ...)
+void __cdecl XferSaveAsText::Print(XferSaveAsText *self, const char *format, ...)
 {
     if (format == 0) {
         for (int depth = (self->m_bfme10 - self->m_bfme0C) / 12; depth != 0; --depth)
@@ -263,7 +267,7 @@ void __cdecl BfmeRva00C7B388::Print(BfmeRva00C7B388 *self, const char *format, .
     self->m_bfme08->Write(buffer, strlen(buffer));
 }
 
-Xfer &BfmeRva00C7B388::operator==(bool &value)
+Xfer &XferSaveAsText::operator==(bool &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -272,7 +276,7 @@ Xfer &BfmeRva00C7B388::operator==(bool &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(Xfer::Version &value)
+Xfer &XferSaveAsText::operator==(Xfer::Version &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -281,7 +285,7 @@ Xfer &BfmeRva00C7B388::operator==(Xfer::Version &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(char &value)
+Xfer &XferSaveAsText::operator==(char &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -290,7 +294,7 @@ Xfer &BfmeRva00C7B388::operator==(char &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(unsigned char &value)
+Xfer &XferSaveAsText::operator==(unsigned char &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -299,7 +303,7 @@ Xfer &BfmeRva00C7B388::operator==(unsigned char &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(short &value)
+Xfer &XferSaveAsText::operator==(short &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -308,7 +312,7 @@ Xfer &BfmeRva00C7B388::operator==(short &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(unsigned short &value)
+Xfer &XferSaveAsText::operator==(unsigned short &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -317,7 +321,7 @@ Xfer &BfmeRva00C7B388::operator==(unsigned short &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(int &value)
+Xfer &XferSaveAsText::operator==(int &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -326,7 +330,7 @@ Xfer &BfmeRva00C7B388::operator==(int &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(unsigned int &value)
+Xfer &XferSaveAsText::operator==(unsigned int &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -335,7 +339,7 @@ Xfer &BfmeRva00C7B388::operator==(unsigned int &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(__int64 &value)
+Xfer &XferSaveAsText::operator==(__int64 &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -344,7 +348,7 @@ Xfer &BfmeRva00C7B388::operator==(__int64 &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(float &value)
+Xfer &XferSaveAsText::operator==(float &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -353,7 +357,7 @@ Xfer &BfmeRva00C7B388::operator==(float &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(AsciiString &value)
+Xfer &XferSaveAsText::operator==(AsciiString &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -362,7 +366,7 @@ Xfer &BfmeRva00C7B388::operator==(AsciiString &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(UnicodeString &value)
+Xfer &XferSaveAsText::operator==(UnicodeString &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -371,7 +375,7 @@ Xfer &BfmeRva00C7B388::operator==(UnicodeString &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(PooledString &value)
+Xfer &XferSaveAsText::operator==(PooledString &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -380,7 +384,7 @@ Xfer &BfmeRva00C7B388::operator==(PooledString &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(Coord3DBase &value)
+Xfer &XferSaveAsText::operator==(Coord3DBase &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -389,7 +393,7 @@ Xfer &BfmeRva00C7B388::operator==(Coord3DBase &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(ICoord3D &value)
+Xfer &XferSaveAsText::operator==(ICoord3D &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -398,7 +402,7 @@ Xfer &BfmeRva00C7B388::operator==(ICoord3D &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(Region3D &value)
+Xfer &XferSaveAsText::operator==(Region3D &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -408,7 +412,7 @@ Xfer &BfmeRva00C7B388::operator==(Region3D &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(IRegion3D &value)
+Xfer &XferSaveAsText::operator==(IRegion3D &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -418,7 +422,7 @@ Xfer &BfmeRva00C7B388::operator==(IRegion3D &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(Coord2D &value)
+Xfer &XferSaveAsText::operator==(Coord2D &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -427,7 +431,7 @@ Xfer &BfmeRva00C7B388::operator==(Coord2D &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(ICoord2D &value)
+Xfer &XferSaveAsText::operator==(ICoord2D &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -436,7 +440,7 @@ Xfer &BfmeRva00C7B388::operator==(ICoord2D &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(Region2D &value)
+Xfer &XferSaveAsText::operator==(Region2D &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -446,7 +450,7 @@ Xfer &BfmeRva00C7B388::operator==(Region2D &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(IRegion2D &value)
+Xfer &XferSaveAsText::operator==(IRegion2D &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -456,7 +460,7 @@ Xfer &BfmeRva00C7B388::operator==(IRegion2D &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(RealRange &value)
+Xfer &XferSaveAsText::operator==(RealRange &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -465,7 +469,7 @@ Xfer &BfmeRva00C7B388::operator==(RealRange &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(RGBColor &value)
+Xfer &XferSaveAsText::operator==(RGBColor &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -474,7 +478,7 @@ Xfer &BfmeRva00C7B388::operator==(RGBColor &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(RGBAColorReal &value)
+Xfer &XferSaveAsText::operator==(RGBAColorReal &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -484,7 +488,7 @@ Xfer &BfmeRva00C7B388::operator==(RGBAColorReal &value)
     return *this;
 }
 
-Xfer &BfmeRva00C7B388::operator==(RGBAColorInt &value)
+Xfer &XferSaveAsText::operator==(RGBAColorInt &value)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -496,7 +500,7 @@ Xfer &BfmeRva00C7B388::operator==(RGBAColorInt &value)
 // 0x0060DD1B 124B: vtable slot 37 (offset 0x94) of 0x00C7B388, the XferEnum
 // override. Base Xfer::XferEnum at 0x0060BBD5 is slot 37 of 0x00BBB910.
 // Prints the integer value selected by size, then " [name]", then newline.
-Xfer &BfmeRva00C7B388::XferRawBytes(void *data, unsigned int size)
+Xfer &XferSaveAsText::XferRawBytes(void *data, unsigned int size)
 {
     if (size != 0) {
         if (data == 0)
@@ -536,7 +540,7 @@ Xfer &BfmeRva00C7B388::XferRawBytes(void *data, unsigned int size)
     }
     return *this;
 }
-Xfer &BfmeRva00C7B388::XferEnum(const char *name, void *data, unsigned int size)
+Xfer &XferSaveAsText::XferEnum(const char *name, void *data, unsigned int size)
 {
     if (!m_bfme04)
         Print(this, 0);
@@ -592,7 +596,7 @@ public:
 };
 }
 
-BfmeRva00C7B388::~BfmeRva00C7B388()
+XferSaveAsText::~XferSaveAsText()
 {
 	typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > NarrowString;
 	typedef _STL::vector<NarrowString, _STL::allocator<NarrowString> > NarrowStringVec;
@@ -603,7 +607,7 @@ BfmeRva00C7B388::~BfmeRva00C7B388()
 // pending-label flag is set print the newline, always print the indent,
 // print the label format with the name (empty string when null), then push a
 // copy of the name onto the narrow-string vector at +0x0C. Returns 0.
-int BfmeRva00C7B388::rva0060DF27(const char *s)
+int XferSaveAsText::rva0060DF27(const char *s)
 {
 	if (m_bfme04) {
 		Print(this, "\n");
@@ -621,4 +625,4 @@ int BfmeRva00C7B388::rva0060DF27(const char *s)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:_bfmeAppend=?Print@BfmeRva00C7B388@@SAXPAV1@PBDZZ")
+#pragma comment(linker, "/alternatename:_bfmeAppend=?Print@XferSaveAsText@@SAXPAV1@PBDZZ")

@@ -1,10 +1,13 @@
 // ?createWindowStatic@@YAPAVGameWindow@@PADHPAXPAV1@@Z
+// partial score=0.5072 date=2026-10-06
+// ?createWindowStatic@@YAPAVGameWindow@@PADHPAXPAV1@@Z
 // partial score=0.5004 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Oi
 //
 // ?createWindow@@YAPAVGameWindow@@PADHPAUHINSTANCE__@@PAVGameWindow@@@Z, retail 0x00316BD2, 294 bytes.
 // Evidence: caller at 0x316CCE is createWindow per setWindowText TU; called twice from parseWindow FUN_00716e8f; handles USER/TABPANE else createGadget; sets callback strings; text via setWindowText; notify via TheWindowManager 0xec. First attempt.
 
+#include <string.h>
 #include "ascii_string.h"
 
 class GameWindow;
@@ -55,7 +58,7 @@ public:
 };
 
 extern GameWindowManager *TheWindowManager;
-extern "C" int __cdecl strcmp(const char *a, const char *b);
+// (CRT prototype from the standard header)
 
 GameWindow *peekWindow(void);
 GameWindow *createGadget(char *type, void *data, GadgetCreateView *view, GameWindow *parent);

@@ -1,6 +1,8 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
-// ?rva00210D68@Rva00210D68@@QAEXXZ, retail 0x00210D68, 78B.
+// LivingWorldManager::SetUpRegionEffectsManager, retail 0x00210D68, 78B
+// (WorldBuilder name, LivingWorldManager.cpp lines 495..503: release the old
+// +0x268 manager, look the campaign's one up by name, store and start it).
 // Evidence: __thiscall (reads ecx first into esi); clears +0x268 via rowed
 // 0x003EF1B8 then AND-zero; chains g_009FEF10[+0xB0][+8] with null check;
 // looks up key at +0x54 through rowed 0x003EF328 with table at g_00E02E60;
@@ -44,15 +46,15 @@ public:
 extern Rva002BA8F1Logic *g_009FEF10;
 extern Rva003EF328 *g_00E02E60;
 
-class Rva00210D68 {
+class LivingWorldManager {
 public:
-	void rva00210D68();
+	void SetUpRegionEffectsManager();
 private:
 	char m_pad[0x268];
 	Rva003EF14A *m_ptr268;
 };
 
-void Rva00210D68::rva00210D68()
+void LivingWorldManager::SetUpRegionEffectsManager()
 {
 	if (m_ptr268) {
 		m_ptr268->rva003EF1B8();

@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
-// ??0Rva0037E270@@QAE@XZ @0x0037E352 135B
-// Default ctor over Rva0037E270: zeros plus ones plus clear80 0x001EAE6F plus
+// ??0UnitRevivalEntry@@QAE@XZ @0x0037E352 135B
+// Default ctor over UnitRevivalEntry: zeros plus ones plus clear80 0x001EAE6F plus
 // Rva004E04FD ctor plus float global 1.0f plus AsciiString null.
 // Neighbours in Rva0037E270Lookup.cpp share /O1 /DNDEBUG /MD; /arch:SSE for
 // retail xorps plus movss float zero and global float moves.
@@ -24,7 +24,7 @@ public:
 };
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-class Rva0037E270 {
+class UnitRevivalEntry {
     int m_00;
     int m_04;
     float m_08;
@@ -45,9 +45,9 @@ class Rva0037E270 {
     int m_D0;
     AsciiString m_str;
 public:
-    Rva0037E270();
+    UnitRevivalEntry();
 };
-Rva0037E270::Rva0037E270()
+UnitRevivalEntry::UnitRevivalEntry()
 {
 	m_00 = 0;
 	m_04 = 0;

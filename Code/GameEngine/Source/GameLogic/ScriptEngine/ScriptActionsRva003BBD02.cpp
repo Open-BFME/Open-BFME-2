@@ -1,5 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// ?Rva003BBD02Do@@YGXPAVParameter@@PAX@Z @ 0x003BBD02 (55B).
+// ?doNamedEnableCameraFading@ScriptActions@@IAEXPAVParameter@@PAX@Z @ 0x003BBD02 (55B).
 // Free-function wrapper: looks up Object via TheScriptEngine getUnitNamed
 // Parameter row 0x003588E7 then double getDrawable Thing row 0x005508E2
 // null-guarded then Drawable walk rva00273686 row 0x00273686 with void arg.
@@ -22,7 +22,13 @@ public:
 };
 extern class ScriptEngine *TheScriptEngine;
 
-void __stdcall Rva003BBD02Do(Parameter *p, void *arg)
+class ScriptActions
+{
+protected:
+	void doNamedEnableCameraFading(Parameter *p, void *arg);
+};
+
+void ScriptActions::doNamedEnableCameraFading(Parameter *p, void *arg)
 {
     Object *obj = TheScriptEngine->getUnitNamed(p);
     if (!obj)

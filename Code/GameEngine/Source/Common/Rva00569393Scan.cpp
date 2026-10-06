@@ -7,10 +7,10 @@
 // cursor. Honest address-derived names.
 class BitRange;
 
-class Rva005691DB
+class LargeGroupAudioSoundKeyPair
 {
 public:
-	void rva005691DB(BitRange *host, void *tag);
+	void removePointersToGridCellsInDuckingTarget(BitRange *host, void *tag);
 };
 
 class Rva00569393
@@ -19,12 +19,12 @@ public:
 	void rva00569393(void *tag);
 private:
 	char m_pad[0x58];
-	Rva005691DB **m_begin;	// +0x58
-	Rva005691DB **m_end;	// +0x5C
+	LargeGroupAudioSoundKeyPair **m_begin;	// +0x58
+	LargeGroupAudioSoundKeyPair **m_end;	// +0x5C
 };
 
 void Rva00569393::rva00569393(void *tag)
 {
-	for (Rva005691DB **p = m_begin; p != m_end; ++p)
-		(*p)->rva005691DB((BitRange *)this, tag);
+	for (LargeGroupAudioSoundKeyPair **p = m_begin; p != m_end; ++p)
+		(*p)->removePointersToGridCellsInDuckingTarget((BitRange *)this, tag);
 }

@@ -1,6 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
+// LivingWorldTutorial::SessionTask::getArmyParam (WorldBuilder name, LivingWorldTutorial.cpp line 464: army lookup of the indexed +0x0C parameter).
 //
-// ?rva003F8443@Rva003F8443@@QAEPAURva002E1948Entry@@H@Z @0x003F8443 25B.
+// was ?rva003F8443@Rva003F8443@@QAEPAURva002E1948Entry@@H@Z @0x003F8443 25B.
 // Index AsciiString array at +0xC and find via rowed Rva002B48E1.
 // Evidence: chain lane; callee rowed 0x002B48E1; global 0x009FEF10;
 // callers at 0x003F8A65 0x003F8AC3 0x003F8C93; unblocks 0x003F88BC.
@@ -16,16 +17,21 @@ public:
 
 extern Rva002B48E1 *Rva00DFEF10;
 
-class Rva003F8443
+class LivingWorldTutorial
 {
 public:
-	Rva002E1948Entry *rva003F8443(int i);
+	class SessionTask;
+};
+class LivingWorldTutorial::SessionTask
+{
+public:
+	Rva002E1948Entry *getArmyParam(int i);
 private:
 	char m_pad00[0x0C];
 	AsciiString *m_arr0C;
 };
 
-Rva002E1948Entry *Rva003F8443::rva003F8443(int i)
+Rva002E1948Entry *LivingWorldTutorial::SessionTask::getArmyParam(int i)
 {
 	return Rva00DFEF10->rva002B48E1(m_arr0C[i]);
 }

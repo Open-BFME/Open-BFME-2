@@ -66,10 +66,10 @@ public:
 
 // vftable 0x00BF8FF0: +0x08 the object, +0x0C whether its controlling
 // player's +0x5C is 1; the out-of-line ctor 0x002611F2.
-class Rva002611F2 : public Rva000421C8
+class PartitionFilterRejectBuildings : public Rva000421C8
 {
 public:
-	Rva002611F2(Object *obj);	// 0x002611F2
+	PartitionFilterRejectBuildings(Object *obj);	// 0x002611F2
 	virtual bool allow(Object *obj);
 	Object *m_obj;
 	bool m_flag;
@@ -287,7 +287,7 @@ StateReturnType AIMeleeReAcquireState::onEnter()
 		target = ThePartitionManager->getClosestObject(&pos, TheAI->getAiData()->m_meleeAcquireRadius * 2.0f, 1,
 			Rva0004584D(*(const BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype,
 				*(const BfmeFixedStorage0004543D *)kinds.rva002618A2(0, 0x59, 0x82, 0x36))
-				.link(&Rva00341C54Filter(owner, weapon))->link(&Rva002611F2(owner))
+				.link(&Rva00341C54Filter(owner, weapon))->link(&PartitionFilterRejectBuildings(owner))
 				->link(&Rva00260FD0Filter(owner, 2, 0))->link(&Rva00261246Filter(true, false))
 				->link(&Rva00261058(owner, false)));
 	}

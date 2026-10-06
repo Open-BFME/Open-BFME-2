@@ -4,7 +4,7 @@
 // AIUpdateInterface voice responses, retail 0x0026B25A..0x0026B486:
 //   0x0026B25A 161B playAttackVoiceResponse(Object *)        message 0x7E6
 //   0x0026B2FB 132B playAttackVoiceResponse(const Coord3D *) message 0x7E6
-//   0x0026B37F 132B rva0026B37F(const Coord3D *)              message 0x7E8
+//   0x0026B37F 132B playVoiceEnterStateAttackMove(const Coord3D *)              message 0x7E8
 //   0x0026B403 132B playMoveVoiceResponse(const Coord3D *)    message 0x7E7
 // Each address is pinned from its AI command handlers. Donor: Open-BFME-1
 // AIUpdateInterface_playMoveVoiceResponse.cpp (Zero Hour AIUpdate.cpp):
@@ -82,7 +82,7 @@ protected:
 	virtual void slot00();
 	void playAttackVoiceResponse(Object *victim);
 	void playAttackVoiceResponse(const Coord3D *position);
-	void rva0026B37F(const Coord3D *position);
+	void playVoiceEnterStateAttackMove(const Coord3D *position);
 	void playMoveVoiceResponse(const Coord3D *position);
 
 private:
@@ -121,7 +121,7 @@ void AIUpdateInterface::playAttackVoiceResponse(const Coord3D *position)
 	}
 }
 
-void AIUpdateInterface::rva0026B37F(const Coord3D *position)
+void AIUpdateInterface::playVoiceEnterStateAttackMove(const Coord3D *position)
 {
 	Drawable *drawable = m_object->getDrawable();
 	if (drawable)

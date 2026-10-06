@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?Rva00220808Get@@YA?AVUnicodeString@@PAVRva00220808@@@Z @0x00220808 131B
+// ?GetArmySummaryName@@YA?AVUnicodeString@@PAVRva00220808@@@Z @0x00220808 131B
 // Free cdecl helper returning UnicodeString via AsciiString at +0x64: empty check
 // through rowed StringBase<char>::isEmpty 0x00001E2F, else TheGameText slot 0x38
 // Ascii fetch plus StringBase<ushort>::set 0x00037150 into a local, then
@@ -40,7 +40,7 @@ public:
 	AsciiString m_label;
 };
 
-UnicodeString __cdecl Rva00220808Get(Rva00220808 *src)
+UnicodeString __cdecl GetArmySummaryName(Rva00220808 *src)
 {
 	UnicodeString tmp;
 	if (!((const StringBase<char> *)&src->m_label)->isEmpty())

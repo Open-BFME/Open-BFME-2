@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// Rva004D8C23Owner::apply, retail 0x004D8C23 (258 bytes, stdcall Object* and
+// TurretAIAimTurretState::SetModelAngle, retail 0x004D8C23 (258 bytes, stdcall Object* and
 // float, ret 8; single caller 0x004D907B in the TurretAI block).
 // Donor: BFME1 game/GameEngine/Source/GameLogic/Object/
 // Rva0018E210TurretAngleConditions.cpp (open-bfme-1 068db38bb4), same body:
@@ -45,10 +45,10 @@ public:
 #define RVA004D8C23_THREE_PI_OVER_FOUR 2.3561944961547852f
 #define RVA004D8C23_FIVE_PI_OVER_FOUR 3.9269909858703613f
 #define RVA004D8C23_SEVEN_PI_OVER_FOUR 5.4977874755859375f
-class Rva004D8C23Owner
+class TurretAIAimTurretState
 {
 public:
-	static void __stdcall apply(Object *object, float angle);
+	static void __stdcall SetModelAngle(Object *object, float angle);
 };
 static __forceinline void clearModelCondition(Object *object, Int bit)
 {
@@ -73,7 +73,7 @@ enum Rva004D8C23TurretAngleCondition
 	BFME_TURRET_ANGLE_180 = 9 * 32 + 20,
 	BFME_TURRET_ANGLE_270 = 9 * 32 + 21
 };
-void __stdcall Rva004D8C23Owner::apply(Object *object, float angle)
+void __stdcall TurretAIAimTurretState::SetModelAngle(Object *object, float angle)
 {
 	clearModelCondition(object, BFME_TURRET_ANGLE_0);
 	clearModelCondition(object, BFME_TURRET_ANGLE_90);

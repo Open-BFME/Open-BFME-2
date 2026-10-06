@@ -1,4 +1,6 @@
 // ?rva0045B9FB@BezierProjectileBehavior@@QAEXPAVObject@@@Z
+// partial score=0.3709 date=2026-10-05
+// ?rva0045B9FB@BezierProjectileBehavior@@QAEXPAVObject@@@Z
 // partial score=0.92 date=2026-10-05
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 // ?rva0045B9FB@BezierProjectileBehavior@@QAEXPAVObject@@@Z @0x0045B9FB 336B

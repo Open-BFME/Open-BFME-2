@@ -4,14 +4,14 @@
 // Object flag-or plus Drawable notify plus null-terminated array walk.
 // Evidence: neighbours ?healCompletely@Object (0x0028FF9E) and
 // ?rva002900E0@Object (0x002900E0) prove Object TU and /O1 flags; callee
-// 0x00274401 is rowed ?rva00274401@Drawable@@QAEXXZ; retail offsets +0x9a
+// 0x00274401 is rowed ?setInaudible@Drawable@@QAEXXZ; retail offsets +0x9a
 // flag 0x10, +0x84 Drawable, +0x435 gate, +0x244 array.
 
 class Drawable
 {
 public:
-	void rva00274401();
-	void rva00278644();
+	void setInaudible();
+	void setAudible();
 };
 
 extern "C" void _ReadWriteBarrier(void);
@@ -95,7 +95,7 @@ void Object::rva0029004B()
 	m_flags9A |= 0x10;
 	_ReadWriteBarrier();
 	if (m_drawable84 != 0)
-		m_drawable84->rva00274401();
+		m_drawable84->setInaudible();
 	if (!m_flag435)
 		return;
 	for (Elem0029004B **p = m_arr244; *p != 0; ++p) {
@@ -109,13 +109,13 @@ void Object::rva0029004B()
 // ?rva00290095@Object@@QAEXXZ @0x00290095 (75B).
 // Object flag-and plus Drawable notify plus null-terminated array walk.
 // Evidence: sibling ?rva0029004B@Object (0x0029004B) same TU same flags same offsets; callee
-// 0x00278644 is rowed ?rva00278644@Drawable@@QAEXXZ; retail and 0x9a flag 0xef, gate +0x435, array +0x244.
+// 0x00278644 is rowed ?setAudible@Drawable@@QAEXXZ; retail and 0x9a flag 0xef, gate +0x435, array +0x244.
 void Object::rva00290095()
 {
 	m_flags9A &= (unsigned char)~0x10;
 	_ReadWriteBarrier();
 	if (m_drawable84 != 0)
-		m_drawable84->rva00278644();
+		m_drawable84->setAudible();
 	if (!m_flag435)
 		return;
 	for (Elem0029004B **p = m_arr244; *p != 0; ++p) {

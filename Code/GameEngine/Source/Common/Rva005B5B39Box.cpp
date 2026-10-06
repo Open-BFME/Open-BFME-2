@@ -1,5 +1,5 @@
 // cl: -GR- -EHsc-
-// ?Run@Rva005B5B39Box@@QAEXPAD@Z @0x005B5B39 89B: digit-string slot apply.
+// ?OnMyPowerRollOver@Manager@AptCreateAHero@@QAEXPAD@Z @0x005B5B39 89B: digit-string slot apply.
 // Null-guarded string must start with a digit (imported isdigit) and atoi
 // to 1..10 (imported atoi, minus one); a value already current returns,
 // else the +0x27C sub-object resolves it through the pinned 1-arg callee
@@ -19,21 +19,27 @@ struct Rva005B5B39Sub
 	void *M(int v);
 };
 
-struct Rva005B5B39Box
+class AptCreateAHero
+{
+public:
+	class Manager;
+};
+
+struct AptCreateAHero::Manager
 {
 	char pad[4];
 	void *m_4;
 	char pad2[0x24 - 8];
 	int m_24;
 
-	void Run(char *s);
+	void OnMyPowerRollOver(char *s);
 };
 
 void Rva005B23D7Wrap(int a, int b, int c);
 
 void Rva005B23D7Wrap(int a, int b, int c);
 
-void Rva005B5B39Box::Run(char *s)
+void AptCreateAHero::Manager::OnMyPowerRollOver(char *s)
 {
 	if (s == 0)
 		return;

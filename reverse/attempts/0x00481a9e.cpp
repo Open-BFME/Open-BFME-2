@@ -1,8 +1,8 @@
 // ?rva00481A9E@Rva0048180C@@QAEXPAVObject@@_NPAURva00481A9EInfo@@@Z
-// partial score=0.8939 date=2026-10-06
+// partial score=0.951 date=2026-10-06
 // ?rva00481A9E@Rva0048180C@@QAEXPAVObject@@_NPAURva00481A9EInfo@@@Z
 // partial score=0.97 date=2026-10-06
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /G7 /arch:SSE
 //
 // ?rva00481A9E@Rva0048180C@@QAEXPAVObject@@_NPAURva00481A9EInfo@@@Z @0x00481A9E (225B).
 // Chain from 0x0028FEA7 you landed: healing-benefactor forward plus body

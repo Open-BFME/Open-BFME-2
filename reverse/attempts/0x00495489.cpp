@@ -1,4 +1,6 @@
 // ?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ
+// partial score=0.9813 date=2026-10-06
+// ?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ
 // partial score=0.9768 date=2026-10-05
 // ?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ
 // partial score=0.97 date=2026-10-04
@@ -19,12 +21,13 @@
 // special power template at +0x44; the template's view-object range at
 // +0x50; the module data's scan range at +0x0C.
 
+#include <math.h>
 typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 
-extern "C" double sqrt(double);
+// (CRT prototype from the standard header)
 
 class Thing;
 class ModuleData;

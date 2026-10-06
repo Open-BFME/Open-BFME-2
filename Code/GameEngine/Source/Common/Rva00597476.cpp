@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00597476@Rva0059734B@@UAEMPAX@Z @0x00597476 86B: slot8 cost ratio via UpgradeTemplate calcCostToBuild and rva0026EE30 with idiv and fild; vtable 0x00870BD0
+// ?getCostPerTick@AIUpgrade@@UAEMPAX@Z @0x00597476 86B: slot8 cost ratio via UpgradeTemplate calcCostToBuild and rva0026EE30 with idiv and fild; vtable 0x00870BD0
 enum ObjectID
 {
 	INVALID_ID = 0
@@ -44,16 +44,16 @@ protected:
 	char m_pad0c[0x2c - 0x0c];
 };
 
-class Rva0059734B : public Rva0055B0CC
+class AIUpgrade : public Rva0055B0CC
 {
 public:
-	virtual float rva00597476(void *p);
+	virtual float getCostPerTick(void *p);
 private:
 	int m_2C;
 	Holder *m_30;
 };
 
-float Rva0059734B::rva00597476(void *p)
+float AIUpgrade::getCostPerTick(void *p)
 {
 	UpgradeTemplate *tmpl = m_30->m_24;
 	Object *o1 = TheGameLogic->findObjectByID(m_08);

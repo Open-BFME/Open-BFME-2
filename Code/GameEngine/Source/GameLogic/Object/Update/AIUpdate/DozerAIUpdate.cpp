@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims
+// cl: /Ireference/shims/bfme2_dozer /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims
 // stlport
 // Ported verbatim from the Generals Zero Hour reference (GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp); this unit had no counterpart under Code/.
 #define Matrix4x4 Matrix4  // BFME renamed it
@@ -4226,10 +4226,17 @@ ObjectID DozerAIUpdate::getTaskTarget( DozerTask task )
 
 }  // end getTaskTarget
 
+// BFME 2 keeps only 0x10 bytes of members between m_task and the dock point
+// table (Zero Hour's inline AudioEventRTS m_buildingSound sits elsewhere), so
+// retail addresses the dock points 0x28 bytes past m_task (+0x2C from the
+// DozerAIInterface base) rather than at Zero Hour's m_dockPoint. Addressed raw
+// here, like finishBuildingSound's handle.
+#define BFME_DOZER_DOCK_POINT( task, i ) \
+	( ( (DozerDockPointInfo *)( (char *)m_task + 0x28 ) )[ (task) * DOZER_NUM_DOCK_POINTS + (i) ] )
+
 //-------------------------------------------------------------------------------------------------
 /** Set a task as successfully completed */
 //-------------------------------------------------------------------------------------------------
-// ?internalTaskComplete@DozerAIUpdate@@UAEXW4DozerTask@@@Z present-unmatched
 void DozerAIUpdate::internalTaskComplete( DozerTask task )
 {
 
@@ -4245,7 +4252,7 @@ void DozerAIUpdate::internalTaskComplete( DozerTask task )
 
 	// remove dock point info for this task
 	for( Int i = 0; i < DOZER_NUM_DOCK_POINTS; i++ )
-		m_dockPoint[ task ][ i ].valid = FALSE;
+		BFME_DOZER_DOCK_POINT( task, i ).valid = FALSE;
 
 }  // end internalTaskComplete
 
@@ -4253,15 +4260,13 @@ void DozerAIUpdate::internalTaskComplete( DozerTask task )
 /** Clear a task from the Dozer for consideration, we can use this when a goal object becomes
 	* invalid/destroyed etc. */
 //-------------------------------------------------------------------------------------------------
-// ?internalCancelTask@DozerAIUpdate@@UAEXW4DozerTask@@@Z present-unmatched
 void DozerAIUpdate::internalCancelTask( DozerTask task )
 {
 
 	// sanity
 	DEBUG_ASSERTCRASH( task >= 0 && task < DOZER_NUM_TASKS, ("Illegal dozer task '%d'\n", task) );
-	
-	if(task < 0 || task >= DOZER_NUM_TASKS)
-		return;  //DAMNIT!  You CANNOT assert and then not handle the damn error!  The.  Code.  Must.  Not.  Crash.
+
+	// (BFME 2 retail has no range check here; WB keeps only the assert.)
 
 	// call the single method that gets called for completing and canceling tasks
 	internalTaskCompleteOrCancelled( task );
@@ -4272,11 +4277,15 @@ void DozerAIUpdate::internalCancelTask( DozerTask task )
 	
 	// remove dock point info for this task
 	for( Int i = 0; i < DOZER_NUM_DOCK_POINTS; i++ )
-		m_dockPoint[ task ][ i ].valid = FALSE;
+		BFME_DOZER_DOCK_POINT( task, i ).valid = FALSE;
 	
-	// stop the dozer from moving
-	AIUpdateInterface *ai = getObject()->getAIUpdateInterface();
-	ai->aiIdle( CMD_FROM_AI );
+	// stop the dozer from moving: BFME 2's Object keeps its AI update at +0x258
+	// and AIUpdateInterface its AICommandInterface base at +0x20; the module's
+	// object sits 0x3DC before the DozerAIInterface base, i.e. 0x3E0 before
+	// m_task (BFME 2's layout, addressed raw as in privateRepair)
+	Object *dozer = *(Object **)((char *)m_task - 0x3e0);
+	AIUpdateInterface *ai = *(AIUpdateInterface **)((char *)dozer + 0x258);
+	((AICommandInterface *)((char *)ai + 0x20))->aiIdle( CMD_FROM_AI );
 
 }  // end internalCancelTask
 
@@ -4617,3 +4626,77 @@ void DozerAIUpdate::loadPostProcess( void )
  // extend base class
 	AIUpdateInterface::loadPostProcess();
 }  // end loadPostProcess
+
+//-------------------------------------------------------------------------------------------------
+// BFME 2 phantom-structure members (no Zero Hour counterpart). Identities from
+// WorldBuilder leads (reverse/wb_name_leads.csv), whose debug build asserts at
+// DozerAIUpdate.cpp:2862/2869; retail supplies the bytes. The fields are read
+// through retail-offset views, as the vendored layout differs.
+//-------------------------------------------------------------------------------------------------
+struct BfmeDozerPhantomFields
+{
+	unsigned char m_unreconstructed_000[ 0x8 ];
+	Object *m_object;					///< retail this+0x08, the module's object
+	unsigned char m_unreconstructed_00C[ 0x4a4 - 0xc ];
+	ObjectID m_phantomStructureID;				///< retail this+0x4A4 (WB +0x4A8)
+};
+
+struct BfmePhantomObjectFields
+{
+	unsigned char m_unreconstructed_000[ 0x454 ];
+	Bool m_flag454;						///< retail +0x454 (WB +0x468)
+	unsigned char m_unreconstructed_455[ 0x4b0 - 0x455 ];
+	Bool m_isInert;						///< retail +0x4B0 (WB +0x4C4)
+};
+
+// The player's rowed per-object unlock removal (0x002ACECC, placeholder name).
+class Rva002ACECC
+{
+public:
+	void rva002ACECC(Int id);				// 0x002ACECC
+};
+
+// DozerAIUpdate::makePhantomStructureInert, retail 0x00489DE3 (75 bytes):
+// a phantom structure that still exists is marked effectively dead and
+// inert; a stale id is dropped.
+void DozerAIUpdate::makePhantomStructureInert()
+{
+	BfmeDozerPhantomFields *fields = (BfmeDozerPhantomFields *)this;
+	if (fields->m_phantomStructureID == INVALID_ID)
+		return;
+	Object *phantomStructure = TheGameLogic->findObjectByID(fields->m_phantomStructureID);
+	if (phantomStructure == NULL)
+	{
+		fields->m_phantomStructureID = INVALID_ID;
+		return;
+	}
+	phantomStructure->setEffectivelyDead(true);
+	if (((BfmePhantomObjectFields *)phantomStructure)->m_flag454)
+		phantomStructure->rva0028BAC0();
+	((BfmePhantomObjectFields *)phantomStructure)->m_isInert = true;
+}
+
+// DozerAIUpdate::makePhantomStructureNotInert, retail 0x00489E2E (99 bytes):
+// the controlling player first drops the phantom's id through 0x002ACECC,
+// then a phantom that still exists is revived; a stale id is dropped.
+void DozerAIUpdate::makePhantomStructureNotInert()
+{
+	BfmeDozerPhantomFields *fields = (BfmeDozerPhantomFields *)this;
+	if (fields->m_phantomStructureID == INVALID_ID)
+		return;
+	if (fields->m_object != NULL)
+	{
+		Player *player = fields->m_object->getControllingPlayer();
+		if (player != NULL)
+			((Rva002ACECC *)player)->rva002ACECC(fields->m_phantomStructureID);
+	}
+	Object *phantomStructure = TheGameLogic->findObjectByID(fields->m_phantomStructureID);
+	if (phantomStructure == NULL)
+	{
+		fields->m_phantomStructureID = INVALID_ID;
+		return;
+	}
+	((BfmePhantomObjectFields *)phantomStructure)->m_isInert = false;
+	phantomStructure->rva0028DCC4();
+	phantomStructure->setEffectivelyDead(false);
+}

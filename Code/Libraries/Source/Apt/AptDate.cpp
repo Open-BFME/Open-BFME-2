@@ -1,4 +1,10 @@
-// cl: /MD
+// cl: /O2 /MD
+// AptDate.cpp (retail __FILE__ names it; tu_map approved). The clock and
+// calendar units that shared these flags are folded in below; setDates is
+// defined before dateGetNumDaysInMonth so the rowed call stays a call.
+// The getter and setter units stay split until their callees link.
+//
+// CleanNativeFunctions:
 // Cleans the 37 native callback caches identified by the target date dispatch
 // table at VA DDC730 and jump table at AF643C. Each cache is constructed by
 // its own corresponding named dispatch case, then AddRef-ed through slot0.
@@ -49,7 +55,19 @@ struct AptDateNativeCache {
 };
 // g_aptDateNativeCache: matched references place it at VA 0xe18248 (zero-filled; a plain-data view).
 AptDateNativeCache g_aptDateNativeCache;
-class AptDate { public: static void CleanNativeFunctions(); };
+struct AptSysClock {
+    int Second,Minute,Hour,Day,Date,Month,Year,Hundredths;
+};
+extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
+extern int g_bfmeAptBreakOnAssertAtDDC01C;
+class AptDate {
+public:
+    static void CleanNativeFunctions();
+    bool dateIsYearLeap(int);
+    int dateGetNumDaysInMonth(int month,int year);
+    void setDates(AptSysClock *,AptSysClock *,int);
+};
+
 void AptDate::CleanNativeFunctions()
 {
     if(g_aptDateNativeCache.getDate) {
@@ -200,4 +218,67 @@ void AptDate::CleanNativeFunctions()
         g_aptDateNativeCache.UTC->Release();
         g_aptDateNativeCache.UTC=0;
     }
+}
+
+// ?setDates@AptDate@@QAEXPAUAptSysClock@@0H@Z 0x006F41B0 (216B).
+// Target date setters pass local/UTC clocks at date+20/+40 and offset+60.
+// Copies calendar fields, adjusts hours/date, then copies sub-hour fields.
+// Preserve the retail negative-hour expression 24-offset and its single-day
+// rollover behavior. Day(+0C) remains untouched. Hundredths is the donor
+// field name; this routine does not establish the sub-second unit itself.
+// Evidence: reverse/godfather_disk_evidence.json, apt_date_clock.
+void AptDate::setDates(AptSysClock *source,AptSysClock *destination,int offset)
+{
+    destination->Year=source->Year;
+    destination->Month=source->Month;
+    destination->Date=source->Date;
+    destination->Hour=source->Hour-offset;
+    if(source->Hour-offset>23) {
+        destination->Hour%=24;
+        int daysInMonth=dateGetNumDaysInMonth(destination->Month,destination->Year);
+        if(++destination->Date>daysInMonth) {
+            destination->Date=1;
+            if(++destination->Month>11) {
+                destination->Month=0;
+                ++destination->Year;
+            }
+        }
+    } else if(source->Hour-offset<0) {
+        destination->Hour=24-offset;
+        if(--destination->Date<1) {
+            if(--destination->Month<0) {
+                destination->Month=11;
+                --destination->Year;
+            }
+            destination->Date=dateGetNumDaysInMonth(destination->Month,destination->Year);
+        }
+    }
+    destination->Minute=source->Minute;
+    destination->Second=source->Second;
+    destination->Hundredths=source->Hundredths;
+}
+
+// ?dateGetNumDaysInMonth@AptDate@@QAEHHH@Z 0x006F4120 (136B).
+// Calendar helper named by Godfather PDB and target AptDate.cpp assertion.
+// One inline int3 preserves the retail assertion barrier. __debugbreak()
+// hoists mov eax,esi before the branch; explicit-return and reset variants
+// also fail. No other instruction is supplied as assembly.
+// The 110-byte code body is followed by 2 padding bytes and 24 bytes of
+// switch data, independently checked against the compiled labels/indices.
+// Evidence: reverse/godfather_disk_evidence.json, apt_date_calendar.
+int AptDate::dateGetNumDaysInMonth(int month,int year)
+{
+    int days=31;
+    switch(month) {
+    case 0: case 2: case 4: case 6: case 7: case 9: case 11:
+        days=31; break;
+    case 1:
+        days=28+(dateIsYearLeap(year)?1:0); break;
+    case 3: case 5: case 8: case 10:
+        days=30; break;
+    default:
+        g_bfmeAptAssertAtE17734("0","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDate.cpp",166);
+        if(g_bfmeAptBreakOnAssertAtDDC01C) __asm int 3;
+    }
+    return days;
 }

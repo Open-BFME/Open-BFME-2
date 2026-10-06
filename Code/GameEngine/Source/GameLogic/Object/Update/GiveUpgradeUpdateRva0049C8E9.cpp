@@ -161,7 +161,7 @@ public:
 class GiveUpgradeUpdate
 {
 public:
-	void rva0049C73A();
+	void GetDeliveryTarget();
 	unsigned char rva0049C8E9();
 	void rva00450AE9CallView();
 private:
@@ -180,7 +180,7 @@ private:
 	bool m_89;			// +0x89
 };
 
-void GiveUpgradeUpdate::rva0049C73A()
+void GiveUpgradeUpdate::GetDeliveryTarget()
 {
 	ObjectID target = m_40;
 	const GiveUpgradeUpdateModuleData *data = getGiveUpgradeUpdateModuleData();
@@ -224,7 +224,7 @@ void GiveUpgradeUpdate::rva0049C73A()
 // 0x450AE9 remains unconverted; this declaration records only observed ABI.
 unsigned char GiveUpgradeUpdate::rva0049C8E9()
 {
-    rva0049C73A();
+    GetDeliveryTarget();
     rva00450AE9CallView();
     return 0;
 }

@@ -1,5 +1,6 @@
 // cl: /MD /Oi
-// ?rva0037EF2D@Rva0037EF2D@@QAEXI@Z @0x0037EF2D 48B. Search 0xD8-byte array at
+// UnitRevivalTracker::removeBuildUnitByIndex (WorldBuilder name, UnitRevivalTracker.cpp line 564: bounds-checked erase through 0x002E204D); 0x0037EF2D is on the same class.
+// was ?rva0037EF2D@Rva0037EF2D@@QAEXI@Z @0x0037EF2D 48B. Search 0xD8-byte array at
 // this+4 for element with dword +0xA4 == key then erase via rowed 0x002E204D.
 // Evidence: call 0x002E204D rowed in Rva002E204DErase.cpp, ret 4, caller
 // 0x0037EF5D, neighbours Rva0037EB1DCopy.cpp and VTableInstalls.cpp.
@@ -20,15 +21,15 @@ public:
 	Rva002E0D93 *m_finish04;
 	Rva002E0D93 *m_end08;
 };
-class Rva0037EF2D
+class UnitRevivalTracker
 {
 	int m_unk00;
 	Rva002E204D m_vec04;
 public:
 	void rva0037EF2D(unsigned int key);
-	void rva0037EEFC(int index);
+	void removeBuildUnitByIndex(int index);
 };
-void Rva0037EF2D::rva0037EF2D(unsigned int key)
+void UnitRevivalTracker::rva0037EF2D(unsigned int key)
 {
 	for (Rva002E0D93 *p = m_vec04.m_start00; p != m_vec04.m_finish04; ++p) {
 		if (p->m_keyA4 == (int)key) {
@@ -37,7 +38,7 @@ void Rva0037EF2D::rva0037EF2D(unsigned int key)
 		}
 	}
 }
-void Rva0037EF2D::rva0037EEFC(int index)
+void UnitRevivalTracker::removeBuildUnitByIndex(int index)
 {
 	if (index < 0)
 		return;

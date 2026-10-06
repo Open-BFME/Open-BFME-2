@@ -11,7 +11,7 @@ public:
 	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, int x2, int y);
 };
 
-class ShroudManagerImpl008FBA40;
+class ShroudManagerImpl;
 class ShroudManagerImpl008FBA40Element;
 
 class Rva0073BB40

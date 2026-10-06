@@ -1,5 +1,5 @@
 // cl: /GX- /MD
-// ?rva0059A1C1@Rva0059A1C1@@QAEHPAVTeam@@@Z @0x0059A1C1 151B.
+// ?doesTeamMeetThreat@AITeamBuilder@@QAEHPAVTeam@@@Z @0x0059A1C1 151B.
 // Chain of 0x002A8B73: lookup max via global Rva002A8F24 then float-gate the
 // Team sum of +0x51c over members whose template kind has 8 at +0x108 or 4 at
 // +0x113. Evidence: caller 0x0059AD0D; callees rowed 0x002A8B73 0x002C5AE6
@@ -71,16 +71,16 @@ public:
 	float rva002C5AE6();
 };
 
-class Rva0059A1C1
+class AITeamBuilder
 {
 public:
-	int rva0059A1C1(Team *team);
+	int doesTeamMeetThreat(Team *team);
 private:
 	char m_pad00[0x14];
 	int m_14;
 };
 
-int Rva0059A1C1::rva0059A1C1(Team *team)
+int AITeamBuilder::doesTeamMeetThreat(Team *team)
 {
 	void *found = g_00DFEEF8->rva002A8B73((void *)m_14, team->m_proto30->m_2C4);
 	float vmax = 0.0f;

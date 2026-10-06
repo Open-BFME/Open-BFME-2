@@ -1,5 +1,5 @@
 // cl: /O2 /MD
-// ?rva006E4D50@Rva006E3230@@QAEXPAVAptValue@@@Z @0x006E4D50 441B.
+// AptActionQueueC::RemoveActionFor (WorldBuilder name, its __FUNCTION__ string) @0x006E4D50 441B.
 // Removes one matching type-1 action holding the given AptValue: scans the
 // circular action pool from m_pCurrent to m_pEnd (stride 24), validates the
 // start cursor, skips non-matching or protected (m_pExec) entries with
@@ -25,11 +25,11 @@ struct Rva006E3230Action
     char _pad4[8];
     AptValue *m_pValues[3];
 };
-class Rva006E3230
+class AptActionQueueC
 {
 public:
     void rva006E3230(Rva006E3230Action *pCur);
-    void rva006E4D50(AptValue *pArg);
+    void RemoveActionFor(AptValue *pArg);
 private:
     Rva006E3230Action *m_aActionPool;
     Rva006E3230Action *m_pCurrent;
@@ -37,7 +37,7 @@ private:
     Rva006E3230Action *m_pExec;
     int m_iActionPoolSize;
 };
-void Rva006E3230::rva006E4D50(AptValue *pArg)
+void AptActionQueueC::RemoveActionFor(AptValue *pArg)
 {
     rva006E3230(m_pCurrent);
     Rva006E3230Action *pCur = m_pCurrent;

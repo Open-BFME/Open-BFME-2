@@ -38,4 +38,4 @@ found:
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?rva002D76C6@Rva002D7714@@QAE_NPAURva002D76C6Owner@@PAPAURva002D76C6Node@@@Z=?Rva002D76C6Remove@@YG_NPAURva002D76C6Owner@@PAPAURva002D76C6Node@@@Z")
+#pragma comment(linker, "/alternatename:?rva002D76C6@Radar@@QAE_NPAURva002D76C6Owner@@PAPAURva002D76C6Node@@@Z=?Rva002D76C6Remove@@YG_NPAURva002D76C6Owner@@PAPAURva002D76C6Node@@@Z")

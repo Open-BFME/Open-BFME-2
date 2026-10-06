@@ -1,5 +1,6 @@
 // cl: /MD
-// ?rva002B5CFB@Rva002B5CFB@@QAE_NHH@Z @0x002B5CFB 59B: __thiscall bool probe.
+// LivingWorldLogic::WillPlayerBeEliminatedIfHeOrSheLosesThisRegion (WorldBuilder name, LivingWorldLogic.cpp line 3837).
+// was ?rva002B5CFB@Rva002B5CFB@@QAE_NHH@Z @0x002B5CFB 59B: __thiscall bool probe.
 // Resolves id through the rowed 0x2B51F8 find, runs the rowed 0x2104B6
 // check on the +0x2C-adjusted hit through +0xB0, and compares its +0x12C
 // field against want. Evidence: retail
@@ -32,16 +33,16 @@ public:
 	int m_12C;
 };
 
-class Rva002B5CFB
+class LivingWorldLogic
 {
 public:
-	bool rva002B5CFB(int id, int want);
+	bool WillPlayerBeEliminatedIfHeOrSheLosesThisRegion(int id, int want);
 private:
 	char m_pad[0xB0];
 	Rva002104B6 *m_b0;
 };
 
-bool Rva002B5CFB::rva002B5CFB(int id, int want)
+bool LivingWorldLogic::WillPlayerBeEliminatedIfHeOrSheLosesThisRegion(int id, int want)
 {
 	Rva002E2903Player *p = ((Rva002BA8F1Logic *)this)->find(id, 0);
 	if (p != 0) {

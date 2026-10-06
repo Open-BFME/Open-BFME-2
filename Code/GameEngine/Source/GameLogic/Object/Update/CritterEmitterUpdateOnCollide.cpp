@@ -30,12 +30,12 @@ public:
 class ObjectCreationList
 {
 public:
-	void rva001F08D3(void *primary, void *secondary, void *a3);
+	void create(void *primary, void *secondary, void *a3);
 	static void create(const ObjectCreationList *ocl, const Object *primary, const Object *secondary)
 	{
 		if (!ocl)
 			return;
-		const_cast<ObjectCreationList *>(ocl)->rva001F08D3((void *)primary, (void *)secondary, 0);
+		const_cast<ObjectCreationList *>(ocl)->create((void *)primary, (void *)secondary, 0);
 	}
 };
 

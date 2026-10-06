@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?rva0057C71F@Rva0057C71F@@QAEPAXH@Z @0x0057C71F 155B evidence: leaf 2 callers; callees rowed getConstSlot getMap findMap rva0043DA65 rva0020EAF6 rva004FCA5A; globals g_009FEF10 TheMapCache
+// ?GetStartPositionInfoForSlot@AptMapPreview@@QAEPAXH@Z @0x0057C71F 155B evidence: leaf 2 callers; callees rowed getConstSlot getMap findMap rva0043DA65 rva0020EAF6 rva004FCA5A; globals g_009FEF10 TheMapCache
 #include "ascii_string.h"
 class Rva0043DA65
 {
@@ -72,7 +72,7 @@ public:
 	char m_pad[0x29c];
 	Rva004FCA5AInner *m_29c;
 };
-class Rva0057C71F
+class AptMapPreview
 {
 	char m_00[0x18];
 	Rva0043DA65 *m_18;
@@ -80,9 +80,9 @@ class Rva0057C71F
 	char m_20[0x48];
 	Rva004FCA5AOuter *m_68;
 public:
-	void *rva0057C71F(int slot);
+	void *GetStartPositionInfoForSlot(int slot);
 };
-void *Rva0057C71F::rva0057C71F(int slot)
+void *AptMapPreview::GetStartPositionInfoForSlot(int slot)
 {
 	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
 	if (info) {

@@ -1,6 +1,7 @@
 // cl: /DNDEBUG /MD
+// DetachableRiderUpdate::killRider (WorldBuilder name, DetachableRiderUpdate.cpp lines 273..276: random death entry, disable, wake frame).
 //
-// ?rva004AE988@Rva004AE988@@QAEXXZ, retail 0x004AE988 114B. Chain via 0x001E431E.
+// was ?rva004AE988@Rva004AE988@@QAEXXZ, retail 0x004AE988 114B. Chain via 0x001E431E.
 // Random pick from 0x54 stride array at this+4 base+8 end+0xC via
 // GetGameLogicRandomValue 0 count-1 file 0x114 then bool ne0 at +0x21 then
 // rva001E431E plus setDisabled 4 plus setWakeFrame with +0x4C sleep plus +0x20.
@@ -51,10 +52,10 @@ struct ArrayHolder
 	Elem54 *m_end;
 };
 
-class Rva004AE988 : public UpdateModule
+class DetachableRiderUpdate : public UpdateModule
 {
 public:
-	void rva004AE988();
+	void killRider();
 private:
 	unsigned char m_pad00[4];
 	ArrayHolder *m_04;
@@ -64,7 +65,7 @@ private:
 	unsigned char m_21;
 };
 
-void Rva004AE988::rva004AE988()
+void DetachableRiderUpdate::killRider()
 {
 	ArrayHolder *h = m_04;
 	int count = (int)(((char *)h->m_end - (char *)h->m_base) / 0x54);

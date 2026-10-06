@@ -3,12 +3,12 @@
 // ?rva005DD7C3@Rva005DD7C3@@QAEXPAVGameWindow@@PBUWidths@@@Z, retail 0x005DD7C3, 56 bytes.
 // __thiscall void method with window and widths-vector args caching window
 // at this+0x10. Calls rowed GadgetListBoxSetColumnWidths then rowed
-// Rva00325199Init. Evidence: chain lane calls 0x00325199.
+// GadgetListBoxAddMultiSelect. Evidence: chain lane calls 0x00325199.
 
 class GameWindow;
 
 void GadgetListBoxSetColumnWidths(GameWindow *window, int count, int *widths);
-void Rva00325199Init(GameWindow *window);
+void GadgetListBoxAddMultiSelect(GameWindow *window);
 
 struct Widths
 {
@@ -37,5 +37,5 @@ void Rva005DD7C3::rva005DD7C3(GameWindow *window, const Widths *widths)
 		int count = end - begin;
 		GadgetListBoxSetColumnWidths(window, count, begin);
 	}
-	Rva00325199Init(m_win10);
+	GadgetListBoxAddMultiSelect(m_win10);
 }

@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?rva005F6220@Rva005F6220@@QAEXABVUnicodeString@@@Z retail 0x005F6220 103B
+// ?SetLeaderQuantityString@Impl@HeroArmyDetailsMovieClip@StrategicHUD@@QAEXABVUnicodeString@@@Z retail 0x005F6220 103B
 // Evidence: format APT:_level%u.%s_LeaderQuantity via rowed 0x00038150; pinned bfmeSetText 0x00225301; rowed releaseBuffer 0x00036410; globals 0x009FE4CC 0x007BAC1C; caller 0x005F67CA; precedent Rva005FB770 103B method Rva005FDF1C
 #include "ascii_string.h"
 
@@ -25,11 +25,19 @@ struct Rva005F6220Team
 
 UnicodeString __cdecl Rva005F632AFormat(int rank);
 
-class Rva005F6220
+namespace StrategicHUD {
+class HeroArmyDetailsMovieClip
 {
 public:
-	void rva005F6220(const UnicodeString &text);
-	void rva005F6287(const UnicodeString &text);
+	class Impl;
+};
+}
+
+class StrategicHUD::HeroArmyDetailsMovieClip::Impl
+{
+public:
+	void SetLeaderQuantityString(const UnicodeString &text);
+	void SetLeaderRankString(const UnicodeString &text);
 	void rva005F63EC(int rank);
 private:
 	char m_pad00[4];
@@ -39,7 +47,7 @@ private:
 	int m_rank2C;
 };
 
-void Rva005F6220::rva005F6220(const UnicodeString &text)
+void StrategicHUD::HeroArmyDetailsMovieClip::Impl::SetLeaderQuantityString(const UnicodeString &text)
 {
 	AsciiString key;
 	const char *mid = m_team08 ? (const char *)((char *)m_team08 + 8) : "";
@@ -47,7 +55,7 @@ void Rva005F6220::rva005F6220(const UnicodeString &text)
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, true);
 }
 
-void Rva005F6220::rva005F6287(const UnicodeString &text)
+void StrategicHUD::HeroArmyDetailsMovieClip::Impl::SetLeaderRankString(const UnicodeString &text)
 {
 	AsciiString key;
 	const char *mid = m_team08 ? (const char *)((char *)m_team08 + 8) : "";
@@ -55,10 +63,10 @@ void Rva005F6220::rva005F6287(const UnicodeString &text)
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, true);
 }
 
-void Rva005F6220::rva005F63EC(int rank)
+void StrategicHUD::HeroArmyDetailsMovieClip::Impl::rva005F63EC(int rank)
 {
 	if (rank != m_rank2C) {
-		rva005F6287(Rva005F632AFormat(rank));
+		SetLeaderRankString(Rva005F632AFormat(rank));
 		m_rank2C = rank;
 	}
 }
@@ -69,7 +77,7 @@ public:
 	void rva005F64C0(int rank);
 private:
 	char m_pad00[8];
-	Rva005F6220 *m_ptr08;
+	StrategicHUD::HeroArmyDetailsMovieClip::Impl *m_ptr08;
 };
 
 void Rva005F64C0::rva005F64C0(int rank)

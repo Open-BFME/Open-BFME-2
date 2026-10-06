@@ -143,18 +143,18 @@ public:
 	const CommandButton *m_30;	// +0x30 the button
 };
 
-class Rva004EAFBD
+class AIWall
 {
 public:
 	Coord3D rva004EAFBD();	// 0x004EAFBD (asserts in AIWall.cpp)
-	void rva004EB902();
+	void buildGate();
 private:
 	char m_pad00[0x14];
 	Rva004EB902Plan *m_14;	// +0x14
 	Player *m_18;		// +0x18
 };
 
-void Rva004EAFBD::rva004EB902()
+void AIWall::buildGate()
 {
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&rva004EAFBD(), 25.0f, 0,
 		Rva0026119DFilter().link(&Rva00261409Filter(m_18, true, 2)), 1);

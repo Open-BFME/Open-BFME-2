@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /GX
 //
-// ?rva0045108D@UnleashSpecialPower@@UAEXXZ, retail 0x004CE18A, 187 bytes:
+// ?triggerAbilityEffect@UnleashSpecialPower@@UAEXXZ, retail 0x004CE18A, 187 bytes:
 // slot 17 of UnleashSpecialPower's primary vtable 0x00C5FDC0 (ctor
 // 0x004CE006), over the SpecialAbilityUpdate slot-17 base 0x0045108D (pinned;
 // named by its address, like WoundArrowUpdateSlot17.cpp). After the base,
@@ -123,7 +123,7 @@ public:
 	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
 	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
 	virtual void s16();
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
@@ -132,12 +132,12 @@ protected:
 class UnleashSpecialPower : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 };
 
-void UnleashSpecialPower::rva0045108D()
+void UnleashSpecialPower::triggerAbilityEffect()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	Object *obj = m_object;
 	if (obj == 0)
 		return;

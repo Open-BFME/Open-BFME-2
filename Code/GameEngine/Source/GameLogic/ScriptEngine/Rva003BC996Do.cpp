@@ -9,7 +9,7 @@ class Parameter
 class Drawable
 {
 public:
-	void rva002736BA(const StringBase<char> &name, int val);
+	void setEmoticon(const StringBase<char> &name, int val);
 };
 
 class Thing
@@ -35,7 +35,7 @@ extern int g_Va00DBA4E4;
 
 // ?getUnitNamed@ScriptEngine@@QAEPAVObject@@PAVParameter@@@Z present-unmatched
 // ?getDrawable@Thing@@QBEPAVDrawable@@XZ present-unmatched
-// ?rva002736BA@Drawable@@QAEXABV?$StringBase@D@@H@Z present-unmatched
+// ?setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z present-unmatched
 void __stdcall Rva003BC996Do(Parameter *param, const StringBase<char> &animName, float f)
 {
 	Object *obj = TheScriptEngine->getUnitNamed(param);
@@ -45,5 +45,5 @@ void __stdcall Rva003BC996Do(Parameter *param, const StringBase<char> &animName,
 	if (d == 0)
 		return;
 	int v = (int)((float)g_Va00DBA4E4 * f);
-	d->rva002736BA(animName, v);
+	d->setEmoticon(animName, v);
 }

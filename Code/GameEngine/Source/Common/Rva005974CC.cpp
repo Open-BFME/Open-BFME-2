@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD
-// ?rva005974CC@Rva0059734B@@UAEXPAVXfer@@PAX@Z @0x005974CC 244B: slot12 xfer override pruning via AsciiString and command buttons; vtable 0x00870BD0 caller 0x005972B3
+// ?DoXfer@AIUpgrade@@UAEXPAVXfer@@PAX@Z @0x005974CC 244B: slot12 xfer override pruning via AsciiString and command buttons; vtable 0x00870BD0 caller 0x005972B3
 #include "ascii_string.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -103,10 +103,10 @@ protected:
 	bool m_28;
 };
 
-class Rva0059734B : public Rva0055B0CC
+class AIUpgrade : public Rva0055B0CC
 {
 public:
-	virtual void rva005974CC(Xfer *x, void *p);
+	virtual void DoXfer(Xfer *x, void *p);
 private:
 	int m_2C;
 	CommandButton *m_30;
@@ -118,7 +118,7 @@ struct TwoBytes
 	bool b;
 };
 
-void Rva0059734B::rva005974CC(Xfer *x, void *p)
+void AIUpgrade::DoXfer(Xfer *x, void *p)
 {
 	TwoBytes t;
 	t.a = true;

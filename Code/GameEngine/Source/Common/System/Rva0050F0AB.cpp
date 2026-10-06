@@ -43,8 +43,8 @@ public:
 
 // GadgetUserDataOr0032060D.cpp's 0x0032060D and the text entry's maximum
 // length setter 0x00433D07.
-void Rva0032060D(GameWindow *window, int flags);
-void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
+void GadgetTextEntrySetValidationFlags(GameWindow *window, int flags);
+void GadgetTextEntrySetMaxChars(BfmeKeyLC *textEntry, unsigned short maxLength);
 
 void GadgetTextEntrySetText(GameWindow *g, UnicodeString text);
 UnicodeString __cdecl GadgetTextEntryGetText(GameWindow *g);
@@ -197,7 +197,7 @@ void Rva0050F0AB::InitTextEntry(const char *name, void *argument, GameWindow *wi
 				m_7c->GameWindow::winSetFont(smaller);
 		}
 	}
-	Rva0032060D(m_7c, 0x21);
-	bfmeGo924F((BfmeKeyLC *)m_7c, countDigits(99999));
+	GadgetTextEntrySetValidationFlags(m_7c, 0x21);
+	GadgetTextEntrySetMaxChars((BfmeKeyLC *)m_7c, countDigits(99999));
 	rva0050F0AB();
 }

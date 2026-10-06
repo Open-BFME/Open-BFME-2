@@ -19,6 +19,9 @@
 // status at +0x08, size at +0x0C/+0x10, region at +0x14..0x20, input callback
 // at +0x1E0. The manager's winSendSystemMsg sits at vtable +0xE8 (slot 58),
 // like GadgetListBoxReset's +0xE8 call.
+// winGetScreenPosition/winGetSize/winGetPosition, winIsHidden and
+// winSetPosition were folded in from split units with these exact flags, as
+// was the address-named list link/unlink pair at 0x0031455E/0x00314581.
 
 typedef int Int;
 typedef unsigned char UnsignedByte;
@@ -43,6 +46,7 @@ enum WindowMsgHandledType
 enum
 {
 	WIN_ERR_OK = 0,
+	WIN_ERR_INVALID_PARAMETER = -3,
 	GGM_RESIZED = 16388
 };
 
@@ -58,6 +62,13 @@ void GadgetComboBoxSetIMECompositeTextColors(GameWindow *, int, int);
 
 typedef WindowMsgHandledType (*GameWinInputFunc)(GameWindow *, UnsignedInt, WindowMsgData, WindowMsgData);
 
+class GameWindowChild
+{
+public:
+	virtual void childAnchor0();
+	virtual void childAnchor1();
+	virtual void onChildPosition(int curX, int curY, int newX, int newY);
+};
 class GameWindowManager
 {
 public:
@@ -88,6 +99,12 @@ public:
 	GameWindow *winPointInAnyChild(Int x, Int y, bool ignoreHidden, bool ignoreEnableCheck);
 	UnsignedInt winClearStatus(UnsignedInt status);
 	Int winSetInputFunc(GameWinInputFunc input);
+	Int winGetScreenPosition(Int *x, Int *y);
+	Int winGetSize(Int *width, Int *height);
+	Int winGetPosition(Int *x, Int *y);
+	bool winIsHidden(void);
+	int winSetPosition(int x, int y);
+	void orderPairs();
 
 protected:
 	GameWindow *findFirstLeaf();
@@ -96,7 +113,7 @@ protected:
 	GameWindow *findNextLeaf();
 
 private:
-	unsigned char m_pad0[0x04];
+	GameWindowChild *m_positionSink; // +0x04 notified by winSetPosition
 	UnsignedInt m_status;
 	Int m_sizeX;
 	Int m_sizeY;
@@ -477,3 +494,132 @@ void GameWindow::winSetFont( GameFont *font )
 		self->fontSink->setFont( font );
 
 }  // end WinSetFont
+
+// ?winSetPosition@GameWindow@@QAEHHH@Z, retail 0x00313A9E, 70 bytes.
+// GameWindow position setter: notifies the object at +0x4 through its third
+// virtual (four int args: current region origin plus the new x/y), then stores
+// the new position and orders the rect pairs through orderPairs (rowed at
+// 0x31394A, shared-layout helper operating on +0x14/+0x1C/+0x18/+0x20).
+// Shape: null-guarded virtual call (je skips), base-plus-arg stores for the
+// far corners, direct stores for the near corners, then the orderPairs call.
+int GameWindow::winSetPosition(int x, int y)
+{
+	if (m_positionSink != 0)
+		m_positionSink->onChildPosition(m_regionLoX, m_regionLoY, x, y);
+	m_regionHiX = m_sizeX + x;
+	m_regionLoX = x;
+	m_regionLoY = y;
+	m_regionHiY = m_sizeY + y;
+	orderPairs();
+	return 0;
+}
+
+// ?winGetPosition@GameWindow@@QAEHPAH0@Z, retail 0x00313AE4 (38B). Twin of
+// winGetSize over the region origin at +0x14/+0x18: null-checked position
+// fetch with -3/0 codes. Called by the Slide/Spiral animate-window bodies.
+Int GameWindow::winGetPosition(Int *x, Int *y)
+{
+	if (x == NULL || y == NULL) {
+		return WIN_ERR_INVALID_PARAMETER;
+	}
+
+	*x = m_regionLoX;
+	*y = m_regionLoY;
+
+	return WIN_ERR_OK;
+}
+
+// ?winGetScreenPosition@GameWindow@@QAEHPAH0@Z, retail 0x00313B3C, 51 bytes.
+// Ported from Open-BFME-1
+// Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp (which matches
+// 58B there): walk the parent chain accumulating the region origin. The
+// retail loop falls through with eax holding the null parent (which equals
+// WIN_ERR_OK), so there is no explicit return-value setup.
+Int GameWindow::winGetScreenPosition(Int *x, Int *y)
+{
+	GameWindow *parent = m_parent;
+
+	*x = m_regionLoX;
+	*y = m_regionLoY;
+
+	while (parent) {
+		*x += parent->m_regionLoX;
+		*y += parent->m_regionLoY;
+		parent = parent->m_parent;
+	}
+
+	return (Int)parent;
+}
+
+// ?winGetSize@GameWindow@@QAEHPAH0@Z, retail 0x00313BC6 (38B). Same BFME1
+// file, verbatim port: null-checked size fetch with -3/0 codes.
+Int GameWindow::winGetSize(Int *width, Int *height)
+{
+	if (width == NULL || height == NULL) {
+		return WIN_ERR_INVALID_PARAMETER;
+	}
+
+	*width = m_sizeX;
+	*height = m_sizeY;
+
+	return WIN_ERR_OK;
+}
+
+// ?winIsHidden@GameWindow@@QAE_NXZ @0x00313CD9: status bit 4.
+bool GameWindow::winIsHidden(void)
+{
+	return (m_status >> 4) & 1;
+}
+
+// ?Rva0031455ELink@Rva0031455E@@QAEXPAV1@@Z @ 0x0031455E (35B).
+// Honest address-derived list link: virtual slot 2 then insert this into list headed at arg plus 0x1DC with next at plus 0x04 and owner at plus 0x08.
+// Evidence: neighbors 0x0031450A plus 0x003145F0 plus twin unlink 0x00314581 sharing plus 0x04 plus 0x08 plus 0x1DC layout.
+class Rva0031455E
+{
+public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    ~Rva0031455E();
+    void Rva0031455ELink(Rva0031455E *arg);
+    void Rva00314581Unlink();
+private:
+    void *m_04;
+    void *m_08;
+    char m_pad[0x1DC - 0x0C];
+    void *m_1DC;
+};
+void Rva0031455E::Rva0031455ELink(Rva0031455E *arg)
+{
+    v2();
+    if (arg) {
+        m_08 = arg;
+        m_04 = arg->m_1DC;
+        arg->m_1DC = this;
+    }
+}
+// ?Rva00314581Unlink@Rva0031455E@@QAEXXZ @ 0x00314581 (21B).
+// Honest address-derived list unlink: if owner at plus 0x08 then move next at plus 0x04 into owner plus 0x1DC and clear plus 0x08.
+// Evidence: twin link 0x0031455E sharing plus 0x04 plus 0x08 plus 0x1DC layout.
+void Rva0031455E::Rva00314581Unlink()
+{
+    Rva0031455E *owner = (Rva0031455E *)m_08;
+    if (owner) {
+        owner->m_1DC = m_04;
+        m_08 = 0;
+    }
+}
+
+Rva0031455E::~Rva0031455E()
+{
+    Rva00314581Unlink();
+}
+
+void Rva0031455EDelete(Rva0031455E *p) { delete p; }
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+#pragma comment(linker, "/alternatename:?v0@Rva0031455E@@UAEXXZ=??_GRva0031455E@@QAEPAXI@Z")
+#pragma comment(linker, "/alternatename:?v1@Rva0031455E@@UAEXXZ=?Rva0031455ELink@Rva0031455E@@QAEXPAV1@@Z")
+#pragma comment(linker, "/alternatename:?v2@Rva0031455E@@UAEXXZ=?Rva00314581Unlink@Rva0031455E@@QAEXXZ")

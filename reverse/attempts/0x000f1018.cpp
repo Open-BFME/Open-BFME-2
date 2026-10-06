@@ -1,6 +1,8 @@
 // ?rva000F1018@W3DShadowGeometry@@QAEHPAVMeshModelClass@@HPAV1@@Z
+// partial score=0.7789 date=2026-10-06
+// ?rva000F1018@W3DShadowGeometry@@QAEHPAVMeshModelClass@@HPAV1@@Z
 // partial score=0.45 date=2026-10-05
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /G7
 // Target method identity comes from the Zero Hour W3DVolumetricShadow donor and
 // the retail HLOD vtable calls.  BFME2 splits per-mesh population into the
 // adjacent address-derived helper; its object offsets are read from retail.

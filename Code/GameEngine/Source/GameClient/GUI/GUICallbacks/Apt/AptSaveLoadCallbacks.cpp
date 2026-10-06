@@ -18,8 +18,8 @@ public:
 class BfmeKeyLC;
 
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
-void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
-void Rva0032060D(GameWindow *textEntry, int value);
+void GadgetTextEntrySetMaxChars(BfmeKeyLC *textEntry, unsigned short maxLength);
+void GadgetTextEntrySetValidationFlags(GameWindow *textEntry, int value);
 
 // Rowed callees for 0x00434432 (declared only; definitions live in their rows).
 class BfmeObjENK;
@@ -65,7 +65,7 @@ public:
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 
 	// Unrowed 0x00434AAE (220 bytes; fills the lists), pinned by address.
-	void rva00434AAE();
+	void SetDefaultFileName();
 
 	// Unrowed 0x0043448C, 0x00435224 and 0x00434B8A, pinned by address.
 	void rva0043448C();
@@ -325,9 +325,9 @@ void AptSaveLoad::InitGadgets(const char *name, void *argument, GameWindow *wind
 	{
 		m_fileName = window;
 		GadgetTextEntrySetText(window, UnicodeString(L""));
-		bfmeGo924F((BfmeKeyLC *)window, 40);
-		Rva0032060D(window, 8);
-		rva00434AAE();
+		GadgetTextEntrySetMaxChars((BfmeKeyLC *)window, 40);
+		GadgetTextEntrySetValidationFlags(window, 8);
+		SetDefaultFileName();
 		if (m_state == 0)
 			m_state = 1;
 	}

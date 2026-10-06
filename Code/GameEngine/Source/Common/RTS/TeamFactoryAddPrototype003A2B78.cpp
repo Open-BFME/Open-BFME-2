@@ -20,7 +20,7 @@ struct Rva0039D8FBKey
 class TeamPrototype
 {
 public:
-	void rva003A2BD4();
+	void addToLists();
 	void *m_vft;
 	void *m_factory;
 	void *m_owner;
@@ -84,7 +84,7 @@ void TeamFactory::addTeamPrototypeToList(TeamPrototype *team)
 	(*(TeamPrototype **)&(*m)[*(BfmeTeamPrototypeKey *)&key]) = team;
 }
 
-void TeamPrototype::rva003A2BD4()
+void TeamPrototype::addToLists()
 {
 	if (m_factory)
 		((TeamFactory *)m_factory)->addTeamPrototypeToList(this);

@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?rva003C375A@ScriptActions@@IAEXPAVParameter@@HM@Z @0x003C375A (102B): a
+// ?doTeamForceEmotion@ScriptActions@@IAEXPAVParameter@@HM@Z @0x003C375A (102B): a
 // script action (dispatcher call 0x003CE964) that, for an emotion index in
 // [0, 12), looks the team up by its parameter's name (+0x10 string) through
 // the rowed getTeamNamed and hands (index, value, 0) to each member's
@@ -66,13 +66,13 @@ private:
 class ScriptActions
 {
 protected:
-	void rva003BD2CE(Parameter *pUnit, int index, float value);
-	void rva003C375A(Parameter *pTeam, int index, float value);
+	void doUnitForceEmotion(Parameter *pUnit, int index, float value);
+	void doTeamForceEmotion(Parameter *pTeam, int index, float value);
 };
 
-// ScriptActions::rva003BD2CE, retail 0x003BD2CE (56B): the single-unit
+// ScriptActions::doUnitForceEmotion, retail 0x003BD2CE (56B): the single-unit
 // form - the unit resolved from its parameter by the rowed getUnitNamed.
-void ScriptActions::rva003BD2CE(Parameter *pUnit, int index, float value)
+void ScriptActions::doUnitForceEmotion(Parameter *pUnit, int index, float value)
 {
 	if (index < 0 || index >= 12)
 		return;
@@ -82,7 +82,7 @@ void ScriptActions::rva003BD2CE(Parameter *pUnit, int index, float value)
 	obj->rva0028ECA8(index, value, 0);
 }
 
-void ScriptActions::rva003C375A(Parameter *pTeam, int index, float value)
+void ScriptActions::doTeamForceEmotion(Parameter *pTeam, int index, float value)
 {
 	if (index < 0 || index >= 12)
 		return;

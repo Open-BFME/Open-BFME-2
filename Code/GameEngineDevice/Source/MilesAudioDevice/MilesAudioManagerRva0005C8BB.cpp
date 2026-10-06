@@ -10,7 +10,13 @@
 // guard plus a pinned no-arg (0x524D6/0x524E2) or cdecl (int,float) 0x524EE
 // global. Layout mirrors MilesAudioManagerRva00053CE1 (+0x12C/0x1C4/0x9D4).
 // All names are address-derived; identities unproven.
-class Rva00699180Owner
+class MilesAudioManager
+{
+public:
+	class GlobalVolumeData;
+};
+
+class MilesAudioManager::GlobalVolumeData
 {
 public:
 	void rva000522DF(float volume);
@@ -71,7 +77,7 @@ void Rva0005C8BB::rva0005C8BB(float volume, int flags)
 	for (int i = 0; i < 3; i++, elem++)
 	{
 		if (flags & (1 << i))
-			((Rva00699180Owner *)elem)->rva000522DF(volume);
+			((MilesAudioManager::GlobalVolumeData *)elem)->rva000522DF(volume);
 	}
 	((Rva0005C892 *)this)->rva0005C892();
 }

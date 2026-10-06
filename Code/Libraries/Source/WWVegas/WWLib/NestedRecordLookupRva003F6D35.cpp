@@ -57,9 +57,9 @@ Rva003F6D35Inner *Rva003F6D35Owner::findOrCreateRva003F6D35(void *p){
 
 #pragma comment(linker, "/alternatename:??1Rva003F6D35Outer@@QAE@XZ=??1BfmeStringRecord00111ACF@@QAE@XZ")
 
-#pragma comment(linker, "/alternatename:?findInner@Rva003F6D35Owner@@QAEHHPAX@Z=?rva003F4FAA@Rva003F498A@@QAEHHPAX@Z")
+#pragma comment(linker, "/alternatename:?findInner@Rva003F6D35Owner@@QAEHHPAX@Z=?rva003F4FAA@LivingWorldBattle@@QAEHHPAX@Z")
 
-#pragma comment(linker, "/alternatename:?findOuter@Rva003F6D35Owner@@QAEHPAX@Z=?rva003F4752@Rva003F498A@@QAEHPAX@Z")
+#pragma comment(linker, "/alternatename:?findOuter@Rva003F6D35Owner@@QAEHPAX@Z=?rva003F4752@LivingWorldBattle@@QAEHPAX@Z")
 
 #pragma comment(linker, "/alternatename:?push_back@?$vector@URva003F6D35Inner@@V?$allocator@URva003F6D35Inner@@@_STL@@@_STL@@QAEXABURva003F6D35Inner@@@Z=?push_back@?$vector@UBfmePod48@@V?$allocator@UBfmePod48@@@_STL@@@_STL@@QAEXABUBfmePod48@@@Z")
 

@@ -1,6 +1,6 @@
 // cl: /MD /Oy-
 //
-// ?Rva00573512Check@@YGHPAUThing@@PAX@Z, retail 0x00573512, 180 bytes. Banked partial (score 0.98) closed by tools/permute.py;
+// ?isValidTarget@AITargetHeuristicEnemyStructure@@QAEHPAUThing@@PAX@Z, retail 0x00573512, 180 bytes. Banked partial (score 0.98) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
 #include <string.h>
 
@@ -40,7 +40,13 @@ struct Rva002A8F24
 
 extern Rva002A8F24 *g_00DFEEF8;
 
-int __stdcall Rva00573512Check(Thing *thing, void *owner)
+class AITargetHeuristicEnemyStructure
+{
+public:
+	int isValidTarget(Thing *thing, void *owner);
+};
+
+int AITargetHeuristicEnemyStructure::isValidTarget(Thing *thing, void *owner)
 {
     void *o = owner;
     Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(o);

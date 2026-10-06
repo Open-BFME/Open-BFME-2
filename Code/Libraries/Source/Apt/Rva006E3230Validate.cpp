@@ -1,6 +1,6 @@
 // cl: /O2 /MD
-// ?rva006E3230@Rva006E3230@@QAEXPAURva006E3230Action@@@Z @0x006E3230 102B.
-// ?rva006E3DB0@Rva006E3230@@QAEPAURva006E3230Action@@XZ @0x006E3DB0 17B.
+// AptActionQueueC::rva006E3230 @0x006E3230 102B.
+// AptActionQueueC::rva006E3DB0 @0x006E3DB0 17B.
 // Validates an action pointer against the Apt action pool using _Apt.h asserts
 // at lines 0x4e0 ("pCur >= &m_aActionPool[0]") and 0x4e1
 // ("pCur < &m_aActionPool[ m_iActionPoolSize ]") via the shared Apt assert
@@ -76,7 +76,7 @@ struct Rva006E4B80Slot {
     void *field10;
     AptCIH *field14;
 };
-class Rva006E3230 {
+class AptActionQueueC {
     Rva006E3230Action *m_aActionPool;
     Rva006E3230Action *m_pCurrent;
     Rva006E3230Action *m_pEnd;
@@ -90,7 +90,7 @@ public:
     void rva006E3740(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
     void rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
 };
-void Rva006E3230::rva006E3230(Rva006E3230Action *pCur)
+void AptActionQueueC::rva006E3230(Rva006E3230Action *pCur)
 {
     if (!(pCur >= &m_aActionPool[0])) {
         g_bfmeAptAssertAtE17734("pCur >= &m_aActionPool[0]", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_Apt.h", 0x4e0);
@@ -101,19 +101,19 @@ void Rva006E3230::rva006E3230(Rva006E3230Action *pCur)
         if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
     }
 }
-Rva006E3230Action *Rva006E3230::rva006E3DB0()
+Rva006E3230Action *AptActionQueueC::rva006E3DB0()
 {
     rva006E3230(m_pCurrent);
     return m_pCurrent;
 }
 
-// ?rva006E3920@Rva006E3230@@QAEPAURva006E3230Action@@H@Z @0x006E3920 114B.
+// AptActionQueueC::rva006E3920 @0x006E3920 114B.
 // Wraps an argument by the action-pool cursor: iOffset = m_pCurrent -
 // m_aActionPool (element stride 24), asserted into [0, m_iActionPoolSize) at
 // AptAnimation.cpp:1911, then returns &pool[wrapped (arg + iOffset)] with a
 // signed modulo folded into range. Evidence: unlock lane, caller 0x006E39A0;
 // layout/stride/names shared with the two bodies above.
-Rva006E3230Action *Rva006E3230::rva006E3920(int arg)
+Rva006E3230Action *AptActionQueueC::rva006E3920(int arg)
 {
     int iOffset = m_pCurrent - m_aActionPool;
     if (iOffset < 0 || iOffset >= m_iActionPoolSize) {
@@ -127,7 +127,7 @@ Rva006E3230Action *Rva006E3230::rva006E3920(int arg)
     return &m_aActionPool[idx + m_iActionPoolSize];
 }
 
-// ?rva006E39A0@Rva006E3230@@QAEXXZ @0x006E39A0 246B chain lane.
+// AptActionQueueC::rva006E39A0 @0x006E39A0 246B chain lane.
 // Drains newly queued actions: iDelta = m_pEnd - m_pCurrent (stride 24),
 // wrapped by size and asserted positive at AptAnimation.cpp:1887, then for
 // each k the wrapped action dispatches on eActionType: type 1 marks operand
@@ -136,7 +136,7 @@ Rva006E3230Action *Rva006E3230::rva006E3920(int arg)
 // NOT_REACHED at AptAnimation.cpp:1962. Evidence: caller 0x006E47C0;
 // same queue object (rva006E3920 called with own this); vtable shape copied
 // from AptValueForceDelete.cpp.
-void Rva006E3230::rva006E39A0()
+void AptActionQueueC::rva006E39A0()
 {
     int iDelta = m_pEnd - m_pCurrent;
     if (iDelta < 0) {
@@ -175,14 +175,14 @@ void Rva006E3230::rva006E39A0()
     }
 }
 
-// ?rva006E3740@Rva006E3230@@QAEXPAVAptValue@@00HH@Z @0x006E3740 195B.
+// AptActionQueueC::rva006E3740 @0x006E3740 195B.
 // Enqueues a type-2 action: asserts pContext->getIsDefined() at
 // AptAnimation.cpp:1718 via the shared Apt assert triple, wraps m_pEnd+1 by
 // size back to base, validates it, logs and returns when it meets m_pCurrent
 // (Dequeue full), else fills type 2 plus the five args and advances m_pEnd.
 // Evidence: unlock lane packet; same queue object as rva006E3230/rva006E3920;
 // stride 24 and assert/log immediates read from retail.
-void Rva006E3230::rva006E3740(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE)
+void AptActionQueueC::rva006E3740(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE)
 {
     if (!((const Rva006DBB60ShrNAndField *)pContext)->get()) {
         g_bfmeAptAssertAtE17734("pContext->getIsDefined()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x6b6);
@@ -208,13 +208,13 @@ void Rva006E3230::rva006E3740(AptValue *pContext, AptValue *pA, AptValue *pB, in
     Rva006CC110Log(4, "!!!!!!!!!!!!! AptAnimationPoolData:  Dequeue is full !!!!!!!!");
 }
 
-// ?rva006E4B80@Rva006E3230@@QAEXPAXPAVAptCIH@@HH@Z @0x006E4B80 225B.
+// AptActionQueueC::rva006E4B80 @0x006E4B80 225B.
 // Type-1 enqueue sibling of rva006E3740: asserts pCIH->getIsDefined() at
 // AptAnimation.cpp:1615, wraps m_pEnd+1, validates, logs Dequeue-full when it
 // meets m_pCurrent, else stores type 1 plus chain int from [pCIH+0x4C]+0x28,
 // arg1, pCIH (with AddRef slot0), arg4, arg3, advances m_pEnd. Evidence:
 // unlock lane packet; same queue object; stride 24 and assert/log immediates.
-void Rva006E3230::rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4)
+void AptActionQueueC::rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4)
 {
     if (!((const Rva006DBB60ShrNAndField *)pCIH)->get()) {
         g_bfmeAptAssertAtE17734("pCIH->getIsDefined()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x64f);

@@ -1,5 +1,6 @@
 // cl: /MD
-// ?rva0057AC27@Rva0057AC27@@QAEXH@Z, retail 0x0057AC27 104B. Unlock: selected-index Apt SetCurrentItemState show/hide via TheRva00222A8BTarget.
+// StrategicHUD::ChecklistUIImpl::SetCurrentItem (WorldBuilder name, line 1076: SetCurrentItemState _show/_hide on the changed +0x34 item).
+// was ?rva0057AC27@Rva0057AC27@@QAEXH@Z, retail 0x0057AC27 104B. Unlock: selected-index Apt SetCurrentItemState show/hide via TheRva00222A8BTarget.
 // Evidence: callees AptCall 0x005FB5E6 rowed; strings _show _hide SetCurrentItemState literals; EmptyString and TheRva00222A8BTarget externs; callers 0x0057AD58 0x0057B3B5.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
@@ -7,10 +8,14 @@ extern const char g_Rva0107301CEmptyString[];
 
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
-class Rva0057AC27
+namespace StrategicHUD
+{
+class ChecklistUIImpl;
+}
+class StrategicHUD::ChecklistUIImpl
 {
 public:
-	void rva0057AC27(int index);
+	void SetCurrentItem(int index);
 private:
 	char m_pad00[0x0C];
 	void *m_level0C;
@@ -20,7 +25,7 @@ private:
 	int m_34;
 };
 
-void Rva0057AC27::rva0057AC27(int index)
+void StrategicHUD::ChecklistUIImpl::SetCurrentItem(int index)
 {
 	if (index == m_34)
 		return;

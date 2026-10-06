@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /Ob1
-// ?rva004A0547@QueueProductionExitUpdate@@QAEXXZ @0x004A0547 297B chain via 0x4A0403.
+// ?notifyProductionBurstFinished@QueueProductionExitUpdate@@QAEXXZ @0x004A0547 297B chain via 0x4A0403.
 // Evidence: QueueProductionExitUpdate rally logic via rowed bfmeQueryRallyOverride 0x4A0403; TheGameLogic findObjectByID row; setStatus rows; getControllingPlayer row; g_00DFEEF8 plus rva002A8AB1 pin; rva00346C53 pin; AI rva0036EBB8 row; v8 rally coord; v31/v4/v145 virtuals; neighbours SetRallyPoint /O1.
 struct Coord3D
 {
@@ -125,7 +125,7 @@ public:
 	virtual void v1(); virtual void v2(); virtual void v3();
 	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
 	virtual const Coord3D *v8();
-	void rva004A0547();
+	void notifyProductionBurstFinished();
 private:
 	unsigned char m_pad[4];
 	Coord3D m_rallyPoint;
@@ -133,7 +133,7 @@ private:
 	char m_pad2[11];
 	int m_20;
 };
-void QueueProductionExitUpdate::rva004A0547()
+void QueueProductionExitUpdate::notifyProductionBurstFinished()
 {
 	Object *top = TheGameLogic->findObjectByID((ObjectID)m_20);
 	if (!top)

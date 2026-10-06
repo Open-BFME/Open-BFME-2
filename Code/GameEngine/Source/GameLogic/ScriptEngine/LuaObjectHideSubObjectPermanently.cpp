@@ -1,5 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z @0x00334AF3 263B: Lua binding. Evidence: pinned plus donor plus rowed callees plus siblings.
+// The hide flag goes to Drawable::rva002724FD as an unsigned char, the pinned
+// spelling the sibling ObjectHideSubObject 0x00334A3D also uses (byte sbb/inc
+// at the call, no zero-extension).
 #include "ascii_string.h"
 struct lua_State;
 extern "C" int lua_gettop(lua_State *state);

@@ -36,10 +36,10 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class AptMapPreview
 {
 public:
-    void bfmeSetMapTitle(MapMetaData *map);
+    void UpdateMapTitle(MapMetaData *map);
 };
 
-void AptMapPreview::bfmeSetMapTitle(MapMetaData *map)
+void AptMapPreview::UpdateMapTitle(MapMetaData *map)
 {
     if (g_bfmeAptWindowManager)
     {

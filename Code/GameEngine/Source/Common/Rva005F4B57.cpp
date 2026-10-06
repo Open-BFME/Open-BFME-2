@@ -2,10 +2,10 @@
 //
 // ?rva005F4B57@Rva005F4B57@@QAEXXZ @0x005F4B57 56B: thiscall void method
 // gated by byte +0x30 then forwarding to Rva005FD956 via rowed helpers.
-// Evidence: packet disasm with rowed Rva003192B9Get 0x003192B9 plus rowed
+// Evidence: packet disasm with rowed GetMaxCommandPoints 0x003192B9 plus rowed
 // rva00318FBE 0x00318FBE plus rowed rva005FD956 0x005FD956, caller 0x005F5537.
 
-void *Rva003192B9Get(void *key);
+void *GetMaxCommandPoints(void *key);
 
 class Rva00318FBE
 {
@@ -44,6 +44,6 @@ void Rva005F4B57::rva005F4B57()
 		return;
 	Rva005FD956 *p = m_08->m_14;
 	if (p != 0)
-		p->rva005FD956(m_0C, m_10->rva00318FBE(), (int)Rva003192B9Get(m_10));
+		p->rva005FD956(m_0C, m_10->rva00318FBE(), (int)GetMaxCommandPoints(m_10));
 	m_30 = 0;
 }

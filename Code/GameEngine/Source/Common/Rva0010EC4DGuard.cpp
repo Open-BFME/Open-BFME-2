@@ -1,5 +1,5 @@
 // cl: /MD /EHsc
-// ?rva0010EC4D@Rva0010EC4D@@QAEXHPAHH_N@Z @0x0010EC4D 104B
+// ?setFileReady@OpenAudioFile@@QAEXHPAHH_N@Z @0x0010EC4D 104B
 // Guarded 9-dword copy with event signal: constructs MilesMutexGuard over
 // +4 holder mutex at +0x50 stores args copies 9 dwords to +8 stores +0x30
 // stores +0x40 byte calls set at +0x44. Evidence: chain calls 0x0004120E
@@ -28,10 +28,10 @@ struct Rva0010EC4DHolder
     void *m_mutex; // +0x50
 };
 
-class Rva0010EC4D
+class OpenAudioFile
 {
 public:
-    void rva0010EC4D(int a1, int *a2, int a3, bool a4);
+    void setFileReady(int a1, int *a2, int a3, bool a4);
 private:
     void *m_unk00; // +0
     Rva0010EC4DHolder *m_holder; // +4
@@ -49,7 +49,7 @@ struct NineDwords
     int v[9];
 };
 
-void Rva0010EC4D::rva0010EC4D(int a1, int *a2, int a3, bool a4)
+void OpenAudioFile::setFileReady(int a1, int *a2, int a3, bool a4)
 {
     void *mtx = m_holder->m_mutex;
     MilesMutexGuard guard(mtx, 0);

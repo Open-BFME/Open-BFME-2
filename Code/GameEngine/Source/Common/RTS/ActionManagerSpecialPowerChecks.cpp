@@ -125,10 +125,10 @@ public:
 class ActionManager
 {
 public:
-	bool rva0041C9F8(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
+	bool validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
 };
 
-bool ActionManager::rva0041C9F8(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
+bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
 {
 	if (!sp->getFinalOverride()->flag4())
 		return true;

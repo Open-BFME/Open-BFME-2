@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii
 //
-// BfmeRva00C7B388 (text-dumping Xfer, vtable 0x00C7B388) stream-attach worker
+// XferSaveAsText (text-dumping Xfer, vtable 0x00C7B388) stream-attach worker
 // at 0x0060F0CE, 43 bytes. Layout taken from BfmeRva00C7B388Xfer.cpp: +4 is
 // the one-shot pending-label flag, +8 the stream sink, +0x0C the
 // vector<basic_string<char>> open-block stack. The body refuses a second
@@ -38,10 +38,10 @@ public:
 };
 }
 
-class BfmeRva00C7B388
+class XferSaveAsText
 {
 public:
-	virtual ~BfmeRva00C7B388();
+	virtual ~XferSaveAsText();
 
 	bool rva0060F0CE(BfmeRva00C7B388Stream *stream);
 
@@ -51,7 +51,7 @@ private:
 	char m_bfme0C[12];				// +0x0C: vector<basic_string<char>>
 };
 
-bool BfmeRva00C7B388::rva0060F0CE(BfmeRva00C7B388Stream *stream)
+bool XferSaveAsText::rva0060F0CE(BfmeRva00C7B388Stream *stream)
 {
 	if (m_bfme08 != 0)
 		return false;

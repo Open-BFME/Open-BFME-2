@@ -1,6 +1,6 @@
 // cl: /MD /EHsc
 // class-gate: allow AsciiString donor TU-local StringBase-derived view emits the retail 297B dtor at 0x00518769; its temporary calls the out-of-line StringBase ctor 0x00037BA0 and dtor 0x00036410, which the shared header force-inlines
-// ??1Rva00518769@@UAE@XZ @0x00518769 297B
+// ??1AptOptions@@UAE@XZ @0x00518769 297B
 // AptOptions dtor: current-window global clear, audio handle release via TheAudio slot 0x70, InitGadgets close, GameClient triple, globals gate Shell, three strings free base AptGameWindow. Evidence: literal AptOptions::InitGadgets 0x0086667C, base pin 0x005126F5, caller 0x00518AE9 deleting dtor.
 template <typename T> class StringBase
 {
@@ -87,10 +87,10 @@ struct FreePtr
 	~FreePtr() { if (p) free(p); }
 };
 
-class __multiple_inheritance Rva00518769 : public _bfme_AptGameWindow, public BfmeAptFunctorMarker
+class __multiple_inheritance AptOptions : public _bfme_AptGameWindow, public BfmeAptFunctorMarker
 {
 public:
-	virtual ~Rva00518769();
+	virtual ~AptOptions();
 private:
 	char m_pad21C[0x6C];
 	FreePtr m_288;
@@ -110,7 +110,7 @@ private:
 	AsciiString m_320;
 };
 
-Rva00518769::~Rva00518769()
+AptOptions::~AptOptions()
 {
 	if (g_Va00A04908 == (int)this)
 	{

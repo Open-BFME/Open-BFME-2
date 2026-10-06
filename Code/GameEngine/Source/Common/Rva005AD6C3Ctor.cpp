@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ??0Rva005AD6C3@@QAE@PBURva005DCC4BSource@@@Z @ 0x005AD6C3 39B
+// ??0AINavyUnitBattleShip@@QAE@PBURva005DCC4BSource@@@Z @ 0x005AD6C3 39B
 // Derived of rowed Rva005DCC4B: base converts source+0x74, then +0x08=0 and
 // +0x0C=TheGameLogic frame+0x40. Evidence: call at 0x005AD6CA to rowed
 // ??0Rva005DCC4B@@QAE@PBURva005DCC4BSource@@@Z, vtable 0x0087258C at [this],
@@ -32,17 +32,17 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Rva005AD6C3 : public Rva005DCC4B
+class AINavyUnitBattleShip : public Rva005DCC4B
 {
 public:
-	Rva005AD6C3(const Rva005DCC4BSource *source);
-	virtual ~Rva005AD6C3();
+	AINavyUnitBattleShip(const Rva005DCC4BSource *source);
+	virtual ~AINavyUnitBattleShip();
 
 	Int m_field08;
 	Int m_field0C;
 };
 
-Rva005AD6C3::Rva005AD6C3(const Rva005DCC4BSource *source)
+AINavyUnitBattleShip::AINavyUnitBattleShip(const Rva005DCC4BSource *source)
 	: Rva005DCC4B(source)
 {
 	m_field08 = 0;

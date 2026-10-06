@@ -3,7 +3,7 @@
 // Two small stdcall free functions from the 0x003BD2xx ScriptEngine/GameLogic
 // glue area (dump range 18).
 //
-// ?rva003BD270@@YGXHH@Z @0x003BD270 29B: forwards to the 0x002D36AE host
+// ?doHeroSelectButtonFlash@ScriptActions@@IAEXHH@Z @0x003BD270 29B: forwards to the 0x002D36AE host
 // method (pinned) on the 0x00DFF028 global with (a, g_00DBA4E8 * b). The
 // callee null-guards its inner delegate and tail-jumps, so no return value
 // is taken here; void is the honest reading.
@@ -23,7 +23,13 @@ public:
 
 extern Rva002D36AEHost *g_00DFF028;
 
-void __stdcall rva003BD270(int a, int b)
+class ScriptActions
+{
+protected:
+	void doHeroSelectButtonFlash(int a, int b);
+};
+
+void ScriptActions::doHeroSelectButtonFlash(int a, int b)
 {
 	g_00DFF028->rva002D36AE(a, g_009BA4E8 * b);
 }

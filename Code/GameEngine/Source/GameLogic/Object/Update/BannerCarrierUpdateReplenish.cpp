@@ -128,7 +128,7 @@ public:
 	Player *getControllingPlayer() const;	// 0x0028AFA9
 	bool testStatus(ObjectStatusTypes bit) const;	// 0x0004E536
 	void *rva0028C197() const;	// 0x0028C197
-	void bfmeRefreshPartitionCells();	// 0x0028C11A
+	void updateShroudNow();	// 0x0028C11A
 	const Coord3D *getPosition() const { return &m_pos; }
 	char m_pad000[0x08];
 	char m_08[4];		// +0x08
@@ -179,7 +179,7 @@ void BannerCarrierUpdate::rva004973CF()
 				if (contain->rva004973CFSlot98() < maxCount) {
 					Object *spawned = contain->rva004973CFSlot99(other->m_08);
 					if (spawned) {
-						spawned->bfmeRefreshPartitionCells();
+						spawned->updateShroudNow();
 						if (data->m_unitSpawnFX)
 							FXList::doFXObj(data->m_unitSpawnFX, spawned, 0);
 					}

@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?Rva00325199Init@@YAXPAVGameWindow@@@Z, retail 0x00325199, 91 bytes.
+// ?GadgetListBoxAddMultiSelect@@YAXPAVGameWindow@@@Z, retail 0x00325199, 91 bytes.
 // Free-function listbox column init: gets GameWindow user data, bails if
 // null or flag +0xB set, allocates count*4 via rowed new[], on failure
 // deletes +0x18 via rowed delete[], else memsets new buffer with -1 via
@@ -48,7 +48,7 @@ struct Rva00325199Data
 	int *m_newBuf;
 };
 
-void Rva00325199Init(GameWindow *window)
+void GadgetListBoxAddMultiSelect(GameWindow *window)
 {
 	Rva00325199Data *data = (Rva00325199Data *)window->winGetUserData();
 	if (data == 0)

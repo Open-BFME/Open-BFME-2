@@ -1,7 +1,8 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// StrategicInGameUI::ArmyDetailsPanel::Impl::OnDestroyingArmySummary (WorldBuilder name, lines 761..762: clear the +0x1C map, reset +0x14, clear +0x2C and release +0x10).
 // stlport
 //
-// ?rva005E4995@Rva005E4995@@QAEXH@Z, retail 0x005E4995, 42 bytes.
+// was ?rva005E4995@Rva005E4995@@QAEXH@Z, retail 0x005E4995, 42 bytes.
 // Clears map<int SBServer> at +0x1c via rowed 0x005E43A8, notifies holder at
 // +0x14 via rowed 0x005F22D2, clears flag at +0x2c, erases this from list at
 // [[+0x10]+0x78]+4 via rowed 0x002B7250. Evidence: callees rowed, ret 4 keeps
@@ -39,10 +40,18 @@ struct Rva002B7250Outer
 	Rva002B7250Inner *m_ptr;
 };
 
-class Rva005E4995
+namespace StrategicInGameUI
+{
+class ArmyDetailsPanel
 {
 public:
-	void rva005E4995(int dummy);
+	class Impl;
+};
+}
+class StrategicInGameUI::ArmyDetailsPanel::Impl
+{
+public:
+	void OnDestroyingArmySummary(int dummy);
 private:
 	unsigned char m_pad0[0x10];
 	Rva002B7250Outer *m_outer;
@@ -53,7 +62,7 @@ private:
 	unsigned char m_flag;
 };
 
-void Rva005E4995::rva005E4995(int dummy)
+void StrategicInGameUI::ArmyDetailsPanel::Impl::OnDestroyingArmySummary(int dummy)
 {
 	m_map.clear();
 	m_mid->rva005F22D2();

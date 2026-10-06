@@ -1,25 +1,22 @@
-// ?rva0026F8D6@Rva0026F8D6@@QAEXXZ
-// partial score=0.93 date=2026-09-30
-// ?rva0026F8D6@Rva0026F8D6@@QAEXXZ
-// partial score=0.93 date=2026-09-30
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// ?friend_resolveSubUpgradeNames@UpgradeTemplate@@QAEXXZ
+// partial score=0.99 date=2026-10-06
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva0026F8D6@Rva0026F8D6@@QAEXXZ @0x0026F8D6 102B
-// Evidence: after Rva0026F684 deleting dtor; vector AsciiString at +0x10 via rowed erase 0x0002CCFC plus vector ModuleData at +0x1c via rowed reserve 0x002B712E and push_back 0x004DFCB0 plus rowed findUpgrade 0x0026F26D plus global 0x00DFEB60; caller 0x0026F944.
+//
+// UpgradeTemplate::friend_resolveSubUpgradeNames, retail 0x0026F8D6 (102 bytes).
+// Identity (target): WorldBuilder debug Upgrade.cpp line 338 names it
+// (wb-lead 2/callgraph); its only caller is the 22-byte list walk at
+// 0x0026F93C over TheUpgradeCenter's template list (+0x0C head, +0x64 next).
+// Retail callees in order: pointer-vector reserve (0x002B712E fold),
+// UpgradeCenter::findUpgrade (0x0026F26D), pointer-vector push_back
+// (0x004DFCB0 fold), vector<AsciiString>::erase (0x0002CCFC).
+// Layout (target-measured): sub-upgrade name vector at +0x10, resolved
+// template vector at +0x1C. Structure (inference): names are resolved once
+// into templates and the name list is then cleared.
+#include "ascii_string.h"
 #include <vector>
 
-class AsciiString
-{
-	void *m_data;
-};
-
-class ModuleData
-{
-};
-
-class UpgradeTemplate : public ModuleData
-{
-};
+class UpgradeTemplate;
 
 class UpgradeCenter
 {
@@ -27,30 +24,31 @@ public:
 	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
 };
 
-extern UpgradeCenter *g_00DFEB60;
+extern UpgradeCenter *TheUpgradeCenter;
 
-class Rva0026F8D6
+class UpgradeTemplate
 {
 public:
-	void rva0026F8D6();
+	void friend_resolveSubUpgradeNames();
+
 private:
-	char m_pad00[0x10];
-	_STL::vector<AsciiString> m_10;
-	_STL::vector<const ModuleData *> m_1C;
+	unsigned char m_unreconstructed_000[0x10];
+	_STL::vector<AsciiString> m_subUpgradeNames; // +0x10
+	_STL::vector<const UpgradeTemplate *> m_subUpgrades; // +0x1C
 };
 
-void Rva0026F8D6::rva0026F8D6()
+void UpgradeTemplate::friend_resolveSubUpgradeNames()
 {
-	_STL::vector<AsciiString> &names = m_10;
-	if (names.empty())
-		return;
-	register unsigned int n = names.size();
-	m_1C.reserve(n);
-	for (register unsigned int i = 0; i < n; ++i)
+	if (!m_subUpgradeNames.empty())
 	{
-		const UpgradeTemplate *t = g_00DFEB60->findUpgrade(names[i]);
-		if (t)
-			m_1C.push_back(t);
+		unsigned int count = m_subUpgradeNames.size();
+		m_subUpgrades.reserve(count);
+		for (unsigned int i = 0; i < count; ++i)
+		{
+			const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(m_subUpgradeNames[i]);
+			if (upgrade)
+				m_subUpgrades.push_back(upgrade);
+		}
+		m_subUpgradeNames.clear();
 	}
-	names.erase(names.begin(), names.end());
 }

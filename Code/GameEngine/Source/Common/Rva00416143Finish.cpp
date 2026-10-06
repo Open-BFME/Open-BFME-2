@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
-// ?rva00416143@Rva00416143@@QAEXABVAsciiString@@@Z, retail 0x00416143, 174 bytes. Banked partial (score 0.96) closed by tools/permute.py;
+// ?LocationFromString@BuddyInviteGameInfo@@QAEXABVAsciiString@@@Z, retail 0x00416143, 174 bytes. Banked partial (score 0.96) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
 // sscanf "%d %d %d" into +4/+8/+0x14 then split " PW:"/" #HOST:" substrings into +0x10/+0x0C.
 // Evidence: sscanf IAT strstr IAT x2 strlen thunk x3 via 0x00629170 StringBase set 0x00036780/0x000055F5
@@ -14,7 +14,7 @@ extern "C" unsigned int __cdecl strlen(const char *s);
 
 extern const char g_Rva0107301CEmptyString[];
 
-struct Rva00416143
+struct BuddyInviteGameInfo
 {
 	int m_00;
 	int m_04;
@@ -22,10 +22,10 @@ struct Rva00416143
 	AsciiString m_0C;
 	AsciiString m_10;
 	int m_14;
-	void rva00416143(const AsciiString &a);
+	void LocationFromString(const AsciiString &a);
 };
 
-void Rva00416143::rva00416143(const AsciiString &a)
+void BuddyInviteGameInfo::LocationFromString(const AsciiString &a)
 {
 	void *h = *(void *const *)&a;
 	const char *t = h != 0 ? (const char *)h + 8 : g_Rva0107301CEmptyString;

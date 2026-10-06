@@ -1,4 +1,4 @@
-// ?bfmeProcess1279@BfmeWrapper1279@@QAEXPAX@Z, retail 0x006F7230 (96B).
+// ?bfmeProcess1279@AptDisplayList@@QAEXPAX@Z, retail 0x006F7230 (96B).
 // Adapted from Open-BFME-1 Code/GameEngine/Source/Common/BfmeQueryProcess1279.cpp.
 // BFME2 repairs (all retail-proven): node carries the provider at +0x48 and
 // the key at +0x8; the provider exposes the lookup at vtable slot 3; the
@@ -62,14 +62,14 @@ class BfmeNestedBE;
 
 BfmeNestedBE *bfmeUnlinkNestedBE(BfmeNestedBE *item);
 
-class BfmeWrapper1279
+class AptDisplayList
 {
 public:
 	void bfmeProcess1279(void *value);
 };
 
-// ?bfmeProcess1279@BfmeWrapper1279@@QAEXPAX@Z
-void BfmeWrapper1279::bfmeProcess1279(void *value)
+// ?bfmeProcess1279@AptDisplayList@@QAEXPAX@Z
+void AptDisplayList::bfmeProcess1279(void *value)
 {
 	BfmeNode1279 *node = (BfmeNode1279 *)value;
 	if (node != 0) {

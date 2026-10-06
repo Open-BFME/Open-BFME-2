@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva005A7974@Rva005A8666Box@@QAEXGPAX@Z @0x005A7974 290B: NAT PORT request builder.
+// ?rva005A7974@NAT@@QAEXGPAX@Z @0x005A7974 290B: NAT PORT request builder.
 // Target evidence: byte gates m_24=1 plus m_04/m_25 plus Consume 0x004D51ED pin,
 // format "PORT%d %d %08X %X" 0x00871C50 plus "NAT/" plus translate 0x00038220,
 // empty fallback g_Rva0107301CEmptyString, OwnedRecord ctor 0x001EF661/dtor
@@ -83,7 +83,7 @@ struct Rva005A8666Ptr
 	short m_4;
 };
 
-struct Rva005A8666Box
+struct NAT
 {
 	int m_0;
 	Rva005A8666Sub04 *m_04;
@@ -101,7 +101,7 @@ struct Rva005A8666Box
 	void rva005A7974(unsigned short port, void *info);
 };
 
-void Rva005A8666Box::rva005A7974(unsigned short port, void *info)
+void NAT::rva005A7974(unsigned short port, void *info)
 {
 	m_24 = 1;
 	if (m_04 != 0 && m_25 != 0)

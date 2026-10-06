@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva002A9E36@Player@@QAEHH@Z @0x002A9E36 118B: Player member that scales an
+// ?ScaleMoney@Player@@QAEHH@Z @0x002A9E36 118B: Player member that scales an
 // amount by the living-world level of the player's linked entry. When the
 // rowed TheGameLogic query 0x002034E9 holds and the id at +0x3AC is set, it
 // looks the entry up through the rowed TheLivingWorldLogic find 0x002B51F8
@@ -42,13 +42,13 @@ inline int Rva002A9E36RealToInt(float a)
 class Player
 {
 public:
-	int rva002A9E36(int value);
+	int ScaleMoney(int value);
 private:
 	char m_pad00[0x3AC];
 	int m_3AC;
 };
 
-int Player::rva002A9E36(int value)
+int Player::ScaleMoney(int value)
 {
 	if (g_00DFE78C->rva002034E9() && m_3AC != -1)
 	{

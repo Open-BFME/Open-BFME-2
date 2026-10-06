@@ -8,7 +8,7 @@
 extern "C" void *__cdecl memcpy(void *dest, const void *src, unsigned int count);
 extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long hostlong);
 extern "C" __declspec(dllimport) unsigned short __stdcall htons(unsigned short hostshort);
-unsigned int BFMEComputeCRC(const unsigned char *data, unsigned int length, unsigned int crc);
+unsigned int ComputeCRC(const unsigned char *data, unsigned int length, unsigned int crc);
 
 struct Rva00594DC0Msg
 {
@@ -41,7 +41,7 @@ bool Rva00594DC0::rva005952C4(void *src, unsigned short len, unsigned short *out
 		if (len > 0x14)
 			return false;
 		memcpy(buf, src, 0x14);
-		unsigned int crc = BFMEComputeCRC(buf + 4, 0x10, 0);
+		unsigned int crc = ComputeCRC(buf + 4, 0x10, 0);
 		if (crc != htonl(*(unsigned long *)buf))
 			return false;
 		rva00594DC0((Rva00594DC0Msg *)buf);

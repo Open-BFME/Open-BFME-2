@@ -101,7 +101,7 @@ public:
 	Int countBuildings();
 	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
 	Object *findClosestByKindOf(Object *queryObject, KindOfMaskType setMask, KindOfMaskType clearMask);
-	Object *rva002AB1DE(const Coord3D *pos, KindOfMaskType setMask, KindOfMaskType clearMask);
+	Object *findClosestToPosByKindOf(const Coord3D *pos, KindOfMaskType setMask, KindOfMaskType clearMask);
 	void updateTeamStates();
 	Bool rva002AB260(Bool flag) const;
 	Bool rva002AB295(Rva0039DDC2Filter filter, Bool flag) const;
@@ -272,7 +272,7 @@ Object *Player::findClosestByKindOf(Object *queryObject, KindOfMaskType setMask,
 	return data.m_closest;
 }
 
-Object *Player::rva002AB1DE(const Coord3D *pos, KindOfMaskType setMask, KindOfMaskType clearMask)
+Object *Player::findClosestToPosByKindOf(const Coord3D *pos, KindOfMaskType setMask, KindOfMaskType clearMask)
 {
 	Rva002AA3D4Search data;
 	data.m_mustBeSet = setMask;

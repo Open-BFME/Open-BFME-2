@@ -3,7 +3,7 @@
 // ?Rva00521658@Holder00521658@@QAEXXZ @0x00521658 78B
 // Thiscall drives four member objects: virtual slot 4 on +0x668, then
 // the rowed SkirmishPreferences helper 0x0043BE7C plus virtual slot 3 on
-// +0x698, virtual slot 1 plus the rowed MpGameSetup helper 0x0043DE19 on
+// +0x698, virtual slot 1 plus the rowed AptMpGameSetup helper 0x0043DE19 on
 // the +0x288 panel, clears +0x6C4, and calls virtual slot 1 with 0 on
 // +0x6C8. Single-use members address directly; double-use members ride
 // in edi. Views are TU-local; callee names are the rowed ones.
@@ -27,10 +27,10 @@ public:
 	void rva0043BE7C();
 };
 
-class MpGameSetup
+class AptMpGameSetup
 {
 public:
-	virtual ~MpGameSetup();
+	virtual ~AptMpGameSetup();
 	virtual void slot01();
 	void rva0043DE19();
 };
@@ -45,7 +45,7 @@ public:
 struct Holder00521658
 {
 	char m_pad[0x288];
-	MpGameSetup m_288;
+	AptMpGameSetup m_288;
 	char m_pad28C[0x668 - 0x28C];
 	Obj00521658_668 m_668;
 	char m_pad66C[0x698 - 0x66C];

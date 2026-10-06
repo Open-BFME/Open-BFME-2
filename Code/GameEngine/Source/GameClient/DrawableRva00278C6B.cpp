@@ -3,7 +3,7 @@
 // ?rva00278C6B@Drawable@@QAEXXZ @0x00278C6B 17B: Drawable flag check at +0x44B,
 // calls pinned Host 0x002783F6 with 0 when set. Evidence: packet disasm,
 // neighbour Drawable flag cluster +0x447/+0x448/+0x44A/+0x44B, same Host call
-// shape as Drawable::rva00278644 and Drawable::rva002785FB, caller 0x0023F52C.
+// shape as Drawable::setAudible and Drawable::rva002785FB, caller 0x0023F52C.
 
 class Rva002783F6Host
 {

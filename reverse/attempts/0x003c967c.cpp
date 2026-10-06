@@ -1,7 +1,5 @@
 // ?doMoveTeamTowardsNearest@ScriptActions@@IAEXABVAsciiString@@0V2@@Z
-// partial score=0.9153 date=2026-10-06
-// ?doMoveTeamTowardsNearest@ScriptActions@@IAEXABVAsciiString@@0V2@@Z
-// partial score=0.9153 date=2026-10-05
+// partial score=0.95 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
 #include "ascii_string.h"
 
@@ -161,16 +159,17 @@ void ScriptActions::doMoveTeamTowardsNearest(const AsciiString &teamName, const 
 	if (!trig)
 		return;
 
-	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
-		Object *obj = iter.cur();
+	DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList();
+	for (Object *obj = iter.cur(); obj; obj = iter.cur()) {
 		AIUpdateInterface *ai = obj->getAIUpdateInterface();
-		if (!ai)
-			continue;
-		Object *bestObj = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, FROM_CENTER_3D,
-			Rva00261750Filter(templ, true).link(Rva00261723Filter(trig).link(&Rva002611BFFilter(obj))));
-		if (!bestObj)
-			return;
-		ai->m_commands.aiMoveToObject(bestObj, CMD_FROM_SCRIPT);
+		if (ai) {
+			Object *bestObj = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, FROM_CENTER_3D,
+				Rva00261750Filter(templ, true).link(Rva00261723Filter(trig).link(&Rva002611BFFilter(obj))));
+			if (!bestObj)
+				return;
+			ai->m_commands.aiMoveToObject(bestObj, CMD_FROM_SCRIPT);
+		}
+		iter.advance();
 	}
 }
 

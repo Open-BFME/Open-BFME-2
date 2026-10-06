@@ -1,5 +1,6 @@
 // cl: -GR- -EHsc-
-// ?Run@Rva005A8666Box@@QAEXH@Z @0x005A8666 90B: guarded one-shot setter.
+// NAT::targetNotifyMeIWasProbed @0x005A8666 90B (WorldBuilder name, its
+// __FUNCTION__ string "NAT::targetNotifyMeIWasProbed"): guarded one-shot setter.
 // Unless +0x94C already reads 5, resolve m_8[m_14]; a present object with
 // its 0x40 flag set and a present m_8[m_18] plus both byte gates leads
 // through the pinned 0x5A831E call to the pinned setter with 3, every other
@@ -22,7 +23,7 @@ struct Rva005A8666Sub04
 	void Consume(int i, void *p);
 };
 
-struct Rva005A8666Box
+struct NAT
 {
 	int m_0;
 	Rva005A8666Sub04 *m_04;
@@ -44,19 +45,19 @@ struct Rva005A8666Box
 	char pad4[0x970 - 0x954];
 	unsigned char m_970;
 
-	void Check();
-	void Run5(int code);
-	void Run(int unused);
-	void Apply(int a, unsigned short b, int c);
+	void rva005A831E();
+	void rva005A6C90(int code);
+	void targetNotifyMeIWasProbed(int unused);
+	void gotTargetMangledPort(int a, unsigned short b, int c);
 };
 
-void Rva005A8666Box::Run(int unused)
+void NAT::targetNotifyMeIWasProbed(int unused)
 {
 	if (m_94C == 5)
 		return;
 	Rva005A8666Obj *o = m_8[m_14];
 	if (o == 0) {
-		Run5(5);
+		rva005A6C90(5);
 		return;
 	}
 	if (m_942 != 0)
@@ -65,36 +66,37 @@ void Rva005A8666Box::Run(int unused)
 	if ((o->m_40 & 8) == 0)
 		return;
 	if (m_8[m_18] == 0) {
-		Run5(5);
+		rva005A6C90(5);
 		return;
 	}
 	if (m_25 == 0)
 		return;
 	if (m_24 == 0)
 		return;
-	Check();
-	Run5(3);
+	rva005A831E();
+	rva005A6C90(3);
 }
 
-// ?Apply@Rva005A8666Box@@QAEXHGH@Z @0x005A86C0 219B: validated triple apply.
+// NAT::gotTargetMangledPort @0x005A86C0 219B (WorldBuilder name, its
+// __FUNCTION__ string "NAT::gotTargetMangledPort"): validated triple apply.
 // Unless both +0x94C and +0x950 read 4, resolve both indexed slots; present
 // pair plus matching first arg stamps +0x25 and, when +0x970 is set, links
 // the pair's words (copying b into the peer's +4 and c over on full match).
 // A present +0x24 leads through the +4 sub-object consumer and, unless
 // +0x94C reads 2 with both flags against a cleared +0x942, through the gate
-// to the setter with 3. Same class as Run (shared layout and pins).
-void Rva005A8666Box::Apply(int a, unsigned short b, int c)
+// to the setter with 3. Same class as targetNotifyMeIWasProbed (shared layout and pins).
+void NAT::gotTargetMangledPort(int a, unsigned short b, int c)
 {
 	if (m_94C == 4 && m_950 == 4)
 		return;
 	Rva005A8666Obj *o1 = m_8[m_18];
 	if (o1 == 0) {
-		Run5(5);
+		rva005A6C90(5);
 		return;
 	}
 	Rva005A8666Obj *o2 = m_8[m_14];
 	if (o2 == 0) {
-		Run5(5);
+		rva005A6C90(5);
 		return;
 	}
 	if (a != m_18)
@@ -117,6 +119,6 @@ check24:
 		if (m_942 != 1 && (o1->m_40 & 8) == 0)
 			return;
 	}
-	Check();
-	Run5(3);
+	rva005A831E();
+	rva005A6C90(3);
 }

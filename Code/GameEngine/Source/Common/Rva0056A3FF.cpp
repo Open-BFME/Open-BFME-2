@@ -34,10 +34,10 @@ public:
 	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Release_Ref(); }
 };
 
-class Rva005C87F8
+class LargeGroupAudioGridCell
 {
 public:
-	void rva005C87F8(bool flag);
+	void setOverlappedLocking(bool flag);
 };
 
 class HostClass005C8E0A

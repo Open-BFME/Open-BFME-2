@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?Rva003BF5FEDo@@YGXABVAsciiString@@H_N@Z @0x003BF5FE 288B.
+// ?doTeamFollowWaypointsExact@ScriptActions@@IAEXABVAsciiString@@H_N@Z @0x003BF5FE 288B.
 // Script team waypoint average via getTeamNamed, member centroid, terrain
 // slot 0x90, waypoint command chosen by bool.
 // Evidence: rowed getTeamNamed createGroup getTeamAsAIGroup iterate
@@ -72,7 +72,13 @@ extern class AI *TheAI;
 extern TerrainLogic *TheTerrainLogic;
 extern float g_Va00BBB8D8;
 
-void __stdcall Rva003BF5FEDo(const AsciiString &teamName, int way, bool which)
+class ScriptActions
+{
+protected:
+	void doTeamFollowWaypointsExact(const AsciiString &teamName, int way, bool which);
+};
+
+void ScriptActions::doTeamFollowWaypointsExact(const AsciiString &teamName, int way, bool which)
 {
 	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)

@@ -221,24 +221,24 @@ struct Rva002A8AE4Record
 	int m_15C;		// +0x15C
 };
 
-class Rva0050542B
+class AITargetChooser
 {
 public:
 	void rva005058F7();
 	void rva00505911();
-	Rva0050542B(void *owner);
-	~Rva0050542B();
+	AITargetChooser(void *owner);
+	~AITargetChooser();
 	Rva002C589B *rva00505408(int id);
-	Rva002C589B *rva005053A4();
+	Rva002C589B *getBestTarget();
 	void xfer(Xfer *xfer);
 private:
-	bool rva0050535A(Rva002C589B *entry);
-	Rva00505289Data *rva00505289();
+	bool isAchievableTarget(Rva002C589B *entry);
+	Rva00505289Data *getArmyDef();
 	int rva0050529D();
 	bool rva005052AE(Rva002C589B *entry);
-	void rva00505544();
+	void postInitTargets();
 	void rva005055DE();
-	void rva00505606();
+	void updateTargets();
 
 	void *m_owner;					// +0x00
 	Rva005A9562 *m_04;				// +0x04
@@ -246,13 +246,13 @@ private:
 	_STL::vector<Rva0050542BOther *> m_14;		// +0x14
 };
 
-Rva0050542B::Rva0050542B(void *owner)
+AITargetChooser::AITargetChooser(void *owner)
 	: m_owner(owner), m_04(0)
 {
 	m_04 = new Rva005A9562(owner);
 }
 
-Rva0050542B::~Rva0050542B()
+AITargetChooser::~AITargetChooser()
 {
 	if (m_04) {
 		delete m_04;
@@ -264,7 +264,7 @@ Rva0050542B::~Rva0050542B()
 	m_14.clear();
 }
 
-Rva002C589B *Rva0050542B::rva00505408(int id)
+Rva002C589B *AITargetChooser::rva00505408(int id)
 {
 	Rva002C589B **end = m_08.end();
 	for (Rva002C589B **it = m_08.begin(); it != end; ++it)
@@ -273,7 +273,7 @@ Rva002C589B *Rva0050542B::rva00505408(int id)
 	return 0;
 }
 
-bool Rva0050542B::rva0050535A(Rva002C589B *entry)
+bool AITargetChooser::isAchievableTarget(Rva002C589B *entry)
 {
 	if (!entry->m_19 && !entry->m_18) {
 		if (entry->m_04 == 1)
@@ -285,17 +285,17 @@ bool Rva0050542B::rva0050535A(Rva002C589B *entry)
 	return false;
 }
 
-Rva002C589B *Rva0050542B::rva005053A4()
+Rva002C589B *AITargetChooser::getBestTarget()
 {
 	Rva002C589B **it;
 	for (it = m_08.begin(); it != m_08.end(); ++it) {
 		Rva002C589B *entry = *it;
-		if (rva0050535A(entry) && entry->rva0030F2C7() == 0)
+		if (isAchievableTarget(entry) && entry->rva0030F2C7() == 0)
 			return entry;
 	}
 	for (it = m_08.begin(); it != m_08.end(); ++it) {
 		Rva002C589B *entry = *it;
-		if (rva0050535A(entry)) {
+		if (isAchievableTarget(entry)) {
 			int limit = entry->m_limit;
 			if (entry->rva0030F2C7() < limit)
 				return entry;
@@ -304,12 +304,12 @@ Rva002C589B *Rva0050542B::rva005053A4()
 	return 0;
 }
 
-Rva00505289Data *Rva0050542B::rva00505289()
+Rva00505289Data *AITargetChooser::getArmyDef()
 {
 	return g_00DFEEF8->rva002A8AB1(m_owner)->m_160;
 }
 
-int Rva0050542B::rva0050529D()
+int AITargetChooser::rva0050529D()
 {
 	return g_00DFEEF8->rva002A8F24Record(m_owner)->m_10;
 }
@@ -317,16 +317,16 @@ int Rva0050542B::rva0050529D()
 // True when the entry is done with (killed, finished, or its object gone);
 // otherwise, once its rethink time is up, keep it with the data's chance or
 // restart its clock.
-bool Rva0050542B::rva005052AE(Rva002C589B *entry)
+bool AITargetChooser::rva005052AE(Rva002C589B *entry)
 {
 	if (entry->m_19 || entry->m_18)
 		return true;
 	if (entry->m_34 != 0 && entry->rva002C5DA6() == 0)
 		return true;
 	float elapsed = (float)(((Rva005052AEGameLogicView *)TheGameLogic)->m_frame - entry->m_08);
-	if (elapsed >= (float)g_Va00DBA4E4 * rva00505289()->m_6C) {
+	if (elapsed >= (float)g_Va00DBA4E4 * getArmyDef()->m_6C) {
 		float roll = GetGameLogicRandomValueReal(0.0f, 1.0f, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITargetChooser\\AITargetChooser.cpp", 129);
-		if (roll >= rva00505289()->m_70)
+		if (roll >= getArmyDef()->m_70)
 			return true;
 		entry->m_08 = ((Rva005052AEGameLogicView *)TheGameLogic)->m_frame;
 	}
@@ -335,9 +335,9 @@ bool Rva0050542B::rva005052AE(Rva002C589B *entry)
 
 // One entry per value in the data, with the matching kind when there is
 // one and kind 1 otherwise.
-void Rva0050542B::rva00505544()
+void AITargetChooser::postInitTargets()
 {
-	Rva00505289Data *data = rva00505289();
+	Rva00505289Data *data = getArmyDef();
 	int *kind = data->m_60.begin();
 	for (int *value = data->m_54.begin(); value != data->m_54.end(); ++value, ++kind) {
 		if (kind != data->m_60.end())
@@ -347,23 +347,23 @@ void Rva0050542B::rva00505544()
 	}
 }
 
-void Rva0050542B::rva005058F7()
+void AITargetChooser::rva005058F7()
 {
 	m_04->rva005A9693();
-	rva00505544();
+	postInitTargets();
 	rva005055DE();
 }
 
-void Rva0050542B::rva00505911()
+void AITargetChooser::rva00505911()
 {
 	m_04->rva005A9824();
-	rva00505606();
+	updateTargets();
 }
 
 // Every entry that is done is either marked finished (it still has a count)
 // or, when the +0x04 object offers a target, handed to a random element of
 // the +0x14 list of its kind (AITargetChooser.cpp line 184).
-void Rva0050542B::rva00505606()
+void AITargetChooser::updateTargets()
 {
 	for (Rva002C589B **it = m_08.begin(); it != m_08.end(); ++it) {
 		Rva002C589B *entry = *it;
@@ -395,7 +395,7 @@ void Rva0050542B::rva00505606()
 // loading trims surplus entries and makes any missing ones. Version 1 saves
 // carried an extra list of entries that go in front. Then the +0x04 object
 // and the +0x14 list's size.
-void Rva0050542B::xfer(Xfer *xfer)
+void AITargetChooser::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 2);
 	*xfer == version;

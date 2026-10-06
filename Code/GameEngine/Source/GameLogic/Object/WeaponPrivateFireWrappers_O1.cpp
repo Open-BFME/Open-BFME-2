@@ -15,8 +15,8 @@ public:
     bool fireWeapon(const Object *source, const Coord3D *pos, int *projectileID);
     bool rva002CE6C5(const Object *source, int targetID, const Object *target, int *projectileID);
     Object *forceFireWeapon(const Object *source, const Coord3D *pos);
-    bool rva002CE72B(const Object *a1, const Coord3D *a2, const Coord3D *a3, int a4);
-    Object *rva002CE7A4(const Object *source, const Object *target);
+    bool fireProjectileDetonationWeapon(const Object *a1, const Coord3D *a2, const Coord3D *a3, int a4);
+    Object *forceFireWeapon(const Object *source, const Object *target);
 };
 bool Weapon::fireWeapon(const Object *source, const Coord3D *pos, int *projectileID)
 {
@@ -35,7 +35,7 @@ Object *Weapon::forceFireWeapon(const Object *source, const Coord3D *pos)
 	return TheGameLogic->findObjectByID((ObjectID)id);
 }
 
-bool Weapon::rva002CE72B(const Object *a1, const Coord3D *a2, const Coord3D *a3, int a4)
+bool Weapon::fireProjectileDetonationWeapon(const Object *a1, const Coord3D *a2, const Coord3D *a3, int a4)
 {
 	return privateFireWeapon(a1, a2, 0, 0, a3, 1, 0, a4, 0);
 }
@@ -45,7 +45,7 @@ bool Weapon::rva002CE72B(const Object *a1, const Coord3D *a2, const Coord3D *a3,
 // 0, 0, &id) via pinned 0x002CE30A, then findObjectByID(id). Entry ecx
 // passes through as the Weapon this for privateFireWeapon; ret 8 with two
 // stack args. Callers in 0x004911AE prove (source target) order.
-Object *Weapon::rva002CE7A4(const Object *source, const Object *target)
+Object *Weapon::forceFireWeapon(const Object *source, const Object *target)
 {
 	int id = 0;
 	privateFireWeapon(source, &source->m_position, target, target->m_id, 0, 1, 0, 0, &id);

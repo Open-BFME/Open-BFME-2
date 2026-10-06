@@ -1,4 +1,6 @@
 // ?rva0045C975@BezierProjectileBehavior@@QAEXH@Z
+// partial score=0.8517 date=2026-10-05
+// ?rva0045C975@BezierProjectileBehavior@@QAEXH@Z
 // partial score=0.92 date=2026-10-05
 // cl: /O1 /GX /DNDEBUG /MD /arch:SSE
 //
@@ -245,8 +247,8 @@ void BezierProjectileBehavior::rva0045C975(int unused)
 	const BezierModuleData *d = (const BezierModuleData *)this->m_moduleData;
 	if (d->m_flag19 != 0) {
 		if ((obj->m_flags118 & 0x4000000) == 0) {
-			obj->m_flags118 |= 0x4000000;
 			obj->rva0028AE6D();
+			obj->m_flags118 |= 0x4000000;
 		}
 		obj->kill(DAMAGE_TYPE_8, DEATH_TYPE_0);
 	}

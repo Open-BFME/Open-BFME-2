@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// BFME2's lobby game rules panel (the MpGameSetup panel's +0xD0 member)
+// BFME2's lobby game rules panel (the AptMpGameSetup panel's +0xD0 member)
 // Apt callback "AptMpGameRules::Reset", 0x0057E6DD, bound by that name as
 // a member pointer by the panel's registration 0x0057F0AA; that binding is
 // its only reference. The class is named for the string's prefix.
@@ -40,10 +40,10 @@ public:
 	void rva0057E6C1();
 	// Bound as "MpGameRules::NumComboBoxes" (query 0) and
 	// "MpGameRules::NumCheckBoxes" (query 1), so it keeps its address.
-	void rva0057E55A(int query, char *result, bool skip);
+	void ExternFunc(int query, char *result, bool skip);
 
 	// Unrowed 0x0057E5B5 (refreshes one rule's widget), pinned by address.
-	void rva0057E5B5(int rule);
+	void UpdateRuleGadget(int rule);
 	// Unrowed 0x0057EF46 (files a widget under its index), 0x0057EF18 and
 	// 0x0057ED2B, pinned by address.
 	void rva0057EF46(AptMpGameRulesWidgets *widgets, const char *index, GameWindow *window);
@@ -63,7 +63,7 @@ private:
 
 // Retail 0x0057E55A, 65 bytes: bound as "MpGameRules::NumComboBoxes" and
 // "MpGameRules::NumCheckBoxes", an Apt query answering the mode's counts.
-void AptMpGameRules::rva0057E55A(int query, char *result, bool skip)
+void AptMpGameRules::ExternFunc(int query, char *result, bool skip)
 {
 	switch (query)
 	{
@@ -83,7 +83,7 @@ void AptMpGameRules::rva0057E55A(int query, char *result, bool skip)
 void AptMpGameRules::rva0057E6C1()
 {
 	for (int rule = 0; rule < 10; ++rule)
-		rva0057E5B5(rule);
+		UpdateRuleGadget(rule);
 }
 
 // Retail 0x0057E6DD, 42 bytes: "AptMpGameRules::Reset" resets the rules

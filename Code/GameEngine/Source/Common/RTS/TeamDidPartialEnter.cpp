@@ -25,7 +25,7 @@
 // member with the pinned Object member 0x00298AE4, then notifies the
 // TheSkirmishAIManager (g_00DFEEF8) record of the controlling player through
 // 0x002C6A76. Sole caller 0x0039E9FD hands units to the owner's +0x2EC team.
-// ?rva0039E6D1@Team@@QAEXPAV1@ABV?$BitFlags@$0EF@@@@Z @0x0039E6D1 (155B): the
+// ?transferKindOfUnitsTo@Team@@QAEXPAV1@ABV?$BitFlags@$0EF@@@@Z @0x0039E6D1 (155B): the
 // kind-filtered twin (Thing::isAnyKindOf on each member, advance otherwise),
 // notifying unless the rowed Team::rva0039DEC4 scan is true; caller 0x002C6B6D.
 
@@ -73,7 +73,7 @@ public:
 class Object : public Thing
 {
 public:
-	void rva00298AE4(Team *team);
+	void setTeam(Team *team);
 	bool didEnter(PolygonTrigger *pTrigger);
 	bool didExit(PolygonTrigger *pTrigger);
 	bool isInside(PolygonTrigger *pTrigger);
@@ -114,7 +114,7 @@ public:
 	bool noneInside(PolygonTrigger *pTrigger, UnsignedInt whichToConsider);
 	void rva0039E7F2(float a, float b, float c);
 	void transferUnitsTo(Team *newTeam);
-	void rva0039E6D1(Team *newTeam, const BitFlags<69> &kinds);
+	void transferKindOfUnitsTo(Team *newTeam, const BitFlags<69> &kinds);
 	Player *getControllingPlayer() const;
 	bool rva0039DEC4();
 
@@ -288,13 +288,13 @@ void Team::transferUnitsTo(Team *newTeam)
 	if (newTeam == 0)
 		return;
 	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter = iterate_TeamMemberList())
-		iter.cur()->rva00298AE4(newTeam);
+		iter.cur()->setTeam(newTeam);
 	Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(getControllingPlayer());
 	if (rec)
 		rec->rva002C6A76(this);
 }
 
-void Team::rva0039E6D1(Team *newTeam, const BitFlags<69> &kinds)
+void Team::transferKindOfUnitsTo(Team *newTeam, const BitFlags<69> &kinds)
 {
 	if (this == newTeam)
 		return;
@@ -303,7 +303,7 @@ void Team::rva0039E6D1(Team *newTeam, const BitFlags<69> &kinds)
 	DLINK_ITERATOR<Object> iter = iterate_TeamMemberList();
 	while (!iter.done()) {
 		if (iter.cur()->isAnyKindOf(kinds)) {
-			iter.cur()->rva00298AE4(newTeam);
+			iter.cur()->setTeam(newTeam);
 			iter = iterate_TeamMemberList();
 		} else {
 			iter.advance();

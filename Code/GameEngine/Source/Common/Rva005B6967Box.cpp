@@ -1,5 +1,5 @@
 // cl: -Oy- -GR- -EHsc-
-// ?Run@Rva005B6967Box@@QAEXPADH0@Z @0x005B6967 158B: two-path validated set.
+// ?InitGadgets@Manager@AptCreateAHero@@QAEXPADH0@Z @0x005B6967 158B: two-path validated set.
 // Unless the third arg is null, strcmp it (imported) against two runtime
 // tables; a first-table miss fills a 3-int buffer (9/0x2E/0x2D) for the
 // pinned 3-arg callee, stamps +0x8 and runs the pinned helper, while a
@@ -18,21 +18,26 @@ struct Rva005B6967Buf
 	int z;
 };
 
-struct Rva005B6967Box
+namespace AptCreateAHero {
+class Manager;
+}
+
+class AptCreateAHero::Manager
 {
+public:
 	char pad[8];
 	char *m_8;
 	char *m_C;
 
-	void Helper();
-	void Tail();
-	void Run(char *a, int unused, char *c);
+	void rva005B6755();
+	void rva005B5F2E();
+	void InitGadgets(char *a, int unused, char *c);
 };
 
 void Rva005B6967F(char *s, int n, int *p);
 void Rva005B6967G(char *s);
 
-void Rva005B6967Box::Run(char *a, int unused, char *c)
+void AptCreateAHero::Manager::InitGadgets(char *a, int unused, char *c)
 {
 	if (c == 0)
 		return;
@@ -43,7 +48,7 @@ void Rva005B6967Box::Run(char *a, int unused, char *c)
 		buf.z = 0x2d;
 		Rva005B6967F(c, 3, &buf.x);
 		m_8 = c;
-		Helper();
+		rva005B6755();
 	} else {
 		if (strcmp(a, g_rva005B6967T1) != 0)
 			return;
@@ -52,6 +57,6 @@ void Rva005B6967Box::Run(char *a, int unused, char *c)
 		Rva005B6967F(c, 2, &buf.y);
 		Rva005B6967G(c);
 		m_C = c;
-		Tail();
+		rva005B5F2E();
 	}
 }

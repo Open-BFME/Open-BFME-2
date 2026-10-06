@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?rva005ED708@Rva005ED445@@QAEXHH@Z, retail 0x005ED708, 98 bytes.
-// NumRegions cached setter via Rva005ED310Get and rva005ED516; imul needs /G7.
+// ?rva005ED708@StrategicHUD::RegionAwardMovieClip::Impl@@QAEXHH@Z, retail 0x005ED708, 98 bytes.
+// NumRegions cached setter via Rva005ED310Get and SetPlayerString; imul needs /G7.
 // Evidence: calls 0x005ED310 0x005ED516 0x00036E70; string APT NumRegions via callee; base +0x44 slot size 0x14 field +0xC; caller 0x005ED849.
 template <typename T> struct BfmeStringData
 {
@@ -34,14 +34,22 @@ struct Rva005ED445Slot
 	int m_numUnits;
 };
 
-class Rva005ED445
+namespace StrategicHUD {
+class RegionAwardMovieClip
 {
 public:
-	void rva005ED516(int suffixIndex, const char *suffix, const UnicodeString &text);
+	class Impl;
+};
+}
+
+class StrategicHUD::RegionAwardMovieClip::Impl
+{
+public:
+	void SetPlayerString(int suffixIndex, const char *suffix, const UnicodeString &text);
 	void rva005ED708(int index, int num);
 	void rva005ED76A(int index, int num);
-	void rva005ED937(int index, const UnicodeString &text);
-	void rva005ED7CC(int newRow);
+	void SetPlayerName(int index, const UnicodeString &text);
+	void SelectPlayer(int newRow);
 private:
 	char m_pad00[4];
 	void *m_level04;
@@ -52,37 +60,37 @@ private:
 	int m_row50;
 };
 
-void Rva005ED445::rva005ED708(int index, int num)
+void StrategicHUD::RegionAwardMovieClip::Impl::rva005ED708(int index, int num)
 {
 	Rva005ED445Slot *base = m_slots;
 	Rva005ED445Slot *slot = base + index;
 	if (num != slot->m_numRegions) {
-		rva005ED516(index, "NumRegions", Rva005ED310Get(num));
+		SetPlayerString(index, "NumRegions", Rva005ED310Get(num));
 		slot->m_numRegions = num;
 	}
 }
 
-void Rva005ED445::rva005ED76A(int index, int num)
+void StrategicHUD::RegionAwardMovieClip::Impl::rva005ED76A(int index, int num)
 {
 	Rva005ED445Slot *base = m_slots;
 	Rva005ED445Slot *slot = base + index;
 	if (num != slot->m_numUnits) {
-		rva005ED516(index, "NumUnits", Rva005ED310Get(num));
+		SetPlayerString(index, "NumUnits", Rva005ED310Get(num));
 		slot->m_numUnits = num;
 	}
 }
 
-void Rva005ED445::rva005ED937(int index, const UnicodeString &text)
+void StrategicHUD::RegionAwardMovieClip::Impl::SetPlayerName(int index, const UnicodeString &text)
 {
 	Rva005ED445Slot *base = m_slots;
 	Rva005ED445Slot *slot = base + index;
 	if (((const StringBase<unsigned short> *)(const void *)&text)->compare(*(const StringBase<unsigned short> *)(const void *)&slot->m_name) != 0) {
-		rva005ED516(index, "PlayerName", text);
+		SetPlayerString(index, "PlayerName", text);
 		((StringBase<unsigned short> *)(void *)&slot->m_name)->set(*(const StringBase<unsigned short> *)(const void *)&text);
 	}
 }
 
-void Rva005ED445::rva005ED7CC(int newRow)
+void StrategicHUD::RegionAwardMovieClip::Impl::SelectPlayer(int newRow)
 {
 	if (newRow == m_row50)
 		return;

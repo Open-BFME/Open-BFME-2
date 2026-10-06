@@ -12,7 +12,7 @@
 // One TU for all three rather than three: they are the same shape over the
 // same BfmeNodeLC, they share one preamble and one // cl: line, and splitting
 // them would duplicate that preamble three times for no gain. The donor's
-// other definitions (bfmeGo924C, bfmeGo924D, bfmeGo924F, bfmeGo924G and
+// other definitions (bfmeGo924C, bfmeGo924D, GadgetTextEntrySetMaxChars, bfmeGo924G and
 // BfmeOne924G::bfmeCall924G) are omitted.
 struct BfmeNodeLC
 {

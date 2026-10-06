@@ -51,7 +51,7 @@ extern "C" int __cdecl strcmp(const char *left, const char *right);
 
 class BfmeKeyLC;
 class BfmeObjENK;
-void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
+void GadgetTextEntrySetMaxChars(BfmeKeyLC *textEntry, unsigned short maxLength);
 void bfmeGoENK(BfmeObjENK *listBox, char flag);
 
 // The name entry link at +0x6C8 (as the LAN lobby's +0x6AC one): vslot 1
@@ -81,23 +81,30 @@ public:
 	void enable();
 };
 
+class GameInfo;
+extern GameInfo *TheSkirmishGameInfo;
+
 class AptSkirmish
 {
 public:
+	// The last slot of the vtable at VA 0x00C67908..0x00C67948; WB names it
+	// (AptSkirmish.cpp, "Couldn't match skirmish game." at line 1209).
+	virtual bool MPOwnerValidatGameInfo(GameInfo *gameInfo);
+
 	void OnInitialized(const char *unused);
 	// Bound under both "AptSkirmish::Back" and "AptSkirmish::Exit" (one
 	// body or two folded), so it keeps its address.
 	void rva0052174E(const char *unused);
 	void StartGame(const char *unused);
 	void OnStatsMenu(const char *unused);
-	void rva00521770(const char *unused);
+	void OnProfilePopupCancel(const char *unused);
 	void OnExitStatsScreen(const char *unused);
 	void OnClosed(const char *unused);
 	void OnNewProfileMenu(const char *unused);
 	void OnDeleteProfileMenu(const char *unused);
 	void OnChangeProfileMenu(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
-	UnicodeString rva00522697();
+	UnicodeString GetListboxProfileSelectedName();
 	void OnChangeProfile(const char *unused);
 	void OnDeleteProfile(const char *unused);
 	void OnAddProfileAccept(const char *unused);
@@ -108,7 +115,7 @@ public:
 	void rva00522556();
 
 private:
-	unsigned char m_pad000[0x274];
+	unsigned char m_pad004[0x274 - 4];
 	void *m_274; // +0x274, the screen's Apt movie
 	unsigned char m_pad278[0x6B8 - 0x278];
 	int m_state; // +0x6B8
@@ -199,7 +206,7 @@ void AptSkirmish::OnStatsMenu(const char *unused)
 // Retail 0x00521770, 158 bytes: state machine for stats/profile screens.
 // Cases 2/3/4 on m_state; case 2 checks SkirmishPreferences at +0x698,
 // tears down TheSkirmishGameInfo, notifies g_Va00E0333C panel and re-enables.
-void AptSkirmish::rva00521770(const char *unused)
+void AptSkirmish::OnProfilePopupCancel(const char *unused)
 {
 	(void)unused;
 	switch (m_state) {
@@ -285,7 +292,7 @@ void AptSkirmish::InitGadgets(const char *name, void *argument, GameWindow *wind
 		m_nameEntry.attach(window);
 		UnicodeString text = UnicodeString::TheEmptyString;
 		GameWindow *entry = m_nameEntry.m_window;
-		bfmeGo924F((BfmeKeyLC *)entry, 11);
+		GadgetTextEntrySetMaxChars((BfmeKeyLC *)entry, 11);
 		GadgetTextEntrySetText(m_nameEntry.m_window, text);
 	}
 	else if (strcmp(name, "Skirmish::SelectProfile") == 0)
@@ -299,7 +306,7 @@ void AptSkirmish::InitGadgets(const char *name, void *argument, GameWindow *wind
 // Retail 0x00522697, 182 bytes. Name unknown: the profile selected in the
 // "Skirmish::SelectProfile" list, read from the preferences' user names
 // (the empty string with no list or no selection).
-UnicodeString AptSkirmish::rva00522697()
+UnicodeString AptSkirmish::GetListboxProfileSelectedName()
 {
 	if (!m_profiles)
 		return UnicodeString::TheEmptyString;
@@ -319,7 +326,7 @@ UnicodeString AptSkirmish::rva00522697()
 // selected profile the current user when it is another one.
 void AptSkirmish::OnChangeProfile(const char *unused)
 {
-	UnicodeString name = rva00522697();
+	UnicodeString name = GetListboxProfileSelectedName();
 	SkirmishPreferences *prefs = (SkirmishPreferences *)((char *)this + 0x698);
 	if (name.compare(prefs->Rva0043B9F5()) != 0)
 	{
@@ -367,7 +374,7 @@ void AptSkirmish::rva00522556()
 // preferences answer next. The list is refilled either way.
 void AptSkirmish::OnDeleteProfile(const char *unused)
 {
-	UnicodeString name = rva00522697();
+	UnicodeString name = GetListboxProfileSelectedName();
 	SkirmishPreferences *prefs = (SkirmishPreferences *)((char *)this + 0x698);
 	bool current = prefs->Rva0043B9F5().compare(name) == 0;
 	prefs->Rva0043C2EB(name);
@@ -413,4 +420,13 @@ void AptSkirmish::OnAddProfileAccept(const char *unused)
 		m_6c1 = true;
 		m_state = 5;
 	}
+}
+
+// AptSkirmish::MPOwnerValidatGameInfo, retail 0x0052180E (24B): true only
+// when the skirmish game info exists and is the one asked about.
+bool AptSkirmish::MPOwnerValidatGameInfo(GameInfo *gameInfo)
+{
+	if (TheSkirmishGameInfo && TheSkirmishGameInfo == gameInfo)
+		return true;
+	return false;
 }

@@ -1,4 +1,6 @@
 // ?getDayOfWeek@AptDate@@QAEHHHH@Z
+// partial score=0.9897 date=2026-10-06
+// ?getDayOfWeek@AptDate@@QAEHHHH@Z
 // partial score=0.9852 date=2026-10-06
 // ?getDayOfWeek@AptDate@@QAEHHHH@Z
 // partial score=0.9852 date=2026-10-06
@@ -7,8 +9,10 @@
 // ?getDayOfWeek@AptDate@@QAEHHHH@Z
 // partial score=0.97 date=2026-10-04
 // cl: /O2 /MD
-extern "C" double __cdecl floor(double);
-extern "C" int __cdecl abs(int);
+// (CRT prototype from the standard header)
+// (CRT prototype from the standard header)
+#include <math.h>
+#include <stdlib.h>
 #pragma intrinsic(abs)
 class AptDate {
 public:

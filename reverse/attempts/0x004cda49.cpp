@@ -1,5 +1,5 @@
 // ?rva0045108D@StoreObjectsSpecialPower@@UAEXXZ
-// partial score=0.97 date=2026-10-04
+// partial score=0.9645 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 #include <string.h>
 

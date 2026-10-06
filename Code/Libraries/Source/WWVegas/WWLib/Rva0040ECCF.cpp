@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /EHsc
 // stlport
-// ?rva0040ECCF@Rva0040ECCF@@QAEHABVRva004F6093Holder@@@Z @0x0040ECCF 128B
+// ?AddArmyEntry@ArmySummary@@QAEHABVRva004F6093Holder@@@Z @0x0040ECCF 128B
 // Adds holder to sorted entry vector and broadcasts to listener list.
 // Evidence: callees rowed (forEach 0x0040D8D6, Entry ctor 0x0040CB11,
 // push_back 0x0040E8D1, Release 0x0007DEEF, forwarders 0x001FF3A9 slot0 and
@@ -8,10 +8,10 @@
 // 0x0040F428 0x004F7D07; vector at +0x40 and index at +0x3c shared with
 // 0x0040ED4F; Entry (int plus Holder) and Holder layouts from
 // stlport_sort_rva0040cb11entry.cpp.
-// ?rva0040ED4F@Rva0040ECCF@@QAEXAAV1@@Z @0x0040ED4F 314B: drains another
+// ?MergeUnitsFromArmy@ArmySummary@@QAEXAAV1@@Z @0x0040ED4F 314B: drains another
 // instance's entries (back to front, notifying its listeners through vslots
 // 4 and 3) into a holder vector, resets its flag at +0x14 and index to 1,
-// then re-adds each holder here through rva0040ECCF. Target evidence: retail
+// then re-adds each holder here through AddArmyEntry. Target evidence: retail
 // REL32s at 0x0040ED7A..0x0040EE75 and the shared +0x40/+0x3C layout. The
 // /Ireference/shims/bfmealloc include matches the vector reserve/push_back
 // copies; the visible entry ctor (noinline, holder copy kept out of line as
@@ -125,21 +125,21 @@ private:
 
 class INI;
 
-class Rva0040C351 : public Rva0040F454Target
+class ArmySummaryEntry : public Rva0040F454Target
 {
 public:
-	Rva0040C351();
+	ArmySummaryEntry();
 	void rva0040C5FA(INI *ini);
 
 private:
 	char m_padB4[0xC8 - 0xB4];
 };
 
-class Rva0040ECCF
+class ArmySummary
 {
 public:
-	int rva0040ECCF(const Rva004F6093Holder &holder);
-	void rva0040ED4F(Rva0040ECCF &other);
+	int AddArmyEntry(const Rva004F6093Holder &holder);
+	void MergeUnitsFromArmy(ArmySummary &other);
 	static void parseArmyEntry(INI *ini, void *instance, void *store, const void *userData);
 
 private:
@@ -151,7 +151,7 @@ private:
 	_STL::vector<Rva0040CB11Entry, _STL::allocator<Rva0040CB11Entry> > m_vec;
 };
 
-int Rva0040ECCF::rva0040ECCF(const Rva004F6093Holder &holder)
+int ArmySummary::AddArmyEntry(const Rva004F6093Holder &holder)
 {
 	int argVal = (int)holder.m_ptr;
 	m_list.forEach(&Rva0040D8D6Listener::notify0, this, argVal);
@@ -164,7 +164,7 @@ int Rva0040ECCF::rva0040ECCF(const Rva004F6093Holder &holder)
 	return old;
 }
 
-void Rva0040ECCF::rva0040ED4F(Rva0040ECCF &other)
+void ArmySummary::MergeUnitsFromArmy(ArmySummary &other)
 {
 	m_vec.reserve(m_vec.size() + other.m_vec.size());
 	_STL::vector<Rva004F6093Holder> holders;
@@ -184,21 +184,21 @@ void Rva0040ECCF::rva0040ED4F(Rva0040ECCF &other)
 	{
 		const Rva004F6093Holder holder(holders.back());
 		holders.pop_back();
-		rva0040ECCF(holder);
+		AddArmyEntry(holder);
 	}
 }
 
-// ?parseArmyEntry@Rva0040ECCF@@SAXPAVINI@@PAX1PBX@Z @0x0040F077 121B: the
+// ?parseArmyEntry@ArmySummary@@SAXPAVINI@@PAX1PBX@Z @0x0040F077 121B: the
 // "ArmyEntry" field parser (FieldParse row at 0x0083957C beside DisplayNameTag,
 // Color, NightColor and SurvivalThreshhold; offset 0, so it reads the instance):
-// news a 0xC8-byte Rva0040C351 (ctor 0x0040C351), parses it with 0x0040C5FA and
+// news a 0xC8-byte ArmySummaryEntry (ctor 0x0040C351), parses it with 0x0040C5FA and
 // adds the holder here. The method name follows the INI field name.
-void Rva0040ECCF::parseArmyEntry(INI *ini, void *instance, void *store, const void *userData)
+void ArmySummary::parseArmyEntry(INI *ini, void *instance, void *store, const void *userData)
 {
-	Rva0040C351 *army = new Rva0040C351;
+	ArmySummaryEntry *army = new ArmySummaryEntry;
 	Rva004F6093Holder holder(army);
 	army->rva0040C5FA(ini);
-	((Rva0040ECCF *)instance)->rva0040ECCF(holder);
+	((ArmySummary *)instance)->AddArmyEntry(holder);
 }
 
 class Rva0037EB1D
@@ -219,7 +219,7 @@ BfmeY1038 * __stdcall bfmeFind1038(int a);
 // ?rva0040F10F@Rva002E2903Player@@QAEXPAVRva0037EB1D@@@Z @0x0040F10F 142B:
 // called with ECX = the player found by 0x002B51F8 (caller 0x0037EBBA) but never
 // reads it. Looks up the list by the source's +0xA8 id via bfmeFind1038, copies
-// the source into a new Rva0040C351 (0x0037EB1D), bumps its +0x94 and adds it.
+// the source into a new ArmySummaryEntry (0x0037EB1D), bumps its +0x94 and adds it.
 class Rva002E2903Player
 {
 public:
@@ -228,13 +228,13 @@ public:
 
 void Rva002E2903Player::rva0040F10F(Rva0037EB1D *source)
 {
-	Rva0040ECCF *list = (Rva0040ECCF *)bfmeFind1038(source->m_a8);
+	ArmySummary *list = (ArmySummary *)bfmeFind1038(source->m_a8);
 	if (list != 0)
 	{
-		Rva0040C351 *army = new Rva0040C351;
+		ArmySummaryEntry *army = new ArmySummaryEntry;
 		Rva004F6093Holder holder(army);
 		source->rva0037EB1D(army);
 		++army->m_94;
-		list->rva0040ECCF(holder);
+		list->AddArmyEntry(holder);
 	}
 }

@@ -1,10 +1,15 @@
 // cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
-// ?rva00548117@Rva00548117@@QAEPBVArmorTemplate@@PAXPBV?$list@PAVCreateAHeroData@@V?$allocator@PAVCreateAHeroData@@@_STL@@@_STL@@@Z @0x00548117 108B
+// ObjectOrderQueue (WorldBuilder GameLogic/System/ObjectOrderQueue.cpp; WB's
+// __FUNCTION__ strings name each body): checkForPatrol @0x00548117 108B and
+// @0x00548183 (two overloads, both asserting "startOrder" and calling the
+// same two xfer helpers), setPatrolStartOrder @0x005481F9.
 // Evidence: caller 0x0035545C; list at +4 with NameKey at +8; find 0x00355155 row; virtual [edx+0x24]; contains 0x00548800 row
 #include <list>
+#include <algorithm>
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
+enum ObjectID { INVALID_ID = 0 };
 
 class ArmorTemplate
 {
@@ -16,7 +21,7 @@ public:
 	virtual void d4();
 	virtual void d5();
 	virtual void d6();
-	virtual void d7();
+	virtual void d7(int v);
 	virtual void d8();
 	virtual bool check(void *) const;
 };
@@ -37,16 +42,20 @@ public:
 	bool rva00548753(const Rva00548800 &other);
 };
 
-class Rva00548117
+class ObjectOrderQueue
 {
-	char m_pad[4];
-	_STL::list<NameKeyType> m_list;
+	int m_00;				// +0x00, passed to slot 7 of each armor
+	_STL::list<NameKeyType> m_list;		// +0x04
+	char m_pad08[0x0C - 0x08];
+	ObjectID m_0C;				// +0x0C, set when flags bit 0
+	ObjectID m_10;				// +0x10, set when flags bit 1
 public:
-	const ArmorTemplate *rva00548117(void *a1, const ListHeroPtr *a2);
-	const ArmorTemplate *rva00548183(void *a1, const Rva00548800 *a2);
+	const ArmorTemplate *checkForPatrol(void *a1, const ListHeroPtr *a2);
+	const ArmorTemplate *checkForPatrol(void *a1, const Rva00548800 *a2);
+	void setPatrolStartOrder(ObjectID v, int flags);
 };
 
-const ArmorTemplate *Rva00548117::rva00548117(void *a1, const ListHeroPtr *a2)
+const ArmorTemplate *ObjectOrderQueue::checkForPatrol(void *a1, const ListHeroPtr *a2)
 {
 	typedef _STL::list<NameKeyType>::_Node Node;
 	Node *cur = (Node *)((Node *)m_list._M_node._M_data)->_M_next;
@@ -66,7 +75,7 @@ const ArmorTemplate *Rva00548117::rva00548117(void *a1, const ListHeroPtr *a2)
 	return 0;
 }
 
-const ArmorTemplate *Rva00548117::rva00548183(void *a1, const Rva00548800 *a2)
+const ArmorTemplate *ObjectOrderQueue::checkForPatrol(void *a1, const Rva00548800 *a2)
 {
 	typedef _STL::list<NameKeyType>::_Node Node;
 	Node *cur = (Node *)((Node *)m_list._M_node._M_data)->_M_next;
@@ -86,4 +95,29 @@ const ArmorTemplate *Rva00548117::rva00548183(void *a1, const Rva00548800 *a2)
 		cur = (Node *)cur->_M_next;
 	}
 	return 0;
+}
+
+// ObjectOrderQueue::setPatrolStartOrder @0x005481F9 110B: from the first
+// list entry equal to v, hand m_00 to slot 7 of every armor the remaining
+// keys resolve to, then record v at +0x0C / +0x10 by flags bits 0 / 1.
+// Assigning the find result to a default-constructed iterator is what reads
+// it straight from the returned pointer as retail does.
+void ObjectOrderQueue::setPatrolStartOrder(ObjectID v, int flags)
+{
+	typedef _STL::list<ObjectID> ListObj;
+	ListObj &lst = (ListObj &)m_list;
+	ListObj::iterator it;
+	it = _STL::find(lst.begin(), lst.end(), v);
+	if (it == lst.end())
+		return;
+	for (; it != lst.end(); ++it) {
+		const ArmorTemplate *armor = g_00E01E18->rva00355155((NameKeyType)*it);
+		if (!armor)
+			continue;
+		((ArmorTemplate *)armor)->d7(m_00);
+	}
+	if ((flags & 1) != 0)
+		m_0C = v;
+	if ((flags & 2) != 0)
+		m_10 = v;
 }

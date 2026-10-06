@@ -11,7 +11,7 @@
 // Donor: Open-BFME-1 game/GameEngine/Source/GameClient/GUI/Gadget/
 // Rva00517870TextEntryInput.cpp (f57439f7f4), the BFME1 neighbour of the
 // ClientStateName donor. Target deltas: the cursor test is the rowed
-// predicate Rva00516660 0x00444016 instead of the inlined user-data compare,
+// predicate GadgetTextEntryHasSelection 0x00444016 instead of the inlined user-data compare,
 // and the limit is 10 characters instead of 12. The fallback uses the
 // existing j_00003df0 pin at 0x00314596, as the sibling
 // Rva004BE120TextEntryInput.cpp does.
@@ -24,7 +24,7 @@
 class GameWindow;
 
 extern UnicodeString GadgetTextEntryGetText(GameWindow *window);
-extern bool Rva00516660(GameWindow *window);
+extern bool GadgetTextEntryHasSelection(GameWindow *window);
 extern void j_00003df0();
 
 struct Rva00445172StringData
@@ -57,7 +57,7 @@ int Rva00445172Owner::rva00445172(unsigned int message, unsigned int data1,
 		unsigned short ch = (unsigned short)data1;
 		if (ch == ',' || ch == ':' || ch == ';')
 			return 1;
-		if (!Rva00516660(m_entry))
+		if (!GadgetTextEntryHasSelection(m_entry))
 		{
 			UnicodeString text = GadgetTextEntryGetText(m_entry);
 			Rva00445172StringData *str = *(Rva00445172StringData **)&text;

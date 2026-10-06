@@ -1,5 +1,5 @@
 // cl: /EHs /MD
-// ?rva00394191@Rva00394191@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z @0x00394191 108B
+// ?aiMoveToPositionEvenIfSleeping@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z @0x00394191 108B
 // Stack AICommandParms 0xC0 via rowed ctor 0x00351BD0 with 0x36 and src,
 // m_pos 12B copy from param1, virtual slot 0 call, then inlined vector-free
 // via rowed free 0x00030830. Recipe precedent Rva00352ECAAICommand.cpp 101B
@@ -55,14 +55,14 @@ struct AICommandParms
 	char m_tail[0xC0 - 0x2C];
 };
 
-class Rva00394191
+class AICommandInterface
 {
 public:
 	virtual void v0(AICommandParms *parms) = 0;
-	void rva00394191(const Coord3D *pos, CommandSourceType src);
+	void aiMoveToPositionEvenIfSleeping(const Coord3D *pos, CommandSourceType src);
 };
 
-void Rva00394191::rva00394191(const Coord3D *pos, CommandSourceType src)
+void AICommandInterface::aiMoveToPositionEvenIfSleeping(const Coord3D *pos, CommandSourceType src)
 {
 	AICommandParms parms((AICommandType)0x36, src);
 	parms.m_pos = *pos;

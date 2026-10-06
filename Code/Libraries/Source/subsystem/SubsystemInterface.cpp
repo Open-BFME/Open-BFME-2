@@ -34,6 +34,14 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 
 SubsystemInterfaceList *TheSubsystemList;		// BFME1 0x0134C6C8
 
+// ??0SubsystemInterface@@QAE@XZ present-unmatched
+// Retail 0x001B4E63 (rowed under a placeholder name): vptr, m_name's null
+// buffer at +0x08, then the +0x04 byte cleared in the body.
+SubsystemInterface::SubsystemInterface()
+{
+	m_flag = FALSE;
+}
+
 // ??1SubsystemInterface@@UAE@XZ present-unmatched
 SubsystemInterface::~SubsystemInterface()
 {

@@ -1351,7 +1351,7 @@ void quickmatchEnumPlayersCallback( PEER peer, PEERBool success, RoomType roomTy
 // like BfmePeerQMState/BfmePeerEnumState. Kept in this unit: matchbotProfileID
 // is the file-static above, and only a store to it schedules retail's prologue.
 // Target facts: request types LOGOUT 1, LEAVEGROUPROOM 5, UTMPLAYER 13, WIDEN 17,
-// STOP 18; the EXE field is BFMEComputeCRC of the 16-byte hash at +0x400.
+// STOP 18; the EXE field is ComputeCRC of the 16-byte hash at +0x400.
 struct BfmeQuickMatchPreferences
 {
 	Int minPointPercentage;
@@ -1399,7 +1399,7 @@ struct BfmeQuickMatchThread
 	MutexClass *lock;
 };
 
-UnsignedInt BFMEComputeCRC(const unsigned char *buffer, UnsignedInt length, UnsignedInt crc);
+UnsignedInt ComputeCRC(const unsigned char *buffer, UnsignedInt length, UnsignedInt crc);
 
 void PeerThreadClass::doQuickMatch( PEER peer )
 {
@@ -1546,7 +1546,7 @@ void PeerThreadClass::doQuickMatch( PEER peer )
 								msg.append(buf);
 								_snprintf(buf, 63, "\\NAT\\%d", self->QM.NAT);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\EXE\\%d", BFMEComputeCRC(self->QM.exeHash, 16, 0));
+								_snprintf(buf, 63, "\\EXE\\%d", ComputeCRC(self->QM.exeHash, 16, 0));
 								msg.append(buf);
 								_snprintf(buf, 63, "\\INI\\%d", self->QM.iniCRC);
 								msg.append(buf);

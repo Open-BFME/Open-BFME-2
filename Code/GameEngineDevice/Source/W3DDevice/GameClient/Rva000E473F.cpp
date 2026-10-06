@@ -114,11 +114,11 @@ public:
 	DX8IndexBufferClass(unsigned index_count, UsageType usage);
 };
 
-class Rva000E473F
+class W3DFloorBuffer
 {
 public:
 	void rva000E473F();
-	void rva000E479C();
+	void allocateFloorBuffers();
 
 private:
 	char m_pad00[4];
@@ -129,8 +129,8 @@ private:
 	Rva00131DFC m_slot;
 };
 
-// ?rva000E473F@Rva000E473F@@QAEXXZ @0x000E473F 93B
-void Rva000E473F::rva000E473F()
+// ?rva000E473F@W3DFloorBuffer@@QAEXXZ @0x000E473F 93B
+void W3DFloorBuffer::rva000E473F()
 {
 	BFMEDX8DeviceLock guard;
 	if (m_vb != 0)
@@ -146,8 +146,8 @@ void Rva000E473F::rva000E473F()
 	m_slot.clear();
 }
 
-// ?rva000E479C@Rva000E473F@@QAEXXZ @0x000E479C 234B
-void Rva000E473F::rva000E479C()
+// ?allocateFloorBuffers@W3DFloorBuffer@@QAEXXZ @0x000E479C 234B
+void W3DFloorBuffer::allocateFloorBuffers()
 {
 	BFMEDX8DeviceLock guard;
 	if (m_vb != 0 || m_ib != 0)

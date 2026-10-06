@@ -191,10 +191,18 @@ Int Rva0059B19A::rva0059B19A() const
 }
 
 // 0x005FC9F8 (two tables): the rowed 0x005FC8FD of the +0x18 object.
-class Rva005FC8FD
+namespace StrategicHUD {
+class ArmyMemberIconMovieClip
 {
 public:
-	void rva005FC8FD();
+	class Impl;
+};
+}
+
+class StrategicHUD::ArmyMemberIconMovieClip::Impl
+{
+public:
+	void Update();
 };
 class Rva005FC9F8
 {
@@ -202,11 +210,11 @@ public:
 	void rva005FC9F8();
 private:
 	char m_pad00[0x18];
-	Rva005FC8FD *m_18;
+	StrategicHUD::ArmyMemberIconMovieClip::Impl *m_18;
 };
 void Rva005FC9F8::rva005FC9F8()
 {
-	m_18->rva005FC8FD();
+	m_18->Update();
 }
 
 // 0x0041FB61: the rowed 0x003A2A41 on the +0x10 member.

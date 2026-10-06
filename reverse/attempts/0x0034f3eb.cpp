@@ -1,6 +1,8 @@
 // ?update@AIWanderInPlaceState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.9676 date=2026-10-05
+// ?update@AIWanderInPlaceState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.9 date=2026-10-04
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
+// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE /Oy-
 //
 // AIWanderInPlaceState::onEnter, retail 0x0034F2F7 (244 bytes), onExit,
 // retail 0x0034A364 (42 bytes), and update, retail 0x0034F3EB (282 bytes):
@@ -202,12 +204,12 @@ StateReturnType AIWanderInPlaceState::update()
 	// do movement
 	StateReturnType status = AIInternalMoveToState::update();
 
-	Object *obj = getMachineOwner();
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	Object *obj = getMachineOwner();
 	if (!ai) return STATE_FAILURE;
 	if (obj->isKindOfCanBeRepulsed()) {
 		m_timer--;
-		if (m_timer<0) {
+		if (0 > m_timer) {
 			m_timer = m_waitFrames;
 			Object* enemy = TheAI->findClosestRepulsor(getMachineOwner(), obj->getVisionRange());
 			if (enemy) {
@@ -223,11 +225,11 @@ StateReturnType AIWanderInPlaceState::update()
 			delta = REAL_TO_INT_FLOOR( (ai->getCurLocomotor()->getWanderAboutPointRadius()/PATHFIND_CELL_SIZE_F) + 0.5f);
 		}
 		Coord3D offset;
-		offset.x = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10739)*PATHFIND_CELL_SIZE;
 		offset.y = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10740)*PATHFIND_CELL_SIZE;
+		offset.x = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10739)*PATHFIND_CELL_SIZE;
 		m_goalPosition = m_origin;
-		m_goalPosition.x += offset.x;
 		m_goalPosition.y += offset.y;
+		m_goalPosition.x = m_goalPosition.x + (offset.x);
 		AIInternalMoveToState::onEnter();
 		return STATE_CONTINUE;
 	}

@@ -1,11 +1,13 @@
 // cl: /MD
-// ?rva005DC8A2@Rva005DC8A2@@QAE_NXZ, retail 0x005DC8A2, 97 bytes.
+// AITacticSiege::sideHasIdleSiegeWeapons, retail 0x005DC8A2, 97 bytes.
 // Predicate over holder from g_00DFEEF8 map lookup keyed by Player at this+0x24.
 // Holder's first dword dereferenced, then index loop over bucket_count with
 // rowed rva0025BFF8 getter; match requires Object+0x304 == Player+0x2ec and
 // [Object+4]+0x520 == 7. Evidence: callees rowed (0x002A8F24 0x0025BFF8
 // 0x002BEDAB bucket_count), callers 0x005A9AD8 0x005A9CBE pass this in ecx.
-// Honest address name; owner unproven.
+// Named from WorldBuilder AITacticSiege::sideHasIdleSiegeWeapons (asserts in
+// AITacticSiege.cpp; same 0x002A8F24 stats, bucket_count and 0x0025BFF8
+// walk); both callers are the siege tactics' canRun.
 
 class Player;
 class Object;
@@ -73,16 +75,16 @@ public:
 
 typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > IntMap;
 
-class Rva005DC8A2
+class AITacticSiege
 {
 public:
-	bool rva005DC8A2();
+	bool sideHasIdleSiegeWeapons();
 private:
 	char m_pad[0x24];
 	Player *m_player; // +0x24
 };
 
-bool Rva005DC8A2::rva005DC8A2()
+bool AITacticSiege::sideHasIdleSiegeWeapons()
 {
 	void *store = g_00DFEEF8->rva002A8F24(m_player);
 	Rva0025BFF8 *holder = *(Rva0025BFF8 **)store;

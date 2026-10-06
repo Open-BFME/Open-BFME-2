@@ -75,12 +75,12 @@ public:
 };
 extern Rva00E03138 *g_00E03138;
 
-class Rva0021A4E6
+class CreateAHeroManager
 {
 public:
 	void rva0021A4E6();
 };
-extern Rva0021A4E6 *g_00DFE344;
+extern CreateAHeroManager *TheCreateAHeroManager;
 
 struct Rva00E02D6CDefeatView
 {
@@ -125,7 +125,7 @@ void Rva003BE7ED::rva003BE7ED()
 			}
 		}
 	}
-	g_00DFE344->rva0021A4E6();
+	TheCreateAHeroManager->rva0021A4E6();
 	g_00E02D6C->m_flag2D = false;
 	if (g_00DFDC8C != 0)
 		g_00DFDC8C->rva001EB0CA();

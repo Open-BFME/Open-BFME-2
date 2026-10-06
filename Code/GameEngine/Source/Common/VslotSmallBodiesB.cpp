@@ -64,12 +64,12 @@ public:
 void Rva001524BE::rva001524BE(Rva00087A93) {}
 
 // vtable 0x00BC4738#24: an empty body taking an AsciiString by value.
-class Rva00239982
+class GameClient
 {
 public:
-	void rva00239982(AsciiString text);
+	void unloadMap(AsciiString text);
 };
-void Rva00239982::rva00239982(AsciiString) {}
+void GameClient::unloadMap(AsciiString) {}
 
 // vtable 0x00BC7C90#73: an empty body taking seven arguments, the second a
 // UnicodeString by value.
@@ -80,21 +80,22 @@ public:
 };
 void Rva00314C93::rva00314C93(Int, UnicodeString, Int, Int, Int, Int, Int) {}
 
-// vtable 0x00C363C8#0: 0x003EF08B on this with the first of three arguments.
-class Rva003EF13E
+// vtable 0x00C363C8#0: SyncRegion 0x003EF08B (WorldBuilder name, its
+// __FUNCTION__ string "LivingWorldRegionEffectsManager::SyncRegion") on this with the first of three arguments.
+class LivingWorldRegionEffectsManager
 {
 public:
 	void rva003EF13E(Int value, Int, Int);
-	void rva003EF08B(Int value);
+	void SyncRegion(Int value);
 	void rva003EF1D9(const _STL::vector<Int> &vec);
 	void rva003EF2FF();
 };
-void Rva003EF13E::rva003EF13E(Int value, Int, Int) { rva003EF08B(value); }
+void LivingWorldRegionEffectsManager::rva003EF13E(Int value, Int, Int) { SyncRegion(value); }
 
-void Rva003EF13E::rva003EF1D9(const _STL::vector<Int> &vec)
+void LivingWorldRegionEffectsManager::rva003EF1D9(const _STL::vector<Int> &vec)
 {
 	for (unsigned i = 0; i < vec.size(); ++i)
-		rva003EF08B(vec[i]);
+		SyncRegion(vec[i]);
 }
 
 struct Rva003EF2FFHolder
@@ -118,7 +119,7 @@ public:
 
 extern Rva002BA8F1Logic *g_009FEF10;
 
-void Rva003EF13E::rva003EF2FF()
+void LivingWorldRegionEffectsManager::rva003EF2FF()
 {
 	Rva003EF2FFHolder *holder = g_009FEF10->m_B0->m_8;
 	_STL::vector<Int> *range;

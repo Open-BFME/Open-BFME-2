@@ -113,9 +113,9 @@ public:
 	void RefreshNat(const char *unused);
 	void AdvancedOptionNum(int option, char *result, bool skip);
 	void EnterAdvancedSettings(const char *unused);
-	void rva00518C0D(int query, char *value, bool set);
+	void ExternsLODTemplate(int query, char *value, bool set);
 	void rva00518FEA(int query, int kind);
-	void rva0051904F(int query, char *value, bool set);
+	void Externs(int query, char *value, bool set);
 
 	// Unrowed 0x00518B05 (264 bytes; a warning prompt), pinned by address.
 	void rva00518B05(const AsciiString &text, int kind);
@@ -189,7 +189,7 @@ void AptOptions::EnterAdvancedSettings(const char *unused)
 // "MasterOption0TemplateCustom" (5), so it keeps its address. Reads answer
 // the preset's settings string (the custom one kept at +0x314); writing
 // the custom one warns first when it sorts below +0x308.
-void AptOptions::rva00518C0D(int query, char *value, bool set)
+void AptOptions::ExternsLODTemplate(int query, char *value, bool set)
 {
 	if (set)
 	{
@@ -235,7 +235,7 @@ void AptOptions::rva00518FEA(int query, int kind)
 // page. Query 1 writes the preset (Custom or numeric with 0x00518FEA warn)
 // and refreshes via 0x00518359; reads answer counts, preset text, LOD level
 // and 0/1 flags at +0x281/+0x282/+0x283/+0x284. Caller of 0x00518FEA.
-void AptOptions::rva0051904F(int query, char *value, bool set)
+void AptOptions::Externs(int query, char *value, bool set)
 {
 	if (!set)
 	{

@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?Rva003192B9Get@@YAPAXPAX@Z @0x003192B9 75B: free helper resolving a Value
+// ?GetMaxCommandPoints@@YAPAXPAX@Z @0x003192B9 75B: free helper resolving a Value
 // via LivingWorld find plus empty-name Owner fallback. Evidence: packet
 // disasm with rowed find 0x002B51F8 via g_009FEF10 plus rowed StringBase
 // isEmpty at +0x18 plus pinned rva00318C32 plus rowed rva003EFD6F, callers
@@ -50,7 +50,7 @@ struct Key003192B9
 	int m_id54;
 };
 
-void *Rva003192B9Get(void *keyPtr)
+void *GetMaxCommandPoints(void *keyPtr)
 {
 	Key003192B9 *key = (Key003192B9 *)keyPtr;
 	int id = key->m_id54;

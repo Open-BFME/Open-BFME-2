@@ -1,4 +1,4 @@
-// ?update@Rva005AD6C3@@UAEXXZ
+// ?update@AINavyUnitBattleShip@@UAEXXZ
 // Finish pass 2026-10-04 seat8 from reverse/attempts/0x005ad806.cpp
 //
 // Closing the last 21 bytes: naming the receiver `ship->m_ai` in a local
@@ -10,7 +10,7 @@
 // cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
-// ??0Rva005AD6C3@@QAE@PBURva005DCC4BSource@@@Z @ 0x005AD6C3 39B
+// ??0AINavyUnitBattleShip@@QAE@PBURva005DCC4BSource@@@Z @ 0x005AD6C3 39B
 // Derived of rowed Rva005DCC4B: base converts source+0x74, then +0x08=0 and
 // +0x0C=TheGameLogic frame+0x40. Evidence: call at 0x005AD6CA to rowed
 // ??0Rva005DCC4B@@QAE@PBURva005DCC4BSource@@@Z, vtable 0x0087258C at [this],
@@ -172,25 +172,25 @@ extern Rva002A8F24 *g_00DFEEF8;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class Rva005AD6C3 : public Rva005DCC4B
+class AINavyUnitBattleShip : public Rva005DCC4B
 {
 public:
-	Rva005AD6C3(const Rva005DCC4BSource *source);
+	AINavyUnitBattleShip(const Rva005DCC4BSource *source);
 	virtual void update();
-	void rva005AD6F5();
+	void patrol();
 
 	Int m_field08;
 	Int m_field0C;
 };
 
-Rva005AD6C3::Rva005AD6C3(const Rva005DCC4BSource *source)
+AINavyUnitBattleShip::AINavyUnitBattleShip(const Rva005DCC4BSource *source)
 	: Rva005DCC4B(source)
 {
 	m_field08 = 0;
 	m_field0C = (Int)TheGameLogic->m_frame;
 }
 
-void Rva005AD6C3::rva005AD6F5()
+void AINavyUnitBattleShip::patrol()
 {
 	Object *ship = TheGameLogic->findObjectByID((ObjectID)m_field04);
 	if (!ship->m_ai->isIdle())
@@ -222,7 +222,7 @@ void Rva005AD6C3::rva005AD6F5()
 	}
 }
 
-void Rva005AD6C3::update()
+void AINavyUnitBattleShip::update()
 {
 	GameLogic *logic = TheGameLogic;
 	Object *ship = logic->findObjectByID((ObjectID)m_field04);
@@ -252,6 +252,6 @@ void Rva005AD6C3::update()
 		Rva005AD6C3AI *ai = ship->m_ai;
 		ai->m_commands.rva003C7653(TheGameLogic->findObjectByID(chosen), CMD_FROM_PLAYER);
 	} else {
-		rva005AD6F5();
+		patrol();
 	}
 }

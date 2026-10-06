@@ -1,6 +1,6 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// ?rva00216B3F@Rva00216B3F@@QAEX_N@Z, retail 0x00216B3F, 65 bytes.
+// ?Hide@BannerUI@@QAEX_N@Z, retail 0x00216B3F, 65 bytes.
 // Guards on TheRva00222A8BTarget null then branches on bool param: true calls
 // pinned rva0022277D with +0x24 and erases pod28 range at +0x28 clearing +0x20,
 // false calls rowed rva002224FE with +0x24 as int. Evidence: global 0x009FE4CC
@@ -24,10 +24,10 @@ public:
 	bool rva002224FE(int index);
 };
 
-class Rva00216B3F
+class BannerUI
 {
 public:
-	void rva00216B3F(bool on);
+	void Hide(bool on);
 private:
 	char m_pad00[0x20];
 	unsigned char m_flag20;
@@ -37,7 +37,7 @@ private:
 	bool m_flag34;
 };
 
-void Rva00216B3F::rva00216B3F(bool on)
+void BannerUI::Hide(bool on)
 {
 	if (TheRva00222A8BTarget == 0)
 		return;

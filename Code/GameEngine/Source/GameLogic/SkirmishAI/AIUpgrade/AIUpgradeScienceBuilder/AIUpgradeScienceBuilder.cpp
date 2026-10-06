@@ -150,10 +150,10 @@ public:
 	bool m_2C;		// +0x2C
 };
 
-class Rva00597E30
+class AIUpgradeScienceBuilder
 {
 public:
-	void rva00597E30();
+	void buildExpansionUpgrades();
 private:
 	char m_pad00[0x14];
 	Player *m_14;			// +0x14 the owner
@@ -164,7 +164,7 @@ private:
 	unsigned m_3C;			// +0x3C the last frame
 };
 
-void Rva00597E30::rva00597E30()
+void AIUpgradeScienceBuilder::buildExpansionUpgrades()
 {
 	if (m_30 == m_34)
 		return;

@@ -85,8 +85,7 @@ class Object
 {
 public:
 	Bool testStatus(ObjectStatusTypes bit) const;
-	void rva0028D99A(Bool yes);
-	void friend_adjustPowerForPlayer(Bool yes) { rva0028D99A(yes); }
+	void friend_adjustPowerForPlayer(Bool yes);
 	Module *findUpdateModule(NameKeyType key) const { return findModule(key); }
 	Bool areModulesReady() const { return m_modulesReady; }
 	Bool isKindOfDozer() const { return m_template->isKindOfDozer(); }

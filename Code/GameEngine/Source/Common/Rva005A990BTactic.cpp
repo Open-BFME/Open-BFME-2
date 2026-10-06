@@ -3,7 +3,7 @@
 // The "AIBasePenetrationTroopsTactic" skirmish-AI tactic (vtable 0x00871DB4;
 // ctor 0x005A9988 in Rva004ECECDTacticCtors.cpp, dtor 0x005A990B and ??_G in
 // Rva005DC73CDerived.cpp, slot 9 in Rva004ECECDTacticCreate.cpp). Base chain,
-// all address-derived: Rva005DC73C over the AITactic.cpp object Rva004ECECD.
+// all address-derived: AITacticOffensive over the AITactic.cpp object AITactic.
 //
 // The tactic keeps an "is running" flag per AI owner in the owner's
 // TheSkirmishAIManager record (0x002A8AB1 lookup on the +0x24 owner), keyed
@@ -98,28 +98,28 @@ public:
 
 struct Rva005A990BUnit;
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual bool v3(Rva005A990BUnit *unit, void *unused);
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual bool initializeTeamTemplate(Rva005A990BUnit *unit, void *unused);
 	virtual void v4(); virtual void v5();
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
+	virtual void update();
 	virtual void v8();
-	virtual Rva004ECECD *create();
+	virtual AITactic *create();
 	unsigned char rva004ED169();
 	void rva004ED372(void *point);
-	void rva004ED748(int a, int b);
+	void end(int a, int b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
-	unsigned char rva005DC763(void *request);
+	virtual ~AITacticOffensive();
+	unsigned char checkTarget(void *request);
 	char m_pad04[0x10 - 4];
 	bool m_running;			// +0x10
 	char m_pad11[0x20 - 0x11];
@@ -128,22 +128,22 @@ public:
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005A990B : public Rva005DC73C
+class AIBasePenetrationTroopsTactic : public AITacticOffensive
 {
 public:
-	virtual ~Rva005A990B();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual void v6();
-	virtual void v7();
+	virtual ~AIBasePenetrationTroopsTactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual void run();
+	virtual void update();
 };
 
-bool Rva005A990B::appliesTo(void *request)
+bool AIBasePenetrationTroopsTactic::canRun(void *request)
 {
 	Rva002A8AB1Record *running = g_00DFEEF8->rva002A8AB1(m_owner);
 	if (running->rva002C7196(AIBasePenetrationTroopsTactic_IsRunning))
 		return false;
-	if (!rva005DC763(request))
+	if (!checkTarget(request))
 		return false;
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	if (!record || record->m_16C < 1)
@@ -156,20 +156,20 @@ bool Rva005A990B::appliesTo(void *request)
 	return false;
 }
 
-void Rva005A990B::v2()
+void AIBasePenetrationTroopsTactic::cleanUp()
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	if (record)
 		record->rva002C717E(AIBasePenetrationTroopsTactic_IsRunning, 0);
 }
 
-void Rva005A990B::v6()
+void AIBasePenetrationTroopsTactic::run()
 {
 	rva004ED372(m_record->m_point0C);
 }
 
-void Rva005A990B::v7()
+void AIBasePenetrationTroopsTactic::update()
 {
 	if (m_running && (m_record->m_18 || rva004ED169()))
-		rva004ED748(1, 0);
+		end(1, 0);
 }

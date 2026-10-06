@@ -10,7 +10,7 @@
 // through TheThingFactory (rowed rva002D06CA) and, when the owner's
 // controlling player differs from the object's and the lookup succeeds,
 // records the amount on both players' records at Player+0x3BC (rowed
-// rva0039D0FB on ours, pinned 0x0039CF1D on theirs); then clears the amount
+// addObjectsLost on ours, pinned 0x0039CF1D on theirs); then clears the amount
 // and the name.
 //
 // ?rva00479B7F@SlaughterHordeContain@@UAEXPAVObject@@@Z, retail 0x00480584, 27 bytes.
@@ -22,10 +22,10 @@
 
 class Player;
 
-class Rva0039D0FB
+class ScoreKeeper
 {
 public:
-	void rva0039D0FB(unsigned int key, int amount);
+	void addObjectsLost(unsigned int key, int amount);
 	void rva0039CF1D(void *key, Player *other, unsigned int amount);
 };
 
@@ -33,7 +33,7 @@ class Player
 {
 public:
 	unsigned char m_pad00[0x3BC];
-	Rva0039D0FB m_3BC;
+	ScoreKeeper m_3BC;
 };
 
 class Object
@@ -98,7 +98,7 @@ void SlaughterHordeContain::rva004804DD(Object *obj)
 	void *found = TheThingFactory->rva002D06CA(&m_9E8);
 	if (ours != theirs && found)
 	{
-		ours->m_3BC.rva0039D0FB((unsigned int)found, m_9E4);
+		ours->m_3BC.addObjectsLost((unsigned int)found, m_9E4);
 		theirs->m_3BC.rva0039CF1D(found, ours, m_9E4);
 	}
 	m_9E4 = 0;

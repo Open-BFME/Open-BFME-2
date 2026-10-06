@@ -1,7 +1,7 @@
 // cl: /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 //
-// The 0x2C-byte elements the skirmish-AI object Rva00506B74 owns in its +0x0C
+// The 0x2C-byte elements the skirmish-AI object AIBaseBuilder owns in its +0x0C
 // vector (Rva00506B74Tactic.cpp builds them with operator new and this ctor,
 // deletes them, and calls their pinned members). Layout from the ctor:
 //   +0x00 vector of owned Rva005DCE08 (non-virtual dtor 0x005DCE08)
@@ -298,19 +298,19 @@ public:
 };
 extern Rva0022BD9ASubsystem *g_00E03124;
 
-class Rva005ADA40
+class AIBase
 {
 public:
-	Rva005ADA40(unsigned int index, void *owner);
-	~Rva005ADA40();
+	AIBase(unsigned int index, void *owner);
+	~AIBase();
 	Rva005AD9C0Hit *rva005AD9C0(void *arg);
 	bool rva005AD964();
 	void rva005ADAB2();
 	void rva005ADC63();
-	void rva005AE0AD(Xfer *xfer);
+	void DoXfer(Xfer *xfer);
 	Rva0041E912Template *rva005ADCBE(int notFirst, const _STL::vector<Rva0041E912Template *> &list);
-	void rva005ADE1D(const Coord3D *point, float angle, Rva0041E912Template *tmpl);
-	void rva005AE26A(Coord3D *point, float angle, int notFirst);
+	void parseTemplateIntoPhases(const Coord3D *point, float angle, Rva0041E912Template *tmpl);
+	void loadBestFitTemplate(Coord3D *point, float angle, int notFirst);
 private:
 	_STL::vector<Rva005DCE08 *> m_items;	// +0x00
 	int m_index;				// +0x0C
@@ -321,7 +321,7 @@ private:
 	Rva00573E7C *m_owned;			// +0x28
 };
 
-Rva005ADA40::Rva005ADA40(unsigned int index, void *owner)
+AIBase::AIBase(unsigned int index, void *owner)
 {
 	m_10 = 0;
 	m_index = index;
@@ -331,7 +331,7 @@ Rva005ADA40::Rva005ADA40(unsigned int index, void *owner)
 	m_angle = 0.0f;
 }
 
-Rva005ADA40::~Rva005ADA40()
+AIBase::~AIBase()
 {
 	for (Rva005DCE08 **it = m_items.begin(); it != m_items.end(); ++it)
 		delete *it;
@@ -341,7 +341,7 @@ Rva005ADA40::~Rva005ADA40()
 	}
 }
 
-Rva005AD9C0Hit *Rva005ADA40::rva005AD9C0(void *arg)
+Rva005AD9C0Hit *AIBase::rva005AD9C0(void *arg)
 {
 	Rva005AD9C0Hit *hit = 0;
 	for (Rva005DCE08 **it = m_items.begin(); it != m_items.end(); ++it) {
@@ -352,7 +352,7 @@ Rva005AD9C0Hit *Rva005ADA40::rva005AD9C0(void *arg)
 	return hit;
 }
 
-void Rva005ADA40::rva005ADC63()
+void AIBase::rva005ADC63()
 {
 	Rva00573E7C *owned = m_owned;
 	if (owned) {
@@ -368,7 +368,7 @@ void Rva005ADA40::rva005ADC63()
 		(*it)->rva005DCCFB();
 }
 
-bool Rva005ADA40::rva005AD964()
+bool AIBase::rva005AD964()
 {
 	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_owner);
 	if (slot) {
@@ -383,7 +383,7 @@ bool Rva005ADA40::rva005AD964()
 	return true;
 }
 
-void Rva005ADA40::rva005AE0AD(Xfer *xfer)
+void AIBase::DoXfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
@@ -414,7 +414,7 @@ void Rva005ADA40::rva005AE0AD(Xfer *xfer)
 	}
 }
 
-Rva0041E912Template *Rva005ADA40::rva005ADCBE(int notFirst, const _STL::vector<Rva0041E912Template *> &list)
+Rva0041E912Template *AIBase::rva005ADCBE(int notFirst, const _STL::vector<Rva0041E912Template *> &list)
 {
 	Rva0041E912Template *chosen = 0;
 	const MapMetaData *map = TheMapCache->findMap(TheWritableGlobalData->m_mapName);
@@ -450,7 +450,7 @@ Rva0041E912Template *Rva005ADA40::rva005ADCBE(int notFirst, const _STL::vector<R
 	return chosen;
 }
 
-void Rva005ADA40::rva005AE26A(Coord3D *point, float angle, int notFirst)
+void AIBase::loadBestFitTemplate(Coord3D *point, float angle, int notFirst)
 {
 	_STL::vector<Rva0041E912Template *> templates;
 	if (g_00E03124->rva0041E912(((Rva005AE26AOwner *)m_owner)->m_58, templates)) {
@@ -460,7 +460,7 @@ void Rva005ADA40::rva005AE26A(Coord3D *point, float angle, int notFirst)
 			m_point = *point;
 			if (chosen->m_18)
 				m_angle = angle;
-			rva005ADE1D(&m_point, m_angle, chosen);
+			parseTemplateIntoPhases(&m_point, m_angle, chosen);
 			return;
 		}
 	}
@@ -474,7 +474,7 @@ static inline void copyVector(Coord3D *dst, const Vector3 &v)
 	dst->z = v.Z;
 }
 
-void Rva005ADA40::rva005ADE1D(const Coord3D *point, float angle, Rva0041E912Template *tmpl)
+void AIBase::parseTemplateIntoPhases(const Coord3D *point, float angle, Rva0041E912Template *tmpl)
 {
 	Matrix3D rotation(true);
 	rotation.Rotate_Z(angle);

@@ -3,8 +3,8 @@
 // The "SiegeGates" skirmish-AI tactic (vtable 0x00871E28; ctor 0x005A9C1E in
 // Rva004ECECDTacticCtors.cpp, dtor 0x005A9ACD and ??_G in
 // Rva005DC87BDerived.cpp, slot 9 in Rva004ECECDTacticCreate.cpp). Base chain,
-// all address-derived: Rva005DC87B (ctor 0x005DC85F, +0x58 object id) over
-// Rva005DC73C (ctor 0x005DC722) over the AITactic.cpp object Rva004ECECD.
+// all address-derived: AITacticSiege (ctor 0x005DC85F, +0x58 object id) over
+// AITacticOffensive (ctor 0x005DC722) over the AITactic.cpp object AITactic.
 //
 //   0x005A9AD8  slot 1: the owner's TheSkirmishAIManager record answers
 //               0x002C6ACB, the base test passes, the request carries no
@@ -73,31 +73,31 @@ struct Rva005A9ACDUnit
 	unsigned int m_30C;	// +0x30C
 };
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual bool v3(Rva005A9ACDUnit *unit, void *unused);
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual bool initializeTeamTemplate(Rva005A9ACDUnit *unit, void *unused);
 	virtual void v4();
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
+	virtual void update();
 	virtual void v8();
-	virtual Rva004ECECD *create();
+	virtual AITactic *create();
 	Team *rva004ECECD(int index);
 	unsigned char rva004ED169();
-	void rva004ED1A1(int a, Object *target);
+	void teamAttackObject(int a, Object *target);
 	void rva004ED342(void *point);
-	void rva004ED748(int a, int b);
+	void end(int a, int b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
-	unsigned char rva005DC763(void *request);
+	virtual ~AITacticOffensive();
+	unsigned char checkTarget(void *request);
 	char m_pad04[0x10 - 4];
 	bool m_running;			// +0x10
 	char m_pad11[0x20 - 0x11];
@@ -106,88 +106,88 @@ public:
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005DC87B : public Rva005DC73C
+class AITacticSiege : public AITacticOffensive
 {
 public:
-	virtual ~Rva005DC87B();
+	virtual ~AITacticSiege();
 	virtual void xfer(Xfer *xfer);
-	bool rva005DC8A2();
-	bool rva005DC93B();
-	bool rva005DC9C8();
+	bool sideHasIdleSiegeWeapons();
+	bool isWallBreached();
+	bool findWallTarget();
 	Object *rva005DCAE5();
 	bool rva005DCAF4();
 	int m_58;
 };
 
-class Rva005A9ACD : public Rva005DC87B
+class AISiegeGatesTactic : public AITacticSiege
 {
 public:
-	virtual ~Rva005A9ACD();
-	virtual bool appliesTo(void *request);
-	virtual bool v3(Rva005A9ACDUnit *unit, void *unused);
+	virtual ~AISiegeGatesTactic();
+	virtual bool canRun(void *request);
+	virtual bool initializeTeamTemplate(Rva005A9ACDUnit *unit, void *unused);
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
+	virtual void update();
 	bool rva005A9B20();
 private:
 	bool m_reached;		// +0x5C
 };
 
-bool Rva005A9ACD::appliesTo(void *request)
+bool AISiegeGatesTactic::canRun(void *request)
 {
 	if (g_00DFEEF8->rva002A8AB1(m_owner)->rva002C6ACB()
-		&& rva005DC763(request)
+		&& checkTarget(request)
 		&& !((Rva005A9ACDRequest *)request)->m_04)
-		return !rva005DC8A2();
+		return !sideHasIdleSiegeWeapons();
 	return false;
 }
 
-bool Rva005A9ACD::rva005A9B20()
+bool AISiegeGatesTactic::rva005A9B20()
 {
-	if (rva005DC9C8()) {
-		rva004ED1A1(0, rva005DCAE5());
+	if (findWallTarget()) {
+		teamAttackObject(0, rva005DCAE5());
 		return true;
 	}
 	return false;
 }
 
-void Rva005A9ACD::v6()
+void AISiegeGatesTactic::run()
 {
 	if (rva004ECECD(0))
 		rva005A9B20();
 	else
-		rva004ED748(0, 0);
+		end(0, 0);
 }
 
-void Rva005A9ACD::v7()
+void AISiegeGatesTactic::update()
 {
 	if (!m_running)
 		return;
 	if (!rva004ECECD(0)) {
-		rva004ED748(0, 0);
+		end(0, 0);
 		return;
 	}
 	if (!m_reached) {
-		if (rva005DC93B()) {
+		if (isWallBreached()) {
 			rva004ED342(m_record->m_point0C);
 			m_reached = true;
 		} else if (rva005DCAF4() || rva004ED169()) {
 			rva005A9B20();
 		}
 	} else if (rva004ED169()) {
-		rva004ED748(1, 0);
+		end(1, 0);
 	}
 }
 
-bool Rva005A9ACD::v3(Rva005A9ACDUnit *unit, void *)
+bool AISiegeGatesTactic::initializeTeamTemplate(Rva005A9ACDUnit *unit, void *)
 {
 	unit->m_30C |= 0x20;
 	return true;
 }
 
-void Rva005A9ACD::xfer(Xfer *xfer)
+void AISiegeGatesTactic::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	Rva005DC87B::xfer(xfer);
+	AITacticSiege::xfer(xfer);
 }

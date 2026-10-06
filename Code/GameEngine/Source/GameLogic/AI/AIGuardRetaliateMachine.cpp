@@ -83,10 +83,10 @@ public:
 
 // vftable 0x00BF8FF0: +0x08 the object, +0x0C whether its controlling
 // player's +0x5C is 1.
-class Rva002611F2 : public Rva000421C8
+class PartitionFilterRejectBuildings : public Rva000421C8
 {
 public:
-	Rva002611F2(Object *obj);
+	PartitionFilterRejectBuildings(Object *obj);
 	virtual bool allow(Object *obj);
 	Object *m_obj;
 	bool m_flag;
@@ -205,7 +205,7 @@ bool AIGuardRetaliateMachine::lookForInnerTarget()
 	}
 	Rva00260EB1Filter f1(owner, 1, false);
 	Rva00260FD0Filter f2(owner, 2, 0);
-	Rva002611F2 f3(owner);
+	PartitionFilterRejectBuildings f3(owner);
 	Rva0004584D f8(*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype,
 		*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x82));
 	Rva002611BFFilter filterMapStatus(owner);

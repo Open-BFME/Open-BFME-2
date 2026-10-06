@@ -1,4 +1,6 @@
 // ??0BezierProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
+// partial score=0.9172 date=2026-10-05
+// ??0BezierProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
 // partial score=0.92 date=2026-09-26
 // cl: /O1 /DNDEBUG /MD /GX /arch:SSE
 // stlport

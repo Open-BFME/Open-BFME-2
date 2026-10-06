@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 
-// ?rva002EDEAB@Rva002EDEAB@@QAEXPAURva002EDEABArg@@@Z, retail 0x002EDEAB, 153 bytes.
+// ?SetDebugPath@Pathfinder@@QAEXPAURva002EDEABArg@@@Z, retail 0x002EDEAB, 153 bytes.
 // Rebuilds the Path at +0x58 from an arg list: notifies GameInfo at 0x00E02EEC
 // slot 0x4C then returns early when the GlobalData flag at 0x00DFE758+0x9B8 is
 // clear else deletes the old Path news a fresh Path via 0x363DC8 and appends
@@ -97,15 +97,15 @@ struct Rva00DFE758Holder
 extern Rva00E02EECObj *g_00E02EEC;
 extern Rva00DFE758Holder *g_00DFE758;
 
-class Rva002EDEAB
+class Pathfinder
 {
 	char m_pad00[0x58];
 	Path *m_path;
 public:
-	void rva002EDEAB(Rva002EDEABArg *arg);
+	void SetDebugPath(Rva002EDEABArg *arg);
 };
 
-void Rva002EDEAB::rva002EDEAB(Rva002EDEABArg *arg)
+void Pathfinder::SetDebugPath(Rva002EDEABArg *arg)
 {
 	if (g_00E02EEC != 0)
 		g_00E02EEC->virt19();

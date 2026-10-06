@@ -127,7 +127,7 @@ extern PartitionManager *ThePartitionManager;
 class Pathfinder
 {
 public:
-	bool rva002F477E(Object *obj, const Coord3D *from, const Coord3D *to, int flags);
+	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int flags);
 };
 
 class AI
@@ -159,7 +159,7 @@ bool ScriptConditions::rva003E5CB1(Parameter *unitParm, Parameter *playerParm)
 			*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(&Rva0026137EFilter(player, true)));
 	if (found == 0)
 		return false;
-	return TheAI->pathfinder()->rva002F477E(obj, &obj->m_pos, &found->m_pos, 0);
+	return TheAI->pathfinder()->QuickDoesPathExist(obj, &obj->m_pos, &found->m_pos, 0);
 }
 
 bool ScriptConditions::rva003E83AF(Parameter *teamParm, Parameter *playerParm)
@@ -180,5 +180,5 @@ bool ScriptConditions::rva003E83AF(Parameter *teamParm, Parameter *playerParm)
 			*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(&Rva0026137EFilter(player, true)));
 	if (found == 0)
 		return false;
-	return TheAI->pathfinder()->rva002F477E(obj, &obj->m_pos, &found->m_pos, 0);
+	return TheAI->pathfinder()->QuickDoesPathExist(obj, &obj->m_pos, &found->m_pos, 0);
 }

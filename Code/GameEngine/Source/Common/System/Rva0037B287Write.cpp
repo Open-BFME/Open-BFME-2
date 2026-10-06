@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva0037B287@Rva0037B287@@QAEXVUnicodeString@@H@Z retail 0x0037B287 159B.
+// ?logPlayerDisconnect@RecorderClass@@QAEXVUnicodeString@@H@Z retail 0x0037B287 159B.
 // File-flag helper: if FILE at +0x10 is null release by-value wide arg and return;
 // else if int arg in [0,8) ftell then fseek to arg+29 SEEK_SET then fwrite one 0x01 byte
 // then fseek back to ftell pos; always release by-value arg via rowed releaseBuffer 0x36E70.
@@ -15,16 +15,16 @@ extern "C" __declspec(dllimport) long __cdecl ftell(FILE *stream);
 extern "C" __declspec(dllimport) int __cdecl fseek(FILE *stream, long offset, int origin);
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(const void *buf, unsigned int size, unsigned int count, FILE *stream);
 
-class Rva0037B287
+class RecorderClass
 {
 public:
-	void rva0037B287(UnicodeString arg, int slot);
+	void logPlayerDisconnect(UnicodeString arg, int slot);
 private:
 	char m_pad00[0x10];
 	FILE *m_file10; // +0x10
 };
 
-void Rva0037B287::rva0037B287(UnicodeString arg, int slot)
+void RecorderClass::logPlayerDisconnect(UnicodeString arg, int slot)
 {
 	if (m_file10 == 0)
 		return;

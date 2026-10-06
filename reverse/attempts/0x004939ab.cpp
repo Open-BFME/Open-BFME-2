@@ -1,4 +1,6 @@
 // ?rva004939AB@Rva004939AB@@QAEXPBX@Z
+// partial score=0.8465 date=2026-10-05
+// ?rva004939AB@Rva004939AB@@QAEXPBX@Z
 // partial score=0.93 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // stlport
@@ -139,8 +141,8 @@ void Rva004939AB::rva004939AB(const void *p)
 	Object *obj = m_object;
 	int objId = obj->m_id74;
 	Player *player = obj->getControllingPlayer();
-	int playerIdx = player->m_playerIndex;
 	const SpecialPowerTemplate *tmpl = m_data->m_template;
+	int playerIdx = player->m_playerIndex;
 	const Overridable *fo = tmpl->friend_getFinalOverride();
 	const SpecialPowerTemplate *foT = (const SpecialPowerTemplate *)fo;
 	g_Va009FE16C->rva00357E7B(objId, foT->m_name, playerIdx);

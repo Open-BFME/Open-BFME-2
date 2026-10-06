@@ -6,6 +6,12 @@
 // after 0x005C48D0. Caller at 0x005C4A61. Prev 0x005C494D clearer and next
 // 0x005C4ACD GameWindow getter. Explicit ctor calls give retail lea-edi and
 // mov-ecx-edi order with no placement-new null checks.
+extern "C" const void *const vtbl_00C7477C[];  // ??_7Rva005C48E5@@6BPrimaryBase@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C7477C=??_7Rva005C48E5@@6BPrimaryBase@@@")
+
+extern "C" const void *const vtbl_00C74764[];  // ??_7Rva005C48E5@@6BSecondaryBase@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C74764=??_7Rva005C48E5@@6BSecondaryBase@@@")
+
 class Rva0059B7CB
 {
 public:
@@ -33,6 +39,6 @@ Rva005C4986::Rva005C4986(unsigned int a, unsigned int b)
 	Rva005C48D0 *second = (Rva005C48D0 *)((char *)this + 0xC);
 	second->Rva005C48D0::Rva005C48D0();
 	m_20 = 0;
-	*(void **)second = (void *)0x00C74764;
-	*(void **)this = (void *)0x00C7477C;
+	*(void **)second = (void *)((unsigned int)vtbl_00C74764);
+	*(void **)this = (void *)((unsigned int)vtbl_00C7477C);
 }

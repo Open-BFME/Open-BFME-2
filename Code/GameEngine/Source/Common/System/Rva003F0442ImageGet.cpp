@@ -1,5 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
-// ?rva003F0442@Rva003F0442@@QAEPBVImage@@XZ, retail 0x003F0442, 36 bytes.
+// LivingWorldRegion::GetFortressPortrait (WorldBuilder name, LivingWorldRegion.cpp line 1470: findImageByName of the +0x120 name unless empty).
+// was ?rva003F0442@Rva003F0442@@QAEPBVImage@@XZ, retail 0x003F0442, 36 bytes.
 // __thiscall image getter via AsciiString at +0x120: returns NULL when empty
 // else TheMappedImageCollection->findImageByName. Evidence: rowed isEmpty
 // 0x00001E2F, rowed findImageByName 0x002D92F6, global 0x00DFF078, caller 0x005E2B45.
@@ -15,16 +16,16 @@ public:
 extern ImageCollection *TheMappedImageCollection;
 
 
-class Rva003F0442
+class LivingWorldRegion
 {
 public:
-	const Image *rva003F0442();
+	const Image *GetFortressPortrait();
 private:
 	char m_pad[0x120];
 	AsciiString m_name;
 };
 
-const Image *Rva003F0442::rva003F0442()
+const Image *LivingWorldRegion::GetFortressPortrait()
 {
 	if (!m_name.isEmpty())
 		return TheMappedImageCollection->findImageByName(m_name);

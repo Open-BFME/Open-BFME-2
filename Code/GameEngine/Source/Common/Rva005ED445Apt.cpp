@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?rva005ED445@Rva005ED445@@QAEXABVUnicodeString@@@Z, retail 0x005ED445, 103 bytes.
+// ?SetRegionNameString@StrategicHUD::RegionAwardMovieClip::Impl@@QAEXABVUnicodeString@@@Z, retail 0x005ED445, 103 bytes.
 // APT RegionName setter via level and outer name; true bool.
 // Evidence: format APT:_level%u.%s_RegionName via 0x00038150; bfmeSetText pin 0x00225301; releaseBuffer 0x00036410; globals 0x009FE4CC 0x007BAC1C; callers 0x005ED8D1 0x005EDB74; precedent Rva005FDF1CApt.cpp Rva005D2FD0Apt.cpp.
 template <typename T> struct BfmeStringData
@@ -34,15 +34,23 @@ public:
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva005ED445
+namespace StrategicHUD {
+class RegionAwardMovieClip
 {
 public:
-	void rva005ED445(const UnicodeString &text);
+	class Impl;
+};
+}
+
+class StrategicHUD::RegionAwardMovieClip::Impl
+{
+public:
+	void SetRegionNameString(const UnicodeString &text);
 	void rva005ED411();
-	void rva005ED4AC(int bonusIndex, const UnicodeString &text);
-	void rva005ED516(int suffixIndex, const char *suffix, const UnicodeString &text);
+	void SetRegionBonusTextString(int bonusIndex, const UnicodeString &text);
+	void SetPlayerString(int suffixIndex, const char *suffix, const UnicodeString &text);
 	void rva005ED8D1(const UnicodeString &text);
-	void rva005ED8FF(int bonusIndex, const UnicodeString &text);
+	void SetRegionBonusText(int bonusIndex, const UnicodeString &text);
 private:
 	int m_pad0;
 	int m_level;
@@ -52,7 +60,7 @@ private:
 	UnicodeString m_bonusCache[8];
 };
 
-void Rva005ED445::rva005ED445(const UnicodeString &text)
+void StrategicHUD::RegionAwardMovieClip::Impl::SetRegionNameString(const UnicodeString &text)
 {
 	AsciiString key;
 	const char *mid = m_outer.m_ptr ? m_outer.m_ptr->m_name : "";
@@ -60,7 +68,7 @@ void Rva005ED445::rva005ED445(const UnicodeString &text)
 	g_bfmeAptWindowManager->bfmeSetText(key, text, true);
 }
 
-void Rva005ED445::rva005ED4AC(int bonusIndex, const UnicodeString &text)
+void StrategicHUD::RegionAwardMovieClip::Impl::SetRegionBonusTextString(int bonusIndex, const UnicodeString &text)
 {
 	AsciiString key;
 	const char *mid = m_outer.m_ptr ? m_outer.m_ptr->m_name : "";
@@ -68,7 +76,7 @@ void Rva005ED445::rva005ED4AC(int bonusIndex, const UnicodeString &text)
 	g_bfmeAptWindowManager->bfmeSetText(key, text, true);
 }
 
-void Rva005ED445::rva005ED516(int suffixIndex, const char *suffix, const UnicodeString &text)
+void StrategicHUD::RegionAwardMovieClip::Impl::SetPlayerString(int suffixIndex, const char *suffix, const UnicodeString &text)
 {
 	AsciiString key;
 	const char *mid = m_outer.m_ptr ? m_outer.m_ptr->m_name : "";
@@ -76,19 +84,19 @@ void Rva005ED445::rva005ED516(int suffixIndex, const char *suffix, const Unicode
 	g_bfmeAptWindowManager->bfmeSetText(key, text, true);
 }
 
-void Rva005ED445::rva005ED8FF(int bonusIndex, const UnicodeString &text)
+void StrategicHUD::RegionAwardMovieClip::Impl::SetRegionBonusText(int bonusIndex, const UnicodeString &text)
 {
 	UnicodeString &slot = m_bonusCache[bonusIndex];
 	if (((const StringBase<unsigned short> *)(const void *)&text)->compare(*(const StringBase<unsigned short> *)(const void *)&slot) != 0) {
-		rva005ED4AC(bonusIndex, text);
+		SetRegionBonusTextString(bonusIndex, text);
 		((StringBase<unsigned short> *)(void *)&slot)->set(*(const StringBase<unsigned short> *)(const void *)&text);
 	}
 }
 
-void Rva005ED445::rva005ED8D1(const UnicodeString &text)
+void StrategicHUD::RegionAwardMovieClip::Impl::rva005ED8D1(const UnicodeString &text)
 {
 	if (((const StringBase<unsigned short> *)(const void *)&text)->compare(*(const StringBase<unsigned short> *)(const void *)&m_cached) != 0) {
-		rva005ED445(text);
+		SetRegionNameString(text);
 		((StringBase<unsigned short> *)(void *)&m_cached)->set(*(const StringBase<unsigned short> *)(const void *)&text);
 	}
 }
@@ -100,7 +108,7 @@ public:
 	void rva005ED5EB();
 private:
 	int m_pad0;
-	Rva005ED445 *m_obj;
+	StrategicHUD::RegionAwardMovieClip::Impl *m_obj;
 };
 
 void Rva005ED976::rva005ED976(const UnicodeString &text)

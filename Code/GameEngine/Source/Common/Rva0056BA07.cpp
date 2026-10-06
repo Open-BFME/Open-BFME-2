@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /Ireference/shims/bfme2_ascii
-// ??0Rva0056B89F@@QAE@PAXPAXH@Z @0x0056BA07 156B: ctor Rva0056B89F::Rva0056B89F(void*,void*,int) via Rva005C4B56(Helper(arg0),1,arg2), sets BC=-1 C0=0 C4=arg1 vtable, then if arg1 calls method_002BFFD4 with 0 and rva005C4B96(rva0056B89F()). Evidence: donor Rva005C4280.cpp Rva005C4230 ctor shape, callee pins Helper005C4D4B Rva005C4B56 method_002BFFD4, rowed rva0056B89F rva005C4B96 releaseBuffer, caller 0x003FE50D.
+// ??0LivingWorldArmyIconSubObject@@QAE@PAXPAXH@Z @0x0056BA07 156B: ctor LivingWorldArmyIconSubObject::LivingWorldArmyIconSubObject(void*,void*,int) via Rva005C4B56(Helper(arg0),1,arg2), sets BC=-1 C0=0 C4=arg1 vtable, then if arg1 calls method_002BFFD4 with 0 and rva005C4B96(rva0056B89F()). Evidence: donor Rva005C4280.cpp Rva005C4230 ctor shape, callee pins Helper005C4D4B Rva005C4B56 method_002BFFD4, rowed rva0056B89F rva005C4B96 releaseBuffer, caller 0x003FE50D.
 #include "ascii_string.h"
 
 struct Helper005C4D4B
@@ -62,7 +62,7 @@ public:
 };
 extern Rva002D3627Host *g_00DFEF18;
 
-class Rva0056B89F : public Rva005C4B56
+class LivingWorldArmyIconSubObject : public Rva005C4B56
 {
 public:
 	int m_bc;
@@ -70,11 +70,11 @@ public:
 	char _c1[3];
 	void *m_c4;
 
-	Rva0056B89F(void *arg0, void *arg1, int arg2);
+	LivingWorldArmyIconSubObject(void *arg0, void *arg1, int arg2);
 	unsigned char rva0056B89F();
 };
 
-Rva0056B89F::Rva0056B89F(void *arg0, void *arg1, int arg2)
+LivingWorldArmyIconSubObject::LivingWorldArmyIconSubObject(void *arg0, void *arg1, int arg2)
 	: Rva005C4B56(Helper005C4D4B(arg0), 1, arg2)
 {
 	m_bc = -1;

@@ -1,6 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
-// ?Rva003BE26DGrantUpgrade@@YGXPAVParameter@@ABVAsciiString@@@Z @0x003BE26D 110B.
+// ?doUnitReceiveUpgrade@ScriptActions@@IAEXPAVParameter@@ABVAsciiString@@@Z @0x003BE26D 110B.
 // Grants an upgrade to a named unit: ScriptEngine::getUnitNamed(arg1), then
 // UpgradeCenter::findUpgrade(arg2). When the Object+4 flag byte carries 0x20,
 // the rva0028C197 provider target is probed through vtable slot 0xB4 and
@@ -59,7 +59,13 @@ public:
 	virtual void slot46(const UpgradeTemplate *upgrade, int extra);
 };
 
-void __stdcall Rva003BE26DGrantUpgrade(Parameter *unit, const AsciiString &upgradeName)
+class ScriptActions
+{
+protected:
+	void doUnitReceiveUpgrade(Parameter *unit, const AsciiString &upgradeName);
+};
+
+void ScriptActions::doUnitReceiveUpgrade(Parameter *unit, const AsciiString &upgradeName)
 {
 	Object *obj = TheScriptEngine->getUnitNamed(unit);
 	if (obj == 0)

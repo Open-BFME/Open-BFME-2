@@ -1,5 +1,5 @@
 // cl: /O1 /MD /G7
-// ?rva005328E2@Rva005312BE@@QAEXPAURva005312BERect@@@Z @ 0x005328E2 (230B): __thiscall grid alloc outer/inner from rect, new Item[outer*inner] + new Item*[outer], fill row pointers, set flag at +0x1BA31.
+// ?rva005328E2@PathfindZoneManager@@QAEXPAURva005312BERect@@@Z @ 0x005328E2 (230B): __thiscall grid alloc outer/inner from rect, new Item[outer*inner] + new Item*[outer], fill row pointers, set flag at +0x1BA31.
 // Evidence: offsets 0x1BA34/0x1BA38/0x1BA3C/0x1BA40 shared with Rva005312BEClear.cpp siblings; rect 16B copy to +0x1BA44 matches Rva005312BERect x0/y0/x1/y1; (x1-x0+16)/16 + (y1-y0+16)/16 via idiv 16; 0x44 elt with eh-vector ctor; caller at 0x002E8E8E.
 class Rva00531132
 {
@@ -43,7 +43,7 @@ struct Rva005312BERect
 	int x1;
 	int y1;
 };
-class Rva005312BE
+class PathfindZoneManager
 {
 public:
 	void rva005328E2(Rva005312BERect *r);
@@ -57,7 +57,7 @@ public:
 	int m_inner;
 	Rva005312BERect m_rect;
 };
-void Rva005312BE::rva005328E2(Rva005312BERect *r)
+void PathfindZoneManager::rva005328E2(Rva005312BERect *r)
 {
 	m_rect = *r;
 	m_outer = (r->x1 - r->x0 + 16) / 16;

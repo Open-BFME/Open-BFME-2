@@ -1,4 +1,5 @@
 // cl: /MD
+// FormationTranslator::WaitForSecondButtonDownStateHandler::IsStartOfDrag (WorldBuilder name, FormationTranslator.cpp line 338: message type vs +0x08, pixel proximity via 0x00431978, time delta under 500).
 // ?rva00431BDD@Rva00431BDD@@QAE_NPAVGameMessage@@@Z @0x00431BDD 88B: thiscall bool method checking GameMessage+0x10 vs this+8 then pixel proximity via rowed 0x00431978 plus int arg2 minus this+0x18 unsigned < 500. Evidence: chain lane calls rowed 0x00431978 just landed; rowed getArgument 0x0030F4EA; callers 0x00432068; neighbours Rva00431B76 Rva00431C35 same layout. Retail test al proves bool callee; row type H is wrong, bool used.
 struct ICoord2D
 {
@@ -32,7 +33,12 @@ public:
 	bool rva00431978(ICoord2D *p);
 };
 
-class Rva00431BDD
+class FormationTranslator
+{
+public:
+	class WaitForSecondButtonDownStateHandler;
+};
+class FormationTranslator::WaitForSecondButtonDownStateHandler
 {
 	void *m_00;
 	void *m_04;
@@ -41,10 +47,10 @@ class Rva00431BDD
 	int m_14;
 	int m_18;
 public:
-	bool rva00431BDD(GameMessage *msg);
+	bool IsStartOfDrag(GameMessage *msg);
 };
 
-bool Rva00431BDD::rva00431BDD(GameMessage *msg)
+bool FormationTranslator::WaitForSecondButtonDownStateHandler::IsStartOfDrag(GameMessage *msg)
 {
 	int t = *(int *)((char *)msg + 0x10);
 	if (t == m_08)

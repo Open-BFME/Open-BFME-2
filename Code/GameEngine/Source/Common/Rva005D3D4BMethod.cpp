@@ -1,5 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?rva005D3D4B@Rva005D3D4B@@QAEXXZ retail 0x005D3D4B 76B
+// StrategicHUD::SelectionUIImpl::Hide retail 0x005D3D4B 76B (WorldBuilder name,
+// StrategicHUDSelectionUIImpl.cpp line 228: the same two helper calls, SetState
+// _hide and the +0x30/+0x32 resets)
 // Evidence: chain from just-landed 0x005D3AF2 plus rowed 0x005D3B9A portrait plus AptCall rowed 0x005FB5E6 with SetState _hide using level +0x04 outer +0x08 prefix from +8 else g_Rva0107301CEmptyString plus flags +0x30 +0x32; same level outer pattern as Rva005D39EACpState.cpp
 struct Rva005D2FD0Inner
 {
@@ -24,10 +26,14 @@ public:
 	void rva005D3B9A();
 };
 
-class Rva005D3D4B
+namespace StrategicHUD
+{
+class SelectionUIImpl;
+}
+class StrategicHUD::SelectionUIImpl
 {
 public:
-	void rva005D3D4B();
+	void Hide();
 private:
 	void *m_unused00;
 	int m_level04;
@@ -38,7 +44,7 @@ private:
 	unsigned char m_flag32;
 };
 
-void Rva005D3D4B::rva005D3D4B()
+void StrategicHUD::SelectionUIImpl::Hide()
 {
 	if (m_flag30 == 0)
 		return;

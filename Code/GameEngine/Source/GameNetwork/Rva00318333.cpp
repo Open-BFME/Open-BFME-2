@@ -6,8 +6,8 @@ class Object
 	friend class Rva00318333;
 public:
 	Player *getControllingPlayer() const;
-	void rva0028EB42(const class AsciiString &s);
-	bool rva0028EA91(const class AsciiString &s, int v);
+	void removeAttributeModifierFromPool(const class AsciiString &s);
+	bool addAttributeModifierToPool(const class AsciiString &s, int v);
 private:
 	class AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
 public:
@@ -122,9 +122,9 @@ void Rva00318333::rva00318333(Object *obj, bool flag)
 		return;
 	if (!m_20.isEmpty()) {
 		if (flag) {
-			obj->rva0028EB42((const AsciiString &)m_20);
+			obj->removeAttributeModifierFromPool((const AsciiString &)m_20);
 		} else {
-			obj->rva0028EA91((const AsciiString &)m_20, -1);
+			obj->addAttributeModifierToPool((const AsciiString &)m_20, -1);
 		}
 	}
 	if (!m_58.any())

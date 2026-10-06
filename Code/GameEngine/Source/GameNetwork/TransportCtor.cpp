@@ -22,7 +22,7 @@ class Transport
 {
 public:
 	Transport(void) throw();
-	void clearSlot_Rva004D5133(unsigned short index);
+	void RemoveSocketForSlot(unsigned short index);
 	void Rva004D5496(void);
 	void clearBuffer_Rva004D4A59(void);
 

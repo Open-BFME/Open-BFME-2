@@ -158,8 +158,19 @@ UpdateSleepTime FlammableUpdate::update( void )
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
+// BFME2 adds a Bool after Zero Hour's last member (target evidence: retail
+// 0x0048C50D and WB's calcSleepTime both test the byte at +0x40 first and
+// wake every frame when it is set). The shared ZH header does not carry it,
+// so this unit reads it by offset.
+static inline Bool flammableField40(const FlammableUpdate *update)
+{
+	return *((const Bool *)update + 0x40);
+}
+
 UpdateSleepTime FlammableUpdate::calcSleepTime()
 {
+	if (flammableField40(this))
+		return UPDATE_SLEEP_NONE;
 	UnsignedInt now = TheGameLogic->getFrame();
 	if (m_status == FS_AFLAME && m_aflameEndFrame != 0 && m_aflameEndFrame > now)
 	{

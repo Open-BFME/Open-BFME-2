@@ -1,12 +1,11 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
 // ?Rva0053B98CUpdate@@YAXPAVObject@@PAX@Z, retail 0x0053B98C, 193 bytes.
 // Chain from Object::rva0028FBBE: list fill over Info {cur,max,arr} with
-// global 8B entry array at g_00E05E20, Image via Rva0033B634Get, count via
+// global 8B entry array at g_00E05E20, Image via getButtonImage, count via
 // rva0028FBBE, Gadget image plus userdata helpers, first-item select.
 // Evidence: free __cdecl 2 args, rowed callees, offsets +4/+0x74, stride 8.
 
 class ThingTemplate;
-class Rva0028F2F8Host;
 class Image;
 class GameWindow
 {
@@ -36,7 +35,7 @@ public:
 	int rva0028FBBE();
 };
 
-const Image *__cdecl Rva0033B634Get(ThingTemplate *tmpl, Rva0028F2F8Host *host);
+const Image *__cdecl getButtonImage(ThingTemplate *tmpl, Object *obj);
 void __cdecl GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *win, const Image *img);
 void __cdecl Rva003284ED(GameWindow *win, int v);
 
@@ -46,7 +45,7 @@ void __cdecl Rva0053B98CUpdate(Object *obj, void *infoParam)
 	if (info->cur > info->max)
 		return;
 	ThingTemplate *tmpl = *(ThingTemplate **)((char *)obj + 4);
-	const Image *img = Rva0033B634Get(tmpl, (Rva0028F2F8Host *)obj);
+	const Image *img = getButtonImage(tmpl, obj);
 	int count = obj->rva0028FBBE();
 	int i = 0;
 	if (count <= 0)

@@ -100,13 +100,13 @@ public:
 	void rva0028AD00(int arg, float value, int arg2);
 	void rva0028AD22();
 	void rva0028AD32();
-	bool rva0028AD42(Coord3D *out) const;
-	float rva0028AD56() const;
-	int rva0028AD6C() const;
+	bool GetGoalPosition(Coord3D *out) const;
+	float GetGoalAngle() const;
+	int GetGoalLayer() const;
 	void rva0028AD7C();
 	void rva0028AD8C();
-	bool rva0028AD9C(Coord3D *out) const;
-	bool rva0028ADB0() const;
+	bool GetPathfinderPos(Coord3D *out) const;
+	bool IsAtGoalPosition() const;
 	void reloadAllAmmo(bool now);
 	bool rva0028ADE0() const;
 	int rva0028ADF7(int slot) const;
@@ -161,22 +161,21 @@ void Object::rva0028AD32()
 		m_sub->rva004DDD6E();
 }
 
-bool Object::rva0028AD42(Coord3D *out) const
+bool Object::GetGoalPosition(Coord3D *out) const
 {
 	if (!m_sub)
 		return false;
 	return m_sub->rva004DD80A(out);
 }
 
-float Object::rva0028AD56() const
+float Object::GetGoalAngle() const
 {
 	if (!m_sub)
 		return 0.0f;
 	return m_sub->rva004DD843();
 }
 
-// ?rva0028AD6C@Object@@QBEHXZ
-int Object::rva0028AD6C() const
+int Object::GetGoalLayer() const
 {
 	const Rva004DD843 *sub = m_sub;
 	if (sub == 0)
@@ -196,14 +195,14 @@ void Object::rva0028AD8C()
 		m_sub->rva004DDD92();
 }
 
-bool Object::rva0028AD9C(Coord3D *out) const
+bool Object::GetPathfinderPos(Coord3D *out) const
 {
 	if (!m_sub)
 		return false;
 	return m_sub->rva004DD84D(out);
 }
 
-bool Object::rva0028ADB0() const
+bool Object::IsAtGoalPosition() const
 {
 	if (!m_sub)
 		return false;

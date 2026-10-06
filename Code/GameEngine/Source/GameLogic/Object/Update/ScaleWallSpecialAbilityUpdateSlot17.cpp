@@ -1,9 +1,9 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva0045108D@ScaleWallSpecialAbilityUpdate@@UAEXXZ, retail 0x00494E26, 34 bytes.
+// ?triggerAbilityEffect@ScaleWallSpecialAbilityUpdate@@UAEXXZ, retail 0x00494E26, 34 bytes.
 // Slot 17 of the vftable 0x00C4EB40 whose slot-2 name getter returns
 // "ScaleWallSpecialAbilityUpdate". Runs the base SpecialAbilityUpdate slot 17
-// (pinned rva0045108D, whose address name it carries so cl 7.1 places it in
+// (pinned triggerAbilityEffect, whose address name it carries so cl 7.1 places it in
 // slot 17), then hands 1.0f to slot 15 of the special-power module the rowed
 // lookup 0x0044E633 finds for this ability (ZH's getMySPM shape: the owner's
 // module for module data +0x38). Method identity not established.
@@ -32,19 +32,19 @@ public:
 class SpecialAbilityUpdate : public Rva0044E633
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 };
 
 class ScaleWallSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 };
 
-// ?rva0045108D@ScaleWallSpecialAbilityUpdate@@UAEXXZ @0x00494E26
-void ScaleWallSpecialAbilityUpdate::rva0045108D()
+// ?triggerAbilityEffect@ScaleWallSpecialAbilityUpdate@@UAEXXZ @0x00494E26
+void ScaleWallSpecialAbilityUpdate::triggerAbilityEffect()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	SpecialPowerModuleInterface *spm = (SpecialPowerModuleInterface *)rva0044E633();
 	if (spm)
 		spm->rva15(1.0f);

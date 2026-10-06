@@ -11,7 +11,7 @@
 // +0x20 slot 2; true unless the state is 0 or 1.
 // ?rva004C5751@SiegeDeploySpecialPower@@UAE_NXZ, retail 0x004C5751, 14 bytes:
 // +0x24 slot 1; the negation of +0x20 slot 2, called virtually.
-// ?rva004C5E41@SiegeDeploySpecialPower@@UAEXXZ, retail 0x004C5E41, 33 bytes:
+// ?stopSpecialPower@SiegeDeploySpecialPower@@UAEXXZ, retail 0x004C5E41, 33 bytes:
 // +0x24 slot 17; states 0/1 call the setter with 0, states 2/3 set +0x70.
 
 class Object;
@@ -64,7 +64,7 @@ public:
 	virtual void gap14() = 0;
 	virtual void gap15() = 0;
 	virtual void gap16() = 0;
-	virtual void rva004C5E41() = 0;
+	virtual void stopSpecialPower() = 0;
 };
 
 class WeaponModeSpecialPowerUpdateBase : public UpdateModule, public Rva004C575FIface, public Rva004C5751Iface
@@ -91,7 +91,7 @@ class SiegeDeploySpecialPower : public WeaponModeSpecialPowerUpdateBase
 public:
 	virtual bool rva004C575F();
 	virtual bool rva004C5751();
-	virtual void rva004C5E41();
+	virtual void stopSpecialPower();
 	void rva004C5E62();
 private:
 	void rva004C5BE3(int state);
@@ -114,8 +114,8 @@ bool SiegeDeploySpecialPower::rva004C5751()
 	return !rva004C575F();
 }
 
-// ?rva004C5E41@SiegeDeploySpecialPower@@UAEXXZ @0x004C5E41
-void SiegeDeploySpecialPower::rva004C5E41()
+// ?stopSpecialPower@SiegeDeploySpecialPower@@UAEXXZ @0x004C5E41
+void SiegeDeploySpecialPower::stopSpecialPower()
 {
 	switch (m_38)
 	{

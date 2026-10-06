@@ -29,7 +29,7 @@ extern GameLogic *TheGameLogic;
 class Object : public Thing
 {
 public:
-	float rva000B4542(const Coord3D *pos) const;
+	float GetRelativeAngle(const Coord3D *pos) const;
 };
 class HordeContainIface11C
 {
@@ -156,6 +156,6 @@ void HordeContain::rva0046D738()
 		found = redir;
 	float add = *(float *)((char *)base + 0x44);
 	const Coord3D *pos = (const Coord3D *)((char *)found + 0x38);
-	float ang = base->rva000B4542(pos) + add;
+	float ang = base->GetRelativeAngle(pos) + add;
 	((Thing *)base)->setOrientation(ang);
 }

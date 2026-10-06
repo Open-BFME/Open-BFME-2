@@ -1,6 +1,8 @@
 // ?Rva0014BAB0Get@@YA?AV?$RefCountPtr@VRefCountClass@@@@PAVRefCountClass@@@Z
+// partial score=0.7439 date=2026-10-06
+// ?Rva0014BAB0Get@@YA?AV?$RefCountPtr@VRefCountClass@@@@PAVRefCountClass@@@Z
 // partial score=0.99 date=2026-10-03
-// cl: /O2 /G6 /DNDEBUG /MD /EHa
+// cl: /O2 /DNDEBUG /MD /EHa /G7
 // ?Rva0014BAB0Get@@YA?AV?$RefCountPtr@VRefCountClass@@@@PAVRefCountClass@@@Z 0x0014BAB0 104B free RefCountPtr return via tmp copy; after Replace_Texture 0x0014B800; caller 0x0014BDDF
 class RefCountClass {
 public:

@@ -1,27 +1,28 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva00579D96@Rva00579AB7@@QAEXM@Z @0x00579D96 98B slot 5 of 0x0086ED64.
+// StrategicHUD::StatsDisplayImpl::rva00579D96 @0x00579D96 (class named by
+// WorldBuilder's SetRowText 0x00579B17, called on the same this; WB keeps
+// these two setters beside it unnamed) 98B slot 5 of 0x0086ED64.
 // Float setter with change detection: if arg != m_38, fetch UnicodeString via
-// rowed Rva00579995Get 0x00579995, set indexed text via rowed rva00579B17
+// StrategicHUD::FormatResourceMultiplierText 0x00579995, set indexed text via rowed StatsDisplayImpl::SetRowText
 // 0x00579B17 with index 4, then store arg to m_38. Callees rowed, vtable slot
 // evidence, neighbours Rva00579AB7Dtor and Rva00579E47Delegate share /O1.
-// ?rva00579D3D@Rva00579AB7@@QAEXHH@Z @0x00579D3D 89B slot 3 of same vtable.
-// Int array setter at +0x2C with same Get/Set pattern via rowed Rva00579900Get
+// StrategicHUD::StatsDisplayImpl::rva00579D3D @0x00579D3D 89B slot 3 of same vtable.
+// Int array setter at +0x2C with same Get/Set pattern via StrategicHUD::FormatBonusText
 // 0x00579900 and index+1.
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-UnicodeString __cdecl Rva00579995Get(float value);
-UnicodeString __cdecl Rva00579900Get(int value);
+namespace StrategicHUD
+{
+	UnicodeString FormatResourceMultiplierText(float value);
+	UnicodeString FormatBonusText(int value);
+	class StatsDisplayImpl;
+}
 
-class Rva00579B17
+class StrategicHUD::StatsDisplayImpl
 {
 public:
-	void rva00579B17(int index, const UnicodeString &text);
-};
-
-class Rva00579AB7
-{
-public:
+	void SetRowText(int index, const UnicodeString &text);	// 0x00579B17
 	void rva00579D96(float value);
 	void rva00579D3D(int index, int value);
 
@@ -35,21 +36,21 @@ private:
 	float m_38;
 };
 
-void Rva00579AB7::rva00579D96(float value)
+void StrategicHUD::StatsDisplayImpl::rva00579D96(float value)
 {
 	if (value != m_38)
 	{
-		((Rva00579B17 *)this)->rva00579B17(4, Rva00579995Get(value));
+		SetRowText(4, StrategicHUD::FormatResourceMultiplierText(value));
 		m_38 = value;
 	}
 }
 
-void Rva00579AB7::rva00579D3D(int index, int value)
+void StrategicHUD::StatsDisplayImpl::rva00579D3D(int index, int value)
 {
 	int *slot = &m_2C[index];
 	if (value != *slot)
 	{
-		((Rva00579B17 *)this)->rva00579B17(index + 1, Rva00579900Get(value));
+		SetRowText(index + 1, StrategicHUD::FormatBonusText(value));
 		*slot = value;
 	}
 }

@@ -1,8 +1,8 @@
-// ?rva000550A0@Rva00699180Owner@@QAEXH@Z
+// ?rva000550A0@GlobalVolumeData@MilesAudioManager@@QAEXH@Z
 // partial score=0.90 date=2026-09-30
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /Oi /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
-// ?rva000550A0@Rva00699180Owner@@QAEXH@Z @0x000550A0 87B.
+// ?rva000550A0@GlobalVolumeData@MilesAudioManager@@QAEXH@Z @0x000550A0 87B.
 // Chain from 0x52098: drops entries matching key from all six channel
 // vectors then refreshes touched channels.
 
@@ -13,7 +13,13 @@ struct BfmePod8
 
 #include <vector>
 
-class Rva00699180Owner
+class MilesAudioManager
+{
+public:
+	class GlobalVolumeData;
+};
+
+class MilesAudioManager::GlobalVolumeData
 {
 public:
 	void rva00052098(int b);
@@ -30,7 +36,7 @@ public:
 	float m_slot[12][4];
 };
 
-void Rva00699180Owner::rva000550A0(int key)
+void MilesAudioManager::GlobalVolumeData::rva000550A0(int key)
 {
 	for (int idx = 0; idx < 6; ++idx)
 	{

@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva0036DF92@AIGroup@@QAEXXZ, retail 0x0036DF92, 223B.
+// ?cohereMoveSpeed@AIGroup@@QAEXXZ, retail 0x0036DF92, 223B.
 // AIGroup two-pass member walk: first finds the minimum positive worker
 // value, second spreads it to members without a victim. Evidence: caller at
 // 0x00372C05 calls AIGroup::isIdle then this then 0x003705C2 on the same this;
@@ -58,14 +58,14 @@ struct ListNode
 class AIGroup
 {
 public:
-	void rva0036DF92();
+	void cohereMoveSpeed();
 
 private:
 	char m_pad00[4];
 	ListNode *m_head;
 };
 
-void AIGroup::rva0036DF92()
+void AIGroup::cohereMoveSpeed()
 {
 	ListNode *head = m_head;
 	float best = g_00BBB9AC;

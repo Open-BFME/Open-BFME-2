@@ -196,7 +196,7 @@ public:
 	int rva00357B82(Parameter *playerParm);					// 0x00357B82
 	int rva00357475(const AsciiString &name, bool *found);			// 0x00357475
 	void rva00208968(const AsciiString &name, Object *obj);			// 0x00208968
-	void rva0020A5FF(Object *obj, const AsciiString &name);			// 0x0020A5FF
+	void addObjectToCache(Object *obj, const AsciiString &name);			// 0x0020A5FF
 };
 extern ScriptEngine *TheScriptEngine;
 
@@ -273,7 +273,7 @@ void ScriptActions::rva003C4625(const AsciiString &objectType, Parameter *teamPa
 	}
 	if (obj) {
 		TheScriptEngine->rva00208968(unitName, obj);
-		TheScriptEngine->rva0020A5FF(obj, unitName);
+		TheScriptEngine->addObjectToCache(obj, unitName);
 	}
 }
 
@@ -362,7 +362,7 @@ void ScriptActions::rva003C33C9(Parameter *typeParm, Parameter *playerParm, Para
 	}
 	if (obj) {
 		TheScriptEngine->rva00208968(nameParm->getString(), obj);
-		TheScriptEngine->rva0020A5FF(obj, nameParm->getString());
+		TheScriptEngine->addObjectToCache(obj, nameParm->getString());
 	}
 }
 

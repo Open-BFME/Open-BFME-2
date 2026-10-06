@@ -118,34 +118,36 @@ public:
  ~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
 };
 struct BfmeSortingVertex { float x,y,z,nx,ny,nz;unsigned diffuse;float u1,v1,u2,v2; };
-struct BfmeDynamicVBAccess {
+class DynamicVBAccessClass
+{
+public:
  const BfmeFVFDescriptor *format;
  unsigned type,formatIndex,declaration;
  unsigned short vertexCount,vertexOffset;
  BfmeDynamicVBBase *buffer;
- BfmeDynamicVBAccess(unsigned type,unsigned format_index,unsigned short vertex_count,unsigned declaration);
- void AllocateNative();
- void AllocateSorting();
+ DynamicVBAccessClass(unsigned type,unsigned format_index,unsigned short vertex_count,unsigned declaration);
+ void Allocate_DX8_Dynamic_Buffer();
+ void Allocate_Sorting_Dynamic_Buffer();
  static void _Reset(bool frame_changed);
  unsigned Get_Type() const { return type; }
  unsigned short Get_Vertex_Count() const { return vertexCount; }
  struct WriteLock {
-  BfmeDynamicVBAccess *owner;
+  DynamicVBAccessClass *owner;
   BfmeSortingVertex *data;
   BFMEDX8DeviceLock guard;
-  WriteLock(BfmeDynamicVBAccess *);
+  WriteLock(DynamicVBAccessClass *);
   ~WriteLock();
  };
 };
 // Type 2 draws from the per-format native pools; anything else shares the
 // single sorting buffer.  The vertex offset is left for the allocator to set.
-BfmeDynamicVBAccess::BfmeDynamicVBAccess(unsigned type,unsigned format_index,unsigned short vertex_count,unsigned declaration)
+DynamicVBAccessClass::DynamicVBAccessClass(unsigned type,unsigned format_index,unsigned short vertex_count,unsigned declaration)
  : format(&bfmeDynamicFVFDescriptors[format_index]),type(type),formatIndex(format_index),declaration(declaration),vertexCount(vertex_count),buffer(0)
 {
- if(type==2) AllocateNative();
- else AllocateSorting();
+ if(type==2) Allocate_DX8_Dynamic_Buffer();
+ else Allocate_Sorting_Dynamic_Buffer();
 }
-void BfmeDynamicVBAccess::AllocateNative()
+void DynamicVBAccessClass::Allocate_DX8_Dynamic_Buffer()
 {
  bfmeDynamicVBInUse[formatIndex]=true;
  if(vertexCount>bfmeDynamicVBSizes[formatIndex]) {
@@ -169,7 +171,7 @@ void BfmeDynamicVBAccess::AllocateNative()
  buffer=bfmeDynamicVBs[formatIndex];
  vertexOffset=bfmeDynamicVBOffsets[formatIndex];
 }
-void BfmeDynamicVBAccess::AllocateSorting()
+void DynamicVBAccessClass::Allocate_Sorting_Dynamic_Buffer()
 {
  bfmeSortingVBInUse=true;
  unsigned newCount=bfmeSortingVBOffset+vertexCount;
@@ -190,7 +192,7 @@ void BfmeDynamicVBAccess::AllocateSorting()
 // Zero Hour's DynamicVBAccessClass::_Reset with BFME's fifteen native pools:
 // the sorting offset always rewinds, the per-format offsets only on a new
 // frame -- one 30-byte clear, seven dword stores and a word.
-void BfmeDynamicVBAccess::_Reset(bool frame_changed)
+void DynamicVBAccessClass::_Reset(bool frame_changed)
 {
  bfmeSortingVBOffset=0;
  if(frame_changed) memset(bfmeDynamicVBOffsets,0,sizeof(bfmeDynamicVBOffsets));
@@ -415,7 +417,7 @@ BfmeDynamicNativeVB::~BfmeDynamicNativeVB()
  Get_DX8_Vertex_Buffer()->Release();
 }
 extern void DX8_Assert();
-BfmeDynamicVBAccess::WriteLock::WriteLock(BfmeDynamicVBAccess *access):owner(access),data(0)
+DynamicVBAccessClass::WriteLock::WriteLock(DynamicVBAccessClass *access):owner(access),data(0)
 {
  switch(owner->Get_Type()) {
  case 2: {
@@ -435,7 +437,7 @@ BfmeDynamicVBAccess::WriteLock::WriteLock(BfmeDynamicVBAccess *access):owner(acc
  default:break;
  }
 }
-BfmeDynamicVBAccess::WriteLock::~WriteLock()
+DynamicVBAccessClass::WriteLock::~WriteLock()
 {
  switch(owner->Get_Type()) {
  case 2: {
@@ -449,7 +451,7 @@ BfmeDynamicVBAccess::WriteLock::~WriteLock()
  }
 }
 
-typedef char BfmeDynamicWriteLockSize[(sizeof(BfmeDynamicVBAccess::WriteLock)==12)?1:-1];
+typedef char BfmeDynamicWriteLockSize[(sizeof(DynamicVBAccessClass::WriteLock)==12)?1:-1];
 typedef char BfmeSortingVertexSize[(sizeof(BfmeSortingVertex)==44)?1:-1];
 
 // Zero Hour's VertexBufferClass lock helpers, layout-identical to the matched
@@ -820,9 +822,9 @@ void WW3D::_Invalidate_Mesh_Cache()
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??0BfmeSortingVBAccess@@QAE@IIGI@Z=??0BfmeDynamicVBAccess@@QAE@IIGI@Z")
-#pragma comment(linker, "/alternatename:??0WriteLock@BfmeSortingVBAccess@@QAE@PAU1@@Z=??0WriteLock@BfmeDynamicVBAccess@@QAE@PAU1@@Z")
-#pragma comment(linker, "/alternatename:??1WriteLock@BfmeSortingVBAccess@@QAE@XZ=??1WriteLock@BfmeDynamicVBAccess@@QAE@XZ")
+#pragma comment(linker, "/alternatename:??0BfmeSortingVBAccess@@QAE@IIGI@Z=??0DynamicVBAccessClass@@QAE@IIGI@Z")
+#pragma comment(linker, "/alternatename:??0WriteLock@BfmeSortingVBAccess@@QAE@PAU1@@Z=??0WriteLock@DynamicVBAccessClass@@QAE@PAV1@@Z")
+#pragma comment(linker, "/alternatename:??1WriteLock@BfmeSortingVBAccess@@QAE@XZ=??1WriteLock@DynamicVBAccessClass@@QAE@XZ")
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.

@@ -1,6 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
-// ?rva00363B24@Path@@QAEXH@Z @0x00363B24 (17B).
+// ?SetLastNodePortal@Path@@QAEXH@Z @0x00363B24 (17B).
 // Leaf Path tail waypoint setter via tail +0x8 and waypoint +0x20.
 // Evidence: Path layout from PathCtor 0x00363DC8 and PathRva00363DF9
 // (tail +8 waypoint +20); callers need tail waypoint set; /O1 int-only.
@@ -27,7 +27,7 @@ public:
 class Path
 {
 public:
-	void rva00363B24(int id);
+	void SetLastNodePortal(int id);
 
 private:
 	void *m_unknown00;
@@ -43,7 +43,7 @@ private:
 	int m_unknown24;
 };
 
-void Path::rva00363B24(int id)
+void Path::SetLastNodePortal(int id)
 {
 	PathNode *tail = m_pathTail;
 	if (tail == 0) {

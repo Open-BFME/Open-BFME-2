@@ -1,5 +1,5 @@
 // cl: /Oy- /DNDEBUG /MD /GX
-// ?rva0056C7F1@Rva0056C7F1@@QAEXPAUFloatPair@@00@Z @0x0056C7F1 170B: thiscall
+// ?ComputeIconSizes@Impl@InGameCommandButtonHelp@@QAEXPAUFloatPair@@00@Z @0x0056C7F1 170B: thiscall
 // with 3 stack args (ret 0xC). Scales this+0x30/+0x34 int pairs (+0x24/+0x28)
 // by the float pair from the TheRva00222A8BTarget virtual at +0x3C into a and
 // b (zero when the source is null), then stores the componentwise max into
@@ -43,15 +43,21 @@ public:
 	virtual ScalePair *v15();
 };
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-class Rva0056C7F1
+class InGameCommandButtonHelp
 {
 public:
-	void rva0056C7F1(FloatPair *a, FloatPair *b, FloatPair *out);
+	class Impl;
+};
+
+class InGameCommandButtonHelp::Impl
+{
+public:
+	void ComputeIconSizes(FloatPair *a, FloatPair *b, FloatPair *out);
 	char m_pad[0x30];
 	IntPair *m_30;
 	IntPair *m_34;
 };
-void Rva0056C7F1::rva0056C7F1(FloatPair *a, FloatPair *b, FloatPair *out)
+void InGameCommandButtonHelp::Impl::ComputeIconSizes(FloatPair *a, FloatPair *b, FloatPair *out)
 {
 	ScalePair *scale = TheRva00222A8BTarget->v15();
 	if (m_30 != 0) {

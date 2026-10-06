@@ -1,4 +1,6 @@
 // ?rva00218468@FontLibrary@@QAEXPAVAsciiString@@PAMPAE@Z
+// partial score=0.8182 date=2026-10-05
+// ?rva00218468@FontLibrary@@QAEXPAVAsciiString@@PAMPAE@Z
 // partial score=0.92 date=2026-10-01
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport

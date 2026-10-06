@@ -4,7 +4,7 @@
 // ??0Rva002C60E4@@QAE@PAX_N@Z @0x002C60E4 203B
 // Evidence: unlock lane prev Rva002C5FE8Search next DispDword setter caller
 // 0x002C6EE0 callees Rva00506B1B ctor plus Vector_base BfmeE16 plus operator
-// new plus Rva0050542B/Rva00506909/Rva00506A34 ctors vtable g_00C004E4
+// new plus AITargetChooser/AITacticsGenerator/Rva00506A34 ctors vtable g_00C004E4
 // offsets 0x08/0x0c/0x10/0x14/0x18/0x1c/0x20 ret 8 two args voidptr plus bool.
 // Identity: honest-address thiscall ctor with two args.
 #include <vector>
@@ -20,17 +20,17 @@ public:
 	bool m_04;
 };
 
-class Rva0050542B
+class AITargetChooser
 {
 public:
-	Rva0050542B(void *p);
+	AITargetChooser(void *p);
 	char m_pad[0x20];
 };
 
-class Rva00506909
+class AITacticsGenerator
 {
 public:
-	Rva00506909(void *p);
+	AITacticsGenerator(void *p);
 	char m_pad[0x64];
 };
 
@@ -49,8 +49,8 @@ public:
 
 private:
 	void *m_08;
-	Rva0050542B *m_0C;
-	Rva00506909 *m_10;
+	AITargetChooser *m_0C;
+	AITacticsGenerator *m_10;
 	int m_14;
 	int m_18;
 	Rva00506A34 *m_1C;
@@ -61,7 +61,7 @@ Rva002C60E4::Rva002C60E4(void *arg0, bool arg1)
 	: m_08(arg0), m_0C(0), m_14(0), m_18(0), m_1C(0)
 {
 	if (arg1)
-		m_0C = new Rva0050542B(arg0);
-	m_10 = new Rva00506909(arg0);
+		m_0C = new AITargetChooser(arg0);
+	m_10 = new AITacticsGenerator(arg0);
 	m_1C = new Rva00506A34(arg0);
 }

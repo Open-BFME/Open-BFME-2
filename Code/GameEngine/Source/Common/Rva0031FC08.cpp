@@ -1,5 +1,5 @@
 // cl: /EHsc /MD
-// ?rva0031FC08@Rva0031FC08@@QAEPAUEntry@@V?$StringBase@D@@@Z @0x0031FC08 98B unlock: case-insensitive find by lowered name over list at +0xC
+// ?findControlBarScheme@ControlBarSchemeManager@@QAEPAUEntry@@V?$StringBase@D@@@Z @0x0031FC08 98B unlock: case-insensitive find by lowered name over list at +0xC
 // Evidence: EH_prolog with stack StringBase<char> lowered via rowed toLower 0x36A70 then walked against rowed compareNoCase 0x6A00; callers at 0x31FC8E 0x31FE1A 0x31FFFD 0x320562; prev Rva0031FA40Create /O1 /EHsc /MD next ControlBarList.
 template <typename T> struct BfmeStringData
 {
@@ -40,16 +40,16 @@ struct Node
 	Entry *m_data;
 };
 
-class Rva0031FC08
+class ControlBarSchemeManager
 {
 public:
-	Entry *rva0031FC08(StringBase<char> name);
+	Entry *findControlBarScheme(StringBase<char> name);
 private:
 	char m_pad[0xC];
 	Node *m_list;
 };
 
-Entry *Rva0031FC08::rva0031FC08(StringBase<char> name)
+Entry *ControlBarSchemeManager::findControlBarScheme(StringBase<char> name)
 {
 	name.toLower();
 	Node *cur = m_list->m_next;

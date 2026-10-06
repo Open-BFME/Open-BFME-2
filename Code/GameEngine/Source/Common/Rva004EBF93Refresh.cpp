@@ -6,10 +6,10 @@
 // +0x10 world block's flag bytes in retail order
 // 848/849/84E/84A/84B/84C/84F. Member extents past each call site are
 // spacing pads; only the call targets and flag offsets are proven.
-class Rva00506B74
+class AIBaseBuilder
 {
 public:
-	void rva00507522();
+	void postInit();
 };
 
 class Rva005975F7
@@ -64,7 +64,7 @@ public:
 	void rva004EBF93();
 private:
 	char m_pad00[4];
-	Rva00506B74 m_04;
+	AIBaseBuilder m_04;
 	char m_pad05[0x08 - 0x05];
 	unsigned char m_8;
 	char m_pad09[0x38 - 0x09];
@@ -91,7 +91,7 @@ private:
 
 void Rva004EBF93::rva004EBF93()
 {
-	m_04.rva00507522();
+	m_04.postInit();
 	m_B4.rva005975F7();
 	m_E4.rva004E9F6E();
 	m_FC.rva00598F24();

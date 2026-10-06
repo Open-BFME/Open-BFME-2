@@ -1,5 +1,5 @@
 // cl: /EHsc
-// ?rva002DCB9C@GameState@@QBE?AVAsciiString@@ABV2@@Z, retail 0x002DCB9C, 351 bytes.
+// ?packPortableMapPath@GameState@@QBE?AVAsciiString@@ABV2@@Z, retail 0x002DCB9C, 351 bytes.
 // Retyped 2026-10-01 from the stdcall free function ?Rva002DCB9C@@YG?AVAsciiString@@ABV1@@Z:
 // its caller 0x004007B4 (Rva00400783PortableMapPath.cpp) loads TheGameState
 // into ecx before the call, so it is a GameState method that never touches
@@ -59,10 +59,10 @@ extern "C" unsigned int strlen(const char *s);
 class GameState
 {
 public:
-	AsciiString rva002DCB9C(const AsciiString &in) const;
+	AsciiString packPortableMapPath(const AsciiString &in) const;
 };
 
-AsciiString GameState::rva002DCB9C(const AsciiString &in) const
+AsciiString GameState::packPortableMapPath(const AsciiString &in) const
 {
 	AsciiString out;
 	if (((const StringBase<char> &)in).startsWithNoCase(g_00DBD054)) {

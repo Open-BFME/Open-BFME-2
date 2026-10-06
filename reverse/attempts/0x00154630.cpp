@@ -1,14 +1,17 @@
 // ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
+// partial score=0.9458 date=2026-10-06
+// ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
 // partial score=0.9269 date=2026-10-05
 // ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
 // partial score=0.9 date=2026-09-21
 // ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
 // cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/shims/sweep
 // stlport
+#include <math.h>
 #include <string.h>
 #include "windows.h"
 
-extern "C" __declspec(dllimport) double __cdecl floor(double);
+// (CRT prototype from the standard header)
 
 // Cached screen-DC provider: retail reads the HDC from +0x10 of the structure
 // at 0x00DF6F24 (no GetDC/ReleaseDC pair, unlike the ZH DIBSection path).

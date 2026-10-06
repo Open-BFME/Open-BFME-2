@@ -536,7 +536,7 @@ public:
 	void rva0026C411(Object *obj, const Coord3D *pos, CommandSourceType commandSource);
 	// Matched 0x0026C26D: the position order joinTeam gives where Zero Hour
 	// calls aiMoveToPosition(pos, CMD_FROM_AI).
-	void rva0026C26D(const Coord3D *pos, Int commandSource);
+	void aiMoveToPosition(const Coord3D *pos, Int commandSource);
 };
 
 // The 24-byte team-member iterator (Common/RTS/TeamIterateTeamMemberList.cpp
@@ -764,7 +764,7 @@ class Path;
 class Pathfinder
 {
 public:
-	Bool rva002EE7EE(const Coord3D *pos, Object *obj, Coord3D *result);
+	Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *result);
 	// Zero Hour's getMoveAwayFromPath (0x002F9DBA) and moveAllies
 	// (0x002F3C09, which BFME2 hands a third, Bool argument): the calls
 	// privateMoveAwayFromUnit makes at Zero Hour's points. Names donor-carried.
@@ -774,7 +774,7 @@ public:
 	// taking the owner, then one taking the owner and a destination and
 	// returning the new path. Unnamed.
 	void rva002EF2A6(Object *obj);
-	Path *rva002F6075(Object *obj, const Coord3D *destination);
+	Path *GetHordeUnitPath(Object *obj, const Coord3D *destination);
 	// Asked by AIUpdate slot 141 (0x00263404) whether a point down the path
 	// will do for the owner; unnamed.
 	Bool rva002ECC0D(Object *obj, const Coord3D *pos);
@@ -809,7 +809,7 @@ public:
 	// AIUpdate slot 134 appends nodes with these (matched 0x002655E3 and
 	// 0x00363B24); unnamed.
 	void rva002655E3(const Coord3D *pos, PathfindLayerEnum layer, Int value);
-	void rva00363B24(Int value);
+	void SetLastNodePortal(Int value);
 	// The point `dist` along the path, and what slot 141 hands back to it.
 	// Unnamed.
 	Rva003642DFResult rva003642DF(float dist);
@@ -1054,7 +1054,7 @@ public:
 class AIUpdateSlot133 : public BfmeVirtualSlots<133>
 {
 public:
-	virtual void rva00262C53(const Coord3D &pos) = 0;
+	virtual void setLocomotorGoalPositionExplicitSmart(const Coord3D &pos) = 0;
 };
 
 // privateIdle dispatches privateGuardPosition through the owner's vtable at
@@ -1112,7 +1112,7 @@ protected:
 	virtual void bfmePrivateCommand3C(Object *obj, CommandSourceType commandSource);
 	virtual void privateFollowWaypointPath(const Waypoint *way, CommandSourceType commandSource);
 	virtual void privateAttackFollowWaypointPath(const Waypoint *way, Int maxShotsToFire, Bool asTeam, CommandSourceType commandSource);
-	virtual void bfmePrivateCommand51(const Coord3D *position, float range, Int maxShotsToFire, CommandSourceType commandSource);
+	virtual void privateAttackMoveToPositionAndOrientation(const Coord3D *position, float range, Int maxShotsToFire, CommandSourceType commandSource);
 	virtual void privateAttackTeam(const Team *team, Int maxShotsToFire, CommandSourceType commandSource);
 	virtual void privateCommandButton(const CommandButton *commandButton, CommandSourceType commandSource);
 	virtual void privateCommandButtonPosition(const CommandButton *commandButton, const Coord3D *pos, CommandSourceType commandSource);
@@ -1120,9 +1120,9 @@ protected:
 	virtual void bfmePrivateCommand24(const Rva0035149F *path, Object *ignoreObject, float value, CommandSourceType commandSource);
 	virtual void bfmePrivateCommand25(const Rva0035149F *path, Object *ignoreObject, float value, CommandSourceType commandSource);
 	virtual void privateFollowPath(const Rva0035149F *path, Object *ignoreObject, CommandSourceType commandSource, Bool exitProduction);
-	virtual void bfmePrivateCommand52(const Coord3D *position, Int value, CommandSourceType commandSource);
+	virtual void privateMoveToPositionAmphibious(const Coord3D *position, Int value, CommandSourceType commandSource);
 	virtual void bfmePrivateCommand31(Int value, CommandSourceType commandSource);
-	virtual void bfmePrivateCommand47(const Coord3D *position, CommandSourceType commandSource);
+	virtual void privateMoveToPositionSA(const Coord3D *position, CommandSourceType commandSource);
 	virtual void bfmePrivateCommand48(Object *obj, CommandSourceType commandSource);
 	virtual void bfmePrivateCommand39(Object *victim, CommandSourceType commandSource);
 	virtual void privateAttackMoveToPosition(const Coord3D *position, Int maxShotsToFire, CommandSourceType commandSource);
@@ -1171,9 +1171,9 @@ public:
 	void chooseGoodLocomotorFromCurrentSet();		// pinned 0x00263FA7 (ZH name)
 	UnsignedInt getMoodMatrixValue() const;			// pinned 0x00264F5E (ZH name)
 	virtual Int rva0026E999();
-	virtual void rva0026412B(const Coord3D *destination);
+	virtual void micropathToPosition(const Coord3D *destination);
 	virtual void rva00263404(Rva00263404Source *source);
-	virtual void rva00267266(const Coord3D &pos, Int value);
+	virtual void appendPositionToLocomotorPath(const Coord3D &pos, Int value);
 protected:
 	virtual void loadPostProcess();
 public:
@@ -1196,7 +1196,7 @@ protected:
 	// 0x0026B37F posts voice message 0x7E8 for a position, the voice the
 	// attack-move orders (privateAttackFollowWaypointPath, command 0x49)
 	// answer with; its name is not evidenced.
-	void rva0026B37F(const Coord3D *position);
+	void playVoiceEnterStateAttackMove(const Coord3D *position);
 	void playAttackVoiceResponse(Object *victim);
 	void playAttackVoiceResponse(const Coord3D *position);
 
@@ -1729,7 +1729,7 @@ void AIUpdateInterface::bfmePrivateCommand3C(Object *obj, CommandSourceType comm
 
 // Command 0x47, slot 16, retail 0x00267CFA: a position order into state 0x3F
 // with no voice, refused while bit 8 of the owner's +0x370 flag word is set.
-void AIUpdateInterface::bfmePrivateCommand47(const Coord3D *position, CommandSourceType commandSource)
+void AIUpdateInterface::privateMoveToPositionSA(const Coord3D *position, CommandSourceType commandSource)
 {
 	if (!m_object->isMobile())
 		return;
@@ -1878,14 +1878,14 @@ void AIUpdateInterface::privateAttackFollowWaypointPath(const Waypoint *way, Int
 	}
 
 	if (commandSource == CMD_FROM_PLAYER || commandSource == CMD_FROM_SCRIPT)
-		rva0026B37F(way->getLocation());
+		playVoiceEnterStateAttackMove(way->getLocation());
 }
 
 // Command 0x51, slot 14, retail 0x0026C04E: the attack-move order to a
 // position with an explicit goal range (state 0x21, the current weapon armed
 // with the order's shot limit, voice 0x7E8), refused while the AI is dead,
 // the owner cannot move, or bit 8 of its +0x370 flag word is set.
-void AIUpdateInterface::bfmePrivateCommand51(const Coord3D *position, float range, Int maxShotsToFire, CommandSourceType commandSource)
+void AIUpdateInterface::privateAttackMoveToPositionAndOrientation(const Coord3D *position, float range, Int maxShotsToFire, CommandSourceType commandSource)
 {
 	if (m_isAiDead)
 		return;
@@ -1907,7 +1907,7 @@ void AIUpdateInterface::bfmePrivateCommand51(const Coord3D *position, float rang
 	}
 
 	if (commandSource == CMD_FROM_PLAYER || commandSource == CMD_FROM_SCRIPT)
-		rva0026B37F(position);
+		playVoiceEnterStateAttackMove(position);
 }
 
 // Command 0x0D, slot 39, retail 0x0026BFD9 (AICommandParms::m_team at +0x1C):
@@ -2169,12 +2169,12 @@ void AIUpdateInterface::privateMoveToPosition(const Coord3D *position, float ran
 // owner where it stands (0x002EE7EE) and the order is within 100 of it, the
 // owner's own position is the goal. State 0x4D with a value, 0x40 without,
 // and the move voice for player and script orders.
-void AIUpdateInterface::bfmePrivateCommand52(const Coord3D *position, Int value, CommandSourceType commandSource)
+void AIUpdateInterface::privateMoveToPositionAmphibious(const Coord3D *position, Int value, CommandSourceType commandSource)
 {
 	Object *obj = getObject();
 	const Coord3D *objPos = obj->getPosition();
 	Coord3D adjusted;
-	if (TheAI->pathfinder()->rva002EE7EE(objPos, obj, &adjusted))
+	if (TheAI->pathfinder()->getClosestPointOnLand(objPos, obj, &adjusted))
 	{
 		Coord3D diff;
 		diff.set(position);
@@ -2703,7 +2703,7 @@ void AIUpdateInterface::joinTeam()
 		AIUpdateInterface *ai = other->getAI();
 		if (reinterpret_cast<AIUpdateSlot110 *>(ai)->isIdle())
 		{
-			reinterpret_cast<AICommandInterface *>(reinterpret_cast<char *>(this) + 0x20)->rva0026C26D(other->getPosition(), CMD_FROM_AI);
+			reinterpret_cast<AICommandInterface *>(reinterpret_cast<char *>(this) + 0x20)->aiMoveToPosition(other->getPosition(), CMD_FROM_AI);
 			return;
 		}
 		if (ai->getGoalObject())
@@ -2722,12 +2722,12 @@ void AIUpdateInterface::joinTeam()
 // to `destination`; when one comes back it sets locomotor goal type 4 with
 // the destination. Goal type 4 is beyond Zero Hour's LocoGoalType (whose
 // largest is 3); the identity of this slot is not evidenced.
-void AIUpdateInterface::rva0026412B(const Coord3D *destination)
+void AIUpdateInterface::micropathToPosition(const Coord3D *destination)
 {
 	Object *obj = getObject();
 	TheAI->pathfinder()->rva002EF2A6(obj);
 	destroyPath();
-	m_path = TheAI->pathfinder()->rva002F6075(obj, destination);
+	m_path = TheAI->pathfinder()->GetHordeUnitPath(obj, destination);
 	if (m_path)
 	{
 		m_locomotorGoalType = 4;
@@ -2817,9 +2817,9 @@ Object *AIUpdateInterface::construct(const ThingTemplate *what, const Coord3D *p
 // point to slot 133, starts a path at the owner when there is none (flagging
 // it at +0x0C), then gives the path `value` and appends the point on the
 // terrain's layer for it with `value`. Identity not evidenced.
-void AIUpdateInterface::rva00267266(const Coord3D &pos, Int value)
+void AIUpdateInterface::appendPositionToLocomotorPath(const Coord3D &pos, Int value)
 {
-	reinterpret_cast<AIUpdateSlot133 *>(this)->rva00262C53(pos);
+	reinterpret_cast<AIUpdateSlot133 *>(this)->setLocomotorGoalPositionExplicitSmart(pos);
 	if (!m_path)
 	{
 		m_path = new Path;
@@ -2827,6 +2827,6 @@ void AIUpdateInterface::rva00267266(const Coord3D &pos, Int value)
 		m_path->rva002655E3(obj->getPosition(), (PathfindLayerEnum)obj->rva0028B511(), 0x7fffffff);
 		m_path->m_bfmeFlag0C = true;
 	}
-	m_path->rva00363B24(value);
+	m_path->SetLastNodePortal(value);
 	m_path->rva002655E3(&pos, TheTerrainLogic->getLayerForDestination(getObject(), &pos), value);
 }

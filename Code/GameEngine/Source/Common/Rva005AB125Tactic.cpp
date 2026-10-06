@@ -3,8 +3,8 @@
 // The "AIStartWoTRBattleTactic" skirmish-AI tactic (vtable 0x00872224; ctor
 // 0x005AB1B4 in Rva004ECECDTacticCtors.cpp, dtor 0x005AB125 and ??_G, slot 9
 // in Rva004ECECDTacticCreate.cpp). Base chain, all address-derived:
-// Rva005DCC24 (ctor 0x005DCC0A) over Rva005DC73C over the AITactic.cpp
-// object Rva004ECECD.
+// Rva005DCC24 (ctor 0x005DCC0A) over AITacticOffensive over the AITactic.cpp
+// object AITactic.
 //
 // It runs once per AI owner: the owner's TheSkirmishAIManager record keeps
 // this unit's global key (0x00E0640C, built by 0x007B4513 and released by
@@ -204,41 +204,41 @@ public:
 };
 extern Rva002A8F24 *g_00DFEEF8;
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual void v3();
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual void initializeTeamTemplate();
 	virtual void v4();
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
+	virtual void update();
 	virtual void v8();
-	virtual Rva004ECECD *create();
-	void rva004ED748(int a, int b);
+	virtual AITactic *create();
+	void end(int a, int b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 	char m_pad04[0x24 - 4];
 	Player *m_owner;		// +0x24
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005AB125 : public Rva005DC73C
+class AIStartWoTRBattleTactic : public AITacticOffensive
 {
 public:
-	virtual ~Rva005AB125();
-	virtual bool appliesTo(void *request);
+	virtual ~AIStartWoTRBattleTactic();
+	virtual bool canRun(void *request);
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
+	virtual void run();
 };
 
-bool Rva005AB125::appliesTo(void *)
+bool AIStartWoTRBattleTactic::canRun(void *)
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	return !record->rva002C7196(StartWoTRBattleTacticHasRun)
@@ -246,14 +246,14 @@ bool Rva005AB125::appliesTo(void *)
 		&& TheGameLogic->m_40 > 5;
 }
 
-void Rva005AB125::xfer(Xfer *xfer)
+void AIStartWoTRBattleTactic::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	Rva004ECECD::xfer(xfer);
+	AITactic::xfer(xfer);
 }
 
-void Rva005AB125::v6()
+void AIStartWoTRBattleTactic::run()
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	if (!record->rva002C7196(StartWoTRBattleTacticHasRun)) {
@@ -261,14 +261,14 @@ void Rva005AB125::v6()
 		Rva005AB125IDs *ids = (Rva005AB125IDs *)(*(Rva005C4AD1LeaField **)g_00DFEEF8->rva002A8F24(m_owner))->get();
 		Coord3D base;
 		((Rva004EBF4B *)record)->rva004EBF4B(&base);
-		ObjectID *end = ids->m_end;
-		for (ObjectID *it = ids->m_begin; it != end; ++it) {
+		ObjectID *last = ids->m_end;
+		for (ObjectID *it = ids->m_begin; it != last; ++it) {
 			Object *obj = TheGameLogic->findObjectByID(*it);
 			if (obj && !(obj->m_438 & 1) && obj->isAnyKindOf(Rva0006EE7A(0, 3, 0x5A)))
 				obj->m_ai->m_commands.Rva00295A0FCommand(&base, 0x7FFFFFFF, 0);
 		}
-		rva004ED748(1, 0);
+		end(1, 0);
 	} else {
-		rva004ED748(0, 0);
+		end(0, 0);
 	}
 }

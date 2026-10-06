@@ -16,6 +16,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
+// No defined global owns VA 0x00DD2DB4. data_xrefs has no row because this
+// matched function has no Ghidra boundary; retail stores AX there, and the
+// adjacent reader/incrementer confirms a 16-bit command ID. Retail bytes: 64 00.
+unsigned short g_00DD2DB4 = 100;
+
 // present-unmatched: BFME-only helper, no Zero Hour counterpart.
 //
 // Retail: 0x00581194, 20 bytes. mov eax,[esp+4]; add eax,0Ah; imul eax,eax,3E8h;
@@ -37,6 +42,5 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // seeding store here is its only other xref.
 void SeedNextCommandIDFromPlayerCount(Int numPlayers)
 {
-	*reinterpret_cast<unsigned short *>(0x00DD2DB4) =
-			static_cast<unsigned short>((numPlayers + 10) * 1000);
+	g_00DD2DB4 = static_cast<unsigned short>((numPlayers + 10) * 1000);
 }

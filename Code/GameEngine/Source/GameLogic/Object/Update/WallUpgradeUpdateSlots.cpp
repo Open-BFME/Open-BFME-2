@@ -117,7 +117,7 @@ public:
 	virtual void rva004AB3EB(int a1, int previous, int current);
 	virtual bool rva004AB3AE();
 	virtual UpdateSleepTime update();
-	void rva004AB415();
+	void scanForBuildingAndPossess();
 	bool rva004AB4AB() const;
 private:
 	int m_28;
@@ -150,7 +150,7 @@ UpdateSleepTime WallUpgradeUpdate::update()
 	if (m_30)
 	{
 		m_30 = false;
-		rva004AB415();
+		scanForBuildingAndPossess();
 	}
 	if (m_2C > 0)
 	{

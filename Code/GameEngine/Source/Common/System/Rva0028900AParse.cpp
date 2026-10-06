@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?Rva0028900AParse@@YAHPAXABVAsciiString@@@Z retail 0x0028900A 199 bytes v6.
+// ?SplitUpgrades@@YAHPAXABVAsciiString@@@Z retail 0x0028900A 199 bytes v6.
 // Parses upgrade list AsciiString via alloca+strtok, clears vector via rowed
 // void* erase, finds each token via TheUpgradeCenter, pushes hits via rowed
 // ModuleData push_back, returns count. Evidence: callers 0x0028A551 0x0028A5BC;
@@ -34,7 +34,7 @@ extern const char g_00BBE7A4[];
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 extern "C" __declspec(dllimport) char *__cdecl strtok(char *str, const char *delim);
 
-int Rva0028900AParse(void *vecPtr, const AsciiString &list)
+int SplitUpgrades(void *vecPtr, const AsciiString &list)
 {
 	typedef _STL::vector<void *, _STL::allocator<void *> > VoidVec;
 	typedef _STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > ModVec;

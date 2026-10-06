@@ -1,4 +1,6 @@
 // ?rva0027D483@Rva0027D483@@QAEXPAX0@Z
+// partial score=0.8281 date=2026-10-05
+// ?rva0027D483@Rva0027D483@@QAEXPAX0@Z
 // partial score=0.9 date=2026-10-02
 // cl: /O1 /MD /arch:SSE /G7
 // ?rva0027D483@Rva0027D483@@QAEXPAX0@Z, retail 0x0027D483, 298 bytes.

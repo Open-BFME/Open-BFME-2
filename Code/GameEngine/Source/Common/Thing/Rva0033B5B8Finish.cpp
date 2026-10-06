@@ -28,7 +28,7 @@ enum ModuleType
 class ModuleFactory
 {
 public:
-	void rva002567B9(const AsciiString &name, int a, ModuleType type, int b, int c);
+	void GetAssetList(const AsciiString &name, int a, ModuleType type, int b, int c);
 };
 extern ModuleFactory *TheModuleFactory;
 class ModuleInfo
@@ -44,6 +44,6 @@ void Rva0033B5B8Build(ModuleInfo *info, ModuleType type, int c, int b)
 {
 	for (int i = 0; i < (info->m_end - info->m_begin) / 0x14; ++i)
 	{
-		TheModuleFactory->rva002567B9((const AsciiString &)info->getNthName(i), (int)info->getNthData(i), type, b, c);
+		TheModuleFactory->GetAssetList((const AsciiString &)info->getNthName(i), (int)info->getNthData(i), type, b, c);
 	}
 }

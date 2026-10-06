@@ -38,7 +38,7 @@ class ThingTemplate
 public:
 	void resolveNames();
 	const Image *rva0033BA46();
-	const Image *rva0033B580();
+	const Image *getButtonImage();
 	bool isKindOf(int mask) const { return (m_kindofByte & mask) != 0; }
 
 	static const int KINDOF_COMMANDCENTER = 2;
@@ -75,5 +75,5 @@ void ThingTemplate::resolveNames()
 	}
 
 	rva0033BA46();
-	rva0033B580();
+	getButtonImage();
 }

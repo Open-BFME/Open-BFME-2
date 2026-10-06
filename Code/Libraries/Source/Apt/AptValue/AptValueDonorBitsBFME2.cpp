@@ -33,4 +33,4 @@ void AptValue::setGCMark(bool value) { flags.gcMark=value?1:0; }
 // Original MAP private signature and source230e7c503b5dbf7e name mbDestroyedGC;
 // target independent OR8 confirms bit3 in the established flags+4 prefix.
 void AptValue::SetDestroyedGC() { flags.destroyedGC=1; }
-#pragma comment(linker, "/alternatename:?rva006dbd80@Rva006E0460@@QAEXXZ=?SetDestroyedGC@AptValue@@AAEXXZ")
+#pragma comment(linker, "/alternatename:?rva006dbd80@AptCIH@@QAEXXZ=?SetDestroyedGC@AptValue@@AAEXXZ")

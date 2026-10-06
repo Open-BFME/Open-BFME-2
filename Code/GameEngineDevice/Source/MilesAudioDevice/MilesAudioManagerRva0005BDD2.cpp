@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva0005BDD2@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z @0x0005BDD2 135B PROBE
+// ?isPlayingLowerPriority@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z @0x0005BDD2 135B PROBE
 // MilesAudioManager positional check with volume less loop.
 // Evidence: unlock lane caller 0x0005D54F pin 0x00059AD0 row isPositionalAudio.
 struct AudioEventInfo
@@ -59,14 +59,14 @@ class MilesAudioManager
 public:
 	float rva00059AD0(void *event, int a);
 	float rva0005A9F8(void *ref, int a, int b);
-	bool rva0005BDD2(AudioEventRTS *event);
+	bool isPlayingLowerPriority(AudioEventRTS *event);
 private:
 	char m_pad00[0xa40];
 	Rva0005BDD2ListHead *m_a40;
 	Rva0005BDD2ListHead *m_a44;
 };
 
-bool MilesAudioManager::rva0005BDD2(AudioEventRTS *event)
+bool MilesAudioManager::isPlayingLowerPriority(AudioEventRTS *event)
 {
 	Rva000515E4Key key1;
 	key1.a = event->m_eventInfo->m_44;

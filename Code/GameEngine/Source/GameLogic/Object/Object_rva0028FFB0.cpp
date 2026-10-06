@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva0028FFB0@Object@@QAEXXZ @0x0028FFB0 (155B).
+// ?WallUpgradeSell@Object@@QAEXXZ @0x0028FFB0 (155B).
 // Object flag-clear plus timed special-model-condition queue.
 // Evidence: neighbours ?healCompletely@Object (0x0028FF9E) and
 // ?rva0029004B@Object (0x0029004B) prove Object TU and /O1 flags; callees
@@ -104,7 +104,7 @@ class Object
 public:
 	void setStatus(ObjectStatusTypes status, bool flag);
 	void rva0028AE6D();
-	void rva0028FFB0();
+	void WallUpgradeSell();
 
 private:
 	char m_pad000[0x114];
@@ -118,7 +118,7 @@ private:
 	Body254 *m_body254;
 };
 
-void Object::rva0028FFB0()
+void Object::WallUpgradeSell()
 {
 	Body254 *body = m_body254;
 	Rva004BDA67 *r = body->v41();

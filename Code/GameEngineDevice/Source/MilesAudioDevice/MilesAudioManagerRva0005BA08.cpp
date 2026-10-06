@@ -1,9 +1,9 @@
 // cl: /DNDEBUG /DWIN32 /MD /EHsc
-// ?rva0005BA08@MilesAudioManager@@QAEXPAX@Z @0x0005BA08 330B.
+// ?prepSample@MilesAudioManager@@QAEXPAX@Z @0x0005BA08 330B.
 // BFME 2 twin of ZH MilesAudioManager::initFilters (BFME 1 donor 0x006B1B40,
 // MilesAudioManagerInitFilters.cpp): sets volume/pan, pitch-scaled playback
 // rate, the "Mono Delay" filter and reverb levels on the reference's sample.
-// Target facts: the sample comes from rowed rva00052696(ref); PlayingAudio
+// Target facts: the sample comes from rowed get2DSampleHandleForPlayingAudio(ref); PlayingAudio
 // keeps its event at +0x1C; the event holds its info reference at +8, a
 // delay float at +0x64 and an int at +0x30; the info has reverb floats at
 // +0xA8/+0xAC and a vector at +0xB8; the manager keeps the reverb flag at
@@ -73,10 +73,10 @@ struct Rva0005BA08PlayingAudio
 class MilesAudioManager
 {
 public:
-	void rva0005BA08(void *ref);
+	void prepSample(void *ref);
 
-	void *rva00052696(void *p);
-	Real rva00052F4C();
+	void *get2DSampleHandleForPlayingAudio(void *p);
+	Real getGlobalReverbMultiplier();
 	Real rva0005A9F8(void *ref, int a, int b);
 	void rva000581FA(const Rva0005BA08InfoRef &info, int value);
 
@@ -87,9 +87,9 @@ private:
 	HPROVIDER m_delayFilter;
 };
 
-void MilesAudioManager::rva0005BA08(void *ref)
+void MilesAudioManager::prepSample(void *ref)
 {
-	HSAMPLE sample = rva00052696(ref);
+	HSAMPLE sample = get2DSampleHandleForPlayingAudio(ref);
 	Rva0005BA08AudioEvent *&event = (*(Rva0005BA08PlayingAudio **)ref)->m_event;
 	if (sample == 0)
 		return;
@@ -119,7 +119,7 @@ void MilesAudioManager::rva0005BA08(void *ref)
 	{
 		Real wet = info.m_info->m_reverbWet;
 		AIL_set_sample_reverb_levels(sample, info.m_info->m_reverbDry,
-			wet * rva00052F4C());
+			wet * getGlobalReverbMultiplier());
 	}
 	else
 		AIL_set_sample_reverb_levels(sample, 1.0f, 0.0f);

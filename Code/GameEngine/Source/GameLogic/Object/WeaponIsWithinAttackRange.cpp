@@ -29,7 +29,7 @@ class Weapon
 {
 public:
 	bool isWithinAttackRange(const Object *source, const Object *target, float extra, int flag) const;
-	char rva002CB902(Object *source, void *pos, float extra, int flag) const;
+	char isWithinAttackRange(Object *source, void *pos, float extra, int flag) const;
 };
 
 bool Weapon::isWithinAttackRange(const Object *source, const Object *target, float extra, int flag) const
@@ -39,10 +39,10 @@ bool Weapon::isWithinAttackRange(const Object *source, const Object *target, flo
 	return false;
 }
 
-// ?rva002CB902@Weapon@@QBEDPAVObject@@PAXMH@Z @0x002CB902 49B
+// ?isWithinAttackRange@Weapon@@QBEDPAVObject@@PAXMH@Z @0x002CB902 49B
 // Evidence: pin address-named; BFME1 donor Weapon_isWithinAttackRange.cpp Coord3D overload
 // forwards (source sourcePos 0 pos extra flag) into 0x002CB35C; neighbour 0x002CB933 same inner.
-char Weapon::rva002CB902(Object *source, void *pos, float extra, int flag) const
+char Weapon::isWithinAttackRange(Object *source, void *pos, float extra, int flag) const
 {
 	if (source && pos)
 		return ((Rva002CB35CObj *)this)->rva002CB35C((int)source, (void *)&source->m_position, 0, pos, extra, flag);

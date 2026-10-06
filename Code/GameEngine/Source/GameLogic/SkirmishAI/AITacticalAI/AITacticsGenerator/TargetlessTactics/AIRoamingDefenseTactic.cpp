@@ -3,8 +3,8 @@
 // The "AIRoamingDefenseTactic" skirmish-AI tactic (vtable 0x008720E8; ctor
 // 0x005AABC6 in Rva004ECECDTacticCtors.cpp, dtor 0x005AAB91 and ??_G, slot 9
 // 0x005AADA7 in Rva004ECECDTacticCreate.cpp). Base chain, all
-// address-derived: Rva005DCC24 over Rva005DC73C over the AITactic.cpp object
-// Rva004ECECD. +0x58 is "roaming". The owner's TheSkirmishAIManager record
+// address-derived: Rva005DCC24 over AITacticOffensive over the AITactic.cpp object
+// AITactic. +0x58 is "roaming". The owner's TheSkirmishAIManager record
 // keeps two keys: AIRoamingDefenseTactic_IsRunning and
 // AIRoamingDefenseTactic_NextLogicFrameRun.
 //
@@ -313,26 +313,26 @@ public:
 };
 extern Rva002A8F24 *g_00DFEEF8;
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual bool v3(void *unit, int count);
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual bool initializeTeamTemplate(void *unit, int count);
 	virtual void v4();
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
+	virtual void update();
 	virtual void v8();
-	virtual Rva004ECECD *create();
-	void rva004ED748(int a, int b);
+	virtual AITactic *create();
+	void end(int a, int b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 	char m_pad04[0x10 - 4];
 	bool m_running;			// +0x10
 	char m_pad11[0x24 - 0x11];
@@ -340,20 +340,20 @@ public:
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005AAB91 : public Rva005DC73C
+class AIRoamingDefenseTactic : public AITacticOffensive
 {
 public:
-	virtual ~Rva005AAB91();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual bool v3(void *unit, int count);
+	virtual ~AIRoamingDefenseTactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual bool initializeTeamTemplate(void *unit, int count);
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
+	virtual void run();
 private:
 	bool m_roaming;		// +0x58
 };
 
-bool Rva005AAB91::appliesTo(void *)
+bool AIRoamingDefenseTactic::canRun(void *)
 {
 	if (!((Rva002A9BF2 *)m_owner)->rva002A9BF2()) {
 		Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
@@ -369,27 +369,27 @@ bool Rva005AAB91::appliesTo(void *)
 	return false;
 }
 
-void Rva005AAB91::v2()
+void AIRoamingDefenseTactic::cleanUp()
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	record->rva002C717E(AsciiString("AIRoamingDefenseTactic_IsRunning"), 0);
 	record->rva002C717E(AsciiString("AIRoamingDefenseTactic_NextLogicFrameRun"), 0);
 }
 
-bool Rva005AAB91::v3(void *unit, int count)
+bool AIRoamingDefenseTactic::initializeTeamTemplate(void *unit, int count)
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	record->rva002C717E(AsciiString("AIRoamingDefenseTactic_IsRunning"), 1);
-	return Rva004ECECD::v3(unit, count);
+	return AITactic::initializeTeamTemplate(unit, count);
 }
 
-void Rva005AAB91::xfer(Xfer *xfer)
+void AIRoamingDefenseTactic::xfer(Xfer *xfer)
 {
-	Rva004ECECD::xfer(xfer);
+	AITactic::xfer(xfer);
 	*xfer == m_roaming;
 }
 
-void Rva005AAB91::v6()
+void AIRoamingDefenseTactic::run()
 {
 	m_running = true;
 	m_roaming = true;

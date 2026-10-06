@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva005962F7@Rva005962F7@@QAE_NPAX@Z @0x005962F7 111B.
+// ?Register@AIUnitStats@@QAE_NPAX@Z @0x005962F7 111B.
 // Predicate over holder driven by 0x005960FF bit-test plus base push and
 // element clear with Science vector at plus 0x98 on the Check-false path.
 // Evidence: thiscall ret 4 returning al 1 or 0; Get 0x005960FF rowed;
@@ -52,13 +52,13 @@ public:
 	Rva003ECA69Element *rva003ECB52(Rva003ECB52Arg *arg);
 };
 
-class Rva005962F7 : public Rva0025C061
+class AIUnitStats : public Rva0025C061
 {
 public:
-	bool rva005962F7(void *holder);
+	bool Register(void *holder);
 };
 
-bool Rva005962F7::rva005962F7(void *holder)
+bool AIUnitStats::Register(void *holder)
 {
 	if (((unsigned char)Rva005960FFGet(holder)) != 0) {
 		void *inner = *(void **)((char *)holder + 4);

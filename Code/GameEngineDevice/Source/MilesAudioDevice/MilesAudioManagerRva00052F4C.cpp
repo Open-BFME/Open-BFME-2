@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
-// ?rva00052F4C@MilesAudioManager@@QAEMXZ @0x00052F4C 84B.
+// ?getGlobalReverbMultiplier@MilesAudioManager@@QAEMXZ @0x00052F4C 84B.
 // Same this as createListener via provider count/selection at +0x9CC/+0x9D0
 // plus provider id at +0x6D0 and flag at +0x6A7. Returns reverb level for
 // the current 3D room type with 0..25 bounds. Table base at +0x10+0xC4.
@@ -40,7 +40,7 @@ public:
 	virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55();
 	virtual bool isOn(int which) const;
 
-	float rva00052F4C();
+	float getGlobalReverbMultiplier();
 
 private:
 	char m_pad04[0xc];
@@ -59,7 +59,7 @@ private:
 	void *m_listener;
 };
 
-float MilesAudioManager::rva00052F4C()
+float MilesAudioManager::getGlobalReverbMultiplier()
 {
 	unsigned int sel = m_selectedProvider;
 	if (sel >= m_providerCount)

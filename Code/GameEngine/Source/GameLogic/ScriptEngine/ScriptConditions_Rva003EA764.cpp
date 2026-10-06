@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
-// ScriptConditions::rva003EA764, retail 0x003EA764, 280 bytes (caller 0x003EC55A in the condition
+// ScriptConditions::evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt, retail 0x003EA764, 280 bytes (caller 0x003EC55A in the condition
 // dispatcher 0x003EA9AF). A BFME2 script condition: the number of objects
 // within the range of the named Eva event's position (Eva 0x00DFDC30:
 // event id 0x001DE78E, position 0x001DD670) that pass the member-less
@@ -106,10 +106,10 @@ extern ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {
 public:
-	bool rva003EA764(Parameter *playerParm, float range, const AsciiString *name, int comparison, int value);
+	bool evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt(Parameter *playerParm, float range, const AsciiString *name, int comparison, int value);
 };
 
-bool ScriptConditions::rva003EA764(Parameter *playerParm, float range, const AsciiString *name, int comparison, int value)
+bool ScriptConditions::evaluateIsNumOfUnitsBelongingToPlayerNearEvaEventLastPlayedLocationComparisonInt(Parameter *playerParm, float range, const AsciiString *name, int comparison, int value)
 {
 	int count;
 	int index = TheEva->rva001DE78E(name);

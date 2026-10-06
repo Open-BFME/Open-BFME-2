@@ -44,7 +44,7 @@ public:
 	void *m_04;
 };
 
-class Rva005312BE
+class PathfindZoneManager
 {
 public:
 	void rva0053155E(int a, int b, bool add, int value);
@@ -65,7 +65,7 @@ public:
 	void rva002E8FE5(void *p);
 private:
 	char m_pf[0x460];
-	Rva005312BE m_grid;
+	PathfindZoneManager m_grid;
 };
 
 void Rva002E9042::rva002E9042(void *p)

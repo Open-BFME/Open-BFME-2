@@ -1,7 +1,7 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ?rva00583B6F@Rva00583B6F@@QAEXXZ RVA 0x00583B6F 119B
-// Evidence: leaf lane; vtable slot 4 (0x10) of 0x0086FC80 (Rva005843DA) and
-//   0x0086FD90 (Rva00586D8E twin); calls rowed Thing::setOrientation 0x0030AB9D
+// Evidence: leaf lane; vtable slot 4 (0x10) of 0x0086FC80 (HordeMeleeSwarm) and
+//   0x0086FD90 (HordeMeleeFormation twin); calls rowed Thing::setOrientation 0x0030AB9D
 //   and Thing::setPosition 0x0030AA80; circular list walk with x87 float arg.
 struct Coord3D
 {

@@ -27,11 +27,11 @@ public:
 
 class Object;
 
-class BFMEPathfinderMapShim
+class Pathfinder
 {
 public:
-	void rva002E718A(Object *object);
-	void addObjectToPathfindMap(Object *object);
+	void RemoveObjectFromPathfindMap(Object *object);
+	void AddObjectToPathfindMap(Object *object);
 };
 
 struct Rva00287C21Other
@@ -40,22 +40,22 @@ struct Rva00287C21Other
 	int m_49C;
 };
 
-class Rva00287C21Host
+class FireLogicSystem
 {
 public:
-	void rva00287C21(Rva00287C21Other *o);
-	void rva00287C39(Rva00287C21Other *o);
+	void RegisterObject(Rva00287C21Other *o);
+	void UnregisterObject(Rva00287C21Other *o);
 };
 
 class AI
 {
 public:
 	unsigned char m_pad00[0x10];
-	BFMEPathfinderMapShim *m_pathfinder;
+	Pathfinder *m_pathfinder;
 };
-extern class AI *TheAI;
+extern AI *g_Va009FF0F8;
 
-extern Rva00287C21Host *g_00DFEC68;
+extern FireLogicSystem *g_00DFEC68;
 
 class Object
 {
@@ -85,11 +85,11 @@ void Object::rva0028AB75(bool flag)
 		q->rva002710EC();
 	if (flag)
 	{
-		TheAI->m_pathfinder->rva002E718A(this);
-		TheAI->m_pathfinder->addObjectToPathfindMap(this);
+		g_Va009FF0F8->m_pathfinder->RemoveObjectFromPathfindMap(this);
+		g_Va009FF0F8->m_pathfinder->AddObjectToPathfindMap(this);
 	}
 	if (m_49C < 0)
 		return;
-	g_00DFEC68->rva00287C39((Rva00287C21Other *)this);
-	g_00DFEC68->rva00287C21((Rva00287C21Other *)this);
+	g_00DFEC68->UnregisterObject((Rva00287C21Other *)this);
+	g_00DFEC68->RegisterObject((Rva00287C21Other *)this);
 }

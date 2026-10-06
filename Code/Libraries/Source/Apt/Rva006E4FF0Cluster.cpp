@@ -1,6 +1,6 @@
 // cl: /O2 /MD
 //
-// Rva006E3230 action-pool neighbours next to Rva006E4D50.cpp. Layout and
+// AptActionQueueC action-pool neighbours next to Rva006E4D50.cpp. Layout and
 // assert triple are shared with Rva006E3230Validate.cpp: pool at +0, current
 // at +4, end at +8, size at +0x10, 24-byte action stride.
 
@@ -30,7 +30,7 @@ struct Rva006E3230ActionFull
 	AptValue *m_pValues[3];
 };
 
-class Rva006E3230
+class AptActionQueueC
 {
 	Rva006E3230Action *m_aActionPool;
 	Rva006E3230Action *m_pCurrent;
@@ -40,14 +40,14 @@ class Rva006E3230
 
 public:
 	void rva006E3230(Rva006E3230Action *pCur);
-	void rva006E4A90();
-	Rva006E3230 *rva006E4FF0(int nSize);
+	void ClearActions();
+	AptActionQueueC *rva006E4FF0(int nSize);
 };
 
-// ?rva006E4FF0@Rva006E3230@@QAEPAU1@H@Z @0x006E4FF0 (86B). Allocates the
+// AptActionQueueC::rva006E4FF0 @0x006E4FF0 (86B). Allocates the
 // 24-byte-stride action pool for nSize slots, points pool/current/end at it,
 // records the size and resets the queue; asserts nSize != 0 at _Apt.h:0x48C.
-Rva006E3230 *Rva006E3230::rva006E4FF0(int nSize)
+AptActionQueueC *AptActionQueueC::rva006E4FF0(int nSize)
 {
 	if (nSize == 0)
 	{
@@ -60,7 +60,7 @@ Rva006E3230 *Rva006E3230::rva006E4FF0(int nSize)
 	m_aActionPool = pool;
 	m_pEnd = pool;
 	m_pCurrent = pool;
-	rva006E4A90();
+	ClearActions();
 	return this;
 }
 
@@ -101,7 +101,7 @@ void Rva006E58D0::rva006E58D0Body(void *a, void *b, void *c)
 		pConstFile->aConstants -= (unsigned int)pConstFile;
 }
 
-// ?rva006E4A90@Rva006E3230@@QAEXXZ @0x006E4A90 (239B). Drains the action pool
+// AptActionQueueC::ClearActions (WorldBuilder name, its __FUNCTION__ string) @0x006E4A90 (239B). Drains the action pool
 // from m_pCurrent to m_pEnd: validates the cursor via rowed rva006E3230, then
 // per action releases the slot-1 virtual of values[2] (type 1) or values[0]
 // and values[1] (type 2), asserting at AptAnimation.cpp:0x62D otherwise;
@@ -109,7 +109,7 @@ void Rva006E58D0::rva006E58D0Body(void *a, void *b, void *c)
 // with the _Apt.h 0x4E0/0x4E1 asserts, then resets current/end to the pool.
 // Layout/stride/virtual shape shared with Rva006E3230Validate.cpp; slot-1
 // virtual name unproven so honest unused1. Caller 0x006E503A is rva006E4FF0.
-void Rva006E3230::rva006E4A90()
+void AptActionQueueC::ClearActions()
 {
 	rva006E3230(m_pCurrent);
 	Rva006E3230Action *pCur = m_pCurrent;

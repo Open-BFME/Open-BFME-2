@@ -1,5 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Oy-
-// ?Rva005F1A5FGet@@YA_NPBDPAH@Z @0x005F1A5F 150B: free cdecl bool const-char plus int-out with index GetParam plus empty plus isdigit plus atoi 0-5.
+// StrategicHUD::GetBonusTypeFromParam @0x005F1A5F 150B (WorldBuilder name,
+// StrategicHUDRegionDetailsTerritoryMovieClip.cpp lines 260..272): free cdecl bool const-char plus int-out with index GetParam plus empty plus isdigit plus atoi 0-5.
 // Evidence: unlock lane; string index plus atoi plus releaseBuffer; pin Rva004128F0GetParam plus IAT isdigit atoi; extern g_Rva0107301CEmptyString; callers 0x005F1B02 0x005F1B25.
 #include "ascii_string.h"
 
@@ -14,7 +15,12 @@ __forceinline const char *GetStr005F1A5F(const AsciiString &s)
 	return t ? t + 8 : g_Rva0107301CEmptyString;
 }
 
-bool __cdecl Rva005F1A5FGet(const char *params, int *out)
+namespace StrategicHUD
+{
+	bool GetBonusTypeFromParam(const char *params, int *out);
+}
+
+bool StrategicHUD::GetBonusTypeFromParam(const char *params, int *out)
 {
 	if (params == 0)
 		return false;
@@ -47,7 +53,7 @@ private:
 
 void Rva005F1AF5::rva005F1AF5(const char *p)
 {
-	if (Rva005F1A5FGet(p, (int *)&p))
+	if (StrategicHUD::GetBonusTypeFromParam(p, (int *)&p))
 		m_44 = (int)p;
 }
 
@@ -55,7 +61,7 @@ void Rva005F1AF5::rva005F1AF5(const char *p)
 // Evidence: chain from 0x005F1A5F; same +0x44 layout as 0x005F1AF5; rowed callee; no Ghidra entry beyond size.
 void Rva005F1AF5::rva005F1B18(const char *p)
 {
-	if (Rva005F1A5FGet(p, (int *)&p)) {
+	if (StrategicHUD::GetBonusTypeFromParam(p, (int *)&p)) {
 		if ((int)p == m_44)
 			m_44 = -1;
 	}

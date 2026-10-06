@@ -125,7 +125,7 @@ public:
 	virtual void v0C(int value);
 };
 
-// The MpGameSetup chat panel (0x00E06394) and its rowed 0x0057FDA1 test.
+// The AptMpGameSetup chat panel (0x00E06394) and its rowed 0x0057FDA1 test.
 class Rva0057FD6E
 {
 public:

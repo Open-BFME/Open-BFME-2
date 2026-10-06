@@ -376,65 +376,50 @@ class Rva004D1616NullTarget
 public:
 	void rva004D1616(Int a0);
 };
-
-class Rva0025DBCDNullForwarder
-{
-public:
-	void rva0025DBCD(Int a0);
-private:
-	char m_lead[0xC];
-	Rva004D1616NullTarget *m_member;
-};
-
-// vtable 0x00BF6040#17
-void Rva0025DBCDNullForwarder::rva0025DBCD(Int a0)
-{
-	if (m_member)
-		m_member->rva004D1616(a0);
-}
-
 class Rva004CF664NullTarget
 {
 public:
 	void rva004CF664();
 };
-
-class Rva0025DBFBNullForwarder
-{
-public:
-	void rva0025DBFB();
-private:
-	char m_lead[0xC];
-	Rva004CF664NullTarget *m_member;
-};
-
-// vtable 0x00BF6040#20
-void Rva0025DBFBNullForwarder::rva0025DBFB()
-{
-	if (m_member)
-		m_member->rva004CF664();
-}
-
 class Rva004CF113NullTarget
 {
 public:
 	void rva004CF113(Int a0);
 };
 
-class Rva0025DC08NullForwarder
+// Network (vtable 0x00BF6040): WorldBuilder's Network.cpp:68-71 names these
+// three null-checked forwards to the connection manager (m_pConMgr, +0xC)
+// ParseUserList and the two InitTransport overloads.
+class Network
 {
 public:
-	void rva0025DC08(Int a0);
+	void ParseUserList(Int a0);
+	void InitTransport();
+	void InitTransport(Int a0);
 private:
 	char m_lead[0xC];
-	Rva004CF113NullTarget *m_member;
+	void *m_pConMgr;
 };
 
-// vtable 0x00BF6040#19
-void Rva0025DC08NullForwarder::rva0025DC08(Int a0)
+// vtable 0x00BF6040#17
+void Network::ParseUserList(Int a0)
 {
-	if (m_member)
-		m_member->rva004CF113(a0);
+	if (m_pConMgr)
+		((Rva004D1616NullTarget *)m_pConMgr)->rva004D1616(a0);
+}
+
+// vtable 0x00BF6040#20
+void Network::InitTransport()
+{
+	if (m_pConMgr)
+		((Rva004CF664NullTarget *)m_pConMgr)->rva004CF664();
+}
+
+// vtable 0x00BF6040#19
+void Network::InitTransport(Int a0)
+{
+	if (m_pConMgr)
+		((Rva004CF113NullTarget *)m_pConMgr)->rva004CF113(a0);
 }
 
 class Rva004CFC81NullTarget

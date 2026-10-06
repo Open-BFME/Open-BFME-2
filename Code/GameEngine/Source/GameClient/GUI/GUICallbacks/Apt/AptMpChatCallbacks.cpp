@@ -4,7 +4,7 @@
 // and "AptMpChat::InitGadgets" (0x0057FDEF), bound by those names as member
 // pointers by the panel's registration 0x0057FFB9; that binding is their
 // only reference. The class is named for the strings' prefix (the
-// MpGameSetup panel's +0x244 member).
+// AptMpGameSetup panel's +0x244 member).
 
 #include "unicode_string.h"
 

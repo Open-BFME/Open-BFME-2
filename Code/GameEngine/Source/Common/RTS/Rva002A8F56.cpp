@@ -46,10 +46,10 @@ public:
 	void rva002C6A4E(Object *obj);
 };
 
-class Rva004E0425
+class AIStatCollector
 {
 public:
-	void rva004E0425(void *p);
+	void UnRegister(void *p);
 };
 
 class Rva002A8F24
@@ -74,7 +74,7 @@ void Rva002A8F24::rva002A8F56(Object *obj)
 	Player *p2 = obj->getControllingPlayer();
 	void *v = rva002A8F24(p2);
 	if (v != 0)
-		((class Rva004E0425 *)v)->rva004E0425(obj);
+		((class AIStatCollector *)v)->UnRegister(obj);
 	if ((obj->m_p4->m_flag & 4) == 0)
 		return;
 	enum ObjectID id = obj->m_id;

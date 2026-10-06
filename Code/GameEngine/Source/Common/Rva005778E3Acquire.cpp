@@ -1,5 +1,6 @@
 // cl: /MD
-// ?rva005778E3@Rva005778E3@@QAEHXZ @ 0x005778E3 (25B):
+// AptRadialMenu::Impl::OnButtonCreated (WorldBuilder name, AptRadialMenu.cpp line 194: bump the +0x40 shared button count).
+// was ?rva005778E3@Rva005778E3@@QAEHXZ @ 0x005778E3 (25B):
 // Acquire counterpart to 0x005778FC release on double-indirect holder at +0x40;
 // bumps flag at +0xC and count at +0x10 returning the old flag. Evidence: caller
 // 0x00577FE2 stores return at [esi+0x10]; old-in-eax explains esi plus lea shape.
@@ -16,16 +17,21 @@ struct Rva005778E3Holder
 	Rva005778E3Inner *m_ptr;
 };
 
-class Rva005778E3
+class AptRadialMenu
+{
+public:
+	class Impl;
+};
+class AptRadialMenu::Impl
 {
 	char m_pad[0x40];
 	Rva005778E3Holder *m_holder;
 
 public:
-	int rva005778E3();
+	int OnButtonCreated();
 };
 
-int Rva005778E3::rva005778E3()
+int AptRadialMenu::Impl::OnButtonCreated()
 {
 	Rva005778E3Holder *h = m_holder;
 	Rva005778E3Inner *p = h->m_ptr;

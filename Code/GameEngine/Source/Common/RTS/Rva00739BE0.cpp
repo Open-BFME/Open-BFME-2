@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /DBFME_STLP_NODE_ALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/stlp_nodealloc
 // ?rva00739BE0@Rva00739BE0@@QAEXPAUPair00739BE0@@MH@Z @0x00739BE0 179B
-// Evidence: world-to-cell via ceil then 2x floor with Gen originX@+4 originY@+8 scale@+0x20 and rowed Gen wrapper shape; callers at 0x00357955 0x003BB942 pass (ptr float mask) with this=TheShroudManager PartitionManager; callee pinned 0x0073CCC0 ShroudManagerImpl008FBA40; siblings 0x00739AF0 0x00739CA0 same Gen layout.
+// Evidence: world-to-cell via ceil then 2x floor with Gen originX@+4 originY@+8 scale@+0x20 and rowed Gen wrapper shape; callers at 0x00357955 0x003BB942 pass (ptr float mask) with this=TheShroudManager PartitionManager; callee pinned 0x0073CCC0 ShroudManagerImpl; siblings 0x00739AF0 0x00739CA0 same Gen layout.
 extern "C" __declspec(dllimport) double __cdecl floor(double);
 extern "C" __declspec(dllimport) double __cdecl ceil(double);
 
@@ -40,7 +40,7 @@ struct FloatRect0073CE30
 
 class Rva00739BE0;
 
-class ShroudManagerImpl008FBA40
+class ShroudManagerImpl
 {
 	friend class Rva00739BE0;
 private:
@@ -59,7 +59,7 @@ public:
 	void rva00739BE0(Pair00739BE0 *p, float f, int mask);
 private:
 	char m_pad00[16];
-	ShroudManagerImpl008FBA40 *m_gen10;
+	ShroudManagerImpl *m_gen10;
 };
 
 void Rva00739BE0::rva00739BE0(Pair00739BE0 *p, float f, int mask)

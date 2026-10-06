@@ -4,7 +4,7 @@
 // via readInt, getName via m_contents, nameToKey via generator, switches on
 // type calling readByte/readInt/readReal/rva ascii/rva unicode plus set calls,
 // throws DEAD0005 via CxxThrow on bad type, returns Dict by value.
-// Evidence: chain lane calls just-landed rva003075A3 plus sibling ascii,
+// Evidence: chain lane calls just-landed readUnicodeString plus sibling ascii,
 // donor BFME1 DataChunk.cpp readDict, callers 7 including ParseWorldDict.
 
 typedef int Int;
@@ -100,8 +100,8 @@ class DataChunkInput
 {
 public:
     Dict readDict(void);
-    AsciiString rva0030750A(void);
-    UnicodeString rva003075A3(void);
+    AsciiString readAsciiString(void);
+    UnicodeString readUnicodeString(void);
     Int readInt(void);
     float readReal(void);
     unsigned char readByte(void);
@@ -146,10 +146,10 @@ Dict DataChunkInput::readDict(void)
                 d.setReal((int)k, readReal());
                 break;
             case Dict::DICT_ASCIISTRING:
-                d.setAsciiString((int)k, rva0030750A());
+                d.setAsciiString((int)k, readAsciiString());
                 break;
             case Dict::DICT_UNICODESTRING:
-                d.setUnicodeString((int)k, rva003075A3());
+                d.setUnicodeString((int)k, readUnicodeString());
                 break;
             default:
             {

@@ -1,4 +1,6 @@
 // ?rva00212858@Rva000427195@@QAEXI@Z
+// partial score=0.6699 date=2026-10-06
+// ?rva00212858@Rva000427195@@QAEXI@Z
 // partial score=0.95 date=2026-10-01
 // 197B of 199B (the previous best was 184B). Needs pins: ?rva00055041@Rva000427195@@QBEIPBVAsciiString@@@Z -> 0x00055041 (hasher, thiscall ICF twin of the stdcall row) and ?rva0005571B@Rva000427195@@QBEII@Z -> 0x0005571B (_M_next_size). Remaining diff: ebx/edi swapped and oldN kept in a register (retail spills it to [ebp-0x10] and holds &buckets[bucket] in edi), frame 0x18 vs 0x1c.
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs-c-
@@ -11,9 +13,10 @@
 // (0x00026B60) and frees the old storage inline (_STLP_USE_MALLOC). No EH frame, ret 4.
 // Evidence: 36 callers are the family's 36B/68B insert wrappers (resize(n + 1), then the
 // noresize insert); the node's key sits at +4, as in the rowed bucketIndex 0x00223149.
+#include <stdlib.h>
 #include "ascii_string.h"
 
-extern "C" void __cdecl free(void *block);
+// (CRT prototype from the standard header)
 
 namespace _STL
 {

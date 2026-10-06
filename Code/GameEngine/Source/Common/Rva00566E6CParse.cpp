@@ -1,5 +1,5 @@
 // cl: /EHsc /MD
-// ?Rva00566E6CParse@@YAXPAUArg00566E6C@@PAVObjectTypes@@@Z at 0x00566E6C (113B). INI token to ObjectTypes.
+// ?Script_objectTypesFromParam@@YAXPAUArg00566E6C@@PAVObjectTypes@@@Z at 0x00566E6C (113B). INI token to ObjectTypes.
 // Evidence: temp copy via 0x365F0 plus inlined empty check; global ScriptEngine 0x00DFE16C via getObjectTypes 0x357651;
 // ObjectTypes assign 0x376A9C when found else check-add 0x376B50; release 0x36410; chain via 0x376B50.
 template <typename T> struct BfmeStringData;
@@ -42,9 +42,9 @@ struct Arg00566E6C {
 	StringBase<char> m_10;
 };
 
-void Rva00566E6CParse(struct Arg00566E6C *src, class ObjectTypes *dst);
+void Script_objectTypesFromParam(struct Arg00566E6C *src, class ObjectTypes *dst);
 
-void Rva00566E6CParse(struct Arg00566E6C *src, class ObjectTypes *dst)
+void Script_objectTypesFromParam(struct Arg00566E6C *src, class ObjectTypes *dst)
 {
 	if (!dst)
 		return;

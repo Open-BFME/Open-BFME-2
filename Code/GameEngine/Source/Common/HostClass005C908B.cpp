@@ -33,13 +33,13 @@ __declspec(noinline) BfmePoolRef10 &BfmePoolRef10::operator=(const BfmePoolRef10
 	return *this;
 }
 
-class Rva005C87F8
+class LargeGroupAudioGridCell
 {
 public:
-	void rva005C87F8(bool flag);
+	void setOverlappedLocking(bool flag);
 };
 
-class TargetObj005C8DBF : public Rva005C87F8
+class TargetObj005C8DBF : public LargeGroupAudioGridCell
 {
 public:
 	void method_005C8D6B();
@@ -67,6 +67,6 @@ void HostClass005C8E0A::method_005C908B(BfmePoolRef10 holder, unsigned char flag
 	m_ref08 = holder;
 	m_flag46 = flag;
 	method_005C8D6B();
-	rva005C87F8(true);
+	setOverlappedLocking(true);
 	method_005C9069();
 }

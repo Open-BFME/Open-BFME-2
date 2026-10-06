@@ -1,14 +1,15 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// ?rva005A688C@Rva005A688C@@QAEXHHHH@Z, 0x005A688C, 119B. Unlock wrapper that caches two (a,b) pairs at +0x94C/+0x950 and forwards 4/5->3/4 to Rva005DC3C1 at +0x28. Evidence: caller 0x005A6C90 passes [ecx+14]/[ecx+18]/[ecx+20]; callee row 0x005DC3C1; neighbours 0x005A687F/0x005A6A83.
+// NAT::setConnectionState, 0x005A688C, 119B (WorldBuilder name, its
+// __FUNCTION__ string "NAT::setConnectionState"). Unlock wrapper that caches two (a,b) pairs at +0x94C/+0x950 and forwards 4/5->3/4 to Rva005DC3C1 at +0x28. Evidence: caller 0x005A6C90 passes [ecx+14]/[ecx+18]/[ecx+20]; callee row 0x005DC3C1; neighbours 0x005A687F/0x005A6A83.
 class Rva005DC3C1
 {
 public:
 	void rva005DC3C1(unsigned short a, unsigned short b, int expected, int newVal);
 };
-class Rva005A688C
+class NAT
 {
 public:
-	void rva005A688C(int a, int b, int expected, int val);
+	void setConnectionState(int a, int b, int expected, int val);
 	void rva005A6C90(int val);
 private:
 	char m_pad00[0x14];
@@ -22,7 +23,7 @@ private:
 	int m_94C;
 	int m_950;
 };
-void Rva005A688C::rva005A688C(int a, int b, int expected, int val)
+void NAT::setConnectionState(int a, int b, int expected, int val)
 {
 	if (a == b)
 		return;
@@ -56,7 +57,7 @@ notify:
 	else if (val == 4)
 		m_28.rva005DC3C1((unsigned short)a, (unsigned short)b, expected, 3);
 }
-void Rva005A688C::rva005A6C90(int val)
+void NAT::rva005A6C90(int val)
 {
-	rva005A688C(m_14, m_18, m_20, val);
+	setConnectionState(m_14, m_18, m_20, val);
 }

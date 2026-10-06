@@ -87,7 +87,7 @@ public:
 };
 extern Mouse *TheMouse;
 
-class Rva003EF13E
+class LivingWorldRegionEffectsManager
 {
 public:
 	void rva003EF2FF();
@@ -132,7 +132,7 @@ void Rva002BA8F1Logic::setLocal(Rva002E2903Player *player)
 	((AudioManager *)TheAudio)->s35(1, 1, 0);
 	m_98 = player;
 	((Mouse *)TheMouse)->m19(1);
-	((Rva003EF13E *)g_009FE1C8->m_268)->rva003EF2FF();
+	((LivingWorldRegionEffectsManager *)g_009FE1C8->m_268)->rva003EF2FF();
 	((Rva003EF041 *)g_009FE1C8->m_268)->rva003EF041();
 	Rva002E2903Player *cur = m_98;
 	if (cur == 0)

@@ -1,5 +1,5 @@
 // ?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@ABUCoord3D@@01@Z
-// partial score=0.93 date=2026-10-05
+// partial score=0.6392 date=2026-10-05
 // cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
 // ?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@ABUCoord3D@@01@Z @0x002F314A 544B
 // Evidence: LINK BONUS 2 files wait for this name; callers isViewBlockedByObstacle 0x002F3B92 and forwarder 0x002F3BAB; donor ZH AIPathfind.cpp isAttackViewBlockedByObstacle plus BFME1 bridge-layer TerrainLogic query; neighbours share /O1 /G7.

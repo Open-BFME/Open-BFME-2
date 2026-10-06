@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva002F714B@Pathfinder@@QAEHPAVObject@@PBUCoord3D@@1@Z @0x002F714B 91B.
+// ?MoveAlliesAwayFromDestination@Pathfinder@@QAEHPAVObject@@PBUCoord3D@@1@Z @0x002F714B 91B.
 // Pathfinder helper that picks a layer then runs the Coord wrapper 0x002F6AE3.
 // Evidence: calls rowed Object::rva0028B511 plus pinned
 // TerrainLogic::getLayerForDestination plus rowed Rva002E7542 0x002E7542 plus
@@ -62,11 +62,11 @@ private:
 class Pathfinder
 {
 public:
-	int rva002F714B(Object *obj, const Coord3D *a, const Coord3D *b);
+	int MoveAlliesAwayFromDestination(Object *obj, const Coord3D *a, const Coord3D *b);
 	int rva002F6AE3(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F3F7DInfo *info);
 };
 
-int Pathfinder::rva002F714B(Object *obj, const Coord3D *a, const Coord3D *b)
+int Pathfinder::MoveAlliesAwayFromDestination(Object *obj, const Coord3D *a, const Coord3D *b)
 {
 	int layer = obj->rva0028B511();
 	if (layer == 1)

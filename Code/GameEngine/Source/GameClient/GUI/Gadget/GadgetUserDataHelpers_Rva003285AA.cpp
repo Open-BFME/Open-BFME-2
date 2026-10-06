@@ -1,6 +1,6 @@
 // cl: /Ob0
 
-// ?Rva003285AA@@YAXPAVGameWindow@@H@Z, retail 0x003285AA (42B).
+// ?GadgetButtonSetDisallowed@@YAXPAVGameWindow@@H@Z, retail 0x003285AA (42B).
 // Dedicated TU.
 //
 // Twin of Rva0032857F (0x0032857F, landed): same ensure-push-button-data
@@ -36,8 +36,8 @@ struct Rva003285AAData
 	unsigned char m_flag;					// +0x34
 };
 
-// ?Rva003285AA@@YAXPAVGameWindow@@H@Z
-static void Rva003285AA(GameWindow *window, int value)
+// ?GadgetButtonSetDisallowed@@YAXPAVGameWindow@@H@Z
+static void GadgetButtonSetDisallowed(GameWindow *window, int value)
 {
 	Rva003285AAData *data;
 
@@ -50,4 +50,4 @@ static void Rva003285AA(GameWindow *window, int value)
 	data->m_flag = (unsigned char)value;
 }
 
-static const void *s_Rva003285AAAnchor = (const void *)Rva003285AA;
+static const void *s_Rva003285AAAnchor = (const void *)GadgetButtonSetDisallowed;

@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00524973@Rva00524B7A@@QAEXXZ @0x00524973 186B
+// ?draw@MovieWindowPlayback@@QAEXXZ @0x00524973 186B
 // Slot 0x30 of vtable 0x00867DFC (class of ??0Rva00524B7A). Guards on
 // +0x24 bit0 and +0x0C null, virtual slot15 result, TheDisplay slot 0x104
 // with int+4 floats+int, then slot8 result to broadcast. Chain of ctor.
@@ -110,10 +110,10 @@ struct InnerLink
 	Rva0081D520Owner *m_owner;
 };
 
-class Rva00524B7A
+class MovieWindowPlayback
 {
 public:
-	void rva00524973();
+	void draw();
 
 private:
 	void *m_vtable;
@@ -132,7 +132,7 @@ private:
 	int m_34;
 	int m_38;
 };
-void Rva00524B7A::rva00524973()
+void MovieWindowPlayback::draw()
 {
 	if ((m_24 & 1) == 0)
 		return;

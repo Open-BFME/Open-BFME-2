@@ -30,7 +30,7 @@ public:
     void bfmeSetMapDescription(MapMetaData *map);
     void rva0057C597(bool show);
     void rva0057CC43(struct Rva0057CC43Node *head);
-    void *rva0057C649();
+    void *GetStrategicScenarioComboBoxSelectedCampaign();
     int rva0057C57B(int value);
 private:
     char m_unmodelled[0x2C];
@@ -77,7 +77,7 @@ void AptMapPreview::rva0057CC43(Rva0057CC43Node *head)
     }
 }
 
-void *AptMapPreview::rva0057C649()
+void *AptMapPreview::GetStrategicScenarioComboBoxSelectedCampaign()
 {
     if (!m_combo50)
         return (void *)-1;

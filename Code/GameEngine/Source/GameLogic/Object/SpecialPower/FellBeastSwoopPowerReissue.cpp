@@ -56,7 +56,7 @@ class AICommandInterface
 public:
 	virtual void aiDoCommand(const AICommandParms *parms);
 	void rva004C6D35(Object *obj, CommandSourceType cmdSource);
-	void rva004C6D9A(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiAttackLevelPosition(const Coord3D *pos, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface
@@ -110,7 +110,7 @@ void AICommandInterface::rva004C6D35(Object *obj, CommandSourceType cmdSource)
 	aiDoCommand(&parms);
 }
 
-void AICommandInterface::rva004C6D9A(const Coord3D *pos, CommandSourceType cmdSource)
+void AICommandInterface::aiAttackLevelPosition(const Coord3D *pos, CommandSourceType cmdSource)
 {
 	AICommandParms parms(AICMD_BFME_40, cmdSource);
 	parms.m_pos = *pos;
@@ -127,5 +127,5 @@ void FellBeastSwoopPower::rva004C6E06()
 	if (target)
 		ai->getCommandInterface()->rva004C6D35(target, CMD_FROM_AI);
 	else if (pos)
-		ai->getCommandInterface()->rva004C6D9A(pos, CMD_FROM_AI);
+		ai->getCommandInterface()->aiAttackLevelPosition(pos, CMD_FROM_AI);
 }

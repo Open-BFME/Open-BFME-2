@@ -1,5 +1,5 @@
 // cl: /Ob0
-// ?Rva0032060D@@YAXPAVGameWindow@@H@Z @0x0032060D 25B.
+// ?GadgetTextEntrySetValidationFlags@@YAXPAVGameWindow@@H@Z @0x0032060D 25B.
 // ORs mask into gadget user data +0xC. Null window or null user data returns.
 // Callers pass 8 and 0x21. winGetUserData 0x005C4ACD rowed.
 
@@ -19,7 +19,7 @@ struct Rva0032060DData
 	int m_flags;
 };
 
-void __cdecl Rva0032060D(GameWindow *window, int value)
+void __cdecl GadgetTextEntrySetValidationFlags(GameWindow *window, int value)
 {
 	Rva0032060DData *data;
 

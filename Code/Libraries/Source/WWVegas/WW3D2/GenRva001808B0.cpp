@@ -29,7 +29,7 @@ class File : public BFMEChunkInput
 
 class FileClass;
 
-File *__cdecl Rva0007882FGet(const char *filename, int a, int b);
+File *__cdecl GetGameFilePart(const char *filename, int a, int b);
 
 struct ChunkHeader
 {
@@ -86,7 +86,7 @@ void Gen_dtor_00972460::rva001808B0()
 	char *dot = strchr(buf, '.');
 	if (dot != 0)
 		_mbscpy(dot, ".w3d");
-	File *file = Rva0007882FGet(buf, m_unk1C, m_unk20);
+	File *file = GetGameFilePart(buf, m_unk1C, m_unk20);
 	if (file != 0) {
 		ChunkLoadClass chunk(file);
 		if (chunk.Open_Chunk() && chunk.Cur_Chunk_ID() == 0x740) {

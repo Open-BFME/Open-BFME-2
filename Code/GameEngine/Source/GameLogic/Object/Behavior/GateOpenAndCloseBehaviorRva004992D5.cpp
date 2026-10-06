@@ -14,19 +14,19 @@ class BfmeObjF9
 public:
 	void setFlag(const BfmeStrF9 &name, char flag);
 };
-class BFMEPathfinderMapShim
+class Pathfinder
 {
 public:
-	void rva002E71AD(Object *object);
-	void addObjectToPathfindMap(Object *object);
+	void RemoveObjectFromPathfindMapKeepingGateFlags(Object *object);
+	void AddObjectToPathfindMap(Object *object);
 };
 class AI
 {
 public:
 	unsigned char m_pad00[0x10];
-	BFMEPathfinderMapShim *m_10; // +0x10
+	Pathfinder *m_10; // +0x10
 };
-extern class AI *TheAI;
+extern AI *g_Va009FF0F8;
 class Object
 {
 public:
@@ -76,9 +76,9 @@ void GateOpenAndCloseBehavior::rva004992D5(bool a, bool b)
 	}
 	if (b)
 		rva00498FAA();
-	BFMEPathfinderMapShim *shim = TheAI->m_10;
+	Pathfinder *shim = g_Va009FF0F8->m_10;
 	Object *obj = m_object0C;
-	shim->rva002E71AD(obj);
+	shim->RemoveObjectFromPathfindMapKeepingGateFlags(obj);
 	m_2C = 2;
 	obj->rva0028B78A(9);
 	const GateOpenAndCloseBehaviorModuleData *data = m_data08;
@@ -87,5 +87,5 @@ void GateOpenAndCloseBehavior::rva004992D5(bool a, bool b)
 	for (BfmeStrF9 *p = data->m_vec38.m_begin; p != data->m_vec38.m_end; ++p)
 		(&obj->m_objA8)->setFlag(*p, 0);
 	obj->rva0028AB75(true);
-	TheAI->m_10->addObjectToPathfindMap(obj);
+	g_Va009FF0F8->m_10->AddObjectToPathfindMap(obj);
 }

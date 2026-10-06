@@ -20,10 +20,10 @@ class Object
 public:
 	bool isSelectable() const;
 };
-class Rva0018BB10Roster
+class Squad
 {
 public:
-	const _STL::vector<Object *> &liveObjects();
+	const _STL::vector<Object *> &getAllObjectsAndRemoveDead();
 	const _STL::vector<Object *> &rva004D6CAC();
 };
 class BfmeVecAK
@@ -43,9 +43,9 @@ public:
 BfmeVecAK *Gen_0018BC70::bfmeCompact(bool restart)
 {
 	if (restart)
-		((Rva0018BB10Roster *)this)->liveObjects();
+		((Squad *)this)->getAllObjectsAndRemoveDead();
 	else
-		((Rva0018BB10Roster *)this)->rva004D6CAC();
+		((Squad *)this)->rva004D6CAC();
 	void ***vec = (void ***)&m_10;
 	void **it = m_10.m_start;
 	while (it != m_10.m_finish)

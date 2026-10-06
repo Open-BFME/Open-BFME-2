@@ -94,11 +94,11 @@ public:
 	void LoadMenu(const char *unused);
 	// Bound under the button clip "QuitMenu/Restart/TheButton" (0x0051BD98)
 	// rather than a method name, so it keeps its address.
-	void rva0051B50E(const char *unused);
+	void HandleOverRestartButton(const char *unused);
 	// Retail 0x0051AF46, 115 bytes: Apt query answering the quit-menu
 	// restart-button label: count "1" for query 0, and for query 1 the
-	// Restart/Forfeit/Surrender word matching rva0051B50E's tooltip pick.
-	void rva0051AF46(int query, char *value, bool set);
+	// Restart/Forfeit/Surrender word matching HandleOverRestartButton's tooltip pick.
+	void Externs(int query, char *value, bool set);
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -170,8 +170,8 @@ void AptQuitMenu::LoadMenu(const char *unused)
 
 // Retail 0x0051AF46, 115 bytes: Apt query answering the quit-menu
 // restart-button label: count "1" for query 0, and for query 1 the
-// Restart/Forfeit/Surrender word matching rva0051B50E's tooltip pick.
-void AptQuitMenu::rva0051AF46(int query, char *value, bool set)
+// Restart/Forfeit/Surrender word matching HandleOverRestartButton's tooltip pick.
+void AptQuitMenu::Externs(int query, char *value, bool set)
 {
 	if (!set)
 	{
@@ -206,7 +206,7 @@ void AptQuitMenu::rva0051AF46(int query, char *value, bool set)
 // Retail 0x0051B50E, 167 bytes. Name unknown. Shows the restart button's
 // tooltip: restart in a campaign (mode 3) or without a game, else forfeit,
 // or surrender in a war of the ring game.
-void AptQuitMenu::rva0051B50E(const char *unused)
+void AptQuitMenu::HandleOverRestartButton(const char *unused)
 {
 	const char *label;
 	if (TheGameLogic && TheGameLogic->m_114 != 3)

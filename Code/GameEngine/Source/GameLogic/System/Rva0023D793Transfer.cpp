@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?Rva0023D793Transfer@@YGXHHH@Z, retail 0x0023D793, 241 bytes.
+// ?CallPlayerGiveMoney@GameLogic@@QAEXHHH@Z, retail 0x0023D793, 241 bytes.
 // Player index pair transfer with Money withdraw/deposit and tracker adds.
 // Evidence: leaf lane; callees Rva0023D339Get getNthPlayer Rva002AA22AByteField MoneyRva003B0D7C Rva0039B795; caller 0x0037AB1B.
 bool Rva0023D339Get();
@@ -47,7 +47,13 @@ public:
 	char m_pad9C[0x3BC - 0x9C];
 	char m_track[0x14];
 };
-void __stdcall Rva0023D793Transfer(int a1, int a2, int a3)
+class GameLogic
+{
+public:
+	void CallPlayerGiveMoney(int a1, int a2, int a3);
+};
+
+void GameLogic::CallPlayerGiveMoney(int a1, int a2, int a3)
 {
 	if (!Rva0023D339Get())
 		return;

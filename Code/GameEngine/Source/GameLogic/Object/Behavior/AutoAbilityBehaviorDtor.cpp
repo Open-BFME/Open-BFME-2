@@ -61,13 +61,13 @@ class AutoAbilityBehavior : public Rva0024A797
 {
 public:
 	virtual ~AutoAbilityBehavior();
-	int rva0045A6D3(const Rva0045A6D3Arg *arg);
+	int isAutoAbilityCommand(const Rva0045A6D3Arg *arg);
 
 private:
 	AsciiString m_str20; // +0x20
 };
 
-int AutoAbilityBehavior::rva0045A6D3(const Rva0045A6D3Arg *arg)
+int AutoAbilityBehavior::isAutoAbilityCommand(const Rva0045A6D3Arg *arg)
 {
 	if (m_str20.isEmpty() || m_str20.compare(arg->m_10) != 0)
 		return 0;

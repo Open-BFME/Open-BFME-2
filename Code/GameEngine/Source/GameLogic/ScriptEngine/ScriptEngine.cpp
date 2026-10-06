@@ -26,6 +26,15 @@ extern "C" float __cdecl sinf(float);
 extern "C" float __cdecl cosf(float);
 extern "C" __declspec(dllimport) double __cdecl ceil(double);
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
+unsigned long Rva003ECA13Get(const AsciiString &name);	// 0x003ECA13, the name's CRC
+
+// The STLport list of flag-name CRCs at ScriptEngine+0x1A264 (header node).
+struct ScriptFlagKeyNode
+{
+	ScriptFlagKeyNode *m_next;
+	ScriptFlagKeyNode *m_prev;
+	unsigned long m_key;
+};
 
 
 class Parameter
@@ -96,10 +105,12 @@ class ScriptEngine
 public:
 	AsciiString getStats( Real *curTimePtr, Real *script1Time, Real *script2Time );
 	bool evaluateTimer(Condition *condition);
+	bool evaluateFlag(Condition *condition);
 
 protected:
 	void setSway(ScriptAction *pAction);
 	ScriptCounter *bfmeCounter(AsciiString name);
+	bool *bfmeFlagForWrite(AsciiString name);		// 0x002088A0
 	void setTimer(ScriptAction *action, bool millisecondTimer, bool random);
 	void pauseTimer(ScriptAction *action);
 	void restartTimer(ScriptAction *action);
@@ -108,6 +119,8 @@ protected:
 private:
 	unsigned char m_unreconstructed[0x17604];
 	BreezeInfo m_breezeInfo;
+	unsigned char m_unreconstructed17620[0x1a264 - 0x17620];
+	ScriptFlagKeyNode *m_flagKeys;				// +0x1A264, list header
 };
 
 // GLOBALS (ZH ScriptEngine.cpp:143, the one definition in the game's ZH source)
@@ -135,3 +148,21 @@ void ScriptEngine::restartTimer(ScriptAction *action)
 		counter->m_isCountdownTimer = true;
 }
 
+// ScriptEngine::evaluateFlag, retail 0x00209382: WB's name for Zero Hour's
+// flag condition. True when the flag already holds the wanted value, else
+// when the flag's name CRC is listed at +0x1A264.
+bool ScriptEngine::evaluateFlag(Condition *condition)
+{
+	bool *flag = bfmeFlagForWrite(condition->getParameter(0)->m_string);
+	bool wanted = condition->getParameter(1)->m_int != 0;
+	bool current = *flag != 0;
+	if (wanted == current)
+		return true;
+	unsigned long key = Rva003ECA13Get(condition->getParameter(0)->m_string);
+	for (ScriptFlagKeyNode *node = m_flagKeys->m_next; node != m_flagKeys; node = node->m_next)
+	{
+		if (node->m_key == key)
+			return true;
+	}
+	return false;
+}

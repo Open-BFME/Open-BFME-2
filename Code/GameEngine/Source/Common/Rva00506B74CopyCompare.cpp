@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00506B74@Rva00506B74@@QAE_NPAUCoord3D@@@Z @0x00506B74 34B: copy member
+// ?rva00506B74@AIBaseBuilder@@QAE_NPAUCoord3D@@@Z @0x00506B74 34B: copy member
 // Coord3D at +0x28 to *out via three movsd then return !m_28.equals(global
 // 0x00DD0870). Callers 0x004EBF4B (ecx+4 forwarding) 0x00507522 (flag +0x24
 // guard plus second call 0x0050722A) 0x004EA54C. Prev row 0x00506B2F same
@@ -21,7 +21,7 @@ struct Coord3D : public Coord3DBase
 // 12-byte Coord3DBase value used by the matched comparison.
 Coord3DBase Gen00DD0870 = { -1.0f, -1.0f, -1.0f };
 
-class Rva00506B74
+class AIBaseBuilder
 {
 public:
 	bool rva00506B74(Coord3D *out);
@@ -30,7 +30,7 @@ private:
 	Coord3D m_28;
 };
 
-bool Rva00506B74::rva00506B74(Coord3D *out)
+bool AIBaseBuilder::rva00506B74(Coord3D *out)
 {
 	*out = *(Coord3D *)&m_28;
 	return !m_28.equals(Gen00DD0870);

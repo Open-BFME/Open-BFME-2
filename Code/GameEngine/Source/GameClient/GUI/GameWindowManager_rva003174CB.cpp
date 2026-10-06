@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ?rva003174CB@GameWindowManager@@QAEPAVGameWindow@@PAV2@H@Z
+// ?duplicateGadget@GameWindowManager@@QAEPAVGameWindow@@PAV2@H@Z
 // retail 0x003174CB, 262 bytes. Dedicated TU.
 //
 // Rebuilds a gadget from a live window. Target facts:
@@ -59,10 +59,10 @@ GameWindow *createGadget(char *type, void *data, GadgetCreateView *view, GameWin
 class GameWindowManager
 {
 public:
-	GameWindow *rva003174CB(GameWindow *source, Int id);
+	GameWindow *duplicateGadget(GameWindow *source, Int id);
 };
 
-GameWindow *GameWindowManager::rva003174CB(GameWindow *source, Int id)
+GameWindow *GameWindowManager::duplicateGadget(GameWindow *source, Int id)
 {
 	if (source == NULL)
 		return NULL;

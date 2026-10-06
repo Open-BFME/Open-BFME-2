@@ -97,3 +97,39 @@ void AI::parseSkillSet(INI *ini, void *instance, void* store, const void* /*user
 	skillset->m_numSkills = 0;
 	ini->initFromINI(store, myFieldParse);
 }
+
+// BuildListInfo's next link sits at retail +0x2C (vendored layout +0x30), so
+// the list walk reads it through a retail-offset view.
+struct BfmeBuildListInfoFields
+{
+	unsigned char m_unreconstructed_00[0x2c];
+	BuildListInfo *m_nextBuildList;		///< retail +0x2C
+};
+
+static inline BuildListInfo *bfmeGetNext(BuildListInfo *info)
+{
+	return ((BfmeBuildListInfoFields *)info)->m_nextBuildList;
+}
+
+static inline void bfmeSetNextBuildList(BuildListInfo *info, BuildListInfo *next)
+{
+	((BfmeBuildListInfoFields *)info)->m_nextBuildList = next;
+}
+
+// AISideBuildList::addInfo, retail 0x002FD766 (43 bytes): Zero Hour's
+// GeneralsMD AI.cpp body under WorldBuilder's name.
+void AISideBuildList::addInfo(BuildListInfo *info)
+{
+	// Add to the end of the list.
+	if (m_buildList == NULL) {
+		m_buildList = info;
+	} else {
+		BuildListInfo *cur = m_buildList;
+		while (cur && bfmeGetNext(cur)) {
+			cur = bfmeGetNext(cur);
+		}
+		DEBUG_ASSERTCRASH(cur && bfmeGetNext(cur)==NULL, ("Logic error."));
+		bfmeSetNextBuildList(cur, info);
+	}
+	bfmeSetNextBuildList(info, NULL); // should be at the end of the list.
+}

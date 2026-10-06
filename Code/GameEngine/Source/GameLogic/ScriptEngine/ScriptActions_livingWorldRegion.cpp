@@ -1,0 +1,246 @@
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
+//
+// 0x003CA418 (166B, WB 0x0101A240) sorts a living-world player's armies by
+// their +0x20 id and sets an army reference to the n-th one that has a name.
+// 0x003C6279 (123B, WB 0x0101A170) sets an int reference to the +0x14 id
+// of the living-world player whose +0x40 name matches, or -1.
+// Also two unnamed WorldBuilder members on the same region and army
+// references: 0x003C3943 (117B, WB 0x0101A3A0) stores the name of the region
+// an army is in, and 0x003C39B8 (135B, WB 0x0101A6F0) moves an army to a
+// region (0x002B2702 with 1).
+//
+// ScriptActions::doLivingWorldSetRegionRefToAdjacentRegion, retail 0x003C6871
+// (258B), from WorldBuilder's ScriptActions.cpp (debug build, name, statement
+// order, the "ListAllAdjacentRegions" assertion at line 11840).
+//
+// Target facts: two script-engine region-reference lookups (0x00208DB8, by
+// value), the region manager at g_009FEF10+0xB0 resolving the source region
+// (0x002104B6), listing its adjacent region ids into a local vector<int>
+// (0x0020FD42) and resolving each id (0x0020EAF6); +0x13C is compared between
+// regions and 0x003F036E is the second filter.
+//
+// The search loop never advances its iterator, in WorldBuilder as in retail:
+// once a candidate is found it spins, so cl drops the final reference
+// assignment (it is reachable only with an empty list, where nothing is
+// found). Retail is the result of compiling that loop as written.
+
+#include "ascii_string.h"
+#include <vector>
+#include <algorithm>
+
+class Rva0020E89C;
+struct Rva002B488EResult;
+
+class Rva002104B6
+{
+public:
+	void *rva002104B6(void *name);
+};
+
+class Rva0020FD42
+{
+public:
+	void rva0020FD42(void *region, void *ids);
+};
+
+class Rva0020EAF6View
+{
+public:
+	Rva0020E89C *rva0020EAF6(int index);
+};
+
+class LivingWorldRegionFilterView
+{
+public:
+	bool rva003F036E();
+};
+
+struct LivingWorldRegionView
+{
+	unsigned char m_pad00[0x14];
+	AsciiString m_name;
+	unsigned char m_pad18[0x13C - 0x18];
+	int m_13C;
+};
+
+class Rva002BA8F1Logic
+{
+public:
+	Rva002B488EResult *rva002B488E(int armyID);
+	class Rva002E2903Player *find(int id, unsigned int *outIndex);
+	class Rva002E2903Player *rva002B52A8(int index);
+	int getPlayerCount() const { return m_players.size(); }
+	void *getRegionManager() const { return m_regionManager; }
+
+private:
+	unsigned char m_pad00[0x8C];
+	_STL::vector<class Rva002E2903Player *> m_players;
+	unsigned char m_pad98[0xB0 - 0x98];
+	void *m_regionManager;
+};
+extern Rva002BA8F1Logic *g_009FEF10;
+
+class ScriptEngine
+{
+public:
+	AsciiString *rva00208DB8(AsciiString name);
+	int *rva00208E99(AsciiString name);
+	int *rva00208CF0(AsciiString name);
+};
+
+struct Rva002B488EResult;
+class Rva00318C32Ret;
+
+class Rva00318C79Owner
+{
+public:
+	Rva00318C32Ret *rva00318C32();
+};
+
+class Rva002B2702
+{
+public:
+	void rva002B2702(void *army, void *region, int arg);
+};
+
+class Rva00329EE9StringValue
+{
+public:
+	bool isEmpty() const;
+};
+extern ScriptEngine *TheScriptEngine;
+
+class ScriptActions
+{
+protected:
+	void doLivingWorldSetRegionRefToAdjacentRegion(const AsciiString &destRefName,
+		const AsciiString &srcRefName, bool skipMatching13C, bool skipFiltered);
+	void rva003CA418(const AsciiString &armyRefName, int n, const AsciiString &playerRefName);
+	void rva003C6279(const AsciiString &refName, const AsciiString &playerName);
+	void rva003C3943(const AsciiString &regionRefName, const AsciiString &armyRefName);
+	void rva003C39B8(const AsciiString &armyRefName, const AsciiString &regionRefName);
+};
+
+void ScriptActions::doLivingWorldSetRegionRefToAdjacentRegion(const AsciiString &destRefName,
+	const AsciiString &srcRefName, bool skipMatching13C, bool skipFiltered)
+{
+	AsciiString *destRef = TheScriptEngine->rva00208DB8(destRefName);
+	AsciiString *srcRef = TheScriptEngine->rva00208DB8(srcRefName);
+	LivingWorldRegionView *srcRegion = (LivingWorldRegionView *)
+		((Rva002104B6 *)g_009FEF10->getRegionManager())->rva002104B6(srcRef);
+	destRef->clear();
+	if (!srcRegion)
+		return;
+
+	_STL::vector<int> ids;
+	((Rva0020FD42 *)g_009FEF10->getRegionManager())->rva0020FD42(srcRegion, &ids);
+	LivingWorldRegionView *found = 0;
+	_STL::vector<int>::iterator it = ids.begin();
+	_STL::vector<int>::iterator end = ids.end();
+	while (it != end) {
+		if (!found) {
+			LivingWorldRegionView *region = (LivingWorldRegionView *)
+				((Rva0020EAF6View *)g_009FEF10->getRegionManager())->rva0020EAF6(*it);
+			if (region) {
+				bool ok = true;
+				if (skipMatching13C && region->m_13C == srcRegion->m_13C)
+					ok = false;
+				if (ok && skipFiltered && ((LivingWorldRegionFilterView *)region)->rva003F036E())
+					ok = false;
+				if (ok)
+					found = region;
+			}
+		}
+	}
+	if (found)
+		*destRef = found->m_name;
+}
+
+void ScriptActions::rva003C3943(const AsciiString &regionRefName, const AsciiString &armyRefName)
+{
+	AsciiString *regionRef = TheScriptEngine->rva00208DB8(regionRefName);
+	int *armyRef = TheScriptEngine->rva00208E99(armyRefName);
+	Rva002B488EResult *army = g_009FEF10->rva002B488E(*armyRef);
+	if (!army) {
+		regionRef->clear();
+		return;
+	}
+	LivingWorldRegionView *region = (LivingWorldRegionView *)((Rva00318C79Owner *)army)->rva00318C32();
+	const AsciiString &name = region ? region->m_name : AsciiString::TheEmptyString;
+	*regionRef = name;
+}
+
+void ScriptActions::rva003C39B8(const AsciiString &armyRefName, const AsciiString &regionRefName)
+{
+	AsciiString *regionRef = TheScriptEngine->rva00208DB8(regionRefName);
+	int armyID = *TheScriptEngine->rva00208E99(armyRefName);
+	if (armyID == 0 || ((Rva00329EE9StringValue *)regionRef)->isEmpty())
+		return;
+	Rva002B488EResult *army = g_009FEF10->rva002B488E(armyID);
+	if (!army)
+		return;
+	void *region = ((Rva002104B6 *)g_009FEF10->getRegionManager())->rva002104B6(regionRef);
+	if (region)
+		((Rva002B2702 *)g_009FEF10)->rva002B2702(army, region, 1);
+}
+
+struct Rva003C3AB0Item
+{
+	unsigned char m_pad00[0x18];
+	AsciiString m_name;
+	unsigned char m_pad1C[0x20 - 0x1C];
+	int m_20;
+};
+
+struct Rva003C3AB0Cmp
+{
+	bool operator()(const Rva003C3AB0Item *a, const Rva003C3AB0Item *b) const { return a->m_20 < b->m_20; }
+};
+
+class Rva002E2903Player
+{
+public:
+	unsigned char m_pad00[0x14];
+	int m_id;
+	unsigned char m_pad18[0x40 - 0x18];
+	const AsciiString *m_name;
+	unsigned char m_pad44[0x1B8 - 0x44];
+	_STL::vector<Rva003C3AB0Item *> m_armies;
+};
+
+void ScriptActions::rva003C6279(const AsciiString &refName, const AsciiString &playerName)
+{
+	int *ref = TheScriptEngine->rva00208CF0(refName);
+	int count = g_009FEF10->getPlayerCount();
+	for (int i = 0; i < count; ++i) {
+		Rva002E2903Player *player = g_009FEF10->rva002B52A8(i);
+		if (player && player->m_name->compare(playerName) == 0) {
+			*ref = player->m_id;
+			return;
+		}
+	}
+	*ref = -1;
+}
+
+void ScriptActions::rva003CA418(const AsciiString &armyRefName, int n, const AsciiString &playerRefName)
+{
+	int *armyRef = TheScriptEngine->rva00208E99(armyRefName);
+	*armyRef = 0;
+	int *playerRef = TheScriptEngine->rva00208CF0(playerRefName);
+	Rva002E2903Player *player = g_009FEF10->find(*playerRef, 0);
+	if (!player)
+		return;
+	_STL::vector<Rva003C3AB0Item *> &armies = player->m_armies;
+	_STL::sort(armies.begin(), armies.end(), Rva003C3AB0Cmp());
+	_STL::vector<Rva003C3AB0Item *>::iterator it = armies.begin();
+	_STL::vector<Rva003C3AB0Item *>::iterator end = armies.end();
+	for (; it != end; ++it) {
+		if (!((Rva00329EE9StringValue *)&(*it)->m_name)->isEmpty())
+			--n;
+		if (n <= 0)
+			break;
+	}
+	if (it != end)
+		*armyRef = (*it)->m_20;
+}

@@ -1,12 +1,12 @@
 // cl: /MD
-// ?rva004EE0C6@Rva004EE0C6@@QAEXHPAVRva003F498A@@@Z, retail 0x004EE0C6, 77 bytes.
+// ?rva004EE0C6@Rva004EE0C6@@QAEXHPAVLivingWorldBattle@@@Z, retail 0x004EE0C6, 77 bytes.
 // Stores time(0) to +0x60; if rva003F486C(p [this+0xE4]) then rva003F4798(p
 // [this+0xE4] [p+0x38]) and inc +0xC8 when >=0 else +0xCC. Evidence: time IAT
 // 0x00BBA508; rowed 0x003F486C 0x003F4798 in Rva003F498ALoops; chain from
 // 0x003F486C; prev Rva004EE037Div /O1 /MD; ret 8 two args.
 extern "C" __declspec(dllimport) long __cdecl time(long *value);
 
-class Rva003F498A
+class LivingWorldBattle
 {
 public:
 	bool rva003F486C(int id);
@@ -16,7 +16,7 @@ public:
 class Rva004EE0C6
 {
 public:
-	void rva004EE0C6(int unused, Rva003F498A *p);
+	void rva004EE0C6(int unused, LivingWorldBattle *p);
 private:
 	char m_pad00[0x60];
 	int m_60;
@@ -27,7 +27,7 @@ private:
 	int m_e4;
 };
 
-void Rva004EE0C6::rva004EE0C6(int unused, Rva003F498A *p)
+void Rva004EE0C6::rva004EE0C6(int unused, LivingWorldBattle *p)
 {
 	(void)unused;
 	m_60 = (int)time(0);

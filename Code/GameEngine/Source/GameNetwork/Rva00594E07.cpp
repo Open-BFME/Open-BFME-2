@@ -35,7 +35,7 @@ class UDP
 public:
 	int Read(unsigned char *a, unsigned int b, struct sockaddr_in *c);
 };
-unsigned int __cdecl BFMEComputeCRC(const unsigned char *a, unsigned int b, unsigned int c);
+unsigned int __cdecl ComputeCRC(const unsigned char *a, unsigned int b, unsigned int c);
 class Rva00594E07;
 class FirewallHelperClass
 {
@@ -89,7 +89,7 @@ unsigned short Rva00594E07::rva00594E07(unsigned short a, int b)
 			int len = udp->Read((unsigned char *)msg, 0x14, &from);
 			if (len > 0)
 			{
-				crc = BFMEComputeCRC((const unsigned char *)msg + 4, 0x10, 0);
+				crc = ComputeCRC((const unsigned char *)msg + 4, 0x10, 0);
 				if (crc == htonl(msg->m_data.m_crc))
 				{
 					((Rva00594DC0 *)this)->rva00594DC0((Rva00594DC0Msg *)msg);

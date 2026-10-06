@@ -1,4 +1,7 @@
-// ?rva0043B73D@Rva0043B725@@QAEXXZ
+// DOTManager::update, retail 0x0043B73D (WorldBuilder name; WB's body in
+// GameLogic/System/DOTManager.cpp carries the __FUNCTION__ string
+// "DOTManager::update" and calls findObjectByID, 0x0043B2A4 and 0x0043B72D
+// as retail does)
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
@@ -97,19 +100,19 @@ public:
 	int m_count;
 };
 
-class Rva0043B725
+class DOTManager
 {
 public:
 	void rva0043B725();
 	unsigned int rva0043B72D(int x);
-	void rva0043B73D();
+	void update();
 	void rva0043B2A4Clear(ObjectID id, int value);
 private:
 	char m_pad[4];
 	Rva0043B2E2 m_tree;
 };
 
-void Rva0043B725::rva0043B73D()
+void DOTManager::update()
 {
 	unsigned int curFrame = TheGameLogic->m_frame;
 	_STL::vector<BfmeE16> vecRaw;

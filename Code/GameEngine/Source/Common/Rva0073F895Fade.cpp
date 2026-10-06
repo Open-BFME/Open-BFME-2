@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva0073F895@Rva0073F895@@QAEHXZ @0x0073F895 213B, caller 0x0073FAB8.
+// ?UpdateFadeState@W3DGlowOutlineMaterialPassClass@@QAEHXZ @0x0073F895 213B, caller 0x0073FAB8.
 // Fade state machine: state +0x40 (0 fade in, 1 held, 2 fade out, 3 off)
 // steps the fade +0x44 by the 1/60 literal at 0x00BC625C, then returns the
 // base colour +0x38 when fully faded in, 0 when faded out, otherwise the
@@ -15,16 +15,16 @@ struct RGBColor {
     int getAsInt() const;
     void setFromInt(int color);
 };
-class Rva0073F895 {
+class W3DGlowOutlineMaterialPassClass {
     char _pad[0x38];
     int m_base;
     char _pad3C[4];
     int m_state;
     float m_fade;
 public:
-    int rva0073F895();
+    int UpdateFadeState();
 };
-int Rva0073F895::rva0073F895()
+int W3DGlowOutlineMaterialPassClass::UpdateFadeState()
 {
     switch (m_state) {
     case 0:

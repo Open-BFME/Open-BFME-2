@@ -88,7 +88,7 @@ public:
 	void setStatus(ObjectStatusTypes status, bool set);
 	Player *getControllingPlayer() const;
 	void rva0028BAAE(int value);
-	void rva00298AE4(Team *team);
+	void setTeam(Team *team);
 private:
 	void *m_vptr;
 	const ThingTemplate *m_template; // +0x04
@@ -275,7 +275,7 @@ void FoundationAIUpdate::rva00455B67(Player *oldOwner, Player *newOwner)
 		oldRecord->rva002C6A4E(obj);
 	if (newRecord)
 		newRecord->rva002C6A3D(obj);
-	obj->rva00298AE4(newOwner->getDefaultTeam());
+	obj->setTeam(newOwner->getDefaultTeam());
 }
 
 // ?rva00455B42@FoundationAIUpdate@@UAEXH@Z @0x00455B42

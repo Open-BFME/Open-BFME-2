@@ -15,12 +15,12 @@ public:
 	virtual ~Rva005DCBE3();
 };
 
-class Rva005AA860 : public Rva005DCBE3
+class AISimpleExpansionTactic : public Rva005DCBE3
 {
 public:
-	virtual ~Rva005AA860();
+	virtual ~AISimpleExpansionTactic();
 };
 
-Rva005AA860::~Rva005AA860()
+AISimpleExpansionTactic::~AISimpleExpansionTactic()
 {
 }

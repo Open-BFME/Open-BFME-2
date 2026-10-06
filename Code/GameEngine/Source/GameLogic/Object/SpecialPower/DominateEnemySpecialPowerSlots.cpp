@@ -205,7 +205,7 @@ public:
 class SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();	// slot 17 (0x0045108D)
+	virtual void triggerAbilityEffect();	// slot 17 (0x0045108D)
 protected:
 	const void *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
@@ -214,7 +214,7 @@ protected:
 class DominateEnemySpecialPower : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 	void rva004CCB0E(Object *target, Object *owner, const DominateEnemySpecialPowerModuleData *data, bool flag);
 private:
 	const DominateEnemySpecialPowerModuleData *getDominateEnemySpecialPowerModuleData() const
@@ -256,9 +256,9 @@ void DominateEnemySpecialPower::rva004CCB0E(Object *target, Object *owner,
 		FXList::doFXObj(data->m_D0, target, 0);
 }
 
-void DominateEnemySpecialPower::rva0045108D()
+void DominateEnemySpecialPower::triggerAbilityEffect()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	const DominateEnemySpecialPowerModuleData *data = getDominateEnemySpecialPowerModuleData();
 	Object *owner = m_object;
 	Object *target = TheGameLogic->findObjectByID(m_40);

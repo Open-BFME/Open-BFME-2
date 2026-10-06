@@ -14,7 +14,13 @@
 // scale-first mulss operand order retail shows (plain member reorder is
 // commutative-inert); the pointer homes to eax via lea like retail.
 
-class Rva00699180Owner
+class MilesAudioManager
+{
+public:
+	class GlobalVolumeData;
+};
+
+class MilesAudioManager::GlobalVolumeData
 {
 public:
 	void refreshPair(int a, int b);
@@ -37,6 +43,7 @@ public:
 	char m_padA0[0xC8 - 0xA0];
 	float m_slot[12][4];
 	char m_dirty[6][2][4];
+	char m_pad1B8[0x1C4 - 0x1B8];
 };
 
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
@@ -48,8 +55,8 @@ float g_00DB3F64[6] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
 unsigned char g_00DB3F7C = 1;
 
 #pragma optimize("y", off)
-// ?refreshPair@Rva00699180Owner@@QAEXHH@Z
-void Rva00699180Owner::refreshPair(int a, int b)
+// ?refreshPair@GlobalVolumeData@MilesAudioManager@@QAEXHH@Z
+void MilesAudioManager::GlobalVolumeData::refreshPair(int a, int b)
 {
 	int idx = b + a * 2;
 	float *slot = (float *)((char *)this + 0xC8 + (idx << 4));
@@ -96,8 +103,8 @@ void Rva00699180Owner::refreshPair(int a, int b)
 }
 #pragma optimize("", on)
 
-// ?refreshAll@Rva00699180Owner@@QAEXXZ
-void Rva00699180Owner::refreshAll()
+// ?refreshAll@GlobalVolumeData@MilesAudioManager@@QAEXXZ
+void MilesAudioManager::GlobalVolumeData::refreshAll()
 {
 	for (int i = 0; i < 6; ++i)
 	{
@@ -106,19 +113,19 @@ void Rva00699180Owner::refreshAll()
 	}
 }
 
-void Rva00699180Owner::rva00051FFE(int b)
+void MilesAudioManager::GlobalVolumeData::rva00051FFE(int b)
 {
 	for (int i = 0; i < 2; ++i)
 		refreshPair(b, i);
 }
 
-void Rva00699180Owner::rva00052015(int b)
+void MilesAudioManager::GlobalVolumeData::rva00052015(int b)
 {
 	for (int i = 0; i < 6; ++i)
 		refreshPair(i, b);
 }
 
-void Rva00699180Owner::rva00052048(int idx)
+void MilesAudioManager::GlobalVolumeData::rva00052048(int idx)
 {
 	struct Factor
 	{
@@ -141,16 +148,16 @@ void Rva00699180Owner::rva00052048(int idx)
 	r = v;
 }
 
-void Rva00699180Owner::rva00052098(int b)
+void MilesAudioManager::GlobalVolumeData::rva00052098(int b)
 {
 	rva00052048(b);
 	rva00051FFE(b);
 }
 
-// ?rva000520C6@Rva00699180Owner@@QAEXXZ retail 0x000520C6 46B
+// ?rva000520C6@GlobalVolumeData@MilesAudioManager@@QAEXXZ retail 0x000520C6 46B
 // Unlock: triple-nested 6x2x4 decrement of positive dirty bytes at this+0x188.
 // Evidence: prev 0x00052098 next 0x000523A0 same TU same class; dirty store in refreshPair at +0x188+(b+a*2)*4+i; caller 0x00062881.
-void Rva00699180Owner::rva000520C6()
+void MilesAudioManager::GlobalVolumeData::rva000520C6()
 {
 	for (int a = 0; a < 6; ++a) {
 		for (int b = 0; b < 2; ++b) {
@@ -163,10 +170,10 @@ void Rva00699180Owner::rva000520C6()
 }
 
 
-// ?rva000522DF@Rva00699180Owner@@QAEXM@Z retail 0x000522DF 46B
+// ?rva000522DF@GlobalVolumeData@MilesAudioManager@@QAEXM@Z retail 0x000522DF 46B
 // Unlock: clamp volume 0..1 into m_vol at +0x98 then refreshAll.
 // Evidence: prev 0x000520C6 next 0x000523A0 same TU same class; m_vol store +0x98; float 1.0 via g_Va00BBB8D8; caller 0x0005C8FC.
-void Rva00699180Owner::rva000522DF(float volume)
+void MilesAudioManager::GlobalVolumeData::rva000522DF(float volume)
 {
 	float v;
 	if (0.0f > volume)
@@ -179,7 +186,7 @@ void Rva00699180Owner::rva000522DF(float volume)
 	refreshAll();
 }
 
-void Rva00699180Owner::setVolumes(float volume, unsigned char flags)
+void MilesAudioManager::GlobalVolumeData::setVolumes(float volume, unsigned char flags)
 {
 	if (flags & 1)
 	{
@@ -213,4 +220,39 @@ void Rva00699180Owner::setVolumes(float volume, unsigned char flags)
 			m_base[i] = volume;
 		rva00051FFE(3);
 	}
+}
+
+// The audio manager holds three GlobalVolumeData blocks at +0x12C, stride
+// 0x1C4 (target evidence: the two loops below step 0x1C4 three times from
+// TheAudio+0x12C into rowed members of this class). Only that span is
+// modelled; indexing the array, not byte arithmetic, gives retail's
+// [index+base] address order.
+class AudioManager
+{
+public:
+	char m_pad0[0x12C];
+	MilesAudioManager::GlobalVolumeData m_volumeData[3];
+};
+extern AudioManager *TheAudio;
+
+// ?Rva0005244ALoop@@YAXH@Z retail 0x0005244A 48B
+// Null-guarded rva00051FFE(v) over the three volume blocks.
+// Evidence: rowed callee 0x00051FFE, TheAudio 0x009FE6E8, caller site.
+void Rva0005244ALoop(int v)
+{
+	if (TheAudio == 0)
+		return;
+	for (int i = 0; i < 3; ++i)
+		TheAudio->m_volumeData[i].rva00051FFE(v);
+}
+
+// ?Rva000524AALoop@@YAXXZ retail 0x000524AA 44B
+// Null-guarded refreshAll over the three volume blocks.
+// Evidence: callers 0x000524DD 0x000524E9, rowed refreshAll 0x0005202C.
+void Rva000524AALoop()
+{
+	if (TheAudio == 0)
+		return;
+	for (int i = 0; i < 3; ++i)
+		TheAudio->m_volumeData[i].refreshAll();
 }

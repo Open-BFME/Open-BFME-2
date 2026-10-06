@@ -1,6 +1,6 @@
 // cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva0030BAF8@Rva0030BAF8@@QAEXAAVDataChunkInput@@H@Z, retail 0x0030BAF8, 143 bytes.
+// ?parse@AreaPolygonBase@@QAEXAAVDataChunkInput@@H@Z, retail 0x0030BAF8, 143 bytes.
 // Holder vector swap via DataChunkInput readInt/readReal plus flag at +0x24.
 // Evidence: prev 0x0030BAA0 same holder same flags; caller 0x0030BB87 forwards DataChunkInput plus 1; callees readInt 0x00306E78 readReal 0x00306E56 reserve 0x0030B876 push_back 0x00539A2E swap 0x00567ECD.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
@@ -25,14 +25,14 @@ public:
 	int readInt();
 	float readReal();
 };
-struct Rva0030BAF8
+struct AreaPolygonBase
 {
-	void rva0030BAF8(DataChunkInput &file, int unused);
+	void parse(DataChunkInput &file, int unused);
 	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_vec;
 	char m_pad[0x24 - 12];
 	bool m_flag;
 };
-void Rva0030BAF8::rva0030BAF8(DataChunkInput &file, int unused)
+void AreaPolygonBase::parse(DataChunkInput &file, int unused)
 {
 	int count = file.readInt();
 	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > tmp;

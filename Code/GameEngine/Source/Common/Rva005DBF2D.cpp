@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva005DBF2D@Rva005DB98E@@QAE_NGG@Z @0x005DBF2D 95B.
-// Rva005DB98E float bump notify: element +8 += 1.0f, stamp
+// ?sentAPingPacket@PortNegotiationSchema@@QAE_NGG@Z @0x005DBF2D 95B.
+// PortNegotiationSchema float bump notify: element +8 += 1.0f, stamp
 // timeGetTime()+g_00DD35C4 into +0x718[y], then list at +0x04 forEach
 // with notify 0x001FF3A9. Evidence: caller 0x005A6FAD; callees rowed
 // 0x005DB98E/0x005DBE6A/0x001FF3A9; neighbours 0x005DBEEB/0x005DC3C1;
@@ -40,11 +40,11 @@ struct Elem005DB98E
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 extern int g_00DD35C4;
 
-class Rva005DB98E
+class PortNegotiationSchema
 {
 public:
-	void *rva005DB98E(unsigned short x, unsigned short y);
-	bool rva005DBF2D(unsigned short x, unsigned short y);
+	void *peekPing(unsigned short x, unsigned short y);
+	bool sentAPingPacket(unsigned short x, unsigned short y);
 private:
 	char m_pad00[4];
 	Rva005DBE6AList m_list;
@@ -52,9 +52,9 @@ private:
 	int m_718[9];
 };
 
-bool Rva005DB98E::rva005DBF2D(unsigned short x, unsigned short y)
+bool PortNegotiationSchema::sentAPingPacket(unsigned short x, unsigned short y)
 {
-	Elem005DB98E *elem = (Elem005DB98E *)rva005DB98E(x, y);
+	Elem005DB98E *elem = (Elem005DB98E *)peekPing(x, y);
 	if (!elem)
 		return false;
 	elem->m_08 += 1.0f;

@@ -1,4 +1,4 @@
-// Open-BFME5 conversions (trimmed; only bfmeGo924F is placed, the rest is
+// Open-BFME5 conversions (trimmed; only GadgetTextEntrySetMaxChars is placed, the rest is
 // declared-only).
 
 struct BfmeNodeLC
@@ -27,8 +27,8 @@ int bfmeGo924C(BfmeKeyLC *k);
 void bfmeGo924D(BfmeKeyLC *k, unsigned int mask);
 void bfmeGo924E(BfmeKeyLC *k, unsigned int mask);
 
-// ?bfmeGo924F@@YAXPAVBfmeKeyLC@@G@Z
-void bfmeGo924F(BfmeKeyLC *k, unsigned short w)
+// ?GadgetTextEntrySetMaxChars@@YAXPAVBfmeKeyLC@@G@Z
+void GadgetTextEntrySetMaxChars(BfmeKeyLC *k, unsigned short w)
 {
 	if (k) {
 		BfmeNodeLC *o = k->bfmeFindLC();

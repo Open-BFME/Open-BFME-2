@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva00370680@AIGroup@@QAEXXZ @0x00370680 72B
+// ?groupOneRing@AIGroup@@QAEXXZ @0x00370680 72B
 // AIGroup member walk in the 0x003703CF..0x00370517 AIGroup block (same
 // list-at-+0 plus Object+0x258 AI loop as Rva00370410Group.cpp): for each
 // non-null member whose matched Object::rva0028F4BC finds the Rva00373EC6
@@ -44,12 +44,12 @@ public:
 class AIGroup
 {
 public:
-	void rva00370680();
+	void groupOneRing();
 private:
 	std::list<Object *> m_memberList;
 };
 
-void AIGroup::rva00370680()
+void AIGroup::groupOneRing()
 {
 	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
 	{

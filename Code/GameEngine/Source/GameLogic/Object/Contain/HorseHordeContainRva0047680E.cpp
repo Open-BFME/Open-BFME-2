@@ -4,7 +4,7 @@
 // Slot 42 of the vftable 0x00C45C38 whose slot-2 name getter returns
 // "HorseHordeContain" (one of the four slots, 39 to 42, it adds over the
 // 39-slot ??_7HordeContain 0x00C45050; AODHordeContain 0x00C46D28 inherits
-// it). Forwards both arguments to the rowed AICommandInterface::rva0026C26D
+// it). Forwards both arguments to the rowed AICommandInterface::aiMoveToPosition
 // on the owning object's AI (Object+0x258, its AICommandInterface base at
 // +0x20) as a tail jump. Address name: class and slot are proven, the
 // method identity is not.
@@ -19,7 +19,7 @@ struct Coord3D
 class AICommandInterface
 {
 public:
-	void rva0026C26D(const Coord3D *pos, int cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, int cmdSource);
 };
 
 class AIUpdateInterfaceHead
@@ -70,5 +70,5 @@ public:
 // ?rva0047680E@HorseHordeContain@@UAEXPBUCoord3D@@H@Z @0x0047680E
 void HorseHordeContain::rva0047680E(const Coord3D *pos, int cmdSource)
 {
-	getObject()->getAI()->rva0026C26D(pos, cmdSource);
+	getObject()->getAI()->aiMoveToPosition(pos, cmdSource);
 }

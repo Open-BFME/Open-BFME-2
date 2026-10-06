@@ -3,7 +3,7 @@
 // The "SimpleExpansion" skirmish-AI tactic (vtable 0x00871FF4; ctor 0x005AA9DB
 // in Rva004ECECDTacticCtors.cpp, dtor 0x005AA860 and ??_G, slot 9 in
 // Rva004ECECDTacticCreate.cpp). Base chain, all address-derived: Rva005DCBE3
-// over Rva005DC73C over the AITactic.cpp object Rva004ECECD. +0x58 owns the
+// over AITacticOffensive over the AITactic.cpp object AITactic. +0x58 owns the
 // build order (Rva00573B23, 0x40 bytes: ctor 0x00573A9B, its +0x10 status),
 // +0x5C is the stage (0..4).
 //
@@ -112,7 +112,7 @@ public:
 	unsigned char m_minimum;
 };
 
-class Rva00506B74
+class AIBaseBuilder
 {
 public:
 	void rva0050722A(Coord3D *point);
@@ -121,7 +121,7 @@ public:
 struct Rva002A8AB1Record
 {
 	char m_pad00[4];
-	Rva00506B74 m_layout;	// +0x04
+	AIBaseBuilder m_layout;	// +0x04
 };
 
 class Rva002A8F24
@@ -185,56 +185,56 @@ struct Rva005AA860Unit
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual bool v3(Rva005AA860Unit *unit, void *unused);
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual bool initializeTeamTemplate(Rva005AA860Unit *unit, void *unused);
 	virtual void v4();
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
+	virtual void update();
 	virtual void v8();
-	virtual Rva004ECECD *create();
+	virtual AITactic *create();
 	unsigned char rva004ED169();
-	void rva004ED748(int a, int b);
+	void end(int a, int b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 	char m_pad04[0x20 - 4];
 	Rva005AA860Record *m_record;	// +0x20
 	void *m_owner;			// +0x24
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005AA860 : public Rva005DC73C
+class AISimpleExpansionTactic : public AITacticOffensive
 {
 public:
-	virtual ~Rva005AA860();
-	virtual void v2();
-	virtual bool v3(Rva005AA860Unit *unit, void *unused);
+	virtual ~AISimpleExpansionTactic();
+	virtual void cleanUp();
+	virtual bool initializeTeamTemplate(Rva005AA860Unit *unit, void *unused);
 	virtual void xfer(Xfer *xfer);
-	virtual void v7();
+	virtual void update();
 	void rva005AA663();
-	void rva005AA86B();
-	void rva005AAA34();
+	void startCreateNewBase();
+	void startConstruction();
 private:
 	Rva00573B23 *m_order;	// +0x58
 	int m_stage;		// +0x5C
 };
 
-void Rva005AA860::rva005AA86B()
+void AISimpleExpansionTactic::startCreateNewBase()
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	record->m_layout.rva0050722A(&m_record->m_point0C);
 }
 
-void Rva005AA860::v2()
+void AISimpleExpansionTactic::cleanUp()
 {
 	Rva00573B23 *order = m_order;
 	if (order) {
@@ -245,7 +245,7 @@ void Rva005AA860::v2()
 	}
 }
 
-bool Rva005AA860::v3(Rva005AA860Unit *unit, void *)
+bool AISimpleExpansionTactic::initializeTeamTemplate(Rva005AA860Unit *unit, void *)
 {
 	unit->m_2D0 = GetGameLogicRandomValue(2, 2,
 		"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\ExpansionTactics\\AISimpleExpansionTactic.cpp",
@@ -253,11 +253,11 @@ bool Rva005AA860::v3(Rva005AA860Unit *unit, void *)
 	return true;
 }
 
-void Rva005AA860::xfer(Xfer *xfer)
+void AISimpleExpansionTactic::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	Rva004ECECD::xfer(xfer);
+	AITactic::xfer(xfer);
 	bool hasOrder = m_order != 0;
 	*xfer == hasOrder;
 	if (xfer->IsStoring() && hasOrder) {
@@ -271,7 +271,7 @@ void Rva005AA860::xfer(Xfer *xfer)
 	m_stage = stage;
 }
 
-void Rva005AA860::rva005AAA34()
+void AISimpleExpansionTactic::startConstruction()
 {
 	m_order = new Rva00573B23;
 	m_order->setName(AsciiString("MenFortress"));
@@ -281,15 +281,15 @@ void Rva005AA860::rva005AAA34()
 	m_order->start(m_owner, 0);
 }
 
-void Rva005AA860::v7()
+void AISimpleExpansionTactic::update()
 {
 	if (m_stage > 0 && m_order->m_status == 3) {
-		rva004ED748(0, 0);
+		end(0, 0);
 		return;
 	}
 	switch (m_stage) {
 	case 0:
-		rva005AAA34();
+		startConstruction();
 		m_stage = 1;
 		break;
 	case 1:
@@ -303,12 +303,12 @@ void Rva005AA860::v7()
 			m_stage = 3;
 	case 3:
 		if (m_order->m_status == 2) {
-			rva005AA86B();
+			startCreateNewBase();
 			m_stage = 4;
 		}
 		break;
 	case 4:
-		rva004ED748(1, 0);
+		end(1, 0);
 		break;
 	}
 }

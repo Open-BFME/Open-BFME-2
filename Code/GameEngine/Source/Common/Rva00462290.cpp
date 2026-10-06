@@ -1,5 +1,6 @@
 // cl: /EHs /MD
-// ?rva00462290@Rva00462290@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z @0x00462290 108B
+// AICommandInterface::aiMoveToAndDie (WorldBuilder name, AI.h line 715: command 0x41 with the position).
+// was ?rva00462290@Rva00462290@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z @0x00462290 108B
 // Stack AICommandParms 0xC0 via rowed ctor 0x00351BD0 with 0x41 and src,
 // m_pos 12B copy from param1, virtual slot 0 call, then inlined vector-free
 // via rowed free 0x00030830. Recipe precedent Rva00462224.cpp 108B
@@ -55,14 +56,14 @@ struct AICommandParms
 	char m_tail[0xC0 - 0x2C];
 };
 
-class Rva00462290
+class AICommandInterface
 {
 public:
 	virtual void v0(AICommandParms *parms) = 0;
-	void rva00462290(const Coord3D *pos, CommandSourceType src);
+	void aiMoveToAndDie(const Coord3D *pos, CommandSourceType src);
 };
 
-void Rva00462290::rva00462290(const Coord3D *pos, CommandSourceType src)
+void AICommandInterface::aiMoveToAndDie(const Coord3D *pos, CommandSourceType src)
 {
 	AICommandParms parms((AICommandType)0x41, src);
 	parms.m_pos = *pos;

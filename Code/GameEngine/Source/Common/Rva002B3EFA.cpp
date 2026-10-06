@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva002B3EFA@@YAXPAX@Z @0x002B3EFA 65B: file-static scan, MSVC private
+// ?DisbandArmy@@YAXPAX@Z @0x002B3EFA 65B: file-static scan, MSVC private
 // EAX-incoming convention (StringBaseWideTrim/0x35800 precedent: a static
 // taking the pointer arrives in eax; the sole retail caller 0x2BE23E does
 // mov eax,[ebp+8] then a bare call).
@@ -29,7 +29,7 @@ public:
 class Rva002B3EFAElem
 {
 public:
-	void rva0040C45C();
+	void CancelUpgrades();
 	char m_pad[0xC4];
 	unsigned char m_flagC4;
 };
@@ -46,7 +46,7 @@ struct Rva002B3EFAVec
 	Rva0040CB2CIndexedField *m_vec;
 };
 
-static void rva002B3EFA(void *self)
+static void DisbandArmy(void *self)
 {
 	Rva0040CB2CIndexedField *vec = ((Rva002B3EFAVec *)self)->m_vec;
 	char *first = vec->m_first;
@@ -60,7 +60,7 @@ static void rva002B3EFA(void *self)
 		if (Rva002B3E7ECheck()) {
 			Rva002B3EFAElem *elem = (Rva002B3EFAElem *)value;
 			elem->m_flagC4 = 1;
-			elem->rva0040C45C();
+			elem->CancelUpgrades();
 		}
 		++i;
 	} while (i < count);
@@ -70,6 +70,6 @@ static void rva002B3EFA(void *self)
 // Not claimed.
 void *rva002B3EFA_keep(void *p)
 {
-	rva002B3EFA(p);
+	DisbandArmy(p);
 	return p;
 }

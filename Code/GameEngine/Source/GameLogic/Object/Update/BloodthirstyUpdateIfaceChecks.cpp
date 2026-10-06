@@ -111,8 +111,8 @@ public:
 class Object
 {
 public:
-	void rva00293A05(ModelConditionFlagType flag);
-	void rva00293955(ModelConditionFlagType flag);
+	void setModelConditionStateForHorde(ModelConditionFlagType flag);
+	void clearModelConditionStateForHorde(ModelConditionFlagType flag);
 	void setStatus(ObjectStatusTypes status, bool set);
 	void rva00346C53(ObjectStatusTypes status, bool set);
 	bool testStatus(ObjectStatusTypes status) const;
@@ -161,21 +161,21 @@ class Iface20
 {
 public:
 	virtual void s00();
-	virtual void rva0044E4A9() = 0;
+	virtual void cancelSacrifice() = 0;
 	virtual bool rva0044E12F(Object *obj) = 0;
 	virtual bool rva0044E1B9(Object *obj);
 	virtual void s04();
 	virtual void s05(int arg);
 	virtual void s06();
 	virtual void s07();
-	virtual void rva0044E222(Object *victim) = 0;
+	virtual void addSacrifice(Object *victim) = 0;
 };
 class BloodthirstyUpdate : public B00, public B0C, public B10, public Iface20
 {
 public:
 	virtual bool rva0044E12F(Object *obj);
-	virtual void rva0044E222(Object *victim);
-	virtual void rva0044E4A9();
+	virtual void addSacrifice(Object *victim);
+	virtual void cancelSacrifice();
 	virtual UpdateSleepTime update();
 private:
 	ObjectID m_bestTargetID; // +0x24
@@ -212,7 +212,7 @@ bool BloodthirstyUpdate::rva0044E12F(Object *obj)
 	}
 }
 
-void BloodthirstyUpdate::rva0044E222(Object *victim)
+void BloodthirstyUpdate::addSacrifice(Object *victim)
 {
 	Object *self = m_object;
 	if (victim == 0)
@@ -224,14 +224,14 @@ void BloodthirstyUpdate::rva0044E222(Object *victim)
 		return;
 	++m_kills;
 	if (m_kills == 1)
-		resolved->rva00293A05(MODELCONDITION_40);
+		resolved->setModelConditionStateForHorde(MODELCONDITION_40);
 	self->rva002931F5(false)->rva00294C1A(victim, true, m_moduleData->m_0C);
 	Rva250Module *module = resolved->getRva250();
 	if (module && module->rvaSlot69(0) == 1)
-		rva0044E4A9();
+		cancelSacrifice();
 }
 
-void BloodthirstyUpdate::rva0044E4A9()
+void BloodthirstyUpdate::cancelSacrifice()
 {
 	Object *self = m_object;
 	Object *target = TheGameLogic->findObjectByID(m_bestTargetID);
@@ -246,7 +246,7 @@ void BloodthirstyUpdate::rva0044E4A9()
 	m_bestTargetID = INVALID_ID;
 	m_kills = 0;
 	self->rva00346C53(OBJECT_STATUS_41, false);
-	target->rva00293955(MODELCONDITION_40);
+	target->clearModelConditionStateForHorde(MODELCONDITION_40);
 	target->setStatus(OBJECT_STATUS_4A, false);
 	target->rva00346C53(OBJECT_STATUS_4A, false);
 	target->getAI()->getCommandInterface()->aiIdle(CMD_FROM_AI);
@@ -261,7 +261,7 @@ UpdateSleepTime BloodthirstyUpdate::update()
 		{
 			s05(0);
 			Object *self = m_object;
-			self->rva00293955(MODELCONDITION_40);
+			self->clearModelConditionStateForHorde(MODELCONDITION_40);
 			self->setStatus(OBJECT_STATUS_4A, false);
 			self->rva00346C53(OBJECT_STATUS_4A, false);
 			self->getAI()->getCommandInterface()->aiIdle(CMD_FROM_AI);

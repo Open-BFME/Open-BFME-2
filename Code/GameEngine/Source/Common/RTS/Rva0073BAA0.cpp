@@ -7,7 +7,7 @@
 // Callers 0x0073BF40 0x0073BFE0 0x0073C350 pass grid as +4 mask as +8; this+0 is vtable, +4 grid, +8 mask.
 // Returns 1 always; ret 0xc is (x1 x2 y). Twin is 0x0073BB40 decrement variant, sibling 0x0073BBE0 adjust variant.
 class BfmeCellFD;
-class ShroudManagerImpl008FBA40;
+class ShroudManagerImpl;
 class ShroudManagerImpl008FBA40Element;
 
 class Gen_008F7CD0
@@ -19,7 +19,7 @@ public:
 class ShroudManagerImpl008FBA40Element
 {
 public:
-	void updatePlayerCells008FC300(ShroudManagerImpl008FBA40 *manager, int playerIndex);
+	void updatePlayerCells008FC300(ShroudManagerImpl *manager, int playerIndex);
 };
 
 class Rva0073BAA0
@@ -54,7 +54,7 @@ char Rva0073BAA0::rva0073BAA0(int x1, int x2, int y)
 					{
 						if (testFunc(x, y))
 							((ShroudManagerImpl008FBA40Element *)cell)->updatePlayerCells008FC300(
-								(ShroudManagerImpl008FBA40 *)m_grid, index);
+								(ShroudManagerImpl *)m_grid, index);
 						++x;
 						cell = (BfmeCellFD *)((char *)cell + 0xA8);
 					} while (cell != end);

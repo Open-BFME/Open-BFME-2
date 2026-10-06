@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva005EEAC6@Rva005EEAC6@@QAE_NPAVPlayer@@0PAUCoord3D@@@Z, retail 0x005EEAC6, 181 bytes.
+// ?findDenseStructureCenter@AISpellBookBase@@QAE_NPAVPlayer@@0PAUCoord3D@@@Z, retail 0x005EEAC6, 181 bytes.
 // Best-entry Coord picker with shroud skip: zeroes out Coord, looks up table via
 // g_00DFEEF8 map, scans entries for highest count (Rva00049D20::rva005D772D),
 // copies entry Coord (Rva00049D20::rva00049D20), checks TheShroudManager
@@ -71,13 +71,13 @@ struct Rva005EEAC6Store
 	Rva005EEAC6Range *m_table;
 };
 
-class Rva005EEAC6
+class AISpellBookBase
 {
 public:
-	bool rva005EEAC6(Player *a1, Player *a2, Coord3D *out);
+	bool findDenseStructureCenter(Player *a1, Player *a2, Coord3D *out);
 };
 
-bool Rva005EEAC6::rva005EEAC6(Player *a1, Player *a2, Coord3D *out)
+bool AISpellBookBase::findDenseStructureCenter(Player *a1, Player *a2, Coord3D *out)
 {
 	Coord3D tmp;
 	tmp.x = 0.0f;

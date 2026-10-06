@@ -60,7 +60,7 @@ class Player
 {
 public:
 	void setScienceAvailability(ScienceType science, ScienceAvailabilityType type);
-	bool rva002AD883(ScienceType science);
+	bool forcePurchaseScience(ScienceType science);
 private:
 	bool addScience(ScienceType science);
 	char m_pad00[8];
@@ -110,7 +110,7 @@ void Player::setScienceAvailability(ScienceType science, ScienceAvailabilityType
 // Retail 0x002AD883 70B: Player grant-and-charge between grantScience 0x2AD85E and setScienceAvailability 0x2AD8C9.
 // Evidence: isScienceGrantable row 0x001FF432, addScience pin 0x002AD661, getSciencePurchaseCost row 0x001FF3DC,
 // TheScienceStore ?TheScienceStore, Money withdraw slot 2 at +8 with neg cost, caller 0x001EC70A.
-bool Player::rva002AD883(ScienceType science)
+bool Player::forcePurchaseScience(ScienceType science)
 {
 	if (TheScienceStore->isScienceGrantable(science))
 	{

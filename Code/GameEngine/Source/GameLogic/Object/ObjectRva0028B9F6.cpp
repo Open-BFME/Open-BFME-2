@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva0028B9F6@Object@@QAEXPAV1@@Z @0x0028B9F6 143B: Object module
+// ?SwapForExchange@Object@@QAEXPAV1@@Z @0x0028B9F6 143B: Object module
 // exchange with another Object. Scans own +0x244 array for the entry whose
 // +0x0C sub-object slot2 (+0x08) equals own +0x250, scans other's array for
 // the entry whose slot2 equals other's +0x250, swaps the two entries and the
@@ -43,10 +43,10 @@ class Object
 	Rva0028B9F6Face *m_face250;
 
 public:
-	void rva0028B9F6(Object *other);
+	void SwapForExchange(Object *other);
 };
 
-void Object::rva0028B9F6(Object *other)
+void Object::SwapForExchange(Object *other)
 {
 	BehaviorModule **a = m_modules244;
 	while (*a != 0)

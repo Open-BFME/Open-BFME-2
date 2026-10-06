@@ -26,7 +26,7 @@ struct ShroudRegionLayout
 	char bytes[24];
 };
 
-class ShroudManagerImpl008FBA40
+class ShroudManagerImpl
 {
 private:
 	int mode;
@@ -46,7 +46,7 @@ private:
 		int field18, int field1c);
 };
 
-void ShroudManagerImpl008FBA40::processPending(bool drainAll)
+void ShroudManagerImpl::processPending(bool drainAll)
 {
 	unsigned int compareTime = drainAll
 		? (unsigned int)unknown38 : 0xffffffffu;

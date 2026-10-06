@@ -155,7 +155,7 @@ class OpenContain
 	, public IfaceFC
 {
 public:
-	virtual void rva00462F75(Object *rider);
+	virtual void removeFromContainList(Object *rider);
 	virtual void rva004638F1(Object *rider);
 };
 class TransportContain : public OpenContain
@@ -166,12 +166,12 @@ private:
 class SiegeEngineContain : public TransportContain
 {
 public:
-	virtual void rva00462F75(Object *rider);
+	virtual void removeFromContainList(Object *rider);
 private:
 	_STL::list<int> m_list11C; // +0x11C
 	int m_120; // +0x120
 };
-void SiegeEngineContain::rva00462F75(Object *rider)
+void SiegeEngineContain::removeFromContainList(Object *rider)
 {
 	SiegeEngineContainModuleData *data = (SiegeEngineContainModuleData *)m_moduleData;
 	if (data->m_18C.bfmeHas1026((int)rider, (int)m_object->getControllingPlayer()) && data->m_190 > 0)
@@ -186,5 +186,5 @@ void SiegeEngineContain::rva00462F75(Object *rider)
 		return;
 	}
 	clearModelConditionBit(rider, 6 * 32 + 17);
-	TransportContain::rva00462F75(rider);
+	TransportContain::removeFromContainList(rider);
 }

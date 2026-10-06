@@ -1,5 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// ?rva0015115C@Rva0015115C@@QAE_NPAVChunkLoadClass@@@Z at 0x0015115C (231B).
+// ?Load_W3D@Parameter@FXShader@@QAE_NPAVChunkLoadClass@@@Z at 0x0015115C (231B).
 // Chunk load with version at +4: reads version then first string at +0 via
 // rowed Read 0x006151A0 plus pinned getBufferForRead 0x00036640, branches on
 // version 1 second string at +8, 2-5 raw block at +0x0C, 6 dword at +0x1C,
@@ -20,10 +20,16 @@ public:
 	unsigned long Read(void *buf, unsigned long len);
 };
 
-class Rva0015115C
+class FXShader
 {
 public:
-	bool rva0015115C(ChunkLoadClass *chunk);
+	class Parameter;
+};
+
+class FXShader::Parameter
+{
+public:
+	bool Load_W3D(ChunkLoadClass *chunk);
 private:
 	StringBase<char> m_str00; // +0
 	int m_version; // +4
@@ -33,7 +39,7 @@ private:
 	unsigned char m_20; // +0x20
 };
 
-bool Rva0015115C::rva0015115C(ChunkLoadClass *chunk)
+bool FXShader::Parameter::Load_W3D(ChunkLoadClass *chunk)
 {
 	m_version = 0;
 	if (chunk->Read(&m_version, 4) != 4)

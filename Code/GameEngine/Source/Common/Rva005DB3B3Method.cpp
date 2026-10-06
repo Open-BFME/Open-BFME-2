@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva005DB3B3@Rva005DB3B3@@QAEXH@Z @0x005DB3B3 351B
+// ?UpdateSlotName@AptConnectionScreen@@QAEXH@Z @0x005DB3B3 351B
 // Unlock Apt connection-player name/num setter via GameSpy slot + GameInfo slot.
 // Evidence: callers 0x005DB61E 0x005DB639 in 0x005DB5F2 (thiscall 1 int arg ret 4);
 // strings "APT:ConnectionPlayerName_%d" "APT:ConnectionPlayerNum_%d" literals;
@@ -103,13 +103,13 @@ extern Rva00222A8BTarget *TheRva00222A8BTarget;
 extern const unsigned short g_00BC26DC[] = { 0 };
 extern const unsigned short g_00C76704[] = { '%', 'd', '.', 0 };
 
-class Rva005DB3B3
+class AptConnectionScreen
 {
 public:
-	void rva005DB3B3(int idx);
+	void UpdateSlotName(int idx);
 };
 
-void Rva005DB3B3::rva005DB3B3(int idx)
+void AptConnectionScreen::UpdateSlotName(int idx)
 {
 	if (!TheGameSpyInfo)
 		return;

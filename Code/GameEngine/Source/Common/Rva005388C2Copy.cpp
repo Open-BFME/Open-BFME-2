@@ -1,5 +1,5 @@
 // cl: /MD
-// ??0Rva005388C2@@QAE@ABV0@@Z @0x005388C2 53B
+// ??0QuadStrip2D@@QAE@ABV0@@Z @0x005388C2 53B
 // Holder copy ctor via rowed Rva005386F5 vector copy then byte and conditional region float copy.
 // Evidence: callee 0x005386F5 row Rva005386F5; caller none; prev reserve Float4 next slot4; layout matches Rva005386B7Swap.
 class Rva005386F5
@@ -18,17 +18,17 @@ struct Region2D
 	float x_max;
 	float y_max;
 };
-class Rva005388C2
+class QuadStrip2D
 {
 public:
-	Rva005388C2(const Rva005388C2 &other);
+	QuadStrip2D(const QuadStrip2D &other);
 private:
 	Rva005386F5 m_vec;
 	Region2D m_region;
 	float m_1c;
 	unsigned char m_20;
 };
-Rva005388C2::Rva005388C2(const Rva005388C2 &other)
+QuadStrip2D::QuadStrip2D(const QuadStrip2D &other)
 	: m_vec(other.m_vec)
 {
 	m_20 = other.m_20;

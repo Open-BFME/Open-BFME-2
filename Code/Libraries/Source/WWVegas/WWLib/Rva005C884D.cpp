@@ -1,17 +1,18 @@
 // cl: /MD
-// ?rva005C884D@Rva005C884D@@QAEXG@Z, retail 0x005C884D, 41 bytes.
+// LargeGroupAudioGridCell::addToWeight (WorldBuilder name, LargeGroupAudioGridCell.cpp line 369: saturating add to the +0x44 weight).
+// was ?rva005C884D@Rva005C884D@@QAEXG@Z, retail 0x005C884D, 41 bytes.
 // Saturating word add at +0x44 with 0xFFFF clamp on carry; callers 0x00569719/0x005697DA pass dword.
 // Evidence: unlock lane; prev Rva005C87F8Adjust /O1; vslot none; naming __thiscall ret 4.
-class Rva005C884D
+class LargeGroupAudioGridCell
 {
 public:
-	void rva005C884D(unsigned short val);
+	void addToWeight(unsigned short val);
 private:
 	unsigned char m_pad00[0x44];
 	unsigned short m_44; // +0x44
 };
 
-void Rva005C884D::rva005C884D(unsigned short val)
+void LargeGroupAudioGridCell::addToWeight(unsigned short val)
 {
 	unsigned short old = m_44;
 	int sum = (int)old + (int)val;

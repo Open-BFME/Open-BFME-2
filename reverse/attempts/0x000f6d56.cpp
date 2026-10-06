@@ -1,6 +1,8 @@
 // ?preRender@Rva000F6D56Filter@@UAE_NAA_NAAH@Z
+// partial score=0.9774 date=2026-10-06
+// ?preRender@Rva000F6D56Filter@@UAE_NAA_NAAH@Z
 // partial score=0.8 date=2026-10-06
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /G7 /arch:SSE
 // ?preRender@Rva000F6D56Filter@@UAE_NAA_NAAH@Z @0x000F6D56 90B.
 // Filter-style preRender(bool &skip, int &mode): clear skip, bind this+0x1C
 // surface as render target, clear color to black, set mode 6, return true.

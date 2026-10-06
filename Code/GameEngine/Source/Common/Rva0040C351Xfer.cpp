@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?xfer@Rva0040C351@@MAEXPAVXfer@@@Z @0x0040C4FE 136B
+// ?xfer@ArmySummaryEntry@@MAEXPAVXfer@@@Z @0x0040C4FE 136B
 // Slot 3 of vtable 0x0083944C (class of ctor 0x0040C351). Version 1 1 via
 // Xfer slot 0x28 then base CarryoverUnit xfer 0x0037DE79 then bool at +0xC5
 // via slot 0x90 plus int at +0xB4 via Get 0x004E075F plus int at +0xB8 via
@@ -88,7 +88,7 @@ class Rva004E075FObj;
 int Rva004E075FGet(Rva004E075FObj *o, int a);
 void XferLivingWorldArmyID(Xfer *xfer, int *value);
 void __cdecl Rva004E12D7Parse(void *ini, void *dest);
-class Rva0040C351 : public CarryoverUnit
+class ArmySummaryEntry : public CarryoverUnit
 {
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -101,7 +101,7 @@ private:
 	bool m_c4;
 	bool m_c5;
 };
-void Rva0040C351::xfer(Xfer *xfer)
+void ArmySummaryEntry::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;

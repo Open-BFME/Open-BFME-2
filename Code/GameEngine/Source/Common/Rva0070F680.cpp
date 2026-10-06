@@ -2,12 +2,12 @@
 //
 // ?rva0070F680@Rva0070F680@@QAEXPAXH@Z @0x0070F680 96B. Iterates the indexed
 // bucket at this+4 (8-byte entries {count, array}) and for each element whose
-// first dword is 1 enqueues a type-1 Apt action via rowed Rva006E3230
+// first dword is 1 enqueues a type-1 Apt action via rowed AptActionQueueC
 // 0x006E4B80 with (elem+1, pArg, 0x200000, g_00E17704) and this taken from
 // g_bfmeAptPtrAtE176D0+0xA0. Evidence: chain lane (callee just landed);
 // callers 0x006E2C10 0x006E2D60; globals E176D0 (extern name in use) E17704.
 class AptCIH;
-class Rva006E3230
+class AptActionQueueC
 {
 public:
     void rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
@@ -16,7 +16,7 @@ class Rva006E34D0
 {
 public:
     char _pad[0xA0];
-    Rva006E3230 *m_queue;
+    AptActionQueueC *m_queue;
 };
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 extern int g_00E17704;

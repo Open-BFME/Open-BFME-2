@@ -37,16 +37,16 @@ struct Rva005EE2CFPos
 	Real y;
 	Real z;
 };
-class Rva0058AD81
+class AISpecialPower
 {
 public:
-	void rva0058AD81(Object *obj);
+	void activate(Object *obj);
 private:
 	Int m_00;
 	Int m_04;
 	const CommandButton *m_08;
 };
-void Rva0058AD81::rva0058AD81(Object *obj)
+void AISpecialPower::activate(Object *obj)
 {
 	obj->doCommandButton(m_08, 1, 0);
 }

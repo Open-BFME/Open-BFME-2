@@ -10,7 +10,7 @@ struct Elem216 { char m_pad00[0x98]; int m_98; char m_pad9C[0xA4 - 0x9C]; int m_
 struct Vec216 { Elem216 *m_start; Elem216 *m_finish; Elem216 *m_end; };
 static __forceinline unsigned VecSize(Vec216 *v) { return v->m_finish - v->m_start; }
 static __forceinline Elem216 &VecAt(Vec216 *v, int i) { return v->m_start[i]; }
-class Rva0037E270 { public: void *rva0037E270(); };
+class UnitRevivalEntry { public: void *getThingTemplate(); };
 class Rva0037E421 {
     int m_00;
     Vec216 m_vec;
@@ -71,12 +71,12 @@ unsigned char Rva0037E421::rva0037E7DA(int key)
     return 0;
 }
 // ?rva0037E7A5@Rva0037E421@@QAEPAXH@Z @0x0037E7A5 23B
-// Chain of rva0037E421 then rowed Rva0037E270::rva0037E270; null if element missing.
+// Chain of rva0037E421 then rowed UnitRevivalEntry::getThingTemplate; null if element missing.
 // Proven by 5 callers and rowed callees 0x0037E421 and 0x0037E270; same class and flags.
 void *Rva0037E421::rva0037E7A5(int index)
 {
     void *p = rva0037E421(index);
     if (!p)
         return 0;
-    return ((Rva0037E270 *)p)->rva0037E270();
+    return ((UnitRevivalEntry *)p)->getThingTemplate();
 }

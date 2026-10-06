@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ?rva0026382B@Object@@QBEXPAUCoord3D@@PBU2@@Z,
+// ?Get2DCenterVectorTo@Object@@QBEXPAUCoord3D@@PBU2@@Z,
 // retail 0x0026382B (47 bytes). Dedicated TU next to the forwarder that calls
 // it (Object_getPlanarDirectionTo.cpp, 0x002654FC).
 //
@@ -20,15 +20,15 @@ struct Coord3D
 class Object
 {
 public:
-	void rva0026382B(Coord3D *out, const Coord3D *pos) const;
+	void Get2DCenterVectorTo(Coord3D *out, const Coord3D *pos) const;
 
 private:
 	char m_pad[0x38];
 	Coord3D m_position; // +0x38
 };
 
-// ?rva0026382B@Object@@QBEXPAUCoord3D@@PBU2@@Z
-void Object::rva0026382B(Coord3D *out, const Coord3D *pos) const
+// ?Get2DCenterVectorTo@Object@@QBEXPAUCoord3D@@PBU2@@Z
+void Object::Get2DCenterVectorTo(Coord3D *out, const Coord3D *pos) const
 {
 	// Volatile view forces forward pos loads (x then y). Plain C++ lets
 	// MSVC 7.1 reverse them (y then x) for x-store-first shapes under every

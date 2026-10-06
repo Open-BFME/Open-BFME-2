@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /DBFME_STLP_NODE_ALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/stlp_nodealloc
 // stlport
-// Distinct TU for the BFME1 ShroudManagerImpl008FBA40 donor's constructor and
+// Distinct TU for the BFME1 ShroudManagerImpl donor's constructor and
 // drainPending (retail 0x0073E310 214B + 0x0073D7D0 54B). The donor path is
 // occupied by the near-miss getShroudStatus pair, so the two bodies live here
 // with declarations only for their callees (all pinned, none defined).
@@ -59,7 +59,7 @@ struct Gen_t_008fb350_p12pod
 	unsigned int playerMask;
 };
 
-class ShroudManagerImpl008FBA40;
+class ShroudManagerImpl;
 class ShroudManagerImpl008FBA40Node;
 class ShroudManagerImpl008FBA40Element;
 
@@ -72,18 +72,18 @@ public:
 
 private:
 	void updateCellsTouched();
-	friend class ShroudManagerImpl008FBA40;
+	friend class ShroudManagerImpl;
 };
 
 typedef void (__cdecl *ShroudManagerImpl008FBA40RefreshCallback)(
 	int x, int y, int status);
 
-class ShroudManagerImpl008FBA40
+class ShroudManagerImpl
 {
 public:
-	ShroudManagerImpl008FBA40();
+	ShroudManagerImpl();
 	void drainPending();
-	void configure(Region3D region, Real cellSize);
+	void _ReallocCells(Region3D region, Real cellSize);
 
 private:
 	int mode;
@@ -107,7 +107,7 @@ private:
 	friend class ShroudManagerImpl008FBA40Element;
 };
 
-ShroudManagerImpl008FBA40::ShroudManagerImpl008FBA40()
+ShroudManagerImpl::ShroudManagerImpl()
 	: mode(2),
 	  defaultCellSize(1.0f),
 	  width(0),
@@ -123,10 +123,10 @@ ShroudManagerImpl008FBA40::ShroudManagerImpl008FBA40()
 {
 	region.lo.zero();
 	region.hi.zero();
-	configure(region, 1.0f);
+	_ReallocCells(region, 1.0f);
 }
 
-inline void ShroudManagerImpl008FBA40::drainPending()
+inline void ShroudManagerImpl::drainPending()
 {
 	++unknown38;
 	while (pendingPartitionData)
@@ -143,8 +143,8 @@ inline void ShroudManagerImpl008FBA40::drainPending()
 // copies, which plain definitions here collided with. The anchor keeps this
 // unit's copies for the rows; it is not retail code.
 #pragma inline_depth(0)
-// ?_bfmeShroudManagerImpl008FBA40InlineAnchor@@YAXPAVShroudManagerImpl008FBA40@@@Z absent-from-retail
-void _bfmeShroudManagerImpl008FBA40InlineAnchor(ShroudManagerImpl008FBA40 *p)
+// ?_bfmeShroudManagerImpl008FBA40InlineAnchor@@YAXPAVShroudManagerImpl@@@Z absent-from-retail
+void _bfmeShroudManagerImpl008FBA40InlineAnchor(ShroudManagerImpl *p)
 {
     p->drainPending();
 }

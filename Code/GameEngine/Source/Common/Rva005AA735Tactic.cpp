@@ -2,8 +2,8 @@
 //
 // The "SimpleDefense" skirmish-AI tactic (vtable 0x00871FBC; ctor 0x005AA7DF
 // in Rva004ECECDTacticCtors.cpp, dtor 0x005AA735 and ??_G, slot 9 in
-// Rva004ECECDTacticCreate.cpp). Base chain, all address-derived: Rva005DCB27
-// over Rva005DC73C over the AITactic.cpp object Rva004ECECD.
+// Rva004ECECDTacticCreate.cpp). Base chain, all address-derived: AITacticDefensive
+// over AITacticOffensive over the AITactic.cpp object AITactic.
 //
 //   0x005AA740  slot 3: send the team (0x0039D7A6) to the +0x20 record's
 //               point and size it by the record's kind (+0x2C): 1, 3, or
@@ -67,33 +67,33 @@ struct Rva005AA735Record
 	int m_kind;			// +0x2C
 };
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual bool v3(Rva0039D7A6Setter *team, void *unused);
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual bool initializeTeamTemplate(Rva0039D7A6Setter *team, void *unused);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 	char m_pad04[0x20 - 4];
 	Rva005AA735Record *m_record;	// +0x20
 	Player *m_owner;		// +0x24
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005AA735 : public Rva005DC73C
+class Rva005AA735 : public AITacticOffensive
 {
 public:
 	virtual ~Rva005AA735();
-	virtual bool v3(Rva0039D7A6Setter *team, void *unused);
+	virtual bool initializeTeamTemplate(Rva0039D7A6Setter *team, void *unused);
 };
 
-bool Rva005AA735::v3(Rva0039D7A6Setter *team, void *)
+bool Rva005AA735::initializeTeamTemplate(Rva0039D7A6Setter *team, void *)
 {
 	team->set(&m_record->m_point0C);
 	switch (m_record->m_kind) {

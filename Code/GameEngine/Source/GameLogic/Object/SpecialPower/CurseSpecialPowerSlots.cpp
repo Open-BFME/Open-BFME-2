@@ -179,7 +179,7 @@ public:
 class SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();	// slot 17 (0x0045108D)
+	virtual void triggerAbilityEffect();	// slot 17 (0x0045108D)
 	const SpecialPowerTemplate *rva005F6B0B() const;	// 0x005F6B0B: module data +0x38
 protected:
 	const void *m_moduleData;	// +0x04
@@ -189,7 +189,7 @@ protected:
 class CurseSpecialPower : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 	void rva004CCE85(Object *obj);
 private:
 	const CurseSpecialPowerModuleData *getCurseSpecialPowerModuleData() const
@@ -219,9 +219,9 @@ void CurseSpecialPower::rva004CCE85(Object *obj)
 	FXList::doFXObj(data->m_CC, obj, 0);
 }
 
-void CurseSpecialPower::rva0045108D()
+void CurseSpecialPower::triggerAbilityEffect()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	const CurseSpecialPowerModuleData *data = getCurseSpecialPowerModuleData();
 	Object *owner = m_object;
 	if (m_40 == INVALID_ID) {

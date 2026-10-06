@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 
-// ?rva0011604D@W3DBufferManager@@QAE_NXZ, retail 0x0011604D, 198 bytes.
+// ?ReAcquireResources@W3DBufferManager@@QAE_NXZ, retail 0x0011604D, 198 bytes.
 // Evidence: __thiscall bool with no args (ret, al 1/0); loops 0x12 VB heads at
 // this+0x9000 via +0x10 chain allocating BfmeDynamicNativeVB with table at
 // 0x00DB5F30 indexed by m_format plus (ushort)m_size then IB list at
@@ -103,7 +103,7 @@ public:
 		DX8IndexBufferClass *m_DX8IndexBuffer;
 	};
 
-	bool rva0011604D();
+	bool ReAcquireResources();
 
 protected:
 	W3DVertexBufferSlot *m_W3DVertexBufferSlots[MAX_FVF][512];
@@ -120,7 +120,7 @@ protected:
 	Int m_numEmptyIndexBuffersAllocated;
 };
 
-bool W3DBufferManager::rva0011604D()
+bool W3DBufferManager::ReAcquireResources()
 {
 	for (int i = 0; i < MAX_FVF; ++i)
 	{

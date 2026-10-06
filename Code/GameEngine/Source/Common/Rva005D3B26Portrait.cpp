@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?rva005D3B26@Rva005D3B26@@QAEXXZ retail 0x005D3B26 116B
+// ?rva005D3B26@SelectionUIImpl@StrategicHUD@@QAEXXZ retail 0x005D3B26 116B
 // Evidence: unlock twin of rowed 0x005D3B9A portrait; format row 0x00038150 releaseBuffer row 0x00036410; empty VA 0x007BAC1C manager VA 0x009FE4CC; pinned callee 0x002239E2; callers 0x005D3CF0 0x005D3D44
 template <typename T> class StringBase;
 
@@ -25,12 +25,16 @@ struct Rva005D2FD0Inner
 
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
-class Rva005D3B26
+namespace StrategicHUD {
+class SelectionUIImpl;
+}
+
+class StrategicHUD::SelectionUIImpl
 {
 public:
 	void rva005D3B26();
 	void rva005D3A91();
-	void rva005D3CFA();
+	void Show();
 
 	void *m_unused00;
 	int m_level;
@@ -43,7 +47,7 @@ public:
 	bool m_32;			// +0x32
 };
 
-void Rva005D3B26::rva005D3B26()
+void StrategicHUD::SelectionUIImpl::rva005D3B26()
 {
 	if (TheRva00222A8BTarget == 0)
 		return;
@@ -57,11 +61,11 @@ void Rva005D3B26::rva005D3B26()
 // ?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A: the global at VA 0xdfe4cc is ?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A.
 #pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
 
-// ?rva005D3CFA@Rva005D3B26@@QAEXXZ retail 0x005D3CFA 81B: show the panel once:
+// ?Show@SelectionUIImpl@StrategicHUD@@QAEXXZ retail 0x005D3CFA 81B: show the panel once:
 // SetState "_show" through the rowed Rva005FB5E6AptCall (TheRva00222A8BTarget,
 // level, name), set the shown flag at +0x30, refresh 0x005D3A91 (pinned) when
 // the flag at +0x32 is set, then tail-call the portrait refresh above.
-void Rva005D3B26::rva005D3CFA()
+void StrategicHUD::SelectionUIImpl::Show()
 {
 	if (m_shown30)
 		return;

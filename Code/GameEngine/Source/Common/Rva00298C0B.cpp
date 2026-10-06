@@ -1,11 +1,11 @@
 // cl: /DNDEBUG /MD
 // ?rva00298C0B@Rva00298C0B@@QAEXPAVTeam@@@Z 107B @0x00298C0B: team scan via 250 plus recurse plus aiIdle.
-// Evidence: retail this plus0x250 virtual slot 0x118 plus 0x250 null plus recurse plus rva00298AE4 pin plus aiIdle row. Callers at 0x003A2D3A 0x003A2DA2 plus self.
+// Evidence: retail this plus0x250 virtual slot 0x118 plus 0x250 null plus recurse plus setTeam pin plus aiIdle row. Callers at 0x003A2D3A 0x003A2DA2 plus self.
 class Team;
 class Object
 {
 public:
-	void rva00298AE4(Team *t);
+	void setTeam(Team *t);
 };
 
 enum CommandSourceType
@@ -121,7 +121,7 @@ void Rva00298C0B::rva00298C0B(Team *t)
 		Object *o = *(Object **)((char *)cur + 8);
 		if (*(void **)((char *)o + 0x250) != 0)
 			((Rva00298C0B *)o)->rva00298C0B(t);
-		((Object *)o)->rva00298AE4(t);
+		((Object *)o)->setTeam(t);
 		void *m = *(void **)((char *)o + 0x258);
 		if (m != 0)
 			((AICommandInterface *)((char *)m + 0x20))->aiIdle(CST_2);

@@ -1,7 +1,7 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// ?rva0032C2C4@BfmeIndexedNodesFM@@QAEXXZ @0x0032C2C4 51B
+// ?rva0032C2C4@TeamsInfoRec@@QAEXXZ @0x0032C2C4 51B
 // Release chained indexed nodes with a nonzero +6 link.
-// Evidence: same-this call to rowed ?bfmeRelease@BfmeIndexedNodesFM@@QAEXH@Z
+// Evidence: same-this call to rowed ?bfmeRelease@TeamsInfoRec@@QAEXH@Z
 // @0x0032C26D; walks 16B nodes at +0xC via signed-short links;
 // twin of clearChainedNodesAt00197860 in Bfme5IndexedNodeRelease.cpp
 // but outlining the release through bfmeRelease; callers @0x003303C1
@@ -15,7 +15,7 @@ struct BfmeIndexedNodeFM
 	char m_rest[8];
 };
 
-class BfmeIndexedNodesFM
+class TeamsInfoRec
 {
 public:
 	void rva0032C2C4();
@@ -26,7 +26,7 @@ private:
 	BfmeIndexedNodeFM *m_nodes;
 };
 
-void BfmeIndexedNodesFM::rva0032C2C4()
+void TeamsInfoRec::rva0032C2C4()
 {
 	int index = m_nodes[0].m_previous;
 	while (index)

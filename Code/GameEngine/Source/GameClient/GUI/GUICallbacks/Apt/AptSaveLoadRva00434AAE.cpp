@@ -31,7 +31,7 @@ class AptSaveLoad
 {
 public:
 	int rva00433F7F();
-	void rva00434AAE();
+	void SetDefaultFileName();
 
 private:
 	unsigned char m_pad000[0x290];
@@ -40,7 +40,7 @@ private:
 	int m_mode;
 };
 
-void AptSaveLoad::rva00434AAE()
+void AptSaveLoad::SetDefaultFileName()
 {
 	if (m_fileName == 0)
 		return;

@@ -22,7 +22,7 @@ extern class Rva002D06CA *TheThingFactory;
 class ThingTemplate
 {
 public:
-	const Image *rva0033B580();
+	const Image *getButtonImage();
 	const Image *rva0033BA46();
 };
 
@@ -45,7 +45,7 @@ const Image *Rva005F02E0Get(void *in)
 	if (!mid || !(found = TheThingFactory->rva002D06CA(&mid->m_name)))
 		return 0;
 	ThingTemplate *tmpl = (ThingTemplate *)found;
-	const Image *img = tmpl->rva0033B580();
+	const Image *img = tmpl->getButtonImage();
 	if (img)
 		return img;
 	return tmpl->rva0033BA46();

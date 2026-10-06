@@ -1,5 +1,5 @@
 // ?rva001F131F@Rva001F131F@@QAEXHH@Z
-// partial score=0.97 date=2026-10-04
+// partial score=0.9885 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 #include "ascii_string.h"
 // ?rva001F131F@Rva001F131F@@QAEXHH@Z @0x001F131F 407B: vslot 4 of GenericObjectCreationNugget.

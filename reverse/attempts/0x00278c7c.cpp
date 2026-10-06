@@ -1,5 +1,5 @@
 // ?rva00278C7C@Drawable@@QAEXH@Z
-// partial score=0.95 date=2026-10-05
+// partial score=0.9302 date=2026-10-05
 // cl: /O1 /arch:SSE  /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /D_CRTIMP= /EHs /EHc-
 // Target 0x00278C7C has inventory extent381B and is called recursively plus
 // by matched Drawable selected-flag helper0x2796B8. Primary reference:

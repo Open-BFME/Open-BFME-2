@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc /Oy-
 //
-// ?rva00274401@Drawable@@QAEXXZ, retail 0x00274401, 68 bytes.
+// ?setInaudible@Drawable@@QAEXXZ, retail 0x00274401, 68 bytes.
 // Drawable conditional reset plus array notify: if +0x44a flag set clear it
 // then rowed Rva002714CA release plus rowed Drawable rva002743D7 audio clear
 // then walk the +0x154 null-terminated element list calling slot 0x30 get
@@ -42,7 +42,7 @@ public:
 class Drawable
 {
 public:
-	void rva00274401();
+	void setInaudible();
 	void rva002743D7();
 private:
 	unsigned char m_pad0[0x154];
@@ -51,7 +51,7 @@ private:
 	bool m_flag44a;
 };
 
-void Drawable::rva00274401()
+void Drawable::setInaudible()
 {
 	if (!m_flag44a)
 		return;

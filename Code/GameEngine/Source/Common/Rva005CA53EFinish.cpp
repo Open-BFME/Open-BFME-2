@@ -129,9 +129,9 @@ public:
 
 	// Removes one nick from one email's clan list; retail guards with find
 	// before subscripting (sibling 0x005CADD3 is the nick-map twin at +0x2c).
-	void rva005CAE72(const AsciiString &email, const AsciiString &nick);
-	// Nick-map twin of rva005CAE72 at +0x2c (retail 0x005CADD3).
-	void rva005CADD3(const AsciiString &email, const AsciiString &nick);
+	void deleteClan(const AsciiString &email, const AsciiString &nick);
+	// Nick-map twin of deleteClan at +0x2c (retail 0x005CADD3).
+	void deleteNick(const AsciiString &email, const AsciiString &nick);
 	// Erases one email key from nick/pass/date maps at +0x2c/+0x14/+0x20 (retail 0x005CABF9).
 	void rva005CABF9(AsciiString email);
 	AsciiString rva005C9FC4(void);

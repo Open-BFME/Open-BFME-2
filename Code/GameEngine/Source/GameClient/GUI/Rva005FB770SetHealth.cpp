@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva005FB8B4@Rva005FB770@@QAEXM@Z @ 0x005FB8B4 79B: float health setter via rowed Fire 0x00527925 with SetPlayerHealth plus EmptyString fallback. Evidence: ucomiss float at +0x34 plus rowed Fire plus TheRva00222A8BTarget 0x009FE4CC plus g_Rva0107301CEmptyString 0x007BAC1C plus SetPlayerHealth literal plus gap between AptPlayerNameSet rows.
+// ?SetPlayerHealth@Impl@DynamicAutoResolvePlayerPanelMovieClip@StrategicHUD@@QAEXM@Z @ 0x005FB8B4 79B: float health setter via rowed Fire 0x00527925 with SetPlayerHealth plus EmptyString fallback. Evidence: ucomiss float at +0x34 plus rowed Fire plus TheRva00222A8BTarget 0x009FE4CC plus g_Rva0107301CEmptyString 0x007BAC1C plus SetPlayerHealth literal plus gap between AptPlayerNameSet rows.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 extern const char g_Rva0107301CEmptyString[];
@@ -13,12 +13,20 @@ struct Rva005FB770Team
 	char m_name[1];
 };
 
-class Rva005FB770
+namespace StrategicHUD {
+class DynamicAutoResolvePlayerPanelMovieClip
 {
 public:
-	void rva005FB8B4(float v);
-	void rva005FB961(float v);
-	void rva005FB9C6(float v);
+	class Impl;
+};
+}
+
+class StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl
+{
+public:
+	void SetPlayerHealth(float v);
+	void PlayHitAnim(float v);
+	void PlayReinforceAnim(float v);
 private:
 	char m_pad00[4];
 	void *m_level04;
@@ -30,7 +38,7 @@ private:
 	bool m_flag4D;
 };
 
-void Rva005FB770::rva005FB8B4(float v)
+void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::SetPlayerHealth(float v)
 {
 	if (v != m_float34) {
 		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
@@ -39,7 +47,7 @@ void Rva005FB770::rva005FB8B4(float v)
 	}
 }
 
-void Rva005FB770::rva005FB961(float v)
+void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayHitAnim(float v)
 {
 	float *pHealth = &m_float34;
 	float *p = pHealth;
@@ -52,7 +60,7 @@ void Rva005FB770::rva005FB961(float v)
 	m_flag4C = true;
 }
 
-void Rva005FB770::rva005FB9C6(float v)
+void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayReinforceAnim(float v)
 {
 	float cap = kF7C - m_float34;
 	float *p = &cap;

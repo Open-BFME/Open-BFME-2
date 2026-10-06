@@ -1,5 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// ?rva005F0C54@Rva005F0C54@@QAEXABVUnicodeString@@@Z @0x005F0C54 109B
+// StrategicHUD::RegionDetailsStructuresMovieClip::Impl::ShowBuildingName (WorldBuilder name, line 486: cached compare, SetBuildingNameString 0x005F066C, set, SetBuildingNameState _show once).
+// was ?rva005F0C54@Rva005F0C54@@QAEXABVUnicodeString@@@Z @0x005F0C54 109B
 // __thiscall method over +4 level +8 Outer +0x40 UnicodeString +0x4C shown flag.
 // Compares arg vs member via rowed StringBase compare 0x00006A7A then rowed
 // Rva005F066CSet 0x005F066C plus rowed StringBase set 0x00037150 then AptCall
@@ -27,10 +28,18 @@ extern const char g_Rva0107301CEmptyString[];
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
-class Rva005F0C54
+namespace StrategicHUD
+{
+class RegionDetailsStructuresMovieClip
 {
 public:
-	void rva005F0C54(const UnicodeString &text);
+	class Impl;
+};
+}
+class StrategicHUD::RegionDetailsStructuresMovieClip::Impl
+{
+public:
+	void ShowBuildingName(const UnicodeString &text);
 private:
 	char m_pad0[4];
 	int m_level;
@@ -41,7 +50,7 @@ private:
 	bool m_shown;
 };
 
-void Rva005F0C54::rva005F0C54(const UnicodeString &text)
+void StrategicHUD::RegionDetailsStructuresMovieClip::Impl::ShowBuildingName(const UnicodeString &text)
 {
 	if (text.compare(m_name) != 0) {
 		Rva005F066CSet(m_level, &m_outer, text);
@@ -60,10 +69,10 @@ public:
 	void rva005F0CC1(const UnicodeString &text);
 private:
 	char m_pad0[4];
-	Rva005F0C54 *m_obj;
+	StrategicHUD::RegionDetailsStructuresMovieClip::Impl *m_obj;
 };
 
 void Rva005F0CC1::rva005F0CC1(const UnicodeString &text)
 {
-	return m_obj->rva005F0C54(text);
+	return m_obj->ShowBuildingName(text);
 }

@@ -1,9 +1,9 @@
 // cl: /MD
-// ?rva0027D0D6@Rva0027D0D6@@QAEHPAM@Z, retail 0x0027D0D6 206B. Unlock: clamp xy to bounds from vtable slot10 then grid index via floor.
+// ?getPartitionBucket@TerrainLogic@@QAEHPAM@Z, retail 0x0027D0D6 206B. Unlock: clamp xy to bounds from vtable slot10 then grid index via floor.
 // Evidence: callees rowed floor and slot10 virtual; caller 0x00283642 unclaimed; honest address name.
 extern "C" __declspec(dllimport) double __cdecl floor(double);
 
-class Rva0027D0D6
+class TerrainLogic
 {
 public:
 	virtual void _v0();
@@ -17,7 +17,7 @@ public:
 	virtual void _v8();
 	virtual void _v9();
 	virtual void fetchBounds(void *out);
-	int rva0027D0D6(float *src);
+	int getPartitionBucket(float *src);
 };
 
 struct Bounds
@@ -45,7 +45,7 @@ static __forceinline long fast_round(float f)
 	return i;
 }
 
-int Rva0027D0D6::rva0027D0D6(float *src)
+int TerrainLogic::getPartitionBucket(float *src)
 {
 	float x = src[0];
 	float y = src[1];

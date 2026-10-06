@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// ?rva004670D6@TransportContain@@QAEXXZ, retail 0x004670D6, 214 bytes.
+// ?createPayload@TransportContain@@QAEXXZ, retail 0x004670D6, 214 bytes.
 // Slot 28 (offset 0x70) of TransportContain vtable 0x00844278 and
 // HordeTransportContain vtable 0x00845EB8. Iterates the contain list at
 // [this+4]+0xA4 via rowed Rva002D06CA lookup through g_009FF000 and drives
@@ -143,7 +143,7 @@ class TransportContain
 {
 public:
 	virtual ~TransportContain();
-	void rva004670D6();
+	void createPayload();
 
 private:
 	PtrA *m_4;
@@ -152,7 +152,7 @@ private:
 	Secondary m_fc;
 };
 
-void TransportContain::rva004670D6()
+void TransportContain::createPayload()
 {
 	PtrA *a = m_4;
 	RiderNode *cur = a->m_sentinel->m_first;

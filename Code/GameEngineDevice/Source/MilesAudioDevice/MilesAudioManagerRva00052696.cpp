@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
-// ?rva00052696@MilesAudioManager@@QAEPAXPAX@Z @0x00052696 47B.
+// ?get2DSampleHandleForPlayingAudio@MilesAudioManager@@QAEPAXPAX@Z @0x00052696 47B.
 // Same +0xBD4 handle-state table (72-byte records) and PlayingAudio +8/+0x14
 // layout as MilesAudioManagerStopAudio (handle +8, type +0x14). Arg is pointer
 // to PlayingAudio* (PlayingAudioRef-like, offset 0). Type 0 returns handle,
@@ -25,13 +25,13 @@ struct PlayingAudio
 class MilesAudioManager
 {
 public:
-	void *rva00052696(void *p);
+	void *get2DSampleHandleForPlayingAudio(void *p);
 private:
 	char m_pad0[0xbd4];
 	HandleStateEntry *m_tableBD4;
 };
 
-void *MilesAudioManager::rva00052696(void *p)
+void *MilesAudioManager::get2DSampleHandleForPlayingAudio(void *p)
 {
 	PlayingAudio *q = *(PlayingAudio **)p;
 	switch (q->m_type14)

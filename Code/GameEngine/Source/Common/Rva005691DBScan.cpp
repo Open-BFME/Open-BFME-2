@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ?rva005691DB@Rva005691DB@@QAEXPAVBitRange@@PAX@Z @0x005691DB 145B.
+// ?removePointersToGridCellsInDuckingTarget@LargeGroupAudioSoundKeyPair@@QAEXPAVBitRange@@PAX@Z @0x005691DB 145B.
 // Clear-on-match scan: notify the 4 slots at +0x2C via pinned 0x005C834A,
 // then walk elements [m_begin,m_end) at +0x14/+0x18 stride 0x14; the first
 // element whose StringBase at +0 compares 0 against the +0x3C key's +0x18
@@ -64,10 +64,10 @@ struct Rva005691DBElem
 	char m_pad11[3];
 };
 
-class Rva005691DB
+class LargeGroupAudioSoundKeyPair
 {
 public:
-	void rva005691DB(BitRange *host, void *tag);
+	void removePointersToGridCellsInDuckingTarget(BitRange *host, void *tag);
 private:
 	char m_pad[0x14];
 	Rva005691DBElem *m_begin;	// +0x14
@@ -76,7 +76,7 @@ private:
 	Rva005C834A *m_slots[4];	// +0x2C
 };
 
-void Rva005691DB::rva005691DB(BitRange *host, void *tag)
+void LargeGroupAudioSoundKeyPair::removePointersToGridCellsInDuckingTarget(BitRange *host, void *tag)
 {
 	Rva005C834A **slot = m_slots;
 	int left = 4;

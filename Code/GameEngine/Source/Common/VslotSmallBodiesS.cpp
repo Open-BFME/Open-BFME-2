@@ -64,7 +64,7 @@ struct Rva0050BDD5Arg
 	char m_pad00[0x38];
 	Int m_38;
 };
-class Rva0050BDD5
+class FireLogicNugget
 {
 public:
 	virtual void v00();
@@ -74,9 +74,9 @@ public:
 	virtual void v04();
 	virtual void v05();
 	virtual void v06(Int a, Int *b);
-	void rva0050BDD5(Int a, Rva0050BDD5Arg *b);
+	void doEffectObject(Int a, Rva0050BDD5Arg *b);
 };
-void Rva0050BDD5::rva0050BDD5(Int a, Rva0050BDD5Arg *b)
+void FireLogicNugget::doEffectObject(Int a, Rva0050BDD5Arg *b)
 {
 	if (b)
 		v06(a, &b->m_38);

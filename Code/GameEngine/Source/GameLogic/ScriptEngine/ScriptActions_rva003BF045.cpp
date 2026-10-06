@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?Rva003BF045Do@@YGXABVAsciiString@@0_N@Z @0x003BF045 442B.
+// ?doTeamFollowSkirmishApproachPath@ScriptActions@@IAEXABVAsciiString@@0_N@Z @0x003BF045 442B.
 // Script team centroid to formatted waypoint via getTeamNamed createGroup
 // getTeamAsAIGroup iterate Rva-advance, average with g_Va00BBB8D8, enemy
 // index plus one formatted as prefix with "%s%d", TerrainLogic slot 0x90,
@@ -102,7 +102,13 @@ extern TerrainLogic *TheTerrainLogic;
 extern float g_Va00BBB8D8;
 extern const char g_Rva0107301CEmptyString[];
 
-void __stdcall Rva003BF045Do(const AsciiString &teamName, const AsciiString &prefix, bool which)
+class ScriptActions
+{
+protected:
+	void doTeamFollowSkirmishApproachPath(const AsciiString &teamName, const AsciiString &prefix, bool which);
+};
+
+void ScriptActions::doTeamFollowSkirmishApproachPath(const AsciiString &teamName, const AsciiString &prefix, bool which)
 {
 	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)

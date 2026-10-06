@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD /GX-
 // ?rva0052C036@Rva0052C036@@QAE_NXZ @0x0052C036 54B: advance index at +8 toward limit at +18 over 0xB8 stride array at +0xC else clamp and notify.
-// Evidence: callers 0x003B8CAC tail-jmp via array at +0x14 and 0x0052C9F9 tail-jmp; callees rowed 0x003EF2FF Rva003EF13E plus pin 0x0056696F bfmeEnter plus g_009FE1C8; stride 0xB8 matches Rva0052BCE7Elem; neighbours Rva0052BF33DestroyTagged and Rva0052C06CGet.
-class Rva003EF13E
+// Evidence: callers 0x003B8CAC tail-jmp via array at +0x14 and 0x0052C9F9 tail-jmp; callees rowed 0x003EF2FF LivingWorldRegionEffectsManager plus pin 0x0056696F bfmeEnter plus g_009FE1C8; stride 0xB8 matches Rva0052BCE7Elem; neighbours Rva0052BF33DestroyTagged and Rva0052C06CGet.
+class LivingWorldRegionEffectsManager
 {
 public:
 	void rva003EF2FF();
@@ -11,7 +11,7 @@ class Rva0021294A
 {
 public:
 	char m_pad[0x268];
-	Rva003EF13E *m_268;
+	LivingWorldRegionEffectsManager *m_268;
 };
 
 extern Rva0021294A *g_009FE1C8;

@@ -29,18 +29,33 @@ public:
 	Rva005CB265 *m_10;
 };
 
-class Rva005E2371
+namespace StrategicInGameUI
+{
+class RegionDetailsStructuresPage
 {
 public:
-	void rva005E2371(int ignored);
+	class Impl;
+};
+class RegionDetailsStructuresPage::Impl
+{
+public:
+	class Icon;
+};
+}
+// StrategicInGameUI::RegionDetailsStructuresPage::Impl::Icon::OnRegionDetailsStructuresIconSlotRollOut: WorldBuilder name (StrategicInGameUIRegionDetailsStructuresPage.cpp
+// line 325); a virtual, its address sits in the icon vtable at VA 0x00C77B14..18.
+class StrategicInGameUI::RegionDetailsStructuresPage::Impl::Icon
+{
+public:
+	virtual void OnRegionDetailsStructuresIconSlotRollOut(int ignored);
 protected:
-	unsigned char m_pad[8];
+	unsigned char m_pad04[8 - 4];
 	Rva005E2371M8 *m_8;
 	int m_pad0C;
 	Rva002BED91 m_10;
 };
 
-void Rva005E2371::rva005E2371(int ignored)
+void StrategicInGameUI::RegionDetailsStructuresPage::Impl::Icon::OnRegionDetailsStructuresIconSlotRollOut(int ignored)
 {
 	(void)ignored;
 	int b = m_10.m_0;

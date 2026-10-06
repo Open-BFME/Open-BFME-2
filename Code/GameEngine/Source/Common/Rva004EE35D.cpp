@@ -1,6 +1,6 @@
 // cl: /MD
 // ?rva004EE35D@Rva004EE35D@@QAEHABV?$BitFlags@$0HE@@@0@Z, retail 0x004EE35D, 78 bytes.
-// RB-tree sum with BitFlags filter: like Rva004EE037::rva004EE33B but tree at
+// RB-tree sum with BitFlags filter: like LivingWorldScoreKeeper::rva004EE33B but tree at
 // +0xB4, sums +0x14 where +0x10 obj non-null and its +0x108 flags pass
 // testSetAndClear. Evidence: rowed 0x0030A146 0x00024250; prev/next /O1 /MD;
 // ret 8 two args; callers 0x005BE469 0x005C0333 0x005C1290 0x005C1347.

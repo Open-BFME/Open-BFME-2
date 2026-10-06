@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
-// ?Rva003C2F9CDo@@YGXABVAsciiString@@00@Z @0x003C2F9C 129B
+// ?doSetCounterToPlayerOwnershipOfUnitsWithModelCondition@ScriptActions@@IAEXABVAsciiString@@00@Z @0x003C2F9C 129B
 // Script count KindOf objects across players in mask into a counter: mask from
 // first arg via rowed rva00357475 0x00357475 with NULL, kind bit via rowed
 // BitFlags<304> getSingleBitFromName 0x000B42CA from second arg str() with empty
@@ -22,7 +22,7 @@ public:
 	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
 protected:
 	ScriptCounter *bfmeCounter(AsciiString name);
-	friend void __stdcall Rva003C2F9CDo(const AsciiString &, const AsciiString &, const AsciiString &);
+	friend class ScriptActions;
 };
 
 class PlayerList
@@ -53,7 +53,13 @@ public:
 	static int getSingleBitFromName(const char *token);
 };
 
-void __stdcall Rva003C2F9CDo(const AsciiString &playerName, const AsciiString &kindName, const AsciiString &counterName)
+class ScriptActions
+{
+protected:
+	void doSetCounterToPlayerOwnershipOfUnitsWithModelCondition(const AsciiString &playerName, const AsciiString &kindName, const AsciiString &counterName);
+};
+
+void ScriptActions::doSetCounterToPlayerOwnershipOfUnitsWithModelCondition(const AsciiString &playerName, const AsciiString &kindName, const AsciiString &counterName)
 {
 	int mask = TheScriptEngine->rva00357475(playerName, (bool *)0);
 	int total = 0;

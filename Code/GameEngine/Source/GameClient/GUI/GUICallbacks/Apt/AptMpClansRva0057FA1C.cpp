@@ -20,7 +20,7 @@ public:
 class AptMpClans
 {
 public:
-	void rva0057F7AC(const UnicodeString &name);
+	void PopulateMyClans(const UnicodeString &name);
 	void rva0057FA1C(UnicodeString name);
 
 private:
@@ -50,5 +50,5 @@ void AptMpClans::rva0057FA1C(UnicodeString name)
 		if (m_prefs.rva005CAE04(m_clan, ascii))
 			m_prefs.write();
 	}
-	rva0057F7AC(name);
+	PopulateMyClans(name);
 }

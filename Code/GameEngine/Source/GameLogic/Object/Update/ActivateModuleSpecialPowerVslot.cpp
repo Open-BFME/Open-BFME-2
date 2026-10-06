@@ -5,7 +5,7 @@
 class SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 };
 
 class Rva004CDF00 : public SpecialAbilityUpdate
@@ -22,6 +22,6 @@ public:
 
 void ActivateModuleSpecialPower::rva004CDEED()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	Rva004CDF00::rva004CDDBA(0);
 }

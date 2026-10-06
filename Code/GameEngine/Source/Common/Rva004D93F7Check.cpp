@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?Rva004D93F7Check@@YAEIPBUBfmePointFD@@@Z, retail 0x004D93F7, 92 bytes.
+// ?countsAsMoveIntoCamp@@YAEIPBUBfmePointFD@@@Z, retail 0x004D93F7, 92 bytes.
 // Shroud-audio bounds check: TheAudio slot 0x134 bounds vs two
 // Rva00739830 cell sums via TheShroudManager; unsigned char return.
 // Evidence: TheAudio 0x00DFE6E8; TheShroudManager 0x00DFE74C precedent
@@ -46,7 +46,7 @@ public:
 	int rva00739830(const BfmePointFD *pt, int a, unsigned int b) const;
 };
 #define TheShroudManager (*(Rva00739830 **)&TheShroudManager)
-unsigned char __cdecl Rva004D93F7Check(unsigned int a, const BfmePointFD *pt1, const BfmePointFD *pt2)
+unsigned char __cdecl countsAsMoveIntoCamp(unsigned int a, const BfmePointFD *pt1, const BfmePointFD *pt2)
 {
 	AudioManager *audio = TheAudio;
 	if (audio == 0)

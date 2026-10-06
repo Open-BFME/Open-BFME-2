@@ -1,6 +1,6 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// ?rva0052D394@Rva0052D394@@QAEXABVRva002E0A0A@@@Z 0x0052D394 93B evidence: chain via 0x0052D31E just landed; dedup via StringBase compare 0x000069D6 plus push_back 0x0052D31E; stride 0x28 idiv; caller 0x002E1DD4; v4 no-G7 for regalloc edi-ebx flip; same C++ as overflow-file attempt which was 93-vs-93 regs-only.
+// ?AddPlayer@LivingWorldCampaign@@QAEXABVRva002E0A0A@@@Z 0x0052D394 93B evidence: chain via 0x0052D31E just landed; dedup via StringBase compare 0x000069D6 plus push_back 0x0052D31E; stride 0x28 idiv; caller 0x002E1DD4; v4 no-G7 for regalloc edi-ebx flip; same C++ as overflow-file attempt which was 93-vs-93 regs-only.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 #include <stl/_algobase.h>
@@ -27,13 +27,13 @@ template <> void _Construct<Rva002E0A0A, Rva002E0A0A>(
     Rva002E0A0A *, const Rva002E0A0A &);
 }
 template <typename T> class StringBase { public: int compare(const StringBase &o) const; };
-class Rva0052D394 {
+class LivingWorldCampaign {
     char _m00[0x24];
 public:
     _STL::vector<Rva002E0A0A> m_24;
-    void rva0052D394(const Rva002E0A0A &arg);
+    void AddPlayer(const Rva002E0A0A &arg);
 };
-void Rva0052D394::rva0052D394(const Rva002E0A0A &arg)
+void LivingWorldCampaign::AddPlayer(const Rva002E0A0A &arg)
 {
     unsigned i = 0;
     for (; i < m_24.size(); ++i) {

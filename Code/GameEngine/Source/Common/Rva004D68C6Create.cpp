@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Oy- /MD /EHsc
-// ?rva004D68C6@Rva004D68C6@@QAEPAVGameMessage@@XZ @0x004D68C6 (443B):
+// ?constructGameMessage@NetGameCommandMsg@@QAEPAVGameMessage@@XZ @0x004D68C6 (443B):
 // Builds a GameMessage from slot descriptor: validates GameInfo slot,
 // resolves player via NameKeyGenerator and PlayerList, allocates
 // Rva0030F47A (GameMessage) with +0x24 type, stamps +0x14 from Player+0x54,
@@ -131,10 +131,10 @@ struct ArgNode
 	int m_type;
 };
 
-class Rva004D68C6
+class NetGameCommandMsg
 {
 public:
-	GameMessage *rva004D68C6();
+	GameMessage *constructGameMessage();
 private:
 	char m_pad00[0x0c];
 	int m_slot;
@@ -143,7 +143,7 @@ private:
 	ArgNode *m_head;
 };
 
-GameMessage *Rva004D68C6::rva004D68C6()
+GameMessage *NetGameCommandMsg::constructGameMessage()
 {
 	GameInfo *gi = TheGameInfo;
 	if (gi == 0)

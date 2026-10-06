@@ -1,5 +1,6 @@
 // cl: /Oy- /DNDEBUG /MD /GX-
-// ?rva004135CD@Rva004135CD@@QAEXPAVINI@@@Z @0x004135CD 65B
+// LivingWorldAutoResolveSciencePurchasePointBonus::parseBonusIniSubBlock (WorldBuilder name, lines 44..45: initFromINI then the MinSciencePurchasePointsForBonus check).
+// was ?rva004135CD@Rva004135CD@@QAEXPAVINI@@@Z @0x004135CD 65B
 // INI parse validator: initFromINI(this) through table 0x00839A78 (rowed
 // 0x0002DE78), then throw INIException code 3 with the retail message when
 // the int at +0 is negative. Throw idiom (filler 0x0002F681 plus CxxThrow
@@ -22,15 +23,15 @@ struct INIException
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct Rva004135CDThrowInfoAnchor { int a; int b; int c; int d; };
 static const Rva004135CDThrowInfoAnchor rva004135CDThrowInfoAnchor = { 0, 0, 0, 0 };
-class Rva004135CD
+class LivingWorldAutoResolveSciencePurchasePointBonus
 {
 public:
-	void rva004135CD(INI *ini);
+	void parseBonusIniSubBlock(INI *ini);
 private:
 	int m_value00;
 };
-// ?rva004135CD@Rva004135CD@@QAEXPAVINI@@@Z
-void Rva004135CD::rva004135CD(INI *ini)
+// was ?rva004135CD@Rva004135CD@@QAEXPAVINI@@@Z
+void LivingWorldAutoResolveSciencePurchasePointBonus::parseBonusIniSubBlock(INI *ini)
 {
 	ini->initFromINI(this, &g_00839A78);
 	if (m_value00 < 0)

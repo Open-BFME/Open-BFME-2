@@ -47,7 +47,7 @@ public:
 class PolygonTrigger
 {
 public:
-	void rva002E3954(FloatRect0073CE30 *rect);
+	void getBounds(FloatRect0073CE30 *rect);
 	char m_pad00[0x38];
 	int m_38;
 };
@@ -165,7 +165,7 @@ void ScriptEngine::doNamedMapReveal(const AsciiString &revealName)
 					if (trigger)
 					{
 						FloatRect0073CE30 rect;
-						trigger->rva002E3954(&rect);
+						trigger->getBounds(&rect);
 						((Rva00739AF0 *)TheShroudManager)->rva00739AF0(&rect, (int)&trigger->m_38, mask);
 					}
 					break;
@@ -201,7 +201,7 @@ void ScriptEngine::undoNamedMapReveal(const AsciiString &revealName)
 					if (trigger)
 					{
 						FloatRect0073CE30 rect;
-						trigger->rva002E3954(&rect);
+						trigger->getBounds(&rect);
 						((Rva00739CA0 *)TheShroudManager)->rva00739CA0(&rect, (int)&trigger->m_38, mask);
 					}
 					break;

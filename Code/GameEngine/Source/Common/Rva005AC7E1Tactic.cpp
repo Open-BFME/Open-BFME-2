@@ -3,8 +3,8 @@
 // The "AIRingHeroTactic" skirmish-AI tactic (vtable 0x008723E8; ctor
 // 0x005AC7EC in Rva004ECECDTacticCtors.cpp, dtor 0x005AC7E1 and ??_G, slot 9
 // 0x005AC8F2 in Rva004ECECDTacticCreate.cpp). Base chain, all
-// address-derived: Rva005DCC24 over Rva005DC73C over the AITactic.cpp object
-// Rva004ECECD. Layout: +0x58 the ring hero's id, +0x5C, +0x60 "escorting",
+// address-derived: Rva005DCC24 over AITacticOffensive over the AITactic.cpp object
+// AITactic. Layout: +0x58 the ring hero's id, +0x5C, +0x60 "escorting",
 // +0x64 the escort. The owner's TheSkirmishAIManager record keeps
 // AIRingHeroTactic_IsRunning and AIRingHeroTactic_NextLogicFrameRun.
 //
@@ -253,38 +253,26 @@ public:
 };
 extern Rva002A8F24 *g_00DFEEF8;
 
-class Rva005AC98A
+class AITactic
 {
 public:
-	bool rva005AC98A();
-};
-
-class Rva004ECE61
-{
-public:
-	bool rva004ECE61(void *p, int dummy);
-};
-
-class Rva004ECECD
-{
-public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual bool v3(void *unit, int count);
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual bool initializeTeamTemplate(void *unit, int count);
 	virtual void v4();
 	virtual void v5();
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
+	virtual void update();
 	virtual void v8();
-	virtual Rva004ECECD *create();
-	void rva004ED748(int a, int b);
+	virtual AITactic *create();
+	void end(int a, int b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 	char m_pad04[0x10 - 4];
 	bool m_running;			// +0x10
 	char m_pad11[0x24 - 0x11];
@@ -292,15 +280,16 @@ public:
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005AC7E1 : public Rva005DC73C
+class AIRingHeroTactic : public AITacticOffensive
 {
 public:
-	virtual ~Rva005AC7E1();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual bool v3(void *unit, int count);
-	virtual void v6();
-	bool rva005ACA2D();
+	virtual ~AIRingHeroTactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual bool initializeTeamTemplate(void *unit, int count);
+	virtual void run();
+	bool weHaveGollum();
+	bool enemyHasRingHeroUpgrade();
 private:
 	ObjectID m_hero;	// +0x58
 	int m_5C;		// +0x5C
@@ -309,7 +298,7 @@ private:
 	Object *m_escort;	// +0x64
 };
 
-void Rva005AC7E1::v2()
+void AIRingHeroTactic::cleanUp()
 {
 	m_hero = INVALID_ID;
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
@@ -318,14 +307,14 @@ void Rva005AC7E1::v2()
 	m_5C = 0;
 }
 
-bool Rva005AC7E1::v3(void *unit, int count)
+bool AIRingHeroTactic::initializeTeamTemplate(void *unit, int count)
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	record->rva002C717E(AsciiString("AIRingHeroTactic_IsRunning"), 1);
-	return reinterpret_cast< Rva004ECE61 * >( this )->rva004ECE61(unit, count);
+	return AITactic::initializeTeamTemplate(unit, count);
 }
 
-bool Rva005AC7E1::rva005ACA2D()
+bool AIRingHeroTactic::weHaveGollum()
 {
 	IntMap *objects = *(IntMap **)g_00DFEEF8->rva002A8F24(m_owner);
 	for (unsigned int i = 0; i < objects->bucket_count(); ++i) {
@@ -339,7 +328,7 @@ bool Rva005AC7E1::rva005ACA2D()
 	return false;
 }
 
-bool Rva005AC7E1::appliesTo(void *)
+bool AIRingHeroTactic::canRun(void *)
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	int running = record->rva002C7196(AsciiString("AIRingHeroTactic_IsRunning"));
@@ -347,7 +336,7 @@ bool Rva005AC7E1::appliesTo(void *)
 	if (!next) {
 		record->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), g_Va00DBA4E4 * 5);
 	} else if (!running && TheGameLogic->getFrame() >= next) {
-		if (rva005ACA2D() && reinterpret_cast< Rva005AC98A * >( this )->rva005AC98A())
+		if (weHaveGollum() && enemyHasRingHeroUpgrade())
 			return true;
 		int later = record->rva002C7196(AsciiString("AIRingHeroTactic_NextLogicFrameRun"));
 		record->rva002C717E(AsciiString("AIRingHeroTactic_NextLogicFrameRun"), g_Va00DBA4E4 * 5 + later);
@@ -355,11 +344,11 @@ bool Rva005AC7E1::appliesTo(void *)
 	return false;
 }
 
-void Rva005AC7E1::v6()
+void AIRingHeroTactic::run()
 {
 	m_escort = 0;
 	m_running = true;
 	m_escorting = false;
-	rva005ACA2D();
-	reinterpret_cast< Rva005AC98A * >( this )->rva005AC98A();
+	weHaveGollum();
+	enemyHasRingHeroUpgrade();
 }

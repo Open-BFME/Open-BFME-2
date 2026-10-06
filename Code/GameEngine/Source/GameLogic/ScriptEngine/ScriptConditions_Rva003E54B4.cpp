@@ -1,4 +1,4 @@
-// ?Rva003E54B4Check@@YG_NPAVParameter@@@Z
+// ?evaluatePlayerIsInPlanningMode@ScriptConditions@@IAE_NPAVParameter@@@Z
 // retail 0x003E54B4, 67 bytes.
 // Evidence: leaf via pin-only ScriptEngine::rva00357B82 plus rowed PlayerList::getEachPlayerFromMask; ThePlayerList 0x009FEEE8 plus g_Va009FE16C ScriptEngine global; Player +0x750 == 2.
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -30,7 +30,13 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-bool __stdcall Rva003E54B4Check(Parameter *param)
+class ScriptConditions
+{
+protected:
+	bool evaluatePlayerIsInPlanningMode(Parameter *param);
+};
+
+bool ScriptConditions::evaluatePlayerIsInPlanningMode(Parameter *param)
 {
 	if (!param)
 		return false;

@@ -158,7 +158,7 @@ public:
 class Weapon
 {
 public:
-	char rva002CB902(Object *source, void *pos, float extra, int flag) const;
+	char isWithinAttackRange(Object *source, void *pos, float extra, int flag) const;
 	char m_pad00[4];
 	Rva002C9400ByteField *m_field4; // +0x04
 };
@@ -403,7 +403,7 @@ StateReturnType AIAttackApproachTargetState00C12678::updateInternal()
 	}
 	if (m_stopIfInRange && weapon != 0)
 	{
-		if (weapon->rva002CB902(source, (void *)&m_goalPosition, 0.0f, 1))
+		if (weapon->isWithinAttackRange(source, (void *)&m_goalPosition, 0.0f, 1))
 			return STATE_SUCCESS;
 	}
 	if (!computePath())

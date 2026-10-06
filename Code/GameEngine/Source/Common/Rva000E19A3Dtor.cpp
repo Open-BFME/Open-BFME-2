@@ -120,10 +120,10 @@ struct TreeHintRef00217D4C
 	TargetRef00217D4C *m_ptr;
 };
 
-class Rva0015354E
+class FXShaderParameterBinder
 {
 public:
-	void rva00153ACA(TreeHintRef00217D4C callback, const char *handle);
+	void AddBinding(TreeHintRef00217D4C callback, const char *handle);
 };
 
 // Output of the rowed path parser 0x001530E9: the leading component, then
@@ -144,51 +144,51 @@ class Base
 {
 public:
 	virtual ~Base() {}
-	virtual void bind(const char *name, const char *handle, Rva0015354E *registry) = 0;
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry) = 0;
 };
 
 // Default binder, vtable 0x00BC6F24+8 = { 0x001F45C3, 0x00153664 }: the rowed
-// 0x00153664 walks a struct parameter's members through this->bind. Each
+// 0x00153664 walks a struct parameter's members through this->ResolveBindings. Each
 // sub-binder calls it first, so they derive from it (their inline dtors
 // still reset straight to the base vtable, as retail's terrain dtor does).
-class Rva00153664 : public Base
+class FXShaderParameterSourceNamespace_Struct : public Base
 {
 public:
-	~Rva00153664() {}
-	virtual void bind(const char *name, const char *handle, Rva0015354E *registry);
+	~FXShaderParameterSourceNamespace_Struct() {}
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
 
 // The five sub-binders (vtables 0x00BCE4D0..0x00BCE4F0, each { 0x005F45C3,
 // dispatcher }) the terrain dispatcher forwards "Shroud", "Taint", "Cloud",
 // "Weather" and "Map" paths to.
-struct Rva000E236DBinder : public Rva00153664
+struct Rva000E236DBinder : public FXShaderParameterSourceNamespace_Struct
 {
 	~Rva000E236DBinder() {}
-	virtual void bind(const char *name, const char *handle, Rva0015354E *registry);
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
 
-struct Rva000E25DEBinder : public Rva00153664
+struct Rva000E25DEBinder : public FXShaderParameterSourceNamespace_Struct
 {
 	~Rva000E25DEBinder() {}
-	virtual void bind(const char *name, const char *handle, Rva0015354E *registry);
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
 
-struct Rva000E2A81Binder : public Rva00153664
+struct Rva000E2A81Binder : public FXShaderParameterSourceNamespace_Struct
 {
 	~Rva000E2A81Binder() {}
-	virtual void bind(const char *name, const char *handle, Rva0015354E *registry);
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
 
-struct Rva000E2CA7Binder : public Rva00153664
+struct Rva000E2CA7Binder : public FXShaderParameterSourceNamespace_Struct
 {
 	~Rva000E2CA7Binder() {}
-	virtual void bind(const char *name, const char *handle, Rva0015354E *registry);
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
 
-struct Rva000E2DFDBinder : public Rva00153664
+struct Rva000E2DFDBinder : public FXShaderParameterSourceNamespace_Struct
 {
 	~Rva000E2DFDBinder() {}
-	virtual void bind(const char *name, const char *handle, Rva0015354E *registry);
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
 
 // Terrain-side interface at +4 (base vtable 0x00C4EF80, four __purecall
@@ -210,7 +210,7 @@ class Rva000E19A3 : public Base, public Rva000E19A3Interface
 public:
 	Rva000E19A3();
 	virtual ~Rva000E19A3();
-	virtual void bind(const char *name, const char *handle, Rva0015354E *registry);
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 	virtual void setRenderingMode(int mode);
 	virtual void setBaseTexture(RefCountPtr<TextureClass> texture);
 	virtual void setNormalTexture(RefCountPtr<TextureClass> texture);
@@ -288,9 +288,9 @@ void Rva000E19A3::Rva000E21BENormalTexture(ID3DXEffect *effect, D3DXHANDLE handl
 		effect->SetTexture(handle, Rva00132F30BlackTexture().Peek_D3D_Base_Texture());
 }
 
-void Rva000E2A81Binder::bind(const char *name, const char *handle, Rva0015354E *registry)
+void Rva000E2A81Binder::ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry)
 {
-	Rva00153664::bind(name, handle, registry);
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, handle, registry);
 	if (name)
 	{
 		Rva001530E9Path path;
@@ -302,13 +302,13 @@ void Rva000E2A81Binder::bind(const char *name, const char *handle, Rva0015354E *
 			callback = Rva000E2BEEScaleUVOffsetPerSecondUV;
 		else
 			return;
-		registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		registry->AddBinding(TreeHintRef00217D4C(&callback), handle);
 	}
 }
 
-void Rva000E2CA7Binder::bind(const char *name, const char *handle, Rva0015354E *registry)
+void Rva000E2CA7Binder::ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry)
 {
-	Rva00153664::bind(name, handle, registry);
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, handle, registry);
 	if (name)
 	{
 		Rva001530E9Path path;
@@ -320,7 +320,7 @@ void Rva000E2CA7Binder::bind(const char *name, const char *handle, Rva0015354E *
 			callback = Rva000E2DA4Level;
 		else
 			return;
-		registry->rva00153ACA(TreeHintRef00217D4C(&callback), handle);
+		registry->AddBinding(TreeHintRef00217D4C(&callback), handle);
 	}
 }
 

@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?rva002E74C6@Pathfinder@@QAEXW4PathfindLayerEnum@@PAVRva001E48E8@@PBUCoord3D@@@Z, retail 0x002E74C6, 124 bytes.
+// ?ChooseBestLocomotorForPosition@Pathfinder@@QAEXW4PathfindLayerEnum@@PAVRva001E48E8@@PBUCoord3D@@@Z, retail 0x002E74C6, 124 bytes.
 // Sibling of 0x002E7296: floor(world*INV) to cell, then Rva001E48E8::rva001E48E8(table[flags&0xf]).
 // Evidence: rowed getCell 0x002E6D62, rowed rva001E48E8 0x001E48E8, IAT floor, INV _INV, ret 0xC.
 enum PathfindLayerEnum
@@ -25,7 +25,7 @@ class Pathfinder
 {
 public:
 	PathfindCell *getCell(PathfindLayerEnum layer, int x, int y);
-	void rva002E74C6(PathfindLayerEnum layer, class Rva001E48E8 *obj, const Coord3D *pos);
+	void ChooseBestLocomotorForPosition(PathfindLayerEnum layer, class Rva001E48E8 *obj, const Coord3D *pos);
 };
 
 class Rva001E48E8
@@ -56,7 +56,7 @@ static __forceinline long fast_round(Real f)
 	return i;
 }
 
-void Pathfinder::rva002E74C6(PathfindLayerEnum layer, Rva001E48E8 *obj, const Coord3D *pos)
+void Pathfinder::ChooseBestLocomotorForPosition(PathfindLayerEnum layer, Rva001E48E8 *obj, const Coord3D *pos)
 {
 	int ix = fast_round(fast_floor(pos->x * INV));
 	int iy = fast_round(fast_floor(pos->y * INV));

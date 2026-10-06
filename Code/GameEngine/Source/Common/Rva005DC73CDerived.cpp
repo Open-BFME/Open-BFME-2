@@ -1,45 +1,45 @@
 // cl: /MD
 //
-// Opaque single-inheritance destructors tail-calling Rva005DC73C::~
-// Rva005DC73C at 0x005DC73C (pinned opaque base dtor; identity unproven).
+// Opaque single-inheritance destructors tail-calling AITacticOffensive::~
+// AITacticOffensive at 0x005DC73C (pinned opaque base dtor; identity unproven).
 // Each class below stores its own vtable and tail-calls the base destructor;
 // the base itself is only declared here (defined nowhere -- it resolves via
 // the pin), because a same-TU definition would capture the call locally
 // instead of at the ledger address. Owner identities are unproven (opaque
 // Rva names). One ledger row per destructor, landed one commit at a time.
 
-class Rva005DC73C
+class AITacticOffensive
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 };
 
-class Rva005A990B : public Rva005DC73C
+class AIBasePenetrationTroopsTactic : public AITacticOffensive
 {
 public:
-	virtual ~Rva005A990B();
+	virtual ~AIBasePenetrationTroopsTactic();
 };
 
-Rva005A990B::~Rva005A990B()
+AIBasePenetrationTroopsTactic::~AIBasePenetrationTroopsTactic()
 {
 }
 
-class Rva005AA647 : public Rva005DC73C
+class AISimpleAttackTactic : public AITacticOffensive
 {
 public:
-	virtual ~Rva005AA647();
+	virtual ~AISimpleAttackTactic();
 };
 
-Rva005AA647::~Rva005AA647()
+AISimpleAttackTactic::~AISimpleAttackTactic()
 {
 }
 
-class Rva005DC87B : public Rva005DC73C
+class AITacticSiege : public AITacticOffensive
 {
 public:
-	virtual ~Rva005DC87B();
+	virtual ~AITacticSiege();
 };
 
-Rva005DC87B::~Rva005DC87B()
+AITacticSiege::~AITacticSiege()
 {
 }

@@ -16,10 +16,18 @@
 
 class Image;
 
-class Rva005E0E1D
+namespace StrategicHUD {
+class CommandButtonMovieClip
 {
 public:
-	void rva005E0E1D(const Image *image);
+	class Impl;
+};
+}
+
+class StrategicHUD::CommandButtonMovieClip::Impl
+{
+public:
+	void SetImage(const Image *image);
 };
 
 class Rva005E1158
@@ -29,7 +37,7 @@ public:
 	virtual ~Rva005E1158();
 private:
 	int m_04;
-	Rva005E0E1D *m_ptr08;
+	StrategicHUD::CommandButtonMovieClip::Impl *m_ptr08;
 };
 
 class Rva005E16B9

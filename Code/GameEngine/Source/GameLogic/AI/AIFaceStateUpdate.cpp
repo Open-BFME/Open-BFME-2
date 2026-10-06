@@ -64,7 +64,7 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	Real getOrientation() const { return m_orientation; }
 	AIUpdateInterface *getAI() { return m_ai; }
-	Real rva000B4542(const Coord3D *pos) const;
+	Real GetRelativeAngle(const Coord3D *pos) const;
 	void *rva0029439D();
 private:
 	unsigned char m_pad00[0x38];
@@ -136,7 +136,7 @@ StateReturnType AIFaceState::update()
 		}
 		pos = target->getPosition();
 	}
-	Real relAngle = obj->rva000B4542( pos );
+	Real relAngle = obj->GetRelativeAngle( pos );
 
 	static const Real REL_THRESH = 0.035f;	// about 2 degrees. (getRelativeAngle2D is current only accurate to about 1.25 degrees)
 	if( fabs( relAngle ) < REL_THRESH )

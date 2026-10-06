@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?Rva005D2FD0Set@@YAXHPAURva005D2FD0Outer@@PBDABVUnicodeString@@@Z retail 0x005D2FD0 106B
+// StrategicHUD::SetString retail 0x005D2FD0 106B
 // Evidence: format APT:_level%u.%s_%s via 0x00038150; bfmeSetText via pin 0x00225301; releaseBuffer 0x00036410; globals 0x009FE4CC 0x007BAC1C 0x008758A8; callers 0x005D3128 0x005D318D 0x005D31F2
 template <typename T> struct BfmeStringData
 {
@@ -20,11 +20,6 @@ struct Rva005D2FD0Inner
 	char m_name[1];
 };
 
-struct Rva005D2FD0Outer
-{
-	Rva005D2FD0Inner *m_ptr;
-};
-
 class BfmeAptWindowManager
 {
 public:
@@ -33,19 +28,28 @@ public:
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-void __cdecl Rva005D2FD0Set(int level, Rva005D2FD0Outer *outer, const char *suffix, const UnicodeString &text)
+// StrategicHUD::SetString (0x005D2FD0) and StrategicHUD::SetRegionNameString
+// (0x005D366A): WorldBuilder names both (StrategicHUDRegionStatsTrayMovieClip.cpp
+// line 35, StrategicHUDRegionUIMovieClip.cpp line 27) with the same
+// "APT:_level%u.%s_..." keys and SetText call. The movie clip name is an
+// AsciiString passed by reference.
+namespace StrategicHUD
+{
+	void SetString(unsigned int level, const AsciiString &clipName, const char *suffix, const UnicodeString &text);
+	void SetRegionNameString(unsigned int level, const AsciiString &clipName, const UnicodeString &text);
+}
+
+void StrategicHUD::SetString(unsigned int level, const AsciiString &clipName, const char *suffix, const UnicodeString &text)
 {
 	AsciiString key;
-	const char *mid = outer->m_ptr ? outer->m_ptr->m_name : "";
-	key.format("APT:_level%u.%s_%s", level, mid, suffix);
+	key.format("APT:_level%u.%s_%s", level, clipName.str(), suffix);
 	g_bfmeAptWindowManager->bfmeSetText(key, text, true);
 }
 
-void __cdecl Rva005D366ASet(int level, Rva005D2FD0Outer *outer, const UnicodeString &text)
+void StrategicHUD::SetRegionNameString(unsigned int level, const AsciiString &clipName, const UnicodeString &text)
 {
 	AsciiString key;
-	const char *mid = outer->m_ptr ? outer->m_ptr->m_name : "";
-	key.format("APT:_level%u.%s_RegionName", level, mid);
+	key.format("APT:_level%u.%s_RegionName", level, clipName.str());
 	g_bfmeAptWindowManager->bfmeSetText(key, text, false);
 }
 
@@ -56,8 +60,8 @@ class Rva005D3846
 public:
 	void rva005D3846(const UnicodeString &text);
 private:
-	int m_level;
-	Rva005D2FD0Outer m_outer;
+	unsigned int m_level;
+	AsciiString m_clipName;
 	char m_pad[0x18 - 8];
 	UnicodeString m_cached;
 };
@@ -65,7 +69,7 @@ private:
 void Rva005D3846::rva005D3846(const UnicodeString &text)
 {
 	if (((const StringBase<unsigned short> *)(const void *)&text)->compare(*(const StringBase<unsigned short> *)(const void *)&m_cached) != 0) {
-		Rva005D366ASet(m_level, &m_outer, text);
+		StrategicHUD::SetRegionNameString(m_level, m_clipName, text);
 		((StringBase<unsigned short> *)(void *)&m_cached)->set(*(const StringBase<unsigned short> *)(const void *)&text);
 	}
 }

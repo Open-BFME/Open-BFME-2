@@ -1,6 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 
-// ?Rva00412DD8Get@@YA?AVAsciiString@@PBD@Z, retail 0x00412DD8 158B.
+// AptUtils::SlashPath2DotPath, retail 0x00412DD8 158B (WorldBuilder name,
+// AptUtils.cpp line 594), and AptUtils::DotPath2SlashPath, 0x00412E76 (line 627).
 // Free AsciiString(const char*) normalizer: null uses the "" literal at
 // 0x00BBAC1C, skips one leading '/', strncpy 0x7fff into 32k stack buffer,
 // rewrites '/' to '.', then RVO via StringBase copy 0x365F0 and temp
@@ -13,7 +14,13 @@ extern "C" __declspec(dllimport) char *__cdecl strncpy(char *dest, const char *s
 #include "ascii_string.h"
 
 
-AsciiString Rva00412DD8Get(const char *path)
+namespace AptUtils
+{
+	AsciiString SlashPath2DotPath(const char *path);
+	AsciiString DotPath2SlashPath(const char *path);
+}
+
+AsciiString AptUtils::SlashPath2DotPath(const char *path)
 {
 	char buf[32768];
 	if (path == 0)
@@ -29,12 +36,12 @@ AsciiString Rva00412DD8Get(const char *path)
 	return tmp;
 }
 
-// ?Rva00412E76Get@@YA?AVAsciiString@@PBD@Z, retail 0x00412E76 158B.
-// Sibling of Rva00412DD8Get above: same 32k buf plus strncpy 0x7fff and RVO
+// AptUtils::DotPath2SlashPath, retail 0x00412E76 158B.
+// Sibling of SlashPath2DotPath above: same 32k buf plus strncpy 0x7fff and RVO
 // via 0x365F0/0x36410/0x37BA0, but skips one leading '.' and rewrites '.'
 // to '/'. Prev is 0x00412DD8 in this TU; unblocks 0x004104AB plus 4 more.
 
-AsciiString Rva00412E76Get(const char *path)
+AsciiString AptUtils::DotPath2SlashPath(const char *path)
 {
 	char buf[32768];
 	if (path == 0)

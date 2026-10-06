@@ -2,10 +2,10 @@
 // AITacticDefensive.cpp -- named by retail's __FILE__ literal at 0x00C76860,
 // pushed with line 43 into GetGameLogicRandomValueReal below.
 //
-// ?v3@Rva005DCB27@@UAE_NPAXH@Z @0x005DCB32 121B
+// ?v3@AITacticDefensive@@UAE_NPAXH@Z @0x005DCB32 121B
 // Slot 3 of the tactic whose destructor is 0x005DCB27 (table at VA
 // 0x00C76834): after the AITactic slot 3 (0x004ECE61, pinned as
-// Rva004ECECD::v3) accepts the unit, look up the owner's (+0x24)
+// AITactic::initializeTeamTemplate) accepts the unit, look up the owner's (+0x24)
 // TheSkirmishAIManager record (0x002A8AB1), and with the chance table at
 // record+0x160 indexed by the tactic slot (+0x20 -> +0x2C) set the unit's
 // +0x2D0 to 2 unless a [0, 1] game-logic random value reaches that chance;
@@ -47,27 +47,27 @@ struct Rva005DCB32Unit
 	int m_2D0;			// +0x2D0
 };
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual bool v3(void *unit, int count);
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual bool initializeTeamTemplate(void *unit, int count);
 };
 
-class Rva005DCB27 : public Rva004ECECD
+class AITacticDefensive : public AITactic
 {
 public:
-	virtual bool v3(void *unit, int count);
+	virtual bool initializeTeamTemplate(void *unit, int count);
 	char m_pad04[0x20 - 4];
 	Rva005DCB32Slot *m_slot;	// +0x20
 	void *m_owner;			// +0x24
 };
 
-bool Rva005DCB27::v3(void *unit, int count)
+bool AITacticDefensive::initializeTeamTemplate(void *unit, int count)
 {
-	if (Rva004ECECD::v3(unit, count)) {
+	if (AITactic::initializeTeamTemplate(unit, count)) {
 		Rva005DCB32Unit *target = (Rva005DCB32Unit *)unit;
 		Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 		Rva005DCB32Chances *chances = record->m_chances;

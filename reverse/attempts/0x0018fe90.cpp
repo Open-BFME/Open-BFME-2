@@ -1,8 +1,11 @@
 // ?Load_W3D@HCompressedAnimClass@@QAEHAAVChunkLoadClass@@@Z
+// partial score=0.7414 date=2026-10-06
+// ?Load_W3D@HCompressedAnimClass@@QAEHAAVChunkLoadClass@@@Z
 // partial score=0.301488 date=2026-09-08
 // ?Load_W3D@HCompressedAnimClass@@QAEHAAVChunkLoadClass@@@Z
 // partial score=0.3 date=2026-09-08
 // cl: /Ireference/shims/bfmerendobj /Ireference/shims/bfmehcanim /Ob2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+#include <ctype.h>
 #define Matrix4x4 Matrix4
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "winbase_shim.h"
@@ -89,7 +92,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 #include "wwdebug.h"
 #include <string.h>
 #include "nstrdup.h"
-extern "C" int __cdecl toupper(int);
+// (CRT prototype from the standard header)
 
 
 struct NodeCompressedMotionStruct

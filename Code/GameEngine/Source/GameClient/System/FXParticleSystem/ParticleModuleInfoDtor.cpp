@@ -10,6 +10,9 @@
 // Precedent: V3InlineTemplateDtor.cpp uses the same ternary for +8.
 // Vtable 0x0081D420 slot 0 is the ??_G at 0x003AE492 which calls here.
 
+extern "C" const void *const vtbl_00C1C780[];  // folded, 35 classes; via ??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C1C780=??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")
+
 class RvaSmartPtr12
 {
 public:
@@ -38,7 +41,7 @@ private:
 Rva003AF50D::~Rva003AF50D()
 {
 	unsigned char *b14 = this ? (unsigned char *)this + 0x14 : 0;
-	*(volatile unsigned int *)b14 = 0x00C1C780;
+	*(volatile unsigned int *)b14 = ((unsigned int)vtbl_00C1C780);
 }
 
 // ??1Rva003A97E0@@UAE@XZ, retail 0x003A97E0, 5 bytes.

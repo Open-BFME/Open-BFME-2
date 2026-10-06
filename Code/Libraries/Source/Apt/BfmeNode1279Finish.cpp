@@ -4,7 +4,7 @@
 // Evidence: LINK BONUS caller names it bfmeFinish1279; callers 0x006F7287 0x006F8133;
 // teardown sequence matches AptCIH cluster (bfmeDrop 0x006D2580, singleton 0xE176D0+0x6C
 // slot1 Release then clear, AptCIH::rva006E2690 flag 0xE18348, queue 0xE176D0+0xA0
-// Rva006E3230::rva006E4D50, AptAnimationPoolData::rva006E3640, refCount>1 assert
+// AptActionQueueC::RemoveActionFor, AptAnimationPoolData::removeFromBIL, refCount>1 assert
 // pNext/pPrev AptCIH.cpp:0xB6 via shared assert triple, bfmeUnlinkNestedBE,
 // setIsDefined(false) gated on 0xC0000, tail Release slot1).
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
@@ -29,16 +29,16 @@ public:
 	void rva006E2690(int arg);
 };
 
-class Rva006E3230
+class AptActionQueueC
 {
 public:
-	void rva006E4D50(AptValue *pArg);
+	void RemoveActionFor(AptValue *pArg);
 };
 
 class AptAnimationPoolData
 {
 public:
-	void rva006E3640(AptCIH *button);
+	void removeFromBIL(AptCIH *button);
 };
 
 class BfmeObj4310;
@@ -71,7 +71,7 @@ public:
 	char _pad[0x6C];
 	BfmeNode1279 *m_6c;
 	char _pad2[0xA0 - 0x6C - 4];
-	Rva006E3230 *m_queue;
+	AptActionQueueC *m_queue;
 };
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 
@@ -86,8 +86,8 @@ void BfmeNode1279::bfmeFinish1279()
 		((AptCIH *)this)->rva006E2690(0);
 	else
 		((AptCIH *)this)->rva006E2690(1);
-	g_bfmeAptPtrAtE176D0->m_queue->rva006E4D50(this);
-	((AptAnimationPoolData *)g_bfmeAptPtrAtE176D0)->rva006E3640((AptCIH *)this);
+	g_bfmeAptPtrAtE176D0->m_queue->RemoveActionFor(this);
+	((AptAnimationPoolData *)g_bfmeAptPtrAtE176D0)->removeFromBIL((AptCIH *)this);
 	if (getRefCount() > 1) {
 		if (m_54 != 0 || m_50 != 0) {
 			g_bfmeAptAssertAtE17734(

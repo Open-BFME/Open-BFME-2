@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva0056B89F@Rva0056B89F@@QAEEXZ @0x0056B89F 56B: predicate over +0xbc index and +0xac inner (+0x58 mask +0x5e flag) with +0xc0 flag, tail-jmps to Rva005C41C9::rva005C4B26. Evidence: caller 0x0056BA07 passes result to Rva005C4B56::rva005C4B96(E), tail target pin ?rva005C4B26@Rva005C41C9@@QAEEXZ, neighbour Rva0056B8F4 // cl: /O1 /Oy- /MD and Rva005C4180Refresh v17 shape.
+// ?rva0056B89F@LivingWorldArmyIconSubObject@@QAEEXZ @0x0056B89F 56B: predicate over +0xbc index and +0xac inner (+0x58 mask +0x5e flag) with +0xc0 flag, tail-jmps to Rva005C41C9::rva005C4B26. Evidence: caller 0x0056BA07 passes result to Rva005C4B56::rva005C4B96(E), tail target pin ?rva005C4B26@Rva005C41C9@@QAEEXZ, neighbour Rva0056B8F4 // cl: /O1 /Oy- /MD and Rva005C4180Refresh v17 shape.
 struct Inner0056B89F
 {
 	char _00[0x58];
@@ -14,7 +14,7 @@ public:
 	unsigned char rva005C4B26();
 };
 
-class Rva0056B89F
+class LivingWorldArmyIconSubObject
 {
 private:
 	char _00[0xAC];
@@ -26,7 +26,7 @@ public:
 	unsigned char rva0056B89F();
 };
 
-unsigned char Rva0056B89F::rva0056B89F()
+unsigned char LivingWorldArmyIconSubObject::rva0056B89F()
 {
 	int idx = m_bc;
 	if (idx == -1)

@@ -1,11 +1,11 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
-// ?rva0036E1C3@AIGroup@@QAEXABV?$StringBase@D@@H@Z @0x0036E1C3 52B: AIGroup walk members at +0x04 calling Drawable rva002736BA via Thing getDrawable; neighbours AIGroupGetCommandButtonSourceObject Rva0036E346Count; caller 0x003C1F0A.
+// ?rva0036E1C3@AIGroup@@QAEXABV?$StringBase@D@@H@Z @0x0036E1C3 52B: AIGroup walk members at +0x04 calling Drawable setEmoticon via Thing getDrawable; neighbours AIGroupGetCommandButtonSourceObject Rva0036E346Count; caller 0x003C1F0A.
 #include "ascii_string.h"
 
 class Drawable
 {
 public:
-	void rva002736BA(const StringBase<char> &name, int val);
+	void setEmoticon(const StringBase<char> &name, int val);
 };
 
 class Thing
@@ -35,12 +35,12 @@ private:
 };
 
 // ?getDrawable@Thing@@QBEPAVDrawable@@XZ present-unmatched
-// ?rva002736BA@Drawable@@QAEXABV?$StringBase@D@@H@Z present-unmatched
+// ?setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z present-unmatched
 void AIGroup::rva0036E1C3(const StringBase<char> &name, int val)
 {
 	for (ObjectListNode *it = m_memberList->m_next; it != m_memberList; it = it->m_next) {
 		Drawable *d = it->m_data->getDrawable();
 		if (d != 0)
-			d->rva002736BA(name, val);
+			d->setEmoticon(name, val);
 	}
 }

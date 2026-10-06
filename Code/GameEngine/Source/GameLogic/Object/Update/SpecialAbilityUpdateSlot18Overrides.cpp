@@ -12,7 +12,7 @@
 // Retail 0x0049251D (38 bytes): Rva00492402 clears flag 0x12 or 0x13 for
 // module data +0xCC == 1 or 2.
 // Rva00492402 also overrides slot 17 (retail 0x004924BA, 31 bytes): the base
-// SpecialAbilityUpdate slot 17 (pinned rva0045108D) and then +0x2C = frame +
+// SpecialAbilityUpdate slot 17 (pinned triggerAbilityEffect) and then +0x2C = frame +
 // module data +0xC8.
 
 enum WeaponSetType
@@ -67,7 +67,7 @@ extern GameLogic *TheGameLogic;
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 protected:
 	unsigned char m_pad24[0x2C - 0x24];
 	unsigned int m_2C; // +0x2C
@@ -100,7 +100,7 @@ public:
 // ?rva004924BA@Rva00492402@@UAEXXZ @0x004924BA
 void Rva00492402::rva004924BA()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	const Rva00492402ModuleData *data = (const Rva00492402ModuleData *)m_moduleData;
 	m_2C = data->m_C8 + TheGameLogic->getFrame();
 }

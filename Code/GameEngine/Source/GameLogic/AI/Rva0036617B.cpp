@@ -1,7 +1,7 @@
-// ?rva0036617B@Rva0036617B@@QAEXW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z
+// ?AdvancePastPortal@Path@@QAEXW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z
 // partial score=0.93 date=2026-10-01
 // cl: /DNDEBUG /MD /Oy-
-// ?rva0036617B@Rva0036617B@@QAEXW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z retail 0x0036617B 129B
+// ?AdvancePastPortal@Path@@QAEXW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z retail 0x0036617B 129B
 // Unlock over rowed vector<ScienceType>::push_back 0x002E01C6. Evidence: search
 // list via +8 for +0x20==st then push range filtering 0x7fffffff; slot reuse
 // st as push temp (&[ebp+8]); float at +0x14 zeroed via movss; caller 0x1E7542.
@@ -28,7 +28,7 @@ struct Rva0036617BNode
 	ScienceType m_value20;
 };
 
-class Rva0036617B
+class Path
 {
 	void *m_00;
 	void *m_head04;
@@ -37,10 +37,10 @@ class Rva0036617B
 	Rva0036617BNode *m_cur10;
 	float m_14;
 public:
-	void rva0036617B(ScienceType st, _STL::vector<ScienceType, _STL::allocator<ScienceType> > *vec);
+	void AdvancePastPortal(ScienceType st, _STL::vector<ScienceType, _STL::allocator<ScienceType> > *vec);
 };
 
-void Rva0036617B::rva0036617B(ScienceType st, _STL::vector<ScienceType, _STL::allocator<ScienceType> > *vec)
+void Path::AdvancePastPortal(ScienceType st, _STL::vector<ScienceType, _STL::allocator<ScienceType> > *vec)
 {
 	Rva0036617BNode *nil = 0;
 	if ((Rva0036617BNode *)m_head04 == nil || m_cur10 == nil)

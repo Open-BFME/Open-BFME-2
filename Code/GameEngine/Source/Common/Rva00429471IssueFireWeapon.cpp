@@ -1,5 +1,5 @@
 // cl: /MD
-// ?Rva00429471IssueFireWeapon@@YGHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z @0x00429471 593B: free issueFireWeaponCommand emitting 0x40D/0x40E/0x40F via MessageStreamSubsystem createMessage plus voice response.
+// ?issueFireWeaponCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z @0x00429471 593B: free issueFireWeaponCommand emitting 0x40D/0x40E/0x40F via MessageStreamSubsystem createMessage plus voice response.
 // Evidence: BFME1 donor CommandTranslator_issueFireWeaponCommand options-7 isValid slot75 then 0x1000-0x20 arms weaponSlot-maxShots appends PickAndPlayInfo drawTarget-weaponSlot-position; BFME2 messages plus1; rowed isValid 0x35B112 appends 0x30F936 0x30F9BB 0x30F979 ctor 0x4D92FE override 0x288609 pinned pickAndPlay 0x4DAAFD; caller 0x42A345.
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
@@ -131,7 +131,13 @@ enum CommandEvaluateType
 	EVALUATE_ONLY = 2
 };
 
-int __stdcall Rva00429471IssueFireWeapon(const CommandButton *command, int commandType, Drawable *target, const struct Coord3D *pos)
+class CommandTranslator
+{
+private:
+	int issueFireWeaponCommand(const CommandButton *command, int commandType, Drawable *target, const struct Coord3D *pos);
+};
+
+int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int commandType, Drawable *target, const struct Coord3D *pos)
 {
 	GameMessage::Type msgType = GameMessage::MSG_INVALID;
 

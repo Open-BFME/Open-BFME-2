@@ -26,7 +26,7 @@ public:
 class Path
 {
 public:
-	int rva00363AA8();
+	int GetNextPortalID();
 
 private:
 	void *m_unknown00;
@@ -42,7 +42,7 @@ private:
 	int m_unknown24;
 };
 
-int Path::rva00363AA8()
+int Path::GetNextPortalID()
 {
 	const int max = 0x7fffffff;
 	PathNode *node;

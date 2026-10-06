@@ -68,10 +68,10 @@ public:
 
 // vftable 0x00BF8FF0: +0x08 the object, +0x0C whether its controlling
 // player's +0x5C is 1.
-class Rva002611F2 : public Rva000421C8
+class PartitionFilterRejectBuildings : public Rva000421C8
 {
 public:
-	Rva002611F2(Object *obj);
+	PartitionFilterRejectBuildings(Object *obj);
 	virtual bool allow(Object *obj);
 	Object *m_obj;
 	bool m_flag;
@@ -298,7 +298,7 @@ private:
 
 Object *AI::rva002FDBC4(const Object *me, float range, unsigned int flags)
 {
-	Rva002611F2 first((Object *)me);
+	PartitionFilterRejectBuildings first((Object *)me);
 	Rva00260EB1Filter relationship(me, 4, false);
 	Rva0026119DFilter alive;
 	Rva002611BFFilter second(me);
@@ -327,7 +327,7 @@ int AI::rva002FEEAD(Object *me, float range, unsigned int qualifiers)
 		return 0;
 	Rva002FE13DFilter filterObvious(me);
 	Rva002FE371Filter filterWithinAttackRange(me);
-	Rva002611F2 filterBldgs(me);
+	PartitionFilterRejectBuildings filterBldgs(me);
 	Rva00261058 filterStealth(me, false);
 	Rva002619C1Filter filterLOS(me);
 	Rva00260FD0Filter filterAttack(me, 2, 0);

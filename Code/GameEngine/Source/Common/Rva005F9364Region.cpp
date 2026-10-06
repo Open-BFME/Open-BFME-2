@@ -1,6 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva005F9364@Rva005F9364@@QAEXABVUnicodeString@@@Z @ 0x005F9364 103B
-// Honest address name: __thiscall Apt RegionName key setter, twin of 0x005FB770 PlayerName.
+// StrategicHUD::BattlePromptMovieClip::Impl::SetRegionNameString @ 0x005F9364 103B
+// (WorldBuilder name, StrategicHUDBattlePromptMovieClip.cpp line 788: the
+// APT:_level%u.%s_RegionName key and SetText); twin of 0x005FB770 PlayerName.
+// 0x005F960C (its cached-compare caller) keeps its address name.
 // Target evidence: 103B retail, EH_prolog, format string
 // "APT:_level%u.%s_RegionName" at VA 0x008758D4, rowed AsciiString::format
 // 0x00038150, pinned bfmeSetText 0x00225301, rowed releaseBuffer 0x00036410,
@@ -26,10 +28,18 @@ struct TeamNameHolder
     char m_pad[8];
     const char *m_name;
 };
-class Rva005F9364
+namespace StrategicHUD
+{
+class BattlePromptMovieClip
 {
 public:
-    void rva005F9364(const UnicodeString &regionName);
+	class Impl;
+};
+}
+class StrategicHUD::BattlePromptMovieClip::Impl
+{
+public:
+    void SetRegionNameString(const UnicodeString &regionName);
     void rva005F960C(const UnicodeString &regionName);
 private:
     char m_pad[4];
@@ -38,7 +48,7 @@ private:
     char m_pad0C[0x1C - 0x0C];
     UnicodeString m_cachedName;
 };
-void Rva005F9364::rva005F9364(const UnicodeString &regionName)
+void StrategicHUD::BattlePromptMovieClip::Impl::SetRegionNameString(const UnicodeString &regionName)
 {
     AsciiString key;
     const char *teamName;
@@ -49,11 +59,11 @@ void Rva005F9364::rva005F9364(const UnicodeString &regionName)
     key.format("APT:_level%u.%s_RegionName", m_level, teamName);
     ((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, regionName, true);
 }
-void Rva005F9364::rva005F960C(const UnicodeString &regionName)
+void StrategicHUD::BattlePromptMovieClip::Impl::rva005F960C(const UnicodeString &regionName)
 {
     if (regionName.compare(m_cachedName) != 0)
     {
-        rva005F9364(regionName);
+        SetRegionNameString(regionName);
         m_cachedName.set(regionName);
     }
 }
@@ -63,7 +73,7 @@ public:
     void rva005F9775(const UnicodeString &regionName);
 private:
     char m_pad[4];
-    Rva005F9364 *m_member;
+    StrategicHUD::BattlePromptMovieClip::Impl *m_member;
 };
 void Rva005F9775::rva005F9775(const UnicodeString &regionName)
 {

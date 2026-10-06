@@ -39,17 +39,17 @@ public:
 	int m_id;
 };
 
-class BFMEPathfinderMapShim
+class Pathfinder
 {
 public:
-	void addObjectToPathfindMap(Object *object);
+	void AddObjectToPathfindMap(Object *object);
 };
 
 class AI
 {
 public:
 	char m_pad[0x10];
-	BFMEPathfinderMapShim *m_pathfinder;
+	Pathfinder *m_pathfinder;
 };
 
 extern AI *TheAI;
@@ -105,6 +105,6 @@ void Rva004A3E3E::rva004A3E3E(Object *newObj, int)
 	((Thing *)newObj)->setPosition(&createPoint);
 	((Thing *)newObj)->setOrientation(createAngle);
 	newObj->rva0028B4CE((PathfindLayerEnum)creationObject->rva0028B511());
-	TheAI->m_pathfinder->addObjectToPathfindMap(newObj);
+	TheAI->m_pathfinder->AddObjectToPathfindMap(newObj);
 	newObj->setDisabled(DISABLED_HELD);
 }

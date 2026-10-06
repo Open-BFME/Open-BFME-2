@@ -5,7 +5,7 @@
 // Chain body that builds an AIGroup from a list snapshot and a map of ObjectIDs.
 // Evidence: calls rowed createGroup 0x002FEC4B, AIGroup::add 0x0036E5F1,
 // groupEnter 0x00370198, findObjectByID 0x00049DC5, aiBfmeObjectCommand3D
-// 0x00470447, AI::rva002FE712 0x002FE712, list<int> push_back 0x0005548F,
+// 0x00470447, AI::destroyGroup 0x002FE712, list<int> push_back 0x0005548F,
 // _M_increment 0x00024250; virtual slots 0x98/0x118/0xA8; map at +0x54;
 // neighbours ContainModuleDeletingDtors/HordeContainRva00473125.
 #include <list>
@@ -59,7 +59,7 @@ class AI
 {
 public:
 	AIGroup *createGroup();
-	void rva002FE712(AIGroup *g);
+	void destroyGroup(AIGroup *g);
 };
 
 class GameLogic
@@ -68,7 +68,7 @@ public:
 	Object *findObjectByID(ObjectID id);
 };
 
-extern class AI *TheAI;
+extern AI *g_Va009FF0F8;
 extern GameLogic *TheGameLogic;
 
 class Gate250
@@ -160,7 +160,7 @@ void Rva00472B54::rva00472B54(Object *obj, CommandSourceType src)
 	_STL::list<int> **ppsrclist = (_STL::list<int> **)&buf[4];
 	for (_STL::list<int>::iterator it = (*ppsrclist)->begin(); it != (*ppsrclist)->end(); ++it)
 		snap.push_back(*it);
-	AIGroup *grp = TheAI->createGroup();
+	AIGroup *grp = g_Va009FF0F8->createGroup();
 	for (_STL::list<int>::iterator it = snap.begin(); it != snap.end(); ++it)
 		slotA8(*it);
 	for (_STL::map<int, int>::iterator it = m_map.begin(); it != m_map.end(); ++it) {
@@ -169,7 +169,7 @@ void Rva00472B54::rva00472B54(Object *obj, CommandSourceType src)
 			grp->add(o);
 	}
 	grp->groupEnter(obj, src);
-	TheAI->rva002FE712(grp);
+	g_Va009FF0F8->destroyGroup(grp);
 }
 
 // Retail's data references in this unit's matched rows land on globals defined

@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
-// ?Rva003C3677Do@@YGXPAVParameter@@@Z @0x003C3677 73B (dump range 18).
+// ?doUnitAssimilateWithFirstWalkOnArmy@ScriptActions@@IAEXPAVParameter@@@Z @0x003C3677 73B (dump range 18).
 // Object flag dispatch: string copy from param+0x10 (explicit arithmetic),
 // object lookup through rowed lookupUnitByValue 0x00358752 (called through
 // the Rva00358752Opaque view like landed doTeamEnterNamed), rowed GameLogic
@@ -28,7 +28,13 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
-void __stdcall Rva003C3677Do(Parameter *param)
+class ScriptActions
+{
+protected:
+	void doUnitAssimilateWithFirstWalkOnArmy(Parameter *param);
+};
+
+void ScriptActions::doUnitAssimilateWithFirstWalkOnArmy(Parameter *param)
 {
 	Object *obj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(*(const AsciiString *)((const char *)param + 0x10));
 	if (obj == 0)

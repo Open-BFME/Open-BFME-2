@@ -1,6 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// ?rva005EF557@Rva005EF557@@QAEXABVUnicodeString@@@Z, retail 0x005EF557, 107 bytes.
-// Evidence: rowed compare 0x00006A7A and wide set 0x00037150; rowed Set 0x005EF02F;
+// StrategicHUD::RegionDetailsArmiesMovieClip::Impl::ShowArmyName, retail
+// 0x005EF557, 107 bytes (WorldBuilder name: same compare/SetArmyNameString/set
+// sequence and SetArmyNameState _show, StrategicHUDRegionDetailsArmiesMovieClip.cpp:385).
+// Evidence: rowed compare 0x00006A7A and wide set 0x00037150; StrategicHUD::SetArmyNameString 0x005EF02F;
 // rowed AptCall 0x005FB5E6 with SetArmyNameState _show; globals TheRva00222A8BTarget
 // 0x009FE4CC and g_Rva0107301CEmptyString; caller forwarder 0x005EF5C2;
 // precedent Rva005F7670::rva005F7670 cached compare plus once flag.
@@ -24,13 +26,25 @@ struct Rva005EF02FOuter
 	Rva005EF557Team *m_team;
 };
 
-void __cdecl Rva005EF02FSet(int a, struct Rva005EF02FOuter *b, const class UnicodeString &c);
+namespace StrategicHUD
+{
+	void SetArmyNameString(int level, struct Rva005EF02FOuter *outer, const class UnicodeString &text);
+}
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
-class Rva005EF557
+namespace StrategicHUD
+{
+class RegionDetailsArmiesMovieClip
 {
 public:
-	void rva005EF557(const UnicodeString &text);
+	class Impl;
+};
+}
+
+class StrategicHUD::RegionDetailsArmiesMovieClip::Impl
+{
+public:
+	void ShowArmyName(const UnicodeString &text);
 private:
 	int m_00;
 	Rva005EF02FOuter m_outer04;
@@ -40,10 +54,10 @@ private:
 	bool m_shown3C;
 };
 
-void Rva005EF557::rva005EF557(const UnicodeString &text)
+void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::ShowArmyName(const UnicodeString &text)
 {
 	if (text.compare(m_cached30) != 0) {
-		Rva005EF02FSet(m_00, &m_outer04, text);
+		StrategicHUD::SetArmyNameString(m_00, &m_outer04, text);
 		m_cached30.set(text);
 	}
 	if (!m_shown3C) {
@@ -59,10 +73,10 @@ public:
 	void rva005EF5C2(const UnicodeString &text);
 private:
 	char m_pad00[4];
-	Rva005EF557 *m_inner04;
+	StrategicHUD::RegionDetailsArmiesMovieClip::Impl *m_inner04;
 };
 
 void Rva005EF5C2::rva005EF5C2(const UnicodeString &text)
 {
-	m_inner04->rva005EF557(text);
+	m_inner04->ShowArmyName(text);
 }

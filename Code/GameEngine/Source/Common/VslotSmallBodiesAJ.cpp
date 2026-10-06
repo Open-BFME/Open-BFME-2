@@ -332,7 +332,7 @@ public:
 	void rva005FD8C1();
 };
 
-class Rva006E0460
+class AptCIH
 {
 public:
 	void rva006dbd80();
@@ -996,12 +996,12 @@ const char * Rva005FABBC::rva005FABBC() const
 }
 
 // 0x005DAC33: tail jump to Rva0055B146::rva0055B146.
-class Rva005DAC33 : public Rva0055B146
+class AIBuildableUnit : public Rva0055B146
 {
 public:
-	void rva005DAC33(int a);
+	void addNeed(int a);
 };
-void Rva005DAC33::rva005DAC33(int a)
+void AIBuildableUnit::addNeed(int a)
 {
 	Rva0055B146::rva0055B146(a);
 }
@@ -1039,15 +1039,15 @@ void Rva005F4B52::rva005F4B52()
 	Rva005FD8C1::rva005FD8C1();
 }
 
-// 0x006CBD00: tail jump to Rva006E0460::rva006dbd80.
-class Rva006CBD00 : public Rva006E0460
+// 0x006CBD00: tail jump to AptCIH::rva006dbd80.
+class Rva006CBD00 : public AptCIH
 {
 public:
 	void rva006CBD00();
 };
 void Rva006CBD00::rva006CBD00()
 {
-	Rva006E0460::rva006dbd80();
+	AptCIH::rva006dbd80();
 }
 
 // 0x006E0500: tail jump to BfmeAptValue006DCD20::rva006E04A0.

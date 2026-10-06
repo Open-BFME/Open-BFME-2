@@ -1,5 +1,5 @@
 // ?doTeamGarrisonNearestBuilding@ScriptActions@@IAEXABVAsciiString@@@Z
-// partial score=0.85 date=2026-10-04
+// partial score=0.93 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
 #include "ascii_string.h"
 
@@ -224,23 +224,21 @@ void ScriptActions::doTeamGarrisonNearestBuilding(const AsciiString &teamName)
 		return;
 
 	DLINK_ITERATOR<Object> diter = theTeam->iterate_TeamMemberList();
-	Object *leader = diter.cur();
-	if (!leader)
+	Object *obj = diter.cur();
+	if (!obj)
 		return;
 
-	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(leader->getPosition(), REALLY_FAR, 3,
-		Rva00261478Filter(theTeam->getControllingPlayer(), true, CMD_FROM_SCRIPT).link(&Rva002611BFFilter(leader)), 1);
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(obj->getPosition(), REALLY_FAR, 3,
+		Rva00261478Filter(theTeam->getControllingPlayer(), true, CMD_FROM_SCRIPT).link(&Rva002611BFFilter(obj)), 1);
 
-	Object *theBuilding;
-	while ((theBuilding = iter.next()) != 0) {
+	for (Object *theBuilding = iter.next(); theBuilding; theBuilding = iter.next()) {
 		ContainModuleInterface *cmi = theBuilding->getContain();
 		if (!cmi)
 			continue;
 
 		int slotsAvailable = cmi->getContainMax() - cmi->getContainCount(0);
 		for (int i = 0; i < slotsAvailable; ) {
-			Object *obj = diter.cur();
-			if (diter.done() || !obj)
+			if (!obj)
 				return;
 
 			AIUpdateInterface *ai = obj->getAIUpdateInterface();
@@ -249,6 +247,7 @@ void ScriptActions::doTeamGarrisonNearestBuilding(const AsciiString &teamName)
 				++i;
 			}
 			diter.advance();
+			obj = diter.cur();
 		}
 	}
 }

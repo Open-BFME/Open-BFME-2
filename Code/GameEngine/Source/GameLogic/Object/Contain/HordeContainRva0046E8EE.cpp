@@ -136,7 +136,7 @@ extern GameLogic *TheGameLogic;
 class TransportContain
 {
 public:
-	void rva004670D6();
+	void createPayload();
 };
 
 class HordeContain
@@ -161,7 +161,7 @@ void HordeContain::rva0046E8EE()
 {
 	if (m_object->getProducerID())
 		return;
-	((TransportContain *)this)->rva004670D6();
+	((TransportContain *)this)->createPayload();
 	Iface11C *horde = (Iface11C *)((char *)this + 0x11C);
 	horde->slot04(false);
 	Iface0C *c = (Iface0C *)((char *)this + 0x0C);

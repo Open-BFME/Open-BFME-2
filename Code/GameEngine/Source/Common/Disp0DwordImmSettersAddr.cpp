@@ -1,6 +1,6 @@
-// The members of the Disp0DwordImmSetters.cpp family whose immediate is an image
-// address no unit defines yet (mostly vftables), split out so the rest of the
-// family links; each moves back once its target has a definition to name.
+// Members of the Disp0DwordImmSetters.cpp family split out while their vftable
+// addresses lacked linkable names. Unnamed retail tables below are mapped from
+// vftable_map slot targets and relocated to their matched bodies.
 //
 // Disp0 dword immediate setters: seven-byte __thiscall members with one shape:
 //
@@ -285,6 +285,99 @@ extern "C" const void *const vtbl_00CE1E14[];  // ??_7Rva00CE1E14Base@@6B@
 extern "C" const void *const vtbl_00CEFD60[];  // ??_7CullSystemClass@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00CEFD60=??_7CullSystemClass@@6B@")
 
+// vftable_map identifies all 76 slots in these 14 retail tables; each points
+// to one of eight matched bodies or the mapped __purecall runtime symbol.
+extern "C" void bfmeDisp0Slot_DoXfer(void);
+#pragma comment(linker, "/alternatename:_bfmeDisp0Slot_DoXfer=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
+extern "C" void bfmeDisp0Slot_SetAnimation(void);
+#pragma comment(linker, "/alternatename:_bfmeDisp0Slot_SetAnimation=?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z")
+extern "C" void bfmeDisp0Slot_SkipBadBlock(void);
+#pragma comment(linker, "/alternatename:_bfmeDisp0Slot_SkipBadBlock=?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z")
+extern "C" void bfmeDisp0Slot_001F01E8(void);
+#pragma comment(linker, "/alternatename:_bfmeDisp0Slot_001F01E8=?rva001F01E8@Rva001F01E8@@QAEXHHHH@Z")
+extern "C" void bfmeDisp0Slot_001FF3A9(void);
+#pragma comment(linker, "/alternatename:_bfmeDisp0Slot_001FF3A9=?rva001FF3A9@Rva001FF3A9@@UAEXXZ")
+extern "C" void bfmeDisp0Slot_005CB26A(void);
+#pragma comment(linker, "/alternatename:_bfmeDisp0Slot_005CB26A=?rva005CB26A@Rva005CB26A@@QAEXXZ")
+extern "C" void bfmeDisp0Slot_005CC208(void);
+#pragma comment(linker, "/alternatename:_bfmeDisp0Slot_005CC208=?rva005CC208@Rva005CC208@@UAEXXZ")
+extern "C" void bfmeDisp0Slot_Purecall(void);
+#pragma comment(linker, "/alternatename:_bfmeDisp0Slot_Purecall=__purecall")
+
+#define BFME_DISP0_SLOT(FUNCTION) reinterpret_cast<const void *>(FUNCTION)
+
+extern "C" const void *const vtbl_00BFDF8C[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_SetAnimation),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_SetAnimation), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer)
+};
+extern "C" const void *const vtbl_00BC6F04[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock)
+};
+extern "C" const void *const vtbl_00BC6EC0[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer)
+};
+extern "C" const void *const vtbl_00C62A20[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock), BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock)
+};
+extern "C" const void *const vtbl_00BC6F34[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock), BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock)
+};
+extern "C" const void *const vtbl_00C77BE8[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock), BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_SkipBadBlock)
+};
+extern "C" const void *const vtbl_00BE5114[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_001F01E8)
+};
+extern "C" const void *const vtbl_00C0DB24[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_001FF3A9),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_005CC208)
+};
+extern "C" const void *const vtbl_00C37E18[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_001FF3A9),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_005CC208),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_005CB26A)
+};
+extern "C" const void *const vtbl_00C6CE84[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_SetAnimation)
+};
+extern "C" const void *const vtbl_00C79428[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer)
+};
+extern "C" const void *const vtbl_00C75908[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall)
+};
+extern "C" const void *const vtbl_00C6E344[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer), BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_DoXfer)
+};
+extern "C" const void *const vtbl_00C79760[] = {
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall),
+	BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall), BFME_DISP0_SLOT(bfmeDisp0Slot_Purecall)
+};
+
+#undef BFME_DISP0_SLOT
+
 class Rva002B228DDwordImmSetter
 {
 public:
@@ -295,7 +388,7 @@ public:
 
 void Rva002B228DDwordImmSetter::apply()
 {
-	m_value = 0x00BFDF8C;
+	m_value = ((unsigned int)vtbl_00BFDF8C);
 }
 
 class Rva0007DEA1DwordImmSetter
@@ -321,7 +414,7 @@ public:
 
 void Rva0007DEA8DwordImmSetter::apply()
 {
-	m_value = 0x00BC6F04;
+	m_value = ((unsigned int)vtbl_00BC6F04);
 }
 
 class Rva0007DE9ADwordImmSetter
@@ -334,7 +427,7 @@ public:
 
 void Rva0007DE9ADwordImmSetter::apply()
 {
-	m_value = 0x00BC6EC0;
+	m_value = ((unsigned int)vtbl_00BC6EC0);
 }
 
 class Rva004EDFF8DwordImmSetter
@@ -360,7 +453,7 @@ public:
 
 void Rva004EDFFFDwordImmSetter::apply()
 {
-	m_value = 0x00C62A20;
+	m_value = ((unsigned int)vtbl_00C62A20);
 }
 
 class Rva004EE006DwordImmSetter
@@ -373,7 +466,7 @@ public:
 
 void Rva004EE006DwordImmSetter::apply()
 {
-	m_value = 0x00BC6F34;
+	m_value = ((unsigned int)vtbl_00BC6F34);
 }
 
 class Rva0057A235DwordImmSetter
@@ -438,7 +531,7 @@ public:
 
 void Rva005E394EDwordImmSetter::apply()
 {
-	m_value = 0x00C77BE8;
+	m_value = ((unsigned int)vtbl_00C77BE8);
 }
 
 class Rva000723C0DwordImmSetter
@@ -490,7 +583,7 @@ public:
 
 void Rva00210CC5DwordImmSetter::apply()
 {
-	m_value = 0x00BE5114;
+	m_value = ((unsigned int)vtbl_00BE5114);
 }
 
 class Rva002BEDA4DwordImmSetter
@@ -529,7 +622,7 @@ public:
 
 void Rva00330440DwordImmSetter::apply()
 {
-	m_value = 0x00C0DB24;
+	m_value = ((unsigned int)vtbl_00C0DB24);
 }
 
 class Rva0037F4C9DwordImmSetter
@@ -646,7 +739,7 @@ public:
 
 void Rva0052AF77DwordImmSetter::apply()
 {
-	m_value = 0x00C37E18;
+	m_value = ((unsigned int)vtbl_00C37E18);
 }
 
 class Rva005676F4DwordImmSetter
@@ -659,7 +752,7 @@ public:
 
 void Rva005676F4DwordImmSetter::apply()
 {
-	m_value = 0x00C6CE84;
+	m_value = ((unsigned int)vtbl_00C6CE84);
 }
 
 class Rva0059EB3ADwordImmSetter
@@ -750,7 +843,7 @@ public:
 
 void Rva0005F3EE3DwordImmSetter::apply()
 {
-	m_value = 0x00C79428;
+	m_value = ((unsigned int)vtbl_00C79428);
 }
 
 class Rva0005EA2ABDwordImmSetter
@@ -854,7 +947,7 @@ public:
 
 void Rva0005D387BDwordImmSetter::apply()
 {
-	m_value = 0x00C75908;
+	m_value = ((unsigned int)vtbl_00C75908);
 }
 
 class Rva0005D10D6DwordImmSetter
@@ -917,7 +1010,7 @@ public:
 
 void Rva000574265DwordImmSetter::apply()
 {
-	m_value = 0x00C6E344;
+	m_value = ((unsigned int)vtbl_00C6E344);
 }
 
 class Rva00090771DwordImmSetter
@@ -1006,7 +1099,7 @@ public:
 
 void Rva0057851BDwordImmSetter::apply()
 {
-	m_value = 0x00C79760;
+	m_value = ((unsigned int)vtbl_00C79760);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

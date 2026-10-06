@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ?rva004EE037@Rva004EE037@@QAEIXZ retail 0x004EE037 12B unsigned div.
+// ?rva004EE037@LivingWorldScoreKeeper@@QAEIXZ retail 0x004EE037 12B unsigned div.
 // Evidence: [ecx+0x74] div by LogicFramesPerSecond 0x009BA4E4; callers 0x005BE3D6 0x005BFDE4.
 extern int g_Va00DBA4E4;
 
@@ -39,14 +39,14 @@ public:
 	static _Rb_tree_node_base *__cdecl _M_increment(_Rb_tree_node_base *);
 };
 }
-class Rva004EE037
+class LivingWorldScoreKeeper
 {
 public:
 	unsigned rva004EE037();
 	int rva004EE043();
 	void rva004EE072(const class Rva004E06FBPtrChase32Field *a, int b);
 	void rva004EE0A6(int a, int b);
-	int rva004EE057(int i);
+	int GetBuildingsOfTypeBuilt(int i);
 	int rva004EE016();
 	int rva004EE33B();
 private:
@@ -66,19 +66,19 @@ private:
 	int m_EC;
 };
 
-unsigned Rva004EE037::rva004EE037()
+unsigned LivingWorldScoreKeeper::rva004EE037()
 {
 	return m_74 / LogicFramesPerSecond;
 }
 
-int Rva004EE037::rva004EE043()
+int LivingWorldScoreKeeper::rva004EE043()
 {
 	if (m_78 == -1)
 		return ((Rva00DFEF10 *)g_009FEF10)->m_FC;
 	return m_78;
 }
 
-void Rva004EE037::rva004EE072(const Rva004E06FBPtrChase32Field *a, int b)
+void LivingWorldScoreKeeper::rva004EE072(const Rva004E06FBPtrChase32Field *a, int b)
 {
 	if (a->m_20 == -1)
 		return;
@@ -88,7 +88,7 @@ void Rva004EE037::rva004EE072(const Rva004E06FBPtrChase32Field *a, int b)
 		++m_80[4];
 }
 
-void Rva004EE037::rva004EE0A6(int a, int b)
+void LivingWorldScoreKeeper::rva004EE0A6(int a, int b)
 {
 	if (m_60 == 0)
 		return;
@@ -97,21 +97,21 @@ void Rva004EE037::rva004EE0A6(int a, int b)
 	m_60 = 0;
 }
 
-int Rva004EE037::rva004EE057(int i)
+int LivingWorldScoreKeeper::GetBuildingsOfTypeBuilt(int i)
 {
 	if (i < 0 || (unsigned)i >= 5)
 		return 0;
 	return m_80[i];
 }
 
-int Rva004EE037::rva004EE016()
+int LivingWorldScoreKeeper::rva004EE016()
 {
 	if (m_70 != 0)
 		return time(0) + m_6C - m_70;
 	return m_6C;
 }
 
-int Rva004EE037::rva004EE33B()
+int LivingWorldScoreKeeper::rva004EE33B()
 {
 	_STL::_Rb_tree_node_base *h = m_9C;
 	_STL::_Rb_tree_node_base *node = h->_M_left;

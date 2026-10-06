@@ -1,17 +1,21 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
-// ?rva00219B9E@Rva00219B9E@@QAEPAXI@Z @0x00219B9E 44B
-// Bounds-checked accessor for the 216-byte (0xD8) element vector at +0x14/+0x18.
-// Returns null when index >= (finish-start)/216 via signed idiv (cdq), else
-// start+index*216. Proven by 12 direct callers needing this exact shape:
-// 0x00219BE1/0x00219C1F return dword counts from the element's +0x3c/+0x30
-// vectors, 0x00219C00/0x00219C3E forward two indices into those inner vectors,
-// 0x00219C5D adds 0x68 to the returned element. Outer chain 0x00219E74/
-// 0x00219E9F/0x00219F00 indexes a 32-byte outer vector at +0x14C/+0x150 then
-// calls here; top callers at 0x00406E53/0x00406E65/0x00406E8F read the global
-// at 0x009FE344. Landing unblocks 24 functions (14 fully ready). No donor;
-// recipe follows ObjectFilter signed-idiv precedent with /O1 keeping idiv.
-// Honest-address name: owner unknown so Rva00219B9E class, void* return.
+// CreateAHeroManager / CreateAHeroManager::CreateAHeroClass /
+// CreateAHeroManager::CreateAHeroSubClass accessors (CreateAHero.cpp in WB).
+//
+// Identity (target evidence): WorldBuilder's debug build names each body
+// (reverse/wb_name_leads.csv) and its callees agree pairwise with retail: every
+// manager two-index getter forwards to the CreateAHeroClass getter of the same
+// name (GetSubClassNameTag 0x0021B13A -> 0x0021ADF8, GetStatCount 0x00219E74
+// -> 0x00219BE1, ...), and every class getter to the CreateAHeroSubClass one.
+// Retail's static fallbacks split the owners: "ERROR: Invalid CalssIndex"
+// guards the manager's class vector, "ERROR: Invalid SubCalssIndex" the
+// class's subclass vector. Bodies WB leaves unnamed keep their address names.
+//
+// Layout (target evidence): the manager keeps a vector of 32-byte classes at
+// +0x14C and the 16-byte bling list at +0x15C (WB assert names m_blingList);
+// a class keeps five strings then a vector of 216-byte subclasses at +0x14,
+// bounds-checked by 0x00219B9E with signed idiv (cdq), so /O1 keeps idiv.
 #include "ascii_string.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -21,668 +25,620 @@ extern int g_00DFE368;
 extern int g_00DFE364;
 extern int g_00DFE3E4;
 extern int g_00DFE3E0;
-// g_00DFE368: matched references place it at VA 0x00DFE368 (zero-filled .bss).
-int g_00DFE368;
-// g_00DFE364: matched references place it at VA 0x00DFE364 (zero-filled .bss).
-int g_00DFE364;
-// g_00DFE3E4: matched references place it at VA 0x00DFE3E4 (zero-filled .bss).
-int g_00DFE3E4;
-// g_00DFE3E0: matched references place it at VA 0x00DFE3E0 (zero-filled .bss).
-int g_00DFE3E0;
+
+typedef int Int;
+typedef unsigned int UnsignedInt;
+
 struct IntVec { int *m_start; int *m_finish; int *m_end; };
-struct Elem216 {
-    char m_00[0x0C];
-    AsciiString m_0C;
-    int m_10;
-    int m_14;
-    int m_18;
-    int m_1C;
-    AsciiString m_20;
-    char m_24[0x30 - 0x24];
-    IntVec m_30;
-    IntVec m_3C;
-    char m_48[0x64 - 0x48];
-    int m_64;
-    char m_68[0xD8 - 0x68];
-};
-struct Vec216 {
-    Elem216 *m_start;
-    Elem216 *m_finish;
-    Elem216 *m_end;
-};
-struct OuterElem32 { char m_00[32]; };
-struct Vec32 {
-    OuterElem32 *m_start;
-    OuterElem32 *m_finish;
-    OuterElem32 *m_end;
-};
 struct Elem16 { char m_data[16]; };
 struct Vec16 {
     Elem16 *m_start;
     Elem16 *m_finish;
     Elem16 *m_end;
 };
-static __forceinline unsigned VecSize(const Vec216 *v) { return v->m_finish - v->m_start; }
-static __forceinline Elem216 &VecAt(Vec216 *v, unsigned i) { return v->m_start[i]; }
-static __forceinline unsigned Vec32Size(const Vec32 *v) { return v->m_finish - v->m_start; }
-static __forceinline OuterElem32 &Vec32At(Vec32 *v, unsigned i) { return v->m_start[i]; }
-struct IdxPair {
-    char m_00[0x0C];
-    unsigned m_o;
-    unsigned m_i;
-};
-class Rva00219B62 {
-    char m_pad[0x30];
-    IntVec m_vec;
-public:
-    int rva00219B62(unsigned int index);
-};
-class Rva00219B80 {
-    char m_pad[0x3C];
-    IntVec m_vec;
-public:
-    int rva00219B80(unsigned int index);
-};
-class Rva00219B9E {
-    char m_pad[0x14];
-    Vec216 m_vec;
-    char m_pad2[0x14C - 0x20];
-    Vec32 m_outer;
-    char m_pad3[0x15C - 0x158];
-    Vec16 m_15c;
-public:
-    void *rva00219B9E(unsigned int index);
-    int rva00219CDF(unsigned int index);
-    int rva00219CF6(unsigned int index);
-    int rva00219D0D(unsigned int index);
-    int rva00219D24(unsigned int index);
-    int rva00219C93(unsigned int index);
-    void *rva00219CAB(unsigned int index);
-    void *rva00219CC5(unsigned int index);
-    int rva00219BE1(unsigned int index);
-    int rva00219C1F(unsigned int index);
-    void *rva0021ADF8(unsigned int index);
-    void *rva0021AE56(unsigned int index);
-    void *rva0021AEB9(unsigned int index);
-    void *rva0021AF7E(unsigned int index);
-    void *rva0021AFEA(unsigned int index);
-    void *rva0021B13A(unsigned int o, unsigned int i);
-    void *rva0021B1B4(unsigned int o, unsigned int i);
-    void *rva0021B2A2(unsigned int o, unsigned int i);
-    void *rva0021A134(unsigned int index);
-    int rva0021A016(unsigned int o, unsigned int i);
-    int rva00219E74(unsigned int o, unsigned int i);
-    int rva00219ED5(unsigned int o, unsigned int i);
-    int rva00219D52(unsigned int o);
-    int rva0021A041(unsigned int o, unsigned int i);
-    int rva0021A06C(unsigned int o, unsigned int i);
-    int rva0021A097(unsigned int o, unsigned int i);
-    void *rva0021A1B6(unsigned int o, unsigned int i);
-    void *rva0021A15D(unsigned int o, unsigned int i);
-    void *rva0021B05A(unsigned int index);
-    void *rva0021B0CA(unsigned int index);
-    void *rva0021B22E(unsigned int o, unsigned int i);
-    void *rva0021B670(const IdxPair *p);
-    void *rva00219C5D(unsigned int index);
-    void *rva00219F8E(unsigned int o, unsigned int i);
-    int rva00219C3E(unsigned int o, unsigned int i);
-    int rva00219F00(unsigned int o, unsigned int o2, unsigned int i);
-    int rva00219C00(unsigned int o, unsigned int i);
-    int rva00219E9F(unsigned int o, unsigned int o2, unsigned int i);
-    void *rva00219D85(unsigned int index);
-    int rva00219FE3(unsigned int o, unsigned int i);
-    int rva0021BE42(unsigned int o, unsigned int i);
-    int rva0021BE62(unsigned int o, unsigned int i);
-    int rva0021BE82(unsigned int o, unsigned int i);
-    int rva0021BF42(unsigned int o, unsigned int outer, unsigned int i);
-    int rva0021BF74(unsigned int o, unsigned int outer, unsigned int i);
-    int rva0021BFA6(unsigned int o, unsigned int outer, unsigned int i);
-};
-void *Rva00219B9E::rva00219B9E(unsigned int index)
+
+// The hero's class and subclass indices (WB asserts name the argument hero).
+class CreateAHeroHero
 {
-    void *result = 0;
-    unsigned int count = VecSize(&m_vec);
-    if (index < count)
-        result = &VecAt(&m_vec, index);
+public:
+    char m_00[0x0C];
+    UnsignedInt m_classIndex;       // +0x0C
+    UnsignedInt m_subClassIndex;    // +0x10
+};
+
+class CreateAHeroManager
+{
+public:
+    class CreateAHeroSubClass
+    {
+    public:
+        void *rva0021C9A6(Int blingKey, UnsignedInt index);                // 0x0021C9A6, bling name tag
+        const AsciiString *rva0021C970(Int blingKey, UnsignedInt index);   // 0x0021C970, bling desc tag
+        Int GetAwardNameKey(UnsignedInt index) const;     // 0x00219B62
+        Int GetStatNameKey(UnsignedInt index) const;      // 0x00219B80
+
+        AsciiString m_nameTag;                  // +0x00
+        AsciiString m_descTag;                  // +0x04
+        AsciiString m_imageName;                // +0x08
+        AsciiString m_buttonImageName;          // +0x0C
+        Int m_10;
+        Int m_14;
+        Int m_18;
+        Int m_spendableAttributePoints;         // +0x1C
+        AsciiString m_upgradeName;              // +0x20
+        char m_24[0x30 - 0x24];
+        IntVec m_awardNameKeys;                 // +0x30
+        IntVec m_statNameKeys;                  // +0x3C
+        char m_48[0x64 - 0x48];
+        Int m_preferedFaction;                  // +0x64
+        char m_68[0xD8 - 0x68];                 // +0x68 faction mask
+    };
+
+    struct SubClassVec {
+        CreateAHeroSubClass *m_start;
+        CreateAHeroSubClass *m_finish;
+        CreateAHeroSubClass *m_end;
+    };
+
+    class CreateAHeroClass
+    {
+        friend class CreateAHeroManager;
+    public:
+        Int rva00219CDF(UnsignedInt subClassIndex);
+        Int rva00219CF6(UnsignedInt subClassIndex);
+        Int rva00219D0D(UnsignedInt subClassIndex);
+        Int GetSubClassSpendableAttributePoints(UnsignedInt subClassIndex);
+        Int GetPreferedFaction(UnsignedInt subClassIndex);
+        const AsciiString &GetButtonImageName(UnsignedInt subClassIndex);
+        const AsciiString &GetSubClassUpgradeName(UnsignedInt subClassIndex);
+        Int GetStatCount(UnsignedInt subClassIndex);
+        Int GetAwardCount(UnsignedInt subClassIndex);
+        const AsciiString &GetSubClassNameTag(UnsignedInt subClassIndex);
+        const AsciiString &GetSubClassImageName(UnsignedInt subClassIndex);
+        const AsciiString &GetSubClassDescTag(UnsignedInt subClassIndex);
+        void *GetFactionMaskType(UnsignedInt subClassIndex);
+        Int GetAwardNameKey(UnsignedInt subClassIndex, UnsignedInt index);
+        Int GetStatNameKey(UnsignedInt subClassIndex, UnsignedInt index);
+        Int GetAttributeMinValue(UnsignedInt attribute, UnsignedInt subClassIndex);
+        Int GetAttributeMaxValue(UnsignedInt attribute, UnsignedInt subClassIndex);
+        Int GetAttributeDefaultValue(UnsignedInt attribute, UnsignedInt subClassIndex);
+
+        AsciiString m_nameTag;                  // +0x00
+        AsciiString m_descTag;                  // +0x04
+        AsciiString m_powersTag;                // +0x08
+        AsciiString m_imageName;                // +0x0C
+        AsciiString m_upgradeName;              // +0x10
+        SubClassVec m_subClasses;               // +0x14
+
+    private:
+        const CreateAHeroSubClass *rva00219B9E(UnsignedInt subClassIndex) const;   // 0x00219B9E
+    };
+
+    struct ClassVec {
+        CreateAHeroClass *m_start;
+        CreateAHeroClass *m_finish;
+        CreateAHeroClass *m_end;
+    };
+
+    const AsciiString &GetClassNameTag(UnsignedInt classIndex);
+    const AsciiString &GetClassDescTag(UnsignedInt classIndex);
+    const AsciiString &GetClassPowersTag(UnsignedInt classIndex);
+    const AsciiString &GetClassImageName(UnsignedInt classIndex);
+    const AsciiString &GetSubClassNameTag(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    const AsciiString &GetBlingNameTag(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex, UnsignedInt index);
+    const AsciiString &GetBlingDescTag(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex, UnsignedInt index);
+    const AsciiString &GetSubClassImageName(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    const AsciiString &GetSubClassDescTag(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    const AsciiString &GetButtonImageName(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    const AsciiString &GetButtonImageName(const CreateAHeroHero *hero);
+    const AsciiString &GetClassUpgradeName(UnsignedInt classIndex);
+    const AsciiString &GetSubClassUpgradeName(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int rva0021A016(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int rva0021A041(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int rva0021A06C(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int GetSubClassSpendableAttributePoints(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    const CreateAHeroSubClass *rva0021A1B6(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int GetStatCount(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int GetAwardCount(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int rva00219D52(UnsignedInt classIndex);
+    void *GetFactionMaskType(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int GetAwardNameKey(UnsignedInt classIndex, UnsignedInt subClassIndex, UnsignedInt index);
+    Int GetStatNameKey(UnsignedInt classIndex, UnsignedInt subClassIndex, UnsignedInt index);
+    void *GetBling(UnsignedInt blingId);
+    Int GetPreferedFaction(UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int GetSubClassAttributeMinValue(UnsignedInt attribute, UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int GetSubClassAttributeMaxValue(UnsignedInt attribute, UnsignedInt classIndex, UnsignedInt subClassIndex);
+    Int GetSubClassAttributeDefaultValue(UnsignedInt attribute, UnsignedInt classIndex, UnsignedInt subClassIndex);
+
+private:
+    char m_pad[0x14C];
+    ClassVec m_classes;                         // +0x14C
+    char m_pad3[0x15C - 0x158];
+    Vec16 m_blingList;                          // +0x15C
+};
+
+typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;
+typedef CreateAHeroManager::CreateAHeroSubClass CreateAHeroSubClass;
+
+static __forceinline unsigned SubClassCount(const CreateAHeroManager::SubClassVec *v) { return v->m_finish - v->m_start; }
+static __forceinline unsigned ClassCount(const CreateAHeroManager::ClassVec *v) { return v->m_finish - v->m_start; }
+static __forceinline CreateAHeroClass &ClassAt(CreateAHeroManager::ClassVec *v, unsigned i) { return v->m_start[i]; }
+
+// 0x00219B9E 44B (unnamed in WB): null when the index is past the subclass
+// vector, else the subclass. Signed idiv by 216 for the count.
+const CreateAHeroSubClass *CreateAHeroClass::rva00219B9E(UnsignedInt subClassIndex) const
+{
+    const CreateAHeroSubClass *result = 0;
+    unsigned int count = SubClassCount(&m_subClasses);
+    if (subClassIndex < count)
+        result = &m_subClasses.m_start[subClassIndex];
     return result;
 }
-// ?rva00219CDF@Rva00219B9E@@QAEHI@Z @0x00219CDF 23B: returns element+0x10 or 0.
-// Chain of 0x00219B9E; caller 0x0021A016 (outer 32B vector at +0x14C) needs it.
-int Rva00219B9E::rva00219CDF(unsigned int index)
+// 0x00219CDF 23B (unnamed in WB): subclass +0x10 or 0.
+Int CreateAHeroClass::rva00219CDF(UnsignedInt subClassIndex)
 {
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return ((Elem216 *)p)->m_10;
+        return p->m_10;
     return 0;
 }
-// ?rva00219CF6@Rva00219B9E@@QAEHI@Z @0x00219CF6 23B: returns element+0x14 or 0.
-// Chain of 0x00219B9E; caller 0x0021A041 needs it.
-int Rva00219B9E::rva00219CF6(unsigned int index)
+// 0x00219CF6 23B (unnamed in WB): subclass +0x14 or 0.
+Int CreateAHeroClass::rva00219CF6(UnsignedInt subClassIndex)
 {
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return ((Elem216 *)p)->m_14;
+        return p->m_14;
     return 0;
 }
-// ?rva00219D0D@Rva00219B9E@@QAEHI@Z @0x00219D0D 23B: returns element+0x18 or 0.
-// Chain of 0x00219B9E; caller 0x0021A06C needs it.
-int Rva00219B9E::rva00219D0D(unsigned int index)
+// 0x00219D0D 23B (unnamed in WB): subclass +0x18 or 0.
+Int CreateAHeroClass::rva00219D0D(UnsignedInt subClassIndex)
 {
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return ((Elem216 *)p)->m_18;
+        return p->m_18;
     return 0;
 }
-// ?rva00219D24@Rva00219B9E@@QAEHI@Z @0x00219D24 23B: returns element+0x1C or 0.
-// Chain of 0x00219B9E; caller 0x0021A097 needs it.
-int Rva00219B9E::rva00219D24(unsigned int index)
+// CreateAHeroClass::GetSubClassSpendableAttributePoints, retail 0x00219D24 23B.
+Int CreateAHeroClass::GetSubClassSpendableAttributePoints(UnsignedInt subClassIndex)
 {
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return ((Elem216 *)p)->m_1C;
+        return p->m_spendableAttributePoints;
     return 0;
 }
-// ?rva00219C93@Rva00219B9E@@QAEHI@Z @0x00219C93 24B: returns element+0x64 or -1.
-// Chain of 0x00219B9E; caller 0x00219FE3 needs it. Null path uses or eax,-1.
-int Rva00219B9E::rva00219C93(unsigned int index)
+// CreateAHeroClass::GetPreferedFaction, retail 0x00219C93 24B; -1 on a bad
+// index (or eax,-1).
+Int CreateAHeroClass::GetPreferedFaction(UnsignedInt subClassIndex)
 {
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (!p)
         return -1;
-    return ((Elem216 *)p)->m_64;
+    return p->m_preferedFaction;
 }
-// ?rva00219CAB@Rva00219B9E@@QAEPAXI@Z @0x00219CAB 26B: returns element+0x0C or empty.
-// Chain of 0x00219B9E; caller 0x0021B22E needs it. Fallback is TheEmptyString.
-void *Rva00219B9E::rva00219CAB(unsigned int index)
+// CreateAHeroClass::GetButtonImageName, retail 0x00219CAB 26B.
+const AsciiString &CreateAHeroClass::GetButtonImageName(UnsignedInt subClassIndex)
 {
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return &((Elem216 *)p)->m_0C;
-    return (void *)&AsciiString::TheEmptyString;
+        return p->m_buttonImageName;
+    return AsciiString::TheEmptyString;
 }
-// ?rva00219CC5@Rva00219B9E@@QAEPAXI@Z @0x00219CC5 26B: returns element+0x20 or empty.
-// Chain of 0x00219B9E; caller 0x0021A15D needs it. Fallback is TheEmptyString.
-void *Rva00219B9E::rva00219CC5(unsigned int index)
+// CreateAHeroClass::GetSubClassUpgradeName, retail 0x00219CC5 26B.
+const AsciiString &CreateAHeroClass::GetSubClassUpgradeName(UnsignedInt subClassIndex)
 {
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return &((Elem216 *)p)->m_20;
-    return (void *)&AsciiString::TheEmptyString;
+        return p->m_upgradeName;
+    return AsciiString::TheEmptyString;
 }
-// ?rva00219BE1@Rva00219B9E@@QAEHI@Z @0x00219BE1 31B: inner int-vector count at +0x3C.
-// Chain of 0x00219B9E; caller 0x00219E74 needs it. Pointer diff gives sar 2.
-int Rva00219B9E::rva00219BE1(unsigned int index)
+// CreateAHeroClass::GetStatCount, retail 0x00219BE1 31B: size of the
+// subclass's stat key vector at +0x3C.
+Int CreateAHeroClass::GetStatCount(UnsignedInt subClassIndex)
 {
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return ((Elem216 *)p)->m_3C.m_finish - ((Elem216 *)p)->m_3C.m_start;
+        return p->m_statNameKeys.m_finish - p->m_statNameKeys.m_start;
     return 0;
 }
-// ?rva00219C1F@Rva00219B9E@@QAEHI@Z @0x00219C1F 31B: inner int-vector count at +0x30.
-// Chain of 0x00219B9E; callers 0x00219EF4/0x0022027F need it via 0x00219ED5.
-int Rva00219B9E::rva00219C1F(unsigned int index)
+// CreateAHeroClass::GetAwardCount, retail 0x00219C1F 31B: size of the
+// subclass's award key vector at +0x30.
+Int CreateAHeroClass::GetAwardCount(UnsignedInt subClassIndex)
 {
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return ((Elem216 *)p)->m_30.m_finish - ((Elem216 *)p)->m_30.m_start;
+        return p->m_awardNameKeys.m_finish - p->m_awardNameKeys.m_start;
     return 0;
 }
-// ?rva0021AE56@Rva00219B9E@@QAEPAXI@Z @0x0021AE56 99B
-// Subclass-name accessor with function-static fallback "ERROR: Invalid SubCalssIndex".
-// Chain of 0x00219B9E; static constructed via rowed StringBase<char> PBD 0x00037BA0
-// with atexit cleanup; null path returns the static, else element+8.
-// Caller 0x0021B215.
-// ?rva0021ADF8@Rva00219B9E@@QAEPAXI@Z @0x0021ADF8 94B
-// The element itself (no member offset), with its own static fallback.
-void *Rva00219B9E::rva0021ADF8(unsigned int index)
+// CreateAHeroClass::GetSubClassNameTag, retail 0x0021ADF8 94B: the
+// subclass's first string, else a function-static error string.
+const AsciiString &CreateAHeroClass::GetSubClassNameTag(UnsignedInt subClassIndex)
 {
     static AsciiString err("ERROR: Invalid SubCalssIndex");
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return p;
-    return &err;
+        return p->m_nameTag;
+    return err;
 }
-void *Rva00219B9E::rva0021AE56(unsigned int index)
+// CreateAHeroClass::GetSubClassImageName, retail 0x0021AE56 99B.
+const AsciiString &CreateAHeroClass::GetSubClassImageName(UnsignedInt subClassIndex)
 {
     static AsciiString err("ERROR: Invalid SubCalssIndex");
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return (char *)p + 8;
-    return &err;
+        return p->m_imageName;
+    return err;
 }
-// ?rva0021AEB9@Rva00219B9E@@QAEPAXI@Z @0x0021AEB9 99B
-// Twin of 0x0021AE56 above with element+4: same static fallback literal,
-// same rowed callees; caller 0x0021B303.
-void *Rva00219B9E::rva0021AEB9(unsigned int index)
+// CreateAHeroClass::GetSubClassDescTag, retail 0x0021AEB9 99B.
+const AsciiString &CreateAHeroClass::GetSubClassDescTag(UnsignedInt subClassIndex)
 {
     static AsciiString err("ERROR: Invalid SubCalssIndex");
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return (char *)p + 4;
-    return &err;
+        return p->m_descTag;
+    return err;
 }
-// ?rva0021AF7E@Rva00219B9E@@QAEPAXI@Z @0x0021AF7E 108B
-// Outer 32-byte vector accessor at +0x14C with static "ERROR: Invalid CalssIndex"
-// fallback; callers 0x0021CB79 0x005B20FB.
-void *Rva00219B9E::rva0021AF7E(unsigned int index)
+// CreateAHeroManager::GetClassNameTag, retail 0x0021AF7E 108B.
+const AsciiString &CreateAHeroManager::GetClassNameTag(UnsignedInt classIndex)
 {
     static AsciiString err("ERROR: Invalid CalssIndex");
-    unsigned int count = Vec32Size(&m_outer);
-    if (index < count)
-        return &Vec32At(&m_outer, index);
-    return &err;
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count)
+        return ClassAt(&m_classes, classIndex).m_nameTag;
+    return err;
 }
-// ?rva0021AFEA@Rva00219B9E@@QAEPAXI@Z @0x0021AFEA 112B
-// Twin of 0x0021AF7E returning outer element+4; same literal and callees;
-// callers 0x0021CB51 0x005B55B4.
-void *Rva00219B9E::rva0021AFEA(unsigned int index)
+// CreateAHeroManager::GetClassDescTag, retail 0x0021AFEA 112B.
+const AsciiString &CreateAHeroManager::GetClassDescTag(UnsignedInt classIndex)
 {
     static AsciiString err("ERROR: Invalid CalssIndex");
-    unsigned int count = Vec32Size(&m_outer);
-    if (index < count)
-        return (char *)&Vec32At(&m_outer, index) + 4;
-    return &err;
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count)
+        return ClassAt(&m_classes, classIndex).m_descTag;
+    return err;
 }
-// ?rva0021B05A@Rva00219B9E@@QAEPAXI@Z @0x0021B05A 112B
-// Twin of 0x0021AF7E/0x0021AFEA returning outer element+8; same literal
-// and callees; caller 0x0021CBA1.
-void *Rva00219B9E::rva0021B05A(unsigned int index)
+// CreateAHeroManager::GetClassPowersTag, retail 0x0021B05A 112B.
+const AsciiString &CreateAHeroManager::GetClassPowersTag(UnsignedInt classIndex)
 {
     static AsciiString err("ERROR: Invalid CalssIndex");
-    unsigned int count = Vec32Size(&m_outer);
-    if (index < count)
-        return (char *)&Vec32At(&m_outer, index) + 8;
-    return &err;
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count)
+        return ClassAt(&m_classes, classIndex).m_powersTag;
+    return err;
 }
-// ?rva0021B0CA@Rva00219B9E@@QAEPAXI@Z @0x0021B0CA 112B
-// Twin returning outer element+0xC; same literal and callees;
-// caller 0x005B56FC.
-void *Rva00219B9E::rva0021B0CA(unsigned int index)
+// CreateAHeroManager::GetClassImageName, retail 0x0021B0CA 112B.
+const AsciiString &CreateAHeroManager::GetClassImageName(UnsignedInt classIndex)
 {
     static AsciiString err("ERROR: Invalid CalssIndex");
-    unsigned int count = Vec32Size(&m_outer);
-    if (index < count)
-        return (char *)&Vec32At(&m_outer, index) + 0xC;
-    return &err;
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count)
+        return ClassAt(&m_classes, classIndex).m_imageName;
+    return err;
 }
-// ?rva0021B22E@Rva00219B9E@@QAEPAXII@Z @0x0021B22E 116B
-// Two-level string lookup: outer 32B vector at +0x14C selects the element,
-// then the rowed 0x00219CAB accessor resolves the inner index to element+0x0C;
-// either level falls back to its own static error string. Same pattern as
-// 0x0021B1B4/0x0021B2A2. Callers 0x0021B685/0x005B554E.
-void *Rva00219B9E::rva0021B22E(unsigned int o, unsigned int i)
+// CreateAHeroManager::GetButtonImageName(class, subclass), retail 0x0021B22E
+// 116B: forwards to CreateAHeroClass::GetButtonImageName 0x00219CAB.
+const AsciiString &CreateAHeroManager::GetButtonImageName(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
     static AsciiString err("ERROR: Invalid CalssIndex");
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva00219CAB(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].GetButtonImageName(subClassIndex);
     }
-    return &err;
+    return err;
 }
-// ?rva0021B670@Rva00219B9E@@QAEPAXPBUIdxPair@@@Z @0x0021B670 29B
-// Null-guarded forward into rowed 0x0021B22E: null yields TheEmptyString,
-// else the +0xC/+0x10 pair selects outer and inner indices on the same this.
-// Callers 0x002E1C02/0x0037ED4B/0x004AF339/0x004E24AD/0x004E257E/0x005F0447.
-void *Rva00219B9E::rva0021B670(const IdxPair *p)
+// CreateAHeroManager::GetButtonImageName(hero), retail 0x0021B670 29B: the
+// hero's class (+0x0C) and subclass (+0x10) indices, empty for no hero.
+const AsciiString &CreateAHeroManager::GetButtonImageName(const CreateAHeroHero *hero)
 {
-    if (!p)
-        return (void *)&AsciiString::TheEmptyString;
-    return rva0021B22E(p->m_o, p->m_i);
+    if (!hero)
+        return AsciiString::TheEmptyString;
+    return GetButtonImageName(hero->m_classIndex, hero->m_subClassIndex);
 }
-// ?rva0021B13A@Rva00219B9E@@QAEPAXII@Z @0x0021B13A 122B
-// Twin of 0x0021B1B4 below resolving through 0x0021ADF8; callers 0x0021CBE1,
-// 0x0043F98C (MpGameSetup), 0x005B2167, 0x005B6885.
-void *Rva00219B9E::rva0021B13A(unsigned int o, unsigned int i)
+// CreateAHeroManager::GetSubClassNameTag, retail 0x0021B13A 122B.
+const AsciiString &CreateAHeroManager::GetSubClassNameTag(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
     static AsciiString err("ERROR: Invalid CalssIndex");
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva0021ADF8(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].GetSubClassNameTag(subClassIndex);
     }
-    return &err;
+    return err;
 }
-// ?rva0021B1B4@Rva00219B9E@@QAEPAXII@Z @0x0021B1B4 122B
-// Two-level lookup: outer 32B vector at +0x14C selects the element, then the
-// rowed 0x0021AE56 accessor resolves the inner index; either level falls back
-// to its own static error string. Outer elements share the +0x14 Vec216
-// prefix the callee reads, hence the layout-compatible reinterpret cast.
-void *Rva00219B9E::rva0021B1B4(unsigned int o, unsigned int i)
+// CreateAHeroManager::GetSubClassImageName, retail 0x0021B1B4 122B.
+const AsciiString &CreateAHeroManager::GetSubClassImageName(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
     static AsciiString err("ERROR: Invalid CalssIndex");
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva0021AE56(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].GetSubClassImageName(subClassIndex);
     }
-    return &err;
+    return err;
 }
-// ?rva0021B2A2@Rva00219B9E@@QAEPAXII@Z @0x0021B2A2 122B
-// Twin of 0x0021B1B4 resolving through the +4 accessor 0x0021AEB9;
-// callers 0x0021CC0C 0x005B561A.
-void *Rva00219B9E::rva0021B2A2(unsigned int o, unsigned int i)
+// CreateAHeroManager::GetSubClassDescTag, retail 0x0021B2A2 122B.
+const AsciiString &CreateAHeroManager::GetSubClassDescTag(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
     static AsciiString err("ERROR: Invalid CalssIndex");
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva0021AEB9(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].GetSubClassDescTag(subClassIndex);
     }
-    return &err;
+    return err;
 }
-// ?rva0021A134@Rva00219B9E@@QAEPAXI@Z @0x0021A134 41B
-// Outer 32-byte vector accessor at +0x14C returning element+0x10 or TheEmptyString.
-// Same outer vector as 0x0021AF7E/0x0021AFEA; +0x10 holds an AsciiString.
-// Proven by callers 0x004085A1/0x00409490 forwarding the result to StringBase copy 0x000365F0.
-void *Rva00219B9E::rva0021A134(unsigned int index)
+// CreateAHeroManager::GetClassUpgradeName, retail 0x0021A134 41B; callers
+// 0x004085A1/0x00409490 copy the result as a string.
+const AsciiString &CreateAHeroManager::GetClassUpgradeName(UnsignedInt classIndex)
 {
-    unsigned int count = Vec32Size(&m_outer);
-    if (index < count)
-        return (char *)&Vec32At(&m_outer, index) + 0x10;
-    return (void *)&AsciiString::TheEmptyString;
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count)
+        return ClassAt(&m_classes, classIndex).m_upgradeName;
+    return AsciiString::TheEmptyString;
 }
-// ?rva0021A016@Rva00219B9E@@QAEHII@Z @0x0021A016 43B
-// Two-level int lookup: outer 32B vector at +0x14C selects the element, then the
-// rowed 0x00219CDF accessor resolves the inner index; out-of-range returns 0.
-// Same reinterpret-cast pattern as 0x0021B1B4/0x0021B2A2. Caller 0x00407037.
-int Rva00219B9E::rva0021A016(unsigned int o, unsigned int i)
+// 0x0021A016 43B (unnamed in WB): forwards to 0x00219CDF.
+Int CreateAHeroManager::rva0021A016(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva00219CDF(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].rva00219CDF(subClassIndex);
     }
     return 0;
 }
-// ?rva0021A041@Rva00219B9E@@QAEHII@Z @0x0021A041 43B
-// Twin of 0x0021A016 resolving through the +0x14 accessor 0x00219CF6;
-// caller 0x00407050.
-int Rva00219B9E::rva0021A041(unsigned int o, unsigned int i)
+// 0x0021A041 43B (unnamed in WB): forwards to 0x00219CF6.
+Int CreateAHeroManager::rva0021A041(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva00219CF6(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].rva00219CF6(subClassIndex);
     }
     return 0;
 }
-// ?rva0021A06C@Rva00219B9E@@QAEHII@Z @0x0021A06C 43B
-// Twin resolving through the +0x18 accessor 0x00219D0D; caller 0x00407069.
-int Rva00219B9E::rva0021A06C(unsigned int o, unsigned int i)
+// 0x0021A06C 43B (unnamed in WB): forwards to 0x00219D0D.
+Int CreateAHeroManager::rva0021A06C(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva00219D0D(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].rva00219D0D(subClassIndex);
     }
     return 0;
 }
-// ?rva0021A097@Rva00219B9E@@QAEHII@Z @0x0021A097 43B
-// Twin resolving through the +0x1C accessor 0x00219D24; caller 0x005B1B81.
-int Rva00219B9E::rva0021A097(unsigned int o, unsigned int i)
+// CreateAHeroManager::GetSubClassSpendableAttributePoints, retail 0x0021A097 43B.
+Int CreateAHeroManager::GetSubClassSpendableAttributePoints(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva00219D24(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].GetSubClassSpendableAttributePoints(subClassIndex);
     }
     return 0;
 }
-// ?rva0021A1B6@Rva00219B9E@@QAEPAXII@Z @0x0021A1B6 43B
-// Twin returning the inner element itself via rowed 0x00219B9E; null on miss.
-// Callers 0x0021D58E/0x00409A93.
-void *Rva00219B9E::rva0021A1B6(unsigned int o, unsigned int i)
+// 0x0021A1B6 43B (unnamed in WB): the subclass itself, null on a miss.
+const CreateAHeroSubClass *CreateAHeroManager::rva0021A1B6(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva00219B9E(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].rva00219B9E(subClassIndex);
     }
     return 0;
 }
-// ?rva0021A15D@Rva00219B9E@@QAEPAXII@Z @0x0021A15D 46B
-// Two-level string lookup: outer 32B vector at +0x14C selects the element,
-// then the rowed 0x00219CC5 accessor resolves the inner index to element+0x20;
-// out-of-range returns TheEmptyString. Same reinterpret-cast pattern as
-// 0x0021A016/0x0021A1B6. Caller 0x004085D7.
-void *Rva00219B9E::rva0021A15D(unsigned int o, unsigned int i)
+// CreateAHeroManager::GetSubClassUpgradeName, retail 0x0021A15D 46B.
+const AsciiString &CreateAHeroManager::GetSubClassUpgradeName(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva00219CC5(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].GetSubClassUpgradeName(subClassIndex);
     }
-    return (void *)&AsciiString::TheEmptyString;
+    return AsciiString::TheEmptyString;
 }
-
-// Two more outer-index forwards of rva0021A016's shape, to the sibling inner
-// accessors rva00219BE1 and rva00219C1F; only the forwarded call differs.
-
-// ?rva00219E74@Rva00219B9E@@QAEHII@Z @0x00219E74 43B -> rva00219BE1
-int Rva00219B9E::rva00219E74(unsigned int o, unsigned int i)
+// CreateAHeroManager::GetStatCount, retail 0x00219E74 43B.
+Int CreateAHeroManager::GetStatCount(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva00219BE1(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].GetStatCount(subClassIndex);
     }
     return 0;
 }
-
-// ?rva00219ED5@Rva00219B9E@@QAEHII@Z @0x00219ED5 43B -> rva00219C1F
-int Rva00219B9E::rva00219ED5(unsigned int o, unsigned int i)
+// CreateAHeroManager::GetAwardCount, retail 0x00219ED5 43B.
+Int CreateAHeroManager::GetAwardCount(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        return ((Rva00219B9E *)&base[o])->rva00219C1F(i);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        return base[classIndex].GetAwardCount(subClassIndex);
     }
     return 0;
 }
-
-// ?rva00219D52@Rva00219B9E@@QAEHI@Z @0x00219D52 51B
-// Outer 32B vector at +0x14C selects element o, then returns the count of its
-// inner 216B vector at +0x14 via signed idiv. Same reinterpret-cast pattern as
-// 0x00219E74/0x0021A016: outer elements share the +0x14 Vec216 prefix.
-// Evidence: retail lea eax,[ecx+0x14C] plus sar 5 for outer, then
-// lea ecx,[ecx+eax+0x14] plus mov ecx,0xD8/cdq/idiv for inner.
-int Rva00219B9E::rva00219D52(unsigned int o)
+// 0x00219D52 51B (unnamed in WB): the class's subclass count. Retail
+// lea eax,[ecx+0x14C] plus sar 5 for the class, then lea ecx,[ecx+eax+0x14]
+// plus mov ecx,0xD8/cdq/idiv for the subclasses.
+Int CreateAHeroManager::rva00219D52(UnsignedInt classIndex)
 {
-    unsigned int count = Vec32Size(&m_outer);
-    if (o < count) {
-        OuterElem32 *base = m_outer.m_start;
-        Rva00219B9E *inner = (Rva00219B9E *)&base[o];
-        return (int)VecSize(&inner->m_vec);
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroClass *base = m_classes.m_start;
+        CreateAHeroClass *inner = &base[classIndex];
+        return (int)SubClassCount(&inner->m_subClasses);
     }
     return 0;
 }
-
-// ?rva00219C5D@Rva00219B9E@@QAEPAXI@Z @0x00219C5D 54B
-// One-time memset of g_00DFE364 guarded by g_00DFE368, then forwards index
-// through rowed rva00219B9E and returns element+0x68 unconditionally.
-// Evidence: retail test byte/or dword guard plus push 4/0/addr call to the
-// rowed memset thunk 0x006291AE, then push index call rva00219B9E plus
-// add eax,0x68; caller 0x00219F8E; same class/outer layout as siblings.
-void *Rva00219B9E::rva00219C5D(unsigned int index)
+// CreateAHeroClass::GetFactionMaskType, retail 0x00219C5D 54B: one-time
+// memset of g_00DFE364 guarded by g_00DFE368, then subclass +0x68
+// unconditionally.
+void *CreateAHeroClass::GetFactionMaskType(UnsignedInt subClassIndex)
 {
     if (!(*(unsigned char *)&g_00DFE368 & 1)) {
         g_00DFE368 |= 1;
         ji_006291ae(&g_00DFE364, 0, 4);
     }
-    void *p = rva00219B9E(index);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     return (char *)p + 0x68;
 }
-// ?rva00219F8E@Rva00219B9E@@QAEPAXII@Z @0x00219F8E 85B
-// One-time memset of g_00DFE3E0 guarded by g_00DFE3E4, then outer 32B vector
-// at +0x14C selects element o and forwards i through rowed 0x00219C5D;
-// out-of-range returns &g_00DFE3E0. Same guard idiom as 0x00219C5D and same
-// outer reinterpret-cast pattern as 0x00219E74/0x0021A016.
-// Evidence: retail test byte/or dword guard plus push 4/0/addr call to rowed
-// memset thunk 0x006291AE, lea eax,[edi+0x14C] plus sar 5 outer count,
-// shl 5 plus call 0x00219C5D; callers 0x002446DE/0x0044089E/0x00441549/0x0052BC1D.
-void *Rva00219B9E::rva00219F8E(unsigned int o, unsigned int i)
+// CreateAHeroManager::GetFactionMaskType, retail 0x00219F8E 85B: same guard
+// idiom; a bad class index returns &g_00DFE3E0.
+void *CreateAHeroManager::GetFactionMaskType(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
     void *fallback = &g_00DFE3E0;
     if (!(*(unsigned char *)&g_00DFE3E4 & 1)) {
         g_00DFE3E4 |= 1;
         ji_006291ae(fallback, 0, 4);
     }
-    unsigned int count = Vec32Size(&m_outer);
-    if (o >= count)
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex >= count)
         return fallback;
-    OuterElem32 *base = m_outer.m_start;
-    return ((Rva00219B9E *)&base[o])->rva00219C5D(i);
+    CreateAHeroClass *base = m_classes.m_start;
+    return base[classIndex].GetFactionMaskType(subClassIndex);
 }
-// ?rva00219B62@Rva00219B62@@QAEHI@Z @0x00219B62 30B
-// Inner int-vector element at +0x30/+0x34 (Elem216::m_30): bounds-checked load
-// returning start[index] or 0. Same sar-2 count idiom as 0x00219BE1/0x00219C1F.
-// Evidence: retail mov edx,[ecx+0x34] sub [ecx+0x30] sar 2 cmp jae xor,
-// else mov ecx,[ecx+0x30] mov eax,[ecx+eax*4]; caller 0x00219C51 in 0x00219C3E
-// which forwards element from rowed 0x00219B9E; unblocks 0x00219C3E.
-int Rva00219B62::rva00219B62(unsigned int index)
+// CreateAHeroSubClass::GetAwardNameKey, retail 0x00219B62 30B: award key
+// vector at +0x30, 0 on a bad index.
+Int CreateAHeroSubClass::GetAwardNameKey(UnsignedInt index) const
 {
-    unsigned int count = (unsigned int)(((char *)m_vec.m_finish - (char *)m_vec.m_start) >> 2);
+    unsigned int count = (unsigned int)(((char *)m_awardNameKeys.m_finish - (char *)m_awardNameKeys.m_start) >> 2);
     if (index < count) {
         _ReadWriteBarrier();
-        return m_vec.m_start[index];
+        return m_awardNameKeys.m_start[index];
     }
     return 0;
 }
-// ?rva00219C3E@Rva00219B9E@@QAEHII@Z @0x00219C3E 31B
-// Two-level int lookup: rowed 0x00219B9E selects the 216B element via o,
-// then rowed 0x00219B62 selects the inner int at +0x30 via i; null yields 0.
-// Evidence: retail push [esp+4] call 0x219B9E test je xor else push [esp+8]
-// mov ecx,eax call 0x219B62; same this passthrough proves Rva00219B9E owner;
-// caller 0x00219F2A in 0x00219F00; unblocks 0x00219F00.
-int Rva00219B9E::rva00219C3E(unsigned int o, unsigned int i)
+// CreateAHeroClass::GetAwardNameKey, retail 0x00219C3E 31B.
+Int CreateAHeroClass::GetAwardNameKey(UnsignedInt subClassIndex, UnsignedInt index)
 {
-    void *p = rva00219B9E(o);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return ((Rva00219B62 *)p)->rva00219B62(i);
+        return p->GetAwardNameKey(index);
     return 0;
 }
-// ?rva00219F00@Rva00219B9E@@QAEHIII@Z @0x00219F00 54B
-// Three-level int lookup: outer 32B vector at +0x14C selects element o,
-// then rowed 0x00219C3E resolves (o2 i) on the same this prefix.
-// Evidence: retail mov eax ecx mov edx [eax+0x150] sub [eax+0x14C] sar 5
-// cmp jae xor else shl 5 add ecx [eax+0x14C] call 0x219C3E; caller 0x00406E9F
-// in 0x00406E8F; unblocks 0x00406E8F.
-int Rva00219B9E::rva00219F00(unsigned int o, unsigned int o2, unsigned int i)
+// CreateAHeroManager::GetAwardNameKey, retail 0x00219F00 54B.
+Int CreateAHeroManager::GetAwardNameKey(UnsignedInt classIndex, UnsignedInt subClassIndex, UnsignedInt index)
 {
-    unsigned int count = (unsigned int)(((char *)m_outer.m_finish - (char *)m_outer.m_start) >> 5);
-    if (o < count) {
+    unsigned int count = (unsigned int)(((char *)m_classes.m_finish - (char *)m_classes.m_start) >> 5);
+    if (classIndex < count) {
         _ReadWriteBarrier();
-        return ((Rva00219B9E *)((char *)m_outer.m_start + (o << 5)))->rva00219C3E(o2, i);
+        return ((CreateAHeroClass *)((char *)m_classes.m_start + (classIndex << 5)))->GetAwardNameKey(subClassIndex, index);
     }
     return 0;
 }
-// ?rva00219B80@Rva00219B80@@QAEHI@Z @0x00219B80 30B
-// Twin of 0x00219B62 at +0x3C/+0x40 (Elem216::m_3C): same sar-2 barrier reload.
-// Evidence: retail mov edx [ecx+0x40] sub [ecx+0x3C] sar 2 cmp jae xor else
-// mov ecx [ecx+0x3C] mov eax [ecx+eax*4]; caller 0x00219C13 in 0x00219C00;
-// unblocks 0x00219C00.
-int Rva00219B80::rva00219B80(unsigned int index)
+// CreateAHeroSubClass::GetStatNameKey, retail 0x00219B80 30B: stat key
+// vector at +0x3C.
+Int CreateAHeroSubClass::GetStatNameKey(UnsignedInt index) const
 {
-    unsigned int count = (unsigned int)(((char *)m_vec.m_finish - (char *)m_vec.m_start) >> 2);
+    unsigned int count = (unsigned int)(((char *)m_statNameKeys.m_finish - (char *)m_statNameKeys.m_start) >> 2);
     if (index < count) {
         _ReadWriteBarrier();
-        return m_vec.m_start[index];
+        return m_statNameKeys.m_start[index];
     }
     return 0;
 }
-// ?rva00219C00@Rva00219B9E@@QAEHII@Z @0x00219C00 31B
-// Two-level int lookup: rowed 0x00219B9E selects the 216B element via o,
-// then rowed 0x00219B80 selects the inner int at +0x3C via i; null yields 0.
-// Evidence: retail push [esp+4] call 0x219B9E test je xor else push [esp+8]
-// mov ecx,eax call 0x219B80; twin of 0x00219C3E via +0x30; same this
-// passthrough proves Rva00219B9E owner; caller 0x00219EC9 in 0x00219E9F.
-int Rva00219B9E::rva00219C00(unsigned int o, unsigned int i)
+// CreateAHeroClass::GetStatNameKey, retail 0x00219C00 31B.
+Int CreateAHeroClass::GetStatNameKey(UnsignedInt subClassIndex, UnsignedInt index)
 {
-    void *p = rva00219B9E(o);
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
-        return ((Rva00219B80 *)p)->rva00219B80(i);
+        return p->GetStatNameKey(index);
     return 0;
 }
-// ?rva00219E9F@Rva00219B9E@@QAEHIII@Z @0x00219E9F 54B
-// Three-level int lookup: outer 32B vector at +0x14C selects element o,
-// then rowed 0x00219C00 resolves (o2 i) on the same this prefix.
-// Evidence: retail mov eax ecx mov edx [eax+0x150] sub [eax+0x14C] sar 5
-// cmp jae xor else shl 5 add ecx [eax+0x14C] call 0x219C00; twin of 0x00219F00
-// via 0x00219C3E; caller 0x00406E75 in 0x00406E65.
-int Rva00219B9E::rva00219E9F(unsigned int o, unsigned int o2, unsigned int i)
+// CreateAHeroManager::GetStatNameKey, retail 0x00219E9F 54B.
+Int CreateAHeroManager::GetStatNameKey(UnsignedInt classIndex, UnsignedInt subClassIndex, UnsignedInt index)
 {
-    unsigned int count = (unsigned int)(((char *)m_outer.m_finish - (char *)m_outer.m_start) >> 5);
-    if (o < count) {
+    unsigned int count = (unsigned int)(((char *)m_classes.m_finish - (char *)m_classes.m_start) >> 5);
+    if (classIndex < count) {
         _ReadWriteBarrier();
-        return ((Rva00219B9E *)((char *)m_outer.m_start + (o << 5)))->rva00219C00(o2, i);
+        return ((CreateAHeroClass *)((char *)m_classes.m_start + (classIndex << 5)))->GetStatNameKey(subClassIndex, index);
     }
     return 0;
 }
-// ?rva00219D85@Rva00219B9E@@QAEPAXI@Z @0x00219D85 37B
-// Bounds-checked 16-byte element accessor at +0x15C/+0x160.
-// Returns null when index >= (finish-start)/16 via sar 4, else start+index*16.
-// Evidence: retail mov edx [ecx+0x160] mov eax [esp+4] add ecx 0x15c sub sar 4
-// cmp jae xor else shl 4 add; callers 0x00219DD7/0x00219E17/0x00219E5C and
-// 0x0021AD93/0x0021ADB3/0x0021BCE1/0x0021BD76; same class as neighbours
-// (m_outer at +0x14C, this vector at +0x15C).
-void *Rva00219B9E::rva00219D85(unsigned int index)
+// CreateAHeroManager::GetBling, retail 0x00219D85 37B: the 16-byte bling
+// list at +0x15C (WB asserts blingId < m_blingList.size()), null on a miss.
+void *CreateAHeroManager::GetBling(UnsignedInt blingId)
 {
-    Vec16 *v = &m_15c;
+    Vec16 *v = &m_blingList;
     char *finish = (char *)v->m_finish;
     unsigned int count = (unsigned int)((finish - (char *)v->m_start) >> 4);
-    if (index < count) {
+    if (blingId < count) {
         _ReadWriteBarrier();
-        return &v->m_start[index];
+        return &v->m_start[blingId];
     }
     return 0;
 }
-// ?rva00219FE3@Rva00219B9E@@QAEHII@Z @0x00219FE3 51B
-// Two-level int forward to rowed 0x00219C93 (element+0x64 or -1).
-// Same outer 32B shape as 0x00219F00/0x00219E9F but miss returns -1 via
-// or eax,-1; retail mov eax ecx mov edx [eax+0x150] sub [eax+0x14C] sar 5
-// cmp jb plus shl 5 add ecx [eax+0x14C] call 0x219C93; caller 0x0021A709.
-int Rva00219B9E::rva00219FE3(unsigned int o, unsigned int i)
+// CreateAHeroManager::GetPreferedFaction, retail 0x00219FE3 51B; -1 on a bad
+// class index.
+Int CreateAHeroManager::GetPreferedFaction(UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    unsigned int count = (unsigned int)(((char *)m_outer.m_finish - (char *)m_outer.m_start) >> 5);
-    if (o >= count)
+    unsigned int count = (unsigned int)(((char *)m_classes.m_finish - (char *)m_classes.m_start) >> 5);
+    if (classIndex >= count)
         return -1;
     _ReadWriteBarrier();
-    return ((Rva00219B9E *)((char *)m_outer.m_start + (o << 5)))->rva00219C93(i);
+    return ((CreateAHeroClass *)((char *)m_classes.m_start + (classIndex << 5)))->GetPreferedFaction(subClassIndex);
 }
-// ?rva0021BF42@Rva00219B9E@@QAEHIII@Z @0x0021BF42 50B: outer 32B at +0x14C selects via middle index then rowed 0x0021BE42. Evidence: same outer shape as 0x00219FE3 51B but miss returns -1 and forwards first and third args; callee rowed 0x0021BE42; caller 0x005B1D0A.
-int Rva00219B9E::rva0021BF42(unsigned int o, unsigned int outer, unsigned int i)
+// CreateAHeroManager::GetSubClassAttributeMinValue, retail 0x0021BF42 50B:
+// the class index is the middle argument.
+Int CreateAHeroManager::GetSubClassAttributeMinValue(UnsignedInt attribute, UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    Vec32 *v = &m_outer;
-    unsigned int count = Vec32Size(v);
-    if (outer < count) {
+    ClassVec *v = &m_classes;
+    unsigned int count = ClassCount(v);
+    if (classIndex < count) {
         _ReadWriteBarrier();
-        OuterElem32 *base = v->m_start;
-        return ((Rva00219B9E *)&base[outer])->rva0021BE42(o, i);
+        CreateAHeroClass *base = v->m_start;
+        return base[classIndex].GetAttributeMinValue(attribute, subClassIndex);
     }
     return -1;
 }
-// ?rva0021BF74@Rva00219B9E@@QAEHIII@Z @0x0021BF74 50B: twin of 0x0021BF42 via rowed 0x0021BE62. Evidence: identical outer 32B middle-index shape; callee rowed 0x0021BE62; caller 0x005B1D22.
-int Rva00219B9E::rva0021BF74(unsigned int o, unsigned int outer, unsigned int i)
+// CreateAHeroManager::GetSubClassAttributeMaxValue, retail 0x0021BF74 50B.
+Int CreateAHeroManager::GetSubClassAttributeMaxValue(UnsignedInt attribute, UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    Vec32 *v = &m_outer;
-    unsigned int count = Vec32Size(v);
-    if (outer < count) {
+    ClassVec *v = &m_classes;
+    unsigned int count = ClassCount(v);
+    if (classIndex < count) {
         _ReadWriteBarrier();
-        OuterElem32 *base = v->m_start;
-        return ((Rva00219B9E *)&base[outer])->rva0021BE62(o, i);
+        CreateAHeroClass *base = v->m_start;
+        return base[classIndex].GetAttributeMaxValue(attribute, subClassIndex);
     }
     return -1;
 }
-// ?rva0021BFA6@Rva00219B9E@@QAEHIII@Z @0x0021BFA6 50B: twin of 0x0021BF42/0x0021BF74 via rowed 0x0021BE82. Evidence: identical outer 32B middle-index shape with sar 5 and or eax -1 miss; callee rowed 0x0021BE82; caller 0x005B1D3A in 0x005B1B5E.
-int Rva00219B9E::rva0021BFA6(unsigned int o, unsigned int outer, unsigned int i)
+// CreateAHeroManager::GetSubClassAttributeDefaultValue, retail 0x0021BFA6 50B.
+Int CreateAHeroManager::GetSubClassAttributeDefaultValue(UnsignedInt attribute, UnsignedInt classIndex, UnsignedInt subClassIndex)
 {
-    Vec32 *v = &m_outer;
-    unsigned int count = Vec32Size(v);
-    if (outer < count) {
+    ClassVec *v = &m_classes;
+    unsigned int count = ClassCount(v);
+    if (classIndex < count) {
         _ReadWriteBarrier();
-        OuterElem32 *base = v->m_start;
-        return ((Rva00219B9E *)&base[outer])->rva0021BE82(o, i);
+        CreateAHeroClass *base = v->m_start;
+        return base[classIndex].GetAttributeDefaultValue(attribute, subClassIndex);
     }
     return -1;
+}
+
+// CreateAHeroManager::GetBlingNameTag (class, subclass overload), retail
+// 0x0021CA0D 137B: WB's assert names it ("Class index is invalid in
+// CreateAHeroManager::GetBlingNameTag"); the subclass answers through
+// 0x0021C9A6, a bad class index with the class-index fallback string.
+const AsciiString &CreateAHeroManager::GetBlingNameTag(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex, UnsignedInt index)
+{
+    static AsciiString err("ERROR: Invalid CalssIndex");
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroSubClass *p = (CreateAHeroSubClass *)m_classes.m_start[classIndex].rva00219B9E(subClassIndex);
+        if (p)
+            return *(const AsciiString *)p->rva0021C9A6(blingKey, index);
+    }
+    return err;
+}
+// CreateAHeroManager::GetBlingDescTag (class, subclass overload), retail
+// 0x0021CA96 137B: as GetBlingNameTag through 0x0021C970.
+const AsciiString &CreateAHeroManager::GetBlingDescTag(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex, UnsignedInt index)
+{
+    static AsciiString err("ERROR: Invalid CalssIndex");
+    unsigned int count = ClassCount(&m_classes);
+    if (classIndex < count) {
+        CreateAHeroSubClass *p = (CreateAHeroSubClass *)m_classes.m_start[classIndex].rva00219B9E(subClassIndex);
+        if (p)
+            return *p->rva0021C970(blingKey, index);
+    }
+    return err;
 }

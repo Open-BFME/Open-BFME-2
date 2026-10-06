@@ -1,8 +1,8 @@
-// ?rva006042B6@Rva0060453B@@UAE_NPBD0H@Z
+// ?rva006042B6@Win32BIGFileSystem@@UAE_NPBD0H@Z
 // partial score=0.99 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
-// ?rva006042B6@Rva0060453B@@UAE_NPBD0H@Z @0x006042B6 149B: vslot 8 of vtable 0x00C7A94C (class Rva0060453B). Enumerates files via ArchiveFileSystem slot 6 then ORs helper slot 5 per file. Evidence: vtable slot 8; callees rowed set ctor 0x000D3A71 increment 0x00024250 tree dtor 0x0002CC38; globals TheArchiveFileSystem g_Rva0107301CEmptyString.
+// ?rva006042B6@Win32BIGFileSystem@@UAE_NPBD0H@Z @0x006042B6 149B: vslot 8 of vtable 0x00C7A94C (class Win32BIGFileSystem). Enumerates files via ArchiveFileSystem slot 6 then ORs helper slot 5 per file. Evidence: vtable slot 8; callees rowed set ctor 0x000D3A71 increment 0x00024250 tree dtor 0x0002CC38; globals TheArchiveFileSystem g_Rva0107301CEmptyString.
 #include <set>
 
 #include "ascii_string.h"
@@ -36,10 +36,10 @@ public:
 
 extern ArchiveFileSystem *TheArchiveFileSystem;
 
-class Rva0060453B
+class Win32BIGFileSystem
 {
 public:
-	virtual ~Rva0060453B();
+	virtual ~Win32BIGFileSystem();
 	virtual void v1();
 	virtual void v2();
 	virtual void v3();
@@ -50,7 +50,7 @@ public:
 	virtual bool rva006042B6(const char *a1, const char *a2, int extra);
 };
 
-bool Rva0060453B::rva006042B6(const char *a1, const char *a2, int extra)
+bool Win32BIGFileSystem::rva006042B6(const char *a1, const char *a2, int extra)
 {
 	_STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > files;
 	TheArchiveFileSystem->getFiles(0, a1, "", a2, files, 0);

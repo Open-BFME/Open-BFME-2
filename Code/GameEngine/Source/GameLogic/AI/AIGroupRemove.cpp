@@ -5,10 +5,10 @@
 // AIGroup::remove: find member in +0x04 STLport list, erase, leaveGroup,
 // set dirty at +0x0C, destroy via TheAI at 0x00DFF0F8 when empty.
 // Evidence: callers 0x0036CFCB 0x0036D01B plus 0x0036D7E5,
-// callees leaveGroup pin 0x0028C01F plus rva002FE712 row 0x002FE712,
+// callees leaveGroup pin 0x0028C01F plus destroyGroup row 0x002FE712,
 // BFME1 AIGroupMembership remove plus ZH AIGroup remove donor shape.
 //
-// ?rva0036D7A6@AIGroup@@QAE_NPAURva0036D7A6Outer@@@Z @ 0x0036D7A6 95B
+// ?removeInvalidObjectsFromGroup@AIGroup@@QAE_NPAURva0036D7A6Outer@@@Z @ 0x0036D7A6 95B
 // AIGroup member filter: walk +0x04 list, slot38 check on +0x250 receiver
 // with (Object 0 1), remove failures, false when group destroyed.
 // Evidence: chain caller of remove 0x0036CF07, caller 0x00372670,
@@ -99,7 +99,7 @@ class AIGroup;
 class AI
 {
 public:
-	void rva002FE712(AIGroup *group);
+	void destroyGroup(AIGroup *group);
 };
 extern AI *TheAI;
 
@@ -164,7 +164,7 @@ class AIGroup
 public:
 	bool remove(Object *member);
 	bool isEmpty() { return m_memberList.empty(); }
-	bool rva0036D7A6(Rva0036D7A6Outer *o);
+	bool removeInvalidObjectsFromGroup(Rva0036D7A6Outer *o);
 	void rva0036DC6F(int a, int b);
 	void rva0036D805(int x);
 	void rva0036D837(int x);
@@ -185,13 +185,13 @@ bool AIGroup::remove(Object *member)
 	member->leaveGroup();
 	m_dirty = true;
 	if (isEmpty()) {
-		TheAI->rva002FE712(this);
+		TheAI->destroyGroup(this);
 		return true;
 	}
 	return false;
 }
 
-bool AIGroup::rva0036D7A6(Rva0036D7A6Outer *o)
+bool AIGroup::removeInvalidObjectsFromGroup(Rva0036D7A6Outer *o)
 {
 	Rva0036D7A6Inner *inner = o->m_inner;
 	if (inner) {

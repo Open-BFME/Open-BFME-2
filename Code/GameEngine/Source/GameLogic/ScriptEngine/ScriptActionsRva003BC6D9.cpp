@@ -30,7 +30,7 @@ class Player
 {
 public:
 	bool grantScience(ScienceType science);
-	bool rva002AD826(ScienceType science);
+	bool attemptToPurchaseScience(ScienceType science);
 };
 class PlayerList
 {
@@ -65,7 +65,7 @@ void __stdcall Rva003BC72FSet(const AsciiString &playerName, const AsciiString &
 	do {
 		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
 		if (player)
-			player->rva002AD826(st);
+			player->attemptToPurchaseScience(st);
 	} while (mask != 0);
 }
 

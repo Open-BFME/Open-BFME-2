@@ -13,7 +13,8 @@
 // this object), and turn the bonus on when the count reaches +0x10 - 1, or
 // otherwise when a hit whose behavior interface (slot 0x74) answers slot 2
 // lies within the +0x1C distance. A change applies or removes the attribute
-// modifier named at +0x2C (Object 0x0028EA91 / 0x0028EB42).
+// modifier named at +0x2C (Object::addAttributeModifierToPool /
+// Object::removeAttributeModifierFromPool).
 
 #include "ascii_string.h"
 
@@ -109,8 +110,8 @@ public:
 	Player *getControllingPlayer() const;				// 0x0028AFA9
 	void *rva0028C197() const;				// 0x0028C197
 	Real rva002615E3(const Coord3D *pos) const;			// 0x002615E3
-	Bool rva0028EA91(const AsciiString &name, int duration);	// 0x0028EA91
-	void rva0028EB42(const AsciiString &name);			// 0x0028EB42
+	Bool addAttributeModifierToPool(const AsciiString &name, int duration);
+	void removeAttributeModifierFromPool(const AsciiString &name);
 	const Coord3D *getPosition() const { return &m_pos; }
 	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
 	Bool isKindOf109Bit0() const { return (m_template->m_bytes[1] & 1) != 0; }
@@ -323,9 +324,9 @@ UpdateSleepTime LargeGroupBonusUpdate::update()
 		}
 		if (wasActive != m_active) {
 			if (m_active)
-				obj->rva0028EA91(data->m_modifierName, 0);
+				obj->addAttributeModifierToPool(data->m_modifierName, 0);
 			else
-				obj->rva0028EB42(data->m_modifierName);
+				obj->removeAttributeModifierFromPool(data->m_modifierName);
 		}
 	}
 	if (obj->m_438 & 1)

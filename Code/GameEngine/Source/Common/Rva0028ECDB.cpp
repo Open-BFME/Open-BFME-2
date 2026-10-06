@@ -16,7 +16,7 @@ extern Rva002DFF0F8 *g_00DFF0F8;
 class Rva002E9897Host
 {
 public:
-	bool rva002E9897(void *a, int b);
+	bool IsWaterCell(void *a, int b);
 };
 class Rva0028ECDBHost
 {
@@ -32,7 +32,7 @@ private:
 bool Rva0028ECDBHost::rva0028ECDB(void *a)
 {
 	Rva0028ECDBAux *aux = m_04;
-	if ((aux->m_11F & 0x80) != 0 && (aux->m_123 & 2) != 0 && m_250 != 0 && !g_00DFF0F8->m_10->rva002E9897(a, 1))
+	if ((aux->m_11F & 0x80) != 0 && (aux->m_123 & 2) != 0 && m_250 != 0 && !g_00DFF0F8->m_10->IsWaterCell(a, 1))
 		return true;
 	return false;
 }

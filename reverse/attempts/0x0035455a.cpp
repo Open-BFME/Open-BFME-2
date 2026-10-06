@@ -1,7 +1,5 @@
 // ?update@AIEnterState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.9409 date=2026-10-05
-// ?update@AIEnterState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.93 date=2026-10-05
+// partial score=0.8337 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /G7 /arch:SSE
 //
 // ?update@AIEnterState@@UAE?AW4StateReturnType@@XZ @0x0035455A 419B: slot 6 of
@@ -243,7 +241,7 @@ StateReturnType AIEnterState::update()
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
 	if (goal)
 	{
-		if (0 != goal->m_containedBy && ((const Thing *)goal)->isAboveTerrain() && !((const Thing *)obj)->isAboveTerrain())
+		if (goal->m_containedBy != 0 && ((const Thing *)goal)->isAboveTerrain() && !((const Thing *)obj)->isAboveTerrain())
 			return STATE_FAILURE;
 		GoalContain *contain = goal->m_contain;
 		if (contain)
@@ -277,18 +275,18 @@ StateReturnType AIEnterState::update()
 		return STATE_FAILURE;
 	}
 	StateReturnType code = AIInternalMoveToState::update();
-	if (STATE_CONTINUE == code)
+	if (code == STATE_CONTINUE)
 		return code;
 	GoalContain *contain2 = goal->m_contain;
-	if (0 == contain2)
+	if (contain2 == 0)
 		return code;
 	const Coord3D *goalPos = contain2->getContainedObjectPosition();
+	float dy = obj->m_position.y - goalPos->y;
 	float dx = obj->m_position.x - goalPos->x;
-	const float dy = obj->m_position.y - goalPos->y;
 	float radius = goal->m_radius;
-	const float distSq = dx * dx + dy * dy;
-	const float radSq = radius * radius;
-	if (distSq < radSq || TheGameLogic->m_frame > m_frame50)
+	float distSq = dx * dx + dy * dy;
+	float radSq = radius * radius;
+	if (radSq > distSq || TheGameLogic->m_frame > m_frame50)
 	{
 		contain2->addToContain(obj);
 		code = STATE_SUCCESS;

@@ -1,4 +1,6 @@
 // ?rva001F3A25@Rva001F3A25@@QAEXM@Z
+// partial score=0.7539 date=2026-10-06
+// ?rva001F3A25@Rva001F3A25@@QAEXM@Z
 // partial score=0.9 date=2026-10-01
 // cl: /O1 /MD /arch:SSE
 // ?rva001F3A25@Rva001F3A25@@QAEXM@Z @0x001F3A25 247B. Rotates three (x,y) pairs
@@ -6,8 +8,9 @@
 // 0x00629216 then cos via 0x0062920A) then clears byte at +0x1a0. Sibling of
 // 0x001F3B1C with swapped call order and +4 shifted second element. Caller at
 // 0x001E20CB. Honest Rva name.
-extern "C" double __cdecl cos(double v);
-extern "C" double __cdecl sin(double v);
+// (CRT prototype from the standard header)
+// (CRT prototype from the standard header)
+#include <math.h>
 class Rva001F3A25 {
 public:
     void rva001F3A25(float angle);

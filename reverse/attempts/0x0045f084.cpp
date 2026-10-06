@@ -1,7 +1,5 @@
 // ?rva0045F084@StancesBehavior@@QAE_NH@Z
-// partial score=0.97 date=2026-10-06
-// ?rva0045F084@StancesBehavior@@QAE_NH@Z
-// partial score=0.97 date=2026-10-06
+// partial score=0.9153 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 //
 // ?rva0045F084@StancesBehavior@@QAE_NH@Z, retail 0x0045F084, 408 bytes.
@@ -438,27 +436,14 @@ protected:
 class StancesBehavior : public UpdateModule
 {
 public:
-	__declspec(noinline) int rva0045ED4B() const;
+	int rva0045ED4B() const;
 	bool rva0045F084(int value);
 private:
 	Rva0045EF55List m_list20;
 	int m_30;
 };
 
-__declspec(noinline) int StancesBehavior::rva0045ED4B() const
-{
-	switch (m_30)
-	{
-	case 2:
-		return 2;
-	case 3:
-	case 4:
-	case 5:
-		return 3;
-	}
-	return 1;
-}
-
+// ?rva0045F084@StancesBehavior@@QAE_NH@Z present-unmatched
 bool StancesBehavior::rva0045F084(int value)
 {
 	Object *obj = m_object;
@@ -509,11 +494,10 @@ bool StancesBehavior::rva0045F084(int value)
 	}
 	if (b != 0)
 		b->doIt(table->m_entries[value].m_arg);
-	int newStance = value;
-	int oldStance = m_30;
-	int oldClass = rva0045ED4B();
-	m_30 = newStance;
-	int newClass = rva0045ED4B();
+	const int oldStance = m_30;
+	const int oldClass = rva0045ED4B();
+	m_30 = value;
+	const int newClass = rva0045ED4B();
 	if (oldStance != 0 && oldClass == newClass)
 		return true;
 	m_list20.forEach((void (Rva0045EF55Listener::*)(void *, int, int))&Rva005CB260::rva005CB260, this, oldClass, newClass);
@@ -522,9 +506,9 @@ bool StancesBehavior::rva0045F084(int value)
 		return true;
 	if (!ai2->a110())
 		return true;
-	if (newStance == 1)
+	if (value == 1)
 		ai2->rva00262D40(0);
-	else if (newStance == 3 || newStance == 4)
+	else if (value == 3 || value == 4)
 		ai2->rva00262D40(1);
 	else if (oldStance == 1 || oldStance == 3)
 		ai2->m_cmd20.aiIdle(SOURCE_2);

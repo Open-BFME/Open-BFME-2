@@ -1,4 +1,6 @@
 // ?Rva0004DE72Blend@@YAXPAHHE@Z
+// partial score=0.5481 date=2026-10-05
+// ?Rva0004DE72Blend@@YAXPAHHE@Z
 // partial score=0.9 date=2026-10-01
 // ?Rva0004DE72Blend@@YAXPAHHE@Z
 // partial score=0.90 date=2026-10-01

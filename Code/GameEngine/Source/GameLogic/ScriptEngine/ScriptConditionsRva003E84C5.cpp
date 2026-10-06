@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /GX
 // ?Rva003E84C5Get@@YG_NPAVParameter@@0@Z @0x003E84C5 112B: free stdcall two Parameters team+waypoint path test.
-// Evidence: ret 8 two params; Parameter+0x10 AsciiString by-value plus false to ScriptEngine::getTeamNamed row; null je; Team::rva0039E8EB row null je; Parameter+0x10 to TheTerrainLogic slot 0x88 returning Waypoint with Coord3D at +0xc null jne; TheAI+0x10 Pathfinder::rva002F477E pin with teamObj positions plus 0; caller 0x003EC119.
+// Evidence: ret 8 two params; Parameter+0x10 AsciiString by-value plus false to ScriptEngine::getTeamNamed row; null je; Team::rva0039E8EB row null je; Parameter+0x10 to TheTerrainLogic slot 0x88 returning Waypoint with Coord3D at +0xc null jne; TheAI+0x10 Pathfinder::QuickDoesPathExist pin with teamObj positions plus 0; caller 0x003EC119.
 #include "ascii_string.h"
 class Parameter
 {
@@ -32,7 +32,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool b);
 };
-extern class ScriptEngine *TheScriptEngine;
+extern ScriptEngine *g_Va009FE16C;
 class Waypoint
 {
 public:
@@ -53,7 +53,7 @@ extern TerrainLogic *TheTerrainLogic;
 class Pathfinder
 {
 public:
-	bool rva002F477E(Object *obj, const Coord3D *from, const Coord3D *to, int v);
+	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int v);
 };
 class AI
 {
@@ -61,11 +61,11 @@ public:
 	char m_pad[0x10];
 	Pathfinder *m_pf;
 };
-extern class AI *TheAI;
+extern AI *g_Va009FF0F8;
 
 bool __stdcall Rva003E84C5Get(Parameter *p0, Parameter *p1)
 {
-	Team *team = TheScriptEngine->getTeamNamed(p0->m_string, false);
+	Team *team = g_Va009FE16C->getTeamNamed(p0->m_string, false);
 	if (!team)
 		return false;
 	Object *teamObj = team->rva0039E8EB();
@@ -74,6 +74,6 @@ bool __stdcall Rva003E84C5Get(Parameter *p0, Parameter *p1)
 	Waypoint *way = TheTerrainLogic->findWaypoint(p1->m_string);
 	if (!way)
 		return false;
-	Pathfinder *pf = TheAI->m_pf;
-	return pf->rva002F477E(teamObj, &teamObj->m_pos, &way->m_location, 0);
+	Pathfinder *pf = g_Va009FF0F8->m_pf;
+	return pf->QuickDoesPathExist(teamObj, &teamObj->m_pos, &way->m_location, 0);
 }

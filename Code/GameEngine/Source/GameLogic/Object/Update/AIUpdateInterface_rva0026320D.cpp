@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva0026320D@AIUpdateInterface@@MAEXHPAVObject@@@Z, retail 0x0026320D, 139 bytes.
+// ?SetEmotionState@AIUpdateInterface@@MAEXHPAVObject@@@Z, retail 0x0026320D, 139 bytes.
 // AIUpdateInterface switch on int 0/2/3/4/5 to state ids 0x30/0x2A/0x14/0x3B/0x3A
 // with extra -1/-2; skips when StateMachine+0x50 id already equals desired;
 // then Object+0x08 via rowed Object::rva0029439D plus slot 0x13C virtual,
@@ -81,10 +81,10 @@ class AIUpdateInterface
 	char m_pad0C[0x30 - 0x0C];
 	StateMachine *m_machine;
 protected:
-	virtual void rva0026320D(int which, Object *arg);
+	virtual void SetEmotionState(int which, Object *arg);
 };
 
-void AIUpdateInterface::rva0026320D(int which, Object *arg)
+void AIUpdateInterface::SetEmotionState(int which, Object *arg)
 {
 	int extra = -1;
 	int desired;

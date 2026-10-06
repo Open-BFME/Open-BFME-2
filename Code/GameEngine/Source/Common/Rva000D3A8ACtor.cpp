@@ -24,10 +24,10 @@ struct Rva000D3A8AElemB
 	int m_08; // +0x08
 };
 
-class Rva000D1C83
+class W3DBuffBuffer
 {
 public:
-	void rva000D1C83();
+	void allocateBuffBuffers();
 };
 
 class Rva000D3A17
@@ -61,6 +61,6 @@ Rva000D3A17::Rva000D3A17()
 	for (int i = 0; i < 10; ++i)
 		m_refs[i].m_ptr = 0;
 	rva000D3A17();
-	((Rva000D1C83 *)this)->rva000D1C83();
+	((W3DBuffBuffer *)this)->allocateBuffBuffers();
 	m_10c = 1;
 }

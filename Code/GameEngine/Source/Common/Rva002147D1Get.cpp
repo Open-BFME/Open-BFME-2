@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva002147D1@Rva002147D1@@QAEPAXHPAVObject@@@Z retail 0x002147D1 48B
+// ?getEndFX@AttributeModifierStore@@QAEPAXHPAVObject@@@Z retail 0x002147D1 48B
 // Guarded indexed fetch through Rva0040327B::rva004032D3: bounds-check index
 // against (m_end-m_begin)-1, null-check the slot, else return 0. Evidence:
 // chain from 0x004032D3; callers at 0x004038BA 0x00403D56 0x0040408F.
@@ -21,15 +21,15 @@ public:
 	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
 };
 inline void *__cdecl operator new(unsigned int, void *p) { return p; }
-class Rva002147D1
+class AttributeModifierStore
 {
 public:
 	void *rva002147A1(int index, Object *obj);
-	void *rva002147D1(int index, Object *obj);
-	void *rva00214983(int index);
+	void *getEndFX(int index, Object *obj);
+	void *GetCategoryContainer(int index);
 	int rva00214713(int key);
-	void *rva00214738(int index);
-	void *rva002148C3(int index);
+	void *getDuration(int index);
+	void *getDelayedUpgrade(int index);
 	void *rva00214801(void *out, int index);
 	void *rva00214862(void *out, int index);
 private:
@@ -37,10 +37,10 @@ private:
 	int m_begin;
 	int m_end;
 };
-// ?rva002147A1@Rva002147D1@@QAEPAXHPAVObject@@@Z retail 0x002147A1 48B sibling
+// ?rva002147A1@AttributeModifierStore@@QAEPAXHPAVObject@@@Z retail 0x002147A1 48B sibling
 // of 0x002147D1 differing only by callee rva0040327B vs rva004032D3; same
 // guarded fetch via barrier reload. Evidence: chain from 0x0040327B.
-void *Rva002147D1::rva002147A1(int index, Object *obj)
+void *AttributeModifierStore::rva002147A1(int index, Object *obj)
 {
 	if (index < 0)
 		return 0;
@@ -52,7 +52,7 @@ void *Rva002147D1::rva002147A1(int index, Object *obj)
 		return slot->rva0040327B(obj);
 	return 0;
 }
-void *Rva002147D1::rva002147D1(int index, Object *obj)
+void *AttributeModifierStore::getEndFX(int index, Object *obj)
 {
 	if (index < 0)
 		return 0;
@@ -64,10 +64,10 @@ void *Rva002147D1::rva002147D1(int index, Object *obj)
 		return slot->rva004032D3(obj);
 	return 0;
 }
-// ?rva00214983@Rva002147D1@@QAEPAXH@Z retail 0x00214983 34B plain indexed fetch
+// ?GetCategoryContainer@AttributeModifierStore@@QAEPAXH@Z retail 0x00214983 34B plain indexed fetch
 // from same +0x0c array as 0x002147D1 without barrier or slot call.
 // Evidence: same +0x0c +0x10 layout; callers at 0x0040317F 0x004038DB.
-void *Rva002147D1::rva00214983(int index)
+void *AttributeModifierStore::GetCategoryContainer(int index)
 {
 	if (index >= 0 && (unsigned)index < (unsigned)(m_end - m_begin >> 2))
 	{
@@ -77,10 +77,10 @@ void *Rva002147D1::rva00214983(int index)
 	return 0;
 }
 struct Rva00214713Slot { char _pad[0x14]; int m_14; };
-// ?rva00214713@Rva002147D1@@QAEHH@Z retail 0x00214713 37B linear search of same
+// ?rva00214713@AttributeModifierStore@@QAEHH@Z retail 0x00214713 37B linear search of same
 // +0x0c array for slot whose +0x14 equals key else -1. Evidence: same +0x0c
 // +0x10 layout; callers at 0x00403774 0x00403EAD.
-int Rva002147D1::rva00214713(int key)
+int AttributeModifierStore::rva00214713(int key)
 {
 	Rva00214713Slot **base = *(Rva00214713Slot ***)&m_begin;
 	Rva00214713Slot **end = *(Rva00214713Slot ***)&m_end;
@@ -94,10 +94,10 @@ int Rva002147D1::rva00214713(int key)
 	return -1;
 }
 struct Rva00214738Slot { char _pad[0x18]; void *m_18; };
-// ?rva00214738@Rva002147D1@@QAEPAXH@Z retail 0x00214738 42B guarded fetch of
+// ?getDuration@AttributeModifierStore@@QAEPAXH@Z retail 0x00214738 42B guarded fetch of
 // slot +0x18 from same +0x0c array as 0x002147D1. Evidence: same +0x0c +0x10
 // layout with dec/ja bound plus null slot check; callers at 0x0049410F.
-void *Rva002147D1::rva00214738(int index)
+void *AttributeModifierStore::getDuration(int index)
 {
 	if (index < 0)
 		return 0;
@@ -110,7 +110,7 @@ void *Rva002147D1::rva00214738(int index)
 	return 0;
 }
 struct Rva002148C3Slot { char _pad[0xCC]; void *m_cc; };
-void *Rva002147D1::rva002148C3(int index)
+void *AttributeModifierStore::getDelayedUpgrade(int index)
 {
 	char buf[0x4C];
 	memset(buf, 0, 0x4C);
@@ -125,13 +125,13 @@ void *Rva002147D1::rva002148C3(int index)
 		return slot->m_cc;
 	return 0;
 }
-// ?rva00214801@Rva002147D1@@QAEPAXPAXH@Z retail 0x00214801 97B
+// ?rva00214801@AttributeModifierStore@@QAEPAXPAXH@Z retail 0x00214801 97B
 // Guarded indexed copy through WeaponTemplateSetHead copy ctor: bounds-check
 // index against (m_end-m_begin)-1, null-check the slot, else copy from zeroed
 // 0x4C buffer; slot payload at +0x1C. Evidence: same +0x0c +0x10 layout as
 // siblings 0x002147D1/0x002148C3; copy ctor row 0x00045455; callers at
 // 0x004037B2 0x00403D2E 0x00403FBF.
-void *Rva002147D1::rva00214801(void *out, int index)
+void *AttributeModifierStore::rva00214801(void *out, int index)
 {
 	char buf[0x4C];
 	memset(buf, 0, 0x4C);
@@ -150,12 +150,12 @@ void *Rva002147D1::rva00214801(void *out, int index)
 	}
 	return out;
 }
-// ?rva00214862@Rva002147D1@@QAEPAXPAXH@Z retail 0x00214862 97B
+// ?rva00214862@AttributeModifierStore@@QAEPAXPAXH@Z retail 0x00214862 97B
 // Guarded indexed copy through WeaponTemplateSetHead copy ctor: bounds-check
 // index against (m_end-m_begin)-1, null-check the slot, else copy from zeroed
 // 0x4C buffer; slot payload at +0x68. Evidence: same +0x0c +0x10 layout as
 // sibling 0x00214801; copy ctor row 0x00045455; caller at 0x00403FE3.
-void *Rva002147D1::rva00214862(void *out, int index)
+void *AttributeModifierStore::rva00214862(void *out, int index)
 {
 	char buf[0x4C];
 	memset(buf, 0, 0x4C);

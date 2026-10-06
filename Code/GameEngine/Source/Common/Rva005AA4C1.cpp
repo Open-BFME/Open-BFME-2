@@ -1,6 +1,8 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// ?rva005AA4C1@Rva005AA4C1@@QAEXPAVArg005AA4C1@@@Z @0x005AA4C1 156B. Identity: fill vector from virtual enumeration then zero-fill via push_back.
+// AIFlankAttackTacticImp::DoXfer @0x005AA4C1 156B (WorldBuilder: the route's
+// m_positions count then each position, asserting the count at
+// AIFlankAttackTactic.cpp:132; called from AIFlankAttackTactic's xfer). Identity: fill vector from virtual enumeration then zero-fill via push_back.
 // Evidence: vector<Coord3D> at +4 div 12; virtual slots 0x78 0x8 0x60 0x4; rowed push_back 0x002CE7DC; caller 0x005AA622 same page.
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
@@ -24,7 +26,7 @@ struct Coord3D
 	Coord3D(const Coord3D &that) throw();
 };
 
-class Arg005AA4C1
+class Xfer
 {
 public:
 	virtual void v00();
@@ -60,19 +62,19 @@ public:
 	virtual void v30(void *p);
 };
 
-class Rva005AA4C1
+class AIFlankAttackTacticImp
 {
 public:
-	virtual ~Rva005AA4C1();
-	void rva005AA4C1(Arg005AA4C1 *p);
+	virtual ~AIFlankAttackTacticImp();
+	void DoXfer(Xfer *p);
 private:
 	_STL::vector<Coord3D> m_04;
 };
 
-void Rva005AA4C1::rva005AA4C1(Arg005AA4C1 *p)
+void AIFlankAttackTacticImp::DoXfer(Xfer *p)
 {
 	p->v30(this);
-	Rva005AA4C1 *self = this;
+	AIFlankAttackTacticImp *self = this;
 	_STL::vector<Coord3D> *vec = &m_04;
 	unsigned int count = (unsigned int)(vec->end() - vec->begin());
 	p->v30(&count);

@@ -1,4 +1,6 @@
 // ?FindIndex@BFME2Encoding0MotionChannel@@QAEHIPAPAH@Z
+// partial score=0.9917 date=2026-10-06
+// ?FindIndex@BFME2Encoding0MotionChannel@@QAEHIPAPAH@Z
 // partial score=0.9953 date=2026-09-29
 // ?FindIndex@BFME2Encoding0MotionChannel@@QAEHIPAPAH@Z
 // partial score=0.9953 date=2026-09-29
@@ -35,7 +37,7 @@ int BFME2Encoding0MotionChannel::FindIndex(unsigned int time, int **context)
     index=(low+high)/2;
     if (time < (TimeCodes[index] & ~0x8000)) high=index;
     else if (time >= (TimeCodes[index+1] & ~0x8000)) {
-     int diff = index - low; if (diff) low=index; else ++low;
+     int diff = index ^ low; if (diff) low=index; else ++low;
     } else break;
    }
   }

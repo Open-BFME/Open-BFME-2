@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
 //
-// ??0Rva005970ED@@QAE@XZ 33B @0x005970ED: ctor over base Rva0059734B ctor
+// ??0Rva005970ED@@QAE@XZ 33B @0x005970ED: ctor over base AIUpgrade ctor
 // at 0x00597331, then sets dword at +0x3C to -1 (retail `or [m],-1` /O1
 // idiom), byte at +0x34 and dwords at +0x38/+0x40 to 0, and installs vtable
 // 0x00870B88. Evidence: base call plus or-minus-one plus zero stores plus
@@ -34,11 +34,11 @@ private:
 	bool m_28;
 };
 
-class Rva0059734B : public Rva0055B0CC
+class AIUpgrade : public Rva0055B0CC
 {
 public:
-	Rva0059734B();
-	virtual ~Rva0059734B();
+	AIUpgrade();
+	virtual ~AIUpgrade();
 private:
 	int m_2C;
 	int m_30;
@@ -50,7 +50,7 @@ public:
 	virtual int f0(int x);
 };
 
-class Rva005970ED : public Rva0059734B
+class Rva005970ED : public AIUpgrade
 {
 public:
 	Rva005970ED();

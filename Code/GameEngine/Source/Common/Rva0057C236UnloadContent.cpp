@@ -1,5 +1,6 @@
 // cl: /MD
-// ?rva0057C236@Rva0057C236@@QAEXXZ @0x0057C236 54B
+// AptLoadMovieFrame::Impl::UnloadContent (WorldBuilder name, AptLoadMovieFrame.cpp line 84: UnloadContent when loaded, then clear +0x18); 0x0057C2CC forwards to it.
+// was ?rva0057C236@Rva0057C236@@QAEXXZ @0x0057C236 54B
 // UnloadContent Apt setter via rowed AptCall 0x00524EF4 with team+8 or empty string.
 // Evidence: retail pushes TheRva00222A8BTarget plus [esi] plus team+8-or-empty plus UnloadContent,
 // clears byte at +0x18; sibling Rva005FB6E2 same Apt plus team-plus-8 or empty pattern.
@@ -12,17 +13,22 @@ struct Rva0057C236Team
     char m_pad[8];
     char m_name[1];
 };
-class Rva0057C236
+class AptLoadMovieFrame
 {
 public:
-    void rva0057C236();
+	class Impl;
+};
+class AptLoadMovieFrame::Impl
+{
+public:
+    void UnloadContent();
 private:
     void *m_level;
     Rva0057C236Team *m_team;
     char m_pad08[0x18 - 8];
     bool m_flag;
 };
-void Rva0057C236::rva0057C236()
+void AptLoadMovieFrame::Impl::UnloadContent()
 {
     if (!m_flag)
         return;
@@ -43,9 +49,9 @@ public:
     void rva0057C2CC();
 private:
     char m_pad00[4];
-    Rva0057C236 *m_p;
+    AptLoadMovieFrame::Impl *m_p;
 };
 void Rva0057C2CC::rva0057C2CC()
 {
-    m_p->rva0057C236();
+    m_p->UnloadContent();
 }

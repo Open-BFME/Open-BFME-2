@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva005335D3@Rva005312BE@@QAEXXZ @ 0x005335D3 145B.
+// ?rva005335D3@PathfindZoneManager@@QAEXXZ @ 0x005335D3 145B.
 // Reset grid 8x7 words at +0x1B596, frees Item arrays via 0x00532F9F,
 // zeroes header and rect, preserves word at +0 into +4, sets flag +0x1BA31.
 // Callees rowed 0x0002FD80 0x00532F9F. Callers 0x002F46ED 0x00533B8C.
@@ -36,7 +36,7 @@ struct Rva005312BERect
     int x1;
     int y1;
 };
-class Rva005312BE
+class PathfindZoneManager
 {
 public:
     void rva005335D3();
@@ -58,7 +58,7 @@ public:
     Rva005312BERect m_rect;
 };
 
-void Rva005312BE::rva005335D3()
+void PathfindZoneManager::rva005335D3()
 {
     int i;
     int j;

@@ -5,7 +5,7 @@
 // Const multimap<int int> query at this+0x50 looping equal_range of key at arg+0x34
 // calling rowed rva004FC8D6 and returning true on first true. Evidence: rowed
 // equal_range 0x004FCD6D _M_increment 0x00024250 rva004FC8D6 0x004FC8D6; map at
-// +0x50 matches sibling Rva004FD37F 0x50/0x74 spacing vs Rva004FD3E2 0x5c/0x80
+// +0x50 matches sibling Rva004FD37F 0x50/0x74 spacing vs LivingWorldScenario::Scenario 0x5c/0x80
 // and Rva004FD448 0x68/0x8c; caller 0x002B9F08; neighbours carry /O1 /GX /MD.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.

@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
-// ?rva0002DD38@INI@@QAE_NVAsciiString@@00W4INILoadType@@PAVXfer@@@Z
+// ?loadBlock@INI@@QAE_NVAsciiString@@00W4INILoadType@@PAVXfer@@@Z
 // @0x0002DD38 (260B).
 //
 // Target evidence: thiscall, ret 0x14, returns bool; three by-value
@@ -36,7 +36,7 @@ enum INILoadType
 class INI
 {
 public:
-	bool rva0002DD38(AsciiString filename, AsciiString blockType, AsciiString blockName,
+	bool loadBlock(AsciiString filename, AsciiString blockType, AsciiString blockName,
 		INILoadType loadType, Xfer *pXfer);
 
 	void rva0002C0F5(AsciiString &filename);
@@ -63,7 +63,7 @@ private:
 extern void setFPMode();
 extern void *g_00DDF57C; // s_xfer, provider INI_readLine.cpp
 
-bool INI::rva0002DD38(AsciiString filename, AsciiString blockType, AsciiString blockName,
+bool INI::loadBlock(AsciiString filename, AsciiString blockType, AsciiString blockName,
 	INILoadType loadType, Xfer *pXfer)
 {
 	setFPMode();

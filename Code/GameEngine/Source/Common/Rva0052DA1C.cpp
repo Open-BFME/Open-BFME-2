@@ -1,8 +1,8 @@
 // cl: /DNDEBUG /MD
-// ?rva0052DA1C@Rva0052DA1C@@QAE_NH@Z, retail 0x0052DA1C, 71 bytes.
+// ?SetType_Dirty@PathfindCell@@QAE_NH@Z, retail 0x0052DA1C, 71 bytes.
 // Low-nibble type setter with owner guard at +0x0/+0x28.
 // Evidence: unlock lane unblocking 6 callers; same /O1 shape as Common neighbour.
-class Rva0052DA1C {
+class PathfindCell {
     struct Aux {
         int _pad[10];
         int m_28;
@@ -11,9 +11,9 @@ class Rva0052DA1C {
     int _pad4[2];
     unsigned int m_c;
 public:
-    bool rva0052DA1C(int arg);
+    bool SetType_Dirty(int arg);
 };
-bool Rva0052DA1C::rva0052DA1C(int arg)
+bool PathfindCell::SetType_Dirty(int arg)
 {
     if (m_0 && m_0->m_28 != 0) {
         if ((m_c & 0xF) == 4)

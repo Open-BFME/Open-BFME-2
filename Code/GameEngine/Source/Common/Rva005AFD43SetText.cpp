@@ -2,7 +2,7 @@
 //
 // ?rva005AFD43@Rva005AFD43@@QAEXPAVGameWindow@@ABVUnicodeString@@@Z, retail 0x005AFD43, 70 bytes.
 // Unlock method: stores GameWindow* at +8; if null return; else
-// TheWindowManager->winSetFocus(g) via slot 0xC4, bfmeGo924F as BfmeKeyLC
+// TheWindowManager->winSetFocus(g) via slot 0xC4, GadgetTextEntrySetMaxChars as BfmeKeyLC
 // with 0x6e, then GadgetTextEntrySetText(g, s) via temp UnicodeString copy
 // (StringBase-G copy ctor). Evidence: global 0x009FEF1C, virtual 0xC4,
 // callees rowed, callers 0x0051195F 0x0051197A 0x00511A40 0x0057FE5D.
@@ -35,7 +35,7 @@ public:
 extern GameWindowManager *TheWindowManager;
 
 class BfmeKeyLC;
-void bfmeGo924F(BfmeKeyLC *k, unsigned short w);
+void GadgetTextEntrySetMaxChars(BfmeKeyLC *k, unsigned short w);
 
 class GameWindow;
 void GadgetTextEntrySetText(GameWindow *g, UnicodeString text);
@@ -55,6 +55,6 @@ void Rva005AFD43::rva005AFD43(GameWindow *g, const UnicodeString &s)
 	if (g == 0)
 		return;
 	TheWindowManager->winSetFocus(m_08);
-	bfmeGo924F((BfmeKeyLC *)(void *)m_08, 0x6e);
+	GadgetTextEntrySetMaxChars((BfmeKeyLC *)(void *)m_08, 0x6e);
 	GadgetTextEntrySetText(m_08, s);
 }

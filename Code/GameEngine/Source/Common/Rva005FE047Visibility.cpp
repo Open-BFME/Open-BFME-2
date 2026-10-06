@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
-// ?rva005FE047@Rva005FE047@@QAEXXZ @ 0x005FE047 66B
+// ?HidePlayerName@BattlePromptPlayerTabsMovieClip@StrategicHUD@@QAEXXZ @ 0x005FE047 66B
 // First-fire guard at +0x34 with player-name fallback and APT Fire for SetPlayerNameVisibility.
 // Evidence: refcount inc at +0x34 with jne return; bool false at ebp-1 from al; holder at +8 with +8 name or g_Rva0107301CEmptyString; level at +4; Fire 0x005277D9 row with TheRva00222A8BTarget and string literal; callers 0x005FE140 0x005FE1EA 0x005FE6A4; precedent Rva005F921FButton.cpp holder+8-empty pattern.
 #include "unicode_string.h"
@@ -24,12 +24,16 @@ struct Rva005FE122Record
 	UnicodeString m_text;
 };
 
-class Rva005FE047
+namespace StrategicHUD {
+class BattlePromptPlayerTabsMovieClip;
+}
+
+class StrategicHUD::BattlePromptPlayerTabsMovieClip
 {
 public:
-	void rva005FE047();
-	void rva005FE00C();
-	void rva005FE122(int newTab);
+	void HidePlayerName();
+	void ShowPlayerName();
+	void DoSelectTab(int newTab);
 	void rva005FE1D7(int newTab);
 private:
 	char m_pad00[4];
@@ -42,7 +46,7 @@ private:
 	int m_count34;
 };
 
-void Rva005FE047::rva005FE047()
+void StrategicHUD::BattlePromptPlayerTabsMovieClip::HidePlayerName()
 {
 	if (m_count34++ != 0)
 		return;
@@ -51,7 +55,7 @@ void Rva005FE047::rva005FE047()
 	Rva005277D9Fire(TheRva00222A8BTarget, m_level04, name, "SetPlayerNameVisibility", &flag);
 }
 
-void Rva005FE047::rva005FE00C()
+void StrategicHUD::BattlePromptPlayerTabsMovieClip::ShowPlayerName()
 {
 	if (--m_count34 != 0)
 		return;
@@ -60,14 +64,14 @@ void Rva005FE047::rva005FE00C()
 	Rva005277D9Fire(TheRva00222A8BTarget, m_level04, name, "SetPlayerNameVisibility", &flag);
 }
 
-void Rva005FE047::rva005FE122(int newTab)
+void StrategicHUD::BattlePromptPlayerTabsMovieClip::DoSelectTab(int newTab)
 {
 	if (newTab == m_tab24)
 		return;
 	if (m_tab24 >= 0)
 	{
 		if (newTab < 0)
-			rva005FE047();
+			HidePlayerName();
 		const char *team = m_holder08 ? (const char *)m_holder08 + 8 : g_Rva0107301CEmptyString;
 		Rva0057A9B7Fire(TheRva00222A8BTarget, m_level04, team, "SetTabState", &m_tab24, (void *)"_deselect");
 	}
@@ -78,18 +82,18 @@ void Rva005FE047::rva005FE122(int newTab)
 	const char *team = m_holder08 ? (const char *)m_holder08 + 8 : g_Rva0107301CEmptyString;
 	Rva0057A9B7Fire(TheRva00222A8BTarget, m_level04, team, "SetTabState", &m_tab24, (void *)"_selected");
 	if (old < 0)
-		rva005FE00C();
+		ShowPlayerName();
 	Rva005FDF1CSet((int)m_level04, (Rva005FDF1COuter *)&m_holder08, m_array28[m_tab24].m_text);
 }
 
-void Rva005FE047::rva005FE1D7(int newTab)
+void StrategicHUD::BattlePromptPlayerTabsMovieClip::rva005FE1D7(int newTab)
 {
 	if (newTab != m_tab24)
 	{
 		if (newTab == 0)
-			rva005FE047();
+			HidePlayerName();
 		else if (m_tab24 == 0)
-			rva005FE00C();
+			ShowPlayerName();
 	}
-	rva005FE122(newTab);
+	DoSelectTab(newTab);
 }

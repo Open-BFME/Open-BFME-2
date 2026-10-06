@@ -22,7 +22,7 @@ extern "C" void _ReadWriteBarrier(void);
 // hideSpecialPowerShortcut 0x0031AFCC, winEnable 0x00313BEC,
 // clear 0x000AD6F4, rva002D370A, deleteOverrides 0x001E35ED,
 // first 0x00427195, next 0x00411084, Rva00328518, StringBase ctor
-// 0x00037BA0 are rowed; rva0031BF64 (context switch),
+// 0x00037BA0 are rowed; switchToContext (context switch),
 // rva003A37DC (map pair erase) and the transition remove at 0x001DC42C
 // are honest address-derived pins.
 
@@ -177,7 +177,7 @@ class ControlBar
 {
 public:
 	void hideSpecialPowerShortcut();
-	void rva0031BF64(int a, void *b);
+	void switchToContext(int a, void *b);
 	void reset();
 
 	unsigned char m_head00[0x0C];			///< +0x00..+0x0B opaque head (reset never touches it)
@@ -247,7 +247,7 @@ void ControlBar::reset()
 		m_resetMembers[0]->resetV();
 
 	// go back to default context
-	rva0031BF64(0, 0);
+	switchToContext(0, 0);
 	GameWindow **ppAnimateDown = &m_animateDownWindow;
 	GameWindow *animateDown = *ppAnimateDown;
 	if ((m_sideSelectAnimateDown = false, animateDown) != 0)

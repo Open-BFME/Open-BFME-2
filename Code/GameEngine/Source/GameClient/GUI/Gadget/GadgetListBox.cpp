@@ -8,10 +8,14 @@ typedef int Int;
 typedef bool Bool;
 typedef short Short;
 
+class WinInstanceData;
+class GameFont;
+
 class GameWindow
 {
 public:
 	void *winGetUserData(void);
+	WinInstanceData *winGetInstanceData(void);
 	GameWindow *winGetChild(void);
 	Int winHide(Bool hide);
 	Bool winIsHidden(void);
@@ -35,6 +39,10 @@ public:
 	V(56) V(57)
 #undef V
 	virtual int winSendSystemMsg(GameWindow *window, unsigned msg, int mData1, int mData2) = 0;
+#define V(n) virtual void r##n() = 0;
+	V(59) V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69) V(70) V(71)
+#undef V
+	virtual int winFontHeight(GameFont *font) = 0;		// +0x120
 };
 
 extern GameWindowManager *TheWindowManager;  // defined in GameWindowManager.cpp
@@ -258,7 +266,7 @@ struct Rva2434AData
 	Rva2434ARow *listData;
 };
 
-void Rva0032434ASet(GameWindow *listbox, Int row, Int column, Int value)
+void GadgetListBoxJustifyEntry(GameWindow *listbox, Int row, Int column, Int value)
 {
 	if (listbox == 0)
 		return;
@@ -322,11 +330,11 @@ void GadgetComboBoxGetSelectedPos(GameWindow *comboBox, Int *selectedIndex)
 	TheWindowManager->winSendSystemMsg(comboBox, 0x402c, 0, (int)selectedIndex);
 }
 
-// ?Rva0032277F@@YAXPAVGameWindow@@_N@Z, retail 0x0032277F (33B).
+// ?GadgetComboBoxHideDropDown@@YAXPAVGameWindow@@_N@Z, retail 0x0032277F (33B).
 // Null-checks the combobox, gets its edit box via rowed GadgetComboBoxGetEditBox,
 // null-checks that, then hides it with the Bool arg via rowed GameWindow::winHide.
 // Callers at 0x0057E17D/0x0057E643. True name unknown, honest address name.
-void Rva0032277F(GameWindow *comboBox, Bool hide)
+void GadgetComboBoxHideDropDown(GameWindow *comboBox, Bool hide)
 {
 	if (comboBox == 0)
 		return;
@@ -404,10 +412,10 @@ void Rva003248F5Show(GameWindow *listbox, Bool hide)
 		slider->winHide(hide);
 }
 
-// ?Rva0032431FSet@@YAXPAVGameWindow@@HE@Z, retail 0x0032431F, 43 bytes.
+// ?GadgetListBoxDisableEntry@@YAXPAVGameWindow@@HE@Z, retail 0x0032431F, 43 bytes.
 // Listbox row flag store: null-guards listbox and user data, bounds row
 // against Short listLength at +0x00, stores byte value at rows[row]+0x0C.
-// Rows hang at +0x18 with 16B stride like Rva0032434ASet. Caller at
+// Rows hang at +0x18 with 16B stride like GadgetListBoxJustifyEntry. Caller at
 // 0x00322732 cleans 0xC (3 __cdecl args). Evidence: rowed winGetUserData.
 struct Rva2431FRow
 {
@@ -425,7 +433,7 @@ struct Rva2431FData
 	Rva2431FRow *rows;
 };
 
-void Rva0032431FSet(GameWindow *listbox, Int row, unsigned char value)
+void GadgetListBoxDisableEntry(GameWindow *listbox, Int row, unsigned char value)
 {
 	if (listbox == 0)
 		return;
@@ -444,4 +452,24 @@ Int GadgetListBoxGetListLength(GameWindow *listbox)
  if(*(Bool *)((char *)listboxData+0x0B))
   return *(Short *)listboxData;
  else return 1;
+}
+
+// GedgetListBoxGetDefaultHeight (sic), retail 0x003249A7, named by the
+// WorldBuilder lead (GadgetListBox.cpp): the font height of the window's
+// instance-data font (+0x184), or -1 without a window or instance data.
+struct WinInstanceDataView
+{
+	char pad[0x184];
+	GameFont *m_font;
+};
+
+Int GedgetListBoxGetDefaultHeight(GameWindow *listbox)
+{
+	if (listbox == 0)
+		return -1;
+	WinInstanceDataView *instData = (WinInstanceDataView *)listbox->winGetInstanceData();
+	if (instData == 0)
+		return -1;
+	GameFont *font = instData->m_font;
+	return TheWindowManager->winFontHeight(font);
 }

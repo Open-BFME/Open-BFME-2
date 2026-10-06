@@ -1,7 +1,7 @@
 // cl: /EHs /MD
 // Rva0053FB33::rva0053F915, retail 0x0053F915, 106 bytes.
 // Vslot 4 of 0x008694DC (Rva0053FB33): reads AsciiString via rowed
-// DataChunkInput::rva0030750A into +0x18 via an inline AsciiString::op=
+// DataChunkInput::readAsciiString into +0x18 via an inline AsciiString::op=
 // forwarding to the rowed StringBase<char>::set 0x000366F0 (member address
 // formed before the push, as retail does), reads
 // int to +0x1C via rowed readInt, reads +0x20 if version word at second arg
@@ -27,7 +27,7 @@ template <> StringBase<char>::~StringBase();
 class DataChunkInput
 {
 public:
-	AsciiString rva0030750A();
+	AsciiString readAsciiString();
 	int readInt();
 };
 
@@ -51,7 +51,7 @@ private:
 
 bool Rva0053FB33::rva0053F915(DataChunkInput *input, void *ver)
 {
-	m_str18 = input->rva0030750A();
+	m_str18 = input->readAsciiString();
 	m_1C = input->readInt();
 	if (*(unsigned short *)((char *)ver + 8) >= 3)
 		m_20 = input->readInt();

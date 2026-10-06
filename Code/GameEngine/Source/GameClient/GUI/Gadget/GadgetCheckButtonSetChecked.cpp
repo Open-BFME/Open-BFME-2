@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?Rva00327C61SetChecked@@YAXPAVGameWindow@@_N@Z @0x00327C61 58B
+// ?GadgetCheckLikeButtonSetVisualCheck@@YAXPAVGameWindow@@_N@Z @0x00327C61 58B
 // Check-like button set-checked: sets or clears bit 2 of WinInstanceData::m_state.
 // Evidence: sibling ?GadgetCheckLikeButtonIsChecked@@YA_NPAVGameWindow@@@Z at 0x00327C9B
 // reads the same bit; instance via rowed disp8 lea 0x00314046; status bit 0x80000 via
@@ -31,7 +31,7 @@ public:
 	void *get() const;
 };
 
-void Rva00327C61SetChecked(GameWindow *button, Bool checked)
+void GadgetCheckLikeButtonSetVisualCheck(GameWindow *button, Bool checked)
 {
 	if (button == NULL)
 		return;

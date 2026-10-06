@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ?rva002AB22A@Player@@QBEPAVObject@@PBX@Z retail 0x002AB22A 54B. Player best-object
+// ?findClosestObjectToPosWithValidLivingWorldArmyID@Player@@QBEPAVObject@@PBX@Z retail 0x002AB22A 54B. Player best-object
 // search via rowed Rva002A996F ctor plus pinned iterateObjects 0x002AB08B with
 // callback 0x002AA41A and 0x14B stack helper. Copies 12B point via struct assign
 // then returns helper best pointer. Evidence: caller 0x003956C3 passes Object+0x38
@@ -29,12 +29,12 @@ class Player
 {
 public:
 	void iterateObjects(ObjectIterateFunc func, void *userData) const;
-	Object *rva002AB22A(const void *pos) const;
+	Object *findClosestObjectToPosWithValidLivingWorldArmyID(const void *pos) const;
 };
 
 void __cdecl Rva002AA41A(Object *obj, void *userData);
 
-Object *Player::rva002AB22A(const void *pos) const
+Object *Player::findClosestObjectToPosWithValidLivingWorldArmyID(const void *pos) const
 {
 	Rva002A996F data;
 	data.m_point = *(const Rva002AB22APoint *)pos;

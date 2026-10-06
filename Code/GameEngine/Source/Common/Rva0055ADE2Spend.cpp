@@ -1,7 +1,7 @@
 // cl: /MD
 // Retail compares the two floats with fcomi, a P6 instruction MSVC 7.1 emits
 // only under /arch:SSE; /O1 /G6 alone gives fcom/fnstsw.
-// ?rva0055ADE2@Rva0055ADE2@@QAEXPAVPlayer@@@Z @0x0055ADE2 147B
+// ?doBuild@AIBuildable@@QAEXPAVPlayer@@@Z @0x0055ADE2 147B
 // __thiscall void (Player*): lookup store via g_00DFEEF8 map, amount=(int)(v09-cost),
 // gated by +0x21 bool and float compare, spend via rowed 0x005963C8, tail v15.
 // Evidence: chain from 0x005963C8; callees rowed 0x002A8F24 0x00629228;
@@ -28,7 +28,7 @@ public:
 	void rva005963C8(int amount);
 };
 
-class Rva0055ADE2
+class AIBuildable
 {
 public:
 	virtual void v00();
@@ -47,13 +47,13 @@ public:
 	virtual void v13();
 	virtual void v14();
 	virtual void v15(Player *p);
-	void rva0055ADE2(Player *player);
+	void doBuild(Player *player);
 private:
 	char m_pad04[0x21 - 4];
 	bool m_flag21;
 };
 
-void Rva0055ADE2::rva0055ADE2(Player *player)
+void AIBuildable::doBuild(Player *player)
 {
 	void *store = g_00DFEEF8->rva002A8F24(player);
 	unsigned int c1 = (unsigned int)player->m_cost94;

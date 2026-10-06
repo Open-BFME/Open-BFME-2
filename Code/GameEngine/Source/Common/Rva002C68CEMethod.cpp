@@ -1,6 +1,7 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// SkirmishAI::resetMaster (WorldBuilder name, SkirmishAI.cpp lines 246..254: walk the players via getNthPlayer and 0x002A8AB1 for a new master).
 //
-// ?rva002C68CE@Rva002C68CE@@QAEHXZ @0x002C68CE 109B
+// was ?rva002C68CE@Rva002C68CE@@QAEHXZ @0x002C68CE 109B
 // Evidence: unlock lane sibling of 0x002C67DC same page 002C6xxx prev
 // Rva002C67DCMethod next stlport rb_tree 443B caller 0x002C6B92 callees
 // getNthPlayer row plus rva002A8AB1 pin globals ThePlayerList and
@@ -43,17 +44,17 @@ struct Rva002C68CE15C
 	int m_54;
 };
 
-class Rva002C68CE
+class SkirmishAI
 {
 public:
-	int rva002C68CE();
+	int resetMaster();
 
 private:
 	char m_pad[0x15C];
 	Rva002C68CE15C *m_ptr15C;
 };
 
-int Rva002C68CE::rva002C68CE()
+int SkirmishAI::resetMaster()
 {
 	int target = m_ptr15C->m_54;
 	int result = -1;

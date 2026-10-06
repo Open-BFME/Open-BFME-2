@@ -2,7 +2,7 @@
 // ??0Rva00572DE8@@QAE@XZ @0x00572DD4 20B
 // Ctor: base Rva005CB22A holder constructed with (void *)2 at +0, then our
 // own vtable 0x0086E094 is stored; returns this. Sibling of
-// ??0Rva00572C6E@@QAE@XZ (0x00572C5A, passes 0) and ??0Rva005737AF@@QAE@XZ
+// ??0Rva00572C6E@@QAE@XZ (0x00572C5A, passes 0) and ??0AITargetHeuristicBaseDefense@@QAE@XZ
 // (0x0057379B, passes (void *)1); the rowed dtor ??1Rva00572DE8@@UAE@XZ in
 // Rva005CB23CDerived.cpp stores the same vtable. No virtual is defined here
 // so this TU emits no vtable.

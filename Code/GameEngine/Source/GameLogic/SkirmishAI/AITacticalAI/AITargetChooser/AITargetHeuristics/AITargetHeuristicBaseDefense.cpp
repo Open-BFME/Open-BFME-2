@@ -4,7 +4,7 @@
 // AITargetHeuristicBaseDefense.cpp: the target heuristic whose slot 1
 // 0x005737D6 passes "...\AITargetChooser\AITargetHeuristics\
 // AITargetHeuristicBaseDefense.cpp" to GameLogicRandomValue. The class keeps
-// its address-derived name Rva005737AF (ctor 0x0057379B, dtor 0x005737AF,
+// its address-derived name AITargetHeuristicBaseDefense (ctor 0x0057379B, dtor 0x005737AF,
 // vftable 0x00C6E1BC: slot 0 the deleting dtor 0x005737BA, slot 1 below).
 //
 // Slot 1: for each base-defense entry of the player's skirmish-AI record
@@ -169,10 +169,10 @@ public:
 extern Rva002A8F24 *g_00DFEEF8;
 
 // What slot 1 hands the pick to: +0x2C the kind of pick.
-class Rva002C5D8B
+class AITarget
 {
 public:
-	void rva002C5D8B(Object *obj, float value);	// 0x002C5D8B
+	void setTarget(Object *obj, float value);	// 0x002C5D8B
 	char m_pad00[0x2C];
 	int m_2C;	// +0x2C
 };
@@ -183,14 +183,14 @@ struct Rva005CB22A
 	virtual ~Rva005CB22A();
 };
 
-struct Rva005737AF : Rva005CB22A
+struct AITargetHeuristicBaseDefense : Rva005CB22A
 {
-	Rva005737AF();
-	virtual ~Rva005737AF();
-	virtual void rva005737D6(Rva002C5D8B *choice, Player *player, int unused);
+	AITargetHeuristicBaseDefense();
+	virtual ~AITargetHeuristicBaseDefense();
+	virtual void findBestTarget(AITarget *choice, Player *player, int unused);
 };
 
-void Rva005737AF::rva005737D6(Rva002C5D8B *choice, Player *player, int unused)
+void AITargetHeuristicBaseDefense::findBestTarget(AITarget *choice, Player *player, int unused)
 {
 	Rva002A8F24Record *record = g_00DFEEF8->rva002A8F24Record(player);
 	_STL::vector<_STL::pair<Object *, int> > found;
@@ -247,6 +247,6 @@ void Rva005737AF::rva005737D6(Rva002C5D8B *choice, Player *player, int unused)
 			break;
 		}
 		if (go)
-			choice->rva002C5D8B(pick.first, 200.0f);
+			choice->setTarget(pick.first, 200.0f);
 	}
 }

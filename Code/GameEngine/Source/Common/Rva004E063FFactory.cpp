@@ -1,6 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// LivingWorldBuilding::createIcon (WorldBuilder name, LivingWorldBuilding.cpp line 351: new LivingWorldBuildingIcon at +0x2C, then 0x0052B003 when +0x20 is set).
 //
-// ?rva004E063F@Rva004E063F@@QAEXXZ @0x004E063F 104B.
+// was ?rva004E063F@Rva004E063F@@QAEXXZ @0x004E063F 104B.
 // EH-guarded factory: look up a blob through the 0xDFE1C8 host via rowed
 // 0x0021311F keyed on the AsciiString at m_28+0x10, new a 0x44-byte
 // Rva0052B278 with (lookup, this, &m_48), store at m_2C, then run its
@@ -31,10 +32,10 @@ private:
 	char m_pad[0x44];
 };
 
-class Rva004E063F
+class LivingWorldBuilding
 {
 public:
-	void rva004E063F();
+	void createIcon();
 
 private:
 	char m_pad[0x20];
@@ -49,8 +50,8 @@ private:
 // ?Rva00DFE1C8@@3PAXA: the global at VA 0xdfe1c8 is ?g_009FE1C8@@3PAVRva0021294A@@A.
 #pragma comment(linker, "/alternatename:?Rva00DFE1C8@@3PAXA=?g_009FE1C8@@3PAVRva0021294A@@A")
 
-// ?rva004E063F@Rva004E063F@@QAEXXZ
-void Rva004E063F::rva004E063F()
+// was ?rva004E063F@Rva004E063F@@QAEXXZ
+void LivingWorldBuilding::createIcon()
 {
 	void *lookup = ((Rva0021311F *)Rva00DFE1C8)->rva0021311F((const AsciiString *)((char *)m_28 + 0x10));
 	m_2C = new Rva0052B278(lookup, this, &m_48);

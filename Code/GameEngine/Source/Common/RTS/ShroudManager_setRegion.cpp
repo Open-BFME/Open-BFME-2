@@ -4,12 +4,12 @@
 // retail 0x0073DF50, 123 bytes. Dedicated TU.
 //
 // Battle for Middle-earth reference
-// (reference/open-bfme-1/Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp,
-// ShroudManagerImpl008FBA40::setRegion): clamp a non-positive cell size to the
+// (reference/open-bfme-1/Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,
+// ShroudManagerImpl::setRegion): clamp a non-positive cell size to the
 // default, then reconfigure only when the new region has non-negative width
 // and height. The retail body matches the reference shape exactly, including
 // the 123-byte size: the NaN-aware cell-size compare, the default cell size
-// at +0x1C, and the by-value Region3D hand-off to configure (0x73DBF0 pin).
+// at +0x1C, and the by-value Region3D hand-off to _ReallocCells (0x73DBF0 pin).
 
 typedef float Real;
 typedef int Int;
@@ -55,10 +55,10 @@ private:
 	Real m_defaultCellSize; // +0x1C
 };
 
-class ShroudManagerImpl008FBA40
+class ShroudManagerImpl
 {
 public:
-	void configure(Region3D newRegion, Real cellSize);
+	void _ReallocCells(Region3D newRegion, Real cellSize);
 };
 
 // ?setRegion@ShroudManager@@QAEXPBURegion3D@@M@Z
@@ -70,6 +70,6 @@ void ShroudManager::setRegion(const Region3D *newRegion, Real cellSize)
 	if (!(newRegion->width() < 0.0f)
 		&& !(newRegion->height() < 0.0f))
 	{
-		((ShroudManagerImpl008FBA40 *)this)->configure(*newRegion, cellSize);
+		((ShroudManagerImpl *)this)->_ReallocCells(*newRegion, cellSize);
 	}
 }

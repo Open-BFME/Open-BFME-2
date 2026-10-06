@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?Rva0030050EGet@@YAIVAsciiString@@0@Z retail 0x0030050E 286B
-// File CRC: copy second arg string via _mbscpy using empty global fallback, strip 4-char extension, set local path, open via TheFileSystem, loop read plus BFMEComputeCRC; first arg unused but destroyed; callers 0x00304FDD.
+// ?calcCRC@@YAIVAsciiString@@0@Z retail 0x0030050E 286B
+// File CRC: copy second arg string via _mbscpy using empty global fallback, strip 4-char extension, set local path, open via TheFileSystem, loop read plus ComputeCRC; first arg unused but destroyed; callers 0x00304FDD.
 #include "ascii_string.h"
 class File;
 class FileSystem
@@ -18,12 +18,12 @@ public:
 };
 extern FileSystem *TheFileSystem;
 extern const char g_Rva0107301CEmptyString[];
-unsigned int __cdecl BFMEComputeCRC(const unsigned char *data, unsigned int len, unsigned int crc);
+unsigned int __cdecl ComputeCRC(const unsigned char *data, unsigned int len, unsigned int crc);
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 extern "C" unsigned int __cdecl strlen(const char *s);
 extern "C" void *__cdecl memset(void *dst, int c, unsigned int n);
 extern "C" __declspec(dllimport) char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
-unsigned int __cdecl Rva0030050EGet(AsciiString a, AsciiString b)
+unsigned int __cdecl calcCRC(AsciiString a, AsciiString b)
 {
 	char buf1[260];
 	char buf2[260];
@@ -45,7 +45,7 @@ unsigned int __cdecl Rva0030050EGet(AsciiString a, AsciiString b)
 	if (f) {
 		int n;
 		while ((n = f->readFile(filebuf, 4096)) > 0)
-			crc = BFMEComputeCRC((const unsigned char *)filebuf, (unsigned int)n, crc);
+			crc = ComputeCRC((const unsigned char *)filebuf, (unsigned int)n, crc);
 		f->closeFile();
 	}
 	return crc;

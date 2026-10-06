@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva00363DF9@Path@@QAEPAUCoord3D@@PAU2@@Z @0x00363DF9 (199B).
+// ?PeekPastClimbPortal@Path@@QAEPAUCoord3D@@PAU2@@Z @0x00363DF9 (199B).
 // Unlock Path position-out via head +0x4 and selected node +0x10 with
 // optimized links +0x8 and waypoint guard +0x20. Evidence: neighbours
 // PathCtor 0x00363DC8 and PathRva003649B1 prove Path/PathNode layout and
@@ -29,7 +29,7 @@ public:
 class Path
 {
 public:
-	Coord3D *rva00363DF9(Coord3D *out);
+	Coord3D *PeekPastClimbPortal(Coord3D *out);
 
 private:
 	void *m_unknown00;
@@ -45,7 +45,7 @@ private:
 	int m_unknown24;
 };
 
-Coord3D *Path::rva00363DF9(Coord3D *out)
+Coord3D *Path::PeekPastClimbPortal(Coord3D *out)
 {
 	PathNode *head = m_path;
 	if (head == 0) {

@@ -65,7 +65,7 @@ class Object
 public:
 	Bool testStatus(ObjectStatusTypes bit) const;
 	const Coord3D *getPosition() const { return &m_pos; }
-	Object *rva0028CCB9(Object *owner, Int a, Int b);
+	Object *adjustVictim(Object *owner, Int a, Int b);
 
 private:
 	unsigned char m_pad000[0x38];
@@ -161,7 +161,7 @@ void SpecialPowerModule::doSpecialPowerAtObject(Object *obj, UnsignedInt command
 
 	Object *owner = getObject();
 	if (owner->testStatus(OBJECT_STATUS_26) && getSpecialPowerModuleData()->m_data68)
-		obj = obj->rva0028CCB9(owner, 1, 0);
+		obj = obj->adjustVictim(owner, 1, 0);
 
 	initiateIntentToDoSpecialPower(obj, NULL, commandOptions, NULL);
 

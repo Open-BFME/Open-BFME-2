@@ -12,7 +12,7 @@ class AI
 {
 public:
 	AIGroup *createGroup();
-	void rva002FE712(AIGroup *group);
+	void destroyGroup(AIGroup *group);
 };
 
 extern AI *TheAI;
@@ -64,7 +64,7 @@ void Rva004ED08A::rva004ED08A()
 		Team *t = TheTeamFactory->findTeamByID(p->m_id);
 		t->getTeamAsAIGroup(g);
 		g->rva00372C05();
-		TheAI->rva002FE712(g);
+		TheAI->destroyGroup(g);
 		++p;
 	} while (p != end);
 }

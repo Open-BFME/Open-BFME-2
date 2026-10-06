@@ -34,7 +34,7 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;
-	void rva00298AE4(Team *team);
+	void setTeam(Team *team);
 	bool testStatus(ObjectStatusTypes bit) const;
 	void rva00290DBB(Rva002A9B58 *a, Rva002A9B58 *b);
 };
@@ -69,7 +69,7 @@ void __stdcall Rva003BD884Set(Parameter *p1, const AsciiString *name)
 	if (team == 0)
 		return;
 	Player *ctrl = obj->getControllingPlayer();
-	obj->rva00298AE4(team);
+	obj->setTeam(team);
 	rva003BA83F(obj, 0);
 	if (!obj->testStatus((ObjectStatusTypes)0x26))
 		obj->rva00290DBB((Rva002A9B58 *)ctrl, (Rva002A9B58 *)pl);

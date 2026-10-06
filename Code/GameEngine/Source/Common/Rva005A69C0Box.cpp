@@ -1,5 +1,7 @@
 // cl: -Oy- -GR- -EHsc-
-// ?Run@Rva005A69C0Box@@QAEXHHH@Z @0x005A69C0 140B: two-slot validated swap
+// NAT::reconnectPlayers @0x005A69C0 140B (WorldBuilder name, its
+// __FUNCTION__ string "NAT::reconnectPlayers"; WB calls GameSlot::isHuman
+// and PortNegotiationSchema::reconnectPlayers as retail does): two-slot validated swap
 // prep. After the predicate and triple ushort-guard (a<8, b<8, a!=b), both
 // slots must be present and human (pinned 0x3FF0F1); the +0x28 sub-object
 // consumes the full (a, b, c) via the pinned 3-arg callee 0x5DC187, then
@@ -17,7 +19,7 @@ struct Rva005A69C0Sub
 	void *Q2(int j, int i);
 };
 
-struct Rva005A69C0Box
+struct NAT
 {
 	char pad0[8];
 	Rva005A69C0Obj **m_8;
@@ -31,17 +33,17 @@ struct Rva005A69C0Box
 	int m_8EC[8];
 	int *m_90C[8];
 
-	bool Check();
-	void Run(int a, int b, int c);
-	void Scan();
+	bool rva005A6709();
+	void reconnectPlayers(int a, int b, int c);
+	void rva005A6CA5();
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
 extern int g_rva005A6CA5Limit;
 
-void Rva005A69C0Box::Run(int a, int b, int c)
+void NAT::reconnectPlayers(int a, int b, int c)
 {
-	if (!Check())
+	if (!rva005A6709())
 		return;
 	if ((unsigned short)a >= 8)
 		return;
@@ -70,15 +72,15 @@ void Rva005A69C0Box::Run(int a, int b, int c)
 	}
 }
 
-// ?Scan@Rva005A69C0Box@@QAEXXZ @0x005A6CA5 162B: pair scan over the 8 slots.
+// NAT::rva005A6CA5 @0x005A6CA5 162B (unnamed in WB): pair scan over the 8 slots.
 // For each present human slot pair (i, j) with i != j, the +0x28 sub-object
 // runs its two queries; a surviving response whose +0x10 timestamp is older
-// than the limit invokes the sibling Run(i, j, 0). Same class as Run: the
+// than the limit invokes the sibling reconnectPlayers(i, j, 0). Same class as reconnectPlayers: the
 // sibling call passes this untouched, and Check/IsHuman reuse their pins.
-void Rva005A69C0Box::Scan()
+void NAT::rva005A6CA5()
 {
-	Rva005A69C0Box *self = this;
-	if (!Check())
+	NAT *self = this;
+	if (!rva005A6709())
 		return;
 	int stamp = timeGetTime();
 	int i = 0;
@@ -96,7 +98,7 @@ void Rva005A69C0Box::Scan()
 							if (r != 0) {
 								int t = *(int *)((char *)r + 0x10);
 								if (t != 0 && (unsigned)(stamp - t) > (unsigned)g_rva005A6CA5Limit)
-									Run(i, j, 0);
+									reconnectPlayers(i, j, 0);
 							}
 						}
 					}

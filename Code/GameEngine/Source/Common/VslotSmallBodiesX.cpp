@@ -51,16 +51,16 @@ struct Rva0018F640EntryB
 	Int m_14;
 	Int m_18;
 };
-class Rva0018F640
+class HCompressedAnimClass
 {
 public:
-	bool rva0018F640(Int i) const;
+	bool Has_VisibilityF(Int i) const;
 private:
 	char m_pad00[0x54];
 	Rva0018F640EntryB *m_54;
 	Rva0018F640EntryA *m_58;
 };
-bool Rva0018F640::rva0018F640(Int i) const
+bool HCompressedAnimClass::Has_VisibilityF(Int i) const
 {
 	if (m_58)
 		return m_58[i].m_10 != 0;

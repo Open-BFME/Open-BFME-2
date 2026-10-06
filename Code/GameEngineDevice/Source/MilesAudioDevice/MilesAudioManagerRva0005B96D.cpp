@@ -1,11 +1,11 @@
 // cl: /DNDEBUG /DWIN32 /MD /EHsc
-// ?rva0005B96D@MilesAudioManager@@QAEXPAX@Z @0x0005B96D 155B.
+// ?adjustPlayingVolume@MilesAudioManager@@QAEXPAX@Z @0x0005B96D 155B.
 // BFME 2 twin of BFME 1 MilesAudioManagerUpdateFadeVolume 0x006B1A00
 // (game/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerUpdateFadeVolume006B1A00.cpp):
 // effective volume from rowed rva0005A9F8(ref 1 1), then type dispatch on
-// PlayingAudio+0x14 (same +8 handle/+0x14 type layout as rowed rva00052696):
+// PlayingAudio+0x14 (same +8 handle/+0x14 type layout as rowed get2DSampleHandleForPlayingAudio):
 // types 0/1 refresh pan via AIL_sample_volume_pan then set volume/pan,
-// types 2/3 resolve the 3D handle via pinned rva00052662 then set 3D volume,
+// types 2/3 resolve the 3D handle via pinned get3DSampleHandleForPlayingAudio then set 3D volume,
 // type 4 forwards the volume to the +0xC sink (rowed rva000A8AEE float sink).
 // Tail clears the +0x4F byte. Evidence: rowed callees 0x0005A9F8 0x000A8AEE
 // 0x00052696, pinned 0x00052662, IAT mss32 names from PE imports.
@@ -43,27 +43,27 @@ struct PlayingAudio
 class MilesAudioManager
 {
 public:
-	void rva0005B96D(void *ref);
+	void adjustPlayingVolume(void *ref);
 	float rva0005A9F8(void *ref, int a, int b);
-	void *rva00052696(void *p);
-	void *rva00052662(void *p);
+	void *get2DSampleHandleForPlayingAudio(void *p);
+	void *get3DSampleHandleForPlayingAudio(void *p);
 };
 
-void MilesAudioManager::rva0005B96D(void *ref)
+void MilesAudioManager::adjustPlayingVolume(void *ref)
 {
 	Real volume = rva0005A9F8(ref, 1, 1);
 	PlayingAudio *playing = *(PlayingAudio **)ref;
 	int type = playing->m_type14;
 	if (type == 0 || type == 1)
 	{
-		HSAMPLE sample = rva00052696(ref);
+		HSAMPLE sample = get2DSampleHandleForPlayingAudio(ref);
 		Real pan;
 		AIL_sample_volume_pan(sample, 0, &pan);
 		AIL_set_sample_volume_pan(sample, volume, pan);
 	}
 	else if (type == 2 || type == 3)
 	{
-		H3DSAMPLE sample3D = rva00052662(ref);
+		H3DSAMPLE sample3D = get3DSampleHandleForPlayingAudio(ref);
 		if (sample3D != 0)
 			AIL_set_3D_sample_volume(sample3D, volume);
 	}

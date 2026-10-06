@@ -140,7 +140,7 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	void rva004B303F();
+	void postInitAISpecialPower();
 
 	bool m_20;
 	bool m_21;
@@ -159,7 +159,7 @@ void AISpecialPowerUpdate::xfer(Xfer *xfer)
 		*xfer == m_21;
 
 	if (xfer->IsLoading() && (m_21 || version.m_minimum < 3))
-		rva004B303F();
+		postInitAISpecialPower();
 
 	*xfer == m_20;
 

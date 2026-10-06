@@ -4,7 +4,7 @@
 // The "FlankAttack" skirmish-AI tactic (vtable 0x00871EB0; ctor 0x005AA23E in
 // Rva004ECECDTacticCtors.cpp, dtor 0x005AA55D in Rva005AA55DDtor.cpp, slot 9
 // in Rva004ECECDTacticCreate.cpp). Base chain, all address-derived:
-// Rva005DC73C (ctor 0x005DC722) over the AITactic.cpp object Rva004ECECD.
+// AITacticOffensive (ctor 0x005DC722) over the AITactic.cpp object AITactic.
 // +0x58 owns the flank route (Rva0015334F, 0x10 bytes): the index of the next
 // point and a vector<Coord3D> of points, filled by 0x005AA2D9 and transferred
 // by 0x005AA4C1.
@@ -105,30 +105,30 @@ public:
 	_STL::vector<Coord3D> m_points;	// +0x04
 };
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2();
-	virtual void v3();
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp();
+	virtual void initializeTeamTemplate();
 	virtual void v4();
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
+	virtual void update();
 	virtual void v8();
-	virtual Rva004ECECD *create();
+	virtual AITactic *create();
 	Team *rva004ECECD(int index);
 	unsigned char rva004ED169();
 	void rva004ED342(void *point);
-	void rva004ED748(int a, int b);
+	void end(int a, int b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
-	unsigned char rva005DC763(void *request);
+	virtual ~AITacticOffensive();
+	unsigned char checkTarget(void *request);
 	char m_pad04[0x10 - 4];
 	bool m_running;			// +0x10
 	char m_pad11[0x20 - 0x11];
@@ -137,18 +137,18 @@ public:
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005AA55D : public Rva005DC73C
+class AIFlankAttackTactic : public AITacticOffensive
 {
 public:
-	virtual ~Rva005AA55D();
-	virtual bool appliesTo(void *request);
+	virtual ~AIFlankAttackTactic();
+	virtual bool canRun(void *request);
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
+	virtual void run();
 private:
 	Rva0015334F *m_route;	// +0x58
 };
 
-bool Rva005AA55D::appliesTo(void *request)
+bool AIFlankAttackTactic::canRun(void *request)
 {
 	Rva002C589B *target = (Rva002C589B *)request;
 	Object *obj = target->rva002C5DA6();
@@ -171,12 +171,12 @@ bool Rva005AA55D::appliesTo(void *request)
 	base.z -= target->m_0C.z;
 	if (base.x * base.x + base.y * base.y + base.z * base.z < 2000000.0f)
 		return false;
-	if (rva005DC763(request))
+	if (checkTarget(request))
 		return true;
 	return false;
 }
 
-void Rva005AA55D::v6()
+void AIFlankAttackTactic::run()
 {
 	Team *team = rva004ECECD(0);
 	if (team) {
@@ -188,12 +188,12 @@ void Rva005AA55D::v6()
 		to.z = m_record->m_point0C.z;
 		m_route->rva005AA2D9(m_record, &from, &to);
 	} else {
-		rva004ED748(0, 0);
+		end(0, 0);
 	}
 }
 
-void Rva005AA55D::xfer(Xfer *xfer)
+void AIFlankAttackTactic::xfer(Xfer *xfer)
 {
-	Rva004ECECD::xfer(xfer);
+	AITactic::xfer(xfer);
 	m_route->xfer(xfer);
 }

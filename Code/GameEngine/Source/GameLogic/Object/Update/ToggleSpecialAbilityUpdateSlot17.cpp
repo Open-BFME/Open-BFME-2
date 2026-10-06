@@ -3,18 +3,18 @@
 // Slot-17 overrides of ToggleHiddenSpecialAbilityUpdate (vftable 0x00C552D8)
 // and ToggleDeploySpecialAbilityUpdate (vftable 0x00C55370), named by their
 // slot-2 name getters (rowed pool keys 0x004AE1CC and 0x004AE502). Each runs
-// the base SpecialAbilityUpdate slot 17 (pinned rva0045108D), then, with
+// the base SpecialAbilityUpdate slot 17 (pinned triggerAbilityEffect), then, with
 // module data present and the ability state at +0x24 equal to 1, picks the
 // class's own slot 23 or 24 by an owner test. The overrides carry the base
 // slot's address name (as the HordeSiegeEngineContainRiders overrides do):
 // cl 7.1 only places an override in slot 17 under the base's name; the
 // method identity itself is not established.
 //
-// ?rva0045108D@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ, retail 0x004AE22D, 47 bytes.
+// ?triggerAbilityEffect@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ, retail 0x004AE22D, 47 bytes.
 // Status 0x10 set: slot 23 (0x004AE2D0), else slot 24 (0x004AE394), as tail
 // calls.
 //
-// ?rva0045108D@ToggleDeploySpecialAbilityUpdate@@UAEXXZ, retail 0x004AE634, 53 bytes.
+// ?triggerAbilityEffect@ToggleDeploySpecialAbilityUpdate@@UAEXXZ, retail 0x004AE634, 53 bytes.
 // Kind-of 0x64: slot 23 (0x004AE5B8), else slot 24 (0x004AE6D7), each given
 // the owner.
 
@@ -45,7 +45,7 @@ public:
 	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
 	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
 	virtual void s16();
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 	virtual void s18(); virtual void s19(); virtual void s20(); virtual void s21();
 	virtual void s22();
 protected:
@@ -58,36 +58,36 @@ protected:
 class ToggleHiddenSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
-	virtual void rva004AE2D0();
-	virtual void rva004AE394();
+	virtual void triggerAbilityEffect();
+	virtual void turnOff();
+	virtual void turnOn();
 };
 
-// ?rva0045108D@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ @0x004AE22D
-void ToggleHiddenSpecialAbilityUpdate::rva0045108D()
+// ?triggerAbilityEffect@ToggleHiddenSpecialAbilityUpdate@@UAEXXZ @0x004AE22D
+void ToggleHiddenSpecialAbilityUpdate::triggerAbilityEffect()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	if (m_moduleData && m_24 == 1)
 	{
 		if (m_object->testStatus((ObjectStatusTypes)0x10))
-			rva004AE2D0();
+			turnOff();
 		else
-			rva004AE394();
+			turnOn();
 	}
 }
 
 class ToggleDeploySpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 	virtual void rva004AE5B8(Object *obj);
 	virtual void rva004AE6D7(Object *obj);
 };
 
-// ?rva0045108D@ToggleDeploySpecialAbilityUpdate@@UAEXXZ @0x004AE634
-void ToggleDeploySpecialAbilityUpdate::rva0045108D()
+// ?triggerAbilityEffect@ToggleDeploySpecialAbilityUpdate@@UAEXXZ @0x004AE634
+void ToggleDeploySpecialAbilityUpdate::triggerAbilityEffect()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	Object *obj = m_object;
 	if (m_moduleData && m_24 == 1)
 	{

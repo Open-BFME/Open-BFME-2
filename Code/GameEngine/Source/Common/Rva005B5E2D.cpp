@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?rva005B5E2D@Rva005B5E2D@@QAEXPBD@Z @0x005B5E2D 257B
+// ?OnSelectAward@Manager@AptCreateAHero@@QAEXPBD@Z @0x005B5E2D 257B
 // Chain of just-landed 0x00406E8F: atoi arg then holder+0x27c forward then
 // vector g_00E02F74 lookup then TheGameText fetch at slot 0x38 then
 // bfmeSetText; fallback builds wide from g_00BC26DC. Callers none.
@@ -65,14 +65,20 @@ struct Holder
     char m_pad[0x27C];
     Rva00406E8F m_obj;
 };
-class Rva005B5E2D
+class AptCreateAHero
+{
+public:
+	class Manager;
+};
+
+class AptCreateAHero::Manager
 {
     char m_pad[4];
     Holder *m_holder;
 public:
-    void rva005B5E2D(const char *arg);
+    void OnSelectAward(const char *arg);
 };
-void Rva005B5E2D::rva005B5E2D(const char *arg)
+void AptCreateAHero::Manager::OnSelectAward(const char *arg)
 {
     if (!TheRva00222A8BTarget)
         return;

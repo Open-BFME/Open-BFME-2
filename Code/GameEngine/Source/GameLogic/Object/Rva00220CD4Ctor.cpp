@@ -48,6 +48,8 @@ private:
 class SubsystemInterface : public BFME2NativeNetwork
 {
 public:
+	SubsystemInterface();	// out of line: retail 0x001B4E63, defined by SubsystemInterface.cpp
+	~SubsystemInterface();	// out of line: retail 0x001B4E74, defined by SubsystemInterface.cpp
 	void setName(AsciiString name);
 };
 

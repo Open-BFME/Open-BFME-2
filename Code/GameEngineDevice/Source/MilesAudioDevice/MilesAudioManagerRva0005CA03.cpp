@@ -9,12 +9,6 @@
 // through pinned rva00057B74, then rva0005BE59 with (slot, g_00BBB9AC -1.0f,
 // TheEmptyString at 0xDE0878). The g_ spellings mirror the landed TUs that
 // verified them. Address-derived names; identities unproven.
-class Rva00699180Owner
-{
-public:
-	void rva0005A3FA(void *a, float b);
-};
-
 class Rva00057B74
 {
 public:
@@ -46,6 +40,7 @@ extern unsigned int g_Va00DE0878;
 class MilesAudioManager
 {
 public:
+	class GlobalVolumeData;
 	void rva0005CA03(void *a, float b, int idx);
 	void rva0005CA75(int a);
 	void rva0005BE59(void *a, float b, void *c);
@@ -56,10 +51,16 @@ private:
 	int m_mutex9D4;
 };
 
+class MilesAudioManager::GlobalVolumeData
+{
+public:
+	void rva0005A3FA(void *a, float b);
+};
+
 void MilesAudioManager::rva0005CA03(void *a, float b, int idx)
 {
 	MilesMutexGuard guard(&m_mutex9D4, 0);
-	((Rva00699180Owner *)&m_arr12C[idx])->rva0005A3FA(a, b);
+	((GlobalVolumeData *)&m_arr12C[idx])->rva0005A3FA(a, b);
 	rva0005BE59(a, b, (void *)idx);
 }
 

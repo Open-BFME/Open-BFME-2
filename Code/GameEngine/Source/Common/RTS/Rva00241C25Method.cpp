@@ -1,6 +1,8 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
-// ?rva00241C25@Rva00241C25@@QAEXPAVObject@@@Z @0x00241C25 80B
+// GameLogic::QueueForNotifyPathfindCellChanged @0x00241C25 80B (WorldBuilder name,
+// GameLogic.cpp line 1307: the same Object check, +0x6D/+0x6E guards and
+// find-then-push_back on the +0x164 object list)
 // evidence: unlock caller 0x00291EB1; rowed Object::rva002931BA 0x002931BA plus rowed find 0x0020E873 plus pinned push_back vector<Object*> 0x001F211B; single end-load plus direct begin push pattern
 #include <vector>
 #include <algorithm>
@@ -13,7 +15,7 @@ public:
 
 class CreateAHeroData;
 
-class Rva00241C25
+class GameLogic
 {
 private:
     char m_pad00[0x6d];
@@ -22,10 +24,10 @@ private:
     char m_pad6f[0x164 - 0x6f];
     _STL::vector<CreateAHeroData *> m_vec164;
 public:
-    void rva00241C25(Object *obj);
+    void QueueForNotifyPathfindCellChanged(Object *obj);
 };
 
-void Rva00241C25::rva00241C25(Object *obj)
+void GameLogic::QueueForNotifyPathfindCellChanged(Object *obj)
 {
     if (!obj)
         return;

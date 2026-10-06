@@ -43,13 +43,13 @@ struct Rva009A3540OpaqueOwner
     Rva009A3540PairNode *buckets[0x2b7b];
 };
 
-class Rva009A3540PairOwner
+class CollisionManagerImpl
 {
 public:
-    void removePair(Rva009A3540OpaqueOwner *a, Rva009A3540OpaqueOwner *b);
+    void _RemoveOverlap(Rva009A3540OpaqueOwner *a, Rva009A3540OpaqueOwner *b);
 };
 
-void Rva009A3540PairOwner::removePair(Rva009A3540OpaqueOwner *a,
+void CollisionManagerImpl::_RemoveOverlap(Rva009A3540OpaqueOwner *a,
                                       Rva009A3540OpaqueOwner *b)
 {
     unsigned int aGroup = *(unsigned int *)((char *)a + 0xa0);

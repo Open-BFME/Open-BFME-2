@@ -5,9 +5,9 @@
 // slots 10 and 8 of the +0x10 UpgradeMux vtable 0x00C587A0 (the recipe of
 // RemoveUpgradeUpgradeRemovalImplementation.cpp). Applying runs the
 // UpgradeModule condition apply 0x004CE4A0 and hands the module data's +0x118
-// name to the rowed Object::rva0028EA91 with -1; removal, only when the
+// name to Object::addAttributeModifierToPool with -1; removal, only when the
 // upgrade is in effect (mux slot 0), runs the condition removal 0x004CE4A8,
-// hands the same name to Object 0x0028EB42 (pinned by address on this call
+// hands the same name to Object::removeAttributeModifierFromPool
 // site) and clears the executed flag (mux slot 9).
 #include "ascii_string.h"
 typedef bool Bool;
@@ -15,8 +15,8 @@ class ModuleData;
 class Object
 {
 public:
-	bool rva0028EA91(const AsciiString &name, int value);
-	void rva0028EB42(const AsciiString &name);
+	bool addAttributeModifierToPool(const AsciiString &name, int value);
+	void removeAttributeModifierFromPool(const AsciiString &name);
 };
 struct AttributeModifierUpgradeModuleData
 {
@@ -75,14 +75,14 @@ protected:
 void AttributeModifierUpgrade::upgradeImplementation()
 {
 	rva004CE4A0();
-	getObject()->rva0028EA91(getData()->m_name, -1);
+	getObject()->addAttributeModifierToPool(getData()->m_name, -1);
 }
 void AttributeModifierUpgrade::upgradeRemovalImplementation()
 {
 	if (isAlreadyUpgraded())
 	{
 		rva004CE4A8();
-		getObject()->rva0028EB42(getData()->m_name);
+		getObject()->removeAttributeModifierFromPool(getData()->m_name);
 		setUpgradeExecuted(false);
 	}
 }

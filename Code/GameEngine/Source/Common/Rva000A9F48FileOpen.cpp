@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// ?Rva000A9F48Get@@YAPAVFile@@PBVAsciiString@@@Z @0x000A9F48 61B
+// ?openFile@@YAPAVFile@@PBVAsciiString@@@Z @0x000A9F48 61B
 // Free file-open helper: AsciiString m_data ? m_data+8 : empty, then loop
 // TheFileSystem->openFile(s,1,0) stripping leading path via strchr(s,'\\').
 // Evidence: callers 0x000AA557 (AsciiString+".apt") and 0x000AB96D pass string
@@ -17,7 +17,7 @@ extern FileSystem *TheFileSystem;
 extern const char g_Rva0107301CEmptyString[];
 extern "C" __declspec(dllimport) char *__cdecl strchr(const char *, int);
 
-static File *Rva000A9F48Get(const AsciiString *fname)
+static File *openFile(const AsciiString *fname)
 {
 	char *t = *(char * const *)fname;
 	const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
@@ -36,6 +36,6 @@ static File *Rva000A9F48Get(const AsciiString *fname)
 File *Rva000A9F48GetCaller(const AsciiString *fname)
 {
 	if (fname)
-		return Rva000A9F48Get(fname);
+		return openFile(fname);
 	return 0;
 }

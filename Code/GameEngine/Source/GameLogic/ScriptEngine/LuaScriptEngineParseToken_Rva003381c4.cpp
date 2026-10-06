@@ -1,5 +1,8 @@
 // cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
-// LuaScriptEngine::rva002EC770ParseToken, retail RVA 0x002EC770.
+// LuaScriptEngine::ProcessSageElement, BFME2 retail 0x003381C4 (donor name
+// rva002EC770ParseToken after its BFME1 RVA 0x002EC770). The BFME2 name is
+// WorldBuilder's: LuaScriptEngine.cpp:864-887 asserts in ProcessSageElement with
+// the same SageLuaScriptSection / Events / EventList dispatch.
 // Sibling of LuaScriptEngineParseTokenFile.cpp's rva002EC840ParseTokenFile,
 // which calls this body once per XML tag through the
 // ?j_0000ed95@@YAXXZ alternate name. `parser` is the same BfmeLexEAN the
@@ -45,8 +48,8 @@ public:
 class __declspec(novtable) LuaScriptEngine
 {
 public:
-	void rva002EC770ParseToken(BfmeLexEAN *parser);
-	void rva002EC770ParseTokenEvents(BfmeLexEAN *parser);
+	void ProcessSageElement(BfmeLexEAN *parser);
+	void ProcessEventsElement(BfmeLexEAN *parser);
 
 private:
 	char m_pad00B4[0xB4];
@@ -75,8 +78,8 @@ union LuaEventListCast
 
 #pragma comment(linker, "/alternatename:?finish@XmlNameSlotList@@QAEHXZ=?j_00049ae4@@YAXXZ")
 
-// ?rva002EC770ParseToken@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z
-void LuaScriptEngine::rva002EC770ParseToken(BfmeLexEAN *parser)
+// ?ProcessSageElement@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z
+void LuaScriptEngine::ProcessSageElement(BfmeLexEAN *parser)
 {
 	BfmeGetTailCast tailCall;
 	tailCall.raw = &::j_000262ba;
@@ -95,7 +98,7 @@ void LuaScriptEngine::rva002EC770ParseToken(BfmeLexEAN *parser)
 		int cmpEvents = strcmp(tag, "Events");
 		if (cmpEvents == 0)
 		{
-			rva002EC770ParseTokenEvents(parser);
+			ProcessEventsElement(parser);
 		}
 		else
 		{

@@ -156,7 +156,7 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	void rva004618AB();
+	void regWaypointsWithPathfinder();
 
 	enum { WAYPOINT_COUNT = 2 };
 	Waypoint *m_28[WAYPOINT_COUNT];
@@ -195,13 +195,13 @@ void FakePathfindPortalBehaviour::xfer(Xfer *xfer)
 	*xfer == m_31;
 	*xfer == m_32;
 	if (m_32 && xfer->IsLoading())
-		rva004618AB();
+		regWaypointsWithPathfinder();
 }
 
-// ?rva004618AB@FakePathfindPortalBehaviour@@AAEXXZ @0x004618AB 41B
+// ?regWaypointsWithPathfinder@FakePathfindPortalBehaviour@@AAEXXZ @0x004618AB 41B
 // Re-registers both waypoints through the AI pathfinder set-twin 0x002E8FE5
 // and sets +0x32 again. Called from xfer on load when +0x32 is set.
-void FakePathfindPortalBehaviour::rva004618AB()
+void FakePathfindPortalBehaviour::regWaypointsWithPathfinder()
 {
 	TheAI->m_10->rva002E8FE5(m_28[0]);
 	TheAI->m_10->rva002E8FE5(m_28[1]);

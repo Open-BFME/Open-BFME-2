@@ -1,6 +1,6 @@
 // cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva00151744@Rva00151744@@QAEXXZ at 0x00151744 (113B). Link clear: if +4
+// ?Unload@Impl@FXShaderAsset@@QAEXXZ at 0x00151744 (113B). Link clear: if +4
 // null return, else erase voidptr vector at +0x18 via rowed erase 0x0031BD55,
 // zero +0x24, lock via row 0x0011F520, delete +8 holder via rowed dtor
 // 0x00153D16 plus delete, release +4 via vtable slot 2 __stdcall then null,
@@ -26,11 +26,17 @@ public:
 	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
 };
 
-class Rva00151744
+class FXShaderAsset
+{
+public:
+	class Impl;
+};
+
+class FXShaderAsset::Impl
 {
 public:
 	virtual void *get(int x);
-	void rva00151744();
+	void Unload();
 private:
 	void *m_comPtr; // +4
 	Rva00153D16 *m_holder; // +8
@@ -39,7 +45,7 @@ private:
 	int m_flag24; // +0x24
 };
 
-void Rva00151744::rva00151744()
+void FXShaderAsset::Impl::Unload()
 {
 	if (m_comPtr == 0)
 		return;

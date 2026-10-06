@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva0033B580@ThingTemplate@@QAEPBVImage@@XZ @0x0033B580 56B.
+// ?getButtonImage@ThingTemplate@@QAEPBVImage@@XZ @0x0033B580 56B.
 // ThingTemplate button-image resolver (ButtonImage slot +0x78/+0x48c).
 // BFME1 donor Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp resolveNames
 // does TheMappedImageCollection->findImageByName(name) then name.clear() for
@@ -27,7 +27,7 @@ extern ImageCollection *TheMappedImageCollection;
 class ThingTemplate
 {
 public:
-    const Image *rva0033B580();
+    const Image *getButtonImage();
 private:
     char m_pad0[0x78];
     AsciiString m_buttonImageName;
@@ -35,7 +35,7 @@ private:
     const Image *m_buttonImage;
 };
 
-const Image *ThingTemplate::rva0033B580()
+const Image *ThingTemplate::getButtonImage()
 {
     if (!m_buttonImageName.isEmpty() && TheMappedImageCollection)
     {

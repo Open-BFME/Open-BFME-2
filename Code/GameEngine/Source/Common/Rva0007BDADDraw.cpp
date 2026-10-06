@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ?rva0007BDAD@Rva0007BDAD@@QAEXXZ @ 0x0007BDAD (113B):
+// ?RenderPostProcess@W3DShadowMapManager@@QAEXXZ @ 0x0007BDAD (113B):
 // __thiscall texture-list draw: validates list at +0x24, queries count via
 // slot 2 Get(&count, 0xFFFF), iterates with slot 3 Select(i), binds
 // BFME2Set_Texture stage 0 from TextureBaseClass at +0x14, draws extents via
@@ -36,10 +36,10 @@ public:
 	virtual void Release();
 };
 
-class Rva0007BDAD
+class W3DShadowMapManager
 {
 public:
-	void rva0007BDAD();
+	void RenderPostProcess();
 private:
 	char m_pad00[0x14];
 	TextureBaseClass m_tex14;
@@ -47,7 +47,7 @@ private:
 	Rva0007BDADList *m_list24;
 };
 
-void Rva0007BDAD::rva0007BDAD()
+void W3DShadowMapManager::RenderPostProcess()
 {
 	Rva0007BDADList *list = m_list24;
 	if (list == 0)

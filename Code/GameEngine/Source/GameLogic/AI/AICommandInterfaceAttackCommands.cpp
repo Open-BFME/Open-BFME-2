@@ -120,7 +120,7 @@ public:
 	void rva0026C2D9(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
 	void aiAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);
 	void aiFacePosition(const Coord3D *pos, Int cmdSource);
-	void rva0026C26D(const Coord3D *pos, Int cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, Int cmdSource);
 	void aiFaceObject(Object *target, CommandSourceType cmdSource);
 	void rva0026C3AC(Object *target, CommandSourceType cmdSource);
 	void rva0026C486(Object *target, CommandSourceType cmdSource);
@@ -144,28 +144,28 @@ public:
 	void aiTightenToPosition(const Coord3D *position, CommandSourceType cmdSource);
 	void aiMoveToAndEvacuate(const Coord3D *position, CommandSourceType cmdSource);
 	void aiMoveToAndEvacuateAndExit(const Coord3D *position, CommandSourceType cmdSource);
-	void aiBfmeCommand35(const Coord3D *position, CommandSourceType cmdSource);
+	void aiFollowPathAppend(const Coord3D *position, CommandSourceType cmdSource);
 	void rva0036F400(const Rva003427DD *info, CommandSourceType cmdSource);
 	void rva0036F19B(Object *target, CommandSourceType cmdSource);
 	void rva0036F200(Object *target, CommandSourceType cmdSource);
 	void rva0036F265(Object *target, CommandSourceType cmdSource);
 	void rva0036F2CA(Object *target, CommandSourceType cmdSource);
-	void rva0036F32F(const Coord3D *position, CommandSourceType cmdSource);
+	void aiHarvest(const Coord3D *position, CommandSourceType cmdSource);
 	void rva0036F4DF(Object *target, Int value, CommandSourceType cmdSource);
 	void rva0036F54D(const Team *team, Int value, CommandSourceType cmdSource);
 	void rva0036F5BB(const PolygonTrigger *area, Int value, CommandSourceType cmdSource);
-	void rva0036F629(const PolygonTrigger *area, Int value, CommandSourceType cmdSource, const Coord3D *pos);
+	void aiGuardAreaFromPosition(const PolygonTrigger *area, Int value, CommandSourceType cmdSource, const Coord3D *pos);
 	void rva0036F6A7(float value, CommandSourceType cmdSource);
-	void rva0036E906(const Coord3D *position, CommandSourceType cmdSource, float value);
-	void rva0036E97F(const Coord3D *position, Int value, CommandSourceType cmdSource, float floatValue);
+	void aiMoveToPositionAndFaceDirection(const Coord3D *position, CommandSourceType cmdSource, float value);
+	void aiAttackMoveToPositionAndFaceDirection(const Coord3D *position, Int value, CommandSourceType cmdSource, float floatValue);
 	void rva003C77EE(const Waypoint *waypoint, CommandSourceType cmdSource);
 	void rva003C76B8(Int value, CommandSourceType cmdSource);
 	void rva003C78AF(const Waypoint *waypoint, CommandSourceType cmdSource);
-	void rva003C75DD(const Coord3D *position, CommandSourceType cmdSource);
-	void rva0036EA01(const Coord3D *position, CommandSourceType cmdSource);
+	void aiAttackMoveToPositionAmphibious(const Coord3D *position, CommandSourceType cmdSource);
+	void aiMoveToPositionAmphibious(const Coord3D *position, CommandSourceType cmdSource);
 	void rva0037379B(Object *target, CommandSourceType cmdSource);
 	void rva0044FFD9(Object *target, CommandSourceType cmdSource);
-	void rva0044FF6D(const Coord3D *pos, Int cmdSource);
+	void aiMoveToPositionSA(const Coord3D *pos, Int cmdSource);
 	void rva0036EE16(const Rva0035149F *info, Object *target, CommandSourceType cmdSource);
 	void rva0036EE89(const Rva0035149F *info, Object *target, float value, CommandSourceType cmdSource);
 	void rva0036EF09(const Rva0035149F *info, Object *target, float value, CommandSourceType cmdSource);
@@ -200,7 +200,7 @@ inline void AICommandInterface::aiForceAttackObject(Object *victim, Int maxShots
 
 // ?rva0026C2D9@AICommandInterface@@QAEXPAVObject@@HW4CommandSourceType@@@Z, retail 0x0026C2D9, 110 bytes.
 // Same 110B shape as aiForceAttackObject in this TU: AICMD 0x0B plus m_obj at +0x14 plus m_intValue at +0x34 plus slot-0 aiDoCommand.
-// Gap between rva0026C26D and rva0026C347; donor BFME1 ATTACK_OBJECT 0x0B with same m_obj plus int slots.
+// Gap between aiMoveToPosition and rva0026C347; donor BFME1 ATTACK_OBJECT 0x0B with same m_obj plus int slots.
 // Pinned as ?Rva0026C2D9Command@Rva0026C2D9Commands@@QAEXPAXHH@Z (void plus int plus int) for 27 callers.
 void AICommandInterface::rva0026C2D9(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource)
 {
@@ -231,11 +231,11 @@ void AICommandInterface::aiFacePosition(const Coord3D *pos, Int cmdSource)
 	aiDoCommand(&parms);
 }
 
-// ?rva0026C26D@AICommandInterface@@QAEXPBUCoord3D@@H@Z, retail 0x0026C26D, 108 bytes.
+// ?aiMoveToPosition@AICommandInterface@@QAEXPBUCoord3D@@H@Z, retail 0x0026C26D, 108 bytes.
 // Same 108B position shape as aiFacePosition in this TU: AICMD 0x00 plus m_pos at +0x08 plus slot-0 aiDoCommand.
 // Class proven by caller at 0x002AF138 via lea ecx,[esi+0x20] (AICommandInterface subobject) with Coord3D plus source 1.
 // Callers at 0x0026D1C0 0x0026D519 0x002AF138 plus 37 more; landing unblocks 37.
-void AICommandInterface::rva0026C26D(const Coord3D *pos, Int cmdSource)
+void AICommandInterface::aiMoveToPosition(const Coord3D *pos, Int cmdSource)
 {
 	AICommandParms parms((AICommandType)0, (CommandSourceType)cmdSource);
 	parms.m_pos = *pos;
@@ -512,7 +512,7 @@ void AICommandInterface::aiMoveToAndEvacuateAndExit(const Coord3D *position, Com
 	aiDoCommand(&parms);
 }
 
-void AICommandInterface::aiBfmeCommand35(const Coord3D *position, CommandSourceType cmdSource)
+void AICommandInterface::aiFollowPathAppend(const Coord3D *position, CommandSourceType cmdSource)
 {
 	AICommandParms parms(AICMD_BFME_35, cmdSource);
 	parms.m_pos = *position;
@@ -567,10 +567,10 @@ void AICommandInterface::rva0036F2CA(Object *target, CommandSourceType cmdSource
 	aiDoCommand(&parms);
 }
 
-// ?rva0036F32F@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z, retail 0x0036F32F, 108 bytes.
+// ?aiHarvest@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z, retail 0x0036F32F, 108 bytes.
 // Same 108B position shape as aiTightenToPosition in this TU: AICMD 0x19 plus m_pos at +0x08 plus slot-0 aiDoCommand.
 // Class proven by gap between rva0036F2CA and aiExit plus same TU flags; callers at 0x00370272 0x00494767 0x004A731D.
-void AICommandInterface::rva0036F32F(const Coord3D *position, CommandSourceType cmdSource)
+void AICommandInterface::aiHarvest(const Coord3D *position, CommandSourceType cmdSource)
 {
 	AICommandParms parms((AICommandType)0x19, cmdSource);
 	parms.m_pos = *position;
@@ -610,10 +610,10 @@ void AICommandInterface::rva0036F5BB(const PolygonTrigger *area, Int value, Comm
 	aiDoCommand(&parms);
 }
 
-// ?rva0036F629@AICommandInterface@@QAEXPBVPolygonTrigger@@HW4CommandSourceType@@PBUCoord3D@@@Z, retail 0x0036F629, 126 bytes.
+// ?aiGuardAreaFromPosition@AICommandInterface@@QAEXPBVPolygonTrigger@@HW4CommandSourceType@@PBUCoord3D@@@Z, retail 0x0036F629, 126 bytes.
 // Same TU polygon-plus-int-plus-pos shape: AICMD 0x44 plus m_polygon at +0x30 plus m_intValue at +0x34 plus m_pos at +0x08 plus slot-0 aiDoCommand.
 // Class proven by gap between rva0036F5BB and rva0036F6A7 plus same TU flags; callers at 0x00370505 0x003C8A7E forward 4 args.
-void AICommandInterface::rva0036F629(const PolygonTrigger *area, Int value, CommandSourceType cmdSource, const Coord3D *pos)
+void AICommandInterface::aiGuardAreaFromPosition(const PolygonTrigger *area, Int value, CommandSourceType cmdSource, const Coord3D *pos)
 {
 	AICommandParms parms((AICommandType)0x44, cmdSource);
 	parms.m_polygon = area;
@@ -632,12 +632,12 @@ void AICommandInterface::rva0036F6A7(float value, CommandSourceType cmdSource)
 	aiDoCommand(&parms);
 }
 
-// ?rva0036E906@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@M@Z @0x0036E906 121B
+// ?aiMoveToPositionAndFaceDirection@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@M@Z @0x0036E906 121B
 // Evidence: AICMD 0x4E plus m_pos at +0x08 plus m_float38 at +0x38 plus slot-0 aiDoCommand.
 // Same TU pos-plus-float shape (aiGuardPosition pos-first order); class proven by slot-0
 // aiDoCommand virtual call plus opaque 0x351BD0 ctor plus inline free at 0x30830.
 // Callers at 0x00372ABF 0x00379946 0x00547F2B.
-void AICommandInterface::rva0036E906(const Coord3D *position, CommandSourceType cmdSource, float value)
+void AICommandInterface::aiMoveToPositionAndFaceDirection(const Coord3D *position, CommandSourceType cmdSource, float value)
 {
 	AICommandParms parms((AICommandType)0x4E, cmdSource);
 	parms.m_pos = *position;
@@ -645,12 +645,12 @@ void AICommandInterface::rva0036E906(const Coord3D *position, CommandSourceType 
 	aiDoCommand(&parms);
 }
 
-// ?rva0036E97F@AICommandInterface@@QAEXPBUCoord3D@@HW4CommandSourceType@@M@Z @0x0036E97F 130B
+// ?aiAttackMoveToPositionAndFaceDirection@AICommandInterface@@QAEXPBUCoord3D@@HW4CommandSourceType@@M@Z @0x0036E97F 130B
 // Evidence: AICMD 0x51 plus m_pos at +0x08 plus m_intValue at +0x34 plus m_float38 at +0x38
 // plus slot-0 aiDoCommand. Same TU pos-first order; class proven by slot-0 aiDoCommand
 // plus opaque 0x351BD0 ctor plus inline free at 0x30830.
 // Callers at 0x00372AA5 0x00547F23.
-void AICommandInterface::rva0036E97F(const Coord3D *position, Int value, CommandSourceType cmdSource, float floatValue)
+void AICommandInterface::aiAttackMoveToPositionAndFaceDirection(const Coord3D *position, Int value, CommandSourceType cmdSource, float floatValue)
 {
 	AICommandParms parms((AICommandType)0x51, cmdSource);
 	parms.m_pos = *position;
@@ -689,10 +689,10 @@ void AICommandInterface::rva003C78AF(const Waypoint *waypoint, CommandSourceType
 	aiDoCommand(&parms);
 }
 
-// ?rva003C75DD@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z @0x003C75DD 118B
+// ?aiAttackMoveToPositionAmphibious@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z @0x003C75DD 118B
 // Evidence: AICMD 0x52 plus m_pos at +0x08 plus m_intValue 1 at +0x34 plus slot-0 aiDoCommand.
 // Caller at 0x003C7BA0 via lea ecx [edi+0x20] with coord plus source 1; next row rva003C7653 in this TU.
-void AICommandInterface::rva003C75DD(const Coord3D *position, CommandSourceType cmdSource)
+void AICommandInterface::aiAttackMoveToPositionAmphibious(const Coord3D *position, CommandSourceType cmdSource)
 {
 	AICommandParms parms((AICommandType)0x52, cmdSource);
 	parms.m_pos = *position;
@@ -700,12 +700,12 @@ void AICommandInterface::rva003C75DD(const Coord3D *position, CommandSourceType 
 	aiDoCommand(&parms);
 }
 
-// ?rva0036EA01@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z @0x0036EA01 115B
+// ?aiMoveToPositionAmphibious@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z @0x0036EA01 115B
 // Evidence: AICMD 0x52 plus m_pos at +0x08 plus m_intValue 0 at +0x34 plus slot-0 aiDoCommand.
-// Same shape as rva003C75DD in this TU (118B with mov [ebp-0x98],1); the 3B delta is the
+// Same shape as aiAttackMoveToPositionAmphibious in this TU (118B with mov [ebp-0x98],1); the 3B delta is the
 // /O1 and [ebp-0x98],0 zero encoding. Caller at 0x003C7ADD via lea ecx [edi+0x20]
 // (AICommandInterface subobject of AIUpdateInterface) with coord plus source 1.
-void AICommandInterface::rva0036EA01(const Coord3D *position, CommandSourceType cmdSource)
+void AICommandInterface::aiMoveToPositionAmphibious(const Coord3D *position, CommandSourceType cmdSource)
 {
 	AICommandParms parms((AICommandType)0x52, cmdSource);
 	parms.m_pos = *position;
@@ -735,11 +735,11 @@ void AICommandInterface::rva0044FFD9(Object *target, CommandSourceType cmdSource
 	aiDoCommand(&parms);
 }
 
-// ?rva0044FF6D@AICommandInterface@@QAEXPBUCoord3D@@H@Z @0x0044FF6D 108B:
+// ?aiMoveToPositionSA@AICommandInterface@@QAEXPBUCoord3D@@H@Z @0x0044FF6D 108B:
 // Same 108B position shape as aiFacePosition in this TU:
 // AICMD 0x47 (BFME1 aiFacePosition id) plus m_pos at +0x08 plus slot-0 aiDoCommand.
 // Callers 0x00450C92 0x00450D82.
-void AICommandInterface::rva0044FF6D(const Coord3D *pos, Int cmdSource)
+void AICommandInterface::aiMoveToPositionSA(const Coord3D *pos, Int cmdSource)
 {
 	AICommandParms parms((AICommandType)0x47, (CommandSourceType)cmdSource);
 	parms.m_pos = *pos;
@@ -747,7 +747,7 @@ void AICommandInterface::rva0044FF6D(const Coord3D *pos, Int cmdSource)
 }
 
 // ?rva0036EE16@AICommandInterface@@QAEXPBVRva0035149F@@PAVObject@@W4CommandSourceType@@@Z @0x0036EE16 115B
-// Gap between aiBfmeCommand33 0x0036EDB1 and aiBfmeCommand35 0x0036EF89 in this TU.
+// Gap between aiBfmeCommand33 0x0036EDB1 and aiFollowPathAppend 0x0036EF89 in this TU.
 // AICMD 0x09 plus coord-vector at +0x20 via rowed 0x0035149F copy plus m_obj at +0x14
 // plus slot-0 aiDoCommand plus inline free at 0x30830. Class proven by gap plus same TU flags.
 // Callers 7 unclaimed; landing unblocks 5.
@@ -760,7 +760,7 @@ void AICommandInterface::rva0036EE16(const Rva0035149F *info, Object *target, Co
 }
 
 // ?rva0036EE89@AICommandInterface@@QAEXPBVRva0035149F@@PAVObject@@MW4CommandSourceType@@@Z @0x0036EE89 128B
-// Gap between rva0036EE16 0x0036EE16 and aiBfmeCommand35 0x0036EF89 in this TU.
+// Gap between rva0036EE16 0x0036EE16 and aiFollowPathAppend 0x0036EF89 in this TU.
 // AICMD 0x24 plus coord-vector at +0x20 via rowed 0x0035149F copy plus m_obj at +0x14
 // plus m_pos.x at +0x08 via movss plus slot-0 aiDoCommand plus inline free at 0x30830.
 // Class proven by gap plus same TU flags. Caller at 0x00371AA6.
@@ -774,7 +774,7 @@ void AICommandInterface::rva0036EE89(const Rva0035149F *info, Object *target, fl
 }
 
 // ?rva0036EF09@AICommandInterface@@QAEXPBVRva0035149F@@PAVObject@@MW4CommandSourceType@@@Z @0x0036EF09 128B
-// Gap between rva0036EE89 0x0036EE89 and aiBfmeCommand35 0x0036EF89 in this TU.
+// Gap between rva0036EE89 0x0036EE89 and aiFollowPathAppend 0x0036EF89 in this TU.
 // Same 128B shape as rva0036EE89: AICMD 0x25 plus coord-vector plus m_obj plus m_pos.x plus slot-0.
 // Class proven by gap plus same TU flags. Callers at 0x00371A6E 0x00465685.
 void AICommandInterface::rva0036EF09(const Rva0035149F *info, Object *target, float value, CommandSourceType cmdSource)

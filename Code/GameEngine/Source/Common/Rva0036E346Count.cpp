@@ -146,15 +146,15 @@ void Rva0036E1F7::rva0036E1F7(int a, int b, int c)
 // ?rva0036E2A7@Rva0036E2A7@@QAEXPAVSequentialScript@@H@Z, retail 0x0036E2A7, 59 bytes.
 // Chain from 0x00262453: same list holder (+0x04 head, [node+0x00] next,
 // [node+0x08] Object, Object+0x258 AIHolder), AIHolder+0x3D0 is the
-// Rva00262453 script slot (its +0x0A is the +0x3DA flag). Forwards (p, 1,
+// ScriptTracker script slot (its +0x0A is the +0x3DA flag). Forwards (p, 1,
 // dummy). Caller at 0x003B3DF5.
 
 class SequentialScript;
 
-class Rva00262453
+class ScriptTracker
 {
 public:
-	void rva00262453(SequentialScript *p, bool b, int dummy);
+	void setCurScript(SequentialScript *p, bool b, int dummy);
 };
 
 class Rva0036E2A7
@@ -177,7 +177,7 @@ void Rva0036E2A7::rva0036E2A7(SequentialScript *p, int dummy)
 		Object *obj = cur->m_obj;
 		AIHolder *ai = obj->m_ai;
 		if (ai != 0)
-			((Rva00262453 *)((char *)ai + 0x3D0))->rva00262453(p, true, dummy);
+			((ScriptTracker *)((char *)ai + 0x3D0))->setCurScript(p, true, dummy);
 		cur = cur->m_next;
 	} while (cur != m_head);
 }

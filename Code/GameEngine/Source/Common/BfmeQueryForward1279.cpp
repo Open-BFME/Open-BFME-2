@@ -13,7 +13,7 @@ struct BfmeInput1279
 	void *m_value;
 };
 
-class BfmeWrapper1279
+class AptDisplayList
 {
 public:
 	void bfmeProcess1279(void *value);
@@ -24,14 +24,14 @@ private:
 	BfmeQuery1279 *m_query;
 };
 
-void BfmeWrapper1279::bfmeForwardValue1279(void *value)
+void AptDisplayList::bfmeForwardValue1279(void *value)
 {
 	void *other;
 	m_query->bfmeQuery1279((int)value, 0, &other, &value);
 	bfmeProcess1279(value);
 }
 
-void BfmeWrapper1279::bfmeForward1279(BfmeInput1279 *input)
+void AptDisplayList::bfmeForward1279(BfmeInput1279 *input)
 {
 	void *other;
 	m_query->bfmeQuery1279((int)input->m_value, 0, &other, (void **)&input);

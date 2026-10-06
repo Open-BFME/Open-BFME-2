@@ -1,5 +1,5 @@
 // cl: /MD
-// ??0Rva005D7706@@QAE@XZ @0x005D76F4 18B, ??0Rva005D7855@@QAE@XZ @0x005D7843 18B,
+// ??0AISpellBookTreeKiller@@QAE@XZ @0x005D76F4 18B, ??0Rva005D7855@@QAE@XZ @0x005D7843 18B,
 // ??0Rva005D7B3E@@QAE@XZ @0x005D7B2C 18B, ??0Rva005D7D88@@QAE@XZ @0x005D7D76 18B,
 // ??0Rva005D817D@@QAE@XZ @0x005D816B 18B, ??0Rva005D8223@@QAE@XZ @0x005D8211 18B,
 // ??0Rva005D86E6@@QAE@XZ @0x005D86D4 18B, ??0Rva005D8AE4@@QAE@XZ @0x005D8AD2 18B,
@@ -22,14 +22,14 @@ public:
 	virtual ~Rva005EE30C();
 };
 
-class Rva005D7706 : public Rva005EE30C
+class AISpellBookTreeKiller : public Rva005EE30C
 {
 public:
-	Rva005D7706();
-	virtual ~Rva005D7706();
+	AISpellBookTreeKiller();
+	virtual ~AISpellBookTreeKiller();
 };
 
-Rva005D7706::Rva005D7706()
+AISpellBookTreeKiller::AISpellBookTreeKiller()
 {
 }
 

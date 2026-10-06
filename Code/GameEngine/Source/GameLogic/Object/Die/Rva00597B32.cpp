@@ -1,5 +1,5 @@
 // cl: /GX-
-// ?rva00597B32@Rva00597B32@@QAEXXZ @0x00597B32 162B: vslot2 of 0x00870C18 clearing two voidptr vectors with slot0+delete then hero remove via g_00DFEEF8 and ScienceType clear; callers 0x00597BFE
+// ?shutdown@AIUpgradeScienceBuilder@@QAEXXZ @0x00597B32 162B: vslot2 of 0x00870C18 clearing two voidptr vectors with slot0+delete then hero remove via g_00DFEEF8 and ScienceType clear; callers 0x00597BFE
 class Player;
 class CreateAHeroData;
 
@@ -48,10 +48,10 @@ public:
 
 void __cdecl operator delete(void *p);
 
-class Rva00597B32
+class AIUpgradeScienceBuilder
 {
 public:
-	void rva00597B32();
+	void shutdown();
 private:
 	char m_pad00[8];
 	Player *m_player08;
@@ -61,7 +61,7 @@ private:
 	int m_tail30;
 };
 
-void Rva00597B32::rva00597B32()
+void AIUpgradeScienceBuilder::shutdown()
 {
 	void **it = m_vec18.m_start;
 	void **finish = m_vec18.m_finish;

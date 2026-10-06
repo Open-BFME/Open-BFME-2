@@ -4,7 +4,7 @@
 // eax,[ecx+0x24] / mov eax,[eax+0x13C] / mov ecx,[0x00DFEF10] / push 0 /
 // push eax / call 0x002B51F8 / ret (24B).
 // Evidence: unlock lane; callers at 0x004E08C2 0x004E248B 0x004E255C 0x004E2615;
-// same id-chase plus find pattern as Rva004FA5F8 and Rva005F002CImageFind.
+// same id-chase plus find pattern as LivingWorldBuildingNuggetSpawnArmy and Rva005F002CImageFind.
 // No // cl: line (defaults; neighbours default).
 class Rva002E2903Player;
 class Rva002BA8F1Logic { public: Rva002E2903Player *find(int, unsigned int *); };

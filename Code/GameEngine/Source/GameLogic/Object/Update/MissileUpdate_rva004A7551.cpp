@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD
 
-// ?rva004A7551@MissileUpdate@@QAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z @0x004A7551 47B: MissileUpdate gap forward to Bezier rva0045B936 with victim id to m74.
-// Target evidence: gap between Rva004A7530Set and rva004A7580 in MissileUpdateCtor TU plus copy [eax+0x74] to [ecx+0x74] plus call Bezier rva0045B936 0x0045B936; callees rowed.
+// ?rva004A7551@MissileUpdate@@QAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z @0x004A7551 47B: MissileUpdate gap forward to Bezier projectileLaunchAtObjectOrPosition with victim id to m74.
+// Target evidence: gap between Rva004A7530Set and rva004A7580 in MissileUpdateCtor TU plus copy [eax+0x74] to [ecx+0x74] plus call Bezier projectileLaunchAtObjectOrPosition 0x0045B936; callees rowed.
 
 class Object;
 struct Coord3D;
@@ -12,7 +12,7 @@ class Matrix3D;
 class BezierProjectileBehavior
 {
 public:
-	virtual void rva0045B936(Object *victim, const Coord3D *victimPos, Object *launcher, int wslot, int specificBarrel, const Rva0045B936Arg *arg6, Rva002CBA7C *helper, const Matrix3D *mtx);
+	virtual void projectileLaunchAtObjectOrPosition(Object *victim, const Coord3D *victimPos, Object *launcher, int wslot, int specificBarrel, const Rva0045B936Arg *arg6, Rva002CBA7C *helper, const Matrix3D *mtx);
 protected:
 	char m_pad04[0x74 - 4];
 	unsigned int m_74;
@@ -51,5 +51,5 @@ void MissileUpdate::rva004A7551(Object *victim, const Coord3D *victimPos, Object
 {
 	if (victim != 0)
 		m_74 = victim->m_id;
-	BezierProjectileBehavior::rva0045B936(victim, victimPos, launcher, wslot, specificBarrel, arg6, helper, mtx);
+	BezierProjectileBehavior::projectileLaunchAtObjectOrPosition(victim, victimPos, launcher, wslot, specificBarrel, arg6, helper, mtx);
 }

@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva002786D9@Drawable@@QAEXPAVXfer@@@Z, retail 0x002786D9, 400 bytes.
+// ?xferDrawableModules@Drawable@@QAEXPAVXfer@@@Z, retail 0x002786D9, 400 bytes.
 // Drawable xferDrawableModules: version via rowed Version1 0x000053EE then
 // IsStoring then UShort count at +0x14C array (3 types) then per-module
 // keyToName/nameToKey via TheNameKeyGenerator plus DrawableModule
@@ -88,13 +88,13 @@ public:
 class Drawable
 {
 public:
-	void rva002786D9(Xfer *xfer);
+	void xferDrawableModules(Xfer *xfer);
 private:
 	unsigned char m_opaque[0x14C];
 	Module **m_modules[3];
 };
 
-void Drawable::rva002786D9(Xfer *xfer)
+void Drawable::xferDrawableModules(Xfer *xfer)
 {
 	xfer->Version1();
 	xfer->IsStoring();

@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// Retail 0x0049283E (242 bytes): WeaponFireSpecialAbilityUpdate::rva0049283E,
+// Retail 0x0049283E (242 bytes): WeaponFireSpecialAbilityUpdate::startUnpacking,
 // slot 22 of the primary vtable 0x00C4E090 that the matched
 // WeaponFireSpecialAbilityUpdate dtor installs; it overrides the
 // SpecialAbilityUpdate slot 22 (0x004508B7, pinned) and calls it first, like
@@ -126,11 +126,11 @@ public:
 class WeaponFireSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0049283E();
+	virtual void startUnpacking();
 private:
 	const Rva0049283EHolder *m_88; // +0x88
 };
-void WeaponFireSpecialAbilityUpdate::rva0049283E()
+void WeaponFireSpecialAbilityUpdate::startUnpacking()
 {
 	SpecialAbilityUpdate::rva004508B7();
 	const WeaponFireSpecialAbilityUpdateModuleData *data = (const WeaponFireSpecialAbilityUpdateModuleData *)m_moduleData;

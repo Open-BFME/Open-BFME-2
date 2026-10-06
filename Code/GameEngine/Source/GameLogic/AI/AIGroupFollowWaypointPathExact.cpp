@@ -34,7 +34,7 @@ public:
 	void rva0036F265(Object *obj, CommandSourceType cmdSource);
 	void rva0036F2CA(Object *obj, CommandSourceType cmdSource);
 	void rva0026C3AC(Object *obj, CommandSourceType cmdSource);
-	void rva0036F32F(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiHarvest(const Coord3D *pos, CommandSourceType cmdSource);
 	void aiExit(Object *objectToExit, CommandSourceType cmdSource);
 	void rva0036F400(const Rva003427DD *arg, CommandSourceType cmdSource);
 };
@@ -65,7 +65,7 @@ public:
 	void rva0037012C(Object *obj, CommandSourceType cmdSource);
 	void rva00370162(Object *obj, CommandSourceType cmdSource);
 	void rva00370217(Object *obj, CommandSourceType cmdSource);
-	void rva0037024D(const Coord3D *pos, CommandSourceType cmdSource);
+	void groupHarvest(const Coord3D *pos, CommandSourceType cmdSource);
 	void groupExit(Object *objectToExit, CommandSourceType cmdSource);
 	void rva00370399(const Rva003427DD *arg, CommandSourceType cmdSource);
 private:
@@ -166,14 +166,14 @@ void AIGroup::rva00370217(Object *obj, CommandSourceType cmdSource)
 	}
 }
 
-// retail 0x0037024D, 54 bytes -> AICommandInterface::rva0036F32F
-void AIGroup::rva0037024D(const Coord3D *pos, CommandSourceType cmdSource)
+// retail 0x0037024D, 54 bytes -> AICommandInterface::aiHarvest
+void AIGroup::groupHarvest(const Coord3D *pos, CommandSourceType cmdSource)
 {
 	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
 	{
 		AIUpdateInterface *ai = (*i)->m_ai;
 		if (ai != 0)
-			ai->m_commands.rva0036F32F(pos, cmdSource);
+			ai->m_commands.aiHarvest(pos, cmdSource);
 	}
 }
 

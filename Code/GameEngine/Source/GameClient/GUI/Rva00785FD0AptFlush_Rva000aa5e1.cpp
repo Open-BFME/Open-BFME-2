@@ -1,5 +1,5 @@
 //
-// ?rva00785FD0Flush@@YAXXZ
+// ?rebuildMask@@YAXXZ
 // retail 0x000AA5E1, 100 bytes. Dedicated TU ported from the Open-BFME-1
 // donor game/GameEngine/Source/GameClient/GUI/Rva00785FD0AptFlush.cpp
 // (reference/open-bfme-1). The donor body is byte-identical to retail once
@@ -37,7 +37,7 @@ extern char g_rva00785FD0Dirty;
 extern Rva00785FD0Renderer *g_rva00785FD0Renderer;
 extern Rva00785FD0Node *g_rva00785FD0Queue;
 
-void rva00785FD0Flush()
+void rebuildMask()
 {
 	if (g_rva00785FD0Dirty == 0)
 		return;

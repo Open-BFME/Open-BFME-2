@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0057D10F@AptMapPreview@@QAEXPAVMapMetaData@@@Z @0x0057D10F 139B
-// Evidence: caller 0x0057E058 passes MapMetaData* (same slot as bfmeSetMapTitle
+// Evidence: caller 0x0057E058 passes MapMetaData* (same slot as UpdateMapTitle
 // 0x0057C8D1 and bfmeSetMapDescription 0x0057C892); callee bfmeCreateMapPictureImage
 // 0x0057CDC3 takes MapMetaData+0x50 AsciiString; fallback uses "MissingMap" via
 // rowed StringBase ctor 0x00037BA0 plus rowed findImageByName 0x002D92F6 through

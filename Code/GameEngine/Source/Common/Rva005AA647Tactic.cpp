@@ -4,8 +4,8 @@
 // 0x005AA647 and ??_G are rowed in Rva005DC73CDerived.cpp). One of the
 // prototypes the Rva00506909 generator seeds its +0x04 pool with
 // (0x00505E5D news 0x58 bytes and runs the ctor below), and slot 9 clones
-// it. Base chain, all address-derived: Rva005DC73C (ctor 0x005DC722, dtor
-// 0x005DC73C) over the AITactic.cpp object Rva004ECECD.
+// it. Base chain, all address-derived: AITacticOffensive (ctor 0x005DC722, dtor
+// 0x005DC73C) over the AITactic.cpp object AITactic.
 //
 //   0x005AA6B4  ctor: base ctor with the tactic name
 //   0x005AA652  slot 1: the base's applicability test as bool
@@ -22,27 +22,27 @@ struct Rva005AA647Record
 	bool m_18;		// +0x18
 };
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual bool appliesTo(void *request);
-	virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5();
-	virtual void v6();
-	virtual void v7();
+	virtual ~AITactic();
+	virtual bool canRun(void *request);
+	virtual void cleanUp(); virtual void initializeTeamTemplate(); virtual void v4(); virtual void v5();
+	virtual void run();
+	virtual void update();
 	virtual void v8();
-	virtual Rva004ECECD *create();
+	virtual AITactic *create();
 	unsigned char rva004ED169();
 	void rva004ED342(void *point);
-	void rva004ED748(int a, int b);
+	void end(int a, int b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	Rva005DC73C(const AsciiString &name);
-	virtual ~Rva005DC73C();
-	unsigned char rva005DC763(void *request);
+	AITacticOffensive(const AsciiString &name);
+	virtual ~AITacticOffensive();
+	unsigned char checkTarget(void *request);
 	char m_pad04[0x10 - 4];
 	bool m_running;			// +0x10
 	char m_pad11[0x20 - 0x11];
@@ -50,39 +50,39 @@ public:
 	char m_pad24[0x58 - 0x24];
 };
 
-class Rva005AA647 : public Rva005DC73C
+class AISimpleAttackTactic : public AITacticOffensive
 {
 public:
-	Rva005AA647();
-	virtual ~Rva005AA647();
-	virtual bool appliesTo(void *request);
-	virtual void v6();
-	virtual void v7();
-	virtual Rva004ECECD *create();
+	AISimpleAttackTactic();
+	virtual ~AISimpleAttackTactic();
+	virtual bool canRun(void *request);
+	virtual void run();
+	virtual void update();
+	virtual AITactic *create();
 };
 
-Rva005AA647::Rva005AA647()
-	: Rva005DC73C(AsciiString("SimpleAttack"))
+AISimpleAttackTactic::AISimpleAttackTactic()
+	: AITacticOffensive(AsciiString("SimpleAttack"))
 {
 }
 
-bool Rva005AA647::appliesTo(void *request)
+bool AISimpleAttackTactic::canRun(void *request)
 {
-	return rva005DC763(request) ? true : false;
+	return checkTarget(request) ? true : false;
 }
 
-void Rva005AA647::v6()
+void AISimpleAttackTactic::run()
 {
 	rva004ED342(m_record->m_point0C);
 }
 
-void Rva005AA647::v7()
+void AISimpleAttackTactic::update()
 {
 	if (m_running && (rva004ED169() || m_record->m_18))
-		rva004ED748(1, 0);
+		end(1, 0);
 }
 
-Rva004ECECD *Rva005AA647::create()
+AITactic *AISimpleAttackTactic::create()
 {
-	return new Rva005AA647;
+	return new AISimpleAttackTactic;
 }

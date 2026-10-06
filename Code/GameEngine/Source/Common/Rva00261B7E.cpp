@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ?rva00261B7E@Rva002611F2@@UAE_NPAVObject@@@Z retail 0x00261B7E 125 bytes.
+// ?rva00261B7E@PartitionFilterRejectBuildings@@UAE_NPAVObject@@@Z retail 0x00261B7E 125 bytes.
 // Vslot 1 filter checking arg template flags 0x108 0x10E plus this obj
 // controlling player plus provider slot 0x4C plus this flag plus arg
 // template 0x110 plus provider null plus rowed isAbleToAttack returning
@@ -73,7 +73,7 @@ private:
 	int m_base4;
 };
 
-class Rva002611F2 : public Rva002611F2Base
+class PartitionFilterRejectBuildings : public Rva002611F2Base
 {
 public:
 	virtual void dummy();
@@ -83,7 +83,7 @@ private:
 	bool m_flag;
 };
 
-bool Rva002611F2::rva00261B7E(Object *obj)
+bool PartitionFilterRejectBuildings::rva00261B7E(Object *obj)
 {
 	ObjectTemplate *t = obj->m_template04;
 	if ((t->m_108 & 0x80) == 0)

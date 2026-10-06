@@ -10,6 +10,9 @@
 // Evidence: base-ctor call 0x00253390, Rva0029FB3BMember::init 0x0029FB3B
 // and reset 0x0026549E, six explicit secondary vtable installs, memset zero
 // cluster at +0x2C, nested 4x3 loops over +0xA3C/+0xA6C/+0xA9C/+0xACC.
+extern "C" const void *const vtbl_00C1C780[];  // folded, 35 classes; via ??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C1C780=??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")
+
 extern "C" const void *const vtbl_00C409DC[];  // ??_7BridgeBehavior@@6BRva0024A797@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C409DC=??_7BridgeBehavior@@6BRva0024A797@@@")
 
@@ -114,7 +117,7 @@ BridgeBehavior::BridgeBehavior(Thing *thing, const ModuleData *moduleData)
 	*(volatile unsigned int *)((char *)this + 0x20) = ((unsigned int)vtbl_00C40818);
 	*(volatile unsigned int *)((char *)this + 0x24) = ((unsigned int)vtbl_00BE2B78);
 	int *p28 = (int *)((char *)this + 0x28);
-	*p28 = 0x00C1C780;
+	*p28 = ((unsigned int)vtbl_00C1C780);
 	void *context = (void *)((char *)&moduleData + 3);
 	Rva0029FB3BMember *free = &m_free;
 	*(unsigned int *)this = ((unsigned int)vtbl_00C409DC);

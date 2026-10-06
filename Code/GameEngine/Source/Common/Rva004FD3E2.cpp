@@ -1,7 +1,7 @@
 // cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
-// ?rva004FD3E2@Rva004FD3E2@@QAEXPBVModuleData@@@Z @0x004FD3E2 102B.
+// ?addTeamDefeatCondition@Scenario@LivingWorldScenario@@QAEXPBVModuleData@@@Z @0x004FD3E2 102B.
 // Multimap<int int> insert per int plus vector<ModuleData*> push_back.
 // Evidence: unlock lane unblocks 0x004FD77C TeamDefeatCondition ParseINI;
 // caller 0x004FD7B5 passes new Rva004FCD49 0x14 with vector<int> at +4 in push
@@ -39,9 +39,15 @@ struct Rva004FCD49Vec {
     int m_10;
 };
 
-class Rva004FD3E2 {
+class LivingWorldScenario
+{
 public:
-    void rva004FD3E2(const ModuleData *p);
+	class Scenario;
+};
+
+class LivingWorldScenario::Scenario {
+public:
+    void addTeamDefeatCondition(const ModuleData *p);
     void rva004FD533(int key, int unused, int *out) const;
     bool rva004FD613(int key) const;
 private:
@@ -51,7 +57,7 @@ private:
     _STL::vector<const ModuleData *> m_vec;
 };
 
-void Rva004FD3E2::rva004FD3E2(const ModuleData *p)
+void LivingWorldScenario::Scenario::addTeamDefeatCondition(const ModuleData *p)
 {
     if (!p)
         return;
@@ -63,7 +69,7 @@ void Rva004FD3E2::rva004FD3E2(const ModuleData *p)
     m_vec.push_back(p);
 }
 
-void Rva004FD3E2::rva004FD533(int key, int unused, int *out) const
+void LivingWorldScenario::Scenario::rva004FD533(int key, int unused, int *out) const
 {
     (void)unused;
     *out = 0;
@@ -75,7 +81,7 @@ void Rva004FD3E2::rva004FD533(int key, int unused, int *out) const
             *out = v;
     }
 }
-bool Rva004FD3E2::rva004FD613(int key) const
+bool LivingWorldScenario::Scenario::rva004FD613(int key) const
 {
     _STL::pair<_STL::multimap<int, int>::const_iterator, _STL::multimap<int, int>::const_iterator> r = m_map.equal_range(key);
     for (_STL::multimap<int, int>::const_iterator it = r.first; it != r.second; ++it) {

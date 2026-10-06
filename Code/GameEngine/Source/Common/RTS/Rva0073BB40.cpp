@@ -7,7 +7,7 @@
 // Callers 0x0073C3B0 0x0073C450 0x0073C7C0 pass grid as +4 mask as +8; this+0 is vtable, +4 grid, +8 mask.
 // Returns 1 always; ret 0xc is (x1 x2 y).
 class BfmeCellFD;
-class ShroudManagerImpl008FBA40;
+class ShroudManagerImpl;
 class ShroudManagerImpl008FBA40Element;
 
 class Gen_008F7CD0
@@ -19,7 +19,7 @@ public:
 class ShroudManagerImpl008FBA40Element
 {
 public:
-	void updatePlayerCells008FC3B0(ShroudManagerImpl008FBA40 *manager, int playerIndex);
+	void updatePlayerCells008FC3B0(ShroudManagerImpl *manager, int playerIndex);
 };
 
 class Rva0073BB40
@@ -54,7 +54,7 @@ char Rva0073BB40::rva0073BB40(int x1, int x2, int y)
 					{
 						if (testFunc(x, y))
 							((ShroudManagerImpl008FBA40Element *)cell)->updatePlayerCells008FC3B0(
-								(ShroudManagerImpl008FBA40 *)m_grid, index);
+								(ShroudManagerImpl *)m_grid, index);
 						++x;
 						cell = (BfmeCellFD *)((char *)cell + 0xA8);
 					} while (cell != end);

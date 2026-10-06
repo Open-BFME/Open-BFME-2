@@ -24,6 +24,8 @@ namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
 
+extern "C" const void *const vtbl_00C594E0[];
+
 template <typename T> class StringBase
 {
 public:
@@ -60,7 +62,7 @@ private:
 };
 
 GrantUpgradeCreateModuleData::GrantUpgradeCreateModuleData()
-	: m_vtable(reinterpret_cast<const void *>(0x00C594E0))
+	: m_vtable(reinterpret_cast<const void *>(((unsigned int)vtbl_00C594E0)))
 	, m_upgradeName()
 {
 	((_STL::bitset<128> *)m_exemptStatus)->reset();

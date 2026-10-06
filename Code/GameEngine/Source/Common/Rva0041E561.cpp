@@ -42,10 +42,10 @@ private:
 	_STL::vector<const ModuleData *> m_vec;
 };
 
-class Rva005737AF : public ModuleData
+class AITargetHeuristicBaseDefense : public ModuleData
 {
 public:
-	Rva005737AF();
+	AITargetHeuristicBaseDefense();
 private:
 	int m_pad;
 };
@@ -92,7 +92,7 @@ private:
 
 void Rva0041E4A3::rva0041E561()
 {
-	m_vec.push_back(new Rva005737AF);
+	m_vec.push_back(new AITargetHeuristicBaseDefense);
 	m_vec.push_back(new Rva005734EB);
 	m_vec.push_back(new Rva00573117);
 	m_vec.push_back(new Rva00572ED8);

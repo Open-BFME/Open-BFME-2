@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /GX-
-// ?rva00599564@Rva00599564@@QAEXPAVObject@@@Z, retail 0x00599564, 162 bytes.
+// ?buildDozer@AIDozerManager@@QAEXPAVObject@@@Z, retail 0x00599564, 162 bytes.
 // Unlock lane; prev Rva00599534EraseFirst /O1 GX- SSE2; callers 0x00599EAC.
 // Evidence: pin-only callees 0x002A8AB1 0x0028BC58; rowed 0x00327C1B 0x002D06CA;
 // TheEmptyString; g_009FF000; g_00DFEEF8; virtual slots +0x44 +0x54 +0x8 +0x20.
@@ -72,10 +72,10 @@ public:
 extern Rva002A8F24 *g_00DFEEF8;
 extern class Rva002D06CA *TheThingFactory;
 
-class Rva00599564
+class AIDozerManager
 {
 public:
-	void rva00599564(Object *obj);
+	void buildDozer(Object *obj);
 private:
 	char m_pad00[8];
 	AsciiString m_str; // +0x08
@@ -83,7 +83,7 @@ private:
 	unsigned char m_10; // +0x10
 };
 
-void Rva00599564::rva00599564(Object *obj)
+void AIDozerManager::buildDozer(Object *obj)
 {
 	int zero = 0;
 	Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(m_0c);

@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva000FE207@Rva000FE001@@QAEPAUFeNode@@PBM0H@Z @0x000FE207 137B.
+// ?rva000FE207@WaterTracksRenderSystem@@QAEPAUFeNode@@PBM0H@Z @0x000FE207 137B.
 // Evidence: container +0x10 head and +0xb0 next match Rva000FE001Move;
 // float pairs +0x60/+0x64 vs arg2 and +0x58/+0x5c vs arg1 via movss/ucomiss;
 // dword +0x30 vs arg3; ret 0xC with 3 stack args; caller 0x000FF7C8.
@@ -21,7 +21,7 @@ struct FeNode
 	FeNode *m_prev;
 };
 
-class Rva000FE001
+class WaterTracksRenderSystem
 {
 public:
 	FeNode *rva000FE207(const float *a, const float *b, int c);
@@ -32,7 +32,7 @@ private:
 	FeNode *m_head14;
 };
 
-FeNode *Rva000FE001::rva000FE207(const float *a, const float *b, int c)
+FeNode *WaterTracksRenderSystem::rva000FE207(const float *a, const float *b, int c)
 {
 	FeNode *node = m_tail10;
 	while (node != 0)

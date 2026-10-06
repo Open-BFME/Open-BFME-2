@@ -65,15 +65,15 @@ public:
 
 class CDEProvider;
 
-class ShroudManagerImpl008FBA40
+class ShroudManagerImpl
 {
 public:
 	void setEnabled_Rva0073B460(bool value);
 	void rva008F8C70(CDEProvider *first, CDEProvider *second);
-	void updatePlayerCells300And3B0_Rva0073B3B0(int value);
+	void RevealMapForPlayer(int value);
 	void notify();
-	int getPlayerStatusWord_Rva0073B890(int playerIndex, const Coord3D *pos) const;
-	ObjectShroudStatus getPropShroudStatusForPlayer(int playerIndex, const Coord3D *pos) const;
+	int GetLookerCount(int playerIndex, const Coord3D *pos) const;
+	ObjectShroudStatus GetPropShroudStatusForPlayer(int playerIndex, const Coord3D *pos) const;
 };
 
 class PartitionManager
@@ -91,7 +91,7 @@ public:
 	void rva00625320(void *ptr);
 	void rva00625330(void *ptr);
 	void rva00625340(int a, int b, int c);
-	// Retail 0x007397A0 forwards to ShroudManagerImpl008FBA40::setEnabled_Rva0073B460
+	// Retail 0x007397A0 forwards to ShroudManagerImpl::setEnabled_Rva0073B460
 	// (single-byte enabled flag at +0x68). Identity unproven, honest address name.
 	void rva007397A0(bool value);
 
@@ -155,7 +155,7 @@ void PartitionManager::rva00625340(int a, int b, int c)
 // ?rva007397A0@PartitionManager@@QAEX_N@Z
 void PartitionManager::rva007397A0(bool value)
 {
-	reinterpret_cast<ShroudManagerImpl008FBA40 *>(m_shroudManager)->setEnabled_Rva0073B460(value);
+	reinterpret_cast<ShroudManagerImpl *>(m_shroudManager)->setEnabled_Rva0073B460(value);
 }
 
 //
@@ -239,7 +239,7 @@ public:
 	void rva00739760(CDEProvider *first, CDEProvider *second);
 private:
 	char m_pad[0x10];
-	ShroudManagerImpl008FBA40 *m_cell; // +0x10
+	ShroudManagerImpl *m_cell; // +0x10
 };
 
 void Rva00739760::rva00739760(CDEProvider *first, CDEProvider *second)
@@ -275,12 +275,12 @@ public:
 	void rva00739780(int value);
 private:
 	char m_pad[0x10];
-	ShroudManagerImpl008FBA40 *m_cell; // +0x10
+	ShroudManagerImpl *m_cell; // +0x10
 };
 
 void Rva00739780::rva00739780(int value)
 {
-	m_cell->updatePlayerCells300And3B0_Rva0073B3B0(value);
+	m_cell->RevealMapForPlayer(value);
 }
 
 //
@@ -293,7 +293,7 @@ public:
 	void rva007397D0();
 private:
 	char m_pad[0x10];
-	ShroudManagerImpl008FBA40 *m_cell; // +0x10
+	ShroudManagerImpl *m_cell; // +0x10
 };
 
 void Rva007397D0::rva007397D0()
@@ -311,12 +311,12 @@ public:
 	int rva007397E0(int playerIndex, const Coord3D *pos) const;
 private:
 	char m_pad[0x10];
-	ShroudManagerImpl008FBA40 *m_cell; // +0x10
+	ShroudManagerImpl *m_cell; // +0x10
 };
 
 int Rva007397E0::rva007397E0(int playerIndex, const Coord3D *pos) const
 {
-	return m_cell->getPlayerStatusWord_Rva0073B890(playerIndex, pos);
+	return m_cell->GetLookerCount(playerIndex, pos);
 }
 
 //
@@ -329,12 +329,12 @@ public:
 	ObjectShroudStatus rva00739800(int playerIndex, const Coord3D *pos) const;
 private:
 	char m_pad[0x10];
-	ShroudManagerImpl008FBA40 *m_cell; // +0x10
+	ShroudManagerImpl *m_cell; // +0x10
 };
 
 ObjectShroudStatus Rva00739800::rva00739800(int playerIndex, const Coord3D *pos) const
 {
-	return m_cell->getPropShroudStatusForPlayer(playerIndex, pos);
+	return m_cell->GetPropShroudStatusForPlayer(playerIndex, pos);
 }
 
 //

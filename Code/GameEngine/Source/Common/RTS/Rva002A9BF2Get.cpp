@@ -58,22 +58,22 @@ public:
 
 class Object;
 
-class BFMEPathfinderMapShim
+class Pathfinder
 {
 public:
-	void rva002E718A(Object *obj);
-	void addObjectToPathfindMap(Object *obj);
+	void RemoveObjectFromPathfindMap(Object *obj);
+	void AddObjectToPathfindMap(Object *obj);
 };
 
 class AI
 {
 public:
 	char _pad[0x10];
-	BFMEPathfinderMapShim *m_shim;
+	Pathfinder *m_shim;
 };
 
-extern class AI *TheAI;
-extern class ScriptEngine *TheScriptEngine;
+extern AI *g_Va009FF0F8;
+extern ScriptEngine *g_Va009FE16C;
 
 struct BfmeWorldRV
 {
@@ -86,7 +86,7 @@ extern struct BfmeWorldRV *g_bfmeWorldRV;
 class Object
 {
 public:
-	void rva0028D99A(bool flag);
+	void friend_adjustPowerForPlayer(bool flag);
 	void *rva0028BD17() const;
 	void rva0028DA67();
 };
@@ -116,10 +116,10 @@ public:
 
 void Rva002A9BF2::rva002A9D02(int a1, Object *obj, int a3)
 {
-	((Rva002039B6Host *)TheScriptEngine)->rva002039B6();
-	TheAI->m_shim->rva002E718A(obj);
-	TheAI->m_shim->addObjectToPathfindMap(obj);
-	obj->rva0028D99A(true);
+	((Rva002039B6Host *)g_Va009FE16C)->rva002039B6();
+	g_Va009FF0F8->m_shim->RemoveObjectFromPathfindMap(obj);
+	g_Va009FF0F8->m_shim->AddObjectToPathfindMap(obj);
+	obj->friend_adjustPowerForPlayer(true);
 	if (m_window)
 		((GameWindowVirt *)m_window)->v8(a1, obj);
 	if (g_bfmeWorldRV)

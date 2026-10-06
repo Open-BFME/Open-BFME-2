@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?rva005FB872@Rva005FB770@@QAEXH@Z @ 0x005FB872 66B
+// ?rva005FB872@Impl@DynamicAutoResolvePlayerPanelMovieClip@StrategicHUD@@QAEXH@Z @ 0x005FB872 66B
 // Apt SetPlayerColor setter with the colour cache at +0x2c; team name at +8 else
 // the default-team constant at VA 0xBBAC1C; level at +4. Evidence: "SetPlayerColor"
 // at VA 0x878610, default-team constant VA 0xBBAC1C, manager VA 0xDFE4CC, wrapper
@@ -19,7 +19,15 @@ struct Rva005FB872Team
     const char *m_name;
 };
 
-class Rva005FB770
+namespace StrategicHUD {
+class DynamicAutoResolvePlayerPanelMovieClip
+{
+public:
+	class Impl;
+};
+}
+
+class StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl
 {
 public:
     void rva005FB872(int color);
@@ -36,7 +44,7 @@ private:
 extern int __cdecl Rva0052519DFire(void *, void *, const char *, const char *,
                                    int *);
 
-void Rva005FB770::rva005FB872(int color)
+void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::rva005FB872(int color)
 {
     int c;
     if (color == m_cachedColor)

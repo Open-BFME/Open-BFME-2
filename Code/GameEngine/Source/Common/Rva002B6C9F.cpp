@@ -11,7 +11,11 @@
 //   test al,al; setne al
 //   EXIT: pop esi; pop ebp; ret 0xC
 // Note the 4th 0x2B6BCF arg is &a3 here (its 70B sibling at 0x2B6C9F
-// passes &a1 instead). The sibling is banked separately (0.97 stash).
+// passes &a1 instead).
+// ?rva002B6C9F@Rva002B6C9F@@QAE_NHHH@Z @0x002B6C9F 70B: the longer sibling.
+// Fails on a failed 0x2B2C40 check or a failed 0x2B6BCF stage (passing &a1),
+// else returns the rowed 0x3193EC check on the third argument through a
+// ternary, which is what gives retail's test al,al / setne al tail.
 // Boundary: 51B [0x2B6CE5,0x2B6D18); prev ret, next prologue. Names
 // address-derived except rowed callees and the 0x2B6BCF pin.
 struct Arg54;

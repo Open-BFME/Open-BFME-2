@@ -25,7 +25,7 @@ struct Rva002E7205Slot
 	char m_pad3C[0x40 - 0x3C];
 };
 
-class Rva005312BE
+class PathfindZoneManager
 {
 public:
 	void rva00531481();
@@ -39,7 +39,7 @@ private:
 	char m_pad00[0x60];
 	Rva002E7205Slot m_slots[1]; // +0x60, 64-byte stride
 	char m_padA0[0x460 - 0xA0];
-	Rva005312BE m_s460; // +0x460
+	PathfindZoneManager m_s460; // +0x460
 };
 
 // ?rva002E7205@Rva002E7205Owner@@QAEXH_N@Z

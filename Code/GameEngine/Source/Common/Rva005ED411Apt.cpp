@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?rva005ED411@Rva005ED445@@QAEXXZ @0x005ED411 52B: Apt FadeOut call with level and prefix from +4 and +8 then state 2 at +0x24. Evidence: calls rowed 0x00524EF4 AptCall; caller thunk 0x005ED5EB loads ecx+4; same +4 level and +8 outer layout as Rva005ED445 neighbour; FadeOut literal; empty-string and TheTarget globals.
+// ?rva005ED411@StrategicHUD::RegionAwardMovieClip::Impl@@QAEXXZ @0x005ED411 52B: Apt FadeOut call with level and prefix from +4 and +8 then state 2 at +0x24. Evidence: calls rowed 0x00524EF4 AptCall; caller thunk 0x005ED5EB loads ecx+4; same +4 level and +8 outer layout as StrategicHUD::RegionAwardMovieClip::Impl neighbour; FadeOut literal; empty-string and TheTarget globals.
 #include "ascii_string.h"
 
 struct Rva005ED445Inner
@@ -19,7 +19,15 @@ extern const char g_Rva0107301CEmptyString[];
 
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
-class Rva005ED445
+namespace StrategicHUD {
+class RegionAwardMovieClip
+{
+public:
+	class Impl;
+};
+}
+
+class StrategicHUD::RegionAwardMovieClip::Impl
 {
 public:
 	void rva005ED411();
@@ -37,7 +45,7 @@ public:
 	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
 };
 
-void Rva005ED445::rva005ED411()
+void StrategicHUD::RegionAwardMovieClip::Impl::rva005ED411()
 {
 	const char *prefix = m_outer.m_ptr ? m_outer.m_ptr->m_name : g_Rva0107301CEmptyString;
 	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_level, prefix, "FadeOut");

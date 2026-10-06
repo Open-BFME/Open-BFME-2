@@ -47,7 +47,6 @@ int _ALERT(lua_State *state);
 int GetFrame(lua_State *state);
 int EvaluateCondition(lua_State *state);
 int ExecuteAction(lua_State *state);
-int Rva00334DDFObjectDescribe(lua_State *state);
 int ObjectSpy(lua_State *state);
 int ObjectDispatchEvent(lua_State *state);
 int ObjectBroadcastEventToEnemies(lua_State *state);
@@ -85,17 +84,13 @@ int ObjectChangeAllegianceFromNonPlayablePlayer(lua_State *state);
 int GetRandomNumber(lua_State *state);
 int Rva00334D16(lua_State *state);
 
-class Rva003340C1
-{
-public:
-	void rva003345BE(const char *filename);
-};
-
 class LuaScriptEngine
 {
 public:
 	void rva00338317RegisterScriptFunctions();
-	void rva00338241(const char *filename, bool reload);
+	void LoadXML(const char *filename, bool reload);
+	void LoadScripts(const char *filename);
+	static int ObjectDescription(lua_State *state);
 
 private:
 	char m_pad00[0x0C];
@@ -116,7 +111,7 @@ void LuaScriptEngine::rva00338317RegisterScriptFunctions()
 		lua_setglobal(m_luaState, "EvaluateCondition");
 		luaV_Cclosure(m_luaState, ExecuteAction, 0);
 		lua_setglobal(m_luaState, "ExecuteAction");
-		luaV_Cclosure(m_luaState, Rva00334DDFObjectDescribe, 0);
+		luaV_Cclosure(m_luaState, ObjectDescription, 0);
 		lua_setglobal(m_luaState, "ObjectDescription");
 		luaV_Cclosure(m_luaState, ObjectSpy, 0);
 		lua_setglobal(m_luaState, "ObjectSpy");
@@ -192,6 +187,6 @@ void LuaScriptEngine::rva00338317RegisterScriptFunctions()
 		lua_setglobal(m_luaState, "ObjectForbidPlayerCommands");
 		lua_setlinehook(m_luaState, (LuaHook)bfmeHandleDeactivation574);
 	}
-	((Rva003340C1 *)this)->rva003345BE("Data\\Scripts\\Scripts.lua");
-	rva00338241("Data\\Scripts\\ScriptEvents.xml", false);
+	LoadScripts("Data\\Scripts\\Scripts.lua");
+	LoadXML("Data\\Scripts\\ScriptEvents.xml", false);
 }

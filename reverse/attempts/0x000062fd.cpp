@@ -1,4 +1,6 @@
 // ?rva000062FD@Region2D@@QBE_NABVCoord2D@@0@Z
+// partial score=0.7497 date=2026-10-05
+// ?rva000062FD@Region2D@@QBE_NABVCoord2D@@0@Z
 // partial score=0.92 date=2026-09-26
 // ?rva000062FD@Region2D@@QBE_NABVCoord2D@@0@Z
 // partial score=0.92 date=2026-09-26

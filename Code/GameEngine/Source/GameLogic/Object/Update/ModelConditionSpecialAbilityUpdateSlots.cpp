@@ -17,7 +17,7 @@
 // 0x004502CE: runs it, then clears the bit slot 22 set (same choice by module
 // data +0xC8) and notifies when it was set.
 //
-// ?rva0045108D@ModelConditionSpecialAbilityUpdate@@UAEXXZ, retail 0x00490FAE, 313 bytes.
+// ?triggerAbilityEffect@ModelConditionSpecialAbilityUpdate@@UAEXXZ, retail 0x00490FAE, 313 bytes.
 // Slot 17 (vftable 0x0084D7C8): after SpecialAbilityUpdate's slot 17, when
 // the module data's +0xCC or +0xCD flag is set, hand every object within its
 // +0xD0 radius that the player's relationship flag 4 accepts, other than the
@@ -163,7 +163,7 @@ class SpecialAbilityUpdate
 {
 	friend class ModelConditionSpecialAbilityUpdate;
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 	virtual void rva004508B7();
 private:
 	void onExit(bool a, bool b);
@@ -178,7 +178,7 @@ protected:
 class ModelConditionSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();
+	virtual void triggerAbilityEffect();
 	virtual void rva004508B7();
 protected:
 	virtual void onExit(bool a, bool b);
@@ -236,9 +236,9 @@ void ModelConditionSpecialAbilityUpdate::onExit(bool a, bool b)
 	}
 }
 
-void ModelConditionSpecialAbilityUpdate::rva0045108D()
+void ModelConditionSpecialAbilityUpdate::triggerAbilityEffect()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	const ModelConditionSpecialAbilityUpdateModuleData *data =
 		(const ModelConditionSpecialAbilityUpdateModuleData *)m_moduleData;
 	if (data && (data->m_CC || data->m_CD)) {

@@ -49,7 +49,7 @@ public:
 	void setFullyObscuredByShroud( Bool fullyObscured );
 	DrawModule **getDrawModules( void ) { return m_drawModules; }
 private:
-	void rva0027893E( void );
+	void onComingOutOfShroud( void );
 
 	char m_unrecovered000[ 0x14C ];
 	DrawModule **m_drawModules;																								///< 0x14C
@@ -68,6 +68,6 @@ void Drawable::setFullyObscuredByShroud(Bool fullyObscured)
 		}
 		m_drawableFullyObscuredByShroud = fullyObscured;
 		if (!fullyObscured)
-			rva0027893E();
+			onComingOutOfShroud();
 	}
 }

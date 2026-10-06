@@ -127,22 +127,22 @@ class ProductionQueueHordeContain : public HordeGarrisonContain
 public:
 	virtual void rva00479B7F(Object *obj);
 	virtual void rva00479ADA(Object *obj);
-	void rva004813B3(ObjectID id, Object *obj);
+	void CreateTemplate(ObjectID id, Object *obj);
 };
 void ProductionQueueHordeContain::rva00479B7F(Object *obj)
 {
 	HordeGarrisonContain::rva00479B7F(obj);
 	if (!obj->m_template->testKindOf115Bit5() || obj->m_250->rvaSlot31()->rvaSlot61())
-		rva004813B3(obj->m_id, obj);
+		CreateTemplate(obj->m_id, obj);
 }
 void ProductionQueueHordeContain::rva00479ADA(Object *obj)
 {
 	HordeGarrisonContain::rva00479ADA(obj);
 	if (obj->m_274->m_250->rvaSlot31()->rvaSlot61())
-		rva004813B3(obj->m_274->m_id, obj);
+		CreateTemplate(obj->m_274->m_id, obj);
 }
 
-void ProductionQueueHordeContain::rva004813B3(ObjectID id, Object *obj)
+void ProductionQueueHordeContain::CreateTemplate(ObjectID id, Object *obj)
 {
 	void *ret = m_object->rva0028BC58(0);
 	if (!ret)

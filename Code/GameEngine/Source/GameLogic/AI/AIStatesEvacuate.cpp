@@ -66,7 +66,7 @@ public:
 class Pathfinder
 {
 public:
-	bool rva002E996E(const Coord3D *pos, bool flagA, bool flagB, int layer);
+	bool IsBuildRestrictedCell(const Coord3D *pos, bool flagA, bool flagB, int layer);
 };
 
 class AI
@@ -173,7 +173,7 @@ StateReturnType AIMoveToAndEvacuateState::update()
 	if (owner->getAI()->getPath() != 0)
 	{
 		Rva003642DFResult end = owner->getAI()->getPath()->rva003642DF(owner->getBfmeRealB8() * 0.9f);
-		if (!TheAI->pathfinder()->rva002E996E(&end.m_pos, false, false, 1))
+		if (!TheAI->pathfinder()->IsBuildRestrictedCell(&end.m_pos, false, false, 1))
 			status = STATE_SUCCESS;
 	}
 	if (status == STATE_SUCCESS)
@@ -201,7 +201,7 @@ StateReturnType AIMoveForBoarding::update()
 	if (owner->getAI()->getPath() != 0)
 	{
 		Rva003642DFResult end = owner->getAI()->getPath()->rva003642DF(owner->getBfmeRealB8());
-		if (!TheAI->pathfinder()->rva002E996E(&end.m_pos, false, false, 1))
+		if (!TheAI->pathfinder()->IsBuildRestrictedCell(&end.m_pos, false, false, 1))
 			status = STATE_SUCCESS;
 	}
 	return status;

@@ -1,7 +1,7 @@
 // cl: /MD /DNDEBUG
 //
 // ?setMode@Rva00785FD0Renderer@@QAIXH@Z, retail 0x001100CA, 12 bytes,
-// pinned from rva00785FD0Flush (0x000AA5E1): a __fastcall member (this in
+// pinned from rebuildMask (0x000AA5E1): a __fastcall member (this in
 // ecx, mode in edx) that stores a new mode at +8 and raises the dirty byte
 // at +0 only when the mode changes. Class identity not recovered.
 

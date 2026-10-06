@@ -1,6 +1,8 @@
 // cl: /MD
 //
-// ?rva005AB45B@Rva005AB45B@@QAE_NXZ retail 0x005AB45B 94B.
+// AIReturnTheRingTactic::findRingBearer retail 0x005AB45B 94B (WorldBuilder name;
+// same stats lookup, findObjectByID and testStatus walk, asserts in
+// AIReturnTheRingTactic.cpp).
 // Searches ID range from Rva002A8F24 map entry via LeaField for first live
 // Object with status 0x5E and stores its ID at +0x5C. Evidence: rowed calls
 // rva002A8F24 get findObjectByID testStatus; globals g_00DFEEF8 TheGameLogic;
@@ -37,17 +39,17 @@ public:
 };
 extern GameLogic *TheGameLogic;
 extern Rva002A8F24 *g_00DFEEF8;
-class Rva005AB45B
+class AIReturnTheRingTactic
 {
 public:
-	bool rva005AB45B();
+	bool findRingBearer();
 private:
 	char m_pad0[0x24];
 	Player *m_player;
 	char m_pad1[0x34];
 	ObjectID m_found;
 };
-bool Rva005AB45B::rva005AB45B()
+bool AIReturnTheRingTactic::findRingBearer()
 {
 	void *tmp = g_00DFEEF8->rva002A8F24(m_player);
 	Rva005C4AD1LeaField *fld = *(Rva005C4AD1LeaField **)tmp;

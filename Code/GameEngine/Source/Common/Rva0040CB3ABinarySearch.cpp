@@ -18,7 +18,7 @@ class Rva0040CB3AIndexedField
 public:
 	int find(int key) const;
 	int get(int key) const;
-	int rva0040CB79(struct Rva0040C351 *key) const;
+	int rva0040CB79(struct ArmySummaryEntry *key) const;
 private:
 	char m_pad[0x40];
 	Rva0040CB3AEntry *m_begin;
@@ -49,17 +49,17 @@ int Rva0040CB3AIndexedField::get(int key) const
 	return m_begin[idx].second;
 }
 
-class Rva0040C351
+class ArmySummaryEntry
 {
 public:
-	bool rva0040C3BB(const Rva0040C351 *other);
+	bool rva0040C3BB(const ArmySummaryEntry *other);
 };
 
-int Rva0040CB3AIndexedField::rva0040CB79(Rva0040C351 *key) const
+int Rva0040CB3AIndexedField::rva0040CB79(ArmySummaryEntry *key) const
 {
 	for (unsigned i = 0; i < (unsigned)(((char *)m_end - (char *)m_begin) >> 3); ++i) {
 		_ReadWriteBarrier();
-		if (key->rva0040C3BB((const Rva0040C351 *)m_begin[i].second))
+		if (key->rva0040C3BB((const ArmySummaryEntry *)m_begin[i].second))
 			return (int)i;
 	}
 	return -1;

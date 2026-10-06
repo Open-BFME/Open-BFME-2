@@ -14,7 +14,7 @@ class GameState
 {
 public:
 	AsciiString realMapPathToPortableMapPath(const AsciiString &in) const;
-	AsciiString rva002DCB9C(const AsciiString &in) const;
+	AsciiString packPortableMapPath(const AsciiString &in) const;
 };
 
 extern GameState *TheGameState;
@@ -23,7 +23,7 @@ AsciiString __cdecl Rva00400783Get(const AsciiString &mapPath, bool flag)
 {
 	AsciiString portable = TheGameState->realMapPathToPortableMapPath(mapPath);
 	if (flag != false) {
-		((StringBase<char> *)&portable)->set(*(const StringBase<char> *)&TheGameState->rva002DCB9C(portable));
+		((StringBase<char> *)&portable)->set(*(const StringBase<char> *)&TheGameState->packPortableMapPath(portable));
 	}
 	AsciiString accum;
 	if (((const StringBase<char> *)&portable)->getLength() > 0) {

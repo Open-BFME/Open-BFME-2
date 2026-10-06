@@ -1,11 +1,17 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
 // ?rva00053CE1@Rva00053CE1@@QAEXMHH@Z @0x00053CE1 69B: thiscall volume flags idx.
 // Locks MilesMutexGuard over +0x9D4 then calls row 0x000523A0
-// ?setVolumes@Rva00699180Owner@@QAEXME@Z on array elem at +0x12C stride 0x1C4.
+// ?setVolumes@GlobalVolumeData@MilesAudioManager@@QAEXME@Z on array elem at +0x12C stride 0x1C4.
 // Layout mirrors Code/GameEngine/Source/Common/Rva00059A25Method.cpp which
 // proves +0x12C stride 0x1C4 with guard over +0x9D4; mutex at +0x9D4 also
 // target-measured for MilesAudioManager in StopAudio TU. Chain from 0x000523A0.
-class Rva00699180Owner
+class MilesAudioManager
+{
+public:
+	class GlobalVolumeData;
+};
+
+class MilesAudioManager::GlobalVolumeData
 {
 public:
     void setVolumes(float volume, unsigned char flags);
@@ -40,5 +46,5 @@ private:
 void Rva00053CE1::rva00053CE1(float volume, int flags, int idx)
 {
     MilesMutexGuard guard(&m_9D4, 0);
-    ((Rva00699180Owner *)&m_arr[idx])->setVolumes(volume, (unsigned char)flags);
+    ((MilesAudioManager::GlobalVolumeData *)&m_arr[idx])->setVolumes(volume, (unsigned char)flags);
 }

@@ -1,4 +1,5 @@
 // cl: /MD
+// FormationTranslator::WaitForSecondButtonDownStateHandler::Update (WorldBuilder name, FormationTranslator.cpp line 254: IsFirstButtonStillDown guard, message with pixel and two ints, new 8B state, transition).
 // ?rva00431B76@Rva00431B76@@QAEXXZ @0x00431B76 103B: thiscall guarded emit via MessageStream slot 0x48 then helper new 8B with vtable 0x0083C97C plus final Rva00575674 call. Evidence: chain lane calls rowed 0x00431955; MessageStreamSubsystem global 0x00A00950; rowed appendPixel 0x0030F9D8 appendInteger 0x0030F936 new 0x0002FDA0 rva00575674 0x00575674; vtables g_00C3C97C.
 struct ICoord2D
 {
@@ -41,13 +42,13 @@ public:
 	void rva00575674(Object *o);
 };
 
-class Rva00431955
+
+class FormationTranslator
 {
 public:
-	bool rva00431955();
+	class WaitForSecondButtonDownStateHandler;
 };
-
-class Rva00431B76
+class FormationTranslator::WaitForSecondButtonDownStateHandler
 {
 	void *m_00;
 	void *m_04;
@@ -56,14 +57,15 @@ class Rva00431B76
 	int m_14;
 	int m_18;
 public:
-	void rva00431B76();
+	void Update();
+	bool IsFirstButtonStillDown();
 };
 
 void *__cdecl operator new(unsigned int size);
 
-void Rva00431B76::rva00431B76()
+void FormationTranslator::WaitForSecondButtonDownStateHandler::Update()
 {
-	if (((Rva00431955 *)this)->rva00431955())
+	if (IsFirstButtonStillDown())
 		return;
 	GameMessage *msg = MessageStreamSubsystem->createMessage(m_08);
 	msg->appendPixelArgument(m_0C);

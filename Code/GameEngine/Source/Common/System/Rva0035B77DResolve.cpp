@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
-// ?rva0035B77D@Rva0035B77D@@QAEXXZ @0x0035B77D 92B: image-name array resolve loop
+// ?cacheButtonImage@CommandButton@@QAEXXZ @0x0035B77D 92B: image-name array resolve loop
 // over AsciiString slots [+0xB4,+0xB8) pushing found Images into the ModuleData
 // vector at +0xEC then clearing each slot. Skips empty names and misses via
 // rowed isEmpty 0x00001E2F plus rowed findImageByName 0x002D92F6 plus rowed
@@ -41,10 +41,10 @@ public:
 
 extern ImageCollection *TheMappedImageCollection;
 
-class Rva0035B77D
+class CommandButton
 {
 public:
-	void rva0035B77D();
+	void cacheButtonImage();
 private:
 	char m_pad00[0xB4];
 	AsciiString *m_b4begin;
@@ -53,7 +53,7 @@ private:
 	_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > m_ec;
 };
 
-void Rva0035B77D::rva0035B77D()
+void CommandButton::cacheButtonImage()
 {
 	if (TheMappedImageCollection != 0)
 	{

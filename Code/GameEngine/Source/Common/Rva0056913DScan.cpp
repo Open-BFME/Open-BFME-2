@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ?rva0056913D@Rva0056913D@@QAEXPAVBitRange@@PAX@Z @0x0056913D 158B.
+// ?removeDuckingTarget@LargeGroupAudioSoundKeyPair@@QAEXPAVBitRange@@PAX@Z @0x0056913D 158B.
 // Twin of 0x005691DB (see Rva005691DBScan.cpp for the recipe): same slot
 // notify via pinned 0x005C834A and same && short-circuit statement-temp
 // element scan, plus a rowed 0x00568F04 find-erase of this from the host
@@ -54,10 +54,10 @@ struct Rva0056913DElem
 	char m_pad11[3];
 };
 
-class Rva0056913D
+class LargeGroupAudioSoundKeyPair
 {
 public:
-	void rva0056913D(BitRange *host, void *tag);
+	void removeDuckingTarget(BitRange *host, void *tag);
 private:
 	char m_pad[0x14];
 	Rva0056913DElem *m_begin;	// +0x14
@@ -66,7 +66,7 @@ private:
 	Rva005C834A *m_slots[4];	// +0x2C
 };
 
-void Rva0056913D::rva0056913D(BitRange *host, void *tag)
+void LargeGroupAudioSoundKeyPair::removeDuckingTarget(BitRange *host, void *tag)
 {
 	Rva005C834A **slot = m_slots;
 	int left = 4;

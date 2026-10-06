@@ -42,7 +42,7 @@ public:
 extern GameWindowManager *TheWindowManager;
 
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
-void bfmeGo924F(BfmeKeyLC *textEntry, unsigned short maxLength);
+void GadgetTextEntrySetMaxChars(BfmeKeyLC *textEntry, unsigned short maxLength);
 
 // g_00E0447C: matched references place it at VA 0x00e0447c (UnicodeString kept line; dynamic init 0x007B3132).
 UnicodeString g_00E0447C;
@@ -151,7 +151,7 @@ void AptInGameChat::InitGadgets(const char *name, void *argument, GameWindow *wi
 	if (strcmp(name, "InGameChatEntry") == 0)
 	{
 		GadgetTextEntrySetText(window, g_00E0447C);
-		bfmeGo924F((BfmeKeyLC *)window, 110);
+		GadgetTextEntrySetMaxChars((BfmeKeyLC *)window, 110);
 		TheWindowManager->winSetFocus(window);
 		m_entry = window;
 	}

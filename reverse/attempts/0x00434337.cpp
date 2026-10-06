@@ -1,6 +1,8 @@
 // ?rva00434337@Rva00434337@@QAEXH@Z
+// partial score=0.8182 date=2026-10-05
+// ?rva00434337@Rva00434337@@QAEXH@Z
 // partial score=0.93 date=2026-10-01
-// cl: /Ireference/shims/bfme2_ascii /Os /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Os /MD /EHsc /Op
 // ?rva00434337@Rva00434337@@QAEXH@Z, retail 0x00434337, 251 bytes.
 // State machine on +0x27C with arg 1 vs 3 paths; 3-path fires closeDelayed/OnClosed
 // via Rva00222547Get and TheRva00222A8BTarget invoker; 1-path uses entry text.
@@ -36,29 +38,29 @@ private:
 // ?rva00434337@Rva00434337@@QAEXH@Z present-unmatched
 void Rva00434337::rva00434337(int v)
 {
-	if (v != 1)
+	if (1 != v)
 	{
 		if (v != 3)
 			return;
-		if (m_27C == 9)
+		if (9 == m_27C)
 		{
 			TheRva00222A8BTarget->invoke(Rva00222547Get((GameWindow *)this), "closeDelayed", 1, "OnClosed", 0, 0, 0, 0);
 			m_27C = 0xA;
 			Rva00433D27Enable();
 			return;
 		}
-		if (m_27C == 0xC)
+		if (0xC == m_27C)
 		{
 			m_27C = 0xD;
 			return;
 		}
-		if (m_27C == 0x17 || m_27C == 0x16)
-			m_27C = 1;
+		if (0x17 == m_27C || m_27C == 0x16)
+			const m_27C = 1;
 		return;
 	}
-	if (m_27C == 8)
+	if (8 == m_27C)
 		m_27C = 7;
-	else if (m_27C == 0xB)
+	else if (0xB == m_27C)
 	{
 		UnicodeString s = GadgetTextEntryGetText(m_win290);
 		void *p = Rva002DBC97Get(6);

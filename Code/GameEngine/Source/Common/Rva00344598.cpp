@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 // ?rva00344598@Rva00344598@@QAEHXZ @0x00344598 157B
-// Evidence: unlock lane, caller 0x00347EA8 tail-jmp same this, callees rowed getGoalObject 0x004D7726 plus setOrientation 0x0030AB9D plus winPrevTab 0x000D43D0 plus pin rva000B4542, virtuals 0x244 0x7c 0x19c 0x1a0 0x1d0
+// Evidence: unlock lane, caller 0x00347EA8 tail-jmp same this, callees rowed getGoalObject 0x004D7726 plus setOrientation 0x0030AB9D plus winPrevTab 0x000D43D0 plus pin GetRelativeAngle, virtuals 0x244 0x7c 0x19c 0x1a0 0x1d0
 struct Coord3D
 {
 	float x;
@@ -17,7 +17,7 @@ public:
 class Object
 {
 public:
-	float rva000B4542(const Coord3D *pos) const;
+	float GetRelativeAngle(const Coord3D *pos) const;
 };
 
 class TurretStateMachine
@@ -159,7 +159,7 @@ int Rva00344598::rva00344598()
 		edi->t1d0();
 	} else {
 		const Coord3D *pos = (const Coord3D *)((char *)ebx + 0x38);
-		float ang = esi->rva000B4542(pos) + ol->m44;
+		float ang = esi->GetRelativeAngle(pos) + ol->m44;
 		((Thing *)esi)->setOrientation(ang);
 	}
 	((GameWindow *)this)->winPrevTab();

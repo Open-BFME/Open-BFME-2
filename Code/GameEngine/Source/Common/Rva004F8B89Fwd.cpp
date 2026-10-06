@@ -132,14 +132,14 @@ struct Rva004E94FBHead
 	Rva004E94FBNode *m_first;
 };
 
-class Rva004E94FB
+class AIGameTeam
 {
 public:
 	void rva004E94FB();
 	void rva004E951C(void *o);
 	void *rva004E955F(int unused, int key);
 	void rva004E9446();
-	void rva004E9710();
+	void update();
 
 private:
 	Rva004E94FBHead *m_00;
@@ -150,16 +150,16 @@ private:
 	unsigned char m_24;
 };
 
-// ?rva004E94FB@Rva004E94FB@@QAEXXZ @0x004E94FB 33B.
-void Rva004E94FB::rva004E94FB()
+// ?rva004E94FB@AIGameTeam@@QAEXXZ @0x004E94FB 33B.
+void AIGameTeam::rva004E94FB()
 {
 	Rva004E94FBHead *head = m_00;
 	for (Rva004E94FBNode *n = head->m_first; n != (Rva004E94FBNode *)head; n = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)n))
 		n->m_14->rva002C6845();
 }
 
-// ?rva004E951C@Rva004E94FB@@QAEXPAX@Z @0x004E951C 67B.
-void Rva004E94FB::rva004E951C(void *o)
+// ?rva004E951C@AIGameTeam@@QAEXPAX@Z @0x004E951C 67B.
+void AIGameTeam::rva004E951C(void *o)
 {
 	Rva004E951CTwo t = { 1, 1 };
 	((Rva004E951CObj *)o)->v10(&t);
@@ -168,8 +168,8 @@ void Rva004E94FB::rva004E951C(void *o)
 		((Rva002C7008 *)n->m_14)->rva002C7008(o);
 }
 
-// ?rva004E955F@Rva004E94FB@@QAEPAXHH@Z @0x004E955F 51B.
-void *Rva004E94FB::rva004E955F(int unused, int key)
+// ?rva004E955F@AIGameTeam@@QAEPAXHH@Z @0x004E955F 51B.
+void *AIGameTeam::rva004E955F(int unused, int key)
 {
 	Rva004E94FBHead *head = m_00;
 	for (Rva004E94FBNode *n = head->m_first; n != (Rva004E94FBNode *)head; n = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)n))
@@ -182,8 +182,8 @@ void *Rva004E94FB::rva004E955F(int unused, int key)
 	return 0;
 }
 
-// ?rva004E9710@Rva004E94FB@@QAEXXZ @0x004E9710 182B.
-void Rva004E94FB::rva004E9710()
+// ?update@AIGameTeam@@QAEXXZ @0x004E9710 182B.
+void AIGameTeam::update()
 {
 	if (m_24 != 0)
 	{
@@ -212,7 +212,7 @@ void Rva004E94FB::rva004E9710()
 				*(void **)((char *)inner + 0x18) = x;
 				((Rva002C6BFF *)m->m_14)->rva002C6BFF();
 			}
-			((Rva004E94FB *)this)->rva004E9446();
+			((AIGameTeam *)this)->rva004E9446();
 			g_00DFEEF8->m_obj->rva004E9040(((Rva004E93E8 *)this)->rva004E93E8());
 		}
 	}

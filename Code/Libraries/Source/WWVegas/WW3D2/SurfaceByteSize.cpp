@@ -14,7 +14,7 @@ public:
         unsigned int Height;
     };
     void Get_Description(SurfaceDescription &description);
-    unsigned int Rva008FCA30_Surface_Byte_Size() const;
+    unsigned int GetSurfaceMemoryUsage() const;
     void DrawPixel(unsigned int x, unsigned int y, unsigned int color);
     void rva00116D10(unsigned int x, unsigned int y, unsigned int alpha);
 private:
@@ -46,7 +46,7 @@ static __declspec(noinline) unsigned int Rva008FC4F0_PixelSize(
     return size;
 }
 
-unsigned int SurfaceClass::Rva008FCA30_Surface_Byte_Size() const
+unsigned int SurfaceClass::GetSurfaceMemoryUsage() const
 {
     if (!surface)
         return 0;

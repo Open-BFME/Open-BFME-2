@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva000E6EF0@Rva000E6EF0@@QAEHPBUFloatPair@@@Z, retail 0x000E6EF0, 216 bytes.
+// ?getPartitionBucket@W3DShrubBuffer@@QAEHPBUFloatPair@@@Z, retail 0x000E6EF0, 216 bytes.
 // Clamp world XY to +0x1948/+0x194C min and +0x1950/+0x1954 max, scale each
 // axis by 49.9f over its extent, floor via IAT floor and return y*50+x.
 // Evidence: retail movss/comiss clamp plus fld/fsub/fdivr/fmul floor/fistp
@@ -27,10 +27,10 @@ struct FloatPair
 	float y;
 };
 
-class Rva000E6EF0
+class W3DShrubBuffer
 {
 public:
-	int rva000E6EF0(FloatPair const *p);
+	int getPartitionBucket(FloatPair const *p);
 	unsigned char m_pad0[0x1948];
 	float m_minX;
 	float m_minY;
@@ -38,7 +38,7 @@ public:
 	float m_maxY;
 };
 
-int Rva000E6EF0::rva000E6EF0(FloatPair const *p)
+int W3DShrubBuffer::getPartitionBucket(FloatPair const *p)
 {
 	float x = p->x;
 	float y = p->y;

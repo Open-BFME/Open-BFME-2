@@ -47,49 +47,10 @@ class Object
 {
 public:
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-	void rva0028B238(bool b);
+	void setReceivingDifficultyBonus(bool b);
 	char m_pad00[0x8C];
 	Object *m_next8C; // +0x8C
 };
-
-// 0x002CADFA: while the registry at VA 0x00DFF000 exists, the rowed
-// 0x002CA942 on every non-NULL pointer of the vector at +0x0C.
-class Rva002CA9CA
-{
-public:
-	void rva002CA942();
-};
-class ThingFactory;
-extern ThingFactory *TheThingFactory;
-template <class T>
-struct Rva002CADFAVector
-{
-	T *_M_start;
-	T *_M_finish;
-	T *_M_end_of_storage;
-	UnsignedInt size() const { return _M_finish - _M_start; }
-	T &operator[](UnsignedInt i) { return _M_start[i]; }
-};
-class Rva002CADFA
-{
-public:
-	void rva002CADFA();
-private:
-	char m_pad00[0x0C];
-	Rva002CADFAVector<Rva002CA9CA *> m_0C;
-};
-void Rva002CADFA::rva002CADFA()
-{
-	if (TheThingFactory)
-	{
-		for (UnsignedInt i = 0; i < m_0C.size(); i++)
-		{
-			Rva002CA9CA *p = m_0C[i];
-			if (p)
-				p->rva002CA942();
-		}
-	}
-}
 
 // 0x003400F9 (AI state tables): logs "CritterDesync: ComputePath3" to the
 // file at VA 0x00DFEFF0 while the flag at VA 0x00E03745 is set, then sets
@@ -273,7 +234,7 @@ public:
 void Rva003BCC37::rva003BCC37(bool b)
 {
 	for (Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->m_next8C)
-		obj->rva0028B238(b);
+		obj->setReceivingDifficultyBonus(b);
 	*(bool *)((char *)TheScriptEngine + 0x1A4D5) = b;
 }
 

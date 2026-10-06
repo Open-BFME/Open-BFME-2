@@ -70,7 +70,7 @@ Rva0057E3DB::~Rva0057E3DB()
 }
 
 // ?rva0057E24B@Rva0057E3DB@@QAEXH@Z @0x0057E24B 18B
-// Setter on the MpGameSetup +0x60 panel member: stores the int arg into the
+// Setter on the AptMpGameSetup +0x60 panel member: stores the int arg into the
 // +0x18 target's +8 slot, then refreshes via the pinned 0x0057E058 body.
 // Evidence: thiscall (ecx read), ret 4, caller 0x0043A0D9 passes [esi+0x88]
 // with ecx=esi+0x18, callee pin ?rva0057E058@Rva0057E3DB@@QAEXXZ.

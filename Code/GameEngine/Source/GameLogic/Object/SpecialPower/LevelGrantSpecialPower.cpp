@@ -277,7 +277,7 @@ public:
 class SpecialAbilityUpdate
 {
 public:
-	virtual void rva0045108D();	// slot 17 (0x0045108D)
+	virtual void triggerAbilityEffect();	// slot 17 (0x0045108D)
 protected:
 	const void *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08

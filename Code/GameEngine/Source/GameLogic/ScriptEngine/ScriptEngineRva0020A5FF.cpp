@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /EHs
 // stlport
 //
-// ?rva0020A5FF@ScriptEngine@@QAEXPAVObject@@ABVAsciiString@@@Z @0x0020A5FF 374B.
+// ?addObjectToCache@ScriptEngine@@QAEXPAVObject@@ABVAsciiString@@@Z @0x0020A5FF 374B.
 // ScriptEngine name-to-object map at +0x1A120. Evidence: pin name, callers in
 // ScriptActions (0x003C3525 0x003C473B), rowed callees StringBase copy 0x365F0
 // compare 0x69D6 isEmpty 0x1E2F set 0x366F0 releaseBuffer 0x36410 format
@@ -48,7 +48,7 @@ extern class ScriptEngine *TheScriptEngine;
 class ScriptEngine
 {
 public:
-	void rva0020A5FF(Object *pNewObject, const AsciiString &name);
+	void addObjectToCache(Object *pNewObject, const AsciiString &name);
 	void AppendDebugMessage(const AsciiString &strToAdd, bool mustAdd);
 
 private:
@@ -56,7 +56,7 @@ private:
 	_STL::vector<Rva0020A227Element> m_vec1A120;
 };
 
-void ScriptEngine::rva0020A5FF(Object *pNewObject, const AsciiString &name)
+void ScriptEngine::addObjectToCache(Object *pNewObject, const AsciiString &name)
 {
 	if (pNewObject == 0)
 		return;

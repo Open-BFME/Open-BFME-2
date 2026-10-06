@@ -1,4 +1,6 @@
 // ?rva001F392E@Rva001F392E@@QAEXM@Z
+// partial score=0.7539 date=2026-10-06
+// ?rva001F392E@Rva001F392E@@QAEXM@Z
 // partial score=0.88 date=2026-09-29
 // ?rva001F392E@Rva001F392E@@QAEXM@Z
 // partial score=0.88 date=2026-09-29
@@ -15,9 +17,10 @@
 // extern "C" double sin/cos declarations give E8-to-thunk calls); unlike
 // that body retail here keeps the two separate CRT calls, so no __asm.
 
-extern "C" double __cdecl sin(double angle);
-extern "C" double __cdecl cos(double angle);
+// (CRT prototype from the standard header)
+// (CRT prototype from the standard header)
 
+#include <math.h>
 class Rva001F392E
 {
 public:

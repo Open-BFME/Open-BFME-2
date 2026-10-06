@@ -224,7 +224,7 @@ public:
 	void rva0035C2B9();
 	WindowLayout *findScreenByFilename(AsciiString filename);
 	void registerWithAnimateManager(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int delayMS);
-	void rva0035BE8F();
+	void reverseAnimatewindow();
 	void loadScheme(AsciiString name);
 	void rva0035BEC7();
 	void rva0035BF0E();
@@ -451,12 +451,12 @@ void Shell::registerWithAnimateManager(GameWindow *win, AnimTypes animType, Bool
 	m_animateWindowManager->registerGameWindow(win, animType, needsToFinish, 500, delayMS);
 }
 
-// ?rva0035BE8F@Shell@@QAEXXZ @0x0035BE8F 27B
+// ?reverseAnimatewindow@Shell@@QAEXXZ @0x0035BE8F 27B
 // Guarded tail reverse: null manager or disabled animateWindows returns,
 // else tail-jmps to AnimateWindowManager::reverseAnimateWindow.
 // Evidence: ecx-first thiscall ret; global TheWritableGlobalData flag +0xB00;
 // rowed callee 0x0053B417; callers 0x0050CF0E 0x0050CED9; Shell +0x60.
-void Shell::rva0035BE8F()
+void Shell::reverseAnimatewindow()
 {
 	if (!m_animateWindowManager)
 		return;
@@ -567,4 +567,4 @@ void bfmeEmitShellTop(Shell *p)
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:?reverseAnimatewindow@Shell@@QAEXXZ=?rva0035BE8F@Shell@@QAEXXZ")
+#pragma comment(linker, "/alternatename:?reverseAnimatewindow@Shell@@QAEXXZ=?reverseAnimatewindow@Shell@@QAEXXZ")

@@ -8,10 +8,10 @@
 
 class Rva009A36F0Param;
 
-class Rva009A36F0Owner
+class CollisionManagerImpl
 {
 public:
-	void apply(Rva009A36F0Param *param);
+	void UnRegisterObject(Rva009A36F0Param *param);
 };
 
 class Rva009A4620Param
@@ -80,7 +80,7 @@ Rva009A4620CollisionData::~Rva009A4620CollisionData()
 	{
 		Rva009A4620Param *param = (Rva009A4620Param *)m_root;
 		if (param->m_child != 0)
-			((Rva009A36F0Owner *)this)->apply((Rva009A36F0Param *)param->m_child);
+			((CollisionManagerImpl *)this)->UnRegisterObject((Rva009A36F0Param *)param->m_child);
 
 		Rva009A45A0CollisionData *root = m_root;
 		if (root != 0)

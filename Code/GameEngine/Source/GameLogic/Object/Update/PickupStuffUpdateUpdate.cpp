@@ -65,7 +65,7 @@ class PickupStuffUpdate : public UpdateModule
 public:
 	virtual UpdateSleepTime update();
 	void rva00491EE6();
-	void rva004920B5();
+	void updateInactive();
 private:
 	bool m_20;			// +0x20
 };
@@ -80,7 +80,7 @@ UpdateSleepTime PickupStuffUpdate::update()
 			if (m_20)
 				rva00491EE6();
 			else
-				rva004920B5();
+				updateInactive();
 			return UPDATE_SLEEP_NONE;
 		}
 	}

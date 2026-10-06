@@ -1,4 +1,4 @@
-// ?rva004EC869@Rva004EC869@@QAEXPAURva005996FFArg@@@Z @ 0x004EC869 139B chain via 0x005996FF.
+// ?notifyDozerDead@AIBuilder@@QAEXPAURva005996FFArg@@@Z @ 0x004EC869 139B chain via 0x005996FF.
 // Evidence: calls rowed 0x005996FF Rva005996FFListErase plus rowed predicate 0x004E9378 plus rowed list<int> erase 0x00438539 plus rowed vector<ModuleData*> push_back 0x004DFCB0; caller 0x004EC8F4.
 // cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
@@ -33,7 +33,7 @@ public:
 	void rva005996FF(Rva005996FFArg *arg, bool flag);
 };
 
-class Rva00599825
+class AIDozerManager
 {
 public:
 	void rva00599825(int id);
@@ -67,10 +67,10 @@ public:
 	unsigned char m_20;
 };
 
-class Rva004EC869
+class AIBuilder
 {
 public:
-	void rva004EC869(Rva005996FFArg *arg);
+	void notifyDozerDead(Rva005996FFArg *arg);
 	void rva004EC2D4(int value);
 private:
 	char m_pad00[0x130];
@@ -78,7 +78,7 @@ private:
 	_STL::list<int> m_list;
 };
 
-void Rva004EC869::rva004EC869(Rva005996FFArg *arg)
+void AIBuilder::notifyDozerDead(Rva005996FFArg *arg)
 {
 	((Rva005996FF *)((char *)this + 0x140))->rva005996FF(arg, true);
 	_STL::list<int>::iterator it = m_list.begin();
@@ -109,9 +109,9 @@ found:
 	}
 }
 
-void Rva004EC869::rva004EC2D4(int value)
+void AIBuilder::rva004EC2D4(int value)
 {
-	((Rva00599825 *)((char *)this + 0x140))->rva00599825(value);
+	((AIDozerManager *)((char *)this + 0x140))->rva00599825(value);
 	_STL::list<int>::iterator it = m_list.begin();
 	if (it == m_list.end())
 		return;

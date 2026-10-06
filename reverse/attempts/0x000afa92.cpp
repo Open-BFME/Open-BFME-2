@@ -1,6 +1,8 @@
 // ?rva000AFA92@Rva000AFA92@@QAE_NHHHHH@Z
+// partial score=0.9752 date=2026-10-06
+// ?rva000AFA92@Rva000AFA92@@QAE_NHHHHH@Z
 // partial score=0.985 date=2026-10-06
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /O1 /MD /EHsc /DNDEBUG /G7
 //
 // ?rva000AFA92@Rva000AFA92@@QAE_NHHHHH@Z @0x000AFA92 68B: index-gated
 // forward. Forms idx from two +0x120E4-spaced ints, the +8 factor and two

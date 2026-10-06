@@ -1,8 +1,8 @@
-// ?rva005A0C6E@Rva005A083C@@QAEXPBDHPAVGameWindow@@@Z
+// ?InitGadgets@AptOnlineCustomMatch@@QAEXPBDHPAVGameWindow@@@Z
 // partial score=0.99 date=2026-10-05
 // cl: /Ireference/shims/bfmelist /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva005A083C@Rva005A083C@@QAEXXZ, retail 0x005A083C 140B. Unlock: builds 2-int list from +0x498/+0x49C when both non-null then WindowManager 0xB4/0xB0.
+// ?rva005A083C@AptOnlineCustomMatch@@QAEXXZ, retail 0x005A083C 140B. Unlock: builds 2-int list from +0x498/+0x49C when both non-null then WindowManager 0xB4/0xB0.
 // Evidence: callees list base/push_front/push_back/dup/dtor rowed in stlport_list_int_o1; TheWindowManager global; caller 0x005A0D56.
 #include <list>
 
@@ -30,8 +30,8 @@ class WinInstanceData;
 class BfmeKeyLC;
 typedef void (__cdecl *GameWinTooltipFunc)(GameWindow *window, WinInstanceData *data, unsigned int flags);
 void __cdecl GadgetListBoxReset(GameWindow *window);
-void __cdecl Rva0032060D(GameWindow *window, int value);
-void __cdecl bfmeGo924F(BfmeKeyLC *k, unsigned short w);
+void __cdecl GadgetTextEntrySetValidationFlags(GameWindow *window, int value);
+void __cdecl GadgetTextEntrySetMaxChars(BfmeKeyLC *k, unsigned short w);
 extern "C" int __cdecl strcmp(const char *a, const char *b);
 void __cdecl Rva005A08C8Tooltip(GameWindow *window, WinInstanceData *data, unsigned int flags);
 
@@ -50,11 +50,11 @@ struct Rva005A0C6EUserData
 	unsigned char m_12;
 };
 
-class Rva005A083C
+class AptOnlineCustomMatch
 {
 public:
 	void rva005A083C();
-	void rva005A0C6E(const char *a1, int a2, GameWindow *a3);
+	void InitGadgets(const char *a1, int a2, GameWindow *a3);
 private:
 	char m_pad[0x48C];
 	GameWindow *m_48C;
@@ -67,7 +67,7 @@ private:
 
 
 
-void Rva005A083C::rva005A0C6E(const char *a1, int a2, GameWindow *a3)
+void AptOnlineCustomMatch::InitGadgets(const char *a1, int a2, GameWindow *a3)
 {
 	if (a3 == 0)
 		return;
@@ -91,15 +91,15 @@ void Rva005A083C::rva005A0C6E(const char *a1, int a2, GameWindow *a3)
 	}
 	if (strcmp(a1, "GameName") == 0) {
 		m_498 = (int)a3;
-		bfmeGo924F((BfmeKeyLC *)a3, 0x14);
+		GadgetTextEntrySetMaxChars((BfmeKeyLC *)a3, 0x14);
 		a3->winSetStatus(2);
 		rva005A083C();
 	} else {
 		if (strcmp(a1, "GamePassword") != 0)
 			return;
 		m_49C = (int)a3;
-		Rva0032060D(a3, 5);
-		bfmeGo924F((BfmeKeyLC *)a3, 0x14);
+		GadgetTextEntrySetValidationFlags(a3, 5);
+		GadgetTextEntrySetMaxChars((BfmeKeyLC *)a3, 0x14);
 		a3->winSetStatus(2);
 		rva005A083C();
 	}
