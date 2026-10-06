@@ -64409,3 +64409,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva003516F3@@UAE@XZ,,0x003516F3,96,Code/GameEngine/Source/Common/Rva003516F3Dtor.cpp,matched,guarded global delete of +0x4C then inline buffer member free then pinned Gen_uwm_004d759c base dtor
 ??1Rva0032989F@@UAE@XZ,,0x0032989F,103,Code/GameEngine/Source/Common/Rva0032989FDtor.cpp,matched,global delete of counted pointer array then inline base dtor calling Q1Forwardee0000871A handle
 ??1RoadType@@QAE@XZ,,0x000D4F4F,108,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBufferRoadTypeDtor.cpp,matched,inline release of two refcounted buffers then two texture handle member dtors
+??1Rva0073EE55@@UAE@XZ,,0x0073EE55,82,Code/GameEngine/Source/Common/Rva0073EE55Dtor.cpp,matched,novtable dtor calling member set and held target slot0 then two member dtors
