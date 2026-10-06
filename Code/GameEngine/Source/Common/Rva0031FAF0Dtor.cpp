@@ -17,12 +17,10 @@ namespace _STL
 	typedef _List_base<int, allocator<int> > ListBaseInt;
 }
 
-class Rva00200667
+class Rva00200667 : public _STL::_List_base<int, _STL::allocator<int> >
 {
 public:
 	~Rva00200667();
-private:
-	void *m_header;
 };
 
 class Rva0031FAF0
