@@ -64862,7 +64862,3 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva002E7023@@YAXXZ,,0x002E7023,68,Code/GameEngine/Source/Common/Rva002E7023Walk.cpp,matched,dump-range-12 global+call list walk via TheGameLogic getFirstObject and +0x8C chain with +0x258/+0x140 checks
 ?rva002E7205@Rva002E7205Owner@@QAEXH_N@Z,,0x002E7205,62,Code/GameEngine/Source/Common/Rva002E7205Slot.cpp,matched,dump-range-12 shl/lea slot pair with rowed 0x36666B and pinned bool callee then rowed 0x531481
 ?rva002E7388@Rva002E7388Owner@@QAEPAV1@HPAVRva0028CECFOwner@@HHHPAURva002E7388Pair@@HHH@Z,,0x002E7388,76,Code/GameEngine/Source/Common/Rva002E7388Set.cpp,matched,dump-range-12 nine-arg setter returning this with pinned 0x28CECF tail call
-?rva00600BC6@Rva00600991@@QAEXPAX0@Z,,0x00600BC6,35,Code/GameEngine/Source/Common/Rva00600BC6Wrapper.cpp,matched,thiscall-2 wrapper via pinned 0x600991 then 4+1 copy to out; /O1
-?M7F3@Rva00604xx@@QAEHPBDPAXH@Z,,0x006047F3,62,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 6047F3: utf8-to-wide plus virt8; /O1
-?M831@Rva00604xx@@QAE_NPBD@Z,,0x00604831,66,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 604831: null-guarded utf8-to-wide plus virt10 bool; /O1
-?M948@Rva00604xx@@QAEHPBDPAX@Z,,0x00604948,59,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 604948: utf8-to-wide plus virt24; /O1
