@@ -39,3 +39,81 @@ AssetList &AssetList::operator <<(const AssetList &other)
 	m_changed = true;
 	return *this;
 }
+
+// ?rva000B937E@Rva000B937E@@QAEXPAVINI@@PAX@Z @0x000B937E 234B
+// ModelCondition bitstring-list INI driver, same shape as the KindOf driver
+// Rva00256499 (System/Rva00256499Parse.cpp): StringBase split plus
+// join-append plus the single-token worker below, driven per token.
+// The worker is the rowed ModelCondition worker 0x000B664E, so unlike the
+// prototype this call resolves; Append, Tok, INI and the empty string mirror
+// the prototype TU (undefined externals, masked relocs).
+class INI
+{
+public:
+	const char *rva0002DFE2(const char *seps, bool *substituted);
+};
+
+class Rva0033B84ETok
+{
+public:
+	Rva0033B84ETok(const char *s);
+	~Rva0033B84ETok();
+	Rva0033B84ETok() : m_data(0) {}
+	const char *str() const { return m_data ? (const char *)m_data + 8 : ""; }
+	bool nextToken(Rva0033B84ETok *out, const char *seps);
+	void reset();
+
+private:
+	void *m_data;
+};
+
+extern const char g_Rva0107301CEmptyString[];
+
+__forceinline const char *GetStr000B937E(const Rva0033B84ETok &s)
+{
+	char *t = *(char * *)(void *)&s;
+	return t ? t + 8 : g_Rva0107301CEmptyString;
+}
+
+class Rva000B664E
+{
+public:
+	bool rva000B664E(const char *token, bool *foundNormal, bool *foundAddOrSub);
+};
+
+class Rva000B937E : public Rva000B664E
+{
+public:
+	void rva000B937E(INI *ini, void *extra);
+	void rva000B937EAppend(const char *s, Rva0033B84ETok *b);
+};
+
+void Rva000B937E::rva000B937E(INI *ini, void *extra)
+{
+	Rva0033B84ETok *accum = (Rva0033B84ETok *)extra;
+	if (accum != 0)
+		accum->reset();
+
+	bool foundNormal = false;
+	bool foundAddOrSub = false;
+	bool wasQuoted = false;
+
+	const char *token;
+	while ((token = ini->rva0002DFE2(0, &wasQuoted)) != 0) {
+		if (wasQuoted) {
+			Rva0033B84ETok tmp(token);
+			Rva0033B84ETok part;
+			while (tmp.nextToken(&part, 0)) {
+				const char *s = GetStr000B937E(part);
+				rva000B937EAppend(s, accum);
+				if (!rva000B664E(s, &foundNormal, &foundAddOrSub))
+					break;
+			}
+			wasQuoted = false;
+		} else {
+			rva000B937EAppend(token, accum);
+			if (!rva000B664E(token, &foundNormal, &foundAddOrSub))
+				break;
+		}
+	}
+}
