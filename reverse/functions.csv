@@ -64405,3 +64405,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva00263077@AIUpdateInterface@@QAE_NPAVObject@@@Z,,0x00263077,126,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00263077.cpp,matched,chain lane neighbours prove AIUpdateInterface m_object at plus 0x08
 ?Rva005E2D26Get@@YAPBDH@Z,,0x005E2D26,32,Code/GameEngine/Source/Common/Rva005E2D26.cpp,matched,direct table lookup via rowed table plus four callers plus LINK bonus
 ??1Rva0025E4CD@@UAE@XZ,,0x0025E4CD,80,Code/GameEngine/Source/Common/Rva0025E4CDDtor.cpp,matched,global delete of +0xC via pinned non-virtual dtor then inline base and GameEngineDeletingBase dtor
+??1Rva005BEA22@@QAE@XZ,,0x005BEA22,78,Code/GameEngine/Source/Common/Rva005BEA22Dtor.cpp,matched,global delete of +0 then inline buffer member dtor freeing with CRT free
