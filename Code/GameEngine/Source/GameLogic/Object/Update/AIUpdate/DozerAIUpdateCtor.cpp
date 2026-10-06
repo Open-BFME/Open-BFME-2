@@ -84,6 +84,20 @@
 // machine (vslot 6). The DockingDesync(DOZER) diagnostics are the Worker
 // twin's (0x004AADB1), under the same two switches. Unlike the Worker, BFME 2
 // adds nothing here.
+//
+// ?aiDoCommand@DozerAIUpdate@@UAEXPBUAICommandParms@@@Z, retail 0x0048AF0B,
+// 307 bytes: slot 0 of the vtable the ctor stores at +0x20 (0x0084B838, the
+// AICommandInterface subobject, so its this is +0x20). ZH's
+// DozerAIUpdate::aiDoCommand unchanged: clear
+// MODELCONDITION_ACTIVELY_CONSTRUCTING (Object +0x114 bit 9), ask
+// isAllowedToRespondToAiCommands (primary vslot 148), create the machines,
+// then by command: move-away-from-unit (0x34) is ignored while busy unless
+// the other unit is a dozer (kind-of bit 14), repair (0x13) and resume
+// construction (0x14) go idle (the rowed aiIdle 0x001E8A38) when taskless
+// and run privateRepair / privateResumeConstruction (primary vslots 44 and
+// 45), and anything else cancels the current task (dozer interface vslots
+// 9 and 13) for player commands before AIUpdateInterface::aiDoCommand
+// (pinned 0x002673F6) and resets the dozer machine.
 #include "ascii_string.h"
 
 // class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line normalize (rowed 0x000035B6) that newTask calls; same three floats
@@ -278,10 +292,36 @@ private:
 	Int m_reserved1C; // +0x1C
 };
 
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_SCRIPT,
+	CMD_FROM_AI
+};
+
+// BFME 2's command ids (aiDoCommand 0x002673F6's jump table); ZH's order
+// up to AICMD_RESUME_CONSTRUCTION, BFME 2 inserts four before
+// AICMD_MOVE_AWAY_FROM_UNIT.
+enum AICommandType
+{
+	AICMD_REPAIR = 0x13,
+	AICMD_RESUME_CONSTRUCTION = 0x14,
+	AICMD_MOVE_AWAY_FROM_UNIT = 0x34
+};
+
+struct AICommandParms
+{
+	AICommandType m_cmd; // +0x00
+	CommandSourceType m_cmdSource; // +0x04
+	Coord3D m_pos; // +0x08
+	Object *m_obj; // +0x14
+};
+
 class AICommandInterface
 {
 public:
-	virtual void aiDoCommand();
+	virtual void aiDoCommand(const AICommandParms *parms) = 0;
+	void aiIdle(CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface24
@@ -300,7 +340,8 @@ public:
 	virtual void slot4() = 0;
 	virtual DozerTask getMostRecentCommand() = 0; // vslot 5
 	virtual Bool isTaskPending(DozerTask task) = 0; // vslot 6
-	virtual void slot7() = 0; virtual void slot8() = 0; virtual void slot9() = 0;
+	virtual void slot7() = 0; virtual void slot8() = 0;
+	virtual DozerTask getCurrentTask() const = 0; // vslot 9
 	virtual void slot10() = 0; virtual void slot11() = 0;
 	virtual void newTask(DozerTask task, Object *target) = 0; // vslot 12
 	virtual void cancelTask(DozerTask task) = 0; // vslot 13
@@ -320,7 +361,10 @@ public:
 	virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20();
 	virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30();
 	virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40();
-	virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49(); virtual void v50();
+	virtual void v41(); virtual void v42(); virtual void v43();
+	virtual void privateRepair(Object *obj, CommandSourceType cmdSource); // vslot 44 (+0xB0)
+	virtual void privateResumeConstruction(Object *obj, CommandSourceType cmdSource); // vslot 45 (+0xB4)
+	virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49(); virtual void v50();
 	virtual void v51(); virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55(); virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59(); virtual void v60();
 	virtual void v61(); virtual void v62(); virtual void v63(); virtual void v64(); virtual void v65(); virtual void v66(); virtual void v67(); virtual void v68(); virtual void v69(); virtual void v70();
 	virtual void v71(); virtual void v72(); virtual void v73(); virtual void v74(); virtual void v75(); virtual void v76(); virtual void v77(); virtual void v78(); virtual void v79(); virtual void v80();
@@ -330,6 +374,12 @@ public:
 	virtual void v94(); virtual void v95(); virtual void v96(); virtual void v97(); virtual void v98(); virtual void v99(); virtual void v100();
 	virtual void v101(); virtual void v102(); virtual void v103(); virtual void v104(); virtual void v105(); virtual void v106(); virtual void v107(); virtual void v108(); virtual void v109();
 	virtual Bool isIdle() const; // vslot 110 (+0x1B8)
+	virtual void v111(); virtual void v112(); virtual void v113(); virtual void v114(); virtual void v115(); virtual void v116(); virtual void v117(); virtual void v118(); virtual void v119(); virtual void v120();
+	virtual void v121(); virtual void v122(); virtual void v123(); virtual void v124(); virtual void v125(); virtual void v126(); virtual void v127(); virtual void v128(); virtual void v129(); virtual void v130();
+	virtual void v131(); virtual void v132(); virtual void v133(); virtual void v134(); virtual void v135(); virtual void v136(); virtual void v137(); virtual void v138(); virtual void v139(); virtual void v140();
+	virtual void v141(); virtual void v142(); virtual void v143(); virtual void v144(); virtual void v145(); virtual void v146(); virtual void v147();
+	virtual Bool isAllowedToRespondToAiCommands(const AICommandParms *parms) const; // vslot 148 (+0x250)
+	virtual void aiDoCommand(const AICommandParms *parms);
 	Bool isPathAvailable(const Coord3D *destination) const;
 	Bool findNearestLabeledContactPointOnTarget(Object *target, Coord3D *result, const Coord3D *workingPosition, Bool skipCollideTest);
 protected:
@@ -340,7 +390,8 @@ private:
 
 enum ModelConditionFlagType
 {
-	MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED = 69 // +0x114 bit 5
+	MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED = 69, // +0x114 bit 5
+	MODELCONDITION_ACTIVELY_CONSTRUCTING = 73 // +0x114 bit 9
 };
 
 class ModelConditionFlags
@@ -370,6 +421,7 @@ private:
 
 enum KindOfType
 {
+	KINDOF_DOZER = 14,
 	KINDOF_BRIDGE = 22
 };
 
@@ -539,6 +591,7 @@ public:
 	virtual ~DozerAIUpdate();
 	virtual void onDelete();
 	virtual void newTask(DozerTask task, Object *target);
+	virtual void aiDoCommand(const AICommandParms *parms);
 private:
 	enum { DOZER_NUM_TASKS = 3 };
 	enum { DOZER_NUM_DOCK_POINTS = 3 };
@@ -883,4 +936,82 @@ Bool DozerAIUpdate::findGoodBuildOrRepairPosition(const Object *me, const Object
 	positionOut = spotFound ? bestPosition : workingPosition;
 
 	return spotFound;
+}
+
+//-------------------------------------------------------------------------------------------------
+void DozerAIUpdate::aiDoCommand(const AICommandParms *parms)
+{
+	//
+	// anytime we get a command, just remove any model condition that has us actively building
+	// if we need to show that, that bit will be set anyway again during the build process
+	//
+	getObject()->clearModelConditionState(MODELCONDITION_ACTIVELY_CONSTRUCTING);
+
+	if (!isAllowedToRespondToAiCommands(parms))
+		return;
+
+	// if we haven't made the dozer machine yet, do so now
+	createMachines();
+
+	switch (parms->m_cmd)
+	{
+		case AICMD_MOVE_AWAY_FROM_UNIT:
+		{
+			Object *otherObj = parms->m_obj;
+			Bool otherIsDozer = false;
+			if (otherObj)
+			{
+				otherIsDozer = otherObj->isKindOf(KINDOF_DOZER);
+			}
+			// We only want to do this if we aren't busy doing dozer things. jba.
+			// Or if the other guy is a dozer too.
+			if (!otherIsDozer && getCurrentTask() != DOZER_TASK_INVALID)
+			{
+				return; // just ignore it.  jba.
+			}
+			// issue the command
+			AIUpdateInterface::aiDoCommand(parms);
+			break;
+		}
+
+		// --------------------------------------------------------------------------------------------
+		case AICMD_REPAIR:
+		{
+			// if we have no task right now, go idle so we can immediately respond to this
+			if (getCurrentTask() == DOZER_TASK_INVALID)
+				aiIdle(CMD_FROM_AI);
+
+			// do the repair
+			privateRepair(parms->m_obj, parms->m_cmdSource);
+			break;
+		}
+
+		// --------------------------------------------------------------------------------------------
+		case AICMD_RESUME_CONSTRUCTION:
+		{
+			// if we have no task right now, go idle so we can immediately respond to this
+			if (getCurrentTask() == DOZER_TASK_INVALID)
+				aiIdle(CMD_FROM_AI);
+
+			// do the command
+			privateResumeConstruction(parms->m_obj, parms->m_cmdSource);
+			break;
+		}
+
+		// --------------------------------------------------------------------------------------------
+		default:
+		{
+			// if this is from the player, cancel our current task
+			if (parms->m_cmdSource == CMD_FROM_PLAYER && getCurrentTask() != DOZER_TASK_INVALID)
+				cancelTask(getCurrentTask());
+
+			// issue the command
+			AIUpdateInterface::aiDoCommand(parms);
+
+			// when a player issues commands, this will cause the dozer to re-evaluate what it's doing
+			if (parms->m_cmdSource == CMD_FROM_PLAYER)
+				m_dozerMachine->resetToDefaultState();
+			break;
+		}
+	}
 }

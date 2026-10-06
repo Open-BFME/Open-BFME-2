@@ -12,7 +12,10 @@
 // other request just runs the reset helper. The +0x404/+0x410/+0x420 members
 // are the secondary view of the primary's +0x424/+0x430/+0x440 tail proven by
 // the rowed Rva0048F365Helper TU. Case order in source is load-bearing for
-// the compiler's block layout.
+// the compiler's block layout. The base delegate is AIUpdateInterface's
+// aiDoCommand (pinned 0x002673F6, slot 0 of its +0x20 AICommandInterface
+// vtable), so the secondary is that subobject and the request its
+// AICommandParms (command id, command source, position).
 
 struct BfmeFloatTriple
 {
@@ -28,10 +31,12 @@ struct BfmeBehaviorRequest
 	BfmeFloatTriple m_payload;
 };
 
-class Rva002673F6Base
+struct AICommandParms;
+
+class AIUpdateInterface
 {
 public:
-	void Rva002673F6Dispatch(BfmeBehaviorRequest *request);
+	virtual void aiDoCommand(const AICommandParms *parms);
 };
 
 class AssaultTransportAIUpdate
@@ -41,13 +46,13 @@ public:
 	void Rva0048F365Helper();
 };
 
-class AssaultTransportAIUpdateSecondary : public Rva002673F6Base
+class AssaultTransportAIUpdateSecondary : public AIUpdateInterface
 {
 public:
 	void Rva0048F7A7Dispatch(BfmeBehaviorRequest *request);
 
 private:
-	unsigned char m_pad00[0x404];
+	unsigned char m_pad04[0x404 - 0x04];
 	BfmeFloatTriple m_triple404;
 	int m_int410;
 	unsigned char m_pad414[0x420 - 0x414];
@@ -84,5 +89,5 @@ void AssaultTransportAIUpdateSecondary::Rva0048F7A7Dispatch(BfmeBehaviorRequest 
 			break;
 		}
 	}
-	Rva002673F6Base::Rva002673F6Dispatch(request);
+	AIUpdateInterface::aiDoCommand((const AICommandParms *)request);
 }
