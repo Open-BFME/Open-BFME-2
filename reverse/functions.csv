@@ -64443,3 +64443,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?_ALERT@@YAHPAUlua_State@@@Z,,0x003333D1,83,Code/GameEngine/Source/Common/LuaAlert.cpp,matched,Lua ALERT via lua_tostring and AsciiString
 ?rva00501DF1@Rva00501DF1@@QAEHH@Z,,0x00501DF1,49,Code/GameEngine/Source/Common/Rva00501DF1Find.cpp,matched,map find Sub copy via rowed find and dtor
 ?update@Rva0033F364@@UAE?AW4StateReturnType@@XZ,,0x003492BD,225,Code/GameEngine/Source/GameLogic/AI/Rva0033F364Update.cpp,matched,vslot slot 6 of vtable 0x00810F40 via Rva0033F364 ctor TurretStateMachine frame gate
+??1Rva000F9BD7Dtor@@QAE@XZ,,0x000F9BD7,101,Code/GameEngine/Source/Common/Rva000F9BD7Dtor.cpp,matched,empty body with two CRT-freed buffers then two texture handle member dtors
