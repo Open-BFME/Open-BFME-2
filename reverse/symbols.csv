@@ -13608,3 +13608,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva00596B10@Rva00596B10@@QAEXXZ,0x00596B10,
 ??0Rva004E5610@@QAE@XZ,0x004E5610,
 ??0Rva002C6EE0@@QAE@PBVModuleData@@PBVArmorTemplate@@_N@Z,0x002C6EE0,
+?rva0053EF2E@Rva0053ED1A@@QAEXXZ,0x0053EF2E,address-derived member scaffolding for Rva0053ED1A 0x0053EF7B tail dispatch; range-27 target, used only as a call target
+?rva005C6D9C@Rva005C6D4D@@QAEXXZ,0x005C6D9C,address-derived secondary-base method scaffolding for Rva0053ED1A 0x0053EFAE tail call; identity unproven, used only as a call target
