@@ -537,7 +537,13 @@ def run(args):
                      f"{len(passed)}/{len(sources)} sampled units adopt")
         for source in passed:
             (ROOT / source).write_bytes(best["texts"][source].encode("latin-1"))
-        rewrite_ledger([r for s in passed for r in best["renames"].get(s, [])])
+        renamed = [r for s in passed for r in best["renames"].get(s, [])]
+        rewrite_ledger(renamed)
+        if renamed:
+            # The hook verifies against the working-tree ledger, so units committed
+            # without these renames would pass and leave HEAD inconsistent.
+            print(f"  {len(renamed)} ledger row(s) renamed to the canonical class-key: commit "
+                  f"{LEDGER.relative_to(ROOT).as_posix()} in the same commit as their units")
         write_queue(name, header, failed)
         print(f"  applied: {len(passed)} units rewritten, {len(failed)} queued in {QUEUE.relative_to(ROOT).as_posix()}")
     return 0
