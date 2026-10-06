@@ -15,10 +15,12 @@ public:
 	int toInteger() const;
 };
 
+class AptValue;
+
 class AptInteger
 {
 public:
-	static BfmeAptValue006DCD20 *Create(int nValue);
+	static AptValue *Create(int nValue);
 };
 
 extern unsigned int bfmeNext1221();
@@ -59,7 +61,7 @@ void AptActionInterpreter::_FunctionAptActionRandom(AptActionInterpreter *const 
 		nResult = bfmeNext1221() % nMaximum;
 	}
 
-	BfmeAptValue006DCD20 *pResult = AptInteger::Create(nResult);
+	BfmeAptValue006DCD20 *pResult = (BfmeAptValue006DCD20 *)AptInteger::Create(nResult);
 	if (!(pInterpreter->stack.m_nElements > 0)) {
 		g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping from Stack with 0 elements. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 152);
 		// Retail places this breakpoint before setting up the shared Push call.
