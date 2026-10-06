@@ -12,6 +12,8 @@ Sections, in priority order:
   2. Drift quick wins  immediate-only / imm+reg literal fixes from drift_report.csv
   3. Structural reconciliation  closest source-shape mismatches
   4. Ghidra-anchored absent  source literals identify an unclaimed retail function
+     (--tier similar: unclaimed functions nearest to matched code in BFME1/BFME2,
+      tools/similar.py; served on request only, never by the default pick)
   5. Rest of the ladder (pointer commands only, nothing computed)
 
 Usage:
@@ -762,8 +764,13 @@ def candidate_weight(candidate):
 
     The queues already rank themselves and the selector used to throw that
     ranking away, so every draw was worth the pool average."""
-    return yield_model.weight(
+    weight = yield_model.weight(
         candidate.get("size") or candidate.get("target_size") or 1)
+    if "similarity" in candidate:
+        # The similar tier ranks by resemblance to matched code; keep that order
+        # in the draw (score 1.0 keeps the full weight, 0.5 a quarter of it).
+        weight = max(1, round(weight * candidate["similarity"] ** 2))
+    return weight
 
 
 def deferred_note(candidates):
@@ -968,8 +975,22 @@ def packet_candidates(claimed):
     return out
 
 
+def similar_candidates(claimed, claimed_ranges):
+    """Unclaimed functions ranked by similarity to matched code (tools/similar.py).
+
+    The lead is a matched neighbour's source: the body that taught the layout,
+    inlined helper or idiom this one most likely needs. Like the anchored tier it
+    carries no identity -- recovering the name is part of the job."""
+    import similar
+    out = []
+    for c in similar.served_queue(claimed, claimed_ranges):
+        best = c["neighbours"][0]
+        out.append(dict(c, lead=f"{best['game']} {best['rva']} {best['name']}"))
+    return out
+
+
 def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
-                   packets=()):
+                   packets=(), similar=()):
     queues = {
         "packet": ("Zero Hour work packet", packets),
         "named": ("reloc-named unclaimed function", named),
@@ -977,6 +998,7 @@ def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
         "structural": ("structural reconciliation", structural),
         "ghidra": ("Ghidra-anchored absent function", ghidra_absent),
         "anchored": ("string-anchored unclaimed function", anchored),
+        "similar": ("similar to matched code", similar),
     }
     if tier:
         return queues[tier]
@@ -1077,6 +1099,15 @@ def print_candidate(label, candidate, meta, candidates=()):
         if shared > 0:
             print(f"       {shared} other drifted name(s) claim this same address; "
                   f"the body decides which one it is")
+        _print_stash(candidate)
+        _print_boundary_verdicts(candidate)
+        print(f"       start: {candidate['command']}")
+    elif label == "similar to matched code":
+        print(f"  {candidate['similarity']:.3f} {candidate['size']:>5}B "
+              f"{candidate['function']}  (anonymous — recovering the name is step 1)")
+        print(f"       {candidate['target_rva']} resembles matched {candidate['lead']}")
+        for lead in candidate["neighbours"]:
+            print(f"         {lead['score']:.3f} {lead['game']} {lead['rva']} {lead['source']}")
         _print_stash(candidate)
         _print_boundary_verdicts(candidate)
         print(f"       start: {candidate['command']}")
@@ -1186,7 +1217,8 @@ def main():
     ap.add_argument("--claim", action="store_true",
                     help="claim the selected RVA on origin before serving it; retry a raced selection")
     ap.add_argument("--tier",
-                    choices=("packet", "named", "harvest", "structural", "ghidra", "anchored"),
+                    choices=("packet", "named", "harvest", "structural", "ghidra", "anchored",
+                             "similar"),
                     help="choose from only this task lane")
     ap.add_argument("--shard", type=parse_shard, metavar="INDEX/COUNT",
                     help="stable zero-based partition for concurrent workers")
@@ -1201,7 +1233,7 @@ def main():
 
     ledger = check_ledger()  # exit 2 happens in there; nothing below matters if red
     drifts = (drift_quick_wins()
-              if args.tier not in ("packet", "named", "structural", "ghidra") else [])
+              if args.tier not in ("packet", "named", "structural", "ghidra", "similar") else [])
     # Every tier below asks "is this address still open work?", and a gen-dump
     # row answers yes: it pins retail's bytes and holds no source. That rule
     # lives in build.load_claim_rows and nowhere else -- deriving it here a
@@ -1216,7 +1248,8 @@ def main():
                 claimed_ranges.append((start, start + int(row["target_size"])))
     structural = (structural_candidates(claimed, claimed_names, claimed_ranges,
                                         big=args.big)
-                  if args.tier not in ("packet", "named", "harvest", "ghidra", "anchored")
+                  if args.tier not in ("packet", "named", "harvest", "ghidra", "anchored",
+                                       "similar")
                   else [])
     if args.tier in (None, "named"):
         named, named_note = reloc_named_candidates(claimed, claimed_ranges)
@@ -1227,7 +1260,9 @@ def main():
             claimed, claimed_names, claimed_ranges)
     else:
         anchored, anchored_note = [], "anchored tier not requested"
-    if args.tier not in ("packet", "named", "harvest", "structural", "anchored"):
+    similar_q = (similar_candidates(claimed, claimed_ranges)
+                 if args.tier == "similar" else [])
+    if args.tier not in ("packet", "named", "harvest", "structural", "anchored", "similar"):
         ghidra_absent, ghidra_meta = ghidra_absent_candidates(
             claimed, claimed_names)
     else:
@@ -1242,8 +1277,9 @@ def main():
         structural, dropped_structural = drop_logged(structural)
         ghidra_absent, dropped_ghidra = drop_logged(ghidra_absent)
         anchored, dropped_anchored = drop_logged(anchored)
+        similar_q, dropped_similar = drop_logged(similar_q)
         suppressed = (dropped_named + dropped_drift + dropped_structural
-                      + dropped_ghidra + dropped_anchored)
+                      + dropped_ghidra + dropped_anchored + dropped_similar)
 
     busy = claims.busy_rvas()
     named = without_busy(named, busy)
@@ -1251,6 +1287,7 @@ def main():
     structural = without_busy(structural, busy)
     ghidra_absent = without_busy(ghidra_absent, busy)
     anchored = without_busy(anchored, busy)
+    similar_q = without_busy(similar_q, busy)
 
     # After the log filter, so one dead name cannot retire a whole address, and
     # before sharding, so every worker sees the same collapsed queue.
@@ -1261,7 +1298,8 @@ def main():
     structural = apply_shard(structural, args.shard)
     ghidra_absent = apply_shard(ghidra_absent, args.shard)
     anchored = apply_shard(anchored, args.shard)
-    for queue in (named, drifts, structural, ghidra_absent, anchored):
+    similar_q = apply_shard(similar_q, args.shard)
+    for queue in (named, drifts, structural, ghidra_absent, anchored, similar_q):
         annotate_stashes(queue)
     shard_meta = (None if args.shard is None else
                   {"index": args.shard[0], "count": args.shard[1]})
@@ -1274,6 +1312,7 @@ def main():
             "structural": structural,
             "ghidra_meta": ghidra_meta, "ghidra_absent": ghidra_absent,
             "anchored_meta": anchored_note, "anchored": anchored,
+            "similar": similar_q,
             "structural_meta": structural_meta,
             "suppressed_logged": suppressed,
             "shard": shard_meta,
@@ -1307,7 +1346,7 @@ def main():
         withheld = len(packets)
         packets = []
     label, candidates = selected_queue(args.tier, drifts, structural, ghidra_absent,
-                                       anchored, named, packets)
+                                       anchored, named, packets, similar_q)
     candidate, acquired = (claim_choice(candidates, label) if args.claim else
                            (weighted_choice(candidates) if candidates else None, []))
     deferred = sum(1 for c in candidates if c.get("deferred_attempts"))
