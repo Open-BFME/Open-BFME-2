@@ -64347,3 +64347,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?d_001ea2cf@@YAXXZ,,0x001EA2CF,223,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_005ea2cf
 ?d_004c40ba@@YAXXZ,,0x004C40BA,413,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_008c40ba
 ?d_0014fac2@@YAXXZ,,0x0014FAC2,390,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_0054fac2
+?friend_xferSaveDataForCRC@GameState@@QAEXPAVXfer@@W4SnapshotType@@@Z,,0x002DDD0B,50,Code/GameEngine/Source/Common/System/SaveGame/GameStateFriend.cpp,matched,Zero Hour GameState.cpp CRC helper; SaveGameInfo members at +0x2C/+0x44/+0x48/+0x50 off retail displacements; trailing xferSaveData call pinned at 0x002DCE24 until its row lands; exact 50B
