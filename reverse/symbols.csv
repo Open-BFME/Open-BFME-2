@@ -13683,31 +13683,3 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva0049DD83Append@Rva0049DD83@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ?rva00417DFBAppend@Rva00417DFB@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ?rva0021B7B6Append@Rva0021B7B6@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
-??0Rva0010461F@@QAE@XZ,0x0010461F,callee of ?rva0008F32C@@YAXXZ
-??0Rva0030F404@@QAE@H@Z,0x0030F404,callee of ?rva00086BC5@Rva00086BC5@@QAEXH@Z
-?rva0030F36B@Rva0030F36B@@QAEXXZ,0x0030F36B,callee of ?rva00086BC5@Rva00086BC5@@QAEXH@Z
-?rva00112898@Rva00113110Holder@@QAEXHHPAX@Z,0x00112898,"retail REL32 at 0x00113148 in 0x00113110 targets 0x00112898 (ecx=esi Holder thiscall 3 stack args [esi+0x58] plus 0 plus 0; 569B Ghidra body sharing +0x5C holder); opaque candidate not identity"
-?rva0013275A@Rva00132D0FHolder@@QAEHXZ,0x0013275A,"retail REL32 at 0x00132D27 in 0x00132D0F targets 0x0013275A (ecx=esi thiscall no args int cmp-1; 42B Ghidra FUN); opaque candidate not identity"
-?rva00132784@Rva00132D0FHolder@@QAEHXZ,0x00132784,"retail REL32 at 0x00132D33 in 0x00132D0F targets 0x00132784 (ecx=esi thiscall no args int cmp-1; 42B Ghidra FUN); opaque candidate not identity"
-?rva0014F647@@YAXPAX0@Z,0x0014F647,"retail REL32 in 0x0014F674/0x0014F9E7 targets 0x0014F647 (cdecl 2 stack args no this; 45B Ghidra EH body); opaque candidate not identity"
-?rva003F300A@Rva003F300A@@QAEXXZ,0x003F300A,placeholder thiscall 0-arg callee of dump 0x0020E9F2 loop; REL32 read from retail
-?rva003F3708@Rva003F3708@@QAEXH@Z,0x003F3708,placeholder thiscall 1-int-arg callee of dump 0x0020EA22 loop; REL32 read from retail
-?rva003F08D7@Rva003F08D7@@QAEHH@Z,0x003F08D7,placeholder int(int) twin for bool pin; retail tests eax not al
-?rva002B7DE6@Rva002B894DHost@@QAEXPAVRva002B894DElem@@@Z,0x002B7DE6,callee of ?rva002B894D@Rva002B894DHost@@QAEXH@Z
-?rva002C995D@BfmeRangedWeaponTemplate@@QAEMPAX0M@Z,0x002C995D,pin for BfmeRangedWeaponTemplate float view thiscall (void*,void*,float)
-?rva002C98E2@BfmeRangedWeaponTemplate@@QAEMPAX@Z,0x002C98E2,pin for BfmeRangedWeaponTemplate float view thiscall (void*)
-?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z,0x002C760B,pin for 0x2C777E mask bit-setter thiscall (zero + 7 ids) returns this
-?clear@Rva002DEE9A0E0C@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
-?clear@Rva002DEE9A0E10@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
-?rva002DE311@Rva002DEE9AOwner@@QAEXXZ,0x002DE311,pin for 0x2DEE9A thiscall void () on this
-?init@Rva002ECE6AInfo@@QAEPAU1@PAX000HHH@Z,0x002ECD63,thiscall query builder (ecx=0x60-byte Rva002ECE6AInfo, ret 0x1c = 7 stack args) called via retail REL32 from wrappers 0x002F1AF4 and 0x002F1B66; body stores the 7 args into the query and returns it (mov eax ebx); inter-target at 0x002ECC0D+342, ghidra 263B
-?init@Rva002ED01EInfo@@QAEPAU1@PAX00@Z,0x002E931F,thiscall query builder (ecx=0x58-byte Rva002ED01EInfo, ret 0xc = 3 stack args) called via retail REL32 from wrapper 0x002F1B32; body stores the 3 args into the query and returns it (mov eax ebx); ghidra 136B
-?init@Rva002ED15AInfo@@QAEPAU1@PAX00@Z,0x002ED0CC,thiscall query builder (ecx=0x5C-byte Rva002ED15AInfo, ret 0xc = 3 stack args) called via retail REL32 from wrapper 0x002F1BA2; body stores the 3 args into the query and returns it (mov eax ebx); ghidra 142B
-?rva002EBC14@@YAPAUICoord2D@@PAU1@PAXPBUCoord3D@@@Z,0x002EBC14,free cdecl cell resolver (32B frameless): WorldToCell(out=a, IsOdd 0x002EBBFB(b), c) and return a; called via retail REL32 from 0x002EDF44 and 0x002EDF7C with (tmp, obj, obj+0x38); same return-first-arg idiom as rowed thiscall sibling 0x002EBC34
-?rva00600991@Rva00600991@@QAEXPAX0@Z,0x00600991,thiscall-2 helper for 0x00600BC6 wrapper; forwards this plus tmp out and arg; identity unproven
-?rva005F422C@Rva005F422C@@QAEXXZ,0x005F422C,read from REL32 at 0x005E4232 in rva005E4202 0x005E4202 (thiscall no-arg: lea ecx plus no pushes); Ghidra FUN_009f422c bounds 40 bytes; callee body unclaimed
-?rva005F4891@Rva005F4891@@QAEXXZ,0x005F4891,read from REL32 at 0x005E429F in rva005E426F 0x005E426F (thiscall no-arg: lea ecx plus no pushes); Ghidra FUN_009f4891 bounds 91 bytes; callee body unclaimed
-?rva005D4F27@Rva005D4F27@@QAEXHH@Z,0x005D4F27,method pointer stored in delegate desc at 0x005D5029 in rva005D5001 0x005D5001 (EH prolog at entry, thiscall two-arg shape); Ghidra missed boundary (follows 0x005D4F0E); callee body unclaimed
-?rva005DB9E4@Rva005DB9E4@@QAEXXZ,0x005DB9E4,read from REL32 at 0x005DBA49 in rva005DBA3D 0x005DBA3D (thiscall no-arg, ecx already this); entry has ebp frame, bigger body unclaimed
-?rva005D415D@Rva005D415D@@QAE_NHPAX@Z,0x005D415D,read from REL32 at 0x005D473D in rva005D472C 0x005D472C (thiscall on +8 with dword plus out-ptr, al-tested bool; caller pops 8B so convention is caller-clean (non-standard thiscall); Ghidra 0x5D415D/298 unclaimed); Ghidra boundary 0x5D415D/298 unclaimed
-?rva005D4395@Rva005D4395@@QAEXXZ,0x005D4395,read from REL32 at 0x005D475D in rva005D472C 0x005D472C (thiscall no-arg); Ghidra boundary 0x5D4395/158 unclaimed
