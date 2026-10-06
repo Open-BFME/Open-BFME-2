@@ -64325,3 +64325,6 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva005961D6@@UAE@XZ,,0x00596225,68,Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp,matched,free +0x98 buffer then base 0x0025BFE3; /EHs
 ??1Rva005D2015@@UAE@XZ,,0x005D2015,58,Code/GameEngine/Source/Common/Rva005D2015Dtor.cpp,matched,unregister via 0x002B7250 then base vtable C6E350
 ??1Rva00938C4@@UAE@XZ,,0x000938C4,75,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00938C4Dtor.cpp,matched,W3DSnowManager dtor shape: ReleaseResources then texture ref then SnowManager dtor
+??1Rva005E98A0@@QAE@XZ,,0x005E98A0,65,Code/GameEngine/Source/Common/Rva005E98A0Dtor.cpp,matched,pointee dtor reset 0x005E9705 plus unload 0x0057C2CC then member reset
+??1Rva005D1210@@QAE@XZ,,0x005D1210,61,Code/GameEngine/Source/Common/Rva005D1210Dtor.cpp,matched,pointee dtor safe delete 0x005EC135 then member clear 0x000AD6F4
+??1Rva00A86CE@@UAE@XZ,,0x000A86CE,64,Code/GameEngine/Source/Common/Rva000A86CEDtor.cpp,matched,novtable dtor handle 0x000A8A37 then ref release 0x00050ED3
