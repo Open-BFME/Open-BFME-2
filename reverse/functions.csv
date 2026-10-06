@@ -64424,3 +64424,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005E3B25@Rva005E3B25@@QAEXH@Z,,0x005E3B25,8,Code/GameEngine/Source/Common/Rva005E3B25.cpp,matched,ptr chase tail jmp via rowed callee plus caller plus gap
 ?rva005E3266@Rva005E3266@@QAEXXZ,,0x005E3266,8,Code/GameEngine/Source/Common/Rva005E3266.cpp,matched,ptr chase tail jmp via rowed callee plus caller plus gap
 ?fwd@Rva005E683EMid@@QAEXHH@Z,,0x005E683E,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,Address-derived virtual-forward thunk adj +4 slot 0x04 two args from callers 0x005CE130 0x005CE804
+?rva002A8F56@Rva002A8F24@@QAEXPAVObject@@@Z,,0x002A8F56,138,Code/GameEngine/Source/Common/RTS/Rva002A8F56.cpp,matched,packet callers LINK BONUS via 0x28BAC0 prev-next offsets
