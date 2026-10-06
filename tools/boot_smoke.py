@@ -57,6 +57,12 @@ every hit is a debugger round trip, so a large overlay boots slower probed.
 is run alone)
 down to the rows that fail by themselves, and write them to
 build/boot/boot_queue.json, which tools/repair_queue.py serves (`boot-crash`).
+
+--relayout / --own-data build the image with tools/boot_relayout.py instead
+(units moved out of retail's order, their old ranges int3; data from our
+objects). With --relayout an int3 the debugger did not plant is a fault
+(--int3-faults): without it the debugger would step through a moved unit's
+int3-filled old range into whatever follows.
 """
 import argparse
 import bisect
@@ -447,8 +453,8 @@ def main_window(pid):
     return max(wins, key=lambda w: (w[1][2] - w[1][0]) * (w[1][3] - w[1][1]))[2] if wins else None
 
 
-def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rva=None, defocus_at=None, *,
-        appdata):
+def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rva=None, defocus_at=None,
+        int3_faults=False, *, appdata):
     """Start `launcher` (retail's lotrbfme2.exe, which hands game.dat its start-up
     token; game.dat started directly exits 0 at once) under a debugger that
     follows children; the child whose image is game.dat is the one classified.
@@ -460,7 +466,9 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
     `appdata` (required): the sandbox AppData root the game is given instead of
     the owner's; if the redirect cannot be installed at game.dat's loader
     breakpoint, before any game code runs, every process is killed and the
-    outcome is `profile-redirect-failed`."""
+    outcome is `profile-redirect-failed`. With `int3_faults` an int3 in the game
+    after its loader breakpoint that is neither a probe nor the focus arm is passed
+    to the game as an exception (an int3 filler was executed)."""
     check_sandbox_appdata(appdata)
     k = k32()
     k.QueryFullProcessImageNameW.argtypes = [wt.HANDLE, wt.DWORD, wt.LPWSTR, ctypes.POINTER(wt.DWORD)]
@@ -529,6 +537,8 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                 hit = next((a for a in (addr, addr - 1) if a in armed), None) if exc in BREAKPOINTS and game else None
                 at_focus = next((a for a in (addr, addr - 1) if a in focus), None) \
                     if exc in BREAKPOINTS and game else None
+                stray = (int3_faults and game and hit is None and at_focus is None and exc in BREAKPOINTS
+                         and len(procs.get(pid, ())) > 3)
                 handled = at_focus is not None or (exc in SINGLE_STEP and game and tid in stepping)
                 if at_focus is not None:
                     res["focus_lie"]["hits"] += 1
@@ -558,13 +568,13 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                     if game and focus_rva is not None:
                         focus.update(set_probes(k, h, base, [focus_rva]))
                         res["focus_lie"]["armed"] = bool(focus)
-                if exc not in BREAKPOINTS and not handled:
+                if (exc not in BREAKPOINTS and not handled) or stray:
                     status = DBG_NOT_HANDLED
                     if first and game:
                         res["first_chance_count"] += 1
                         if exc not in QUIET and len(res["first_chance"]) < 10:
                             res["first_chance"].append([hex(exc), addr, info])
-                            if exc == 0xC0000005 and "stack" not in res:   # the fault itself, not the WOW64 rethrow
+                            if (exc == 0xC0000005 or stray) and "stack" not in res:   # the fault, not the rethrow
                                 res["stack"] = stack_words(k, procs[pid][0], tid)
                                 res["fault"] = addr
                     elif not first and game:
@@ -753,6 +763,13 @@ def smoke(a, rows=None, tag="boot"):
     else:
         if a.no_build:
             rep = json.loads((OUT / f"{tag}.json").read_text())
+        elif a.relayout or a.own_data:
+            import boot_relayout
+            rep = boot_relayout.build_image(a.base, OUT, tag, a.overlay, a.status, rows, relayout=a.relayout,
+                                            own_data=a.own_data, seed=a.seed)
+            out["relayout"] = rep.get("relayout")
+            if rep.get("own_data"):
+                out["own_data"] = rep["own_data"]
         else:
             rep = boot_image.build_image(a.base, OUT, tag, a.overlay, a.status, rows)
         chk = rep.get("check", {})
@@ -779,7 +796,8 @@ def smoke(a, rows=None, tag="boot"):
     if not a.no_focus_lie and focus_rva is None:
         out["focus_lie"] = "WM_ACTIVATEAPP arm not found (no lie)"
     res = run(a.game_dir / "lotrbfme2.exe", a.game_dir.resolve(), a.args, a.timeout, not a.no_version_lie,
-              sorted(moved) if a.probes else (), focus_rva, a.defocus, appdata=a.appdata)
+              sorted(moved) if a.probes else (), focus_rva, a.defocus, a.int3_faults or a.relayout,
+              appdata=a.appdata)
     out["run"] = {k: v for k, v in res.items() if k not in ("first_chance", "stack", "probes_hit")}
     out["run"]["first_chance"] = [[c, hex(x), [hex(i) for i in info]] for c, x, info in res["first_chance"]]
     if authored:
@@ -928,6 +946,11 @@ def main(argv=None):
                          "debugger round trip; 9,001 hits delayed a boot past 150 s)")
     ap.add_argument("--bisect", action="store_true",
                     help="when the overlay fails, halve it to the guilty rows (build/boot/boot_queue.json)")
+    ap.add_argument("--relayout", action="store_true", help="units moved out of retail order (boot_relayout.py)")
+    ap.add_argument("--own-data", action="store_true", help="data from the units' objects (boot_relayout.py)")
+    ap.add_argument("--seed", type=int, default=0, help="--relayout shuffle seed")
+    ap.add_argument("--int3-faults", action="store_true",
+                    help="an int3 the debugger did not plant is a fault (always on with --relayout)")
     a = ap.parse_args(argv)
     a.appdata = (a.appdata or a.game_dir.resolve().parent / "appdata").resolve()
     try:

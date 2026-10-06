@@ -329,11 +329,11 @@ def export_fields(r):
 
 
 class Piece:
-    __slots__ = ("name", "start", "size", "flags", "relocs", "label", "pad", "unit", "public")
+    __slots__ = ("name", "start", "size", "flags", "relocs", "label", "pad", "unit", "public", "fill")
 
     def __init__(self, name, start, size, flags, unit=None):
         self.name, self.start, self.size, self.flags, self.relocs = name, start, size, flags, []
-        self.label, self.unit = None, unit
+        self.label, self.unit, self.fill = None, unit, None    # fill: a byte replacing retail's (relayout)
         self.public = unit.label if unit else f"_bootp_{start:08X}"
         # a page-aligned piece cut from mid-section keeps retail's address mod 4096
         # (movdqa on a .data table faults when a carve shifts it by 8)
@@ -503,7 +503,8 @@ def write_scaffold(r, pieces, path, names=None):
         sections = []
         for p in chunk:
             s0, _, raw = next(v for v in r.secs.values() if v[0] <= p.start < v[0] + v[1])
-            body = bytearray(p.pad) + bytearray(raw[p.start - s0:p.start - s0 + p.size])
+            body = bytearray(p.pad) + (bytearray([p.fill]) * p.size if p.fill is not None
+                                       else bytearray(raw[p.start - s0:p.start - s0 + p.size]))
             rl = []
             for site, kind, tgt in p.relocs:
                 if tgt[0] == "piece" and tgt[1].unit is not None:
@@ -743,15 +744,16 @@ def import_entry_names(sym):
     return {bare, re.sub(r"@\d+$", "", bare)}
 
 
-def object_datum(o, sec, q):
+def object_datum(o, sec, q, cap=0x1000):
     """(start offset, bytes, masked offsets) of the object datum holding section
-    offset q: from the last symbol at or before q to the next one or the section end."""
+    offset q: from the last symbol at or before q to the next one or the section end
+    (at most `cap` bytes)."""
     secs, syms, data = o
     s = secs[sec - 1]
     offs = section_symbols(o)[1].get(sec, [0])
     i = bisect.bisect_right(offs, q)
     lo = offs[i - 1]
-    hi = min(offs[i] if i < len(offs) else s.size, s.size, lo + 0x1000)
+    hi = min(offs[i] if i < len(offs) else s.size, s.size, lo + cap)
     raw = data[s.ptr + lo:s.ptr + hi] if s.ptr else bytes(hi - lo)
     masked = {k for off, _, _ in s.relocs if lo - 4 < off < hi for k in range(off - lo, off - lo + 4)}
     return lo, raw, masked
@@ -777,8 +779,19 @@ def section_symbols(o):
 
 def bind_unit(u, r, ctx):
     """Check u against retail and bind its relocations [(offset, type, name)];
-    returns None, or why it is refused."""
+    returns None, or why it is refused.
+
+    boot_relayout.py's check-driven modes set ctx flags: `defer` links a name that
+    denotes another address than retail's target (or an internal target that
+    differs) as the object says, for its semantic image check to judge; `own`
+    {retail start: size} binds references to data the object defines to the
+    object's own copy (`_bootd_<rva>`), `defer_data` skips the content comparison,
+    and `datum_refs` collects {unit rva: [(retail start, size, path, section, offset)]}
+    of the data `datum_extent(obj, section, offset) -> (start, size)` delimits."""
     secs, syms, data = u.obj
+    defer, own, refs = ctx.get("defer"), ctx.get("own"), ctx.get("datum_refs")
+    if refs is not None:
+        refs[u.rva] = []
     s = secs[u.sec - 1]
     tstart, _, text = r.secs[".text"]
     body = bytearray(data[s.ptr + u.off:s.ptr + u.off + u.size])
@@ -813,7 +826,9 @@ def bind_unit(u, r, ctx):
             t = u.rva + o + 4 + struct.unpack_from("<i", want, o)[0]
         if y.sec == u.sec and u.off <= y.value + add <= u.off + u.size:        # its own section
             if t != u.rva + y.value + add - u.off:
-                return "internal-target-differs"
+                if not defer:
+                    return "internal-target-differs"
+                bind["internal-deferred"] += 1
             struct.pack_into("<i", body, o, y.value + add - u.off)
             relocs.append((o, kind, u.label))
             bind["internal"] += 1
@@ -839,7 +854,10 @@ def bind_unit(u, r, ctx):
                 at = t - add
                 known = ctx["ident"].get(y.name, set()) | ctx["authored"].get(y.name, set())
                 if at not in known:
-                    return f"identity-differs:{y.name}"
+                    if not (defer and len(known) == 1):
+                        return f"identity-differs:{y.name}"
+                    at = next(iter(known))              # the name's own address; the image check judges it
+                    bind["identity-deferred"] += 1
                 name = y.name if known == {at} else f"_boota_{at:08X}"
                 bind["name" if known == {at} else "name-of-several-addresses"] += 1
             else:                                       # TU statics, literals, unidentified externals
@@ -847,6 +865,20 @@ def bind_unit(u, r, ctx):
                 struct.pack_into("<i", body, o, 0)
                 bind["site-content" if defined else "site"] += 1
             # data the object defines (and code it defines under no identity) must equal retail's there
+            if refs is not None and defined and not secs[y.sec - 1].name.startswith(".text"):
+                q = y.value + add
+                lo, n = ctx["datum_extent"](u.obj, y.sec, q)
+                rlo = t - (q - lo)
+                refs[u.rva].append((rlo, n, u.path, y.sec, lo))
+                if (own or {}).get(rlo) == n:           # the object's own copy of its data
+                    struct.pack_into("<i", body, o, q - lo)
+                    relocs.append((o, kind, f"_bootd_{rlo:08X}"))
+                    need[f"_bootd_{rlo:08X}"] = rlo
+                    bind["own-data"] += 1
+                    continue
+                if ctx.get("defer_data"):
+                    defined = False
+                    bind["content-deferred"] += 1
             if defined and not (named and secs[y.sec - 1].name.startswith(".text")):
                 q = y.value + add
                 lo, raw, masked = object_datum(u.obj, y.sec, q)
@@ -880,9 +912,11 @@ def unit_names(u):
             if u.off <= v < u.off + u.size}
 
 
-def overlay_plan(r, sites, lost, rows, objs=None):
+def overlay_plan(r, sites, lost, rows, objs=None, opts=None):
     """(admitted units, refusals [(row, why)], names {name: rva}) for the rows;
-    `names` holds every name the units reference or define, each one address."""
+    `names` holds every name the units reference or define, each one address.
+    `opts` (boot_relayout.py) are extra bind_unit flags; the context is left in
+    opts["ctx"]."""
     if objs is None:
         import link_cycle
         objs = link_cycle.Objects([])
@@ -899,6 +933,7 @@ def overlay_plan(r, sites, lost, rows, objs=None):
         kept.append(u)
     ident = identities(r)
     ctx = {"sites": set(sites), "site_list": sites, "lost": lost, "iat": r.imports(), "ident": ident}
+    ctx.update(opts or {})
     live = kept
     while True:
         authored = collections.defaultdict(set)
@@ -915,6 +950,8 @@ def overlay_plan(r, sites, lost, rows, objs=None):
             break
         live = ok
     refused += [(x, u.why) for u in kept if u.why for x in u.rows]
+    if opts is not None:
+        opts["ctx"] = ctx
     names = dict(ctx["need"])
     for u in live:
         names[u.label] = u.rva
@@ -1161,7 +1198,18 @@ def main(argv=None):
                    help="authored units to link in: closed | shift-safe (link_cycle certification), "
                         "rows:FILE, or a tree path prefix; repeatable (union)")
     p.add_argument("--status", type=Path, default=LINK_STATUS, help="link_cycle link_status.csv for closed/shift-safe")
+    p.add_argument("--relayout", action="store_true",
+                   help="move the overlay's units to a fresh section, int3 their retail ranges (boot_relayout.py)")
+    p.add_argument("--own-data", action="store_true",
+                   help="place data the units' objects define in our own sections and bind to it (boot_relayout.py)")
+    p.add_argument("--seed", type=int, default=0, help="--relayout: the moved units' shuffle")
     args = ap.parse_args(argv)
+    if args.cmd == "link" and (args.relayout or args.own_data):
+        import boot_relayout
+        rep = boot_relayout.build_image(args.base, args.out, args.tag, args.overlay, args.status,
+                                        relayout=args.relayout, own_data=args.own_data, seed=args.seed)
+        print(json.dumps({k: v for k, v in rep.items() if k not in ("pieces_map", "authored", "_layout")}, indent=1))
+        return 0 if image_ok(rep) else 1
     if args.cmd == "link":
         rep = build_image(args.base, args.out, args.tag, args.overlay, args.status)
         print(json.dumps({k: v for k, v in rep.items() if k not in ("pieces_map", "authored")}, indent=1))
