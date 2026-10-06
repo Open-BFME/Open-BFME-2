@@ -64527,3 +64527,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva004FA978@Rva004FA978@@QAEXP8Rva004FA935Listener@@AEXPAX@Z0@Z,,0x004FA978,26,Code/GameEngine/Source/Common/Rva004FA978Forward.cpp,matched,forward same args to list at plus4 then tail to global g_00E044F0 via forEach 0x004FA935
 ??1Rva004E6A9B@@QAE@XZ,,0x004E6A9B,157,Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp,matched,nonvirtual dtor with implicit holder clears and 4 member dtors
 ?rva002C6845@Rva002C6845@@QAEXXZ,,0x002C6845,52,Code/GameEngine/Source/Common/Rva002C6845Method.cpp,matched,pinned leaf with caller 0x004E9507 and rowed callees
+?rva004FA992@Rva004FA992@@QAEXP8Rva004FA953Listener@@AEXPAXH@Z0H@Z,,0x004FA992,31,Code/GameEngine/Source/Common/Rva004FA992Forward.cpp,matched,forward 3 args to list at plus4 then tail to global g_00E044F0 via forEach 0x004FA953
