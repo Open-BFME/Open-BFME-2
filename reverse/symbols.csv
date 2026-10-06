@@ -13750,3 +13750,7 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva00600305@@YIXPAVRva00600305Obj@@HHHH@Z,0x00600305,fastcall chained init called from 0x00600352 with fwd untouched in edx; identity unproven
 ?rva00ADAFA0@Rva006CC4A0@@QAEXXZ,0x006DAFA0,thiscall-0 on this called from 0x006CC4A0 with ecx ambient; identity unproven
 ?rva00ACBC50@@YAXPAVRva006CC4A0@@H@Z,0x006CBC50,cdecl-2 called from 0x006CC4A0; identity unproven
+?rva00977C23@@YAXPAH0HPAXHH@Z,0x00577C23,cdecl-6 called from 0x005FFF17 (and 0x005FBAFE family); identity unproven
+?g_00DFE4CC@@3HA,0x009FE4CC,dword global pushed by 0x005FFF17; identity unproven
+?rva0042FB60@@YAXHPADHPBD@Z,0x0042FB60,cdecl-4 called from 0x006049D8; identity unproven
+?rva006000AE@@YIHPAVRva006000AENew@@HPAVRva00600305@@HHH@Z,0x006000AE,fastcall newobj-init called from 0x00600305 with fwd untouched in edx; identity unproven
