@@ -22,6 +22,13 @@ struct NoCaseTreeValue4
 	char m_body[4];
 };
 
+// Target push_back 0x0039A48E establishes an 8-byte element stride; retain an
+// address-derived view because retail evidence does not identify its fields.
+struct Rva0039A48EElement
+{
+	int a[2];
+};
+
 struct TreeKey00242F5E
 {
 public:
@@ -150,6 +157,7 @@ public:
 namespace _STL {
 template<> void _Construct<TreeKey00242F5E, TreeKey00242F5E>(TreeKey00242F5E *, const TreeKey00242F5E &);
 template<> void _Construct<CopyNoCasePair, CopyNoCasePair>(CopyNoCasePair *, const CopyNoCasePair &);
+template<> __declspec(nothrow) void _Construct<Rva0039A48EElement, Rva0039A48EElement>(Rva0039A48EElement *, const Rva0039A48EElement &);
 template<> void _Construct<CopyPairC, CopyPairC>(CopyPairC *, const CopyPairC &);
 template<> void _Construct<BfmeStringRecord005DDD40, BfmeStringRecord005DDD40>(BfmeStringRecord005DDD40 *, const BfmeStringRecord005DDD40 &);
 template<> void _Construct<Rva0048130E, Rva0048130E>(Rva0048130E *, const Rva0048130E &);
@@ -187,3 +195,7 @@ template _STL::vector<RvaSmartPtr12, _STL::allocator<RvaSmartPtr12> >::vector(co
 template _STL::vector<BfmeStringRecord005EC43C, _STL::allocator<BfmeStringRecord005EC43C> >::vector(const _STL::vector<BfmeStringRecord005EC43C, _STL::allocator<BfmeStringRecord005EC43C> > &);
 template _STL::vector<BfmeStringRecord002199C8, _STL::allocator<BfmeStringRecord002199C8> >::vector(const _STL::vector<BfmeStringRecord002199C8, _STL::allocator<BfmeStringRecord002199C8> > &);
 template _STL::vector<BfmeStringRecord00219A68, _STL::allocator<BfmeStringRecord00219A68> >::vector(const _STL::vector<BfmeStringRecord00219A68, _STL::allocator<BfmeStringRecord00219A68> > &);
+
+// Target _M_insert_overflow 0x00399EBE calls the 38-byte copy worker at
+// 0x003961CA; its element construction relocates to 0x00396170.
+template Rva0039A48EElement *_STL::__uninitialized_copy<Rva0039A48EElement *, Rva0039A48EElement *>(Rva0039A48EElement *, Rva0039A48EElement *, Rva0039A48EElement *, const _STL::__false_type &);
