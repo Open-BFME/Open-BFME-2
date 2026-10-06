@@ -64632,3 +64632,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva003802DF@Rva00380200@@QAEHXZ,,0x003802DF,157,Code/GameEngine/Source/Common/Rva003802DF.cpp,matched,unlock min selector plus rank store tail unblocks 4
 ?Rva00535087Parse@@YAXPAVINI@@PAX1PBX@Z,,0x00535087,51,Code/GameEngine/Source/Common/Rva00535087Parse.cpp,matched,PlayerPosition FieldParse via atoi slot plus initFromINI
 ?rva001F45F4@ParticleSystem@@QAEX_N@Z,,0x001F45F4,56,Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F45F4.cpp,matched,Slave-chain flag setter via Make001FCBD7 with barrier
+?rva004FD37F@Rva004FD37F@@QAEXPBVModuleData@@@Z,,0x004FD37F,99,Code/GameEngine/Source/Common/Rva004FD37F.cpp,matched,caller 0x004FD752 rowed insert_equal push_back sibling 0x004FD3E2
