@@ -67271,3 +67271,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?Run@Rva005B4CC6@@QAEXXZ,,0x005B4CC6,90,Code/GameEngine/Source/Common/Rva005B4CC6Box.cpp,matched,IME-gated 27C prep; rowed 0x407020/0x407BC3/0x5B4C3C/0x5B034A; 0x27C rides edi
 ?Run@Rva005B2725@@QAEXH@Z,,0x005B2725,104,Code/GameEngine/Source/Common/Rva005B2725Box.cpp,matched,m_4 gate plus hero prep; rowed 0x5B5C02/0x409359/0x423A68 plus pinned 0x21F797/0x219251
 ?Run@Rva005C3427@@QAEXXZ,,0x005C3427,44,Code/GameEngine/Source/Common/Rva005C3427Box.cpp,matched,getter-gated sound plus tail; rowed 0x5C792C/PlaySound plus pinned 0x5C33DD
+?rva004D3E5D@BFMEDisconnectManager@@QAEHPAVConnectionManager@@@Z,,0x004D3E5D,54,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,Ghidra boundary; target loops eight slots; skips timed-out slots via rowed 0x004D3B7E; counts false results from rowed 0x004CF0A6; adjacent 0x004D3E93 omits one slot; purpose unresolved
