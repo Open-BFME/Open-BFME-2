@@ -13670,3 +13670,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva0052F294@Rva002E713FOwner@@QAEXXZ,0x0052F294,pin for 0x2E713F thiscall void () on this
 ?rva00533BEC@Rva002E713F460@@QAEXPAX00@Z,0x00533BEC,pin for 0x2E713F thiscall void (void*x3) on +0x460
 ?rva00269566@Rva00269566Owner@@QAEXXZ,0x00269566,pin for 0x2E7023 thiscall void callee on +0x258 object; target opens with EH then walks +0x8
+?rva0036736E@Rva0036666B@@QAE_N_N@Z,0x0036736E,pin for 0x2E7205 thiscall bool(bool) on same +0x60 item as rowed 0x36666B; target cmp/sete/push shape
