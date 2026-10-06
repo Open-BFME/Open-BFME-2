@@ -1,5 +1,5 @@
 // ?rva0045108D@LevelGrantSpecialPower@@UAEXXZ
-// partial score=0.99 date=2026-10-05
+// partial score=0.99 date=2026-10-06
 // cl: /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?rva0045108D@LevelGrantSpecialPower@@UAEXXZ @0x004C2D9D 317B
@@ -478,7 +478,7 @@ void LevelGrantSpecialPower::rva0045108D()
 	filters = filters->link(&alive);
 	filters = filters->link(&parentObj);
 	filters = filters->link(&last);
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_44, data->m_CC, 0, filters, 0);
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_44, data->m_CC, 0, filters, 1);
 	Object *other;
 	while ((other = hits.next()) != 0)
 		rva004C2D2B(other, seen);

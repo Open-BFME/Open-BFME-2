@@ -1,5 +1,7 @@
 // ?Rva003C01E2Do@@YGXPBVAsciiString@@0@Z
 // partial score=0.983 date=2026-10-06
+// ?Rva003C01E2Do@@YGXPBVAsciiString@@0@Z
+// partial score=0.983 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /arch:SSE
 //
 // ?Rva003C01E2Do@@YGXPBVAsciiString@@0@Z @0x003C01E2 294B (dump range 18).
