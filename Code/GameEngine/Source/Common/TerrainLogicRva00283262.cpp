@@ -37,13 +37,8 @@ public:
 struct BfmeWideResult
 {
 	~BfmeWideResult();
+	Object *next();	// 0x00045623
 	void *m_value;
-};
-
-class BfmeThingEOF
-{
-public:
-	void *bfmeGoEOF();
 };
 
 class PartitionManager
@@ -97,7 +92,7 @@ void TerrainLogic::rva00283262(const Coord3D *a, float b)
 		return;
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(a, b, 0,
 		&Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x98), g_defaultStorage009FEFA4), 1);
-	for (Object *other = (Object *)((BfmeThingEOF *)&hits)->bfmeGoEOF(); other != 0; other = (Object *)((BfmeThingEOF *)&hits)->bfmeGoEOF()) {
+	for (Object *other = hits.next(); other != 0; other = hits.next()) {
 		rva00282CFB(&other->m_pos38, b, (unsigned int)-1);
 		TheGameLogic->destroyObject(other);
 	}

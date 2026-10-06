@@ -5,17 +5,15 @@ extern float g_Va00BBB8D8;
 class PartitionManager;
 extern PartitionManager *ThePartitionManager;
 
+class Object;
+
 struct BfmeWideResult
 {
 	void *m_value;
 	BfmeWideResult();
 	BfmeWideResult(const BfmeWideResult &that);
 	~BfmeWideResult();
-};
-
-struct BfmeThingEOF
-{
-	void *bfmeGoEOF();
+	Object *next();	// 0x00045623
 };
 
 class BfmeWideForwardA
@@ -45,6 +43,6 @@ void Made002CCB04::rva0050B519(void *a, void *b)
 {
 	float range = (m_12C > g_Va00BBB8D8) ? m_12C : g_Va00BBB8D8;
 	BfmeWideResult iterator = ((BfmeWideForwardA *)ThePartitionManager)->bfmeForwardWideA((int)b, range, 3, 0);
-	for (void *other = ((BfmeThingEOF *)&iterator)->bfmeGoEOF(); other; other = ((BfmeThingEOF *)&iterator)->bfmeGoEOF())
+	for (void *other = iterator.next(); other; other = iterator.next())
 		rva0050B479(a, (Object *)other);
 }

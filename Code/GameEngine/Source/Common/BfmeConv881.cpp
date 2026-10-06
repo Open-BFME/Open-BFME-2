@@ -27,19 +27,25 @@ struct BfmeQueueEOF
 	void **volatile m_bfmeCur;
 };
 
-struct BfmeThingEOF
+class Object;
+
+// The partition manager's range-query handle (iterateObjectsInRange
+// 0x00625610 returns it): next() yields the payload's next hit, stepping
+// the +0x0C cursor over 8-byte entries up to +0x04, or 0 when done. 43
+// matched callers reference it by this name (pin 0x00045623).
+struct BfmeWideResult
 {
-	void *bfmeGoEOF();
+	Object *next();
 	BfmeQueueEOF *m_bfmeQ;
 };
 
-void *BfmeThingEOF::bfmeGoEOF()
+Object *BfmeWideResult::next()
 {
 	BfmeQueueEOF *q = m_bfmeQ;
 	if (q->m_bfmeCur == q->m_bfmeEnd)
 		return 0;
 	void **cur = q->m_bfmeCur;
-	void *v = *cur;
+	Object *v = (Object *)*cur;
 	q->m_bfmeCur = cur + 2;
 	return v;
 }

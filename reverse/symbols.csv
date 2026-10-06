@@ -13833,3 +13833,5 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0005106A@Rva0005F279Elem@@QAE_NXZ,0x0005106A,dump range 1 loop callees for 0x5F279
 
 
+?rva00628770@Rva00628770Impl@@QAE?AUBfmeWideResult@@PBUCoord3D@@MHHPAVRva000421C8@@H@Z,0x00628770,"PartitionManager range-query implementation (525 bytes, SEH frame) behind +0x10: position, float radius, 0, distance type, filter chain, order; called from iterateObjectsInRange 0x00625610; same address as the int-typed ?bfmeMakeWideResult pin"
+?rva00628040@Rva00628040Impl@@QAEPAVObject@@PBUCoord3D@@MHHPAVRva000421C8@@@Z,0x00628040,"PartitionManager closest-object implementation (1827 bytes) behind +0x10: position, float radius, 0, distance type, filter chain; called from getClosestObject 0x00625360; same address as the int-typed ?bfmeFwd1050 pin"

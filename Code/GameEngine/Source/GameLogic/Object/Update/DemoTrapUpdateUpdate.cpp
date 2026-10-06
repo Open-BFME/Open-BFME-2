@@ -78,10 +78,7 @@ struct BfmeWideResult
 	BfmeWideResult();
 	BfmeWideResult(const BfmeWideResult &that);
 	~BfmeWideResult();
-};
-struct BfmeThingEOF
-{
-	void *bfmeGoEOF();
+	Object *next();	// 0x00045623
 };
 class BfmeWideForwardA
 {
@@ -165,7 +162,7 @@ UpdateSleepTime DemoTrapUpdate::update()
 	self->m_nextScanFrames = data->m_scanFrames;
 	bool shallDetonate = false;
 	BfmeWideResult iterator = ((BfmeWideForwardA *)ThePartitionManager)->bfmeForwardWideA((int)&me->m_pos38, data->m_triggerDetonationRange, 0, 0);
-	for (Object *other = (Object *)((BfmeThingEOF *)&iterator)->bfmeGoEOF(); other; other = (Object *)((BfmeThingEOF *)&iterator)->bfmeGoEOF())
+	for (Object *other = iterator.next(); other; other = iterator.next())
 	{
 		if (other->isAnyKindOf(data->m_ignoreKindOf))
 			continue;
