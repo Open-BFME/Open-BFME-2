@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // HighlanderBody::attemptDamage, retail 0x004C082B (67 bytes): slot 0 of the
 // class's body-module interface table at VA 0x00C5B390, placed directly

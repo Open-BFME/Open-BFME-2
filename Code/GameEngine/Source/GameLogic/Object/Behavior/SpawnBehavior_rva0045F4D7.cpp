@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?rva0045F4D7@SpawnBehavior@@QAEPAVObject@@XZ, retail 0x0045F4D7, 170 bytes.
 // SpawnBehavior helper returning Object*: iterates the ModuleData

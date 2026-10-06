@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004C161D@DelayedDeathBody@@SA?AW4NameKeyType@@XZ @0x004C161D
 // (69B): cached pool-name key for DelayedDeathBody. The class
 // identity comes from the pool-name string the body pushes

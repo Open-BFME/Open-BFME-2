@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AODCrushCollide destructor pair, retail 0x004BBEDD (32 bytes) and
 // 0x004BC050 (28 bytes). The dtor reinstalls the behavior vtable slot and

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0SalvageCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BD1D7, 42 bytes. SalvageCrateCollide behavior ctor over the pinned

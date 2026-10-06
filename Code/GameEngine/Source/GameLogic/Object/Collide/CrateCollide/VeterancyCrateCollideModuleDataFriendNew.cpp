@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@VeterancyCrateCollideModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00255B2D, 81 bytes. Dedicated TU: the factory news 0x68, runs the

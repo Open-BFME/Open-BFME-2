@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@CrateCollide@@MAEXPAVXfer@@@Z, retail 0x004BC617 64B: slot 3 (offset 0x0C)
 // of vtable 0x0085A618 (class of rowed dtor ??1Rva004BC4FC@@UAE@XZ, the opaque

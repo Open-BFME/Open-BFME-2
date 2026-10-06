@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@WallHubBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0024A94C, 81 bytes. Dedicated TU: the factory news 0x3C, runs the

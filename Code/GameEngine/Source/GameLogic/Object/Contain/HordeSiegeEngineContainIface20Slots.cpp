@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two HordeSiegeEngineContain overrides in its +0x20 interface vftable
 // 0x00C47328 (installed by the matched ctor 0x0047D247 over

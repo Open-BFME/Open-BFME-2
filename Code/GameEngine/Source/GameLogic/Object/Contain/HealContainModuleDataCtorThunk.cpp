@@ -1,4 +1,4 @@
-// cl: /O1 /MD -D_STLP_NO_EXCEPTIONS /EHs-c-
+// cl: /MD -D_STLP_NO_EXCEPTIONS /EHs-c-
 // Identity: ModuleFactory registers this data class under "WeaponSetUpgrade" (addModule
 // pairs the name with its factory); formerly misnamed HealContain/HealContainModuleData.
 // stlport

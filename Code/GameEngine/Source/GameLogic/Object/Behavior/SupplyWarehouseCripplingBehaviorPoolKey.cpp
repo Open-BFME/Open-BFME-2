@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000483A1C@SupplyWarehouseCripplingBehavior@@SA?AW4NameKeyType@@XZ @0x483a1c
 // (69B): cached pool-name key for SupplyWarehouseCripplingBehavior. The class
 // identity comes from the pool-name string the body pushes

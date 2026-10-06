@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004CB51C@UpgradeSoundSelectorClientBehavior@@UAE_NPAH@Z, retail
 // 0x004CB51C, 86 bytes: slot 2 of the vtable 0x00BEFEA4 that

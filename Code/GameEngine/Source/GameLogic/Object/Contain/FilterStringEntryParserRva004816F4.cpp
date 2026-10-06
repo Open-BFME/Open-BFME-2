@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 // Target Ghidra [0x004816F4,0x0048175B),103B. Retail FieldParse
 // at VA00C490D4 names DestinationTemplate and supplies store offsetD4.
 // Callback ABI is independently established by that registration and the

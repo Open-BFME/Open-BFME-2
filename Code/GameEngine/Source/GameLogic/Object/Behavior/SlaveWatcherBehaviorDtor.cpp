@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1SlaveWatcherBehavior@@UAE@XZ, retail 0x00484739,
 // 112 bytes. Behavior-side dtor restoring the three MI vptrs (+0 0xC4A264

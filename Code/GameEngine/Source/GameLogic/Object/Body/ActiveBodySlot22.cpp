@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ActiveBody's slot 22 (0x004BF9ED, vftable 0x0085B038 and ten more body
 // vftables that inherit it): when the module data's +0x4C radius is positive,

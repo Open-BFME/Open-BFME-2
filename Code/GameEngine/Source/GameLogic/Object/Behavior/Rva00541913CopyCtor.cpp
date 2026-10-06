@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00541913@@QAE@ABV0@@Z @0x00541913 66B. Copy ctor for member-plus-vector holder.
 // Evidence: calls rowed Rva00330757Member default ctor 0x00330757 for +0 then rowed vector BfmePod28 copy ctor 0x00541434 for +0x10 then copies dword +0x1c; caller 0x00541F1F; prev/next are vector bodies.

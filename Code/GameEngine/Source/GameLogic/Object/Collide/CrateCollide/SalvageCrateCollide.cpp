@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /GX
 //
 // SalvageCrateCollide.cpp (the unit the random-value calls name).
 // SalvageCrateCollide's vftable 0x00C5A9C0: slot 0 the deleting dtor

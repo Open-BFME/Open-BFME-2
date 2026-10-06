@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?refreshTrackedLargeUnit@AODHordeContain@@QAEXXZ, retail 0x0047B2AA, 81 bytes.
 // Cached large-unit tracker: looks up m_trackedLargeUnit (+0x318) through

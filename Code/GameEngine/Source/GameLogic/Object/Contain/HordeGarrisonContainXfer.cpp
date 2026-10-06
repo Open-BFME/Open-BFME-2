@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@HordeGarrisonContain@@MAEXPAVXfer@@@Z, retail 0x00479D28, 64 bytes.
 // Slot 3 of ??_7HordeGarrisonContain 0x00C46570 (installed by the rowed ctor

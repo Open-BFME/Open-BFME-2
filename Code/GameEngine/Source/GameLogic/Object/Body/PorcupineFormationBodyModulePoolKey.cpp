@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004C2034@PorcupineFormationBodyModule@@SA?AW4NameKeyType@@XZ @0x4C2034
 // (69B): cached pool-name key for PorcupineFormationBodyModule. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?friend_newModuleData@FireWeaponCollideModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00254A7A, 49 bytes. Dedicated TU, frameless shape: the factory

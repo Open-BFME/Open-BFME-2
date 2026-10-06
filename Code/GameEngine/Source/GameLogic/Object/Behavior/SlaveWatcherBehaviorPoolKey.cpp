@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00048462E@SlaveWatcherBehavior@@SA?AW4NameKeyType@@XZ @0x48462e
 // (69B): cached pool-name key for SlaveWatcherBehavior. The class
 // identity comes from the pool-name string the body pushes

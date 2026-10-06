@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
+// cl: /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
 //
 // ??1UpgradeSoundSelectorClientBehaviorModuleData@@UAE@XZ, retail 0x004CBAEA, 48 bytes.
 // Target evidence: the audited scalar deleting dtor 0x004CBACE calls this

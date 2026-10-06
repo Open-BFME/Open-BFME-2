@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Semantic donor: Open-BFME-1 6583b3c1ff21db4a561285717028fdafc780b7db,
 // game/GameEngine/Source/GameLogic/Object/Body/FreeLifeBody_attemptDamage.cpp.
 // Target ctor 0x4C18CA stores secondary table VA 0xC5BD88; slot zero is

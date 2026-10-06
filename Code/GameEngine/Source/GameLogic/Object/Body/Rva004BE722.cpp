@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004BE722@Rva004BE722@@QAEXPAX@Z @0x004BE722 95B evidence: unlock; bit-copy 21 bits from this dword at +0 via m_bits[i>>5] and 1<<(i&31) into 3-byte memset local via buf[i/8] |= 1<<(i%8) then virtual slot 0x24 on arg with (buf 3); callees rowed memset import 0x006291AE; caller 0x004BE781
 #include <string.h>
 

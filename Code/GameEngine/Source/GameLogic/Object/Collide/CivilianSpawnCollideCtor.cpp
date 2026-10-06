@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0CivilianSpawnCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BD694, 42 bytes. CivilianSpawnCollide behavior ctor over the pinned

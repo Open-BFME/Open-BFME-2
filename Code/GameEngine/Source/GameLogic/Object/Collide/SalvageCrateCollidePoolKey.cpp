@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00004BD220@SalvageCrateCollide@@SA?AW4NameKeyType@@XZ @0x4BD220
 // (69B): cached pool-name key for SalvageCrateCollide. The class
 // identity comes from the pool-name string the body pushes

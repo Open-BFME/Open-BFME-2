@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // ?shouldFireWeapon@FireWeaponCollide@@MAE_NXZ @0x004BB8BA 94B. Virtual slot
 // 12 offset 0x30 of vtable 0x0085A0FC class of ??1FireWeaponCollide@@UAE@XZ.
 // Status-mask overlap via rowed ?test@Rva00331682Holder 0x00331682 plus copy

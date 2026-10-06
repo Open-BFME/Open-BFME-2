@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 //
 // ??0HordeGarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0047A040
 // (160 bytes). Identity: the ctor called by the matched

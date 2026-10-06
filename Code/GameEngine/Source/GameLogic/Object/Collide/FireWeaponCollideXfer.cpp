@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ?xfer@FireWeaponCollide@@MAEXPAVXfer@@@Z, retail 0x004BB85C, 94 bytes.
 // FireWeaponCollide xfer (slot 3 offset 0x0C of vtable 0x0085A0FC, class of

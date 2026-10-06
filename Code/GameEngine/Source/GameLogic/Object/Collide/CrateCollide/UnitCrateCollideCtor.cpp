@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0UnitCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BCC13, 42 bytes. UnitCrateCollide behavior ctor over the pinned

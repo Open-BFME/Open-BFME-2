@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /MD /Ireference/shims/moduledata
 // ??1SlaveWatcherBehaviorModuleData@@UAE@XZ @0x004846FA, 63B.
 // Virtual dtor slot evidence: ??_G at 0x004846DE (rowed, slot 0 of vtable
 // 0x00C4A298) calls here. Destroys AsciiStrings at +0x0C then +0x08 via

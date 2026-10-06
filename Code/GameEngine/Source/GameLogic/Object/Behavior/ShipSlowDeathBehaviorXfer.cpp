@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@ShipSlowDeathBehavior@@MAEXPAVXfer@@@Z, retail 0x0045ED0E, 33 bytes.
 // ShipSlowDeathBehavior xfer (slot 3 offset 0x0C of vtable 0x008423FC, same

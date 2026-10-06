@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0PorcupineFormationBodyModuleData@@QAE@XZ, retail 0x004C225D (29 bytes).
 // Frameless derived ctor over the rowed ActiveBodyModuleData base

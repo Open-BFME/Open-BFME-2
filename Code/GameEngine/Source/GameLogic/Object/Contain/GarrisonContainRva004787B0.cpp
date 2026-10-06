@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004787B0@GarrisonContain@@QAEXXZ @0x004787B0 160B.
 // Slot 5 (offset 0x14) of GarrisonContain 0x008461F8, HordeGarrisonContain
 // 0x00846570, TunnelContain 0x00847740 and siblings: shared base spawn.

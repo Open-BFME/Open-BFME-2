@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?loadPostProcess@SiegeDockingBehavior@@MAEXXZ, retail 0x0045A16D, 16 bytes.
 // Slot 1 of ??_7SiegeDockingBehavior (slot 0 the ??_G). The body first calls

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1StancesBehavior@@UAE@XZ retail 0x0045F001 103B
 // Own vptrs C424DC (+0), BEFF90 (+0xC) and C424D0 (+0x10); under EH state 1
 // the listener list at +0x20 broadcasts this object through the rowed forEach

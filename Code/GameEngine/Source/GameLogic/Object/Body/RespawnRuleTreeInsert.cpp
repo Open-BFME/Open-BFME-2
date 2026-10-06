@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z,
 // retail 0x004AFB2B, 35 bytes. Hidden-result wrapper: runs the tree's unique

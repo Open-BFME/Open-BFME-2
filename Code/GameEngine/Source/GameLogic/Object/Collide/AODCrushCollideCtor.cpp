@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0AODCrushCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BC00D, 67 bytes. AODCrushCollide behavior ctor over the rowed

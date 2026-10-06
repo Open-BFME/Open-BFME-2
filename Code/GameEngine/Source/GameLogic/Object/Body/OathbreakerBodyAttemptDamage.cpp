@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // OathbreakerBody::attemptDamage, retail 0x004C1F71 (90 bytes): slot 0 of the
 // class's +0x10 body-module interface table 0x00C5C180, the slot ActiveBody,

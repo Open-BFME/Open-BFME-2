@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // SymbioticStructuresBody overrides in the vtables its matched ctor 0x004C0AF1
 // installs over ActiveBody: primary 0x00C5B830, +0x0C 0x00C5B770 and the body

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@StancesBehavior@@MAEXPAVXfer@@@Z, retail 0x0045ED9D, 56 bytes.
 // StancesBehavior xfer (slot 3 offset 0x0C of vtable 0x008424DC, same

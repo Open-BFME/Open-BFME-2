@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0ShipSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0045E9AA, 74 bytes.
 // ShipSlowDeathBehavior behavior ctor over the pinned SlowDeathBehavior

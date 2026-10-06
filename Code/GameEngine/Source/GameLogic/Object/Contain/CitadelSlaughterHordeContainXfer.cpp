@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@CitadelSlaughterHordeContain@@MAEXPAVXfer@@@Z, retail 0x0048030D, 65 bytes.
 // Slot 3 of ??_7CitadelSlaughterHordeContain 0x00C48CC0 (slot 0 the rowed

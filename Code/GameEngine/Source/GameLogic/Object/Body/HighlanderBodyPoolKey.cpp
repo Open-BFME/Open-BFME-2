@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004C07CA@HighlanderBody@@SA?AW4NameKeyType@@XZ @0x004C07CA
 // (69B): cached pool-name key for HighlanderBody. The class
 // identity comes from the pool-name string the body pushes

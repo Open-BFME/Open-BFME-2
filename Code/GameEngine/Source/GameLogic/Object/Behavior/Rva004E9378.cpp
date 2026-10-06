@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004E9378@Rva004E9378@@QAE_NXZ, retail 0x004E9378, 20 bytes.
 // Bool predicate over int at +0x10: true when 2 or 3 else false. Honest-address

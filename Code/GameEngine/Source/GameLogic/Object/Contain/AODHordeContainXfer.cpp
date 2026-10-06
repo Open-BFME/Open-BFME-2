@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@AODHordeContain@@MAEXPAVXfer@@@Z, retail 0x0047B2FB, 99 bytes.
 // Slot 3 of ??_7AODHordeContain 0x00C46D28 (installed by the rowed ctor

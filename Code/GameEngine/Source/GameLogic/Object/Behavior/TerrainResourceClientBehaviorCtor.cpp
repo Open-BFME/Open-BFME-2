@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0TerrainResourceClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00252DEB, 32 bytes.
 // TerrainResourceClientBehavior behavior ctor over the rowed Rva00252B68

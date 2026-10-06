@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0FreeLifeBody@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C18CA,
 // 86 bytes. Body-side ctor (rowed instance factory 0x251676 news 0x114

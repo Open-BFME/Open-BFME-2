@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1CaveContain@@MAE@XZ, retail 0x004663B2, 77 bytes.
 // CaveContain behavior dtor over the pinned OpenContain base (0xFC).

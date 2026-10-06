@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // stlport
 //
 // ?rva004CBE31@Rva004CBE31@@QAE_NABVAsciiString@@PAURva002C99FB@@@Z, retail 0x004CBE31, 53 bytes.

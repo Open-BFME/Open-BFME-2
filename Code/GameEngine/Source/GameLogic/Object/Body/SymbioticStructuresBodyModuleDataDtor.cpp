@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /DNDEBUG /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /DNDEBUG /EHsc
 //
 // ??1SymbioticStructuresBodyModuleData@@UAE@XZ, retail 0x002570F9, 53 bytes.
 // Virtual dtor over vtable 0x007F3EE0 (slot 0 deleting dtor at 0x002570DD

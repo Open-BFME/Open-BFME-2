@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0HordeTransportContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x00477003, 149 bytes. Behavior-side ctor (rowed instance factory

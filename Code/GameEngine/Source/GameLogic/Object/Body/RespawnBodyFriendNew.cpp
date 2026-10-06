@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@RespawnBody@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0025155B, 59 bytes. Dedicated TU: retail news 0x100 (push-imm32)

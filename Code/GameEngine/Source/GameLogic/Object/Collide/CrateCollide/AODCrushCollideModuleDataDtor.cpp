@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/moduledata /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
+// cl: /Ireference/shims/moduledata /MD /GX /DNDEBUG /Oy-
 //
 // ??1AODCrushCollideModuleData@@UAE@XZ, retail 0x004BC088, 48 bytes.
 // Collide-side ModuleData dtor (ctor rowed at 0x004BBF89 in

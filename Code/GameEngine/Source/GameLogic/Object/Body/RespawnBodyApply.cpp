@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE /G7
+// cl: /MD /GX
 // RespawnBody secondary-interface health-change entry, RVA 0x004C1395.
 // Target ctor 0x4C12EB installs VA 0xC5B8F0 at +0x10; slot +0x80 is
 // this 330-byte RET8 body. The DelayedDeathBody entry at 0x4C167E calls

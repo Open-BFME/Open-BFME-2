@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0SlaveWatcherBehaviorModuleData@@QAE@XZ, retail 0x004846C7,
 // 22 bytes. Frameless store-only ctor over table 0xC4A208

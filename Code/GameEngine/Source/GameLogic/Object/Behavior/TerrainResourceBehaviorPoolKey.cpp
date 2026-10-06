@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000481FBD@TerrainResourceBehavior@@SA?AW4NameKeyType@@XZ @0x481fbd
 // (69B): cached pool-name key for TerrainResourceBehavior. The class
 // identity comes from the pool-name string the body pushes

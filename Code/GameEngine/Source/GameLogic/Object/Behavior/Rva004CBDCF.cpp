@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva004CBDCF@Rva004CBDCF@@QAE_NHPAURva002C99FB@@@Z, retail 0x004CBDCF, 53 bytes.
 // Guarded indexed fetch: reroll via rowed 0x004CBCF2 on this-0xC, false when

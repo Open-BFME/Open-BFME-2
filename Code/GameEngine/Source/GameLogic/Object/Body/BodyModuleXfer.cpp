@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@BodyModule@@MAEXPAVXfer@@@Z @0x0058B043 39B BodyModule xfer Version1 plus base plus damageScalar; evidence: vtable slot 3 of 0x0085AE68 Version1 0x000053EE base 0x004C9C7D float slot 0x70 at +0x14
 class AsciiString;
 class UnicodeString;

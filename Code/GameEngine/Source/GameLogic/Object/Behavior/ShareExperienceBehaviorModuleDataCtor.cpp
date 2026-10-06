@@ -1,4 +1,4 @@
-// cl: /O1 /GX /arch:SSE /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??0ShareExperienceBehaviorModuleData@@QAE@XZ, retail 0x0047FE90, 76 bytes.
 // Framed single-state EH ctor: zero floats at +8/+0xC, pool float 1.0f at

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // HordeContain overrides in the contain interface its pinned ctor 0x0046F543
 // installs at +0x20 (vtable 0x00C44EC8; the slots below 0x00468000 there are

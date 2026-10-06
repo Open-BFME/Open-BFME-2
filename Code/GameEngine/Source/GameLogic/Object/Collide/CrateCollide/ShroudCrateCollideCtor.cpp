@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ShroudCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BCADD, 42 bytes. ShroudCrateCollide behavior ctor over the pinned

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@CaveContainModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00257714, 84 bytes (the 0x0025770D triage hit is an interior pad

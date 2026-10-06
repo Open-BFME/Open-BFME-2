@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?Rva004CDF2BParse@@YAXPAVINI@@PAX1PBX@Z, retail 0x004CDF2B (147B): the
 // TriggerSpecialPower FieldParse proc (row 0x00C5FD70). Up to eight

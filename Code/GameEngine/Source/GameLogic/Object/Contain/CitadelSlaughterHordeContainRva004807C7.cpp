@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004807C7@CitadelSlaughterHordeContain@@UAE_NPAVObject@@@Z, retail 0x004807C7, 90 bytes.
 // Slot 33 of ??_7CitadelSlaughterHordeContain 0x00C48CC0 (SlaughterHordeContain

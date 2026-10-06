@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0HordeTransportContainModuleData@@QAE@XZ, retail 0x00477D61 (18 bytes).
 // Frameless derived ctor over the pinned TransportContainModuleData base

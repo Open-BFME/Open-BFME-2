@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 //
 // TerrainResourceClientBehavior destructor and deleting wrapper (vtable 0x00BEFF20),
 // which uses the same bool at +0x0C and holder cleanup as the separately

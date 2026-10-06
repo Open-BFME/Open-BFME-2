@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0StructureBody@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C0951, 49 bytes.
 // StructureBody behavior ctor over the pinned ActiveBody base (0x4BF6A1,

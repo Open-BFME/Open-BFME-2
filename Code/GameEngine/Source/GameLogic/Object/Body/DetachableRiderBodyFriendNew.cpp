@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@DetachableRiderBody@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00251705, 59 bytes. Dedicated TU: retail news 0x108 (push-imm32)

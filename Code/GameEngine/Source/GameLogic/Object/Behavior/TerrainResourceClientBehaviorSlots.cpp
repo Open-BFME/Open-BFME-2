@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // TerrainResourceClientBehavior primary slots 17 and 18 (vtable 0x00BEFF20),
 // a raise/lower pair around the byte at +0x0C: slot 17 (retail 0x004CC5FA,

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@SlowDeathBehavior@@MAEXPAVXfer@@@Z, retail 0x0045D3CB, 142 bytes.
 // SlowDeathBehavior xfer (slot 3 offset 0x0C of vtable 0x00842040, same primary

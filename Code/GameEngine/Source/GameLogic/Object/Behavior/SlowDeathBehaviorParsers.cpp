@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // SlowDeathBehaviorModuleData FieldParse proc: Zero Hour's
 // SlowDeathBehavior.cpp file static parseWeapon (class-scoped here for a

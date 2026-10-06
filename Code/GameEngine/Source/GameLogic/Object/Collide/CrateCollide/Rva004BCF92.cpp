@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva004BCF92@Rva004BCF92@@QAEXPBVObject@@H@Z, retail 0x004BCF92, 94 bytes.
 // CrateCollide-family helper: copies a world position from the object held

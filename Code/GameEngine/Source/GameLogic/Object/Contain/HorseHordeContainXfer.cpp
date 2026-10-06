@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@HorseHordeContain@@MAEXPAVXfer@@@Z, retail 0x004766C8, 27 bytes.
 // Slot 3 of the vftable 0x00C45C38 whose slot-2 name getter returns

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0SquishCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BB9CF, 42 bytes. SquishCollide behavior ctor over the pinned

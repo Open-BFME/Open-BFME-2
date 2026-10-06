@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0045ED4B@StancesBehavior@@QBEHXZ, retail 0x0045ED4B, 27 bytes, just
 // before the rowed StancesBehaviorModuleData::buildFieldParse (0x0045ED8C)

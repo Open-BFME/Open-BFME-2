@@ -12,7 +12,7 @@
 // this permits the same stack-slot reuse visible in the 277-byte PC body.
 // The throw-info object below is an address anchor only, following the matched
 // INI_parsePositiveNonZeroReal.cpp convention; its data is not reconstructed.
-// cl: /O1 /Oy- /MD /EHs /Oi- /D_STLP_USE_STATIC_LIB
+// cl: /Oy- /MD /EHs /Oi- /D_STLP_USE_STATIC_LIB
 // stlport
 // BFME1 HordeContainParseSplitResult.cpp semantic donor. PC table C45530
 // SplitHorde -> 46F288; INI colon separators +420; 12-byte split record.

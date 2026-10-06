@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ?rva004BFD27@Rva004BFD27@@QAEXW4CommandSourceType@@@Z @0x004BFD27 92B
 // Stack AICommandParms 0xC0 via rowed ctor 0x00351BD0 with 0x53 and src,
 // virtual slot 0 call, then inlined coords-free via rowed free 0x00030830.

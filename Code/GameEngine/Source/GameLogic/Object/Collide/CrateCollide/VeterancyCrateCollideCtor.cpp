@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0VeterancyCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BCE32, 42 bytes. VeterancyCrateCollide behavior ctor over the pinned

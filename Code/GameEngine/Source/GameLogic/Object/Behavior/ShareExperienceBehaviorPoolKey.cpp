@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00047FE4B@ShareExperienceBehavior@@SA?AW4NameKeyType@@XZ @0x47fe4b
 // (69B): cached pool-name key for ShareExperienceBehavior. The class
 // identity comes from the pool-name string the body pushes

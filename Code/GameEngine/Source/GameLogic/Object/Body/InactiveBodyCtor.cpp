@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0InactiveBody@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004BD8BD, 83
 // bytes (pinned; instance factory 0x00251375). Zero Hour InactiveBody.cpp

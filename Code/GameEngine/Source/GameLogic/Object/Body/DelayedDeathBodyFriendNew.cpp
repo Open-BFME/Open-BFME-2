@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@DelayedDeathBody@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x002515E7, 59 bytes. Dedicated TU: retail news 0x104 (push-imm32)

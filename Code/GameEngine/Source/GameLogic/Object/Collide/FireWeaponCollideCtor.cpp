@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0FireWeaponCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BB79A, 106 bytes. FireWeaponCollide behavior ctor over the pinned

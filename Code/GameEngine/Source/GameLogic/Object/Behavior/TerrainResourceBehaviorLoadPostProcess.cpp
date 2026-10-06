@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?loadPostProcess@TerrainResourceBehavior@@MAEXXZ, retail 0x0048223D, 28 bytes.
 // Slot 1 (offset 0x04) of vtable 0x00849408 (class of rowed dtor

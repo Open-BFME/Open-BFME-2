@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0DelayedDeathBody@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C15B9,
 // 54 bytes. Behavior-side ctor completing the DelayedDeathBody file-unit

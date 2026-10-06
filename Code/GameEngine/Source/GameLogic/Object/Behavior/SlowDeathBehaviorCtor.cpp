@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??0SlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0045D4B4, 266 bytes.
 // SlowDeathBehavior EH ctor over the rowed UpdateModule base (0x253390, thing

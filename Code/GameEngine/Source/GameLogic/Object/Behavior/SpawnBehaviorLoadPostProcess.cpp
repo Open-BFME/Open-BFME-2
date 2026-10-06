@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?loadPostProcess@SpawnBehavior@@MAEXXZ, retail 0x0045F382, 17 bytes.
 // Slot 1 (offset 0x4) of vtable 0x008426AC (class of rowed dtor

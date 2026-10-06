@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // HordeGarrisonContain's overrides in the +0x20 interface vftable 0x00C463E8
 // (installed at +0x20 by the rowed ctor 0x0047A040; SlaughterHordeContain and

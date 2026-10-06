@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004725D5@HordeContain@@UAEXPAVObject@@@Z, retail 0x004725D5, 75 bytes.
 // Slot 38 of ??_7HordeContain 0x00C45050 (the last of the slots 34 to 38 it

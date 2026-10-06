@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004C1334@RespawnBody@@SA?AW4NameKeyType@@XZ @0x004C1334
 // (69B): cached pool-name key for RespawnBody. The class
 // identity comes from the pool-name string the body pushes

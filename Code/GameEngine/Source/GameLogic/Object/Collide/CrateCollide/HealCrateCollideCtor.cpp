@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0HealCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BC80F, 42 bytes. HealCrateCollide behavior ctor over the pinned

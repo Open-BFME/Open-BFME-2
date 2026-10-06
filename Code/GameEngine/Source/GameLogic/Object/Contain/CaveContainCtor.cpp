@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0CaveContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00466630, 125 bytes.
 // CaveContain behavior ctor over the pinned OpenContain base (0x4649F8,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004C08B7@ImmortalBody@@SA?AW4NameKeyType@@XZ @0x004C08B7
 // (69B): cached pool-name key for ImmortalBody. The class
 // identity comes from the pool-name string the body pushes

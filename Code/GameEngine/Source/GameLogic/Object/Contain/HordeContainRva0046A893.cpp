@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // HordeContain::rva0046A893, retail 0x0046A893 (130 bytes). Identity: its three
 // callers (0x0046FA46, 0x00473125, 0x00473799) are HordeContain slots (vtables

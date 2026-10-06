@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0HorseHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004765E5, 104 bytes.
 // HorseHordeContain behavior ctor over the pinned HordeContain intermediate

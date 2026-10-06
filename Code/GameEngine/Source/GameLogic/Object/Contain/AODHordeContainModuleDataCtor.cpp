@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /arch:SSE
+// cl: /MD /DNDEBUG
 //
 // ??0AODHordeContainModuleData@@QAE@XZ, retail 0x0047A2E1 (207 bytes).
 // Frameless derived ctor over the pinned HordeContainModuleData base

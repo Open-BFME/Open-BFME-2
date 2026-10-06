@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0CitadelSlaughterHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0048059F, 91 bytes.
 // CitadelSlaughterHordeContain behavior ctor over the rowed

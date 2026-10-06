@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // findClosestOrphan, retail 0x0045F39B (93 bytes): Zero Hour's SpawnBehavior
 // iteration callback, placed between SpawnBehavior::loadPostProcess and

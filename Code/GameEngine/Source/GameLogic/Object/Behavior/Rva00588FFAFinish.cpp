@@ -1,5 +1,5 @@
 // ??0Rva00588FFA@@QAE@PAVThing@@PBVModuleData@@@Z
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva00588FFA@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00588FFA, 53 bytes.
 // Behavior module base ctor over rowed BehaviorModule 0x253330. Writes the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // SlaveWatcherBehavior::xfer, retail 0x00484673 (84 bytes): slot 3 of the
 // class's primary vtable 0x00C4A264. Version 1 (the rowed Xfer::Version1)

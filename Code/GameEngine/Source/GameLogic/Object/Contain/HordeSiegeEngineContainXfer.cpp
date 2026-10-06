@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c- /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /MD /EHs-c- /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 //
 // ?xfer@HordeSiegeEngineContain@@MAEXPAVXfer@@@Z, retail 0x0047D36A, 464 bytes.

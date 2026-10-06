@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@ShipSlowDeathBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0024B2F0, 56 bytes. Dedicated TU: retail news 0x5C (push-imm8)

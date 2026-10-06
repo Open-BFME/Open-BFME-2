@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0SupplyWarehouseCripplingBehaviorModuleData@@QAE@XZ, retail 0x00483A61,
 // 25 bytes. Frameless store-only ctor over the SelfHeal table 0xC49B40

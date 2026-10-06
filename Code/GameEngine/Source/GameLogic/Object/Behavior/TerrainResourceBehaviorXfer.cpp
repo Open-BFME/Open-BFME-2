@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@TerrainResourceBehavior@@MAEXPAVXfer@@@Z, retail 0x004821CB, 114 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00849408 (class of rowed dtor

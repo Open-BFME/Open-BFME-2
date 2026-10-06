@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@AODCrushCollide@@MAEXPAVXfer@@@Z, retail 0x004BBF03, 65 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0085A31C (class of rowed dtor

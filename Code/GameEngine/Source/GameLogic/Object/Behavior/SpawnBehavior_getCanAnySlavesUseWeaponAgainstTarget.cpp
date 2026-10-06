@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 //
 // ?getCanAnySlavesUseWeaponAgainstTarget@SpawnBehavior@@UAE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@PBUCoord3D@@W4CommandSourceType@@@Z,

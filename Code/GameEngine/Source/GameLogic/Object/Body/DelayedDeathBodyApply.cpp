@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /G7
+// cl: /MD
 // ?apply@Rva004C167EOwner@@QAEXMPAUDamageInfo@@@Z
 // RVA 004C167E, DelayedDeathBody secondary BodyModule interface slot +0x80.
 // Negative offsets address the primary module data and object through the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail 0x004BC2E6 (63 bytes): ?update@AODCrushCollide@@UAE?AW4UpdateSleepTime@@XZ.
 // Identity: slot 0 of the vtable 0x00C5A254 that the matched AODCrushCollide
 // dtor 0x004BBEDD installs at +0x10, the UpdateModuleInterface base of an

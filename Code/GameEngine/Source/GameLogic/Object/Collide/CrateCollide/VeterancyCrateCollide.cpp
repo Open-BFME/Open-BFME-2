@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /GX
 //
 // VeterancyCrateCollide (vftable 0x00C5A954: slot 0 the deleting dtor
 // 0x004BCEC0, slot 12 executeCrateBehavior, slot 13 isValidToExecute). Its

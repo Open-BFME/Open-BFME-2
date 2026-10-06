@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-
+// cl: /DNDEBUG /MD /EHs-
 // Open-BFME5: SpawnUnitBehavior constructor.
 // Retail shape: grandbase ctor call with both args, interface-base vtable
 // stores at +0x0C/+0x10, field inits (+0x18/+0x1C = -1, +0x14 = 0), vtable

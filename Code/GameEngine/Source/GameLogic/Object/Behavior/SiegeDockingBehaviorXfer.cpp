@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // ?xfer@SiegeDockingBehavior@@MAEXPAVXfer@@@Z, retail 0x0045A02F, 318 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x008414DC. xfer shape with Version1 then UpdateModule base then IsStoring branch.

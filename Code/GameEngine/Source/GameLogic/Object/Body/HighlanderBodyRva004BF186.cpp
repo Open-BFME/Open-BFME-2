@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004BF186@HighlanderBody@@UAEX_N@Z @0x004BF186 98B.
 // Target evidence: the only reference to this body is slot 33 of the vtable

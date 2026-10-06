@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // ?xfer@HordeTransportContain@@MAEXPAVXfer@@@Z, retail 0x0047714A, 59 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00845EB8 (class of
 // ??0HordeTransportContain@@QAE@PAVThing@@PBVModuleData@@@Z in

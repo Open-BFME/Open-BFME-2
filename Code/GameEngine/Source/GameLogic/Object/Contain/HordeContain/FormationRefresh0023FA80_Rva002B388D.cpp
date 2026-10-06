@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc- -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Contain/HordeContain
+// cl: -DNDEBUG -MD -EHsc- -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Contain/HordeContain
 
 // Refresh0023FA80Primary::scheduleNullable is an inline in the donor
 // FormationRefresh0023FA80.cpp:

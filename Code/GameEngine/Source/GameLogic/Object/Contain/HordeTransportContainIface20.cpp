@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // HordeTransportContain's overrides in its +0x20 interface vftable 0x00C45D30
 // (installed by the matched ctor 0x00477003; HordeSiegeEngineContain keeps

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?removeObjectFromGarrisonPoint@GarrisonContain@@IAEXPAVObject@@H@Z @0x00477E82
 // (132B): GarrisonContain::removeObjectFromGarrisonPoint, BFME1 donor
 // GameEngine/Source/GameLogic/Object/Contain/GarrisonContainTrackTargets.cpp.

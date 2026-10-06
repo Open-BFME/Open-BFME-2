@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0045EDD5@StancesBehavior@@QAE_NH@Z @0x0045EDD5 87B evidence: chain via rowed map-find 0x4260DE plus StancesBehavior neighbours Xfer-NameKey share /O1 plus caller 0x4751E5 plus vtable slots 0x7c and 0x260 plus global g_00E031D4
 class Thing;
 class ModuleData;

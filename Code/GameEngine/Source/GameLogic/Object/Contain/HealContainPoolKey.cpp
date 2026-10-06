@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000466B88@HealContain@@SA?AW4NameKeyType@@XZ @0x466b88
 // (69B): cached pool-name key for HealContain. The class
 // identity comes from the pool-name string the body pushes

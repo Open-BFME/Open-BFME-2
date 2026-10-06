@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1HorseHordeContain@@UAE@XZ, retail 0x00476653, 87 bytes.
 // Slot evidence: ??_G at 0x00476730 (ContainModuleDeletingDtors) calls here.

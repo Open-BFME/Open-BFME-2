@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?putObjectAtGarrisonPoint@GarrisonContain@@IAEXPAVObject@@HHH@Z @0x00477DA1 175B.
 // GarrisonContain placement sibling of removeObjectFromGarrisonPoint 0x00477E82.
 // Evidence: BFME1 donor GarrisonContain.cpp putObjectAtGarrisonPoint same

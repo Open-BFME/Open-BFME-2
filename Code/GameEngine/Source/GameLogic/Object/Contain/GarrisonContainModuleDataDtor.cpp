@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??1GarrisonContainModuleData@@UAE@XZ, retail 0x00257507, 56 bytes.
 // Target evidence: base ctor 0x0047978F installs vtable 0x00C462D8 and zeroes

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1TransitionDamageFX@@MAE@XZ, retail 0x004BA47C, 76 bytes. TransitionDamageFX
 // dtor over the rowed DamageModule base. The TU-local DamageModule models the

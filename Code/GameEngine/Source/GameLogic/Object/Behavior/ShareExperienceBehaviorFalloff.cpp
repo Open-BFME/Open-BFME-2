@@ -1,4 +1,4 @@
-// cl: /O1 /GX /arch:SSE /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 // ?rva0047FFFE@ShareExperienceBehavior@@QAEMPAVCoord3D@@PAUPos0047FFFE@@@Z @ 0x0047FFFE 149B
 // Unlock: ShareExperience distance falloff between ModuleData radii. Evidence:
 // contiguous gap after ??1ShareExperienceBehaviorModuleData 0x0047FFCE and before

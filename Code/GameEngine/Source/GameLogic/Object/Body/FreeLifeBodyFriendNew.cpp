@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@FreeLifeBody@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00251676, 59 bytes. Dedicated TU: retail news 0x114 (push-imm32)

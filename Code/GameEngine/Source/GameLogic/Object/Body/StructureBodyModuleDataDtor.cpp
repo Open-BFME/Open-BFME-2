@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /Oy- /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /Oy- /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??1StructureBodyModuleData@@UAE@XZ, retail 0x00257087, 5 bytes.
 // Virtual dtor over vtable 0x007F4028 (slot 0 deleting dtor at 0x0025706B

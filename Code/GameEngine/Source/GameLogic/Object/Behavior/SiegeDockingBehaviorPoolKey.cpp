@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004599E5@SiegeDockingBehavior@@SA?AW4NameKeyType@@XZ @0x4599E5
 // (69B): cached pool-name key for SiegeDockingBehavior. The class
 // identity comes from the pool-name string the body pushes

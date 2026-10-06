@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1HordeTransportContain@@UAE@XZ retail 0x004771E6 5 bytes.
 // HordeTransportContain virtual dtor is a 5-byte jmp thunk to the rowed

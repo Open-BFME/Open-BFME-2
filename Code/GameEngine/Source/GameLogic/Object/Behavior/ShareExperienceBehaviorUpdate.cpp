@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?update@ShareExperienceBehavior@@UAE?AW4UpdateSleepTime@@XZ, retail
 // 0x0047FF6B, 71 bytes: slot 0 of the update-interface vtable 0x00C485B0

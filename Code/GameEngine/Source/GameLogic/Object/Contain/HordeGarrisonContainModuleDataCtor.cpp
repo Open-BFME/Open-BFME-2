@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0HordeGarrisonContainModuleData@@QAE@XZ, retail 0x0047A251, 88 bytes.
 // Frameless derived ctor over the ExitDelay table 0xC46388 (ExitDelay@AC,

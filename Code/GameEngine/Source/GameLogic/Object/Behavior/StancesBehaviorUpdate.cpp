@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // StancesBehavior::update, retail 0x0045F290 (49 bytes): slot 0 of the
 // class's +0x10 update-module interface table 0x00C424D0, so `this` is that

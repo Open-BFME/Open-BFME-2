@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1GarrisonContain@@UAE@XZ retail 0x00478067 128 bytes.
 // GarrisonContain virtual destructor over pinned OpenContain base 0x00464692.

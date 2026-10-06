@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs /arch:SSE
+// cl: /MD /EHs
 // Descriptive donor name, not a recovered PC symbol. BFME1 banked source:
 // reference/open-bfme-1/reverse/attempts/0x0023e280.cpp.
 // BFME1 BannerCarrierPosition donor defines string + two floats. PC callback

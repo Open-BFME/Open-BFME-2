@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1CitadelSlaughterHordeContain@@UAE@XZ retail 0x00480718 5 bytes.
 // CitadelSlaughterHordeContain virtual dtor is a 5-byte jmp thunk to the rowed

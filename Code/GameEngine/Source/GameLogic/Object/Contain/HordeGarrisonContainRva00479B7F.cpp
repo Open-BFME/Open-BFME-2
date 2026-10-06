@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00479B7F@HordeGarrisonContain@@UAEXPAVObject@@@Z, retail 0x00479B7F, 34 bytes.
 // Slot 29 of ??_7HordeGarrisonContain 0x00C46570 (one of the slots 28 to 31

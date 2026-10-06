@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00473125@HordeContain@@QAEXPAVObject@@PAHH@Z @0x00473125 114B.
 // Identity: HordeContain method (this is HordeContain: callers 0x00473197 and

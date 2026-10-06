@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0WargBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00460804, 35 bytes.
 // WargBehavior ctor over the rowed BehaviorModule base (0x253330): re-stores

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0BodyModule@@QAE@PAVThing@@PBVModuleData@@@Z @0x004BD7FD 62B.
 // Common base of InactiveBody ctor 0x4BD8BD and ActiveBody ctor 0x4BF6A1

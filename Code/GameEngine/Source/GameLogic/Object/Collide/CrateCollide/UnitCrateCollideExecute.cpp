@@ -1,5 +1,5 @@
 // ?executeCrateBehavior@UnitCrateCollide@@MAE_NPAVObject@@@Z
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 // 0x004BCCBD 373B slot 12 of vtable 0x0085A914 (class of ??0UnitCrateCollide at 0x004BCC13).
 // Protected virtual bool(Object*) like Heal/Salvage siblings (MAE_N).
 // Donor ZH UnitCrateCollide::executeCrateBehavior (unitCount/unitType via ModuleData,

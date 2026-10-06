@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0047CF38@HordeSiegeEngineContain@@QAEXXZ, retail 0x0047CF38 47B.
 // Chain from SlaughterHordeContain slot105 0x004631C9: walk list at +0x108

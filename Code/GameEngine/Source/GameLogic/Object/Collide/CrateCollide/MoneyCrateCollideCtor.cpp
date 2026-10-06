@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0MoneyCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BC93F, 42 bytes. MoneyCrateCollide behavior ctor over the pinned

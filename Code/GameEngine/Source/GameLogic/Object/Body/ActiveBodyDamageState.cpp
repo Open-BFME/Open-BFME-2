@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva004BDA29@Rva004BDA29@@QBEHXZ @0x004BDA29 62B. Damage-state calc from
 // health ratio without division: returns 3 when health == 0.0f (RUBBLE),
 // 2 when health <= reallyThresh*maxHealth, 1 when health <= damagedThresh*

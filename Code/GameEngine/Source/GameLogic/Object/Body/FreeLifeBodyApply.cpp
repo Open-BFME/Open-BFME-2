@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /arch:SSE /G7
+// cl: /MD /EHsc
 // Semantic donor: Open-BFME-1 6583b3c1ff21db4a561285717028fdafc780b7db,
 // game/GameEngine/Source/GameLogic/Object/Body/FreeLifeBody_internalChangeHealth.cpp.
 // Target family: rowed factory 0x251676 and ctor 0x4C18CA, which installs

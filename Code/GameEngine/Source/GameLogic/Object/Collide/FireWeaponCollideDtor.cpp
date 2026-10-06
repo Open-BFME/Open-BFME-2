@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??1FireWeaponCollide@@UAE@XZ, retail 0x004BB6A7, 85 bytes. Collide-side
 // dtor completing the FireWeaponCollide file-unit (ctor rowed at 0xBB79A,

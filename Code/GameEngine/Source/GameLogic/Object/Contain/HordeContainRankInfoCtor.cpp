@@ -1,4 +1,4 @@
-// cl: /O1 /Oy /DNDEBUG /MD /GX- /Oi- /D_STLP_USE_STATIC_LIB
+// cl: /Oy /DNDEBUG /MD /GX- /Oi- /D_STLP_USE_STATIC_LIB
 //
 // The RankInfo field callback at table 0x00C45530 allocates 0x38 bytes and
 // calls this constructor. Its stores and member constructors establish the

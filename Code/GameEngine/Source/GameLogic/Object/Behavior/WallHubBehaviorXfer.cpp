@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@WallHubBehavior@@MAEXPAVXfer@@@Z, retail 0x00452F25, 44 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x0083FDBC (VA 0x00C3FDBC, class of

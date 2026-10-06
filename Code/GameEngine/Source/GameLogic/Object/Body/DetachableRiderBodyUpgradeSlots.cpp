@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // DetachableRiderBody's UpgradeMux overrides. Its matched ctor 0x004C1C82
 // builds an UpgradeMux at +0x100 (rowed ctor 0x004CE2A3) and installs that

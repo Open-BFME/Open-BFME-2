@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0047680E@HorseHordeContain@@UAEXPBUCoord3D@@H@Z, retail 0x0047680E, 17 bytes.
 // Slot 42 of the vftable 0x00C45C38 whose slot-2 name getter returns

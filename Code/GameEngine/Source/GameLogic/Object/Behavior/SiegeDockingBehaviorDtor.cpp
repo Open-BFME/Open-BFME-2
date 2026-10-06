@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ??1SiegeDockingBehavior@@UAE@XZ, retail 0x00459DAA, 91 bytes.
 // Target evidence: vtable 0x00C414DC slot 0 = deleting dtor 0x0045A17D which

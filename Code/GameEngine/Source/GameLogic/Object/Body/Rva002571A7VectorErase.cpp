@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /EHsc
+// cl: /MD /DNDEBUG /EHsc
 //
 // ?erase@Rva002571A7Vector@@QAEPAURva002571A7Elem@@PAU2@0@Z, retail 0x002571A7, 54 bytes.
 // Inline 8-byte POD range-erase (count via sar 3, two-dword copy loop, no

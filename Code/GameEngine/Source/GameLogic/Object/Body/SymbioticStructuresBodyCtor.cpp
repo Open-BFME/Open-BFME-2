@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0SymbioticStructuresBody@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x004C0AF1, 83 bytes. Frameless body ctor over the pinned

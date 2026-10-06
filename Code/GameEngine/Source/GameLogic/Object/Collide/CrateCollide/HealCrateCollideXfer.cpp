@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@HealCrateCollide@@MAEXPAVXfer@@@Z @0x004BD2F9 27B: slot 3 (offset 0x0C)
 // of vtable 0x0085A868 (class of ??0HealCrateCollide at 0x004BC80F) and five

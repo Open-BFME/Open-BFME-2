@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0GarrisonContainModuleData@@QAE@XZ, retail 0x0047978F, 143 bytes
 // (pinned). Over the pinned ModuleData base 0x00465124 (whose dtor

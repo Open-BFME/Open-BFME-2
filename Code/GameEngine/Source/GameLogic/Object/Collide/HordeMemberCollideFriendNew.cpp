@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@HordeMemberCollide@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x002510A7, 56 bytes. Dedicated TU: retail news 0x14 (push-imm8) and

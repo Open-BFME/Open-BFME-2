@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?validateArmorAndDamageFX@ActiveBody@@QBEXXZ, retail 0x004BE1AE (156B).
 // Zero Hour ActiveBody::validateArmorAndDamageFX: look up the template's armor

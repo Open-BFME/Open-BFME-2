@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0TerrainResourceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x0048209B, 125 bytes. Behavior-side ctor (rowed instance factory

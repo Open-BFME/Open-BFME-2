@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 //
 // ??1HordeSiegeEngineContainModuleData@@UAE@XZ, retail 0x0047DA99, 74 bytes.
 // Target evidence: audited scalar deleting dtor 0x0047DA7D (vtable

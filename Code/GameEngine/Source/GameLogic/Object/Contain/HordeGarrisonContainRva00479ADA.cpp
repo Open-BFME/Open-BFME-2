@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00479ADA@HordeGarrisonContain@@UAEXPAVObject@@@Z @0x00479ADA 48B
 // Evidence: chain lane, calls 0x00588D24 just landed, vtable slot 30 of 0x00846570 and 0x00847740,
 // callers 0x00480C6A and 0x00481442, globals none, second base +0x9E0, subobject +0x20.

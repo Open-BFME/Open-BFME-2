@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ?Rva004BE67E@DetachableRiderBody@@UBE?AVAsciiString@@XZ, retail 0x004BE67E,
 // 30 bytes. Honest-address virtual returning the +0x2C AsciiString of the

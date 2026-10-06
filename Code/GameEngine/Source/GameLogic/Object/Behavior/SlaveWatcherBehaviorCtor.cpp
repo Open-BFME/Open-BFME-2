@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0SlaveWatcherBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004845CB, 93 bytes. Behavior-side ctor (rowed instance factory

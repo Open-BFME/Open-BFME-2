@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?findConditionIndex@GarrisonContain@@IAEHXZ @0x00477E50 50B.
 // GarrisonContain condition query sibling of put 0x00477DA1 and remove 0x00477E82.
 // Evidence: BFME1 donor GarrisonContain.cpp findConditionIndex same m_object

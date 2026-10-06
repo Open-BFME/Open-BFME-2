@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0DetachableRiderBody@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C1C82,
 // 109 bytes. Body-side ctor (rowed instance factory 0x251705 news 0x108

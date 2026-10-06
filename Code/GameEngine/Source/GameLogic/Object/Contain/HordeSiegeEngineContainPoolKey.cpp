@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00047D0A2@HordeSiegeEngineContain@@SA?AW4NameKeyType@@XZ @0x47d0a2
 // (69B): cached pool-name key for HordeSiegeEngineContain. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /EHsc /arch:SSE
+// cl: /MD /DNDEBUG /EHsc
 //
 // ??0HordeSiegeEngineContainModuleData@@QAE@XZ, retail 0x0047DA08 (117 bytes).
 // EH derived ctor over the rowed HordeTransportContainModuleData base

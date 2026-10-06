@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000452DA3@WallHubBehavior@@SA?AW4NameKeyType@@XZ @0x452DA3
 // (69B): cached pool-name key for WallHubBehavior. The class
 // identity comes from the pool-name string the body pushes

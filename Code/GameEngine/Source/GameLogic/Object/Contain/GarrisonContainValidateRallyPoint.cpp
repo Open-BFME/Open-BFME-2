@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?validateRallyPoint@GarrisonContain@@IAEXXZ, retail 0x00478141, 240 bytes.
 // GarrisonContain::validateRallyPoint: exit rally at +0x9D0, valid flag at +0x9DE.
 // Donor BFME1 GarrisonContain_validateRallyPoint plus ZH GarrisonContain.cpp

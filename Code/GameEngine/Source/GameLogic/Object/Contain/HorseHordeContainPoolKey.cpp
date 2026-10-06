@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004766E8@HorseHordeContain@@SA?AW4NameKeyType@@XZ @0x4766e8
 // (69B): cached pool-name key for HorseHordeContain. The class
 // identity comes from the pool-name string the body pushes

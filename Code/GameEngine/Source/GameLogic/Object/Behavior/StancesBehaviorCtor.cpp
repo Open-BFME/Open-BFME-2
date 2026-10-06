@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0StancesBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0045EF80, 54 bytes.
 // Behavior-side ctor completing the StancesBehavior file-unit (poolkey rowed at

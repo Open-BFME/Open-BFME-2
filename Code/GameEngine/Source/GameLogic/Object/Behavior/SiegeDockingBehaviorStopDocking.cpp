@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?stopDocking@SiegeDockingBehavior@@AAEXXZ @0x00459C27 49B.
 // Clears the +0x24 entry vector: deletes each entry via rowed ??3 0x0002FD60
 // behind an explicit null test then empties via rowed voidptr erase 0x0031BD55.
