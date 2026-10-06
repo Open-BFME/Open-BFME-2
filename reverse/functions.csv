@@ -64994,3 +64994,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0050B62B@Made002CCB67@@UAEXPBURva0050B62BArg@@PAVObject@@@Z,,0x0050B62B,137,Code/GameEngine/Source/GameLogic/Object/Made002CCB67StealMoney.cpp,matched,slot 5 of vtable 0x00864D80; address-derived method name; steal-money flow from target callees
 ?rva00577944@Rva005F83B9@@QAEXXZ,,0x00577944,20,Code/GameEngine/Source/Common/Rva00577944.cpp,matched,gap helper on plus4 via two pinned callees plus caller
 ?rva0033082F@Rva0033082FTarget@@QAEEHH@Z,,0x0033082F,191,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0033082FParse.cpp,matched,rowed callees prev flags caller forwarder returns E
+?rva003F3AB5@Rva003F3AB5@@QAEXIUDynamicPortalLink@@@Z,,0x003F3AB5,115,Code/GameEngine/Source/Common/Rva003F3AB5.cpp,matched,rowed callees unblocks 0x003F3B28 ret 0x10 index plus 12B value

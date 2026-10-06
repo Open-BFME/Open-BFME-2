@@ -12612,3 +12612,6 @@ FUN_00850635	0x00450635	642	blocked	ADDRESS-NAMED global g_Va00BBB8D8 use is cou
 ?Rva009B6740BuildTable@@YAXPAE@Z	0x001C7040	514	blocked	complex VP6 probability table triple-loop division mix t=12 model=muse-20
 ?rva00542148@Rva005422CF@@QAEXXZ	0x00542148	70	blocked	align exact modulo relocs but gate unresolved push_back vector Rva0054103E with no row and pins refused t=8 model=muse-04
 ?rva0033082F@Rva0033082FTarget@@QAEEHH@Z	0x0033082F	191	partial	branch layout swapped: 0x44 new first with jmp vs retail 0x64 first 0x44 fallthrough; 191B/71insns zero reg-mem diffs t=15 model=muse-04 score=0.96 stash=reverse/attempts/0x0033082f.cpp
+?rva00287C51@Rva00287C51Host@@QAEXPAX@Z	0x00287C51	805	blocked	805B EH grid parse with 7 virtual slots plus bitfield roundtrip plus pool inserts needs donor and exact vtable layout no BFME1 hit t=12 model=muse-04
+?rva0024A348@LANAPI@@QAEXHHH@Z	0x0024A348	1088	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString and g_Va00E0333C uses refused per packet skip rule t=3 model=muse-04
+?rva0054226A@Rva0054226A@@QAE_NPAVDataChunkInput@@PAUDataChunkInfo@@@Z	0x0054226A	101	blocked	callee 0x00541FCC unclaimed and claimed by muse-01 so gate cannot resolve t=10 model=muse-04
