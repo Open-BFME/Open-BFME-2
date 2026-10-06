@@ -65012,5 +65012,3 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva0006840A@Rva0006840A@@QAEXQAVVector3@@W4DrawableID@@_N@Z,,0x0006840A,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed addBibDrawable same offset as 0x000683FF
 ?rva00068415@Rva00068415@@QAEXXZ,,0x00068415,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed removeHighlighting same offset as 0x000683FF
 ?rva00068420@Rva00068420@@QAEXXZ,,0x00068420,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed clearAllBibs same offset as 0x000683FF
-?rva002B894D@Rva002B894DHost@@QAEXH@Z,,0x002B894D,55,Code/GameEngine/Source/Common/Rva002B894DTwins.cpp,matched,adjacent 55B twins backwards scan elem+0x34 vs arg then 0x2B7DE6; == variant
-?rva002B8984@Rva002B894DHost@@QAEXH@Z,,0x002B8984,55,Code/GameEngine/Source/Common/Rva002B894DTwins.cpp,matched,adjacent 55B twins backwards scan elem+0x34 vs arg then 0x2B7DE6; != variant
