@@ -76,14 +76,16 @@ class Rva00148F5ECache
 {
 public:
 	NameKeyType get();
+	NameKeyType m_key;
+	const char *m_name;
 };
 
-extern Rva00148F5ECache g_00DD211C;	// "MoveToFormationGroupOrder"
-extern Rva00148F5ECache g_00DD20D8;	// "MoveToGroupOrder"
-extern Rva00148F5ECache g_00DD2094;	// "AttackObjectGroupOrder"
-extern Rva00148F5ECache g_00DD2050;	// "GarrisonObjectGroupOrder"
-extern Rva00148F5ECache g_00DD200C;	// "ChangeStanceGroupOrder"
-extern Rva00148F5ECache g_00DD1FC8;	// "SynchronizeGroupOrder"
+Rva00148F5ECache g_00DD211C = { NAMEKEY_INVALID, "MoveToFormationGroupOrder" };
+Rva00148F5ECache g_00DD20D8 = { NAMEKEY_INVALID, "MoveToGroupOrder" };
+Rva00148F5ECache g_00DD2094 = { NAMEKEY_INVALID, "AttackObjectGroupOrder" };
+Rva00148F5ECache g_00DD2050 = { NAMEKEY_INVALID, "GarrisonObjectGroupOrder" };
+Rva00148F5ECache g_00DD200C = { NAMEKEY_INVALID, "ChangeStanceGroupOrder" };
+Rva00148F5ECache g_00DD1FC8 = { NAMEKEY_INVALID, "SynchronizeGroupOrder" };
 
 class GroupOrder
 {
