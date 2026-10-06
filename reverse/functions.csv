@@ -64187,3 +64187,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002B3621@Rva002B4C09@@QAE_NXZ,,0x002B3621,23,Code/GameEngine/Source/Common/Rva002B4C09.cpp,matched,thiscall bool probe on +0x160 target flag; absorbs former 3B tail row at 0x2B3635
 ?rva002B4C09@Rva002B4C09@@QAE_NXZ,,0x002B4C09,44,Code/GameEngine/Source/Common/Rva002B4C09.cpp,matched,thiscall bool gate on +0xF4 with probe and +0x154 empty check; absorbs former 3B tail row at 0x2B4C32
 ?rva002B5F8A@Rva002B5F8A@@QAE_NXZ,,0x002B5F8A,98,Code/GameEngine/Source/Common/Rva002B5F8A.cpp,matched,thiscall bool emit through MessageStreamSubsystem slot 18 with rowed 0x30F936 appends
+?rva002B6CE5@Rva002B6C9F@@QAE_NHHH@Z,,0x002B6CE5,51,Code/GameEngine/Source/Common/Rva002B6C9F.cpp,matched,shorter sibling returning AND of rowed 0x2B2C40 check with pinned 0x2B6BCF stage

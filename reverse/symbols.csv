@@ -13478,3 +13478,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002B5EB5@Rva002B5EB5@@QAE_NXZ,0x002B5EB5,thiscall bool with 0 stack args seen at 0x2B5F8A site; 213B body fresh unattempted
 ?rva002BED91@Rva002BED91Holder@@QAEXXZ,0x002BED91,thiscall with 0 stack args on the +0x160 slot seen at 0x2B6875 site; head undecoded
 ?rva002B5BBA@Rva002B5BBA@@QAEXXZ,0x002B5BBA,EH funclet entered by tail-jmp from 0x2B6875 with ecx=this; shares caller frame; not standalone
+?rva002B6BCF@Rva002B6BCF@@QAEDHHHPAH@Z,0x002B6BCF,thiscall char with 4 stack args seen at 0x2B6C9F and 0x2B6CE5 sites; head undecoded; char return normalizes to test plus setne on bool use
