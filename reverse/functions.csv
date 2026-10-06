@@ -8402,7 +8402,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?rva000486A2F@SpecialPowerCompletionDie@@SA?AW4NameKeyType@@XZ,,0x00486A2F,69,Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDiePoolKey.cpp,matched,cached pool-name key; pool string SpecialPowerCompletionDie; /O1 static-guard EH; nameToKey row
 ?rva000486B75@UpgradeDie@@SA?AW4NameKeyType@@XZ,,0x00486B75,69,Code/GameEngine/Source/GameLogic/Object/Die/UpgradeDiePoolKey.cpp,matched,cached pool-name key; pool string UpgradeDie; /O1 static-guard EH; nameToKey row
 ??$__linear_insert@PAUS4SortElem8@@U1@US4Cmp00625BB0@@@_STL@@YAXPAUS4SortElem8@@0U1@US4Cmp00625BB0@@@Z,,0x00626260,114,Code/Libraries/Source/WWVegas/WWLib/stlport_linear_insert_s4sortelem8.cpp,matched,BFME1 linear_insert port with stateful cluster comparator; unguarded arm via template-name alias pin to 0x6259F0
-?rva000486C95@KeepObjectDie@@SA?AW4NameKeyType@@XZ,,0x00486C95,69,Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDiePoolKey.cpp,matched,cached pool-name key; pool string KeepObjectDie; /O1 static-guard EH; nameToKey row
+?rva000486C95@KeepObjectDie@@SA?AW4NameKeyType@@XZ,,0x00486C95,69,Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDie.cpp,matched,cached pool-name key; pool string KeepObjectDie; /O1 static-guard EH; nameToKey row
 ?parseByte@INI@@SAXPAV1@PAX1PBX@Z,,0x0002EE22,74,Code/GameEngine/Source/Common/System/INI_parseByte.cpp,matched,
 ?parseUnsignedByte@INI@@SAXPAV1@PAX1PBX@Z,,0x0002EE6D,75,Code/GameEngine/Source/Common/System/INI_parseUnsignedByte.cpp,matched,
 ?parseShort@INI@@SAXPAV1@PAX1PBX@Z,,0x0002EEB9,79,Code/GameEngine/Source/Common/System/INI_parseShort.cpp,matched,
@@ -47790,7 +47790,7 @@ _bfmeVp6ThresholdSelect,,0x001B5AC0,404,Code/GameEngine/Source/Common/Rva009A500
 ??0Condition@@QAE@W4ConditionType@0@@Z,,0x003B5AC7,64,Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionCtor.cpp,matched,Condition typed ctor via setConditionType rowed 0x003B4A94 vtable 0x0081F3F8
 ?duplicate@Condition@@QBEPAV1@XZ,,0x003B5B07,157,Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionDuplicate.cpp,matched,Condition duplicate via typed ctor plus Rva assign plus self recursion
 ??1Rva0022DD19@@QAE@XZ,,0x0022DEA8,57,Code/GameEngine/Source/GameClient/Rva0022DD19Dtor.cpp,matched,chain lane dtor calls rowed clear 0x0022DD19 layout matches 0x0022DC62
-?rva00486CF6@Rva00486B56@@QAEXPBVDamageInfo@@@Z,,0x00486CF6,125,Code/GameEngine/Source/GameLogic/Object/Die/Rva00486CF6OnDie.cpp,matched,die slot 12 via Object GameLogic Radar
+?rva00486CF6@Rva00486B56@@QAEXPBVDamageInfo@@@Z,,0x00486CF6,125,Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDie.cpp,matched,die slot 12 via Object GameLogic Radar
 ??_GRva0040BFAA@@UAEPAXI@Z,,0x0040C0AB,28,Code/GameEngine/Source/Common/Rva0040BFAADtor.cpp,matched,deleting dtor via own unit
 ??_GRva004E3CD0@@UAEPAXI@Z,,0x004E3E06,28,Code/GameEngine/Source/Common/Rva004E3CD0Dtor.cpp,matched,deleting dtor via own unit
 ?Rva0059AFC2Copy@@YAPAURva0059AFC2Out@@PAU1@PAURva0059AFC2In@@PBD@Z,,0x0059AFC2,57,Code/GameEngine/Source/Common/Rva0059AFC2Copy.cpp,matched,unlock 20B from 12B plus Pair init rowed 0x000B3F84 via callers
