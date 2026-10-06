@@ -52,3 +52,8 @@ Bool PartitionFilterPossibleToAttack::allow(Object *objOther)
 	}
 	return false;
 }
+
+// The matched filter users that build this filter inline name its class by
+// its allow address (Rva00260FD0Filter, vftable 0x00BF91B0); their slot-1
+// reference binds to this body.
+#pragma comment(linker, "/alternatename:?allow@Rva00260FD0Filter@@UAE_NPAVObject@@@Z=?allow@PartitionFilterPossibleToAttack@@UAE_NPAVObject@@@Z")

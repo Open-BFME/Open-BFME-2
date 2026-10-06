@@ -114,3 +114,7 @@ bool PartitionFilterPlayer::allow(Object *other)
 	return ((m_player == other->getControllingPlayer()) == m_match);
 }
 
+// The matched filter users that build PartitionFilterPlayer inline name its
+// class by its allow address (Rva0026137EFilter, vftable 0x00BFAD28); their
+// slot-1 reference binds to this body.
+#pragma comment(linker, "/alternatename:?allow@Rva0026137EFilter@@UAE_NPAVObject@@@Z=?allow@PartitionFilterPlayer@@MAE_NPAVObject@@@Z")

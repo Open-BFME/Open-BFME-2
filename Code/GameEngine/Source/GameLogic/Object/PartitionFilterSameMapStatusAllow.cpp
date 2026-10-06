@@ -40,3 +40,8 @@ Bool PartitionFilterSameMapStatus::allow(Object *objOther)
 {
 	return m_obj->isOffMap() == objOther->isOffMap();
 }
+
+// The 30 matched filter users that build this filter inline name its class
+// by its allow address (Rva002611BFFilter, vftable 0x00BF91BC); their
+// slot-1 reference binds to this body.
+#pragma comment(linker, "/alternatename:?allow@Rva002611BFFilter@@UAE_NPAVObject@@@Z=?allow@PartitionFilterSameMapStatus@@UAE_NPAVObject@@@Z")

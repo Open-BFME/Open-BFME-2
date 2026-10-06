@@ -14,12 +14,22 @@ enum ObjectPrivateStatusBits
 };
 
 class Team;
+class Player;
+
+enum Relationship
+{
+	ENEMIES = 0,
+	NEUTRAL,
+	ALLIES
+};
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
 class Object
 {
 public:
 	Team *getTeam() const { return m_team; }
+	Player *getControllingPlayer() const;		// 0x0028AFA9
+	Relationship getRelationship(const Object *that) const;	// 0x0028D156
 	Bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
 	Bool isOffMap() const { return (m_privateStatus & OFF_MAP) != 0; }
 
@@ -30,18 +40,26 @@ private:
 	unsigned char m_privateStatus;				// +0x438
 };
 
-enum Relationship
-{
-	ENEMIES = 0,
-	NEUTRAL,
-	ALLIES
-};
-
 class Player
 {
 public:
 	Relationship getRelationship(const Team *that) const;	// 0x002AD0C6
+	Relationship getRelationship(const Object *that) const;	// 0x002AD11E
+	int getPlayerIndex() const { return m_playerIndex; }
+
+private:
+	unsigned char m_unmodelled_00[0x54];
+	int m_playerIndex;							// +0x54
 };
+
+class PlayerList
+{
+public:
+	int getPlayersWithRelationship(int srcPlayerIndex, unsigned int allowedRelationships,
+		Bool match);							// 0x002A7C70
+};
+
+extern PlayerList *ThePlayerList;				// 0x00DFEEE8
 
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Rva000421C8
@@ -133,4 +151,73 @@ Bool Rva00261409Filter::allow(Object *objOther)
 			break;
 	}
 	return !m_match;
+}
+
+// The relationship masks both getPlayerMask slots select for
+// PlayerList::getPlayersWithRelationship: allies 3, enemies 4, neutral 8.
+#define RELATIONSHIP_MASK_FROM_FLAGS(relationships, flags) 	relationships = 0; 	if ((flags) & (1 << ALLIES)) 		relationships = 3; 	if ((flags) & (1 << ENEMIES)) 		relationships |= 4; 	if ((flags) & (1 << NEUTRAL)) 		relationships |= 8
+
+// vftable 0x00BFBC90, built inline at 0x002FDBC4 and by 21 matched users:
+// whether the relationship between the +0x08 object and the candidate is
+// one of the +0x0C flags (1 << Relationship); +0x10 asks it from the
+// candidate's side (Zero Hour's PartitionFilterRelationship, with BFME2's
+// direction flag and player mask).
+class Rva00260EB1Filter : public Rva000421C8
+{
+public:
+	virtual Bool allow(Object *objOther);
+	virtual int getPlayerMask();
+
+private:
+	const Object *m_obj;						// +0x08
+	int m_flags;								// +0x0C
+	Bool m_fromOther;							// +0x10
+};
+
+Bool Rva00260EB1Filter::allow(Object *objOther)
+{
+	Relationship r;
+	if (!m_fromOther)
+		r = m_obj->getRelationship(objOther);
+	else
+		r = objOther->getRelationship(m_obj);
+	return (m_flags & (1 << r)) ? true : false;
+}
+
+int Rva00260EB1Filter::getPlayerMask()
+{
+	Player *player = m_obj->getControllingPlayer();
+	if (player == 0)
+		return -1;
+	unsigned int relationships;
+	RELATIONSHIP_MASK_FROM_FLAGS(relationships, m_flags);
+	return ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(), relationships, m_fromOther);
+}
+
+// vftable 0x00C6E1B0, built inline by AITargetHeuristicBaseDefense
+// 0x005737D6: whether the +0x08 player's relationship to the candidate is
+// one of the +0x0C flags.
+class Rva00260F1BFilter : public Rva000421C8
+{
+public:
+	virtual Bool allow(Object *objOther);
+	virtual int getPlayerMask();
+
+private:
+	const Player *m_player;						// +0x08
+	int m_flags;								// +0x0C
+};
+
+Bool Rva00260F1BFilter::allow(Object *objOther)
+{
+	return (m_flags & (1 << m_player->getRelationship(objOther))) ? true : false;
+}
+
+int Rva00260F1BFilter::getPlayerMask()
+{
+	if (m_player == 0)
+		return -1;
+	unsigned int relationships;
+	RELATIONSHIP_MASK_FROM_FLAGS(relationships, m_flags);
+	return ThePlayerList->getPlayersWithRelationship(m_player->getPlayerIndex(), relationships, false);
 }
