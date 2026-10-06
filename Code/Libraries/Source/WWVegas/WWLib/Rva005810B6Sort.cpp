@@ -182,3 +182,18 @@ void __cdecl Rva00580E5F(void **first, void **last, Rva000795C1Record compare)
 	while (last - first > 1)
 		Rva00580E10(first, last--, compare);
 }
+
+// Target builds the heap on [first, middle) then selects smaller candidates
+// from [middle, last) before the final heap sort. This follows STLport
+// _partial_sort at donor 6583b3c1; comparator meaning stays unknown.
+// ?Rva00580ED0PartialSortImpl@@YAXPAPAX000VRva000795C1Record@@@Z
+void __cdecl Rva00580ED0PartialSortImpl(void **first, void **middle, void **last, void **, Rva000795C1Record compare)
+{
+	Rva00580DBF(first, middle, compare);
+	for (void **i = middle; i < last; ++i)
+	{
+		if (compare.compareRva005803C0(*i, *first))
+			Rva00580C0E(first, middle, i, *i, compare, (void **)0);
+	}
+	Rva00580E5F(first, middle, compare);
+}
