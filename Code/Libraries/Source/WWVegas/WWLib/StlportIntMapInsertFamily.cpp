@@ -29,11 +29,44 @@ enum ScienceType
 };
 
 struct Rva0032EB87Mapped { int a; };
-struct Rva00439AAAMapped { int a; };
+// The matched _M_create_node target allocates a 0x24-byte tree node. With a
+// 0x10-byte node header and the int key this leaves 0x10 bytes for this mapped
+// record. Its meaning and field layout remain unknown.
+struct Rva00439AAAMapped { unsigned char m_data[0x10]; };
 struct Rva004F90FFMapped { int a; };
 struct Rva00502861Mapped { int a; };
 struct Rva00502BCDMapped { int a; };
 struct Rva00559076Mapped { int a; };
+
+struct Rva004395EC;
+namespace _STL {
+template <> class allocator<char> {
+public:
+	static char *allocate(unsigned int bytes, const void *hint);
+};
+template <> void _Construct<Rva004395EC, Rva004395EC>(Rva004395EC *, const Rva004395EC &);
+}
+
+typedef _STL::_Rb_tree<int, _STL::pair<const int, Rva00439AAAMapped>,
+	_STL::_Select1st<_STL::pair<const int, Rva00439AAAMapped> >,
+	_STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00439AAAMapped> > > Rva00439AAATree;
+
+// Target 0x00439943 allocates a 0x24-byte node through the rowed byte
+// allocator and calls rowed _Construct<Rva004395EC> 0x004398AB on the value
+// storage. Its 34B boundary and the int-keyed _M_insert caller 0x00439A22
+// support a 0x10-byte mapped record; the mapped type's name and members remain
+// unresolved. The target treats the pair storage as the rowed 20-byte record
+// view solely for the already-proven copy operation.
+// ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHURva00439AAAMapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00439AAAMapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00439AAAMapped@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHURva00439AAAMapped@@@_STL@@@2@ABU?$pair@$$CBHURva00439AAAMapped@@@2@@Z
+template <>
+Rva00439AAATree::_Link_type Rva00439AAATree::_M_create_node(const Rva00439AAATree::value_type &value)
+{
+	_Link_type node = (_Link_type)_STL::allocator<char>::allocate(sizeof(_STL::_Rb_tree_node<Rva00439AAATree::value_type>), 0);
+	_STL::_Construct((Rva004395EC *)&node->_M_value_field, (const Rva004395EC &)value);
+	return node;
+}
+
+template Rva00439AAATree::_Link_type Rva00439AAATree::_M_create_node(const Rva00439AAATree::value_type &);
 
 template class _STL::_Rb_tree<ScienceType, _STL::pair<const ScienceType, bool>, _STL::_Select1st<_STL::pair<const ScienceType, bool> >, _STL::less<ScienceType>, _STL::allocator<_STL::pair<const ScienceType, bool> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva0032EB87Mapped>, _STL::_Select1st<_STL::pair<const int, Rva0032EB87Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva0032EB87Mapped> > >;
