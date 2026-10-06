@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O2 /MD
 //
-// Four global-object teardowns in the 0x007B700A neighbourhood, continuing the
+// Five global-object teardowns in the 0x007B700A neighbourhood, continuing the
 // Rva007B6880Thunks.cpp page (that file's last row is 0x007B71C0).
 //
 // 0x007B7024 (26B): refcounted-release for the global at VA 0x00DEE86C, the
@@ -80,4 +80,17 @@ void __cdecl rva007B7200()
 		operator delete[](g_Va00DB6354);
 	if (g_Va00DB6358 != 0)
 		operator delete[](g_Va00DB6358);
+}
+// 0x007B7230 (35B): target bytes show a second guarded delete[] pair at the
+// consecutive global pointer slots VA 0x00DB6364/0x00DB6368. The owners are
+// unknown; the function name is address-derived like its neighboring pair.
+void *g_Va00DB6364;
+void *g_Va00DB6368;
+
+void __cdecl rva007B7230()
+{
+	if (g_Va00DB6364 != 0)
+		operator delete[](g_Va00DB6364);
+	if (g_Va00DB6368 != 0)
+		operator delete[](g_Va00DB6368);
 }
