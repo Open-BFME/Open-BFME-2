@@ -40,6 +40,7 @@ void __cdecl Rva00580ED0PartialSortImpl(void **, void **, void **, void **, Rva0
 void __cdecl Rva00580C0E(void **, void **, void **, void *, Rva000795C1Record, void **);
 void __cdecl Rva00580C6F(void **, void **, Rva000795C1Record, void **, void **);
 void __cdecl Rva00580AAC(void **, int, int, void *, Rva000795C1Record);
+void __cdecl Rva005807CE(void **, int, int, void *, Rva000795C1Record);
 // Native580D38..580DBF/135B; STLport final insertion pass at threshold16.
 // /G7 reproduces the byte-sized alignment mask and schedules the record copy.
 // ?Rva00580D38FinishSort@@YAXPAPAX0VRva000795C1Record@@@Z
@@ -145,4 +146,28 @@ void __cdecl Rva00580C6F(void **first, void **last, Rva000795C1Record compare, v
 			return;
 		--parent;
 	}
+}
+
+// Target moves the larger child into the hole then restores the saved value
+// through 0x5807CE. This follows STLport _adjust_heap at donor 6583b3c1;
+// comparator identity and element meaning remain unknown.
+// ?Rva00580AAC@@YAXPAPAXHHPAXVRva000795C1Record@@@Z
+void __cdecl Rva00580AAC(void **first, int holeIndex, int length, void *value, Rva000795C1Record compare)
+{
+	int topIndex = holeIndex;
+	int secondChild = 2 * holeIndex + 2;
+	while (secondChild < length)
+	{
+		if (compare.compareRva005803C0(*(first + secondChild), *(first + (secondChild - 1))))
+			--secondChild;
+		*(first + holeIndex) = *(first + secondChild);
+		holeIndex = secondChild;
+		secondChild = 2 * (secondChild + 1);
+	}
+	if (secondChild == length)
+	{
+		*(first + holeIndex) = *(first + (secondChild - 1));
+		holeIndex = secondChild - 1;
+	}
+	Rva005807CE(first, holeIndex, topIndex, value, compare);
 }
