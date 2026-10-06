@@ -33,8 +33,7 @@ void Rva006BE270Fill(BfmeElem60 *first, BfmeElem60 *last, const BfmeElem60 &valu
 		first->m_08 = value.m_08;
 		first->m_0C = value.m_0C;
 		first->m_10 = value.m_10;
-		// AsciiString::operator= as retail expands it (this unit is /Ob0): StringBase<char>::set 0x000366F0
-		((StringBase<char> *)&first->m_1C)->set(*(const StringBase<char> *)&value.m_1C);
+		first->m_1C = value.m_1C;
 		first->m_20 = value.m_20;
 		first->m_21 = value.m_21;
 		++first;
