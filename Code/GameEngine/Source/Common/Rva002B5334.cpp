@@ -1,5 +1,3 @@
-// ?rva002B5334@Rva002B5334@@QAEXXZ
-// partial score=0.9 date=2026-10-05
 // cl: /O1 /MD
 // ?rva002B5334@Rva002B5334@@QAEXXZ @0x002B5334 92B: __thiscall void sweep
 // over the +0x2C element table behind +0xB0/+0x08. Each element whose +0x13C
@@ -78,17 +76,12 @@ void Rva002B5334::rva002B5334()
 		vec = &sub->m_vec2C;
 	else
 		vec = 0;
-	int d = (char *)vec->m_end - (char *)vec->m_begin;
-	int i = 0;
-	if ((d >> 2) == 0)
-		return;
-	do {
+	for (unsigned i = 0; i < (unsigned)(((char *)vec->m_end - (char *)vec->m_begin) >> 2); ++i) {
 		Rva002B5334Elem *elem = vec->m_begin[i];
 		int id = elem->m_id13C;
 		if (id != -1) {
 			Rva002E2903Player *p = ((Rva002BA8F1Logic *)this)->find(id, 0);
 			p->rva002E2D8D(elem);
 		}
-		++i;
-	} while (i < (((char *)vec->m_end - (char *)vec->m_begin) >> 2));
+	}
 }
