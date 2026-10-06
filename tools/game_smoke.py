@@ -84,7 +84,9 @@ RVA = {
     "handleCRCMessage": 0x37D0A7,  # RecorderClass::handleCRCMessage(crc, player, fromPlayback, frame), ret 0x10
     "TheGameState": 0x9FF08C,     # GameState*
     "GameEngine::update": 0x225DA9,  # GameEngine vtable slot 10, called once per engine frame by execute()
-    "GameState::autoSave": 0x2DD7E6,  # thiscall, no arguments; saveGame(<__AUTO#SAVE__ name>, ...) -> SaveCode
+    "GameState::autoSave": 0x2DD7E6,
+    "GameLogic::getCRC": 0x23CB2C,  # thiscall getCRC(int mode), ret 4; GameLogic::update calls it with 0
+    "crcInProgress": 0xA02D87,    # byte GameLogic::update sets around its own getCRC(0) call  # thiscall, no arguments; saveGame(<__AUTO#SAVE__ name>, ...) -> SaveCode
     "Debug::AssertDone/exit": 0x3AAA3,  # `push 1; call exit` after an assertion report (ebx = Debug)
     "Debug::CrashDone/exit": 0x3B0DC,   # the same after a crash report
 }
@@ -164,6 +166,67 @@ def judge_skirmish(samples, want_mode, min_frames, crash=None, shot=None):
     if shot is not None and shot.get("stddev", 0) <= 8:
         return "blank-window"
     return "pass"
+
+
+def stub_code(calls, results):
+    """x86 for a run of thiscalls: per call, optionally `mov byte [flag], 1`,
+    push the args (right to left), `mov ecx, this; mov eax, fn; call eax`,
+    `mov [results + 4*i], eax`, clear the flag; then int3."""
+    code = b""
+    for i, c in enumerate(calls):
+        if c.get("flag"):
+            code += b"\xC6\x05" + struct.pack("<I", c["flag"]) + b"\x01"
+        for arg in reversed(c.get("args", [])):
+            code += b"\x68" + struct.pack("<I", arg & 0xFFFFFFFF)
+        code += b"\xB9" + struct.pack("<I", c["ecx"]) + b"\xB8" + struct.pack("<I", c["call"]) + b"\xFF\xD0"
+        code += b"\xA3" + struct.pack("<I", results + 4 * i)
+        if c.get("flag"):
+            code += b"\xC6\x05" + struct.pack("<I", c["flag"]) + b"\x00"
+    return code + b"\xCC"
+
+
+class FrameHook:
+    """Handler for the GameEngine::update entry breakpoint (once per engine
+    frame, between logic frames). At chosen logic frames it remote-calls
+    GameLogic::getCRC(0) the way GameLogic::update does (crcInProgress set
+    around it), so two runs can be compared frame by frame; on request it
+    takes a CRC and then GameState::autoSave() in the same stop."""
+
+    def __init__(self, every=None, at_first=False, modes=(2,)):
+        self.every, self.at_first, self.modes = every, at_first, set(modes)
+        self.crcs = []                # (logic frame, crc)
+        self.save_requested, self.save = False, {}
+
+    def due(self, frame, mode):
+        """None, "crc" or "save" for an engine frame at this logic frame/mode."""
+        if frame is None or mode not in self.modes:
+            return None
+        if self.save_requested and not self.save:
+            return "save"
+        if any(f == frame for f, _ in self.crcs):
+            return None
+        if self.at_first and not self.crcs:
+            return "crc"
+        if self.every and frame > 0 and frame % self.every == 0:
+            return "crc"
+        return None
+
+    def __call__(self, game, tid, ctx):
+        frame, mode = game.logic()
+        what = self.due(frame, mode)
+        if what is None:
+            return True
+        crc = {"call": game.va("GameLogic::getCRC"), "ecx": game.global_ptr("TheGameLogic"), "args": [0],
+               "flag": game.va("crcInProgress")}
+        if what == "crc":
+            return {"calls": [crc], "keep": True, "done": lambda g, r: self.crcs.append((frame, r[0]))}
+        self.save["requested_frame"] = frame
+        save = {"call": game.va("GameState::autoSave"), "ecx": game.global_ptr("TheGameState")}
+
+        def saved(g, r):
+            self.crcs.append((frame, r[0]))
+            self.save.update(frame=frame, crc=r[0], code=r[1], seconds=g.seconds())
+        return {"calls": [crc, save], "keep": True, "done": saved}
 
 
 def profile_snapshot(d):
@@ -370,17 +433,21 @@ class Game:
         self.k.CloseHandle(h)
 
     def _call(self, h, tid, va, req):
-        """Run `req["call"]` (thiscall, ecx = req["ecx"]) on this thread from the
-        breakpoint at `va`, then resume exactly where it stopped: the full
-        context is saved here and restored at the stub's int3."""
+        """Run req["calls"] (each {"call": va, "ecx": this, "args": [...], "flag":
+        byte va set to 1 around it}; or one such dict as req itself) on this
+        thread from the breakpoint at `va`, then resume exactly where it
+        stopped: the full context is saved here and restored at the stub's
+        int3, where req["done"](game, [eax of each call]) runs."""
         full = WOW64_CONTEXT()
-        full.flags = 0x1003F                       # WOW64_CONTEXT_ALL
+        full.flags = 0x1003F                       # WOW64_CONTEXT_ALL (FPU and SSE state too)
         self.k.Wow64GetThreadContext(wt.HANDLE(h), ctypes.byref(full))
         if self.stub is None:
             self.stub = self.k.VirtualAllocEx(self.hproc, None, 0x1000, 0x3000, 0x40)
-        code = b"\xB9" + struct.pack("<I", req["ecx"]) + b"\xB8" + struct.pack("<I", req["call"]) + b"\xFF\xD0\xCC"
+        calls = req.get("calls") or [req]
+        results = self.stub + 0x800
+        code = stub_code(calls, results)
         self.write(self.stub, code, code=True)
-        self.calls[self.stub + len(code) - 1] = (full, va, req.get("keep", False), req.get("done"))
+        self.calls[self.stub + len(code) - 1] = (full, va, req.get("keep", False), req.get("done"), results, len(calls))
         ctx = WOW64_CONTEXT()
         ctx.flags = 0x10003
         self.k.Wow64GetThreadContext(wt.HANDLE(h), ctypes.byref(ctx))
@@ -389,10 +456,10 @@ class Game:
         self.k.CloseHandle(h)
 
     def _returned(self, tid, at):
-        full, va, keep, done = self.calls.pop(at)
+        full, va, keep, done, results, n = self.calls.pop(at)
         h, ctx = self._context(tid)
         if done and ctx is not None:
-            done(self, ctx.eax)
+            done(self, list(struct.unpack(f"<{n}I", self.read(results, 4 * n))))
         full.eip = va
         if keep and va in self.bps:
             full.eflags |= 0x100
@@ -733,8 +800,13 @@ def finish(a, name, out):
 def cmd_skirmish(a, keep_replay=None):
     samples = []
     handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai))]
+    hook = FrameHook(every=a.crc_every, modes=(a.mode,)) if keep_replay else None
+    if hook:
+        handlers.append(("GameEngine::update", hook))
     game, out = launch(a, f'-file "{a.map}"', handlers, skirmish_tick(a, samples, a.mode))
     out["samples"] = samples
+    if hook:
+        out["crcs"] = hook.crcs
     res = out["run"]
     out["outcome"] = judge_skirmish(samples, a.mode, a.min_frames, crash_outcome(res), res.get("screenshot"))
     if keep_replay:
@@ -759,25 +831,19 @@ def cmd_save(a):
     top of the next engine frame (GameEngine::update entry). The save is kept as
     GAME_DIR/<--save-name> for the load run. pass = autoSave returned 0, a new
     save file appeared and the game kept simulating afterwards."""
-    samples, saved = [], {}
+    samples = []
     before = {q.name for q in find_saves(a.appdata)}
-
-    def done(game, eax):
-        saved.update(code=eax, frame=game.logic()[0], seconds=game.seconds())
-
-    def at_frame(game, tid, ctx):
-        return {"call": game.va("GameState::autoSave"), "ecx": game.global_ptr("TheGameState"), "done": done}
-
+    hook = FrameHook(modes=(a.mode,))
+    saved = hook.save
     base_tick = skirmish_tick(a, samples, a.mode)
 
     def tick(game):
         why = base_tick(game)
         started = [t for t, f, m in samples if m == a.mode and f]
-        if started and not saved.get("armed") and samples[-1][0] - started[0] >= a.save_after:
-            saved["armed"] = game.seconds()
-            game.arm("GameEngine::update", at_frame)
+        if started and not hook.save_requested and samples[-1][0] - started[0] >= a.save_after:
+            hook.save_requested = True
         return why
-    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai))]
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
     res = out["run"]
     new = [q for q in find_saves(a.appdata) if q.name not in before]
@@ -807,10 +873,14 @@ def cmd_load(a):
     samples = []
     rec = json.loads((OUT / f"save{'_retail' if a.retail else ''}.json").read_text()) if a.saved_frame is None else None
     saved_frame = a.saved_frame if a.saved_frame is not None else rec["save"]["frame"]
-    game, out = launch(a, f"-file {a.save_name}", (), skirmish_tick(a, samples, a.mode))
+    hook = FrameHook(at_first=True, modes=(a.mode,))
+    game, out = launch(a, f"-file {a.save_name}", [("GameEngine::update", hook)], skirmish_tick(a, samples, a.mode))
     res = out["run"]
     game_frames = [f for t, f, m in samples if m == a.mode and f]
-    out.update(samples=samples[::5], saved_frame=saved_frame, first_game_frame=game_frames[0] if game_frames else None)
+    out.update(samples=samples[::5], saved_frame=saved_frame, first_game_frame=game_frames[0] if game_frames else None,
+               first_crc=hook.crcs[:1])
+    if rec and hook.crcs and hook.crcs[0][0] == saved_frame:        # informational: is the loaded state the saved one?
+        out["crc_matches_save"] = hook.crcs[0][1] == rec["save"].get("crc")
     out["outcome"] = judge_skirmish(samples, a.mode, a.min_frames, crash_outcome(res), res.get("screenshot"))
     if out["outcome"] == "pass" and game_frames[0] < saved_frame:
         out["outcome"] = "not-restored"
@@ -841,17 +911,22 @@ def cmd_playback(a):
         if len(samples) > 20 and frame and len(set(recent)) == 1:
             return "frames-stopped"
         return None
-    game, out = launch(a, f"-file {a.replay}.rep", [("handleCRCMessage", on_crc)], tick)
-    crc = pair_crcs([e[:3] for e in events])
-    out.update(samples=samples[-5:], crc_events=len(events), perturbed=perturbed or None,
+    record = json.loads(Path(a.record_json or OUT / "record_retail.json").read_text())
+    hook = FrameHook(every=a.crc_every, modes=a.playback_modes)
+    game, out = launch(a, f"-file {a.replay}.rep", [("handleCRCMessage", on_crc), ("GameEngine::update", hook)], tick)
+    # retail GameLogic::update makes no CRCs in a skirmish (mode 2 clears the flag at
+    # 0x24579D), so the engine's own replay check has nothing to compare; the
+    # harness's getCRC samples are compared with the record run's instead.
+    crc = pair_crcs([(f, c, False) for f, c in record.get("crcs", [])] + [(f, c, True) for f, c in hook.crcs])
+    out.update(samples=samples[-5:], engine_crc_events=len(events), perturbed=perturbed or None,
+               harness_crcs=len(hook.crcs),
                crc=dict(crc, mismatches=crc["mismatches"][:10], unpaired_recorded=crc["unpaired_recorded"][:10],
                         unpaired_computed=crc["unpaired_computed"][:10]))
     out["crc_head"] = [[f, hex(c), p, pl] for f, c, p, pl in events[:12]]
     res = out["run"]
     crashed = crash_outcome(res) if res.get("stopped") == "crash" else None
-    if a.recorded_last is None and (OUT / "record_retail.json").exists():
-        a.recorded_last = max((f for _, f, m in json.loads((OUT / "record_retail.json").read_text())["samples"]
-                               if f is not None and m == a.mode), default=None)
+    if a.recorded_last is None:
+        a.recorded_last = max((f for _, f, m in record["samples"] if f is not None and m == a.mode), default=None)
     played = max((f for _, f, m in samples if f is not None), default=None)
     out.update(recorded_last=a.recorded_last, played_last=played)
     out["outcome"] = judge_playback(crc, a.recorded_last, played, a.min_crcs, crashed)
@@ -876,6 +951,11 @@ def main(argv=None):
     ap.add_argument("--recorded-last", type=int,
                     help="last logic frame of the recording (default: build/game/record_retail.json)")
     ap.add_argument("--min-crcs", type=int, default=3)
+    ap.add_argument("--crc-every", type=int, default=25, help="logic frames between harness CRC samples")
+    ap.add_argument("--record-json", type=Path, help="record run to compare with (default build/game/record_retail.json)")
+    ap.add_argument("--playback-modes", type=lambda v: [int(x) for x in v.split(",")],
+                    default=[0, 1, 2, 3, 4, 5, 6, 7, 8],
+                    help="GameLogic modes sampled in playback (9, seen before a -file game starts, is left out)")
     ap.add_argument("--save-after", type=float, default=30, help="skirmish seconds before the autosave")
     ap.add_argument("--save-name", default="smoke.BfME2Skirmish", help="the save, kept in GAME_DIR")
     ap.add_argument("--saved-frame", type=int, help="load: frame the save was taken at (default: save run's)")

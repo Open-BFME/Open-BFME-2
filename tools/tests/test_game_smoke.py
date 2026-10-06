@@ -119,6 +119,52 @@ class PieceMover(unittest.TestCase):
             gs.piece_mover([[".text", 0x1000, 0x5000, 0x10]])(0x2000)
 
 
+class StubCode(unittest.TestCase):
+    def test_crc_then_autosave_stub(self):
+        from capstone import Cs, CS_ARCH_X86, CS_MODE_32
+        calls = [{"call": 0x63CB2C, "ecx": 0x5000000, "args": [0], "flag": 0xE02D87},
+                 {"call": 0x6DD7E6, "ecx": 0x5100000}]
+        code = gs.stub_code(calls, 0x1000800)
+        got = [f"{i.mnemonic} {i.op_str}".strip() for i in Cs(CS_ARCH_X86, CS_MODE_32).disasm(code, 0x1000000)]
+        self.assertEqual(got, [
+            "mov byte ptr [0xe02d87], 1", "push 0", "mov ecx, 0x5000000", "mov eax, 0x63cb2c", "call eax",
+            "mov dword ptr [0x1000800], eax", "mov byte ptr [0xe02d87], 0",
+            "mov ecx, 0x5100000", "mov eax, 0x6dd7e6", "call eax", "mov dword ptr [0x1000804], eax", "int3"])
+
+    def test_args_are_pushed_right_to_left(self):
+        code = gs.stub_code([{"call": 1, "ecx": 2, "args": [7, 8]}], 0)
+        self.assertEqual(code[:10], bytes.fromhex("6808000000 6807000000"))
+
+
+class FrameHookSchedule(unittest.TestCase):
+    def test_samples_every_n_frames_once_each(self):
+        h = gs.FrameHook(every=25)
+        self.assertIsNone(h.due(0, 2))                     # frame 0 is the set-up frame
+        self.assertIsNone(h.due(24, 2))
+        self.assertEqual(h.due(25, 2), "crc")
+        h.crcs.append((25, 0xABC))
+        self.assertIsNone(h.due(25, 2))                    # same logic frame, next engine frame
+        self.assertEqual(h.due(50, 2), "crc")
+
+    def test_wrong_mode_or_no_logic_is_never_sampled(self):
+        h = gs.FrameHook(every=25)
+        self.assertIsNone(h.due(50, 9))
+        self.assertIsNone(h.due(None, None))
+
+    def test_first_frame_after_load(self):
+        h = gs.FrameHook(at_first=True)
+        self.assertEqual(h.due(731, 2), "crc")
+        h.crcs.append((731, 1))
+        self.assertIsNone(h.due(732, 2))
+
+    def test_save_request_wins_once(self):
+        h = gs.FrameHook(every=25)
+        h.save_requested = True
+        self.assertEqual(h.due(40, 2), "save")
+        h.save.update(frame=40, code=0)
+        self.assertIsNone(h.due(41, 2))
+
+
 class FakeGame:
     """Memory as a dict of dwords, enough for the breakpoint handlers."""
     base = 0x400000
@@ -190,6 +236,10 @@ class RetailAddresses(unittest.TestCase):
         self.assertEqual(img[gs.RVA["handleCRCMessage"]:][:3], bytes.fromhex("55 8BEC"))        # push ebp; mov ebp, esp
         self.assertEqual(img[gs.RVA["fileSlotsSet"]:][:2], bytes.fromhex("6A02"))              # push 2 (GAME_SKIRMISH)
         self.assertEqual(img[gs.RVA["GameState::autoSave"]:][:1], b"\xB8")                     # mov eax, <EH handler>
+        self.assertEqual(img[gs.RVA["GameLogic::getCRC"]:][:1], b"\xB8")
+        self.assertEqual(img[gs.RVA["GameEngine::update"]:][:3], bytes.fromhex("55 8BEC"))
+        for name in ("Debug::AssertDone/exit", "Debug::CrashDone/exit"):
+            self.assertEqual(img[gs.RVA[name]:][:8], bytes.fromhex("6A01 FF1508A6BB00"))     # push 1; call [exit]
 
     def test_focus_arm_is_unique(self):
         g = gs.Game.__new__(gs.Game)
