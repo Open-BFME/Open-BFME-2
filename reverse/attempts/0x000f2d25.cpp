@@ -1,5 +1,5 @@
 // ?buildSilhouette@W3DVolumetricShadow@@QAEXHPAVVector3@@@Z
-// partial score=0.9 date=2026-10-06
+// partial score=0.92 date=2026-10-06
 // cl: /O1 /arch:SSE2 /DNDEBUG /MD
 // ?buildSilhouette@W3DVolumetricShadow@@QAEXHPAVVector3@@@Z @0x000F2D25 422B.
 // W3DVolumetricShadow::buildSilhouette(Int meshIndex, Vector3 *lightPosObject):
@@ -133,11 +133,11 @@ void W3DVolumetricShadow::buildSilhouette(int meshIndex, Vector3 *lightPosObject
 		mesh->GetPolygonIndex(i, poly);
 
 		const Vector3 &vertex = mesh->m_verts[poly[0]];
-
+		float nz = normal.Z;
 		float dz = vertex.Z - lightPosObject->Z;
 		float dy = vertex.Y - lightPosObject->Y;
 		float dx = vertex.X - lightPosObject->X;
-		float dot = normal.Z * dz + normal.Y * dy + normal.X * dx;
+		float dot = nz * dz + normal.Y * dy + normal.X * dx;
 		if (dot < 0.0f)
 			polyNeighbor->status = 0x01;
 	}
@@ -170,7 +170,7 @@ void W3DVolumetricShadow::buildSilhouette(int meshIndex, Vector3 *lightPosObject
 			}
 		}
 
-		if (visibleNeighborless) {
+		if (visibleNeighborless == true) {
 			addNeighborlessEdges(meshIndex, polyNeighbor);
 		}
 
