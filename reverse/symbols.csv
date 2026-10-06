@@ -3358,6 +3358,7 @@ name,address,notes
 ??1Gen_uw_00089851@@QAE@XZ,0x00089851,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uw_000a8a37@@QAE@XZ,0x000A8A37,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uw_000ad6f4@@QAE@XZ,0x000AD6F4,gen-uw-pin dtor target read from the retail funclet bytes
+??1Gen_uw_000b3f43@@QAE@XZ,0x000B3F43,gen-uw-pin target read directly from range-36 retail funclet 0x00769DC9; concrete class identity is unknown
 ??1Gen_uw_000b3fd0@@QAE@XZ,0x000B3FD0,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uw_000b6cf1@@QAE@XZ,0x000B6CF1,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uw_000b6dd2@@QAE@XZ,0x000B6DD2,gen-uw-pin dtor target read from the retail funclet bytes

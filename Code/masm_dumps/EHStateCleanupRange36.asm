@@ -693,5 +693,19 @@ PUBLIC ?rva007695F4@@YAXXZ
 cleanup_done_007695F4:
     ret
 ?rva007695F4@@YAXXZ ENDP
+EXTERN ??1Gen_uw_000b3f43@@QAE@XZ:PROC
+
+; Unwind@00b69dc9: state bit 0 at [ebp-16]; cleanup transfer at [ebp+8].
+PUBLIC ?rva00769DC9@@YAXXZ
+?rva00769DC9@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00769DC9
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Gen_uw_000b3f43@@QAE@XZ
+cleanup_done_00769DC9:
+    ret
+?rva00769DC9@@YAXXZ ENDP
 _TEXT ENDS
 END
