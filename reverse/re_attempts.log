@@ -14910,3 +14910,4 @@ FUN_0068e01f	0x0028E01F	218	blocked	requires forbidden address-named global g_Va
 ?rva00055E6C@Rva00055E6C@@QAE_NPBDHH@Z	0x00055E6C	350	blocked	stored callback behavior fits MilesAudioManager layout but slot identity and retail argument types remain unproven after donor search t=4 model=GPT-6
 FUN_005b4d7f	0x001B4D7F	136	blocked	packet globals at 0x007D7710 and 0x009FD93C have no data-ledger names and g_Rva fallbacks are forbidden t=5 model=GPT-6
 FUN_006f0a72	0x002F0A72	219	blocked	grid coordinate helper identity and parameter types are not established by the neighboring Pathfinder method or available donors t=6 model=GPT-6
+FUN_008527e5	0x004527E5	38	blocked	Dependency blocker: target calls 0x004524E5 with the two object inputs live in EBX and EDI; that helper is already blocked for its private ESI-EBX-EDI convention and unresolved layouts. No target body shape attempted. t=16 model=gpt-6-luna
