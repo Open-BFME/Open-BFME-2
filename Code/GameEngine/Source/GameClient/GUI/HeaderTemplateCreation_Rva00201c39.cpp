@@ -1,43 +1,12 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 // stlport
-// class-gate: allow AsciiString donor TU-local StringBase-derived 4-byte view emits the retail 118B body at 0x00201C39; the shared header force-inlines the copy assignment instead of the out-of-line StringBase::set call retail makes
 #define _STLP_NO_EXCEPTIONS 1
 #define _STLP_USE_STATIC_LIB 1
 #include <list>
+#include "ascii_string.h"
 
 extern "C" unsigned int __cdecl strlen( const char *text );
 #pragma intrinsic(strlen)
-
-template <typename T> class StringBase
-{
-	friend class AsciiString;
-
-private:
-	StringBase( void ) : m_data( 0 ) {}
-	StringBase( const StringBase<T> &other );
-	~StringBase();
-	void set( const StringBase<T> &other );
-	void set( const T *text, int length );
-
-	struct Header;
-	Header *m_data;
-};
-
-class AsciiString : private StringBase<char>
-{
-public:
-	AsciiString( void ) : StringBase<char>() {}
-	AsciiString( const AsciiString &other ) : StringBase<char>( other ) {}
-	void set( const char *text, int length )
-	{
-		StringBase<char>::set( text, length );
-	}
-	AsciiString &operator=( const AsciiString &other )
-	{
-		StringBase<char>::set( other );
-		return *this;
-	}
-};
 
 typedef char AsciiStringSizeCheck[(sizeof(AsciiString) == 4) ? 1 : -1];
 
@@ -49,7 +18,6 @@ extern const FieldParse g_010F9830[];
 class HeaderTemplate
 {
 public:
-	HeaderTemplate( void );
 	GameFont *m_font;
 	AsciiString m_name;
 	AsciiString m_fontName;
@@ -58,6 +26,18 @@ public:
 };
 
 typedef char HeaderTemplateSizeCheck[(sizeof(HeaderTemplate) == 20) ? 1 : -1];
+
+// Row owner of the HeaderTemplate ctor body at 0x00201998
+// (??0Rva0048C200Owner@@QAE@XZ): same 0x14-byte layout, called by retail.
+class Rva0048C200Owner
+{
+public:
+	Rva0048C200Owner( void );
+private:
+	char m_pad[0x14];
+};
+
+typedef char Rva0048C200OwnerSizeCheck[(sizeof(Rva0048C200Owner) == 20) ? 1 : -1];
 
 class HeaderTemplateManager
 {
@@ -89,7 +69,7 @@ public:
 // ?newHeaderTemplate@HeaderTemplateManager@@QAEPAVHeaderTemplate@@VAsciiString@@@Z
 HeaderTemplate *HeaderTemplateManager::newHeaderTemplate( AsciiString name )
 {
-	HeaderTemplate *headerTemplate = new HeaderTemplate;
+	HeaderTemplate *headerTemplate = (HeaderTemplate *)new Rva0048C200Owner;
 	if( !headerTemplate )
 		return 0;
 
