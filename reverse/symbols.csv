@@ -13593,3 +13593,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva006FB120@Rva006FB860@@QAEXHHHHD@Z,0x006FB120,direct call at 0x006FB8CF sets ECX=this and passes four int fields plus the char flag; target ends with ret 0x14 at 0x006FB58F; address-derived owner view and helper identity unverified
 ?rva006FB5B0@Rva006FB860@@QAEXHHHH@Z,0x006FB5B0,direct call at 0x006FB8DE sets ECX=this and passes four stack dwords; target ends with ret 0x10 at 0x006FB83D; address-derived owner view and helper identity unverified
 ?rva006FACA0@Rva006FB860@@QAE_NHHPAPAX@Z,0x006FACA0,direct call at 0x006FB8EC sets ECX=this and passes two integer fields plus a local output pointer; AL result and ret 0xC are target facts; ABI view only and the separate body attempt remains blocked
+?rva0046247D@Rva0046247D@@QAEPAXAAURva0046247DPair@@@Z,0x0046247D,callee of ?rva00464286@OpenContain@@UAEXXZ
+?rva0036AE51@Rva0036AE51ListView@@QAE?AV?$list@HV?$allocator@H@_STL@@@_STL@@XZ,0x0036AE51,callee of ?rva00464286@OpenContain@@UAEXXZ
