@@ -13437,3 +13437,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Rva00525CC5@Holder00526309@@QAEXPAUObj00526309@@@Z,0x00525CC5,thiscall callee of flag dispatcher 0x00526309 (REL32 at 0x0052631A); Ghidra 213B unrecovered; address name
 ?Rva00525D9A@Holder00526309@@QAEXPAUObj00526309@@@Z,0x00525D9A,thiscall callee of flag dispatcher 0x00526309 (REL32 at 0x0052632B); Ghidra 102B unrecovered; address name
 ?Rva005258F8@Holder00525D9A@@QAEXHUNodeRef00525D9A@@@Z,0x005258F8,thiscall notify of range list-append 0x00525D9A (REL32 at 0x00525DF4) takes id plus by-value node wrapper; body rowed as stdcall ?Rva005258F8@@YGXHH@Z; address name
+?Rva004FCA0C@Sub0052BAC1@@QAEPAURes004FCA0C@@PAVRva0020E89C@@@Z,0x004FCA0C,thiscall second-stage lookup of range dispatch 0x0052BAC1 (REL32 at 0x0052BAE9) on this+0x1C with the 0x0020EAF6 pointer; answers holder with +0x12C int; Ghidra body unrecovered; address name
