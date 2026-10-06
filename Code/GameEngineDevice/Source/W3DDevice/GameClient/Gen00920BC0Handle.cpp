@@ -104,5 +104,24 @@ void Gen00920BC0::handle(int index)
 		break;
 	}
 }
+
+class Gen_00920A20
+{
+public:
+	Gen_00920A20(int mode);
+};
+
+Gen_00920A20::Gen_00920A20(int mode)
+{
+	int *p = (int *)this;
+	p[3] = 0;
+	p[4] = 0;
+	int v = (mode != 1 ? 4 : 0);
+	p[0] = 4;
+	p[1] = 4;
+	p[2] = v;
+}
+
 // ?Rva01340534Device@@3PAUGen00920BC0Device@@A: the global at VA 0xdeda34 is ?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A.
 #pragma comment(linker, "/alternatename:?Rva01340534Device@@3PAUGen00920BC0Device@@A=?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A")
+
