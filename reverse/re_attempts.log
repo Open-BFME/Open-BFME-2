@@ -14521,3 +14521,8 @@ _Rva00437FB3	0x00437FB3	120	partial	Two callback refcount copies and the direct 
 ?rva003291F4@Rva003291F4@@QAEHPAUTargetRef00217D4C@@@Z	0x003291F4	134	blocked	callback address 0x005CB260 owner signature is incompatible with Rva00281A33List callback type; class layout is inferred only t=2 model=gpt-6
 ?rva00329AEA@Rva00329AEA@@QAEXPAVRva00329AEAChannel@@@Z	0x00329AEA	212	blocked	after 6 variants local-frame layout and validation branch shape still differ; vtable owner remains unproven t=18 model=gpt-6
 ?rva0028343D@Rva0028343D@@QAEXHPAUTargetRef00217D4C@@@Z	0x0028343D	135	blocked	same unresolved Rva00281A33List callback owner/signature conflict seen at 0x0030912A and 0x003291F4; do not repeat this dependency t=1 model=gpt-6
+?rva004F7767@@YAXPAX0_N@Z	0x004F7767	25	blocked	STL template emitted address-shaped free function but target body remains unmatched t=90 model=gpt-6
+??0?$pair@$$CBHUGen_t_001da900_p12cd@@@_STL@@QAE@ABHABUGen_t_001da900_p12cd@@@Z	0x004F7DDC	29	blocked	mapped copy constructor has no row and gate refuses unresolved call t=8 model=gpt-6
+??0BroadcastStealthUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	0x004A342E	146	blocked	BFME1 donor adds STL list initialization and diverges from target raw member setup by 98 bytes t=12 model=gpt-6
+?rva004A3A20@InvisibilityUpdate@@QAEXXZ	0x004A3A20	277	blocked	vtable suggests InvisibilityUpdate but slot purpose and callable member identity are unproven by available donors or surrounding rows t=2 model=gpt-6
+?rva0015265E@Rva0015265E@@QAE_NABURva0015265EData@@@Z	0x0015265E	561	blocked	large virtual-dispatch parser has no proven class identity or applicable donor and 7 callers are unclaimed t=2 model=gpt-6
