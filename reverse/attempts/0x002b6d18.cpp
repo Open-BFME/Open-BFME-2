@@ -1,5 +1,7 @@
 // ?rva002B6D18@Rva002B6D18@@QAE_NHHHH@Z
 // partial score=0.95 date=2026-10-06
+// ?rva002B6D18@Rva002B6D18@@QAE_NHHHH@Z
+// partial score=0.95 date=2026-10-06
 // cl: /O1 /MD
 // ?rva002B6D18@Rva002B6D18@@QAE_NHHHH@Z @0x002B6D18 109B: __thiscall bool
 // probe of the 6C9F family with four args. Passes the rowed 0x2B2C40
