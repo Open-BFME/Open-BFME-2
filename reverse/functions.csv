@@ -63760,3 +63760,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004F6187@Rva004F6187@@QAEXXZ,,0x004F6187,42,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,dual-array pointer walk with hoisted end; full byte gate
 ?rva004E6745@Rva004E6745@@QAEPAV1@HHH@Z,,0x004E6745,70,Code/GameEngine/Source/Common/Rva004E6745Factory.cpp,matched,EH member factory with 4-arg ctor; full byte gate
 ?rva004E7F43@Rva004E7F43@@QAEPAV1@XZ,,0x004E7F43,59,Code/GameEngine/Source/Common/Rva004E6745Factory.cpp,matched,EH member factory with 1-arg ctor; full byte gate
+??0Rva00541F1F@@QAE@ABV0@@Z,,0x00541F1F,83,Code/GameEngine/Source/Common/Rva00541F1FCopy.cpp,matched,Copy ctor: rowed Rva0053FADE base copy then vtable 0xC69514 then rowed Rva00541913 and Rva00541A6E member copies
