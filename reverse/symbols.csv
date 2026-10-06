@@ -13686,3 +13686,6 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva00288CA6@Rva00288CFA@@QAEHPAXHH@Z,0x00288CA6,Rva00288CFA int lookup taking an outer pointer plus int plus 0; called from range-17 0x39ADB9 min body; Ghidra FUN_00688ca6 84B; identity unproven
 ?rva00288AF2@Rva00288CFA@@QAEHPAX@Z,0x00288AF2,Rva00288CFA single-pointer lookup; called from range-17 0x39AE30 setup with (arg+4)+0x9c; Ghidra FUN_00688af2 67B; identity unproven
 ?rva0039C415@Rva0039C190@@QAEXPAXHPAH@Z,0x0039C415,Rva0039C190 indexed helper taking end plus adjusted index plus out-param; called from range-17 0x39D170 else-branch; Ghidra FUN_0079c415 226B; identity unproven
+?rva0037446E@Rva00373EC6@@QAEXHHHH@Z,0x0037446E,callee of ?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z
+?rva00439E0C@Rva00439E0C@@QAEXPAVObject@@HHH@Z,0x00439E0C,callee of ?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z
+??0Rva0036ADF9ListCopy@@QAE@ABV?$list@HV?$allocator@H@_STL@@@_STL@@@Z,0x0036ADF9,callee of ?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z
