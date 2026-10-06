@@ -12931,3 +12931,7 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?tailB@Rva00066A9ASub@@QAEXXZ,0x000E6FC8,pin for 0x66A9A tail jmp
 ?eraseAux@Rva00082C98Vec@@QAEXPAX0@Z,0x00081A24,pin for 0x82C98 erase
 ?helperAux@Rva00082C98Vec@@QAEXPAHIPAX@Z,0x00082719,pin for 0x82C98 helper
+?rva0005C23C@Rva0005C892@@QAEXPAVRva00052B3D@@@Z,0x0005C23C,thiscall helper taking the 8-byte Rva00052B3D local: REL32 read at the call site in 0x0005C892 (lea eax,[ebp-8] push eax mov ecx,esi call); identity unproven so caller keeps the address token
+?rva000524D6@@YAXXZ,0x000524D6,no-arg global called under TheGlobalData +0x9C5 guard in 0x0005CAE2 before rowed 0x5C892; REL32 read at that call site; identity unproven
+?rva000524E2@@YAXXZ,0x000524E2,no-arg global called under TheGlobalData +0x9C5 guard in 0x0005CB39 before rowed 0x5C892; twin of 0x524D6 path; REL32 read at that call site; identity unproven
+?rva000524EE@@YAXHM@Z,0x000524EE,cdecl global (int, float) called with caller-cleaned 8B in 0x0005CB90 before rowed 0x5C892; REL32 read at that call site; identity unproven

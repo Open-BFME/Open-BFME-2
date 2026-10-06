@@ -63586,3 +63586,8 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00068073@Rva00068073Host@@QAEXHMH@Z,,0x00068073,64,Code/GameEngine/Source/Common/Rva00068073Bodies.cpp,matched,address name; +0x3854 triple plus +0x3858 pair
 ?rva000680D6@Rva00068073Host@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z,,0x000680D6,67,Code/GameEngine/Source/Common/Rva00068073Bodies.cpp,matched,address name; +0x3854 pinned plus +0x3858 rowed EF154
 ?rva00066A9A@Rva00066A9AHost@@QAEXXZ,,0x00066A9A,55,Code/GameEngine/Source/Common/Rva00066A9ABody.cpp,matched,address name; head plus global plus +0x3850/+0x3854 tail
+?rva0005C892@Rva0005C892@@QAEXXZ,,0x0005C892,41,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C892.cpp,matched,zero +0x90 float then rowed Rva00052B3D ctor plus pinned 0x5C23C helper on the local; address name
+?rva0005C8BB@Rva0005C8BB@@QAEXMH@Z,,0x0005C8BB,118,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp,matched,flag-bit fanout over +0x12C 0x1C4 owners then rowed 5C892; address name
+?rva0005CAE2@Rva0005C8BB@@QAEXXZ,,0x0005CAE2,87,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp,matched,TheGlobalData +0x9C5 guard plus pinned 524D6 then rowed 5C892; address name
+?rva0005CB39@Rva0005C8BB@@QAEXXZ,,0x0005CB39,87,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp,matched,TheGlobalData +0x9C5 guard plus pinned 524E2 then rowed 5C892; address name
+?rva0005CB90@Rva0005C8BB@@QAEXHM@Z,,0x0005CB90,87,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp,matched,pinned cdecl 524EE int float then rowed 5C892; address name
