@@ -64864,3 +64864,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva002E7388@Rva002E7388Owner@@QAEPAV1@HPAVRva0028CECFOwner@@HHHPAURva002E7388Pair@@HHH@Z,,0x002E7388,76,Code/GameEngine/Source/Common/Rva002E7388Set.cpp,matched,dump-range-12 nine-arg setter returning this with pinned 0x28CECF tail call
 ?rva002D3861@Rva002D3861@@QAEXXZ,,0x002D3861,8,Code/GameEngine/Source/Common/System/Rva002D3861Forward.cpp,matched,leaf forwarder to rowed 0x002D2F32
 ??0Gen005ED0D0@@QAE@PAVHost005ED050@@@Z,,0x003AF049,45,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp,matched,calls rowed 0x003AF076 then 4 vptrs same shape as Gen005EDB10
+?Rva0007B701Cmp@@YA_NABUBfmeE8@@0@Z,,0x0007B701,24,Code/Libraries/Source/WWVegas/WWLib/Rva004C7621Finish.cpp,matched,float distSq less comparator for BfmeE8 sort via rowed sort

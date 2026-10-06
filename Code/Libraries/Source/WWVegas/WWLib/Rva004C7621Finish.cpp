@@ -63,6 +63,11 @@ template <> void sort<BfmeE8 *, BfmeE8Less>(BfmeE8 *, BfmeE8 *, BfmeE8Less);
 
 bool Rva0007B701Cmp(const BfmeE8 &, const BfmeE8 &);
 
+bool Rva0007B701Cmp(const BfmeE8 &a, const BfmeE8 &b)
+{
+	return a.m_distSq < b.m_distSq;
+}
+
 void __stdcall Rva004C7621Collect(Rva004C7621Range *range, const Rva004C7621Pos *ref, _STL::vector<BfmeE8, _STL::allocator<BfmeE8> > *out)
 {
 	float refs[3];
