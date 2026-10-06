@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
 // Object::GetCreateAHeroSpecialPower, retail 0x002912DC (48B), and the module
@@ -19,8 +19,29 @@
 // lookup keeps its address-derived name because no target evidence names it.
 
 #include <vector>
+#include "ascii_string.h"
 
-class SpecialPowerTemplate;
+class Overridable
+{
+public:
+	const Overridable *friend_getFinalOverride() const;
+
+private:
+	void *m_vtbl;
+};
+
+class SpecialPowerTemplate : public Overridable
+{
+public:
+	unsigned char m_pad0C[0x10 - 0x04];
+	AsciiString m_name10;
+};
+
+class Rva004B555F
+{
+public:
+	const AsciiString &rva004B555F();
+};
 
 class Rva004B554FHolder
 {
@@ -38,7 +59,7 @@ private:
 	int m_tagKey; // +0x04
 };
 
-class BehaviorModule
+class BehaviorModule : public Rva004B555F
 {
 public:
 	const ModuleData *getModuleData() const { return m_data; }
@@ -53,6 +74,7 @@ class Object
 public:
 	const SpecialPowerTemplate *GetCreateAHeroSpecialPower(unsigned int index);
 	BehaviorModule *rva0028F2C4(int key) const;
+	const AsciiString &rva00292330(const AsciiString &name);
 
 private:
 	unsigned char m_pad000[0x244];
@@ -82,4 +104,20 @@ const SpecialPowerTemplate *Object::GetCreateAHeroSpecialPower(unsigned int inde
 		result = (const SpecialPowerTemplate *)((const Rva004B554FHolder *)rva0028F2C4(entry))->rva004B554F();
 	}
 	return result;
+}
+
+const AsciiString &Object::rva00292330(const AsciiString &name)
+{
+	for (unsigned int i = 0; i < m_createAHeroPowers.size(); ++i)
+	{
+		const SpecialPowerTemplate *power = GetCreateAHeroSpecialPower(i);
+		const SpecialPowerTemplate *finalOverride = (const SpecialPowerTemplate *)power->friend_getFinalOverride();
+		if (name.compareNoCase(finalOverride->m_name10) == 0)
+		{
+			BehaviorModule *module = rva0028F2C4(m_createAHeroPowers[i]);
+			if (module != 0)
+				return module->rva004B555F();
+		}
+	}
+	return AsciiString::TheEmptyString;
 }
