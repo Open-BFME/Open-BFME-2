@@ -14204,3 +14204,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva005D415D@Rva005D415D@@QAE_NHPAX@Z,0x005D415D,read from REL32 at 0x005D473D in rva005D472C 0x005D472C (thiscall on +8 with dword plus out-ptr, al-tested bool; caller pops 8B so convention is caller-clean (non-standard thiscall); Ghidra 0x5D415D/298 unclaimed); Ghidra boundary 0x5D415D/298 unclaimed
 ?rva005D4395@Rva005D4395@@QAEXXZ,0x005D4395,read from REL32 at 0x005D475D in rva005D472C 0x005D472C (thiscall no-arg); Ghidra boundary 0x5D4395/158 unclaimed
 ?canTransferSuppliesAt@ActionManager@@QAE_NPBVObject@@0@Z,0x0041BCA1,callee of ?computeRelativeCost@@YAMPAVObject@@0PAM@Z
+?rva00598431@Rva00598149@@QAEXH@Z,0x00598431,callee of ?rva004EC30E@Rva002A8AB1Record@@QAEXPAVObject@@@Z
