@@ -64434,3 +64434,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva000F82F5Dtor@@QAE@XZ,,0x000F82F5,83,Code/GameEngine/Source/Common/Rva000F82F5Dtor.cpp,matched,empty body with CRT-freed buffer and two texture handle member dtors
 ??1Rva000FA7E8Dtor@@QAE@XZ,,0x000FA7E8,83,Code/GameEngine/Source/Common/Rva000FA7E8Dtor.cpp,matched,empty body with two texture handle member dtors then CRT-freed buffer
 ?Rva003354D6@@YAHPAUlua_State@@_N@Z,,0x003354D6,220,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectRva003354D6.cpp,matched,Lua gap grant remove via HasUpgrade sibling
+?rva005FE373@Rva005FE7FA@@QAEXHHHABVUnicodeString@@@Z,,0x005FE373,78,Code/Libraries/Source/WWVegas/WWLib/Rva005FE373.cpp,matched,vslot 1 of Rva005FE7FA vtable 0x0087A408 plus base tab update

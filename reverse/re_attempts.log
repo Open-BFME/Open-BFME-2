@@ -11395,3 +11395,8 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva0050B98F@Made002CCC2D@@QAEXPAXH@Z	0x0050B98F	383	blocked	vslot6 SpawnAndFade 383B trig wall t=28 model=muse-03
 ?Rva003B825FGet@@YAHXZ	0x003B825F	171	blocked	linkbody free STL deque EH 171B needs STL EH donor t=6 model=muse-03
 ?rva005E314B@Rva005E314B@@QAEXH@Z	0x005E314B	95	blocked	struct sret copy plus arg-slot reuse plus reg wall t=15 model=muse-spark
+?rva00150BF9@Rva00150BF9@@QAEXH@Z	0x00150BF9	41	blocked	triple mov [eax] same-addr three-immediates plus ret0c-vs-pin1int plus manual-eh-frame t=18 model=muse-09
+?rva00150C22@Rva00150C22@@QAEXH@Z	0x00150C22	41	blocked	triple same-addr stores to eax with 3 vtables plus 3x push ecx prolog not reproduced t=15 model=muse-09
+?rva00150C4B@Rva00150C4B@@QAEXH@Z	0x00150C4B	41	blocked	same triple same-addr wall as 0x00150C22 blocked this session t=1 model=muse-09
+?createCrate@CreateCrateDie@@AAEPAVObject@@PBVCrateTemplate@@@Z	0x00485565	590	partial	eax ecx swap in sentinel iter loop plus je to end vs jne xor jmp for crateType null plus movss shift consequence t=28 model=muse-09 score=0.96 stash=reverse/attempts/0x00485565.cpp
+?rva005FE7A7@@YIXPAVRva005FE7A7Obj@@HHH@Z	0x005FE7A7	83	blocked	EH prolog plus states 0 1 missing with EHsc EHs EHa plus empty base dtor plus empty local dtor all give 50B vs 83B no unwind entry t=18 model=muse-09
