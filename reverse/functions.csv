@@ -63591,3 +63591,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1LANPlayer@@QAE@XZ,,0x00447ACA,68,Code/GameEngine/Source/GameNetwork/LANAPIReset.cpp,matched,reset 0x44B50D caller plus Rva00447B0E 0x447B3B; 3 UnicodeString releaseBuffer 0x36E70
 ?rva005CC966@Rva005CC966@@QAEXXZ,,0x005CC966,30,Code/GameEngine/Source/Common/Rva005CC966Method.cpp,matched,Eva rva001DE2DA pin event pos 0 caller jmp 0x005CCB6B global g_00DFDC30
 ?rva0017110B@Rva00170BFF@@QAE?AURva00170EFEIter@@U2@ABVRva00170999@@@Z,,0x0017110B,29,Code/GameEngine/Source/Common/Rva0017110BInsertHint.cpp,matched,hint-insert forward to rowed 0x00170EFE same-class caller 0x00171128
+??1Rva000FC5AADtor@@QAE@XZ,,0x000FC5AA,13,Code/GameEngine/Source/Common/RvaNullReleaseMemberDtors.cpp,matched,Null-checked member release dtor via rowed TextureClass::Release_Ref; existing pin name
+??1BfmeVectorRecord002AF478@@QAE@XZ,,0x005EA85F,13,Code/GameEngine/Source/Common/RvaNullReleaseMemberDtors.cpp,matched,Null-checked member release dtor via rowed fastcall ReleaseTreeHintRef00217D4C; existing pin name
