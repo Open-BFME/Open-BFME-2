@@ -129,11 +129,12 @@ Rva00111B25Record *Rva00111B5A::rva00111B5A( const char *name )
 }
 
 // 0x000C4D34 (30B) is the one-argument STLport resize wrapper for
-// BfmeStringRecord000B94D2. Its callee at 0x000C4733 grows through the rowed
-// _M_fill_insert specialization at 0x000C225D and destroys the by-value
-// record through the rowed destructor at 0x000B6CF1. The separate caller at
-// 0x008B5293 advances the range by eight bytes. These target relationships
-// establish the element type; the vector's owning class remains unknown.
+// BfmeStringRecord000B94D2. Its callee at 0x000C4733 destroys the eight-byte
+// by-value record through the rowed destructor at 0x000B6CF1. The callee's
+// shrink path calls rowed erase 0x000C0628; its growth path calls 0x000C225D,
+// an unrecovered fill-insert candidate. The separate caller at 0x008B5293
+// advances the range by eight bytes. These target relationships support the
+// element view; the vector's owning class remains unknown.
 namespace _STL
 {
 template <class Type> class allocator {};
