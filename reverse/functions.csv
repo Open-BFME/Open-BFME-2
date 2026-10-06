@@ -64785,5 +64785,3 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0056C4D3@Rva0056C4D3@@QAEXPAXMHH@Z,,0x0056C4D3,59,Code/GameEngine/Source/Common/Rva0056C4D3Probe.cpp,matched,single-shot probe via pinned 0x0056C0A5 plus rowed 0x00404781
 ??0Rva0056DC4C@@QAE@PAX@Z,,0x0056DC4C,31,Code/GameEngine/Source/Common/Rva0056DC4CCtor.cpp,matched,tiny ctor via pinned 0x002D2C34 plus vtbl plus arg
 ?method@Rva005773A6@@QAE?AURvaF6Ret@@XZ,,0x005773A6,26,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,value-return forwarder via +0x8 member through matched 0x005773C0 under /EHsc /Oy- /O1
-?rva0036A524@Rva00368004@@QAEHXZ,,0x0036A524,151,Code/GameEngine/Source/Common/Rva00368004Getter.cpp,matched,dump range 16; flag refresh with goal dead-flag gate; same TU as 0x36A75C
-?onEnter@Rva0036A3E9GuardInnerState@@UAE?AW4StateReturnType@@XZ,,0x0036A3E9,315,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp,matched,dump range 16 head; second-system inner onEnter mirrors 0x54379B without deadline with else range recompute
