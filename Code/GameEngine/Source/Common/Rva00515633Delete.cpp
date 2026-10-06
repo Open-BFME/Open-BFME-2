@@ -19,6 +19,6 @@ extern "C" __declspec(dllimport) int __stdcall DeleteFileW(const WideChar *lpFil
 
 void __cdecl Rva00515633Delete(void)
 {
-	UnicodeString path = ((const Rva002DC74A *)TheGameState)->rva002DC74A(UnicodeString((const WideChar *)L"000"));
+	UnicodeString path = ((const Rva002DC74A *)TheGameState)->rva002DC74A(UnicodeString((const WideChar *)L"00000000.sav"));
 	DeleteFileW(path.str());
 }

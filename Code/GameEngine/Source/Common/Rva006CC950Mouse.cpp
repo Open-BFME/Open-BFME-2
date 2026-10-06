@@ -21,7 +21,7 @@ Rva006E34D0 * g_bfmeAptPtrAtE176D0;
 void __cdecl Rva006CC950SetMousePos(int x, int y)
 {
     if (!g_bfmeAptInitAtE17700)
-        return Rva006CC110Log(0, "WARNING: trying to set mouse position when Apt not initalized");
+        return Rva006CC110Log(0, "WARNING: trying to set mouse position when Apt not initalized\n");
     if (g_bfmeAptFlagAtE176D4)
         return;
     Rva006E34D0 *p = g_bfmeAptPtrAtE176D0;

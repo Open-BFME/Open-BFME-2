@@ -27,7 +27,7 @@ AsciiString __cdecl Rva00400783Get(const AsciiString &mapPath, bool flag)
 	}
 	AsciiString accum;
 	if (((const StringBase<char> *)&portable)->getLength() > 0) {
-		const char *backslash = "\\";
+		const char *backslash = "\\/";
 		AsciiString token;
 		while (true) {
 			((StringBase<char> *)&portable)->nextToken((StringBase<char> *)&token, backslash);

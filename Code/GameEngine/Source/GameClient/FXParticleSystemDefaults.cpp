@@ -70,7 +70,7 @@ template <int CATEGORY>
 const char *DefaultModuleName<CATEGORY>::GetValue()
 {
     static bool built = false;
-    static AsciiString value("Default");
+    static AsciiString value("Default ");
 
     if (!built) {
         ((StringBase<char> *)&value)->concat(GetName((ModuleCategory)CATEGORY));
