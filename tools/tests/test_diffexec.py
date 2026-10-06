@@ -138,7 +138,15 @@ def test_callee_through_incremental_thunk_is_the_same_identity(tmp_path):
               0x2000: b"\x33\xc0\xc3"}
     rows = [row("_f", 0x1000, len(code)), row("?Callee@@YAXXZ", 0x2000, 3)]
     result, record = verdict(tmp_path, obj, memory, rows, rows[0])
-    assert result == "regalloc-only", record   # bytes differ, behaviour identical
+    assert result == "none", record   # only the call operand differs: same code, linked apart
+
+
+def test_equivalent_encoding_is_regalloc_only(tmp_path):
+    obj = coff([(".text", TEXT, b"\x31\xc0\xc3", [])],      # xor eax,eax (31 /r form)
+               [(".text", 0, 1, 0, 3, 1), ("_f", 0, 1, 0x20, 2, 0)])
+    rows = [row("_f", 0x1000, 3)]
+    result, record = verdict(tmp_path, obj, {0x1000: b"\x33\xc0\xc3"}, rows, rows[0])
+    assert result == "regalloc-only", record
 
 
 # --- wrong global --------------------------------------------------------------------
