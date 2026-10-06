@@ -51,6 +51,22 @@ Rva000AEF42::Rva000AEF42(void *owner, BfmeParserRegistryVE *registry, const Asci
 {
 }
 
+// ?rva000AF01A@Rva000AF01A@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x000AF01A 104B
+// Address-derived binding identity; "NamedCameras" and the common parser base are target evidence.
+class Rva000AF01A : public BfmeParserBindingBaseVE
+{
+public:
+	Rva000AF01A(void *owner, BfmeParserRegistryVE *registry, const AsciiString *parentLabel);
+private:
+	void *m_owner;
+};
+
+Rva000AF01A::Rva000AF01A(void *owner, BfmeParserRegistryVE *registry, const AsciiString *parentLabel)
+	: BfmeParserBindingBaseVE(registry, (void *)&AsciiString("NamedCameras"), (void *)(parentLabel ? parentLabel : &AsciiString::TheEmptyString)),
+	m_owner(owner)
+{
+}
+
 // ??0Rva000AF0E4@@QAE@PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x000AF0E4 98B
 // PostEffectsChunk binding, 2-arg (registry, parentLabel), no owner member.
 // Evidence: same base pin 0x000ABB87 and caller 0x000AF238 as siblings; literal "PostEffectsChunk"; vtable g_00BC9600; ret 8.

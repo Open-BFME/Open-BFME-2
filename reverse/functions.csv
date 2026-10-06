@@ -66179,3 +66179,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0Rva005F3F73@@QAE@PAX0@Z,,0x005F3F73,39,Code/GameEngine/Source/Common/Rva005F3F73.cpp,matched,address derived ctor called by 0x005F412B with two pointers
 ?rva005F4AA3@Rva005F4AA3@@QAEXXZ,,0x005F4AA3,22,Code/GameEngine/Source/Common/Rva005F4AA3Update.cpp,matched,address-derived helper installs the two vtables identified by retail operands
 ?rva005F422C@Rva005F422C@@QAEXXZ,,0x005F422C,40,Code/GameEngine/Source/Common/Rva005F422CDtor.cpp,matched,address-derived destructor installs retail vtable and releases caller-owned tree hint ref
+??0Rva000AF01A@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z,,0x000AF01A,104,Code/GameEngine/Source/Common/Rva000AEFAA.cpp,matched,NamedCameras parser binding constructor follows adjacent binding siblings and caller construction site

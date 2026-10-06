@@ -14863,3 +14863,5 @@ FUN_00761817	0x00361817	162	blocked	two align variants (162B int-parameter and 1
 ?set@Rva00504EADCurve@@QAEXMMMM@Z	0x00504EAD	92	blocked	result byte load at +0x4f has no supported semantic use and frame remains 8B smaller after documented three-float array recipe t=8 model=gpt-6
 ?rva005F3444@Rva005F3444@@QAEPAV1@PAVRva005F3444Info@@HH@Z	0x005F3444	256	blocked	18-byte short with 17 structural regions and unchanged frame and EH state after declaration reorder t=3 model=gpt-6
 ??0Rva005F4179@@QAE@PAX@Z	0x005F412B	78	blocked	six variants exhausted; 78B layouts retain EH/control-flow mismatch and member constructor emits unmatched helpers agent=luna-02
+?rva00059EAE@MilesAudioManager@@QAEAAVRva00051ADA@@AAV2@PBVAsciiString@@@Z	0x00059EAE	206	blocked	align diff remains 22 B short with iterator return and EH local shapes unresolved t=8 model=gpt-6
+??1Rva005E5018@@QAE@XZ	0x005E5018	119	blocked	shared virtual-base dtor call sites at adjusted offsets 0x1c and 0x20 but vtable and vbptr target classes remain unidentified so no clean layout model t=6 model=gpt-6
