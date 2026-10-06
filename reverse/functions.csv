@@ -64979,3 +64979,6 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?_M_fill_insert@?$vector@URva003F3277Record@@V?$allocator@URva003F3277Record@@@_STL@@@_STL@@QAEXPAURva003F3277Record@@IABU3@@Z,,0x003F35E3,265,Code/Libraries/Source/WWVegas/WWLib/Rva003F35E3VectorFillInsert.cpp,matched,STLport fill_insert for 12-byte address-derived element; target calls rowed copy backward fill fill_n and overflow workers; vector uint helper use informs ABI view not application identity
 ?rva0039ADB9@Rva0039ADB9@@QAEMMH@Z,,0x0039ADB9,51,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0039ADB9Min.cpp,matched,Range-17 float min against pinned int lookup
 ?rva00600BC6@Rva00600991@@QAEXPAX0@Z,,0x00600BC6,35,Code/GameEngine/Source/Common/Rva00600BC6Wrapper.cpp,matched,thiscall-2 wrapper via pinned 0x600991 then 4+1 copy to out; /O1
+?M7F3@Rva00604xx@@QAEHPBDPAXH@Z,,0x006047F3,62,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 6047F3: utf8-to-wide plus virt8; /O1
+?M831@Rva00604xx@@QAE_NPBD@Z,,0x00604831,66,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 604831: null-guarded utf8-to-wide plus virt10 bool; /O1
+?M948@Rva00604xx@@QAEHPBDPAX@Z,,0x00604948,59,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 604948: utf8-to-wide plus virt24; /O1
