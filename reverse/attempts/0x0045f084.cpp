@@ -1,5 +1,7 @@
 // ?rva0045F084@StancesBehavior@@QAE_NH@Z
 // partial score=0.97 date=2026-10-06
+// ?rva0045F084@StancesBehavior@@QAE_NH@Z
+// partial score=0.97 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
 //
 // ?rva0045F084@StancesBehavior@@QAE_NH@Z, retail 0x0045F084, 408 bytes.
