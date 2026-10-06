@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 //
 // ?doFXPos@SoundFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z 107B @0x001E00C3:
 // slot 1 of the SoundFXNugget vtable 0x00BDD768 (class and the sound name at

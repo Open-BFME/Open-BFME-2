@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 
 // RenderObjectDrawModuleInfo default constructor.
 //

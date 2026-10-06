@@ -1,5 +1,5 @@
 // ??HRva006CC160@@QAE?AU0@ABU0@@Z
-// cl: /O2 /MD
+// cl: /MD
 // Address-derived target identity: direct callers have not been located. The retail body performs eight 32-bit field-wise additions and returns a 32-byte value. The relationship to AptMemoryAllocationsT and the field meanings remain donor-based inferences.
 // Whole body122 bytes and eight32-bit arithmetic fields match the donor.
 struct Rva006CC160 {

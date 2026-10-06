@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ??0Rva003AD355Module@@QAE@PAXPAVRva003ADBADTemplate@@@Z @0x003AD355 49B
 // Chain ctor calling just-landed base ??0Rva003ACD0F 0x003ACD0F then overwriting
 // vtable plus three immediates. Evidence: call target rowed; stores match retail

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 // Open-BFME5: DefaultModuleTemplate (ledger $06 / N=7) copy ctor
 // Retail: push src; base copy; three vtbl stores at +0/+4/+8.

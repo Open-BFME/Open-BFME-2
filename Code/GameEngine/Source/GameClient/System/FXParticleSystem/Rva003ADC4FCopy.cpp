@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ??0Rva003ADC4F@@QAE@ABV0@@Z @0x003ADC4F 38B copy ctor via rowed base 0x003ADC75 with three derived stores. Evidence: callee rowed; caller 0x003ADC44; chain from just-landed 0x003ADC75.
 class Rva003ADC75
 {

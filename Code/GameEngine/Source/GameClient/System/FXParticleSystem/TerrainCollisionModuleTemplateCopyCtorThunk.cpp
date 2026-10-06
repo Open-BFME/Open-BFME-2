@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 
 namespace FXParticleSystem
 {

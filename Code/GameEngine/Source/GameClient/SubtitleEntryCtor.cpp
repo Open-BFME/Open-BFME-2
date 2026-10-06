@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /MD /EHsc
+// cl: /Ob0 /MD /EHsc
 // Retail 0x00688550 (74B). SubtitleEntry constructor: vptr immediate,
 // text member via the shared wide-string copy body, scalar stores, and a
 // cleared display flag. Transferred from the BFME1 reconstruction

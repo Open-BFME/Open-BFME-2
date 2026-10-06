@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE
+// cl: /DNDEBUG /MD /GX-
 // ?xferRandomVariable@@YAAAVXfer@@AAV1@AAVGameClientRandomVariable@@@Z retail 0x00306183 149 bytes.
 // BFME1 donor: Code/GameEngine/Source/GameClient/System/FXParticleSystem/xferRandomVariable.cpp
 // BFME2 deltas: Version1 helper for the 1/1 version pair, XferDistributionType helper for the enum,

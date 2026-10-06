@@ -1,6 +1,6 @@
 // ?rva004BDB37@Rva004BDB37@@QAEXXZ
 // partial score=0.96 date=2026-10-04
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004BDB37@Rva004BDB37@@QAEXXZ @0x004BDB37 78B evidence: vslot 41 of DetachableRiderBody plus rowed getDrawable plus pin bfmeCallFCB plus rowed Drawable-rva plus tail slot 0x28
 class Drawable
 {

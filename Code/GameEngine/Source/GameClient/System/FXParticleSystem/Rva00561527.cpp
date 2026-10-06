@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // ?rva00561527@Rva00561527@@QAEXPAVXfer@@@Z @0x00561527 28B evidence: Version1 0x000053EE then Lightning xfer 0x005614D9 on base at +0x18; caller jmp 0x003ABBC6.
 // Honest-address wrapper (naming rule).
 class Xfer

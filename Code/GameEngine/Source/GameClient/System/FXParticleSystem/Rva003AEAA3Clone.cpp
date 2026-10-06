@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2
+// cl: /EHsc
 
 // Rva003AEAA3 (58B) clone via new 0xAC plus rowed outer copy Rva003AEADD.
 // Same EH new-plus-copy shape as the rowed Concrete clone at 0x3AE9DB;

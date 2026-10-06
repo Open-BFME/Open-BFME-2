@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0055E891WriteVelocityHeader@@YAXPBXPAVFile@@PAI@Z @0x0055E891 216B. Velocity-template INI header writer.
 // Evidence: BFME1 donor Rva005F8FC0WriteVelocityHeader.cpp category 4; retail push 4 to rowed GetKey; rowed Pad then 3x rowed _M_put_nowiden then rowed _M_put_char then rowed str then rowed Rva001F458BWrite then *flags+=2; callers are writeINI bodies.

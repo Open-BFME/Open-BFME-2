@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva001F4696@ParticleSystem@@QAEXPAX0_N0@Z, retail 0x001F4696, 354 bytes.
 // ParticleSystem slave-chain promotion: same slave slot +0x15C and factory pin as
 // ParticleSystem::destroy neighbour; offsets measured from retail disassembly.

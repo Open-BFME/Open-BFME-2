@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0055B96D@Rva0055BC8B@@UAEXPAVXfer@@@Z, retail 0x0055B96D, 80 bytes.
 // Evidence: slot 3 of 0x0081D1A4 (class of Rva0055BC8B ctor); IsLightCRC

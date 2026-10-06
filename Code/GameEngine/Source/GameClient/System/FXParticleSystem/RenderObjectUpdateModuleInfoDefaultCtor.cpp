@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2 /arch:SSE /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc /Ob2 /Ireference/shims/moduledata
 
 // ??0RenderObjectUpdateModuleInfo@FXParticleSystem@@QAE@XZ @0x00561F99 489B
 // BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXParticleSystem_RenderObjectUpdateModuleInfo_ctor_Thunk.cpp

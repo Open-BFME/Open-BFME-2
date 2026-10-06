@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0055B8CD@Rva0055B8CD@@QAEXPAVXfer@@@Z, retail 0x0055B8CD, 70 bytes.
 // Evidence: vtable slots 7 of 0x0081BF20 plus 3 of 0x0081BA90 (DoXfer);

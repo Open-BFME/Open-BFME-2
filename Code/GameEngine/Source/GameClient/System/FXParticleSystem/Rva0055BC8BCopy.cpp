@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ??0Rva0055BC8B@@QAE@ABV0@@Z @0x003ADD9D 42B copy ctor vtable 0x0081D1A4 eight RGB keys at +4 plus float at +0x84. Evidence: rowed ctor 0x0055BC8B same vtable; caller 0x003ADD52; rep movsd 0x20 plus trailing mov.
 namespace FXParticleSystem
 {

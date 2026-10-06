@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z, retail
 // 0x0055B29C (97B). Zero Hour's ParticleSystemTemplate::parseRandomKeyframe

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // Target evidence: Make001FCBD7 returns the static ParticleSystem at
 // 0x00DFDD60. Its first guard constructs a ParticleSystemTemplate at

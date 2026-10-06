@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -GX- /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/System/FXParticleSystem
+// cl: -DNDEBUG -MD -GX- -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/System/FXParticleSystem
 
 // Constructor-only slices preserve the retail multiple-inheritance layout
 // without exposing it through the shared particle-system header.

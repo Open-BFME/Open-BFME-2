@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /arch:SSE2
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 // Retail 0x005634F7 (RVA 0x005634F7) size 202: particle renderobject draw ctor.
 // Evidence: pinned ParticleModule005F2CA0 base 0x0055C86D then vtable 0xC1D4F4 plus s_slot3E4first at +0x14 plus RenderObjectDrawModuleInfo at +0x18 with vtable 0xC1D4E4 then bytes dwords strings from info plus 8 at +0x58.
 #include "ascii_string.h"

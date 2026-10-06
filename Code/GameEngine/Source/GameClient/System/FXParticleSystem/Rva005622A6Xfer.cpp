@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005622A6@Rva005622A6@@QAEXPAVXfer@@@Z @0x005622A6 164B: Rva0056224F
 // xfer (Version1 plus twelve floats +0x4..+0x30 via slot 0x70 plus rotation
 // enum at +0x34 via rowed XferRotationType). Mirrors Rva0056224FCtor layout.

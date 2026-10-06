@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0056234A@Rva0056234A@@QAEXPAVXfer@@@Z @0x0056234A 28B: containing
 // xfer (slot 3 of 0x81CA40/0x81D31C) delegating to Rva005622A6 member at
 // +0xC via rowed 164B helper after rowed Version1. Tail-called from

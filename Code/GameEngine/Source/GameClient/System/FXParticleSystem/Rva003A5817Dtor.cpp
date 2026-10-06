@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva003AEEB3@@UAE@XZ @0x003A5817 39B: derived dtor two null-guarded vptr stores plus tail-jmp to head base.
 // Evidence: stores extern s_slot3E4first at +0x18/+0x14 via neg sbb and tail-jmp to rowed ??1DefaultModuleHeadBase 0x003A57E7; donor stash 0x003a5817 score 0.92; callers include 0x003AEEFF and thunks.
 extern "C" char s_slot3E4first;

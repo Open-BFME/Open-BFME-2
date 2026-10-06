@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 
 // Rva003AEA15 (45B) outer copy via pinned middle Rva003AEA42 (97B).
 // Conservative Rva owner; true ConcreteModuleTemplate pin at same address

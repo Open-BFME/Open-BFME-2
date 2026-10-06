@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?Rva003AFBC1Write@@YAXPBDPAVFile@@PAI@Z at 0x003AFBC1 size 170
 // Evidence: chain via rowed Pad 0x001F6951; oss ctor 0x001FA85C push 1 push 0x10 then Pad then single _M_put_nowiden then _M_put_char 0xA then str 0x001FA473 then Write 0x001F458B then free 0x30830 then flags+=2 then oss dtors; precedent Rva0055CB5DWrite.cpp.

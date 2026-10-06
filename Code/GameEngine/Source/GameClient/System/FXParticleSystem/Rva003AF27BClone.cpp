@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2 /Ob2
+// cl: /EHsc /Ob2
 
 // ?clone@Rva003AF27B@@QBEPAV1@XZ @0x003AF27B 81B: EH new 0x28 plus rowed base copy
 // 0x003AF2CC plus own 3 vftables (0x0081CFB0/0x0081C030/0x0081C8A8). Same EH

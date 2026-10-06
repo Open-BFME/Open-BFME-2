@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00562945@Rva00562945@@QAEXPAVXfer@@@Z @0x00562945 28B: containing
 // xfer delegating to RenderObjectDrawModuleInfo second base at +0x18 via
 // rowed slot-3 xfer after rowed Version1. Tail-called from 0x3ABB8E wrapper.

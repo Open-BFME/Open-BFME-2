@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0Rva0055F72C@@QAE@XZ, retail 0x0055F72C, 64 bytes.
 
 class Rva0055F72C

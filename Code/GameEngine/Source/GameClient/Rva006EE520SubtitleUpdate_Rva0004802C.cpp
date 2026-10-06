@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
 // BFME subtitle update body at retail RVA 0x006EE520.
 // The address-qualified class keeps the unresolved original method name
 // explicit while the manager and sink access views preserve unresolved callee

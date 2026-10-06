@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
 // Address-derived conversion of the one-argument Eva message-vector resize at
 // 0x00427130.  The constructor at 0x004271B0 calls this entry on the
 // 0x18 default-check-info vector member with 0x11.  Its 28-byte seed is the parsed

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0055BB5C@Rva0055BB5C@@UAEXPAVXfer@@@Z, retail 0x0055BB5C, 82 bytes.
 // Evidence: calls inner ?rva0055B96D rowed 0x0055B96D at +0x0C plus Version1

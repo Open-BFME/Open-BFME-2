@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2
+// cl: /EHsc
 // RVA 0x001F448D..0x001F44E4. The following matched copy constructor
 // identifies CategoryModuleTemplate<7>; the default constructor calls the
 // independently matched WindModuleInfo constructor at 0x003A53C4 on this+8.

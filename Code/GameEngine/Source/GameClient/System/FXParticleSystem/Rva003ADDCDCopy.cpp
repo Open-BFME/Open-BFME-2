@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva0055BCD2@@QAE@ABV0@@Z @0x003ADDCD 31B copy via rowed base 0x003ADDEC with vptrs g_00C1D164 and s_slot3E4first. Evidence: same vptrs as unsigned-int ctor row 0x0055BCD2; callees rowed; callers 0x003ADC7F 0x003ADD3C; same 31B shape as 0x003ADFDB.
 class Rva005EA430
 {

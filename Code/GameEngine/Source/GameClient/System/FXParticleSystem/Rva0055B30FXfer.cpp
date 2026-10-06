@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0055B30F@Rva0055B30F@@UAEXPAVXfer@@@Z @0x0055B30F 28B
 // Chain of rowed 0x0055B266 via Version1 plus member at +0x1c.
 // Evidence: thiscall 1 Xfer arg ret 4; vtable slot 3 of 0x0081CDCC and 0x0081D5D4;

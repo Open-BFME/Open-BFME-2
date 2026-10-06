@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 
 // TerrainCollisionModuleTemplate default constructor @0x3AA078: the base at
 // rowed 0x00001EF9, then the info constructor at pinned 0x0056459E, then the

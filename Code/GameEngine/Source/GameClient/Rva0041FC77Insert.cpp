@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /DNDEBUG /MD /EHsc
 // ?rva0041FC77@Rva000427195@@QAE?AUInsertRet0041FA92@@PBX@Z @0x0041FC77 36B.
 // Hash-map insert wrapper: reserve(count+1) via 0x00212858 then hashtable
 // insert_unique 0x0041FA92. Buckets at +4, count at +0x10. Fills 9-byte

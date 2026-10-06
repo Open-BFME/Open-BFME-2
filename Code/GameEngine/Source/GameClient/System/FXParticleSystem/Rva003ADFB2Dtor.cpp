@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva003ADFB2@@UAE@XZ @0x003ADFB2 41B Dtor restores three vptrs (+0xC guarded g_00BBB554 +0x8 guarded s_slot3E4first +0x0 plain g_00C1B320) with no base call. Evidence: caller ??_G at 0x003AE270; sibling Rva003AE358Dtor 0x003AE358 shape plus V3InlineTemplateDtor 0x003A583E neg-lea-sbb-and idiom.
 extern const void *const g_00BBB554[];
 extern "C" char s_slot3E4first;

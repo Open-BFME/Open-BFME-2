@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 // ??0ParticleSystemInfo@FXParticleSystem@@QAE@XZ @0x001F4E82 216B
 // Evidence: vtable 0x007BB5C8 store at [this]; ghidra ParticleSystemInfo size 216;
 // callers 0x001FC1F1 0x001FC71B; member offsets match ParticleSystemInfoCopyCtor layout;

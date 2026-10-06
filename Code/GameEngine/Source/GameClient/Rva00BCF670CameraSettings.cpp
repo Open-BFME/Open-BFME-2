@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // The unnamed 22-slot vftable at VA 0x00BCF670 (installed by the 14-byte
 // constructor at 0x00101C92, which then calls reset 0x00101A20). Its slots

@@ -1,5 +1,5 @@
 // ?Rva00516660@@YA_NPAVGameWindow@@@Z
-// cl: /O2 /Ob0
+// cl: /Ob0
 
 class GameWindow
 {

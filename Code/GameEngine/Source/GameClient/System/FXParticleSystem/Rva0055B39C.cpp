@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva0055B39C@Rva0055B39C@@QAEXXZ @0x0055B39C 61B
 // FX interpolation between keyframes at +4 with result at +0x54.
 // Evidence: thiscall 0 args ret void; xorps/movss zero path plus fld/fsub/fild/fadd/fdivp;

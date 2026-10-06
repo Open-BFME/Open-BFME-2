@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva0055B3D9@@UAEXPAVXfer@@@Z @0x0055B3D9 (62B).
 // Slot-3 xfer: Version1 plus Rva0055B367 at +0xC plus two floats at +0x50

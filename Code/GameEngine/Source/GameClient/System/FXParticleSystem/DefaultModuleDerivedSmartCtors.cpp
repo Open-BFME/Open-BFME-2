@@ -1,4 +1,4 @@
-// cl: /O2 /Os /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ??0Rva0055B5BF@@QAE@ABVRvaSmartPtr12@@H@Z retail 0x0055B5BF 42B: same shape
 // as ??0Rva003AEEB3@@QAE@ABVRvaSmartPtr12@@H@Z via rowed base 0x0055BEE9 with
 // own vtable 0x00C1D5E8 plus second/third 0x00C1C780; caller at 0x0055B603.

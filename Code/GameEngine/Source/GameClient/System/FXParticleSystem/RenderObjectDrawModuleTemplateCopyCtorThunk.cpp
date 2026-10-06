@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 
 // Open-BFME5: RenderObjectDrawModuleTemplate copy constructor. Retail copies
 // the two-vtable category base, then the RenderObjectDrawModuleInfo subobject

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva003AB9FF@@UAE@XZ @0x003AB9FF 55B
 // MI dtor: second base RenderObjectDrawModuleInfo at +0x18 via guarded
 // this-adjust then first base Rva003AF50D at +0. Evidence: retail neg/sbb/and

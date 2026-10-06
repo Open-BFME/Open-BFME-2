@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ?Rva003AD5B6Init@@YAXXZ @0x003AD5B6 33B guarded initializer calling rowed CYLINDRICAL_EMISSION_VELOCITY ConcreteModuleClass getInstance at 0x003AB254 then rowed atexit at 0x006291F8 registering cleanup VA 0x00BB8063 (RVA 0x007B8063 ret). Evidence: caller staticInitModules at 0x003AE3DB; prev 0x003AD595 Rva003AD595Init; guard data VA 0x00E02C1C.
 namespace FXParticleSystem
 {

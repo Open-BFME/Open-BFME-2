@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva003AF22E@@MAEXPAVXfer@@@Z retail 0x0055EA8E 31 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x0081C884 (class of rowed copy ctor
 // ??0Rva003AF22E@@QAE@ABV0@@Z): Version1 plus GameClientRandomVariable member

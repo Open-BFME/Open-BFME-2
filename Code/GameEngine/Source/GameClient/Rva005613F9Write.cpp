@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005613F9@Rva005613F9@@QAEXPAVFile@@I@Z at 0x005613F9 size 35
 // Evidence: chain via 0x0055C9A0 and just-landed 0x003AFC6B; vslot 3 DefaultModuleTemplate; WriteHeader then footer only.
 class File;

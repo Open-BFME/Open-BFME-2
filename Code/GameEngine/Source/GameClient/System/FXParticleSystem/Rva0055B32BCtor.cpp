@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva0055B32B@@QAE@XZ @0x0055B32B 60B
 // Default EH ctor with 8 Keyframes at +4 and vtable 0x0081D134.
 // Evidence: thiscall 0 args ret void; __EH_prolog row 0x629188 plus state 0;

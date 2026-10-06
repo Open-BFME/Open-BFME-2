@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?rva0056394A@Rva0056394A@@QAE?AVAsciiString@@XZ, retail 0x0056394A, 27 bytes.
 // AsciiString at +0x24 (detailTexture of embedded GpuDrawModuleInfo at +0x18:
 // GpuDraw vptr +4 totalFrames +8 framesPerRow +0xC detailTexture; +0x18+0xC=+0x24).

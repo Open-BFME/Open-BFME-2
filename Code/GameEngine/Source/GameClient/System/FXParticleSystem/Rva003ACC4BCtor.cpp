@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva003ACC4B@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@FXParticleSystem@@PBVPointEmissionVolumeModuleTemplate@2@@Z @0x003ACC4B 49B
 // Chain ctor calling rowed PointEmissionVolumeModule base 0x003ABF85 then vtable
 // plus three immediates. Evidence: call target rowed; stores match retail order

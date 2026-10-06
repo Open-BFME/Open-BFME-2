@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0042F9DAEmit@@YAXXZ, retail 0x0042F9DA, 39 bytes.
 // Free emit of MSG 0x3EC with bool true then tail to InGameUI slot 0x110.
 // Evidence: globals MessageStreamSubsystem TheInGameUI; rowed appendBooleanArgument 0x0030F963; slots 0x48 0x110 per ControlBarToggle0031AFDE precedent.

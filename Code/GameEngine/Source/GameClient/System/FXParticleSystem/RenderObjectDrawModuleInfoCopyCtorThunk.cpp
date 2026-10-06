@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: RenderObjectDrawModuleInfo copy constructor.
 

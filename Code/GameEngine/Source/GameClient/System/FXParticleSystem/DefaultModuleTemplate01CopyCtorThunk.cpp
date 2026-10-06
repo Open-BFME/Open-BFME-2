@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 // Open-BFME5: DefaultModuleTemplate (N=2) copy ctor
 // Retail: base copy; null-preserving sub at +8; dual outer vtbl + sub vtbl.

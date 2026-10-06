@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva003ABC58@@UAE@XZ @0x003ABC58 22B
 // Dtor restoring second vtable 0x00BBB554 at +0x1C via null-guarded
 // neg/lea/sbb/and idiom then tail-jmp to rowed base ??1Rva003AF50D@@UAE@XZ

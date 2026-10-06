@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /arch:SSE2
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 // ??0Rva005635CD@@QAE@XZ @0x005635CD 17B: empty publisher default ctor calling RENDEROBJECT_DRAW getInstance 0x003AA57C then Rva005C7889Init 0x005C7889 returning this with esi save.
 // Evidence: chain lane (calls 0x005C7889 just landed); push esi mov esi ecx call call mov eax esi pop esi ret; static-init caller 0x003A8454 constructs g_00E02934 via this ctor with guard+atexit; getInstance row 0x003AA57C.
 namespace FXParticleSystem

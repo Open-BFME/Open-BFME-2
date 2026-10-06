@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ?Rva003AD65BInit@@YAXXZ @0x003AD65B 33B guarded initializer calling rowed SPHERE_EMISSION_VOLUME ConcreteModuleClass getInstance at 0x003AB542 then rowed atexit at 0x006291F8 registering cleanup VA 0x00BB805E (RVA 0x007B805E ret). Evidence: caller staticInitModules at 0x003AE3F4; prev 0x003AD63A Rva003AD63AInit; guard data VA 0x00E02C30.
 namespace FXParticleSystem
 {

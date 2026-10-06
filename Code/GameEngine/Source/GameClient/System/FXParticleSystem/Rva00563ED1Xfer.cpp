@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 // ?rva00563ED1@Rva00563ED1@@QAEXPAVXfer@@@Z, retail 0x00563ED1, 82 bytes.
 // Chain of just-landed ?xfer@LifeEventModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z
 // at 0x00563E72. IsLightCRC early-out via Xfer slot 0x10, Version1 via rowed

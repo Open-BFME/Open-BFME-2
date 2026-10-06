@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0055B951@Rva0055B951@@UAEXPAVXfer@@@Z, retail 0x0055B951, 28 bytes.
 // Evidence: slot 3 of 0x0081CDF0 and 0x0081D60C (DoXfer); calls Version1

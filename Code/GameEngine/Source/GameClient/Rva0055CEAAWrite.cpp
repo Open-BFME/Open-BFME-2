@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva0055CEAA@LineEmissionVolumeModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z at 0x0055CEAA size 263
 // Evidence: chain via 0x003AFC6B; vslot 3 of LineEmissionVolumeModuleTemplate; WriteHeader 0x0055CB5D then bool IsHollow 0x001F89C3 then IsZero-gated StartPoint/EndPoint Vec writes 0x001F89E2 then str Write 0x001F458B then 0x003AFC6B; bool at +0xC Vecs at +0x10/+0x1C.

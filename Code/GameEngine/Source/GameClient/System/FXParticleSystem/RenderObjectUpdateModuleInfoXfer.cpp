@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@RenderObjectUpdateModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z
 // @0x00562182 177B: slot 3 xfer (slot 7 of ConcreteModuleTemplate wrapper);
 // IsLightCRC early-out, Version1, twelve GameClientRandomVariables at

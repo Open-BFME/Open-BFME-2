@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // ??0Rva0055BCD2@@QAE@I@Z @0x0055BCD2 31B
 // Ctor overwrites base vtable with 0x00C1D164 and +8 with s_slot3E4first after rowed base 0x00563FE1.
 // Evidence: thiscall 1 arg ret 4; calls rowed ??0Rva00563FE1@@QAE@I@Z 0x00563FE1; vtable VA 0x00C1D164; +8 VA 0x00C1C780 s_slot3E4first; callers 0x0055B544 0x0055BD09; neighbours 0x0055BC8B 0x0055BEE9 same FXParticleSystem.

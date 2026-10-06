@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2 /arch:SSE /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc /Ob2 /Ireference/shims/moduledata
 
 // ??0DefaultUpdateModuleInfo@FXParticleSystem@@QAE@XZ @0x0055F529 339B
 // BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoCtorThunk.cpp

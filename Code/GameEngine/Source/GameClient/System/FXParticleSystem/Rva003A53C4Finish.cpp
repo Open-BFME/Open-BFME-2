@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2 /DNDEBUG /MD /Ireference/shims/moduledata
+// cl: /GX- /DNDEBUG /MD /Ireference/shims/moduledata
 // ??0WindModuleInfo@FXParticleSystem@@QAE@XZ @0x003A53C4 186B: WindModuleInfo
 // default ctor. Vtable 0x00BE15A4; +0x04 int 1; the ten float slots and the
 // +0x3C bool and the two trailing zero floats are initialized in retail order.

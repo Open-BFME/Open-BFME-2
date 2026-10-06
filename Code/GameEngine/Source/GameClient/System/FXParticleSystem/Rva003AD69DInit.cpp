@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ?Rva003AD69DInit@@YAXXZ @0x003AD69D 33B guarded initializer calling rowed LIGHTNING_EMISSION ConcreteModuleClass getInstance at 0x003AB652 then rowed atexit at 0x006291F8 registering cleanup VA 0x00BB805C (RVA 0x007B805C ret). Evidence: caller staticInitModules at 0x003AE3FE; prev 0x003AD67C Rva003AD67CInit; guard data VA 0x00E02C38.
 namespace FXParticleSystem
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva003AE13C@@UAE@XZ, retail 0x003A583E, 24 bytes.
 // V3-inline template destructor for Rva003AE13C (copy rowed at 0x003AE13C in
 // V3InlineTemplateCopyCtors.cpp): restores its two vftables (+8 null-guarded

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?Rva003AFA64FillUnitVector@@YAPAVCoord3D@@PAV1@@Z @ 0x003AFA64 198B
 // Random unit vector in fxpsemittervolumemodule.cpp (__FILE__ at 0x0081D7C0
 // lines 31-33): GetGameClientRandomValueReal(-1.0f at 0x007BB9AC, 1.0f) thrice

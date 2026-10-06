@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva003ABC0B@@UAE@XZ @0x003ABC0B 22B
 // Leaf dtor restoring one vptr at +0x1c with null-guarded store then tail-jmp
 // to rowed base ??1Rva003AEEB3 0x003A5817. Evidence: neg sbb and idiom matches

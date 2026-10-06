@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0055EFC5@Rva0055EFC5@@QAEXPAVXfer@@@Z 28B @0x0055EFC5: parent xfer
 // that calls rowed Version1 on the Xfer arg then the just-landed sub-xfer

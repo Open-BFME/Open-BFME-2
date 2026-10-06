@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Slot 2 of sixteen particle-module template vtables (0x00C1BE20 and its
 // neighbours): each is a factory that allocates the module and constructs it

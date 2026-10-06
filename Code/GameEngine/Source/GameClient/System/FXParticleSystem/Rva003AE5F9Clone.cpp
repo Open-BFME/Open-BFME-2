@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2
+// cl: /EHsc
 // ?clone@Rva003AE5F9@@QBEPAV1@XZ @0x003AE5C2 55B: vslot 2 (offset 0x8) of vtable 0x0081CCD8
 // (class of ??0Rva003AE5F9@@QAE@ABV0@@Z in ParticleModuleInfoCopyCtors.cpp).
 // Same EH new-plus-copy shape as rowed clone 0x003AE4AE (push 0x1c) in Rva003AE4E5Clone.cpp;

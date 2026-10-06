@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 // V3-inline module template copy constructors (retail 0x003AE13C cluster).
 // Each copy constructs the V3 inline two-base at 0x003ADDEC, copies its

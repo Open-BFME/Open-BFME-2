@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2
+// cl: /EHsc
 
 // ?clone@Rva003AEC5E@@QBEPAV1@XZ @0x003AEC24 58B: vslot 2 (offset 0x8) of vtable 0x0081CE98
 // (class of ??0Rva003AEC5E@@QAE@ABV0@@Z in ConcreteModuleTemplateCopyCtors.cpp).

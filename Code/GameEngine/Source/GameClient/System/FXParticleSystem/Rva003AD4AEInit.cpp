@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ?Rva003AD4AEInit@@YAXXZ @0x003AD4AE 33B guarded initializer calling rowed DefaultModuleTag2 getInstance at 0x003AADF8 then rowed atexit at 0x006291F8 registering cleanup VA 0x00BB806B (RVA 0x007B806B ret). Evidence: caller staticInitModules at 0x003AE395; prev 0x003AD48D Rva003AD48DInit; guard data VA 0x00E02BFC.
 namespace FXParticleSystem
 {

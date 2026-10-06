@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0055B367@Rva0055B367@@QAEXPAVXfer@@@Z @0x0055B367 53B
 // Unlock FX xfer loop 8x via Version1 plus Xfer slots 0x70/0x78.
 // Evidence: thiscall 1 Xfer arg ret 4; push 8 pop ebx countdown plus add edi 8;

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva005641BB@@QAE@ABVRvaSmartPtr12@@H@Z, retail 0x005641BB, 50 bytes.
 // Derived ctor: forwards (smart,int) to the rowed base
 // ??0Rva003AEEB3@@QAE@ABVRvaSmartPtr12@@H@Z at 0x0055BEE9, bool pair at

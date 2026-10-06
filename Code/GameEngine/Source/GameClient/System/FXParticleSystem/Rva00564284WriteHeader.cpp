@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00564284WriteHeader@@YAXPBXPAVFile@@PAI@Z, retail 0x00564284, 216 bytes.
 // Header writer: Pad(stream,*flags) then key + " = " + class name + newline then Write + *flags+=2.

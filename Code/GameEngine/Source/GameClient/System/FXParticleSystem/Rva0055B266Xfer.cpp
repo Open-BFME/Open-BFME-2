@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0055B266@Rva0055B266@@UAEXPAVXfer@@@Z @0x0055B266 54B
 // Unlock FX DoXfer loop 8x via Version1 plus xferRandomVariable plus Xfer slot 0x78.
 // Evidence: thiscall 1 Xfer arg ret 4; push 8 pop ebx countdown plus add esi 0x10;

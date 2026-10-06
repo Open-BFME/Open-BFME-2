@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // The 28B target body at 0x006CBBF0 clears eight dwords at offsets 0x00..0x1C.
 // deleted_rows.csv retires the old NodeMotionStruct identity here; the BFME1

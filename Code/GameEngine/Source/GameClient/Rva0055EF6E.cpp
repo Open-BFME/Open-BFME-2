@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0055EF6E@Rva0055EF6E@@QAEXPAVXfer@@@Z 87B @0x0055EF6E: version-gated
 // Xfer helper for the sub-object at +0x0C (float at +4 via slot 0x70,

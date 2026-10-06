@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // ?xfer@LightningDrawModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z @0x005614D9 78B evidence: slot 3 per vtable 0x0081BE80 slot7 and 0x0081BD80 slot3; Version1 then 3x xferRandomVariable 0x00306183 at +4/+0x10/+0x1c then float +0x28 via Xfer slot 0x70 then flag +0x2c via slot 0x90; Ghidra DoXfer.
 // Snapshot slot-3 xfer via 4.7 recipe.
 class AsciiString;

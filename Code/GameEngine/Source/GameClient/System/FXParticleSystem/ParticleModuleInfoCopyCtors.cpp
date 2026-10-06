@@ -1,4 +1,4 @@
-// cl: /O2 /Os /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // Particle module-info copy constructors (retail 0x003AE465..0x003AF50D).
 // One 59-byte base plus per-class trivial bodies: each derived calls the
 // base with (this, other) and then installs its own vftables.  The extra

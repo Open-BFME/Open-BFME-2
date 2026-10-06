@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 // Concrete module template copy constructors (retail 0x003AEB9C cluster).
 // Each 45-byte wrapper delegates to its module's 91-byte template copy

@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 
 // Rva003AEADD (45B) outer copy via rowed base Rva003AEB0A (91B).
 // Same 45B base-plus-4-vtables shape as Rva003AEA15; base is already rowed

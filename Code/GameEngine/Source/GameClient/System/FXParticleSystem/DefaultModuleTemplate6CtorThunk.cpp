@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O2 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 // Open-BFME5: DefaultModuleTemplate (ledger $06 / N=7) ctor
 // Retail: shim construct then three vtbl stores at +0/+4/+8.

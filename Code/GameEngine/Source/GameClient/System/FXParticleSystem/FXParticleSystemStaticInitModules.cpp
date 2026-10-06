@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?staticInitModules@FXParticleSystem@@YAXXZ retail 0x003AE381 135B.
 // Runs every FX particle module type's guarded local-static initializer in

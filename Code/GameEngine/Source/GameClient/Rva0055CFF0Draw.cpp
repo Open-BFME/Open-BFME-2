@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0055CFF0@Rva0055CFF0@@QAEXMMM@Z @0x0055CFF0 229B: draw 4 vertical box edges via TacticalView.
 // Evidence: thiscall retC 3 floats vslot4 of BoxEmissionVolumeModule; rowed TheTacticalView; color 0xCCAFFFFF; 0 callers.
 

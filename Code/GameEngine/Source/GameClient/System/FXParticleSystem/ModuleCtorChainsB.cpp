@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -GX- /Os
+// cl: -DNDEBUG -MD -GX-
 // ??0Rva003AA228@FXParticleSystem@@QAE@PAX0@Z @0x003AA228 42B
 // ??0?$DefaultParticleModule@$03@FXParticleSystem@@QAE@PAX0@Z @0x003AC180 35B
 // ??0?$DefaultParticleModule@$04@FXParticleSystem@@QAE@PAX0@Z @0x003ABF54 49B

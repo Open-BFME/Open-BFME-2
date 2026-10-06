@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva003AE6A9@@QAE@ABV0@@Z @0x003AE6A9 111B
 // Copy ctor with RenderObjectDrawModuleInfo base at +0x18 plus int at +0x58.
 // Calls rowed base 0x003AF50D then rowed RenderObject copy 0x003A9AD6 with

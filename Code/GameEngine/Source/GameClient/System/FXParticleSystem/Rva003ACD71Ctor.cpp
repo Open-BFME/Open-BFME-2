@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva003ACD71@@QAE@PAX0@Z @0x003ACD71 42B
 // Chain ctor calling rowed base ??0Rva003ABA83 0x003ABA83 then vtable plus two
 // immediates. Evidence: call target rowed; stores match retail order vtable

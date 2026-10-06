@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??1SoundFXNugget@@UAE@XZ, retail 0x001E0E07, 60 bytes.
 // Target evidence: the audited scalar deleting dtor 0x001E0DEB (vtable

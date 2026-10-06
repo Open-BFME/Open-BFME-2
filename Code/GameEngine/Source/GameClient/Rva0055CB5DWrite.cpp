@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?Rva0055CB5DWriteHeader@@YAXPBXPAVFile@@PAI@Z @0x0055CB5D 216B: module header File INI key-string line via oss Pad str Write for category 5.
 // Evidence: calls rowed oss ctor 0x001FA85C then virtual getClass name+4 then rowed GetKey 0x003AFD16 cat5 then rowed Pad 0x001F6951 then rowed _M_put_nowiden x3 then rowed _M_put_char then rowed str 0x001FA473 then rowed Write 0x001F458B then free 0x30830 then indent+=2 then rowed oss dtor and ios_base dtor; precedent Rva0055C9A0Write.cpp cat6; chain via 0x001F6951.

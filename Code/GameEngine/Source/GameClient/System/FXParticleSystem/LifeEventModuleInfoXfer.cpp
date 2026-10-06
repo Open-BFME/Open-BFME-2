@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 // ?xfer@LifeEventModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z, retail 0x00563E72, 54 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0081C188 (class of ??0LifeEventModuleInfo@FXParticleSystem@@QAE@ABV01@@Z)
 // and slot 5 of 0x0081C2DC. IsLightCRC early-out via Xfer slot 0x10, Version1 via rowed

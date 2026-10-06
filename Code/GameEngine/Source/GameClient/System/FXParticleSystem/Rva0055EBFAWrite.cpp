@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva0055EBFA@CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z @0x0055EBFA 237B chain lane writeINI via WriteVelocityHeader.
 // Evidence: vslot 3 of CylindricalEmissionVelocityModuleTemplate 0x0081BC70 and 0x0081C058; calls rowed WriteVelocityHeader 0x0055E891 then ostringstream then rowed IsZero 0x001F3744 gated Radial Normal via rowed 0x001F8B5F then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B; same shape as Spherical Rva0055EAAD.

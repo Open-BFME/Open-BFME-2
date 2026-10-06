@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs
 // ??0Rva005646BC@@QAE@IAAUSrc005646BC@@@Z, retail 0x005646BC, 135 bytes.
 // Copy-from-template ctor twin of the 0x0056413D shape: base Rva003ADEBF via
 // rowed uint ctor 0x005640EC, subobject defaults at +0x10/+0x14/+0x18/+0x1c,

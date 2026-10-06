@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva003AF50D@@UAE@XZ, retail 0x003A983C, 22 bytes.
 // Destructor for the Rva003AF50D particle module-info base (copy rowed at
 // 0x003AF50D in ParticleModuleInfoCopyCtors.cpp): restores the second-base

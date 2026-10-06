@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva003A547E@Rva003A547E@@QAEXPAVXfer@@@Z, retail 0x003A547E, 226 bytes.
 // Slot 7 (offset 0x1C) of vtable 0x0081BF84 (class of

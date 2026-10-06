@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0055D50DWrite@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABM@Z at 0x0055D50D size 24
 // Evidence: chain via 0x003A5D34; conditional float write skipping zero t4IsZero 0x0055D3D9 on +0x14 then tail-jmp Write; precedent FXParticleSystemVecWrite.cpp.
 namespace _STL

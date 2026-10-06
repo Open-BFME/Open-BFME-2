@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 // Default module template copy constructors (retail 0x003AEB0A cluster).
 // Each per-module template copy constructs the shared base at 0x003AEEB3,

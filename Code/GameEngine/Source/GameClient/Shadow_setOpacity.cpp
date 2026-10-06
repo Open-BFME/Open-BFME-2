@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Oy-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Oy-
 //
 // ?setOpacity@Shadow@@QAEXH@Z, retail 0x003308F6, 159 bytes.
 // Dedicated TU.

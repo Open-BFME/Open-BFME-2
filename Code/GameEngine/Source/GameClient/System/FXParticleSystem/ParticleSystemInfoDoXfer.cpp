@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 // ?DoXfer@ParticleSystemInfo@FXParticleSystem@@UAEXAAVXfer@@@Z @0x001F4F5A 354B: ParticleSystemInfo DoXfer slot 3.
 // Evidence: vtable 0x007BB5C8 slot 0xC; IsLightCRC early-out slot 0x10; version 1/3 via slot 0x28; helpers XferParticleShaderType XferParticleType xferRandomVariable XferParticlePriorityType rowed; slots 0x90 0x6c 0x78 0x60 0x24; version gates 2/3 for +0x40 +0x98 +0x84; layout from ParticleSystemInfoCtor.
 

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /DNDEBUG /MD /EHsc
 // ?Rva00419A99Cleanup@@YAXXZ, retail 0x00419A99 31B.
 // Free cleanup: if global g_00E030C8 != 0, call its slot-0 virtual with 0,
 // operator-delete the returned pointer via rowed ??3@YAXPAX@Z, clear global.

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 // Default-module template 01 (DefaultAlpha) copy constructors.
 // Inner 0x003AEA42 (97B): shared base 0x003AEEB3 plus generated DefaultAlpha

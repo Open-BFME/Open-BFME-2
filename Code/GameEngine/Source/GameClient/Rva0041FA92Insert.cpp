@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /DNDEBUG /MD /EHsc
 // ?rva0041FA92@Rva000427195@@QAE?AUInsertRet0041FA92@@PBX@Z @0x0041FA92 124B.
 // Hashtable insert_unique for the AsciiString-keyed 12-byte node family
 // shared with NewNode 0x0041FA34 and bucketIndex 0x00223149. Buckets at

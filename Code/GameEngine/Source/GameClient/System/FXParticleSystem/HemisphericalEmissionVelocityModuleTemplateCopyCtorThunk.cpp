@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 // Open-BFME5: HemisphericalEmissionVelocityModuleTemplate copy ctor
 // Retail: reuses the Spherical copy at 0x3A734E, then installs its own

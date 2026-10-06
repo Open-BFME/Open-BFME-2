@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2 /arch:SSE /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc /Ob2 /Ireference/shims/moduledata
 // ??0Rva0055BF4B@@QAE@ABVRvaSmartPtr12@@PBURva0055BF4BSrc@@@Z @0x0055BF4B 181B
 // Derived module ctor: second base FXParticleSystem::DefaultColorModuleInfo at
 // +0x1c, its eight RGBColorKeyframe elements copied from src+0xc, then the

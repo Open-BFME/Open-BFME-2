@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ?clone@Rva003AE43F@@QBEPAV1@XZ @0x003AE408 55B
 // ?clone@Rva003AEB9C@@QBEPAV1@XZ @0x003AEB65 55B
 // ?clone@Rva003AECE6@@QBEPAV1@XZ @0x003AECE6 88B

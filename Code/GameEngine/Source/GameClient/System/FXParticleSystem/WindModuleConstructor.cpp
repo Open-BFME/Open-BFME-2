@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0Rva005FEAD0DefaultModule7@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBVDefaultModuleTemplate7@1@@Z
 // retail 0x003A58A6, 263 bytes. Ported from the Open-BFME-1 donor

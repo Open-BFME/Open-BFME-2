@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 // ?getVelocity@OrthoEmissionVelocityModule@FXParticleSystem@@UAE?AUCoord3D@2@HH@Z
 // RVA 0x0055E81F size 61. Virtual slot 4 (offset 0x10) of vtable 0x0081C860
 // (class of ??0Rva003AF184@@QAE@ABV0@@Z). Evidence: BFME1 donor

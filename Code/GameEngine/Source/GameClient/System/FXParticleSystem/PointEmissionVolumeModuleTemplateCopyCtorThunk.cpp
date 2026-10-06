@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 // Open-BFME5: PointEmissionVolumeModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.

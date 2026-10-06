@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0055D0D5@Rva0055D0D5@@QAE?AUCoord3D0055D0D5@@IIII@Z @0x0055D0D5 531B: box emission volume sample
 // Evidence: vslot slot7 of BoxEmissionVolumeModule (0x0081C784 0x0081CB94 0x0081D04C); hollow flag +0x20 extents +0x24/+0x28/+0x2C; rowed GetGameClientRandomValue 0x0023404A and GetGameClientRandomValueReal 0x00234111 with BFME2 box path lines 108/111/112/121/122/131/132/140/141/142; preserves upstream Y-extent typo.
 // Donor: reference/open-bfme-1/game/GameEngine/Source/GameClient/System/FXParticleSystem/fxpsemitterboxvolumemodule.cpp (same lines and typo, BFME1 path F:\bfme\...).

@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ?Rva003AD532Init@@YAXXZ @0x003AD532 33B guarded initializer calling rowed TERRAIN_COLLISION ConcreteModuleClass getInstance at 0x003AB028 then rowed atexit at 0x006291F8 registering cleanup VA 0x00BB8067 (RVA 0x007B8067 ret). Evidence: caller staticInitModules at 0x003AE3C7; prev 0x003AD511 Rva003AD511Init; guard data VA 0x00E02C0C.
 namespace FXParticleSystem
 {

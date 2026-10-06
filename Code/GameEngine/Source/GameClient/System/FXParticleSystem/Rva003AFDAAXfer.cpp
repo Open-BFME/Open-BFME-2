@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 // ?xfer@Rva003AFDAA@@UAEXPAVXfer@@@Z @0x003AFDAA 71B: slot 3 (offset 0xC) of
 // 0x0081D950 (class of ??1Rva003B0152) and 0x0081DA10 (class of ??1Rva003B0401).

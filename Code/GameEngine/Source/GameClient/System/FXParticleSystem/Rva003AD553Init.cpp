@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ?Rva003AD553Init@@YAXXZ @0x003AD553 33B guarded initializer calling rowed OrthoEmissionVelocity getInstance at 0x003AB053 then rowed atexit at 0x006291F8 registering cleanup VA 0x00BB8066 (RVA 0x007B8066 ret). Evidence: caller staticInitModules at 0x003AE3CC; prev 0x003AD532 Rva003AD532Init; guard data VA 0x00E02C10.
 namespace FXParticleSystem
 {

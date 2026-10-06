@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX- /DNDEBUG /MD /arch:SSE2
+// cl: /Ireference/shims/bfme2_ascii /GX- /DNDEBUG /MD
 
 // GpuDrawModuleInfo default constructor.
 //

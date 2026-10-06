@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva003ACD0F@@QAE@PAX0@Z @0x003ACD0F 49B
 // Chain ctor calling just-landed base ??0Rva003AC0DA 0x003AC0DA then overwriting
 // vtable plus three immediates. Evidence: call target rowed; stores match retail

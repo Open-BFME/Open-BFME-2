@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 // Particle module template copy constructors (retail 0x003AF184 cluster).
 // Each template copy constructs the particle module-info base at 0x003AF50D,

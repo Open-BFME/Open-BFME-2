@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2 /arch:SSE
+// cl: /DNDEBUG /MD /GX- /Ob2
 // ?Rva003A5572@Rva003AED3E@@UAEXXZ @0x003A5572 485B vslot1 of 0x0081C60C (Rva003AED3E) via BFME1 fxpswindmodule.cpp donor
 #include <math.h>
 

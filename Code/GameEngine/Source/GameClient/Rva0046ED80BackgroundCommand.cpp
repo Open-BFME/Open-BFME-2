@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
+// cl: -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
 
 // Retail 0x0046ED80, 108 bytes. The callback maps the three background
 // commands used by the scripted UI to WindowManager operations.

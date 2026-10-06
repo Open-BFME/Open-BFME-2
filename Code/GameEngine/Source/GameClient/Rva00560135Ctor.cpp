@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2
+// cl: /EHsc
 // ??0Rva00560135@@QAE@XZ, retail 0x00560135 74B.
 // Empty publisher ctor: STREAK_DRAW getInstance plus Rva005C7889Init then
 // new StreakLineClass (0x19c) into g_00E06224. Evidence: guarded init caller

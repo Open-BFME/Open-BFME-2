@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva003AC0DA@@QAE@PAX0@Z @0x003AC0DA 75B
 // Unlock lane: ctor calling pinned DefaultParticleModule<5> 0x003ABF54 plus rowed
 // LineEmission copy 0x003A653B with branchless arg2+8 select then four

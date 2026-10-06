@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?rva00560ABA@Rva00560ABA@@QAE?AVAsciiString@@XZ, retail 0x00560ABA, 39 bytes.
 // Vtable slot 5 (offset 0x14) of 0x0081CC28 0x0081D3F4 0x0081CC58 0x0081D440
 // 0x0081CC98 0x0081D47C 0x0081CCD8 0x0081D4B8 (classes of copy ctors

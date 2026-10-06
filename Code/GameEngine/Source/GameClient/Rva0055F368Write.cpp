@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva0055F368@Rva0055F368@@QAEXPAVFile@@I@Z @0x0055F368 326B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of DefaultModuleTemplate $02 0x0081BCC0 and ConcreteModuleTag $02 0x0081BF60; calls rowed WriteHeader 0x0055F290 then ostringstream then rowed t4IsZero float Gravity via rowed float Write 0x003A5D34 then rowed IsZero 0x001F3744 VelocityDamping via rowed 0x001F8B5F then rowed RGB IsZero 0x0055CCEF DriftVelocity via rowed Vec 0x001F89E2 then bool Swirly ParticlesAttachToBone via rowed 0x001F89C3 then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B.

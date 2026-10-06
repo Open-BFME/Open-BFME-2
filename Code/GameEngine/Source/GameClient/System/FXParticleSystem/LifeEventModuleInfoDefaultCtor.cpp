@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Ob2 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob2
 
 // LifeEventModuleInfo default constructor @0x564001 (91B). Retail: own
 // vtable, an AsciiString at +4 (its inline ctor stores the null buffer and

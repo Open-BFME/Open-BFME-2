@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ??4Rva00564E0D@@QAEAAV0@AAV0@@Z, retail 0x000898B0, 92 bytes.
 // Copy-assignment for Rva00564E0D (AsciiString at +0xC via Pad0C head).
 // Evidence: self-assignment guard (cmp this/param, je), rowed AsciiString

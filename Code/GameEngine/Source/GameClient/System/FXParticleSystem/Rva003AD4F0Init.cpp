@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ?Rva003AD4F0Init@@YAXXZ @0x003AD4F0 33B guarded initializer calling rowed LIFE_EVENT ConcreteModuleClass getInstance at 0x003AADF8 then rowed atexit at 0x006291F8 registering cleanup VA 0x00BB8069 (RVA 0x007B8069 ret). Evidence: caller staticInitModules at 0x003AE39F; prev 0x003AD4CF Rva003AD4CFInit; guard data VA 0x00E02C04.
 namespace FXParticleSystem
 {

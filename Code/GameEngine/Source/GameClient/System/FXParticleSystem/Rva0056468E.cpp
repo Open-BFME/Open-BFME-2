@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0056468E@Rva0056468E@@QAEPBVFXList@@XZ, retail 0x0056468E, 46 bytes.
 // Lazy FXList cache twin of LifeEventModuleInfo::getEventFX @0x0056410F (same
 // 46B shape, same callees): on first call resolves the event name (m_data at

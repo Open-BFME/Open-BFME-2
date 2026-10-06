@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 
 // Image::clearStatus, retail 0x002D8E72 (17B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/System/Image.cpp

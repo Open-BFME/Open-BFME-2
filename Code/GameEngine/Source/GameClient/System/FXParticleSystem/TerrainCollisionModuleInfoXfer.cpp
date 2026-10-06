@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva0056445E@TerrainCollisionModuleInfo@FXParticleSystem@@QAEXPAVXfer@@@Z, retail 0x0056445E, 57 bytes.
 // Subobject xfer at overall+0x20: Version1 plus RandomVariable at +0x8 via rowed xferRandomVariable plus AsciiString at +0x4 via Xfer slot 0x6C plus bool at +0x14 via Xfer slot 0x90. Caller at 0x005644BC; unblocks 0x005644A9.
 // Xfer declaration with reverse-order overloads gives 0x6C AsciiString 0x90 bool 0x78 uint; pattern from Rva003AF22E xfer 0x0055EA8E.

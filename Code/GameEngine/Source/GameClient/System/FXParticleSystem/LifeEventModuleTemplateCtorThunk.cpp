@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 
 // LifeEventModuleTemplate default constructor @0x3A999C: the base at rowed
 // 0x00001EF9, then the info constructor at pinned 0x00564001, then the three

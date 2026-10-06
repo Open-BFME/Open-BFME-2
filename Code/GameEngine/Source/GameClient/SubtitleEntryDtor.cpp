@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // ??1SubtitleEntry@@MAE@XZ 0x006885A0 14B: SubtitleEntry dtor (protected virtual).
 // Retail mov [ecx],0x8E451C then add ecx,4 then jmp releaseBuffer 0x36E70.
 // BFME1 donor SubtitleEntryConstructorDestructor.cpp proves protected virtual

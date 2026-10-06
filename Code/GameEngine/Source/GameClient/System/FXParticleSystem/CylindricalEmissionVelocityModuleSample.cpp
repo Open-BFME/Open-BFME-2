@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?getVelocity@CylindricalEmissionVelocityModule@FXParticleSystem@@QAE?AUCoord3D@2@HH@Z
 // retail 0x0055EB84, 118 bytes.
 //

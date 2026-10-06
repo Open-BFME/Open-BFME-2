@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /arch:SSE
+// cl: /DNDEBUG /MD /EHs
 // ??0Rva0056224F@@QAE@XZ @0x0056224F 87B: frameless ctor storing vtable
 // 0x81D358, 1.0f at +0x4/+0x8/+0xC via 0x7BB8D8, 0.0f at +0x10..+0x30,
 // 1 at +0x34. Called once from 0x562389. The unwind map of that caller names

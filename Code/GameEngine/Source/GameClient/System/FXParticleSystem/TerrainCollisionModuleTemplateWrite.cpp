@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva0056499B@TerrainCollisionModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z @0x0056499B 285B chain lane writeINI.
 // Evidence: vslot 3 of TerrainCollisionModuleTemplate; calls rowed WriteHeader 0x00564284 then ostringstream then HeightOffset 0x001F8B5F EventFX 0x001F82EE Orient/PerParticle/Kill 0x001F8384 then str/Write/free then footer 0x003AFC6B; members +0x8 +0x9 +0x10 AsciiString +0x14 S001F87D5 +0x20.

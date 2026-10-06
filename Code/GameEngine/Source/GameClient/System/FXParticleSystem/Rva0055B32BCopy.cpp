@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ??0Rva0055B32B@@QAE@ABV0@@Z @0x003ADCC7 30B copy with vtable 0x0081D134 and 16-dword rep movsd. Evidence: same vtable as default ctor row 0x0055B32B; caller 0x003ADC95; prev // cl: /O1 /EHs-c-.
 struct Keyframe0055B32B
 {

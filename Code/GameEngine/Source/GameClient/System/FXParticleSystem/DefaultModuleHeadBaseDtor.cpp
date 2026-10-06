@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1DefaultModuleHeadBase@@UAE@XZ, retail 0x003A57E7, 20 bytes.
 // Head-base destructor for the DefaultModule family (shared three-vtable base
 // in DefaultModuleBaseCopyCtors.cpp: vptr 0x00C1B590, 12-byte smart member at

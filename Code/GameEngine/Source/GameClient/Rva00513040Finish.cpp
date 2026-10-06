@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ?rva00513040@Rva00513040@@QAEXHH@Z @0x00513040 162B. __thiscall UI firer:
 // formats two ints with "%d" into AsciiString locals, then invokes

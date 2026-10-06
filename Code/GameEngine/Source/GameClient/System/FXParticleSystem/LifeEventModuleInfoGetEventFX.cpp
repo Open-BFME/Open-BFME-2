@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?getEventFX@LifeEventModuleInfo@FXParticleSystem@@QAEPBVFXList@@XZ @0x0056410F 46B.
 // Lazy FXList cache: on first call resolves the event name (m_data at +4
 // with the +8 header skip, else the pinned empty string at 0x00BBAC1C)

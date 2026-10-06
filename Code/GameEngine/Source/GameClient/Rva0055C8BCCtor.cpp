@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2
+// cl: /EHsc
 // ??0Rva0055C8BC@@QAE@XZ, retail 0x0055C8BC 71B.
 // Empty publisher ctor: DefaultModuleTag6 getInstance plus Rva005C7889Init then
 // new PointGroupClass (0x5c) into g_00E06098. Evidence: guarded init caller

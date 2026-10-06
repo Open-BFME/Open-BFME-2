@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva0055E6D4@TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z @0x0055E6D4 313B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of TerrainFireEmissionModuleTemplate 0x0081BBE0; calls rowed WriteHeader 0x0055CB5D then ostringstream then rowed IsZero 0x001F3744 gated Xoffset/Yoffset/Zoffset 0x001F8B5F then rowed t4IsZero 0x0055D3D9 gated CellEmissionChance 0x003A5D34 then rowed str plus FileWrite plus free plus footer; same shape as Lightning rva00561DB3.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva003ABA83@@QAE@PAX0@Z @0x003ABA83 42B
 // Unlock lane: ctor calling rowed T1Base 0x0055C903 with same (a,b) then
 // vtable g_00C1C334 plus address of s_slot3E4first at +0x14 and g_ data at

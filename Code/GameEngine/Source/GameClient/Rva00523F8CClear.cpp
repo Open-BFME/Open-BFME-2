@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00523F8C@Rva00524021@@QAEXXZ @0x00523F8C 96B
 // Two-vector clear via rowed erase 0x0022453E plus StringBase::clear plus indexed erase 0x002245FF plus CameraMarker dtor 0x0029D7C2 with global TheRva00222A8BTarget guard at 0x009FE4CC. Evidence: chain via 0x002245FF; callers 0x0052444E 0x00524955; precedent Rva00524021Loop single-vector shape.
 template <typename T> class StringBase

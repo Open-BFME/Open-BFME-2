@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // FXParticleSystem module-class singletons for the named ModuleTag
 // instantiations: ConcreteModuleClass<TAG>::getInstance and the
 // ConcreteModuleTemplate<TAG>::getClass accessor that forwards to it.

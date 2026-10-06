@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva003AE683@@QAE@ABV0@@Z @0x003AE683 38B
 // Derived copy ctor calling rowed base 0x003AE6A9 then installing own 3 vptrs
 // at +0/+0x14/+0x18 DIR32 and returning this. No EH (base handles its own).

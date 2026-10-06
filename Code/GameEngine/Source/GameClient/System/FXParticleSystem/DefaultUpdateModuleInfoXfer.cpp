@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@DefaultUpdateModuleInfo@FXParticleSystem@@UAEXPAVXfer@@@Z, retail 0x0055F67C, 148 bytes.
 // Evidence: vtable slot 3 of 0x0081BCE0 (DefaultUpdateModuleInfo) DoXfer;
 //   8 GameClientRandomVariable plus rotation-typed extra at +0x40.

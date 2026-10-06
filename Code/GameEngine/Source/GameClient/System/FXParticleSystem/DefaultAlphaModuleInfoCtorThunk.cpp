@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 
 // Open-BFME5: DefaultAlphaModuleInfo default constructor @0x55B44D.
 // Retail: own vtable, then eight RandomAlphaKeyframe elements at +4 built by

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // ??0Rva00561D3D@@QAE@XZ @ 0x00561D3D 87B unlock via rowed getInstance Init new StreakLine.
 // Honest-address default ctor for static at 0x00E0291C (caller 0x003A8394 guards at 0x00E02920).
 // Evidence: EH prologue, rowed getInstance LIGHTNING_DRAW 0x003AA5A7, rowed Init 0x005C7889,

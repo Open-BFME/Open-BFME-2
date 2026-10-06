@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00511F73Run@@YAXXZ @0x00511F73 141B evidence: calls Save 0x00511730 StringBase ctor releaseBuffer rva00224455 rva002244CA Get 0x00381452 erase 0x002B7250; strings AptMessenger OnMessengerBttn IsOpen; global TheRva00222A8BTarget; g_00E048C4
 // Free function saving gadget then AptMessenger lookups via AsciiString locals then erase via Get.
 #include "ascii_string.h"

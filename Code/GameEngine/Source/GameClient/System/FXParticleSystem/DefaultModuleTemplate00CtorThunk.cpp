@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Open-BFME5: clean-C++ DefaultModuleTemplate (ledger $00 / N=1) default constructor.
 
 namespace FXParticleSystem

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00562233@Rva00562233@@QAEXPAVXfer@@@Z @0x00562233 28B: containing
 // xfer (slot 3 of 0x81CF38/0x81D728) delegating to RenderObjectUpdateModuleInfo
 // member at +0x1C via rowed 177B xfer after rowed Version1. Tail-called from

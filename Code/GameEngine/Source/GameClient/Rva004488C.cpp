@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 class ClientFrameSubsystem;
 extern ClientFrameSubsystem *TheGameClient;
 class Rva00DFE77CHolder

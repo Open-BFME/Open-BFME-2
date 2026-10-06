@@ -15,7 +15,7 @@
 // the same vtables: 0x01112E78 at +0, 0x01112E74 at +0x14,
 // and 0x01112E60 at +0x18. The inlined info base installs 0x01110920.
 // Native base and local AssetList lifetimes generate the retail unwind states.
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT

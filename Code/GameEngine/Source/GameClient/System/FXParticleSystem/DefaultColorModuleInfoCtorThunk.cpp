@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc /Ob2
 
 // Open-BFME5: DefaultColorModuleInfo default constructor @0x55BC39.
 // Retail: own vtable, eight RGBColorKeyframe elements at +4 built by the

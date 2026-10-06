@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob2
 
 // GpuDrawModuleTemplate copy constructor.
 //

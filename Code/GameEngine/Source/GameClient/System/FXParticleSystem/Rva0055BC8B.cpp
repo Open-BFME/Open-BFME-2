@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc /Ob2
 //
 // ??0Rva0055BC8B@@QAE@XZ, retail 0x0055BC8B, 71 bytes.
 // Evidence: eight RGBColorKeyframe elements at +4 via rowed vector_ctor
