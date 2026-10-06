@@ -53,7 +53,7 @@ extern "C" IMAGE_DOS_HEADER __ImageBase;
 namespace ATL
 {
 
-extern "C" const GUID GUID_ATLVer70;
+extern "C" const GUID GUID_ATLVer70 = { 0x394c3de0, 0x3c6f, 0x11d2, { 0x81, 0x7b, 0x0, 0xc0, 0x4f, 0x79, 0x7a, 0xb7 } };
 
 class CComCriticalSection
 {
