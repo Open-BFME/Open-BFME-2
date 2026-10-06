@@ -348,3 +348,20 @@ void Rva005EC23E::rva005EC23E()
 		break;
 	}
 }
+
+// ?rva005EF3F6@Rva005EF3F6@@QAEXXZ @0x005EF3F6 8B
+// Target evidence: forwarder loads this+4 and tail-jumps to rowed
+// ?Update@Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAEXXZ @0x005EF366 in same TU.
+class Rva005EF3F6
+{
+public:
+	void rva005EF3F6();
+private:
+	int m_pad00;
+	StrategicHUD::RegionDetailsArmiesMovieClip::Impl *m_ptr04;
+};
+
+void Rva005EF3F6::rva005EF3F6()
+{
+	return m_ptr04->Update();
+}
