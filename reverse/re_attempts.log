@@ -14899,3 +14899,4 @@ FUN_0068e01f	0x0028E01F	218	blocked	requires forbidden address-named global g_Va
 ?moveDownMusicSystems@MilesAudioManager@@QAEXHW4MusicSystem@@HH@Z	0x00057297	69	blocked	identity and parameter layout unproven; donor moveDownMusicSystems has incompatible signature and control flow t=4 model=gpt-6.1-sol
 ?rva000587C6@Rva0060FE2@@QAEXXZ	0x000587C6	254	blocked	same object at +0xB48 is erased as vector<BfmePod8> and reserved as vector<BfmeE8>; a clean typed model is unresolved and casts to unrelated types are prohibited t=5 model=gpt-6
 ?rva00242C86@GameLogic@@QAEXXZ	0x00242C86	151	blocked	identity and target record layout remain unproven from available donor evidence t=12 model=gpt-6.1
+?rva0059B2EC@Rva0059B2EC@@QAE?AVAsciiString@@XZ	0x0059B2EC	105	blocked	donor conversion has different write target and retail pair layout is not established t=8 model=gpt-6.1

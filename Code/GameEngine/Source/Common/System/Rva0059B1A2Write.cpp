@@ -33,3 +33,17 @@ int Rva0059B1A2::rva0059B1A2(char *dst)
 	int first = AsciiStringPlusText::write(dst);
 	return first + m_pair.write(dst + first);
 }
+
+class Rva0059B1C7 : public Rva0059B1A2
+{
+public:
+	int rva0059B1C7(char *dst);
+private:
+	Rva000B3F84Pair m_pair;
+};
+
+int Rva0059B1C7::rva0059B1C7(char *dst)
+{
+	int first = Rva0059B1A2::rva0059B1A2(dst);
+	return first + m_pair.write(dst + first);
+}
