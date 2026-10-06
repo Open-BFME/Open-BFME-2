@@ -37,11 +37,10 @@ class Object
 public:
 	void setWeaponSetFlag(WeaponSetType type);
 	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
-	AIUpdateInterface *getAI() { return m_ai; }
 
-private:
+public:
 	unsigned char m_pad[0x258];
-	AIUpdateInterface *m_ai; // +0x258
+	AIUpdateInterface *m_aiDirect; // +0x258 (retail-measured direct AI slot, not the +0x19C getAI member)
 };
 
 struct OpaqueRefElement4
@@ -125,7 +124,7 @@ void BattlePlanUpdate::rva0049797F()
 		m_5c = payload->m_44;
 		m_6c = payload->m_4c;
 		m_object->setWeaponSetFlag(WST_0);
-		if (obj->getAI() != 0)
+		if (obj->m_aiDirect != 0)
 			obj->setWeaponLock(WSLT_0, WLT_1);
 		enableTurret(false);
 	}
