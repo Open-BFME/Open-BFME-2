@@ -65023,3 +65023,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?Rva0053B98CUpdate@@YAXPAVObject@@PAX@Z,,0x0053B98C,193,Code/GameEngine/Source/Common/Rva0053B98C.cpp,matched,chain via rva0028FBBE list fill first-item select
 ?xfer@AIPlayer@@MAEXPAVXfer@@@Z,,0x004F0DDE,740,Code/GameEngine/Source/GameLogic/AI/AIPlayerXfer.cpp,matched,AIPlayer xfer slot3 via ctor LINK BONUS ZH donor redundant null guards
 ?rva00404A29@Rva004053C2@@QAEXXZ,,0x00404A29,73,Code/GameEngine/Source/Common/Rva00404A29.cpp,matched,slot10 tail via caller fanout donor float-pair probe
+?rva002B7BBB@Rva002B5B55@@QAEXXZ,,0x002B7BBB,64,Code/GameEngine/Source/Common/Rva002B7BBB.cpp,matched,iterate vector via sibling then erase same shape as Clear
