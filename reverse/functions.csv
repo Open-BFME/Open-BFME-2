@@ -65139,3 +65139,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva005CE3C4@Rva005CE3C4@@QAE?AURvaF6Ret@@XZ,,0x005CE3C4,26,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,VTABLE slot1 table 0x00875140 forwarder via plus8 to 0x005CE3DE
 ?exitObjectViaDoor@DefaultProductionExitUpdate@@UAEXPAVObject@@W4ExitDoorType@@@Z,,0x00488099,463,Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdateExitObjectViaDoor.cpp,matched,VTABLE slot 2 of 0x0084B1B0 DefaultProductionExitUpdate
 ?rva0057B9D8@Rva0057B9D8@@QAEXXZ,,0x0057B9D8,25,Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp,matched,vtable slot 4 of table 0086F26C clears +0x30 via rowed 002BED91 then tail jmp rowed 005D4F7D of +0x34 object
+?Rva0029C23ELoad@@YAXXZ,,0x0029C23E,43,Code/GameEngine/Source/Common/BfmeLoadReplayControlAR.cpp,matched,abuts 0x0029C269 same slot 31 create plus HideControlBar

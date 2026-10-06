@@ -13940,3 +13940,4 @@ FUN_006fe382	0x002FE382	670	blocked	ADDRESS-NAMED g_Va00DBA4E4 hatch t=2 model=m
 ?drawImage@W3DDisplay@@UAEXPAVImage@@MMMMH@Z	0x00044E77	322	partial	cmp al bl vs retail test al al at +0x29 only diff size exact 322B t=15 model=muse-02 score=0.99 stash=reverse/attempts/0x00044e77.cpp
 FUN_0067cd63	0x0027CD63	285	blocked	ADDRESS-NAMED g_Va00DBA4E4 new use refused t=1 model=muse-02
 ?rva0057B328@Rva0057B328@@QAEXM@Z	0x0057B328	91	partial	this in ebx vs edi field add vs lea cur-load after delta t=25 model=muse-02 score=0.9 stash=reverse/attempts/0x0057b328.cpp
+?rva0057B328@Rva0057B328@@QAEXM@Z	0x0057B328	91	blocked	this in ebx vs edi field add vs lea cur-load after delta t=18 model=muse-02 (stash 0.9 kept)

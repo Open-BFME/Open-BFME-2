@@ -80,5 +80,14 @@ void bfmeLoadReplayControlAR(void)
 	g_bfmeReplayControlAR = g_bfmeWindowManagerAR->bfmeCreateAR(
 			AsciiStringAR("ReplayControl.wnd"), 0, 0);
 }
+
+// Retail 0x0029C23E, 43 bytes: creates ControlBar.wnd via slot 31 then hides it.
+// ?Rva0029C23ELoad@@YAXXZ
+void __cdecl HideControlBar(bool hide);
+void Rva0029C23ELoad(void)
+{
+	g_bfmeWindowManagerAR->bfmeCreateAR(AsciiStringAR("ControlBar.wnd"), 0, 0);
+	HideControlBar(true);
+}
 // ?g_bfmeWindowManagerAR@@3PAVBfmeWindowManagerAR@@A: the global at VA 0xdfef1c is ?TheWindowManager@@3PAVGameWindowManager@@A.
 #pragma comment(linker, "/alternatename:?g_bfmeWindowManagerAR@@3PAVBfmeWindowManagerAR@@A=?TheWindowManager@@3PAVGameWindowManager@@A")
