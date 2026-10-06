@@ -36,3 +36,14 @@ void Holder00526309::Rva00526309(Obj00526309 *obj)
 	if (flags->m_119 & 0x80)
 		Rva00525D9A(obj);
 }
+
+struct Rva00526333
+{
+	Holder00526309 *m_holder;
+	void rva00526333(Obj00526309 *obj);
+};
+
+void Rva00526333::rva00526333(Obj00526309 *obj)
+{
+	m_holder->Rva00526309(obj);
+}
