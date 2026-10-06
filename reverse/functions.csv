@@ -63705,3 +63705,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005962F7@Rva005962F7@@QAE_NPAX@Z,,0x005962F7,111,Code/GameEngine/Source/Common/Rva005962F7.cpp,matched,thiscall predicate via Get Check base element push_back
 ??0W3DLightDraw@@QAE@PAVThing@@PBVModuleData@@@Z,,0x000CF91D,287,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawConstructor.cpp,matched,LINK toss BFME1 donor W3DLightDrawConstructor same shape via DrawModule base
 ?rva0053EDD2@Rva0053ED1A@@UAEXXZ,,0x0053EDD2,34,Code/GameEngine/Source/Common/Rva0053ED1ACtor.cpp,matched,vslot slot5 findObjectByID reset rva005C65F1
+?setLightPosition@W3DGameClientShadowShim@@QAEXHMMM@Z,,0x0009A587,198,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientShadowShimSetLightPosition.cpp,matched,LINK 61B via pin plus rowed Inv_Sqrt 0x0004233A plus rowed rva0007D9CF 0x0007D9CF plus Vector3 at plus0xC plus shadow global 0x00DE1FF8

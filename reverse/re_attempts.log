@@ -10815,3 +10815,5 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva002F3039@Rva002F3039@@QAEPAV1@XZ	0x002F3039	25	blocked	single lea plus push vs retail double lea CSE needs two leas t=10 model=muse-08
 ?rva002F307A@Rva002F307A@@QAEPAV1@XZ	0x002F307A	25	blocked	same duplicate lea wall as 0x002F3039 single lea CSE vs retail double lea t=1 model=muse-08
 ?rva003EEBEF@Rva003EEBEF@@QAEXH@Z	0x003EEBEF	116	partial	gate jmp-xor-test 6B plus global reload ecx-vs-eax and SIB order t=20 model=muse-04 score=0.93 stash=reverse/attempts/0x003eebef.cpp
+?Rva006CCB80AptCall@@YAHPBDPAD0H0PAX222@Z	0x006CCB80	510	blocked	push-before-inner plus ebp-for-argc wall t=30 model=muse-02
+?rva00579CD4@Rva00579AB7@@QAEXUIntPair579CD4@@@Z	0x00579CD4	105	partial	size exact 105B all 5 relocs match; remaining is regalloc and frame: this in edi not mem so no mov ebp-10 ecx and member via edi not ecx; temp at ebp-10 not ebp+C; Get pushes memory not regs and stores reload not ebx edi; shape levers 26 and 68 tried t=18 model=muse-spark score=0.9 stash=reverse/attempts/0x00579cd4.cpp
