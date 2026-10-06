@@ -40,6 +40,8 @@ enum LanguageID
 	LANGUAGE_ID_UNKNOWN
 };
 extern LanguageID OurLanguage;
+// OurLanguage: matched references place it at VA 0xe01e54 (zero-filled .bss).
+LanguageID OurLanguage;
 
 // Zero Hour's KeyDefs.h values (DirectInput DIK_* scan codes).
 enum KeyDefType
