@@ -65022,9 +65022,3 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva0028FBBE@Object@@QAEHXZ,,0x0028FBBE,90,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FBBE.cpp,matched,thiscall int return virtuals 0x14 0x118 offsets 0x250 0x5F1 sentinel list sum
 ?Rva0053B98CUpdate@@YAXPAVObject@@PAX@Z,,0x0053B98C,193,Code/GameEngine/Source/Common/Rva0053B98C.cpp,matched,chain via rva0028FBBE list fill first-item select
 ?xfer@AIPlayer@@MAEXPAVXfer@@@Z,,0x004F0DDE,740,Code/GameEngine/Source/GameLogic/AI/AIPlayerXfer.cpp,matched,AIPlayer xfer slot3 via ctor LINK BONUS ZH donor redundant null guards
-?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
-?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
-?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
-?rva0014D522@@YAXPAX0@Z,,0x0014D522,66,Code/GameEngine/Source/Common/Rva0014D522Init.cpp,matched,
-?rva0014D564@@YAXPAX0@Z,,0x0014D564,49,Code/GameEngine/Source/Common/Rva0014D564Init.cpp,matched,
-?rva0014D722@Rva0014D722This@@QAEXPAVRva0014D722Outer@@PAX@Z,,0x0014D722,143,Code/GameEngine/Source/Common/Rva0014D722Init.cpp,matched,
