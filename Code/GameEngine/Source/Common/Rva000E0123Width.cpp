@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000E0123@Rva000E0123@@QAEXM@Z @0x000E0123 71B
 // Evidence: unlock 4x Set_Width 0x0015E290 rowed; callers 0x000E09E8 0x000E0A0E in 0x000E0856; this+4 +8 +c +10 SegmentedLineClass ptrs; ret 4 float arg.
 class SegmentedLineClass

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00133380@Rva00131BE5@@QAEXXZ @0x00133380 42B.
 // Slot 7 (offset 0x1C) of vtable 0x007D25D8 for ??1Rva00131BE5@@UAE@XZ.
 // Clears m_14 (+0x14) like the rowed dtor in Rva00131BE5Dtor.cpp but with a

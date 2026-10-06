@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001B4E49@Rva001B4E49@@QAEXXZ @0x001B4E49 26B. Loop over an 8-byte-entry
 // array ([this+0]=begin, [this+4]=end): calls virtual slot 3 (call

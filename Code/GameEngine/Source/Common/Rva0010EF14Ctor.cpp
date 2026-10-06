@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0Rva0010EF14@@QAE@ABVRva0036CA00Str@@MM@Z @0x0010EF14 46B. Derived ctor passes const Rva0036CA00Str& to rowed base 0x001164D3 then stores floats at +0xC and +0x10 then vtable 0x00BCFA84.
 // Evidence: retail push esi push [esp+8] mov esi ecx call base movss floats mov [esi] vtable ret 0xC; siblings 0x0010EEF1 0x0010EF61 same base and shape; caller 0x0010FDAC.
 class Rva0036CA00Str {

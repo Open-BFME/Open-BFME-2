@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z, retail 0x000E48BC, 252 bytes.
 // Updates world pos at +0 from offset at +0x10 via Drawable at +0x2C matrix

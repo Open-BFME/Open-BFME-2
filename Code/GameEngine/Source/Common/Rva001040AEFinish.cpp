@@ -1,6 +1,6 @@
 // ?Rva001040AESub@@YAXPAMMMPBM@Z
 // ?Rva001040AESub@@YAXPAMMMPBM@Z 0x001040AE 39B
-// cl: /O2 /arch:SSE /MD
+// cl: /MD
 // __cdecl 2-float subtraction helper: dest[0]=x-src[0], dest[1]=y-src[1].
 // Evidence: callers ClosestPointOnLineSegment 0x006B3100 (x2), 0x00104359 (x2),
 // 0x002F8B00 and LINK BONUS 0x0030B3D1; prev 0x00104076, next 0x001042C1.

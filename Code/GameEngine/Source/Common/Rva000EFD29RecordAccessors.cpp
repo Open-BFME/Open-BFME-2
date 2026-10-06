@@ -2,7 +2,7 @@
 // Native EFD29/13 reads pointer+8 and returns index*12 with ret4.
 // Boundaries: complete preceding ret4 and following seven-byte getter.
 // Original receiver/element names unknown; record fields opaque.
-// cl: /O1 /G7 /arch:SSE2 /GX- /MD
+// cl: /GX- /MD
 struct Rva000EFD29Record12 { unsigned char opaque[12]; };
 class Rva000EFD29IndexedRecords {
 public: Rva000EFD29Record12 *rva000EFD29(int index);

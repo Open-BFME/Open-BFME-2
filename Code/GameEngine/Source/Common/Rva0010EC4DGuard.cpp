@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva0010EC4D@Rva0010EC4D@@QAEXHPAHH_N@Z @0x0010EC4D 104B
 // Guarded 9-dword copy with event signal: constructs MilesMutexGuard over
 // +4 holder mutex at +0x50 stores args copies 9 dwords to +8 stores +0x30

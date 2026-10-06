@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva000E6350@@QAE@XZ, retail 0x000E6350, 55 bytes.
 // Ctor registering "Vegetation" via rowed Rva00153565Register; vtable at +0.
 // Evidence: disassembly stores 0x007CEA04 then calls Register("Vegetation", this);

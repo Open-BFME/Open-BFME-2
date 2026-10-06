@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Lane A callback table and matched BfmeInstallSpreadTable's tier-A slot
 // identify the same function at1D7200. The installer only takes the pointer;
 // its void() placeholder declaration does not establish the callable ABI.

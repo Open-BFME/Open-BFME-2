@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // Dump-lane range 5: scratch adapter at 0x174A8A (35B). Passes a by-value
 // 32-byte record to the 0x17480C grower; the record is built by the rowed

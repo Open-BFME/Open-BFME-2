@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva00109C7F@@UAE@XZ @0x00109C7F 54B virtual dtor with StringClass member at +8.
 // Retail stores derived vtable then calls rowed Free_String at +8 then stores base vtable with no base call.
 // Evidence: pin ??1Rva00109C7F@@UAE@XZ; caller deleting dtor ??_GRva00109C7F@@UAEPAXI@Z at 0x00109C63 in OpaqueScalarDeletingDtorsB01.cpp; callee Free_String at 0x00610A40.

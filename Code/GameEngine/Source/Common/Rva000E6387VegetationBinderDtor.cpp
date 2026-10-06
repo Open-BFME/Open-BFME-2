@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva000E6387@@UAE@XZ @0x000E6387 57B: destructor of the FX parameter
 // binder registered as "Vegetation" (address-derived name Rva000E6387, as
 // pinned). Target facts: vtable 0x00BCEA04 = { ??_G 0x000E63C0 (rowed),

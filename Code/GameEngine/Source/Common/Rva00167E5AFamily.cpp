@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // Dump-lane range 5: three small plain bodies near 0x167E5A (29/32/29B).
 // 0x167E5A forwards (this+0xE4, int) to 0xD6A3F and returns the int;

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva001DD063@@QAE@ABU0@@Z @0x001DD063 61B
 // Copy ctor of 32-byte POD record. Evidence: retail mov sequence 1 dword then
 // 2 bytes then 6 dwords with ret 4; called by 0x001DD1B3 and 0x001DD2BF as

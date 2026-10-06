@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000FD4B3@Rva000FD4B3@@QAEHXZ @0x000FD4B3 27B; chain of Rva000F630CGet.
 // Retail: push esi / mov esi,ecx / call 0x000F630C / test al,al / jne / xor eax,eax / pop esi / ret / xor eax,eax / mov [0x00DE1F34],esi / inc eax / pop esi / ret.
 // Target facts: calls rowed ?Rva000F630CGet@@YAHXZ; tests low byte so false path needs xor; stores this into data 0x009E1F34 then returns 1 else 0.

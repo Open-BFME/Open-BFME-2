@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0Rva00151632@@QAE@PBD@Z, retail 0x001515CA, 98 bytes. Prototype ctor for
 // the vtable at 0x007D3A6C (rowed ??1Rva00151632 at 0x00151632 plus deleting

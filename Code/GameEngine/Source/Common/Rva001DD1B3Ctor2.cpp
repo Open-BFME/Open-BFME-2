@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva001DD1B3@@QAE@ABHABURva001DD063@@@Z @0x001DD2BF 29B
 // Two-arg ctor of 36-byte record: int head plus Rva001DD063 tail at +4.
 // Evidence: chain lane every callee rowed; retail copies [eax] then calls rowed 0x001DD063 with this+4 and returns this; caller 0x001DE3A5.

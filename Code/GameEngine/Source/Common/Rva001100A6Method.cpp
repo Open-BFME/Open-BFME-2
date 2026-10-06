@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // ?rva001100A6@Rva001100A6@@QAEXXZ @0x001100A6 31B via virtual-slot12 clearer
 // evidence: retail tests [this+D0] then calls [[ptr+1C]+30] then clears [this+DC]; callers 0x000A9F98 x3
 class Slot12

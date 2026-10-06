@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // vector::_M_allocate_and_copy at retail 0x0018C705, 45 bytes.
 // Allocates via short allocator 0x000AD722; copies via Rva0018C3C9Copy at

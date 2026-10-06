@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??1Rva00151DAB@@QAE@XZ @0x00151DAB 13B.
 // 8-byte holder with TextureBaseClass* at +4; dtor releases it via rowed
 // Release_Ref 0x0061ED10 when non-null. Callers 0x00151EB1 deleting dtor

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva001804CBCreate@@YAXPBDHH@Z @0x001804CB 92B
 // Chain of just-landed ??0Rva001803D3 (0x001803D3): if name non-null and
 // !Render_Obj_Exists(name) (rowed 0x0061F0D0), news 0x24 via rowed

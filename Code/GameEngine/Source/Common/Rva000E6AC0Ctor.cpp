@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /arch:SSE /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // Fix over the banked attempt, from the retail unwind map (ten states): state 0
 // is a polymorphic base with an out-of-line virtual dtor (folded 7-byte
 // 0x0049B47C); states 1-4 the four vectors; state 5 the Rva00087A93 at +0x34

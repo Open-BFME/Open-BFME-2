@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva001DD8C9Alloc@@YGPAXABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z @0x001DD8C9 37B hashtable node alloc via rowed allocate 0x000307F0 plus rowed _Construct 0x000A7849.
 // Evidence: unlock lane every callee rowed; caller 0x001DE556 hash insert buckets plus count; same 37B shape as 0x005472D3.

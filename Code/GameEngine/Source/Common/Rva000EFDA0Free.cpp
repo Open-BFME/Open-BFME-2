@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000EFDA0@Rva000EFDA0@@QAEXXZ 0x000EFDA0 27B free array at +0x24 via delete[] then zero +0x24 +0x28; callers 0x000F11C0 0x000F2963
 void operator delete[](void *block);
 class Rva000EFDA0 {

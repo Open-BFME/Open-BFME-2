@@ -1,4 +1,4 @@
-// cl: /O2 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // BFME1 donor: game/GameEngine/Source/Common/Rva009A8410ReadCounter.cpp
 // at 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor RVA 0x009A8410.
 // Target Ghidra entry 0x001B8E70, 29B, followed by INT3 then 0x001B8E90.

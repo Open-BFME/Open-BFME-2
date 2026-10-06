@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva000E59D3@@UAE@XZ retail 0x000E59D3 82B
 // Own vptr BCE9E0; under EH state 2 the rowed ?rva000E473F@Rva000E473F@@QAEXXZ
 // 0x000E473F runs on this object; then member dtors -- the STLport list base

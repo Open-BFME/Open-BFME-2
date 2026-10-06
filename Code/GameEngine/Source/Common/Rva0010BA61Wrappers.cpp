@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Helper-then-tail wrappers: each saves this, runs a no-argument member
 // helper, restores this, and tail-jumps to another no-argument member.

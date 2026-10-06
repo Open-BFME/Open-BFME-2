@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0
+// cl: /Ob0
 
 struct Rva00149DF0Obj
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00151744@Rva00151744@@QAEXXZ at 0x00151744 (113B). Link clear: if +4
 // null return, else erase voidptr vector at +0x18 via rowed erase 0x0031BD55,

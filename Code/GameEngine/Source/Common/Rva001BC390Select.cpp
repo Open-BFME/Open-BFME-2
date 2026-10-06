@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // Retail 0x001BC390; the target body is bounded by int3 padding on both sides.
 // BFME1 donors at 0x009AB950 and 0x009AB990 were ICF-folded; this name is RVA-derived.
 // Retail accesses the table at 0x00BD8D00; context and output offsets follow target loads/stores.

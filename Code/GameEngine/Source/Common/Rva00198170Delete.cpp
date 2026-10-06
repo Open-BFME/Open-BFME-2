@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva00198170@BfmeThingVJS@@QAEPAXI@Z, retail 0x00198170, 30 bytes.
 // Gap between AABTree Load 0x00198090 and copy ctor 0x00198190; owner is
 // BfmeThingVJS (same class as rowed bfmeClearVJS 0x00197F30 in

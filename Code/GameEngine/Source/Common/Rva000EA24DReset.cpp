@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /G7
+// cl: /EHsc /MD
 // ?rva000EA24D@Rva000EA24D@@QAEXXZ 0x000EA24D 115B
 // Reset after Rva000E6AC0::rva000E65B1: DX8 lock, zero count at +0x44540,
 // set dirty at +0x44544, release 0x40 RefItem array at +0x44558 stride 0x5C

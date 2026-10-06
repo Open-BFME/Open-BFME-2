@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva001B5140@Rva001B5140@@QAE_NXZ
 // ?rva001B5140@Rva001B5140@@QAE_NXZ @0x001B5140 128B. Filter over two arrays

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva000E6FE3@Rva000E6FE3@@QAEX_N@Z retail 0x000E6FE3 51B unlock lane.
 // Evidence: byte-store loop over +0x199C stride 0xA0 with count at +0x4FB58
 // and dirty flag at +0x4FB5C; same offsets and stride as Rva000E76B8 in the

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000E3A8D@Rva000E3A8D@@QAEAAV1@ABV1@@Z 0x000E3A8D 180: vector assign for 4-byte ref holders.
 // Evidence: callers at 0xE9CFB 0xEDF23 0xEF137 push member vectors; callees rowed allocate 0x5E25EF clear 0x8B4AF forward 0xE1D51 destroy 0x8AFDC copy 0x7E2FA.
 struct Rva002B9062Element

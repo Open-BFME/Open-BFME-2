@@ -1,5 +1,5 @@
 // ?rva00106AC9@Rva00106AC9@@QAE_NPBDH_N@Z
-// cl: /Ireference/shims/bfme2_ascii /Os /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 #include "ascii_string.h"
 
 // ?rva00106AC9@Rva00106AC9@@QAE_NPBDH_N@Z

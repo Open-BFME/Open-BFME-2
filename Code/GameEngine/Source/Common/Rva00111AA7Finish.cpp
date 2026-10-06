@@ -1,5 +1,5 @@
 // ??0Rva00111AA7@@QAE@PBDH@Z
-// cl: /Ireference/shims/bfme2_ascii /Os /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0Rva00111AA7@@QAE@PBDH@Z, retail 0x00111AA7, 40 bytes. Ctor with StringBase
 // at +0 from const char*, int at +4, 16B zero at +8, int zero at +0x18.

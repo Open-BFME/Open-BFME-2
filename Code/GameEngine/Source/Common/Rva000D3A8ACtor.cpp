@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ??0Rva000D3A17@@QAE@XZ @0x000D3A8A 157B
 // Evidence: chain from rowed 0x000D3A17 which this ctor calls with rowed 0x000D1C83

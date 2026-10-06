@@ -1,5 +1,5 @@
 // ?rva0010F42A@Rva0010F42A@@QAEXXZ
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 #include "../../Include/Common/Rva00041004Lock.h"
 // Guarded Miles stream operations, each the only slot (slot 1) of its own
 // one-slot vftable at 0x00BCFA4C / 54 / 74 / 7C / 84 / 8C / 94:

@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 struct Rva00160A00Node
 {

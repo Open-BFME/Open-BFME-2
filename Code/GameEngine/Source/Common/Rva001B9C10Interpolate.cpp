@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // Source lead: Open-BFME-1 at 7c4d488c5bc928bb8eaf37171ae5700b4e33937f,
 // game/GameEngine/Source/Common/Rva009A91D0.cpp. This self-contained snapshot
 // preserves the verified 6583b3c1 header and compiler inputs.

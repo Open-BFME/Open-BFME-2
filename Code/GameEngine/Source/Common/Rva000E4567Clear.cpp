@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000E4567@Rva000E4567@@QAEXXZ retail 0x000E4567 56B
 // Evidence: Release ref at +0x28 via dec +4 plus virtual destroy; clear +0x20 +0x24 via 0x0004D75B; zeroes +0x80 +0x28 +0x2C +0x4C; callers 0x000E504B 0x000E599F 0x000E5B00
 struct RefCounted00217D4C

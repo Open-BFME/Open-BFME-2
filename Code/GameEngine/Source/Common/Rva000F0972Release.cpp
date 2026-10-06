@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva000F0972@Rva000F0912@@QAEXXZ @0x000F0972 111B: release two globals plus buffer manager then clear 160-slot list under DX8 lock. Evidence: chain callee 0x000F0912 row plus LINK BONUS via 0x000F09E1 plus callers 0x0009A3E8 0x000F09FD.
 void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();

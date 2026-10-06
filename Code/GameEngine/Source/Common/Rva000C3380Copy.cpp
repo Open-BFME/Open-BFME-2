@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Retail 0x00689380 (69B). Three-string-plus-POD record copy ctor: each
 // string member copies via StringBase<char>::set at 0x366F0 (the retail
 // inlined AsciiString assignment path, NOT the 0x365F0 ctor family), then the

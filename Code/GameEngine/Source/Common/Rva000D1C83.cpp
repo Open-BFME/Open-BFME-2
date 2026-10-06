@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000D1C83@Rva000D1C83@@QAEXXZ @0x000D1C83 158B
 // VB/IB container init: releases existing pair via rowed Rva0074011F,
 // allocates BfmeDynamicNativeVB(0x142,0x7534,1,0) and DX8IndexBuffer(0xea64,1),

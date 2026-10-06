@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva000EB08C@Rva000EB08C@@QAEXH_N@Z @0x000EB08C 90B. Index plus flag store.
 // Evidence: __thiscall ret 8 with int plus bool, TheWritableGlobalData row

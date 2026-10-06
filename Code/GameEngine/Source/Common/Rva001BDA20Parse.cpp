@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 #include "ascii_string.h"
 // ?rva00331842@Rva001BDA20@@QAEXPAUlua_State@@H@Z @0x00331842 181B
 // Rva001BDA20 Lua-variant reader via lua_type switch and rowed callees.

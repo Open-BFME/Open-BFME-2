@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??0Rva00180B94_Prototype@@QAE@PBDPAX@Z, retail 0x00180B94, 76 bytes.
 // Unlock: missing callee of 0x00180CCB. Twin of HTree Rva0017FB41 (77B) and
 // HAnim Rva0014CE67 (75B): GenBase009EB7D0 base via 0x0061ED40 row, vtable

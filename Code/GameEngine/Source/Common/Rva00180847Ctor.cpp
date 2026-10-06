@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??0Rva00180847@@QAE@PBDHH@Z @0x00180847 77B
 // Twin of Rva001805E0 ctor (77B): GenBase009EB7D0 base via rowed
 // 0x0061ED40, vtable 0x007D5010, +0x14 zeroed (no tree arg), +0x18

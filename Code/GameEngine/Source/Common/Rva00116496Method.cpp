@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00116496@Rva00116496@@QAEXXZ, retail 0x00116496 (20B).
 // Evidence: unlock lane (unblocks 0x00111B9A plus 3); callers at 0x00102244
 // 0x00102274 0x0010228D 0x00111BB8; flag at +4 with slot 0x0C then clear;

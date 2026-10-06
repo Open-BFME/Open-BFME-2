@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva152d1c@Rva00152D1CObj@@QAEXH@Z @0x00152D1C 170B evidence: caller 0x00117172 via [mesh+0x94]->[+0xB8] arg 4; LINK BONUS 131B Rva00117120Cluster; virtual slot0 or 0 then AsciiString from char then copy +0x18 then vector copy +0x0C then 0x15288F.
 // Evidence: pin ?rva152d1c@Rva00152D1CObj@@QAEXH@Z; callees rowed 0x00037BA0 0x000365F0 0x0010E604 0x0007C5D5 0x00036410 pin 0x0015288F; prev/next Common.

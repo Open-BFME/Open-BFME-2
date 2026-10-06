@@ -1,5 +1,5 @@
 #include <new>
-// cl: /O1 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // Dump-lane range 5: contiguous 0x150B8D-0x150F19 container family plus the
 // 0x150A8B growers they forward to. One subsystem: vector-like holders with a

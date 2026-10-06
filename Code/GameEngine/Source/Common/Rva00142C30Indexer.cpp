@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00142C30@Rva00142C30@@QAEPAXH@Z, RVA 0x00142C30, 11B.
 // Indexed fetch from inline array at +0x30: mov eax [esp+4] mov eax [ecx+eax*4+0x30].

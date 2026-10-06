@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva0014DC9E@@UAE@XZ @0x0014DC9E 14B.
 // Triple store of g_00BC6F24 to +0/+4/+8 like Rva0014DC76Init sibling.
 // Evidence: retail mov eax,0xBC6F24 mov [ecx+8],eax mov [ecx+4],eax mov [ecx],eax ret;

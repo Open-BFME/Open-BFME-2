@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7 /arch:SSE
+// cl: /MD
 // ?rva000E7016@Rva000E7016@@QAEXXZ 0x000E7016 195B
 // Reset after Rva000E6AC0::rva000E65B1: release FirstElem pair at +0x19EC/+0x19F0
 // stride 0xA0 bounded by count at +0x4FB58, zero floats at +0x1948/+0x194C,

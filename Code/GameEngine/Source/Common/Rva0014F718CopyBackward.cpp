@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /Oy-
 // ?Rva0014F718CopyBackward@@YAPAURva0014F718@@PAU1@00PAXH@Z @0x0014F718 46B.
 // copy_backward for 8-byte entries copying dword at +4 (vptr at +0 skipped).
 // Retail: sar 3 count, --last/--dest loop with single mov [esi+4]<-[ecx], 5-arg __cdecl with dummy tag/extra riding dead above frame.

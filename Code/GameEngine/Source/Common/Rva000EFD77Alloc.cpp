@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000EFD77@Rva000EFD77@@QAE_NH@Z @0x000EFD77 41B: Alloc array count times 22 via new[] into plus24 plus count into plus28 with bool success. Evidence: unlock lane sibling Rva000EFDA0Free plus24 plus28 plus caller 0x000F299D plus new[] null-check pop-ecx shape.
 void *__cdecl operator new[](unsigned int size);
 class Rva000EFD77 {

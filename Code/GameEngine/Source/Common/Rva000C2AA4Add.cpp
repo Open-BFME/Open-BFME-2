@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva000C2AA4@Rva000C2AA4@@QAEXABVAsciiString@@@Z at 0x000C2AA4 (127B). Lowercased check-then-add.
 // Evidence: empty/none early-outs via 0x1E2F/0x37DE0; temp copy via 0x365F0 plus toLower 0x36A70;
 // Find 0xBD22F over vector at +0x78/+0x7C; push_back 0x2DBE6 when missing; release 0x36410.

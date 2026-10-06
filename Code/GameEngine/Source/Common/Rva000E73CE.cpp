@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva000E73CE@Rva000E73CE@@QAEXXZ 0x000E73CE 46B
 // Fill byte-flag dword at +0x19F4 stride 0xA0 with (TheShroudManager==0),
 // bounded by count at +0x4FB58. Same array base +0x199C stride 0xA0 count

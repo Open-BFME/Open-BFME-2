@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00109DCF@Rva00109DCF@@QAEXXZ retail 0x00109DCF 66 bytes.
 // Calls rowed Rva00108AD8 finish at this+0x24C then releases two refcounted
 // members at +0x258 and +0x254 via dec [ecx+4] with virtual slot-0 call and

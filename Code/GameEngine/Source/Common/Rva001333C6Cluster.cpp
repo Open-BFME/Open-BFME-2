@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Guarded tail-call from the 0x001333C6 neighbourhood. A __thiscall member that
 // walks this->+0x00, then +0x14, then +0x08 and tail-calls that object's own

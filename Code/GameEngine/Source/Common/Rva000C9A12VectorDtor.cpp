@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /DNDEBUG /MD /GX /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 //
 // ??1Rva000C9A12@@QAE@XZ @0x000C9A12 63B: vector<RefCountPtr<TextureClass>>
 // destructor in the RvaVectorDtorFamily 63B shell shape (unwind-only EH, no

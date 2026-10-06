@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // Terrain FX parameter binder registered as "Terrain" (address-derived name
 // Rva000E19A3). Target facts: ctor 0x000E188F (called from 0x007AB7D2) stores
 // vptrs 0x00BCE51C { ??_G 0x000E1A1D, dispatcher 0x000E1F42 } at +0 and

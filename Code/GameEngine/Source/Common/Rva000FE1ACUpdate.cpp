@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva000FE1AC@Rva000FE001@@QAEXXZ @0x000FE1AC 91B.
 // Container at +0x10 tail iterated via FeNode +0xb0 next; +0x3c flag selects

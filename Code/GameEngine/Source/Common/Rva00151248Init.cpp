@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // Dump-lane range 5: string-pair value family (ColorToWrite/RiverTexture
 // callers). The base object holds two AsciiString members with an int

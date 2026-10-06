@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Two one-off bodies in the Disp8ByteFieldGetters.cpp page of
 // Code/GameEngine/Source/Common.  Both act on the same object pointer slot at
 // +0xC4 (a MeshModelClass-family model in 0x00149F20), so they are kept in one

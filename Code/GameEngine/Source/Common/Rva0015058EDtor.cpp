@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??1Rva0015058E@@UAE@XZ @0x0015058E 63B: dtor destroying Rva0014F699 at +0x10 then vector Rva00150209 at +4, restoring vtable 0x007C6F24 via inline Snapshot base. Evidence: rowed callees 0x0014D1E3 0x00150209, vtable data 0x007C6F24, callers 0x00150614 0x001510A9.
 // Retail: mov eax handler / call __EH_prolog / lea ecx [esi+0x10] call ??1Rva0014F699 / lea ecx [esi+4] call ??1Rva00150209 / mov [esi] vtable / EH epilog.
 // Not established: owning class identity; address-derived name.

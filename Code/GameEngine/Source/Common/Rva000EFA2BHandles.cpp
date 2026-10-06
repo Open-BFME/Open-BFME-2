@@ -3,7 +3,7 @@
 // Native field offsets/byte condition/word increment established independently.
 // Reference-count meaning and original classes are donor leads, not target names.
 // Full target object sizes unknown; declarations are minimum ABI prefixes.
-// cl: /O1 /G7 /arch:SSE2 /GX- /MD
+// cl: /GX- /MD
 
 struct Rva000EFA2BTarget
 {

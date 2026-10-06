@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?Rva001516C1RegisterPrototype@@YAXPBD@Z at 0x001516C1 (86B). Register
 // helper twin of Register_Aggregate_Prototype 0x0014D01C and HTree register
 // 0x0017FD2F: skips null names and names already present via Render_Obj_Exists

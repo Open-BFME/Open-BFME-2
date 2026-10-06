@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /EHsc /MD
+// cl: /Oy- /EHsc /MD
 // stlport
 // ?rva00150959@Rva00150959@@QAEXPAURva001504A1Record@@IABVRva0014F699@@@Z @0x00150959 258B
 // vector fill-insert 76B elements with EH and x_copy dtor via rowed callees.

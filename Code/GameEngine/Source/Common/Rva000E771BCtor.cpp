@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ??0Rva000E771B@@QAE@XZ 0x000E771B 25B
 // Default ctor constructing 3x Region2D at +0x10 size 0x10 via rowed
 // vector_constructor_iterator 0x1423 with rowed empty ctor 0x47A6A9.

@@ -1,6 +1,6 @@
 // ?rva00118CC0@Render2DRawArray@@QAEPAXH@Z
 // partial score=0.97 date=2026-10-04
-// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00118CC0@Render2DRawArray@@QAEPAXH@Z 0x00118CC0 121 unlock
 // Render2DRawArray grow of 44-byte elements via realloc caller 0x0011BD80
 extern "C" __declspec(dllimport) void *__cdecl realloc(void *ptr, unsigned int size);

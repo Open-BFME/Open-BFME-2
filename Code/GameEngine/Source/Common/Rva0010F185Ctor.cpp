@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD
 // ??0Rva0010F185@@QAE@ABVRva0036CA00Str@@PBXABVAsciiString@@1@Z @0x0010F185 75B.
 // Ctor with vtable g_00BCFAB8 via base Rva001164D3 plus StringBase at +0x10.
 // Base Rva001164D3 from Rva001164D3Ctor plus StringBase shared header.

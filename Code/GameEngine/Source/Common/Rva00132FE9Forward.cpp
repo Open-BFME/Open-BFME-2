@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00132FE9@Rva0090E250@@QAEX_N@Z at 0x00132FE9 (18B).
 // Bool-to-int forwarder to ?set@Rva0090E250@@QAEXH@Z at 0x00132C9D with this passthrough.
 // Evidence: retail xor eax eax; cmp byte [esp+4] al; setne al; push eax; call set; ret 4;

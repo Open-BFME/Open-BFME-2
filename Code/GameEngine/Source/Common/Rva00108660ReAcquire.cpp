@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?ReAcquireResources@Rva00108660ResourceManager@@QAE_NXZ @0x00108660 140B leaf
 // Re-acquires index and vertex buffers: new DX8IndexBuffer(0x10000,1) at +0x258,
 // new BfmeDynamicNativeVB(0x242,0x8000,1,0) at +0x254. Returns false if first

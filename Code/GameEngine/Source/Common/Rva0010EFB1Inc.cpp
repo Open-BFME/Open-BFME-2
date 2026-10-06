@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0010EFB1Inc@@YAJXZ at 0x0010EFB1 (12B).
 // Free wrapper over InterlockedIncrement on the global at 0x009EC38C.
 // Evidence: retail push 0x009EC38C; call IAT InterlockedIncrement 0x00BBA214;

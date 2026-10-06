@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva000F1A32@@QAE@XZ 0x000F1A32 166B ctor creating Rva000F0AF7 at +8 and W3DBufferManager singleton with TCB vector resizes; caller 0x0009A710
 class Rva000F0AF7 {
 public:

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ??1Rva0010F7EE@@UAE@XZ, retail 0x0010F7EE, 52 bytes.
 // Virtual dtor releasing the +0x08 holder through the rowed Release_Ref at

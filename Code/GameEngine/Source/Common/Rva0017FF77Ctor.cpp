@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??0Rva0017FF77@@QAE@PBDHH@Z @0x0017FF77 (77B):
 // Ctor with GenBase base plus StringClass at 0x18 plus ints at 0x14 0x1C 0x20 plus vtable.

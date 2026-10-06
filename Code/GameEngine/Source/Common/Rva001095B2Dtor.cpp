@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva001095B2@@UAE@XZ @0x001095B2 94B
 // Sibling of the rowed Rva00109610Dtor.cpp over the same base (base vtable
 // 0x007CEFA0, modelled there as W3DProjectedShadow with an inline virtual

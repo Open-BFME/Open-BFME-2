@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@@Z @0x000E5EE5 123B
 // Target facts: 123B thiscall ret 8 (field ptr + by-value StringBase<char>),
 // list at +0x18 (head->next, item at +0x08) like Rva000E5F60Lookup, null check

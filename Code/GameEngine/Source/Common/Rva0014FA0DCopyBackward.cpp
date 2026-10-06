@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0014FA0DCopyBackward@@YAXPAVRva0014F699@@00@Z @0x0014FA0D 29B wrapper forwarding to rowed 5-arg 0x0014F746.
 // Retail: push ebp / mov ebp esp / push ecx / push 0 / lea eax [ebp-1] / push eax / push [ebp+0x10] / push [ebp+c] / push [ebp+8] / call 0x14F746 / add esp 0x14 / leave / ret.
 // Target facts: __cdecl void (first last result); creates 1-byte tag at [ebp-1]; forwards (first last result tag 0) to rowed ?Rva0014F746CopyBackward@@YAPAVRva0014F699@@PAV1@00PAXH@Z; ignores return; caller 0x001509D3 pushes 3 caller-cleans.

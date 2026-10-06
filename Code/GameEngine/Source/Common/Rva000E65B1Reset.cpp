@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /EHsc /MD
 // ?rva000E65B1@Rva000E6AC0@@QAEXXZ 0x000E65B1 138B
 // Rva000E6AC0 reset: DX8 lock, clear texture refs at +0x38/+0x3C, reset trees
 // at +0x40/+0x68 via rowed rva00170EBC(false), zero the int ranges at

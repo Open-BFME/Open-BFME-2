@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs-c-
+// cl: /MD /EHs-c-
 //
 // ?Rva00102215Get@@YAPAVRva001021F7@@XZ @0x00102215 38B: chain singleton getter
 // for Rva001021F7 (0x20) via global g_00DEC268; new + ctor 0x001021F7.

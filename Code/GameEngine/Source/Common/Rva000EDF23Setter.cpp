@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000EDF23@Rva000EDF23@@QAEXABVRva000E3A8D@@@Z @0x000EDF23 29B: vector assign at +0x44548 plus flag at +0x44546.
 // Evidence: retail lea ecx [esi+0x44548] calls rowed 0x000E3A8D then mov byte [esi+0x44546],1; same shape as rowed 0x000E9CFB setter; caller 0x00069CE6.
 

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000F11C0@Rva000EFDA0@@QAEXXZ 0x000F11C0 82B clear via rva000EFDA0 plus array deletes +0x20 +0x10 gated +0x30 plus ref releases +0 +4; chain from 0x000EFDA0
 void operator delete[](void *block);
 struct RvaRef {

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva000E1D51Forward@@YAPAVRva00072A94@@PAV1@00PAX@Z, RVA 0x000E1D51, 29B.
 // Forwarder via local tag to rowed copy 0x000E1860. Same 29B shape as
 // Rva00219947Forward and Rva00150265Copy: push ebp/mov ebp esp/push ecx/

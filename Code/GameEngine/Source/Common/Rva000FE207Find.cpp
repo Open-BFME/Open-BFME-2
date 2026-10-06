@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva000FE207@Rva000FE001@@QAEPAUFeNode@@PBM0H@Z @0x000FE207 137B.
 // Evidence: container +0x10 head and +0xb0 next match Rva000FE001Move;

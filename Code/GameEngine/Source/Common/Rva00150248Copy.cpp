@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00150248Copy@@YAXPAURva0014F718@@00@Z @0x00150248 29B wrapper forwarding to rowed 5-arg 0x0014FA62.
 // Retail: push ebp / mov ebp esp / push ecx / push 0 / lea eax [ebp-1] / push eax / push [ebp+0x10] / push [ebp+0xc] / push [ebp+8] / call 0x14FA62 / add esp 0x14 / leave / ret.
 // Evidence: 5-arg caller pushes 5 with add esp 0x14; sibling Rva00150265Copy 29B same shape to 5-arg forward 0x0014FA90; chain from 0x0014FA62.

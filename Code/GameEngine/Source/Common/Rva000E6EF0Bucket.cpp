@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva000E6EF0@Rva000E6EF0@@QAEHPBUFloatPair@@@Z, retail 0x000E6EF0, 216 bytes.
 // Clamp world XY to +0x1948/+0x194C min and +0x1950/+0x1954 max, scale each
 // axis by 49.9f over its extent, floor via IAT floor and return y*50+x.

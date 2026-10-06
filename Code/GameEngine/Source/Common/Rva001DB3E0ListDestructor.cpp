@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1
+// cl: /Ob1
 
 void __cdecl operator delete(void *);
 

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 #include "../../Include/Common/Rva00041004Lock.h"
 // ?rva0010F38A@Rva0010F38A@@QAEXXZ @0x0010F38A 80B.
 // ?rva0010F3DA@Rva0010F3DA@@QAEXXZ @0x0010F3DA 80B.

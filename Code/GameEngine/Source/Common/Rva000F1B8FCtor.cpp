@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva000F1B8F@@QAE@PBD@Z 0x000F1B37 60B ctor vtable g_00BCEFD4 plus m_04 zero plus String m_08 from arg plus false; caller 0x000F1BEC new 0xC plus Add
 class StringClass {
     void *m_data;

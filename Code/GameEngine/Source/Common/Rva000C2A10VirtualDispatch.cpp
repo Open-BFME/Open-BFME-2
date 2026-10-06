@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME: address-derived wrapper at 0x000C2A10.
 
 struct Rva000C2A10Object

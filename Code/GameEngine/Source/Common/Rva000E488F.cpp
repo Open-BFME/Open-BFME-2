@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva000E488F@Rva000E488F@@QAE_NPAX@Z, retail 0x000E488F, 45 bytes.
 // Array-all predicate: iterates pointers from [this] to [this+4], calling

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000E5EC1@Rva000E5EC1@@QBE_NHABV?$StringBase@D@@@Z @0x000E5EC1 36B
 // Target facts: 36B matcher called by 0x000E5EE5/0x000E5F60/0x000E6135; reads int at +0x4C
 // and StringBase<char> at +0x8C, calls rowed ?compare@?$StringBase@D@@QBEHABV1@@Z (0x000069D6).

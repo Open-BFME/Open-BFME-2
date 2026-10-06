@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0010ED3D@Rva0010ED3D@@QAEXH@Z at 0x0010ED3D (15B).
 // Conditional max setter at +0x3C: if (v > m_val3C) m_val3C = v.
 // Evidence: retail mov eax [esp+4]; cmp eax [ecx+0x3C]; jle; mov [ecx+0x3C] eax; ret 4;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva000EFDBB@Rva000EFDBB@@QAEXHGG@Z @0x000EFDBB 59B: Append two words to ptrs[idx] at plus4180 using lens[idx] at plus4400 as index with double inc. Evidence: unlock lane sibling Rva000F26DCAlloc same plus4180 plus4400 layout plus 2 callers plus lea-movsx-word-store shape.
 class Rva000EFDBB {
 public:

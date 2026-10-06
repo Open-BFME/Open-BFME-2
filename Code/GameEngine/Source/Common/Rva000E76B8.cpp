@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 //
 // ?rva000E76B8@Rva000E76B8@@QAEXXZ, retail 0x000E76B8, 99 bytes.
 // Loop over byte flags at +0x199C (stride 0xA0) calling rowed predicate

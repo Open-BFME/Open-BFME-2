@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??1Rva001DB60F@@UAE@XZ retail 0x001DB60F 91B. Dtor storing vtable 0x007DBA7C
 // then clearing a MetaMapRec list at +0xC via rowed dtor 0x001DB48E plus rowed

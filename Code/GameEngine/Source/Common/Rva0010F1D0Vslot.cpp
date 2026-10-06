@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD
 // ?rva0010F1D0@Rva0010F185@@QAEXXZ, retail 0x0010F1D0, 127 bytes.
 // Virtual slot 1 of vtable 0x007CFAB8 for the Rva0010F185 audio entry:
 // lock-guarded AIL stream open with EmptyString fallback. Target for the

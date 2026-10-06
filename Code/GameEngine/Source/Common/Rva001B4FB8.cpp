@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva001B4FB8@@QAE@XZ RVA 0x001B4FB8 49B
 // Evidence: leaf lane; ctor initializing three vector<BfmeE16> at +0/+0xC/+0x18

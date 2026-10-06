@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva001B6920Set@@YAXPAXH@Z, retail 0x001B6920, 15 bytes.
 // Free setter storing the second stack arg into [first+0xC4]; ret (cdecl,

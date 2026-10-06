@@ -2,7 +2,7 @@
 // Donor1281192f68 Rva007B80D0Arr.cpp, unchanged from6d943; internal element types unknown.
 // Opaque records preserve measured strides without asserting the donor element fields.
 // Full receiver layouts and original class/method names remain unknown.
-// cl: /O1 /G7 /arch:SSE2 /GX- /MD
+// cl: /GX- /MD
 
 struct Rva000EFD0ERecord12
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva00109610@@UAE@XZ @0x00109610 51B
 // Derived dtor sets derived vtable 0x007CFA00 calls rowed base
 // W3DProjectedShadow::rva00108951 on same this then restores base vtable

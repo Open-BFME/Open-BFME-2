@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0
+// cl: /Ob0
 
 template <int N>
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/BitFlags.h

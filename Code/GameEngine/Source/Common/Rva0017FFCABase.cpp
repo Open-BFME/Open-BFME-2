@@ -1,5 +1,5 @@
 // ??1Rva0017FFCA@@UAE@XZ
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // Banked byte-exact destructor body, not a linkable class reconstruction.
 // Target: Ghidra17FFCA/89, deleting-dtor call180111, BD4F50 slot9;
 // ctor17FF77 proves owned pointer+14/name+18/arguments+1C,+20.

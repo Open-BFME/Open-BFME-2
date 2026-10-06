@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00151288@Rva00151288@@QAEXPBD@Z, retail 0x00151288, 105 bytes.
 // Path-surgery method on a StringBase<char> member at +8: release it, and

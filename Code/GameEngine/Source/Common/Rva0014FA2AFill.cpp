@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0014FA2AFill@@YAXPAVRva0014F699@@0ABV1@@Z @0x0014FA2A 29B range fill assigning same value via rowed 0x0014F699.
 // Retail: push esi / mov esi [esp+8] / jmp cmp / push [esp+0x10] / mov ecx esi / call 0x14F699 / add esi 0x4c / cmp esi [esp+c] / jne / pop esi / ret.
 // Target facts: __cdecl void (first last value); stride 0x4C from sizeof Rva0014F699; callees rowed ??4Rva0014F699@@QAEAAV0@ABV0@@Z; callers 0x001509E0 0x00150A20 push 3 args caller-cleans.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0015115C@Rva0015115C@@QAE_NPAVChunkLoadClass@@@Z at 0x0015115C (231B).
 // Chunk load with version at +4: reads version then first string at +0 via
 // rowed Read 0x006151A0 plus pinned getBufferForRead 0x00036640, branches on

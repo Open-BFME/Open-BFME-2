@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // Dump-lane range 5: builder at 0x1683A7 (28B). Runs the pinned 0x283A7
 // init on this, clears +0xC, stamps vtable 0xBD41B8, returns this.

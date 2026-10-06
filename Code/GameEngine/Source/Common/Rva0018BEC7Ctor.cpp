@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva0018BEC7@@QAE@XZ, retail 0x0018BEC7, 66 bytes.
 // Ctor registering "WW3D" via rowed Rva00153565Register; vtable at +0 plus member vtable at +4.
 // Evidence: disassembly stores 0x007D5BE4/0x007D5BD4 then calls Register("WW3D", this);

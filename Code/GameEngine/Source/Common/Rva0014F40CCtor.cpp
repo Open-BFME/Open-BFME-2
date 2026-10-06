@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva0014F40C@@QAE@XZ retail 0x0014F40C 44B: default ctor storing vtable 0x007D38A0 plus member vtables 0x007D3874 0x007D3880 0x007D388C and zeroing +0x10..0x1C. Caller 0x00151137 member at +0xB8 in Sas ctor.
 
 class M1

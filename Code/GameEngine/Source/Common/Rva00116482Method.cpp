@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00116482@Rva00116482@@QAEXXZ, retail 0x00116482 (20B).
 // Evidence: unlock lane; callers at 0x0010227B and 0x00102310 in unclaimed;
 // flag at +4 with virtual slot 0x08 then set flag; sibling of 0x001164AA

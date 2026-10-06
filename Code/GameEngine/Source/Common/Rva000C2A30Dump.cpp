@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Rva000C2A30Dump.cpp (donor revision

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva000FA7E8Dtor@@QAE@XZ retail 0x000FA7E8 83B
 // Non-virtual dtor with an empty body: member dtors in reverse order under EH
 // states 1..0 -- the texture handles at +0x5C and +0x58, each releasing through

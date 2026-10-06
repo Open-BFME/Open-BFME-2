@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 //
 // ?rva000E5F60@Rva000E5F60@@QAEPAVRva000E5EC1@@HV?$StringBase@D@@@Z
 // RVA 0x000E5F60, 86B. List-find by (id, name) over a sentinel-circular list

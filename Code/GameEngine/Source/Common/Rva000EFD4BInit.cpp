@@ -3,7 +3,7 @@
 // Complete standalone ABI body between neighboring ret4 and EFD77 entry.
 // No direct call or aligned data xref found. Represent only the observed initializer
 // and return-this behavior; do not assert the donor constructor role in target.
-// cl: /O1 /G7 /arch:SSE2 /GX- /MD
+// cl: /GX- /MD
 
 class Rva000EFD4BInitializer
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??1Rva0017FB94@@UAE@XZ @ 0x0017FB94 (89 bytes). HTree prototype dtor,
 // twin of the HAnim Rva0014CD63 dtor at 0x0014CD63: stores vtable 0x00BD4F10,

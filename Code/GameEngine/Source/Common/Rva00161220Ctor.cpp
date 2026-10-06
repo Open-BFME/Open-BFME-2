@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0
+// cl: /Ob0
 
 // The BFME1 donor baked its own vtable VA as a literal, which cannot
 // transfer (same repair as Rva0081C2F0Set): the address of a sacrificial

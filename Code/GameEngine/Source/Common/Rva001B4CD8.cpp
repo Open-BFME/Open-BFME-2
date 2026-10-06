@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva001B4CD8@Rva001B4CD8@@QAEXXZ RVA 0x001B4CD8 23B
 // Evidence: leaf lane; calls pinned 0x001B4C7A Rva001B4C7ATarget::rva001B4C7A
 //   on this, then frees the pointer at +0 via rowed 0x00030830 free if non-null;

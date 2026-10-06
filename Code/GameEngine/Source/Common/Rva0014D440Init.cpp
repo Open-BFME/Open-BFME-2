@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0014D440@Rva0014D440Holder@@QAEXPAVRva0014D440Outer@@PAX@Z placeholder (renamed below).
 // @0x0014D440 52B void. Retail (this=esi Holder with vtable slot02 at +8,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00106C79@Rva00106C79Holder@@QAE_NHH@Z @0x00106C79 37B bool.
 // Retail (this=esi Holder, 2 int args, ret 8): if (m_08!=6) return false;

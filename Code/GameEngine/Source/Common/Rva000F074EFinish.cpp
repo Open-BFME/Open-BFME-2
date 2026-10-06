@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva000F074E@Rva000F26DC@@QAEXHH@Z 0x000F074E 117B single-entry free matching
 // dtor 0x000F26DC loop: releases VB at +0x300, IB at +0x580, calls Rva000EFC45
 // dtor at +0x80; caller 0x000F2FFA. The index expression `b + a * 0xA0` must stay

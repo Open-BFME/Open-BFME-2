@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001DB66A@Rva001DB60F@@QAEPAXI@Z retail 0x001DB66A 28B. Deleting helper
 // for the rowed vtable dtor 0x001DB60F: destroys via that dtor then frees with

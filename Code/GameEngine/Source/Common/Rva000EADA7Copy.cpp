@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva000EADA7@@QAE@ABV0@@Z retail 0x000EADA7 473B unlock lane.
 // Evidence: memberwise copy with Region2D copy ctor at +0x48 (row
 // ??0Region2D@@QAE@ABU0@@Z); caller at 0x000ED6A9.

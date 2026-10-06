@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva001B4F8B@Rva001B4F8B@@QAEPAXABV?$StringBase@D@@@Z RVA 0x001B4F8B 45B
 // Evidence: unlock lane; 8-byte-entry scan of [this+0, this+4) comparing the
 //   StringBase<char> at object+8 via rowed 0x000069D6 compare, returns object or 0;

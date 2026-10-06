@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /Oy-
 // ?rva0015068C@Rva0015068C@@QAEPAVRva0014F699@@PAV2@0@Z @0x0015068C 51B.
 // Vector-like reassign: copies [first, m_04) into result through the rowed
 // 3-arg ?Rva00150265Copy (0x00150265), destroys [newEnd, m_04) through the

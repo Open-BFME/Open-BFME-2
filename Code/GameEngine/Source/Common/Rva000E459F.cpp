@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva000E459F@Rva000E459F@@QAE_NXZ retail 0x000E459F 315B
 // Evidence: chain from 0x00272C9E Drawable::rva00272C9E plus pin getTransformMatrix; callers 0x000E5B57; matrix at +0x50 floats +0x84 +0x88 flag +0x98 Drawable +0x2C
 class Matrix3D

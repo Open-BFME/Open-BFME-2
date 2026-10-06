@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva000E63DCDo@@YGXPAVRva000E63DCObj@@@Z retail 0x000E63DC 42B unlock lane.
 // Evidence: vtable slot 3 of 0x007CEAB4 (class of ??0Rva000E6AC0@@QAE@XZ); two virtual calls
 // on the single object arg (offsets 0x10 and 0x28); callers at 0x000E96CD and 0x000ED499.

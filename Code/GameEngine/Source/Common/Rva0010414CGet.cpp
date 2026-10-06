@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?Rva0010414CGet@@YAMPAM@Z, retail 0x0010414C, 34 bytes.
 // Evidence: chain lane, calls 0x0010410F Wrap and _atan2f 0x000422CD, callers in 0x00104359.
 extern "C" float __cdecl atan2f(float y, float x);

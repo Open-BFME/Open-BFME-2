@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva001DD063@@QAE@XZ @0x001DD1D0 47B
 // Default ctor of 32-byte record: f00=-1 with byte zeros and float zeros via movss.
 // Evidence: unlock lane no callees; retail or -1 plus movss zeros; caller 0x001DE332; layout matches rowed copy 0x001DD063.

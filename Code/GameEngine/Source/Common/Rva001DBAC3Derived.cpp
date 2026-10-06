@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // Opaque single-inheritance destructors tail-calling Rva001DBAC3::~
 // Rva001DBAC3 at 0x001DBAC3 (pinned opaque leaf base dtor: vtable store

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva000E01A3@Rva000E01A3@@QAE_NXZ @0x000E01A3 13B
 // Leaf thiscall returning whether the pointee's first dword equals the pointer itself.
 // Evidence: retail mov eax [ecx+4] / xor ecx ecx / cmp [eax] eax / sete cl / mov al cl / ret;

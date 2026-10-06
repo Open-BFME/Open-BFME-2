@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs-c-
+// cl: /MD /EHs-c-
 // stlport
 // ?rva0010225F@Rva0010225F@@QAEXABV?$vector@UEvaMessageInfo@@V?$allocator@UEvaMessageInfo@@@_STL@@@_STL@@@Z @0x0010225F 37B
 // Evidence: unlock lane; vector assign 0x001020BA at +4 then null-checked calls 0x00116496 0x00116482 on +0; callers 0x00102284 0x0010231F 0x000B071D

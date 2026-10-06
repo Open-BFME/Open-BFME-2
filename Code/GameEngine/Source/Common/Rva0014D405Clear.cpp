@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0014D405@Rva0014D405@@QAEXXZ @ 0x0014D405 18B: lea eax,[ecx+0xB8] / xor ecx,ecx / mov [eax+0x10],ecx / mov [eax+0x14],ecx / mov [eax+0x18],ecx; caller 0x0014A880; honest address name.
 struct Rva0014D405Sub
 {

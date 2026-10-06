@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 //
 // ??0Rva0010274F@@QAE@XZ @0x0010274F 347B: leaf zero-init ctor for 0xE0 struct.
 // Evidence: packet disassembly.

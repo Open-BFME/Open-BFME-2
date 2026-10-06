@@ -1,5 +1,5 @@
 // ?Rva001117B4IsPow2@@YGEH@Z
-// cl: /O1 /MD
+// cl: /MD
 //
 // 0x001117B4 47B power-of-two test for 1..64. Retail keeps a single `mov al,1`
 // true block at +9; the first test (cmp 0x40) falls into it and every later

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0018C09B@Rva0018C09B@@QAEXG@Z @0x0018C09B 76B
 // Render setup: unless byte at +0 set vb at +0xC via Set_Vertex 0, then ib at

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0010EF8B@@QAE@ABVRva0036CA00Str@@HH@Z @0x0010EF8B 38B. Derived ctor passes Str to rowed base 0x001164D3 then stores two ints at +0xC +0x10 then vtable 0x00BCFA9C.
 // Evidence: retail push esi push [esp+8] mov esi ecx call base mov [esi+0xC] mov [esi+0x10] mov [esi] vtable ret 0xC; new size 0x14 in caller 0x0010FEF3; LINK lane; base copied from Rva001164D3Ctor.cpp.
 class Rva0036CA00Str {

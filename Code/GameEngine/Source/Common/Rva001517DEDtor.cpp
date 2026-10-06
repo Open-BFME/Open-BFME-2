@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva001517DE@@UAE@XZ at 0x001517DE (136B). Dtor storing vtable 0x007D3AA8,
 // deletes +8 holder via rowed 0x00153D16 plus delete, releases +4 via vtable

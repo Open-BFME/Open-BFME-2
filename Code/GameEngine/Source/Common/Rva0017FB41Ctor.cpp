@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0Rva0017FB41_Prototype@@QAE@PBDHH@Z @ 0x0017FB41 (77 bytes). HTree
 // prototype ctor, twin of the HAnim Rva0014CE67_Prototype ctor at 0x0014CE67

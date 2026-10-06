@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva001DD0A0@@QAE@ABU0@@Z @0x001DD0A0 97B
 // Copy ctor of 52-byte POD record. Evidence: called by pinned
 // _STL::_Construct<BfmePod52> at 0x001DD2DC (18B, je-guarded placement new)

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva000E007DEqual@@YGHPBURva000E007DPair@@0@Z recurring, retail 0x000E007D, 32B.
 // Equality on two-int pairs via two dword compares returning int 0/1.
 // Callers 0x000E01DD (tests al) 0x000E02D1. Honest free-function name.

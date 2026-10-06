@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva001B4EAB@Rva001B4EAB@@QAEXXZ @0x001B4EAB 166B. Per-entry exporter over
 // the same 8-byte-entry array as 0x001B4F8B ([this+0]=begin, [this+4]=end):

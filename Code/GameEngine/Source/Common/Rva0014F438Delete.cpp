@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0014F438@Rva0014DC76@@QAEPAXI@Z @0x0014F438, 28B.
 // Conditional-delete wrapper: calls rowed ?rva0014DC76@Rva0014DC76@@QAEXXZ at 0x0014DC76 then rowed delete at 0x0002FD60 on flag bit 0, returning this.
 // Evidence: retail calls 0x0014DC76 (rowed in Rva0014DC76Init.cpp) and 0x0002FD60 (rowed ??3@YAXPAX@Z); class layout copied from owner TU.

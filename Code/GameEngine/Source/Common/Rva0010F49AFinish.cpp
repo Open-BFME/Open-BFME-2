@@ -1,5 +1,5 @@
 // ?rva0010F49A@Rva0010F49A@@QAEXXZ
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 #include "../../Include/Common/Rva00041004Lock.h"
 // Guarded AIL_set_stream_volume_pan(stream, +0x0C, 0.5), retail 0x0010F49A (96B).
 // Same guard derivation as the matched 0x0010F38A (+0x38 of the inner's +0x0C

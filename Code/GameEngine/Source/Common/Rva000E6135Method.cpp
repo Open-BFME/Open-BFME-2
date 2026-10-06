@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva000E6135@Rva000E6135@@QAEXPBVRva0055A88BDwordField@@ABV?$StringBase@D@@M@Z @0x000E6135 81B
 // List-update by (id name) over sentinel-circular list at +0x18 with enable
 // byte at +0x20; id via rowed get 0x0055A88B matcher rowed rva000E5EC1

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva001DBAA4@@QAE@XZ @ 0x001DBAA4 31B: opaque base ctor for Rva001DBAC3 family.
 // Vtable 0x007DBC10 shared with base dtor 0x001DBAC3; 12 callers in 0x0035Dxxx-0x0035Fxxx
 // (e.g. 0x0035E2E9) call it first as base construct; member init +4=1 +8=0 +9=1 +0xA=0 +0xC=0.

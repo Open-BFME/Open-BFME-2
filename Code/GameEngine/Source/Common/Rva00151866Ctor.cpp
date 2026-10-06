@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva001517DE@@QAE@XZ at 0x00151866 (48B). Ctor storing vtable 0x007D3AA8,
 // nulls +4/+8/+0x24, constructs +0x0C via rowed ObjectCreationList ctor

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // ?Rva000C2B23_ParseModelName@INI@@SAXPAV1@PAX1PBX@Z, retail 0x000C2B23
 // (174B): the Model row (0x00BCAB20) of the W3DModelDraw condition-state table.

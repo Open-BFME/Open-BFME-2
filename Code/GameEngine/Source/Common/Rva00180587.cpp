@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00180587@Rva001805E0@@QAEPAVParticleEmitterClass@@XZ retail 0x00180587
 // 39 bytes. Vslot 15 of Rva001805E0 calling slots 0x28 bool and 0x2C void

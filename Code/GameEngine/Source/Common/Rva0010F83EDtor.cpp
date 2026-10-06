@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /MD
 // ??1Rva0010F83E@@UAE@XZ, retail 0x0010F83E, 53 bytes.
 // EH dtor: AsciiString member at +0x10 via rowed releaseBuffer 0x00036410
 // then base Rva001164F5 via pinned 0x001164F5. Novtable suppresses the

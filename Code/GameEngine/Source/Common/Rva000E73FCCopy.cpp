@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ??0Rva000E73FC@@QAE@ABU0@@Z 0x000E73FC 301B
 // Copy ctor for 0xA0-byte element: 17 dwords then 3 bytes then Region2D at +0x48 via rowed copy ctor then 18 dwords.
 // Evidence: straight mov run with Region2D copy call at +0x48 and ret 4; neighbours Rva000E73CE Rva000E76B8 stride 0xA0; callee row ??0Region2D@@QAE@ABU0@@Z.

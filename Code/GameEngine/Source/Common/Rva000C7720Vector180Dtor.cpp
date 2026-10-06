@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /GX /Ireference/shims/bfme2_ascii
 //
 // ??1BfmeStringTailRecord180@@QAE@XZ @0x000C0DA3 53B: the 180-byte (stride
 // 0xB4) trailing-AsciiString record element dtor. Layout is BFME2-observed,

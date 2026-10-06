@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Retail 0x0013A070, 53 bytes: sums a little-endian byte run into an int.
 // Identity unproven (one caller via ILT thunk 0x00028911), so the name keeps
 // the address token.

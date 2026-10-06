@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva0018BEC7@@UAE@XZ, retail 0x0018BE87, 64 bytes.
 // Ctor registers "WW3D" (rowed 0x0018BEC7), dtor erases "WW3D"; vtable at +0
 // plus member vptr at +4, both reset to the base vtable in the dtor. Evidence:

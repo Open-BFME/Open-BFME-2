@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0014F674@@YAPAXPAXI0H@Z @0x0014F674 37B cdecl loop.
 // Retail: esi=a1, edi=a3(count); if (count==0) skip; do {

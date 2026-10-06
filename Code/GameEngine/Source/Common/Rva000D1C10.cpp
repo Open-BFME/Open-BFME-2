@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva000D1C10@Rva000D1C10@@QAEXXZ @0x000D1C10 115B
 // Leaf fade-step helper (no callees). State at +8 with value at +0xC ramped
 // by 1/12 per step clamped 0..1. Caller at 0x000D28BC in unclaimed 0x000D2301.

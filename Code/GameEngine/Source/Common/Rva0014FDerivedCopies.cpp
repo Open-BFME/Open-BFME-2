@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva0014F480@@QAE@ABV0@@Z retail 0x0014F480 33B, ??0Rva0014F4A1@@QAE@ABV0@@Z retail 0x0014F4A1 33B, ??0Rva0014F4C2@@QAE@ABV0@@Z retail 0x0014F4C2 33B: derived copy ctors calling base ??0Rva0014F401@@QAE@ABV0@@Z (rowed 0x0014F401) then storing derived vtables 0x007D3854 0x007D385C 0x007D3864 and copying dword at +4. Callers include 0x0014F5AB 0x0014F8E4 0x00150282 families. Same /O1 empty-copy with member recipe.
 
 class Rva0014F401

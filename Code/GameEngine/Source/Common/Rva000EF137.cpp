@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000EF137@Rva000EF137@@QAEXABVRva000E3A8D@@@Z 0x000EF137 29: vector-member assign plus flag set.
 // Evidence: callee rowed ?rva000E3A8D@Rva000E3A8D@@QAEAAV1@ABV1@@Z at 0x000E3A8D; caller at 0x00069CE6; offsets +0x2EE0A flag and +0x2EE0C vector match W3DPropBuffer gap but owner unproven so honest Rva name.
 class Rva000E3A8D

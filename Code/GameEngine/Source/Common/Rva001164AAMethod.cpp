@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?rva001164AA@Rva001164AA@@QAEXXZ, retail 0x001164AA (12B).
 // Evidence: unlock lane (unblocks 0x00101EC3); caller jmp at 0x00101EC9;
 // vtable slot 0x10 tail-jmp with byte flag at +4; neighbours Disp0DwordImmSetters

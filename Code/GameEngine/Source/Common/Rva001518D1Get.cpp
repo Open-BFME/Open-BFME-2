@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva001518D1@Rva001518D1@@QAEPAV?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@XZ at 0x001518D1 (68B).
 // Getter returning link vector at +0x0C or static empty vector<BfmeE16>.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0010ECB5@Rva0010ECB5@@QAE_NXZ at 0x0010ECB5 (8B).
 // This-adjusting thunk to ?set@Rva0040F9D@@QAE_NXZ at 0x00040F9D: add ecx,0x4C then tail-jmp.
 // Evidence: retail bytes add ecx,0x4C; jmp 0x00040F9D; rowed callee in Rva0040F9DEvent.cpp;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0010E4D4@Rva0010E4D4@@QAEXXZ at 0x0010E4D4 (34B).
 // Make-unique loop over VertexMaterialClass array at +0x0C with count at +0x18.
 // Evidence: retail push ebx esi edi; mov ebx [esi+0x18]; test jle; loop mov eax [esi+0x0C];

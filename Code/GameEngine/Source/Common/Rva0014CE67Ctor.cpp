@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0Rva0014CE67_Prototype@@QAE@PBDHH@Z @ 0x0014CE67 (75 bytes). Prototype
 // ctor for the vtable at 0x00BD37EC: builds the GenBase009EB7D0 base via

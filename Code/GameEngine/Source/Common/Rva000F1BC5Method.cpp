@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva000F1BC5@Rva000F1BC5@@QAEXPBD@Z 0x000F1BC5 72B new Rva000F1B8F from arg plus Add to table at +4; caller none; callees new plus ctor 0x000F1B37 plus Add
 class HashableClass {
 };

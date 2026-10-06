@@ -1,4 +1,4 @@
-// cl: /O2 /Z7
+// cl: /Z7
 // Target reconstruction for game.dat RVA 0x001CA000 (0x1090 bytes). The
 // BFME1 function banked at reverse/attempts/0x009b9700.cpp is the structural
 // donor; its provenance remains donor-side. The target disassembly supplies

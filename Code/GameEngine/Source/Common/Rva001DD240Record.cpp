@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD
+// cl: /MD
 // ?rva001DD240@Rva001DD240@@QAEXPAI@Z @0x001DD240 54B unlock lane max-of-two-uints to float with constant store.
 // Evidence: callers at 0x001DD533 and 0x001DD7CB context; data refs g_00BBB9AC g_00BC26EC; honest address name.
 extern const float g_00BBB9AC;

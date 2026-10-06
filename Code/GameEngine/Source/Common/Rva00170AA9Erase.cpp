@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ?rva00170AA9@Rva00170AA9@@QAEXPAURva00170AA9Node@@@Z 0x00170AA9 59B
 // Rb erase-one: rebalance-for-erase then destroy RefCountPtr TextureClass value
 // at +16 via rowed 0x0017098D and free 0x00030830, then --count at +4, ret 4.

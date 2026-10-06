@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0014FA90Copy@@YAPAVRva0014F699@@PAV1@00PAXH@Z @0x0014FA90 50B forward copy via rowed 0x0014F699 with dummy trailing args.
 // Retail: push ebp / mov ebp esp / mov eax [ebp+c] / sub eax [ebp+8] / push 0x4c / cdq / pop ecx / idiv ecx / test eax eax / jle / push esi / mov esi eax / push [ebp+8] / mov ecx [ebp+0x10] / call 0x14F699 / add [ebp+8] 0x4c / add [ebp+0x10] 0x4c / dec esi / jne / pop esi / mov eax [ebp+0x10] / pop ebp / ret.
 // Target facts: __cdecl (first last dest tag extra) -> dest; count=(last-first) via idiv 0x4C; loop *dest=*first via rowed assign ++first ++dest; tag/extra dead for 5-arg callers with add esp 0x14; caller 0x00150278 pushes 5.

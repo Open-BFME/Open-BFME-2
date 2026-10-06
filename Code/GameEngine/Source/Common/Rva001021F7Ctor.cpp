@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva001021F7@@QAE@XZ @0x001021F7 30B: unlock ctor for 0x20 holder with two
 // ObjectCreationList members at +4 and +0x14 plus nulls at +0 and +0x10.

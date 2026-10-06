@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Clean BFME1 Rva007AE410TinyBodies.cpp at 1281192 supplies the full donor
 // file. /O1 places only this new35-byte body, the remaining tiny leaves fold.
 // Native106F82 has a Ghidra35-byte boundary and a direct caller1083F3.

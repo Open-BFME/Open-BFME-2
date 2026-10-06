@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob2
 // Owning destructor at the end of the d_00140de0 family.
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h

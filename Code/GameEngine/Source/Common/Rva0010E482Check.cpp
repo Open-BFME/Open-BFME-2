@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0010E482@Rva0010E482@@QAEHH@Z at 0x0010E482 (34B).
 // Dual-table non-zero predicate: true if dword at +0xB8 or +0x108 indexed by arg is non-zero.
 // Evidence: retail mov eax [esp+4]; cmp [ecx+eax*4+0xB8] 0; jne; cmp [ecx+eax*4+0x108] 0;

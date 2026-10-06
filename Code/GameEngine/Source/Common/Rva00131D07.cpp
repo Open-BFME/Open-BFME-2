@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva00131D07@@UAE@XZ @0x00131D07 77B
 // Dtor stores vtable 0x007D2630, delete[]s +0x50 array via rowed ??_V,
 // frees +0x3C StringClass via rowed Free_String, then rowed base 0x00131BE5

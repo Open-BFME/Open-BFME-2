@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7 /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // Built from the banked attempt reverse/attempts/0x001dcf82.cpp; fix: the floats
 // read through g_Va00BBE358, g_Va00BDC380 are compiler literals holding the retail
 // values, not extern globals, which is what gives retail's operand order.

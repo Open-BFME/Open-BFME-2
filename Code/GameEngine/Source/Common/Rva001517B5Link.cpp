@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva001517B5@Rva00151632@@QAEXXZ at 0x001517B5 (41B). Slot 7 of vtable
 // 0x007D3A6C for the Rva00151632 class proven by ctor 0x001515CA plus dtor
 // rows. Clears the +0x14 link via rowed 0x00151744 then frees its slot-0

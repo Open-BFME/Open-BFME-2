@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs-c-
+// cl: /MD /EHs-c-
 //
 // ?rva0010223B@Rva0010223B@@QAEXXZ @0x0010223B 36B.
 // Chain via just-landed 0x00102087; null-check m_00 then m_00->rva00116496

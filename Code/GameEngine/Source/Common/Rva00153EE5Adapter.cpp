@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // Dump-lane range 5: scratch adapter at 0x153EE5 (35B). Passes a by-value
 // 76-byte scratch to the 0x153E6F grower; the scratch is initialized inline

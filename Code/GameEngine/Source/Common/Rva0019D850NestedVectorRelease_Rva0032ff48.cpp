@@ -1,4 +1,4 @@
-// cl: -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // stlport
 // ?resize@?$vector@V?$vector@URva0019D850Value@@V?$allocator@URva0019D850Value@@@_STL@@@_STL@@V?$allocator@V?$vector@URva0019D850Value@@V?$allocator@URva0019D850Value@@@_STL@@@_STL@@@2@@_STL@@QAEXI@Z
 // retail 0x0032FF48, 73 bytes. Dedicated TU ported from the Open-BFME-1 donor

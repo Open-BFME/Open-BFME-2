@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??0Rva00108A0B@@QAE@XZ @0x00108A0B 110B. Default ctor allocating two
 // HashTableClass(0x800) tables at +0/+4 via rowed operator new 0x0002FDA0.

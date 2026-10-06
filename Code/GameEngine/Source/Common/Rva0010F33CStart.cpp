@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 #include "../../Include/Common/Rva00041004Lock.h"
 // ?rva0010F33C@Rva0010F33C@@QAEXXZ @0x0010F33C 78B.
 // Guarded AIL_start_stream on the +0x08 inner stream: derives the guard

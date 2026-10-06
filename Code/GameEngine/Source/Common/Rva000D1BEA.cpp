@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva000D1BEA@Rva000D1BEA@@QAEEH@Z @0x000D1BEA 38B
 // Shroud-gated bool helper: returns false when TheShroudManager is null,
 // else whether PartitionManager::getShroudStatusForPlayer(playerIndex,

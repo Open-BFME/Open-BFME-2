@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva000F0912@Rva000F0912@@QAEXXZ @0x000F0912 68B: clear 160 slots per node over +0x68 list with zero 12B triple. Evidence: caller 0x000F09C6 in 0x000F0972 plus LINK BONUS via 0x000F0972 plus callee 0x000EFB68 row.
 class Rva000EFB68
 {

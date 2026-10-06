@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ?rva00180AB5@Rva00180B94_Prototype@@QAEXXZ @0x00180AB5 33B
 // Slot 6 (offset 0x18) of vtable 0x007D5050 (class of ??0Rva00180B94_Prototype
 // in Rva00180B94Ctor.cpp). Clears tree link at +0x14: if non-null calls its

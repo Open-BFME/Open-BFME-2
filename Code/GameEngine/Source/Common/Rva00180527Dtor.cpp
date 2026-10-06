@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??1Rva001805E0@@UAE@XZ @0x00180527 90B
 // Virtual dtor twin of Rva0017FB94 (89B) and Rva00151632 (90B): stores
 // vtable 0x007D4FD0, deletes +0x14 link via slot-0 virtual get(0) plus

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 extern "C" const void *const vtbl_00BC5128[];  // ??_7Rva001DA2D5Base@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BC5128=??_7Rva001DA2D5Base@@6B@")
 

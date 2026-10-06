@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva000E016A@Rva000E016A@@QAEPAUBfmeE12@@IPAUCoord3D@@0@Z @0x000E016A 45B
 // Evidence: unlock thiscall ret 0xc 3 args; allocator at +8 via rowed allocate<BfmeE12> 0x00395928; uninitialized_copy<Coord3D> rowed 0x00346C2D; callers 0x002CD0DB 0x003514E2 0x00390763; LINK BONUS via 0x0035149F.

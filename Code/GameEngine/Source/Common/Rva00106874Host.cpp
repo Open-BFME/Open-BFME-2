@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?rva00106874@Rva00106874Host@@QAE_NXZ, retail 0x00106874, 27 bytes.
 // ??1Rva00106874Host@@QAE@XZ, retail 0x00106A2D, 47 bytes.

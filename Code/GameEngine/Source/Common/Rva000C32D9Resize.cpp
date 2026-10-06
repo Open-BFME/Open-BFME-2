@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
 // ?rva000C32D9@Rva000C32D9@@QAEXIVAsciiString@@@Z @0x000C32D9 98B: vector<AsciiString> resize via erase vs _M_fill_insert. Evidence: caller 0x000C3AB3 grows to esi+1 with EmptyString then sets element; retail erases start+n..finish when n<size else fill_insert finish n-size value plus releaseBuffer of by-value AsciiString.
 #include "ascii_string.h"

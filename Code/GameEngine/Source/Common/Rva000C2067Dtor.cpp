@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva000C2067@@QAE@XZ @0x000C2067 30B
 // Vector-like container dtor over Rva000B9AAA without EH frame.
 // Evidence: retail calls rowed

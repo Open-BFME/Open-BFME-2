@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva000FE001@Rva000FE001 (retail 0x000FE001, 100 bytes): intrusive list move
 // that unlinks other (FeNode via +0xb0 next and +0xb4 prev) from its old list

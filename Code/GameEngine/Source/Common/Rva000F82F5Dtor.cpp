@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva000F82F5Dtor@@QAE@XZ retail 0x000F82F5 83B
 // Non-virtual dtor with an empty body: member dtors in reverse order under EH
 // states 1..0 -- the buffer at +0x2C (inline CRT free of its block), then the

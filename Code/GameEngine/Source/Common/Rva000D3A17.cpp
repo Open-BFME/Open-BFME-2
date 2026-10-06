@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?rva000D3A17@Rva000D3A17@@QAEXXZ @0x000D3A17 90B
 // Evidence: clears ten Rva000D20A9 trees at +0x94 via rowed clear 0x000D2294

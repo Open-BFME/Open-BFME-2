@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?Rva0010410FWrap@@YAMM@Z, retail 0x0010410F, 61 bytes.
 // Evidence: unlock lane, callers at 0x00104167 and 0x00104533, callee Rva000930C0 fmod wrapper, float const g_00BC746C.
 extern float g_00BC746C;

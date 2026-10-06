@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva000F630CGet@@YAHXZ @0x000F630C 20B; two-global availability check.
 // Retail: xor eax,eax / cmp [0x009E1F64],eax / je ret / cmp [0x009E1F6C],eax / je ret / inc eax / ret.
 // Target facts: reads VA 0x009E1F64 and VA 0x009E1F6C, returns 1 only when both are nonzero.

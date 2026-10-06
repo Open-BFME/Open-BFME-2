@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00180AF9@Rva00180AF9@@QAEPAV1@ABV?$RefCountPtr@VTextureClass@@@@@Z @0x00180AF9 50B
 // Evidence: unlock lane; TextureClass slot 0x34 identity via 0x41474752 compare;
 // callees rowed clear 0x0004D75B and RefCountPtr assign 0x000424D0; caller 0x00180BE0.

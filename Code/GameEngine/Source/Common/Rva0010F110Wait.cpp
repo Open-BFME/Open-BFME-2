@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0010F110@Rva0010F110@@QAEXXZ @0x0010F110 12B.
 // ?rva0010F11C@Rva0010F110@@QAE_NH@Z @0x0010F11C 45B.
 // Infinite wait on the +0x18 handle via kernel32 WaitForSingleObject, plus
