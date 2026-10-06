@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva002D7DD5@Radar@@UAEXXZ, retail 0x002D7DD5, 147 bytes.
 //
 // Radar frame tick: reads the client frame counter, force-flags the radar, then

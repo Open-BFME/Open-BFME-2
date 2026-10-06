@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Trimmed from Open-BFME-1
 // (Code/GameEngine/Source/Common/System/File.cpp): only the placed
 // ?lock@File, ?close@File, ?open@File, ??1File, ?size@File, ?position@File,

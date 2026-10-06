@@ -1,4 +1,4 @@
-// cl: /O1 /Oy /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy /DNDEBUG /MD /GX- /Oi-
 //
 // ?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z, retail 0x002F1BA, 34 bytes.
 // Dedicated frameless TU (same INI verb family as INI_parseAngleReal.cpp).

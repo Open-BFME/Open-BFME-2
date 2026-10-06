@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
 // ?rva0021BC0D@Rva0021BC0D@@QAE_NHPAPAX@Z @ 0x0021BC0D 31B
 // __thiscall map-find wrapper: map<int,int> at +0x24, stores found node into

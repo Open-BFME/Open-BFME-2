@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Radar window override accessors, retail 0x002D35CF (7B) and 0x002D35D6 (16B).
 // Split into a dedicated TU so RadarNewMap.cpp keeps its matched newMap:

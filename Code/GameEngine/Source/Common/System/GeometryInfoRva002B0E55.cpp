@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Oy- /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva002B0E55@Rva002B0E55@@QAEXPBUOther002B0E55@@PBVAsciiString@@@Z @0x002B0E55 138B: remove matching 0x24 record from vector at +0x3B0.
 // Evidence: callers at 0x004B5A96 0x004B5AF1; neighbors GeometryInfoCopyConstructor plus StlportVectorGrowthFootprints; rowed StringBase compare plus Rva002AAC9EEqual plus Rva002ADD75Equal plus rva002AABEE plus vector<GeometryShape>::erase at 0x2B0CB0; stride 0x24 with name at +0 plus level at +4 plus float range at +8 plus ascii range at +0x14; arg ranges at +0x11C plus +0x130; erase path exits loop.

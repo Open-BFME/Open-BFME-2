@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva0028F5C6@@QAE@HHHHH@Z @ 0x0028F5C6 109B: fixed 76-byte (19-dword)
 // bitset five-argument constructor, twin of Rva0028F59A at 0x0028F59A (44B,
 // 0x4C bytes, one bit) and Rva0028F633 at 0x0028F633. Zeroes the object via

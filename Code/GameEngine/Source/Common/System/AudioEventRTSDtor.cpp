@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // The shared headers declare these members with the access/virtual spelling
 // the referring objects use; this TU emits the paired definition spelling.
 // Same function, same address: bind the header spelling here.

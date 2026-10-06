@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004B3D61@LevelUpUpgrade@@SA?AW4NameKeyType@@XZ @0x4B3D61
 // (69B): cached pool-name key for LevelUpUpgrade. The class
 // identity comes from the pool-name string the body pushes

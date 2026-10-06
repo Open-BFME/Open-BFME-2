@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 
 // Evidence: retail 0x0037BA62 (53 bytes) references the string literal
 // "GUI:LastReplay" -- the anchor also used by ZH's Recorder.cpp (line ~577,

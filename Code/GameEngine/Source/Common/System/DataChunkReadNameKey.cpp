@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?readNameKey@DataChunkInput@@QAE?AW4NameKeyType@@XZ 0x003077E0 83B evidence: readInt sar 8 then m_contents getName then TheNameKeyGenerator nameToKey AsciiString overload; callers 0x0032CED9 0x0032F67F 0x003B5EF4 0x003B6DE0 0x0041ED9C; unblocks 5
 typedef int Int;
 typedef unsigned int UnsignedInt;

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva00030730Init@@YAXXZ @0x00030730 190B resolves MemoryPool exports from the running module
 // Evidence: leaf lane caller at 0x0002FFA0; memory_pool.cpp names retail MemoryPool and 0x00030730 resolver; 13 GetProcAddress stores into 0x00DE03E0..0x00DE0410 with gameMemAllocatePtr 0x00DE0404 gameMemFreePtr 0x00DE03FC g_Va00DE03E8 0x00DE03E8 rowed
 extern "C" __declspec(dllimport) void *__stdcall GetModuleHandleA(const char *name);

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Oi-
+// cl: /DNDEBUG /MD /GX /Oi-
 //
 // ?parseObjectCreationList@INI@@SAXPAV1@PAX1PBX@Z, retail 0x00338A6F, 30 bytes.
 // Dedicated TU (same INI parser family as INI_parseFXList.cpp).

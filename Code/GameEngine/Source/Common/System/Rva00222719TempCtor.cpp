@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 
 // ??0Rva00222719Temp@@QAE@ABVUnicodeString@@@Z, retail 0x00222719, 49 bytes.
 // EH temp copy via wide set: m_data null then set from source. Stack temp for Apt text setters 0x225299 plus 0x225301 plus 24 other callers. No donor; honest address class.

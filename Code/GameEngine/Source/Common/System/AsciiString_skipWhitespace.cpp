@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /MD
+// cl: /Ob0 /DNDEBUG /MD
 //
 // Retail 0x000357C0 (42B). Whitespace skipper over a char pointer.
 // Transferred from the BFME1 reconstruction (BFME1 0x00887260, 42B, same

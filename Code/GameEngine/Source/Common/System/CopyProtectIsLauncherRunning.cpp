@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // CopyProtect::isLauncherRunning, retail 0x00232BED, 50 bytes. Startup gate
 // (sole caller at 0x000030B0 tests the return): creates the launcher mutex
 // and reports whether it already existed. BFME1's

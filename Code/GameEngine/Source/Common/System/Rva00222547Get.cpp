@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00222547Get@@YAPAVGameWindow@@PAV1@@Z, retail 0x00222547, 80 bytes.
 // Resolves GameWindow callback owner via TheWindowManager slot 58 0xE8

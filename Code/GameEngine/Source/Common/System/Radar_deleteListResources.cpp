@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?deleteListResources@Radar@@IAEXXZ, retail 0x002D75E5, 130 bytes.
 // Dedicated TU (sibling of Radar_reset.cpp: the Radar file-unit keeps one

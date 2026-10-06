@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // The clamp template from Code/GameEngine/Include/Precompiled/PreRTS.h,
 // instantiated for Real. Its argument order is (lo, val, hi), not the
 // (val, min, max) that WWMath::Clamp takes, which is what the retail body's

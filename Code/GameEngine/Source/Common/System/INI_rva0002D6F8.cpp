@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0002D6F8@INI@@QAE?AVAsciiString@@XZ @0x0002D6F8 176B. INI block accumulate
 // until m_blockEndToken via readLine plus strtok plus _strcmpi with concat.
 // Evidence: rowed 0x0002D669 0x00037BA0 0x00006987 0x00036410 0x000365F0 plus

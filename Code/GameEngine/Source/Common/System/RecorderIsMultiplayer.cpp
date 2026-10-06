@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?isMultiplayer@RecorderClass@@QAE_NXZ @0x37B18C (110B):
 // RecorderClass::isMultiplayer. BFME1 Recorder_isMultiplayer.cpp shape with

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva00035080@GeneralAllocator@Allocator@EA@@QAEPAXIH@Z @0x00035080 120B.
 // Malloc-like lock-guard wrapper: counted guard over the lock at +0x4E4

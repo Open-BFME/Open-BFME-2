@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Emotion kind parsers (retail 0x004DC702 66 bytes and 0x004DC745 66 bytes).
 // Both read a token through the rowed getNextToken at 0x002DF97; a null
 // token fills an INIException through the INIException(int, const char *, ...) constructor at

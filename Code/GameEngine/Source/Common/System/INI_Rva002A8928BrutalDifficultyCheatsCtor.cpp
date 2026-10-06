@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE
+// cl: /DNDEBUG /MD /GX-
 // Rva002A8928_BrutalDifficultyCheats default ctor (retail 0x002A8928, 22
 // bytes). Builds the {0.0, default} float pair the BrutalDifficultyCheats
 // parser (rowed 0x002A898A) fills through initFromINI: buildCostReduction

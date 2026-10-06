@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Oy- /DNDEBUG /MD /EHsc
 //
 // ?Rva0044E6CD_ParseCustomAnimAndDuration@INI@@SAXPAV1@PAX1PBX@Z
 // retail 0x0044E6CD, 218 bytes: CustomAnimAndDuration field parser serving

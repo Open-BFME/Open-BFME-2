@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002D3389@Rva002D3389@@QAEXPAX@Z retail 0x002D3389 22 bytes. Owning-pointer
 // setter at +0 that deletes the old value via rowed operator delete 0x0002FD60

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?write@RAMFile@@UAEHPBXH@Z retail 0x00574473 6 bytes.
 // Slot 4 (offset 0x10) of vtables 0x0087AA00 and 0x0087AA50; ZH donor
 // GameEngine/Source/Common/System/RAMFile.cpp RAMFile::write returns -1.

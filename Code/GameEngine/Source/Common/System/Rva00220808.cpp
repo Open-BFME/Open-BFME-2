@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00220808Get@@YA?AVUnicodeString@@PAVRva00220808@@@Z @0x00220808 131B
 // Free cdecl helper returning UnicodeString via AsciiString at +0x64: empty check
 // through rowed StringBase<char>::isEmpty 0x00001E2F, else TheGameText slot 0x38

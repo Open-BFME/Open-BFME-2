@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva002A88C7_CombatChainEntry default ctor (retail 0x002A88C7, 39 bytes),
 // Rva002A88EE_CombatChainEntry copy-assign (retail 0x002A88EE, 52 bytes) and
 // Rva002A8945_ParseCombatChainDefinition (retail 0x002A8945, 69 bytes).

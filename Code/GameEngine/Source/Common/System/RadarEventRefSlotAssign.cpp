@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??4RadarEventRefSlot@@QAEAAV0@ABV0@@Z @0x0004E490 45B: RadarEventRefSlot copy-assign
 // Self-check plus inc new ref plus release old ref plus copy plus return *this.

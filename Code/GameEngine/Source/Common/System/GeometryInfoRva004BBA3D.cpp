@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // stlport
 // ?rva004BBA3D@GeometryInfo@@QAEXM@Z @0x004BBA3D 40B
 // Evidence: unlock lane GeometryInfo vector size idiv 0x24 first-shape +0xC float store then rowed calcBoundingStuff 0x006BE700; caller 0x004BBCD7; same 0x24 stride as GeometryInfoCalcBoundingStuff.

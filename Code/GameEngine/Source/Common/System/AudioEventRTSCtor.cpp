@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0AudioEventRTS@@QAE@XZ, retail 0x00079514, 64 bytes. Dedicated TU.
 //

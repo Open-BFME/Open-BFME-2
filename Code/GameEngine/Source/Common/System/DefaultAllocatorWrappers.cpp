@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0002FFC0Alloc@@YAPAXHH@Z @0x0002FFC0 19B and
 // ?Rva0002FFE0Free@@YAXPAXH@Z @0x0002FFE0 17B: default-heap EA wrappers.

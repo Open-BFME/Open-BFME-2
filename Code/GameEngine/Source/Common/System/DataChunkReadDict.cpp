@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?readDict@DataChunkInput@@QAE?AVDict@@XZ @0x00307833 397B
 // DataChunkInput readDict: reads u16 len, Dict d(len), loops reading keyAndType
 // via readInt, getName via m_contents, nameToKey via generator, switches on

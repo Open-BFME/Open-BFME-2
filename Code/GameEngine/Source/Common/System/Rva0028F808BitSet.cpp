@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028F808@Rva0028F808@@QAEXPAUIface0028F808@@@Z @ 0x0028F808 97B:
 // 104-bit (0x68) DWORD bitset to 13-byte (0xD) array then virtual slot 0x24
 // (f09) with (buf, 0xD). Zeroes local via CRT memset thunk 0x006291AE,

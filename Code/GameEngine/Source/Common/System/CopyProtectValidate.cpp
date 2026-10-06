@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // CopyProtect::validate, retail 0x00232D0C, 44 bytes. Checks the launcher
 // view starts with 'M' and matches the G4 registry string past the first
 // byte. BFME1's Code/GameEngine/Source/Common/System/CopyProtection.cpp

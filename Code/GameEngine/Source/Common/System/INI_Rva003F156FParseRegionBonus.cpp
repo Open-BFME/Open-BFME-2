@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
 // Rva003F1540_LookupRegionBonus (retail 0x003F1540, 47 bytes). Looks a
 // region-bonus name up in the {name, value} table at 0xC36880 through the
 // rowed StringBase<char>::compare at 0x00069B1, returning the paired value

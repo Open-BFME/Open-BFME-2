@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Oy- /DNDEBUG /MD /GX-
 // Rva002A89D2_ParseDifficultyTuning (retail 0x002A89D2, 61 bytes). The temp
 // is 8 ints: the difficulty index (default 2) plus 7 tuning fields (all 1
 // except EconomyMaxFarms at +0x1C, -1), default-built through the pinned

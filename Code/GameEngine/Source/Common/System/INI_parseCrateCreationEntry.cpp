@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 // ?parseCrateCreationEntry@CrateTemplate@@SAXPAVINI@@PAX1PBX@Z, retail
 // 0x0035CD23, 188 bytes. Serves the CrateObject entry of the table at
 // 0x8162A0. Zero Hour CrateSystem.cpp proves the name and shape: read two

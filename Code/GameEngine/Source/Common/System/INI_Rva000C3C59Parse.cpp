@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC
 // stlport
 // ?Rva000C3C59Parse@INI@@SAXPAV1@PAX1PBX@Z @0x000C3C59 167B.
 // INI parse building a stack BfmeNarrowRecord00079C23 via rowed ctor 0x797C4,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva002D78A4@Radar@@QAEPAVObject@@PAVRadarObject@@PAUICoord2D@@@Z @0x002D78A4 102B Radar list search: walks a RadarObject
 // list (m_object at +4, m_next at +8), runs rowed worldToRadar on each

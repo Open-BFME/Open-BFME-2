@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // Open-BFME5: LocalFile, retail vtable 0x01143D38.
 //
 // File.cpp already pins this class by construction: 0x009D23E0 installs

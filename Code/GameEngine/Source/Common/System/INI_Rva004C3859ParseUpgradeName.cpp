@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Rva004C3859_ParseUpgradeName (retail 0x004C3859, 63 bytes). Reads one
 // AsciiString through the rowed getNextAsciiString at 0x002EA4F by value
 // (hidden-pointer construction into a stack temp, no zero-init store),

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX /Oi-
 // ?rva00291679@Rva00291679@@QAEXPAVRva00291679Arg@@@Z
 // 0x00291679 97B unlock bitset 101 plus memset 13 plus virt 0x24.
 // Evidence: memset rowed 0x006291AE; loop 0x65 with 1<<i test plus idiv 8; virt 0x24 with 13 plus buf;

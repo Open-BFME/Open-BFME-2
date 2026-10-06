@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?localPixelToRadar@Radar@@QAE_NPBUICoord2D@@PAU2@@Z
 // retail 0x002D81EC, 248 bytes. Dedicated TU: the caller

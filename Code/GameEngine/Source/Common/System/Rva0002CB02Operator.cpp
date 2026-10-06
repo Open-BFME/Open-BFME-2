@@ -1,5 +1,5 @@
 // ??BRva0002C9C2@@QAE?AVAsciiString@@XZ
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // Rva0002C9C2 materializer, retail 0x0002CB02, 98 bytes: size via rowed
 // Rva005D0507 length helper (layout-compatible AsciiString pair at +0/+8)

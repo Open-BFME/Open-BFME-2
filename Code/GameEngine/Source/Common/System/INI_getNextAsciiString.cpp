@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?getNextAsciiString@INI@@QAE?AVAsciiString@@XZ,
 // retail 0x0002EA4F, 232 bytes. Dedicated TU.

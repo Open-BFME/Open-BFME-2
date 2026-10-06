@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002224FE@Rva002224FE@@QAE_NH@Z, retail 0x002224FE 47 bytes.
 // Bounds-checked flag setter over 14 entries at this+0xCC stride 0x28: if index
 // >=14 or element flag at +0x24 has bit 2 return false else set bit 0 and byte

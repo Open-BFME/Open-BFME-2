@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva004B60D5_ParsePercentage (retail 0x004B60D5, 37 bytes). Parses a
 // fraction through the rowed parsePercentToReal at 0x002F1BA into a stack
 // temp (instance forwarded, store and userData 0), then pushes the raw 4

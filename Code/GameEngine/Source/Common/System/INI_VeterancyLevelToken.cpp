@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?rva0033AFBB@Rva0033AFBB@@QAE_NPBDPA_N1@Z @0x0033AFBB 308B
 // Single-token VeterancyLevel bitstring worker. Evidence: the pinned

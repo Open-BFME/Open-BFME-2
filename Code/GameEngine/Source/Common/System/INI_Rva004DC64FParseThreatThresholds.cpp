@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Emotion threat-threshold parsers (retail 0x004DC64F 37 bytes and
 // 0x004DC625 42 bytes). Both parse an int through the rowed dup_002EF72 at
 // 0x002EF72 into a stack temp (instance and userData 0). The Above form

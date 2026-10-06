@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // DefaultMessageFont cluster (retail 0x0022175F, 82 bytes) plus the FontDesc
 // helpers it uses: default ctor 27B @0x00376900 and copy assignment 29B
 // @0x002216DD. FontDesc layout (AsciiString +0x00, int size +0x04, bool bold

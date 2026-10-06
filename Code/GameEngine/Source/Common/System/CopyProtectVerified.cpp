@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // CopyProtect installation-verdict flag, retail 0x002FB00 (set-once 26B) and
 // 0x002FB20 (getter 15B). The flag lives at 0x009A7574 (VA 0x00DA7574) with a
 // -1 sentinel for unset. Two writers agree on the verdict role: WinMain's

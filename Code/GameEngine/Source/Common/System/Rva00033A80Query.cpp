@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva00033A80@GeneralAllocator@Allocator@EA@@QAEI_N@Z @0x00033A80 269B.
 // Largest-block query over the allocator bins. Counted lock-guard via the

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00601941@Rva00601941@@QAEXXZ @0x00601941 11B
 // Vector erase-all wrapper: pushes begin/end at +0/+4 and calls the rowed

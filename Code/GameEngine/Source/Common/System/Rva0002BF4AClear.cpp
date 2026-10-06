@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva0002BF4A@Rva0002BF4A@@QAEXXZ @0x0002BF4A 66B: thiscall clear with None plus empty.
 // Evidence: ret no args; lea ecx [esi+0x838] to Rva00601BBCHelper::rva00601A8D pin; AsciiString+0x4 set None row; g_00DDF5B4 set TheEmptyString row; ints +0x8 +0xc +0x10 zeroed; byte +0x430 false; g_00DDF57C zeroed; callers are Catch funclets.
 #include "ascii_string.h"

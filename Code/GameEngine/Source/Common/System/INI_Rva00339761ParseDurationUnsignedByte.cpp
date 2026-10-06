@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?Rva00339761_ParseDurationUnsignedByte@INI@@SAXPAV1@PAX1PBX@Z, retail
 // 0x00339761 (119B), in the INI.cpp parse run. The parseDurationUnsignedInt

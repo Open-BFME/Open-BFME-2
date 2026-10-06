@@ -1,4 +1,4 @@
-// cl: /O1 /Oy /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy /DNDEBUG /MD /GX- /Oi-
 //
 // ?parseAngularVelocityReal@INI@@SAXPAV1@PAX1PBX@Z, retail 0x003389DD, 44 bytes,
 // in the INI.cpp run between clearVeterancyLevelFlag (0x003389AC) and

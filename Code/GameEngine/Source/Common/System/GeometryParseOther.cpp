@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc- /GX- /Ob2
+// cl: /DNDEBUG /MD /EHsc- /GX- /Ob2
 // stlport
 // BFME2 GeometryOther callback: PC FieldParse row VA C0EC50 stores AC01B0
 // and member offset FC. Preview row 820191C0 / callback 82213488 corroborates

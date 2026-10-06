@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?parseUnsignedShort@INI@@SAXPAV1@PAX1PBX@Z, retail 0x002EF09, 76 bytes.
 // Dedicated ebp-frame TU (same INI scanner family as INI_parseShort.cpp).

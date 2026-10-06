@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0028900AParse@@YAHPAXABVAsciiString@@@Z retail 0x0028900A 199 bytes v6.
 // Parses upgrade list AsciiString via alloca+strtok, clears vector via rowed

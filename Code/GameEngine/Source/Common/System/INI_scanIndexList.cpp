@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?scanIndexList@INI@@QAEHPBDPBQBD@Z, retail 0x002BD39, 76 bytes.
 // Dedicated TU (same INI family as INI_scanLookupList.cpp, framed).

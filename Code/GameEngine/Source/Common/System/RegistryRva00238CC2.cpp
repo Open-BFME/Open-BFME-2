@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /Ireference/shims/bfme2_ascii
+// cl: /EHsc /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 //
 // ?rva00238CC2@Rva00238CC2@@QAEXPAVAsciiString@@@Z @0x00238CC2 118B

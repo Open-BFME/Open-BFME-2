@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/System
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common/System
 // A small parser binding built as a virtual base plus three derived fields.
 // Keeping the base constructor inline reproduces retail's two vtable stores
 // around the parser-registration call.

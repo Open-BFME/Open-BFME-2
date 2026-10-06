@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004B3C30@DelayedUpgrade@@SA?AW4NameKeyType@@XZ @0x4B3C30
 // (69B): cached pool-name key for DelayedUpgrade. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/moduledata /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/moduledata /DNDEBUG /MD /GX-
 // LivingWorldRegionConnection default ctor.
 //
 // ??0LivingWorldRegionConnection@@QAE@XZ (retail 0x003F24F3, 36 bytes):

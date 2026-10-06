@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // DataChunkInput::getChunkLabel, retail 0x003074D7, 51 bytes.
 //

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?radarToWorld@Radar@@QAE_NPBUICoord2D@@PAUCoord3D@@@Z,
 // retail 0x002D7744, 133 bytes. Dedicated TU.

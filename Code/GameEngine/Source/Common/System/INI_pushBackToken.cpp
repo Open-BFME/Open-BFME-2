@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // INI pending-token push-back: prefixes text and one separator char to the
 // pending-token string at this+0x86C, which getNextTokenOrNull 0x0002DEED

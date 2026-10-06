@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // stlport
 // ?rva000B4AB5@Rva000B4AB5@@QAEPBVAsciiString@@I@Z @0x000B4AB5 47B.
 // Modulo-index into a vector<AsciiString> at +0x4C: empty table returns

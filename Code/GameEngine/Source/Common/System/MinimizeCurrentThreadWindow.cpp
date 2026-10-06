@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1 /Ob2
+// cl: /DNDEBUG /MD /Ob2
 
 typedef void *HWND;
 typedef long LPARAM;

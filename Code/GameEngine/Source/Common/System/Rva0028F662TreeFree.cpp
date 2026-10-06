@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0028F662@Rva0028F662@@QAEXPAURva0028F662Node@@@Z -- retail 0x0028F662, 45 bytes.
 // Tree free: recurses on child at +0xC with the same owner, frees the node

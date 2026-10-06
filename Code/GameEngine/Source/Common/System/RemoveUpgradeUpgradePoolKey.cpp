@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004B7F3D@RemoveUpgradeUpgrade@@SA?AW4NameKeyType@@XZ @0x4B7F3D
 // (69B): cached pool-name key for RemoveUpgradeUpgrade. The class
 // identity comes from the pool-name string the body pushes

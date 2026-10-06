@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // MultiIniFieldParse::add, retail 0x0002BC6E (60 bytes).
 // ZH INI.cpp spells the overflow arm DEBUG_CRASH + throw ERROR_BUG;

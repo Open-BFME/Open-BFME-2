@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?parseByte@INI@@SAXPAV1@PAX1PBX@Z, retail 0x002EE22, 74 bytes.
 // Dedicated ebp-frame TU (same INI scanner family as INI_scanBool.cpp).

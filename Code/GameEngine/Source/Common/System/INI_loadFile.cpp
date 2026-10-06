@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ?loadFile@INI@@QAEEVAsciiString@@W4INILoadType@@PAVXfer@@@Z
 // @0x0002DC75 (195B, catch funclets at 0x0002DCE1 and 0x0002DD00 included).

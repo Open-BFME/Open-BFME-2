@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva002D782C@Radar@@QAE_NPBUCoord3D@@PAUCoord2D@@@Z @0x002D782C 120B Radar float radar from world via samples plus float clamp.
 // Evidence: same this as rowed worldToRadar with m_xSample at +0x24 and

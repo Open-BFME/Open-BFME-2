@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva001FDD33_ParseResourceModifierValues (retail 0x001FDD33, 46 bytes).
 // Reads a whitespace list where even the first token is optional: init and
 // increment both go through the rowed getNextTokenOrNull at 0x002DEED

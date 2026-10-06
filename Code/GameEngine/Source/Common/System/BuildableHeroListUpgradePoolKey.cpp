@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004B82CB@BuildableHeroListUpgrade@@SA?AW4NameKeyType@@XZ @0x4B82CB
 // (69B): cached pool-name key for BuildableHeroListUpgrade. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Rva002216A6_ParseDefaultMessageColor (retail 0x002216A6, 33 bytes). Parses
 // a color through the rowed parseColorInt at 0x002F3FE into a stack temp
 // (passed as both instance and store, userData 0), then stores the packed

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ?rva0005E168@Rva0005E168@@QAEXABVAsciiString@@H@Z 0x0005E168 87B evidence: chain via 0x0005CE32 row; guard over +0x9D4 and array +0x12C stride 0x1C4 same as Rva00059A25 87B precedent; ctor/dtor rows 0x4120E/0x4122F; ret 8
 class AsciiString;

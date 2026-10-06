@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?getNextSubToken@INI@@QAEPBDPBD@Z, retail 0x002E06B, 92 bytes.
 // Dedicated ebp-frame TU (same INI family as INI_getNextToken.cpp).

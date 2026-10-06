@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // CopyProtect::notifyLauncher, retail 0x00232C1F, 236 bytes. Signals the
 // launcher and waits for the mapped view. BFME1's
 // Code/GameEngine/Source/Common/System/CopyProtection.cpp gives the source;

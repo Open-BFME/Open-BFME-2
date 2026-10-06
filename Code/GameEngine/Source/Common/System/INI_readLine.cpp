@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 //
 // ?readLine@INI@@IAEXXZ @0x0002D669, 143 bytes. INI line reader (r15: unsigned-count fix).

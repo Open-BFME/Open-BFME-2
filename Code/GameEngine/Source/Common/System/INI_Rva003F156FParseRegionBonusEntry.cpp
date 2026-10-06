@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX-
 // Rva003F156F_ParseRegionBonus (retail 0x003F156F, 50 bytes). Reads one
 // token through the rowed getNextTokenOrNull at 0x002DEED with the
 // m_sepsColon separators at ini+0x420, wraps it in a stack AsciiString

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva002D7BD3@Radar@@QAEXXZ @0x002D7BD3 42B Radar invalidate draw cache.
 // Evidence: stores 0xFFFF0001 at +0x144C and +0x1450 then 0xFFFF at +0x1454

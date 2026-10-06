@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva001DCAED_ParseTransition (retail 0x001DCAED, 69 bytes). Serves the
 // Transition entry of the 3-entry table at 0x7DBDB0 (siblings WinName,
 // FrameDelay). The token resolves through the rowed

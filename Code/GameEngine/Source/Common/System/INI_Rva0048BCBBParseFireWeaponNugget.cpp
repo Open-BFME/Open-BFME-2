@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE
+// cl: /DNDEBUG /MD /GX-
 // Rva0048B97A_InitObject (retail 0x0048B97A, 58 bytes). Builds a
 // single-entry MultiIniFieldParse list from the FireWeapon table at
 // 0xC4C0C0 (WeaponName, FireDelay, OneShot, Offset) through the rowed

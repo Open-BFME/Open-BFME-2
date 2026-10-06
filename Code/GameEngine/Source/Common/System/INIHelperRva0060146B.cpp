@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0060146B@@QAE@XZ @0x0060146B 16B
 // Map-plus-flag ctor: builds the NameKeyType->ModuleTemplate map at +0 via the

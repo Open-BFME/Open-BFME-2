@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // _STL::_Construct<Rva00142DF0String, Rva00142DF0String>, retail 0x00142CC0,
 // 25 bytes: the placement copy the vector helpers in Rva00142DF0StringVector.cpp

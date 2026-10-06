@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // GameMessage::getCommandTypeAsAsciiString, retail 0x0030FA44: code through
 // the final `ret` at 0x00310B70 plus its two internal switch tables

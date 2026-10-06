@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 // Open-BFME: canonical GeometryRecord vector specialization used by the
 // GeometryInfo constructor at retail 0x00100580.

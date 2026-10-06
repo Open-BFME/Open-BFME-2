@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 
 // ?Rva0022288EGet@@YA?AVAsciiString@@I@Z, retail 0x0022288E, 90 bytes.
 // Free AsciiString(unsigned) via "%u": stack temp format through rowed

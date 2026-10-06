@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // CRT static initializer and atexit cleanup for ATL CInitGDIPlus.
 //

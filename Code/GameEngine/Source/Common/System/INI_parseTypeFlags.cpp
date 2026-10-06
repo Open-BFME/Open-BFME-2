@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 // Reference-first: BFME1 Common/INI/ini.cpp parseDamageTypeFlags, itself from
 // GeneralsMD Common/INI/INI.cpp. PC deltas: member scanIndexList and the
 // established INIException filler/throw ABI. PC FieldParse DamageTypes and

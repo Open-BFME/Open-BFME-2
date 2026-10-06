@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?Rva0021BB61PushHeap@@YAXPAVRva0021915B@@HHV1@URva0021B753@@@Z @0x0021BB61 123B
 // __push_heap for 8-byte AsciiString-plus-bool entries with empty comparator
 // Rva0021B753 (rowed 0x0021B753). Bubbles val up while parent < val.

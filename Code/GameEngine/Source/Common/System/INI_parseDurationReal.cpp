@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // INI::parseDurationReal, retail 0x00338B0A (38 bytes).
 // ZH INI.cpp: duration in msec scaled by a const-global multiplier, inlined

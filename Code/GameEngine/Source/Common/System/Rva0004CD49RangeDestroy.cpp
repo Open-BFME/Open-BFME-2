@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0004CD49Destroy@@YAXPAVRva0004CCFF@@0@Z @0x0004CD49 27B
 // Range destroy over 12-byte Rva0004CCFF handles via rowed destroyDelete 0x0004CCFF.
 // Evidence: unlock lane unblocks 0x0004CD64; step 0xC; flags 0; caller 0x0004CD72.

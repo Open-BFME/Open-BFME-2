@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?parseMappedImage@INI@@SAXPAV1@PAX1PBX@Z, retail 0x003390B2, 87 bytes.
 // Dedicated TU (same INI parser family as INI_parseFXList.cpp).

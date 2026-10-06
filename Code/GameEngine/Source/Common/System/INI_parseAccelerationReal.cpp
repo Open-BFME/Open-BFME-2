@@ -1,4 +1,4 @@
-// cl: /O1 /Oy /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy /DNDEBUG /MD /GX- /Oi-
 //
 // ?parseAccelerationReal@INI@@SAXPAV1@PAX1PBX@Z, retail 0x00338BE3, 43 bytes.
 // Dedicated frameless TU (twin of INI_parseVelocityReal.cpp).

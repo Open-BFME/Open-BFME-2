@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?any@?$BitFlags@$0NK@@@QBE_NXZ @0x002C7501, 20B.
 // BitFlags<218>::any() (KindOfMaskType::any). Retail loops seven dwords and

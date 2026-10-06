@@ -1,4 +1,4 @@
-// cl: /O1 /Oy /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy /DNDEBUG /MD /GX- /Oi-
 //
 // ?dup_002EE10@INI@@QAEMPBD@Z, retail 0x002EE10, 16 bytes.
 // Dedicated frameless TU (member pass-through twin of the parse family).

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX
+// cl: /Oy- /DNDEBUG /MD /GX
 //
 // Four 30-byte RVO getters sharing the exact shape of the landed
 // AsciiString/Stlport RVO getters (e.g. 0x003821B9): prologue

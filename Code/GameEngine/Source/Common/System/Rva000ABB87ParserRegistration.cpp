@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 // BFME1 donor: game/GameEngine/Source/Common/Rva00190610ParserRegistrationCtor.cpp,
 // revision 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24, base registration constructor.
 // Native 0x000ABB87 is a complete 44B thiscall entry (RET12), independently

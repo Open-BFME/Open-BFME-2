@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ??0Rva00236285@@QAE@XZ @0x00236285 47B leaf: __thiscall ctor zeroes 5 dwords constructs BfmeE16 Vector_base at +0x14 sets +0x20 to g_007ED97C+1
 // evidence: same rowed Vector_base @0x00211E58 via one-byte stack allocator temp at esp+7 plus global g_007ED97C mangled ?g_007ED97C@@3IA plus frameless push ecx push esi shape; callers 0x00237281 0x0023728C; Rva003F1F6A precedent for declared-only base forcing CALL
 struct BfmeE16

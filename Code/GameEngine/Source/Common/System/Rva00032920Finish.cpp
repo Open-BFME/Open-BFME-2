@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva00032920@GeneralAllocator@Allocator@EA@@QAE_NPBX@Z @0x00032920 (190B):
 // owns-address test. Header at block-4: bit1 selects the small-list scan, else
 // the intrusive search. Lock at +0x4E4 with the use count at +0x18 of the

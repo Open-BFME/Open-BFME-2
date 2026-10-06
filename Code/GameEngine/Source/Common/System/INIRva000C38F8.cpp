@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 // ?rva000C38F8@Rva000C38F8@@QAEXXZ @0x000C38F8 253B
 // Retail clear: memset 0x4c then vector erase 0x4c, string releases 0x58 0x70 0x5c 0x60,

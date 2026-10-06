@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva00563EA8_ParseEventFX (retail 0x00563EA8, 23 bytes).
 // EventFX entry of the table at 0x86CAC0: forwards to the rowed
 // parseAsciiString at 0x002F11E with userData forced to 0 (EventTime's

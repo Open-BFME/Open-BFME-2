@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX
 // ?rva00291793@Rva00291793@@QAEHXZ
 // 0x00291793 19B unlock circular list count via +4 holder.
 // Evidence: thiscall reads ecx+4 then [eax] then [edx]; loop mov ecx [ecx] inc eax cmp ecx edx; callers 0x002949E6 0x0046AACB 0x005087B3; prev AsciiStringRvoGetters.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva003075A3@DataChunkInput@@QAE?AVUnicodeString@@XZ @0x003075A3 158B
 // DataChunkInput counted-string reader (readUnicodeString shape): reads u16
 // len via virtual read, decrements, getBufferForRead, reads len*2 bytes, null

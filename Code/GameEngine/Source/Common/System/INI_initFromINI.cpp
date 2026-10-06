@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // INI::initFromINI, retail 0x0002DE78, 61 bytes. Dedicated TU so the
 // MultiIniFieldParse ctor and add stay out of line.

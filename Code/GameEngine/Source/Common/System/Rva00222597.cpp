@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00222597@Rva00222597@@QAEXPAH@Z @0x00222597 121B
 // Window point to mouse dispatch: rect test via WindowManager slot 0xD4
 // bfmeGet then SetMousePos 0 0 else scale via slot 0x40. Evidence: rowed

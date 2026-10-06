@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z, retail 0x00338A9D, 109 bytes.
 // Dedicated TU (same INI parser family as INI_parseFXList.cpp).

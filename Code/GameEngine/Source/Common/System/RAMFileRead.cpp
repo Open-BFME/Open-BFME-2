@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?read@RAMFile@@UAEHPAXH@Z @ 0x00605564 (70B): slot 3 (offset 0xC) of vtable
 // 0x0087AA00. ZH GameEngine RAMFile::read verbatim: null m_data returns -1,
 // clamp to m_size-m_pos via cmovg, memcpy when bytes>0 and buffer set,

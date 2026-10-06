@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004B63E3@ModelConditionUpgrade@@SA?AW4NameKeyType@@XZ @0x4B63E3
 // (69B): cached pool-name key for ModelConditionUpgrade. The class
 // identity comes from the pool-name string the body pushes

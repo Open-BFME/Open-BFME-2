@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva003F2033_ParseOnVictoryGiveUpgrade (retail 0x003F2033, 105 bytes).
 // Throws a 0xDEAD0001-marked word through the CxxThrowException thunk at
 // 0x00629094 when TheUpgradeCenter is still null, then reads an OrNull

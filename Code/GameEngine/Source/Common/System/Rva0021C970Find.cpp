@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?rva0021C970@Rva0021BCA7@@QAEPBVAsciiString@@HI@Z 0x0021C970 54B
 // Evidence: unlock lane; callees rva0021BC0D rowed rva0021BCA7 rowed; callers 0x21CB06; returns AsciiString at +4 or TheEmptyString; global g_00DFE354 out; this has map at +0x24 like Rva0021BCA7.
 #include "ascii_string.h"

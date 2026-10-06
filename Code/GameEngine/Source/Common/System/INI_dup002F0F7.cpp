@@ -1,4 +1,4 @@
-// cl: /O1 /Oy /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy /DNDEBUG /MD /GX- /Oi-
 //
 // ?dup_002F0F7@INI@@SAXPAV1@PAX1PBX@Z, retail 0x002F0F7, 39 bytes.
 // Dedicated frameless TU (twin of INI_parseAngleReal.cpp with int store).

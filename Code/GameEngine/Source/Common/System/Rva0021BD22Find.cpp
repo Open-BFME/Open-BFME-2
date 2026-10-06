@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
 // ?rva0021BD22@Rva0021BD22@@QAEPAHH@Z @0x0021BD22 31B
 // __thiscall map-find wrapper: map<int,int> at +0x54, returns &value (node+0x14)

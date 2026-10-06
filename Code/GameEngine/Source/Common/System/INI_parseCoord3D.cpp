@@ -1,4 +1,4 @@
-// cl: /O1 /Oy /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy /DNDEBUG /MD /GX- /Oi-
 //
 // ?parseCoord3D@INI@@SAXPAV1@PAX1PBX@Z, retail 0x002F507, 81 bytes.
 // Dedicated frameless TU (twin of INI_parseReal.cpp, three components).

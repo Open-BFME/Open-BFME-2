@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX- /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX- /DNDEBUG /MD
 // Rva000B9AFF_ParseShadowEvent (retail 0x000B9AFF, 75 bytes). Parses a
 // 16-bit flag set through the rowed parseBitString16 at 0x002F21A; when
 // nonzero it news a 0x28-byte AudioEventRTS (rowed ctor 0x00079514, whose

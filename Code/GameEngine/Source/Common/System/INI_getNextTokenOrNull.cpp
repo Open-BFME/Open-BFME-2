@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?getNextTokenOrNull@INI@@QAEPBDPBD@Z, retail 0x002DEED, 170 bytes.
 // Dedicated shard TU (same-TU visibility law: grafting into the sibling

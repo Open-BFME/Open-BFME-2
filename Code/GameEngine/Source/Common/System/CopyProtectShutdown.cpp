@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // CopyProtect::shutdown, retail 0x00232D63, 24 bytes. Unmaps the launcher
 // view and clears the handle. BFME1's
 // Code/GameEngine/Source/Common/System/CopyProtection.cpp gives the source;

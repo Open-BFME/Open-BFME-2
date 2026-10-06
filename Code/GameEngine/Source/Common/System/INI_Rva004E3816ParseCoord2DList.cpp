@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?Rva004E3816Parse@INI@@SAXPAV1@PAX1PBX@Z @0x004E3816 39B: INI list-parse
 // twin of INI_Rva002F592ParseArmyPlacementPos (0x002F592, 40B) in the same
 // dir with identical flags and callees (rowed parseCoord2D at 0x002F558,

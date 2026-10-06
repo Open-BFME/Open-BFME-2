@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva002A8845_ParseProbability (retail 0x002A8845, 118 bytes). Parses the
 // EconomyUpgradeProbability / SpecialPowerActivationProbability /
 // OffensiveTacticActivationProbability entries of the table at 0xBFD768

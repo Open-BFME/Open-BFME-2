@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00232D38@CopyProtect@@SA_NXZ, retail 0x00232D38, 43 bytes. Full-string
 // gate beside CopyProtect::validate: when the launcher view is present it
 // compares the whole view against the rowed ?GetRegistryG4@@YAPBDXZ string,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 
 // A text-dumping Xfer, vtable 0x00C7B388 (constructor 0x0060DEB1, destructor
 // 0x0060DED5).  Every typed transfer prints its value with a labelled format --

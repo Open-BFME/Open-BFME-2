@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // INI::parseAsciiStringVector (retail 0x002F196, 36 bytes). Shared vector
 // parser behind the AnimationName, RequiredUpgrades, ForbiddenUpgrades and
 // ObjectNames table entries: clears the store through the rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva0028F633@@QAE@HH@Z -- retail 0x0028F633, 47 bytes.
 // Fixed 128-byte (1024-bit) bitset two-argument constructor: zeroes the whole

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Oy- /DNDEBUG /MD /GX-
 // ??0Rva002A8823Tuning@@QAE@XZ @ 0x002A8823 (34B). DifficultyTuning default ctor with 2 plus six 1s plus -1.
 // Evidence: sole caller ParseDifficultyTuning at 0x002A89DD; six probability fields plus max farms.
 // Two _ReadWriteBarriers pin mov-2-first and or-minus-1-last; barrier-free floats or first.

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z, retail 0x00338B30, 70 bytes.
 // Dedicated TU (same INI verb family as INI_parseDurationReal.cpp, framed).

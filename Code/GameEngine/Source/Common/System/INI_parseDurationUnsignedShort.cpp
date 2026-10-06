@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?parseDurationUnsignedShort@INI@@SAXPAV1@PAX1PBX@Z, retail 0x00338B76, 70 bytes.
 // Dedicated TU (twin of INI_parseDurationUnsignedInt.cpp).

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ?rva000747E5@Rva000747E5@@QAEXXZ, retail 0x000747E5, 23 bytes.
 // Guarded DisplayStringManager factory: if TheDisplayStringManager (VA 0xdfead8)
 // then this+0x28 = manager->newDisplayString() at slot 0x38. Manager layout per

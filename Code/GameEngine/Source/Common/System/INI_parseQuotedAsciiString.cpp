@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // INI::parseQuotedAsciiString (retail 0x002F15A, 60 bytes). Zero Hour donor
 // served from INI.cpp: assigns one quoted token into the store through the
 // rowed getNextQuotedAsciiString at 0x002E93F and the rowed AsciiString

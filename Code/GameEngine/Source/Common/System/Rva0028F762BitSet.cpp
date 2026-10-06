@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028F762@Rva0028F762@@QAE_NPBD@Z @ 0x0028F762 47B: twin of 0x0028F733
 // (same shape); set bit from name via rowed BitFlags<101>::getSingleBitFromName
 // (0x0028C819 BodyState table); returns false if bit<0 else sets

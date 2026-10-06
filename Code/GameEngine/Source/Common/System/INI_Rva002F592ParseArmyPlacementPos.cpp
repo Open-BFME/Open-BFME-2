@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva002F592_ParseArmyPlacementPos (retail 0x002F592, 40 bytes). Parses a
 // Coord2D through the rowed parseCoord2D at 0x002F558 into a stack temp
 // (instance and userData forwarded), then pushes it through the rowed

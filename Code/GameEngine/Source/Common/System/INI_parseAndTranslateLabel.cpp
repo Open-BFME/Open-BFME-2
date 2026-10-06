@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?parseAndTranslateLabel@INI@@SAXPAV1@PAX1PBX@Z, retail 0x0033987B, 133 bytes.
 // Dedicated TU (same INI parser family as INI_parseFXList.cpp).

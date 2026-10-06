@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?rva00255D58@Rva00255D58@@QAE_NPBDPA_N1@Z @0x00255D58 308B
 // Single-token KindOf bitstring worker over TheKindOfBitNames at 0x00DBBE18.

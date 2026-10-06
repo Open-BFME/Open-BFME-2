@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ??0MemoryReadFile@@QAE@PADH@Z @0x00602255 89B: MemoryReadFile ctor over caller-owned block
 // Evidence: pinned name; donor open-bfme-1/game/GameEngine/Source/Common/System/File.cpp:536; base ModuleData 0x006024FD shares File 0x14-byte layout and "<no file>" default; StringBase::set 0x000055F5 with "<MemoryReadFile>"; vtable 0x00C7A748; caller 0x00602301 createMemoryReadFile.
 #include "ascii_string.h"

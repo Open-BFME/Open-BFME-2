@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?test@?$BitFlags@$0L@@@QBE_NPBX@Z @0x0023C59F, 37B.
 // BitFlags<11>::test – one-word overlap check for DisabledMask.

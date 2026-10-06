@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z, retail 0x002F11E, 60 bytes.
 // Dedicated SEH TU (same AsciiString-temp family as INI_getNextAsciiString.cpp).

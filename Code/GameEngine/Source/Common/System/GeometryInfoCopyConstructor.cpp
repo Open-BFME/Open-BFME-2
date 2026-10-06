@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // stlport
 // Open-BFME: GeometryInfo copy constructor, retail 0x000FFD10.
 //

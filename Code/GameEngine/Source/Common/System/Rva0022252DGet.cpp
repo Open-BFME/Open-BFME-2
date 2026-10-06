@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // ?rva0022252D@Rva0022252D@@QAEPAXH@Z, retail 0x0022252D, 26 bytes.
 // Bounds-checked slot lookup: 14 entries at this+0xD4 stride 0x28 return

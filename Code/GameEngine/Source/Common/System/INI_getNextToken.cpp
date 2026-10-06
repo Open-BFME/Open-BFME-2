@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?getNextToken@INI@@QAEPBDPBD@Z, retail 0x002DF97, 75 bytes.
 // Dedicated TU.

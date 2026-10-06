@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?Rva0021BAA3Insert@@YAXPAVRva0021915B@@V1@URva0021B753@@@Z @0x0021BAA3 89B
 // __unguarded_linear_insert for 8-byte AsciiString-plus-bool entries with empty
 // comparator Rva0021B753 (rowed 0x0021B753). Shifts while comp(val next) then

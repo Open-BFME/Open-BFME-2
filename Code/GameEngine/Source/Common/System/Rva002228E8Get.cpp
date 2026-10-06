@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 
 // ?Rva002228E8Get@@YA?AVAsciiString@@M@Z, retail 0x002228E8, 95 bytes.
 // Free AsciiString(float) via "%g": stack temp format through rowed

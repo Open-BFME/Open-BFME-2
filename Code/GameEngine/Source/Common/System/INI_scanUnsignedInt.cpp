@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?scanUnsignedInt@INI@@QAEIPBD@Z, retail 0x002ED3A, 105 bytes.
 // Dedicated TU (ebp frame needs /Oy-).

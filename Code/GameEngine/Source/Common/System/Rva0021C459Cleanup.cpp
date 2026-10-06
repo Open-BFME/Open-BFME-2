@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva0021C459@Rva0021C459@@QAEXPAUNode0021C459@@@Z @0x0021C459 53B recurse-right via +0xC walk-left via +0x8 clear value at +0x10 via rowed 0x005B804E free 0x00030830.
 // Evidence: unlock lane all callees rowed; same 53B shape as rowed erase 0x0021C3B2 but with Unicode StringBase clear; prev-row WideConcatPair proves Unicode family; next-row hero tree proves page.
 template <typename T> class StringBase {

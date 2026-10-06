@@ -15,7 +15,7 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// cl: /O1 /EHsc
+// cl: /EHsc
 //
 // The narrow half of BFME 2's expression-template string concatenation, and
 // the AsciiString registry-path builder built on it. The wide half lives in

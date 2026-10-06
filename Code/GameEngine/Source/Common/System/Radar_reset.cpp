@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?reset@Radar@@UAEXXZ, retail 0x002D7DB9, 28 bytes. Dedicated TU: the two
 // callees live in other TUs (deleteListResources is a pinned row,

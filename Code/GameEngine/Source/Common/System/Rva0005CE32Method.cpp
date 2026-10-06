@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /G7 /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva0005CE32@Rva0005CE32@@QAEXABVAsciiString@@@Z 0x0005CE32 65B evidence: erase 0x0005B5EA via AsciiString; float m_9c vs g_Va00BBB8D8; spaces fill 48B at +0x188; caller 0x0005E19F in 0x0005E168; prev XferUnicodeStringVector same flags

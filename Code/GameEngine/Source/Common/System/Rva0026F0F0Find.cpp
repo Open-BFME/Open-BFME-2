@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0026F0F0@Rva0026F0F0@@QAEPAXPBX@Z @0x0026F0F0 42B
 // Find over +0xc list: return first node whose +0x38 bit is set in the
 // caller mask array, following +0x64 links. Unlocks 8 callers.

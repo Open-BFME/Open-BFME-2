@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?Rva00338E52_ParseEnvelope@INI@@SAXPAV1@PAX1PBX@Z, retail 0x00338E52, 605 bytes.
 // INI FieldParse callback in the INI.cpp run between parseDeathTypeFlags

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 // ??_GLivingWorldRegionConnection@@UAEPAXI@Z, the scalar deleting
 // destructor in vtable 0x00C36E48 slot 0 (retail 0x003F2A70, 28 bytes).

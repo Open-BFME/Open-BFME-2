@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?findDrawPositions@Radar@@QAEXHHHHPAUICoord2D@@0@Z,
 // retail 0x002D799C, 266 bytes. Shard TU: the caller (localPixelToRadar)

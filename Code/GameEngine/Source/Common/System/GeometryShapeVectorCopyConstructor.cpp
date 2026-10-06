@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii
+// cl: /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii
 // stlport
 // Open-BFME: vector<GeometryShape> copy constructor, retail 0x000FDE60.
 //

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?readUnicodeString@@YA?AVUnicodeString@@PAU_iobuf@@@Z @0x0037B648 194B.
 // Ported from BFME 1 donor game/GameEngine/Source/Common/System/
 // ReadUnicodeString.cpp at Open-BFME-1 6583b3c1ff (ZH GameText.cpp's file-scope

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX /Oi-
 // ?Rva0033940F_Parse@INI@@SAXPAV1@PAX1PBX@Z, retail 0x0033940F, 236 bytes.
 // INI parse callback in the same family as INI_parseMappedImage (0x003390B2)
 // and INI_parseWeaponTemplate (0x00339569): getNextToken, throw ERROR_BUG

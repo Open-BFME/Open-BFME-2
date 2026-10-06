@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi- /arch:SSE
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?parseRGBAColorInt@INI@@SAXPAV1@PAX1PBX@Z, retail 0x002F2FF, 254 bytes.
 // Dedicated TU (same INI verb family as INI_parseRGBColor.cpp, framed).

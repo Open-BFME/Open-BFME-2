@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BitFlags<11> intersection popcounts. Retail is the dword SWAR fold, not
 // std::bitset::count. Dedicated TU so SparseMatchFinder cannot inline these.

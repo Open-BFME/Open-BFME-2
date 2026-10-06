@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?scanBool@INI@@QAE_NPBD@Z, retail 0x002D14A, 101 bytes.
 // Dedicated TU (same INI scanner family as INI_scanReal.cpp).

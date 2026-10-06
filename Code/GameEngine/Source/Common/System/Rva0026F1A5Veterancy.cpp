@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // ?friend_makeVeterancyUpgrade@UpgradeTemplate@@QAEXW4VeterancyLevel@@@Z @0x0026F1A5 113B
 // ZH Upgrade.cpp friend_makeVeterancyUpgrade: m_type=OBJECT m_name=getVet(v)
 // m_nameKey=NameKey m_display.clear m_buildTime=0 m_cost=0. Unlocks 0x0026FAFE.

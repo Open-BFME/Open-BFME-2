@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva00339E1C_ParseBrowser (retail 0x00339E1C, 100 bytes). Clears the
 // ScienceType vector, then reads an OrNull token list: "None" clears and
 // stops, anything else resolves through the rowed INI::scanIndexList at

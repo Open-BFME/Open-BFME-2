@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // LivingWorldRegionConnection vector helpers (hand-mirrored STLport
 // shapes; the _Construct call stays out of line through the declared-only
 // template below resolving to the rowed 0x003F2980).

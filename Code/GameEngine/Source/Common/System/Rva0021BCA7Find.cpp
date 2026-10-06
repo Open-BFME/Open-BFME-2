@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
 // ?rva0021BCA7@Rva0021BCA7@@QAEPAXHI@Z @ 0x0021BCA7 67B
 // __thiscall vector-index lookup via rowed 0x0021BC0D find: map<int,vector<unsigned>>

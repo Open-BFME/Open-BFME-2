@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // CopyProtect::checkForMessage, retail 0x00232CE7, 37 bytes. Called from
 // WndProc (Code/GameEngine/Source/Main/WinMain.cpp, matched at 0x0000179F)
 // via the REL32 pinned in reverse/symbols.csv. Kept in its own TU so

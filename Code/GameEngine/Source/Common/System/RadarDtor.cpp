@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Radar@@UAE@XZ, retail 0x002D7CED, 98 bytes. Radar destructor (MI:
 // primary Snapshot, second GameEngineDeletingBase). Evidence: two vptr

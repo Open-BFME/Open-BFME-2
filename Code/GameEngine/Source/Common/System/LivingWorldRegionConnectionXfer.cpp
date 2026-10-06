@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?DoXfer@LivingWorldRegionConnection@@UAEXAAVXfer@@@Z @0x003F3054 70B
 // Snapshot slot 3 DoXfer: Version(1,1) + regionName + numberAllowed via helper

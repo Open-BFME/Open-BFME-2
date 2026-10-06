@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva00035190@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z @0x00035190 125B Realloc-like
 // ?rva00035210@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z @0x00035210 125B Calloc-like

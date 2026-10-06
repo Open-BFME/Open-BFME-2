@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?parseBitString16@INI@@SAXPAV1@PAX1PBX@Z, retail 0x002F21A, 62 bytes.
 // Dedicated TU (same INI verb family as INI_parseBitString8.cpp, framed).

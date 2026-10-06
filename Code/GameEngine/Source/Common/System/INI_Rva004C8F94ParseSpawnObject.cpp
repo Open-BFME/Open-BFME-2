@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva004C8F94_ParseSpawnObject (retail 0x004C8F94, 67 bytes). Reads a
 // required first token through the rowed getNextToken at 0x002DF97, then
 // loops OrNull tokens through the rowed getNextTokenOrNull at 0x002DEED:

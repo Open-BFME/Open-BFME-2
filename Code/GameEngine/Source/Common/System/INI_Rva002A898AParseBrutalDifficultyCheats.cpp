@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /arch:SSE
+// cl: /Oy- /DNDEBUG /MD /GX-
 // Rva002A898A_ParseBrutalDifficultyCheats (retail 0x002A898A, 72 bytes).
 // Builds a float pair {0.0, default from the float global at 0xBC2424},
 // fills it through the rowed INI::initFromINI at 0x002DE78 with the two

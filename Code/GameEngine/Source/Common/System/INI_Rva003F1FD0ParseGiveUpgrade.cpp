@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva003F1FD0_ParseGiveUpgrade (retail 0x003F1FD0, 99 bytes). Throws a
 // 0xDEAD0001-marked word through the CxxThrowException thunk at
 // 0x00629094 when TheUpgradeCenter is still null, then reads an OrNull

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva002D7AA6@Radar@@QAEXH@Z @0x002D7AA6 10B clearer.
 // Retail and [ecx+0x1460],0 then ret 4. Evidence: leaf lane; neighbours
 // Radar_findDrawPositions and RadarNewMap; and-mem-zero needs /O1;

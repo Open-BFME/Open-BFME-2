@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028F733@Rva0028F733@@QAE_NPBD@Z @ 0x0028F733 47B: set bit from name
 // via rowed BitFlags<104>::getSingleBitFromName (0x0028C7E3); returns false
 // if bit<0 else sets m_bits[bit>>5] |= 1<<(bit&31) and returns true.

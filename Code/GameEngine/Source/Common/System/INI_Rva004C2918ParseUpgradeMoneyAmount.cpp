@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?Rva004C2918_ParseUpgradeMoneyAmount@INI@@SAXPAV1@PAX1PBX@Z (retail 0x004C2918, 61 bytes). Parses a
 // science/amount pair through the rowed KillerScience parser at 0x003396D3
 // into the first slot and the rowed parseInt at 0x0002EF56

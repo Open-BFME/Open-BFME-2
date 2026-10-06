@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva002D342AXfer20@@YAPAVXfer@@PAV1@PA_N@Z @ 0x002D342A 95B
 // Free Xfer helper that checks a uint count of 20 through slot 30 then moves twenty bools through slot 36.
 // Evidence: same shape as rowed Rva0060BC53Xfer3 0x0060BC53 (uint count check plus loop plus XferException plus bfmeFormatText plus XferException's throw information)

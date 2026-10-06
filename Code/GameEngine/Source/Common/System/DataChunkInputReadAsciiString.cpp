@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0030750A@DataChunkInput@@QAE?AVAsciiString@@XZ @0x0030750A 153B
 // DataChunkInput counted-string reader (readAsciiString shape): reads u16 len
 // via virtual read, decrements, getBufferForRead, reads bytes, null terms,

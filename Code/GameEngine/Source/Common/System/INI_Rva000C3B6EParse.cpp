@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva000C3B6EParse@INI@@SAXPAV1@PAX1PBX@Z @0x000C3B6E 235B.
 // INI parse filling a stack BfmeStringRecord000B950F (frame int at +0,
 // AsciiString data at +4, state at +8) by looping getNextTokenOrNull with

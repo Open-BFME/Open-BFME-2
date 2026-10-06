@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004B57F4@GarrisonUpgrade@@SA?AW4NameKeyType@@XZ @0x4B57F4
 // (69B): cached pool-name key for GarrisonUpgrade. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ?rva0002DD38@INI@@QAE_NVAsciiString@@00W4INILoadType@@PAVXfer@@@Z
 // @0x0002DD38 (260B).

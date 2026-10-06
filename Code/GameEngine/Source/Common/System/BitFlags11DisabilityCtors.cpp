@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // DisabledMaskType is BitFlags<11> (BFME DISABLED_COUNT is 11: the shim at
 // reference/shims/bfmeobject/GameLogic/Object.h documents the 0xb
 // range-check; BitFlags11DisabilityGetSingleBitFromName.cpp already rows

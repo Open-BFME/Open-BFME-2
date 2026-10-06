@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX
 //
 // Value-returning AsciiString getters with the RVO idiom proven by
 // GlobalDataRva002360DE.cpp (retail 0x002360DE, 30 bytes):

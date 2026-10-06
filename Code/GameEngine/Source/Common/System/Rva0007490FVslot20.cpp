@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ?rva0007490F@Rva0007517F@@UAEXPADHHHHH@Z, retail 0x0007490F, 178 bytes.
 // Virtual slot 20 offset 0x50 of vtable 0x007C6620 in class Rva0007517F.
 // Evidence: vslot lane, donor TU Rva0007517FCtor.cpp, triple _D11 slot 0x2C

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva00339AF1_ParseSciences (retail 0x00339AF1, 95 bytes). Clears the
 // ScienceType vector, then reads an OrNull token list: "None" clears and
 // stops, anything else resolves through the rowed INI::scanScience at

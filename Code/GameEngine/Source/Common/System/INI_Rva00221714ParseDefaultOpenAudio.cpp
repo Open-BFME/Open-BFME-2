@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Rva00221714_ParseDefaultOpenAudio (retail 0x00221714, 75 bytes). Parses a
 // string through the rowed parseAsciiString at 0x002F11E into a stack temp
 // (passed as both instance and store, userData 0), assigns it through the

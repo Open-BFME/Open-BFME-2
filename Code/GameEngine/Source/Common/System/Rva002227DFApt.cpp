@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva002227DF@Rva002227DF@@QAEXXZ @0x002227DF 85B
 // Unnamed Apt loader init: builds "Apt\" and "Background.apt" in place as
 // by-value pair plus flags (1, 0) for vtable slot 0x50 and keeps the result

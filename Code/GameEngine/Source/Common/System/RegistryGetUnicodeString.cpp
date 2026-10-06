@@ -15,7 +15,7 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // getStringFromRegistry, retail 0x00234417 (190 bytes). Reads a wide
 // registry string (typically DisplayName) under a caller-supplied root key

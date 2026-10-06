@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??0Rva0007517F@@QAE@XZ, retail 0x0007517F, 112 bytes.
 // Ctor calls rowed base 0x0030B0E3, installs its own vtable, inits +0x1C/+0x20/+0x24/+0x28,
 // builds 20x RubbleFXVec at +0x2C through ehvec iterator 0x00629512, registers

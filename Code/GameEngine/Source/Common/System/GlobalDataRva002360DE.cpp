@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX
 //
 // ?rva002360DE@GlobalData@@QBE?AVAsciiString@@XZ,
 // retail 0x002360DE, 30 bytes, plus the Unicode twin

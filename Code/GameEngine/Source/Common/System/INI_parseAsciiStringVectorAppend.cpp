@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // INI::parseAsciiStringVectorAppend (retail 0x002E896, 169 bytes). BFME2
 // growth of the BFME1 donor: each token is macro-expanded, and expansions
 // differing from the token are split on the fly (nextToken with null seps)

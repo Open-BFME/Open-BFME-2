@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // Rva003396D3_ParseKillerScience (retail 0x003396D3, 58 bytes). Reads a
 // token through the rowed getNextToken at 0x002DF97; when the ScienceStore
 // global at 0xDFE0E0 is unloaded it throws a 0xDEAD0001-marked word through

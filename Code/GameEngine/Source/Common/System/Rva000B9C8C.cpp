@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX- /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX- /DNDEBUG /MD
 // ?rva000B9C8C@Rva000B9C8C@@QAEPBVImage@@XZ 0x000B9C8C 92B
 // Evidence: leaf slot 52 of W3D Draw vtables; cached-image refresh comparing AsciiString at data+0x5C against member at +0x2E4 via rowed compareNoCase then set; empty check on StringBase at data+0x60 via rowed isEmpty; else rowed findImageByName through g_00DFF078.
 

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // BFME2-only INI math expressions: a value token starting with '#'
 // (scanInt/scanUnsignedInt/scanReal, rowed in INI_scan*.cpp) is evaluated

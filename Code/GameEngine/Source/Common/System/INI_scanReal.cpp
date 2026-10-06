@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?scanReal@INI@@QAEMPBD@Z, retail 0x002EDA5, 107 bytes.
 // Dedicated TU (ebp frame needs /Oy-, unlike the frameless parseDurationReal

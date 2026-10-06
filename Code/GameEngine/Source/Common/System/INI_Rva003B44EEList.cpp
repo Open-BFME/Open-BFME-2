@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /EHsc
 // ?rva003B5624@Rva003B44EE@@QAEXVAsciiString@@@Z @0x003B5624 129B list-form bitstring parser driving single-token worker 0x003B44EE per nextToken.
 // Evidence: calls rowed nextToken 0x00036D90 and rowed rva003B44EE 0x003B44EE; empty fallback g_Rva0107301CEmptyString; caller 0x003B596A builds by-value AsciiString arg.
 #include "ascii_string.h"

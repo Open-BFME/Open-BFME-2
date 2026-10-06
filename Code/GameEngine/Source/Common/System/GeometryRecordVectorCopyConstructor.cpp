@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // Open-BFME: vector<GeometryRecord> copy constructor, retail 0x000FDF90.
 // GeometryInfo's copy constructor calls this member through ILT 0x000149DE.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Random-access __copy loop over the 0x24-byte element copied at retail
 // 0x002AF6C5 (50 bytes; count via idiv 0x24, per-element copy through the

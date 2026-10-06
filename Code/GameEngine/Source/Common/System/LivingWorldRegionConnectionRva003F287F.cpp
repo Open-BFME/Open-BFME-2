@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva003F287F@Rva003F287F@@QAEXAAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z, retail 0x003F287F 92B.
 // Filters the vector at this+0x170: pushes entry+0x20 (ModuleData const *) into out when nonzero and byte at entry+0x34 is zero.

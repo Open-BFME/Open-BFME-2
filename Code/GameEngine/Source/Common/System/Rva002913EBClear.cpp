@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002913EB@Rva002913EB@@QAEXXZ -- retail 0x002913EB, 41 bytes.
 // Tree clear: if count at +4 is zero return, else free root at [header+4]
