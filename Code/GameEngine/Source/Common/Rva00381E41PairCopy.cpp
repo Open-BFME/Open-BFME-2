@@ -19,6 +19,25 @@
 // folded), and their signedness is not observable here; short and int are
 // stand-ins for that.
 #include <map>
+// Use the verified 34-byte creator supplied by stlport_modulefactory_map_copy.
+// The generic malloc-based copy emits 32 different bytes at this native target.
+typedef _STL::pair<const unsigned char, int> BfmeByteDwordNodeValue;
+typedef _STL::_Rb_tree<unsigned char, BfmeByteDwordNodeValue,
+    _STL::_Select1st<BfmeByteDwordNodeValue>, _STL::less<unsigned char>,
+    _STL::allocator<BfmeByteDwordNodeValue> > BfmeByteDwordNodeTree;
+template <> _STL::_Rb_tree_node<BfmeByteDwordNodeValue> *
+BfmeByteDwordNodeTree::_M_create_node(const BfmeByteDwordNodeValue &value);
+template <> _STL::_Rb_tree_node<BfmeByteDwordNodeValue> *
+BfmeByteDwordNodeTree::_M_copy(_STL::_Rb_tree_node<BfmeByteDwordNodeValue> *x,
+    _STL::_Rb_tree_node<BfmeByteDwordNodeValue> *p);
+typedef _STL::pair<const unsigned char, short> BfmeByteWordNodeValue;
+typedef _STL::_Rb_tree<unsigned char, BfmeByteWordNodeValue,
+    _STL::_Select1st<BfmeByteWordNodeValue>, _STL::less<unsigned char>,
+    _STL::allocator<BfmeByteWordNodeValue> > BfmeByteWordNodeTree;
+template <> _STL::_Rb_tree_node<BfmeByteWordNodeValue> *
+BfmeByteWordNodeTree::_M_copy(_STL::_Rb_tree_node<BfmeByteWordNodeValue> *x,
+    _STL::_Rb_tree_node<BfmeByteWordNodeValue> *p);
+
 template class _STL::_Rb_tree<unsigned char, _STL::pair<const unsigned char, short>,
 	_STL::_Select1st<_STL::pair<const unsigned char, short> >, _STL::less<unsigned char>,
 	_STL::allocator<_STL::pair<const unsigned char, short> > >;

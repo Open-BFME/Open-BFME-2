@@ -1,3 +1,5 @@
+// ?_M_copy@?$_Rb_tree@EU?$pair@$$CBEH@_STL@@U?$_Select1st@U?$pair@$$CBEH@_STL@@@2@U?$less@E@2@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBEH@_STL@@@2@PAU32@0@Z
+// partial score=1.0 date=2026-10-06
 // cl: /GX- /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 //
@@ -140,6 +142,53 @@ typedef _Rb_tree<unsigned char, ByteShortValue, _Select1st<ByteShortValue>,
 
 template <> ByteShortTree::Node *ByteShortTree::_M_clone_node(Node *x);
 template ByteShortTree::Node *ByteShortTree::_M_copy(Node *x, Node *p);
+
+// Native 0x00387717 inlines clone, but calls the 24-byte-node creator.
+// The existing uchar/int map spelling is a scalar stand-in: the folded
+// uchar/float map uses this same byte-and-dword copy, so signedness is unknown.
+typedef pair<const unsigned char, int> ByteDwordValue;
+typedef _Rb_tree<unsigned char, ByteDwordValue, _Select1st<ByteDwordValue>,
+    less<unsigned char>, allocator<ByteDwordValue> > ByteDwordTree;
+
+template <> class allocator<char>
+{
+public:
+    static char *allocate(unsigned int n, const void *hint);
+};
+
+}
+
+struct Rva0038768DData
+{
+    unsigned char m_b;
+    int m_x;
+};
+void Rva0038768DCopy(Rva0038768DData *, const Rva0038768DData *);
+
+namespace _STL {
+
+// Same 34 native bytes as the rowed Rva0038766BAlloc view; no receiver access.
+// This definition supplies the existing STL member pin, without another row
+// claiming the creator's address or a linker alias.
+// ?_M_create_node@?$_Rb_tree@EU?$pair@$$CBEH@_STL@@U?$_Select1st@U?$pair@$$CBEH@_STL@@@2@U?$less@E@2@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBEH@_STL@@@2@ABU?$pair@$$CBEH@2@@Z present-unmatched
+template <> __declspec(noinline) inline ByteDwordTree::Node *ByteDwordTree::_M_create_node(const ByteDwordValue &value)
+{
+    Node *node = (Node *)allocator<char>::allocate(sizeof(Node), 0);
+    Rva0038768DCopy((Rva0038768DData *)&node->m_value,
+        (const Rva0038768DData *)&value);
+    return node;
+}
+
+template <> __forceinline ByteDwordTree::Node *ByteDwordTree::_M_clone_node(Node *x)
+{
+    Node *top = _M_create_node(x->m_value);
+    top->m_color = x->m_color;
+    top->m_left = 0;
+    top->m_right = 0;
+    return top;
+}
+
+template ByteDwordTree::Node *ByteDwordTree::_M_copy(Node *x, Node *p);
 
 }
 
