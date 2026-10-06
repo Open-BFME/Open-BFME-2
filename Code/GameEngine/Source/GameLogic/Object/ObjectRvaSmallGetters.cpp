@@ -21,6 +21,13 @@ struct ICoord2D : ICoord2DBase
 	bool operator==(const ICoord2DBase &other) const;
 };
 
+struct Rva002EBC7FPair
+{
+	int x;
+	int y;
+};
+void *__cdecl rva002EBC7F(void *out, void *owner, Rva002EBC7FPair *position, int layer);
+
 // The object at Object+0xA4. Its float getter at 0x004DD843 is rowed under
 // this address-derived class name, so the forwarders below reuse it; the
 // remaining methods are pinned from the forwarders' own REL32 targets.
@@ -129,6 +136,35 @@ public:
 	void rva0028B95F();
 	bool isOutOfAmmo() const;
 };
+
+// These bodies are the methods reached by Object::GetGoalPosition and
+// Object::GetPathfinderPos through Object+0xA4. Retail checks the first word
+// of the relevant coordinate pair against -666666, calls rowed
+// rva002EBC7F, copies its 12-byte result to the output, and returns true.
+// The method names and owner layout remain address-derived; the wrappers
+// support the goal/pathfinder roles and the pair offsets below.
+bool Rva004DD843::rva004DD80A(Coord3D *out)
+{
+	Rva002EBC7FPair *position = (Rva002EBC7FPair *)((char *)this + 0x1c);
+	if (position->x == -666666)
+		return false;
+	Coord3D result;
+	void *value = rva002EBC7F(&result, *(void **)this, position, m_value);
+	*out = *(Coord3D *)value;
+	return true;
+}
+
+bool Rva004DD843::rva004DD84D(Coord3D *out)
+{
+	Rva002EBC7FPair *position = (Rva002EBC7FPair *)((char *)this + 4);
+	if (position->x == -666666)
+		return false;
+	Coord3D result;
+	void *value = rva002EBC7F(&result, *(void **)this, position,
+		*(int *)((char *)this + 0x10));
+	*out = *(Coord3D *)value;
+	return true;
+}
 
 // Null-checked forwarders through the Object+0xA4 object (retail
 // 0x0028ACCA..0x0028ADC1, between the rowed 0x0028ACA0 and 0x0028AD6C/
