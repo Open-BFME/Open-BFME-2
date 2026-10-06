@@ -1,5 +1,3 @@
-// ?rva005E56FC@Rva005E56FC@@QAEPAXXZ
-// partial score=0.92 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
 // ?rva005E56FC@Rva005E56FC@@QAEPAXXZ @0x005E56FC 78B.
 // View then player then stdcall chain with redundant mov ecx before stdcall.
@@ -42,7 +40,6 @@ private:
 	Rva005E56FCOuter *m_04;
 	int m_08;
 };
-// ?rva005E56FC@Rva005E56FC@@QAEPAXXZ present-unmatched
 void *Rva005E56FC::rva005E56FC()
 {
 	Rva0020E89C *view = g_009FEF10->m_B0->rva0020EAF6(m_08);
@@ -51,7 +48,10 @@ void *Rva005E56FC::rva005E56FC()
 		int id = m_04->m_ptr18->m_id54;
 		Rva002E2903Player *player = g_009FEF10->find(id, 0);
 		if (player != 0)
+		{
+			(void)*(Rva002BA8F1Logic * volatile *)&g_009FEF10;
 			return Rva002B4948Find(player, view, 0);
+		}
 	}
 	return 0;
 }

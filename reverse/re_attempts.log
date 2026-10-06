@@ -11406,3 +11406,5 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva00152CDA@Rva00152D1CObj@@QAEPAV1@PAV1@@Z	0x00152CDA	66	blocked	ebx edi mirror; shape-lever definition-order says define locals in retail materialize order other this str virtual; try s inner v reorder t=2 model=muse-02 (stash 0.9 kept)
 ?rva00518B05@AptOptions@@QAEXABVAsciiString@@H@Z	0x00518B05	264	blocked	warning prompt vector functor GameText layout complex t=15 model=muse-05
 ??1Rva0025E4CD@@UAE@XZ	0x0025E4CD	80	partial	missing second vptr 0xBF5F30 74vs80 t=25 model=muse-05 score=0.93 stash=reverse/attempts/0x0025e4cd.cpp
+?rva004ABDDC@Rva004ABDC3@@QAEXH@Z	0x004ABDDC	119	blocked	leaf needs EH plus STL set plus ObjectCreationList plus Rb walk with UNCLAIMED scope table and no donor t=15 model=muse-07
+?rva0042D480@Rva0042D480@@QAE_NXZ	0x0042D480	19	blocked	global null path needs shared ret reusing zero but O1 emits separate xor plus ret and int form adds movzx t=20 model=muse-07
