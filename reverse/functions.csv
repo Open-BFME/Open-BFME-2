@@ -64603,3 +64603,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva004787B0@GarrisonContain@@QAEXXZ,,0x004787B0,160,Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRva004787B0.cpp,matched,vtable slot 5 Contain family callee rows 0x002D06CA 0x0028AFA9 0x002D0A23
 ?rva0055D0D5@Rva0055D0D5@@QAE?AUCoord3D0055D0D5@@IIII@Z,,0x0055D0D5,531,Code/GameEngine/Source/GameClient/Rva0055D0D5Sample.cpp,matched,vslot7 BoxEmissionVolumeModule hollow extents donor box path
 ?Add@Rva005B5C02List@@QAE_NPAURva005B5C02Entry@@@Z,,0x0040A384,45,Code/GameEngine/Source/Common/Rva005B5C02ListAdd.cpp,matched,leaf caller 0x005B5C62 via rowed find and pinned Use
+??1Rva001DF057@@UAE@XZ,,0x001DF057,154,Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp,matched,virtual dtor two vptrs list free hash vector tree

@@ -11513,3 +11513,9 @@ FUN_00914fe9	0x00514FE9	88	blocked	ADDRESS-NAMED g_Va00A01E48 escape hatch t=1 m
 ?Rva002080DAXferList@@YAPAVXfer@@PAV1@PAV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z	0x002080DA	237	blocked	value before empty check worse 235B structural t=10 model=muse-02 (stash 0.92 kept)
 ?rva004F2ABC@Rva004F2ABC@@QAEXHH@Z	0x004F2ABC	306	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va009FE16C g_Va007C26F0 new uses refused t=2 model=muse-02
 ?rva002A9072@Rva002A9072@@QAEXXZ	0x002A9072	206	blocked	multi-container clear tree plus 3 vectors plus 5 globals needs donor layout no sibling t=5 model=muse-02
+?Rva005F5749Notify@@YIXPAURva005F5749A@@PAURva005F5749B@@@Z	0x005F5749	143	blocked	custom EAX-EDI register passing not expressible in clean C++ cdecl uses stack fastcall uses ECX-EDX best fastcall 142B vs 143B frame plus param-reg wall t=28 model=muse-09
+??0Rva0024076D@@QAE@XZ	0x0024076D	162	blocked	address-named global g_Va00BBB8D8 required packet says skip ADDRESS-NAMED is counted hatch t=2 model=muse-09
+?rva00351788@Rva0033F3B6@@QAEHH@Z	0x00351788	449	blocked	esi-edi allocation swap plus float fucomi-lahf vs fcomp-fnstsw plus 23 structural regions branch divergence t=5 model=muse-09
+?rva00086B2C@Rva008B77D@@UAEXHHMMHH@Z	0x003114A7	144	partial	setne al 3B early before 3 stores vs retail late after movss 0x3C otherwise exact 144B t=12 model=muse-09 score=0.97 stash=reverse/attempts/0x003114a7.cpp
+?rva005978ED@Rva005978ED@@QAEPAVRva005970ED@@XZ	0x005978ED	150	partial	bytes exact 150B gate needs rva0059710E int retype of void row t=20 model=muse-09 score=0.98 stash=reverse/attempts/0x005978ed.cpp
+?rva002C004F@Rva002D3627Host@@QAEXPBD@Z	0x002C004F	114	blocked	EH StringBase Iter find plus two-int dispatch needs push-push-fix plus esp save ours 103B direct pushes t=15 model=muse-09
