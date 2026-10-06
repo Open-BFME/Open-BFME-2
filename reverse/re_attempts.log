@@ -14267,3 +14267,4 @@ FUN_0069cc19	0x0029CC19	441	blocked	ADDRESS-NAMED g_Va00DFEEB0 new use refused t
 ?rva0031B60D@Rva0031B60D@@QAE?AVRva0035AEC2@@XZ	0x0031B60D	52	partial	One-byte size delta and vector field address calculation differs t=15 model=gpt-6.1-sol score=0.93 stash=reverse/attempts/0x0031b60d.cpp
 ?Rva003B65F9Parse@@YAHPAUDataChunkInput@@PAUDataChunkInfo@@PAX@Z	0x003B65F9	58	blocked	callback registration identifies ScriptActionFalse but target list layout and helper relationship are unproven t=4 model=gpt-6
 ?rva00204EBB@ScriptEngine@@QAEPAUScript@@ABVAsciiString@@@Z	0x00204EBB	128	blocked	identity likely ScriptEngine lookup but target string map layout is not proven and 128-byte exception shape needs member ownership evidence t=6 model=gpt-6
+FUN_008444ae	0x004444AE	36	blocked	constructor bytes match but C++ UnicodeString array binds UnicodeString dtor while retail helper uses Rva005F8F96; member element identity unresolved t=7 model=gpt-6

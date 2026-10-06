@@ -179,6 +179,7 @@ public:
 
     Bool isSkirmish();
     Bool isColorTaken(Int colorIdx, Int slotToIgnore) const;
+    void setSlotPointer(Int index, GameSlot *slot);
 
 private:
     // vfptr (+0x00) then pads so the slot array lands at +0x18.
@@ -198,6 +199,15 @@ const GameSlot *GameInfo::getConstSlot(Int slotNum) const
     if (slotNum < 0 || slotNum >= MAX_SLOTS)
         return 0;
     return m_slot[slotNum];
+}
+
+// ?setSlotPointer@GameInfo@@QAEXHPAVGameSlot@@@Z @ 0x003FF332 (24B).
+// Identity: Zero Hour GameInfo.cpp donor; target range guard and m_slot store match.
+void GameInfo::setSlotPointer(Int index, GameSlot *slot)
+{
+    if (index < 0 || index >= MAX_SLOTS)
+        return;
+    m_slot[index] = slot;
 }
 
 // The ally helper and the four apparent members must live in this TU
