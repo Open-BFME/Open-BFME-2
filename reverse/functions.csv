@@ -63661,3 +63661,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004E1755@Rva00319CED@@QAEHXZ,,0x004E1755,43,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp,matched,non-empty key lookup to pinned int getter; full byte gate
 ?rva004E23C1@Rva00319CED@@QAEPAXXZ,,0x004E23C1,33,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp,matched,gated key lookup hit return; full byte gate
 ?rva004E23E2@Rva00319CED@@QAEPAXXZ,,0x004E23E2,42,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp,matched,wide span map through rowed indexed get plus rowed tail; full byte gate
+??4BfmeAssignRecord52@@QAEAAU0@ABU0@@Z,,0x002B828A,75,Code/GameEngine/Source/GameLogic/Object/Update/BfmeAssignRecord52Assign.cpp,matched,Memberwise op= via rowed Rva002B5558 op= and vector op= then seven words; existing pin name
