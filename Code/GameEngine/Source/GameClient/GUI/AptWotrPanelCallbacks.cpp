@@ -135,11 +135,79 @@ struct Rva0057B499Node
 	Rva0057B499Item *m_item;
 };
 
+// The Apt window manager's virtual at +0x40 answers a scale pair, as its
+// +0x3C one does for Rva0057A24AFlt.cpp.
+struct Rva00222A8BScale
+{
+	float x;
+	float y;
+};
+
+class Rva00222A8BTarget
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18();
+	virtual void slot1C();
+	virtual void slot20();
+	virtual void slot24();
+	virtual void slot28();
+	virtual void slot2C();
+	virtual void slot30();
+	virtual void slot34();
+	virtual void slot38();
+	virtual Rva00222A8BScale *slot3C();
+	virtual Rva00222A8BScale *slot40();
+};
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern const char g_Rva0107301CEmptyString[];
+
+int __cdecl Rva00527925Fire(void *target, void *level, const char *prefix, const char *function, const float *val);
+
+static __forceinline const char *Rva0057AC8FGetStr(const AsciiString &s)
+{
+	char *t = *(char **)(void *)&s;
+	return t ? t + 8 : g_Rva0107301CEmptyString;
+}
+
+// The checklist's three vftables, stored by its constructor 0x0057B5AA:
+// 0x00C6F118 at +0, 0x00C6F0FC at +4 and, at +8, the scroll bar listener's
+// 0x00C6F0F4 (base 0x00C6EE20: the empty one-argument 0x0047A69C and the
+// (int, float) position slot the bar's listener walk 0x005D4A66 calls).
+class Rva0057AF2EBase
+{
+public:
+	virtual void slot00();
+};
+
+class Rva0057A83CBase
+{
+public:
+	virtual void slot00();
+};
+
+class Rva0057AC8FScrollListener
+{
+public:
+	virtual void slot00(int);
+	virtual void rva0057AC8F(int unused, float position);
+
+	void listenTo(Rva005D4DA9 *scrollBar)
+	{
+		scrollBar->m_listeners.append((Rva002BA8F1Listener *)this);
+	}
+};
+
 namespace StrategicHUD {
 class ChecklistUIImpl;
 }
 
-class StrategicHUD::ChecklistUIImpl
+class StrategicHUD::ChecklistUIImpl : public Rva0057AF2EBase, public Rva0057A83CBase, public Rva0057AC8FScrollListener
 {
 public:
 	void OnClosed(const char *unused);
@@ -154,11 +222,13 @@ public:
 	void rva0057B217();
 	// Rowed in Rva0057A961Apt.cpp.
 	void SetExpandButtonEnabled(bool enabled);
+	// The item list's height (unrowed 0x0057ABD0, pinned by address).
+	float rva0057ABD0() const;
+	virtual void rva0057AC8F(int unused, float position);
 
 private:
-	unsigned char m_pad00[0x08];
-	int m_listener; // +0x08, the scroll bar listener
-	unsigned char m_pad0c[0x14 - 0x0C];
+	void *m_level; // +0x0C, the movie's Apt level
+	AsciiString m_path; // +0x10, the movie's path
 	int m_state; // +0x14
 	unsigned char m_pad18[0x26 - 0x18];
 	bool m_26; // +0x26: expand once closed
@@ -199,7 +269,7 @@ void StrategicHUD::ChecklistUIImpl::OnScrollBarLoaded(const char *name)
 	if (scrollBar->m_ptr == 0)
 	{
 		((Rva00575674 *)scrollBar)->rva00575674((Object *)new Rva005D4DA9(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
-		((Rva005D4DA9 *)scrollBar->m_ptr)->m_listeners.append((Rva002BA8F1Listener *)&m_listener);
+		listenTo((Rva005D4DA9 *)scrollBar->m_ptr);
 		rva0057B16D();
 	}
 }
@@ -237,6 +307,17 @@ void StrategicHUD::ChecklistUIImpl::OnExpandButtonClicked(const char *unused)
 		((Rva0057A8F9 *)this)->rva0057A8F9();
 	else if (state == 0)
 		((Rva0057A92D *)this)->rva0057A92D();
+}
+
+// Retail 0x0057AC8F, 92 bytes: the scroll bar listener's position slot
+// (+8 vftable 0x00C6F0F4 slot 1): scrolls the item list to the position's
+// share of its height (0x0057ABD0), scaled by the window manager's +0x40
+// pair, through the movie's "SetItemListY".
+void StrategicHUD::ChecklistUIImpl::rva0057AC8F(int unused, float position)
+{
+	float height = rva0057ABD0();
+	position = (0.0f - height * position) * TheRva00222A8BTarget->slot40()->y;
+	Rva00527925Fire(TheRva00222A8BTarget, m_level, Rva0057AC8FGetStr(m_path), "SetItemListY", &position);
 }
 
 // ---- the panel built by 0x0057BD79
