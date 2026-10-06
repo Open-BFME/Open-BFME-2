@@ -15,6 +15,13 @@
 // against the local address, slot 64) while a join is pending reports the
 // reason (+0x4C) and the game looked up by name (+0x1E, slot 49) to
 // OnGameJoin (slot 34) with the message, then clears the pending action.
+//
+// LANAPI::handleHasMap, retail 0x00581EA7 (217 bytes), message type 10: Zero
+// Hour's map check (CRC of the portable map path against +0x40), but BFME 2
+// finds the sender among the current game's eight slot addresses (+0x114,
+// stride 0x1D0) instead of by name and reports the status byte (+0x44) to
+// OnHasMap (slot 39) with the sender's address. Retail tests the counter at
+// the bottom of the walk, so the loop is written that way.
 
 typedef int Int;
 typedef bool Bool;
@@ -46,7 +53,53 @@ private:
 	BfmeNetAddress m_address;			// +0x14
 };
 
-class LANGameInfo;
+UnsignedInt ComputeCRC( const UnsignedByte *buf, UnsignedInt len, UnsignedInt crc );
+
+class CRC
+{
+public:
+	CRC( void ) { crc = 0; }
+	__forceinline void computeCRC( const void *buf, Int len ) { crc = ComputeCRC( (const UnsignedByte *)buf, len, crc ); }
+	UnsignedInt get( void ) { return crc; }
+
+private:
+	UnsignedInt crc;
+};
+
+class GameState
+{
+public:
+	AsciiString realMapPathToPortableMapPath( const AsciiString &in ) const;
+};
+extern GameState *TheGameState;
+
+enum
+{
+	MAX_SLOTS = 8
+};
+
+struct LANSlotAddress
+{
+	BfmeNetAddress m_address;			// slot +0x38
+	UnsignedByte m_rest[0x1D0 - 8];
+};
+
+class GameInfo
+{
+public:
+	AsciiString getMap( void ) const;
+};
+
+class LANGameInfo : public GameInfo
+{
+public:
+	const BfmeNetAddress *getAddress( Int slot ) const { return &m_slots[slot].m_address; }
+	const LANSlotAddress *getSlots( void ) const { return m_slots; }
+
+private:
+	UnsignedByte m_pre114[0x114];
+	LANSlotAddress m_slots[MAX_SLOTS];		// addresses from +0x114
+};
 
 class LANAPIInterface
 {
@@ -71,6 +124,12 @@ struct LANMessage
 			UnsignedShort playerPort;		// +0x4A
 			LANAPIInterface::ReturnType reason;	// +0x4C
 		} JoinDeny;
+		struct
+		{
+			WideChar gameName[17];			// +0x1E
+			UnsignedInt mapCRC;			// +0x40
+			Bool hasMap;				// +0x44
+		} MapStatus;
 	};
 };
 #pragma pack(pop)
@@ -95,7 +154,8 @@ public:
 	BFME_VSLOT(30) BFME_VSLOT(31) BFME_VSLOT(32)
 	virtual void rva00248E87( void );		// slot 33, the player list refresh
 	virtual void OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, LANMessage *msg );
-	BFME_VSLOT(35) BFME_VSLOT(36) BFME_VSLOT(37) BFME_VSLOT(38) BFME_VSLOT(39)
+	BFME_VSLOT(35) BFME_VSLOT(36) BFME_VSLOT(37) BFME_VSLOT(38)
+	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
 	BFME_VSLOT(40) BFME_VSLOT(41) BFME_VSLOT(42) BFME_VSLOT(43) BFME_VSLOT(44)
 	BFME_VSLOT(45) BFME_VSLOT(46) BFME_VSLOT(47) BFME_VSLOT(48)
 	virtual LANGameInfo *LookupGame( UnicodeString gameName );
@@ -108,6 +168,7 @@ protected:
 	void removePlayer( LANPlayer *player );
 	void handleRequestLobbyLeave( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleJoinDeny( LANMessage *msg, const BfmeNetAddress *sender );
+	void handleHasMap( LANMessage *msg, const BfmeNetAddress *sender );
 
 	UnsignedByte m_pre0C[0x0C - 4];
 	LANPlayer *m_lobbyPlayers;			// +0x0C
@@ -116,6 +177,7 @@ protected:
 	UnsignedInt m_expiration;			// +0x2C
 	UnsignedByte m_pre41[0x41 - 0x30];
 	Bool m_inLobby;					// +0x41
+	LANGameInfo *m_currentGame;			// +0x44
 };
 
 #undef BFME_VSLOT
@@ -150,5 +212,30 @@ void LANAPI::handleJoinDeny( LANMessage *msg, const BfmeNetAddress *sender )
 		OnGameJoin( msg->JoinDeny.reason, LookupGame( UnicodeString( msg->JoinDeny.gameName ) ), msg );
 		m_pendingAction = ACT_NONE;
 		m_expiration = 0;
+	}
+}
+
+void LANAPI::handleHasMap( LANMessage *msg, const BfmeNetAddress *sender )
+{
+	if( !m_inLobby && m_currentGame )
+	{
+		CRC mapNameCRC;
+		AsciiString portableMapName = TheGameState->realMapPathToPortableMapPath( m_currentGame->getMap() );
+		mapNameCRC.computeCRC( portableMapName.str(), portableMapName.getLength() );
+		if( msg->MapStatus.mapCRC == mapNameCRC.get() )
+		{
+			Int i = 0;
+			const LANSlotAddress *slot = m_currentGame->getSlots();
+			do
+			{
+				if( slot->m_address.Rva00248CBF( sender ) )
+				{
+					OnHasMap( sender, msg->MapStatus.hasMap );
+					break;
+				}
+				++i;
+				++slot;
+			} while( i < MAX_SLOTS );
+		}
 	}
 }
