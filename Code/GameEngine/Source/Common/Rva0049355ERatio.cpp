@@ -38,7 +38,6 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-extern float g_00BBAEAC;
 
 struct Rva0049355EHolder
 {
@@ -68,14 +67,14 @@ public:
 float Rva0049355E::rva0049355E()
 {
 	if (m_18 != 0)
-		return g_00BBAEAC;
+		return 0.0f;
 	if (s1())
 		return 1.0f;
 	if (m_c > 0)
 		return m_14;
 	Rva0049355EHolder *holder = *(Rva0049355EHolder **)((char *)this - 0xC);
 	if (holder->m_ov == 0)
-		return g_00BBAEAC;
+		return 0.0f;
 	Object *obj = *(Object **)((char *)this - 8);
 	unsigned int value = m_8;
 	if (obj != 0)
@@ -86,5 +85,5 @@ float Rva0049355E::rva0049355E()
 		value -= TheGameLogic->m_frame;
 		return 1.0f - (float)value / (float)m_4;
 	}
-	return g_00BBAEAC;
+	return 0.0f;
 }
