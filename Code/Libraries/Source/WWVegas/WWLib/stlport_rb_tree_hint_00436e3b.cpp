@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHsc /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // BFME2 STLport tree: AsciiString key and opaque 0xDF4-byte mapped object.
 // ??1TreeHintOpaque0043671B@@QAE@XZ @0x00229840 53B destroys UnicodeString +0 and 0xDE8 subobject +4; deleting dtor 0x002DDE27 and list clear 0x00434EC9 prove identity; layout from copy 0x0022D106.
@@ -43,13 +43,10 @@ TreeHintOpaque0043671B::~TreeHintOpaque0043671B() {}
 
 typedef _STL::pair<const AsciiString, TreeHintOpaque0043671B> TreeHintPair0043671B;
 typedef _STL::_Rb_tree<AsciiString, TreeHintPair0043671B, _STL::_Select1st<TreeHintPair0043671B>, _STL::less<AsciiString>, _STL::allocator<TreeHintPair0043671B> > TreeHint0043671B;
+// Cleanup owns the verified 56-byte destructor. This /EHsc insertion unit
+// would otherwise emit a 52-byte copy without the allocator unwind transition.
+extern template TreeHint0043671B::~_Rb_tree();
 // Retail uses its static byte allocator and has no node cleanup catch block.
-namespace _STL {
-template <> class allocator<char> {
-public:
-    static char *allocate(unsigned int bytes, const void *hint);
-};
-}
 // ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintOpaque0043671B@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintOpaque0043671B@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintOpaque0043671B@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintOpaque0043671B@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UTreeHintOpaque0043671B@@@2@@Z
 template <>
 TreeHint0043671B::_Link_type TreeHint0043671B::_M_create_node(const TreeHintPair0043671B &value)
