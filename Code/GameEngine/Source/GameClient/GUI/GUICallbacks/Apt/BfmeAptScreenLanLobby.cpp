@@ -255,10 +255,48 @@ extern GameTextInterface *TheGameText;
 // Address-derived calls through the pointer held at the matched, address-named
 // global at VA 0x00E032FC. The target class and member identities remain
 // address-derived.
+class Rva0054CFB8Target;
+
+// Target evidence: 0x0054CFB8 consumes two by-value reference handles at
+// stack offsets +0x14/+0x18 and releases both through the matched helper.
+struct TargetRef00217D4C
+{
+	virtual void *destroy(unsigned int flags);
+	int references;
+};
+
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+
+struct TreeHintRef00217D4C
+{
+	TargetRef00217D4C *m_ptr;
+
+	TreeHintRef00217D4C() : m_ptr(0) {}
+	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
+	{
+		if (m_ptr)
+			++m_ptr->references;
+	}
+	~TreeHintRef00217D4C()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C(m_ptr);
+	}
+};
+
 class Rva0054D2DDTarget
 {
 public:
-	void method(int type, const UnicodeString &text, const UnicodeString &title);
+	__declspec(noinline) void method(int type, const UnicodeString &text, const UnicodeString &title);
+	unsigned char m_unknown00[4];
+	Rva0054CFB8Target *m_child04;
+};
+
+class Rva0054CFB8Target
+{
+public:
+	void method(int type, const UnicodeString &text, const UnicodeString &title,
+		TreeHintRef00217D4C callback, TreeHintRef00217D4C callback2);
 };
 
 class Rva0054D3D9Target
@@ -640,6 +678,18 @@ bool AptLanLobby::MpOwnerSelectPlayer(GameSlot *slot, SlotState state, int unuse
 void Rva00437E84(int type, const UnicodeString &text, const UnicodeString &title)
 {
 	((Rva0054D2DDTarget *)g_Va00E032FC)->method(type, text, title);
+}
+
+// ?method@Rva0054D2DDTarget@@QAEXHABVUnicodeString@@0@Z @0x0054D2DD 43B.
+// Target evidence: the Ghidra boundary loads the child pointer at +4 and
+// forwards the three arguments with two empty callback handles to 0x0054CFB8.
+// The child slot is a layout fact; the original class and method identity
+// remain unresolved.
+void Rva0054D2DDTarget::method(int type, const UnicodeString &text,
+	const UnicodeString &title)
+{
+	m_child04->method(type, text, title, TreeHintRef00217D4C(),
+		TreeHintRef00217D4C());
 }
 
 // Same target-proven forwarder shape; the callee's identity remains its RVA.
