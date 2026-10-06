@@ -1,4 +1,6 @@
 // ?rva00275DCE@Drawable@@QAEXHMMM@Z
+// partial score=0.9625 date=2026-10-06
+// ?rva00275DCE@Drawable@@QAEXHMMM@Z
 // partial score=0.93 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // ?rva00275DCE@Drawable@@QAEXHMMM@Z @0x00275DCE (369B): Drawable state update.
