@@ -12,10 +12,16 @@ public:
 	void rva006D3470();
 	bool rva006D3560(const EAStringC *other) const;
 };
-class Rva0070B380
+struct AptHashItem;
+class BfmeLookup1279;
+class AptNativeHash
 {
-public:
-	void *rva0070AF90(const EAStringC &key);
+// Rowed provider at 0x0070AF90:
+// ?HashFindKey@AptNativeHash@@ABEPAUAptHashItem@@QBVEAStringC@@@Z (private const).
+// Same ABI as the pinned spelling (this in ecx, 4B key address on stack,
+// pointer return in eax); friend grants this TU's private-view access.
+	AptHashItem *HashFindKey(const EAStringC *const) const;
+	friend class BfmeLookup1279;
 };
 EAStringC *Rva0070B4F0GetString(int index);
 void Rva0070A6D0Release(void *p);
@@ -45,7 +51,7 @@ void BfmeLookup1279::bfmeErase1279(BfmeKey1279 &key)
 		return;
 	unsigned int id = skey.rva006D3D10();
 	if (m_map != 0) {
-		void *found = ((Rva0070B380 *)this)->rva0070AF90(skey);
+		void *found = (void *)((const AptNativeHash *)this)->HashFindKey(&skey);
 		if (found != 0) {
 			((EAStringC *)found)->rva006D3470();
 			Rva0070A6D0Release(found);
