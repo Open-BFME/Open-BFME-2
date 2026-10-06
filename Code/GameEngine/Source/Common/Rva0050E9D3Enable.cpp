@@ -89,6 +89,14 @@ void *Rva004E4179Get(void)
 	return &g_Va00A0445C;
 }
 
+// Target identity: GameState::init passes this entry's result for the
+// ObjectivesMenu snapshot. The five-byte body is an unadjusted tail jump to
+// the rowed getter at 0x004E4179; preserve its existing address-derived name.
+void *Rva004E4312GetRoute(void)
+{
+	return Rva004E4179Get();
+}
+
 // ?Rva004E432ASet@@YAXE@Z @0x004E432A 34B.
 // Flag setter on the 0x004E4179 singleton block: if the byte arg equals the
 // flag byte at +4 of the block, return; if arg is 0, call rowed enable
