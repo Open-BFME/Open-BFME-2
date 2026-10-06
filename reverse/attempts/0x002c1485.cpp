@@ -1,5 +1,5 @@
 // ?gogoGadgetSlider@GameWindowManager@@UAEPAVGameWindow@@PAV2@IHHHHPAVWinInstanceData@@PAU_SliderData@@PAVGameFont@@_N@Z
-// partial score=0.94 date=2026-10-03
+// partial score=0.94 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/GameClient/GUI /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // Reference semantics: ZH GameWindowManager.cpp at BFME1 2791daf553.
 // Target: Ghidra 0x002C1485/344, device wrapper caller 0x0008FE76.

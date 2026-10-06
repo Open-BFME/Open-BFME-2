@@ -1,10 +1,10 @@
 // ?rva001D9781@Rva001D98BD@@QAEHXZ
-// partial score=0.97 date=2026-10-04
+// partial score=0.8338 date=2026-10-06
 // cl: /Os /DNDEBUG /MD /arch:SSE
 class Rva001D98BD
 {
 public:
-	bool rva001D9781();
+	int rva001D9781();
 private:
 	unsigned char m_pad00[0x4C];
 	unsigned char m_4C;
@@ -15,19 +15,24 @@ private:
 	unsigned char m_pad88[0xB0 - 0x88];
 	int m_B0;
 };
-bool Rva001D98BD::rva001D9781()
+int Rva001D98BD::rva001D9781()
 {
-	if (m_B0 == 5) {
-		if (m_4C & 1)
-			return true;
-		Entry *beg = m_begin;
+	int type = m_B0;
+	if (type == 5) {
+		if (!(m_4C & 1)) {
+			Entry *beg = m_begin;
 		Entry *end = m_end;
 		for (Entry *p = beg; p != end; ++p) {
 			Rva001D98BD *child = p->child;
-			if (child && child->rva001D9781())
-				return true;
+			if (child) {
+				int result = child->rva001D9781();
+				if (result)
+					return result;
+			}
+			}
+			return 0;
 		}
-		return false;
+		return (m_4C & 1);
 	}
-	return (m_B0 == 0 || m_B0 == 3 || (m_4C & 1));
+	return (type == 0 || type == 3 || (m_4C & 1));
 }

@@ -1,5 +1,5 @@
 // ?rva0014FE33@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z
-// partial score=0.92 date=2026-10-05
+// partial score=0.92 date=2026-10-06
 // cl: /O1
 // ?rva0014FE33@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z @0x0014FE33 133B
 // Evidence: chain via rowed 0x00153664 0x001530E9 0x00579E47 0x00153ACA; Parse plus Color Direction plus delegate tail from codes 0x0014D66F 0x0014D722.

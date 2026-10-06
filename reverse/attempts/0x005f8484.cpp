@@ -1,5 +1,5 @@
 // ?rva005F8484@Rva005F86C3@@QAEXHH@Z
-// partial score=0.97 date=2026-10-05
+// partial score=0.9787 date=2026-10-06
 // cl: /O1 /G7 /DNDEBUG /MD /EHsc
 // ?rva005F8484@Rva005F86C3@@QAEXHH@Z @0x005F8484 115B
 // Evidence: vslot slot 3 of vtable 0x00879CBC (class of rowed ??1Rva005F86C3 0x005F86C3), bounds via start/finish at +0x20/+0x24 stride 8, TreeHintRef assign 0x002174A4 and Release 0x0007DEEF, forwarder 0x005C39C4, clear 0x002BED91.

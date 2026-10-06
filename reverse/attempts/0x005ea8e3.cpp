@@ -1,4 +1,8 @@
 // ?rva005EA8E3@Rva005EA8E3@@QAEXHH@Z
+// partial score=0.9579 date=2026-10-06
+// ?rva005EA8E3@Rva005EA8E3@@QAEXHH@Z
+// partial score=0.9579 date=2026-10-05
+// ?rva005EA8E3@Rva005EA8E3@@QAEXHH@Z
 // partial score=0.99 date=2026-10-05
 // cl: /O1 /G7 /DNDEBUG /MD /EHs-c-
 // ?rva005EA8E3@Rva005EA8E3@@QAEXHH@Z @0x005EA8E3 55B thiscall bounded clear via ranges

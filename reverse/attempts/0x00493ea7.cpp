@@ -1,4 +1,6 @@
 // ?rva00493EA7@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z
+// partial score=0.885 date=2026-10-05
+// ?rva00493EA7@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z
 // partial score=0.99 date=2026-10-05
 // ?rva00493EA7@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc

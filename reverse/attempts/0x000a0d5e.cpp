@@ -1,6 +1,8 @@
 // ?Rva000A0D5EDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
+// partial score=0.95 date=2026-10-05
+// ?Rva000A0D5EDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
 // partial score=0.95 date=2026-10-04
-// cl: /Ireference/shims/bfme2gwm /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2gwm /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Op /Oy-
 //
 // ?Rva000A0D5EDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z @0x000A0D5E 493B: progress bar draw.
 // Vtable 0x00BC8D04 slot 3 via Rva000A12E6Window::draw; system GadgetProgressBarSystem.
@@ -220,9 +222,9 @@ void Rva000A0D5EDraw(GameWindow *window, WinInstanceData *instData)
 	if (backBorder != WIN_COLOR_UNDEFINED)
 	{
 		start.x = origin.x;
-		start.y = origin.y;
 		end.x = start.x + size.x;
-		end.y = start.y + size.y;
+		start.y = origin.y;
+		end.y = size.y + start.y;
 		TheWindowManager->winOpenRect(backBorder, WIN_DRAW_LINE_WIDTH, start.x, start.y, end.x, end.y);
 	}
 
@@ -230,7 +232,7 @@ void Rva000A0D5EDraw(GameWindow *window, WinInstanceData *instData)
 	{
 		start.x = origin.x + 1;
 		start.y = origin.y + 1;
-		end.x = start.x + size.x - 2;
+		end.x = (start.x - 2) + size.x;
 		end.y = start.y + size.y - 2;
 		TheWindowManager->winFillRect(backColor, WIN_DRAW_LINE_WIDTH, start.x, start.y, end.x, end.y);
 	}
@@ -239,8 +241,8 @@ void Rva000A0D5EDraw(GameWindow *window, WinInstanceData *instData)
 	{
 		if (barBorder != WIN_COLOR_UNDEFINED)
 		{
-			start.x = origin.x;
 			start.y = origin.y;
+			start.x = origin.x;
 			end.x = start.x + (size.x * progress) / 100;
 			end.y = start.y + size.y;
 			if (end.x - start.x > 1)
@@ -252,8 +254,8 @@ void Rva000A0D5EDraw(GameWindow *window, WinInstanceData *instData)
 		if (barColor != WIN_COLOR_UNDEFINED)
 		{
 			start.x = origin.x + 1;
-			start.y = origin.y + 1;
 			end.x = start.x + (size.x * progress) / 100 - 2;
+			start.y = origin.y + 1;
 			end.y = start.y + size.y - 2;
 			if (end.x - start.x > 1)
 			{

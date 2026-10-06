@@ -1,4 +1,8 @@
 // ?getDayOfWeek@AptDate@@QAEHHHH@Z
+// partial score=0.9852 date=2026-10-06
+// ?getDayOfWeek@AptDate@@QAEHHHH@Z
+// partial score=0.9852 date=2026-10-05
+// ?getDayOfWeek@AptDate@@QAEHHHH@Z
 // partial score=0.97 date=2026-10-04
 // cl: /O2 /MD
 extern "C" double __cdecl floor(double);
@@ -20,19 +24,19 @@ static bool febLeap(int year)
 }
 int AptDate::getDayOfWeek(int year,int month,int day)
 {
-    int century=year/100;
-    int remainder=year%100;
     int anchor=month+1;
-    int aCentury[4] = {3,2,0,5};
+    unsigned long remainder=year%100;
+    int century=year/100;
     int nCentury;
-    if (century<19) nCentury=4-abs(century-19)%4;
+    unsigned int aCentury[4] = {3,2,0,5};
+    if (century < 19) nCentury=4-abs(century-19)%4;
     else nCentury=abs(century-19)%4;
     nCentury=aCentury[nCentury];
-    int base=year-remainder;
+    long base=year-remainder;
     if (month==1) anchor=28+(febLeap(year)?1:0);
     else if (month%2==0) {
         if (month==8) anchor=5;
-        else if (month==4) anchor=9;
+        else if (4 == month) anchor=9;
         else if (month==6) anchor=11;
         else if (month==10) anchor=7;
         else if (month==2) anchor=7;
@@ -41,5 +45,6 @@ int AptDate::getDayOfWeek(int year,int month,int day)
     if (nCentury<0 || anchor<0) return -1;
     int d=day;
     if (anchor>d) d=anchor-(anchor-d)%7+7;
-    return (((int)floor((year-base)*0.25f)-base+nCentury+year)%7+(d-anchor)%7)%7;
+    int result = (((int)floor((year-base)*0.25f)-base+nCentury+year)%7+(d-anchor)%7)%7;
+    return result;
 }

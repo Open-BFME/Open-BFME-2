@@ -1,4 +1,6 @@
 // ?rva003A2659@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVBfmeWordEL@@@Z
+// partial score=0.9304 date=2026-10-05
+// ?rva003A2659@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVBfmeWordEL@@@Z
 // partial score=0.96 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // stlport

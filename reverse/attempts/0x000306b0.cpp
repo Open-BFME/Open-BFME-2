@@ -1,4 +1,8 @@
 // ?_AddHeap@MemoryPool@@YAXII@Z
+// partial score=0.9891 date=2026-10-06
+// ?_AddHeap@MemoryPool@@YAXII@Z
+// partial score=0.9891 date=2026-10-05
+// ?_AddHeap@MemoryPool@@YAXII@Z
 // partial score=0.98 date=2026-10-05
 // ?_AddHeap@MemoryPool@@YAXII@Z @ 0x000306B0 (128B). Registers a heap id with its size in the MemoryPool heap table.
 // Evidence: export-named _AddHeap; heap table HeapTable at 0x00DE0414 (count +4 records +0xC buckets +0x1EC allocators +0x384); donor BFME1 memory_pool differs (EA GeneralAllocator heaps).
@@ -79,8 +83,9 @@ void _AddHeap(unsigned int id, unsigned int size)
 	HeapRecord *record = &g_heaps.m_records[count];
 	record->m_size = size;
 	HeapRecord *head = *bucket;
-	g_heaps.m_count = ++count;
+	++count;
 	record->m_id = id;
+	g_heaps.m_count = count;
 	record->m_next = head;
 	*bucket = record;
 }

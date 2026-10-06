@@ -1,7 +1,5 @@
 // ?rva00215479@Rva00215479@@QAEHABVAsciiString@@@Z
-// partial score=0.9 date=2026-10-01
-// ?rva00215479@Rva00215479@@QAEHABVAsciiString@@@Z
-// partial score=0.90 date=2026-10-01
+// partial score=0.9 date=2026-10-06
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // ?rva00215479@Rva00215479@@QAEHABVAsciiString@@@Z 0x00215479 69B find-index by AsciiString compare over 16B records
 // Evidence: retail loops over [esi+0xc]/[esi+0x10] as begin/end of 16B entries (sar 4), calls

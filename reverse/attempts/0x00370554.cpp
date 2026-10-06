@@ -1,4 +1,6 @@
 // ?rva00370554@Rva00370554@@QAEXPAVObject@@W4CommandSourceType@@@Z
+// partial score=0.8074 date=2026-10-06
+// ?rva00370554@Rva00370554@@QAEXPAVObject@@W4CommandSourceType@@@Z
 // partial score=0.95 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /Oy-
 // ?rva00370554@Rva00370554@@QAEXPAVObject@@W4CommandSourceType@@@Z @0x00370554 110B evidence: leaf between AIGroup 0x00370517 and 0x00370680 same flags; calls rowed Object::rva002931F5 and AICommandInterface::rva0036EC1D; Object+0x258 AIUpdate and +0x20 command as neighbours.

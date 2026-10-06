@@ -1,4 +1,6 @@
 // ?Rva000E67E3Dispatch@@YGXPBD0PAX@Z
+// partial score=0.8993 date=2026-10-05
+// ?Rva000E67E3Dispatch@@YGXPBD0PAX@Z
 // partial score=0.95 date=2026-10-05
 // cl: /O1 /EHsc /MD /arch:SSE
 // ?Rva000E67E3Dispatch@@YGXPBD0PAX@Z, retail 0x000E67E3, 149 bytes.
