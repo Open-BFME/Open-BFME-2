@@ -13030,3 +13030,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ??_7Rva0044B27F@@6B@,0x00C3E4FC,Rva0044B27F vtable installed by its copy ctor 0x0044B27F (mov [esi] imm at 0x0044B2AB) after the BfmeSaveElement002295D7 base copy
 ??_7Rva004E72C0@@6B@,0x00BFCFF8,Rva004E72C0 vtable installed by its copy ctor 0x004E72C0
 ??_7Rva004E7392@@6B@,0x00BFD010,Rva004E7392 vtable installed by its copy ctor 0x004E7392 (mov [esi] imm at 0x004E73A0)
+??_7Rva0053FADE@@6B@,0x00C694DC,Rva0053FADE vtable installed by its copy ctor 0x0053FADE (mov [esi] imm at 0x0053FB0A)
