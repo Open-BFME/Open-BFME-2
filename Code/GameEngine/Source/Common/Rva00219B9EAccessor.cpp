@@ -21,6 +21,14 @@ extern int g_00DFE368;
 extern int g_00DFE364;
 extern int g_00DFE3E4;
 extern int g_00DFE3E0;
+// g_00DFE368: matched references place it at VA 0x00DFE368 (zero-filled .bss).
+int g_00DFE368;
+// g_00DFE364: matched references place it at VA 0x00DFE364 (zero-filled .bss).
+int g_00DFE364;
+// g_00DFE3E4: matched references place it at VA 0x00DFE3E4 (zero-filled .bss).
+int g_00DFE3E4;
+// g_00DFE3E0: matched references place it at VA 0x00DFE3E0 (zero-filled .bss).
+int g_00DFE3E0;
 struct IntVec { int *m_start; int *m_finish; int *m_end; };
 struct Elem216 {
     char m_00[0x0C];
