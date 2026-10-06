@@ -83,7 +83,7 @@ struct BfmeTerrain37C0Target
 	int m_10;
 };
 
-extern float BfmeGlobalBC2428;
+extern float g_Va00BC2428;
 
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
@@ -207,7 +207,7 @@ void Rva000E2DA4Level(ID3DXEffect *effect, D3DXHANDLE handle)
 void Rva000E2F24(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	Rva000E2409Vector4 value;
-	float s = BfmeGlobalBC2428;
+	float s = g_Va00BC2428;
 	value.x = s;
 	value.y = s;
 	value.z = 0.0f;
@@ -223,7 +223,7 @@ void Rva000E2F77(ID3DXEffect *effect, D3DXHANDLE handle)
 		BfmeTerrain37C0Target *t = TheTerrainRenderObject->m_37C0;
 		if (t)
 		{
-			v = (float)t->m_10 * BfmeGlobalBC2428;
+			v = (float)t->m_10 * g_Va00BC2428;
 		}
 	}
 	effect->SetFloat(handle, v);
@@ -238,8 +238,8 @@ void Rva000E2EB7(ID3DXEffect *effect, D3DXHANDLE handle)
 	value.w = 0.0f;
 	if (TheTerrainRenderObject && TheTerrainRenderObject->m_37C0)
 	{
-		value.x = (float)TheTerrainRenderObject->m_37C0->m_08 * BfmeGlobalBC2428;
-		value.y = (float)TheTerrainRenderObject->m_37C0->m_0C * BfmeGlobalBC2428;
+		value.x = (float)TheTerrainRenderObject->m_37C0->m_08 * g_Va00BC2428;
+		value.y = (float)TheTerrainRenderObject->m_37C0->m_0C * g_Va00BC2428;
 	}
 	effect->SetVector(handle, &value);
 }
