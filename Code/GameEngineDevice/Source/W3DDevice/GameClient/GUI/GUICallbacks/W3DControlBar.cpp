@@ -62,6 +62,9 @@
 // called on TheDisplay. The by-value Region3D goes through its out-of-line
 // copy constructor 0x0009AC04, with the argument-temp shape of a class with
 // a destructor.
+//
+// W3DCommandBarHelpPopupDraw @0x0009F796 (719B): ZH body unchanged; the
+// Helpbox images share guard 0x00DE60E0.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -936,4 +939,117 @@ void W3DDrawMapPreview(GameWindow *window, WinInstanceData *instData)
 			((W3DDisplay *)TheDisplay)->rva0004D6B3(window->winGetEnabledImage(1), ul.x, ul.y, lr.x, lr.y);
 		((W3DDisplay *)TheDisplay)->rva0004D6B3(window->winGetEnabledImage(0), ul.x, ul.y, lr.x, lr.y);
 	}
+}
+
+void W3DCommandBarHelpPopupDraw( GameWindow *window, WinInstanceData *instData )
+{
+	
+	static const Image *endBar = TheMappedImageCollection->findImageByName("Helpbox-top");
+	static const Image *beginBar = TheMappedImageCollection->findImageByName("Helpbox-bottom");
+	static const Image *centerBar = TheMappedImageCollection->findImageByName("Helpbox-middle");
+	
+	ICoord2D pos, size;
+	window->winGetScreenPosition( &pos.x, &pos.y );
+	window->winGetSize( &size.x, &size.y );
+
+
+
+	if( !endBar || !beginBar || !centerBar)
+		return;
+	
+
+//	Int range;
+//	range = size.y;
+
+
+	// get image sizes for the ends
+	ICoord2D topSize, bottomSize, start, end;
+	bottomSize.x = beginBar->getImageWidth();
+	bottomSize.y = beginBar->getImageHeight();
+	topSize.x = endBar->getImageWidth();
+	topSize.y = endBar->getImageHeight();
+
+	// get two key points used in the end drawing
+	ICoord2D bottomEnd, topStart;
+	bottomEnd.x = pos.x + size.x;
+	bottomEnd.y = pos.y + size.y - bottomSize.y;
+	topStart.x = pos.x;
+	topStart.y = pos.y +size.y - topSize.y;
+
+	// draw the center repeating bar
+	Int centerWidth, pieces;
+
+	// get width we have to draw our repeating center in
+	centerWidth = size.y - topSize.y - bottomSize.y;
+	
+	if( centerWidth <= 0)
+	{
+		// draw left end
+		start.x = pos.x;
+		start.y = pos.y + size.y - bottomSize.y;
+		end.y = pos.y + size.y;
+		end.x = pos.x + size.x;
+		TheWindowManager->winDrawImage(beginBar, start.x, start.y, end.x, end.y);
+
+		// draw right end
+		start.y = pos.y + size.y - bottomSize.y - topSize.y;
+		start.x = pos.x;
+		end.x = pos.x + size.x;
+		end.y = start.y + topSize.y;
+		TheWindowManager->winDrawImage(endBar, start.x, start.y, end.x, end.y);
+	}
+	else
+	{
+		
+		// how many whole repeating pieces will fit in that width
+		pieces = centerWidth / centerBar->getImageHeight();
+
+		// draw the pieces
+		start.x = pos.x;
+		start.y = pos.y + topSize.y ;
+		end.x = start.x + size.x; //centerImage->getImageHeight() + yOffset;
+		for( Int i = 0; i < pieces; i++ )
+		{
+
+			end.y = start.y + centerBar->getImageHeight();
+			TheWindowManager->winDrawImage( centerBar, 
+																			start.x, start.y,
+																			end.x, end.y );
+			start.y += centerBar->getImageHeight();
+
+		}  // end for i
+
+		// we will draw the image but clip the parts we don't want to show
+		IRegion2D reg;
+		reg.lo.x = start.x;
+		reg.lo.y = start.y;
+		reg.hi.x = pos.x + size.x;
+		reg.hi.y = pos.y + size.y - bottomSize.y;
+		centerWidth = pos.y + size.y - bottomSize.y - start.y;
+		if( centerWidth > 0)
+		{
+			TheDisplay->setClipRegion(&reg);
+			end.y = start.y + centerBar->getImageHeight();
+			TheWindowManager->winDrawImage( centerBar,
+																			start.x, start.y,
+																			end.x, end.y );
+			TheDisplay->enableClipping(false);
+		}
+
+		// draw left end
+		end.x = pos.x + size.x;
+		end.y = pos.y + size.y;
+		start.x = pos.x;
+		start.y = pos.y + size.y - bottomSize.y;
+		TheWindowManager->winDrawImage(beginBar, start.x, start.y, end.x, end.y);
+
+		// draw right end
+		start.x = pos.x;
+		start.y = pos.y ;
+		end.x = pos.x + size.x;
+		end.y = pos.y + topSize.y;
+		TheWindowManager->winDrawImage(endBar, start.x, start.y, end.x, end.y);
+	}
+	
+
 }
