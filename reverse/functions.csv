@@ -63761,3 +63761,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004F83F2@@YGXHHHH@Z,,0x004F83F2,25,Code/GameEngine/Source/Common/Rva004F8B89Stub.cpp,matched,stdcall 4-arg repack twin; full byte gate
 ?rva004F904F@@YAXHHHH@Z,,0x004F904F,40,Code/GameEngine/Source/Common/Rva004F8B89Stub.cpp,matched,cdecl twin-guard plus 6-arg forward; full byte gate
 ?rva004F6187@Rva004F6187@@QAEXXZ,,0x004F6187,42,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,dual-array pointer walk with hoisted end; full byte gate
+?rva004E6745@Rva004E6745@@QAEPAV1@HHH@Z,,0x004E6745,70,Code/GameEngine/Source/Common/Rva004E6745Factory.cpp,matched,EH member factory with 4-arg ctor; full byte gate
+?rva004E7F43@Rva004E7F43@@QAEPAV1@XZ,,0x004E7F43,59,Code/GameEngine/Source/Common/Rva004E6745Factory.cpp,matched,EH member factory with 1-arg ctor; full byte gate

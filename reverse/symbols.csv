@@ -13077,3 +13077,5 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva002C6BFF@Rva002C6BFF@@QAEXXZ,0x002C6BFF,thiscall no-arg callee of 0x004E9710 read from its REL32 displacement; body unrowed
 ?rva004F8C16@@YAXHHHHHH@Z,0x004F8C16,cdecl 6-arg callee of 0x004F904F read from its REL32 displacement; in-range target, provisional signature
 ?rva0059AED2@Rva0059AED2@@QAEXXZ,0x0059AED2,thiscall void callee of 0x004F6187 read from its REL32 displacement; body unrowed
+??0Rva004E669A@@QAE@PAXHHH@Z,0x004E669A,EH-guarded ctor callee of 0x004E6745 read from its REL32 displacement (new 0x20 with 4 args); body unrowed
+??0Rva004E7D72@@QAE@PAX@Z,0x004E7D72,EH-guarded ctor callee of 0x004E7F43 read from its REL32 displacement (new 0x28 with 1 arg); in-range target, body unrowed
