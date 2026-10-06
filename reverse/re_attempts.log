@@ -14513,3 +14513,11 @@ _Rva00437FB3	0x00437FB3	120	partial	Two callback refcount copies and the direct 
 ?rva005C3B3E@Rva005C3B3E@@QAEXXZ	0x005C3B3E	205	blocked	exception prolog and temporary TreeHintRef lifetime still differ by 44B after five variants; record layout and rowed getter identity are supported but codegen shape unresolved t=9 model=gpt-6.1-sol
 ?rva005C3932@Rva005C3932@@QAEAAV1@HABVAsciiString@@@Z	0x005C3932	27	blocked	placement construction of the AsciiString field preserves observed copy-constructor semantics but emits an extra null check; standard placement form adds EH state, and class lifetime/identity remains unproven t=12 model=gpt-6.1-sol
 ??0Rva005C3A37Elem@@QAE@PAVRva005C3F02@@PAX1@Z	0x005C3F2C	443	blocked	three callback targets 0x005C39DE/0x005C39EB/0x005C3DE1 are unclaimed and class layout for 0x48-byte element is unknown; no donor hit t=2 model=gpt-6
+?rva0030C61B@Rva0030C61B@@QAEXHPAUTargetRef00217D4C@@@Z	0x0030C61B	135	blocked	identity and member layout unproven from packet evidence t=5 model=gpt-6
+?rva0030CE66@Rva0030CE66@@QAEXHPAUTargetRef00217D4C@@@Z	0x0030CE66	135	blocked	identity and member layout unproven from packet evidence t=2 model=gpt-6
+?rva0030C114@Rva0030C114@@QAEXXZ	0x0030C114	21	blocked	boundary suspect starts after FF byte and call shape gives no stable identity t=1 model=gpt-6
+??1Rva0030CDCA@@UAE@XZ	0x0030CDCA	156	blocked	virtual-base vbptr layout and EH/member cleanup shape remain unresolved after 2 variants t=7 model=gpt-6
+?rva0030912A@Rva0030912A@@QAEXHPAUTargetRef00217D4C@@@Z	0x0030912A	135	blocked	callback argument identity and signature conflict with the pinned listener-walk ABI; class layout inferred but callback target unresolved t=5 model=gpt-6
+?rva003291F4@Rva003291F4@@QAEHPAUTargetRef00217D4C@@@Z	0x003291F4	134	blocked	callback address 0x005CB260 owner signature is incompatible with Rva00281A33List callback type; class layout is inferred only t=2 model=gpt-6
+?rva00329AEA@Rva00329AEA@@QAEXPAVRva00329AEAChannel@@@Z	0x00329AEA	212	blocked	after 6 variants local-frame layout and validation branch shape still differ; vtable owner remains unproven t=18 model=gpt-6
+?rva0028343D@Rva0028343D@@QAEXHPAUTargetRef00217D4C@@@Z	0x0028343D	135	blocked	same unresolved Rva00281A33List callback owner/signature conflict seen at 0x0030912A and 0x003291F4; do not repeat this dependency t=1 model=gpt-6
