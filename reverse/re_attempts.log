@@ -12124,3 +12124,4 @@ FUN_00478e78	0x00078E78	285	blocked	ji_ thunk 0-arg row called with args needs a
 ?rva004EF651@Rva004EF651@@QAEHHH@Z	0x004EF651	79	blocked	callee 0x004F2063 unrowed and itself needs ADDRESS-NAMED g_Va009FE16C per show packet so caller unlandable t=5 model=muse-spark
 FUN_0076a5bb	0x0036A5BB	417	blocked	ADDRESS-NAMED g_Va009FF0F8 use refused per packet t=1 model=muse-08
 ?rva00588E44@Rva00588E44@@QAEXPAX@Z	0x00588E44	285	blocked	complex STL virtual slots A4 108 118 unknown arg struct first variant 351B vs 285B direct vs indirect needs strong model t=15 model=muse-08
+?rva00588F61@Rva0047A040Base9E0@@QAEXPAXPAVObject@@1@Z	0x00588F61	153	blocked	STL EH list plus virtuals 118 7C 84 plus aiExit first variant 230B vs 153B needs strong model t=12 model=muse-08

@@ -45,6 +45,7 @@ public:
 	void *rva00588BF3(void *a, Object *b);
 	bool rva00588D24(void *a, Object *b);
 	void rva00588D99(Object *obj);
+	void rva00588E20(Object *obj);
 };
 
 bool Rva0047A040Base9E0::rva00588D24(void *a, Object *b)
@@ -139,6 +140,7 @@ public:
 	Player *getControllingPlayer() const;
 	void setStatus(ObjectStatusTypes bit, bool flag);
 	bool testStatus(ObjectStatusTypes bit) const;
+	void rva0028DCC4();
 };
 class Rva0028BAC0
 {
@@ -171,4 +173,15 @@ void Rva0047A040Base9E0::rva00588D99(Object *obj)
 		if (!obj->testStatus((ObjectStatusTypes)0x5E))
 			((Rva0028BAC0 *)obj)->rva0028BAC0();
 	}
+}
+
+// ?rva00588E20@Rva0047A040Base9E0@@QAEXPAVObject@@@Z @0x00588E20 36B
+// Unlock lane, abuts 0x00588D99 in same TU. +0x454 gate to pinned
+// rva0028DCC4 then setStatus(3,false). Callers 0x00477101 and 0x00479BBC.
+void Rva0047A040Base9E0::rva00588E20(Object *obj)
+{
+	ObjectLayout *o = (ObjectLayout *)obj;
+	if (o->m_454 == 0)
+		obj->rva0028DCC4();
+	obj->setStatus((ObjectStatusTypes)3, false);
 }
