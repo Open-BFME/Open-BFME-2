@@ -14194,3 +14194,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva0052AD30Payload@@QAE@PAX0@Z,0x0052AD30,called by wrapper 0x0052AF1C with ECX set to its 0x230 allocation and owner/argument forwarded; Ghidra boundary 492; address-derived payload constructor; fields and semantics unknown
 ?method@Rva0054CFB8Target@@QAEXHABVUnicodeString@@0UTreeHintRef00217D4C@@1@Z,0x0054CFB8,callee of ?method@Rva0054D2DDTarget@@QAEXHABVUnicodeString@@0@Z
 ?rva0035C7CF@Shell@@QAEX_N@Z,0x0035C7CF,callee of ??1Rva0043A351@@UAE@XZ
+?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
