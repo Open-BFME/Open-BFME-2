@@ -13373,3 +13373,4 @@ FUN_00764551	0x00364551	1120	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va00BBB8D8 plu
 ?rva0058EB82@NetPacket@@QAE_NPAVNetCommandRef@@@Z	0x0058EB82	621	blocked	621B NetPacket EH needs exact donor t=15 model=muse-10
 ??0W3DStreakDraw@@QAE@PAVThing@@PBVModuleData@@@Z	0x000D02A7	406	blocked	406B streakdraw ctor needs donor t=4 model=muse-10
 ?rva00104956@Rva001040D5@@QAEXI@Z	0x00104956	113	partial	push ebp+8 in body vs retail cond plus extra pop ecx 112vs113B t=12 model=muse-10 score=0.96 stash=reverse/attempts/0x00104956.cpp
+?rva002E6CD8@Rva002E6CD8Owner@@QAEXHEHEE@Z	0x002E6CD8	38	partial	all 5 stores/args exact; OPEN only this-homing (retail mov eax,ecx base in eax, compile keeps base in ecx). Tried member stores, ptr-local, /O2 (worse frameless). t=20 model=muse-spark score=0.9 stash=reverse/attempts/0x002e6cd8.cpp
