@@ -32,3 +32,29 @@ bool Rva0059ADB9::rva0059ADB9()
 		return false;
 	return *(bool *)((char *)m_body->rva0033A65E() + 0x1C);
 }
+
+// ?rva0059ADF4@Rva0059ADF4@@QAEXH@Z @0x0059ADF4 29B
+// Target evidence: the direct call at VA 0x0099AE04 resolves to executable
+// code at VA 0x009DB045; the call target has a thiscall frame and ret 0x10.
+// The owner pointer read at +0x24 and callee identity remain address-derived.
+class Rva005DB045
+{
+public:
+	void rva005DB045(float value, int first, int second, int third);
+};
+
+class Rva0059ADF4
+{
+public:
+	void rva0059ADF4(int value);
+
+private:
+	char m_pad[0x24];
+	Rva005DB045 *m_component;
+};
+
+void Rva0059ADF4::rva0059ADF4(int value)
+{
+	float converted = (float)value;
+	m_component->rva005DB045(converted, 1, 1, 0);
+}
