@@ -11335,3 +11335,4 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva0052B045@Rva005392C2@@QAEXXZ	0x0052B045	85	partial	1B extra-lea for op-arg plus missing or-minus1 t=30 model=muse-04 score=0.99 stash=reverse/attempts/0x0052b045.cpp
 ?rva0052B5FD@Rva0052B5FD@@QAEXABVAsciiString@@@Z	0x0052B5FD	55	partial	1B and-test vs xor-cmp-mov for new-null plus state t=20 model=muse-04 score=0.98 stash=reverse/attempts/0x0052b5fd.cpp
 ??0Rva00150F19@@QAE@H@Z	0x00150F19	87	partial	tail mov-or order fixed with volatile pair but second store mov not or t=18 model=muse-09 score=0.95 stash=reverse/attempts/0x00150f19.cpp
+?rva002ED313@Pathfinder@@QAE_NPAVObject@@@Z	0x002ED313	369	blocked	complex rect walk with cell list traversal needs donor t=12 model=muse-02

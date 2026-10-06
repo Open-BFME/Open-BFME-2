@@ -27,6 +27,7 @@ public:
 	};
 	Rva0027D244 *rva0027D244(int v);
 	void rva0027D1EF(Rva0027D244 *a, Rva0027D244 *b);
+	void rva0027D276(Rva0027D244 *a, Rva0027D244 *b);
 private:
 	Vec12 m_pos00;
 	int m_0C;
@@ -34,6 +35,36 @@ private:
 	int m_14;
 	int m_18;
 };
+
+struct Coord3D
+{
+	float x;
+	float y;
+	float z;
+};
+
+class Object
+{
+public:
+	unsigned char _pad[0x38];
+	Coord3D m_38;
+};
+
+class Pathfinder
+{
+public:
+	bool rva002F477E(class Object *obj, const struct Coord3D *from, const struct Coord3D *to, int v);
+	bool rva002ED219(const struct Coord3D *a, const struct Coord3D *b);
+};
+
+class AI
+{
+public:
+	unsigned char _pad[0x10];
+	Pathfinder *m_10;
+};
+
+extern AI *g_Va009FF0F8;
 
 Rva0027D244 *Rva0027D244::rva0027D244(int v)
 {
@@ -57,6 +88,28 @@ void Rva0027D244::rva0027D1EF(Rva0027D244 *a, Rva0027D244 *b)
 	float dy = p.y - a->m_pos00.y;
 	float d2 = dx * dx + dy * dy;
 	if (m_0C != 0 && !(m_10 > d2))
+		return;
+	m_0C = a->m_0C;
+	m_pos00 = a->m_pos00;
+	m_10 = d2;
+	m_14 = (int)a;
+}
+
+void Rva0027D244::rva0027D276(Rva0027D244 *a, Rva0027D244 *b)
+{
+	Vec12 p = b->m_pos00;
+	float dx = p.x - a->m_pos00.x;
+	float dy = p.y - a->m_pos00.y;
+	float d2 = dx * dx + dy * dy;
+	if (m_0C != 0 && d2 >= m_10)
+		return;
+	Pathfinder *pf = g_Va009FF0F8->m_10;
+	Object *obj = (Object *)m_18;
+	if (!pf->rva002F477E(obj, &obj->m_38, (const Coord3D *)a, 0))
+		return;
+	pf = g_Va009FF0F8->m_10;
+	obj = (Object *)m_18;
+	if (!pf->rva002ED219(&obj->m_38, (const Coord3D *)a))
 		return;
 	m_0C = a->m_0C;
 	m_pos00 = a->m_pos00;
