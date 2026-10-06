@@ -44,6 +44,7 @@ class Rva0047A040Base9E0
 public:
 	void *rva00588BF3(void *a, Object *b);
 	bool rva00588D24(void *a, Object *b);
+	void rva00588D99(Object *obj);
 };
 
 bool Rva0047A040Base9E0::rva00588D24(void *a, Object *b)
@@ -62,4 +63,112 @@ bool Rva0047A040Base9E0::rva00588D24(void *a, Object *b)
 	}
 	e->slot100(0);
 	return false;
+}
+
+// ?rva00588D99@Rva0047A040Base9E0@@QAEXPAVObject@@@Z @0x00588D99 135B
+// Leaf lane, pin gives name. Callers HordeTransportContain 0x004770A6 and
+// HordeGarrisonContain 0x00479B7F forward Object* to helper at +0x11D/+0x9E0.
+// Drawable gate at +0x43c, local-player gate via ThePlayerList+0x10 and
+// getControllingPlayer, message 0x3ED with ObjectID at +0x74 via
+// MessageStreamSubsystem slot 0x48 and TheInGameUI slot 0x10c, then
+// setStatus(3,true); second arm checks +0x454 then testStatus(0x5E) then
+// pinned rva0028BAC0. Layouts follow DrawableRva00276B95, radius-cursor
+// PlayerList, Rva0042F9DAEmit MessageStream/InGameUI and Rva0042FB8F ObjectID.
+enum ObjectID
+{
+	OBJECTID_NONE = 0
+};
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_DUMMY = 0
+};
+class Drawable
+{
+public:
+	char m_pad00[0x43c];
+	bool m_43c;
+};
+class Thing
+{
+public:
+	Drawable *getDrawable() const;
+};
+class Player;
+class PlayerList
+{
+public:
+	unsigned char m_pad[0x10];
+	Player *m_localPlayer;
+};
+extern PlayerList *ThePlayerList;
+class GameMessage
+{
+public:
+	void appendObjectIDArgument(ObjectID id);
+};
+class MessageStream
+{
+public:
+	SLOT08(v00,v01,v02,v03,v04,v05,v06,v07)
+	SLOT08(v08,v09,v10,v11,v12,v13,v14,v15)
+	virtual void v16();
+	virtual void v17();
+	virtual GameMessage *appendType(int type);
+};
+extern MessageStream *MessageStreamSubsystem;
+class InGameUI
+{
+public:
+	SLOT08(w00,w01,w02,w03,w04,w05,w06,w07)
+	SLOT08(w08,w09,w10,w11,w12,w13,w14,w15)
+	SLOT08(w16,w17,w18,w19,w20,w21,w22,w23)
+	SLOT08(w24,w25,w26,w27,w28,w29,w30,w31)
+	SLOT08(w32,w33,w34,w35,w36,w37,w38,w39)
+	SLOT08(w40,w41,w42,w43,w44,w45,w46,w47)
+	SLOT08(w48,w49,w50,w51,w52,w53,w54,w55)
+	SLOT08(w56,w57,w58,w59,w60,w61,w62,w63)
+	virtual void w64();
+	virtual void w65();
+	virtual void w66();
+	virtual void slot10C(Drawable *d);
+};
+extern InGameUI *TheInGameUI;
+class Object
+{
+public:
+	Player *getControllingPlayer() const;
+	void setStatus(ObjectStatusTypes bit, bool flag);
+	bool testStatus(ObjectStatusTypes bit) const;
+};
+class Rva0028BAC0
+{
+public:
+	void rva0028BAC0();
+};
+struct ObjectLayout
+{
+	char _00[0x74];
+	ObjectID m_id;
+	char _78[0x454 - 0x78];
+	unsigned char m_454;
+};
+void Rva0047A040Base9E0::rva00588D99(Object *obj)
+{
+	Drawable *d = ((Thing *)obj)->getDrawable();
+	if (d != 0 && d->m_43c) {
+		Player *local = ThePlayerList->m_localPlayer;
+		Player *ctrl = obj->getControllingPlayer();
+		if (ctrl == local) {
+			GameMessage *msg = MessageStreamSubsystem->appendType(0x3ED);
+			ObjectLayout *o = (ObjectLayout *)obj;
+			msg->appendObjectIDArgument(o->m_id);
+			TheInGameUI->slot10C(d);
+		}
+		obj->setStatus((ObjectStatusTypes)3, true);
+	}
+	ObjectLayout *o2 = (ObjectLayout *)obj;
+	if (o2->m_454 != 0) {
+		if (!obj->testStatus((ObjectStatusTypes)0x5E))
+			((Rva0028BAC0 *)obj)->rva0028BAC0();
+	}
 }
