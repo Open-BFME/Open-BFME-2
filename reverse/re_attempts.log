@@ -11538,3 +11538,9 @@ FUN_007c37c0	0x003C37C0	206	blocked	ADDRESS-NAMED g_Va009FE16C use refused t=1 m
 ?rva0058113D@Rva0058113D@@QAEPAVLANGameInfo@@I@Z	0x0058113D	87	partial	register swap eax-ecx plus push-mem vs mov-push t=18 model=muse-10 score=0.93 stash=reverse/attempts/0x0058113d.cpp
 FUN_0061b7b6	0x0021B7B6	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use refused t=1 model=muse-10
 ?cameraModFinalZoom@W3DView@@UAEXMMM@Z	0x000865DB	295	blocked	Retail extent 0x000865DB..0x00086702 RET12 W3DView vftable slot30 BFME1 6583b3c1 algorithm target fields virtual +0xEC same-TU XMM0 helper /O1 /arch:SSE /G7 emits 295B. Diff only +0x4B..+0x51 push ecx precedes add eax [esi+0x1AC] whereas retail adds then pushes. Waypoint branch matches. Retail-order reassoc and /G7 removal tried shape guide has no push-add lever t=15 model=muse-10 (stash 0.976 kept)
+?moveTeamTo@TeamPrototype@@QAEXUCoord3D@@@Z	0x0039F03A	90	blocked	MMM call gives x87 vs movss plus missing push ecx and ebp-4 t=12 model=muse-04
+?rva0048337A@RebuildHoleBehavior@@QAEXPAVObject@@@Z	0x0048337A	114	blocked	ADDRESS-NAMED g_Va009FF0F8 needs hatch t=2 model=muse-04
+?Rva003C58C9Do@@YGXPAVParameter@@ABVAsciiString@@PAX@Z	0x003C58C9	161	blocked	ADDRESS-NAMED g_Va009FE16C needs hatch t=2 model=muse-04
+?rva003896BD@Rva003896BDOwner@@QAEPAXH@Z	0x003896BD	42	blocked	needs real STL map M_find plus ecx vs eax plus branchless t=10 model=muse-04
+?rva00294898@Object@@QAE_NPAV1@H@Z	0x00294898	167	blocked	ADDRESS-NAMED g_Va009FF0F8 needs hatch t=2 model=muse-04
+?rva001B4F6D@Rva001B4F6D@@QAEXXZ	0x001B4F6D	30	blocked	still cmp esi vs cmp eax after mov eax esi t=10 model=muse-04 (stash 0.93 kept)
