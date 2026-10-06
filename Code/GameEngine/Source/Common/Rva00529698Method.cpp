@@ -1,5 +1,3 @@
-// ?rva00529698@Rva0052936C@@QAEXPBD@Z
-// partial score=0.91 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
 //
 // ?rva00529698@Rva0052936C@@QAEXPBD@Z @0x00529698 264B.
@@ -78,17 +76,17 @@ private:
 	int m_14;
 };
 
-// ?rva00529698@Rva0052936C@@QAEXPBD@Z present-unmatched
 void Rva0052936C::rva00529698(const char *section)
 {
-	int idx;
 	AsciiString val;
-	if (!Rva00529628Get(section, &idx))
-		return;
-	if (!Rva00528C30Get(section, val))
-		return;
-	Rva00529698Elem &e = m_elems[idx];
-	if (e.m_holder.m_ptr != 0)
-		return;
-	e.m_holder.rva00575674((Object *)new Rva005D2462(Rva004128BBGetLevel(GetStr00529698(val)), AsciiString(Rva00412845AfterLevel(GetStr00529698(val))), e.m_04, e.m_08));
+	Rva00529698Elem *e;
+	{
+		int idx;
+		if (!Rva00529628Get(section, &idx) || !Rva00528C30Get(section, val))
+			return;
+		e = &m_elems[idx];
+		if (e->m_holder.m_ptr != 0)
+			return;
+	}
+	e->m_holder.rva00575674((Object *)new Rva005D2462(Rva004128BBGetLevel(GetStr00529698(val)), AsciiString(Rva00412845AfterLevel(GetStr00529698(val))), (int)&e->m_04, (int)&e->m_08));
 }
