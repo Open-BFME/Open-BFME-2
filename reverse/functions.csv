@@ -64982,3 +64982,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
 ?rva0014D522@@YAXPAX0@Z,,0x0014D522,66,Code/GameEngine/Source/Common/Rva0014D522Init.cpp,matched,
 ?rva0014D564@@YAXPAX0@Z,,0x0014D564,49,Code/GameEngine/Source/Common/Rva0014D564Init.cpp,matched,
+?rva0014D722@Rva0014D722This@@QAEXPAVRva0014D722Outer@@PAX@Z,,0x0014D722,143,Code/GameEngine/Source/Common/Rva0014D722Init.cpp,matched,
