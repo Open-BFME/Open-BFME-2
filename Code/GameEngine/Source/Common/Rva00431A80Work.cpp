@@ -10,6 +10,7 @@ public:
 bool __cdecl Rva004318A8Guard();
 
 extern const void *const g_00C3C988[];
+extern const void *const g_00C3C97C[];
 
 void *__cdecl operator new(unsigned int size);
 
@@ -38,6 +39,60 @@ void Rva00431A80::work()
 		h = (Rva00431A80Helper *)mem;
 		h->m_parent = m_04;
 		h->m_vptr = (void *)g_00C3C988;
+	} else {
+		h = 0;
+	}
+	Rva00575674 *q = (Rva00575674 *)((char *)m_04 + 8);
+	q->rva00575674((Object *)h);
+}
+
+// ?work@Rva00431AB6@@QAEXXZ @0x00431AB6 54B: same factory with inverted guard (works when guard is false) and vtable g_00C3C97C.
+class Rva00431AB6
+{
+public:
+	void work();
+private:
+	char m_00[4];
+	void *m_04;
+};
+
+void Rva00431AB6::work()
+{
+	if (Rva004318A8Guard())
+		return;
+	void *mem = operator new(8);
+	Rva00431A80Helper *h;
+	if (mem != 0) {
+		h = (Rva00431A80Helper *)mem;
+		h->m_parent = m_04;
+		h->m_vptr = (void *)g_00C3C97C;
+	} else {
+		h = 0;
+	}
+	Rva00575674 *q = (Rva00575674 *)((char *)m_04 + 8);
+	q->rva00575674((Object *)h);
+}
+
+// ?work@Rva00431ED6@@QAEXXZ @0x00431ED6 54B: same factory as 0x00431A80 with vtable g_00C3C97C.
+class Rva00431ED6
+{
+public:
+	void work();
+private:
+	char m_00[4];
+	void *m_04;
+};
+
+void Rva00431ED6::work()
+{
+	if (!Rva004318A8Guard())
+		return;
+	void *mem = operator new(8);
+	Rva00431A80Helper *h;
+	if (mem != 0) {
+		h = (Rva00431A80Helper *)mem;
+		h->m_parent = m_04;
+		h->m_vptr = (void *)g_00C3C97C;
 	} else {
 		h = 0;
 	}
