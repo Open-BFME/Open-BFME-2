@@ -5,8 +5,6 @@
 
 extern unsigned int g_Va00E02ED4;
 extern const unsigned short g_Va007C9260[];
-extern const unsigned short g_00C380FC[];
-extern const unsigned short g_00BC26DC[];
 
 class BfmeAptWindowManager
 {
@@ -30,7 +28,7 @@ bool __cdecl Rva003FEECBSetPalantirCommandPoints(int cur, int max)
 	{
 		if (max >= 0)
 		{
-			str.format(g_00C380FC, max, cur);
+			str.format(L"%d/%d", max, cur);
 		}
 		else
 		{
@@ -39,7 +37,7 @@ bool __cdecl Rva003FEECBSetPalantirCommandPoints(int cur, int max)
 	}
 	else
 	{
-		str.set(g_00BC26DC);
+		str.set(L" ");
 	}
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(s_key, str, false);
 	return true;
