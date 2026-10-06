@@ -46,6 +46,16 @@
 // (+0xF68) flags at +0x40/+0x41 and, as in RequestGameAnnounce, 16 bytes from
 // the game at +0xCC in the message tail at +0x1C8. The LAN slots are 0x1D0
 // bytes from +0xDC.
+//
+// LANAPI::handleGameOptions, retail 0x00582EB0 (273 bytes), message type 13:
+// BFME 2's three-argument form of Zero Hour's handler. Options from the host
+// (slot 0's address) of a game not in progress go, with the 0x186-byte blob
+// at +0x1E, to slot 46 (BFME's OnGameOptions, as slot 0); the options string
+// is regenerated before and after and compared (result unused). On success
+// the lobby flag goes off through slot 61 and slot 43 or 42 runs by the third
+// argument (update passes false); on failure we leave as RequestGameLeave's
+// host path does: OnPlayerLeave (slot 37) with our name, removeGame and
+// delete the game, back to the lobby.
 
 typedef int Int;
 typedef bool Bool;
@@ -147,7 +157,8 @@ struct LANSlotAddress
 class GameInfo
 {
 public:
-	BFME_VSLOT(00) BFME_VSLOT(01) BFME_VSLOT(02) BFME_VSLOT(03) BFME_VSLOT(04)
+	virtual ~GameInfo( void );
+	BFME_VSLOT(01) BFME_VSLOT(02) BFME_VSLOT(03) BFME_VSLOT(04)
 	BFME_VSLOT(05) BFME_VSLOT(06) BFME_VSLOT(07) BFME_VSLOT(08) BFME_VSLOT(09)
 	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14)
 	BFME_VSLOT(15) BFME_VSLOT(16) BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
@@ -204,6 +215,8 @@ public:
 };
 extern NetworkInterface *TheNetwork;
 
+AsciiString GenerateGameOptionsString( void );
+
 // BFME 1's writeLANGameInfo: serializes the game into a message's options.
 void Rva00447CA9( LANGameInfo *game, char *buffer, Int size );
 
@@ -248,6 +261,10 @@ struct LANMessage
 			char options[g_lanMaxOptionsLength];	// +0x42
 			UnsignedByte bfmeTail[16];		// +0x1C8
 		} GameInfo;
+		struct
+		{
+			char options[g_lanMaxOptionsLength];	// +0x1E
+		} GameOptions;
 	};
 };
 #pragma pack(pop)
@@ -272,17 +289,25 @@ public:
 	BFME_VSLOT(30) BFME_VSLOT(31) BFME_VSLOT(32)
 	virtual void rva00248E87( void );		// slot 33, the player list refresh
 	virtual void OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, LANMessage *msg );
-	BFME_VSLOT(35) BFME_VSLOT(36) BFME_VSLOT(37) BFME_VSLOT(38)
+	BFME_VSLOT(35) BFME_VSLOT(36)
+	virtual void OnPlayerLeave( UnicodeString player );	// slot 37
+	BFME_VSLOT(38)
 	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
-	BFME_VSLOT(40) BFME_VSLOT(41) BFME_VSLOT(42) BFME_VSLOT(43) BFME_VSLOT(44)
-	BFME_VSLOT(45) BFME_VSLOT(46) BFME_VSLOT(47)
+	BFME_VSLOT(40) BFME_VSLOT(41)
+	virtual void OnGameStart( void );		// slot 42
+	virtual void rva0024900D( void );		// slot 43
+	BFME_VSLOT(44) BFME_VSLOT(45)
+	virtual Bool rva0024924D( const BfmeNetAddress &sender, Int playerSlot, const void *data, Int length );	// slot 46
+	BFME_VSLOT(47)
 	virtual void OnNameChange( BfmeNetAddress *from, UnicodeString newName );
 	virtual LANGameInfo *LookupGame( UnicodeString gameName );
 	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53) BFME_VSLOT(54)
 	BFME_VSLOT(55) BFME_VSLOT(56)
 	virtual void fillInLANMessage( LANMessage *msg ) = 0;	// slot 57
 	BFME_VSLOT(58) BFME_VSLOT(59)
-	BFME_VSLOT(60) BFME_VSLOT(61) BFME_VSLOT(62)
+	BFME_VSLOT(60)
+	virtual void rva00248E2F( Bool value );		// slot 61
+	BFME_VSLOT(62)
 	virtual LANPlayer *LookupPlayer( const BfmeNetAddress *who );
 	virtual BfmeNetAddress *getLocalAddress( void ) = 0;
 
@@ -291,16 +316,20 @@ public:
 protected:
 	void removePlayer( LANPlayer *player );
 	void addPlayer( LANPlayer *player );
+	void removeGame( LANGameInfo *game );
 	void handleRequestLobbyLeave( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleLobbyAnnounce( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleJoinDeny( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleHasMap( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleInActive( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleRequestGameInfo( LANMessage *msg, const BfmeNetAddress *sender );
+	void handleGameOptions( LANMessage *msg, const BfmeNetAddress *sender, Bool flag );
 
 	UnsignedByte m_pre0C[0x0C - 4];
 	LANPlayer *m_lobbyPlayers;			// +0x0C
-	UnsignedByte m_pre20[0x20 - 0x10];
+	UnsignedByte m_pre14[0x14 - 0x10];
+	UnicodeString m_name;				// +0x14
+	UnsignedByte m_pre20[0x20 - 0x18];
 	UnsignedInt m_gameStartTime;			// +0x20
 	Int m_gameStartSeconds;				// +0x24
 	Int m_pendingAction;				// +0x28
@@ -455,6 +484,39 @@ void LANAPI::handleRequestGameInfo( LANMessage *msg, const BfmeNetAddress *sende
 			memcpy( reply.GameInfo.bfmeTail, m_currentGame->m_bfmeCC, sizeof( reply.GameInfo.bfmeTail ) );
 
 			Rva004495A2( &reply, (UnsignedInt)sender );
+		}
+	}
+}
+
+void LANAPI::handleGameOptions( LANMessage *msg, const BfmeNetAddress *sender, Bool flag )
+{
+	if( !m_inLobby )
+	{
+		LANGameInfo *game = m_currentGame;
+		if( game && game->getAddress( 0 )->Rva00248CBF( sender ) && !game->isGameInProgress() )
+		{
+			AsciiString oldOptions = GenerateGameOptionsString();
+			Bool ok = rva0024924D( *sender, 0, msg->GameOptions.options, g_lanMaxOptionsLength );
+			if( ok )
+			{
+				{
+					AsciiString newOptions = GenerateGameOptionsString();
+					oldOptions.compare( newOptions );
+				}
+				rva00248E2F( false );
+				if( flag )
+					rva0024900D();
+				else
+					OnGameStart();
+			}
+			else
+			{
+				OnPlayerLeave( m_name );
+				removeGame( m_currentGame );
+				::delete m_currentGame;
+				m_currentGame = 0;
+				m_inLobby = true;
+			}
 		}
 	}
 }
