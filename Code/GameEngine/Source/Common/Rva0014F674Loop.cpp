@@ -7,7 +7,6 @@
 // besides helper (pinned). Names opaque.
 void __cdecl rva0014F647(void *a, void *b);
 
-// ?rva0014F674@@YAPAXPAXI0H@Z present-unmatched
 void *__cdecl rva0014F674(void *p, unsigned int count, void *ha, int unused)
 {
 	(void)unused;
