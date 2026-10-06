@@ -13123,3 +13123,12 @@ Unwind@00b7b627	0x0077B627	25	blocked	Retail FuncInfo maps this cleanup to match
 ?rva00397F45@Rva00397F45@@QAE_NPAVPlayer@@H@Z	0x00397F45	166	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString t=1 model=muse-04
 ?rva004B0C27@Rva004B0C27@@QAEXXZ	0x004B0C27	173	blocked	unresolved callee 0x004B0AAA needs ADDRESS-NAMED g_Va007C26F0 plus 3 unclaimed callees t=5 model=muse-04
 ?rva004B0348@Rva004B0348@@QAEXXZ	0x004B0348	204	blocked	ADDRESS-NAMED g_Va00BBB8D8 plus unresolved callee 0x0044F0B3 t=3 model=muse-04
+??0Rva005DC43B@@QAE@XZ	0x005DC43B	83	blocked	array new needs element ctor dtor 0x005DB84F 0x005A66B8 plus vtable names t=12 model=muse-09
+?rva00281F7F@Rva00281F7F@@QAEXH@Z	0x00281F7F	162	blocked	ADDRESS-NAMED g_Va009FF0F8 new use refused t=2 model=muse-09
+?rva00281C13@Rva00281C13@@QAEXXZ	0x00281C13	308	blocked	ADDRESS-NAMED g_Va009FF0F8 new use refused t=1 model=muse-09
+??0Rva004E7D72@@QAE@PAX@Z	0x004E7D72	86	partial	EH states 0-2 and all calls exact; only homed-this save and m04 zero swapped t=20 model=muse-spark score=0.93 stash=reverse/attempts/0x004e7d72.cpp
+?rva004E476C@AptPlayerStatus@@QAEXXZ	0x004E476C	712	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use refused t=2 model=muse-09
+?Rva0073BFE0Raster@@YADPAH0HVRva0073BAA0@@@Z	0x0073BFE0	865	blocked	complex polygon raster 865B no donor t=15 model=muse-09
+?rva0058A6A8@Rva0058A6A8@@QAEHH@Z	0x0058A6A8	1537	blocked	over 1000B factory 40 cases t=3 model=muse-09
+?findPositionAround@PartitionManager@@SA_NPBUCoord3D@@PBUFindPositionOptions@@PAU2@@Z	0x00285202	1068	blocked	ADDRESS-NAMED g_Va00BBB8D8 g_Va007C26F0 new use refused plus unclaimed callee 0x00284AC6 t=2 model=muse-09
+?rva0039F7A5@Rva0039F7A5@@QAEXXZ	0x0039F7A5	127	partial	head zeroing and vs xor-mov plus frame push-ecx vs sub-10 hook DIR32-store-call-edx vs imm-push-ebx-mem-call lea vs mov t=18 model=muse-09 score=0.95 stash=reverse/attempts/0x0039f7a5.cpp

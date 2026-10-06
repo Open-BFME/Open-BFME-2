@@ -1,6 +1,6 @@
 // ??0Rva004E7D72@@QAE@PAX@Z
-// partial score=0.9 date=2026-10-06
-// cl: /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// partial score=0.93 date=2026-10-06
+// cl: /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??0Rva004E7D72@@QAE@PAX@Z @ 0x004E7D72, 86 bytes.
@@ -38,9 +38,7 @@ struct Rva004E7D72Base
 		, m_08(0)
 	{
 	}
-	~Rva004E7D72Base()
-	{
-	}
+	~Rva004E7D72Base();
 };
 
 class Rva004E7D72 : public Rva004E7D72Base

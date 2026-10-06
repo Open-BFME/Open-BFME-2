@@ -65006,3 +65006,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva00504112@Rva00504112@@QAEPAXPAX@Z,,0x00504112,38,Code/GameEngine/Source/Common/Rva00504112Find.cpp,matched,hand-rolled lower_bound unsigned key at node+0x28
 ?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z,,0x002C760B,167,Code/GameEngine/Source/Common/Rva002C7492Or.cpp,matched,sole caller 0x002C777E and memset import 0x6291AE and 19-dword layout
 ?isPlayer@Rva004481A7@@QBE_NVUnicodeString@@@Z,,0x004481A7,45,Code/GameEngine/Source/GameNetwork/GameSlotIsPlayer.cpp,matched,GameSlot layout SLOT_PLAYER 6 m_name 0x30 swapped compareNoCase retail order
+?rva005E8892@Rva005E888A@@QAEXXZ,,0x005E8892,47,Code/GameEngine/Source/Common/Bfme/Rva005E8892Method.cpp,matched,gap body same class rowed callees caller 0x005E88DD

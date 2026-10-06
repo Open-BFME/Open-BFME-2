@@ -1,5 +1,5 @@
 // ?rva0039F7A5@Rva0039F7A5@@QAEXXZ
-// partial score=0.9 date=2026-10-06
+// partial score=0.95 date=2026-10-06
 // cl: /O1 /Oy- /MD
 //
 // ?rva0039F7A5@Rva0039F7A5@@QAEXXZ @0x0039F7A5 127B: max-scan over an
@@ -83,7 +83,7 @@ void Rva0039F7A5::rva0039F7A5()
 	m_maxB0 = off;
 	Rva0039F7A5Node *node = (Rva0039F7A5Node *)m_headerA4->_M_left;
 	if (node != (Rva0039F7A5Node *)m_headerA4) {
-		Rva0039F7A5Hook hook = &Rva005C4AF5DwordField::get;
+		volatile Rva0039F7A5Hook hook = &Rva005C4AF5DwordField::get;
 		do {
 			Rva0039F7A5Item *item = node->m_item18;
 			if ((unsigned int)item->m_0c >= m_maxB0)
