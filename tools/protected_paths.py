@@ -46,11 +46,11 @@ PROTECTED = (
     "tools/check_csv.py", "tools/check_case_collisions.py", "tools/conversion_gate.py",
     "tools/link_debt.py", "tools/class_gate.py", "tools/pin_consistency.py",
     "tools/pin_admission.py", "tools/gate_baseline.py", "tools/check_module_registry.py",
-    "tools/protected_paths.py",
+    "tools/protected_paths.py", "tools/hatch_counters.py", "tools/retail_inventory.py",
     # the hooks that run all of the above
     ".githooks/*", ".github/workflows/*",
     # debt registers and exemption lists
-    "reverse/*baseline*", "reverse/*whitelist*",
+    "reverse/*baseline*", "reverse/*whitelist*", "reverse/retail_inventory/*",
 )
 
 TRAILER = re.compile(r"^Verifier-Change:[ \t]*(\S.{7,}?)[ \t]*$", re.MULTILINE)
