@@ -96,6 +96,7 @@ public:
 	void rva004CA26A();
 	AnimationSoundTree *rva004CA018(void const *dummy);
 	AnimationSoundTree *rva004CA13D(void const *d1, void const *d2);
+	AnimationSoundTreeNode *rva004C9FE0(void const *v);
 	void *rva004CA19C(void const *v);
 	void rva004CA293(
 		AnimationSoundTreeNode *&out,
@@ -125,6 +126,29 @@ void AnimationSoundTree::rva004CA167(void *nodeIn)
 		free(cur);
 		cur = next;
 	} while (cur);
+}
+
+// ?rva004C9FE0@AnimationSoundTree@@QAEPAUAnimationSoundTreeNode@@PBX@Z,
+// retail 0x004C9FE0, 56 bytes. Searches from the header's root and returns
+// the last right-side candidate; the member comparator and node offsets match
+// the adjacent AnimationSoundTree insert helpers.
+AnimationSoundTreeNode *AnimationSoundTree::rva004C9FE0(void const *v)
+{
+	AnimationSoundTreeNode *parent =
+		(AnimationSoundTreeNode *)m_handle.m_header;
+	AnimationSoundTreeNode *node =
+		((AnimationSoundTreeHead *)parent)->m_parent;
+	while (node)
+	{
+		if (!m_compare.rva004C9D93Compare((char *)node + 0x10, (void *)v))
+		{
+			parent = node;
+			node = node->m_left;
+		}
+		else
+			node = node->m_right;
+	}
+	return parent;
 }
 
 // ?rva004CA26A@AnimationSoundTree@@QAEXXZ, retail 0x004CA26A, 41 bytes.
