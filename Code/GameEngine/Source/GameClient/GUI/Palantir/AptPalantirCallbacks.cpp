@@ -55,6 +55,18 @@ private:
 	unsigned char m_pad00[0x18];
 };
 
+// Rva0052710C allocates this payload and forwards its owner and four
+// constructor arguments. The 0x1E0 extent comes from the target allocation;
+// payload fields and behavior remain unknown.
+class Rva00527378Payload
+{
+public:
+	Rva00527378Payload(void *owner, int level, const AsciiString &name, void *c0, void *f8);
+
+private:
+	unsigned char m_pad00[0x1E0];
+};
+
 // The next three wrappers allocate these payloads and forward their own
 // address plus one caller argument. Allocation sizes are target evidence;
 // payload field layouts and meanings remain unknown.
@@ -558,6 +570,15 @@ void AptPalantir::OnHeroSelectLoaded(const char *path)
 // 0x00527FA7. Payload layout and semantics are not established.
 Rva00527FA2::Rva00527FA2(int level, const AsciiString &name)
 	: m_0(new Rva00527FA7(level, name))
+{
+}
+
+// Retail 0x00527767, 76 bytes: OnHeroSelectLoaded's call at 0x002D3FED
+// constructs the four-byte owner block with level/name and the +0xC0/+0xF8
+// member addresses. This allocates 0x1E0 bytes and forwards those arguments
+// with its owner to 0x00527378. Payload semantics are unknown.
+Rva0052710C::Rva0052710C(int level, const AsciiString &name, void *c0, void *f8)
+	: m_0(new Rva00527378Payload(this, level, name, c0, f8))
 {
 }
 
