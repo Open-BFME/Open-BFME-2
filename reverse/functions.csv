@@ -63481,3 +63481,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003A2BD4@TeamPrototype@@QAEXXZ,,0x003A2BD4,57,Code/GameEngine/Source/Common/RTS/TeamFactoryAddPrototype003A2B78.cpp,matched,TeamPrototype factory owner via callers 0x003A2C9B 0x003A338A rows 0x003A2B78 0x002AE228 pin 0x002A8AB1 row 0x004EC072
 ?Rva0040FAFEAdvance@@YGXH@Z,,0x0040FAFE,23,Code/GameEngine/Source/Common/Rva0040F7E5Advance.cpp,matched,chain via 0x0040D008 find and 0x0040F7E5 advance caller jmp 0x0023D091
 ?rva005CDDF0@Rva005CDDF0@@QAEXXZ,,0x005CDDF0,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,helper rva005E590F then wide validate at plus 0xC slot 1
+??1Rva004ABFD9@@UAE@XZ,,0x004ABFD9,72,Code/GameEngine/Source/Common/Rva004ABFD9Dtor.cpp,matched,dtor removes from global registry then member then Snapshot base
