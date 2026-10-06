@@ -63547,3 +63547,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005E50A7@@YAXPAH0URva005E4300Cmp@@@Z,,0x005E50A7,58,Code/GameEngine/Source/Common/Rva005E50A7SortHeap.cpp,matched,
 ?rva00395C80@@YAHPAVObject@@@Z,,0x00395C80,107,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00395C80Check.cpp,matched,Cached module-key veto: static wrapper resolves key via TheNameKeyGenerator once then findModule plus flag checks; int return proven by full-reg booleanize; /O1 shared EH prolog
 ?rva00538CEF@Rva00538CEF@@QAEPAVRva0020E89C@@XZ,,0x00538CEF,40,Code/GameEngine/Source/GameClient/GUI/Rva00538CEFLookup.cpp,matched,returns view lookup of last element via g_009FEF10 and rowed 0x20EAF6
+?Rva00580705Partition@@YAPAPAXPAPAX0PAXVRva000795C1Record@@@Z,,0x00580705,113,Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp,matched,STLport unguarded_partition median intro family

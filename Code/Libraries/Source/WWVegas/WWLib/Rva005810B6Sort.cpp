@@ -79,3 +79,24 @@ void ** __cdecl Rva00580646Median(void * const &a, void * const &b, void * const
     else if (compare.compareRva005803C0(b,c)) return const_cast<void **>(&c);
     else return const_cast<void **>(&b);
 }
+
+// Native580705..580776/113B: STLport __unguarded_partition with same record.
+// While compare(*first,pivot) ++first; --last; while compare(pivot,*last) --last;
+// return first when first>=last else swap and ++first. Callers 0x00580FD1IntroSort,
+// prev/next rows share // cl /O1 /G7 /EHsc /MD. Evidence packet leaf 0x00580705.
+// ?Rva00580705Partition@@YAPAPAXPAPAX0PAXVRva000795C1Record@@@Z
+void ** __cdecl Rva00580705Partition(void **first, void **last, void *pivot, Rva000795C1Record compare) {
+    while (true) {
+        while (compare.compareRva005803C0(*first, pivot))
+            ++first;
+        --last;
+        while (compare.compareRva005803C0(pivot, *last))
+            --last;
+        if (!(first < last))
+            return first;
+        void *tmp = *first;
+        *first = *last;
+        *last = tmp;
+        ++first;
+    }
+}
