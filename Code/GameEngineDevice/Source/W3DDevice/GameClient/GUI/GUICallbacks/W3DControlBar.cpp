@@ -27,11 +27,22 @@
 // ControlBar copy-out 0x0031AEAE. The static winNamekey and basePos share
 // guard 0x00DE60F0 (bits 1 and 2); basePos's guard bit is set with no
 // initializer code, the mark of an empty inline ICoord2D constructor.
+//
+// W3DCommandBarForegroundDraw @0x0009FB63 (225B): ZH body, the background
+// draw's twin: guard 0x00DE6100, ZH's getForegroundMarkerPos is the rowed
+// ControlBar copy-out 0x0031AE93 and the offset goes to
+// ControlBarSchemeManager::drawForeground 0x0031FA9A.
+//
+// W3DCommandBarGridDraw @0x0009DE26 (372B): ZH body. W3DGameWinDefaultDraw
+// is the rowed GameWindow draw 0x0009DC32, the border color is TheControlBar
+// +0x22C and Display::drawLine is the out-of-line W3DDisplay wrapper
+// 0x0004D664 (begin/line/end), called on TheDisplay.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 typedef bool Bool;
+typedef Int Color;
 
 #include "ascii_string.h"
 
@@ -59,6 +70,7 @@ class GameWindow
 public:
 	Int winGetScreenPosition(Int *x, Int *y);
 	Int winGetSize(Int *width, Int *height);
+	Int winSetEnabledBorderColor(Int index, Color color);
 	UnsignedInt winGetStatus(void);
 	Bool winIsHidden(void);
 	Int rva0009DC32(WinInstanceData *instData);
@@ -188,6 +200,7 @@ struct ICoord2D
 class ControlBarSchemeManager
 {
 public:
+	void drawForeground(ICoord2D offset);
 	void drawBackground(ICoord2D offset);
 };
 
@@ -195,11 +208,22 @@ class ControlBar
 {
 public:
 	ControlBarSchemeManager *getControlBarSchemeManager(void) { return m_controlBarSchemeManager; }
+	void rva0031AE93(Int *x, Int *y);   // ZH getForegroundMarkerPos
 	void rva0031AEAE(Int *x, Int *y);   // ZH getBackgroundMarkerPos
+	Color getBorderColor(void) { return m_borderColor; }
 
 private:
 	char m_pad00[0x44];
 	ControlBarSchemeManager *m_controlBarSchemeManager;   // +0x44
+	char m_pad48[0x22C - 0x48];
+	Color m_borderColor;                                  // +0x22C
+};
+
+class W3DDisplay
+{
+public:
+	void rva0004D664(Real startX, Real startY, Real endX, Real endY,
+		Real lineWidth, Color lineColor);   // ZH Display::drawLine
 };
 
 extern InGameUI *TheInGameUI;
@@ -274,4 +298,46 @@ void W3DCommandBarBackgroundDraw(GameWindow *window, WinInstanceData *instData)
 	offset.y = pos.y - basePos.y;
 
 	man->drawBackground(offset);
+}
+
+void W3DCommandBarForegroundDraw(GameWindow *window, WinInstanceData *instData)
+{
+	ControlBarSchemeManager *man = TheControlBar->getControlBarSchemeManager();
+	if (!man)
+		return;
+
+	static NameKeyType winNamekey = TheNameKeyGenerator->nameToKey(AsciiString("ControlBar.wnd:BackgroundMarker"));
+	GameWindow *win = TheWindowManager->winGetWindowFromId(0, winNamekey);
+	static ICoord2D basePos;
+	if (!win)
+		return;
+	TheControlBar->rva0031AE93(&basePos.x, &basePos.y);
+	ICoord2D pos, offset;
+	win->winGetScreenPosition(&pos.x, &pos.y);
+	offset.x = pos.x - basePos.x;
+	offset.y = pos.y - basePos.y;
+
+	man->drawForeground(offset);
+}
+
+void W3DCommandBarGridDraw(GameWindow *window, WinInstanceData *instData)
+{
+	if (BitTest(window->winGetStatus(), WIN_STATUS_IMAGE))
+	{
+		window->rva0009DC32(instData);
+		return;
+	}
+
+	ICoord2D pos, size;
+	window->winGetScreenPosition(&pos.x, &pos.y);
+	window->winGetSize(&size.x, &size.y);
+
+	Color color = TheControlBar->getBorderColor();
+	window->winSetEnabledBorderColor(0, color);
+	window->rva0009DC32(instData);
+
+	((W3DDisplay *)TheDisplay)->rva0004D664(pos.x, pos.y + size.y * .33, pos.x + size.x, pos.y + size.y * .33, 1, color);
+	((W3DDisplay *)TheDisplay)->rva0004D664(pos.x, pos.y + size.y * .66, pos.x + size.x, pos.y + size.y * .66, 1, color);
+	((W3DDisplay *)TheDisplay)->rva0004D664(pos.x + size.x * .33, pos.y, pos.x + size.x * .33, pos.y + size.y, 1, color);
+	((W3DDisplay *)TheDisplay)->rva0004D664(pos.x + size.x * .66, pos.y, pos.x + size.x * .66, pos.y + size.y, 1, color);
 }
