@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Zero Hour W3DControlBar.cpp's control-bar draw callbacks, BFME 2 build.
 // Each address is named by its entry in the window draw-callback lexicon.
 //
@@ -21,11 +21,19 @@
 // !ThePlayerList->getLocalPlayer()->isPlayerActive() is the rowed PlayerList
 // helper 0x002A7DD0 (local player at +0x10, negated active test), reached by
 // a tail jump because every path returns.
+//
+// W3DCommandBarBackgroundDraw @0x0009FA82 (225B): ZH body. The scheme
+// manager is TheControlBar +0x44; ZH's getBackgroundMarkerPos is the rowed
+// ControlBar copy-out 0x0031AEAE. The static winNamekey and basePos share
+// guard 0x00DE60F0 (bits 1 and 2); basePos's guard bit is set with no
+// initializer code, the mark of an empty inline ICoord2D constructor.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 typedef bool Bool;
+
+#include "ascii_string.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
@@ -42,6 +50,7 @@ class VideoBuffer;
 class NameKeyGenerator
 {
 public:
+	NameKeyType nameToKey(const AsciiString &name);
 	NameKeyType nameToKey(const char *name);
 };
 
@@ -171,8 +180,26 @@ public:
 
 struct ICoord2D
 {
+	ICoord2D() {}
 	Int x;
 	Int y;
+};
+
+class ControlBarSchemeManager
+{
+public:
+	void drawBackground(ICoord2D offset);
+};
+
+class ControlBar
+{
+public:
+	ControlBarSchemeManager *getControlBarSchemeManager(void) { return m_controlBarSchemeManager; }
+	void rva0031AEAE(Int *x, Int *y);   // ZH getBackgroundMarkerPos
+
+private:
+	char m_pad00[0x44];
+	ControlBarSchemeManager *m_controlBarSchemeManager;   // +0x44
 };
 
 extern InGameUI *TheInGameUI;
@@ -181,6 +208,7 @@ extern GameWindowManager *TheWindowManager;
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern PlayerList *ThePlayerList;
 extern Radar *TheRadar;
+extern ControlBar *TheControlBar;
 
 void W3DLeftHUDDraw(GameWindow *window, WinInstanceData *instData)
 {
@@ -227,4 +255,23 @@ void W3DCommandBarTopDraw(GameWindow *window, WinInstanceData *instData)
 	GameWindow *win = TheWindowManager->winGetWindowFromId(0, TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonGeneral"));
 	if (!win || win->winIsHidden() || ((Rva002A7DD0 *)ThePlayerList)->rva002A7DD0())
 		return;
+}
+
+void W3DCommandBarBackgroundDraw(GameWindow *window, WinInstanceData *instData)
+{
+	ControlBarSchemeManager *man = TheControlBar->getControlBarSchemeManager();
+	if (!man)
+		return;
+	static NameKeyType winNamekey = TheNameKeyGenerator->nameToKey(AsciiString("ControlBar.wnd:BackgroundMarker"));
+	GameWindow *win = TheWindowManager->winGetWindowFromId(0, winNamekey);
+	static ICoord2D basePos;
+	if (!win)
+		return;
+	TheControlBar->rva0031AEAE(&basePos.x, &basePos.y);
+	ICoord2D pos, offset;
+	win->winGetScreenPosition(&pos.x, &pos.y);
+	offset.x = pos.x - basePos.x;
+	offset.y = pos.y - basePos.y;
+
+	man->drawBackground(offset);
 }
