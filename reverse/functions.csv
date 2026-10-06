@@ -67479,3 +67479,5 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva002AE435@@YAHPBVThing@@PAV?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@@Z,,0x002AE435,64,Code/GameEngine/Source/GameLogic/Object/Rva002AE435.cpp,matched,Target key callback conditionally appends the rowed drawable pointer
 ?rva002B36F3@Rva002BA8F1Logic@@QAEXXZ,,0x002B36F3,77,Code/GameEngine/Source/GameLogic/System/Rva002B36F3AudioFields.cpp,matched,Forwards rowed item fields to TheGameLogic through matched setters
 ?rva000448CF@W3DDisplay@@QAEXMMMMMK@Z,,0x000448CF,89,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp,matched,Render2D line wrapper via Add_Line two-loads early-clear
+?rva001E7C2B@Rva001E7C2B@@QAEXHHMM@Z,,0x001E7C2B,33,Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp,matched,
+?rva001E9045@Rva001E9045@@QAEXHHMM@Z,,0x001E9045,33,Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp,matched,
