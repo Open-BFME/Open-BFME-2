@@ -39,6 +39,7 @@ void __cdecl Rva00580BBFUnguardedSort(void **, void **, Rva000795C1Record);
 void __cdecl Rva00580ED0PartialSortImpl(void **, void **, void **, void **, Rva000795C1Record);
 void __cdecl Rva00580C0E(void **, void **, void **, void *, Rva000795C1Record, void **);
 void __cdecl Rva00580C6F(void **, void **, Rva000795C1Record, void **, void **);
+void __cdecl Rva00580AAC(void **, int, int, void *, Rva000795C1Record);
 // Native580D38..580DBF/135B; STLport final insertion pass at threshold16.
 // /G7 reproduces the byte-sized alignment mask and schedules the record copy.
 // ?Rva00580D38FinishSort@@YAXPAPAX0VRva000795C1Record@@@Z
@@ -124,4 +125,24 @@ void __cdecl Rva00580CE2(void **first, void **last, void **, Rva000795C1Record c
 // ?Rva00580DBF@@YAXPAPAX0VRva000795C1Record@@@Z
 void __cdecl Rva00580DBF(void **first, void **last, Rva000795C1Record compare) {
     Rva00580C6F(first, last, compare, (void **)0, (void **)0);
+}
+
+// Target facts: heap length is iterator distance and parent indices descend
+// from (length - 2) / 2 through zero. The STLport __make_heap relationship is
+// inferred from the matched wrapper at 0x580DBF and donor _heap.c at 6583b3c1.
+// ?Rva00580C6F@@YAXPAPAX0VRva000795C1Record@@00@Z
+void __cdecl Rva00580C6F(void **first, void **last, Rva000795C1Record compare, void **, void **)
+{
+	int length = (int)(last - first);
+	if (length < 2)
+		return;
+
+	int parent = (length - 2) / 2;
+	while (true)
+	{
+		Rva00580AAC(first, parent, length, *(first + parent), compare);
+		if (parent == 0)
+			return;
+		--parent;
+	}
 }
