@@ -34,6 +34,7 @@ public:
 class ScriptList
 {
 public:
+	void *rva003B68E8(const StringBase<char> &key);
 	void *rva003B6911(const StringBase<char> &key);
 private:
 	void *m_vtable; // +0x00
@@ -42,6 +43,17 @@ private:
 	Rva003B573E m_first; // +0x0C
 	Rva003B573E m_second; // +0x2C
 };
+
+// 0x003B68E8 (41B): first ScriptList subrecord lookup, returning the node
+// chain at record m_nodes + 4. The target reads subrecord +0x0C and record
+// stride 0x14; identity/layout follow the ScriptList subrecord evidence above.
+void *ScriptList::rva003B68E8(const StringBase<char> &key)
+{
+	int idx = m_first.rva003B6633(key);
+	if (idx != -1)
+		return (void *)((char *)m_first.m_records[idx].m_nodes + 4);
+	return 0;
+}
 
 void *ScriptList::rva003B6911(const StringBase<char> &key)
 {
