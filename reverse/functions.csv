@@ -63821,3 +63821,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Scan@Rva005A69C0Box@@QAEXXZ,,0x005A6CA5,162,Code/GameEngine/Source/Common/Rva005A69C0Box.cpp,matched,pair scan over 8 slots driving sibling Run via pinned sub-object queries
 ?Run@Rva005A8666Box@@QAEXH@Z,,0x005A8666,90,Code/GameEngine/Source/Common/Rva005A8666Box.cpp,matched,guarded one-shot setter with pinned gate and 3-or-5 setter
 ?Apply@Rva005A8666Box@@QAEXHGH@Z,,0x005A86C0,219,Code/GameEngine/Source/Common/Rva005A8666Box.cpp,matched,validated triple apply with pair linking and gated consumer plus setter
+?Run@Rva005B5AC3Box@@QAEXXZ,,0x005B5AC3,32,Code/GameEngine/Source/Common/Rva005B5AC3Box.cpp,matched,non-negative one-shot forwarding composed constant through pinned cdecl callee
