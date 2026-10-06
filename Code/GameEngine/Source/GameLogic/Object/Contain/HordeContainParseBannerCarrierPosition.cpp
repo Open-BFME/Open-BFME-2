@@ -25,7 +25,7 @@ template<class T> class StringBase {
 public:
     void set(const T *);
 };
-struct Coord2D { float x,y; };
+#include "../../../../../Libraries/Include/Lib/Coord2D.h"
 class INI {
 public:
     char unknown[0x420];

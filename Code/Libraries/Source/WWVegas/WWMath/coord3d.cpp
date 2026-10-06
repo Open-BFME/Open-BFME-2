@@ -42,9 +42,7 @@ struct Coord2DBase
     float y;
 };
 
-class Coord2D : public Coord2DBase
-{
-};
+#include "../../../Include/Lib/Coord2D.h"
 
 // The three floats live in a base, which is what splits the two assignments:
 // from another Coord3D the compiler block-copies the base with three movsd,

@@ -106,12 +106,7 @@ inline void Coord3D::scale(float scale)
 
 Debug &operator<<(Debug &debug, const Coord3D &coord);
 
-class Coord2D
-{
-public:
-    float x;
-    float y;
-};
+#include "../../../Include/Lib/Coord2D.h"
 
 Debug &operator<<(Debug &debug, const Coord2D &coord);
 

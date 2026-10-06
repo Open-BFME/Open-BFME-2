@@ -10,7 +10,7 @@ template<class T> class StringBase {
     StringBase(const T *);
     friend class HordeContainUnitSlot;
 };
-struct Coord2D { float x,y; };
+#include "../../../../../Libraries/Include/Lib/Coord2D.h"
 class HordeContainUnitSlot {
 public:
     StringBase<char> unitType;
