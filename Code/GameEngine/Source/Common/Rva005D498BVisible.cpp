@@ -18,14 +18,29 @@ public:
 class AptScrollBar::Impl
 {
 public:
+	void SetEnabled(bool v);
 	void SetVisible(bool v);
 private:
 	char m_pad00[4];
 	void *m_level04;
 	Rva005D498BInner *m_inner08;
-	char m_pad0C[0x25 - 0x0C];
+	char m_pad0C[0x24 - 0x0C];
+	bool m_24;
 	bool m_25;
 };
+
+// AptScrollBar::Impl::SetEnabled @0x005D4949 66B: the same guarded fire as
+// SetVisible below, with the string "SetEnabled" (0x00C75A74) and the state
+// at +0x24. Its only caller is the scroll bar's forwarder 0x005D49CD.
+void AptScrollBar::Impl::SetEnabled(bool v)
+{
+	if (v == m_24)
+		return;
+	bool flag = v;
+	const char *prefix = m_inner08 ? m_inner08->m_name : g_Rva0107301CEmptyString;
+	Rva005277D9Fire(TheRva00222A8BTarget, m_level04, prefix, "SetEnabled", &v);
+	m_24 = flag;
+}
 void AptScrollBar::Impl::SetVisible(bool v)
 {
 	if (v == m_25)
