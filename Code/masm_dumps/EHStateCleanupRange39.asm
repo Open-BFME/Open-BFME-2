@@ -23,6 +23,7 @@ EXTERN ??1Rva005F8F96@@QAE@XZ:PROC
 EXTERN ??1RefHolder@Rva005CCC07@@QAE@XZ:PROC
 EXTERN ??1BfmePoolRef10@@QAE@XZ:PROC
 EXTERN ??1BfmeStringTailRecord156@@QAE@XZ:PROC
+EXTERN ?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b96a09 at RVA 0x00796A09; 25-byte interval ends at RET.
@@ -1313,6 +1314,81 @@ PUBLIC ?rva007A1372@@YAXXZ
 cleanup_done_007A1372:
     ret
 ?rva007A1372@@YAXXZ ENDP
+
+; Unwind@00ba1414 at RVA 0x007A1414; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then uses [ebp-20] + 12 as ECX and tail-jumps to matched Rva0004E84A4DwordImmSetter::apply at 0x004E84A4.
+PUBLIC ?rva007A1414@@YAXXZ
+?rva007A1414@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A1414
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp-20]
+    add ecx, 12
+    jmp ?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ
+cleanup_done_007A1414:
+    ret
+?rva007A1414@@YAXXZ ENDP
+
+; Unwind@00ba15ab at RVA 0x007A15AB; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then uses [ebp-20] + 32 as ECX and tail-jumps to matched Rva0004E84A4DwordImmSetter::apply at 0x004E84A4.
+PUBLIC ?rva007A15AB@@YAXXZ
+?rva007A15AB@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A15AB
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp-20]
+    add ecx, 32
+    jmp ?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ
+cleanup_done_007A15AB:
+    ret
+?rva007A15AB@@YAXXZ ENDP
+
+; Unwind@00ba15ff at RVA 0x007A15FF; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then uses [ebp-20] + 40 as ECX and tail-jumps to matched Rva0004E84A4DwordImmSetter::apply at 0x004E84A4.
+PUBLIC ?rva007A15FF@@YAXXZ
+?rva007A15FF@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A15FF
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp-20]
+    add ecx, 40
+    jmp ?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ
+cleanup_done_007A15FF:
+    ret
+?rva007A15FF@@YAXXZ ENDP
+
+; Unwind@00ba1641 at RVA 0x007A1641; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then uses [ebp-20] + 16 as ECX and tail-jumps to matched Rva0004E84A4DwordImmSetter::apply at 0x004E84A4.
+PUBLIC ?rva007A1641@@YAXXZ
+?rva007A1641@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A1641
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp-20]
+    add ecx, 16
+    jmp ?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ
+cleanup_done_007A1641:
+    ret
+?rva007A1641@@YAXXZ ENDP
+
+; Unwind@00ba1744 at RVA 0x007A1744; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then uses [ebp-20] + 16 as ECX and tail-jumps to matched Rva0004E84A4DwordImmSetter::apply at 0x004E84A4.
+PUBLIC ?rva007A1744@@YAXXZ
+?rva007A1744@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A1744
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp-20]
+    add ecx, 16
+    jmp ?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ
+cleanup_done_007A1744:
+    ret
+?rva007A1744@@YAXXZ ENDP
 
 ; Unwind@00ba1fcc at RVA 0x007A1FCC; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-28], then takes the cleanup object address at [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
