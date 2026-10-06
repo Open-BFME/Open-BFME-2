@@ -15407,3 +15407,4 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva0017437D@Rva0017437D@@QAEXXZ,0x0017437D,thiscall void; tail-jump target of 0x174A57
 ?rva001E7053@Rva001E7053@@QAEXHHMM@Z,0x001E7053,x87 twin forward targets of 0x1E7C2B/0x1E9045; thiscall (int;int;float;float) caller-side fiction; true types unproven (address-derived)
 ?rva001E8C1B@Rva001E8C1B@@QAEXHHMM@Z,0x001E8C1B,x87 twin forward targets of 0x1E7C2B/0x1E9045; thiscall (int;int;float;float) caller-side fiction; true types unproven (address-derived)
+?rva0018C4A9@Rva0018C4A9@@QAEXPAXPAF@Z,0x0018C4A9,wchar-loop callee of 0x18C6D5; takes (out-pair; key-word-ptr) per retail reads; true types unproven (address-derived)
