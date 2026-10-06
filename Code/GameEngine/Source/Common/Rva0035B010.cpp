@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0035B010@Rva0035AFE4@@QAE_NPAVPlayer@@PAVObject@@@Z retail 0x0035B010 46B
 // Chain method on the relationship-mask class: null-check both args, fetch
 // Team from Object+0x304, pass Player::getRelationship result into the rowed

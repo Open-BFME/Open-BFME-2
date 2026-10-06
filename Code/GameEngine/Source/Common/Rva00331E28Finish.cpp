@@ -1,5 +1,5 @@
 // ?Rva00331E28MakeHeap@@YAXPAUS4SortElem12@@0US4Cmp002E0CD0@@@Z
-// cl: /O1 /G7 /EHsc /MD /Oy-
+// cl: /EHsc /MD /Oy-
 // ?Rva00331E28MakeHeap@@YAXPAUS4SortElem12@@0US4Cmp002E0CD0@@@Z @0x00331E28 88B
 // __make_heap worker for 12-byte sort elements via rowed copy 0x00331962 and pinned __adjust_heap 0x00331C05.
 // Evidence: unlock lane unblocks make_heap 0x00332097; callees rowed/pinned; donor BfmeAssignRecord32MakeHeap 0x00173A60 shape with (len-2)/2 walk and copy-then-adjust loop.

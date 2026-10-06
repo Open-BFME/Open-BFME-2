@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva003426CE@Rva003426AB@@UAEHXZ, retail 0x003426CE, 62 bytes.
 // Virtual slot 4 (offset 0x10) of vtable 0x00812438, the class whose ctor

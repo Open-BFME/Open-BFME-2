@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva0034252C@@MAEXPAVXfer@@@Z @ 0x0034252C 27B: chain xfer calling Version1
 // via rowed 0x000053EE then base ?xfer@Rva00340D1F via rowed 0x00340CB0. No
 // members. Evidence: rowed Version1 plus rowed base xfer 0x00340CB0.

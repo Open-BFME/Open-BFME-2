@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Reconstruction of the change-notify setter at 0x00318BC6 (37B): if the
 // +0x70 word differs from the argument, forward the argument to the +0x88
 // helper object (callee 0x003FDE1A, pinned from the retail call) and store

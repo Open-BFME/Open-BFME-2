@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003418EA@Rva00341796@@QAEXH@Z @0x003418EA 70B: Rva00341796 slot 5.
 // Member at +0x20 via virtual slot15 then slot0 with 0 plus delete plus clear plus ptr chase +0x18 +0x14 +0x258 null-checked plus byte at +0x3BA cleared.
 // Precedent Rva00341796 dtor member shape plus State m_machine chase.

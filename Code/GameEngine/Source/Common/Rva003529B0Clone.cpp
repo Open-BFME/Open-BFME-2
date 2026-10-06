@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Rva003529B0Clone.cpp (donor revision

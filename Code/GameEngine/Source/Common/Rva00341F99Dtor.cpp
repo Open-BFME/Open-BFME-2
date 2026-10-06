@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??1Rva00341F99@@UAE@XZ, retail 0x00341F99, 91 bytes.
 // Twin of 0x00342157 (vtable 0x008118B0) and 0x00341E70: dtor restoring vtable,

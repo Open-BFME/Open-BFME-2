@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0033F8D4@AIUpdateInterface@@QBE_NXZ, retail 0x0033F8D4, 28 bytes.
 // Returns m_1A0 != FLT_MAX (pool 0x007BB8E0). Called from 0x00342572 on the

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??0Rva003371B1@@QAE@ABV0@@Z @ 0x003371B1 (67B): copy ctor over 20-byte record
 // with AsciiString at +0 via pinned StringBase<char> copy 0x365F0, flag byte

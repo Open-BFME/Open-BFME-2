@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??0Rva0030D8B1@@QAE@PAXPAVBfmeParserRegistryVE@@PAVAsciiString@@@Z @0x0030D8B1 104B: derived BfmeParserBindingBaseVE ctor for ObjectsList with empty-string fallback; callers at 0x000AF309; vtable 0x00808A24 via gate; base pin 0x000ABB87
 #include "ascii_string.h"
 

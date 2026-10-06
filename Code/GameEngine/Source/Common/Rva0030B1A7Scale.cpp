@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0030B1A7@Rva0030B92C@@QAEXM@Z @0x0030B1A7 139B
 // Scale vector points and 6 mid floats by arg then flag-gated.

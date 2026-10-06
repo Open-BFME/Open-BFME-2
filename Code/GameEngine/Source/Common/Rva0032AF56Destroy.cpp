@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0032AF56Destroy@@YAXPAVRva00329D0E@@0@Z @0x0032AF56 25B
 // Array-destroy range over Rva00329D0E (size 0x10).
 // Evidence: retail push esi loop calls rowed ??1Rva00329D0E@@QAE@XZ

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva0033F33D@@MAEXPAVXfer@@@Z retail 0x0034027D 30B slot 3.
 // Evidence: vtable 0x00810EE0 slot 3; Version1 via rowed 0x000053EE;

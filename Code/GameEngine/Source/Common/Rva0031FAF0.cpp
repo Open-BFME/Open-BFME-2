@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
 // ?rva0031FAF0@Rva0031FAF0@@QAEXXZ @0x0031FAF0 280B chain: clears 6 lists at +0x158 plus one at +0x170 then releases two strings and zeroes ints.
 // Evidence: calls rowed dtors 0x2004FD and 0x31F831 plus delete 0x2FD60 and List_base clear 0x23DAA5 and releaseBuffer 0x36410; callers at 0x320044 and 0x32056F; prev/next flags /O1 /EHsc /MD.

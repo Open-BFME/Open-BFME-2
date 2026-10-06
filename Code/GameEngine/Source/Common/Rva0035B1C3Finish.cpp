@@ -1,5 +1,5 @@
 // ?rva0035B1C3@Rva0035B1C3@@QAEHH@Z
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0035B1C3@Rva0035B1C3@@QAEHH@Z @0x0035B1C3 38B
 // Bounds-checked int list getter over vector<int> at +0xec: negative or

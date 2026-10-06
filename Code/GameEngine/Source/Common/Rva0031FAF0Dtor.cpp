@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
 // ??1Rva0031FAF0@@QAE@XZ, retail 0x0032002C, 105 bytes. Dtor of Rva0031FAF0: body calls clear 0x31FAF0 then destroys list at +0x170 and array at +0x158 and two AsciiStrings at +0xC/+0x0.
 // Evidence: deleting-dtor caller at 0x0032013C; offsets match Rva0031FAF0 clear TU; callees rowed List_base 0x004EC395 vector-dtor 0x00629110 releaseBuffer 0x00036410.

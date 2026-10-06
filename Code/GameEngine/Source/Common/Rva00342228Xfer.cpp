@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/moduledata
+// cl: /MD /Ireference/shims/moduledata
 //
 // ?xfer@Rva00342228@@MAEXPAVXfer@@@Z, retail 0x00342283, 108 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00811900 (class of ??1Rva00342228@@UAE@XZ,

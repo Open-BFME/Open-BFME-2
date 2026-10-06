@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /GX- /Ireference/shims/bfme2_ascii
 // ?rva0035B232@Rva0035B232@@QAEPBVAsciiString@@H@Z retail 0x0035B232 61B
 // Override-or-list AsciiString getter: +0x7c non-empty returns itself, else bounds-checked list at +0x58/+0x5c or AsciiString::TheEmptyString at 0x009E0878.
 // Evidence: unlock lane, callers 0x0021CB1F 0x0056786B 0x00567DA6, callee ?isEmpty@?$StringBase@D@@QBE_NXZ rowed, sar-2 count shape twins Rva0035B29E.

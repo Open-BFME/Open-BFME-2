@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00319159@Rva00319159@@QAEPAXXZ @0x00319159 33B via AsciiString empty check plus global lookup
 // ?rva0031964D@Rva00319159@@QAE?AVUnicodeString@@XZ @0x0031964D 61B via empty AsciiString returns TheEmptyString else record+0x30 copy
 // Evidence: unlock lane callers 0x002B3A71 0x00319666; rowed isEmpty StringBase and rowed rva002D06CA via g_009FF000; AsciiString at +0x18

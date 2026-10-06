@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ??1Rva00317BBB@@UAE@XZ @0x00317BBB 93B: virtual dtor draining the intrusive list at +0xC node by node through virtual slot 0 with arg 0 plus global operator delete, then base 0x001B4E74. Evidence: vtable 0x0080C62C store plus deleting-dtor caller 0x00317C18 plus rowed operator delete 0x0002FD60; node slot-0 identity unproven so TU-local ListNode facade.
 class AsciiStringMember {
 public:

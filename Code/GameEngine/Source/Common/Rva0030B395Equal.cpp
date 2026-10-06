@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0030B395Equal@@YA_NPBM00@Z @0x0030B395 60B
 // Float-pair array equal with NaN fail.
 // Evidence: movss ucomiss lahf test jp x2 plus add 8 loop; caller 0x0030B6CD; prev copy_backward_ptrs BfmeE8.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 // ?rva0033073C@Rva003306B0@@QAEXXZ @ 0x0033073C 27B
 // Evidence: chain from just-landed 0x003306B0; same vector at +0x10/+0x14; clears via remove-first loop.

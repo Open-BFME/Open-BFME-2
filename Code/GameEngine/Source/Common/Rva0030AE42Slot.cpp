@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // ?rva0030AE42@Rva00985E4@@UAEXXZ @0x0030AE42 100B
 // VSlot 14 of 0x0081CA04 (class Rva00985E4): assigns AsciiStrings at +0xC/+0x10
 // from globals then 12B copies at +0x14/+0x20/+0x30/+0x3C plus byte +0x2C and

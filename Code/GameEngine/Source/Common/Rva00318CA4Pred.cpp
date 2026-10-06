@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Reconstruction of the predicate at 0x00318CA4 (41B): when the global's
 // +0xF4 word is zero, forward the owner's +0x54 word to the +0x98 helper
 // (callee 0x002E0BC0, pinned from the retail call) and negate the byte

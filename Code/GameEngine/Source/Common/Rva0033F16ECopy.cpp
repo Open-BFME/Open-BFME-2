@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ??4Rva0033F16E@@QAEAAV0@ABV0@@Z, retail 0x0033F16E, 151 bytes.
 // Assignment copying dwords at +0x04-+0x1C plus bytes at +0x20/+0x21 plus

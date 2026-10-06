@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva00342843@@QAE@PAVStateMachine@@@Z @0x00342843 37B
 // AIInternalMoveToState-derived ctor, hash 0x5106D8AC, vtable 0x008124D8,
 // dword 0x4C zero via and plus byte 0x50 zero. Recipe from landed precedent

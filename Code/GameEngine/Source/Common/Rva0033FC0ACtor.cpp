@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva0033FC0A@@QAE@PAVObject@@I@Z @0x00343BC9 213B
 // class-gate: allow AsciiString retail forwards single dword key as VAsciiString to base 0x004D79E1; shared header emits copy lea and breaks prolog
 // Derived StateMachine ctor: base Rva004D759C with (owner, key, false),

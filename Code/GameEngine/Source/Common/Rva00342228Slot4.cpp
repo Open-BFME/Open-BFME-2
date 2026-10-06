@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0034230C@Rva00342228@@UAEHXZ, retail 0x0034230C, 64 bytes.
 // Virtual slot 4 (offset 0x10) of vtable 0x00811900, the class whose dtor

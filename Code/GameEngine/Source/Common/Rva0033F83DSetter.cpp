@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0033F83D@Rva0033F83D@@QAEXPBUSource0033F83D@@@Z, retail 0x0033F83D, 21 bytes.
 // m_3C = src ? src->m_74 : 0. Called from 0x003511E3 with the Object* from

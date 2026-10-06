@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00358B65@@QAE@XZ @0x00358B65
 // (57B): holder dtor with AsciiString narrow at +0 via releaseBuffer plus
 // TargetRef at +4 via fastcall Release; unblocks 59B+53B.

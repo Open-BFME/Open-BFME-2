@@ -1,6 +1,6 @@
 // ?Rva0030BFE8Equal@@YAHPBURva0030BFE8Range@@0@Z
 // partial score=0.93 date=2026-09-30
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0030BFE8Equal@@YAHPBURva0030BFE8Range@@0@Z retail 0x0030BFE8 61B: range equal via len xor plus rowed float equal.
 // Evidence: sub sub xor test fffffff0 jne plus call equal with add esp C then test branchy tail; caller pushes 3 args.
 

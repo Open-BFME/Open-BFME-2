@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva00345CAB@@MAEXPAVXfer@@@Z @ 0x00340E97 142B: slot 3 xfer of vtable 0x00813548.
 // Version(1,2) via Xfer slot 0x28 then base Rva0033FF2B xfer via rowed 0x0033FF76,
 // IsLightCRC via slot 0x10, uint at +0x58 via slot 0x78, int at +0x5C via slot

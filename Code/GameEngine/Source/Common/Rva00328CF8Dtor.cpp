@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??1Rva00328CF8@@QAE@XZ, retail 0x00328CF8, 82 bytes.
 // Non-virtual MI dtor over two holder bases with inlined base dtors: each base
 // stores global plus rowed handle call. Secondary at +0x0c via null-safe.

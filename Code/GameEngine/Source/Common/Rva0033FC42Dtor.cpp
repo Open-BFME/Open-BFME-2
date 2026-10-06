@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva0033FC42@@UAE@XZ, retail 0x0033FC42, 91 bytes.
 // Dtor restoring vtable 0x00811DB0, calling member +0x20 slot 0x3C when

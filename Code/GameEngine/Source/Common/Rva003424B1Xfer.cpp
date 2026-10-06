@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva003424B1@@MAEXPAVXfer@@@Z, retail 0x003424B1, 81 bytes.
 // Chain from 0x0033FF76 (Rva0033FF2B::xfer). Derived xfer calling

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Reconstruction of the 20B wrapper at 0x00318C79: call the sibling
 // 0x00318C32 body (pinned from the retail call), return its +0x12C word,
 // or -1 when it returns null. All names are address-derived.

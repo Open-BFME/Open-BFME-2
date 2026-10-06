@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??0Rva00328A75@@QAE@HHHPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z, retail 0x00328D4A, 83 bytes.
 // Ctor of Rva00328A75 (vtable 0x0080D8C4): allocates Rva00328C5E (0x28 bytes)
 // via rowed operator new 0x0002FDA0 and forwards this plus four scalars.

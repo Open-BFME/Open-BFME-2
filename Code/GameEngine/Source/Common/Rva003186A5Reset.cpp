@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /DWIN32 /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc/stl
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii /DWIN32 /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc/stl
 // stlport
 // Reconstruction of the reset-style body at 0x003186A5 (73B): zero the int
 // fields, drop the audio handle through TheAudio slot 0x6c (removeAudioEvent,

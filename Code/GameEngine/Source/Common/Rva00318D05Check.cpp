@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00318D05@Rva00318D05@@QAE_NH@Z, retail 0x00318D05, 15 bytes.
 // Compares int arg with dword at +0x54 and returns equality as bool.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva0033788FSortHeap@@YAXPAX00@Z retail 0x0033788F 65 bytes.
 // Calls 0x00337802 Forward in a sort_heap loop decrementing by 0x14.
 // Caller 0x003379F0 passes 3 args; unblocks 0x00337999.

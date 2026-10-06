@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0033254DPartial@@YAXPAUS4SortElem12@@00US4Cmp002E1690@@@Z @0x0033254D 27B
 // 5-arg __partial_sort forwarder over rowed 0x0033234F (4th Tp* null).

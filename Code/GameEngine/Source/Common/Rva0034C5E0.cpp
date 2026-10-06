@@ -2,7 +2,7 @@
 // Vtable 0x010E7D00 and the releaseBuffer call identify the constructor
 // layout, but the owning class name remains unknown.
 
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O1 /Ob2
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ob2
 
 class BfmeStringYK
 {

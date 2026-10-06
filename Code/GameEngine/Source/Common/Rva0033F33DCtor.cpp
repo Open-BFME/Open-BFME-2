@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0033F33D@@QAE@PAVStateMachine@@@Z, retail 0x0033F33D, 33 bytes.
 // State-derived ctor forwarding (machine, 0x6D9C1CB9) to the unsigned-hash

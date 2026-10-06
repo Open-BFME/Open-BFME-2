@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ??4Rva003427DD@@QAEAAV0@ABV0@@Z, retail 0x003427DD, 45 bytes.
 // Chain from 0x0033F16E (Rva0033F16E::assign). Assignment calling the

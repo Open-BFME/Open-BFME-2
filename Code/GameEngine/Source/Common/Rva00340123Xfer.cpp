@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva00340123@@MAEXPAVXfer@@@Z retail 0x00340123 53B slot 3.
 // Evidence: Version1 via rowed 0x000053EE; base Rva0033FF2B xfer via rowed

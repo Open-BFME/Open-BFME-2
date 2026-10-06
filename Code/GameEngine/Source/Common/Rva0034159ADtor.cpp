@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0034159A@@UAE@XZ @0x0034159A 91B: Rva0034159A public virtual dtor.
 // Vptr install plus member at +0x20 via virtual slot15 then slot0 with 0 plus delete 0x0002FD60 plus base WindModuleInfo 0x0049B47C via row.
 // Precedent Code/GameEngine/Source/Common/Rva0034149BDtor.cpp (same 91B shape same base).

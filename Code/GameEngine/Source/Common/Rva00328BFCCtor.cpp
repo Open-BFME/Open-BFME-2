@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??0Rva00328BFC@@QAE@PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z, retail 0x00328BFC, 98 bytes.
 // WaterAreas parser binding ctor same recipe as siblings Rva0030C97E
 // StandingWaveAreas plus Rva000AEFAA BlendTileData: AsciiString literal plus

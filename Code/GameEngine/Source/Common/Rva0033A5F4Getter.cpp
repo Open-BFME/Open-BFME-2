@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0033A5F4@Rva0033A5F4@@QAEXPAHPAM010@Z @0x0033A5F4 62B
 // Five-out-param getter: three ints at +0x5AC/+0x5B0/+0x5B4 and two floats

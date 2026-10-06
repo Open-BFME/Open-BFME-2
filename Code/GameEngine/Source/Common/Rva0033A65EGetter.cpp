@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0033A65E@Rva0033A65E@@QAEPAXXZ @0x0033A65E 22B
 // Evidence: callers at 0x0059ADE3 0x0059AF90 0x004FAA9 use result as Body-like ptr (byte +0x1D);
 // falls back to global Rva0041811D table at 0x00E030B0 via rowed DefaultBody 0x00418825.

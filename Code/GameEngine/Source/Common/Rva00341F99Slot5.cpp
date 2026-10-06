@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?rva00342120@Rva00341F99@@UAEXH@Z, retail 0x00342120, 55 bytes.
 // Slot 5 (offset 0x14) of vtable 0x00811850 (class of ??1Rva00341F99@@UAE@XZ,

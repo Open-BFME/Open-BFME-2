@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??1Rva0030A120@@UAE@XZ @0x0030A120 13B.
 //
 // Unknown-class virtual dtor. Stores vtable 0x008086E0 and decrements

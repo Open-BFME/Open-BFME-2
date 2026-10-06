@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00342572@Rva00342572@@QAEHXZ, retail 0x00342572, 46 bytes.
 // Chain from 0x0033F8D4 (AIUpdateInterface::rva0033F8D4 FLT_MAX check).

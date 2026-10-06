@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00341557@Rva00341557@@QAEXH@Z,
 // retail 0x00341557, 67 bytes. Dedicated TU.

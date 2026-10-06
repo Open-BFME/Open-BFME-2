@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0030CA65Copy@@YAPAVRva004733E0@@PBV1@0PAV1@@Z, retail 0x0030CA65, 38 bytes.
 // Copy loop returning dst: Rva0030CA53Set copies one 8-byte record. Retail is
 // frameless (no ebp) with src in edi, dst in esi and end held at [esp+0x10];

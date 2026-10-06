@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva00342228@@UAE@XZ, retail 0x00342228, 91 bytes.
 // Sibling of ??1Rva00342157 at 0x00342157 (same 91B shape): dtor restoring

@@ -1,4 +1,4 @@
-// cl: /Os /MD /arch:SSE
+// cl: /MD
 // ?rva0030F3BF@Rva0030F388@@QAEXM@Z @ 0x0030F3BF 69B: float clamp and guarded broadcast on the same object as 0x0030F388
 // Evidence: calls rowed 0x0030F388 with same this; flag at +0x1c shared; vtable slot 1 of 0x00809834 (class of ??1Rva0030F42E opaque deleter); floats at +0x14 (spec int at +0x1c) and +0x18; unblocked by landing 0x0030F388.
 struct Rva0030F3BFSpec

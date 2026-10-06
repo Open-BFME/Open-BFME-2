@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva0031F96F@Rva0031F96F@@QAEXMMHH@Z @0x0031F96F 209B unlock: twin of rva0031F89E 209B drawing three lists via TheDisplay float draw
 // Evidence: same 209B shape and rowed W3DDisplay draw 0x4D6B3 plus TheDisplay 0xDFE9D8 with -1 2; triple list base +0x164 (p init +0x16c) vs prev +0x158; entry ints at +4 plus Image at +0x14; caller 0x0031FAE7 unblocks 0x0031FAC5
 class Image;

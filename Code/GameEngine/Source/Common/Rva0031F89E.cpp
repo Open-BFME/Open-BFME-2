@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva0031F89E@Rva0031F89E@@QAEXMMHH@Z @0x0031F89E 209B unlock: draw three lists via TheDisplay float draw
 // Evidence: triple list at +0x158 plus entry ints at +4 plus Image at +0x14 via rowed W3DDisplay draw 0x4D6B3 plus TheDisplay 0xDFE9D8; caller 0x31FABC; prev deleting dtor /O1 /MD next Rva0031FA40Create.
 class Image;

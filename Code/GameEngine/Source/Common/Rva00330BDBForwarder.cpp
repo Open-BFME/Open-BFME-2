@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00330BDB@Rva00330BDB@@QBEMXZ retail 0x00330BDB 8B this-adjusting
 // forwarder: this-0x34 then tail-jmp to rowed Rva0030B719Shape::rva0030B706

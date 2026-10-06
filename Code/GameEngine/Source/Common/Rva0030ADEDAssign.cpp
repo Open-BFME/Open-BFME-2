@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // ??4Rva0030ADED@@QAEAAV0@ABV0@@Z @0x0030ADED 85B evidence calls rowed StringBase set 0x000366F0 twice plus raw 12B copies and byte plus dword return this via VslotSizedForwarders neighbour layout matches Rva00985E4 tail at +0x0C
 #include "ascii_string.h"
 

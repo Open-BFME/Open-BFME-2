@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0030BF0CEqual@@YA_NPBM00@Z retail 0x0030BF0C 90B: float array equal with NaN fail.
 // Evidence: movss ucomiss lahf test jp times 4 plus add 10 loop; caller 0x0030BFE8 pushes 3 args with add esp C.
 

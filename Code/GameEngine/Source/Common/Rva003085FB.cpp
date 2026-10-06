@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??0Rva003085FB@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x003085FB 104B
 // StandingWaterAreas parser binding ctor, same recipe as Rva000AEFAA/Rva000AEF42 (BlendTileData/HeightMapData).
 // Evidence: unlock lane, caller 0x000AF3C3 in 0x000AF238 (same caller as AEFAA/AEF42), literal StandingWaterAreas, base pin 0x000ABB87.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0032989F@@UAE@XZ retail 0x0032989F 103B
 // Own vptr C0D8FC; under EH state 0 each of the m_count (+0x68) pointers in
 // the array at +0x18 is deleted through its slot-0 deleting dtor with flag 0

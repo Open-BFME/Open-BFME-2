@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?rva003504e0@@YAPAURva003504E0Node@@PAU1@@Z
 struct Rva003504E0Node { Rva003504E0Node *next; };
 static __declspec(noinline) Rva003504E0Node *rva003504e0(Rva003504E0Node *node)

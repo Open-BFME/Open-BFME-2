@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00359835@Rva00359835@@QBEMXZ, retail 0x00359835, 30 bytes.
 // Float ratio with zero guard: if ([ecx+0x10]==0) return pooled 0.0f at
 // 0x007BAEAC else (float)[ecx+0x14] / (float)[ecx+0x10] via x87

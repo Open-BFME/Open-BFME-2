@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?xfer@Rva00340BDC@@MAEXPAVXfer@@@Z, retail 0x00340AE8, 244 bytes.
 // Slot 3 (0x0C) of vtable 0x00812150 (class Rva00340BDC): xfer with Version(1,3),

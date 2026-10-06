@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00327C1B@Rva00327C1B@@QBE_NXZ @0x00327C1B 20B
 // Two-value disp8 bool getter: returns (m_value == 1 || m_value == 3) with
 // m_value at +0x04. Evidence: frameless shape matches Disp8CmpBoolGetters

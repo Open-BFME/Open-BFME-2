@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /Ob0 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0030B76F@Rva0030B76F@@QAEXPAU1@@Z, retail 0x0030B76F, 78 bytes.
 // Swap holder via rowed vector swap 0x00567ECD plus rowed Region2D swap 0x0030B31A plus float and byte swaps.

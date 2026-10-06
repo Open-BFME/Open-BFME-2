@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva00317F6F@@UAE@XZ, retail 0x00317FF0, 93 bytes.
 // Dtor storing vtable 0x0080C66C, destroying vector of pairs at +0x24 via

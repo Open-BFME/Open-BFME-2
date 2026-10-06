@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /arch:SSE
+// cl: /MD /EHsc
 // ??1Rva00355CD8@@UAE@XZ @0x00355CD8 62B. Dtor storing vtable 0x00814E54,
 // conditional virtual slot1 on base+4 (Gen m_next) with arg +0xC, then base
 // ??1Gen_004902A0@@UAE@XZ. Evidence: deleting dtor at 0x00355FC1 calls here,

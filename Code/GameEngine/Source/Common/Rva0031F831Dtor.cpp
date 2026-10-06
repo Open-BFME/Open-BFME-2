@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva0031F831@@QAE@XZ @0x0031F831 9B dtor zeroes +8 then releases StringBase.
 // Retail and [ecx+8],0 then jmp releaseBuffer 0x00036410. Evidence: unlock lane;
 // caller 0x0031F856 is deleting dtor calling this as ??1; rowed releaseBuffer

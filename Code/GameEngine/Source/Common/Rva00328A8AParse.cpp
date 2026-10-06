@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?Rva00328A8AParse@@YAXAAVDataChunkInput@@HPAX@Z, retail 0x00328A8A, 272 bytes.
 // Parses DataChunkInput into holder: int plus 2 AsciiStrings plus bool plus int plus 6 AsciiStrings plus bool plus RGBColor plus 3 floats plus rowed 0x0030BB87.
 // Evidence: chain from 0x0030BB87; caller 0x003295B4 passes DataChunkInput plus word plus out; callees readInt 0x00306E78 readByte 0x00306E9A readReal 0x00306E56 rva0030750A 0x0030750A set 0x000366F0 releaseBuffer 0x00036410 setFromInt 0x00004EDF 0x0030BB87 rowed.

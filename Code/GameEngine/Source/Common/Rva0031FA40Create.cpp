@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?Rva0031FA40Create@@YAXPAVINI@@PAX@Z @0x0031FA40 78B factory.
 // Retail new Rva0031F7AB 0x1C, initFromINI with table 0x0080D720, store to [out+8].
 // Evidence: chain from 0x0031F7AB landing; rowed ctor 0x0031F7AB plus new 0x0002FDA0

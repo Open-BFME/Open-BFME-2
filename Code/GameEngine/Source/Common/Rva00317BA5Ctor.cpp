@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 //
 // ??0Rva00317BBB@@QAE@XZ at 0x00317BA5, 22 bytes.
 // Ctor beside rowed dtor ??1Rva00317BBB@@UAE@XZ at 0x00317BBB: baseConstruct

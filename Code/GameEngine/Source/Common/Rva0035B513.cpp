@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /GX- /Ireference/shims/bfme2_ascii
 // stlport
 // ?rva0035B513@Rva0035B513@@QAEXPAUBfmeFixedStorage128@@@Z retail 0x0035B513 93B
 // Honest upgrade-mask builder: clear a 128-byte bitset, walk the AsciiString

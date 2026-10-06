@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /G7
+// cl: /DNDEBUG /MD
 //
 // ?Rva00324B39Add@@YAXPAVGameWindow@@F_N@Z, retail 0x00324b39, 86 bytes. Banked partial (score 0.97) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

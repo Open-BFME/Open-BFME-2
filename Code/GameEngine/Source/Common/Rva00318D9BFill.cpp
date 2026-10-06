@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00318D9BFill@@YAPAVRva00318B5C@@PAV1@IABV1@ABU__false_type@_STL@@@Z @0x00318D9B (37B).
 // Null-guarded fill of count Rva00318B5C (0x10 stride) via the rowed

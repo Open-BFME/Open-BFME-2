@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00319904@Rva003193EC@@QAEXPAV1@@Z @0x00319904 32B
 // Method of Rva003193EC (this+arg are Rva003193EC* proven by rowed second

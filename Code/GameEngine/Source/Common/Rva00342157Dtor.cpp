@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva00342157@@UAE@XZ, retail 0x00342157, 91 bytes.
 // Twin of 0x0033FC42 (vtable 0x00811DB0): dtor restoring vtable 0x008118B0,

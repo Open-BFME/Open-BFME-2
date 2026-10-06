@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??0Rva0032A082@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x0032A082 48B
 // Evidence: chain lane calls rowed 0x003B3417, vtable 0x0080D8FC shared with dtor 0x0032989F, stores +0x14 zeroes +0x68
 #include "ascii_string.h"

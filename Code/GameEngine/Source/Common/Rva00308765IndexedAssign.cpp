@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00308765@Rva00308765@@QAEXHABVAsciiString@@@Z, retail 0x00308765, 52B.
 // Indexed AsciiString assign at +0x78 with change notify via vtable slot 7.
 // Evidence: lea edi [esi+ebx*4+0x78], rowed StringBase compare 0x69D6,

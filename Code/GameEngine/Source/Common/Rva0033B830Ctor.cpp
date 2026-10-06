@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // ??0Rva0033B830@@QAE@ABV?$StringBase@D@@ABVRva002390CB@@@Z @0x0033B830 30B.
 // Two-member record ctor: StringBase<char> at +0 via pinned copy 0x365F0 then
 // Rva002390CB at +4 via rowed copy 0x2390CB then return this with ret 8.

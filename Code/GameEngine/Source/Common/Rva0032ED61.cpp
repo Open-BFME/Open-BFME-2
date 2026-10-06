@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0032ED61@Rva0032ED61@@QAEXXZ @0x0032ED61 20B.
 // Clears two embedded rb-tree members at +0x24 and +0x30, second as tail-jmp.

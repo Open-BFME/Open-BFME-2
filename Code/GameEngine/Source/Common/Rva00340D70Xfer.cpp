@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva00340D70@@MAEXPAVXfer@@@Z @ 0x00340D70 201B: slot 3 xfer of vtable 0x008121E8.
 // True class per vtable is Rva00340D1F but that name is taken by misnamed 111B row at
 // 0x00340CB0 (no vtable proof); honest address name keeps bytes and links. Fix that

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Oy- /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // ?rva0033A453@Rva0033A453@@QBE_NPBX0@Z @0x0033A453 66B
 // 128-byte dual-mask tester: exempt mask disjoint plus required mask subset,
 // one dword at a time over 32 dwords. Same 66B shape as Rva0026157ETestMasks

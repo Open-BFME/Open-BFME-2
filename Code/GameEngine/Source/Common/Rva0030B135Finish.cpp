@@ -1,5 +1,5 @@
 // ?rva0030B135@Rva0030B92C@@QAEXPBUBfmePod8@@@Z
-// cl: /O1 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva0030B135@Rva0030B92C@@QAEXPBUBfmePod8@@@Z @0x0030B135 114B

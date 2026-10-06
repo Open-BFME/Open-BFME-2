@@ -1,6 +1,6 @@
 // ??0Rva0031F7AB@@QAE@XZ
 // partial score=0.93 date=2026-09-29
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva0031F7AB@@QAE@XZ @0x0031F7AB 64B.
 // Honest-address default ctor zeroing 28 bytes with an AsciiString at +0.
 // Evidence: callee rowed releaseBuffer 0x36410; callers 0x0031FA62 0x0032017A.

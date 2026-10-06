@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00318FBE@Rva00318FBE@@QAEHXZ, retail 0x00318FBE, 8 bytes.
 // Evidence: mov ecx [ecx+0x78] then jmp pinned ?bfmeVal1038@BfmeY1038@@QAEHXZ
 // 0x0040CF91; 10 unclaimed callers; neighbours Rva00318E8CGet /O1 and

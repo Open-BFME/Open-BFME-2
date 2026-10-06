@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00319610@Rva00319610@@QAEXXZ @0x00319610 61B
 // Unlock-lane void thiscall: gets Ret* via rowed-pin 0x00318C32,

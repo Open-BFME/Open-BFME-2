@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Ten broadcast slots of the class whose vtable is 0x00C088D8 (slots 11-21;
 // slots 2-8 are vtordisp thunks, so the class has a virtual base). Each one

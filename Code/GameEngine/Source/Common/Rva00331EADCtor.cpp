@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oy-
+// cl: /MD /Oy-
 // ??0Rva00331EAD@@QAE@HH@Z @0x00331EAD 36B
 // 12-byte record ctor storing two ints then initing the freelist member at +8
 // via rowed 0x29FB3B init with the dead-arg idiom ((char*)&a+3). Callers at

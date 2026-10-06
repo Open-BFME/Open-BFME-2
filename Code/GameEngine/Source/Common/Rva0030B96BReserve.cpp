@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0030B96B@Rva0030B96B@@QAEXH@Z, retail 0x0030B96B, 21 bytes.
 // Holder ensure via rowed vector E8 reserve 0x0030B876 with clamp to 2.

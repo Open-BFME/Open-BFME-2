@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?buildFieldParse@Rva0033A8FC@@SAXAAVMultiIniFieldParse@@@Z @0x0033A8FC 36B
 // Static buildFieldParse registering two FieldParse tables via rowed
 // MultiIniFieldParse::add at 0x0002BC6E: table VA 0x00DBECD8 extra 0 plus

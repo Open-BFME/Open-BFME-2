@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0033A8D9@Rva0033A8D9@@QBE_NPBX@Z @0x0033A8D9 23B
 // Forwarder over the 32-dword dual-mask tester at 0x0033A453: tests the
 // caller-supplied 128-byte mask (this for the callee) against the required

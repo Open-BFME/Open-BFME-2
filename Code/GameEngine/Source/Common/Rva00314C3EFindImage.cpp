@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?Rva00314C3E@Rva008FCA3@@UAEPBVImage@@PBD@Z, retail 0x00314C3E, 85 bytes.
 // Virtual slot 71 (offset 0x11C) of vtable 0x007C7C90 (class of rowed

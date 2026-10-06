@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0030F47A@@QAE@PAX@Z at 0x0030F47A (53B).
 // Vtable ctor with PlayerList chain for +0x14 and arg for +0x10 plus zeroed
 // tail. Evidence: vtable 0x809840, ThePlayerList 0xDFEEE8 +0x10 +0x54,

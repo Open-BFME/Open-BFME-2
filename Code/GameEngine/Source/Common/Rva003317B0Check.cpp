@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003317B0@Rva003317B0@@QAE_NPBVWeaponTemplateSetHead@@@Z retail 0x003317B0 73B
 // Subset check over 76-byte sets: if overlap at +0x50 return false; copy arg
 // to temp ebp-0x4c via rowed copy ctor 0x00045455; temp intersect member at

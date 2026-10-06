@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva00337424Insert@@YAXPAVRva002E9E70@@VRva003371B1@@H@Z @0x00337424 85B sorted insert.
 // Evidence: retail 85B EH with __EH_prolog FuncInfo 0x00B7C304; callees rowed copy ctor 0x003372EC and StringBase compare 0x000069D6 plus pin dtor 0x003372B7; callers 0x00337570 and 0x0033786F; prev/next 0x0033738B and 0x00337501 in Rva0033738BCopy.cpp.
 #include "ascii_string.h"

@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??0Rva00328C5E@@QAE@HHHHPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z, retail 0x00328C5E, 103 bytes.
 // Outer parser binding ctor: bases Rva00328B9A at +0x00 and Rva00328BFC at +0x0c
 // plus four scalar members at +0x18..+0x24. Chain from 0x00328B9A now rowed.

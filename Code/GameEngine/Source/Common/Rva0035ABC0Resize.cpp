@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?rva0035ABC0@Rva0035ABC0@@QAEXI@Z retail 0x0035ABC0 32B
 // Honest wrapper resizing the Pod8 vector at +0 with a zeroed 8-byte fill:

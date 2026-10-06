@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00318BA5@Rva00318BA5@@QAEXPAVRva003F0F13@@@Z @0x00318BA5 33B
 // Leaf __thiscall: out = this+0x34 via rowed 0x003F0F13, then this+0x2c = arg+0x12c.
 // Evidence: callee 0x003F0F13 rowed; caller 0x002B7AB4; prev/next same // cl: /O1 /MD.

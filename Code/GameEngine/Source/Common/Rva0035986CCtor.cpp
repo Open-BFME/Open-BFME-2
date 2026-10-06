@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva0035986C@@QAE@H_NH0@Z, retail 0x0035986C, 57 bytes.
 // Ctor storing vtable 0x008153D8 at [this] with bool-to-0/0x7FFFF43 convert:
 // mov eax,ecx; mov ecx,[esp+4]; mov [eax+4],ecx; mov cl,[esp+8]; neg cl;

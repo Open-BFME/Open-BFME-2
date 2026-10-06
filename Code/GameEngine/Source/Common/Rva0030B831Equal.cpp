@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0030B831Equal@@YAHPBURva0030B831Item@@0@Z @0x0030B831 41B
 // Range-plus-int equality via rowed 0x0030B6A6 then field 0x28.
 // Evidence: calls rowed Rva0030B6A6Equal; cmp [+0x28]; caller none; unblocks none.

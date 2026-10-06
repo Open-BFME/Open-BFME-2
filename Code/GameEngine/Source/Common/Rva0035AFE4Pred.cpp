@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0035AFE4@Rva0035AFE4@@QAE_NH@Z retail 0x0035AFE4 44B
 // Predicate testing the relationship mask at +0x1c: arg 0 tests bit 0,
 // arg 1 tests bit 1, arg 2 tests bit 2, any other arg tests nothing.

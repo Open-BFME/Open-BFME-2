@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003192B9Get@@YAPAXPAX@Z @0x003192B9 75B: free helper resolving a Value
 // via LivingWorld find plus empty-name Owner fallback. Evidence: packet

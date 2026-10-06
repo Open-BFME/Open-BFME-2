@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva0034117C@@MAEXPAVXfer@@@Z @0x0034117C 65B: Rva0034117C xfer slot 3.
 // Version(1 1) via Xfer slot 0x28 then base Rva0034103B xfer via rowed 0x0034103B then IsLightCRC early-out via slot 0x10 then Snapshot at +0x68 via slot 0x30.
 // Precedent Rva0033F33D xfer (Version1 plus Snapshot via slot 0x30) plus Version(1 1) via slot 0x28 shape.

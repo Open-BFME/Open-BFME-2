@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva003323AD@@QAE@ABV?$StringBase@D@@@Z @0x003323AD 37B
 // retail 0x003323AD 37 bytes unlock ctor StringBase at +0 flag +4 vector BfmeE16 at +8

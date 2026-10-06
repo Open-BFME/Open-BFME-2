@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva00341F5D@Rva00341E70@@UAEHXZ @0x00341F5D 60B: Rva00341E70 virtual slot 6 (offset 0x18) of vtable 0x008117F0.
 // Evidence: vslot packet; class of ??1Rva00341E70@@UAE@XZ; calls rowed ?getGoalObject@TurretStateMachine@@QAEPAVObject@@XZ twice plus vtable slots 0x38 (setGoalObject) and 0x10 tail.
 class Object;

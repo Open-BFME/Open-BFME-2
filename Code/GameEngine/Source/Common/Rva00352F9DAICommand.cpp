@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ?rva00352F9D@Rva00352F9D@@QAEXPBXHW4CommandSourceType@@@Z @0x00352F9D 110B
 // Stack AICommandParms 0xC0 via rowed ctor 0x00351BD0 with 0x11 and src,
 // m_waypoint from param1 plus m_intValue from param2, virtual slot 0 call,

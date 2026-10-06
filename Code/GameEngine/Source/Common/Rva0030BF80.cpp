@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
 // ??0Rva0030BF80@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x0030BF80 104B.
 // RiverAreas parser binding ctor, same recipe as sibling Rva0030C97E

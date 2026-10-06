@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00318F64@Rva00318F64@@QAEXXZ @0x00318F64 39B. Sync dwords at +0x34/+0x38
 // from +0x44/+0x48 then refresh cached value at +0x2C via rowed
 // Rva00318C79Owner::rva00318C79 0x00318C79 on the same object; on match bump

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0033A9A5@Rva0033A9A5@@QAEPBVRva00427157@@PBX@Z @0x0033A9A5 61B.
 // Array scan over 0x104 entries from +0x3EC to +0x3F0 via rowed
 // Rva0033A8D9 tester; on match return entry armor else rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0033F33D@@UAE@XZ @0x003401E4 75B: Rva0033F33D public virtual dtor.
 // Donor Code/GameEngine/Source/Common/Rva0033F33DCtor.cpp ctor (State machine hash 0x6D9C1CB9 plus vtable 0x00810EE0 plus m_20 zero tail).
 // Vptr install plus member at +0x20 via virtual slot0 with 0 plus delete 0x0002FD60 plus base WindModuleInfo 0x0049B47C via row.

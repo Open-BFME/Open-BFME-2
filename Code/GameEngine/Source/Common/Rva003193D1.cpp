@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva003193D1@Rva003193D1@@QAEXXZ @0x003193D1 27B
 // Thiscall method syncing via rowed 0x00318F64 then forwarding 0 to the

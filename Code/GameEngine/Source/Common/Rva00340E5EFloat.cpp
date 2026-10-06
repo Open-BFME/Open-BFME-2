@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00340E5E@Rva00340E5E@@QBEMXZ @0x00340E5E 18B chain via rowed 0x002627E8 float getter prev 0x00340D70 next 0x00340E70 caller 0x0034E795
 class Rva002627E8 {
 public:

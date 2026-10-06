@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ?Rva00333374Get@@YA?AVAsciiString@@PBURva00333374IdOwner@@@Z, retail 0x00333374, 93B.
 // Free AsciiString(Object id) via "ObjID#%08x": stack temp format through rowed

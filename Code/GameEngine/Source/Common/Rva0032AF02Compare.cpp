@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?Rva0032AF02Compare@@YAHHHH@Z @0x0032AF02 84B unlock caller 0x0032B624 globals 0x007FDC60 0x0080D938
 // Evidence: builds two stack Reader adaptors with vtables g_00BFDC60/g_00C0D938 around first two args then cdecl Compare with third arg. Same shape as Rva002ABC22Compare (84B).
 class Rva002AADB6Reader

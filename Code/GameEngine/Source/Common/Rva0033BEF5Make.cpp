@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // ?Rva0033BEF5Make@@YA?AURva0033B830@@ABV?$StringBase@D@@ABVRva002390CB@@@Z @0x0033BEF5 27B.
 // Hidden-dest forwarder over the rowed Rva0033B830 two-member ctor 0x33B830.
 // Chain from 0x33B830: this makes the 0x33DBE5 container parse/buttons path

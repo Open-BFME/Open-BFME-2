@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0033A632@Rva0033A632@@QAEHXZ @0x0033A632 44B.
 // Framed __thiscall returning int: if TheGameLogic present and rowed
 // GameLogic::rva00245EDF(this,&out) true return out else sign-extended

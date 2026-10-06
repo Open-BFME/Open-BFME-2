@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0033A674@Rva0033A674@@QAEPAXXZ @0x0033A674 22B
 // Evidence: same 22B fallback-getter shape as sibling Rva0033A65EGetter 0x0033A65E; callers use result as ptr; falls back to global at 0x00E030B8 via rowed rva00419154 0x00419154.
 class Rva0041811D

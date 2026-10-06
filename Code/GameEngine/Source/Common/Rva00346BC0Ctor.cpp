@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00346BC0@@QAE@IIIII@Z retail 0x00346BC0 109B
 // Unlock ctor memset 0x10 plus four bit sets; first arg ignored like sibling
 // Rva00265254 family. Evidence: memset via rowed ji_006291ae 0x006291AE;

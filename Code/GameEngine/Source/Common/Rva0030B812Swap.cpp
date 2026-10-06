@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0030B812@Rva0030B812@@QAEXPAU1@@Z, retail 0x0030B812, 31 bytes.
 // Swap holder via rowed inner swap 0x0030B76F plus int at +0x28.
 // Evidence: chain from 0x0030B76F; callers 0x00329106 0x00330BC7; prev swap /O1 /Ob0 /EHsc /arch:SSE next reserve vector e8.

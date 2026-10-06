@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva0033FF2B@@UAE@XZ, retail 0x0033FF2B, 75 bytes.
 // Dtor restoring vtable 0x00810DE8, then if TheAudio (data 0x009FE6E8) is

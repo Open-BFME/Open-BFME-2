@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva00342FCD@@QAE@PAVStateMachine@@H@Z, retail 0x00342FCD, 37 bytes.
 // Chain from 0x0033FE65 (Rva0033FE65 ctor). Derived ctor forwarding

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?onEnter@Rva00342FCD@@UAE?AW4StateReturnType@@XZ @0x0034BCBD 94B
 // Override of Rva0033FE65::onEnter via vtable slot 4 of 0x00812FA0

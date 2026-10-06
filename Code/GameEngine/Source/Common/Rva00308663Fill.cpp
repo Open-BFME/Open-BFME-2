@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?Rva00308663Fill@@YAPAVRva004733E0@@PAV1@IPBV1@@Z, retail 0x00308663, 37B.
 // Fill n Rva004733E0 slots via rowed Rva0030CA53Set with a fixed value.
 // Evidence: loop calls rowed 0x0030CA53 with (dst, fixed src), dst+=8,

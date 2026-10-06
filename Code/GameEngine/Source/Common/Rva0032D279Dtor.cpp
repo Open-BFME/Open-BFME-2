@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva0032D279@@QAE@XZ, retail 0x0032D279, 84 bytes.
 // Dtor for vector of 8-byte pairs (int key plus polymorphic value at +4):
 // deletes each non-null value via virtual dtor plus operator delete,

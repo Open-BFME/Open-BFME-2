@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??0Rva00328B9A@@QAE@PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z, retail 0x00328B9A, 98 bytes.
 // PolygonTriggers parser binding ctor same recipe as sibling Rva00328BFC
 // WaterAreas: AsciiString literal plus empty-string fallback for null parent

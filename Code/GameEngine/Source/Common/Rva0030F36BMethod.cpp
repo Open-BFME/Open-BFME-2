@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0030F36B@Rva0030F388@@QAEXXZ @ 0x0030F36B 29B: guarded listener-list broadcast setting flag at +0x1c
 // Evidence: rowed forEach 0x0030F34D in Rva0030F2E0ListenerWalks.cpp; pushed code 0x005CC208 slot-2 forwarder as listener notify; list at +4 and flag at +0x1c shared with 0x0030F388; unblocks 0x00086BC5.
 class Rva0030F34DListener

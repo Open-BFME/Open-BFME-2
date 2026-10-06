@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // class-gate: allow AsciiString retail 0x0033D3B8 needs the non-inline isEmpty declaration so the direct 0x00001E2F call shape is preserved; the shared header inlines extra checks that change the bytes (same proof as Rva0033BA46Finish)
 //
 // ?rva0033D3B8@Rva0033D3B8@@QAEPBDABVAsciiString@@@Z @0x0033D3B8 48B.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00346CDD@@QAE@PAVStateMachine@@@Z, retail 0x00346CDD, 24 bytes.
 // Evidence: calls rowed base ??0Rva0034005D@@QAE@PAVStateMachine@@@Z and stores
 // vtable g_00C136A0, ret 4 single StateMachine arg. Vtable slot unknown.

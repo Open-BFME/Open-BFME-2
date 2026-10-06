@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??1Rva00329D0E@@QAE@XZ @0x00329D0E 8B
 // Container dtor forwarding to Dict member at +0xC.
 // Evidence: retail add ecx 0xC jmp to rowed ?releaseData@Dict@@AAEXXZ

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva003468F5@Rva003468F5@@QAE_NXZ @0x003468F5 48B: range predicate over TurretStateMachine goal.
 // Returns true when the goal object exists and its distSq to the +0x20 point exceeds 2500.0f (50 squared).

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva00340461@@MAEXPAVXfer@@@Z, retail 0x00340461, 42 bytes.
 // Chain xfer: Version1 via 0x000053EE, bool at +0x54 via Xfer slot 0x90,
 // then base Rva00340123 xfer via 0x00340123. Evidence: callees rowed,

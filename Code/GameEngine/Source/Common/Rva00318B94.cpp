@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00318B94@Rva00318B94@@QAEEXZ at 0x00318B94, 17 bytes.
 // Leaf thiscall: holder = [ecx+0x88] (same outer offset as Drawable::getWheelInfo

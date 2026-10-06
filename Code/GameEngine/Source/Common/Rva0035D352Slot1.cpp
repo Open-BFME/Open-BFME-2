@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 
 // ?rva0035D3B4@Rva0035D352@@UAEXH@Z, retail 0x0035D3B4, 19 bytes.
 // Slot 1 (offset 0x4) of vtable 0x00816478 installed by rowed dtor 0x0035D352.

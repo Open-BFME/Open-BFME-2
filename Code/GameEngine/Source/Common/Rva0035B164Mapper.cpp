@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0035B164@Rva0035B164@@QAEHH@Z retail 0x0035B164 58B
 // Three-slot fallback mapper over +0x84/+0x88/+0x8c with sentinel 5.
 // Evidence: unlock lane, callers 0x00296749 0x0035B6FA, ecx-first thiscall.

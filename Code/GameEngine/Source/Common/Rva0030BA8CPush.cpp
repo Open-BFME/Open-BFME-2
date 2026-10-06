@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0030BA8C@Rva0030BA8C@@QAEXABUBfmeE8@@@Z, retail 0x0030BA8C, 20 bytes.
 // Holder push via rowed vector E8 push_back 0x00539A2E plus flag at +0x24 set to 1.

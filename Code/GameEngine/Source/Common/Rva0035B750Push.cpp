@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
 // stlport
 // ?rva0035B750@Rva0035B750@@QAEXPBVModuleData@@@Z retail 0x0035B750 45B
 // Empty-or-first setter over ModuleData vector at +0xec storing to +0xfc.

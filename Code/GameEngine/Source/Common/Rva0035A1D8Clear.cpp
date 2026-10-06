@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /arch:SSE
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?rva0035A1D8@Rva0035A1D8@@QAEXXZ @0x0035A1D8 96B
 // Unlock via 0x002442A4; neighbours Rva0035A18DVectorDeletingDtor and OpaqueScalarDeletingDtorsB06.

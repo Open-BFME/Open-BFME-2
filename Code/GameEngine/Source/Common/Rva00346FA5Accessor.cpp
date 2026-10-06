@@ -1,6 +1,6 @@
 // ?rva00346FA5@Rva00346FA5@@QBEPAXH@Z
 // partial score=0.91 date=2026-09-28
-// cl: /O1 /G7 /MD
+// cl: /MD
 //
 // ?rva00346FA5@Rva00346FA5@@QBEPAXH@Z @0x00346FA5 43B
 // Bounds-checked 12-byte element accessor. Evidence: __thiscall via ecx

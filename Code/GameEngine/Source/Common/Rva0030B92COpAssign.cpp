@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??4Rva0030B92C@@QAEAAU0@ABU0@@Z @0x0030B92C 63B
 // operator= via rowed vector Pod8 0x001D9BEE then byte 0x24 gate then 24B at 0x0C.

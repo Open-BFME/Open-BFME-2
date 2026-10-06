@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Open-BFME5: clearRva00359330Nodes(Rva00359330Record *) -- retail 0x003593F0, 54 bytes.
 //
 // Drains the node chain hanging off a string record's +0x10 slot; the record

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva0033F6DA@@MAEXPAVXfer@@@Z @0x00341D9B 97B: Rva0033F6DA xfer slot 3.
 // IsLightCRC early-out via slot 0x10 then Version1 via rowed 0x000053EE then bool has=(m_20!=0) via slot 0x90 then lazy create via m_machine slot 0x28 then Snapshot via slot 0x30.
 // Precedent Rva0033F33D Snapshot via slot 0x30 plus bool via slot 0x90 shape.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva00337802Forward@@YAXPAX00@Z retail 0x00337802 23 bytes.
 // Forwards to 0x003377BC ?gen002EADF0@@YAXPAX0H0@Z with 0 as third arg and own third as fourth.
 // Callees rowed; caller 0x0033788F passes 3 args; unblocks 0x0033788F.

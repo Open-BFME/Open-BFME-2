@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0033738BCopy@@YAPAVRva002E9E70@@PAV1@00@Z @0x0033738B (50B): forward
 // 20-byte copy loop via rowed copy ctor 0x003372EC; stride 0x14 from the
 // retail idiv. Shape matches the 50B forward loop at 0x003319C9 in

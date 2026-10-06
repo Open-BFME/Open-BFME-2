@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0034C0D0@@QAE@ABV0@@Z @0x0034C0D0 71B
 // Vector copy ctor via rowed Vector_base PrereqUnitRec then get_allocator AsciiString then Coord3D uninit-copy.
 // Evidence: Vector_base 0x005C8C37 row PrereqUnitRec; get_allocator 0x0021983A row AsciiString; uninit-copy 0x00346C2D row Coord3D; caller 0x00354B44.

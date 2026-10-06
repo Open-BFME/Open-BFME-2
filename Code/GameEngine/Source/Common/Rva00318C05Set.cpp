@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00318C05@Rva00318C05@@QAEX_N@Z, retail 0x00318C05, 45 bytes.
 // Early-out byte flag at +0x64 then null-checked pointer at +0x88 with

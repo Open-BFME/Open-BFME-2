@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva00340D1F@@UAE@XZ, retail 0x00340D1F, 75 bytes.
 // Derived dtor restoring vtable 0x008121E8, deleting the +0x5c pointer via

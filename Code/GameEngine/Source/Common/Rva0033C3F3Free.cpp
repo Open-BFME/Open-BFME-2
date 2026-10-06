@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ??1Rva0033C3F3@@QAE@XZ @0x0033C3F3 63B.
 // Scalar dtor over a two-word holder: body calls the rowed 0x002CF891
 // wrapper with (m_begin.p, m_end), then the inlined member dtor frees

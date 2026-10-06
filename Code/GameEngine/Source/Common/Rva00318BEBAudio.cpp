@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00318BEB@Rva00318BEB@@QAEXXZ, retail 0x00318BEB, 26 bytes.
 // If TheAudio (0x00DFE6E8) is present and the +0x60 handle is not 1

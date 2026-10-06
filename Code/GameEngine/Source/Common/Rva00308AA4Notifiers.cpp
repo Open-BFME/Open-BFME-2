@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Six broadcast slots of the vtable around 0x00C07F88, the same pattern as
 // the 0x00C088D8 slots in Rva0030C1FCNotifiers.cpp over a listener list at

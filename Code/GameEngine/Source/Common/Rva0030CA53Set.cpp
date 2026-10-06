@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0030CA53Set@@YAXPAVRva004733E0@@PBV1@@Z, retail 0x0030CA53, 18 bytes.
 // Null-guarded free wrapper over Rva004733E0::set (retail 0x0030BF66):
 // mov ecx,[esp+4]; test ecx,ecx; je; push [esp+8]; call set; ret.

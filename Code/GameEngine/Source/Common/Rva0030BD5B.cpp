@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0030BD5B@Rva0030BDEE@@QAEXPBURGBColor@@@Z @0x0030BD5B 41B
 // Conditional RGBColor copy with virtual slot 0x20.
 // Evidence: callee rowed operator!= 0x00004F65; member RGBColor at +0x50; 12B copy via movsd x3; virtual call [eax+0x20]; ret 4.

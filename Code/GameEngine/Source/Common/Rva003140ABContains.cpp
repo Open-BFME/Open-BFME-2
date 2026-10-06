@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003140AB@Rva003140AB@@QAE_NPAV1@@Z @0x003140AB (29B).
 // Searches intrusive list starting at head->m_next (stride +0x200) for this.

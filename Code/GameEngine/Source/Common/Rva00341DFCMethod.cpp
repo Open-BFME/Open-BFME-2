@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00341DFC@Rva0033F6DA@@QAEHXZ @0x00341DFC 38B: Rva0033F6DA slot 6.
 // If m_20==0 return -2 else set m_machine+0x38 to 1 then call m_20 slot 0x10 then clear m_machine+0x38 and return result.
 // Precedent State m_machine plus Snapshot slot shape.

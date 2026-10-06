@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0031404A@Rva0031404A@@QAEHH@Z, retail 0x0031404A, 12 bytes.
 // Honest int-field setter at +0x34 returning 0. Evidence: unlock lane with two
 // direct callers; prev/next in the same 00314xxx page are small Common helpers.

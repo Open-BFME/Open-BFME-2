@@ -1,6 +1,6 @@
 // ?onEnter@Rva0033FE65@@UAE?AW4StateReturnType@@XZ
 // partial score=0.95 date=2026-09-30
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?onEnter@Rva0033FE65@@UAE?AW4StateReturnType@@XZ retail 0x00346FD0 170 bytes.
 // AIIdleState::onEnter via vtable slot 4 of 0x00811E08 (class of

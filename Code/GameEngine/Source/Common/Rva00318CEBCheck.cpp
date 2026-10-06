@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00318CEB@Rva00318CEB@@QAE_NPBURva00318CEBOther@@@Z, retail 0x00318CEB, 26 bytes.
 // Null-checked equality: if other is null returns false else returns

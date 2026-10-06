@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00355D66@@UAE@XZ @0x00355D66 73B
 // Intermediate dtor in the Gen_004902A0 family (base dtor rowed at 0x00355C77,
 // base ctor unrowed at 0x00355C60, own ctor at 0x00355D4E with vtable 0x00814E5C).

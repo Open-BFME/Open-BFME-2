@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /GX- /Ireference/shims/bfme2_ascii
 // ?rva0035B29E@Rva0035B29E@@QAEPBVAsciiString@@H@Z retail 0x0035B29E 37B
 // Bounds-checked AsciiString list getter over pointer pair at +0x64/+0x68;
 // out of range yields AsciiString::TheEmptyString at 0x009E0878.

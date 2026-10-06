@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva003193EC@Rva003193EC@@QAE_NH@Z @0x003193EC 39B: thiscall bool method
 // adding BfmeY1038 value at +0x78 to its int arg then comparing against the

@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??0Rva00328D9D@@QAE@HHPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z, retail 0x00328D9D, 71 bytes.
 // Derived ctor over base Rva00328A75: forwards list head g_00DFF0B8 plus four
 // stack args to rowed base ctor 0x00328D4A, installs vtable 0x0080D8F0, then

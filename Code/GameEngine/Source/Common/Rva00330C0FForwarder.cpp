@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00330C0F@Rva00330C0F@@QAE?AURegion2D@@XZ retail 0x00330C0F 19B
 // this-adjusting Region2D forwarder: this-0x3C then Region2D return via the

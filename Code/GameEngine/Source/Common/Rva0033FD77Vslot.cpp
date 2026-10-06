@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0033FD77@Rva00367E26@@QAE_NXZ @0x0033FD77 33B. Vslot 12 (0x30) of vtable
 // 0x00817600 (class Rva00367E26): if sub-object at +0x50 exists and its
 // virtual at +0x28 returns true return true else tail-jmp to rowed

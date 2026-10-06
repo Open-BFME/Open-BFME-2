@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003182CD@Rva003182CD@@QAEEXZ, retail 0x003182CD, 20 bytes.
 // Bounds-checked byte getter: index at +0x10, if 0 <= index < 5 returns byte

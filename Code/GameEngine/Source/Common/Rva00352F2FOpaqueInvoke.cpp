@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ?invoke@Rva00352F2FOpaque@@QAEXPBVWaypoint@@HW4CommandSourceType@@@Z @0x00352F2F 110B
 // Stack AICommandParms 0xC0 via rowed ctor 0x00351BD0 with 0x10 and src,
 // m_waypoint from Waypoint param plus m_intValue from int param, virtual slot 0 call,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Reconstruction of the 15-bit to 2-byte mask emitter at 0x003187A8 (95B):
 // zero two local bytes, fold bits 0-14 of the owner's mask word into them,
 // then issue the slot-9 virtual (arg+0x24) with (bytes, 2). The slot, arity

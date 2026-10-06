@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva00342826@@QAE@PAVStateMachine@@@Z @0x00342826 29B
 // AIInternalMoveToState-derived ctor, hash 0x0DA1899B, vtable 0x00812490,
 // no extra members. Recipe from sibling Rva00342843Ctor.cpp (37B, same base

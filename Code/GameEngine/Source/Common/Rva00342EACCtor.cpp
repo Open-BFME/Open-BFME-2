@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva00342EAC@@QAE@PAVStateMachine@@@Z @0x00342EAC 37B: AIInternalMoveToState-derived ctor, hash 0x822AD648, vtable 0x00812E90, dwords 0x4C 0x50 zero via and.
 // Donor Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp AIFollowWaypointPathExactState ctor pattern (base + vtable + members).
 // Callers 0x00343C08 0x0035251C 0x00545DB7 unclaimed.

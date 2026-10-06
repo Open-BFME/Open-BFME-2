@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0030B9CA@Rva0030B9CA@@QAEXXZ, retail 0x0030B9CA, 19 bytes.
 // Holder clear via rowed vector Pod8 erase 0x003FA4DB plus flag at +0x24 set to 1.

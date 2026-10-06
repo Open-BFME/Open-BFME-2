@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0031968ACopy@@YAPAVRva00318B5C@@PBV1@0PAV1@@Z, retail 0x0031968A, 29 bytes.
 // Three-arg uninitialized_copy wrapper over rowed 0x00318DEC five-arg copy:
 // forwards first last result plus stack tag address and 0. Evidence: call

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva00306769Forward@@YGXPAX@Z, retail 0x00306769, 25 bytes.
 // Free __stdcall helper with one argument: loads the manager pointer at

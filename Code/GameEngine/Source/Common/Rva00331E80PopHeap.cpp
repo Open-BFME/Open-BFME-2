@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /Oy-
+// cl: /Ireference/shims/bfme2_ascii /MD /Oy-
 #include "ascii_string.h"
 // ?Rva00331E80PopHeap@@YAXPAUS4SortElem12@@0HUS4Cmp002E0CD0@@@Z @0x00331E80 45B
 // S4 pop_heap wrapper via rowed Bfme copy and rowed PopHeap.

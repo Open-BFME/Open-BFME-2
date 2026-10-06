@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00319331Destroy@@YAXPAURva00319331Item@@0@Z, retail 0x00319331, 26 bytes.
 // Evidence: frameless loop over 0x10-sized vtable objects calling slot 0 with 0.
 // Caller 0x00319784 forwards its two pointer args plus a local; loop uses first two.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0033A920@Rva0033A920@@QAEXPBX@Z @0x0033A920 49B
 // Lazy enum setter: if this int is not -1 return; else if the arg byte at
 // +0x108 has 0x80 set this to 6, else this to 10 when the arg dword at +0x110

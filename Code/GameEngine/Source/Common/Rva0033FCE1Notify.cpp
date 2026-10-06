@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?notify@BfmeSubVfn1A6@@QAEHHPAX@Z @0x0033FCE1 150B
 // Evidence: linkbody lane; callers in AIUpdateInterfacePrivateCommands; internalGetState row; vtable slots 0x14 0x10 0x220; globals g_Va00DBA4E4 TheGameLogic
 struct State;

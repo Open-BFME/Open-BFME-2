@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD
 // Rva0032884ASet, retail 0x0032884A (159B).
 // Gadget sound helper: stores resolved audio ref into user data +0x1c.
 // Evidence: rowed winGetUserData 0x005C4ACD, TheAudio 0x00DFE6E8 virtual

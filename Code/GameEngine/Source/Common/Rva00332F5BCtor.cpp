@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva00332F5B@@QAE@ABVWeaponTemplateSetHead@@0@Z @0x00332F5B 38B
 // retail 0x00332F5B 38 bytes unlock ctor UnicodeString at +0 plus two WeaponTemplateSetHead at +4 and +0x50
 // via rowed UnicodeString default 0x00326BE6 and rowed WeaponTemplateSetHead copy 0x00045455 caller 0x00336D9B

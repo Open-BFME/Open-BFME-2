@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00340C5F@Rva00340C5F@@QAEHXZ, retail 0x00340C5F, 81 bytes.
 // Unlock method: goal object via TurretStateMachine at +0x18, null returns
 // -2, optional CritterDesync log via globals, then 12B copy from +0x38 to

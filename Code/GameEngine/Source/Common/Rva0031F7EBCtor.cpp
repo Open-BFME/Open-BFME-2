@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva0031F7EB@@QAE@XZ @0x0031F7EB 70B ctor.
 // Retail zeroes 36B with releaseBuffer in middle. Evidence: unlock lane;
 // rowed releaseBuffer 0x36410; caller 0x003201CB; sibling 0x0031F7AB pattern

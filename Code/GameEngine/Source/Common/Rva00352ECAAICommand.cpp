@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ?rva00352ECA@Rva00352ECA@@QAEXPAXW4CommandSourceType@@@Z @0x00352ECA 101B
 // Stack AICommandParms 0xC0 via rowed ctor 0x00351BD0 with 0x01 and src,
 // m_obj from param1, virtual slot 0 call, then inlined vector-free via rowed free 0x00030830.

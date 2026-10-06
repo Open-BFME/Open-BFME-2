@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??0Rva00355D66@@QAE@XZ @0x00355D4E 24B. Derived ctor of Rva00355D66 calling
 // base ??0Gen_004902A0@@QAE@XZ then zeroing +8 and setting byte +0xC to 1 with

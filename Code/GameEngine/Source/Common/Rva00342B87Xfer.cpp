@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva00342B87@@MAEXPAVXfer@@@Z @0x00340C2D 50B: slot 3 xfer of vtable 0x008128D0 (Rva00342B87) also serving 0x0086A250 (Rva0036804F derived with no extra members inherits it). Version1 then base AIInternalMoveToState xfer via pin 0x0033FF76 then int at +0x4C via slot 0x7C plus Coord at +0x20 via slot 0x60. Evidence: callees rowed and pinned layout from Rva00342B87Ctor int 0x4C plus AI goal at 0x20 vtable slot 3.
 class AsciiString;
 class UnicodeString;

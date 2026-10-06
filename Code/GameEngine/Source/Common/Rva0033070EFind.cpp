@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0033070E@Rva0033070E@@QAEPAURva0033070EEntry@@ABV?$StringBase@D@@@Z @0x0033070E 46B
 // Unlock lane: linear find over pointer array at +0x10/+0x14 comparing

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0033EF86@Rva0033EEC9@@QAEXPBUCoord3D@@@Z @0x0033EF86 8B forward.
 // Retail mov ecx,[ecx+8] then jmp setPosition 0x0030AA80. Evidence: leaf lane;
 // neighbours ??1/??_G Rva0033EEC9; rowed Thing::setPosition; load-then-tail

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /G7
+// cl: /MD
 //
 // ??0Rva0035D0D1@@QAE@XZ @ 0x0035D097 58B.
 // Ctor via base ??0Rva001DBAA4 at 0x001DBAA4 plus vtable 0x008163D8 with

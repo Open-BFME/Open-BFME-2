@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva003560ED@@UAE@XZ @0x003560ED (112B)
 // Derived dtor of Rva00355D66 clearing TheGameLogic +0x78 then calling
 // TheDisplay slot 0x110 plus rowed W3DDisplay::rva0025D2F6 0x0025D2F6 then

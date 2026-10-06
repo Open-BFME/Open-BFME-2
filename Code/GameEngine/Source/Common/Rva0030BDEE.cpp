@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0030BDEE@Rva0030BDEE@@QAEXHHPAUBfmeE8@@@Z @0x0030BDEE 83B
 // Chain setter with float compare then virtual slot 0x28.
 // Evidence: callers none; callees rowed getter 0x005382A6 setter 0x005382D2; member Rva005382A6 at +0x68; SSE compare via ucomiss lahf; virtual call [eax+0x28]; ret 0xC.

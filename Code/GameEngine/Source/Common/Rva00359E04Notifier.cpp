@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // 0x00359E04 (15 bytes, vtable slot 0x00C153E4): hands a member-function
 // pointer to listener slot +0x0C and the owner to the listener list at +4

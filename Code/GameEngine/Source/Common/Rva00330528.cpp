@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??0Rva00330528@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x00330528 104B
 // CameraAnimationList parser binding ctor, same recipe as Rva003085FB/Rva000AEFAA (StandingWaterAreas/BlendTileData).
 // Evidence: unlock lane, caller 0x000AF540 in 0x000AF238 (same caller as siblings), literal CameraAnimationList, vtable g_00C0DB58, base pin 0x000ABB87.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??4Rva0031804D@@QAEAAV0@ABV0@@Z @0x0031804D (81B): copy-assign copying
 // AsciiStrings at +0x4/+0x8 via pinned 0x000366F0, byte +0xC, 4B-POD vector

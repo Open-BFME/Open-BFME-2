@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva00318637@@UAE@XZ retail 0x00318637 110B
 // Called by the rowed scalar deleting dtor 0x0031861B (vtable 0x00C0C734#0).
 // Own vptrs at +0 and +0x0C; the 8-byte record array at +0x30 (x5) runs the

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva00355DDD@Rva003560ED@@QAEXXZ @0x00355DDD 23B
 // vslot 3 (offset 0xC) of 0x00814EA4 (class of rowed dtor 0x003560ED); calls TheDisplay slot68 then clears +8
 // Target evidence: same vtable as ??1Rva003560ED 0x003560ED; neighbours 0x00355DC5 0x00355EE1 same cl; no callers

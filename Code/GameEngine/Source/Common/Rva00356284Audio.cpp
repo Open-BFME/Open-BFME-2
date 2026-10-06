@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /MD /EHsc
 // ?rva00356284@Rva00356284@@QAEXXZ @0x00356284 227B. Audio double-prefix refresh via TheAudio.
 // Evidence: TheAudio 0x009FE6E8 plus rowed BfmeAudioEventPrefix136 ctor 0x002D97D6
 // plus AudioManager slots 0x64 addAudioEvent 0x8c triple-int 0x28 touch plus rowed

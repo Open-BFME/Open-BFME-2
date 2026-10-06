@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00318E8C@Rva00318E8C@@QAEXPAURva00318E8COut@@@Z, retail 0x00318E8C, 18 bytes.
 // Copies float at +0x20 and dword at +0x24 to an 8-byte out struct.

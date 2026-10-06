@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva00332FC1@@QAE@ABVBfmeObject872Header@@0@Z @0x00332FC1 38B
 // retail 0x00332FC1 38 bytes chain ctor UnicodeString at +0 plus two BfmeObject872Header at +4 and +0x14
 // via rowed UnicodeString default 0x00326BE6 and rowed BfmeObject872Header copy 0x002CF108 caller 0x00336FDF

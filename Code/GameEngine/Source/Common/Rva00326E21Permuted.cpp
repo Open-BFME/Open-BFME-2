@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?GadgetListBoxSetListLength@@YAXPAVGameWindow@@H@Z, retail 0x00326e21, 378 bytes. Banked partial (score 0.99) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

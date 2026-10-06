@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva0033FA64Do@@YAXPBVObject0033FA64@@@Z, retail 0x0033FA64, 21 bytes.
 // Calls AIUpdateInterface slot 142 (offset 0x238) with 5 through the

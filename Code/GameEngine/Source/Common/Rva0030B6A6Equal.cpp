@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0030B6A6Equal@@YAHPBURva0030B6A6Range@@0@Z @0x0030B6A6 61B
 // Two-range float-pair equality via size xor then rowed 0x0030B395.
 // Evidence: size sub xor test F8; calls rowed Rva0030B395Equal; caller 0x0030B83D tests al; unblocks 0x0030B831.

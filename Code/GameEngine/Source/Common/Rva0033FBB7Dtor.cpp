@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva0033FBB7@@UAE@XZ, retail 0x0033FBB7, 77 bytes.
 // Dtor restoring vtable 0x00811CF0, calling Object::rva0028C197 0x0028C197

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003186EE@Rva003186EE@@QAEXHHH@Z @0x003186EE 43B
 // Leaf __thiscall 3-arg setter: if this+0x10 != arg1, store arg1, store arg3 to +0x28,
 // store arg2 to [g_00DFEC68+0x98], then rowed 0x003184B8 with same this.

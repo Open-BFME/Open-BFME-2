@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0033AC7F@Rva0033AC7F@@QAE_NAAV?$StringBase@G@@@Z @0x0033AC7F 35B
 // Guarded wide-string getter: returns false when the member at +0x48 is

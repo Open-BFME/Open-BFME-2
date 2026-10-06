@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii
 // ?rva0030C1C8@Rva0030C1C8@@QAEXHABV?$StringBase@D@@@Z, retail 0x0030C1C8, 52 bytes.
 // Array-of-StringBase setter at +0x40 stride 4 with virtual notify at slot 0x1c. Evidence: packet disassembly, callers 0x0030C6C8 0x00329339, compare/set rows.
 #include "string_base.h"

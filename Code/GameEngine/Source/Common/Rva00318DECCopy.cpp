@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00318DECCopy@@YAPAVRva00318B5C@@PBV1@0PAV1@PAXH@Z, retail 0x00318DEC, 60 bytes.
 // Count is (last-first)>>4 with early-out returning result. Loop copies the

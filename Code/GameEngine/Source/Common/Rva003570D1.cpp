@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 //
 // ?rva003570D1@ScriptEngine@@QAEPAVTeamPrototype@@VAsciiString@@@Z @0x003570D1 95B.

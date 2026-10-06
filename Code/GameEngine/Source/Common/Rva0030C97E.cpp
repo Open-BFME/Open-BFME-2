@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
 // ??0Rva0030C97E@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x0030C97E 104B.
 // StandingWaveAreas parser binding ctor, same recipe as siblings Rva000AEFAA

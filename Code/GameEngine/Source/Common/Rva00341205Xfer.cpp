@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva00341205@@MAEXPAVXfer@@@Z @0x00341205 50B: Rva00341205 xfer slot 3.
 // Version1 via rowed 0x000053EE then base Rva0034103B xfer via rowed 0x0034103B then ints at +0x68/+0x6C via Xfer slot 0x7C.
 // Precedent Rva00458AAE xfer (Version1 base ints via slot 0x7C).

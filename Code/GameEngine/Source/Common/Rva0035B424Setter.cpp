@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /GX- /Ireference/shims/bfme2_ascii
 // ?rva0035B424@Rva0035B424@@QAEXH@Z retail 0x0035B424 37B
 // Bounds-checked index setter over list at +0xec/+0xf0 storing to +0xfc.
 // Evidence: unlock lane, callers 0x0053DB2D 0x0056833F, lea-vec shape.

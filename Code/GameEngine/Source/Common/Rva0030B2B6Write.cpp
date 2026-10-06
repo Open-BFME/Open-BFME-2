@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0030B2B6@Rva0030B2B6@@QAEXPAVDataChunkOutput@@@Z retail 0x0030B2B6 72B: writes Elem array count then each pair via writeInt/writeReal.
 // Evidence: sub sar 3 count plus fld fstp loop with add 8; callees rowed writeInt/writeReal ICF-folded at 0x00306CFF.
 

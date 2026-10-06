@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0033FCC8@Rva0033FCC8@@QAEXXZ, retail 0x0033FCC8, 20 bytes.
 // Copies uint at +0x20 to +0x58 and 12 bytes at +0x24 to +0x5C via three

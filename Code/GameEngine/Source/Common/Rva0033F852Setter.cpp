@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0033F852@Rva0033F852@@QAEXPBUSource0033F852@@@Z, retail 0x0033F852, 21 bytes.
 // m_40 = src ? src->m_34 : 0. Twin of 0x0033F83D (m_3C = src->m_74 : 0),

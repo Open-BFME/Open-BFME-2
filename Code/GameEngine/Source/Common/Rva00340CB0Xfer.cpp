@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva00340D1F@@MAEXPAVXfer@@@Z @ 0x00340CB0 111B: slot 3 xfer of vtable 0x00810E?? family.
 // Version(1,2) via Xfer slot 0x28 then base Rva0033FF2B xfer via rowed 0x0033FF76,
 // IsLightCRC via slot 0x10, int at +0x4C via slot 0x7C, bools at +0x50/+0x51 via
