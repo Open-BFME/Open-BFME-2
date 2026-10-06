@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
 //
 // ?processGameSpyStatsAuthKeyCommand@BFMEConnectionManager@@QAEXPAX@Z
 // retail 0x004CFE24, 149 bytes. Dedicated TU ported from the Open-BFME-1

@@ -1,4 +1,4 @@
-// cl: /O2 /GX- /GS-
+// cl: /GX- /GS-
 // Retail 0x007F95A0 is the FESL request-slot timeout stamp helper.  The
 // direct call from the fresh 0x007FA4D0 body supplies a slot and timeout;
 // 0x007FA170 and 0x007FA240 establish the same slot stride and watermark

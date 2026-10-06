@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058D461@NetPacket@@IAE_NPAVNetCommandRef@@@Z @0x0058D461 (89B).
 // NetPacket capacity check sibling of isRoomForWrapperMessage 0x0058D387:
 // charges type 2 relay 1+1 timestamp 5 playerID 1+1 plus fixed 1 against

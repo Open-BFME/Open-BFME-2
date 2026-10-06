@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Carried from the Open-BFME-1 donor at submodule revision 5cae4bdf
 // (game/GameEngine/Source/GameNetwork/FeslHost_get_rva00801900.cpp). Target
 // evidence: the two 59B host-key getters place uniquely in BFME2 .text at

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // BFME1 6583b3c1 WideCharStringToMultiByte.cpp provides UTF-8 conversion flow.
 // Native3289AC/179 calls the same two-pass Win32 API with code page65001,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // Retail 0x003821E2..0x00382216 (52 bytes), Ghidra FUN_007821e2.
 // Native callers include 0x00383980, 0x005A2A2B and 0x005A2CC6.
 // Assigns the by-value UnicodeString to the field at +4, then releases

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // Open-BFME5: GameSpyGroupRoom default ctor. AsciiString @+0 then
 // UnicodeString @+4 (no gap between them in this ctor's own evidence -- the
 // UnicodeString::set() call below runs with this==&m_name+4), then five

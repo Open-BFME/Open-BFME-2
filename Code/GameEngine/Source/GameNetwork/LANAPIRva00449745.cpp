@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail 0x00449745, 167 bytes. LANAPI vtable slot 24 (vtable 0x0083E680,
 // class of ??1LANAPI@@UAE@XZ).
 // ?rva00449745@LANAPI@@UAEXI@Z

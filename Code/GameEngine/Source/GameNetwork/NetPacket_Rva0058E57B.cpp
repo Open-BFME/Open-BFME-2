@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058E57B@NetPacket@@QAEHXZ @0x0058E57B 57B.
 // NetPacket thiscall reading m_packetLen at plus-0x1E0.
 // Evidence: next NetPacket_init layout plus-0x1E0 len; idiv-8 plus remainder

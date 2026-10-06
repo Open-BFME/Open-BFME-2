@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007E8930: Rva007E8810Message::getInt64. Five matched callers already
 // name this member. Lookup goes through Rva007EBCA0; missing keys return
 // the __int64 default; a hit is sscanf("%I64d").

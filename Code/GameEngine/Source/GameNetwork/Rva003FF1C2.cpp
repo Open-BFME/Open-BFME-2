@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva003FF1C2@Rva003FF1C2@@QBE_NXZ @0x003FF1C2 (24B):
 // Honest-address predicate: 16B nonzero check at +0xCC (xor/inc/cmp/jl loop,
 // true on first nonzero, false after 0x10). Owner unproven; five callers.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva004D60CA@@MAE@XZ retail 0x004D60E3 54B.
 // Dtor lane: vptr 0x860464 then Wide releaseBuffer at +0x1c then vptr 0x860130.
 // Evidence: ctor 0x004D60CA plus setter 0x004D6187 plus vtable 0x860464.

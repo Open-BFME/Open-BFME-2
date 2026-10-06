@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0058062B@@QAE@PAXI@Z @0x0058062B 27B.
 // Ctor-like init: stores first arg at +0x00 then constructs vector<ushort> at +0x04

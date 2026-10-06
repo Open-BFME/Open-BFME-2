@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1NetGameCommandMsg@@UAE@XZ retail 0x004D5609 84B
 // Zero Hour NetGameCommandMsg::~NetGameCommandMsg shape: unlink and delete
 // each GameMessageArgument from the list head at +0x28 (next at +4); retail

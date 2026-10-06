@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00581641@LANAPI@@QAEXPAULANMessage@@PBUBfmeNetAddress@@@Z, retail 0x00581641, 98 bytes.
 // Chain via BfmeNetAddress compare 0x00248CBF plus holder +0x44 plus flag +0x11

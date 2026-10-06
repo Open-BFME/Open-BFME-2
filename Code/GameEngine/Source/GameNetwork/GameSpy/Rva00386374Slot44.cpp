@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva00383784@Rva00386374@@UAEXVGameSpyStagingRoom@@@Z 0x00383784 79B
 // Evidence: vslot 44 offset 0xB0 of vtable 0x00C19500 class Rva00386374; forwards by-value StagingRoom to slot 0xAC; copy 0x3835F4 builds outgoing arg then slot 0xAC then dtor 0x382C4A of incoming; ret 0x1020.

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // BFME2 FirewallHelperClass empty-message scan, transferred from the exact
 // BFME1 reconstruction (Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp).

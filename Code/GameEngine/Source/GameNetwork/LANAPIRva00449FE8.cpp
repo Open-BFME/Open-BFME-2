@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs-c-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs-c-
 // ?rva00449FE8@LANAPI@@QAEXPAX@Z @0x00449FE8 231B evidence: vslot 17 of LANAPI vtable 0x0083E680; type-0x12 message via fillInLANMessage slot 0xe4 send via Rva004495A2; slots 0x88 0x100; wcsncpy game name; timeGetTime; state at +0x28
 #include "unicode_string.h"
 

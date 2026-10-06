@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // stlport
 // ?Rva005922FBRead@@YAPAVRva004D6208@@HPAI@Z @ 0x005922FB (202B).
 // NetFileCommandMsg Rva004D6208 deserializer: auto_ptr-held new plus

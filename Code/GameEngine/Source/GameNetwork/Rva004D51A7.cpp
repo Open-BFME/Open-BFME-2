@@ -1,6 +1,6 @@
 // ?rva004D51A7@Transport@@QAEXPAXGPAH@Z
 // partial score=0.96 date=2026-09-30
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004D51A7@Transport@@QAEXPAXGPAH@Z @0x004D51A7 70B: Transport slot setter
 // at +0x40E0C. When index < 8 clears the slot via rowed clearSlot then
 // stores object and two ints. Evidence: retail cmp word 8 jae plus call

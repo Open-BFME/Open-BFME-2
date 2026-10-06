@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?rva00594C12@Rva00594C12@@QAEHPBDHKG@Z @0x00594C12 109B UDP::Write donor shape via wsock32 sendto
 // Evidence: IAT htons htonl sendto WSAGetLastError; callers 0x004D4CC0 0x00595208 0x005952B0; donor udp.cpp Write with retval=-1 giving or edi eax.
 extern "C" __declspec(dllimport) unsigned short __stdcall htons(unsigned short hostshort);

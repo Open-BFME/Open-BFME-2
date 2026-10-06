@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00401FAF@Rva00401FAF@@QAEXPBUTreeHintOpaque0043671B@@@Z @0x00401FAF 141B: holder at +0x8C flag +0xC8 ptr to TreeHintOpaque0043671B size 0xDF4; new via 0x0002FDA0 ctor 0x00229811 assign 0x00401F76; callers 0x0043E787 0x0043E8DF.
 struct TreeHintOpaque0043671B
 {

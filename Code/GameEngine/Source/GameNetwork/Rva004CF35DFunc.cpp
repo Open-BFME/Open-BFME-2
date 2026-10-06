@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva004CF35D@Rva004CF35D@@QAEXPAVNetWrapperCommandMsg@@@Z @ 0x004CF35D 85B
 // Thiscall with one NetWrapperCommandMsg arg, void return, ret 4. Checks
 // msg->getData() as small int index 0-7 via 4 separate rowed getData calls

@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /DNDEBUG /MD
+// cl: /Ob2 /DNDEBUG /MD
 /* GameSpy Peer SDK -- peerSB.c, 2007 callback reconstruction.
    The callback body follows the authentic nitrocaster/GameSpy source.  The
    declarations below are TU-local views of the 2004 retail layouts: the

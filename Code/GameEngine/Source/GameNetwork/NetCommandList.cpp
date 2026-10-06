@@ -1,5 +1,5 @@
 // ?reset@NetCommandList@@QAEXXZ
-// cl: /O1 /G6 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // NetCommandList::reset, retail 0x0058B283, 67 bytes. Zero Hour's loop: unlink
 // and destroy the head node until the list is empty, then clear the counters.

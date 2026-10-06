@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007EA120: FESL hub teardown -- notify(-205) then release(1) each nested
 // service pointer and clear the flag bytes.
 

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?endGame@GameInfo@@QAEXXZ @0x003FF296 (9B):
 // GameInfo::endGame. BFME1 GameInfo.cpp donor verbatim minus DEBUG_ASSERTCRASH
 // (compiled out under /DNDEBUG): clears inGame/inProgress at +0x10/+0x11.

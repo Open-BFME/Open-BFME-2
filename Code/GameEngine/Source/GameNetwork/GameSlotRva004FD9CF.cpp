@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004FD9CF@GameSlot@@QBEHXZ @0x004FD9CF 27B
 // GameSlot human-plus-flag predicate beside isHuman 0x003FF0F1: calls rowed
 // isHuman on the same this then tests the flag byte at +0x48. Evidence:

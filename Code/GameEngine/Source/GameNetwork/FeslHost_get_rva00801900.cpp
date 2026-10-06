@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // vtable 0x0112C4A8 slot 2 (Rva00802040Owner). Host-key lookup through
 // matched ?rva007F76F0@Rva00802240Host@@QAEHPAURva007F76F0Vector@@PBD@Z.
 

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva00591A65@NetPacket@@QAEEPAVNetCommandRef@@@Z @0x00591A65 (182B).
 // NetPacket room check with a wide-string term: charges type 2, timestamp 5,
 // frame 5, relay 2, player 2 and command ID 3 when they differ from the

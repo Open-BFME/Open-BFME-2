@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Retail 0x0024952E, 48 bytes. The target LANAPI table places this callback
 // at slot 48, corresponding to BFME1 OnNameChange. Retail dispatches through

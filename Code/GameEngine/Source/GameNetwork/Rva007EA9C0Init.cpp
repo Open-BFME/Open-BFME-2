@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007EA9C0: start NetConn if needed, then lazy-init the FESL service pair
 // at +0x250 the same way 0x007EAA70 does for +0x268.
 

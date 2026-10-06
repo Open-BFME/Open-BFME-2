@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058D70B@NetPacket@@IAEEPAVNetCommandRef@@@Z @0x0058D70B 60B.
 // NetPacket room check beside isRoomForFrameMessage 0x0058D686: lastCommandType
 // vs +0x14 and lastPlayerID vs +0x0C each add 2 then +12 vs 0x1DC.

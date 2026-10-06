@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva00318333@Rva00318333@@QAEXPAVObject@@_N@Z 0x00318333 247B evidence: controlling player checks via 0x28AFA9 flag 0x1BC then ThePlayerList mask at +0x24 via 0x2A7B91 then bfmeHas1026 at +0x1C then AsciiString at +0x20 via isEmpty then BitFlags at +0x58 via any then AttributeModifierPoolUpdate via 0x403415 callers 0x29384E 0x318731 0x31885C
 class Player;
 class Object

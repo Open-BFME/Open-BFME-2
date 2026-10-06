@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O1
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ?getReadyCommands@NetCommandWrapperList@@QAEPAVNetCommandList@@XZ retail
 // 0x0058C2AD (169 bytes) and the removeFromList it calls, 0x0058C1A5 (78

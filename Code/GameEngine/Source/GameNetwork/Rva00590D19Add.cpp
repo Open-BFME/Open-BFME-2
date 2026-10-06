@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX- /Oi- /arch:SSE
+// cl: /MD /GX- /Oi-
 // ?Rva00590D19Add@@YAXHPAVNetGameCommandMsg@@PBXPAH@Z @0x00590D19 506B leaf: if-chain on type 0-10 memcpy from base+*off then addArgument
 // evidence: calls rowed memcpy thunk @0x006291A8 with sizes 4 4 1 4 4 4 12 8 16 4 2 plus rowed addArgument @0x004D5A7A; caller 0x00591FF5; prev/next /O1 flags
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int n);

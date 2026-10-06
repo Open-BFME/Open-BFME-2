@@ -1,4 +1,4 @@
-// cl: /O1 /D_STLP_USE_STATIC_LIB /DNDEBUG /MD /EHsc
+// cl: /D_STLP_USE_STATIC_LIB /DNDEBUG /MD /EHsc
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.

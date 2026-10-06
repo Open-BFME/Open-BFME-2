@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /DNDEBUG /MD
+// cl: /Ob2 /DNDEBUG /MD
 
 #include <stdlib.h>
 #include <string.h>

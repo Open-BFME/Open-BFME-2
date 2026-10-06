@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058E481@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058E481 144B.
 // Static NetCommandMsg factory reading player index then second dword.
 // Evidence: neighbours 0x0058E367 and 0x0058E511 same NetPacket static factory

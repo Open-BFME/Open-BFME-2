@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // BFME1 clean donor GameSpyInfo_loadSavedIgnoreList_Thunk.cpp at
 // 6583b3c1ff21db4a561285717028fdafc780b7db supplies clear / read / assign purpose.

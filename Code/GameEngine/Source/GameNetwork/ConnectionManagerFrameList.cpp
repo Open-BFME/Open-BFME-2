@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc
+// cl: /MD /EHsc
 // ZH ConnectionManager::getFrameCommandList, donor BFME1 6583b3c1.
 // Target 0x004D0027..0x004D00BB keeps the eight-slot list merge, but uses
 // frame managers at +0x12104, resetFrame(frame, true), and a Network call

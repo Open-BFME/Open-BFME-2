@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS
 // stlport
 // ??1Rva00386374@@UAE@XZ 0x00386374 344B
 // Evidence: leaf dtor with pin; vtable 0x00C19500 then 0x00C19230; TheGameInfo vs g_00E02324 clear then GameSpyInfo::reset 0x385D25 then 20 member dtors descending from +0x162C to +0xC; caller deleting dtor 0x38745D; donor PeerDefs GameSpyInfo reset plus Rva0046A93E member shapes.

@@ -24,7 +24,7 @@
 //  0x0038A48B tree destructor (matched STLport string-pair Rb_tree dtor);
 //  0x0054FF17 deque destructor, reached from both +0x1C and +0x44, body
 //      unrowed.
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy/Thread
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy/Thread
 
 class GameResultsCounter
 {

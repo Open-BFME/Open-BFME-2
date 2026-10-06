@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ?rva0058D211@NetPacket@@QAE_NPAVNetCommandRef@@@Z, retail 0x0058D211, 133 bytes.
 // NetPacket room check sibling of isRoomForWrapperMessage 0x0058D387: charges

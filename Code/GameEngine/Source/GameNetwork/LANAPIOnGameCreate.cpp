@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Retail 0x00249430, 254 bytes [0x00249430,0x0024952E).
 // LANAPI::OnGameCreate. Ported from Open-BFME-1

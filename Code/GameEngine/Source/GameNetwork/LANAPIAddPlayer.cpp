@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Retail 0x0044B40C, 143 bytes. RequestSetName at 0x44B8D9 calls this helper
 // with the newly updated LANPlayer. Its body inserts into LANAPI +0x0C using

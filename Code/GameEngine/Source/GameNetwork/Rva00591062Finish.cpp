@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Rva00591062Get@@YAHPAURva00591062Host@@@Z @0x00591062, 82B.
 // Length sum of two AsciiString members at +0x1C/+0x20 via rowed

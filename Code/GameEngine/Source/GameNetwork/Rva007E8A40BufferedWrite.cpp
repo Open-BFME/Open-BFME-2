@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 int Rva007ED0E0(char *record, int size, const char *name,
     const unsigned char *source, int count);

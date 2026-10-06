@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs-c-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs-c-
 //
 // Retail 0x0044A32F, 144 bytes. The target body is the BFME1 LANAPI
 // RequestAccept operation with a target Bool parameter: it exits when in the

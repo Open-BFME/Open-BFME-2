@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva004D63DB@Rva004D63DB@@QAE?AVAsciiString@@XZ, retail 0x004D63DB, 141 bytes.
 // Rva004D63DB (dwords +0x1c/+0x20) contents: base
 // NetCommandMsg::rva004D5B4C plus ", leavePlayer=%d, reason = %d".

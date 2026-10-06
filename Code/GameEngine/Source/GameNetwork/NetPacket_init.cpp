@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?init@NetPacket@@QAEXXZ, RVA 0x0058D10A, size 86.
 // BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/GameNetwork/NetPacket_init.cpp
 // (NetPacket::init flat stores + NetPacketAddress stack-temp dest assignment).

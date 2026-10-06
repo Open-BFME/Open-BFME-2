@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Retail 0x0044B49B, 191 bytes. BFME1 LANAPI::reset supplies the operation;
 // target body evidence sets the list heads at +0x0C/+0x10, LANGameInfo::next

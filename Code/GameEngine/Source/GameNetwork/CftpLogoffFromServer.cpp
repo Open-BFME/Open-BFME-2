@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2
+// cl: /DNDEBUG /MD /EHs-c- /Ob2
 // WWDownload FTP.CPP Cftp::LogoffFromServer, retail 0x006CAA70, 183 bytes.
 //
 // Battle for Middle-earth reference

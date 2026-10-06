@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // NetProgressCommandMsg::getPercentage, retail 0x004C54EC, 4 bytes. Dedicated
 // TU so ConnectionManager.cpp keeps its matched bodies.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058E367@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058E367 141B.
 // Static NetCommandMsg factory reading leaving-player ID then leave frame.
 // Evidence: BFME1 donor NetPacket_read.cpp readInformPlayerLeaveFrameMessage

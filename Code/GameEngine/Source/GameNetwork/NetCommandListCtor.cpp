@@ -1,5 +1,5 @@
 // ??0NetCommandList@@QAE@XZ
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 //
 // NetCommandList constructor, retail 0x0058B06A, 19 bytes: installs vtable
 // RVA 0x00870A08 (DIR32 auto-patch; slot 0 is the now-matched ??_G row, so no

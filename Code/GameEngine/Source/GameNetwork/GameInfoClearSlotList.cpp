@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?clearSlotList@GameInfo@@QAEXXZ @0x003FFDB7 (67B):
 // GameInfo::clearSlotList. BFME1 GameInfo.cpp donor verbatim shape: loop 8 slots
 // via +0x18 array, null check, zeroed GameSlotConnectInfo (nat 0 port 0 via

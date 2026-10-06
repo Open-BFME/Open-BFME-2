@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // ?rva00594EFC@Rva00594EFC@@QAEHXZ, retail 0x00594EFC, 11 bytes. Clears the
 // dword at +0x17C then returns the dword at +4. Evidence: retail

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva00594DC0@Rva00594DC0@@QAEXPAURva00594DC0Msg@@@Z, retail 0x00594DC0 71B.
 // Network byte-order convert: htonl dword at +0 plus htons words at
 // +4 +8 +0xa +6 via wsock32 IAT. Evidence: htonl FF15 htons edi call,

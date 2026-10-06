@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?getSlot@GameInfo@@QAEPAVGameSlot@@H@Z @0x3FF29F (29B):
 // GameInfo::getSlot. BFME1 GameInfo.cpp shape (a null check on the array

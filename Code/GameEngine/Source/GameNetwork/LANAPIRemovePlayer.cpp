@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x004499C7, 56 bytes. Matched to BFME1 LANAPI::removePlayer's
 // linked-list removal body. Target layout evidence is direct: LANAPI head at

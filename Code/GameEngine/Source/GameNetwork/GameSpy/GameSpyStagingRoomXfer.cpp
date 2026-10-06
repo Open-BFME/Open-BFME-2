@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@GameSpyStagingRoom@@UAEXPAVXfer@@@Z @0x004FDAC7 39B: slot 3 (offset 0x0C)
 // of vtable 0x00819440; IsLightCRC guard via Xfer slot 0x10, Version1 via rowed
 // 0x000053EE, then rowed SkirmishGameInfo::xfer 0x003FFA3C. Evidence: vslot,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?setState@GameSlot@@QAEXW4SlotState@@VUnicodeString@@PBUGameSlotConnectInfo@@@Z @0x003FFC28 (399B):
 // GameSlot::setState. BFME1 GameInfo.cpp donor (GameSlot::setState) with BFME2
 // deltas proven by retail: SLOT_PLAYER 6 with new AI state 5, clear of six ints

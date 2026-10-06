@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058E20D@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058E20D 202B.
 // Static NetPacket factory for Rva004D58DE (0x2C): new via rowed ctor 0x004D58DE,
 // dword at +0x1C via 4B memcpy, word at +0x20 via 2B memcpy, dword len via 4B

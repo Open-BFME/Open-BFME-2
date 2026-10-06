@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs-c- /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs-c-
 // ?Rva005910B4Write@@YAXPADPAVNetCommandRef@@@Z @0x005910B4 188B. Tagged
 // NetCommand serializer: T<type>R<relay>S<timestamp>P<player>D<len><wstr>.
 // Evidence: NetCommandMsg layout from sibling NetPacket_rva0059188C

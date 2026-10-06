@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x0044973C, 9 bytes. The target LANAPI table places this body at
 // slot 31, immediately after RequestLobbyLeave at slot 30; BFME1 names the

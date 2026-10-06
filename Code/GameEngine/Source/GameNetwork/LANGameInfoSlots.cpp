@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // LANGameInfo::getLocalSlotNum, retail 0x00447794 (51 bytes), and
 // LANGameInfo::resetAccepted, retail 0x004477E0 (47 bytes): slots 13 and 14

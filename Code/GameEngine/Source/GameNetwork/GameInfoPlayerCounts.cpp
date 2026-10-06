@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // GameInfo player-count file-unit plus the two GameSlot predicates the
 // counts call through. BFME1 GameNetwork/GameInfo.cpp donor shapes, with two

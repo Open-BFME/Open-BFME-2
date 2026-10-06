@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // BFME1 donor: reference/open-bfme-1/game/GameEngine/Source/GameNetwork/IPEnumeration.cpp
 // donor revision 10af19f44a89ab7ecc23195bb9a842ceafbc02c9. BFME2 omits the
 // MemoryPoolObject word from EnumeratedIP; the retail allocation is 12 bytes.

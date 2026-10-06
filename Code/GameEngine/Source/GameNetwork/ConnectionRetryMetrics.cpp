@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?doRetryMetrics@Connection@@IAEXXZ, retail 0x0058BA7B 44 bytes.
 // Connection::doRetryMetrics via BFME1 donor Code/GameEngine/Source/GameNetwork/Connection.cpp
 // (same body) and Connection_doSend.cpp. Evidence: timeGetTime IAT call,

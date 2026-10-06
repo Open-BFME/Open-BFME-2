@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva0038BD70@Rva0038BDEEReceiver@@QAEXPAX@Z @0x0038BD70 126B: formats port at +0x90 via AsciiString sets room to closedplaying and starts game with flag true. Evidence: neighbour Rva0038BDEEInvoke same class string at +0xC4 flag at +0x49C; strings "%d" plus closedplaying plus empty g_Rva0107301CEmptyString; callees row format 0x38150 basic_string assign 0x1B790 peerStartGameA 0x69A780 releaseBuffer 0x36410.
 // The emitted unsigned max copy must match retail RVA 0x00013740.

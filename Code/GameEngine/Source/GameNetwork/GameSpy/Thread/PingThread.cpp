@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME: PingThread ICMP ping helper, retail 0x0054F99E, 234 bytes.
 // ZH donor is GeneralsMD/Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp

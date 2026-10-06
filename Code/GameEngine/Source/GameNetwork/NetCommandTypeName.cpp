@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?Rva005813D4Get@@YA?AVAsciiString@@H@Z, retail 0x005813D4, 471 bytes.
 // Free function mapping NetCommandType int to its NETCOMMANDTYPE_* string.
 // Identity from 2 callers at 0x004D5B7F 0x004D5BBC in 0x004D5B4C and the 29

@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /DNDEBUG /MD
+// cl: /Ob2 /DNDEBUG /MD
 // 0x0086B570, 100 bytes. Kicked callback slot witnessed by piSetChannelCallbacks.
 
 typedef void *CHAT;

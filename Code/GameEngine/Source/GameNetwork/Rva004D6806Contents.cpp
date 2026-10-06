@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva004D6806@Rva004D6806@@QAE?AVAsciiString@@XZ, retail 0x004D6806, 192 bytes.
 // Rva004D6806 contents: base NetCommandMsg::rva004D5B4C plus
 // "%s, action=%d reason = %d, filename=%s" with dwords +0x1c/+0x20 and

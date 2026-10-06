@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007EA320 / 0x007EA380: if the second arg is live, store both args and
 // tail-call vslot 4 on the object at +0x268/+0x284; otherwise report -203
 // through the nested +0x6A8 interface.

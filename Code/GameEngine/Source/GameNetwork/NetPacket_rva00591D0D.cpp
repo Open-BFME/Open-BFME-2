@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva00591D0D@NetPacket@@QAEEPAVNetCommandRef@@@Z @0x00591D0D (158B).
 // NetPacket room check with string-length term: charges type 2 relay 2
 // timestamp 5 player 2 ID 3 plus fixed 1, adds AsciiString length from the

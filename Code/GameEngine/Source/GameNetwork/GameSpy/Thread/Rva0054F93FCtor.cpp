@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva0054F93F@@QAE@H@Z retail 0x0054F93F 29B.
 // ThreadClass-derived ctor: base ThreadClass(NULL) plus int at +0x50.
 // Evidence: base ctor 0x00610430; vtable 0x0086AB40; member +0x50;

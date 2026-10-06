@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /DNDEBUG
 // stlport
 // ?Rva001EFCF7@@YG_NVUnicodeString@@@Z @0x001EFCF7 165B
 // Peer text-request validator: trims a by-value UnicodeString, and when it

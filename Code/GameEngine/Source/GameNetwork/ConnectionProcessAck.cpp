@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Connection::processAck(NetCommandMsg *), retail 0x0058BD7B (37 bytes),
 // ported from Zero Hour's GameEngine/Source/GameNetwork/Connection.cpp

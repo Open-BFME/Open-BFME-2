@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // BFME1 revision 6583b3c1 supplies the sawMatchbot purpose and value-string ABI.
 // Target 0x38AD81..0x38ADC6 (69 bytes) is called by enum callback 0x38B5DB:

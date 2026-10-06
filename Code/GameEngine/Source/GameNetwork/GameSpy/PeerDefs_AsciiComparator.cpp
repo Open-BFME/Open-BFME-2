@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Open-BFME7: AsciiComparator::operator()(AsciiString, AsciiString) const,
 // retail 0x00631350, 126 bytes -- the case-insensitive less-than of

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // BFME1 GameNetwork/IPEnumeration.cpp donor, verbatim body: the retail leaf
 // nulls the address-list head and clears the winsock flag (8-byte object, no

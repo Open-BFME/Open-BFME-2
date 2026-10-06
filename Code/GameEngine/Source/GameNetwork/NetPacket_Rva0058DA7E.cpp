@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058DA7E@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058DA7E 207B.
 // Static NetAckBoth factory reading word + byte + two dwords from data+offset.
 // Evidence: sibling ?rva0058DB4D@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z 207B

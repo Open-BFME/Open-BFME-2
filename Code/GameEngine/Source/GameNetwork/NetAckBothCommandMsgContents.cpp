@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva004D5DEF@NetAckBothCommandMsg@@QAE?AVAsciiString@@XZ, retail 0x004D5DEF, 151 bytes.
 // NetAckBothCommandMsg contents slot 3 of 0x008601F4: base
 // NetCommandMsg::rva004D5B4C plus ", commandID=%d, origPlayer=%d, origExeSID=%d, origExeFrame=%d".

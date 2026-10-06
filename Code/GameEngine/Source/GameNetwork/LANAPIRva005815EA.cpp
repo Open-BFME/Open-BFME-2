@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva005815EA@LANAPI@@QAEXPAULANMessage@@PBUBfmeNetAddress@@@Z, retail 0x005815EA, 87 bytes.
 // Chain via BfmeNetAddress compare 0x00248CBF plus LANAPI m_inLobby +0x41 plus

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Retail 0x0044B992, 124 bytes. The body calls the matched LANAPI::reset,
 // deletes the optional Transport at +0x50, destroys host/login/name at

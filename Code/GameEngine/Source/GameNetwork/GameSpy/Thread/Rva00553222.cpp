@@ -1,6 +1,6 @@
 // ?rva00553222@Rva00553222@@QAEXXZ
 // partial score=0.98 date=2026-09-29
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00553222@Rva00553222@@QAEXXZ retail 0x00553222 58B stop thread plus
 // clear plus virtual destroy plus delete. Evidence: chain calls clear
 // 0x0009990D plus Stop 0x006105F0 plus delete 0x0002FD60; caller at 0x00557CEA.

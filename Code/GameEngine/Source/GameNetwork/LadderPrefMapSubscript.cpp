@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/reference/shims/campaignmanagerascii /Ireference/open-bfme-1/inputs/reference/shims/stringbaseunicode /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/reference/shims/campaignmanagerascii /Ireference/open-bfme-1/inputs/reference/shims/stringbaseunicode /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 // ??A?$map@JVLadderPref@@...@QAEAAVLadderPref@@ABJ@Z retail 0x005E017A, 135 bytes.
 // Ported from the Open-BFME-1 donor game/Libraries/Source/WWVegas/WWLib/

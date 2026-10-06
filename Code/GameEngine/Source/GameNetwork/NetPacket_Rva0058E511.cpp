@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058E511@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058E511 106B.
 // Static NetCommandMsg factory reading player index from data+offset.
 // Evidence: unlock lane plus prev NetPacket_isRoomForFrameMessage plus

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?Rva005923C5Read@@YAPAVRva004D62A9@@HPAI@Z @ 0x005923C5 (209B).
 // NetCommandMsg Rva004D62A9 deserializer: auto_ptr-held new plus
 // null-terminated string via byte loop plus AsciiString temp through the

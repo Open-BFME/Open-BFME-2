@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs-c- /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs-c-
 //
 // ?Rva0058CE23Write@@YAXPADPAVNetCommandRef@@@Z @0x0058CE23 (162B).
 // Tagged NetWrapperCommand serializer: T<type>R<relay>S<timestamp>P<player>C<id>D<wrapped>W<dataLen>.

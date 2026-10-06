@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?reset@GameInfo@@UAEXXZ @0x003FFF8F (267B):
 // GameInfo::reset, virtual slot 10 (+0x28) of vtable 0x008193C8 (rowed copy
 // ctor ??0Rva00382FA7@@QAE@ABU0@@Z sets it; slot 13 getLocalSlotNum rowed,

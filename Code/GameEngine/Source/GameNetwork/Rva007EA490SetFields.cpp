@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Set three adjacent dwords at +0x224..+0x22C of the nested state.
 struct Rva007EA490Inner
 {

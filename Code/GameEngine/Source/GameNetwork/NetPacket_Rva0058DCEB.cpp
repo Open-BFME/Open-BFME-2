@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058DCEB@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058DCEB 158B.
 // Static NetCommandMsg factory reading three 4-byte fields from data+offset.
 // Evidence: unlock lane plus sibling 0x0058E047 plus new-0x28 plus

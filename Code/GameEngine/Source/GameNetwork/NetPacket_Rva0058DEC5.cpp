@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058DEC5@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058DEC5 50B.
 // Static NetCommandMsg factory constructing KeepAlive with no fields read.
 // Evidence: unlock lane plus sibling 0x0058E047 plus new-0x1c plus

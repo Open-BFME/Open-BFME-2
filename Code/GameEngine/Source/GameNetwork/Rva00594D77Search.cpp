@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?rva00594D77@FirewallHelperClass@@QAEPAXG@Z @0x00594D77 (37B): search spareSockets[8] at +0x14 by port at +0x18 stride 8; return entry or 0; layout from Rva00594CDDPermuted ctor; neighbours FirewallHelperClass ctor and findEmptyMessage.
 struct SpareEntry
 {

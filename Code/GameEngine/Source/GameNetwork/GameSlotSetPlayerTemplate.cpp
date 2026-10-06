@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // ?setPlayerTemplate@GameSlot@@QAEXH@Z @0x00400E33 (108B):
 // GameSlot::setPlayerTemplate. BFME1 GameInfo.h donor (inline setPlayerTemplate

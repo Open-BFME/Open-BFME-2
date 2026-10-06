@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BfmeMsgVJH::BfmeMsgVJH, retail 0x00655900 (76 bytes).
 // EA FESL game-browser message: base subobject (retail vtable 0xCE0BC4,

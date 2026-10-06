@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva004D650E@Rva004D64F5@@QAE?AVAsciiString@@XZ, retail 0x004D650E, 152 bytes.
 // Rva004D64F5 (type 5, AsciiString +0x1c) contents: base
 // NetCommandMsg::rva004D5B4C plus ", challenge=%s" with the +0x1c string.

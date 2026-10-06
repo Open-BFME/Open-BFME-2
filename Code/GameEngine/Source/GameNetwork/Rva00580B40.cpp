@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00580B40@Rva00580B40@@QAEXPBVModuleData@@@Z @0x00580B40 28B.
 // Pushes non-null arg into vector<const ModuleData*> at +0x00 via rowed push_back

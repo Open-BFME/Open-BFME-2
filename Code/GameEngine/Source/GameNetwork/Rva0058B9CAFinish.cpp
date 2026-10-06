@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ?rva0058B9CA@Connection@@QAEPAVNetCommandRef@@GEII@Z @0x0058B9CA (177B):
 // Connection ack retire: walks the pending list at +0x18 via +4 links,

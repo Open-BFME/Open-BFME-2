@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /DNDEBUG /MD
+// cl: /Ob2 /DNDEBUG /MD
 /* GameSpy Peer SDK -- peerSB.c */
 
 typedef struct PEERConnection

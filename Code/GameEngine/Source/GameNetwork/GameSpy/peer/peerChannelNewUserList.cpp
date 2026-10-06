@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /DNDEBUG /MD
+// cl: /Ob2 /DNDEBUG /MD
 // 0x0086B8D0, 121 bytes. newUserList callback slot in piSetChannelCallbacks.
 
 typedef int RoomType;

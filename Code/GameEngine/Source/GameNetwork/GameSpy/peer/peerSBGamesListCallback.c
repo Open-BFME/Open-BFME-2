@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /DNDEBUG /MD
+// cl: /Ob2 /DNDEBUG /MD
 /* GameSpy Peer SDK -- peerSB.c, 2007 game-list callback reconstruction.
    Retail uses the four-argument SBServerList callback ABI and the 2004
    query-engine arity.  These declarations are TU-local views of the retail

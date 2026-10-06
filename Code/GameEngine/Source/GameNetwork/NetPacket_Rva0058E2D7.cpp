@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ?rva0058E2D7@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z, retail 0x0058E2D7, 144 bytes.
 // Static NetPacket factory reading word then dword: new Rva004D598E (0x24)

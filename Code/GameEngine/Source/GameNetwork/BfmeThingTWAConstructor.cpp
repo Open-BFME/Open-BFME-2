@@ -5,7 +5,7 @@
 // The +0x10 value has the observed 16-byte prefix of the existing
 // Rva00808CB0LanGameEntry view. Ordinary constructors explain the interleaved
 // vtable stores and ECX setup; no volatile fields or hand-written vptrs.
-// cl: /O2 /GX-
+// cl: /GX-
 class PrototypeClass {
 public:
  PrototypeClass();

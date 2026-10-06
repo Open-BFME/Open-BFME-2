@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?DoesCommandRequireACommandID@@YAHW4NetCommandType@@@Z, retail 0x005811B5, 116 bytes.
 // BFME2's DoesCommandRequireACommandID: takes NetCommandType by value (mov eax,[esp+4]),
 // returns Int (xor eax,eax / inc eax, whole register, not Bool). Identity proven by

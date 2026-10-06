@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00580172@Rva00580172@@QAE_NXZ @0x00580172 16B.
 // Test-and-clear byte at +0x14: if set clear and return true else false.
 // Evidence: callers 0x0044650A 0x005A0D92; prev/next share /O1.

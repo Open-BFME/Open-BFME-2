@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007EA0A0: for each of three service pairs, if the nested object at
 // +0x254/+0x288/+0x26C is live, slot2(0, arg) through +0x6A8 then slot5
 // on the sibling at +0x250/+0x284/+0x268.

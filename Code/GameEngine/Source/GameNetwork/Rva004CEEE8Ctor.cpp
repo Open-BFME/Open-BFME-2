@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva004CEEE8@@QAE@XZ retail 0x004CEEE8 25B
 // NetCommandMsg-derived ctor sharing vtable 0x00860244 via ICF fold with rowed NetKeepAlive 0x004D57C7; stamps type 0x17 at +0x14.
 // Evidence: rowed base 0x004D5593 plus 2 callers 0x004D0C88 0x0058DD89; class unproven so honest Rva name.

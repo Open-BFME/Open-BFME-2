@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x00449A29, 88 bytes. The pointer table at 0x83E680 places this
 // body in slot 14; the target body independently uses LANAPI offsets +0x41,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058E047@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058E047 105B.
 // Static NetCommandMsg factory reading 1-byte relay flag from data+offset.
 // Evidence: unlock lane plus sibling 0x0058E511 plus new-0x20 plus

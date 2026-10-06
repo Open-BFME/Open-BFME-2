@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/GameNetwork/NetPacketCommandBodies.cpp.
 // Target boundary 0x58D387 is the wrapper-capacity helper: it charges packet
 // type, relay, timestamp, player and command-ID data then calls the pinned

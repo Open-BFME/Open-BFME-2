@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD -Ireference/shims/gamespy
+// cl: /DNDEBUG /MD -Ireference/shims/gamespy
 // Retail behavior is nickname sanitization: a leading digit or '-' and every
 // character outside the GameSpy VALID_NICK_CHARS set become '_'.  Transferred
 // from the exact BFME1 source (their chat/Rva00860620.cpp, named for the

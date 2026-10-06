@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Clean C++ donor: Open-BFME/Open-BFME-1 2791daf5536e4e2147dc3a4aa25c17816828dd69,
 // game/GameEngine/Source/GameNetwork/Rva007F9950Assign.cpp, b1 RVA 0x007F9950.
 // Native BFME2 0x00665EC0 has an independent aligned, int3-delimited 81B

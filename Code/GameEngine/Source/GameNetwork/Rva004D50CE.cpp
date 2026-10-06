@@ -1,6 +1,6 @@
 // ?rva004D50CE@Rva004D50CE@@QAEMXZ
 // partial score=0.96 date=2026-09-30
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004D50CE@Rva004D50CE@@QAEMXZ @0x004D50CE 68B: averages up to 30
 // unsigned ints at +0x41054 (count at +0x40E6C) via x87 fild with 2^32
 // fixup plus final scale via globals 0x7C26EC/0x8601E0. Called once from

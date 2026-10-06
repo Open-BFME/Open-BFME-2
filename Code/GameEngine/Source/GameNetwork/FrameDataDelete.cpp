@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Target boundary 0x0070A5D0/24 (Ghidra). The BFME2 FrameData::init body at
 // 0x005DA4F9 establishes m_commandList at +0x08. Retail here null-checks

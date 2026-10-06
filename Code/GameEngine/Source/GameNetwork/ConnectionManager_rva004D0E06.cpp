@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
 
 // ?rva004D0E06@ConnectionManager@@QAEXPAVGameMessage@@@Z @0x004D0E06 133B: ConnectionManager send GameMessage as NetGameCommandMsg via TheGameLogic frame and local player slot then sendLocalCommand relay 0xff and detach.
 // Target evidence: new NetGameCommandMsg(GameMessage*) 0x004D5CBE then TheGameLogic+0x38 timestamp plus this+0x12028 playerID plus DoesCommandRequireACommandID 0x005811B5 plus GenerateNextCommandID 0x005811A8 plus sendLocalCommand 0x004CFF21 plus detach 0x004D55BC; caller 0x0025E75F.

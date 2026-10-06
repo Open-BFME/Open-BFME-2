@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x0044998E, 57 bytes. The LANAPI table points to this body at slot
 // 63. Its list walk matches BFME1 LookupPlayer, with the target taking a full

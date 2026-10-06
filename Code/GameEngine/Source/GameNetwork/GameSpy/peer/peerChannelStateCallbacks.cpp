@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /DNDEBUG /MD
+// cl: /Ob2 /DNDEBUG /MD
 // Callback identities witnessed by matched piSetChannelCallbacks.
 // 0x0086B950: broadcastKeyChanged (59 bytes; RET+0x3A, then INT3).
 typedef void *PEER;

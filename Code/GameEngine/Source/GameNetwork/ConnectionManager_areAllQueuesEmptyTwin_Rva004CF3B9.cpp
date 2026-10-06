@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
 //
 // readable body of ?areAllQueuesEmpty@ConnectionManager@@QAE_NXZ: game/GameEngine/Source/GameNetwork/ConnectionManager.cpp
 // Open-BFME: ConnectionManager::areAllQueuesEmpty, retail 0x00662DF0. This is

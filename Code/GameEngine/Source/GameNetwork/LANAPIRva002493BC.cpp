@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail 0x002493BC, 116 bytes. LANAPI vtable slot 35 (vtable 0x0083E680,
 // class of ??1LANAPI@@UAE@XZ).
 // ?rva002493BC@LANAPI@@UAEXHVUnicodeString@@@Z

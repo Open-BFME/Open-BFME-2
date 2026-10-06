@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // LANAPI::rva0044A808, retail 0x0044A808, 249 bytes.
 // LANAPI vtable slot 25. Chain via BfmeNetAddress compare 0x00248CBF plus

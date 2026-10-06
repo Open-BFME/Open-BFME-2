@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // GameSpyStagingRoom::amIHost, retail 0x004FDBAA (75 bytes), and
 // GameSpyStagingRoom::getLocalSlotNum, retail 0x004FDBF5 (126 bytes), and

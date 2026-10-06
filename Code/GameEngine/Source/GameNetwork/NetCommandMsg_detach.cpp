@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // NetCommandMsg::detach at RVA 0x004D55BC, full 26-byte retail body.
 // BFME's de-pooled command has its count at +0x18 and frees through the
 // slot0 virtual (scalar-deleting-dtor with flags=0 destroys without

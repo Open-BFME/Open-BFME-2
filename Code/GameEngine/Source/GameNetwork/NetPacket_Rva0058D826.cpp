@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058D826@NetPacket@@IAEXHHHHH@Z @0x0058D826 265B.
 // NetPacket packet append by kind copying raw stack args via memcpy.
 // Evidence: unlock lane plus sibling TU layout plus caller 0x00590C71.

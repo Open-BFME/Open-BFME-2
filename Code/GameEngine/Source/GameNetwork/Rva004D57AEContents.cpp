@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva004D6040@Rva004D57AE@@QAE?AVAsciiString@@XZ, retail 0x004D6040, 138 bytes.
 // Rva004D57AE (type 11, dword +0x1c) contents: base
 // NetCommandMsg::rva004D5B4C plus ", destroyPlayer=%d" with the +0x1c dword.

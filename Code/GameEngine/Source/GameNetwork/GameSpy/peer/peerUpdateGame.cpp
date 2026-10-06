@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /DNDEBUG /MD
+// cl: /Ob2 /DNDEBUG /MD
 // 0x00857690, 33 bytes. API identity witnessed by matched PeerThreadClass::Thread_Function.
 
 typedef void *PEER;

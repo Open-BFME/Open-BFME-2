@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x00449913, 86 bytes. BFME1 LANAPI::removeGame supplies the linked
 // list operation. Target evidence gives the LANAPI game-list head at +0x10,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva004D5B4C@NetCommandMsg@@QAE?AVAsciiString@@XZ, retail 0x004D5B4C, 223 bytes.
 // NetCommandMsg contents formatter: when DoesCommandRequireACommandID says the
 // type needs an id, formats "<sessionID=%d, frame=%d, player=%d, id=%d>, %s"

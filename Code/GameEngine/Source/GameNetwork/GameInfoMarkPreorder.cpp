@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?markPlayerAsPreorder@GameInfo@@QAEXH@Z @0x003FF1FE (26B):
 // GameInfo::markPlayerAsPreorder. BFME1 GameInfo.cpp donor verbatim:
 // bounds 0..7 then m_preorderMask |= 1<<index with mask at +0x08.

@@ -1,5 +1,5 @@
 // ?getErrorStringFromReturnType@LANAPIInterface@@QAE?AVUnicodeString@@W4ReturnType@1@@Z
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Target evidence: Ghidra bounds a 131-byte function at 0x00248EC3. Its retail
 // jump table at 0x00248F46 maps values 0..9 to LAN:OK, ErrorTimeout,
 // ErrorGameFull, ErrorDuplicateName, ErrorCRCMismatch, WOL:ChatErrorSerialDup,

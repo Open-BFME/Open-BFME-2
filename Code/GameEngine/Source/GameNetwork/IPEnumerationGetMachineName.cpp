@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // BFME1 GameNetwork/IPEnumeration.cpp donor for the machine-name lookup: WSA
 // startup once (version 2.2 checked by byte), then gethostname into a stack

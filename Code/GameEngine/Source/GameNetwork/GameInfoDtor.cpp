@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??1Rva00382FA7@@UAE@XZ @0x00400A7F 121B: GameInfo virtual dtor (Rva name keeps
 // pinned caller 0x003830CE and LINK GameSpyStagingRoomCopy); installs vtable

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail 0x0024955E, 55 bytes.
 // ?rva0024955E@Rva0024955E@@QAEXVAsciiString@@@Z
 // Honest address name: __thiscall (ret 4: one by-value AsciiString,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // BFME1 donor: Code/GameEngine/Source/GameNetwork/NetPacket.cpp.
 // Target boundary 0x58D686 (133 B) has the same packet-capacity sequence and
 // command fields as BFME1 isRoomForFrameMessage (0x678180, 128 B), with the

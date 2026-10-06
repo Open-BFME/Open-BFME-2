@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ?_Rva00621350GameInfoMapPath@@YA?AVAsciiString@@ABV1@_N@Z retail 0x00400898, 367 bytes.
 // Ported from the Open-BFME-1 donor

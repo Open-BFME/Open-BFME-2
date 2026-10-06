@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?isPlayer@GameSlot@@QBE_NVAsciiString@@@Z @0x003FFEF5 (109B):
 // GameSlot::isPlayer, AsciiString by-value overload. BFME1
 // GameSlotIsPlayerAsciiThunk.cpp donor

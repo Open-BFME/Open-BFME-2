@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // stlport
 //
 // Retail 0x005E06E5 (312B): DownloadManager::OnStatusUpdate.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Retail 0x0044B7A9, 364 bytes. The body trims the by-value name, updates
 // LANAPI state, emits a type-2 lobby message, and updates the local LANPlayer.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // ?rva0050C2E6@Rva0050C2E6@@QAEXABV1@@Z @ 0x0050C2E6 175B
 // Memberwise copier: 10 AsciiStrings interleaved with 8 dwords, all through
 // the rowed StringBase<char>::set (called through an explicit base cast, the

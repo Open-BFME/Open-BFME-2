@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
 // Retail 0x0068DF70, 92 bytes: a GameInfo method that copies its by-value
 // AsciiString and forwards it to GameInfo::setMap (retail 0x00620510, whose
 // 1213-byte body is Zero Hour's map-mask and preview work, reached here

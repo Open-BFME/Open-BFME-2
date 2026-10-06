@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs-c- /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs-c-
 //
 // ?Rva0058C96CWrite@@YAXPADPAVNetCommandRef@@@Z @0x0058C96C (175B).
 // Tagged NetProgressCommand serializer: T<type>R<relay>S<timestamp>F<frame>P<player>C<id>D<percent>.

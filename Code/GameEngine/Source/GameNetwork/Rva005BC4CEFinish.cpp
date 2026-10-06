@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva005BC4CEStart@@YAHH@Z
 // retail 0x005BC4CE, 135 bytes (Ghidra FUN_009bc4ce, bytes-to-next 168 trust gate).

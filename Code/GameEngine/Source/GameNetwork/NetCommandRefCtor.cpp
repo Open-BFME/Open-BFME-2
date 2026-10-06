@@ -1,4 +1,4 @@
-// cl: /O1 /G6 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0NetCommandRef@@QAE@PAVNetCommandMsg@@@Z, retail 0x0058B88A 36 bytes.
 // NetCommandRef ctor via BFME1 donor Code/GameEngine/Source/GameNetwork/NetCommandRef_dtor.cpp
 // (NetCommandRef::NetCommandRef) and ZH GeneralsMD NetCommandRef.cpp.

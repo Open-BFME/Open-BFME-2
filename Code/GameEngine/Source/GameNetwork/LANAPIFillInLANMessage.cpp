@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?fillInLANMessage@LANAPI@@QAEXPAVLANMessage@@@Z @0x0044A966 128B slot 57.
 // Retail copies m_name via wcsncpy(10) to message+4 then nulls +0x18, copies
 // m_userName/m_hostName via strncpy(1) to +0x1a/+0x1c then nulls +0x1b/+0x1d.

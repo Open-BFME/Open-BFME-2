@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Four LANAPI virtuals (vtable 0x00C3E680) that BFME2 reduces to calls on the
 // LAN menu object at VA 0x00E03354 (ledger ?g_Va00A03354@@3HA; aliased as

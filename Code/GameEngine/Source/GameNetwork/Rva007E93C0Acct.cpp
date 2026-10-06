@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007E93C0: FESL 'acct' request -- TXN from a global then name/password/
 // email/DOB/country/parentalEmail/mail flags.
 

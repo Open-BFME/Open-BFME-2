@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ??0Connection@@QAE@XZ, retail 0x0058BDA0 90 bytes.
 // Connection ctor via BFME1 donor Code/GameEngine/Source/GameNetwork/Connection.cpp.
 // Evidence: 0xC8 rep stosd for 200 latencies, 0x7D0 retryTime, 0x344 frameGrouping,

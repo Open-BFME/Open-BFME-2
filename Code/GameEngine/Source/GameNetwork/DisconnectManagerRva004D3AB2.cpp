@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O1
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva004D3AB2@DisconnectManager@@QAEEH@Z 0x004D3AB2 48 timeout check vs GlobalData threshold, early 0 when slot == -1
 // Evidence: between 0x004D3A06 and 0x004D3CA8 in DisconnectManager.cpp; array at +0x14 indexed slot*4; IAT timeGetTime; TheWritableGlobalData+0xc24; caller at 0x004D3F61.
 

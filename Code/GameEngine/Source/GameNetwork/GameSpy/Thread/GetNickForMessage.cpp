@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Reference: Open-BFME-1 GameNetwork/GameSpy/Thread/GetNickForMessage.cpp
 // at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24, the whole one-body donor.
 // Its nickname callback role is supported by native messageCallback 00551139:

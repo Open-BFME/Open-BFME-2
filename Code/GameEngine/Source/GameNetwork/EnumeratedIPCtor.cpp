@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // BFME1 donor: reference/open-bfme-1/game/GameEngine/Include/GameNetwork/IPEnumeration.h
 // BFME2's node has no MemoryPoolObject base: target allocation is 12 bytes and
 // the following address-backed members are AsciiString, IP, and next pointer.

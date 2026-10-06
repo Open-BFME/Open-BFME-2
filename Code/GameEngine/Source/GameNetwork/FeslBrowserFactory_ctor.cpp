@@ -1,4 +1,4 @@
-// cl: /O2 /GX-
+// cl: /GX-
 // FESL browser factory ctor at 0x803820 (104B).
 // The matching dtor at 0x803890 and the retail vtables prove this dual-vptr
 // owner layout. The secondary base writes the incomplete vtable before the

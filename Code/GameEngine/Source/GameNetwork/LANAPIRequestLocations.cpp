@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x0044965C, 55 bytes. Target LANAPI table slot 15 and the BFME1
 // RequestLocations donor identify this request: a zero-type message is filled

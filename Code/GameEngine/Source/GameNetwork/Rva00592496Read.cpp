@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?Rva00592496Read@@YAPAVRva004D64F5@@HPAI@Z @0x00592496 (138B):
 // NetCommandMsg Rva004D64F5 deserializer: new plus null-terminated string
 // via byte loop plus AsciiString temp. Evidence: new 0x20 plus ctor 0x4D64F5,

@@ -1,5 +1,5 @@
 // ?LookupGame@LANAPI@@UAEPAVLANGameInfo@@VUnicodeString@@@Z
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x0044B915, 125 bytes. The target LANAPI table places LookupGame
 // after OnNameChange at slot 49. It searches the game list at +0x10, obtains

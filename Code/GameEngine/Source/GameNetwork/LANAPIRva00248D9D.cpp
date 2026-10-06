@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail 0x00248D9D, 146 bytes. LANAPI vtable slot 38 (vtable 0x0083E680,
 // class of ??1LANAPI@@UAE@XZ).
 // The slots are walked by index and addressed as m_holder->m_slots[i]: the

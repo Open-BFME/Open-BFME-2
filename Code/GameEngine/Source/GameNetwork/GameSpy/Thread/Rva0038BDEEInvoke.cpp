@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?invoke@Rva0038BDEEReceiver@@QAEXPAX@Z @0x0038BDEE 41B
 // Evidence: called by matched PeerThreadClass::stopHostingAlready 0x0038D53B plus 6 more; callees rowed _peerStopGame 0x00699410 plus basic_string assign 0x0001B790 plus string openstaging 0x00819890; prev PeerResponseAssign next OwnedRecordDeque.

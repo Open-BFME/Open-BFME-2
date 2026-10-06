@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva004D6661@Rva004D65DC@@QAE?AVAsciiString@@XZ, retail 0x004D6661, 167 bytes.
 // Rva004D65DC (type 6, AsciiStrings +0x1c/+0x20) contents slot 3 of 0x00860530:
 // base NetCommandMsg::rva004D5B4C plus ", authToken=%s, authKey=%s".

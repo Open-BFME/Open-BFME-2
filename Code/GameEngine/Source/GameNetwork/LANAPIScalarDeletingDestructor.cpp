@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x0044BA0E, 28 bytes. This scalar-deleting destructor calls the
 // LANAPI complete destructor at 0x0044B992, deletes this when flag bit 0 is

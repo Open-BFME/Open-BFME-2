@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003FFDFA@Rva003FFDFA@@QAEXHUBfmeSaveElement002295D7@@@Z, retail 0x003FFDFA, 87 bytes.
 // GameInfo-like set slot: index at [ebp+8] with 0..8 range check via +0x18
 // pointer array, null check, slot-0 flag tweak (word04==6 sets flag08/flag09)

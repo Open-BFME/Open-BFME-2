@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /DNDEBUG /MD
+// cl: /Ob2 /DNDEBUG /MD
 // 0x0086B860, 109 bytes. topicChanged slot in piSetChannelCallbacks;
 // inRoom and names offsets agree with peerMainBlockingOperations.c.
 

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva003FF5F2@GameSlot@@QAEXABVAsciiString@@@Z @0x003FF5F2 36B
 // GameSlot AsciiString setter at +0x1a8: rowed-pin AsciiString assign
 // 0x000366F0 then rowed StringBase trim 0x00037CF0 then rowed toUpper

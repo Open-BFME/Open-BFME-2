@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // LANAPI::OnGameStartTimer, retail 0x00248F6E (157B), vtable 0x00C3E680
 // slot 44. Zero Hour's body (GameNetwork/LANAPICallbacks.cpp): the singular

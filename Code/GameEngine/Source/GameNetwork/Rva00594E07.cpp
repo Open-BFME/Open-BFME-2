@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // ?rva00594E07@Rva00594E07@@QAEGGH@Z, retail 0x00594E07, 232 bytes.
 // Firewall spare-socket pump over 8 entries calling rowed findEmptyMessage UDP Read CRC Convert plus IAT htonl htons.

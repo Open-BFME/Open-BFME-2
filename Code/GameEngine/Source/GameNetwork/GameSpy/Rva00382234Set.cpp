@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00382234@Rva00382234@@QAEXVAsciiString@@@Z 0x00382234 55B
 // Sets AsciiString at +0xFE8 from by-value param; temp destroyed via releaseBuffer.
 // Evidence: calls 0x000366F0 AsciiString assign and 0x00036410 releaseBuffer; callers 0x382710 0x383929.

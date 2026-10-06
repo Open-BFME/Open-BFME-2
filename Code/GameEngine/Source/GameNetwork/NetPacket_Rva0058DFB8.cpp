@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058DFB8@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058DFB8 143B.
 // Static NetCommandMsg factory reading 1-byte bool plus 4-byte enum from data+offset.
 // Evidence: unlock lane plus sibling 0x0058E047 plus new-0x24 plus

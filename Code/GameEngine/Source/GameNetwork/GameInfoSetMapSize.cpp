@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 // ?setMapSize@GameInfo@@QAEXI@Z @0x00400F5A (187B):
 // GameInfo::setMapSize. BFME1 GameInfo.cpp donor verbatim (DEBUG_LOG compiled

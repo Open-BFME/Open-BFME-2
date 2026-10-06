@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva005948F5@@QAE@XZ @0x005948F5 (35B): default ctor for 0x20-byte heap object; caller 0x00595089 news 0x20 then calls; writes +0x00=-1 +0x0C=2 +0x0E=0 +0x10=0 +0x1C=10000 +0x04=0 +0x08=0; no vptr; neighbours ConstZeroGetters and UDPDrainDestructor.
 class Rva005948F5
 {

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs-c- /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs-c-
 //
 // ?Rva0058CD6AWrite@@YAXPADPAVNetCommandRef@@@Z @0x0058CD6A (185B).
 // Tagged serializer: T<type>R<relay>S<timestamp>P<player>C<id>D<u1c><u20><len><data>.

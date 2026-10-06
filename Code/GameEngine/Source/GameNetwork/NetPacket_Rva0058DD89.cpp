@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0058DD89@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @ 0x0058DD89 (105B): static factory news 0x3C Rva004CEEE8 then reads 8 bytes into local order and calls setPlayerOrder. Evidence: sibling factories 0x0058DCEB and 0x0058E047 plus rowed Rva004CEEE8 0x004CEEE8 plus rowed setPlayerOrder 0x004D577B. Callers 0x00592756 and 0x00594089.
 class NetCommandMsg;
 class Rva004CEEE8

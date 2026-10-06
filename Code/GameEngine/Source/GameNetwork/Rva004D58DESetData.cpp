@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004D5925@Rva004D58DE@@QAEXPAEI@Z, retail 0x004D5925, 39 bytes.
 // Rva004D58DE setter twin of NetFileCommandMsg::setFileData 0x004D594C: stores
 // length at +0x28, new[]s the buffer at +0x24, memcpy via thunk 0x006291A8.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva004495A2@LANAPI@@QAEXPAULANMessage@@I@Z, retail 0x004495A2 (184 bytes;
 // Ghidra split it at +0x0D, the true end is the ret 8 at 0x00449659).

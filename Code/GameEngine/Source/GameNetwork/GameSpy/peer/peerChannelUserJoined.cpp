@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /DNDEBUG /MD
+// cl: /Ob2 /DNDEBUG /MD
 // 0x0086B5E0, 290 bytes. Callback identity witnessed by
 // peerGlobalCallbacksSetChannel.c; connection/player layout shared with
 // peerMainBlockingOperations.c and aligned retail field accesses.

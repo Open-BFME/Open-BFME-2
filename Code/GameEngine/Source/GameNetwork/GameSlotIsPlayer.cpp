@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?isPlayer@GameSlot@@QBE_NVUnicodeString@@@Z @0x3FFF62 (45B):
 // GameSlot::isPlayer, UnicodeString by-value overload. BFME1
 // GameSlotIsPlayerUnicodeThunk.cpp donor

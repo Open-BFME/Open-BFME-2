@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0044AA84@LANAPI@@UAEXVAsciiString@@@Z @ 0x0044AA84 77B slot 52 of 0x0083E680.
 // Slot52 resolves AsciiString via ResolveIP pin then calls slot53 with IP.
 // Evidence: vslot lane slot 52; pin ResolveIP 0x581339 takes AsciiString; rowed StringBase copy 0x365F0 and releaseBuffer 0x36410; virtual [edx+0xd4] is slot53; class copied from LANAPIFillInLANMessage TU.

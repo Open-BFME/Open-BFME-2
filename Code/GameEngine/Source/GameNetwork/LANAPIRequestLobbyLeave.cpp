@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x004498A4, 76 bytes. OnGameCreate at 0x00249430 dispatches
 // vtable offset +0x78, and the pointer at the corresponding .rdata table
