@@ -35,6 +35,19 @@ Rva000A3E2B *__stdcall Rva0008F803Create(void *context);
 Rva000A3DE3 *__stdcall Rva0008F7C9Create(void *context);
 Rva000A334F *__stdcall Rva0008F8EBCreate(void *context);
 Rva000A3307 *__stdcall Rva0008F8B1Create(void *context);
+class Rva0009FDBD;
+class Rva0009FD78;
+Rva0009FDBD *__stdcall Rva0008F95FCreate(void *context);
+Rva0009FD78 *__stdcall Rva0008F925Create(void *context);
+
+// The shared entry factory is rowed under the base manager's name
+// (GameWindowManager_gogoGadgetTextEntry.cpp); only its direct call is used.
+typedef struct _EntryData EntryData;
+class GameWindowManager
+{
+public:
+	virtual GameWindow *gogoGadgetTextEntry(GadgetCreateView *view, EntryData *entryData, GameFont *defaultFont, bool defaultVisual);
+};
 
 enum { GADGET_CREATE_IMAGE = 0x80 };
 
@@ -47,6 +60,7 @@ public:
 	GameWindow *rva0008FD68(GadgetCreateView *view, RadioButtonDataView *data, GameFont *font, bool flag);
 	GameWindow *rva0008FD97(GadgetCreateView *view, TabControlDataView *data, GameFont *font, bool flag);
 	GameWindow *rva0008FE84(GadgetCreateView *view, GameFont *font, bool flag);
+	GameWindow *rva0008FEAF(GadgetCreateView *view, EntryData *data, GameFont *font, bool flag);
 };
 
 // vtable 0x00BC7C90 slot 19
@@ -107,4 +121,14 @@ GameWindow *Rva008FCA3::rva0008FE84(GadgetCreateView *view, GameFont *font, bool
 	else
 		view->unknown24 = (void *)Rva0008FAF5Create;
 	return gogoGadgetProgressBar(view, font, flag);
+}
+
+// vtable 0x00BC7C90 slot 28
+GameWindow *Rva008FCA3::rva0008FEAF(GadgetCreateView *view, EntryData *data, GameFont *font, bool flag)
+{
+	if (view->status & GADGET_CREATE_IMAGE)
+		view->unknown24 = (void *)Rva0008F95FCreate;
+	else
+		view->unknown24 = (void *)Rva0008F925Create;
+	return ((GameWindowManager *)this)->GameWindowManager::gogoGadgetTextEntry(view, data, font, flag);
 }
