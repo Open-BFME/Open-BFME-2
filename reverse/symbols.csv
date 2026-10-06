@@ -12997,3 +12997,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva000307F0_new@@YAPAXIH@Z,0x000307F0,2-arg allocator called by Rva00423D0DHost::create 0x00423D0D read from REL32
 ?init@Rva00423D0DHost@@QAEXPAXH@Z,0x00423648,thiscall void(void*,int) initializer called by Rva00423D0DHost::create 0x00423D0D read from REL32
 ?rva00423648_init@@YAXPAXH@Z,0x00423648,free cdecl void(void*,int) initializer called by rva00423D0DCreate 0x00423D0D read from REL32
+?run@Rva0042B068Host@@QAEHHHHPAD@Z,0x0042B038,thiscall 4-arg runner called by Rva0042B068Host::wrap 0x0042B068 read from REL32
