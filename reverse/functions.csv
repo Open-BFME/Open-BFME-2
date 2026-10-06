@@ -65040,3 +65040,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?Rva004BDFCBTest@@YAEPBVObject@@0@Z,,0x004BDFCB,139,Code/GameEngine/Source/Common/Rva004BDFCB.cpp,matched,honest address name two-object range and player check
 ?rva002384C8@Rva002384C8@@QAE?AVUnicodeString@@XZ,,0x002384C8,84,Code/GameEngine/Source/Common/Rva002384C8.cpp,matched,honest address name translate AsciiString to UnicodeString
 ?Rva0023899FParse@@YAXPAVINI@@HPAH@Z,,0x0023899F,193,Code/GameEngine/Source/Common/Rva0023899F.cpp,matched,honest address name INI difficulty EASY NORMAL HARD BRUTAL
+?Rva0039A565_ParseNameNameReal@INI@@SAXPAV1@PAX1PBX@Z,,0x0039A565,198,Code/GameEngine/Source/Common/INI/INIRecordListParsers.cpp,matched,table slot 0x0081ABD4 neighbours FactionDecal INI FieldParse

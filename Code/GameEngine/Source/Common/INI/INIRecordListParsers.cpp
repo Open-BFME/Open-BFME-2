@@ -22,8 +22,46 @@ public:
 	const char *getNextToken(const char *seps = 0);
 	const char *getNextTokenOrNull(const char *seps = 0);
 	int scanInt(const char *token);
+	float scanReal(const char *token);
 	static void Rva0033A1CE_ParseSoundList(INI *ini, void *instance, void *store, const void *userData);
 	static void Rva0039A4FC_ParseNameCountList(INI *ini, void *instance, void *store, const void *userData);
+	static void Rva0039A565_ParseNameNameReal(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class Debug
+{
+public:
+	virtual void pad00(); virtual void pad01(); virtual void pad02(); virtual void pad03();
+	virtual void pad04(); virtual void pad05(); virtual void pad06(); virtual void pad07();
+	virtual void pad08(); virtual void pad09(); virtual void pad10(); virtual void pad11();
+	virtual void pad12(); virtual void pad13();
+	virtual Debug &operator<<(const char *str);
+	virtual void pad15(); virtual void pad16(); virtual void pad17(); virtual void pad18();
+	virtual bool CrashDone(int mode);
+	virtual void pad20(); virtual void pad21(); virtual void pad22();
+	virtual void SetCrashAddress(void *returnAddress, int set);
+	virtual void SkipNext();
+	virtual void pad25(); virtual void pad26();
+	virtual Debug &CrashBegin(const char *file, int line, int reserved);
+};
+
+extern Debug *theDebug;
+void _bfme_debugRecordCallsite(int kind);
+bool bfmeRva000387C0();
+extern const char g_00C1A8D8[];
+
+class Rva00395D77
+{
+public:
+	~Rva00395D77();
+	AsciiString text0;
+	AsciiString text1;
+};
+
+struct BfmeStringRecord00395E75
+{
+	Rva00395D77 strs;
+	float value;
 };
 
 class OpaqueRefCounted
@@ -77,6 +115,15 @@ private:
 	Rva0039A48EElement *m_finish;
 	Rva0039A48EElement *m_endOfStorage;
 };
+template <> class vector<BfmeStringRecord00395E75, allocator<BfmeStringRecord00395E75> >
+{
+public:
+	void push_back(const BfmeStringRecord00395E75 &x);
+private:
+	BfmeStringRecord00395E75 *m_start;
+	BfmeStringRecord00395E75 *m_finish;
+	BfmeStringRecord00395E75 *m_endOfStorage;
+};
 }
 
 // ?Rva0033A1CE_ParseSoundList@INI@@SAXPAV1@PAX1PBX@Z
@@ -105,4 +152,35 @@ void INI::Rva0039A4FC_ParseNameCountList(INI *ini, void *, void *store, const vo
 		return;
 	entry.m_count = ini->scanInt(token);
 	((_STL::vector<Rva0039A48EElement, _STL::allocator<Rva0039A48EElement> > *)store)->push_back(entry);
+}
+
+// ?Rva0039A565_ParseNameNameReal@INI@@SAXPAV1@PAX1PBX@Z @0x0039A565 198B.
+// INI FieldParse proc through table slot 0x0081ABD4 (neighbours [-4]
+// "FactionDecal"): two names plus a real appended as BfmeStringRecord00395E75
+// (two AsciiStrings plus float, 12B) to the vector at instance+0x5c through the
+// rowed push_back 0x0039A4C5; temporaries destroyed through the rowed dtor
+// 0x00395D77. Debug crash line reports g_00C1A8D8 through theDebug when the
+// bfme flag is set.
+void INI::Rva0039A565_ParseNameNameReal(INI *ini, void *instance, void *, const void *)
+{
+	if (bfmeRva000387C0())
+	{
+		_bfme_debugRecordCallsite(1);
+		theDebug->SkipNext();
+		(theDebug->CrashBegin(0, 0, 0) << g_00C1A8D8).CrashDone(2);
+	}
+	BfmeStringRecord00395E75 entry;
+	const char *token = ini->getNextTokenOrNull();
+	if (token == NULL)
+		return;
+	((StringBase<char> &)entry.strs.text0).set(token);
+	token = ini->getNextTokenOrNull();
+	if (token == NULL)
+		return;
+	((StringBase<char> &)entry.strs.text1).set(token);
+	token = ini->getNextTokenOrNull();
+	if (token == NULL)
+		return;
+	entry.value = ini->scanReal(token);
+	((_STL::vector<BfmeStringRecord00395E75, _STL::allocator<BfmeStringRecord00395E75> > *)((char *)instance + 0x5c))->push_back(entry);
 }
