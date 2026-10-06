@@ -50,9 +50,33 @@
 // notifying through the rowed 0x0028AE6D on change) on each task's target
 // (+0x3F0 ids, the rowed GameLogic::findObjectByID). New in BFME 2: it ends
 // with the dozer interface's finishBuildingSound (vslot 24, tail call).
+//
+// ?construct@WorkerAIUpdate@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@_NH@Z,
+// retail 0x004A9FAF, 556 bytes (primary vslot 126, the rowed
+// AIUpdateInterface::construct's slot). ZH's WorkerAIUpdate::construct: the
+// rebuild flag (+0x4BD) and createMachines first, then the build checks
+// through TheBuildAssistant (vslot 16 isLocationLegalToBuild with ZH's AI
+// and human option masks 6 and 0x17, vslot 24 canMakeUnit for humans; the
+// player type at +0x5C), the under-construction status mask (pinned builder
+// 0x0023DA79; reconstructing is bit 21), newObject on the player's +0x2EC
+// team, producer and builder, leaving the supply truck state (the +0x3EC
+// interface's vslot 0), the cost and withdrawal, position, the flattened
+// ground height, the pathfind map, the structure-created callback, zero
+// construction percent (+0x280), one hit point (body +0x254, vslots 4 and
+// 32), ZH's model conditions (67 set; 68 and 69 cleared) and the build task
+// (dozer interface vslot 12). New in BFME 2: the AI skips canMakeUnit; the
+// cost helper (pinned 0x0033A69A) also takes the builder object and -1, the
+// withdrawal (rowed 0x003B0CB3) passes the player's +0x3BC member and true,
+// the same member records the template and cost (rowed 0x0039BAD2) and the
+// new object keeps the cost at +0x324; the sixth argument is unused.
+// Callee identities: flattenTerrain 0x0028458F (called with the new object
+// where ZH flattens; it returns at once when the object's +0xAC flag is set,
+// as ZH does for small geometry, before reading its position) and
+// onStructureCreated 0x002AA559 (ZH's callback slot, builder then structure).
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 typedef bool Bool;
+typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
@@ -66,6 +90,9 @@ enum ObjectID
 class Thing;
 class ModuleData;
 class Object;
+class Player;
+class Team;
+class ThingTemplate;
 
 enum StateReturnType
 {
@@ -238,7 +265,66 @@ private:
 
 enum ModelConditionFlagType
 {
+	MODELCONDITION_AWAITING_CONSTRUCTION = 67,
+	MODELCONDITION_PARTIALLY_CONSTRUCTED = 68,
 	MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED = 69 // +0x114 bit 5
+};
+
+// The two model condition mask builders (19 dwords each).
+class Rva001E4912
+{
+public:
+	Rva001E4912 *rva001E4912(int unused, unsigned int bit1, unsigned int bit2);
+private:
+	unsigned int m_words[19];
+};
+
+class Rva0028F59A
+{
+public:
+	Rva0028F59A(int unused, int bit);
+private:
+	unsigned int m_words[19];
+};
+
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_UNDER_CONSTRUCTION = 2,
+	OBJECT_STATUS_RECONSTRUCTING = 21
+};
+
+struct ObjectStatusMask
+{
+	ObjectStatusMask *Rva0023DA79(int reserved, ObjectStatusTypes bit);
+	void set(ObjectStatusTypes bit) { m_bits[bit >> 5] |= 1U << (bit & 31); }
+	UnsignedInt m_bits[4];
+};
+
+// What ThingFactory::newObject takes: the initial status bits.
+struct CreateMask : public ObjectStatusMask
+{
+};
+
+class BodyModuleInterface
+{
+public:
+	virtual void i00(); virtual void i01(); virtual void i02(); virtual void i03();
+	virtual Real getHealth() const; // +0x10
+	virtual void i05(); virtual void i06(); virtual void i07();
+	virtual void i08(); virtual void i09(); virtual void i10(); virtual void i11();
+	virtual void i12(); virtual void i13(); virtual void i14(); virtual void i15();
+	virtual void i16(); virtual void i17(); virtual void i18(); virtual void i19();
+	virtual void i20(); virtual void i21(); virtual void i22(); virtual void i23();
+	virtual void i24(); virtual void i25(); virtual void i26(); virtual void i27();
+	virtual void i28(); virtual void i29(); virtual void i30(); virtual void i31();
+	virtual void internalChangeHealth(Real delta, Int flag); // +0x80
+};
+
+class Thing
+{
+public:
+	void setPosition(const Coord3D *pos);
+	void setOrientation(Real angle);
 };
 
 class ModelConditionFlags
@@ -256,10 +342,16 @@ private:
 	unsigned int m_words[19];
 };
 
-class Object
+class Object : public Thing
 {
 public:
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+	void setProducer(Object *obj);
+	void rva0028AFE7(Object *builder);
+	void setStatus(ObjectStatusTypes bit, Bool set);
+	void rva0028CFB2(const int *clear, const int *set);
+	void setConstructionPercent(Real percent) { m_constructionPercent = percent; }
 	void rva0028AE6D();
 	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
 	{
@@ -272,9 +364,131 @@ public:
 private:
 	unsigned char m_pad000[0x10C];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
-	unsigned char m_pad158[0x258 - 0x158];
+	unsigned char m_pad158[0x254 - 0x158];
+	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x280 - 0x25C];
+	Real m_constructionPercent; // +0x280
+	unsigned char m_pad284[0x324 - 0x284];
+public:
+	Real m_buildCost; // +0x324
 };
+
+class Rva0039B795;
+
+struct Rva0039BAD2Input;
+
+// The player's +0x3BC member, under its two rowed spellings.
+class Rva0039BAD2
+{
+public:
+	void rva0039BAD2(Rva0039BAD2Input *what, Int cost);
+};
+
+class Rva0039B795 : public Rva0039BAD2
+{
+};
+
+// The player's money (+0x90).
+class Rva003B0D7C
+{
+public:
+	UnsignedInt rva003B0CB3(UnsignedInt amount, Rva0039B795 *stats, Bool flag);
+};
+
+enum PlayerType
+{
+	PLAYER_HUMAN,
+	PLAYER_COMPUTER
+};
+
+class Player
+{
+public:
+	PlayerType getPlayerType() const { return m_playerType; }
+	Rva003B0D7C *getMoney() { return &m_money; }
+	Team *getDefaultTeam() const { return m_defaultTeam; }
+	Rva0039B795 *getStats() { return &m_stats; }
+	void onStructureCreated(Object *builder, Object *structure);
+private:
+	unsigned char m_pad000[0x5C];
+	PlayerType m_playerType; // +0x5C
+	unsigned char m_pad060[0x90 - 0x60];
+	Rva003B0D7C m_money; // +0x90
+	unsigned char m_pad091[0x2EC - 0x91];
+	Team *m_defaultTeam; // +0x2EC
+	unsigned char m_pad2F0[0x3BC - 0x2F0];
+	Rva0039B795 m_stats; // +0x3BC
+};
+
+class ThingTemplate
+{
+public:
+	Int rva0033A69A(const Player *player, Int builder, Int a3) const;
+};
+
+class ThingFactory
+{
+public:
+	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *statusBits, Bool flag);
+};
+
+extern ThingFactory *TheThingFactory;
+
+enum { CANMAKE_OK = 0 };
+enum { LBC_OK = 0 };
+
+// TheBuildAssistant.
+class Rva00A027B8
+{
+public:
+	enum
+	{
+		TERRAIN_RESTRICTIONS = 0x01,
+		CLEAR_PATH = 0x02,
+		NO_OBJECT_OVERLAP = 0x04,
+		SHROUD_REVEALED = 0x10
+	};
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual Int isLocationLegalToBuild(const Coord3D *worldPos, const ThingTemplate *build, Real angle,
+		UnsignedInt options, Object *builderObject, Player *player); // +0x40
+	virtual void s17(); virtual void s18(); virtual void s19();
+	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
+	virtual Int canMakeUnit(Object *builder, const ThingTemplate *whatToBuild, Int quantity); // +0x60
+};
+
+extern Rva00A027B8 *g_00A027B8;
+
+class TerrainLogic
+{
+public:
+	virtual void t00(); virtual void t01(); virtual void t02(); virtual void t03();
+	virtual void t04(); virtual void t05();
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const; // +0x18
+	void flattenTerrain(Object *obj);
+};
+
+extern TerrainLogic *TheTerrainLogic;
+
+class Pathfinder
+{
+public:
+	void AddObjectToPathfindMap(Object *object);
+};
+
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+private:
+	unsigned char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
+};
+
+extern AI *TheAI;
 
 class GameLogic
 {
@@ -292,7 +506,8 @@ enum AIStateType
 
 enum DozerTask
 {
-	DOZER_TASK_FIRST = 0
+	DOZER_TASK_FIRST = 0,
+	DOZER_TASK_BUILD = DOZER_TASK_FIRST
 };
 
 class DozerAIInterface
@@ -303,7 +518,8 @@ public:
 	virtual void slot4() = 0; virtual void slot5() = 0;
 	virtual Bool isTaskPending(DozerTask task) = 0; // vslot 6
 	virtual void slot7() = 0; virtual void slot8() = 0; virtual void slot9() = 0;
-	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0;
+	virtual void slot10() = 0; virtual void slot11() = 0;
+	virtual void newTask(DozerTask task, Object *target) = 0; // vslot 12
 	virtual void cancelTask(DozerTask task) = 0; // vslot 13
 	virtual void slot14() = 0; virtual void slot15() = 0; virtual void slot16() = 0;
 	virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
@@ -325,7 +541,7 @@ public:
 class WorkerAIInterface3EC
 {
 public:
-	virtual void workerSlot0() = 0;
+	virtual void exitingSupplyTruckState() = 0; // vslot 0
 };
 
 inline void zeroCoord(Coord3D &c)
@@ -351,8 +567,9 @@ public:
 	WorkerAIUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual void onDelete();
 	virtual void supplyTruckSlot0();
-	virtual void workerSlot0();
+	virtual void exitingSupplyTruckState();
 	virtual Bool isForcedIntoWantingState() const;
+	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int unused);
 	Bool isSupplyTruckBrainActiveAndBusy();
 protected:
 	virtual ~WorkerAIUpdate();
@@ -519,4 +736,109 @@ void WorkerAIUpdate::onDelete(void)
 	}
 
 	finishBuildingSound();
+}
+
+Object *WorkerAIUpdate::construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int unused)
+{
+	m_isRebuild = isRebuild;
+
+	createMachines();
+
+	// sanity
+	if (what == 0 || pos == 0 || owningPlayer == 0)
+		return 0;
+
+	// if we're not rebuilding, we have a few checks to pass first for sanity
+	if (isRebuild == FALSE)
+	{
+		// AI has weaker restriction on building
+		Bool dozerIsAI = owningPlayer->getPlayerType() == PLAYER_COMPUTER;
+		if (dozerIsAI)
+		{
+			// validate the the position to build at is valid
+			if (g_00A027B8->isLocationLegalToBuild(pos, what, angle,
+					Rva00A027B8::CLEAR_PATH |
+					Rva00A027B8::NO_OBJECT_OVERLAP,
+					getObject(), 0) != LBC_OK)
+				return 0;
+		}
+		else
+		{
+			// make sure the player is capable of building this
+			if (g_00A027B8->canMakeUnit(getObject(), what, -1) != CANMAKE_OK)
+				return 0;
+
+			// validate the the position to build at is valid
+			if (g_00A027B8->isLocationLegalToBuild(pos, what, angle,
+					Rva00A027B8::TERRAIN_RESTRICTIONS |
+					Rva00A027B8::CLEAR_PATH |
+					Rva00A027B8::NO_OBJECT_OVERLAP |
+					Rva00A027B8::SHROUD_REVEALED,
+					getObject(), 0) != LBC_OK)
+				return 0;
+		}
+	}
+
+	// what will our initial status bits
+	CreateMask statusBits;
+	statusBits.Rva0023DA79(0, OBJECT_STATUS_UNDER_CONSTRUCTION);
+	if (isRebuild)
+		statusBits.set(OBJECT_STATUS_RECONSTRUCTING);
+
+	// create an object at the destination location
+	Object *obj = TheThingFactory->newObject(what, owningPlayer->getDefaultTeam(), &statusBits, false);
+
+	// even though we haven't actually built anything yet, this keeps things tidy
+	obj->setProducer(getObject());
+	obj->rva0028AFE7(getObject());
+
+	// leave the supply truck state and now behave like a dozer.
+	exitingSupplyTruckState();
+
+	// take the required money away from the player
+	if (isRebuild == FALSE)
+	{
+		UnsignedInt cost = what->rva0033A69A(owningPlayer, (Int)getObject(), -1);
+		owningPlayer->getMoney()->rva003B0CB3(cost, owningPlayer->getStats(), true);
+		owningPlayer->getStats()->rva0039BAD2((Rva0039BAD2Input *)what, cost);
+		obj->m_buildCost = (Real)cost;
+	}
+
+	obj->setStatus(OBJECT_STATUS_UNDER_CONSTRUCTION, true);
+
+	// initialize object
+	obj->setPosition(pos);
+	obj->setOrientation(angle);
+
+	// Flatten the terrain underneath the object, then adjust to the flattened height. jba.
+	TheTerrainLogic->flattenTerrain(obj);
+	Coord3D adjustedPos;
+	adjustedPos.x = pos->x;
+	adjustedPos.y = pos->y;
+	adjustedPos.z = pos->z;
+	adjustedPos.z = TheTerrainLogic->getGroundHeight(pos->x, pos->y);
+	obj->setPosition(&adjustedPos);
+
+	// Note - very important that we add to map AFTER we flatten terrain. jba.
+	TheAI->pathfinder()->AddObjectToPathfindMap(obj);
+
+	// "callback" event for structure created (note that it's not yet "complete")
+	owningPlayer->onStructureCreated(getObject(), obj);
+
+	// set a construction percent for the new object to zero and a status for under construction
+	obj->setConstructionPercent(0.0f);
+
+	// newly constructed objects start at one hit point
+	BodyModuleInterface *body = obj->getBodyModule();
+	body->internalChangeHealth(-body->getHealth() + 1.0f, 0);
+
+	// set the model action state to awaiting construction
+	Rva001E4912 clearBits;
+	obj->rva0028CFB2((const int *)clearBits.rva001E4912(0, MODELCONDITION_PARTIALLY_CONSTRUCTED, MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED),
+		(const int *)&Rva0028F59A(0, MODELCONDITION_AWAITING_CONSTRUCTION));
+
+	// we have a construction pending
+	newTask(DOZER_TASK_BUILD, obj);
+
+	return obj;
 }

@@ -14169,3 +14169,5 @@ rva009C7380WeightPairs,0x009B84E0
 ?Rva00580E10@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580E10,callee of ?Rva00580E5F@@YAXPAPAX0VRva000795C1Record@@@Z
 ?rva005DB045@Rva005DB045@@QAEXMHHH@Z,0x005DB045,callee of ?rva0059ADF4@Rva0059ADF4@@QAEXH@Z
 ?rva0059ABC9@Rva0059AC4D@@QAEXPAX@Z,0x0059ABC9,callee of ?rva0059AC4D@Rva0059AC4D@@QAEXPAX@Z
+?flattenTerrain@TerrainLogic@@QAEXPAVObject@@@Z,0x0028458F,"ZH flattenTerrain call site of WorkerAIUpdate::construct 0x004A9FAF (REL32 at 0x004AA10C; ecx TheTerrainLogic 0x00DFEC50; the new object pushed after setOrientation and before the ground-height re-query); the body returns at once when the object's +0xAC flag is set before reading its position; the dozer twin calls it from 0x0048A2B6"
+?onStructureCreated@Player@@QAEXPAVObject@@0@Z,0x002AA559,"ZH onStructureCreated call site of WorkerAIUpdate::construct 0x004A9FAF (REL32 at 0x004AA16C; ecx the owning player argument; builder then structure pushed after addObjectToPathfindMap); the body null-checks both objects; seven callers"
