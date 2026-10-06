@@ -1,4 +1,6 @@
 // ?bind@Rva000E25DEBinder@@UAEXPBD0PAVRva0015354E@@@Z
+// partial score=0.98 date=2026-10-06
+// ?bind@Rva000E25DEBinder@@UAEXPBD0PAVRva0015354E@@@Z
 // partial score=0.98 date=2026-10-05
 // cl: /O1 /MD /EHsc
 // Terrain FX parameter binder registered as "Terrain" (address-derived name
