@@ -41492,7 +41492,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva002A7AFE@PlayerList@@QAEXPAX@Z,,0x002A7AFE,30,Code/GameEngine/Source/Common/RTS/PlayerListRva002A7AFE.cpp,matched,chain lane player fanout via armor remove
 ??_GRva001ED0DE@@QAEPAXI@Z,,0x001ED269,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva001ED0DE.cpp,matched,deleting dtor via rowed dtor
 ?rva001ED3A2@Rva001ED3A2@@QAEXXZ,,0x001ED3A2,30,Code/GameEngine/Source/Common/Rva001ED3A2Clear.cpp,matched,manual destroy plus free via rowed
-?rva001EDD1C@Rva001EDD1C@@QAEXXZ,,0x001EDD1C,100,Code/GameEngine/Source/Common/Rva001EDD1CSetter.cpp,matched,triple flag gated clamp via pushpop
+?checkForDrag@Mouse@@IAEXXZ,,0x001EDD1C,100,Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp,matched,ZH Mouse::checkForDrag at BFME2 offsets; called by processMouseEvent 0x001EE069 for event 0 (was rva001EDD1C)
 ?Resize@?$SimpleVecClass@VVector3@@@@UAE_NH@Z,,0x0007E1CF,160,Code/Libraries/Source/WWVegas/WW3D2/SimpleVecVector3ResizeO1.cpp,matched,vslot Resize callers at 0x0007E3F4 0x0007E9C1
 ?Resize@?$SimpleDynVecClass@VVector3@@@@UAE_NH@Z,,0x0007E9BA,37,Code/Libraries/Source/WWVegas/WWLib/simplevec_vector3_dtor.cpp,matched,chain calls 0x0007E1CF vslot 1 of 0x007C6F50
 ?rva0021CF03@Rva0021C459@@QAEXXZ,,0x0021CF03,41,Code/GameEngine/Source/Common/System/Rva0021C459Cleanup.cpp,matched,chain clear via rowed cleanup 0x0021C459 41B shape
@@ -41505,7 +41505,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ??0Rva002A7400@@QAE@XZ,,0x002A7400,97,Code/GameEngine/Source/GameLogic/Object/Rva002A7400Ctor.cpp,matched,unlock lane EH ctor via fixed storage
 ??0?$SimpleVecClass@VVector3@@@@QAE@H@Z,,0x0007E3D9,38,Code/Libraries/Source/WWVegas/WWLib/simplevec_vector3_dtor.cpp,matched,ctor calls 0x0007E1CF vtable 0x007C6F44
 ??0?$SimpleDynVecClass@VVector3@@@@QAE@H@Z,,0x0007E99E,28,Code/Libraries/Source/WWVegas/WWLib/simplevec_vector3_dtor.cpp,matched,ctor calls 0x0007E3D9 vtable 0x007C6F50
-?rva001EDC41@Rva001EDD1C@@QAEXHHH@Z,,0x001EDC41,112,Code/GameEngine/Source/Common/Rva001EDD1CSetter.cpp,matched,addassign plus dual clamp same class
+?moveMouse@Mouse@@IAEXHHH@Z,,0x001EDC41,112,Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp,matched,ZH Mouse::moveMouse at BFME2 offsets; processMouseEvent 0x001EE069 passes the event position and mode (was rva001EDC41)
 ??0Rva001ED0A9@@QAE@ABVAsciiString@@@Z,,0x001ED0A9,53,Code/GameEngine/Source/Common/Rva001ED0A9Ctor.cpp,matched,ctor string plus vectors via pinned plus rowed
 ?rva000932E1@Rva000932E1@@QAEMXZ,,0x000932E1,104,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000932E1Get.cpp,matched,weather float getter via double override hop plus 1.0f default
 ?Rva0021D435MakeHeap@@YAXPAVRva0021915B@@0URva0021B753@@@Z,,0x0021D435,79,Code/GameEngine/Source/Common/System/Rva0021C8D7AdjustHeap.cpp,matched,chain make heap via rowed adjust 0x0021C8D7
@@ -65514,3 +65514,5 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?initCursorResources@Win32Mouse@@UAEXXZ,,0x00041BA6,323,Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp,matched,
 ?translateEvent@Win32Mouse@@IAEXIPAUMouseIO@@@Z,,0x00041839,317,Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp,matched,
 ?getMouseEvent@Win32Mouse@@MAEEPAUMouseIO@@_N@Z,,0x00041B10,89,Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp,matched,
+?processMouseEvent@Mouse@@AAEXH@Z,,0x001EE069,608,Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp,matched,ZH/BFME1 processMouseEvent at BFME2 offsets; sole caller createStreamMessages 0x001EE630
+?createStreamMessages@Mouse@@UAEXXZ,,0x001EE630,1085,Code/GameEngine/Source/GameClient/Input/MouseProcessEvents.cpp,matched,ZH/BFME1 createStreamMessages; Win32Mouse vtable 0x007C2478 slot 16; BFME2 sends raw position last
