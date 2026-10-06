@@ -56,8 +56,12 @@ extern ArmorStore *TheArmorStore;
 
 class ThingTemplate
 {
-public:
-	const ArmorTemplateSet *findArmorTemplateSet(const ArmorSetFlags &t) const;	// 0x0033DCB8
+};
+
+class WeaponTemplateSet;
+struct Rva0033DCB8
+{
+	const WeaponTemplateSet *rva0033DCB8(const ArmorSetFlags &t) const;	// row at 0x0033DCB8, real findArmorTemplateSet is pinned there
 };
 
 class Object
@@ -90,7 +94,7 @@ private:
 
 void ActiveBody::validateArmorAndDamageFX() const
 {
-	const ArmorTemplateSet *set = getObject()->getTemplate()->findArmorTemplateSet(m_curArmorSetFlags);
+	const ArmorTemplateSet *set = (const ArmorTemplateSet *)((const Rva0033DCB8 *)getObject()->getTemplate())->rva0033DCB8(m_curArmorSetFlags);
 	if (set && set != m_curArmorSet)
 	{
 		const AsciiString &armorName = set->getArmorTemplateName();
