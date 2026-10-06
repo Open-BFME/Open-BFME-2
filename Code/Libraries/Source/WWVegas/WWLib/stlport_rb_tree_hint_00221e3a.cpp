@@ -57,7 +57,11 @@ template MapInsert00221e3a::iterator MapInsert00221e3a::insert(MapInsert00221e3a
 
 template void _STL::_Destroy<TreeHintPair00221D6B>(TreeHintPair00221D6B *);
 
-template TreeHint00221D6B::~_Rb_tree();
+// Anchor the destruction chain through clear (which reaches _M_erase)
+// instead of instantiating ~_Rb_tree: the tree dtor row 0x00221E02 belongs
+// to stlport_rb_tree_hint_00221e02_dtor.cpp, and a copy here would lose the
+// COMDAT fold while this TU still comes first in link order.
+template void TreeHint00221D6B::clear();
 
 // Retail 0x002221F7: subscript over this map. The key-only lower_bound and the
 // pair temporary reach the shared 00217D4C rows at 0x00221B8D/0x0050EDB3 (see
