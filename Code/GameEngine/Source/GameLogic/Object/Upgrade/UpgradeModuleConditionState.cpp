@@ -77,7 +77,34 @@ public:
 	Rva004CE41ECondition m_108; // +0x108
 };
 class ModuleData;
-class Rva00406F9C;
+class AsciiString;
+namespace _STL
+{
+template <typename T> class allocator
+{
+};
+template <typename T, typename A = allocator<T> > class vector
+{
+	unsigned char m_data[12];
+public:
+	void push_back(const T &value);
+};
+}
+class UpgradeTemplate;
+class UpgradeCenter
+{
+public:
+	const UpgradeTemplate *rva0026EEA0(int key) const;
+};
+extern UpgradeCenter *TheUpgradeCenter;
+
+class Rva00406F9C
+{
+public:
+	bool rva00406F9C(const void *other);
+	void rva004CE4D4(_STL::vector<AsciiString> *out);
+	unsigned int m_data[32];
+};
 
 class BehaviorModule
 {
@@ -148,4 +175,22 @@ bool UpgradeModule::rva004CE4B0(Rva00406F9C *mask)
 		return true;
 	}
 	return false;
+}
+
+// Target evidence: this walks the 0x80-byte mask at this and tests all 0x400
+// indices. Set bits pass through UpgradeCenter::rva0026EEA0 (0x0026EEA0),
+// whose row returns the template selected by its mask index. The resulting
+// template's AsciiString at +8 is appended through rowed STLport push_back
+// 0x0002DBE6. Keep the containing method name address-derived.
+void Rva00406F9C::rva004CE4D4(_STL::vector<AsciiString> *out)
+{
+	for (int i = 0; i < 0x400; ++i)
+	{
+		if ((m_data[(unsigned int)i >> 5] & (1U << (i & 0x1f))) != 0)
+		{
+			const UpgradeTemplate *upgrade = TheUpgradeCenter->rva0026EEA0(i);
+			if (upgrade != 0)
+				out->push_back(*(const AsciiString *)((const unsigned char *)upgrade + 8));
+		}
+	}
 }
