@@ -67121,3 +67121,4 @@ _getinfo,,0x00747E00,679,Code/Libraries/Source/Lua/ldblib.c,matched,Lua 4.0.1 st
 ?rva00170E78@Rva00170E78@@QAEXXZ,,0x00170E78,5,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00170E3D.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x00170D7F; wrapper identity remains address-derived.
 ?rva00170E7D@Rva00170E7D@@QAEXXZ,,0x00170E7D,5,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00170E3D.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x00170D47; wrapper identity remains address-derived.
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
+?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
