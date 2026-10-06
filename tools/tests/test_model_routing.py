@@ -35,23 +35,28 @@ def test_rates_cutoff_and_preference(tmp_path):
     assert stats[("small", "dud")]["n"] == 40
     assert stats[("small", "cheap")]["wins"] == 8 and stats[("small", "cheap")]["median_t"] == 2
     assert ("small", "strong") in stats  # alias folded
-    keep, cut = model_routing.route("small", stats, CONFIG)
+    keep, trial, cut = model_routing.route("small", stats, CONFIG)
     assert "dud" in cut and "dud" not in keep
-    assert keep == ["cheap", "strong"]  # cheap class: cost first
+    assert keep == ["cheap", "strong"]  # cheap class: cost first; strong is a known model
 
 
 def test_few_attempts_never_trip_the_floor(tmp_path):
     rows = [(50, "blocked", "model=newbie")] * 9
     stats = model_routing.table(model_routing.outcomes(write_log(tmp_path, rows), CONFIG))
-    keep, cut = model_routing.route("small", stats, CONFIG)
-    assert keep == ["newbie"] and not cut
+    keep, trial, cut = model_routing.route("small", stats, CONFIG)
+    assert trial == ["newbie"] and "newbie" not in keep and not cut
 
 
 def test_large_class_is_allowlisted(tmp_path):
     rows = [(5000, "landed", "model=cheap")] * 20
     stats = model_routing.table(model_routing.outcomes(write_log(tmp_path, rows), CONFIG))
-    keep, _ = model_routing.route("large", stats, CONFIG)
+    keep, _, _ = model_routing.route("large", stats, CONFIG)
     assert keep == ["strong"]
+
+
+def test_campaign_suffixes_fold_into_the_model():
+    assert model_routing.canonical("gpt-5.6-luna;campaign=x;lane=mid", CONFIG) == "gpt-5.6-luna"
+    assert model_routing.canonical("Strong-1.", CONFIG) == "strong"
 
 
 def test_runner_field_beats_self_declared_model(tmp_path):
@@ -77,5 +82,5 @@ def test_wilson_lower_bound():
 def test_shipped_config_routes_every_class():
     config = model_routing.load_config()
     for band in config["classes"]:
-        keep, _ = model_routing.route(band["name"], {}, config)
+        keep, _, _ = model_routing.route(band["name"], {}, config)
         assert keep or "*" in band.get("models", ["*"])

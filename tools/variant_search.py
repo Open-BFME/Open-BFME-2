@@ -346,7 +346,7 @@ def main(argv=None):
         import model_routing
         config = model_routing.load_config()
         stats = model_routing.table(model_routing.outcomes(config=config))
-        routed, _ = model_routing.route(model_routing.task_class(args.size, config), stats, config)
+        routed, _, _ = model_routing.route(model_routing.task_class(args.size, config), stats, config)
         model = config.get("variant_model") if config.get("variant_model") in routed else routed[0]
     result = search(args.source, args.symbol, args.rva, args.size, model=model, n=args.n,
                     rounds=args.rounds, jobs=args.jobs, template=args.command,

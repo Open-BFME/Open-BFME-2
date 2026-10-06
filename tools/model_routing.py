@@ -51,7 +51,7 @@ def load_config(path=CONFIG):
 
 
 def canonical(model, config):
-    name = model.strip().rstrip(".,;:)").lower()
+    name = re.split(r"[;,]", model.strip())[0].rstrip(".:)").lower()
     return config.get("aliases", {}).get(name, name)
 
 
@@ -120,26 +120,36 @@ def table(rows):
 
 
 def route(cls, stats, config):
-    """(allowed models best first, {model: why excluded}) for one task class."""
+    """(routed models best first, under-sampled trial models, {model: why cut}).
+
+    Routed: measured on >= min_attempts decided attempts in this class and above
+    its floor, or listed in `cost` (known models) and not yet cut. Trial: seen,
+    allowed, but too few attempts to judge -- give them work sparingly until
+    they are measured. Cut: measured and below the floor."""
     band = next(b for b in config["classes"] if b["name"] == cls)
     allowed = band.get("models", ["*"])
     floor, minimum = band.get("floor", config["floor"]), config["min_attempts"]
     seen = sorted({m for (c, m) in stats if c == cls})
     pool = seen if "*" in allowed else [canonical(m, config) for m in allowed]
-    keep, cut = [], {}
+    known = set(config.get("cost", {}))
+    if "*" in allowed:
+        pool = sorted(set(pool) | known)
+    keep, trial, cut = [], [], {}
     for model in pool:
         s = stats.get((cls, model))
         if s and s["n"] >= minimum and s["lower"] < floor:
             cut[model] = (f"{s['wins']}/{s['n']} landed (lower bound {s['lower']:.3f} "
                           f"< floor {floor})")
-            continue
-        keep.append(model)
+        elif (s and s["n"] >= minimum) or model in known or "*" not in allowed:
+            keep.append(model)
+        else:
+            trial.append(model)
     cost = config.get("cost", {})
     if band.get("prefer") == "cheap":
         keep.sort(key=lambda m: (cost.get(m, 1), -(stats.get((cls, m)) or {}).get("lower", 0), m))
     else:
         keep.sort(key=lambda m: (-(stats.get((cls, m)) or {}).get("lower", 0), m))
-    return keep, cut
+    return keep, trial, cut
 
 
 def judge_allowed(model, path=JUDGES):
@@ -154,18 +164,19 @@ def report(stats, config, min_n=1):
     lines = []
     for band in config["classes"]:
         cls = band["name"]
-        keep, cut = route(cls, stats, config)
+        keep, trial, cut = route(cls, stats, config)
         lines.append(f"== {cls} (size <= {band.get('max_size') or 'any'}; floor "
                      f"{band.get('floor', config['floor'])}; prefer {band.get('prefer', 'strong')})")
         rows = sorted(((m, s) for (c, m), s in stats.items() if c == cls and s["n"] >= min_n),
                       key=lambda ms: (-ms[1]["n"], ms[0]))
         for model, s in rows:
-            mark = "CUT" if model in cut else ("ok" if model in keep else "not allowed")
+            mark = ("CUT" if model in cut else "ok" if model in keep
+                    else "trial" if model in trial else "not allowed")
             t = "" if s["median_t"] is None else f"  median t={s['median_t']:g}"
             lines.append(f"  {model:<28} {s['wins']:>6}/{s['n']:<6} {100 * s['rate']:5.1f}%  "
                          f"lower {100 * s['lower']:5.1f}%  {mark}{t}")
-        lines.append(f"  route: {', '.join(keep[:8]) or '(none)'}"
-                     + (f" (+{len(keep) - 8} more)" if len(keep) > 8 else ""))
+        lines.append(f"  route: {', '.join(keep) or '(none)'}; {len(trial)} under-sampled "
+                     f"model(s) on trial; {len(cut)} cut")
     return "\n".join(lines)
 
 
@@ -196,8 +207,8 @@ def main(argv=None):
     cls = args.cls or (task_class(args.size, config) if args.size is not None else None)
     if cls is None:
         ap.error("route needs --size or --class")
-    keep, cut = route(cls, stats, config)
-    print(json.dumps({"class": cls, "models": keep, "cut": cut}, indent=2))
+    keep, trial, cut = route(cls, stats, config)
+    print(json.dumps({"class": cls, "models": keep, "trial": trial, "cut": cut}, indent=2))
     return 0
 
 
