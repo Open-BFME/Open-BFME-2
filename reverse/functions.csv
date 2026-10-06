@@ -64383,3 +64383,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1TurretAI@@MAE@XZ,,0x004D86C1,86,Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp,matched,ZH TurretAI dtor shape: stop sound 0x004D82F6 then global delete of state machine
 ??1TunnelTracker@@MAE@XZ,,0x004F561D,103,Code/GameEngine/Source/GameLogic/Object/TunnelTrackerDtor.cpp,matched,ZH TunnelTracker dtor shape: clear tunnel IDs then three folded list<int> dtors then Snapshot base vtable
 ??1NetGameCommandMsg@@UAE@XZ,,0x004D5609,84,Code/GameEngine/Source/GameNetwork/NetGameCommandMsgDtor.cpp,matched,ZH NetGameCommandMsg dtor shape: unlink and global-delete each argument then base vtable C60130
+??1Rva002D6C1C@@UAE@XZ,,0x002D6C1C,93,Code/GameEngine/Source/Common/Rva002D6C1CDtor.cpp,matched,drain node list with global delete then GameEngineDeletingBase dtor
