@@ -6,6 +6,8 @@ A commit counts the matched rows it adds at an address that had no
 real-C++ row before (so repoints, note edits and moves count nothing);
 gen-* placeholders and upstream merges are not ours and are left out.
 Untagged commits from before the trailer existed show as "untagged".
+Repairs count too: each line a commit deletes from reverse/gate_baseline.txt
+is a row a gate check no longer excuses (tools/repair_queue.py serves them).
 
   python3 tools/agent_yield.py [--since 2026-10-04] [--days]
 """
@@ -18,6 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = "reverse/functions.csv"
+GATE_DEBT = "reverse/gate_baseline.txt"
 
 
 def git(*args):
@@ -48,6 +51,14 @@ def commit_gain(sha):
     return len(new), sum(new.values())
 
 
+def commit_repairs(sha):
+    """Gate-debt lines this commit deleted (net of any it added)."""
+    diff = git("show", "--format=", "--unified=0", sha, "--", GATE_DEBT)
+    removed = sum(1 for line in diff.splitlines() if line.startswith("-") and not line.startswith(("---", "-#")))
+    added = sum(1 for line in diff.splitlines() if line.startswith("+") and not line.startswith(("+++", "+#")))
+    return max(0, removed - added)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--since", default="7 days ago")
@@ -56,20 +67,26 @@ def main(argv=None):
     # Only the fork's own commits: anything upstream/master holds is theirs.
     exclude = ["^upstream/master"] if git("rev-parse", "-q", "--verify", "upstream/master").strip() else []
     log = git("log", "--no-merges", f"--since={args.since}", "HEAD", *exclude,
-              "--format=%H%x09%cs%x09%(trailers:key=Agent,valueonly,separator=%x2C)", "--", LEDGER)
-    totals = collections.defaultdict(lambda: [0, 0, 0])
+              "--format=%H%x09%cs%x09%(trailers:key=Agent,valueonly,separator=%x2C)", "--", LEDGER, GATE_DEBT)
+    # one git show per commit is the cost here; only the few that touch the debt pay twice
+    debt_commits = set(git("log", "--no-merges", f"--since={args.since}", "HEAD", *exclude,
+                           "--format=%H", "--", GATE_DEBT).split())
+    totals = collections.defaultdict(lambda: [0, 0, 0, 0])
     for line in log.splitlines():
         sha, day, agent = (line.split("\t") + ["", ""])[:3]
         bodies, size = commit_gain(sha)
-        if not bodies:
+        repairs = commit_repairs(sha) if sha in debt_commits else 0
+        if not bodies and not repairs:
             continue
         key = (agent.strip() or "untagged", day if args.days else "")
         totals[key][0] += 1
         totals[key][1] += bodies
         totals[key][2] += size
-    print(f"{'agent':24} {'day' if args.days else '':10} {'commits':>8} {'bodies':>7} {'bytes':>9}")
-    for (agent, day), (commits, bodies, size) in sorted(totals.items(), key=lambda kv: (-kv[1][2], kv[0])):
-        print(f"{agent:24} {day:10} {commits:8} {bodies:7} {size:9,}")
+        totals[key][3] += repairs
+    print(f"{'agent':24} {'day' if args.days else '':10} {'commits':>8} {'bodies':>7} {'bytes':>9} {'repairs':>8}")
+    for (agent, day), (commits, bodies, size, repairs) in sorted(totals.items(),
+                                                                 key=lambda kv: (-kv[1][2], -kv[1][3], kv[0])):
+        print(f"{agent:24} {day:10} {commits:8} {bodies:7} {size:9,} {repairs:8}")
     return 0
 
 

@@ -8,6 +8,11 @@ view of the available queues. Live claims are fetched from origin; no compiling.
 
 Sections, in priority order:
   0. Ledger health   tools/check_csv.py — a corrupt ledger aborts everything (exit 2)
+  R. Repair       gate debt (reverse/gate_baseline.txt): the check, the row, and a pass
+                  test that deletes the baseline line (tools/repair_queue.py)
+  L. Link repair  rows the last link cycle did not place or wire (link_status.csv)
+  New matches (tiers 1-4) carry `dest`: the unit the row belongs in (address
+  contiguity), never a fresh one-function file.
   1. Reloc-named  an unclaimed function whose mangled name a byte-true call proved
   2. Drift quick wins  immediate-only / imm+reg literal fixes from drift_report.csv
   3. Structural reconciliation  closest source-shape mismatches
@@ -990,8 +995,10 @@ def similar_candidates(claimed, claimed_ranges):
 
 
 def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
-                   packets=(), similar=()):
+                   packets=(), similar=(), repair=(), link=()):
     queues = {
+        "repair": ("gate-debt repair", repair),
+        "link": ("link-cycle repair", link),
         "packet": ("Zero Hour work packet", packets),
         "named": ("reloc-named unclaimed function", named),
         "harvest": ("drift quick win", drifts),
@@ -1002,7 +1009,9 @@ def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
     }
     if tier:
         return queues[tier]
-    for name in ("packet", "named", "harvest", "structural", "ghidra", "anchored"):
+    # Repairs first: a row a gate excuses, or one the real link cannot place, is
+    # wrong code already counted as progress; fixing it is credited (progress_v2).
+    for name in ("repair", "link", "packet", "named", "harvest", "structural", "ghidra", "anchored"):
         label, candidates = queues[name]
         if candidates:
             return label, candidates
@@ -1053,6 +1062,17 @@ def print_cluster(candidate, candidates):
 
 def print_candidate(label, candidate, meta, candidates=()):
     print(f"== selected work: {label} (drawn from {meta['pool']}) ==")
+    if label in ("gate-debt repair", "link-cycle repair"):
+        what = candidate.get("check") or ("placed, not self-strict" if candidate.get("placed") else "not placed")
+        print(f"  {candidate['size']:>5}B  {what}  {candidate['function']}")
+        print(f"       {candidate['target_rva']} in {candidate['source']}")
+        print(f"       why: {candidate['why']}")
+        print(f"       start: fix the row in {candidate['source']}; done when the pass test passes:")
+        print(f"       pass test: {candidate['pass_test']}")
+        print(f"       credit: {candidate['credit']:,} bytes (a repair counts: progress_v2 gate debt / link series)")
+        return
+    if candidate.get("dest_basis"):
+        print(f"  goes in: {candidate.get('dest') or '(no unit yet)'}  <- {candidate['dest_basis']}")
     if label == "Zero Hour work packet":
         print(f"  {candidate['size']:>5}B  {candidate['function']}")
         print(f"       {candidate['target_rva']} — Zero Hour's own body for this "
@@ -1156,7 +1176,7 @@ def print_ranked(args, ledger, drifts, structural, ghidra_meta, ghidra_absent,
             _print_boundary_verdicts(candidate)
             print(f"       start: {candidate['command']}")
 
-    if args.tier not in ("named", "structural", "ghidra"):
+    if args.tier not in ("repair", "link", "named", "structural", "ghidra"):
         print(f"\n== 2. drift quick wins: literal-only diffs ({len(drifts)}) ==")
         for candidate in drifts[:args.limit]:
             print(f"  {candidate['aligned_pct']:>3}% {candidate['class']:<14} "
@@ -1166,7 +1186,7 @@ def print_ranked(args, ledger, drifts, structural, ghidra_meta, ghidra_absent,
             print("       fix the literal in source, then byte-verify: "
                   f"{candidate['command']}")
 
-    if args.tier not in ("named", "harvest", "ghidra"):
+    if args.tier not in ("repair", "link", "named", "harvest", "ghidra"):
         shown = structural[:args.limit]
         print(f"\n== 3. structural reconciliation — manual RE ({len(structural)} "
               f"address(es); workflow: docs/structural.md) ==")
@@ -1217,7 +1237,7 @@ def main():
     ap.add_argument("--claim", action="store_true",
                     help="claim the selected RVA on origin before serving it; retry a raced selection")
     ap.add_argument("--tier",
-                    choices=("packet", "named", "harvest", "structural", "ghidra", "anchored",
+                    choices=("repair", "link", "packet", "named", "harvest", "structural", "ghidra", "anchored",
                              "similar"),
                     help="choose from only this task lane")
     ap.add_argument("--shard", type=parse_shard, metavar="INDEX/COUNT",
@@ -1232,6 +1252,8 @@ def main():
         ap.error("--claim selects one candidate; omit --ranked")
 
     ledger = check_ledger()  # exit 2 happens in there; nothing below matters if red
+    global repair_queue
+    import repair_queue  # after the health check: a corrupt ledger exits first
     drifts = (drift_quick_wins()
               if args.tier not in ("packet", "named", "structural", "ghidra", "similar") else [])
     # Every tier below asks "is this address still open work?", and a gen-dump
@@ -1281,7 +1303,11 @@ def main():
         suppressed = (dropped_named + dropped_drift + dropped_structural
                       + dropped_ghidra + dropped_anchored + dropped_similar)
 
+    repair = repair_queue.repair_items() if args.tier in (None, "repair") else []
+    link, link_note = repair_queue.link_items() if args.tier in (None, "link") else ([], "")
     busy = claims.busy_rvas()
+    repair = apply_shard(without_busy(repair, busy), args.shard)
+    link = apply_shard(without_busy(link, busy), args.shard)
     named = without_busy(named, busy)
     drifts = without_busy(drifts, busy)
     structural = without_busy(structural, busy)
@@ -1301,6 +1327,8 @@ def main():
     similar_q = apply_shard(similar_q, args.shard)
     for queue in (named, drifts, structural, ghidra_absent, anchored, similar_q):
         annotate_stashes(queue)
+    for queue in (named, ghidra_absent, anchored):
+        repair_queue.annotate_dest(queue)
     shard_meta = (None if args.shard is None else
                   {"index": args.shard[0], "count": args.shard[1]})
 
@@ -1313,6 +1341,7 @@ def main():
             "ghidra_meta": ghidra_meta, "ghidra_absent": ghidra_absent,
             "anchored_meta": anchored_note, "anchored": anchored,
             "similar": similar_q,
+            "repair": repair, "link_meta": link_note, "link": link,
             "structural_meta": structural_meta,
             "suppressed_logged": suppressed,
             "shard": shard_meta,
@@ -1321,6 +1350,16 @@ def main():
         return
 
     if args.ranked:
+        if args.tier in (None, "repair", "link"):
+            for title, queue in (("R. gate-debt repairs", repair), ("L. link-cycle repairs", link)):
+                print(f"== {title} ({len(queue)}) ==")
+                for candidate in queue[:args.limit]:
+                    print(f"  {candidate['size']:>5}B {candidate.get('check', '')} {candidate['target_rva']} "
+                          f"{candidate['function'][:70]}  ({candidate['source']})")
+                    print(f"       pass test: {candidate['pass_test']}")
+            if link_note:
+                print(f"  {link_note}")
+            print()
         print_ranked(args, ledger, drifts, structural, ghidra_meta,
                      ghidra_absent, suppressed, named, named_note, structural_meta)
         return
@@ -1328,6 +1367,7 @@ def main():
     packets = (packet_candidates(claimed)
                if args.tier in (None, "packet") else [])
     packets = without_busy(packets, busy)
+    repair_queue.annotate_dest(packets)
     # The packet tier carries its own boundary, so a logged verdict retires it
     # exactly as it does for every other lane. Without this the recommender
     # keeps serving packets already recorded not-convertible or no-boundary.
@@ -1346,7 +1386,7 @@ def main():
         withheld = len(packets)
         packets = []
     label, candidates = selected_queue(args.tier, drifts, structural, ghidra_absent,
-                                       anchored, named, packets, similar_q)
+                                       anchored, named, packets, similar_q, repair=repair, link=link)
     candidate, acquired = (claim_choice(candidates, label) if args.claim else
                            (weighted_choice(candidates) if candidates else None, []))
     deferred = sum(1 for c in candidates if c.get("deferred_attempts"))
