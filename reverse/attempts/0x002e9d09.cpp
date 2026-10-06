@@ -1,4 +1,6 @@
 // ?rva002E9D09@Rva002E9D09@@QAEHPAVObject@@HH@Z
+// partial score=0.99 date=2026-10-06
+// ?rva002E9D09@Rva002E9D09@@QAEHPAVObject@@HH@Z
 // partial score=0.7 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 // Dump lane range 13: ?rva002E9D09 @0x002E9D09 414B. Guarded object query:
@@ -100,10 +102,9 @@ int Rva002E9D09::rva002E9D09(Object *a1, int a2, int a3)
 	{
 		if ((m_holder4->m_4->m_11F & 4) != 0)
 		{
-			unsigned char b0b = m_holder4->m_4->m_634;
 			unsigned count = m_holder4->m_4->m_56C;
-			--count;
-			Rva002E8BCF tmp(m_18, b0b == 0, count, m_holder4->rva0028AFBB());
+			unsigned char b0b = m_holder4->m_4->m_634;
+			Rva002E8BCF tmp(m_18, b0b == 0, count - 1, m_holder4->rva0028AFBB());
 			if (!m_check0->rva002E6DC4(&tmp, a1))
 				return 1;
 		}
@@ -134,7 +135,7 @@ int Rva002E9D09::rva002E9D09(Object *a1, int a2, int a3)
 	Object *res = m_holder4->rva002931F5(go);
 	Object *sub = a1copy->m_0;
 	a1 = res;
-	if (sub != 0)
+	if (sub != (Object *)node)
 		node = sub->m_node14;
 	for (; node != 0; node = node->m_next)
 	{
