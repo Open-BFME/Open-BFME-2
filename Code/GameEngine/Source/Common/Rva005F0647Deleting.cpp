@@ -136,6 +136,21 @@ void Rva005F09D7::rva005F09D7()
 	return m_target->HideBuildingName();
 }
 
+// ?rva005F09F7@Rva005F09F7@@QAEXXZ @0x005F09F7 8B.
+// Forwarder loads Rva005F09BC at +4 and tail-jmps to its rva005F09BC.
+// Evidence: retail mov ecx [ecx+4] jmp 0x005F09BC plus caller 0x005E257B same-this call.
+struct Rva005F09F7
+{
+	char m_pad[4];
+	Rva005F09BC *m_target;
+	void rva005F09F7();
+};
+
+void Rva005F09F7::rva005F09F7()
+{
+	return m_target->rva005F09BC();
+}
+
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?Rva005F0C39Destroy@@YAXPAURva005F0647@@0PA_N@Z=?Rva005F0C39Destroy@@YAXPAURva005F0647@@0@Z")
