@@ -13148,3 +13148,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?Q2@Rva005A69C0Sub@@QAEPAXHH@Z,0x005DB98E,wrapper-call spelling for the 0x5A6CA5 pair response query (thiscall 2 args pointer result; true callee matched as rva005DB98E); target REL32 from retail call at 0x005A6D0A
 ?Check@Rva005A8666Box@@QAEXXZ,0x005A831E,wrapper-call spelling for the 0x5A8666 gate (thiscall 0 args result ignored); target REL32 from retail call at 0x005A86AE
 ?Run5@Rva005A8666Box@@QAEXH@Z,0x005A6C90,wrapper-call spelling for the 0x5A8666 setter (thiscall 1 arg; true callee matched as rva005A6C90); targets REL32 from retail calls at 0x005A869E and 0x005A86B7
+?Consume@Rva005A8666Sub04@@QAEXHPAX@Z,0x004D51ED,wrapper-call spelling for the 0x5A86C0 +4 sub-object consumer (thiscall 2 args callee cleanup); target REL32 from retail call at 0x005A8762

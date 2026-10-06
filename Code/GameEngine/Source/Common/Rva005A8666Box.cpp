@@ -11,9 +11,21 @@ struct Rva005A8666Obj
 	unsigned char m_40;
 };
 
+struct Rva005A8666Ptr
+{
+	int m_0;
+	short m_4;
+};
+
+struct Rva005A8666Sub04
+{
+	void Consume(int i, void *p);
+};
+
 struct Rva005A8666Box
 {
-	char pad0[8];
+	int m_0;
+	Rva005A8666Sub04 *m_04;
 	Rva005A8666Obj **m_8;
 	int m_C;
 	int m_10;
@@ -22,14 +34,20 @@ struct Rva005A8666Box
 	char pad1[0x24 - 0x1c];
 	unsigned char m_24;
 	unsigned char m_25;
-	char pad2[0x942 - 0x26];
+	char pad2[0x90c - 0x26];
+	Rva005A8666Ptr *m_90C[8];
+	char pad2b[0x942 - 0x92c];
 	unsigned char m_942;
 	char pad3[0x94c - 0x943];
 	int m_94C;
+	int m_950;
+	char pad4[0x970 - 0x954];
+	unsigned char m_970;
 
 	void Check();
 	void Run5(int code);
 	void Run(int unused);
+	void Apply(int a, unsigned short b, int c);
 };
 
 void Rva005A8666Box::Run(int unused)
@@ -54,6 +72,51 @@ void Rva005A8666Box::Run(int unused)
 		return;
 	if (m_24 == 0)
 		return;
+	Check();
+	Run5(3);
+}
+
+// ?Apply@Rva005A8666Box@@QAEXHGH@Z @0x005A86C0 219B: validated triple apply.
+// Unless both +0x94C and +0x950 read 4, resolve both indexed slots; present
+// pair plus matching first arg stamps +0x25 and, when +0x970 is set, links
+// the pair's words (copying b into the peer's +4 and c over on full match).
+// A present +0x24 leads through the +4 sub-object consumer and, unless
+// +0x94C reads 2 with both flags against a cleared +0x942, through the gate
+// to the setter with 3. Same class as Run (shared layout and pins).
+void Rva005A8666Box::Apply(int a, unsigned short b, int c)
+{
+	if (m_94C == 4 && m_950 == 4)
+		return;
+	Rva005A8666Obj *o1 = m_8[m_18];
+	if (o1 == 0) {
+		Run5(5);
+		return;
+	}
+	Rva005A8666Obj *o2 = m_8[m_14];
+	if (o2 == 0) {
+		Run5(5);
+		return;
+	}
+	if (a != m_18)
+		return;
+	if (m_970 == 0) {
+		m_25 = 1;
+		goto check24;
+	}
+	m_25 = 1;
+	m_90C[m_18]->m_4 = b;
+	if (m_90C[m_14]->m_0 == m_90C[m_18]->m_0)
+		m_90C[m_18]->m_0 = c;
+check24:
+	if (m_24 == 0)
+		return;
+	m_04->Consume(m_18, m_90C[m_18]);
+	if (m_94C != 2)
+		return;
+	if ((o2->m_40 & 8) != 0) {
+		if (m_942 != 1 && (o1->m_40 & 8) == 0)
+			return;
+	}
 	Check();
 	Run5(3);
 }
