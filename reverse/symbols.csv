@@ -15815,3 +15815,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??1?$_Temporary_buffer@PAURva004F8C16Element@@U1@@_STL@@QAE@XZ,0x004F77E0,
 ??0Rva0033A7DCElement@@QAE@ABU0@@Z,0x002CF0F0,
 ??0Rva0056DDF5Element@@QAE@ABU0@@Z,0x00037050,
+??RCompare@Rva004C9FE0Element@@QBE_NABU1@0@Z,0x004C9D93,
