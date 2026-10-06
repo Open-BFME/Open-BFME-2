@@ -13830,3 +13830,9 @@ _D3DXMatrixTranspose@8	0x0062AF44	6	partial	exact 6B FF25 jmp; disp32 is IAT rel
 ?rva004A0EAD@MonsterDockUpdate@@QAEHXZ	0x004A0EAD	552	blocked	MonsterDockUpdate slot12 552B EH_prolog multi-virtual economy check t=5 model=muse
 ?doSpecialPowerAtObject@SpecialPowerModule@@UAEXPAVObject@@I@Z	0x004C8B62	278	blocked	SpecialPower slot11 278B vs donor small needs substantial reconstruction t=6 model=muse
 ?rva0029BDBC@Rva0029BDBC@@QAEXXZ	0x0029BDBC	73	blocked	Holder at +0x20 plus dword at +0x980 vs InGameUI STL list mismatch t=8 model=muse
+?rva004622FC@Rva004622FC@@QAEXXZ	0x004622FC	340	blocked	SSE 500-mul-add order plus m128 lea-vs-mem plus spill swap t=30 model=muse-09
+?reset@W3DRadar@@UAEXXZ	0x0004E2FA	167	blocked	MI base needs +4 on offsets and virtuals-this now exact but EH wall remains: retail xor ebx early plus mov state0 before first Get plus byte 1-2 and single temp slot vs ours xor edi late plus dword 0-1 and two slots plus push ebx vs push edi t=25 model=muse-09
+?setShroudLevel@W3DRadar@@UAEXHHW4CellShroudStatus@@@Z	0x0004ED3D	544	blocked	544B W3DRadar setShroudLevel SSE float plus GlobalData BEC-C00 alpha logic plus EH no compatible BFME1-ZH donor in budget t=5 model=muse-09
+?rva00574BD7@Rva00574ABB@@QAEPAPAV1@PAPAV1@@Z	0x00574BD7	68	partial	and-pushesi-push10 order swapped plus missing jmp-xor null path new-vs-manual 64vs68B t=30 model=muse-09 score=0.94 stash=reverse/attempts/0x00574bd7.cpp
+?rva005E5D4D@Rva005E5D4D@@QAE?AURvaF1Handle@@H@Z	0x005E5D4D	84	blocked	84B Factory Handle-EH hidden-ret twin needs exact Handle-ctor inline plus ctor row 0x5F5C77 174B 3-base no donor 109vs84B t=10 model=muse-09
+?rva005E5DA1@Rva005E5DA1@@QAE?AURvaF1Handle@@H@Z	0x005E5DA1	84	blocked	twin of 0x005E5D4D 84B Factory same Handle-EH hidden-ret wall 109vs84B ctor 0x5F5F2B 174B 3-base sibling t=2 model=muse-09
