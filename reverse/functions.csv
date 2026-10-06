@@ -66033,3 +66033,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?W3DPowerDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,,0x0009E365,951,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp,matched,ZH W3DPowerDraw (BFME1 donor body); draw-callback lexicon name; player via PlayerList helper 0x002A7E14; logN 0x0009DE01
 ?W3DPowerDrawA@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,,0x0009E71C,1649,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp,matched,ZH W3DPowerDrawA (BFME1 donor body); unused end-capped power bar after W3DPowerDraw; PowerBar*EndL/EndR images
 ??0Gen_00920A20@@QAE@H@Z,,0x0013EA00,43,Code/GameEngineDevice/Source/W3DDevice/GameClient/Gen00920BC0Handle.cpp,matched,
+?rva001DCD05@Rva001DCD05@@QAEPAXXZ,,0x001DCD05,23,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,

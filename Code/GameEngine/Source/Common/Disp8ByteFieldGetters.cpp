@@ -1,3 +1,4 @@
+// cl: /O1 /MD
 // Disp8 byte getters: four-byte __thiscall members with one shape:
 //
 //     mov al,[ecx+<DISP>] / ret
@@ -126,3 +127,25 @@ BFME_DISP8_BYTE_GETTER(Rva0066D610ByteField, 0x64)
 BFME_DISP8_BYTE_GETTER(Rva0066D620ByteField, 0x65)
 BFME_DISP8_BYTE_GETTER(Rva006BD4F0ByteField, 0x21)
 BFME_DISP8_BYTE_GETTER(Rva006CFDB0ByteField, 0x0C)
+
+class Rva001DCD05
+{
+public:
+	void *rva001DCD05();
+private:
+	char m_pad[8];
+	char m_08;
+	char m_pad2[0x14 - 0x09];
+	char m_14;
+	char m_pad3[0x20 - 0x15];
+	unsigned char m_20;
+	bool m_21;
+};
+
+void *Rva001DCD05::rva001DCD05()
+{
+	if (m_21)
+		return &m_14;
+	return m_20 ? (char *)this + 8 : 0;
+}
+
