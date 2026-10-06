@@ -1,11 +1,14 @@
 // cl: /O2 /MD
-// ?rva006E2560@AptCIH@@QAEXH@Z @0x006E2560 193B
+// ?rva006E2560@AptCIH@@QAEXH@Z @0x006E2560 224B (includes jump table)
 // Chain from 0x006CFCD0: AptCIH type-dispatch counter plus sprite tail.
 // Evidence: pMCInfo assert line 0x931 via AptCIH.cpp string; type via rowed
 // get 0x006DBB30 minus 0x0C with 7-way jump table; button case 0x0E calls rowed
 // 0x006E1090 then rowed 0x006F7AF0; tail calls rowed isSpriteInstBase 0x006CFCD0
 // twice with 0x7D AptCIH.h assert then rowed 0x006F7AF0 via +0x4C/+0x24.
 // Caller 0x006F7B03. Prev/next Apt TUs use /O2 /MD.
+// Retail table at RVA 0x006E2624 maps kinds 0x0C..0x12 to counter offsets
+// 0x18, 0x04, 0x08, 0x10, 0x0C, 0x14, 0x00 respectively. These offsets
+// are target evidence; the counters' semantic names remain unknown.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
@@ -80,7 +83,7 @@ void AptCIH::rva006E2560(int pMCInfoArg)
 	int kind = ((const Rva006DBB30SarDwordField *)this)->get();
 	switch (kind - 0x0c)
 	{
-	case 6:
+	case 0:
 		pMCInfo->m18++;
 		break;
 	case 1:
@@ -94,16 +97,16 @@ void AptCIH::rva006E2560(int pMCInfoArg)
 			(*ppList)->rva006F7AF0(pMCInfoArg);
 		}
 		break;
-	case 4:
+	case 3:
 		pMCInfo->m10++;
 		break;
-	case 3:
+	case 4:
 		pMCInfo->m0c++;
 		break;
 	case 5:
 		pMCInfo->m14++;
 		break;
-	case 0:
+	case 6:
 		pMCInfo->m00++;
 		break;
 	default:
