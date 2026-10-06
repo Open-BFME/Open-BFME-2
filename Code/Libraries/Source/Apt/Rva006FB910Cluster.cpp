@@ -44,9 +44,12 @@ public:
 class AptCIH : public BfmeAptValue006DCD20
 {
 public:
+    bool rva006CFCD0() const; // rowed predicate, 0x006CFCD0
     void *rva006E1090() const; // rowed, 0x006E1090
     void rva006E1F00(int value); // address-derived, 0x006E1F00
 };
+extern AptCIH *__cdecl rva006F99D0(int eventCode, AptCIH *first,
+                                   AptCIH *second);
 
 // The object these members share. Only the fields the 0x006FB910 body reads
 // are modelled; the full layout is not claimed.
@@ -68,10 +71,12 @@ public:
     int m78;
     AptCIH *rva006FA420(int x, int y); // address-derived, 0x006FA420
     void rva006FA100(AptCIH *value, int mode); // address-derived, 0x006FA100
+    void rva006FA340(); // address-derived call target from this object view
     void rva006FB860(int value, char isFirst);
     void Rva006F9EF0();
     void rva006FB910();
     void rva006FAA20();
+    void rva006FAF80(AptCIH *candidate, int eventCode, int transition);
 };
 
 // 0x006F9EF0 is an unnamed sibling of the same class, called thiscall on
@@ -136,6 +141,77 @@ void Rva006FB860::rva006FAA20()
 
     if (value)
         value->vtableSlot1();
+}
+
+// ?rva006FAF80@Rva006FB860@@QAEXPAVAptCIH@@HH@Z @0x006FAF80 386B.
+// Retail bytes establish ECX=this, three 32-bit stack arguments (ret 0xC),
+// a 0..15 state dispatch, and reads/writes of this+0x6C/+0x70. The candidate
+// argument is tested by the rowed AptCIH predicate at 0x006CFCD0. Ownership by
+// Rva006FB860 is inferred from the same fields and direct sibling calls; the
+// original method name and caller-level semantic labels remain unknown.
+void Rva006FB860::rva006FAF80(AptCIH *candidate, int eventCode,
+                              int transition)
+{
+    switch (eventCode) {
+    case 1:
+    case 2:
+    case 14:
+    case 15:
+        if (m70 || transition)
+            return;
+        rva006FA340();
+        if (!m6c)
+            return;
+        if (!candidate) {
+            candidate = rva006F99D0(
+                eventCode, *(AptCIH **)((char *)m6c + 0x48), m6c);
+        } else if (candidate->rva006CFCD0()) {
+            candidate = rva006F99D0(eventCode, candidate, 0);
+        }
+        if (!candidate)
+            return;
+
+        m6c->rva006E1F00(1);
+        candidate->rva006E1F00(2);
+        rva006FA100(m6c, 2);
+        rva006FA100(candidate, 1);
+        if (m6c)
+            m6c->vtableSlot1();
+        m6c = candidate;
+        candidate->vtableSlot0();
+        return;
+
+    case 0:
+        if (!m6c) {
+            m70 = transition != 1;
+            return;
+        }
+
+        if (!m70 && !transition) {
+            m70 = 1;
+            m6c->rva006E1F00(4);
+            rva006FA100(m6c, 4);
+        }
+        if (!m70 || transition != 1)
+            return;
+
+        m70 = 0;
+        if (*(int *)((char *)m6c->rva006E1090() + 0x18) == 2) {
+            m6c->rva006E1F00(1);
+            rva006FA100(m6c, 0x40);
+            if (!m6c)
+                return;
+            m6c->rva006E1F00(2);
+            if ((void *)mValue == *(void **)((char *)m6c + 0x48))
+                rva006FA100(m6c, 8);
+            else
+                rva006FA100(m6c, 1);
+            return;
+        }
+        m6c->rva006E1F00(2);
+        rva006FA100(m6c, 8);
+        return;
+    }
 }
 
 typedef char PoolCountOffset[(sizeof(Rva006FB860) >= 0x44 + sizeof(BfmeAptValue006DCD20)) ? 1 : -1];
