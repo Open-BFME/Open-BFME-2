@@ -64394,3 +64394,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005E508F@Rva005E508F@@QAEXH@Z,,0x005E508F,8,Code/GameEngine/Source/Common/Rva005E508FForwarder.cpp,matched,forwarder via +0x10 to rowed rva005E4DE5 with callers at 0x005CDB23 and 0x005E691C
 ?rva005E5097@Rva005E508F@@QAEXH@Z,,0x005E5097,8,Code/GameEngine/Source/Common/Rva005E508FForwarder.cpp,matched,twin forwarder via +0x10 to rowed rva005E4DAF with caller at 0x005E6997
 ?addSilhouetteEdge@W3DVolumetricShadow@@QAEXHPAUPolyNeighbor@@0@Z,,0x000F1735,149,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowAddEdge.cpp,matched,BFME1 donor W3DVolumetricShadow via row 0x000EFDBB and pin 0x000F0FCD
+??0Rva005DB271@@QAE@PAXPAUArg1Host005DB271@@@Z,,0x005DB271,168,Code/GameEngine/Source/Common/Rva005DB271Ctor.cpp,matched,ctor via Rva005C4230 precedent vtable 0x00C766B8 plus 0x38 chase

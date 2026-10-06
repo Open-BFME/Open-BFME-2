@@ -11362,3 +11362,6 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva00318FA1@Rva00318FA1@@QAEPAVRva0020E89C@@XZ	0x00318FA1	29	blocked	test ecx mask vs sar ecx 4 on empty-vector check t=15 model=muse-12 (stash 0.93 kept)
 ?rva0040D701@Rva0040D701@@QAE_NPAX@Z	0x0040D701	302	blocked	complex 302B EH vector loop with 10 callees needs donor lead t=5 model=muse-12
 ?rva005E1928@Rva005E1928@@QAEXXZ	0x005E1928	86	blocked	86B EH Helper-plus-assign-plus-virtual needs donor RvaF6Ret-TreeHint pattern t=20 model=muse-12
+?addNeighborlessEdges@W3DVolumetricShadow@@QAEXHPAUPolyNeighbor@@@Z	0x000F17CA	149	partial	whole body one callee-saved apart ebx vs edi for this-saved and j 149v149 0 regions rest exact t=20 model=muse-12 score=0.95 stash=reverse/attempts/0x000f17ca.cpp
+?rva000F1D24@Rva000F28C3Holder@@QAEXHPAURva000F28C3Poly@@@Z	0x000F1D24	292	blocked	complex 292B SSE x87 vector normalize leaf no donor needs layout work t=3 model=muse-12
+?addNeighborlessEdges@W3DVolumetricShadow@@QAEXHPAUPolyNeighbor@@@Z	0x000F17CA	149	blocked	whole body one callee-saved apart ebx vs edi for this-saved and j 149v149 0 regions rest exact t=25 model=muse-12 (stash 0.95 kept)
