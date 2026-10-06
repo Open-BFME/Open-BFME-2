@@ -631,9 +631,9 @@ int Rva0080DA50(unsigned char *object, char *output, int length)
 unsigned char *Rva0080C6F0(unsigned char *object)
 {
 	int length;
-	unsigned char context[ 0x54 ];
-	unsigned char header[ 4 ];
-	unsigned char digest[ 0x10 ];
+	unsigned char MD5Context[ 0x54 ];
+	unsigned char uSeqn[ 4 ];
+	unsigned char MD5Data[ 0x10 ];
 	unsigned char *state;
 	unsigned char *packet;
 
@@ -646,19 +646,19 @@ unsigned char *Rva0080C6F0(unsigned char *object)
 	{
 		Rva0080F300( state + 0x86BC, packet, length );
 
-		header[ 0 ] = (unsigned char)( *(unsigned int *)(state + 0x8018) >> 24 );
-		header[ 1 ] = (unsigned char)( *(unsigned int *)(state + 0x8018) >> 16 );
-		header[ 2 ] = (unsigned char)( *(unsigned int *)(state + 0x8018) >> 8 );
-		header[ 3 ] = (unsigned char)*(unsigned int *)(state + 0x8018);
+		uSeqn[ 0 ] = (unsigned char)( *(unsigned int *)(state + 0x8018) >> 24 );
+		uSeqn[ 1 ] = (unsigned char)( *(unsigned int *)(state + 0x8018) >> 16 );
+		uSeqn[ 2 ] = (unsigned char)( *(unsigned int *)(state + 0x8018) >> 8 );
+		uSeqn[ 3 ] = (unsigned char)*(unsigned int *)(state + 0x8018);
 
-		Rva00810020( context );
-		Rva00810060( context, state + 0x80AC,
+		Rva00810020( MD5Context );
+		Rva00810060( MD5Context, state + 0x80AC,
 			*(int *)(state + 0x80A8) );
-		Rva00810060( context, packet + 0x10, length - 0x10 );
-		Rva00810060( context, header, 4 );
-		Rva00810FF0( context, (char *)digest, 0x10 );
+		Rva00810060( MD5Context, packet + 0x10, length - 0x10 );
+		Rva00810060( MD5Context, uSeqn, 4 );
+		Rva00810FF0( MD5Context, (char *)MD5Data, 0x10 );
 
-		if( memcmp( digest, packet, 0x10 ) != 0 )
+		if( memcmp( MD5Data, packet, 0x10 ) != 0 )
 			packet = 0;
 		else
 		{
