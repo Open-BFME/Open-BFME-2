@@ -1,4 +1,6 @@
 // ?rva00485C19@StatusBitsEldestFrame@@QAE_NPAVObject@@PBURva00485C19Data@@PBW4NameKeyType@@@Z
+// partial score=0.9273 date=2026-10-06
+// ?rva00485C19@StatusBitsEldestFrame@@QAE_NPAVObject@@PBURva00485C19Data@@PBW4NameKeyType@@@Z
 // partial score=0.97 date=2026-10-05
 // ?rva00485C19@StatusBitsEldestFrame@@QAE_NPAVObject@@PBURva00485C19Data@@PBW4NameKeyType@@@Z
 // cl: /O1 /DNDEBUG /MD /GX

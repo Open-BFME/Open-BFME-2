@@ -1,4 +1,6 @@
 // ?rva00481A9E@Rva0048180C@@QAEXPAVObject@@_NPAURva00481A9EInfo@@@Z
+// partial score=0.8939 date=2026-10-06
+// ?rva00481A9E@Rva0048180C@@QAEXPAVObject@@_NPAURva00481A9EInfo@@@Z
 // partial score=0.97 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
 //
