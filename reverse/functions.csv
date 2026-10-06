@@ -64481,3 +64481,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002E02F0@Rva002E02F0@@QAEXHPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z,,0x002E02F0,107,Code/GameEngine/Source/Common/Rva002E02F0.cpp,matched,clear Science vector refill from hashtable gated by Check
 ?rva002B3288@Rva002B3288@@QAE_NXZ,,0x002B3288,70,Code/GameEngine/Source/Common/Rva002B3288.cpp,matched,vector all-of loop via pred pin caller 0x002B53C0
 ?rva002DBC1F@BfmeSubobject00229875@@QAEAAU1@ABU1@@Z,,0x002DBC1F,120,Code/GameEngine/Source/Common/System/SaveGame/BfmeSubobjectAssign.cpp,matched,BfmeSubobject00229875 assign eight elements plus blocks chain of 0x002DBAB9
+?rva00501813@Rva00501813@@QAEHH@Z,,0x00501813,49,Code/GameEngine/Source/Common/Rva00501813Find.cpp,matched,map find plus Sub copy returning second dword via rowed 0x00388F63 pinned 0x005017B4 rowed 0x00501776
