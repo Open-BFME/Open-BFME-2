@@ -64924,4 +64924,3 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ??0Rva0051268C@@QAE@PAX@Z,,0x0051268C,94,Code/GameEngine/Source/GameClient/GUI/BfmeAptGameWindowConstructor.cpp,matched,factory 0x002D1E55 size 0x27C and dtor 0x005126F5 same vtables
 ?rva00285B66@@YA_NPBX0@Z,,0x00285B66,43,Code/GameEngine/Source/Common/Rva00285B66.cpp,matched,caller pointInTrigger 0x002E3A13 and LINK BONUS file
 ?rva00542067@Rva00542225@@QAEXXZ,,0x00542067,70,Code/GameEngine/Source/Common/Rva00542067.cpp,matched,leaf via caller 0x00542256 no commas
-??F?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU01@H@Z,,0x00503EC9,26,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_iterator_postdec_00503ec9.cpp,matched,Target postfix iterator decrement; hidden result receives old node and this stores the call to rowed _M_decrement 0x000242C0; type specialization inferred from matched sibling 0x003ED377.
