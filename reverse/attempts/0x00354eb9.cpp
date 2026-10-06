@@ -1,4 +1,6 @@
 // ?Rva00354EB9Check@@YAHPBURva00354EB9Point@@0@Z
+// partial score=0.92 date=2026-10-06
+// ?Rva00354EB9Check@@YAHPBURva00354EB9Point@@0@Z
 // partial score=0.92 date=2026-10-05
 // cl: /O1 /arch:SSE /MD
 // ?Rva00354EB9Check@@YAHPBURva00354EB9Point@@0@Z 0x00354EB9 61B pickup range squared-distance check
