@@ -13300,3 +13300,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva005CCB5B@Rva005CCB5B@@QAEXXZ,0x005CCB5B,this-only void for 0x005D20E5; address-derived pin
 ?rva002BF6A7@Rva002BF6A7@@QAEXH@Z,0x002BF6A7,this+int void for 0x005D20E5 via +0x10; address-derived pin
 ?rva005DB512@Rva005DB512@@QAEXHHH@Z,0x005DB512,this+3 ints void twice for 0x005DB5F2; address-derived pin
+?rva005E2460@Rva005E2460@@QAEXXZ,0x005E2460,pin for 0x005E24D8 (reuses banked name); address-derived
