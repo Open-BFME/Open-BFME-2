@@ -1,5 +1,3 @@
-// ?update@Rva0033F364@@UAE?AW4StateReturnType@@XZ
-// partial score=0.95 date=2026-10-06
 // cl: /O1 /G7 /DNDEBUG /MD
 // ?update@Rva0033F364@@UAE?AW4StateReturnType@@XZ @0x003492BD 225B
 // Evidence: vslot slot 6 of vtable 0x00810F40 owned by Rva0033F364 ctor; TurretStateMachine goal checks and frame gate via g_Va00DBA4E4 and TheGameLogic.
@@ -134,7 +132,6 @@ private:
 	int m_20; // +0x20
 };
 
-// ?update@Rva0033F364@@UAE?AW4StateReturnType@@XZ present-unmatched
 StateReturnType Rva0033F364::update()
 {
 	Object *owner = m_machine->m_owner;
@@ -159,13 +156,12 @@ StateReturnType Rva0033F364::update()
 			m_20 = g_Va00DBA4E4 * 3 + TheGameLogic->m_frame;
 			return STATE_CONTINUE;
 		}
-		if ((unsigned)TheGameLogic->m_frame < (unsigned)m_20)
+		if ((unsigned)TheGameLogic->m_frame >= (unsigned)m_20)
 		{
-			_ReadWriteBarrier();
-			return STATE_CONTINUE;
+			_WriteBarrier();
+			return STATE_FAILURE;
 		}
-		_WriteBarrier();
-		return STATE_FAILURE;
+		return STATE_CONTINUE;
 	}
 	else
 	{
