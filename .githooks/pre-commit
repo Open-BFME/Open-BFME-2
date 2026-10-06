@@ -12,6 +12,16 @@ fail() {
     exit 1
 }
 
+# capture VAR WHAT CMD...: run CMD into a new temp file, store its path in VAR, and fail
+# naming WHAT if CMD fails. `< <(cmd)` and `$(cmd)` drop the producer's exit status, so a
+# crashed lister read as an empty list and the hook verified less instead of refusing.
+capture() {
+    local captured
+    captured=$(mktemp) || fail "temporary file for $2"
+    "${@:3}" > "$captured" || { rm -f "$captured"; fail "$2 (see above)"; }
+    printf -v "$1" '%s' "$captured"
+}
+
 run_build() {
     case "$(uname -s)" in
         MINGW*|MSYS*|CYGWIN*) py -3 tools/build.py "$@" ;;
@@ -64,7 +74,9 @@ fi
 # else in this hook looks at it: one with a syntax error commits cleanly and only
 # fails when somebody next runs it. That has happened. One parse per staged tool
 # costs nothing and closes it.
-mapfile -t staged_tools < <(git diff --cached --name-only --diff-filter=ACM -- 'tools/*.py')
+capture staged_tools_out "listing staged tools" git diff --cached --name-only --diff-filter=ACM -- 'tools/*.py'
+mapfile -t staged_tools < "$staged_tools_out"
+rm -f "$staged_tools_out"
 if [ "${#staged_tools[@]}" -ne 0 ]; then
     printf '%s\0' "${staged_tools[@]}" | python3 -c '
 import ast, os, sys
@@ -101,6 +113,7 @@ wide_change=0
 flags_changed=0
 baseline_changed=0
 attempts_changed=0
+capture staged_out "listing staged files" git diff --cached --name-only --diff-filter=ACMRT
 while IFS= read -r path; do
     case "$path" in
         # .c and .asm rows are byte-verified like .cpp: two of the six
@@ -122,7 +135,8 @@ while IFS= read -r path; do
         # could otherwise land a silent regression.
         *.h|reference/shims/*) wide_change=1 ;;
     esac
-done < <(git diff --cached --name-only --diff-filter=ACMRT)
+done < "$staged_out"
+rm -f "$staged_out"
 
 # Placement: game sources live only under Code/ at the official BFME path
 # (plus reference/shims/ for shim headers, reference/CnC_Generals_Zero_Hour/ for
@@ -138,12 +152,14 @@ done < <(git diff --cached --name-only --diff-filter=ACMRT)
 # reverse/attempts/ is named for the same reason: a banked near-miss body is
 # evidence for the next agent, never a compiled source, so it must sit outside
 # Code/ where verify_source_claims would demand matched rows for it.
+capture added_out "listing added files" git diff --cached --name-only --diff-filter=A
 while IFS= read -r path; do
     case "$path" in
         Code/GameEngine/*|Code/GameEngineDevice/*|Code/Libraries/*|Code/gen_small/*|Code/gen_asm/*|Code/masm_dumps/*|reference/shims/*|reference/CnC_Generals_Zero_Hour/*|tools/tests/*|build/toolchains/*|mods/*|reverse/attempts/*) ;;
         *) fail "source added outside official tree: $path — see AGENTS.md 'File placement'" ;;
     esac
-done < <(git diff --cached --name-only --diff-filter=A | grep -E '\.(cpp|c|h|hpp|asm)$' || true)
+done < <(grep -E '\.(cpp|c|h|hpp|asm)$' "$added_out" || true)
+rm -f "$added_out"
 
 # Data identity (shadow): staged sources' DIR32 data references against
 # reverse/data_ledger.csv; fails only when reverse/data_check_baseline.txt grew.
@@ -170,14 +186,18 @@ if [ "$wide_change" -ne 0 ]; then
     if python3 tools/header_dependents.py --staged > "$header_deps_out"; then
         mapfile -t header_deps < "$header_deps_out"
         rm -f "$header_deps_out"
-        for path in $(git diff --cached --name-only --diff-filter=ACMRT); do
+        capture staged_out "listing staged files" git diff --cached --name-only --diff-filter=ACMRT
+        while IFS= read -r path; do
             case "$path" in
                 *.h|*.hpp|*.hh|*.hxx|*.inl|*.inc|reference/shims/*|Code/*)
                     git diff --quiet -- "$path" || fail "unstaged edits in $path: the scoped header gate would verify the wrong bytes" ;;
             esac
-        done
+        done < "$staged_out"
+        rm -f "$staged_out"
         declare -A unstaged=()
-        while IFS= read -r -d '' path; do unstaged["$path"]=1; done < <(git diff --name-only -z)
+        capture unstaged_out "listing unstaged edits" git diff --name-only -z
+        while IFS= read -r -d '' path; do unstaged["$path"]=1; done < "$unstaged_out"
+        rm -f "$unstaged_out"
         for path in "${header_deps[@]}"; do
             [ -z "${unstaged[$path]:-}" ] || fail "unstaged edits in $path: the scoped header gate would verify the wrong bytes"
         done
@@ -276,9 +296,11 @@ fi
 #    verify nothing extra — they cannot break byte-truth.
 declare -A verify_set=()
 for path in "${staged_sources[@]}"; do verify_set["$path"]=1; done
+capture delta_out "delta_sources" python3 tools/delta_sources.py --staged
 while IFS= read -r path; do
     [ -n "$path" ] && verify_set["$path"]=1
-done < <(python3 tools/delta_sources.py --staged)
+done < "$delta_out"
+rm -f "$delta_out"
 
 # Parked reconstruction drafts (whitelisted zero-matched-row sources) have
 # nothing to byte-verify; build.py errors on a filter that matches no rows.

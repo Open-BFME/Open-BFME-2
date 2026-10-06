@@ -12,6 +12,16 @@ fail() {
     exit 1
 }
 
+# capture VAR WHAT CMD...: run CMD into a new temp file, store its path in VAR, and fail
+# naming WHAT if CMD fails. `< <(cmd)` drops the producer's exit status, so a crashed
+# delta_sources read as "nothing to verify" and the push went out unverified.
+capture() {
+    local captured
+    captured=$(mktemp) || fail "temporary file for $2"
+    "${@:3}" > "$captured" || { rm -f "$captured"; fail "$2 (see above)"; }
+    printf -v "$1" '%s' "$captured"
+}
+
 run_build() {
     case "$(uname -s)" in
         MINGW*|MSYS*|CYGWIN*) py -3 tools/build.py "$@" ;;
@@ -106,7 +116,9 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
             || fail "gate_baseline.txt grew across the outgoing range (see above)"
     fi
 
-    mapfile -t delta < <(python3 tools/delta_sources.py --range "$base" "$local_sha")
+    capture delta_out "delta_sources" python3 tools/delta_sources.py --range "$base" "$local_sha"
+    mapfile -t delta < "$delta_out"
+    rm -f "$delta_out"
 
     # Sources the range EDITS while leaving their ledger rows alone are absent
     # from that delta, so nothing byte-verifies them — yet one such edit can
@@ -117,7 +129,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # rows in GameWindowManager.cpp. pre-commit already byte-verifies every
     # staged Code/*.cpp for exactly this reason; --no-verify skips pre-commit
     # entirely, so the push gate has to repeat it.
-    mapfile -t edited < <(python3 - "$base" "$local_sha" <<'PY'
+    capture edited_out "listing the edited claimed sources" python3 - "$base" "$local_sha" <<'PY'
 import csv, io, subprocess, sys
 base, rev = sys.argv[1], sys.argv[2]
 
@@ -135,7 +147,8 @@ sys.stdout.reconfigure(newline="\n")
 for path in sorted(set(touched) & claimed):
     print(path)
 PY
-    )
+    mapfile -t edited < "$edited_out"
+    rm -f "$edited_out"
 
     verify=()
     declare -A seen=()
