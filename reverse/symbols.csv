@@ -13458,3 +13458,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??0Rva00342AD6@@QAE@PAVStateMachine@@@Z,0x00342AD6,unrowed 0x68 AI-state ctor called from 0x34316A; RETAIL REL32 at 0x003431E5
 ??0Rva00342B1A@@QAE@PAVStateMachine@@H@Z,0x00342B1A,unrowed 0x78 AI-state ctor taking the branchless int selector called from 0x34316A; RETAIL REL32 at 0x0034322E
 ??0Rva0033F3B6@@QAE@PAVStateMachine@@_NN@Z,0x0033F3B6,TU-local (bool bool) spelling for the rowed 0x33F3B6 state ctor as declared in its own TU; RETAIL REL32 at 0x003432A1 in 0x34316A
+??0Rva0034290D@@QAE@PAVStateMachine@@HHH@Z,0x0034290D,unrowed 0x74 AI-state ctor taking (outer-this plus 0 plus param plus 0) called from 0x343367; RETAIL REL32 at 0x003434FB
