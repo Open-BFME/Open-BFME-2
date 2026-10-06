@@ -15,12 +15,21 @@ class CommandButton
 
 const CommandButton *Rva00567BFDGet(int stance);
 
+// Two levels at +0: the ctor installs vtable 0x00C7A630 while the dtor's final store is
+// 0x00BC6F20 (Rva00567960Dtor.cpp), so they are two classes; each inline ctor/dtor's store
+// of the other level is dead and dropped. One name per vtable keeps DIR32 consistent.
 class Rva00567960Base
 {
 public:
 	virtual ~Rva00567960Base();
-	Rva00567960Base() { m_4 = 0; }
 	int m_4;
+};
+
+class Rva00567960BaseMid : public Rva00567960Base
+{
+public:
+	virtual ~Rva00567960BaseMid();
+	Rva00567960BaseMid() { m_4 = 0; }
 };
 
 class Rva005C802B
@@ -45,7 +54,7 @@ struct Rva00567CCDMid
 	int m_14;
 };
 
-class Rva00567960 : public Rva00567960Base, public Rva005C802B, public Rva00567CCDMid
+class Rva00567960 : public Rva00567960BaseMid, public Rva005C802B, public Rva00567CCDMid
 {
 public:
 	Rva00567960(int a1, const Rva00567CCDInfo *a2);
