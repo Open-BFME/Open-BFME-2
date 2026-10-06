@@ -29,6 +29,7 @@ EXTERN ??1Rva005F918D@@QAE@XZ:PROC
 EXTERN ??1Rva00087A93@@QAE@XZ:PROC
 EXTERN ??1Rva005F4AD7@@QAE@XZ:PROC
 EXTERN ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ:PROC
+EXTERN BasicStringCharDtor_dup:PROC
 EXTERN ??1SBServer@@QAE@XZ:PROC
 
 _TEXT SEGMENT
@@ -2091,6 +2092,20 @@ PUBLIC ?rva007A6AC0@@YAXXZ
 cleanup_done_007A6AC0:
     ret
 ?rva007A6AC0@@YAXXZ ENDP
+
+; Unwind@00ba6d3d at RVA 0x007A6D3D; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then takes the cleanup object address at [ebp-32] and tail-jumps to matched folded destructor body at 0x0007FAB3.
+PUBLIC ?rva007A6D3D@@YAXXZ
+?rva007A6D3D@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A6D3D
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-32]
+    jmp BasicStringCharDtor_dup
+cleanup_done_007A6D3D:
+    ret
+?rva007A6D3D@@YAXXZ ENDP
 
 ; Unwind@00bab0e9 at RVA 0x007AB0E9; 25-byte interval ends at RET.
 ; Retail tests and clears bit 1 at [ebp-24], then takes the cleanup object address at [ebp-20] and tail-jumps to AsciiString at 0x0048BA39.
