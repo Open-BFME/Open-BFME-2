@@ -10810,3 +10810,5 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva002D9C7A@AudioEventRTS@@QAEHXZ	0x002D9C7A	191	blocked	191B AudioEventRTS switch needs full reconstruction stub 15B t=10 model=muse-09
 ?rva00111C05@LookupTablePostEffect@@UAEXXZ	0x00111C05	352	blocked	352B LookupTablePostEffect slot4 D3D needs full reconstruction stub 1B t=10 model=muse-09
 ?rva005297DD@Rva0052936C@@QAEXPBD@Z	0x005297DD	259	blocked	259B Rva0052936C needs new StringBase GetLevel set stub 78B t=15 model=muse-09
+?rva00332975@Rva0026E7C8Ctor@@QAEXPAVXfer@@@Z	0x00332975	378	partial	ebx-edi swap vector-elem plus k1 stack vs edi plus extra mov count plus push order -4B t=25 model=muse-01 score=0.9 stash=reverse/attempts/0x00332975.cpp
+?rva003328ED@Rva003328ED@@QAEXPAXHH@Z	0x003328ED	136	partial	esi-edi swap this-p plus test-jne vs jmp plus or-1 plus push order +2B t=20 model=muse-01 score=0.9 stash=reverse/attempts/0x003328ed.cpp
