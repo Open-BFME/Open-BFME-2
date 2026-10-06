@@ -8,7 +8,10 @@ enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
 class Parameter
 {
 public:
-    int getInt() const { return m_int; }
+    // Retail/first copy differs from this TU's inlined +8 mov (see link lane);
+    // dllimport+forceinline keeps the row's inlined mov while suppressing our
+    // differing out-of-line copy (MeshMatDescBufferAccessors precedent).
+    __declspec(dllimport) __forceinline int getInt() const { return m_int; }
     unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
     unsigned char m_afterString[8];
 };
