@@ -113,6 +113,11 @@ while IFS= read -r path; do
     esac
 done < <(git diff --cached --name-only --diff-filter=A | grep -E '\.(cpp|c|h|hpp|asm)$' || true)
 
+# Data identity (shadow): staged sources' DIR32 data references against
+# reverse/data_ledger.csv; fails only when reverse/data_check_baseline.txt grew.
+# It runs before the early exit below, which a baseline-only commit takes.
+python3 tools/data_check.py --staged || fail "data identity: staged data_check_baseline.txt grew (see above)"
+
 if [ "${#staged_sources[@]}" -eq 0 ] && [ "$ledger_changed" -eq 0 ] \
    && [ "$wide_change" -eq 0 ] && [ "$baseline_changed" -eq 0 ] \
    && [ "$attempts_changed" -eq 0 ]; then
@@ -259,7 +264,5 @@ if [ "${#verify_set[@]}" -ne 0 ]; then
     BUILD_POOL="${BUILD_POOL:-4}" run_build "${!verify_set[@]}" \
         || fail "byte-verify of changed sources (see above)"
 fi
-
-python3 tools/data_check.py --staged || fail "data identity: staged data_check_baseline.txt grew (see above)"
 
 echo "PRE-COMMIT OK (ledger integrity + ${#verify_set[@]} source(s) byte-verified)"
