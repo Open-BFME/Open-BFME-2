@@ -92,15 +92,32 @@ struct _List_iterator_base {
   _List_iterator_base(_List_node_base* __x) : _M_node(__x) {}
   _List_iterator_base() {}
 
-  void _M_incr() { _M_node = _M_node->_M_next; }
+  void _M_incr();
   void _M_decr() { _M_node = _M_node->_M_prev; }
   bool operator==(const _List_iterator_base& __y ) const { 
     return _M_node == __y._M_node; 
   }
-  bool operator!=(const _List_iterator_base& __y ) const { 
-    return _M_node != __y._M_node; 
-  }
-};  
+  bool operator!=(const _List_iterator_base& __y) const;
+};
+
+// The non-template iterator helpers have independently verified codegen:
+// complete7B6E25E increment uses EAX twice; complete22B6CFE40 comparison
+// materializes the two node pointers. Keep one shared class layout and
+// define these inline members outside the class so MSVC7.1 applies each
+// pragma to the member body rather than the class-end optimization state.
+#pragma optimize("t", off)
+#pragma optimize("sy", on)
+inline void _List_iterator_base::_M_incr() {
+  _M_node = _M_node->_M_next;
+}
+#pragma optimize("", on)
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+inline bool _List_iterator_base::operator!=(const _List_iterator_base& __y) const {
+  return _M_node != __y._M_node;
+}
+#pragma optimize("", on)
+
 
 
 
