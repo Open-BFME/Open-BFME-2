@@ -41,6 +41,7 @@ void __cdecl Rva00580C0E(void **, void **, void **, void *, Rva000795C1Record, v
 void __cdecl Rva00580C6F(void **, void **, Rva000795C1Record, void **, void **);
 void __cdecl Rva00580AAC(void **, int, int, void *, Rva000795C1Record);
 void __cdecl Rva005807CE(void **, int, int, void *, Rva000795C1Record);
+void __cdecl Rva00580E10(void **, void **, Rva000795C1Record);
 // Native580D38..580DBF/135B; STLport final insertion pass at threshold16.
 // /G7 reproduces the byte-sized alignment mask and schedules the record copy.
 // ?Rva00580D38FinishSort@@YAXPAPAX0VRva000795C1Record@@@Z
@@ -170,4 +171,14 @@ void __cdecl Rva00580AAC(void **first, int holeIndex, int length, void *value, R
 		holeIndex = secondChild - 1;
 	}
 	Rva005807CE(first, holeIndex, topIndex, value, compare);
+}
+
+// Target facts show the end iterator stepping backward by one four-byte
+// element. This matches the STLport sort_heap loop called by 0x580ED0; the
+// helper at 0x580E10 remains address-derived.
+// ?Rva00580E5F@@YAXPAPAX0VRva000795C1Record@@@Z
+void __cdecl Rva00580E5F(void **first, void **last, Rva000795C1Record compare)
+{
+	while (last - first > 1)
+		Rva00580E10(first, last--, compare);
 }
