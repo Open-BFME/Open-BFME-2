@@ -65242,3 +65242,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?shouldExit@GuardRetaliateExitConditions@@UBE_NPBVStateMachine@@@Z,,0x005453E2,210,Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateStates.cpp,matched,only slot of vtable 0x00C69F34 installed by the AIGuardRetaliateAttackAggressorState ctor; ZH AIGuardRetaliate.cpp GuardRetaliateExitConditions::shouldExit without the no-goal test; class name from ZH
 ??0LANGameSlot@@QAE@XZ,,0x00448150,59,Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp,matched,ZH LANGameInfo.cpp; BFME2 zeroed LANPlayer
 ??0LANGameInfo@@QAE@XZ,,0x004481D4,162,Code/GameEngine/Source/GameNetwork/LANGameInfoCtor.cpp,matched,ZH LANGameInfo.cpp; BFME2 copies TheLAN vslot64 address to +0x38
+?addGame@LANAPI@@IAEXPAVLANGameInfo@@@Z,,0x0044B2EA,290,Code/GameEngine/Source/GameNetwork/LANAPIAddGame.cpp,matched,ZH LANAPI.cpp verbatim; nothrow compareNoCase view
