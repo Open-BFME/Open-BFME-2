@@ -3,13 +3,13 @@
 //
 // ?push_back@?$vector@VUnicodeString@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QAEXABVUnicodeString@@@Z retail 0x0005CBE7 55B
 // Evidence: unlock lane; callees rowed _Construct 0x00054DF6 and _M_insert_overflow 0x0005B538; callers 0x0005CD41 0x0005DB6C 0x00386B7B; same 55B shape as AsciiString push_back 0x00143170.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 // Define it for speed, then restore this unit's flags for its vector bodies.
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 #include <stl/_algobase.h>
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }

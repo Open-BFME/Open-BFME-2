@@ -11,13 +11,13 @@
 // overflow. Callers at 0x003B7D3F 0x003EF858 0x004BFC62 0x005058B6 0x0056961E
 // 0x005F37A1. ModuleDataList is std::vector<const ModuleData*> per
 // reference/shims/modulefactory/Common/ModuleFactory.h.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 // Define it for speed, then restore this unit's flags for its vector bodies.
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 #include <stl/_algobase.h>
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }

@@ -6,13 +6,13 @@
 // neighbouring Rva005DCE08 dtor (same +0x04 vector) and the caller
 // 0x005AE084 in AIBase::parseTemplateIntoPhases which passes an Rva00573E7C*.
 // Identity is address-derived; pin names the class and signature.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 // Define it for speed, then restore this unit's flags for its own bodies.
 #include <stl/_algobase.h>
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }

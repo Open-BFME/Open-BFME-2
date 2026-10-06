@@ -7,13 +7,13 @@
 // Same 55B shape as UnicodeString push_back 0x0005CBE7. Evidence: unlock lane
 // missing callee of 0x00220FC4, retail cmp je Construct add 0x0C vs overflow,
 // caller 0x00220FF5, neighbours 0x00220F71/0x00221027.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 // Define it for speed, then restore this unit's flags for its own bodies.
 #include <stl/_algobase.h>
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }

@@ -12,8 +12,7 @@
 // Original element/owner names and the A4 scalar types remain unknown;
 // unsigned words model the target's integer copies, not a semantic claim.
 // The donor-qualified element spelling preserves existing caller symbols.
-// Native scalar zero stores use SSE1. This setting also preserves the
-// verified uint max's scheduling; SSE2 changes that shared helper's bytes.
+// Native scalar zero stores use SSE1.
 // stlport
 // Include only the existing BFME allocator override. Its directory root
 // also contains force-inline algorithm overrides, which change insert214.
@@ -21,11 +20,10 @@
 #include <cstddef>
 #include "_alloc.h"
 #include <vector>
-// The existing retail max<unsigned int> body uses speed scheduling. Keep its
-// 17-byte COMDAT identical while the native insert family retains /O1.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 #pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int& max<unsigned int>(const unsigned int& a, const unsigned int& b) { return a < b ? b : a; }
+static inline const unsigned int& max(const unsigned int& a, const unsigned int& b) { return a < b ? b : a; }
 }
 #pragma optimize("", on)
 #include "ascii_string.h"

@@ -2,13 +2,13 @@
 // stlport
 // ?rva005055DE@Rva005055DE@@QAEXXZ, retail 0x005055DE, 40 bytes.
 // Evidence: copies ModuleData ptr range from global g_00E0311C vec at +0xc via rowed push_back 0x004DFCB0 into vec at +0x14; caller jmp 0x0050590C.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 // Define it for speed, then restore this unit's flags for its vector bodies.
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 #include <stl/_algobase.h>
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }

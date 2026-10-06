@@ -1,13 +1,13 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00239FE4@Rva00239FE4@@QAEXPBVModuleData@@@Z @0x00239FE4 48B: vector dedup at this+0xE8 via push_back 0x004DFCB0. Evidence: caller at 0x00362E00 same vector shape as 0x00423A68.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 // Define it for speed, then restore this unit's flags for its vector bodies.
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 #include <stl/_algobase.h>
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }

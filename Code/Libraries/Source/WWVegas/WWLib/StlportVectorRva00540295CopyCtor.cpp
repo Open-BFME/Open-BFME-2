@@ -6,6 +6,15 @@
 // its copy loop call resolves to the rowed 40-byte worker at 0x005400B4.
 // The call distinguishes this body from the other 40-byte vector copy view;
 // the element's C++ identity remains unresolved.
+// Keep this inlined unsigned max overload local; retail has one external owner.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <vector>
 
 struct Rva00540295Element { unsigned char bytes[40]; };

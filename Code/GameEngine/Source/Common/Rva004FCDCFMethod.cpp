@@ -2,6 +2,15 @@
 // stlport
 // ?QueryRegionsAndNumbers@PlayerDefeatCondition@LivingWorldScenario@@QAEXPAXPAXPAH@Z, retail 0x004FCDCF, 114 bytes.
 // Caller 0x004FD4D4 passes player plus vector plus maxOut; duplicate check by +0x12c then push_back plus max update.
+// Keep this inlined unsigned max overload local; retail has one external owner.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <vector>
 
 class ModuleData

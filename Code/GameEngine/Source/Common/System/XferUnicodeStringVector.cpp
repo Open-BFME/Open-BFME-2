@@ -3,13 +3,13 @@
 //
 // ?xferUnicodeStringVector@@YAPAVXfer@@PAV1@PAV?$vector@VUnicodeString@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@@Z retail 0x0005CD41 241B
 // Evidence: chain lane via just-landed push_back 0x0005CBE7; donor BFME1 XferUnicodeStringVector.cpp; callees rowed reserve 0x0005A27E releaseBuffer 0x00036E70 _bfmeFormatText 0x0060C36E plus pin _CxxThrowException 0x00629094; strings "std::vector" and "Vector must be empty on load"; callers 0x0005E3E5.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 // Define it for speed, then restore this unit's flags for its vector bodies.
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 #include <stl/_algobase.h>
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }

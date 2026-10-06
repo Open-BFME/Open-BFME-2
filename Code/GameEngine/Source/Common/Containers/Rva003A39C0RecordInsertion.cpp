@@ -12,11 +12,10 @@
 #include <cstddef>
 #include "_alloc.h"
 #include <vector>
-// Match the existing retail 17-byte unsigned max COMDAT without changing
-// the /O1 insert family or selecting a conflicting library definition.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 #pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int& max<unsigned int>(const unsigned int& a, const unsigned int& b) { return a < b ? b : a; }
+static inline const unsigned int& max(const unsigned int& a, const unsigned int& b) { return a < b ? b : a; }
 }
 #pragma optimize("", on)
 

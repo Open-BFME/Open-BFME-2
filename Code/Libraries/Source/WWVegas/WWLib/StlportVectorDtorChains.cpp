@@ -37,12 +37,11 @@ template void _STL::vector<BfmeStringTailRecord156>::_M_clear();
 template void _STL::vector<Rva002390CB>::_M_clear();
 template void _STL::vector<Rva00297360Element>::_M_clear();
 
-// Preserve the stock STLport max semantics but emit its retail 0x13740 shape
-// with speed optimization; size optimization emits a competing COMDAT.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 // The construction specialization is owned by stlport_construct_throw_spec.cpp.
 #pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(
+static inline const unsigned int &max(
     const unsigned int &x, const unsigned int &y)
 {
     return x < y ? y : x;

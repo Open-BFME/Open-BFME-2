@@ -2,13 +2,13 @@
 // stlport
 // ?_M_insert_overflow@?$vector@VCameraMarker@@V?$allocator@VCameraMarker@@@_STL@@@_STL@@IAEXPAVCameraMarker@@ABV3@ABU__false_type@2@I_N@Z @0x000D05C1 178B
 // Evidence: STLport vector<CameraMarker> false_type growth path; 8B stride sar 3; new_size old plus max(old fill_len); allocate plus uninitialized_copy plus Construct-or-fill_n plus conditional second copy plus CameraMarker _M_clear 0xC060A; caller push_back 0xD068F with fill_len 1 atend true unblocks 0xD068F.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Keep this inlined unsigned max overload local; retail has one external owner.
 // Define it for speed, then restore this unit's flags for its own bodies.
 #include <stl/_algobase.h>
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }

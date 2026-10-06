@@ -10,6 +10,15 @@
 // Rva00500DA0Element spellings to the folded bodies: get_allocator at
 // 0x0021983A and _Vector_base at 0x004FF36C and uninitialized_copy PBU at
 // 0x005008A0. Callers 0x005017B4 and 0x0059B8FD.
+// Keep this inlined unsigned max overload local; retail has one external owner.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
 #include <vector>
 
 struct Rva00500DA0Element
