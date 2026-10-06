@@ -15598,3 +15598,6 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ??0Rva004E7D72@@QAE@PAX@Z,0x004E7D72,EH-guarded ctor callee of 0x004E7F43 read from its REL32 displacement (new 0x28 with 1 arg); in-range target, body unrowed
 ?rva005B09D8@@YAXPAX000@Z,0x005B09D8,cdecl 4-arg callee of 0x004ED3A2 read from its REL32 displacement; body unrowed
 ?rva004ECE93@Rva004ECE93@@QAEMPAX@Z,0x004ECE93,thiscall float-returning callee of 0x004EDDAA read from its REL32 displacement; body unrowed
+?rva0049924B@Rva0049924B@@QAEXPAX@Z,0x0049924B,thiscall void callee of 0x004E8FF6 read from its REL32 displacement (this plus null); body unrowed
+?rva004992D5@Rva004992D5@@QAEXHPAX@Z,0x004992D5,thiscall callee of 0x004E9040 read from its REL32 displacement (this plus 1 plus null); body unrowed
+?rva002E713F@Rva002E713F@@QAEXXZ,0x002E713F,thiscall void tail callee of 0x004E8FF6/0x004E9040 read from REL32; body unrowed
