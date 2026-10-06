@@ -11332,3 +11332,5 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva004ED52E@Rva004ECECD@@QAE_NPAVTeam@@@Z	0x004ED52E	365	blocked	second-loop break form keeps begin in edi redundant check moved size 363 vs 365 t=12 model=muse-05 (stash 0.92 kept)
 ?rva00278341@Drawable@@QAE_NH_N@Z	0x00278341	181	blocked	181B EH first skeleton 155B minus26 8 regions audio event and arg struct sizes and vector EH states unknown t=15 model=muse-05
 ?rva0031996D@Rva003193EC@@QAEPAXPAPAXABV?$StringBase@D@@@Z	0x0031996D	101	partial	frame dead dword push ecx and ebp-4 plus add eax 0x40 vs offset plus esi edi swap t=25 model=muse-05 score=0.9 stash=reverse/attempts/0x0031996d.cpp
+?rva0052B045@Rva005392C2@@QAEXXZ	0x0052B045	85	partial	1B extra-lea for op-arg plus missing or-minus1 t=30 model=muse-04 score=0.99 stash=reverse/attempts/0x0052b045.cpp
+?rva0052B5FD@Rva0052B5FD@@QAEXABVAsciiString@@@Z	0x0052B5FD	55	partial	1B and-test vs xor-cmp-mov for new-null plus state t=20 model=muse-04 score=0.98 stash=reverse/attempts/0x0052b5fd.cpp
