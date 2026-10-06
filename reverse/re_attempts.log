@@ -13824,3 +13824,6 @@ _D3DXMatrixTranspose@8	0x0062AF44	6	partial	exact 6B FF25 jmp; disp32 is IAT rel
 ??0Rva0041F94A@@QAE@XZ	0x0041F913	55	blocked	callee 0x0041F8F4 blocked upstream dup-name pin-consistency, gate unresolved base-table ctors t=15 model=muse-spark
 ?getDayOfWeek@AptDate@@QAEHHHH@Z	0x006F4290	450	blocked	tail scheduling wall mov ecx-mem vs mov ecx-eax plus extra mov eax-mem t=10 model=muse-20 (stash 0.9852 kept)
 ?rva002A8AB1@Rva002A8F24@@QAEPAURva002A8AB1Record@@PAX@Z	0x002A8AB1	51	partial	loop rotation wall top-test vs entry-jmp-bottom-test only diff 0 reg 0 mem t=12 model=muse-20 score=0.94 stash=reverse/attempts/0x002a8ab1.cpp
+?rva0057C5B9@AptMapPreview@@QAEXPAXPAXHH@Z	0x0057C5B9	104	blocked	callback AptMapPreview draw with IsBadReadPtr TheDisplay W3DDisplay 4 args but only 2 used t=8 model=muse
+?rva0055DBD3@Rva0055DBD3@@QAEXPAXHHMM@Z	0x0055DBD3	232	blocked	complex 232B Coord3D normalize plus basis cross with zero and two scales t=6 model=muse
+?getNaturalRallyPoint@QueueProductionExitUpdate@@UBE_NAAUCoord3D@@_N@Z	0x004A027A	393	blocked	getNaturalRallyPoint 393B vs existing 307B ZH bodies needs reconstruction t=10 model=muse
