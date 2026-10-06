@@ -565,7 +565,9 @@ def read_map(text, base, names=None):
         if "Static symbols" in line:
             static = True
         m = MAPLINE.match(line)
-        if not m or m.group(1) == "0000":
+        if not m or m.group(1) == "0000" or int(m.group(2), 16) & 0x80000000:
+            # 0000: absolute; a negative section offset (0001:fffff0f1): a label of a COMDAT
+            # the link discarded, whose "address" lies in the image headers
             continue
         va = int(m.group(4), 16) - base
         ob = m.group(5).split(":")[-1].lower()
@@ -914,9 +916,15 @@ class Measure:
             ob = Path(u["obj"]).name.lower()
             la = self.pub.get(u["head"]) if u["head_cls"] == EXTERNAL else self.stat.get((u["head"], ob))
             u.pop("not_selected", None)
+            u.pop("outside_code", None)
             if la is not None and u["head_cls"] == EXTERNAL and self.pubobj.get(u["head"]) != ob:
                 # /FORCE kept another object's copy of this name: the unit's own bytes are not in the image
                 u["not_selected"] = self.pubobj.get(u["head"])
+                la = None
+            if la is not None and not self.ltext[0] <= la < self.ltext[0] + self.ltext[1]:
+                # not code of this image (e.g. the headers, which hold the link's time stamp):
+                # measuring bytes there makes two links of the same inputs disagree
+                u["outside_code"] = la
                 la = None
             u["linked"] = la
             if la is not None and len(u["starts"]) == 1:
@@ -1255,6 +1263,8 @@ class Measure:
                 out.append(rec)
                 if u.get("not_selected") is not None:
                     rec["fails"].append(f"not-selected:{u['not_selected']}")
+                if u.get("outside_code") is not None:
+                    rec["fails"].append("linked-outside-code")
                 if la is None or not o:
                     continue
                 L = la + r["off"]

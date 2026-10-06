@@ -567,6 +567,30 @@ def test_row_failures_do_not_depend_on_the_hash_seed():
     assert seen == {str(want)}
 
 
+def test_unit_the_map_puts_outside_code_is_not_measured():
+    """A cold and a cached cycle of 83b55dd426 disagreed on one row: uw_0075be41's
+    static head is a label of a discarded COMDAT, listed in the /MAP at
+    0001:fffff0f1 (VA 0x004000F1), so its 'linked bytes' were the PE header, time
+    stamp included, which differs per link (bytes:25 vs bytes:26)."""
+    line = " 0001:fffff0f1       $L15608                    004000f1 f   o00202.obj\n"
+    good = " 0001:00000010       $L1                        00401010 f   o00202.obj\n"
+    pub, stat, allsyms, _ = lc.read_map(" Static symbols\n" + line + good, B, {"o00202.obj": "a.obj"})
+    assert stat == {("$L1", "a.obj"): 0x1010} and [s[1] for s in allsyms] == ["$L1"]
+    u = {"id": 0, "obj": "x/a.obj", "sec": 1, "secname": ".text", "size": 4, "head": "$L1",
+         "head_cls": lc.STATIC, "starts": [0x1000],
+         "rows": [{"name": "uw_1", "rva": 0x1000, "size": 4, "off": 0, "sym": "$L1"}]}
+    mapped = ({}, {("$L1", "a.obj"): 0xF1}, [], {})                   # an address in the headers
+    m = lc.Measure([u], [], mapped, bytearray(0x2000), bytearray(0x2000), {".text": (0x1000, 0x1000)},
+                   {}, {}, {}, FakeObjs({}), {})
+    assert u["linked"] is None and u["outside_code"] == 0xF1
+    rec = m.run()[0]
+    assert rec["fails"] == ["linked-outside-code"] and not rec["measured"]
+    mapped[1][("$L1", "a.obj")] = 0x1000                              # negative control: in .text
+    lc.Measure([u], [], mapped, bytearray(0x2000), bytearray(0x2000), {".text": (0x1000, 0x1000)},
+               {}, {}, {}, FakeObjs({}), {})
+    assert u["linked"] == 0x1000 and "outside_code" not in u
+
+
 def test_object_identity_ignores_time_stamp_and_debug_records(tmp_path):
     def ident(raw):
         return lc.object_identity(lc.parse_coff(bytes(raw)) + (bytes(raw),))
