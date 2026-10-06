@@ -110,3 +110,31 @@ void Rva0059AC4D::rva0059AC4D(void *object)
 	arg->m_value = value;
 	rva0059ABC9(object);
 }
+
+// ?rva0059AE11@Rva0059AE11@@QAEPAXPAXPAI@Z @0x0059AE11 33B
+// Target evidence: copies three dwords from the first stack argument, then
+// copies two dwords from the second to this+0x0C and this+0x10, and leaves
+// this in EAX at return. Identity and field meaning remain address-derived.
+struct Rva0059AE11Prefix
+{
+	unsigned int m_words[3];
+};
+
+class Rva0059AE11
+{
+public:
+	void *rva0059AE11(void *source, unsigned int *tail);
+
+private:
+	Rva0059AE11Prefix m_prefix;
+	unsigned int m_first;
+	unsigned int m_second;
+};
+
+void *Rva0059AE11::rva0059AE11(void *source, unsigned int *tail)
+{
+	m_prefix = *(Rva0059AE11Prefix *)source;
+	m_first = tail[0];
+	m_second = tail[1];
+	return this;
+}
