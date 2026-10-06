@@ -7116,7 +7116,7 @@ _Rva00814D60,,0x00680C60,317,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,ma
 _Rva00814FE0,,0x00680EE0,396,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
 _Rva00815DA0,,0x00681CA0,500,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,BFME1 DirtySock exact placement for 457-byte code through RET; target /GZ+EH tail adds 43 matching bytes with RTC names sin/sinlen; identity remains address-derived
 _Rva00818620,,0x00684520,160,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
-_Rva00816F60,,0x00682E60,177,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; upgrades pin to row
+_Rva00816F60,,0x00682E60,204,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; upgrades pin to row
 _Rva00817640,,0x00683540,1251,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; upgrades pin to row
 _Rva00818AD0,,0x006849D0,286,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
 _Rva00819090,,0x00684F90,462,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; callee pinned

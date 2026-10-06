@@ -426,16 +426,16 @@ int Rva00817030( struct Rva00816BF0Comm *comm,
 
 int Rva00816F60( struct Rva00816BF0Comm *comm )
 {
-	struct Rva00816F60Message message;
+	struct Rva00816F60Message packet;
 
 	if ( comm->m_state != 4 )
 		return 0;
 
-	message.m_length = 0;
-	message.m_code = 3;
-	message.m_value = comm->m_sessionHash;
+	packet.m_length = 0;
+	packet.m_code = 3;
+	packet.m_value = comm->m_sessionHash;
 
-	Rva00817030( comm, &message );
+	Rva00817030( comm, &packet );
 
 	comm->m_sessionHash = 0;
 	comm->m_state = 5;
