@@ -5,8 +5,6 @@
 // same layout +0x2C +0x34 +0x3C +0x40 +0x44 +0x48 +0x50 +0x54 float.
 // Calls rowed Rva003FB9C8/Rva003FB9EB/Rva003FBA0E helpers and slot 0x30
 // with 0; float vs BfmeZeroRange; clears +0x2C via and in zero branch.
-extern const float BfmeZeroRange;
-
 class Rva003FBA0E
 {
 public:
@@ -58,7 +56,7 @@ void Rva003FBA58::rva003FBA58()
 {
 	if (m_50 == 0) {
 		if (m_08 != 0) {
-			if (m_2c == 2 || (m_2c == 3 && m_54 == BfmeZeroRange)) {
+			if (m_2c == 2 || (m_2c == 3 && m_54 == 0.0f)) {
 				this->s12(0);
 			}
 		}
