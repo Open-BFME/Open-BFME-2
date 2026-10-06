@@ -14207,3 +14207,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??1Rva00500D30@@QAE@XZ,0x00500D30,callee of ??1Rva0050292B@@QAE@XZ
 ??0Rva00527378Payload@@QAE@PAXHABVAsciiString@@00@Z,0x00527378,called by 0x00527767 with ECX=0x1E0 allocation and owner then level/name/+0xC0/+0xF8 arguments; Ghidra boundary 1007; address-derived payload constructor; layout and semantics unknown
 ?rva00295F05@Object@@QAEXH@Z,0x00295F05,callee of ?rva00583794@Rva00583794@@QAEXPAVObject@@@Z
+?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
