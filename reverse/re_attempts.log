@@ -11438,3 +11438,5 @@ FUN_00479ed4	0x00079ED4	29	blocked	hint-insert forwarder to rowed 0x79D14 same t
 ?rva00488DAB@Rva00488DAB@@QAEXPAVObject@@@Z	0x00488DAB	309	blocked	309B StateMachine ctor needs private AsciiString trivial view plus const AsciiString 0x3ea7de5f immediate plus 5 news defineStates beyond box t=12 model=muse-06
 ?rva004099CA@CreateAHeroData@@QAEEPAVAsciiString@@H@Z	0x004099CA	172	partial	branch order fail-between vs fail-after jne-vs-je and cmp-ja-vs-jbe 0-mem-reg-diffs 172B-67insns-exact-size t=25 model=muse-10 score=0.97 stash=reverse/attempts/0x004099ca.cpp
 ?rva00463AD3@Rva00463AD3@@QAEXH@Z	0x00463AD3	411	blocked	ADDRESS-NAMED g_Va00BBB8D8 at 0x007BB8D8 counted escape hatch plus 411B damage kill wall t=2 model=muse-08
+?rva004099CA@CreateAHeroData@@QAEEPAVAsciiString@@H@Z	0x004099CA	172	blocked	branch order fail-between vs fail-after jne-vs-je and cmp-ja-vs-jbe 0-mem-reg-diffs 172B-67insns-exact-size t=20 model=muse-10 (stash 0.97 kept)
+FUN_009fd197	0x005FD197	186	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use refused t=2 model=muse-10
