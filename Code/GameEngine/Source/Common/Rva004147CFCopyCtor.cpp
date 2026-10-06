@@ -14,6 +14,14 @@
 
 struct BfmePod44 { int a[11]; };
 
+namespace _STL
+{
+// Suppress duplicate vector<BfmePod44> copy COMDAT; retail's copy is
+// rowed at 0x00414490. The row below keeps calling it, so its bytes
+// are unchanged.
+template <> vector<BfmePod44, allocator<BfmePod44> >::vector(const vector<BfmePod44, allocator<BfmePod44> > &);
+}
+
 class Rva00360D26Member
 {
 public:
