@@ -64,6 +64,24 @@
 //  - AIGuardMachine::getStdGuardRange, retail 0x00542C2A (14 bytes): ZH's
 //    static over AI::getAdjustedVisionRangeForObject (pinned 0x002FDD0A, static
 //    as in ZH) with OWNERTYPE|MOOD|GUARDINNER.
+//  - ExitConditions::shouldExit, retail 0x00542F43 (130 bytes): the only slot
+//    of vtable 0x00C69778, the exit conditions the inner, outer and
+//    attack-aggressor constructors inline at +0x20. ZH's body, except that a
+//    missing goal returns the no-unit-found bit at once and a goal with
+//    status 0x26 is measured through its +0x274 object when that one's
+//    template has +0x115 bit 0x20 (the pinned planar distance 0x002C97E8).
+//  - Constructors, retail 0x00542E13 AIGuardInnerState, 0x00542E62
+//    AIGuardOuterState, 0x00542EF4 AIGuardAttackAggressorState (73 bytes
+//    each) and 0x00542EB1 AIGuardReturnState (33 bytes): each installs the
+//    vtable named by its slot-2 getter after the State ctor 0x004D73FC (or
+//    the AIInternalMoveToState ctor 0x0033F279) with its own name hash. The
+//    store order of +0x3C and the +0x40 flag differs per class and follows
+//    the source order of the two assignments.
+//  - Giant bird guard states, retail 0x00367E92 GiantBirdGuardOuterState,
+//    0x0036809A GiantBirdGuardAttackAggressorState, 0x003689C4
+//    GiantBirdGuardInnerState (73 bytes each; names from their vtables'
+//    getters) and the shouldExit of their exit conditions, 0x00367F19 (116
+//    bytes, vtable 0x00C17640, ZH's body with the no-goal early return).
 // BFME2 layout (target evidence): attack sub-state +0x3C (deleted with a
 // global-scope delete: vslot 0 with flag 0, then ::operator delete), exit
 // conditions centre +0x28; the guard machine keeps the object-to-guard id at
@@ -99,6 +117,12 @@ enum StateReturnType
 struct Coord3D
 {
 	Real x, y, z;
+	void zero()
+	{
+		x = 0.0f;
+		y = 0.0f;
+		z = 0.0f;
+	}
 };
 class Object;
 class AIUpdateInterface;
@@ -157,9 +181,16 @@ class ThingTemplate
 {
 public:
 	Bool isKindOfBfme108Bit7() const { return (m_kindOf[0] & 0x80) != 0; }
+	Bool testBfme115Bit5() const { return (m_bfme115 & 0x20) != 0; }
 private:
 	unsigned char m_pad00[0x108];
 	unsigned char m_kindOf[4]; // +0x108
+	unsigned char m_pad10C[0x115 - 0x10C];
+	unsigned char m_bfme115; // +0x115
+};
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_BFME_26 = 0x26
 };
 enum WeaponSlotType
 {
@@ -181,6 +212,9 @@ public:
 	Bool testBfme438Bit0() const { return (m_bfme438 & 1) != 0; }
 	const Weapon *getCurrentWeapon(WeaponSlotType *wslot = NULL) const;
 	int rva0028B511() const;
+	Bool testStatus(ObjectStatusTypes bit) const;
+	Real rva002C97E8(const Coord3D *a, const Coord3D *b) const;
+	Object *getBfme274() const { return m_bfme274; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	const Coord3D *getPosition() const { return &m_position; }
 	Team *getTeam() { return m_team; }
@@ -193,7 +227,9 @@ private:
 	unsigned char m_pad44[0x254 - 0x44];
 	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
-	unsigned char m_pad25C[0x304 - 0x25C];
+	unsigned char m_pad25C[0x274 - 0x25C];
+	Object *m_bfme274; // +0x274
+	unsigned char m_pad278[0x304 - 0x278];
 	Team *m_team; // +0x304
 	unsigned char m_pad308[0x438 - 0x308];
 	unsigned char m_bfme438; // +0x438
@@ -287,6 +323,7 @@ enum
 class State
 {
 public:
+	State(StateMachine *machine, unsigned int hash);
 	virtual ~State();
 	virtual void slot01();
 	virtual void slot02();
@@ -314,6 +351,10 @@ public:
 		ATTACK_ExitIfExpiredDuration = 0x02,
 		ATTACK_ExitIfNoUnitFound = 0x04
 	};
+	ExitConditions() : m_attackGiveUpFrame(0), m_conditionsToConsider(0), m_radiusSqr(0.0f)
+	{
+		m_center.zero();
+	}
 	virtual Bool shouldExit(const StateMachine *machine) const;
 	int m_conditionsToConsider; // +0x04 (state +0x24)
 	Coord3D m_center; // +0x08 (state +0x28)
@@ -330,6 +371,7 @@ private:
 class AIGuardAttackAggressorState : public State
 {
 public:
+	AIGuardAttackAggressorState(StateMachine *machine);
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
@@ -343,6 +385,7 @@ private:
 class AIGuardInnerState : public State
 {
 public:
+	AIGuardInnerState(StateMachine *machine);
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
@@ -358,6 +401,7 @@ private:
 class AIInternalMoveToState : public State
 {
 public:
+	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
 	virtual StateReturnType update();
 protected:
 	unsigned char m_pad1C[0x4C - 0x1C];
@@ -365,6 +409,7 @@ protected:
 class AIGuardReturnState : public AIInternalMoveToState
 {
 public:
+	AIGuardReturnState(StateMachine *machine);
 	virtual StateReturnType update();
 private:
 	AIGuardMachine *getGuardMachine() { return (AIGuardMachine *)getMachine(); }
@@ -392,6 +437,7 @@ private:
 class AIGuardOuterState : public State
 {
 public:
+	AIGuardOuterState(StateMachine *machine);
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 private:
@@ -399,6 +445,7 @@ private:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	ExitConditions m_exitConditions; // +0x20
 	AIAttackState *m_attackState; // +0x3C
+	Bool m_bfme40; // +0x40
 };
 // A second BFME 2 guard machine keeps AIGuardMachine's layout but its own inner
 // scan (0x00369FDF, called where AIGuardIdleState::update calls 0x005433FA).
@@ -435,6 +482,175 @@ private:
 	unsigned char m_pad41[0x44 - 0x41];
 	UnsignedInt m_bfmeDeadline; // +0x44
 };
+
+Bool ExitConditions::shouldExit(const StateMachine *machine) const
+{
+	Object *goal = const_cast<StateMachine *>(machine)->getGoalObject();
+	if (goal == NULL)
+	{
+		if (m_conditionsToConsider & ATTACK_ExitIfNoUnitFound)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	if (m_conditionsToConsider & ATTACK_ExitIfExpiredDuration)
+	{
+		if (TheGameLogic->getFrame() >= m_attackGiveUpFrame)
+		{
+			return true;
+		}
+	}
+
+	if (m_conditionsToConsider & ATTACK_ExitIfOutsideRadius)
+	{
+		if (goal->testStatus(OBJECT_STATUS_BFME_26) && goal->getBfme274() != NULL
+			&& goal->getBfme274()->getTemplate()->testBfme115Bit5())
+		{
+			goal = goal->getBfme274();
+		}
+		Real distSqr = goal->rva002C97E8(&m_center, goal->getPosition());
+		if (distSqr > m_radiusSqr)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+AIGuardInnerState::AIGuardInnerState(StateMachine *machine) : State(machine, 0x25457f62u)
+{
+	m_attackState = NULL;
+	m_bfmeRestart = false;
+}
+
+AIGuardOuterState::AIGuardOuterState(StateMachine *machine) : State(machine, 0x3cac7cfau)
+{
+	m_bfme40 = false;
+	m_attackState = NULL;
+}
+
+AIGuardReturnState::AIGuardReturnState(StateMachine *machine) : AIInternalMoveToState(machine, 0xe6d2311bu)
+{
+	m_nextReturnScanTime = 0;
+}
+
+AIGuardAttackAggressorState::AIGuardAttackAggressorState(StateMachine *machine) : State(machine, 0xdf6ee2b7u)
+{
+	m_bfmeRestart = false;
+	m_attackState = NULL;
+}
+
+// The giant bird's guard states repeat the AIGuard layout with their own exit
+// conditions class: vtable VA 0x00C17640, whose only slot is the shouldExit
+// below. Its name is not known; it keeps Zero Hour's ExitConditions body
+// (no rider redirect, planar distance from the goal's position).
+class Rva00367F19ExitConditions : public AttackExitConditionsInterface
+{
+public:
+	enum ExitConditionsEnum
+	{
+		ATTACK_ExitIfOutsideRadius = 0x01,
+		ATTACK_ExitIfExpiredDuration = 0x02,
+		ATTACK_ExitIfNoUnitFound = 0x04
+	};
+	Rva00367F19ExitConditions() : m_attackGiveUpFrame(0), m_conditionsToConsider(0), m_radiusSqr(0.0f)
+	{
+		m_center.zero();
+	}
+	virtual Bool shouldExit(const StateMachine *machine) const;
+	int m_conditionsToConsider; // +0x04
+	Coord3D m_center; // +0x08
+	Real m_radiusSqr; // +0x14
+	UnsignedInt m_attackGiveUpFrame; // +0x18
+};
+class GiantBirdGuardOuterState : public State
+{
+public:
+	GiantBirdGuardOuterState(StateMachine *machine);
+private:
+	unsigned char m_pad1C[0x20 - 0x1C];
+	Rva00367F19ExitConditions m_exitConditions; // +0x20
+	AIAttackState *m_attackState; // +0x3C
+	Bool m_bfme40; // +0x40
+};
+class GiantBirdGuardAttackAggressorState : public State
+{
+public:
+	GiantBirdGuardAttackAggressorState(StateMachine *machine);
+private:
+	unsigned char m_pad1C[0x20 - 0x1C];
+	Rva00367F19ExitConditions m_exitConditions; // +0x20
+	AIAttackState *m_attackState; // +0x3C
+	Bool m_bfmeRestart; // +0x40
+};
+// Vtable VA 0x00C17978, the class whose onEnter is rowed above as
+// Rva0036A3E9GuardInnerState::onEnter.
+class GiantBirdGuardInnerState : public State
+{
+public:
+	GiantBirdGuardInnerState(StateMachine *machine);
+private:
+	unsigned char m_pad1C[0x20 - 0x1C];
+	Rva00367F19ExitConditions m_exitConditions; // +0x20
+	AIAttackState *m_attackState; // +0x3C
+	Bool m_bfmeRestart; // +0x40
+};
+
+Bool Rva00367F19ExitConditions::shouldExit(const StateMachine *machine) const
+{
+	if (const_cast<StateMachine *>(machine)->getGoalObject() == NULL)
+	{
+		if (m_conditionsToConsider & ATTACK_ExitIfNoUnitFound)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	if (m_conditionsToConsider & ATTACK_ExitIfExpiredDuration)
+	{
+		if (TheGameLogic->getFrame() >= m_attackGiveUpFrame)
+		{
+			return true;
+		}
+	}
+
+	if (m_conditionsToConsider & ATTACK_ExitIfOutsideRadius)
+	{
+		const Coord3D *pos = const_cast<StateMachine *>(machine)->getGoalObject()->getPosition();
+		Coord3D deltaAggr;
+		deltaAggr.x = pos->x - m_center.x;
+		deltaAggr.y = pos->y - m_center.y;
+		Real distSqr = deltaAggr.x*deltaAggr.x + deltaAggr.y*deltaAggr.y;
+		if (distSqr > m_radiusSqr)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+GiantBirdGuardOuterState::GiantBirdGuardOuterState(StateMachine *machine) : State(machine, 0xe3215944u)
+{
+	m_bfme40 = false;
+	m_attackState = NULL;
+}
+
+GiantBirdGuardAttackAggressorState::GiantBirdGuardAttackAggressorState(StateMachine *machine) : State(machine, 0x309452e9u)
+{
+	m_bfmeRestart = false;
+	m_attackState = NULL;
+}
+
+GiantBirdGuardInnerState::GiantBirdGuardInnerState(StateMachine *machine) : State(machine, 0xfac85adcu)
+{
+	m_attackState = NULL;
+	m_bfmeRestart = false;
+}
 
 StateReturnType AIGuardAttackAggressorState::onEnter( void )
 {

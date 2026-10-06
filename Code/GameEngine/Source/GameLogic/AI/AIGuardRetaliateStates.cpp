@@ -26,12 +26,24 @@
 //    picks a new nemesis when there is none. The object with id +0x40 (BFME 2 field), if it
 //    exists and has a +0x250 controller, picks an object around the owner's
 //    position (controller vslot 18 with (0, &pos, 0.0f, 0, 0)).
+//  - GuardRetaliateExitConditions::shouldExit, retail 0x005453E2 (210 bytes):
+//    the only slot of vtable 0x00C69F34, the exit conditions inlined into
+//    the attack-aggressor constructor below. ZH's body without its leading
+//    no-goal test; the goal and owner positions are copied member-wise (only
+//    x and y survive) and the guard range is the rowed static 0x00545239.
+//    The class name is carried from ZH; the vtable is target evidence.
+//  - AIGuardRetaliateAttackAggressorState::AIGuardRetaliateAttackAggressorState,
+//    retail 0x005454D0 (73 bytes): vtable 0x00C69FA0 (slot-2 name getter),
+//    State ctor 0x004D73FC with name hash 0x9cb27a45, then the inlined exit
+//    conditions (+0x20), attack state +0x3C and BFME 2's +0x40 id cleared.
 // Layout (target evidence): state goal +0x20, adjusts-destination +0x48,
 // m_nextReturnScanTime +0x4C; TAiData m_guardEnemyReturnScanRate +0x44.
 typedef bool Bool;
 typedef float Real;
 typedef unsigned int UnsignedInt;
 #define NULL 0
+#define TRUE 1
+#define FALSE 0
 enum ObjectID
 {
 	INVALID_ID = 0
@@ -73,6 +85,19 @@ enum StateReturnType
 struct Coord3D
 {
 	Real x, y, z;
+	void zero()
+	{
+		x = 0.0f;
+		y = 0.0f;
+		z = 0.0f;
+	}
+	Real lengthSqr() const { return x*x + y*y + z*z; }
+	void set(const Coord3D *a)
+	{
+		x = a->x;
+		y = a->y;
+		z = a->z;
+	}
 };
 class Object;
 class LocomotorSet;
@@ -347,6 +372,7 @@ private:
 class State
 {
 public:
+	State(StateMachine *machine, unsigned int hash);
 	virtual ~State();
 	virtual void slot01();
 	virtual void slot02();
@@ -451,9 +477,19 @@ class AttackExitConditionsInterface
 public:
 	virtual Bool shouldExit(const StateMachine *machine) const = 0;
 };
-class ExitConditions : public AttackExitConditionsInterface
+class GuardRetaliateExitConditions : public AttackExitConditionsInterface
 {
 public:
+	enum ExitConditionsEnum
+	{
+		ATTACK_ExitIfOutsideRadius = 0x01,
+		ATTACK_ExitIfExpiredDuration = 0x02,
+		ATTACK_ExitIfNoUnitFound = 0x04
+	};
+	GuardRetaliateExitConditions() : m_attackGiveUpFrame(0), m_conditionsToConsider(0), m_radiusSqr(0.0f)
+	{
+		m_center.zero();
+	}
 	virtual Bool shouldExit(const StateMachine *machine) const;
 	int m_conditionsToConsider; // +0x04 (state +0x24)
 	Coord3D m_center; // +0x08
@@ -463,14 +499,66 @@ public:
 class AIGuardRetaliateAttackAggressorState : public State
 {
 public:
+	AIGuardRetaliateAttackAggressorState(StateMachine *machine);
 	Object *rva0054582A();
 private:
 	AIGuardRetaliateMachine *getGuardMachine() { return (AIGuardRetaliateMachine *)getMachine(); }
 	unsigned char m_pad1C[0x20 - 0x1C];
-	ExitConditions m_exitConditions; // +0x20
+	GuardRetaliateExitConditions m_exitConditions; // +0x20
 	State *m_attackState; // +0x3C
 	ObjectID m_bfme40; // +0x40
 };
+// AIGuardRetaliateMachine::getStdGuardRange (ZH static), rowed by address.
+Real Rva00545239Get(void *obj);
+
+//--------------------------------------------------------------------------------------
+Bool GuardRetaliateExitConditions::shouldExit(const StateMachine* machine) const
+{
+	if (m_conditionsToConsider & ATTACK_ExitIfExpiredDuration) 
+	{
+		if (TheGameLogic->getFrame() >= m_attackGiveUpFrame)
+		{
+			return true;
+		} 
+	}
+	
+	if (m_conditionsToConsider & ATTACK_ExitIfOutsideRadius) 
+	{
+		Coord3D deltaAggressor, myRange;
+		Coord3D objPos;
+		objPos.set(const_cast<StateMachine *>(machine)->getGoalObject()->getPosition());
+		Coord3D myPos;
+		myPos.set(machine->getOwner()->getPosition());
+		deltaAggressor.x = objPos.x - m_center.x;
+		deltaAggressor.y = objPos.y - m_center.y;
+		deltaAggressor.z = 0;
+	
+		Real guardRange = Rva00545239Get( machine->getOwner() );
+		Real guardRangeSqr = guardRange * guardRange;
+		myRange.x = myPos.x - m_center.x;
+		myRange.y = myPos.y - m_center.y;
+		myRange.z = 0;
+
+		if( deltaAggressor.lengthSqr() > m_radiusSqr )
+		{
+			return TRUE;
+		} 
+		if( myRange.lengthSqr() > guardRangeSqr )
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+//--------------------------------------------------------------------------------------
+AIGuardRetaliateAttackAggressorState::AIGuardRetaliateAttackAggressorState( StateMachine *machine ) : 
+	State( machine, 0x9cb27a45u )
+{
+	m_attackState = NULL;
+	m_bfme40 = INVALID_ID;
+}
 
 //--------------------------------------------------------------------------------------
 Object *AIGuardRetaliateAttackAggressorState::rva0054582A()
