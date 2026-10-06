@@ -258,6 +258,33 @@ Rva00180EA0::~Rva00180EA0()
 {
 }
 
+class Rva000A8903AudioDevice;
+class Rva0073EE55
+{
+public:
+	virtual ~Rva0073EE55();
+};
+class Rva000A8856
+{
+public:
+	void rva000A8856(Rva000A8903AudioDevice *device);
+private:
+	void *object;
+};
+void __cdecl operator delete(void *);
+
+void Rva000A8856::rva000A8856(Rva000A8903AudioDevice *device)
+{
+	void *old = object;
+	if (device == old)
+		return;
+	object = device;
+	if (old) {
+		((Rva0073EE55 *)old)->Rva0073EE55::~Rva0073EE55();
+		::operator delete(old);
+	}
+}
+
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
