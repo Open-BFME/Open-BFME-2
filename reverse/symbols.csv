@@ -14789,3 +14789,14 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??$__copy_ptrs@PBURva001DA05ERecord@@PAU1@@_STL@@YAPAURva001DA05ERecord@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00255CFA
 ??$_Destroy@PAURva001DA05ERecord@@@_STL@@YAXPAURva001DA05ERecord@@0@Z,0x0032C0CA
 ??$__uninitialized_copy@PBURva001DA05ERecord@@PAU1@@_STL@@YAPAURva001DA05ERecord@@PBU1@0PAU1@ABU__false_type@0@@Z,0x001D9B3C
+??$find@H@?$hashtable@U?$pair@$$CBHURva002A3FAFRecord@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva002A3FAFRecord@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva002A3FAFRecord@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHURva002A3FAFRecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva002A3FAFRecord@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva002A3FAFRecord@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva002A3FAFRecord@@@_STL@@@2@@1@ABH@Z,0x00148B27
+??0Rva002A3FAFRecord@@QAE@XZ,0x00330E5D
+??0?$pair@$$CBHURva002A3FAFRecord@@@_STL@@QAE@ABHABURva002A3FAFRecord@@@Z,0x0029FB63
+?_M_insert@?$hashtable@U?$pair@$$CBHURva002A3FAFRecord@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva002A3FAFRecord@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva002A3FAFRecord@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBHURva002A3FAFRecord@@@2@ABU32@@Z,0x002A1D4B
+??1Rva002A3FAFRecord@@QAE@XZ,0x000B6CF1
+?_M_erase@?$_Rb_tree@HU?$pair@$$CBHURva00620A00Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00620A00Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00620A00Record@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHURva00620A00Record@@@_STL@@@2@@Z,0x00620390
+?_M_erase@?$_Rb_tree@HU?$pair@$$CBHURva00759B40Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00759B40Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00759B40Record@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHURva00759B40Record@@@_STL@@@2@@Z,0x007590B0
+?_M_erase@?$_Rb_tree@HU?$pair@$$CBHURva00156FA0Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00156FA0Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00156FA0Record@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHURva00156FA0Record@@@_STL@@@2@@Z,0x001553C0
+??$__introsort_loop@PAURva00218FC2Record@@U1@HURva00218FC2RecordCompare@@@_STL@@YAXPAURva00218FC2Record@@00HURva00218FC2RecordCompare@@@Z,0x00218E09
+??$__final_insertion_sort@PAURva00218FC2Record@@URva00218FC2RecordCompare@@@_STL@@YAXPAURva00218FC2Record@@0URva00218FC2RecordCompare@@@Z,0x0021889A
+?erase@?$hashtable@U?$pair@$$CBHURva005258F8Record@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva005258F8Record@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva005258F8Record@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHURva005258F8Record@@@_STL@@U?$_Const_traits@U?$pair@$$CBHURva005258F8Record@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva005258F8Record@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva005258F8Record@@@_STL@@@2@@2@@Z,0x00525407
