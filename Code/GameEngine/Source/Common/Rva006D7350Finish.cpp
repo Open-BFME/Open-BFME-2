@@ -39,8 +39,9 @@ private:
 
 class EAStringC
 {
+	void *m_pData;
 public:
-	EAStringC() { clear(); }
+	EAStringC();
 	EAStringC &clear();
 	EAStringC &operator=(const EAStringC &other);
 	~EAStringC();
