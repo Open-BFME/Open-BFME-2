@@ -67265,3 +67265,5 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?Rva003BBE04@@YGX_N@Z,,0x003BBE04,46,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarVisibility.cpp,matched,retail branch selects matched hide or show callback then display slot 86
 ??4Rva0051F87B@@QAEAAV0@ABV0@@Z,,0x0051F972,111,Code/GameEngine/Source/Common/Rva0051F87BAssign.cpp,matched,same layout as rowed copy 0x0051F87B and ctor 0x0051FAFC with vtable 0x0086745C
 ?Rva003B9488Parse@@YAHPAPADH@Z,,0x003B9488,20,Code/GameEngine/Source/Common/CommandLineRva003B9488.cpp,matched,caller sequence and global byte offset from retail bytes
+?rva001E7C2B@Rva001E7C2B@@QAEXHHMM@Z,,0x001E7C2B,33,Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp,matched,
+?rva001E9045@Rva001E9045@@QAEXHHMM@Z,,0x001E9045,33,Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp,matched,
