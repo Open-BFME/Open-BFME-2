@@ -19,6 +19,8 @@ Outcome (build/boot/smoke.json, also printed):
   no-picture            alive with a window that renders nothing (black)
   loading-screen        alive with a picture, but the main menu's button bar is
                         not up yet (the splash, or the shell map before the menu)
+  profile-redirect-failed  the appdata lie could not be installed (nothing ran)
+  profile-changed       the owner's profile or HKCU EA keys changed
 
 The focus lie (on unless --no-focus-lie): BFME2 stops loading while its window
 lacks focus (WndProc's WM_ACTIVATEAPP(FALSE) arm sets isWinMainActive and
@@ -26,6 +28,18 @@ TheGameEngine->setIsActive(false)). One breakpoint on that arm, located by its
 bytes in the image under test, rewrites wParam 0 to 1, so a run need not keep
 the focus (`focus_lie` in the outcome counts hits and rewrites). --defocus N
 minimises the window N s after launch to prove it.
+
+The owner's profile: the game writes options, saves and replays under
+SHGetSpecialFolderPathW(CSIDL_APPDATA) + "My Battle for Middle-earth II Files".
+Every run points that import at a stub answering --appdata (default
+GAME_DIR/../appdata; its profile is seeded with a fixed Options.ini) at
+game.dat's loader breakpoint, before any game code runs. There is no opt-out:
+if the redirect cannot be installed the run is killed there
+(`profile-redirect-failed`), and an --appdata inside the real AppData is
+refused. The real profile (names, sizes, mtimes, Options.ini SHA-256) and
+HKCU's Electronic Arts keys are also snapshotted before and after; any change
+fails the run (`profile-changed`, which another program writing the profile
+during the run also triggers).
 
 --guard DIR (repeatable) snapshots DIR's file names, sizes and mtimes before
 and after the run and fails the outcome (`guard-violation`) if anything changed,
@@ -162,6 +176,188 @@ def xp_version_lie(k, hproc, base, exe):
     return sorted(n.decode() for n in slots)
 
 
+# --------------------------------------------------------------------------- the owner's profile
+# The game keeps options, saves, replays and map previews under
+# SHGetSpecialFolderPathW(CSIDL_APPDATA) + PROFILE_LEAF (retail has one
+# CSIDL_APPDATA call site, 0x237C33). Every run redirects that call to a
+# sandbox profile (the appdata lie) and refuses to start if it cannot; the real
+# profile is snapshotted around the run as a second line of defence.
+PROFILE_LEAF = "My Battle for Middle-earth II Files"
+CSIDL_APPDATA, CSIDL_MYPICTURES = 0x1A, 0x27
+# Without Options.ini the game benchmarks the CPU on its first start
+# (bench_with_confidence), which faults in AllocateMemory under the debugger and
+# exits 1; the sandbox profile is seeded with these fixed, low-cost options.
+SANDBOX_OPTIONS = """AudioLOD = Low
+FixedStaticGameLOD = Low
+FlashTutorial = 0
+HasGotOnline = yes
+HasSeenLogoMovies = yes
+IdealStaticGameLOD = Low
+IsThreadedLoad = yes
+Resolution = 1024 768
+StaticGameLOD = Low
+TimesInGame = 1
+"""
+
+
+class RedirectError(RuntimeError):
+    """The appdata lie could not be put in place: the run must not go on."""
+
+
+def real_appdata():
+    """The owner's roaming AppData (where the game would put its profile)."""
+    return Path(os.environ.get("APPDATA") or Path.home() / "AppData" / "Roaming")
+
+
+def real_profile():
+    return real_appdata() / PROFILE_LEAF
+
+
+def _norm(p):
+    return os.path.normcase(os.path.abspath(str(p))).rstrip("\\/")
+
+
+def check_sandbox_appdata(appdata, real=None):
+    """Refuse a sandbox root that is the real AppData or lies inside it: the game
+    would then be handed the owner's profile (or a folder beside it)."""
+    a, r = _norm(appdata), _norm(real if real is not None else real_appdata())
+    if a == r or a.startswith(r + os.sep):
+        raise RedirectError(f"sandbox appdata {appdata} is (inside) the real AppData {r}")
+    return Path(appdata)
+
+
+def prepare_sandbox_profile(appdata, real=None):
+    """Check the sandbox root, create its profile and seed Options.ini (only if
+    missing). Returns the sandbox profile directory."""
+    prof = check_sandbox_appdata(appdata, real) / PROFILE_LEAF
+    prof.mkdir(parents=True, exist_ok=True)
+    if not (prof / "Options.ini").exists():
+        (prof / "Options.ini").write_text(SANDBOX_OPTIONS)
+    return prof
+
+
+def appdata_stub(mem, orig, appdata):
+    """The SHGetSpecialFolderPathW replacement written at `mem` in the game:
+    CSIDL_APPDATA and CSIDL_MYPICTURES (low byte of csidl, so the CREATE flag is
+    ignored) copy `appdata` into pszPath and return TRUE; every other folder
+    jumps to the real function (`orig`, kept at mem+0x80)."""
+    path = (str(appdata).rstrip("\\") + "\0").encode("utf-16-le")
+    if len(path) > 2 * 260:
+        raise RedirectError(f"sandbox appdata path longer than MAX_PATH: {appdata}")
+    code = (bytes.fromhex("8B44240C 25FF000000")                       # mov eax, [esp+0Ch] (csidl); and eax, 0FFh
+            + b"\x83\xF8" + bytes([CSIDL_APPDATA]) + b"\x74\x0B"        # cmp eax, 1Ah; je redirect
+            + b"\x83\xF8" + bytes([CSIDL_MYPICTURES]) + b"\x74\x06"     # cmp eax, 27h; je redirect
+            + b"\xFF\x25" + struct.pack("<I", mem + 0x80)               # jmp [orig]
+            + bytes.fromhex("56 57 8B7C2410 BE") + struct.pack("<I", mem + 0x100)   # edi = pszPath; esi = path
+            + b"\xB9" + struct.pack("<I", len(path))                    # ecx = bytes
+            + bytes.fromhex("F3A4 5F 5E B801000000 C21000"))            # rep movsb; return TRUE (stdcall, 16)
+    return code.ljust(0x80, b"\xCC") + struct.pack("<I", orig).ljust(0x80, b"\0") + path
+
+
+def install_appdata_lie(k, hproc, base, exe, appdata):
+    """At the game's WOW64 loader breakpoint (imports bound, no game code run):
+    point the image's SHGetSpecialFolderPathW IAT slot at appdata_stub, read
+    both back, and raise RedirectError on any failure."""
+    import pefile
+    appdata = check_sandbox_appdata(Path(appdata).resolve())
+    pe = pefile.PE(str(exe), fast_load=True)
+    pe.parse_data_directories([1])
+    slots = [imp.address - pe.OPTIONAL_HEADER.ImageBase + base for d in getattr(pe, "DIRECTORY_ENTRY_IMPORT", [])
+             for imp in d.imports if d.dll.lower() == b"shell32.dll" and imp.name == b"SHGetSpecialFolderPathW"]
+    pe.close()
+    if len(slots) != 1:
+        raise RedirectError(f"{len(slots)} SHGetSpecialFolderPathW import slots in {exe}")
+    slot = slots[0]
+    k.VirtualAllocEx.restype = ctypes.c_void_p
+    k.VirtualAllocEx.argtypes = [wt.HANDLE, ctypes.c_void_p, ctypes.c_size_t, wt.DWORD, wt.DWORD]
+
+    def read(va, n):
+        buf, got = ctypes.create_string_buffer(n), ctypes.c_size_t()
+        ok = k.ReadProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(va), buf, n, ctypes.byref(got))
+        return buf.raw[:got.value] if ok else b""
+    orig = read(slot, 4)
+    mem = k.VirtualAllocEx(hproc, None, 0x1000, 0x3000, 0x40)
+    if len(orig) != 4 or not mem:
+        raise RedirectError(f"cannot read the import slot {slot:#x} or allocate the stub")
+    blob = appdata_stub(mem, struct.unpack("<I", orig)[0], appdata)
+    old = wt.DWORD()
+    k.WriteProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(mem), blob, len(blob), None)
+    k.VirtualProtectEx(wt.HANDLE(hproc), ctypes.c_void_p(slot), 4, 0x04, ctypes.byref(old))
+    k.WriteProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(slot), struct.pack("<I", mem), 4, None)
+    k.VirtualProtectEx(wt.HANDLE(hproc), ctypes.c_void_p(slot), 4, old.value, ctypes.byref(old))
+    if read(mem, len(blob)) != blob or read(slot, 4) != struct.pack("<I", mem):
+        raise RedirectError(f"the redirect did not stick (slot {slot:#x})")
+    return {"slot": hex(slot), "appdata": str(appdata)}
+
+
+def profile_snapshot(d):
+    """{relative path: (size, mtime_ns)} plus the SHA-256 of Options.ini."""
+    import hashlib
+    d = Path(d)
+    files = {os.path.relpath(p, d): v for p, v in snapshot(d).items()} if d.exists() else {}
+    opt = d / "Options.ini"
+    sha = hashlib.sha256(opt.read_bytes()).hexdigest() if opt.exists() else None
+    return {"files": files, "options_sha256": sha}
+
+
+def profile_diff(before, after):
+    """Changed, added or removed files (and an Options.ini content change)."""
+    a, b = before["files"], after["files"]
+    changed = sorted(set(a) ^ set(b) | {p for p in a if p in b and a[p] != b[p]})
+    if before["options_sha256"] != after["options_sha256"]:
+        changed.append("Options.ini (content)")
+    return changed
+
+
+def registry_snapshot(path=r"Software\Electronic Arts"):
+    """{key\\value: repr(data)} of everything under HKCU\\path (read only)."""
+    import winreg
+    out = {}
+
+    def walk(sub):
+        try:
+            key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub)
+        except OSError:
+            return
+        with key:
+            i = 0
+            while True:
+                try:
+                    n, v, _ = winreg.EnumValue(key, i)
+                except OSError:
+                    break
+                out[f"{sub}\\{n}"] = repr(v)
+                i += 1
+            i = 0
+            while True:
+                try:
+                    s = winreg.EnumKey(key, i)
+                except OSError:
+                    break
+                walk(f"{sub}\\{s}")
+                i += 1
+    walk(path)
+    return out
+
+
+class ProfileGuard:
+    """Snapshot the owner's profile and HKCU's EA keys before a run; `check()`
+    afterwards returns the report and whether anything changed."""
+
+    def __init__(self, profile=None):
+        self.profile = Path(profile) if profile is not None else real_profile()
+        self.before, self.hkcu = profile_snapshot(self.profile), registry_snapshot()
+
+    def check(self):
+        changed = profile_diff(self.before, profile_snapshot(self.profile))
+        hk, old = registry_snapshot(), self.hkcu
+        hk_changed = sorted(set(hk) ^ set(old) | {x for x in hk if x in old and hk[x] != old[x]})
+        report = {"dir": str(self.profile), "files": len(self.before["files"]),
+                  "options_sha256": self.before["options_sha256"], "changed": changed[:20],
+                  "hkcu_values": len(old), "hkcu_changed": hk_changed[:20]}
+        return report, bool(changed or hk_changed)
+
+
 def set_probes(k, hproc, base, rvas):
     """One-shot int3 at each RVA (authored unit starts): {address: original byte}."""
     out = {}
@@ -251,7 +447,8 @@ def main_window(pid):
     return max(wins, key=lambda w: (w[1][2] - w[1][0]) * (w[1][3] - w[1][1]))[2] if wins else None
 
 
-def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rva=None, defocus_at=None):
+def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rva=None, defocus_at=None, *,
+        appdata):
     """Start `launcher` (retail's lotrbfme2.exe, which hands game.dat its start-up
     token; game.dat started directly exits 0 at once) under a debugger that
     follows children; the child whose image is game.dat is the one classified.
@@ -259,7 +456,12 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
     image; the ones reached are listed in res["probes_hit"]. `focus_rva`: the
     WM_ACTIVATEAPP arm, where a deactivation is rewritten to an activation (the
     focus lie). `defocus_at` (seconds): minimise the game window then (Windows
-    activates another one), and show it again unactivated 15 s before the end."""
+    activates another one), and show it again unactivated 15 s before the end.
+    `appdata` (required): the sandbox AppData root the game is given instead of
+    the owner's; if the redirect cannot be installed at game.dat's loader
+    breakpoint, before any game code runs, every process is killed and the
+    outcome is `profile-redirect-failed`."""
+    check_sandbox_appdata(appdata)
     k = k32()
     k.QueryFullProcessImageNameW.argtypes = [wt.HANDLE, wt.DWORD, wt.LPWSTR, ctypes.POINTER(wt.DWORD)]
     si, pi = STARTUPINFO(), PROCESS_INFORMATION()
@@ -339,6 +541,15 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                     res["probes_hit"].append(hit - procs[pid][2])
                 elif exc == 0x4000001F and pid in procs and len(procs[pid]) == 3:
                     h, path, base = procs[pid]
+                    if game:                            # first, so a failure leaves nothing running
+                        try:
+                            res["appdata_lie"] = install_appdata_lie(k, h, base, path, appdata)
+                        except (RedirectError, OSError, ImportError) as e:
+                            res.update(outcome="profile-redirect-failed", redirect_error=str(e))
+                            for hp, *_ in procs.values():   # killed before the thread is let go
+                                k.TerminateProcess(hp, 1)
+                            k.ContinueDebugEvent(pid, tid, DBG_CONTINUE)
+                            break
                     procs[pid] += (xp_version_lie(k, h, base, path) if version_lie else [],)
                     res.setdefault("version_lie", {})[Path(path).name] = procs[pid][3]
                     if game and probes:
@@ -553,8 +764,10 @@ def smoke(a, rows=None, tag="boot"):
             return out
         exe, pieces_map, base = OUT / f"{tag}.exe", rep["pieces_map"], a.base
         authored = rep.get("authored", [])
+    prepare_sandbox_profile(a.appdata)
     shutil.copyfile(exe, a.game_dir / "game.dat")
     before = {str(g): snapshot(g) for g in a.guard}
+    profile_guard = ProfileGuard()
     if a.compat:
         os.environ["__COMPAT_LAYER"] = a.compat
     out["compat"] = a.compat
@@ -566,7 +779,7 @@ def smoke(a, rows=None, tag="boot"):
     if not a.no_focus_lie and focus_rva is None:
         out["focus_lie"] = "WM_ACTIVATEAPP arm not found (no lie)"
     res = run(a.game_dir / "lotrbfme2.exe", a.game_dir.resolve(), a.args, a.timeout, not a.no_version_lie,
-              sorted(moved) if a.probes else (), focus_rva, a.defocus)
+              sorted(moved) if a.probes else (), focus_rva, a.defocus, appdata=a.appdata)
     out["run"] = {k: v for k, v in res.items() if k not in ("first_chance", "stack", "probes_hit")}
     out["run"]["first_chance"] = [[c, hex(x), [hex(i) for i in info]] for c, x, info in res["first_chance"]]
     if authored:
@@ -637,6 +850,11 @@ def smoke(a, rows=None, tag="boot"):
         out.setdefault("guard", {})[g] = changed[:20]
         if changed:
             out["outcome"] = "guard-violation"
+    if res.get("outcome") == "profile-redirect-failed":
+        out["outcome"] = "profile-redirect-failed"
+    out["profile_guard"], touched = profile_guard.check()
+    if touched:
+        out["outcome"] = "profile-changed"
     return out
 
 
@@ -692,6 +910,8 @@ def main(argv=None):
     ap.add_argument("--timeout", type=float, default=90)
     ap.add_argument("--args", default="-win")
     ap.add_argument("--guard", type=Path, action="append", default=[])
+    ap.add_argument("--appdata", type=Path,
+                    help="sandbox AppData root the game gets instead of the owner's (default GAME_DIR/../appdata)")
     ap.add_argument("--compat", default="", help="__COMPAT_LAYER for the child (WinXPSP3 needs elevation here)")
     ap.add_argument("--no-version-lie", action="store_true")
     ap.add_argument("--no-build", action="store_true", help="reuse build/boot/boot.exe")
@@ -709,6 +929,11 @@ def main(argv=None):
     ap.add_argument("--bisect", action="store_true",
                     help="when the overlay fails, halve it to the guilty rows (build/boot/boot_queue.json)")
     a = ap.parse_args(argv)
+    a.appdata = (a.appdata or a.game_dir.resolve().parent / "appdata").resolve()
+    try:
+        check_sandbox_appdata(a.appdata)
+    except RedirectError as e:
+        raise SystemExit(f"boot_smoke: {e}")
     ctypes.WinDLL("user32").SetProcessDPIAware()      # window and screen coordinates in physical pixels
     OUT.mkdir(parents=True, exist_ok=True)
     if (a.game_dir / "game.dat").exists() and (a.game_dir / "game.dat").stat().st_size == 0:

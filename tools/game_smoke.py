@@ -47,7 +47,10 @@ SHGetSpecialFolderPathW(CSIDL_APPDATA) + "My Battle for Middle-earth II Files"
 stub returning --appdata (default SANDBOX/../appdata), so nothing reaches the
 owner's profile. The sandbox profile is seeded with a fixed Options.ini
 (without one the game runs a first-start CPU benchmark that faults under
-the debugger). The real profile is still snapshotted (names, sizes, mtimes,
+the debugger). The redirect, the seeded options and the guard below are
+boot_smoke's (one implementation for both tools); a run whose redirect cannot
+be installed is killed at the loader breakpoint (`profile-redirect-failed`).
+The real profile is still snapshotted (names, sizes, mtimes,
 SHA-256 of Options.ini) before and after; any change fails the run with
 `profile-changed`, as does any change under HKCU\\Software\\Electronic Arts.
 
@@ -57,9 +60,7 @@ no-frames, crash-at-<row>, exit-<code>, profile-changed, guard-violation.
 import argparse
 import ctypes
 import ctypes.wintypes as wt
-import hashlib
 import json
-import os
 import re
 import shutil
 import struct
@@ -77,7 +78,6 @@ OUT = ROOT / "build" / "game"
 CREATE_THREAD, EXIT_THREAD = 2, 4
 INT3 = {0x80000003, 0x4000001F}
 SINGLE_STEP = {0x80000004, 0x4000001E}
-LEAF = "My Battle for Middle-earth II Files"
 
 # Retail game.dat (1.06) RVAs, from the matched tree and retail's own code.
 RVA = {
@@ -102,26 +102,6 @@ SEED_OFF = 0x50                   # GameInfo::setSeed (retail 0x3FF328) stores h
 # -file takes the short form: ConvertShortMapPathToLongMapPath (retail 0x3BA06E)
 # turns "maps\<name>.map" into "maps\<name>\<name>.map", the map cache's key.
 SKIRMISH_MAP = r"maps\map mp tournament udun.map"
-# A fresh profile has no Options.ini, and then the game benchmarks the CPU on
-# start-up (bench_with_confidence), which faults in AllocateMemory under the
-# debugger and exits 1. The sandbox profile gets these fixed, low-cost options.
-SANDBOX_OPTIONS = """AudioLOD = Low
-FixedStaticGameLOD = Low
-FlashTutorial = 0
-HasGotOnline = yes
-HasSeenLogoMovies = yes
-IdealStaticGameLOD = Low
-IsThreadedLoad = yes
-Resolution = 1024 768
-StaticGameLOD = Low
-TimesInGame = 1
-"""
-
-# WndProc's WM_ACTIVATEAPP arm (the same pattern fix/p4-boot-bfme2's boot_smoke
-# focus lie uses): `cmp ebx,1Ch; jne; cmp dword [ebp+10h],0; setne al; cmp al,[..]`.
-FOCUS_ARM = re.compile(rb"\x83\xFB\x1C\x0F\x85....(\x83\x7D\x10\x00)\x0F\x95\xC0\x3A\x05", re.DOTALL)
-
-
 # --------------------------------------------------------------------------- pure parts (tested)
 
 def pair_crcs(events):
@@ -236,55 +216,6 @@ class FrameHook:
         return {"calls": [crc, save], "keep": True, "done": saved}
 
 
-def profile_snapshot(d):
-    """{relative path: (size, mtime_ns)} plus the SHA-256 of Options.ini, so a
-    run can prove it never wrote the owner's profile."""
-    d = Path(d)
-    snap = {str(Path(p).relative_to(d)): v for p, v in boot_smoke.snapshot(d).items()} if d.exists() else {}
-    opt = d / "Options.ini"
-    sha = hashlib.sha256(opt.read_bytes()).hexdigest() if opt.exists() else None
-    return {"files": snap, "options_sha256": sha}
-
-
-def profile_diff(before, after):
-    a, b = before["files"], after["files"]
-    changed = sorted(set(a) ^ set(b) | {p for p in a if p in b and a[p] != b[p]})
-    if before["options_sha256"] != after["options_sha256"]:
-        changed.append("Options.ini (content)")
-    return changed
-
-
-def registry_snapshot(path=r"Software\Electronic Arts"):
-    """{key\\value: repr(data)} of everything under HKCU\\path (read only)."""
-    import winreg
-    out = {}
-
-    def walk(sub):
-        try:
-            k = winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub)
-        except OSError:
-            return
-        with k:
-            i = 0
-            while True:
-                try:
-                    n, v, _ = winreg.EnumValue(k, i)
-                except OSError:
-                    break
-                out[f"{sub}\\{n}"] = repr(v)
-                i += 1
-            i = 0
-            while True:
-                try:
-                    s = winreg.EnumKey(k, i)
-                except OSError:
-                    break
-                walk(f"{sub}\\{s}")
-                i += 1
-    walk(path)
-    return out
-
-
 # --------------------------------------------------------------------------- debugger
 
 class Game:
@@ -295,7 +226,9 @@ class Game:
     def __init__(self, game_dir, args, appdata, rva_map=None, focus_lie=True, version_lie=True):
         self.game_dir, self.args, self.appdata = Path(game_dir), args, Path(appdata)
         self.rva_map = rva_map or (lambda r: r)
+        boot_smoke.check_sandbox_appdata(self.appdata)
         self.want_focus, self.want_version = focus_lie, version_lie
+        self.focus_va = None          # boot_smoke's focus lie (WM_ACTIVATEAPP arm), served by boot_smoke.focus_lie
         self.k = boot_smoke.k32()
         self.k.QueryFullProcessImageNameW.argtypes = [wt.HANDLE, wt.DWORD, wt.LPWSTR, ctypes.POINTER(wt.DWORD)]
         self.k.OpenThread.restype = wt.HANDLE
@@ -349,50 +282,6 @@ class Game:
 
     def seconds(self):
         return round(time.time() - self.t0, 1)
-
-    # lies -------------------------------------------------------------------
-    def appdata_lie(self, exe):
-        """SHGetSpecialFolderPathW: CSIDL_APPDATA (0x1A) and CSIDL_MYPICTURES
-        (0x27) answer `self.appdata`; every other folder goes to the real call."""
-        import pefile
-        pe = pefile.PE(str(exe), fast_load=True)
-        pe.parse_data_directories([1])
-        slot = None
-        for d in pe.DIRECTORY_ENTRY_IMPORT:
-            for imp in d.imports:
-                if d.dll.lower() == b"shell32.dll" and imp.name == b"SHGetSpecialFolderPathW":
-                    slot = imp.address - pe.OPTIONAL_HEADER.ImageBase + self.base
-        pe.close()
-        if slot is None:
-            return "no SHGetSpecialFolderPathW import"
-        mem = self.k.VirtualAllocEx(self.hproc, None, 0x1000, 0x3000, 0x40)
-        path = (str(self.appdata.resolve()).rstrip("\\") + "\0").encode("utf-16-le")
-        code = (bytes.fromhex("8B44240C 25FF000000 83F81A 740B 83F827 7406 FF25") + struct.pack("<I", mem + 0x80)
-                + bytes.fromhex("56 57 8B7C2410 BE") + struct.pack("<I", mem + 0x100)
-                + b"\xB9" + struct.pack("<I", len(path)) + bytes.fromhex("F3A4 5F 5E B801000000 C21000"))
-        orig = self.u32(slot)
-        blob = code.ljust(0x80, b"\xCC") + struct.pack("<I", orig).ljust(0x80, b"\0") + path
-        self.write(mem, blob)
-        self.write(slot, struct.pack("<I", mem))
-        return {"slot": hex(slot), "appdata": str(self.appdata.resolve())}
-
-    def focus_rva(self, exe):
-        import pefile
-        pe = pefile.PE(str(exe), fast_load=True)
-        hits = []
-        for sec in pe.sections:
-            if sec.Characteristics & 0x20000000:
-                hits += [sec.VirtualAddress + m.start(1) for m in FOCUS_ARM.finditer(sec.get_data())]
-        pe.close()
-        return hits[0] if len(hits) == 1 else None
-
-    def _focus(self, tid, ctx):
-        """A WM_ACTIVATEAPP(FALSE) becomes TRUE: the engine never pauses for focus loss."""
-        slot = ctx.ebp + 0x10
-        if self.read(slot, 4) == bytes(4):
-            self.write(slot, struct.pack("<I", 1))
-            self.res["lies"]["focus_rewritten"] = self.res["lies"].get("focus_rewritten", 0) + 1
-        return True
 
     # breakpoints ------------------------------------------------------------
     def on(self, name, handler):
@@ -540,12 +429,22 @@ class Game:
                     if exc == 0x4000001F and pid in self.procs and not self.procs[pid][3]:
                         self.procs[pid][3] = True
                         h, path, base, _ = self.procs[pid]
-                        if game:
-                            self._loaded()
+                        if game and not self._loaded():
+                            res.update(stopped="profile-redirect-failed")
+                            for hp, *_ in self.procs.values():     # killed before the thread is let go
+                                k.TerminateProcess(hp, 1)
+                            k.ContinueDebugEvent(pid, tid, DBG_CONTINUE)
+                            break
                         elif self.want_version:      # the launcher gets the same version lie as boot_smoke
                             boot_smoke.xp_version_lie(k, h, base, path)
                     elif game and exc in INT3 and (addr in self.calls or addr - 1 in self.calls):
                         self._returned(tid, addr if addr in self.calls else addr - 1)
+                    elif game and exc in INT3 and self.focus_va in (addr, addr - 1):
+                        hits = self.res["lies"]["focus"]
+                        hits["hits"] += 1
+                        hits["rewritten"] += boot_smoke.focus_lie(k, self.hproc, tid, self.focus_va,
+                                                                  self.bps[self.focus_va][0])
+                        self.stepping[tid] = self.focus_va
                     elif game and exc in INT3 and (addr in self.bps or addr - 1 in self.bps):
                         self._hit(tid, addr if addr in self.bps else addr - 1)
                     elif game and exc in SINGLE_STEP and tid in self.stepping:
@@ -612,20 +511,28 @@ class Game:
         return False
 
     def _loaded(self):
-        """WOW64 loader breakpoint of game.dat: imports are bound, nothing ran yet."""
+        """WOW64 loader breakpoint of game.dat: imports are bound, nothing ran yet.
+        The appdata lie goes first; False (the run must stop) if it failed."""
         lies = self.res["lies"]
+        try:
+            lies["appdata"] = boot_smoke.install_appdata_lie(self.k, self.hproc, self.base, self.exe, self.appdata)
+        except (boot_smoke.RedirectError, OSError, ImportError) as e:
+            self.res["redirect_error"] = str(e)
+            return False
         if self.want_version:
             lies["version"] = boot_smoke.xp_version_lie(self.k, self.hproc, self.base, self.exe)
-        lies["appdata"] = self.appdata_lie(self.exe)
         if self.want_focus:
-            rva = self.focus_rva(self.exe)
-            lies["focus"] = hex(rva) if rva is not None else "WM_ACTIVATEAPP arm not found"
+            rva = boot_smoke.focus_arm_rva(self.exe)
+            lies["focus"] = {"rva": hex(rva) if rva is not None else "WM_ACTIVATEAPP arm not found",
+                             "hits": 0, "rewritten": 0}
             if rva is not None:
-                self._arm(self.base + rva, Game._focus)
+                self.focus_va = self.base + rva
+                self._arm(self.focus_va, None)
         for name in ("Debug::AssertDone/exit", "Debug::CrashDone/exit"):
             self._arm(self.va(name), Game._debug_exit)
         for rva, handler in self.handlers.items():
             self._arm(self.base + rva, handler)
+        return True
 
 
 def capture(pid, path):
@@ -671,12 +578,8 @@ def capture(pid, path):
 
 # --------------------------------------------------------------------------- scenarios
 
-def profile_dir():
-    return Path(os.environ["APPDATA"]) / LEAF
-
-
 def sandbox_profile(appdata):
-    return Path(appdata) / LEAF
+    return Path(appdata) / boot_smoke.PROFILE_LEAF
 
 
 def skirmish_setup(ai, seed=None):
@@ -761,26 +664,17 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
     else:
         rep = json.loads((boot_smoke.OUT / "boot.json").read_text())
         exe, rva_map = boot_smoke.OUT / "boot.exe", piece_mover(rep["pieces_map"])
+    boot_smoke.prepare_sandbox_profile(a.appdata)       # refuses an appdata inside the real AppData
     shutil.copyfile(exe, gd / "game.dat")
-    prof = sandbox_profile(a.appdata)
-    prof.mkdir(parents=True, exist_ok=True)
-    if not (prof / "Options.ini").exists():
-        (prof / "Options.ini").write_text(SANDBOX_OPTIONS)
-    before = {"profile": profile_snapshot(profile_dir()), "hkcu": registry_snapshot(),
-              "guard": {str(g): boot_smoke.snapshot(g) for g in a.guard}}
+    before = {"guard": {str(g): boot_smoke.snapshot(g) for g in a.guard}}
+    profile_guard = boot_smoke.ProfileGuard()
     game = Game(gd, f"{a.args} {extra}".strip(), a.appdata, rva_map, focus_lie=not a.no_focus_lie)
     for name, h in handlers:
         game.on(name, h)
     t0 = time.time()
     res = game.run(timeout or a.timeout, tick)
     out = {"args": game.args, "retail": a.retail, "wall_seconds": round(time.time() - t0, 1), "run": res}
-    changed = profile_diff(before["profile"], profile_snapshot(profile_dir()))
-    hk = registry_snapshot()
-    old = before["hkcu"]
-    hk_changed = sorted(set(hk) ^ set(old) | {x for x in hk if x in old and hk[x] != old[x]})
-    out["profile_guard"] = {"dir": str(profile_dir()), "files": len(before["profile"]["files"]),
-                            "options_sha256": before["profile"]["options_sha256"], "changed": changed,
-                            "hkcu_values": len(old), "hkcu_changed": hk_changed}
+    out["profile_guard"], out["profile_touched"] = profile_guard.check()
     out["sandbox_profile"] = sorted(str(Path(p).relative_to(a.appdata))
                                     for p in boot_smoke.snapshot(Path(a.appdata)))[:40]
     out["guard"] = {}
@@ -791,6 +685,8 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
 
 
 def crash_outcome(res):
+    if res.get("stopped") == "profile-redirect-failed":
+        return "profile-redirect-failed"
     if res.get("stopped") == "crash":
         return f"crash-at-{res.get('address', 0):#x}"
     if res.get("stopped") == "exit":
@@ -799,7 +695,9 @@ def crash_outcome(res):
 
 
 def finish(a, name, out):
-    if out["profile_guard"]["changed"] or out["profile_guard"]["hkcu_changed"]:
+    if out["run"].get("stopped") == "profile-redirect-failed":
+        out["outcome"] = "profile-redirect-failed"
+    if out["profile_touched"]:
         out["outcome"] = "profile-changed"
     if any(out["guard"].values()):
         out["outcome"] = "guard-violation"
@@ -1008,7 +906,11 @@ def main(argv=None):
     ap.add_argument("--guard", type=Path, action="append", default=[])
     ap.add_argument("--no-focus-lie", action="store_true")
     a = ap.parse_args(argv)
-    a.appdata = a.appdata or a.game_dir.resolve().parent / "appdata"
+    a.appdata = (a.appdata or a.game_dir.resolve().parent / "appdata").resolve()
+    try:
+        boot_smoke.check_sandbox_appdata(a.appdata)
+    except boot_smoke.RedirectError as e:
+        raise SystemExit(f"game_smoke: {e}")
     ctypes.WinDLL("user32").SetProcessDPIAware()
     for g in a.guard:
         if a.game_dir.resolve() == g.resolve() or g.resolve() in a.game_dir.resolve().parents:

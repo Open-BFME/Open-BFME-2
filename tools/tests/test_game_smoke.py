@@ -1,12 +1,11 @@
-"""game_smoke: the pure parts (CRC pairing, outcome judges, profile guard, RVA moves).
+"""game_smoke: the pure parts (CRC pairing, outcome judges, call stubs, RVA moves).
+
+The profile redirect and guard are boot_smoke's: tests/test_boot_smoke_profile.py.
 
 No game is started; the debugger itself is exercised by the retail control runs
 (`python3 tools/game_smoke.py ... --retail`), not here.
 """
-import os
 import sys
-import tempfile
-import time
 import unittest
 from pathlib import Path
 
@@ -73,39 +72,6 @@ class JudgeSkirmish(unittest.TestCase):
     def test_crash_wins(self):
         s = [(t, 30 * t, SKIRMISH) for t in range(60)]
         self.assertEqual(gs.judge_skirmish(s, SKIRMISH, 100, crash="exit-0x29a"), "exit-0x29a")
-
-
-class ProfileGuard(unittest.TestCase):
-    def test_unchanged_profile_has_no_diff(self):
-        with tempfile.TemporaryDirectory() as d:
-            (Path(d) / "Options.ini").write_text("Resolution = 800 600\n")
-            self.assertEqual(gs.profile_diff(gs.profile_snapshot(d), gs.profile_snapshot(d)), [])
-
-    def test_rewritten_options_is_caught_even_with_same_size_and_mtime(self):
-        with tempfile.TemporaryDirectory() as d:
-            opt = Path(d) / "Options.ini"
-            opt.write_text("Resolution = 800 600\n")
-            st = opt.stat()
-            before = gs.profile_snapshot(d)
-            opt.write_text("Resolution = 640 480\n")              # same length
-            os.utime(opt, ns=(st.st_atime_ns, st.st_mtime_ns))    # and the old mtime
-            self.assertEqual(gs.profile_diff(before, gs.profile_snapshot(d)), ["Options.ini (content)"])
-
-    def test_new_save_is_caught(self):
-        with tempfile.TemporaryDirectory() as d:
-            before = gs.profile_snapshot(d)
-            (Path(d) / "Save").mkdir()
-            (Path(d) / "Save" / "x.BfME2Skirmish").write_bytes(b"x")
-            self.assertEqual(gs.profile_diff(before, gs.profile_snapshot(d)), [str(Path("Save/x.BfME2Skirmish"))])
-
-    def test_touched_file_is_caught(self):
-        with tempfile.TemporaryDirectory() as d:
-            f = Path(d) / "Skirmish.ini"
-            f.write_text("a")
-            before = gs.profile_snapshot(d)
-            later = time.time_ns() + 5_000_000_000
-            os.utime(f, ns=(later, later))
-            self.assertEqual(gs.profile_diff(before, gs.profile_snapshot(d)), ["Skirmish.ini"])
 
 
 class PieceMover(unittest.TestCase):
@@ -250,10 +216,6 @@ class RetailAddresses(unittest.TestCase):
         self.assertEqual(img[gs.RVA["GameEngine::update"]:][:3], bytes.fromhex("55 8BEC"))
         for name in ("Debug::AssertDone/exit", "Debug::CrashDone/exit"):
             self.assertEqual(img[gs.RVA[name]:][:8], bytes.fromhex("6A01 FF1508A6BB00"))     # push 1; call [exit]
-
-    def test_focus_arm_is_unique(self):
-        g = gs.Game.__new__(gs.Game)
-        self.assertIsNotNone(gs.Game.focus_rva(g, self.exe))
 
 
 if __name__ == "__main__":
