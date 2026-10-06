@@ -13827,3 +13827,6 @@ _D3DXMatrixTranspose@8	0x0062AF44	6	partial	exact 6B FF25 jmp; disp32 is IAT rel
 ?rva0057C5B9@AptMapPreview@@QAEXPAXPAXHH@Z	0x0057C5B9	104	blocked	callback AptMapPreview draw with IsBadReadPtr TheDisplay W3DDisplay 4 args but only 2 used t=8 model=muse
 ?rva0055DBD3@Rva0055DBD3@@QAEXPAXHHMM@Z	0x0055DBD3	232	blocked	complex 232B Coord3D normalize plus basis cross with zero and two scales t=6 model=muse
 ?getNaturalRallyPoint@QueueProductionExitUpdate@@UBE_NAAUCoord3D@@_N@Z	0x004A027A	393	blocked	getNaturalRallyPoint 393B vs existing 307B ZH bodies needs reconstruction t=10 model=muse
+?rva004A0EAD@MonsterDockUpdate@@QAEHXZ	0x004A0EAD	552	blocked	MonsterDockUpdate slot12 552B EH_prolog multi-virtual economy check t=5 model=muse
+?doSpecialPowerAtObject@SpecialPowerModule@@UAEXPAVObject@@I@Z	0x004C8B62	278	blocked	SpecialPower slot11 278B vs donor small needs substantial reconstruction t=6 model=muse
+?rva0029BDBC@Rva0029BDBC@@QAEXXZ	0x0029BDBC	73	blocked	Holder at +0x20 plus dword at +0x980 vs InGameUI STL list mismatch t=8 model=muse
