@@ -64451,3 +64451,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005E56FC@Rva005E56FC@@QAEPAXXZ,,0x005E56FC,78,Code/GameEngine/Source/Common/Rva005E56FC.cpp,matched,thiscall view player stdcall chain via g_009FEF10 with volatile reload for retail redundant load
 ?updateInternal@AIAttackPursueTargetState@@AAE?AW4StateReturnType@@XZ,,0x0034939E,515,Code/GameEngine/Source/GameLogic/AI/AIAttackPursueTargetStateUpdateInternal.cpp,matched,pinned name caller 0x003495A9 donor ZH AIStates 3025 BFME1 updateInternal
 ?rva002B4E83@Rva002B4E83@@QAEXPAVRva002E0687@@@Z,,0x002B4E83,233,Code/GameEngine/Source/Common/Rva002B4E83.cpp,matched,defeat message via TheGameText fetch and InGameUI message
+??1Rva003F8728@@UAE@XZ,,0x003F8728,86,Code/GameEngine/Source/Common/Rva003F8728Dtor.cpp,matched,file vector hand-back via rowed for-each with empty functor then CRT free
