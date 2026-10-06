@@ -6,7 +6,7 @@
 class Thing;
 class ModuleData;
 class Object;
-enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
 class DRU_DeepBase
 {
@@ -47,6 +47,7 @@ class DetachableRiderUpdate : public UpdateModule
 {
 public:
     DetachableRiderUpdate(Thing *, const ModuleData *);
+    void rva004AE8FA();
 
 private:
     bool m_flag20;
@@ -59,4 +60,13 @@ DetachableRiderUpdate::DetachableRiderUpdate(
     : UpdateModule(thing, moduleData), m_flag20(false), m_flag21(false)
 {
     setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+}
+
+// ?rva004AE8FA@DetachableRiderUpdate@@QAEXXZ @0x004AE8FA 15B: clear +0x20 then
+// wake (none) via rowed UpdateModule::setWakeFrame 0x0044DF71; caller
+// ReplenishUnitsBehavior::rva004842DD casts to DetachableRiderUpdate and calls it.
+void DetachableRiderUpdate::rva004AE8FA()
+{
+    m_flag20 = false;
+    setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
