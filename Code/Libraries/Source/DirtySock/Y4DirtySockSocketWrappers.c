@@ -863,7 +863,7 @@ int Rva007FE780(const char *format, ...);
 
 void Rva007FE520(int priority)
 {
-	unsigned int threadId;
+	unsigned int pid;
 
 	g_Rva0130ACB4 = 0;
 	g_Rva012C3CDCDraining = -1;
@@ -873,7 +873,7 @@ void Rva007FE520(int priority)
 
 	g_Rva0130ACB8Thread = 1;
 	g_Rva0130ACB8Thread = CreateThread(0, 0, (void *)Rva007FE620,
-		0, 0, &threadId);
+		0, 0, &pid);
 
 	if (g_Rva0130ACB8Thread != 0)
 	{

@@ -7223,7 +7223,7 @@ _Rva007FE670,,0x0066AB40,75,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWra
 _Rva007FD170,,0x00669640,245,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; idle pump fires due callbacks and drains kill list
 _Rva007FD270,,0x00669740,83,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; module shutdown drains list then tears down
 _Rva007FD080,,0x00669550,210,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; module create starts worker then WSAStartup version
-_Rva007FE520,,0x0066A9F0,223,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; module startup creates worker thread
+_Rva007FE520,,0x0066A9F0,247,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; module startup creates worker thread
 _Rva007FE210,,0x0066A6E0,54,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; probe-then-free via InterlockedExchange
 _Rva007FE250,,0x0066A720,178,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; hostname resolve via gethostbyname big-endian assemble
 _Rva007FF080,,0x0066B550,121,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; rotating-XOR string hash
