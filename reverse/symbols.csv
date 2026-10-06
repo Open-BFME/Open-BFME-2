@@ -15475,3 +15475,7 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??$_Construct@URva0049DD5EElement@@U1@@_STL@@YAXPAURva0049DD5EElement@@ABU1@@Z,0x0049DD0B,
 ??$_Construct@URva004C3AF2Element@@U1@@_STL@@YAXPAURva004C3AF2Element@@ABU1@@Z,0x004C3A9F,
 ?_M_create_node@?$_Rb_tree@URva0053444FElement@@U1@U?$_Identity@URva0053444FElement@@@_STL@@U?$less@URva0053444FElement@@@3@V?$allocator@URva0053444FElement@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva0053444FElement@@@2@ABURva0053444FElement@@@Z,0x00382B7F,
+??0?$_Rb_tree@URva0033C432Element@@U1@U?$_Identity@URva0033C432Element@@@_STL@@U?$less@URva0033C432Element@@@3@V?$allocator@URva0033C432Element@@@3@@_STL@@QAE@ABU?$less@URva0033C432Element@@@1@ABV?$allocator@URva0033C432Element@@@1@@Z,0x001F068F,
+??0?$_Rb_tree@URva00413727Element@@U1@U?$_Identity@URva00413727Element@@@_STL@@U?$less@URva00413727Element@@@3@V?$allocator@URva00413727Element@@@3@@_STL@@QAE@ABU?$less@URva00413727Element@@@1@ABV?$allocator@URva00413727Element@@@1@@Z,0x00603AE0,
+?_M_upper_bound@?$_Rb_tree@URva002F1C89Element@@U1@U?$_Identity@URva002F1C89Element@@@_STL@@U?$less@URva002F1C89Element@@@3@V?$allocator@URva002F1C89Element@@@3@@_STL@@ABEPAU?$_Rb_tree_node@URva002F1C89Element@@@2@ABURva002F1C89Element@@@Z,0x004FF471,
+?_M_lower_bound@?$_Rb_tree@URva002F1C89Element@@U1@U?$_Identity@URva002F1C89Element@@@_STL@@U?$less@URva002F1C89Element@@@3@V?$allocator@URva002F1C89Element@@@3@@_STL@@ABEPAU?$_Rb_tree_node@URva002F1C89Element@@@2@ABURva002F1C89Element@@@Z,0x00382A92,

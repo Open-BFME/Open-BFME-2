@@ -211,3 +211,9 @@ _io_writeto
 
 # w6-sol: 0x005007AA refused; see re_attempts.log and build/w6_gate_0x005007AA.log
 ??4Rva005007AAElement@@QAEAAU0@ABU0@@Z
+
+# w6-sol: 0x005227C0 refused; see re_attempts.log and build/w6_gate_0x005227C0.log
+??4?$list@URva005227C0Element@@V?$allocator@URva005227C0Element@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+
+# w6-sol: 0x005BAB0B refused; see re_attempts.log and build/w6_gate_0x005BAB0B.log
+??4?$list@URva005BAB0BElement@@V?$allocator@URva005BAB0BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
