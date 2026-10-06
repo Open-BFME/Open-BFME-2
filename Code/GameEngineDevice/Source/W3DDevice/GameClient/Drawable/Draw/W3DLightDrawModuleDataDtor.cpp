@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /Ireference/shims/moduledata
 //
 // ??1W3DLightDrawModuleData@@UAE@XZ, retail 0x000CFBA9, 54 bytes.
 // W3DLightDraw ModuleData dtor: reinstalls the vtable 0x00BCD820, tears

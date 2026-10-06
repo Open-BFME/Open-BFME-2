@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Chained W3D draw ModuleData::buildFieldParse procs: each calls its
 // base-class buildFieldParse, then registers its own FieldParse table with

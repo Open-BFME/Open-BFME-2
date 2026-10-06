@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Whole one-body BFME1 donor W3DModelDraw_setAnimationLoopDuration.cpp at
 // 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 supplies this transfer. Its /O1
 // placement is unique at native0x000B373D/60; no other viable bodies emitted.

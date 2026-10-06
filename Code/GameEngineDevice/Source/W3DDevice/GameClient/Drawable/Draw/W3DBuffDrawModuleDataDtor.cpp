@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ??1W3DBuffDrawModuleData@@UAE@XZ 54B @0x000CEE5D.
 // Gap between ctor 0xCEE4C and buildFieldParse 0xCEE93 in

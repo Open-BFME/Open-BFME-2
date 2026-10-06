@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva000535CC@Rva000535CC@@QAEXPAX@Z @0x000535CC 58B: thiscall gate plus float.
 // Checks target+0x4C then this+0x6AC/+0x6B0 before setting target+0x45 and
 // target+0x30 from table int at this+0x10+0x78 via cvtsi2ss. Prev/next are

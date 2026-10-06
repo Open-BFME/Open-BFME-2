@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc /Oi-
+// cl: /Oy- /DNDEBUG /MD /EHsc /Oi-
 
 #include <string.h>
 //

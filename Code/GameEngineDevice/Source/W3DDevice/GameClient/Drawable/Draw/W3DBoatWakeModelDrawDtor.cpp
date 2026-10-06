@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1W3DBoatWakeModelDraw@@UAE@XZ, retail 0x000D0B69, 90 bytes, and the
 // registry removal it calls, retail 0x00082C88, 16 bytes.

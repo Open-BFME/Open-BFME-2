@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ModelConditionInfo FieldParse procs from the W3DModelDraw condition-state
 // table at VA 0x00BCAB20 (BFME 2 layout).

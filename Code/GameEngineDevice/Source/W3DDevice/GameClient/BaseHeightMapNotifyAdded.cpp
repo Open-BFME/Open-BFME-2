@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Notify_Added@BaseHeightMapRenderObjClass@@UAEXPAVSceneClass@@@Z retail
 // 0x00068477 29B. Zero Hour's BaseHeightMap.cpp override: the base
 // RenderObjClass::Notify_Added (rowed 0x0013BCD0), then registers the terrain

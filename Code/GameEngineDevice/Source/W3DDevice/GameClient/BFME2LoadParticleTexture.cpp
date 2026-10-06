@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?BFME2LoadParticleTexture@@YA?AVBFME2ParticleTextureHandle@@PBDHH@Z
 // Retail 0x00132D89, 237 bytes. Target disassembly shows a name lookup at

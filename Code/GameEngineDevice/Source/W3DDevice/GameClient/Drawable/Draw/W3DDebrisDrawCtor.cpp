@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Oi
+// cl: /DNDEBUG /MD /Oi
 //
 // ??0W3DDebrisDraw@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x000B1C41,
 // 86 bytes. Behavior-side ctor completing the W3DDebrisDraw file-unit

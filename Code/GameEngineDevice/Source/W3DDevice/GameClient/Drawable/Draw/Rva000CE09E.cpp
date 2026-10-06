@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000CE09E@W3DTankDraw@@QAEXXZ @0x000CE09E 76B: disable debris emitters at +0x2E8/+0x2F4 via get-or-Make then rowed byte-zero disable 0x1F384A guarded by +0x8 rva00270260; W3DTankDraw layout from ctor 0xCEA6C and sibling Rva000CE0EA; volatile loads preserve Make chases; caller 0xCE4B0
 class Rva00270260 {
 public:

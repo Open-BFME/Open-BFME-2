@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // Donor: Open-BFME-1 Zero Hour MilesAudioManager.cpp::unselectProvider.
 // Target identity: this 121-byte boundary at 0x53352 is called from the

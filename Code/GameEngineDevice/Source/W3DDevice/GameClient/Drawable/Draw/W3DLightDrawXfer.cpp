@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?xfer@W3DLightDraw@@MAEXPAVXfer@@@Z @0x000CFAB1 72B
 // Slot 3 (offset 0x0C) of vtable 0x007CD728 (class of ??1W3DLightDraw@@UAE@XZ).
 // Donor: reference/open-bfme-1/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawConstructor.cpp

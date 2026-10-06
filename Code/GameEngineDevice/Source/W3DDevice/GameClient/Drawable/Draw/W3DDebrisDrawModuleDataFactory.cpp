@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -GX- /O1 -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw
+// cl: -DNDEBUG -MD -GX- -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw
 
 struct FieldParse;
 

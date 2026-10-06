@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?test@Rva000CF0D6@@QBE_NPBV1@@Z @0x000CF0D6 41B
 // Honest Rva name; free function in 000CF page between W3DFloorDraw xfer
 // (0xCF074) and ctor (0xCF10B). Compares 19 dwords: (this[i] & other[i])==other[i].

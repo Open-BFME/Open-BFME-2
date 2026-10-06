@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva000CED4BUpdate@@YAXPAXPAVAssetList@@H@Z @0x000CED4B 150B: free update accumulating AssetLists and notifying via Rva001E11F8.
 // Evidence: rowed Rva001E11F8 0x001E11F8 and StringBase isEmpty 0x00001E2F plus pinned AssetList operator<< and Rva002D06CA and notify.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva000B7074@Rva000B7074@@QAEXXZ 0x000B7074 153B evidence: chain via 0x000B4E23 rowed; +0x9c init via 1.0f then f1 gt0 then f2 eq0 via 0x0028AC7D and 0x002931F5 false then comiss 0.01f div mul g_00DBA4F0 via 0x000B2F38; neighbours 0x000B7029/0x000B7539
 extern float g_00DBA4F0;
 // g_00DBA4F0: matched references place it at VA 0xdba4f0 (retail .data initial value 200.0f).

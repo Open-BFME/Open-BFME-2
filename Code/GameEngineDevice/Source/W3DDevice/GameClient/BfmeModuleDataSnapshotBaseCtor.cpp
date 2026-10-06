@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0BfmeModuleDataSnapshotBase@@QAE@XZ, retail 0x0011646E, 13 bytes.
 // Base ctor installing vtable 0x00BCFB24 and zeroing +0x04. Evidence:

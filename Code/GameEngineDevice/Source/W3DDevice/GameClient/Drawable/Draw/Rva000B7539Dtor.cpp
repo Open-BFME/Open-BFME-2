@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??1Rva000B7539@@QAE@XZ retail 0x000B7539 68 bytes. Non-virtual dtor with
 // EH destroying three StringBase char at +0 +4 +8 via rowed releaseBuffer.

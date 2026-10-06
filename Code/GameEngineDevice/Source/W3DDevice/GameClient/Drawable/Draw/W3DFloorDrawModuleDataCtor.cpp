@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // W3DFloorDrawModuleData file-unit (parse first; the ctor at 0xCF681
 // remains pinned for a follow-up).

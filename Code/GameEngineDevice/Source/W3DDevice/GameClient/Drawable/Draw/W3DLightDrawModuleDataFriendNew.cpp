@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@W3DLightDraw@@SAPAVModuleData@@PAVINI@@@Z, retail
 // 0x00064E2F, 81 bytes. Dedicated TU: the factory news 0x48, runs the

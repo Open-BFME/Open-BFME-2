@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oi-
+// cl: /DNDEBUG /MD /EHsc /Oi-
 // ?rva00051017@Rva00051017@@QAEXH@Z @ 0x00051017 33B
 // Evidence: IAT AIL_set_3D_sample_loop_count at 0x00BBAAA0 vs AIL_set_sample_loop_count at 0x00BBAAA4; guard byte +2 selects handle +4 (3D) or +8 (2D); caller 0x0005EFE9; neighbour GetEnvironmentName TU flags.
 typedef void *HSAMPLE;

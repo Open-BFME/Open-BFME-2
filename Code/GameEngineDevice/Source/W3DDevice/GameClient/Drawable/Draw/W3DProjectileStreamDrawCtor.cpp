@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0W3DProjectileStreamDraw@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x000D1370,
 // 145 bytes. Draw-side ctor completing the W3DProjectileStreamDraw file-unit

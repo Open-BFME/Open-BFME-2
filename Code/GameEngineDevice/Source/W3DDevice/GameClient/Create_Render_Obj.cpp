@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?Create_Render_Obj@@YAPAVRenderObjClass@@PBD@Z,
 // retail 0x00136175, 199 bytes. Dedicated TU.

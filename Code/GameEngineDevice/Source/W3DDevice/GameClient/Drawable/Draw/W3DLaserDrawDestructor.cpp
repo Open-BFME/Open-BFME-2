@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // BFME W3DLaserDraw destructor.  The shipped BFME class has a larger
 // DrawableModule base and a texture-vector member than the later reference
 // header, so keep this recovered layout local to the destructor TU.

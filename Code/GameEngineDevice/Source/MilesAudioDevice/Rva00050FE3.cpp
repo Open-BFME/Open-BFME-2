@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oi-
+// cl: /DNDEBUG /MD /EHsc /Oi-
 // ?rva00050FE3@Rva00050FE3@@QAEXXZ, retail 0x00050FE3, 26 bytes. Miles audio stop switch.
 // If byte at +2 nonzero stops 3D sample with handle at +4 else stops sample with handle at +8.
 // Evidence: cmp [ecx+2] 0 je else; call [IAT] mss32 AIL_stop_3D_sample@4 vs AIL_stop_sample@4. Honest Rva name.

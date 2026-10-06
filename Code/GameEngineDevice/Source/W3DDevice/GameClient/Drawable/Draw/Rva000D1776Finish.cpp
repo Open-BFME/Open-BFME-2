@@ -1,5 +1,5 @@
 // ?xfer@W3DTornadoDraw@@MAEXPAVXfer@@@Z
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 //
 // ?xfer@W3DTornadoDraw@@MAEXPAVXfer@@@Z @0x000D1776 68B

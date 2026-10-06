@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva000B7029@Rva000B7029@@QAEPBVImage@@XZ retail 0x000B7029 75 bytes.
 // Vslot 51 (0xCC) of Draw family sharing dirty flag at +0x2D9 with cached

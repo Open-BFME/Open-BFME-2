@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@W3DLaserDraw@@SAPAVModuleData@@PAVINI@@@Z, retail
 // 0x00064962, 81 bytes. Dedicated TU: the factory news 0x74, runs the

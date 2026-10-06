@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // W3DModelDraw::isVisible, retail 0x000B37F0 (28 bytes), ported from Zero
 // Hour's GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/

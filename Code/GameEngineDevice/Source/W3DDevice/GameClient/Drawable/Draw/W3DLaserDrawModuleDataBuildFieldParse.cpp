@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?buildFieldParse@W3DLaserDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x000C928F (17 bytes: a single MultiIniFieldParse::add of the class

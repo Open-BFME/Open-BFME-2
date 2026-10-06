@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?FindOrCreatePrototypeId@BfmeResourceEnumerator@@QAEHPBD@Z,
 // retail 0x006205C0, 11 bytes. Dedicated TU.

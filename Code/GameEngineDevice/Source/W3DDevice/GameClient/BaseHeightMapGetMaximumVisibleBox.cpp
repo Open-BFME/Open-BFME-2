@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ob2 /DNDEBUG /MD /EHsc
 // ?getMaximumVisibleBox@BaseHeightMapRenderObjClass@@QAE_NABVFrustumClass@@PAVAABoxClass@@_N@Z @0x0006B1FA 505B
 // Ground-plane clip of frustum corners then AABox init. Donor is BFME1
 // game/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_getMaximumVisibleBox.cpp

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00078A82,
 // 68 bytes. Behavior-side ctor completing the W3DHordeModelDraw file-unit

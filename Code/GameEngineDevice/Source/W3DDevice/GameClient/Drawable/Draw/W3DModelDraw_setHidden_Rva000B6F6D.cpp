@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?setHidden@W3DModelDraw@@UAEX_N@Z
 // retail 0x000B6F6D, 145 bytes (Ghidra boundary), slot 16 of the

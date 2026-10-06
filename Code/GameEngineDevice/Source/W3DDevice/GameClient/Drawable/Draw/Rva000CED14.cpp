@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva000CED14@W3DTreeDrawModuleData@@QAE?AVAsciiString@@H@Z @0x000CED14 27B: vslot 14 of W3DTreeDrawModuleData W3DPropDrawModuleData W3DFloorDrawModuleData returns m_modelName at +08 by value via hidden plus int dummy ret 8; layout from W3DTreeDrawModuleDataCtorG7; donor ZH W3DTreeDraw.h; sibling Version getAsciiBuildLocation 27B precedent
 #include "ascii_string.h"
 class W3DTreeDrawModuleDataBase {

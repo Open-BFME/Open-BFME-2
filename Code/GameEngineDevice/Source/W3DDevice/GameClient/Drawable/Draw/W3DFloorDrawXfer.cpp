@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?xfer@W3DFloorDraw@@MAEXPAVXfer@@@Z @0x000CF074 98B
 // Slot 3 (offset 0x0C) of vtable 0x007CD4E0 (class of ??0W3DFloorDraw@@QAE@PAVThing@@PBVModuleData@@@Z).
 // Layout from W3DFloorDrawCtor.cpp (W3DPropDraw base 0x10 plus m_10 +0x10 plus flags +0x14..+0x17).

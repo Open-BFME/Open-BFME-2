@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // W3DModelDraw::setTerrainDecalSize (retail 0x000B314B, 32 bytes) and
 // W3DModelDraw::setTerrainDecalOpacity (0x000B316B, 34 bytes), ported from

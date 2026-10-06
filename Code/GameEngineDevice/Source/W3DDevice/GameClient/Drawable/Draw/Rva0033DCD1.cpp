@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0033DCD1@Rva0033DCD1@@QBEPBUModelConditionInfo@@ABV?$BitFlags@$0HF@@@@Z, retail 0x0033DCD1, 25 bytes.
 // Simple wrapper: return m_map.findBestInfo(m_vec, flags); m_vec at +0x358, m_map at +0x364.

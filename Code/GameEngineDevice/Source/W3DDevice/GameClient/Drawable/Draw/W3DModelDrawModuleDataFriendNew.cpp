@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@W3DModelDraw@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x000648D6, 83 bytes. Dedicated TU: the factory news 0x188, runs the

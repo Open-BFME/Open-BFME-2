@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /Oi- /Ob1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
 // ?Rva00054120Load@@YGEPAVINI@@@Z @0x00054120 187B.
 // Audio INI loader ORing six loadFile results via INI plus type.
 // Evidence: unlock lane plus caller 0x00054222 plus literals Data\INI\Music.ini Data\INI\SoundEffects.ini Data\INI\Speech.ini Data\INI\Voice.ini Data\INI\AmbientStream.ini Data\INI\MiscAudio.ini plus precedent Rva0031B4D6Load OR pattern plus uchar pin for loadFile.

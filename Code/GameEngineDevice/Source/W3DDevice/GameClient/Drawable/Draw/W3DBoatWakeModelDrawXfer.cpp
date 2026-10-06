@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?xfer@W3DBoatWakeModelDraw@@MAEXPAVXfer@@@Z, retail 0x000D0BC3, 58 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x007CDD70 (VA 0x00BCDD70, class of rowed ctor

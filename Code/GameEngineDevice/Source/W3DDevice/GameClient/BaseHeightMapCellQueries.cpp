@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // BaseHeightMapRenderObjClass per-cell terrain queries.
 //
 // isCliffCell is ZH BaseHeightMap.cpp's body: null-check m_map, turn the world

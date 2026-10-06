@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0W3DBuffDrawModuleData@@QAE@XZ, retail 0x000CEE4C, 17 bytes.
 // Root ModuleData ctor (no base call): installs vtable 0x00BCD270

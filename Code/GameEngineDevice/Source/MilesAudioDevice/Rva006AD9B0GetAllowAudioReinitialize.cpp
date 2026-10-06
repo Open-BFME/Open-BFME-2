@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // Bodies ported from Open-BFME-1's GameEngineDevice/Source/MilesAudioDevice/Rv
 // a006AD9B0GetAllowAudioReinitialize.cpp (donor revision

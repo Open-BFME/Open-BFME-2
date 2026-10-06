@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /Oi- /Ob1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // Donor: reference/open-bfme-1/Code/GameEngineDevice/Source/MilesAudioDevice/
 // MilesAudioManagerStopAudio.cpp supplies stopAudio identity and three-list structure.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0W3DHordeModelDrawModuleData@@QAE@XZ, retail 0x000789E3, 159 bytes.
 // ModuleData ctor over the pinned W3DModelDrawModuleData base (0xC8EEF):

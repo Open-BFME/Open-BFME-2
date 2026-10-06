@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0W3DBoatWakeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x000D0B34,
 // 47 bytes. Draw-side ctor completing the W3DBoatWakeModelDraw file-unit

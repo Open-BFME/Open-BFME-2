@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // Snapshot xfer methods (slot 3) of three BFME 2 model draws without a Zero
 // Hour counterpart, each named by its vftable's slot-2 name literal and built on the base

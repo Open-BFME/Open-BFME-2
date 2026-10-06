@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0W3DDefaultDraw@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x000B21B3,
 // 28 bytes. Draw-side ctor completing the W3DDefaultDraw file-unit (name

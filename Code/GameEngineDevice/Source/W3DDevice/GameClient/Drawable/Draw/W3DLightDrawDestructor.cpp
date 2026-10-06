@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1W3DLightDraw@@UAE@XZ @0x000CFA42 87B
 // BFME2 W3DLightDraw destructor. Donor: reference/open-bfme-1/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawDestructor.cpp
 // (BFME1 retail 0x00758580, same body: setEnabled(false) + Release_Ref + null).

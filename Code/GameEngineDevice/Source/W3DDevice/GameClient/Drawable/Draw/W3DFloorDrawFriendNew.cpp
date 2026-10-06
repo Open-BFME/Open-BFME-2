@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@W3DFloorDraw@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00064D6E, 56 bytes. Dedicated TU: retail news 0x18 (push-imm8)

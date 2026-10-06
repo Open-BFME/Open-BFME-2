@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // BFME1 donor: reference/open-bfme-1/game/GameEngine/Source/GameClient/BFMERopeDrawableInterpolatedPosition.cpp
 // donor revision 10af19f44a89ab7ecc23195bb9a842ceafbc02c9. The retail
 // getPosition body carries the same interpolation logic but uses BFME2 member

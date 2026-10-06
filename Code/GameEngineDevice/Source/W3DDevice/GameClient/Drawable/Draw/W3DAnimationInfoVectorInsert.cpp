@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?insert@?$vector@VW3DAnimationInfo@@V?$allocator@VW3DAnimationInfo@@@_STL@@@_STL@@QAEPAVW3DAnimationInfo@@PAV3@ABV3@@Z
 // retail 0x00538944, 149 bytes: STLport 4.5.3 vector<W3DAnimationInfo>::insert.

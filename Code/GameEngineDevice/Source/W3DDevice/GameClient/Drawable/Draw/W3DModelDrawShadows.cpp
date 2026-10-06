@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // W3DModelDraw::setShadowsEnabled (retail 0x000B2E29, 30 bytes) and
 // W3DModelDraw::releaseShadows (0x000B2E14, 21 bytes), ported from Zero

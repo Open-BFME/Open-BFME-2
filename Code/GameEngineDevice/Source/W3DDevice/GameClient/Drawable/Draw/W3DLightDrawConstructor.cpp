@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0W3DLightDraw@@QAE@PAVThing@@PBVModuleData@@@Z @0x000CF91D 287B
 // Evidence: LINK toss names it (friend_newModuleInstance 0x00064E1E calls it);
 // donor reference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawConstructor.cpp
