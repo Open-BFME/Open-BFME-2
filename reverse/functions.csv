@@ -64936,3 +64936,8 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva00787601@@YAXXZ,,0x00787601,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; cleanup state and direct holder-call transfer are target bytes
 ?rva0078776d@@YAXXZ,,0x0078776D,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; cleanup state and direct holder-call transfer are target bytes
 ?rva007877a2@@YAXXZ,,0x007877A2,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; cleanup state and direct holder-call transfer are target bytes
+?rva0078787d@@YAXXZ,,0x0078787D,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and AsciiString tail-call bytes matched
+?rva0078809b@@YAXXZ,,0x0078809B,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and AsciiString tail-call bytes matched
+?rva007880bc@@YAXXZ,,0x007880BC,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and AsciiString tail-call bytes matched
+?rva007882c7@@YAXXZ,,0x007882C7,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and UnicodeString thunk tail-call bytes matched
+?rva00788460@@YAXXZ,,0x00788460,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and UnicodeString thunk tail-call bytes matched

@@ -1050,5 +1050,75 @@ PUBLIC ?rva007877a2@@YAXXZ
 cleanup_done_007877a2:
     ret
 ?rva007877a2@@YAXXZ ENDP
+
+; Unwind@00b8787d at RVA 0x0078787D; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-16] and tail-jumps with [ebp-20] to AsciiString dtor.
+PUBLIC ?rva0078787d@@YAXXZ
+?rva0078787d@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0078787d
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-20]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0078787d:
+    ret
+?rva0078787d@@YAXXZ ENDP
+
+; Unwind@00b8809b at RVA 0x0078809B; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-16] and tail-jumps with [ebp+8] to AsciiString dtor.
+PUBLIC ?rva0078809b@@YAXXZ
+?rva0078809b@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0078809b
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0078809b:
+    ret
+?rva0078809b@@YAXXZ ENDP
+
+; Unwind@00b880bc at RVA 0x007880BC; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 1 at [ebp-16] and tail-jumps with [ebp-24] to AsciiString dtor.
+PUBLIC ?rva007880bc@@YAXXZ
+?rva007880bc@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 2
+    jz NEAR PTR cleanup_done_007880bc
+    and DWORD PTR [ebp-16], -3
+    lea ecx, [ebp-24]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007880bc:
+    ret
+?rva007880bc@@YAXXZ ENDP
+
+; Unwind@00b882c7 at RVA 0x007882C7; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-20] and tail-jumps through [ebp+8] to the rowed UnicodeString thunk.
+PUBLIC ?rva007882c7@@YAXXZ
+?rva007882c7@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007882c7
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva002606AFDtor@@QAE@XZ
+cleanup_done_007882c7:
+    ret
+?rva007882c7@@YAXXZ ENDP
+
+; Unwind@00b88460 at RVA 0x00788460; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-24] and tail-jumps through [ebp+8] to the rowed UnicodeString thunk.
+PUBLIC ?rva00788460@@YAXXZ
+?rva00788460@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00788460
+    and DWORD PTR [ebp-24], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva002606AFDtor@@QAE@XZ
+cleanup_done_00788460:
+    ret
+?rva00788460@@YAXXZ ENDP
 _TEXT ENDS
 END
