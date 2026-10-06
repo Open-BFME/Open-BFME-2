@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva005E7ED7@@UAE@XZ @0x005E7ED7 22B
 // MI dtor: stores secondary vtable 0x007C6F20 at this+0x24 via null-safe
 // neg/sbb/and then tail-jmps to rowed ??1Rva005E7C19@@UAE@XZ which stores

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD
 #include "Common/BfmeAudioEventPrefix136.h"
 // ??0Rva002DA651@@QAE@ABUOpaqueRefElement4@@H@Z, RVA 0x002DA651 size 126.
 // Owner-tag ctor sibling of 0x002DA461 (tag 2/object) and 0x002DA4DB

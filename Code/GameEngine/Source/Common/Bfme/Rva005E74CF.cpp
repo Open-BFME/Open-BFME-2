@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva005E74CF@@QAE@XZ @0x005E74CF 90B
 // Ctor with temp AsciiString "BuildQueueDetailsPanel" passed as int to base
 // ??0Rva00221635@@QAE@H@Z then vtable 0x00877EF4 plus +8 0x80FFFFFF +0xC 0.

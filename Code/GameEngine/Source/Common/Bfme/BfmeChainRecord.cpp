@@ -1,5 +1,5 @@
 // ??0BfmeChainRecord@@QAE@PAX0PAPAV0@@Z
-// cl: /O2 /Ob0
+// cl: /Ob0
 
 class BfmeChainRecord
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail 0x00418F7D..0x0041901D: 160-byte cdecl INI field parser.
 // Target evidence: Target/Priority subtokens; eight AutoResolveUnit names at
 // VA 0x00DC85C4; availability word array beginning at store+0x10; map at +4.

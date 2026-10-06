@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva005E7229@Rva005E7229@@QAEPAURva005E71C6Ref@@IPAU2@0@Z @0x005E7229 45B
 // Vector _M_allocate_and_copy: allocate n via rowed allocator<BfmeE12*> at
 // +8 (same 4B POD stride) then rowed __uninitialized_copy<Rva005E71C6Ref>

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005E7C19@@UAE@XZ @0x005E7C19 61B
 // Virtual dtor stores vtable 0x00877F14 then calls rowed
 // ?rva005E7855@Rva005E7855@@QAEXXZ on this then releases m_1C via rowed

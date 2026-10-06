@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Open-BFME5: ATL 7.1 CSimpleArray<HINSTANCE>::Add.
 //
 // Ghidra names retail 0x009F6A90 "Add".  The implementation is the pristine

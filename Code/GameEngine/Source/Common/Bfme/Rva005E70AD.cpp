@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva005E70AD@Rva005E70AD@@QAEXH@Z, retail 0x005E70AD, 25 bytes.
 // Setter: virtual slot 3 on member +0x0C with arg, then store arg to +0x10.
 // Evidence: single caller at 0x005E79FB; indirect call [eax+0x0C].

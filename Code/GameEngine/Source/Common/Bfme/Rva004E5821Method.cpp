@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // ?rva004E5821@Rva004E5821@@QAEXXZ @0x004E5821 (28B)
 // __thiscall void method: frees member DisplayString at +4 through
 // DisplayStringManager slot 0x3c and nulls it. Manager layout per

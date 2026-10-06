@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2
+// cl: /Ob2
 
 struct BfmeSortPair
 {

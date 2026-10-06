@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005E712A@Rva005E7C19@@QAEXH@Z @0x005E712A 53B
 // Virtual slot 1 (offset 0x4) of vtable 0x00877F14 (class of ??1Rva005E7C19@@UAE@XZ).
 // Emits GameMessage 0x6AE via MessageStreamSubsystem slot 0x48 then two integer args:

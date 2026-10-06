@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004CA167@AnimationSoundTree@@QAEXPAX@Z, retail 0x004CA167, 53 bytes.
 // AnimationSoundTree node free helper: if the node is null returns; otherwise
 // recurses on the child at +0x0C with the same tree, saves the sibling at +8,

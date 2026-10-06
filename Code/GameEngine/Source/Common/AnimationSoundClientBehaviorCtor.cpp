@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0AnimationSoundClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004CA05A, 203 bytes.
 // AnimationSoundClientBehavior (Thing*,ModuleData*) ctor: base Rva00252B68,
 // volatile-first C6FFFC at +0x0C then primary C5EE80 plus secondary C5EE74,

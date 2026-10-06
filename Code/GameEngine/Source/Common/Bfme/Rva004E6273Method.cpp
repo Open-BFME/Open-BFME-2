@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004E6273@Rva004E6273@@QAEXXZ @ 0x004E6273 (34B): guarded virtual call through +0x10 target slot 0x38 with (m_index m_other 1 1). Early-out when target null or index negative. Unblocks 0x004E63DB thunk which does mov ecx-[ecx] then jmp here. Caller is jmp at 0x004E63DD.
 struct Rva004E6273Target
 {

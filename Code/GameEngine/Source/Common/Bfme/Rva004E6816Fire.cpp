@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?Rva004E6816Fire@@YAXPAVRva00222A8BTarget@@PAXPBDPA_N@Z @ 0x004E6816 (48B): fires a UI callback through Rva00222A8BTarget::invoke with a bool converted to "0"/"1" via Rva004E678BGet. Callers at 0x004E70B6 ("SetIconVisibility") and 0x005B5CE5 ("EnableCustomizeButtons") pass manager in ecx-slot owner name and bool pointer.
 class Rva00222A8BTarget
 {

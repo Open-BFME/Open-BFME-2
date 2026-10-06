@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0036265E@Rva0036265E@@QAEX_N@Z retail 0x0036265E 23 bytes. Guarded byte
 // store to header+0x45 when +0x18 non-null and +0xC equals 1. Evidence: caller

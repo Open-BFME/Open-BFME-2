@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004E5CB0Delete@@YGXPAX@Z @0x004E5CB0 (27B)
 // __stdcall null-checked deleter for Rva004E5A78: calls its rowed dtor then
 // operator delete. Evidence: chain lane calls 0x004E5A78 which just landed;

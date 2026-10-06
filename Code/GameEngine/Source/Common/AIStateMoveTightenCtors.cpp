@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // AIInternalMoveToState-derived state ctors, retail 0x0034286E (36B),
 // 0x00342892 (29B), 0x003428AF (29B), 0x003428CC (37B).

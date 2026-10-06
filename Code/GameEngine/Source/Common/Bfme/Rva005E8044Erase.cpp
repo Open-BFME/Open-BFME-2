@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 // ?rva005E8044@Rva005E8044@@QAEPAXPAX0@Z @0x005E8044 51B
 // Vector range erase: copy [last finish) to pos via rowed 0x005E748D
 // then destroy [newFinish finish) via rowed 0x005E7FB0, update m_finish, return pos.

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?Rva005277D9Fire@@YAXPAVRva00222A8BTarget@@PAXPBD2PA_N@Z @ 0x005277D9 (51B): bool-to-string APT fire via Rva004E678BGet and Rva00222B19AptCall thiscall spelling. Evidence: same shape as Rva004E6816Fire 48B plus one extra prefix arg; callees rowed 0x004E678B 0x00222B19; callers unclaimed APT firers.
 class Rva00222A8BTarget
 {

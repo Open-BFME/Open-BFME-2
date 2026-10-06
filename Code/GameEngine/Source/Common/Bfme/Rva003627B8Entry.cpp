@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003627B8@Rva003627B8Entry@@QAEXH@Z retail 0x003627B8 65 bytes.
 // Entry guard in Buff 9x0x44 family: byte flag at +0x04, subcheck at +0x30

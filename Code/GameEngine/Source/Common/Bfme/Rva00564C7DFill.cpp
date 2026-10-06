@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00564C7DFill@@YAPAVRva003A6360Record@@PAV1@IABV1@@Z @0x00564C7D 40B.
 // Counted copy-construct loop over 0x10-byte records: skips null slots,
 // copy-constructs each live slot from src through the rowed copy ctor

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/Audio
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common/Audio
 
 // BFME's three-bit filter formatter.  The adjacent AudioAffect formatter
 // proves this text sink's overloaded virtual ABI: MSVC 7.1 places append(int)

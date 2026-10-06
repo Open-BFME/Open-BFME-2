@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva004DEA70@Rva004DEA70@@QAEPAXPAUArg1_004DEA70@@PBUCoord3DBase@@@Z retail 0x004DEA70 64B
 // Evidence: unlock lane; callee equals 0x00003702; caller jmp 0x0028BE7F (Object+0x240 tail);

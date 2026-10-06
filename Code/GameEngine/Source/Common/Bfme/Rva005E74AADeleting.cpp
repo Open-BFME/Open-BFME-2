@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005E74AA@Rva005E74AA@@QAEPAXI@Z @0x005E74AA 37B
 // Deleting-dtor shape: releases holder target via rowed fastcall Release at 0x0007DEEF
 // then conditionally deletes this when flag bit0 is set and returns this.

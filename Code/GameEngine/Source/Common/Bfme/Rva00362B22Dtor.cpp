@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // ??1Rva00362AB5@@QAE@XZ retail 0x00362B22 56 bytes. Dtor calls clear then
 // frees header with EH prolog. Evidence: chain from 0x00362AB5, rowed _free,

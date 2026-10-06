@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Oy- /DNDEBUG /MD /EHsc
 // ?Rva00542B61Parse@@YAXPAVINI@@PAX11@Z, retail 0x00542B61, 64 bytes.
 // INI field parser: initFromINI(instance) via rowed 0x0002DE78 with table
 // g_00C69638, then if first dword of instance is 0 throw INIException code 8

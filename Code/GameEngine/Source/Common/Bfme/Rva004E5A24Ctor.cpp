@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva004E5A24@@QAE@XZ @0x004E5A24 84B: ctor via baseConstruct + vector BfmeE16 + floats.
 // Calls row baseConstruct 0x001B4E63 then zeroes +0xC then constructs vector at +0x10 via row 0x00211E58 then zeroes +0x1C/+0x20 then three floats. Vtable 0x00C623CC. Caller 0x002A64C2.

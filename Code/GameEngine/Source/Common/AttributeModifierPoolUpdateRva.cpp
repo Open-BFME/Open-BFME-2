@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004031C9@AttributeModifierPoolUpdate@@QAEHH@Z retail 0x004031C9 20B
 // Index-checked int fetch from +0x6c array of 15: if index>=15 return 0 else
 // return m_array[index]. Evidence: mov eax-esp+4 cmp 0xf jge mov

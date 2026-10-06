@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// cl: /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // Audibility check at 0x000527FB (92B): an audio event is audible when its
 // +0x30 word is clear, its +0x8 referent carries flag 4 at +0x48, the owner
 // position resolves valid, both singletons are present, and the local

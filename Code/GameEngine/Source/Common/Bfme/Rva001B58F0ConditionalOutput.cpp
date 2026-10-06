@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Whole clean BFME 1 donor: game/GameEngine/Source/Common/Bfme/
 // Rva009A4E30ConditionalOutput.cpp at 6583b3c1ff21db4a561285717028fdafc780b7db.
 // Target boundary: the matched 176-byte initializer at 0x001B5840 ends with

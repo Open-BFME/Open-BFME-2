@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/Bfme
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common/Bfme
 // Structural BFME recovery, retail 0x0045B7B0 (21 bytes).
 // Retail exchanges the opaque link at this+0x80 with a caller-provided slot.
 

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00564CD4Copy@@YAPAVRva00564B1A@@PAV1@00@Z, retail 0x00564CD4, 50 bytes.
 // Range-copy loop over 0xc-byte Rva00564B1A elements: count is (last-first) via idiv 0xc, assigns each slot through rowed method 0x00564B1A, advances src/dst, returns final dst. Caller at 0x0056567B; unblocks 0x00565668.
 // Pattern from Rva00564CA5Copy 0x00564CA5 / Rva00564D06Copy 0x00564D06; 0xc forces idiv hence 50B vs 47B.

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Address-derived owners for small bodies formerly in gen_asm d_0087dd30.asm.
 // No caller, vtable or string names them; members describe only the bytes.
 

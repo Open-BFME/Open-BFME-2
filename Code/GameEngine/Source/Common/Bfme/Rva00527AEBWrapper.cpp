@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00527AEB@Rva00527AEB@@QAEXABUTreeHintRef00217D4C@@@Z, retail 0x00527AEB, 24 bytes.
 // Chain from 0x005278DD: call Hide-reset then assign TreeHint at +0x1c. Evidence: packet disassembly, caller context, callees rowed.
 class Rva00527890

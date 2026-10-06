@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005E8077@Rva005E8077@@QAEXXZ @0x005E8077 30B
 // Vector clear-and-free: destroy range [m_start m_finish) via rowed 0x005E7FB0
 // then free m_start via rowed _free 0x00030830. No EH frame.

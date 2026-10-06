@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0Rva004E63FC@@QAE@XZ @0x004E63FC 89B
 // Ctor-like init: AsciiString at +0 from "PlaceHolderReticle" via rowed

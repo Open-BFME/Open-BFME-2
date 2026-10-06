@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // AIInternalMoveToState-derived state leaf ctors, retail 0x00342C47 (28B)
 // and 0x00342D19 (34B), both over the 0x00342BAE mid pin.

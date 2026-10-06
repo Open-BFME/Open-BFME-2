@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // Typed Apt callback wrappers: convert the argument to an AsciiString with
 // the rowed formatters (Rva0022288EGet for unsigned, Rva002228E8Get for float)
 // and return the rowed Rva00222A8BTarget::invoke result for a one-argument

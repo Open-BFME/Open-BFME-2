@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005E7D39@Rva005E7D39@@QAEPAXPAX@Z @0x005E7D39 57B
 // Vector erase one element: if (pos+1 != finish) copy_forward(pos+1 finish pos)
 // via rowed 0x005E748D then --finish then destroy finish via rowed 0x005E74AA flag 0

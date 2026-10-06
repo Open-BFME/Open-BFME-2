@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva00527890@Rva00527890@@QAEXH@Z @ 0x00527890 (77B): guarded Move fire via rowed 0x005277D9 with bool v==1 and prefix from +8 else empty. Evidence: callees rowed 0x005277D9; strings Move empty fallback g_Rva0107301CEmptyString; global TheRva00222A8BTarget; guard m_10 vs arg; caller 0x002D66FD.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

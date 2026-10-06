@@ -1,6 +1,6 @@
 // ?Rva004E59AEFunc@@YAXPAP8Rva004E59AE@@AEXXZPAPAU1@1P81@AEXXZ@Z
 // @0x004E59AE 34B free loop calling 0-arg method on each element then storing func
-// cl: /O1 /MD
+// cl: /MD
 struct Rva004E59AE
 {
 	void rva();

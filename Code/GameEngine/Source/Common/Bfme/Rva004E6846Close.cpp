@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva004E6846@Rva004E6846@@QAEXXZ @ 0x004E6846 (60B): timeout check via timeGetTime firing Rva0043DB23 with "Close". Callers: jmp at 0x004E7294 in 0x004E7277. Callee row Rva0043DB23 in MpGameSetupSlots.cpp, global TheRva00222A8BTarget, IAT timeGetTime.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

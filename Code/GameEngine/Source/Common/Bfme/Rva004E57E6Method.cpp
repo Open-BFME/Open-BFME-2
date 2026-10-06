@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1 /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva004E57E6@Rva004E57E6@@QAEXPAURva004E57E6Pair@@M@Z @0x004E57E6 (29B)
 // __thiscall setter: copies pair->m_0 to +0x28, pair->m_4 to +0x2c, float to +0x30.
 // Evidence: unlock lane, callee-free, caller 0x0029B187 passes pair ptr plus float

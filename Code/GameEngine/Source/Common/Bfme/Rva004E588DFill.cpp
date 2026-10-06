@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004E588DFill@@YAXPAHHPAPAU... @0x004E588D (45B)
 // Free __cdecl 5-arg range walk: stamps each node's +0x10 with the running
 // total, accumulates +0x0C, stamps +0x14, writes (total, stamp) to out[2].

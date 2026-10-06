@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD
 #include "Common/BfmeAudioEventPrefix136.h"
 // PC boundaries2DA461-2DA4DB and2DA4DB-2DA555, each122B.
 // Lua caller3356AE supplies Object+74; caller33382F supplies Drawable::getID.

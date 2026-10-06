@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /arch:SSE /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /MD
 #include "Common/BfmeAudioEventPrefix136.h"
 // PC worker2DA1CC-2DA318: native object/drawable constructors2DA461/2DA4DB
 // pass the hidden three-float return buffer and bool reference here. Tags1/2

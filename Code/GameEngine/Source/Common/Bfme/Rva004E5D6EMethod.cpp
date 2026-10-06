@@ -1,6 +1,6 @@
 // ?rva004E5D6E@Rva004E5D6E@@QAEXXZ
 // @0x004E5D6E 68B via STL clear: for_each delete + erase + zero + 0xff000000 store
-// cl: /O1 /MD /Oy- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /Oy- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <algorithm>
 #include <vector>

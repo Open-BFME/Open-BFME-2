@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva005E7256CopyBackward@@YAPAVRva005E7198@@PAV1@00PAXH@Z @0x005E7256 47B
 // copy_backward for Rva005E7198 4B entries via rowed assign 0x005E7198 with dummy tag args.
 // Same 47B shape as Rva002195B7CopyBackward (backwards --last/--dest loop with sar 2 count)

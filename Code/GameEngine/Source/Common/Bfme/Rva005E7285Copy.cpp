@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva005E7285Copy@@YAPAVRva005E7198@@PAV1@00PAXH@Z @0x005E7285 47B
 // forward copy for Rva005E7198 4B entries via rowed assign 0x005E7198 with dummy tag args.
 // Same 47B shape as Rva005EF4C0Copy (forward *dest=*first ++first ++dest loop with sar 2 count)

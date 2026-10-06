@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00564D38Copy@@YAPAVRva003AC980@@PAV1@00@Z, retail 0x00564D38, 47 bytes.
 // Range-copy loop over 0x20-byte Rva003AC980 elements: count is
 // (last-first), assigns each slot through the rowed operator= 0x00564B7A,

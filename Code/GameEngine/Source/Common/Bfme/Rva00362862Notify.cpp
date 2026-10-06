@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00362862@Rva00362862Item@@QAEXHH@Z retail 0x00362862 68 bytes:
 // vector element notify helper. Evidence: rowed caller 0x00239300 loops

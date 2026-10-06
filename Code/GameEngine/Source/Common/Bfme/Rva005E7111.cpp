@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva005E7111@Rva005E7111@@QAEXXZ, retail 0x005E7111, 25 bytes.
 // Guarded teardown: if byte at +0x20 is clear return; else virtual slot 9 on +0x0C with 1.
 // Evidence: callers at 0x005E7A3A 0x005E7CC5 0x005E7CE8; mirror of 0x005E70F8.

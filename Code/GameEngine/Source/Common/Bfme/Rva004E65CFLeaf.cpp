@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva004E65CF@Rva004E65CF@@QAEXXZ @0x004E65CF 191B
 // Leaf method on the 0x004E669A class (same this, +4/+8/+0xC/+0x1C): builds an

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oy- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /Oy- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // _STL::for_each<Rva004E5A78 **, Rva004E5CB0Deleter> @0x004E5D4D 33B, caller
 // 0x004E5D6E (three pushed args: first, last and the empty functor byte).

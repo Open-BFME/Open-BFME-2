@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // Hero power panel texts. Each builds a UnicodeString through an unrowed
 // formatter and hands it to the rowed bfmeSetText. Both formatters
 // (0x005B2376, 0x005B2446) return a UnicodeString by value through a hidden

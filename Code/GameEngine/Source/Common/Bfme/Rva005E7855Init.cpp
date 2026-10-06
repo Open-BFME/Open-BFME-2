@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005E7855@Rva005E7855@@QAEXXZ @0x005E7855 69B
 // Chain via just-landed 0x005E73B2: five no-arg virtual takes-0 calls on
 // member at +0x0C (slots 0x0C 0x14 0x1C 0x24 0x04) then if m_1C != 0 tail to

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/Audio
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common/Audio
 //
 // ?find@Rva006AD590Entry@@QAEPATRva006AD590Slot@@H@Z
 // retail 0x00059238, 33 bytes. Dedicated TU holding the donor preamble plus

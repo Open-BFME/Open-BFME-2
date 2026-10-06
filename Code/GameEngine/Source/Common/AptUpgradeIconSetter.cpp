@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005FD0FA@Rva005FD0FA@@QAEXHPBVImage@@@Z @0x005FD0FA 157B
 // Apt UpgradeIcon setter with index: same family as AptImageKeySetters.cpp.
 // Early-out when the indexed slot already holds the image, otherwise format

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004E63E2@Rva004E63E2@@QAEXXZ @ 0x004E63E2 26B chain: clears holder at +0 then guarded cleanup via 0x004E624D and operator delete. Callees rowed 0x004E624D and 0x0002FD60. Caller jmp at 0x004E668E.
 struct Rva004E624D
 {

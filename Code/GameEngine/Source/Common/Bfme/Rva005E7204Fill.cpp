@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva005E7204Fill@@YAPAPAXPAPAXI0PAX@Z, retail 0x005E7204, 37 bytes.
 // Null-guarded fill looping Rva005E71C6Assign at 0x005E71C6 with +0x28
 // refcount. Evidence: caller at 0x005E81F9 passes 4 words; body ignores

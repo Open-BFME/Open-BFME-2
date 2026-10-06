@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva005E73B2@Rva005E73B2@@QAEXXZ @0x005E73B2 42B
 // Unlock check: if m_1C is 0 return; call no-arg virtual int getter at
 // [[m_4]+0x14] via pinned twin 0x005CB265 and compare to m_1C; if equal tail

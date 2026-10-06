@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva00511C3AInvoke@@YAHPAVRva00222A8BTarget@@PAXPBDABHAB_N@Z @0x00511C3A 122B
 // Typed Apt invoke wrapper int+bool (same family as the 10 landed
 // AptInvokeWrappers.cpp rows on primary): an int via rowed Rva00222834Get and

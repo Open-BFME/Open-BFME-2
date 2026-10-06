@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0RadarMarkerClientUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C9BCD, 32 bytes.
 // RadarMarkerClientUpdate ctor over the rowed Rva00362EC7 base (0x362EC7):

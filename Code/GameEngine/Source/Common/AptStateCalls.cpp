@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // Apt panel state toggles: each calls the panel's Apt function through the
 // rowed Rva005FB5E6AptCall wrapper. The arguments are TheRva00222A8BTarget,
 // the panel's level and name fields, the function and "_show" or "_hide".

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00362693@Rva00362693@@QAE_NXZ retail 0x00362693 26 bytes. Triple check
 // returning true when +0x18 non-null and +4 non-zero and target+0x45 zero.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva005E70F8@Rva005E70F8@@QAEXXZ, retail 0x005E70F8, 25 bytes.
 // Guarded init: if byte at +0x20 is set return; else virtual slot 9 on +0x0C with 2.
 // Evidence: callers at 0x005E7A33 0x005E7CD4 0x005E87BA; sibling setters.

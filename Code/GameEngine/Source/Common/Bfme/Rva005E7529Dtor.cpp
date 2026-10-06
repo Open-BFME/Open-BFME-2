@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva005E7529@@QAE@XZ @0x005E7529 53B
 // Non-virtual dtor over AsciiString at +0x0C and rowed base ??1Rva0022167C at +0.
 // Retail lea ecx [esi+0x0C] call releaseBuffer 0x00036410 then mov ecx esi call

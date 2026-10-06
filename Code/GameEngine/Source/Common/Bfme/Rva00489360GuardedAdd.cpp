@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 18-byte guarded offset addition getter
 //
 // ?rva001DBDA4@Rva001DBDA4@@QBEHXZ @0x001DBDA4 34B: the largest get() (floor

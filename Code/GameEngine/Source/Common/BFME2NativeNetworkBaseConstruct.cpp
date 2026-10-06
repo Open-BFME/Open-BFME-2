@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // BFME2NativeNetwork::baseConstruct, retail 0x001B4E63, 17 bytes.
 // Dedicated TU so NetworkInterfaceConstructor.cpp stays untouched.
