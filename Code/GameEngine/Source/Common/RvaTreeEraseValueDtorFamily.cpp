@@ -256,3 +256,25 @@ Rva005026B6::~Rva005026B6()
 {
 	reinterpret_cast<Rva00501F2D *>(this)->rva0050247A();
 }
+// ??1Rva0050298D@@QAE@XZ, retail 0x0050298D 56B.
+// Map-base dtor over tree Rva00502787 (CLEAR 0x00502787), same 56B /GX shape
+// as Rva005026B6 above: CLEAR() on the +0 tree then null-guarded free
+// of the head via RvaTreeHeadHolder. Evidence: 56B __EH_prolog frame with
+// CLEAR callee 0x00502787 and free 0x00030830; callers at 0x00502D2A and
+// jmp stub at 0x00502CFE; neighbours share stlport map context.
+struct Rva00502787
+{
+	void rva00502787();
+};
+class Rva0050298D
+{
+public:
+	~Rva0050298D();
+private:
+	RvaTreeHeadHolder m_holder;	/* +0x00, layout-shared with the tree head */
+	int m_count;				/* +0x04, the slot CLEAR() tests */
+};
+Rva0050298D::~Rva0050298D()
+{
+	reinterpret_cast<Rva00502787 *>(this)->rva00502787();
+}
