@@ -18,3 +18,5 @@ reference/shims/sweep/stdAfx.h
 reference/shims/sweep/WorldBuilder.h
 reference/shims/sweep/wpaudio/Source.h
 reference/shims/sweep/D3DX8Math.h
+# tools/match_tiers.py output: regenerate it, never commit it (a fleet master makes it stale in minutes)
+reverse/match_tiers.csv
