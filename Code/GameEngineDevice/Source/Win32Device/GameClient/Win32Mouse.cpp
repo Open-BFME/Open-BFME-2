@@ -44,7 +44,9 @@ template<class T> class StringBase
 	void releaseBuffer();
 	friend class Win32Mouse;
 public:
-	~StringBase() { releaseBuffer(); }
+	// The existing narrow-dtor alias resolves to releaseBuffer at RVA 0x36410.
+	// Emitting a wrapper here overrides that alias for every linked consumer.
+	~StringBase();
 	bool isEmpty() const;
 	bool endsWithNoCase(const T *) const;
 	void removeLastChar();
