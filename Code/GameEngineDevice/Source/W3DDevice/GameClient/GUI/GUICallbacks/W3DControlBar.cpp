@@ -53,14 +53,25 @@
 // W3DCommandBarGenExpDraw @0x0009ED8D (827B): ZH body. Player skill points
 // are a Real at +0x14 (level up/down Ints at +0x28/+0x2C), so the progress
 // percentage is computed in float; isPlayerActive is the pinned 0x002AA231.
+//
+// W3DDrawMapPreview @0x0009DFDD (904B): ZH body, trimmed in BFME 2: no
+// default draw or skinny border without map data or after the preview, and
+// no tech/supply markers; a second enabled image (+0x54) is drawn under the
+// first. The Real-coordinate drawFillRect, drawLine and drawImage are the
+// out-of-line display wrappers 0x0004263F, 0x0004D664 and 0x0004D6B3,
+// called on TheDisplay. The by-value Region3D goes through its out-of-line
+// copy constructor 0x0009AC04, with the argument-temp shape of a class with
+// a destructor.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 typedef bool Bool;
 typedef Int Color;
+typedef unsigned char UnsignedByte;
 
 #include "ascii_string.h"
+#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
@@ -96,9 +107,21 @@ public:
 	Int winGetScreenPosition(Int *x, Int *y);
 	Int winGetSize(Int *width, Int *height);
 	Int winSetEnabledBorderColor(Int index, Color color);
+	void *winGetUserData(void);
+	Image *winGetEnabledImage(Int index) { return m_enabledDrawData[index].image; }
 	UnsignedInt winGetStatus(void);
 	Bool winIsHidden(void);
 	Int rva0009DC32(WinInstanceData *instData);
+
+private:
+	struct WinDrawData
+	{
+		Image *image;
+		Color color;
+		Color borderColor;
+	};
+	char m_pad00[0x48];
+	WinDrawData m_enabledDrawData[2];   // +0x48
 };
 
 class GameWindowManager
@@ -315,7 +338,42 @@ class W3DDisplay
 public:
 	void rva0004D664(Real startX, Real startY, Real endX, Real endY,
 		Real lineWidth, Color lineColor);   // ZH Display::drawLine
+	void rva0004D6B3(Image *image, Real startX, Real startY, Real endX, Real endY,
+		Color color = 0xFFFFFFFF, Int mode = 2);   // ZH Display::drawImage (DRAW_IMAGE_ALPHA)
 };
+
+class Rva0004263F
+{
+public:
+	void rva0004263F(Real startX, Real startY, Real width, Real height,
+		Color color);   // ZH Display::drawFillRect
+};
+
+struct Region3D
+{
+	Region3D() {}
+	Region3D(const Region3D &that);
+	~Region3D() {}
+	Real width(void) const { return hi.x - lo.x; }
+	Real height(void) const { return hi.y - lo.y; }
+	Coord3D lo;
+	Coord3D hi;
+};
+
+class MapMetaData
+{
+public:
+	char m_pad00[0x08];
+	Region3D m_extent;   // +0x08
+};
+
+inline Color GameMakeColor(UnsignedByte red, UnsignedByte green, UnsignedByte blue, UnsignedByte alpha)
+{
+	return (alpha << 24) | (red << 16) | (green << 8) | blue;
+}
+
+void findDrawPositions(Int startX, Int startY, Int width, Int height, Region3D extent,
+	ICoord2D *ul, ICoord2D *lr);
 
 extern InGameUI *TheInGameUI;
 extern Display *TheDisplay;
@@ -830,4 +888,52 @@ void W3DCommandBarGenExpDraw( GameWindow *window, WinInstanceData *instData )
 		TheWindowManager->winDrawImage(endBar, start.x, start.y, end.x, end.y);
 	}
 
+}
+
+void W3DDrawMapPreview(GameWindow *window, WinInstanceData *instData)
+{
+	MapMetaData *mmData = (MapMetaData *)window->winGetUserData();
+	Int pixelX, pixelY, width, height;
+	window->winGetScreenPosition(&pixelX, &pixelY);
+	window->winGetSize(&width, &height);
+	if (!mmData)
+		return;
+
+	//
+	// given a upper left corner at pixelX|Y and a width and height to draw into, figure out
+	// where we should start and end the image so that the final drawn image has the
+	// same ratio as the map and isn't stretched or distorted
+	//
+	ICoord2D ul, lr;
+	findDrawPositions(pixelX, pixelY, width, height, mmData->m_extent, &ul, &lr);
+
+	// draw black border areas where we need map
+	Color fillColor = GameMakeColor(0, 0, 0, 255);
+	Color lineColor = GameMakeColor(50, 50, 50, 255);
+
+	if (mmData->m_extent.width() / width >= mmData->m_extent.height() / height)
+	{
+		// draw horizontal bars at top and bottom
+		((Rva0004263F *)TheDisplay)->rva0004263F(pixelX, pixelY, width, ul.y - pixelY - 1, fillColor);
+		((Rva0004263F *)TheDisplay)->rva0004263F(pixelX, lr.y + 1, width, pixelY + height - lr.y - 1, fillColor);
+		((W3DDisplay *)TheDisplay)->rva0004D664(pixelX, ul.y, pixelX + width, ul.y, 1, lineColor);
+		((W3DDisplay *)TheDisplay)->rva0004D664(pixelX, lr.y + 1, pixelX + width, lr.y + 1, 1, lineColor);
+	}
+	else
+	{
+		// draw vertical bars to the left and right
+		((Rva0004263F *)TheDisplay)->rva0004263F(pixelX, pixelY, ul.x - pixelX - 1, height, fillColor);
+		((Rva0004263F *)TheDisplay)->rva0004263F(lr.x + 1, pixelY, width - (lr.x - pixelX) - 1, height, fillColor);
+		((W3DDisplay *)TheDisplay)->rva0004D664(ul.x, pixelY, ul.x, pixelY + height, 1, lineColor);
+		((W3DDisplay *)TheDisplay)->rva0004D664(lr.x + 1, pixelY, lr.x + 1, pixelY + height, 1, lineColor);
+	}
+
+	if (!BitTest(window->winGetStatus(), WIN_STATUS_IMAGE) || !window->winGetEnabledImage(0))
+		((Rva0004263F *)TheDisplay)->rva0004263F(ul.x, ul.y, lr.x - ul.x, lr.y - ul.y, lineColor);
+	else
+	{
+		if (window->winGetEnabledImage(1))
+			((W3DDisplay *)TheDisplay)->rva0004D6B3(window->winGetEnabledImage(1), ul.x, ul.y, lr.x, lr.y);
+		((W3DDisplay *)TheDisplay)->rva0004D6B3(window->winGetEnabledImage(0), ul.x, ul.y, lr.x, lr.y);
+	}
 }
