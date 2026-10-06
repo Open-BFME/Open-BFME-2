@@ -1002,7 +1002,7 @@ address_global	Code/GameEngine/Source/Common/Rva00433D27Enable.cpp	g_Va00E032E0	
 address_global	Code/GameEngine/Source/Common/Rva00433D3CClear.cpp	g_Va00E032E0	2
 address_global	Code/GameEngine/Source/Common/Rva00434160Init.cpp	g_Va00A01E48	2
 address_global	Code/GameEngine/Source/Common/Rva00434160Init.cpp	g_Va00E032E0	8
-address_global	Code/GameEngine/Source/Common/Rva00437E72Dtor.cpp	g_Va00E032FC	2
+address_global	Code/GameEngine/Source/Common/Rva00437E72Dtor.cpp	g_Va00E032FC	3	allow=efad1f3c9ad12e6a1992ef9ad4fd054ac1e97d38
 address_global	Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp	g_Va00E032FC	2
 address_global	Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp	g_Va009FE78C	3
 address_global	Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp	g_Va009FEDF0	3
@@ -29263,7 +29263,7 @@ pin	reverse/symbols.csv	0x004367AF	1
 pin	reverse/symbols.csv	0x0043684C	1
 pin	reverse/symbols.csv	0x00437050	1
 pin	reverse/symbols.csv	0x00437421	1
-pin	reverse/symbols.csv	0x00437755	1	allow=1ca26fda65a195c12a44b912d79b2004f3cea3dc
+pin	reverse/symbols.csv	0x00437755	1
 pin	reverse/symbols.csv	0x00437921	1
 pin	reverse/symbols.csv	0x00437E84	1
 pin	reverse/symbols.csv	0x00437E9C	1
@@ -30759,9 +30759,10 @@ pin	reverse/symbols.csv	0x0054AE4A	1
 pin	reverse/symbols.csv	0x0054AED7	1
 pin	reverse/symbols.csv	0x0054B456	2
 pin	reverse/symbols.csv	0x0054CBEF	1
+pin	reverse/symbols.csv	0x0054D286	1	allow=7b04c3b77f3448bc97884a4fea8e862c0488f9f6
 pin	reverse/symbols.csv	0x0054D2CF	2
-pin	reverse/symbols.csv	0x0054D2DD	1	allow=1ca26fda65a195c12a44b912d79b2004f3cea3dc
-pin	reverse/symbols.csv	0x0054D3D9	1	allow=1ca26fda65a195c12a44b912d79b2004f3cea3dc
+pin	reverse/symbols.csv	0x0054D2DD	1
+pin	reverse/symbols.csv	0x0054D3D9	1
 pin	reverse/symbols.csv	0x0054D593	1
 pin	reverse/symbols.csv	0x0054D800	1
 pin	reverse/symbols.csv	0x0054D8D8	1
