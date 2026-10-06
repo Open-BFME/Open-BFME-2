@@ -13059,3 +13059,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva00437050@@YIXPAVRva005F90F6Sub@@H@Z,0x00437050,fastcall sub method called from 0x005F90F6; identity unproven
 ?rva005FEC0C@Rva005FA854Inner@@QAEXXZ,0x005FEC0C,thiscall-0 method on m_00 called from 0x005FA854 with ecx already set; EH-prolog body; identity unproven
 ?rva005F9DCB@@YIXPAVRva005F9DCBObj@@HHHHHH@Z,0x005F9DCB,fastcall chained init called from 0x005FA0C9/0x005FA0F7 with fwd-passthrough edx; identity unproven
+?rva005FF0F6@@YIXPAVRva005FF0F6Obj@@HHHH@Z,0x005FF0F6,fastcall chained init called from 0x005FA89C with fwd-passthrough edx; identity unproven
