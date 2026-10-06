@@ -45,6 +45,10 @@
 // +0xBC4 (intervals) and +0xBC8 (yellow range); logN is the rowed
 // log-ratio helper 0x0009DE01; winDrawImage is TheWindowManager slot +0x108
 // and the clip calls are TheDisplay slots +0xA8 and +0xB0.
+//
+// W3DPowerDrawA @0x0009E71C (1649B): ZH body, the unused end-capped power
+// bar that follows W3DPowerDraw (its PowerBar*EndL/EndR/center images name
+// it), with the same BFME 2 player, Energy and settings deltas.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -515,3 +519,179 @@ void W3DPowerDraw(GameWindow *window, WinInstanceData *instData)
 	}
 	TheWindowManager->winDrawImage(slider, posXstart, pos.y + size.y - slider->getImageHeight(), posXend, pos.y + size.y);
 }
+
+void W3DPowerDrawA( GameWindow *window, WinInstanceData *instData )
+{
+	static const Image *endBarYellow = TheMappedImageCollection->findImageByName("PowerBarYellowEndR");
+	static const Image *beginBarYellow = TheMappedImageCollection->findImageByName("PowerBarYellowEndL");
+	static const Image *centerBarYellow = TheMappedImageCollection->findImageByName("PowerBarYellow");
+	static const Image *endBarRed = TheMappedImageCollection->findImageByName("PowerBarRedEndR");
+	static const Image *beginBarRed = TheMappedImageCollection->findImageByName("PowerBarRedEndL");
+	static const Image *centerBarRed = TheMappedImageCollection->findImageByName("PowerBarRed");
+	static const Image *endBarGreen = TheMappedImageCollection->findImageByName("PowerBarGreenEndR");
+	static const Image *beginBarGreen = TheMappedImageCollection->findImageByName("PowerBarGreenEndL");
+	static const Image *centerBarGreen = TheMappedImageCollection->findImageByName("PowerBarGreen");
+	const Image *endBar = 0;
+	const Image *beginBar = 0;
+	const Image *centerBar = 0;
+	static const Image *slider = TheMappedImageCollection->findImageByName("PowerBarSlider");
+	Player *player = (Player *)((BfmeThingRV *)ThePlayerList)->bfmePickRV();
+	
+
+
+	if(!player || !TheGlobalData)
+		return;
+	Energy *energy = player->getEnergy();
+	if( energy == 0 )
+		return;
+
+	Int consumption = energy->getConsumption();
+	Int production = energy->getProduction();	
+
+	ICoord2D pos, size;
+	window->winGetScreenPosition( &pos.x, &pos.y );
+	window->winGetSize( &size.x, &size.y );
+
+	static Real pixelsPerInterval = size.x / TheGlobalData->m_powerBarIntervals;
+	Int delta = TheGlobalData->m_powerBarYellowRange;
+	
+	if((consumption > energy->getProduction() - delta) && (consumption <= energy->getProduction()))
+	{
+		// 6 and 1 is Green, 6 and 2 is yellow, 6 and 6 is yellow
+		endBar = endBarYellow;
+		beginBar = beginBarYellow;
+		centerBar = centerBarYellow;
+	}
+	else if( consumption > production)
+	{
+		endBar = endBarRed;
+		beginBar = beginBarRed;
+		centerBar = centerBarRed;
+	}
+	else
+	{
+		endBar = endBarGreen;
+		beginBar = beginBarGreen;
+		centerBar = centerBarGreen;
+	}
+	//slider = TheMappedImageCollection->findImageByName("PowerBarSlider");
+	if( !slider || !endBar || !beginBar || !centerBar)
+		return;
+
+	Int range;
+	range = Rva0009DE01Get(production, TheGlobalData->m_powerBarBase) * (size.x / TheGlobalData->m_powerBarIntervals);
+	if(range >= size.x)
+		range = size.x;
+	if(range < endBar->getImageWidth() + beginBar->getImageWidth())
+		range = endBar->getImageWidth() + beginBar->getImageWidth();
+
+
+
+	// get image sizes for the ends
+	ICoord2D leftSize, rightSize, start, end;
+	leftSize.x = beginBar->getImageWidth();
+	leftSize.y = beginBar->getImageHeight();
+	rightSize.x = endBar->getImageWidth();
+	rightSize.y = endBar->getImageHeight();
+
+	// get two key points used in the end drawing
+	ICoord2D leftEnd, rightStart;
+	leftEnd.x = pos.x + leftSize.x;
+	leftEnd.y = pos.y + size.y;
+	rightStart.x = pos.x + range - rightSize.x;
+	rightStart.y = pos.y;
+
+	// draw the center repeating bar
+	Int centerWidth, pieces;
+
+	// get width we have to draw our repeating center in
+	centerWidth = rightStart.x - leftEnd.x;
+	
+	if( centerWidth <= 0)
+	{
+		// draw left end
+		start.x = pos.x;
+		start.y = pos.y;
+		end.y = leftEnd.y;
+		end.x = pos.x + range/2;
+		TheWindowManager->winDrawImage(beginBar, start.x, start.y, end.x, end.y);
+
+		// draw right end
+		start.y = rightStart.y;
+		start.x = end.x;
+		end.x = pos.x + range;
+		end.y = start.y + size.y;
+		TheWindowManager->winDrawImage(endBar, start.x, start.y, end.x, end.y);
+	}
+	else
+	{
+		
+		// how many whole repeating pieces will fit in that width
+		pieces = centerWidth / centerBar->getImageWidth();
+
+		// draw the pieces
+		start.x = leftEnd.x;
+		start.y = pos.y;
+		end.y = start.y + size.y; //centerImage->getImageHeight() + yOffset;
+		for( Int i = 0; i < pieces; i++ )
+		{
+
+			end.x = start.x + centerBar->getImageWidth();
+			TheWindowManager->winDrawImage( centerBar, 
+																			start.x, start.y,
+																			end.x, end.y );
+			start.x += centerBar->getImageWidth();
+
+		}  // end for i
+
+		// we will draw the image but clip the parts we don't want to show
+		IRegion2D reg;
+		reg.lo.x = start.x;
+		reg.lo.y = start.y;
+		reg.hi.x = rightStart.x;
+		reg.hi.y = end.y;
+		centerWidth = rightStart.x - start.x;
+		if( centerWidth > 0)
+		{
+			TheDisplay->setClipRegion(&reg);
+			end.x = start.x + centerBar->getImageWidth();
+			TheWindowManager->winDrawImage( centerBar,
+																			start.x, start.y,
+																			end.x, end.y );
+			TheDisplay->enableClipping(false);
+		}
+
+		// draw left end
+		start.x = pos.x;
+		start.y = pos.y;
+		end = leftEnd;
+		TheWindowManager->winDrawImage(beginBar, start.x, start.y, end.x, end.y);
+
+		// draw right end
+		start = rightStart;
+		end.x = start.x + rightSize.x;
+		end.y = start.y + size.y;
+		TheWindowManager->winDrawImage(endBar, start.x, start.y, end.x, end.y);
+	}
+	Int posXstart;
+	Int posXend;
+	Real consumptionForNeedle = (consumption == 1) ? 1.5f : INT_TO_REAL(consumption);//Log(1) == 0, but we need to show something for 1 power used.
+	range = Rva0009DE01Get(consumptionForNeedle, TheGlobalData->m_powerBarBase) * (size.x / TheGlobalData->m_powerBarIntervals);
+	if(range >= size.x)
+	{
+		posXstart = pos.x + size.x - slider->getImageWidth();
+		posXend = pos.x + size.x;
+	}
+	else
+	{
+		posXstart = pos.x + range - slider->getImageWidth()/2;
+		posXend = pos.x + range + slider->getImageWidth()/2;
+	}
+	if(posXstart <=pos.x)
+	{
+		posXstart	 = pos.x;
+		posXend	= pos.x + slider->getImageWidth();
+	}
+	TheWindowManager->winDrawImage(slider, posXstart, pos.y + size.y - slider->getImageHeight(), posXend, pos.y + size.y);
+}
+
