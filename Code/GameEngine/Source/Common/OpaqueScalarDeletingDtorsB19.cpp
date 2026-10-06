@@ -18,7 +18,7 @@ public:
 private: unsigned int unknown04;
 };
 class __declspec(novtable) Rva005248D0 {
-public: virtual ~Rva005248D0();
+public: Rva005248D0(); virtual ~Rva005248D0();
 private: unsigned char opaque[0x54];
 };
 template<class T> class StringBase {public: ~StringBase();private: void* data;};
