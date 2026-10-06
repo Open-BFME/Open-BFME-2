@@ -67292,3 +67292,5 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ??0Rva0008FF3E@@QAE@PAX@Z,,0x0008FF3E,24,Code/GameEngine/Source/Common/Rva0008FF3ECtor.cpp,matched,caller sequence and target vtable with rowed base constructor
 ??0AptQuitMenu@@QAE@PAX@Z,,0x0051BADF,1016,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptQuitMenuCallbacks.cpp,matched,BFME1 donor BfmeAptScreenQuitMenuConstructor.cpp shape; factory 0x002D2099 size 0x284; base _bfme_AptGameWindow ctor 0x0051268C; adders 0x0052458E/0x005245F3/0x0052465B; holder 0x0057BC63; externs loop table 0x00C66BF8
 ?rva000448CF@W3DDisplay@@QAEXMMMMMK@Z,,0x000448CF,89,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp,matched,Render2D line wrapper via Add_Line two-loads early-clear
+?rva001E7C2B@Rva001E7C2B@@QAEXHHMM@Z,,0x001E7C2B,33,Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp,matched,
+?rva001E9045@Rva001E9045@@QAEXHHMM@Z,,0x001E9045,33,Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp,matched,
