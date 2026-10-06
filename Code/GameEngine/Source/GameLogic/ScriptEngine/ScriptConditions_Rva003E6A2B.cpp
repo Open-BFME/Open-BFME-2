@@ -37,7 +37,7 @@ public:
 	Object *getUnitNamed(Parameter *parm);
 	int rva00357B82(Parameter *parm);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {
 protected:
@@ -45,12 +45,12 @@ protected:
 };
 bool ScriptConditions::rva003E6A2B(Parameter *pUnitParm, Parameter *pPlayerParm)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(pUnitParm);
+	Object *obj = TheScriptEngine->getUnitNamed(pUnitParm);
 	if (!obj)
 		return false;
 	if ((obj->m_1C8 & 8) != 0)
 		return false;
-	int mask = g_Va009FE16C->rva00357B82(pPlayerParm);
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
 	while (mask) {
 		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
 		if (!obj->rva002943B2(player)) {

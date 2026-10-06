@@ -32,11 +32,11 @@ public:
     Object *getUnitNamed(Parameter *p);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 unsigned char __stdcall Rva003E5D95Check(Parameter *param, Cond003E5D95 *cond)
 {
-    Object *obj = g_Va009FE16C->getUnitNamed(param);
+    Object *obj = TheScriptEngine->getUnitNamed(param);
     if (!obj)
         return 0;
     unsigned int flags = obj->m_inner->m_flags;

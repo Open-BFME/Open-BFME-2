@@ -20,9 +20,9 @@ class ScriptEngine
 public:
     bool rva00357A97(const AsciiString &s, bool b);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 bool __stdcall Rva003E41CBGet(Parameter *p)
 {
-    return g_Va009FE16C->rva00357A97(p->m_string, true);
+    return TheScriptEngine->rva00357A97(p->m_string, true);
 }

@@ -2,7 +2,6 @@
 // ?rva001DCDAF@Rva001DCDAF@@QAE_NPBUArg001DCDAF@@PBUVec001DCDAF@@1@Z @0x001DCDAF 143B
 // Unlock leaf: float max/update vs vector store. Evidence: caller 0x001DD468 (stride 0x30/0x34 arrays),
 // BfmeZeroRange at VA 0x00BBAEAC, unsigned fild+fadd 2^32 pattern via g_00BC26EC.
-extern const float BfmeZeroRange;
 
 struct Arg001DCDAF
 {
@@ -36,7 +35,7 @@ private:
 
 bool Rva001DCDAF::rva001DCDAF(Arg001DCDAF const *a, Vec001DCDAF const *b, Vec001DCDAF const *c)
 {
-    if (m_0 > BfmeZeroRange) {
+    if (m_0 > 0.0f) {
         float f = (float)a->u8;
         if (f > m_0)
             m_0 = f;

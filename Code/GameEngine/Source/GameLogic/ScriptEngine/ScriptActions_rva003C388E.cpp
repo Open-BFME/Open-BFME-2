@@ -22,7 +22,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString team, bool exact);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 struct Rva003C388EObject
 {
@@ -46,7 +46,7 @@ int __cdecl Rva0028870A(Object *obj, void *userData)
 
 void __stdcall Rva003C388EDo(Parameter *parm, bool flag)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(parm->m_string, false);
+	Team *team = TheScriptEngine->getTeamNamed(parm->m_string, false);
 	if (team == 0)
 		return;
 	team->rva0039DD12(Rva0028870A, (void *)flag);

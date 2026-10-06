@@ -27,7 +27,7 @@ public:
 	Object *getUnitNamed(Parameter *p);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 struct CondA003E514F
 {
@@ -43,7 +43,7 @@ struct CondB003E514F
 
 bool __stdcall Rva003E514FCheck(Parameter *param, CondA003E514F *a, CondB003E514F *b)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(param);
+	Object *obj = TheScriptEngine->getUnitNamed(param);
 	if (!obj)
 		return false;
 

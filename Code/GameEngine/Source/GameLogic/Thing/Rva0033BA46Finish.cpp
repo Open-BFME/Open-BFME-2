@@ -60,7 +60,7 @@ public:
     const Image *findImageByName(const AsciiString &name);
 };
 
-extern ImageCollection *g_00DFF078;
+extern class ImageCollection *TheMappedImageCollection;
 extern const char g_Rva0107301CEmptyString[];
 
 bool bfmeRva000387C0();
@@ -105,9 +105,9 @@ private:
 
 const Image *ThingTemplate::rva0033BA46()
 {
-    if (!m_portraitName.isEmpty() && g_00DFF078 != 0)
+    if (!m_portraitName.isEmpty() && TheMappedImageCollection != 0)
     {
-        m_portraitImage = g_00DFF078->findImageByName(m_portraitName);
+        m_portraitImage = TheMappedImageCollection->findImageByName(m_portraitName);
         if (bfmeRva000387C0())
         {
             _bfme_debugRecordCallsite(1);

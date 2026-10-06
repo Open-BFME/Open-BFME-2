@@ -61,14 +61,14 @@ struct ScriptCounter
 	int m_value;
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 
 void __stdcall Rva003C2EC9Do(const void *a1, const void *a2, const void *a3)
 {
 	const AsciiString &s1 = *(const AsciiString *)((const char *)a1 + 0x10);
 	const AsciiString &s3 = *(const AsciiString *)((const char *)a3 + 0x10);
-	int mask = g_Va009FE16C->rva00357475(s1, (bool *)0);
+	int mask = TheScriptEngine->rva00357475(s1, (bool *)0);
 	if (mask == 0)
 		return;
 	Player *player = ThePlayerList->getPlayerFromMask(mask);
@@ -85,6 +85,6 @@ void __stdcall Rva003C2EC9Do(const void *a1, const void *a2, const void *a3)
 	ji_006291ae(&mustBeClear, 0, sizeof(mustBeClear));
 	ji_006291ae(&mustBeClear, 0, sizeof(mustBeClear));
 	int v = counts->rva0039BF67(mustBeSet, mustBeClear);
-	ScriptCounter *c = g_Va009FE16C->bfmeCounter((AsciiString &)s3);
+	ScriptCounter *c = TheScriptEngine->bfmeCounter((AsciiString &)s3);
 	c->m_value = v;
 }

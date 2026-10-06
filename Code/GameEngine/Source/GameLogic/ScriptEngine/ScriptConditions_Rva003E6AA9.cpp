@@ -49,7 +49,7 @@ public:
 	Team *getTeamNamed(AsciiString name, bool exact);
 	int rva00357B82(Parameter *playerParm);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {
 protected:
@@ -57,10 +57,10 @@ protected:
 };
 bool ScriptConditions::rva003E6AA9(Parameter *pTeamParm, Parameter *pPlayerParm)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(pTeamParm->getString(), false);
+	Team *team = TheScriptEngine->getTeamNamed(pTeamParm->getString(), false);
 	if (!team)
 		return false;
-	int mask = g_Va009FE16C->rva00357B82(pPlayerParm);
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
 	DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList();
 	while (!iter.done()) {
 		Object *obj = iter.cur();

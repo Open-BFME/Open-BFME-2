@@ -42,7 +42,7 @@ struct ScriptCounter
 	int m_value;
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 extern const char g_Rva0107301CEmptyString[];
 
@@ -55,7 +55,7 @@ public:
 
 void __stdcall Rva003C2F9CDo(const AsciiString &playerName, const AsciiString &kindName, const AsciiString &counterName)
 {
-	int mask = g_Va009FE16C->rva00357475(playerName, (bool *)0);
+	int mask = TheScriptEngine->rva00357475(playerName, (bool *)0);
 	int total = 0;
 	const char *holder = *(const char *const *)&kindName;
 	const char *name = holder ? holder + 8 : g_Rva0107301CEmptyString;
@@ -66,6 +66,6 @@ void __stdcall Rva003C2F9CDo(const AsciiString &playerName, const AsciiString &k
 		if (player != 0)
 			total += player->rva002ABD1D(bit, 0x7ffffffe);
 	}
-	ScriptCounter *counter = g_Va009FE16C->bfmeCounter((AsciiString &)counterName);
+	ScriptCounter *counter = TheScriptEngine->bfmeCounter((AsciiString &)counterName);
 	counter->m_value = total;
 }

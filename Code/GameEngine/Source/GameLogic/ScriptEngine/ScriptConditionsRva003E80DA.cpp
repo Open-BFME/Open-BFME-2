@@ -29,7 +29,7 @@ class ScriptEngine : public Rva002046C0Owner
 public:
 	int rva00357B82(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Rva0039FE6COwner
 {
@@ -59,7 +59,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 extern float g_Va007C26F0;
 
 struct TeamEntry
@@ -82,11 +82,11 @@ public:
 bool __stdcall Rva003E80DAGet(Parameter *p0, Parameter *p1)
 {
 	AsciiString s1 = p1->m_string;
-	AsciiString s2 = g_Va009FE16C->resolveName(s1);
+	AsciiString s2 = TheScriptEngine->resolveName(s1);
 	TeamPrototype *proto = TheTeamFactory->findPrototype(s2, s1);
 	if (proto == 0)
 		return false;
-	int mask = g_Va009FE16C->rva00357B82(p0);
+	int mask = TheScriptEngine->rva00357B82(p0);
 	if (mask == 0)
 		return false;
 	Player *player = ThePlayerList->getPlayerFromMask(mask);
@@ -96,7 +96,7 @@ bool __stdcall Rva003E80DAGet(Parameter *p0, Parameter *p1)
 	int total = 0;
 	for (int i = 0; i < proto->m_1D8; ++i) {
 		TeamEntry &e = proto->m_entries[i];
-		void *found = g_009FF000->rva002D06CA(&e.m_10);
+		void *found = TheThingFactory->rva002D06CA(&e.m_10);
 		if (found != 0) {
 			int c = e.m_00 + e.m_04;
 			float f = (float)c * g_Va007C26F0;

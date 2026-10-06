@@ -110,10 +110,10 @@ public:
 	Object *getUnitNamed(Parameter *p);
 	int rva00357B82(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 bool __stdcall Rva003E3FFECheck(Parameter *pPlayerParm, Parameter *pUnitParm)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(pUnitParm);
+	Object *obj = TheScriptEngine->getUnitNamed(pUnitParm);
 	if (!obj) {
 		return false;
 	}
@@ -129,7 +129,7 @@ bool __stdcall Rva003E3FFECheck(Parameter *pPlayerParm, Parameter *pUnitParm)
 	if (!owner) {
 		return false;
 	}
-	int mask = g_Va009FE16C->rva00357B82(pPlayerParm);
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
 	while (mask) {
 		Player *p = ThePlayerList->getEachPlayerFromMask(mask);
 		if (owner == p) {

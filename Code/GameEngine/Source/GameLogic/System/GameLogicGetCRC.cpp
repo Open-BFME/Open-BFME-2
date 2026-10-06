@@ -168,7 +168,7 @@ extern PlayerList *ThePlayerList;
 extern CollisionManager *g_00DFE754;
 extern TaintManager *g_00DFE750;
 extern SkirmishAIManager *g_00DFEEF8;
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 extern Rva002BA8F1Logic *g_009FEF10;
 
 class GameLogic
@@ -209,7 +209,7 @@ unsigned int GameLogic::getCRC(int mode)
 	if (g_Rva00A02D87 != 0 || g_00E02D83 == 0)
 		xfer->xferSnapshot(ThePlayerList);
 	if (g_Rva00A02D87 != 0 || g_00E02D84 == 0)
-		xfer->xferSnapshot(g_Va009FF0F8);
+		xfer->xferSnapshot(TheAI);
 	if ((g_Rva00A02D87 != 0 || g_00E02D88 == 0) && ((Rva00210C66CmpBoolField *)this)->get())
 		xfer->xferSnapshot(g_009FEF10);
 	((Gen009D6DD0 *)&writer)->bfmeClose();

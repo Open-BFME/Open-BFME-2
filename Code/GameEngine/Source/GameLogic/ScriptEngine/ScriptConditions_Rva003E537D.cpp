@@ -97,11 +97,11 @@ public:
 	Object *getUnitNamed(Parameter *p);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 bool __stdcall Rva003E537DCheck(Parameter *param)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(param);
+	Object *obj = TheScriptEngine->getUnitNamed(param);
 	if (obj)
 	{
 		Mid003E537D *mid = obj->m_mid;

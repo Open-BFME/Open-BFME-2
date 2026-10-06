@@ -59,7 +59,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool exact);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class NameKeyGenerator
 {
@@ -70,7 +70,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 void __stdcall Rva003C30D9Do(const AsciiString &teamName, bool flag)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
 	static NameKeyType dualKey = TheNameKeyGenerator->nameToKey("DualWeaponBehavior");

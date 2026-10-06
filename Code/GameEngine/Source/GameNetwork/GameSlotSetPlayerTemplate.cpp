@@ -50,7 +50,7 @@ public:
 	unsigned char m_flag9D4;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 inline void GameSlot::setPlayerTemplate(Int playerTemplate)
 {
@@ -61,7 +61,7 @@ inline void GameSlot::setPlayerTemplate(Int playerTemplate)
 			if (it == map.end())
 				playerTemplate = map.begin()->first;
 		}
-		if ((TheGlobalData->m_flag9D4 & 3) != 0 && playerTemplate == -1)
+		if ((TheWritableGlobalData->m_flag9D4 & 3) != 0 && playerTemplate == -1)
 			playerTemplate = map.begin()->first;
 		m_playerTemplate = playerTemplate;
 		if (playerTemplate <= -2) {

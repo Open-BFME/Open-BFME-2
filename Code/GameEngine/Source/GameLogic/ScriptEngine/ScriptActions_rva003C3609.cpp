@@ -54,7 +54,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString, bool);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 // A script parameter: its string at +0x10, as in Zero Hour's Parameter.
 class Parameter
@@ -74,7 +74,7 @@ protected:
 
 void ScriptActions::rva003C3609(Parameter *pTeam)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(pTeam->getString(), false);
+	Team *team = TheScriptEngine->getTeamNamed(pTeam->getString(), false);
 	if (team == 0)
 		return;
 	int handle = TheGameLogic->rva0023D0B7();

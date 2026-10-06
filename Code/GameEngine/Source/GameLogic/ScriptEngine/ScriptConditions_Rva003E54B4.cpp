@@ -13,7 +13,7 @@ public:
 	int rva00357B82(Parameter *p);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Player
 {
@@ -35,7 +35,7 @@ bool __stdcall Rva003E54B4Check(Parameter *param)
 	if (!param)
 		return false;
 
-	int mask = g_Va009FE16C->rva00357B82(param);
+	int mask = TheScriptEngine->rva00357B82(param);
 	Player *player = ThePlayerList->getEachPlayerFromMask(mask);
 	if (!player)
 		return false;

@@ -40,7 +40,7 @@ public:
 // The global at that VA is GameClient.cpp's TheWritableGlobalData (Zero
 // Hour spells TheGlobalData as a macro over it); this name aliases it
 // rather than defining a second pointer the game never writes.
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 #pragma comment(linker, "/alternatename:?TheGlobalData@@3PAVGlobalData@@A=?TheWritableGlobalData@@3PAVGlobalData@@A")
 extern bool BFME2UseDebugWindowLite;
 
@@ -147,8 +147,8 @@ void ScriptEngine::init()
 	TheScriptActions = new ScriptActions;
 	TheScriptConditions = new ScriptConditions;
 
-	if (TheGlobalData->m_windowed) {
-		if (TheGlobalData->m_scriptDebug) {
+	if (TheWritableGlobalData->m_windowed) {
+		if (TheWritableGlobalData->m_scriptDebug) {
 			if (BFME2UseDebugWindowLite)
 				st_DebugDLL = LoadLibraryA("DebugWindowLite.dll");
 			else
@@ -157,7 +157,7 @@ void ScriptEngine::init()
 			st_DebugDLL = 0;
 		}
 
-		if (TheGlobalData->m_particleEdit) {
+		if (TheWritableGlobalData->m_particleEdit) {
 			try {
 				BfmeDualVtableReleaseDtor(0).swap(TheFXParticleEditor);
 			} catch (...) {

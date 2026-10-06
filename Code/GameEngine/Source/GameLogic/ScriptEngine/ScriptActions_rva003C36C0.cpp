@@ -27,11 +27,11 @@ public:
 	Object *lookupUnitByValue(AsciiString name);
 };
 class ScriptEngine;
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003C36C0Do(Parameter *parm, bool flag)
 {
-	Object *obj = ((Rva00358752Opaque *)g_Va009FE16C)->lookupUnitByValue((AsciiString &)parm->m_string);
+	Object *obj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue((AsciiString &)parm->m_string);
 	if (obj == 0)
 		return;
 	Drawable *draw = ((Thing *)obj)->getDrawable();

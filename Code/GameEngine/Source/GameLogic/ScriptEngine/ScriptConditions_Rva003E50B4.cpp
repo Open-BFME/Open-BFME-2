@@ -23,7 +23,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 struct Waypoint
 {
@@ -84,16 +84,16 @@ public:
 	char m_pad[0x10];
 	Pathfinder *m_10;
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 bool __stdcall Rva003E50B4Check(Parameter *a, Parameter *b)
 {
-	Object *o1 = g_Va009FE16C->getUnitNamed(a);
+	Object *o1 = TheScriptEngine->getUnitNamed(a);
 	if (!o1)
 		return false;
 	Waypoint *way = TheTerrainLogic->getWaypointByName((const void *)((const char *)b + 0x10));
 	if (!way)
 		return false;
-	Pathfinder *pf = g_Va009FF0F8->m_10;
+	Pathfinder *pf = TheAI->m_10;
 	return pf->rva002F477E(o1, &o1->m_38, &way->m_0c, 0);
 }

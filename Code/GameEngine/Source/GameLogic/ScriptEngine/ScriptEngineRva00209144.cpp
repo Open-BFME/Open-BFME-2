@@ -15,7 +15,6 @@
 extern "C" __declspec(dllimport) double __cdecl ceil(double);
 
 extern float g_parseDurationMsecScale;
-extern float g_00BBE358;
 
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 int GetGameClientRandomValue(int low, int high, char *file, int line);
@@ -101,7 +100,7 @@ void ScriptEngine::rva00209144(ScriptAction *action, int randomKind, bool copyFr
 			value = action->getParameter(1)->m_real;
 		}
 		float prod = g_parseDurationMsecScale * value;
-		prod *= g_00BBE358;
+		prod *= 1e+03f;
 		float tmp = (float)ceil(prod);
 		counter->m_value = fast_float2long_round(tmp);
 		counter->m_isMillisecondTimer = true;

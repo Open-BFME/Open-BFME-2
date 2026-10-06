@@ -39,7 +39,7 @@ public:
 	Object *lookupUnitByValue(AsciiString name);
 };
 class ScriptEngine;
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class Rva0031D5F8
 {
 public:
@@ -58,7 +58,7 @@ public:
 
 void __stdcall Rva003C31F3Do(const AsciiString &unitName, const AsciiString &buttonName, bool flag)
 {
-	Object *obj = ((Rva00358752Opaque *)g_Va009FE16C)->lookupUnitByValue((AsciiString &)unitName);
+	Object *obj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue((AsciiString &)unitName);
 	if (obj == 0)
 		return;
 	static NameKeyType autoKey = TheNameKeyGenerator->nameToKey("AutoAbilityBehavior");

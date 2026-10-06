@@ -43,7 +43,7 @@ struct Rva0020A227Element
 };
 
 extern const char g_Rva0107301CEmptyString[];
-extern class ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class ScriptEngine
 {
@@ -74,7 +74,7 @@ void ScriptEngine::rva0020A5FF(Object *pNewObject, const AsciiString &name)
 			if (cur == 0) {
 				AsciiString newNameForDead;
 				newNameForDead.format("Reassigning dead object's name '%s' to object (%d) of type '%s'\n", objName.str(), pNewObject->getID(), pNewObject->getTemplate()->m_name64.str());
-				g_Va009FE16C->AppendDebugMessage(newNameForDead, false);
+				TheScriptEngine->AppendDebugMessage(newNameForDead, false);
 				it->obj = pNewObject;
 				return;
 			}

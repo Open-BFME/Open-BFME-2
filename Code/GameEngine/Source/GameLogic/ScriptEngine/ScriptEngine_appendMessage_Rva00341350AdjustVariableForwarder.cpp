@@ -391,12 +391,12 @@ extern TeamFactory *TheTeamFactory;				// 0x012ED810
 
 // 0x012ED4D8 carries no ledger pin; the address-derived spelling already used
 // by game/GameEngine/Source/Common/T3CommandLineParsers.cpp is kept.
-extern Bool g_flag12ED4D8;					// 0x012ED4D8
+extern bool BFME2ScriptDebugLiteMode;					// 0x012ED4D8
 
 static void _appendMessage(const AsciiString &str, Bool isTrueMessage,
 	Bool shouldPause)
 {
-	if (g_flag12ED4D8)
+	if (BFME2ScriptDebugLiteMode)
 		return;
 	if (!TheScriptDebugWindowDLL)
 		return;
@@ -454,7 +454,7 @@ extern const Int g_009BA4E4;					// 0x00DBA4E4
 static void _adjustVariable(const AsciiString &str, Int value,
 	Bool shouldPause, Bool showSeconds)
 {
-	if (g_flag12ED4D8)
+	if (BFME2ScriptDebugLiteMode)
 		return;
 	if (TheScriptEngine->isTimeFast())
 		return;

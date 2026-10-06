@@ -44,7 +44,7 @@ public:
 	bool m_flag9C5;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 void rva000524D6();
 void rva000524E2();
@@ -79,7 +79,7 @@ void Rva0005C8BB::rva0005C8BB(float volume, int flags)
 void Rva0005C8BB::rva0005CAE2()
 {
 	MilesMutexGuard guard(&m_mutex9D4, 0);
-	if (TheGlobalData->m_flag9C5)
+	if (TheWritableGlobalData->m_flag9C5)
 	{
 		rva000524D6();
 		((Rva0005C892 *)this)->rva0005C892();
@@ -89,7 +89,7 @@ void Rva0005C8BB::rva0005CAE2()
 void Rva0005C8BB::rva0005CB39()
 {
 	MilesMutexGuard guard(&m_mutex9D4, 0);
-	if (TheGlobalData->m_flag9C5)
+	if (TheWritableGlobalData->m_flag9C5)
 	{
 		rva000524E2();
 		((Rva0005C892 *)this)->rva0005C892();
