@@ -15354,3 +15354,5 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva004D0E8B@ConnectionManager@@QAEXXZ,0x004D0E8B,REL32 target read at 0x0025E23D; target Ghidra boundary is 8B; body pushes zero and calls existing pinned 0x004D00BB then returns; ECX is Network+0x0C; ConnectionManager ownership follows target TU map and caller layout; helper operation remains unresolved.
 ?rva005C9BE3@Rva005C9BE3Call@@QAEHPAX@Z,0x005C9BE3,callee of ?rva00574910@Rva00574910@@QAEHPAX@Z
 ?rva005CBC95@Rva005CBC95Call@@QAEHPAX@Z,0x005CBC95,callee of ?rva00574910@Rva00574910@@QAEHPAX@Z
+?rva005CD8F7@Rva005CD8F7Call@@QAEHPAX@Z,0x005CD8F7,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
+?rva005CD690@Rva005CD690Call@@QAEHPAX@Z,0x005CD690,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
