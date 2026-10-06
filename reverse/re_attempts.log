@@ -14029,3 +14029,7 @@ FUN_0063e3ce	0x0023E3CE	602	blocked	EH-prolog large-frame MapCache body t=1 mode
 ?rva0044F4F7@Rva0044F4F7@@QAEHXZ	0x0044F4F7	316	blocked	316B float-x87-SSE pin-only needs donor t=8 model=muse-04
 ?rva0049D07A@Rva0049D07A@@QAEXXZ	0x0049D07A	154	blocked	154B 5 virtual slots need donor vtable t=5 model=muse-04
 ?rva0027C330@Rva0027C330@@QAEXXZ	0x0027C330	58	blocked	push8-pop-ebx vs mov plus ptr-count loop shape indicates O1 vs O2 t=8 model=muse-02
+?rva0046BACD@Rva0046BACD@@QAEXXZ	0x0046BACD	107	blocked	ref 3-tables Rva-neighbours but HordeContain-file-neighbours needs class-with-plus150-map-plus-minus20-Pair plus 3-vtable-slots full RE t=8 model=muse-12
+?rva005FAD49@Rva005FAD49@@QAEPAPAXPAPAX@Z	0x005FAD49	68	partial	factory new-0x18 vtable-EC4 copy-16B store-AddRef-return-out: frame ok but misses and-ebp-4 state plus pop-ecx and-heap-zero-vtable order plus movsd-x4 plus eax-ecx swap plus leave t=22 model=muse-12 score=0.8 stash=reverse/attempts/0x005fad49.cpp
+?Rva005FAABFClone@@YIPAPAXPAVRva005FAABF@@HPAPAXHH@Z	0x005FAABF	87	blocked	fastcall clone new-0x2c plus rowed Init-0x5FA89C fwd-edx-passthrough plus store-AddRef-return-out needs implicit-EH __EHprolog-plus-states: raw new gives no EH 63B; try gives inline-FS-catch 128B; holder gives inline-FS 111B; GX raw still no EH 63B; SEH-vs-newexpr untried t=30 model=muse-12
+?rva0046BA56@Rva0046BA56@@QAEXPAVObject@@H@Z	0x0046BA56	119	partial	ebx-edi swap this-vs-addr plus extra mov eax ebp-4 t=40 model=muse-12 score=0.92 stash=reverse/attempts/0x0046ba56.cpp
