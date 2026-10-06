@@ -28,6 +28,7 @@ class Rva004482FB
 public:
     ~Rva004482FB();
     void rva00448352(int index, struct Rva00447B0E v);
+    int rva004483BC(UnicodeString name);
 private:
     Rva00382FA7 m_base;
     struct Rva00447B0E m_items[8];
@@ -49,4 +50,37 @@ void Rva004482FB::rva00448352(int index, struct Rva00447B0E v)
         return;
     m_items[0].m_pad[8] = 1;
     ((GameSlot *)&m_items[0])->setMapAvailability(true);
+}
+
+// ?rva004483BC@Rva004482FB@@QAEHVUnicodeString@@@Z @0x004483BC (103B):
+// LANGameInfo-style getSlotNum by Unicode name: inGame gate at +0x10,
+// per-slot getConstLANSlot scan over 8x0x1D0 at +0xDC via rowed 0x447773,
+// isPlayer via rowed Rva004481A7 0x4481A7, by-value UnicodeString with
+// explicit copy-ctor temp (rowed 0x37050) and tail releaseBuffer (rowed
+// 0x36E70), ret 4. Evidence: chain from 0x4481A7; callers 0x24A1C1 0x582202;
+// layout matches Rva004482FB/LANGameInfoSlots precedent.
+class Rva00447773
+{
+public:
+    void *rva00447773(int index);
+};
+
+class Rva004481A7
+{
+public:
+    bool isPlayer(UnicodeString userName) const;
+};
+
+// ?rva004483BC@Rva004482FB@@QAEHVUnicodeString@@@Z
+int Rva004482FB::rva004483BC(UnicodeString name)
+{
+    if (!*(bool *)((char *)this + 0x10))
+        return -1;
+    for (int i = 0; i < 8; ++i)
+    {
+        void *slot = ((Rva00447773 *)this)->rva00447773(i);
+        if (((Rva004481A7 *)slot)->isPlayer(name))
+            return i;
+    }
+    return -1;
 }

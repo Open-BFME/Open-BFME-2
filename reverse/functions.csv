@@ -65008,3 +65008,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?isPlayer@Rva004481A7@@QBE_NVUnicodeString@@@Z,,0x004481A7,45,Code/GameEngine/Source/GameNetwork/GameSlotIsPlayer.cpp,matched,GameSlot layout SLOT_PLAYER 6 m_name 0x30 swapped compareNoCase retail order
 ?rva005E8892@Rva005E888A@@QAEXXZ,,0x005E8892,47,Code/GameEngine/Source/Common/Bfme/Rva005E8892Method.cpp,matched,gap body same class rowed callees caller 0x005E88DD
 ?rva005E88DD@Rva005E88DDNullTarget@@QAEXXZ,,0x005E88DD,7,Code/GameEngine/Source/Common/Bfme/Rva005E88DDForwarder.cpp,matched,chain forwarder to 0x005E8892 pinned callers
+?rva004483BC@Rva004482FB@@QAEHVUnicodeString@@@Z,,0x004483BC,103,Code/GameEngine/Source/Common/Rva004482FBDtor.cpp,matched,LANGameInfo getSlotNum by Unicode name inGame 0x10 8x0x1D0 chain 0x4481A7
