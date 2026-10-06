@@ -1,5 +1,5 @@
 // ?Collect_Materials@MaterialCollectorClass@@QAEXPAVMeshModelClass@@@Z
-// partial score=0.996769 date=2026-10-04
+// partial score=0.9965 date=2026-10-06
 // cl: /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/build/toolchains/dx81/include
 // Near-match of MaterialCollectorClass::Collect_Materials, 0x1703D0, 1238 bytes.
 // Donor: Open-BFME-1 1281192f68 game/.../WW3D2/matinfo.cpp; BFME2 owning
