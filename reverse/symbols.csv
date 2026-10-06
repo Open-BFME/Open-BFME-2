@@ -13162,3 +13162,5 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?UseSub@Rva005B692FMgr@@QAEXPAX@Z,0x0021A428,wrapper-call spelling for the 0x5B692F manager handoff (thiscall 1 arg callee cleanup); target REL32 from retail call at 0x005B694F
 ?Poke@Rva005B692FSub@@QAEXH@Z,0x005B034A,wrapper-call spelling for the 0x5B692F sub-object poke (thiscall 1 arg; true callee matched as dword setter 0x5B034A); target REL32 from retail call at 0x005B695B
 ??0Rva005BA1FDBase@@QAE@HH@Z,0x005A5BC7,wrapper-call spelling for the 0x5BA1FD base constructor (thiscall 2 args callee cleanup; entry ecx flows through with no setup); target REL32 from retail call at 0x005BA206
+?MB5CE@Rva005BC474Box@@QAEXXZ,0x005BB5CE,wrapper-call spelling for the 0x5BC474 first flag call (thiscall 0 args); target REL32 from retail call at 0x005BC47D
+?MBF15@Rva005BC474Box@@QAEXXZ,0x005BBF15,wrapper-call spelling for the 0x5BC474 second flag call (thiscall 0 args); target REL32 from retail call at 0x005BC48A
