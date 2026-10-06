@@ -26,3 +26,6 @@ bool BfmeCalcBWF::bfmeCalcBWF(BfmeRetBWF *one, float angle, BfmeRetBWF *two)
 // Six matched BFME2 references across five sources place this scalar at
 // VA 0x00BBAEAC, whose four initialized bytes are zero. BfmeZeroRange is
 // the existing project alias; this placement does not establish a retail owner.
+// BFME1 donor e07a7b29f, reviewed at d6db6bfa4f. This provider retains the
+// float memory loads that constant substitution widens in double-return bodies.
+extern const float BfmeZeroRange = 0.0f;
