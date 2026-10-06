@@ -38,7 +38,7 @@ Int Rva00271B3C::rva00271B3C(const Rva00271B3CArg *arg)
 
 // slots at VA 0x00BFD00C and 0x00BFD024: a function-local static id taken
 // from the running counter at VA 0x00DFEE18 on first use.
-extern Int g_rva0029B1EANextId;
+__declspec(selectany) Int g_00DFEE18 = 0;
 class Rva0029B1EA
 {
 public:
@@ -46,7 +46,7 @@ public:
 };
 Int Rva0029B1EA::rva0029B1EA()
 {
-	static Int s_id = g_rva0029B1EANextId++;
+	static Int s_id = g_00DFEE18++;
 	return s_id;
 }
 
@@ -54,7 +54,6 @@ Int Rva0029B1EA::rva0029B1EA()
 // slot at VA 0x00C04FE8: forwards (the argument string's text, the second
 // argument) to this object's vslot 17. The string keeps its text 8 bytes into
 // its buffer and falls back to the shared empty string at VA 0x00BBAC1C.
-extern const char g_rva002E5770Empty[];
 struct Rva002E5770Str
 {
 	struct Buffer
@@ -63,7 +62,7 @@ struct Rva002E5770Str
 		Int m_length;
 		char m_text[1];
 	};
-	const char *str() const { return m_data ? m_data->m_text : g_rva002E5770Empty; }
+	const char *str() const { return m_data ? m_data->m_text : ""; }
 	Buffer *m_data;
 };
 class Rva002E5770
