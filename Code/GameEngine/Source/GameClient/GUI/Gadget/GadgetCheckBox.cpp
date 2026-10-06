@@ -57,6 +57,8 @@
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/Keyboard.h"
 
+void PlaySound( const char *name );
+
 // DEFINES ////////////////////////////////////////////////////////////////////
 
 // PRIVATE TYPES //////////////////////////////////////////////////////////////
@@ -72,78 +74,202 @@
 ///////////////////////////////////////////////////////////////////////////////
 // PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-//-------------------------------------------------------------------------------------------------
-// Two BFME drifts the checkbox input callback needs. winNextTab and winPrevTab
-// are vtable slots 0x94 and 0x98 of GameWindowManager, and the tab direction
-// comes from a shift flag: retail reads bit 0x10 of the byte at +8 of the
-// keyboard singleton at 0x012F4C50. Only the offset and the bit are
-// recoverable from the call site, so the reader is named for them.
-//-------------------------------------------------------------------------------------------------
-class BfmeVirtualTabWindowManager
+// BFME's keyboard keeps its modifier flags at +0x0C; Zero Hour's Keyboard
+// class has a different layout, so the shift test reads them through a view.
+struct BfmeKeyboardModifiers
 {
-public:
-	virtual void slot000() = 0;
-	virtual void slot004() = 0;
-	virtual void slot008() = 0;
-	virtual void slot00C() = 0;
-	virtual void slot010() = 0;
-	virtual void slot014() = 0;
-	virtual void slot018() = 0;
-	virtual void slot01C() = 0;
-	virtual void slot020() = 0;
-	virtual void slot024() = 0;
-	virtual void slot028() = 0;
-	virtual void slot02C() = 0;
-	virtual void slot030() = 0;
-	virtual void slot034() = 0;
-	virtual void slot038() = 0;
-	virtual void slot03C() = 0;
-	virtual void slot040() = 0;
-	virtual void slot044() = 0;
-	virtual void slot048() = 0;
-	virtual void slot04C() = 0;
-	virtual void slot050() = 0;
-	virtual void slot054() = 0;
-	virtual void slot058() = 0;
-	virtual void slot05C() = 0;
-	virtual void slot060() = 0;
-	virtual void slot064() = 0;
-	virtual void slot068() = 0;
-	virtual void slot06C() = 0;
-	virtual void slot070() = 0;
-	virtual void slot074() = 0;
-	virtual void slot078() = 0;
-	virtual void slot07C() = 0;
-	virtual void slot080() = 0;
-	virtual void slot084() = 0;
-	virtual void slot088() = 0;
-	virtual void slot08C() = 0;
-	virtual void slot090() = 0;
-	virtual void winNextTab( GameWindow *window ) = 0;   // slot 0x94
-	virtual void winPrevTab( GameWindow *window ) = 0;   // slot 0x98
+	char m_pad[0x0C];
+	UnsignedInt m_modifiers;
 };
-
-class BfmeKeyboardModifiers
-{
-public:
-	char m_pad[8];
-	unsigned char m_flagsAt8;
-};
-
-extern BfmeKeyboardModifiers *TheBfmeKeyboardModifiers;
-
-static Bool bfmeShiftHeld( void )
-{
-	return BitTest( TheBfmeKeyboardModifiers->m_flagsAt8, 0x10 );
-}
-
 
 // GadgetCheckBoxInput ========================================================
 /** Handle input for check box */
 //=============================================================================
 WindowMsgHandledType GadgetCheckBoxInput( GameWindow *window, UnsignedInt msg,
-													WindowMsgData mData1, WindowMsgData mData2 );
-// GadgetCheckBoxInput pinned at 0x00327938 (438B); body removed: this file emitted a wrong COMDAT copy, retail has tooltip strings and tab slots 0xA8/0xAC.
+													WindowMsgData mData1, WindowMsgData mData2 )
+{
+	WinInstanceData *instData = window->winGetInstanceData();
+
+	switch( msg )
+	{
+
+		// ------------------------------------------------------------------------
+		case GWM_MOUSE_ENTERING:
+		{
+
+			if( BitTest( instData->getStyle(), GWS_MOUSE_TRACK ) )
+			{
+
+				BitSet( instData->m_state, WIN_STATE_HILITED );
+				TheWindowManager->winSendSystemMsg( window->winGetOwner(),
+																						GBM_MOUSE_ENTERING,
+																						(WindowMsgData)window,
+																						mData1 );
+				PlaySound( "Gui_ShellMapMouseOver" );
+
+			}  // end if
+
+			break;
+
+		}  // end mouse entering
+
+		// ------------------------------------------------------------------------
+		case GWM_MOUSE_LEAVING:
+		{
+
+			if( BitTest( instData->getStyle(), GWS_MOUSE_TRACK ) )
+			{
+
+				BitClear( instData->m_state, WIN_STATE_HILITED );
+				TheWindowManager->winSendSystemMsg( window->winGetOwner(),
+																						GBM_MOUSE_LEAVING,
+																						(WindowMsgData)window,
+																						mData1 );
+				PlaySound( "Gui_ShellMapMouseOut" );
+
+			}  // end if
+
+			break;
+
+		}  // end mouse leaving
+
+		// ------------------------------------------------------------------------
+		case GWM_LEFT_DRAG:
+		{
+
+			TheWindowManager->winSendSystemMsg( window->winGetOwner(), GGM_LEFT_DRAG,
+																					(WindowMsgData)window, mData1 );
+			break;
+
+		}  // end left drag
+
+		// ------------------------------------------------------------------------
+		case GWM_LEFT_DOWN:
+		{
+
+			break;
+
+		}  // end left down
+
+		// ------------------------------------------------------------------------
+		case GWM_LEFT_UP:
+		{
+
+			if( BitTest( instData->getState(), WIN_STATE_HILITED ) == FALSE )
+			{
+				// this up click was not meant for this button
+				return MSG_IGNORED;
+			}
+
+			// Toggle the check state
+			instData->m_state ^= WIN_STATE_SELECTED;
+			TheWindowManager->winSendSystemMsg( window->winGetOwner(), GBM_SELECTED,
+																					(WindowMsgData)window, mData1 );
+			PlaySound( "Gui_ShellMapSelect" );
+
+			break;
+
+		}  // end left up and left click
+
+		// ------------------------------------------------------------------------
+		case GWM_RIGHT_DOWN:
+		{
+
+			break;
+
+		}  // end right down
+
+		//-------------------------------------------------------------------------
+		case GWM_RIGHT_UP:
+		{
+
+			// Need to be specially marked to care about right mouse events
+			if( BitTest( instData->getState(), WIN_STATE_SELECTED ) )
+			{
+				TheWindowManager->winSendSystemMsg( instData->getOwner(), GBM_SELECTED_RIGHT,
+																						(WindowMsgData)window, mData1 );
+				BitClear( instData->m_state, WIN_STATE_SELECTED );
+			}
+			else
+			{
+				// this up click was not meant for this button
+				return MSG_IGNORED;
+			}
+
+			break;
+
+		}  // end right up or right click
+
+		// ------------------------------------------------------------------------
+		case GWM_CHAR:
+		{
+
+			switch( mData1 )
+			{
+
+				// --------------------------------------------------------------------
+				case KEY_ENTER:
+				case KEY_SPACE:
+				{
+
+					if( BitTest( mData2, KEY_STATE_DOWN ) )
+					{
+
+						// Toggle the check state
+						instData->m_state ^= WIN_STATE_SELECTED;
+						TheWindowManager->winSendSystemMsg( window->winGetOwner(),
+																								GBM_SELECTED,
+																								(WindowMsgData)window,
+																								0 );
+
+					}  //end if
+
+					break;
+
+				}  // end enter/space
+
+				// --------------------------------------------------------------------
+				case KEY_TAB:
+				{
+
+					if( BitTest( mData2, KEY_STATE_DOWN ) )
+					{
+						if( BitTest( ((BfmeKeyboardModifiers *)TheKeyboard)->m_modifiers, KEY_STATE_LSHIFT ) )
+							TheWindowManager->winPrevTab(window);
+						else
+							TheWindowManager->winNextTab(window);
+					}
+					break;
+
+				}  // end tab
+
+				// --------------------------------------------------------------------
+				default:
+				{
+
+					return MSG_IGNORED;
+
+				}  // end default
+
+			}  // end switch
+
+			break;
+
+		}  // end char msg
+
+		// ------------------------------------------------------------------------
+		default:
+		{
+
+			return MSG_IGNORED;
+
+		}  // end default
+
+	}  // end switch( msg )
+
+	return MSG_HANDLED;
+
+}  // end GadgetCheckBoxInput
 
 // GadgetCheckBoxSystem =======================================================
 /** Handle system messages for check box */
