@@ -6,7 +6,7 @@
 // 0x006DB160 and freeBlock 0x006DB270. The real owner name is not pinned by
 // target evidence, so this method keeps its address-derived identifier.
 #include <string.h>
-extern void *(__cdecl *g_00E17728)(unsigned int);
+extern void *(__cdecl *g_bfmeAptAllocAtE17728)(unsigned int);
 struct _DOGMA_MemPool {
     void *mpNextPool;
     unsigned int mnPoolSize;
@@ -38,8 +38,8 @@ Rva006DAEB0 *Rva006DAEB0::rva006DAEB0(unsigned int a1, int a2, int dummy, unsign
     m_cfg = (m_cfg & 0xcfffffff) | ((((flag1 & 1) << 1) | (flag0 & 1)) << 28);
     m_used = 0;
     m_count = 0;
-    m_table = g_00E17728(maxSize + 4);
-    m_firstPool = g_00E17728(a1);
+    m_table = g_bfmeAptAllocAtE17728(maxSize + 4);
+    m_firstPool = g_bfmeAptAllocAtE17728(a1);
     memset(m_table, 0, m_maxSize + 4);
     memset(m_firstPool, 0x0d, a1);
     m_b0 = (unsigned char)(off0 >> 2);
