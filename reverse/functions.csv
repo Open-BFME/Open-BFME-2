@@ -64854,3 +64854,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0020EB4E@Rva0020EB4EOuter@@QAEXPAX@Z,,0x0020EB4E,82,Code/Libraries/Source/WWVegas/WWLib/Rva0020EB4ESearch.cpp,matched,Gated vector search via bounds calling rowed 0x3F7954 then pinned 0x3F2150 on match
 ?rva0020EEC8@Rva0020EEC8Host@@QAEXHHHHHHH@Z,,0x0020EEC8,44,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEC8Lookup.cpp,matched,Index lookup via rowed 0xEAF6 then pinned 0x3F1AB9 6-arg forward
 ?rva0020F27E@Rva0020F27EHost@@QAE_NHH@Z,,0x0020F27E,36,Code/Libraries/Source/WWVegas/WWLib/Rva0020F27EPair.cpp,matched,Index via rowed EAF6 then pinned EA58 bool forward
+?rva0020F2A2@Rva0020F2A2Host@@QAE_NHPAX@Z,,0x0020F2A2,79,Code/Libraries/Source/WWVegas/WWLib/Rva0020F2A2Dispatch.cpp,matched,Bool dispatch via EAF6 plus rowed 0x20E493 copy then F27E; int copy avoids x87
