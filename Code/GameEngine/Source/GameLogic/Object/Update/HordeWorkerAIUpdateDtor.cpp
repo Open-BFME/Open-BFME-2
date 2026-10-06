@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1HordeWorkerAIUpdate@@UAE@XZ, retail 0x0049AC94 (49 bytes).
 // Behavior-side destructor (class of rowed ctor 0x49AD15, vtable 0x008508C8):

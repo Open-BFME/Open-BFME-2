@@ -1,7 +1,7 @@
 // Identity reconciliation: PC ModuleFactory registrations establish the data
 // owners used here. Constructors/parsers and their callers now use those names.
 // Prior address-derived names below describe the earlier state of recovery.
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 // ?friend_newModuleData@FXListDie@@SAPAVModuleData@@PAVINI@@@Z @0x00253AB4 81B
 // ?friend_newModuleData@DestroyDie@@SAPAVModuleData@@PAVINI@@@Z @0x00254E7D 81B
 // ?friend_newModuleData@SquishCollide@@SAPAVModuleData@@PAVINI@@@Z @0x00254AAB 81B

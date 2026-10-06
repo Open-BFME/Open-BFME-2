@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 // Identity: ModuleFactory registers this module as "TemporarilyDefectUpdate" (addModule pairs
 // the name with its factories); formerly misnamed PrisonDockUpdate.
 //

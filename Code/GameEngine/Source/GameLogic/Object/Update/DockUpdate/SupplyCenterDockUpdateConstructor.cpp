@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: SupplyCenterDockUpdate module ctor.
 // Out-of-line base MI, then four most-derived vtbls at +0/+0xC/+0x10/+0x20.

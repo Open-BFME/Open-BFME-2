@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ??0ProneUpdateModuleData@@QAE@XZ at retail 0x0049FEDF (16 bytes). The
 // module-data half of ProneUpdate: vtable immediate 0x00C4ED70 modelled as an

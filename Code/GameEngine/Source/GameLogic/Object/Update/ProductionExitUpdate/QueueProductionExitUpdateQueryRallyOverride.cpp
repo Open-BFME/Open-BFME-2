@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /G7 /arch:SSE
+// cl: /MD /EHsc /DNDEBUG
 // ?bfmeQueryRallyOverride@@YAPAVObject@@PAV1@PBUCoord3D@@@Z @0x004A0403 280B
 // Evidence: BFME1 donor game/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp; caller ?setRallyPoint@QueueProductionExitUpdate@@UAEXPBUCoord3D@@@Z at 0x004A051B; vtable slot 0x34 on +0x250 contain; ExitInterface slot06 at +0x18; BitSet bits 0x76/0x87.
 

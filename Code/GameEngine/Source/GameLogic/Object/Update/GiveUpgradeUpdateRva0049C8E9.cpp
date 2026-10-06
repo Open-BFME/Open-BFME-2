@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0049C8E9@GiveUpgradeUpdate@@QAEEXZ, retail 0x0049c8e9, 19 bytes. Banked partial (score 0.7894736842) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

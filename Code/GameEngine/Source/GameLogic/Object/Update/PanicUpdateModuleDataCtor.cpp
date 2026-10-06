@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // Identity: ModuleFactory registers this data class under "EvacuateDamage" (addModule
 // pairs the name with this factory); formerly misnamed PanicUpdateModuleData.
 //

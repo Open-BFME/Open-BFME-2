@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /GX /DNDEBUG /MD
 //
 // ??1OneRingPenaltyUpdateModuleData@@UAE@XZ, retail 0x00499A16, 73 bytes.
 // OneRingPenaltyUpdate ModuleData dtor over Snapshot base (0x00BBB554).

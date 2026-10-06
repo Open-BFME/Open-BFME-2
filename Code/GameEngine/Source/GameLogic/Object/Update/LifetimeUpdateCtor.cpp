@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??0LifetimeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x003A4B58 (165B).
 // LifetimeUpdate ctor: UpdateModule base then m_dieFrame/m_birthFrame zeroed

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??0MonsterDockUpdateModuleData@@QAE@XZ, retail 0x004A1517, 59 bytes (EH):
 // base call into the pinned DockUpdateModuleData 0x5896B0, single state-0

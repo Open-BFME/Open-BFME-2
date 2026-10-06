@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0OilSpillUpdateModuleData@@QAE@XZ, retail 0x0048C16C (37 bytes).
 // Frameless derived ctor over the Breadcrumb table 0x00C4C2A8

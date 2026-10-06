@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ?update@LargeGroupBonusUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail
 // 0x00490225, 589 bytes: slot 0 of the UpdateModuleInterface vtable

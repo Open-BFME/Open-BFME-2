@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?xfer@OneRingPenaltyUpdate@@MAEXPAVXfer@@@Z, retail 0x0049995A, 82 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00850260 installed by the rowed ctor

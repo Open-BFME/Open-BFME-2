@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0GloriousChargeUpdateModuleData@@QAE@XZ, retail 0x004AD4F2 (43 bytes).
 // Frameless Update-side ModuleData for the glorious charge: runs the pinned

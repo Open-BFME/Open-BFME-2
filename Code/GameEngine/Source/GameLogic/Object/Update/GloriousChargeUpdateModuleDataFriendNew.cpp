@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@GloriousChargeUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0024F61B, 84 bytes. Dedicated TU: the factory news 0xD4, runs

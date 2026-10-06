@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0FreelistPool@@QAE@HHHHHH@Z @0x001EB1CB 67B: FreelistPool ctor sets 0x80 plus alloc free defaults then init; calls 0x002AA35C.
 class FreelistPool
 {

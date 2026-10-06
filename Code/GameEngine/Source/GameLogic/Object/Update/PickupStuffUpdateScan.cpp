@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // PickupStuffUpdate::rva004920B5, retail 0x004920B5 (118 bytes), pinned by
 // address from its caller PickupStuffUpdate::update (0x0049212B), which runs

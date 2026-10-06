@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000253E8E@NotifyTargetsOfImminentProbableCrushingUpdate@@SA?AW4NameKeyType@@XZ @0x253E8E
 // (69B): cached pool-name key for NotifyTargetsOfImminentProbableCrushingUpdate.
 // The class identity comes from the pool-name string the body pushes

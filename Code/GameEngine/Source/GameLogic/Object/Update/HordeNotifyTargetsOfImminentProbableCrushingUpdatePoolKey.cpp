@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000253DB2@HordeNotifyTargetsOfImminentProbableCrushingUpdate@@SA?AW4NameKeyType@@XZ @0x253DB2
 // (69B): cached pool-name key for HordeNotifyTargetsOfImminentProbableCrushingUpdate. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@HijackerUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0025616B, 56 bytes. Dedicated TU: the factory news 0x10 with an

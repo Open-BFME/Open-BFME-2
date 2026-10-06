@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /arch:SSE /EHs-c-
+// cl: /MD /DNDEBUG /EHs-c-
 //
 // ??0ModelConditionUpgradeModuleData@@QAE@XZ, retail 0x004B6428, 89 bytes
 // (frameless, no EH at all): base call into the rowed Rva00253487Base

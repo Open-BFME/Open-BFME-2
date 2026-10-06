@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0PickupStuffUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00491E98, 50 bytes.
 // PickupStuffUpdate behavior ctor over the rowed UpdateModule base

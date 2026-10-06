@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@LargeGroupAudioUpdate@@MAEXPAVXfer@@@Z, retail 0x004AB9EA, 135 bytes.
 // Slot 3 of ??_7LargeGroupAudioUpdate 0x00C549BC (slot-2 name getter

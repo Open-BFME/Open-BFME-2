@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG
 //
 // ??1ModelConditionSpecialAbilityUpdateModuleData@@UAE@XZ, retail 0x00490E7B,
 // 56 bytes. Destroys the ObjectFilter at +0xD4 through the rowed pool member

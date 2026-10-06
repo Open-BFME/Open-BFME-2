@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004AB897@LargeGroupAudioUpdate@@SA?AW4NameKeyType@@XZ @0x004AB897
 // (69B): cached pool-name key for LargeGroupAudioUpdate. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ProneUpdate methods, retail 0x0049FF50..0x0049FFF6 in source order:
 // startProneEffects 0x0049FF50 (40 bytes), stopProneEffects 0x0049FF78 (40),

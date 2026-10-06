@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1MissileUpdate@@MAE@XZ @0x004A76DE 84B: restores five vtables then clear 0x4A7512 then pinned base 0x45BF6E; caller 0x4A789C deleting dtor; then 0x4A789C
 class Thing;
 class ModuleData;

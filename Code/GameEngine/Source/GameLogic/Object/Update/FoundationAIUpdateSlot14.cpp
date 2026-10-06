@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0004550DE@FoundationAIUpdate@@QAEXXZ @0x004550DE, 26 bytes.
 // Virtual slot 14 (offset 0x38) of vtable 0x00840608 (primary of

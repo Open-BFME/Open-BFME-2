@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004AB9A2@LargeGroupAudioUpdate@@QAEXXZ @0x004AB9A2 51B
 // When +0x8D set: unregister +0x24 via rowed-pin 0x0020D959 on global 0x00DFE1A8 then sleep forever via rowed UpdateModule::setWakeFrame and clear flag.
 // Evidence: linkbody LINK BONUS 48B; callers jmp at 0x004ABA74 0x004ABB46; callees pin 0x0020D959 row 0x0044DF71; layout +8 Object +0x24 host +0x8D flag from slots and Rva0028572A precedents.

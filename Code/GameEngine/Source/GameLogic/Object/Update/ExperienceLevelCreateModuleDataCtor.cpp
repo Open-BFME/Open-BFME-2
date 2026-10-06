@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ExperienceLevelCreateModuleData@@QAE@XZ, retail 0x004B9220, 17 bytes.
 // Trivial frameless ctor: or -1 into +8 first, then the vtable literal,

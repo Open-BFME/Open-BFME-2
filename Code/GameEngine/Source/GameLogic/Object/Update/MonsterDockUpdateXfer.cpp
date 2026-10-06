@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@MonsterDockUpdate@@MAEXPAVXfer@@@Z, retail 0x004A14C2, 85 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00851D74 (class of rowed ctor

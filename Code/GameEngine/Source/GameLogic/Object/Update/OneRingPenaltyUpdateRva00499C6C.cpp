@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 // ?rva00499C6C@OneRingPenaltyUpdate@@AAEXXZ @0x00499C6C 172B: private helper on the
 // primary this; stamps +0x28/+0x30 from TheGameLogic frame, runs the ring +0x31
 // gate with status 0x12 and emotion (5,0,1), plays the module-data +0x20 audio

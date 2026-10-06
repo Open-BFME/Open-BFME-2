@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?rva0048C771@FlammableUpdate@@QAEXXZ @0x0048C771 78B
 // Evidence: stack DamageInfo 0x7C via rowed ??0Rva00263895Member@@QAE@XZ; Object::attemptDamage pin 0x0029848E; neighbor ??1FlammableUpdate; ModuleData+0x14 int->float and this+0x48 int.
 class DamageInfo;

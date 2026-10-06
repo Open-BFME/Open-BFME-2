@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // Same-shape siblings of ?friend_newModuleData@W3DLaserDraw (0x00064962,
 // 81 bytes; see W3DLaserDrawModuleDataFriendNew.cpp). Each factory news its

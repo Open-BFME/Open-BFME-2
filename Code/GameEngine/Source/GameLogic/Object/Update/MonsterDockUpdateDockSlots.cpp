@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // MonsterDockUpdate overrides (vtables installed by the matched ctor
 // 0x004A139A: primary 0x00C51D74, DockUpdateInterface at +0x20 0x00C51D18).
 // Interface slot names follow the Zero Hour DockUpdateInterface order, which

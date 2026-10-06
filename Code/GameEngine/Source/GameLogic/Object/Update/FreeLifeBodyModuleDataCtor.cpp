@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0FreeLifeBodyModuleData@@QAE@XZ, retail 0x004C1B3B, 64 bytes. Frameless
 // ctor over the pinned RespawnUpdate base (0x4C14DF): vtable literal

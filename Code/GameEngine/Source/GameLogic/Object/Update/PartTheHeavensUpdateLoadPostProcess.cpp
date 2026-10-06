@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?loadPostProcess@PartTheHeavensUpdate@@MAEXXZ, retail 0x004ACBE8, 16 bytes.
 // Slot 1 of vftable 0x00C54DA4 (??_7PartTheHeavensUpdate, slot 0 is the rowed ??_G,

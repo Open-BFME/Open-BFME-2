@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0GloriousChargeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004AD680,
 // 116 bytes. Behavior-side ctor (poolkey rowed; ModuleData ctor rowed;

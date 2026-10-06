@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 // ?rva0048C7BF@FlammableUpdate@@QAEXXZ @0x0048C7BF 96B
 // Evidence: rowed ??0BfmeAudioEventPrefix136 ObjectID overload 0x002DA461 plus rowed ??1BfmeStringTailRecord144 0x002D9A43 plus TheAudio 0x009FE6E8 slot 0x64 addAudioEvent storing handle to +0x34; neighbours FlammableUpdate rva0048C771 and FlammableUpdate layout with m_34 audio handle.
 #include "Common/BfmeAudioEventPrefix136.h"

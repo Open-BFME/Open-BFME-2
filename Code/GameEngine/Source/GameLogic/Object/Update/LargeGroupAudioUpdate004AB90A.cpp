@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004AB90A@LargeGroupAudioUpdate@@QAEXXZ, retail 0x004AB90A, 152 bytes.
 // Target evidence: linkbody LINK BONUS 48B; callers jmp at 0x004ABA7C 0x004ABB40 in LargeGroupAudioUpdateSlots.cpp; callees rowed 0x0020D925 0x004AB7C8 0x0044DF71 0x002943B2; layout +4 moduledata +8 object +0x24 host +0x28 position pair +0x30/+0x7C state +0x8C bool +0x8D flag +0x90 GameLogic from slots and 004AB9A2 precedents.
 class Object;

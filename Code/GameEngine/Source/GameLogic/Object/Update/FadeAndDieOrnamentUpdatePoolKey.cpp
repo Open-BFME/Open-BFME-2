@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0003A4358@FadeAndDieOrnamentUpdate@@SA?AW4NameKeyType@@XZ @0x3a4358
 // (69B): cached pool-name key for FadeAndDieOrnamentUpdate. The class
 // identity comes from the pool-name string the body pushes

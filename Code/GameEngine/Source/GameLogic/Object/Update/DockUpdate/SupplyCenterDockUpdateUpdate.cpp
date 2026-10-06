@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail 0x004A1119 (87 bytes): ?update@SupplyCenterDockUpdate@@UAE?AW4UpdateSleepTime@@XZ.
 // Identity: slot 0 of the vtable 0x00C51B10 that the matched
 // SupplyCenterDockUpdate ctor 0x004A0DC7 installs at +0x10 (the

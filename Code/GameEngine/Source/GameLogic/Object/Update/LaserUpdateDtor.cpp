@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??1LaserUpdate@@UAE@XZ, retail 0x00362F64, 95 bytes. Dtor of the LaserUpdate
 // class whose ctor is rowed at 0x00362EEE (vtable 0x00C170E0, slot 0 deleting

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@HordeWorkerAIUpdate@@MAEXPAVXfer@@@Z, retail 0x0049AE07, 87 bytes.
 // Slot 3 of ??_7HordeWorkerAIUpdate 0x00C508C8 (slot-2 name getter returns

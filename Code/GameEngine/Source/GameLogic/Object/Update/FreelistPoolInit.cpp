@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002AA35C@FreelistPool@@QAE_NHHHP6APAXHH@ZHH@Z @0x002AA35C 63B: FreelistPool init via m_00/m_alloc/m_10/m_14 plus grow; caller 0x001EB1CB forwards 6 args; unblocks 0x001EB1CB.
 class FreelistPool
 {

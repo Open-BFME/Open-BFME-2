@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // SpawnPointProductionExitUpdate::revalidateOccupiers, retail 0x004A3F04,
 // 55 bytes. Dedicated TU so SpawnPointProductionExitUpdate.cpp cannot inline

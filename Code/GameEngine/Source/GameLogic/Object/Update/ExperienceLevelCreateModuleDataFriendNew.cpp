@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@ExperienceLevelCreateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00250BCA, 81 bytes. Dedicated TU: the factory news 0x10, runs the

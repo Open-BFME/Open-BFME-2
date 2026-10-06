@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004AB7C8@LargeGroupAudioUpdate@@QBEHXZ @0x004AB7C8 35B: returns GetGameLogicRandomValue(0 m_18 file 0xA7) plus m_14 plus 1. File literal at 0x008547B8 is LargeGroupAudioUpdate.cpp. Callers at 0x004AB94B 0x004ABB60 0x004ABB72 0x004ABC52. Prev Rva0024A797Grandchildren next V3PolyCopyCtors.
 
 typedef int Int;

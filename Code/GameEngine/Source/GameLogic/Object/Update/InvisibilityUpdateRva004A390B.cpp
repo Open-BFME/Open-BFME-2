@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva004A390B@InvisibilityUpdate@@MAEXXZ, retail 0x004A390B, 49 bytes.
 // InvisibilityUpdate vslot 5 (offset 0x14) of vtable 0x00852534: stealth-gated

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0HordeWorkerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0049AD15,
 // 134 bytes. Behavior-side ctor (rowed instance factory 0x24E560 news

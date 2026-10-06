@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?setLifetimeRange@LifetimeUpdate@@QAEXII@Z, retail 0x003A4AB3 (31 bytes).
 // LifetimeUpdate::setLifetimeRange (DeletionUpdate precedent at 0x00488450

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004AC942@PartTheHeavensUpdate@@SA?AW4NameKeyType@@XZ @0x4AC942
 // (69B): cached pool-name key for PartTheHeavensUpdate. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // stlport
 //
 // ??1FireWeaponUpdate@@UAE@XZ, retail 0x0048BD11, 156 bytes. Behavior-side

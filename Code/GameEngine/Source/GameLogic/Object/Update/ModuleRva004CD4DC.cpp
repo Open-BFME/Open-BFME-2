@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004CD4DC@Rva004CD4DC@@QAEXPAVObject@@@Z @0x004CD4DC (63B).
 // Update FX dispatcher via rowed Object::rva0029439D 0x29439D and

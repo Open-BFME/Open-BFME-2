@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?xfer@NotifyTargetsOfImminentProbableCrushingUpdate@@MAEXPAVXfer@@@Z retail 0x004CEE39 53B
 // Slot 3 of 0x007F186C (NotifyTargets) and 0x007F17F8 (Horde twin shared body).
 // Evidence: Version11 via Xfer slot 0x28 then rowed UpdateModule xfer 0x0044DF9F then rowed Rva004CE6E4 member at +0x20.

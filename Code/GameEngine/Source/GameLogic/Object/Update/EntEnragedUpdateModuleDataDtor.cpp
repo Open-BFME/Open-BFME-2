@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/moduledata
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/moduledata
 //
 // ??1EntEnragedUpdateModuleData@@UAE@XZ, retail 0x004B2722, 63 bytes.
 // Virtual dtor over vtable 0x00856980 (slot 0 deleting dtor at 0x004B2706).

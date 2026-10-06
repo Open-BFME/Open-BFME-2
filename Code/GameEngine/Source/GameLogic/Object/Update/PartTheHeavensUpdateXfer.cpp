@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@PartTheHeavensUpdate@@MAEXPAVXfer@@@Z, retail 0x004ACAAA, 48 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00854DA4 (PartTheHeavensUpdate, same

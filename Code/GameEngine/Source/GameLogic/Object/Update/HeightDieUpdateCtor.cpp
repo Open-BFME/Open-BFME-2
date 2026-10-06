@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0HeightDieUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0048FCB2, 77 bytes.
 // HeightDieUpdate behavior ctor over the rowed UpdateModule base (0x253390):

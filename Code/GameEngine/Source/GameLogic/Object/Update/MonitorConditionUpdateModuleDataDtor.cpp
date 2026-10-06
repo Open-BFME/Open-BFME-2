@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD /Ireference/shims/moduledata
 //
 // ??1MonitorConditionUpdateModuleData@@UAE@XZ retail 0x00491711 63B.
 // Dtor lane: ctor rowed at 0x004915FD in ModelConditionSpecialAbilityUpdateModuleDataCtor.cpp

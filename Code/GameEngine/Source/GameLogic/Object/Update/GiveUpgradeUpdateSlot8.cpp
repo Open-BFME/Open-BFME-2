@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GiveUpgradeUpdate slot 8 of its +0x20 interface table 0x00C511F0 (installed
 // by the ctors 0x0049C3D3 and 0x0049C410), retail 0x0049C553 (63 bytes), so

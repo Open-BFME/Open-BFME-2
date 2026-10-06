@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /DNDEBUG /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /Ireference/shims/moduledata
 // stlport
 //
 // ??1FloodUpdateModuleData@@UAE@XZ, retail 0x0048DFB1, 113 bytes. Virtual dtor for

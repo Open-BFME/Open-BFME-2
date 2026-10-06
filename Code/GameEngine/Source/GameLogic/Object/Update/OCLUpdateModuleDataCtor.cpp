@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ??0OCLUpdateModuleData@@QAE@XZ at retail 0x0049B355 (26 bytes). The
 // module-data half of OCLUpdate: vtable immediate 0x00C4ED70 modelled as an

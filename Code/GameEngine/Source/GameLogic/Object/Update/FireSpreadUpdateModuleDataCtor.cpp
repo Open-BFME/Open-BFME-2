@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0FireSpreadUpdateModuleData@@QAE@XZ, retail 0x0048B73C, 28 bytes.
 // Frameless store-only ctor over the OCLEmbers table 0xC4C000

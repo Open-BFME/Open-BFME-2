@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ?xfer@LaserUpdate@@MAEXPAVXfer@@@Z, retail 0x00362FF8, 238 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x008170E0 (class of ??0LaserUpdate rowed at

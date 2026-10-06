@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ?xfer@ProjectileStreamUpdate@@MAEXPAVXfer@@@Z @0x0033EF8E 137B: slot 3 xfer via base UpdateModule plus Version(1 2) plus 20 ObjectIDs plus 2 ints plus owning plus version-gated target plus Coord3D. Evidence: vtable 0x00810DA8 slot 3; ctor 0x0033EE25 layout +0x20 IDs +0x70 +0x74 +0x78 +0x7C +0x80; callees rowed base 0x0044DF9F plus XferObjectID 0x003060B2.
 #include <hash_map>

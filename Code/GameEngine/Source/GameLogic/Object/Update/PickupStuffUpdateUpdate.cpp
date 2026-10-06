@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // PickupStuffUpdate::update, retail 0x0049212B (78 bytes): slot 0 of the
 // class's +0x10 update-module interface table 0x00C4DD9C, so `this` is that

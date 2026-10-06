@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque module destructors tail-calling Rva0044EF5E::~Rva0044EF5E at
 // 0x00451F45 (pinned opaque intermediate base dtor; the derived module

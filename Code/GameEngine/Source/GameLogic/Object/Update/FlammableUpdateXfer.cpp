@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ?xfer@FlammableUpdate@@MAEXPAVXfer@@@Z, retail 0x0048C582, 205 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00C4C3D4 (class of rowed ctor

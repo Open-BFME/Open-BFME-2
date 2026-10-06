@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@OCLUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0024E5D3, 81 bytes. Dedicated TU: the rowed no-arg ctor TU

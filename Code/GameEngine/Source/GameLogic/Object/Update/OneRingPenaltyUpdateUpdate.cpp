@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?update@OneRingPenaltyUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail 0x00499E98,
 // 173 bytes: slot 0 of OneRingPenaltyUpdate's UpdateModuleInterface vftable

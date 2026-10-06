@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: LevelGrantSpecialPower module ctor.
 // Base MI: vptrs at +0/+0xC/+0x10/+0x20.

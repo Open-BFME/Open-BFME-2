@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // FoundationAIUpdate overrides. Two sit on vtables only its matched ctor 0x004551B3
 // and dtor ??1Rva00455050 install: the primary 0x00C40608 and the

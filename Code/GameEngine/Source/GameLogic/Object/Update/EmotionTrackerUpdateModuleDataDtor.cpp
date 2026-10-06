@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ??1EmotionTrackerUpdateModuleData@@UAE@XZ, retail 0x004B1285, 157 bytes.
 // EmotionTrackerUpdateModuleData destructor over the ctor TU layout

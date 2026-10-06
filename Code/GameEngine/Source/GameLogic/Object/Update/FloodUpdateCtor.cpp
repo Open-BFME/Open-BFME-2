@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // Identity: ModuleFactory registers this behavior class under "FloodUpdate"
 // (addModule pairs the name with the instance factory at 0x24D142, the sole
 // raw caller of this ctor); poolkey rowed at 0x48E0FA, ModuleData proc rowed

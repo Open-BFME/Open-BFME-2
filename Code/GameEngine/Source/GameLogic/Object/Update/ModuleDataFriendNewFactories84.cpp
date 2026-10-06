@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // Same-shape siblings of ?friend_newModuleData@FakePathfindPortalBehaviourModuleData
 // (0x0024B545, 84 bytes; see UpdateModuleDataFriendNew.cpp). The 84-byte form

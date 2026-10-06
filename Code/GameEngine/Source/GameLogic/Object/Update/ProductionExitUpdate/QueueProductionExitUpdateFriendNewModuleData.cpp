@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /DNDEBUG /MD
+// cl: /GX- /DNDEBUG /MD
 //
 // ?friend_newModuleData@QueueProductionExitUpdate@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0025424F, 49 bytes. Ported from the Open-BFME-1 donor

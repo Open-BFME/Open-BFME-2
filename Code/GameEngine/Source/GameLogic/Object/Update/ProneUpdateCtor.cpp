@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ProneUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0049FF06, 46 bytes.
 // ProneUpdate behavior ctor over the rowed UpdateModule base (0x253390):

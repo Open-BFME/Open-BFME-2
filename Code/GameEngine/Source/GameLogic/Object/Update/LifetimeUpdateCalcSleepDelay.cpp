@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /DWIN32 /D_WINDOWS
+// cl: /GX /DNDEBUG /MD /DWIN32 /D_WINDOWS
 //
 // ?calcSleepDelay@LifetimeUpdate@@AAEIII@Z, retail 0x003A49F0 (55 bytes). Dedicated
 // TU (DeletionUpdate_calcSleepDelay precedent): retail pins __LINE__ 118

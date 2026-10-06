@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1MonitorConditionUpdate@@UAE@XZ, retail 0x004916AC, 73 bytes.
 // MonitorConditionUpdate behavior dtor: compiler MI machinery restores the

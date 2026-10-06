@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0OneRingPenaltyUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x00499A70, 113 bytes. Behavior-side ctor (pinned by its Update factory

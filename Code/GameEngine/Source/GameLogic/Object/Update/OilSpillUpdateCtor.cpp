@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 // stlport
 //
 // ??0OilSpillUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0048C1F7,

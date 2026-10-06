@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0MissileUpdateModuleData@@QAE@XZ, retail 0x004A77B8, 149 bytes.
 // ModuleData ctor over table 0xC53470 (FuelLifetime through DetonateOnNoFuel

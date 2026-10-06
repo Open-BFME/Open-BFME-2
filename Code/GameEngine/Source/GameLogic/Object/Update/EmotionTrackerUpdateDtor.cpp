@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ??1EmotionTrackerUpdate@@UAE@XZ, retail 0x004B1322, 107 bytes.
 // EmotionTrackerUpdate destructor: reinstalls the four vptrs (+0 0x00C5667C,

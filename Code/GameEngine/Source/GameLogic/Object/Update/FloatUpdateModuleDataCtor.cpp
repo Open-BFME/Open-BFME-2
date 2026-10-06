@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0FloatUpdateModuleData@@QAE@XZ, retail 0x0048D7A6,
 // 12 bytes. Frameless store-only ctor over table 0xC4C7A4 (Enabled@8).

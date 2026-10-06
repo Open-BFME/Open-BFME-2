@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // stlport
 //
 // ??1DynamicShroudClearingRangeUpdate@@UAE@XZ retail 0x0048B1AF

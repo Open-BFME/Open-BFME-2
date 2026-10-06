@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00268902@PoolMember@@QAEXXZ, retail 0x00268902, 29 bytes.
 // Teardown of the free-list member that Rva0029FB3BMember::init (0x0029FB3B)

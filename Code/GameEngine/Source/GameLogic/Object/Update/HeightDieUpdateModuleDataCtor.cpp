@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0HeightDieUpdateModuleData@@QAE@XZ, retail 0x0048FC75, 44 bytes.
 // Frameless store-only ctor over the Height table 0xC4CFC8 (TargetHeight@8,

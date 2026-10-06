@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@GiveUpgradeUpdate@@MAEXPAVXfer@@@Z, retail 0x0049C41C, 85 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00851220 (class of ??0GiveUpgradeUpdate

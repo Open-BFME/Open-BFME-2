@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /Oy-
 //
 // ??1OilSpillUpdateModuleData@@UAE@XZ, retail 0x0048C191, 74 bytes.
 // Virtual dtor for the rowed ctor 0x0048C16C in OilSpillUpdateModuleDataCtor.cpp

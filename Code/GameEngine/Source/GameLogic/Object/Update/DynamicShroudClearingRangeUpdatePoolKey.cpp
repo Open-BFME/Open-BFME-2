@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00048B16A@DynamicShroudClearingRangeUpdate@@SA?AW4NameKeyType@@XZ @0x48B16A
 // (69B): cached pool-name key for DynamicShroudClearingRangeUpdate. The class
 // identity comes from the pool-name string the body pushes

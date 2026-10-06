@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@FreeLifeBodyModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x002516B1, 84 bytes. Dedicated TU: the factory news 0x88, runs

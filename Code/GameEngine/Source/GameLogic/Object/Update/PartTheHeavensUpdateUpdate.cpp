@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // PartTheHeavensUpdate::update, retail 0x004ACBB3 (53 bytes): slot 0 of the
 // class's +0x10 update-module interface table 0x00C54D98, so `this` is that

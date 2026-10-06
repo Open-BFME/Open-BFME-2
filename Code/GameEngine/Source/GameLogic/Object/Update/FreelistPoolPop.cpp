@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // FreelistPool::pop, retail 0x002393E2, 38 bytes: pop-with-grow-retry
 // over the behavior-ctor node pool (see Rva0029FB3BMemberInit.cpp, whose

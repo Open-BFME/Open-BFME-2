@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0HijackerUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004A4055, 74 bytes.
 // HijackerUpdate behavior ctor over the rowed UpdateModule base (0x253390):

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 //
 // ??0LargeGroupAudioUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004AB811,

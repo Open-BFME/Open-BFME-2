@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail 0x004A1610 (73 bytes): ?rva004A1610@MonsterDockUpdate@@UAEXPAVObject@@@Z.
 // Identity: slot 10 of the vtable 0x00C51D18 that the matched MonsterDockUpdate
 // ctor 0x004A139A installs at +0x20, the DockUpdateInterface base (slot 3 of

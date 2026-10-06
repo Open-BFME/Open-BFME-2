@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??1MonsterDockUpdateModuleData@@UAE@XZ, retail 0x004A156E, 48 bytes.
 // ModuleData dtor: tears down the filter at +0x10 through the folded 0x360D26

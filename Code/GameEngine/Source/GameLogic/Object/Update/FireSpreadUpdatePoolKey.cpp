@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00048B690@FireSpreadUpdate@@SA?AW4NameKeyType@@XZ @0x48B690
 // (69B): cached pool-name key for FireSpreadUpdate. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?rva004A7551@MissileUpdate@@QAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z @0x004A7551 47B: MissileUpdate gap forward to Bezier rva0045B936 with victim id to m74.
 // Target evidence: gap between Rva004A7530Set and rva004A7580 in MissileUpdateCtor TU plus copy [eax+0x74] to [ecx+0x74] plus call Bezier rva0045B936 0x0045B936; callees rowed.

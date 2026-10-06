@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE
+// cl: /DNDEBUG /MD /GX-
 //
 // ??1GloriousChargeUpdate@@UAE@XZ, retail 0x004AD58C, 60 bytes. Virtual dtor
 // shard: ctor TU keeps its verified shape untouched, so the class is

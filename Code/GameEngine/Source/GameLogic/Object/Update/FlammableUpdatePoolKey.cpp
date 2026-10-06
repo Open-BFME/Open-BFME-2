@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00048C6DF@FlammableUpdate@@SA?AW4NameKeyType@@XZ @0x48C6DF
 // (69B): cached pool-name key for FlammableUpdate. The class
 // identity comes from the pool-name string the body pushes

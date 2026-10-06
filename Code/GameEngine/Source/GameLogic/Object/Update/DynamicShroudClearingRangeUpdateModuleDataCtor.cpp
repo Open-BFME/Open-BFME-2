@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0DynamicShroudClearingRangeUpdateModuleData@@QAE@XZ, retail 0x0048B5C6,
 // 82 bytes. ModuleData-side ctor in the DynamicShroud file-unit: the

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??0FireWeaponUpdateModuleData@@QAE@XZ, retail 0x0048BC03, 67 bytes.
 // Target identity: ModuleFactory registers data factory 0x24CF56 for

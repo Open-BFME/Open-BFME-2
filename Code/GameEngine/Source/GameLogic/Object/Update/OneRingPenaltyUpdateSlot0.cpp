@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // OneRingPenaltyUpdate slot 0 of its +0x20 interface table 0x00C50250, retail
 // 0x00499D18 (11 bytes), so `this` is that subobject: runs the class's

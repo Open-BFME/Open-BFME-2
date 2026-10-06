@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@InvisibilityUpdate@@MAEXPAVXfer@@@Z, retail 0x004A3981, 61 bytes.
 // InvisibilityUpdate xfer (slot 3 offset 0x0C of vtable 0x00852534, same

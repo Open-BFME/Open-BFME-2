@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /arch:SSE
+// cl: /GX /DNDEBUG /MD
 //
 // ??1InheritUpgradeCreateModuleData@@UAE@XZ, retail 0x004B9569, 51 bytes.
 // ModuleData dtor: tears down ObjectFilter at +0x8C through the folded

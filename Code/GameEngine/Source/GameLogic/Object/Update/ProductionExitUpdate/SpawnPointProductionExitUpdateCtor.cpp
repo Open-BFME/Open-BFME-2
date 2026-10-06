@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0SpawnPointProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x004A3C1B, 179 bytes. Behavior-side ctor completing the

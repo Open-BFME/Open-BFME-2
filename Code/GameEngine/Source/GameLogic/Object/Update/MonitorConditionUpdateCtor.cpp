@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0MonitorConditionUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00491633, 46 bytes.
 // MonitorConditionUpdate behavior ctor over the rowed UpdateModule base

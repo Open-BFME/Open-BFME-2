@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva004A7767@MissileUpdate@@QAEXXZ @0x004A7767 48B
 // MissileUpdate frame gate to state 5: cur-frame minus 3 vs +0x8c, then
 // destroyObject([+0x08]) when [+0x40] nonzero, else rowed Rva004A7530Set(5).

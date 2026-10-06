@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1MonsterDockUpdate@@MAE@XZ, retail 0x004A13F4, 32 bytes. Protected
 // virtual destructor completing the MonsterDockUpdate file-unit (ctor rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ??0ProductionUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x0049E03A 258B
 // ProductionUpdate behavior ctor over rowed UpdateModule base 0x253390 with two

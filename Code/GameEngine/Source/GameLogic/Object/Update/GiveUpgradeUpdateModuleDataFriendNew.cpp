@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@GiveUpgradeUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0024E800, 84 bytes. Same recipe as

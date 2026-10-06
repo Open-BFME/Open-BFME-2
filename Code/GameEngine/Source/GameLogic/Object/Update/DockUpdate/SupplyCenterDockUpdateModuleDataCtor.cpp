@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // SupplyCenterDockUpdateModuleData constructor 40B @0x4A10D5.
 // BFME1 donor: Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/

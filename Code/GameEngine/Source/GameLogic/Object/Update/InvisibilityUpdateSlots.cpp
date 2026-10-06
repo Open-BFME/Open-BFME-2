@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // InvisibilityUpdate pieces around the interface its matched ctor 0x004A382D
 // installs at +0x20 (vtable 0x00C52518; primary 0x00C52534). Names are by

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?Rva0049FDF9Parse@@YAXPAVINI@@PAVProductionUpdateModuleData@@@Z @0x0049FDF9 113B: INI parse of ProductionUpdateModuleData +0x1C QuantityModifier list entry AsciiString-plus-int 8-byte element; first token via getNextToken 0x2DF97 and second via getNextTokenOrNull 0x2DEED defaulting quantity to 1 else scanInt 0x2ECCF then StringBase set 0x55F5 and vector push_back 0x49FDC2 with releaseBuffer 0x36410 cleanup.
 // The emitted unsigned max copy must match retail RVA 0x00013740.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 // ?rva004B0EBC@EmotionTrackerUpdate@@QAE_NXZ, retail 0x004B0EBC, 41 bytes.
 // Honest-address method of EmotionTrackerUpdate proven by vector offsets:
 // +0x90/+0x94 are m_emotions begin/end (EmotionTrackerUpdateDtor.cpp has

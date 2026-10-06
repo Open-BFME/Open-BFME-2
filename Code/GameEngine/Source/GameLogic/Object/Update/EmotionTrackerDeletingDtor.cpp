@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GEmotionTrackerUpdateModuleData@@UAEPAXI@Z @0x004B15AE, 28 bytes.
 // Scalar deleting destructor: calls the rowed 0x004B1285 destructor and
 // frees through operator delete. Same-shape sibling of ??_GVersion via

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@FoundationAIUpdate@@MAEXPAVXfer@@@Z @0x004550F8, 100 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00840608 (primary of

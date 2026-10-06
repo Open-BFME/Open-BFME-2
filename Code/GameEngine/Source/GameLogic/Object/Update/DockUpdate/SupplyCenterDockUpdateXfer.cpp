@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?xfer@SupplyCenterDockUpdate@@MAEXPAVXfer@@@Z, retail 0x004A0E2C, 27 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00851BDC (class of rowed ctor

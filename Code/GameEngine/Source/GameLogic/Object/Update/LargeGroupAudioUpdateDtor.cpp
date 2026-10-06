@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??1LargeGroupAudioUpdate@@UAE@XZ, retail 0x004AB8DC, 46 bytes.
 // Target evidence: the audited scalar deleting dtor 0x004ABB1B calls this

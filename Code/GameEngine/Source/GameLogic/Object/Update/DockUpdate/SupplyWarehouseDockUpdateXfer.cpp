@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?xfer@SupplyWarehouseDockUpdate@@MAEXPAVXfer@@@Z, retail 0x004A7D7B, 42 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00853790 (class of rowed dtor

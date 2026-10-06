@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ModelConditionSpecialAbilityUpdate's slot-22 override (vftable whose
 // slot-2 name getter returns "ModelConditionSpecialAbilityUpdate"; rowed

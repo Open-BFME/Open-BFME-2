@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // NotifyTargetsOfImminentProbableCrushingUpdate::update, retail 0x004CEE1A
 // (31 bytes): slot 0 of the class's +0x10 update-module interface table

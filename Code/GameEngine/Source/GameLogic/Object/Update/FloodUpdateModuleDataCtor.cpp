@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??0FloodUpdateModuleData@@QAE@XZ, retail 0x0048DF7A, 55 bytes. Framed
 // single-state EH ctor: folded vtable 0x00C4C8C0 plus one std::list

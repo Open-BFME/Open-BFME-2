@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0PartTheHeavensUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004AC998,
 // 70 bytes. PartTheHeavensUpdate behavior ctor over the rowed UpdateModule

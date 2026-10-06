@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /DNDEBUG /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /DNDEBUG /EHsc
 //
 // ??0HeroModeSpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x0049227B
 // (90 bytes). EH ModuleData ctor over the pinned SpecialAbilityUpdateModuleData intermediate

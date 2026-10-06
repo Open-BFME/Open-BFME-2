@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0003A4A27@LifetimeUpdate@@SA?AW4NameKeyType@@XZ @0x3a4a27
 // (69B): cached pool-name key for LifetimeUpdate. The class
 // identity comes from the pool-name string the body pushes

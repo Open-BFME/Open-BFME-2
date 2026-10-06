@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??1MissileUpdateModuleData@@UAE@XZ, retail 0x004A7869, 51 bytes.
 // MissileUpdateModuleData destructor: destroys the exhaust AsciiString at

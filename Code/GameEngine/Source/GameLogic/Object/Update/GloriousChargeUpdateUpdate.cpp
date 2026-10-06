@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // GloriousChargeUpdate methods (retail GloriousChargeUpdate.cpp order).
 // Retail 0x004AD613 (109 bytes): rva004AD613, the non-virtual helper that

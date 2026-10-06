@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@MissileUpdate@@MAEXPAVXfer@@@Z, retail 0x004A796A, 284 bytes.
 // Slot 3 of ??_7MissileUpdate 0x00C5362C (slot-2 name getter returns

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0LaserUpdateModuleData@@QAE@XZ, retail 0x00363147,
 // 31 bytes. Frameless store-only ctor over table 0xC17208

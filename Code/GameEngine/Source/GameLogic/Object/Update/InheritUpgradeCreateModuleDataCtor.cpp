@@ -1,4 +1,4 @@
-// cl: /O1 /GX /arch:SSE /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ??0InheritUpgradeCreateModuleData@@QAE@XZ, retail 0x004B9508, 69 bytes.
 // EH ctor: single state-0 store, vtable 0x00C59768 at +0, 0.0f at +8, member

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1InvisibilityUpdate@@MAE@XZ, retail 0x004A389F, 32 bytes. Behavior-side
 // destructor completing the InvisibilityUpdate file-unit (ctor rowed at

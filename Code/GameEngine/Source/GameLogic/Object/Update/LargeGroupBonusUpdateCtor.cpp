@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0LargeGroupBonusUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004900B1, 143 bytes. Behavior-side ctor (rowed instance factory

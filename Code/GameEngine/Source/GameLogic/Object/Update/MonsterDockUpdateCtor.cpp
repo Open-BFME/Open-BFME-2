@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0MonsterDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004A139A, 70 bytes.
 // MonsterDockUpdate behavior ctor over the rowed DockUpdate base (0x58A290,

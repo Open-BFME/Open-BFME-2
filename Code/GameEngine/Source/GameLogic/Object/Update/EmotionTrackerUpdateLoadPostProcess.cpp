@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?loadPostProcess@EmotionTrackerUpdate@@MAEXXZ, retail 0x004B0FB9, 50 bytes:
 // slot 1 of EmotionTrackerUpdate's primary vtable 0x00C5667C (ctors 0x004B1333,

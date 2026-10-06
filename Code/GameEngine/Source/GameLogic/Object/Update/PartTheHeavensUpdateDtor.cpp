@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1PartTheHeavensUpdate@@UAE@XZ, retail 0x004AC8EF, 77 bytes.
 // PartTheHeavensUpdate dtor: reinstalls the three MI vtable slots (+0

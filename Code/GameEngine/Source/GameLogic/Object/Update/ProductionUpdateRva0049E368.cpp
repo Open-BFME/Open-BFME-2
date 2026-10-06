@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // stlport
 // ?rva0049E368@ProductionUpdate@@QAEXXZ @0x0049E368 77B
 // ProductionUpdate queue clear: per-element ThingTemplate lookup via rowed

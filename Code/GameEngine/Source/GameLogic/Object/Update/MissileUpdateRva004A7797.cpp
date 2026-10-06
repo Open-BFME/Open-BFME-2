@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva004A7797@MissileUpdate@@QAEXXZ @0x004A7797 33B
 // MissileUpdate frame-threshold to state 2: cur-frame minus +0x8c vs Thing+0xc8,
 // else rowed Rva004A7530Set(2). Evidence: unlock packet (all callees rowed),

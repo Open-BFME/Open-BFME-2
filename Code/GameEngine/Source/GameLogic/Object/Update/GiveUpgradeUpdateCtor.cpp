@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0GiveUpgradeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0049C3AC, 74 bytes.
 // GiveUpgradeUpdate behavior ctor over the pinned Rva0044EF5E intermediate

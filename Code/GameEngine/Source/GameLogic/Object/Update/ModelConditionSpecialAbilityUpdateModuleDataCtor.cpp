@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // Identity: ModuleFactory registers this data class under "MonitorConditionUpdate" (addModule
 // pairs the name with this factory); formerly misnamed ModelConditionSpecialAbilityUpdateModuleData.
 // stlport

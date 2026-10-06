@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0MissileUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004A75B9,
 // 200 bytes. Behavior-side ctor completing the MissileUpdate file-unit

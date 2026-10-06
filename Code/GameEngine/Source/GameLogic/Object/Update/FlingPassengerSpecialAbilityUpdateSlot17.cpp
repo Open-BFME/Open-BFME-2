@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0045108D@FlingPassengerSpecialAbilityUpdate@@UAEXXZ, retail 0x00494FCC, 162 bytes.
 // Slot 17 of the vftable whose slot-2 name getter returns

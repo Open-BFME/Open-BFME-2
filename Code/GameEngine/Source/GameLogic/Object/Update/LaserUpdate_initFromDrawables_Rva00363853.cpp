@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Update
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Update
 //
 // LaserUpdate helper — retail 0x00604460 (80B).
 // If both drawable args are live, store their IDs at +0x4C/+0x50 and forward

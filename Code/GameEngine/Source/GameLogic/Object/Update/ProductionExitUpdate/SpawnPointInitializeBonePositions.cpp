@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /arch:SSE /G6 /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /DNDEBUG /MD /GX-
 
 enum { MAX_SPAWN_POINTS = 10 };
 

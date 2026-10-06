@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00036B89B@GiantBirdAIUpdate@@SA?AW4NameKeyType@@XZ @0x36b89b
 // (69B): cached pool-name key for GiantBirdAIUpdate. The class
 // identity comes from the pool-name string the body pushes

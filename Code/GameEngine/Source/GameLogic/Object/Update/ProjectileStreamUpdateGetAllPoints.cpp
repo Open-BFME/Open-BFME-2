@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /GX /Op /DNDEBUG /MD /arch:SSE
+// cl: /GX /Op /DNDEBUG /MD
 // ?getAllPoints@ProjectileStreamUpdate@@QAEXPAVVector3@@PAH@Z retail
 // 0x0033F090 143B, between considerDying (0x0033F06B) and update
 // (0x0033F11F) in the unit's retail range.

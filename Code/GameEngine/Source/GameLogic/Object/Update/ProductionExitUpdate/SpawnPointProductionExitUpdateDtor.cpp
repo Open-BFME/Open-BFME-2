@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??1SpawnPointProductionExitUpdate@@MAE@XZ, retail 0x004A3B35, 90 bytes.
 // Destructor for SpawnPointProductionExitUpdate (ctor rowed at 0x004A3C1B in

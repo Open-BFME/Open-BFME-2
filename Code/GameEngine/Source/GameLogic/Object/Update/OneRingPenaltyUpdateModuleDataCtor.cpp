@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ??0OneRingPenaltyUpdateModuleData@@QAE@XZ at retail 0x004999F1 (37 bytes).
 // The module-data half of OneRingPenaltyUpdate: vtable immediate 0x00C50298

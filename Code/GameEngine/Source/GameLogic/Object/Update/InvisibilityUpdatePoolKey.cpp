@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004A393C@InvisibilityUpdate@@SA?AW4NameKeyType@@XZ @0x4A393C
 // (69B): cached pool-name key for InvisibilityUpdate. The class
 // identity comes from the pool-name string the body pushes

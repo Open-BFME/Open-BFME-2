@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Identity: ModuleFactory registers this data class under "RadarMarkerClientUpdate" (addModule
 // pairs the name with this factory); formerly misnamed MarkerTypeUpdateModuleData.
 //

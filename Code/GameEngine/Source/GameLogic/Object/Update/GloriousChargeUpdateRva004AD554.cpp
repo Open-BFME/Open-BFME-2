@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail 0x004AD554 (56 bytes): ?rva004AD554@GloriousChargeUpdate@@UAEXXZ.
 // Identity: slot 15 of the primary vtable 0x00C55118 that the matched
 // GloriousChargeUpdate dtor 0x004AD58C installs (slot 0 is the matched

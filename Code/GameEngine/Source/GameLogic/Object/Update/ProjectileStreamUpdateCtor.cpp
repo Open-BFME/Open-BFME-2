@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Oi /arch:SSE
+// cl: /DNDEBUG /MD /Oi
 //
 // ??0ProjectileStreamUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x0033EE25, 86 bytes. Behavior-side ctor completing the

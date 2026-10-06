@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0FadeAndDieOrnamentUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x003A439D, 79 bytes. Frameless behavior-side ctor over the rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Thin LargeGroupAudioUpdate overrides in the vtables its matched ctor
 // 0x004AB811 installs: primary 0x00C549BC, +0x20 0x00C548E8 and +0x24

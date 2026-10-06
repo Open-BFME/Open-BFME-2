@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0DozerAIUpdateModuleData@@QAE@XZ, retail 0x00488A81, 36 bytes.
 // ModuleData ctor over the pinned TransportAIUpdateModuleData base

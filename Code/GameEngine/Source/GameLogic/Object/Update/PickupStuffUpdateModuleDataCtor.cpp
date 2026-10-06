@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /GX /arch:SSE /DNDEBUG /MD
+// cl: /Oy- /GX /DNDEBUG /MD
 //
 // ??0PickupStuffUpdateModuleData@@QAE@XZ, retail 0x00491E37, 80 bytes.
 // ModuleData ctor over table 0xC4EC68 (ScanRate@8 plus ScanRange@C plus
