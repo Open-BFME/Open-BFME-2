@@ -1,4 +1,6 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /ICode /Ireference/shims/bfmealloc
+// stlport
+#include "Libraries/Source/WWVegas/WWLib/Object872.h"
 //
 // Three Object methods (retail Object.cpp range; this is the Object: its +0x10C
 // model-condition words and the pinned notifier 0x0028AE6D). Names by address.
@@ -68,7 +70,44 @@ public:
 private:
 	unsigned int m_words[20];
 };
-class Rva00346BC0;
+// Existing StatusBitsUpgrade callers establish the four-word mask view.
+class Rva00346BC0
+{
+public:
+ unsigned int m_words[4];
+};
+namespace _STL {
+template<unsigned N> struct _Base_bitset;
+template<> struct _Base_bitset<4> {
+ void _M_do_or(const _Base_bitset<4> &other);
+ unsigned long m_words[4];
+};
+}
+class Rva0028C570 {
+public:
+ void rva0028C570(const Rva0028C570 &other);
+private:
+ unsigned long m_words[4];
+};
+bool __cdecl Rva002634E0Equal(const void *, const void *);
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+class Rva004DF7DB {
+public:
+ void rva004DF7DB(UpdateSleepTime frame);
+};
+class GameLogic {
+public:
+ unsigned int getFrame() const { return m_frame40; }
+private:
+ unsigned char m_pad00[0x40];
+ unsigned int m_frame40;
+};
+extern GameLogic *TheGameLogic;
+extern int g_Va00DBA4E4;
+__forceinline bool rva0028CDEBStatusBit(const void *mask, unsigned int bit)
+{
+ return (static_cast<const unsigned int *>(mask)[bit >> 5] >> (bit & 31)) & 1;
+}
 class Object;
 struct Rva00293DACNode
 {
@@ -104,6 +143,7 @@ class Object
 {
 public:
 	void rva0028AE6D();
+	void makeDirty();
 	void rva0028CDEB(const Rva00346BC0 &mask, bool set);
 	void rva00293D3B(const Rva00346BC0 &mask, bool set);
 	Object *rva002931F5(bool flag);
@@ -144,9 +184,13 @@ public:
 private:
 	unsigned char m_pad000[0x84];
 	Rva002716Holder *m_84; // +0x84
-	unsigned char m_pad088[0x10C - 0x88];
+	unsigned char m_pad088[0x94 - 0x88];
+	Rva00346BC0 m_statusMask94;
+	unsigned char m_pad0A4[0x10C - 0xA4];
 	Rva0010CBits m_conditionBits; // +0x10C
-	unsigned char m_pad15C[0x455 - 0x15C];
+	unsigned char m_pad15C[0x228 - 0x15C];
+	Rva004DF7DB *m_update228;
+	unsigned char m_pad22C[0x455 - 0x22C];
 	bool m_statusPropagationGuard455; // Native 0x293D3B tests this byte; meaning unproven.
 };
 void Object::rva00290758(int a, int b)
@@ -368,4 +412,27 @@ void Object::rva00293D3B(const Rva00346BC0 &mask, bool set)
 	}
 	else
 		rva0028CDEB(mask, set);
+}
+
+// Native 0x28CDEB144B RET8. Copy/equality/OR/clear callees independently
+// rowed; neutral16B copy provider reused without claiming BitFlags identity.
+void Object::rva0028CDEB(const Rva00346BC0 &mask, bool set)
+{
+ BfmeObject872Header old(*reinterpret_cast<const BfmeObject872Header *>(&m_statusMask94));
+ if (set)
+  reinterpret_cast<_STL::_Base_bitset<4> *>(&m_statusMask94)->_M_do_or(
+   *reinterpret_cast<const _STL::_Base_bitset<4> *>(&mask));
+ else
+  reinterpret_cast<Rva0028C570 *>(&m_statusMask94)->rva0028C570(
+   *reinterpret_cast<const Rva0028C570 *>(&mask));
+ if (Rva002634E0Equal(&m_statusMask94, &old))
+  return;
+ if (set && rva0028CDEBStatusBit(&mask, 8))
+ {
+  Rva004DF7DB *module = m_update228;
+  if (module)
+   module->rva004DF7DB((UpdateSleepTime)(TheGameLogic->getFrame() + g_Va00DBA4E4 * 2));
+ }
+ if (rva0028CDEBStatusBit(&old, 2) != rva0028CDEBStatusBit(&m_statusMask94, 2))
+  makeDirty();
 }
