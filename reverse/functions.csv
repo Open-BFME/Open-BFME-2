@@ -65117,3 +65117,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ??4Rva001E3955@@QAEAAV0@ABV0@@Z,,0x001E3955,927,Code/GameEngine/Source/Common/Rva001E3955Assign.cpp,matched,copy assign base StreakDrawModuleTemplate plus AsciiString set and bulk copies
 ?rva006DAFE0@Rva006DB160@@QAEPAXI@Z,,0x006DAFE0,172,Code/Libraries/Source/Apt/DogmaPoolAllocBlock.cpp,matched,DogmaAllocator.cpp asserts plus caller allocBlock same-this
 ??1Rva00270025@@UAE@XZ,,0x0027233E,11,Code/GameEngine/Source/Common/Rva00270025Ctor.cpp,matched,stores vtable 0x007FAD34 tail-jmps cleanup 0x00270041
+?rva001E46E1@Rva001E46E1@@QAEMPAVObject@@@Z,,0x001E46E1,356,Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp,matched,LINK BONUS 2 files 533B via Object 254-258 TerrainLogic slot19
