@@ -15281,3 +15281,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva004D3F74@DisconnectManager@@QAEXPAVNetCommandMsg@@PAVConnectionManager@@@Z,0x004D3F74,callee of ?rva004D46AF@DisconnectManager@@QAEXPAXPAVConnectionManager@@@Z
 ?rva004D3FCB@DisconnectManager@@QAEXPAVNetCommandMsg@@PAVConnectionManager@@@Z,0x004D3FCB,callee of ?rva004D46AF@DisconnectManager@@QAEXPAXPAVConnectionManager@@@Z
 ?rva00283033@Rva00283033@@QAEXPAX0@Z,0x00283033,Direct callee of 0x002833A3 and 0x002833C5; Ghidra FUN_00683033 boundary 78B; thiscall void with two pointer args from callsite ABI; address-derived identity only
+?SetEnabled@Impl@AptScrollBar@@QAEX_N@Z,0x005D4949,callee of ?SetEnabled@Rva005D49CD@@QAEX_N@Z
