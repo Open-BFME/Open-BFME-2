@@ -40,10 +40,13 @@ class Rva0029AA3F
 public:
 	void rva0029AA3F();
 	void rva0029A9FF(const Coord3D *src);
+	void rva0029AAC8(const Coord3D *src);
 private:
-	unsigned char m_pad[0x9B4];
+	unsigned char m_pad[0x99C];
+	Coord3D m_unknown;
+	unsigned char m_pad2[0xC];
 	bool m_has;
-	unsigned char m_pad2[0x3];
+	unsigned char m_pad3[0x3];
 	Coord3D m_pos;
 };
 
@@ -61,4 +64,10 @@ void Rva0029AA3F::rva0029A9FF(const Coord3D *src)
 	} else {
 		m_has = false;
 	}
+}
+
+void Rva0029AA3F::rva0029AAC8(const Coord3D *src)
+{
+	if (src != 0)
+		m_unknown = *src;
 }
