@@ -5,6 +5,8 @@
 // at +0x68 (WB member m_livingWorldWindow); start regions come from that
 // window's +0x29C -> +0x1C set, asked through 0x004FD8A8 (unnamed).
 
+#include "../../../../../../Libraries/Include/Lib/Coord2D.h"
+
 typedef int Int;
 typedef bool Bool;
 
@@ -61,6 +63,19 @@ extern Rva00E02D6C *TheCampaignManager;
 
 class GameWindow;
 
+
+class Image;
+class Display;
+extern Display *TheDisplay;
+
+class W3DDisplay
+{
+public:
+	void rva0004D6B3(Image *image, float x0, float y0, float x1, float y1, int color, int mode);
+};
+
+extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void *address, unsigned int size);
+
 class AptMapPreview
 {
 public:
@@ -68,12 +83,15 @@ public:
 	void SelectCampaign(Int campaign);
 	void UpdateStrategicScenarioDesc();	// 0x0057C99E
 	Int rva0057C621();
+	void rva0057C5B9(const Coord2D *pos, const Coord2D *size, void *unused3, void *unused4);
 
 private:
 	unsigned char m_pad00[0x4];
 	unsigned char m_field04[0x50 - 0x4];	// +0x04, handed to the campaign owner
 	GameWindow *m_strategicScenarioComboBox;	// +0x50
-	unsigned char m_pad54[0x68 - 0x54];
+	unsigned char m_pad54[0x5c - 0x54];
+	Image *m_picture;	// +0x5C
+	unsigned char m_pad60[0x68 - 0x60];
 	AptLivingWorldWindow *m_livingWorldWindow;	// +0x68
 };
 
@@ -118,4 +136,19 @@ Int AptMapPreview::rva0057C621()
 	if (m_strategicScenarioComboBox != 0 && m_livingWorldWindow != 0 && m_livingWorldWindow->m_info != 0)
 		return TheCampaignManager->rva003B8BC8(m_livingWorldWindow->m_info);
 	return -1;
+}
+
+// AptMapPreview::rva0057C5B9, retail 0x0057C5B9: the "AptMapPreview::Picture"
+// custom render (bound by 0x0057E4C2): draws the +0x5C picture over the
+// given rectangle, dropping a picture that is no longer readable.
+void AptMapPreview::rva0057C5B9(const Coord2D *pos, const Coord2D *size, void *unused3, void *unused4)
+{
+	if (m_picture == 0)
+		return;
+	if (IsBadReadPtr(m_picture, 0x34))
+	{
+		m_picture = 0;
+		return;
+	}
+	((W3DDisplay *)TheDisplay)->rva0004D6B3(m_picture, pos->x, pos->y, pos->x + size->x, pos->y + size->y, -1, 2);
 }
