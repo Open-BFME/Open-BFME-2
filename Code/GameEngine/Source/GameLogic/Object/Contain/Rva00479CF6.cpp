@@ -1,0 +1,69 @@
+// cl: /MD
+// Target evidence: Ghidra boundary 0x00479CF6, 50 bytes. It tests the result
+// of the matched 0x00462785 at this-0x28. On true it passes that subobject to
+// 0x00588E44 through this+0x9B8; on false it calls vtable slot 32 on this-8
+// with value 2. The 0x00588E44 pin records only its direct-call ABI/address;
+// its 285-byte body and identity remain unresolved.
+class Rva00462785 {
+public:
+	int rva00462785();
+};
+
+class Rva00588E44 {
+public:
+	void rva00588E44(void *argument);
+};
+
+#define RVA00479CF6_VIRTUAL_SLOT(n) virtual void slot##n() = 0
+class Rva00479CF6Dispatch {
+public:
+	RVA00479CF6_VIRTUAL_SLOT(00);
+	RVA00479CF6_VIRTUAL_SLOT(01);
+	RVA00479CF6_VIRTUAL_SLOT(02);
+	RVA00479CF6_VIRTUAL_SLOT(03);
+	RVA00479CF6_VIRTUAL_SLOT(04);
+	RVA00479CF6_VIRTUAL_SLOT(05);
+	RVA00479CF6_VIRTUAL_SLOT(06);
+	RVA00479CF6_VIRTUAL_SLOT(07);
+	RVA00479CF6_VIRTUAL_SLOT(08);
+	RVA00479CF6_VIRTUAL_SLOT(09);
+	RVA00479CF6_VIRTUAL_SLOT(10);
+	RVA00479CF6_VIRTUAL_SLOT(11);
+	RVA00479CF6_VIRTUAL_SLOT(12);
+	RVA00479CF6_VIRTUAL_SLOT(13);
+	RVA00479CF6_VIRTUAL_SLOT(14);
+	RVA00479CF6_VIRTUAL_SLOT(15);
+	RVA00479CF6_VIRTUAL_SLOT(16);
+	RVA00479CF6_VIRTUAL_SLOT(17);
+	RVA00479CF6_VIRTUAL_SLOT(18);
+	RVA00479CF6_VIRTUAL_SLOT(19);
+	RVA00479CF6_VIRTUAL_SLOT(20);
+	RVA00479CF6_VIRTUAL_SLOT(21);
+	RVA00479CF6_VIRTUAL_SLOT(22);
+	RVA00479CF6_VIRTUAL_SLOT(23);
+	RVA00479CF6_VIRTUAL_SLOT(24);
+	RVA00479CF6_VIRTUAL_SLOT(25);
+	RVA00479CF6_VIRTUAL_SLOT(26);
+	RVA00479CF6_VIRTUAL_SLOT(27);
+	RVA00479CF6_VIRTUAL_SLOT(28);
+	RVA00479CF6_VIRTUAL_SLOT(29);
+	RVA00479CF6_VIRTUAL_SLOT(30);
+	RVA00479CF6_VIRTUAL_SLOT(31);
+	virtual void slot32(int value) = 0;
+};
+#undef RVA00479CF6_VIRTUAL_SLOT
+
+class Rva00479CF6 {
+public:
+	void rva00479CF6(int unused);
+};
+
+void Rva00479CF6::rva00479CF6(int unused)
+{
+	Rva00462785 *predicate = (Rva00462785 *)((char *)this - 0x28);
+	if ((unsigned char)predicate->rva00462785() != 0) {
+		((Rva00588E44 *)((char *)this + 0x9B8))->rva00588E44(predicate);
+	} else {
+		((Rva00479CF6Dispatch *)((char *)this - 8))->slot32(2);
+	}
+}
