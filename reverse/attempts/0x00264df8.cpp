@@ -1,7 +1,9 @@
 // ?privateGuardAreaFromPosition@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4GuardMode@@W4CommandSourceType@@PBUCoord3D@@@Z
+// partial score=0.9507 date=2026-10-06
+// ?privateGuardAreaFromPosition@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4GuardMode@@W4CommandSourceType@@PBUCoord3D@@@Z
 // partial score=0.96 date=2026-10-05
 // ?privateGuardAreaFromPosition@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4GuardMode@@W4CommandSourceType@@PBUCoord3D@@@Z
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /Ireference/open-bfme-1/game/GameEngine/Source/GameLogic
 //
 // AIUpdateInterface's private command handlers: the bodies BFME2's
 // AICommandInterface::aiDoCommand (0x002673F6) reaches through its jump table
@@ -34,7 +36,7 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+#include "command_source_type.h"
 
 enum CanEnterType
 {

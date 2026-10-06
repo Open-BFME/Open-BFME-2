@@ -1,6 +1,8 @@
 // ?getDayOfWeek@AptDate@@QAEHHHH@Z
 // partial score=0.9852 date=2026-10-06
 // ?getDayOfWeek@AptDate@@QAEHHHH@Z
+// partial score=0.9852 date=2026-10-06
+// ?getDayOfWeek@AptDate@@QAEHHHH@Z
 // partial score=0.9852 date=2026-10-05
 // ?getDayOfWeek@AptDate@@QAEHHHH@Z
 // partial score=0.97 date=2026-10-04

@@ -1,4 +1,6 @@
 // ?resetPlayerTimeouts@DisconnectManager@@IAEXPAVConnectionManager@@@Z
+// partial score=0.9117 date=2026-10-06
+// ?resetPlayerTimeouts@DisconnectManager@@IAEXPAVConnectionManager@@@Z
 // partial score=0.97 date=2026-10-05
 // cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?resetPlayerTimeouts@DisconnectManager@@IAEXPAVConnectionManager@@@Z @ 0x004D3D2B (49B).

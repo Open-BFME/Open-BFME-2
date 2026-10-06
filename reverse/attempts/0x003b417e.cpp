@@ -1,4 +1,6 @@
 // ??0Rva003B417E@@QAE@XZ
+// partial score=0.8817 date=2026-10-06
+// ??0Rva003B417E@@QAE@XZ
 // partial score=0.8817 date=2026-10-05
 // cl: /O1 /MD /arch:SSE /Oi
 // ??0Rva003B417E@@QAE@XZ @0x003B417E (122B): Ctor storing vtable 0x0081F424 plus int and flag inits plus float zeros plus 8-byte stosd pair plus BfmeFixedStorage002CF0F0 copy from 0x00E02D64. Evidence: vtable 0x0081F424; rowed copy ctor 0x002CF0F0; callers 0x003B44E5 0x003B47A1 0x003B818C unblock 0x003B44DC 0x003B4716 0x003B8141.

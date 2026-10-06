@@ -1,4 +1,6 @@
 // ?rva00357F5E@ScriptEngine@@QAE_NABVAsciiString@@_N@Z
+// partial score=0.9809 date=2026-10-06
+// ?rva00357F5E@ScriptEngine@@QAE_NABVAsciiString@@_N@Z
 // partial score=0.97 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Include
 // stlport

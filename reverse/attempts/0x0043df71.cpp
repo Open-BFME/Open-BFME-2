@@ -1,4 +1,6 @@
 // ?Rva0043DF71@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z
+// partial score=0.9905 date=2026-10-06
+// ?Rva0043DF71@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z
 // partial score=0.99 date=2026-10-05
 // ?Rva0043DF71@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z
 // partial score=0.99 date=2026-10-05

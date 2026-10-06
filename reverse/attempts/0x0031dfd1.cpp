@@ -1,4 +1,6 @@
 // ?rva0031DFD1@Rva0031D5F8@@QAEXPAVPlayer@@HPAPBVCommandButton@@PAE22@Z
+// partial score=0.9868 date=2026-10-06
+// ?rva0031DFD1@Rva0031D5F8@@QAEXPAVPlayer@@HPAPBVCommandButton@@PAE22@Z
 // partial score=0.9868 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?rva0031D5F8@Rva0031D5F8@@QAEPAXPBVAsciiString@@@Z, retail 0x0031D5F8 (38B).

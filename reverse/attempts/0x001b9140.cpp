@@ -1,4 +1,6 @@
 // ?Rva009A86F0Allocate@@YAHPAX@Z
+// partial score=0.9644 date=2026-10-06
+// ?Rva009A86F0Allocate@@YAHPAX@Z
 // partial score=0.95 date=2026-10-04
 // ?Rva009A86F0Allocate@@YAHPAX@Z
 // 0x001B9140 396B retail codec allocator. Ported from the BFME1 donor body
