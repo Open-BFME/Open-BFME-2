@@ -22243,3 +22243,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva000D6A3F@Rva000D6A3F@@QAEXH@Z,0x000D6A3F,"thiscall (int); member op at this+0 called from 0x167E5A via this+0xE4"
 ?rva0016801A@Rva0016801A@@QAEPAXH@Z,0x0016801A,"init builder (vtab BD41AC, conditional 0x167F88); called from 0x1683A7 with (this,n), reads second slot in place"
 ?rva0017480C@Rva0017480C@@QAEXHUBfmeAssignRecord32@@@Z,0x0017480C,"100B grower true signature (int plus by-value 32B record); 0x174A8A passes it in place"
+?rva001DF88C@Rva001DF88C@@QAEXHVRva001DE6E1@@@Z,0x001DF88C,"108B EH grower true signature (int plus by-value record); 0x1DF8F8 passes it in place"
