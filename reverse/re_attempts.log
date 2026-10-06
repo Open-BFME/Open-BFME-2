@@ -11365,3 +11365,4 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?addNeighborlessEdges@W3DVolumetricShadow@@QAEXHPAUPolyNeighbor@@@Z	0x000F17CA	149	partial	whole body one callee-saved apart ebx vs edi for this-saved and j 149v149 0 regions rest exact t=20 model=muse-12 score=0.95 stash=reverse/attempts/0x000f17ca.cpp
 ?rva000F1D24@Rva000F28C3Holder@@QAEXHPAURva000F28C3Poly@@@Z	0x000F1D24	292	blocked	complex 292B SSE x87 vector normalize leaf no donor needs layout work t=3 model=muse-12
 ?addNeighborlessEdges@W3DVolumetricShadow@@QAEXHPAUPolyNeighbor@@@Z	0x000F17CA	149	blocked	whole body one callee-saved apart ebx vs edi for this-saved and j 149v149 0 regions rest exact t=25 model=muse-12 (stash 0.95 kept)
+?rva003B7550@Rva003B7550@@QAEXXZ	0x003B7550	55	blocked	new 0x54 plus copy ctor at 0x003B7448 needs ctor pin t=12 model=muse-12
