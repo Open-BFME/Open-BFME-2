@@ -6,6 +6,7 @@
 // 0x001EB15A. Callers at 0x001EBA02 0x001EBEEC 0x0040D691. Empty base with
 // inline ctor plus declared-only dtor arms EH state 0 per ModuleData precedent.
 #include "ascii_string.h"
+extern const void *const g_00BDF158[];
 class EmptyBase
 {
 public:
@@ -36,7 +37,7 @@ private:
 	Rva001EB15A m_94;
 };
 Rva0037DF2C::Rva0037DF2C(const Rva0037DF2C &o)
-	: m_vtable(0x00BDF158)
+	: m_vtable((unsigned int)g_00BDF158)
 	, m_s04(o.m_s04)
 	, m_f08(o.m_f08)
 	, m_c0C(o.m_c0C)
