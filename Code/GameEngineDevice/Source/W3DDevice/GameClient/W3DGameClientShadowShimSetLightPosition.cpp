@@ -56,3 +56,6 @@ void W3DGameClientShadowShim::setLightPosition(int lightIndex, float x, float y,
 	}
 	((Rva0007D9B5Host *)g_00DE1FF8)->rva0007D9CF((const int *)&dir);
 }
+
+// Bind this unit's void* spelling to the census owner at VA 0x00DE1FF8.
+#pragma comment(linker, "/alternatename:?g_00DE1FF8@@3PAXA=?Rva00DE1FF8Manager@@3PAVRva0007DA23ResourceManager@@A")

@@ -11418,3 +11418,4 @@ FUN_00479ed4	0x00079ED4	29	blocked	hint-insert forwarder to rowed 0x79D14 same t
 ?rva0056B7A0@Rva003F9FE6@@QAEEH@Z	0x0056B7A0	62	blocked	early rets vs shared epilogue plus test tried nested plus barrier-pragma plus O2 plus setne all keep 60B vs 62B t=22 model=muse-07
 ?setLocal@Rva002BA8F1Logic@@QAEXPAVRva002E2903Player@@@Z	0x002B38F7	216	partial	216B exact size REMAINS mov-add-push in eax vs esi plus push1 before-add vs after t=25 model=muse-07 score=0.97 stash=reverse/attempts/0x002b38f7.cpp
 ?rva002B3DD0@Rva002B4650@@QAEHXZ	0x002B3DD0	20	partial	20B exact size REMAINS 1 SIB byte lea eax eax+ecx-1 vs ecx+eax-1 tried 4 spellings plus O2 t=12 model=muse-07 score=0.95 stash=reverse/attempts/0x002b3dd0.cpp
+?rva00212655@Rva00DFE1C8Host@@QAEXH@Z	0x00212655	102	blocked	frame plus missing payload null-test t=30 model=muse-14
