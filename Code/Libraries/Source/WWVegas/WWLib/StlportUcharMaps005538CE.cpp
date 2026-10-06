@@ -34,6 +34,9 @@ typedef _STL::pair<const unsigned char, short> BfmeByteWordNodeValue;
 typedef _STL::_Rb_tree<unsigned char, BfmeByteWordNodeValue,
     _STL::_Select1st<BfmeByteWordNodeValue>, _STL::less<unsigned char>,
     _STL::allocator<BfmeByteWordNodeValue> > BfmeByteWordNodeTree;
+// The common pair/clone unit owns the verified native 20B node creator.
+template <> _STL::_Rb_tree_node<BfmeByteWordNodeValue> *
+BfmeByteWordNodeTree::_M_create_node(const BfmeByteWordNodeValue &value);
 template <> _STL::_Rb_tree_node<BfmeByteWordNodeValue> *
 BfmeByteWordNodeTree::_M_copy(_STL::_Rb_tree_node<BfmeByteWordNodeValue> *x,
     _STL::_Rb_tree_node<BfmeByteWordNodeValue> *p);

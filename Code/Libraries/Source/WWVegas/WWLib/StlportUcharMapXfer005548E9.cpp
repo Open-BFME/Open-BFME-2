@@ -4,6 +4,15 @@
 // Evidence: callers at 0x005550A0 0x00555109 0x0055573B 0x00555988; callees map op[] 0x00554816 inc 0x00024250 clear 0x003828B6; honest address names.
 #include <map>
 
+// Use the native creator from the common pair/clone unit, rather than
+// emitting the generic malloc-based creator's different 32-byte body.
+typedef _STL::pair<const unsigned char, short> BfmeByteWordNodeValue;
+typedef _STL::_Rb_tree<unsigned char, BfmeByteWordNodeValue,
+    _STL::_Select1st<BfmeByteWordNodeValue>, _STL::less<unsigned char>,
+    _STL::allocator<BfmeByteWordNodeValue> > BfmeByteWordNodeTree;
+template <> _STL::_Rb_tree_node<BfmeByteWordNodeValue> *
+BfmeByteWordNodeTree::_M_create_node(const BfmeByteWordNodeValue &value);
+
 class XferStub {
 public:
 	virtual ~XferStub();
@@ -63,7 +72,7 @@ void PSPlayerStats::XferMap(MapHolder *a, XferStub *b)
 	unsigned int n = cnt;
 	b->_slot78((int &)n);
 	if (b->_isWriting()) {
-		for (MapHolder::iterator it = a->begin(); it != a->end(); ++it) {
+		for (MapHolder::iterator it = a->begin(); it._M_node != a->end()._M_node; ++it) {
 			unsigned char k = (*it).first;
 			short v = (*it).second;
 			b->_slot88(k);
