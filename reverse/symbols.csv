@@ -13541,3 +13541,6 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva001DDCC5@Rva001DDCC5@@QAEXPAX@Z,0x001DDCC5,thiscall (ptr); copy helper called from 0x1DE3E3
 ?rva001EB456@Rva001EB456@@QAEXHH@Z,0x001EB456,thiscall (int;int); called from 0x1EB6FE with (1;1)
 ?rva001E685F@Rva001E685F@@QAEXHHH@Z,0x001E685F,thiscall (int;int;int); forwarder target of 0x1E702E; true types unproven (address-derived)
+?rva00174870@@YAXHHH@Z,0x00174870,cdecl (int;int;int); sort helper called from 0x174A57 with (a;b;0x57368A)
+?rva0017438B@Rva0017438B@@QAEXHH@Z,0x0017438B,thiscall (int;int); called from 0x174A57 with (a;b)
+?rva0017437D@Rva0017437D@@QAEXXZ,0x0017437D,thiscall void; tail-jump target of 0x174A57
