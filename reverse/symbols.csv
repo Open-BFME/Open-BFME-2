@@ -15591,3 +15591,5 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva0049924B@Rva0049924B@@QAEXPAX@Z,0x0049924B,thiscall void callee of 0x004E8FF6 read from its REL32 displacement (this plus null); body unrowed
 ?rva004992D5@Rva004992D5@@QAEXHPAX@Z,0x004992D5,thiscall callee of 0x004E9040 read from its REL32 displacement (this plus 1 plus null); body unrowed
 ?rva002E713F@Rva002E713F@@QAEXXZ,0x002E713F,thiscall void tail callee of 0x004E8FF6/0x004E9040 read from REL32; body unrowed
+?rva0051274F@Rva0051274F@@QAEHHHH@Z,0x0051274F,thiscall int callee of 0x004E8D3E read from its REL32 displacement (this plus 3); body unrowed
+?rva004E8820@Rva004E8820@@QAEXH@Z,0x004E8820,thiscall callee of 0x004E8D3E read from its REL32 displacement (this plus 0); in-range target, provisional signature

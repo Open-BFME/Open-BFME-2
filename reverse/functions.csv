@@ -64204,3 +64204,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva004ED3A2@Rva004ED3A2@@QAEPAXPAX@Z,,0x004ED3A2,47,Code/GameEngine/Source/Common/Rva004ED3A2Pair.cpp,matched,conditional refresh plus cursor rewind; full byte gate
 ?rva004E8FF6@Rva004E8FF6@@QAEXPAX@Z,,0x004E8FF6,74,Code/GameEngine/Source/Common/Rva004E8FF6Twins.cpp,matched,gated relationship walk with null step; full byte gate
 ?rva004E9040@Rva004E8FF6@@QAEXPAX@Z,,0x004E9040,76,Code/GameEngine/Source/Common/Rva004E8FF6Twins.cpp,matched,flagged twin of null step; full byte gate
+?rva004E8D3E@Rva004E8D3E@@QAEHHHH@Z,,0x004E8D3E,72,Code/GameEngine/Source/Common/Rva004E8D3EGuard.cpp,matched,triple guard with shared tails via or-form; full byte gate
