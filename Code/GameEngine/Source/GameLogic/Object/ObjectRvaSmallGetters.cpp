@@ -10,6 +10,17 @@ struct Coord3D
 	float x, y, z;
 };
 
+struct ICoord2DBase
+{
+	int x;
+	int y;
+};
+
+struct ICoord2D : ICoord2DBase
+{
+	bool operator==(const ICoord2DBase &other) const;
+};
+
 // The object at Object+0xA4. Its float getter at 0x004DD843 is rowed under
 // this address-derived class name, so the forwarders below reuse it; the
 // remaining methods are pinned from the forwarders' own REL32 targets.
@@ -207,6 +218,18 @@ bool Object::IsAtGoalPosition() const
 	if (!m_sub)
 		return false;
 	return m_sub->rva004DD637();
+}
+
+// ?rva004DD637@Rva004DD843@@QAE_NXZ @ 0x004DD637 (33B). The exact body
+// rejects -666666 at this+0x1C, then calls rowed ICoord2D::operator== at
+// 0x00004CAD with this+0x1C as its receiver and this+4 as its argument.
+// Object::IsAtGoalPosition above forwards here through Object+0xA4; the owner
+// class and method identity remain address-derived.
+bool Rva004DD843::rva004DD637()
+{
+	const ICoord2D *position = (const ICoord2D *)((const char *)this + 0x1c);
+	return position->x != -666666 &&
+		*position == *(const ICoord2DBase *)((const char *)this + 4);
 }
 
 // ?reloadAllAmmo@Object@@QAEX_N@Z, retail 0x0028ADC2 (19B): Zero Hour's
