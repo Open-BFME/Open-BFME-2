@@ -8,7 +8,7 @@
 #include "ascii_string.h"
 
 class BfmeStringTailRecord156 { public: ~BfmeStringTailRecord156(); char m_pad[8]; };
-struct RvaPair001D9F62 { AsciiString m_key; int m_value; ~RvaPair001D9F62(); };
+struct RvaPair001D9F62 { AsciiString m_key; int m_value; };
 
 class AudioManager
 {
