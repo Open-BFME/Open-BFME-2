@@ -10626,3 +10626,4 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva005E5920@Rva005E5920@@QAEHHH@Z	0x005E5920	34	blocked	write-then-tail-jmp to rowed 0x005E5884; build reports REL32 extent needs-37-vs-row-34 for the tail jmp (tooling extent dispute, not byte-tried); t=15 model=gemini200
 ?rva003B02F4@Rva003B02F4@@QAEXXZ	0x003B02F4	26	refuted	superseded by master STLport pop row at same address (hansnery heap chain a711e0bdec); forwarder body removed; t=15 m=m17
 ?rva003B02A1@@YAXHHH@Z	0x003B02A1	23	refuted	superseded by master STLport pop_heap row at same address; static-forwarder body removed, sibling 0x003B015D kept; t=15 m=m17
+?bfmePopulateGameReport@GameLogic@@QAEXPAVGameInfo@@PAH@Z	0x00247378	1463	converted	t=20min model=claude-opus-5-5 BFME1 donor GameLogicPopulateGameReport.cpp adapted: plain-string format, concat overloads, three game-mode flags, GameSlot name member, setPlayerLeaveStatus, -xLWCRC; offsets read from retail
