@@ -15432,3 +15432,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003F2A8C@Rva003F2A8C@@QAEXH@Z,0x003F2A8C,Direct REL32 callee of target body 0x003F300A; Ghidra start/extent 127 bytes; address-derived symbol; method ABI from caller.
 ?rva002796D9@Rva002796D9@@QAEXH@Z,0x002796D9,callee of ?rva0023998E@Drawable@@QAEXH@Z
 ?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
+?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
