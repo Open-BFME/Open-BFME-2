@@ -66201,3 +66201,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0BfmeVectorRecord001B4A39@@QAE@XZ,,0x001B4B92,198,Code/GameEngine/Source/Common/Rva001B4B92.cpp,matched,record layout inferred from retail copy callers donor scalar meanings unknown
 ?getCenter@AIGroup@@QAE_NPAUCoord3D@@@Z,,0x0036D035,282,Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenterRva0036D035.cpp,matched,BFME AIGroup donor semantics target object offsets verified from retail
 ?rva003F819A@Rva003F81FDProxy@@QAEPAXXZ,,0x003F819A,17,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,proxy class from rowed selector call and forwarding body
+?rva003F80E6@Rva003F80E6@@QAEXXZ,,0x003F80E6,27,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,address-derived list layout from retail offsets and rowed element callee

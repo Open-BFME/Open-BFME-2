@@ -25,6 +25,7 @@ class Rva003F7D86Inner;
 class Rva003F8090
 {
 public:
+	void rva003F8090();
 	void *rva003F80C3();						// 0x003F80C3
 };
 
@@ -64,6 +65,24 @@ Rva003F8101 *Rva003F81FDProxy::rva003F816E()
 			return (Rva003F8101 *)it;
 	}
 	return 0;
+}
+
+class Rva003F80E6
+{
+public:
+	void rva003F80E6();
+private:
+	char m_pad00[0x0C];
+	Rva003F8090 **m_begin0C;
+	Rva003F8090 **m_end10;
+};
+
+void Rva003F80E6::rva003F80E6()
+{
+	Rva003F8090 **p = m_begin0C;
+	Rva003F8090 **end = m_end10;
+	for (; p != end; ++p)
+		(*p)->rva003F8090();
 }
 
 void *Rva003F81FDProxy::rva003F819A()
