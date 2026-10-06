@@ -11404,3 +11404,5 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?Rva00152C47Create@@YAPAXPAPAXPBD1HH@Z	0x00152C47	147	blocked	factory needs full 52B layout plus lock order plus EH states 1 2 plus auto-holder investigation t=15 model=muse-02
 ?rva00152E4D@Rva00152E4D@@QAEHXZ	0x00152E4D	385	blocked	385B chunk loader with 15 callees loops idiv vectors virtuals needs subsystem modeling beyond 6-variant box t=5 model=muse-02
 ?rva00152CDA@Rva00152D1CObj@@QAEPAV1@PAV1@@Z	0x00152CDA	66	blocked	ebx edi mirror; shape-lever definition-order says define locals in retail materialize order other this str virtual; try s inner v reorder t=2 model=muse-02 (stash 0.9 kept)
+?rva00518B05@AptOptions@@QAEXABVAsciiString@@H@Z	0x00518B05	264	blocked	warning prompt vector functor GameText layout complex t=15 model=muse-05
+??1Rva0025E4CD@@UAE@XZ	0x0025E4CD	80	partial	missing second vptr 0xBF5F30 74vs80 t=25 model=muse-05 score=0.93 stash=reverse/attempts/0x0025e4cd.cpp
