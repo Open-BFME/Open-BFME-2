@@ -46,7 +46,7 @@ private:
 class W3DFloorDrawSecondBase
 {
 public:
-	virtual void secondBaseAnchor();
+	virtual void secondBaseAnchor() {}
 };
 
 class W3DFloorDraw : public Rva000CEB6F, public W3DFloorDrawSecondBase

@@ -13348,3 +13348,5 @@ FUN_00764551	0x00364551	1120	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va00BBB8D8 plu
 ?rva005397F7@Rva005397F7@@QAEXXZ	0x005397F7	188	blocked	3 callees unrowed 0x0029D948 0x00539619 0x0056C790 t=5 model=muse-05
 ?rva00404DE5@Rva00404DE5@@QAEXXZ	0x00404DE5	687	blocked	ADDRESS-NAMED g_Va globals t=2 model=muse-05
 ??1Rva002146F7@@QAE@XZ	0x004043FF	77	blocked	callee 0x00214B22 unrowed t=2 model=muse-05
+?Seek@ChunkLoadClass@@QAEKK@Z	0x006150C0	221	blocked	Seek 221B walled after 6 variants: sign-split + named locals + split barriers reach 220B with ecx reuse but POS/NEG return tails still merge and add scheduling + edx/eax allocation differ; single barrier gave exact size 221 once but with NEG reload; t=25 model=muse-spark
+??0Gen_00920A20@@QAE@H@Z	0x0013EA00	43	partial	43/43B 13/13 insns zero operand diffs; only add ecx -1 vs retail sub ecx 1 at +0x0e; int-star alias TU at /O2 /G7 gives this-in-EAX head; t=30 model=muse-spark score=0.95 stash=reverse/attempts/0x0013ea00.cpp
