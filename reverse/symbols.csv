@@ -13550,3 +13550,4 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva002C98E2@BfmeRangedWeaponTemplate@@QAEMPAX@Z,0x002C98E2,pin for BfmeRangedWeaponTemplate float view thiscall (void*)
 ?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z,0x002C760B,pin for 0x2C777E mask bit-setter thiscall (zero + 7 ids) returns this
 ?rva00525A80@Rva002D37Sub@@QAEXH@Z,0x00525A80,pin for 0x2D373E tailcall thiscall void (int)
+?rva002D3C5F@Rva002D43A0Sub@@QAEXXZ,0x002D3C5F,pin for 0x2D43A0 teardown tailcall thiscall void ()
