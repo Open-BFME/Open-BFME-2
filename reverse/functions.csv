@@ -66096,3 +66096,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva0040471B@Rva0040471B@@QAEXPAVRva0040471BXfer@@@Z,,0x0040471B,65,Code/GameEngine/Source/Common/Rva0040471BMethod.cpp,matched,address-derived five-field virtual serializer by target call shape
 ?rva00050EFA@OpaqueRefCounted@@QAE_NXZ,,0x00050EFA,31,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp,matched,atomic try-addref logic and count offset from adjacent class methods
 ?rva00050FC9@Rva00050FC9@@QAEXXZ,,0x00050FC9,26,Code/GameEngineDevice/Source/MilesAudioDevice/Rva00050FC9.cpp,matched,direct IAT evidence and adjacent Miles audio stop switch layout
+??1Rva005026B6@@QAE@XZ,,0x005026B6,56,Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp,matched,map-base dtor via CLEAR 0x0050247A same 56B GX shape as siblings
