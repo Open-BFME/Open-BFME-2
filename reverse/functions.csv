@@ -64385,3 +64385,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1NetGameCommandMsg@@UAE@XZ,,0x004D5609,84,Code/GameEngine/Source/GameNetwork/NetGameCommandMsgDtor.cpp,matched,ZH NetGameCommandMsg dtor shape: unlink and global-delete each argument then base vtable C60130
 ??1Rva002D6C1C@@UAE@XZ,,0x002D6C1C,93,Code/GameEngine/Source/Common/Rva002D6C1CDtor.cpp,matched,drain node list with global delete then GameEngineDeletingBase dtor
 ??1Rva00426745@@UAE@XZ,,0x00426745,96,Code/GameEngine/Source/Common/Rva00426745Dtor.cpp,matched,two-base dtor global delete of +0x10 then Snapshot vtable then GameEngineDeletingBase dtor
+??1Rva00488D5C@@UAE@XZ,,0x00488D5C,79,Code/GameEngine/Source/Common/Rva00488D5CDtor.cpp,matched,global delete of +0x24 then OutwardEmissionVelocityInfo base dtor
