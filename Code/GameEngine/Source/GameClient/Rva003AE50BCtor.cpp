@@ -93,3 +93,37 @@ Rva003AE61F::Rva003AE61F(void *a, void *b)
 	m_14 = (void *)&s_slot3E4first;
 	m_18 = (void *)g_00C1D4A8;
 }
+
+// ?rva00560A4C@Rva00560A4C@@QAEPAXXZ @ 0x00560A4C (12B) returns this after rowed QuadDraw getInstance. Evidence: abuts Rva00560A1B ctor above; push esi mov esi ecx call getInstance mov eax esi.
+namespace FXParticleSystem
+{
+template <int CATEGORY>
+class DefaultParticleModule;
+extern const char *const QUAD_DRAW_MODULE_KEY;
+extern const char *const QUAD_DRAW_MODULE_NAME;
+class QuadDrawModule;
+class QuadDrawModuleTemplate;
+template <int CATEGORY, const char *const &KEY, const char *const &NAME, class MODULE, class TEMPLATE, class DEFAULT>
+class ModuleTag
+{
+};
+typedef ModuleTag<6, QUAD_DRAW_MODULE_KEY, QUAD_DRAW_MODULE_NAME, QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6> > QuadDrawTag;
+template <class TAG>
+class ConcreteModuleClass
+{
+public:
+	static const ConcreteModuleClass<TAG> &getInstance();
+};
+}
+
+class Rva00560A4C
+{
+public:
+	void *rva00560A4C();
+};
+
+void *Rva00560A4C::rva00560A4C()
+{
+	FXParticleSystem::ConcreteModuleClass<FXParticleSystem::QuadDrawTag>::getInstance();
+	return this;
+}
