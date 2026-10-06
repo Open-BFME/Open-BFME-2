@@ -98,6 +98,43 @@ public:
 	void rva0057A92D();
 };
 
+// The scroll bar's enable forwarder to its Impl (0x005D49CD, pinned by
+// address), as Rva005D498BVisible.cpp views the scroll bar.
+class AptScrollBar
+{
+public:
+	void rva005D49CD(bool enabled);
+};
+
+// The empty update folded onto the shared empty body 0x000B3FD0.
+class Rva000B3FD0Nop
+{
+public:
+	void noop();
+};
+
+// The checklist's items: an STLport list of pointers (sentinel node at
+// +0x30, data at node +8), each item updating its +8 member through the
+// unrowed 0x005D4769 (pinned by address).
+class Rva005D4769
+{
+public:
+	void rva005D4769();
+};
+
+struct Rva0057B499Item
+{
+	unsigned char m_pad00[0x08];
+	Rva005D4769 m_08;
+};
+
+struct Rva0057B499Node
+{
+	Rva0057B499Node *m_next;
+	Rva0057B499Node *m_prev;
+	Rva0057B499Item *m_item;
+};
+
 namespace StrategicHUD {
 class ChecklistUIImpl;
 }
@@ -110,17 +147,27 @@ public:
 	void OnScrollBarUnloaded(const char *unused);
 	void OnExpandButtonClicked(const char *unused);
 	void OnScrollBarLoaded(const char *name);
+	void rva0057B499();
 
-	// Unrowed 0x0057B16D (170 bytes), pinned by address.
+	// Unrowed 0x0057B16D (170 bytes) and 0x0057B217, pinned by address.
 	void rva0057B16D();
+	void rva0057B217();
+	// Rowed in Rva0057A961Apt.cpp.
+	void SetExpandButtonEnabled(bool enabled);
 
 private:
 	unsigned char m_pad00[0x08];
 	int m_listener; // +0x08, the scroll bar listener
 	unsigned char m_pad0c[0x14 - 0x0C];
 	int m_state; // +0x14
-	unsigned char m_pad18[0x28 - 0x18];
+	unsigned char m_pad18[0x26 - 0x18];
+	bool m_26; // +0x26: expand once closed
+	unsigned char m_pad27;
 	Rva000AD6F4 m_scrollBar; // +0x28
+	unsigned char m_pad2c[0x30 - 0x2C];
+	Rva0057B499Node *m_items; // +0x30
+	unsigned char m_pad34[0x38 - 0x34];
+	bool m_38; // +0x38: rva0057B217 pending
 };
 
 // Retail 0x0057A3D7, 13 bytes: bound as "<movie>_OnClosed" (0x0057B7E5).
@@ -155,6 +202,30 @@ void StrategicHUD::ChecklistUIImpl::OnScrollBarLoaded(const char *name)
 		((Rva005D4DA9 *)scrollBar->m_ptr)->m_listeners.append((Rva002BA8F1Listener *)&m_listener);
 		rva0057B16D();
 	}
+}
+
+// Retail 0x0057B499, 96 bytes. Name unknown. The checklist's per-frame
+// update, reached from the HUD's (0x0042D577) on its +0x30 slot: enables the
+// expand button, runs the pending 0x0057B217, enables and updates the scroll
+// bar, expands a closed panel that asked to, and updates every item.
+void StrategicHUD::ChecklistUIImpl::rva0057B499()
+{
+	SetExpandButtonEnabled(true);
+	if (m_38)
+		rva0057B217();
+	if (m_scrollBar.m_ptr != 0)
+	{
+		((AptScrollBar *)m_scrollBar.m_ptr)->rva005D49CD(true);
+		((Rva000B3FD0Nop *)m_scrollBar.m_ptr)->noop();
+	}
+	if (m_26 && m_state == 0)
+	{
+		((Rva0057A92D *)this)->rva0057A92D();
+		m_26 = false;
+	}
+	Rva0057B499Node *end = m_items;
+	for (Rva0057B499Node *node = end->m_next; node != end; node = node->m_next)
+		node->m_item->m_08.rva005D4769();
 }
 
 // Retail 0x0057AC0C, 27 bytes: bound as "<movie>_OnExpandButtonClicked"
