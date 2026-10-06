@@ -28,6 +28,14 @@
 // looked up by address (slot 63), allocated or unlinked, takes the name (+0x04)
 // and the one-character host (+0x1C) and login (+0x1A) fields, is re-added
 // and reported to OnNameChange (slot 48). LANPlayer is RequestSetName's view.
+//
+// LANAPI::handleInActive, retail 0x0058219D (234 bytes), message type 17:
+// Zero Hour's body (Open-BFME-1's LANAPI_handleInActive.cpp). The host of a
+// game not yet in progress (+0x11) un-accepts the named player's slot when
+// the sender owns it (0x00248CDD against slot +0x38), is not us and the start
+// timer (+0x20) is idle; BFME 2 then re-sends the game info through slot 26
+// with no address and refreshes the slot list with 0x00446A77 where Zero Hour
+// sent the options string.
 
 typedef int Int;
 typedef bool Bool;
@@ -41,7 +49,15 @@ extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime( void );
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-struct BfmeNetAddress
+// The ledger's inequality test of two addresses (0x00248CDD) is a method of
+// a class named by its address; an empty base puts it on BfmeNetAddress.
+class Rva00248CDD
+{
+public:
+	Bool rva00248CDD( const Rva00248CDD &other ) const;
+};
+
+struct BfmeNetAddress : public Rva00248CDD
 {
 	Bool Rva00248CBF( const BfmeNetAddress *other ) const;
 
@@ -100,22 +116,48 @@ struct LANSlotAddress
 	UnsignedByte m_rest[0x1D0 - 8];
 };
 
+class GameSlot
+{
+public:
+	void unAccept( void );
+
+	UnsignedByte m_pre38[0x38];
+	BfmeNetAddress m_address;			// +0x38
+};
+
 class GameInfo
 {
 public:
 	AsciiString getMap( void ) const;
+	GameSlot *getSlot( Int slotNum );
+	Bool isGameInProgress( void ) const { return m_inProgress; }
+
+private:
+	UnsignedByte m_pre11[0x11];
+	Bool m_inProgress;				// +0x11
+	UnsignedByte m_pre114[0x114 - 0x12];
 };
 
-class LANGameInfo : public GameInfo
+// getSlotNum (0x004483BC), under the ledger's class name, that of the
+// LANGameInfo destructor.
+class Rva004482FB : public GameInfo
 {
 public:
+	Int rva004483BC( UnicodeString name );
+};
+
+class LANGameInfo : public Rva004482FB
+{
+public:
+	Bool rva004477C7( void ) const;			// amIHost
 	const BfmeNetAddress *getAddress( Int slot ) const { return &m_slots[slot].m_address; }
 	const LANSlotAddress *getSlots( void ) const { return m_slots; }
 
 private:
-	UnsignedByte m_pre114[0x114];
 	LANSlotAddress m_slots[MAX_SLOTS];		// addresses from +0x114
 };
+
+void Rva00446A77Enable( void );
 
 class LANAPIInterface
 {
@@ -168,7 +210,9 @@ public:
 	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14)
 	BFME_VSLOT(15) BFME_VSLOT(16) BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
 	BFME_VSLOT(20) BFME_VSLOT(21) BFME_VSLOT(22) BFME_VSLOT(23) BFME_VSLOT(24)
-	BFME_VSLOT(25) BFME_VSLOT(26) BFME_VSLOT(27) BFME_VSLOT(28) BFME_VSLOT(29)
+	BFME_VSLOT(25)
+	virtual void rva004497EC( Bool isPublic, BfmeNetAddress *ip );	// slot 26
+	BFME_VSLOT(27) BFME_VSLOT(28) BFME_VSLOT(29)
 	BFME_VSLOT(30) BFME_VSLOT(31) BFME_VSLOT(32)
 	virtual void rva00248E87( void );		// slot 33, the player list refresh
 	virtual void OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, LANMessage *msg );
@@ -191,10 +235,13 @@ protected:
 	void handleLobbyAnnounce( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleJoinDeny( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleHasMap( LANMessage *msg, const BfmeNetAddress *sender );
+	void handleInActive( LANMessage *msg, const BfmeNetAddress *sender );
 
 	UnsignedByte m_pre0C[0x0C - 4];
 	LANPlayer *m_lobbyPlayers;			// +0x0C
-	UnsignedByte m_pre28[0x28 - 0x10];
+	UnsignedByte m_pre20[0x20 - 0x10];
+	UnsignedInt m_gameStartTime;			// +0x20
+	Int m_gameStartSeconds;				// +0x24
 	Int m_pendingAction;				// +0x28
 	UnsignedInt m_expiration;			// +0x2C
 	UnsignedByte m_pre41[0x41 - 0x30];
@@ -203,6 +250,8 @@ protected:
 };
 
 #undef BFME_VSLOT
+
+extern LANAPI *TheLAN;
 
 void LANAPI::handleRequestLobbyLeave( LANMessage *msg, const BfmeNetAddress *sender )
 {
@@ -283,4 +332,43 @@ void LANAPI::handleLobbyAnnounce( LANMessage *msg, const BfmeNetAddress *sender 
 	addPlayer( player );
 
 	OnNameChange( &player->m_address, player->m_name );
+}
+
+void LANAPI::handleInActive( LANMessage *msg, const BfmeNetAddress *sender )
+{
+	if( m_inLobby || !m_currentGame || m_currentGame->isGameInProgress() )
+		return;
+
+	// check to see if we are the host of this game.
+	if( !m_currentGame->rva004477C7() )
+		return;
+
+	UnicodeString playerName;
+	playerName = msg->name;
+
+	Int slotNum = m_currentGame->rva004483BC( playerName );
+	if( slotNum < 0 )
+		return;
+
+	GameSlot *slot = m_currentGame->getSlot( slotNum );
+	if( !slot )
+		return;
+
+	if( sender->rva00248CDD( slot->m_address ) )
+		return;
+
+	// don't want to unaccept the host, that's silly.
+	if( sender->Rva00248CBF( TheLAN->getLocalAddress() ) )
+		return;
+
+	// only unaccept if the timer hasn't started yet.
+	if( m_gameStartTime != 0 )
+		return;
+
+	slot->unAccept();
+	BfmeNetAddress noAddress;
+	noAddress.m_ip = 0;
+	noAddress.m_port = 0;
+	rva004497EC( true, &noAddress );
+	Rva00446A77Enable();
 }
