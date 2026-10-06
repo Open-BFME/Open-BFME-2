@@ -4,7 +4,7 @@
 // vptrs at +0/+4 and copy the constructor argument to +8; class names and
 // shared payload interpretation remain donor-derived.
 
-class Rva007F1DE0BaseA
+class __declspec(novtable) Rva007F1DE0BaseA
 {
 public:
 	virtual void primary();
