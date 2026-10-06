@@ -1,9 +1,9 @@
 // ?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ID@Z
 // partial score=0.96 date=2026-10-06
-// ?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ID@Z
-// partial score=0.95 date=2026-10-02
-// cl: /Od /Ob1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Od /Ob1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Oy-
 // stlport
+// Current /Oy- lifetime variant reached permutation fitness 0.9014; the
+// explain remains 270B versus 272B with its first residue at +0x96.
 // ?append@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEAAV12@ID@Z 0x00029380 272 retail append(n,c); callers _M_xsputnc/bfmeAssign/bfmeResize; donor stlport-4.5.3
 namespace _STL
 {
@@ -79,17 +79,17 @@ _STL::basic_string<CharT, Traits, Alloc>::append(size_type n, CharT c)
 	if (n > 0)
 	{
 		size_type n1 = n - 1;
-		pointer f1 = _M_finish + 1;
-		CharT z1 = CharT();
+		const pointer f1 = _M_finish + 1;
+		const CharT z1 = CharT();
 		_STL::fill(f1, f1 + n1, c);
-		(void)z1;
 		pointer new_finish = _M_finish + n;
-		CharT z2 = CharT();
-		_M_construct_null(new_finish);
+		const CharT z2 = CharT();
 		(void)z2;
-		pointer f2 = _M_finish;
+		const pointer f2 = _M_finish;
+		(void)z1;
 		Traits::assign(*f2, c);
 		_M_finish += n;
+		_M_construct_null(new_finish);
 	}
 	return *this;
 }
