@@ -1762,6 +1762,16 @@ void Rva008571E0RegisterNick(PEER peer, int sessionKey, const char *nick,
 		Rva00860380(connection->chat, sessionKey, nick, secondNick);
 }
 
+// GameSpy peerMain.c peerIsConnected, retail 0x006987C0 (8 bytes), between the
+// 0x006987A0 helper above and piConnectTitle 0x006987D0 as in peerMain.c order;
+// PeerThread.cpp calls it. The linker folded GameWindowManager's 8-byte
+// GadgetSliderGetEnabledColor onto the same bytes (ICF).
+int peerIsConnected(PEER peer)
+{
+	piConnection *connection = (piConnection *)peer;
+	return connection->connected;
+}
+
 // Reference: Open-BFME-1 071013b3c6f1228dfda315732197bed0fd191209,
 // peerMainBlockingOperations.c, Rva00858960Join and its two wrappers.
 // Names below retain target addresses because the reference byte queue's

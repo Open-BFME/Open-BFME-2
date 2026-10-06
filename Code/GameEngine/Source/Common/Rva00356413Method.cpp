@@ -201,13 +201,6 @@ Rva003563A7::~Rva003563A7()
 	TheDisplay->slot68();
 }
 
-void Rva003563A7::rva00355EE1()
-{
-	TheDisplay->slot68();
-	m_win = 0;
-	m_pad10 = false;
-}
-
 // ?TheDisplay@@3PAVDisplayManager@@A: the global at this VA is ?TheDisplay@@3PAVDisplay@@A; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayManager@@A=?TheDisplay@@3PAVDisplay@@A")
 #pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayInterface@@A=?TheDisplay@@3PAVDisplay@@A")

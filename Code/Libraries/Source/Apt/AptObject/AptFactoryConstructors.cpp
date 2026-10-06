@@ -8,6 +8,7 @@
 // own vtable, field stores and full extent. The canonical bitfields restore
 // the native in-memory AND that opaque whole-dword views failed to reproduce.
 #include "AptScriptFunction.h"
+#include <math.h>
 // ?AptValueGC::AptValueGC present-unmatched
 inline AptValueGC::AptValueGC(AptVirtualFunctionTable_Indices type) : AptValue(type) {}
 // ?AptValueWithHash::AptValueWithHash present-unmatched
@@ -24,7 +25,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 struct SoundCharacter { char pad[4]; void *parent; };
 struct SoundSprite { char pad[12]; SoundCharacter *character; };
-class AptCIH { public: char pad[0x24];float alphaMultiplier,redMultiplier,greenMultiplier,blueMultiplier;float alphaOffset,redOffset,greenOffset,blueOffset;char pad2[0x4c-0x44];SoundSprite *sprite;char pad3[0x5c-0x50];unsigned int flags;bool rva006CFCD0() const;void factorySetProperty(int,float,bool);float factoryGetProperty(int) const; };
+class AptCIH { public: char pad[0xc];float a,b,c,d,tx,ty;float alphaMultiplier,redMultiplier,greenMultiplier,blueMultiplier;float alphaOffset,redOffset,greenOffset,blueOffset;float *properties;char pad2[4];SoundSprite *sprite;char pad3[0x5c-0x50];union {unsigned int flags;struct {unsigned int flagsLow:16;unsigned int asChanged:1;unsigned int flagsHigh:15;};};void factoryEnsureProperties();bool rva006CFCD0() const;void factorySetProperty(int,float,bool);float factoryGetProperty(int) const; };
 // Target scalar destructors6F3960/6FE430/6E9B50 use this pool and class size.
 class Rva006D2A60 { public: void *allocBlock(int);void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
@@ -291,3 +292,31 @@ AptValue *callback006F29C0(AptValue *context,int count) {
 
 // Target call operands and original MAP bind canonical hash lookup to existing provider.
 #pragma comment(linker, "/alternatename:?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z=?lookup@Rva0070B380@@QAEPAXABVEAStringC@@@Z")
+
+// Setter semantics follow the later AptCIH source; native indices and layout
+// are independently established above. Preserve the older shared AS flag
+// update before dispatch, including cases that perform no matrix/colour write.
+// Full 392B extent includes the 11-entry jump table, verified case by case.
+__declspec(noinline) void AptCIH::factorySetProperty(int property,float value,bool asFlag) {
+ factoryEnsureProperties();
+ properties[property]=value;
+ asChanged=(asFlag!=false);
+ switch(property) {
+ case 2:case 3:case 6: {
+ float rotation=properties[6];
+ float xs=properties[2]/100.f;
+ float ys=properties[3]/100.f;
+ if(rotation!=0.f) {
+ rotation*=0.017453292f;
+ float cs=cosf(rotation),sn=sinf(rotation);
+ a=xs*cs;b=xs*sn;c=-(ys*sn);d=ys*cs;
+ }else{a=xs;b=0.f;c=0.f;d=ys;}
+ }break;
+ case 0:tx=value;break;
+ case 1:ty=value;break;
+ case 7:if(value<0.f)alphaMultiplier=0.f;else alphaMultiplier=value/100.f;break;
+ case 8:redOffset=value/255.f;break;
+ case 9:greenOffset=value/255.f;break;
+ case 10:blueOffset=value/255.f;break;
+ }
+}

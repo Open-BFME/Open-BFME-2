@@ -91,7 +91,6 @@ private:
 	int m_1460; // +0x1460
 };
 
-// ??0RadarEvent@@QAE@XZ present-unmatched
 RadarEvent::RadarEvent()
 {
 	m_ref = 0;

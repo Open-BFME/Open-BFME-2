@@ -5055,6 +5055,7 @@ def land_batch(rows, pins, selectors, stage=None):
     if new_pins:
         with B.SYMBOLS.open("ab") as handle:
             handle.write(b"".join(pin.encode("utf-8") + symbols_eol for pin in new_pins))
+    register_raw = admit_generated_pins(new_pins, symbols_raw)
     # check_csv rejects a row whose source is not in git — such a row pushes fine
     # here and breaks every other clone — so the batch must be staged before it can
     # be proved. It is this commit unit's own file: a specific path, never `add .`.
@@ -5075,6 +5076,7 @@ def land_batch(rows, pins, selectors, stage=None):
         B.FUNCTIONS.write_bytes(functions_raw)
         B.SYMBOLS.write_bytes(symbols_raw)
         DELETED.write_bytes(deleted_raw)
+        restore_register(register_raw)
         if staged_sources:
             for source_rel, source_path in staged_sources:
                 git("rm", "--cached", "--quiet", "--", source_rel)
@@ -5221,6 +5223,39 @@ def main(argv=None):
         args.func(args)
     except FormatError as error:
         raise SystemExit(f"gen_small: {error}")
+
+
+def admit_generated_pins(new_pins, symbols_before):
+    """Admit this batch's pins in the escape-hatch register (tools/hatch_counters.py).
+    Each must pass tools/pin_admission.py's rules (in-image code RVA, no second real
+    name on an owned address); the register then grants exactly these addresses, so
+    a pin added beside them by hand is still refused. Returns the register's prior
+    bytes for revert()."""
+    import hatch_counters
+    import pin_admission
+    register = B.ROOT / hatch_counters.BASELINE
+    before = register.read_bytes() if register.exists() else None
+    if not new_pins:
+        return before
+    names_at = pin_admission.names_by_address(B.load_all_function_rows(),
+                                              pin_admission.csv_rows(symbols_before.decode("utf-8")))
+    checked = set()
+    for line in new_pins:
+        cells = line.split(",")
+        pin = {"name": cells[0], "address": cells[1]}
+        if not pin_admission.pin_problems(pin, names_at):
+            checked.add("0x%08X" % int(cells[1], 16))
+            names_at.setdefault(int(cells[1], 16), set()).add(cells[0])
+    if checked:
+        hatch_counters.admit(pin_admission.PINS, "gen_small land: generator-derived, admission-checked pins",
+                             tokens=checked, before=hatch_counters.blob_id(pin_admission.PINS, symbols_before))
+    return before
+
+
+def restore_register(before):
+    import hatch_counters
+    if before is not None:
+        (B.ROOT / hatch_counters.BASELINE).write_bytes(before)
 
 
 if __name__ == "__main__":

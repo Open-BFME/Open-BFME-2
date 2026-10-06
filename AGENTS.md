@@ -271,6 +271,11 @@ are the root cause of most COMDAT and unresolved blockers.
 `--shims X` list the views and competing shim headers to merge. A class
 with a shared header is registered in `reverse/canonical_classes.csv`;
 `tools/class_gate.py` (pre-commit) refuses new private copies of it.
+To give a class a canonical header, run the lane in dependency order
+(`python3 tools/header_adopt_lane.py order`): `tools/class_contract.py` decides
+its ABI from evidence (bytes, retail access, retail vftables, ZH, majority),
+`header_adopt_lane.py run --generate --apply` generates the header, gates each
+unit and queues the rest in `reverse/header_queue.tsv`.
 Claim scope-wide work so two seats do not collide:
 `python3 tools/claims.py claim class:NAME` or `file:PATH`.
 

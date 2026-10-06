@@ -182,8 +182,63 @@ def judge(old_pins, new_pins, old_rows, new_rows):
     return problems
 
 
+def add_pins(pins, notes="", reason=None):
+    """The tool path for new pins: [(name, address)] -> problems ([] = written).
+
+    Each pin is judged by the rules above against the working tree (ledger rows and
+    pins), and a name that would then pin several addresses must stay consistent
+    (pin_consistency: one name, one body). Nothing is written if any pin fails.
+    Otherwise the lines are appended and tools/hatch_counters.py admits exactly these
+    addresses, so the hatch register lets a checked, tool-written pin through and
+    still refuses one typed into symbols.csv by hand."""
+    import hatch_counters
+    import pin_consistency
+    path = ROOT / PINS
+    raw = path.read_bytes()
+    eol = b"\r\n" if raw.split(b"\n", 1)[0].endswith(b"\r") else b"\n"
+    current = csv_rows(raw.decode("utf-8"))
+    names_at = names_by_address(build.load_all_function_rows(), current)
+    have = {(p.get("name"), p.get("address", "").upper().replace("0X", "0x")) for p in current}
+    notes = (notes or "").replace(",", ";").replace("\n", " ").strip()
+    problems, new = [], []
+    for name, address in pins:
+        try:
+            address = f"0x{int(address, 16):08X}"
+        except ValueError:
+            problems.append(f"{name},{address}: unparseable address")
+            continue
+        if (name, address) in have or any(p["name"] == name and p["address"] == address for p in new):
+            continue
+        pin = {"name": name, "address": address, "notes": notes}
+        problems += [f"{name},{address}: {why}" for why in pin_problems(pin, names_at)]
+        names_at.setdefault(int(address, 16), set()).add(name)
+        new.append(pin)
+    if not problems and new:
+        pinned = pin_consistency.load_pins(path)
+        stacked = {p["name"] for p in new if pinned.get(p["name"])}
+        if stacked:
+            scanner, baseline = pin_consistency.Scanner(), pin_consistency.read_baseline()
+            for name in sorted(stacked):
+                addresses = list(pinned[name]) + [int(p["address"], 16) for p in new if p["name"] == name]
+                found = scanner.inspect(name, addresses)
+                if found and pin_consistency.key_of(name, found["bodies"]) not in baseline:
+                    problems.append(f"{name}: {found['kind']}: {found['evidence']} "
+                                    "(pin_consistency: one name, one function)")
+    if problems or not new:
+        return problems
+    if raw and not raw.endswith(b"\n"):
+        raw += eol
+    lines = b"".join(f"{p['name']},{p['address']},{p['notes']}".encode("utf-8") + eol for p in new)
+    path.write_bytes(raw + lines)
+    hatch_counters.admit(PINS, reason or f"pin_admission --add: {len(new)} checked pin(s)",
+                         tokens={p["address"] for p in new}, before=hatch_counters.blob_id(PINS, raw))
+    for pin in new:
+        print(f"pin admission: added {pin['name']},{pin['address']}")
+    return []
+
+
 def report():
-    pins = csv_rows((ROOT / PINS).read_text(encoding="utf-8"))
+    pins =csv_rows((ROOT / PINS).read_text(encoding="utf-8"))
     rows = build.load_all_function_rows()
     names_at = names_by_address(rows, [])
     count = 0
@@ -212,7 +267,20 @@ def main():
     mode.add_argument("--staged", action="store_true")
     mode.add_argument("--range", nargs=2, metavar=("OLD", "NEW"))
     mode.add_argument("--report", action="store_true")
+    mode.add_argument("--add", nargs="+", metavar="NAME ADDRESS",
+                      help="append checked pins (pairs) and admit them in the hatch register")
+    parser.add_argument("--notes", default="", help="--add: notes column for the new lines")
     args = parser.parse_args()
+    if args.add:
+        if len(args.add) % 2:
+            parser.error("--add takes NAME ADDRESS pairs")
+        problems = add_pins(list(zip(args.add[::2], args.add[1::2])), args.notes)
+        if problems:
+            print(f"pin admission: REFUSED {len(problems)}; nothing written")
+            for line in problems[:20]:
+                print(f"  {line}")
+            raise SystemExit(1)
+        return
     if args.report:
         report()
         return

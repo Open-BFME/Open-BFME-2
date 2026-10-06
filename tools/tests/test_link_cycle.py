@@ -61,7 +61,7 @@ def test_closure_fillers_are_not_leaves():
     ok = {"a": True, "b": True, "c": True, "d": False}
     edges = {"a": {"b"}, "b": {("fill", 0x1000)}, "c": {"c"}, "e": {"d"}}
     # pilot rule (fillers are leaves): a and b close. Positive control: they no longer do.
-    assert lc.greatest_closure(ok, edges, bad_targets=()) == {"a", "b", "c"}
+    assert lc.greatest_closure(ok, edges, bad_targets=(), unknown_closes=True) == {"a", "b", "c"}
     assert lc.greatest_closure(ok, edges) == {"c"}                  # c: a self-cycle stays closed
     assert lc.greatest_closure({"x": True, "y": True}, {"x": {"y"}}) == {"x", "y"}   # negative control
 
@@ -136,8 +136,7 @@ def _measure(I, R, items, allsyms, objs=None, pins=None, ledger_starts=None, pub
     m.pub, m.stat, m.pubobj = pub or {}, {}, pubobj or {}
     m.pins, m.objs, m.ledger_starts = pins or {}, objs or FakeObjs({}), ledger_starts or {}
     m.rimports, m.limports = {}, {}
-    m.fwd, m.back = collections.defaultdict(set), collections.defaultdict(set)
-    m.datum_memo, m.twins, m.eh = {}, {}, collections.Counter()
+    m._init_state()
     return m
 
 
@@ -168,9 +167,9 @@ def test_data_reference_checks_the_pinned_address():
     m = _measure(I, R, [], [(0x3000, "_g", "a.obj")], pins={"_g": 0x3200})
     assert m.data_ref(0x3000, 0x3100, "_g", obj[1][0], obj, 0)[0] == ["data-pin:_g"]
     m = _measure(I, R, [], [(0x3000, "_g", "a.obj")], pins={"_g": 0x3100})
-    assert m.data_ref(0x3000, 0x3100, "_g", obj[1][0], obj, 0) == ([], set(), True)
+    assert m.data_ref(0x3000, 0x3100, "_g", obj[1][0], obj, 0) == ([], {("datum", (0x3000, 0x3100, 4))}, True)
     m = _measure(I, R, [], [(0x3000, "_g", "a.obj")], pins={"_g": B + 0x3100})   # pinned as a VA
-    assert m.data_ref(0x3000, 0x3100, "_g", obj[1][0], obj, 0) == ([], set(), True)
+    assert m.data_ref(0x3000, 0x3100, "_g", obj[1][0], obj, 0)[0::2] == ([], True)
 
 
 def test_repeated_section_names_are_all_kept():
@@ -205,7 +204,7 @@ def test_alternatename_alias_resolves_through_the_real_definition():
                  pubobj={"?Alias@@3HA": "d.obj", "?Real@@3HA": "d.obj"})
     assert m.data_ref(0x3000, 0x3100, "?Alias@@3HA", ref[1][0], ref, 0)[0] == []
     _put(R, 0x3100, bytes.fromhex('08'))  # the content check still applies
-    m.datum_memo.clear()
+    m._init_state()
     assert m.data_ref(0x3000, 0x3100, "?Alias@@3HA", ref[1][0], ref, 0)[0] == ["data-content:?Alias@@3HA"]
 
 
@@ -220,7 +219,8 @@ def test_data_stub_and_vtable_code_pointer():
     items = [(0x1800, 0x1810, 0x1900, ("fill", 0x1900))]
     m = _measure(I, R, items, [(0x3000, "??_7X@@6B@", "a.obj")])
     fails, edges, _ = m.data_ref(0x3000, 0x3100, "??_7X@@6B@", vt[1][0], vt, 0)
-    assert fails == [] and edges == {("fill", 0x1900)}         # a filler edge: not closed later
+    assert fails == [] and edges == {("datum", (0x3000, 0x3100, 4))}
+    assert m.dnodes[(0x3000, 0x3100, 4)]["edges"] == {("fill", 0x1900)}   # a filler edge: not closed later
     m = _measure(I, R, [(0x1800, 0x1810, 0x1A00, ("unit", 1))], [(0x3000, "??_7X@@6B@", "a.obj")])
     assert m.data_ref(0x3000, 0x3100, "??_7X@@6B@", vt[1][0], vt, 0)[0] == ["data-codeptr:??_7X@@6B@"]
 
@@ -283,9 +283,10 @@ def test_relocs_records_every_failure_not_the_first():
     o = ([_sec(1, ".text", 11, relocs=[(1, 0, lc.REL32), (6, 1, lc.REL32)])],
          {0: _sym(0, "?a@@YAXXZ", 0), 1: _sym(1, "?b@@YAXXZ", 0)}, code)
     m = _measure(I, R, [], [])
-    fails, _, masked, _ = m.relocs(0x1000, 0x1000, 11, o, 1, 0, "?f@@YAXXZ")
+    fails, _, masked, _, rels = m.relocs(0x1000, 0x1000, 11, o, 1, 0, "?f@@YAXXZ")
     assert fails == ["code-unmapped:?a@@YAXXZ", "code-unmapped:?b@@YAXXZ", "bytes:1"]
     assert masked == set(range(1, 5)) | set(range(6, 10))
+    assert rels == [(1, lc.REL32, False), (6, lc.REL32, False)]
 
 
 def test_absolute_except_list_compares_raw_value():
@@ -298,6 +299,214 @@ def test_absolute_except_list_compares_raw_value():
     assert m.relocs(0x1000, 0x1000, 6, o, 1, 0, "?f@@YAXXZ")[0] == []
     _put(I, 0x1002, struct.pack("<I", B + 0x5000))           # positive control: a stub, not absolute 0
     assert m.relocs(0x1000, 0x1000, 6, o, 1, 0, "?f@@YAXXZ")[0] == ["abs:__except_list"]
+
+
+# ---- link-cycle-2: closure through data, shifted base, imports, selected copies, receipts ----
+def _ptr_setup(target_linked, target_retail_bytes=b"BBBB", pins=None):
+    """Linked datum A at 0x3000 holds a pointer (DIR32) to target_linked (_b at 0x3010
+    or _c at 0x3020); retail's A at 0x3100 points at retail's B, 0x3110."""
+    I, R = bytearray(0x6000), bytearray(0x6000)
+    _put(I, 0x3000, struct.pack("<I", B + target_linked))
+    _put(R, 0x3100, struct.pack("<I", B + 0x3110))
+    _put(I, 0x3010, b"BBBB")
+    _put(I, 0x3020, b"CCCC")
+    _put(R, 0x3110, target_retail_bytes)
+    syms = {0: _sym(0, "_a", 1), 1: _sym(1, "_b", 1, value=0x10), 2: _sym(2, "_c", 1, value=0x20)}
+    target = 1 if target_linked == 0x3010 else 2
+    o = ([_sec(1, ".data", 0x30, relocs=[(0, target, lc.DIR32)], ptr=0)], syms, bytes(0x30))
+    objs = FakeObjs({"a.obj": o})
+    objs.cache = {Path("a.obj"): o}
+    m = _measure(I, R, [], [(0x3000, "_a", "a.obj"), (0x3010, "_b", "a.obj"), (0x3020, "_c", "a.obj")],
+                 objs=objs, pins=pins, pub={"_a": 0x3000, "_b": 0x3010, "_c": 0x3020},
+                 pubobj={"_a": "a.obj", "_b": "a.obj", "_c": "a.obj"})
+    return m, o
+
+
+def test_pointer_inside_data_must_reach_retails_datum():
+    """link-cycle-1 masked data pointers inside data: a wrong pointer kept full credit."""
+    m, o = _ptr_setup(0x3010)                                  # negative control: points at B, B equal
+    fails, edges, _ = m.data_ref(0x3000, 0x3100, "_a", o[1][0], o, 0)
+    assert fails == [] and edges == {("datum", (0x3000, 0x3100, 0x10))}
+    a = m.dnodes[(0x3000, 0x3100, 0x10)]
+    assert a["fails"] == [] and a["edges"] == {("datum", (0x3010, 0x3110, 0x10))}
+    assert m.dnodes[(0x3010, 0x3110, 0x10)]["fails"] == []
+    m, o = _ptr_setup(0x3020)                                  # positive control: points at C ("CCCC")
+    m.data_ref(0x3000, 0x3100, "_a", o[1][0], o, 0)
+    assert m.dnodes[(0x3020, 0x3110, 0x10)]["fails"] == ["data-content:_c"]
+    ok = {("datum", k): not n["fails"] for k, n in m.dnodes.items()}
+    edges = {("datum", k): n["edges"] for k, n in m.dnodes.items()}
+    assert ("datum", (0x3000, 0x3100, 0x10)) not in lc.greatest_closure(ok, edges)   # A no longer closes
+
+
+def test_pointer_inside_data_checks_pin_and_one_to_one():
+    m, o = _ptr_setup(0x3010, pins={"_b": 0x3200})             # B pinned elsewhere
+    assert m.data_ref(0x3000, 0x3100, "_a", o[1][0], o, 0)[0] == ["data-ptr-pin:_b"]
+    m, o = _ptr_setup(0x3010)
+    m.discover([(0x3010, 0x3120, "_b", o[1][1], o, 0, "addr")])   # code elsewhere maps B to another retail datum
+    assert "data-ptr-fwd:_b" in m.data_ref(0x3000, 0x3100, "_a", o[1][0], o, 0)[0]
+
+
+def _shifted(I, S):
+    sh = lc.Shifted.__new__(lc.Shifted)
+    sh.I, sh.S, sh.delta, sh.base_s, sh.why, sh.failed = I, S, lc.SHIFT_BASE - B, lc.SHIFT_BASE, None, collections.Counter()
+    sh.lo, sh.hi, sh.starts = B + 0x1F00, B + 0x2000, set()
+    return sh
+
+
+def test_shifted_link_checks_every_relocation_moves():
+    I, S = bytearray(0x2000), bytearray(0x2000)
+    _put(I, 0x1000, b"\xa1" + struct.pack("<I", B + 0x1800) + b"\xc3")             # mov eax,[0x401800]; ret
+    _put(S, 0x1000, b"\xa1" + struct.pack("<I", lc.SHIFT_BASE + 0x1800) + b"\xc3")
+    sh = _shifted(I, S)
+    rels, masked = [(1, lc.DIR32, False)], {1, 2, 3, 4}
+    assert sh.code(0x1000, 6, masked, rels) is None                   # negative control
+    _put(S, 0x1001, struct.pack("<I", B + 0x1800))                    # the word did not move
+    assert sh.code(0x1000, 6, masked, rels) == "relocation not adjusted"
+    raw = b"\xa1" + struct.pack("<I", B + 0x1F10) + b"\xc3"          # raw address: no relocation at all
+    _put(I, 0x1100, raw)
+    _put(S, 0x1100, raw)
+    assert sh.code(0x1100, 6, set(), []) == "hardcoded address"
+    sh.S, sh.why = None, "no shifted link"                            # nothing verified, nothing credited
+    assert sh.code(0x1000, 6, masked, rels) == "no shifted link"
+
+
+def test_shift_failure_invalidates_the_dependent_closure():
+    """link-cycle-1 only flagged the row; its callers kept closed credit."""
+    ok = {("unit", 1): True, ("unit", 2): True, ("unit", 3): True, ("datum", 9): False}
+    edges = {("unit", 1): {("unit", 2)}, ("unit", 2): {("datum", 9)}, ("unit", 3): set()}
+    assert lc.greatest_closure(ok, edges) == {("unit", 3)}            # the datum's pointer did not move
+    ok[("datum", 9)] = True
+    assert lc.greatest_closure(ok, edges) == {("unit", 1), ("unit", 2), ("unit", 3), ("datum", 9)}
+    del ok[("datum", 9)]                                                # an edge the graph does not hold
+    assert lc.greatest_closure(ok, edges) == {("unit", 3)}
+
+
+def test_eh_tables_must_move_with_the_base():
+    I, S = bytearray(0x6000), bytearray(0x6000)
+    for buf, base in ((I, B), (S, lc.SHIFT_BASE)):
+        _put(buf, 0x1C00, b"\xb8" + struct.pack("<I", base + 0x3000) + b"\xe9\0\0\0\0")
+        _funcinfo(buf, 0x3000, [-1, 0], base=base)
+    sh = _shifted(I, S)
+    assert sh.eh(0x1C00) is None
+    _put(S, 0x3008, struct.pack("<I", B + 0x3020))                     # unwind map pointer left at the old base
+    assert sh.eh(0x1C00) in ("FuncInfo not adjusted", "FuncInfo unparsable")
+
+
+def _import_measure(limports, rimports):
+    I, R = bytearray(0x8000), bytearray(0x8000)
+    m = _measure(I, R, [], [])
+    m.isecs = lc.SectionList([(".text", 0x1000, 0x1000), (".rdata", 0x6000, 0x1000), (".data", 0x3000, 0x1000)])
+    m.limports, m.rimports = limports, rimports
+    return m
+
+
+def test_import_identity_is_dll_and_name():
+    k32, usr = lc.import_key("KERNEL32.dll", b"Foo"), lc.import_key("USER32.dll", b"Foo")
+    m = _import_measure({0x6000: k32}, {0x6100: usr})
+    assert m.data_ref(0x6000, 0x6100, "__imp__Foo@4", None, None, 0)[0] == ["import-mismatch:__imp__Foo@4"]
+    m = _import_measure({0x6000: k32}, {0x6100: lc.import_key("kernel32.dll", "Foo")})
+    assert m.data_ref(0x6000, 0x6100, "__imp__Foo@4", None, None, 0)[0] == []
+    assert lc.import_key("ws2_32.dll", None, 23) == ("ws2_32.dll", "#23")
+    assert lc.import_key("x.dll", "Bar@8") == ("x.dll", "Bar")
+
+
+def test_duplicate_retail_iat_slots_are_one_import_only_when_read_through():
+    """Retail has two IAT slots for msvcr71 strncpy; the link has one. A call through
+    either reads the same function: equivalent. Taking a slot's address is not."""
+    imp = lc.import_key("msvcr71.dll", "strncpy")
+    m = _import_measure({0x6000: imp}, {0x6100: imp, 0x6104: imp})
+    refs = [(0x6000, 0x6100, "__imp__strncpy", None, None, 0, "read"),
+            (0x6000, 0x6104, "__imp__strncpy", None, None, 0, "read")]
+    m.discover(refs)
+    assert [m.ref_check(r)[0] for r in refs] == [[], []] and m.import_equiv == 2
+    observe = (0x6000, 0x6104, "__imp__strncpy", None, None, 0, "addr")
+    m.discover([observe])
+    assert m.ref_check(observe)[0] == ["data-fwd:__imp__strncpy"]
+    other = lc.import_key("msvcr71.dll", "toupper")                   # wrong import, read through: still fails
+    m = _import_measure({0x6000: imp}, {0x6100: imp, 0x6104: other})
+    bad = (0x6000, 0x6104, "__imp__strncpy", None, None, 0, "read")
+    m.discover([bad, refs[0]])
+    assert m.ref_check(bad)[0] == ["import-mismatch:__imp__strncpy", "data-fwd:__imp__strncpy"]
+
+
+def test_read_through_operand_forms():
+    assert lc.read_through(b"\xff\x15\0\0\0\0", 2)             # call [m32]
+    assert lc.read_through(b"\xff\x25\0\0\0\0", 2)             # jmp [m32]
+    assert lc.read_through(b"\x8b\x3d\0\0\0\0", 2)             # mov edi,[m32]
+    assert lc.read_through(b"\xa1\0\0\0\0", 1)                 # mov eax,[m32]
+    assert not lc.read_through(b"\x68\0\0\0\0", 1)             # push offset slot: address taken
+    assert not lc.read_through(b"\xc7\x05\0\0\0\0", 2)         # mov [slot], imm: a store
+    assert not lc.read_through(b"\x8d\x05\0\0\0\0", 2)         # lea eax,[slot]
+
+
+def test_twin_is_judged_on_the_selected_copy_inside_its_section():
+    """A section holding two functions: link-cycle-1 rejected the second on
+    'extent' (offset != 0); the /MAP's copy at its own offset is judged now."""
+    I, R = bytearray(0x6000), bytearray(0x6000)
+    body = b"\x90" * 0x10 + b"\xe8\0\0\0\0\xc3" + b"\xcc" * 10
+    _put(I, 0x1C00, b"\x90" * 0x10 + b"\xe8" + struct.pack("<i", 0x1800 - 0x1C15) + b"\xc3")
+    _put(R, 0x1D00, b"\xe8" + struct.pack("<i", 0x1900 - 0x1D05) + b"\xc3")
+    tw = ([_sec(1, ".text", 0x20, relocs=[(0x11, 0, lc.REL32)], ptr=4)],      # raw data at file offset 4
+          {0: _sym(0, "?f@@YAXXZ", 1), 1: _sym(1, "?g@@YAXXZ", 1, value=0x10)}, b"\0" * 4 + body)
+    m = _measure(I, R, [(0x1800, 0x1810, 0x1900, ("unit", 7))],
+                 [(0x1C00, "?f@@YAXXZ", "b.obj"), (0x1C10, "?g@@YAXXZ", "b.obj")],
+                 objs=FakeObjs({"b.obj": tw}), ledger_starts={0x1D00: 6})
+    assert m.code_ref(0x1C10, 0x1D00, "?g@@YAXXZ", "?r@@YAXXZ") == (None, ("twin", 0x1C10, 0x1D00))
+    m.judge_twins()
+    assert m.twins[(0x1C10, 0x1D00)] == (True, "certified")
+    m = _measure(I, R, [], [(0x1C10, "?g@@YAXXZ", "b.obj")], objs=FakeObjs({"b.obj": tw}),
+                 ledger_starts={0x1D00: 0x12})                          # retail's row is longer: not this copy
+    m.code_ref(0x1C10, 0x1D00, "?g@@YAXXZ", "?r@@YAXXZ")
+    m.judge_twins()
+    assert m.twins[(0x1C10, 0x1D00)] == (False, "extent differs")
+
+
+def test_unit_whose_copy_the_link_did_not_select_is_not_measured():
+    u = {"id": 0, "obj": "x/a.obj", "sec": 1, "secname": ".text", "size": 4, "head": "?f@@YAXXZ",
+         "head_cls": lc.EXTERNAL, "starts": [0x1000],
+         "rows": [{"name": "?f@@YAXXZ", "rva": 0x1000, "size": 4, "off": 0, "sym": "?f@@YAXXZ"}]}
+    mapped = ({"?f@@YAXXZ": 0x1000}, {}, [(0x1000, "?f@@YAXXZ", "b.obj")], {"?f@@YAXXZ": "b.obj"})
+    m = lc.Measure([u], [], mapped, bytearray(0x2000), bytearray(0x2000), {".text": (0x1000, 0x1000)},
+                   {}, {}, {}, FakeObjs({}), {})
+    assert u["linked"] is None and u["not_selected"] == "b.obj"
+    rec = m.run()[0]
+    assert rec["fails"] == ["not-selected:b.obj"] and not rec["measured"]
+    mapped[3]["?f@@YAXXZ"] = "a.obj"                                   # negative control: its own copy
+    lc.Measure([u], [], mapped, bytearray(0x2000), bytearray(0x2000), {".text": (0x1000, 0x1000)},
+               {}, {}, {}, FakeObjs({}), {})
+    assert u["linked"] == 0x1000 and "not_selected" not in u
+
+
+def test_object_identity_ignores_time_stamp_and_debug_records(tmp_path):
+    def ident(raw):
+        return lc.object_identity(lc.parse_coff(bytes(raw)) + (bytes(raw),))
+    a = lc.write_coff(tmp_path / "a.obj", [(".text", 0x60500020, b"\x90\xc3", 0), (".debug$S", 0x42100040, b"C:/x", 0)],
+                      [("_f", 1, 0, lc.EXTERNAL)]).read_bytes()
+    b = bytearray(lc.write_coff(tmp_path / "b.obj", [(".text", 0x60500020, b"\x90\xc3", 0),
+                                                     (".debug$S", 0x42100040, b"D:/yyy", 0)],
+                                [("_f", 1, 0, lc.EXTERNAL)]).read_bytes())
+    b[4:8] = b"\x01\x02\x03\x04"                                       # a compile time stamp
+    assert ident(b) == ident(a)
+    b[b.index(b"\x90\xc3")] = 0xCC                                     # positive control: a code byte
+    assert ident(b) != ident(a)
+
+
+def test_warm_start_caches_are_bound_to_their_objects(tmp_path):
+    q = tmp_path / "quarantine.json"
+    lc.save_cache(q, "digest-A", ["?x@@YAXXZ"])
+    assert lc.cache_file(q, "digest-A", False) == (["?x@@YAXXZ"], False)
+    assert lc.cache_file(q, "digest-B", False) == (None, False)        # stale: a cold start
+    assert lc.cache_file(q, "digest-B", True) == (["?x@@YAXXZ"], True)   # allowed, but marked
+    q.write_text('["?x@@YAXXZ"]')                                       # an unstamped (link-cycle-1) cache
+    assert lc.cache_file(q, "digest-A", False) == (None, False)
+
+
+def test_receipt_core_leaves_out_times_and_history():
+    r = {"rules": "link-cycle-2", "commit": "c", "series": {"credit_unique_bytes": 5}, "objects_digest": "o",
+         "date_utc": "now", "seconds": {"total": 1}, "links": [{"secs": 3}], "warm_start": {"stubs": True}}
+    cold = dict(r, date_utc="then", seconds={"total": 99}, links=[{"secs": 1}, {"secs": 2}], warm_start={})
+    assert lc.digest_of(lc.receipt_core(r)) == lc.digest_of(lc.receipt_core(cold))
+    assert lc.digest_of(lc.receipt_core(r)) != lc.digest_of(lc.receipt_core(dict(r, series={"credit_unique_bytes": 4})))
 
 
 if __name__ == "__main__":

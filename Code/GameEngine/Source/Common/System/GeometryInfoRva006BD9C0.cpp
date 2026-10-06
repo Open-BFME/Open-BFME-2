@@ -62,13 +62,13 @@ struct GeometryShape
 };
 
 template <class T>
-inline const T &bfmeMin(const T &a, const T &b)
+static inline const T &bfmeMin(const T &a, const T &b)
 {
 	return (a < b) ? a : b;
 }
 
 template <class T>
-inline const T &bfmeMax(const T &a, const T &b)
+static inline const T &bfmeMax(const T &a, const T &b)
 {
 	return (a > b) ? a : b;
 }

@@ -1,0 +1,2 @@
+date,commit,rules,total,byte_matched,recovered,authored,vendored,generated,library,dump,cpp_evidence,cpp_readable,cpp_address,link_receipt,link_placed,link_self_strict,link_closed_strict,matched_rows,pins,alias_rows,alternatename,emit,asm_bytes,gate_debt
+2026-10-06,38268d5f9d,v2,7978500,4045678,3686794,3399548,287246,181345,177539,9416,,2054744,1344804,,,,,64409,13514,17004,4176,1936,57455,227

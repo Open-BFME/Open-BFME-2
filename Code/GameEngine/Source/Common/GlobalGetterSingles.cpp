@@ -137,17 +137,6 @@ int Rva006CD220Get(void)
 	return g_Va00E17724;
 }
 
-// ?Rva006C53B0Get@@YAHXZ @ 0x006C53B0 (6B) over 0x00E0C1F4.
-
-extern int g_Va00E0C1F4;
-// g_Va00E0C1F4: matched references place it at VA 0xe0c1f4 (zero-filled .bss).
-int g_Va00E0C1F4;
-
-int Rva006C53B0Get(void)
-{
-	return g_Va00E0C1F4;
-}
-
 // ?Rva0058AEB6Get@@YAHXZ @ 0x0058AEB6 (6B) over 0x00E063A4.
 
 extern int g_Va00E063A4;

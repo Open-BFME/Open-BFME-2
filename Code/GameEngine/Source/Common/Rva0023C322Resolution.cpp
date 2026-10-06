@@ -96,7 +96,7 @@ void Rva0023C322::rva0023C322()
 	{
 		AsciiString key("Resolution");
 		AsciiString &slot = prefs[key];
-		slot = tmp;
+		((StringBase<char> &)slot).set(*(const StringBase<char> *)&tmp);
 	}
 	prefs.write();
 }

@@ -1,5 +1,5 @@
 // ?rva0060DE23@BfmeRva00C7B388@@QAEXXZ
-// partial score=0.96 date=2026-10-05
+// partial score=0.98 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1
 
 // A text-dumping Xfer, vtable 0x00C7B388 (constructor 0x0060DEB1, destructor
@@ -634,15 +634,17 @@ int BfmeRva00C7B388::rva0060DF27(const char *s)
 // 0x0060D5F2 on g_00BBE498 then indent then g_00C7B37C plus temp.
 extern const char g_00BBE498[];
 extern const char g_00C7B37C[];
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
-// ?rva0060DE23@BfmeRva00C7B388@@QAEXXZ present-unmatched
 void BfmeRva00C7B388::rva0060DE23()
 {
-	if (m_bfme10 == m_bfme0C) {
+	if (m_bfme0C == m_bfme10) {
 		return;
 	}
+	_ReadWriteBarrier();
 	typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > NarrowString;
-	NarrowString tmp(*(NarrowString *)(m_bfme10 - 12));
+	NarrowString tmp(*(NarrowString *)(m_bfme10 - sizeof(NarrowString)));
 	m_bfme10 -= 12;
 	NarrowString *dead = (NarrowString *)m_bfme10;
 	if (dead->_M_start != 0) {

@@ -46,6 +46,8 @@ protected:
 	unsigned char m_pad[0x148 - 8];
 };
 
+extern const void *const g_00BDD7A4[];
+
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -88,7 +90,7 @@ DynamicDecalFXNugget::DynamicDecalFXNugget()
 {
 	const char **nameSlot = &m_decalName;
 	_ReadWriteBarrier();
-	*(unsigned int *)this = 0x00BDD7A4;
+	*(const void **)this = g_00BDD7A4;
 	*nameSlot = 0;
 	m_nuggetType = 13;
 	m_shader = 0;

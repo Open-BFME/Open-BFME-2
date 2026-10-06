@@ -66,21 +66,6 @@ bool BfmeB996Range::rva001068D1( int first, unsigned int *second, char *third )
 	return false;
 }
 
-// 0x0010690D 62B: void advance step; calls rva001068D1 with stack probe/arg/flag
-// then v5(arg,1). Donor Open-BFME-1 Rva007E34C0BfmeB996RangeLoop.cpp bfmeAdvance996
-// (same layout +4 dev/+8 kind, (int)&probe pattern); callers at 0x000911B2 etc.
-void BfmeB996Range::rva0010690D()
-{
-	if ( m_kind == 6 ) {
-		int probe;
-		unsigned int arg;
-		char flag = 0;
-		if ( rva001068D1( (int)&probe, &arg, &flag ) && flag == 0 ) {
-			m_dev->v5( arg, 1 );
-		}
-	}
-}
-
 class Rva007E3410Object
 {
 public:
