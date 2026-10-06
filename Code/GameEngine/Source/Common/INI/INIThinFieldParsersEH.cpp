@@ -37,7 +37,14 @@ private:
 	void *m_owner;
 };
 
-extern const char *TheWeaponSlotTypeNames[];
+const char *TheWeaponSlotTypeNames[] = {
+	"PRIMARY",
+	"SECONDARY",
+	"TERTIARY",
+	"QUATERNARY",
+	"QUINARY",
+	0,
+};
 
 // ?Rva004E8E57_ParseAIKindOf@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva004E8E57_ParseAIKindOf(INI *ini, void *, void *store, const void *)
