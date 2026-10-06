@@ -64174,3 +64174,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??0Rva004C743@@QAE@XZ,,0x0004C43E,25,Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp,matched,
 ?rva0005CA03@MilesAudioManager@@QAEXPAXMH@Z,,0x0005CA03,114,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp,matched,owner voice plus pinned 5BE59 setup; address name
 ?rva0005CA75@MilesAudioManager@@QAEXH@Z,,0x0005CA75,109,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp,matched,sub poke plus pinned 5BE59 with g_ floats; address name
+??1Rva008B77D@@UAE@XZ,,0x0008B77D,54,Code/GameEngine/Source/Common/Rva0008B77DDtor.cpp,matched,dtor destroys vector at +0x2C via rowed 0x8B64A then base vtable 0x7C745C
