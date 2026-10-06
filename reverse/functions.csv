@@ -66007,3 +66007,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva003A2FD4@TeamFactory@@QAEPAURva003A2FD4Proto@@ABVAsciiString@@PAXHI@Z,,0x003A2FD4,116,Code/GameEngine/Source/Common/RTS/TeamFactoryRva003A2FD4.cpp,matched,chain from 0x003A2C0D rowed callees globals array 0x28
 ?rva0040FCC0@Rva0040FCC0@@QAEXH@Z,,0x0040FCC0,92,Code/GameEngine/Source/Common/Rva0040FCC0Shutdown.cpp,matched,ref neighbours WindowLayout rowed callees globals VTABLE Locomotor disagrees
 ??0RvaSmartPtr12@@QAE@PAX@Z,,0x0004CBF7,34,Code/GameEngine/Source/Common/System/SmartPtrCopyCtor.cpp,matched,raw pointer constructor matches adjacent smart pointer layout
+?rva0045969F@Rva0045969F@@UAEHXZ,,0x0045969F,90,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0045969F.cpp,matched,ref slot 0x00841194 Thing-8 getDrawable AI+0x258 slot 0x1b8 iface+0x10

@@ -1,6 +1,4 @@
-// ?rva0045969F@Rva0045969F@@UAEHXZ
-// partial score=0.92 date=2026-10-06
-// cl: /MD
+// cl: /O1 /arch:SSE /G7 /MD
 //
 // ?rva0045969F@Rva0045969F@@UAEHXZ, retail 0x0045969F 90 bytes.
 // Ref-lane body reached via table slot 0x00841194; neighbours are UpdateModule
