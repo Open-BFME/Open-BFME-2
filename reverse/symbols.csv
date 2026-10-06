@@ -15272,8 +15272,6 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva0049DD83Append@Rva0049DD83@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ?rva00417DFBAppend@Rva00417DFB@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ?rva0021B7B6Append@Rva0021B7B6@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
-??_7Rva00567847@@6B@,0x00C6CED8,Rva00567847 vtable installed by its rowed ctor 0x00567847 and copy ctor 0x00567CA6 (mov [esi] imm at 0x00567CB4)
-??_7Rva0044B27F@@6B@,0x00C3E4FC,Rva0044B27F vtable installed by its copy ctor 0x0044B27F (mov [esi] imm at 0x0044B2AB) after the BfmeSaveElement002295D7 base copy
 ?allocate@?$allocator@URva003F6B24Record@@@_STL@@QBEPAURva003F6B24Record@@IPBX@Z,0x000B40EA
 ??$__uninitialized_copy@PAURva003F6B24Record@@PAU1@@_STL@@YAPAURva003F6B24Record@@PAU1@00ABU__false_type@0@@Z,0x003F62F5
 ??$_Construct@URva003F6B24Record@@U1@@_STL@@YAXPAURva003F6B24Record@@ABU1@@Z,0x003F62C8
