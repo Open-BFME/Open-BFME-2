@@ -1,2 +1,2 @@
 date,commit,rules,total,byte_matched,recovered,authored,vendored,generated,library,dump,cpp_evidence,cpp_readable,cpp_address,link_receipt,link_placed,link_self_strict,link_closed_strict,matched_rows,pins,alias_rows,alternatename,emit,asm_bytes,gate_debt
-2026-10-06,38268d5f9d,v2,7978500,4045678,3686794,3399548,287246,181345,177539,9416,,2054744,1344804,,,,,64409,13514,17004,4176,1936,57455,227
+2026-10-06,f2f8376346,v2,7978500,4167048,3808298,3521038,287260,181211,177539,12104,,2120494,1400544,,,,,65125,13628,17002,4161,1936,57455,65
