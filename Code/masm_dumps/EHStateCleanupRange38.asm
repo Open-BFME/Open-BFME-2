@@ -11,6 +11,7 @@ EXTERN ??_M@YGXPAXIHP6EX0@Z@Z:PROC
 EXTERN ??1AsciiString@@QAE@XZ:PROC
 EXTERN ??1UnicodeString@@QAE@XZ:PROC
 EXTERN ??1Rva00087A93@@QAE@XZ:PROC
+EXTERN ??1Rva0038465B@@QAE@XZ:PROC
 EXTERN ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ:PROC
 
 _TEXT SEGMENT
@@ -409,5 +410,75 @@ PUBLIC ?rva00781eff@@YAXXZ
 cleanup_done_00781eff:
     ret
 ?rva00781eff@@YAXXZ ENDP
+
+; Unwind@00b8217e at RVA 0x0078217E; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-20] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva0078217e@@YAXXZ
+?rva0078217e@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0078217e
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0078217e:
+    ret
+?rva0078217e@@YAXXZ ENDP
+
+; Unwind@00b8228f at RVA 0x0078228F; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-28] and tail-jumps through [ebp+8] to the address-derived thunk.
+PUBLIC ?rva0078228f@@YAXXZ
+?rva0078228f@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-28]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0078228f
+    and DWORD PTR [ebp-28], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva0038465B@@QAE@XZ
+cleanup_done_0078228f:
+    ret
+?rva0078228f@@YAXXZ ENDP
+
+; Unwind@00b823be at RVA 0x007823BE; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-28] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva007823be@@YAXXZ
+?rva007823be@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-28]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007823be
+    and DWORD PTR [ebp-28], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007823be:
+    ret
+?rva007823be@@YAXXZ ENDP
+
+; Unwind@00b82404 at RVA 0x00782404; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-36] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva00782404@@YAXXZ
+?rva00782404@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-36]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00782404
+    and DWORD PTR [ebp-36], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00782404:
+    ret
+?rva00782404@@YAXXZ ENDP
+
+; Unwind@00b82478 at RVA 0x00782478; 25-byte state-bit cleanup ends at RET.
+; Same state-bit cleanup as 0x782404; frame slot is [ebp-36].
+PUBLIC ?rva00782478@@YAXXZ
+?rva00782478@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-36]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00782478
+    and DWORD PTR [ebp-36], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00782478:
+    ret
+?rva00782478@@YAXXZ ENDP
 _TEXT ENDS
 END
