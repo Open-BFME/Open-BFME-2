@@ -101,3 +101,26 @@ void Rva005C7C75::rva005C7C75(int index)
 {
 	return m_04->rva005C7B96(index);
 }
+
+// Retail 0x005C7C6D, 8 bytes: gap between 0x005C7C65 and 0x005C7C75 same file;
+// plus4 tail to rowed Rva005C7BE1::rva005C7AE1(int). Caller 0x005C38DB.
+// ?rva005C7C6D@Rva005C7C6D@@QAEXH@Z
+class Rva005C7BE1
+{
+public:
+	void rva005C7AE1(int index);
+};
+
+class Rva005C7C6D
+{
+public:
+	void rva005C7C6D(int index);
+private:
+	char _pad0[4];
+	Rva005C7BE1 *m_04;
+};
+
+void Rva005C7C6D::rva005C7C6D(int index)
+{
+	return m_04->rva005C7AE1(index);
+}
