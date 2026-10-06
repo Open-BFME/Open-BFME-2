@@ -37,13 +37,12 @@ class AsciiString;
 
 class EnumeratedIP
 {
-	friend class IPEnumeration;
 public:
 	EnumeratedIP();
-	unsigned int getIP();
-	void setIP(unsigned int ip);
-	EnumeratedIP *getNext();
-	void setNext(EnumeratedIP *next);
+	unsigned int getIP() { return m_IP; }
+	void setIP(unsigned int ip) { m_IP = ip; }
+	EnumeratedIP *getNext() { return m_next; }
+	void setNext(EnumeratedIP *next) { m_next = next; }
 
 private:
 	AsciiString m_IPstring;
@@ -101,9 +100,9 @@ EnumeratedIP *IPEnumeration::getAddresses(void)
 	{
 		EnumeratedIP *newIP = new EnumeratedIP;
 		reinterpret_cast<Rva0050BFFD *>(newIP)->rva0050BFFD(AsciiString("127.0.0.1"));
-		newIP->m_IP = 0x0100007f;
+		newIP->setIP(0x0100007f);
 		m_IPlist = newIP;
-		newIP->m_next = 0;
+		newIP->setNext(0);
 		return m_IPlist;
 	}
 
@@ -123,25 +122,25 @@ EnumeratedIP *IPEnumeration::getAddresses(void)
 		unsigned int testIP = *((unsigned int *)entry);
 		unsigned int ip = htonl(testIP);
 		reinterpret_cast<Rva0050BFFD *>(newIP)->rva0050BFFD(str);
-		newIP->m_IP = ip;
+		newIP->setIP(ip);
 
 		if (!m_IPlist)
 		{
 			m_IPlist = newIP;
-			newIP->m_next = 0;
+			newIP->setNext(0);
 		}
-		else if (newIP->m_IP < m_IPlist->m_IP)
+		else if (newIP->getIP() < m_IPlist->getIP())
 		{
-			newIP->m_next = m_IPlist;
+			newIP->setNext(m_IPlist);
 			m_IPlist = newIP;
 		}
 		else
 		{
 			EnumeratedIP *p = m_IPlist;
-			while (p->m_next && p->m_next->m_IP < newIP->m_IP)
-				p = p->m_next;
-			newIP->m_next = p->m_next;
-			p->m_next = newIP;
+			while (p->getNext() && p->getNext()->getIP() < newIP->getIP())
+				p = p->getNext();
+			newIP->setNext(p->getNext());
+			p->setNext(newIP);
 		}
 	}
 

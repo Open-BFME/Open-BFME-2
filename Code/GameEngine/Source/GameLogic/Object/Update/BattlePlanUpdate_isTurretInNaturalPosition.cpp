@@ -27,12 +27,9 @@ public:
 class Object
 {
 public:
-	// Declaration only: the retail copy lives in Object.cpp (0x00313EB6).
-	// Defining it here would emit a second COMDAT copy with this TU's
-	// +0x258 model instead of retail's bytes.
-	AIUpdateInterface *getAI();
+	AIUpdateInterface *getAI() { return m_ai; }
 
-public:
+private:
 	unsigned char m_pad[0x258];	// vtable + members ahead of m_ai
 	AIUpdateInterface *m_ai;	// +0x258
 };
@@ -53,7 +50,7 @@ private:
 // ?isTurretInNaturalPosition@BattlePlanUpdate@@IAE_NXZ
 bool BattlePlanUpdate::isTurretInNaturalPosition()
 {
-	AIUpdateInterface *ai = getObject()->m_ai;
+	AIUpdateInterface *ai = getObject()->getAI();
 	if (ai)
 	{
 		WhichTurretType tur = ai->getWhichTurretForCurWeapon();

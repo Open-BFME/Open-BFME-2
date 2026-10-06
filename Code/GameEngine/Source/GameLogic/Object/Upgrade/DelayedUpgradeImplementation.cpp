@@ -49,9 +49,10 @@ private:
 class Object
 {
 public:
-	BehaviorModule **getBehaviorModules() const;
+	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
+private:
 	unsigned char m_pad000[0x244];
-	BehaviorModule **m_modules244;		// +0x244 distinct from rowed +0x18C getter
+	BehaviorModule **m_behaviors;		// +0x244
 };
 struct DelayedUpgradeModuleData
 {
@@ -105,7 +106,7 @@ void DelayedUpgrade::upgradeImplementation()
 	activation.clear80();
 	conflicting.clear80();
 	getUpgradeActivationMasks(&activation, &conflicting);
-	for (BehaviorModule **module = obj->m_modules244; *module; ++module)
+	for (BehaviorModule **module = obj->getBehaviorModules(); *module; ++module)
 	{
 		Rva004B3CC2Upgrade *upgrade = (*module)->getInterface()->rvaSlot21();
 		if (upgrade && upgrade->rvaSlot0(&activation))
