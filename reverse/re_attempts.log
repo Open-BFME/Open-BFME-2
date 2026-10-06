@@ -11277,3 +11277,8 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva00346C53@Rva00346C53@@QAEXW4ObjectStatusTypes@@_N@Z	0x00346C53	35	converted	first-try exact after struct fix; landed 35B t=10 model=muse-spark
 ?rva00346B6D@Rva00346B6D@@QAEXH@Z	0x00346B6D	80	converted	double-returning slot virtual plus struct-embedded float sink; landed 80B t=25 model=muse-spark
 ?rva0034BFFF@@YGXPAVObject@@@Z	0x0034BFFF	54	converted	first-try exact; landed 54B t=8 model=muse-spark
+?rva0052AF95@Rva0052AF95@@QAEXXZ	0x0052AF95	110	partial	add eax hoisted above guards cmp eax vs eax+10 t=20 model=muse-04 score=0.96 stash=reverse/attempts/0x0052af95.cpp
+?rva003EEBEF@Rva003EEBEF@@QAEXH@Z	0x003EEBEF	116	partial	gate neg-sbb vs jmp-xor plus global reload ecx-vs-eax plus SIB t=20 model=muse-04 score=0.95 stash=reverse/attempts/0x003eebef.cpp
+??1Rva003EE1BE@@UAE@XZ	0x003EE1BE	126	blocked	missing mov-eax-end-cache and mov-byte-1-before-free tried while for-locals if-guard empty-base PtrArray t=25 model=muse-04 (stash 0.9 kept)
+?rva0052B10F@Rva0052B10F@@QAEXXZ	0x0052B10F	112	partial	1B early-add CSE needs cmp-disp8 plus late-add-after-push t=30 model=muse-04 score=0.99 stash=reverse/attempts/0x0052b10f.cpp
+?rva0052B17F@Rva0052B17F@@QAEXXZ	0x0052B17F	112	partial	1B early-add CSE needs cmp-disp8 plus late-add-after-push t=20 model=muse-04 score=0.99 stash=reverse/attempts/0x0052b17f.cpp

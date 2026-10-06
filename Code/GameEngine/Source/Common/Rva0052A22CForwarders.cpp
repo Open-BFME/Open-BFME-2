@@ -48,3 +48,19 @@ void Rva005243FA(int a, int b, int c)
 	char tmp;
 	Rva0052408B(a, b, c, &tmp);
 }
+
+// ?rva0052A287@Rva0052A287@@QAEXPAUObj0052A22C@@@Z @0x0052A287 7B
+// Tail-forwarding wrapper holding Holder0052A22C* at +0: loads it and jmps
+// to rowed 0x0052A22C with the incoming Obj* arg preserved on the stack.
+// Evidence: unlock lane all callees rowed; caller at 0x002D3651 in 0x002D363E
+// passes its incoming 4B arg through; neighbours share /O1 /MD.
+struct Rva0052A287
+{
+	Holder0052A22C *m_holder;
+	void rva0052A287(Obj0052A22C *obj);
+};
+
+void Rva0052A287::rva0052A287(Obj0052A22C *obj)
+{
+	m_holder->rva0052A22C(obj);
+}

@@ -1,6 +1,6 @@
 // ?rva0052AF95@Rva0052AF95@@QAEXXZ
-// partial score=0.93 date=2026-10-05
-// cl: /O2 /EHsc /MD
+// partial score=0.96 date=2026-10-06
+// cl: /O1 /EHsc /MD
 // ?rva0052AF95@Rva0052AF95@@QAEXXZ, RVA 0x0052AF95 size 110.
 // Chain lane: calls 0x002DA651 just landed; all callees rowed. Evidence:
 // same-page neighbours VslotSmallBodiesAM / Rva0052B024Loop share /O1;
@@ -75,11 +75,13 @@ private:
 // ?rva0052AF95@Rva0052AF95@@QAEXXZ present-unmatched
 void Rva0052AF95::rva0052AF95()
 {
-	if (m_p14->m_flag10 != 0 && m_p38 != 0)
+	if (m_p14->m_flag10 != 0)
 	{
-		OpaqueRefElement4 &ref = *(OpaqueRefElement4 *)((char *)m_p14 + 0x10);
-		Rva002DA651 tmp(ref, m_p38->m_id);
-		TheAudio->audioEvent(&tmp);
+		if (m_p38 != 0)
+		{
+			Rva002DA651 tmp(*(OpaqueRefElement4 *)((char *)m_p14 + 0x10), m_p38->m_id);
+			TheAudio->audioEvent(&tmp);
+		}
 	}
 	((Rva005391A9 *)this)->rva005391A9();
 }
