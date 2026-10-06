@@ -148,8 +148,39 @@ class Palantir
 {
 public:
 	void rva005785A2(void *selection);
+	void rva005785CD();
+};
+
+// The checklist (+0x30) and selection details (+0x34) by the class names
+// their own rowed methods carry; each one's per-frame update is the method
+// the HUD update reaches through the slot.
+class ChecklistUIImpl
+{
+public:
+	void rva0057B499();
+};
+
+class SelectionDetailsUIImpl
+{
+public:
+	void rva0057BBBB();
 };
 }
+
+// The help box's per-frame update, rowed at 0x005279DD.
+class InGameHelpBoxMovieClip
+{
+public:
+	void Update();
+};
+
+// The stats display and the new-turn indicator have empty updates, which
+// fold onto the shared empty body 0x000B3FD0.
+class Rva000B3FD0Nop
+{
+public:
+	void noop();
+};
 
 class Rva005796B3
 {
@@ -337,6 +368,11 @@ class HUD
 {
 public:
 	class Impl;
+
+	void rva0042D5D6();
+
+private:
+	Impl *m_impl;
 };
 }
 
@@ -366,6 +402,8 @@ public:
 	void OnSelectionDetailsUnloaded(const char *name);
 	void OnStatsDisplayLoaded(const char *name);
 	void OnStatsDisplayUnloaded(const char *name);
+
+	void rva0042D577();
 
 private:
 	int m_00; // the constructor's first argument
@@ -440,6 +478,34 @@ void StrategicHUD::HUD::Impl::OnClosed(const char *unused)
 void StrategicHUD::HUD::Impl::OnLoadDialogFrameUnloaded(const char *name)
 {
 	m_loadDialogFrame.clear();
+}
+
+// Retail 0x0042D577, 84 bytes: once the movie is loaded, updates the
+// help box, the Palantir, the stats display, the checklist, the selection
+// details and the new-turn indicator. HUD::rva0042D5D6 forwards to it.
+void StrategicHUD::HUD::Impl::rva0042D577()
+{
+	if (m_state != 0)
+	{
+		if (m_helpBox.m_ptr != 0)
+			((InGameHelpBoxMovieClip *)m_helpBox.m_ptr)->Update();
+		if (m_palantir.m_ptr != 0)
+			((StrategicHUD::Palantir *)m_palantir.m_ptr)->rva005785CD();
+		if (m_statsDisplay.m_ptr != 0)
+			((Rva000B3FD0Nop *)m_statsDisplay.m_ptr)->noop();
+		if (m_checklist.m_ptr != 0)
+			((StrategicHUD::ChecklistUIImpl *)m_checklist.m_ptr)->rva0057B499();
+		if (m_selectionDetails.m_ptr != 0)
+			((StrategicHUD::SelectionDetailsUIImpl *)m_selectionDetails.m_ptr)->rva0057BBBB();
+		if (m_newTurnIndicator.m_ptr != 0)
+			((Rva000B3FD0Nop *)m_newTurnIndicator.m_ptr)->noop();
+	}
+}
+
+// Retail 0x0042D5D6, 7 bytes: the HUD's update, through its Impl.
+void StrategicHUD::HUD::rva0042D5D6()
+{
+	m_impl->rva0042D577();
 }
 
 // Retail 0x0042D92E, 181 bytes.

@@ -60,6 +60,8 @@ class Rva005D25F2
 {
 public:
 	Rva005D25F2(int level, const AsciiString &path);
+	// Unrowed 0x005D2A53 (its per-frame update), pinned by address.
+	void rva005D2A53();
 
 	unsigned char m_pad[0xC4];
 };
@@ -172,6 +174,7 @@ public:
 	void OnObjectivesButtonRollOut(const char *unused);
 
 	void rva005785A2(void *selection);
+	void rva005785CD();
 
 private:
 	int m_00;
@@ -217,6 +220,27 @@ void StrategicHUD::Palantir::rva005785A2(void *selection)
 		if (m_selectionUI.m_ptr)
 			m_selectionUI.m_ptr->rva005D3CA6(selection);
 	}
+}
+
+// The region UI and region stats tray have empty updates, which fold onto
+// the shared empty body 0x000B3FD0.
+class Rva000B3FD0Nop
+{
+public:
+	void noop();
+};
+
+// Retail 0x005785CD, 41 bytes. Name unknown. The Palantir's per-frame
+// update, reached from the HUD's (0x0042D577): updates the command UI, the
+// region UI and the region stats tray; the selection UI has none.
+void StrategicHUD::Palantir::rva005785CD()
+{
+	if (m_commandUI.m_ptr != 0)
+		m_commandUI.m_ptr->rva005D2A53();
+	if (m_regionUI.m_ptr != 0)
+		((Rva000B3FD0Nop *)m_regionUI.m_ptr)->noop();
+	if (m_regionStatsTray.m_ptr != 0)
+		((Rva000B3FD0Nop *)m_regionStatsTray.m_ptr)->noop();
 }
 
 // Retail 0x00578761, 151 bytes: bound as "<movie>_OnCommandUILoaded".
