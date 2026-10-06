@@ -22,7 +22,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString team, Bool exact);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Rva003A2897
 {
@@ -38,8 +38,8 @@ protected:
 
 void ScriptActions::rva003C09DA(const AsciiString &teamName1, const AsciiString &teamName2)
 {
-	Team *team1 = g_Va009FE16C->getTeamNamed(teamName1, false);
-	Team *team2 = g_Va009FE16C->getTeamNamed(teamName2, false);
+	Team *team1 = TheScriptEngine->getTeamNamed(teamName1, false);
+	Team *team2 = TheScriptEngine->getTeamNamed(teamName2, false);
 	if (team1 == 0)
 		return;
 	if (team2 == 0)

@@ -44,7 +44,7 @@ public:
 	Team *getTeamNamed(AsciiString, bool);
 	Object *getUnitNamed(Parameter *unitParam);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class ScriptActions
 {
@@ -59,7 +59,7 @@ protected:
 // unit from its parameter through the rowed getUnitNamed.
 void ScriptActions::doAffectObjectPanelFlagsUnit(Parameter *unitParam, const AsciiString &flagName, bool enable)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(unitParam);
+	Object *obj = TheScriptEngine->getUnitNamed(unitParam);
 	if (!obj)
 		return;
 	changeObjectPanelFlagForSingleObject(obj, flagName, enable);
@@ -67,7 +67,7 @@ void ScriptActions::doAffectObjectPanelFlagsUnit(Parameter *unitParam, const Asc
 
 void ScriptActions::doAffectObjectPanelFlagsTeam(const AsciiString &teamName, const AsciiString &flagName, bool enable)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (!team)
 		return;
 	DLINK_ITERATOR<Object> iter;

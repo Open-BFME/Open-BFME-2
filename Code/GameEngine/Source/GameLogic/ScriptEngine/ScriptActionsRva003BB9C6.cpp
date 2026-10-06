@@ -15,7 +15,7 @@ class ScriptEngine
 public:
 	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class PlayerList
 {
 public:
@@ -34,7 +34,7 @@ public:
 extern PartitionManager *TheShroudManager;
 void __stdcall Rva003BB9C6Reveal(bool reveal, const AsciiString &name)
 {
-	int mask = g_Va009FE16C->rva00357475(name, 0);
+	int mask = TheScriptEngine->rva00357475(name, 0);
 	if (mask == 0) {
 		for (int i = 0; i < ThePlayerList->m_playerCount; ++i) {
 			Player *p = ThePlayerList->getNthPlayer(i);

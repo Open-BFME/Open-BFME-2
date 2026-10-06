@@ -29,7 +29,7 @@ class ScriptEngine
 public:
     Object *getUnitNamed(Parameter *unitParam);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class ScriptActions
 {
@@ -40,7 +40,7 @@ protected:
 
 void ScriptActions::rva003BC93C(Parameter *pUnit, int value)
 {
-    Object *obj = g_Va009FE16C->getUnitNamed(pUnit);
+    Object *obj = TheScriptEngine->getUnitNamed(pUnit);
     if (!obj)
         return;
     Rva003BD306Target *target = obj->m_264Get();
@@ -51,7 +51,7 @@ void ScriptActions::rva003BC93C(Parameter *pUnit, int value)
 
 void ScriptActions::rva003BD306(Parameter *pUnit, int value)
 {
-    Object *obj = g_Va009FE16C->getUnitNamed(pUnit);
+    Object *obj = TheScriptEngine->getUnitNamed(pUnit);
     if (!obj)
         return;
     obj->m_264Get()->rva0039B28F(value);

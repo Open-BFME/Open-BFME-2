@@ -10,14 +10,14 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool flag);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class AI
 {
 public:
 	AIGroup *createGroup();
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class Team
 {
@@ -43,10 +43,10 @@ extern int g_Va00DBA4E4;
 // ?rva0036E1C3@AIGroup@@QAEXABV?$StringBase@D@@H@Z present-unmatched
 void __stdcall Rva003C1F0A(const AsciiString &teamName, const StringBase<char> &animName, float f)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed(teamName, false);
 	if (team == 0)
 		return;
-	AIGroup *grp = g_Va009FF0F8->createGroup();
+	AIGroup *grp = TheAI->createGroup();
 	if (grp == 0)
 		return;
 	team->getTeamAsAIGroup(grp);

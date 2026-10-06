@@ -67,14 +67,14 @@ public:
 };
 
 struct BfmeWorldRV;
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern TerrainLogic *TheTerrainLogic;
 extern struct BfmeWorldRV *g_bfmeWorldRV;
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 void __stdcall Rva003C0849Do(const AsciiString &teamName, const AsciiString &commandName, const AsciiString &waypointName)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
 	Waypoint *way = TheTerrainLogic->getWaypointByName(waypointName);
@@ -83,7 +83,7 @@ void __stdcall Rva003C0849Do(const AsciiString &teamName, const AsciiString &com
 	const CommandButton *button = ((ControlBar *)g_bfmeWorldRV)->findCommandButton(commandName);
 	if (button == 0)
 		return;
-	AIGroup *group = g_Va009FF0F8->createGroup();
+	AIGroup *group = TheAI->createGroup();
 	if (group == 0)
 		return;
 	team->getTeamAsAIGroup(group);

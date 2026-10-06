@@ -19,7 +19,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool exact);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class UpgradeTemplate;
 class UpgradeCenter
@@ -31,7 +31,7 @@ extern "C" UpgradeCenter *TheUpgradeCenter;
 
 void __stdcall Rva003C2121Grant(const AsciiString &teamName, const AsciiString &upgradeName)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed(teamName, false);
 	const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(upgradeName);
 	if (!team)
 		return;

@@ -96,18 +96,18 @@ public:
 	virtual void d32(); virtual void d33(); virtual void d34(); virtual void d35();
 	virtual Waypoint *v36(const Coord3D *pos, const AsciiString *name);
 };
-extern ScriptEngine *g_Va009FE16C;
-extern AI *g_Va009FF0F8;
+extern class ScriptEngine *TheScriptEngine;
+extern class AI *TheAI;
 extern TerrainLogic *TheTerrainLogic;
 extern float g_Va00BBB8D8;
 extern const char g_Rva0107301CEmptyString[];
 
 void __stdcall Rva003BF045Do(const AsciiString &teamName, const AsciiString &prefix, bool which)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
-	AIGroup *group = g_Va009FF0F8->createGroup();
+	AIGroup *group = TheAI->createGroup();
 	if (group == 0)
 		return;
 	team->getTeamAsAIGroup(group);
@@ -137,7 +137,7 @@ void __stdcall Rva003BF045Do(const AsciiString &teamName, const AsciiString &pre
 	sum.x *= inv;
 	sum.y *= inv;
 	sum.z *= inv;
-	Player *enemy = g_Va009FE16C->getSkirmishEnemyPlayer();
+	Player *enemy = TheScriptEngine->getSkirmishEnemyPlayer();
 	if (enemy == 0)
 		return;
 	int base = enemy->m_2E0;
@@ -149,7 +149,7 @@ void __stdcall Rva003BF045Do(const AsciiString &teamName, const AsciiString &pre
 	Waypoint *wp = TheTerrainLogic->v36(&sum, &waypointName);
 	if (wp == 0)
 		return;
-	Player *cur = g_Va009FE16C->getCurrentPlayer();
+	Player *cur = TheScriptEngine->getCurrentPlayer();
 	if (cur != 0 && first != 0)
 		cur->v05(first, wp);
 	if (which)

@@ -67,17 +67,17 @@ public:
 	virtual void d32(); virtual void d33(); virtual void d34(); virtual void d35();
 	virtual Waypoint *v36(const Coord3D *pos, int way);
 };
-extern ScriptEngine *g_Va009FE16C;
-extern AI *g_Va009FF0F8;
+extern class ScriptEngine *TheScriptEngine;
+extern class AI *TheAI;
 extern TerrainLogic *TheTerrainLogic;
 extern float g_Va00BBB8D8;
 
 void __stdcall Rva003BF5FEDo(const AsciiString &teamName, int way, bool which)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
-	AIGroup *group = g_Va009FF0F8->createGroup();
+	AIGroup *group = TheAI->createGroup();
 	if (group == 0)
 		return;
 	team->getTeamAsAIGroup(group);

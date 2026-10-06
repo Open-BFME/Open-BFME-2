@@ -43,7 +43,7 @@ public:
 	Team *getTeamNamed(AsciiString, bool = false);
 	const AttackPriorityInfo *getAttackInfo(const AsciiString &);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class Team
 {
 public:
@@ -57,10 +57,10 @@ protected:
 };
 void ScriptActions::rva003BEDD1(const AsciiString &teamName, const AsciiString &attackName)
 {
-	Team *team = g_Va009FE16C->getTeamNamed(teamName);
+	Team *team = TheScriptEngine->getTeamNamed(teamName);
 	if (team == 0)
 		return;
-	const AttackPriorityInfo *info = g_Va009FE16C->getAttackInfo(attackName);
+	const AttackPriorityInfo *info = TheScriptEngine->getAttackInfo(attackName);
 	StringBase<char> *name = (StringBase<char> *)((char *)info + 4);
 	if (name->isEmpty())
 	{

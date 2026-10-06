@@ -20,7 +20,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *param);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class TerrainLogic
 {
@@ -43,7 +43,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 class AIUpdateInterface
 {
@@ -92,9 +92,9 @@ public:
 
 void __stdcall Rva003BC123Do(Parameter *param, const AsciiString &arg2, float f, const AsciiString &wayName)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(param);
+	Object *obj = TheScriptEngine->getUnitNamed(param);
 	Waypoint *way = TheTerrainLogic->getWaypointByName(wayName);
-	void *lookup = g_009FF000->rva002D06CA(&arg2);
+	void *lookup = TheThingFactory->rva002D06CA(&arg2);
 	if (!obj || !way || !lookup)
 		return;
 	AIUpdateInterface *ai = obj->getAI();

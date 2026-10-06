@@ -45,19 +45,19 @@ public:
 	virtual void d32(); virtual void d33();
 	virtual void *v34(int a1);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern TerrainLogic *TheTerrainLogic;
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 void __stdcall Rva003BF903Do(const AsciiString &teamName, int way)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)teamName, false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
 	void *obj = TheTerrainLogic->v34(way);
 	if (obj == 0)
 		return;
-	AIGroup *group = g_Va009FF0F8->createGroup();
+	AIGroup *group = TheAI->createGroup();
 	if (group == 0)
 		return;
 	team->getTeamAsAIGroup(group);

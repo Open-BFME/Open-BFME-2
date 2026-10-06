@@ -17,7 +17,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *unitParam);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class ScriptActions
 {
@@ -27,7 +27,7 @@ protected:
 
 void ScriptActions::doNamedCustomColor(Parameter *unitParam, int color)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(unitParam);
+	Object *obj = TheScriptEngine->getUnitNamed(unitParam);
 	if (!obj)
 		return;
 	obj->setCustomIndicatorColor(color);

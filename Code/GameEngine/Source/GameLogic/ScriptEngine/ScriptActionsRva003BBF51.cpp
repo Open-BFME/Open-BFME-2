@@ -8,11 +8,11 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern float g_Va007C26F0;
 void __stdcall Rva003BBF51Set(Parameter *p, float f)
 {
-	Object *o = g_Va009FE16C->getUnitNamed(p);
+	Object *o = TheScriptEngine->getUnitNamed(p);
 	if (!o)
 		return;
 	char *ai = *(char **)((char *)o + 0x258);

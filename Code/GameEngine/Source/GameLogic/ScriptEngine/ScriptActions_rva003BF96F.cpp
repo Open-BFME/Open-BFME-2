@@ -45,15 +45,15 @@ public:
 	int rva00357475(const AsciiString &name, bool *matched);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 
 void __stdcall Rva003BF96FDo(const AsciiString &a1, const AsciiString &a2)
 {
-	Object *obj = ((Rva00358752Opaque *)g_Va009FE16C)->lookupUnitByValue(a2);
+	Object *obj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(a2);
 	if (obj == 0)
 		return;
-	int mask = g_Va009FE16C->rva00357475(a1, 0);
+	int mask = TheScriptEngine->rva00357475(a1, 0);
 	Player *player = ThePlayerList->getEachPlayerFromMask(mask);
 	if (player == 0)
 		return;

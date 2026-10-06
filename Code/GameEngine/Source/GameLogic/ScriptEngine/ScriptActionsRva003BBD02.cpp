@@ -20,11 +20,11 @@ class ScriptEngine {
 public:
     Object *getUnitNamed(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003BBD02Do(Parameter *p, void *arg)
 {
-    Object *obj = g_Va009FE16C->getUnitNamed(p);
+    Object *obj = TheScriptEngine->getUnitNamed(p);
     if (!obj)
         return;
     if (!obj->getDrawable())

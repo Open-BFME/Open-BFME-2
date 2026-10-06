@@ -20,7 +20,7 @@ class ScriptEngine
 public:
 	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class Player
 {
@@ -37,7 +37,7 @@ extern PlayerList *ThePlayerList;
 
 void __stdcall Rva003BC785Set(const AsciiString &playerName, const AsciiString &scienceName, const AsciiString &availName)
 {
-	int mask = g_Va009FE16C->rva00357475(playerName, 0);
+	int mask = TheScriptEngine->rva00357475(playerName, 0);
 	if (mask == 0)
 		return;
 	do {
