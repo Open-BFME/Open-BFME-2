@@ -1,5 +1,4 @@
 // ?loadFromDict@TeamTemplateInfo@@QAEXPAVDict@@@Z
-// partial score=0.99889 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // TeamTemplateInfo dictionary loader, RVA 0x0039FEBB..0x003A0CD1, 3606 bytes.
 // Reference semantic guide: open-bfme-1 d6db6bfa4fd3bd86c1d7ca4a5ab882d7c453a92c,
@@ -12,9 +11,9 @@
 // evidence in the TeamTemplateInfo vtable name getter (VA 0x00C1AE70).
 // Direct target calls are in the TeamTemplateInfo constructor at 0x003A285D
 // and the reset/reload path at 0x003A2C94.
-// Still partial: four bytes differ in ESI/EDI restore order after the
-// waypoint copy at 0x003A0777. Moving the home destination did not fix it.
-// Provider and data ownership checks remain; keyToName is now recovered.
+// Assign the home member directly: VC7.1 then restores ESI before EDI
+// after the waypoint copy, exactly as retail. A cached destination pointer
+// reverses those independent restores. keyToName uses its verified provider.
 // The existing lazy-cache owner is called directly; no alias pin is required.
 #include "ascii_string.h"
 #include "Lib/Coord3D.h"
@@ -266,11 +265,10 @@ void TeamTemplateInfo::loadFromDict(Dict *d)
 	m_homeLocation.x = m_homeLocation.y = 0;
 	m_homeLocation.z = 0;
 	m_hasHomeLocation = false;
-	Coord3D *home = &m_homeLocation;
 	if (exists) {
 		for (Waypoint *way = TheTerrainLogic->getFirstWaypoint(); way; way = way->m_pNext) {
 			if (((const StringBase<char> *)&way->getName())->compare(*(const StringBase<char> *)&waypoint) == 0) {
-				*home = *way->getLocation();
+				m_homeLocation = *way->getLocation();
 				m_hasHomeLocation = true;
 			}
 		}
