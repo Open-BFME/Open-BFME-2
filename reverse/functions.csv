@@ -65027,3 +65027,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ??0Rva009111B@@QAE@HHH@Z,,0x00090781,32,Code/GameEngine/Source/Common/Rva009111BCtor.cpp,matched,vtable BC7EA8 matches dtor 0x0009111B base HHH rowed
 ?rva0004C585@Rva004C743@@UAEPAVRva009111B@@XZ,,0x0004C585,65,Code/GameEngine/Source/Common/Rva004C5C6.cpp,matched,vtable slot 42 of 0x007C4738 new 0x1c ctor 0x00090781
 ?rva00104107@Rva00104107@@QAEXXZ,,0x00104107,8,Code/GameEngine/Source/Common/Rva00104107.cpp,matched,ptr-chase setter neighbours Unwind
+??0Rva001040D5@@QAE@XZ,,0x001040D5,18,Code/GameEngine/Source/Common/Rva001040D5Ctor.cpp,matched,ctor base pin vtable neighbours
