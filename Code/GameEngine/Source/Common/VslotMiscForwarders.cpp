@@ -203,3 +203,31 @@ BFME_TWO_CALLS(Rva00062918Host, rva00062918, rva000ABA2F, rva00224296)	// vtable
 BFME_TWO_CALLS(Rva0008FF12Host, rva0008FF12, rva00118A90, rva002C108F)	// vtable 0x00BC7C90 slot 41
 BFME_TWO_CALLS(Rva0009C134Host, rva0009C134, rva000B3FD0, rva0009BAA4)	// vtable 0x00BC89C8 slot 1
 BFME_TWO_CALLS(Rva003FE402Host, rva003FE402, rva003FE342, rva005392EC)	// vtable 0x00C37E48 slot 7
+
+// ?rva003FDD15@Rva003FDD15Host@@QAEXXZ @0x003FDD15 16B: chain after 0x003FDC46;
+// calls rowed 0x003FDC46 then tail-jmps to rowed 0x003FBA58. Callees carry
+// their own row names so they are declared only here. Evidence: lane=chain,
+// prev 0x003FDD05 in this file, same 16B two-call tail-jmp shape.
+class Rva003FDC46
+{
+public:
+	void rva003FDC46();
+};
+
+class Rva003FBA58
+{
+public:
+	void rva003FBA58();
+};
+
+class Rva003FDD15Host
+{
+public:
+	void rva003FDD15();
+};
+
+void Rva003FDD15Host::rva003FDD15()
+{
+	((Rva003FDC46 *)this)->rva003FDC46();
+	((Rva003FBA58 *)this)->rva003FBA58();
+}

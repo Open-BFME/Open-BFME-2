@@ -66361,3 +66361,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004FD4D4@Rva004FD4D4@@QBEXHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAH@Z,,0x004FD4D4,95,Code/GameEngine/Source/Common/Rva004FD4D4.cpp,matched,Target lookup through 0x002B51F8 then equal_range at this+0x50 and rowed QueryRegionsAndNumbers calls; owner and key identity inferred
 ?rva00528C0C@Rva00528C0C@@QAEXXZ,,0x00528C0C,36,Code/GameEngine/Source/Common/Rva00528C0CFirer.cpp,matched,same firer shape as 0x00528BDD via ShowCommandInterface
 ?rva003FDC46@Rva003FDC46@@QAEXXZ,,0x003FDC46,165,Code/GameEngine/Source/Common/Rva003FDC46.cpp,matched,enable twin of 0x003FDAEB via RVO gets and enables
+?rva003FDD15@Rva003FDD15Host@@QAEXXZ,,0x003FDD15,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,chain after 0x003FDC46 tail to 0x003FBA58
