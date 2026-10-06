@@ -65126,3 +65126,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva002654E9@Rva002654E9@@QAEXXZ,,0x002654E9,19,Code/GameEngine/Source/GameLogic/Object/Rva002654E9Apply.cpp,matched,caller jmp at 0x0026893A abuts 0x002654FC via rowed Object setStatus
 ?rva0020E9F2@Rva0020E9F2Outer@@QAEXXZ,,0x0020E9F2,48,Code/Libraries/Source/WWVegas/WWLib/Rva0020E9A1Loops.cpp,matched,Outer vector clear via inner at plus8 calling rowed-pending 0x003F300A; bounds idiom gives retail add esi 0x2C
 ?rva0020EA22@Rva0020EA22Outer@@QAEXH@Z,,0x0020EA22,54,Code/Libraries/Source/WWVegas/WWLib/Rva0020E9A1Loops.cpp,matched,Outer vector clear via inner at plus8 calling rowed-pending 0x003F3708 with outer arg; bounds idiom
+?rva001F4A90@Rva001F4A90Host@@QAEXPBDHH@Z,,0x001F4A90,113,Code/Libraries/Source/WWVegas/WWLib/Rva001F4A90Select.cpp,matched,Draw Physics Update dispatch via rowed 0x1530E9 plus import strcmp; lea selects embedded members; slot1 with ext-a2-a3
