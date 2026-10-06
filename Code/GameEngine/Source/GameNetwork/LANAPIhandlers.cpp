@@ -56,6 +56,13 @@
 // argument (update passes false); on failure we leave as RequestGameLeave's
 // host path does: OnPlayerLeave (slot 37) with our name, removeGame and
 // delete the game, back to the lobby.
+//
+// LANAPI::handleChat, retail 0x00581F80 (440 bytes), message type 11: Zero
+// Hour's body (game name +0x1E, chat type +0x40, text +0x44) reporting to
+// OnChat (slot 40), plus BFME 2's first branch: type-1 chat is reported with
+// the sender's own name and address wherever we are. In a game the sender is
+// found among the current game's slot addresses, its last-heard time set
+// through 0x00248D35.
 
 typedef int Int;
 typedef bool Bool;
@@ -217,6 +224,14 @@ extern NetworkInterface *TheNetwork;
 
 AsciiString GenerateGameOptionsString( void );
 
+// setPlayerLastHeard (0x00248D35), under the ledger's class name; retail
+// calls it on the current game directly.
+class Rva00248D35
+{
+public:
+	void rva00248D35( Int index, Int value );
+};
+
 // BFME 1's writeLANGameInfo: serializes the game into a message's options.
 void Rva00447CA9( LANGameInfo *game, char *buffer, Int size );
 
@@ -228,6 +243,14 @@ public:
 	enum ReturnType
 	{
 		RET_OK = 0
+	};
+
+	enum ChatType
+	{
+		LANCHAT_NORMAL = 0,
+		LANCHAT_TYPE1,
+		LANCHAT_EMOTE,
+		LANCHAT_SYSTEM
 	};
 };
 
@@ -265,6 +288,12 @@ struct LANMessage
 		{
 			char options[g_lanMaxOptionsLength];	// +0x1E
 		} GameOptions;
+		struct
+		{
+			WideChar gameName[17];			// +0x1E
+			LANAPIInterface::ChatType chatType;	// +0x40
+			WideChar message[101];			// +0x44
+		} Chat;
 	};
 };
 #pragma pack(pop)
@@ -293,7 +322,9 @@ public:
 	virtual void OnPlayerLeave( UnicodeString player );	// slot 37
 	BFME_VSLOT(38)
 	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
-	BFME_VSLOT(40) BFME_VSLOT(41)
+	virtual void OnChat( const UnicodeString &player, const BfmeNetAddress *ip,
+		const UnicodeString &message, LANAPIInterface::ChatType format );	// slot 40
+	BFME_VSLOT(41)
 	virtual void OnGameStart( void );		// slot 42
 	virtual void rva0024900D( void );		// slot 43
 	BFME_VSLOT(44) BFME_VSLOT(45)
@@ -324,6 +355,7 @@ protected:
 	void handleInActive( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleRequestGameInfo( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleGameOptions( LANMessage *msg, const BfmeNetAddress *sender, Bool flag );
+	void handleChat( LANMessage *msg, const BfmeNetAddress *sender );
 
 	UnsignedByte m_pre0C[0x0C - 4];
 	LANPlayer *m_lobbyPlayers;			// +0x0C
@@ -516,6 +548,40 @@ void LANAPI::handleGameOptions( LANMessage *msg, const BfmeNetAddress *sender, B
 				::delete m_currentGame;
 				m_currentGame = 0;
 				m_inLobby = true;
+			}
+		}
+	}
+}
+
+void LANAPI::handleChat( LANMessage *msg, const BfmeNetAddress *sender )
+{
+	if( msg->Chat.chatType == LANAPIInterface::LANCHAT_TYPE1 )
+	{
+		OnChat( UnicodeString( msg->name ), sender, UnicodeString( msg->Chat.message ), msg->Chat.chatType );
+	}
+	else if( m_inLobby )
+	{
+		LANPlayer *player;
+		if( ( player = LookupPlayer( sender ) ) != 0 )
+		{
+			OnChat( UnicodeString( player->m_name ), &player->m_address, UnicodeString( msg->Chat.message ), msg->Chat.chatType );
+			player->m_lastHeard = timeGetTime();
+		}
+	}
+	else
+	{
+		if( LookupGame( UnicodeString( msg->Chat.gameName ) ) != m_currentGame )
+			return;
+
+		Int player;
+		const LANSlotAddress *slot;
+		for( player = 0, slot = m_currentGame->getSlotAddresses(); player < MAX_SLOTS; ++player, ++slot )
+		{
+			if( m_currentGame && slot->m_address.Rva00248CBF( sender ) )
+			{
+				((Rva00248D35 *)m_currentGame)->rva00248D35( player, timeGetTime() );
+				OnChat( UnicodeString( msg->name ), m_currentGame->getAddress( player ), UnicodeString( msg->Chat.message ), msg->Chat.chatType );
+				break;
 			}
 		}
 	}
