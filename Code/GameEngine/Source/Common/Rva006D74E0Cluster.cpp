@@ -26,7 +26,7 @@ class EAStringC
 public:
     ~EAStringC();
     EAStringC &clear();
-    EAStringC() { clear(); }
+    EAStringC();
     EAStringC &operator=(const EAStringC &other);
     EAStringC &Rva006D4F00Append(const EAStringC &other);
     void rva006D6100();

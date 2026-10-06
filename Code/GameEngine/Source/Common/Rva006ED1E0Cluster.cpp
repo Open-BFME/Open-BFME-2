@@ -14,10 +14,6 @@ public:
 private:
     void *m_pData;
 };
-inline EAStringC::EAStringC()
-{
-    clear();
-}
 class Rva0070A840
 {
 public:

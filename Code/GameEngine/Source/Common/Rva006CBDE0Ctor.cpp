@@ -21,7 +21,7 @@ public:
 class EAStringC
 {
 public:
-	EAStringC() { clear(); }
+	EAStringC();
 	EAStringC &clear();
 	~EAStringC();
 };

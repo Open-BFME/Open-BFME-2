@@ -6,7 +6,7 @@
 class EAStringC
 {
 public:
-    EAStringC() { clear(); }
+    EAStringC();
     EAStringC(const char *text);
     EAStringC &clear();
     ~EAStringC();

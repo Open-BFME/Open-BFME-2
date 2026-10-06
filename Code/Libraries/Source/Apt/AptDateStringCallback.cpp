@@ -10,7 +10,7 @@
 class EAStringC {
     void *data;
 public:
-    EAStringC() { clear(); }
+    EAStringC();
     EAStringC &clear();
     ~EAStringC();
     const char *rva00620090() const;
