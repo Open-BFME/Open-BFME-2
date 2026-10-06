@@ -32,6 +32,12 @@
 // the game.
 // Author: Matthew D. Campbell, June 2002
 
+// Retail also calls _snprintf through msvcrt's import slot; stdio.h is read
+// here under /D_CRTIMP= and only that one function is declared as the import.
+#define _snprintf _snprintf_unimported
+#include <stdio.h>
+#undef _snprintf
+extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, size_t count, const char *format, ...);
 // Retail imports character tests and string comparisons but uses game free
 // for STL storage. Load those CRT declarations with imports before the local
 // allocator headers inherit /D_CRTIMP=.
@@ -41,7 +47,13 @@
 #include <string.h>
 #undef _CRTIMP
 #define _CRTIMP
+#include <stdlib.h>
+// STLport frees through the C++-linkage free retail's containers call, which
+// keeps the unwind-state stores around their inlined destructors.
+namespace _STL { void __cdecl free(void *block); }
+#define free _STL::free
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#undef free
 
 #include "Common/Registry.h"
 #include "Common/StackDump.h"
@@ -1914,17 +1926,75 @@ void quickmatchEnumPlayersCallback( PEER peer, PEERBool success, RoomType roomTy
 
 // Six-array retail handler lives in PeerThreadQMMatch.cpp.
 
-// ?doQuickMatch@PeerThreadClass@@ present-unmatched
+// PeerThreadClass::doQuickMatch, retail 0x0038E684 (1875 bytes). Zero Hour /
+// Open-BFME-1 donor body on BFME 2's thread layout, which the class above (Zero
+// Hour's) does not have; the view below carries the offsets this body reads,
+// like BfmePeerQMState/BfmePeerEnumState. Kept in this unit: matchbotProfileID
+// is the file-static above, and only a store to it schedules retail's prologue.
+// Target facts: request types LOGOUT 1, LEAVEGROUPROOM 5, UTMPLAYER 13, WIDEN 17,
+// STOP 18; the EXE field is BFMEComputeCRC of the 16-byte hash at +0x400.
+struct BfmeQuickMatchPreferences
+{
+	Int minPointPercentage;
+	Int maxPointPercentage;
+	Int points;
+	Int widenTime;
+	Int ladderID;
+	UnsignedInt ladderPassCRC;
+	Int maxPing;
+	Int maxDiscons;
+	Int discons;
+	char pings[20];
+	Int numPlayers;
+	Int botID;
+	Int roomID;
+	Int side;
+	Int color;
+	Int NAT;
+	unsigned char exeHash[16];
+	UnsignedInt iniCRC;
+	UnsignedInt cmdCRC;
+};
+
+struct BfmeQuickMatchThread
+{
+	unsigned char unknown000[0x88];
+	Int groupRoomID;
+	unsigned char unknown08C[0xB0 - 0x8C];
+	Bool isHosting;
+	unsigned char unknown0B1[0x290 - 0xB1];
+	Int localRoomID;
+	QMStatus qmStatus;
+	unsigned char unknown298[0x39C - 0x298];
+	std::vector<bool> qmMaps;
+	BfmeQuickMatchPreferences QM;
+	unsigned char unknown418[0x484 - 0x418];
+	Bool roomJoined;
+	unsigned char unknown485[3];
+	Int qmGroupRoom;
+	Bool sawEndOfEnumPlayers;
+	Bool sawMatchbot;
+	unsigned char unknown48E[2];
+	std::string matchbotName;
+	unsigned char unknown49C[0x4AC - 0x49C];
+	MutexClass *lock;
+};
+
+UnsignedInt BFMEComputeCRC(const unsigned char *buffer, UnsignedInt length, UnsignedInt crc);
+
 void PeerThreadClass::doQuickMatch( PEER peer )
 {
-	m_qmStatus = QM_JOININGQMCHANNEL;
+	BfmeQuickMatchThread *self = reinterpret_cast<BfmeQuickMatchThread *>(this);
+	matchbotProfileID = self->QM.botID;
+	self->qmGroupRoom = self->QM.roomID;
+	self->qmStatus = QM_JOININGQMCHANNEL;
 	Bool done = false;
-	matchbotProfileID = m_qmInfo.QM.botID;
-	setQMGroupRoom( m_qmInfo.QM.roomID );
-	m_sawMatchbot = false;
+	self->sawMatchbot = false;
 	updateBuddyStatus( BUDDY_MATCHING );
-	while (!done && running)
+	while (!done)
 	{
+		MutexClass::LockClass lock(*self->lock, 1);
+		if (!lock.Failed()) break;
 		if (!peerIsConnected( peer ))
 		{
 			done = true;
@@ -1944,29 +2014,29 @@ void PeerThreadClass::doQuickMatch( PEER peer )
 				{
 				case PeerRequest::PEERREQUEST_WIDENQUICKMATCHSEARCH:
 					{
-						if (m_qmStatus != QM_IDLE && m_qmStatus != QM_STOPPED && m_sawMatchbot)
+						if (self->qmStatus != QM_IDLE && self->qmStatus != QM_STOPPED && self->sawMatchbot)
 						{
-							peerMessagePlayer( peer, m_matchbotName.c_str(), "\\WIDEN", NormalMessage );
+							peerMessagePlayer( peer, self->matchbotName.c_str(), "\\WIDEN", NormalMessage );
 						}
 					}
 					break;
 				case PeerRequest::PEERREQUEST_STOPQUICKMATCH:
 					{
-						m_qmStatus = QM_STOPPED;
+						self->qmStatus = QM_STOPPED;
 						peerLeaveRoom(peer, GroupRoom, "");
 						done = true;
 					}
 					break;
 				case PeerRequest::PEERREQUEST_LOGOUT:
 					{
-						m_qmStatus = QM_STOPPED;
+						self->qmStatus = QM_STOPPED;
 						peerLeaveRoom(peer, GroupRoom, "");
 						done = true;
 					}
 					break;
 				case PeerRequest::PEERREQUEST_LEAVEGROUPROOM:
 					{
-						m_qmStatus = QM_STOPPED;
+						self->qmStatus = QM_STOPPED;
 						peerLeaveRoom(peer, GroupRoom, "");
 						done = true;
 					}
@@ -1976,18 +2046,13 @@ void PeerThreadClass::doQuickMatch( PEER peer )
 						peerUTMPlayer( peer, incomingRequest.nick.c_str(), incomingRequest.id.c_str(), incomingRequest.options.c_str(), PEERFalse );
 					}
 					break;
-				default:
-					{
-						DEBUG_CRASH(("Unanticipated request %d to peer thread!", incomingRequest.peerRequestType));
-					}
-					break;
 				}
 			}
 
 			if (!done)
 			{
 				// do the next bit of QM
-				switch (m_qmStatus)
+				switch (self->qmStatus)
 				{
 				case QM_JOININGQMCHANNEL:
 					{
@@ -1996,22 +2061,21 @@ void PeerThreadClass::doQuickMatch( PEER peer )
 						resp.qmStatus.status = QM_JOININGQMCHANNEL;
 						TheGameSpyPeerMessageQueue->addResponse(resp);
 
-						m_groupRoomID = m_qmGroupRoom;
+						self->groupRoomID = self->qmGroupRoom;
 						peerLeaveRoom( peer, GroupRoom, NULL );
-						peerLeaveRoom( peer, StagingRoom, NULL ); m_isHosting = false;
-						m_localRoomID = m_groupRoomID;
-						m_roomJoined = false;
-						DEBUG_LOG(("Requesting to join room %d in thread %X\n", m_localRoomID, this));
-						peerJoinGroupRoom( peer, m_localRoomID, joinRoomCallback, (void *)this, PEERTrue );
-						if (m_roomJoined)
+						peerLeaveRoom( peer, StagingRoom, NULL ); self->isHosting = false;
+						self->localRoomID = self->groupRoomID;
+						self->roomJoined = false;
+						peerJoinGroupRoom( peer, self->localRoomID, joinRoomCallback, (void *)this, PEERTrue );
+						if (self->roomJoined)
 						{
 							resp.peerResponseType = PeerResponse::PEERRESPONSE_QUICKMATCHSTATUS;
 							resp.qmStatus.status = QM_LOOKINGFORBOT;
 							TheGameSpyPeerMessageQueue->addResponse(resp);
 
-							m_qmStatus = QM_LOOKINGFORBOT;
-							m_sawMatchbot = false;
-							m_sawEndOfEnumPlayers = false;
+							self->qmStatus = QM_LOOKINGFORBOT;
+							self->sawMatchbot = false;
+							self->sawEndOfEnumPlayers = false;
 							peerEnumPlayers( peer, GroupRoom, quickmatchEnumPlayersCallback, this );
 						}
 						else
@@ -2020,63 +2084,66 @@ void PeerThreadClass::doQuickMatch( PEER peer )
 							resp.qmStatus.status = QM_COULDNOTFINDBOT;
 							TheGameSpyPeerMessageQueue->addResponse(resp);
 							done = true;
-							m_qmStatus = QM_STOPPED;
+							self->qmStatus = QM_STOPPED;
 						}
 					}
 					break;
 				case QM_LOOKINGFORBOT:
 					{
-						if (m_sawEndOfEnumPlayers)
+						if (self->sawEndOfEnumPlayers)
 						{
-							if (m_sawMatchbot)
+							if (self->sawMatchbot)
 							{
 								char buf[64];
 								buf[63] = '\0';
 								std::string msg = "\\CINFO";
-								_snprintf(buf, 63, "\\Widen\\%d", m_qmInfo.QM.widenTime);
+								_snprintf(buf, 63, "\\Widen\\%d", self->QM.widenTime);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\LadID\\%d", m_qmInfo.QM.ladderID);
+								_snprintf(buf, 63, "\\LadID\\%d", self->QM.ladderID);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\LadPass\\%d", m_qmInfo.QM.ladderPassCRC);
+								_snprintf(buf, 63, "\\LadPass\\%d", self->QM.ladderPassCRC);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\PointsMin\\%d", m_qmInfo.QM.minPointPercentage);
+								_snprintf(buf, 63, "\\PointsMin\\%d", self->QM.minPointPercentage);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\PointsMax\\%d", m_qmInfo.QM.maxPointPercentage);
+								_snprintf(buf, 63, "\\PointsMax\\%d", self->QM.maxPointPercentage);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\Points\\%d", m_qmInfo.QM.points);
+								_snprintf(buf, 63, "\\Points\\%d", self->QM.points);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\Discons\\%d", m_qmInfo.QM.discons);
+								_snprintf(buf, 63, "\\Discons\\%d", self->QM.discons);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\DisconMax\\%d", m_qmInfo.QM.maxDiscons);
+								_snprintf(buf, 63, "\\DisconMax\\%d", self->QM.maxDiscons);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\NumPlayers\\%d", m_qmInfo.QM.numPlayers);
+								_snprintf(buf, 63, "\\NumPlayers\\%d", self->QM.numPlayers);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\Pings\\%s", m_qmInfo.QM.pings);
+								_snprintf(buf, 63, "\\PingMax\\%d", self->QM.maxPing);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\IP\\%d", ntohl(peerGetLocalIP(peer)));// not ntohl(localIP), as we need EXTERNAL address for proper NAT negotiation!
+								_snprintf(buf, 63, "\\Pings\\%s", self->QM.pings);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\Side\\%d", m_qmInfo.QM.side);
+								_snprintf(buf, 63, "\\IP\\%d", htonl(peerGetLocalIP(peer)));// not of localIP, as we need EXTERNAL address for proper NAT negotiation! (retail imports htonl here)
 								msg.append(buf);
-								_snprintf(buf, 63, "\\Color\\%d", m_qmInfo.QM.color);
+								_snprintf(buf, 63, "\\Side\\%d", self->QM.side);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\NAT\\%d", m_qmInfo.QM.NAT);
+								_snprintf(buf, 63, "\\Color\\%d", self->QM.color);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\EXE\\%d", m_qmInfo.QM.exeCRC);
+								_snprintf(buf, 63, "\\NAT\\%d", self->QM.NAT);
 								msg.append(buf);
-								_snprintf(buf, 63, "\\INI\\%d", m_qmInfo.QM.iniCRC);
+								_snprintf(buf, 63, "\\EXE\\%d", BFMEComputeCRC(self->QM.exeHash, 16, 0));
+								msg.append(buf);
+								_snprintf(buf, 63, "\\INI\\%d", self->QM.iniCRC);
+								msg.append(buf);
+								_snprintf(buf, 63, "\\CMD\\%d", self->QM.cmdCRC);
 								msg.append(buf);
 								buf[0] = 0;
 								msg.append("\\Maps\\");
-								for (Int i=0; i<m_qmInfo.qmMaps.size(); ++i)
+								for (Int i=0; i<self->qmMaps.size(); ++i)
 								{
-									if (m_qmInfo.qmMaps[i])
+									if (self->qmMaps[i])
 										msg.append("1");
 									else
 										msg.append("0");
 								}
-								DEBUG_LOG(("Sending QM options of [%s] to %s\n", msg.c_str(), m_matchbotName.c_str()));
-								peerMessagePlayer( peer, m_matchbotName.c_str(), msg.c_str(), NormalMessage );
-								m_qmStatus = QM_WORKING;
+								peerMessagePlayer( peer, self->matchbotName.c_str(), msg.c_str(), NormalMessage );
+								self->qmStatus = QM_WORKING;
 								PeerResponse resp;
 								resp.peerResponseType = PeerResponse::PEERRESPONSE_QUICKMATCHSTATUS;
 								resp.qmStatus.status = QM_SENTINFO;
@@ -2090,46 +2157,22 @@ void PeerThreadClass::doQuickMatch( PEER peer )
 								resp.qmStatus.status = QM_COULDNOTFINDBOT;
 								TheGameSpyPeerMessageQueue->addResponse(resp);
 
-								m_qmStatus = QM_STOPPED;
+								self->qmStatus = QM_STOPPED;
 								peerLeaveRoom(peer, GroupRoom, "");
 								done = true;
 							}
 						}
 					}
 					break;
-				case QM_WORKING:
-					{
-					}
-					break;
 				case QM_MATCHED:
 					{
 						// leave QM channel, and clean up.  Our work here is done.
 						peerLeaveRoom( peer, GroupRoom, NULL );
-						peerLeaveRoom( peer, StagingRoom, NULL ); m_isHosting = false;
+						peerLeaveRoom( peer, StagingRoom, NULL ); self->isHosting = false;
 
-						m_qmStatus = QM_STOPPED;
+						self->qmStatus = QM_STOPPED;
 						peerLeaveRoom(peer, GroupRoom, "");
 						done = true;
-					}
-					break;
-				case QM_INCHANNEL:
-					{
-					}
-					break;
-				case QM_NEGOTIATINGFIREWALLS:
-					{
-					}
-					break;
-				case QM_STARTINGGAME:
-					{
-					}
-					break;
-				case QM_COULDNOTFINDCHANNEL:
-					{
-					}
-					break;
-				case QM_COULDNOTNEGOTIATEFIREWALLS:
-					{
 					}
 					break;
 				}
