@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /G7 /DNDEBUG /MD
 // List box hit testing, the Zero Hour GadgetListBox.cpp statics BFME2 keeps:
 // getListboxEntryBasedOnCoord @0x00323E95 218B (cdecl; the only body the
 // GadgetListBoxGetEntryBasedOnXY wrapper @0x00323F6F tail-jumps to) maps a
@@ -18,6 +18,11 @@
 // message to the owner; wheel scrolling goes through the display adjustment
 // 0x00324AE5; GameWindowManager slots 49 (winSetFocus), 58 (winSendSystemMsg)
 // and 72 (winFontHeight); instance style +0x0C, state +0x08.
+//
+// Also here: the bottom-entry worker 0x00323F9C, the scroll-to-row helper
+// 0x00324B8F and GadgetListBoxSetTopVisibleEntry 0x0032544C. /G7 is what
+// spells the helper's doubling `add eax, eax`; the other bodies are
+// unchanged by it.
 typedef int Int;
 typedef short Short;
 typedef bool Bool;
@@ -96,8 +101,7 @@ public:
 struct ListEntryRow
 {
 	Int listHeight;
-	Short height;
-	Short m_pad06;
+	Int height;
 	void *cell;
 	Bool m_disabled;
 };
@@ -108,7 +112,8 @@ typedef struct _ListboxData
 	Short columns;
 	unsigned char m_pad04[0x0F - 0x04];
 	Bool m_noSelect;
-	unsigned char m_pad10[0x12 - 0x10];
+	Bool m_freeScroll;
+	Bool m_fixedTotalHeight;
 	Bool m_trackMouseOver;
 	unsigned char m_pad13[0x14 - 0x13];
 	Int *columnWidth;
@@ -212,6 +217,26 @@ Int GadgetListBoxGetEntryBasedOnXY(GameWindow *listbox, Int x, Int y, Int &row, 
 	return getListboxEntryBasedOnCoord(listbox, x, y, row, column);
 }
 
+// 0x00323F9C 61B: Zero Hour's getListboxBottomEntry, the last row the
+// display area reaches. The list arrives in ECX, which the existing pin spells
+// as the fastcall Rva00323F9C that GadgetListBoxIsFull and Rva00324807 call.
+Int __fastcall Rva00323F9C(ListboxData *list)
+{
+	for (Int entry = list->endPos - 1; ; entry--)
+	{
+		if (entry < 0)
+			return 0;
+		if (list->listData[entry].listHeight == list->displayPos + list->displayHeight)
+			return entry;
+		if (list->listData[entry].listHeight < list->displayPos + list->displayHeight)
+		{
+			if (entry != list->endPos - 1)
+				return entry + 1;
+			return entry;
+		}
+	}
+}
+
 // removeSelection @0x00323FD9 40B: drops one entry from the -1 terminated
 // selection list (Int* at +0x38, listLength short at +0). Its only callers
 // share this unit, so the compiler gives it the private ESI/ECX convention.
@@ -223,6 +248,46 @@ __declspec(noinline) static void removeSelection(ListboxData *list, Int i)
 	memcpy(&list->selections[i], &list->selections[(i + 1)],
 		((list->listLength - i) * sizeof(Int)));
 	list->selections[(list->listLength - 1)] = -1;
+}
+
+void Rva003249D2(GameWindow *window, Bool updateSlider);
+
+// 0x00324B8F 210B: scrolls so row `index` is at the top (mode 1) or centred
+// (otherwise), then refreshes the slider 0x003249D2. Its callers share this
+// unit, so the compiler passes the index in EAX. The Open-BFME-1 donor
+// carries the same helper (Rva004B7DC0); BFME2 adds the byte at +0x11 that
+// stops it growing totalHeight (+0x28).
+__declspec(noinline) static void Rva00324B8FScrollTo(GameWindow *window, Int index, Int mode)
+{
+	if (index < 0)
+		return;
+	ListboxData *list = (ListboxData *)window->winGetUserData();
+	if (index >= list->endPos)
+		return;
+	ListEntryRow *rows = list->listData;
+	ListEntryRow *row = &rows[index];
+	Int y;
+	switch (mode)
+	{
+		case 1:
+			y = row->listHeight - row->height;
+			break;
+		default:
+			y = (2 * row->listHeight - list->displayHeight - row->height) / 2;
+			break;
+	}
+	list->displayPos = 0;
+	Int entry = 0;
+	while (list->listData[entry].listHeight - list->listData[entry].height < y)
+		++entry;
+	while (entry > 0 && list->totalHeight <
+			rows[entry - 1].listHeight - rows[entry - 1].height + list->displayHeight)
+		--entry;
+	list->displayPos = rows[entry].listHeight - rows[entry].height;
+	if (!list->m_fixedTotalHeight &&
+			rows[list->endPos - 1].listHeight < list->displayPos + list->displayHeight)
+		list->totalHeight = list->displayPos + list->displayHeight;
+	Rva003249D2(window, TRUE);
 }
 
 struct RightClickStruct
@@ -439,4 +504,13 @@ WindowMsgHandledType GadgetListBoxMultiInput(GameWindow *window, UnsignedInt msg
 	}
 
 	return MSG_HANDLED;
+}
+
+// GadgetListBoxSetTopVisibleEntry @0x0032544C 38B: Zero Hour's public
+// setter, scrolling through 0x00324B8F in top mode.
+void GadgetListBoxSetTopVisibleEntry(GameWindow *window, Int newPos)
+{
+	if (!window || !window->winGetUserData())
+		return;
+	Rva00324B8FScrollTo(window, newPos, 1);
 }
