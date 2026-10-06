@@ -12998,6 +12998,3 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ??0Rva001DA19EBase@@QAE@XZ,0x001DA19E,default ctor base for Rva00433390 0x00433390 read from REL32
 ?Rva004318A8Guard@@YA_NXZ,0x004318A8,guard for 0x00431A80 family read from REL32; Ghidra 30B overlaps published 3B fragment at 0x004318C3
 ?tail@Rva00414F5EHost@@QAEXXZ,0x00414DAA,tail method for 0x00414F5E read from jmp REL32; Ghidra 247B
-?TheControlBar@@3PAVControlBar@@A,0x00E01CFC,Target RVA 0x004B3B88 loads this global and writes the pointed ControlBar +0x28 dirty flag; address confirmed by retail absolute operand and existing BFME2 ControlBar references.
-?setCommandSetStringOverride@Object@@QAEXABVAsciiString@@@Z,0x0029336F,BFME 1 declares a same-purpose setter by value; BFME 2 caller at RVA 0x004B3B88 passes an existing AsciiString directly and target body 0x0029336F updates Object+0x420; const-reference ABI and method-name correspondence are inferred.
-??0Rva004885DE@@QAE@PAVObject@@H@Z,0x004885DE,target REL32 at 0x004888CF in the Rva00488D5C constructor passes StateMachine owner +0x14 and the stored int; same constructor identity as banked 227-byte body at the Ghidra boundary
