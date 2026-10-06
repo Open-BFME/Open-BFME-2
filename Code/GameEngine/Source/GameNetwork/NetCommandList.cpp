@@ -104,6 +104,7 @@ public:
 	NetCommandRef *getFirstMessage() { return (NetCommandRef *)m_first; }
 	void removeMessage(NetCommandRef *msg);
 	NetCommandRef *findMessage(UnsignedShort id, UnsignedByte player, UnsignedInt frame);
+	NetCommandRef *findMessage(UnsignedShort id, UnsignedByte frame, NetCommandType type, UnsignedInt timestamp);
 	NetCommandRef *findMessage(NetCommandMsg *msg);
 	bool isEqualCommandMsg(NetCommandMsg *msg1, NetCommandMsg *msg2);
 };
@@ -179,6 +180,35 @@ NetCommandRef *NetCommandList::findMessage(UnsignedShort id, UnsignedByte player
 			return (NetCommandRef *)retval;
 		}
 		retval = retval->m_next;
+	}
+	return 0;
+}
+
+// ?findMessage@NetCommandList@@QAEPAVNetCommandRef@@GEII@Z, retail 0x0058B121, 83 bytes.
+// Four-argument match for command type/ID/player/frame; target compares the
+// per-message frame at +8 last and returns the wrapping list node.
+NetCommandRef *NetCommandList::findMessage(UnsignedShort id, UnsignedByte frame, NetCommandType type, UnsignedInt timestamp)
+{
+	NetCommandRef *retval = (NetCommandRef *)m_first;
+	while (retval != 0)
+	{
+		struct TargetMessage
+		{
+			void *vtable;
+			NetCommandType m_type;
+			UnsignedInt m_timestamp;
+			UnsignedInt m_player;
+			UnsignedShort m_id;
+			UnsignedShort m_pad;
+			NetCommandType m_idType;
+		};
+		TargetMessage *msg = (TargetMessage *)retval->getCommand();
+		if (msg != 0 && msg->m_type == type &&
+			DoesCommandRequireACommandID(msg->m_idType) &&
+			msg->m_id == id && msg->m_player == frame &&
+			msg->m_timestamp == timestamp)
+			return retval;
+		retval = retval->getNext();
 	}
 	return 0;
 }
