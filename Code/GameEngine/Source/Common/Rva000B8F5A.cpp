@@ -21,6 +21,14 @@ public:
 struct Rva000B8F5AOuter
 {
 	void rva000BF9FC(void *entry, int a, int b);
+	void rva000BEE25(void *entry, float value, int zero, int oneA, int oneB);
+	void rva000BFB51(float value);
+
+private:
+	char m_pad00[0x18];
+	void *m_18;
+	char m_pad1C[0x28C - 0x1C];
+	bool m_flag28C;
 };
 
 class Rva000B8F5A
@@ -50,6 +58,19 @@ void Rva000B8F5A::rva000B8F5A(char *a, AsciiString b)
 	m_98 = a;
 	m_94 = false;
 	m_A8 = b;
+}
+
+// ?rva000BFB51@Rva000B8F5AOuter@@QAEXM@Z @0x000BFB51 37B
+// Refill setter: when the +0x18 entry is live, clears the +0x28C flag first
+// and refills through the outer 0xBEE25 body with (entry, value, 0, 1, 1).
+void Rva000B8F5AOuter::rva000BFB51(float value)
+{
+	void *entry = m_18;
+	if (entry != 0)
+	{
+		m_flag28C = false;
+		rva000BEE25(entry, value, 0, 1, 1);
+	}
 }
 
 // ?rva000BFD77@Rva000B8F5A@@QAEXXZ @0x000BFD77 40B
