@@ -63707,3 +63707,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva0053EDD2@Rva0053ED1A@@UAEXXZ,,0x0053EDD2,34,Code/GameEngine/Source/Common/Rva0053ED1ACtor.cpp,matched,vslot slot5 findObjectByID reset rva005C65F1
 ?setLightPosition@W3DGameClientShadowShim@@QAEXHMMM@Z,,0x0009A587,198,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientShadowShimSetLightPosition.cpp,matched,LINK 61B via pin plus rowed Inv_Sqrt 0x0004233A plus rowed rva0007D9CF 0x0007D9CF plus Vector3 at plus0xC plus shadow global 0x00DE1FF8
 ??1Rva004FBCBE@@UAE@XZ,,0x004FBCBE,96,Code/GameEngine/Source/Common/Rva004FBCBEDtor.cpp,matched,dtor with two wide strings plus flag gated pinned call via int global
+??0Rva004ABFD9@@QAE@ABV0@@Z,,0x004ABF47,102,Code/GameEngine/Source/Common/Rva004ABFD9Copy.cpp,matched,Polymorphic copy ctor: pinned base copy then vtable 0xC549F8 then rowed member copy and fields then registry insert
