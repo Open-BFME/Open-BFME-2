@@ -63595,3 +63595,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1BfmeVectorRecord002AF478@@QAE@XZ,,0x005EA85F,13,Code/GameEngine/Source/Common/RvaNullReleaseMemberDtors.cpp,matched,Null-checked member release dtor via rowed fastcall ReleaseTreeHintRef00217D4C; existing pin name
 ??$_M_append_dispatch@PBG@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEAAV01@PBG0ABU__false_type@1@@Z,,0x001EFC42,22,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_append_dispatch_O1.cpp,matched,STLport wide _M_append_dispatch PBG forwarding to rowed forward append 0x001EF83A
 ??4Rva0007C49F@@QAEAAV0@ABV0@@Z,,0x0007C49F,39,Code/GameEngine/Source/Common/Rva0007C49FAssign.cpp,matched,CameraClass-derived memberwise op= via rowed CameraClass op= and vector op=
+?rva005CCB6B@Rva005CCB6B@@QAEXXZ,,0x005CCB6B,8,Code/GameEngine/Source/Common/Rva005CCB6BForwarder.cpp,matched,tail-jmp to rowed 0x005CC966 chain from own landing
