@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??0Rva0036247C@@QAE@XZ, retail 0x0036247C, 23 bytes. Leaf ctor storing
 // vtable 0x00816FE8 at [this] and zeroing +0x04..+0x10. Prev is

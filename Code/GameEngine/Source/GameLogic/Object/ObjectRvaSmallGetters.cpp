@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Three small Object readers (retail 0x0028AD6C/16 + 0x0028ADE0/12 +
 // 0x0028ADF7/28). /O1 selects the retail size idioms throughout: jne plus

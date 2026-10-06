@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028B35B@Object@@QBE_NPBV1@@Z, retail 0x0028B35B, 50 bytes.
 // Object geometry intersect test via GeometryInfo::bfmeIntersects.
 // Evidence: same +0x38 +0x44 +0xa8 layout as BFME1 ObjectGeometry.cpp

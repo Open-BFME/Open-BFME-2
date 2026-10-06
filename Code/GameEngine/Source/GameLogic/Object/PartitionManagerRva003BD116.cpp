@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BD116Set@@YGXPAVParameter@@PAX@Z retail 0x003BD116 61 bytes.
 // Teleport-like set: obj = g_Va009FE16C->getUnitNamed(p1); pos = TheTerrainLogic slot 0x88(p2); if pos then obj->rva0029660C(pos+0xC, 0). Evidence: callees rowed 0x003588E7 pin 0x0029660C; caller 0x003CE7AC; neighbours Rva003BD0C8 prev Rva003BD153 next same /O1.
 class Parameter;

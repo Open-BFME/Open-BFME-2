@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028B9F6@Object@@QAEXPAV1@@Z @0x0028B9F6 143B: Object module
 // exchange with another Object. Scans own +0x244 array for the entry whose
 // +0x0C sub-object slot2 (+0x08) equals own +0x250, scans other's array for

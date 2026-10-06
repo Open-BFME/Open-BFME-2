@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028C20F@Object@@QAEXH@Z @0x0028C20F 61B
 // Object module loop: for each module at +0x244 get inner via mid+0xC slot 0x6C; if inner key slot0 == param call slot2.
 // Evidence: +0x244 module array shared with ObjectRva0028C197; lea ecx [eax+0xC] plus slots 0x6C 0x0 0x8; ret 4;

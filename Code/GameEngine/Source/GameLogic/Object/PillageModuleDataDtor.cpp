@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1PillageModuleData@@UAE@XZ, retail 0x0025501B, 48 bytes.
 // ModuleData dtor: tears down the filter at +0x10 through the folded 0x360D26

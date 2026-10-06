@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getShroudClearingRange@Object@@QBEMXZ retail 0x0028DE87, 193 bytes.
 // Zero Hour Object::getShroudClearingRange (base range +0x1B4; under

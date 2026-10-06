@@ -1,5 +1,5 @@
 // ?rva002C96D8@Weapon@@QAE_NXZ @0x002C96D8 31B
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?isTooClose@Weapon@@QBE_NPBVObject@@PBUCoord3D@@@Z @0x002C9B3D (67B).
 // Weapon::isTooClose(source, pos): minRange==0 -> false; else shrunkenDistSqr
 // (Object::rva002C97E8 of source position vs pos) < sqr(minRange).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
 // ??1Rva003FD4DA@@UAE@XZ @0x003FD4DA 72B
 // ModuleData dtor: vtable 0x007FE1B0, two releaseBuffer calls on the string at
 // +0x0C (body clear plus implicit member destruction), then Snapshot base

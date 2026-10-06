@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0028EBDA@Object@@QAEX_N@Z, retail 0x0028EBDA 110B.
 // Static NameKey for "EnragedBehavior" via TheNameKeyGenerator, then

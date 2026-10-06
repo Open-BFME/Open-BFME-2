@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ?rva00295844@Object@@QAEXM@Z, retail 0x00295844, 227 bytes (caller
 // 0x002972CF in 0x002972B1). Sums the template +0x51C value of every enemy

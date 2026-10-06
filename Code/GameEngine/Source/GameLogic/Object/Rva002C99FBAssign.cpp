@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ??4Rva002C99FB@@QAEAAU0@ABU0@@Z @0x002C99FB 29B
 // Honest struct assignment: dword at +0 plus OpaqueRefElement4 at +4 via rowed 0x00239099.
 // Evidence: callers 0x002CD82A 0x002CD83C 0x002CF5EB 0x0031BA31; unblocks 8 (6 ready);

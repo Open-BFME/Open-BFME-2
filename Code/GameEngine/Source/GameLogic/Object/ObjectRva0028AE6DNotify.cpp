@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0028AE6D@Object@@QAEXXZ @0x0028AE6D 46B
 // The notifier every model-condition setter calls after a bit changes in the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028B141@Object@@QAEXW4WhichTurretType@@MH@Z @0x0028B141 82B: Object
 // turret query over AI at +0x258 and face at +0x250. Zeroes two floats,
 // fills them via rowed AIUpdateInterface::getTurretRotAndPitch, compares the

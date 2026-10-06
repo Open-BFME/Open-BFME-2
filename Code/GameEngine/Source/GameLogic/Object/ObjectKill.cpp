@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?kill@Object@@QAEXW4DamageType@@W4DeathType@@@Z
 // Target boundary 0x002984D4..0x00298515 (67B). Retail disassembly establishes
 // the 0x7C-byte local; source ID zero; enum fields at +0x10/+0x1C; Object's

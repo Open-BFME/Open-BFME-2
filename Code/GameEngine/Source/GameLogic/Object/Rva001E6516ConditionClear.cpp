@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Rva001E6516::rva001E6516, retail 0x001E6516 (28 bytes, ret 4).
 // Clears Object model condition 1*32+29 (byte +0x113 bit 5 of the +0x10C word

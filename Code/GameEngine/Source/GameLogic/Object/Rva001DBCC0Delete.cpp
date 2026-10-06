@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001DBCC0@Rva001DBC77@@QAEPAXI@Z retail 0x001DBCC0 28B. Deleting helper
 // for the rowed dtor 0x001DBC77: destroys via that dtor then frees with rowed

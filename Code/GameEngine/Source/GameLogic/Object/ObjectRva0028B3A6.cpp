@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028B3A6@Object@@QBE_NXZ @0x0028B3A6 49B: Object module scan through
 // +0x244 array; each +0x0C sub-object slot1 (+0x04) yields inner, when
 // non-null its slot5 (+0x14) bool true returns true, else continues; false

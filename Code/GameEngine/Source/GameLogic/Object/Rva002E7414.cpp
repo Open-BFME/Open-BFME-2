@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002E7414@Rva002E7414@@QAEHHH@Z, retail 0x002E7414, 44 bytes.
 // Layer-1 cell flag test via rowed Pathfinder::getCell 0x002E6D62, ret 8.
 // Evidence: 5 callers in 0x002EAE5F, flags &0x3f0==0x10, layer 1.

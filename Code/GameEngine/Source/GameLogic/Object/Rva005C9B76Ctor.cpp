@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva005C9B76@@QAE@PAX@Z @0x005C9B76 38B
 // Honest-address ctor installing vtable 0x00874B9C: member Rva00330757Member
 // at +0x4 via rowed 0x00330757, arg pointer at +0x14, int at +0x1C cleared

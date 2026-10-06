@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028D99A@Object@@QAEX_N@Z, RVA 0x0028D99A, 75B. Object power dispatch gated by
 // disabled mask and template+0x548: callers 0x002A9D35 0x002AD4EC; callees rowed
 // ?any@?$BitFlags@$0L@@@QBE_NXZ +0x1C8, ?getControllingPlayer@Object@@QBEPAVPlayer@@XZ,

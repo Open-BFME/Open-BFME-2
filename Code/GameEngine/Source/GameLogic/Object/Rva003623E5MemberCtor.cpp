@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??0Rva003623E5Member@@QAE@XZ at 0x003623E5 (82 bytes).
 // The ctor resets its 4-byte handle to -1, builds a 0x94-byte default record

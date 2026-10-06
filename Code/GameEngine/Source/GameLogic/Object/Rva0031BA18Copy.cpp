@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?Rva0031BA18Copy@@YAPAURva002C99FB@@PAU1@00@Z @0x0031BA18 47B
 // __copy for 8-byte Rva002C99FB via rowed operator= 0x002C99FB (sar 3 count,
 // EBP frame, loop with add [ebp+8]/[ebp+0x10]). Caller 0x0031BDA4.

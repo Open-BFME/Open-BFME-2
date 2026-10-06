@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getSpawnBehaviorInterface@Object@@QBEPAVSpawnBehaviorInterface@@XZ,
 // retail 0x0028BCD4, 32 bytes. Dedicated TU.

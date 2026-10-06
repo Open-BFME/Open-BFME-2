@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva003FD789@@QAE@ABV?$StringBase@D@@@Z @0x003FD716 109B
 // Ctor of Rva003FD789 (vtable 0x00837D78): empty unwindable base arms EH 0,
 // StringBase<char> at +0x0C default-cleared, bytes/float/word at +0x10/+0x11/

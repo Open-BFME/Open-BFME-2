@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028C4B6@Object@@QAEXXZ @0x0028C4B6 55B
 // Object provider-gated global flag set: prov = rva0028C197(); if prov and slot60 and slot23 then call slot24 and set holder+0x28.
 // Evidence: rowed rva0028C197 plus virtual slots 0xF0 0x5C 0x60 and VA 0x00E01CFC+0x28; callers 0x0028DF48 0x0028E01F 0x0028E0F9 0x0028E151;

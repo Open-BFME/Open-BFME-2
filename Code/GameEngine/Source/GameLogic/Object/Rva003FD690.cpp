@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // ?rva003FD690@Rva003FD690@@QAEXPBUCoord@@@Z @0x003FD690 45B
 // Copies 12B Coord from arg to +0x20 via 3x movsd, then if +0x04 helper
 // calls vtable slot 0x1C with same arg then slot 0x0C with no args.

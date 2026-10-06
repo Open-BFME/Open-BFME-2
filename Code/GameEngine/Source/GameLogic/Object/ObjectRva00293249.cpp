@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00293249@Rva00293249@@QAE_NW4ObjectID@@@Z, retail 0x00293249, 44 bytes.
 // Free-standing ObjectID helper: findObjectByID via TheGameLogic then AI at
 // +0x258 null-safe then virtual slot 0x248 bool result else false. Evidence:

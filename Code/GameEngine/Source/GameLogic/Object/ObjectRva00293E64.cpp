@@ -1,6 +1,6 @@
 // ?rva00293E64@Object@@QAEXPAVDict@@@Z
 // partial score=0.99 date=2026-09-30
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7
+// cl: /Ireference/shims/bfme2_ascii
 // ?rva00293E64@Object@@QAEXPAVDict@@@Z @0x00293E64 155B
 // Honest Object method iterating +0x244 array calling virtual 0xB4, then
 // optional +0x84 loop, then Dict/NameKey to AsciiString forwarding to rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva002A7461@Rva002A7461@@QAEHXZ @0x002A7461 98B.
 // Capped sum over 0xC-byte entries: total = +0xC + +0x4 plus entry value
 // when filter invalid or player check passes, capped at +0x10.

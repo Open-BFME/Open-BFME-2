@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0028D481@Object@@QBEHXZ @0x0028D481 (16B).
 // Leaf Object reader: returns bit 7 of the dword at template+0x108

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?isNeutralControlled@Object@@QBE_NXZ, retail 0x0028B091 (23 bytes).
 // Object::isNeutralControlled is `return getControllingPlayer() ==

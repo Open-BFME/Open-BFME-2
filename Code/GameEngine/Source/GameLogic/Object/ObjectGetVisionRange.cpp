@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getVisionRange@Object@@QBEMXZ retail 0x0028DDE0, 167 bytes.
 // BFME1 donor Object::getVisionRange plus BFME2 height scaling (same as

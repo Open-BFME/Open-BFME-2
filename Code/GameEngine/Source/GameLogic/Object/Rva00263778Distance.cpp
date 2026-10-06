@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva00263778Distance@@YAMPBUCoord3D@@MM0MM@Z,
 // retail 0x00263778 (106 bytes). Free function near Object planar worker.

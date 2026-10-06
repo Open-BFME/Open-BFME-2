@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva002636F6@Object@@QBEMPBUCoord3D@@PBX0@Z
 //
 // retail 0x002636F6 (109 bytes). Two-radius twin of the rowed 0x002C97E8.

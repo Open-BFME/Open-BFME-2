@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva005C9B76@@UAE@XZ @ 0x005C9B9C 71B
 // Evidence: vtable 0x00874B9C; rowed forEach 0x005C9A46 and forwarder 0x001FF3A9; rowed free 0x00030830; caller deleting dtor 0x005C9CC2.
 class Rva005C9A46Listener

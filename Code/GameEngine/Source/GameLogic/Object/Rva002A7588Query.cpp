@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Guarded three-test field query at retail 0x002A7588 (48 bytes).
 // Dedicated TU beside the neighbour Rva002A73B8Dtor.cpp row block, whose

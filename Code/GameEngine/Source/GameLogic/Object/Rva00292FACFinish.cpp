@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00292FAC@Object@@QBE_NXZ
 // finish from 0.93 bank: retail tail branches (87B); bank emitted branchless (84B).
 // Object isSelectable/producer-under-construction helper at retail 0x00292FAC 87B.

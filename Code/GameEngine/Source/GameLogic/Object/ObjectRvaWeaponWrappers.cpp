@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Two Object wrappers over the rowed WeaponSet slot searches (retail
 // 0x0028AEEA/11 + 0x0028AEF5/54). The Object holds its WeaponSet at +0x330

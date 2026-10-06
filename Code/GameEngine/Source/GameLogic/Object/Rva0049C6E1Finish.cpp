@@ -1,6 +1,6 @@
 // ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z
 // partial score=0.96 date=2026-10-04
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z @0x0049C6E1 89B. Upgrade check via
 // TheUpgradeCenter plus rowed find 0x0026F0F0 with mask at this+8 plus 0x284

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?isValid@ObjectFilter@@QBE_NXZ @0x360CED (57B): ammo-descriptor validity gate.
 // The descriptor's first dword is an index into a global table of 0x94-byte
 // records; the entry is valid when its flag byte at +0x88 is non-zero, with

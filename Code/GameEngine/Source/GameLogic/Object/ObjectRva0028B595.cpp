@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028B595@Object@@QAEXPAPAV1@0@Z @0x0028B595 89B: Object intrusive
 // doubly-linked unlink via +0x8C prev and +0x90 next. When prev non-null its
 // +0x90 is set to next else second out-param takes next; when next non-null

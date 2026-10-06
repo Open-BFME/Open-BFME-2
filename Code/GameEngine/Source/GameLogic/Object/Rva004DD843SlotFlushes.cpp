@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // Three Rva004DD843 members, retail 0x004DDD6E / 0x004DDD80 / 0x004DDD92
 // (18 bytes each), pinned from the Object forwarders through Object+0xA4:

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028BC58@Object@@QAEPAXH@Z @0x0028BC58 60B
 // Object module-scan getter through the +0x244 array: asks each module's
 // +0x0C sub-object for slot 28 (+0x70) and returns the first non-null result

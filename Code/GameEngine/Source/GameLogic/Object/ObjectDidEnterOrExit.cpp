@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?didEnterOrExit@Object@@IBE_NXZ @0x0028D6EB (45B).
 // Direct BFME1 transfer of Object::didEnterOrExit

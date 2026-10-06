@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?addObjectToPathfindMap@BFMEPathfinderMapShim@@QAEXPAVObject@@@Z @0x002E7178
 // ?rva002E718A@BFMEPathfinderMapShim@@QAEXPAVObject@@@Z @0x002E718A 17B: adjacent sibling
 // Shard TU: friend_notifyOfNewMapBoundary lives in

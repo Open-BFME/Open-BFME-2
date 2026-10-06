@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?xfer@Rva003FD789@@MAEXPAVXfer@@@Z, retail 0x003FD6BD, 35 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00837D78 (class of ??0Rva003FD789

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002A7557@Rva002A7461@@QAE_NPAURva002A7557In@@H@Z @0x002A7557 49B.
 // Chain from 0x002A7461: ecx passes through to Rva002A7461::rva002A7461 row.
 // Returns (base8 + arg+0x618 <= total) unless arg+0x618 == 0 or byte+0x11a & 0x80 forces true.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva002922D9@Object@@QAE_NPBVCommandButton@@@Z @0x002922D9 87B
 // Evidence: pin Object::rva002922D9; 5 matched callers pass a CommandButton;
 // +0x44 slot via rowed BfmeSubBEC::rva0028BB9E 0x0028BB9E; name via rowed

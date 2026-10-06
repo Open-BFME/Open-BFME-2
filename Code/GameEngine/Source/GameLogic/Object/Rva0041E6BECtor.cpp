@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??0Rva0041E6BE@@QAE@HHPAVDataChunkInput@@PBVAsciiString@@1@Z @0x0041E6BE 45B
 // __thiscall derived from rowed Rva000ABB87View (12B base at +0) adding int at +0xC
 // plus int at +0x10 plus vtable g_00C3AF68. Evidence: base call 0x000ABB87 with

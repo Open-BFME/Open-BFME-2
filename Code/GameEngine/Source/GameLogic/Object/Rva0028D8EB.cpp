@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?rva0028D8EB@Rva0028D8EB@@QAEHH@Z, RVA 0x0028D8EB, 21B. Unlock lane:
 // const forward to rowed ?Rva001E4426Test@@YAHPAIH@Z at 0x001E4426 with

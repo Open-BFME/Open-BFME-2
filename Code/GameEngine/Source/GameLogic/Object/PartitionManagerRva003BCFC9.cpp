@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva003BCFC9Set@@YGX_N@Z @0x003BCFC9 11B: free forwarder to PartitionManager::rva007397A0.
 // Evidence: mov ecx,[0x00DFE74C] jmp 0x007397A0; callee is PartitionManager

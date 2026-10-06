@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object
+// cl: -DNDEBUG -DWIN32 -MD -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object
 
 #include "ascii_string.h"
 

@@ -1,5 +1,5 @@
 // ??0Made002CC774@@QAE@XZ
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // ??0Made002CC774@@QAE@XZ, retail 0x00509522 38B.
 // Base Rva00507823 plus vtable 0x00864520 plus three members at
 // +0x128/+0x12c/+0x130 zeroed. AsciiString at +0x130 is the non-trivial

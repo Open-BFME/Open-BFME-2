@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?rva0028C24C@Object@@QAEXXZ @0x0028C24C, 24 bytes.
 // Object deadline stamp: the +0x458 int is TheGameLogic's frame plus

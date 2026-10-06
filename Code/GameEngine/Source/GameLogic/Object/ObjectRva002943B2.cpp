@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002943B2@Object@@QAE_NPBVPlayer@@@Z @0x002943B2 191B.
 // Object gate: scan dword-field array at +0x84 via the rowed get for the
 // slot-60 veto, chain via rva002933CD/testStatus 0x11/rva0028F518/testStatus

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0028B7C8@Object@@QBEHXZ, retail 0x0028B7C8, 26 bytes.
 // Object int gate over the float at +0x258-holder: returns 1 when
 // rva0028AC7D exceeds the shared 0.1f at 0x007C2424, else 0.

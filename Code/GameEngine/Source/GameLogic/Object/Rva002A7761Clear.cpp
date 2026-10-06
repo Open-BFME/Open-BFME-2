@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002A7761@Rva002A7761@@QAEXXZ, retail 0x002A7761 44 bytes.
 // Reset method: zeroes +8/+0xc, sets +4 to 100, zeroes +0x18/+0x1c,

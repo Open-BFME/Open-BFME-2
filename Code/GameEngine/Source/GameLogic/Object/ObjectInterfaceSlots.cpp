@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // Object overrides of its +0x64 and +0x70 interface subobjects. Identity: the
 // vtables 0x00BFC2D8 (+0x64) and 0x00BFC290 (+0x70) are stored by 0x00298EA9,

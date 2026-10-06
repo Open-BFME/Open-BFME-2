@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00220C56@@QAE@XZ, retail 0x00220C56 30B.
 // Frameless holder dtor: destroys [begin,end) via rowed 0x00220AEB then
 // frees begin via rowed free 0x00030830. Sibling of EH holder 0x00220C17

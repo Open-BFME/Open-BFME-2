@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0Locomotor@@QAE@PBVLocomotorTemplate@@@Z @0x005C96EB (104B):
 // BFME1 Locomotor ctor (donor LocomotorConstructor.cpp); BFME2 layout is

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?findSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@W4SpecialPowerType@@@Z, retail 0x00290E22, 69 bytes.
 // Object::findSpecialPowerModuleInterface: scans the null-terminated BehaviorModule

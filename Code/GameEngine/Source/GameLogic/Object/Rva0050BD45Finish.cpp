@@ -1,5 +1,5 @@
 // ??0Made002CCC90@@QAE@XZ
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /DNDEBUG /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /DNDEBUG
 //
 // ??0Made002CCC90@@QAE@XZ retail 0x0050BD45 55B
 // Evidence: pin ??0Made002CCC90 (symbols.csv 0x0050BD45); callee base

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 //
 // Retail 0x0028A60A (19B). Default constructor zeroing the trigger info
 // word at +0x00 and the flag bytes at +0x04..0x07. Transferred from the

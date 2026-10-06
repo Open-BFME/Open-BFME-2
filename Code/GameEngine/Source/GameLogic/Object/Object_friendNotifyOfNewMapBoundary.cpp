@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Oy- /DNDEBUG /MD /EHsc
 //
 // ?friend_notifyOfNewMapBoundary@Object@@QAEXXZ,
 // retail 0x0028B5EE, 113 bytes. Dedicated TU.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028B31A@Object@@QAEXH@Z @ 0x0028B31A 65B: clears 8-byte entries at +0x3C5 whose dword matches arg then compacts via rva0028B2BF
 // Evidence: chain from just-landed 0x0028B2BF; same +0x3C5 +0x43A layout as neighbours ObjectRva0028B2BF/0028B38D; caller 0x0023D670 passes through dword arg.
 class Object

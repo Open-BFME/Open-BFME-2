@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva00270644@Rva00270644@@QAEXMM@Z @0x00270644 52B
 // Honest 2-float setter with frame via holder 0x00DFE77C slot 0x7C.
 // Evidence: movss at +0xD8 +0xDC plus frame at +0x380; holder same as DrawableFade slot1F;

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BD485Median@@YAPAPAURva003BD485Keyed@@PAPAU1@00@Z @0x003BD485 62B.
 // Median-of-three pivot picker (retail 0x003BD485, 62 B): each arg is a
 // pointer to a keyed element whose sort key sits at +0x20 through a second

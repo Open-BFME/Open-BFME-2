@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // ?allow@PartitionFilterPossibleToAttack@@UAE_NPAVObject@@@Z RVA 0x00260FD0 37B.
 // Evidence: retail pushes [ecx+0xc] then arg then [ecx+0x10] with this=[ecx+8]
 // into 3-arg getAbleToAttackSpecificObject pin at 0x0028D051; caller 0x00350E4F

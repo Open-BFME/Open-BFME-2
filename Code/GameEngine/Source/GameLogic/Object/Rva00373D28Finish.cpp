@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc
+// cl: /EHsc
 // ?Rva00373D28Get@@YGPAVRva00373EC6@@PAVObject@@@Z @0x00373D28 29B:
 // Free forwarder: Object::rva002931F5(false) at 0x002931F5 then rowed
 // ?rva0028F4BC@Object@@QAEPAVRva00373EC6@@XZ on the result, else null.

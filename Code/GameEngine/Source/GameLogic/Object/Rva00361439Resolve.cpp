@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00361439Resolve@@YAXXZ retail 0x00361439 55 bytes.
 // Validity-table resolve-all: count is (g_validityEnd-g_validityBegin)/0x94

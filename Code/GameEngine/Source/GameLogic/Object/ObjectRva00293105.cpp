@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /G7 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00293105@Object@@QAEXXZ @0x00293105 181B: Object helper iterating the
 // +0x244 null-terminated array via virtuals plus STL list<int> recursion.

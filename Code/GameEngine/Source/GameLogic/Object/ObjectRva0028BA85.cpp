@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028BA85@Object@@QBEXXZ @0x0028BA85 41B
 // Object module broadcast through the +0x244 array: calls each module's
 // +0x0C sub-object slot 46 (+0xB8) with the int at +0x45C. Evidence: same

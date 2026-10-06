@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Target callback boundary 0x00544B13-0x00544B41, immediately preceding
 // the ObjectID refresh body. Its address is passed by that caller to the
 // Player iterator at 0x002AB08B with a two-pointer local context.

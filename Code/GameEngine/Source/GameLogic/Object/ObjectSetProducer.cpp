@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?setProducer@Object@@QAEXPAV1@@Z,
 // retail 0x0028AFD2, 21 bytes. Dedicated TU.

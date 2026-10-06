@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002E7542@Rva002E7542@@QAEPAXHPBUCoord3D@@H@Z @0x002E7542 39B
 // Sibling of the Rva002E74B5 / Rva002E757D Bridge lane. Stores a1 at +0x00,
 // a3 at +0x04, copies the 12-byte Coord3D to +0x08 and leaves `this` in eax.

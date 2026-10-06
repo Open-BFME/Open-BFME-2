@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata /ICode/GameEngine/Include
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /Ireference/shims/moduledata /ICode/GameEngine/Include
 // ?rva003FD43B@Rva003FD3EF@@UAE_NXZ @0x003FD43B 93B: __thiscall bool method slot 4 offset 0x10 of vtable 0x007FE024. Guards +0x0C referent then BfmeAudioEventPrefix136(ref 1) plus m_b51 1 then g_009FE1C8 Rva0021291F call returns true. Evidence: vtable 0x007FE024 slot 4 plus rowed ctor 0x002D97D6 plus rowed dtor 0x002D9A43 plus rowed 0x0021291F plus g_009FE1C8 plus donor Rva003FD3EFDtor.
 #include "Common/Snapshot.h"
 #include "Common/BfmeAudioEventPrefix136.h"

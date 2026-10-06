@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // PartitionManager shroud thunks, retail 0x00739740 (8 bytes),
 // 0x00739790 (8 bytes), 0x007397B0 (8 bytes) and 0x007397F0 (8 bytes).

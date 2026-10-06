@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?releaseWeaponLock@Object@@QAEXW4WeaponLockType@@@Z @0x0028D8B6 (53B).
 // Zero Hour inlines this as m_weaponSet.releaseWeaponLock(lockType); BFME 2

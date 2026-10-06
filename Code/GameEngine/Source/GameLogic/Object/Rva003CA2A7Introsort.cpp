@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003CA2A7IntrosortLoop@@YAXPAPAURva003BD485Keyed@@0HHH@Z @0x003CA2A7 123B.
 // Introsort loop over the same keyed array as Rva003BD485Median.cpp: while
 // more than 16 slots remain, if depth is 0 partial-sort (first, last, last)

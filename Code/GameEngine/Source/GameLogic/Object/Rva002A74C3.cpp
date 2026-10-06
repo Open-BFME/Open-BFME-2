@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?Rva002A74C3Get@@YGHPAX@Z 61B @0x002A74C3: int helper adding Object float-out to +0x61C int then returning.
 // Evidence: linkbody lane LINK BONUS via 0x002A7500/0x002A7513 plus 14B file; callees rowed Object 0x0028C149; caller 0x002A7507 pushes one arg then add [esi+0xC] eax ret4; prev Rva002A7400Ctor next Rva002A73B8Dtor share /O1 /DNDEBUG /MD.
 class Object

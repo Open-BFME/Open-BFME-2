@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0028C264@Object@@QAE_NPAHH@Z @0x0028C264 121B
 // Object dual-path frame-gated id fetch. Evidence: thiscall via callers

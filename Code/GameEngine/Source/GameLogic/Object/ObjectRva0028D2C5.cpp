@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0028D2C5@Object@@QBEMPAX@Z @0x0028D2C5 (54B).
 // Object float gate: if the template byte at +0x113 carries 0x40 and the

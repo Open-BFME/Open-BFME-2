@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??1Rva0050A7AD@@UAE@XZ retail 0x0050A7AD 56B dtor with filter.
 // Evidence: member dtor 0x00360D26 at +0x160; base dtor 0x00507823; caller deleting 0x0050A791.

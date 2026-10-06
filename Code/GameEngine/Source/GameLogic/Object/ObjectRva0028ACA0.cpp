@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0028ACA0@Object@@QBEPAV1@XZ @0x0028ACA0 42B: returns AIUpdate victim at +0x258 else 0; guards virtual bool slot 111 at +0x1BC then rowed getCurrentVictim.
 // Evidence: between Object rows 0x0028AC7D and 0x0028AD6C; Object+0x258 holds AIUpdateInterface (Rva0033FA64Do precedent); callees rowed 0x00268D71; callers 8.
 template <int N>

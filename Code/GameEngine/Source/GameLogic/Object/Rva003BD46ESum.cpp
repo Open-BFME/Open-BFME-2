@@ -1,6 +1,6 @@
 // ?Rva003BD46ESum@@YAHPAX@Z
 // partial score=0.95 date=2026-09-29
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BD46ESum@@YAHPAX@Z @0x003BD46E 23B.
 // Sum ints over a begin/end pointer pair: mov edx,[esp+4] mov ecx,[edx]
 // mov edx,[edx+4] xor eax jmp check add eax,[ecx] add ecx,4 cmp ecx,edx jne.

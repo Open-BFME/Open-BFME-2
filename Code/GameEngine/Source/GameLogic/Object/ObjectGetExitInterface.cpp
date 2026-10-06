@@ -1,6 +1,6 @@
 // ?getObjectExitInterface@Object@@QBEPAVExitInterface@@XZ
 // partial score=0.95 date=2026-09-27
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?getObjectExitInterface@Object@@QBEPAVExitInterface@@XZ, retail 0x0028B445, 55 bytes.
 // Object::getObjectExitInterface scans the BehaviorModule array at +0x244 via the +0x0C

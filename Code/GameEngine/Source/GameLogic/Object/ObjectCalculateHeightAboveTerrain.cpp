@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?calculateHeightAboveTerrain@Object@@MBEMXZ, retail 0x0028B569 (44B).
 // Zero Hour's Object override: the position's z minus TheTerrainLogic's

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva003FD6E0@Rva003FD6E0@@QAEXXZ @0x003FD6E0 54B: __thiscall void cleanup
 // touching [+0x04] pointer and its [+0x08] sub-pointer with virtual calls.
 // Evidence: retail loads [esi+4] twice; calls [[eax+8]] slot 0x40 then

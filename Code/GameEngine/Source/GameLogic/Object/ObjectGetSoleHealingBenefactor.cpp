@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?getSoleHealingBenefactor@Object@@QBE?AW4ObjectID@@XZ, retail 0x0028B204, 26 bytes.
 // Object::getSoleHealingBenefactor returns the cached benefactor at +0x3B8 when
 // the GameLogic frame is within the expiration at +0x3BC, else INVALID_ID.

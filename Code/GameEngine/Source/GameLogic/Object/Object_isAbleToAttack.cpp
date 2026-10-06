@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?isAbleToAttack@Object@@QBE_NXZ, retail 0x00290B73, 440 bytes.
 // Dedicated TU so Object.cpp cannot see this body.

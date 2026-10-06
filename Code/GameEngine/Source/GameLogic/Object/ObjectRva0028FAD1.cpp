@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /Op
+// cl: /DNDEBUG /MD /GX- /Op
 //
 // ?rva0028FAD1@Object@@QAEXPAV1@@Z, retail 0x0028fad1, 158 bytes. Banked partial (score 0.96) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

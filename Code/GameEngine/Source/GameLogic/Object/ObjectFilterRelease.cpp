@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00360CB0Release@@YAXPAH@Z @0x00360CB0 61B
 // Pool release for the 0x94-byte validity-table record shared with
 // ?isValid@ObjectFilter@@QBE_NXZ at 0x00360CED. Index at [arg+0] is -1 when

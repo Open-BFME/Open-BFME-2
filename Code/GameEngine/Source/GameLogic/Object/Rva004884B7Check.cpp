@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004884B7@@YA_NPAVObject@@@Z @0x4884B7 (37B): predicate over an Object's
 // AIUpdateInterface (+0x258, retail-measured): false when null, false when the
 // slot-0x174 check fails, otherwise the slot-0x190 result normalized. Both

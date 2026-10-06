@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva000A4826@Rva000A4826@@QAEXMMMMMH@Z retail 0x000A4826 79B.
 // Virtual forwarder: calls slot 0xD4 then slot 0xEC with same five floats plus int
 // then slot 0x100; x87 fld/fstp spills with EBP frame and ret 0x18.

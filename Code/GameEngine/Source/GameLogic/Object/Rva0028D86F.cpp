@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?rva0028D86F@Rva0028D86F@@QAEXABU?$_Base_bitset@$03@_STL@@@Z @0x0028D86F 34B: __thiscall void method with bitset OR at +0x370 plus WeaponSet update at +0x330. Evidence: rowed _M_do_or 0x0028C53E plus pin updateWeaponSet 0x002C8C97 plus caller 0x004B577C plus prev ObjectIsSelectable plus next RvaBitTestTwins.
 namespace _STL
 {

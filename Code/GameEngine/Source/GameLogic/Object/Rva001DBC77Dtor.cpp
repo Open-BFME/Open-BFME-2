@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva001DBC77@@QAE@XZ retail 0x001DBC77 73B. Dtor with AsciiString at +0
 // via rowed StringBase<char> releaseBuffer, int zero at +0xC, guarded virtual

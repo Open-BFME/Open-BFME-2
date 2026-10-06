@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Object::getControllingPlayer, retail 0x0028AFA9, 18 bytes.
 // Dedicated TU so Object.cpp and RadiusDecalUpdate.cpp cannot see this body.

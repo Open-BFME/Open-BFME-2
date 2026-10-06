@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00291080@Object@@QAEX_N@Z, retail 0x00291080 55B.
 // TARGET FACTS (retail decode in-lane via build.read_target_bytes + capstone):

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?getSingleLogicalBonePosition@Object@@QBE_NPBDPAUCoord3D@@PAVMatrix3D@@@Z @0x0028BEE0
 // (161B): Object::getSingleLogicalBonePosition, BFME1 Object.cpp verbatim
 // (Object::getSingleLogicalBonePosition) with BFME2 offsets. Drawable query is

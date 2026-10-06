@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?isInList@Object@@QBE_NPAPAV1@@Z, retail 0x0028B47C (31 bytes).
 // Object::isInList checks the intrusive list links at +0x8C/+0x90.

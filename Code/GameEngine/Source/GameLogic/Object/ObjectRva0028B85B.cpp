@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028B85B@Object@@QBE?AW4ObjectID@@XZ, retail 0x0028B85B, 26 bytes.
 // ?rva0028B875@Object@@QBEHXZ retail 0x0028B875 49B
 // Object ObjectID reader through the body at +0x254: calls the body vtable

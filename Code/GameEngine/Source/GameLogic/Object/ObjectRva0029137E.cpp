@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?rva0029137E@Object@@QAE_NAAVAsciiString@@@Z @0x0029137E 109B: Object bool fill AsciiString via template plus Team check. Evidence: rowed rva0028F518 ThePlayerList bfmeAskRV getRelationship cmp 2 set isEmpty neg-sbb-inc callers 0x0029EE98 0x004E769E. Stash 0.93 tmpl in edi vs retail eax.
 #include "ascii_string.h"
 

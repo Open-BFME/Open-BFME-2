@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028BD92@Object@@QAEPAXH@Z @0x0028BD92 69B: Object scan of +0x244
 // module array; each +0x0C sub-object slot25 (+0x64) yields B; when B non-null
 // and its slot1 (+0x04) bool true, B-0x20 is Rva0044EF2C whose rowed int

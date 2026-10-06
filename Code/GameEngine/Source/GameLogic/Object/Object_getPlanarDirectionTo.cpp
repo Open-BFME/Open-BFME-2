@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?getPlanarDirectionTo@Object@@QBEPAUCoord3D@@PAU2@PBV1@@Z,
 // retail 0x002654FC (21 bytes). Dedicated TU.

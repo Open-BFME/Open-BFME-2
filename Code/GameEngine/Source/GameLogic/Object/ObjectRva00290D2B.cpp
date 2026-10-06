@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00290D2B@Object@@QBE_NPBVUpgradeTemplate@@@Z retail 0x00290D2B 23B.
 // Object null-guarded UpgradeTemplate bit test via rowed ?rva0028D9E5@Object@@QBE_NH@Z.
 // Evidence: same-this preserved-ecx call to rowed Object bit query at 0x00290D3A with int at +0x38;

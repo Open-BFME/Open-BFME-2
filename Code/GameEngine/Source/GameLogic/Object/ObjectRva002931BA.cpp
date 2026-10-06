@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002931BA@Object@@QAE_NXZ, retail 0x002931BA, 59 bytes.
 // Object helper: if testStatus(FAERIE_FIRE 0x26) return producerID (+0x78)
 // nonzero; else if producerID zero return false; else look up producer via

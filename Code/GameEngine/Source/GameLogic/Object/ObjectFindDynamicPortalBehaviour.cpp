@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004608E0@DynamicPortalBehaviour@@SAPAVModule@@PAVObject@@@Z @0x004608E0 108B: static DynamicPortalBehaviour lookup over an Object guards a function-local NameKeyType for DynamicPortalBehaviour through TheNameKeyGenerator then scans the null-terminated module list at +0x244 comparing virtual slot 0x10 and returns the match or null. Plain ret proves static member not thiscall. Class from string at 0x007F5AAC. Callers at 0x002CB44C 0x002EC7B6 0x002F2704 0x00345658 0x004C573F 0x004C5CF3 0x004C6035. Recipe WallUpgradeUpdateFind precedent 81B with inlined direct-return loop giving 108B.
 
 enum NameKeyType

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Two Object Creation List nugget create() bodies, ported from the
 // Open-BFME-1 donor game/GameEngine/Source/GameLogic/Object/

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BD153Set@@YGXPAXHH@Z, retail 0x003BD153 73B leaf via rowed 0x00357475 0x002A7BC9 0x002A738F.
 // Player-mask loop: name at p+0x10 via ScriptEngine mask then getEachPlayerFromMask loop calling +0x60 set(a b).
 // Evidence: callees rowed; caller 0x003CE7FB; prev 0x003BCFC9 next 0x003BD28D same /O1; sibling Rva003BB39E pattern.

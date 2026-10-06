@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0028AE9B@Object@@QAEXH@Z @0x0028AE9B 23B
 // Null-checked dword setter through the pointer at Object+0x84 into

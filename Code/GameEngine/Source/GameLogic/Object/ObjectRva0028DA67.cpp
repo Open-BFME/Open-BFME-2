@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0028DA67@Object@@QAEXXZ @0x0028DA67 82B: Object helper gating on +0x480 flag and template +0x618/+0x61C.
 // Checks testStatus 0x57 and 2, then notifies via controlling Player Rva002A9B58 and sets +0x480.

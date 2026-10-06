@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0026382B@Object@@QBEXPAUCoord3D@@PBU2@@Z,
 // retail 0x0026382B (47 bytes). Dedicated TU next to the forwarder that calls

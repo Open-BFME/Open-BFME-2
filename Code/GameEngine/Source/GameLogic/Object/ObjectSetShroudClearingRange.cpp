@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?setShroudClearingRange@Object@@QAEXM@Z, retail 0x0028BB65, 33 bytes.
 // Object::setShroudClearingRange writes the float at +0x1B4 when it differs
 // and calls makeDirty. Evidence: BFME1 donor Object.cpp:5648 same if-differ

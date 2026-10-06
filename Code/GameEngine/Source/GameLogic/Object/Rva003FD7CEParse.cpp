@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 //
 // ?Rva003FD7CEParse@@YAXPAVINI@@@Z, retail 0x003FD7CE, 95 bytes.
 // Chain: calls 0x0021294A which just landed. Parses one INI token via rowed

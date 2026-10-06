@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ObjectLookupMap::findSlot, retail 0x0041F4E5, 63 bytes: find-or-insert
 // over the GameLogic object lookup table (sole caller is

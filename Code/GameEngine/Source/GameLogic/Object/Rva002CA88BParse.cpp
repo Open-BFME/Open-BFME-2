@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva002CA88BParse@@YAXPAX0@Z @0x002CA88B 93B
 // Lazy-init Rva00235A21 (0x210) at parent +0xE0 via new plus ctor 0x00235A21
 // then parseWeaponBonusSet 0x002C971E. Evidence: chain lane calls just-landed

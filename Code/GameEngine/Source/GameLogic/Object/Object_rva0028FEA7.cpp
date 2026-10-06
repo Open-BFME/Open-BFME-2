@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva0028FEA7@Object@@QAE_NMPBV1@I@Z @0x0028FEA7 (247B).
 // Object healing-benefactor update plus body DamageInfo forward plus

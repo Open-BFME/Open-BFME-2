@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00270619Clear@Rva00270619@@QAEXH@Z @0x00270619 43B
 // Clears bit in dword at +0x118; when bit is 0x10 also inits +0x68 subobject (+0x34 to 10 and +0x38 to 2).
 // Evidence: callers at 0x004830A3 and 0x004AD669 and 0x004AD797 and 0x00291E7A; no donor; honest Rva name.

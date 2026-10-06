@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?Rva00220DCDInit@@YAXXZ @0x00220DCD 99B: singleton ensure for Rva00220CD4.
 // If holder g_00DFE490 empty, news 0x1C via rowed 0x0002FDA0 and rowed ctor
 // 0x00220C74, stores via rowed setter 0x00575674, then virtuals +4/+8 on the

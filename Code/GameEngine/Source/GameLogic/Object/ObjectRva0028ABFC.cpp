@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028ABFC@Object@@QAEXM@Z
 // recovered from packet 0x0028ABFC 56B lane=unlock
 // Evidence: rowed init 0x007584C0 and 0x002710EC; row 0x006BEB00 bfmeOneCNG takes void* but retail passes float via fld/fstp so declared float here (row types wrong); callers 0x004BE924 etc; prev/next Object TUs /O1 /DNDEBUG /MD; abuts next 0x0028AC34.

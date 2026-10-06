@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0028AC34@Object@@QAEX_N@Z @0x0028AC34 26B
 // Private-status bit setter at Object+0x438 (bit 1). The +0x438 private

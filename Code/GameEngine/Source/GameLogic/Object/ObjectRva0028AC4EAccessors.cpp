@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Object entry-accessor family around the holder at +0x258 (retail
 // 0x0028AC4E/20 + 0x0028AC62/27 + 0x0028AC7D/35; ghidra FUN_0068ac4e/62/7d).

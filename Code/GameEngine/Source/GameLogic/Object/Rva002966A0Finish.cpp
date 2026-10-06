@@ -1,5 +1,5 @@
 // ?rva002966A0@Object@@QAEXPAVPlayer@@0@Z
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // Object::rva002966A0 at 0x002966A0, 169 bytes. Banked at 0.93 behind two walls:
 //
 //   1. The banked file had lost its `// cl:` line, so it silently compiled under

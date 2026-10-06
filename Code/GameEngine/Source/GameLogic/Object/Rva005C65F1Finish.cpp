@@ -1,5 +1,5 @@
 // ?rva005C65F1@Rva005C65F1@@QAEXXZ
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005C65F1@Rva005C65F1@@QAEXXZ retail 0x005C65F1 (75B).
 // Free leaf (all callees rowed: abs via gen-small import row, virtual slot 4
 // indirect, EH_prolog row); two tail-jump callers (0x00577969 slot-2 wrapper,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028F4EF@Object@@QAEHXZ @ 0x0028F4EF 41B: Object KindOf tri-state
 // returning 0 if isKindOf(0x222) else 1 if isKindOf(0x223) else 2. Uses
 // rowed ?isKindOf@Object@@QBE_NW4KindOfType@@@Z. Callers include 0x0028F518

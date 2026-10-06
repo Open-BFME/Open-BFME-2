@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva005C9AB4@Rva005C9B76@@QAEXXZ @ 0x005C9AB4 41B
 // Evidence: layout from Rva005C9B76Ctor +0x4 list +0x14 arg +0x18 flag +0x1C int; rowed forEach 0x005C9A64 and forwarder 0x005CB260; caller 0x00575038.
 class Rva005C9A64Listener

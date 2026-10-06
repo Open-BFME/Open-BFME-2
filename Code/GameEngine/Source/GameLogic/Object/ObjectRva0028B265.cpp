@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028B265@Object@@QBEXXZ @0x0028B265 45B
 // Object module scan through the +0x244 array: asks each module's +0x0C
 // sub-object for slot 8 (+0x20); when non-null calls its slot 15 (+0x3C)

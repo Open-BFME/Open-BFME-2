@@ -1,4 +1,4 @@
-// cl: /O1 /EHs
+// cl: /EHs
 // ??1Rva003C649E@@QAE@XZ @0x003C649E 105B. Non-virtual dtor over four
 // inline string members at +0x4/+0x10/+0x1C/+0x2C whose bodies free
 // via rowed _free at 0x00030830. Evidence: unlock lane, __thiscall,

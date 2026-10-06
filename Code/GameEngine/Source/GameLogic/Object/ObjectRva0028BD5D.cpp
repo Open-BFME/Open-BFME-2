@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028BD5D@Object@@QBEPAXH@Z @0x0028BD5D 53B
 // Object behavior-scan predicate through the +0x244 array: asks each
 // module's +0x0C sub-object for slot 25 (+0x64); when non-null asks its

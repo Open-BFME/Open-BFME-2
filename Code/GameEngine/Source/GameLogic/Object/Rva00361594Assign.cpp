@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00361594Assign@@YAXPAVRva0036105B@@00PAX@Z @0x00361594 29B
 // Range-assign wrapper over the rowed __copy core at 0x003614F4: materializes

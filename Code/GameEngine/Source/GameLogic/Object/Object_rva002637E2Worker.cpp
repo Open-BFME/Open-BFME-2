@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva002637E2@Object@@QBEMPBUCoord3D@@0@Z,
 // retail 0x002637E2 (57 bytes). Chain after 0x00263778 distance.

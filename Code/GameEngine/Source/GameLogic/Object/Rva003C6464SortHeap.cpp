@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003C6464SortHeap@@YAXPAPAURva003BD485Keyed@@0H@Z @0x003C6464 58B.
 // Heap sort over the keyed array from Rva003BD485Median.cpp: while more than
 // one slot remains, pop the top via the rowed 3-push PopHeap at 0x003C4B80

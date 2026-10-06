@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /GX
 // ??1Rva003FD789@@UAE@XZ @0x003FD789 69B
 // ModuleData dtor: AsciiStrings at +0x0C and +0x1C via releaseBuffer then Snapshot base vtable 0x00BBB554.
 // Same recipe as PillageModuleDataDtor, using the shared Snapshot base header

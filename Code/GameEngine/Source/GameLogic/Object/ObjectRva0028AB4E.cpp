@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028AB4E@Object@@QBEXXZ @0x0028AB4E 39B: Object module scan through +0x244 array via +0x0C sub-object slot 3 then result slot 2.
 // Evidence: +0x244 Module** list (ObjectFindModule precedent); +0x0C second-base lea (ObjectRva0028B265 precedent); callers 1; neighbours Object rows.
 class Rva0028AB4EResult

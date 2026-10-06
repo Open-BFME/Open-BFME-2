@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?isUsingAirborneLocomotor@Object@@QBE_NXZ @0x0028B81E
 // (36B): Object::isUsingAirborneLocomotor, BFME1 ObjectFields.cpp verbatim
 // with BFME2 offsets. m_ai at +0x258, cur locomotor at AI+0x1f0, template at

@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002931F5@Object@@QAEPAV1@_N@Z, retail 0x002931F5, 84 bytes.
 // Object helper: if own template dword +0x114 carries 0x2000 return this;
 // else if containedBy (+0x274) template carries it return containedBy;

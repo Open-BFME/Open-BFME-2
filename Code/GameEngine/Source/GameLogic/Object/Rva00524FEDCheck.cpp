@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?Rva00524FEDCheck@@YGEPAVObject@@@Z @0x00524FED (83B).
 // Free-function Object validity gate (chain lane: calls the rowed

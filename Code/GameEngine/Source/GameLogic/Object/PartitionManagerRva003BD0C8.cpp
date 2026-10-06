@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BD0C8Set@@YGXABVAsciiString@@E@Z, retail 0x003BD0C8 64B leaf via rowed 0x00357475 0x002A7BC9.
 // Player-mask byte setter: mask from ScriptEngine::rva00357475 then getEachPlayerFromMask loop writing byte [eax+0x735]=val.
 // Evidence: callees rowed; caller 0x003CE316; prev 0x003BD032 next 0x003BD153 same /O1; sibling Rva003BB39E pattern with 0x338 constant.

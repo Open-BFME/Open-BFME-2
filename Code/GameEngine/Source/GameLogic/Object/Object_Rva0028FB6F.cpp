@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?rva0028FB6F@Object@@QAEXPAX@Z, retail 0x0028FB6F, 79 bytes.
 // Object status-mask consumer: takes an opaque param whose Helper lives at
 // +0x250, fetches a mask through Helper vtable slot 44 (0xB0) with a 16B

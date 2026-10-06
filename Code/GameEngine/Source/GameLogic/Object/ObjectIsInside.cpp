@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?isInside@Object@@QAE_NPAVPolygonTrigger@@@Z, retail 0x0028B411, 52 bytes.
 // Object::isInside scans the triggerInfo array at +0x3C0 (stride 8, isInside
 // at +6) for the given trigger, bounded by the signed count at +0x43A.

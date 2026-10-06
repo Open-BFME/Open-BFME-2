@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 // ?rva002972B1@Object@@QAEMM@Z, retail 0x002972B1, 45 bytes. If +0x448 counter
 // is below GameLogic +0x40 limit via TheGameLogic, refresh +0x444 through rowed
 // 0x00295844, then return +0x444 float. Evidence: callee row 0x00295844

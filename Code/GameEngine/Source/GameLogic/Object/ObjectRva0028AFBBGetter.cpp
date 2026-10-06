@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0028AFBB@Object@@QBE_NXZ @0x0028AFBB 23B
 // Wraps the rowed Object::getControllingPlayer (retail 0x0028AFA9): null

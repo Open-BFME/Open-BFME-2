@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00293275@Object@@QAEXVAsciiString@@@Z @0x00293275 187B
 // Honest Object method tokenizing AsciiString upgrades via rowed nextToken
 // 0x00036D90 and UpgradeCenter findUpgrade 0x0026F26D, granting via rowed

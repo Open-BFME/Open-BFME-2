@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0028C513@Object@@QBE?AW4ObjectID@@XZ @0x0028C513 39B
 // Object module-scan ObjectID getter through the +0x244 array: asks each

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 //
 // ?rva00361624@Rva00361624@@QAEPAVRva0036105B@@PAV2@0@Z, retail 0x00361624,
 // 51 bytes. Vector erase(first, last) over 148-byte Rva0036105B elements:

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0041E764@Rva0041E764@@QAEPAVArmorTemplate@@W4NameKeyType@@@Z @0x0041E764 27B: Hashtable find over the +0xC ArmorTemplate pointer table via ICF twin of rowed _M_find plus node second load. Evidence: calls 0x002888D4 caller 0x005AE16E unlocks 0x005AE0AD.
 enum NameKeyType
 {

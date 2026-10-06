@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 
 // Rva00290EFE::getGhostObject, retail 0x00290EFE (189 bytes).
 // BFME2 ghost-object predicate for the subobject at Object+0x64: when global

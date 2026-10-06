@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002E7261@Rva002E7261@@QAEHHPBU_Rva002E7261Arg@@HH@Z @0x002E7261 53B
 // Returns 0 when inner 0x28 matches m_04 else stores word and two ints; caller at 0x002E810A.
 

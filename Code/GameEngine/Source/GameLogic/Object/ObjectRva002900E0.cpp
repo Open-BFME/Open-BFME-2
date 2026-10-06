@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002900E0@Object@@QAEXH@Z retail 0x002900E0 26B.
 // Object status-plus-frame setter: setStatus(0x4A true) then store frame at +0x42C.
 // Evidence: same-this call to rowed ?setStatus@Object@@QAEXW4ObjectStatusTypes@@_N@Z at 0x002900E7;

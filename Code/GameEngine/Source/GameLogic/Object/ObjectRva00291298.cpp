@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?rva00291298@Object@@QAEXVAsciiString@@H@Z @0x00291298 68B
 // Object AsciiString member at +0x494 plus int at +0x498 with EH copy.
 // Evidence: rowed set 0x000366F0 plus releaseBuffer 0x00036410 plus EH_prolog 0x00629188;

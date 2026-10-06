@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002E6B89@Object@@QAE_NXZ @0x002E6B89 24B.
 // Proven Object method: all 9 callers pass Object* as this (e.g. 0x002EC935

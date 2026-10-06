@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // stlport
 // ??0Rva00220CD4@@QAE@XZ @0x00220C74 96B: ctor of Rva00220CD4 (vtable 0x007E6A84).
 // Base via rowed baseConstruct 0x001B4E63, member +0xC via pinned 0x003623E5,

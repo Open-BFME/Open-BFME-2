@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?healCompletely@Object@@QAEXXZ @0x0028FF9E (18B).
 // Object::healCompletely(): restores max health by attempting healing with

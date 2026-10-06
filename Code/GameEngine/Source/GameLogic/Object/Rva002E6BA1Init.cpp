@@ -1,4 +1,4 @@
-// cl: /O1 /Oi
+// cl: /Oi
 // ?rva002E6BA1@Rva002E6BA1@@QAEXHPAUIn002E6BA1@@@Z, retail 0x002E6BA1, 65 bytes.
 // Initializer copying two dwords from input plus int arg at +0x30, zeroing
 // +0x08/+0x0C/words/memset +0x14 x5, masking +0x2C, zeroing +0x28, inc global

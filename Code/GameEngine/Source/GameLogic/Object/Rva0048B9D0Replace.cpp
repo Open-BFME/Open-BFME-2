@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0048B9D0@Rva0048B9D0@@QAEXPBVWeaponTemplate@@@Z @0x0048B9D0 74B
 // Replaces the Weapon at +0x20: deletes the old via virtual dtor plus global

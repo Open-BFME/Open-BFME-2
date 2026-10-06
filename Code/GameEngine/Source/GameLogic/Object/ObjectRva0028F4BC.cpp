@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0028F4BC@Object@@QAEPAVRva00373EC6@@XZ @0x0028F4BC 51B:
 // List search over Rva00373EC6 pointers at +0x4B4..+0x4B8, returning the first

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Object::getCurrentWeapon, retail 0x0028AEBD, 45 bytes.
 // Dedicated TU so Object.cpp cannot see this body.

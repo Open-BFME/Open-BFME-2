@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
 // ??1Rva003FD3EF@@UAE@XZ @0x003FD3EF 76B
 // ModuleData dtor: vtable 0x007FE024, opaque clear of the holder at +0x0C via
 // rowed ?clear@Rva000A8C9B@@QAEXXZ, null-test of its referent plus rowed

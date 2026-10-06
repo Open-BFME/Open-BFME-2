@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?attemptHealing@Object@@QAEXMPBV1@@Z @0x0028FE55 (82B).
 // Object::attemptHealing(float amount, const Object *source): if the body

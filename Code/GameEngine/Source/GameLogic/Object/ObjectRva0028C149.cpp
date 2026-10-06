@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0028C149@Object@@QAE_NHPAMH@Z @ 0x0028C149 (21B).
 // Object attribute query through the pool: returns false when the

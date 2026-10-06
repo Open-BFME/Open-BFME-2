@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBUCoord3D@@@Z @0x002E7875 162B
 // Free world-to-cell converter used by Pathfinder clamp/validate callers
 // (0x002E7917 0x002E7964 read this+0x14/0x18/0x1c/0x20 as m_extent).

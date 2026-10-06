@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0028C1CC@Object@@QBE_NXZ @0x0028C1CC 67B
 // Object weapon-or-recent-frame predicate. Evidence: thiscall via callers

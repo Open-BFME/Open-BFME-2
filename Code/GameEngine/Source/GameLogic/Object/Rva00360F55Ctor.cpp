@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /GX- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00360F55@@QAE@XZ @0x00360F55 134B
 // Record ctor for the 0x94-byte ObjectFilter science-cluster record used by

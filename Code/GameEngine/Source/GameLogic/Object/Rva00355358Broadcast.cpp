@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // ?rva00355358@AiOrdersManager@@QAEXHPAX@Z @0x00355358 52B: walks circular list at [holder+4] calling rowed AiOrdersManager 0x00355183.
 // Evidence: retail mov edi [esp+0x14] mov eax [edi+4] loop calling pin 0x00355183 with [esp+0x14] and [eax+0x74]; ret 8.
 

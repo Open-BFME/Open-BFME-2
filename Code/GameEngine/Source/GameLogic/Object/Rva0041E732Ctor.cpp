@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0041E732@@QAE@XZ @0x0041E732 50B: honest ctor over 3 dwords plus two vectors.
 // Retail zeroes +0/+4/+8, constructs vector at +0xC, sets byte +0x18 to 1,

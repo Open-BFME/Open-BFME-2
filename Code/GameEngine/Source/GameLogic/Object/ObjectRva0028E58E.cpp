@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0028E58E@Rva0028E58E@@QAEHXZ, retail 0x0028E58E 60B.
 // Int query: signed byte at holder+0x5F0 via ptr at +4 (nonzero returns it);

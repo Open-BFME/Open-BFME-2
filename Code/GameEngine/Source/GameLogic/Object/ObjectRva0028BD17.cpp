@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028BD17@Object@@QBEPAXXZ, retail 0x0028BD17, 35 bytes.
 // Object behavior-scan getter through the +0x244 array: asks each module's
 // +0x0C sub-object for slot 32 (+0x80) and returns the first non-null result.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva00290E67@Object@@QBEPBVAsciiString@@XZ retail 0x00290E67 68B.
 // Object display-string selector: first non-empty among +0x41C +0x424 +0x420 else template+0x70.
 // Evidence: same-this Object via findObjectByID callers 0x00267EB3 (ecx+0x258 AI) 0x003794E0 (Object*);

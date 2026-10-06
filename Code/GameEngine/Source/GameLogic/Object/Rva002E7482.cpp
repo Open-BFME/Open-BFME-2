@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002E7482@Rva002E7482@@QAEMH@Z @0x002E7482 42B
 // Float getter: if Rva001E3679(idx) is false return BfmeZeroRange else return
 // (float)item[idx].m_val where items start at +0x9C with stride 64.

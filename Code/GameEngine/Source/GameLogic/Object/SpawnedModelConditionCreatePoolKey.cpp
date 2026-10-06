@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00250A4E@SpawnedModelConditionCreate@@SA?AW4NameKeyType@@XZ @0x250A4E
 // (69B): cached pool-name key for SpawnedModelConditionCreate. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ?rva00290FBB@Object@@QBEEXZ retail 0x00290FBB 14B.
 // Object status-byte bit4 inverted test: reads unsigned byte at +0x1C8, shr 4, not, and 1.
 // Evidence: Object+0x1C8 statusByte per Object_isAbleToAttack.cpp; this is Object* from

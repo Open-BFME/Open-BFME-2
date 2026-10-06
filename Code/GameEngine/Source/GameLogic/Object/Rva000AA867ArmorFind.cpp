@@ -1,5 +1,5 @@
 // stlport
-// cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // ?rva000AA867@Rva000AA867@@QBEPBVArmorTemplate@@W4NameKeyType@@@Z @0x000AA867 23B
 // Armor map find with map at +0x08 calling rowed _M_find 0x002888D4 returning it->second.m_ptr via mov [eax+8]; mirrors Rva0035516C at +0x24; honest Rva name
 #include <hash_map>

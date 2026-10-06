@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0028FFB0@Object@@QAEXXZ @0x0028FFB0 (155B).
 // Object flag-clear plus timed special-model-condition queue.

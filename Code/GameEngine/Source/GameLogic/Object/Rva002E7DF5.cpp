@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva002E7DF5@@QAE@HABU_Rva002E7DF5Cell@@@Z @0x002E7DF5 49B
 // Ctor copying one int plus a 3-int cell then float global and false flag; caller at 0x002EE8C2.
 

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0028D9E5@Object@@QBE_NH@Z retail 0x0028D9E5 67B.
 // Object bit query with provider override: calls rowed
 // ?rva0028C197@Object (0x0028C197) for the +0x250 interface object then its

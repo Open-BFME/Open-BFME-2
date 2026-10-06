@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000028CA4D@ObjectRecoveryHelper@@SA?AW4NameKeyType@@XZ @0x28CA4D
 // (69B): cached pool-name key for ObjectRecoveryHelper. The class
 // identity comes from the pool-name string the body pushes

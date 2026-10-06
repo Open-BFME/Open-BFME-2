@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Object::getLargestWeaponRange, retail 0x0028AE13 (90 bytes): Zero Hour's
 // body unchanged except that BFME 2 walks six weapon slots. Target facts:

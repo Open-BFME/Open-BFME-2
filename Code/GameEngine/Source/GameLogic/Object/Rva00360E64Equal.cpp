@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /GX- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00360E64@Rva00360F55@@QAE_NABV1@@Z, retail 0x00360E64, 241 bytes.
 // Equality for the 0x94-byte ObjectFilter science-cluster record (ctor 0x00360F55).

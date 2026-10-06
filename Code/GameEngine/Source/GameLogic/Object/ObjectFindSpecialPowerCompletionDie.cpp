@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?findSpecialPowerCompletionDie@Object@@QBEPAVSpecialPowerCompletionDie@@XZ @0x28BE2B
 // (84B): Object::findSpecialPowerCompletionDie, ZH Object.cpp verbatim
 // (const member returning (SpecialPowerCompletionDie*)findModule over a

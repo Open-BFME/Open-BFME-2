@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 // ?updateUpgradeModules@Object@@QAEXXZ, retail 0x00292EEA, 194 bytes.
 // Object upgrade-module recheck: player mask at +0x13c ORed with self at

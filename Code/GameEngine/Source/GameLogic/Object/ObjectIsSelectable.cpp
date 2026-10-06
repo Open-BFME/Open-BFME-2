@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?isSelectable@Object@@QBE_NXZ @0x0028D7FD (114B).
 // BFME2 rewrite of the BFME1 donor Object::isSelectable

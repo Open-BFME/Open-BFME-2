@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Native [0x00362437,0x00362461), RET8. This is the existing address-based
 // Rva2225E0Filter::accepts pin used by RespawnBody and HordeContain.
 // BFME1 6583b3c1 Rva2225E0FilteredCountThunk.cpp supplies the Object/Player

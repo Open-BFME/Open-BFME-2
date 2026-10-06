@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7
+// cl: /Ireference/shims/bfme2_ascii
 // ?rva00294759@Rva00294759@@QAEXH@Z @0x00294759 79B
 // Unlock: __thiscall ret 4 with int param; this+0x264 is ExperienceTracker
 // (m_24 at +0x24 compared to param); rowed rva0029439D 0x0029439D twice plus

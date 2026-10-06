@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002C9C37@PartitionManager@@QAEMPBVObject@@0PAX@Z @0x002C9C37 75B
 // PartitionManager relative-angle helper with orientation offsets at +0xBC.
 // Evidence: this passed through to rowed getRelativeAngle2D 0x2C9BE4 and to

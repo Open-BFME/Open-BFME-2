@@ -1,5 +1,5 @@
 // stlport
-// cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // ?rva0035516C@Rva0035516C@@QBEPBVArmorTemplate@@W4NameKeyType@@@Z retail 0x0035516C 23B.
 // Unlock lane: ready body calling rowed Armor hashtable _M_find 0x002888D4 with map at +0x24.
 // Returns first dword of the ArmorTemplate value (mov [eax+8]) as const pointer; callers at

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028B842@Object@@QBEMXZ, retail 0x0028B842, 25 bytes.
 // Object float wrapper over the +0x250 provider: when null returns the shared
 // 1.0f at 0x00BBB8D8, else tail-forwards to the provider vtable slot 0xD4.

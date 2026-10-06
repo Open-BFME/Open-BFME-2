@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva002C97E8@Object@@QBEMPBUCoord3D@@0@Z @0x002C97E8 (94B).
 // Object planar shrunken-distance-squared: sqr(max(0, sqrt(dx*dx+dy*dy) - majorRadius)).
 // Evidence: this+0xB8 is majorRadius (Object geometry at +0xA8, minor read at +0xBC,

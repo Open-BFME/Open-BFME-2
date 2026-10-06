@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?findAttributeModifierPoolUpdate@Object@@ABEPAVAttributeModifierPoolUpdate@@XZ @0x0028BDD7
 // (84B): Object::findAttributeModifierPoolUpdate BFME1 ObjectContainQueries.cpp verbatim
 // (private const member returning (AttributeModifierPoolUpdate*)findModule over a

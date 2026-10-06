@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0028D491@Object@@QBE_NXZ @0x0028D491 (51B).
 // Object KindOf gate: builds a 28-byte (7-word) BitFlags<69> mask on the

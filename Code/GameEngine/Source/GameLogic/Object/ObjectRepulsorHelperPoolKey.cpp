@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000028CADE@ObjectRepulsorHelper@@SA?AW4NameKeyType@@XZ @0x28CADE
 // (69B): cached pool-name key for ObjectRepulsorHelper. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 //
 // Retail 0x0028B532 (55B). Object unique-ID assignment with lookup-table
 // maintenance. Transferred from the BFME1 reconstruction (BFME1 0x001BEC70,

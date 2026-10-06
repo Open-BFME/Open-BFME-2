@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // Opaque bit-test twins reusing the landed Object::testStatus shape
 // (unsigned shr over word-selected bitfields). Owners unproven so the class

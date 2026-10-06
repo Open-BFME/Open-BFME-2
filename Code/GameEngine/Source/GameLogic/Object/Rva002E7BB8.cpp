@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva002E7BB8Get@@YAMXZ @0x002E7BB8 56B
 // Native SSE loads accumulatorDFF0D0 before adding deltaC050CC; source operand
 // order preserves the compiler-selected relocation roles and both addresses.

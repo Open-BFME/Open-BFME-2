@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Rva004D8C23Owner::apply, retail 0x004D8C23 (258 bytes, stdcall Object* and
 // float, ret 8; single caller 0x004D907B in the TurretAI block).

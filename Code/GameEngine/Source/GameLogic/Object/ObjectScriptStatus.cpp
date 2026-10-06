@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Object script-status and disabled-state helpers at retail 0x00291C9B+.
 // Decoded from retail bytes (all verified):
 // - setDisabledUntil pin (0x00290114) carries (DisabledType, frame); the

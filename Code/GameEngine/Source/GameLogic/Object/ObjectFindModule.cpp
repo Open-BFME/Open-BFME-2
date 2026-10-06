@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Object::findModule, retail 0x0028B6D6, 43 bytes.
 // Dedicated TU. Walks the null-terminated module pointer list at +0x244

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0029091E@Object@@QBE_NI@Z, retail 0x0029091E, 69 bytes.
 // Object bit-gate: builds 16-byte BitFlags<117> mask via memset plus single-bit set then calls rowed finder wrapper 0x0033DCD1 via ptr at +4.
 // Evidence: callers 0x004770C7 0x00477322 0x00478CAE; prev rva002903EF Object next isAbleToAttack Object; same memset-plus-OR shape as rowed ObjectRva0028D491.

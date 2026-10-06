@@ -1,5 +1,5 @@
 // ?rva0028CC7C@Object@@QAE_NH@Z
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0028CC7C@Object@@QAE_NH@Z @0x0028CC7C 61B
 // Object containedBy-gated inner check: cont = m_contained274; inner = cont provider slot31 or 0; if null return true else inner slot84(this param).
 // Evidence: +0x274 containedBy plus +0x250 provider both per Object_isAbleToAttack; slots 0x7C and 0x150; ret 4 bool via al;

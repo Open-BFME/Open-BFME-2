@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Object::maskObject, retail 0x0028B7E2, 60 bytes.
 // Identity: ZH Object.cpp defines maskObject immediately before

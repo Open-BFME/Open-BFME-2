@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva002E7B02@@QAE@HHABU_Rva002E7B02Cell@@@Z @0x002E7B02 39B
 // Ctor copying two ints plus a 3-int cell; caller at 0x002EDFD0 passes (esi, 4, [ebp+8]).
 

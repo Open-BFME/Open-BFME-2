@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002E7C99@Rva002E7C99@@QAEPAXHHHEHEH@Z @0x002E7C99 50B: 7-arg thiscall setter storing 5 dwords and 2 bytes. Evidence: caller at 0x002F033F in unclaimed FUN_006f00e9; prev/next share flags.
 class Rva002E7C99
 {

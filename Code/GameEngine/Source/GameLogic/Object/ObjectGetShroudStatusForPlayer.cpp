@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?getShroudStatusForPlayer@Object@@QBE?AW4CellShroudStatus@@H@Z @0x0028D2A2 (35B).
 // Object shroud gate: when the PartitionData at +0x4C4 is missing or the

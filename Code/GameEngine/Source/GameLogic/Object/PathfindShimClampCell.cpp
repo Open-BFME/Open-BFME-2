@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva002E7917@Pathfinder@@QAEXPAUICoord2D@@_NPBUCoord3D@@@Z @0x002E7917 77B
 // Pathfinder clamp wrapper around the free converter at 0x002E7875.
 // Calls Rva002E7875WorldToCell then clamps to m_extent at this+0x14.

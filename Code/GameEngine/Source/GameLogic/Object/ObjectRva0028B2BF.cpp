@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028B2BF@Object@@QAEXXZ @ 0x0028B2BF 91B: compacts 8-byte entries at +0x3C5 skipping zeros counted by signed byte at +0x43A
 // Evidence: unlock lane, callers 0x0028B352 0x0029208A, neighbours ObjectRva0028B265/0028B38D share flags.
 class Object

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?leaveGroup@Object@@QAEXXZ @0x0028C01F 24B
 // Object::leaveGroup: if m_group at +0x1A8, clear it before AIGroup::remove(this) to avoid recursion.
 // Evidence: pinned name; rowed callee AIGroup::remove 0x0036CF07; 26 callers incl AIGroup::remove itself;

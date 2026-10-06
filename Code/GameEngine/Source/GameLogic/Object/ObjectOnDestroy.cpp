@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?onDestroy@Object@@QAEXXZ @0x0028FC1D (98B), Zero Hour Object::onDestroy
 // with BFME 2's changes: removeFromContain gains a second argument (FALSE,

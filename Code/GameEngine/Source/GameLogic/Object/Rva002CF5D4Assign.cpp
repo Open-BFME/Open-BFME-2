@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ??4Rva002CF5D4@@QAEAAU0@ABU0@@Z @0x002CF5D4 43B.
 // Assignment for a 448-byte record holding 56 Rva002C99FB at +0: loops 0x38
 // times assigning via the rowed 0x002C99FB, returns this in eax with ret 4.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0028C197@Object@@QBEPAXXZ @0x0028C197 18B
 // Object null-checked tail forward through the +0x250 interface (same offset

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002CA9CA@Rva002CA9CA@@QAE_NHPBX@Z, retail 0x002CA9CA, 143 bytes.
 // Recursive contains: +0x58 id fast path, null arg guard, intrusive list at
 // +0x17C (sentinel compare), rowed upgrade-mask test 0x00507558, virtual

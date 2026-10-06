@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // ?allow@PartitionFilterSameMapStatus@@UAE_NPAVObject@@@Z RVA 0x002611BF 30B.
 // Evidence: slot 1 of vtable 0x00BF91BC, the second filter Zero Hour's
 // privateAttackPosition builds (BFME2 0x0026DB1A installs it beside

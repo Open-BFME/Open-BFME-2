@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?applyFilter@Rva003623E5Filter@@QAEXVBfmeFixedStorage0004543D@@@Z
 // RVA 0x00362120 size 114. Target pin evidence: five module-data constructor

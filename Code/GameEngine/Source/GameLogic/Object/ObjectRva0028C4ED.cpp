@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0028C4ED@Object@@QBE_NXZ @0x0028C4ED 38B
 // Object module-scan bool predicate through the +0x244 array: asks each

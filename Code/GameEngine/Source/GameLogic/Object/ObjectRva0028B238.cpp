@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028B238@Object@@QAEX_N@Z @0x0028B238 45B: Object byte setter at +0x43c forwarding to Player::rva002AB8FB; neighbours ObjectGetSoleHealingBenefactor and ObjectRva0028B265; caller 0x0029354A and 0x003BCC4F; callee getControllingPlayer rowed and rva002AB8FB just landed
 class Object;
 class Player

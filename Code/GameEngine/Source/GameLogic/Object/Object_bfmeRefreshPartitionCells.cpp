@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: Object partition-cell refresh wrapper, retail 0x001BFD70,
 // 51 bytes. BFME's Object reaches PartitionData through a virtual base: the

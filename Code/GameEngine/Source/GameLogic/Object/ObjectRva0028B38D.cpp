@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028B38D@Object@@QBEHXZ, retail 0x0028B38D, 25 bytes.
 // Object AI query: if the AI at +0x258 is present returns its slot 0x168
 // byte result zero-extended, else 0. Evidence: AI at +0x258 per

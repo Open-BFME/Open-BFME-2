@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0028BE7F@Object@@QAEPAXPAUArg1_004DEA70@@PBUCoord3DBase@@@Z, retail 0x0028BE7F, 20 bytes.
 // Object +0x240 tail-forwarding wrapper over rowed Rva004DEA70::rva004DEA70.
 // Evidence: neighbours ObjectFindSpecialPowerCompletionDie/ObjectGetSingleLogicalBonePosition;

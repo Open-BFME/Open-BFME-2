@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva001FA8DDParse@@YAXPAVINI@@PAX@Z retail 0x001FA8DD 110B.
 // INI token dispatch via AsciiString temp, table at 0x9FDD5C, virtual create plus append to list at +0xC4.
 // Evidence: getNextToken 0x0002DF97, StringBase ctor 0x00037BA0, compare 0x000069B1, virtual slot 0, append 0x005A0B4C, releaseBuffer 0x00036410.

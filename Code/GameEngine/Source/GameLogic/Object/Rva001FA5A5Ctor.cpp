@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva001FA5A5@@QAE@XZ @0x001FA5A5 22B and its ctor chain, same shape as
 // Rva001FA584Ctor.cpp (zeroed ints then an embedded member ctor). Member ctor
 // callees by REL32: 001FA5A5 -> rowed Rva001F9060 at +8; 001FB8A9 ->

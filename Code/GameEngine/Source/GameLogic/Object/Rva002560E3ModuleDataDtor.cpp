@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
 // ??1Rva002560E3@@UAE@XZ @0x002560E3 84B
 // ModuleData dtor: releases StringBase<char> at +0x1D8 (state 2) and +0x1D4
 // (state 1) through rowed releaseBuffer 0x00036410, runs the member dtor at

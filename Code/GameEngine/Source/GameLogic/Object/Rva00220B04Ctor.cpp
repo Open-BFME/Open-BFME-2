@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
 // stlport
 // ??0Rva00220B04@@QAE@H@Z, retail 0x00220B04 124B.
 // Ctor with two vectors at +8/+0x14 plus int at +0x20: vtables at +0/+4,
