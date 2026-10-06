@@ -24,10 +24,11 @@
 #include "winbase_shim.h"
 #include "vector3.h"
 
-// Target-derived: the global the packed colour lands in, and the shared 255.0f
-// scale. Both addresses are read from retail instructions, not the donor.
-static unsigned int& BfmeAmbientColorSlot() { return *reinterpret_cast<unsigned int*>(0x00DEDA24u); }
-static float& BfmeColorScale() { return *reinterpret_cast<float*>(0x00BC2900u); }
+// Target-derived: the global the packed colour lands in (DX8Wrapper::FogColor
+// at VA 0x00DEDA24, via the g_Va alias the ledger defines there), and the
+// shared 255.0f scale (g_00BC2900 at VA 0x00BC2900).
+extern int g_Va00DEDA24;
+extern float g_00BC2900;
 
 // The out-of-line Convert_Color(const Vector3&, float alpha) shape. Only
 // [ebp+8] (the colour pointer) is read; the alpha operand comes from the
@@ -40,7 +41,7 @@ static float& BfmeColorScale() { return *reinterpret_cast<float*>(0x00BC2900u); 
 void Pack_Ambient_Color(const Vector3& color)
 {
     const float alpha = 0.0f;
-    const float scale = BfmeColorScale();
+    const float scale = g_00BC2900;
     unsigned int col = 0;
 
     __asm
@@ -91,7 +92,7 @@ not_changed:
         add esp,20
         mov col,eax
     }
-    BfmeAmbientColorSlot() = col;
+    g_Va00DEDA24 = col;
 }
 
 // The pointer constant is the emission lever only: it forces this TU to emit
