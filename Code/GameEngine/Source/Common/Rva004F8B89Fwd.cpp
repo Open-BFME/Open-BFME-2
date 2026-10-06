@@ -47,6 +47,51 @@ public:
 	void rva002C7008(void *arg);
 };
 
+class Rva004E93E8
+{
+public:
+	void *rva004E93E8();
+};
+
+class Rva004E9600
+{
+public:
+	void *rva004E95D4(void *key);
+};
+
+class Rva004E93A8
+{
+public:
+	int rva004E93A8();
+};
+
+class Rva002C585A
+{
+public:
+	void rva002C585A(int count);
+};
+
+class Rva002C6BFF
+{
+public:
+	void rva002C6BFF();
+};
+
+class Rva004E8FF6
+{
+public:
+	void rva004E8FF6(void *arg);
+	void rva004E9040(void *arg);
+};
+
+struct Rva00DFEEF8World
+{
+	char m_pad[0x940];
+	Rva004E8FF6 *m_obj;
+};
+
+extern Rva00DFEEF8World *g_00DFEEF8;
+
 class Rva002C5FBA
 {
 public:
@@ -93,9 +138,16 @@ public:
 	void rva004E94FB();
 	void rva004E951C(void *o);
 	void *rva004E955F(int unused, int key);
+	void rva004E9446();
+	void rva004E9710();
 
 private:
 	Rva004E94FBHead *m_00;
+	char m_pad04[0x0C - 0x04];
+	void *m_0C;
+	void *m_10;
+	char m_pad14[0x24 - 0x14];
+	unsigned char m_24;
 };
 
 // ?rva004E94FB@Rva004E94FB@@QAEXXZ @0x004E94FB 33B.
@@ -128,4 +180,40 @@ void *Rva004E94FB::rva004E955F(int unused, int key)
 			return found;
 	}
 	return 0;
+}
+
+// ?rva004E9710@Rva004E94FB@@QAEXXZ @0x004E9710 182B.
+void Rva004E94FB::rva004E9710()
+{
+	if (m_24 != 0)
+	{
+		Rva002C585A *x = 0;
+		if (m_0C != m_10)
+		{
+			void *p = ((Rva004E93E8 *)this)->rva004E93E8();
+			if (p != 0)
+			{
+				void *q = ((Rva004E9600 *)this)->rva004E95D4(p);
+				void *tmp = *(void **)((char *)q + 0x164);
+				x = (Rva002C585A *)*(void **)((char *)tmp + 0x14);
+				if (x != 0)
+					x->rva002C585A(((Rva004E93A8 *)this)->rva004E93A8());
+			}
+			else
+				m_24 = 0;
+		}
+		if (m_24 != 0)
+		{
+			g_00DFEEF8->m_obj->rva004E8FF6(((Rva004E93E8 *)this)->rva004E93E8());
+			Rva004E94FBHead *head = m_00;
+			for (Rva004E94FBNode *m = head->m_first; m != (Rva004E94FBNode *)head; m = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)m))
+			{
+				void *inner = *(void **)((char *)m->m_14 + 0x164);
+				*(void **)((char *)inner + 0x18) = x;
+				((Rva002C6BFF *)m->m_14)->rva002C6BFF();
+			}
+			((Rva004E94FB *)this)->rva004E9446();
+			g_00DFEEF8->m_obj->rva004E9040(((Rva004E93E8 *)this)->rva004E93E8());
+		}
+	}
 }

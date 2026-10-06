@@ -63757,3 +63757,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004E94FB@Rva004E94FB@@QAEXXZ,,0x004E94FB,33,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,node walk via pinned plus rowed increment; full byte gate
 ?rva004E951C@Rva004E94FB@@QAEXPAX@Z,,0x004E951C,67,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,virtual pre-pass plus member walk; full byte gate
 ?rva004E955F@Rva004E94FB@@QAEPAXHH@Z,,0x004E955F,51,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,keyed search with double-load; full byte gate
+?rva004E9710@Rva004E94FB@@QAEXXZ,,0x004E9710,182,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,conditional rescale plus null-guarded walk plus twin global resolves; full byte gate
