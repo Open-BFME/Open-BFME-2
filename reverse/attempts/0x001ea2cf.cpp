@@ -1,4 +1,6 @@
 // ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
+// partial score=0.991 date=2026-10-06
+// ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
 // partial score=0.991 date=2026-10-05
 // ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
 // partial score=0.6637 date=2026-10-05
