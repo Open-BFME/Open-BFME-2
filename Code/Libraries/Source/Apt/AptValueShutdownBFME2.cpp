@@ -10,7 +10,9 @@
 #include "AptObject/AptScriptFunction.h"
 class Rva006DB270 { public: void freeBlock(void *,int); };
 extern Rva006DB270 *g_pChainBlockAllocator;
+#pragma optimize("s", on)
 class Rva0070A840 { unsigned char nativeHash[20]; public: void rva0070A8B0(); ~Rva0070A840(); static void operator delete(void *p,unsigned int n) { g_pChainBlockAllocator->freeBlock(p,n); } };
+#pragma optimize("", on)
 AptNativeHash *g_bfmeAptHashAtE180E4;
 extern AptValue *gpGlobalGlobalObject;
 extern int g_00E18064;
