@@ -64628,3 +64628,4 @@ _ciChannelTableCompareFn,,0x006B10B0,6,Code/GameEngine/Source/GameNetwork/GameSp
 _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerMainBlockingOperations.c,matched,GameSpy peerMain.c peerIsConnected (connection->connected at +0x48); in peerMain order between 0x006987A0 and piConnectTitle 0x006987D0; called by PeerThread doQuickMatch and Thread_Function; ICF-folded with GadgetSliderGetEnabledColor
 ?rva00569AA8@Rva00569AA8@@QAEXXZ,,0x00569AA8,21,Code/Libraries/Source/WWVegas/WWLib/Rva00569AA8Teardown.cpp,matched,linkbody 27B via and-zero plus teardown plus tail clear
 ?rva00155AD0@Rva00155AD0@@QAEXXZ,,0x00155AD0,47,Code/Libraries/Source/WWVegas/WW3D2/Rva00155AD0.cpp,matched,callers FUN_00505216 FUN_00506405 callees rowed pinned
+?rva003EDC31@Rva0020DXXXElem@@QAEXXZ,,0x003EDC31,101,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003EDC31.cpp,matched,leaf via TerrainLogic slot30 rect plus pinned walk

@@ -11562,3 +11562,6 @@ FUN_0061b7b6	0x0021B7B6	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use r
 ?Rva00339A13_ParseUpgradeKeyList@INI@@SAXPAV1@PAX1PBX@Z	0x00339A13	93	blocked	throw temp retail ebp+10 param slot ours ebp-4; hoisted upgrade direct throw tried t=12 model=muse-02 (stash 0.97 kept)
 ?rva002E5D62@Rva002E66F2@@UAE_NH@Z	0x002E5D62	248	blocked	ADDRESS-NAMED g_Rva empty string needs escape hatch t=2 model=muse-02
 ?Rva003C9C0AAttack@@YGXPAVParameter@@H@Z	0x003C9C0A	259	blocked	ADDRESS-NAMED g_Va ScriptEngine needs escape hatch t=2 model=muse-02
+FUN_0067edbc	0x0027EDBC	241	blocked	needs alternatename for 3-arg ji_006291ae memset thunk now refused; 0-arg row uncallable with pushes t=8 model=muse-08
+FUN_008ef6a0	0x004EF6A0	154	blocked	ADDRESS-NAMED g_Va009FF0F8 use refused per taskfile t=2 model=muse-08
+FUN_008ee9e9	0x004EE9E9	245	blocked	adapted stash to pin name without hatches scored lower 223B vs 245B missing EH-prolog states SEH; wall needs non-POD Elem dtor idea t=15 model=muse-08
