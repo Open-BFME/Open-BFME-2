@@ -80,6 +80,10 @@ public:
 
 	// 0x00434432 (90 bytes; chain from 0x004340AC).
 	void rva00434432();
+	// Ghidra 0x00436FF6 tail-calls the rowed 0x00434432 refresh.
+	void rva00436FF6();
+	// The 0x00436FF6 mode-4 branch calls this with ECX=this.
+	void rva0043684C();
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -89,13 +93,25 @@ private:
 	GameWindow *m_gameList; // +0x288
 	GameWindow *m_autoSaveList; // +0x28C
 	GameWindow *m_fileName; // +0x290
-	unsigned char m_pad294[0x29C - 0x294];
+	int m_294; // +0x294; compared with 3 at 0x00436FF6
+	unsigned char m_pad298[0x29C - 0x298];
 	bool m_29c; // +0x29C
 	unsigned char m_pad29d[0x2A0 - 0x29D];
 	int m_mode; // +0x2A0
 	unsigned char m_pad2a4[0x2A8 - 0x2A4];
 	int m_2a8; // +0x2A8
 };
+
+// The 0x00436FF6 else branch loads the singleton at 0x00DFF08C into ECX and
+// passes the screen's two list pointers, the +0x294 comparison, and +0x2A0.
+// This address-derived method view preserves its observed target ABI.
+class GameState
+{
+public:
+	void rva002DF3B0(GameWindow *gameList, GameWindow *autoSaveList,
+		bool selected, int mode);
+};
+extern GameState *TheGameState;
 
 // The rowed 0x00433FDD (Rva00433FDDSet.cpp's view of this screen).
 class Rva00433FDD
@@ -334,4 +350,18 @@ void AptSaveLoad::rva00434432()
 	if (m_fileName)
 		m_fileName->winEnable(true);
 	return rva004340AC();
+}
+
+// Retail 0x00436FF6: mode 4 delegates to its screen helper; other modes pass
+// the current lists and mode flags to the GameState singleton, then both paths
+// tail-call the rowed list/button refresh at 0x00434432.
+void AptSaveLoad::rva00436FF6()
+{
+	if (m_mode == 4)
+		rva0043684C();
+	else
+		TheGameState->rva002DF3B0(
+			m_gameList, m_autoSaveList, m_294 == 3, m_mode);
+
+	return rva00434432();
 }

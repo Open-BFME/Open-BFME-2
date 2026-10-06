@@ -13675,3 +13675,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva006CD4A0@EAStringC@@QBE_NXZ,0x006CD4A0,Address-derived pointer predicate: REL32 at 0070B692 in StringPool initializer; target10B compares the first pointer with null; existing owner AsciiString::hasData is a folded structural match; no original EA method name asserted.
 ?rva0057DB97@Rva0057DFFB@@QAEXXZ,0x0057DB97,rva0057DB97 call: address read from the REL32 e8 89 fb ff ff at 0x0057E009 in 0x0057DFFB; ECX-this no-stack-args method on same subobject per caller neighbourhood
 ?Rva004360B3@@YAPAUTreeHintOpaque0043671B@@VAsciiString@@@Z,0x004360B3,callee of ?Rva004361B3@@YAPAUTreeHintOpaque0043671B@@PBE@Z
+?rva0043684C@AptSaveLoad@@QAEXXZ,0x0043684C,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
+?rva002DF3B0@GameState@@QAEXPAVGameWindow@@0_NH@Z,0x002DF3B0,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
