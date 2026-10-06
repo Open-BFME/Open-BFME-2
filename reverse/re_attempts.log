@@ -11568,3 +11568,16 @@ FUN_008ee9e9	0x004EE9E9	245	blocked	adapted stash to pin name without hatches sc
 ?rva0060DE23@BfmeRva00C7B388@@QAEXXZ	0x0060DE23	142	partial	push-before-reload vs retail reload-before-push plus sub-vs-add 0B same-size no reg-mem diffs t=20 model=muse-05 score=0.98 stash=reverse/attempts/0x0060de23.cpp
 ?rva00318C32@Rva00318C32@@QAEHXZ	0x00318C32	71	blocked	eax-ecx spill mirror and early lea esi push scheduling only LINK BONUS name t=20 model=muse-05 (stash 0.9 kept)
 ?rva0046E113@HordeContain@@UAE_NPAUCoord3D@@@Z	0x0046E113	320	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused t=1 model=muse-05
+?rva003F4FD4@Rva003F498A@@QAEHXZ	0x003F4FD4	446	blocked	complex 446B Rva003F498A method needs full plus24 struct with 1a8 array plus GameInfo branches t=6 model=muse-spark
+?rva0022020C@Rva0022020C@@QAEHXZ	0x0022020C	179	blocked	complex 179B STL find-or-add needs Rva0021F876 string at 10 plus two idiv loops t=6 model=muse-spark
+?rva005FA205@Rva005FA205@@QAEXXZ	0x005FA205	171	blocked	complex 171B EH-new with two vector pushbacks plus init and release needs full layout t=5 model=muse-spark
+?rva00477BA2@Rva00477BA2@@QAEHXZ	0x00477BA2	447	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use refused per packet t=1 model=muse-spark
+?rva00361B12@Rva00361B12@@QAEHXZ	0x00361B12	403	blocked	complex 403B validity plus BitFlags branches needs full layout t=4 model=muse-spark
+??1Rva0057417E@@QAE@XZ	0x0057417E	20	blocked	ADDRESS-NAMED g_Va00E05FAC use refused per packet t=1 model=muse-spark
+??1Rva0057417E@@QAE@XZ	0x0057417E	20	blocked	ADDRESS-NAMED g_Va00E05FAC use refused per packet t=3 model=muse-spark
+?rva0021D548@Rva0021D548@@QAEHXZ	0x0021D548	141	blocked	complex 141B STL erase plus loops needs full layout t=5 model=muse-spark
+?rva0036BA77@Rva0036BA77@@QAEXPBVWaypoint@@0@Z	0x0036BA77	184	partial	pops before free vs after only; movss fixed via inline getter t=25 model=muse-07 score=0.98 stash=reverse/attempts/0x0036ba77.cpp
+?Rva0022157BGet@@YAXPAVINI@@@Z	0x0022157B	90	blocked	esi-kept begin vs eax-reload test-esi vs cmp-mem t=12 model=muse-07 (stash 0.93 kept)
+??0Rva0022141E@@QAE@ABVAsciiString@@@Z	0x0022141E	136	partial	vtbl order fixed via volatile both but and-vs-mov plus lea vs push-eax t=15 model=muse-07 score=0.97 stash=reverse/attempts/0x0022141e.cpp
+?rva003591F4@Rva00E01E28Owner@@QAEXURva003591F4Arg@@@Z	0x003591F4	36	blocked	push-ecx-plus-edx-fill vs push-eax systematic quirk t=14 model=muse-07 (stash 0.97 kept)
+?rva00434A2F@AptSaveLoad@@QAEXXZ	0x00434A2F	127	partial	je-vs-jne branch order plus SaveButtonEnable string fixed t=14 model=muse-07 score=0.95 stash=reverse/attempts/0x00434a2f.cpp

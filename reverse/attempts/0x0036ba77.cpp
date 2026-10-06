@@ -1,5 +1,5 @@
 // ?rva0036BA77@Rva0036BA77@@QAEXPBVWaypoint@@0@Z
-// partial score=0.96 date=2026-10-05
+// partial score=0.98 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD /arch:SSE2 /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0036BA77@Rva0036BA77@@QAEXPBVWaypoint@@0@Z, RVA 0x0036BA77, 184 bytes.
@@ -51,6 +51,7 @@ struct Sub1F0
 {
 	char m_pad[0x48];
 	float m_f48;
+	float getF48() const { return m_f48; }
 };
 
 class Rva0036BA77
@@ -66,11 +67,10 @@ private:
 	bool m_b550;
 };
 
-// ?rva0036BA77@Rva0036BA77@@QAEXPBVWaypoint@@0@Z present-unmatched
 void Rva0036BA77::rva0036BA77(const Waypoint *head, const Waypoint *goal)
 {
 	if (m_p1f0 != 0)
-		m_f540 = m_p1f0->m_f48;
+		m_f540 = m_p1f0->getF48();
 	m_b550 = false;
 	_STL::vector<Coord3D> path;
 	const Waypoint *cur = head;
