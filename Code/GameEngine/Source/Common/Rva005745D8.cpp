@@ -8,8 +8,8 @@ public:
 };
 struct BfmeWorldRV;
 extern BfmeWorldRV *g_bfmeWorldRV;
-extern void *g_009FEF10;
 class Rva002BA8F1Logic;
+extern Rva002BA8F1Logic *g_009FEF10;
 class Rva002E0C68
 {
 public:
