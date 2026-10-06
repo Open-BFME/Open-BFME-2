@@ -36,6 +36,16 @@
 // timer (+0x20) is idle; BFME 2 then re-sends the game info through slot 26
 // with no address and refreshes the slot list with 0x00446A77 where Zero Hour
 // sent the options string.
+//
+// LANAPI::handleRequestGameInfo, retail 0x00581D2D (273 bytes), message type
+// 18: Zero Hour's body, the reply half of the rowed RequestGameAnnounce
+// (0x0044A214). The host (slot 0's address against ours) or the packet router
+// of a game in progress answers the sender with a type-1 announce: the game
+// serialized by the writer 0x00447CA9 into the options at +0x42, its name
+// (LANGameInfo vslot 23) at +0x1E, the in-progress (+0x11) and direct-connect
+// (+0xF68) flags at +0x40/+0x41 and, as in RequestGameAnnounce, 16 bytes from
+// the game at +0xCC in the message tail at +0x1C8. The LAN slots are 0x1D0
+// bytes from +0xDC.
 
 typedef int Int;
 typedef bool Bool;
@@ -45,6 +55,9 @@ typedef unsigned short UnsignedShort;
 typedef unsigned short WideChar;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime( void );
+extern "C" __declspec(dllimport) unsigned short * __cdecl wcsncpy( unsigned short *dest, const unsigned short *source, unsigned int count );
+extern "C" void * __cdecl memcpy( void *dest, const void *source, unsigned int count );
+#pragma function(memcpy)
 
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -107,14 +120,12 @@ extern GameState *TheGameState;
 
 enum
 {
-	MAX_SLOTS = 8
+	MAX_SLOTS = 8,
+	g_lanGameNameLength = 16,
+	g_lanMaxOptionsLength = 0x186
 };
 
-struct LANSlotAddress
-{
-	BfmeNetAddress m_address;			// slot +0x38
-	UnsignedByte m_rest[0x1D0 - 8];
-};
+#define BFME_VSLOT(n) virtual void slot##n( void ) = 0;
 
 class GameSlot
 {
@@ -123,19 +134,36 @@ public:
 
 	UnsignedByte m_pre38[0x38];
 	BfmeNetAddress m_address;			// +0x38
+	UnsignedByte m_rest[0x1D0 - 0x40];
+};
+
+// The slots seen from their addresses: same stride, starting at slot +0x38.
+struct LANSlotAddress
+{
+	BfmeNetAddress m_address;
+	UnsignedByte m_rest[sizeof( GameSlot ) - 8];
 };
 
 class GameInfo
 {
 public:
+	BFME_VSLOT(00) BFME_VSLOT(01) BFME_VSLOT(02) BFME_VSLOT(03) BFME_VSLOT(04)
+	BFME_VSLOT(05) BFME_VSLOT(06) BFME_VSLOT(07) BFME_VSLOT(08) BFME_VSLOT(09)
+	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14)
+	BFME_VSLOT(15) BFME_VSLOT(16) BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
+	BFME_VSLOT(20) BFME_VSLOT(21) BFME_VSLOT(22)
+	virtual UnicodeString getName( void ) = 0;	// slot 23
+
 	AsciiString getMap( void ) const;
 	GameSlot *getSlot( Int slotNum );
 	Bool isGameInProgress( void ) const { return m_inProgress; }
 
 private:
-	UnsignedByte m_pre11[0x11];
+	UnsignedByte m_pre11[0x11 - 4];
 	Bool m_inProgress;				// +0x11
-	UnsignedByte m_pre114[0x114 - 0x12];
+	UnsignedByte m_preCC[0xCC - 0x12];
+public:
+	UnsignedByte m_bfmeCC[16];			// +0xCC
 };
 
 // getSlotNum (0x004483BC), under the ledger's class name, that of the
@@ -151,11 +179,33 @@ class LANGameInfo : public Rva004482FB
 public:
 	Bool rva004477C7( void ) const;			// amIHost
 	const BfmeNetAddress *getAddress( Int slot ) const { return &m_slots[slot].m_address; }
-	const LANSlotAddress *getSlots( void ) const { return m_slots; }
+	const LANSlotAddress *getSlotAddresses( void ) const { return (const LANSlotAddress *)&m_slots[0].m_address; }
+	Bool getIsDirectConnect( void ) const { return m_isDirectConnect; }
 
 private:
-	LANSlotAddress m_slots[MAX_SLOTS];		// addresses from +0x114
+	GameSlot m_slots[MAX_SLOTS];			// +0xDC, addresses from +0x114
+	UnsignedByte m_preF68[0xF68 - 0xF5C];
+	Bool m_isDirectConnect;				// +0xF68
 };
+
+class NetworkInterface
+{
+public:
+	BFME_VSLOT(00) BFME_VSLOT(01) BFME_VSLOT(02) BFME_VSLOT(03) BFME_VSLOT(04)
+	BFME_VSLOT(05) BFME_VSLOT(06) BFME_VSLOT(07) BFME_VSLOT(08) BFME_VSLOT(09)
+	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14)
+	BFME_VSLOT(15) BFME_VSLOT(16) BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
+	BFME_VSLOT(20) BFME_VSLOT(21) BFME_VSLOT(22) BFME_VSLOT(23) BFME_VSLOT(24)
+	BFME_VSLOT(25) BFME_VSLOT(26) BFME_VSLOT(27) BFME_VSLOT(28) BFME_VSLOT(29)
+	BFME_VSLOT(30) BFME_VSLOT(31) BFME_VSLOT(32) BFME_VSLOT(33) BFME_VSLOT(34)
+	BFME_VSLOT(35) BFME_VSLOT(36) BFME_VSLOT(37) BFME_VSLOT(38) BFME_VSLOT(39)
+	BFME_VSLOT(40) BFME_VSLOT(41) BFME_VSLOT(42)
+	virtual Bool isPacketRouter( void ) = 0;	// slot 43
+};
+extern NetworkInterface *TheNetwork;
+
+// BFME 1's writeLANGameInfo: serializes the game into a message's options.
+void Rva00447CA9( LANGameInfo *game, char *buffer, Int size );
 
 void Rva00446A77Enable( void );
 
@@ -190,11 +240,17 @@ struct LANMessage
 			UnsignedInt mapCRC;			// +0x40
 			Bool hasMap;				// +0x44
 		} MapStatus;
+		struct
+		{
+			WideChar gameName[g_lanGameNameLength + 1];	// +0x1E
+			Bool inProgress;			// +0x40
+			Bool isDirectConnect;			// +0x41
+			char options[g_lanMaxOptionsLength];	// +0x42
+			UnsignedByte bfmeTail[16];		// +0x1C8
+		} GameInfo;
 	};
 };
 #pragma pack(pop)
-
-#define BFME_VSLOT(n) virtual void slot##n( void ) = 0;
 
 class LANAPI
 {
@@ -223,10 +279,14 @@ public:
 	virtual void OnNameChange( BfmeNetAddress *from, UnicodeString newName );
 	virtual LANGameInfo *LookupGame( UnicodeString gameName );
 	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53) BFME_VSLOT(54)
-	BFME_VSLOT(55) BFME_VSLOT(56) BFME_VSLOT(57) BFME_VSLOT(58) BFME_VSLOT(59)
+	BFME_VSLOT(55) BFME_VSLOT(56)
+	virtual void fillInLANMessage( LANMessage *msg ) = 0;	// slot 57
+	BFME_VSLOT(58) BFME_VSLOT(59)
 	BFME_VSLOT(60) BFME_VSLOT(61) BFME_VSLOT(62)
 	virtual LANPlayer *LookupPlayer( const BfmeNetAddress *who );
 	virtual BfmeNetAddress *getLocalAddress( void ) = 0;
+
+	void Rva004495A2( LANMessage *msg, UnsignedInt ip );	// sendMessage
 
 protected:
 	void removePlayer( LANPlayer *player );
@@ -236,6 +296,7 @@ protected:
 	void handleJoinDeny( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleHasMap( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleInActive( LANMessage *msg, const BfmeNetAddress *sender );
+	void handleRequestGameInfo( LANMessage *msg, const BfmeNetAddress *sender );
 
 	UnsignedByte m_pre0C[0x0C - 4];
 	LANPlayer *m_lobbyPlayers;			// +0x0C
@@ -296,7 +357,7 @@ void LANAPI::handleHasMap( LANMessage *msg, const BfmeNetAddress *sender )
 		if( msg->MapStatus.mapCRC == mapNameCRC.get() )
 		{
 			Int i = 0;
-			const LANSlotAddress *slot = m_currentGame->getSlots();
+			const LANSlotAddress *slot = m_currentGame->getSlotAddresses();
 			do
 			{
 				if( slot->m_address.Rva00248CBF( sender ) )
@@ -371,4 +432,29 @@ void LANAPI::handleInActive( LANMessage *msg, const BfmeNetAddress *sender )
 	noAddress.m_port = 0;
 	rva004497EC( true, &noAddress );
 	Rva00446A77Enable();
+}
+
+void LANAPI::handleRequestGameInfo( LANMessage *msg, const BfmeNetAddress *sender )
+{
+	// In game, are we a host?
+	if( m_currentGame )
+	{
+		// if we're in game we should reply if we're the packet router
+		if( m_currentGame->getAddress( 0 )->Rva00248CBF( getLocalAddress() )
+			|| ( m_currentGame->isGameInProgress() && TheNetwork && TheNetwork->isPacketRouter() ) )
+		{
+			LANMessage reply;
+			fillInLANMessage( &reply );
+			reply.LANMessageType = 1;	// MSG_GAME_ANNOUNCE
+
+			Rva00447CA9( m_currentGame, reply.GameInfo.options, g_lanMaxOptionsLength );
+			wcsncpy( reply.GameInfo.gameName, m_currentGame->getName().str(), g_lanGameNameLength );
+			reply.GameInfo.gameName[g_lanGameNameLength] = 0;
+			reply.GameInfo.inProgress = m_currentGame->isGameInProgress();
+			reply.GameInfo.isDirectConnect = m_currentGame->getIsDirectConnect();
+			memcpy( reply.GameInfo.bfmeTail, m_currentGame->m_bfmeCC, sizeof( reply.GameInfo.bfmeTail ) );
+
+			Rva004495A2( &reply, (UnsignedInt)sender );
+		}
+	}
 }
