@@ -1,9 +1,11 @@
 // cl: /O1
 // Clean reconstruction of the three-field pointer-array RemoveAll operation.
 
-// BFME releases this array through the CRT free import at 0x009F6C3A, not
-// through ::operator delete.
-extern "C" void __cdecl free(void *memory);
+// BFME releases this array through the CRT free import thunk at 0x00628F98
+// (jmp [msvcr71.dll!free]), not through the game's own _free at 0x00030830.
+// The thunk row is ?ji_00628F98@@YAXXZ (void(void)); it forwards the caller's
+// stack to CRT free, so the pushed pointer is passed through a cast.
+void __cdecl ji_00628f98();
 
 class Rva009F68C6PointerArray
 {
@@ -19,7 +21,7 @@ private:
 void Rva009F68C6PointerArray::RemoveAll()
 {
 	if (values != 0) {
-		free(values);
+		((void (__cdecl *)(void *))&ji_00628f98)(values);
 		values = 0;
 	}
 	count = 0;
