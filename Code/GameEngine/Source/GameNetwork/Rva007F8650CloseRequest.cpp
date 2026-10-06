@@ -2,18 +2,12 @@
 // The reply adapter (BFME 1 0x007F8640, BFME 2 0x00664CC0) is defined below;
 // this unit's main body is the request that follows it (BFME 1 0x007F8650).
 class BfmeHostBT;
-class BfmeC994
+class BfmeMsgVJH
 {
 public:
-	BfmeC994(char *buffer, int capacity);
-	char m_data[0x34];
-};
-
-class BfmeMsg1052 : public BfmeC994
-{
-public:
-	BfmeMsg1052(char *buffer, int capacity) : BfmeC994(buffer, capacity) {}
-	~BfmeMsg1052();
+	BfmeMsgVJH(char *buffer, int capacity);
+	virtual ~BfmeMsgVJH();
+	char m_data[0x30];
 };
 
 class BfmeHostBT
@@ -51,7 +45,7 @@ public:
 	virtual void slot40() = 0;
 	virtual void slot44() = 0;
 	virtual void slot48() = 0;
-	virtual void send(BfmeC994 *message) = 0;
+	virtual void send(BfmeMsgVJH *message) = 0;
 };
 
 class Rva007F8650AsyncService
@@ -59,7 +53,7 @@ class Rva007F8650AsyncService
 public:
 	virtual void slot00() = 0;
 	virtual void slot04() = 0;
-	virtual void send(BfmeC994 *message,
+	virtual void send(BfmeMsgVJH *message,
 		void (__cdecl *callback)(void *, BfmeHostBT *),
 		BfmeHostBT *owner, int transaction) = 0;
 };
@@ -78,7 +72,7 @@ public:
 
 void Rva007F8650Owner::request()
 {
-	BfmeMsg1052 message(m_buffer, sizeof(m_buffer));
+	BfmeMsgVJH message(m_buffer, sizeof(m_buffer));
 	m_request->send(&message);
 	m_async->send(&message, Rva007F8640Callback, (BfmeHostBT *)this, m_transaction);
 }
