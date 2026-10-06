@@ -864,18 +864,18 @@ char g_Rva012C4D48Message[176] = {
  */
 void Rva00818500( struct Rva00816BF0Comm *comm, const unsigned char *from )
 {
-	char local[ 0x10 ];
+	char SockAddr[ 0x10 ];
 
 	comm->m_peerAddress = ( ( ( ( from[ 4 ] << 8 ) | from[ 5 ] ) << 8 )
 		| from[ 6 ] ) << 8 | from[ 7 ];
 	comm->m_peerPort = (unsigned short)( ( from[ 2 ] << 8 ) | from[ 3 ] );
 
-	Rva007FDB60( comm->m_socket, 'bind', local, 0x10 );
+	Rva007FDB60( comm->m_socket, 'bind', SockAddr, 0x10 );
 
 	comm->m_localAddress = Rva007FDEE0();
 	comm->m_localPort = (unsigned short)
-		( ( ( (unsigned char *)local )[ 2 ] << 8 )
-		| ( (unsigned char *)local )[ 3 ] );
+		( ( ( (unsigned char *)SockAddr )[ 2 ] << 8 )
+		| ( (unsigned char *)SockAddr )[ 3 ] );
 
 	Rva007FE780( g_Rva012C4D48Message, comm->m_peerAddress, comm->m_peerPort,
 		comm->m_localAddress, comm->m_localPort );
