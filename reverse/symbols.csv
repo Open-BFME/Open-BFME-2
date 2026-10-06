@@ -15247,3 +15247,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva000540A7@MilesAudioManager@@QAEXPAVINI@@@Z,0x000540A7,Target callsites 0x54206 and 0x54214 from 0x541DB set ECX=this and pass INI*; address-derived helper names; helper identity remains unresolved
 ?rva000A8B04@Rva000A8B04@@QAEXMM@Z,0x000A8B04,Ghidra 31B target reached from 0x53AFA at 0x53B3D and 0x53B5A; thiscall receiver is pending-slot object plus 0x0C; body reads two float arguments and calls 0x10FD5E; owner identity remains unresolved
 ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z,0x0009FE49,callee of ?W3DGadgetTextEntryDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
+?rva00553CDE@Rva00553CDE@@QAEGE@Z,0x00553CDE,callee of ?rva00553D26@Rva00553D26@@QAEEXZ

@@ -77,3 +77,39 @@ template int &BfmeByteDwordMap::operator[](const unsigned char &);
 typedef _STL::map<unsigned char, float, _STL::less<unsigned char>,
     _STL::allocator<_STL::pair<const unsigned char, float> > > BfmeByteFloatMap;
 template float &BfmeByteFloatMap::operator[](const unsigned char &);
+
+// ?rva00553D26@Rva00553D26@@QAEEXZ @0x00553D26 56B.
+// Target evidence: the 56-byte Ghidra body calls 0x00553CDE on this receiver
+// for byte indices 0..5, keeps the first index whose low-byte result exceeds
+// the current maximum, and returns that index. The callee's class identity
+// and the caller's original name remain unresolved.
+class Rva00553CDE
+{
+public:
+	unsigned short rva00553CDE(unsigned char index);
+};
+
+class Rva00553D26
+{
+public:
+	unsigned char rva00553D26();
+};
+
+unsigned char Rva00553D26::rva00553D26()
+{
+	unsigned char bestIndex = 0;
+	unsigned short bestValue = 0;
+	unsigned char index = 0;
+	do
+	{
+		unsigned char value = (unsigned char)
+			((Rva00553CDE *)this)->rva00553CDE(index);
+		if (bestValue < value)
+		{
+			bestIndex = index;
+			bestValue = value;
+		}
+		++index;
+	} while (index < 6);
+	return bestIndex;
+}
