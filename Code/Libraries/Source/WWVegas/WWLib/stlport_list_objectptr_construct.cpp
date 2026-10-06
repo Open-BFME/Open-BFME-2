@@ -8,5 +8,14 @@
 // EH shape as other _Constructs.
 #include <memory>
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 class Object;
 template void _STL::_Construct<_STL::list<Object *, _STL::allocator<Object *> >, _STL::list<Object *, _STL::allocator<Object *> > >(_STL::list<Object *, _STL::allocator<Object *> > *, const _STL::list<Object *, _STL::allocator<Object *> > &);

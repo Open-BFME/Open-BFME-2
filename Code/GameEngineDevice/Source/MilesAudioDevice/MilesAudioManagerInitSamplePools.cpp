@@ -11,6 +11,15 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 // Retail calls the separately rowed four-byte-element append at 0x5548F.
 // The list<void*> instance owned by the 3D pool TU is 0x526103 and calls
 // a different insertion provider. Preserve it, but select the retail call.

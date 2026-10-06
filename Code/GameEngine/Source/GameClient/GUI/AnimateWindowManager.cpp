@@ -52,6 +52,15 @@
 //-----------------------------------------------------------------------------
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <list>		// BFME uses STLport node_alloc for AnimateWindow lists; include
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 						// before PreRTS.h so _STLP_USE_NEWALLOC does not force plain-new.
 
 // TU-local BFME2 SubsystemInterface (12-byte base, retail-proven). Retail base
