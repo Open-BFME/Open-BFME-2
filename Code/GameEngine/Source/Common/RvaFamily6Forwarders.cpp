@@ -90,3 +90,17 @@ RvaF6Ret Rva005773A6::method()
 {
 	return m_08.method();
 }
+
+class Rva005CE3C4
+{
+public:
+	RvaF6Ret rva005CE3C4();
+private:
+	char m_pad[8];
+	Rva005CE3DE m_08; // +0x8
+};
+
+RvaF6Ret Rva005CE3C4::rva005CE3C4()
+{
+	return m_08.method();
+}
