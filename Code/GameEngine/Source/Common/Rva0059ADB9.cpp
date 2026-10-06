@@ -58,3 +58,28 @@ void Rva0059ADF4::rva0059ADF4(int value)
 	float converted = (float)value;
 	m_component->rva005DB045(converted, 1, 1, 0);
 }
+
+// ?rva0059AE55@Rva0059AE55@@QAEXPAXPAPAX@Z @0x0059AE55 29B
+// Target evidence: copies five dwords from the first stack argument into
+// this, then dereferences the second stack argument and stores it at +0x14.
+// The structure identity remains address-derived.
+struct Rva0059AE55Prefix
+{
+	unsigned int m_words[5];
+};
+
+class Rva0059AE55
+{
+public:
+	void rva0059AE55(void *source, void **slot);
+
+private:
+	Rva0059AE55Prefix m_prefix;
+	void *m_value;
+};
+
+void Rva0059AE55::rva0059AE55(void *source, void **slot)
+{
+	m_prefix = *(Rva0059AE55Prefix *)source;
+	m_value = *slot;
+}
