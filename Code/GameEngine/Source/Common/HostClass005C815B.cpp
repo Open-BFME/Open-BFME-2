@@ -44,9 +44,20 @@ void HostClass005C815B::method_005C836F(int a0, float a1)
 	}
 }
 
+class HostClass005C8E0A {
+public:
+	void rva005C8F17();
+};
+
 void HostClass005C815B::method_005C839B(int a0, int a1)
 {
 	for (Rva005C847BRecord *it = m_start; it != m_finish; ++it) {
 		it->method_005C90F1(a0, a1);
 	}
+}
+
+void Rva005C847BRecord::method_005C901B()
+{
+	((HostClass005C8E0A *)this)->rva005C8F17();
+	*(unsigned short *)((char *)this + 0x44) = 0;
 }
