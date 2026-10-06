@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00330CDD@RadiusDecalTemplate@@QAEXABV1@@Z @0x00330CDD 97B
 // RadiusDecalTemplate copy-assign shaped method: copies scalars +8..+1C,

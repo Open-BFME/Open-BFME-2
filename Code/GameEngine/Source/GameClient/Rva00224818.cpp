@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva00224818@Rva00222A8BTarget@@QAEXXZ @0x00224818 311B
 // BFME1 donor WindowManager_bfmeRva0046E170.cpp adapted to BFME2 offsets: table at +0x5c via rowed Rva00223CDB, vector<int> finish at +0x300 flag at +0x308, 14 entries stride 0x28 at +0xF0, OnFocus via pin 0x00222A8B with g_00BBFDE0/BBFDDC. Evidence: callers 0x0022523C chain via 0x00223CDB; strings AptLevel0.apt /_level%d OnFocus.
 #include "ascii_string.h"

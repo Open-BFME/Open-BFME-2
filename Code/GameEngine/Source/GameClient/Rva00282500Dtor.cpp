@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1Rva00282500@@UAE@XZ, RVA 0x00282500, 174 bytes.
 // Dtor of unknown class with vtable 0x007FB21C: unlinks +0x18/+0x1c node
 // via g_Va00DFEC54 head, clears TerrainLogic+0x56c tree, then member dtors.

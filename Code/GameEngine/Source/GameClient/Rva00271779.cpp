@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva00271779@Rva00271779@@QAEXURGBColor00271779@@HHHMM@Z retail 0x00271779 67B
 // Evidence: unlock lane; callers 0x001E0A30 plus 0x002EBDF8 plus 0x000D1A70; TintDrawableFXNugget 0x001E09D8 source RGBColor at +0x148 plus times plus freq plus amp; dest +0x6C contiguous 0x20B via movsd x3 plus mov plus movss; ret 0x20.

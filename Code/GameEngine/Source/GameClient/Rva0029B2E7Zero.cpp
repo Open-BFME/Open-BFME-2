@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva0029B2E7@Rva0029B2E7@@QAEXXZ @0x0029B2E7 44B.
 // Zeroes byte at +0 and floats at +4 +8 +C +10 +14 +18 +1C.
 // Caller at 0x0029B502.

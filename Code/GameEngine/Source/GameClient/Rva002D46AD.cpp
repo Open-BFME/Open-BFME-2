@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva002D46ADSet@@YAXH@Z retail 0x002D46AD 155B unlock lane.
 // Evidence: static AsciiString "APT:PalantirResources" with atexit plus local
 // AsciiString formatted "%d" or set to g_00BBD40C then

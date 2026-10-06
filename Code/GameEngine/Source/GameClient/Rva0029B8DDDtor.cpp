@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva0029B8DD@@UAE@XZ @0x0029B8DD 60B.
 // Dtor stores vtable 0x7FD02C then StringBase wide +8 and narrow +4 via rowed releaseBuffer 0x36E70 0x36410 with EH prolog scope 0xB74AD9.
 // Unlocks 0x0029B8C1. Caller 0x0029B8C4.

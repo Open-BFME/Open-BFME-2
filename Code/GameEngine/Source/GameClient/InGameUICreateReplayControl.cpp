@@ -12,7 +12,7 @@
 // retail dispatches through TheWindowManager+vtable[0xF0] with (info=0,key).
 // InGameUI's only field read here is the target-witnessed dword at this+0x1C;
 // its semantic member name and the rest of the class layout remain unknown.
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 #include "ascii_string.h"
 

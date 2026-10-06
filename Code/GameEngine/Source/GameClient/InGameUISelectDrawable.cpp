@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // BFME 1 donor 6583b3c1ff21db4a561285717028fdafc780b7db:
 // game/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp, with ZH's

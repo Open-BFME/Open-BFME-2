@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 // ??0Rva004181F5@@QAE@ABV0@@Z @0x004181F5 61B
 // Copy ctor with AsciiString at +0 via pinned StringBase copy 0x000365F0
 // plus Rva004181A6 at +4 via rowed copy 0x004181A6 (other+4 via add).

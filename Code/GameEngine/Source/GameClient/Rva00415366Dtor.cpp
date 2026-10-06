@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva00415366@@QAE@XZ @0x00415366 57B
 // Hash-table dtor sharing the rowed Rva000427195 clear 0x003A2A41 then freeing
 // the bucket array at +4 via free 0x00030830 with a null guard.

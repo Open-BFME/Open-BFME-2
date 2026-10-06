@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE2
+// cl: /DNDEBUG /MD /GX-
 // ?getPair@LivingWorldEyeTower@@AAEPAXXZ @0x003F9A2B 110B
 // LivingWorldEyeTower::getPair transferred from BFME1 donor
 // reference/open-bfme-1/game/GameEngine/Source/GameClient/LivingWorldEyeTower.cpp.

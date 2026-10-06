@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?reverse@TextOnFrameTransition@@UAEXXZ
 // retail 0x0035FB18, 33 bytes. Virtual slot 3 (offset 0xC) of vtable 0x0081669C,
 // the class of ??1Rva0035FA2A@@UAE@XZ (dtor clears +0xC then tail-calls base

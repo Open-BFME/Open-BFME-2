@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 // Evidence: retail 0x001EE5BE (24 bytes) is the REL32 call target named
 // ?_bfme_setEngineVisibility@Mouse@@QAEX_N@Z at several already-matched call

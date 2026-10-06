@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0022300F@@QAE@XZ @0x002231E7 63B
 // Default ctor over vector at +0 via rowed _Vector_base E16 0x00211E58 and wide string at +0xC zeroed then rowed reserve ModuleData 0x002B712E with 1.

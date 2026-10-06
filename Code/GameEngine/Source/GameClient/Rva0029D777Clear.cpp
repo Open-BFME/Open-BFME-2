@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 //
 // ?rva0029D777@Rva0029D777@@QAEXXZ, retail 0x0029D777, 75 bytes.
 // Clears a button label to empty plus 20 list holders: if the window at +0x978

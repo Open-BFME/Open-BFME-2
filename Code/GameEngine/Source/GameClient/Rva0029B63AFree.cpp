@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0029B63A@Rva0029B63A@@QAEXPAURva0029B63ANode@@@Z @0x0029B63A 45B.
 // Unlocks 0x0029E015. Recursive child at +0xC then free list via +0x8; thiscall ret 4. Callees rowed _free 0x30830 plus self.
 // Callers at 0x0029B64C self and 0x0029E023.

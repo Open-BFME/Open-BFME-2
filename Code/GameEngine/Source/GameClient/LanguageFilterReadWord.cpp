@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // BFME1 LanguageFilter::readWord with the retail File vtable layout.
 // BFME2 init at 0x38873F calls this reader at 0x3887F6 with File and word-buffer
 // arguments. Target File::read is vtable slot +0x0C; /O1 reproduces all149 bytes.

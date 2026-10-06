@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002BFA12@Rva002BFA12@@QAEXPAX@Z @0x002BFA12 54B
 // Insert-if-absent: hashtable _M_find 0x002888D4 on map at +0x98 with key from arg+0x24,

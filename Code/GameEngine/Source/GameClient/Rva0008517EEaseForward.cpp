@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // Target8517E+40 forwards three floats to the real178B normalization body
 // and returns this, RET12. Separate compilation keeps the callee opaque;
 // the same-TU trial retains ECX and emits36B instead of the target ESI save.

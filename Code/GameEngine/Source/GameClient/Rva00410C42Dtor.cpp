@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva00410C42@@QAE@XZ @0x00410C42 57B
 // Hash-table dtor sharing the rowed Rva00410A3D clear 0x00410A3D then freeing
 // the bucket array at +4 via free 0x00030830 with a null guard.

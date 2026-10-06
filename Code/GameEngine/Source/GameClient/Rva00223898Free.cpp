@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00223898@Rva00223898@@QAEXPAX@Z @0x00223898 28B
 // Destroys the Rva0022304A member at +4 of the node, then frees the node
 // with the game's _free when non-null. Chain body: calls just-landed

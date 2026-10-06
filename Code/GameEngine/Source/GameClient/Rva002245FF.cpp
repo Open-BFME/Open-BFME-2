@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva002245FF@Rva002245FF@@QAEXHABVAsciiString@@@Z @0x002245FF 77B
 // Indexed erase wrapper over array at +0xdc stride 0x28 via rowed erase 0x00223736.
 // Evidence: chain lane calls rowed 0x00223736 plus rowed StringBase copy 0x000365F0 plus rowed releaseBuffer 0x00036410 with EH prolog; callers at 0x00523F8C 0x00524477.

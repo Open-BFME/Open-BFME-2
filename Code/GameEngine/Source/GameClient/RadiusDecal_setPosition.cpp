@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?setPosition@RadiusDecal@@QAEXABUCoord3D@@@Z, retail 0x00330DFD, 24 bytes.
 // Dedicated TU.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -MD -D_STLP_USE_STATIC_LIB -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
+// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -MD -D_STLP_USE_STATIC_LIB -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
 // stlport
 //
 // ?push_back@?$deque@UGen_t_00595870_p12cd@@V?$allocator@UGen_t_00595870_p12cd@@@_STL@@@_STL@@QAEXABUGen_t_00595870_p12cd@@@Z

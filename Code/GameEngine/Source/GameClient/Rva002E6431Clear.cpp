@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
 // ?rva002E6431@Rva002E6431@@QAEXXZ 0x002E6431 32B
 // Evidence: chain from 0x002E6158; clears +0x30 Rva002E6158 ptr via dtor plus scalar delete; callers none yet.
 class Rva002E5791

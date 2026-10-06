@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7
+// cl: /DNDEBUG /MD /EHsc /Oy-
 // ?rva00275376@Rva00275376@@QAE_NHHHHHH@Z @0x00275376 168B evidence: caller 0x0028E1EB 0x002C9F94; callee 0x00271C8A rowed; next Drawable TU
 
 class Rva00271C8A

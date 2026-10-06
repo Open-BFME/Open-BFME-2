@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?rva0030D4F2@Rva0030D4F2@@QAEHXZ, retail 0x0030D4F2, 26B.
 // Dict getter twin of Rva0030D773 setter: Dict at +0x24 via rowed getInt
 // 0x003131CA with key from rowed NameKey cache get 0x00148F5E on g_00DBDC84,

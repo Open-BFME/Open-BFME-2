@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ??0Rva00271826@@QAE@XZ retail 0x00271826 108B
 // FINISH from banked 0.98 by muse-11; vtable 0x007FAF68 at +0 via global;

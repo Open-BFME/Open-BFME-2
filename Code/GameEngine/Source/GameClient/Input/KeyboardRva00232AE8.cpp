@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // ?rva00232AE8@Keyboard@@AAEXXZ @0x00232AE8 147B. Clears key vector then re-adds flagged slots.
 // Evidence: erase row 0x003FA4DB plus push_back row 0x00539A2E plus rva00232A42 pin plus slot 0x3c virtual plus LINK BONUS.

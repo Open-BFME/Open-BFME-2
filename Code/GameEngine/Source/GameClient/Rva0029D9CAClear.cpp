@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0029D9CA@Rva0029D9CA@@QAEXXZ @0x0029D9CA 47B.
 // Chain from 0x0029A407: if m_0 free via global 0xDFE77C slot 0x74 then clear m_4 via that row plus operator delete 0x2FD60.
 // Caller 0x002A3E3F. Unlocks 0x002A3E24.

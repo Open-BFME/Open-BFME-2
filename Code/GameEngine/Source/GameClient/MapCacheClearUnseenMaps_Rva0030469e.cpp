@@ -20,7 +20,7 @@
 // 0x00304384. It is the two-level std::map erase (a lookup helper at
 // 0x005C9F41, then the tree _M_erase at 0x000D20DB), not the raw tree _M_erase
 // the other AsciiString-tree rows in the ledger name.
-// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -D_STLP_USE_STATIC_LIB /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
+// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
 // stlport
 
 #include <map>

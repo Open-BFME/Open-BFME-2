@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003A2A41@Rva000427195@@QAEXXZ @0x003A2A41 73B
 // Hash-bucket clear for the AsciiString-keyed table at +4/+8 with count at
 // +0x10. Buckets proven by rowed bucketIndex 0x00223149 and insert

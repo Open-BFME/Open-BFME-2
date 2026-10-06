@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva002728C5@Drawable@@QAEXMM@Z, retail 0x002728C5, 71 bytes.
 // Drawable float forwarder plus average-half store: if the +0x14C list head

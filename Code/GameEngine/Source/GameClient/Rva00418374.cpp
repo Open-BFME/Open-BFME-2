@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD
+// cl: /Ob2 /EHsc /MD
 //
 // ?rva00418374@Rva00418374@@QAEPAUOutIter004182F8@@PAU2@PBVRva004181F5@@@Z @0x00418374 36B.
 // Insert helper bumping +0x10 count then delegating to rowed rva004182F8

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Retail RVA 0x005990A0. The outlined "SpellNN" name parser that sits one
 // slot above the three BfmeAptScreenSpellStore callbacks at 0x005990E0,
 // 0x00599180 and 0x005991E0, each of which spells the same test inline.

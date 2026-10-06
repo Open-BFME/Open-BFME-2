@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Intrusive list remove-plus-recycle twin of 0x0029DFC5 for freelist at 0x00DBA5E8.
 // Unlinks node, pushes onto freelist, reports predecessor. Caller 0x0029F3A6. Unlocks 0x0029F34F.

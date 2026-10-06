@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0029B380@Rva0029B380@@QAEXH@Z @0x0029B380 65B.
 // Array at +0x5D0 elem 16B: release wide StringBase at +0 then virtual slot 0x3C on global 0xDFEAD8 with ptr at +4 then zero +4 +8.
 // Caller 0x002A1684. Unlocks 0x002A1582.

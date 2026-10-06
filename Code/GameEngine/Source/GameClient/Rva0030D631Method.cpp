@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?rva0030D631@Rva0030D631@@QAEPAVBfmeRetBWF@@XZ, retail 0x0030D631, 42B.
 // Gap between 0x0030D606 and 0x0030D773: thiscall returning BfmeRetBWF pointer.
 // Null holder returns +0x08 source; else BfmeCalcBWF at holder+0xa0 transforms +0x08 into +0x48 via rowed 0x006BD900 and returns +0x48.

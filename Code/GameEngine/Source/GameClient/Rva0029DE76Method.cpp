@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0029DE76@Rva0029DE76@@QAE_NPBUCoord3D@@@Z @0x0029DE76 164B
 // evidence: unlock caller 0x0029EAFA; rowed PartitionManager::getShroudStatusForPlayer plus Object::rva002907A1 plus Rva00264274 path test
 enum CellShroudStatus

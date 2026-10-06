@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // ?rva0029BA28@Rva0029BA28@@QAEXH@Z @0x0029BA28 48B leaf called from 0x0029FEA5 list<int> at +0x18 erase first match via rowed erase 0x00438539
 #include <list>

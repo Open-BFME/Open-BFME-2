@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // InGameUI slot 91: component-wise bounds merge over two int pairs. Slot
 // evidence from the InGameUI vtable at 0x7BE810 (slots 88-89 are the landed

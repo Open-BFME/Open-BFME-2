@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00272BAB@Drawable@@QAEXHH@Z, retail 0x00272BAB, 60 bytes.
 // Dual walk: first draw module at +0x14C forwards two int args to slot

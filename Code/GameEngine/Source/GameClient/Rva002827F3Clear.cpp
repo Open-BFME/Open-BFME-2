@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002827F3@Rva002827F3@@QAEXXZ, RVA 0x002827F3, 80 bytes.
 // Clears two voidptr vectors at +0x4 and +0x10; deletes each non-null
 // Rva00281A06 element of the second via rowed dtor 0x00281A06 and rowed delete 0x0002FD60

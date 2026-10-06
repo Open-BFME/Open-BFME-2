@@ -1,7 +1,7 @@
 // ?getDefaultMap@@YA?AVAsciiString@@_N@Z @ 0x0030582D 204B
 // Retail sorts filtered metadata pointers and returns the selected filename.
 // The 0x00302459 collector is recovered in this translation unit.
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 #define free bfmeUnusedCRTFree
 #include <cstdlib>

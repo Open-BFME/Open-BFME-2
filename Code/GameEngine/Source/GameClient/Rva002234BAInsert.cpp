@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva002234BA@Rva000427195@@QAEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@PBU23@@Z @0x002234BA 68B
 // Hash insert old-before-new over the Eva bucket vector. Buckets at +4,
 // count at +0x10 (same layout as rowed erase 0x00223429 and bucketIndex

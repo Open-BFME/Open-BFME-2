@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?rva0027900B@@YA_NPAD@Z @0x0027900B 105B: static (internal-linkage) helper,
 // NOT a thiscall member. The sole call site 0x0027916A sets the object pointer

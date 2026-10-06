@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0022453E@Rva0022453E@@QAEXABVAsciiString@@@Z @0x0022453E 70B
 // Erase-all wrapper with local AsciiString copy over the rowed Rva00223591 table at +0xa4.
 // Evidence: chain packet calls rowed 0x00223736 erase-all plus rowed StringBase copy 0x000365F0 plus rowed releaseBuffer 0x00036410 with EH prolog; copy reuses param slot at [ebp+8] with esi-saved this.

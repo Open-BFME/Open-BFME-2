@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // Reference: clean BFME1 6d9434269164392c5ba62aaa7c15a86b5b020d76,
 // game/GameEngineDevice/Source/W3DDevice/GameClient/Rva0073C700Configure.cpp.
 // Target RVA 0x00086B2C is 153B/RET24; derived vtable VA BC74F4 slot 2

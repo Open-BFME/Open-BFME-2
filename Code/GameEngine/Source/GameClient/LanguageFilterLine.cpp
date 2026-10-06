@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /G7 /arch:SSE /Oy- /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /Oy- /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DNDEBUG
 // stlport
 /*
 ** Copyright 2025 Electronic Arts Inc.

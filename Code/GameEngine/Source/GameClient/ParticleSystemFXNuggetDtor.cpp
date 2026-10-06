@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1ParticleSystemFXNugget@@UAE@XZ 104B @0x001E10EA: virtual dtor.
 // Installs no derived vptr (novtable view like Helix 0x001E116E and
 // FXListAtBonePos 0x001E1096 siblings). Destroys four AsciiString/

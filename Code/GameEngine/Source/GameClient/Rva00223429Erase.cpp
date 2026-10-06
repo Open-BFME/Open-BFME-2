@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00223429@Rva000427195@@QAEHPBVAsciiString@@@Z @0x00223429 145B
 // Erase-all by AsciiString key over the Eva bucket vector. Buckets at +4,
 // count at +0x10 (proven by rowed bucketIndex 0x00223149 and inserts

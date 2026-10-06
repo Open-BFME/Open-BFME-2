@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB
 // ?Rva002E5C15LowerBound@@YAPAUStringLookUp@@PAU1@0ABQBDURva002E5C15Comp@@H@Z 0x002E5C15 76B
 // Evidence: chain from 0x002E56B3 Less; binary lower_bound over 8B StringLookUp array; callers 0x002E609E.
 

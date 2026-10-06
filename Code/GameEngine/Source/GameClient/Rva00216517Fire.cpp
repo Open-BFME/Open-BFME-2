@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // Retail RVA 0x00216517, 153 bytes.
 // ?Rva00216517Fire@@YAHPAVRva00222A8BTarget@@PAXPBDPBIPBM@Z int-return firer: formats int and float via rowed gets, empty fallback, returns invoke result.
 // Free __cdecl UI firer with (int float) as strings: formats via rowed Rva002228E8Get(float) and

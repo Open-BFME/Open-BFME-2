@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
 // Native 0x00239539..0x0023958B, complete 82B cdecl callback.
 // Target: callback address stored by 0x0023BF5B; unused context word and
 // byte-tested second argument; state values 5/7; EALogoMovie string temporary.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0029B667@Rva0029B667@@QAEXPAURva0029B667Node@@@Z @0x0029B667 45B.
 // Unlocks 0x0029E03E. Twin of 0x0029B63A: recursive child at +0xC then free list via +0x8; thiscall ret 4. Callees rowed _free 0x30830 plus self.
 // Callers at 0x0029B679 self and 0x0029E04C.

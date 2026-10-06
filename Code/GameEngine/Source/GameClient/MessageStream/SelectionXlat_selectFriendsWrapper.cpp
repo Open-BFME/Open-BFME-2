@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ZH donor: GeneralsMD GameClient/MessageStream/SelectionXlat.cpp
 // selectFriendsWrapper, verbatim. ?selectFriendsWrapper@@YA_NPAVDrawable@@PAX@Z
 // retail 0x00430000 29B: a Zero Hour engine sweep built /O1 /G7 /arch:SSE

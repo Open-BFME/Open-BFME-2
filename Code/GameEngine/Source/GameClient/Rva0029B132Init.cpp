@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva0029B132@Rva0029B132@@QAEXXZ @0x0029B132 56B.
 // Init: zeroes +0 +4 +8 +0xC +0x10 +0x14 +0x18, 1.0f from 0xBBB8D8 to +0x1C, 0x20 to +0x20. Caller 0x002A0FA4.
 class Rva0029B132 {

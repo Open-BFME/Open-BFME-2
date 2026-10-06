@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?rva0030D606@Rva0030D606@@QAEXXZ, retail 0x0030D606, 43B.
 // Audio-handle release plus holder clear twin of Drawable rva002743D7:
 // TheAudio slot 0x6c removeAudioEvent with +0x54 handle guarded by null plus 5 then store 1 then tail to rowed clear 0x000A8C9B on +0x58 holder.

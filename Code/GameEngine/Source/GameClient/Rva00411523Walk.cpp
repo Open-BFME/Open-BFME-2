@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00411523@Rva00411523@@QAEXXZ, retail 0x00411523 (44B).
 // Eva-table walk over global at 0x00E02FE4 via pinned first 0x00427195 and
 // rowed next 0x00411084, clearing byte at node+0x2C. Same first/next shape

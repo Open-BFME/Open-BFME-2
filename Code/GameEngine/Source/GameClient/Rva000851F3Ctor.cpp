@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ??0Rva000851F3@@QAE@XZ, retail 0x000851F3, 71 bytes.
 // Ctor storing the real three-slot vtable BC745C at +0, then ParabolicEase
 // at +0x10 via rowed 0x0008517E

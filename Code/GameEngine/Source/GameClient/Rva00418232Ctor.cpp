@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 // ??0Rva00418232@@QAE@ABVAsciiString@@ABVRva004181A6@@@Z @0x00418232 57B
 // Ctor with AsciiString at +0 via pinned StringBase copy 0x000365F0 plus
 // Rva004181A6 at +4 via rowed copy 0x004181A6. No vptrs. AsciiString inline

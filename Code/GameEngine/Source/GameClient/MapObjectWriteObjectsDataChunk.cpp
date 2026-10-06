@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // Shared BFME map-object chunk writer, retail 0x0030D526, 196 bytes.
 // Dedicated TU (B2 has no MapUtil writer unit). Ported from the BFME1 twin

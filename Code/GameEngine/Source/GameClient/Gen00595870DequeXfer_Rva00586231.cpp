@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -MD -D_STLP_USE_STATIC_LIB -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
+// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -MD -D_STLP_USE_STATIC_LIB -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
 // stlport
 // ?Rva00586231Xfer@@YAPAVXfer@@PAV1@PAV?$deque@UGen_t_00595870_p12cd@@V?$allocator@UGen_t_00595870_p12cd@@@_STL@@@_STL@@@Z @0x00586231 212B: deque xfer std-deque then count then isSaving store-iterate else empty-check load-push_back. Evidence: rowed _M_subtract 0x004218A5 _M_increment 0x00421B1E push_back 0x00586204 _bfmeFormatText 0x0060C36E pin _CxxThrowException 0x00629094; strings std-deque Deque-must-be-empty-on-load; caller 0x00587075; sibling Gen00595870DequePushBackAux same flags.
 #define _STLP_NO_EXCEPTIONS 1

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 
 // INI per-file record accessors: filename and file-id lookups behind the
 // INIFileTable at INI +0x838 (see INILineAccessors.cpp for the callers).

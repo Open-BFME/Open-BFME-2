@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /DNDEBUG /MD /EHsc
 // ?rva00213925@Rva000427195@@QAE?AUInsertRet00212A5A@@PBX@Z retail 0x00213925 36 bytes.
 // Hashtable insert with grow: loads count at +0x10 inc calls pinned grow
 // rva00212858 at 0x00212858 then tail-returns rowed insert rva00212A5A at

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva00222B19AptCall@@YGHPAXPBD1H10000@Z, retail 0x00222B19 180B free stdcall ret 0x24.
 // Level-gated APT call: below 14 build "/_level%d" plus "." plus prefix, at 14 use

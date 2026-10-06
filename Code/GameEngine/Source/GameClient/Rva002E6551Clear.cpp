@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
 // ?rva002E6551@Rva002E6551@@QAEXXZ 0x002E6551 96B
 // Evidence: chain from 0x002E6158 and 0x002E5711; clears +0x2c +0x30 Rva002E6158 ptrs plus +0x24 Rva002E5711 list then byte +0x1d; caller 0x002E6710.
 class Rva002E5791

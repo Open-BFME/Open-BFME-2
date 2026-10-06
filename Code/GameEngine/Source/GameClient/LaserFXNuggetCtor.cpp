@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0LaserFXNugget@@QAE@XZ 32B @0x1E04DE: no-arg ctor called by
 // LaserFXNugget::parse (0x001E1519) for the Laser FXList keyword; class name

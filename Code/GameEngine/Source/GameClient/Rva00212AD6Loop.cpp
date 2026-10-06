@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva00212AD6Get@@YAXPAURva002115C5@@0@Z, RVA 0x00212AD6, 25B. Chain lane:
 // range loop over 0x10-stride items calling rowed 0x002115C5 method with
 // this in ecx; frameless push-esi with late-entry jmp. Callers at

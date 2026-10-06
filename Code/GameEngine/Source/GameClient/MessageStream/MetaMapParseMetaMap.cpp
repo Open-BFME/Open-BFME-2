@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ?parseMetaMap@MetaMap@@SAXPAVINI@@@Z, retail 0x001DB5A2, 109 bytes.
 // Static INI scanner: tokenize, resolve GameMessage::Type via rowed

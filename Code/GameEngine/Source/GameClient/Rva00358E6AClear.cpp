@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // ?rva00358E6A@Rva00358E6A@@QAEXPAUNode00358E6A@@@Z @0x00358E6A
 // (53B): rb_tree clear via recursive left plus dtor plus free plus right loop.
 // Identity via dtor 0x00358B65 plus free 0x00030830 plus self recursion;

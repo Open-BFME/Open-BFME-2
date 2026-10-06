@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00419669@@QAE@ABVAsciiString@@PBV0@@Z retail 0x00419669 143B unlock ctor with map+float8
 // Evidence: calls rowed StringBase copy 0x000365F0 via AsciiString member; rowed map<int void*> ctor 0x0033C432; rowed Rb_tree<int int> copy 0x00418500; default 0x32/1/zero8/2 else copy map+floats; caller 0x004199EC.

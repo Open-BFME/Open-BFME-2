@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva0025FB9B@Rva0025FB9B@@QAEXXZ @0x0025FB9B 33B. Conditional clears at +0x28/+0x14 with +0x18 to +0x1C copy. Evidence: no calls no immediates caller 0x00260BBF.
 class Rva0025FB9B
 {

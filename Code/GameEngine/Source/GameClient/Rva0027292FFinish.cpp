@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?setTerrainDecalSize@Drawable@@QAEXMM@Z, retail 0x0027292F, 22 bytes.
 // First-module forwarder over draw modules at this+0x14C to the module's

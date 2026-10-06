@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // ?rva001F43BD@Rva001F43BD@@QAEXPAX@Z @0x001F43BD 33B
 // Owned-pointer setter: releases the old object through its virtual slot 0
 // with a 0 argument, frees the returned pointer with operator delete, then

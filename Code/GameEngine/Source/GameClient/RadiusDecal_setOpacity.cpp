@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?setOpacity@RadiusDecal@@QAEXM@Z, retail 0x00330DDB, 34 bytes.
 // Dedicated TU.

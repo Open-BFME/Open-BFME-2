@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00213148@Rva00213148@@QAEPAXPBVAsciiString@@@Z, retail 0x00213148 (41B).
 // Lookup in the embedded Rva00056F61 bucket table at +0x294 via rowed
 // iterator find 0x0041534B. Returns payload at node+8 or null. Sibling of

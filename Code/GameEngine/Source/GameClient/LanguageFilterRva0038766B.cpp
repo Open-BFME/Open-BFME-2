@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0038766BAlloc@@YGPAU_Rva0038766BNode@@PBURva0038768DData@@@Z retail 0x0038766B 34 bytes.
 // Chain of 0x0038768D: allocates 0x18 via 0x307F0 then copies tail at +0x10.
 // Callers 0x3875DB 0x387717 0x38968F 0x5539DC init +0/+4/+8/+0xC themselves.

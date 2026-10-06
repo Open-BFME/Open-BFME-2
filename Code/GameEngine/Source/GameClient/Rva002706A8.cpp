@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva002706A8@Rva002706A8@@QAEXXZ, retail 0x002706A8, 72 bytes. Unlock lane.
 // Sets byte at +0x445 to 1, then walks null-terminated Elem* array at

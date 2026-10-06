@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /arch:SSE /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?updateAndDrawWorldAnimations@InGameUI@@IAEXXZ @0x0029D44E 452B.
 // Update all world animations and draw the visible ones. Direct port of the

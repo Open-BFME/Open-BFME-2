@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva00085947@Rva00085947@@QAEXXZ @0x00085947 174B thiscall method.
 // Vtable slot 26 of the 187-slot vtable at VA 0x00BC7514 (same vtable as range-2
 // neighbours 0x86245/0x8B1E5/0x8CE2E/0x8A2EF/0x89E2A/0x86BC5/0x865DB/0x8691F).

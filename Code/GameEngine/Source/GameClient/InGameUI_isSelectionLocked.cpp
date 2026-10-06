@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Readable out-of-line body of ?isSelectionLocked@BfmeSelectionState@@QBE_NXZ
 // (retail 0x0042253A, 20B): the selection-locked guard the two landed
 // selectMatching bodies call out-of-line (pin 1744). Returns true only when

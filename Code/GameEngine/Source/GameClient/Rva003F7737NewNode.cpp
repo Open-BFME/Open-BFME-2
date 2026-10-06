@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva003F7737@Rva003F7737@@QAEPAXPBX@Z @0x003F7737 37B
 // Hashtable new-node for 16-byte node (4 next + 12 BfmeStringRecord004071F7).

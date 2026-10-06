@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva0009ACB8@Rva0009ACB8@@QAEXPAM@Z @0x0009ACB8 78B: slot 32 of the vtable
 // at VA 0x00BC89C8. Copies the +0xC0 RenderObjClass position into the
 // caller's three floats, or zeroes them when the subobject is null (shared

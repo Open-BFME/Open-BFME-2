@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ??1Rva001EE3DE@@UAE@XZ, retail 0x001EE3DE, 165 bytes.
 // Virtual dtor: vtable 0x007E0358, manual release of ptr at +0x4FA8 via

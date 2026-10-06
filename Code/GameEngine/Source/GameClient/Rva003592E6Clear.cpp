@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // ?rva003592E6@Rva003592E6@@QAEXXZ @0x003592E6 (20B):
 // Clear two embedded rb-tree maps at +0xc and +0x18 via rowed 0x00358F7C; second is tail jmp.
 // Evidence: calls 0x00358F7C twice (call plus jmp); same /O1 /GX- /arch:SSE2 as neighbours.

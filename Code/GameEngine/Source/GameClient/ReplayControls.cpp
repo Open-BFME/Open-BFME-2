@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // InGameUI replay-control helpers at retail 0x0029A39C (show), 0x0029A3BC
 // (hide) and 0x0029A3CE (toggle).

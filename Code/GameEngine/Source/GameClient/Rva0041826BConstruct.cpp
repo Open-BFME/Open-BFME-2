@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD
+// cl: /Ob2 /EHsc /MD
 // ?Rva0041826BConstruct@@YAXPAVRva004181F5@@PBV1@@Z @0x0041826B 45B
 // Placement-new copy via rowed copy 0x004181F5 with EH state and null check
 // from new expression. Takes dst plus src pointers (cdecl, caller cleans).

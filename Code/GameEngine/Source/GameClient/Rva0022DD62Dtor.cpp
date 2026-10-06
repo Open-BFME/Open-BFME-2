@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1Rva0022DD62@@QAE@XZ @0x0022DEE1 57B: hash-bucket scalar dtor clears via rowed 0x0022DD62 then frees array at +4. Same 57B EH shape as ??1Rva0022DD19 at 0x0022DEA8. Evidence: chain packet calls rowed clear 0x0022DD62 with same this; callers at 0x004192EF; unblocks 0x004192D1.
 extern "C" void __cdecl free(void *block) throw(...);
 

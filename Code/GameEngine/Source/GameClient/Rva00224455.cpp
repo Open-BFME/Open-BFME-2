@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00224455@Rva00224455@@QAEHPBVAsciiString@@@Z @0x00224455 8B
 // Tail-jmp forwarder adding 0xC then calling rowed erase 0x00223736.
 // Evidence: chain lane add ecx 0xC jmp to rowed ?rva00223736@Rva00223591; 11 callers.

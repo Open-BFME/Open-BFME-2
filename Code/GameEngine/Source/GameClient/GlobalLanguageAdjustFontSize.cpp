@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?adjustFontSize@GlobalLanguage@@QAEHH@Z retail 0x001EA40D 54 bytes.
 // GlobalLanguage font-size scaler: point size scaled by display width over
 // 1024 and floored. BFME1 donor is GlobalLanguage::adjustFontSize in

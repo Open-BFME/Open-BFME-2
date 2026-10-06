@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2
+// cl: /EHsc
 // ??0ParticleModule005F2CA0@@QAE@PAX0@Z @0x0055C86D 67B: ParticleModule ctor via Rva003AA228 base plus Init.
 // Evidence: BFME1 donor ParticleModuleCtor005F2CA0 T1A1+Interface then s4Second; retail base row 0x3AA228 same PAX0 vptr stores +0/+0x14 Init row 0x5C7889; pin names class; 5 matched callers show PAX0.
 

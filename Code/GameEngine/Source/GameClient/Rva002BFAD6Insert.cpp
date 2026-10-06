@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 // ?rva002BFAD6@Rva002BFAD6@@QAEPAXPBX@Z @0x002BFAD6 68B
 // Hashtable insert over Eva bucket vector: resize via pin 0x00212858 with

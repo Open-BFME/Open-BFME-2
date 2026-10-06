@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva0029C752Check@@YA_NXZ @0x0029C752 39B.
 // Free helper over TheInGameUI slot 0x124 selection list: empty list returns

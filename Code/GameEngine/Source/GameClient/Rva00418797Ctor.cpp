@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00418797@@QAE@ABVAsciiString@@PBV0@@Z @0x00418797 124B
 // Ctor with two map<int void*> at +0/+0xc via rowed ctor 0x0033C432 plus AsciiString at +0x18 via rowed StringBase copy 0x000365F0 plus bytes at +0x1c/+0x1d. Nullable other gives defaults 1/0 else copy b1c then Rb_tree<int int> assigns 0x00418500 via IntIntTree cast then b1d. Returns this with ret 8.

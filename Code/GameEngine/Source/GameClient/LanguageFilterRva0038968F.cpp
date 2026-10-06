@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0038968FDup@@YGPAU_Rva0038766BNode@@PBU1@@Z retail 0x0038968F 30 bytes.
 // Dups _Rva0038766BNode via rowed Alloc 0x0038766B then inits +0 +8 +0xC.
 // Chain of 0x0038766B; no callers.

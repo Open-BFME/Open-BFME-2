@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00330D3E@RadiusDecalTemplate@@QAEMI@Z @0x00330D3E 83B
 // Unlock lane: lerp between +0x20/+0x24 over count +0x28 with clamp to max.

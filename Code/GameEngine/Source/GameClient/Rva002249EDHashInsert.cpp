@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva002249ED@Rva00056F61@@QAEAAVRva0022304A@@ABV2@@Z @0x002249ED 68B
 // Address-derived STLport hash-table insert. Caller 0x00224BDB passes a
 // key/value pair after find misses; this body calls rowed bucketIndex 0x00223149

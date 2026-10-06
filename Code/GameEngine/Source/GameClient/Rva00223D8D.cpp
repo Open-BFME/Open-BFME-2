@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /MD /GX-
 // ?rva00223D8D@Rva00223D8D@@QAEXPBDHHHH@Z @0x00223D8D 74B
 // Chain from 0x0022297B: null-guard const char* then AsciiString temp over arg slot to rowed find 0x00056F61 at +0x34 then releaseBuffer then invoke 0x0022297B via node+8 with four ints. Table at +0x34 node {next+0 name+4 ref+8} so +8 is Rva0022297BRef.
 // Evidence: callees rowed 0x00037BA0 0x00056F61 0x00036410 0x0022297B; caller 0x000AA645; offsets +0x34/+8 from disasm; ret 0x14 five args.

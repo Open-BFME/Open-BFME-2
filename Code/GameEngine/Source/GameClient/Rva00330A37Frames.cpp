@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Oy-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Oy-
 //
 // ?rva00330A37@Rva00330A37@@QAEXHHHHHHHH@Z @0x00330A37 103B
 // Unlock lane: 8-int init with frame base from the dword global at

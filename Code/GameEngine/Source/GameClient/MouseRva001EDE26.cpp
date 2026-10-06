@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001EDE26@Mouse@@QBE_NXZ @0x001EDE26 20B
 // ?rva001EDE4C@Mouse@@QAEXHH@Z @0x001EDE4C 23B
 // Two tiny Mouse accessors; cursor bytes at +0x4f9d/+0x4f9e and dwords at +0x4f0c/+0x4f10 per MouseSetEngineVisibility.cpp; callers at 0x41AA0 etc and 0x41AE3.

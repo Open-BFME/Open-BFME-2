@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // stlport
 // ?rva00223CBD@Rva00223CBD@@QAEXPBVModuleData@@@Z @0x00223CBD 30B
 // Vector push_back at +0x2FC via rowed 0x004DFCB0 then flag at +0x308 set to 1.

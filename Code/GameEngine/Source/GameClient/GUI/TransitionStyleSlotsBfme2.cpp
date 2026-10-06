@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // Unfilled update/draw slots of the BFME 2 window transitions in the vtable
 // run 0x008163D8..0x008166D8, ported from Zero Hour's
 // GameWindowTransitionsStyles.cpp where a donor body exists. Slot order is

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Keyboard::init (retail 0x0023260F, 17B) and Keyboard::update (0x00232BC7,
 // 22B), slots 1 and 10 of vtable 0x00BE81F0. That table is Keyboard's: its

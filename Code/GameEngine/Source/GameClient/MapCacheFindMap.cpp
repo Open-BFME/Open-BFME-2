@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?findMap@MapCache@@QAEPBVMapMetaData@@VAsciiString@@@Z @0x003024BC 76B.
 // Evidence: BFME1 donor MapUtil.cpp findMap plus ZH MapUtil.h MapCache decl

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 //
 // ??1Rva0029D3B0@@UAE@XZ @0x0029D3B0 75B.
 // Dtor storing vtable 0x007FD1C0, releasing DisplayString slot via

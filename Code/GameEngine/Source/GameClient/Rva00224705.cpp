@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00224705@Rva00224705@@QAEHPBVAsciiString@@@Z @0x00224705 11B
 // Tail-jmp wrapper over table at +0xb8 via rowed erase 0x00223736.
 // Evidence: chain lane calls rowed 0x00223736; retail add ecx 0xb8 plus jmp.

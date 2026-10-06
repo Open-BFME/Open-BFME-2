@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 // ?rva00410E67@Rva000427195@@QAEPAU?$pair@$$CBVAsciiString@@UTreeHintPayload00410B17@@@_STL@@PBU23@@Z, retail 0x00410E67 68B. Hashtable insert
 // over the Eva bucket vector for the AsciiString-keyed 12-byte node family.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0029B4F9Init@@YAXXZ @0x0029B4F9 67B.
 // Chain from 0x0029B2E7: local 0x20 zeroed via that row, then two virtuals on global 0xDFEA3C slots 0x170 and 0xC8.
 // Caller at 0x0042BBF9. Free function void().

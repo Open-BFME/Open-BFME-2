@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Intrusive list remove-plus-recycle helper used by the InGameUI slot-96
 // find-and-remove body at 0x0029F77E (sole E8 caller, verified by raw

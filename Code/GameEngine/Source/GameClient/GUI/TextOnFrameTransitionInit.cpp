@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?init@TextOnFrameTransition@@UAEXPAVGameWindow@@@Z
 // retail 0x0035FA90, 62 bytes. Dedicated TU.
 //

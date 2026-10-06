@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0TextOnFrameTransition@@QAE@XZ @0x0035FA03 39B: ctor stores vtable 0x0081669C, calls rowed base ??0Rva001DBAA4 at 0x001DBAA4, then startFrame +0x10 zero endFrame +0x14 30 frameLength +0x04 30 forward +0x09 true win +0x0C zero. Evidence: vtable-proven TextOnFrameTransition with rowed update reverse init plus base ctor row plus prev CountUp deleting dtor next honest dtor 0x0035FA2A; BFME2 END 30 vs donor 1 follow retail.
 typedef int Int;
 typedef bool Bool;

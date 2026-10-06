@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva0022300F@@QAE@XZ @0x0022300F 59B
 // Dtor releasing wide string at +0xC via rowed releaseBuffer 0x00036E70 then
 // freeing pointer at +0 via free 0x00030830 with null guard.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/GameClient/GUI/window_layout.cpp (donor revision

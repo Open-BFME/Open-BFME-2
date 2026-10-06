@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?checkKeyRepeat@Keyboard@@IAE_NXZ, retail 0x002329D3, 111 bytes (formerly
 // rowed as AIPlayer::rva002329D3; the class is Keyboard, see Keyboard.cpp).

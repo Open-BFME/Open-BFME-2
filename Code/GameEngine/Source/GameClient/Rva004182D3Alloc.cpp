@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva004182D3@Rva004182F8@@QAEPAXPBVRva004181F5@@@Z @0x004182D3 37B
 // Allocates 0x20 via byte allocator 0x000307F0, zeroes first dword, constructs

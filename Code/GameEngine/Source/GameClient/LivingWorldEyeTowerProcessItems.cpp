@@ -5,7 +5,7 @@
 // Best probe chain2: 193B same size 0 branch 0 layout; only 2 xmm reg swaps in
 // second rate block (ours xmm1=g xmm0=frames vs retail xmm0 xmm1) plus the
 // +0x6c store register. First block loop and stores all match.
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE2
+// cl: /DNDEBUG /MD /GX-
 // Built from the banked attempt reverse/attempts/0x003f9a99.cpp; fix: the float
 // read through g_Va007BB8D8 is a compiler literals holding the retail
 // values, not extern globals, which is what gives retail's operand order.

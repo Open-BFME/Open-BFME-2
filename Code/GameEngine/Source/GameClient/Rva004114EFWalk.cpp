@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004114EF@Rva004114EF@@QAEXXZ, retail 0x004114EF (52B).
 // Eva-table walk over global at 0x00E02FE4 via pinned first 0x00427195 and
 // rowed next 0x00411084, virtual-calling slot 0x14 on object at node+0x18

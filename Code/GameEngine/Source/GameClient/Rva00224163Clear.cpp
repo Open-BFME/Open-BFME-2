@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00224163@Rva00224163@@QAEXXZ @0x00224163 73B
 // Hash-bucket clear over the table at +4/+8 with count at +0x10.
 // Evidence: chain lane calls rowed free 0x00223898; layout matches rowed Rva00223591 and twin clear 0x003A2A41; caller at 0x00224989.

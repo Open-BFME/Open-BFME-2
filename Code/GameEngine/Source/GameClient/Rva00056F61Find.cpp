@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00056F61@Rva00056F61@@QAEPAXPBVAsciiString@@@Z, retail 0x00056F61 (61B).
 // Hash-mod-count find over the bucket vector. Same shape as the rowed
 // ?bucketIndex@Rva000427195@@QAEHPBVAsciiString@@@Z at 0x00223149 (identical

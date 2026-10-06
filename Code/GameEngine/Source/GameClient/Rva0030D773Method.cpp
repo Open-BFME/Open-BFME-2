@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva0030D773@Rva0030D773@@QAEXH@Z, retail 0x0030D773, 149B.
 // MapObject-style setter: Dict at +0x24 via rowed setInt 0x00313716 with key
 // from rowed NameKey cache get 0x00148F5E on g_00DBDC84, template pointer at

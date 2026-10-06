@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ??0Rva0029B816@@QAE@HH_N00ABVAsciiString@@H0HH@Z @0x0029B74A 204B.
 // Ctor vtable 0x7FD028: two newDisplayStrings via 0xDFEAD8 slot 0x38 with empty UnicodeString text then SuperweaponInfo::setFont. Callers 0x002A6AC2 0x002A70AE.
 #include "ascii_string.h"

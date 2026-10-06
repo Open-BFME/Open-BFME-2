@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // Two Keyboard key-table accessors (formerly rowed as AIPlayer::rva002326AE
 // and AIPlayer::rva00232643; the class is Keyboard, see Keyboard.cpp):

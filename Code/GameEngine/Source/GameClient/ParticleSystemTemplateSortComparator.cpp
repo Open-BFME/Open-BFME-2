@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 //
 // ??RRva00204BB8@@QBE_NHH@Z @0x00204BB8 94B: ParticleSystemTemplate name less-than for STL sort.
 // Evidence: BFME1 donor Q4Sort0034BFC0Comparator.cpp (same right-hand-first getName plus compareNoCase shape);

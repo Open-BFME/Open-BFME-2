@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva00102188@@UAE@XZ retail 0x00102188 54B
 // Evidence: chain calls vector dtor 0x000B0254 at +0x14 then +0x04; caller deleting dtor 0x001021BE

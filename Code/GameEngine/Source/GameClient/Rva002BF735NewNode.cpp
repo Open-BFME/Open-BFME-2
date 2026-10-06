@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002BF735@Rva002BF735@@QAEPAXPBX@Z @0x002BF735 37B
 // Hashtable _M_new_node-style allocator for 12-byte node (4 next + 8 pair).

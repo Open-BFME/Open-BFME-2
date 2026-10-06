@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?rva00223D02@Rva00223D02@@QAEXPBVAsciiString@@PAVCreateAHeroData@@@Z @0x00223D02 74B
 // Table at +0x48 via rowed Iter find 0x0041534B then vector find-and-erase.

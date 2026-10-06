@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva001EDFF7@Mouse@@QBEXPAM@Z @0x001EDFF7 62B
 // Copies four ints at +0x4f84..+0x4f90 to floats; sole caller at 0x0042EDD5.
 class Mouse {

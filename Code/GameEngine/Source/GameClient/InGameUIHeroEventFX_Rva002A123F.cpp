@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // Three InGameUI hero-event members, retail 0x002A123F / 0x002A1261 /
 // 0x002A1283 (34 bytes each, ret 4): each passes the Object, an event-name

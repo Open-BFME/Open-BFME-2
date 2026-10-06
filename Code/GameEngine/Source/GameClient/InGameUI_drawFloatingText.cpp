@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // stlport
 //
 // InGameUI::drawFloatingText, retail 0x0029D200 (266 bytes).

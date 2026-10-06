@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva0030D808@Rva0030D808@@QAE?AVAsciiString@@XZ, retail 0x0030D808, 43B.
 // MapObject-style AsciiString getter twin of 0x0030D748: Dict at +0x24 via
 // rowed getAsciiString 0x0031359F with key from rowed NameKey cache get

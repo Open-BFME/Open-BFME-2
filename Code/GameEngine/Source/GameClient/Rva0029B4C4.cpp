@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0029B4C4@Rva0029B4C4@@QAEXXZ @0x0029B4C4 53B leaf called from 0x002A5BE9 AsciiString at +0x1c ptr at +0x5c4 virtual slot 0x1c then clear string via rowed isEmpty/set
 #include "ascii_string.h"
 

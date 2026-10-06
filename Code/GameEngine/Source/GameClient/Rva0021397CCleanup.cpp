@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0021397C@Rva0021397C@@QAEXXZ, RVA 0x0021397C, 30B. Chain lane: calls
 // rowed 0x00212AD6 range destroy with first/last at this+0/+4 then frees
 // first via rowed free 0x00030830 when non-null; push-esi this plus

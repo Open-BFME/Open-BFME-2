@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // GlobalLanguage::parseFontDesc (retail 0x0037691C, 108 bytes). Zero Hour
 // donor served from GlobalLanguage.cpp: reads a quoted font name through
 // the rowed getNextQuotedAsciiString at 0x002E93F, an int size through the

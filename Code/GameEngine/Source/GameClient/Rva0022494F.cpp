@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0022494F@Rva0022494F@@QAEXXZ @0x0022494F 37B
 // Reset with two string releases plus table tail-jmp to rowed clear 0x0022380B.
 // Evidence: chain lane calls rowed releaseBuffer 0x00036410 twice plus rowed 0x0022380B; and byte +0x24 0xf4 plus and +8 0 plus or +0xc -1; caller at 0x00224BBD.

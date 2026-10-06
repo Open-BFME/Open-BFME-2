@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ZH InGameUI::showIdleWorkerLayout, also recovered in BFME 1 donor
 // 847fc2a5406da49baed14adf987ff6830204b9d0, InGameUI.cpp.
 // Target 0x0029AFA6-0x0029AFFC has independently identified InGameUI table

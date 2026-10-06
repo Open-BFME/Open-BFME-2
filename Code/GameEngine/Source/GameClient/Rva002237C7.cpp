@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva002237C7@Rva00223591@@QAEPAXPBX@Z @0x002237C7 68B
 // Hashtable insert for 16-byte node (4 next + 12 BfmeStringRecord00222E08): grow via pinned 0x00212858 then bucket via rowed 0x00223149 then new-node via rowed 0x0022356C then link and return node+4.
 // Evidence: same shape as rowed Rva00223591::rva00223854 in Rva00223591Free.cpp; neighbours 0x00223736 erase and 0x0022380B clear share layout +4 buckets +0x10 count; unblocks 0x0022402A.

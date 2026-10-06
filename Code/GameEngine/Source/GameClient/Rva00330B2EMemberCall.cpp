@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00330B2E@Rva00330B2E@@QAEXXZ, retail 0x00330B2E, 19 bytes.
 // Thiscall: calls member+8 Rva0030B9CA::rva0030B9CA (rowed 0x30B9CA) then
 // tail-jmps own virtual slot12 (0x30). Chain via 0x30B9CA. No donor.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva000588DA@@QAE@XZ @0x000588DA 57B.
 // Hash-table scalar dtor: clears via the rowed rva003A2A41 then the inline
 // bucket-handle member dtor frees the bucket array at +4 via the rowed free

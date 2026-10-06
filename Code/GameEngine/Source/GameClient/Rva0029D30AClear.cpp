@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /Oy /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /EHs-c-
+// cl: /Ireference/shims/bfmelist /Oy /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /EHs-c-
 // stlport
 //
 // ?rva0029D30A@Rva0029D30A@@QAEXXZ @0x0029D30A 72B.

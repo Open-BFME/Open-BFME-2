@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /DNDEBUG /MD /EHsc
 // stlport
 // ?rva00419331@Rva000427195@@QAE?AUInsertRet00419331@@PBX@Z, retail 0x00419331 124B.
 // Hashtable insert_unique same shape as rowed 0x00212A5A/0x0041539F/0x001F8F2A (124B).

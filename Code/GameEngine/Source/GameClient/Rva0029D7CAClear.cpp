@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /Oy /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /EHs-c-
+// cl: /Ireference/shims/bfmelist /Oy /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /EHs-c-
 // stlport
 // ?rva0029D7CA@Rva0029D7CA@@QAEXXZ @0x0029D7CA 83B.
 // List clearer sibling of 0x0029D3FB at +0x8D0: circular _STL::list<int>

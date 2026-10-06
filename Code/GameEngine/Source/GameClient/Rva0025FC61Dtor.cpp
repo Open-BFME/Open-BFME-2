@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0025FC61@@MAE@XZ 0x0025FC61 89B: dtor of SubtitleEntry-derived class with vtable 0x007F63F8.
 // Evidence: stores vtable at [this], loops over count at +0x30 releasing array at +0x24 via global at 0x009FEAD8 slot 0x3c, then calls base ??1SubtitleEntry@@MAE@XZ at 0x006885A0. Caller 0x0025FF73 is its ??_G deleting dtor.
 template <typename T> class StringBase {

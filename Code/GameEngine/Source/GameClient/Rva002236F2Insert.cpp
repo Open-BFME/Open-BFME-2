@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva002236F2@Rva002236F2@@QAEAAURva002236F2Value@@ABU2@@Z @0x002236F2 68B
 // Hashtable insert over AsciiString->4B mapped: resize via pin 0x00212858 then
 // rowed bucketIndex 0x00223149 then rowed new-node 0x00223547; links node into

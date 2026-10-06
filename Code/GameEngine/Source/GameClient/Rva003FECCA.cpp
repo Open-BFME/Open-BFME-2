@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 //
 // ?Rva003FECCASetPlayerFaction@@YAXPAPAX@Z @0x003FECCA 52B. Free __cdecl UI
 // firer (same pattern as Rva003FECFECreateButtonFlash): selects the label from

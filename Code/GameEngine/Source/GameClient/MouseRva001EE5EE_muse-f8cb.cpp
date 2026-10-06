@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva001EE5EE@Mouse@@QAEXEPAE@Z @ 0x001EE5EE (66B): Mouse tooltip setter with Hide.
 // Retail stores byte arg into byte pointer arg then checks tooltip string at +0x12F8
 // via StringBase isEmpty (row 0x35740). If not empty and rva001EDE26 (row Mouse +0x4F9D

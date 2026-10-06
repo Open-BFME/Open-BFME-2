@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1Rva0022DD19@@QAE@XZ @0x0022DEA8 57B
 // Hash-bucket scalar dtor clears via rowed 0x0022DD19 then frees array at +4.
 // Evidence: chain lane calls rowed clear 0x0022DD19; layout matches rowed

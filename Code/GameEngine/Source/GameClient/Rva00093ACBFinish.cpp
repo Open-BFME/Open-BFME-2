@@ -1,6 +1,6 @@
 // ?updateIniSettings@W3DSnowManager@@UAEXXZ
 // partial score=0.983 date=2026-10-05
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 /*
 ** Copyright 2025 Electronic Arts Inc.
 ** SPDX-License-Identifier: GPL-3.0-or-later

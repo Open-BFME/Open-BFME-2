@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2
+// cl: /EHsc
 // ??0Rva003AE50B@@QAE@PAX0@Z @0x005600F8 49B
 // Ctor forwarding two void args to the pinned ParticleModule005F2CA0 base
 // ctor (0x0055C86D), then storing vtable VA 0x00C1D440 plus data VAs

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /arch:SSE /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // ?rva0005121F@Rva0005121F@@QAEMXZ @0x0005121F 157B, a virtual whose table
 // entry is at VA 0x00BC5764: seconds since the frame stamped at +0x94,
 // using TheGameClient's frame (slot 0x7C, as DrawableFade.cpp has it) and

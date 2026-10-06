@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // ?rva00358DC2@Rva00358DC2@@QAEXPAURva00358DC2Node@@@Z @0x00358DC2 (59B):
 // Rb erase-one: rebalance-for-erase then destroy Rva00358B65 value at +16 and free.
 // Evidence: calls 0x00025620 rebalance-erase plus 0x00358B65 dtor plus _free 0x00030830;

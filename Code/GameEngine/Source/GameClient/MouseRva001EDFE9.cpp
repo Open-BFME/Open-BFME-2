@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001EDFE9@Mouse@@QBEPAXXZ @0x001EDFE9 14B
 // Returns &m_cursorInfo[m_currentCursor]; m_cursorInfo at +0x4c stride 0x54 (BFME1 +8 stride 0x54 moved to +0x4c in BFME2 per Mouse.cpp); m_currentCursor at +0x4fa4 (after cursor bytes +0x4F9D..+0x4FA1 in MouseSetEngineVisibility.cpp); sole caller at 0x0042F4E7.
 struct MouseCursorInfo54 { char data[0x54]; };

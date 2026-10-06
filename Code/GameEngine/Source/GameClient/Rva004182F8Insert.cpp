@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD
+// cl: /Ob2 /EHsc /MD
 // ?rva004182F8@Rva004182F8@@QAEPAUOutIter004182F8@@PAU2@PBVRva004181F5@@@Z
 // @0x004182F8 124B: hashed unique insert. Hashes the key through the rowed
 // bucketIndex 0x00223149, walks the bucket chain comparing keys with the

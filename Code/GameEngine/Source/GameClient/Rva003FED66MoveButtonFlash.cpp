@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 //
 // ?Rva003FED66MoveButtonFlash@@YAXPAPAXMM@Z @0x003FED66 117B. Free __cdecl UI
 // firer (same pattern as UiCallbackFirers.cpp): formats two floats with "%g"

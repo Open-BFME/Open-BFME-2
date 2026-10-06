@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva00212ED3@@QAE@XZ, RVA 0x00212ED3, 503B. Non-virtual dtor draining
 // AsciiString members plus vector<AsciiString> at +0x188 via rowed 0x0002CC70
 // and 3 RefHolder members at +0x148/+0x14c/+0x150 via rowed Release_Ref

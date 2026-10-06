@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0029AEF9Check@@YG_NPAURva0029AEF9Item@@HHHHH@Z 0x0029AEF9 35B: InGameUI-adjacent leaf checking flags at +0x1C bit 0x20 then low 3 bits then second arg non-zero.
 // Evidence: called from 0x0042A22E; prev/next InGameUI TUs share /O1 /DNDEBUG; ret 0x18 six stack args; callees none.
 struct Rva0029AEF9Item

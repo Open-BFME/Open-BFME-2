@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z, retail 0x0041534B (27B).
 // Find returning iterator over the AsciiString-keyed bucket table owned by
 // Rva00056F61 (rowed find 0x00056F61). Same this plus AsciiString key in then

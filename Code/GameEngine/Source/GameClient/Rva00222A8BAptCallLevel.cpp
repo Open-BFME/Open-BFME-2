@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?invoke@Rva00222A8BTarget@@QAEHPAXPBDH10000@Z, retail 0x00222A8B (142B,
 // thiscall, ret 0x20; this is unused). Calls an ActionScript function on an

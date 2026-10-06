@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00223A9F@Rva00223A9F@@QAEPAXPBVAsciiString@@@Z @0x00223A9F 37B
 // Find-payload over table at +0x90 via rowed Iter find 0x0041534B.
 // Evidence: add ecx 0x90 then call rowed Rva00056F61::rva0041534B with hidden

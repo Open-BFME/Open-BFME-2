@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0025ECFC@Rva0025ECFC@@QAEXPAUBigIface0025ECFC@@@Z retail 0x0025ECFC 129
 // bytes. Ten virtual out-param gets on iface slots 0x6C 0x60 0x70x6 0x90x2

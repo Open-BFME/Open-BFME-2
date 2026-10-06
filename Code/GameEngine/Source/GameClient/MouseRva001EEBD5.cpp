@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva001EEBD5@Mouse@@QAEXVUnicodeString@@PBU_MouseSixteen@@1@Z, retail 0x001EEBD5, 118 bytes.
 // Mouse wide-text plus two 16-byte payload setter. Evidence: Mouse neighbours
 // (same /O1 area, +0x4Fxx offsets near rva001EEA6D); by-value wide-string temp

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0041154FHide@@YAXXZ, retail 0x0041154F 90B.
 // Window-video table walk over global at 0x00E02FE4 via first 0x00427195 and
 // rowed next 0x00411084, hiding visible windows and setting status 0x10000000.

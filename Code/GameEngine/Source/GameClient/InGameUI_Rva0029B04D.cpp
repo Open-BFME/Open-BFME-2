@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // InGameUI slots 99-100: monotonic max-setter plus clearer over the
 // unsigned field at +0x7EC. Slot evidence from the InGameUI vtable at

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00223124@Rva00223124@@QAEPAXPBX@Z @0x00223124 37B
 // Eva hashtable new-node for 12-byte node (4 next + 8 pair<const AsciiString AsciiString>).

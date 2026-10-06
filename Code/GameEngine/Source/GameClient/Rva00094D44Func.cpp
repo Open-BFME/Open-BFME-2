@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva00094D44@@YGMMMM@Z @0x00094D44 100B: free function returning a float
 // from three float args. Defaults to the 999999.0f compiler literal (retail
 // .rdata 0xBC7484); when the .data pointer global is set, overrides with the

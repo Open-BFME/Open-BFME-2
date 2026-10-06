@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva0022304A@@QAE@ABV0@@Z @0x002235B6 61B
 // Copy ctor of the AsciiString-keyed pair Rva0022304A: AsciiString at +0 via the rowed
 // StringBase<char> copy 0x000365F0, then Rva0022300F at +4 via its rowed copy 0x00223226,

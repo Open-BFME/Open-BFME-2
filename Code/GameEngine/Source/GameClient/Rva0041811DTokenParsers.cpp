@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
 //
 // Four LivingWorld AutoResolve FieldParse procs (99B each, one shape): look
 // the next token up in one of the global Rva0041811D tables through the rowed

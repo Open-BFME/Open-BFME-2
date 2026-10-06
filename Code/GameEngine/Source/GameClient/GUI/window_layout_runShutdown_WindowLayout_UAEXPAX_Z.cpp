@@ -1,4 +1,4 @@
-// cl: -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 // WindowLayout::runShutdown is an inline in the BFME1 donor
 // game/GameEngine/Source/GameClient/window_layout.h:
 //     virtual void runShutdown(void *userData)

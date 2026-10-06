@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002230FF@Rva002230FF@@QAEPAXPBX@Z @0x002230FF 37B
 // Eva hashtable _M_new_node-style allocator for 12-byte node (4 next + 8 pair).

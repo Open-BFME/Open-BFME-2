@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?setGeometryName@Rva003BB680Owner@@QAEXAAVAsciiString@@@Z @0x004E3E91 78B: push temp GeometryName then vector.
 // Evidence: pin names class/method; rowed temp ctor 0x4E2382 dtor 0x4E2941 StringBase set 0x366F0 push_back 0x4E3E5A; 1 matched caller shows AAVAsciiString.

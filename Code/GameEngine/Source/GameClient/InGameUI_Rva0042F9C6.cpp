@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Address-derived query wrapper at retail 0x0042F9C6 (20B).
 // Retail loads TheInGameUI from VA 0x00DFEDF0 and dispatches slot 48
 // at vtable offset +0xC0. The BFME1 ICF donor used slot 47, so its

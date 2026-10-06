@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva002241AC@Rva000427195@@QAEPAURva002241ACNode@@ABVRva0022304A@@@Z @0x002241AC 37B
 // STLport hashtable _M_new_node of the AsciiString-keyed hash_map (class Rva000427195, the
 // family of bucketIndex 0x00223149): a 0x18-byte node from the rowed byte allocator

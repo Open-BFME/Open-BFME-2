@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD
+// cl: /Ob2 /EHsc /MD
 //
 // ??1Rva00418298@@UAE@XZ @0x00418298 59B.
 // Dtor storing vtable g_00BE76D0 then member +0xc and base.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00223591@Rva00223591@@QAEXPAX@Z @0x00223591 28B
 // Free-node for 12-byte node (4 next + 8 pair<const AsciiString TreeHintRef00222C5A>): destroys pair at +4 via rowed 0x00222C5A then frees node via _free 0x00030830 with null guard.
 // Evidence: caller 0x0022380B sets ecx plus node arg; same shape as rowed ?rva00223898@Rva00223898@@QAEXPAX@Z 0x00223898.

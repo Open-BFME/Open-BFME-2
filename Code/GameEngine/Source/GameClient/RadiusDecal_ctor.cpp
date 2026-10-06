@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0RadiusDecal@@QAE@XZ, retail 0x00330DA4, 22 bytes.
 // Dedicated TU.

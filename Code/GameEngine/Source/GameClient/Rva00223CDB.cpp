@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00223CDB@Rva00223CDB@@QAEHPBVAsciiString@@@Z @0x00223CDB 39B
 // Find-int over table at +0x5c via rowed Iter find 0x0041534B.
 // Evidence: add ecx 0x5c then call rowed Rva00056F61::rva0041534B with hidden

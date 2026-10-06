@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1Rva00281A06@@QAE@XZ, RVA 0x00281A06, 15 bytes.
 // Holder dtor freeing pointer at +0x1C via rowed _free at 0x00030830.
 // Evidence: mov eax [ecx+0x1C] test je push eax call free pop ecx ret;

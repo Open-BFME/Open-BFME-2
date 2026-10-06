@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva00224163@@QAE@XZ @0x00224974 57B
 // Hash-table dtor sharing rowed clear 0x00224163 then freeing bucket array at +4 via free 0x00030830.
 // Evidence: same EH clear-plus-free shape as rowed ??1Rva0022366C 0x0022366C and ??1Rva000427195 0x001FDEDB; callers at 0x00224B3C and jmp at 0x00224A8B.

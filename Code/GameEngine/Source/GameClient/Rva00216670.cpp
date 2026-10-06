@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // Retail RVA 0x00216670, 75 bytes.
 // ?rva00216670@Rva00216670@@QAEXIM@Z chain from just-landed 0x00216517: banner offset guard.
 // __thiscall Banner setter with (index float): if new float equals slot at +0x3c return; if flag at +0x20 fire SetBannerXOffset via 0x00216517 then store.

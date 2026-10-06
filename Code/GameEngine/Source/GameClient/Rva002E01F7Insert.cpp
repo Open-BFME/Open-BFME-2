@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /DNDEBUG /MD /EHsc
 // ?rva002E01F7@Rva000427195@@QAE?AUInsertRet002E01F7@@PBX@Z, retail 0x002E01F7 124B.
 // Hashtable insert_unique for the AsciiString-keyed 12-byte node family
 // (next+pair) shared with rowed NewNode 0x002230FF and rowed bucketIndex

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/sweep /O1 /MD /arch:SSE /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/sweep /MD /EHsc /DNDEBUG
 // ?drawTooltip@Mouse@@QAEXXZ @0x001EF06F 546B
 // BFME2's per-frame Apt tooltip updater (sits in the Mouse cluster between
 // rowed 0x001EEC4B and 0x001EF291; sole caller of rowed MoveToolTip 0x003807F3,

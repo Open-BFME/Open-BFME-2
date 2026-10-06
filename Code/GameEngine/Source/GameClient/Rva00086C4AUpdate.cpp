@@ -1,5 +1,5 @@
 // ?rva00086C4A@Rva00086C4A@@QAEXXZ @0x00086C4A 144B
-// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // Leaf camera-path updater: ParabolicEase ratio plus Matrix3D::Lerp plus view slot 0x54 plus TheAudio slot 0x58 plus mode clear at 0x2354. Evidence: callees 0x0030E5D1 0x00713AB0 rowed; TheAudio extern in use; offsets 0x104 0x13C 0x16C 0x19C 0x1A0 0x1A4 0x2354; prev 0x00086B2C next 0x00086CDA.
 typedef float Real;
 

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0038768DCopy@@YAXPAURva0038768DData@@PBU1@@Z retail 0x0038768D 23 bytes.
 // LINK body: 1 matched file waits via 0x0038766B. Copies byte at +0 and dword
 // at +4 with null check on dest. Caller 0x0038766B allocates 0x18 via 0x307F0

@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // ?rva00358D62@Rva00358D62@@QAEXPAURva00358D62Node@@@Z @0x00358D62 (53B):
 // List clear with recursion on +0xc: for each node recurse on child, destroy
 // embedded Rva0027EA49 at +0x10 via rowed dtor, free node via rowed _free,

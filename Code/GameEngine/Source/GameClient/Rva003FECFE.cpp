@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 //
 // ?Rva003FECFECreateButtonFlash@@YAXPAPAX@Z @0x003FECFE 52B. Free __cdecl UI
 // firer (same pattern as Rva003FED66MoveButtonFlash): selects the label from

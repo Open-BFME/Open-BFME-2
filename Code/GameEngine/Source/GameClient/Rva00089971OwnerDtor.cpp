@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // Reference-guided: clean BFME1 6d9434269164392c5ba62aaa7c15a86b5b020d76
 // game/GameEngine/Source/GameClient/CameraPath_dtor.cpp,
 // compiled with BFME2 settings; donor semantics kept separately from target facts.

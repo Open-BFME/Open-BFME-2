@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva004110DCGet@@YAPAXPBD@Z, retail 0x004110DC (54B).
 // Chain over rowed ?rva00056F61@Rva00056F61@@QAEPAXPBVAsciiString@@@Z with a
 // temp AsciiString from char*: lookup in global table at 0x00E02FF8,

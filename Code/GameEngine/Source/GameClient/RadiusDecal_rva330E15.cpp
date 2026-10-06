@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00330E15@RadiusDecal@@QAEXABUCoord3D@@@Z, retail 0x00330E15, 24 bytes.
 // Dedicated TU.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Oy-
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Oy-
 // ?rva002BF6B7@Rva002BF6B7@@QAEXPAX@Z @0x002BF6B7 31B
 // Erase forwarding on the 0x00DFEF18 host: key is the int at obj+0x24, map is
 // at +0x98. Evidence: same +0x98/+0x24 pair as Rva002BFA12 on the same

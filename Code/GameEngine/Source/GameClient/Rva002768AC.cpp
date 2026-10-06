@@ -1,6 +1,6 @@
 // ?rva002768AC@Rva002768AC@@QAEXXZ
 // partial score=0.96 date=2026-09-29
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002768AC@Rva002768AC@@QAEXXZ @0x002768AC 166B
 // Tornado-bone update: refresh Matrix3D at +0x10 from B_TORNADO bone or transform.
 // Evidence: callers 0x00276952 and 0x00278869; rowed getCurrentClientBonePositions; pinned getTransformMatrix;

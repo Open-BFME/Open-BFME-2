@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00223736@Rva00223591@@QAEHPBVAsciiString@@@Z @0x00223736 145B
 // Erase-all by AsciiString key over the pair<TreeHintRef00222C5A> bucket vector. Buckets at +4 count at +0x10.
 // Evidence: caller chain from 0x0022380B clear; rowed bucketIndex 0x00223149 plus rowed StringBase compare 0x000069D6 plus just-landed free-node 0x00223591; same shape as rowed ?rva00223429@Rva000427195@@QAEHPBVAsciiString@@@Z 0x00223429.

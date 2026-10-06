@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 
 // The template's string accessors. Each returns an AsciiString by value, so the
 // copy constructor runs into the caller's slot inside an unwind region - the

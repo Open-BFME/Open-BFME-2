@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0029B17C@Rva0029B17C@@QAEXXZ @0x0029B17C 11B.
 // Forwarder: loads member at +0x7F4 then tail-jumps to its vtable slot 9
 // (0x24). Callers at 0x00213B3B 0x002B8A27 0x003F7FD2 pass singleton in ecx

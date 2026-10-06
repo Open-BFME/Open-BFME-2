@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0027295B@Drawable@@QAEXPAX@Z retail 0x0027295B 22B
 // Unlock lane: first-element tail call through member +0x14C array of ptrs;

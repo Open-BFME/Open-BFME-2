@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00272945@Drawable@@QAEXH@Z @0x00272945 (22B): Drawable forwards `a` to
 // the first draw module's virtual slot 0x60/4 (the 0x14C module-pointer array),

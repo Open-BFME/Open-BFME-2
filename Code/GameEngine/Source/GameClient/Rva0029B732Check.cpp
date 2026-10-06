@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0029B732@Rva0029B732@@QAE_NXZ @0x0029B732 24B.
 // Null-guarded word check: returns (m_0 ? m_0->m_4 > 0 : false).
 // Callers at 0x002A4C3A 0x002A4C49 0x002A4C58 0x002A4DF3.

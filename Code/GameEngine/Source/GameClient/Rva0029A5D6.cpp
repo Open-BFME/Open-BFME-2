@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0029A5D6@Rva0029A5D6@@QAEXH@Z @0x0029A5D6 54B. TheMouse null-checked v19 then filtered store at +0x800. Evidence: global TheMouse 0x00DFDCA0 slot 0x4C callers 0x0029A814 pattern DisplaySetHeight.
 class Mouse
 {

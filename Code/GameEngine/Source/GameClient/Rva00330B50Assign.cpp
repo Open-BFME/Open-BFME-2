@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00330B50@Rva00330B50@@QAEAAV1@ABV1@@Z retail 0x00330B50 27B: copy-assign via rowed base opassign plus dword 0x28 returns this.
 // Evidence: call 0x0030B92C ??4Rva0030B92C@@QAEAAU0@ABU0@@Z then mov eax [edi+0x28] to [esi+0x28]; chain from 0x0030B92C.
 struct Rva0030B92C

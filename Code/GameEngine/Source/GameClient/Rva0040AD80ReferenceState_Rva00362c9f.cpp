@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient
 // The runtime label is "GlowMaterial"; the original C++ class spelling is unknown.
 // Preserve retail's second referent reload after registry erasure.
 

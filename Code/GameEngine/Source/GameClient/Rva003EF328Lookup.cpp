@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003EF328@Rva003EF328@@QAEPAXPBVAsciiString@@@Z @0x003EF328 34B, dump
 // range 18. Looks up the AsciiString key in the Rva00056F61 bucket table at

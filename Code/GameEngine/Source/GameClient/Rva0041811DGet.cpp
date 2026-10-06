@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0041811D@Rva0041811D@@QAEPAXPBVAsciiString@@@Z, retail 0x0041811D (38B).
 // Lookup in the embedded Rva00056F61 bucket table at +0xC via rowed
 // iterator find 0x0041534B. Returns node+8 or null (inline payload, add

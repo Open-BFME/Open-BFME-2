@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // InGameUI::setEngineInputEnabled, retail 0x0029AB22, 19 bytes.
 // Dedicated TU so GameEngineClientSubsystems.cpp cannot see this body.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /EHsc
 // ?rva002E573C@Rva002E66F2@@UAE?AVUnicodeString@@PBUOuter002E573C@@H@Z 0x002E573C 52B
 // Evidence: vslot 14 offset 0x38 of vtable 0x00804FA8 class Rva002E66F2; outer ptr at +0 inner name at +8 else g_Rva0107301CEmptyString; forwards to slot 17 offset 0x44 then StringBase<G> copy 0x00037050
 #include "unicode_string.h"

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva0029A469@Rva0029A469@@QAEXM@Z @0x0029A469 33B. Null-checked Shadow at +0 scaled float by 255 to setOpacity. Evidence: callees rowed setOpacity@Shadow 0x003308F6 callers 0x002A4769 0x002A4E1F pattern RadiusDecal_setOpacity.
 typedef float Real;
 typedef int Int;

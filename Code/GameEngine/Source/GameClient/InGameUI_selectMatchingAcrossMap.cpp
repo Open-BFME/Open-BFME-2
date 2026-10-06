@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 //
 // ?selectMatchingAcrossMap@InGameUI@@UAEHXZ, retail 0x0029CFC8, 285 bytes.

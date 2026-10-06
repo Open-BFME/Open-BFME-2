@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva001EEC4B@Rva001EEC4B@@QAEXXZ @ 0x001EEC4B (76B): Mouse tooltip reset with Hide.
 // Retail calls timeGetTime and stores to +0x4FD8 then clears +0x1308. If tooltip string
 // at +0x12F8 is not empty it fires HideToolTip via Rva003807B7Hide (landed 60B) and clears

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva0027070C@Rva0027070C@@QAEPAURva0027070CData@@XZ, retail 0x0027070C, 74 bytes.
 // Unlock lane: returns &m_90 (12B at +0x90) or 0. Guards on global g_00DFE1E4

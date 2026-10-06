@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva002236B9@@QAE@XZ @0x002236B9 57B
 // Hash-table dtor sharing the rowed AsciiString-pair hashtable clear
 // 0x002234FE then freeing the bucket array at +4 via free 0x00030830.

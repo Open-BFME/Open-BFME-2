@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
 //
 // ?rva002332B2@Rva002332B2@@QAEXH@Z,
 // retail 0x002332B2 (73 bytes). Chain after wide StringBase vector dtor.

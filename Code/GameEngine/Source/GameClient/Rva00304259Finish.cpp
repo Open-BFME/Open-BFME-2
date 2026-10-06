@@ -1,5 +1,5 @@
 // ?positionStartSpots@@YAXPAVGameInfo@@PAPAVGameWindow@@PAV2@2@Z
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
 // ZH/BF1 positionStartSpots GameInfo wrapper, adapted from verified native
 // 00304259..003042DD. Flag +11 and virtual +34 are target layout evidence.
 //

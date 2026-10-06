@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?update@TextOnFrameTransition@@UAEXH@Z
 // retail 0x0035FACE, 74 bytes. Virtual slot 2 (offset 0x8) of vtable 0x0081669C,
 // the TextOnFrameTransition class (dtor 0x0035FA2A clears +0xC, init 0x0035FA90,

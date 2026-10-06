@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/GameClient/MessageStream/WindowXlat.cpp (donor revision
