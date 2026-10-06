@@ -13408,3 +13408,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002B07A9@Player@@QAE_NPAX@Z,0x2B07A9,Player EH-framed slot initializer called by PlayerList 0x2A7F2A
 ?rva001FDC0F@Rva001FDC0F@@QAEXPAX@Z,0x001FDC0F,callee of the 0x1FDEBC self-check body (push-arg plus ecx call site proves thiscall 1-pointer-arg); Ghidra FUN_005fdc0f confirms a 192B function start there
 ?Rva003808F0Show@@YAXPAXPAVAsciiString@@HHH@Z,0x003808F0,Apt ShowToolTip firer called from Mouse tooltip update 0x001EF06F (text, font, size, bold, color args plus MoveToolTip positioning); Ghidra boundary 0x003808F0; original name unknown
+?consume@Rva003909FAObj@@QAEXPAXHH@Z,0x003909FA,thiscall consumer of computed vector at Rva001F01F1 site: (buf,0,0) on the +0x25C object; REL32 read from placed 0x001F01F1 body
+?rva001F0247@@YAXMMMMPAX@Z,0x001F0247,cdecl 5-arg vector helper at Rva001F01F1 site: plain ret proves caller cleanup; 5th param is the out-vector written through (12B stores at its tail); REL32 read from placed 0x001F01F1 body

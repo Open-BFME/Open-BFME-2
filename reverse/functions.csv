@@ -64147,3 +64147,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva00207761@@QAE@XZ,,0x00207761,56,Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp,matched,Map-base dtor sibling of 0x002075F3 over tree Rva002066D1 (CLEAR 0x00206FBD)
 ?drawTooltip@Mouse@@QAEXXZ,,0x001EF06F,546,Code/GameEngine/Source/GameClient/MouseDrawTooltip.cpp,matched,
 ?Rva001EFCF7@@YG_NVUnicodeString@@@Z,,0x001EFCF7,165,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerTextRequestValidate.cpp,matched,
+?rva001F01F1@Rva001F01F1@@QAEXPAURva001F01F1Param@@HH@Z,,0x001F01F1,86,Code/GameEngine/Source/Common/Rva001F01F1Helper.cpp,matched,
