@@ -90,10 +90,11 @@ struct GPBuddyStatus
 
 struct GPGetInfoResponseArg
 {
+	int reserved;
 	GPProfile profile;
-	char *nick;
-	char *email;
-	char *countrycode;
+	char nick[0x52];
+	char email[0xcd];
+	char countrycode[1];
 };
 
 typedef void (*GPCallback)(GPConnection *, void *, void *);
@@ -197,6 +198,20 @@ void BuddyThreadClass::statusCallback(GPConnection *connection,
 	TheGameSpyBuddyMessageQueue->addResponse(response);
 }
 
+// ?getInfoResponseForStatus@@YAXPAVGPConnection@@PAUGPGetInfoResponseArg@@PAX@Z @0x00550651 64B. The statusCallback stores this
+// address as its GPCallback; the retail body copies profile plus the three
+// inline identity strings into BuddyResponse's status fields. Target offsets
+// come from retail reads at +4/+8/+0x5a/+0x127, not the donor pointer layout.
+void getInfoResponseForStatus(GPConnection *, GPGetInfoResponseArg *arg,
+	void *param)
+{
+	BuddyResponse *response = (BuddyResponse *)param;
+	response->profile = arg->profile;
+	_mbscpy(response->arg.status.nick, arg->nick);
+	_mbscpy(response->arg.status.email, arg->email);
+	_mbscpy(response->arg.status.countrycode, arg->countrycode);
+}
+
 void BuddyThreadClass::requestCallback(GPConnection *connection,
 	GPRecvBuddyRequestArg *arg)
 {
@@ -248,5 +263,4 @@ void BuddyThreadClass::rva00550720(GPConnection *connection,
 	_mbscpy(response.arg.message.nick, arg->reason);
 	((GameSpyBuddyMessageQueueInterface *)g_rva00627AA0)->addResponse(response);
 }
-
 
