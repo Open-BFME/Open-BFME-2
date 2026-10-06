@@ -64902,9 +64902,3 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva00785b4b@@YAXXZ,,0x00785B4B,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-16] then tail-jumps with [ebp-20] to the rowed Rva005F8F96 destructor; parent layout unknown
 ?rva00785b64@@YAXXZ,,0x00785B64,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 1 at [ebp-16] then tail-jumps with [ebp-32] to the rowed Rva00410688 destructor; parent layout unknown
 ?rva004649A1@@YAXPAVINI@@PAX1PBX@Z,,0x004649A1,87,Code/GameEngine/Source/Common/Thing/BoneSpecificConditionStateRva004649A1.cpp,matched,target FieldParse table pairs BoneSpecificConditionState with this callback; parses unsigned key and 0x4C flag set then stores through rowed lookup 0x00464923; owning class unproven
-?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
-?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
-?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
-?rva0014D522@@YAXPAX0@Z,,0x0014D522,66,Code/GameEngine/Source/Common/Rva0014D522Init.cpp,matched,
-?rva0014D564@@YAXPAX0@Z,,0x0014D564,49,Code/GameEngine/Source/Common/Rva0014D564Init.cpp,matched,
-?rva0014D722@Rva0014D722This@@QAEXPAVRva0014D722Outer@@PAX@Z,,0x0014D722,143,Code/GameEngine/Source/Common/Rva0014D722Init.cpp,matched,
