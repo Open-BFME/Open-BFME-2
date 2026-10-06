@@ -62,13 +62,6 @@ void FrameData::setFrameCommandCount(UnsignedInt frameCommandCount) {
 }
 
 /**
- * Get the command count for this frame.
- */
-UnsignedInt FrameData::getFrameCommandCount() {
-	return m_frameCommandCount;
-}
-
-/**
  * return the number of commands received so far.
  */
 UnsignedInt FrameData::getCommandCount() {
@@ -100,18 +93,6 @@ NetCommandRef *FrameData::addCommand(NetCommandMsg *msg) {
  */
 NetCommandList * FrameData::getCommandList() {
 	return m_commandList;
-}
-
-/**
- * destroy all the commands in this frame.
- */
-void FrameData::destroyGameMessages() {
-	if (m_commandList == NULL) {
-		return;
-	}
-
-	m_commandList->reset();
-	m_commandCount = 0;
 }
 
 /**

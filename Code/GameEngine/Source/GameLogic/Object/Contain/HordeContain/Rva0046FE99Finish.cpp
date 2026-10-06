@@ -684,28 +684,6 @@ void HordeContain::rva0046F7C9(Object *obj)
 	rva004725D5(obj);
 }
 
-// ?rva0046979B@HordeContain@@UAEHXZ @0x0046979B: slot 10, module data +0x98.
-int HordeContain::rva0046979B()
-{
-	return fields()->m_98;
-}
-
-// ?rva004696CD@HordeContain@@UAEPAXXZ @0x004696CD: slot 22, TheThingFactory's
-// lookup of the module data's +0x1B0 name.
-void *HordeContain::rva004696CD()
-{
-	return TheThingFactory->rva002D06CA(&fields()->m_1B0);
-}
-
-// ?rva004696E5@HordeContain@@UAEXXZ @0x004696E5: slot 24, the same lookup handed
-// to slot 26 when found.
-void HordeContain::rva004696E5()
-{
-	void *thingTemplate = TheThingFactory->rva002D06CA(&fields()->m_1B0);
-	if (thingTemplate)
-		rva00472D43(thingTemplate);
-}
-
 // ?rva00472C8E@HordeContain@@UAEXPAVObject@@W4CommandSourceType@@@Z @0x00472C8E:
 // slot 33, forwards both arguments to the rowed AICommandInterface 0x0037379B
 // of the owner's AI.
@@ -716,99 +694,11 @@ void HordeContain::rva00472C8E(Object *obj, CommandSourceType cmdSource)
 		ai->m_command.rva0037379B(obj, cmdSource);
 }
 
-// ?rva00468D11@HordeContain@@UAE_NXZ @0x00468D11: slot 34, the owner's AI slot
-// 114, false without an AI.
-bool HordeContain::rva00468D11()
-{
-	AIUpdateInterface *ai = m_object->m_ai;
-	if (!ai)
-		return false;
-	return ai->rva00468D11Slot114();
-}
-
-// ?rva00468D2C@HordeContain@@UAE_NXZ @0x00468D2C: slot 35, the same for AI slot
-// 115.
-bool HordeContain::rva00468D2C()
-{
-	AIUpdateInterface *ai = m_object->m_ai;
-	if (!ai)
-		return false;
-	return ai->rva00468D2CSlot115();
-}
-
-// ?rva0046F8A5@HordeContain@@UAE_NXZ @0x0046F8A5: slot 59, module data +0x1D8.
-bool HordeContain::rva0046F8A5()
-{
-	return fields()->m_1D8;
-}
-
-// ?rva0046F8F4@HordeContain@@UAE_NXZ @0x0046F8F4: slot 60, module data +0x230.
-bool HordeContain::rva0046F8F4()
-{
-	return fields()->m_230;
-}
-
 // ?rva0046D372@HordeContain@@UAEPAVObject@@XZ @0x0046D372: slot 70, the Object
 // whose ID is at +0x26C.
 Object *HordeContain::rva0046D372()
 {
 	return TheGameLogic->findObjectByID(m_26C);
-}
-
-// ?rva0046F8B2@HordeContain@@UAEXXZ @0x0046F8B2: slot 74, clears +0x2A4 and wakes
-// the module next frame.
-void HordeContain::rva0046F8B2()
-{
-	m_2A4 = false;
-	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
-}
-
-// ?rva004697CD@HordeContain@@UAEHXZ @0x004697CD: slot 95, module data +0x98, 0
-// without module data.
-int HordeContain::rva004697CD()
-{
-	const HordeContainModuleDataFields *data = fields();
-	if (data)
-		return data->m_98;
-	return 0;
-}
-
-// ?rva00468F68@HordeContain@@UAEHXZ @0x00468F68: slot 97, how many of +0x264 and
-// +0x26C are set.
-int HordeContain::rva00468F68()
-{
-	int count = 0;
-	if (m_264)
-		++count;
-	if (m_26C)
-		++count;
-	return count;
-}
-
-// ?rva00468F7E@HordeContain@@UAEHXZ @0x00468F7E: slot 98, slot 96 for 0 less
-// slot 97.
-int HordeContain::rva00468F7E()
-{
-	return rva0046D3FC(0) - rva00468F68();
-}
-
-// ?rva004698BC@HordeContain@@UAE_NXZ @0x004698BC: slot 127, whether the module
-// data's +0x1A4 vector is non-empty.
-bool HordeContain::rva004698BC()
-{
-	return fields()->m_1A4.size() > 0 ? true : false;
-}
-
-// ?rva004698D6@HordeContain@@UAEPBXXZ @0x004698D6: slot 128, &module data +0x1A4.
-const void *HordeContain::rva004698D6()
-{
-	return &fields()->m_1A4;
-}
-
-// ?rva004698E2@HordeContain@@UAEPBXXZ @0x004698E2: slot 129, &module data +0x18C.
-const void *HordeContain::rva004698E2()
-{
-	return fields()->m_18C;
 }
 
 // ?rva004690A9@HordeContain@@UAEXPBUCoord3D@@@Z @0x004690A9: slot 132, stores the
@@ -818,19 +708,6 @@ void HordeContain::rva004690A9(const Coord3D *pos)
 	m_2B8 = *pos;
 	m_2C4 = true;
 	m_120 = true;
-}
-
-// ?rva0046F8CD@HordeContain@@UAE_NXZ @0x0046F8CD: slot 136, module data +0x254.
-bool HordeContain::rva0046F8CD()
-{
-	return fields()->m_254;
-}
-
-// ?rva00468C37@HordeContain@@UAE_NXZ @0x00468C37: slot 142, the byte at +0x150
-// of what the owner's AI +0x1F0 holds at +4, and +0x2F0 set.
-bool HordeContain::rva00468C37()
-{
-	return m_object->m_ai->m_1F0->m_4->m_150 && m_2F0;
 }
 
 // ?rva00468C60@HordeContain@@UAEXPBUCoord3D@@@Z @0x00468C60: slot 145, stores the
@@ -850,95 +727,6 @@ bool HordeContain::rva00468C7B(Coord3D *pos)
 		m_304 = false;
 		*pos = m_2F8;
 		return true;
-	}
-	return false;
-}
-
-// ?rva0046F8DA@HordeContain@@UAEMXZ @0x0046F8DA: slot 150, module data +0x26C.
-float HordeContain::rva0046F8DA()
-{
-	return fields()->m_26C;
-}
-
-// ?rva0046F8E7@HordeContain@@UAEMXZ @0x0046F8E7: slot 151, module data +0x270.
-float HordeContain::rva0046F8E7()
-{
-	return fields()->m_270;
-}
-
-// ?rva0046C6E7@HordeContain@@UAE_NXZ @0x0046C6E7: slot 41, whether any key of the
-// +0x170 tree names a live Object.
-bool HordeContain::rva0046C6E7()
-{
-	for (_STL::map<int, int>::iterator it = m_170.begin(); it != m_170.end(); ++it)
-	{
-		if (TheGameLogic->findObjectByID((ObjectID)it->first))
-			return true;
-	}
-	return false;
-}
-
-// ?rva00468FDC@HordeContain@@UAEXXZ @0x00468FDC: slot 78, clears +0x2A0, +0x288
-// and +0x28C, raises +0x294, resets the +0x2C8 helper (its slot 4) and, when
-// +0x120 is up, raises +0x121.
-void HordeContain::rva00468FDC()
-{
-	m_2A0 = 0;
-	m_288 = 0;
-	m_28C = 0;
-	m_294 = true;
-	m_2C8->rva00468FDCSlot4();
-	if (m_120)
-		m_121 = true;
-}
-
-// ?rva0046A46F@HordeContain@@UAE_NXZ @0x0046A46F: slot 81, whether a live
-// contained Object's AI answers slot 111.
-bool HordeContain::rva0046A46F()
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj && !obj->isEffectivelyDead())
-		{
-			AIUpdateInterface *ai = obj->m_ai;
-			if (ai && ai->rva0046A46FSlot111())
-				return true;
-		}
-	}
-	return false;
-}
-
-// ?rva0046A416@HordeContain@@UAE_NXZ @0x0046A416: slot 83, whether every live
-// contained Object with an AI answers slot 111.
-bool HordeContain::rva0046A416()
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj && !obj->isEffectivelyDead())
-		{
-			AIUpdateInterface *ai = obj->m_ai;
-			if (ai && !ai->rva0046A46FSlot111())
-				return false;
-		}
-	}
-	return true;
-}
-
-// ?rva0046A4C8@HordeContain@@UAE_NXZ @0x0046A4C8: slot 87, whether a contained
-// Object's AI answers slot 111 while the Object has status 0x1C.
-bool HordeContain::rva0046A4C8()
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		AIUpdateInterface *ai = obj->m_ai;
-		if (ai && ai->rva0046A46FSlot111() && obj->testStatus((ObjectStatusTypes)0x1C))
-			return true;
 	}
 	return false;
 }
@@ -977,30 +765,6 @@ bool HordeContain::rva00468DCD(Object *obj)
 	return m_2C8->rva00468DCDSlot14(obj);
 }
 
-// ?rva0046981C@HordeContain@@UAEXXZ @0x0046981C: slot 121, slot 118 for each name
-// of the module data's +0x224 vector, with 0 and -1.
-void HordeContain::rva0046981C()
-{
-	const HordeContainModuleDataFields *data = fields();
-	if (!data)
-		return;
-	for (const AsciiString *it = data->m_224Begin; it != data->m_224End; ++it)
-		rva0046DB6D(*it, 0, -1);
-}
-
-// ?rva00469851@HordeContain@@UAEXXZ @0x00469851: slot 122, slot 119 for each name
-// of the same vector, with 0.
-void HordeContain::rva00469851()
-{
-	const HordeContainModuleDataFields *data = fields();
-	if (!data)
-		return;
-	const AsciiString *it = data->m_224Begin;
-	const AsciiString *const *end = &data->m_224End;
-	for (; it != *end; ++it)
-		rva0046DC92(*it, 0);
-}
-
 // ?rva00468BDC@HordeContain@@UAEXH@Z @0x00468BDC: slot 143, for an owner with an
 // AI: setting sets model condition 0x1BA unless +0x2F0 was already set,
 // clearing clears 0x1BA and 0x1BB (rowed Object rva00293A05/rva00293955);
@@ -1021,72 +785,6 @@ void HordeContain::rva00468BDC(int on)
 		obj->rva00293955((ModelConditionFlagType)0x1BB);
 	}
 	m_2F0 = on;
-}
-
-// ?rva0046AF85@HordeContain@@UAEXXZ @0x0046AF85: slot 34 of the primary vtable
-// 0x00C45050; hands every contained Object whose ID is not a key of the
-// +0x17C tree to +0x11C interface slot 11.
-void HordeContain::rva0046AF85()
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (m_17C.find(obj->getID()) == m_17C.end())
-			rva00470D09(obj);
-	}
-}
-
-// ?rva00473ADF@HordeContain@@UAEXXZ @0x00473ADF: slot 79; runs slot 78 when
-// +0x2A0 is set, then the rowed AICommandInterface rva0045003E(0, CMD_FROM_AI)
-// on every contained Object's AI.
-void HordeContain::rva00473ADF()
-{
-	if (m_2A0)
-		rva00468FDC();
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		AIUpdateInterface *ai = (*it)->m_ai;
-		if (ai)
-			ai->m_command.rva0045003E(0, CMD_FROM_AI);
-	}
-}
-
-// ?rva0046A6C1@HordeContain@@UAE_NXZ @0x0046A6C1: slot 114; whether a contained
-// Object's AI +0x140 member answers its rowed rva003638BA.
-bool HordeContain::rva0046A6C1()
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj)
-		{
-			Rva003638BA *member = obj->m_ai->m_140;
-			if (member && member->rva003638BA())
-				return true;
-		}
-	}
-	return false;
-}
-
-// ?rva0046A677@HordeContain@@UAE_NXZ @0x0046A677: slot 115; false when a
-// contained Object's AI has a +0x140 member and +0x1FC state 4.
-bool HordeContain::rva0046A677()
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj)
-		{
-			AIUpdateInterface *ai = obj->m_ai;
-			if (ai->m_140 && ai->m_1FC == 4)
-				return false;
-		}
-	}
-	return true;
 }
 
 // ?rva0046D27A@HordeContain@@UAEPAVObject@@XZ @0x0046D27A: slot 68; the first
@@ -1327,68 +1025,6 @@ bool HordeContain::rva0046A381(Object *target)
 	return false;
 }
 
-// ?rva0046BD70@HordeContain@@UAEXXZ @0x0046BD70: slot 51; hands every
-// contained Object (taken through the +0x20 contain interface's slot 70), then
-// the live Object of every +0x170 key, that lacks status 0x1C to TheAI's
-// pathfinder member 0x002E718A.
-void HordeContain::rva0046BD70()
-{
-	Rva0046247DPair p;
-	rva0046D27ASlot70(p);
-	for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj && !obj->testStatus((ObjectStatusTypes)0x1C))
-			TheAI->m_pathfinder->rva002E718A(obj);
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj && !obj->testStatus((ObjectStatusTypes)0x1C))
-			TheAI->m_pathfinder->rva002E718A(obj);
-	}
-}
-
-// ?rva0046BE0E@HordeContain@@UAEXXZ @0x0046BE0E: slot 52; the same walk with
-// the pathfinder member 0x002E719B.
-void HordeContain::rva0046BE0E()
-{
-	Rva0046247DPair p;
-	rva0046D27ASlot70(p);
-	for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj && !obj->testStatus((ObjectStatusTypes)0x1C))
-			TheAI->m_pathfinder->rva002E719B(obj);
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj && !obj->testStatus((ObjectStatusTypes)0x1C))
-			TheAI->m_pathfinder->rva002E719B(obj);
-	}
-}
-
-// ?rva0046D8AE@HordeContain@@UAEXXZ @0x0046D8AE: slot 107; hands +0x200 to the
-// pinned Object member 0x001E42F2 of every contained Object, clears the map at
-// +0x24C, hands +0x1B4 to the same member of the Objects the +0x1AC and +0x1B0
-// IDs name, then clears +0x1AC.
-void HordeContain::rva0046D8AE()
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-		(*it)->rva001E42F2(&m_200);
-	m_24C.clear();
-	GameLogic *logic = TheGameLogic;
-	Object *first = logic->findObjectByID(m_1AC);
-	Object *second = logic->findObjectByID(m_1B0);
-	if (first)
-		first->rva001E42F2(&m_1B4);
-	if (second)
-		second->rva001E42F2(&m_1B4);
-	m_1AC = INVALID_ID;
-}
-
 // ?rva0046CB2C@HordeContain@@UAEPAVObject@@XZ @0x0046CB2C: slot 19; a random
 // contained Object (taken through the +0x20 contain interface's slot 70), else
 // the live Object of a random +0x170 key, else null. The random calls carry
@@ -1494,44 +1130,6 @@ int HordeContain::rva0046D3FC(Rva2225E0Filter *filter)
 	return count;
 }
 
-// ?rva0046A2A7@HordeContain@@UAE_NXZ @0x0046A2A7: slot 37; whether a contained
-// Object (through the +0x20 contain interface's slot 70) has bit 29 of +0x110.
-bool HordeContain::rva0046A2A7()
-{
-	Rva0046247DPair p;
-	rva0046D27ASlot70(p);
-	const _STL::list<Object *> *items = p.m04;
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj && obj->test110(29))
-			return true;
-	}
-	return false;
-}
-
-// ?rva0046E2BC@HordeContain@@UAEXXZ @0x0046E2BC: slot 148; sets +0x2E8 and
-// clears the map at +0x2DC.
-void HordeContain::rva0046E2BC()
-{
-	m_2E8 = true;
-	m_2DC.clear();
-}
-
-// ?rva0046A0B2@HordeContain@@UAEXXZ @0x0046A0B2: slot 154; while our Object's
-// AI is moving, runs the rowed AIUpdateInterface rva00262D2D on every
-// contained Object's AI and then on ours.
-void HordeContain::rva0046A0B2()
-{
-	AIUpdateInterface *ai = m_object->m_ai;
-	if (!ai->isMoving())
-		return;
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-		(*it)->m_ai->rva00262D2D();
-	ai->rva00262D2D();
-}
-
 // The callback slot 125 hands the +0x20 contain interface's slot 68: records
 // the +0x5D8 value of the first template seen (KindOf bit 68 templates are
 // skipped) and flags any later template whose value differs.
@@ -1557,19 +1155,6 @@ void rva004698EE(Object *obj, void *userData)
 	}
 	if (tmpl->m_5D8 != data->m_value)
 		data->m_differs = true;
-}
-
-// ?rva0046992C@HordeContain@@UAE_NXZ @0x0046992C: slot 125; when slot 127
-// holds, whether the contained Objects' templates disagree on +0x5D8.
-bool HordeContain::rva0046992C()
-{
-	if (!rva004698BC())
-		return false;
-	Rva004698EEData data;
-	data.m_value = 0;
-	data.m_differs = false;
-	iterateContained(rva004698EE, &data, 1);
-	return data.m_differs;
 }
 
 // The callback slot 21 hands the +0x20 contain interface's slot 68: keeps the
@@ -1618,80 +1203,6 @@ bool HordeContain::slot38(Object *obj, int a2, int a3)
 	return TransportContain::slot38(obj, a2, a3);
 }
 
-// ?rva0046C327@HordeContain@@UAEXXZ @0x0046C327: slot 56; when our Object is
-// the local player's, runs the pinned Drawable member 0x00272BE7 on our
-// drawable if TheGlobalData +0x9A6 is set, else on the drawables of every
-// contained Object and of the live Object of every +0x170 key.
-void HordeContain::rva0046C327()
-{
-	const _STL::list<Object *> *items = containedItems();
-	Object *self = m_object;
-	Player *local = ThePlayerList->getLocalPlayer();
-	bool others = false;
-	if (self && self->getControllingPlayer() == local)
-	{
-		Drawable *draw = ((Thing *)self)->getDrawable();
-		if (TheWritableGlobalData->m_9A6)
-		{
-			if (draw)
-				draw->rva00272BE7();
-		}
-		else
-			others = true;
-	}
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj)
-		{
-			Drawable *draw = ((Thing *)obj)->getDrawable();
-			if (draw && others)
-				draw->rva00272BE7();
-		}
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj)
-		{
-			Drawable *draw = ((Thing *)obj)->getDrawable();
-			if (draw && others)
-				draw->rva00272BE7();
-		}
-	}
-}
-
-// ?rva0046B850@HordeContain@@UAEMXZ @0x0046B850: slot 153; the mean of slot 5
-// of the +0x254 module over the contained Objects and the live Objects of the
-// +0x170 keys (0 when there are none).
-float HordeContain::rva0046B850()
-{
-	float sum = 0.0f;
-	float count = 0.0f;
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj)
-		{
-			sum += obj->m_254->slot5();
-			count += 1.0f;
-		}
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj)
-		{
-			sum += obj->m_254->slot5();
-			count += 1.0f;
-		}
-	}
-	if (count > 0.0f)
-		sum /= count;
-	return sum;
-}
-
 // ?rva0046D1F7@HordeContain@@UAEXAAV?$list@PBVObject@@V?$allocator@PBVObject@@@_STL@@@_STL@@@Z @0x0046D1F7:
 // slot 67; refills the list with the contained Objects (through the +0x20
 // contain interface's slot 70) and the live Objects of the +0x170 keys. The
@@ -1710,53 +1221,6 @@ void HordeContain::rva0046D1F7(_STL::list<const Object *> &out)
 		if (obj)
 			out.push_back(obj);
 	}
-}
-
-// ?rva0046E253@HordeContain@@UAEXXZ @0x0046E253: slot 3; runs the rowed Object
-// member 0x0028B95F on our Object and on every Object slot 67 lists.
-void HordeContain::rva0046E253()
-{
-	m_object->rva0028B95F();
-	_STL::list<const Object *> objects;
-	rva0046D1F7(objects);
-	for (_STL::list<const Object *>::iterator it = objects.begin(); it != objects.end(); ++it)
-		const_cast<Object *>(*it)->rva0028B95F();
-}
-
-// ?rva0046CDC9@HordeContain@@UAE_NXZ @0x0046CDC9: slot 23; with at least one
-// Object listed by slot 67 and the module data's +0x1B0 template known to
-// TheThingFactory, true unless the first of that template's module data whose
-// slot 21 answers has +0x1D8 clear and wants more than that many (+0x268).
-bool HordeContain::rva0046CDC9()
-{
-	_STL::list<const Object *> objects;
-	rva0046D1F7(objects);
-	unsigned int count = objects.size();
-	if (count >= 1)
-	{
-		const ThingTemplate *tmpl = (const ThingTemplate *)TheThingFactory->rva002D06CA(&fields()->m_1B0);
-		if (tmpl)
-		{
-			const ModuleInfo *info = &tmpl->m_moduleInfo;
-			int n = info->getCount();
-			for (int i = 0; i < n; ++i)
-			{
-				const ModuleData *data = info->getNthData(i);
-				if (data)
-				{
-					const HordeContainModuleDataFields *horde = data->slot21();
-					if (horde)
-					{
-						if (!horde->m_1D8 && count < horde->m_268)
-							return false;
-						return true;
-					}
-				}
-			}
-			return true;
-		}
-	}
-	return false;
 }
 
 // ?rva0046CCEF@HordeContain@@UAE_NPBVThingTemplate@@@Z @0x0046CCEF: slot 25;
@@ -1788,48 +1252,6 @@ bool HordeContain::rva0046CCEF(const ThingTemplate *want)
 		}
 	}
 	return true;
-}
-
-// ?rva0046C20B@HordeContain@@UAEXXZ @0x0046C20B: slot 57; slot 56's walk with
-// the pinned Drawable member 0x00272BAB: (slot 96 (no filter), slot 101) on
-// our drawable, else (1, slot 101) on the contained and key drawables.
-void HordeContain::rva0046C20B()
-{
-	const _STL::list<Object *> *items = containedItems();
-	Object *self = m_object;
-	Player *local = ThePlayerList->getLocalPlayer();
-	bool others = false;
-	if (self && self->getControllingPlayer() == local)
-	{
-		Drawable *draw = ((Thing *)self)->getDrawable();
-		if (TheWritableGlobalData->m_9A6)
-		{
-			if (draw)
-				draw->rva00272BAB(rva0046D3FC(0), slot101(self));
-		}
-		else
-			others = true;
-	}
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj)
-		{
-			Drawable *draw = ((Thing *)obj)->getDrawable();
-			if (draw && others)
-				draw->rva00272BAB(1, slot101(obj));
-		}
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj)
-		{
-			Drawable *draw = ((Thing *)obj)->getDrawable();
-			if (draw && others)
-				draw->rva00272BAB(1, slot101(obj));
-		}
-	}
 }
 
 // ?rva0046FE99@HordeContain@@UAEXAAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@@Z @0x0046FE99:

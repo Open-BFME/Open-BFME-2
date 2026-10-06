@@ -144,11 +144,6 @@ void GameLogic::rva0023D0C2(Object *obj, int value)
 	((Rva0040D280Sub *)((char *)this + 0x184))->method(obj, value);
 }
 
-void Object::rva0028BC4D()
-{
-	((Rva002C7474 *)((char *)this + 0x330))->rva002C7474();
-}
-
 int Rva002E2F39Owner::fwd(int value)
 {
 	return ((Rva002E2D10Sub *)((char *)this + 0x1A8))->method(value);

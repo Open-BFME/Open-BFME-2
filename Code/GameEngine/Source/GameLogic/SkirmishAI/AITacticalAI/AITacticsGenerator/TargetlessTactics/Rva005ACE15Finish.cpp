@@ -213,16 +213,6 @@ bool Rva005ACCE4::appliesTo(void *)
 	return false;
 }
 
-void Rva005ACCE4::v2()
-{
-	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
-	record->rva002C717E(AIFarmKillSquad_IsRunning, 0);
-	record->rva002C717E(AIFarmKillSquad_FrameNextRun, TheGameLogic->getFrame()
-		+ GetGameLogicRandomValue(g_00E06438, g_00E0643C,
-			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\TargetlessTactics\\AIFarmKillSquad.cpp",
-			337));
-}
-
 float Rva005ACCE4::rva005ACDD2(const Coord3D *a, const Coord3D *b)
 {
 	Coord3D d;
