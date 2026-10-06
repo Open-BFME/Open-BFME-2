@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002CFA4EClone@@YGPAURva002CFA4ENode@@PBU1@@Z @0x002CFA4E 30B.
 // Node clone for the Rva002CF13B tree: clones the value at src+0x10 through
 // the rowed stdcall 0x002CF86F, copies the color byte, zeroes links +8/+0xc,

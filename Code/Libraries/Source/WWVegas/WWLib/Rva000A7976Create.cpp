@@ -5,7 +5,7 @@
 // returns the block, ret 4. Same shape as ?Rva002CF9DCCreate@@YGPAXPBU... at
 // 0x002CF9DC and ?Rva00212354NewNode@@YGPAXPBX@Z at 0x00212354 (37B, next+pair).
 // Caller 0x000A7A63 unblocks 0x000A7A63/68 path.
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 #include <map>
 #include <set>

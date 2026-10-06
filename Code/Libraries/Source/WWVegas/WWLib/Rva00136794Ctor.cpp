@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /arch:SSE
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??0Rva00136794@@QAE@PBD0MPBVRva0013101E@@ABV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@22@Z @0x00136794 (145B): chain ctor calls GenBase 0x0061ED40 then vtable 0x007D2970; StringBase private ctors 0x00037BA0 at +0x14/+0x18 from s1/s2; vector copies 0x000BC07E at +0x1C/+0x28/+0x34 from v1/v2/v3; float f at +0x40 via movss; Rva copy 0x0013101E at +0x44 from r; int 0 at +0x54; ret 0x1C (7 args).
 extern "C" void _ReadWriteBarrier(void);

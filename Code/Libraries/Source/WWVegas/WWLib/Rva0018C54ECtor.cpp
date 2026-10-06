@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0018C54E@@QAE@XZ 0x0018C54E 46B ctor with vector<BfmeE16> at +0x14 plus zeroed header/trailer; callee Vector_base row; caller 0x001735F9 new(0x28)
 #include <vector>

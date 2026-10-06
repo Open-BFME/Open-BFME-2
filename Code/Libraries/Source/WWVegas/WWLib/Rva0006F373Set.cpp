@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0006F373@Rva0006F373@@QAE_NPAXHH000@Z @0x0006F373 63B: conditional member stores then grow-or-false. Evidence: calls rowed Grow 0x0006EFC8 with middle ints; caller 0x0006FB23; unlocks 0x0006FAEC; neighbours share /O1.
 class Rva0006EFC8
 {

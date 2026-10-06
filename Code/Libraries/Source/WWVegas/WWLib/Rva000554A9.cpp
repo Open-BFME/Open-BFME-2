@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000554A9@Rva000554A9@@QAEPAXPAX@Z 0x000554A9 61B tail-record shift with copy dispatch
 // Evidence: callers at 0x0005FA02 and 0x00060C0B; uses CopyDispatch 0x00054E23 and dtor pin ??1BfmeStringTailRecord144@@QAE@XZ at 0x00050FC4; +0x90 stride matches 144B record.
 

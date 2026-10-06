@@ -1,5 +1,5 @@
 // ?insert@?$vector@UElem36@@V?$allocator@UElem36@@@_STL@@@_STL@@QAEPAUElem36@@PAU3@ABU3@@Z
-// cl: /G7 /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ?insert@?$vector@UElem36@@V?$allocator@UElem36@@@_STL@@@_STL@@QAEPAUElem36@@PAU3@ABU3@@Z @0x001665B0 288B:

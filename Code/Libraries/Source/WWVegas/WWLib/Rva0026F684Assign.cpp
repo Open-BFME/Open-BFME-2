@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??4Rva0026F684@@QAEAAV0@ABV0@@Z @0x0026F767 339B
 // Evidence: same vtable 0x007FABF0 class as ctor 0x0026F5B3 and dtor 0x0026F684; prev/next Rva0026F684Dtor.cpp; callees AsciiString op= pin 0x000366F0 plus vector AsciiString row 0x000BDB46 plus 4B POD assign row 0x0026F4F4 plus OpaqueRefElement4 row 0x00239099; caller 0x0026F9BA.
 

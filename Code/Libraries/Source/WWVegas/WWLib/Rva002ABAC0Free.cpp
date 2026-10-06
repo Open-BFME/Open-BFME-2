@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva002ABAC0Free@@YGXPAPAXPAUPoolNode002ABAC0@@@Z, RVA 0x002ABAC0, size 36.
 // Evidence: same unlink-push-free shape as 0x002ABB20 pool free; global g_00DBBD34; out gets prev; caller 0x002ABD48.

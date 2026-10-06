@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00240000@@QAE@XZ, retail 0x00240000, 46 bytes.
 // Ctor with vtable 0xBEDCB4 vector BfmeE12 at +4 second ptr 0xBEDAA8 at +0x10 zeros at +0x14..0x1C.

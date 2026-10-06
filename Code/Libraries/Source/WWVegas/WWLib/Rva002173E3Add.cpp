@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva002173E3@Rva002173E3@@QAEXPAURva002173E3Node@@@Z @0x002173E3 23B: intrusive list prepend with count; head at +0xC, count at +0x10, node next at +0x04. Evidence: single caller at 0x00218682 in unclaimed FUN_0061857e; LINK BONUS via 0x0021857E; neighbours in stlport_pod_vector_bodies page.
 
 struct Rva002173E3Node

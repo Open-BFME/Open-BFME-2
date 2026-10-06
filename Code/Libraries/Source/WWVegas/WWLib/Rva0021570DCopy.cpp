@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ?Rva0021570DCopy@@YAPAUBfmeVectorRecord0002154F3@@PAU1@00@Z @0x0021570D 29B 4-arg forwarder to rowed 5-arg worker.
 // Evidence: unlock lane 29B push-0 plus tag-local at ebp-1 into 5 pushes call add-esp-0x14; callee 0x00215696 dup object-symbol is true BfmeVectorRecord0002154F3 5-arg __copy; caller 0x002157DB passes 4 args.
 struct BfmeVectorRecord0002154F3;

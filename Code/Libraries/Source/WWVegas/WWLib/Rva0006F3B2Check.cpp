@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0006F3B2@Rva0006F3B2@@QAE_NXZ @0x0006F3B2 26B: thiscall bool check of byte flag at +0x114 bit0 or inner byte at +0x108 bit 0x20. Evidence: no callees; caller 0x000713D0; neighbours Rva0006F373 and SubsystemInterface.
 struct Rva0006F3B2Inner
 {

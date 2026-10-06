@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002EE9E0@Rva002EB416@@QAEXXZ, retail 0x002EE9E0, 41 bytes.
 // Pool-block reset: releases list at +4 via 0x002EB416 then self-links +8/+12 and clears flags.
 // Evidence: calls rowed 0x002EB416 with [eax+4]; and [eax+4]/[esi+4] zeroing; caller 0x002F0B8A EH prolog; unblocks 0x002F0B8A.

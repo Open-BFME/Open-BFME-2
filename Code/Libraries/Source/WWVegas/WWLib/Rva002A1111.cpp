@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // retail 0x002A1111 71B unlock: add-if-missing list at +0x9c4 via rowed find 0x0029B694 and rowed list<int> push_back 0x0005548F; caller 0x00489F7D
 #include <list>

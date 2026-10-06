@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 //
 // ??1Rva001EBFE5@@UAE@XZ, retail 0x001EBFE5, 87 bytes.

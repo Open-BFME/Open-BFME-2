@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // ?Rva002DBD05Get@@YAPAVRva002DBD05@@PAV1@PAD@Z @0x002DBD05 95B: guard index via vtable +0x78 then throw formatted on 0x10 else loop 16x via +0x88. Evidence: packet disasm with rowed _bfmeFormatText 0x0060C36E and pin _CxxThrowException 0x00629094 and XferException's throw information.
 class Rva002DBD05
 {

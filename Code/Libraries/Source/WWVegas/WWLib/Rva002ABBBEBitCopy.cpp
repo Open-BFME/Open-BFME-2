@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002ABBBE@Rva002ABBBE@@QAEXPAX@Z, RVA 0x002ABBBE, size 100: dword-bitset to byte-bitset then virtual call.
 // Evidence: memset 28B via ji_006291ae row; 218-iter bit loop; virtual call +0x24; callers 0x002AC09F 0x0039D6EC.

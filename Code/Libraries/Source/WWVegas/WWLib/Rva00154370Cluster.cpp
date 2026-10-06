@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // Sibling of the rowed two-float set-if-changed body Rva00154320::rva00154320
 // (Code/GameEngine/Source/Common/Rva00154320Cluster.cpp): the same

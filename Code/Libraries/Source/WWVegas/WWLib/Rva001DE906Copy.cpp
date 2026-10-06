@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva001DE906Copy@@YAPAVRva001DE727@@PAV1@00@Z @0x001DE906 50B array copy of 0x30-sized Rva001DE727 via rowed operator= 0x001DE727.
 // Evidence: chain lane callee rowed; caller 0x001DEE1F; count via sub plus idiv 0x30; loop via operator= plus add 0x30.

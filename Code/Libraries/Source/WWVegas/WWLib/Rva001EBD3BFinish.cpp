@@ -1,7 +1,7 @@
 // ?_M_insert_overflow@?$vector@UBfmePod172@@V?$allocator@UBfmePod172@@@_STL@@@_STL@@IAEXPAUBfmePod172@@ABU3@ABU__false_type@2@I_N@Z
 // Landed from the banked 0.98 attempt; its two unresolved REL32 names are ICF
 // aliases pinned in reverse/symbols.csv (0x1EBA30 non-const copy, 0x1EB9C8 clear).
-// cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ?_M_insert_overflow@?$vector@UBfmePod172@@V?$allocator@UBfmePod172@@@_STL@@@_STL@@IAEXPAUBfmePod172@@ABU3@ABU__false_type@2@I_N@Z,

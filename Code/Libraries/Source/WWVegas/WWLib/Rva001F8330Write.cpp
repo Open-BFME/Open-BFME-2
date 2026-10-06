@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva001F8330Write@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABVAsciiString@@@Z @0x001F8330 23B: free ostream INI key-value line skipping empty via rowed Write.
 // Evidence: calls rowed StringBase isEmpty 0x00001E2F on value then tail-jmps to rowed Write 0x001F82EE; pattern from Rva001F82EEWrite; StringBase cast calls the rowed out-of-line isEmpty not the header inline AsciiString one.
 #include "ascii_string.h"

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1?$vector@URvaPair00207E26@@V?$allocator@URvaPair00207E26@@@_STL@@@_STL@@QAE@XZ @0x00207E26 63B.
 // 8-byte AsciiString-keyed pair vector dtor: destroys range through rowed

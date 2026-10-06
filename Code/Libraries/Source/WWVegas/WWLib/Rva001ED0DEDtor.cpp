@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva001ED0DE@@QAE@XZ @0x001ED0DE 92B.
 // Non-virtual dtor: vector<Rva001EC349> at +0x18, vector<AsciiString> at +0x0C, three strings at +0x08..+0x00.

@@ -1,4 +1,4 @@
-// cl: /O2 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ?? method at retail 0x001543E0 (14 B).
 // Register-variant sibling of the rowed ?_Atomic_swap@_STL@@YAJPCJJ@Z
 // 0x00006EF0 (17 B): both are two-operand wrapper calls whose only operand is

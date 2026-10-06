@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002EE9B7@Rva002EE9B7@@QAEXXZ @0x002EE9B7 41B: pool-block reset releases list at +4 via 0x002EADB4 then self-links +8/+12 and clears flags. Evidence: same 41B shape as Rva002EB416::rva002EE9E0 plus caller 0x002F0B67 plus LINK BONUS via 0x003983D4.
 struct _Rva002EADB4Node {
     void *_m_link;

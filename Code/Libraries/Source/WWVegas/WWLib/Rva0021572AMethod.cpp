@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0021572A@@QAE@PAVINI@@@Z @0x0021572A 89B INI ctor over AsciiString plus BfmeE16 vector.
 // Evidence: thiscall ret 4 plus return-this plus caller 0x00215B2B;

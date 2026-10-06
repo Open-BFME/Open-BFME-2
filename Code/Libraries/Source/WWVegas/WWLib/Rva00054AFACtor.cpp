@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva00054AFA@@QAE@ABVAsciiString@@ABVUnicodeString@@@Z @0x00054AFA 57B
 // Two-string ctor: AsciiString at +0 via rowed StringBase<char> copy 0x000365F0,
 // UnicodeString at +4 via rowed StringBase<ushort> copy 0x00037050, under an

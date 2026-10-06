@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002CF807@Rva002CF807@@QAEXXZ @0x002CF807 41B.
 // Tree clear: if size at +4 !=0 erase root at header+4 via rowed 0x002CF32F,
 // reset header left/right to self and root to 0, zero size, ret. Same 41B

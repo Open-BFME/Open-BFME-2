@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00152004Copy@@YAPAVRva00151E30@@PAV1@00@Z at 0x00152004 (47B).
 // Array copy for 8-byte Rva00151E30 via its rowed operator= 0x151E30.
 // Evidence: sar 3 count, single caller 0x52091, unblocks 0x5207E.

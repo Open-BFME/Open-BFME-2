@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00241955Insert@@YG?AURva00241955Iter@@U1@ABUBfmeStringRecord00239B46@@@Z retail 0x00241955 37B
 // Free stdcall list insert twin of 0x00239E80 via rowed create 0x00240C89 then hook before pos and return via hidden.

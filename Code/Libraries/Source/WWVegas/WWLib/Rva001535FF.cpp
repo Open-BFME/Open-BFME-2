@@ -1,6 +1,6 @@
 // ?rva001535FF@Rva0015354E@@QAEXPBD@Z
 // partial score=0.9 date=2026-09-29
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // ?rva001535FF@Rva0015354E@@QAEXPBD@Z @0x001535FF 101B evidence: same class Rva0015354E +0x10; COM slots 0x4C 0x6C; string WW3DDynamicSet; ScienceType cur
 // Best probe 103B vs 101B 3 regions: first-call pushes scheduled late (retail pushes string+name at +0x14 before mov [ebp-4]); second-call scratch uses eax/ecx not edi/eax. Tried out-temp and self-temp levers per shape guide scratch-rotate; self-temp worsened to 105B.

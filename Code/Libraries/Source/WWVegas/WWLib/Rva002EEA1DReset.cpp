@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002EEA1D@Rva002EB46E@@QAEXXZ, retail 0x002EEA1D, 41 bytes.
 // Pool-block reset twin: releases list at +4 via 0x002EB46E then self-links +8/+12 and clears flags.
 // Evidence: twin of 0x002EE9E0 differing only by callee; calls rowed 0x002EB46E; unblocks 0x002F0BB5.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002EB46E@Rva002EB46E@@QAEXPAU_Rva002EB46ENode@@@Z, retail 0x002EB46E, 50 bytes.
 // Recursive free-list release: depth-first via +0xC, chain via +0x8, push onto head at 0x00DBD4D0.
 // Evidence: twin of 0x002EB416 differing only by pool head; self-call with [esi+0xC]; ret 4 one-arg thiscall; unblocks 0x002EEA1D.

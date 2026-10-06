@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??Rva002229E3Build@@YA?AURva002229E3S12@@ABDPBD@Z @0x002229E3 54B
 // Free 12B struct builder: char at +0 plus Rva000B3F84Pair at +4 from string.
 // Evidence: init 0x000B3F84 row WinMainPairUnicode; callers 0x005E3187 95B '_' 0x5f hide and 0x002250EF 633B; 3x movsd 12B return; prev FunctorRef next stlport.

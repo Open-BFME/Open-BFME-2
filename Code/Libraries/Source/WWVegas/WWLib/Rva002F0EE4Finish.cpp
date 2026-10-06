@@ -2,7 +2,7 @@
 // partial score=0.92 date=2026-09-29
 // ?Rva002F0EE4Wrap@@YAXPAPAU_Rva002EBB53Wrap@@00H@Z
 // partial score=0.92 date=2026-09-29
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002F0EE4Wrap@@YAXPAPAU_Rva002EBB53Wrap@@00H@Z, retail 0x002F0EE4, 30 bytes.
 // Pop wrapper: last=end-1, pop base into result via rowed Pop.
 // Evidence: calls rowed 0x002EF27D Pop; caller 0x002F1F02 pushes 4; unblocks 0x002F1F02.

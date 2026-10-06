@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva0020E794@Rva0020E794@@QAEPAVRva003F498A@@XZ, retail 0x0020E794, 41 bytes.
 // Pointer scan at +0x14/+0x18 over Rva003F498A pointers via rowed 0x003F4831
 // returning first element with positive count else NULL. Caller at 0x0020EC21.

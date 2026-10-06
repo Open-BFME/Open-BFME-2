@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /DNDEBUG
 //
 // Rva0032C0CA 8-byte-pair range destroy, retail 0x0032C0CA, 25 bytes.
 // Leaf _Destroy loop over contiguous 8-byte pairs (AsciiString key plus a

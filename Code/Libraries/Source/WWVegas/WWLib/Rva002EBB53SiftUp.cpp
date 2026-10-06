@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002EBB53SiftUp@@YAXPAPAU_Rva002EBB53Wrap@@HHPAU1@@Z, retail 0x002EBB53, 72 bytes.
 // Binary-heap sift-up over wrapper slots ordered by the payload key at +0x10.
 // Evidence: stlport WWLib neighbours (same /O1 area, horde rank set family);

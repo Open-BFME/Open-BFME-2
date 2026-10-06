@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva0021291F@Rva0021291F@@QAEXPBX@Z, retail 0x0021291F, 43 bytes.
 // Audio-driven ModuleData push_back: fetch const ModuleData* from TheAudio

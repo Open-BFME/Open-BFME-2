@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // Rva002DBDB4::rva002DBDB4, retail 0x002DBDB4 (174 bytes). Built from the banked
 // attempt reverse/attempts/0x002dbdb4.cpp; fix: the eight 0x1AC-stride
 // subobjects at this+4 are embedded (retail lea then vtable load), not

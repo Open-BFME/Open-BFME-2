@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva002ABB20Free@@YGXPAPAXPAUPoolNode002ABB20@@@Z 0x002ABB20 36B
 // Unlinks pool node then pushes it to free-list at 0xDA60F0; out gets prev.

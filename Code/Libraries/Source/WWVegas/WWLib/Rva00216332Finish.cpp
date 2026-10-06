@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /G7
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // class-gate: allow AsciiString shared str uses local empty vs retail global empty 0x00216332
 // ?Rva00216332Call@@YAHPAX0PBDPBIPBQAX@Z @0x00216332 104B uint-keyed Apt invoke with AsciiString temp.
 // Evidence: uint deref at 0x14 via rowed Rva0022288EGet 0x0022288E extra ptr double-deref at 0x18 rowed invoke 0x00222A8B caller 0x00216850.

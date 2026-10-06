@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?FreeObject@Rva00065964ObjectPool@@QAEXPAX@Z, retail 0x00065964, 38 bytes.
 // Pooled-object free: locks the pool's critical section, pushes the object

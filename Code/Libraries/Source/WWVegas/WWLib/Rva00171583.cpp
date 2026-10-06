@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00171583@Rva00171583@@QAE_NABIPAUVec2@@1@Z retail 0x00171583 162B unlock lane map-lookup rect scaler
 // Evidence: calls rowed _M_find 0x00357180 at +8; flag at +0x1c calls pin 0x001711A6; scales at +0x20/+0x24; floats at node+0x14-0x20; callers 0x000EB40F 0x000E7B3F.

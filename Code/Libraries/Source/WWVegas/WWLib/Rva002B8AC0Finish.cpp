@@ -1,6 +1,6 @@
 // ?rva002B8AC0@Rva002B8AC0@@QAEXPBVModuleData@@@Z
 // recovered 2026-10-05 from the 0.93 bank; exact 42/42
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002B8AC0@Rva002B8AC0@@QAEXPBVModuleData@@@Z @0x002B8AC0 42B.
 // Push ModuleData* into vector at +0xCC or +0xD8 based on byte at [p+8]

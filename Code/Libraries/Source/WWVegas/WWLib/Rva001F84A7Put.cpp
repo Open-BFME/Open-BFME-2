@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva001F84A7Put@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@AAV12@ABUTreeHintPayload001F8ACB@@@Z @0x001F84A7 (22B): ostream TreeHintPayload put.
 // Outputs the 4-byte payload as unsigned long via rowed _M_put_num at
 // 0x001F60AA. Caller at 0x001F8BD0 prints key then " = " then value then

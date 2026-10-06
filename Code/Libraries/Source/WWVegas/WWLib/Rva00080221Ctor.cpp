@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00080221@@QAE@PBH@Z, retail 0x00080221 (53B).
 // Honest-address ctor for an unknown ref-counted wrapper (12B impl with
 // vtable VA 0x00BC6FF4 at +0, refcount at +4, int value at +8). Evidence:

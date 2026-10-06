@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 //
 // Retail 0x00161050 (77 bytes), the copy constructor of the 0x24-byte Elem36
 // record whose stride the vector helpers in stlport_vector_elem36_push_back.cpp

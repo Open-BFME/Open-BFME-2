@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??0Rva002CF13B@@QAE@ABU0@@Z @0x002CF13B 27B.
 // Copy ctor for an 8-byte record: copy-constructs the leading 4-byte fixed
 // storage through the rowed 0x002CF0F0, copies the dword at +4, returns this

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00288A5CAssign@@YAXPAUCameraMarker@@00PAX@Z, retail 0x00288A5C,
 // 29 bytes. CameraMarker range-assign wrapper: materializes the

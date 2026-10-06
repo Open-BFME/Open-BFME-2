@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00153664@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z @0x00153664 134B evidence: chain from 0x001535FF; slots 0x10 0x20 0x04; reuses Rva0015354E +0x10 and Rva001531E6 dec
 class Rva0015354E
 {

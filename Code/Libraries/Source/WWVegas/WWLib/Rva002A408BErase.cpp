@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002A408B@Rva002A408B@@QAEXPAURva002A408BNode@@@Z, retail 0x002A408B, 59 bytes. Rb erase-one: rebalance-for-erase then destroy pair<AsciiString AudioEventRTS> value at +16 and free. Evidence: calls 0x00025620 rebalance plus 0x002A12E1 pair dtor plus _free 0x00030830; dec count at +4 ret 4; same 59B shape as Rva00383F9C 0x00383F9C and Rva00439325 0x00439325; callers 0x002A47BC 0x002A4A03; unblocks 0x002A4975.
 #include "ascii_string.h"

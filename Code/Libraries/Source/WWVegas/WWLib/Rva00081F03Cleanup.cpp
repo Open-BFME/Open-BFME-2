@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00081F03@Rva00081F03@@QAEXXZ 0x00081F03 218B: thread-locked release of refcounted handles in vectors +0x70/+0x88 then erase of 4 vectors; evidence callers 0x8297D/0x8305F, callees Thread_Lock 0x11F520 Thread_Assert 0x120F50 erase 0x31BD55 x4, EH prolog scope 0x75F5E9.
 #include <vector>

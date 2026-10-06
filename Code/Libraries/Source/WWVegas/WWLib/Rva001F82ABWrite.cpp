@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva001F82ABWrite@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDPAPBD@Z @0x001F82AB 67B: free ostream INI key stringptr line with pad via rowed Pad.
 // Evidence: calls rowed Pad 0x001F6951 then rowed _M_put_nowiden 0x001F5F65 twice (key then " = ") then rowed _M_put_nowiden on *value then rowed _M_put_char newline; callers are writeINI bodies; pattern from Rva001F89E2Write.
 namespace _STL

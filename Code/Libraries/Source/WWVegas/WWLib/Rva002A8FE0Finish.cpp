@@ -1,5 +1,5 @@
 // ?rva002A8FE0@Rva002A8FE0@@QAEXXZ
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // ?rva002A8FE0@Rva002A8FE0@@QAEXXZ @ 0x002A8FE0 (73B). Leaf array-of-lists
 // clear calling rowed ?Rva002A8D2DFree@@YGXPAURva002A8D2DNode@@@Z at 0x002A8D2D.
 // Start at +4 end at +8 count=(end-start)>>2; each slot frees its Node chain

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmevector /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
+// cl: /Ireference/shims/bfmevector /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
 //
 // Retail scalar deleting destructor at RVA 0x00155940, 71 bytes.
 // Target facts: vtable VA 0x00BD3B98 points back to this destructor and to

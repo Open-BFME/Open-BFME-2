@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva0029766B@Rva0029766B@@QAEXPBUCoord3D@@@Z 0x0029766B 25B evidence: runs 0x00291C20 on this, then Object teleport 0x0029660C with the position and 0; caller 0x004AFA6B
 // 0x00291C20 is the status-0x33 refresh pinned as BfmeThingTFB::bfmeOneTFB (donor sweep), not
 // SimpleObjectIterator::reset: that pin was read back from the refuted firstWithNumeric placement at

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva001FD837Find@@YAXPAPAXPAURva001FD837Node@@1ABVAsciiString@@@Z @0x001FD837 39B
 // List find: iterates nodes from first to last (next at +0x00), compares the
 // AsciiString at +0x08 via rowed StringBase compare at 0x000069D6, stores the

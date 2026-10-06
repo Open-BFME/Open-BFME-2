@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // Rva list<Object*>-style _M_create_node (retail 0x001EB9AC, 26B).
 // Freelist pop via pinned 0x002393E2 with pool at 0x00DB8FEC, null-preserving
 // value pointer at +8, single Object* copy.

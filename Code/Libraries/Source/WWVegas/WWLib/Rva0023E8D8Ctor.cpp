@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??0Rva0023E8D8@@QAE@PAX@Z 0x0023E8D8 53B retail ctor wrapper holding refcounted impl with func ptr
 void *__cdecl operator new(unsigned int);
 inline void *__cdecl operator new(unsigned int, void *p) { return p; }

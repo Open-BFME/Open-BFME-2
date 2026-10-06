@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00081EA8@Rva00081EA8@@QAEXPAURva001408C0Target@@@Z 0x00081EA8 25B: set-insert wrapper at +0x58; evidence caller 0x000D1108, callee rowed set::insert 0x00080691
 #include <set>

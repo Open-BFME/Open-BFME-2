@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0005A0EE@Rva00058D4A@@QAEPAUPair00058D4A@@PAU2@ABUBfmeStringRecord00054F57@@@Z @0x0005A0EE 36B reserve-then-insert wrapper for BfmeStringRecord table.
 // Evidence: callees pin reserve 0x00212858 rowed insert 0x00058D4A in stlport_hashtable_str_insert.cpp; m_size at +0x10; callers 0x0005B52C 0x0005B8E5; precedent Rva001DE84FReserveInsert.cpp.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?rva0006EFC8@Rva0006EFC8@@QAE_NHH@Z, retail 0x0006EFC8, 102 bytes.
 // Pool grow with retry, 8-byte node stride (cf FreelistPool::grow 0x001EAEF9

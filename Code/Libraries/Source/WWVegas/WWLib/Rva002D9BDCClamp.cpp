@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002D9BDC@Rva002D9BDC@@QAEXMM@Z @ 0x002D9BDC 43B
 // Evidence: honest address method; thiscall void(float float) ret 8; member float at +0x64 clamped via rowed clamp<float>(lo val hi); callers at 0x0005AAC2 0x0005D60F; neighbours AsciiStringRvoGetters and Rva002D9C2FAssign.
 template <class NUM>

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_fill_n@PAUBfmeVectorRecord000C0BEC@@IU1@@_STL@@YAPAUBfmeVectorRecord000C0BEC@@PAU1@IABU1@ABU__false_type@0@@Z @0x000C245E 37B
 // Evidence: caller @0x000C788C pushes 4 args and pops 0x10, so retail is

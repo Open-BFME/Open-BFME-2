@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // ?rva0015354E@Rva0015354E@@QAEXW4ScienceType@@@Z, retail 0x0015354E 23B.
 // Null-checked Science push: if the +0x10 store exists, push the ScienceType

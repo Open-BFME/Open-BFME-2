@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva0015168C@Rva0015168C@@QAE_NPAVCreateAHeroData@@@Z at 0x0015168C (53B).
 // Hero-registry contains via _STL::find over inner first/last at +0x18/+0x1c

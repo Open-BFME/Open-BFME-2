@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002B8A9F@Rva002B8A9F@@QAEXPAVModuleData@@@Z @0x002B8A9F 33B.
 // Push-once ModuleData* into vector at +0x118 if byte at [p+0x75] clear

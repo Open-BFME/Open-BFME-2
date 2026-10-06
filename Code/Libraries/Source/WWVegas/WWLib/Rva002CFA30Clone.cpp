@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002CFA30Clone@@YGPAURva002CFA30Node@@PBU1@@Z @0x002CFA30 30B.
 // Node clone for the anonymous Rva002CF120-node tree: clones the value at
 // src+0x10 through the rowed stdcall 0x002CF84D, copies the color byte,

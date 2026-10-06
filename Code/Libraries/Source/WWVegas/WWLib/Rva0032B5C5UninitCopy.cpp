@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$__uninitialized_copy@PAV?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@0@PAV10@00ABU__false_type@0@@Z
 // @ 0x0032B5C5 (38B). _STL::__uninitialized_copy over vector<BfmeE8> elements:
 // 0xC-stride loop calling rowed _Construct 0x0032B598 per element. Evidence:

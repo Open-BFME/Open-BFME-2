@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00153A98Copy@@YAPAVRva001539BC@@PAV1@00@Z retail 0x00153A98 50 bytes.
 // Forward copy of Rva001539BC array via rowed 0x001539BC rva assign.

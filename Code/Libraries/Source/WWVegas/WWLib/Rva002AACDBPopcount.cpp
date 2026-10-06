@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva002AACDB@Rva002AACDB@@QAEHXZ @0x002AACDB 72B: popcount of 7 dwords via SWAR. Evidence: retail constants 0x33333333 0x55555555 0x0F0F0F0F 0x01010101; loop edi 0-6 jb; caller 0x002AC06A.
 class Rva002AACDB
 {

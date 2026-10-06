@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?rva0021294A@Rva0021294A@@QAEPAVRva003FD789@@ABV?$StringBase@D@@@Z, retail 0x0021294A, 87 bytes.

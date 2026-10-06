@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 //
 // ?rva002F1DDC@Rva002F1DDCTree@@QAE?AURva002F1DDCIter@@U2@ABVRva002F1DDCValue@@@Z

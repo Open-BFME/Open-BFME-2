@@ -1,6 +1,6 @@
 // ?rva00056DA2@Rva00056DA2@@QAEXXZ
 // partial score=0.97 date=2026-09-28
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // BFME 1 STLport deque algorithms, instantiated for the target-supported 4-byte
 // owning-reference element view; original class names are unknown. Its release and assignment members are defined in

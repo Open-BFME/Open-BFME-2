@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // stlport
 
 // ?Rva000BDCEFDestroy@@YAXPAURvaPair000BDCEF@@0@Z RVA 0x000BDCEF size 25

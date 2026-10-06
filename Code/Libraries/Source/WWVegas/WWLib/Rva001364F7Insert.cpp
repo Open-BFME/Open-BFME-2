@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva001364F7@Rva001364F7@@QAE?AURva001364F7Iter@@PAURvaNode1364F7@@0PBUTreeKey00242F5E@@0@Z @0x001364F7 136B.
 // Tree insert worker over set<TreeKey00242F5E> nodes (base 0x10 plus 8-byte
 // key at +0x10): picks the right-child path unless y is the root, the

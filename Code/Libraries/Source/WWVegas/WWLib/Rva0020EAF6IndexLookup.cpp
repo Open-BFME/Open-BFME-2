@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?rva0020EAF6@Rva0020EAF6View@@QAEPAVRva0020E89C@@H@Z @0x0020EAF6 17B.
 // Target evidence: Ghidra bounds FUN_0060eaf6 at 17 bytes. It loads this+8,
 // returns null when that pointer is null, and otherwise tail-jumps to the

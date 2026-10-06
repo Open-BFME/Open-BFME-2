@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?Rva00282FE0CreateNode@@YGPAXPBX@Z, RVA 0x00282FE0, 34 bytes.
 // List node creator allocating 12 via rowed byte allocator 0x000307F0 then

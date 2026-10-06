@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva0031BE07@Rva0031BE07@@QAEPAXABV?$StringBase@D@@@Z @0x0031BE07 53B
 // Unlocks 0x0031BE58/153 and 0x001DAF81/255; LINK BONUS via 0x0031BE3C.
 // String-keyed node search at this+0x2C via rowed StringBase::compare 0x000069D6

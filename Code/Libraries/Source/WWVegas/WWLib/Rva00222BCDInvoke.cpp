@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00222BCD@Rva00222A8BTarget@@QAEHPAXPBDH10000@Z @0x00222BCD 69B
 // Forward 8 args to invoke then fire slot 0x28 once when +0x312 is 0.
 // Evidence: invoke pin 0x00222A8B plus +0x312 +0x328 in Rva00222A53 TU range plus caller 0x00528C25; same class as prev Rva00222A53.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva002AAC9EEqual@@YAHPBURva002AAC9ERange@@0@Z @0x002AAC9E 61B: float-range equal via size xor plus Rva002AA32FEqual; caller 0x002ADC03 pushes 2 ptrs; unblocks 0x002ADC03.
 struct Rva002AAC9ERange
 {

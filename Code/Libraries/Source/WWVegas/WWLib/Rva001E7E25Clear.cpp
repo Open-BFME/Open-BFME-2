@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva001E7E25@Rva001E7E25@@QAEXXZ retail 0x001E7E25 83B: clears pointer array via virtual slot 0 plus delete then vector erase plus flag clears.
 // Evidence: frameless thiscall with ebx index esi vector plus loop test ecx je plus push 0 call [eax] push eax call 0x0002FD60 then push end push begin call 0x0031BD55 erase then and [edi+0x10] 0 plus bytes [edi+0x14] [edi+0x15] 0; callers 0x001E86EE 0x00268364 0x00268A59 0x0026E87A 0x0026EBD4.

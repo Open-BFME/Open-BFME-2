@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002B86AA@Rva002B86AA@@QBE_NPAURva002B86AAKey@@PAURva002B86AAVal@@@Z @0x002B86AA 71B. Returns true if map at +0x13c has key a->+0x4c with mapped value == b->+0x14.
 // Evidence: equal_range row at 0x004FCD6D plus _M_increment row at 0x00024250 plus ret 8 plus this+0x13c; neighbours are stlport WWLib TUs.

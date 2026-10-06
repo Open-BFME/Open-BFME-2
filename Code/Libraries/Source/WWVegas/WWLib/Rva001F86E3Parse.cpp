@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva001F86E3Parse@@YAXPAVINI@@PAX@Z, retail 0x001F86E3, 110 bytes.
 // INI token lookup in FXParticleSystem CategoryModuleClass<5> list then
 // owned-pointer store at +0xBC via rowed rva001F43BD setter. Evidence:

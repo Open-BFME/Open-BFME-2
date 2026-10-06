@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /EHsc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /EHsc
 // stlport
 // ?rva00153ACA@Rva0015354E@@QAEXUTreeHintRef00217D4C@@PBD@Z @0x00153ACA 207B
 // Evidence: unlock lane, this=Rva0015354E (+0x10 store via rowed rva001535FF 0x001535FF and dec 0x001531E6), virtual slot 0xF8, TreeHintRef assign 0x002174A4 and Release 0x0007DEEF, push_back 0x00153A27 stride 8, caller 0x000E2A81 builds Rva00080221 temp.

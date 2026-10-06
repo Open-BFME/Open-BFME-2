@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva001DE6E1@@QAE@XZ @0x001DE6E1 70B default ctor with map plus vector plus trailing bytes.
 // Evidence: __thiscall returns this; callees rowed map 0x0033C432 plus vector base 0x00211E58; callers 0x001DF4C2 0x001DF609 0x001DF734 0x001DF80F 0x001DF907; constants 0x4E20 0x5DC 5 plus 0 1 0.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva001F89E2Write@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABUVec001F8810@@@Z @0x001F89E2 66B: free ostream INI key-vector line with pad via rowed Pad/Put.
 // Evidence: calls rowed Pad 0x001F6951 then rowed _M_put_nowiden 0x001F5F65 twice (key then " = ") then rowed Vec Put 0x001F8810 then rowed _M_put_char 0x001F5E51 newline; callers are writeINI bodies; pattern from Rva001F82EEWrite.
 namespace _STL

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?rva0023FBDB@Rva0023FBDB@@QAEXPAURva0023FBDBNode@@@Z @0x0023FBDB 53B.
 // Tree destroy: recurse on +0xC child, destroy Rva0023D377 value at +0x10,

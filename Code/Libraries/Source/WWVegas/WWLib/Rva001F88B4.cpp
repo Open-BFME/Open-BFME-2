@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva001F88B4@Rva001F88B4@@QAEXABVRvaSmartPtr12@@@Z @0x001F88B4 (22B): list push_back plus count.
 // Pushes arg onto list at +0x4c via rowed push_back at 0x001F81D2 then inc at

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Oy- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // Record layout is carried from the existing rowed assignment C24EA and
 // copy workers C376C/C4795: word0 plus basic_string<char> at4 plus a triple

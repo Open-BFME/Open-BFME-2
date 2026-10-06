@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?Rva001532E1Erase@@YAXPBD@Z, retail 0x001532E1 63B.
 // Erase first BfmePod68 entry whose leading name matches case-insensitively.

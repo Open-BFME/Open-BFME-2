@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva001F82EEWrite@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABVAsciiString@@@Z @0x001F82EE 66B: free ostream INI key-value line with pad via rowed Pad/Put.
 // Evidence: calls rowed Pad 0x001F6951 then rowed _M_put_nowiden 0x001F5F65 twice (key then " = ") then rowed Put 0x001F696E then rowed _M_put_char 0x001F5E51 newline; callers are writeINI bodies.
 #include "ascii_string.h"

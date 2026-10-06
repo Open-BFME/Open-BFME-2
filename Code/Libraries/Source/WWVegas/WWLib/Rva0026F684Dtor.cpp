@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva0026F684@@QAE@XZ @0x0026F684 227B
 // Evidence: vtable 0x7FABF0; callers 0x0026F8BA deleting dtor plus unwind; members releaseBuffer StringBaseWide plus Rva00360D26Member plus vector AsciiString plus free plus Release_Ref

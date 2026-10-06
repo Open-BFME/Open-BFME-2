@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Oy-
+// cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Oy-
 // ?rva0020E89C@Rva0020E89C@@QAE?AVUnicodeString@@XZ @0x0020E89C 63B
 // Honest-address method returning the translated label at this+0x38:
 // empty AsciiString returns UnicodeString::TheEmptyString (data 0x00A0C898

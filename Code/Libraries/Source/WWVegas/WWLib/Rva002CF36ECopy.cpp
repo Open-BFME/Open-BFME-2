@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ?Rva002CF36ECopy@@YAXPAURva002CF13B@@PBU1@@Z @0x002CF36E 18B.
 // Null-guarded placement copy through the rowed 0x002CF13B copy ctor:
 // if (dest) new (dest) Rva002CF13B(*src). Same 18B shape as the rowed

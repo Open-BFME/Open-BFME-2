@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ??$__copy@PAURva00153252@@PAU1@H@_STL@@YAPAURva00153252@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z, retail 0x00153320, 47 bytes.
 // Forward copy of 8-byte Rva00153252 via rowed operator= 0x153252 sar 3 stride 8.

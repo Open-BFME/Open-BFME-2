@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$__copy_ptrs@PAUOpaqueRefElement4@@PAU1@@_STL@@YAPAUOpaqueRefElement4@@PAU1@00ABU__false_type@0@@Z @0x00239B29 29B
 // _STL::__copy_ptrs<OpaqueRefElement4> forwarding wrapper retail 29 bytes.
 // Pushes NULL distance and a tag local then calls the rowed 5-arg __copy at

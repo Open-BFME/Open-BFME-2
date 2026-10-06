@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??4Rva00151E30@@QAEAAV0@ABV0@@Z at 0x00151E30 (29B).
 // Copy assign: copy +0 dword then RefCountPtr<TextureClass> assign at +4.
 // Evidence: RefCountPtr assign row 0x424D0, single caller 0x15201D,

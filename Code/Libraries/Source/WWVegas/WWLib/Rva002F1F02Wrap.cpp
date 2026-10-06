@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002F1F02Wrap@@YAXPAPAU_Rva002EBB53Wrap@@0H@Z @0x002F1F02 23B
 // Pop-wrapper forwarder to rowed 0x002F0EE4 with NULL result. Evidence: caller 0x002F302B passes 3 args and cleans 12; callee rowed.
 struct _Rva002EBB53Inner {

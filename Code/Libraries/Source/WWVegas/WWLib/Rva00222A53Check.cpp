@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00222A53@Rva00222A8BTarget@@QAEEXZ @0x00222A53 56B
 // Window-modal check: +0x300 header -4 != -1 and +0x314 window !=0 then
 // TheWindowManager slot 0xC0 current equals +0x314 returns true else +0x329.

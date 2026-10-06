@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva0030E8DF@Rva0030E8DF@@QAEXXZ, retail 0x0030E8DF, 44 bytes.
 // Clear helper: vector erase via rowed voidptr erase plus zeroing and 1.0f default.
 // Evidence: callers at 0x00085947/0x0008D807 operate on subobject at +0x2458;

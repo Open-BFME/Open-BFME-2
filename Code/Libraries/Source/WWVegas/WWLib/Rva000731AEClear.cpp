@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva000731AE@Rva000731AE@@QAEXXZ @0x000731AE 70B via tail clear plus three array deletes
 // Evidence: calls rowed delete[] 0x0002FD80 three times plus rowed clear 0x00072FE6; callers 0x00066700 0x000668AB 0x0006D668

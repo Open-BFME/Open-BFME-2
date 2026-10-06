@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?init@Rva001EB984Member@@QAEPAXPAX@Z, retail 0x001EB984, 40 bytes.
 // Freelist-node list-base init for list<Object*> (pool at 0x00DB8FEC):

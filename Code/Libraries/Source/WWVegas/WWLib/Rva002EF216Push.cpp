@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002EF216Push@@YAXPAPAU_Rva002EBB53Wrap@@0PAXHH@Z @0x002EF216 35B
 // Push wrapper calling rowed SiftUp 0x002EBB53 with extra passthrough.
 // Evidence: caller 0x002F0D45 pushes 5; callee rowed SiftUp 0x002EBB53.

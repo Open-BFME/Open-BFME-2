@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // stlport
 // ?Rva002CF35CCopy@@YAXPAURva002CF120@@PBU1@@Z @0x002CF35C 18B.
 // Null-guarded placement copy through the rowed 0x002CF120 copy ctor:

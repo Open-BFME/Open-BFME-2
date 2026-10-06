@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva001F8810Put@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@AAV12@ABUVec001F8810@@@Z @0x001F8810 (110B): ostream X/Y/Z float triple put.
 // Prints "X:" float " " "Y:" float " " "Z:" float via rowed _M_put_nowiden at
 // 0x001F5F65, rowed float operator<< at 0x001F8152, rowed _M_put_char at

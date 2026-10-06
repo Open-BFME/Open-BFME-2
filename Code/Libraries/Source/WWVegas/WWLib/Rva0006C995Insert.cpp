@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0006C995@Rva0006C995@@QAEPAV1@PAURva001408C0Target@@@Z, retail 0x0006C995, 58 bytes.
 // Unlock wrapper: null-check, convert via rowed bfmeGoEMEb 0x0061F600, set insert via rowed 0x00080691, flag at +0x10 on success, return this.

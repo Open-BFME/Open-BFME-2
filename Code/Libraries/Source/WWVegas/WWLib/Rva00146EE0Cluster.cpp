@@ -1,4 +1,4 @@
-// cl: /G7 /O2 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?Add_Mesh@DX8SkinFVFCategoryContainer@@UAEXPAVMeshModelClass@@@Z retail
 // 0x00146EE0, 101 bytes.

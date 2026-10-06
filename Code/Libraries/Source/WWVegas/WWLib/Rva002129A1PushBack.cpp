@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002129A1@Rva002129A1@@QAEXPBVModuleData@@@Z, retail 0x002129A1 19B.
 // Vector push_back wrapper: appends a ModuleData pointer to the

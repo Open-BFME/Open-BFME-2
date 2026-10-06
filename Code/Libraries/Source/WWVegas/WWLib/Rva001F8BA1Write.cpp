@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva001F8BA1Write@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABUTreeHintPayload001F8ACB@@@Z @0x001F8BA1 66B: free ostream INI key-uint line with pad via rowed Pad/Put.
 // Evidence: calls rowed Pad 0x001F6951 then rowed _M_put_nowiden 0x001F5F65 twice (key then " = ") then rowed TreeHint Put 0x001F84A7 then rowed _M_put_char 0x001F5E51 newline; caller at 0x001F901C; pattern from Rva001F89E2Write.
 namespace _STL

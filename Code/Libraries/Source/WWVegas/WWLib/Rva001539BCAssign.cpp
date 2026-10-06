@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva001539BC@Rva001539BC@@QAEAAV1@ABV1@@Z retail 0x001539BC 48 bytes.
 // Copies int at +0 then 6 vector<Rva005F8F96> at +4 via rowed assign 0x001537D8.

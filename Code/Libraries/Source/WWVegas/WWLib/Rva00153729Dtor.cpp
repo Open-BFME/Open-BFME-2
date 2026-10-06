@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva00153729@@QAE@XZ, retail 0x00153729, 19 bytes.
 // Holder size 0x4C with array[6] of vector<Rva005F8F96> at +4 torn down via ehvec dtor 0x629110.

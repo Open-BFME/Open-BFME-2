@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0021545C@Rva0021545C@@QAEXPAV1@@Z @0x0021545C 29B swap first word plus E12 vector.
 // Evidence: thiscall ret 4 with ecx read then written; dword exchange at +0

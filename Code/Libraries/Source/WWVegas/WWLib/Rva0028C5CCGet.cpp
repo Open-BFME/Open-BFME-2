@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // ?Rva0028C5CCGet@@YAPAVRva0028C5CC@@PAV1@PAD@Z @0x0028C5CC 95B: guard index via vtable +0x78 then throw formatted on 4 else loop 4x via +0x88. Evidence: same 95B shape as rowed Rva002DBD05Get 0x002DBD05 plus rowed _bfmeFormatText 0x0060C36E plus pin _CxxThrowException 0x00629094.
 class Rva0028C5CC
 {

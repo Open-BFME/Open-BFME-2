@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0020E72A@Rva0020E72A@@QAE_NPAX@Z, retail 0x0020E72A, 61 bytes.
 // Vector scan at +0x14/+0x18 over Rva003F498A pointers via rowed 0x003F48EF

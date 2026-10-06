@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva00332EC8@@QAE@ABV0@@Z @0x00332EC8 43B
 // retail 0x00332EC8 43 bytes chain copy dword at +0 plus two BfmeObject872Header at +4 and +0x14
 // via rowed BfmeObject872Header copy 0x002CF108 caller 0x003332A1 unblocks 0x00333295

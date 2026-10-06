@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0015344BFillN@@YAPAVRva00468520@@PAV1@IABV1@ABUTag@@@Z, retail 0x0015344B, 37 bytes.
 // FillN helper looping count times calling rowed Init 0x4F6B7B then add 8 dec jne returning end.
 // Evidence: push esi mov esi [esp+8] push edi mov edi [esp+0x10] test jbe push [esp+0x14] push esi call 0x4F6B7B pop ecx add esi 8 dec edi pop ecx jne; same shape as Rva0014F5ABFillN 40B; caller 0x153934 with 4 pushes and add esp 0x10.

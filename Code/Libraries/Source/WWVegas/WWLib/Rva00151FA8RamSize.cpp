@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00151FA8@Rva00151FA8@@QBEHXZ @ 0x00151FA8 (34B).
 // Honest address-named const RAM-size getter called once from MeshMatDescClass::Compute_Ram_Size

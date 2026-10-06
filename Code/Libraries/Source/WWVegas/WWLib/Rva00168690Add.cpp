@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug
 // ?rva00168690@Rva00168690@@QAEXABVVector3@@M@Z @0x00168690 42B
 // Unlock callee of 0x000D0091; two SimpleDynVec Adds.
 // Evidence: retail push esi push 0 push arg lea ecx [esi+0xc4] call Vector3 Add; push 0 lea eax [esp+0x10] push eax lea ecx [esi+0xd4] call float Add; ret 8; callees rowed 0x001002C5 0x001683C3; callers unclaimed.

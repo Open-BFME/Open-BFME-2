@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva00058C6F@Rva000427195@@QAEPAU?$pair@$$CBVAsciiString@@UTreeHintPayload0005808E@@@_STL@@PBU23@@Z @0x00058C6F 68B: hashtable insert for AsciiString-keyed 12B node family shared with new_node 0x00056E53 and bucketIndex 0x00223149 plus reserve 0x00212858. Evidence: reserve with count+1 then bucketIndex then new_node then link at bucket head then inc count then return node+4; buckets at +4 count at +0x10; same table Rva000427195 as EvaBucketIndex and 0x003A2F08.
 #define _STLP_NO_EXCEPTIONS 1

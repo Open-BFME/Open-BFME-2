@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0018C2E7Copy@@YAPAFPAURva0018C2E7Node@@0PAF0H@Z @ 0x0018C2E7 39B unlock: tree-to-short copy via rowed _M_increment. Caller 0x0018C3C9 passes 5 args.
 namespace _STL {

@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2 /MD /Ireference/shims/bfme2_ascii
+// cl: /GX- /MD /Ireference/shims/bfme2_ascii
 // stlport
 // The StringLookUp sort family in stlport_sort_stringlookup.cpp calls this
 // thiscall comparator at 0x002E5678. Its fields and ordering expression are

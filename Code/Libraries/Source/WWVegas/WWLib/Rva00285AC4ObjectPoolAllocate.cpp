@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00285AC4@Rva00065964ObjectPool@@QAEPAXXZ @0x00285AC4 (137B).
 // Object pool allocate sibling of rva00285A3B @0x00285A3B (137B): 8-byte

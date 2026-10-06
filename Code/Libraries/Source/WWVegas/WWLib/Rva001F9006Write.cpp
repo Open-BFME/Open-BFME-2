@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva001F9006Write@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABUTreeHintPayload001F8ACB@@@Z @0x001F9006 31B: guarded forward to rowed Rva001F8BA1Write.
 // Evidence: mov eax [esp+0x10] cmp [eax] 0 je ret then push eax plus three pushes plus call 0x001F8BA1 plus add esp 0x10; callers at 0x001FB632 0x001FB64A in writeINI; prev/next rows give TU context.
 namespace _STL

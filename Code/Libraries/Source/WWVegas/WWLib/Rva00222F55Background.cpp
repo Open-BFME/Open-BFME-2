@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00222F55@Rva00222A8BTarget@@QAEX_N@Z @0x00222F55 186B
 // Hide background dispatcher: switch on +0x31C (2=in-game 1=front-end 0=deferred), invoke Hide strings via 0x00222A8B pin with g_00BBFDE0/g_00BBFDDC value selected by bool flag, deferred path re-queues via self-call.
 // Evidence: callers 0x00222FFF self plus 0x002233E8 0x002427E2 etc; callee pin 0x00222A8B void twin; strings HideInGameBackground HideFrontEndBackground at 0x007E6D80/0x007E6D68; offsets 0x31C/0x320/0x324 match Rva00222A8BTarget range.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00240D0FCreate@@YGPAURva00240D0FNode@@ABURva00240D0FValue@@@Z, retail 0x00240D0F, 37 bytes.
 // Free stdcall node creator: allocate 0xC via byte allocator 0x307F0 clear +0 then _Construct value at +4 via dup 0x23FC6B, return node.

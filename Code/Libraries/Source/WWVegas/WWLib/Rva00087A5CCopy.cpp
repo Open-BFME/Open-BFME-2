@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00087A5CCopy@@YAXPAPAX0@Z @ 0x00087A5C (24B): null-guarded 4-byte
 // owning-reference placement copy; copies the pointer then increments the

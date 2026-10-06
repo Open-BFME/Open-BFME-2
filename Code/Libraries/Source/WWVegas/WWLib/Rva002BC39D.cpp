@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 //
 // ?rva002BC39D@Rva002BBBE7@@QAEXXZ @0x002BC39D 41B.
 // Clear guarded by count at +4: recurse via rowed 0x002BBBE7 on header+4,

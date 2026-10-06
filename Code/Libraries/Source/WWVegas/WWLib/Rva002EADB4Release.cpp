@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002EADB4@Rva002EADB4@@QAEXPAU_Rva002EADB4Node@@@Z retail 0x002EADB4 45 bytes.
 // Recursive release depth-first via +0xC chain via +0x8 free via rowed 0x00030830.
 // Evidence: self-call with [esi+0xC] plus caller 0x002EE9B7 passes [eax+0x4] plus sibling Rva002EB416Release shape.

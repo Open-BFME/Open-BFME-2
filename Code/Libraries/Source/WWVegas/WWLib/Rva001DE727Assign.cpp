@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??4Rva001DE727@@QAEAAV0@ABV0@@Z, retail 0x001DE727 85B chain.
 // Evidence: 5 dwords + Rb_tree set at +0x14 via rowed assign 0x001DDC52 +

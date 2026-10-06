@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0020F2F1@@YGXPAXH@Z @0x0020F2F1 24B and ?rva0020F309@@YGXPAXH@Z
 // @0x0020F309 24B: homogeneous stdcall forwarder twins into the unrowed

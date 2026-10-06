@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Oy-
+// cl: /DNDEBUG /MD /Oy-
 // ?Rva001F87D5Put@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@AAV12@ABUS001F87D5@@@Z @0x001F87D5 (59B): ostream float-pair put.
 // Prints float at +4 then ' ' then float at +8 via rowed float operator<< at
 // 0x001F8152 and rowed _M_put_char at 0x001F5E51. Callers at 0x001F8B8E,

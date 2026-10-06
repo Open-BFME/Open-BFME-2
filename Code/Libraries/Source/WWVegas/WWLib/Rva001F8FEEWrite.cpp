@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva001F8FEEWrite@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABUS001F87D5@@@Z @0x001F8FEE 24B: guarded forward to rowed Rva001F8B5FWrite via rowed Rva001F3744IsZero.
 // Evidence: push dword [ebp+0x14] call 0x001F3744 test al jne jmp 0x001F8B5F; same guarded-forward shape as Rva001F9006Write; chain lane from 0x001F3744; no callers.
 namespace _STL

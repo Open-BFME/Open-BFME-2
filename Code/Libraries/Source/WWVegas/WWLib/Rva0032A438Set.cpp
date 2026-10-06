@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva0032A438@Rva0032A438@@QAEXVAsciiString@@@Z @0x0032A438 52B.
 // AsciiString by-value setter: copies the by-value AsciiString at [ebp+8]

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 // ?EraseRange@Rva0015229CVector@@QAEPAURva0007BB16Record@@PAU2@0@Z, retail 0x0015229C, 51 bytes.
 // Range erase over 36-byte two-string records: copy [last finish) down to first

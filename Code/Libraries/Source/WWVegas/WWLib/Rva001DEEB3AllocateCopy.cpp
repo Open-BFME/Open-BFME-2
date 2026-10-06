@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva001DEEB3@Rva001DEEB3@@QAEPAVBfmePod48@@IPAURva001DF3F1Element@@1@Z @0x001DEEB3 45B: allocate plus uninitialized_copy 0x001DEDD4; allocator at +8; callers 0x001DEFC8 unblocks 0x001DEF89.
 struct BfmePod48
 {

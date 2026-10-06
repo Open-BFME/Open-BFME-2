@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 // Banked C++ source: reverse/attempts/0x001530e9.cpp at 4615be509614819810bca848d60a47a6921bb6d0.
 // Target Ghidra boundary 0x001530E9..0x001531C9, 224B, plain cdecl RET.
 // Callers 0x0007FFED/0x00080E30/0x000E1F42/0x0014FE33/0x001F4A90 parse

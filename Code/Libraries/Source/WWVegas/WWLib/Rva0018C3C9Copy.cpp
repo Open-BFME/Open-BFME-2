@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?Rva0018C3C9Copy@@YAPAFPAURva0018C2E7Node@@0PAF@Z @0x0018C3C9 29B
 // Chain wrapper for just-landed Rva0018C2E7Copy: passes through first/last/

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva002635C2@Rva00065964ObjectPool@@QAEPAXXZ @0x002635C2 (137B).
 // Path-node pool allocate: 36-byte nodes (PathNode) x128 per block

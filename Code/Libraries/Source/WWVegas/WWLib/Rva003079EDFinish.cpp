@@ -1,6 +1,6 @@
 // ?rva003079ED@Rva003079ED@@QAEXXZ
 // partial score=0.93 date=2026-10-04
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva003079ED@Rva003079ED@@QAEXXZ @0x003079ED 63B
 // Reset: nulls three words at +0x14/+0x18/+0x1C then swap-clears the

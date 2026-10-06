@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva00207DF4@Rva00207DF4@@QAEXHABVAsciiString@@PAVImage@@@Z, retail 0x00207DF4 50B.
 // Unlock lane: thiscall store of an Image* into the ImageSubscriptMap at
 // this+0x1a164[index] under the CRC key of an AsciiString name. Evidence: rowed

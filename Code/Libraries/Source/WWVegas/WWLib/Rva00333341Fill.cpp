@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // retail 0x00333341 37 bytes: STLport-style fill_n loop (unsigned count > 0, so
 // test/jbe) over the rowed Construct 0x00333295, stride 0x24. Built from the
 // banked attempt reverse/attempts/0x00333341.cpp; the loop form is the fix.

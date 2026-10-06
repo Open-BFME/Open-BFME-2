@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva001F8675Parse@@YAXPAVINI@@PAX@Z @0x001F8675 110B: INI token lookup in the
 // FXParticleSystem CategoryModuleClass<5> registry (list head 0x009FDD50),
 // storing the module the matching class creates in the owned pointer at

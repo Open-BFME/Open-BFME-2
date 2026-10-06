@@ -1,6 +1,6 @@
 // ?rva001EBCD8@Rva001EBCD8@@QAEPAXPAX@Z
 // partial score=0.92 date=2026-09-29
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/vendor/stlport
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/vendor/stlport
 // stlport
 //
 // Sibling of stlport_list_objectptr_insert.cpp (same /O1 /EHsc /MD STL flags)

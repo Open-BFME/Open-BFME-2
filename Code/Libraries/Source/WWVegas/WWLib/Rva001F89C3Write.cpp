@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva001F89C3Write@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDPB_N@Z @0x001F89C3 31B: free ostream INI key-bool line skipping false via rowed Write.
 // Evidence: checks byte at value ptr then calls rowed Write 0x001F8384 with same 4 args; callers are writeINI bodies; pattern from Rva001F8330Write.
 namespace _STL

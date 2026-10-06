@@ -1,4 +1,4 @@
-// cl: /O1 /D_STLP_NO_EXCEPTIONS /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /D_STLP_NO_EXCEPTIONS /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00382A02@@QAE@H@Z 0x00382A02 36B
 // Ctor: proxy at +0 init to null via tmp allocator then allocate 52B into it.

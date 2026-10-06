@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva00257464@@QAE@XZ @0x00257464 5B
 // Novtable empty dtor tail-jumping to the pinned base dtor at 0x002572D7.
 // Evidence: 5B jmp; callers are Unwind funclets; neighbours are record/blog.

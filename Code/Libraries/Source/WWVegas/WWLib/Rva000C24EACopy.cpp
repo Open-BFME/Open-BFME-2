@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__copy@PBVRva000C24EA@@PAV1@H@_STL@@YAPAVRva000C24EA@@PBV1@0PAV1@ABUrandom_access_iterator_tag@0@PAH@Z @0x000C376C 47B
 // STL copy over 32-byte Rva000C24EA via rowed operator= @0x000C24EA; caller @0x000C47A8; stride 0x20 sar 5.

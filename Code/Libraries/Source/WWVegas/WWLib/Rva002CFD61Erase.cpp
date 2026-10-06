@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002CFD61@Rva002CFD61@@QAEXPAURva002CFD61Node@@@Z @0x002CFD61 53B.
 // Tree erase with string cleanup: recurse right via +0xC, clear AsciiString
 // at +0x10 via rowed 0x0048BA39, free node via rowed _free 0x00030830,

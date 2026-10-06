@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva0020E7E8@Rva0020E7E8@@QAEXPAVRva0020E7E8Callback@@@Z, retail 0x0020E7E8,
 // 43 bytes.
 // Pointer scan at +0x20/+0x24 calling virtual slot 0 on arg with each

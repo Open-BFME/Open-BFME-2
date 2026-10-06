@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva0020E8DB@Rva0020E8DB@@QAEPAURva0020E8DBEntry@@H@Z, retail 0x0020E8DB, 52 bytes.
 // Scan of pointer vector at +0x5C/+0x60 returning element whose dword at +0

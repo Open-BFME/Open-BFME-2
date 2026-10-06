@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva001DE84F@Rva001DE556@@QAEPAUInsertResult@@PAU2@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z @0x001DE84F 36B reserve-then-insert wrapper.
 // Evidence: packet disassembly; callees pin reserve 0x00212858 rowed insert 0x001DE556; m_size10 at +0x10; callers 0x001DED52 0x001DF518 0x001DF65F 0x001DF787 0x001DF862 0x001DFA20.

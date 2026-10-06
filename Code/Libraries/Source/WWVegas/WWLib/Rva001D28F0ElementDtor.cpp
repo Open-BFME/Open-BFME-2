@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // ??1Rva001D28F0Element@@QAE@XZ, retail 0x00689500, 119 bytes.
 // Dedicated TU (Rva001D25F0VectorInsertOverflow.cpp instantiates
 // vector<Rva001D28F0Element> over this type; a same-TU definition would

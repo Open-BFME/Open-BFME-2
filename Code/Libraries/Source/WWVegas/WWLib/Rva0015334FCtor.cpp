@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0015334F@@QAE@XZ, retail 0x0015334F, 25 bytes.
 // Default ctor zeroing +0 then Vector_base<BfmeE16> at +4 via rowed 0x211E58 with stack allocator temp.

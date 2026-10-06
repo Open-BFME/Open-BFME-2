@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ?rva000B95B1@Rva000B95B1@@QAEXPAX@Z 0x000B95B1 100B
 // Evidence: unlock lane; contiguous after 0x000B9596; bitfield loop 0x24F over dword array at this, byte buf[74] via idiv /8 %8, then vcall slot 0x24 with (buf, 0x4A); caller 0x000BB710 unclaimed.
 

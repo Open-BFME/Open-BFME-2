@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00333295Construct@@YAXPAVRva00332EC8@@ABV1@@Z @0x00333295 18B
 // retail 0x00333295 18 bytes chain Construct wrapper null-check plus copy ctor

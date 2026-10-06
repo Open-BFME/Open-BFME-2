@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc /Oy- /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /Oy- /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 //
 // ?Rva0007B734Find@@YAPAURva0007B734Item@@PAU1@0P6A_NPBU1@1@Z@Z @ 0x0007B734 (47B):
 // __cdecl min-element over 8-byte records: if first==last return first,

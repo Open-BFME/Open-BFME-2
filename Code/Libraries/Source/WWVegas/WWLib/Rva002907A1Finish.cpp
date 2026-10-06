@@ -8,7 +8,7 @@
 // arm and the bit8-clear return as the else -- because retail's je at +0x2D
 // falls THROUGH into the popcount call. Both prior banks read the polarity as
 // a separate defect; it is the same edit as the load form.
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002907A1@Object@@QAE_NXZ @ 0x002907A1 107B: chain from 0x0028F528 popcount;
 // Object disabled-mask gate over +0x1C8 BitFlags<11>::any via rowed 0x0023C58B
 // then bit8 and popcount==1 via rowed 0x0028F528 then !isKindOf(0x81) then

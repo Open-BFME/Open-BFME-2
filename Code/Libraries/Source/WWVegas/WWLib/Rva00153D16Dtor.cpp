@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva00153D16@@QAE@XZ, retail 0x00153D16, 61 bytes.
 // Holder with COM-style surface at +0 released via vtable[2] __stdcall then nulled plus vector<Rva00153729> at +4.

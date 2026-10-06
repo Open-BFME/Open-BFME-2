@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // ?rva00053DC5@Rva00053DC5@@QAEXPAX@Z @0x00053DC5 45B: thiscall free-loop.
 // Recurses on +0xC then frees node and follows +0x8; called from 0x00054B9A
 // list-head resetter which proves list-container context. Callees all rowed:

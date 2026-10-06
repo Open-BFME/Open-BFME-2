@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?rva0020EE8F@Rva0020EE8F@@QAE_NHPAUPair8@@@Z, retail 0x0020EE8F, 57 bytes.
 // Eight-byte pair fetch via inner at +0x08 with byte range at +0x20/+0x24
 // (count sar 3) copying 8B to out. Caller at 0x003F0ED5.

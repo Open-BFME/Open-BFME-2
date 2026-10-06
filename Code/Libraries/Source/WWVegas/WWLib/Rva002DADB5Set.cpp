@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva002DADB5@Rva002DADB5@@QAEXVAsciiString@@@Z retail 0x002DADB5 52 bytes.
 // AsciiString by-value setter into member at +0x3c via rowed set 0x000366F0,
 // by-value copy destroyed via rowed releaseBuffer 0x00036410, EH prolog via

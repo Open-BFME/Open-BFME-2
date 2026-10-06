@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // Eight 5B novtable empty dtors each tail-jumping to its rowed/pinned Map base
 // dtor: 0x00207BDA->0x002075F3, 0x00207BDF->0x00207630, 0x00207BE4->0x0020766D,
 // 0x00207BE9->0x002076AA, 0x00207BEE->0x002076E7, 0x00207BF3->0x00207724,

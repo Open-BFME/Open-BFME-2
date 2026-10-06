@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva0020E9D0@Rva0020E9D0@@QAE_NPAVCreateAHeroData@@@Z, retail 0x0020E9D0,
 // 34 bytes. Contains check over vector at +0x2C/+0x30 via rowed find

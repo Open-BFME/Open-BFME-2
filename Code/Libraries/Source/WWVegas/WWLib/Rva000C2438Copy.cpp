@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_copy@PAUBfmeVectorRecord000C0BEC@@PAU1@@_STL@@YAPAUBfmeVectorRecord000C0BEC@@PAU1@00ABU__false_type@0@@Z @0x000C2438 38B
 // Evidence: retail (first, last, result) loop calls rowed

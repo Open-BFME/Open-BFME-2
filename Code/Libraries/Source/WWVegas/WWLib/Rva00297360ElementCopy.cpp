@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // Copy assignment (43B) of the stride-0x10 element destroyed by
 // ??$_Destroy@PAVRva00297360Element@@ in StlportVectorDtorChains.cpp: an int
 // key, an AsciiString at +4 (copied via the rowed operator= 0x366F0) and two
