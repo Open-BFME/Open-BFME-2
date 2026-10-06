@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Os /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // STLport __pop_heap over the twenty-byte S4SortElem20 family.
 // Target evidence: retail's 95-byte boundary is 0x003376EA, reached from

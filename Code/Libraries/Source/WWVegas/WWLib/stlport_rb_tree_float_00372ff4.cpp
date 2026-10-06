@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ?_M_insert@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@0@Z @ 0x00372FF4 139B.

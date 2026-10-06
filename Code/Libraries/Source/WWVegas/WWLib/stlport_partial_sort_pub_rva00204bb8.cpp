@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$partial_sort@PAHVRva00204BB8@@@_STL@@YAXPAH00VRva00204BB8@@@Z @0x0020A295 27B
 // Public partial_sort wrapper forwarding to the rowed __partial_sort

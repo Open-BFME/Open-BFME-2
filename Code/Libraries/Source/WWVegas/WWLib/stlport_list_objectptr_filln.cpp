@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??$__uninitialized_fill_n@PAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IV12@@_STL@@YAPAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@0@PAV10@IABV10@ABU__false_type@0@@Z @0x00474100 (37B).
 // _STL::__uninitialized_fill_n for list<Object*> (4-byte list objects): count-loop

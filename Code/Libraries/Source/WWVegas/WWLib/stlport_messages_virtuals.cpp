@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // messages<char> and messages<wchar_t> are pure forwarders onto a _Messages

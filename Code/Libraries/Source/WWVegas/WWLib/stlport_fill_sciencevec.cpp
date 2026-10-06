@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$fill@PAV?$vector@HV?$allocator@H@_STL@@@_STL@@V12@@_STL@@YAXPAV?$vector@HV?$allocator@H@_STL@@@0@0ABV10@@Z @0x00339A70 29B _STL::fill for 12-byte vectors.
 // Retail: push esi / mov esi [esp+8] / jmp cmp / push [esp+0x10] / mov ecx esi / call 0x21C21B / add esi 0xC / cmp esi [esp+0xC] / jne / pop esi / ret.

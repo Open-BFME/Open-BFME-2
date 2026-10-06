@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /Oy-
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /Oy-
 
 // Target evidence: the byte-verified __adjust_heap body at 0x0033758C calls
 // this 136-byte helper at +0x89. Retail compares the parent and saved value

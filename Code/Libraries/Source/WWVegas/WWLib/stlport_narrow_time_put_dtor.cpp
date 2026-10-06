@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: the default STLport 4.5.3 narrow time_put destructor at retail
 // 0x00408FD0, 73 bytes, and the scalar deleting destructor at 0x00408FB0 that

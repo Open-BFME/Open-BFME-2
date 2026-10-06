@@ -1,4 +1,4 @@
-// cl: /O1 /D_STLP_NO_EXCEPTIONS /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /D_STLP_NO_EXCEPTIONS /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 //
 // STLport 4.5.3 map<int, vector<unsigned int> > insert_unique(value) for the

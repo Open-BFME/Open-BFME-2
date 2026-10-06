@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // BFME2 STLport tree: AsciiString key and opaque 0xDF4-byte mapped object.
 // ??1TreeHintOpaque0043671B@@QAE@XZ @0x00229840 53B destroys UnicodeString +0 and 0xDE8 subobject +4; deleting dtor 0x002DDE27 and list clear 0x00434EC9 prove identity; layout from copy 0x0022D106.

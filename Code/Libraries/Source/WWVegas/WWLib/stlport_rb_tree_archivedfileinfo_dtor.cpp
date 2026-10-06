@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VArchivedFileInfo@@@_STL@@...@_STL@@QAE@XZ
 // retail 0x00223FF1 57B. The archived-file map tree dtor: the rowed node
 // clear 0x0022380B (rowed under the address-derived

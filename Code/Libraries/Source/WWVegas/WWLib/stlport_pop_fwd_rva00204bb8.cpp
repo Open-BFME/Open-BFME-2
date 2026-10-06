@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00207BC3Pop@@YAXPAH0VRva00204BB8@@@Z @0x00207BC3 23B
 // pop_heap forwarding wrapper over the rowed pop wrapper 0x00207539:

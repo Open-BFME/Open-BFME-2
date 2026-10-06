@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // STLport 4.5.3 integer-set helpers, independently identified from PC Horde
 // rank callbacks at 46AD18: set insert BC15D -> tree unique73053 -> insert2EBACB

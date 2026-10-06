@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // STLport remove_copy 0x0054872C 39B plus remove 0x005487D2 46B

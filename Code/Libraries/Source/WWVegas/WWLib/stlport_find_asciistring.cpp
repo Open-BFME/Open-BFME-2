@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva000BC758Find@@YAPAV?$StringBase@D@@PAV1@0ABV1@H@Z @0x000BC758 172B via STL find Duff 4x
 // Evidence: unrolled 4x compare loop with trip_count (last-first)>>2 and dec-chain tail;

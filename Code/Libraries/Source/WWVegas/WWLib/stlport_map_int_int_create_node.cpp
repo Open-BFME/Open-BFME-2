@@ -1,4 +1,4 @@
-// cl: /O1 /D_STLP_NO_EXCEPTIONS /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /D_STLP_NO_EXCEPTIONS /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // Dedicated /O1 /D_STLP_NO_EXCEPTIONS + bfmealloc instantiation so _M_create_node calls the byte

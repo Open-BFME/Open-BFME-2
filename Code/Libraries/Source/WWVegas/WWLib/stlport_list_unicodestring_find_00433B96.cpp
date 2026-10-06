@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // The address-derived helper at 0x00433B96 walks a circular list of
 // UnicodeString nodes and returns the matching node or the end node. The
 // target evidence is the 39-byte loop and its call to StringBase<wchar_t>::compare.

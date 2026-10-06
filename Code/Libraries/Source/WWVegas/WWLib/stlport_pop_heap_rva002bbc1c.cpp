@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$__pop_heap@PAVRva004F6093Holder@@V1@URva002BBC1CCmp@@H@_STL@@YAXPAVRva004F6093Holder@@00V1@URva002BBC1CCmp@@PAH@Z @0x002B6368 105B
 // 6-arg pop-heap worker over the 4-byte refcounted Rva004F6093Holder with the

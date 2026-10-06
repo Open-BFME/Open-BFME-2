@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva004260DE@Rva004260DE@@QAEPAHH@Z @0x004260DE 31B evidence: map<int int> at +0x0C via rowed _M_find 0x388F63 plus header compare plus second at +0x14 plus callers 0x45EE06 0x45F134
 #include <map>

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // STLport 4.5.3 _deque.h at BFME1 6583b3c1ff is the semantic source.
 // Retail facts: Ghidra 00419F7C..00419F88 is a 12-byte thiscall wrapper;

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ??1?$pair@$$CBVAsciiString@@UTreeHintRef00222C5A@@@_STL@@QAE@XZ, retail 0x00222C5A 57 bytes.
 // STLport pair<const AsciiString TreeHintRef> destructor: releases non-null mapped

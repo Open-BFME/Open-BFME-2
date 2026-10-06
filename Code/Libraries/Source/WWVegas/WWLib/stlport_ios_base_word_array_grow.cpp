@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 
 // Open-BFME5: STLport ios_base auxiliary word-array growth for iword and pword.
 

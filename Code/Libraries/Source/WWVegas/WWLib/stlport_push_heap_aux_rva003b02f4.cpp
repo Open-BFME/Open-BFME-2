@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /EHs-c- /MD /Oy /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs-c- /MD /Oy /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva003AFFBE@@YAXHHHHH@Z @0x003AFFBE 50B: __push_heap_aux for 12B Rva003B02F4Entry calling rowed __push_heap 0x003AFE48; evidence rowed callees and REL32 from 0x003B015D via 0x003B016D, LINK BONUS 1 file 25B
 struct Rva003B02F4Entry

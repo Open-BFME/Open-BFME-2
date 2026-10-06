@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ??A?$map@VAsciiString@@UTreeHintPayload003012F0@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload003012F0@@@_STL@@@4@@_STL@@QAEAAUTreeHintPayload003012F0@@ABVAsciiString@@@Z @0x0030251A 121B
 // map operator[] over AsciiString key with twelve-byte mapped value; same shape as 0x00218AA4 but with 3-dword payload (no zeroing)

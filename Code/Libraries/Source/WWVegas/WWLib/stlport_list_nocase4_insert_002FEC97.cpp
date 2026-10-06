@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva002FEC97Insert@@YGPAXPAXPAUListNode@@PBU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z @0x002FEC97 37B: list insert creating node via rowed 0x002FE8AA then linking before position. Evidence: calls 0x002FE8AA; callers at 0x002FED25 and 0x002FED66; same 37B shape as list AsciiString insert 0x001FD72C.
 #include <list>

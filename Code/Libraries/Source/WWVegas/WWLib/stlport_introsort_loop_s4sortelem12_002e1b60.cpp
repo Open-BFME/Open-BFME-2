@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 
 // Open-BFME5: _STL::__introsort_loop<S4SortElem12 *, S4SortElem12, int,

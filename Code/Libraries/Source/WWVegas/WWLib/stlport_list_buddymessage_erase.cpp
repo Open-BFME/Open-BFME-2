@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva004168D3Erase@@YGXPAPAXPAUBuddyEraseNode@@@Z @0x004168D3 42B
 // List unlink plus BuddyMessage destroy plus free. Unlinks node via Next at
 // +0 and Prev at +4; destroys BuddyMessage at +8 via rowed 0x0038215B;

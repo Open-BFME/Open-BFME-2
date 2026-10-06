@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?_M_insert_overflow@?$vector@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL@@IAEXPAVRva0054000B@@ABV3@ABU__false_type@2@I_N@Z @0x00540412 189B
 // ?push_back@?$vector@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL@@QAEXABVRva0054000B@@@Z @0x005406FA 55B

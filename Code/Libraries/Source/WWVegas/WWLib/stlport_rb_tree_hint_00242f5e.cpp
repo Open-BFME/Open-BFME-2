@@ -1,5 +1,5 @@
 // stlport
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // BFME1 RvaTreeInsertUniqueHint.cpp and STLport tree/pair semantic donor.
 // Comparator0x240CE0 orders signed dword then AsciiString at key+4.
 // Keycopy0xCF475 calls AsciiString copy0x365F0; paircopy0x23E90D adds mapped dword+8.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // __lower_bound over const unsigned int* with less<unsigned int>, the
 // binary-search worker behind lower_bound on a sorted unsigned array.

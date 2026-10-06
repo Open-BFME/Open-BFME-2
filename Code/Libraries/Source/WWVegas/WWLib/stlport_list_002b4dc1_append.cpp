@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?rva002B87E0@Rva002B87E0@@QAE@URva002B87E0Param@@@Z @ 0x002B87E0 (55B).
 // By-value 12-byte wide-string record forwarded to the rowed list-append

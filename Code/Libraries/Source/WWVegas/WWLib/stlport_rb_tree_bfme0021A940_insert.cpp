@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
+// cl: /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 // ?_M_insert@?$_Rb_tree@UBfmeStringRecord0021A940@@U1@U?$_Identity@UBfmeStringRecord0021A940@@@_STL@@U?$less@UBfmeStringRecord0021A940@@@3@V?$allocator@UBfmeStringRecord0021A940@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@UBfmeStringRecord0021A940@@U?$_Nonconst_traits@UBfmeStringRecord0021A940@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABUBfmeStringRecord0021A940@@0@Z @0x0021C4B0 136B.
 // Set _M_insert for BfmeStringRecord0021A940 via insert_unique instantiation.

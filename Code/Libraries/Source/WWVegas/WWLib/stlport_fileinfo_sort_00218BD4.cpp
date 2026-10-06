@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 //
 // ?Rva00218BD4Sort@@YAXPAURva004748F0Element@@00URva004748F0Compare@@@Z @0x00218BD4 27B
 // Full-sort forwarder over the FileInfo partial-sort driver 0x002188E4.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 
 // The emitted unsigned max copy must match retail RVA 0x00013740.

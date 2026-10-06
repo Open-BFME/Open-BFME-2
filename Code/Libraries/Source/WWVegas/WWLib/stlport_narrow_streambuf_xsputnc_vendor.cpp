@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // stlport
 
 #include <stl/_streambuf.h>

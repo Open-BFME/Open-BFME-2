@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ctype<char>'s eight virtuals, from its vftable at 0x007BC3E4. The slot order

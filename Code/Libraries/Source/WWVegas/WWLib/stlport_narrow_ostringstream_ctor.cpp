@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ??0?$basic_ostringstream@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@H@Z @0x001FA85C 129B

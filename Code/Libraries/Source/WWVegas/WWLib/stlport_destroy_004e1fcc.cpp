@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 
 // ?Rva004E1FCCGet@@YAXPAURva004E1AD5Item@@0@Z, RVA 0x004E1FCC, 24B. Chain lane:

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // STLport basic_stringbuf<char>::~basic_stringbuf, retail 0x001F6606 (65 B).

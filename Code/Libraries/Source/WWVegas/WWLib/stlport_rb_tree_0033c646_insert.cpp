@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?insert_unique@?$_Rb_tree@URva0033C646Key@@...@QAE?AU?$_Rb_tree_iterator@...@2@U32@ABURva0033C646Key@@@Z
 // retail 0x0033C646 449B: the hinted insert_unique of a second tree.

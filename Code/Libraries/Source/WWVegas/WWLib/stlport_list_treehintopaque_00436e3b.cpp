@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?clear@?$_List_base@UTreeHintOpaque0043671B@@V?$allocator@UTreeHintOpaque0043671B@@@_STL@@@_STL@@QAEXXZ @0x00434EC9 49B: list clear of TreeHintOpaque0043671B via rowed dtor 0x00229840 and _free; empty-check plus sentinel reset match list<int> precedent.
 // Layout from copy 0x0022D106 (UnicodeString +0, 0xDE8 subobject +4, words DEC/DF0); value at node+8 proves list node.

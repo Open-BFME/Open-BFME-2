@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD
+// cl: /EHsc /MD
 // stlport
 
 // STLport 4.5.3 specialized narrow-file underflow helper, retail 0x0084B210.

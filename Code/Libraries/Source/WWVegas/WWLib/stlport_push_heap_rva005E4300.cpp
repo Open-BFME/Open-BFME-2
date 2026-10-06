@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$__push_heap@PAHHHURva005E4300Cmp@@@_STL@@YAXPAHHHHURva005E4300Cmp@@@Z @0x005E4617 76B
 // Heap sift-up over int sort keys with the pinned thiscall comparator

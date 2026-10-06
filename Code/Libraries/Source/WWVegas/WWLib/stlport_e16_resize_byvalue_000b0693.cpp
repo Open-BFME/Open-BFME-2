@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?resize@BfmeE16Vector@@QAEXIUBfmeE16@@@Z @0x000B0693 65B. 16-byte vector resize by value.
 // Evidence: calls rowed erase 0x002BF70F and just-landed fill-insert 0x000B0395; shape follows stlport_pod8_resize_byvalue.cpp.

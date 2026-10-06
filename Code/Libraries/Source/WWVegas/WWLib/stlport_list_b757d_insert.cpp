@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?insert@?$list@UBfmeStringRecord000B757D@@V?$allocator@UBfmeStringRecord000B757D@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeStringRecord000B757D@@U?$_Nonconst_traits@UBfmeStringRecord000B757D@@@_STL@@@2@U32@ABUBfmeStringRecord000B757D@@@Z retail 0x000BC1E8 37B

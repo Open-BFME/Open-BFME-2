@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // STLport 4.6.2 src/num_put_float.cpp with its two private headers embedded.
 // Modified only to embed includes and declare the build options above.

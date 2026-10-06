@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?_M_insert@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva00568FE4Key@@0@Z
 // retail 0x00568FE4 149B. _Rb_tree 10-byte key set _M_insert (hinted insert worker).

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ??$__copy@PAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@PAV12@H@_STL@@YAPAV?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@0@PAV10@00ABUrandom_access_iterator_tag@0@PAH@Z @0x004703B1 47B

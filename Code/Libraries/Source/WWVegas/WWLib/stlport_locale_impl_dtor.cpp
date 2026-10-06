@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /MD
+// cl: /Ob0 /DNDEBUG /MD
 
 // Open-BFME5: _STL::_Locale_impl::~_Locale_impl(), retail 0x00408D60,
 // 21 bytes. Retail RTTI at 0x00CF3FB4 names _Locale_impl, and its vtable at

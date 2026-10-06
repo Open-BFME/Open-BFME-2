@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?rva0042468D@BfmeE16Vector@@QAEXI@Z @0x0042468D 48B. BfmeE16Vector zero-resize wrapper calling rowed two-arg resize.
 // Evidence: calls rowed ?resize@BfmeE16Vector@@QAEXIUBfmeE16@@@Z 0x000B0693; forwards ecx; zeroes 16-byte element.

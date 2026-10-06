@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ios_base::failure, the last of the STLport exception vftables. Its

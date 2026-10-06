@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$fill@PAURva00B6CF1@@U1@@_STL@@YAXPAURva00B6CF1@@0ABU1@@Z @0x000B67F6 29B
 // _STL::fill forward assign loop stride 8 via rowed operator= at 0x000B433E. Same 29B shape as AsciiString fill 0x000B4300.

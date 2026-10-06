@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // hash_map<int, list<BfmePod264>>: its pair copy (0x0028A02F) calls the rowed list<BfmePod264> copy constructor (stlport_pod_list_bodies.cpp, whose bfmelist layout shim this unit shares), and its node constructor (0x0028A096) zeroes the next link and places the pair at +4.

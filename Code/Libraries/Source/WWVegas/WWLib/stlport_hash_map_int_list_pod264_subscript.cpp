@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // _STL::hash_map<int, _STL::list<BfmePod264> >::operator[] @0x0028A104 166B.

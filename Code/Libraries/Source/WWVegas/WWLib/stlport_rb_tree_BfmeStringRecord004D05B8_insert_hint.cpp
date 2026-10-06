@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?insert_unique@?$_Rb_tree@UBfmeStringRecord004D05B8@@U1@U?$_Identity@UBfmeStringRecord004D05B8@@@_STL@@U?$less@UBfmeStringRecord004D05B8@@@3@V?$allocator@UBfmeStringRecord004D05B8@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@UBfmeStringRecord004D05B8@@U?$_Nonconst_traits@UBfmeStringRecord004D05B8@@@_STL@@@2@U342@ABUBfmeStringRecord004D05B8@@@Z @ 0x004D2209 310B: hint insert_unique for WORD-key set
 // calls rowed 0x004D2050 _M_insert and rowed 0x004D20DA insert_unique plus rowed increment/decrement.

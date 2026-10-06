@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?insert@?$list@UBfmeStringRecord00415F34@@V?$allocator@UBfmeStringRecord00415F34@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeStringRecord00415F34@@U?$_Nonconst_traits@UBfmeStringRecord00415F34@@@_STL@@@2@U32@ABUBfmeStringRecord00415F34@@@Z @0x004168AE 37B

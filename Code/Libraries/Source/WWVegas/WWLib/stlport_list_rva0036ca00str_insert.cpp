@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?insert@?$list@VRva0036CA00Str@@V?$allocator@VRva0036CA00Str@@@_STL@@@_STL@@QAE?AU?$_List_iterator@VRva0036CA00Str@@U?$_Nonconst_traits@VRva0036CA00Str@@@_STL@@@2@U32@ABVRva0036CA00Str@@@Z retail 0x00054B75 37B

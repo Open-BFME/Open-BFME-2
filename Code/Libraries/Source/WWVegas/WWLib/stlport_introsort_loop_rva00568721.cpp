@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // __median 0x00568767 (108B) and __introsort_loop 0x00569E91 (123B) of the
 // STLport sort<void**, Rva00568721Cmp> family; the rest is in

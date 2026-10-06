@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 
 // ??$copy_backward@PAUBfmePod60@@PAU1@@_STL@@YAPAUBfmePod60@@PAU1@00@Z @0x005875BF 29B

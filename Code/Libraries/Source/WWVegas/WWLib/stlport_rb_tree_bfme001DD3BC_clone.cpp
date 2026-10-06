@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?_M_clone_node clone for BfmeRecord001DD3BC set tree @0x001DD998 30B via rowed create_node 0x001DD976.
 // Evidence: unlock lane same 30B shape as 0x002CFE27; value at source+0x10 color copy null links.

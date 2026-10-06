@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // moneypunct's nine virtuals, slots 1..9 of the four vftables at 0x007BC810,

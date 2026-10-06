@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva004FF55E@@QAE@I@Z @0x004FF55E 36B: Single-proxy ctor _STLP_alloc_proxy at +0 via rowed 0x0014F3C4 with (default alloc 0) then 0x6C-byte block via rowed allocator<char>::allocate 0x000307F0. Evidence: unlock lane same push-ecx lea-esp-B 17-insn shape as Rva004FF4F1 0x004FF4F1 (36B with 0x28); caller 0x004FF6D5 42B empty-tree init.
 #include <deque>

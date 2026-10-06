@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc- /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc- /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_fill_n@PAV?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@IV12@@_STL@@ @0x002BB785 37B.
 // Target bytes at 0x002BB785 count down over 12-byte vector elements, calls the

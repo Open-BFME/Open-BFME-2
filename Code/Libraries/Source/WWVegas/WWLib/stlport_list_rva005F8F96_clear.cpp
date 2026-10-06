@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?clear@?$_List_base@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAEXXZ, retail 0x005CCEFA, 49 bytes.
 // List_base clear for 8-byte Rva005F8F96 holder via rowed dtor 0x005F8F96 and _free 0x30830.

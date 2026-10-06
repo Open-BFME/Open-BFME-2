@@ -1,4 +1,4 @@
-// cl: /EHsc /O1 /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 
 // STLport 4.5.3 narrow basic_stringbuf members that retail compiled with /O1

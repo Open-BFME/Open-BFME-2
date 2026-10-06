@@ -1,6 +1,6 @@
 // ?_M_insert@?$_Rb_tree@UBfmeStringRecord004D05B8@@U1@U?$_Identity@UBfmeStringRecord004D05B8@@@_STL@@U?$less@UBfmeStringRecord004D05B8@@@3@V?$allocator@UBfmeStringRecord004D05B8@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@UBfmeStringRecord004D05B8@@U?$_Nonconst_traits@UBfmeStringRecord004D05B8@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABUBfmeStringRecord004D05B8@@0@Z @ 0x004D2050 (138B).
 // Unlock via insert_unique instantiation; WORD key at +0 gives mov cx cmp jb shape; callees rowed 0x004D1D0B 0x00025490.
-// cl: /O1 /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <set>

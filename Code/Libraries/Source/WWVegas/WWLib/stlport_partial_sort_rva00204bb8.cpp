@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$__partial_sort@PAHHVRva00204BB8@@@_STL@@YAXPAH000VRva00204BB8@@@Z @0x00209A62 92B
 // STL partial sort over int sort keys with the rowed thiscall comparator

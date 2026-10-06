@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??$_Construct@V?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@V12@@_STL@@YAXPAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@0@ABV10@@Z @0x004740AD (45B).

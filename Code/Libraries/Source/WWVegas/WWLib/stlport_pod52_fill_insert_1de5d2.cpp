@@ -1,6 +1,6 @@
 // ?_M_fill_insert@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@QAEXPAUBfmePod52@@IABU3@@Z
 // partial score=0.98 date=2026-09-29
-// cl: /O1 /Ob0 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ob0 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?_M_fill_insert@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@QAEXPAUBfmePod52@@IABU3@@Z @0x001DE5D2 225B
 // vector<BfmePod52> fill-insert with non-trivial temp copy via twin-pinned

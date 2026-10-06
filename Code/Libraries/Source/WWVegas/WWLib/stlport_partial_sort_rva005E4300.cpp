@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$__partial_sort@PAHHURva005E4300Cmp@@@_STL@@YAXPAH000URva005E4300Cmp@@@Z @0x005E5177 92B
 // STL partial sort over int keys with stateful comparator Rva005E4300Cmp at

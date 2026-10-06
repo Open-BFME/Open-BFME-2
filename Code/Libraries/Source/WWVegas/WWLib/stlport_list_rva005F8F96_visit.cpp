@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva005CCCD0@Rva005CCCD0@@QAEXPAUVisitor005CCCD0@@@Z, retail 0x005CCCD0, 44 bytes.
 // Iterates list<Rva005F8F96> at +8, calls visitor vtable slot 0 with node data m_00; stops on false.
 // Evidence: neighbour List_base clear proves node layout (next at +0, data at +8); caller 0x005CCD36 forwards [ecx+4].

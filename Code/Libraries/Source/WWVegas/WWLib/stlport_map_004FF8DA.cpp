@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva004FF8DA@Rva004FF8DA@@QAE_NHH@Z @0x004FF8DA 54B: bounds-checked vector-array presence via rowed int-int _M_find 0x00388F63. Evidence: unlock lane ret 8 two ints lea-esp-8 key plus ecx+0x38 tree plus imul 0xC stride plus idx<8 plus (finish-start)/0x58 count.
 #include <map>

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??$__uninitialized_copy@PAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@0@PAV10@00ABU__false_type@0@@Z @0x004740DA (38B).
 // _STL::__uninitialized_copy for list<Object*> (4-byte list objects): range-loop

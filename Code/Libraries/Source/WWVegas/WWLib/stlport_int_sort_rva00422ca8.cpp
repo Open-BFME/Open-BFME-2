@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // STLport sort<int*, Rva00422CA8> and its insertion-sort half over int sort
 // keys with the rowed thiscall comparator Rva00422CA8 (operator()(int,int) at

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??$__uninitialized_fill_n@PAVRva001ED03C@@IV1@@_STL@@YAPAVRva001ED03C@@PAV1@IABV1@ABU__false_type@0@@Z @0x001ED244 (37B).
 // _STL::__uninitialized_fill_n<Rva001ED03C> retail 37 bytes. Dedicated TU

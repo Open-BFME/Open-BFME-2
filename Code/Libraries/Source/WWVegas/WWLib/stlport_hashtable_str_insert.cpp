@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva00058D4A@Rva00058D4A@@QAEPAUPair00058D4A@@PAU2@ABUBfmeStringRecord00054F57@@@Z @0x00058D4A 124B: hashtable find-or-create for BfmeStringRecord00054F57; bucketIndex plus chain compare plus pinned New method prepend plus out pair; caller 0x0005A105 in 0x0005A0EE; callees rowed bucketIndex compare plus pinned rva00056E8C ICF twin of free New.
 class AsciiString;

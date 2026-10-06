@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ??$partition@PAPAURva00450B90Item@@VRva00450B90Predicate@@@_STL@@YAPAPAURva00450B90Item@@PAPAU1@0VRva00450B90Predicate@@@Z retail 0x00301295 27B

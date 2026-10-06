@@ -1,4 +1,4 @@
-// cl: /O1 /D_STLP_NO_EXCEPTIONS /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /D_STLP_NO_EXCEPTIONS /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // STLport4.5.3 copy family for CreateAHeroData member0x74.
 // Retail insertion at0x21D203 uses signed key comparisons. Node0x21D159

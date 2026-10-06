@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?_M_insert@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@UBfmePod20@@U?$_Nonconst_traits@UBfmePod20@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABUBfmePod20@@0@Z
 // retail 0x004AF3E6 136 bytes plus ?insert_unique@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@UBfmePod20@@U?$_Nonconst_traits@UBfmePod20@@@_STL@@@_STL@@_N@2@ABUBfmePod20@@@Z

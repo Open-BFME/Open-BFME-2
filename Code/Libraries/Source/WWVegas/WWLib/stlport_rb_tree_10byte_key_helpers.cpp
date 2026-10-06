@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0056866ALess@@YG_NPBX0@Z @0x0056866A 71B. Stdcall 10-byte key ordering
 // for the 0x00568xxx RB-tree family (2 floats + word at +8). Retail compares
 // floats with comiss/ja (greater-true) and word with sbb/neg (less-true).

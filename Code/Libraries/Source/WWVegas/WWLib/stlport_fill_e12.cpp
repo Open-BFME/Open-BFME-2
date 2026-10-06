@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0007E3B1Fill@@YAXPAH0ABH@Z placeholder, retail 0x0007E3B1, 40 bytes.
 // Fill 12 bytes via explicit moves, no string ops.
 // Evidence: callers 0x000827B0 0x000827F4; prev pod hash /O1 /EHsc next fill Pod44 same flags.

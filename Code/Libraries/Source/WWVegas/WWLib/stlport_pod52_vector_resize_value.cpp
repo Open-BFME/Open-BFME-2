@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP=
+// cl: /EHsc /MD /D_CRTIMP=
 // STLport 4.5.3 vector resize with a 52-byte element passed by value.
 // BfmePod52 names the proven stride; the retail element type is not established.
 // Shape follows Open-BFME-1 vector_ICoord2D_resize.cpp. The retail call at

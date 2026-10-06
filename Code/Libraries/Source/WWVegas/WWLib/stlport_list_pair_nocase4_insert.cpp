@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
 // ?insert@?$list@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@QAE?AU?$_List_iterator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@@Z @0x0020746B 37B

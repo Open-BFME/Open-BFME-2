@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva004E7B6EErase@@YGXPAPAXPAURva004E7B6ENode@@@Z @0x004E7B6E 42B
 // List unlink plus Rva004E7A76 destroy plus free. Unlinks node via Next at
 // +0 and Prev at +4; destroys value at +8 via rowed 0x004E7A76;

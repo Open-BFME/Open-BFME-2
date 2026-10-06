@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /MD
+// cl: /Ob0 /MD
 // Open-BFME5: STLport ios_base::iword, retail 0x0083F0C0, 117 bytes.
 
 struct FILE

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 
 // Open-BFME5: _STL::basic_streambuf<char>::_M_snextc_aux @ 0x008402D0 (94B)
 // FILE*-specialized streambuf (STLport 4.5.3): _M_get at +4.

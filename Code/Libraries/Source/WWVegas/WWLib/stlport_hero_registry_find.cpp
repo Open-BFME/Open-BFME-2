@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // STLport 4.5.3 pointer search used by the CreateAHeroData registry.
 // The verified CreateAHeroData copy calls 21D517 with its this pointer.

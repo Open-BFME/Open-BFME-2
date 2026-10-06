@@ -1,5 +1,5 @@
 // stlport
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // BFME1 RvaTreeInsertUniqueHint.cpp and STLport pair/tree are the semantic donor.
 // BFME2 comparator0x206BCF orders two AsciiStrings lexicographically.
 // Key copy0x20492B calls AsciiString copy0x365F0 twice.

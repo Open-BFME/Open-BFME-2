@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // hash_map<int, vector<ScienceType>>: its pair copy (0x0041E7D5) calls the rowed vector<ScienceType> copy constructor (ProductionPrerequisiteCopyCtor.cpp) for the value, and its node constructor (0x0041EA07) zeroes the next link and places the pair at +4.

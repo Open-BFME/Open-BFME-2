@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's

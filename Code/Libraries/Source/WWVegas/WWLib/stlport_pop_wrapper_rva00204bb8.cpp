@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00207539Pop@@YAXPAH0HVRva00204BB8@@@Z @0x00207539 30B
 // pop_heap wrapper over the rowed __pop_heap 0x002074D4: last-1 as
