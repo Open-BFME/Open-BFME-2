@@ -7,12 +7,12 @@
 typedef _STL::map<int, void *, _STL::less<unsigned int> > HashMap008FF850;
 typedef HashMap008FF850::iterator HashIter008FF850;
 
-extern HashMap008FF850 g_map008FF850;
+static HashMap008FF850 *g_peekMap008FF850; // link anchor; real address unrowed
 
 void *PeekHashMapValue008FF850(int key)
 {
-	HashIter008FF850 it = g_map008FF850.find(key);
-	if (it == g_map008FF850.end())
+	HashIter008FF850 it = g_peekMap008FF850->find(key);
+	if (it == g_peekMap008FF850->end())
 		return 0;
 	return (*it).second;
 }
