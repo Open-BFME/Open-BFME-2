@@ -1,5 +1,5 @@
 // ?rva00574BD7@Rva00574ABB@@QAEPAPAV1@PAPAV1@@Z
-// partial score=0.94 date=2026-10-06
+// partial score=0.97 date=2026-10-06
 // cl: /O1 /MD /EHs-c- /Oy-
 // ?rva00574BD7@Rva00574ABB@@QAEPAPAV1@PAPAV1@@Z @0x00574BD7 68B via Clone-from-this twin of Rva005CE2A1Create
 // Evidence: VTABLE slot 1 of table 0x0086E498 (data_ledger vtable ??_7Rva00574ABB@@6B@);
@@ -22,13 +22,15 @@ void *__cdecl operator new(unsigned int size);
 
 Rva00574ABB **Rva00574ABB::rva00574BD7(Rva00574ABB **out)
 {
-	volatile int state;
+	int state;
 	__asm { and state, 0 }
 	Rva00574ABB *p = (Rva00574ABB *)operator new(0x10);
 	if (p != 0) {
 		*(void **)p = (void *)g_00C6E498;
 		p->m_ref &= 0;
 		p->m_data = m_data;
+	} else {
+		p = 0;
 	}
 	*out = p;
 	if (p != 0)

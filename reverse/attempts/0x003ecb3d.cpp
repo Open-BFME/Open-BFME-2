@@ -1,0 +1,25 @@
+// ?Rva003ECB3DIsAlly@@YAHPBVPlayer@@0@Z
+// partial score=0.91 date=2026-10-06
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// ?Rva003ECB3DIsAlly@@YAHPBVPlayer@@0@Z @0x003ECB3D 21B via Ally-check twin
+// Evidence: push arg2/mov ecx arg1/call rowed ?getRelationship@Player@@QBE?AW4Relationship@@PBV1@@Z 0x2AC3E0
+// then dec/dec/neg/sbb/inc for ==ALLIES (2); Relationship ENEMIES=0 NEUTRAL=1 ALLIES=2 per PlayerGetRelationship;
+// callback constant at 0x3ED144; prev/next Rva003ECA69ElementClear same dir/flags.
+enum Relationship
+{
+	ENEMIES = 0,
+	NEUTRAL = 1,
+	ALLIES = 2
+};
+class Player
+{
+public:
+	Relationship getRelationship(const Player *that) const;
+};
+int Rva003ECB3DIsAlly(const Player *a, const Player *b)
+{
+	int r = a->getRelationship(b);
+	--r;
+	--r;
+	return r == 0;
+}

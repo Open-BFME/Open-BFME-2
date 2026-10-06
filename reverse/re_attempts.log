@@ -14526,3 +14526,20 @@ _Rva00437FB3	0x00437FB3	120	partial	Two callback refcount copies and the direct 
 ??0BroadcastStealthUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	0x004A342E	146	blocked	BFME1 donor adds STL list initialization and diverges from target raw member setup by 98 bytes t=12 model=gpt-6
 ?rva004A3A20@InvisibilityUpdate@@QAEXXZ	0x004A3A20	277	blocked	vtable suggests InvisibilityUpdate but slot purpose and callable member identity are unproven by available donors or surrounding rows t=2 model=gpt-6
 ?rva0015265E@Rva0015265E@@QAE_NABURva0015265EData@@@Z	0x0015265E	561	blocked	large virtual-dispatch parser has no proven class identity or applicable donor and 7 callers are unclaimed t=2 model=gpt-6
+?rva004BA9E4@TransitionDamageFX@@QAEXXZ	0x004BA9E4	321	blocked	321B vslot slot45 TransitionDamageFX needs full base-hierarchy virtual count plus donor plus STL push_back EH plus x87 plus pin-only callees no donor in budget t=5 model=muse-09
+?rva004DF547@Rva004DF547@@QAEXXZ	0x004DF547	478	blocked	ADDRESS-NAMED g_Va00DBA4E4 new use refused per packet t=1 model=muse-09
+?rva003ECD1B@ThreatFinderUpdate@@UAEHXZ	0x003ECD1B	69	blocked	SSE movss-movsd-leaedi vs integer mov-add 69vs69B tried volatile struct-assign Oy- t=15 model=muse-09
+?Rva003ECB3DIsAlly@@YAHPBVPlayer@@0@Z	0x003ECB3D	21	partial	push-mov order plus sub-vs-decdec 23vs21B same 9insns t=10 model=muse-09 score=0.91 stash=reverse/attempts/0x003ecb3d.cpp
+?rva00462FB3@OpenContain@@QAEXPAVObject@@_N@Z	0x00462FB3	228	blocked	ebx zero-cache wall push-ebx vs push-0 plus dec-mem vs dec-reg plus cmp-vs-test plus s44 order plus shr-vs-test plus push-mem vs push-reg; frame fixed with Oy-minus; shape_levers checked t=15 model=muse-09
+?rva0045969F@Rva0045969F@@UAEHXZ	0x0045969F	90	partial	lea order plus edx-vs-eax for AI vtable plus and-xor-inc vs mov-mov epilogue t=18 model=muse-09 score=0.92 stash=reverse/attempts/0x0045969f.cpp
+?rva00459A2A@SiegeDockingBehavior@@UAE_NW4ObjectID@@PAVCoord3D@@@Z	0x00459A2A	318	blocked	SSE-vs-x87 wall plus frame plus vector inlining plus Coord3D length shape needs sibling donor work t=22 model=muse-09
+?rva004596F9@Rva004596F9@@UAEXXZ	0x004596F9	363	blocked	363B integer body needs full array-growth plus random-switch plus 0x120-flags plus 0x258-AI plus string-plus-idiv reconstruction; stub only t=8 model=muse-09
+?rva00574BD7@Rva00574ABB@@QAEPAPAV1@PAPAV1@@Z	0x00574BD7	68	partial	exact size 68B 28 insns only and-pushesi-push10 order swapped plus reloc vtable t=12 model=muse-09 score=0.97 stash=reverse/attempts/0x00574bd7.cpp
+??0Rva005E8908@@QAE@ABV0@@Z	0x005E8943	95	blocked	copy-ctor EH prolog wall call-EH_prolog vs push-minus1 plus 115-vs-95B plus shared-UnicodeString inline shape t=14 model=muse-09
+?rva004DFCE6@Rva004DFCE6@@QAEXXZ	0x004DFCE6	361	blocked	shared SSE wall: retail SSE movss-mulss plus Coord3D length-normalize plus 0.5 literal; new-file compiles give x87 like 0x00459A2A probe; needs flag-region fix then resweep t=5 model=muse-09
+?rva005E5C15@Rva005E5C15@@QAEPAPAUTargetRef00217D4C@@PAPAU2@PAU2@@Z	0x005E5C15	78	blocked	EH-prolog wall needs funclet-table plus slot0 Clone plus Release state handling t=10 model=muse-09
+??0Rva005E91ED@@QAE@HPAH@Z	0x005E91ED	140	blocked	ctor needs temp-AsciiString stack plus Rva005E1680 HHH row-type vs ptr plus vtable stores plus EH t=15 model=muse-09
+?Rva0004E704Get@@YAHXZ	0x0004E704	206	blocked	free-function signature unclear edi-ebx incoming plus 206B color-division GameClient virtual needs caller pushes beyond 200B limit t=6 model=muse-09
+?Rva00574BA5Create@@YAPAPAVRva00574ABB@@PAPAV1@PBUPayload@1@@Z	0x00574BA5	50	blocked	Clone-factory regalloc wall p-out regs swapped plus pop-vs-add plus leave-vs-movpop t=16 model=muse-09
+?rva004DFBED@Rva004DFBED@@QBEPBVArmorTemplate@@ABVAsciiString@@@Z	0x004DFBED	51	blocked	STL hash_map frame-vs-inline wall: frameless-plus-call 70B vs framed-plus-inline 97B vs retail framed-plus-call 51B t=14 model=muse-09
+?rva00574A98@Rva00574A98@@QAEIXZ	0x00574A98	13	partial	branchless neg-sbb-and exact but mov-ecx-plus-mov-add vs mov-eax-plus-lea t=15 model=muse-09 score=0.9 stash=reverse/attempts/0x00574a98.cpp
