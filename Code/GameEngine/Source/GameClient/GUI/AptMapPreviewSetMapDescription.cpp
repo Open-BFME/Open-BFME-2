@@ -31,6 +31,8 @@ public:
     void rva0057C597(bool show);
     void rva0057CC43(struct Rva0057CC43Node *head);
     void *GetStrategicScenarioComboBoxSelectedCampaign();
+    void SelectCampaign(int campaign);
+    void rva0057CD66();
     int rva0057C57B(int value);
 private:
     char m_unmodelled[0x2C];
@@ -83,6 +85,14 @@ void *AptMapPreview::GetStrategicScenarioComboBoxSelectedCampaign()
         return (void *)-1;
     int index = Rva00322910(m_combo50);
     return GadgetComboBoxGetItemData(m_combo50, index);
+}
+
+// ?rva0057CD66@AptMapPreview@@QAEXXZ @0x0057CD66 18B
+// Evidence: callees rowed 0x0057C649 GetStrategicScenarioComboBoxSelectedCampaign
+// and 0x0057CA2D SelectCampaign; caller 0x0057CDA1; neighbours AptMapPreview.
+void AptMapPreview::rva0057CD66()
+{
+    SelectCampaign((int)GetStrategicScenarioComboBoxSelectedCampaign());
 }
 
 int AptMapPreview::rva0057C57B(int value)

@@ -66205,3 +66205,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva003F812C@Rva003F812C@@QAEXXZ,,0x003F812C,31,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,address-derived list owner and flag offsets from retail instruction stream
 ?rva005CC20D@Rva005CC20D@@QAEXE@Z,,0x005CC20D,46,Code/GameEngine/Source/Common/Rva005CC20D.cpp,matched,unlock lane setter via Rva005CD5FA shape with int Enable and slot2 forward
 ?rva005CCACA@Rva005CCACA@@QAEXH@Z,,0x005CCACA,34,Code/GameEngine/Source/Common/Rva005CCACA.cpp,matched,finish lane setter via stash with slot 0x14 notify
+?rva0057CD66@AptMapPreview@@QAEXXZ,,0x0057CD66,18,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapDescription.cpp,matched,AptMapPreview callees rowed caller 0x0057CDA1 neighbours AptMapPreview
