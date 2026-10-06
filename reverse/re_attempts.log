@@ -11467,3 +11467,6 @@ FUN_007b0578	0x003B0578	576	blocked	ADDRESS-NAMED g_Va00BBB8D8 and g_Va00BC28F4 
 ??1Rva0038ADE2@@UAE@XZ	0x0038ADE2	327	blocked	EH dtor needs PeerThreadClass layout with 10 frees plus map trees plus string beyond quick box prior wall t=2 model=muse-02
 ?rva005E9163@Rva005E9163@@QAEXXZ	0x005E9163	23	blocked	pin YIXfastcall takes ecx+edx but retail pushes second arg t=12 model=muse-spark
 ?_M_create_node@?$_Rb_tree@UTreeKey00286693@@U?$pair@$$CBUTreeKey00286693@@UTreeMapped00286693@@@_STL@@U?$_Select1st@U?$pair@$$CBUTreeKey00286693@@UTreeMapped00286693@@@_STL@@@3@U?$less@UTreeKey00286693@@@3@V?$allocator@U?$pair@$$CBUTreeKey00286693@@UTreeMapped00286693@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBUTreeKey00286693@@UTreeMapped00286693@@@_STL@@@2@ABU?$pair@$$CBUTreeKey00286693@@UTreeMapped00286693@@@2@@Z	0x00286693	34	partial	align exact only relocs but hook reports unmatched t=25 model=muse-06 score=0.98 stash=reverse/attempts/0x00286693.cpp
+FUN_004b071d	0x000B071D	314	blocked	complex 314B EH STL no donor unclaimed code ref t=8 model=muse-10
+FUN_009f267e	0x005F267E	189	blocked	ADDRESS-NAMED g_Va00BBB8D8 use refused t=2 model=muse-10
+FUN_0070c40a	0x0030C40A	156	blocked	virtual-base EH dtor vbase90 array forEach needs family t=10 model=muse-10
