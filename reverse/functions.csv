@@ -65224,3 +65224,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ??0AIChargeTargetState@@QAE@PAVStateMachine@@@Z,,0x00343042,47,Code/GameEngine/Source/GameLogic/AI/AIStateRva0034005DCtor.cpp,matched,vtable 0x00C130A8 slot2 name getter AIChargeTargetState and rowed onExit; hash 0x6a236ab9
 ??0AIMoveForBoarding@@QAE@PAVStateMachine@@@Z,,0x00343077,24,Code/GameEngine/Source/GameLogic/AI/AIStateRva0034005DCtor.cpp,matched,vtable 0x00C13108 slot2 name getter AIMoveForBoarding and rowed onEnter/update; base rowed Rva0034005D ctor
 ??0Rva0035AEC2@@QAE@XZ,,0x0035AEC2,13,Code/GameEngine/Source/Common/Rva0035AEC2.cpp,matched,caller evidence and constructor return shape
+?rva0035AFD0@Rva0035AFD0@@QAEHXZ,,0x0035AFD0,20,Code/GameEngine/Source/Common/Rva0035AFD0.cpp,matched,caller evidence and retail field offsets
