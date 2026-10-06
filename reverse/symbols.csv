@@ -14114,3 +14114,5 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0046E740@Rva0046E740@@QAEXH@Z,0x0046E740,callee of ?rva0046E7C2@Rva0046E7C2@@QAEXXZ
 ?rva00463509@Rva00463509@@QAEXPAVObject@@_N@Z,0x00463509,callee of ?rva00479BA1@Rva00479BA1@@QAEXPAVObject@@@Z
 ?rva00588E44@Rva00588E44@@QAEXPAX@Z,0x00588E44,callee of ?rva00479CF6@Rva00479CF6@@QAEXH@Z
+??0WaterTransparencySetting@@QAE@XZ,0x00200D80,ZH INI::parseWaterTransparencyDefinition 0x00200EE4: REL32 at 0x00200F2A and 0x00200F5C right after operator new(0x5C); the ctor names its own "WaterTransparency" literal 0x00BE2BA8
+??4WaterTransparencySetting@@QAEAAV0@ABV0@@Z,0x00200CB1,ZH parseWaterTransparencyDefinition *wtOverride = *wt: REL32 at 0x00200F71 between the g_00E01EA8 raise and drop; ledger spelling there: ??4Rva00200CB1@@QAEAAV0@ABV0@@Z
