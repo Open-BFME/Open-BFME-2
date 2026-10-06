@@ -6,6 +6,15 @@
 // here calls rowed 002B4DC1 _M_create_node at 0x002B60D7 then list hook insertion; callers 0x002B7120 and 0x002B8117.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 struct BfmeStringRecord002B4DC1 { unsigned char m_data[12]; };
 
 bool operator==(const BfmeStringRecord002B4DC1 &a, const BfmeStringRecord002B4DC1 &b);

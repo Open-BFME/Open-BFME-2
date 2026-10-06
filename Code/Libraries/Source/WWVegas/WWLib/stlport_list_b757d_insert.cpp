@@ -14,6 +14,15 @@ struct BfmeStringRecord000B757D {
 inline bool operator==(const BfmeStringRecord000B757D &x, const BfmeStringRecord000B757D &y) { return x.word0 == y.word0; }
 inline bool operator<(const BfmeStringRecord000B757D &x, const BfmeStringRecord000B757D &y) { return x.word0 < y.word0; };
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 namespace _STL {
 template <> _List_node<BfmeStringRecord000B757D> *list<BfmeStringRecord000B757D, allocator<BfmeStringRecord000B757D> >::_M_create_node(BfmeStringRecord000B757D const &);
 }

@@ -4,6 +4,15 @@
 // Value is the two-string record at node+8 shared with BfmeStringRecord001EA478; dtor identity proven by callers at 0x001EA821 and 0x001EA980 and the _M_create_node row for that layout.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 template <typename T> class StringBase
 {
 	friend class UnicodeString;

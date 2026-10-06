@@ -4,6 +4,15 @@
 // Copyright 2025 Electronic Arts Inc.; GPL-3.0-or-later, as in the vendored source.
 // BFME layout/call witnesses: build/gap_005ade0d/LAYOUTS.md and region_{a,b}.asm.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include "ascii_string.h"
 #include "Common/UnicodeString.h"
 inline UnicodeString::~UnicodeString() { ((StringBase<wchar_t>*)this)->releaseBuffer(); }

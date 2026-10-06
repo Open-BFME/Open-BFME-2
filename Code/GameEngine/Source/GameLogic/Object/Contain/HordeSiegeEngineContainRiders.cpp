@@ -31,6 +31,15 @@
 // is inlined in retail (test byte [template+0x10E], 0x80: kind-of mask at
 // ThingTemplate+0x10C) and also returns the masked word.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 class Thing;
 class ModuleData;
 class Player;

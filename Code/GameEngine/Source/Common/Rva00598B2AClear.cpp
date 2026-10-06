@@ -3,6 +3,15 @@
 // ?rva00598B2A@Rva00598B2A@@QAEXXZ @0x00598B2A 78B via tree-list-vector clear with virtual delete
 // Evidence: thiscall ret0; tree clear 0x00598120 at +8; list walk with virtual slot0 int0 plus rowed delete 0x0002FD60; rowed List_base<int> clear 0x0023DAA5 at +0x14; rowed vector<AsciiString> erase 0x0002CCFC at +0x4C; caller unclaimed 0x00598CFD
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include <vector>
 #include "ascii_string.h"
 void __cdecl operator delete(void *p);
