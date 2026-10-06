@@ -25,23 +25,6 @@ void Rva002A0D11::rva002A0D11()
     m_04.rva00239AF4();
 }
 
-class Rva005016C3
-{
-public:
-    void rva005016C3();
-};
-class Rva0050174A
-{
-public:
-    void rva0050174A();
-private:
-    int m_00;
-    Rva005016C3 m_04;
-};
-void Rva0050174A::rva0050174A()
-{
-    m_04.rva005016C3();
-}
 class Rva00380459
 {
 public:

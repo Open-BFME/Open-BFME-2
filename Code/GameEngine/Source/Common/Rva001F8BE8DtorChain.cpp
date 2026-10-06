@@ -101,9 +101,13 @@ public:
     ~Rva001FBCDC();
 };
 Rva001FBCDC::~Rva001FBCDC() {}
-class Rva001FBEB7 : public Rva001F8BE8Hold, public Rva001FBB64
+// Top link: retail pins this address as FXParticleSystem::ParticleSystemTemplateTail.
+namespace FXParticleSystem
+{
+class ParticleSystemTemplateTail : public Rva001F8BE8Hold, public Rva001FBB64
 {
 public:
-    ~Rva001FBEB7();
+    ~ParticleSystemTemplateTail();
 };
-Rva001FBEB7::~Rva001FBEB7() {}
+ParticleSystemTemplateTail::~ParticleSystemTemplateTail() {}
+} // namespace FXParticleSystem

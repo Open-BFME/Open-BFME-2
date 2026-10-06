@@ -63059,7 +63059,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva001F9424@Rva001F9424@@QAEXHH@Z,,0x001F9424,42,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,matched,Rva forwarding chain null-checked slot 0xc then next link plus4 by REL32 graph
 ?rva001FA4C6@Rva001FA4C6@@QAEXHH@Z,,0x001FA4C6,42,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,matched,Rva forwarding chain null-checked slot 0xc then next link plus4 by REL32 graph
 ?rva001FA7CE@Rva001FA7CE@@QAEXHH@Z,,0x001FA7CE,42,Code/GameEngine/Source/Common/Rva001F6492Chain.cpp,matched,Rva forwarding chain null-checked slot 0xc then next link plus4 by REL32 graph
-??1Rva001FBEB7@@QAE@XZ,,0x001FBEB7,59,Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp,matched,Rva dtor chain second base plus4 then rva001F4206 holder by REL32 graph
+??1ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ,,0x001FBEB7,59,Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp,matched,Rva dtor chain second base plus4 then rva001F4206 holder by REL32 graph
 ?rva002B4B3D@Rva002B4B3D@@QAE_NXZ,,0x002B4B3D,70,Code/GameEngine/Source/Common/Rva002B4B3D.cpp,matched,Rva any-of loop over pointer vector by REL32 graph
 ?rva002E0AEA@Rva002E0AEA@@QAE_NXZ,,0x002E0AEA,70,Code/GameEngine/Source/Common/Rva002B4B3D.cpp,matched,Rva any-of loop over pointer vector by REL32 graph
 ??1Rva005011B4@@QAE@XZ,,0x005011B4,8,Code/GameEngine/Source/Common/RvaMemberDtorForwarders.cpp,matched,Member dtor tail at plus4 into rowed dtor
@@ -63071,7 +63071,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005E2226@Rva005E2226@@QAEXXZ,,0x005E2226,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva005E25DE@Rva005E25DE@@QAEXXZ,,0x005E25DE,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva005E35C9@Rva005E35C9@@QAEXXZ,,0x005E35C9,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
-?rva005E590F@Rva005E590F@@QAEXXZ,,0x005E590F,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva005E6A00@Rva005E6A00@@QAEXXZ,,0x005E6A00,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva005E6BA3@Rva005E6BA3@@QAEXXZ,,0x005E6BA3,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva005E6BB4@Rva005E6BB4@@QAEXXZ,,0x005E6BB4,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
@@ -63111,7 +63110,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva001FBFEA@Rva001FBFEA@@QAEXPAX0@Z,,0x001FBFEA,38,Code/GameEngine/Source/Common/Thing/Rva001FA836ForwardChain.cpp,matched,Rva slot-get then next-link forward chain by REL32 graph
 ?rva001FC357@Rva001FC357@@QAEXPAX0@Z,,0x001FC357,38,Code/GameEngine/Source/Common/Thing/Rva001FA836ForwardChain.cpp,matched,Rva slot-get then next-link forward chain by REL32 graph
 ?rva001FC451@Rva001FC451@@QAEXPAX0@Z,,0x001FC451,38,Code/GameEngine/Source/Common/Thing/Rva001FA836ForwardChain.cpp,matched,Rva slot-get then next-link forward chain by REL32 graph
-??4Rva001FC404@@QAEAAV0@ABV0@@Z,,0x001FC404,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
+??4ParticleSystemTemplateTail@FXParticleSystem@@QAEAAV01@ABV01@@Z,,0x001FC404,41,Code/GameEngine/Source/Common/Rva001F9CCAAssignChain.cpp,matched,Rva assign chain first base 001F41CD then second base plus4 by REL32 graph
 ?rva00150959@Rva00150959@@QAEXPAURva001504A1Record@@IABVRva0014F699@@@Z,,0x00150959,258,Code/GameEngine/Source/Common/Rva00150959Insert.cpp,matched,vector fill-insert 76B EH tag callers 0x00150BD7 0x00150A86
 ?rva007B7AF5@@YAXXZ,,0x007B7AF5,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF4F8 tail-jmp pinned AudioEventRTS dtor 0x0030AF8F
 ?rva007B7AFF@@YAXXZ,,0x007B7AFF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF4B8 tail-jmp pinned AudioEventRTS dtor 0x0030AF8F
@@ -63156,7 +63155,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva001F9B52@@QAE@XZ,,0x001F9B52,18,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Rva ctor chain zeroed ints then member ctor by REL32 graph
 ?rva00056670@MilesAudioManager@@QAE_NW4ObjectID@@@Z,,0x00056670,70,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00056670.cpp,matched,chain via TheGameLogic findObjectByID drawable field to rva00054899
 ?rva002E940F@Pathfinder@@QAE_NH_N@Z,,0x002E940F,51,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,matched,Pathfinder predicate forwards 1 a to 0x001E3647 with ecx passthrough and mid via shr and cl
-??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ,,0x001FBF37,22,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Opaque pinned tail ctor zeroed ints then member ctor by REL32 graph
 ?Rva00580A54Sort@@YAXPAPAX00VRva000795C1Record@@@Z,,0x00580A54,88,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,unguarded insertion sort aux with Tp-star dummy caller 0x00580BE7 pushes 0 STL _algo
 ?Rva0040C94ALookup@@YAPAVPlayer@@H@Z,,0x0040C94A,35,Code/GameEngine/Source/Common/Rva0040C94ALookup.cpp,matched,id to player lookup via pinned Logic and rowed PlayerList caller uses return
 ?rva000EDF23@Rva000EDF23@@QAEXABVRva000E3A8D@@@Z,,0x000EDF23,29,Code/GameEngine/Source/Common/Rva000EDF23Setter.cpp,matched,vector assign at 0x44548 plus flag at 0x44546 via rowed 0xE3A8D caller 0x69CE6
@@ -63195,11 +63193,10 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva001FBB9F@@QAE@ABV0@@Z,,0x001FBB9F,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
 ??0Rva001FBEF2@@QAE@ABV0@@Z,,0x001FBEF2,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
 ??0Rva001FC19B@@QAE@ABV0@@Z,,0x001FC19B,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
-??0Rva001FC3BF@@QAE@ABV0@@Z,,0x001FC3BF,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
+??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@ABV01@@Z,,0x001FC3BF,69,Code/GameEngine/Source/Common/Thing/Rva001F9C73CopyChain.cpp,matched,Rva copy ctor chain holder clone then second base plus4 by REL32 graph
 ?rva00544E76@Rva00544C2A@@QAEHXZ,,0x00544E76,59,Code/GameEngine/Source/Common/Rva00544E76.cpp,matched,leaf slot 4 of 0x00869CF8 chains plus18 to slot 0x17C and TheGameLogic plus40 to slot 0x24
 ?Rva00580BBFUnguardedSort@@YAXPAPAX0VRva000795C1Record@@@Z,,0x00580BBF,79,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,unguarded insertion sort wrapper calling 0x00580A54 with 16B record teardown
 ?rva002A0D11@Rva002A0D11@@QAEXXZ,,0x002A0D11,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
-?rva0050174A@Rva0050174A@@QAEXXZ,,0x0050174A,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
 ?rva002A9ECA@Rva002A9ECA@@QAEXH@Z,,0x002A9ECA,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
 ?addEffect@Rva003BB730Owner@@QAEXAAVAsciiString@@PAVRva003BB730Record@@@Z,,0x003EE7C2,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
 ?Rva0006297CClamp@@YGXPBM0PAM1@Z,,0x0006297C,160,Code/GameEngine/Source/Common/VslotSmallBodiesAT.cpp,matched,vslot 17 of Rva00628FD single callee GetRes neighbours VslotSmall
@@ -63455,6 +63452,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva003BBEDE@@YAXXZ,,0x003BBEDE,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
 ?Rva003BBEE9@@YAXXZ,,0x003BBEE9,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
 ?Rva003BD424@@YAXXZ,,0x003BD424,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
+??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ,,0x001FBF37,22,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Opaque pinned tail ctor zeroed ints then member ctor by REL32 graph
 ??0Rva001FBF37@@QAE@XZ,,0x001FBF37,22,Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp,matched,Address-derived chained default ctor with member-initializer zeroes; 22B shape
 ??0Rva003B44DC@@QAE@XZ,,0x003B44DC,18,Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp,matched,Address-derived chained default ctor with member-initializer zeroes; 18B shape
 ?Rva0021E741@@YAHHHHH@Z,,0x0021E741,27,Code/GameEngine/Source/Common/RvaForward4To5Family.cpp,matched,Address-derived 4-to-5 const-zero forwarder callee(a;b;c;0;d); 27B shape

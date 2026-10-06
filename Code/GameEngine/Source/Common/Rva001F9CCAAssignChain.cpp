@@ -88,13 +88,17 @@ Rva001FC231 &Rva001FC231::operator=(const Rva001FC231 &other)
     Rva001FBF9D::operator=(other);
     return *this;
 }
-class Rva001FC404 : public Rva001F41CD, public Rva001FC231 {
+// Top link: retail pins this address as FXParticleSystem::ParticleSystemTemplateTail.
+namespace FXParticleSystem
+{
+class ParticleSystemTemplateTail : public Rva001F41CD, public Rva001FC231 {
 public:
-    Rva001FC404 &operator=(const Rva001FC404 &other);
+    ParticleSystemTemplateTail &operator=(const ParticleSystemTemplateTail &other);
 };
-Rva001FC404 &Rva001FC404::operator=(const Rva001FC404 &other)
+ParticleSystemTemplateTail &ParticleSystemTemplateTail::operator=(const ParticleSystemTemplateTail &other)
 {
     Rva001F41CD::operator=(other);
     Rva001FC231::operator=(other);
     return *this;
 }
+} // namespace FXParticleSystem

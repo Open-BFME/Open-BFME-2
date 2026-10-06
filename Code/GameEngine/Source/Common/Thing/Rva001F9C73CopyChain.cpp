@@ -108,13 +108,17 @@ Rva001FC19B::Rva001FC19B(const Rva001FC19B &other) :
     Rva001FBEF2(other)
 {
 }
-class Rva001FC3BF : public Rva001F41AF, public Rva001FC19B
+// Top link: retail pins this address as FXParticleSystem::ParticleSystemTemplateTail.
+namespace FXParticleSystem
+{
+class ParticleSystemTemplateTail : public Rva001F41AF, public Rva001FC19B
 {
 public:
-    Rva001FC3BF(const Rva001FC3BF &other);
+    ParticleSystemTemplateTail(const ParticleSystemTemplateTail &other);
 };
-Rva001FC3BF::Rva001FC3BF(const Rva001FC3BF &other) :
+ParticleSystemTemplateTail::ParticleSystemTemplateTail(const ParticleSystemTemplateTail &other) :
     Rva001F41AF(other),
     Rva001FC19B(other)
 {
 }
+} // namespace FXParticleSystem

@@ -149,24 +149,6 @@ void Rva005E35C9::rva005E35C9()
     ((SmudgeManager *)this)->SmudgeManager::init();
     m_0C->rva005F1B51();
 }
-class Rva005E589E
-{
-public:
-    void rva005E589E();
-};
-class Rva005E590F
-{
-public:
-    void rva005E590F();
-private:
-    char m_pad[0x8];
-    Rva005E589E *m_08;
-};
-void Rva005E590F::rva005E590F()
-{
-    ((SmudgeManager *)this)->SmudgeManager::init();
-    m_08->rva005E589E();
-}
 class Rva005E69AC
 {
 public:
