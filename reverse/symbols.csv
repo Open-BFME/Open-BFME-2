@@ -14154,3 +14154,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva005C6CC7@Rva005C6CC7Call@@QAEXXZ,0x005C6CC7,address-derived void helper; direct call target of 0x00577E43; 5-byte thunk tail-jumps to rowed reset method 0x005C6C89; caller purpose remains unknown
 ?rva00571B75@Rva00571B75Call@@QAEXXZ,0x00571B75,callee of ?rva00571C60@Rva00571C60@@QAEXXZ
 ?rva005706D4@Rva005706D4Call@@QAEXXZ,0x005706D4,callee of ?rva00571C60@Rva00571C60@@QAEXXZ
+?rva005B1A6C@Rva005B1A6C@@QAEXXZ,0x005B1A6C,callee of ?rva00513988@Rva00513988@@QAEXXZ
