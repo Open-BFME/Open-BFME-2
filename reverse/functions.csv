@@ -63752,3 +63752,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004E52DC@Rva004E52DC@@QAEXXZ,,0x004E52DC,31,Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,matched,circular list walk calling pinned member; full byte gate
 ?rva004E7277@Rva004E7277@@QAEXXZ,,0x004E7277,36,Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,matched,state gate tail-calling rowed Close; full byte gate
 ?rva004E7392@Rva004E7277@@QAEPAXPAV1@@Z,,0x004E7392,39,Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,matched,same-class copy-init through pinned setter; full byte gate
+?rva004F8B89@@YGXHHH@Z,,0x004F8B89,25,Code/GameEngine/Source/Common/Rva004F8B89Stub.cpp,matched,stdcall repack to pinned callee with Oy-minus frame; full byte gate
+?rva004E99D6@@YAXHHH@Z,,0x004E99D6,27,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,cdecl forward with stack byte to pinned callee; full byte gate
+?rva004E94FB@Rva004E94FB@@QAEXXZ,,0x004E94FB,33,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,node walk via pinned plus rowed increment; full byte gate

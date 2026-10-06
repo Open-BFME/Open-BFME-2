@@ -13066,3 +13066,6 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva004E701E@Rva004E7277@@QAEXXZ,0x004E701E,thiscall void callee of 0x004E7277 read from its REL32 displacement (same this); body unrowed
 ?rva004E72C0@Rva004E7277@@QAEXPAX@Z,0x004E72C0,thiscall void callee of 0x004E7392 read from its REL32 displacement (same this plus arg); body unrowed
 ?rva004E30D5@Rva004E30D5@@QAEXPAX@Z,0x004E30D5,thiscall void callee of 0x004E3BD8 read from its REL32 displacement (buffer plus int); body unrowed
+?rva004F7EE9@@YGXHHHPAX@Z,0x004F7EE9,stdcall 4-arg callee of 0x004F8B89 read from its REL32 displacement; body unrowed
+?rva004E98F7@@YAXHHHPAX@Z,0x004E98F7,cdecl 4-arg callee of 0x004E99D6 read from its REL32 displacement; body unrowed
+?rva002C6845@Rva002C6845@@QAEXXZ,0x002C6845,thiscall void callee of 0x004E94FB read from its REL32 displacement; body unrowed
