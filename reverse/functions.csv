@@ -63686,3 +63686,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?work@Rva00431ED6@@QAEXXZ,,0x00431ED6,54,Code/GameEngine/Source/Common/Rva00431A80Work.cpp,matched,guarded factory vtable g_00C3C97C setter 0x00575674; batch with 0x00431A80 family
 ?update@Rva0042D5DDHost@@QAEXXZ,,0x0042D5DD,85,Code/GameEngine/Source/Common/Rva0042D5DDUpdate.cpp,matched,Apt fade update via rowed Invoke 0x00516F21 and rowed setter 0x002224FE; strings SetState/_fadeIn
 ?run@Rva00414F5EHost@@QAEXXZ,,0x00414F5E,39,Code/GameEngine/Source/Common/Rva00414F5ERun.cpp,matched,vector clear via rowed erase 0x00414760 plus global 0x00DFEEE8 plus tail 0x00414DAA; sibling 0x00414B0A
+?run@Rva0042DBD9Host@@QAEXH@Z,,0x0042DBD9,43,Code/GameEngine/Source/Common/Rva0042DBD9Run.cpp,matched,reset plus two conditional setters via rowed 0x002D38D1 0x005785A2 0x005796B3
