@@ -19,6 +19,7 @@ class ScriptEngine
 {
 public:
     PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
+    void *rva00208DB8(AsciiString name);
 };
 extern ScriptEngine *TheScriptEngine;
 
@@ -29,10 +30,30 @@ public:
 };
 extern Rva00286772Manager *g_00DFEC68;
 
+class Rva002104B6
+{
+public:
+    void *rva002104B6(void *p);
+};
+struct LivingWorldRva
+{
+    char m_pad[0xB0];
+    Rva002104B6 *m_B0;
+};
+extern LivingWorldRva *g_009FEF10;
+
 bool __stdcall Rva003E8FEE(Parameter *parm)
 {
     PolygonTrigger *trig = TheScriptEngine->getQualifiedTriggerAreaByName(parm->getString());
     if (!trig)
         return false;
     return g_00DFEC68->rva00286772(trig, 1);
+}
+
+bool __stdcall Rva003E9029(const AsciiString *name)
+{
+    void *p1 = TheScriptEngine->rva00208DB8(*name);
+    Rva002104B6 *mgr = g_009FEF10->m_B0;
+    void *p2 = mgr->rva002104B6(p1);
+    return p2 != 0;
 }

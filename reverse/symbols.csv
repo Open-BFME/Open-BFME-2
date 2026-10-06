@@ -13624,3 +13624,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva0056C0A5@Rva0056C0A5@@QAEHPAX@Z,0x0056C0A5,index lookup on (a+0x38) for 0x0056C4D3 probe returning 0x7FFFFFFF when missing; honest address-derived name
 ?rva002D2C34@Rva002D2C34@@QAEXXZ,0x002D2C34,0-arg base ctor called by 0x0056DC4C tiny ctor; honest address-derived name
 ?rva00286772@Rva00286772Manager@@QAE_NPAVPolygonTrigger@@H@Z,0x00286772,callee of ?Rva003E8FEE@@YG_NPAVParameter@@@Z
+?rva00208DB8@ScriptEngine@@QAEPAXVAsciiString@@@Z,0x00208DB8,callee of ?Rva003E9029@@YG_NPBVAsciiString@@@Z
