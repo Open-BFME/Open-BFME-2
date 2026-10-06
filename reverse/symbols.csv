@@ -15435,3 +15435,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?applyDisconnectVote@DisconnectManager@@IAEXHIHPAVConnectionManager@@@Z,0x004D3CD8,callee of ?voteForPlayerDisconnect@DisconnectManager@@QAEXHPAVConnectionManager@@@Z
 ?rva005697F7@Rva005697F7@@QAEXPAX@Z,0x005697F7,address-derived callback used by the fresh 0x003EDF69/0x003EDFD8 workers; target callsite loads the list element into ECX and pushes the incoming object pointer; both helper bodies remain unclaimed
 ?rva00569863@Rva00569863@@QAEXPAX@Z,0x00569863,address-derived callback used by the fresh 0x003EDF69/0x003EDFD8 workers; target callsite loads the list element into ECX and pushes the incoming object pointer; both helper bodies remain unclaimed
+?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
