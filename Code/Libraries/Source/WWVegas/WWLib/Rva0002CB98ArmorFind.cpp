@@ -42,5 +42,5 @@ public:
 
 bool Rva0002CB98::rva0002CB98(const ArmorSetFlags11 &a) const
 {
-	return m_map.find(a) != m_map.end();
+	return !(m_map.find(a) == m_map.end());
 }
