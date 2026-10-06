@@ -65050,3 +65050,7 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva004D70D5@Rva004D70D5@@QAEXPAX@Z,,0x004D70D5,82,Code/GameEngine/Source/Common/Rva004D70D5.cpp,matched,REF table 0x007F91AC prev 0x004D6F86 pattern triple chain
 ?rva002B894D@Rva002B894DHost@@QAEXH@Z,,0x002B894D,55,Code/GameEngine/Source/Common/Rva002B894DTwins.cpp,matched,adjacent 55B twins backwards scan elem+0x34 vs arg then 0x2B7DE6; == variant
 ?rva002B8984@Rva002B894DHost@@QAEXH@Z,,0x002B8984,55,Code/GameEngine/Source/Common/Rva002B894DTwins.cpp,matched,adjacent 55B twins backwards scan elem+0x34 vs arg then 0x2B7DE6; != variant
+?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
+?getAttackRange@BfmeRangedWeaponTemplate@@QBEMPBVObject@@ABVWeaponBonus@@PBUCoord3D@@@Z,,0x002C99C4,55,Code/GameEngine/Source/GameLogic/Object/Rva002C99C4AttackRange.cpp,matched,
+?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z,,0x002C777E,257,Code/GameEngine/Source/Common/Rva002C777EBuild.cpp,matched,
+?rva002DEE9A@Rva002DEE9AOwner@@QAEXXZ,,0x002DEE9A,41,Code/GameEngine/Source/Common/Rva002DEE9AClear.cpp,matched,
