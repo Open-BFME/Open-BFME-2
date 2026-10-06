@@ -64501,3 +64501,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva003824A5@Rva00382398@@QAEAAV1@ABV1@@Z,,0x003824A5,207,Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Assign.cpp,matched,assign twin of copy 0x003830EA via base assign plus set rows
 ?Rva006F9EF0@Rva006FB860@@QAEXXZ,,0x006F9EF0,194,Code/Libraries/Source/Apt/Rva006F9EF0Cluster.cpp,matched,member of Rva006FB860 caller 0x006FB910 clamp and set props
 ??4Rva00382E73@@QAEAAV0@ABV0@@Z,,0x00382E73,308,Code/GameEngine/Source/Common/System/SaveGame/Rva00382E73Assign.cpp,matched,chain of 0x003824A5 via base plus 8 loop plus set rows
+??0Rva00502909Sub@@QAE@ABU0@@Z,,0x005026EE,153,Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp,matched,rowed vector 0x0054878E and rbtree 0x00501E88 element 0x00502909
