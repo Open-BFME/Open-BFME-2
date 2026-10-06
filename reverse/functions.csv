@@ -63844,3 +63844,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva00540845@@QAE@ABV0@@Z,,0x00540845,67,Code/GameEngine/Source/Common/Rva00540845Copy.cpp,matched,Copy ctor: rowed Rva0053FADE base copy then vtable 0xC694F8 then Rva00540517 member copy
 ?Rva00567B6DAdd@@YAXPAVRva005C3F02@@PBUPayload@Rva005677B9@@@Z,,0x00567B6D,106,Code/GameEngine/Source/Common/Rva00567B6DAdd.cpp,matched,caller 0x00568021 container plus payload ctor row and Add row
 ?rva005C8F17@HostClass005C8E0A@@QAEXXZ,,0x005C8F17,57,Code/GameEngine/Source/Common/HostClass005C8F17.cpp,matched,HostClass005C8E0A layout with TheAudio removeAudioEvent and callees 0x519BD 0x5C87F8 0x5C8E0A
+?rva002E112A@Rva002E112A@@QAE_NPAVRva00319CED@@@Z,,0x002E112A,43,Code/GameEngine/Source/Common/Rva002E112A.cpp,matched,unlock rowed callees setle compare
