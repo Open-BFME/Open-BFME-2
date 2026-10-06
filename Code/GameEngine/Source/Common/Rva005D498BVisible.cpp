@@ -65,3 +65,21 @@ void Rva005D49D5::SetVisible(bool visible)
 {
 	m_impl14->SetVisible(visible);
 }
+
+// Retail 0x005D49CD is the matching eight-byte forwarding thunk. Its target
+// is the logged SetEnabled body at 0x005D4949; the outer wrapper's class name
+// remains address-derived, following the sibling SetVisible thunk.
+class Rva005D49CD
+{
+public:
+	void SetEnabled(bool enabled);
+
+private:
+	unsigned char m_pad00[0x14];
+	AptScrollBar::Impl *m_impl14;
+};
+
+void Rva005D49CD::SetEnabled(bool enabled)
+{
+	m_impl14->SetEnabled(enabled);
+}

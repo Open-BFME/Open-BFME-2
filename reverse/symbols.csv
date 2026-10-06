@@ -14206,3 +14206,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00489039@Rva00489913@@QAE_NPAVObject@@0PAUCoord3D@@@Z,0x00489039,callee of ?rva00489913@Rva00489913@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z
 ?rva0039C3AC@Rva0039C3AC@@QAEPAUObjectCountMap@@H@Z,0x0039C3AC,callee of ?rva004EE950@LivingWorldScoreKeeper@@QAEXPAVScoreKeeper@@@Z
 ?rva004EE8B8@@YAXPAUObjectCountMap@@0@Z,0x004EE8B8,callee of ?rva004EE950@LivingWorldScoreKeeper@@QAEXPAVScoreKeeper@@@Z
+?SetEnabled@Impl@AptScrollBar@@QAEX_N@Z,0x005D4949,callee of ?SetEnabled@Rva005D49CD@@QAEX_N@Z
