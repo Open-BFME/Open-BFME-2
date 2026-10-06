@@ -14210,3 +14210,5 @@ rva009C7380WeightPairs,0x009B84E0
 ?resize@?$vector@UBfmeStringRecord000B94D2@@V?$allocator@UBfmeStringRecord000B94D2@@@_STL@@@_STL@@QAEXIUBfmeStringRecord000B94D2@@@Z,0x000C4733,callee of ?resize@?$vector@UBfmeStringRecord000B94D2@@V?$allocator@UBfmeStringRecord000B94D2@@@_STL@@@_STL@@QAEXI@Z
 ??0Rva005ECFE4@@QAE@PAX00@Z,0x005ECE81,callee of ?rva005ED15D@Rva005ECFE4@@SAPAXPAX00@Z
 ??0Rva005D1ADE@@QAE@PAX0H@Z,0x005D1BA1,address-derived constructor pin; Ghidra function start 0x005D1BA1 size 270; paired vtable and destructor evidence at 0x00C75694
+?rva004FBED6@Rva004FBED6Call@@QAEPAXXZ,0x004FBED6,address-derived helper names; direct rel32 call targets of 0x00576ACB; Ghidra extents are 184 B at 0x004FBED6 and 123 B at 0x005768CB; helper semantics and interface names unproven
+?rva005768CB@Rva005768CBCall@@QAEXPAX@Z,0x005768CB,address-derived helper names; direct rel32 call targets of 0x00576ACB; Ghidra extents are 184 B at 0x004FBED6 and 123 B at 0x005768CB; helper semantics and interface names unproven
