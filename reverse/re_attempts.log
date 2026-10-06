@@ -14862,3 +14862,4 @@ FUN_00761817	0x00361817	162	blocked	two align variants (162B int-parameter and 1
 ?set@Rva00504EADCurve@@QAEXMMMM@Z	0x00504EAD	92	partial	one result-byte load at +0x4f is missing and stack allocation differs by 8 bytes t=12 model=gpt-6 score=0.94 stash=reverse/attempts/0x00504ead.cpp
 ?set@Rva00504EADCurve@@QAEXMMMM@Z	0x00504EAD	92	blocked	result byte load at +0x4f has no supported semantic use and frame remains 8B smaller after documented three-float array recipe t=8 model=gpt-6
 ?rva005F3444@Rva005F3444@@QAEPAV1@PAVRva005F3444Info@@HH@Z	0x005F3444	256	blocked	18-byte short with 17 structural regions and unchanged frame and EH state after declaration reorder t=3 model=gpt-6
+??0Rva005F4179@@QAE@PAX@Z	0x005F412B	78	blocked	six variants exhausted; 78B layouts retain EH/control-flow mismatch and member constructor emits unmatched helpers agent=luna-02

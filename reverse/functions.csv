@@ -66177,3 +66177,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0057517B@Rva00574815@@UAEXPAX@Z,,0x0057517B,114,Code/GameEngine/Source/Common/Rva005751EDMethod.cpp,matched,vtable slot 12 and matching manager state flow
 ??0Rva005DA6F3@@QAE@PAX@Z,,0x005DA6F3,230,Code/GameEngine/Source/Common/Rva005DA6F3Ctor.cpp,matched,identity inferred from rowed base constructor and target call chain
 ??0Rva005F3F73@@QAE@PAX0@Z,,0x005F3F73,39,Code/GameEngine/Source/Common/Rva005F3F73.cpp,matched,address derived ctor called by 0x005F412B with two pointers
+?rva005F4AA3@Rva005F4AA3@@QAEXXZ,,0x005F4AA3,22,Code/GameEngine/Source/Common/Rva005F4AA3Update.cpp,matched,address-derived helper installs the two vtables identified by retail operands
