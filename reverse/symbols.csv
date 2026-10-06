@@ -14154,8 +14154,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva005C6CC7@Rva005C6CC7Call@@QAEXXZ,0x005C6CC7,address-derived void helper; direct call target of 0x00577E43; 5-byte thunk tail-jumps to rowed reset method 0x005C6C89; caller purpose remains unknown
 ?rva00571B75@Rva00571B75Call@@QAEXXZ,0x00571B75,callee of ?rva00571C60@Rva00571C60@@QAEXXZ
 ?rva005706D4@Rva005706D4Call@@QAEXXZ,0x005706D4,callee of ?rva00571C60@Rva00571C60@@QAEXXZ
-??0Rva005D1ADE@@QAE@PAX0H@Z,0x005D1BA1,address-derived constructor pin; Ghidra function start 0x005D1BA1 size 270; paired vtable and destructor evidence at 0x00C75694
-?rva004FBED6@Rva004FBED6Call@@QAEPAXXZ,0x004FBED6,address-derived helper names; direct rel32 call targets of 0x00576ACB; Ghidra extents are 184 B at 0x004FBED6 and 123 B at 0x005768CB; helper semantics and interface names unproven
-?rva005768CB@Rva005768CBCall@@QAEXPAX@Z,0x005768CB,address-derived helper names; direct rel32 call targets of 0x00576ACB; Ghidra extents are 184 B at 0x004FBED6 and 123 B at 0x005768CB; helper semantics and interface names unproven
-?rva005CCB4C@Rva005CCB4CCall@@QAE_NXZ,0x005CCB4C,address-derived bool helper; direct rel32 call target of 0x0057544B; 8-byte wrapper at 0x005CCB4C before rowed sibling 0x005CCB5B; purpose unproven
 ??0Rva005D12E3@@QAE@XZ,0x005D1296,callee of ??0Rva00576591@@QAE@PAX@Z
