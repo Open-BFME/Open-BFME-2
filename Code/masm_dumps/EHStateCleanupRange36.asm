@@ -316,5 +316,31 @@ cleanup_done_00761B91:
     ret
 ?rva00761B91@@YAXXZ ENDP
 
+
+; Unwind@00b6412c: bit 0 at [ebp-0x14], cleanup target from the retail frame.
+PUBLIC ?rva0076412C@@YAXXZ
+?rva0076412C@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0076412C
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva00087A93@@QAE@XZ
+cleanup_done_0076412C:
+    ret
+?rva0076412C@@YAXXZ ENDP
+
+; Unwind@00b64193: bit 0 at [ebp-0x10], cleanup target from the retail frame.
+PUBLIC ?rva00764193@@YAXXZ
+?rva00764193@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00764193
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-28]
+    jmp ??1Rva00087A93@@QAE@XZ
+cleanup_done_00764193:
+    ret
+?rva00764193@@YAXXZ ENDP
 _TEXT ENDS
 END
