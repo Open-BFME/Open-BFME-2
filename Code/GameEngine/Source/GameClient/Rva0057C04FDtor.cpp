@@ -57,6 +57,16 @@ Rva0057C04F::~Rva0057C04F()
 {
 }
 
+// ?dummy@Base00@@UAEXXZ present-unmatched
+void Base00::dummy()
+{
+}
+
+// ?dummy@Rva0057C04F@@UAEXXZ present-unmatched
+void Rva0057C04F::dummy()
+{
+}
+
 void Rva0057C04F::rva0057C094(int turn)
 {
 	AsciiString key;
