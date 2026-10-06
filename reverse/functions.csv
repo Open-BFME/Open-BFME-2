@@ -63755,3 +63755,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004F8B89@@YGXHHH@Z,,0x004F8B89,25,Code/GameEngine/Source/Common/Rva004F8B89Stub.cpp,matched,stdcall repack to pinned callee with Oy-minus frame; full byte gate
 ?rva004E99D6@@YAXHHH@Z,,0x004E99D6,27,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,cdecl forward with stack byte to pinned callee; full byte gate
 ?rva004E94FB@Rva004E94FB@@QAEXXZ,,0x004E94FB,33,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,node walk via pinned plus rowed increment; full byte gate
+?rva004E951C@Rva004E94FB@@QAEXPAX@Z,,0x004E951C,67,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,virtual pre-pass plus member walk; full byte gate
+?rva004E955F@Rva004E94FB@@QAEPAXHH@Z,,0x004E955F,51,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,keyed search with double-load; full byte gate
