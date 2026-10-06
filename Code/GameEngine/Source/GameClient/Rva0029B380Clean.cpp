@@ -23,17 +23,33 @@ struct Rva0029B380Elem {
 };
 class Rva0029B380 {
 public:
-	void rva0029B380(int idx);
+ 	void rva0029B380(int idx);
+	void rva0029B34B();
 private:
-	char m_pad[0x5D0];
-	Rva0029B380Elem m_items[128];
+ 	char m_pad[0x5D0];
+ 	Rva0029B380Elem m_items[128];
 };
 void Rva0029B380::rva0029B380(int idx)
 {
-	m_items[idx].m_0.~StringBase<unsigned short>();
-	void *p = m_items[idx].m_4;
-	if (p != 0)
-		(*(Rva0029B380Holder **)&TheDisplayStringManager)->s15(p);
-	m_items[idx].m_4 = 0;
-	m_items[idx].m_8 = 0;
+ 	m_items[idx].m_0.~StringBase<unsigned short>();
+ 	void *p = m_items[idx].m_4;
+ 	if (p != 0)
+ 		(*(Rva0029B380Holder **)&TheDisplayStringManager)->s15(p);
+ 	m_items[idx].m_4 = 0;
+ 	m_items[idx].m_8 = 0;
+}
+
+// ?rva0029B34B@Rva0029B380@@QAEXXZ @0x0029B34B 53B.
+// Loop version of rva0029B380 over the first 6 entries at +0x5D0.
+// Evidence: same elem release virtual s15 zero pattern as 0x0029B380 in this TU.
+void Rva0029B380::rva0029B34B()
+{
+	for (int i = 0; i < 6; ++i) {
+		m_items[i].m_0.~StringBase<unsigned short>();
+		void *p = m_items[i].m_4;
+		if (p != 0)
+			(*(Rva0029B380Holder **)&TheDisplayStringManager)->s15(p);
+		m_items[i].m_4 = 0;
+		m_items[i].m_8 = 0;
+	}
 }
