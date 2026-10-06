@@ -32,6 +32,9 @@ class Rva004FCA5A
 {
 public:
 	void *rva004FCA5A(const Rva00376A62 &x);
+
+	char m_pad[0x20];
+	int m_20;
 };
 struct MapEntry
 {
@@ -81,6 +84,7 @@ class AptMapPreview
 	Rva004FCA5AOuter *m_68;
 public:
 	void *GetStartPositionInfoForSlot(int slot);
+	int rva0057C6C7();
 };
 void *AptMapPreview::GetStartPositionInfoForSlot(int slot)
 {
@@ -113,4 +117,29 @@ void *AptMapPreview::GetStartPositionInfoForSlot(int slot)
 		}
 	}
 	return 0;
+}
+
+// ?rva0057C6C7@AptMapPreview@@QAEHXZ @0x0057C6C7 88B: the start-position
+// count the slot lookup above indexes: the living-world start-region set's
+// +0x20 in mode 1, else the cached map's +0x20 (the bound the lookup
+// checks). Caller 0x00440C66.
+int AptMapPreview::rva0057C6C7()
+{
+	int mode = m_1c;
+	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
+	if (!info)
+		return 0;
+	if (mode == 1) {
+		Rva004FCA5AOuter *o = m_68;
+		if (!o || !o->m_29c)
+			return 0;
+		Rva004FCA5A *s = o->m_29c->m_1c;
+		if (!s)
+			return 0;
+		return s->m_20;
+	}
+	const MapMetaData *md = TheMapCache->findMap(info->getMap());
+	if (!md)
+		return 0;
+	return md->m_20;
 }
