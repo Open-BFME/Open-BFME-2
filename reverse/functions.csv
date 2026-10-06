@@ -64199,3 +64199,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva004E9040@Rva004E8FF6@@QAEXPAX@Z,,0x004E9040,76,Code/GameEngine/Source/Common/Rva004E8FF6Twins.cpp,matched,flagged twin of null step; full byte gate
 ?rva004E8D3E@Rva004E8D3E@@QAEHHHH@Z,,0x004E8D3E,72,Code/GameEngine/Source/Common/Rva004E8D3EGuard.cpp,matched,triple guard with shared tails via or-form; full byte gate
 ??0Rva00567960@@QAE@HPBURva00567CCDInfo@@@Z,,0x00567CCD,135,Code/GameEngine/Source/Common/Rva00567CCDCtor.cpp,matched,MI ctor Mid base copies before vtables Button AsciiString Get stance
+?rva00210D68@Rva00210D68@@QAEXXZ,,0x00210D68,78,Code/GameEngine/Source/Common/Rva00210D68.cpp,matched,thiscall plus268 via 3EF1B8 then g_009FEF10 chain plus54 lookup via 3EF328 tail to 3EF2E0
