@@ -65158,3 +65158,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva005C7C6D@Rva005C7C6D@@QAEXH@Z,,0x005C7C6D,8,Code/GameEngine/Source/Common/Rva005C7A29Overlay.cpp,matched,gap plus4 tail to rowed Rva005C7BE1 via caller 0x005C38DB
 ?rva002654D6@Rva002654D6@@QAEXXZ,,0x002654D6,19,Code/GameEngine/Source/GameLogic/Object/Rva002654E9Apply.cpp,matched,true twin of rowed Rva002654E9 via caller 0x0026892F
 ?link@Rva000421C8@@QAEPAV1@PAV1@@Z,,0x00625790,46,Code/GameEngine/Source/Common/BfmeWideResultForward.cpp,matched,BFME2 PartitionFilter::link (base Rva000421C8 ctor 0x000421C8 vftable 0x00BC26E0): walks the +0x04 chain from this to its tail and appends next; returns this; 66 matched callers reference it (pin 0x00625790; REL32 x3 per chain in StructureCreep 0x005ABEA2)
+?rva005CCB83@Rva005CCB83@@QAEXPAX@Z,,0x005CCB83,13,Code/GameEngine/Source/Common/Rva005CCB83Setter.cpp,matched,ptr-chase setter via m_ptr plus ret4 plus LINK 0x005285EF
