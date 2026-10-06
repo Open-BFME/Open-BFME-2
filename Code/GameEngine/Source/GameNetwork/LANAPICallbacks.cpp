@@ -104,6 +104,19 @@
 // the game (slot 26) and refreshes the slot list. The flat host check and
 // the direct 0x00248D35 call (no inline wrapper) give retail's allocation:
 // edi as the zero register, then the slot, and ebx lent to the old hero kind.
+//
+// LANAPI::OnGameJoin, retail 0x00249D46 (897 bytes), slot 34: Open-BFME-1's
+// LANAPIOnGameJoin.cpp (third argument the join message, the lobby at
+// 0x00E03354 taking the success through its OnGameJoin 0x00446A1C, the
+// headless timeout retry through RequestGameJoin, slot 16, and the lobby's
+// 0x00444357 before the failure box) with BFME 2's preferences: nothing
+// without TheLAN's game (GetMyGame, slot 56), LANPreferences keyed by the
+// game's mode (+0x5C), and unless the game's byte +0x8C is set the preferred
+// template, color and hero (GameModePreferences 0x0044D88C, 0x0044D836 and
+// 0x0044D774 into a scratch GameSlot, sent as encodeHero) go out first, the
+// hero kind (+0x5C) also handed to the open game setup screen (0x00E0333C,
+// +0x2B4). RequestGameOptions is slot 25; both requests take a zeroed
+// address temporary by reference.
 
 typedef int Int;
 typedef bool Bool;
@@ -148,6 +161,26 @@ public:
 		LANCHAT_EMOTE,
 		LANCHAT_SYSTEM
 	};
+	enum ReturnType
+	{
+		RET_OK = 0,
+		RET_TIMEOUT,
+		RET_GAME_FULL,
+		RET_DUPLICATE_NAME,
+		RET_CRC_MISMATCH,
+		RET_SERIAL_DUPE,
+		RET_GAME_STARTED,
+		RET_GAME_EXISTS,
+		RET_GAME_GONE,
+		RET_BUSY
+	};
+
+	UnicodeString getErrorStringFromReturnType( ReturnType ret );
+};
+
+enum FirewallType
+{
+	FIREWALL_TYPE_SIMPLE = 1
 };
 
 enum
@@ -164,6 +197,9 @@ enum
 class GameSlot
 {
 public:
+	GameSlot( void );
+	virtual ~GameSlot( void );
+	UnsignedByte encodeHero( void ) const;
 	void setMapAvailability( Bool hasMap );
 	Bool isHuman( void ) const;
 	Bool decodeHero( UnsignedByte hero );
@@ -181,7 +217,7 @@ public:
 	const UnicodeString &getName( void ) const { return m_name; }
 
 private:
-	UnsignedByte m_pre0C[0x0C];
+	UnsignedByte m_pre0C[0x0C - 4];
 	Int m_color;					// +0x0C
 	Int m_startPos;					// +0x10
 	Int m_bfme14;					// +0x14, set with the start position
@@ -200,6 +236,7 @@ public:
 	Int m_hero[4];					// +0x50, what decodeHero sets
 	UnsignedByte m_pre1A4[0x1A4 - 0x60];
 	Bool m_bfme1A4;					// +0x1A4
+	UnsignedByte m_pre1AC[0x1AC - 0x1A5];
 };
 
 // The LAN slot's login and host setters (0x0024955E, 0x00249595), under the
@@ -286,9 +323,16 @@ protected:
 
 public:
 	Int m_bfme58;					// +0x58
+	Int m_gameMode;					// +0x5C, the preferences' mode
 
 protected:
-	UnsignedByte m_preDC[0xDC - 0x5C];
+	UnsignedByte m_pre8C[0x8C - 0x60];
+
+public:
+	Bool m_bfme8C;					// +0x8C, keeps the preferred side
+
+protected:
+	UnsignedByte m_preDC[0xDC - 0x8D];
 	LANSlotAddress m_slots[MAX_SLOTS];		// +0xDC, addresses from +0x114
 };
 
@@ -379,6 +423,7 @@ void Rva00381C82AddChatText( Int window, const UnicodeString &text, Int color );
 class Shell
 {
 public:
+	void push( AsciiString filename, Bool shutdownImmediate = false );
 	void rva0035BEC7( void );
 };
 extern Shell *TheShell;
@@ -390,7 +435,14 @@ extern Rva004469D1Receiver *g_Va00E03354;
 class AptLanLobby
 {
 public:
+	void OnGameJoin( void );
 	void rva00444E8A( void );
+};
+
+class Rva00444357DwordImmSetter
+{
+public:
+	void apply( void );
 };
 
 class Rva00444462
@@ -504,7 +556,32 @@ class AptMpGameSetup
 {
 public:
 	Bool rva0043DCFA( Int startPos );
+
+	UnsignedByte m_pre2B4[0x2B4];
+	Int m_pendingHero;				// +0x2B4
 };
+
+class GameModePreferences
+{
+public:
+	virtual ~GameModePreferences( void );
+	Bool rva0044D774( GameSlot *slot );		// the preferred hero
+	Int rva0044D836( void );			// the preferred color
+	Int rva0044D88C( void );			// the preferred player template
+
+private:
+	UnsignedByte m_body[0x1C - 4];
+};
+
+class LANPreferences : public GameModePreferences
+{
+public:
+	LANPreferences( Int mode );
+	virtual ~LANPreferences( void );
+};
+
+extern "C" __declspec(dllimport) char * __cdecl getenv( const char *name );
+struct LANMessage;
 
 class PlayerTemplate
 {
@@ -539,12 +616,16 @@ public:
 	BFME_VSLOT(00) BFME_VSLOT(01) BFME_VSLOT(02) BFME_VSLOT(03) BFME_VSLOT(04)
 	BFME_VSLOT(05) BFME_VSLOT(06) BFME_VSLOT(07) BFME_VSLOT(08) BFME_VSLOT(09)
 	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14)
-	BFME_VSLOT(15) BFME_VSLOT(16) BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
+	BFME_VSLOT(15)
+	virtual void RequestGameJoin( LANGameInfo *game, const BfmeNetAddress &ip = NoAddress() ) = 0;
+	BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
 	BFME_VSLOT(20) BFME_VSLOT(21) BFME_VSLOT(22) BFME_VSLOT(23) BFME_VSLOT(24)
-	BFME_VSLOT(25)
+	virtual void RequestGameOptions( AsciiString gameOptions, Bool isPublic,
+		const BfmeNetAddress &ip = NoAddress() ) = 0;
 	virtual void rva004497EC( Bool isPublic, BfmeNetAddress *ip ) = 0;
 	BFME_VSLOT(27) BFME_VSLOT(28) BFME_VSLOT(29)
-	BFME_VSLOT(30) BFME_VSLOT(31) BFME_VSLOT(32) BFME_VSLOT(33) BFME_VSLOT(34)
+	BFME_VSLOT(30) BFME_VSLOT(31) BFME_VSLOT(32) BFME_VSLOT(33)
+	virtual void OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, LANMessage *msg );
 	BFME_VSLOT(35) BFME_VSLOT(36)
 	virtual void OnPlayerLeave( UnicodeString player );
 	BFME_VSLOT(38)
@@ -560,14 +641,18 @@ public:
 	BFME_VSLOT(47) BFME_VSLOT(48) BFME_VSLOT(49)
 	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53)
 	virtual Int AmIHost( void ) = 0;
-	BFME_VSLOT(55) BFME_VSLOT(56) BFME_VSLOT(57) BFME_VSLOT(58) BFME_VSLOT(59)
+	BFME_VSLOT(55)
+	virtual LANGameInfo *GetMyGame( void ) = 0;
+	BFME_VSLOT(57) BFME_VSLOT(58) BFME_VSLOT(59)
 	BFME_VSLOT(60) BFME_VSLOT(61) BFME_VSLOT(62) BFME_VSLOT(63)
 	virtual BfmeNetAddress *getLocalAddress( void ) = 0;
 
 protected:
 	UnsignedByte m_pre14[0x14 - 4];
 	UnicodeString m_name;				// +0x14
-	UnsignedByte m_pre3C[0x3C - 0x18];
+	AsciiString m_userName;				// +0x18
+	AsciiString m_hostName;				// +0x1C
+	UnsignedByte m_pre3C[0x3C - 0x20];
 	UnsignedInt m_lastResendTime;			// +0x3C
 	Bool m_isInLANMenu;				// +0x40
 	Bool m_inLobby;					// +0x41
@@ -577,6 +662,62 @@ protected:
 };
 
 #undef BFME_VSLOT
+extern LANAPI *TheLAN;
+
+void LANAPI::OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, LANMessage *msg )
+{
+	if( ret == LANAPIInterface::RET_OK )
+	{
+		if( g_Va00E03354 )
+			((AptLanLobby *)g_Va00E03354)->OnGameJoin();
+		else
+		{
+			LANbuttonPushed = true;
+			TheShell->push( AsciiString( "Menus/LanGameOptionsMenu.wnd" ), false );
+		}
+
+		LANGameInfo *game = TheLAN->GetMyGame();
+		if( !game )
+			return;
+
+		LANPreferences pref( game->m_gameMode );
+		AsciiString options;
+		if( !TheLAN->GetMyGame()->m_bfme8C )
+		{
+			options.format( "PlayerTemplate=%d", pref.rva0044D88C() );
+			RequestGameOptions( options, true );
+			options.format( "Color=%d", pref.rva0044D836() );
+			RequestGameOptions( options, true );
+			GameSlot slot;
+			pref.rva0044D774( &slot );
+			options.format( "Hero=%d", slot.encodeHero() );
+			RequestGameOptions( options, true );
+			if( g_Va00E0333C )
+				((AptMpGameSetup *)g_Va00E0333C)->m_pendingHero = slot.m_hero[3];
+		}
+		options.format( "User=%s", m_userName.str() );
+		RequestGameOptions( options, true );
+		options.format( "Host=%s", m_hostName.str() );
+		RequestGameOptions( options, true );
+		options.format( "NAT=%d", FIREWALL_TYPE_SIMPLE );
+		RequestGameOptions( options, true );
+	}
+	else if( ret != LANAPIInterface::RET_BUSY )
+	{
+		if( getenv( "_EA_RTS_HEADLESS" ) && ret == LANAPIInterface::RET_TIMEOUT && theGame )
+		{
+			RequestGameJoin( theGame );
+			return;
+		}
+
+		UnicodeString title, body;
+		title = TheGameText->fetch( "LAN:JoinFailed" );
+		body = ((LANAPIInterface *)this)->getErrorStringFromReturnType( ret );
+		if( g_Va00E03354 )
+			((Rva00444357DwordImmSetter *)g_Va00E03354)->apply();
+		MessageBoxOk( title, body, 0 );
+	}
+}
 
 void LANAPI::OnPlayerLeave( UnicodeString player )
 {
