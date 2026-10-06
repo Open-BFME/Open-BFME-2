@@ -11454,3 +11454,6 @@ FUN_009fd197	0x005FD197	186	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use r
 ?rva0026D3FB@AIUpdateInterface@@QAEXPAVObject@@@Z	0x0026D3FB	125	partial	REMAINS jmp+mov al,1 null-true folded to je reset t=20 model=muse-07 score=0.95 stash=reverse/attempts/0x0026d3fb.cpp
 ?rva002BFC59@Rva002BFC59@@QAEHPBVAsciiString@@@Z	0x002BFC59	156	blocked	EH STL hashtable operator[] with AsciiString pair TreeHint needs exact hashtable donor t=5 model=muse-07
 ?rva0026D3FB@AIUpdateInterface@@QAEXPAVObject@@@Z	0x0026D3FB	125	blocked	REMAINS jmp+mov al,1 null-true folded to je reset; tried if-else ternary OR sete dual-load all same or +1B t=18 model=muse-07 (stash 0.95 kept)
+?rva002BF935@Rva002BF935@@QAE_NPAXPBVVector3@@PAV3@Z	0x002BF935	221	blocked	ADDRESS-NAMED g_Rva EmptyString use refused t=3 model=muse-spark
+?rva004FA6B5@Rva004FADF4@@QAEHXZ	0x004FA6B5	131	blocked	vslot slot 14 no donor virtuals to map t=4 model=muse-spark
+??1Rva004FA2E2@@QAE@XZ	0x004FA2E2	231	blocked	complex multi-vector dtor with unclaimed funclet 0x004F9630 t=4 model=muse-spark
