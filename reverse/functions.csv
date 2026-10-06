@@ -64648,3 +64648,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva003552C2@Rva00355B61@@QAE_NW4NameKeyType@@@Z,,0x003552C2,77,Code/GameEngine/Source/GameLogic/Object/Rva003552C2.cpp,matched,this Rva00355B61 via rowed find global g_00E01E18 Armor check virtual slot 0x10
 ?rva00372BB9@AIGroup@@QAEXPBXH@Z,,0x00372BB9,76,Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372BB9.cpp,matched,calls pin 0x00372571 via vtable 0x158 unblocks 0x004ED2ED
 ?rva0035530F@AiOrdersManager@@QAEXHPAX@Z,,0x0035530F,73,Code/GameEngine/Source/GameLogic/Object/Rva0035530F.cpp,matched,AiOrdersManager switch 0to3 1to2 holder list pin 0x355183
+?Rva004B2B64_ParseReplaceObject@INI@@SAXPAV1@PAX1PBX@Z,,0x004B2B64,128,Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateFieldParse.cpp,matched,ReplaceObject FieldParse table 0x00C56D20 via pinned initFromINIMulti and ModuleData push_back fold

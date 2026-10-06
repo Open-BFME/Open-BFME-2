@@ -11642,3 +11642,6 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva00356889@Rva0035615D@@QAEXXZ	0x00356889	625	blocked	big 625B vslot EH floats SSE not strong t=2 model=muse-06
 ?rva004FE35F@Rva004FE35F@@QAEXXZ	0x004FE35F	1576	blocked	big 1576B not strong t=2 model=muse-06
 ?rva005CD2D0@Rva005CD284@@QAEXXZ	0x005CD2D0	31	blocked	needs unclaimed callee 0x002BF61B t=2 model=muse-06
+?rva0038037C@Rva00380200@@QAE_NH@Z	0x0038037C	221	blocked	complex x87 floor cmovg frame far t=15 model=muse-05
+?rva00380459@Rva00380200@@QAEHH@Z	0x00380459	64	blocked	loop two-call layout far t=15 model=muse-05
+?rva003805BB@Rva00380200@@QAE_NM_N@Z	0x003805BB	281	blocked	large complex floor loop far t=15 model=muse-05
