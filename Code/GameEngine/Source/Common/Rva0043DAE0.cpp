@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??1Rva0043DAE0@@UAE@XZ @0x0043DAE0 11B
 // Evidence: chain from 0x0057F2DE, stores vtable 0x00C3D95C then jmp to ??1Rva0057F2DE@@UAE@XZ; callers 0x0043DB0A 0x00788C09 0x00788CA7.
 // ??0Rva0043DAE0@@QAE@PAUTargetRef00217D4C@@@Z @0x0043DAC8 24B: the

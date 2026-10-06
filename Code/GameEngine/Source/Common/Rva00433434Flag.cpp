@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00433434@Rva00433434@@QAEX_N@Z, retail 0x00433434, 31 bytes. Sets bit 1 of +0xC4 then sets/clears bit 0 of +0x4C via rowed helpers 0x001D96FF/0x001D9709. Called from 0x00433999. Neighbours share +0xC4 flag pattern.
 class Rva001D96FF
 {

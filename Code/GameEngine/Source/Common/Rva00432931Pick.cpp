@@ -1,4 +1,4 @@
-// cl: /O1 /G6 /MD /arch:SSE
+// cl: /MD
 // ?Rva00432931Pick@@YAPAURva00432931Entry@@PAU1@0@Z, retail 0x00432931, 55 bytes.
 // Picks the valid (bit0 at +0x14 clear) entry with the larger unsigned field at +0x10;
 // null if none valid. Callers 0x00432AA2 (types 4 vs 14) and 0x00432AC5 (types 6 vs 16)

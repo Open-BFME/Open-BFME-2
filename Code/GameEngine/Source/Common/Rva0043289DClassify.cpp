@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0043289DClassify@@YAHH@Z, retail 0x0043289D, 59 bytes.
 // Maps message type to category: 4/5/6/8->0, 10/11/12/13->1, 14/15/16/18->2,
 // else 3. Callers 0x00432B44 (778B dispatch). Prev/next share /O1 flags.

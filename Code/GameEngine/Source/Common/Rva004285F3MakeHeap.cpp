@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva004285F3MakeHeap@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z RVA 0x004285F3 size 88 evidence chain linkbody callers 0x004286F2 callees narrow-copy 0x00427F75 adjust-heap 0x00428372
 struct BfmeNarrowRecord00427F75

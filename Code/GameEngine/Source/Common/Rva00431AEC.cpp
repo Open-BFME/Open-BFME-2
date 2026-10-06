@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00431AEC@Rva00431AEC@@QAEHPAVGameMessage@@@Z @0x00431AEC 138B: bool method checking GameMessage+0x10 for 4 or 0xe then building Rva00431920 via ctor 0x00431920 plus final Rva00575674 call. Evidence: chain lane calls rowed 0x00431920; rowed getArgument 0x0030F4EA new 0x0002FDA0 rva00575674 0x00575674.
 struct ICoord2D
 {

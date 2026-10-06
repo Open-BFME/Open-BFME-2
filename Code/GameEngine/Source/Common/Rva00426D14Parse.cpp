@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs-c-
+// cl: /MD /EHs-c-
 // ?Rva00426D14Parse@@YAXPAVINI@@@Z @0x00426D14 194B evidence: calls rowed ctor 0x426C4D plus initFromINI wrapper 0x42666E with new 0x10 plus holder g_00E031E8 at +0x10 plus debug theDebug slots 0x60 0x6c 0x38 0x4c plus literal plus INIException filler 0x2F681 plus throw 0x629094
 class INI
 {

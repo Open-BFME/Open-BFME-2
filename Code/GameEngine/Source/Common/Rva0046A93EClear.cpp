@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0046A93E@Rva0046A93E@@QAEXXZ 0x0046A93E 41B evidence: unlock caller 0x46AB1B frees header after clear plus rowed tree-free 0x469C34 at call 0x46A94C
 struct Rva00469C34Node;
 class Rva00469C34

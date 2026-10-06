@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Retail 0x004959FF (44 bytes): Rva00495916::rva004959FF, slot 5 of the primary
 // vtable 0x00C4ED3C that the matched Rva00495916 dtor (Rva0024A797Derived.cpp)

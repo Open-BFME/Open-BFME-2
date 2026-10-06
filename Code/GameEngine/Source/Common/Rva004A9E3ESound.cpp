@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 //
 // ?rva004A9E3E@Rva004A9E3E@@QAEXPAUAudioEventRTS@@H@Z @0x004A9E3E 123B.
 // Dozer slot 23. A null referent at arg+4 returns immediately. Otherwise

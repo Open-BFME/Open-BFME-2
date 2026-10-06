@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0044EAF3@Rva0044EAF3@@QAEPAV1@HIII@Z @0x0044EAF3 88B
 // Bitfield init with memset 0x10 plus three bit sets; returns this.
 // Evidence: unlock lane; callee memset import 0x006291AE rowed; callers at

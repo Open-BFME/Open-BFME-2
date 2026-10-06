@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$__partial_sort@PAUVersionBlockEntry@@U1@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@000VVersionBlockKeyCompare@@@Z RVA 0x00428821 size 102 evidence partial_sort via rowed make_wrap 0x004286E2 pop_heap 0x00428594 sort_heap 0x004287A7 caller 0x004288E0 shape matches int precedent
 struct BfmeNarrowRecord00427F75

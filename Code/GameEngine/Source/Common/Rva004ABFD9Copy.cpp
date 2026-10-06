@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??0Rva004ABFD9@@QAE@ABV0@@Z @0x004ABF47 102B: copy constructor of the class
 // whose destructor is the rowed ??1Rva004ABFD9 (0x004ABFD9, vtable 0x00C549F8

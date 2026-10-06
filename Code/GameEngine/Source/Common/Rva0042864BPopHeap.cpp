@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0042864BPopHeap@@YAXPAUVersionBlockEntry@@0HVVersionBlockKeyCompare@@@Z RVA 0x0042864B size 45 evidence chain linkbody callers 0x00428724 callees narrow-copy 0x00427F75 pop-heap 0x00428594
 struct BfmeNarrowRecord00427F75

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ?Rva00447FD5Append@@YAPADPADPAV?$StringBase@D@@0@Z @0x00447FD5 88B.
 // Checked string append: dst->set(static at 0x00BBAC1C), then append src chars

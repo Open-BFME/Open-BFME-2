@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0042D7A3@Rva0042D7A3@@QAEXPAVRva005794ED@@@Z @0x0042D7A3 35B: set holder at +0 clearing old via dtor plus delete.
 // Evidence: calls rowed dtor 0x005794ED plus rowed delete 0x0002FD60; caller 0x0042DAF0; prev Rva0042D71ACond.
 class Rva005794ED

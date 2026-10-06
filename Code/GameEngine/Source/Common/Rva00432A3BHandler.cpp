@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva00432A3B@Rva00432A3B@@QAEXPBVGameMessage@@@Z, retail 0x00432A3B, 103 bytes.
 // Handler for message types 4/6/14/16: indexes 24B entries at this+8 by type,
 // stores type at +0x1E8, extracts pixel (arg0 8B) ints (arg1 arg2) via rowed

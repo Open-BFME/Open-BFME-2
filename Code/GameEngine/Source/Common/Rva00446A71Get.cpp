@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00446A71Get@@YAEXZ @0x00446A71 6B
 // Byte getter for global 0x00A0335C.
 // Evidence: retail mov al [0x00A0335C] ret; caller @0x00248EAA tests al al;

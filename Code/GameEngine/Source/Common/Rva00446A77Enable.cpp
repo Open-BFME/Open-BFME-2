@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00446A77Enable@@YAXXZ @0x00446A77 30B
 // Conditionally enables +0x2B9/+0x2BA bytes of the object at global.
 // Evidence: gated by byte 0x00A0335C and null-checked pointer 0x00A03354;

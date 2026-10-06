@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004A6E8E@Rva004A6EHolder@@QAE_NXZ 0x004A6E8E 56B and ?rva004A6EC6@Rva004A6EHolder@@QAE_NH@Z 0x004A6EC6 68B
 // Two bool helpers sharing the rowed broadcast ?Rva0027164EBroadcast (0x0027164E) via BuildListInfo::getDesiredGatherers.
 // this is interior (Module at Object+0x3E0): [esi-0x3E0]=obj+0 (Aux with +0x64), [esi-0x3DC]=obj+4 (BuildListInfo), [esi+0x1C]=counter.

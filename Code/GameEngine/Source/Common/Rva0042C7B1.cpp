@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva0042C7B1@Rva0042C7B1@@QAEHPBURva0042C083Param@@H@Z @0x0042C7B1 47B via mouse-gated setter forward
 // Evidence: TheMouse at 0x009FDCA0 field +0x4FA4 slot 0x4C plus call 0x0042C083 via +0x8; caller 0x0042C8C6; chain from 0x0042C083
 class Mouse

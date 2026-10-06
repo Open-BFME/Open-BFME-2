@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ?rva004266A1@Rva004266A1@@QAE_NH@Z @0x004266A1 27B
 // Bounds check on a vector of 8-byte BfmeStringRecord00426A5B at +4 (begin at +4 end at +8 sar 3).

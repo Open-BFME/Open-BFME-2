@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva0042CBB6@@QAE@XZ @0x0042CBB6 101B via zeroing ctor with memset tail plus global store
 // Evidence: thiscall returns this; vtable g_00C3C6F4 at +0 plus +0xC=2 plus +0x38=1; memset thunk 0x006291AE of +0x3A len 4; global g_00E03210 stores this; caller 0x0023A4C3
 #pragma comment(linker, "/alternatename:?ji_006291ae@@YAPAXPAXHI@Z=?ji_006291ae@@YAXXZ")

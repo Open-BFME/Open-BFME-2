@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0043A278@@QAE@XZ @0x0043A278 18B
 // Evidence: leaf ctor calls pinned base ??0Rva00490470 then stores vtable 0x0083D478; caller 0x0023DD9A; neighbours share layout.
 class Rva00490470

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0042DB21@Rva0042DB21@@QAEXPBD@Z @ 0x0042DB21 184B: conditional holder reset plus two notifies
 // builds Rva00527CCE from GetLevel/AfterLevel when holder at +0x18 is empty then hands it to +0x24 via rva005785A2 and +0x2c via rva005796B3
 // evidence: chain via rowed reset 0x002D38EB plus pinned ctor 0x00527C04 plus rowed AfterLevel 0x00412845 GetLevel 0x004128BB plus rowed notifies 0x005785A2 0x005796B3; pattern from AptPalantirCallbacks OnHelpBoxLoaded and Rva00578AC1 OnCommandUILoaded

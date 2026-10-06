@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0049AE5E@Rva0049AE5E@@QAEXXZ @ 0x0049AE5E 70B
 // Checks three ObjectIDs at +0x3E8 +0x3EC +0x3F0 via rowed

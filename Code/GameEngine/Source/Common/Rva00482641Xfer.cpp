@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ?xfer@Rva00482641@@MAEXPAVXfer@@@Z, retail 0x00482641, 361 bytes.
 // Virtual slot 3 of vtable 0x0084965C (primary of FireWeaponWhenDamagedBehavior

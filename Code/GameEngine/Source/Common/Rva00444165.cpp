@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 //
 // ?rva00444165@Rva00444165@@QAEHXZ, retail 0x00444165, 75 bytes.
 // __thiscall int method no args reading this+0x6a8 as GameWindow*.

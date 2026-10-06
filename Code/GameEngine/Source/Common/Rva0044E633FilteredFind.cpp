@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0044E633@Rva0044E633@@QAEPAXXZ @0x0044E633 15B
 // Filtered-find forward through BfmeSubBEC. Retail is mov eax [ecx+4]
 // push [eax+0x38] mov ecx [ecx+8] call rowed BfmeSubBEC::rva0028BB9E ret.

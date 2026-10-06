@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva00481805@@UAE@XZ, retail 0x00481805 (7 bytes). Opaque trivial
 // single-inheritance destructor: reinstalls its vtable (DIR32 auto-patch)

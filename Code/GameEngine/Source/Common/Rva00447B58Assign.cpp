@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00447B58@Rva00447B0E@@QAEAAU1@ABU1@@Z, retail 0x00447B58, 69 bytes.
 // Copy-assign of Rva00447B0E (0x1D0): base BfmeSaveElement002295D7 at +0 via
 // rowed 0x002DBAB9, Rva004479FD at +0x1AC via rowed 0x004479FD, StringBase at

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0044E5E7@Rva0044E5E7@@QAE_NXZ @0x0044E5E7 38B
 // Predicate over +0x30 +0x04-subject +0x7D: unlock lane; callers at
 // 0x0045221D 0x004522B5 in 0x00451FA2; prev DispByteFieldSetters next

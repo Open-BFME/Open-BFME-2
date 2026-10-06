@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00431B76@Rva00431B76@@QAEXXZ @0x00431B76 103B: thiscall guarded emit via MessageStream slot 0x48 then helper new 8B with vtable 0x0083C97C plus final Rva00575674 call. Evidence: chain lane calls rowed 0x00431955; MessageStreamSubsystem global 0x00A00950; rowed appendPixel 0x0030F9D8 appendInteger 0x0030F936 new 0x0002FDA0 rva00575674 0x00575674; vtables g_00C3C97C.
 struct ICoord2D
 {

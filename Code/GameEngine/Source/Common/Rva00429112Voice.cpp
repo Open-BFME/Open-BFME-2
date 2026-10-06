@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00429112@Rva00429112@@QAEHPAUArg@@H@Z @0x00429112 127B
 // Evidence: caller 0x0042A38A plus TheInGameUI slot73 plus Rva004D92FE ctor 0x004D92FE plus pickAndPlayUnitVoiceResponse pin plus MessageStreamSubsystem slot 0x48 with 0x42d plus appendObjectIDArgument 0x0030F979
 struct ICoord2D

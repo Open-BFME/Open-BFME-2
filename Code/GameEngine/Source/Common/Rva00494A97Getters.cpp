@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?rva00589414@Rva00494A97@@UBE?AVAsciiString@@XZ and ?rva00589560@Rva00494A97@@UBE?AVRva002390CB@@XZ @0x00589414 38B.
 // Target evidence: the only reference to this body is slot 5 of the

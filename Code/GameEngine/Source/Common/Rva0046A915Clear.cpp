@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0046A915@Rva0046A915@@QAEXXZ 0x0046A915 41B evidence: ready leaf same shape as rowed clears 0x46A93E 0x46AB7D via rowed free 0x469C07
 struct Rva00469C07Node;
 class Rva00469C07

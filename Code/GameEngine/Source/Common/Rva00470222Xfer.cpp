@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // 0x00470222 217B evidence: map<int int> Xfer twin of vector sister Rva0046EFDBXfer; version {1,1} via slot 0x28
 // typename "std::map" via slot 0x2c count via slot 0x78 isSaving via slot 8; save loop via rowed _M_increment

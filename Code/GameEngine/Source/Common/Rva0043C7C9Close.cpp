@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 // ?rva0043C7C9@Rva0043D3DA@@QAEXH@Z, retail 0x0043C7C9, 105 bytes.
 // Same gating and +0x2a2 flag as sibling ?rva0043D3DA@Rva0043D3DA@@QAEXH@Z

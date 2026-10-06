@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva004A2D67Init@@YGPAXPAX@Z @0x004A2D67 27B.
 // Leaf free function: memset(p, 0, 4) via the 0x006291AE import thunk, set
 // bit 3 (*p |= 8) and return p. Evidence: slot 19 refs in the

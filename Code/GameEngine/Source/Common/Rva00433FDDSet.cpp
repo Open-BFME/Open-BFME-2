@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00433FDD@Rva00433FDD@@QAEXXZ, retail 0x00433FDD, 22 bytes.
 // Sets +0x27C to 3 if dword at +0x280 is nonzero else 1.
 // Evidence: callers at 0x004344E5 0x00435811 share +0x27C +0x280 layout.

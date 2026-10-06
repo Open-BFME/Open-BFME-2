@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva00485BD4@@MAEXPAVXfer@@@Z, retail 0x00485BD4 69B: Version(1,2) via Xfer slot 0x28
 // then base Rva0045CE8C xfer via rowed 0x0045CE8C then uint at +0x14 via Xfer slot 0x78

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0043DFE0@Rva0043DFE0@@QAE_NH@Z @0x0043DFE0 109B
 // Evidence: leaf, provider +0x5C rva0043DA65 0x0043DA65, target +0x58 slot 0x30, flag +0x2C3, combo +0x314, slot item +0x1C, GadgetComboBoxGetSelectedPos 0x003228EB GetItemData 0x00322981 getSlot 0x003FF29F, caller 0x00442DF3.
 class GameWindow;

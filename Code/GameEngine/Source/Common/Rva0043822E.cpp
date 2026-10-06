@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva0043822ESet@@YGXPAURva0043822EParam@@I@Z @0x0043822E 27B
 // Leaf free __stdcall (ret 8, two stack args): total = GameLogic+0x40 plus

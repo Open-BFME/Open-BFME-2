@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva004A57DB@Rva004A54A8@@QAEXMM@Z @0x004A57DB 112B: ranged FX loop with bit gate.
 // Loads virt via m08 plus 0x254 slot 0x3C, saves result, iterates array at

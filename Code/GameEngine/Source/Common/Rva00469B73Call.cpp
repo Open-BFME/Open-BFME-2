@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00469B73@Rva00469B73@@QAEXPAX@Z 0x00469B73 44B evidence: this+8 +0x274 null-guarded then slot 0x58 with arg and 0 plus slot 0xC on ptr at +0x250 callers 0x46D12C 0x470962
 class DispatchTarget
 {

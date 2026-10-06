@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva0048947D@@MAEXPAVXfer@@@Z @0x0048947D 44B
 // Honest State-area xfer: Version1 via rowed 0x000053EE then raw 4B at +0x20
 // via Xfer slot 0x24 (XferRawBytes) then uint at +0x24 via slot 0x78

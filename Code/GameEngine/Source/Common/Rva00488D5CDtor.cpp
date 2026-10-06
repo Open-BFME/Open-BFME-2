@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00488D5C@@UAE@XZ retail 0x00488D5C 79B
 // Own vptr C4B5C8; under EH state 0 the object at +0x24 is deleted through its
 // slot-0 deleting dtor with flag 0 and the global ??3@YAXPAX@Z (a

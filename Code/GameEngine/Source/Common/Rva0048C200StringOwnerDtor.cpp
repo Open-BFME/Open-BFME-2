@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva0048C200Owner@@QAE@XZ, retail 0x002019E1, 54B.
 // Dtor of two-String owner whose ctor is 0x00201998; calls releaseBuffer
 // at +8 then +4 via inlined StringBase<char> member dtors with EH.

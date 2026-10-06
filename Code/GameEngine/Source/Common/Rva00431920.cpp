@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00431920@@QAE@PAXHPAUICoord2D@@HH@Z @0x00431920 53B: ctor storing vtable g_00C3C994 plus 5 args with 8B struct copy to +0xc. Evidence: unlock lane unblocks 0x00431AEC; caller passes outer+4; g_00C3C994.
 struct ICoord2D
 {

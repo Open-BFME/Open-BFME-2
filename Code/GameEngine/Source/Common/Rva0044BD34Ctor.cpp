@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 // ??0Rva0044BD34@@QAE@PBURva004C5DD0Pair@@@Z @0x0044BD34 31B
 // Ctor forwarding its Pair arg to the rowed Rva004C5DD0::set at +8,
 // after storing vtable VA 0x00C3EDEC (data RVA 0x0083EDEC) and zeroing +4.

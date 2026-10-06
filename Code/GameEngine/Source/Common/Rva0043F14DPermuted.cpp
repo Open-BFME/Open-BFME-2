@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c- /G7
+// cl: /EHs-c-
 //
 // ?rva0043F14D@@YA_NABV?$vector@_NV?$allocator@_N@_STL@@@_STL@@0@Z, retail 0x0043f14d, 87 bytes. Banked partial (score 0.349398) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

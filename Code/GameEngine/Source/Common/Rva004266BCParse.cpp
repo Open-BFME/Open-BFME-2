@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva004266BCProcess@@YAPAXPAX0@Z, retail 0x004266BC, 87 bytes.
 // Record-field dispatch through the object's vtable: slot 0x28 takes a pair

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 //
 // ?rva0042638E@Rva0042638E@@QAE_NPBUSearchArg0042638E@@@Z, retail 0x0042638E, 60 bytes.
 // Removes a CreateAHeroData entry from the +0x24/+0x28 range if present:

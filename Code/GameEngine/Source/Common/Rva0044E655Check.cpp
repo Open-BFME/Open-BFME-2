@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0044E655@Rva0044E655@@QAE_NXZ @0x0044E655 52B
 // Gated idle-set predicate over +0x08 Object plus +0x7E +0x7F: unlock lane;
 // callers at 0x0045224C 0x00452269 in 0x00451FA2; AI slot 0x1b8 isIdle

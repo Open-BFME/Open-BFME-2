@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /arch:SSE
+// cl: /MD /EHsc
 //
 // ?rva0049B0BF@Rva0049B0BF@@QAEXPAURva0049B0BFData@@H@Z @ 0x0049B0BF 268B
 // Leaf sharing +0x08/+0x3CA/+0x3E8/+0x3EC layout with Rva0049AE5ECheck;

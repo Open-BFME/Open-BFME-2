@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004328D8Emit@@YGXPAURva004328D8Payload@@@Z, retail 0x004328D8, 89 bytes.
 // Emits two GameMessages once (flag bit0 at +0x14): type 0xC3 then type [esi]
 // via MessageStreamSubsystem slot 0x48 (createMessage), then pixel at +4 via

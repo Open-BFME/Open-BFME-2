@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 // STLport __pop_heap_aux over the sixteen-byte record of the neighbouring heap
 // helpers. Retail 0x00474A90 steps back one element and forwards it by value to

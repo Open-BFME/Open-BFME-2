@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00447773@Rva00447773@@QAEPAXH@Z, retail 0x00447773, 33 bytes.
 // Bounds-checked indexer returning &m_items[index] for 8 x 0x1D0 records at
 // +0xDC else null. Evidence: unlock lane; __thiscall ret 4; callers at

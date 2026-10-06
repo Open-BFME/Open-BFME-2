@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva0042643D@@UAE@XZ @0x0042643D 183B evidence: vtable 0x0083C350 plus base GameEngineDeletingBase 0x001B4E74 plus Entry dtor 0x004DC9ED plus loops over +0x0C +0x18 plus frees +0x24 +0x18 +0x0C
 #include <vector>

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00444462@Rva00444462@@QAEXXZ, retail 0x00444462, 11 bytes.
 // Tail jmp to enable at this+0x288 via rowed 0x0043DB56.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00444362@Rva00444362@@QAEXPAX@Z, retail 0x00444362, 20 bytes.
 // Conditionally sets dword at +0x6A4 from 1 to 7; ignores void* arg.

@@ -1,6 +1,6 @@
 // ?Rva0046EFDBXfer@@YAPAVXfer@@PAV1@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z
 // partial score=0.90 date=2026-09-30
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0046EFDBXfer@@YAPAVXfer@@PAV1@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z @0x0046EFDB 202B
 // Xfer helper for vector<const ModuleData*> with version {1,1} via slot 0x28 size via slot 0x2C/0x78 isSaving via slot 0x08 per-element via slot 0x70 reserve 0x002B712E push_back 0x004DFCB0 FormatText 0x0060C36E Throw 0x00629094 strings "std::vector" "Vector must be empty on load" caller 0x00475632.

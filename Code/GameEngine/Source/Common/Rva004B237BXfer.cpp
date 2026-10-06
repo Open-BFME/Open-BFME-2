@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004B23C5@Rva004B237B@@QAEXPAVXfer@@@Z, retail 0x004B23C5, 147 bytes.
 // Virtual slot 3 (offset 0xC) of vtable 0x00856948 (VA 0x00C56948), class of
 // ??1Rva004B237B@@UAE@XZ in Rva0024A797Derived.cpp. UpdateModule xfer via

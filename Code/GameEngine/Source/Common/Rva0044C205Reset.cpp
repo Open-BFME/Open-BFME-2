@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?Rva0044C205Reset@@YAXXZ @0x0044C205 114B.
 // Reset UI: Network slot 0x40 with 0, Mouse tooltip EmptyString -1 0 1.0f,
 // GameEngine slot 0x5C, WindowManager slot 0x28, RvaTarget slot 0x28,

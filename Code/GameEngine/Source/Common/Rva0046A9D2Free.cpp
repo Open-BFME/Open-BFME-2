@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0046A9D2@Rva0046A9D2@@QAEXPAURva0046A9D2Node@@@Z 0x0046A9D2 45B evidence: unlock frees via rowed free 0x30830 plus self recursion caller 0x46AB8B in clear 0x46AB7D
 extern "C" void __cdecl free(void *block);
 struct Rva0046A9D2Node

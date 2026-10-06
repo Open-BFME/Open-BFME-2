@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?remove@Rva00432F23@@QAEXPAVRva00432F23Node@@@Z @0x00432F23 90B
 // Doubly-linked removal across two head/tail pairs with shared count:
 // refreshes any of +0x0C +0x10 +0x14 +0x18 that points at the node, splices

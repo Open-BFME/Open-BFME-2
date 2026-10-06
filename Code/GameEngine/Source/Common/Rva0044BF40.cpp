@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva0044BF40@Rva0044BF40@@QAEPAU1@URva0044BA4E@@@Z @0x0044BF40 55B
 // EH setter twin of rowed Rva0044BF77 (0x0044BF77 59B): forward the by-value
 // 8-byte holder at [ebp+8] as const Pair ref to the rowed setter

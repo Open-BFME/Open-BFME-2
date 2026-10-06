@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva004333C0@@UAE@XZ retail 0x004333C0 62B: virtual dtor stores vtable 0x0083CB1C then releases AsciiString at +0xC8 then calls rowed base ??1Rva001DA2D5@@UAE@XZ; evidence vtable store plus callees rowed plus caller 0x004334BB deleting dtor
 #include "ascii_string.h"
 

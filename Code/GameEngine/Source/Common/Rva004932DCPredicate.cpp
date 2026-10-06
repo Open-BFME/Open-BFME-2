@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004932DC@Rva004932DC@@QAEEXZ @0x004932DC 19B: null-checked byte predicate.
 // Evidence: caller 0x0049466D; reads ecx __thiscall; ptr+4 then byte+0x74.
 struct Rva004932DCInner {

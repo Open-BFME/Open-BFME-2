@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // ?rva0043C6EA@Rva0043C6EA@@QAE_NH@Z @0x0043C6EA 27B.
 // Bool wrapper around virtual slot 2: clears a bool out-flag, forwards the
 // int arg plus the flag address through slot 2 ([eax+8]), and returns the

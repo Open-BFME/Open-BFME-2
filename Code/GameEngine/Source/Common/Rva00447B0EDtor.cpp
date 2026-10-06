@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??1Rva00447B0E@@QAE@XZ @0x00447B0E 74B.
 // Dtor: release StringBase<char> at +0x1C8 via rowed 0x00036410, destroy

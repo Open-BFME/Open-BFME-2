@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00463736@@QAE@ABEI@Z @0x00463736 (42B):
 // Derived of rowed Rva00463469 base: base ctor via 0x00463469 with unsigned

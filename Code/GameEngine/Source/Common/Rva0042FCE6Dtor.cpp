@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O1 /Ob2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ob2
 // stlport
 // ??1Rva0042FCE6@@QAE@XZ, retail 0x0042FCE6, 54 bytes.
 // Dtor stores derived vtable 0x0083C960 destroys tree at +0x28 via rowed 0x00357C6A stores base vtable 0x007DBA74. Evidence: caller 0x0042FE1F deleting dtor base vtable matches BfmeOwnVVD base.

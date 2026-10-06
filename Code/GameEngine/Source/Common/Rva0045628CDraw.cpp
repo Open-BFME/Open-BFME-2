@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0045628CDraw@@YGXPAX0H@Z @0x0045628C 52B
 // Loops an AsciiString array [start,finish) at +0/+4 of arg1 (stride 4,
 // sizeof AsciiString) calling rowed Drawable::rva002724FD 0x002724FD with

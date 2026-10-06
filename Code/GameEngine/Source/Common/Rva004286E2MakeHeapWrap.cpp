@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva004286E2Wrap@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z RVA 0x004286E2 size 25 evidence make_heap forwarding wrapper pushing two trailing zeros into rowed worker 0x004285F3 caller 0x00428832 same pattern as Rva002C531BWrap and Rva00207BAAWrap
 struct VersionBlockEntry

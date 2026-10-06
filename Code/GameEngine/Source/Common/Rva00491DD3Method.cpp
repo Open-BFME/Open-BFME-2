@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00491EE6@Rva00491DD3@@QAEXXZ retail 0x00491EE6 50 bytes. Thiscall method
 // of Rva00491DD3 (UpdateModule base size 0x20 with bool at +0x20). Reads

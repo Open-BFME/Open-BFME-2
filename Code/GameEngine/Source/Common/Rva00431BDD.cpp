@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00431BDD@Rva00431BDD@@QAE_NPAVGameMessage@@@Z @0x00431BDD 88B: thiscall bool method checking GameMessage+0x10 vs this+8 then pixel proximity via rowed 0x00431978 plus int arg2 minus this+0x18 unsigned < 500. Evidence: chain lane calls rowed 0x00431978 just landed; rowed getArgument 0x0030F4EA; callers 0x00432068; neighbours Rva00431B76 Rva00431C35 same layout. Retail test al proves bool callee; row type H is wrong, bool used.
 struct ICoord2D
 {

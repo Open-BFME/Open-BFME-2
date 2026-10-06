@@ -1,4 +1,4 @@
-// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline /Os
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline
 // ?Rva0042F0D0@@YG_NVAsciiString@@@Z
 // Authentic one-pointer StringInline ABI audit; target's word length field is retained by the proven retail layout.
 #include "StringInline.h"

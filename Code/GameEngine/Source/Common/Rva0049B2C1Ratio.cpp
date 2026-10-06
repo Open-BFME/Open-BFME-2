@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0049B2C1@Rva0049B2C1@@QAEMXZ @0x0049B2C1 66B
 // Float progress via TheGameLogic+0x40 and +0x20/+0x24 diffs as unsigned
 // fild plus fadd 2^32 pattern via g_00BC26EC then fdivp then g_Va00BBB8D8

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva00431F61@@QAE@XZ @0x00431F61 84B: ctor storing vtable 0x0083C9B8 then helper new 8B with vtable 0x0083C97C plus parent then global. Evidence: unlock lane; EH_prolog row 0x00629188; new row 0x0002FDA0; vtables g_00C3C9B8 g_00C3C97C; global g_00E0322C; caller 0x0023A541.
 extern const void *const g_00C3C9B8[];
 extern const void *const g_00C3C97C[];

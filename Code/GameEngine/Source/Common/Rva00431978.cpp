@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 // ?rva00431978@Rva00431978@@QAEHPAUICoord2D@@@Z @0x00431978 55B: proximity check abs(dx)<5 and abs(dy)<5 via abs import thunk. Evidence: unlock lane unblocks 0x00431BDD 0x00432038; rowed abs thunk 0x00629952 pin _abs; ICoord2D at this+0xc.
 struct ICoord2D
 {

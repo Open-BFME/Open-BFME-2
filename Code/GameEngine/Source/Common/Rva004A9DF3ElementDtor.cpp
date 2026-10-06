@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva004A9DF3Element@@QAE@XZ, retail 0x000A9DF3, 5 bytes. 5B jmp thunk to
 // rowed ??1BfmeRefVGO@@QAE@XZ at 0x000A9822. Evidence: retail FUN_004a9df3 is

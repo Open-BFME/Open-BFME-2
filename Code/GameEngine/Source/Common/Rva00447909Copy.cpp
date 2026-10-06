@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 // ?Rva00447909Copy@@YAPADPADPAXI0@Z, retail 0x00447909, 54 bytes.
 // Checked memcpy: copies size bytes from src to dst and returns src+size,
 // or returns src unchanged when the copy would pass limit (null limit always

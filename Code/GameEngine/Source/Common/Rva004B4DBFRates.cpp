@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ?rva004B4DBF@Rva004B4DBF@@QAEXPAM0@Z @0x004B4DBF 151B: thiscall with two float outs.
 // Evidence: adjacent to 0x004B4DA3/0x004B4E56; call sites 0x004B506A and
 // 0x004B515A; TheGameLogic+0x40 frame check, the 1.0f literal at 0x00BBB8D8

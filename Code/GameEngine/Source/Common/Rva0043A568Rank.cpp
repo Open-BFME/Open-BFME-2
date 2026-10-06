@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva0043A568Get@@YA?AVUnicodeString@@H@Z, retail 0x0043A568, 142 bytes.
 // Rank tooltip: if rank<=0 fetch TOOLTIP:LadderRankUnavailable via TheGameText
 // slot 0x3C, else format rank via 0x007C9260; return as UnicodeString.

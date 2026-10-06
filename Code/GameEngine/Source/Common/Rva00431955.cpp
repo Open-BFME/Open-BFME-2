@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00431955@Rva00431955@@QAE_NXZ @0x00431955 35B: thiscall bool check of +8 against 4 selecting Mouse +0x4F24 or +0x4F30 null test. Evidence: unlock lane; global TheMouse; caller 0x00431B79.
 class Mouse
 {

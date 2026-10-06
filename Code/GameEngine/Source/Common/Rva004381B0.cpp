@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva004381B0@Rva004381B0@@QAEXM@Z @0x004381B0 20B
 // Leaf __thiscall (ret 4, one float stack arg): keeps max of arg and float

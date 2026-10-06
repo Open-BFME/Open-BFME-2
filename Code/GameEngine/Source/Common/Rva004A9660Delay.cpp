@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva004A9660@Rva004A9660@@QAEIPAVObject@@@Z @0x004A9660 181B.
 // Worker supply-dock delay. Two function-local name keys,

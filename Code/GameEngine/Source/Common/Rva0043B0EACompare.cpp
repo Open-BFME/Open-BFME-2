@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /G7 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0043B0EA@Rva0043B8C0@@QAE_NPAX0@Z @0x0043B0EA 90B
 // Evidence: caller 0x0043B8C0 passes this plus 2 pushes ret8; TheGameLogic+0x40 frame delta unsigned fild+fadd scaled by +0x20 float compare.
 class GameLogic

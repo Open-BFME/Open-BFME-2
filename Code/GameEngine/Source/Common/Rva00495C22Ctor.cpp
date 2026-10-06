@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0Rva00495C22@@QAE@XZ @0x00495C22 33B.
 // Calls the rowed 4-byte ??0Rva00360D26Member@@QAE@XZ, then stores 0.0f at

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva00448089@@QAE@XZ retail 0x00448089 53B
 // Dtor releasing two StringBase<unsigned short> members at +0 and +4 via
 // rowed releaseBuffer 0x00036E70 with EH state 0 then -1. Evidence: EH_prolog

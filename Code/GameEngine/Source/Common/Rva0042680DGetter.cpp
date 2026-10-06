@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ?rva0042680D@Rva004266A1@@QAEEH@Z @0x0042680D 30B
 // Flag1 getter on the same 8-byte record vector at +4 as Rva004266A1::rva004266A1.

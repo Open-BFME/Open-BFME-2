@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva0043821C@Rva0043821C@@QAEXXZ @0x0043821C 18B
 // Leaf: frameless __thiscall clearing dword at +0x14 (and [ecx+14h],0) and

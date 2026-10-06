@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0044E7A8@Rva0044E7A8@@QAE_NH@Z @0x0044E7A8 182B:
 // Kind validator: required kinds from +0xA0 flags (0xD6 plus 0x12D plus 0x3D

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva00485BB8@@QAEXPAVXfer@@@Z, retail 0x00485BB8 28B: Version1 via rowed 0x000053EE then uint at +0x00 via Xfer slot 0x78.
 // Evidence: called with this+0x14 from 0x00485BD4 (version-gated) plus second caller 0x004B4B97; callee rowed 0x000053EE;
 // class unproven so honest Rva name.

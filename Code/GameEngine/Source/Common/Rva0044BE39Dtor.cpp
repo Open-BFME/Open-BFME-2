@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0044BE39@@UAE@XZ @0x0044BE39 48B
 // Dtor with member at +8 via rowed 0x0044BA4E then base vtable 0x007C6F20.
 // Caller 0x0044BE1D is deleting dtor; base Rva00517397Base pattern.

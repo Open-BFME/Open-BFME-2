@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0046AC30@Rva0046AC30@@QAEPAXABVRva00469BEA@@@Z @ 0x0046AC30 34B unlock _M_create_node style.
 // Evidence: allocate 0x24 via row 0x000307F0 ?allocate@?$allocator@D@_STL@@SAPADIPBX@Z plus Construct row 0x0046A9FF ??$_Construct@VRva00469BEA@@V1@@_STL@@YAXPAVRva00469BEA@@ABV1@@Z at +0x10; caller 0x0046E455 passes this in ecx plus key pointer.
 class Rva00469BEA

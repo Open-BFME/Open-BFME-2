@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0047FDFEGet@@YAHPAX@Z @ 0x0047FDFE 39B
 // Leaf: iterate null-terminated ptr array at +0x244 calling virtual slot 0xA4
 // on embedded obj at elem+0xC returning first nonzero. Evidence: gap abuts

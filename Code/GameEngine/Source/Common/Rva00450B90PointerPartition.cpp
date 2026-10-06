@@ -1,4 +1,4 @@
-// cl: -D_STLP_USE_STATIC_LIB /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // stlport
 // Retail's caller at 0x00451E60 supplies the bidirectional iterator tag and
 // reaches this __partition body through the ILT at 0x00043004. The earlier

@@ -1,6 +1,6 @@
 // ?setUserName@LanLobbyUserNamePrefs@@QAEXVUnicodeString@@@Z
 // partial score=0.995 date=2026-10-03
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // Game-mode-keyed preferences (vtable 0x00C3EF60, retail 0x0044D50D-

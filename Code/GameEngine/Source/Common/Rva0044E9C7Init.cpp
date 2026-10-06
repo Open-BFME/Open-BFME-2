@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0044E9C7@Rva0044E9C7@@QAEPAV1@HIIIIIIIIIIIIII@Z @0x0044E9C7 300B
 // Bitfield init with memset 0x4c plus fourteen bit sets; returns this.
 // Evidence: unlock lane; caller at 0x0044EE41 in 0x0044EE07 pushes fifteen

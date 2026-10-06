@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 //
 // ?rva004479FD@Rva004479FD@@QAEAAU1@ABU1@@Z @0x004479FD 69B.
 // Copy-assign: set three StringBase<wchar> at +0 +4 +8 via pinned 0x00037150

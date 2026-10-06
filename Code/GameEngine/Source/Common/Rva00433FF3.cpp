@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00433FF3Get@@YAPAVGameSpyGameSlot@@XZ retail 0x00433FF3 96B.
 // First human GameSpyGameSlot among 8 via TheGameInfo staging room.
 // Evidence: callers 0x00435118 0x0043550D; callees rowed isHuman pin getGameSpySlot.

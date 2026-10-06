@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0043DBE0@Rva0043DBE0@@QAEXXZ @0x0043DBE0 39B
 // Chain from 0x0057E59B: reads TheGameInfo+0x7C type, enable is false for 1/2
 // else true, then (this+0xD0)->rva0057E59B(8, enable) via rowed 0x0057E59B.

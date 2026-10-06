@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructors tail-calling Rva0045D39E::~
 // Rva0045D39E at 0x0045D39E (matched opaque MI-grandchild dtor in

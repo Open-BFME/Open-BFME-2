@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0043B2A4Clear@@YGXW4ObjectID@@H@Z @0x0043B2A4 44B
 // Evidence: calls rowed findObjectByID 0x49DC5 getDrawable 0x5508E2 rva00271C79 0x271C79; TheGameLogic; callers 0x43B7BC 0x43B810 ret8.
 enum ObjectID

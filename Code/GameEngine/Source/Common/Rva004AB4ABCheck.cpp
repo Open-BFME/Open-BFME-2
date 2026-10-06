@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004AB4AB@Rva004AB4AB@@QBE_NXZ @0x004AB4AB 45B: returns false when TheGameLogic findObjectByID over m_28 misses or Object plus 0x438 bit0 set else inverted isKindOf 0x45. Callees rowed 0x00049DC5 and 0x0006F039. Caller at 0x004AB517. Prev Rva0024A797Grandchildren next LargeGroupAudioUpdateRandom share flags.
 
 typedef bool Bool;

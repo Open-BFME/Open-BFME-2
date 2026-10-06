@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva0042C833@@UAE@XZ retail 0x0042C833 70B
 // Own vptr C3C6EC; under EH state 1 the body unregisters this through the
 // rowed ?rva0042CAEB@Rva0042CBB6 0x0042CAEB on the +0xC pointer; the member

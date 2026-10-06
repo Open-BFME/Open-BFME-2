@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??4Rva0043B163@@QAEAAV0@ABV0@@Z @0x0043B163 51B
 // Evidence: calls rowed ??4Rva003427DD 0x3427DD; copies +0x7c +0x80 +0x84 then returns this ret4; callers 0x43B8F0 0x43B914 0x43B9A1.
 class Rva003427DD

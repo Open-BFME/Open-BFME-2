@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 //
 // ??0Rva0044B27F@@QAE@ABV0@@Z @0x0044B27F 107B: copy constructor of a
 // 0x1D0-byte save element (callers 0x0044B6E9 0x00582402 0x0058265D

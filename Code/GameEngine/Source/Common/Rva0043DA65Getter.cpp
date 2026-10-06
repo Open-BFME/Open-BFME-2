@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0043DA65@Rva0043DA65@@QAEHXZ @0x0043DA65 24B
 // Validated int-field getter: pushes m_field8 through virtual slot 1
 // (bool return, test al), clears to 0 when validation fails, returns it.

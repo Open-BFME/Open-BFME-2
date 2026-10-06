@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva004444D2@@UAE@XZ, retail 0x004444D2, 25 bytes.
 // Dtor with vtable 0x0083E020 plus array[2] of Rva005F8F96 at +4

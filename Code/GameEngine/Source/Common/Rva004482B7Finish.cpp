@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva004482B7@Rva004482B7@@QAE?AV?$StringBase@G@@H@Z retail 0x004482B7 40B
 // By-value accessor: copy-construct StringBase<unsigned short> from
 // m_items[index].m_name (0x1D0-wide records at +0x10C) through the rowed

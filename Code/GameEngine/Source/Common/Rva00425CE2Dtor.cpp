@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva00425CE2@@UAE@XZ, retail 0x00425CE2 (196B).
 // Evidence: unlock lane; called by deleting dtor 0x00425DA6 28B; vtable store; base ??1GameEngineDeletingBase@@UAE@XZ rowed; member ??1Rva00360D26Member@@QAE@XZ rowed at +0x20; deque<LightPoint*> for_each 0x00425CBE plus deque<void*> clear 0x00422795 on g_00E03174; RB map at g_00E03168 with _M_increment 0x00024250 plus rva00421EEA 0x00421EEA; field +0xC zeroed.

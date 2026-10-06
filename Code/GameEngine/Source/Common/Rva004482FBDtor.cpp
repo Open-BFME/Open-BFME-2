@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ??1Rva004482FB@@QAE@XZ retail 0x004482FB 87B
 // Dtor: release UnicodeString at +0xF64 via rowed 0x00036E70 then destroy 8x0x1D0 array at +0xDC via rowed Rva00447B0E 0x00447B0E then base Rva00382FA7 pin 0x00400A7F. Evidence: unlock lane; caller 0x004482DF deleting dtor; prev Rva004482B7Finish array shape 8x0x1D0; wide release same as sibling 0x00448280.
 #include "unicode_string.h"

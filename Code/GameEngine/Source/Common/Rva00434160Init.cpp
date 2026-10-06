@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 #include "ascii_string.h"
 // ?Rva00434160Init@@YAXHH_N@Z @0x00434160 120B: free init storing 3 args into struct at g_Va00E032E0 after Shell::push("SaveLoad.apt",false); evidence packet callees Shell::push pin and StringBase row, callers 0x00446443 0x00515C64, globals g_Va00E032E0 g_Va00A01E48.
 extern int g_Va00E032E0;

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00438144Update@@YAXPBVObject@@PAE@Z @0x00438144 34B
 // Cached Object predicate helper. Evidence: free-function via two stack

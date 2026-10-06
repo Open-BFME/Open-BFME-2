@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0043A0C1@Rva0043A0C1@@QAEXH@Z @0x0043A0C1 156B
 // LoadScreen progress refresh: inits +0x18 panel once via rowed 0x0057E24B
 // and pinned 0x0057DFFB, notifies +0x10 slot, then per-mode network or

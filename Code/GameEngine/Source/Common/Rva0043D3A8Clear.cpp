@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 // ?rva0043D3A8@Rva0043D3A8@@QAEXXZ @0x0043D3A8 22B
 // Clears the +0x08 Science vector via full-range erase then zeroes +0x14.

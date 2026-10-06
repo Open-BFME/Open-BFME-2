@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva004ABDC3@@QAE@XZ @0x004ABDC3 25B.
 // Stores vtable VA 0x00C549F0, default-constructs set<AsciiString> at +4

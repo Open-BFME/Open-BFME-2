@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?work@Rva00431A80@@QAEXXZ @0x00431A80 54B: guarded factory via pinned guard 0x004318A8 plus rowed operator new 0x0002FDA0 (8B) plus immediate vtable 0x00C3C988 plus rowed setter 0x00575674 on (m_04+8). Evidence: je guard shape plus new-8 plus vtable immediate plus REL32s; sibling 0x00431F0C pattern.
 class Object;
 class Rva00575674

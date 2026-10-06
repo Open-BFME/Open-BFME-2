@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00469294@Rva00469294@@QAEPAXH@Z 0x00469294 38B evidence: ptr-vector search key at [eax] callers 0x46AF67 0x472421 0x472CDC 0x474D57 0x470D4E ret ptr+4 is AsciiString
 struct Rva00469294Entry
 {

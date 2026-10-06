@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00493313@Rva00493313@@QBE?AVAsciiString@@XZ @0x00493313 32B: return final-override name at +0x5c.
 // Evidence: calls friend_getFinalOverride 0x00288609 then StringBase copy 0x000365F0; ret 4 hidden AsciiString return.
 #include "ascii_string.h"

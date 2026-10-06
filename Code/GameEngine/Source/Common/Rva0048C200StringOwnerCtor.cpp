@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Address-derived owner of two inline StringBase-compatible members.
 
 class Rva0048C200String

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00431E95@Rva00431E95@@QAEHPAX@Z @0x00431E95 65B.
 // Evidence: chain via 0x004319F2; helper new 12B with vtable g_00C3C9AC plus final
 // Rva00575674 call; rowed new 0x0002FDA0 rva00575674 0x00575674 Rva004319F2Update;

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0046AB7D@Rva0046AB7D@@QAEXXZ 0x0046AB7D 41B evidence: chain from rowed free 0x46A9D2 plus caller 0x46E2E8 plus same shape as rowed clear 0x46A93E
 struct Rva0046A9D2Node;
 class Rva0046A9D2

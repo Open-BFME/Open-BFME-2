@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ?rva004267E9@Rva004266A1@@QAEPAXH@Z @0x004267E9 36B
 // Indexed pointer into the same 8-byte record vector at +4 as Rva004266A1::rva004266A1.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??$_Construct@VRva00469BEA@@V1@@_STL@@YAXPAVRva00469BEA@@ABV1@@Z @0x0046A9FF (18B).
 // _STL::_Construct<Rva00469BEA, Rva00469BEA>, retail 18 bytes. Dedicated TU

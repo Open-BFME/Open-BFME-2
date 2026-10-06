@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva004ABFD9@@UAE@XZ @0x004ABFD9 72B.
 // Dtor with EH prolog removing itself from global Rva004ABFB2 registry then
 // member at +8 then Snapshot base BBB554 restore. Evidence: vptr 0x00C549F8

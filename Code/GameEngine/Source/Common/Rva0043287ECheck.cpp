@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0043287E@Rva0043287E@@QAEHXZ, retail 0x0043287E, 31 bytes.
 // Returns 1 if int at +0x200 > 0 else delegates to Rva00222A8BTarget::rva00222A53.
 // Evidence: callers 0x00432AFB 0x00432BCF 0x00432CEE 0x00432D2C; callee row 0x00222A53; global TheRva00222A8BTarget.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva004ABB03@@QAE@ABV0@@Z @0x004ABB03 24B: derived copy calls rowed base 0x004AB7EB copy then reinstalls vptr 0x0084ED70. Base declared only so the E8 stays outlined. Caller at 0x004ABCED. Prev stlport_map_int_ptr_o1 next UpdateModuleDeletingDtors but model and flags from V3Poly family.
 
 typedef int Int;

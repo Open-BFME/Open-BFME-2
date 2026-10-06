@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0043E0C5@Rva0043E0C5@@QAE_NH@Z, retail 0x0043E0C5, 109 bytes.
 // Leaf __thiscall (reads ecx, ret 4 = one int arg) on an unproven lobby-UI

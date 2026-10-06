@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004A4580@Rva004A4580@@QAEPAXPAX@Z @0x004A4580 27B.
 // Ignores this. Zeroes the first dword of the argument through the rowed

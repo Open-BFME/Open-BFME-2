@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?rva0043B725@Rva0043B725@@QAEXXZ, retail 0x0043B725, 8 bytes.
 // Forwards this+4 to Rva0043B2E2 clear 0x0043B334.
 // Evidence: jmp target row ?rva0043B334@Rva0043B2E2@@QAEXXZ caller 0x002442A4.

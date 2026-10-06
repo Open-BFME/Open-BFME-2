@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // ?rva0047ED64@Rva0047ED64@@QAEX PAX W4CommandSourceType@@@Z at retail 0x0047ED64 (101B).
 // Stack AICommandParms (0xC0 block via rowed ctor 0x00351BD0 with 0x2E and

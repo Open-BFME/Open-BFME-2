@@ -1,5 +1,5 @@
 // ?Rva004B0E34Get@@YG_NI@Z
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva004B0E34Get@@YG_NI@Z, retail 0x004B0E34, 32 bytes.
 // 12-way switch lowered to a byte index table (0x008B0E5C) plus a two-entry
 // jump table (0x008B0E54): true for {3,4,5,6,7,10}, false otherwise.

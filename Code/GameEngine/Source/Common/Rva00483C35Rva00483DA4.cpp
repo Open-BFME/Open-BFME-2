@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva00483DA4@Rva00483C35@@UAEXPAUCoord3D@@@Z @0x00483DA4 84B.
 // Target evidence: the only reference to this body is slot 1 of the vtable

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva00469075@Rva00469075@@QAEXM@Z 0x00469075 52B evidence: chain from setOrientation 0x30AB9D; calls setWakeFrame 0x44DF71 with 1; null Object at this-0x114
 class Object;
 class UpdateModule;

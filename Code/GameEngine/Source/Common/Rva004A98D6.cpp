@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004A98D6@Rva004A98D6@@QAEHXZ @0x004A98D6 62B: thiscall predicate over two +0x4C0/+0x4C8 machines.
 // Evidence: leaf lane; caller 0x004A99E4 (mov ecx esi; test al al) proves thiscall bool no-arg; true only when both chained vals == 1.
 struct Mid2

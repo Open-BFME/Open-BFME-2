@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructor tail-calling Rva0048593D::~
 // Rva0048593D at 0x0048593D (matched opaque MI base dtor in

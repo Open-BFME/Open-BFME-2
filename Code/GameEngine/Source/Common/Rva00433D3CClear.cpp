@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00433D3CClear@@YAXXZ, retail 0x00433D3C, 17 bytes.
 // If g_Va00E032E0 is non-null, clears byte at +0x29D.
 // Evidence: global g_Va00E032E0 ?g_Va00E032E0@@3HA shared with 0x00433D27,

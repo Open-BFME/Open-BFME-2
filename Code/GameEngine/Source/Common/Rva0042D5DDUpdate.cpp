@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?update@Rva0042D5DD@@QAEXXZ @0x0042D5DD 85B: Apt fade-state update via rowed Rva00516F21Invoke 0x00516F21 (SetState/_fadeIn) or rowed Rva002224FE 0x002224FE on the manager at 0x00DFE4CC. Evidence: count at inner +8 selecting Invoke path (3-4) or setter path (0); strings verified; REL32s to rowed callees.
 class Rva00222A8BTarget
 {

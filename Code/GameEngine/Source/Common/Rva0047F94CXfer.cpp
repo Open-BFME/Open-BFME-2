@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva0047F94C@@QAEXPAVXfer@@@Z @ 0x0047F94C 50B
 // Slot 3 (xfer) shared by vtables 0x00848418 (class of ??1Rva0047F92D) and
 // 0x0084F838 (class of ??1Rva004969FF), both in Rva0024A797Derived.cpp.

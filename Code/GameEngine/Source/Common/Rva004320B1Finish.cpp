@@ -1,5 +1,5 @@
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004320B1@Rva004320B1@@QAEHPAVGameMessage@@@Z @0x004320B1 160B: switch on
 // GameMessage+0x10 dispatching case 3 to a terrain pixel->world probe through
 // View slot 90 (the global at 0xDFEA3C is a View*, per matched sibling

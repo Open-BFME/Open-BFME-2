@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004B8B0F@Rva004B8B0F@@QAEXXZ, retail 0x004B8B0F, 50 bytes.
 // Update-module helper: if the Object at +8 is FAERIE_FIRE (0x26) return;

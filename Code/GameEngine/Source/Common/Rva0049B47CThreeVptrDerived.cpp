@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 //
 // Opaque three-vptr destructors tail-calling Rva0049B47C::~Rva0049B47C at
 // 0x0049B47C (pinned opaque fold-point dtor; identity unproven). These bodies

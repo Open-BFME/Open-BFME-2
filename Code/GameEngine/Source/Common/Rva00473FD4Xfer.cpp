@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?Rva00473FD4Xfer@@YAPAVXfer@@PAV1@PAV?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@@Z 0x00473FD4 217B evidence: map<int bool> Xfer twin of rowed map<int int> Rva00470222Xfer 0x00470222; version {1,1} via slot 0x28 typename std::map via slot 0x2c count via slot 0x78 isSaving via slot 8; save loop via rowed _M_increment 0x00024250 with per-item Rva00469103Xfer 0x00469103; load throws Map must be empty on load via bfmeFormatText 0x0060C36E then per-item operator[] 0x00470353; caller 0x00474EA8
 #include <map>

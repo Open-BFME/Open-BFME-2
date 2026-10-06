@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004695DA@Rva004695DA@@QAEEXZ 0x004695DA 40B evidence: flag 0x80 at obj+4 +0x116 then current weapon null gives 1 else tail byte get callers 0x47200F 0x472247 0x47233E
 enum WeaponSlotType
 {

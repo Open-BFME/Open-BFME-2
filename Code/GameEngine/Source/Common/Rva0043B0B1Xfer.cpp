@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0043B0B1@Rva0043B0B1@@QAEXPAVXfer@@@Z, retail 0x0043B0B1, 57 bytes.
 // Map value xfer: base member at +0 via slot0 then 3 uints at +0x7c +0x80 +0x84 via Xfer slot 0x78.
 // Evidence: caller 0x0043B920 xfers temp from 0x0043B208 then inserts via 0x0043B864; pair ctor uses Rva0043B196 0x88 layout; uint slot 0x78 per PoisonedBehaviorXfer.

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?Rva004A82BAAttemptDamage@@YAXPAVObject@@@Z @0x004A82BA 59B
 // Free function: build DamageInfo (0x7C) on stack via rowed Rva00263895Member ctor,
 // set fields +8=0 +0x10=8 +0x1C=6 +0x20=float from g_00C53840, call Object::attemptDamage.

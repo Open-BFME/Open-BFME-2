@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00458BE1@Rva00458BE1@@QAE_NXZ @0x00458BE1 46B
 // Predicate over sub at +4 with float at +0x24 and limit at +0x28 via AI query 0x2FEEAD.
 // Evidence: early true when limit 0; AI g_Va009FF0F8 plus obj at +8 plus 0x20 plus setge vs limit; caller 0x00458CCB.

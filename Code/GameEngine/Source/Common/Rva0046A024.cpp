@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0046A024@Rva0046A024@@QAEXXZ @ 0x0046A024 142B unlock with EBP frame.
 // Evidence: isKindOf row 0x0006F039 ?isKindOf@Object@@QBE_NW4KindOfType@@@Z; caller 0x00470DC1; subobject at +0x11C with virtuals at +0x108 (slot 66) and +0x23C (slot 143); list nodes with Object* at +8; counter at +0x2F4 with guard at +0x2F0.
 enum KindOfType

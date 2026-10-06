@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva0042D8D4@@QAE@XZ @ 0x0042D8D4 90B: ctor with no args (ret, returns this)
 // setting m_0=-1 then m_0=TheRva00222A8BTarget virtual at +0x50 with
 // "Apt\\" and "StrategicHUD.apt" plus two zero args. Caller at 0x0023A16C proves shape.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004442FD@Rva004442FD@@QAEXXZ, retail 0x004442FD, 46 bytes.
 // Clears dwords at +0x6A8 +0x6A4, sets byte +0x6C0=1 +0x6BB=0,

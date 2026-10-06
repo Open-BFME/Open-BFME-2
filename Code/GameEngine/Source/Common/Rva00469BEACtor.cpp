@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00469BEA@@QAE@ABHABVRva00469155@@@Z 0x00469BEA 29B evidence: chain via operator= 0x46916D; caller 0x473FAF passes int and Rva stack record
 class Rva00469155
 {

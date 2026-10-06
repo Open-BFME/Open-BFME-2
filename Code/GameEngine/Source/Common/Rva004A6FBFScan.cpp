@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004A6FBF@Rva004A6FBF@@QAEMXZ @0x004A6FBF 38B.
 // Dozer-side twin of 0x004A9715. Object at this-0x3DC, module data at

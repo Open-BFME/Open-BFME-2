@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004319F2Update@@YAXXZ @0x004319F2 66B.
 // Evidence: chain via 0x0029AA3F; TheInGameUI virtuals 0xCC and 0xD8 plus byte 0x9B4;
 // rowed Rva0029AA3F 0x0029AA3F and 0x0029A9FF; callers 0x00431E5A 0x00431E95;

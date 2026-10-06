@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Single-inheritance destructors tail-calling the matched GameModePreferences
 // base dtor at 0x0044D56A (vptr 0xC3EF60, AsciiString at +0x18, base dtor

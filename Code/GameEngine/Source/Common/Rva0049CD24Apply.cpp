@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0049CD24@Rva0049CD24@@QAEXPAVObject@@@Z @0x0049CD24 43B.
 // When the argument, the pointer at this+8, and the dword at that

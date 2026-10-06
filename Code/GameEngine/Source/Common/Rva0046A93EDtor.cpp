@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva0046A93E@@QAE@XZ 0x0046AB1B 56B evidence: chain from rowed clear 0x46A93E plus rowed free 0x30830 header free after clear
 extern "C" void __cdecl free(void *block);
 struct Rva00469C34Node;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0Rva00432FA7@@QAE@XZ, retail 0x00432FA7, 72 bytes.
 // Ctor: baseConstruct 0x001B4E63 then vtable g_00C3CA30 then five ints at
 // +0xC/+0x10/+0x14/+0x18/+0x1C zeroed then three FLT_MAX floats at

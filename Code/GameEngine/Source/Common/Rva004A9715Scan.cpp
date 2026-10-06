@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004A9715@Rva004A9715@@QAEMXZ @0x004A9715 38B.
 // Supply-side this. Object at this-0x3E0, module data at this-0x3E4, float

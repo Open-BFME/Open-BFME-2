@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 //
 // ?Rva004478A9Copy@@YAPADPADPBD0@Z @0x004478A9 96B.
 // Checked strncpy copy: with limit require dst below limit with room, strncpy

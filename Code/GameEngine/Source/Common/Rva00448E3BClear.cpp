@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00448E3B@Rva00448E3B@@QAEXXZ retail 0x00448E3B 41B
 // Clear resetting header self-links and count: if m_04==0 return; free walk
 // root m_00->m_04 via rowed 0x00448D96 with same this; m_00->m_08=m_00;

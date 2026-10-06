@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 // ??0Rva0043D16F@@QAE@XZ @0x0043D16F 36B
 // Ctor with vtable 0x0083D7E8 at +0, int at +4 cleared via and-0, BfmeE16

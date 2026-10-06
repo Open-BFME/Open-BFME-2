@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0043B1C9@Rva0043B1C9Tree@@QAEPAV1@PBX@Z @0x0043B1C9 39B
 // Header-handle alloc helper mirroring AnimationSoundTree::rva004CA018
 // (39B, proxy 0x14F3C4 + byte allocator 0x307F0): proxy at this with stack

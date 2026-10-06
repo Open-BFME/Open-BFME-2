@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004A7E43@Rva004A7D55@@UAEXXZ 0x004A7E43 36B virtual slot 5 (offset 0x14) of vtable 0x00853790
 // class of ??1Rva004A7D55@@UAE@XZ in Rva0058A0F4Derived.cpp. Broadcasts via rowed
 // ?Rva0027164EBroadcast@Rva002716Holder@@QAEXHH@Z (0x0027164E) using BuildListInfo::getDesiredGatherers

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00432AEB@Rva00432AEB@@QAEHH@Z, retail 0x00432AEB, 45 bytes.
 // Setter at +0x1F0 returning old value; if Rva0043287E check at +0x200 passes,
 // notifies TheMouse via vtable slot 0x4C with the new value.

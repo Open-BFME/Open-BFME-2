@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?b_00042a50@@YAXXZ, retail 0x0044BA2A, 9 bytes.
 // Pinned name; forwards 0 to pinned cdecl 0x00437E9C. Callers include rowed

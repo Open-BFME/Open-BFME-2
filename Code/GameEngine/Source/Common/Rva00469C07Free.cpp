@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00469C07@Rva00469C07@@QAEXPAURva00469C07Node@@@Z 0x00469C07 45B evidence: child-sibling tree free via rowed free 0x30830 caller 0x46A923 plus self recursion
 extern "C" void __cdecl free(void *block);
 struct Rva00469C07Node

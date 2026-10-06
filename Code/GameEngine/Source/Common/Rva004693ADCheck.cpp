@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004693AD@Rva004693AD@@QAE_NPAURva004693ADArg@@@Z 0x004693AD 44B evidence: int at arg+0x74 vs this +0x264 +0x26c or flag 0x109 bit 8 callers 0x470517 0x470731 0x474C9F
 struct Flag109
 {

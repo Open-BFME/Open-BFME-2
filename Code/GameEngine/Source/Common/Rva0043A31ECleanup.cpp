@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0043A31ECleanup@@YAXXZ, retail 0x0043A31E, 34 bytes.
 // Free cleanup: release Bfme VM0 mutexes via rva0025D9CB(false), then
 // TheAudio slot 0x8c with (2, 1, 0).

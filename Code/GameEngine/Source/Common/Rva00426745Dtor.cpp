@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00426745@@UAE@XZ retail 0x00426745 96B
 // Two-base dtor: own vptrs C3C408 (+0) and C3C3F8 (+0xC); under EH state 1
 // the object at +0x10 is deleted through its slot-0 deleting dtor with flag 0

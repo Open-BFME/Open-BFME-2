@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??1Rva00432FA7@@UAE@XZ @0x00432FEF 54B: virtual dtor with two-list cleanup.
 // Evidence: vtable 0x0083CA30 slot0 ??_G 0x0043312E; ctor 0x00432FA7 same vtable; tail-jmp to rowed ??1GameEngineDeletingBase@@UAE@XZ 0x001B4E74; callers 0x00433131.
 

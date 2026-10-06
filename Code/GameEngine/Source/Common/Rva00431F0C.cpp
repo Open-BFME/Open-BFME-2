@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00431F0C@Rva00431F0C@@QAEHPAVGameMessage@@@Z @0x00431F0C 85B: thiscall int method gating on GameMessage+0x10 == 6 or 0x10 and != this+8 then flag via rowed 0x00431A4D plus helper new 8B vtable 0x0083C97C and final Rva00575674 call. Evidence: chain lane calls just-landed 0x00431A4D; rowed new 0x0002FDA0 rva00575674 0x00575674; vtable g_00C3C97C; prev Rva00431C35 same flags and helper pattern; next Rva00431F61Ctor flag class.
 class GameMessage
 {

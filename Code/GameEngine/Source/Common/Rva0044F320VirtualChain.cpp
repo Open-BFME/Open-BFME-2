@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME: three-stage virtual chain reconstructed from retail RVA 0x0044F320.
 
 class Rva0044F320VirtualChain

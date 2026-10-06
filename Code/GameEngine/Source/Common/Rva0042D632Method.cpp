@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0042D632@Rva0042D632@@QAEXXZ @0x0042D632 74B: state switch on inner +8 driving Apt invokes.
 // Evidence: rowed free invoke 0x00516F21 (strings SetState _fadeOut) plus pin 0x0022277D;
 // caller 0x0042C39A; neighbours 0x0042D55B 0x0042D697.

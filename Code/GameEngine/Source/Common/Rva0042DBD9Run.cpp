@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?run@Rva0042DBD9Host@@QAEXH@Z @0x0042DBD9 43B: member reset plus two conditional null-forwarding calls via rowed clear 0x002D38D1 and rowed setters 0x005785A2 and 0x005796B3. Evidence: lea +0x18 plus test/je with push-0 calls; ret-4 single unused arg.
 class Rva002D38D1
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00428716PopHeap@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z RVA 0x00428716 size 23 evidence pop_heap wrapper calling rowed aux 0x0042864B with dummy 0 caller 0x004287C9 shape matches int precedent 0x00424637
 struct VersionBlockEntry

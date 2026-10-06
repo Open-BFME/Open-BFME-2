@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00463469@@QAE@I@Z @0x00463469 (36B):
 // Single-proxy ctor: _STLP_alloc_proxy<unsigned int,int,allocator<int> > at +0

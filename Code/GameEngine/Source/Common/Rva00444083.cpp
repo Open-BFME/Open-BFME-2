@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 //
 // ?rva00444083@Rva00444083@@QAEXH@Z, retail 0x00444083, 113 bytes.
 // __thiscall void method with 1 int arg firing EnableCreateGame and

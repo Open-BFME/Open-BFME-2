@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00469D86@@QAE@XZ @ 0x00469D86 72B dtor with OpaqueRef plus two StringBase.
 // Evidence: copy-ctor neighbour Rva00469BEA /O1 /MD; callees rowed Release_Ref 0x00050ED3 plus releaseBuffer 0x00036410 twice; EH prolog with scopetable; unblocks 0x0046AA4D 28B plus 0x00475942; no vptr so non-virtual QAE.
 template <typename T> class StringBase

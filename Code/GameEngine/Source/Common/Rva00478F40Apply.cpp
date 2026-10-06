@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0
+// cl: /Ob0
 //
 // 18-byte flag + virtual: test byte [this+8], 0x10; if clear, call
 // vtable[+0x0C](this+0x30); always xor eax,eax / ret.

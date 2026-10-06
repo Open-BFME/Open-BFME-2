@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva004A9947@@QAE@PAVStateMachine@@@Z @0x004A9947 29B: derived State ctor pushing name hash 0x83242288.
 // Evidence: unlock lane; callee rowed 0x004D73FC State hash overload via its pinned ICF twin; caller 0x004A9DF2;
 // vtable 0x00854010; recipe from StateCtor.cpp whose header notes this 29B push-pop-esi form is what the same

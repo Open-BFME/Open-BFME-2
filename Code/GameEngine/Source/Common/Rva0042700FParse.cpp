@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // ?Rva0042700FParse@@YAXPAVINI@@HPAV?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@H@Z @0x0042700F 89B
 // retail 0x0042700F 89B: INI token loop filling vector<BfmeStringRecord00426A5B> via rowed getNextTokenOrNull 0x2DEED plus default ctor 0x4267CC plus StringBase::set 0x55F5 plus push_back 0x426EE0 plus releaseBuffer 0x36410; prev Rva00426F17Xfer shares flags; caller 0x427068 passes INI in +8 and vec in +0x10

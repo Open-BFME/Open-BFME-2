@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
 //
 // ??1Rva0044ECCE@@UAE@XZ, retail 0x0044ECCE, 199 bytes.
 // ModuleData base dtor (size 0xC8) over Snapshot BBB554: and-zeroes +0x38

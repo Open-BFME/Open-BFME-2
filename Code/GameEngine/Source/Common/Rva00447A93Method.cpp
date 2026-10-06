@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?rva00447A93@Rva00447A93@@QAEXVUnicodeString@@@Z @0x00447A93 55B
 // By-value UnicodeString set into +0x1B4 via rowed set 0x00037150 then releaseBuffer 0x00036E70.
 // Evidence: called from 1 unclaimed site; callees rowed; prev/next neighbours.
