@@ -23,6 +23,7 @@ struct Rva000B8F5AOuter
 	void rva000BF9FC(void *entry, int a, int b);
 	void rva000BEE25(void *entry, float value, int zero, int oneA, int oneB);
 	void rva000BFB51(float value);
+	void rva000C0386();
 
 private:
 	char m_pad00[0x18];
@@ -31,12 +32,19 @@ private:
 	bool m_flag28C;
 };
 
+struct Rva000C144AEntry
+{
+	void *m_ptr00;
+	char m_pad04[0x1C - 0x04];
+};
+
 class Rva000B8F5A
 {
 public:
 	void rva000B8F5A(char *a, AsciiString b);
 	void rva000BFD77();
 	void rva000BFD9F();
+	int rva000C144A();
 
 private:
 	char m_pad00[0x0C];
@@ -47,7 +55,9 @@ private:
 	char *m_98;
 	char m_pad9C[0xA8 - 0x9C];
 	AsciiString m_A8;
-	char m_padAC[0x258 - 0xAC];
+	char m_padAC[0x104 - 0xAC];
+	Rva000C144AEntry m_entries104[3];
+	char m_pad158[0x258 - 0x158];
 	char m_pad258[0x280 - 0x258];
 	bool m_flag280;
 };
@@ -96,4 +106,22 @@ void Rva000B8F5A::rva000BFD9F()
 		m_flag280 = true;
 		((Rva000B8F5AOuter *)((char *)this - 12))->rva000BF9FC(e, 1, 0);
 	}
+}
+
+// ?rva000C144A@Rva000B8F5A@@QAEHXZ @0x000C144A 35B
+// Leading-live counter: runs the outer 0xC0386 probe, then counts the
+// leading non-null +0x104 entries (3 x 0x1C, testing the first pointer).
+int Rva000B8F5A::rva000C144A()
+{
+	((Rva000B8F5AOuter *)((char *)this - 12))->rva000C0386();
+	unsigned n = 0;
+	Rva000C144AEntry *e = m_entries104;
+	do
+	{
+		if (e->m_ptr00 == 0)
+			break;
+		n++;
+		e++;
+	} while (n < 3);
+	return n;
 }
