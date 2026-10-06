@@ -38,6 +38,13 @@ template <> _STL::_Rb_tree_node<BfmeByteWordNodeValue> *
 BfmeByteWordNodeTree::_M_copy(_STL::_Rb_tree_node<BfmeByteWordNodeValue> *x,
     _STL::_Rb_tree_node<BfmeByteWordNodeValue> *p);
 
+// Native assignments use the already rowed clear providers; the copy unit
+// supplies these bodies without emitting competing generic clear definitions.
+template <> BfmeByteWordNodeTree &
+BfmeByteWordNodeTree::operator=(const BfmeByteWordNodeTree &other);
+template <> BfmeByteDwordNodeTree &
+BfmeByteDwordNodeTree::operator=(const BfmeByteDwordNodeTree &other);
+
 template class _STL::_Rb_tree<unsigned char, _STL::pair<const unsigned char, short>,
 	_STL::_Select1st<_STL::pair<const unsigned char, short> >, _STL::less<unsigned char>,
 	_STL::allocator<_STL::pair<const unsigned char, short> > >;

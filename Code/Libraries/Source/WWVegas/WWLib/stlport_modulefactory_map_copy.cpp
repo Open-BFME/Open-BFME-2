@@ -1,5 +1,3 @@
-// ?_M_copy@?$_Rb_tree@EU?$pair@$$CBEH@_STL@@U?$_Select1st@U?$pair@$$CBEH@_STL@@@2@U?$less@E@2@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBEH@_STL@@@2@PAU32@0@Z
-// partial score=1.0 date=2026-10-06
 // cl: /GX- /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 //
@@ -32,6 +30,28 @@ public:
 		void *m_createDataProc;
 		int m_whichInterfaces;
 	};
+};
+
+// These are the existing native clear providers in Rva0038201DFree.cpp.
+// Both measured receivers store the header at +0 and the node count at +4,
+// as does the STLport tree view below. Assignment calls identify the short
+// provider at 3828B6 and the dword provider at 382908 independently.
+struct Rva0038201DNode;
+class Rva0038201D
+{
+    Rva0038201DNode *m_head;
+    int m_count;
+public:
+    void rva0038201D(Rva0038201DNode *n);
+    void rva003828B6();
+};
+class Rva00382077
+{
+    Rva0038201DNode *m_head;
+    int m_count;
+public:
+    void rva00382077(Rva0038201DNode *n);
+    void rva00382908();
 };
 
 namespace _STL
@@ -79,6 +99,7 @@ class _Rb_tree
 {
 public:
 	typedef _Rb_tree_node<Value> Node;
+	_Rb_tree &operator=(const _Rb_tree &other);
 
 protected:
 	Node *_M_clone_node(Node *x);
@@ -88,6 +109,7 @@ protected:
 
 private:
 	Node *_M_copy(Node *x, Node *p);
+	__forceinline Node *&root() const { return (Node *&)m_header->m_parent; }
 };
 
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
@@ -190,6 +212,52 @@ template <> __forceinline ByteDwordTree::Node *ByteDwordTree::_M_clone_node(Node
 
 template ByteDwordTree::Node *ByteDwordTree::_M_copy(Node *x, Node *p);
 
+}
+
+// STLport 4.5.3 _tree.c::operator=: clear, copy the root, reconstruct the
+// leftmost/rightmost links and copy the count. Empty comparator objects have
+// no state in the measured +0/+4 tree layout. Use the already rowed native
+// clear providers rather than assigning a second name to their addresses.
+__forceinline void BfmeClearByteTree(void *tree,
+    const _STL::pair<const unsigned char, short> *)
+{
+    ((Rva0038201D *)tree)->rva003828B6();
+}
+__forceinline void BfmeClearByteTree(void *tree,
+    const _STL::pair<const unsigned char, int> *)
+{
+    ((Rva00382077 *)tree)->rva00382908();
+}
+
+namespace _STL {
+template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
+_Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &
+_Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::operator=(const _Rb_tree &other)
+{
+    if (this != &other) {
+        BfmeClearByteTree(this, (const Value *)0);
+        m_nodeCount = 0;
+        if (other.root() == 0) {
+            root() = 0;
+            m_header->m_left = m_header;
+            m_header->m_right = m_header;
+        } else {
+            root() = _M_copy(other.root(), m_header);
+            Node *left = (Node *)m_header->m_parent;
+            while (left->m_left != 0)
+                left = (Node *)left->m_left;
+            m_header->m_left = left;
+            Node *right = (Node *)m_header->m_parent;
+            while (right->m_right != 0)
+                right = (Node *)right->m_right;
+            m_header->m_right = right;
+            m_nodeCount = other.m_nodeCount;
+        }
+    }
+    return *this;
+}
+template ByteShortTree &ByteShortTree::operator=(const ByteShortTree &other);
+template ByteDwordTree &ByteDwordTree::operator=(const ByteDwordTree &other);
 }
 
 // Target 0x0029FBC9 is the unsigned-key STLport insertion variant. Its
