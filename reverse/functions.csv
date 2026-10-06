@@ -66107,3 +66107,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleCodePageQueries.c,matched,BFME1 donor plus retail call and buffer evidence
 ?GadgetPushButtonInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x00327E5D,1243,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetPushButtonInput.cpp,matched,
 ?Rva00324AE5Update@@YAXPAVGameWindow@@H_N@Z,,0x00324AE5,84,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxAdjustDisplay.cpp,matched,
+?Rva003249D2@@YAXPAVGameWindow@@_N@Z,,0x003249D2,275,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxAdjustSlider.cpp,matched,
