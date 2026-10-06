@@ -12413,3 +12413,6 @@ _Rva008140D0	0x0067FFD0	475	blocked	ltable needs alias surgery not case swap: ou
 FUN_0049b28c	0x0009B28C	644	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused t=3 model=muse-02
 FUN_007901da	0x003901DA	836	blocked	ADDRESS-NAMED g_Va007C26F0 new use refused t=2 model=muse-02
 FUN_00484271	0x00084271	793	blocked	ADDRESS-NAMED g_Va007C26F0 g_Va00BBB8D8 new uses refused t=2 model=muse-02
+FUN_0049b510	0x0009B510	730	blocked	ADDRESS-NAMED 3 uses new use refused t=2 model=muse-02
+FUN_0048458a	0x0008458A	1422	blocked	over 1000B needs strong model t=1 model=muse-02
+FUN_0086beac	0x0046BEAC	863	blocked	ADDRESS-NAMED g_Va00BBB8D8 g_Va009FF0F8 new uses refused t=1 model=muse-02
