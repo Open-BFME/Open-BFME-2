@@ -120,8 +120,45 @@ if [ "${#staged_sources[@]}" -eq 0 ] && [ "$ledger_changed" -eq 0 ] \
 fi
 
 if [ "$wide_change" -ne 0 ]; then
-    echo "pre-commit: header/shim change — running FULL gate (delta verify can't see wide effects)" >&2
-    BUILD_POOL="${BUILD_POOL:-4}" run_build || fail "full gate after header/shim change (see above)"
+    # Byte-verify only the ledger sources the changed headers can reach
+    # (tools/header_dependents.py, ported from Open-BFME-1: it walks the
+    # #include graph of the index by file NAME, widens on every doubt and exits
+    # 2 when it cannot bound the change); otherwise the full gate, as before.
+    header_deps_out=$(mktemp)
+    if python3 tools/header_dependents.py --staged > "$header_deps_out"; then
+        mapfile -t header_deps < "$header_deps_out"
+        rm -f "$header_deps_out"
+        for path in $(git diff --cached --name-only --diff-filter=ACMRT); do
+            case "$path" in
+                *.h|*.hpp|*.hh|*.hxx|*.inl|*.inc|reference/shims/*|Code/*)
+                    git diff --quiet -- "$path" || fail "unstaged edits in $path: the scoped header gate would verify the wrong bytes" ;;
+            esac
+        done
+        declare -A unstaged=()
+        while IFS= read -r -d '' path; do unstaged["$path"]=1; done < <(git diff --name-only -z)
+        for path in "${header_deps[@]}"; do
+            [ -z "${unstaged[$path]:-}" ] || fail "unstaged edits in $path: the scoped header gate would verify the wrong bytes"
+        done
+        echo "pre-commit: header/shim change — scoped gate over ${#header_deps[@]} dependent source(s)" >&2
+        chunk=()
+        chunk_bytes=0
+        for path in "${header_deps[@]}"; do
+            if [ "${#chunk[@]}" -ne 0 ] && [ "$((chunk_bytes + ${#path} + 3))" -gt 24000 ]; then
+                BUILD_POOL="${BUILD_POOL:-4}" run_build "${chunk[@]}" || fail "scoped header gate (see above)"
+                chunk=()
+                chunk_bytes=0
+            fi
+            chunk+=("$path")
+            chunk_bytes=$((chunk_bytes + ${#path} + 3))
+        done
+        if [ "${#chunk[@]}" -ne 0 ]; then
+            BUILD_POOL="${BUILD_POOL:-4}" run_build "${chunk[@]}" || fail "scoped header gate (see above)"
+        fi
+    else
+        rm -f "$header_deps_out"
+        echo "pre-commit: header/shim change — running FULL gate (header_dependents could not bound it)" >&2
+        BUILD_POOL="${BUILD_POOL:-4}" run_build || fail "full gate after header/shim change (see above)"
+    fi
 fi
 
 # The build verifies file contents on disk; refuse if a file being committed

@@ -44,7 +44,7 @@ PROTECTED = (
     "tools/find_declared_unmatched.py", "tools/gen_case_shims.py",
     # ledger, identity and direction guards the hooks call
     "tools/check_csv.py", "tools/check_case_collisions.py", "tools/conversion_gate.py",
-    "tools/link_debt.py", "tools/class_gate.py", "tools/pin_consistency.py",
+    "tools/link_debt.py", "tools/class_gate.py", "tools/pin_consistency.py", "tools/header_dependents.py",
     "tools/pin_admission.py", "tools/gate_baseline.py", "tools/check_module_registry.py",
     "tools/protected_paths.py", "tools/hatch_counters.py", "tools/retail_inventory.py",
     "tools/publisher.py", "tools/publisher_pre_push.sh",
