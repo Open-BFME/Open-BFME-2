@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00054E8BCreate@@YGPAURva00054E8BNode@@ABVRva00051C6C@@@Z @0x00054E8B 37B.
 // slist node create: allocate 12 via rowed byte allocator plus zero next plus rowed _Construct.

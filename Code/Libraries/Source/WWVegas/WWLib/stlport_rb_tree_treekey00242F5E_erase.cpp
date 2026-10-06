@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva000A7941@Rva000A7941@@QAEXPAX@Z, retail 0x000A7941, 53 bytes.
 // Rb-tree _M_erase for the TreeKey00242F5E set (unsigned id at +0 plus
 // AsciiString at +4): recurse on right child at node+0x0C then loop on left

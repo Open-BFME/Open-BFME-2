@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 
 // ?Rva005DD6D5Apply@@YAXPAP8Rva005DE5B5@@AEXXZPAU1@1P81@AEXXZ@Z RVA 0x005DD6D5, 34B.
 // Unlock lane: range-apply helper over 0x18-byte Rva005DE5B5 elements; calls

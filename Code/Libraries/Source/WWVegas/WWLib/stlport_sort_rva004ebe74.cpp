@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // STLport sort<Rva004EBE74Item**, Rva004EBE74Cmp> family, 0x004EABEA-0x004EBEB7:
 // sort 0x004EBE74 (sole caller 0x004EBEDE) and the 19 helpers it instantiates.

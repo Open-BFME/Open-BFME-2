@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /arch:SSE /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?_M_insert_overflow@?$vector@URva0040C0C7Element@@V?$allocator@URva0040C0C7Element@@@_STL@@@_STL@@IAEXPAURva0040C0C7Element@@ABU3@ABU__false_type@2@I_N@Z @ 0x0040BFF4 (183B). Vector growth path for 40-byte element.
 // Evidence: stride 0x28 from retail imul; callees uninitialized_copy 0x0040B9CC fill_n 0x0040B9F2 Construct pin 0x0040B99F.

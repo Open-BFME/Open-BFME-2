@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?_M_erase@?$_Rb_tree@HU?$pair@$$CBHURva0016CB50Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0016CB50Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0016CB50Mapped@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHURva0016CB50Mapped@@@_STL@@@2@@Z @0x0016CB50 51B.
 // Trivial red-black tree node eraser: recurse-right via [esi+0x0C],

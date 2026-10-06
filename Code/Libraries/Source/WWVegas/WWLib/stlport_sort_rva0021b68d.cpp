@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // STLport sort<Rva0021B68DKey*, Rva0021B68DCmp> family, 0x0021B8F2-0x0021F13C.
 // Shape twin of the rowed stlport_sort_rva004ebe74.cpp family with two

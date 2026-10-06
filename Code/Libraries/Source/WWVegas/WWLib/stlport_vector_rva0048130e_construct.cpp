@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ??$_Construct@URva0048130E@@U1@@_STL@@YAXPAURva0048130E@@ABU1@@Z, retail 0x00481514, 45 bytes.
 // True _Construct for ProductionQueueHordeContainModuleData's +0xD4 vector

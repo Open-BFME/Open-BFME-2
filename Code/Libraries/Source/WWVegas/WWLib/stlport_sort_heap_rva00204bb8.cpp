@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$__sort_heap@PAHVRva00204BB8@@@_STL@@YAXPAH0VRva00204BB8@@@Z @0x002082B7 58B
 // STL heap sort over int sort keys with the rowed thiscall comparator

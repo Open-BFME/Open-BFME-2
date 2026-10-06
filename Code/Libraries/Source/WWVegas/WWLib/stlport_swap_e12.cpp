@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$swap@UBfmeE12@@@_STL@@YAXAAUBfmeE12@@0@Z at retail 0x004219CD 39 bytes.
 // ??$?MUBfmeE12@@@_STL@@YA_NABU?$_Deque_iterator_base@UBfmeE12@@@0@0@Z at retail 0x004219B0 29 bytes.

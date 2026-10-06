@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva000AFAFB@@QAE@I@Z @0x000AFAFB 51B
 // Evidence: chain lane, calls 0x000AF183 which you just landed plus fill_n 0x000AD8C9, ret 4, same shape as vector<short> ctor 0x00513DD0.

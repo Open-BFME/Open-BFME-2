@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?push_back@?$vector@VRva004E194E@@V?$allocator@VRva004E194E@@@_STL@@@_STL@@QAEXABVRva004E194E@@@Z,

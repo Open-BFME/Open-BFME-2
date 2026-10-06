@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??$_M_allocate_and_copy@PAUBfmeVectorRecord00319C84@@@?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@IAEPAUBfmeVectorRecord00319C84@@IPAU2@0@Z @0x00319304 45B
 // Evidence: caller reserve 0x00319C84 plus unclaimed 0x00319BFF; rowed allocate 0x002226BE via BfmeVectorRecord00319C84 pin plus rowed copy 0x00318D75; same 45B ebp-tag shape as 0x001FFA2D and 0x00317D5C
 struct BfmeVectorRecord00319C84

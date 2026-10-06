@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?push_back@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXABUCoord3D@@@Z @0x002CE7DC 55B: vector<Coord3D> push_back fast path via pinned _Construct 0x002CA82C else rowed _M_insert_overflow 0x002CDF8A stride 0xC.
 // Evidence: unlock lane cmp je Construct add 0xC vs overflow with n=1; callers 0x002CE8A2 0x000E061B; same 55B shape as sibling pushbacks.

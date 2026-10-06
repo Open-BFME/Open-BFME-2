@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ??$__lower_bound@PAUBfmePod40@@U1@U?$less@UBfmePod40@@@_STL@@H@_STL@@YAPAUBfmePod40@@PAU1@0ABU1@U?$less@UBfmePod40@@@0@PAH@Z @0x00540253 (66B):

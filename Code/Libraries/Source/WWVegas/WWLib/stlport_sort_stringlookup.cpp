@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // stlport
 // STLport sort<StringLookUp*, Rva002E5678Cmp> family, 0x002E5B66-0x002E68EB:
 // the GameText label table sort (StringLookUp is the 8-byte {label, info}

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 // ?_M_erase@?$_Rb_tree@HU?$pair@$$CBHURva004D1B38Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva004D1B38Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva004D1B38Mapped@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHURva004D1B38Mapped@@@_STL@@@2@@Z @ 0x004D1B38 (53B).
 // Recursive subtree eraser: recurse-right via [esi+0x0C] walk-left via [esi+0x08] destroy value at node+0x10

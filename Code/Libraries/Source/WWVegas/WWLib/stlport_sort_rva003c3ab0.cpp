@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // STLport sort<Rva003C3AB0Item**, Rva003C3AB0Cmp> family around 0x003BD4C3-0x003C6973.
 // Masked twin of the rowed stlport_sort_rva004ebe74.cpp family: every retail

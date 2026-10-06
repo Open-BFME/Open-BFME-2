@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0?$_Rb_tree_base@U?$pair@$$CBW4ScienceType@@_N@_STL@@V?$allocator@U?$pair@$$CBW4ScienceType@@_N@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBW4ScienceType@@_N@_STL@@@1@@Z @0x001FF76E 35B
 // STLport _Rb_tree_base header-node ctor for ScienceStore map<ScienceType,bool>.

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /Oy-
 // stlport
 //
 // ?erase@?$vector@UBfmeObject872@@V?$allocator@UBfmeObject872@@@_STL@@@_STL@@QAEPAUBfmeObject872@@PAU3@0@Z

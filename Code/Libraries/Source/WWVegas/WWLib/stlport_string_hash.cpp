@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?__stl_string_hash@_STL@@YAIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@@Z at retail 0x0060C9F0 (36B).

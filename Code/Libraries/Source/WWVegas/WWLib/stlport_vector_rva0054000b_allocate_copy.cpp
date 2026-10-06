@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??$_M_allocate_and_copy@PAVRva0054000B@@@?$vector@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL@@IAEPAVRva0054000B@@IPAV2@0@Z @0x0054016A 45B
 // Evidence: caller 0x005406B7 plus rowed allocate 0x000B4039 via Rva pin plus rowed copy 0x005400B4; same 45B ebp-tag shape as 0x00319304 and 0x001FFA2D
 class Rva0054000B

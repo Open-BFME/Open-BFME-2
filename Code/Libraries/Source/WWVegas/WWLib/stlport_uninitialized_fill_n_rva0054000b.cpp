@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_fill_n@PAVRva0054000B@@IV1@@_STL@@YAPAVRva0054000B@@PAV1@IABV1@ABU__false_type@0@@Z @0x005400DA 37B
 // 40-byte fill loop striding 0x28 through rowed _Construct 0x00540070.

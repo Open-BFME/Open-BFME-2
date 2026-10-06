@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // _STL::sort family over the 4-byte refcounted Rva004F6093Holder with an
 // out-of-line comparator, retail 0x002B445C..0x002BBC5F (sort 0x002BBC1C).

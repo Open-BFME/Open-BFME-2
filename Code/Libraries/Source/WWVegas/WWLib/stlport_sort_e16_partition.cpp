@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva005B2FDCPartition@@YAPAURva005B2FDCItem@@PAU1@0U1@URva005B26CECmp@@@Z @0x005B2FDC 74B
 // Unguarded partition over 16-byte sort elements with rowed stdcall comparator
 // at 0x005B26CE via thiscall twin plus rowed deque-iterator swap at 0x005B2893.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_Destroy@PAURva0027EA49@@@_STL@@YAXPAURva0027EA49@@0@Z, retail 0x00281AD4, 25 bytes.
 // Range destroy for 8-byte Rva0027EA49 holder (int at +0 plus TargetRef pointer at +4

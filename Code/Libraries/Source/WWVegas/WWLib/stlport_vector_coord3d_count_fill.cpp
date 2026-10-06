@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ob0 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ??0?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@IABUCoord3D@@ABV?$allocator@UCoord3D@@@1@@Z @0x0007C2AC 43B: STLport vector<Coord3D> count-fill ctor.

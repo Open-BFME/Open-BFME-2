@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_Destroy@PAURva00153729@@@_STL@@YAXPAURva00153729@@0@Z, retail 0x00153BB6, 25 bytes.
 // Range destroy for 0x4C holder (int at +0 plus array[6] of vector<Rva005F8F96> at +4) stride 0x4C calling rowed dtor 0x153729.

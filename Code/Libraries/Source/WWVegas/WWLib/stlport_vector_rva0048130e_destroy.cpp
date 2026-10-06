@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_Destroy@PAURva0048130E@@@_STL@@YAXPAURva0048130E@@0@Z, retail 0x00481595, 25 bytes.
 // Range destroy for ProductionQueueHordeContainModuleData's +0xD4 vector

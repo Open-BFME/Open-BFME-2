@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_copy@PBVRva0054000B@@PAV1@@_STL@@YAPAVRva0054000B@@PBV1@0PAV1@ABU__false_type@0@@Z @0x005400B4 38B
 // 40-byte copy loop striding 0x28 through rowed _Construct 0x00540070.

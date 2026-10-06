@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_Destroy@PAVRva00151DAB@@@_STL@@YAXPAVRva00151DAB@@0@Z, retail 0x0015209B, 25 bytes.
 // Range destroy over 8-byte Rva00151DAB elements via rowed dtor 0x00151DAB stride 8.

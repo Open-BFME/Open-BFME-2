@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00434969Get@@YAXPAI0@Z @0x00434969 44B: two-out stack-seeded table fetch indexed by low 2 bits of stack address; tables at 0x00DC8A3C/0x00DC8A2C; unblocks 0x00434C67 caller pushes ebp-4/ebp-8.
 // g_00DC8A3C: matched references place it at VA 0xdc8a3c; retail contents, sized to the

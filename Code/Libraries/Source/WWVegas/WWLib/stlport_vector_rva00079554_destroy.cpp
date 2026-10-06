@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_Destroy@PAURva00079554Record@@@_STL@@YAXPAURva00079554Record@@0@Z, retail 0x000BD2A6, 25 bytes.
 // Range destroy for 0x2C record (three int vectors at +0x00/+0x0C/+0x18 plus

@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1?$vector@URva004F69C3@@V?$allocator@URva004F69C3@@@_STL@@@_STL@@QAE@XZ, retail 0x004F8832, 63 bytes.
 // Vector<Rva004F69C3> dtor via rowed _Destroy 0x0040DCF1 and _free 0x00030830.

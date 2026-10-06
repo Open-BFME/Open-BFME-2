@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_Destroy@PAURva00B9AC2@@@_STL@@YAXPAURva00B9AC2@@0@Z, retail 0x000BD28D, 25 bytes.
 // Range destroy for 0x18 holder stride 0x18 calling pinned dtor 0xB9AC2.

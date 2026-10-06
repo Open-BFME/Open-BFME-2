@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?push_back@?$vector@VRva0036CA00Str@@V?$allocator@VRva0036CA00Str@@@_STL@@@_STL@@QAEXABVRva0036CA00Str@@@Z @0x0005A048 55B
 // Evidence: chain lane calls just-landed _M_insert_overflow 0x00058ADE plus rowed _Construct 0x002393AA; caller 0x0005AC80; same 55B shape as Unicode push_back 0x0005CBE7 and Rva004E32F2 push_back 0x00566BB4.

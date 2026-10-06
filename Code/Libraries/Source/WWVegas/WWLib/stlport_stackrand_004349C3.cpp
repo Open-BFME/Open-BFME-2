@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?Rva004349C3Get@@YAXPAI0@Z @0x004349C3 44B: sibling of 0x00434969 same stack-seeded two-out shape; tables at 0x00DC8A7C/0x00DC8A6C; unblocks 0x00434D7A caller 0x00434D8A.
 // g_00DC8A7C: matched references place it at VA 0xdc8a7c; retail contents, sized to the

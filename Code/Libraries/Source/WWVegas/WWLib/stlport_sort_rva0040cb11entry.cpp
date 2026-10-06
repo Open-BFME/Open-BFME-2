@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /G7
+// cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // _STL::sort family over the 8-byte Rva0040CB11Entry (int plus refcounted
 // holder) with a descending float comparator, retail 0x0040CF36..0x0040F497.

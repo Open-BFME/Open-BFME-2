@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_fill_n@PAVRva00064640Record@@IV1@@_STL@@YAPAVRva00064640Record@@PAV1@IABV1@ABU__false_type@0@@Z 0x00469CC8 37B evidence: 0x1c-stride fill via rowed _Construct 0x469C73 caller 0x4701B6 record layout from copy ctor 0x50403D
 // The emitted unsigned max copy must match retail RVA 0x00013740.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_M_allocate_and_copy@PBVRva0040CB11Entry@@@?$vector@VRva0040CB11Entry@@V?$allocator@VRva0040CB11Entry@@@_STL@@@_STL@@IAEPAVRva0040CB11Entry@@IPBV2@0@Z, retail 0x0040D077, 45 bytes.
 // Vector<Rva0040CB11Entry> allocate-and-copy: allocate N via 0x00523D6C then

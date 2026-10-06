@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva005B26CELess@@YG_NPBX0@Z @0x005B26CE 53B: stdcall 16-byte nullness-order comparator for introsort/heap.
 // Evidence: leaf (no callees); callers are 16-byte sort/heap bodies 0x005B282E median 0x005B28BD push-heap
 // 0x005B28F3 push-heap 0x005B2FDC partition 0x005B2A8C heap 0x005B38B1 0x005B3C25 introsort-loop;

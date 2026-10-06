@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__copy@PBUBfmeNarrowRecord00079C23@@PAU1@H@_STL@@YAPAUBfmeNarrowRecord00079C23@@PBU1@0PAU1@ABUrandom_access_iterator_tag@0@PAH@Z @0x000C379B 50B.
 // STL __copy over 0x2c-byte BfmeNarrowRecord00079C23 via rowed operator= 0x7A22A.

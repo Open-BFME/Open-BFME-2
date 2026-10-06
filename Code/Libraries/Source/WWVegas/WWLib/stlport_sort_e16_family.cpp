@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // stlport
 // STLport sort<Rva005B2FDCItem*, Rva005B26CEItemCmp> family over the 16-byte
 // record of stlport_sort_e16_partition.cpp, 0x005B28BD-0x005B4653: sort

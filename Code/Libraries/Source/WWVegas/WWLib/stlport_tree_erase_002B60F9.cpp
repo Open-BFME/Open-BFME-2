@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?_M_erase@?$_Rb_tree@HU?$pair@$$CBHURva002B60F9Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002B60F9Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002B60F9Mapped@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHURva002B60F9Mapped@@@_STL@@@2@@Z @ 0x002B60F9 (45B).
 // Trivial red-black tree node eraser, byte-identical shape to rowed 45B erases

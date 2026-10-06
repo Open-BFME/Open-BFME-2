@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_M_allocate_and_copy@PBUBfmeRecord0040B61A@@@?$vector@UBfmeRecord0040B61A@@V?$allocator@UBfmeRecord0040B61A@@@_STL@@@_STL@@IAEPAUBfmeRecord0040B61A@@IPBU2@0@Z @ 0x0040B323 (45B). Vector allocate-and-copy for the 16-byte BfmeRecord.
 // Evidence: retail calls allocate 0x002226BE plus uninitialized_copy 0x0040B2FD stride 0x10; caller 0x0040B64F in vector<BfmeRecord>::operator= 0x0040B61A; same 45B ebp-tag shape as 0x00064432 and 0x002CFBF4.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva000AF183@@QAE@IABV?$allocator@H@_STL@@@Z @0x000AF183 58B
 // Evidence: unlock lane, _Vector_base<short> shape via proxy 0x0014F3C4 and allocate 0x000AD722, caller 0x000AFAFB, ret 8.

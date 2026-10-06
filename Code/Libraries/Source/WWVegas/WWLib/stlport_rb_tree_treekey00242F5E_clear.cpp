@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // ?rva000A79CE@Rva000A79CE@@QAEXXZ, retail 0x000A79CE, 41 bytes.
 // _Rb_tree clear for the TreeKey00242F5E set: if node count at +4 is nonzero,
 // erase the root at header+4 via rowed 0x000A7941, then header->left=header,

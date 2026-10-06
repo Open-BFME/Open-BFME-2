@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /arch:SSE /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?_M_insert_overflow@?$vector@VRva0040AF66@@V?$allocator@VRva0040AF66@@@_STL@@@_STL@@IAEXPAVRva0040AF66@@ABV3@ABU__false_type@2@I_N@Z @ 0x0040B8E8 (183B). Vector fill insert overflow.
 // Evidence: same shape as rowed 0x0040B834 calling rowed copy 0x0040B1CD construct 0x0040B17B fill 0x0040B1F3 clear 0x0040B5FC allocate 0x0040A673; stride 0x68; caller 0x0040BA6A.

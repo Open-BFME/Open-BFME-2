@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ??$_M_allocate_and_copy@PBU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@?$vector@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@IAEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@1@IPBU21@0@Z @0x00317D5C 45B: vector allocate-and-copy for 8-byte NoCase pair via allocate 0x00523D6C plus uninitialized_copy 0x00317CF2. Evidence: retail calls rowed allocate plus dup_00317CF2 worker for CopyNoCasePair; caller 0x00317EBB assign path sar 3 stride 8; same 45B ebp-tag shape as 0x0040D077 and 0x000BC72B.
 #include "ascii_string.h"
 struct NoCaseTreeValue4

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // ?rva005C96A9@Rva005C96A9@@QAEXUTreeHintRef00217D4C@@H@Z 0x005C96A9 66B
 // Evidence: caller 0x005C976F passes TreeHintRef by value plus dword at +0x264 with ecx=sub-object at +0x218; callees rowed TreeHintRef op= 0x002174A4 and Release 0x0007DEEF; stores to +0x34/+0x38; EH prolog with funclet.
 // ICF/EH funclet at 0x7A0F09 is generated per-TU; reloc filled by gate.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /Ireference/shims/bfme2_ascii
+// cl: /EHsc /Ireference/shims/bfme2_ascii
 // stlport
 // ??4?$vector@UBfmeFloat4Record00469C61@@V?$allocator@UBfmeFloat4Record00469C61@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z @0x0007C316 183B
 // vector<BfmeFloat4Record00469C61>::operator= for the 16-byte four-float record (copy via 0x469C61 -> 0x4254E).

@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // ??1Rva000A79CE@@QAE@XZ, retail 0x000A7BEE, 56 bytes.
 // TreeKey00242F5E set destructor: calls rowed clear 0x000A79CE then frees the
 // header node via rowed free 0x00030830. Same 56B EH shape as 0x001DDB8E and

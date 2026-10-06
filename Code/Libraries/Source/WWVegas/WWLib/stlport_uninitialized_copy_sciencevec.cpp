@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??$__uninitialized_copy@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@0@PAV10@00ABU__false_type@0@@Z @0x00339962 38B
 // Unlock lane: _STL::__uninitialized_copy for vector<ScienceType> (12-byte

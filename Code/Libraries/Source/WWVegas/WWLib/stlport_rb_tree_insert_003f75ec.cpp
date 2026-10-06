@@ -1,4 +1,4 @@
-// cl: /arch:SSE2 /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // STLport 4.5.3 _M_insert, specialized to the retail 0x003F75EC tree.
 // Target: Ghidra 0x003F75EC/136; sole direct caller 0x003F76B1/134

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Honest opaque tree for retail 0x00286693 34B: node 0x24 plus _Construct Rva00285BEC at +0x10. Evidence: caller _M_insert 0x0028688A plus rowed allocate 0x000307F0 plus rowed _Construct 0x0028625D plus Rva00285672 compare 0x00285672. Key 16B plus mapped 4B matches Rva00285BEC 20B layout with two-vptr lead.
 #include <map>

@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // STLport 4.5.3 bit-vector empty (retail 0x0060BDD5, 46 bytes) and
 // _Bit_iterator_base operator== (retail 0x0060B869, 29 bytes).

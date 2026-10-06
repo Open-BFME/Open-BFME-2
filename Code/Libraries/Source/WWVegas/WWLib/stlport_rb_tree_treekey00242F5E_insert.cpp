@@ -8,7 +8,7 @@
 // Precedent: stlport_rb_tree_BfmeStringRecord004071F7_insert.cpp (149B via
 // out-of-line nocase compare plus pinned twins). Caller 0x000A7C50 is the
 // single-arg insert_unique for the same tree.
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 #include <set>
 class AsciiString { public: AsciiString(const AsciiString &); ~AsciiString(); private: void *m_data; };

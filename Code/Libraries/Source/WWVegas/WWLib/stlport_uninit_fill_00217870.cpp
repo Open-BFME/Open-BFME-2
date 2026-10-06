@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00217870Fill@@YAPAUFileInfoStruct@MixFileCreator@@PAU12@IABU12@@Z @0x00217870 37B
 // Unlock counted uninitialized_fill loop stride 0x10 calling rowed dup _Construct

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
 // stlport
 //
 // STLport's two-argument sort over 8-byte records (a pointer and a flag) and

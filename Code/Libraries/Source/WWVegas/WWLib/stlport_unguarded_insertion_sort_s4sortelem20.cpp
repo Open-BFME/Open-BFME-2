@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Bodies ported from Open-BFME-1's Libraries/Source/WWVegas/WWLib/stlport_ungu
 // arded_insertion_sort_s4sortelem20.cpp (donor revision

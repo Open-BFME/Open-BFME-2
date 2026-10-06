@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /Ireference/shims/bfme2_ascii
+// cl: /EHsc /Ireference/shims/bfme2_ascii
 // stlport
 // ??4?$vector@UBfmeRecord0040B61A@@...@QAEAAV01@ABV01@@Z, retail 0x0040B61A, 186 bytes.
 // Evidence: same bytes as vector<GeometryRecord>::operator= except two calls:

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva004FF6D5@@QAE@II@Z @0x004FF6D5 42B: empty _Rb_tree ctor calls rowed base 0x004FF55E with second arg then zeroes node count and inits header (color 0 parent 0 left/right self). Evidence: chain lane calls 0x004FF55E just landed; same 42B shape as Rva004FF6AB 0x004FF6AB; caller 0x004FFEA5.
 class Rva004FF55E

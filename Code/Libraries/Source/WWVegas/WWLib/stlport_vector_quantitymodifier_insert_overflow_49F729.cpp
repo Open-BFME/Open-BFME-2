@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?_M_insert_overflow@?$vector@UQuantityModifier@@V?$allocator@UQuantityModifier@@@_STL@@@_STL@@IAEXPAUQuantityModifier@@ABU3@ABU__false_type@2@I_N@Z @0x0049F729 178B: vector<QuantityModifier> growth path same 178B sar-3 shape as BfmeStringRecord overflow 0x00426DE2; QuantityModifier is ProductionUpdateModuleData +0x1C AsciiString-plus-int 8-byte element proven by ctor TU and caller push_back 0x0049FDC2 via INI parse 0x0049FDF9; calls allocate 0x523D6C plus copy 0x49DD38 plus Construct 0x49DD0B plus fill_n 0x49DD5E plus clear 0x4C3D8B.
 // The emitted unsigned max copy must match retail RVA 0x00013740.

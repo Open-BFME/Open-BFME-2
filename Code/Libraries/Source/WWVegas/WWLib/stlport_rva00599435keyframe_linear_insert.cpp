@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // stlport
 // STLport __unguarded_linear_insert over 8-byte {float, unsigned} keyframes,
 // @0x00599435 49B: the banked attempt wrote it as a free function with a local

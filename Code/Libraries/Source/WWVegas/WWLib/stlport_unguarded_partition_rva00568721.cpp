@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$__unguarded_partition@PAPAXPAXURva00568721Cmp@@@_STL@@YAPAPAXPAPAX0PAXURva00568721Cmp@@@Z @0x00568DB7 73B: quicksort partition over void* keys
 // with the rowed stdcall comparator at 0x00568721 via thiscall twin Rva00568721Cmp::operator(). Scan up while comp(*first,pivot),

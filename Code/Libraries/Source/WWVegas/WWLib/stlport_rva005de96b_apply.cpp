@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 
 // ?rva005DE96B@Rva005DE96B@@QAEXXZ, RVA 0x005DE96B, 26B. Chain lane: method
 // applying the rowed range-apply 0x005DD6D5 to the [m_04,m_08) range with the

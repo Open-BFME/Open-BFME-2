@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ??$__uninitialized_fill_n@PAUBfmeNarrowRecord00079C23@@IU1@@_STL@@YAPAUBfmeNarrowRecord00079C23@@PAU1@IABU1@ABU__false_type@0@@Z, retail 0x000C0B15, 37 bytes.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??$_M_allocate_and_copy@PAVRva0036CA00Str@@@?$vector@VRva0036CA00Str@@V?$allocator@VRva0036CA00Str@@@_STL@@@_STL@@IAEPAVRva0036CA00Str@@IPAV2@0@Z @0x00239408 45B
 // vector<Rva0036CA00Str>::_M_allocate_and_copy via rowed __uninitialized_copy 0x002393BC and allocator twin 0x00068E15. Caller 0x00239F0A.
 class Rva0036CA00Str {

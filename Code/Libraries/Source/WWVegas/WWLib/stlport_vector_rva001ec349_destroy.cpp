@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_Destroy@PAVRva001EC349@@@_STL@@YAXPAVRva001EC349@@0@Z @0x001ECFC6 25B.
 // Range destroy over 0x24-byte Rva001EC349 via rowed dtor 0x001EC349 stride 0x24.

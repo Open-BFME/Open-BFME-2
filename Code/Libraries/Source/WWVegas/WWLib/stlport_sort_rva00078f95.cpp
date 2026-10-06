@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // STLport sort<Rva00078F95Item**, Rva00078F95Cmp> family: sort 0x0007A3BE and
 // every helper it instantiates, 0x0007921F-0x0007A400. The element is a
