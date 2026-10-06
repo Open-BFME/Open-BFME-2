@@ -1,5 +1,3 @@
-// ?setLocal@Rva002BA8F1Logic@@QAEXPAVRva002E2903Player@@@Z
-// partial score=0.97 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
 // ?setLocal@Rva002BA8F1Logic@@QAEXPAVRva002E2903Player@@@Z @0x002B38F7 216B.
 // setLocal logic player: skip when same; unregister old via rowed 0x002B359D;
@@ -101,8 +99,9 @@ public:
 	void rva003EF041();
 };
 
-struct Rva0021294A
+class Rva0021294A
 {
+public:
 	char m_pad[0x268];
 	void *m_268;
 };
@@ -123,7 +122,6 @@ private:
 	Rva002E2903Player *m_98;
 };
 
-// ?setLocal@Rva002BA8F1Logic@@QAEXPAVRva002E2903Player@@@Z present-unmatched
 void Rva002BA8F1Logic::setLocal(Rva002E2903Player *player)
 {
 	Rva002E2903Player *old = m_98;
@@ -140,8 +138,7 @@ void Rva002BA8F1Logic::setLocal(Rva002E2903Player *player)
 	if (cur == 0)
 		return;
 	cur = cur->m_40;
-	cur = (Rva002E2903Player *)((char *)cur + 0x38);
-	BfmeAudioEventPrefix136 evt(*(OpaqueRefElement4 *)cur, 1);
+	BfmeAudioEventPrefix136 evt(*(OpaqueRefElement4 *)((char *)cur + 0x38), 1);
 	((Weapon *)&evt)->setLeechRangeActive(true);
 	((AudioManager *)TheAudio)->addAudioEvent(&evt);
 }

@@ -64503,3 +64503,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??4Rva00382E73@@QAEAAV0@ABV0@@Z,,0x00382E73,308,Code/GameEngine/Source/Common/System/SaveGame/Rva00382E73Assign.cpp,matched,chain of 0x003824A5 via base plus 8 loop plus set rows
 ??0Rva00502909Sub@@QAE@ABU0@@Z,,0x005026EE,153,Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp,matched,rowed vector 0x0054878E and rbtree 0x00501E88 element 0x00502909
 ?rva005D14AB@Rva005D14AB@@QAEXXZ,,0x005D14AB,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerListRva005D14AB.cpp,matched,tail jmp rowed 0x005D13D5 via +4 caller 0x00576D65
+?setLocal@Rva002BA8F1Logic@@QAEXPAVRva002E2903Player@@@Z,,0x002B38F7,216,Code/GameEngine/Source/Common/Rva002B38F7.cpp,matched,finish stash 0.97 with single-overwrite esi fix
