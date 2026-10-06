@@ -11,17 +11,19 @@
 class EAStringC
 {
 public:
-	EAStringC() { clear(); }
+	EAStringC();
 	EAStringC &clear();
 	EAStringC &operator=(const EAStringC &other);
 	~EAStringC();
-	void rva006D6170();
+	EAStringC &rva006D6170();
 };
 
-class Rva006DD6C0
+class Rva006DD6C0;
+
+class AptValue
 {
 public:
-	void rva006DD6C0(EAStringC *out);
+	void toString(EAStringC &) const;
 };
 
 class AptString
@@ -35,7 +37,7 @@ public:
 AptString *rva006D7D00(Rva006DD6C0 *source)
 {
 	EAStringC temp;
-	source->rva006DD6C0(&temp);
+	((const AptValue *)source)->toString(temp);
 	temp.rva006D6170();
 	AptString *result = AptString::Create();
 	result->m_str = temp;
