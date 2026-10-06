@@ -13552,3 +13552,7 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva00525A80@Rva002D37Sub@@QAEXH@Z,0x00525A80,pin for 0x2D373E tailcall thiscall void (int)
 ?rva002D3C5F@Rva002D43A0Sub@@QAEXXZ,0x002D3C5F,pin for 0x2D43A0 teardown tailcall thiscall void ()
 ?rva002D7BFD@@YAHH@Z,0x002D7BFD,pin for 0x2D7FAE cdecl query (int) returns int
+?rva002D9D7C@Rva002D9F9FOwner@@QAEXPAX0@Z,0x002D9D7C,pin for 0x2D9F9F thiscall (ptr, ptr) void
+?rva002D9D7C@Rva002D9FD9Owner@@QAEXPAX0@Z,0x002D9D7C,pin for 0x2D9FD9 thiscall (ptr, ptr) void (same body as 0x2D9F9F pin)
+?rva002DA8AF@Rva002DAAD5Owner@@QAEXXZ,0x002DA8AF,pin for 0x2DAAD5 thiscall void ()
+?rva002D9ADC@Rva002DAAD5Owner@@QAEXXZ,0x002D9ADC,pin for 0x2DAAD5 thiscall void ()

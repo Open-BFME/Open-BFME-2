@@ -64681,3 +64681,6 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva002D7AE0@@YAXHHH@Z,,0x002D7AE0,56,Code/GameEngine/Source/Common/Rva002D7AE0Notify.cpp,matched,
 ?rva002D7B18@@YAXHHH@Z,,0x002D7B18,56,Code/GameEngine/Source/Common/Rva002D7AE0Notify.cpp,matched,
 ?rva002D7FAE@Rva002D7FAEOwner@@QAEXPAVObject@@@Z,,0x002D7FAE,62,Code/GameEngine/Source/Common/Rva002D7FAEFind.cpp,matched,
+?rva002D9F9F@Rva002D9F9FOwner@@QAEXPAVRva002D9F9FArg@@@Z,,0x002D9F9F,58,Code/GameEngine/Source/Common/Rva002D9F9FPair.cpp,matched,
+?rva002D9FD9@Rva002D9FD9Owner@@QAEXPAVRva002D9FD9Arg@@@Z,,0x002D9FD9,151,Code/GameEngine/Source/Common/Rva002D9FD9Seq.cpp,matched,
+?rva002DAAD5@Rva002DAAD5Owner@@QAEXXZ,,0x002DAAD5,29,Code/GameEngine/Source/Common/Rva002DAAD5Flag.cpp,matched,
