@@ -65021,3 +65021,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva0044829E@Rva004482B7@@QAE?AV?$StringBase@G@@XZ,,0x0044829E,25,Code/GameEngine/Source/Common/Rva004482B7Finish.cpp,matched,zero-index wrapper over rowed 0x4482B7 same frame
 ?rva0028FBBE@Object@@QAEHXZ,,0x0028FBBE,90,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FBBE.cpp,matched,thiscall int return virtuals 0x14 0x118 offsets 0x250 0x5F1 sentinel list sum
 ?Rva0053B98CUpdate@@YAXPAVObject@@PAX@Z,,0x0053B98C,193,Code/GameEngine/Source/Common/Rva0053B98C.cpp,matched,chain via rva0028FBBE list fill first-item select
+?xfer@AIPlayer@@MAEXPAVXfer@@@Z,,0x004F0DDE,740,Code/GameEngine/Source/GameLogic/AI/AIPlayerXfer.cpp,matched,AIPlayer xfer slot3 via ctor LINK BONUS ZH donor redundant null guards

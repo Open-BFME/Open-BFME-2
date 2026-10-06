@@ -13297,3 +13297,19 @@ FUN_00764551	0x00364551	1120	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va00BBB8D8 plu
 ?rva002E698B@Rva002E698B@@QAEXXZ	0x002E698B	173	blocked	unrowed callee 0x002E68EC itself needs 0x002E57C6 and 0x002E5EA5 t=5 model=muse-03
 ?rva000918BC@Rva000918BC@@QAE_NXZ	0x000918BC	361	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString plus unrowed callee 0x0010694B t=2 model=muse-03
 ?Rva0009133FGet@@YAXXZ	0x0009133F	478	blocked	ADDRESS-NAMED plus unrowed callee 0x006898D0 t=1 model=muse-03
+?Rva002AF236Get@@YGXPAX0@Z	0x002AF236	261	blocked	virtuals at +8 +0x6c +0x70 +0x78 plus hashtable iterator plus AsciiString temp no donor t=12 model=muse-05
+?rva002E0CAC@Rva002E0CACOwner@@QAEHXZ	0x002E0CAC	40	blocked	addend load order still reversed after single-expr and addr-early levers t=10 model=muse-05 (stash 0.95 kept)
+?rva000BF9FC@Rva000B8F5AOuter@@QAEXPAXHH@Z	0x000BF9FC	341	blocked	ADDRESS-NAMED g_Va00DE1B40 packet says skip t=2 model=muse-05
+?rva000C146D@Rva000B8F5A@@QAEPAVAsciiString@@PAV2@H@Z	0x000C146D	80	blocked	frame wall push-ebp missing still 72/80 t=8 model=muse-05 (stash 0.9 kept)
+?rva0018DF20@HRawAnimClass@@QAEXHMH@Z	0x0018DF20	1613	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused plus 1613B over 1000B wall t=5 model=muse-05
+?xfer@AIPlayer@@MAEXPAVXfer@@@Z	0x004F0DDE	740	partial	missing 4 null guards cmp-test je in queue count-save loops t=25 model=muse-05 score=0.93 stash=reverse/attempts/0x004f0dde.cpp
+?rva002F287A@Rva002F287A@@QAEHXZ	0x002F287A	782	blocked	owner unknown no vtable-pin-donor 782B pathfinder plus-0x460 layout 4 pin-only callees SSE nested loops needs donor t=8 model=muse-05
+?rva0027FD2A@Rva0027FD2A@@QAEHXZ	0x0027FD2A	713	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused plus 713B SSE-x87 no donor t=5 model=muse-05
+?findChild@AptValue@@QAEPAV1@PBVEAStringC@@PAV1@@Z	0x006DF9A0	1007	blocked	1007B over 1000B wall Apt findChild needs strong plus time t=3 model=muse-05
+?drawViewport@W3DShaderManager@@SAXH_NPBUVector2@@@Z	0x00075746	733	blocked	WW3D render wall drawViewport 733B no donor t=3 model=muse-05
+?Generate_Texture_Categories@DX8FVFCategoryContainer@@QAEXAAVVertex_Split_Table@@I@Z	0x00146BA0	785	blocked	WW3D DX8FVF 785B wall no donor t=3 model=muse-05
+?Init_Alternate@MeshMatDescClass@@QAEXAAV1@0@Z	0x0015A1B0	1294	blocked	1294B over 1000B WW3D MeshMatDesc wall t=2 model=muse-05
+?Add_Mesh@DX8TextureCategoryClass@@QAEIAAVVertex_Split_Table@@IIPAVIndexBufferClass@@I@Z	0x00145620	1093	blocked	1093B over 1000B WW3D DX8 wall t=2 model=muse-05
+?Rva003C0C71Do@@YGXPBVAsciiString@@H_N@Z	0x003C0C71	125	blocked	ADDRESS-NAMED globals new use refused t=2 model=muse-05
+?rva000A648C@Rva000A648C@@QAE_NXZ	0x000A648C	930	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused t=2 model=muse-05
+?Change_Polygon_Renderer_Material@DX8FVFCategoryContainer@@QAEXAAV?$MultiListClass@VDX8PolygonRendererClass@@@@PAVVertexMaterialClass@@1I@Z	0x001465C0	877	blocked	DX8FVF Change_Material 881B vs 877B same 275 insns 14 structural regions tmp Ref loop extra Release plus prl vtable slots off retail inlines Internal_Remove_Add vs calls sibling146200 wall 0.885 t=12 model=muse-05
