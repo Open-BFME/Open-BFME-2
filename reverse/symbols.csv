@@ -13693,3 +13693,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?registerNewCave@CaveSystem@@QAEXH@Z,0x004276B6,donor CaveSystem::registerNewCave(Int); target calls from CaveContain registration paths support this role; donor name is carried rather than independently proven
 ?getTunnelTrackerForCaveIndex@CaveSystem@@QAEPAVRva004F56FC@@H@Z,0x004275B6,target CaveContain callers pass the index and use the returned tracker; target code indexes the CaveSystem vector; donor method name is inferred; prior Rva004275B6 body attempt was not repeated
 ?rva00051038@Rva0005F279Elem@@QAE_NXZ,0x00051038,dump range 1 tail target of 0x5106A
+?rva0007ECA3@Rva0007F944Item@@QAE_NPBURva0007F944Vec@@@Z,0x0007ECA3,dump range 1 family containment test called by 0x7F944 (struct-qualified)
