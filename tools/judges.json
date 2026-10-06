@@ -1,6 +1,6 @@
 {
- "_doc": "Allowlisted audit judges (DECISION_RECORD pillar 5). Protected path: edits need a Verifier-Change trailer. A verdict counts only when tools/audit/judges.py launched the command itself and read the answering model from the CLI's own record (answer_model), never from the reply text. rank orders strength for escalation. {prompt_file} and {workdir} are substituted; with stdin=true the prompt is piped.",
- "version": 1,
+ "_doc": "The judge allowlist (decision record, pillar 5): the only one in this repo. Protected path: edits need a Verifier-Change trailer. Read only through tools/judges.py, which launches the command itself and counts a verdict only when the CLI's own record (answer_model) names a model in the judge's accept list; a model named in the reply or in a model= note never counts. Schema and rules: tools/judges.py docstring. rank orders strength for escalation. {prompt_file} and {workdir} are substituted; with stdin=true the prompt is piped.",
+ "version": 2,
  "judges": [
   {"id": "gpt-6-astra", "family": "openai", "rank": 1,
    "command": ["codex", "exec", "-m", "gpt-6-astra", "-s", "read-only", "--skip-git-repo-check", "--json", "-C", "{workdir}", "-"],

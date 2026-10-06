@@ -50,7 +50,9 @@ PROTECTED = (
     "tools/publisher.py", "tools/publisher_pre_push.sh", "tools/publisher_fixtures/*",
     # data identity: the pre-commit check and the ledger it reads
     "tools/data_check.py", "tools/data_ledger.py", "reverse/data_ledger.csv",
-    # the advisory audit: its judge allowlist (judges.json), canaries and harness
+    # which models may judge, and how they are called (decision record, pillar 5)
+    "tools/judges.py", "tools/judges.json",
+    # the advisory audit: its panel, canaries and harness
     "tools/audit/*",
     "tools/publisher_gate.py", "tools/publisher_hook.py", "tools/publisher_service.py",
     "reverse/publisher_mode",
