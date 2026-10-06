@@ -1,6 +1,9 @@
 // cl: /MD
-// ?rva00579E47@Rva00579E47@@QAEAAV1@PBUDelegateDesc@@@Z @0x00579E47 (59B):
+// ??0Rva00579E47@@QAE@ABUDelegateDesc@@@Z @0x00579E47 (59B):
 // delegate-wrapper ctor (unlock lane, missing callee of 69 free functions).
+// A constructor, not a method returning *this: StrategicHUD::HUD::Impl's ctor
+// 0x0042E014 runs it with ecx = esp to build the by-value delegate argument
+// of 0x0052458E in place, twenty times.
 // News 0x10-byte ref-counted impl (vtable RVA 0x0086ECB4), copies 8-byte
 // [object, method] payload from the DelegateDesc arg, stores impl to wrapper
 // at +0 and AddRefs (inc [eax+4] from 0 to 1), returns *this (mov eax,esi).
@@ -34,18 +37,17 @@ struct Impl : ImplBase {
 
 class Rva00579E47 {
 public:
-    Rva00579E47 &rva00579E47(const DelegateDesc *d);
+    Rva00579E47(const DelegateDesc &d);
 private:
     Impl *m_ptr;
 };
 
-Rva00579E47 &Rva00579E47::rva00579E47(const DelegateDesc *d)
+Rva00579E47::Rva00579E47(const DelegateDesc &d)
 {
-    Impl *p = new Impl(*d);
+    Impl *p = new Impl(d);
     m_ptr = p;
     if (p)
         p->m_ref++;
-    return *this;
 }
 
 // Four more delegate-wrapper constructors of this 59-byte shape, each installing
