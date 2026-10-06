@@ -13410,3 +13410,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva00293D3B@Rva00346C53@@QAEXPAUObjectStatusMask@@@Z,0x00293D3B,thiscall mask hook on the 0x346C53 host taking the built mask; RETAIL REL32 at 0x00346C6F
 ?g_00BBB8D8@@3MA,0x00BBB8D8,float global scaled into the 0x346B6D damage block
 ?rva00291916@Object@@QAEXPAX@Z,0x00291916,thiscall hook on Object taking the +0x38 member address called from 0x34BFFF; RETAIL REL32 at 0x0034C02B
+??_7Rva00359290@@6B@,0x00C15398,vtable installed by the 0x359290 dtor (mov [esi] at 0x003592A1)
