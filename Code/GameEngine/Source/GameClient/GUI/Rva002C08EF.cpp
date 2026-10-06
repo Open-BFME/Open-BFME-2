@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002C08EF@Rva002C08EF@@QAEXXZ @0x002C08EF 137B: window-list drain with slot calls and delete
 // Evidence: neighbours GadgetButtonImageHelpers 0x002C0505 and Rva002C0A89 0x002C0A89 same flags; GameWindow next +0x1F8 from Rva002C0A89; callers 0x002C0A74 0x002C1271; callees rowed operator delete 0x0002FD60; virtual slots 49/58/62/65
 class GameWindow

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00441E4DFaction@@YA_NPAXABVAsciiString@@@Z @0x00441E4D 129B.
 // Honest-address Faction prefix check over a map at +8. Normalizes the name

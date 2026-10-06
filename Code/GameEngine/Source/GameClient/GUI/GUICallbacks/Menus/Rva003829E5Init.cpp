@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva003829E5@@QAE@PAXABUAsciiUnicodePair@@@Z 0x003829E5 29B
 // Thiscall init: m0 = *a then placement copy-construct pair at +4.
 // Evidence: calls 0x00382444 AsciiUnicodePair copy ctor; caller 0x00385EA0 passes (tmp, eax, ebx).

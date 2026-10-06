@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Oy- /DNDEBUG /MD /EHsc
 //
 // ?parseColor@@YA_NPAHPAD@Z, retail 0x00314F32, 103 bytes. Dedicated TU.
 //

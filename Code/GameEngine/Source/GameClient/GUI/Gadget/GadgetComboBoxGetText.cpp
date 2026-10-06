@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?GadgetComboBoxGetText@@YA?AVUnicodeString@@PAVGameWindow@@@Z @0x00322D21 66B.
 // ZH donor GadgetComboBox.cpp GadgetComboBoxGetText: null -> empty,
 // GWS_COMBO_BOX 0x8000 check via winGetStyle, else TextEntryGetText of child.

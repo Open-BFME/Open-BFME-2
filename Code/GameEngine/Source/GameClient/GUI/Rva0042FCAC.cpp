@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 
 // ?rva0042FCAC@Rva0042FCAC@@QAEPAXPBX@Z @0x0042FCAC 37B: hashtable new-node for 12-byte node (4 next plus 8 pair<const unsigned int bool>). Evidence: allocate 0x000307F0 with 0xc 0 then rowed pair _Construct 0x001FF5AC plus caller 0x0042FD85 linking bucket plus unlocks 0x0042FD55; same shape and flags as sibling Rva00223547.

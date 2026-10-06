@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // The BFME1 GameWindowFields.cpp donor assigns m_tooltip and returns OK.
 // Retail at 0x0031416D confirms the field at +0x1EC and this 15B setter.

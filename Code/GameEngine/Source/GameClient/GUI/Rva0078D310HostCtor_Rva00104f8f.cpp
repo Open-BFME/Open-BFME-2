@@ -1,4 +1,4 @@
-// cl: -GF -Gy -MD -EHsc -GR -DNDEBUG -DWIN32 -D_WINDOWS /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -GF -Gy -MD -EHsc -GR -DNDEBUG -DWIN32 -D_WINDOWS -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 
 //
 // ??0Rva0078D310Host@@QAE@PAX@Z

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
 // BFME 1 donor 6583b3c1ff21db4a561285717028fdafc780b7db:
 // game/GameEngine/Source/GameClient/GUI/GameWindowManager_winFindFont.cpp.
 // Target identity: GameWindowManager vtable RVA 0x007C7C90 slot 76 is

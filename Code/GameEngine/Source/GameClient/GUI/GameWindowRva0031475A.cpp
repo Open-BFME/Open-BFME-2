@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0031475A@GameWindow@@QAEHXZ, retail 0x0031475A, 128 bytes.
 // Honest GameWindow method returning 0 or -3: detach path via Remove plus
 // manager slot 0xE0, else search manager list via slot 0x94 walking +0x1F8

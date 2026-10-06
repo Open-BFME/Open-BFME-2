@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 // ?rva00323E1C@Rva00323E1C@@QAEXXZ @0x00323E1C 121B
 // GUI disabled-click style sound: null-check this then winGetUserData 0x005C4ACD then byte +0xe then TheAudio getMiscAudio slot78 +0x138 with int 2 plus field +0xc0 into BfmeAudioEventPrefix136 ctor 0x002D97D6 then addAudioEvent slot25 +0x64 then dtor 0x002D9A43.
 // Evidence: callees rowed 0x005C4ACD 0x002D97D6 0x002D9A43 plus TheAudio ?TheAudio@@3PAVAudioManager@@A; callers 0x003250DC 0x00325770; precedent GameWindowCursorSearch.cpp.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?computeTotalHeight@@YAXPAVGameWindow@@@Z, retail 0x00324C61, 291 bytes.
 // Free-function listbox layout: walks rows at user+0x18, cells 0x1c,

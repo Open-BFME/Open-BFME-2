@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /MD /EHsc /DNDEBUG
 // Reference: ZH GameWindow::winPointInChild through open-bfme-1 revision
 // 6d9434269164392c5ba62aaa7c15a86b5b020d76. Target boundary3141BC-3142E1
 // independently proves status+8, size+C/+10, region+14..20, next1F8,

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc- /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc- /Ireference/shims/bfme2_ascii
 // ?Rva003285D4Input@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z @0x003285D4 101B
 // Palantir command button input wrapper around rowed GadgetPushButtonInput with click sounds.
 // Evidence: pin name Rva003285D4Input same signature as rowed GadgetPushButtonInput and next

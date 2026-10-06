@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // GameWindow::winGetStatus (retail 0x0030F45F, 4 bytes) and
 // GameWindow::winSetUserData (retail 0x002B2210, 10 bytes): Zero Hour

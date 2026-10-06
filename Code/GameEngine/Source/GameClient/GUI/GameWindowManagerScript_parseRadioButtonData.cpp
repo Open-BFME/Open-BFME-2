@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?parseRadioButtonData@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x0031522E, 47 bytes.
 // Dedicated TU.

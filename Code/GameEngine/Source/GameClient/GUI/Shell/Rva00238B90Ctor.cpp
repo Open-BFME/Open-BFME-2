@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0Rva00238B90@@QAE@XZ @0x00238AC7 201B.
 // Ctor storing vtable 0x007ED654 then six StringBase members from literals

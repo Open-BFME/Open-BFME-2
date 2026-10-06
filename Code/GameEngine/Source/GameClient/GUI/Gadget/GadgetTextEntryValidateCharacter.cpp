@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // BFME text-entry character policy, called by the private IME insertion
 // helper through ILT 0x000275C0 (body 0x000861E0).

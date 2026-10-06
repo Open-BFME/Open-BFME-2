@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?dumpWindow@GameWindowManager@@IAEXPAVGameWindow@@@Z @0x002C1148 43B
 // GameWindowManager::dumpWindow; FINAL build strips DEBUG_LOG leaving only
 // the child/sibling walk (m_child +0x204 m_next +0x1F8) with self recursion;

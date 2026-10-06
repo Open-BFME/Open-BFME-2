@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?winIsHidden@GameWindow@@QAE_NXZ @0x00313CD9
 // Shard TU: TextOnFrameTransitionInit.cpp calls this out-of-line; defining
 // it there inlines and breaks init, so it lives here.

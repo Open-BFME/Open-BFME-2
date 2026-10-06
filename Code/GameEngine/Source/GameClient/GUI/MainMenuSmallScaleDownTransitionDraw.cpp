@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?draw@MainMenuSmallScaleDownTransition@@UAEXXZ @0x0035DA9F 160B: vslot draw slot 4 offset 0x10 of vtable 0x00816554 (class of ??1Rva0035DA01). Evidence: same vtable as rowed init 0x0035DBF3 slot 1 plus BFME1 MainMenuSmallScaleDownTransition_draw donor plus TheDisplay 0x00DFE9D8 plus rowed W3DDisplay draw 0x0004D6B3 plus image at win+0x48 plus drawState 1..5.
 
 typedef int Int;

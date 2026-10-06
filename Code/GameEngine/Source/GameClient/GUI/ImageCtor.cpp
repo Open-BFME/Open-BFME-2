@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0Image@@QAE@XZ, retail 0x002D8FE4, 122 bytes. Dedicated TU.
 //

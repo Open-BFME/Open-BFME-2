@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00442828Final@@YAXPAPAX0VRva0043FE9A@@@Z @0x00442828 77B.
 // Honest-address final insertion sort over void* elements. If byte size
 // exceeds 0x40 sorts first 16 via rowed sort at 0x00441D74 then the tail via

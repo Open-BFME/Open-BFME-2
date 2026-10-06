@@ -1,6 +1,6 @@
 // Target PushButtonData cleanup called by GadgetPushButtonSystem at 0x328639.
 // Target boundary 0x327E50/13 releases its opaque owner at +0x1C.
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 class OpaqueRefCounted
 {
 public:

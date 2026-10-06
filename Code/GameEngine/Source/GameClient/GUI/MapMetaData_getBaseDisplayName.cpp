@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail RVA 0x00300AEA, 404 bytes.
 // MapMetaData::bfme_getBaseDisplayName, the lazy cached map.str base-name
 // loader feeding bfme_getDisplayName. Ported from Open-BFME-1

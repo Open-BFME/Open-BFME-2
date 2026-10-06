@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail RVA 0x00300C7E, 142 bytes (the reloc size 10 is stale).
 // MapMetaData::bfme_getDisplayName, the player-count-suffixed display-name
 // getter called by AptMapPreview::bfmeSetMapTitle. The base name comes from

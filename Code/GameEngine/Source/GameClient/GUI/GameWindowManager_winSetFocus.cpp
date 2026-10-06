@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?winSetFocus@GameWindowManager@@UAEHPAVGameWindow@@@Z @0x002C0ED5 147B
 // GameWindowManager::winSetFocus; vtable 0x7C7C90 slot 49 offset 0xC4; BFME1 donor GameWindowManager.cpp winSetFocus verbatim shape; m_keyboardFocus at +0x20; GWM_INPUT_FOCUS 23 via slot 58 0xE8; NO_FOCUS 0x400 via winGetStatus pin 0x30F45F; parent chain via winGetParent pin 0x3140A4.
 typedef int Int;

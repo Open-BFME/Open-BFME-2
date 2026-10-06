@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?parseLayoutBlock@@YA_NPAVFile@@PADIPAVWindowLayoutInfo@@@Z, retail
 // 0x0031732D, 255 bytes. Dedicated TU.

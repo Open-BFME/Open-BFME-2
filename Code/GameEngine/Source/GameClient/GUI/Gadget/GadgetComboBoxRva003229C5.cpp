@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva003229C5Hide@@YAXPAVGameWindow@@@Z @0x003229C5 132B.
 // ZH/BFME1 donor GadgetComboBox.cpp HideListBox: null listBox guard then
 // winIsHidden then winHide TRUE then entry size and combo size then

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // Gadget push-button image helpers (retail 0x002C0433..0x002C0505, 6x42B).
 // Each sets one button image slot and clears two overlay slots. Callees are

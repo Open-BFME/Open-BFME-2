@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // Gadget draw-data copy, retail 0x003157BE (128B). BFME2-new code (no Zero
 // Hour / BFME1 donor): copies the three 0x6C draw-data arrays

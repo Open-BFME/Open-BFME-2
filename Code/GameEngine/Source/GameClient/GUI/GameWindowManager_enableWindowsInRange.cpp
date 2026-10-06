@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?enableWindowsInRange@GameWindowManager@@UAEXPAVGameWindow@@HH_N@Z @0x002C0DD0 52B
 // GameWindowManager::enableWindowsInRange; BFME1 donor GameWindowManager.cpp enableWindowsInRange verbatim shape; vtable 0x7C7C90 slot 39; calls winGetWindowFromId slot 60 0xF0 and rowed winEnable 0x313BEC.
 

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?update@Rva0035FF76@@UAEXH@Z @ 0x0036044A (42B):
 // slot 2 offset 0x8 of vtable 0x0081670C (class of ??1Rva0035FF76@@UAE@XZ).
 // Range-check frame against m_startFrame (+0x10) and m_endFrame (+0x14),

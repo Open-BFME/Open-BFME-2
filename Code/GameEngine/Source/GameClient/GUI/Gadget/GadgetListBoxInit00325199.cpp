@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00325199Init@@YAXPAVGameWindow@@@Z, retail 0x00325199, 91 bytes.
 // Free-function listbox column init: gets GameWindow user data, bails if

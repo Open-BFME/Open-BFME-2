@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Native global 0x00DFDC14 is TheTransitionHandler, defined in WinMain.
 // Canonical TheAudio uses 0x00DFE6E8.
 // ?rva001DC07E@GameWindowTransitionsHandler@@QAEXXZ @0x001DC07E 73B: wait loop on TheTransitionHandler->isFinished with WindowManager Display setFPMode Sleep. Evidence: caller at 0x001DC618; callees rowed isFinished 0x001DBFEE setFPMode plus pins.

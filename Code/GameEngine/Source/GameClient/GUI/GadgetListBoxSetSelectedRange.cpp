@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail RVA 0x00326F9B, 33 bytes.
 // Frameless vector-range wrapper over GadgetListBoxSetSelected (0x003247BE):
 // begin==end returns, else count=(end-begin) and forwards (win,begin,count).

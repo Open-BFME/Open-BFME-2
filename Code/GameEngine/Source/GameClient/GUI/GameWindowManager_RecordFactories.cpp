@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // GUI factories adapted from the readable Zero Hour GameWindowManager.cpp
 // retained at Open-BFME-1 2791daf5536e4e2147dc3a4aa25c17816828dd69.
 // Target facts: Ghidra boundaries; native style masks; the instance pointer

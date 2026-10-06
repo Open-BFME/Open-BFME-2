@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // GameWindow::winGetUserData, retail 0x005C4ACD, 4 bytes.
 // Shim GameWindow.h places m_userData at +0x2C; retail is mov eax,[ecx+2Ch]; ret.

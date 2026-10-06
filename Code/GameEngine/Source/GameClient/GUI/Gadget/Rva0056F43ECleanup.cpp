@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0056F43E@Rva0056F43E@@QAEXPAX@Z @0x0056F43E 53B
 // Recursive list/tree cleanup: recurse on [node+0xc], iterate on [node+8],
 // clear the Unicode string at [node+0x10], then free the node.

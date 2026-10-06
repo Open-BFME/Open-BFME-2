@@ -1,4 +1,4 @@
-// cl: -DNDEBUG /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -DNDEBUG -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 //
 // ?invoke@LoadGameFadeWrapper@@UAEIM_N@Z
 // retail 0x00211216, 20 bytes. Dedicated TU ported from the Open-BFME-1 donor

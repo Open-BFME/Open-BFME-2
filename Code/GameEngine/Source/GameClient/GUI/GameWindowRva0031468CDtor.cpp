@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /arch:SSE /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG
 //
 // ??1Rva0031468C@@QAE@XZ, retail 0x0031468C, 80 bytes.
 // Non-virtual dtor over four AsciiString members at +0x00/+0x04/+0x08/+0x0C

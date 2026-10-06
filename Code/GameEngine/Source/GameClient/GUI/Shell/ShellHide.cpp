@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // BFME1 clean donor6583b3c1ff21db4a561285717028fdafc780b7db:
 // game/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp hideShell(void)
 // supplies top-layout shutdown, IME detach and shell-active reset semantics.

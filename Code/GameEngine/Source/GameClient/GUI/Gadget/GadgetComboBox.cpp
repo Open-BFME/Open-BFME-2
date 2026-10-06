@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // Text-color family from clean Open-BFME-1 6d9434269164392c5ba62aaa7c15a86b5b020d76.
 // Retail independently proves four distinct color-pair stores and the

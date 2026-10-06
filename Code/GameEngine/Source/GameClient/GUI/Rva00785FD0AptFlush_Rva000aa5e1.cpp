@@ -6,7 +6,7 @@
 // relocations are masked (unique masked placement on unclaimed .text, donor
 // recompiled /Os). The donor file carries this single definition, so the
 // dedicated TU is that body verbatim.
-// cl: -EHs-c- /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -EHs-c- -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 //
 // APT queued-primitive flush at 0x00785FD0.  Dirty byte 0x01306950, renderer
 // 0x01306954 with a __fastcall mode setter (edx = mode) reached via ILT

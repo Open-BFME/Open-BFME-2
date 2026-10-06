@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 // ?Rva0032060D@@YAXPAVGameWindow@@H@Z @0x0032060D 25B.
 // ORs mask into gadget user data +0xC. Null window or null user data returns.
 // Callers pass 8 and 0x21. winGetUserData 0x005C4ACD rowed.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // readable body of ?drawWindow@GameWindowManager@@IAEHPAVGameWindow@@@Z: Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp
 
 typedef int Int;

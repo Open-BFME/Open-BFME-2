@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva005118F3Show@@YAXH_N@Z, retail 0x005118F3 157B. Chain over just-landed
 // rva005AFD43 SetText 0x005AFD43. Free cdecl helper switching active tab:
 // stores new index to g_Va00E046BC, fires ShowActiveTab via TheRva00222A8BTarget

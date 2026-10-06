@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/Shell
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/Shell
 // readable body of ??0ShellMenuSchemeImage@@QAE@XZ: game/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp
 
 // Open-BFME5: ShellMenuSchemeImage::ShellMenuSchemeImage, retail 0x005807D0,

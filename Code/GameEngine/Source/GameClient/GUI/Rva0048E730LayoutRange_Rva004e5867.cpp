@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -DNDEBUG -MD -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 // Address-derived layout range at retail 0x0048E730.
 
 class Rva0048E730Measure

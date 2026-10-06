@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // ?Rva00322910@@YAHPAVGameWindow@@@Z, retail 0x00322910 (33B).
 // Chain of GadgetComboBoxGetSelectedPos 0x003228EB: null combobox yields -1,
 // else reuse the parameter slot as the Int out-param (lea [ebp+8]) and return

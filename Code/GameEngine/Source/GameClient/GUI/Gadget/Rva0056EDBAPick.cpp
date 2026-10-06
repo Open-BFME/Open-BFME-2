@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0056EDBAPick@@YAXPAH0@Z @0x0056EDBA 46B
 // Random pair pick via rdtsc low bits into two parallel int[4] tables.
 // Inline asm for rdtsc: MSVC 7.1 has no __rdtsc intrinsic, so __asm is the

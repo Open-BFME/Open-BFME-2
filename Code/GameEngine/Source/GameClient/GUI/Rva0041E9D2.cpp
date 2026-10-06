@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfme_windowvideo /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfme_windowvideo /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 // ?rva0041E9D2@Rva0041E9D2@@QAE_NW4NameKeyType@@PBVModuleData@@@Z @0x0041E9D2 53B: Armor find plus ObjectLookup slot plus Rva0041E875 push wrapper. Evidence: callees rowed M_find 0x002888D4 plus findSlot 0x0041F4E5 plus 0x0041E8E6 caller 0x0041EEB3 unlocks 0x0041ED84.
 

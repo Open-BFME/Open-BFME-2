@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva001DC57C@GameWindowTransitionsHandler@@QAEXPAV?$list@HV?$allocator@H@_STL@@@_STL@@@Z @0x001DC57C 112B.

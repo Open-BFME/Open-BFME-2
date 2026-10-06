@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail RVA 0x0043FE9A, 309 bytes.
 // ?rva0043FE9A@Rva0043FE9A@@QAE_NPAVMapMetaData@@0@Z is the MapMetaData sort
 // comparator used by the STL sort helpers 0x00440AB0 0x00440B1B 0x00440B64

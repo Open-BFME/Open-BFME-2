@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?GadgetComboBoxSetIsEditable@@YAXPAVGameWindow@@_N@Z, retail 0x00322660 (57B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBox.cpp
 // GadgetComboBoxSetIsEditable. BFME2 repairs: null listBox guard, isEditable at

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?parseSliderData@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x003151EC, 66 bytes.
 // Dedicated TU.

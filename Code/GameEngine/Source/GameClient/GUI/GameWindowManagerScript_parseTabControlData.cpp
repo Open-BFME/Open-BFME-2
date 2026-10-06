@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Oy- /DNDEBUG /MD /EHsc
 //
 // ?parseTabControlData@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00315367, 222 bytes.
 // Dedicated TU.

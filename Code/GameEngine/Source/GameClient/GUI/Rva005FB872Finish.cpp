@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva005FB872@Rva005FB770@@QAEXH@Z @ 0x005FB872 66B
 // Apt SetPlayerColor setter with the colour cache at +0x2c; team name at +8 else
 // the default-team constant at VA 0xBBAC1C; level at +4. Evidence: "SetPlayerColor"

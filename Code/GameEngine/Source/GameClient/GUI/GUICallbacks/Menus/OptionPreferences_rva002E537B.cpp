@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?rva002E537B@OptionPreferences@@QAEXH@Z, retail 0x002E537B,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?winSetLoneWindow@GameWindowManager@@UAEXPAVGameWindow@@@Z @0x002C12DC 51B
 // GameWindowManager::winSetLoneWindow; BFME1 donor GameWindowManager.cpp winSetLoneWindow verbatim shape; m_loneWindow at +0x2C; GGM_CLOSE 0x4005 via TheWindowManager slot 58 0xE8; vtable 0x7C7C90 slot 52.
 

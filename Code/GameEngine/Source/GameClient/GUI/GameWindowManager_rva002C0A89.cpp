@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002C0A89@Rva002C0A89@@QAEXPAVGameWindow@@@Z @0x002C0A89 136B: intrusive GameWindow list push-front or insert-after-found
 // Evidence: neighbours GadgetButtonImageHelpers 0x002C0505 and GameWindowManager_enableWindowsInRange 0x002C0CED same flags; GameWindow next +0x1F8 prev +0x1FC from GameWindowManager_enableWindowsInRange; this +0xC head +0x10 tail +0x24 node list; callers 0x002C25A6 0x00314083 0x003147B1; no callees
 class GameWindow

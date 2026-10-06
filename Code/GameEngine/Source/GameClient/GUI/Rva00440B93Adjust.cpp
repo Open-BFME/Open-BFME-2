@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00440B93Adjust@@YAXPAPAXHHPAXVRva0043FE9A@@@Z @0x00440B93 76B.
 // Push-heap adjust with Rva0043FE9A comp: percolate val from hole toward top

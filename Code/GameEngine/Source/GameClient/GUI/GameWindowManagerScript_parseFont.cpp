@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /EHsc /Oi- /arch:SSE2
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /EHsc /Oi-
 //
 // ?parseFont@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00315BF5, 218 bytes.
 // Dedicated TU.

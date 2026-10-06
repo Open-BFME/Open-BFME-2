@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00440B64Insert@@YAXPAPAXPAXVRva0043FE9A@@@Z @0x00440B64 47B.
 // Unguarded linear insert with stateful comparator rowed at 0x0043FE9A.

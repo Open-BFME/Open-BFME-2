@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ??1Rva00427311@@UAE@XZ @0x00427311 129B
 // Dtor storing vtable 0x0083C5DC frees WindowVideoMap at +0xc then base.

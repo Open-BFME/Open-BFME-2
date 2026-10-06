@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002E43A6@OptionPreferences@@QAEXH@Z 0x002E43A6 72B
 // Evidence: hardcoded FirewallBehavior key (string 0x7EB734) via rowed

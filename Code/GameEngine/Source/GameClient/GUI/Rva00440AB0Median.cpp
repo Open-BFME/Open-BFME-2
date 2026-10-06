@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00440AB0Median@@YAPAPAXPAPAX00VRva0043FE9A@@@Z @0x00440AB0 107B.
 // Median-of-three with Rva0043FE9A comp (5 calls). Evidence: caller

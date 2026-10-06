@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Retail 0x00445086 (184 B, jump table of 13 slots at 0x0044513E after it):
 // the debug name of a LAN lobby client state, returned by value and

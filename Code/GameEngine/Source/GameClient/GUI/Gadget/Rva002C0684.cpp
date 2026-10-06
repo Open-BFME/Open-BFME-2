@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva002C0684Set@@YAXPAVRva003140C8DwordField@@H@Z @0x002C0684 27B: conditional disabled-border-color-1 set via dword-field window
 // Evidence: siblings Rva002C0634 0x002C0634 push 0 and Rva002C05E4 0x002C05E4 push 1 same shape same flags; callers 0x002C3D11 0x002C3FFB; callees rowed get 0x003140C8 and winSetDisabledBorderColor 0x0031446A; int row really a GameWindow* (DispDwordField family is width-only)
 class Rva003140C8DwordField

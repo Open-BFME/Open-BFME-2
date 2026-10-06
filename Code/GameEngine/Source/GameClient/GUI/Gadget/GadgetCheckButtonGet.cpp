@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00327DD8Get@@YAPAXPAVGameWindow@@@Z @0x00327DD8 30B
 // Null-guarded user-data field reader: returns the pointer at +0x2C when the
 // flag byte at +0x28 is set. Evidence: GameWindow::winGetUserData row 0x005C4ACD;

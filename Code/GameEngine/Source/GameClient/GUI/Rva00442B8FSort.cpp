@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00442B8FSort@@YAXPAPAX0VRva0043FE9A@@@Z @0x00442B8F 61B.
 // Honest-address sort heap drain over void* elements. Pops first-last with
 // the rowed pop at 0x00442892 then decrements last until one element left.

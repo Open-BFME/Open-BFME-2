@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva005DD7C3@Rva005DD7C3@@QAEXPAVGameWindow@@PBUWidths@@@Z, retail 0x005DD7C3, 56 bytes.
 // __thiscall void method with window and widths-vector args caching window

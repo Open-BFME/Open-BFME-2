@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // Reference: GeneralsMD SkirmishGameOptionsMenu.cpp updateMapStartSpots at
 // BFME1 reference revision6583b3c1ff21db4a561285717028fdafc780b7db.

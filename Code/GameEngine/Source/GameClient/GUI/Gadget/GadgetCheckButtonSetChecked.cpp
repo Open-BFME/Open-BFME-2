@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00327C61SetChecked@@YAXPAVGameWindow@@_N@Z @0x00327C61 58B
 // Check-like button set-checked: sets or clears bit 2 of WinInstanceData::m_state.
 // Evidence: sibling ?GadgetCheckLikeButtonIsChecked@@YA_NPAVGameWindow@@@Z at 0x00327C9B

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00441DBFPop@@YAXPAPAX00PAXVRva0043FE9A@@@Z @0x00441DBF 44B.
 // Pop heap with Rva0043FE9A comp: move *first to *result then adjust

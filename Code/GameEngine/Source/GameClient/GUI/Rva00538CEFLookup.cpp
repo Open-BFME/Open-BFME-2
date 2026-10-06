@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00538CEF@Rva00538CEF@@QAEPAVRva0020E89C@@XZ @0x00538CEF 40B: returns view lookup of last vector element or null.
 // Evidence: retail cmp [ecx] [ecx+4] je null then global g_009FEF10 +0xB0 view call rowed 0x0020EAF6 with [edx-4]; callers at 0x31A5FC 0x538D44.
 

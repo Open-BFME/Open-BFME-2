@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00327C39Get@@YA_NPAVGameWindow@@@Z @0x00327C39 40B
 // Check-button state query: bit 25 or bit 0x80000 of GameWindow status.
 // Evidence: two GameWindow::winGetStatus pin 0x0030F45F calls; 5 callers in

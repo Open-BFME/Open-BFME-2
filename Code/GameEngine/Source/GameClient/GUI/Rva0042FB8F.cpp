@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 
 // ?rva0042FB8F@Rva0042FB8F@@QAE_NPAVDrawable@@PAVGameMessage@@@Z @0x0042FB8F 285B: selection-limit gate showing GUI:MaxSelectionSize via InGameUI message then appending ObjectID. Evidence: retail calls TheInGameUI slots 0x11c/0x118/0x40 plus TheGameText fetch 0x3c plus UnicodeString format/release/copy plus GameMessage appendObjectIDArgument 0x0030F979; BFME1 donor SelectionTranslator::killThemKillThemAll same shape (draw null plus object null plus max/select plus displayed-warning byte plus append).

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00511730@@YAXH@Z @0x00511730 135B.
 // Free cdecl helper saving text-entry text into a global UnicodeString.
 // Evidence: 11 retail callers all push 0 and pop ecx (cdecl 1 int arg, always

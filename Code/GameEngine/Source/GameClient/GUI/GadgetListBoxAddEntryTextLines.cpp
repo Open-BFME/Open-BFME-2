@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail RVA 0x00326CF0, 249 bytes.
 // BFME2 multiline listbox helper: splits input UnicodeString at 0x0A/NUL and
 // appends each line via GadgetListBoxAddEntryText (0x00326BEC), returning rows

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail RVA 0x00326BEC, 260 bytes (the reloc size 10 is stale).
 // GadgetListBoxAddEntryText, the listbox text insertion body called by
 // AptMapPreview::bfmeSetMapDescription. Ported from Open-BFME-1

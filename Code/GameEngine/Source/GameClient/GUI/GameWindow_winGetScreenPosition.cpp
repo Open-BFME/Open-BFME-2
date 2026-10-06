@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?winGetScreenPosition@GameWindow@@QAEHPAH0@Z
 // retail 0x00313B3C, 51 bytes. Dedicated TU.
 //

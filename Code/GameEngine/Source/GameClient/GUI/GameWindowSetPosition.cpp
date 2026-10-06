@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?winSetPosition@GameWindow@@QAEHHH@Z, retail 0x00313A9E, 70 bytes.
 // GameWindow position setter: notifies the child at +0x4 through its third

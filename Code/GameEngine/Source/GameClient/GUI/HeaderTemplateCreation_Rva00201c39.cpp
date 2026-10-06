@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 // stlport
 // class-gate: allow AsciiString donor TU-local StringBase-derived 4-byte view emits the retail 118B body at 0x00201C39; the shared header force-inlines the copy assignment instead of the out-of-line StringBase::set call retail makes
 #define _STLP_NO_EXCEPTIONS 1

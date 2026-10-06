@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 #include "unicode_string.h"
 
 inline UnicodeString::UnicodeString() { m_text = 0; }

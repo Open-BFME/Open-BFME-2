@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /DNDEBUG /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /DNDEBUG /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?setShellMenuScheme@ShellMenuSchemeManager@@QAEXVAsciiString@@@Z @0x002005DE 124B.
 // ShellMenuSchemeManager::setShellMenuScheme. Evidence: BFME1 donor

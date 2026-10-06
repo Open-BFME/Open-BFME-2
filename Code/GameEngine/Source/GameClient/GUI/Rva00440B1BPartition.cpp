@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00440B1BPartition@@YAPAPAXPAPAX0PAXVRva0043FE9A@@@Z @0x00440B1B 73B.
 // Unguarded partition with Rva0043FE9A comp: while comp(first pivot) advance;

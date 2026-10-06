@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?parseName@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00316355, 71 bytes.
 // Dedicated TU.

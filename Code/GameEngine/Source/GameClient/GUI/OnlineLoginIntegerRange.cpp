@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Reference: Open-BFME-1 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
 // game/GameEngine/Source/GameClient/GUI/OnlineLoginIntegerRange.cpp (whole TU).
 // Target: Ghidra RVA 0x0056E6A4, 91 bytes, calls exported AsciiString's

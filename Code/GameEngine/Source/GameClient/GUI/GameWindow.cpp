@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Clean Open-BFME-1 6d9434269164392c5ba62aaa7c15a86b5b020d76 reference transfer.
 // Native font dispatcher313D73 and helper boundaries establish target operation/ABI.
 // Target field and call facts are distinct from donor names: row16/cell28/payload0C,

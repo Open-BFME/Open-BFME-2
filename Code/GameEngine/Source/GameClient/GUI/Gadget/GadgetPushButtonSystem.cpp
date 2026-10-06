@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc- /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc- /Ireference/shims/bfme2_ascii
 // Clean BFME1 6d9434269164392c5ba62aaa7c15a86b5b020d76 GadgetPushButtonBodies donor.
 // Callback table and native328639/199 establish the four message cases.
 // Native facts: instance state+8/owner14, display pointer30/free slot3C,

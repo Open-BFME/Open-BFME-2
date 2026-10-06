@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GadgetListBoxReset, retail 0x003247E5, 34 bytes.
 // Dedicated TU so GameWindowManager.cpp bodies cannot see this wrapper.

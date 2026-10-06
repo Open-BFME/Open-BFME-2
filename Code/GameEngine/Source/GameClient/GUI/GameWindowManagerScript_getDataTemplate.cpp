@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?getDataTemplate@@YAPAXPADPAH@Z, retail 0x00315445, 245 bytes.
 // Dedicated TU.

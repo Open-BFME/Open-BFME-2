@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // ?Rva003145B1Dispatch@Rva003145B1@@QAEHHHH@Z @ 0x003145B1 (63B).
 // Honest address-derived dispatch: if plus 0x04 then slot 4 with three args else slot 2 with three args then if first arg is 2 call own slot 2.
 // Evidence: neighbors 0x00314581 plus 0x003145F0 plus twin 0x00314596 sharing plus 0x04 plus 0x08 layout.

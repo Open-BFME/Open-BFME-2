@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail RVA 0x003009CD, 285 bytes.
 // MapMetaData::getDescription, the lazy cached map.str text loader feeding
 // bfme_getDescriptionFirstLine. Ported from Open-BFME-1

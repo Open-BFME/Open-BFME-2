@@ -1,4 +1,4 @@
-// cl: /Os /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 #pragma optimize("y", off)
 //
 // Real OptionPreferences::getVolume, retail 0x002E4B2D (154 bytes).

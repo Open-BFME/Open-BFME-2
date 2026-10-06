@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail RVA 0x00326DE9, 56 bytes.
 // Listbox input teardown: if data flag +0x0B is set, frees array at +0x38 via
 // vector-delete, clears it and the flag, and restores GadgetListBoxInput

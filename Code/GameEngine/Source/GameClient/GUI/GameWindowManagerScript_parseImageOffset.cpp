@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?parseImageOffset@@YA_NPADPAVWinInstanceData@@0PAX@Z,
 // retail 0x00314F99, 66 bytes. Dedicated TU.

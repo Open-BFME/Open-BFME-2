@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?parseStaticTextData@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00315283, 47 bytes.
 // Dedicated TU.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005FB8B4@Rva005FB770@@QAEXM@Z @ 0x005FB8B4 79B: float health setter via rowed Fire 0x00527925 with SetPlayerHealth plus EmptyString fallback. Evidence: ucomiss float at +0x34 plus rowed Fire plus TheRva00222A8BTarget 0x009FE4CC plus g_Rva0107301CEmptyString 0x007BAC1C plus SetPlayerHealth literal plus gap between AptPlayerNameSet rows.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

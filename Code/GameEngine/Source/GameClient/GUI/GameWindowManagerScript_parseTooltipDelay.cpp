@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?parseTooltipDelay@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x0031525D, 38 bytes.
 // Dedicated TU.

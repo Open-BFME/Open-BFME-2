@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva005C663C@@UAE@XZ @ 0x005C66A8 72B
 // Dtor of Rva005C663C: derived vtable 0x00C74914 via virtual, DeleteButtonFlash
 // on AsciiString at +8, releaseBuffer, then base vtable g_00BC6F20 via novtable

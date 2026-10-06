@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0057CA78@Rva0057CA78@@QAEHH@Z retail 0x0057CA78 142B
 // Evidence: this+0x18 via rowed 0x0043DA65 to GameInfo; virtual bool gate at
 // vtable +0x30 and int getter at vtable +0x34; rowed getConstSlot (0x003FF2BE)

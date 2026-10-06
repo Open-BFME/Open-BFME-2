@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's palantir (in-game command bar) Apt callbacks, 0x002D2FD4 onward,
 // bound by these names ("AptPalantir::OnInitialized" ...) as member

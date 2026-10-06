@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?GadgetTextEntrySetText@@YAXPAVGameWindow@@VUnicodeString@@@Z @0x002C17EB 66B
 // GadgetTextEntrySetText; ZH donor GadgetTextEntry.h inline verbatim shape
 // (winSendSystemMsg GEM_SET_TEXT 0x4030 with &text and 0); TheWindowManager at

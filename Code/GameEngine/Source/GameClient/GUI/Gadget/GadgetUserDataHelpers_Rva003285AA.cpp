@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 
 // ?Rva003285AA@@YAXPAVGameWindow@@H@Z, retail 0x003285AA (42B).
 // Dedicated TU.

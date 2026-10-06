@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /G7
+// cl: /DNDEBUG /MD
 
 // GameWindow::winHide, retail 0x00313C64 (117B).
 // Ported from Open-BFME-1 GameWindowFields.cpp donor (GameWindow::winHide,

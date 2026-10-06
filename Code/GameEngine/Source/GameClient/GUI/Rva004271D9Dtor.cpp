@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // ??1Rva004271D9@@QAE@XZ @0x004271D9 57B
 // Non-virtual dtor sharing the Armor hashtable layout (pad + bucket vector).
 // Evidence: calls rowed hashtable clear 0x001DBCDC with this and frees bucket

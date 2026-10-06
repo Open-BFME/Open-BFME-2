@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?init@MainMenuMediumScaleUpTransition@@UAEXPAVGameWindow@@@Z
 // retail 0x0035DF18, 247 bytes. Dedicated TU.
 //

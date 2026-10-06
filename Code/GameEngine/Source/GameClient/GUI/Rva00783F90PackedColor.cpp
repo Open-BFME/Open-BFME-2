@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 // Store the three low color channels as normalized floating-point values.
 // The address-derived name retains the unproven calling owner.
 extern float Rva00783F90Red;

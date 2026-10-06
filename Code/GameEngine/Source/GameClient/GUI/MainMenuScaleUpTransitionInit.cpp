@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?init@MainMenuScaleUpTransition@@UAEXPAVGameWindow@@@Z
 // retail 0x0035E01E, 217 bytes. Dedicated TU.
 //

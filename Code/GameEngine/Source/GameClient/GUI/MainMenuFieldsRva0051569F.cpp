@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /Oi-
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /Oi-
 // Target 0x0051569F/155 is a MainMenu field callback, not GameState code.
 // The target constructor 0x00516211/2802 binds this exact member address at
 // 0x00516A17, 0x00516A6F and 0x00516AC4 to MainMenuLevel (id 0),

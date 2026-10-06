@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00323674@Rva00323674@@QBEHXZ @0x00323674 (44B) __thiscall getter:
 // null-check this+0, read user-data +8 as GameWindow*, call rowed
 // GadgetListBoxGetSelected (0x00324773) with a stack -1, return it.

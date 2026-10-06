@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?GadgetComboBoxSetText@@YAXPAVGameWindow@@VUnicodeString@@@Z @0x00322D63 98B.
 // BFME1 donor GadgetComboBoxAccessors.cpp GadgetComboBoxSetText: null guard then
 // ListBoxSetSelected(listBox -1) then TextEntrySetText(entry text).

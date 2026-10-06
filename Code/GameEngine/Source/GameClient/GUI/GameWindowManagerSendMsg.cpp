@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // GameWindowManager::winSendSystemMsg (0x002C0E7D, 44B) and winSendInputMsg
 // (0x002C0EA9, 44B): adjacent slots of the GameWindowManager vftable (rdata
 // 0x007C7D78/0x007C7D7C) and of W3DGameWindowManager's (0x007FF740/0x007FF744).

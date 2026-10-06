@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
 // Source: GeneralsMD ProcessAnimateWindow.cpp at BFME1 revision
 // 10af19f44a89ab7ecc23195bb9a842ceafbc02c9; return virtual update unchanged.
 // Target identity: matched BottomTimed ctor RVA 0x005C4FEF installs vptr

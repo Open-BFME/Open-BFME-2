@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva005C6599@Rva005C6599@@QAEXMM@Z 0x005C6599 88B setPos via MoveButtonFlash when x or y differs plus store; caller 0x005C694F; callee MoveButtonFlash 0x003FED66
 void __cdecl Rva003FED66MoveButtonFlash(void **pp, float f1, float f2);
 class Rva005C6599 {

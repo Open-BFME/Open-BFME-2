@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail RVA 0x00324807, 27 bytes.
 // Rva00324807, the null-guarded bottom-entry delegate for a listbox window:
 // null window or null user data yields 0, else the reg-arg worker computes the

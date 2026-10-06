@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // GadgetListBoxSetBottomVisibleEntry, retail 0x003253FD, 79 bytes: after the null and
 // user-data guards it bounds-checks the requested row against the display height,
 // sets the display position from that row height and refreshes the display through

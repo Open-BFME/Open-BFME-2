@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?addWindow@TransitionGroup@@QAEXPAVTransitionWindow@@@Z, retail 0x001DC19F, 20 bytes.
 // Null-guarded forward to rowed list<int>::push_back at 0x0005548F (VA 0x0045548F).

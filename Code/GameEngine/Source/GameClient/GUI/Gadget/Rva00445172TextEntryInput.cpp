@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Retail 0x00445172, 159 bytes: slot 3 of the input-route vftable at
 // 0x00C3DFA8 (slots 1/2 are the rowed Rva0031455E link/unlink), placed right

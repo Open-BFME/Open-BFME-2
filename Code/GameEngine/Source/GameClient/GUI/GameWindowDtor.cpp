@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /GR
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /GR
 // ??1GameWindow@@MAE@XZ @0x00314A0C 184B
 // GameWindow dtor: vtable 0x0080BBCC slot0 deleting dtor at 0x00314AC4 calls here.
 // Evidence: BFME1 GameWindowDestructorThunk donor (global check, inputData/editData deletes,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ??1Rva0031763A@@QAE@XZ @0x003175D1 105B, ??0Rva0031763A@@QAE@XZ @0x0031763A 127B,

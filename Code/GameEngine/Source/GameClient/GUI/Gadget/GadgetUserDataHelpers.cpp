@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 
 // ?Rva004BCB20@@YAXPAVGameWindow@@H@Z, retail 0x00328543 (60B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetUserDataHelpers.cpp

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva0043EDB4@MpGameSetup@@QAEXXZ @0x0043EDB4 543B.
 // MpGameSetup slot-count balancer: counts AI + open + human non-observer

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // Retail 0x0050DCB0: BFME replacement of ZH TheShell->push for CampaignReview.
 // Returns true at once if the CampaignReview singleton at 0x012F495C exists;

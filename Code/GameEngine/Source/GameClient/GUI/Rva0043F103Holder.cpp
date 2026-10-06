@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail RVA 0x0043F103, 33 bytes.
 // ?rva0043F103@Rva0043F103@@QAEPAUTargetRef00217D4C@@H@Z is a lazy holder
 // accessor: lea slot from this+index*4+4 with two Rva002BED91 at +4 and +8

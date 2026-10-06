@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0050E776Send@@YAHPAVGameWindow@@H@Z @0x0050E776
 // (30B): sends 0x400D via TheWindowManager slot 58 winSendSystemMsg.
 // Identity via TheWindowManager plus 0x400D plus slot 0xE8 (precedent

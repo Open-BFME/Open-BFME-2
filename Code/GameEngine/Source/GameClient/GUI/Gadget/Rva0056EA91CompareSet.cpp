@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0056F495@Rva0056EA91@@QAE_NABVUnicodeString@@@Z @0x0056F495 110B
 // Chain of just-landed Rva0056EA91 0x0056EA91: current text via 0x0056EA91,
 // compare via StringBase<G> 0x00006A7A, null +0xA8 guard, SetText 0x00322D63.

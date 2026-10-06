@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?rva005D13C2@Rva005D13C2@@QAEXXZ @ 0x005D13C2, 19 bytes.
 // Target evidence: the body saves this, dispatches through the wrapper at
 // +0x0C to rowed 0x005ED5EB, then tail-dispatches through the object at +0.

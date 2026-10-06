@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail RVA 0x00324822, 62 bytes.
 // GadgetListBoxIsFull, the listbox fullness test feeding the insert tail.
 // Ported from Open-BFME-1 GadgetListBox.cpp with an explicit rows temporary:

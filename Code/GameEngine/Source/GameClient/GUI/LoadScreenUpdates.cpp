@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/GameClient/GUI/LoadScreenUpdates.cpp (donor revision

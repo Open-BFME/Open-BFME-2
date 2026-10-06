@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /O1 /Ob1 -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -DNDEBUG -MD -EHsc /Ob1 -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 // class-gate: allow UnicodeString donor private view is what emits the retail 78B body at 0x00521AC8; the shared header changes the StringBase ctor calls
 // Retail 0x00579690: show a supplied skirmish-screen message only when the
 // callback flag is set.  The title is the retail empty wide literal.

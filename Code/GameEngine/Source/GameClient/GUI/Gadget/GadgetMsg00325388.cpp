@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 //
 // ?Rva00325388Send@@YAXPAVGameWindow@@HHH@Z, retail 0x00325388, 54 bytes.
 // Free-function WindowManager slot 0xE8 sender: if window null returns,

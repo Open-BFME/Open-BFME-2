@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX- /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /GX- /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?getMaxDisconnects@QuickMatchPreferences@@QAEHXZ, retail 0x005DF55B, 80 bytes.

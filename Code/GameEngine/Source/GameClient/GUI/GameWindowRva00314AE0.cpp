@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc /Oi- /arch:SSE2
+// cl: /Oy- /DNDEBUG /MD /EHsc /Oi-
 // ?Rva00314AE0@@YGXPAVImage@@HHHHH@Z, retail 0x00314AE0, 72 bytes.
 // Int-coordinate drawImage wrapper that forwards to the float W3DDisplay
 // helper 0x0004D6B3 with mode=2 (alpha). Evidence: chain lane (calls the

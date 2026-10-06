@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??0Rva005C663C@@QAE@XZ @ 0x005C663C 108B
 // Ctor storing vtable 0x00C74914, zeroing +4 and two floats, formatting the
 // AsciiString at +8 with "Flash%d" and a global counter, then firing

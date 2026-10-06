@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/Palantir
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/Palantir
 //
 // BFME2 literal fix: retail's two statics name "NonCommand_MultiplayerOptions"
 // (VA 0x00C02D90, the observer-active arm) and "NonCommand_Options" (VA

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Oy- /DNDEBUG /MD /EHsc
 //
 // ?scanBool@@YAHPBDAA_N@Z, retail 0x00314E42, 43 bytes.
 // Dedicated TU.

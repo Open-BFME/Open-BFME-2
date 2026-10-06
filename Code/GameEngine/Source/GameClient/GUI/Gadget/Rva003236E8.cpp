@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003236E8@Rva003236E8@@QAEHXZ, retail 0x003236E8, 24 bytes.
 // __thiscall int method with no args reading this+0 as GameWindow*.

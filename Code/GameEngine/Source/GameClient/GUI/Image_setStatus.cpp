@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Image::setStatus, retail 0x002D8E63, 15 bytes.
 // OR bits into m_status at +0x30 and return the previous value.

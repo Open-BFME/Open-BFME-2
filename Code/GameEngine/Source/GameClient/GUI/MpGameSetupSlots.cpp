@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // Small MpGameSetup members of BFME2's LAN lobby panel (the screen's +0x288

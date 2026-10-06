@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?GadgetButtonGetData@@YAPAXPAVGameWindow@@@Z, retail 0x00327D56 (24B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetPushButton.cpp

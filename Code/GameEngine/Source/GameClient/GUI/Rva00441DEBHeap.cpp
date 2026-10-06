@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00441DEBHeap@@YAXPAPAX0VRva0043FE9A@@@Z @0x00441DEB 64B.
 // Honest-address make heap over void* elements. Builds len from last-first
 // then adjusts each hole from (len-2)/2 down to 0 via the rowed adjust at

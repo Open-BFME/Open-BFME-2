@@ -1,4 +1,4 @@
-// cl: /Os /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?parseWindow@GameWindowTransitionsHandler@@SAXPAVINI@@PAX1PBX@Z, retail 0x001DCB2F, 53 bytes.
 // Static INI field callback for the Window entry of the outer table at RVA 0x7DBBCC (VA 0xBDBBCC).
 // Target evidence: outer slot Window->VA 0x5DCB2F (retail rdata decode at 0x7DBBCC: Window->0x5DCB2F,

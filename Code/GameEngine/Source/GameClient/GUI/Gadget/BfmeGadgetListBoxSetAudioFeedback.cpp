@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail RVA 0x0032497D, 21 bytes.
 // BfmeGadgetListBoxSetAudioFeedback, the BFME listbox audio-feedback flag.
 // Ported from Open-BFME-1 AptScreenFactories.cpp; the flag is the byte at

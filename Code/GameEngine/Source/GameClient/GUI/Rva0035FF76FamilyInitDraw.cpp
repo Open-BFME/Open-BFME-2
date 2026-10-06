@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // Init and draw slots of three BFME 2 window transitions that share the rowed
 // update 0x0036044A and reverse 0x0035D1BD. Class names are address-derived;
 // the slot meanings follow Zero Hour's Transition (init 1, update 2,

@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /GF /Gy /MD /EHsc /GR /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ob1 /GF /Gy /MD /EHsc /GR /DNDEBUG /DWIN32 /D_WINDOWS
 
 // Byte-exact BFME reconstruction of ??0GameWindow@@QAE@XZ.  The BFME layout
 // is kept TU-local because the ordinary GameWindow reference header has the

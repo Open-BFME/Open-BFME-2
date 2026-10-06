@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -DNDEBUG -DWIN32 -MD -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 
 typedef int NameKeyType;
 

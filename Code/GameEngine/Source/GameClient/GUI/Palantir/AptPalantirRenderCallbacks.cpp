@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // BFME2's palantir Apt render callbacks, 0x002D3125 onward, bound by these
 // names ("AptPalantir::ClipRadar" ...) as member pointers by the screen's

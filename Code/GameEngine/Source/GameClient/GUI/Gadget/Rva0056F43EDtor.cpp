@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva0056F43E@@QAE@XZ @0x0056F9D4 56B
 // Dtor of the Rva0056F43E table (cleanup bodies in Rva0056F43ECleanup.cpp):
 // the body calls this->rva0056F503, then the header at m_00 is freed by the

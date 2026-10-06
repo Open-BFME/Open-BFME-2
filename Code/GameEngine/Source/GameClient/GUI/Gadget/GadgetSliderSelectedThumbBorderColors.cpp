@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GadgetSlider selected-thumb border-color getters, retail 0x00323DB4 (26B)
 // and 0x00323DE8 (26B). Shard TU mirroring the twin-owned

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?draw@GameWindow@@UAEHPAX@Z @0x0009DC05 29B
 // Virtual slot 3 (offset 0xC) of vtable 0x0080BBCC (VA 0x00C0BBCC) shared by
 // ??0GameWindow@@QAE@XZ and ??0BfmeAptScreenBase@@QAE@PAX@Z (ICF-folded identical vtables).

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Native 0x5FEB01..0x5FEBC8 (Ghidra199B, RET12) constructs three
 // AsciiString members at +0/+4/+8 from argument2, stores argument1 at +C,
 // initializes +10/+14/+18 to -1/0/false, then forms the four literal keys.

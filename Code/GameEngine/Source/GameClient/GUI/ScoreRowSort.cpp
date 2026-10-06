@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /G7
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 //
 // Two STLport 4.5.3 sort(first, last) instantiations over 8-byte records

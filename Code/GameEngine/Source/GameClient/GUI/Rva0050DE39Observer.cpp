@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva0050DE39Init@@YAXXZ @0x0050DE39 597B: observer ControlBar cache init.
 // Evidence: caller 0x0031D201; callees rowed nameToKey 0x00148E1A plus nameToKey_ascii 0x0009FA65 plus format 0x00038150 plus releaseBuffer 0x00036410 plus winGetWindowFromId slot 0xF0; strings ControlBar.wnd Observer/Player/Button/StaticText/WinFlag/Portrait/Cancel; globals g_00E0460C g_00E0462C g_00E0464C g_00E04650 g_00E04654 g_00E04674 g_00E04694 g_00E04698 g_00E0469C g_00E046A0 g_00E046A4 g_00E046A8 g_00E046AC g_00E046B0; neighbour Rva0050E776Send.cpp layout.
 #include "ascii_string.h"

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00441999Heap@@YAXPAPAXHHPAXVRva0043FE9A@@@Z @0x00441999 97B.
 // Adjust heap with Rva0043FE9A comp then delegate to push adjust.

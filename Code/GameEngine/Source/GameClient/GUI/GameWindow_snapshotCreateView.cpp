@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?snapshotCreateView@GameWindow@@QAEXPAVGadgetCreateView@@_N@Z,
 // retail 0x003146DC, 126 bytes. Dedicated TU.

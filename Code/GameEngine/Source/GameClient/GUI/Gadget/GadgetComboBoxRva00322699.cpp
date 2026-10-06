@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00322699@@YAXPAVGameWindow@@H@Z, retail 0x00322699 (38B).
 // Null-checks the window and its user data, ORs the Int arg into the data
 // dword at +0x0C, then copies that dword to the child at +0x14 (+0x0C) when

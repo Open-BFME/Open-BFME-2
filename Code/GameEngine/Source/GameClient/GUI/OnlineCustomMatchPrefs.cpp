@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 #include "ascii_string.h"
 
 // ?rva00580316@Rva00580316@@QAEXPAX@Z 0x00580316 170B

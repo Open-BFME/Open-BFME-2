@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?isFinished@GameWindowTransitionsHandler@@QAE_NXZ @0x001DBFEE 46B
 //
 // Zero Hour's GameWindowTransitionsHandler::isFinished (current group's

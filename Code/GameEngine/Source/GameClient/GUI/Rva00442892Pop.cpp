@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00442892Pop@@YAXPAPAX0VRva0043FE9A@@@Z @0x00442892 27B.
 // Honest-address pop heap forwarder over void* elements. Forwards first last
 // and a null dummy plus comp to the rowed pop at 0x00441E2B. Mirrors

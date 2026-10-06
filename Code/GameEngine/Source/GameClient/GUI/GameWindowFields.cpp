@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // GameWindow draw-data setters. BFME1's GameWindow.cpp marks this family
 // present-unmatched and names this TU as the BFME-layout home: ZH headers

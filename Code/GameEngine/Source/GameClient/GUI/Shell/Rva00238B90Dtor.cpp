@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??1Rva00238B90@@UAE@XZ @0x00238B90 (123B):
 // Virtual dtor storing vtable 0x007ED654 then destroying seven

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail RVA 0x00327B33, 19 bytes.
 // GadgetCheckBoxIsChecked, the checkbox selected-state query.
 // Ported from Open-BFME-1 GadgetCheckBox.cpp; retail tests the selected bit

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /Oi-
+// cl: /Oy- /DNDEBUG /MD /Oi-
 
 // MpGameSetup gadget initialization callback, retail 0x0043EB1D (420B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/GUI/MpGameSetupOnInitGadget.cpp

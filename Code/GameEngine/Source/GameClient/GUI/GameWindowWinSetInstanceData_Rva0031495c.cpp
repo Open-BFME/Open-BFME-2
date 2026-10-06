@@ -11,7 +11,7 @@
 // (tests m_tooltip at this+0x1a0, tail-jumps vtable slot +0xc, else 0). Both
 // are inline in the donor and out of line in retail; the second is an ICF alias
 // of the matched ?rva002C027B body at the same address.
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI
 // readable body of ?winSetInstanceData@GameWindow@@QAEHPAVWinInstanceData@@@Z: game/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 // BFME's GameWindow instance-data member begins at +0x30; the vendored ZH
 // declaration places it at +0x2c.  Retail also uses the BFME DisplayString

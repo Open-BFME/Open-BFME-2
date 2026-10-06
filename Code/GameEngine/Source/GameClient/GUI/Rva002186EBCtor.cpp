@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 //
 // ??0Rva002186EB@@QAE@XZ, retail 0x002186EB, 61 bytes.
 // Constructor with vtable 0x7E5B10 plus two empty AsciiStrings at +4/+8 plus

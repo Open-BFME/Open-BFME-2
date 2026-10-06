@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?GadgetButtonSetText@@YAXPAVGameWindow@@VUnicodeString@@@Z @0x003283F7 71B
 // GadgetButtonSetText; BFME1 donor GadgetPushButton.cpp GadgetButtonSetText verbatim shape
 // (winSendSystemMsg GGM_SET_LABEL 0x4001 with &text and 0); TheWindowManager at
