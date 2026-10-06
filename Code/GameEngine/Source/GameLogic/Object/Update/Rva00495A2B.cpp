@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00495A2B@Rva00495A2B@@QAEXXZ, retail 0x00495A2B (73 bytes).
 // Identity: unlock predicate firing a temp weapon then killing the object;

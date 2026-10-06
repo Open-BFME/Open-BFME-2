@@ -2,7 +2,7 @@
 // partial score=0.94 date=2026-10-03
 // ?rva00496D43@Rva00496D43@@QAEPAXPAXABVAsciiString@@@Z
 // partial score=0.94 date=2026-10-02
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs-c- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /EHs-c- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // ?rva00496D43@Rva00496D43@@QAEPAXPAXABVAsciiString@@@Z, retail 0x00496D43 96B.
 // Leaf: vector at this+0x18/0x1c of Elem* (AsciiString at +0, Weapon set at +8);
 // linear compareNoCase vs key; on hit copy-constructs WeaponTemplateSetHead from

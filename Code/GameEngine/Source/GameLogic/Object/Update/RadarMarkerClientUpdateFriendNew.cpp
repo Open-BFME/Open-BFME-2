@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@RadarMarkerClientUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00252AD9, 56 bytes. Dedicated TU: retail news 0x10 (push-imm8)

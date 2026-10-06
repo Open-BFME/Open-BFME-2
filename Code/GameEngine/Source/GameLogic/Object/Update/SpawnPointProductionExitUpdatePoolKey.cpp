@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004A3BD6@SpawnPointProductionExitUpdate@@SA?AW4NameKeyType@@XZ @0x4a3bd6
 // (69B): cached pool-name key for SpawnPointProductionExitUpdate. The class
 // identity comes from the pool-name string the body pushes

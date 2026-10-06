@@ -1,4 +1,4 @@
-// cl: /O1 /GX /Oy- /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /Oy- /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??0SpellRechargeModifierUpgradeModuleData@@QAE@XZ, retail 0x004B6011

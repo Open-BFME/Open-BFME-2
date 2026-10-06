@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0Rva00485ADCFilter@@QAE@XZ, retail 0x00485ADC, 83 bytes. EldestKindof
 // filter holder: an ObjectFilter at +0 built through the opaque 0x3623E5

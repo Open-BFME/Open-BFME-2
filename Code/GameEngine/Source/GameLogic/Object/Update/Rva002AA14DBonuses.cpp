@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva002AA14DBonuses@@QAE@XZ, retail 0x002AA14D, 23 bytes. Builds the two
 // 0x1C kind-of masks at +0x14/+0x30 through the rowed Rva0024C7B3Member ctor

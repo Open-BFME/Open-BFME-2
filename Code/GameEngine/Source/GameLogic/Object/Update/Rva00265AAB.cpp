@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00265AAB@Rva00265AAB@@QAEXPAUObject00265AAB@@PAH@Z @0x00265AAB 78B via ai-gated turret sleep min
 // Evidence: Object+0x258 AI with virtual check at +0x1c4; dead bit +0x438 bit0; flags +0x1c8 &0x14; this+0x20c TurretAI with rowed updateTurretAI 0x004D8DEA; min-store to out arg; callers 0x0026A328 0x0026C5A9; ret 8
 typedef int Int;

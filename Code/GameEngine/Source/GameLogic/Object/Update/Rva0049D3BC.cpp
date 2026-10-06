@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0049D3BC@Rva0049D3BC@@QAEXXZ retail 0x0049D3BC 362B
 // Expiry sweep over 4 entries at +0x3C with timeouts from +0x04 data (+0xC/+0x10/+0x14)
 // and Disability-style bit tables at 0x00C51304/0x00C51314/0x00C51324 driving

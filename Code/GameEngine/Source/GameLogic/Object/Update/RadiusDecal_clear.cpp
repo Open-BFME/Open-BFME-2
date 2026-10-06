@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // RadiusDecal::clear, retail 0x00330DBA, 28 bytes.
 // Zero the object pointer at +0, Release the holder at +4 (vtable+8),

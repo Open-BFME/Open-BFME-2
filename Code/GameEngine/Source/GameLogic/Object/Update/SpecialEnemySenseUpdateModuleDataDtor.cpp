@@ -1,4 +1,4 @@
-// cl: /O1 /GX /arch:SSE /DNDEBUG /MD /Ireference/shims/moduledata
+// cl: /GX /DNDEBUG /MD /Ireference/shims/moduledata
 //
 // ??1SpecialEnemySenseUpdateModuleData@@UAE@XZ, retail 0x0025525B, 48 bytes.
 // ModuleData dtor: tears down the filter at +8 through the folded 0x360D26

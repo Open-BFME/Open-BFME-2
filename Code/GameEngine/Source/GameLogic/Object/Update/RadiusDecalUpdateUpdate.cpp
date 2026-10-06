@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?update@RadiusDecalUpdate@@UAE?AW4UpdateSleepTime@@XZ retail 0x0039157B, 51
 // bytes: Zero Hour's RadiusDecalUpdate::update. It is the first slot of the
 // three-slot UpdateModuleInterface vftable (rdata 0x0081A00C) that sits right

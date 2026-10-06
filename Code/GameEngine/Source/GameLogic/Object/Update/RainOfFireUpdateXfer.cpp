@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@RainOfFireUpdate@@MAEXPAVXfer@@@Z, retail 0x004AC1CB, 92 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00854C74, same primary as rowed ctor

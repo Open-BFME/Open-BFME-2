@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 // ?rva004AE5B8@ToggleDeploySpecialAbilityUpdate@@QAEXPAX@Z retail 0x004AE5B8 124B
 // Evidence: vslot 23 of vtable 0x00855370 for ToggleDeploySpecialAbilityUpdate; audio event via rowed BfmeAudioEventPrefix136 plus CondSetter plus TheAudio slot 0x64 plus DeployStyle helper; caller none
 #include "Common/BfmeAudioEventPrefix136.h"

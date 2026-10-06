@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@SpawnPointProductionExitUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00256137, 52 bytes. Dedicated TU: the factory news 0xC with an

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@ToggleHiddenSpecialAbilityUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0024F734, 59 bytes. Dedicated TU: retail news 0x8C (push-imm32)

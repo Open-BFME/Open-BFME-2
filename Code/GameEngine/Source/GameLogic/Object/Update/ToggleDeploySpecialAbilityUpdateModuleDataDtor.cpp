@@ -1,4 +1,4 @@
-// cl: /O1 /GX /arch:SSE /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 // Rva0044ECCE is an address-derived base stand-in; its target class name is unproven.
 //
 // ??1ToggleDeploySpecialAbilityUpdateModuleData@@UAE@XZ, retail 0x004AE685,

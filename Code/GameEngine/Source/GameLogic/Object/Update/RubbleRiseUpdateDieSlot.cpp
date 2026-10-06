@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004A4D98@RubbleRiseUpdate@@UAEXPBVDamageInfo@@@Z, retail 0x004A4D98, 38
 // bytes: slot 0 of the vtable 0x00C52858 that RubbleRiseUpdate's ctors

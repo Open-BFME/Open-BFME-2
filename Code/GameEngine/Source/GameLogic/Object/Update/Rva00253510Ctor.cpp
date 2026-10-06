@@ -1,6 +1,6 @@
 // PC identity update: the registered DestroyDie data factory 0x254E7D calls
 // this constructor. Derived callers share this data base at offset zero.
-// cl: /O1 /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??0DestroyDieModuleData@@QAE@XZ at retail 0x00253510 (50B). Opaque intermediate
 // base ctor (EH leaf: explicit vtable 0x00C4ED70 plus DieMuxData member at

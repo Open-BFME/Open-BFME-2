@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // ?rva0048B256@DynamicShroudClearingRangeUpdate@@QAEXXZ @0x0048B256 233B: animateGridDecals.
 // Donor Generals/Code/.../DynamicShroudClearingRangeUpdate.cpp animateGridDecals:
 //  radius = m_current + ((total-countdown)*2), angle 0, opacity = 1-fade,

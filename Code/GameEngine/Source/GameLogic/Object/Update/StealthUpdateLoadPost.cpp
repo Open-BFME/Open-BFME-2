@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00374AE8@StealthUpdate@@QAEXXZ 0x00374AE8 26B evidence: slot 1 of vtable 0x00817F20; base UpdateModule loadPostProcess pin plus flag at +0x47 when +0x3c set then tail to rowed rva003748BD; donor Rva0024A797Derived flags
 class UpdateModule {
 protected:

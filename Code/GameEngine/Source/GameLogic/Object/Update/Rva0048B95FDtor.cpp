@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ??1Rva0048B95F@@QAE@XZ, retail 0x0048B95F, 27 bytes. Watchlist-value dtor:
 // releases the tracked pointer at +0 through its slot0 virtual with 0,

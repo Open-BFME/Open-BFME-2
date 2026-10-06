@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0RepairDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004A118B, 67 bytes.
 // RepairDockUpdate behavior ctor over the rowed DockUpdate base (0x58A290,

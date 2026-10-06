@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // RadiateFearUpdate::update (0x0049C21E, slot 0 of its UpdateModuleInterface
 // vftable 0x00850FB0; ctor 0x0049C106 installs it). Asleep for good once the

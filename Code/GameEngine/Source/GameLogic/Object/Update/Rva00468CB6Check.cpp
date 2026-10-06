@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva00468CB6Check@@YG_NPAVRva00468CB6A@@PAVObject@@@Z, retail 0x00468CB6 91B.
 // Turret goal check: null guards, related via rva002931F5, virtual +0x1BC,

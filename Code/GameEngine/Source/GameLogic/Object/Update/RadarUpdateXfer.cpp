@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@RadarUpdate@@MAEXPAVXfer@@@Z @0x004A0CC3 76B: slot 3 xfer of RadarUpdate
 // Vtable slot 3 of 0x008504EC and 0x00851A0C; prev 0x004A0CA7 deleting dtor and

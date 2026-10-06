@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // stlport
 //
 // ??0RemoveUpgradeUpgradeModuleData@@QAE@XZ, retail 0x004B7FF1, 67 bytes

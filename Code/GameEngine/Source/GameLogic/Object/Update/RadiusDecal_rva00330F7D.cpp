@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00330F7D@RadiusDecal@@QAEXPAVXfer@@@Z @0x00330F7D 27B
 // Unlock lane: if Xfer::IsLoading (slot 1) then RadiusDecal::clear.

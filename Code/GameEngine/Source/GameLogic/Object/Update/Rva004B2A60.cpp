@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004B2A60@Rva004B2A60@@QAEXPAVObject@@@Z, retail 0x004B2A60, 61 bytes.
 // Unlock-lane helper: builds a 0x7C DamageInfo temp via rowed Rva00263895Member ctor 0x263895,

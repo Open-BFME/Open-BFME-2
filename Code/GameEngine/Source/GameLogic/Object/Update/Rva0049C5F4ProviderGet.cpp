@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0049C5F4@Rva0049C5F4@@QAEPAXPAVObject@@@Z @0x0049C5F4 48B
 // Producer-provider slot31 forward. Retail takes Object arg with +0x78
 // producer ID; finds producer via TheGameLogic at 0x00DFE78C through rowed

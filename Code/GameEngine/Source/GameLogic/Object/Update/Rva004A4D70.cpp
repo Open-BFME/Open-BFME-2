@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // ?rva004A4D70@Rva004A4D70@@QAEXXZ, retail 0x004A4D70, 40 bytes.
 // Evidence: same +0x24/+0x28/+0x2c int zeros and +0x30/+0x34/+0x38 float zeros plus setWakeFrame(m_object 1) as StructureCollapseUpdate ctor at 0x004A42E4; setWakeFrame row 0x0044DF71; neighbours 0x004A4D54 and 0x004A4DBE.
 // UpdateModule layout with m_object at +8.

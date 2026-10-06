@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??1ReplaceObjectUpdateModuleData@@UAE@XZ, retail 0x004B2C9A, 142 bytes.

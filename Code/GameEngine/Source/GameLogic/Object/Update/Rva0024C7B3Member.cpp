@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva0024C7B3Member@@QAE@XZ, retail 0x0024C7B3, 20 bytes. Shared
 // 0x1C-byte memset helper: it memsets this with 0 over 0x1C bytes through

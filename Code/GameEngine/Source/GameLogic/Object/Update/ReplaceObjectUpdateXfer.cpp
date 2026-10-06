@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@ReplaceObjectUpdate@@MAEXPAVXfer@@@Z 33B @0x004B29DE: virtual slot 3
 // (offset 0x0C) of vtable 0x00856BB0 installed by the ReplaceObjectUpdate

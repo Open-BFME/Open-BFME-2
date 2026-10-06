@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000492CB0@TeleportSpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ @0x492cb0
 // (69B): cached pool-name key for TeleportSpecialAbilityUpdate. The class
 // identity comes from the pool-name string the body pushes

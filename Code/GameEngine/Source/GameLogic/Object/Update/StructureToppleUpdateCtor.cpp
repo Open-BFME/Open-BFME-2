@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0StructureToppleUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004A5556, 182 bytes. Behavior-side ctor completing the

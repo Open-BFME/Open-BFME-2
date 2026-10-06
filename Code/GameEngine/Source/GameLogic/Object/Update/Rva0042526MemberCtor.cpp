@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ??0Rva0042526Member@@QAE@XZ retail 0x00042526 20 bytes.
 // Opaque 76-byte bulk-zero member ctor (memset 0x4C through the rowed
 // _memset): serves the +0xB4 condition member of GenericObjectCreationNugget

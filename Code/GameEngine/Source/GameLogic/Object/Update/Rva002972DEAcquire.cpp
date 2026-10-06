@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002972DE@Rva002972DE@@QAEXPAVRva004B555F@@@Z retail 0x002972DE 130B
 // Chain from 0x004B555F; unused name copy plus Science dedup at this+0x4A4 via rowed push_back.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004A6DE4@SupplyTruckAIUpdate@@SA?AW4NameKeyType@@XZ @0x4A6DE4
 // (69B): cached pool-name key for SupplyTruckAIUpdate. The class
 // identity comes from the pool-name string the body pushes

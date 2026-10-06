@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi- /arch:SSE
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 // PC RespawnUpdate::iniParseDefaultRule; exact name in retail diagnostics.
 // Preview RespawnRules crosswalk selected the family; PC C56270 independently
 // registers this callback with the rules tree at module offset10C.

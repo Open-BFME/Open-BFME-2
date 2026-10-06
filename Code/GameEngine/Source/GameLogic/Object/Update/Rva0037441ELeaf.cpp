@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva0037441E@Rva0037441E@@QAEXXZ @0x0037441E 80B.
 // BehaviorModule method: m_object at +8 null-checked, module data +0x10

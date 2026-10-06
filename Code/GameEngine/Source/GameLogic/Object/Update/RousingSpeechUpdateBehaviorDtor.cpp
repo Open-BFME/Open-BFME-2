@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE
+// cl: /DNDEBUG /MD /GX-
 //
 // ??1RousingSpeechUpdate@@UAE@XZ, retail 0x004ACE96, 60 bytes. Virtual dtor
 // shard: ctor TU keeps its verified shape untouched (adding a dtor decl

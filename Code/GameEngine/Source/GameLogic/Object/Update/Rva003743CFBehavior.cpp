@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003743CF@Rva003743CF@@QAEXPAX_N@Z @0x003743CF 79B.
 // BehaviorModule method: esi=[ecx+8] is Object*, calls Object::setStatus

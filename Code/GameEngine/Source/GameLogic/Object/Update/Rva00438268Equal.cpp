@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?rva00438268@Rva002542F3Member@@QBEHABV1@@Z, retail 0x00438268, 148 bytes.
 // Equality over Rva002542F3Member (default ctor rowed 0x002542F3, copy rowed

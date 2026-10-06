@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ToggleDeploySpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004AE4AB, 49 bytes.
 // ToggleDeploySpecialAbilityUpdate behavior ctor over the pinned

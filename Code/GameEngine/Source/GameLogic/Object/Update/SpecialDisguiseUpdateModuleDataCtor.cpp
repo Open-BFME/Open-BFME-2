@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0SpecialDisguiseUpdateModuleData@@QAE@XZ, retail 0x004B0255, 61 bytes.
 // Disguise module data ctor over the pinned SpecialAbilityUpdateModuleData base (0x44EB54,

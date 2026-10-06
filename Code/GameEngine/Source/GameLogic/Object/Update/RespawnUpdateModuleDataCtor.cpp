@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
+// cl: /MD /GX /DNDEBUG /Oy-
 //
 // ??0RespawnBodyModuleData@@QAE@XZ, retail 0x004C14DF (110 bytes).
 // SupplyTruck-based respawn data: the pinned SupplyTruck base ctor runs

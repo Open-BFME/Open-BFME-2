@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?Rva004ADBF2@Rva004AD9B0@@MAEX_N0@Z, retail 0x004ADBF2, 70 bytes. Virtual
 // slot 13 (offset 0x34) of vtable 0x008551C0 (class of rowed dtor

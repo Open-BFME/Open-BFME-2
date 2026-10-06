@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ToggleHiddenSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004AE16E, 56 bytes.
 // ToggleHiddenSpecialAbilityUpdate behavior ctor over the pinned Rva0044EF5E

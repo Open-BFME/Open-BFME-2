@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // Identity: ModuleFactory registers this data class under "ModelConditionAudioLoopClientBehaviorModuleData" (addModule
 // pairs the name with this factory); formerly misnamed RepairDockUpdate/RepairDockUpdateModuleData.
 // stlport

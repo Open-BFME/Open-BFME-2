@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004B2A9D@Rva004B2A9D@@QAEPAHXZ 39B @0x004B2A9D: picks a random int
 // from the int array at +4/+8 via rowed GetGameLogicRandomValue(0,

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /EHsc
+// cl: /MD /DNDEBUG /EHsc
 //
 // ??1RespawnBodyModuleData@@UAE@XZ, retail 0x004C1569 (53 bytes).
 // Virtual dtor over vtable 0x00C5BA00 (slot 0 deleting dtor at 0x004C154D

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??1StrafeAreaUpdateModuleData@@UAE@XZ @ 0x003A4ECF 54B
 // Explicit dtor reinstalling derived vtable 0x00C1B268 then tearing down
 // WeaponName at +0x08 via 0x00036410 then restoring Snapshot base vtable

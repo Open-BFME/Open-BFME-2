@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@RousingSpeechUpdate@@MAEXPAVXfer@@@Z, retail 0x004AD2AF, 132 bytes.
 // Slot 3 of the vftable 0x00C54FE8 whose slot-2 name getter returns

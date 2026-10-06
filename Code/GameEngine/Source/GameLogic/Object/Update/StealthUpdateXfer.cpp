@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?xfer@StealthUpdate@@MAEXPAVXfer@@@Z, retail 0x00374942, 422 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00817F20 (class of ??1Rva00373CB1).

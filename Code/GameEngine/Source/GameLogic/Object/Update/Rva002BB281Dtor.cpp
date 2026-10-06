@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva002BB281@@QAE@XZ @ 0x002BB281 54B
 // Evidence: EH dtor calls rowed vector dtor 0x002B703F at +0x2C then pinned Rva002BB281Member08 dtor at dup 0x002BAD1C (same 57B clear-plus-free as Rva000427195) at +8; same shape as sibling BfmeAssignRecord52 dtor 0x002B707E; unblocks 0x002BC971; chain from 0x002B703F.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?xfer@RadiusDecalUpdate@@MAEXPAVXfer@@@Z, retail 0x003915AE, 60 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0081A018 (class of ??1RadiusDecalUpdate
 // rowed at 0x003913E4 in RadiusDecalUpdateCtorThunk.cpp). Base

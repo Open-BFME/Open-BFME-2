@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva004AC135@RainOfFireUpdate@@UAEXM@Z, retail 0x004AC135, 19 bytes: slot 1
 // of the vtable 0x00C54BA0 that RainOfFireUpdate's ctors (0x004AC0E3,

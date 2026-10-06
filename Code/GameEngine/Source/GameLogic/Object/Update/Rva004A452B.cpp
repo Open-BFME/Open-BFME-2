@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva004A452BUpdate@@YAXPAX00@Z @0x004A452B 85B: free update over 5 groups calling ObjectCreationList 0x001F0410 and Rva001E11F8 0x001E11F8.
 // Evidence: rowed callees 0x001F0410 0x001E11F8 with same two args; neighbours Rva004A44B1 and StructureCollapseUpdate onDie share flags.

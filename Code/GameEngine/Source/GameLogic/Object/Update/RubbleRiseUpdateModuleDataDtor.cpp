@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /arch:SSE
+// cl: /GX /MD /DNDEBUG
 //
 // ??1RubbleRiseUpdateModuleData@@UAE@XZ, retail 0x00256C5A, 86 bytes.
 // Virtual dtor over vtable RVA 0x7F3B40 (VA 0xBF3B40, slot 0 deleting dtor

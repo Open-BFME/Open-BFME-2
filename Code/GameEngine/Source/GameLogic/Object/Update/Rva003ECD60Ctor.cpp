@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??0Rva003ECD60Object@@QAE@ABVAsciiString@@E@Z @0x003ECD60 (87B): heap
 // object ctor that constructs the 20-element 0x44 array via ??_H with the
 // rowed element ctor 0x003ECA4B copies the +0x550 name via the pinned

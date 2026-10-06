@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva004523F5@@QAE@XZ, retail 0x004523F5, 12 bytes.
 // Gap between 0x004523B6 (stopHealing) and 0x00452401 (xfer).

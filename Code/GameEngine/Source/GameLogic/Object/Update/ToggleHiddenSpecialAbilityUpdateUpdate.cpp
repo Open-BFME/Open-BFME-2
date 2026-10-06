@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ToggleHiddenSpecialAbilityUpdate::update, retail 0x004AE286 (74 bytes):
 // slot 0 of the class's +0x10 update-module interface table 0x00C552C8, so

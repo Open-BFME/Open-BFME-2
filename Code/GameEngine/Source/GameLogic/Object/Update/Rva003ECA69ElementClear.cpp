@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ?clear@Rva003ECA69Element@@QAEXXZ @0x003ECA69 (24B): zeroes the 0x44-byte
 // array element (float at +0 plus 0x40 bytes at +4) via SSE float zero plus
 // CRT memset through thunk 0x6291AE. Called by the 20-element array clear

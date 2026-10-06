@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG
+// cl: /MD /GX /DNDEBUG
 //
 // ??0Rva0025460F@@QAE@XZ, retail 0x0025460F, 25 bytes.
 // Frameless store-only ctor over the rowed Rva00253487Base base

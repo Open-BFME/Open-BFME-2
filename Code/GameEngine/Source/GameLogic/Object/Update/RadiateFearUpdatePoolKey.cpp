@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00049BFDD@RadiateFearUpdate@@SA?AW4NameKeyType@@XZ @0x49BFDD
 // (69B): cached pool-name key for RadiateFearUpdate. The class
 // identity comes from the pool-name string the body pushes

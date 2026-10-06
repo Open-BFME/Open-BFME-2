@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004B018E@SpecialDisguiseUpdate@@SA?AW4NameKeyType@@XZ @0x004B018E
 // (69B): cached pool-name key for SpecialDisguiseUpdate. The class
 // identity comes from the pool-name string the body pushes

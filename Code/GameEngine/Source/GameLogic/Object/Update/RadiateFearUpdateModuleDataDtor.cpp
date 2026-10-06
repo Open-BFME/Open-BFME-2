@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1RadiateFearUpdateModuleData@@UAE@XZ, retail 0x0049C1EE, 48 bytes.
 // ModuleData dtor: tears down the VictimFilter at +0x1C through the folded

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0048B7D9@Rva0048B7D9@@QAEIXZ @0x0048B7D9 36B
 // Returns GetGameLogicRandomValue(min max file line) clamped to at least 1.

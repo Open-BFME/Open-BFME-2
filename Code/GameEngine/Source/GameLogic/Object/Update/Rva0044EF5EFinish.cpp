@@ -1,6 +1,6 @@
 // ??0Rva0044EF5E@@QAE@PAVThing@@PBVModuleData@@@Z
 // partial score=0.97 date=2026-10-01
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ??0Rva0044EF5E@@QAE@PAVThing@@PBVModuleData@@@Z @0x0044EF5E 246B

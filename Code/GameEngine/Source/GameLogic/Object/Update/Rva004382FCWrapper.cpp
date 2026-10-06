@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ??0Rva004382FC@@QAE@XZ, retail 0x004382FC, 32 bytes.
 // Wrapper ctor with Rva002542F3Member at +0 (rowed 0x002542F3, size 0xB8)
 // then int 0 at +0xB8/+0xBC and byte 0 at +0xC0. Caller 0x0043A004.

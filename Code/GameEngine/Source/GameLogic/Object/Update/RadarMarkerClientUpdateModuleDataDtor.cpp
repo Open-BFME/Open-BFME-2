@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??1RadarMarkerClientUpdateModuleData@@UAE@XZ, retail 0x004C9CA5, 54 bytes.
 // Explicit dtor reinstalling derived vtable 0x00C5EDF8 then tearing down
 // MarkerType at +0x08 via 0x00036410 then restoring Snapshot base vtable

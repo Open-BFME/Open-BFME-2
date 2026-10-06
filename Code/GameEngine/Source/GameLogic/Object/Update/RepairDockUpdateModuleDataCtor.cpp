@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /arch:SSE
+// cl: /MD /DNDEBUG
 //
 // ??0RepairDockUpdateModuleData@@QAE@XZ, retail 0x004A1297 (31 bytes).
 // Frameless derived ctor over the rowed DockUpdateModuleData base

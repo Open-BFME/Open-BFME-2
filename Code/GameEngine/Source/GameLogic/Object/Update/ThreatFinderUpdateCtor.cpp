@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ThreatFinderUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x003ECCA2, 46 bytes.
 // ThreatFinderUpdate behavior ctor over the rowed UpdateModule base

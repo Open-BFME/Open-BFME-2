@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ??0StealthDetectorUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x004A2CB9, 116 bytes. Behavior-side ctor in the StealthDetectorUpdate

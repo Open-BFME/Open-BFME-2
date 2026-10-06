@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 // stlport
 // ??1StructureToppleUpdateModuleData@@UAE@XZ @0x00257C88 48B
 // ModuleData dtor: tears down the vector at +0x08 through the rowed

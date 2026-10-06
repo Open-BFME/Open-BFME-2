@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Slots 23 and 24 of ToggleHiddenSpecialAbilityUpdate's vftable 0x00C552D8
 // (installed by the matched ctor 0x004AE16E). The class's matched slot-17

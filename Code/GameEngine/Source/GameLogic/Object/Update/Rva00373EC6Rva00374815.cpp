@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Rva00373EC6::rva00374815, retail 0x00374815 (168 bytes).
 // Class: every caller (0x00370680, 0x00499C6C, 0x004A2D93) gets this from the

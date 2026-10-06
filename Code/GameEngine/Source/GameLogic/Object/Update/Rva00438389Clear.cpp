@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?rva00438389@Rva00438389@@QAEAAV1@XZ @0x00438389 49B: clear ints bitset and memset.
 // Zeroes dword +0 byte +4 dwords +8 +0xC, resets 128-bit bitset at +0x10 via
 // rowed 0x0024CA24, memsets 0x10 at +0x10 via import thunk 0x006291AE,

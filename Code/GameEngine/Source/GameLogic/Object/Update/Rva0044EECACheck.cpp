@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z @0x0044EECA 98B
 // Vtable slot 37 (offset 0x94) of 0x0084D5A0 (ArrowStormUpdateModuleData),
 // 0x0084DF58 (HeroModeSpecialAbilityUpdateModuleData) and 0x0084E108

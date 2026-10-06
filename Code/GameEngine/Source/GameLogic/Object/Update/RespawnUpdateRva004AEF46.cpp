@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // ?rva004AEF46@RespawnUpdate@@QAEXXZ @0x004AEF46 103B
 // Chain from Money 0x003B0D7C: RespawnUpdate state gate plus wake plus Money cond-add; layout from RespawnUpdateCtor and Rva004AEFAD.
 // Evidence: callees getControllingPlayer 0x0028AFA9 setWakeFrame 0x0044DF71 Money 0x003B0D7C rowed; touches +0x2C +0x30 +0x34 +0x3C +0x40.

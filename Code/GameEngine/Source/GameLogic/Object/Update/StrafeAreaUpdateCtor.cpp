@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0StrafeAreaUpdate@@QAE@PAVThing@@PBVModuleData@@@Z retail 0x003A4D23
 // 129 bytes. Behavior-side ctor completing the StrafeAreaUpdate file-unit

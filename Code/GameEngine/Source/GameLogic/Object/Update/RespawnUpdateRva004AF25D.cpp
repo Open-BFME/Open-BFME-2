@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva004AF25D@RespawnUpdate@@QAEPAXXZ, retail 0x004AF25D, 50 bytes.
 // Lazy RespawnUpdate getter: cached void at +0x28 (init -1 per ctor
 // 0x004AF096) else lookup ModuleData string at +0x11C through global

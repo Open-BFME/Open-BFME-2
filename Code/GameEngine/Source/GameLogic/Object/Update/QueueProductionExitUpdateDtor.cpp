@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1QueueProductionExitUpdate@@MAE@XZ, retail 0x0049FFF7, 32 bytes.
 // Destructor completing the QueueProductionExitUpdate file-unit (ctor rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ?rva00491FA6@Rva00491FA6@@QAEPAVObject@@XZ, retail 0x00491FA6, 227 bytes.
 // An update-module member (+0x04 the module data, +0x08 the object; caller

@@ -1,5 +1,5 @@
 // ??0SpecialAbilityUpdateModuleData@@QAE@XZ
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
 // ??0SpecialAbilityUpdateModuleData@@QAE@XZ at 0x0044EB54 (378 bytes).
 // Identity: ModuleFactory registers SpecialAbilityUpdate with the data factory
 // at 0x0024A882, which calls this ctor and pushes buildFieldParse 0x0044ED95

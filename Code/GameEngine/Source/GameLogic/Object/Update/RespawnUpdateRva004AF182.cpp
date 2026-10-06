@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // RespawnUpdate entry RVA 0x004AF182, native [4AF182,4AF1CE), RET.
 // RespawnBody::apply's proved lookup of "RespawnUpdate" calls this entry
 // at 4C14A8 and 4C14CA. The constructor at 4AF096 independently establishes

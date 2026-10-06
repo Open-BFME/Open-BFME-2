@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // stlport
 //
 // ??0RousingSpeechUpdateModuleData@@QAE@XZ, retail 0x004AD0EE, 136 bytes.

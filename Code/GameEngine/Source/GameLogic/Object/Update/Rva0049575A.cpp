@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0049575A@Rva0049575A@@QAEXPBVAsciiString@@@Z 167B @0x0049575A: hunt update via ascii plus world lookup plus command buttons plus wake.
 // Evidence: retail StringBase set at plus0x20 plus Object rva00290E67 plus g_bfmeWorldRV plus Rva0031D5F8 lookup plus getCommandButton pin plus StringBase isEmpty compare plus aiIdle plus wake. Caller at 0x003C3DE2.
 #include "ascii_string.h"

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@RadiateFearUpdate@@MAEXPAVXfer@@@Z, retail 0x0049C195, 61 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable RVA 0x00850FBC (VA 0x00C50FBC

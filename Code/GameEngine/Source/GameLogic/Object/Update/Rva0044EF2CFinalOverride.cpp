@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0044EF2C@Rva0044EF2C@@QAEHXZ @0x0044EF2C 22B
 // Null-checked final-override int forward. Retail is mov eax [ecx+4]
 // mov ecx [eax+0x38] test ecx jne call rowed

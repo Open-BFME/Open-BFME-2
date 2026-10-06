@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 //
 // Slots 23 and 24 of ToggleDeploySpecialAbilityUpdate's vftable 0x00C55370
 // (installed by the matched ctor 0x004AE4AB). The class's matched slot-17

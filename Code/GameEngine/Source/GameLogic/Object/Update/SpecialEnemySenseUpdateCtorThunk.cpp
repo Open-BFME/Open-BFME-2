@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // The named ModuleFactory entry reaches this constructor through its unique
 // 0x20-byte allocation, leaving no derived state beyond UpdateModule.
 

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // RousingSpeechUpdate::update, retail 0x004AD019 (213 bytes): slot 0 of the
 // vtable 0x00C54FD8 that the matched RousingSpeechUpdate dtor installs at +0x10

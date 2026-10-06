@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 //
 // ??0ReplaceObjectUpdateModuleData@@QAE@XZ, retail 0x004B2AC4, 61 bytes.

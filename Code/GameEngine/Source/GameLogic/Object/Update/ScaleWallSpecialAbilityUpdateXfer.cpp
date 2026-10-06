@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@ScaleWallSpecialAbilityUpdate@@MAEXPAVXfer@@@Z, retail 0x00494E57, 44 bytes.
 // Slot 3 of the vftable 0x00C4EB40 whose slot-2 name getter returns

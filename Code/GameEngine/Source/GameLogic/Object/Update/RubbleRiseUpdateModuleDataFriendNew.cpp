@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@RubbleRiseUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x002566F6, 84 bytes. Dedicated TU: the factory news 0xD8, runs

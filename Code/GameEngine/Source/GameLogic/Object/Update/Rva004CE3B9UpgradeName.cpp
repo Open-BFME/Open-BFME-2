@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva004CE3B9@Rva004CE3B9@@QAEABVAsciiString@@XZ retail 0x004CE3B9 64B
 // First-set-upgrade name via TheUpgradeCenter mask-index walk; empty string if none.
 // Evidence: 1 caller 0x004B555F tail-jmp plus rowed rva0026EEA0 0x0026EEA0 plus TheUpgradeCenter 0x009FEB60 plus TheEmptyString 0x009E0878; unlocks 1 ready.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004A1875@SlavedUpdate@@SA?AW4NameKeyType@@XZ @0x4a1875
 // (69B): cached pool-name key for SlavedUpdate. The class
 // identity comes from the pool-name string the body pushes

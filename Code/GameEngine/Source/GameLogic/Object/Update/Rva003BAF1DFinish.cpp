@@ -1,5 +1,5 @@
 // ?Rva003BAF1D@@YGXMMMM@Z
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BAF1D@@YGXMMMM@Z @0x003BAF1D 120B: free stdcall four floats normalizing
 // deg-to-rad minus TacticalView slot 0x100 base then scaling to slot 0xcc.
 // Evidence: ret 16; mov ecx [TheTacticalView] call [eax+0x100]; fld [esp+4]

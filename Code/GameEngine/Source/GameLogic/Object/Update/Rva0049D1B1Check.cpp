@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Check@Rva0049D1B1@@UAE_NH@Z, retail 0x0049CDF9, 47 bytes. Dedicated TU.
 //

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0RespawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004AF096,
 // 128 bytes. Behavior-side ctor (rowed instance factory 0x24F8F6 news

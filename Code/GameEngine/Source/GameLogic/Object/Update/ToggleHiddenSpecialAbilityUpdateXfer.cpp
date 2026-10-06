@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?xfer@ToggleHiddenSpecialAbilityUpdate@@MAEXPAVXfer@@@Z @0x004AE25C 42B slot 3.
 // Retail runs Xfer::Version1, xfers uint at +0x88 via Xfer reverse-overload
 // slot 0x78, then base SpecialAbilityUpdate::xfer. Evidence: vslot lane

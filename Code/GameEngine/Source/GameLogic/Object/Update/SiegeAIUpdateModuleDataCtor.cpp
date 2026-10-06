@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0SiegeAIUpdateModuleData@@QAE@XZ, retail 0x004904D9, 18 bytes.
 // ModuleData ctor over the pinned TransportAIUpdateModuleData base

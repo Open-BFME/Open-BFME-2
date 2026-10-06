@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0RainOfFireUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004AC0A8, 135 bytes. Behavior-side ctor (rowed instance factory

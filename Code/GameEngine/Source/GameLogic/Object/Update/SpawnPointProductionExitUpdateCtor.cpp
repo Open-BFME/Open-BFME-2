@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // Identity: ModuleFactory registers this module as "CurseSpecialPower" (addModule pairs
 // the name with its factories); formerly misnamed SpawnPointProductionExitUpdate.
 // stlport

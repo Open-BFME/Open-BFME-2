@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva00C6F248Iface@@QAE@XZ, retail 0x004A184C, 9 bytes. Outlined default
 // ctor of the 4-byte second-base interface whose vtable lives at 0xC6F248

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?moveToNewRepairSpot@SlavedUpdate@@QAEXXZ @0x004A2144 276B
 // Identity: SlavedUpdate::moveToNewRepairSpot from ZH SlavedUpdate.cpp,

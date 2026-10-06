@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva00492C59@@MAEXPAVXfer@@@Z 0x00492E10 51B evidence: slot 3 of vtable 0x0084E1A8 class of Rva00492C59 ctor; Version 1 1 via Xfer slot 0x28 plus base SpecialAbilityUpdate xfer rowed 0x0044F996 plus IsCRC slot 0xC; siblings ReplaceObjectUpdateXfer WoundArrowUpdateXfer same recipe
 class AsciiString;
 class UnicodeString;

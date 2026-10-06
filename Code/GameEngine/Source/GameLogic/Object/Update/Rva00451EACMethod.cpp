@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // ?rva00451EAC@Rva00451EAC@@QAEXXZ @0x00451EAC 153B
 // Unlock: AI idle/face driver. Evidence: calls rowed findObjectByID 0x00049DC5,
 // isKindOf 0x0006F039, aiIdle 0x001E8A38, aiFaceObject 0x003C771D,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0003ECCD6@ThreatFinderUpdate@@SA?AW4NameKeyType@@XZ @0x3ECCD6
 // (69B): cached pool-name key for ThreatFinderUpdate. The class
 // identity comes from the pool-name string the body pushes

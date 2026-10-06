@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z @0x004AF00B (139B): slot 3 xfer via
 // Version(1,1) slot 0x28 then base UpdateModule 0x0044DF9F plus helpers
 // XferRespawnModeType 0x003060FA XferObjectID 0x003060B2 plus int at

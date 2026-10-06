@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@StrafeAreaUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0024D6FF, 56 bytes. Dedicated TU: retail news 0x48 (push-imm8)

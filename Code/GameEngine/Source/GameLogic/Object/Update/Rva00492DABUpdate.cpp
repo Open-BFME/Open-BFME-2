@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00492DAB@Rva00492C59@@UAEXXZ at retail 0x00492DAB (101B). Slot 22 (offset
 // 0x58) override of SpecialAbilityUpdate slot 22 (0x004508B7, pinned) for the
 // class of Rva00492C59 ctor (vtable 0x0084E1A8). Evidence: calls rowed

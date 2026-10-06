@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004AC148@RainOfFireUpdate@@SA?AW4NameKeyType@@XZ @0x004AC148
 // (69B): cached pool-name key for RainOfFireUpdate. The class
 // identity comes from the pool-name string the body pushes

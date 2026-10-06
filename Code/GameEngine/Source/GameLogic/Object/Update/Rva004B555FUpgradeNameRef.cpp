@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva004B555F@Rva004B555F@@QAEABVAsciiString@@XZ retail 0x004B555F 21B
 // Upgrade-mask name ref via +4 entry; tail-jmp to rowed rva004CE3B9 at 0x004CE3B9 else TheEmptyString.
 // Evidence: retail bytes plus rowed callee Rva004CE3B9UpgradeName.cpp plus callers 0x0029239B 0x002972F7 plus TheEmptyString 0x009E0878; unlocks 0x002972DE.

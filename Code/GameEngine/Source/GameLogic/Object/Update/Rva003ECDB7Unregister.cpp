@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // FUN_007ecdb7 @0x003ECDB7 (82B): heap-object dtor helper that unregisters
 // the +0x550 name when it differs from the global empty at 0xDE0878 then
 // destroys that name. Calls the rowed StringBase compare 0x000069D6 plus

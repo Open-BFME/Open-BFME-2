@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00495DD4@AutoPickUpUpdate@@QAE_NXZ, retail 0x00495DD4, 36 bytes.
 // Identity: AutoPickUpUpdate scan-ready predicate. ModuleData at +4 carries

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ?rva004AEFAD@RespawnUpdate@@UAEMPAH@Z, retail 0x004AEFAD, 94 bytes.
 // Vslot 13 (offset 0x34) of vtable 0x008556B0 (VA 0x00C556B0), class of

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0044F633@Rva0044F633@@QAEPAXXZ, retail 0x0044F633, 70 bytes.
 // Leaf __thiscall: reads this+4 (holder) and this+0x40 (ObjectID), resolves
 // the object via TheGameLogic->findObjectByID (rowed 0x00049DC5), then checks

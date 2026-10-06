@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0049D526@Rva0049D526@@QAEXPAX@Z retail 0x0049D526 89B
 // ?rva0049D57F@Rva0049D526@@QAEXPAX@Z retail 0x0049D57F 152B
 // List remove plus ExitInterface notify plus WeaponTemplateSetHead copy check.

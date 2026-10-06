@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?xfer@Rva004C908B@@MAEXPAVXfer@@@Z, retail 0x004C9505, 142 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0085EA8C (same primary as rowed ctor

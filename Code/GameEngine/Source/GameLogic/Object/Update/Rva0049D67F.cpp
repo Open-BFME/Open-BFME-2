@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?rva0049D67F@Rva0049D67F@@QAE_NPBDPA_N1@Z @0x0049D67F 308B
 // Single-token Disability bitstring worker. Direct transfer of the landed

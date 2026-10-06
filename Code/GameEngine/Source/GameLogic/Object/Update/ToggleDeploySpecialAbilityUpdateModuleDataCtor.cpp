@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ToggleDeploySpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x004AE547,
 // 32 bytes. ModuleData ctor over the pinned SpecialAbilityUpdateModuleData base (0x44EB54):

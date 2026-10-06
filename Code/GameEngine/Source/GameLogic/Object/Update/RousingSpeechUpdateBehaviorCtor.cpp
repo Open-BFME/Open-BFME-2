@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0RousingSpeechUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004ACF76,
 // 135 bytes. Behavior-side ctor (poolkey rowed; ModuleData ctor rowed;

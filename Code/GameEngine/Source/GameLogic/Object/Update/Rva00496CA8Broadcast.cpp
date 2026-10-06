@@ -1,6 +1,6 @@
 // ?rva00496CA8@Rva00496CA8@@QAEXH@Z
 // partial score=0.99 date=2026-10-02
-// cl: /O1 /G7 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // ?rva00496CA8@Rva00496CA8@@QAEXH@Z, retail 0x00496CA8 155B. Unlock: outer vector
 // at this+4+0x24/0x28 of SubA* (key at +0 vs arg, inner vector at +4/+8 of SubB*);
 // each SubB holds AsciiString at +0 and byte at +4, forwarded as

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva00496A63@@QAE@XZ, retail 0x00496A63, 53 bytes.
 // Target evidence: called per element of the +0x18 vector by

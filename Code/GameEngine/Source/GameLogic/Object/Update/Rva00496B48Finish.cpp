@@ -1,5 +1,5 @@
 // ?rva00496B48@Rva00496B48@@QAE_NXZ
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // ?rva00496B48@Rva00496B48@@QAE_NXZ, retail 0x00496B48 138B. Unlock: landing
 // makes 0x00496BD2 ready. Walks +0x274 chain from this+8, checks [[+4]+0x116]
 // &0x40, cached AllowBannerSpawnUpgrade key via static, findModule, virtual

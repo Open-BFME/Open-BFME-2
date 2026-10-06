@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva00468F0FInRange@@YG_NPAVObject@@0@Z, retail 0x00468F0F 89B.
 // SSE range check: dx dy from +0x38 +0x3C, null guard at +0x258,

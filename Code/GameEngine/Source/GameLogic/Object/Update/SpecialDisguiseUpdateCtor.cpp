@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0SpecialDisguiseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B0292, 85 bytes.
 // SpecialDisguiseUpdate behavior ctor over the pinned Rva0044EF5E

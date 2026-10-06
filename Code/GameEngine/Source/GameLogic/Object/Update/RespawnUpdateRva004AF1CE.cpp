@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ?rva004AF1CE@RespawnUpdate@@QAEPAVObject@@XZ, retail 0x004AF1CE, 143 bytes.
 // A RespawnUpdate member (layout as RespawnUpdateCtor.cpp: +0x04 the module

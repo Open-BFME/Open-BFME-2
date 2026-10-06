@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // RadarUpdate::extendRadar, retail 0x004A0D0F (80 bytes), and
 // RadarUpdate::update, retail 0x004A0D5F (77 bytes), in the RadarUpdate block

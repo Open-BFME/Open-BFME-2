@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00262C53@Rva00262C53@@UAEXABUCoord3D@@@Z @0x00262C53 72B. Slot 133 of 8
 // AIUpdate vtables: if (m_1FC != 4) delete Path at +0x140 via rowed
 // ??1Path@@QAE@XZ plus rowed ??3@YAXPAX@Z and null it; set m_1FC=4; copy 12B

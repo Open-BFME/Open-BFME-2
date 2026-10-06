@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?cleanUp@SpectreGunshipUpdate@@QAEXXZ 75B @0x4984CC: destroys the spawned
 // object tracked by this update (if any) through the rowed GameLogic

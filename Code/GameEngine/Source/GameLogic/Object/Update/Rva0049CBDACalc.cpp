@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0049CBDA@Rva0049CBDA@@QAEHXZ @0x0049CBDA 50B
 // Frame-gated float to int. Retail calls private GameEngine::rva00225D38
 // through TheGameEngine at 0x00DFE710; when true copies +0x14 int to +0x50;

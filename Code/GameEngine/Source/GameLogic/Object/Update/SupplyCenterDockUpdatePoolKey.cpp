@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004A0E4C@SupplyCenterDockUpdate@@SA?AW4NameKeyType@@XZ @0x4a0e4c
 // (69B): cached pool-name key for SupplyCenterDockUpdate. The class
 // identity comes from the pool-name string the body pushes

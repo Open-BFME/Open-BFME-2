@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00492D11@Rva00492C59@@UAEXXZ at retail 0x00492D11 (154B). Slot 17 (offset
 // 0x44) override of SpecialAbilityUpdate for the class of Rva00492C59 ctor
 // (vtable 0x0084E1A8). Evidence: calls pinned Object::rva000B4542 0x000B4542

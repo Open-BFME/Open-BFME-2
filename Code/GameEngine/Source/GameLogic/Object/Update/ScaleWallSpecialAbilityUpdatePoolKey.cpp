@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000494E83@ScaleWallSpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ @0x494e83
 // (69B): cached pool-name key for ScaleWallSpecialAbilityUpdate. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?rva004383EB@Rva004383EB@@QAEHPAVObject@@@Z @0x004383EB (130B): Free-standing check via ThePlayerList plus Team relationship plus bfmeAskRV plus Object status gates returning 0 1 3 4 5. Evidence: caller 0x004384A3 thiscall with 1 stack arg plus ecx; rowed getRelationship 0x003A0FD2 bfmeAskRV 0x002AA231 rva0028F518 0x0028F518 rva002933CD 0x002933CD testStatus 0x0004E536; ThePlayerList global; ret 4 one stack arg.
 enum Relationship
 {

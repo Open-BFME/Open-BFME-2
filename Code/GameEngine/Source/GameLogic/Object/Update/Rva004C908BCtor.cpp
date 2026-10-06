@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ??0Rva004C908B@@QAE@PAVThing@@PBVModuleData@@@Z at retail 0x004C908B
 // (79B). Dedicated TU.
 //

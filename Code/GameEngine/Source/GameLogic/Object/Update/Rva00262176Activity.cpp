@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Donor1281192f68 Bfme5TinyTwentyFour.cpp; target262176/29B Ghidra entry.
 // Target independently tests owner+4 and timer+10 then compares timer+20
 // against7FFFFFFF. Matched AIUpdateInterface query262BA9 calls this body;

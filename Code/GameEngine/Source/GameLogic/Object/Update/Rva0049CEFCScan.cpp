@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 extern "C" void _WriteBarrier(void);
 extern "C" void _ReadWriteBarrier(void);

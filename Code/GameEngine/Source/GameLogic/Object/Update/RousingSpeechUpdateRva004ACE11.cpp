@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Retail 0x004ACE11 (133 bytes): RousingSpeechUpdate::rva004ACE11.
 // Identity: slot 15 of the primary vtable 0x00C54FE8 that the matched

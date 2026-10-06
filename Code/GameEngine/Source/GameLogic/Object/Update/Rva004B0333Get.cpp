@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva004B0333@Rva004B0333@@QAEPAXXZ, retail 0x004B0333, 21 bytes.
 // Honest-address thiscall with no stack args returning void*: loads
 // AsciiString at [this+4]+0xD4 and looks it up through global g_009FF000

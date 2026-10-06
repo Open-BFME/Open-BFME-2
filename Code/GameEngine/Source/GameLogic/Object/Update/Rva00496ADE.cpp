@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD
 // ??0Rva00496ADE@@QAE@XZ, retail 0x00496ADE 78B. Ctor: AsciiString +0/+54 via
 // shared defaults (m_text 0), Rva0042526Member +8, int +4 cleared in body, then
 // +54 set to g_Rva0107301CEmptyString and +0 clear (releaseBuffer) via clear().

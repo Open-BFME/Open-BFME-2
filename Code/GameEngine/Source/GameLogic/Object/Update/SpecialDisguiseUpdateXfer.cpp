@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@SpecialDisguiseUpdate@@MAEXPAVXfer@@@Z, retail 0x004B01F4, 97 bytes:
 // slot 3 of SpecialDisguiseUpdate's primary vtable 0x00C56398 (ctors

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Update
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Update
 // Retail 0x002EFB20: the cdecl helper both team-member script walks call per
 // object (ScriptActions::d_002f5100 and the 0x002EFBE0 lookup shim).
 //

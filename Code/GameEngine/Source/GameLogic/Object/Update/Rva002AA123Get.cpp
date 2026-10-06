@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002AA123@Rva002AA123@@QAEHH@Z 0x002AA123 42B
 // Maps 1->+0xAC 2->+0xB0 3->+0xB4 else 0.
 // Evidence: callers 0x273A30 0x273ADB 0x273B8C.

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ??0Rva002542F3Member@@QAE@XZ, retail 0x002542F3 (119 bytes).
 // Frameless member ctor (InvisibilityNugget at +0x08 in InvisibilityUpdate

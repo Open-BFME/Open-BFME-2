@@ -1,4 +1,4 @@
-// cl: /O1 /GX /arch:SSE /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ??0SpecialEnemySenseUpdateModuleData@@QAE@XZ, retail 0x0025404A, 65 bytes.
 // EH ctor: single state-0 store, vtable 0x00BF1AD8 at +0, filter member at

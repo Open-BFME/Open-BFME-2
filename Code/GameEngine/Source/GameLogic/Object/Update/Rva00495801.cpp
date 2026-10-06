@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00495801@Rva00495801@@QAEHPAVRva00495801Arg@@@Z, retail 0x00495801 (63 bytes).
 // Identity: unlock hunt predicate issuing AI hunt then locking weapon slot;

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00265143@AIUpdateInterface@@QAEHXZ, retail 0x00265143 (48 bytes).
 // AI state-gated element count of the 12-byte state vector at +0x3C of the

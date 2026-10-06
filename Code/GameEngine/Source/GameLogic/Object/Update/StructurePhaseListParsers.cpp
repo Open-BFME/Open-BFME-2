@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // Phase-indexed FX/OCL list FieldParse procs of three structure modules. Each

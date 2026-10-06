@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00262B53@Rva00262B53@@QAE_NPBUCoord3D@@@Z @0x00262B53 42B unlock via Pathfinder pin.
 // Evidence: thiscall with ret 4 and bool return; global g_Va009FF0F8 AI plus 0x10 pathfinder; callee rva002F477E pin with object plus from plus to plus 0; neighbours AIUpdateInterface /O1.
 struct Coord3D

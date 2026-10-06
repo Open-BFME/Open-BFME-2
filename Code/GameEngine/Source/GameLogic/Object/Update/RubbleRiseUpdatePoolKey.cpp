@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004A4C82@RubbleRiseUpdate@@SA?AW4NameKeyType@@XZ @0x4a4c82
 // (69B): cached pool-name key for RubbleRiseUpdate. The class
 // identity comes from the pool-name string the body pushes

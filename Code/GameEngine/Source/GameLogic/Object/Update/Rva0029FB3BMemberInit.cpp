@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?init@Rva0029FB3BMember@@QAEPAXPAX@Z, retail 0x0029FB3B, 40 bytes.
 // Freelist-node member init shared by 7 behavior ctors (ArrowStorm,

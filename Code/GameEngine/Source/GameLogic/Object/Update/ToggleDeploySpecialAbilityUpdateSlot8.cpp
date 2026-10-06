@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ToggleDeploySpecialAbilityUpdate slot 8 of its +0x20 interface table
 // 0x00C55348, retail 0x004AE583 (53 bytes), so `this` is that subobject (the

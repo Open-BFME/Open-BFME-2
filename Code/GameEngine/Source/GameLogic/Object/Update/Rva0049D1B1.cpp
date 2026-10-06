@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Rva0049D1B1 (vtable 0xC5146C): 0x50-byte polymorphic class in the
 // ProductionUpdate cluster. Identity unproven, so the class carries an

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ReplaceObjectUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B2987, 49 bytes.
 // ReplaceObjectUpdate behavior ctor over the pinned Rva0044EF5E

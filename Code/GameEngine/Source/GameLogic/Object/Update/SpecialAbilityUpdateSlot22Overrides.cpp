@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Slot-22 overrides of two SpecialAbilityUpdate subclasses whose classes are
 // rowed only under placeholder names (matched ctors Rva00492179 0x00492179 and

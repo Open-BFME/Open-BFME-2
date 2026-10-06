@@ -1,6 +1,6 @@
 // ?rva00589297@WeaponModeSpecialPowerUpdateBase@@QAE_NXZ
 // partial score=0.96 date=2026-10-04
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00589297@WeaponModeSpecialPowerUpdateBase@@QAE_NXZ retail 0x00589297 95B vslot 1 of 0x00870108 via rowed BitFlags plus slot6 virtual plus TheGameLogic
 template<int N>
 class BitFlags

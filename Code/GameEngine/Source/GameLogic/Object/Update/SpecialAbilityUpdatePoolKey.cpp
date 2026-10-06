@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00044F054@SpecialAbilityUpdate@@SA?AW4NameKeyType@@XZ @0x44f054
 // (69B): cached pool-name key for SpecialAbilityUpdate. The class
 // identity comes from the pool-name string the body pushes

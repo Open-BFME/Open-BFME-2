@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0RadarUpdateModuleData@@QAE@XZ, retail 0x003ECC80, 17 bytes.
 // Frameless trivial ctor: the folded-trivial vtable literal 0x00C4ED70

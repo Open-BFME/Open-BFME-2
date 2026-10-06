@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB
+// cl: /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?xfer@SpecialAbilityUpdate@@MAEXPAVXfer@@@Z, retail 0x0044F996, 402 bytes.

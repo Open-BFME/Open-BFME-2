@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?rva00491C84@Rva00491C84@@QAEXPAUCoord3D@@PBVObject@@@Z @0x00491C84 171B:
 // copies Object position at +0x38 to a local, filters through the +0x250

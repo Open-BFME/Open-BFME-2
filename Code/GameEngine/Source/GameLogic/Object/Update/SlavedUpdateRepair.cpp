@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // SlavedUpdate methods, Zero Hour SlavedUpdate.cpp transferred: endRepair
 // (retail 0x004A1C10, 73 bytes) and setRepairModelConditionStates (retail

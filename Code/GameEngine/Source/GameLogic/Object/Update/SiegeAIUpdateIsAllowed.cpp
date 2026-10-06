@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // SiegeAIUpdate::isAllowedToRespondToAiCommands, retail 0x004905D1 (60
 // bytes): primary slot 148 of vtable 0x00C4D330, the slot the rowed

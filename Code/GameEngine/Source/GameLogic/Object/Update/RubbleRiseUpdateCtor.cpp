@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0RubbleRiseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z retail 0x004A4CC7
 // 141 bytes. Behavior-side ctor completing the RubbleRiseUpdate file-unit

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva004A1828Get@@YAHPAURva004A1828Owner@@@Z @0x004A1828 36B
 // First-match scan over Owner+0x244 pointer list via virtual slot 0x68.
 // Evidence: retail loop with call [eax+0x68] test/jne return else advance,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // SpecialEnemySenseUpdate::update (0x0049A037, slot 0 of its
 // UpdateModuleInterface vftable 0x00850498; the ctor 0x00499FA9 stores it and

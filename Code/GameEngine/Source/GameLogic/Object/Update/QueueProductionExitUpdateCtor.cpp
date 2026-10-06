@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0QueueProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x004A010E, 106 bytes. Behavior-side ctor over the rowed

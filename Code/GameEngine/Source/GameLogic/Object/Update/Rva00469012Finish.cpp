@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00469012@Rva00469012@@QAE_NPAVObject@@PBUCoord3D@@@Z, retail 0x00469012, 99 bytes.
 // Behind check: dx dy from arg Coord minus Object +0x38/+0x3C, null guard on

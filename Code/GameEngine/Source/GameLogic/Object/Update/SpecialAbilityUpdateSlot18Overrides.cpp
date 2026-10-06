@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Slot-18 overrides of the two SpecialAbilityUpdate subclasses whose slot-22
 // overrides live in SpecialAbilityUpdateSlot22Overrides.cpp (same placeholder

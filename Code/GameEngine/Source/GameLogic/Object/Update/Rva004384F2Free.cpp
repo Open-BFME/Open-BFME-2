@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?Rva004384F2Free@@YGXPAVObject@@H@Z @0x004384F2 (58B): Object flag 0x20 at +0x115 gates virtual f68 at +0x250+0x110 taking code struct 1 plus rva0029130C int setup. Evidence: prev 0x004383EB same flags; rowed rva0029130C 0x0029130C; precedent Rva003743CFBehavior f68 code struct 1 shape; ret 8 two stack args; caller 0x00438E89.
 struct Rva003743CFParam
 {

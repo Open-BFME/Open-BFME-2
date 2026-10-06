@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva004CE0BE@@MAEXPAVXfer@@@Z @0x004CE0BE 27B: xfer Version1 plus base.
 // Version1 via rowed 0x53EE then base SpecialAbilityUpdate xfer via rowed
 // 0x0044F996. Slot 3 of many Update vtables. No IsLightCRC early-out.

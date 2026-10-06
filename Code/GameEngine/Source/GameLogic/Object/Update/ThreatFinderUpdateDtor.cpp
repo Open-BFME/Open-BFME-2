@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1ThreatFinderUpdate@@UAE@XZ @0x003ECF64 (88B): virtual dtor that
 // restores the primary plus +0x0C/+0x10 vtable slots via the shared
 // Rva0024A797 base view (vptrs at +0 +0x0C +0x10 size 0x20) deletes the +0x20

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00452354@UpgradeMux@@QAEX_N@Z, retail 0x00452354, 10 bytes.
 // Gap between 0x0045232D (Rva dtor) and 0x0045235E (AutoHeal pool key).

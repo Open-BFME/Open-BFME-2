@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva00468E26Get@@YGPAVModule@@PAVObject@@@Z, retail 0x00468E26 83B.
 // Static-guarded BannerCarrierUpdate key plus Object::findModule.

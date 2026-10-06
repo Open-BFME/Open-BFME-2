@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ReplaceObjectUpdate.cpp (the unit 0x004B2A9D's random-range assert names).
 //

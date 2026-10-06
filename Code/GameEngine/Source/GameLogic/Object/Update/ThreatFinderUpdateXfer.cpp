@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?xfer@ThreatFinderUpdate@@MAEXPAVXfer@@@Z @0x003ECED5 (143B): ThreatFinderUpdate
 // xfer (vslot 3) that versions via slot 0x28 calls UpdateModule::xfer allocates
 // the 0x56C heap via 0x003ECD60 when not storing registers it then xfers it.

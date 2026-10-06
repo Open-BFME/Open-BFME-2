@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?onExit@SpecialDisguiseUpdate@@MAEX_N0@Z, retail 0x004B0414, 56 bytes.
 // Slot 13 of the vftable 0x00C56398 whose slot-2 name getter returns

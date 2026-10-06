@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@SpecialEnemySenseUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0024E47D, 56 bytes. Dedicated TU: retail news 0x20 (push-imm8)

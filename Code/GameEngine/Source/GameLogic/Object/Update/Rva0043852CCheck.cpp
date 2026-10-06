@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0043852C@Rva0043852C@@QAE_NPAVRva00406F9C@@@Z @0x0043852C 13B: swapped intersect.
 // Forwards to rowed 0x00406F9C with roles swapped: this as other (void*)
 // and mask param as this. Symmetric intersect makes it equal. Chain from

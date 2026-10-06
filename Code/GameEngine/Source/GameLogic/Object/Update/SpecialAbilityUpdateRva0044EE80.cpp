@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Retail 0x0044EE80 (74 bytes): SpecialAbilityUpdate::rva0044EE80, a
 // non-virtual helper called with the module as this by the SpecialAbilityUpdate

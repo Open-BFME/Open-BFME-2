@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /arch:SSE
+// cl: /GX /MD /DNDEBUG
 //
 // ??0RubbleRiseUpdateModuleData@@QAE@XZ, retail 0x00256653 (163 bytes).
 // RubbleRise ModuleData default ctor: trivial virtual base (vptr 0x00BF3B40

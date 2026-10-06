@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004ACED8@RousingSpeechUpdate@@SA?AW4NameKeyType@@XZ @0x4ACED8
 // (69B): cached pool-name key for RousingSpeechUpdate. The class
 // identity comes from the pool-name string the body pushes

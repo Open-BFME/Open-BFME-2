@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ??1SpellRechargeModifierUpgradeModuleData@@UAE@XZ, retail 0x004B608A,
 // 75 bytes. ModuleData dtor: destroys the AsciiString at +0x128 through the

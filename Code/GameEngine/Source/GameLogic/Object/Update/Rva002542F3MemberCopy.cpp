@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ??0Rva002542F3Member@@QAE@ABV0@@Z, retail 0x0043831C, 109 bytes.
 // Copy ctor of Rva002542F3Member (default ctor rowed 0x002542F3, 0xB8 bytes).
 // Layout per Rva002542F3MemberCtor.cpp: dword +0, BfmeObject872Header +4

@@ -1,6 +1,6 @@
 // ??0QueueProductionExitUpdateModuleData@@QAE@XZ
 // partial score=0.97 date=2026-09-29
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Identity: retail ModuleFactory registers "QueueProductionExitUpdate" with a
 // data factory that calls this ctor (tools/check_module_registry.py).

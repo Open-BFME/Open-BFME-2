@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1RainOfFireUpdate@@UAE@XZ, retail 0x004AC24D, 91 bytes.
 // Dtor reinstalls primary 0x00854C74 plus secondaries 0x00854BB8/0x00854BA8

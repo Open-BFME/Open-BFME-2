@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004CE342@Rva004CE342@@QAE_NPAVRva00406F9C@@@Z @0x004CE342 85B: consume-once mask check.
 // Clears two 0x80 buffers via rowed 0x001EAE6F, fills via virtual +0x2C,
 // returns false if buf80 vs mask via rowed 0x00406F9C is false or byte at
