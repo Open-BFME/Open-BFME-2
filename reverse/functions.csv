@@ -64635,3 +64635,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva004FD37F@Rva004FD37F@@QAEXPBVModuleData@@@Z,,0x004FD37F,99,Code/GameEngine/Source/Common/Rva004FD37F.cpp,matched,caller 0x004FD752 rowed insert_equal push_back sibling 0x004FD3E2
 ??1Rva005694C8@@QAE@XZ,,0x005694C8,5,Code/Libraries/Source/WWVegas/WWLib/Rva005694C8Dtor.cpp,matched,5B dtor jmp to rowed Rb_tree dtor
 ?rva00796023@@YAHPAVObject@@PAX@Z,,0x00396023,154,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396023Search.cpp,matched,LINK BONUS names it free int Object void neighbour Rva003960BDSearch box with 2 Vecs flag18
+?rva005481F9@Rva00548117@@QAEXW4ObjectID@@H@Z,,0x005481F9,110,Code/GameEngine/Source/GameLogic/Object/Rva005481F9.cpp,matched,caller 0x00355245 list at +4 find 0x0029B694 armor 0x00355155 virtual edx+1c
