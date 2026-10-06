@@ -11465,3 +11465,4 @@ FUN_009fd197	0x005FD197	186	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use r
 FUN_007b0578	0x003B0578	576	blocked	ADDRESS-NAMED g_Va00BBB8D8 and g_Va00BC28F4 counted escape hatch publisher refuses t=2 model=muse-02
 ??1Rva003B0344@@UAE@XZ	0x003B0344	169	blocked	EH dtor needs ThreadLock Assert plus VB layout plus ref at +4 and queues manual free beyond quick box t=12 model=muse-02
 ??1Rva0038ADE2@@UAE@XZ	0x0038ADE2	327	blocked	EH dtor needs PeerThreadClass layout with 10 frees plus map trees plus string beyond quick box prior wall t=2 model=muse-02
+?rva005E9163@Rva005E9163@@QAEXXZ	0x005E9163	23	blocked	pin YIXfastcall takes ecx+edx but retail pushes second arg t=12 model=muse-spark
