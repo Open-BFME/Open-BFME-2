@@ -2,7 +2,6 @@
 // ?rva0027D0D6@Rva0027D0D6@@QAEHPAM@Z, retail 0x0027D0D6 206B. Unlock: clamp xy to bounds from vtable slot10 then grid index via floor.
 // Evidence: callees rowed floor and slot10 virtual; caller 0x00283642 unclaimed; honest address name.
 extern "C" __declspec(dllimport) double __cdecl floor(double);
-extern float g_00BCEAF8;
 
 class Rva0027D0D6
 {
@@ -60,9 +59,9 @@ int Rva0027D0D6::rva0027D0D6(float *src)
 		x = b.maxX;
 	if (y > b.maxY)
 		y = b.maxY;
-	x = fast_floor((x - b.minX) / (b.maxX - b.minX) * g_00BCEAF8);
+	x = fast_floor((x - b.minX) / (b.maxX - b.minX) * 49.9f);
 	int ix = fast_round(x);
-	float fy = fast_floor((y - b.minY) / (b.maxY - b.minY) * g_00BCEAF8);
+	float fy = fast_floor((y - b.minY) / (b.maxY - b.minY) * 49.9f);
 	int iy = fast_round(fy);
 	return iy * 50 + ix;
 }
