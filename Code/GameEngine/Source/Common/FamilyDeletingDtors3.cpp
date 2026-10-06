@@ -54,3 +54,44 @@ void Rva00577DE1OwningCell::rva00577E3EForwardClear()
 {
     clear();
 }
+
+// 0x00577E43: the target body spans 45 bytes immediately after the rowed
+// 0x00577E3E thunk and ends at its own ret. It calls 0x005C6CC7, then walks
+// the range at this+0x44..this+0x48 backward by four bytes, calling rowed
+// 0x00577914 on each value and rowed 0x005F8FCC(0) on the resulting slot.
+// The address-derived owner and element roles are structural views; the
+// original class and routine purpose are unknown.
+class Rva005C6CC7Call
+{
+public:
+    void rva005C6CC7();
+};
+class Rva00577914
+{
+public:
+    void rva00577914();
+};
+class Rva005F8FCC
+{
+public:
+    void *rva005F8FCC(unsigned int flags);
+};
+class Rva00577E43
+{
+public:
+    void rva00577E43();
+
+private:
+    char m_pad00[0x44];
+    void **m_begin;
+    void **m_end;
+};
+void Rva00577E43::rva00577E43()
+{
+    ((Rva005C6CC7Call *)this)->rva005C6CC7();
+    while (m_begin != m_end) {
+        ((Rva00577914 *)m_end[-1])->rva00577914();
+        --m_end;
+        ((Rva005F8FCC *)m_end)->rva005F8FCC(0);
+    }
+}

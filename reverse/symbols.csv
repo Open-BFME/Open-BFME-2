@@ -14153,3 +14153,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva005768CB@Rva005768CBCall@@QAEXPAX@Z,0x005768CB,address-derived helper names; direct rel32 call targets of 0x00576ACB; Ghidra extents are 184 B at 0x004FBED6 and 123 B at 0x005768CB; helper semantics and interface names unproven
 ?rva005CCB4C@Rva005CCB4CCall@@QAE_NXZ,0x005CCB4C,address-derived bool helper; direct rel32 call target of 0x0057544B; 8-byte wrapper at 0x005CCB4C before rowed sibling 0x005CCB5B; purpose unproven
 ?rva005D2A53@Rva005D2A53Call@@QAEXXZ,0x005D2A53,address-derived thiscall callee; direct rel32 target of 0x005785CD; observed function-shaped entry at 0x005D2A53 ending in ret at 0x005D2B2E; semantics and original name unproven
+?rva005C6CC7@Rva005C6CC7Call@@QAEXXZ,0x005C6CC7,address-derived void helper; direct call target of 0x00577E43; 5-byte thunk tail-jumps to rowed reset method 0x005C6C89; caller purpose remains unknown
