@@ -70,7 +70,10 @@ struct BFME2WideConcatPair
 	const UnicodeString *a;
 	const UnicodeString *b;
 	BFME2WideConcatPair(const UnicodeString &left, const UnicodeString &right)
-		: a(&left), b(&right) {}
+	{
+		b = &right;
+		a = &left;
+	}
 	operator UnicodeString();
 };
 #pragma comment(linker, "/alternatename:??BBFME2WideConcatPair@@QAE?AVUnicodeString@@XZ=??BBFME2WideConcatPair@@QAE?AV?$StringBase@G@@XZ")
