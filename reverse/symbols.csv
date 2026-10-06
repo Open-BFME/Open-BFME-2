@@ -13420,3 +13420,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva0020ED51@@YGXPAXHH@Z,0x0020ED51,stdcall 3-arg worker called by Rva0020F2F1/09 forwarder twins (callee cleanup, no ecx); REL32 read from placed 0x0020F2F1 body
 ??0Rva001F4D06Base@@QAE@PAX0@Z,0x001F4B63,base ctor called by Rva001F4D06 derived ctor (banked 0x001F4B63 stash names SmartPtr/chain params, unlanded; void* honest); REL32 read from placed 0x001F4D06 body
 ?rva002788C7@Rva002788C7Obj@@QAE_NXZ,0x002788C7,tail-called bool worker on slot0x40 result at Rva001F3828 site; REL32 read from placed 0x001F3828 body
+?rva001F50BC@@YAXPAXHHH@Z,0x001F50BC,cdecl 4-arg worker called by Rva001F5A6A forwarder (caller cleanup); REL32 read from placed 0x001F5A6A body
