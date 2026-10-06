@@ -82,3 +82,16 @@ void Holder00525E07::Rva00525E07(const AsciiString *name, int value)
 		} while (node != list->m_head);
 	}
 }
+
+// ?rva005260FC@Rva005260FC@@QAEXPBVAsciiString@@H@Z @0x005260FC 7B
+// Tail-forward to Holder00525E07::Rva00525E07: this+0 holds the Holder*.
+struct Rva005260FC
+{
+	Holder00525E07 *m_holder;
+	void rva005260FC(const AsciiString *name, int value);
+};
+
+void Rva005260FC::rva005260FC(const AsciiString *name, int value)
+{
+	m_holder->Rva00525E07(name, value);
+}
