@@ -13351,3 +13351,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva00569F0C@Rva00569F0CVec@@QAEXPAX0PA_N@Z,0x00569F0C,"thiscall (void*,void*,bool*) on the +0x14 12B vector-ish struct; RETAIL REL32 at 0x0056A3E3 (body 0x0056A378) targets this address; the body itself is blocked (_M_assign_aux codegen); honest caller-view spelling"
 ?rva003ED94F@Rva003ED94F@@QAEXXZ,0x003ED94F,0-arg final call of EH dtor 0x0056A061 (after state -1); RETAIL REL32 at 0x0056A119 targets this address; likely base dtor; honest address-derived name
 ?rva0056A989@Rva0056A989@@QAE_NXZ,0x0056A989,0-arg thiscall returning bool; RETAIL REL32 at 0x0056AB9D (body 0x0056AB97) targets this address; honest address-derived name
+?rva0056AD80@Rva0056AD80@@QAEXPAX@Z,0x0056AD80,EH thiscall ctor (85B) setting [esi+8] vftable; RETAIL REL32 at 0x0056AF9B (body 0x0056AF94) targets this address; unblocks 0x0056AF4B too; honest address-derived name
