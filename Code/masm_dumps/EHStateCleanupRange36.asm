@@ -18,6 +18,10 @@ EXTERN ??1Rva00690FF0Handle@@QAE@XZ:PROC
 EXTERN ??1Rva00142DF0String@@QAE@XZ:PROC
 EXTERN ??1Rva001E4DB0@@UAE@XZ:PROC
 EXTERN ??1Gen_uw_000b3f43@@QAE@XZ:PROC
+EXTERN ?rva002115C5@Rva002115C5@@QAEXXZ:PROC
+EXTERN ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ:PROC
+EXTERN ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ:PROC
+EXTERN ??1Gen_uwm_001f22a3@@QAE@XZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b5d09b: bit 0 at [ebp-0x14], cleanup pointer at [ebp+8].
@@ -759,5 +763,122 @@ PUBLIC ?rva0076A508@@YAXXZ
 cleanup_done_0076A508:
     ret
 ?rva0076A508@@YAXXZ ENDP
+; Unwind@00b6b084: state bit 0 at [ebp-16]; cleanup transfer at [ebp-20].
+PUBLIC ?rva0076B084@@YAXXZ
+?rva0076B084@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0076B084
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-20]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0076B084:
+    ret
+?rva0076B084@@YAXXZ ENDP
+
+; Unwind@00b6b15a: state bit 0 at [ebp-40]; cleanup transfer at [ebp+8].
+PUBLIC ?rva0076B15A@@YAXXZ
+?rva0076B15A@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-40]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0076B15A
+    and DWORD PTR [ebp-40], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Gen_uwm_001f22a3@@QAE@XZ
+cleanup_done_0076B15A:
+    ret
+?rva0076B15A@@YAXXZ ENDP
+
+; Unwind@00b6b4bf: state bit 0 at [ebp-20]; cleanup transfer at [ebp-52].
+PUBLIC ?rva0076B4BF@@YAXXZ
+?rva0076B4BF@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0076B4BF
+    and DWORD PTR [ebp-20], -2
+    lea ecx, [ebp-52]
+    jmp ?rva002115C5@Rva002115C5@@QAEXXZ
+cleanup_done_0076B4BF:
+    ret
+?rva0076B4BF@@YAXXZ ENDP
+
+; Unwind@00b6b4d8: state bit 1 at [ebp-20]; cleanup transfer at [ebp-40].
+PUBLIC ?rva0076B4D8@@YAXXZ
+?rva0076B4D8@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 2
+    jz NEAR PTR cleanup_done_0076B4D8
+    and DWORD PTR [ebp-20], -3
+    lea ecx, [ebp-40]
+    jmp ?rva002115C5@Rva002115C5@@QAEXXZ
+cleanup_done_0076B4D8:
+    ret
+?rva0076B4D8@@YAXXZ ENDP
+
+; Unwind@00b6b62e: state bit 0 at [ebp-20]; cleanup transfer at [ebp+8].
+PUBLIC ?rva0076B62E@@YAXXZ
+?rva0076B62E@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0076B62E
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+cleanup_done_0076B62E:
+    ret
+?rva0076B62E@@YAXXZ ENDP
+
+; Unwind@00b6b786: state bit 0 at [ebp-16]; cleanup transfer at [ebp-20].
+PUBLIC ?rva0076B786@@YAXXZ
+?rva0076B786@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0076B786
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp-20]
+    add ecx, 70h
+    jmp ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ
+cleanup_done_0076B786:
+    ret
+?rva0076B786@@YAXXZ ENDP
+
+; Unwind@00b6b961: state bit 0 at [ebp-16]; cleanup transfer at [ebp-32].
+PUBLIC ?rva0076B961@@YAXXZ
+?rva0076B961@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0076B961
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-32]
+    jmp ?rva002115C5@Rva002115C5@@QAEXXZ
+cleanup_done_0076B961:
+    ret
+?rva0076B961@@YAXXZ ENDP
+
+; Unwind@00b6b984: state bit 1 at [ebp-16]; cleanup transfer at [ebp-32].
+PUBLIC ?rva0076B984@@YAXXZ
+?rva0076B984@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 2
+    jz NEAR PTR cleanup_done_0076B984
+    and DWORD PTR [ebp-16], -3
+    lea ecx, [ebp-32]
+    jmp ?rva002115C5@Rva002115C5@@QAEXXZ
+cleanup_done_0076B984:
+    ret
+?rva0076B984@@YAXXZ ENDP
+
+; Unwind@00b6b9a7: state bit 2 at [ebp-16]; cleanup transfer at [ebp-32].
+PUBLIC ?rva0076B9A7@@YAXXZ
+?rva0076B9A7@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 4
+    jz NEAR PTR cleanup_done_0076B9A7
+    and DWORD PTR [ebp-16], -5
+    lea ecx, [ebp-32]
+    jmp ?rva002115C5@Rva002115C5@@QAEXXZ
+cleanup_done_0076B9A7:
+    ret
+?rva0076B9A7@@YAXXZ ENDP
 _TEXT ENDS
 END

@@ -3688,6 +3688,7 @@ name,address,notes
 ??1Gen_uwm_001f0409@@QAE@XZ,0x001F0409,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uwm_001f0d04@@QAE@XZ,0x001F0D04,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uwm_001f1609@@QAE@XZ,0x001F1609,gen-uw-pin dtor target read from the retail funclet bytes
+??1Gen_uwm_001f22a3@@QAE@XZ,0x001F22A3,gen-uwm-pin for Ghidra 5-byte thunk reached by range-36 retail funclet 0x0076B15A; thunk tail-jumps to rowed Coord3D vector_base destructor 0x001F1609; concrete class relationship is unproven
 ??1Gen_uwm_001f6606@@QAE@XZ,0x001F6606,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uwm_001fd882@@QAE@XZ,0x001FD882,gen-uw-pin dtor target read from the retail funclet bytes
 ??1Gen_uwm_0020156b@@QAE@XZ,0x0020156B,gen-uw-pin dtor target read from the retail funclet bytes
