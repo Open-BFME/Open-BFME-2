@@ -1,110 +1,187 @@
-// ?rva0057CB7D@Rva0057E3DB@@QAE_NH@Z
-// partial score=0.82 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX-
-// ?rva0057CB7D@Rva0057E3DB@@QAE_NH@Z @0x0057CB7D 152B
-// Evidence: pin; mode at this+0x1c selects LivingWorld 0x0020EAF6 plus rowed
-// 36B 0x0057C525 filter and +0x1a2 gate vs map playerCount +0x20 via rowed
-// getMap 0x0023E943 and findMap 0x003024BC; caller 0x0043DCFD.
+// ?rva0057CB7D@AptMapPreview@@QAE_NH@Z
+// partial score=0.94 date=2026-10-06
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// ?GetStartPositionInfoForSlot@AptMapPreview@@QAEPAXH@Z @0x0057C71F 155B evidence: leaf 2 callers; callees rowed getConstSlot getMap findMap rva0043DA65 rva0020EAF6 rva004FCA5A; globals g_009FEF10 TheMapCache
 #include "ascii_string.h"
-
 class Rva0043DA65
 {
 public:
 	int rva0043DA65();
 };
-
+class GameSlot
+{
+public:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0c;
+	int m_10;
+};
 class GameInfo
 {
 public:
+	const GameSlot *getConstSlot(int i) const;
 	AsciiString getMap() const;
 };
-
-class MapMetaData
-{
-public:
-	unsigned char m_pad[0x20];
-	int m_playerCount;
-};
-
-class MapCache
-{
-public:
-	const MapMetaData *findMap(AsciiString mapName);
-};
-
-extern MapCache *TheMapCache;
-
 class Rva0020E89C
 {
 public:
-	unsigned char m_pad[0x1a2];
+	char m_pad[0x1a2];
 	bool m_1a2;
 };
-
+class Rva00376A62;
 class Rva0020EAF6View
 {
 public:
-	Rva0020E89C *rva0020EAF6(int index);
+	Rva0020E89C *rva0020EAF6(int i);
 };
-
-class LivingWorldLogic
+class Rva004FCA5A
 {
 public:
-	unsigned char m_pad[0xb0];
-	Rva0020EAF6View *m_ptrB0;
+	void *rva004FCA5A(const Rva00376A62 &x);
+
+	char m_pad[0x20];
+	int m_20;
 };
-
-extern LivingWorldLogic *TheLivingWorldLogic;
-
-class Rva004FD6F9;
-
-class Rva0057C525
+struct MapEntry
+{
+	char data[0x14];
+};
+class MapMetaData
 {
 public:
-	bool rva0057C525(const Rva004FD6F9 &o);
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0c;
+	int m_10;
+	int m_14;
+	int m_18;
+	int m_1c;
+	int m_20;
+	char m_24[0x30];
+	MapEntry m_entries[1];
 };
-
-class Rva0057E3DB
+class MapCache
 {
 public:
+	const MapMetaData *findMap(AsciiString s);
+};
+class Rva002BA8F1Logic;
+extern Rva002BA8F1Logic *g_009FEF10;
+extern MapCache *TheMapCache;
+class Rva004FCA5AInner
+{
+public:
+	char m_pad[0x1c];
+	Rva004FCA5A *m_1c;
+};
+class Rva004FCA5AOuter
+{
+public:
+	char m_pad[0x29c];
+	Rva004FCA5AInner *m_29c;
+};
+class AptMapPreview
+{
+	char m_00[0x18];
+	Rva0043DA65 *m_18;
+	int m_1c;
+	char m_20[0x48];
+	Rva004FCA5AOuter *m_68;
+public:
+	void *GetStartPositionInfoForSlot(int slot);
+	int rva0057C6C7();
+	bool AllowsStartInRegion(int region);
 	bool rva0057CB7D(int index);
-private:
-	unsigned char m_pad00[0x18];
-	Rva0043DA65 *m_ptr18;
-	int m_mode1c;
-	unsigned char m_pad20[0x68 - 0x20];
-	void *m_ptr68;
 };
-
-bool Rva0057E3DB::rva0057CB7D(int index)
+void *AptMapPreview::GetStartPositionInfoForSlot(int slot)
 {
-	GameInfo *info = (GameInfo *)m_ptr18->rva0043DA65();
-	int mode = m_mode1c;
-	if (mode == 1)
-	{
-		if (index == -1)
-			return false;
-		Rva0020EAF6View *view = TheLivingWorldLogic->m_ptrB0;
-		if (!view)
-			return false;
-		Rva0020E89C *entry = view->rva0020EAF6(index);
-		if (!entry)
-			return false;
-		if (!((Rva0057C525 *)this)->rva0057C525((const Rva004FD6F9 &)*(const Rva004FD6F9 *)entry))
-			return false;
-		if (!entry->m_1a2)
-			return false;
-		return true;
+	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
+	if (info) {
+		const GameSlot *gs = info->getConstSlot(slot);
+		if (gs) {
+			int v10 = gs->m_10;
+			if (m_1c == 1) {
+				if (v10 != -1) {
+					Rva002BA8F1Logic *logic = g_009FEF10;
+					Rva0020EAF6View *view = *(Rva0020EAF6View **)((char *)logic + 0xb0);
+					Rva0020E89C *p = view->rva0020EAF6(v10);
+					if (p) {
+						Rva004FCA5AOuter *o = m_68;
+						if (o) {
+							Rva004FCA5A *s = o->m_29c->m_1c;
+							if (s)
+								return s->rva004FCA5A((const Rva00376A62 &)*p);
+						}
+					}
+				}
+			} else {
+				const MapMetaData *md = TheMapCache->findMap(info->getMap());
+				if (md) {
+					if (v10 >= 0 && v10 < md->m_20)
+						return (void *)&md->m_entries[v10];
+				}
+			}
+		}
 	}
-	else if (mode == 0)
-	{
-		if ((unsigned int)index > 8)
-			return false;
-		AsciiString map = info->getMap();
-		const MapMetaData *md = TheMapCache->findMap(map);
-		if (!md)
-			return false;
-		return index < md->m_playerCount;
+	return 0;
+}
+
+// ?rva0057C6C7@AptMapPreview@@QAEHXZ @0x0057C6C7 88B: the start-position
+// count the slot lookup above indexes: the living-world start-region set's
+// +0x20 in mode 1, else the cached map's +0x20 (the bound the lookup
+// checks). Caller 0x00440C66.
+int AptMapPreview::rva0057C6C7()
+{
+	int mode = m_1c;
+	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
+	if (!info)
+		return 0;
+	if (mode == 1) {
+		Rva004FCA5AOuter *o = m_68;
+		if (!o || !o->m_29c)
+			return 0;
+		Rva004FCA5A *s = o->m_29c->m_1c;
+		if (!s)
+			return 0;
+		return s->m_20;
+	}
+	const MapMetaData *md = TheMapCache->findMap(info->getMap());
+	if (!md)
+		return 0;
+	return md->m_20;
+}
+
+// ?rva0057CB7D@AptMapPreview@@QAE_NH@Z @0x0057CB7D 152B: same 152 bytes as retail
+// except that this and the region swap esi/edi.
+bool AptMapPreview::rva0057CB7D(int index)
+{
+	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
+	if (!info)
+		return false;
+	switch (m_1c) {
+	case 0:
+			if ((unsigned int)index > 8)
+				return false;
+			{
+			const MapMetaData *md = TheMapCache->findMap(info->getMap());
+			if (!md)
+				return false;
+			return index < md->m_20;
+			}
+	case 1:
+			if (index == -1)
+				return false;
+			{
+			Rva0020EAF6View *view = *(Rva0020EAF6View **)((char *)g_009FEF10 + 0xb0);
+			if (!view)
+				return false;
+			Rva0020E89C *region = view->rva0020EAF6(index);
+			if (!region)
+				return false;
+			return AllowsStartInRegion((int)region) && region->m_1a2;
+			}
 	}
 	return false;
 }
