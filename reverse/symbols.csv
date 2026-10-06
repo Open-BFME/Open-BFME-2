@@ -13740,3 +13740,10 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva005FF0F6@@YIXPAVRva005FF0F6Obj@@HHHH@Z,0x005FF0F6,fastcall chained init called from 0x005FA89C with fwd-passthrough edx; identity unproven
 ?rva00A00062@@YIXPAURva00A00062Sub@@HHH@Z,0x00A00062,fastcall sub method called from 0x005FA98C with fwd-passthrough edx; identity unproven
 ?rva005FA8F5Find@@YGPAURva005FA8F5Entry@@H@Z,0x005FA8F5,"stdcall-1 view of rowed thiscall body for no-ecx-management callers (ecx is ambient-o, preserved by body which ends ret 4); called from 0x005FA98C"
+?rva005F9567@Rva005F963AElem@@QAEXXZ,0x005F9567,thiscall-0 on m_40 element called from 0x005F963A; identity unproven
+?rva005F94C2@Rva005F963AElem@@QAEXXZ,0x005F94C2,thiscall-0 on m_40 element called from 0x005F963A; identity unproven
+?rva009CC208@@YIXPAURva009CC208Sub@@HH@Z,0x005CC208,fastcall sub method called from 0x005F963A with fwd untouched in edx; identity unproven
+?rva009CC208Push0@@YGXH@Z,0x005CC208,stdcall-1 global view (ignores ambient ecx) for 0x005F96D4 zero-push sites; same address as fastcall pin; identity unproven
+?rva009CB265@@YGXXZ,0x005CB265,stdcall-0 global view (ignores ambient ecx) for 0x005F96D4 null-guarded sites; identity unproven
+?rva005F8F31@Rva005F963AElem@@QAEXXZ,0x005F8F31,thiscall-0 on m_40/m_50 elements called from 0x005F96D4 loops; identity unproven
+?rva00200A40@@YIXPAURva00200A40Sub@@HH@Z,0x00600A40,fastcall mid-function entry called from 0x00600BFB/0x00600F76 with fwd untouched in edx; identity unproven
