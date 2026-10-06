@@ -20,36 +20,59 @@ fixes of research 29, 31 and the round-2 review:
      __imp_ name an object references; /OPT:NOICF. Unresolved names get 4-byte
      data stubs, duplicate definitions need /FORCE; both are counted.
   4. Measure (per ledger row, every failing relocation, not the first):
+     - a unit counts only when the /MAP shows the link selected its own copy
+       of the head symbol (`not-selected` otherwise: /FORCE kept another);
      - code references translate through the unit or filler that holds the
        linked target and must equal retail's target;
      - an __ehhandler$ thunk counts as its owner function's (owner + offset)
        only when the row is that owner and the FuncInfo, unwind and try maps
        and funclet bodies equal retail's;
      - an other-name copy is an ICF twin only from the fold list this tool
-       builds: a retail-owned row start, equal extent, equal non-relocation
-       bytes and every relocation resolving to retail's target;
+       builds: the definition the /MAP says the link put there (at its own
+       offset in its section), retail's row size within its extent, equal
+       non-relocation bytes, every relocation resolving to retail's target;
      - data references must map 1:1, and the linked datum's bytes must equal
-       retail's at the referenced address (relocated words: code pointers
-       translated, data pointers masked); a datum whose name is pinned in
+       retail's at the referenced address; a datum whose name is pinned in
        symbols.csv must sit at its pin (the `pinned` series also fails
-       unpinned data);
-     - import slots must be the same (dll, name) as retail's slot.
-     Closed-strict: self-strict and every code edge (calls and code pointers
-     in referenced data) reaches a closed ledger unit or certified twin.
-     A filler or stub is never a leaf. Credit = unique retail bytes of placed,
-     closed-strict authored rows; fillers, stubs and aliases never count.
+       unpinned data). Pointers INSIDE a datum are references too: code
+       pointers translate, data pointers must map 1:1, reach a real datum
+       (not a stub) and agree with its pin, and that datum is checked the
+       same way, to any depth (`data-ptr-*` failures);
+     - imports match on (dll, name or ordinal). Retail's duplicate IAT slots
+       of one import are one datum only for references that read through the
+       slot (call/jmp/push/mov [slot]) on both sides; a reference that can
+       observe the slot itself keeps the 1:1 rule.
+     Closed-strict: the closure graph holds units, certified twins, datums and
+     EH thunks; a node is ok when self-strict AND shift-verified (5), and a
+     row closes when its unit reaches only ok nodes. A filler, a stub or a
+     node the graph does not hold is never a leaf. Credit = unique retail
+     bytes of placed, closed-strict authored rows; fillers, stubs and aliases
+     never count.
   5. A second link at a shifted base (default 0x10000000) with the same
-     inputs; a row whose code holds an absolute image address that did not
-     move with the base (a hard-coded address) is reported.
-  6. A receipt (build/link_cycle/receipt.json) pins the cycle: commit, dirty
-     state, toolchain and retail hashes, this tool's digest, objects digest,
-     every series and the wall time of each phase.
+     inputs. The layout must be identical; in every node's bytes (rows'
+     code, twins, datums, EH FuncInfo and its maps) non-relocation bytes must
+     not move and every DIR32 must move by exactly the delta; code may hold no
+     unrelocated retail data VA or row start. A failure takes the node's whole
+     dependent closure out of credit. No shifted link: nothing is credited.
+  6. A receipt (build/link_cycle/receipt.json) binds, as taken at the START
+     and re-proved at the end (else receipt.rejected.json and exit 1): the
+     commit (or a snapshot's commit and tree digest), this tool's digest,
+     toolchain, retail, the ledgers, the objects' identity digest and the
+     per-TU provenance (provenance.json: source, sha256, dependency record,
+     object identity; an object not current for its source is refused).
+     `core_sha256` digests the reproducible part: a cold and a cached run of
+     the same inputs must give the same core. Warm-start caches (quarantine,
+     stubs) are reused only for the objects they were computed from.
+     `--snapshot REV` measures an immutable export of REV (git archive with
+     submodules) in its own directory, with its own outputs and no shared
+     object store; only such a receipt is `authoritative`.
 
   python3 tools/link_cycle.py [--build] [--max-iter 6] [--shift-base 0x10000000]
-  python3 tools/link_cycle.py --measure-only     # re-measure the last links
+  python3 tools/link_cycle.py --snapshot HEAD --build [--reuse-quarantine --reuse-stubs]
+  python3 tools/link_cycle.py --measure-only     # re-measure the last links (never authoritative)
 
 Outputs in build/link_cycle/: link_status.csv (one row per matched ledger
-row), fold_list.csv, receipt.json, base.map/.exe/.log, shift.*. Diagnostic:
+row), fold_list.csv, provenance.json, receipt.json, base.map/.exe/.log, shift.*. Diagnostic:
 the image is not expected to run.
 """
 import argparse
@@ -67,7 +90,9 @@ import sys
 import time
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+# LINK_CYCLE_ROOT: the tree to measure (run_in_snapshot points it at an exported
+# snapshot); this file stays the measuring tool and is digested as such.
+ROOT = Path(os.environ.get("LINK_CYCLE_ROOT") or Path(__file__).resolve().parents[1]).resolve()
 sys.path.insert(0, str(ROOT / "tools"))
 import build  # noqa: E402
 import link_census as census  # noqa: E402
@@ -393,6 +418,27 @@ def import_name(name):
     return re.sub(r"@\d+$", "", name)
 
 
+def import_key(dll, name, ordinal=None):
+    """An import's identity: (dll, name) or (dll, '#ordinal'); the dll lower case,
+    the name without lib.exe's stdcall @N."""
+    if isinstance(name, bytes):
+        name = name.decode("latin-1")
+    return dll.lower(), import_name(name) if name else "#%d" % (ordinal or 0)
+
+
+def read_through(code, fo):
+    """True when the dword at fo is the memory operand of an instruction that only
+    reads the slot: call/jmp/push [m32] (FF /2 /4 /6), mov r32,[m32] (8B, mod 00
+    rm 101) or mov eax,[m32] (A1). Such a reference cannot observe which of two
+    slots holding the same import it reads; any other use (an address taken, a
+    store, a data pointer) can."""
+    if fo >= 2 and code[fo - 1] & 0xC7 == 0x05:
+        op, reg = code[fo - 2], (code[fo - 1] >> 3) & 7
+        if op == 0x8B or (op == 0xFF and reg in (2, 4, 6)):
+            return True
+    return fo >= 1 and code[fo - 1] == 0xA1 and not (fo >= 2 and code[fo - 2] in (0x8B, 0x8D, 0xFF, 0x89, 0xC7))
+
+
 def make_import_libs(entries, outdir):
     root = build.vc71_root()
     libs = []
@@ -525,12 +571,13 @@ def unique_bytes(spans):
     return total
 
 
-def greatest_closure(ok, edges, bad_targets=("fill", "stub")):
+def greatest_closure(ok, edges, bad_targets=("fill", "stub"), unknown_closes=False):
     """Nodes that are ok and reach only ok nodes (cycles optimistic). An edge to a
-    node kind in `bad_targets` (fillers, stubs) closes nothing: it is not a leaf."""
+    node kind in `bad_targets` (fillers, stubs), or to a node `ok` does not hold
+    (unless `unknown_closes`, the pilot's rule), closes nothing: it is not a leaf."""
     closed = {n for n in ok if ok[n]}
     for n in list(closed):
-        if any(t[0] in bad_targets for t in edges.get(n, ())):
+        if any(t[0] in bad_targets or (t not in ok and not unknown_closes) for t in edges.get(n, ())):
             closed.discard(n)
     rev = collections.defaultdict(set)
     for n, ts in edges.items():
@@ -655,6 +702,11 @@ class Measure:
                 continue
             ob = Path(u["obj"]).name.lower()
             la = self.pub.get(u["head"]) if u["head_cls"] == EXTERNAL else self.stat.get((u["head"], ob))
+            u.pop("not_selected", None)
+            if la is not None and u["head_cls"] == EXTERNAL and self.pubobj.get(u["head"]) != ob:
+                # /FORCE kept another object's copy of this name: the unit's own bytes are not in the image
+                u["not_selected"] = self.pubobj.get(u["head"])
+                la = None
             u["linked"] = la
             if la is not None and len(u["starts"]) == 1:
                 items.append((la, la + u["size"], u["starts"][0], ("unit", u["id"])))
@@ -664,8 +716,13 @@ class Measure:
                 items.append((la, la + b - a, a, ("fill", a)))
         items.sort()
         self.items, self.istarts = items, [t[0] for t in items]
+        self._init_state()
+
+    def _init_state(self):
         self.fwd, self.back = collections.defaultdict(set), collections.defaultdict(set)
-        self.datum_memo, self.twins, self.eh = {}, {}, collections.Counter()
+        self.twins, self.eh = {}, collections.Counter()
+        self.resolved, self.dnodes, self.twin_edges, self.twin_rels, self.twin_body = {}, {}, {}, {}, {}
+        self.import_equiv = 0       # read-through references kept by the (dll, name) rule, not 1:1
 
     def T(self, a):
         i = bisect.bisect_right(self.istarts, a) - 1
@@ -686,6 +743,15 @@ class Measure:
             j += 1
         return va, name, ob, self.allsyms[j][0] if j < len(self.allsyms) else va + 1
 
+    def syms_at(self, a):
+        """Every map symbol at exactly a: [(name, objbase)]."""
+        i = bisect.bisect_left(self.avas, a)
+        out = []
+        while i < len(self.allsyms) and self.allsyms[i][0] == a:
+            out.append(self.allsyms[i][1:])
+            i += 1
+        return out
+
     def lsec(self, a):
         if hasattr(self.isecs, "name_at"):
             return self.isecs.name_at(a)
@@ -694,12 +760,13 @@ class Measure:
     def relocs(self, L, rva, size, o, secno, off, owner):
         """Check every relocation of [off, off+size) of section `secno` of object o
         linked at L against retail at rva. Returns (failures, edges, masked
-        offsets, data references [(lt, rt, target name, Sym, object, addend)])."""
+        offsets, data references [(lt, rt, target name, Sym, object, addend,
+        access)], relocations [(offset, type, absolute?)] for the shifted check)."""
         I, R = self.I, self.R
         secs, syms, raw = o
         sec = secs[secno - 1]
         got, want = I[L:L + size], R[rva:rva + size]
-        fails, edges, masked, data = [], set(), set(), []
+        fails, edges, masked, data, rels = [], set(), set(), [], []
         for va, si, ty in sec.relocs:
             if not off <= va < off + size:
                 continue
@@ -713,6 +780,7 @@ class Measure:
             if fo + 4 > size:
                 fails.append(f"straddle:{tn}")
                 continue
+            rels.append((fo, ty, tn in ABSOLUTE))
             lv, rv = u32(got, fo), u32(want, fo)
             if tn in ABSOLUTE:
                 if ty != DIR32 or lv != rv:
@@ -730,11 +798,12 @@ class Measure:
                     edges.add(e)
             else:
                 addend = u32(raw, sec.ptr + va) if sec.ptr else 0
-                data.append((lt, rt, tn, y, o, addend))
+                access = "read" if ty == DIR32 and read_through(got, fo) and read_through(want, fo) else "addr"
+                data.append((lt, rt, tn, y, o, addend, access))
         nd = nonreloc_diffs(got, want, masked)
         if nd:
             fails.append(f"bytes:{nd}")
-        return fails, edges, masked, data
+        return fails, edges, masked, data, rels
 
     def code_ref(self, lt, rt, tn, owner):
         tr, item = self.T(lt)
@@ -747,19 +816,31 @@ class Measure:
                 return f"eh-foreign:{tn}", None
             v = eh_verdict(self.I, s[0], self.R, rt - (lt - s[0]), self.lbase, self.rbase, self.translate)
             self.eh[v or "verified"] += 1
-            return (f"eh:{v}", None) if v else (None, ("eh", lt))
+            return (f"eh:{v}", None) if v else (None, ("eh", s[0]))
         if s and s[0] == lt and rt in self.ledger_starts:
             self.twins.setdefault((lt, rt), None)
-            return None, ("twin", lt, rt)          # judged in judge_twins; a rejected twin fails the row
+            return None, ("twin", lt, rt)          # judged in settle_twins; a rejected twin fails the row
         if tr is None:
             return f"code-unmapped:{tn}", None
         return f"code-wrong:{tn}", None
 
+    def object_name(self, o):
+        """Lower-case basename of a parsed object (the map's Lib:Object spelling)."""
+        names = getattr(self, "_onames", None)
+        if names is None or id(o) not in names:
+            names = self._onames = {id(v): Path(p).name.lower() for p, v in self.objs.cache.items() if v}
+        return names.get(id(o))
+
     def datum(self, lt, tn, y, o, addend):
         """The datum a data reference reaches, from the relocation's own target:
         (linked start of the datum, its size, offset of lt in it, defining object,
-        section, section offset of the datum, linked address of the named symbol)."""
-        if y is not None and y.sec > 0:              # defined in the referencing object
+        section, section offset of the datum, linked address of the named symbol).
+        A public the referencing object defines counts as its own only when the
+        map says the link selected that object's copy."""
+        local = y is not None and y.sec > 0
+        if local and y.cls == EXTERNAL and tn in self.pubobj and self.object_name(o) is not None:
+            local = self.pubobj[tn] == self.object_name(o)
+        if local:                                    # defined in the referencing object
             sec, P, S = o[0][y.sec - 1], y.value + addend, lt - addend
         else:                                        # defined elsewhere: the map names its object
             S, ob = self.pub.get(tn), self.pubobj.get(tn)
@@ -796,53 +877,159 @@ class Measure:
                         self.commons[z.name] = max(self.commons.get(z.name, 0), z.value)
         return self.commons.get(name, 0)
 
-    def data_ref(self, lt, rt, tn, y, o, addend):
-        """(failures, code edges, pinned?) of one data reference beyond the 1:1 rule:
-        the datum's content at retail's address, and its pin when it has one."""
+    # ---- data: every datum reachable through data pointers is a node of the closure
+    def resolve(self, ref):
+        """What a data reference reaches: ('stub' | 'outside' | 'import' | 'unmapped',)
+        or ('datum', key, linked address of the named symbol). Memoised; a new
+        datum is scanned for its own pointers."""
+        lt, rt, tn, y, o, addend = ref[:6]
+        mk = (lt, rt, tn, id(o), addend)
+        r = self.resolved.get(mk)
+        if r is not None:
+            return r
         sec = self.lsec(lt)
         if sec == ".stubd":
-            return [f"data-stub:{tn}"], set(), False
-        if sec == "outside":
-            return [f"data-outside-image:{tn}"], set(), False
-        if lt in self.limports:
-            want = self.rimports.get(rt)
-            same = want and import_name(want[1]) == import_name(self.limports[lt][1])
-            return ([] if same else [f"import-mismatch:{tn}"]), set(), True
-        d = self.datum(lt, tn, y, o, addend)
-        if d is None:
-            return [f"data-unmapped:{tn}"], set(), False
-        start, size, k, do, sec, v0, S = d
-        fails, pinned = [], tn in self.pins
-        if pinned and not pin_matches(self.pins[tn], rt - (lt - S), self.rbase):
-            fails.append(f"data-pin:{tn}")
-        key = (start, rt - k, size)
-        if key not in self.datum_memo:
-            self.datum_memo[key] = self.datum_content(start, size, rt - k, sec, v0, tn)
-        cf, edges = self.datum_memo[key]
-        return fails + cf, edges, pinned
+            r = ("stub",)
+        elif sec == "outside":
+            r = ("outside",)
+        elif lt in self.limports:
+            r = ("import",)
+        else:
+            d = self.datum(lt, tn, y, o, addend)
+            if d is None:
+                r = ("unmapped",)
+            else:
+                start, size, k, do, dsec, v0, S = d
+                key = (start, rt - k, size)
+                r = ("datum", key, S)
+                if key not in self.dnodes:
+                    self.dnodes[key] = self.scan_datum(key, dsec, v0, tn, do)
+        self.resolved[mk] = r
+        return r
 
-    def datum_content(self, start, size, rstart, sec, value, name):
+    def scan_datum(self, key, sec, value, name, o):
+        """A datum node: its bytes against retail's (relocated words masked), code
+        pointers translated through the unit or filler holding them, data pointers
+        kept as references (judged once every reference is known)."""
+        start, rstart, size = key
+        node = {"name": name, "fails": [], "edges": set(), "refs": [], "rels": [], "masked": set()}
         if size <= 0 or rstart < 0 or rstart + size > len(self.R) or start < 0 or start + size > len(self.I):
-            return [f"data-extent:{name}"], set()
+            node["fails"].append(f"data-extent:{name}")
+            return node
         got, want = self.I[start:start + size], self.R[rstart:rstart + size]
-        masked, edges, fails = set(), set(), []
+        masked = node["masked"]
+        syms = o[1] if o else {}
+        raw = o[2] if o else b""
         for va, si, ty in (sec.relocs if sec is not None else ()):
             fo = va - value
             if not 0 <= fo < size:
                 continue
             masked.update(range(fo, min(fo + 4, size)))
-            if ty == DIR32 and fo + 4 <= size:
-                lt = (u32(got, fo) - self.lbase) & 0xFFFFFFFF
-                rt = (u32(want, fo) - self.rbase) & 0xFFFFFFFF
-                if self.ltext[0] <= lt < self.ltext[0] + self.ltext[1]:
-                    tr, item = self.T(lt)
-                    if tr != rt:
-                        fails.append(f"data-codeptr:{name}")
-                    else:
-                        edges.add(item)
+            y = syms.get(si)
+            tn = y.name if y else "?"
+            if ty != DIR32 or fo + 4 > size:
+                node["fails"].append(f"data-rtype:{name}")
+                continue
+            node["rels"].append((fo, ty, tn in ABSOLUTE))
+            lt = (u32(got, fo) - self.lbase) & 0xFFFFFFFF
+            rt = (u32(want, fo) - self.rbase) & 0xFFFFFFFF
+            if self.ltext[0] <= lt < self.ltext[0] + self.ltext[1]:
+                tr, item = self.T(lt)
+                if tr != rt:
+                    node["fails"].append(f"data-codeptr:{name}")
+                else:
+                    node["edges"].add(item)
+            else:
+                addend = u32(raw, sec.ptr + va) if sec.ptr else 0
+                node["refs"].append((lt, rt, tn, y, o, addend, "addr"))
         if nonreloc_diffs(got, want, masked):
-            fails.append(f"data-content:{name}")
-        return fails, edges
+            node["fails"].append(f"data-content:{name}")
+        return node
+
+    def discover(self, refs):
+        """Register refs, and every data pointer reachable from their datums, in the
+        1:1 maps."""
+        work = list(refs)
+        while work:
+            ref = work.pop()
+            self.fwd[ref[0]].add(ref[1])
+            self.back[ref[1]].add(ref[0])
+            r = self.resolve(ref)
+            if r[0] == "datum":
+                node = self.dnodes[r[1]]
+                if not node.get("seen"):
+                    node["seen"] = True
+                    work.extend(node["refs"])
+
+    def one_to_one(self, lt, rt, tn):
+        out = []
+        if len(self.fwd[lt]) != 1:
+            out.append(f"data-fwd:{tn}")
+        if len(self.back[rt]) != 1:
+            out.append(f"data-back:{tn}")
+        return out
+
+    def ref_check(self, ref):
+        """(failures, edges, pinned?) of one data reference: the 1:1 map, what it
+        reaches, the pin. Imports match on (dll, name or ordinal). A slot read
+        through (call/jmp/push/mov [slot] on both sides) cannot observe which of
+        retail's duplicate slots of one import it reads, so there one import is one
+        datum; a reference that can observe the slot (address taken, data pointer)
+        keeps the 1:1 rule."""
+        lt, rt, tn = ref[:3]
+        access = ref[6] if len(ref) > 6 else "addr"
+        kind = self.resolve(ref)
+        fails = []
+        if kind[0] == "import":
+            want = self.rimports.get(rt)
+            same = want is not None and want == self.limports[lt]
+            if not same:
+                fails.append(f"import-mismatch:{tn}")
+            strict = self.one_to_one(lt, rt, tn)
+            if access != "read" or not same:
+                fails += strict
+            elif strict:
+                self.import_equiv += 1
+            return fails, set(), True
+        fails += self.one_to_one(lt, rt, tn)
+        if kind[0] != "datum":
+            what = {"stub": "data-stub", "outside": "data-outside-image", "unmapped": "data-unmapped"}[kind[0]]
+            return fails + [f"{what}:{tn}"], set(), False
+        S = kind[2]
+        pinned = tn in self.pins
+        if pinned and not pin_matches(self.pins[tn], rt - (lt - S), self.rbase):
+            fails.append(f"data-pin:{tn}")
+        return fails, {("datum", kind[1])}, pinned
+
+    def judge_datums(self):
+        """Each datum's own failures: content, code pointers and every data pointer
+        it holds (1:1, reaching a real datum, its pin; failures read data-ptr-*).
+        Its edges: code units and the datums it points to, so the closure runs
+        through data."""
+        for node in self.dnodes.values():
+            if node.get("judged"):
+                continue
+            node["judged"] = True
+            for ref in node["refs"]:
+                f, e, _ = self.ref_check(ref)
+                node["fails"] += ["data-ptr-" + x.split("data-", 1)[-1] for x in f]
+                node["edges"] |= e
+
+    def ref_with_datum(self, ref):
+        """ref_check plus the reached datum's own failures: a row is self-strict only
+        when the data it touches directly is right, pointers included."""
+        fails, edges, pinned = self.ref_check(ref)
+        kind = self.resolve(ref)
+        if kind[0] == "datum":
+            fails = fails + self.dnodes[kind[1]]["fails"]
+        return fails, edges, pinned
+
+    def data_ref(self, lt, rt, tn, y, o, addend, access="addr"):
+        """One reference judged on its own (tests): discover, judge, check."""
+        ref = (lt, rt, tn, y, o, addend, access)
+        self.discover([ref])
+        self.judge_datums()
+        return self.ref_with_datum(ref)
 
     def run(self):
         """Per ledger row: dict with failures, edges, placement."""
@@ -853,76 +1040,110 @@ class Measure:
             o = self.objs.get(u["obj"]) if la is not None else None
             for r in u["rows"]:
                 rec = {"row": r, "unit": u, "linked": None, "placed": 0, "fails": [], "edges": set(),
-                       "unpinned": 0, "masked": set(), "measured": False}
+                       "unpinned": 0, "masked": set(), "rels": [], "measured": False}
                 out.append(rec)
+                if u.get("not_selected") is not None:
+                    rec["fails"].append(f"not-selected:{u['not_selected']}")
                 if la is None or not o:
                     continue
                 L = la + r["off"]
                 rec["linked"], rec["placed"], rec["measured"] = L, int(L == r["rva"]), True
-                f, e, m, data = self.relocs(L, r["rva"], r["size"], o, u["sec"], r["off"], r["sym"])
-                rec["fails"], rec["edges"], rec["masked"] = f, e, m
+                f, e, m, data, rels = self.relocs(L, r["rva"], r["size"], o, u["sec"], r["off"], r["sym"])
+                rec["fails"], rec["edges"], rec["masked"], rec["rels"] = f, e, m, rels
                 for ref in data:
-                    self.fwd[ref[0]].add(ref[1])
-                    self.back[ref[1]].add(ref[0])
                     self.pending.append((rec, ref))
-        self.judge_twins()
+        self.collect_twins()
+        self.discover([ref for _, ref in self.pending] + [ref for b in self.twin_body.values() for ref in b[2]])
+        self.judge_datums()
         for rec, ref in self.pending:
-            lt, rt, tn = ref[:3]
-            if len(self.fwd[lt]) != 1:
-                rec["fails"].append(f"data-fwd:{tn}")
-            if len(self.back[rt]) != 1:
-                rec["fails"].append(f"data-back:{tn}")
-            f, e, pinned = self.data_ref(*ref)
+            f, e, pinned = self.ref_with_datum(ref)
             rec["fails"] += f
             rec["edges"] |= e
-            rec["unpinned"] += 0 if pinned or lt in self.limports else 1
+            rec["unpinned"] += 0 if pinned else 1
+        self.settle_twins()
         for rec in out:
             for e in list(rec["edges"]):
                 if e[0] == "twin" and not self.twins.get((e[1], e[2]), (False,))[0]:
                     rec["fails"].append(f"twin-rejected:{self.twins.get((e[1], e[2]), (0, 'unjudged'))[1]}")
         return out
 
-    def judge_twins(self):
-        """Certify each candidate ICF twin: a linked function start reached where
-        retail calls a ledger row start. Same extent, same non-relocation bytes,
-        every relocation resolving to retail's target (twins of twins included)."""
+    def selected_copy(self, lt, size):
+        """(object, Sym, None) of the definition the link put at lt, from the /MAP:
+        the object that contributed the function there, whose extent in its section
+        (to the next symbol or the section end; trailing int3/nop padding optional)
+        holds retail's row size. Else (None, None, why)."""
+        why = "no map definition"
+        for name, ob in self.syms_at(lt):
+            found = self.objs.lookup(ob, name)
+            if not found:
+                continue
+            o, ys = found
+            sec = o[0][ys.sec - 1]
+            if not sec.name.startswith(".text"):
+                continue
+            vals = self.objs.defined(o)[1].get(ys.sec, [])
+            i = bisect.bisect_right(vals, ys.value)
+            end = vals[i] if i < len(vals) else sec.size
+            body = bytes(o[2][sec.ptr + ys.value:sec.ptr + end]) if sec.ptr else b""
+            trim = len(body.rstrip(b"\xcc\x90")) if sec.ptr else end - ys.value
+            if trim <= size <= end - ys.value:
+                return o, ys, None
+            why = "extent differs"
+        return None, None, why
+
+    def collect_twins(self):
+        """Candidate ICF twins: a linked function start reached where retail calls a
+        ledger row start. The body judged is the copy the /MAP says the link kept."""
         work = list(self.twins)
-        body = {}
+        body = self.twin_body
         while work:
             lt, rt = work.pop()
             if (lt, rt) in body:
                 continue
-            s = self.sym_at(lt)
-            found = self.objs.lookup(s[2], s[1]) if s else None
             size = self.ledger_starts[rt]
-            if not found or found[1].value != 0 or found[0][0][found[1].sec - 1].size != size:
-                body[(lt, rt)] = (["extent differs"], set(), [])
+            o, ys, why = self.selected_copy(lt, size)
+            if o is None:
+                body[(lt, rt)] = ([why], set(), [], [])
                 continue
-            o, ys = found
-            f, e, _, data = self.relocs(lt, rt, size, o, ys.sec, 0, s[1])
-            body[(lt, rt)] = (f, e, data)
+            f, e, _, data, rels = self.relocs(lt, rt, size, o, ys.sec, ys.value, ys.name)
+            body[(lt, rt)] = (f, e, data, rels)
             for x in e:
                 if x[0] == "twin" and (x[1], x[2]) not in body:
                     self.twins.setdefault((x[1], x[2]), None)
                     work.append((x[1], x[2]))
-        ok = {}
-        for key, (f, e, data) in body.items():
-            fails = list(f)
+
+    def settle_twins(self):
+        """Certify twins: equal bytes, every relocation (code, and data with its
+        datum's own failures) resolving to retail's target, twins of twins
+        included."""
+        body, ok, edges = self.twin_body, {}, {}
+        for key, (f, e, data, rels) in body.items():
+            fails, es = list(f), set(e)
             for ref in data:
-                fails += self.data_ref(*ref)[0]
-            ok[key] = fails
+                rf, redges, _ = self.ref_with_datum(ref)
+                fails += rf
+                es |= redges
+            ok[key], edges[key] = fails, es
+            self.twin_rels[key] = rels
         good = {k for k, v in ok.items() if not v}
         changed = True
         while changed:
             changed = False
             for k in list(good):
-                if any(x[0] == "twin" and (x[1], x[2]) not in good for x in body[k][1]):
+                if any(x[0] == "twin" and (x[1], x[2]) not in good for x in edges[k]):
                     good.discard(k)
                     ok[k] = ["calls a rejected twin"]
                     changed = True
-        self.twin_edges = {k: body[k][1] for k in body}
+        self.twin_edges = edges
         for k in body:
             self.twins[k] = (k in good, (ok[k] or ["certified"])[0].split(":")[0])
+
+    def judge_twins(self):
+        """collect_twins, their data, settle_twins in one call (tests)."""
+        self.collect_twins()
+        self.discover([ref for b in self.twin_body.values() for ref in b[2]])
+        self.judge_datums()
+        self.settle_twins()
 
 
 # ---------------------------------------------------------------- cycle
@@ -934,22 +1155,248 @@ def sha256(path):
     return h.hexdigest()
 
 
-def git(*args):
-    return subprocess.run(["git", *args], capture_output=True, text=True, cwd=ROOT).stdout.strip()
+def git(*args, cwd=None):
+    return subprocess.run(["git", *args], capture_output=True, text=True, cwd=cwd or ROOT).stdout.strip()
 
 
 def tool_digest():
+    """This file as run, plus the tree's build and census modules it imports."""
     h = hashlib.sha256()
-    for n in TOOL_FILES:
+    h.update(b"link_cycle.py\0" + Path(__file__).read_bytes())
+    for n in TOOL_FILES[1:]:
         h.update(n.encode() + b"\0" + (ROOT / "tools" / n).read_bytes())
     return h.hexdigest()
 
 
-def objects_digest(paths):
+def object_identity(o):
+    """A COFF object's content without the compile's time stamp and debug records
+    (they hold the build directory): section names, flags, bytes and
+    relocations, and the symbol table."""
+    secs, syms, raw = o
     h = hashlib.sha256()
-    for p in sorted(paths, key=lambda p: p.as_posix()):
-        h.update(p.relative_to(ROOT).as_posix().encode() + b"\0" + hashlib.sha256(p.read_bytes()).digest())
+    for s in secs:
+        if s.name.startswith(".debug$"):
+            continue
+        h.update(f"{s.name}\0{s.flags:x}\0{s.size}\0".encode("latin-1"))
+        h.update(raw[s.ptr:s.ptr + s.size] if s.ptr else b"")
+        h.update(repr(s.relocs).encode())
+    for k in sorted(syms):
+        y = syms[k]
+        h.update(f"{y.name}\0{y.value}\0{y.sec}\0{y.cls}\n".encode("latin-1"))
     return h.hexdigest()
+
+
+def objects_digest(objs, paths):
+    """One digest of every link input object's identity, by path under ROOT."""
+    h = hashlib.sha256()
+    for p in sorted(paths, key=lambda p: Path(p).as_posix()):
+        o = objs.get(p)
+        h.update(Path(p).relative_to(ROOT).as_posix().encode() + b"\0" + (object_identity(o) if o else "-").encode())
+    return h.hexdigest()
+
+
+def tree_manifest(top):
+    """sha256 over (path, size, mtime) of every file under a snapshot, its build/
+    and marker excluded. The content is `git archive` of the marker's commits;
+    the manifest proves nothing wrote to the tree since (hashing 61k files is
+    I/O-bound: 10+ minutes on a scanned Windows host, a stat walk ~10 s)."""
+    h = hashlib.sha256()
+    top = Path(top)
+    files = []
+    for d, dirs, names in os.walk(top):
+        rel = Path(d).relative_to(top)
+        if rel == Path("."):
+            dirs[:] = [x for x in dirs if x != "build"]
+        for n in names:
+            if rel != Path(".") or n != SNAPSHOT_MARK:
+                st = os.stat(os.path.join(d, n))
+                files.append(f"{(rel / n).as_posix()}\0{st.st_size}\0{st.st_mtime_ns}\n")
+    for f in sorted(files):
+        h.update(f.encode("utf-8", "surrogateescape"))
+    return h.hexdigest()
+
+
+SNAPSHOT_MARK = "SNAPSHOT.json"
+
+
+def export_snapshot(rev, parent):
+    """An immutable copy of the tree at `rev`: `git archive` of the commit and of
+    every submodule at the commit its gitlink pins, extracted to parent/<sha12>.
+    The marker records the commit, the submodule commits and the tree
+    manifest every run in it re-proves. An existing snapshot is reused only
+    when its manifest still holds."""
+    import tarfile
+    sha = git("rev-parse", "--verify", rev + "^{commit}")
+    if not re.fullmatch(r"[0-9a-f]{40}", sha):
+        raise SystemExit(f"link_cycle: {rev!r} is not a commit")
+    dest = Path(parent).resolve() / sha[:12]
+    mark = dest / SNAPSHOT_MARK
+    if mark.exists():
+        meta = json.loads(mark.read_text())
+        if meta.get("commit") != sha or tree_manifest(dest) != meta.get("tree_manifest"):
+            raise SystemExit(f"link_cycle: snapshot {dest} no longer matches its marker; delete it and re-export")
+        return dest
+    tmp = dest                         # extracted in place; the marker, written last, makes it complete
+    if tmp.exists():
+        import shutil
+        shutil.rmtree(tmp)
+    tmp.mkdir(parents=True)
+    t = time.time()
+
+    def extract(repo, commit, into):
+        proc = subprocess.Popen(["git", "-C", str(repo), "archive", "--format=tar", commit], stdout=subprocess.PIPE)
+        with tarfile.open(fileobj=proc.stdout, mode="r|") as tar:
+            tar.extractall(into, filter="tar")
+        if proc.wait():
+            raise SystemExit(f"link_cycle: git archive {commit} in {repo} failed")
+    extract(ROOT, sha, tmp)
+    subs = {}
+    for line in git("ls-tree", "-r", sha).splitlines():
+        mode, kind, obj, path = line.split(None, 3)
+        if mode == "160000":
+            if subprocess.run(["git", "-C", str(ROOT / path), "cat-file", "-e", obj + "^{commit}"],
+                              capture_output=True).returncode:
+                raise SystemExit(f"link_cycle: submodule {path} lacks its pinned commit {obj}")
+            (tmp / path).mkdir(parents=True, exist_ok=True)
+            extract(ROOT / path, obj, tmp / path)
+            subs[path] = obj
+    # the tree's own generated inputs (case-redirect shims on a case-sensitive host), before the marker
+    subprocess.run([sys.executable, "-c", "import sys; sys.path.insert(0, 'tools'); import gen_case_shims; "
+                    "gen_case_shims.ensure_case_shims()"], cwd=tmp, check=True,
+                   env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
+    return finish_snapshot(tmp, dest, sha, subs, round(time.time() - t))
+
+
+def finish_snapshot(tmp, dest, sha, subs, seconds):
+    """Write the marker of a complete extraction (tmp; moved to dest if they
+    differ). Without its marker a directory is an unfinished export."""
+    meta = {"commit": sha, "submodules": subs, "tree_manifest": tree_manifest(tmp),
+            "exported_utc": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()), "export_seconds": seconds}
+    (tmp / SNAPSHOT_MARK).write_text(json.dumps(meta, indent=1))
+    if tmp != dest:
+        tmp.rename(dest)
+    print(f"link_cycle: snapshot {sha[:12]} exported in {seconds}s", flush=True)
+    return dest
+
+
+def run_in_snapshot(args, argv):
+    """Export (or reuse) the snapshot, then run this tool on it in a child whose
+    ROOT is the snapshot: its objects, links and receipt live in the snapshot's
+    own build/, no shared object store, no git repository above it."""
+    snap = export_snapshot(args.snapshot, args.snapshot_dir)
+    drop, skip = {"--snapshot", "--snapshot-dir", "--out"}, False
+    rest = []
+    for a in argv:
+        if skip:
+            skip = False
+            continue
+        if a.split("=", 1)[0] in drop:
+            skip = "=" not in a
+            continue
+        rest.append(a)
+    env = dict(os.environ, LINK_CYCLE_ROOT=str(snap), BFME_OBJSTORE="off", PYTHONDONTWRITEBYTECODE="1",
+               GIT_CEILING_DIRECTORIES=str(snap.parent))
+    return subprocess.run([sys.executable, str(Path(__file__).resolve()), *rest], env=env, cwd=snap).returncode
+
+
+def input_state():
+    """What a receipt binds, taken when the cycle STARTS and re-proved at its end:
+    the commit (a snapshot's marker, else HEAD and the dirty diff), this tool,
+    the toolchain, retail and the ledgers."""
+    mark = ROOT / SNAPSHOT_MARK
+    if mark.exists():
+        meta = json.loads(mark.read_text())
+        commit = {"commit": meta["commit"], "submodules": meta["submodules"], "snapshot": True,
+                  "tree_manifest": tree_manifest(ROOT)}
+        if commit["tree_manifest"] != meta["tree_manifest"]:
+            raise SystemExit("link_cycle: the snapshot tree differs from its marker; refusing to measure it")
+    else:
+        diff = subprocess.run(["git", "diff", "HEAD"], capture_output=True, cwd=ROOT).stdout
+        commit = {"commit": git("rev-parse", "HEAD"), "snapshot": False,
+                  "dirty": bool(git("status", "--porcelain", "--untracked-files=no")),
+                  "diff_sha256": hashlib.sha256(diff).hexdigest()}
+    root = build.vc71_root()
+    return dict(commit, tool_digest=tool_digest(), retail_sha256=sha256(build.EXE),
+                toolchain_sha256={n: sha256(root / "Vc7/bin" / n) for n in ("link.exe", "cl.exe", "lib.exe")},
+                inputs={"functions_csv": sha256(ROOT / "reverse/functions.csv"),
+                        "symbols_csv": sha256(ROOT / "reverse/symbols.csv"),
+                        "ghidra_functions_csv": sha256(ROOT / "reverse/ghidra_functions.csv")})
+
+
+def provenance(rows, present, objs, out):
+    """Per-TU provenance of every link input: source, its sha256, the compile's
+    dependency record (command fingerprint, header digests) and the object's
+    identity. Refuses an object its source no longer produces (a stale cache),
+    and one whose bytes changed while its compile record did not since the last
+    cycle's provenance (an object no compile wrote: the dependency record does
+    not hash the object itself)."""
+    sources = census._object_sources(rows)
+    path = out / "provenance.json"
+    try:
+        before = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        before = {}
+    inventory, stale, prov, tampered = {}, [], {}, []
+    for p in present:
+        rel = Path(p).relative_to(ROOT).as_posix()
+        o = objs.get(p)
+        rec = {"object": object_identity(o) if o else None}
+        src = sources.get(p)
+        if src is not None and Path(src).suffix.lower() != build.LIB_SUFFIX:
+            if not build.compile_is_current(src, p, strict=True, inventory_cache=inventory):
+                stale.append(rel)
+            side = Path(p).with_suffix(".deps.json")
+            rec.update(source=Path(src).relative_to(ROOT).as_posix(), source_sha256=sha256(src),
+                       deps_sha256=sha256(side) if side.exists() else None)
+        prov[rel] = rec
+        old = before.get(rel)
+        if (old and rec.get("deps_sha256") and old.get("deps_sha256") == rec["deps_sha256"]
+                and old.get("source_sha256") == rec["source_sha256"] and old.get("object") != rec["object"]):
+            tampered.append(rel)
+    if stale:
+        raise SystemExit(f"link_cycle: {len(stale)} object(s) are not current for their sources (stale cache), "
+                         f"e.g. {stale[:5]}; run with --build")
+    if tampered:
+        raise SystemExit(f"link_cycle: {len(tampered)} object(s) changed with no compile behind the change, "
+                         f"e.g. {tampered[:5]}; delete them (and their .deps.json) and run with --build")
+    path.write_text(json.dumps(prov, indent=0, sort_keys=True), encoding="utf-8")
+    return sha256(path), len(prov)
+
+
+def cache_file(path, stamp, allow_stale):
+    """A warm-start cache (quarantine, stubs) is reused only for the objects it
+    was computed from; (value or None, whether a stale one was taken)."""
+    if not path.exists():
+        return None, False
+    data = json.loads(path.read_text())
+    if not isinstance(data, dict) or "objects_digest" not in data:
+        print(f"link_cycle: {path.name} carries no objects digest; ignored", flush=True)
+        return None, False
+    if data["objects_digest"] == stamp:
+        return data["value"], False
+    if allow_stale:
+        return data["value"], True
+    print(f"link_cycle: {path.name} was computed for other objects; ignored (a cold start)", flush=True)
+    return None, False
+
+
+def save_cache(path, stamp, value):
+    path.write_text(json.dumps({"objects_digest": stamp, "value": value}))
+
+
+def receipt_core(receipt):
+    """The reproducible part of a receipt: what a cold and a cached run of the same
+    inputs must agree on. Times, dates, link history and the warm-start path are
+    left out; the core's sha256 is the receipt's identity."""
+    keep = ("rules", "commit", "submodules", "snapshot", "dirty", "diff_sha256", "tool_digest",
+            "retail_sha256", "toolchain_sha256", "inputs", "objects_digest", "provenance_sha256", "objects",
+            "objects_missing", "quarantine_sha256", "stubs_sha256", "not_ordered", "not_ordered_bytes", "analyze",
+            "scaffold", "final_link", "series")
+    return {k: receipt[k] for k in keep if k in receipt}
+
+
+def digest_of(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
 
 
 def load_pins():
@@ -985,8 +1432,7 @@ def pe_view(path):
     imps = {}
     for dll in getattr(pe, "DIRECTORY_ENTRY_IMPORT", []):
         for e in dll.imports:
-            imps[e.address - pe.OPTIONAL_HEADER.ImageBase] = (dll.dll.decode("latin-1").lower(),
-                                                             (e.name or b"").decode("latin-1"))
+            imps[e.address - pe.OPTIONAL_HEADER.ImageBase] = import_key(dll.dll.decode("latin-1"), e.name, e.ordinal)
     return pe, pe.get_memory_mapped_image(), secs, imps
 
 
@@ -996,17 +1442,21 @@ def cycle(args):
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     census.refuse_unsupported_ledgers()
+    start = input_state()                      # bound at START, re-proved before recording
     rows = census.ledger()
     if args.build:
         t = time.time()
         os.environ.setdefault("BUILD_POOL", str(max(1, (os.cpu_count() or 2) - 2)))
         build.ensure_case_shims()
-        build.compile_rows(rows, census.compile_sources(rows))
+        build.compile_rows(rows, census.compile_sources(rows), strict=True)
         times["compile"] = round(time.time() - t)
     t = time.time()
     present, missing = census.objects(rows)
     objs = Objects(present)
     units, astat = analyze(rows, objs)
+    obj_digest = objects_digest(objs, present)
+    prov_digest, nprov = provenance(rows, present, objs, out)
+    times["provenance"] = round(time.time() - t)
     pe_r, R, rsecs, rimp = pe_view(build.EXE)
     text0, textsz = rsecs[".text"]
     pins, byaddr = load_pins()
@@ -1021,13 +1471,12 @@ def cycle(args):
     print(f"link_cycle: {len(rows):,} rows, {len(units):,} units, {len(present):,} objects "
           f"({len(missing):,} missing), import entries {sum(map(len, entries.values())):,}", flush=True)
 
-    quarantine, stubs, iters, history = set(), None, 0, []
-    qfile = out / "quarantine.json"
-    if args.reuse_quarantine and qfile.exists():
-        quarantine = set(json.loads(qfile.read_text()))
-    sfile = out / "stubs.json"
-    if args.reuse_stubs and sfile.exists():
-        stubs = json.loads(sfile.read_text())
+    qfile, sfile = out / "quarantine.json", out / "stubs.json"
+    quarantine, stale_q = cache_file(qfile, obj_digest, args.allow_stale_cache) if args.reuse_quarantine else (None, False)
+    stubs, stale_s = cache_file(sfile, obj_digest, args.allow_stale_cache) if args.reuse_stubs else (None, False)
+    warm = {"quarantine": quarantine is not None, "stubs": stubs is not None, "stale": stale_q or stale_s}
+    quarantine = set(quarantine or ())
+    iters, history = 0, []
     raw = R[text0:text0 + textsz]
     t_link = time.time()
     while True:
@@ -1058,7 +1507,7 @@ def cycle(args):
                 if b"EXPORT:" in b:
                     exported |= {m.decode("latin-1") for m in re.findall(rb"/EXPORT:(\S+)", b)}
             stubs = sorted(set(d1["unresolved"]) - exported - set(ABSOLUTE))
-            sfile.write_text(json.dumps(stubs))
+            save_cache(sfile, obj_digest, stubs)
             history.append({"link": "pass1", "secs": round(secs1), "unresolved": len(d1["unresolved"]),
                             "codes": d1["codes"]})
         write_coff(out / "stubs.obj", [(".stubd", 0xC0300040, bytes(4 * max(1, len(stubs))), 0)],
@@ -1078,45 +1527,53 @@ def cycle(args):
               f"{len(d['unresolved'])} new unresolved", flush=True)
         if d["unresolved"]:
             stubs = sorted(set(stubs) | set(d["unresolved"]))
-            sfile.write_text(json.dumps(stubs))
+            save_cache(sfile, obj_digest, stubs)
         if (not culprits and not d["unresolved"]) or iters >= args.max_iter:
             break
         if shift:
             shift.cancel()
             shift.result()
         quarantine |= set(culprits)
-        qfile.write_text(json.dumps(sorted(quarantine)))
+        save_cache(qfile, obj_digest, sorted(quarantine))
+    save_cache(qfile, obj_digest, sorted(quarantine))
     shift_res = shift.result() if shift else None
     times["link"] = round(time.time() - t_link)
 
     t = time.time()
     res = measure(out, units, chunks, objs, R, rsecs, rimp, pins, shift_res is not None, args.shift_base)
     times["measure"] = round(time.time() - t)
+    receipt = dict(start, tool="link_cycle", rules="link-cycle-2",
+                   date_utc=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
+                   objects_digest=obj_digest, provenance_sha256=prov_digest, objects=len(present),
+                   objects_missing=len(missing), warm_start=warm,
+                   quarantine_sha256=digest_of(sorted(quarantine)), stubs_sha256=digest_of(sorted(stubs)),
+                   links=history, iterations=iters, quarantined_units=len(quarantine),
+                   not_ordered=dict(sorted(reasons.items())), not_ordered_bytes=dict(sorted(rbytes.items())),
+                   analyze=dict(sorted(astat.items())),
+                   scaffold={"filler_chunks": len(chunks), "filler_bytes": sum(b - a for a, b in chunks),
+                             "stubs": len(stubs), "aliases": len(aliases), "zz_sections": renamed,
+                             "import_entries": sum(map(len, entries.values())),
+                             "imports_not_in_retail": len(imp_missing)},
+                   final_link={"exit": code, "codes": dict(sorted(d["codes"].items())),
+                               "force_duplicates": len(diagnostics(log)["duplicates"]),
+                               "force_duplicate_diagnostics": d["codes"].get("LNK4006", 0)},
+                   series=res)
+    # re-prove the start: the same commit/tree, tool, toolchain, retail, ledgers and objects
+    end = input_state()
+    moved = sorted(k for k in start if start[k] != end.get(k))
+    if objects_digest(Objects(present), present) != obj_digest:
+        moved.append("objects_digest")
+    receipt["authoritative"] = bool(start.get("snapshot")) and not moved and not warm["stale"]
     times["total"] = round(time.time() - t_all)
-    root = build.vc71_root()
-    receipt = {
-        "tool": "link_cycle", "rules": "link-cycle-1",
-        "commit": git("rev-parse", "HEAD"), "dirty": bool(git("status", "--porcelain", "--untracked-files=no")),
-        "date_utc": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
-        "retail_sha256": sha256(build.EXE),
-        "toolchain_sha256": {n: sha256(root / "Vc7/bin" / n) for n in ("link.exe", "cl.exe", "lib.exe")},
-        "tool_digest": tool_digest(), "objects_digest": objects_digest(present),
-        "objects": len(present), "objects_missing": len(missing),
-        "inputs": {"functions_csv": sha256(ROOT / "reverse/functions.csv"),
-                   "symbols_csv": sha256(ROOT / "reverse/symbols.csv")},
-        "links": history, "iterations": iters, "quarantined_units": len(quarantine),
-        "not_ordered": dict(reasons), "not_ordered_bytes": dict(rbytes), "analyze": dict(astat),
-        "scaffold": {"filler_chunks": len(chunks), "filler_bytes": sum(b - a for a, b in chunks),
-                     "stubs": len(stubs), "aliases": len(aliases), "zz_sections": renamed,
-                     "import_entries": sum(map(len, entries.values())), "imports_not_in_retail": len(imp_missing)},
-        "final_link": {"exit": code, "codes": d["codes"], "force_duplicates": len(diagnostics(log)["duplicates"]),
-                       "force_duplicate_diagnostics": d["codes"].get("LNK4006", 0)},
-        "unresolved_pass1": len(stubs),
-        "series": res, "seconds": times,
-    }
+    receipt["seconds"] = times
+    receipt["core_sha256"] = digest_of(receipt_core(receipt))
+    if moved:
+        receipt["moved_during_run"] = moved
+        (out / "receipt.rejected.json").write_text(json.dumps(receipt, indent=1), encoding="utf-8")
+        raise SystemExit(f"link_cycle: inputs moved during the run ({', '.join(moved)}); no receipt recorded")
     (out / "receipt.json").write_text(json.dumps(receipt, indent=1), encoding="utf-8")
     print(json.dumps(res, indent=1))
-    print(f"link_cycle: receipt {out / 'receipt.json'}; wall {times}")
+    print(f"link_cycle: receipt {out / 'receipt.json'} core {receipt['core_sha256'][:16]}; wall {times}")
     return receipt
 
 
@@ -1135,24 +1592,45 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
     m = Measure(units, chunks, mapped, I, R, isecs, rimp, limp, pins, objs, ledger_starts)
     recs = m.run()
     textsz = rsecs[".text"][1]
-    # closure: node per unit / twin; edges to fillers or stubs are not leaves
+    sh = Shifted(out, I, isecs, rsecs, have_shift, shift_base, {BASE + r["row"]["rva"] for r in recs})
+    hard = {}
+    for rec in recs:
+        if rec["measured"]:
+            why = sh.code(rec["linked"], rec["row"]["size"], rec["masked"], rec["rels"])
+            if why:
+                hard[id(rec)] = why
+    # The closure graph. Nodes: units, certified twins, datums (through data
+    # pointers), EH thunks. A node is ok when it is self-strict AND its every
+    # relocation moved with the base in the shifted link (sh); a failing node
+    # takes everything that reaches it out of the closure. Edges to fillers or
+    # stubs, or to nodes the graph does not hold, close nothing.
     ok, edges = {}, collections.defaultdict(set)
     for rec in recs:
         n = ("unit", rec["unit"]["id"])
-        ok[n] = ok.get(n, True) and rec["measured"] and not rec["fails"]
-        for e in rec["edges"]:
-            edges[n].add(e if e[0] != "eh" else ("leaf",))
+        ok[n] = ok.get(n, True) and rec["measured"] and not rec["fails"] and id(rec) not in hard
+        edges[n] |= rec["edges"]
     for k, (good, _) in m.twins.items():
         n = ("twin", k[0], k[1])
-        ok[n] = good
-        edges[n] |= {e if e[0] != "eh" else ("leaf",) for e in m.twin_edges.get(k, ())}
-    for n in ok:
-        edges[n] = {e for e in edges[n] if e[0] != "leaf"}
+        ok[n] = good and not sh.code(k[0], ledger_starts[k[1]], {j for fo, _, _ in m.twin_rels.get(k, ())
+                                                                   for j in range(fo, fo + 4)},
+                                     m.twin_rels.get(k, ()))
+        edges[n] |= m.twin_edges.get(k, set())
+    for key, node in m.dnodes.items():
+        n = ("datum", key)
+        ok[n] = not node["fails"] and not sh.data(key, node)
+        edges[n] |= node["edges"]
+    for es in list(edges.values()):
+        for e in es:
+            if e[0] == "eh" and e not in ok:
+                ok[e] = not sh.eh(e[1])
     closed = greatest_closure(ok, edges)
-    # the pilot's rule, for comparison: code edges only, fillers are leaves
-    pilot_edges = {n: {e for e in es if e[0] == "unit"} for n, es in edges.items()}
-    closed_pilot = greatest_closure(ok, pilot_edges, bad_targets=())
-    hard = shifted_rows(out, recs, I, rsecs, have_shift, shift_base)
+    # the pilot's rule, for comparison: code edges only, fillers are leaves, no shift
+    pilot_ok = {n: v for n, v in ok.items() if n[0] == "unit"}
+    for rec in recs:
+        n = ("unit", rec["unit"]["id"])
+        pilot_ok[n] = pilot_ok.get(n, True) and rec["measured"] and not rec["fails"]
+    pilot_edges = {n: {e for e in es if e[0] == "unit"} for n, es in edges.items() if n[0] == "unit"}
+    closed_pilot = greatest_closure(pilot_ok, pilot_edges, bad_targets=(), unknown_closes=True)
     fold = out / "fold_list.csv"
     with fold.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
@@ -1165,7 +1643,8 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
             "failures"]
     series = collections.Counter()
     spans = collections.defaultdict(list)
-    with (out / "link_status.csv").open("w", newline="", encoding="utf-8") as f:
+    status = out / "link_status.csv"
+    with status.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(cols)
         for rec in sorted(recs, key=lambda r: (r["row"]["rva"], r["row"]["name"])):
@@ -1174,13 +1653,15 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
             st = int(rec["measured"] and not rec["fails"])
             L = rec["linked"]
             be = int(rec["placed"] and I[r["rva"]:r["rva"] + r["size"]] == R[r["rva"]:r["rva"] + r["size"]])
+            fails = rec["fails"] + ([f"shift:{hard[id(rec)]}"] if id(rec) in hard else [])
+            reason = u.get("why") or ("copy not selected" if u.get("not_selected") is not None else "")
             row = {"name": r["name"], "kind": r["kind"], "source": r["source"], "retail_rva": "0x%08X" % r["rva"],
                    "size": r["size"], "linked_rva": "" if L is None else "0x%08X" % L, "placed": rec["placed"],
-                   "placement_reason": u.get("why") or "", "self_strict": st,
+                   "placement_reason": reason, "self_strict": st,
                    "closed_strict": int(st and n in closed), "closed_strict_pilot_rule": int(st and n in closed_pilot),
                    "pinned_strict": int(st and not rec["unpinned"]), "byte_equal": be,
-                   "hardcoded": int(id(rec) in hard), "failure_count": len(rec["fails"]),
-                   "failures": ";".join(f"{k}x{v}" if v > 1 else k for k, v in collections.Counter(rec["fails"]).items())}
+                   "hardcoded": int(id(rec) in hard), "failure_count": len(fails),
+                   "failures": ";".join(f"{k}x{v}" if v > 1 else k for k, v in collections.Counter(fails).items())}
             w.writerow([row[c] for c in cols])
             k = r["kind"]
             span = (r["rva"], r["rva"] + r["size"])
@@ -1196,7 +1677,7 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
                     series[(k, name, "bytes")] += r["size"]
                     spans[(k, name)].append(span)
     res = {}
-    for (k, name), sp in spans.items():
+    for (k, name), sp in sorted(spans.items()):
         res.setdefault(k, {})[name] = {"rows": series[(k, name, "rows")], "bytes": series[(k, name, "bytes")],
                                        "unique_bytes": unique_bytes(sp),
                                        "pct_text": round(100 * unique_bytes(sp) / textsz, 2)}
@@ -1204,58 +1685,134 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
     rbytes = collections.Counter()
     for rec in recs:
         if rec["row"]["kind"] == "real" and rec["placed"]:
-            for c in {f.split(":")[0] for f in rec["fails"]}:
+            fails = rec["fails"] + (["shift"] if id(rec) in hard else [])
+            for c in {f.split(":")[0] for f in fails}:
                 reasons[c] += 1
                 rbytes[c] += rec["row"]["size"]
     res["credit_unique_bytes"] = res.get("real", {}).get("placed_closed_strict", {}).get("unique_bytes", 0)
-    res["placed_failure_classes"] = {c: [reasons[c], rbytes[c]] for c, _ in reasons.most_common()}
-    res["twins"] = dict(collections.Counter(v[1] for v in m.twins.values()))
-    res["eh_thunks"] = dict(m.eh)
+    res["placed_failure_classes"] = {c: [reasons[c], rbytes[c]] for c, _ in sorted(reasons.items(),
+                                                                                    key=lambda kv: (-kv[1], kv[0]))}
+    res["twins"] = dict(sorted(collections.Counter(v[1] for v in m.twins.values()).items()))
+    res["eh_thunks"] = dict(sorted(m.eh.items()))
+    res["imports_read_through_equivalent"] = m.import_equiv
+    kinds = collections.Counter()
+    for n, v in ok.items():
+        kinds[(n[0], "ok" if v else "failed")] += 1
+        kinds[(n[0], "closed" if n in closed else "open")] += 1
+    res["closure_nodes"] = {f"{a}_{b}": c for (a, b), c in sorted(kinds.items())}
+    res["shift"] = sh.summary()
     res["retail_text_bytes"] = textsz
+    res["link_status_sha256"] = sha256(status)
     return res
 
 
-def shifted_rows(out, recs, I, rsecs, have_shift, shift_base):
-    """ids of rows whose code holds an unrelocated absolute image address. With a
-    shifted link, also confirm the linker laid the image out identically and every
-    relocated word moved by exactly the base delta; rows that do not are added."""
-    hard = set()
-    lo, hi = BASE + rsecs[".rdata"][0], BASE + max(s + z for _, s, z in rsecs.all)
-    starts = {BASE + r["row"]["rva"] for r in recs}
-    S = None
-    if have_shift and (out / "shift.exe").exists():
-        _, S, ssecs, _ = pe_view(out / "shift.exe")
+class Shifted:
+    """The shifted link's verdicts. Same inputs at another base: the layout must be
+    identical, every non-relocation byte equal, and every relocated word must move
+    by exactly the base delta (DIR32; REL32 and absolutes do not move). Checked
+    for rows' code, twins, every datum of the closure and EH tables. Without a
+    shifted link every check fails: the base adjustment is unverified."""
 
-    for rec in recs:
-        if not rec["measured"]:
-            continue
-        r, L = rec["row"], rec["linked"]
-        code = I[L:L + r["size"]]
-        if hardcoded_operands(code, L + BASE, rec["masked"], lo, hi, starts):
-            hard.add(id(rec))
-            continue
-        if S is not None:
-            moved = S[L:L + r["size"]]
-            for k in range(len(code)):
-                if k in rec["masked"]:
-                    continue
-                if code[k] != moved[k]:
-                    hard.add(id(rec))
-                    break
-    return hard
+    def __init__(self, out, I, isecs, rsecs, have_shift, shift_base, starts):
+        self.I, self.delta, self.base_s = I, (shift_base or 0) - BASE, shift_base
+        self.lo, self.hi = BASE + rsecs[".rdata"][0], BASE + max(s + z for _, s, z in rsecs.all)
+        self.starts = starts
+        self.S, self.why = None, "no shifted link"
+        self.failed = collections.Counter()
+        if have_shift and shift_base and (out / "shift.exe").exists():
+            _, S, ssecs, _ = pe_view(out / "shift.exe")
+            if [(n, a, z) for n, a, z in ssecs.all] != [(n, a, z) for n, a, z in getattr(isecs, "all", ())]:
+                self.why = "shifted layout differs"
+            else:
+                self.S, self.why = S, None
+
+    def _note(self, kind, why):
+        if why:
+            self.failed[(kind, why)] += 1
+        return why
+
+    def words(self, at, size, masked, rels):
+        S, I = self.S, self.I
+        for k in range(size):
+            if k not in masked and I[at + k] != S[at + k]:
+                return "byte moved"
+        for fo, ty, absolute in rels:
+            d = (u32(S, at + fo) - u32(I, at + fo)) & 0xFFFFFFFF
+            if d != (0 if absolute or ty == REL32 else self.delta & 0xFFFFFFFF):
+                return "relocation not adjusted"
+        return None
+
+    def code(self, at, size, masked, rels):
+        """None, or why code at `at` does not follow a rebase: a hard-coded retail
+        data VA or row start no relocation covers, or a shifted-link difference."""
+        if hardcoded_operands(self.I[at:at + size], at + BASE, masked, self.lo, self.hi, self.starts):
+            return self._note("code", "hardcoded address")
+        if self.S is None:
+            return self._note("code", self.why)
+        return self._note("code", self.words(at, size, masked, rels))
+
+    def data(self, key, node):
+        if self.S is None:
+            return self._note("datum", self.why)
+        start, _, size = key
+        if size <= 0 or start < 0 or start + size > len(self.I):
+            return None                                   # already failed as data-extent
+        return self._note("datum", self.words(start, size, node.get("masked", set()), node.get("rels", ())))
+
+    def eh(self, lt):
+        """The thunk's FuncInfo, unwind/try maps and handler addresses all moved by
+        the delta (their own entries compared through eh_verdict at the base)."""
+        if self.S is None:
+            return self._note("eh", self.why)
+        I, S = self.I, self.S
+        try:
+            if u32(S, lt + 1) - u32(I, lt + 1) != self.delta or u32(S, lt + 6) != u32(I, lt + 6):
+                return self._note("eh", "thunk not adjusted")
+            fi = u32(I, lt + 1) - BASE
+            if eh_tables(I, fi, BASE) != eh_tables(S, fi, self.base_s):
+                return self._note("eh", "FuncInfo not adjusted")
+        except (struct.error, IndexError):
+            return self._note("eh", "FuncInfo unparsable")
+        return None
+
+    def summary(self):
+        out = {"checked": self.S is not None, "why_unchecked": self.why, "delta": self.delta}
+        out["failed"] = {f"{k}:{w}": c for (k, w), c in sorted(self.failed.items())}
+        return out
+
+
+def eh_tables(m, fi, base):
+    """funcinfo() with every image address made base-relative (0 stays 0)."""
+    magic, maxst, ntry, un, tr = funcinfo(m, fi, base)
+
+    def rel(v):
+        return v - base if v else 0
+    return (magic, maxst, ntry, [(s, rel(a)) for s, a in un],
+            [(lo, hi, ch, nc, [(h0, rel(h1), h2, rel(h3)) for h0, h1, h2, h3 in hs]) for lo, hi, ch, nc, hs in tr])
 
 
 def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--build", action="store_true", help="compile stale objects first (BUILD_POOL = cores - 2)")
     ap.add_argument("--max-iter", type=int, default=6, help="links in the quarantine loop (default 6)")
     ap.add_argument("--shift-base", type=lambda s: int(s, 0), default=SHIFT_BASE,
-                    help="second link's base (0 = none; default 0x10000000)")
-    ap.add_argument("--reuse-quarantine", action="store_true", help="start from the last cycle's quarantine list")
-    ap.add_argument("--reuse-stubs", action="store_true", help="skip pass 1, reuse the last cycle's stub names")
+                    help="second link's base (0 = none, and nothing is credited; default 0x10000000)")
+    ap.add_argument("--reuse-quarantine", action="store_true",
+                    help="start from the last cycle's quarantine list (only if computed for the same objects)")
+    ap.add_argument("--reuse-stubs", action="store_true",
+                    help="skip pass 1, reuse the last cycle's stub names (only if computed for the same objects)")
+    ap.add_argument("--allow-stale-cache", action="store_true",
+                    help="reuse quarantine/stubs computed for other objects (the receipt is then not authoritative)")
+    ap.add_argument("--snapshot", metavar="REV",
+                    help="measure an immutable export of REV (git archive incl. submodules), not the worktree")
+    ap.add_argument("--snapshot-dir", default=str(ROOT / "build" / "link_cycle_snapshots"),
+                    help="where snapshots live (one directory per commit; outputs in its build/)")
     ap.add_argument("--measure-only", action="store_true", help="re-measure the last links (no link)")
     ap.add_argument("--out", default=str(OUT))
     args = ap.parse_args(argv)
+    if args.snapshot:
+        return run_in_snapshot(args, argv)
     if args.measure_only:
         return remeasure(args)
     cycle(args)
@@ -1271,7 +1828,8 @@ def remeasure(args):
     _, R, rsecs, rimp = pe_view(build.EXE)
     text0, textsz = rsecs[".text"]
     pins, byaddr = load_pins()
-    quarantine = set(json.loads((out / "quarantine.json").read_text())) if (out / "quarantine.json").exists() else set()
+    q = json.loads((out / "quarantine.json").read_text()) if (out / "quarantine.json").exists() else []
+    quarantine = set(q["value"] if isinstance(q, dict) else q)
     with (ROOT / "reverse/ghidra_functions.csv").open(newline="") as f:
         ghidra = [int(r["rva"], 16) for r in csv.DictReader(f)]
     placed, _, _ = plan_order(units, quarantine, text0, textsz)
@@ -1282,11 +1840,10 @@ def remeasure(args):
     path = out / "receipt.json"
     if path.exists():   # the links are the receipt's; the measure, its digest and series are replaced
         receipt = json.loads(path.read_text(encoding="utf-8"))
-        receipt.update(series=res, tool_digest=tool_digest(),
-                       measure_dirty=bool(git("status", "--porcelain", "--untracked-files=no")),
-                       remeasured_utc=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
-                       measure_commit=git("rev-parse", "HEAD"))
-        receipt["seconds"]["measure"] = round(time.time() - t)
+        receipt.update(series=res, tool_digest=tool_digest(), rules="link-cycle-2", authoritative=False,
+                       remeasured_utc=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()))
+        receipt.setdefault("seconds", {})["measure"] = round(time.time() - t)
+        receipt["core_sha256"] = digest_of(receipt_core(receipt))
         path.write_text(json.dumps(receipt, indent=1), encoding="utf-8")
     return 0
 
