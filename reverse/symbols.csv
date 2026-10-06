@@ -15414,3 +15414,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva002803F9@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PBUCoord3D@@_N@Z,0x002803F9,ZH getHighestLayerForDestination(pos; onlyHealthyBridges=false): REL32 at 0x0048FDBB in HeightDieUpdate::update 0x0048FD1B on the TargetHeightIncludesStructures path; the body starts with getGroundHeight(pos->x; pos->y; 0)
 ?rva001F5BBE@ParticleSystemManager@@QAEXPAVObject@@@Z,0x001F5BBE,ZH destroyAttachedSystems(Object*) on TheParticleSystemManager (0x00DFDD04): REL32 at 0x0048FF56 in HeightDieUpdate::update 0x0048FD1B; the rowed body destroys every system whose +0xB4 attached ID is the object's +0x74 ID
 
+?rva0059DFFB@Rva0059DFFB@@QAEXXZ,0x0059DFFB,callee of ?rva004FC470@Rva004FC470@@QAEX_N@Z
