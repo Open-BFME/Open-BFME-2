@@ -174,6 +174,20 @@ struct AsciiStringPlusStringText : AsciiStringPlusString
 	Rva000B3F84Pair m_text;
 };
 
+// ?rva005EF5CA@Rva005EF5CA@@QAEHPAD@Z @0x005EF5CA 37B.
+// Two part write via rowed registry path writer and AsciiStringRef writer;
+// caller 0x005EF607 uses this output in the next path operation.
+struct Rva005EF5CA : AsciiStringPlusStringText
+{
+	int write(char *dst);
+};
+
+int Rva005EF5CA::write(char *dst)
+{
+	int n = AsciiStringPlusStringText::write(dst);
+	return n + ((AsciiStringRef *)((char *)this + 0x10))->write(dst + n);
+}
+
 // ?write@Rva000B3F84Pair@@QAEHPAD@Z @0xB44F0
 int Rva000B3F84Pair::write(char *dst)
 {
