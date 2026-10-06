@@ -10812,3 +10812,5 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva005297DD@Rva0052936C@@QAEXPBD@Z	0x005297DD	259	blocked	259B Rva0052936C needs new StringBase GetLevel set stub 78B t=15 model=muse-09
 ?rva00332975@Rva0026E7C8Ctor@@QAEXPAVXfer@@@Z	0x00332975	378	partial	ebx-edi swap vector-elem plus k1 stack vs edi plus extra mov count plus push order -4B t=25 model=muse-01 score=0.9 stash=reverse/attempts/0x00332975.cpp
 ?rva003328ED@Rva003328ED@@QAEXPAXHH@Z	0x003328ED	136	partial	esi-edi swap this-p plus test-jne vs jmp plus or-1 plus push order +2B t=20 model=muse-01 score=0.9 stash=reverse/attempts/0x003328ed.cpp
+?rva002F3039@Rva002F3039@@QAEPAV1@XZ	0x002F3039	25	blocked	single lea plus push vs retail double lea CSE needs two leas t=10 model=muse-08
+?rva002F307A@Rva002F307A@@QAEPAV1@XZ	0x002F307A	25	blocked	same duplicate lea wall as 0x002F3039 single lea CSE vs retail double lea t=1 model=muse-08

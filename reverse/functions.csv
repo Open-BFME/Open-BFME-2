@@ -63697,3 +63697,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003EF08B@Rva003EF13E@@QAEXH@Z,,0x003EF08B,179,Code/GameEngine/Source/Common/Rva003EF08B.cpp,matched,chain via 0x003EF041 switch kind and bool merge
 ?rva005391D3@Rva0053947D@@UAEXXZ,,0x005391D3,42,Code/GameEngine/Source/Common/Rva0053947DDtor.cpp,matched,vslot slot2 v13 count v15 entry callee 0x005C4C95
 ?rva005C8E2C@HostClass005C8E0A@@QAE?AVBfmePoolRef10@@XZ,,0x005C8E2C,135,Code/GameEngine/Source/Common/HostClass005C8E2C.cpp,matched,take pool ref at +8 via copy clear adjust and iterate caller 0x56A430
+?rva00256499@Rva00256499@@QAEXPAVINI@@PAX@Z,,0x00256499,234,Code/GameEngine/Source/Common/System/Rva00256499Parse.cpp,matched,LINK BONUS KindOf driver via Veterancy donor with member Append homing
