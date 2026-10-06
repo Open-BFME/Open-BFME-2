@@ -6608,6 +6608,7 @@ class_gate_allow	Code/GameEngine/Source/GameLogic/Map/Rva0019BC00SetFields.cpp	A
 class_gate_allow	Code/GameEngine/Source/GameLogic/Map/Rva0032A186Finish.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Map/Rva0032A186Finish.cpp	Snapshot	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva003F9FA9Ctor.cpp	AsciiString	1
+class_gate_allow	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp	Coord3D	1	allow=6a832d3fd35dcdc09df24ade249317b184ebd3e2
 class_gate_allow	Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateModuleDataCtor.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Object/Weapon_getName_Thunk.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Object/Weapon_getName_Thunk.cpp	StringBase	1

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // Zero Hour's DozerAIUpdate (GeneralsMD GameLogic/Object/Update/AIUpdate/
 // DozerAIUpdate.cpp) as BFME 2 kept it.
@@ -58,7 +58,30 @@
 // reachable tower (bridge interface vslot 1, four towers, the pinned
 // isPathAvailable) whose position (the pinned findGoodBuildOrRepairPosition
 // 0x00489039) is nearest, else it finds the target's position.
-#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
+//
+// ?newTask@DozerAIUpdate@@UAEXW4DozerTask@@PAVObject@@@Z, retail 0x00489A07,
+// 666 bytes (dozer interface vslot 12, so its this is the +0x3E4
+// interface). Donor: BFME 1's DozerAIUpdateNewTaskBfme.cpp over ZH's
+// DozerAIUpdate::newTask: for a build or repair task it cancels a pending one
+// (vslots 6 and 13), finds the position and target (rowed 0x00489913), sets
+// the builder (rowed 0x0028AFE7) for builds and fills the three dock points,
+// the end point pushed 50 units out from the target along the normalized 2D
+// offset (rowed Coord3D::normalize 0x000035B6; the offset in its own block,
+// as in the donor, keeps its scaled components in registers); then it
+// records the target id and frame (TheGameLogic +0x40) and resets the dozer
+// machine (vslot 6). The DockingDesync(DOZER) diagnostics are the Worker
+// twin's (0x004AADB1), under the same two switches. Unlike the Worker, BFME 2
+// adds nothing here.
+#include "ascii_string.h"
+
+// class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line normalize (rowed 0x000035B6) that newTask calls; same three floats
+struct Coord3D
+{
+	float x;
+	float y;
+	float z;
+	void normalize();
+};
 
 typedef bool Bool;
 typedef int Int;
@@ -66,6 +89,19 @@ typedef unsigned int UnsignedInt;
 typedef float Real;
 
 #define FALSE false
+#define TRUE true
+
+struct _iobuf;
+typedef struct _iobuf FILE;
+
+extern "C" int __cdecl fprintf(FILE *stream, const char *format, ...);
+
+// BFME's logic random log file (data ledger 0x00DFEFF0).
+extern "C" FILE *theLogicRandomLogFile;
+
+// BFME 1's docking diagnostics switches (0x00DCBF44 and 0x00E03CA8).
+extern bool g_bfmeDockingDesyncLog;
+extern bool g_bfmeDockingTraceActive;
 
 enum ObjectID
 {
@@ -99,7 +135,8 @@ class StateMachine
 public:
 	virtual ~StateMachine();
 	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
+	virtual void slot04(); virtual void slot05();
+	virtual void resetToDefaultState(); // vslot 6
 	virtual StateReturnType initDefaultState();
 	void defineState(StateID id, struct State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = 0);
 	Object *getOwner() const { return m_owner; }
@@ -243,7 +280,8 @@ public:
 	virtual DozerTask getMostRecentCommand() = 0; // vslot 5
 	virtual Bool isTaskPending(DozerTask task) = 0; // vslot 6
 	virtual void slot7() = 0; virtual void slot8() = 0; virtual void slot9() = 0;
-	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0;
+	virtual void slot10() = 0; virtual void slot11() = 0;
+	virtual void newTask(DozerTask task, Object *target) = 0; // vslot 12
 	virtual void cancelTask(DozerTask task) = 0; // vslot 13
 	virtual void slot14() = 0; virtual void slot15() = 0; virtual void slot16() = 0;
 	virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
@@ -306,9 +344,12 @@ enum KindOfType
 class ThingTemplate
 {
 public:
+	const AsciiString &getName() const { return m_name; }
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 31)); }
 private:
-	unsigned char m_pad000[0x108];
+	unsigned char m_pad000[0x64];
+	AsciiString m_name; // +0x64
+	unsigned char m_pad068[0x108 - 0x68];
 	UnsignedInt m_kindOf[4]; // +0x108
 };
 
@@ -327,6 +368,8 @@ private:
 class Object : public Thing
 {
 public:
+	ObjectID getID() const { return m_id; }
+	void rva0028AFE7(Object *builder);
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	void rva0028AE6D();
@@ -339,7 +382,9 @@ public:
 		}
 	}
 private:
-	unsigned char m_pad044[0x10C - 0x44];
+	unsigned char m_pad044[0x74 - 0x44];
+	ObjectID m_id; // +0x74
+	unsigned char m_pad078[0x10C - 0x78];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
@@ -349,6 +394,10 @@ class GameLogic
 {
 public:
 	Object *findObjectByID(ObjectID id);
+	UnsignedInt getFrame() const { return m_frame; }
+private:
+	unsigned char m_pad00[0x40];
+	UnsignedInt m_frame; // +0x40
 };
 
 extern GameLogic *TheGameLogic;
@@ -400,9 +449,11 @@ public:
 	DozerAIUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~DozerAIUpdate();
 	virtual void onDelete();
+	virtual void newTask(DozerTask task, Object *target);
 private:
 	enum { DOZER_NUM_TASKS = 3 };
 	enum { DOZER_NUM_DOCK_POINTS = 3 };
+	enum { DOZER_DOCK_POINT_START = 0, DOZER_DOCK_POINT_ACTION, DOZER_DOCK_POINT_END };
 	enum { DOZER_SELECT_BUILD_DOCK_LOCATION = 0 };
 
 	struct DozerTaskInfo
@@ -605,4 +656,98 @@ Object *DozerAIUpdate::findGoodBuildOrRepairPositionAndTarget(Object *me, Object
 
 	findGoodBuildOrRepairPosition(me, target, positionOut);
 	return target;
+}
+
+void DozerAIUpdate::newTask(DozerTask task, Object *target)
+{
+	// sanity
+	if (target == 0)
+		return;
+
+	//
+	// special check for the build task, we should never be given more than one of them ...
+	// for the other tasks we just forget what we were doing and the new target takes
+	// precedence for the task
+	//
+	if (task == DOZER_TASK_BUILD || task == DOZER_TASK_REPAIR)
+	{
+		// handle getting two tasks
+		if (isTaskPending(task) == TRUE)
+			cancelTask(task);
+
+		// get our object
+		Object *me = getObject();
+
+		Coord3D position;
+		if (g_bfmeDockingDesyncLog)
+		{
+			if (theLogicRandomLogFile)
+				fprintf(theLogicRandomLogFile, "DockingDesync(DOZER) BEGIN: Object %s(%d) with target %s(%d) at %g,%g,%g",
+					me->getTemplate()->getName().str(), me->getID(),
+					target->getTemplate()->getName().str(), target->getID(),
+					me->getPosition()->x, me->getPosition()->y, me->getPosition()->z);
+			g_bfmeDockingTraceActive = true;
+		}
+
+		target = findGoodBuildOrRepairPositionAndTarget(me, target, position);
+		if (target == 0)
+		{
+			if (g_bfmeDockingDesyncLog)
+			{
+				if (theLogicRandomLogFile)
+					fprintf(theLogicRandomLogFile, "DockingDesync(DOZER) END: Object %s(%d) with no target found docking position %g,%g,%g",
+						me->getTemplate()->getName().str(), me->getID(),
+						position.x, position.y, position.z);
+				g_bfmeDockingTraceActive = false;
+			}
+			return; // could happen for some bridges
+		}
+
+		if (g_bfmeDockingDesyncLog)
+		{
+			if (theLogicRandomLogFile)
+				fprintf(theLogicRandomLogFile, "DockingDesync(DOZER) END: Object %s(%d) with target %s(%d) found docking position %g,%g,%g",
+					me->getTemplate()->getName().str(), me->getID(),
+					target->getTemplate()->getName().str(), target->getID(),
+					position.x, position.y, position.z);
+			g_bfmeDockingTraceActive = false;
+		}
+
+		//
+		// for building, we say that even "thinking" about building or rebuilding an object
+		// sets us as the current builder of that object
+		//
+		if (task == DOZER_TASK_BUILD)
+			target->rva0028AFE7(me);
+
+		m_dockPoint[task][DOZER_DOCK_POINT_START].valid = TRUE;
+		m_dockPoint[task][DOZER_DOCK_POINT_START].location = position;
+		m_dockPoint[task][DOZER_DOCK_POINT_ACTION].valid = TRUE;
+		m_dockPoint[task][DOZER_DOCK_POINT_ACTION].location = position;
+
+		// the end point is pushed out from the target
+		{
+			Coord3D offset;
+			offset.x = position.x - target->getPosition()->x;
+			offset.y = position.y - target->getPosition()->y;
+			offset.z = 0.0f;
+			offset.normalize();
+			offset.x *= 50.0f;
+			offset.y *= 50.0f;
+			offset.z *= 50.0f;
+			position.x += offset.x;
+			position.y += offset.y;
+			position.z += offset.z;
+		}
+
+		m_dockPoint[task][DOZER_DOCK_POINT_END].valid = TRUE;
+		m_dockPoint[task][DOZER_DOCK_POINT_END].location = position;
+	}
+
+	// set the new task target and the frame in which we got this order
+	m_task[task].m_targetObjectID = target->getID();
+	m_task[task].m_taskOrderFrame = TheGameLogic->getFrame();
+
+	// reset the dozer behavior so that it can re-evluate which task to continue working on
+	m_dozerMachine->resetToDefaultState();
 }
