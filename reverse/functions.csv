@@ -66277,3 +66277,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?LookupGameByListOffset@LANAPI@@UAEPAVLANGameInfo@@H@Z,,0x004498F0,35,Code/GameEngine/Source/GameNetwork/LANAPIAmIHost.cpp,matched,
 ?AmIHost@LANAPI@@UAEHXZ,,0x004499FF,42,Code/GameEngine/Source/GameNetwork/LANAPIAmIHost.cpp,matched,
 ?rva00449B79@LANAPI@@UAE_NXZ,,0x00449B79,22,Code/GameEngine/Source/GameNetwork/LANAPIAmIHost.cpp,matched,
+?OnPlayerLeave@LANAPI@@UAEXVUnicodeString@@@Z,,0x0024A0C7,177,Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,matched,
