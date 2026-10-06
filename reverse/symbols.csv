@@ -13837,9 +13837,3 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00628040@Rva00628040Impl@@QAEPAVObject@@PBUCoord3D@@MHHPAVRva000421C8@@@Z,0x00628040,"PartitionManager closest-object implementation (1827 bytes) behind +0x10: position, float radius, 0, distance type, filter chain; called from getClosestObject 0x00625360; same address as the int-typed ?bfmeFwd1050 pin"
 
 ?Rva00447CA9@@YAXPAVLANGameInfo@@PADH@Z,0x00447CA9,callee of ?Rva0044802D@@YAXPADH@Z
-?rva0005EA8F@Rva0005F279Host@@QAEXPAVRva0005F279Elem@@@Z,0x0005EA8F,dump range 1 loop callees for 0x5F279
-?rva000FF5E6@Rva0007E90ECallee@@QAEXH@Z,0x000FF5E6,dump range 1 marker callee for 0x7E90E
-?rva000B89E9@Rva000B8F5AOuter@@QAEHHPAM@Z,0x000B89E9,rva000BADE7 tail: address read from the REL32 at 0x000BAEA5 in 0x000BADE7; fresh address-derived Outer-method name (probe, float out) for the 1393B body; push order (out then probe) proves (probe, out) against the B8440 twin guess
-?rva000C0386@Rva000B8F5AOuter@@QAEXXZ,0x000C0386,rva000C144A probe: address read from the REL32 at 0x000C1450 in 0x000C144A; fresh address-derived Outer-method name for the 19B counter check (global 0xDE1B40 vs +0xB8, shared tail 0xBFDFE)
-?rva007A41E@Rva007A41E@@QAEXXZ,0x007A41E,unrowed thiscall string-list worker called by the Rva007A4E6 dtor 0x007A4E6 at +0x18 (Rb increment/erase/delete/map-ctor composite); Rva007A4E6Dtor.cpp calls it through this spelling; full-body identity still open
-?rva002B7DE6@Rva002B894DHost@@QAEXPAVRva002B894DElem@@@Z,0x002B7DE6,callee of ?rva002B894D@Rva002B894DHost@@QAEXH@Z
