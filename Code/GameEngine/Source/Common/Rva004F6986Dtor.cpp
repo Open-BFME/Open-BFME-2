@@ -13,6 +13,11 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 struct Rva004F6986Member
 {
+	Rva004F6986Member(const Rva004F6986Member &that) : m_ptr(that.m_ptr)
+	{
+		if (m_ptr)
+			++m_ptr->references;
+	}
 	~Rva004F6986Member()
 	{
 		if (m_ptr)
@@ -37,12 +42,21 @@ Rva004F6986::~Rva004F6986()
 // addresses.
 
 // ??1Rva0044BA4E@@QAE@XZ, retail 0x0044BA4E, 61 bytes.
+// ??0Rva0044BA4E, retail 0x0044BCAB, 85 bytes: builds the holder from two
+// handles taken by value -- each member copy adds a reference, then the
+// callee-destroyed arguments release theirs (EH state 0 covers the second).
+// Callers 0x0044C042 0x0044C19F 0x0051615A 0x005176B9 0x00517E11 0x005B6B24.
 struct Rva0044BA4E
 {
+	Rva0044BA4E(Rva004F6986Member first, Rva004F6986Member second);
 	~Rva0044BA4E();
 	Rva004F6986Member m_00;
 	Rva004F6986Member m_04;
 };
+
+Rva0044BA4E::Rva0044BA4E(Rva004F6986Member first, Rva004F6986Member second) : m_00(first), m_04(second)
+{
+}
 
 Rva0044BA4E::~Rva0044BA4E()
 {
