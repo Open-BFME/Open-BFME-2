@@ -63702,3 +63702,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva002E55D8@@QAE@XZ,,0x002E55FF,18,Code/GameEngine/Source/Common/Rva002E55D8Ctor.cpp,matched,ctor via rowed baseConstruct then vtable 00804E90 same flags as prev
 ??$__partial_sort@PAHHURva005E4300Cmp@@@_STL@@YAXPAH000URva005E4300Cmp@@@Z,,0x005E5177,92,Code/Libraries/Source/WWVegas/WWLib/stlport_partial_sort_rva005E4300.cpp,matched,partial sort Rva005E4300Cmp via rowed heap helpers
 ??0GameSpyStagingRoom@@QAE@ABV0@@Z,,0x003835F4,345,Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomCopy.cpp,matched,Implicit memberwise copy ctor: rowed base copy then vtable 0xC19440 then EH vector copy of 8 slots and AsciiStrings and fields
+?rva005962F7@Rva005962F7@@QAE_NPAX@Z,,0x005962F7,111,Code/GameEngine/Source/Common/Rva005962F7.cpp,matched,thiscall predicate via Get Check base element push_back
