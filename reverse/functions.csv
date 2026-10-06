@@ -64921,3 +64921,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ??0Rva0057F2DE@@QAE@PAUTargetRef00217D4C@@@Z,,0x0057F486,150,Code/GameEngine/Source/Common/Rva0057F2DE.cpp,matched,vtable 0x00C6F584 base pin 0x002D2C34 GameSpy 0x005CAB59 holder refcount
 ??0Rva0057FE6B@@QAE@PAUTargetRef00217D4C@@H_N@Z,,0x0057FF3E,95,Code/GameEngine/Source/Common/Rva0057FF3ECtor.cpp,matched,vtable 0x0086F64C base pin 0x002D2C34 holder58 refcount conditional 0x0057FD6E
 ?_AtlGetThreadACPReal@ATL@@YGIXZ,,0x0044827C,4,Code/Libraries/Source/ATL/atlconv.cpp,matched,retail push 3 pop eax ret CP_THREAD_ACP; link bonus 626B atlconv
+??0Rva0051268C@@QAE@PAX@Z,,0x0051268C,94,Code/GameEngine/Source/GameClient/GUI/BfmeAptGameWindowConstructor.cpp,matched,factory 0x002D1E55 size 0x27C and dtor 0x005126F5 same vtables
