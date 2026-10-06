@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0033BFA6@Rva0033BFA6@@QAE?AURva0033BFA6Iter@@PAURva0033BFA6Node@@0ABURva0033BFA6Key@@0@Z
 // @0x0033BFA6 149B. STLport _Rb_tree::_M_insert (hinted insert worker) for the
 // ModelCondition SparseMatchFinder tree: the comparator call resolves to the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?rva002CDB0E@Weapon@@QAEXPBVModuleData@@@Z @0x002CDB0E 69B unlock: Weapon-adjacent vectors at +0xC/+0x18 via rowed voidptr erase and ModuleData push_back, callers 0x002CE160
 // The emitted unsigned max copy must match retail RVA 0x00013740.

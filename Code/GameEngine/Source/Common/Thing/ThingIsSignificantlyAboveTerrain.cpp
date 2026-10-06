@@ -1,4 +1,4 @@
-// cl: /O1 /G6 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0030AD8B@Thing@@QBE_NM@Z (0x0030AD8B, 60B) and
 // ?isSignificantlyAboveTerrain@Object@@QBE_NXZ (0x0030ADDC, 12B).

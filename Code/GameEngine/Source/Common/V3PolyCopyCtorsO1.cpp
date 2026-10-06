@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/V3PolyCopyCtors.cpp (donor revision

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // _bfme_updateTimedOps, retail 0x003FE74B (71 bytes), and
 // ?update@TimedOp@@QAEIXZ, retail 0x003FE6E8 (99 bytes).

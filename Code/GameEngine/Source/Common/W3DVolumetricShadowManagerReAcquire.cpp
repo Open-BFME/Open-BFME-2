@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?ReAcquireResources@W3DVolumetricShadowManager@@QAE_NXZ @0x000F09E1 148B: reacquire IB plus VB via D3DDevice then manager reacquire under DX8 lock. Evidence: LINK BONUS names this mangling plus donor ZH ReAcquireResources plus chain callee 0x000F0972 row plus callers 0x0009A270 0x0009A390.
 void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();

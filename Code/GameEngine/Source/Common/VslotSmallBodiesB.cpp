@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra size (sized from

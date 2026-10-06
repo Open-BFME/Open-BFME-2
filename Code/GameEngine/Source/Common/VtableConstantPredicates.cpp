@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Six constant-return bodies found by tools/vtable_gaps.py: each is an
 // UNNAMED slot of a vtable-shaped run that also carries named slots, so the

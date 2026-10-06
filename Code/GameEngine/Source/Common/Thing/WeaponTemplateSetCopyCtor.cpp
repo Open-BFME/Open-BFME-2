@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // WeaponTemplateSet copy ctor, retail 0x004AE811, 33 bytes.
 // Dedicated TU so WeaponTemplateSetConstruct.cpp cannot see this body.

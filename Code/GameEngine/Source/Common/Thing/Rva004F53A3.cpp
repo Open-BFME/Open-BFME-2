@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva004F53A3Destroy@@YAXPAVObject@@@Z, retail 0x004F53A3, 32 bytes.
 // Chain from 0x0028FB6F: pushes Object+0x274 into Object::rva0028FB6F then
 // destroys Object via TheGameLogic->destroyObject. Evidence: free cdecl

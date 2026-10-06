@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Null-checked vtable-slot forwarders with no ledger owner: each loads a
 // member pointer, and when it is set tail-jumps to one method of it with the

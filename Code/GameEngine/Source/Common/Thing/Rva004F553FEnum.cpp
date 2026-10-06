@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004F553F@Rva004F553F@@QAEXP6AXPAX0@Z0_N@Z @0x004F553F 77B.
 // Visits a circular doubly-linked list forward or backward via a cdecl
 // callback. Evidence: unlock lane packet; ret 0xC with EBP frame; pop-pop

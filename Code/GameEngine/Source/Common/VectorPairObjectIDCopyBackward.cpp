@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 
 // ??$copy_backward@PAU?$pair@W4ObjectID@@I@_STL@@PAU12@@_STL@@YAPAU?$pair@W4ObjectID@@I@0@PAU10@00@Z RVA 0x004C72FE size 27

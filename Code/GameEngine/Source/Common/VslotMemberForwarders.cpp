@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Vtable-slot forwarders with no ledger owner: each moves `this` to a member
 // object (add ecx, N), a member pointer (mov ecx, [ecx+N]) or a global

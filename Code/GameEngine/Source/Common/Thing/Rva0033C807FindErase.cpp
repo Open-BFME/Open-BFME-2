@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?rva0033C807@Rva0033C807@@QAE_NABVAsciiString@@AAV2@@Z @0x0033C807 67B:
 // vector scan by module tag with out-copy and erase; compares Nugget+4 tag
 // via rowed StringBase compare, copies Nugget+0 name via pinned AsciiString

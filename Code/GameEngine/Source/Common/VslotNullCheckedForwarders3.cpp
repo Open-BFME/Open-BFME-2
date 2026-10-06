@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // More null-checked member-pointer forwarders (VslotNullCheckedForwarders.cpp
 // shape, found by a .text byte scan of unowned starts): load the pointer at

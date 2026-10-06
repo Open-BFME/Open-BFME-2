@@ -4,7 +4,7 @@
 // mov-glob; je; jmp notify` -- the flag cmp schedules above the store while
 // the je still tests it (mov preserves flags).
 
-// cl: /O1 /MD
+// cl: /MD
 
 extern int g_Va00DEC40C;
 extern unsigned char g_WW3D_IsInitted;

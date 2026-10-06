@@ -1,4 +1,4 @@
-// cl: -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // Seven members that allocate one object with `new` and construct it with a
 // constructor the compiler INLINED, so the vptr stamping that constructor does

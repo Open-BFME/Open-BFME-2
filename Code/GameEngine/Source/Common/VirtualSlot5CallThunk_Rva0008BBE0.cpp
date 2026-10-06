@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // ?copyTo@Offset140IntegerTripleCopyThunk@@QAEPAHPAH@Z
 // retail 0x0008BBE0, 22 bytes. Dedicated TU ported from the Open-BFME-1 donor

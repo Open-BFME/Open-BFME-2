@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // ??RMapHelper@?$SparseMatchFinder@UModelConditionInfo@@V?$BitFlags@$0HF@@@@@QBE_NABV?$BitFlags@$0HF@@@0@Z @0x0033AD13 73B
 // Evidence: byte-twin of Weapon MapHelper at 0x0033AD5C (SparseMatchFinderWeaponCompare17.cpp loop 21);

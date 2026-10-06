@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 //
 // UserPreferences WinsVs/LossesVs helpers (retail 0x0053740C/82, 0x0053745E/85,
 // 0x005374B3/82, 0x00537505/85, plus max-finders 0x0053755A/188 and

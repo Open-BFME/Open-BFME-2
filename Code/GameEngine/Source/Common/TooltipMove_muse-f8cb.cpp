@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // ?Rva003807F3Move@@YAXMM@Z @ 0x003807F3 (118B): MoveToolTip firer with float formatting.
 // Retail fetches scale pair through GuiScale slot 0x40 on global 0x009FE4CC then formats
 // x*scale[0] and y*scale[1] with "%g" via msvcr71 _snprintf into 16B stack buffers.

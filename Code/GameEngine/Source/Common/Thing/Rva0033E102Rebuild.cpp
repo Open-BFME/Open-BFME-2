@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0033E102@@YAXPAXPAVThingTemplate@@@Z @0x0033E102 123B.
 //

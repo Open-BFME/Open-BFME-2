@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 //
 // Heterogeneous key-compare leaves for the BFME2 version-block table

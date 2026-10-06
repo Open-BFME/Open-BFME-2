@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Unnamed vtable slot targets that are pure virtual forwarders: each loads its
 // own vptr and TAIL-JUMPS to another slot on the same object. Found with

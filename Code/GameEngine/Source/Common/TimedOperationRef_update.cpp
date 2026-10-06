@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?update@TimedOperationRef@@QAEIM_N@Z, retail 0x003FE6A0 (53 bytes).
 // Dedicated TU: the caller (TimedOp::update) lives in

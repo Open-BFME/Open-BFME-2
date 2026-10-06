@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva00413BC5@Rva00413BC5@@QAEHH@Z @0x00413BC5 61B: map<int,int> find with stride extension.
 // Evidence: unlock lane, rowed _M_find 0x00388F63 and rowed _M_decrement 0x000242C0, found returns +0x14, miss with size!=0 uses (key-last_key)*stride+last_value, caller at 0x002BCA37.

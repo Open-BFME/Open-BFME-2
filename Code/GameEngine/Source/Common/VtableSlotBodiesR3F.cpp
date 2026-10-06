@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Float-handling straight-line vtable slot bodies below 0x00400000 that
 // tools/vftable_map.py reports with no ledger owner (--unclaimed); the

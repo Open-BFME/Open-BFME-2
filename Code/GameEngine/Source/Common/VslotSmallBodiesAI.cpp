@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Vtable-slot forwarders with no ledger owner and no Ghidra entry, batch AI:
 // each loads a member (or takes a member's address) and tail-jumps to a

@@ -1,5 +1,5 @@
 // ?parseModuleName@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z
-// cl: /O1 /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception
+// cl: /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception
 // ZH semantic donor via BFME1 6583b3c1. Target33D865..33DB25, 704B.
 // Target field table DBF068/DBF078 labels Behavior/Body and this callback.
 // Measured target mode+5F8, name+64, replacements+94/+98 and four ModuleInfo

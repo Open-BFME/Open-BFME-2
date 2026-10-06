@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry, batch
 // AC. As in VslotSmallBodiesA-AB, each class and method is address-derived

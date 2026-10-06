@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail RE: ?rva0033B677@@YAXPAVINI@@PAX1PBX@Z @0x0033B677 (197B).
 //
 // BFME2-new Flammability FuelFactor INI callback. Target facts from retail

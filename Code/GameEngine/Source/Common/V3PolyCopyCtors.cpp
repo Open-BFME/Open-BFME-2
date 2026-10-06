@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail RVA 0x003AE20D, 93 bytes.
 // Rva005EA0D0 copy constructor: vptr plus thirteen scalar dwords (0x38).
 // Ported from Open-BFME-1 V3PolyCopyCtors.cpp, which documents the family:

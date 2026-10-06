@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Small vtable-slot body with no ledger owner and no Ghidra entry (sized from
 // its bytes), batch N. As in VslotSmallBodiesA-M, the class and method are

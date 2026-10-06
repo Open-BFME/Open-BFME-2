@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception
+// cl: /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception
 // Semantic donor: BFME1 6583b3c1ff21db4a561285717028fdafc780b7db
 // game/GameEngine/Source/Common/Thing/ThingTemplateModuleRemovalParsers.cpp.
 // Native33CD41..33CE18 Ghidra215; target field entryDBF4E8 names RemoveModule.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 // Retail RE: ?parsePrerequisiteUpgrade@@YAXPAVINI@@PAX1PBX@Z @0x0033EB1A (93B).
 //

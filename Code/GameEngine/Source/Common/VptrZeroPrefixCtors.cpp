@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // __thiscall constructors that open with the vftable-plus-zeroed-dword head and
 // then store their arguments straight into the members that follow it.
 //

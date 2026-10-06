@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail RE: ?validate@ThingTemplate@@QAEXXZ @0x0033B4CD (108B).
 //
 // BFME2's validate() is a rewrite of the ZH/BFME1 shape (their validate() keeps

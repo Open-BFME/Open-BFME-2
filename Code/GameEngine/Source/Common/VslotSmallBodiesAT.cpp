@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?Rva0006297CClamp@@YGXPBM0PAM1@Z @0x0006297C 160B
 // Evidence: vslot 17 of 0x007C57E0 class Rva00628FD; single callee
 // Get_Render_Target_Resolution rowed; neighbours VslotSmallBodiesAJ/B.

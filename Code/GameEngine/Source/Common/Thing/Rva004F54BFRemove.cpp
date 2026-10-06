@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // ?rva004F54BF@Rva004F54BF@@QAEXW4ObjectID@@H@Z, retail 0x004F54BF, 75 bytes.
 // Removes an ObjectID from list at +0x10 via rowed find 0x0029B694 and rowed ObjectID erase (pin at 0x00438539 folded onto int erase), then dec count at +0x18.

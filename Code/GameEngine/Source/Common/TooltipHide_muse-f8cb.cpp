@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // ?Rva003807B7Hide@@YAXXZ @ 0x003807B7 (60B): HideToolTip firer plus tooltip DisplayString free.
 // Retail fires "HideToolTip" through Rva00222A8BTarget invoker with owner in ecx pattern
 // matching Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp hideSpellBook (6x push 0

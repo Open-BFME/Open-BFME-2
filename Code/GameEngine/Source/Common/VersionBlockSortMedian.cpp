@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$__median@UVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAABUVersionBlockEntry@@ABU1@00VVersionBlockKeyCompare@@@Z @0x00427C9B 101B
 // _STL::__median of three 0x18-byte version records under VersionBlockKeyCompare,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // ?rva00537A9B@UserPreferences@@QAEXVAsciiString@@M@Z @0x00537A9B 397B
 // UserPreferences record-game-time path: TimePlayed add, Longest max, Shortest min-nonzero, Average recompute via total-games.
 // Evidence: TimePlayed 0x00868E2C slot 0x28, Longest 0x00868E38 getter setter, Shortest 0x00868E48 getter setter,

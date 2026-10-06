@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX- /Oi-
 // stlport
 //
 // ?getUpgradeActivationMasks@UpgradeMuxData@@QBEXAAUUpgradeMaskType@@0@Z,

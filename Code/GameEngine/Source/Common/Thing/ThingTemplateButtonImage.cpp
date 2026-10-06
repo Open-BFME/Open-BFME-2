@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0033B580@ThingTemplate@@QAEPBVImage@@XZ @0x0033B580 56B.
 // ThingTemplate button-image resolver (ButtonImage slot +0x78/+0x48c).
 // BFME1 donor Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp resolveNames

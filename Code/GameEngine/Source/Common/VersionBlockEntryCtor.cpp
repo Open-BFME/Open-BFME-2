@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // stlport
 //
 // ??0VersionBlockEntry@@QAE@XZ at retail 0x00427E88 (49B).

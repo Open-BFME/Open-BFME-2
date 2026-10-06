@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva00413FC1@Rva00413FC1@@QAEPAHH@Z @0x00413FC1 54B: floor lookup in map<int,int> at +0xC via lower_bound.
 // Evidence: unlock lane, rowed _M_lower_bound 0x00382A92 and rowed _M_decrement 0x000242C0, add eax+0x14 returns mapped value, callers at 0x002BCB4C and 0x004F68E5.

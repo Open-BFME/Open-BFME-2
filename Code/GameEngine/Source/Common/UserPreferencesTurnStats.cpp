@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005378E9@UserPreferences@@QAEXVAsciiString@@H@Z @0x005378E9 355B
 // UserPreferences turn-stats path: append TurnsPlayed to faction copy, bump it,
 // track Longest/ShortestGameTurns, recompute AverageGameTurns.

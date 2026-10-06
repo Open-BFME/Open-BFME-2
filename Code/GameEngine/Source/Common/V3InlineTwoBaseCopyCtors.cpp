@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // Six 41-byte __thiscall copy constructors with NO call in them at all.
 // Retail:
 //

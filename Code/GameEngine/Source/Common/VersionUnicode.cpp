@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 
 // Version's Unicode build-label accessors.  The layout and source follow the
 // readable GeneralsMD version.cpp; the BFME2 retail bodies use the same seven

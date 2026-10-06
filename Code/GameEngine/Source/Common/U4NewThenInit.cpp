@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 //
 // Bodies ported from Open-BFME-1's GameEngine/Source/Common/U4NewThenInit.cpp
 // (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus

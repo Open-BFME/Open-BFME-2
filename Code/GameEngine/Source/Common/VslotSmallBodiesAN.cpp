@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry in the
 // /O2 library range, batch AN. Classes and methods are address-derived

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oy-
+// cl: /MD /Oy-
 // ?xferSTLObjectIDList@@YAPAVXfer@@PAV1@PAVBridgeBehaviorObjectIDList@@@Z @0x00331F2D 196B
 // Free ObjectID-list Xfer helper for BridgeBehaviorObjectIDList.
 // Evidence: pinned name; callers BezierProjectileBehavior::xfer 0x0045CB23 ArrowStormUpdate::xfer DamageFieldUpdate::xfer RousingSpeechUpdate::xfer GloriousChargeUpdate::xfer; retail strings "std::list" "List must be empty on load"; rowed XferObjectID 0x003060B2 pin push_back 0x002A1B6F FormatText 0x0060C36E Throw 0x00629094; donor ZH Xfer::xferSTLObjectIDList plus BFME2 XferListInt 0x00206861 skeleton.

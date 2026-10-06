@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // vector<PrereqUnitRec>::_M_allocate_and_copy, retail 0x004EE233, 45 bytes.
 // 12-byte nested ProductionPrerequisite::PrereqUnitRec. Allocates via the

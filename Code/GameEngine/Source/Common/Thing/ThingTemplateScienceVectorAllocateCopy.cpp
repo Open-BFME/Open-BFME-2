@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // vector<ScienceType>::_M_allocate_and_copy, retail 0x0031B9EB, 45 bytes,
 // rowed as ?dup_0031b9eb (the identical 4-byte-POD skeleton is shared with

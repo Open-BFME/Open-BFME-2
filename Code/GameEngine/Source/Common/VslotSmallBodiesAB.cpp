@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Small bodies with no ledger owner, batch AB: vtable slots together with
 // the unrowed callees they need. As in VslotSmallBodiesA-AA, each class and

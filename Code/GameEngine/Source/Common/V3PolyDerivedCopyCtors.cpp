@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail RVA 0x004C9FBF, 33 bytes.
 // Rva004C9FBF derived copy ctor. The 1-int base copy lives in
 // V3PolyCopyCtors.cpp (rowed at 0x004C9F61), so this shard TU sees only its

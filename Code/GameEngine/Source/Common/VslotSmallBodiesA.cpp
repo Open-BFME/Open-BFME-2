@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra size (sized from
 // their bytes: every path ends in ret), batch A. Each class and method is

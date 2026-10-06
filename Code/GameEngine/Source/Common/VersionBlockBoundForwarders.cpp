@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 //
 // Version-block bound adapters for the equal-range worker at 0x00427DEA.

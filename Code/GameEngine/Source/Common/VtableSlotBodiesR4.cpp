@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Five slot bodies (slots 1, 4, 7, 8 and 11) shared by the four unnamed
 // vftables 0x00C04C28, 0x00C04C7C, 0x00C07F4C and 0x00C08974 (no name

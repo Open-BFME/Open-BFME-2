@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Scalar deleting destructors with no direct data or call reference in
 // retail, so neither caller- nor vtable-based discovery served them. Four
 // are reached only through an adjustor thunk (sub ecx,N; jmp) that sits in

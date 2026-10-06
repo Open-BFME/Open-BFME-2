@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Four free functions, 23 to 52 bytes, that append one string to a sink and
 // hand the sink back.  Retail, the simplest of them (0x005C6350):
 //

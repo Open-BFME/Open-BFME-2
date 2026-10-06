@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes), batch K. As in VslotSmallBodiesA-J, each class and method

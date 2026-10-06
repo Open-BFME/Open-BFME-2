@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva000B3ED3@WeaponTemplateSetHead@@QAEXABV1@@Z retail 0x000B3ED3 25B
 // Intersect 19 dwords: this[i] &= src[i] for 76-byte set. Evidence: push 0x13
 // pop edx count-down loop with sub eax-ecx delta and and [ecx]-esi; temp at

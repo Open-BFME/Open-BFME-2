@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // A guarded call on an indexed element, 37 bytes at retail 0x001F8883:
 //
 //     push ebp / mov ebp,esp

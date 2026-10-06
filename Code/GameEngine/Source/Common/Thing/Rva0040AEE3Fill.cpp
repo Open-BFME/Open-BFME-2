@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0040B1A8Fill@@YAPAVRva0040AEE3@@PAV1@IABV1@@Z @ 0x0040B1A8 (37B). Fill range of Rva0040AEE3 via Construct helper.
 // Evidence: retail loops calling rowed ?Rva0040B14EConstruct 0x0040B14E stride 0x10 count in edi jbe; caller 0x0040B89F; neighbours share vector+int layout.

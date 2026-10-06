@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0040B14EConstruct@@YAXPAVRva0040AEE3@@ABV1@@Z @ 0x0040B14E (45B). Construct Rva0040AEE3 via copy ctor.
 // Evidence: calls rowed copy ctor 0x0040AEE3; EH prolog with state 0; null check on dst; callers 0x0040B1BB 0x0040B30B 0x0040B887 0x0040BA45.

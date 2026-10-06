@@ -1,5 +1,5 @@
 // ?rva004F5473@Rva004F54BF@@QAE_NPAVObject@@_N@Z
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // ?rva004F5473@Rva004F54BF@@QAE_NPAVObject@@_N@Z, retail 0x004F5473, 76 bytes.
 // Finish lane from stash 0x004f5473 (score 0.93): count-limit check with testStatus 0x26 and flag109 0x10 guards.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail RE: ?parseFlammability@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z @0x0033BC6A (230B).
 //
 // BFME2-new ThingTemplate Flammability sub-object at +0x314 (788). Target facts

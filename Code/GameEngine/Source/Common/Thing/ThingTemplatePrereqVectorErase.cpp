@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /Oy- /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?erasePrereqVec@Rva0033EB77Vec@@QAEPAXPAX0@Z @0x0033EB77 51B: vector<ProductionPrerequisite> range erase.
 // Retail shifts [last,finish) down via rowed CopyRange 0x002D0F36, destroys the vacated tail via rowed

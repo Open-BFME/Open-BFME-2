@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Scalar deleting destructors that retail reaches only through vtable slots,
 // for classes with a virtual base. All six share the 35B shape: call the
 // complete dtor, test the delete flag, then reset the virtual base's vptr at

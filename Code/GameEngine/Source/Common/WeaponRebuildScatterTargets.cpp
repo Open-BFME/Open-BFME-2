@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 // ?rebuildScatterTargets@Weapon@@IAEXXZ @0x002CDB53 70B
 // BFME1 donor: Code/GameEngine/Source/GameLogic/Object/Weapon.cpp

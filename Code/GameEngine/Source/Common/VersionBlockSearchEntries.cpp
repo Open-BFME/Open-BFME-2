@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc /G7
+// cl: /Oy- /DNDEBUG /MD /EHsc
 // stlport
 //
 // Version-block equal-range worker for the lookup at 0x00427EDA.

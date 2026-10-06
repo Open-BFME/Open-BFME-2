@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva006D1100@Rva006D0F20@@QAEPAXI@Z, retail 0x006D1100, 35 bytes.
 // Chain deleting helper for the Nugget-chain block family: calls the rowed
 // release at 0x006D0F20, then sized release through the rowed pool

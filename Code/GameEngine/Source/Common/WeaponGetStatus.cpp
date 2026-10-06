@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // BFME1's cached status query, adapted to BFME2's out-of-line cache setter.
 //
 // ?rva002CE226@Weapon@@QAEXPBVObject@@PBUSavedWeaponState@@@Z @0x002CE226

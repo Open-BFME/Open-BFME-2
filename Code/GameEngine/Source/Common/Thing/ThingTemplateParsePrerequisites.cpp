@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail RE: ?parsePrerequisites@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z @0x0033EBB5 (54B).
 //
 // BFME1 donor: Code/GameEngine/Source/Common/Thing/ThingTemplate_parsePrerequisites_Thunk.cpp

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Vtable-slot bodies of the network object (vtable VA 0x00BF6040, class
 // Rva0025E4CD after its destructor) that had no ledger owner, plus the one

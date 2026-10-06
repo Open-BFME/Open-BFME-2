@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // 13B null-checked member forwarders with the VslotNullCheckedForwarders.cpp
 // shape: load the member pointer and when set tail-jump to one method of it

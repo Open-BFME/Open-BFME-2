@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry whose
 // shape needs /O1 /G7 (imul by a constant), batch AO. Classes and methods

@@ -1,4 +1,4 @@
-// cl: -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // Three 96-byte __thiscall members that allocate one object and copy-construct
 // it from the receiver:

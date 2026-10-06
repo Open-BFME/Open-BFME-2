@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 
 // De-lift: STLport vector<ObjectID>::_M_fill_insert, retail 0x002CCBD0,

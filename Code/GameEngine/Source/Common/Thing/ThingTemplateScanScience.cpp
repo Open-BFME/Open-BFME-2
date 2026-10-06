@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail RE: ?scanScience@INI@@SA?AW4ScienceType@@PBD@Z @0x00338A8D (11B).
 //

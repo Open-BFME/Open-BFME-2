@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004F5436@Rva004F5436@@QAEHPAVBfmeTab1026@@@Z, retail 0x004F5436, 61 bytes.
 // Counts list nodes at +0x10 whose +8 value is in the given table via rowed
 // bfmeHas1026 0x00362437; NULL table returns +0x18. Evidence: unlock packet

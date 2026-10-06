@@ -1,5 +1,5 @@
 // stlport
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // Retail0x7DEEF decrements the reference count at+4; on <=0 it invokes
 // virtual slot0 with flag0 and deletes the returned allocation at0x2FD60.
 // This release is called by the mapped value in pair destructor0x2175CE.

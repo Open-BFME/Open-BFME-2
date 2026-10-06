@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // ?setValues@Offset140IntegerPairSetterThunk@@QAEXHH@Z
 // retail 0x0008BBA1, 23 bytes. Dedicated TU ported from the Open-BFME-1 donor

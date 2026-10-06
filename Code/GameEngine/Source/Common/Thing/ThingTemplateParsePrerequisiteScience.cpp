@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // Retail RE: ?parsePrerequisiteScience@@YAXPAVINI@@PAX1PBX@Z @0x0033EABD (93B).
 //

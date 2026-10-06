@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Thing::getDrawable, retail 0x005508E2 (7 bytes): the Drawable pointer at
 // +0x84. SpawnPointProductionExitUpdate::initializeBonePositions calls it

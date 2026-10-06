@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // ?Rva0033D331Parse@@YAXPAVINI@@PAVThingTemplate@@@Z @0x0033D331 101B: if flag at +0x5EA clears BfmeObject872 vector at +0x358 via rowed range erase then parses WeaponSet stack temp and pushes it.
 // Evidence: calls rowed erase 0x0033C44B push_back 0x0033CFC6 ctor 0x0033A888 parse 0x002C8C7B clear 0x002CF7B5; callers none; neighbours ThingTemplate TUs.
 class INI;

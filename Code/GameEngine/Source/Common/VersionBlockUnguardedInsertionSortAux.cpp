@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /Oy- /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Oy- /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // The framed half of _STL::sort over 0x18-byte version records under
 // VersionBlockKeyCompare (record, pivot and comparator views of

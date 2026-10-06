@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/iniexception
+// cl: /GX /DNDEBUG /MD /Ireference/shims/iniexception
 // Semantic donor: ZH ThingTemplate.cpp through BFME1
 // 6583b3c1ff21db4a561285717028fdafc780b7db. Native33A50D..33A561 84B.
 // Native field table DBF4D8 labels this handler AddModule. Mode byte

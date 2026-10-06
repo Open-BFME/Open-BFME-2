@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail 0x003C4CF0: address-derived index lookup over a two-pointer int span.
 
 struct Rva003C4CF0Span

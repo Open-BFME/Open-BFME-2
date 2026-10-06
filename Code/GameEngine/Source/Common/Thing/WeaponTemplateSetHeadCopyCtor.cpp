@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // WeaponTemplateSetHead copy ctor, retail 0x00045455, 24 bytes.
 // Dedicated TU so WeaponTemplateSetCopyCtor.cpp cannot inline this memcpy.

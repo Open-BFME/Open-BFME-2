@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Three bodies from the 0x005E97B0..0x0060D680 slice whose whole content is a
 // null test around one call.
 //

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // stlport
 //
 // ??0VersionBlockParser@@QAE@PBD@Z at retail 0x00428C04 (63B).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?resolveNames@ThingTemplate@@QAEXXZ @0x0033C2C2 212B.
 // ThingTemplate name resolution: resolve each production prerequisite, then
 // mark every build-facility template they admit, set the command-center flag,

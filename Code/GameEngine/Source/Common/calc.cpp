@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?Rva00503D8EEvaluate@@YAMMMMMM@Z @0x00503D8E 93B: Catmull-Rom scalar evaluate(p0 p1 p2 p3 t).
 // Donor: reference/open-bfme-1/Code/GameEngine/Source/Common/calc.cpp (Rva00064410Catmull::evaluate stub)
 // and BfmeConv1266.cpp bfmeSpline1266 formula. Callers at 0x00503F61 0x00503F8B 0x00503FB1 0x00504477

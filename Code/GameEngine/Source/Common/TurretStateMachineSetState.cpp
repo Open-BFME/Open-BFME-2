@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?setState@TurretStateMachine@@QAE?AW4StateReturnType@@H@Z, retail 0x004D8578, 62 bytes.
 // Virtual slot 8 (offset 0x20) of vtable 0x008609C8 (VA 0x00C609C8), class
 // TurretStateMachine (slot 2 returns "TurretStateMachine" at 0x00860A08).

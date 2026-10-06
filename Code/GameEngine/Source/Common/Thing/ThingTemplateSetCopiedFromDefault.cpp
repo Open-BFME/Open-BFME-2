@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?setCopiedFromDefault@ThingTemplate@@QAEXXZ @0x0033B539 71B
 // Evidence: callers in ThingFactory 0x002D1B10 0x002D1BC4 0x002D1D48 (newTemplate->setCopiedFromDefault);
 // 2 bools at +0x5E9/+0x5EA plus 4 ModuleInfos at +0x2E4/+0x2F0/+0x2FC/+0x308 via rowed ModuleInfo::setCopiedFromDefault 0x0033B18A.

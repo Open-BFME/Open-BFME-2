@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes) whose shape needs /O2 /G7 (16-byte aligned, add reg,1

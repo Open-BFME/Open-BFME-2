@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // _STL::_Construct<WeaponTemplateSet, WeaponTemplateSet>, retail 0x004AE915,
 // 18 bytes. Dedicated TU so ThingTemplate.cpp cannot see this body.

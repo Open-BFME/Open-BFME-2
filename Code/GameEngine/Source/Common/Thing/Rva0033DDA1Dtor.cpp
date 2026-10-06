@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ??1Rva0033DDA1@@UAE@XZ @0x0033DDA1 713B.
 // Virtual scalar destructor of the large ThingTemplate-side record holder:
 // vptr store, 20 member-dtor calls in reverse order, three ehvec array

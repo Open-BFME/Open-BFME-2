@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Straight-line vtable slot bodies below 0x00400000 that tools/vftable_map.py
 // reports with no ledger owner (--unclaimed): each is reached only through a

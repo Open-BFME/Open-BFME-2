@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // 0x003D3250, 77 bytes, ret 4: elementwise equality of two half-open dword
 // ranges.
 //

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Vtable-slot bodies with no ledger owner and no Ghidra entry, batch AQ:
 // each calls an unrowed Ghidra-listed function on the complete object (or

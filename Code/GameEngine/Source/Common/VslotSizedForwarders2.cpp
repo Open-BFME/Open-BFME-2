@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Vtable-slot forwarders with no ledger owner and no Ghidra size, generated
 // by tools/slot_forwarders.py (family vjmp). Each body was sized from its

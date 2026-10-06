@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Scalar deleting destructors that retail reaches only through vtable slots,
 // so caller-based discovery never served them. All seven share the 28B shape
 // (dtor call, flags byte test, conditional scalar delete through pinned

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Three proxy classes whose vtable slots 3-14 each forward to the same slot
 // of an inner object, passing the caller's stack arguments through (the ret N

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0040AF1D@@QAE@XZ @ 0x0040AF1D 73B: default ctor for class at 0x0040AF66 family
 // vectors at +0x4/+0x10 (BfmeE16) plus 0x1C-byte members at +0x1C/+0x38 plus

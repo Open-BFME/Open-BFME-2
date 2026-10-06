@@ -1,4 +1,4 @@
-// cl: /O2 /Os /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // normalizeAngle, retail 0x00238954, 75 bytes. SSE comiss loops against
 // PI / 2PI then fld the spill for the x87 return.

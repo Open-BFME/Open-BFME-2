@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0045D859@WeaponTemplateSetHead@@QAEPAV1@PAV1@@Z retail 0x0045D859 46B.
 // Complement 19 dwords: copy *this to temp via rowed copy ctor 0x00045455,

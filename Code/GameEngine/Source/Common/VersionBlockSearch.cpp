@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /G7 /DNDEBUG /MD /EHsc
+// cl: /Oy- /DNDEBUG /MD /EHsc
 // stlport
 //
 // Version-block table search helpers for the lookup at 0x00427EDA.

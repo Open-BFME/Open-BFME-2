@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // One unclaimed call-free leaf carried from Open-BFME-1's
 // game/GameEngine/Source/Common/UnclaimedSmallLeaves02.cpp (BFME 1 RVA

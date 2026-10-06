@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?Thread_Function@Watchdog@@UAEXXZ @0x002254CA 227B
 // Evidence: vtable slot 2 of 0x007E6FD8; BFME1 donor Code/GameEngine/Source/Common/Watchdog_Thread_Function.cpp; callees rowed Mutex LockClass; virtual call slot 3 reportWatchdog.
 

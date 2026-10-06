@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Vtable-slot bodies with no ledger owner and no Ghidra entry, batch AJ:
 // each is a single tail jump to a rowed or pinned function on the same

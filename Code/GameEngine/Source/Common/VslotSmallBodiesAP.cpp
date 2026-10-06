@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Vtable-slot forwarders with no ledger owner and no Ghidra entry, batch
 // AP: each loads a member pointer (or takes a member's address) and

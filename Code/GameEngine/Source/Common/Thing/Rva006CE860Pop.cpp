@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva006CE860@Rva006CE860@@QAEXXZ @0x006CE860 41B evidence pop-front via rowed detach 0x006CD530 plus pool free 8 via rowed 0x006DB270; prev ModuleTagString next ChainDrain
 class Rva006DB270
 {

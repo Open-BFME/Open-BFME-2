@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // Wave-3 F78 shape family: throwing-new plus final. Each body allocates its
 // POD helper with operator new, constructs it in place with (member, arg)
