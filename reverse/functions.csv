@@ -64466,3 +64466,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva00382FA7@@UAE@XZ,,0x00400A7F,121,Code/GameEngine/Source/GameNetwork/GameInfoDtor.cpp,matched,GameInfo dtor via vtable 0x008193C8 and copy 0x00382FA7
 ??1Rva005262BF@@QAE@XZ,,0x005262BF,74,Code/GameEngine/Source/Common/Rva005262BFDtor.cpp,matched,two STLport int list bases then inline CRT buffer member
 ??1Rva0022DCDA@@QAE@XZ,,0x0022DCDA,63,Code/GameEngine/Source/Common/Rva0022DCDADtor.cpp,matched,range destroy over start and finish then inline CRT storage member
+??1BfmeNarrowRecord00427F75@@QAE@XZ,,0x0022CCEF,59,Code/GameEngine/Source/Common/BfmeNarrowRecord00427F75Dtor.cpp,matched,tree member dtor at +0xC then inline CRT buffer member
