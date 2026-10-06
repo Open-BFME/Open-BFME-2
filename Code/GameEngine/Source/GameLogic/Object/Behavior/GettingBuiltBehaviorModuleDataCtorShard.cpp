@@ -11,7 +11,8 @@
 // still counting for EH and reproducing retail's xor-before-vtable prologue.
 // Vtable 0xC40090 (DIR32-masked). Floats 60/30/0.25/0.5/0.75/1.0 from pool
 // literals. Two AsciiString::set("") via the rowed StringBase set alias pin.
-// The +0x40 member builds through the pinned nullary Rva003623E5Member ctor.
+// The +0x40 member builds through the rowed Rva00360D26Member ctor at 0x003623E5
+// (twin of Rva003623E5Member) and tears down through the rowed dtor at 0x00360D26.
 // Bytes and ints nulled in retail order.
 
 #include "ascii_string.h"
@@ -41,11 +42,11 @@ private:
 	RefCountedThing *m_ptr;
 };
 
-class Rva003623E5Member
+class Rva00360D26Member
 {
 public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
+	Rva00360D26Member();
+	~Rva00360D26Member();
 private:
 	long m_val;
 };
@@ -83,7 +84,7 @@ private:
 	float m_f34;
 	float m_f38;
 	float m_f3C;
-	Rva003623E5Member m_member40;
+	Rva00360D26Member m_member40;
 	float m_f44;
 	unsigned char m_flag48;
 };
