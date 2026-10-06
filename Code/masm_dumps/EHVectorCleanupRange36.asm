@@ -452,5 +452,109 @@ PUBLIC ?rva007636F8@@YAXXZ
     ret
 ?rva007636F8@@YAXXZ ENDP
 
+
+; Unwind@00b63839: 1200 0xE8-byte elements at [EBP-0x14] + 0x5C0.
+PUBLIC ?rva00763839@@YAXXZ
+?rva00763839@@YAXXZ PROC
+    push 4B3FD0h
+    push 4B0h
+    push 0E8h
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 5C0h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00763839@@YAXXZ ENDP
+
+; Unwind@00b63865: 64 0x5C-byte elements at [EBP-0x14] + 0x44558.
+PUBLIC ?rva00763865@@YAXXZ
+?rva00763865@@YAXXZ PROC
+    push 4EC6E1h
+    push 40h
+    push 5Ch
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 44558h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00763865@@YAXXZ ENDP
+
+; Unwind@00b638a1: 1200 0xE8-byte elements at [EBP-0x10] + 0x5C0.
+PUBLIC ?rva007638A1@@YAXXZ
+?rva007638A1@@YAXXZ PROC
+    push 4B3FD0h
+    push 4B0h
+    push 0E8h
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 5C0h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007638A1@@YAXXZ ENDP
+
+; Unwind@00b638cd: 64 0x5C-byte elements at [EBP-0x10] + 0x44558.
+PUBLIC ?rva007638CD@@YAXXZ
+?rva007638CD@@YAXXZ PROC
+    push 4EC6E1h
+    push 40h
+    push 5Ch
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 44558h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007638CD@@YAXXZ ENDP
+
+; Unwind@00b6390c: 4000 0x30-byte elements at [EBP-0x10] + 4.
+PUBLIC ?rva0076390C@@YAXXZ
+?rva0076390C@@YAXXZ PROC
+    push 4B3FD0h
+    push 0FA0h
+    push 30h
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 4
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0076390C@@YAXXZ ENDP
+
+; Unwind@00b63933: 96 0x18-byte elements at [EBP-0x10] + 0x2EE18.
+PUBLIC ?rva00763933@@YAXXZ
+?rva00763933@@YAXXZ PROC
+    push 69D7C2h
+    push 60h
+    push 18h
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 2EE18h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00763933@@YAXXZ ENDP
+
+; Unwind@00b6395d: 4000 0x30-byte elements at [EBP-0x10] + 4.
+PUBLIC ?rva0076395D@@YAXXZ
+?rva0076395D@@YAXXZ PROC
+    push 4B3FD0h
+    push 0FA0h
+    push 30h
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 4
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0076395D@@YAXXZ ENDP
+
+; Unwind@00b63984: 96 0x18-byte elements at [EBP-0x10] + 0x2EE18.
+PUBLIC ?rva00763984@@YAXXZ
+?rva00763984@@YAXXZ PROC
+    push 69D7C2h
+    push 60h
+    push 18h
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 2EE18h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00763984@@YAXXZ ENDP
 _TEXT ENDS
 END
