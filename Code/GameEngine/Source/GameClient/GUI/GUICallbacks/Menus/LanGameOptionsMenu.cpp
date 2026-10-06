@@ -1435,3 +1435,48 @@ void PostToLanGameOptions( PostToLanGameType post )
 
 // chatSystemColor: matched references place it at VA 0xdba760 (retail .data initial value -1).
 extern const int chatSystemColor = -1;
+
+// ?rva0057DFFB@Rva0057DFFB@@QAE_N_N@Z @0x0057DFFB 65B
+// Retail boundary 0x0057DFFB..0x0057E03B. thiscall taking one stack bool,
+// bool result in AL. +0x1C selects path: 0 refreshes via updateMapStartSpots,
+// 1 calls 0x0057DB97, other values return true. See reverse/attempts/0x0057dffb.cpp.
+class Rva0043DA65
+{
+public:
+	int rva0043DA65();
+};
+
+class Rva0057DFFB
+{
+public:
+	bool rva0057DFFB(bool onLoadScreen);
+	void rva0057DB97();
+
+private:
+	unsigned char m_pad00[0x18];
+	Rva0043DA65 *m_game;
+	int m_mode;
+	unsigned char m_pad20[0x30 - 0x20];
+	GameWindow *m_buttons[8];
+};
+
+bool Rva0057DFFB::rva0057DFFB(bool onLoadScreen)
+{
+	switch (m_mode)
+	{
+	case 0:
+	{
+		GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+		if (!game)
+			return false;
+		if (!m_buttons[0])
+			return false;
+		updateMapStartSpots(game, m_buttons, onLoadScreen);
+		break;
+	}
+	case 1:
+		rva0057DB97();
+		break;
+	}
+	return true;
+}
