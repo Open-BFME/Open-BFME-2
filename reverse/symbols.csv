@@ -13154,3 +13154,6 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?Rva00513866Free@@YAXXZ,0x00513866,free-function spelling for the 0x5B5B0C tail callee (no ecx or stack setup at the site); target REL32 from retail call at 0x005B5B30
 ?M54ed@Rva005B57C6Box@@QAEXHPADH@Z,0x005B54ED,wrapper-call spelling for the 0x5B57C6 scan forwarder (thiscall taking int char* int; true callee is the 382B dump body); target REL32 from retail call at 0x005B57F0
 ?M@Rva005B5B39Sub@@QAEPAXH@Z,0x00406ED7,wrapper-call spelling for the 0x5B5B39 sub-object resolver (thiscall 1 arg pointer result; true callee matched as rva00406ED7); target REL32 from retail call at 0x005B5B75
+?Use@Rva005B5C02Entry@@QAEXPAX@Z,0x00409359,wrapper-call spelling for the 0x5B5C02 entry use (thiscall 1 arg callee cleanup); target REL32 from retail call at 0x005B5C5A
+?List@Rva005B5C02Mgr@@QAEPAURva005B5C02List@@XZ,0x0021F797,wrapper-call spelling for the 0x5B5C02 manager list fetch (thiscall 0 args); target REL32 from retail call at 0x005B5C48
+?Add@Rva005B5C02List@@QAEXPAURva005B5C02Entry@@@Z,0x0040A384,wrapper-call spelling for the 0x5B5C02 list add (thiscall 1 arg callee cleanup); target REL32 from retail call at 0x005B5C62
