@@ -13836,3 +13836,9 @@ _D3DXMatrixTranspose@8	0x0062AF44	6	partial	exact 6B FF25 jmp; disp32 is IAT rel
 ?rva00574BD7@Rva00574ABB@@QAEPAPAV1@PAPAV1@@Z	0x00574BD7	68	partial	and-pushesi-push10 order swapped plus missing jmp-xor null path new-vs-manual 64vs68B t=30 model=muse-09 score=0.94 stash=reverse/attempts/0x00574bd7.cpp
 ?rva005E5D4D@Rva005E5D4D@@QAE?AURvaF1Handle@@H@Z	0x005E5D4D	84	blocked	84B Factory Handle-EH hidden-ret twin needs exact Handle-ctor inline plus ctor row 0x5F5C77 174B 3-base no donor 109vs84B t=10 model=muse-09
 ?rva005E5DA1@Rva005E5DA1@@QAE?AURvaF1Handle@@H@Z	0x005E5DA1	84	blocked	twin of 0x005E5D4D 84B Factory same Handle-EH hidden-ret wall 109vs84B ctor 0x5F5F2B 174B 3-base sibling t=2 model=muse-09
+??0AIDockMachine@@QAE@PAVObject@@@Z	0x005448A1	465	blocked	base 0x004D79E1 row type VAsciiString but retail pushes hash 0x2b638eb7 CRC32 of AIDockMachine as immediate; trivial AsciiString gives mov+push 1B longer and shared header gives copy call; needs twin integer row or central retype t=25 model=muse-02
+?xfer@ActiveBody@@MAEXPAVXfer@@@Z	0x004BF1E8	551	blocked	unresolved callee 0x004BE781 already blocked needs full interface; gate cannot resolve direct call t=10 model=muse-02
+?computeQuickPath@AIUpdateInterface@@QAEXPBUCoord3D@@@Z	0x00265C5B	432	blocked	unresolved callees 0x002F3971 506B and 0x00365E98 739B; gate cannot resolve t=8 model=muse-02
+?canGetRepairedAt@BFMEActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z	0x0041BBE4	189	blocked	unresolved callee 0x0041B85D already blocked EDI ESI register passing wall; gate cannot resolve t=6 model=muse-02
+?rva000E8734@Rva000E8734@@QAEHABVAsciiString@@0HH00@Z	0x000E8734	649	blocked	virtual-heavy WW3D 649B no donor 1 variant 481B register+frame wall t=20 model=muse-02
+?rva006C33D0@Rva006C1F60@@QAEXHH@Z	0x006C33D0	643	blocked	register allocation wall xor-edi vs test lea-vs-add and thresh-head swap t=20 model=muse-spark
