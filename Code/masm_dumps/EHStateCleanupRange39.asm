@@ -33,6 +33,7 @@ EXTERN BasicStringCharDtor_dup:PROC
 EXTERN ??1Q1ReceiverLocalSet@@QAE@XZ:PROC
 EXTERN ??1BfmeWideResult@@QAE@XZ:PROC
 EXTERN ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ:PROC
+EXTERN ??1EAStringC@@QAE@XZ:PROC
 EXTERN ??1SBServer@@QAE@XZ:PROC
 
 _TEXT SEGMENT
@@ -2182,6 +2183,20 @@ cleanup_ready_007A7C38:
     mov ecx, DWORD PTR [ebp-20]
     jmp ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ
 ?rva007A7C38@@YAXXZ ENDP
+
+; Unwind@00ba80a8 at RVA 0x007A80A8; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-20], then takes the cleanup object address at [ebp-16] and tail-jumps to matched EAStringC destructor at 0x006D3010.
+PUBLIC ?rva007A80A8@@YAXXZ
+?rva007A80A8@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A80A8
+    and DWORD PTR [ebp-20], -2
+    lea ecx, [ebp-16]
+    jmp ??1EAStringC@@QAE@XZ
+cleanup_done_007A80A8:
+    ret
+?rva007A80A8@@YAXXZ ENDP
 
 ; Unwind@00bab0e9 at RVA 0x007AB0E9; 25-byte interval ends at RET.
 ; Retail tests and clears bit 1 at [ebp-24], then takes the cleanup object address at [ebp-20] and tail-jumps to AsciiString at 0x0048BA39.
