@@ -44,3 +44,79 @@ class DockUpdate { public: __declspec(noinline) virtual ~DockUpdate(); };
 // ??1DockUpdate@@UAE@XZ present-unmatched
 DockUpdate::~DockUpdate() {}
 void DockUpdate_Delete(DockUpdate *p) { delete p; }
+
+// ?rva0049B8A0@Rva0049B8A0@@QAEXPAVINI@@PAX@Z @0x0049B8A0 234B
+// Bitstring-list INI driver, same shape as the KindOf driver Rva00256499
+// (System/Rva00256499Parse.cpp) and the ModelCondition twin Rva000B937E.
+// The worker is the rowed 0x0049B750 single-token worker; Append, Tok, INI
+// and the empty string mirror the prototype TU (undefined externals).
+class INI
+{
+public:
+	const char *rva0002DFE2(const char *seps, bool *substituted);
+};
+
+class Rva0033B84ETok
+{
+public:
+	Rva0033B84ETok(const char *s);
+	~Rva0033B84ETok();
+	Rva0033B84ETok() : m_data(0) {}
+	const char *str() const { return m_data ? (const char *)m_data + 8 : ""; }
+	bool nextToken(Rva0033B84ETok *out, const char *seps);
+	void reset();
+
+private:
+	void *m_data;
+};
+
+extern const char g_Rva0107301CEmptyString[];
+
+__forceinline const char *GetStr0049B8A0(const Rva0033B84ETok &s)
+{
+	char *t = *(char * *)(void *)&s;
+	return t ? t + 8 : g_Rva0107301CEmptyString;
+}
+
+class Rva0049B750
+{
+public:
+	bool rva0049B750(const char *token, bool *foundNormal, bool *foundAddOrSub);
+};
+
+class Rva0049B8A0 : public Rva0049B750
+{
+public:
+	void rva0049B8A0(INI *ini, void *extra);
+	void rva0049B8A0Append(const char *s, Rva0033B84ETok *b);
+};
+
+void Rva0049B8A0::rva0049B8A0(INI *ini, void *extra)
+{
+	Rva0033B84ETok *accum = (Rva0033B84ETok *)extra;
+	if (accum != 0)
+		accum->reset();
+
+	bool foundNormal = false;
+	bool foundAddOrSub = false;
+	bool wasQuoted = false;
+
+	const char *token;
+	while ((token = ini->rva0002DFE2(0, &wasQuoted)) != 0) {
+		if (wasQuoted) {
+			Rva0033B84ETok tmp(token);
+			Rva0033B84ETok part;
+			while (tmp.nextToken(&part, 0)) {
+				const char *s = GetStr0049B8A0(part);
+				rva0049B8A0Append(s, accum);
+				if (!rva0049B750(s, &foundNormal, &foundAddOrSub))
+					break;
+			}
+			wasQuoted = false;
+		} else {
+			rva0049B8A0Append(token, accum);
+			if (!rva0049B750(token, &foundNormal, &foundAddOrSub))
+				break;
+		}
+	}
+}
