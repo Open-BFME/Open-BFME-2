@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // BFME1 6583b3c1 WW3D_Shutdown_Bfme.cpp and ZH ww3d.cpp semantic donors.
 // Native117A10..117A5A and shutdown1180E0 call prove movie cleanup identity.
 // Movie pointer atDEC3DC and capture byteDEC3D6 are target facts.

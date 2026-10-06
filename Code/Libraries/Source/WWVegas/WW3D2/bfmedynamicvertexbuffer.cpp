@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep
 // Copyright 2025 Electronic Arts Inc.
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Reconstructed from BFME2 and the GPL-3.0-or-later EA reference

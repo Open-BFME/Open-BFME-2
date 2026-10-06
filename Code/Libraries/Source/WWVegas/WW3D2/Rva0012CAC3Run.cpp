@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
 //
 // ?Rva0012CAC3Run@@YA_NXZ, retail 0x0012CAC3, 82 bytes.
 // OR the wide Run helper at 0x0012C907 called with NULL and with the

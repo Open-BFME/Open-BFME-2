@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Sibling of rowed ??0Cftp@@QAE@XZ at 0x006CA5E0 (18B), matched on mnemonic
 // shape only -- the identity differs. Retail 0x001432E0 (13B) calls virtual
 // slot 0x50 on this and then returns the byte flag at +0x74.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00051ADA@Rva00051ADA@@QAEAAV1@ABV1@H@Z @0x00051ADA 31B.
 // Evidence: this+0 store of other+0 with null check and InterlockedIncrement

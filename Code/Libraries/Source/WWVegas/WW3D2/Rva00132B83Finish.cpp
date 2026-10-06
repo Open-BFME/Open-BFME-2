@@ -1,7 +1,7 @@
 // ?Get_Texture_Memory_Usage@?$RefCountPtr@VTextureClass@@@@QBEIXZ
 // partial score=0.98 date=2026-10-03
 // ?Get_Texture_Memory_Usage@?$RefCountPtr@VTextureClass@@@@QBEIXZ
-// cl: /O1 /MD /G7
+// cl: /MD
 enum WW3DFormat { WW3D_FORMAT_UNKNOWN = 0 };
 unsigned __fastcall Get_Bits_Per_Pixel(WW3DFormat format);
 struct TextureSurfaceInfo {

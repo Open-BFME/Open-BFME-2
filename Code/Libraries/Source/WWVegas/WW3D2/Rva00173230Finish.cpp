@@ -1,5 +1,5 @@
 // ?Register_For_Rendering@MeshModelClass@@QAEXXZ
-// cl: /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // MeshModelClass::Register_For_Rendering, retail RVA 0x00173230, 150 bytes.
 //
 // Provenance: the three callee identities are UNPROVEN and address-derived. The

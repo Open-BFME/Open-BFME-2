@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?Rva0014CDCB_ReleaseTree@Rva0014CD63_Prototype@@QAEXXZ @ 0x0014CDCB
 // (25 bytes). Counted-tree release installed as virtual slot 6 in two

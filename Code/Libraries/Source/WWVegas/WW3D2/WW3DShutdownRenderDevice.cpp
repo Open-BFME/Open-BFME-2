@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // BFME1 6583b3c1 WW3D_Shutdown_Bfme.cpp and ZH ww3d.cpp semantic donors.
 // Native1180E0..118166 returns bool and holds the rowed DX8 device lock
 // only around DX8Wrapper::Shutdown125DC0. Movie cleanup117A10 is rowed.

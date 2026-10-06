@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE2 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?Init_From_Material3@VertexMaterialClass@@QAEXABUW3dMaterial3Struct@@@Z,
 // retail 0x0013CEA0 (398 bytes).

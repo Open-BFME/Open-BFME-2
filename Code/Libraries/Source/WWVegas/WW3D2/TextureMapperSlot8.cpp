@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?_bfme_mapper_v8@TextureMapperClass@@UAE_NH@Z, retail 0x00182150, 5 bytes.
 // BFME2 adds a one-argument bool virtual to TextureMapperClass between the donor's

@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // MeshClass::Get_Deformed_Vertices(Vector3*, Vector3*) at 0x001499D0 (50 bytes).
 // Zero Hour mesh.cpp body: the skin assert is compiled out under /DNDEBUG, then

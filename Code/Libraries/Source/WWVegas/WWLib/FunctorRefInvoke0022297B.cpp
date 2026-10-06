@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 //
 // ?invoke@Rva0022297BRef@@QAEXHHHH@Z, retail 0x0022297B, 55 bytes. Null-guard
 // functor dispatch in the FunctorNotSet family (siblings 0x00222947 52B three-int

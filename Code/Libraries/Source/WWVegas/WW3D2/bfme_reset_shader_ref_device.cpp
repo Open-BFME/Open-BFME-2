@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BfmeResetShaderRef::Release_Device_Resources, retail 0x00151553, 34 bytes.
 // Dedicated TU so dx8wrapper.cpp Reset_Device cannot see this body (mirrors

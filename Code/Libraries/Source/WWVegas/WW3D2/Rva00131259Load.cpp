@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00131259@Rva00131259@@QAEX PBD@Z, retail 0x00131259, 212 bytes.
 // Chain via 0x000787BA opener: copies name to 260B buffer via _mbscpy thunk,
 // finds extension via strrchr IAT, tries .dds .tga .jpg into +0x10 and .png

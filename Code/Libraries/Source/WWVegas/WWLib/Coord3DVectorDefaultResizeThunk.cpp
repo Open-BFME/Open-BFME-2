@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: STLport vector<Coord3D>::resize(size_type), retail 0x000B7D10.
 // BFME's two-argument resize overload takes its 12-byte fill value by value.

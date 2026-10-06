@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /O2 /Ob2 /EHsc
+// cl: /DNDEBUG /MD /Ob2 /EHsc
 //
 // ShareBufferClass<VertexMaterialClass*>::ShareBufferClass, retail
 // 0x0015AB50 (175 bytes). Direct port of the reference ShaderClass copy

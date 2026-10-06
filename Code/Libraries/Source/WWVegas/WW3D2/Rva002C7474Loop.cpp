@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002C7474@Rva002C7474@@QAEXXZ @0x002C7474 30B: six-member release loop.
 // Retail walks six pointers at +0x08..+0x20, calling the rowed 18B Weapon

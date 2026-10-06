@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?Rva0014CE16_AnimExists@@YA_NPBD@Z @ 0x0014CE16 (81 bytes).
 // Animation-asset existence check: builds the "a*"+name key lowercased in

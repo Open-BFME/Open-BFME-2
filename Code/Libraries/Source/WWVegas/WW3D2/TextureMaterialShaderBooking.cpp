@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Add_Textures_Material_And_Shader@Textures_Material_And_Shader_Booking_Struct@@QAE_NPAVBfmeHandleCX@@PAVVertexMaterialClass@@VShaderClass@@@Z, RVA 0x00143AD0, 292B.
 // Booking of unique texture/material/shader combos for Generate_Texture_Categories.

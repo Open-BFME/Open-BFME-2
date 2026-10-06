@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 // Descriptive particle-renderer texture accessor shared by point/line callers.
 // Retail getter1790E0..1790FE is30B: complete RET4 starts5790FB.
 // Texture slot+24; one-pointer owning handle increments WORD refcount+4.

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // bfmeBeginResourceEnumeration, retail 0x0061F110, 21 bytes.
 // If the global registry at VA 0x00E09C0C is live, forward the type tag

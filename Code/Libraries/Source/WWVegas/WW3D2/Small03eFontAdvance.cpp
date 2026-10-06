@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /G6 /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Transferred from Open-BFME-1 5cae4bdff game/Libraries/Source/WWVegas/WW3D2/Small03eFontAdvance.cpp;
 // bfme1_sweep places the same masked body at BFME2 0x001586E0. Addresses in the donor text are BFME1.
 // The Get_Char_Data declaration is adapted to the matched target signature at

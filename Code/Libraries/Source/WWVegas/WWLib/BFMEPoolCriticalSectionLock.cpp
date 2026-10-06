@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Target 0x0006577F: pool lock with an atomic test-and-set and a yield on contention.
 
 // The ObjectPool/WWLib callers spell this body as the pool-domain

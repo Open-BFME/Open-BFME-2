@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O2
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ??1HAnimComboClass@@QAE@XZ @0x001977D0 94B
 // HAnimComboClass dtor: calls Reset() then inlines the VectorClass member
 // destructor (Vector at +4, VectorMax at +8, IsValid +0xC, IsAllocated +0xD).

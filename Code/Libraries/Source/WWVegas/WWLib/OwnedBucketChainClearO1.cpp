@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Native 00216AF6..00216B3F and 002A1D02..002A1D4B are hashtable clear
 // loops: bucket vector at +4/+8, next pointer at node+0, count at +10.
 // Structural guide: STLport 4.5.3 hashtable::clear and verified siblings

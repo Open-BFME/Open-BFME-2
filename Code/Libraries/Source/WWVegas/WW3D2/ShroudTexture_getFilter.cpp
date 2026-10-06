@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2
 // Open-BFME5: BFME ShroudTexture::getFilter ABI slice.
 // Retail returns the texture's filter subobject at +0x1c and otherwise
 // constructs a function-local fallback filter at the fixed 20-byte shape.

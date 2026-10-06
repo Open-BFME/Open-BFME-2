@@ -1,5 +1,5 @@
 // ?Render@WW3D@@SA_NAAVRenderObjClass@@AAVRenderInfoClass@@@Z
-// cl: /O2 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // WW3D::Render 0x00118430, 156 bytes, retail boundary 0x118430..0x1184CC.
 // Semantic donor: BFME1 6583b3c1 WW3DRenderObjectBfme.cpp. Target facts read off

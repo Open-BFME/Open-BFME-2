@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?Rva0014CF5F_GetAnimTree@@YAPAVHTreeClass@@PBD@Z @ 0x0014CF5F (189 bytes).
 // Free animation-asset lookup: builds the "a*"+name key lowercased, fetches

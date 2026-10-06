@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /GX- /O2 /Ob2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /GX- /Ob2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 //
 // Retail has two Set_Texture_Tile_Factor bodies, and they are not the same
 // function. The one at 0x0095FEF0 clamps at 50.0f and stores at +0x2c; this

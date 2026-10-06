@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva003F802B@Rva003F802B@@QAE_NXZ @0x003F802B 39B.
 // Predicate on +8/+0xC gated by TheAudio vtable slot 0xD0.

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Set_Render_Device@WW3D@@SA_NHHHHH_N00@Z, retail 0x00116F10, 54 bytes.
 // Dedicated TU: BFME2 returns a plain success flag here (retail ends with

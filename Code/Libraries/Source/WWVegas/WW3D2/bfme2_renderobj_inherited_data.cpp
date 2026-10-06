@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 //
 // Neutral BFME2 ABI view for the inherited render-data walk at RVA 0x0013BEC0.
 // The original retail method spelling is not established.  The corrected

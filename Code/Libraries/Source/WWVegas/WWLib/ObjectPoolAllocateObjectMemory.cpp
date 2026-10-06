@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // probe: ObjectPoolClass<MultiListNodeClass,256>::Allocate_Object_Memory
 // retail 0x00610680, 198 bytes.
 

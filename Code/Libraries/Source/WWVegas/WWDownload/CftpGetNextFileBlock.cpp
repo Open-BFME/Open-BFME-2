@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2
+// cl: /DNDEBUG /MD /EHs-c- /Ob2
 // Cftp::GetNextFileBlock, retail 0x006CB030 (1267 bytes).
 // BFME1 donor Code/Libraries/Source/WWVegas/WWDownload/CftpGetNextFileBlock.cpp
 // with BFME2 repairs: send/recv/WSAGetLastError ride the ILT (plain extern,

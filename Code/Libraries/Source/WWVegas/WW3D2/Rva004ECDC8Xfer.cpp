@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004ECDC8@Rva004ECDC8@@QAEXPAVXfer@@@Z @ 0x004ECDC8, 66 bytes.
 // Xfer helper for a 0x14-byte element (uint at +0, Coord3DBase at +4, int at
 // +0x10) with Version(1,1) via slot 0x28 then uint/Coord/int via

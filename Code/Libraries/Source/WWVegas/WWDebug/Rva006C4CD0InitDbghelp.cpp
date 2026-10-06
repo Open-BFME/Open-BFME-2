@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?initDbghelp@Rva006C4CD0Helper@@QAEXXZ
 // retail 0x006C4CD0, 124 bytes. Dedicated TU.
 //

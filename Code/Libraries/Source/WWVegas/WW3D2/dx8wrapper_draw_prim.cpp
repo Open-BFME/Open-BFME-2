@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // DX8Wrapper 4-arg draw wrappers. Both tail into landed
 // BfmeDrawOps::Draw at 0x001203C0 with a trailing true.

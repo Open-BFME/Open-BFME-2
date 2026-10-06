@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /MD
+// cl: /MD
 //
 // SegLineRendererClass::operator=, retail 0x001912F0, 151 bytes.
 // Dedicated TU so seglinerenderer.cpp keeps its matched bodies.

@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 // BFME2 Control_Bone uses sorted 36-byte captured-bone records at this+1C/20.
 // Each record stores index, quaternion, translation, and world-space flag.
 // Original capture-record type name is unknown. The preceding tree fields

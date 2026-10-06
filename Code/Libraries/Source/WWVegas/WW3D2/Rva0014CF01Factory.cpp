@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?Rva0014CF01_MakeOwner@@YA?AVHAnimPrototypeOwner@@PBD@Z @ 0x0014CF01
 // (94 bytes). Registry-owner factory for animation prototypes: null name

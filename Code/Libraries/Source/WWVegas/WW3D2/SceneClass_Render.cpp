@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /arch:SSE /G7
+// cl: /DNDEBUG /MD /EHsc
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/SceneClass_Render.cpp at 6583b3c1ff; include paths repointed at the
 // reference checkout and built the BFME2 way (/arch:SSE /G7). BFME2 deltas from
 // the donor: a float ZBias call, Set_Fog latching start/end, Convert_Color's

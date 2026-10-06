@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // _STL::__uninitialized_fill_n over two 4-byte handle types, retail
 // 0x00051AF9 37B and 0x000C932E 37B, plus the 0x2C-byte Rva004BA1D0 fill_n
 // 0x004BA26C 37B, and __uninitialized_copy over AssetReference 0x000C9308 38B

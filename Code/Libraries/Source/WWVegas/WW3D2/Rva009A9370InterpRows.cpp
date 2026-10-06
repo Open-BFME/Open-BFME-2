@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // Retail 0x009A9370: scalar four-row interpolation sibling of MMX interpolator.
 void __cdecl Rva009A9370(unsigned char *source, int stride, unsigned int bytes)
 {

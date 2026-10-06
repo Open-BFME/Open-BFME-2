@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // Mixed-path factory probe (0x0017FC1E 94B): null path returns a named
 // default (NRV candidate with flag), else-path returns a converting

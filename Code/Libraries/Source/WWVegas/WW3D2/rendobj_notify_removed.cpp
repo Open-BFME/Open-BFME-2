@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // RenderObjClass scene-pointer virtuals. Scene lives at +0x78
 // (vptr + 0x74 pad). /O2 emits mov-imm0 for Notify_Removed;

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva00180023@@QAE@ABVHierarchyPrototypeRef@@@Z @0x00180023 49B: HLod owner copy ctor zeroes holder then assigns from source ref through rowed operator= at 0x0017FF45 which validates HLOD FourCC. Evidence: same SEH shape as HTree ctor 0x0017FBED and HAnim ctor 0x0014CED0; caller 0x0018008A factory; callee rowed assign.
 class HierarchyPrototype;
 class HierarchyPrototypeRef

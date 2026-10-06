@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructor tail-calling the matched
 // MultiListObjectClass::~MultiListObjectClass at 0x006109C0 (defined in

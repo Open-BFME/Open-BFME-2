@@ -1,5 +1,5 @@
 // ?rva004ED69B@Rva004ED471@@QAEXPBVModelNodeClass@HLodClass@@@Z
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004ED69B@Rva004ED471@@QAEXPBVModelNodeClass@HLodClass@@@Z at 0x004ED69B (55B).
 // HLod ModelNode vector push_back with 0x14 stride: fast Assign+add 0x14 when
 // finish != end, else overflow rva004ED471(pos value dummy 1 1).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2
 //
 // ?Load_HLOD@Rva00970880Proto@@UAEXXZ
 // retail 0x0018012A, 242 bytes. Dedicated TU ported from the Open-BFME-1

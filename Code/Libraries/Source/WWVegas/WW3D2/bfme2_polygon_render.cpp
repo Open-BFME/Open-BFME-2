@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /arch:SSE /G7
+// cl: /EHsc /MD
 class DX8Wrapper {
  protected:
  static unsigned short BFME2IndexBase;

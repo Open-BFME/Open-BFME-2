@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // Retail RVA 0x0093D050 is the five-argument BFME D3D9 UpdateSurface helper.
 // It copies one source RECT to one destination POINT per count, advancing the
 // source RECT array by 16 bytes and the destination POINT array by 8 bytes.

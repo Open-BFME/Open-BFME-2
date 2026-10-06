@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?Reset_Polys@Render2DSentenceClass@@QAEXXZ @ 0x00154EC0 (38B).
 // Retail iterates DynamicVectorClass<RendererDataStruct> (Vector at +0x38,
 // ActiveCount at +0x44) and calls Render2DClass::Reset at 0x00119F00 directly.

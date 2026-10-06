@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructor tail-calling the matched
 // SimpleSceneClass::~SimpleSceneClass at 0x00141DF0 (defined in

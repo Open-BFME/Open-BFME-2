@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common
 // stlport
 // Native41A382/33 destroys two iterator values' range using independently
 // rowed record dtor41A200 and full36-byte verified increment419DD2.

@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Address-derived recovery of 0x0015B110 (136B), a ref-counted object factory.
 // Retail: operator new(0x34) 0x002FDA0, construct with this via the unrowed
 // ctor 0x00152DE9 (vtable 0x00BD3B1C, refcount at +4), store into the hidden

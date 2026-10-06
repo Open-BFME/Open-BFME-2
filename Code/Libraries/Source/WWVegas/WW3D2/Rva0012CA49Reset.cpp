@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0012CA49@Rva0012CA49@@QAEXXZ, retail 0x0012CA49, 122 bytes.
 // Enumerate the FXSH (0x46585348) shader resources and invoke vtable slot 11

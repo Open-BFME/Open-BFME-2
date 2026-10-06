@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ZH ww3d.cpp through BFME1 6583b3c1 semantic donor.
 // Native116F90 tail-jumps to the rowed DX8 descriptor query120140 (55B);
 // native117000 tail-jumps to rowed DX8 resolution query11CDF0 (48B).

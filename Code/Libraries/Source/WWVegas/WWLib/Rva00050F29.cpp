@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /DNDEBUG
+// cl: /MD /D_CRTIMP= /DNDEBUG
 // ?rva00050F29@Rva00050F29@@QAEHHH@Z, retail 0x00050F29, 24 bytes. Leaf __thiscall with ret 8 (2 stack args).
 // Calls virtual slot 88 (0x160) on this with same args then returns !result via neg/sbb/inc.
 // Evidence: push [esp+8] twice pattern, mov eax,[ecx] vtable load, call [eax+0x160], neg/sbb/inc/ret8. Honest Rva name, owner unknown.

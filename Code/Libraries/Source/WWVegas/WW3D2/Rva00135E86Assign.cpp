@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00135E86@Rva00136001@@QAEAAV1@ABVHierarchyPrototype@@@Z @0x00135E86 134B.
 // Rva00136001 texture adopt: if the prototype's class id (+0x34) is one of
 // PART BOX MESH AGGR HLOD NULL rmod keep its texture ref via rowed

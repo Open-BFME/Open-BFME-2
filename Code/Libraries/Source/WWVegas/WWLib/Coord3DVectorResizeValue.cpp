@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // stlport
 // Retail evidence: 0x000CA2F3 is the 73-byte vector<Coord3D> two-argument
 // resize body. Its identity is supported by the rowed one-argument forwarder

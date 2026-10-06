@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0043346A@Rva0043346A@@QAEXM@Z @0x0043346A 23B: or dword [ecx+0xC4],0x10 then call rowed Anim2D::setAlpha 0x003ACA08; caller 0x004339BF
 class Anim2D
 {

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2 /Ireference/shims/sweep /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas
+// cl: /DNDEBUG /MD /EHs-c- /Ob2 /Ireference/shims/sweep /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas
 // Cftp::RecvReply, retail 0x006CA080 (268 bytes).
 // Ported from the Zero Hour reference (Libraries/Source/WWVegas/WWDownload/FTP.CPP).
 // One BFME2 repair: the _DEBUG OutputDebugString pair ("<--" and the line)

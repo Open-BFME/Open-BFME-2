@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004ECE14Clear@@YAXXZ @ 0x004ECE14, 8 bytes.
 // Clears dword at data VA to 0 via and [mem],0.
 // Evidence: single and [0x00E044AC],0 plus ret; no ecx use so free function;

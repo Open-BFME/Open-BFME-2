@@ -1,6 +1,6 @@
 // ?rva0053FE2A@Rva0053FE2A@@QAEAAV1@PAUS12@@PAUS16@@MH@Z
 // partial score=0.94 date=2026-10-04
-// cl: /O1 /arch:SSE /Ob0
+// cl: /Ob0
 // ?rva0053FE2A@Rva0053FE2A@@QAEAAV1@PAUS12@@PAUS16@@MH@Z @0x0053FE2A 58B
 // Four-arg reference-returning setter: dword arg4 to +0, three dwords from arg1
 // to +4/+8/+0xC, 16 bytes from arg2 to +0x10 via movsd x4, float arg3 to +0x20.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // _STL::__copy random-access loops over three 4-byte handle types, retail
 // 0x00051BE1 47B, 0x00051C10 47B and 0x005E1A87 47B, plus the matching
 // __copy_backward 0x004F6628 47B and fill 0x005EF488 29B.

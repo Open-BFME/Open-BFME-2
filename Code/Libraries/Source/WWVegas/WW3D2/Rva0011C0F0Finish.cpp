@@ -1,5 +1,5 @@
 // Rva0011C0F0Finish.cpp -- ??0Render2DClass@@QAE@XZ
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 //
 // The BFME2 Render2DClass constructor, retail 0x0011C0F0 (202 bytes). The class
 // and its flags come from the already-landed

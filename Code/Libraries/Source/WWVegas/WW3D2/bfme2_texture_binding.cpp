@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 // Descriptive recovered BFME2 texture-reference and cache names.
 // Retail caller546F9A passes stage and owning reference; stage pointers at DEE5E0.
 // 16 slots agree with the already recovered BFME2 Apply_Render_State layout.

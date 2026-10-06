@@ -1,6 +1,6 @@
 // ??0Rva0053FDE6@@QAE@XZ
 // partial score=0.90 date=2026-09-29
-// cl: /O1 /arch:SSE /Ob0
+// cl: /Ob0
 // ??0Rva0053FDE6@@QAE@XZ, retail 0x0053FDE6, 68 bytes.
 // Constructor: int 2 at +0, six floats 0.0 at +4 +8 +0xC +0x10 +0x14 +0x18
 // via xorps/movss, 1.0f at +0x1C, global float 0x00BC74F0 at +0x20.

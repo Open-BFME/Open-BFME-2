@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2
+// cl: /DNDEBUG /MD /EHs-c- /Ob2
 // WWDownload FTP.CPP Cftp::SendNewPort, retail 0x006CA250 (480 bytes).
 // BFME1 donor (same file) with BFME2 repairs: self-contained TU in the
 // CftpRecvReply.cpp style (no PreRTS.h, no vptr: retail's Cftp lays

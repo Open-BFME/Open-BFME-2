@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ParticleEmitterClass::Is_Stopped, retail 0x001A1BE0, 12 bytes.
 // Active lives at +0x110 (same offset Stop at 0x001A1BD0 writes).

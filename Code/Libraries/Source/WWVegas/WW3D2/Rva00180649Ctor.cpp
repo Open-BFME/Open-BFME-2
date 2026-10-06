@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0BfmeResetTextureRef@@QAE@ABUBfmeResetAnyRef@@@Z @0x00180649 49B
 // Ctor twin: zeroes pointer then delegates to rowed rva001805AE assign
 // via 0x001805AE. EH prolog with state 0 matches /EHsc. Called from

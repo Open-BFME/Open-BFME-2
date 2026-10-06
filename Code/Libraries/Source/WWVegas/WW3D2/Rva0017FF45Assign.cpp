@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??4Rva00180023@@QAEAAV0@ABVHierarchyPrototypeRef@@@Z @0x0017FF45 50B: HLod owner assign-from-Ref validates HLOD FourCC 0x484C4F44 via slot 0x34; null or match assigns through folded 4B-holder copy at 0x000424D0 else clears through folded 4B-holder clear at 0x0004D75B; called by SEH ctor 0x00180023. Evidence: same 4-push plus 2-push shape as HTree assign 0x0017FB0F and HAnim assign 0x0014CDE4; callees rowed RefCountPtr assign and clear; caller 0x0018003E.
 class HierarchyPrototype
 {

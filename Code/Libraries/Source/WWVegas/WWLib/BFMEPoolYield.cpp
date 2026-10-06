@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // The pool lock waits briefly on the event created during startup.
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(
     void *handle, unsigned long milliseconds);

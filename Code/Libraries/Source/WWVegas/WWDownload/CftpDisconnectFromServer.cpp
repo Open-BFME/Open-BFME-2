@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2
+// cl: /DNDEBUG /MD /EHs-c- /Ob2
 // Cftp::DisconnectFromServer, retail 0x006CA490 (12 bytes).
 // Ported from the Zero Hour reference (Libraries/Source/WWVegas/WWDownload/FTP.CPP):
 // closes the command socket, returns FTP_SUCCEEDED. m_iCommandSocket sits

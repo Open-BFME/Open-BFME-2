@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // ?rva00156640@Rva001553C0@@QAEXXZ at 0x00156640 50B: clear child-sibling tree via rva001553C0 then reset sentinel.
 // Evidence: callee 0x001553C0 rowed, chain from 0x001553C0 landing, prev Reset 0x00155A20 same dir.
 

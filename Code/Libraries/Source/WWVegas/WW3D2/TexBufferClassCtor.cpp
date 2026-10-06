@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /O2 /Ob2
+// cl: /DNDEBUG /MD /Ob2
 // Readable out-of-line body of ??0TexBufferClass@@QAE@HPBD@Z (retail 0x0015D080, 62B).
 // Ported from reference/open-bfme-1/.../TexBufferClassCtorThunk.cpp: unlike its
 // MatBufferClass sibling (header-inline over the ShareBufferClass template),

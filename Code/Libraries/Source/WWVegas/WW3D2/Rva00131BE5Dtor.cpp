@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ??1Rva00131BE5@@UAE@XZ @ 0x00131BE5 (91B), unlock lane: dtor stores vtable 0x007D25D8 then deletes m_14 via virtual slot1 then Free_String at +0x18 then base bfmeResetUB. Callers 0x00131D42 0x001320B7.
 
 class __declspec(novtable) BfmeThingUB

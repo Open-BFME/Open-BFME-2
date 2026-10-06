@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00135F6CMakeUnique@@YAXPAX@Z retail 0x00135F6C 149B chain now-ready via 0x00171780
 // Evidence: calls rowed Make_Unique 0x00149C10 with false; rowed rva0010E4D4 0x0010E4D4; tail jmp rowed rva00171780 0x00171780; callers 0x00137018 0x0013703A push RenderObjClass* from Create_Render_Obj.
 class MeshClass

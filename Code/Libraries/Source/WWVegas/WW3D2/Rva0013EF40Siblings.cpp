@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 // Recovered from the ?Get_Texture@BFME2TextureCategory@@QAE?AUBFME2TextureRef@@H@Z
 // recipe at 0x00143400 (35 bytes). Same operand-masked shape: form a smart
 // reference to Textures[stage], bumping the resource's WORD refcount at +4 and

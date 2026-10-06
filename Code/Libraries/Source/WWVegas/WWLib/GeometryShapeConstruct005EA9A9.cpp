@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ??$_Construct@UGeometryShape@@U1@@_STL@@YAXPAUGeometryShape@@ABU1@@Z @0x005EA9A9 18B null-guarded placement copy via rowed copy ctor 0x005EA922.
 // Evidence: callers __uninitialized_copy 0x005EA9BB and __uninitialized_fill_n 0x005EA9E1; callee row ??0Rva005EA922@@QAE@ABU0@@Z 36B stride 0x24; pin for outer at 0x005EA9A9.

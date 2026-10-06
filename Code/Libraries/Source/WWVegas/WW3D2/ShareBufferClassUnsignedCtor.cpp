@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /O1 /Ob2 /EHsc
+// cl: /DNDEBUG /MD /Ob2 /EHsc
 //
 // ShareBufferClass<unsigned>::ShareBufferClass, retail 0x00D1DE2 (110 bytes).
 // Out-of-line dependency of MeshMatDescClass::Get_Color_Array (retail calls

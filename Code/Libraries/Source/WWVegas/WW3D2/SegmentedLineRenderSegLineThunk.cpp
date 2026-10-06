@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // SegmentedLineClass::Render_Seg_Line, retail 0x0015EED0, 78 bytes.
 // Dedicated TU. BFME2 adds one RenderObj vtable slot versus the BFME1 thunk

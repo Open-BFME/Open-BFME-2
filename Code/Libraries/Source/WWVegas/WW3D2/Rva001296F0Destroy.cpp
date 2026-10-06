@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva001296F0Destroy@@YAXXZ, retail 0x001296F0, 10 bytes.
 // Evidence: mov ecx textureStatisticsString 0x009EE91C then jmp pinned dtor
 // ??1Rva001880D0Dtor@@UAE@XZ 0x001880D0; caller unclaimed at 0x0004A155;

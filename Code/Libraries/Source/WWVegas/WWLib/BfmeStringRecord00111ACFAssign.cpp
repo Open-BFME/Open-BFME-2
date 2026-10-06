@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??4BfmeStringRecord00111ACF@@QAEAAU0@ABU0@@Z @0x00101EF5 60B unlock via rowed set 0x000366F0 plus caller 0x00101FA6 prev 0x00101ECF next 0x00101F5C layout from StringRecordInlineCopyBFME2
 // The emitted unsigned max copy must match retail RVA 0x00013740.

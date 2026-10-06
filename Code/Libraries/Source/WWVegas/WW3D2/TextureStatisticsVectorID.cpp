@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /DNDEBUG
+// cl: /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /DNDEBUG
 
 // The retail BFME statistics implementation uses DynamicVectorClass here,
 // while the later Zero Hour source uses SimpleDynVecClass.  Keep the template

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?Rva00180054_MakeOwner@@YA?AVRva00180023@@PBD@Z @ 0x00180054 (94 bytes).
 // Registry-owner factory (mixed named-return plus temporary-return recipe,

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00433481@Rva00433481@@QAEXM@Z @0x00433481 23B: or dword [ecx+0xC4],0x20 then call rowed Rva001D972BFloatField::set 0x001D972B; caller 0x00433A13
 class Rva001D972BFloatField
 {

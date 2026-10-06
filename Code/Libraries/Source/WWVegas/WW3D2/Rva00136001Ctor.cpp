@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva00136001@@QAE@ABVHierarchyPrototypeRef@@@Z @ 0x00136001 (49 bytes).
 // SEH owner copy ctor zeroes holder then assigns through rowed rva00135E86 at
 // 0x00135E86 which validates texture class ids; same 49B SEH shape as HTree

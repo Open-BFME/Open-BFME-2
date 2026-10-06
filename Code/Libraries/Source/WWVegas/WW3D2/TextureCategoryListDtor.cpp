@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // ??1TextureCategoryList@@UAE@XZ at retail 0x001446F0 (95B) with its scalar
 // deleting destructor ??_GTextureCategoryList@@UAEPAXI@Z at 0x00144870 (27B).

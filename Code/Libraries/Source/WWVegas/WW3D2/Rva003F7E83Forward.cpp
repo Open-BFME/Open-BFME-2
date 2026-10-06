@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva003F7E83@Rva003F7E83@@QAEXXZ @0x003F7E83 13B.
 // Null-checked tail forward to virtual slot 3 of the +0x1C member.
 // Evidence: retail mov ecx,[ecx+0x1C]; test ecx,ecx; je ret; mov eax,[ecx];

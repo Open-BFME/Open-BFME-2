@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /G7
+// cl: /DNDEBUG /MD
 // ?rva00135E00@Rva00135E00@@QAEXHHH@Z @0x00135E00 35B.
 // Flag-plus-three setter: low two bits of +0 forced to 3 keeping bit 31
 // then three args stored at +4 +8 +0xC. Evidence: unlock lane; neighbour

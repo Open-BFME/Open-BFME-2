@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /MD
+// cl: /MD
 // Retail forwarding wrapper: the grid object is at offset 0x1c.
 class Matrix3D;
 

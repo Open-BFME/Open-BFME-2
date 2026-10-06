@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00433453@Rva00433453@@QAEXM@Z @0x00433453 23B: or dword [ecx+0xC4],8 then direct call rowed W3DRopeDraw::setRopeCurLen 0x00101CDA; caller 0x004339E9
 class W3DRopeDraw
 {

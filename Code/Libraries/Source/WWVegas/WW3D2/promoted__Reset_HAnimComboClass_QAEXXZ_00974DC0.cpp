@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c- /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c- /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // Lift the HAnimComboClass::Reset naked dump to clean C++.
 //
 // Zero Hour's hanim.cpp body. The loop is ZH's verbatim; what retail expands is

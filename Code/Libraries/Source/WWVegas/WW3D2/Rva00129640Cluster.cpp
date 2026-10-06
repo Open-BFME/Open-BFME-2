@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Bounded array read and its cumulative push, living between the Debug_Statistics
 // last-frame getters (0x00129590..0x00129680) and the SimpleDynVecClass accessor at

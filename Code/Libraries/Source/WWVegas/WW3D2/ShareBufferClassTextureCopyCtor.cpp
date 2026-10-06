@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /O2 /Ob2 /EHsc
+// cl: /DNDEBUG /MD /Ob2 /EHsc
 //
 // ShareBufferClass<TextureClass*>::ShareBufferClass, retail 0x0015AE10
 // (284 bytes). BFME1 port with a BFME2 drift: the reference copy skeleton

@@ -1,5 +1,5 @@
 // ?Rva0020E354Cast@@YG_NPAVRenderObjClass@@ABVVector3@@1@Z
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0020E354Cast@@YG_NPAVRenderObjClass@@ABVVector3@@1@Z, retail 0x0020E354, 32 bytes.
 // Stdcall wrapper that loads the 0x00DFEF18 singleton and invokes the
 // __thiscall cast body at 0x002BF198 with out 0 collisionType 1 checkHidden 1.

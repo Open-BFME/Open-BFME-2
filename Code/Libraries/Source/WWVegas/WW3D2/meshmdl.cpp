@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // MeshModelClass::Needs_Vertex_Normals, retail 0x00171850 (20 bytes).
 // Ported from the BFME1 reconstruction (Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp).

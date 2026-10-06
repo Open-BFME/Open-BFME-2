@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // BFME2 port of Open-BFME-1 Code/Libraries/Source/WWVegas/WW3D2/Rva0093C4A0.cpp:
 // GDI missing-glyph check with three retail exceptions (LF/CR/0x95).
 // BFME2 adaptations: font-state global moved to 0x00DF6F24; /G7 so the

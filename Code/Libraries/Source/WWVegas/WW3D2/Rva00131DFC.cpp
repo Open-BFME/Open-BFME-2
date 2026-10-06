@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // Retail 0x00131DFC (86 bytes). The constructor call at +0x37 targets the
 // established Rva00131BE5 constructor at 0x00131B57; the returned 0x3C-byte

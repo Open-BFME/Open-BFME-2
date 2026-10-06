@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG
+// cl: /DNDEBUG
 
 // VectorClass<TextureStatisticsStruct>::Resize at 0x00129990, split out of
 // TextureStatisticsVector.cpp because retail built it with /G7 -- add reg,1

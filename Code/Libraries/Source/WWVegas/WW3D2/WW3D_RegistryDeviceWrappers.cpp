@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // Registry device wrappers, retail 0x00117030/0x00117010/0x00117070.
 // Dedicated TU: BFME2 keeps these as plain success flags (retail ends with

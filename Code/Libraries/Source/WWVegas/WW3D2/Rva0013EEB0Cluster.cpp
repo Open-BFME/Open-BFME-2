@@ -1,4 +1,4 @@
-// cl: /G7 /MD
+// cl: /MD
 //
 // Texture-stage setter next to the MaterialPassClass destructor pair at
 // 0x0013EE40/0x0013EF80. Same one-word owning wrapper layout the destructor

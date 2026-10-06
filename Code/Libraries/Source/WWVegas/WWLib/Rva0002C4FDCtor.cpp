@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z @0x0002C4FD 57B
 // Honest placeholder ctor: two StringBase<char> at +0 and +4 via pinned
 // 0x000365F0 copy, returns this. Layout read from retail stores (copy to

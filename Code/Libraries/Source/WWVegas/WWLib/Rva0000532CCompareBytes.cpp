@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Target 24B at 532C..5344 forwards three 32-bit stack arguments to
 // MSVCR71.dll!_memicmp, target PE IAT VA BBA690 (DIR32 offset 14).
 // Boundary: verified WideCharCompare at 52F8+52 ends exactly here;

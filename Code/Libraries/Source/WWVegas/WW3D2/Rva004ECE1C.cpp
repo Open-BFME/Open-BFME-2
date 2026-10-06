@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004ECE1C@Rva004ECE1C@@QAEXXZ @ 0x004ECE1C, 69 bytes.
 // Early-return checks on +0x51 +0x28 +0x10 then GameLogic m_40 vs +0x54 with
 // threshold g_00E044B0 then tail-jmps to vtable slots 0x18 and 0x1c.

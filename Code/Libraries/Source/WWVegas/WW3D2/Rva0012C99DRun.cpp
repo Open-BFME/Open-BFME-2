@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva0012C99DRun@@YA_NXZ, retail 0x0012C99D, 148 bytes.
 // Launch the wide command line at VA 0x00BD2354 with CREATE_NO_WINDOW,

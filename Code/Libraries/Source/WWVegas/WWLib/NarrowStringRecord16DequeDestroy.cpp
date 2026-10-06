@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common
 // stlport
 // Native0x0041A3A3 /33: destroy a range of nontrivial16-byte records.
 // Record dtor independently matches14B string teardown at7FAB3 and

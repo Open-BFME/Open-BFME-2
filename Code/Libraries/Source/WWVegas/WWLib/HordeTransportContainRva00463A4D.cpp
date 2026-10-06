@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva00463A4D@HordeTransportContain@@QAEXV?$list@HV?$allocator@H@_STL@@@_STL@@H@Z 0x00463A4D 52B
 // HordeTransportContain helper taking a _STL::list<int> by value plus int;

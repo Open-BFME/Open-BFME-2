@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /O2 /Ob2
+// cl: /DNDEBUG /MD /Ob2
 // Readable out-of-line body of ??0TexBufferClass@@QAE@ABV0@@Z (retail 0x0015D0C0, 25B).
 // Retail's copy forwards to the ShareBufferClass base copy only: unlike the
 // ZH/BFME1 reference copy it keeps no per-element Add_Ref loop, so this TU

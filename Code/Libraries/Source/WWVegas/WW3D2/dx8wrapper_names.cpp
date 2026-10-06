@@ -1,4 +1,4 @@
-// cl: /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // The DX8Wrapper enum-to-string helpers from WW3D2/dx8wrapper.cpp, taken
 // verbatim from the reference tree. Each is a switch over a D3D enum
 // returning a string literal, so the only thing that has to come out right

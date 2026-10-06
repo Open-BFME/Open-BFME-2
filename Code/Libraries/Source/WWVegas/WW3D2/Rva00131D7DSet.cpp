@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00131D7D@Rva00131D7D@@QAEXI@Z, retail 0x00131D7D, 28 bytes.
 // Unlock: splits DWORD arg into three bytes at +0/+4/+8 (B G R). No callees.
 // Evidence: unlock lane, caller at 0x0013235C, prev/next TU flags.

@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?SetFlag@Rva00179100@@QAEX_N@Z, retail 0x00179100 (21 B).
 // Register/width-variant sibling of the rowed boolean flag setters
 // (ParticleEmitterDefClass::Set_Merge_Intersections 0x001B1640, the

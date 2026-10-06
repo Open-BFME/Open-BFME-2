@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE2 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?Parse_W3dVertexMaterialStruct@VertexMaterialClass@@QAEXABUW3dVertexMaterialStruct@@@Z,
 // retail 0x0013D030 (327 bytes).

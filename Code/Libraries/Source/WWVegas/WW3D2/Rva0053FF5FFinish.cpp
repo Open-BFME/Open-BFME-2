@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /Ob0
+// cl: /Ob0
 // ??0Rva0053FDE6@@QAE@ABV0@@Z, retail 0x0053FF5F, 51 bytes.
 // Copy constructor: copies the scalar head at +0/+4/+8/+0xC, a 16-byte block
 // at +0x10..+0x1F via movs, then the scalar tail at +0x20. Returns receiver

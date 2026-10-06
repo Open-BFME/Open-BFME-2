@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE2 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?Load_W3D@VertexMaterialClass@@QAE_NAAVChunkLoadClass@@@Z,
 // retail 0x0013E8B0 (274 bytes).

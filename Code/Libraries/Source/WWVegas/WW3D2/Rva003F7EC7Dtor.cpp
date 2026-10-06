@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??1Rva003F7EC7@@UAE@XZ retail 0x003F7EC7 105 bytes. Virtual dtor with EH
 // storing derived then base vtables destroying pointer at +0x14 via slot0

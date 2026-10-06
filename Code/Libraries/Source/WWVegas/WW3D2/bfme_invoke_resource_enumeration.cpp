@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // bfmeInvokeResourceEnumeration, retail 0x0061EFB0, 26 bytes.
 // Null-guarded forward into Gen_009EBA60Target::bfmeInvoke at 0x00621080:

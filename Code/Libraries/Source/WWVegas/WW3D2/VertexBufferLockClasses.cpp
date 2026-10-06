@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // VertexBufferClass::WriteLockClass constructor at 0x001394A0 and destructor
 // at 0x00139530, and AppendLockClass's constructor at 0x001395B0.  The append

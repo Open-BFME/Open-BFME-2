@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // rva0014921e at 0x0014921E, 38 bytes. Address-derived free function; identity
 // is not recovered. It calls the container's erase(begin,end) over the whole

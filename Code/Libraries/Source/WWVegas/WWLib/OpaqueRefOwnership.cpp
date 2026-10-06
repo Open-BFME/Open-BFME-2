@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /DNDEBUG
+// cl: /MD /D_CRTIMP= /DNDEBUG
 // Target owning-reference view; original class names are unknown.
 // The referent has a virtual destructor and an atomic LONG count at +4.
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile *);

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003F8090@Rva003F8090@@QAEXXZ, retail 0x003F8090 (31B).
 // Evidence: chain lane calls rowed 0x003F7F30; offsets +0xc begin +0x10 end +0x18 flag.
 class Rva003F7F30

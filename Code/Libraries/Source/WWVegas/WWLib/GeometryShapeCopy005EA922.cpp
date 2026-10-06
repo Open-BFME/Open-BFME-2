@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005EA922@@QAE@ABU0@@Z @0x005EA922 68B copy ctor 8 dwords plus refcounted ptr at +0x20.
 // Evidence: called by _Construct 0x005EA9A9 for UGeometryShape; copies 0..0x1C plain then refcounted ptr at +0x20 with inc [ecx+4]; unblocks 0x005EA9A9.
 

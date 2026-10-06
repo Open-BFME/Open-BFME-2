@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0Rva004ECDC8@@QAE@I@Z @ 0x004ECDA7, 33 bytes.
 // Ctor for the 0x14-byte Xfer element (uint at +0, Coord3DBase at +4, int at
 // +0x10) proven same class as ?rva004ECDC8@Rva004ECDC8 Xfer helper: caller

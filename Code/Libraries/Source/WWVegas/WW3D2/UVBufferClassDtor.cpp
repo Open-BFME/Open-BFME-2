@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1UVBufferClass@@UAE@XZ retail 0x000D2118 5 bytes. UVBuffer empty dtor
 // tail-jmps to the rowed ShareBufferClass<Vector2> base dtor at 0x000D1DC8.

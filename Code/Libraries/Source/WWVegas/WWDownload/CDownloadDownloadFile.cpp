@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2
+// cl: /DNDEBUG /MD /EHs-c- /Ob2
 //
 // ?DownloadFile@CDownload@@UAEJPBD00000_N@Z,
 // retail 0x006C9760, 449 bytes. Dedicated TU.

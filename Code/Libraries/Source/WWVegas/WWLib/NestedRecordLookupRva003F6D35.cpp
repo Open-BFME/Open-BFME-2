@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Target Ghidra [3F6D35,3F6DF9),196B; thiscall RET4 returning an inner.
 // Target finds an outer by input using full70B3F4752; missing (-1) creates

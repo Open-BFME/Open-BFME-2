@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /DNDEBUG
+// cl: /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /DNDEBUG
 // Near-twin of DynamicVectorClass<TextureStatisticsStruct>'s VectorClass
 // base constructor (0x009374A0, 194B,
 // Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp) at

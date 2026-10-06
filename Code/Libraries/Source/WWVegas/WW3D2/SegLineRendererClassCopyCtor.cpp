@@ -1,5 +1,5 @@
 // ??0SegLineRendererClass@@QAE@ABV0@@Z
-// cl: /O2 /G7 /arch:SSE2 /EHsc /MD
+// cl: /EHsc /MD
 //
 // SegLineRendererClass copy constructor, retail 0x00191B50, 183 bytes.
 // Zero Hour's initialiser list on the BFME2 layout, then *this = that. Kept in

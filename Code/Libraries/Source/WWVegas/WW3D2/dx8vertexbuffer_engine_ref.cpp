@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // VertexBufferClass engine-ref increment/decrement. IndexBufferClass's pair
 // at 0x00138770/0x00138780 touches +8; these two retail bodies touch +0x10.

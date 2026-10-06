@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // ??1Rva001447B0@@UAE@XZ at retail 0x001447B0 (95B) with its scalar
 // deleting destructor ??_GRva001447B0@@UAEPAXI@Z at 0x001448B0 (27B).

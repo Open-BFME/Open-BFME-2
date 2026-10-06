@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /arch:SSE /G7
+// cl: /EHsc /MD
 /*
  * BFME2 DX8PolygonRendererClass::Render_Sorted.
  *

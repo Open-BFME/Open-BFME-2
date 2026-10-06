@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /Oi- /arch:SSE
+// cl: /DNDEBUG /MD /Oi-
 #include <math.h>
 #pragma function(fabs)
 

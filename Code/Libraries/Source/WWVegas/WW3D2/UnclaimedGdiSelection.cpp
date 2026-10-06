@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Clean C++ donor: Open-BFME/Open-BFME-1 2791daf5536e4e2147dc3a4aa25c17816828dd69,
 // game/Libraries/Source/WWVegas/WW3D2/UnclaimedGdiSelection.cpp, b1 0x0093C310.
 // Native BFME2 0x001543C0 has an aligned int3-delimited 30B extent and ret 8.

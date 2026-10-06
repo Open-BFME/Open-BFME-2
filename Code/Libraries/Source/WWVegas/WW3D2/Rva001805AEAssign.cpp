@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva001805AE@BfmeResetTextureRef@@QAEAAU1@ABUBfmeResetAnyRef@@@Z @0x001805AE 50B
 // Twin of BfmeResetTextureRef::operator= (0x00131D99 50B): if rhs.pointer
 // and rhs GetClassId (slot 13 offset 0x34) != 0x50415254 TRAP then clear

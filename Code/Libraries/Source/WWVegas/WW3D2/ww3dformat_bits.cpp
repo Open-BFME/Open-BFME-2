@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep
 //
 // ?Get_Bits_Per_Pixel@@YIIW4WW3DFormat@@@Z -- retail 0x00131A9D, 88 bytes of
 // code plus its two jump tables. Ported from the BFME1 ww3dformat_bits donor,

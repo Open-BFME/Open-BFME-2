@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Donor evidence: BFME1 rva0083F090 is a mutex-protected monotonically
 // increasing index. Target evidence: a unique 39-byte body at 0x0001BF60 has
 // the same call, global loads/stores and return shape. The target owner/name

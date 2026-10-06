@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ??_GGen_uw_001212f0@@QAEPAXI@Z, retail 0x00122190, 30 bytes.
 // Gap between VectorClass deleting dtor 0x00122130 and BfmeEnumerationDesc
 // ctor 0x001221B0 in dx8wrapper.cpp; owner is Gen_uw_001212f0 whose scalar

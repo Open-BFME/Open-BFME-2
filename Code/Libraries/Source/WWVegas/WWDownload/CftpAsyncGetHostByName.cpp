@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2 /Ireference/shims/sweep /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas
+// cl: /DNDEBUG /MD /EHs-c- /Ob2 /Ireference/shims/sweep /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas
 // Cftp::AsyncGetHostByName, retail 0x006C9F90 (165 bytes).
 // Ported from the Zero Hour reference (Libraries/Source/WWVegas/WWDownload/FTP.CPP):
 // a stat flag plus a worker thread resolving the name in the background,

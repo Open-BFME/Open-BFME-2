@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003F7D29@Rva003F7D29@@QAEEXZ, retail 0x003F7D29 (24B).
 // Evidence: unlock lane; caller 0x003F8052; offset 0x1c grid matches WaterRenderObjClass neighbour; plus8 equals 0xd early-out.
 struct Rva003F7D29Grid

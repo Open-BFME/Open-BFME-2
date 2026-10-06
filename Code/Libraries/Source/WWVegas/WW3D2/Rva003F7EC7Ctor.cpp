@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva003F7EC7@@QAE@H@Z @0x003F7E9D 42B
 // Ctor storing vtable 0x008372D4 then arg at +4 zeroing +8/+10/+14/+18/+19
 // and 1 at +0xC. Evidence: caller 0x003F90A1 pushes [esi+4] then calls;

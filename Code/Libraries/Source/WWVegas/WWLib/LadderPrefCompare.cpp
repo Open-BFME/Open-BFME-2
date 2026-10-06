@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??8LadderPref@@QAE_NABV0@@Z @0x005DFC0B 46B: LadderPref::operator== compares address via rowed StringBase<char>::compare 0x000069D6 then port word at +8; donor ZH LadderPreferences.h inline address==other.address && port==other.port; caller addRecentLadder loop at 0x005E0419 over map nodes +0x14.
 #include "ascii_string.h"

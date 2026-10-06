@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?rva00141DC0@Rva00141DC0@@QAEPAXPAX@Z, retail 0x00141DC0, 44 bytes.
 // List push_front via global 8-byte pool at 0x009B424C (VA 0x00DB424C):

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 //
 // ?invoke@Rva001531F2Ref@@QAEHHH@Z, retail 0x001531F2 (49 bytes). Null-guard
 // functor dispatch in the FunctorNotSet family (TimedOperationRef::update

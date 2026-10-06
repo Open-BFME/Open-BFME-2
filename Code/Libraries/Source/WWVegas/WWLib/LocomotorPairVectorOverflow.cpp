@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // stlport
 // Reference: STLport 4.5.3 vector::_M_insert_overflow (nontrivial element).
 // Target: 0x004C77C4, 180B; 16-byte stride and calls to the pair destroy

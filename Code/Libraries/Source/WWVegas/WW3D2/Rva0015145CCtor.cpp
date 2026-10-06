@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ??0Rva0015145C@@QAE@ABVHierarchyPrototypeRef@@@Z, retail 0x0015145C, 49 bytes.
 // Copy ctor for Rva0015145C (single HierarchyPrototype* at +0): nulls it then

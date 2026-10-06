@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Semantic donor: ZH ww3d.cpp via BFME1 6583b3c1ff21db4a561285717028fdafc780b7db.
 // Native117AD0..117BAB (219B); Begin_Render118170 calls this capture helper.
 // Donor carries the WW3D movie-copy purpose and class spellings. Native calls

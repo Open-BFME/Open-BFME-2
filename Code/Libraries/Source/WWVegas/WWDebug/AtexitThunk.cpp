@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // Open-BFME5: atexit, retail 0x009F6E26, 18 bytes.
 //
 // The Microsoft CRT body verbatim: forward to _onexit and map its result to

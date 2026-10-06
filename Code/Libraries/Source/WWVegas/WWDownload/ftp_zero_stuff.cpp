@@ -1,4 +1,4 @@
-// cl: /O2 /Oi /DNDEBUG /MD
+// cl: /Oi /DNDEBUG /MD
 //
 // Cftp::ZeroStuff, retail 0x006C9ED0, 109 bytes.
 // Dedicated TU so ftp_constructor.cpp cannot see this body.

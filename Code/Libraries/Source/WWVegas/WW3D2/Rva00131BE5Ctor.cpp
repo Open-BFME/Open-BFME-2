@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ??0Rva00131BE5@@QAE@PAX000HH@Z @ 0x00131B57 (142B): ctor stores vtable 0x007D25D8 then StringClass at +0x18 and Gen_00920A20 at +0x1C then new Rva0013107A backend at +0x14 plus CreateTexture. Evidence: same vtable and base as neighbouring dtor 0x00131BE5 plus same 0x3C layout as BfmeThingSJ plus rowed GenBase 0x0061ED40 plus rowed StringClass 0x00065F34 plus pinned Gen_00920A20 0x0013EA00 plus rowed Rva0013107A 0x0013107A plus rowed CreateTexture 0x001310E3. Callers 0x000EF289 and 0x00131E32.
 class GenBase009EB7D0
 {

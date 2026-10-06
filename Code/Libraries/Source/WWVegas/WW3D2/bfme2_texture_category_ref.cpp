@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 // Reconstructed from retail RVA 143400 and caller 146F50.
 // Descriptive BFME2 type names: the original smart-reference spelling is unknown.
 // Category texture pointers begin at +0C; resources use a WORD refcount at +4.
