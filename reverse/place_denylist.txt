@@ -151,3 +151,6 @@ _io_writeto
 
 # w5-sol: 0x005DFBB8 refused; see re_attempts.log and build/w5_gate_0x005DFBB8.log
 ??4Rva005DFBB8Element@@QAEAAU0@ABU0@@Z
+
+# w5-sol: 0x00148B27 refused; see re_attempts.log and build/w5_gate_0x00148B27.log
+??$find@H@?$hashtable@U?$pair@$$CBHURva00148B27Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva00148B27Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva00148B27Element@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHURva00148B27Element@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00148B27Element@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva00148B27Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva00148B27Element@@@_STL@@@2@@1@ABH@Z
