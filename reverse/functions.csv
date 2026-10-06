@@ -66338,3 +66338,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005CCB73@Rva005CCB73@@QAEXPAX@Z,,0x005CCB73,8,Code/GameEngine/Source/Common/Rva005CCB73Forwarder.cpp,matched,tail-jmp to rowed 0x005CCACA chain from own landing
 ?rva005768CB@Rva005768CBCall@@QAEXPAX@Z,,0x005768CB,123,Code/GameEngine/Source/Common/Rva005768CBCall.cpp,matched,caller 0x00576ACB ctor rowed AddItem pin Release rowed
 ?rva005D7558@Rva005EE816@@QAE_NPAVObject@@@Z,,0x005D7558,102,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/Rva005EE816Rva005D7558.cpp,matched,pin-held honest name chain caller rowed 0x002C6ACB single caller 0x005D76CC precedent Rva005D7D93 record chain hash scan
+?rva005F09EF@Rva005F09EF@@QAEXPBVImage@@@Z,,0x005F09EF,8,Code/GameEngine/Source/Common/Rva005F0647Deleting.cpp,matched,forwarder via plus4 to rowed rva005F0940 plus caller same-this

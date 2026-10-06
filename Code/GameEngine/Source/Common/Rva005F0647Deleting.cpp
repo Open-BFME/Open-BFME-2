@@ -151,6 +151,27 @@ void Rva005F09F7::rva005F09F7()
 	return m_target->rva005F09BC();
 }
 
+// ?rva005F09EF@Rva005F09EF@@QAEXPBVImage@@@Z @0x005F09EF 8B.
+// Forwarder loads Rva005F08C4 at +4 and tail-jmps to its rva005F0940.
+// Evidence: retail mov ecx [ecx+4] jmp 0x005F0940 plus caller 0x005E2C7D push eax same-this call.
+class Image;
+class Rva005F08C4
+{
+public:
+	void rva005F0940(const Image *image);
+};
+struct Rva005F09EF
+{
+	char m_pad[4];
+	Rva005F08C4 *m_target;
+	void rva005F09EF(const Image *image);
+};
+
+void Rva005F09EF::rva005F09EF(const Image *image)
+{
+	return m_target->rva005F0940(image);
+}
+
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?Rva005F0C39Destroy@@YAXPAURva005F0647@@0PA_N@Z=?Rva005F0C39Destroy@@YAXPAURva005F0647@@0@Z")
