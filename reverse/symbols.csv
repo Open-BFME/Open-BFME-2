@@ -12294,7 +12294,6 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??$__copy_trivial@_STL@@YAPAXPBX0PAX@Z,0x000179B0,already rowed
 ??$__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z,0x00620840,already rowed
 ??$fill_n@PAFIF@_STL@@YAPAFPAFIABF@Z,0x000AD8C9,already rowed short fill_n
-?insert@?$list@PAVRva002ADCC7Obj@@V?$allocator@PAVRva002ADCC7Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva002ADCC7Obj@@U?$_Nonconst_traits@PAVRva002ADCC7Obj@@@_STL@@@2@U32@ABQAVRva002ADCC7Obj@@@Z,0x002ACF9C,ICF freelist insert for list push_back 0x002ADCC7
 ?insert@?$list@PAVRva00207B32Obj@@V?$allocator@PAVRva00207B32Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00207B32Obj@@U?$_Nonconst_traits@PAVRva00207B32Obj@@@_STL@@@2@U32@ABQAVRva00207B32Obj@@@Z,0x00207162,list insert for push_back 0x00207B32
 ?insert@?$list@PAVRva00242EE7Obj@@V?$allocator@PAVRva00242EE7Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00242EE7Obj@@U?$_Nonconst_traits@PAVRva00242EE7Obj@@@_STL@@@2@U32@ABQAVRva00242EE7Obj@@@Z,0x00241955,list insert for push_back 0x00242EE7
 ?insert@?$list@PAVRva00248211Obj@@V?$allocator@PAVRva00248211Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00248211Obj@@U?$_Nonconst_traits@PAVRva00248211Obj@@@_STL@@@2@U32@ABQAVRva00248211Obj@@@Z,0x00247089,list insert for push_back 0x00248211
