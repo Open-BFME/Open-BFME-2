@@ -11582,3 +11582,7 @@ FUN_008ee9e9	0x004EE9E9	245	blocked	adapted stash to pin name without hatches sc
 ?rva003591F4@Rva00E01E28Owner@@QAEXURva003591F4Arg@@@Z	0x003591F4	36	blocked	push-ecx-plus-edx-fill vs push-eax systematic quirk t=14 model=muse-07 (stash 0.97 kept)
 ?rva00434A2F@AptSaveLoad@@QAEXXZ	0x00434A2F	127	partial	je-vs-jne branch order plus SaveButtonEnable string fixed t=14 model=muse-07 score=0.95 stash=reverse/attempts/0x00434a2f.cpp
 ?Rva00527827@Holder00527827@@QAEXHPAMHH@Z	0x00527827	87	blocked	ADDRESS-NAMED g_Va007C26F0 t=1 model=muse-07
+?rva0056979A@Rva00569543@@QAEXPBUFloatPair@@I@Z	0x0056979A	93	blocked	dead mov ebp+8 esp wall no NEW idea; prior tried address-taken alloca volatile named-tmp MM O2 member-access t=2 model=muse-06
+?PopulateTeamComboBox@@YAXHQAPAVGameWindow@@PAVGameInfo@@_N@Z	0x00446C18	322	blocked	packet marks ADDRESS-NAMED g_Va00E0333C and g_Rva0107301CEmptyString; new use refused per section5 t=1 model=muse-06
+?bfmeAskBIC@BfmeSubBIC@@QAEHXZ	0x00290FC9	183	blocked	esi-edi swapped throughout; self-this local still esi not edi t=8 model=muse-06 (stash 0.93 kept)
+?rva0031996D@Rva003193EC@@QAEPAXPAPAXABV?$StringBase@D@@@Z	0x0031996D	101	blocked	0.9 wall frame dead dword plus esi-edi swap; no NEW idea beyond prior t=25 attempt t=1 model=muse-06
