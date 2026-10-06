@@ -64275,3 +64275,6 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva005CFEDF@@UAE@XZ,,0x005CFEDF,48,Code/GameEngine/Source/Common/Rva005CFEDFOwnedPointerDtors.cpp,matched,implicit dtor: member dtor 0x5EBCC9 on +0x08 then base vtable 0xC75290
 ??1Rva005CFFB8@@UAE@XZ,,0x005CFFB8,48,Code/GameEngine/Source/Common/Rva005CFEDFOwnedPointerDtors.cpp,matched,implicit dtor: member dtor 0x5EC4AA on +0x08 then base vtable 0xC75290
 ??1Rva005D10F9@@UAE@XZ,,0x005D10F9,48,Code/GameEngine/Source/Common/Rva005CFEDFOwnedPointerDtors.cpp,matched,implicit dtor: member dtor 0x5EC4AA on +0x08 then base vtable 0xC7559C
+??1Rva005CF9FF@@UAE@XZ,,0x005CF9FF,68,Code/GameEngine/Source/Common/Rva005CF9FFFlagNotifyDtors.cpp,matched,dtor: flag +0x10 gates pinned 0x54CBEF(0) on g_Va00E05FAC then base vtable 0xC75290
+??1Rva005CFA43@@UAE@XZ,,0x005CFA43,68,Code/GameEngine/Source/Common/Rva005CF9FFFlagNotifyDtors.cpp,matched,dtor: flag +0x08 gates pinned 0x54CBEF(0) on g_Va00E05FAC then base vtable 0xC75290
+??1Rva005CFA87@@UAE@XZ,,0x005CFA87,68,Code/GameEngine/Source/Common/Rva005CF9FFFlagNotifyDtors.cpp,matched,dtor: flag +0x0C gates pinned 0x54CBEF(0) on g_Va00E05FAC then base vtable 0xC75290
