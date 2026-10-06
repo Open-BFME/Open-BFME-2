@@ -25,7 +25,6 @@ public:
 	Object *findObjectByID(ObjectID id);
 };
 extern GameLogic *TheGameLogic;
-extern float g_00BC6EA0;
 namespace _STL
 {
 	struct _Rb_tree_node_base
@@ -150,7 +149,7 @@ Object *Rva0046D946::rva0046D946(Object *arg)
 {
 	if (arg == 0)
 		return 0;
-	float best = g_00BC6EA0;
+	float best = 1000000.0f;
 	Object *bestObj = 0;
 	void *tmp[2];
 	m_20.v70(tmp);
