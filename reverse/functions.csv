@@ -66370,3 +66370,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005EF3F6@Rva005EF3F6@@QAEXXZ,,0x005EF3F6,8,Code/GameEngine/Source/Common/AptStateCalls.cpp,matched,forwarder loads this+4 and tail-jumps to rowed Update in same TU
 ?rva002B5CBB@Rva002B5CBB@@QAE_NPAURva002B5CBBArg@@@Z,,0x002B5CBB,64,Code/GameEngine/Source/Common/Rva002B5CBB.cpp,matched,map at +0x130 via increment like sibling node +0x14 flag +0x1c pin compare
 ??1Rva005764F9@@UAE@XZ,,0x005764F9,87,Code/GameEngine/Source/Common/Rva005764F9Dtor.cpp,matched,vtable 0x00C6E78C calls rowed get and setters base dtor
+?rva00528FE0@Rva00528FE0@@QAE_NXZ,,0x00528FE0,6,Code/GameEngine/Source/Common/Rva00528FE0Getter.cpp,matched,ptr-chase byte at +0x2D caller 0x002D66A2
