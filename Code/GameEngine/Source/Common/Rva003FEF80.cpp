@@ -5,7 +5,6 @@
 
 extern unsigned int g_Va00E02EDC;
 extern float g_Va00BBB8D8;
-extern const unsigned short g_00C38124[];
 extern const unsigned short g_00BC26DC[];
 
 class BfmeAptWindowManager
@@ -28,7 +27,7 @@ bool __cdecl Rva003FEF80SetPalantirMultiplier(float value)
 	UnicodeString str;
 	if (value != g_Va00BBB8D8)
 	{
-		str.format(g_00C38124, value);
+		str.format(L"x%g", value);
 	}
 	else
 	{
