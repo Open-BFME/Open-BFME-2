@@ -55,6 +55,14 @@ public:
 	int rva005748AD(int message, int key, int state);
 };
 
+// The rowed 0x0051274F base handler for vtable slot 2 (LINK BONUS name
+// rva0051274F@Rva0051274F@@QAEHHHH@Z).
+class Rva0051274F
+{
+public:
+	int rva0051274F(int message, int key, int state);
+};
+
 // The page map's mapped value: stlport_rb_tree_hint_005109b7.cpp's
 // reference-counted pointer, whose pointee has a virtual destroy slot and a
 // reference count at +4. That tree's insert, erase and destructor are rowed.
@@ -95,6 +103,7 @@ public:
 	virtual void v01();
 	virtual void v02();
 	virtual int v03(int message, int key, int state);
+	virtual int v04(int message, int key, int state);
 };
 
 class Rva00510D0C
@@ -104,6 +113,8 @@ public:
 	void ReturnToGame(const char *unused);
 	// Vtable slot 1, the input handler. Name unknown.
 	int rva0050EBC5(int message, int key, int state);
+	// Vtable slot 2 of 0x00C6568C, retail 0x0050F5DF. Name unknown.
+	int rva0050F5DF(int message, int key, int state);
 	void OnPageUnloaded(const char *name);
 	void OnPageSelected(const char *name);
 	void OnPageLoaded(const char *params);
@@ -155,6 +166,29 @@ int Rva00510D0C::rva0050EBC5(int message, int key, int state)
 		break;
 	}
 	return ((Rva005748AD *)this)->rva005748AD(message, key, state);
+}
+
+// rva0050F5DF@Rva00510D0C@@QAEHHHH@Z, retail 0x0050F5DF, 124 bytes.
+// Vtable slot 2 of 0x00C6568C. The current page gets the message first
+// via vslot 4, then every other page in the map, then the base handler
+// 0x0051274F. Evidence: vtable neighbours slot1 0x0050EBC5 slot3 draw
+//; callers none (REF via table slot 0x00865694); callees rowed
+// _M_increment 0x00024250 plus pin 0x0051274F; offsets 0x27C map 0x288 page.
+int Rva00510D0C::rva0050F5DF(int message, int key, int state)
+{
+	if (m_page && m_page->v04(message, key, state) == 1)
+		return 1;
+	PageMap::iterator it = m_pages.begin();
+	PageMap::iterator end = m_pages.end();
+	for (; it != end; ++it)
+	{
+		Rva00510D0CPage *page = (Rva00510D0CPage *)it->second.m_ptr;
+		if (page == m_page)
+			continue;
+		if (page->v04(message, key, state) == 1)
+			return 1;
+	}
+	return ((Rva0051274F *)this)->rva0051274F(message, key, state);
 }
 
 // Retail 0x00510ECC, 117 bytes: "_OnPageUnloaded". Drops the named page,
