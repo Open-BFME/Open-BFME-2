@@ -119,6 +119,11 @@ if [ "${#staged_sources[@]}" -eq 0 ] && [ "$ledger_changed" -eq 0 ] \
     exit 0
 fi
 
+# The build reads the WORKING-TREE ledgers. An unstaged row edit (a rename the
+# staged units need) would make them verify green against rows this commit does
+# not contain, leaving HEAD inconsistent; refuse before anything is verified.
+python3 tools/ledger_guard.py --staged || fail "unstaged ledger edits would be verified instead of the staged ledger (see above)"
+
 if [ "$wide_change" -ne 0 ]; then
     # Byte-verify only the ledger sources the changed headers can reach
     # (tools/header_dependents.py, ported from Open-BFME-1: it walks the
