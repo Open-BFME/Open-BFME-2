@@ -1,0 +1,43 @@
+// cl: /EHsc /Oy- /O1 /Ob2
+// ?rva005E5CF9@Rva005E5CF9@@QAE?AURvaF1Handle@@H@Z, retail 0x005E5CF9 (84B).
+// Factory method returning RvaF1Handle by value: allocates 0x28 bytes, runs
+// rowed ??0Rva005F589E@@QAE@HPAX@Z with (int arg, this+8), null-checked AddRef
+// (inc [eax+4]) and hidden-pointer return (ret 8). Evidence: callee row
+// 0x005F589E, new row 0x0002FDA0, EH_prolog row 0x00629188, ret-8 + hidden
+// pointer shape matching RvaFamily1Clones clones, this+8 as second ctor arg.
+struct RvaF1Handle
+{
+	void *m_p;
+	__forceinline RvaF1Handle(void *p) : m_p(p)
+	{
+		if (p)
+			++((int *)p)[1];
+	}
+	~RvaF1Handle();
+};
+
+class Rva005F589E
+{
+	char m_pad[0x28];
+public:
+	Rva005F589E(int a1, void *a2);
+};
+
+struct Rva005E5CF9In
+{
+	void *m_00;
+	int m_04;
+	void *m_08;
+};
+
+struct Rva005E5CF9
+{
+	char m_pad08[8];
+	Rva005E5CF9In m_in;
+	RvaF1Handle rva005E5CF9(int a1);
+};
+
+RvaF1Handle Rva005E5CF9::rva005E5CF9(int a1)
+{
+	return RvaF1Handle(new Rva005F589E(a1, (void *)&m_in));
+}

@@ -1,5 +1,5 @@
 // ?rva00086B2C@Rva008B77D@@UAEXHHMMHH@Z
-// partial score=0.97 date=2026-10-06
+// partial score=0.986 date=2026-10-06
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?rva00086B2C@Rva008B77D@@UAEXHHMMHH@Z @0x003114A7 144B
@@ -26,11 +26,11 @@ public:
 private:
 	_STL::vector<BfmeStringHeadRecord184> m_records; // +0x2C (12B)
 	float m_38; // +0x38
-	float m_3C; // +0x3C
-	int m_40; // +0x40
+	volatile float m_3C; // +0x3C
+	volatile int m_40; // +0x40
 	char m_44; // +0x44 untouched pad/proven hole before +0x45
-	unsigned char m_45; // +0x45
-	bool m_46; // +0x46
+	volatile unsigned char m_45; // +0x45
+	volatile bool m_46; // +0x46
 	float m_48; // +0x48
 	float m_4C; // +0x4C
 	float m_50; // +0x50
