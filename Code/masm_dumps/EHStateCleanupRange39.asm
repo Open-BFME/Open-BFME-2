@@ -22,6 +22,7 @@ EXTERN ??1Gen_uw_00385371@@QAE@XZ:PROC
 EXTERN ??1Rva005F8F96@@QAE@XZ:PROC
 EXTERN ??1RefHolder@Rva005CCC07@@QAE@XZ:PROC
 EXTERN ??1BfmePoolRef10@@QAE@XZ:PROC
+EXTERN ??1BfmeStringTailRecord156@@QAE@XZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b96a09 at RVA 0x00796A09; 25-byte interval ends at RET.
@@ -1144,6 +1145,34 @@ PUBLIC ?rva007A0DCF@@YAXXZ
 cleanup_done_007A0DCF:
     ret
 ?rva007A0DCF@@YAXXZ ENDP
+
+; Unwind@00ba0e56 at RVA 0x007A0E56; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-20], then takes the cleanup object address at [ebp-24] and tail-jumps to matched BfmeStringTailRecord156 destructor at 0x0010F149.
+PUBLIC ?rva007A0E56@@YAXXZ
+?rva007A0E56@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A0E56
+    and DWORD PTR [ebp-20], -2
+    lea ecx, [ebp-24]
+    jmp ??1BfmeStringTailRecord156@@QAE@XZ
+cleanup_done_007A0E56:
+    ret
+?rva007A0E56@@YAXXZ ENDP
+
+; Unwind@00ba0eae at RVA 0x007A0EAE; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-24], then loads the cleanup pointer from [ebp+8] and tail-jumps to UnicodeString at 0x005B804E.
+PUBLIC ?rva007A0EAE@@YAXXZ
+?rva007A0EAE@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A0EAE
+    and DWORD PTR [ebp-24], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1UnicodeString@@QAE@XZ
+cleanup_done_007A0EAE:
+    ret
+?rva007A0EAE@@YAXXZ ENDP
 
 ; Unwind@00ba0f79 at RVA 0x007A0F79; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
