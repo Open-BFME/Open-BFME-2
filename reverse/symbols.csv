@@ -13056,3 +13056,5 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?Rva005F8A0C@@YA?AU__m128@@HHH@Z,0x005F8A0C,banked partial 0x005F8A0C: 3-int __m128 search QED called from 0x005F8A7E; identity unproven
 ?rva005FE7A7@@YIXPAVRva005FE7A7Obj@@HHH@Z,0x005FE7A7,fastcall chained init called from 0x005F8E37 with fwd-passthrough edx; identity unproven
 ?rva005FE640@@YIXPAVRva005FE640Obj@@HHH@Z,0x005FE640,fastcall chained init called from 0x005F8E5A with fwd-passthrough edx; identity unproven
+?rva00437050@@YIXPAVRva005F90F6Sub@@H@Z,0x00437050,fastcall sub method called from 0x005F90F6; identity unproven
+?rva005FEC0C@Rva005FA854Inner@@QAEXXZ,0x005FEC0C,thiscall-0 method on m_00 called from 0x005FA854 with ecx already set; EH-prolog body; identity unproven
