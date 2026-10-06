@@ -13313,13 +13313,13 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?g@Elem0021BF74@@QAEHHH@Z,0x0021BE62,opaque element method called by dispatcher 0x0021BF74; identity unproven; address-derived name
 ?g@Elem0021BFA6@@QAEHHH@Z,0x0021BE82,opaque element method called by dispatcher 0x0021BFA6; identity unproven; address-derived name
 ?pred@Mbr002E0B30@@QAEEXZ,0x00318F42,opaque leaf predicate called by search 0x002E0B30; identity unproven; address-derived name
-??_7Rva005CE46F@@6B@,0x00C75130,holder vtable installed by clone 0x005CE46F; identity unproven; address-derived name
-??_7Rva005CED6C@@6B@,0x00C751DC,holder vtable installed by clone 0x005CED6C; identity unproven; address-derived name
-??_7Rva005E5E7A@@6B@,0x00C77D6C,holder vtable installed by clone 0x005E5E7A; identity unproven; address-derived name
-??_7Rva005E5EBD@@6B@,0x00C77D78,holder vtable installed by clone 0x005E5EBD; identity unproven; address-derived name
-??_7Rva005E5F00@@6B@,0x00C77D84,holder vtable installed by clone 0x005E5F00; identity unproven; address-derived name
-??_7Rva005E99D8@@6B@,0x00C78044,holder vtable installed by clone 0x005E99D8; identity unproven; address-derived name
-??_7Rva005E9A1B@@6B@,0x00C78050,holder vtable installed by clone 0x005E9A1B; identity unproven; address-derived name
+??_7Rva005CE46F@@6B@,0x00875130,holder vtable installed by clone 0x005CE46F; identity unproven; address-derived name
+??_7Rva005CED6C@@6B@,0x008751DC,holder vtable installed by clone 0x005CED6C; identity unproven; address-derived name
+??_7Rva005E5E7A@@6B@,0x00877D6C,holder vtable installed by clone 0x005E5E7A; identity unproven; address-derived name
+??_7Rva005E5EBD@@6B@,0x00877D78,holder vtable installed by clone 0x005E5EBD; identity unproven; address-derived name
+??_7Rva005E5F00@@6B@,0x00877D84,holder vtable installed by clone 0x005E5F00; identity unproven; address-derived name
+??_7Rva005E99D8@@6B@,0x00878044,holder vtable installed by clone 0x005E99D8; identity unproven; address-derived name
+??_7Rva005E9A1B@@6B@,0x00878050,holder vtable installed by clone 0x005E9A1B; identity unproven; address-derived name
 ?Copy0021D289@@YAHPAXRAXH@Z,0x0021D289,opaque head helper called by range proc 0x0021D905; identity unproven; address-derived name
 ?Copy0021D2B6@@YAHPAXRAXH@Z,0x0021D2B6,opaque tail helper called by range proc 0x0021D905; identity unproven; address-derived name
 ?Copy002B833C@@YAHPAXRAXH@Z,0x002B833C,opaque head helper called by range proc 0x002B9177; identity unproven; address-derived name
@@ -13354,9 +13354,9 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??0?$_Vector_base@URva0032C0E3Element@@V?$allocator@URva0032C0E3Element@@@_STL@@@_STL@@QAE@ABV?$allocator@URva0032C0E3Element@@@1@@Z,0x00211E58,ICF folded stateless vector base constructor called for both 128 byte vector members in the 28 byte SidesList extra record at 0x0032C19D; the vector assignment at 0x0032C0E3 confirms the 128 byte element view
 
 ?rva00293D3B@Rva00346C53@@QAEXPAUObjectStatusMask@@@Z,0x00293D3B,thiscall mask hook on the 0x346C53 host taking the built mask; RETAIL REL32 at 0x00346C6F
-?g_00BBB8D8@@3MA,0x00BBB8D8,float global scaled into the 0x346B6D damage block
+?g_00BBB8D8@@3MA,0x007BB8D8,float global scaled into the 0x346B6D damage block
 ?rva00291916@Object@@QAEXPAX@Z,0x00291916,thiscall hook on Object taking the +0x38 member address called from 0x34BFFF; RETAIL REL32 at 0x0034C02B
-??_7Rva00359290@@6B@,0x00C15398,vtable installed by the 0x359290 dtor (mov [esi] at 0x003592A1)
+??_7Rva00359290@@6B@,0x00815398,vtable installed by the 0x359290 dtor (mov [esi] at 0x003592A1)
 ?rva003596AD@Rva003596AD@@QAEPAXHPAH@Z,0x003596AD,thiscall factory on this-plus-0x24 taking (int plus int-star) returning opaque taker called from 0x3597A8; RETAIL REL32 at 0x003597B4
 ?rva002174A4@Rva002174A4Taker@@QAEXXZ,0x002174A4,address-derived 0-arg thiscall spelling for the 0x2174A4 call from 0x3597A8 (shares address with rowed TreeHintRef assign); RETAIL REL32 at 0x003597BB
 ?run@Rva0037DCCC284@@QAEXH@Z,0x0028C557,alias to rowed STLport _Base_bitset<32>::_M_do_or (likely via operator|=); address read from the retail REL32 at 0x0037DCCC (VA 0x68C557)
