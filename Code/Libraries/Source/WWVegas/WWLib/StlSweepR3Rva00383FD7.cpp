@@ -26,5 +26,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 
+struct Rva00383B39Key { int word; bool operator<(const Rva00383B39Key&b)const{return word<b.word;} bool operator==(const Rva00383B39Key&b)const{return word==b.word;} };
 // Instantiate the recovered member; retain only its required template dependencies.
-template _STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> > & _STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> >::operator=(_STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> > const &);
+template _STL::_Rb_tree<Rva00383B39Key, Rva00383B39Key, _STL::_Identity<Rva00383B39Key>, _STL::less<Rva00383B39Key>, _STL::allocator<Rva00383B39Key> > & _STL::_Rb_tree<Rva00383B39Key, Rva00383B39Key, _STL::_Identity<Rva00383B39Key>, _STL::less<Rva00383B39Key>, _STL::allocator<Rva00383B39Key> >::operator=(_STL::_Rb_tree<Rva00383B39Key, Rva00383B39Key, _STL::_Identity<Rva00383B39Key>, _STL::less<Rva00383B39Key>, _STL::allocator<Rva00383B39Key> > const &);

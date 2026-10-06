@@ -15663,3 +15663,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??$__lower_bound@PAURva00336283Element@@U1@U?$less@URva00336283Element@@@_STL@@H@_STL@@YAPAURva00336283Element@@PAU1@0ABU1@U?$less@URva00336283Element@@@0@PAH@Z,0x00335CAE,
 ??$__lower_bound@PAURva004235B2Element@@U1@U?$less@URva004235B2Element@@@_STL@@H@_STL@@YAPAURva004235B2Element@@PAU1@0ABU1@U?$less@URva004235B2Element@@@0@PAH@Z,0x00423098,
 ??$__lower_bound@PAURva00532829Element@@U1@U?$less@URva00532829Element@@@_STL@@H@_STL@@YAPAURva00532829Element@@PAU1@0ABU1@U?$less@URva00532829Element@@@0@PAH@Z,0x0053249D,
+?clear@?$_Rb_tree@URva00383B39Key@@U1@U?$_Identity@URva00383B39Key@@@_STL@@U?$less@URva00383B39Key@@@3@V?$allocator@URva00383B39Key@@@3@@_STL@@QAEXXZ,0x003828B6,
+?_M_copy@?$_Rb_tree@URva00383B39Key@@U1@U?$_Identity@URva00383B39Key@@@_STL@@U?$less@URva00383B39Key@@@3@V?$allocator@URva00383B39Key@@@3@@_STL@@AAEPAU?$_Rb_tree_node@URva00383B39Key@@@2@PAU32@0@Z,0x00383B39,

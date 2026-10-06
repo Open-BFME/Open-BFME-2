@@ -13,6 +13,25 @@ bool operator<(const Rva00448FF2Record&,const Rva00448FF2Record&);
 
 namespace _STL {
 typedef _Rb_tree<Rva00448FF2Record,Rva00448FF2Record,_Identity<Rva00448FF2Record>,less<Rva00448FF2Record>,allocator<Rva00448FF2Record> > R3WideTree;
+template<> pair<R3WideTree::iterator,bool> R3WideTree::insert_unique(const Rva00448FF2Record& __v) {
+ _Link_type __header = this->_M_header._M_data;
+ _Link_type __y = __header;
+ _Link_type __x = static_cast<_Link_type>(__header->_M_parent);
+ bool __comp = true;
+ while (__x != 0) {
+  __y = __x;
+  __comp = _M_key_compare(__v, _S_key(__x));
+  __x = __comp ? _S_left(__x) : _S_right(__x);
+ }
+ iterator __j(__y);
+ if (__comp && __j == iterator(static_cast<_Link_type>(__header->_M_left)))
+  return _STL::pair<iterator,bool>(_M_insert(__y,__y,__v),true);
+ if (__comp) --__j;
+ if (_M_key_compare(_S_key(__j._M_node),__v))
+  return _STL::pair<iterator,bool>(_M_insert(__x,__y,__v),true);
+ return _STL::pair<iterator,bool>(__j,false);
+}
+
 template<> R3WideTree::iterator R3WideTree::insert_unique(iterator __position,const Rva00448FF2Record& __v)
 {
   if (__position._M_node == this->_M_header._M_data->_M_left) { // begin()
