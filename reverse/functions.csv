@@ -63695,3 +63695,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002130CF@Rva002130CF@@QAEXPAURva002130CFOwner@@@Z,,0x002130CF,39,Code/GameEngine/Source/Common/Rva002130CFAttach.cpp,matched,Attach override: pinned base step then append listener base to owner list
 ??0Rva004188B6@@QAE@ABU0@@Z,,0x004188B6,89,Code/GameEngine/Source/Common/Rva004188B6Copy.cpp,matched,32B record copy ctor via pinned member copy 0x004186F2 twice and AsciiString copy
 ?rva003EF08B@Rva003EF13E@@QAEXH@Z,,0x003EF08B,179,Code/GameEngine/Source/Common/Rva003EF08B.cpp,matched,chain via 0x003EF041 switch kind and bool merge
+?rva005391D3@Rva0053947D@@UAEXXZ,,0x005391D3,42,Code/GameEngine/Source/Common/Rva0053947DDtor.cpp,matched,vslot slot2 v13 count v15 entry callee 0x005C4C95

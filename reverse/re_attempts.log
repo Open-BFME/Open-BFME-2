@@ -10800,3 +10800,13 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva004BE47D@DetachableRiderBody@@UAEHXZ	0x004BE47D	513	blocked	513B DetachableRider slot29 needs rider layout plus drawable calls t=5 model=muse-08
 ?rva005481F9@Rva00548117@@QAEXW4ObjectID@@H@Z	0x005481F9	110	partial	mov edi,[eax] vs [ebp-4] sret slot addr only diff tail fixed t=15 model=muse-10 score=0.99 stash=reverse/attempts/0x005481f9.cpp
 ?rva005CCCFC@Rva005CCCD0@@QAEXXZ	0x005CCCFC	58	partial	branch jle+mov vs retail cmovg pair and next-load after cmp t=25 model=muse-03 score=0.93 stash=reverse/attempts/0x005cccfc.cpp
+?rva0005BD30@MilesAudioManager@@QAEPAURva0005BDD2AudioEvent@@PAVAudioEventRTS@@@Z	0x0005BD30	162	partial	save-order push esi edi plus best spill t=20 model=muse-09 score=0.92 stash=reverse/attempts/0x0005bd30.cpp
+??1Rva002793F0@@UAE@XZ	0x002793F0	633	blocked	633B Drawable dtor needs full layout 15 members no donor empty 109B t=10 model=muse-09
+??1Rva005CF9FF@@UAE@XZ	0x005CF9FF	68	blocked	68B dtor missing EH prologue vtables 40B vs 68B needs layout t=10 model=muse-09
+??1Rva005CFA43@@UAE@XZ	0x005CFA43	68	blocked	same wall as 0x005CF9FF missing EH prologue vtables t=5 model=muse-09
+??1Rva005CFA87@@UAE@XZ	0x005CFA87	68	blocked	same wall as 0x005CF9FF 0x005CFA43 missing EH prologue vtables t=5 model=muse-09
+?Rva006FACA0Get@@YAHXZ	0x006FACA0	687	blocked	same Apt wall as 0x006FAB40 no donor large SEH needs full reconstruction t=5 model=muse-09
+?Rva006FA420Get@@YAHXZ	0x006FA420	954	blocked	same Apt wall no donor large 954B t=5 model=muse-09
+?rva002D9C7A@AudioEventRTS@@QAEHXZ	0x002D9C7A	191	blocked	191B AudioEventRTS switch needs full reconstruction stub 15B t=10 model=muse-09
+?rva00111C05@LookupTablePostEffect@@UAEXXZ	0x00111C05	352	blocked	352B LookupTablePostEffect slot4 D3D needs full reconstruction stub 1B t=10 model=muse-09
+?rva005297DD@Rva0052936C@@QAEXPBD@Z	0x005297DD	259	blocked	259B Rva0052936C needs new StringBase GetLevel set stub 78B t=15 model=muse-09

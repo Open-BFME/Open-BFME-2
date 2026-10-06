@@ -48,10 +48,38 @@ class Rva0053947D : public Rva005393F3List
 {
 public:
 	virtual ~Rva0053947D();
+	virtual void v01();
+	virtual void rva005391D3();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual int v13();
+	virtual void v14();
+	virtual void *v15(int i);
 };
 
 Rva0053947D::~Rva0053947D()
 {
 	forEach((void (Rva005393F3Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
 	g_00DFEF18->rva002BF6B7(this);
+}
+
+class Rva005C4B56
+{
+public:
+	void rva005C4C95();
+};
+
+void Rva0053947D::rva005391D3()
+{
+	int count = v13();
+	for (int i = 0; i < count; i++)
+		((Rva005C4B56 *)v15(i))->rva005C4C95();
 }
