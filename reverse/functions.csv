@@ -65128,3 +65128,7 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva0020EEF4@Rva0020EEF4Outer@@QAEHH@Z,,0x0020EEF4,74,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEF4Search.cpp,matched,Predicate search via inner plus8 vector calling pinned 0x3F08D7; int preserves eax; reload count idiom
 ?rva002B894D@Rva002B894DHost@@QAEXH@Z,,0x002B894D,55,Code/GameEngine/Source/Common/Rva002B894DTwins.cpp,matched,adjacent 55B twins backwards scan elem+0x34 vs arg then 0x2B7DE6; == variant
 ?rva002B8984@Rva002B894DHost@@QAEXH@Z,,0x002B8984,55,Code/GameEngine/Source/Common/Rva002B894DTwins.cpp,matched,adjacent 55B twins backwards scan elem+0x34 vs arg then 0x2B7DE6; != variant
+?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
+?getAttackRange@BfmeRangedWeaponTemplate@@QBEMPBVObject@@ABVWeaponBonus@@PBUCoord3D@@@Z,,0x002C99C4,55,Code/GameEngine/Source/GameLogic/Object/Rva002C99C4AttackRange.cpp,matched,
+?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z,,0x002C777E,257,Code/GameEngine/Source/Common/Rva002C777EBuild.cpp,matched,
+?rva002DEE9A@Rva002DEE9AOwner@@QAEXXZ,,0x002DEE9A,41,Code/GameEngine/Source/Common/Rva002DEE9AClear.cpp,matched,
