@@ -303,5 +303,18 @@ cleanup_done_00761832:
     ret
 ?rva00761832@@YAXXZ ENDP
 
+; Unwind@00b61b91: bit 0 at [ebp-0x2c], cleanup pointer at [ebp+8].
+PUBLIC ?rva00761B91@@YAXXZ
+?rva00761B91@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-44]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00761B91
+    and DWORD PTR [ebp-44], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00761B91:
+    ret
+?rva00761B91@@YAXXZ ENDP
+
 _TEXT ENDS
 END
