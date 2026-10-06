@@ -64864,3 +64864,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva002E713F@Rva002E713FOwner@@QAEXXZ,,0x002E713F,57,Code/GameEngine/Source/Common/Rva002E713FGuard.cpp,matched,
 ?rva002E7023@@YAXXZ,,0x002E7023,68,Code/GameEngine/Source/Common/Rva002E7023Walk.cpp,matched,dump-range-12 global+call list walk via TheGameLogic getFirstObject and +0x8C chain with +0x258/+0x140 checks
 ?rva002E7205@Rva002E7205Owner@@QAEXH_N@Z,,0x002E7205,62,Code/GameEngine/Source/Common/Rva002E7205Slot.cpp,matched,dump-range-12 shl/lea slot pair with rowed 0x36666B and pinned bool callee then rowed 0x531481
+?rva002E7388@Rva002E7388Owner@@QAEPAV1@HPAVRva0028CECFOwner@@HHHPAURva002E7388Pair@@HHH@Z,,0x002E7388,76,Code/GameEngine/Source/Common/Rva002E7388Set.cpp,matched,dump-range-12 nine-arg setter returning this with pinned 0x28CECF tail call
