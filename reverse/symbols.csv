@@ -15415,3 +15415,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva001F5BBE@ParticleSystemManager@@QAEXPAVObject@@@Z,0x001F5BBE,ZH destroyAttachedSystems(Object*) on TheParticleSystemManager (0x00DFDD04): REL32 at 0x0048FF56 in HeightDieUpdate::update 0x0048FD1B; the rowed body destroys every system whose +0xB4 attached ID is the object's +0x74 ID
 ?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
 ?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
+?onContaining@HordeContain@@UAEXPAVObject@@_N@Z,0x0046FA46,callee of ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z
