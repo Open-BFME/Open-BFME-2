@@ -13500,6 +13500,3 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002E713F@Rva002E713F@@QAEXXZ,0x002E713F,thiscall void tail callee of 0x004E8FF6/0x004E9040 read from REL32; body unrowed
 ?rva0051274F@Rva0051274F@@QAEHHHH@Z,0x0051274F,thiscall int callee of 0x004E8D3E read from its REL32 displacement (this plus 3); body unrowed
 ?rva004E8820@Rva004E8820@@QAEXH@Z,0x004E8820,thiscall callee of 0x004E8D3E read from its REL32 displacement (this plus 0); in-range target, provisional signature
-?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
-??1Rva0042D4B3@@UAE@XZ,0x00577E3E,virtual dtor called by the scalar deleting dtor 0x0042D4B3; thiscall read from its REL32
-?rva0040F497@@YGXHHH@Z,0x0040F497,3-zero-arg helper called by BfmeY1038::rva0040F7E5 0x0040F7E5; retail callee cleans 12 (stdcall) but the caller bytes only need the address
