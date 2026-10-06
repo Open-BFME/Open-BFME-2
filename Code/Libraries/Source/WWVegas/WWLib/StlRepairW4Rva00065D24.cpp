@@ -1,8 +1,16 @@
-// STLport/compiled destructor reference. Native boundary, operation and call destinations verified.
-// Element application identity and unaccessed layout remain address-derived inference.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
-#include <set>
-struct Rva00065D24Element {char bytes[8];Rva00065D24Element();Rva00065D24Element(const Rva00065D24Element&);~Rva00065D24Element();Rva00065D24Element&operator=(const Rva00065D24Element&);static void operator delete(void*);};
-bool operator<(const Rva00065D24Element&,const Rva00065D24Element&);
-template class _STL::set<Rva00065D24Element>;
+// Native28B virtual deleting-destructor wrapper: direct qualified virtual destructor call, then optional class deallocation.
+// Existing11B destructor0x000658BA installs native vtable0x00BC5C74 and tails to MultiListObjectClass::~MultiListObjectClass.
+// Pool data evidence associates0x00065D0E with the camera-shaker allocator; complete object layout is unused here.
+// cl: /O1 /EHsc /MD
+class Rva00065D24Element {
+public:
+ virtual ~Rva00065D24Element();
+ static void operator delete(void*);
+ void* deletingDestructor(unsigned flags);
+};
+void* Rva00065D24Element::deletingDestructor(unsigned flags) {
+ Rva00065D24Element* saved = this;
+ this->Rva00065D24Element::~Rva00065D24Element();
+ if(flags & 1) Rva00065D24Element::operator delete(saved);
+ return saved;
+}
