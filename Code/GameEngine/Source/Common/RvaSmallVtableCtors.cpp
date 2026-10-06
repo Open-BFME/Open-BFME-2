@@ -368,7 +368,7 @@ public:
 	virtual ~Rva0007DF07() {}
 };
 
-Rva0007DF07::Rva0007DF07()
+inline Rva0007DF07::Rva0007DF07()
 {
 }
 
@@ -440,7 +440,7 @@ public:
 	virtual ~Rva0030D346() {}
 };
 
-Rva0030D346::Rva0030D346()
+inline Rva0030D346::Rva0030D346()
 {
 }
 
@@ -707,11 +707,23 @@ void Rva0054D5D3::rva0054D5D3(void *a, void *b)
 // ??0Rva000421C8 is a header inline elsewhere: other units emit select-any
 // copies of it, so a strong definition here was a duplicate symbol in the
 // linked build. This anchor only makes this unit emit its copy for the ledger
-// row; it is not retail code.
+// row; it is not retail code. ??0Rva0007DF07 and ??0Rva0030D346 below are the
+// same: their inline copies elsewhere (static instance, dtor TUs) forced the
+// strong definitions here into duplicates as well.
 #pragma inline_depth(0)
 // ?bfmeEmitRva000421C8Ctor@@YAXPAVRva000421C8@@@Z present-unmatched
 void bfmeEmitRva000421C8Ctor(Rva000421C8 *p)
 {
 	p->Rva000421C8::Rva000421C8();
+}
+// ?bfmeEmitRva0007DF07Ctor@@YAXPAVRva0007DF07@@@Z present-unmatched
+void bfmeEmitRva0007DF07Ctor(Rva0007DF07 *p)
+{
+	p->Rva0007DF07::Rva0007DF07();
+}
+// ?bfmeEmitRva0030D346Ctor@@YAXPAVRva0030D346@@@Z present-unmatched
+void bfmeEmitRva0030D346Ctor(Rva0030D346 *p)
+{
+	p->Rva0030D346::Rva0030D346();
 }
 #pragma inline_depth()
