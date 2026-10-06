@@ -7,7 +7,7 @@
 extern "C" double __cdecl sqrt(double value);
 #pragma intrinsic(sqrt)
 
-extern const float BfmeZeroRange;
+// BfmeZeroRange is float 0.0 at 0x00BBAEAC (data_ledger literal); use 0.0f literal so the TU links.
 
 struct Coord3D
 {
@@ -59,7 +59,7 @@ float distCalcProc_BoundaryAndBoundary_3D(
 	distanceSquared += delta.z * delta.z;
 	float distance = static_cast<float>(sqrt(distanceSquared));
 	distance -= geometry2->m_radius;
-	if (distance < BfmeZeroRange)
+	if (distance < 0.0f)
 		return -distance * distance;
 	return distance * distance;
 }
