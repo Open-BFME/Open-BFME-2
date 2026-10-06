@@ -13359,3 +13359,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??_7Rva00359290@@6B@,0x00C15398,vtable installed by the 0x359290 dtor (mov [esi] at 0x003592A1)
 ?rva003596AD@Rva003596AD@@QAEPAXHPAH@Z,0x003596AD,thiscall factory on this-plus-0x24 taking (int plus int-star) returning opaque taker called from 0x3597A8; RETAIL REL32 at 0x003597B4
 ?rva002174A4@Rva002174A4Taker@@QAEXXZ,0x002174A4,address-derived 0-arg thiscall spelling for the 0x2174A4 call from 0x3597A8 (shares address with rowed TreeHintRef assign); RETAIL REL32 at 0x003597BB
+?run@Rva0037DCCC284@@QAEXH@Z,0x0028C557,alias to rowed STLport _Base_bitset<32>::_M_do_or (likely via operator|=); address read from the retail REL32 at 0x0037DCCC (VA 0x68C557)

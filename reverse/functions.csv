@@ -64091,3 +64091,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva003705C2@AIGroup@@QAEXXZ,,0x003705C2,190,Code/GameEngine/Source/GameLogic/AI/AIGroupRva003705C2.cpp,matched,"dump range 16; AIGroup order walk, rowed callees 0x268D71 0x290B73 0x295A0F slot-110 isIdle"
 ?rva0036DC46@Rva0036ListOwner@@QAEXH@Z,,0x0036DC46,41,Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp,matched,
 ?rva0036D6B4@Rva0036ListOwner@@QAEXXZ,,0x0036D6B4,64,Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp,matched,
+?rva0037DCCC@@YAXPAVObject@@H@Z,,0x0037DCCC,28,Code/GameEngine/Source/Common/Rva0037DCCCForward.cpp,matched,
