@@ -37,6 +37,12 @@ public:
 	int method(int value);
 };
 
+class Rva0040D3B6Sub
+{
+public:
+	int method(int value);
+};
+
 class Rva0040D3E8Sub
 {
 public:
@@ -79,6 +85,7 @@ public:
 	int rva0023D075(int value);
 	int rva0023D080(int value);
 	int rva0023D08B(int value);
+	int rva0023D096(int value);
 	int rva0023D0AC(int value);
 	int rva0023D0B7();
 	void rva0023D0C2(Object *obj, int value);
@@ -115,6 +122,11 @@ int GameLogic::rva0023D080(int value)
 int GameLogic::rva0023D08B(int value)
 {
 	return ((Rva0040FAFESub *)((char *)this + 0x184))->method(value);
+}
+
+int GameLogic::rva0023D096(int value)
+{
+	return ((Rva0040D3B6Sub *)((char *)this + 0x184))->method(value);
 }
 
 int GameLogic::rva0023D0AC(int value)

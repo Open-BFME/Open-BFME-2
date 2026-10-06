@@ -12999,3 +12999,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?Rva004318A8Guard@@YA_NXZ,0x004318A8,guard for 0x00431A80 family read from REL32; Ghidra 30B overlaps published 3B fragment at 0x004318C3
 ?tail@Rva00414F5EHost@@QAEXXZ,0x00414DAA,tail method for 0x00414F5E read from jmp REL32; Ghidra 247B
 ??0Rva002B5558@@QAE@ABV0@@Z,0x002B72EC,copy constructor REL32 callee at 0x002B90EC (+0 member of Rva002B91EDElement copy 0x002B90D6); layout matches BfmeAssignRecord52 whose +0 is Rva002B5558 (dtor/op= rowed); identity unproven
+?method@Rva0040D3B6Sub@@QAEHH@Z,0x0040D3B6,tail jmp target of 11B forwarder 0x0023D096 at GameLogic+0x184 identity unproven
