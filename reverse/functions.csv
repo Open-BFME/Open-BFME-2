@@ -64397,3 +64397,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??0Rva005DB271@@QAE@PAXPAUArg1Host005DB271@@@Z,,0x005DB271,168,Code/GameEngine/Source/Common/Rva005DB271Ctor.cpp,matched,ctor via Rva005C4230 precedent vtable 0x00C766B8 plus 0x38 chase
 ??1Rva005DB221@@UAE@XZ,,0x005DB221,80,Code/GameEngine/Source/Common/Rva005DB221Dtor.cpp,matched,dtor via Rva0056B9A2 precedent vtable 0x00C766B8 plus empty global
 ??0Rva003B770B@@QAE@PAH@Z,,0x003B770B,21,Code/GameEngine/Source/Common/Rva003B76EFCtor.cpp,matched,ctor forwards arg to embedded 0x003B7448 same file
+?rva002A8B73@Rva002A8F24@@QAEPAXPAXH@Z,,0x002A8B73,25,Code/GameEngine/Source/Common/Rva002A8AE4.cpp,matched,linkbody lookup then search via rowed callees callers 0x004EDC65

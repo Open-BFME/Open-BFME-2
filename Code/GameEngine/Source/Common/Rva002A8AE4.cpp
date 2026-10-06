@@ -39,6 +39,12 @@ public:
 	bool rva004E9600(void *p);
 };
 
+class Rva004E94FB
+{
+public:
+	void *rva004E955F(int unused, int key);
+};
+
 class Rva002A8F24
 {
 public:
@@ -46,6 +52,7 @@ public:
 	Rva002A8AE4Record *rva002A8AE4(void *key);
 	Rva002A8B59Data *rva002A8B59(void *key);
 	Rva004E9600 *rva002A8B24(void *key);
+	void *rva002A8B73(void *key, int key2);
 };
 
 Rva002A8AE4Record *Rva002A8F24::rva002A8AE4(void *key)
@@ -88,4 +95,16 @@ check:
 		goto check;
 done:
 	return result;
+}
+
+// ?rva002A8B73@Rva002A8F24@@QAEPAXPAXH@Z @0x002A8B73 25B.
+// Lookup-then-search: find candidate via rowed 0x002A8B24, tail-jmp to rowed
+// Rva004E94FB::rva004E955F 0x004E955F on hit else null. Evidence: callers
+// 0x004EDC65 0x0059A1DD pass two pushes with ecx=g_00DFEEF8; LINK 4 files.
+void *Rva002A8F24::rva002A8B73(void *key, int key2)
+{
+	Rva004E9600 *r = rva002A8B24(key);
+	if (r != 0)
+		return ((Rva004E94FB *)r)->rva004E955F((int)key, key2);
+	return 0;
 }
