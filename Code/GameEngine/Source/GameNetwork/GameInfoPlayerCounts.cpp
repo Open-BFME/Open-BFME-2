@@ -144,6 +144,7 @@ public:
 	Int getNumOpenOrOccupiedSlots() const;
 	const GameSlot *getConstSlot(Int slotNum) const;
 	bool rva003FF496(unsigned short slotNum) const;
+	bool rva003FF457() const;
 private:
 	char m_pad[0x18];
 	GameSlot *m_slot[MAX_SLOTS];
@@ -325,4 +326,20 @@ void GameSlot::rva003FF1A7(int v)
 		return;
 	m_5c = v;
 	Rva00559FAC(v, &m_60);
+}
+
+// ?rva003FF457@GameInfo@@QBE_NXZ @0x003FF457 63B: checks occupied slots for
+// a slot with an unset +0x60 state while +0x50 is set. Class identity comes
+// from the caller loading TheGameInfo; these fields remain mechanically named.
+bool GameInfo::rva003FF457() const
+{
+	if (m_slot == 0)
+		return true;
+	for (Int i = 0; i < MAX_SLOTS; ++i)
+	{
+		const GameSlot *slot = m_slot[i];
+		if (slot->isOccupied() && slot->m_50 && !slot->rva64())
+			return false;
+	}
+	return true;
 }
