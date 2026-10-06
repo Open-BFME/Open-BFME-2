@@ -64460,3 +64460,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva005F00FB@@UAE@XZ,,0x005F00FB,87,Code/GameEngine/Source/Common/Rva005F00FBDtor.cpp,matched,two AsciiString arrays via vector dtor iterator then rowed base Rva0022167C dtor
 ??1Rva00318637@@UAE@XZ,,0x00318637,110,Code/GameEngine/Source/Common/Rva00318637Dtor.cpp,matched,MI dtor: record array via vector dtor iterator then AsciiString then pool member then Snapshot restore and GameEngineDeletingBase dtor
 ??0Rva0050245DElement@@QAE@ABHABURva005020AFSub@@@Z,,0x0050245D,29,Code/Libraries/Source/WWVegas/WWLib/StlportElementCopyCtorsW3G15.cpp,matched,29B pair ctor int plus sub via pinned 0x00501B33 caller 0x00503466
+?rva002E074E@Rva002E074E@@QAEXPAVRva00319CED@@@Z,,0x002E074E,22,Code/GameEngine/Source/Common/Rva002E074EAccum.cpp,matched,accumulate rowed 0x004E1755 into this plus 0x298 caller 0x004FAF50
