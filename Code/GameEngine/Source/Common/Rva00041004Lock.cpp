@@ -73,11 +73,15 @@ Rva00041004::Rva00041004(int x) : m_flag(0)
 // ?unlock@Rva000411BC@@UAE_NXZ @0x00040F4C 24B
 // Table BC16C4 {40EF8;40F4C;411A0}: the base wait method, this mutex release
 // and the rowed ??_GRva000411BC scalar destructor.
-class Rva000411BC : public Rva0040EDB
+class __declspec(novtable) Rva000411BC : public Rva0040EDB
 {
 public:
+    virtual ~Rva000411BC();
     virtual bool unlock();
 };
+Rva000411BC::~Rva000411BC()
+{
+}
 bool Rva000411BC::unlock()
 {
     if (m_handle04)
