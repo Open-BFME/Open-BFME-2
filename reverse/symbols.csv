@@ -13349,6 +13349,3 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva0056B7E4@Rva0056B7E4@@QAEXPAX@Z,0x0056B7E4,thiscall (void*); RETAIL REL32 at 0x0056B645 (body 0x0056B63E) targets this address; honest address-derived name
 ?rva0056B7A0@Rva003F9FE6@@QAEEH@Z,0x0056B7A0,uchar thiscall(int) predicate; RETAIL REL32 at 0x0056B635 (body 0x0056B613) targets this address; banked 0x96 at reverse/attempts/0x0056b7a0.cpp names this spelling
 ?rva002B269E@Rva002B269E@@QAE_NH@Z,0x002B269E,thiscall (int) returning bool in al; RETAIL REL32 at 0x0056B626 (body 0x0056B613) targets this address; honest address-derived name
-?forward@Rva0040E6D6Sub@@QAEXPAH@Z,0x002E01C6,thiscall 1-arg subobject forwarder called by Rva0040E6D6Host::forwardFrom 0x0040E6D6; read from its REL32
-??1Rva0042D4B3@@UAE@XZ,0x00577E3E,virtual dtor called by the scalar deleting dtor 0x0042D4B3; thiscall read from its REL32
-?rva0040F497@@YGXHHH@Z,0x0040F497,3-zero-arg helper called by BfmeY1038::rva0040F7E5 0x0040F7E5; retail callee cleans 12 (stdcall) but the caller bytes only need the address
