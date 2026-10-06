@@ -1312,11 +1312,11 @@ void Mouse::setCursor( MouseCursor cursor )
 /** Parse MouseCursor entry */
 //-------------------------------------------------------------------------------------------------
 // ?parseMouseCursorDefinition@INI@@SAXPAV1@@Z
-// The "MouseCursor" block. m_cursorInfo sits at +8 in Mouse with a 0x54 stride,
-// which is how retail addresses the element (imul index,0x54 then +TheMouse+8),
-// and the cursor's name is the first member at offset 0 -- the field table's
-// lowest entry is CursorText at 0x04.
-// ?parseMouseCursorDefinition@INI@@SAXPAV1@@Z present-unmatched
+// The "MouseCursor" block (INI block table entry 0x001EF2CB). m_cursorInfo
+// sits at +0x0C in Mouse with a 0x54 stride, which is how retail addresses the
+// element (imul index,0x54 then lea [eax+TheMouse+0x0C]), and the cursor's
+// name is the first member at offset 0 -- the field table's lowest entry is
+// CursorText at 0x04.
 void INI::parseMouseCursorDefinition( INI* ini )
 {
 	AsciiString name;
@@ -1328,7 +1328,7 @@ void INI::parseMouseCursorDefinition( INI* ini )
 		Int index = TheMouse->getCursorIndex( name );
 		if( index != Mouse::INVALID_MOUSE_CURSOR )
 		{
-			CursorInfo *cursorInfo = (CursorInfo *)((char *)TheMouse + index * 0x54 + 8);
+			CursorInfo *cursorInfo = (CursorInfo *)((char *)TheMouse + index * 0x54 + 0x0C);
 			cursorInfo->cursorName = name;
 
 			ini->initFromINI( cursorInfo, TheMouseCursorFieldParseTable );
@@ -1339,7 +1339,6 @@ void INI::parseMouseCursorDefinition( INI* ini )
 //-------------------------------------------------------------------------------------------------
 /** Parse MouseCursor entry */
 //-------------------------------------------------------------------------------------------------
-// ?parseMouseDefinition@INI@@SAXPAV1@@Z present-unmatched
 void INI::parseMouseDefinition( INI* ini )
 {
 	if( TheMouse )
