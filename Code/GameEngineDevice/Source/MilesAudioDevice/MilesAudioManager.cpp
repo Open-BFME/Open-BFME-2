@@ -241,6 +241,7 @@ public:
     void rva000567C5(int argument);
     void rva0005A92A(int key, Rva0005A084Vector *output);
     void rva0005774F(int viewType, MusicSystem newMusicSystem, int arg);
+    void rva00057297(Rva00051107AudioRequest &request);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
     AudioEventRTS *findLowestPrioritySound(AudioEventRTS *event);
     float rva0005A9F8(void *ref, int a, int b);
@@ -544,6 +545,21 @@ void MilesAudioManager::rva0005774F(int viewType, MusicSystem newMusicSystem, in
     if (m_activeMusicSystem[viewType] == newMusicSystem)
         removeCurrentlyPlayingMusic(viewType, arg);
     m_musicStack[viewType][newMusicSystem].clear();
+}
+
+// ?MilesAudioManager::rva00057297 present-unmatched
+void MilesAudioManager::rva00057297(Rva00051107AudioRequest &request)
+{
+    AudioEventRTS *event = request.m_pendingEvent.operator->();
+    int viewType = event->m_viewType;
+    MusicSystem musicSystem = event->m_musicSystem;
+    if (m_activeMusicSystem[viewType] == musicSystem) {
+        removeCurrentlyPlayingMusic(viewType, !request.m_at10);
+    } else {
+        MusicStack &stack = m_musicStack[viewType][musicSystem];
+        if (!stack.empty())
+            stack.pop_back();
+    }
 }
 
 bool __cdecl Rva000515E4Less(const Rva000515E4Key *x, const Rva000515E4Key *y)
