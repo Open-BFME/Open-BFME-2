@@ -23,6 +23,8 @@ Until they land:
 - keep matching as usual. Rows the new checks flag will be served as a queue,
   so there is nothing to pre-empt.
 
+Full plan and evidence: `docs/verifier_upgrade_plan.md`.
+
 # Contributing
 
 Several agents push to `origin/master` continuously. Keep each change small,
