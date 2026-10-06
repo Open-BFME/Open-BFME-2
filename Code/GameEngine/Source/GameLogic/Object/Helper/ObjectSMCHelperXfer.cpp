@@ -156,9 +156,24 @@ public:
 			++n;
 		return n;
 	}
-	void push_back( const ObjectSMCHelperTimerValue &value );
 	ObjectSMCHelperTimerNode *m_node;
 };
+
+// Rowed 8-byte list element at 0x004DE74D (SpecialPowerTimerList.cpp). Same
+// layout as ObjectSMCHelperTimerValue (condition + frame); the retail xfer
+// calls it directly, so this TU calls the row name via cast. Declaration
+// only: the definition lives in the row owner.
+struct BfmeSpecialPowerTimer8 { unsigned int m_templateID; unsigned int m_readyFrame; };
+
+namespace _STL
+{
+	template <class T> class allocator;
+	template <class T, class Alloc> class list
+	{
+	public:
+		void push_back(const T &value);
+	};
+}
 
 class Rva004DF81B
 {
@@ -213,7 +228,7 @@ void ObjectSMCHelper::xfer( Xfer *xfer )
 		{
 			XferModelConditionFlagType( xfer, &timer.m_condition );
 			*xfer == timer.m_frame;
-			m_timers.push_back( timer );
+			(( _STL::list<BfmeSpecialPowerTimer8, _STL::allocator<BfmeSpecialPowerTimer8> > *)&m_timers)->push_back(*(const BfmeSpecialPowerTimer8 *)&timer);
 		}
 	}
 
