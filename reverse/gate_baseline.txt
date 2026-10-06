@@ -74,7 +74,6 @@ tail 0x0067F6C0 _Rva008137C0
 tail 0x00680670 _Rva00814770
 tail 0x00682560 _CommSRPListen
 tail 0x00682870 _CommSRPConnect
-tail 0x00684C90 _CommUdpListen
 tail 0x00685200 _CommUDPConnect
 tail 0x00685820 _Rva00819920
 tail 0x00686D20 _Rva0081AE20

@@ -201,48 +201,48 @@ int CommUdpPoke(void *ref)
 int CommUdpListen(void *ref, const char *text)
 {
 	int result;
-	int port;
-	int extra;
-	unsigned int address;
+	int iListenPort;
+	int iConnPort;
+	unsigned int poke;
 	void *socket;
-	unsigned char socketAddress[0x10];
+	unsigned char bindaddr[0x10];
 	unsigned int temp;
 
-	*(unsigned short *)&socketAddress[0] = 2;
-	*(unsigned short *)&socketAddress[2] = 0;
-	*(unsigned int *)&socketAddress[4] = 0;
-	*(unsigned int *)&socketAddress[8] = 0;
-	*(unsigned int *)&socketAddress[12] = 0;
-	if ((Rva007FFDD0(&address, &port, &extra, text) & 2) == 0) {
+	*(unsigned short *)&bindaddr[0] = 2;
+	*(unsigned short *)&bindaddr[2] = 0;
+	*(unsigned int *)&bindaddr[4] = 0;
+	*(unsigned int *)&bindaddr[8] = 0;
+	*(unsigned int *)&bindaddr[12] = 0;
+	if ((Rva007FFDD0(&poke, &iListenPort, &iConnPort, text) & 2) == 0) {
 		return -3;
 	}
-	socketAddress[2] = (unsigned char)(port >> 8);
-	socketAddress[3] = (unsigned char)port;
+	bindaddr[2] = (unsigned char)(iListenPort >> 8);
+	bindaddr[3] = (unsigned char)iListenPort;
 	socket = Rva007FD2D0(2, 2, 0);
 	if (socket == 0) {
 		return -4;
 	}
-	result = Rva00819090(ref, socket, socketAddress);
+	result = Rva00819090(ref, socket, bindaddr);
 	Rva00818FF0(ref, text);
 	Rva007FE780Printf("CommUdpListen: err=%d, bind=%d, connident=0x%08x\n",
-	                   result, port, *(int *)((char *)ref + 0x94));
-	if (result == 0 && address != 0) {
-		if (extra == 0) {
-			extra = port + 1;
+	                   result, iListenPort, *(int *)((char *)ref + 0x94));
+	if (result == 0 && poke != 0) {
+		if (iConnPort == 0) {
+			iConnPort = iListenPort + 1;
 		}
-		Rva007FE780Printf("CommUdpListen: poke=%08x:%d\n", address, extra);
+		Rva007FE780Printf("CommUdpListen: poke=%08x:%d\n", poke, iConnPort);
 		*(unsigned short *)((char *)ref + 0x80) = 2;
 		*(unsigned short *)((char *)ref + 0x82) = 0;
 		*(unsigned int *)((char *)ref + 0x84) = 0;
 		*(unsigned int *)((char *)ref + 0x88) = 0;
 		*(unsigned int *)((char *)ref + 0x8C) = 0;
-		temp = address;
+		temp = poke;
 		*((unsigned char *)ref + 0x87) = (unsigned char)temp; temp >>= 8;
 		*((unsigned char *)ref + 0x86) = (unsigned char)temp; temp >>= 8;
 		*((unsigned char *)ref + 0x85) = (unsigned char)temp; temp >>= 8;
 		*((unsigned char *)ref + 0x84) = (unsigned char)temp;
-		*((unsigned char *)ref + 0x82) = (unsigned char)(extra >> 8);
-		*((unsigned char *)ref + 0x83) = (unsigned char)extra;
+		*((unsigned char *)ref + 0x82) = (unsigned char)(iConnPort >> 8);
+		*((unsigned char *)ref + 0x83) = (unsigned char)iConnPort;
 	}
 	*(int *)((char *)ref + 0xD4) = 0;
 	return result;

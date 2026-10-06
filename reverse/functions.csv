@@ -7223,7 +7223,7 @@ _piFindPlayerByIP,,0x006A4330,30,Code/GameEngine/Source/GameNetwork/GameSpy/peer
 ?Release_Head@?$RefMultiListClass@VRenderObjClass@@@@QAE_NXZ,,0x0006EF8C,33,Code/Libraries/Source/WWVegas/WWLib/RefMultiListRenderObjRemove.cpp,matched,
 _CommUDPResolve,,0x00683110,28,Code/Libraries/Source/DirtySock/commudp.cpp,matched,bfme1 DirtySock commudp exact source; unique masked hit
 _CommUDPConnect,,0x00685200,528,Code/Libraries/Source/DirtySock/commudp.cpp,matched,bfme1 DirtySock commudp exact source; unique masked hit
-_CommUdpListen,,0x00684C90,503,Code/Libraries/Source/DirtySock/commudp.cpp,matched,bfme1 DirtySock commudp exact source; unique masked hit
+_CommUdpListen,,0x00684C90,595,Code/Libraries/Source/DirtySock/commudp.cpp,matched,bfme1 DirtySock commudp exact source; unique masked hit
 _Rva007FFDD0,,0x0066C2A0,442,Code/Libraries/Source/DirtySock/Y4DirtySockAddrText.c,matched,bfme1 Y4DirtySockAddrText exact source; host-port parser pinned by commudp Connect
 _CommTCPResolve,,0x006802D0,28,Code/Libraries/Source/DirtySock/commtcp.cpp,matched,bfme1 DirtySock commtcp exact source; sibling of CommUDPResolve
 _Rva007FD540,,0x00669A10,126,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; Winsock error translator
