@@ -67258,3 +67258,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?fromGate@Rva002A9BF2@@QAE_NPAV1@@Z,,0x0058AF47,108,Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp,matched,ICF twin of the stdcall chance test; thiscall shape at caller 0x004B332D
 ?rva004B327F@Rva004B327F@@QAEHXZ,,0x004B327F,211,Code/GameEngine/Source/GameLogic/Object/Update/AISpecialPowerRva004B327F.cpp,matched,AISpecialPowerUpdate+0x10 arms the power object and tail-calls virtual slot 3 or returns 0x3fffffff
 ?rva004ABB4B@Rva004ABB4B@@QAEHXZ,,0x004ABB4B,273,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioRva004ABB4B.cpp,matched,LargeGroupAudioUpdate+0x10 refreshes the slot when the object state changes and returns the module delay
+?rva000E6FC8@Rva000E6FC8@@QAEXXZ,,0x000E6FC8,27,Code/GameEngine/Source/Common/Rva000E6FC8.cpp,matched,GlobalData +0xD45 selects 0x14 or 2 then thiscall 0x000E6D94
