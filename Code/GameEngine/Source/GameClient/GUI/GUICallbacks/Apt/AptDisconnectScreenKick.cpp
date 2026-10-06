@@ -96,6 +96,7 @@ public:
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void Quit(const char *unused);
 	void OnBttnEnterText(const char *unused);
+	int rva00513449(int message, unsigned int wParam, unsigned int lParam);
 	void PlayerColor(int slot, char *result, bool skip);
 
 	// Zero Hour's DisconnectMenu::sendChat, filtered. Name unknown.
