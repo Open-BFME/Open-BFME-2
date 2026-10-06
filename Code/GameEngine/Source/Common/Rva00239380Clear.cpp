@@ -43,10 +43,16 @@ void Rva00239300::rva00239300(int a, int b)
 	}
 }
 
-class Rva0042C1B7Item
+class Rva00577010
 {
 public:
-	~Rva0042C1B7Item();
+	~Rva00577010();
+};
+
+class __declspec(novtable) Rva0042C1B7Item : public Rva00577010
+{
+public:
+	~Rva0042C1B7Item() {}
 };
 
 class Rva0023932BPtr
