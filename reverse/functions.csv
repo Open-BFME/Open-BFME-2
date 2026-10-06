@@ -63550,3 +63550,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva00580705Partition@@YAPAPAXPAPAX0PAXVRva000795C1Record@@@Z,,0x00580705,113,Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp,matched,STLport unguarded_partition median intro family
 ?rva003EEEB3@Rva003EEEB3@@QAEXH@Z,,0x003EEEB3,96,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 0x003EE7CA loop with nested forward
 ?rva003EEF38@Rva003EEF38@@QAEXH@Z,,0x003EEF38,104,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 0x003EE7CA loop saving to +0x14
+?rva00548117@Rva00548117@@QAEPBVArmorTemplate@@PAXPBV?$list@PAVCreateAHeroData@@V?$allocator@PAVCreateAHeroData@@@_STL@@@_STL@@@Z,,0x00548117,108,Code/GameEngine/Source/GameLogic/Object/Rva00548117.cpp,matched,list Armor pair via caller 0x0035545C find 0x00355155 contains 0x00548800
