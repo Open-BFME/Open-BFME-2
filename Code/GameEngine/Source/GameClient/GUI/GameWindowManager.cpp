@@ -95,54 +95,8 @@ static Bool sendMousePosMessages = TRUE;
 //-------------------------------------------------------------------------------------------------
 /** Process windows waiting to be destroyed */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::processDestroyList present-unmatched
-void GameWindowManager::processDestroyList( void )
-{
-	GameWindow *next;
-	GameWindow *doDestroy;
-
-	//
-	// we need to pass the ownership of the destroy list so
-	// if, while destroying a window, we need to add other windows
-	// to the destroy list it won't cause problems.
-	//
-	doDestroy = m_destroyList;
-
-	// set the list to empty
-	m_destroyList = NULL;
-
-	// do the destroys
-	for( ; doDestroy; doDestroy = next )
-	{
-
-		next = doDestroy->m_next;
-
-		// Check to see if this window is "special"
-		if( m_mouseCaptor == doDestroy )
-			winRelease( doDestroy );
-
-		if( m_keyboardFocus == doDestroy )
-			winSetFocus( NULL );
-
-		if( (m_modalHead != NULL) && (doDestroy == m_modalHead->window) )
-			winUnsetModal( m_modalHead->window );
-
-		if( m_currMouseRgn == doDestroy )
-			m_currMouseRgn = NULL;
-
-		if( m_grabWindow == doDestroy )
-			m_grabWindow = NULL;
-
-		// send the destroy message to the window we're about to kill
-		winSendSystemMsg( doDestroy, GWM_DESTROY, 0, 0 );
-
-		// free the memory
-		if (doDestroy)
-			doDestroy->deleteInstance();
-
-	}  // end for
-
-}  // end processDestroyList
+// GameWindowManager::processDestroyList: defined in GameWindowManager_processDestroyList.cpp (its row's unit).
+  // end processDestroyList
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////////////////////////
@@ -290,55 +244,8 @@ void GameWindowManager::update( void )
 //-------------------------------------------------------------------------------------------------
 /** Puts a window at the head of the window list */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::linkWindow present-unmatched
-void GameWindowManager::linkWindow( GameWindow *window )
-{
-	GameWindow *lastModalWindow = NULL;
-	GameWindow *tmp = m_windowList;
-	while (tmp)
-	{
-		const ModalWindow *modal = m_modalHead;
-		while (modal)
-		{
-			if (modal->window == tmp && modal->window != window)
-			{
-				lastModalWindow = tmp;
-			}
-			modal = modal->next;
-		}
-		tmp = tmp->m_next;
-	}
-
-	if (!lastModalWindow)
-	{
-
-		// Add to head of the top level window list
-		window->m_prev = NULL;
-		window->m_next = m_windowList;
-
-		if( m_windowList )
-			m_windowList->m_prev = window;
-		else 
-		{
-			// first on list is also the tail
-			m_windowTail = window;
-		}
-
-		m_windowList = window;
-	}
-	else
-	{
-		// lastModalWindow points to a modal window - add behind it
-		window->m_prev = lastModalWindow;
-		window->m_next = lastModalWindow->m_next;
-		lastModalWindow->m_next = window;
-		if (window->m_next)
-		{
-			window->m_next->m_prev = window;
-		}
-	}
-
-}  // end linkWindow
+// GameWindowManager::linkWindow: defined in GameWindowManager_linkWindow.cpp (its row's unit).
+  // end linkWindow
 
 //-------------------------------------------------------------------------------------------------
 /** Insert the window ahead of the the 'aheadOf' window.  'aheadOf' can
@@ -406,67 +313,14 @@ void GameWindowManager::insertWindowAheadOf( GameWindow *window,
 //-------------------------------------------------------------------------------------------------
 /** Takes a window off the window list */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::unlinkWindow present-unmatched
-void GameWindowManager::unlinkWindow( GameWindow *window )
-{
-
-	if( window->m_next )
-		window->m_next->m_prev = window->m_prev;
-	else 
-	{
-		// no next means this is the tail
-		m_windowTail = window->m_prev;
-	}
-
-	if( window->m_prev )
-		window->m_prev->m_next = window->m_next;
-	else
-		m_windowList = window->m_next;
-
-}  // end unlinkWindow
+// GameWindowManager::unlinkWindow: defined in GameWindowManager_linkWindow.cpp (its row's unit).
+  // end unlinkWindow
 
 //-------------------------------------------------------------------------------------------------
 /** Takes a child window off its parent's window list */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::unlinkChildWindow present-unmatched
-void GameWindowManager::unlinkChildWindow( GameWindow *window )
-{
-
-	if( window->m_prev ) 
-	{
-
-		window->m_prev->m_next = window->m_next;
-
-		if( window->m_next )
-			window->m_next->m_prev = window->m_prev;
-
-	} 
-	else 
-	{
-
-		if( window->m_next ) 
-		{
-
-			window->m_parent->m_child = window->m_next;
-
-			window->m_next->m_prev = window->m_prev;
-
-			window->m_next = NULL;
-
-		} 
-		else 
-		{
-
-			window->m_parent->m_child = NULL;
-
-		}
-
-	}  // end else
-
-	// remove the parent reference from this window
-	window->m_parent = NULL;
-
-}  // end unlinkChildWindow
+// GameWindowManager::unlinkChildWindow: defined in GameWindowManager_linkWindow.cpp (its row's unit).
+  // end unlinkChildWindow
 
 //-------------------------------------------------------------------------------------------------
 /** Check window and parents to see if this window is enabled */
@@ -520,16 +374,8 @@ void GameWindowManager::unlinkChildWindow( GameWindow *window )
 //-------------------------------------------------------------------------------------------------
 /** Releases the mouse capture. */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::winRelease present-unmatched
-Int GameWindowManager::winRelease( GameWindow *window )
-{
-
-	if( window == m_mouseCaptor )
-		m_mouseCaptor = NULL;
-
-	return WIN_ERR_OK;
-
-}  // end WinRelease
+// GameWindowManager::winRelease: defined in GameWindowManagerModal.cpp (its row's unit).
+  // end WinRelease
 
 //-------------------------------------------------------------------------------------------------
 /** Returns the current mouse captor. */
@@ -1272,33 +1118,8 @@ Int GameWindowManager::winDestroy( GameWindow *window )
 //-------------------------------------------------------------------------------------------------
 /** Destroy all windows on the window list IMMEDIATELY */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::winDestroyAll present-unmatched
-Int GameWindowManager::winDestroyAll( void )
-{
-	GameWindow *win, *next;
-
-	//
-	// NOTE that it is CRITICAL that the windows be destroyed this way,
-	// the editor has windows that are not on this main list that must
-	// exist throughout a reset of the system (copy/paste for instance)
-	// so DO NOT ever change this to a clever pool of memory for the 
-	// windows and reset the _pool_ ... I will have to kill you!  CBD
-	//
-
-	for( next = win = m_windowList; next; win = next)
-	{
-		next = win->m_next;
-
-		winDestroy( win );
-
-	}  // end for
-
-	// Destroy All Windows just added to destroy list
-	processDestroyList();
-
-	return WIN_ERR_OK;
-
-}  // end WinDestroyAll
+// GameWindowManager::winDestroyAll: defined in GameWindowManager_winDestroyAll.cpp (its row's unit).
+  // end WinDestroyAll
 
 //-------------------------------------------------------------------------------------------------
 /** Sets selected window into a modal state.  This window will get

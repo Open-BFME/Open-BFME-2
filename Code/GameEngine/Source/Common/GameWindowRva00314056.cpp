@@ -5,21 +5,12 @@
 // Honest GameWindow method: detach from old parent/list then attach.
 // Evidence: this+0x200 is GameWindow::m_parent (same offset as
 // GameWindow_winGetScreenPosition.cpp); this passed as GameWindow* to
-// rowed ?rva002C0A89/?rva002C0B92@Rva002C0A89 and __stdcall
-// ?Rva002C0BD7Remove@@YGX; second half virtual call [eax+0xE0] on
+// rowed GameWindowManager::linkWindow/unlinkWindow/unlinkChildWindow
+// (GameWindowManager_linkWindow.cpp); second half virtual call [eax+0xE0] on
 // TheWindowManager (?TheWindowManager@@3PAVGameWindowManager@@A);
 // returns 0 (xor eax) with ret 4.
 
 class GameWindow;
-
-class Rva002C0A89
-{
-public:
-	void rva002C0A89(GameWindow *win);
-	void rva002C0B92(GameWindow *win);
-};
-
-void __stdcall Rva002C0BD7Remove(GameWindow *win);
 
 class GameWindowManager
 {
@@ -39,6 +30,9 @@ public:
 	virtual void d48(); virtual void d49(); virtual void d50(); virtual void d51();
 	virtual void d52(); virtual void d53(); virtual void d54(); virtual void d55();
 	virtual void VirtualE0(GameWindow *win, int arg);
+	void linkWindow(GameWindow *win);
+	void unlinkWindow(GameWindow *win);
+	void unlinkChildWindow(GameWindow *win);
 };
 
 extern GameWindowManager *TheWindowManager;
@@ -54,14 +48,14 @@ private:
 
 int GameWindow::rva00314056(int arg)
 {
-	Rva002C0A89 *mgr = *(Rva002C0A89 * volatile *)&TheWindowManager;
+	GameWindowManager *mgr = *(GameWindowManager * volatile *)&TheWindowManager;
 	if (m_parent == 0)
-		mgr->rva002C0B92(this);
+		mgr->unlinkWindow(this);
 	else
-		Rva002C0BD7Remove(this);
+		mgr->unlinkChildWindow(this);
 	GameWindowManager *mgr2 = TheWindowManager;
 	if (arg == 0) {
-		((Rva002C0A89 *)mgr2)->rva002C0A89(this);
+		mgr2->linkWindow(this);
 		m_parent = 0;
 	} else {
 		mgr2->VirtualE0(this, arg);

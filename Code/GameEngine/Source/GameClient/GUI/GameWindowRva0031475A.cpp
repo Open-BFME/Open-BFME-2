@@ -4,19 +4,10 @@
 // manager slot 0xE0, else search manager list via slot 0x94 walking +0x1F8
 // for this then B92/A89, then notify +0x210 object via slots 0x1C/0x18.
 // Evidence: this+0x200 parent and +0x1F8 next match GameWindow layout in
-// GameWindowManager_rva002C0A89.cpp; rowed B92/A89/Remove; TheWindowManager
+// GameWindowManager_linkWindow.cpp; rowed unlinkWindow/linkWindow/unlinkChildWindow; TheWindowManager
 // ?TheWindowManager@@3PAVGameWindowManager@@A; WIN_ERR codes 0/-3.
 
 class GameWindow;
-
-class Rva002C0A89
-{
-public:
-	void rva002C0A89(GameWindow *win);
-	void rva002C0B92(GameWindow *win);
-};
-
-void __stdcall Rva002C0BD7Remove(GameWindow *win);
 
 class GameWindowManager
 {
@@ -38,6 +29,9 @@ public:
 	virtual void d48(); virtual void d49(); virtual void d50(); virtual void d51();
 	virtual void d52(); virtual void d53(); virtual void d54(); virtual void d55();
 	virtual void VirtualE0(GameWindow *win, GameWindow *parent);
+	void linkWindow(GameWindow *win);
+	void unlinkWindow(GameWindow *win);
+	void unlinkChildWindow(GameWindow *win);
 };
 
 extern GameWindowManager *TheWindowManager;
@@ -74,7 +68,7 @@ int GameWindow::rva0031475A()
 	GameWindowManager *mgr = TheWindowManager;
 	GameWindow *parent = m_parent;
 	if (parent != 0) {
-		Rva002C0BD7Remove(this);
+		mgr->unlinkChildWindow(this);
 		TheWindowManager->VirtualE0(this, parent);
 	} else {
 		GameWindow *cur = mgr->Virtual94();
@@ -83,8 +77,8 @@ int GameWindow::rva0031475A()
 				return -3;
 			cur = cur->m_next;
 		}
-		((Rva002C0A89 *)TheWindowManager)->rva002C0B92(this);
-		((Rva002C0A89 *)TheWindowManager)->rva002C0A89(this);
+		TheWindowManager->unlinkWindow(this);
+		TheWindowManager->linkWindow(this);
 	}
 	Gadget210 *g = m_210;
 	if (g != 0) {

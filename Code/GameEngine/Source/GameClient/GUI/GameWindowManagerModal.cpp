@@ -2,10 +2,11 @@
 // GameWindowManager reset, mouse capture, window hiding and the modal stack.
 // BFME1 donor GameWindowManager.cpp (6d943426) shapes; ZH names. Slots are the
 // W3D window manager vtable at 0x00BC7C90: 9 reset, 36 winDestroyAll, 40
-// windowHiding, 61 winCapture, 64 winSetModal, 65 winUnsetModal. Members as in
-// the rowed processDestroyList (0x002C08EF): destroy list +0x14, mouse captor
-// +0x1C, keyboard focus +0x20, modal head +0x24. The modal entry is the 12-byte
-// class whose sole vtable slot is ??_GRva002C1283 (vtable 0x00BFE5B4).
+// windowHiding, 61 winCapture, 62 winRelease, 64 winSetModal, 65
+// winUnsetModal. Members as in the rowed processDestroyList (0x002C08EF):
+// destroy list +0x14, mouse captor +0x1C, keyboard focus +0x20, modal head
+// +0x24. The modal entry is the 12-byte class whose sole vtable slot is
+// ??_GRva002C1283 (vtable 0x00BFE5B4).
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -68,7 +69,8 @@ public:
 	V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55)
 	V(56) V(57) V(58) V(59) V(60)
 	virtual Int winCapture(GameWindow *window);
-	V(62) V(63)
+	virtual Int winRelease(GameWindow *window);
+	V(63)
 	virtual Int winSetModal(GameWindow *window);
 	virtual Int winUnsetModal(GameWindow *window);
 #undef V
@@ -117,6 +119,14 @@ Int GameWindowManager::winCapture(GameWindow *window)
 		return WIN_ERR_MOUSE_CAPTURED;
 
 	m_mouseCaptor = window;
+
+	return WIN_ERR_OK;
+}
+
+Int GameWindowManager::winRelease(GameWindow *window)
+{
+	if (window == m_mouseCaptor)
+		m_mouseCaptor = 0;
 
 	return WIN_ERR_OK;
 }

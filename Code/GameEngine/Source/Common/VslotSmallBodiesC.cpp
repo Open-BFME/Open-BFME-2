@@ -179,22 +179,6 @@ Int Rva0008BBC7::rva0008BBC7()
 	return 0;
 }
 
-// vtable 0x00BC7C90#62: clear +0x1C when it equals the argument; answer 0.
-class Rva002C0E1B
-{
-public:
-	Int rva002C0E1B(Int value);
-private:
-	char m_pad00[0x1C];
-	Int m_1C;
-};
-Int Rva002C0E1B::rva002C0E1B(Int value)
-{
-	if (value == m_1C)
-		m_1C = 0;
-	return 0;
-}
-
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Object;
 class Rva000421C8
