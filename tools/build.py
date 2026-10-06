@@ -15,6 +15,7 @@ import threading
 from pathlib import Path
 
 import flag_defaults
+import stlport_folds
 from coffar import RELOC_WIDTH, read_archive
 from gen_case_shims import ensure_case_shims
 from portable_lock import lock, unlock
@@ -1776,6 +1777,7 @@ def compile_function(row, symbol_map, output):
     # fallback, and keeps full strictness.
     lib_member = (ROOT / row["source"]).suffix.lower() == LIB_SUFFIX
     gen_alias = "gen-alias" in notes_tokens(row)
+    verified_folds = set()
 
     def resolve(masked):
         resolved = bytearray(compiled[:target_size])
@@ -1815,7 +1817,16 @@ def compile_function(row, symbol_map, output):
                         displacement = struct.pack("<i", target_address - next_address)
                     resolved[offset : offset + 4] = displacement
                 else:
-                    unresolved.append(sym_name)
+                    called = (target_rva + offset + 4
+                              + struct.unpack_from("<i", target, offset)[0]) & 0xFFFFFFFF
+                    proof = stlport_folds.prove(
+                        sys.modules[__name__], sym_name, called, output, symbol_map)
+                    if proof is None:
+                        unresolved.append(sym_name)
+                    else:
+                        verified_folds.update(proof)
+                        resolved[offset:offset + 4] = struct.pack(
+                            "<i", called - target_rva - offset - 4)
 
         return resolved, unresolved, covered
 
@@ -1844,6 +1855,7 @@ def compile_function(row, symbol_map, output):
         "masked": masked,
         "concrete": target_size - sum(covered),
         "note": note,
+        "verified_folds": verified_folds,
     }
 
 
@@ -2401,6 +2413,11 @@ def verify_functions(only=None):
         print(f"Funclet pins: {len(renumbered)} row(s) verified past a renumbered $L label")
         for line in renumbered[:5]:
             print(f"    {line}")
+
+    verified_folds = set().union(*(patch["verified_folds"] for patch in patches)) if patches else set()
+    if verified_folds:
+        print(f"STLport folds: {len(verified_folds)} complete emitted constructor(s) "
+              "verified against retail owners and resolved callees")
 
     if failures:
         print(f"Functions: FAIL {failures}/{total}")
