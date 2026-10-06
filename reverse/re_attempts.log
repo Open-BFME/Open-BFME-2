@@ -11275,3 +11275,4 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ??0Rva003435FB@@QAE@PAVObject@@HVAsciiString@@@Z	0x003435FB	296	converted	B952-family clone first-try exact; landed 296B t=15 model=muse-spark
 ??0Rva00343838@@QAE@PAVObject@@HVAsciiString@@_N@Z	0x00343838	115	converted	family clone exact after bool-param fix; landed 115B t=12 model=muse-spark
 ?rva00346C53@Rva00346C53@@QAEXW4ObjectStatusTypes@@_N@Z	0x00346C53	35	converted	first-try exact after struct fix; landed 35B t=10 model=muse-spark
+?rva00346B6D@Rva00346B6D@@QAEXH@Z	0x00346B6D	80	converted	double-returning slot virtual plus struct-embedded float sink; landed 80B t=25 model=muse-spark
