@@ -6,7 +6,7 @@
 // 0x0047FE90 (m_r8/m_rC); second param carries pos at +0x38/+0x3C/+0x40;
 // callees all rowed (Coord3D::GetLength 0x00005A26); float refs g_Va00BBB8D8 / BfmeZeroRange.
 extern float g_Va00BBB8D8;
-extern const float BfmeZeroRange;
+// BfmeZeroRange is float 0.0 at 0x00BBAEAC (data_ledger literal); use 0.0f literal so the TU links.
 
 class Coord3D
 {
@@ -55,9 +55,9 @@ float ShareExperienceBehavior::rva0047FFFE(Coord3D *a, Pos0047FFFE *b)
 		diff.z -= a->z;
 		float len = diff.GetLength();
 		float f = g_Va00BBB8D8 - len / md->m_08;
-		if (f >= BfmeZeroRange)
+		if (f >= 0.0f)
 			return f;
-		return BfmeZeroRange;
+		return 0.0f;
 	}
 	return g_Va00BBB8D8;
 }
