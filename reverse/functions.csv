@@ -64168,3 +64168,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva0052BAC1@Holder0052BAC1@@QAEHH@Z,,0x0052BAC1,61,Code/GameEngine/Source/Common/Rva0052BAC1Dispatch.cpp,matched,
 ?Rva0051FFF5@Holder0051FFF5@@QAEXPAVXfer0051FFF5@@@Z,,0x0051FFF5,125,Code/GameEngine/Source/Common/Rva0051FFF5Feed.cpp,matched,
 ?Rva00521658@Holder00521658@@QAEXXZ,,0x00521658,78,Code/GameEngine/Source/Common/Rva00521658Feed.cpp,matched,
+?Rva00524477@Holder00524477@@QAEXHH@Z,,0x00524477,101,Code/GameEngine/Source/Common/Rva00524477Dispatch.cpp,matched,

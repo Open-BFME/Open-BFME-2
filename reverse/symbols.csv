@@ -13441,3 +13441,7 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Rva0039C4F7@@YAXPAVXfer0051FFF5@@PAX@Z,0x0039C4F7,cdecl out-param helper of range feed 0x0051FFF5 (REL32 at 0x00520041); Ghidra 234B unrecovered; address name
 ?Rva004EE9E9@@YAXPAVXfer0051FFF5@@PAX@Z,0x004EE9E9,cdecl out-param helper of range feed 0x0051FFF5 (REL32 at 0x0052004B); Ghidra 245B unrecovered; address name
 ?Rva0040E269@@YAXPAVXfer0051FFF5@@PAX@Z,0x0040E269,cdecl spelling of the rowed Xfer vector helper for range feed 0x0051FFF5 (REL32 at 0x00520055/0x0052005F/0x00520069); body rowed as ?Rva0040E269Xfer@@YAPAVXfer@@PAV1@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z; address name
+?Rva0023FC23@@YAHPAUOut00524477@@PAHH@Z,0x0023FC23,cdecl string out-block filler of range dispatch 0x00524477 (REL32 at 0x00524495); Ghidra 27B unrecovered; address name
+?Rva005243FA@@YAHHHH@Z,0x005243FA,int-returning spelling of rowed void forwarder 0x005243FA for range dispatch 0x00524477 (REL32 at 0x005244A5); body forwards 0x0052408B eax; address name
+?Rva002245FF@G00524477@@QAEXHH@Z,0x002245FF,thiscall change-handler of range dispatch 0x00524477 on the 0x00DFE4CC singleton (REL32 at 0x005244C8); body unrecovered; address name
+?Rva00523EC8@C00524477@@QAEXH@Z,0x00523EC8,thiscall int sink of range dispatch 0x00524477 on this+0xC (REL32 at 0x005244D0); body unrecovered; address name
