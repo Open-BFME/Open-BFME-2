@@ -97,7 +97,7 @@ public:
 };
 
 void __cdecl W3DRadarResetLock(void);
-char __cdecl bfmeUnlock1179(void);
+bool __cdecl BFME_DX8_Thread_Assert(void);
 
 class W3DRadarResetGuard
 {
@@ -109,7 +109,7 @@ public:
 
 	~W3DRadarResetGuard(void)
 	{
-		bfmeUnlock1179();
+		BFME_DX8_Thread_Assert();
 	}
 };
 
@@ -126,7 +126,7 @@ public:
 
 extern W3DRadarFormatCaps *TheW3DRadarFormatCaps;
 
-int Rva00903060Get(void);
+int Rva0011F1B0Get(void);
 int Rva00739D20(int format, bool allowAlpha);
 
 class VideoBuffer
@@ -162,7 +162,7 @@ VideoBuffer *W3DDisplay::createVideoBuffer(bool allowAlpha)
 		format = 5;
 	else
 	{
-		int native = Rva00903060Get();
+		int native = Rva0011F1B0Get();
 		if (TheW3DRadarFormatCaps->supportTextureFormat((WW3DFormat)native))
 			format = Rva00739D20(native, allowAlpha);
 		if (format == 0)
