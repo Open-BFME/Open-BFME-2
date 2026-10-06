@@ -24,6 +24,7 @@ struct BfmeParticleSystemHandle
 class RvaSmartPtr12
 {
 public:
+	RvaSmartPtr12(void *ptr);
 	RvaSmartPtr12(const RvaSmartPtr12 &that);
 	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &that);
 	void attach();
@@ -33,6 +34,18 @@ private:
 	int m_pad04; // +0x4
 	int m_pad08; // +0x8
 };
+
+RvaSmartPtr12::RvaSmartPtr12(void *ptr)
+{
+	m_ptr = ptr;
+	if (m_ptr != 0)
+		attach();
+	else
+	{
+		m_pad08 = 0;
+		m_pad04 = 0;
+	}
+}
 
 RvaSmartPtr12::RvaSmartPtr12(const RvaSmartPtr12 &that)
 {
