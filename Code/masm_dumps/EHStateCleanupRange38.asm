@@ -1767,5 +1767,306 @@ cleanup_done_00792867:
     ret
 ?rva00792867@@YAXXZ ENDP
 
+
+; Unwind@00b94872 at RVA 0x00794872; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-20]; uses MOV from [ebp+8] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva00794872@@YAXXZ
+?rva00794872@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00794872
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00794872:
+    ret
+?rva00794872@@YAXXZ ENDP
+
+; Unwind@00b948fb at RVA 0x007948FB; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-24]; uses LEA from [ebp+8] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva007948fb@@YAXXZ
+?rva007948fb@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007948fb
+    and DWORD PTR [ebp-24], -2
+    lea ecx, [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007948fb:
+    ret
+?rva007948fb@@YAXXZ ENDP
+
+; Unwind@00b949a2 at RVA 0x007949A2; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-24]; uses LEA from [ebp+8] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva007949a2@@YAXXZ
+?rva007949a2@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007949a2
+    and DWORD PTR [ebp-24], -2
+    lea ecx, [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007949a2:
+    ret
+?rva007949a2@@YAXXZ ENDP
+
+; Unwind@00b949c5 at RVA 0x007949C5; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 1 at [ebp-24]; uses LEA from [ebp+8] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva007949c5@@YAXXZ
+?rva007949c5@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 2
+    jz NEAR PTR cleanup_done_007949c5
+    and DWORD PTR [ebp-24], -3
+    lea ecx, [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007949c5:
+    ret
+?rva007949c5@@YAXXZ ENDP
+
+; Unwind@00b94adc at RVA 0x00794ADC; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-16]; uses LEA from [ebp-20] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva00794adc@@YAXXZ
+?rva00794adc@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00794adc
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-20]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00794adc:
+    ret
+?rva00794adc@@YAXXZ ENDP
+
+; Unwind@00b94b98 at RVA 0x00794B98; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-16]; uses LEA from [ebp-20] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva00794b98@@YAXXZ
+?rva00794b98@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00794b98
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-20]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00794b98:
+    ret
+?rva00794b98@@YAXXZ ENDP
+
+; Unwind@00b94bbb at RVA 0x00794BBB; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 2 at [ebp-16]; uses LEA from [ebp-24] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva00794bbb@@YAXXZ
+?rva00794bbb@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 4
+    jz NEAR PTR cleanup_done_00794bbb
+    and DWORD PTR [ebp-16], -5
+    lea ecx, [ebp-24]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00794bbb:
+    ret
+?rva00794bbb@@YAXXZ ENDP
+
+; Unwind@00b9504c at RVA 0x0079504C; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-20]; uses MOV from [ebp+8] only when set.
+; The tail-jump target is a matched function at RVA 0x005B804E; parent identity/layout remain unproven.
+PUBLIC ?rva0079504c@@YAXXZ
+?rva0079504c@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0079504c
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1UnicodeString@@QAE@XZ
+cleanup_done_0079504c:
+    ret
+?rva0079504c@@YAXXZ ENDP
+
+; Unwind@00b9509f at RVA 0x0079509F; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-40]; uses MOV from [ebp+8] only when set.
+; The tail-jump target is a matched function at RVA 0x005B804E; parent identity/layout remain unproven.
+PUBLIC ?rva0079509f@@YAXXZ
+?rva0079509f@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-40]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0079509f
+    and DWORD PTR [ebp-40], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1UnicodeString@@QAE@XZ
+cleanup_done_0079509f:
+    ret
+?rva0079509f@@YAXXZ ENDP
+
+; Unwind@00b9584d at RVA 0x0079584D; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-16]; uses LEA from [ebp-24] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva0079584d@@YAXXZ
+?rva0079584d@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0079584d
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-24]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0079584d:
+    ret
+?rva0079584d@@YAXXZ ENDP
+
+; Unwind@00b95866 at RVA 0x00795866; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 1 at [ebp-16]; uses LEA from [ebp-32] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva00795866@@YAXXZ
+?rva00795866@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 2
+    jz NEAR PTR cleanup_done_00795866
+    and DWORD PTR [ebp-16], -3
+    lea ecx, [ebp-32]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00795866:
+    ret
+?rva00795866@@YAXXZ ENDP
+
+; Unwind@00b9588f at RVA 0x0079588F; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 2 at [ebp-16]; uses LEA from [ebp-24] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva0079588f@@YAXXZ
+?rva0079588f@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 4
+    jz NEAR PTR cleanup_done_0079588f
+    and DWORD PTR [ebp-16], -5
+    lea ecx, [ebp-24]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0079588f:
+    ret
+?rva0079588f@@YAXXZ ENDP
+
+; Unwind@00b958a8 at RVA 0x007958A8; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 3 at [ebp-16]; uses LEA from [ebp-32] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva007958a8@@YAXXZ
+?rva007958a8@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 8
+    jz NEAR PTR cleanup_done_007958a8
+    and DWORD PTR [ebp-16], -9
+    lea ecx, [ebp-32]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007958a8:
+    ret
+?rva007958a8@@YAXXZ ENDP
+
+; Unwind@00b958d1 at RVA 0x007958D1; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 4 at [ebp-16]; uses LEA from [ebp-24] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva007958d1@@YAXXZ
+?rva007958d1@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 16
+    jz NEAR PTR cleanup_done_007958d1
+    and DWORD PTR [ebp-16], -17
+    lea ecx, [ebp-24]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007958d1:
+    ret
+?rva007958d1@@YAXXZ ENDP
+
+; Unwind@00b958ea at RVA 0x007958EA; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 5 at [ebp-16]; uses LEA from [ebp-32] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva007958ea@@YAXXZ
+?rva007958ea@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 32
+    jz NEAR PTR cleanup_done_007958ea
+    and DWORD PTR [ebp-16], -33
+    lea ecx, [ebp-32]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007958ea:
+    ret
+?rva007958ea@@YAXXZ ENDP
+
+; Unwind@00b95913 at RVA 0x00795913; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 6 at [ebp-16]; uses LEA from [ebp-24] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva00795913@@YAXXZ
+?rva00795913@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 64
+    jz NEAR PTR cleanup_done_00795913
+    and DWORD PTR [ebp-16], -65
+    lea ecx, [ebp-24]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00795913:
+    ret
+?rva00795913@@YAXXZ ENDP
+
+; Unwind@00b95d0d at RVA 0x00795D0D; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-32]; uses MOV from [ebp+8] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva00795d0d@@YAXXZ
+?rva00795d0d@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-32]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00795d0d
+    and DWORD PTR [ebp-32], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00795d0d:
+    ret
+?rva00795d0d@@YAXXZ ENDP
+
+; Unwind@00b95d4a at RVA 0x00795D4A; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-20]; uses MOV from [ebp+8] only when set.
+; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
+PUBLIC ?rva00795d4a@@YAXXZ
+?rva00795d4a@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00795d4a
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00795d4a:
+    ret
+?rva00795d4a@@YAXXZ ENDP
+
+; Unwind@00b9619c at RVA 0x0079619C; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 0 at [ebp-20]; uses LEA from [ebp-48] only when set.
+; The tail-jump target is a matched function at RVA 0x005B804E; parent identity/layout remain unproven.
+PUBLIC ?rva0079619c@@YAXXZ
+?rva0079619c@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0079619c
+    and DWORD PTR [ebp-20], -2
+    lea ecx, [ebp-48]
+    jmp ??1UnicodeString@@QAE@XZ
+cleanup_done_0079619c:
+    ret
+?rva0079619c@@YAXXZ ENDP
+
+; Unwind@00b961b5 at RVA 0x007961B5; 25-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 1 at [ebp-20]; uses LEA from [ebp-36] only when set.
+; The tail-jump target is a matched function at RVA 0x005B804E; parent identity/layout remain unproven.
+PUBLIC ?rva007961b5@@YAXXZ
+?rva007961b5@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 2
+    jz NEAR PTR cleanup_done_007961b5
+    and DWORD PTR [ebp-20], -3
+    lea ecx, [ebp-36]
+    jmp ??1UnicodeString@@QAE@XZ
+cleanup_done_007961b5:
+    ret
+?rva007961b5@@YAXXZ ENDP
+
 _TEXT ENDS
 END
