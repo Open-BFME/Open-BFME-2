@@ -66374,3 +66374,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004B0FEB@Rva004B0FEB@@QAE_NPAVObject@@@Z,,0x004B0FEB,367,Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCheck.cpp,matched,target gate over status bits relationship filter and pathfinder
 ?rva00489913@Rva00489913@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z,,0x00489913,244,Code/GameEngine/Source/GameLogic/Object/Update/Rva00489913Nearest.cpp,matched,bridge endpoint scan keeps the nearest squared distance
 ?rva004AABB4@Rva004AABB4@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z,,0x004AABB4,426,Code/GameEngine/Source/GameLogic/Object/Update/Rva004AABB4BuildPos.cpp,matched,worker build position scan logs the bridge case and keeps the nearest tower
+?xfer@WorkerAIUpdate@@MAEXPAVXfer@@@Z,,0x004AA1DB,453,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateXfer.cpp,matched,WorkerAIUpdate xfer: AIUpdateInterface base Version(1 2) three tasks docks machines TheAudio slot 88
