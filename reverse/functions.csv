@@ -65039,3 +65039,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?Rva004BD7AEGet@@YGMPAU_Rva004BD7AE@@@Z,,0x004BD7AE,38,Code/GameEngine/Source/GameLogic/Object/Body/Rva004BD7AE.cpp,matched,honest address name stdcall float gated by int
 ?Rva004BDFCBTest@@YAEPBVObject@@0@Z,,0x004BDFCB,139,Code/GameEngine/Source/Common/Rva004BDFCB.cpp,matched,honest address name two-object range and player check
 ?rva002384C8@Rva002384C8@@QAE?AVUnicodeString@@XZ,,0x002384C8,84,Code/GameEngine/Source/Common/Rva002384C8.cpp,matched,honest address name translate AsciiString to UnicodeString
+?Rva0023899FParse@@YAXPAVINI@@HPAH@Z,,0x0023899F,193,Code/GameEngine/Source/Common/Rva0023899F.cpp,matched,honest address name INI difficulty EASY NORMAL HARD BRUTAL
