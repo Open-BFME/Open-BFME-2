@@ -13613,3 +13613,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?secondarySetCount@Rva005C6D4D@@QAEXH@Z,0x005C6F9D,address-derived secondary-base int-taking method scaffolding for Rva0053ED1A 0x0053EFC7 count notify; identity unproven, used only as a call target
 ?rva005404CF@Rva0054034A@@QAEXH@Z,0x005404CF,address-derived guarded-removal member scaffolding for Rva0054034A 0x00540A26 trim loop; banked partial at this address, used only as a call target
 ??0Rva0053FADE@@QAE@XZ,0x0053FAB7,base default ctor (member+4 via rowed 0x00330757, vtable 0x00C694DC); init of derived default 0x00540BAD read from its REL32
+?rva00541579@Rva00541579@@QAE_NH@Z,0x00541579,banked 200B sorted-key locator (score 0.65, stash reverse/attempts/0x00541579.cpp); callee of guarded removal 0x00541883 read from its REL32
