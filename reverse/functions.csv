@@ -64769,3 +64769,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?Set2@Rva005FBAFE@@QAEXH@Z,,0x005FBAFE,79,Code/GameEngine/Source/Common/Rva005FFF62Family.cpp,matched,try b0 first
 ?rva004E9446@Rva004E94FB@@QAEXXZ,,0x004E9446,91,Code/GameEngine/Source/Common/Rva004E9446Erase.cpp,matched,predicate-gated erase walk over vector at +0x18; rowed pred 0x004E9378 delete 0x0002FD60 erase 0x001FF51F helper pin 0x00596B10
 ?rva004E9823@Rva004E9823@@QAEXPBVModuleData@@@Z,,0x004E9823,137,Code/GameEngine/Source/Common/Rva004E9823Fill.cpp,matched,armor-gated registry fill: rowed find 0x0041F474 new+pinned ctor 0x002C6EE0 rowed map-int-op[] 0x0028932C rowed push_back 0x004DFCB0 BSS store g_00E0312C
+?rva004ED2ED@Rva004ECECD@@QAEXHPAVObject@@@Z,,0x004ED2ED,85,Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED2ED.cpp,matched,HLod group-fill like sibling 0x004ED1A1 with rowed 0x00372BB9 order; find/create/fill/destroy chain
