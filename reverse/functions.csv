@@ -63928,3 +63928,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005E2338@Rva005E2338@@QAEXH@Z,,0x005E2338,57,Code/GameEngine/Source/Common/Rva005E2338Wrap.cpp,matched,Indexed m_8-mid-0x170 array plus rowed getter then virtual slot; ignores int; address-derived
 ?rva005E31EE@Rva005E31EE@@QAEXXZ,,0x005E31EE,48,Code/GameEngine/Source/Common/Rva005E31EECln.cpp,matched,Cleanup +0x2C via pinned 0x005E31AA then 3x virtual slot loop; address-derived
 ?rva005E2371@Rva005E2371@@QAEXH@Z,,0x005E2371,53,Code/GameEngine/Source/Common/Rva005E2371Wrap.cpp,matched,Getter plus forwarder plus clear via rowed trio; ignores int; address-derived
+_rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,matched,Cdecl loop over begin-end step 0x18 calling pinned 0x005DDBAB ab then out b4-b0 stores; address-derived
