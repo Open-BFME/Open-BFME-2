@@ -16,11 +16,23 @@ class Rva00404781
 public:
 	Rva00404781();
 	~Rva00404781();
+	void rva0040475C();
 	float m_a[20];
 	float m_b[20];
 	unsigned int m_flags0;
 	unsigned int m_flags1;
 };
+
+// ??0Rva00404781@@QAE@XZ present-unmatched
+Rva00404781::Rva00404781()
+{
+	rva0040475C();
+}
+
+// ??1Rva00404781@@QAE@XZ present-unmatched
+Rva00404781::~Rva00404781()
+{
+}
 
 class Debug
 {
