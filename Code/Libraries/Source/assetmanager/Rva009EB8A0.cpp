@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Retail009EB8A0..009EB8C4: table VA01145744 slot11 (+2C),
 // installed by the matched base constructor009EB7D0. Derived prototype
 // tables also share this slot. The original method identity is unknown.

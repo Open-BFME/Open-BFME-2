@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?setName@SubsystemInterface@@QAEXVAsciiString@@@Z
 // retail 0x0006F3CC, 52 bytes. Dedicated shard.

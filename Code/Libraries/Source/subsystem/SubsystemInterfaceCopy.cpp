@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0SubsystemInterface@@QAE@ABV0@@Z @0x00329F5E 37B plus ??4SubsystemInterface@@QAEAAV0@ABV0@@Z @0x00329880 31B
 // SubsystemInterface copy ctor and copy assign.

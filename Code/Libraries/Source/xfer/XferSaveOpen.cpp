@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0060D10A@XferSave@@QAEEPAVXfer@@H_N@Z @0x0060D10A 169B
 // XferSave open-style writer. Evidence: neighbours 0x0060D0B3/0x0060D24D same TU,

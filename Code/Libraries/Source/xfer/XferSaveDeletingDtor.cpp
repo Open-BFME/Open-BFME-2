@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Scalar deleting-destructor wrappers with audited owner attributions.
 // Target facts: 28-byte flag-test wrappers, their call destinations, and the

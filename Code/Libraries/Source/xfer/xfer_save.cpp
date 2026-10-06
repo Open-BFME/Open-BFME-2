@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // Save-side stream transfer and block finalization recovered under their
 // reciprocal WorldBuilder TU.
 

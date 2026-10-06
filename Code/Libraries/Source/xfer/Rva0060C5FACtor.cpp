@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // ??0Rva0060C5FA@@QAE@PAX00@Z @0x0060C5FA (47B):
 // Xfer-family ctor with manual vtable: currentBlock -1 at +1c, +4/+8/+0c
 // from arg1/arg3/arg2, vtable 0x00C7AF18 stored 5th, then zeroes for the

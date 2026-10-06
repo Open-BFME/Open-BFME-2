@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs
 // ??0Rva00221088@@QAE@XZ @0x00221088 71B
 // Subsystem ctor: baseConstruct then own vtable then setName StrategicHUD.
 // Evidence: retail EH_prolog baseConstruct row StringBase PBD row setName row

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Five null-guarded registry forwarders, each 21 bytes: when the global
 // Q1 receiver registry at VA 0x00E09C0C is live, forward the argument to

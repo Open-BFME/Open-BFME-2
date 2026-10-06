@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // stlport
 // STLport 4.5.3 Win32 file-size helper used by _Filebuf_base. Donor-verbatim
 // logic from BFME1 Code/stlport/FileSizeHelper.cpp (b1 0x00849E80): reads the

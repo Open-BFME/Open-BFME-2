@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // Load-side block traversal recovered under its reciprocal WorldBuilder TU.
 
 typedef bool Bool;

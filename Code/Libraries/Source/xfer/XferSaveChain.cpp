@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0060D4C9@Rva0060D4C9@@QAEEPAVXfer@@@Z @0x0060D4C9 49B
 // Chain over rowed XferSave open 0x0060D10A. Evidence: same this for open call,
 // slot-4 NOT via neg/sbb/inc, arg 1 plus NOT result, m_44 clear, caller 0x0023CB61.
