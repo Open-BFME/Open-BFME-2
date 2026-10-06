@@ -2435,6 +2435,22 @@ static void stagingRoomPlayerEnum( PEER peer, PEERBool success, RoomType roomTyp
 	}
 }
 
+// ?Rva0038B8B7Enum@@YAXPAXHW4RoomType@@HPBDH0@Z @0x0038B8B7 104B evidence: REF callback pushed for peerEnumPlayers in joinRoomCallback 0x0038E5A0; nick success guards; peerGetPlayerProfileIDA 0x69A540 with getPlayerProfileIDCallback 0x00388BE4; flag 0x20 host 0x111; index LT 8 names 0x88 string assign 0x1B790; TheGameSpyInfo slot 0x7c
+void Rva0038B8B7Enum(PEER peer, PEERBool success, RoomType roomType, int index, const char *nick, int flags, void *param)
+{
+	if (!nick || !success)
+		return;
+	Int id = 0;
+	peerGetPlayerProfileIDA(peer, nick, (void *)getPlayerProfileIDCallback, &id, PEERTrue);
+	PeerResponse *resp = (PeerResponse *)param;
+	if (flags & 0x20)
+		resp->joinStagingRoom.isHostPresent = TRUE;
+	if (index < MAX_SLOTS)
+		resp->stagingRoomPlayerNames[index] = nick;
+	if (TheGameSpyInfo)
+		TheGameSpyInfo->getStagingRoomList();
+}
+
 static void joinRoomCallback(PEER peer, PEERBool success, PEERJoinResult result, RoomType roomType, void *param)
 {
 	DEBUG_LOG(("JoinRoomCallback: success==%d, result==%d\n", success, result));
