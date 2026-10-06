@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva003B0412@Rva003B0412@@QAEXPBUPrereqUnitRec@@@Z @0x003B0412 33B: pushes
 // the prerequisite record into the +0 vector through rowed
 // vector<PrereqUnitRec>::push_back at 0x002DF89B, then forwards the vector

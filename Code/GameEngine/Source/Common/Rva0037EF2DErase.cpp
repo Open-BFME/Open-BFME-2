@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /Oi
+// cl: /MD /Oi
 // ?rva0037EF2D@Rva0037EF2D@@QAEXI@Z @0x0037EF2D 48B. Search 0xD8-byte array at
 // this+4 for element with dword +0xA4 == key then erase via rowed 0x002E204D.
 // Evidence: call 0x002E204D rowed in Rva002E204DErase.cpp, ret 4, caller

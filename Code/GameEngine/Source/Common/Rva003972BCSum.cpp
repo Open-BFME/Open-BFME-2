@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003972BC@Rva003972BC@@QAEHXZ, retail 0x003972BC, 23 bytes.
 // Sums the sibling ObjectID-range counts at 0x00397238 (+0x50/+0x54) and

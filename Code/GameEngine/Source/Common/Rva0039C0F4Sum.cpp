@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 
 // ?rva0039C0F4@Rva0039C0F4@@QAEHABVAsciiString@@@Z @0x0039C0F4 93B

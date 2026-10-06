@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00367539@@QAE@PAVStateMachine@@_N1@Z @0x00367539 43B
 // State-derived ctor hash 0x815D9F7C vtable 0x00817300 plus bool at +0x20
 // plus bool at +0x21. Evidence: callers 8 unclaimed sites; rowed State

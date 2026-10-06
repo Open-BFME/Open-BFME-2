@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?Rva003600D6Parse@@YAXPAVINI@@PAVRva003600D6Holder@@@Z @ 0x003600D6 87B: factory news 0x40,
 // calls ctor ??0Rva0035FF76 at 0x0036006F, parses table 0x00816738 via rowed
 // INI::initFromINI 0x0002DE78, copies m_endFrame to m_frameLength, stores via

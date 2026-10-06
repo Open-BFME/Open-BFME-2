@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0039225E@@QAE@XZ 100B @0x003921FA: ctor storing vtable 0x00C1A088. Calls rowed BFME2NativeNetwork::baseConstruct via inlined base ctor then rowed list base then inlined Rva0039205C body in retail order then rowed clear. Layout base 0xC plus list<int> at +0xC (size 4) plus Rva0039205C at +0x10 (size 0x18: dword +0 pad +4 ptr +8 bytes +0xC +0xD ints +0x10 +0x14). Evidence: vptr store plus rowed callees plus dtor row at 0x0039225E plus caller at 0x0022ED22 plus Rva0039205C dtor row at 0x0039205C.
 #include <list>

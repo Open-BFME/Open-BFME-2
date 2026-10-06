@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??0Rva003B37C8@@QAE@PAX0PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x003B37C8 110B
 // Evidence: unlock lane, Script literal, base pin 0x000ABB87, siblings 0x003B3485 0x003B3417 same shape
 // callees StringBase ctor row plus BfmeParserBindingBaseVE pin plus releaseBuffer row, TheEmptyString,

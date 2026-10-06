@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva003678F7@@QAE@PAVStateMachine@@@Z @0x003678F7 29B
 // State-derived ctor hash 0xA36413A3 vtable 0x008175A8. Evidence: caller
 // 0x00367DDF unclaimed; rowed State base 0x004D73FC via I twin

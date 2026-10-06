@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00397357@Rva003972D3@@QAEXPBVUpgradeTemplate@@@Z RVA 0x00397357 148B
 // Evidence: finish from stash 0.9 ebp-ebx mirror; callers none; rowed findObjectByID via TheGameLogic;
 //   rowed rva00290D2B rva00293003 rva003972D3; pin bfmeHas985C; prev/next share /O1 /DNDEBUG /MD.

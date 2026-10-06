@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva00392129@Rva0039205C@@QAEXIM@Z 54B @0x00392129: float setter stride 0x1C at +0x0C. Layout count at +0 plus array at +8 from Rva0039205CArray rows. Evidence: init pin at 0x00392092 plus GlobalData count plus callers at 0x00393477 0x00393CDB 0x00393F51.
 class Rva004D9A3C
 {

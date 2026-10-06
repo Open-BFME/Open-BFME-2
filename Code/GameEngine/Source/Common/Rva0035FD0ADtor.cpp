@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0035FD0A@@UAE@XZ @0x0035FD0A (105B): virtual dtor storing vtable 0x008166BC.
 // Zeroes +0xC, frees DisplayString at +0x34 via TheDisplayStringManager slot 0x3C,
 // zeroes +0x34, destroys wide StringBase at +0x30/+0x2C via rowed releaseBuffer

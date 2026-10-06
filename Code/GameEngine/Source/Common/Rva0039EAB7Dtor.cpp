@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva0039EA9C@@QAE@XZ @0x0039EAB7 54B, dtor of the six-dword record whose
 // ctor is rowed at 0x0039EA9C. Retail destroys StringBase<char> at +0x10 then
 // +0x0C through rowed releaseBuffer 0x00036410 with EH states 0 then -1.

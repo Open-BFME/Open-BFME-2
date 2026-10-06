@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob0
+// cl: /Ireference/shims/bfme2_ascii /Ob0
 // ??4Rva00381E56@@QAEAAV0@ABV0@@Z @0x00381E56 69B. Copy-assign: AsciiString
 // at +0x00 via rowed/pinned operator= 0x000366F0, UnicodeString at +0x04 via
 // pinned set 0x00037150, ints at +0x08..+0x1C copied, returns this.

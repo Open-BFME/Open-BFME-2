@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva003818F4@@QAE@XZ, retail 0x003818F4, 12 bytes.
 // Default ctor forwarding to member Rva00330757Member at +0. Evidence: leaf
 // lane; callee ??0Rva00330757Member@@QAE@XZ rowed at 0x00330757; callers

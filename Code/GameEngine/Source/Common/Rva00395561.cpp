@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 // ?rva00395561@Rva00395561@@QAEXXZ @0x00395561 34B
 // Chain: calls 0x000421FD; drains int at +0 while calling global counter.

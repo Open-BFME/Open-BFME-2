@@ -1,5 +1,5 @@
 // ?rva003B241A@Rva003B241A@@QAEXXZ @0x003B241A 18B
-// cl: /O1 /MD
+// cl: /MD
 // Leaf forwarder: vtable store plus handle call. Evidence: vtable VA 0x00BC9574 no name yet; callee 0x00306D7B rowed Q1Forwardee handle; offsets 0x4 0x8; callers 40 plus unclaimed; prev 0x003B23F7 next 0x003B242C.
 extern const void *const g_00BC9574[];
 

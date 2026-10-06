@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00360C1FEqual@@YAHPBX0@Z, retail 0x00360C1F, 24 bytes.
 // Returns !memcmp(a, b, 0x1C): 28-byte equality via rowed import thunk.
 // Evidence: unlock lane, rowed ji_0062929e memcmp, callers at 0x00360EBC/D3

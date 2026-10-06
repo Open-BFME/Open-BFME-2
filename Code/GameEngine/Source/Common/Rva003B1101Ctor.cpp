@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHs /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHs /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // Rva003B1101 default ctor, retail 0x003B140E (284B):

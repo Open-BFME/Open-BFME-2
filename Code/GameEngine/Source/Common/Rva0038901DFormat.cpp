@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs
 //
 // ?rva0038901D@Rva0038901D@@QAE?AVAsciiString@@XZ @0x0038901D, 100B.
 // Formats four dwords at this+0..+C as "%d.%d.%d.%d" via rowed

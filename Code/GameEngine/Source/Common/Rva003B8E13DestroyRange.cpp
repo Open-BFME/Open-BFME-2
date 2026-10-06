@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva003B8E13DestroyRange@@YAXPAURva003B8B61Elem@@0@Z @0x003B8E13 24B.
 // Two-arg range destroy forwarding to the 0x003B8B61 tagged loop with a tag temp.
 // Evidence: retail push ebp; mov ebp,esp; push ecx; lea eax,[ebp-1]; push eax;

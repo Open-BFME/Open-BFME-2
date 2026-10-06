@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva0039B893@@QAE@XZ @0x0039B7FB 34B default ctor zeroing 2 ints plus 3 words with same vtable.
 // Evidence: stores vtable 0x0081AD6C like rowed copy ctor 0x0039B893; stride 0x14 with int at +0x04
 // float at +0x08 via movss and words at +0x0C +0x0E +0x10; callers 0x0039C5A3 0x0039D1DE.

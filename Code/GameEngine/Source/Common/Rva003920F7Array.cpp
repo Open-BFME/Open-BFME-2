@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003920F7@Rva003920F7@@QAEXIPBURva003920F7Src@@@Z @0x003920F7 50B unlock: if array at +8 null call pinned init 0x00392092 then bounds check index vs TheWritableGlobalData+0xA94 then copy 12B into element stride 0x1C; callers 0x00393468 etc; unblocks 0x0039321C/0x0039380F.
 
 extern class GlobalData *TheWritableGlobalData;

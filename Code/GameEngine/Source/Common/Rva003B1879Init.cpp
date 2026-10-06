@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 //
 // ?rva003B1879@Rva003B1820@@QAEXXZ @0x003B1879 (123B):
 // Table initializer for Rva003B1820 (owner of the 6-entry lookup at

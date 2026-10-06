@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003C3F9EApply@@YGXPAVParameter@@ABVAsciiString@@H@Z @0x003C3F9E 101B: resolve unit via ScriptEngine then SpecialPowerTemplate by name filter via BfmeSubBEC then slot 0x10 plus scaled frame via slot 0x20. Evidence: sibling Rva003C3EC5Apply same getUnitNamed 0x3588E7 via g_Va009FE16C findSpecialPowerTemplate 0x29B6EB via g_00E02D4C BfmeSubBEC 0x28BB9E StringBase copy 0x365F0; caller 0x003CC6BD; ret 0xC stdcall.
 #include "ascii_string.h"
 

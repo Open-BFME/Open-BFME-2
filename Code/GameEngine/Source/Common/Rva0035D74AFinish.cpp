@@ -1,5 +1,5 @@
 // ??0Rva0035D74A@@QAE@XZ
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ??0Rva0035D74A@@QAE@XZ @0x0035D789 (72B):
 // Ctor calls rowed base 0x001DBAA4 then stores derived vtable, zeroes six

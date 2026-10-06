@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0035E2E6@@QAE@XZ @ 0x0035E2E6 37B: derived ctor calling base ??0Rva001DBAA4 at 0x001DBAA4.
 // Same vtable 0x008165D0 as dtor ??1Rva0035E2CF at 0x0035E2CF; clears +0xC then sets +0x20=-1
 // +0x4=6 +0x9=1. Gap between 0x0035E2CF and 0x0035E30B in FamilyTailDtors1DBAC3.cpp.

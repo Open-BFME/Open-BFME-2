@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // ?rva0039D4D8@Rva0039D4D8@@QAEXPAVRva0039D40F@@@Z @0x0039D4D8 (35B).
 // Conditional remove of the 0x39D40F/0x39D440 pair: when the node is already

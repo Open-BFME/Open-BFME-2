@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00392CF9@Rva0039205C@@QAEPAVRva004D9A3C@@I@Z 36B @0x00392CF9: bounds-checked element getter stride 0x1C. Layout count at +0 plus array at +8 from dtor row at 0x0039205C plus ctor at 0x003921FA. Evidence: init pin at 0x00392092 plus callers at 0x002A2866 0x002A29E9 0x00392EBF.
 class Rva004D9A3C
 {

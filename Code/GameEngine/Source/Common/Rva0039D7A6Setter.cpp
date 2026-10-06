@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?set@Rva0039D7A6Setter@@QAEXPBURva0039D7A6Src@@@Z, retail 0x0039D7A6 (27B).
 //

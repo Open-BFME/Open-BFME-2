@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0039D429@Rva0039D429@@QAEXPAPAV1@@Z @0x0039D429 (23B).
 // Head-prepend: stores the current head into this+0x40, links the old head

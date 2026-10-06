@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0039ACBD@Rva0039ACBD@@QAEHPBVObject@@_N@Z 0x0039ACBD 38B retail ALLIES-gated int field
 // Evidence: retail calls pinned Object::getRelationship 0x0028D156 on first arg with this+0x34 then byte-tests second arg; callers at 0x00294C5A and 0x002AA691.
 

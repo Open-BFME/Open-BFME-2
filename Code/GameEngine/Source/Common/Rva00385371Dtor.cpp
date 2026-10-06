@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Gen_uw_00385371@@QAE@XZ @0x00385371 75B composite dtor: members at
 // +0x340 via rowed 0x0038454E +0x1B0 via rowed 0x003844D7 +0x08 via rowed
 // 0x00385333. Callers 0x3859C2 0x386409 unclaimed thiscall. No vptr store

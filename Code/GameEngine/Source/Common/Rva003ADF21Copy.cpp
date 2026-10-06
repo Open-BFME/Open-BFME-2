@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ??0Rva003ADF21@@QAE@ABV0@@Z @0x003ADF21 64B MI copy via rowed base 0x003ADFDB plus rowed member 0x003ADF61 with derived vptrs. Evidence: callees rowed; caller 0x003ADF02; same 64B shape as 0x003ADE58.
 class V3Vt01111D90
 {

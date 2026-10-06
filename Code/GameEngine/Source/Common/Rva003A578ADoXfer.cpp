@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?DoXfer@Rva003A578A@@UAEXAAVXfer@@@Z, retail 0x003A578A, 31 bytes.
 // Honest-address DoXfer for a single-float holder (float at +0x04): Version1
 // via rowed 0x000053EE then float transfer through Xfer slot +0x70 (proven as

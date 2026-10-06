@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0Rva0035FF76@@QAE@XZ @ 0x0036006F 75B: Rva0035FF76 ctor, base ??0Rva001DBAA4 at 0x001DBAA4.
 // Vtable 0x0081670C, m_drawState=-1 m_endFrame=30 m_frameLength=30 m_startFrame=0 m_win=0
 // m_percent=0.0f m_isForward true m_fadeRed/Green/Blue=0.0f m_red/green/blue=0.

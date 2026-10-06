@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva003638BA@Rva003638BA@@QAE_NXZ retail 0x003638BA 67B.
 // Unlock lane: missing callee of 2 frees; landing makes 2 ready (0x0046A6C1 0x00363AD7).
 // Evidence: callers at 0x00262C04 0x00363AD7 0x0046A6F9 pass same this proving method; caller 0x00363AD7 tests al proving bool.

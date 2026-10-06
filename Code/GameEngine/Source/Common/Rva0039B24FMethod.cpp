@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0039B24F@Rva0039B24F@@QAEXPAURva0039B24FInput@@H_N@Z, retail 0x0039B24F, 64 bytes.
 // Method of Rva0039B20C family: calls rowed rva0039B20C/rva0039B227 at +0xFC,
 // float at +0x10 from input+0x18, virtual slot 4 with (input,arg2), flag decides second call.

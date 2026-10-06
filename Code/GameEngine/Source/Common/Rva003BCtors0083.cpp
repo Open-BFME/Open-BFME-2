@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Constructors for the opaque Rva003B00D6 single-inheritance chain (see
 // OpaqueSingleInheritanceDtors.cpp for the dtors, OpaqueScalarDeletingDtorsB07

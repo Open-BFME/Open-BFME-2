@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0039BAA0Copy@@YAPAVRva0039B893@@PAV1@00ABURandomAccessTag@@PAH@Z @0x0039BAA0 50B forward copy
 // assigning via rowed operator= 0x0039B900 with stride 0x14. Evidence: chain
 // from landed assign; caller 0x0039BDAE pushes five args (first last result

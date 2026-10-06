@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 // ??0Rva003AE2A9@@QAE@ABV0@@Z @0x003AE2A9 38B
 // Copy ctor: base Rva003AE2CF at +0 via rowed copy 0x003AE2CF then own
 // three vptrs. Evidence: retail base call plus stores at +0/+8/+0x10

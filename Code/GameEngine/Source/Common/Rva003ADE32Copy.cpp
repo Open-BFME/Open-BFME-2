@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 // ??0Rva003ADE32@@QAE@ABV0@@Z @0x003ADE32 38B derived copy via rowed base 0x003ADE58 with three derived vptrs. Evidence: callee rowed; caller 0x003ADE27; chain from 0x003ADE58.
 class V3Vt01111D90
 {

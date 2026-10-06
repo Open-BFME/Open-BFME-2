@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva0038404A@Rva0038404A@@QAEXPAURva0038404ANode@@@Z 0x0038404A 53B
 // Tree free with member dtor at +16: recurse child, save next, destroy, free.
 // Evidence: self-call plus 0x00382B3F dtor plus _free; caller 0x00384E9C.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003A36D3@Rva003A36D3@@UAEMH@Z, retail 0x003A36D3, 36 bytes.
 // Slot 8 (offset 0x20) of several vtables (e.g. 0x0086E270 class of ??1Rva00573B23). Returns first slot-9 float/int call divided by second slot-10 float/int call via x87 fdivr.
 // Layout: base with 8 dummy virtuals to place this at slot 8 and callees at 0x24/0x28. Evidence: leaf packet EBP frame plus fstp/fdivr plus ret 4; virtual calls need no rows.

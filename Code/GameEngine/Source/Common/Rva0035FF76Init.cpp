@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?init@Rva0035FF76@@UAEXPAVGameWindow@@@Z
 // retail 0x0035FF85, 234 bytes. Virtual slot 1 (offset 0x4) of vtable 0x0081670C,
 // the class of ??1Rva0035FF76@@UAE@XZ (dtor clears +0xC then tail-calls base

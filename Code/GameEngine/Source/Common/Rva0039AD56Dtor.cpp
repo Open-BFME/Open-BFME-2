@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/moduledata /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/moduledata /DNDEBUG /MD /EHsc
 // ??1Rva0039AD56@@UAE@XZ @0x0039AD56 89B
 // Target evidence: vtable 0x0081AD20 at +0 then base Snapshot 0x007BB554; EH frame
 //  with states 1 then 0; member at +0x2C deleted via virtual slot0 with 0

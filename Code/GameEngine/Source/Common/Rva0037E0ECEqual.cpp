@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva0037E0ECEqual@@YA_NPBX0@Z, retail 0x0037E0EC, 114 bytes.
 // Equality over float plus AsciiString plus 0x80-byte helper plus two ints

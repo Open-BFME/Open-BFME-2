@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0039BCF8@Rva0039BCF8@@QAEPAPAXPAX@Z @0x0039BCF8 48B vector erase-first helper over +0x304 via rowed voidptr erase.
 // Linear search for val then rowed erase; returns erase iterator or end.
 // Evidence: callee rowed vector<void*>::erase 0x001FF51F; caller 0x0055A925 passes outer this as val with inner this at +0x10; stride 4 with 0x304/0x308 begin/end; EAX holds end/erase-return on all exits so non-void.

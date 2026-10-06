@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Static forwarding shim, range-17 batch.
 // ?rva003B015D@@YAXHHH@Z @0x003B015D 24B: forwards (a1,a2,a3,0,0) to pinned
 // 0x003AFFBE. Evidence: five pushes with two leading zero constants, caller

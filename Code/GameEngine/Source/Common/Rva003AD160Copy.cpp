@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0
+// cl: /Ob0
 //
 // Rva003AD160 copy ctor, retail 0x004CBF6D, 45B. Port of the Open-BFME-1
 // Rva003AD160Copy donor (b1 0x003AD160) with the BFME2 member repair read

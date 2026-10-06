@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // ?rva00362DBD@Rva00362DBD@@QAEXH@Z @0x00362DBD 89B: ModuleData-like ctor with 9x0x44 array at +8 then register via TheGameClient; callers 0x00271B8C and 0x0027B08C
 class ModuleData {
 public:

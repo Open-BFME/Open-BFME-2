@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva003956C3@Rva003956C3@@QAEPAXXZ RVA 0x003956C3 size 37 chain via 0x002AB22A rowed plus getControllingPlayer rowed pos at obj+0x38 field at best+0x45c caller 0x00399984.
 class Player;
 class Object

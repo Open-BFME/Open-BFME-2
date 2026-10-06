@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0039BFC5Count@@YGHPBVThingTemplate@@PBUObjectCountMap@@@Z @0x0039BFC5 56B
 // Count of entries in one ObjectCountMap whose key isEquivalentTo the query.
 // Evidence: callees rowed 0x0033BB04 ThingTemplate::isEquivalentTo and

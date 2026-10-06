@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?Rva00360298Parse@@YAXPAVINI@@PAVRva00360298Holder@@@Z @ 0x00360298 87B: the
 // cross-fade transition factory, same 87-byte shape as 0x003600D6: new 0x38,
 // constructor ??0Rva00360243 (0x00360243, rowed), INI::initFromINI over the

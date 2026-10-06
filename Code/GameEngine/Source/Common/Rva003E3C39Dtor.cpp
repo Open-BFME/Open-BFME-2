@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??1Rva003E3C39@@UAE@XZ @0x003E3C39 (27B): virtual dtor storing vtable 0x00835B34
 // then deleting +0x04 member via its slot0(0) plus operator delete. Evidence:
 // vtable store at [this] unlocks 0x003E54F7 caller 0x003E54FA rowed operator

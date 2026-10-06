@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0039B795@Rva0039B795@@QAEXH@Z @0x0039B795 24B conditional add: when the
 // global byte at [0x00DFE78C+0x98] is nonzero add the int arg to +0x08.
 // Evidence: sole caller 0x003B0D65; global 0xDFE78C shared with 0x0039B718.

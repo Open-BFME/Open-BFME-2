@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ??0Rva0037E270@@QAE@XZ @0x0037E352 135B
 // Default ctor over Rva0037E270: zeros plus ones plus clear80 0x001EAE6F plus
 // Rva004E04FD ctor plus float global 1.0f plus AsciiString null.

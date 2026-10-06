@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Rva003B3080's assignment operator at 0x00564B41: vptr-skip assign of three
 // strings plus a trailing byte, ported from the BFME1 Rva003B3080Assign.cpp
 // donor. Two retail adaptations: size-tuning (/O1 keeps eax for every argument

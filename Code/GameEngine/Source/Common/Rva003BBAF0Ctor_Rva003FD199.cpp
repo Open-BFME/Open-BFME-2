@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD /O1 /Ob1 -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD /Ob1 -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME5: base unsigned*0.03f clamp shared by BfmeRectVNE / VNF / VNG.
 // Retail 0x003BBAF0, 66 bytes. Return-this is materialised before the <1 clamp.
 

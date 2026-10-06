@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?Rva003B3371Call@@YAXH@Z @0x003B3371 81B. Free cdecl void(int): if global
 // ScriptEngine at 0x009FE16C is set, builds AsciiString temp from table
 // 0x009C1050[index] via pinned AsciiString(PBD) at 0x00037BA0, calls rowed

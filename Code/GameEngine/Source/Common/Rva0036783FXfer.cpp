@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/moduledata
+// cl: /MD /Ireference/shims/moduledata
 //
 // ?xfer@Rva0036783F@@MAEXPAVXfer@@@Z, retail 0x0036788E, 72 bytes.
 //

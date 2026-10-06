@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva0037E421@Rva0037E421@@QAEPAXH@Z @0x0037E421 48B
 // Bounds-checked accessor for the 216-byte (0xD8) element vector at +0x04/+0x08.
 // Returns null when index < 0 or index >= (finish-start)/216 via signed idiv (cdq),

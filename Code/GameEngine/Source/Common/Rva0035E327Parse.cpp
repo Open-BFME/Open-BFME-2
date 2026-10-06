@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?Rva0035E327Parse@@YAXPAVINI@@PAVRva0035E327Holder@@@Z @ 0x0035E327 81B: factory news 0x34,
 // calls ctor ??0Rva0035E2E6 at 0x0035E2E6, parses empty table 0x00C6BB18 via rowed
 // INI::initFromINI 0x0002DE78, stores via holder+0x10 setter pinned at 0x005F69CE.

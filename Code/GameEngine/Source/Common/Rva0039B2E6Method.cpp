@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0039B2E6@Rva0039B2E6@@QAEXABURva0039B2E6Input@@@Z @0x0039B2E6 47B
 // Evidence: chain from just-landed 0x39AF76; this+8/+0xC via rowed rva0039AF76 on input+0x10; +0x14/+0x18 from input+0x1C/+0x20; +0xFC via rowed rva0039B20C 0x39B20C; callers 0x420D5C 0x5DB1DD; unblocks 0x5DB145 0x420C8E.
 #include "ascii_string.h"

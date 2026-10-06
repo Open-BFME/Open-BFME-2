@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva003A5D34Write@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABM@Z @0x003A5D34 66B: free ostream INI key-float line with pad via rowed Pad/Put.
 // Evidence: calls rowed Pad 0x001F6951 then rowed _M_put_nowiden 0x001F5F65 twice (key then " = ") then rowed Put 0x003A5D1C then rowed _M_put_char 0x001F5E51 newline; 25 callers incl FUN_007a5e78 writeINI bodies; pattern from Rva001F89E2Write; chain lane via 0x001F6951.
 namespace _STL

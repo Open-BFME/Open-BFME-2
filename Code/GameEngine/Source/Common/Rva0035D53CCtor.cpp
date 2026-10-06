@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0035D53C@@QAE@XZ @0x0035D6B8 37B.
 // Ctor via base Rva001DBAA4 plus vtable 0x00816510 with +4=6 +9=1 +0xC=0 +0x20=-1.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0039D5A9@Rva0039D5A9@@QAEHXZ @0x0039D5A9 (24B).
 // Strided sum: adds count dwords at stride 0x18 starting at this+0x04 where

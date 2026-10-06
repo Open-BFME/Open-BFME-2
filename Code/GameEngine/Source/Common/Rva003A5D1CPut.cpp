@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva003A5D1CPut@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@AAV12@ABM@Z, retail 0x003A5D1C, 24 bytes.
 // Unlock lane; ostream float put via rowed float operator<< at 0x001F8152.

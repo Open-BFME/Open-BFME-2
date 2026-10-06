@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0036748E@Rva0036748E@@QAEXH_N@Z @0x0036748E 37B
 // Generic bit setter for dword at +0x4B8: mask = 1u << bit; set or clear by flag.
 // Evidence: three wrappers become ready on landing (0x00368654 bit7 / 0x0036940A bit5 /

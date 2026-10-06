@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /Oi
+// cl: /MD /Oi
 // ?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z @0x0037EB1D 31B. Chain of rowed 0x0037EACC
 // copy-to plus dword +0xAC to dest +0xC0. Evidence: call 0x0037EACC rowed in
 // Rva0037EACCCopy.cpp, ret 4, caller 0x0040F167, neighbours Rva0037EACC copy

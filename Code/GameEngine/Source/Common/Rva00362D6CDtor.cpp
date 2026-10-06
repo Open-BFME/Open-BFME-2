@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // ??1Rva00362D6C@@UAE@XZ @0x00362D6C 81B: virtual dtor with Rva00419BA5 guard plus Rva00362CF2 member.
 // Evidence: caller 0x00362E92 deleting dtor in OpaqueScalarDeletingDtorsB06.cpp (vtable 0x00C17068#0); callees rowed rva00419BA5 0x00419BA5 plus pinned ??1Rva00362CF2 0x00362CF2 plus g_00BBB554 base; vptr stores 0x00C17068 then 0x00BBB554; members +0x18 +0x1C +0x30; neighbours SubsystemNameGetters4 ConstIntGetters4 default flags.
 extern const void *const g_00BBB554[];

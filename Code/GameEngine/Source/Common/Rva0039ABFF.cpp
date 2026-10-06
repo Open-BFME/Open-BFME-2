@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0039ABFF@ExperienceTracker@@QBE_NXZ 0x0039ABFF 13: forwards this as int.
 // Evidence: pin 0x00288CFA plus callers incl matched VeterancyCrateCollide.
 class Rva00288CFA

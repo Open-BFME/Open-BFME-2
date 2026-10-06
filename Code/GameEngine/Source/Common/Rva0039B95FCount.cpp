@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0039B95FCount@@YGHPAH@Z @0x0039B95F 114B count flags over Rva004266A1 vector.
 // Outer null-checked global at 0x00E031E8 (+0x10 object), inner size from
 // [obj+8]-[obj+4]>>3, triple getter filter flag1/flag0/flag2 with two counters.

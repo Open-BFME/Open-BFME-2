@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00395CEB@Rva00395CEB@@QAEXPAX@Z RVA 0x00395CEB size 45 unlock recursive free via +C iterate via +8.
 extern "C" void __cdecl free(void *);
 struct Rva00395CEBNode

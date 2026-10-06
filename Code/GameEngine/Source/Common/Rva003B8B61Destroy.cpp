@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva003B8B61Destroy@@YAXPAURva003B8B61Elem@@0H@Z @0x003B8B61 26B.
 // Range destroy stepping 0x68 calling virtual slot 0 with 0.
 // Evidence: retail push esi; mov esi,[esp+8]; jmp check; mov eax,[esi]; push 0; mov ecx,esi;

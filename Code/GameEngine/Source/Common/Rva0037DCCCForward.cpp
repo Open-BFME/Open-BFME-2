@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0037DCCC@@YAXPAVObject@@H@Z @0x0037DCCC 28B
 // Free __cdecl forwarder (no this: entry ecx discarded; tail jmp leaves

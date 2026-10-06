@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00373EC6@Rva00373EC6@@QBE_NXZ @0x00373EC6 38B:
 // Null-checked mask predicate: holder at +0x08 (masks at +0x284), required

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0039B1F9@BfmeThingEFC@@QAEXXZ @0x0039B1F9 19B refresh from source object
 // at +0x04 via bfmeCalcEFC of its +0x24 into m_f8. Evidence: sole caller
 // 0x0039B21F with no stack args; pin bfmeCalcEFC at 0x0039B145.

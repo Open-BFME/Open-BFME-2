@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 
 // ??4Rva0039D769@@QAEAAV0@ABV0@@Z @0x0039D769 (61B).
 // Copy-assignment over a 0x18-byte array element: three dwords at +0x00/+0x04

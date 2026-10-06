@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00362499@Rva00362499@@QAEEXZ retail 0x00362499 15 bytes. Dual null check
 // returning 1 only if both +4 and +8 are non-zero. Evidence: two callers

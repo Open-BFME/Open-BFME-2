@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0037F51A@Rva0037F51A@@QAEAAV1@ABV1@@Z retail 0x0037F51A 55B
 // Evidence: same 0x20 layout as 0x0037F4EA (int plus six floats plus bool); callers 0x0037F551 0x0037F950 copy twice each
 class Rva0037F51A

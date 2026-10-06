@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0039D40F@Rva0039D40F@@QBE_NPAPAV1@@Z @0x0039D40F (26B).
 // List-membership test over the +0x3C/+0x40 pair: true when the head slot

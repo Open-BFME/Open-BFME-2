@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0039AF76@Rva0039AF76@@QAEXABVAsciiString@@@Z @0x0039AF76 37B
 // Evidence: unlock 37B; this+8 AsciiString assigned from arg via pinned 0x366F0; global 0xDF36A4 nameToKey row 0x9FA65 to this+0xC; caller 0x39B2E6 pushes [esi+0x10]; unblocks 0x39B2E6.
 #include "ascii_string.h"

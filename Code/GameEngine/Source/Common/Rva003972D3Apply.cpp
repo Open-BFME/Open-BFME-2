@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003972D3@Rva003972D3@@QAEXPAURva003972D3Range@@PBVUpgradeTemplate@@@Z, retail 0x003972D3, 132 bytes.
 // Iterates an ObjectID range and re-applies an UpgradeTemplate to qualifying objects.

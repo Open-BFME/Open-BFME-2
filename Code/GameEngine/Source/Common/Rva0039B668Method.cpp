@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0039B668@Rva0039B668@@QAEXH@Z @0x0039B668 27B
 // Guarded accumulate: when TheGameLogic's byte flag at +0x98 is set, add the
 // argument into this +0xD8. Evidence: global VA 0x00DFE78C already named

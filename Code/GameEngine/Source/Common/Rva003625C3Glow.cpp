@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // ?Rva003625C3Glow@@YGDHHHHHH@Z retail 0x003625C3 70 bytes. Free __stdcall
 // 6-int char-0 stub logging unsupported GlowOutline buffs. Evidence: donor

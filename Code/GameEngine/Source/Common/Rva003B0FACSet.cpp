@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva003B0FAC@Rva003B0FAC@@QAEXABVAsciiString@@H@Z @0x003B0FAC 26B
 // Unlock lane: set AsciiString member at +0x10 then store int at +0x14.
 // Evidence: callee StringBase set 0x000366F0 rowed; callers 0x003B15D6 twice; prev ConstIntGetters5 next Disp8 same dir.

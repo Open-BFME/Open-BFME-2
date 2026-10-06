@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 //
 // ??1Rva00383D71@@QAE@XZ @0x00383D71 271B base dtor: 6x Rva0038201D at +0x4,
 // two 6x arrays via eh vector destructor at +0x4c/+0x94, 8x Rva0038204A at

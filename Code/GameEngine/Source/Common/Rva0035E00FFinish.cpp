@@ -1,5 +1,5 @@
 // ??0Rva0035E00F@@QAE@XZ
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0035E00F@@QAE@XZ @0x0035E206 86B: derived ctor calling base
 // ??0Rva001DBAA4 at 0x001DBAA4. Layout from FamilyTailDtors1DBAC3.cpp

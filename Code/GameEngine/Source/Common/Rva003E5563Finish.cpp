@@ -1,5 +1,5 @@
 // ??0Rva003E5563@@QAE@XZ
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // retail 0x003E5563, 36 bytes.
 // Evidence: default constructor of an address-derived class. It zeroes the int
 // at +0x10, the four floats at +0..+0xc, then stores the 0x7ffffffe sentinel at

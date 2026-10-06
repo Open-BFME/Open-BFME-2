@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva0036804F@@QAE@PAVStateMachine@@@Z @0x0036804F 24B
 // Rva00342B87-derived ctor, vtable 0x0086A250, no extra members. Recipe from
 // sibling Rva00342826Ctor.cpp (29B, same base + vtable shape) chaining the

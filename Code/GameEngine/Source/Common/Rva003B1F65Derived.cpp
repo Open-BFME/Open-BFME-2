@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructors tail-calling
 // UserPreferences::~UserPreferences (rowed at 0x003B1F65 in

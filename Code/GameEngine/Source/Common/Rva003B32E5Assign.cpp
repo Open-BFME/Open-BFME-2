@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 #include "ascii_string.h"
 
 // ??4Rva003B32E5@@QAEAAV0@ABV0@@Z, retail 0x003B32E5, 57 bytes.

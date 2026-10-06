@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0036658B@Rva0036658B@@QAE_NPAX0@Z 0x0036658B 48B via two-dword empty check at +0x34/+0x38 then init from args
 // Evidence: retail xor/cmp/jne shape; neighbours Rva0036666B.cpp (/O1 /MD); caller 0x0052F75F
 

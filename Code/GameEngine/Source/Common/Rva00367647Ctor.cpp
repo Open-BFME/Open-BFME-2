@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00367647@@QAE@PAVStateMachine@@_N@Z @0x00367647 40B
 // State-derived ctor hash 0xA3ED2B68 vtable 0x00817478 plus int 0 at +0x20
 // plus bool at +0x24. Evidence: callers 0x00367CA4 0x00367CD8; rowed State

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /GX- /O1
+// cl: /Ireference/shims/bfme2_ascii /GX-
 // ?rva00380200@Rva00380200@@QAEPAVAsciiString@@XZ @ 0x00380200 (13B): getter returning +4 or AsciiString::TheEmptyString. Callers 0x00380230 0x00380265 push result. Twin of EmptyString fallback pattern.
 // ?rva0038020D@Rva00380200@@QAEXXZ @ 0x0038020D (110B): caches at +0x20 the
 // value the store (0x00DFE0EC, pinned get 0x002000D7) config for level

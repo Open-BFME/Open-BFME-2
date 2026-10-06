@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00368004@Rva00368004@@QAE_NXZ @0x00368004 17B
 // Null-checked virtual forward: if +0x3C pointer is null return false else
 // tail-jmp to its virtual slot 0x48 (19th virtual returning bool).

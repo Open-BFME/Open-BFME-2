@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0039215F@Rva0039205C@@QAEXIABVAsciiString@@@Z 55B @0x0039215F: AsciiString setter stride 0x1C at +0x14 via StringBase set. Layout from Rva0039205CArray rows plus string at +0x14. Evidence: init pin at 0x00392092 plus GlobalData count plus callers at 0x00393486 0x00393CE7.
 #include "ascii_string.h"
 

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ??1Rva003B39C7@@QAE@XZ @0x002045AB 103B: non-virtual dtor of Rva003B39C7.
 // Evidence: caller 0x00206DFF builds Rva003B39C7 at [ebp-0x8c] via ctor

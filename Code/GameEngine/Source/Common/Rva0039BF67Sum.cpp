@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0039BF67@Rva0039BF67@@QAEHV?$BitFlags@$0HE@@@0@Z @0x0039BF67 94B sum over 20 ObjectCountMaps.
 // Free-method sum matching ScoreKeeperMapCount shape: outer 20x12B array at +0x1FC,
 // inner RB-tree walk with null-check plus testSetAndClear plus sum-value.

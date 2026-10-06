@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHs /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ??4Rva003B1101@@QAEAAV0@ABV0@@Z @0x003B1337 (215B):

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039AF9B@Rva0039AF9B@@QAEMM@Z, retail 0x0039AF9B (45 bytes).
 // Identity: float scale by +0x2C pointee +8 unless game state +0x114 is 3 or

@@ -1,6 +1,6 @@
 // ??1Rva003908C2@@UAE@XZ
 // partial score=0.96 date=2026-09-30
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 //
 // ??1Rva003908C2@@UAE@XZ, retail 0x003908C2, 79 bytes.
 // Evidence: vtable 0x00819F74 plus s_secondary0C at +0x0C plus g_00C19F68

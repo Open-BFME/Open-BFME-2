@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0039BAD2@Rva0039BAD2@@QAEXPAURva0039BAD2Input@@H@Z, retail 0x0039BAD2, 56 bytes.
 // Adds arg2 to one of +0x14/+0x18/+0x1c based on input+0x108/+0x113 bits, always to +0x1E0.
 // Evidence: 7 callers, adjacency to Rva0039BAA0Copy family, ret 8 with 2 args.

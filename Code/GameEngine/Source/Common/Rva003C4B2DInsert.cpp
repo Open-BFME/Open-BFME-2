@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003C4B2D@@YAXPAXPAXPAXPAX@Z @0x003C4B2D 58B (dump range 18).
 // Cdecl insert-or-splice: compares the +0x20 keys of *a and c; when c's is

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039727A@Rva0039727A@@QAEHXZ, retail 0x0039727A, 66 bytes.
 // Count loop over the ObjectID range at +0x74/+0x78 via the rowed

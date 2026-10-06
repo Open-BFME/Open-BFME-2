@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva003AE2A9@@MAEXPAVXfer@@@Z @0x0056454F 79B.
 // Slot 3 (offset 0xC) of vtable 0x0081CAA4, the class of the rowed copy
 // ctor ??0Rva003AE2A9@@QAE@ABV0@@Z: its xfer. Version(1,2) local via Xfer

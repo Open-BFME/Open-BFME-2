@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00392CAC@Rva0039205C@@QAEXXZ 25B @0x00392CAC: init-style setter zeroing +0 +4 +0C +0D plus -1 at +0x10 plus 0 at +0x14 then tail-jmp to array init. Layout +0 count +8 array from dtor at 0x0039205C. Evidence: shared init pin at 0x00392092 plus callers at 0x003935FC 0x00393E6D.
 class Rva00392092Target
 {

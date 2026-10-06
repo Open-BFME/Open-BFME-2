@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0037E09A@Rva0037E09A@@QAE_NABV1@@Z, retail 0x0037E09A, 82 bytes.
 // Equality over three ints plus wide and narrow StringBase compares plus a

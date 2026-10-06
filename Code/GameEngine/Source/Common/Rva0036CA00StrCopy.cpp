@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob0 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile *);
 class Rva0036CA00Str {
     void *m_item;

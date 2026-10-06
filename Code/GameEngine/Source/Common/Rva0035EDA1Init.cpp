@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0035EDA1@Rva0035EE66@@UAEXPAVGameWindow@@@Z @ 0x0035EDA1 68B: slot 1 init of vtable 0x0081661C.
 // Same shape as ButtonFlashTransition::init in FamilyTailDtors1DBAC3.cpp but without Gradient tail:
 // store win to +0xC, winGetSize into +0x18/+0x1C, winGetScreenPosition into +0x10/+0x14,

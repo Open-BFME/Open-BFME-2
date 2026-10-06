@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oy-
+// cl: /MD /Oy-
 // ?rva0036667B@Rva0036667B@@QAEXH@Z @ 0x0036667B 75B evidence: caller 0x00533BEC offsets +4 +8 +0xc +0x2c word store +8 stride 0x10
 struct Rva0036667BEntry
 {

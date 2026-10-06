@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Rva0037B9D4Get, retail 0x0037B9D4, 116 bytes. Returns a UnicodeString
 // built from the narrow string that the rowed GlobalData::rva002360DE
 // 0x002360DE returns for TheWritableGlobalData, converted through the rowed

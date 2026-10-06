@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // Copy ctors for the Rva003B31DF/Rva003B3204 leaf chains at 0x003B3221
 // (86B, ??0Rva003B31DF@@QAE@ABV0@@Z) and 0x003B3277 (86B,

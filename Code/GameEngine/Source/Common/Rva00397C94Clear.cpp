@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00397C94@Rva00397C94@@QAEXPAURva00397C94Node@@@Z, retail 0x00397C94, 53 bytes.
 // Recursive tree-node clear with an inline CameraMarker at +0x10.

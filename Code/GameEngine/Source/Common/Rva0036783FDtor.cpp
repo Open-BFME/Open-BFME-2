@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /Ireference/shims/moduledata
+// cl: /MD /EHsc /Ireference/shims/moduledata
 // ??1Rva0036783F@@UAE@XZ @0x0036783F 79B
 // ?v1@Rva0036783F@@UAEHXZ @0x0036960E 63B: slot 4 (v1) override: two guarded virtual dispatches plus slot-143 fetch then tail pinned rva00369064. Evidence: vtable 0x00817548 slot 4 plus donor TU layout plus rowed callees plus pin 0x00369064.
 // Dtor: vtable 0x00817548 plus delete of heap member at +0x28 via virtual

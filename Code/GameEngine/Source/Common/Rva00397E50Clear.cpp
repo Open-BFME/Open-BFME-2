@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00397E50@Rva00397E50@@QAEXXZ, retail 0x00397E50, 92 bytes.
 // Vector clear at +0x80 with per-element unlink, GameLogic notify, virtual

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva003EDE16@Rva003EDE16@@QBE_NPBX@Z @0x003EDE16 20B
 // Chain of 0x001DFE56 (19-dword dual-mask tester): forwards this+0x28/+0x74 as required/exempt
 // against the passed-in mask. Prev stlport_rb_tree next ConstIntGetters.

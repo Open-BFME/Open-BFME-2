@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob2
 //
 // Open-BFME5: near-twin of the Gen0014AE40 owning-record constructor
 // (Rva0014AE40OwnerDestructor.cpp / retail 0x0014ADC0) at retail 0x00368270,

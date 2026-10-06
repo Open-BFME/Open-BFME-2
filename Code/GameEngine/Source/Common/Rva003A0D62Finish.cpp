@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?rva003A0D62@Rva003A0D62@@QAEXABVRva0039D769@@@Z @0x003A0D62 166B.
 // Evidence: unlock lane; the 0x18-stride array is Rva0039D5A9::m_items[7]

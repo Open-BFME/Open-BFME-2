@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /G7
+// cl: /DNDEBUG /MD
 // ?rva003697F9@Rva003697F9@@QAEXABVRva0035149F@@PBVObject@@PBVWaypoint@@H@Z, RVA 0x003697F9, 172 bytes.
 // Evidence: unlock lane, caller 0x0036BA77 passes vector<Coord3D> + null + Waypoint; callees rowed
 // Object::rva002907A1 0x002907A1, StateMachine::setGoalPosition 0x004D745C,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva0037DF2C@@QAE@ABV0@@Z @0x001EB79E 119B: copy ctor of Rva0037DF2C.
 // Same vtable 0x00BDF158 at +0 and layout as default ctor 0x0037DF2C:
 // AsciiString at +4 via rowed 0x000365F0, float at +8 int at +C, 128B block

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva003B262E@@MAE@XZ 0x003B262E 68B
 // Evidence: vtable 0x0081F3F4 at [this] with members at +4 Or list and +8 And ptr;

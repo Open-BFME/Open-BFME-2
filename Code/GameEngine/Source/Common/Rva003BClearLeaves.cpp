@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Leaf guarded-delete helpers for the Rva003B4071 double helper (rowed
 // ?clear@Rva003B4071@@QAEXXZ in OpaqueScalarDeletingDtors.cpp). Each leaf

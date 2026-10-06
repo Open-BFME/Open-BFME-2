@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00373EEC@Rva00373EEC@@QAEXI@Z @0x00373EEC 48B:
 // Frame-horizon max store: holder at +0x04 (value at +0x08), stored frame at

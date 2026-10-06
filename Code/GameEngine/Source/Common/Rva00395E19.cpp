@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB
 // ?rva00395E19@Rva00395E19@@QAEXPAVAsciiString@@H@Z RVA 0x00395E19 size 58 unlock Dynamic format via +8 +74 +4 +64.
 #include "ascii_string.h"
 extern "C" void _ReadWriteBarrier(void);

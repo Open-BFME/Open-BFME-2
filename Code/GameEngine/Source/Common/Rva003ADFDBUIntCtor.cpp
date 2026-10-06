@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva003ADFDB@@QAE@I@Z, retail 0x0055F821, 31 bytes.
 // UInt-taking derived ctor: forwards the dword to the rowed base
 // ??0Rva00563FE1@@QAE@I@Z at 0x00563FE1, then installs primary vftable

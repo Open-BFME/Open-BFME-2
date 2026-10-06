@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva0037DF2C@@QAE@XZ @0x0037DF2C (97B).
 // Ctor with vtable 0x00BDF158 at +0x0, AsciiString at +0x4 from TheEmptyString
 // 0x00DE0878 via pinned StringBase copy 0x000365F0, float 0 at +0x8 via xorps

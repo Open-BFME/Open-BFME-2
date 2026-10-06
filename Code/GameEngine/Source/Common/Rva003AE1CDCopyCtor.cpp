@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva003AE1CD@@QAE@ABV0@@Z, retail 0x003AE1CD, 64 bytes.
 // Derived V3-inline copy: calls rowed base ??0Rva003ADFDB@@QAE@ABV0@@Z at
 // 0x003ADFDB then rowed ??0Rva005EA0D0@@QAE@ABV0@@Z at 0x003AE20D with a

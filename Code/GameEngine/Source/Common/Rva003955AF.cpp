@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003955AFCall@@YGXHHMHH@Z RVA 0x003955AF size 43 unlock via global g_00A027B8 slot16 virtual at +0x40 with float plus or-0x100 plus trailing 0 free __stdcall 5 args.
 extern class Rva00A027B8 *g_00A027B8;
 class Rva00A027B8

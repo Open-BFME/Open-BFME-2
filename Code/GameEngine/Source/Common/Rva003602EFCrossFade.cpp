@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva003602EF@Rva003602EF@@QAEXXZ @0x003602EF 229B, a virtual (table entry at
 // VA 0x00C16788): while the frame at +0x2C is non-negative, draw the image at
 // +0x30 with alpha min(255, frame * rate(+0x28) * 255) and the image at +0x34

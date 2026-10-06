@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /Oy-
 //
 // ?rva0039C190@Rva0039C190@@QAEPAVRva0039B893@@PAV2@0@Z @0x0039C190 51B
 // Vector-like reassign: copies [first, m_04) into result through the rowed

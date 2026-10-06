@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva003AE0AF@@MAEXPAVXfer@@@Z @0x00563F88 89B
 // Slot 3 (offset 0xC) of vtable 0x0081CA04 (class of ??0Rva003AE0AF copy 0x003AE0AF).
 // Chain after landing 0x003B0E38. IsLightCRC early-out via Xfer slot 0x10,

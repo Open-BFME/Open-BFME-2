@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?init@Rva0035D53C@@UAEXPAVGameWindow@@@Z @0x0035D54B 121B: vslot init slot 1 offset 0x4 of vtable 0x00816510 (class of ??1Rva0035D53C) and 0x008165D0. Evidence: same vtable slot as rowed init pattern plus rowed winGetSize 0x00313BC6 plus rowed winGetScreenPosition 0x00313B3C plus virtual update slot 2 plus size/2 center plus size/6.
 
 typedef int Int;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00391994@Rva00391994@@QAE_NXZ @ 0x00391994 (69B) unlock: command-button 0x16 scan over 32 slots via rowed Object name plus rowed Rva0031D5F8 lookup plus pinned getCommandButton. Evidence: global g_bfmeWorldRV null check then name then lookup then 0x20 loop with +0x14 compare to 0x16; caller 0x00394231.
 #include "ascii_string.h"
 

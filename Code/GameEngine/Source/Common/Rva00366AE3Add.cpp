@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00366AE3@Rva00366AE3@@QAEXPBUICoord2D@@@Z 0x00366AE3 77B via ICoord2D slots at +0x18/+0x20
 // Evidence: retail compares incoming ICoord2D against two stored slots then fills first with x==-1; callees ??8ICoord2D@@QBE_NABUICoord2DBase@@@Z rowed in icoord.cpp; callers in FUN_0092ed74
 struct ICoord2DBase

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0039ACA4@Rva0039ACA4@@QAEXPBV1@@Z 0x0039ACA4 25B copy of +0x10/+0x1C via +0x264 pointer
 // Evidence: callers at 0x0047E7A0 and 0x0047E8C7 pass outer object; this is its +0x264 inner; retail copies inner+0x1C then inner+0x10.
 

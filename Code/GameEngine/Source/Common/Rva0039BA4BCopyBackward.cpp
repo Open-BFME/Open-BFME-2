@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0039BA4BCopyBackward@@YAXPAVRva0039B893@@00@Z @0x0039BA4B 29B wrapper
 // forwarding first/last/result to the rowed five-arg copy-backward at
 // 0x0039B92D with a stack tag at ebp-1 plus null distance. Evidence: chain

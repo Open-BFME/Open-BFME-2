@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva003956E8@Rva003956E8@@QAEXXZ, retail 0x003956E8, 32 bytes.
 // Module-style update: chain the rowed Rva00497805::loadPostProcess on our
 // own this, then when the +0x34 flag is set forward our +0x08 object to the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva003EDE2A@Rva003EDE2A@@QBE_NPBX@Z @0x003EDE2A 26B
 // Forwarder to 4-dword tester ?testMasks@Rva0026157E (0x0026157E) with this+0xC0/+0xD0.
 // Sibling of 0x003EDE16 (19-dword forwarder) same page same shape larger disp32.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ??0Rva003B39C7@@QAE@XZ @0x003B39C7 113B. Default ctor: int 1 at +0x00,
 // AsciiString from "UNUSED/(placeholder)/placeholder" at +0x04, null
 // AsciiStrings at +0x08/+0x0C (retail's unwind map destroys narrow strings

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0037F551@Rva0037F551@@QAEAAV1@ABV1@@Z retail 0x0037F551 45B
 // Evidence: chain from 0x0037F51A; copies two 0x20 blocks at +0 and +0x20 via that row then int at +0x40 and bool at +0x44; caller 0x0037F71F
 class Rva0037F51A

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0039D533@Rva0039D533@@QAEXPAURva0039D533Src@@@Z 0x0039D533 102 virtual copy via slots 0x7c 0x6c 0x04
 // 102B __thiscall taking source with virtuals at +0x7c +0x6c filling dest ints at +0x00 +0x04 +0x08 +0x0c +0x10 +0x14 last conditional on slot +0x04.
 // Caller 0x0039D6AC; prev/next are byte getters and Rva0039D5A9Sum.

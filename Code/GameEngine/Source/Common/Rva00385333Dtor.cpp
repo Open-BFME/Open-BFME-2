@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva00385333@@QAE@XZ @0x00385333 62B derived dtor: frees +0x19c via rowed
 // _free 0x00030830 when non-null then base ??1Rva003844D7 at +0 rowed in
 // Rva003844D7Dtor.cpp. Callers 0x3853AA 0x555FD3 unclaimed thiscall.

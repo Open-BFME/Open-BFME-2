@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva00382B3F@@QAE@XZ @0x00382B3F 8B
 // Dtor tail-jmp to rowed ??1BuddyInfo@@QAE@XZ at 0x003820FE; add ecx,4 then
 // jmp. Member at +4 with 4B pad at +0; empty dtor lets compiler tail-call.

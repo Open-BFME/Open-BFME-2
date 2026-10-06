@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva003B0433@Rva003B0433@@QAEXAAPBVModuleData@@@Z @0x003B0433 33B
 // Unlock lane: push ModuleData ref to vector then push_heap int range with greater.
 // Evidence: callees push_back 0x004DFCB0 row ModuleFactory and push_heap 0x003B02B8 row stlport; callers 0x003B0454 and 0x003B07B8 slot 10 of 0x0081DA10 class Rva003B0401; prev ModuleNameGetters2 next OpaqueSingleInheritanceDtors same dir.

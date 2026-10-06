@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva001FF5C3@Rva003B1546@@UAEXXZ @0x001FF5C3 47B: slot 9 cleanup of the
 // vector<void*> at +0x0C via rowed Overridable::deleteOverrides 0x001E35ED

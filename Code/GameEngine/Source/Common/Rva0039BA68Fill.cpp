@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0039BA68Fill@@YAXPAVRva0039B893@@0ABV1@@Z @0x0039BA68 29B range fill
 // assigning the same value to each Rva0039B893 slot via the rowed operator=
 // at 0x0039B900 with stride 0x14. Evidence: chain from just-landed assign;

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ??0Rva00360474@@QAE@XZ, retail 0x00360474, 54 bytes.
 // Ctor: base Rva001DBAA4, vtable 0x00816808, +4=30 +9=1 +0xC=0 +0x10=0
 // +0x14=30 +0x28=0.0f +0x2C=-1 +0x30=0. Evidence: unlock lane, vtable store

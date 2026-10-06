@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003B8B2A@Rva003B8B2A@@QAEHXZ @0x003B8B2A 19B.
 // Triple-and predicate: byte +0x4C==0 and dword +0x20==0 and dword +0x1C!=0.
 // Evidence: retail xor eax,eax; cmp [ecx+0x4C],al; jne ret; cmp [ecx+0x20],eax; jne ret;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva0039205C@@QAE@XZ 26B @0x0039205C: dtor for outer holder of
 // Rva004D9A3C array at +8 with dword at +0: vector-deletes the array via

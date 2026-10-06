@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00398257@Rva00397C94@@QAEXXZ @0x00398257 41B evidence: same class as callee 0x00397C94 rowed Rva00397C94Clear (this unchanged across call); caller 0x0039928D 0x0039A09D plus jmp 0x00399273; resets list-like head after clear per prev comment; this+4 zero guard then head+8 self head+4 zero head+0xc self this+4 zero.
 
 struct Rva00397C94Node

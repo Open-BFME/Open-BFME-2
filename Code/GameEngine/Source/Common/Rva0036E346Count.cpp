@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0036E346@Rva0036E346@@QAEHXZ, retail 0x0036E346, 17 bytes.
 // Circular intrusive-list count: head at +0x04, first at [head], next at

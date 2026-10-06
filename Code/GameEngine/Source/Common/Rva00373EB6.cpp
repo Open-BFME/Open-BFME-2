@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00373EB6@Rva00373EB6@@QAEEXZ @0x00373EB6 (16B).
 // Unsigned-char compare: TheGameLogic+0x40 >= this+0x28 via sbb/inc.

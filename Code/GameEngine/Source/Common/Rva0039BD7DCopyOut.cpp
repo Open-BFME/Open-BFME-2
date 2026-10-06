@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 // ?rva0039BD7D@Rva0039BD7D@@QAE?AUBfmeStringRecord002B4DC1@@XZ @0x0039BD7D
 // @0x0039BD7D 30B: returns the +0x310 string record by value; the rowed
 // BfmeStringRecord002B4DC1 copy ctor at 0x002B4DC1 builds directly into the

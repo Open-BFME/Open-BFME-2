@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ?rva003908A7@@YGPAXPAX@Z, retail 0x003908A7, 27 bytes.
 // memset the first four bytes, set flag 0x10 on the dword there, return the
 // input pointer. Evidence: memset import thunk 0x006291AE (three pushes:

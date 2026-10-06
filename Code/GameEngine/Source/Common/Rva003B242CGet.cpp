@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva003B242CGet@@YAEXZ 0x003B242C 59B
 // Evidence: NameKey cache at 0x00DBDF1C via rowed get 0x00148F5E,
 // Dict at 0x00E00944 via rowed getBool 0x00313198, host bool at

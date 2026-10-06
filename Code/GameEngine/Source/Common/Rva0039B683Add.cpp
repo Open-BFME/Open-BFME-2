@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0039B683@Rva0039B683@@QAEXM@Z @0x0039B683 37B, call sites 0x002AA6BD
 // (ecx = lea esi+0x3BC) and 0x002AA736. Adds the float argument to +0xF8
 // while TheGameLogic's byte at +0x98 is set.

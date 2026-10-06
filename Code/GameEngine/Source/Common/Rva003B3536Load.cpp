@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003B3536@Rva003B3536@@QAEXAAVDataChunkInput@@PAX@Z @0x003B3536 123B
 // DataChunkInput field loader: two readByte bools then readInt then readByte
 // bool then counted-string reader rva0030750A with StringBase set into +0xC.

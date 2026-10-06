@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ??0Rva003ED658@@QAE@ABV0@@Z @ 0x003ED658 53B
 // Copy ctor of TU-local class with vector<unsigned> at +0 via rowed vector copy 0x002CFAB9.

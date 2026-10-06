@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva0038201D@Rva0038201D@@QAEXPAURva0038201DNode@@@Z 0x0038201D 45B
 // Frees sibling-child tree: recurse child at +12, free self, step next at +8.
 // Evidence: self-call plus _free at 0x30830; caller 0x003828B6 passes [eax+4].

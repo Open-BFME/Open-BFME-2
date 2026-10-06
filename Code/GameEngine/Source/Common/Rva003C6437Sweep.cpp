@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003C6437@@YAXPAX00@Z @0x003C6437 45B (dump range 18).
 // Cdecl reinsert sweep: walks (begin+4, end) by 4 and forwards each slot

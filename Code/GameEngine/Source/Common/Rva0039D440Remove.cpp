@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // ?rva0039D440@Rva0039D440@@QAEXPAPAV1@@Z @0x0039D440 (48B).
 // List-remove: unlinks this from the +0x3C/+0x40 doubly-linked list, updating

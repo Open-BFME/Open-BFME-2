@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva003B93BC@Rva003B93BC@@QAEPAUBfmePod104@@XZ retail 0x003B93BC 68 bytes.
 // Leaf: temp 0x68 via rowed ctor 0x0040E3EE push into vector at +0x20 via

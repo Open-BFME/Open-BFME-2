@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva00363BC7@Rva00363BC7@@QAEPAXPAUCoord2D@@PAM@Z, retail 0x00363BC7, 170 bytes.
 // Unlock: if +0x08 null zeroes out vec and sets *len to g_00BCF628 returning
 // null; else builds dx dy from template +0xC/+0x10 minus this +0xC/+0x10,

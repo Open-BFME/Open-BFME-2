@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva003685CF@@QAE@ABVBfmeObject872Header@@0@Z @0x003685CF 43B
 // Ctor with vtable 0x00817968 plus int 0 at +4 plus two BfmeObject872Header
 // copies at +8/+0x18 via rowed ??0BfmeObject872Header@@QAE@ABV0@@Z @0x002CF108.

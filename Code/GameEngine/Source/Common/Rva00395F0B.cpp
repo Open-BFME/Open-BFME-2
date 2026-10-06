@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00395F0B@Rva00395F0B@@QAEXPAVObject@@@Z RVA 0x00395F0B size 76 unlock via rowed setProducer setDisabled setStatus plus pinned notifier 0x0028AE6D flag word1 bit31 at Object+0x114 mask 0x80000000 producer at this+8 recipe HordeSiegeEngineContainCtor forceinline masked-word accessor.
 enum DisabledType
 {

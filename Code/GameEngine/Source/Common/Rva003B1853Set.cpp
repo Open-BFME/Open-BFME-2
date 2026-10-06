@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?rva003B1853@Rva003B1853@@QAEXPBDH@Z @0x003B1853 (38B):

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003B8BAA@Rva003B8BAA@@QAEPAXXZ @0x003B8BAA 30B.
 // Guard on the 0x00DFEF10 singleton byte +0xB4, then index/array chase +0x10/+0x14/[+0x20].
 // Evidence: retail mov eax,[0xDFEF10]; cmp [eax+0xB4],0; jne; xor eax,eax; ret; else mov eax,[ecx+0x10];

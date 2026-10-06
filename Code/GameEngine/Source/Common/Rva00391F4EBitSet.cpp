@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva00391F4E@@QAE@HHH@Z 66B @0x00391F4E: fixed 16-byte (128-bit) bitset
 // two-bit constructor: memsets this with 0 over 0x10 bytes through the CRT

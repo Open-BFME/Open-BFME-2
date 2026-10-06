@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Adjacent same-shape thiscall iterators from dump range 18 (2x33B). Each
 // walks the pointer array [this+0x1C, this+0x20) and invokes its callee on

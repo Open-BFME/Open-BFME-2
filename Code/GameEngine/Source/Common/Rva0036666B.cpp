@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0036666B@Rva0036666B@@QAE_NXZ 0x0036666B 16B via two-dword non-zero check at +0x34/+0x38
 // Evidence: retail xor/cmp/jne/cmp/je/xor/inc shape; callers test al (e.g. 0x002E71D4 test al al); neighbours in Code/GameEngine/Source/Common.
 

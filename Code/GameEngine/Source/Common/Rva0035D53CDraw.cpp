@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?draw@Rva0035D53C@@UAEXXZ @0x0035D62E 138B: vslot draw slot 4 offset 0x10 of vtable 0x00816510 (class of ??1Rva0035D53C) and 0x008165D0. Evidence: same vtable as landed init 0x0035D54B slot 1 plus rowed W3DDisplay draw 0x0004D6B3 plus TheDisplay 0x00DFE9D8 plus image win+0x48 plus drawState 1..5 plus center 0x24/0x28 plus inc 0x2C/0x30.
 
 typedef int Int;

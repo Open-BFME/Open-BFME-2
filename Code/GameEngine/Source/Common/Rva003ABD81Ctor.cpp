@@ -1,4 +1,4 @@
-// cl: /O2 /Os /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ??0Rva003ABD81@@QAE@ABVRvaSmartPtr12@@H@Z, retail 0x003ABD81, 49 bytes.
 // Empty derived of the rowed ??0Rva0055F9B4@@QAE@ABVRvaSmartPtr12@@H@Z at
 // 0x0055F9B4: forwards (smart, x) then re-stamps the four vftables

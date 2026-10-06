@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0039D4B5@Rva0039D4B5@@QAEXPAVRva0039D40F@@@Z @0x0039D4B5 (35B).
 // 0x0039D4B5 (35B) chain of the 0x39D40F/0x39D429 pair: when the node is not

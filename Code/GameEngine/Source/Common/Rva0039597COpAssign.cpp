@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 //
 // ?rva0039597C@Rva0039597C@@QAEAAV1@ABV1@@Z, retail 0x0039597C, 39 bytes.
 // Copy-assignment over two AsciiStrings plus int at +8, returning *this.

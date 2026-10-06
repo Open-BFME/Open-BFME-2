@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // ?rva0039D4FB@Rva0039D4FB@@QAEXP6AXPAVRva0039D40F@@@Z@Z @0x0039D4FB (42B).
 // List-drain: while the +0x334 head holds a node, unlinks it via the rowed

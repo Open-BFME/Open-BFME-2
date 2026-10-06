@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva00367F8D@@UAE@XZ @0x00367F8D 11B
 // Empty virtual dtor storing vtable 0x00817768 then tail-jmp to rowed base
 // ??1Rva00542C19@@UAE@XZ @0x00542C19 (itself child of pinned Rva004D759C).

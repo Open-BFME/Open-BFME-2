@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva003ED9B1@Rva003ED9B1@@QAEXABV1@@Z @ 0x003ED9B1 126B
 // Merge bitset from src vector into this vector over global RB-tree 0x00A02E50 via rowed resize 0x000E6D39.

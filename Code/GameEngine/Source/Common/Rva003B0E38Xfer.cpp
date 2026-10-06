@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva003B0E38@Rva003B0E38@@QAEXPAVXfer@@@Z @0x003B0E38 31B
 // Unlock lane: Version1 then one uint xfer of member at +4 via slot 0x78.
 // Evidence: callees Version1 0x000053EE row Xfer and slot 0x78 uint rowed; caller 0x00563F88; prev HackInternetAIUpdate next ConstIntGetters.

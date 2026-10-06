@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva0039EA9C@@QAE@XZ @0x0039EA9C 27B, call sites 0x0059A388 0x0059A689
 // 0x005A9FDF. Six-dword record: zeros, 1 at +0x08, -1 at +0x14.
 // Structural inference: retail stores the -1 last (or dword [+0x14], -1

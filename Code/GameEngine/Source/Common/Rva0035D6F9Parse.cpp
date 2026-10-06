@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?Rva0035D6F9Parse@@YAXPAVINI@@PAVRva0035D6F9Holder@@@Z @0x0035D6F9 81B: factory news 0x34,
 // calls ctor ??0Rva0035D53C at 0x0035D6B8, parses SlaveAttack table 0x0086BB18 via rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?rva0039D0FB@Rva0039D0FB@@QAEXIH@Z 0x0039D0FB 117 dual map add via rowed _M_find 0x00357180 and ImageSubscriptMap operator[] 0x002077D6
 // 117B __thiscall with ints at +0x74 +0x1c4 and maps at +0x1d4 +0x2ec; callers 0x00480554 pass Player+0x3bc with Image key and count.

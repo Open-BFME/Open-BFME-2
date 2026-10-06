@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /GX- /O1 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /GX-
 // ?rva0038028B@Rva00380200@@QAEXXZ @0x0038028B 84B. Unlock init plus rank bonus plus tail to rva0038020D
 // evidence: prev 0x0038020D same class Rva00380200 same TU family; members +0x4 +0xC(float) +0x14 +0x18 +0x1C +0x28
 // match shim; callees TheRankInfoStore plus pinned get 0x002000D7 plus rowed tail 0x0038020D; unblocks 2.

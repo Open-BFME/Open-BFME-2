@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0035EE66@@QAE@XZ @ 0x0035EE66 37B: derived ctor calling base ??0Rva001DBAA4 at 0x001DBAA4.
 // Same shape as 0x0035E2E6; vtable 0x0081661C same as dtor ??1Rva0035ED92 at 0x0035ED92.
 // Clears +0xC then sets +0x20=-1 +0x4=8 +0x9=1. Gap between 0x0035ED92 and 0x0035EE8B.

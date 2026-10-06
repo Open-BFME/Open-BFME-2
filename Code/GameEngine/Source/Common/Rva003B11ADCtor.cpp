@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHs /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ??0Rva003B11AD@@QAE@XZ retail 0x003B11AD 37B
 // Evidence: vtable store plus baseConstruct 0x001B4E63 plus Vector_base 0x00211E58 at +0xC plus clear +0x18; caller 0x0022EC4B; neighbours 0x003B1101/0x003B1337 share O1 EHs SSE flags; precedent Rva00426402Ctor.cpp for novtable base plus vector layout

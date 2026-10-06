@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva00367647@@MAEXPAVXfer@@@Z @0x00367675 45B
 // Slot 3 (offset 0xC) of vtable 0x00817478 (class of ??0Rva00367647@@QAE@PAVStateMachine@@_N@Z).
 // Version1 via rowed 0x000053EE then int at +0x20 via Xfer slot 0x7C then bool at +0x24 via Xfer slot 0x90.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0039561F@Rva0039561F@@QAEHPAVThingTemplate@@@Z @0x0039561F (93B).
 // Guarded lookup storing unsigned float: controlling player of m_obj8 must

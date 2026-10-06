@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?clone@Rva003AE017@@QBEPAV1@XZ, retail 0x003ADFFA, 29 bytes.
 // Vslot 2 of vtable 0x0081CED8: clone via new 0x14 plus rowed copy
 // ??0Rva003AE017@@QAE@ABV0@@Z at 0x003AE017. Same frameless null-checking new

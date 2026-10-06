@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail 0x003CDDB0 compares two integer ranges for a shared bit.
 
 struct Rva003CDDB0Range

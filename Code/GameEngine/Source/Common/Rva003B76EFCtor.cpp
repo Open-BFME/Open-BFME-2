@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ??0Rva003B76EF@@QAE@PAH@Z @0x003B76EF 28B: zeroes +0 then runs the pinned
 // 0x003B7448 member entry on +4 with arg+4. Evidence: single pointer arg
 // (ret 4), arg advances one int element, ecx stays member address; no vtable.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Two +0x04 list walkers sharing one owner (list head at +0x04, node
 // next at +0x00, payload at +0x08), landed as a homogeneous batch.

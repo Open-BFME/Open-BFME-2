@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva003844D7@@QAE@XZ @0x003844D7 119B derived dtor: 5 members at
 // +0x154/+0x160/+0x16c/+0x178/+0x184 via rowed 0x00383276/0x0038323E/0x003832AE
 // then base ??1Rva00383D71 at +0 rowed in Rva00383D71Dtor.cpp. Callers

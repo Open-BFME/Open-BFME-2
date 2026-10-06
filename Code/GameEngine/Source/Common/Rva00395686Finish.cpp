@@ -1,5 +1,5 @@
 // ?rva00395686@Rva00395686@@QAE_NPAVPlayer@@PAVThingTemplate@@@Z
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // 0x00395686 (61B). Guarded player-match then ThingTemplate check: the
 // controlling player of m_obj8 must equal p and t non-null, then rowed

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /arch:SSE /Oi
+// cl: /Ireference/shims/bfme2_ascii /MD /Oi
 // ?rva0037EACC@Rva0037EACC@@QAEXPAX@Z @0x0037EACC 81B. Copy-to method: AsciiString
 // at +0xD4 to dest +0x4 via pin-only operator= 0x000366F0, dwords +0x8 +0xC,
 // Rva001EAFC1 at +0xB0 to dest +0x94 via rowed operator= 0x001EAFC1, 128B block

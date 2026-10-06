@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??1Rva00367E26@@UAE@XZ @0x00367E26 11B
 // Virtual dtor stores vtable 0x00C17600 then tail-jmps to pinned base dtor
 // 0x003516F3. Evidence: deleting dtor 0x00367E0A calls this address with

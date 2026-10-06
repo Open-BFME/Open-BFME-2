@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva0037DCA5@Rva0037DCA5@@QAEHXZ, retail 0x0037DCA5 (39B).
 // Lookup via TheThingFactory global 0x00DFF000 plus AsciiString at +0x4 through
 // rowed 0x002D06CA. Returns 0 when lookup misses else template dword at +0x618

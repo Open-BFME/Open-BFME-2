@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii
 //
 // ?canUnpack@Rva00395F57@@QAE_N_N@Z, retail 0x00395F57, 176 bytes.
 // Castle canUnpack with debug-log gate plus readiness check. Donor is BFME1

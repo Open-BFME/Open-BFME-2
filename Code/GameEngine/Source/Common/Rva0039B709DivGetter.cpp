@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0039B709@Rva0039B709@@QAEIXZ @0x0039B709 15B unsigned div getter
 // member at +0xF4 divided by LogicFramesPerSecond at 0x00DBA4E4. Evidence:
 // sole caller 0x005BEF34 moves edi to ecx with no stack args and pushes eax.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003C4003Apply@@YGXPAVParameter@@ABVAsciiString@@PAX@Z @0x003C4003 109B.
 // Sibling of 0x003C41BA: resolve unit via ScriptEngine then SpecialPowerTemplate
 // by name, filter via BfmeSubBEC, then apply via TerrainLogic helper and slot

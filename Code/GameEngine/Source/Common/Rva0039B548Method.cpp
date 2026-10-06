@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0039B548@Rva003BD306Target@@QAEXXZ @0x0039B548 55B
 // Clear method: zero m_38/m_0C, 0.0f to m_10, global float to m_1C,
 // empty AsciiString at +8 via rowed releaseBuffer, zero m_20, then rowed

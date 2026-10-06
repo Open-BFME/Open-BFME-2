@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0036CB94@@QAE@HHHH_N@Z @0x0036CB94 49B
 // Stack-struct ctor: +0=arg1, +4/+8/+0xC zero, +0x10/+0x14/+0x18 args,
 // +0x1C byte arg. Callers 0x00379788 and 0x0037FCD8 build it on the stack

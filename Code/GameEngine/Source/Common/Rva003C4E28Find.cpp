@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // Built from the banked attempt reverse/attempts/0x003c4e28.cpp; fix: the
 // 1000.0f scale is a compiler literal (retail constant at RVA 0x007BE358), not
 // an extern global, which is what keeps retail's operand order.
