@@ -26,4 +26,11 @@ struct BfmeFixedObject60 {
 };
 typedef char FixedObjectExtent[sizeof(BfmeFixedObject60) == 60 ? 1 : -1];
 
-template class _STL::vector<BfmeFixedObject60, _STL::allocator<BfmeFixedObject60> >;
+template BfmeFixedObject60 *_STL::__copy(BfmeFixedObject60 *, BfmeFixedObject60 *, BfmeFixedObject60 *, const random_access_iterator_tag &, int *);
+template BfmeFixedObject60 *_STL::__copy_ptrs(BfmeFixedObject60 *, BfmeFixedObject60 *, BfmeFixedObject60 *, _STL::__false_type);
+template BfmeFixedObject60 *_STL::__uninitialized_copy(BfmeFixedObject60 *, BfmeFixedObject60 *, BfmeFixedObject60 *, const _STL::__false_type &);
+template BfmeFixedObject60 *_STL::__uninitialized_fill_n(BfmeFixedObject60 *, unsigned int, const BfmeFixedObject60 &, const _STL::__false_type &);
+template BfmeFixedObject60 *_STL::vector<BfmeFixedObject60, _STL::allocator<BfmeFixedObject60> >::_M_allocate_and_copy<BfmeFixedObject60 *>(unsigned int, BfmeFixedObject60 *, BfmeFixedObject60 *);
+template void _STL::vector<BfmeFixedObject60, _STL::allocator<BfmeFixedObject60> >::_M_insert_overflow(BfmeFixedObject60 *, const BfmeFixedObject60 &, const _STL::__false_type &, unsigned int, bool);
+template void _STL::vector<BfmeFixedObject60, _STL::allocator<BfmeFixedObject60> >::push_back(const BfmeFixedObject60 &);
+template void _STL::vector<BfmeFixedObject60, _STL::allocator<BfmeFixedObject60> >::clear();
