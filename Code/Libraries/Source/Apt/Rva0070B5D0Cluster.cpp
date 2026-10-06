@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva0070B5D0Check@@YA_NXZ retail 0x0070B5D0 (72B). Validates the Apt string
 // pool's saConstant table at 0x00E18388..0x00E18650 (178 EAStringC entries):
 // every entry non-empty and strictly ascending by the rowed

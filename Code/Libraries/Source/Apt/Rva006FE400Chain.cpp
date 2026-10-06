@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006FE400@Rva006FE400@@QAEHPAXPAURva008A4570Owner@@@Z @0x006FE400 42B
 // Evidence: chain from 0x0070DFB0 landing; calls virtual slot 7 (0x1C) on this+0x20
 // with same args then rowed 0x0070DFB0 on this; test-je shares int return; ret 8.

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006E11B0@AptCIH@@QAEXXZ, retail 0x006E11B0, 169 bytes.
 //
 // GC mark pass over one AptCIH node, no SEH frame (leaf-shaped apart from the

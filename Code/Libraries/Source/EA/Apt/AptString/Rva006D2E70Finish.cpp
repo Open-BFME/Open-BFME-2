@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva006D2E70@EAStringC@@QAEXXZ, retail 0x006D2E70 (60B).
 // EAStringC refcount retain worker: validates the shared data refcount
 // against the 0xFFFE cap unless it is the immortal empty singleton at

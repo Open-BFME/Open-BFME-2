@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0070D9F0Shutdown@@YAXXZ, retail 0x0070D9F0 (435B).
 // StringPool shutdown: walks the hash buckets at g_00E18368/g_00E1836C,
 // asserts each string's GC root (0x7F) and refcount (1) via StringPool.cpp

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva006E34D0@Rva006E34D0@@QAEXH@Z @0x006E34D0 88B
 // Bounded int append with consecutive-dup guard plus data-pointer notify:

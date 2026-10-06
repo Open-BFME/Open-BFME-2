@@ -1,6 +1,6 @@
 // ?rva006d6070@EAStringC@@QAEHPBDH@Z
 // partial score=0.9 date=2026-10-03
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ?rva006d6070@EAStringC@@QAEHPBDH@Z @0x006D6070 (143B).
 // Codepoint index of a substring: advance `count` codepoints with the rowed

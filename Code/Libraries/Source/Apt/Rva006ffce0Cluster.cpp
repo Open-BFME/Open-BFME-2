@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Address-derived recovery of 0x006FFCE0 (155B), an AptActionInterpreter string
 // worker. Retail clears the EAStringC out parameter through the const char*
 // ctor 0x006D4C80 (empty literal 0x00BBAC1C) and operator= 0x006D3030, calls

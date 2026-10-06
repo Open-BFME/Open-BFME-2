@@ -1,4 +1,4 @@
-// cl: /O2 /GR- /EHsc-
+// cl: /GR- /EHsc-
 
 typedef unsigned long ulong;
 

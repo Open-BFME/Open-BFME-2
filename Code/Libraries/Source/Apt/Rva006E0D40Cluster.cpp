@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva006E0D40@Rva006E0D40@@QAEXXZ, retail 0x006E0D40, 22 bytes.
 // Reference-count release: decrement the 16-bit field at +0x5C and, when it

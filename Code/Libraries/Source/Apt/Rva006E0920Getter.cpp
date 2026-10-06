@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006E0920@Rva006E0920@@QBEMH@Z, retail 0x006E0920, 13 bytes.
 // Float-array indexed getter at +0x44.
 // Evidence: leaf with 3 callers at 0x006F2716/0x006F2729/0x006F273C;

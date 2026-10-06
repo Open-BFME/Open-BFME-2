@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // VP6_DecodeFrameMbs candidate: full target 0x001BC9C0..0x001BCC30, 625 bytes.
 // Donor PB_INSTANCE names/layout are checked only at the accesses used here.
 // Public MFNode VP62 defaultModelsInit/decode flow provides semantic context;

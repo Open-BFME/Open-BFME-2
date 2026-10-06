@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva006D5EC0@EAStringC@@QAEHXZ, retail 0x006D5EC0, 15 bytes.
 // Leaf: returns rowed 0x006D4D80 of the UTF-8 payload at m_pData+8.
 // Evidence: caller Rva006D7A60Finish uses int return for negative-start fixup

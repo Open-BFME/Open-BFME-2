@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva006F7600@Rva006F7600@@QAEXH@Z @0x006F7600 95B evidence AptDisplayList assert i-range plus array shift with count at +0x80; caller 0x006F7885
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;

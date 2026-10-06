@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva006E3C80@Rva006E3C80@@QAEHXZ @0x006E3C80 100B
 // Sprite-instance guard: null-this assert (AptCIH.h:171), then if the flags

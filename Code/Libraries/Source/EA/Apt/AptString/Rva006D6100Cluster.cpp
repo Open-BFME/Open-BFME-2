@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // EAStringC UTF-8 case-folding workers on the 0x006D6100 row, next to the
 // rowed EAStringC::Mid bodies (EAStringCMid.cpp) and the UTF-8 cursor workers

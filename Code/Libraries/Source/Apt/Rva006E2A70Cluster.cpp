@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva006CBF40@@UAE@XZ @0x006E2A70 193B. AptCIH-derived teardown dtor.
 //
 // Evidence: assert string 0x00CEB8D8 "pNext == NULL && pPrev == NULL &&

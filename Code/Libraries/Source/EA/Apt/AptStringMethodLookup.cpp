@@ -1,4 +1,4 @@
-// cl: /O2 /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
+// cl: /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
 #include <string.h>
 
 struct R4Word

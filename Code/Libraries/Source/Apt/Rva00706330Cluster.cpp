@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // Address-derived recovery of the 57-byte checked pop at RVA 0x00706330. The
 // body is a stack pop on {int count; int capacity; Element **array} (the

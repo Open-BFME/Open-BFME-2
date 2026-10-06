@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006E0DE0@Rva006E0DE0@@QAEHPAVAptValue@@@Z, retail 0x006E0DE0, 142 bytes.
 // Word-counted Apt pointer-array remove with mnElements/mnMaxElements guards.
 // Evidence: unlock lane unblocking 2 callers; Release virtual slot 4 via

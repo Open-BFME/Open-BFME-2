@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Address-derived recovery of 0x006FF5D0 (134B), an AptActionInterpreter
 // argument handler. Retail asserts nParams <= 1 at AptActionInterpreter.cpp
 // 0x57E, then returns MakeBool(true) for nParams == 0 and

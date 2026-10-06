@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // AptCIH neighbourhood cluster.  Address-derived names; identities unproven
 // except where the body carries them.  Reconstructed from retail bytes under

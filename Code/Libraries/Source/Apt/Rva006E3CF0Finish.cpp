@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?init@Rva006E3CF0@@QAEPAV1@XZ @0x006E3CF0 86B
 // Apt-neighbourhood block-init, page of Rva006E3C80.cpp.

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Retail prefix-tree walk; PDB supplies the original VP6 identity.
 // Target/donor provenance: reverse/vp6_structural_evidence.json, huffman_scalar.
 // Authored from target disassembly; source-handoff body text is not imported.

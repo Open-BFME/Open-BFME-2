@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // STLport 4.5.3 Win32 locale helper: rewrites a GetLocaleInfoA date picture (dd, MMM, yyyy) as
 // a strftime format in a static buffer. Called by _Locale_d_fmt and _Locale_long_d_fmt.
 

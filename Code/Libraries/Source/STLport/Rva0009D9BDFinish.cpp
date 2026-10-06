@@ -1,5 +1,5 @@
 // ?rva0009D9BD@Rva0009D9BD@@QAEXXZ
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB
+// cl: /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva0009D9BD@Rva0009D9BD@@QAEXXZ, retail 0x0009D9BD, 64 bytes.
 // Index loop over vector<void*> at +0x1C0 via rowed thunk 0x000518E0

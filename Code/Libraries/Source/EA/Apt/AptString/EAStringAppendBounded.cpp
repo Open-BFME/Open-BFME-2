@@ -1,5 +1,5 @@
 // ?bfmeAppendVKG@BfmeBufVKG@@QAEPAV1@PBDI@Z
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 #pragma intrinsic(memcpy)

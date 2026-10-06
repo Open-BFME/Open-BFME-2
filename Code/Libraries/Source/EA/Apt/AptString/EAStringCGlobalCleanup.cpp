@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Target-only reconstruction. The names of the static strings are unknown.
 // Ghidra proves the complete 10B boundary at 0x007B9C30. Its registered
 // atexit callback (pushed at 0x007B676A) releases the EAStringC at VA

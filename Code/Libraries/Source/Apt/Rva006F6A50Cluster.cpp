@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Apt display-list / AptCIH neighbourhood cluster at 0x006F6A50.  Class
 // layouts come from the recovered BFME2 siblings in this directory

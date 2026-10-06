@@ -1,5 +1,5 @@
 // partial score=0.95 date=2026-10-03
-// cl: /O2 /MD
+// cl: /MD
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();

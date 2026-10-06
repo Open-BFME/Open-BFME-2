@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // EA Apt comparisons reconstructed from target operations using the existing
 // EAStringCFind layout. Original identities/const signatures: Godfather QA PDB.
 // Target stores a representation pointer at +0 and characters at rep+8.

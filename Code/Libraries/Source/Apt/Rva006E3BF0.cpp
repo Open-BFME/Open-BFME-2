@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva006E3BF0@Rva006E3BF0@@QAEXXZ @0x006E3BF0 74B
 // Pool teardown: release up to m_count non-null slots in order (early out

@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva006FE460@@UAE@XZ @0x006FE460 93B virtual dtor over rowed base.
 // Retail stores vtable 0x008EDE4C, calls slot1 on member at +0x20 if non-null,
 // nulls it unconditionally, then rowed base ??1Rva006D6470Owner at 0x006D6470

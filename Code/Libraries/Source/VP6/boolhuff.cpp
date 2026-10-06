@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // C++ reconstruction from retail boolean-encoder arithmetic and carry handling.
 // Names and 32-byte coder field interpretation are corroborated by donor PDB.
 // Source-handoff placements supplied candidate addresses; no source body imported.

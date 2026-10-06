@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006E34A0@Rva006E34A0@@QAEPAXI@Z, retail 0x006E34A0 (42B).
 // Array-owner release plus sized self-free: frees the array at +0 through
 // rowed Rva006CD460Free, then when the low flag bit is set frees this

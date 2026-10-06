@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // Microsoft Platform SDK GDI+ 1.0 GdiPlusGraphics.h inlines. Graphics carries
 // no vtable, so its two members sit at +0 and +4 and the constructor writes
 // lastResult before nativeGraphics - the order the retail body has.

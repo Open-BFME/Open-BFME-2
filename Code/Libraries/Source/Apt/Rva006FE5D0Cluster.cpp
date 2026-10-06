@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006FE5D0@AptBasePtrStack@@QAEPAVBfmeAptValue006DCD20@@XZ @0x006FE5D0 55B.
 // Checked single-element pop from the Apt base pointer stack: asserts
 // GetSize() >= 1 (_AptBasePtrStack.h line 0x110), then pre-decrements

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006E2A00@Rva006E2A00@@QAEPAV1@H@Z @0x006E2A00 size 101 — pooled clear plus single node free.
 // Evidence: calls 0x006F7C10 Clear on this, frees 0x1C data then 0x14 node via
 // g_pChainBlockAllocator freeBlock 0x006DB270, flag bit0 frees this size 8, returns this.

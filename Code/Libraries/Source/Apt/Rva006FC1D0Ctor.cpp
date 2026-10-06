@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva006FC1D0@@QAE@XZ @0x006FC1D0 102B. Apt-derived zero-arg ctor sibling of Rva006D6500.
 // Evidence: calls rowed ??0BfmeAptValue006DCD20@@QAE@H@Z (0x006DCCC0) with 0x23 and rowed
 // ??0AptNativeHash@@QAE@H@Z (0x0070A740) with 8 for member at +8; stores base vtable 0x008EA228

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva007062F0@AptBasePtrStack@@QAEPAVBfmeAptValue006DCD20@@XZ @0x007062F0 53B.
 // Recovers the base-class spelling of the Apt value ptr stack top getter from
 // the ?rva006DE160@AptValuePtrStack@@ recipe at 0x006DE160. Same operand-masked

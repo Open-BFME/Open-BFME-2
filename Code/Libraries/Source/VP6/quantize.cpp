@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Retail 64-coefficient squared reconstruction error, scaled by four.
 // Donor PDB supplies name/ABI; target arithmetic and zigzag table establish role.
 // Source-handoff placement guided discovery; original body text not imported.

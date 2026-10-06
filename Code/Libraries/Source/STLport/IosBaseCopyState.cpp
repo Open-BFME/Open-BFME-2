@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // stlport
 // STLport 4.5.3 ios_base::_M_copy_state and _Stl_copy_array (src/ios.cpp).
 // Ported from Open-BFME-1 5cae4bdff game/Libraries/Source/STLport/IosBaseCopyState.cpp

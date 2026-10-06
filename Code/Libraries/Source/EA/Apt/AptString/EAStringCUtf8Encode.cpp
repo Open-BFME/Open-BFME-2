@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva006D4190@EAStringC@@QAEXH@Z @0x006D4190 (225B). EAStringC single-codepoint
 // UTF-8 encode worker: writes the 1/2/3/4-byte UTF-8 form of the int code
 // point into the reserved internal buffer (+8), terminates, installs size via

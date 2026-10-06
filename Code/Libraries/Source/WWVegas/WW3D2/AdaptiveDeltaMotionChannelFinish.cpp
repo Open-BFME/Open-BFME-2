@@ -11,7 +11,7 @@
 // the flag load may not be hoisted above the member stores (retail loads it at
 // 0x195F80, after the last store at 0x195F7F), and the loop closes on a SIGNED
 // `jl` back-edge. See the comments at each site.
-// cl: /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /DNDEBUG /MD /EHsc
 #include "wwmath.h"
 static float filtertable[256] = { 0.00000001f, 0.0000001f, 0.000001f, 0.00001f, 0.0001f, 0.001f, 0.01f, 0.1f, 1.0f, 10.0f, 100.0f, 1000.0f, 10000.0f, 100000.0f, 1000000.0f, 10000000.0f };
 static bool table_valid = false;

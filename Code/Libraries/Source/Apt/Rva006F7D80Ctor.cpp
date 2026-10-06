@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva006F7D80@@QAE@XZ @0x006F7D80 27B evidence stores vtable 0x008ED358 at +0 plus -1 at +4 and zeros at +0xC +0x10 +0x14; callers 0x006F8808 0x006F883F
 extern const void *const g_00CED358[];
 class Rva006F7D80

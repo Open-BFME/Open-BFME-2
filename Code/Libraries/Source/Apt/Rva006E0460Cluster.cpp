@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Rva006E0460::rva006e0460 at 0x006E0460, 50 bytes. Address-derived cleanup
 // worker: it releases the object at +0x4C through vtable slot 2 (skipping the

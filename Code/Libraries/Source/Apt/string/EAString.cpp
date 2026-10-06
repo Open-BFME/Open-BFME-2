@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // One body carried from Open-BFME-1's game/Libraries/Source/Apt/string/
 // EAString.cpp (BFME 1 RVA 0x0089EFE0), whose bytes reappear in game.dat at

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva006E24E0@AptCIH@@QBE_NXZ, retail 0x006E24E0, 116 bytes.
 // Target evidence: this+0x4C holds a field whose +0x24 pointer is tail-called

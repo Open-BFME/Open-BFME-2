@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // AptDisplayList.cpp node-create insert at retail 0x006F6E00 (199 bytes).
 // Allocates the 0x60-byte display-list node through the 0xE176F4 pool
 // (Rva006D2A60::allocBlock), constructs Rva006CBDE0(type, p1, 0), checks the

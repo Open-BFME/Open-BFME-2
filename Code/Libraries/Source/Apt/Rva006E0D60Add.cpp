@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006E0D60@Rva006E0D60@@QAEXPAVAptValue@@@Z, retail 0x006E0D60, 63 bytes.
 // AptSet word add storing arg then AddRef with m_nElements/m_nSize guard.
 // Evidence: unlock lane unblocking 4 callers; AddRef virtual slot 0 via

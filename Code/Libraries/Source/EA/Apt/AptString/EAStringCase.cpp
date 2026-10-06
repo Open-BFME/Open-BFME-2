@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 
 extern "C" char *__cdecl _strlwr(char *);
 extern "C" char *__cdecl _strupr(char *);

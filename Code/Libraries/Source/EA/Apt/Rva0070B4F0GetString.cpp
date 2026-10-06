@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0070B4F0GetString@@YAPAV..., retail 0x0070B4F0 (58B).
 // StringPool constant accessor: asserts saConstant[eSC] non-empty via StringPool.inl:42 then returns its address.
 // Evidence: own immediates "saConstant[eSC].IsEmpty() == false" + ".\string\StringPool.inl" line 0x2A;

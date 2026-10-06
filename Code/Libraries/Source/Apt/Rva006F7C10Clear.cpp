@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva006F7C10@Rva006F7C10@@QAEXXZ retail 0x006F7C10 83B.
 // Pooled list clear: walks Holder+8 list freeing each node's 0x1C data block

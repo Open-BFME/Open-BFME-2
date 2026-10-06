@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Retail raw-image debug writers reconstructed from calls, literals and loops.
 // Function spellings come from the matching source-handoff debug.c object,
 // not from target symbols or a donor PDB name record. No source body imported.

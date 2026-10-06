@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006E0AC0@Rva006E0AC0@@QAEHXZ retail 0x006E0AC0 96B
 // Evidence: virtual slot 0xC returns hash with flags at +0x10 like AptCIH neighbours; loop over 8-byte table 0xDDC2E8-0xDDC370 via GetString and AptValue findChild; caller 0x006E2EE0
 struct AptNativeHash

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two 95-byte AptCIH flag workers, address-derived as their identity is not
 // recovered. Both assert "isSpriteInstBase()" at AptCIH.h:125, then set or

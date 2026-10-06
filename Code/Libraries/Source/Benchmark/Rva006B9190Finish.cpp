@@ -1,5 +1,5 @@
 // ?AddSubInternalFPF@@YAXEPAUInternalFPF@@00@Z
-// cl: /O2 /GS /MD /GR- /EHsc- -Ireference/shims/nbench
+// cl: /GS /MD /GR- /EHsc- -Ireference/shims/nbench
 // BYTEmark emfloat.c AddSubInternalFPF (838 B @0x006B9190). Previous banked
 // attempt reached 836/838: the only residual was the inlined IsMantissaZero
 // OR-reduction, where retail folds the four mantissa words in the order

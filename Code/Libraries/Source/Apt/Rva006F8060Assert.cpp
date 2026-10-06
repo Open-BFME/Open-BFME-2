@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006F8060@Rva006F8060@@QAEPAV1@H@Z @0x006F8060 size 91 — assert head defined then virtual slot 8.
 // Evidence: isUndefined 0x006DC010 on [this], assert line 0x8A4 cond pHead->isUndefined(),
 // clear [head+0x4C], virtual [edx+8], flag bit0 pool-free this size 4, return this.

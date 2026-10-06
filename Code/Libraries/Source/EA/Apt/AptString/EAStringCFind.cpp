@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Find@EAStringC@@QAEHDH@Z, retail 0x006D38E0 (62B). Ported from Open-BFME-1
 // Code/Libraries/Source/EA/Apt/AptString/EAStringCFind.cpp (BFME1 0x0089E230).
 // Trimmed to the placed char-find body; the string-find overload is

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva006F7C70Free@@YGXPAURva006F7C70Item@@@Z @0x006F7C70 215B evidence AptDisplayList unlink asserts plus 0x1C/0x14 pool free via rowed 0x006DB270; callers at 0x006F8380
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;

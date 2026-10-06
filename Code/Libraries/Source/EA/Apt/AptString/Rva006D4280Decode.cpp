@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva006d4280@@YAPBDPBDPAH@Z, retail 0x006D4280, 868 bytes.
 // UTF-8 one-codepoint decoder: returns the pointer past one sequence and

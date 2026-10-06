@@ -1,5 +1,5 @@
 // ?rva008B8F80AtoiOrZero@@YAHPBD@Z
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // Static ESI-arg helper: true when atoi(text) is nonzero, or when atoi
 // returns 0 and the first character is '0'.
 

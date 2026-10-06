@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Reference: Open-BFME-1@6583b3c1ff21db4a561285717028fdafc780b7db,
 // game/Libraries/Source/Lua/Rva00997C60Truthy.cpp (whole one-body donor).
 // Target 0x0074EDC0 is a complete 25-byte entry: RET/int3 before its aligned

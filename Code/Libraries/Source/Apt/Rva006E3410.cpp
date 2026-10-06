@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva006E3410@Rva006E3410@@QAEHH@Z @0x006E3410 70B
 // Linear search of an int array, returning the index or -1: if count > 0

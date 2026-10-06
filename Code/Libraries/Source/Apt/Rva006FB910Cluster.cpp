@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006FB910@Rva006FB860@@QAEAAXXZ @0x006FB910 70B.
 //
 // A member of the Apt object reached through the global at VA 0x00E176D0, the

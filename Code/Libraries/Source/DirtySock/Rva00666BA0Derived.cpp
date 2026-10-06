@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque DirtySock destructors tail-calling the shared base at 0x00666BA0.
 // The base is only declared here (defined in Rva00666BA0Dtor.cpp) so the

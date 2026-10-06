@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006E0EB0@Rva006E0EB0@@QAEPAXI@Z @ 0x006E0EB0 74B
 // Honest address name: __thiscall teardown plus conditional pool free.
 // Target evidence: retail clears +0/+8/+0xC frees array at +4 size 0x1C via

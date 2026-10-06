@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // AggregateDefClass::Load_W3D. BFME1 clean donor revision
 // 5cae4bdffcc0fb2dd6f0a2a6c1a7328bd0fb0cfc, game/Libraries/Source/WWVegas/WW3D2/agg_def.cpp.
 // Target vtable VA 0x00BD6C70 slot +4 identifies retail RVA 0x001A3350.

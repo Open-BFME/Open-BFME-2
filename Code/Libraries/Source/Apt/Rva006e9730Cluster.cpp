@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Address-derived recovery of 0x006E9730 (102B), an Apt string-factory helper.
 // Retail: AptString::Create() 0x006D7210, then the first argument's by-value
 // EAStringC toString 0x006DDDE0 (373B, unrowed; hidden return pointer is the

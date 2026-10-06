@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ??1Rva0070A840@@QAE@XZ @0x0070A840 (111B).
 // Hash dtor over count at +0 and 8-byte entries at +4: for each entry whose

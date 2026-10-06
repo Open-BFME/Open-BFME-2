@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // EAStringC::rva006d5e70 at 0x006D5E70, 22 bytes. Address-derived thin worker:
 // it hands the string's UTF-8 payload (m_pData + 8, the layout the rowed

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?utf8EncodedLength@@YAHH@Z @0x006D3DB0 (133B). UTF-8 encoded length of a
 // code point with BFME2 validation. Donor is open-bfme-1
 // Code/Libraries/Source/EA/Apt/AptString/utf8EncodedLength.cpp

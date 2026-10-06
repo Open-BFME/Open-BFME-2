@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva006d4ca0@@YAHPBD@Z @0x006D4CA0 (151B). UTF-8 lead-byte sequence-size
 // worker: retail first runs the lead-byte codepoint decoder (rva006d3e40

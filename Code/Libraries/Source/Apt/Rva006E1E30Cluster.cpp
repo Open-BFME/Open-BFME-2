@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?rva006E1E30@Rva006E1E30@@QAEXPAURva006F9FC0Rect@@@Z, retail 0x006E1E30
 // (197 bytes).  Bounding-box builder for an AptCIH node: seed a 24-byte

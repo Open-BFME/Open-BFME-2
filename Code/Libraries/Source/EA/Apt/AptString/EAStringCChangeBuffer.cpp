@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?ChangeBuffer@EAStringC@@AAEXIIIW4CBPushZero@1@I@Z, retail 0x006D4AA0 (336B,
 // abuts Assign at 0x006D4BF0). BFME2 rewrite of the BFME1 EAStringCMid.cpp
 // donor: two range asserts (EAString.cpp lines 0x7DD/0x7DE) plus Reserve,

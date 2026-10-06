@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006E3710@Rva006E3710@@QAE_NPAURva006E3710Node@@@Z @0x006E3710 39B.
 // Walks a singly linked list via +0x48 looking for the pointer at this+0x9c.
 // Evidence: unlock lane packet; ret 4 with ecx use implies __thiscall method;

@@ -2,7 +2,7 @@
 // partial score=0.95 date=2026-10-03
 // rva000B65FD
 // partial score=0.95 date=2026-10-03
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva000B65FD@Rva000B65FD@@QAEHXZ, retail 0x000B65FD, 23B.
 // Base at +8 plus nullable word at +4 of object reached via double
 // dereference at +0xC. Callers 0x000B956A 0x000BDC8F. Honest address name.

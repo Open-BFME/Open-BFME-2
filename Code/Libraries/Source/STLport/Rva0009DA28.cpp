@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB
+// cl: /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?rva0009DA28@Rva0009D9BD@@QAEXXZ, retail 0x0009DA28, 19 bytes.

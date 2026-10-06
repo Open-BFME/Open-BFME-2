@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Address-derived Apt hash lookup helper at 0x0070B380 (133B). The body hashes
 // the key through the rowed ?rva006D3D10@EAStringC@@QBEGXZ (0x006D3D10), and
 // when the +4 map exists looks the key up through the private callee pinned at

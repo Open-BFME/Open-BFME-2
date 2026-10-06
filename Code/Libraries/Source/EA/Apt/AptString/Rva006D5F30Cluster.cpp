@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // EAStringC UTF-8 cursor workers on the 0x006D5F30 row, next to the rowed
 // EAStringC::Mid bodies (EAStringCMid.cpp) they forward to. Flags match
