@@ -15,6 +15,8 @@
 
 struct FieldParse;
 
+class ModuleData;
+
 class INI
 {
 public:
@@ -41,14 +43,14 @@ template <class T> class allocator
 };
 template <class T, class A> class list;
 template <class T, class A> class vector;
-template <> class vector<const Rva0041F524Member *, allocator<const Rva0041F524Member *> >
+template <> class vector<const ModuleData *, allocator<const ModuleData *> >
 {
 public:
-	void push_back(const Rva0041F524Member *const &x);
+	void push_back(const ModuleData *const &x);
 private:
-	const Rva0041F524Member **m_start;
-	const Rva0041F524Member **m_finish;
-	const Rva0041F524Member **m_endOfStorage;
+	const ModuleData **m_start;
+	const ModuleData **m_finish;
+	const ModuleData **m_endOfStorage;
 };
 template <> class list<int, allocator<int> >
 {
@@ -79,7 +81,7 @@ struct Rva0048E022Owner
 struct Rva0041F524Army
 {
 	unsigned char m_unreconstructed_00[4];
-	_STL::vector<const Rva0041F524Member *, _STL::allocator<const Rva0041F524Member *> > m_members;	// +0x04
+	_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > m_members;	// +0x04
 };
 
 void *__cdecl operator new(unsigned int size);
@@ -99,5 +101,5 @@ void INI::Rva0041F524_ParseArmyMember(INI *ini, void *instance, void *, const vo
 	Rva0041F524Member *member = new Rva0041F524Member;
 	const Rva0041F524Member *entry = member;
 	ini->initFromINI(member, g_00C3B000);
-	((Rva0041F524Army *)instance)->m_members.push_back(entry);
+	((Rva0041F524Army *)instance)->m_members.push_back(*(const ModuleData * const *)&entry);
 }
