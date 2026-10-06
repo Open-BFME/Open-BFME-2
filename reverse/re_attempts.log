@@ -13964,3 +13964,11 @@ FUN_0063e3ce	0x0023E3CE	602	blocked	EH-prolog large-frame MapCache body t=1 mode
 ?Rva00318ABBParse@@YAXPAVINI@@@Z	0x00318ABB	78	blocked	ref free INI-parse-plus-tailjmp needs AsciiString-global-types plus FieldParse-table plus GlobalWeatherSystem-plus-8-virtual-slot14 full RE t=10 model=muse-12
 ?rva0036B103@Rva0036B103@@QAEXXZ	0x0036B103	10	blocked	ghidra 10B vs 1124B to-next-start EH-prolog slot0 GiantBirdAIUpdate likely over-1000B wall t=3 model=muse-12
 ?doSpecialPowerAtObject@SpecialPowerModule@@UAEXPAVObject@@I@Z	0x004C504E	338	blocked	slot11 AtObject proven via neighbour AtLocation plus decl-order plus Object-plus-0x250 plus ret8 plus ZH donor AtObject needs MI-minus-8-minus-10-c plus Defector-0x27 plus status plus BitFlags substantial reconstruction t=12 model=muse-12
+?Rva0056D7A4Movie@@YAXPAXPBDPAVGameWindow@@@Z	0x0056D7A4	369	partial	esi edi swapped throughout plus cmp al bl vs test al al plus msg base shift plus window store t=25 model=muse-03 score=0.93 stash=reverse/attempts/0x0056d7a4.cpp
+?Rva0038BE17Callback@@YAXPAXPBD11W4MessageType@@00@Z	0x0038BE17	583	blocked	large 583B GameSpy PeerThread STL wide narrow callback needs donor investigation t=5 model=muse-03
+?rva005CDC4A@Rva005CDB8F@@QAEPAPAXPAPAX@Z	0x005CDC4A	69	blocked	needs EH inline ctor TU split would duplicate vtable central t=10 model=muse-03
+?rva001E681D@Rva001E681D@@QAEXXZ	0x001E681D	66	blocked	STL map iterator loop emits 136B vs 66B retail, retail walks nodes directly t=10 model=muse
+?rva005CD737@Rva005CD737@@QAEEPAX@Z	0x005CD737	43	partial	volatile forces reload to match regs but tail 46B vs 43B: mov [esi+4],1 immediate vs retail mov [esi+4],al plus shared epilogue via jmp t=25 model=muse score=0.93 stash=reverse/attempts/0x005cd737.cpp
+?rva005CD242@Rva005CD242@@QAEXXZ	0x005CD242	21	partial	mov ecx,esi/push eax order swapped vs retail, all local-alias and unsigned-getter variants same t=20 model=muse score=0.95 stash=reverse/attempts/0x005cd242.cpp
+?rva005CD737@Rva005CD737@@QAEEPAX@Z	0x005CD737	43	partial	if-else gives jne plus mov [esi+4],al but tail 45B vs 43B duplicated pop-ret vs jmp t=15 model=muse score=0.95 stash=reverse/attempts/0x005cd737.cpp
+?rva0047A729@Rva0047A729@@QAEXXZ	0x0047A729	85	blocked	complex 85B AODHordeContain array-shift insert with 16B movsd loop and 12B param copy needs Element16 reconstruction t=10 model=muse
