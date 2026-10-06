@@ -64517,3 +64517,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva00098565@Rva00098667Product@@QAEXXZ,,0x00098565,14,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00098565Slot.cpp,matched,vslot9 of 0x007C8358 via Copy row and tail dword
 ?rva005EC46F@Rva005EC46F@@QAEXXZ,,0x005EC46F,59,Code/GameEngine/Source/Common/Rva005EC46FState.cpp,matched,unlocks 0x005EC4AF via switch 2 4 5
 ??1Rva005D1129Pointer@@QAE@XZ,,0x005EC4AF,7,Code/GameEngine/Source/Common/Rva005EC4AFDtor.cpp,matched,chain from 0x005EC46F forwarder via m_ptr
+?rva005E917A@Rva005E917A@@QAEXXZ,,0x005E917A,47,Code/GameEngine/Source/Common/Rva005E9137Check.cpp,matched,chain on 0x005E9137 via MessageStreamSubsystem slot 0x48
