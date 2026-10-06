@@ -11506,3 +11506,10 @@ FUN_00914fe9	0x00514FE9	88	blocked	ADDRESS-NAMED g_Va00A01E48 escape hatch t=1 m
 ?Helper@Rva005B6967Box@@QAEXXZ	0x005B6755	474	blocked	complex 474B EH STL sort+vector copy with SSE scale GameText fetchLabel and dual AddEntryText needs full layout count-before-copy and arch SSE t=15 model=muse-06
 ?rva004787B0@GarrisonContain@@QAEXXZ	0x004787B0	160	partial	missing second test-edi plus jle and cmp-mem-vs-mov-test payload plus extra mov t=18 model=muse-12 score=0.94 stash=reverse/attempts/0x004787b0.cpp
 ?Rva0041CB10Check@@YG_NPAVObject@@PBVCoord3D@@@Z	0x0041CB10	341	blocked	ADDRESS-NAMED g_Va009FF0F8 escape hatch skip t=2 model=muse-12
+?rva003B07B8@Rva003B0401@@QAEXXZ	0x003B07B8	125	blocked	store-load order swapped ours mov ebp-8 ecx then mov eax eax+8 test vs retail mov eax eax+8 test mov ebp-8 ecx tried swap ternary alias ptr t=18 model=muse-02 (stash 0.96 kept)
+?Rva006CDF60Shutdown@@YAXXZ	0x006CDF60	284	blocked	mov direction esi-ecx swapped for both pool cleanups t=45 model=muse-02 (stash 0.96 kept)
+?Rva000F0842Get@@YAHXZ	0x000F0842	208	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused t=2 model=muse-02
+?Rva002080DAXferList@@YAPAVXfer@@PAV1@PAV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z	0x002080DA	237	partial	exact size 237 no structural 9 frame slot diffs sub esp 0x10 vs 0x1c value in arg slot vs frame string swapped t=35 model=muse-02 score=0.92 stash=reverse/attempts/0x002080da.cpp
+?Rva002080DAXferList@@YAPAVXfer@@PAV1@PAV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z	0x002080DA	237	blocked	value before empty check worse 235B structural t=10 model=muse-02 (stash 0.92 kept)
+?rva004F2ABC@Rva004F2ABC@@QAEXHH@Z	0x004F2ABC	306	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va009FE16C g_Va007C26F0 new uses refused t=2 model=muse-02
+?rva002A9072@Rva002A9072@@QAEXXZ	0x002A9072	206	blocked	multi-container clear tree plus 3 vectors plus 5 globals needs donor layout no sibling t=5 model=muse-02
