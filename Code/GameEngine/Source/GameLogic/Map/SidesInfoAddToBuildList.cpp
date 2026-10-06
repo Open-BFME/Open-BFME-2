@@ -9,9 +9,6 @@ typedef int Int;
 class BuildListInfo
 {
 public:
-	BuildListInfo *getNext() { return m_next; }
-	void setNextBuildList(BuildListInfo *n) { m_next = n; }
-private:
 	char m_pad[0x2c];
 	BuildListInfo *m_next;
 };
@@ -32,18 +29,18 @@ void SidesInfo::addToBuildList(BuildListInfo *pBuildList, Int position)
 		if (pCur == 0) {
 			pCur = m_pBuildList;
 		} else {
-			if (pCur->getNext()) {
-				pCur = pCur->getNext();
+			if (pCur->m_next) {
+				pCur = pCur->m_next;
 			} else {
 				break;
 			}
 		}
 	}
 	if (pCur == 0) {
-		pBuildList->setNextBuildList(m_pBuildList);
+		pBuildList->m_next = m_pBuildList;
 		m_pBuildList = pBuildList;
 	} else {
-		pBuildList->setNextBuildList(pCur->getNext());
-		pCur->setNextBuildList(pBuildList);
+		pBuildList->m_next = pCur->m_next;
+		pCur->m_next = pBuildList;
 	}
 }
