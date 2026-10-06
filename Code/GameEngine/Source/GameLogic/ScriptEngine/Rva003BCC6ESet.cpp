@@ -7,9 +7,9 @@ public:
 	unsigned char m_pad[0x1a4d6];
 	unsigned char m_1a4d6;
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003BCC6ESet(bool b)
 {
-	g_Va009FE16C->m_1a4d6 = b;
+	TheScriptEngine->m_1a4d6 = b;
 }

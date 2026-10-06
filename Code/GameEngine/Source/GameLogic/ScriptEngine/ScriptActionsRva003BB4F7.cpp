@@ -14,10 +14,10 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 void __stdcall Rva003BB4F7Kill(Parameter *p)
 {
-	Object *o = g_Va009FE16C->getUnitNamed(p);
+	Object *o = TheScriptEngine->getUnitNamed(p);
 	if (!o)
 		return;
 	o->kill((DamageType)8, (DeathType)0);

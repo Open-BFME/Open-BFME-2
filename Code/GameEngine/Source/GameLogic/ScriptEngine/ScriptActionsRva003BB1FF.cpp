@@ -23,14 +23,14 @@ public:
 	Object *getUnitNamed(Parameter *p);
 	const AttackPriorityInfo *getAttackInfo(const AsciiString &name);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 void __stdcall Rva003BB1FFAttack(Parameter *unit, const AsciiString &infoName)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(unit);
+	Object *obj = TheScriptEngine->getUnitNamed(unit);
 	if (obj == 0)
 		return;
 	AIUpdateInterface *ai = obj->m_ai258;
 	if (ai == 0)
 		return;
-	ai->m_info70 = g_Va009FE16C->getAttackInfo(infoName);
+	ai->m_info70 = TheScriptEngine->getAttackInfo(infoName);
 }

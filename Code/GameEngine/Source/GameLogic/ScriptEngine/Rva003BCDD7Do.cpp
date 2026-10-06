@@ -39,11 +39,11 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *param);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003BCDD7Do(Parameter *param)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(param);
+	Object *obj = TheScriptEngine->getUnitNamed(param);
 	if (!obj)
 		return;
 	static NameKeyType gateKey = TheNameKeyGenerator->nameToKey("GateOpenAndCloseBehavior");

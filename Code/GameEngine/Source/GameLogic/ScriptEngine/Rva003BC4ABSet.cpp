@@ -8,7 +8,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 class ThingTemplate;
 enum BuildableStatus
@@ -24,7 +24,7 @@ extern GameLogic *TheGameLogic;
 
 void __stdcall Rva003BC4ABSet(const AsciiString &name, int status)
 {
-	void *tt = g_009FF000->rva002D06CA(&name);
+	void *tt = TheThingFactory->rva002D06CA(&name);
 	if (tt == 0)
 		return;
 	TheGameLogic->setBuildableStatusOverride((const ThingTemplate *)tt, (BuildableStatus)status);

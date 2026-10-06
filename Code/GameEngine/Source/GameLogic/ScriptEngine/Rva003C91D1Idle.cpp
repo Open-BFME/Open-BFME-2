@@ -37,11 +37,11 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *param);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003C91D1Idle(Parameter *param)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(param);
+	Object *obj = TheScriptEngine->getUnitNamed(param);
 	if (!obj)
 		return;
 	AIUpdateInterface *ai = obj->getAI();

@@ -103,7 +103,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 extern AsciiString g_009E0878;
 
 class ThingTemplate
@@ -171,7 +171,7 @@ void StealthUpdate::xfer(Xfer *xfer)
 	if (xfer->IsLoading()) {
 		m_disguiseAsTemplate = NULL;
 		if (!tmp.isEmpty()) {
-			m_disguiseAsTemplate = (const ThingTemplate *)g_009FF000->rva002D06CA(&tmp);
+			m_disguiseAsTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA(&tmp);
 			if (m_disguiseAsTemplate == NULL) {
 				bfmeFormatText(&error, 5, 0);
 				_CxxThrowException(&error, (const _s__ThrowInfo *)&g_rva008ffd18ThrowInfo); __assume(0);

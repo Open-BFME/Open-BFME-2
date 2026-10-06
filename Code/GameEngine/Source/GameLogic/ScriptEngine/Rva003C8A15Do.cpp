@@ -65,12 +65,12 @@ public:
 	const Coord3D *location() const { return (const Coord3D *)((const char *)this + 0x0c); }
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003C8A15Do(Parameter *unitParam, const AsciiString &areaName, const AsciiString &wayName)
 {
-	PolygonTrigger *area = g_Va009FE16C->getQualifiedTriggerAreaByName(areaName);
-	Object *obj = g_Va009FE16C->getUnitNamed(unitParam);
+	PolygonTrigger *area = TheScriptEngine->getQualifiedTriggerAreaByName(areaName);
+	Object *obj = TheScriptEngine->getUnitNamed(unitParam);
 	if (!obj)
 		return;
 	if (!obj->getAI())

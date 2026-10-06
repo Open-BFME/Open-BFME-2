@@ -23,7 +23,7 @@ class ScriptEngine
 public:
 	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 class PlayerList
 {
 public:
@@ -33,7 +33,7 @@ extern PlayerList *ThePlayerList;
 
 void __stdcall Rva003BC830Clear(const AsciiString &name)
 {
-	int mask = g_Va009FE16C->rva00357475(name, 0);
+	int mask = TheScriptEngine->rva00357475(name, 0);
 	if (mask == 0)
 		return;
 	Player *p;
@@ -46,7 +46,7 @@ void __stdcall Rva003BC830Clear(const AsciiString &name)
 
 void __stdcall Rva003BB2DFClear(const AsciiString &name)
 {
-	int mask = g_Va009FE16C->rva00357475(name, 0);
+	int mask = TheScriptEngine->rva00357475(name, 0);
 	if (mask == 0)
 		return;
 	Player *p;
@@ -59,7 +59,7 @@ void __stdcall Rva003BB2DFClear(const AsciiString &name)
 
 void __stdcall Rva003BB518Clear(const AsciiString &name)
 {
-	int mask = g_Va009FE16C->rva00357475(name, 0);
+	int mask = TheScriptEngine->rva00357475(name, 0);
 	if (mask == 0)
 		return;
 	Player *p;

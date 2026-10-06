@@ -36,7 +36,6 @@ public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	~UpdateModule();
 };
-extern float g_Va00BBB8D8;
 class DynamicShroudClearingRangeUpdate : public UpdateModule {
 public:
 	void rva0048B256();
@@ -74,7 +73,7 @@ void DynamicShroudClearingRangeUpdate::rva0048B256()
 	doubled += span;
 	float radius = m_currentClearingRange + doubled;
 	float angle = 0.0f;
-	float opacity = g_Va00BBB8D8 - (m_currentClearingRange / m_nativeClearingRange);
+	float opacity = 1.0f - (m_currentClearingRange / m_nativeClearingRange);
 	RadiusDecal *decal = m_gridDecal;
 	int left = 30;
 	do {

@@ -28,12 +28,12 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 extern int g_Va00DBA4E4;
 extern int g_00E02D9C;
 void __stdcall Rva003BB5B7Do(Parameter *p, int v, RGBColor *c)
 {
-	Object *o = g_Va009FE16C->getUnitNamed(p);
+	Object *o = TheScriptEngine->getUnitNamed(p);
 	if (!o)
 		return;
 	Drawable *d = ((Thing *)o)->getDrawable();

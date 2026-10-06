@@ -29,7 +29,7 @@ public:
     char m_pad[0x10];
     Pathfinder *m_pathfinder;
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 class Pathfinder {
 public:
     int rva002EE96B(Coord3D *a, const Coord3D *b);
@@ -55,7 +55,7 @@ int Weapon::rva002CB9BD(const Object *source, const Coord3D *pos, const Object *
     if (v != 0) {
         FlagBlock *blk = *(FlagBlock **)((char *)v + 4);
         if ((blk->m_flags & 0x10) != 0) {
-            AI *ai = g_Va009FF0F8;
+            AI *ai = TheAI;
             if (ai != 0) {
                 Pathfinder *pf = ai->m_pathfinder;
                 if (pf != 0) {

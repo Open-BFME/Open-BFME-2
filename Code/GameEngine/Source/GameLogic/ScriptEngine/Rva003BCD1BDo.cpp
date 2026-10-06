@@ -43,11 +43,11 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *param);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003BCD1BDo(Parameter *param)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(param);
+	Object *obj = TheScriptEngine->getUnitNamed(param);
 	if (obj == 0)
 		return;
 	SpecialPowerModuleInterface *sp = obj->findSpecialPowerModuleInterface((SpecialPowerType)0x2d);

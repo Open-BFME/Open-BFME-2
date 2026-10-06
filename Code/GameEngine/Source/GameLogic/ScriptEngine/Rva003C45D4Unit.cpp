@@ -16,7 +16,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *param);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 enum NameKeyType
 {
@@ -55,7 +55,7 @@ struct UnitLink264
 
 void __stdcall Rva003C45D4Apply(Parameter *param, const AsciiString &name)
 {
-	Object *unit = g_Va009FE16C->getUnitNamed(param);
+	Object *unit = TheScriptEngine->getUnitNamed(param);
 	if (!unit)
 		return;
 	int key = TheNameKeyGenerator->nameToKey(name);

@@ -11,14 +11,14 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 namespace Rva002EFB20
 {
 void __cdecl helper(void *, bool);
 }
 void __stdcall Rva003BC2E4Do(Parameter *param, bool flag)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(param);
+	Object *obj = TheScriptEngine->getUnitNamed(param);
 	if (obj)
 		Rva002EFB20::helper(obj, flag);
 }
