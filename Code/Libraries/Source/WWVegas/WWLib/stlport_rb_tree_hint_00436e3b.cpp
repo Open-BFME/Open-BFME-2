@@ -67,3 +67,10 @@ template MapInsert00436e3b::iterator MapInsert00436e3b::insert(MapInsert00436e3b
 template void _STL::_Construct<TreeHintOpaque0043671B,TreeHintOpaque0043671B>(TreeHintOpaque0043671B*, const TreeHintOpaque0043671B&);
 
 template TreeHintOpaque0043671B &MapInsert00436e3b::operator[](const AsciiString &);
+
+// Retail Ghidra entry 0x00435CE0 is 25 bytes and ends at RET. Its REL32 at
+// +0xF calls the rowed tree constructor 0x00434C3D. The neighboring 0x00436E3B
+// insertion chain supports the AsciiString to TreeHint map specialization.
+template _STL::map<AsciiString, TreeHintOpaque0043671B,
+    _STL::less<AsciiString>,
+    _STL::allocator<TreeHintPair0043671B> >::map();
