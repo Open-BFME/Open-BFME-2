@@ -1435,6 +1435,11 @@ void PostToLanGameOptions( PostToLanGameType post )
 
 // chatSystemColor: matched references place it at VA 0xdba760 (retail .data initial value -1).
 extern const int chatSystemColor = -1;
+// Its Zero Hour neighbours (LANAPICallbacks.cpp's chat color table, retail initial values
+// GameMakeColor(255,0,255,255) and (128,255,255,255)), which LANAPI::OnChat reads at VA
+// 0xdba754 and 0xdba75c.
+extern const int chatActionColor = 0xFFFF00FF;
+extern const int chatLocalActionColor = 0xFF80FFFF;
 
 // ?rva0057DFFB@Rva0057DFFB@@QAE_N_N@Z @0x0057DFFB 65B
 // Retail boundary 0x0057DFFB..0x0057E03B. thiscall taking one stack bool,
