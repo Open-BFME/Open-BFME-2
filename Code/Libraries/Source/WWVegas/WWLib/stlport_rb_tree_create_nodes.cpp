@@ -261,3 +261,79 @@ template class _STL::_Rb_tree<int,_STL::pair<int const ,BfmePod24>,_STL::_Select
 // Whole-class instantiation of this tree. It reproduces _M_insert (retail 0x00426016)
 // byte for byte; their calls read the tree's matched STL helpers.
 template class _STL::_Rb_tree<int,_STL::pair<int const ,BfmePod52>,_STL::_Select1st<_STL::pair<int const ,BfmePod52> >,_STL::less<int>,_STL::allocator<_STL::pair<int const ,BfmePod52> > >;
+
+// ?rva00417DFB@Rva00417DFB@@QAEXPAVINI@@PAX@Z @0x00417DFB 234B
+// Bitstring-list INI driver, same shape as the KindOf driver Rva00256499
+// (System/Rva00256499Parse.cpp) and its twins. The worker is the rowed
+// 0x00417C23 single-token worker; Append, Tok, INI and the empty string
+// mirror the prototype TU (undefined externals).
+class INI
+{
+public:
+	const char *rva0002DFE2(const char *seps, bool *substituted);
+};
+
+class Rva0033B84ETok
+{
+public:
+	Rva0033B84ETok(const char *s);
+	~Rva0033B84ETok();
+	Rva0033B84ETok() : m_data(0) {}
+	const char *str() const { return m_data ? (const char *)m_data + 8 : ""; }
+	bool nextToken(Rva0033B84ETok *out, const char *seps);
+	void reset();
+
+private:
+	void *m_data;
+};
+
+extern const char g_Rva0107301CEmptyString[];
+
+__forceinline const char *GetStr00417DFB(const Rva0033B84ETok &s)
+{
+	char *t = *(char * *)(void *)&s;
+	return t ? t + 8 : g_Rva0107301CEmptyString;
+}
+
+class Rva00417C23
+{
+public:
+	bool rva00417C23(const char *token, bool *foundNormal, bool *foundAddOrSub);
+};
+
+class Rva00417DFB : public Rva00417C23
+{
+public:
+	void rva00417DFB(INI *ini, void *extra);
+	void rva00417DFBAppend(const char *s, Rva0033B84ETok *b);
+};
+
+void Rva00417DFB::rva00417DFB(INI *ini, void *extra)
+{
+	Rva0033B84ETok *accum = (Rva0033B84ETok *)extra;
+	if (accum != 0)
+		accum->reset();
+
+	bool foundNormal = false;
+	bool foundAddOrSub = false;
+	bool wasQuoted = false;
+
+	const char *token;
+	while ((token = ini->rva0002DFE2(0, &wasQuoted)) != 0) {
+		if (wasQuoted) {
+			Rva0033B84ETok tmp(token);
+			Rva0033B84ETok part;
+			while (tmp.nextToken(&part, 0)) {
+				const char *s = GetStr00417DFB(part);
+				rva00417DFBAppend(s, accum);
+				if (!rva00417C23(s, &foundNormal, &foundAddOrSub))
+					break;
+			}
+			wasQuoted = false;
+		} else {
+			rva00417DFBAppend(token, accum);
+			if (!rva00417C23(token, &foundNormal, &foundAddOrSub))
+				break;
+		}
+	}
+}
