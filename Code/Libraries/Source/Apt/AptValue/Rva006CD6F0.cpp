@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva006CD6F0Get@@YAXPAPAX0@Z, retail 0x006CD6F0, 171B.
 // Apt bInitialized-guarded animation-inst data getter with two void** outs.

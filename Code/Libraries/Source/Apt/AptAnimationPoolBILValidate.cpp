@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva006FA020Validate@@YA_NXZ @0x006FA020 224B. Global BIL button validation.
 // Evidence: unlock lane; AptAnimationPoolData layout count+0x10 list+0x14 stride28
 // shared with AptAnimationPoolDataBIL.cpp; assert lines 0x5D9/0x5E1 via

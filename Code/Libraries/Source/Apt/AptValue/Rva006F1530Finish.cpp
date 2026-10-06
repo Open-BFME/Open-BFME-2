@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva006F1530@@YAXPAVBfmeAptValue006DCD20@@@Z @0x006F1530 63B
 //
 // Apt predicate-to-bool conversion helper. Calls the rowed isXmlNode()

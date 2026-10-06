@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ActionScript opcode 0x30 handler. Stack assertions, value calls, and RNG
 // flow follow the retail body at 0x007020B0.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);

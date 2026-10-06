@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?PopAndPush@AptBasePtrStack@@QAEXHPAVBfmeAptValue006DCD20@@@Z @0x006FDFA0 162B
 // Pop-and-push single value: asserts nItems >= 0 (_AptBasePtrStack.h:201),
 // returns early when popping more than contained (:205 via shared Apt assert

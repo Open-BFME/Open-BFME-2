@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva006D6360@@QAE@HH@Z @0x006D6360 86B. Base Apt object ctor taking (type hashSize).
 // Evidence: stores vtable 0x008EA228; calls rowed ??0BfmeAptValue006DCD20@@QAE@H@Z (0x006DCCC0)
 // and rowed ??0AptNativeHash@@QAE@H@Z (0x0070A740); member AptNativeHash at +8 (size 0x14 total 0x1C);

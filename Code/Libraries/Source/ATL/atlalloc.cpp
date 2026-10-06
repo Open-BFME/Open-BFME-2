@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Microsoft Visual C++ .NET 2003 ATL 7.1 atlalloc.h: the buffer manager behind
 // _ATL_SAFE_ALLOCA. Its node is a next pointer plus four bytes of x86 padding,
 // which is the eight the retail Allocate adds to the request and the eight it

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Ported from the BFME1 AptValue::toInteger donor at
 // reference/open-bfme-1/game/Libraries/Source/EA/Apt/AptValueToInteger.cpp.
 // Target evidence: the +4 flags hold a signed 7-bit type and defined bit 4;

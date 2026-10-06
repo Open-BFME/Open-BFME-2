@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Source guide: audit94f4f7439c775c49-AptValueGCAllocator.cpp.
 // Native independently establishes pool-manager first pointer at+4; pool
 // next/size/unused at0/4/8 and payload+12. Bounds use unsigned addresses.

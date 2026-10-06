@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // APT0.19.03 May2006 Xbox release donor: GUID46a11dfd-96b7-4859-900b-d1c12429eda5
 // age126; PDB SHA2562c807043754eb23408edb29a3b2de750189b781a63251b732cb2e8471a1d6c3c.
 // Donor type records supply class/member spellings and AptCXForm array structure.

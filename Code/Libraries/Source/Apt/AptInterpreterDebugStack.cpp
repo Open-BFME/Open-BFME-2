@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // May2006 Xbox release APT0.19.03 PDB gives the template specialization.
 // Target _AptDebugStack.h assertions establish the stack and sized-free callback.
 // Target caller6FEB50 names AptActionInterpreter.cpp and mnStackFrameBase; at

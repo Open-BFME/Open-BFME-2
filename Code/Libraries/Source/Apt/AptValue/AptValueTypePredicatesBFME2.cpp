@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // PC predicates named by the corresponding checked-cast assertion strings.
 // Signed seven-bit type occupies bits25..31; this is PC evidence, not PDB layout.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);

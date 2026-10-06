@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva006D6D20@@QAE@XZ @0x006D6CC0 83B. Default ctor of Apt string-value class (vtable 0x008EA358).
 // Evidence: calls rowed ??0BfmeAptValue006DCD20@@QAE@H@Z (0x006DCCC0) with type 1 then stores vtable
 // 0x008EA358 then rowed ?clear@EAStringC@@QAEAAV1@XZ (0x006D2F90) on member at +8 then +0xC=0;

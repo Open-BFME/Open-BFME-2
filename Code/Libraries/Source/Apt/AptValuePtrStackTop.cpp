@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006DE160@AptValuePtrStack@@QAEPAVBfmeAptValue006DCD20@@XZ @0x006DE160 53B.
 // Returns the top element m_aElements[m_nElements-1] of the Apt value ptr
 // stack from _AptValuePtrStack.h, asserting m_nElements - nPos > 0 at line

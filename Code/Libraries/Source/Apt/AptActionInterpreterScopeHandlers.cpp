@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // PC dispatch slot3C/41 and Redwood6 private static signatures identify these
 // handlers. Later AptActionInterpreter.cpp supplies the semantic reference;
 // native instructions independently establish interpreter current function+30,

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // APT0.19.03 Xbox final PDB/MAP supplies AptCIH method spellings.
 // Target caller6EE6C0 asserts pContext->isCIH(), obtains its CIH at6EE713,
 // checks it using AptCIH.h, and keeps that object in ESI for calls6EF199 /

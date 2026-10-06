@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Calendar helper named by Godfather PDB and target AptDate.cpp assertion.
 // One inline int3 preserves the retail assertion barrier. __debugbreak()
 // hoists mov eax,esi before the branch; explicit-return and reset variants

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva006CD650@Rva006CD650@@QAEPAXXZ,
 // retail 0x006CD650, 103 bytes. AptCIH animation-inst getter with AptCIH.h

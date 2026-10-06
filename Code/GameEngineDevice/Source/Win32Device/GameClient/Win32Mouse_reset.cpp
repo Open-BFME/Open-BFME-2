@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?reset@Win32Mouse@@UAEXXZ, retail 0x000419F5, 17 bytes (pinned; next to
 // the rowed Win32Mouse::addWin32Event 0x00041A10). The Zero Hour body

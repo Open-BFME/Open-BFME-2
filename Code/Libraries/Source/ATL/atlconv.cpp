@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /G7
+// cl: /EHsc
 // Retail uses the legacy unsuffixed ANSI kernel32 string exports.
 // Microsoft Visual C++ .NET 2003 ATL 7.1 atlconv.h members.
 //

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva006D6D20@@UAE@XZ @0x006D6D20 82B. Dtor of Apt string-value class (vtable 0x008EA358).
 // Evidence: stores vtable 0x008EA358; destroys EAStringC at +8 via rowed ??1EAStringC@@QAE@XZ (0x006D3010)
 // then base via rowed ??1Rva006DE350@@UAE@XZ (0x006DE350); ctor twin 0x006D6CC0 same vtable same EH handler

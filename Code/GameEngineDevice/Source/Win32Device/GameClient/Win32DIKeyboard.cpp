@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // DirectInputKeyboard (vtable 0x00BC8688), Zero Hour's
 // GameEngineDevice/Source/Win32Device/GameClient/Win32DIKeyboard.cpp. The

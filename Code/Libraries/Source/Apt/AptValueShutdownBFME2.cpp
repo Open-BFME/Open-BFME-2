@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Original Godfather Jan26 MAP names AptValueShutdown(int). Later source
 // 230e7c503b5dbf7e-AptValue.cpp supplies shutdown semantics; PC fixes exact
 // global-slot sequence (optional later objects are absent) and virtual slot11.

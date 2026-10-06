@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?bfmeErase1279@BfmeLookup1279@@QAEXAAUBfmeKey1279@@@Z @0x0070B2C0 191B BfmeLookup erase.
 // Retail erases hash entry via rva0070AF90 then clears magic slots +0xC/+0x8.
 // Layout and magic ids (0x699/0x6bbd via GetString 0x78/0) mirror rowed lookup

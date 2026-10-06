@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Create@AptInteger@@SAPAVAptValue@@H@Z @0x006D8520 263B. Pooled Apt Integer factory (type 7).
 // H1: union + class-local sized new/delete, NO user dtor (same TU shape as landed bool).
 // Fast path reuses free-list head g_00E18020 at +8 next slot, checks vtbl index 7 and

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // APT0.19.03 Xbox final donor PDB GUID 729627e9-b922-4d59-9b50-e116a2834635 age24.
 // Donor PDB types 0x15C9E/0x155E5/0x3604 provide pool/member/type names.
 // Retail independently establishes count+0x10, list+0x14, entry stride28,

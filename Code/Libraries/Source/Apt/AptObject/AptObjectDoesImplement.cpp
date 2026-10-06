@@ -1,5 +1,5 @@
 #include "AptScriptFunction.h"
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Source3994818f06ecc989 supplies semantics; PC confirms hash+8 proto+10 and
 // implemented-count low8bits at+1C. Original MAP supplies const method signature.
 class EAStringC { void *mpData; public: EAStringC(const char *); ~EAStringC(); };

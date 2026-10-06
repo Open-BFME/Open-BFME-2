@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ActionScript bitwise opcode handlers 0x60-0x64. Each is named by its slot in
 // the {opcode, handler} dispatch table at 0x009DC980; names, parameters and
 // locals follow the Apt debug info of The Sims 2: Castaway (CC0). Stack layout

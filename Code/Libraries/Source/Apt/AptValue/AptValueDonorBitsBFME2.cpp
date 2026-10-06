@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // AptValue names from APT0.19.03 Xbox final PDB/MAP (GUID729627e9-b922-4d59-
 // 9b50-e116a2834635 age24). Target AptValue constructor/predicates already prove
 // an 8-byte polymorphic value with flags at+4. These complete target bodies

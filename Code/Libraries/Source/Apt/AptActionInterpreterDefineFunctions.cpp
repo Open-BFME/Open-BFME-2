@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Original Redwood6 PDB establishes handler ABI and record sizes24/28.
 // PC dispatch9DC980 and complete704B50/704C60 bodies verify identity, offsets,
 // allocation size52 and constructor calls. Later0cbfd5f746c89504 is body guide.

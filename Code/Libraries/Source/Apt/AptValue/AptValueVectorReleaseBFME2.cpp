@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // APT0.19.03 Xbox release donor supplies method names and the 16-byte vector.
 // Target assertions name AptValueVector.inl/.cpp and mCurrentNum. Target
 // independently establishes count+4 and pointer+8; unused capacity/high-water

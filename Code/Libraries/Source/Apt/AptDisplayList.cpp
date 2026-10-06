@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAXPAPAX@Z, retail 0x006F6BB0
 // (297 bytes). BFME2 AptDisplayList query: three CRT-style asserts name

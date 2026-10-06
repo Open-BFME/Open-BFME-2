@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // 4 Apt Xml predicates for types 32..35.
 // Retail 0x006DBDE0/110B isXmlNode type 32 lines 1301/1302,
 // 0x006DBE50/110B isXml type 33 lines 1327/1328,

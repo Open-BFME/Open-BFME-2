@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006DB090@Rva006DB090@@QAEXPAXI@Z @0x006DB090 136B evidence DogmaAllocator.cpp via string_xrefs file plus assert pNowFree NULL Pointer plus caller 0x006DB270 freeBlock same-this
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;

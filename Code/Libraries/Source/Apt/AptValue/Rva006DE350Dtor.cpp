@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??_GRva006DE350@@UAEPAXI@Z @0x006DE820 (75 bytes, vslot slot 14 of vtable 0x008EAED0).
 // Scalar deleting destructor inlining ??1Rva006DE350@@UAE@XZ @0x006DE350 (51 bytes).
 // Both store vtable 0x00CEAED0 and assert IsDestroyedGC()==true (AptValue.inl line 0x91)

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva0070B220@AptNativeHash@@QAEXPAX@Z @0x0070B220 145B. AptNativeHash GC-mark helper.
 // Evidence: layout matches AptNativeHash (mnTotalSize+0 mpData+4 mp__proto__+8 mpPrototype+0xC
 // Entry 8B value+4) from Code/Libraries/Source/Apt/AptNativeHashBFME2.cpp; forwarder

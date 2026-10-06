@@ -1,5 +1,5 @@
 #include "AptScriptFunction.h"
-// cl: /O2 /MD
+// cl: /MD
 // APT0.19.03 May2006 Xbox release donor supplies class and method spellings.
 // Target assertions name AptObject/AptScriptFunction.cpp and independently name
 // spRegBlockBase (VA E1834C), spRegBlockCurrentFrameBase (E18350),

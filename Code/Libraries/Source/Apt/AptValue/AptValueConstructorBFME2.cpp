@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // BFME2 Apt value constructor at RVA 0x006DCD20 (40 bytes).
 // Semantic reference: BFME1 Rva00899560AptValueCtor.cpp; BFME2 stores
 // the AptVFT type in the high seven flag bits via the out-of-line initializer.

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // Reference: Open-BFME-1@6583b3c1ff21db4a561285717028fdafc780b7db,
 // game/Libraries/Source/Apt/Apt.cpp, whole three-function donor. Normal whole
 // unit placement finds only this new 34-byte body; the query has an existing

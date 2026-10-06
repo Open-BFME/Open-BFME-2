@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva0070B180@AptNativeHash@@QAEXPAVBfmeAptValue006DCD20@@PAVEAStringC@@H@Z @0x0070B180 159B
 // Evidence: AptNativeHash layout (nEventHandlers+0x10) from AptNativeHashBFME2.cpp/Mark.cpp;
 // callees isCIH 0x006DC580, EAStringC len 0x006D3750, c_str 0x00620090, gperf Rva008D48F0 0x007112A0;

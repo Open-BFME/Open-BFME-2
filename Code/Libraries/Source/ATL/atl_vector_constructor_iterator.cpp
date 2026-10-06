@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Microsoft Visual C++ .NET 2003's plain vector constructor iterator is
 // emitted by a translation unit that allocates an array of a class with a
 // user supplied constructor and no destructor.  ATL's headers use this same

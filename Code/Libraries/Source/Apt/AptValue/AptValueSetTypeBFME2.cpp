@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // BFME2 Apt type initializer at RVA 0x006DBBC0, 106 bytes.
 // Directly called by AptValueConstructorBFME2.cpp; retail assertion strings
 // identify AptValue/AptValue.inl lines 326-327 and the AptVFT enum bounds.

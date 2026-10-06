@@ -1,5 +1,5 @@
 #include "AptObject/AptScriptFunction.h"
-// cl: /O2 /MD
+// cl: /MD
 // May 2006 Xbox APT0.19.03 PDB supplies member names and class identity.
 // Target startup 7B67A0 constructs global VA E182E0 with 6FE980, then registers
 // cleanup 7B9C50, which passes the same global to destructor 6FE9C0. That

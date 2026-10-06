@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Create@AptBoolean@@SAPAVAptValue@@_N@Z @0x006D88C0 263B. Pooled Apt Boolean factory (type 5).
 // H1-B1: union + class-local sized new/delete, NO user dtor (same TU shape as int/float).
 // Fast path reuses free-list head g_00E18028 at +8 next slot, checks vtbl index 5 and

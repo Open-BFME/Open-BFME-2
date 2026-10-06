@@ -1,6 +1,6 @@
 // ?isSpriteInstBase@Rva006CFCD0@@QBEHXZ
 // partial score=0.95 date=2026-09-27
-// cl: /O2 /MD
+// cl: /MD
 // ?isSpriteInstBase@Rva006CFCD0@@QBEHXZ @0x006CFCD0 91B. Predicate for AptVFT
 // types 13 (0x1A000000) and 18 (0x24000000): returns true when defined and
 // type is either. Evidence: callers 0x006CFF40/48B and 0x006E1F90/115B call

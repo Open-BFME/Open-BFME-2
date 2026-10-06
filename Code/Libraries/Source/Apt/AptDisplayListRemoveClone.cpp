@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Native RemoveSprite dispatch calls this helper. Donor AptDisplayList.cpp
 // names removeClonedObject; retail proves depth signed17 bits at CIH+58,
 // query outputs and removeObject call. No full CIH layout claimed.

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // APT0.19.03 Xbox final PDB/MAP names DOGMA_PoolManager::GetTotalBytesUsed.
 // Target Apt.cpp shutdown6CDF60 calls this body for both pool globals at
 // 6CDFD2/6CE02C and prints the result as "Total Bytes Used". The same non-GC

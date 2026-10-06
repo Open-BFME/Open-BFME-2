@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Reuse PC AptValueSetTypeBFME2 assertion convention. PC own assertions and
 // constructor identify type7bit, defined-bit4, and 47-type bound independently.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);

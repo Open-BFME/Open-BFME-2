@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // APT0.19.03 Xbox release donor GUID46a11dfd-96b7-4859-900b-d1c12429eda5 age126
 // supplies AptIntervalTimer::cleanParams and AptValuePtrStack<AptValue>::pop.
 // Target assertions independently name _AptValuePtrStack.h and size()>0.

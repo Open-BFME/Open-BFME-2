@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Microsoft Visual C++ .NET 2003 ATL 7.1 CComCriticalSection constructor.
 
 extern "C" void *__cdecl memset(void *memory, int value, unsigned int size);

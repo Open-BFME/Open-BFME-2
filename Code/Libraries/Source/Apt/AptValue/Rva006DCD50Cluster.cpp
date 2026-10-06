@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Four Apt checked casts returning this after asserting isX(), extending the
 // recipe proven byte-exact for the 14 siblings in AptValueCheckedCastsBFME2.cpp:
 // __asm int 3 is the proven blocker for the /O2 hoist that otherwise makes

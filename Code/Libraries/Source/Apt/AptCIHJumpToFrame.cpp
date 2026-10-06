@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Source guide b44700bdab0a24a7 AptCIH.cpp jumpToFrame. Native dispatch
 // Next/Prev/Goto consumers establish identity; native335B proves sprite
 // frame18 hash10 display24 goto28 and bounds. Does not imply link closure:

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // PC-derived AptValue.inl GCRoot family. Same assertion mechanism as the
 // already matched AptValueSetTypeBFME2.cpp; no cross-game layout imported.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);

@@ -1,7 +1,7 @@
 // ATL 7.1 cstringt.h CharLowerWFake and atlconv.h conversion macros.
 // Retail uses the legacy unsuffixed ANSI kernel32 string exports.
 // Reference: Open-BFME-1 MSVC 7.1 toolchain; local ABI declarations replace headers.
-// cl: /O1 /G7 /arch:SSE2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 extern "C" void *__cdecl _alloca(unsigned int);
 #pragma intrinsic(_alloca)
 extern "C" __declspec(dllimport) int __stdcall lstrlenW(const unsigned short *);

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006CFF40@AptCIH@@QBEPAXXZ @0x006CFF40 48B
 // AptCIH sprite-base accessor returning +0x4C with isSpriteInstBase assert at AptCIH.h:0x7D.
 // Evidence: predicate pin ?rva006CFCD0@AptCIH@@QBE_NXZ at 0x006CFCD0; file/message strings

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Date callbacks identified by target date-method dispatch keys and addresses;
 // Godfather QA PDB supplies original sMethod names and static callback ABI.
 // The interpreter declaration is only its already-established first stack.

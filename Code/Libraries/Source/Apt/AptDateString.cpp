@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Target date dispatch key toString reaches this formatter through callback
 // 0x006F5080. Target calls and literals establish date formatting behavior;
 // original method spelling and EAStringC-reference ABI come from Godfather

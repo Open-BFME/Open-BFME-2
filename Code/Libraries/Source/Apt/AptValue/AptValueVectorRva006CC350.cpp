@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006CC350@AptValueVector@@QAEPAV1@I@Z, retail 0x006CC350 (35B).
 // AptValueVector deleting-dtor shape: calls free-array dtor then sized pool
 // free. Evidence: calls rowed rva006E6D50 at 0x006E6D50; flag bit0 test with

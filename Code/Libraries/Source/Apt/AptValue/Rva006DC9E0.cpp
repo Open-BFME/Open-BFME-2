@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006DC9E0@Rva006DC9E0@@QAEHXZ @0x006DC9E0 123B
 // Evidence: thiscall no args returns int (xor 0 / mov 1); calls GetString 0x5E/0x64,
 // Rva0070A5C0::Find via global 0x00E18650, virtual slot 3 (0xC) twice plus this slot 3

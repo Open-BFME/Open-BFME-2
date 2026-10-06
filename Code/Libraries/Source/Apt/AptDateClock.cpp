@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Target date setters pass local/UTC clocks at date+20/+40 and offset+60.
 // Copies calendar fields, adjusts hours/date, then copies sub-hour fields.
 // Preserve the retail negative-hour expression 24-offset and its single-day

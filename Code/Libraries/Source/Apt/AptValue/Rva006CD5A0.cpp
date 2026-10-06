@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva006CD5A0Copy@@YAPAVRva006CD5A0Elem@@PAV1@00@Z, retail 0x006CD5A0, 60B.
 // AptValueNameEntry-style 8B copy: EAStringC at +0 via rowed operator=

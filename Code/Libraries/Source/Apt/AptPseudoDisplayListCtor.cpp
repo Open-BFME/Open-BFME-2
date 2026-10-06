@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Original Redwood6 APT0.19.03 private records identify the 102-byte constructor
 // and its AptCIH* argument. PC caller6E2CBB reaches6E00E0. The native body allocates
 // a20-byte AptPseudoCIH_t through the existing chain pool and initializes it with

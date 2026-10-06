@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Cleans the 37 native callback caches identified by the target date dispatch
 // table at VA DDC730 and jump table at AF643C. Each cache is constructed by
 // its own corresponding named dispatch case, then AddRef-ed through slot0.

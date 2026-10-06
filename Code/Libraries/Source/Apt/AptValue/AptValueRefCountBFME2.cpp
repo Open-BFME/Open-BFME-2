@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // AptValue::AddRef / Release, virtual slots 0 and 1 of the AptValue family
 // (named by the APT0.19.03 Xbox donor PDB, as in AptValueVectorReleaseBFME2.cpp;
 // 30+ AptValue-derived vtables point at both). Target evidence: the refCount

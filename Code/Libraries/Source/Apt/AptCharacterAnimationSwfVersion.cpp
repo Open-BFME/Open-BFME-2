@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // APT0.19.03 May2006 release PDB/MAP supplies getSwfVersion and pFile/GetAptData.
 // Target caller6D17F0 passes this at6D1982 and sends the result to6CD210, which
 // stores the version globalE17724 (read by6CD220). Target full26-byte body at

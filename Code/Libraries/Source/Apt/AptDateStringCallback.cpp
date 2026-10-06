@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Target date dispatch key toString selects this callback at 0x006F5080.
 // Original sMethod spelling/two-argument ABI are from Godfather QA PDB;
 // operations, helper targets and temporary lifetime are established in retail.

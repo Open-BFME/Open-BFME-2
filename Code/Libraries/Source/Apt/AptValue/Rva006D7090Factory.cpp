@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva006D7090@@YAPAXPBD@Z @0x006D7090 285B. Pooled Apt string-value factory: reuse from free list at g_00E18370 with type/refcount asserts else new Rva006D6D20 via pool operator new.
 // Evidence: retail free-list pop get()==1 getRefCount()==0 asserts AptString.cpp 0x298/0x29A apply release-vector EAStringC clear SetString else allocBlock 0x10 plus Rva006D6D20 PBD ctor; LINK BONUS caller 0x006CB9F9; callers 0x006CB9F9 0x006CBB00.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);

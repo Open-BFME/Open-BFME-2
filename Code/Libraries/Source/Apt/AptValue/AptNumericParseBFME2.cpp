@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // BFME1 6583b3c1 game/Libraries/Source/EA/Apt/Rva008921B0Atof.cpp
 // supplies the adapter structure and empty scoped guard. The guard under
 // /EHsc preserves a call rather than a tail jump; no exception handler emits.

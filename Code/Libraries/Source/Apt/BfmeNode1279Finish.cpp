@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // ?bfmeFinish1279@BfmeNode1279@@QAEXXZ @0x006E2B40 193B. BfmeNode teardown after unlink.
 //
 // Evidence: LINK BONUS caller names it bfmeFinish1279; callers 0x006F7287 0x006F8133;

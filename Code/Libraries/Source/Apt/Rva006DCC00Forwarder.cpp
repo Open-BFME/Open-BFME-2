@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006DCC00@Rva006D6360@@QAEXXZ @0x006DCC00 10B
 // Evidence: vtable slot 13 (0x34) of 0x008EA228 (Rva006D6360 ctor 0x006D6360);
 // forwarder add ecx,8 to AptNativeHash::rva0070B220 0x0070B220 (ignores arg);

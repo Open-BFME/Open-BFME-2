@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?get@Rva006DBB40ShrAndField@@QBE_NXZ (retail 0x006DBB40, 9 bytes) and
 // ?get@Rva006DBB60ShrNAndField@@QBE_NXZ (retail 0x006DBB60, 9 bytes): the

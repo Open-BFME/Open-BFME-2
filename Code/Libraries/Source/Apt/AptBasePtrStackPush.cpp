@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Ghidra body at 0x006FE6E0: checked stack append, slot write, count increment,
 // and first virtual call. Layout and checks are read from BFME2 retail.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);

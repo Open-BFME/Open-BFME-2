@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // AptValue string member setter (retail 0x006CBF70). Assigns a C string
 // into the EAStringC at +8 of its object through a guarded temp: build
 // the temp with the rowed C-string constructor, copy it over with the

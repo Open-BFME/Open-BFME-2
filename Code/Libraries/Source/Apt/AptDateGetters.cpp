@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Target date dispatch keys and per-case native callbacks identify each getter.
 // Godfather QA PDB supplies original sMethod names and the two-argument ABI.
 // Reuse the already-matched checked date cast and existing AptInteger::Create

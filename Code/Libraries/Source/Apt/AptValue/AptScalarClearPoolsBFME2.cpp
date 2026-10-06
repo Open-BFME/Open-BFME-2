@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // Source guide: public-material/777b24f0e1dc0929-AptInteger.cpp and
 // dfdaf615e1a3b9ce-AptFloat.cpp, ClearPool. Retail independently proves all
 // three pool heads, +8 next links, slot11 GC clearing and slot14 deletion.

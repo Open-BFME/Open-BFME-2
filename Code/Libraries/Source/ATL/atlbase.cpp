@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Microsoft Visual C++ .NET 2003 ATL 7.1 _ATL_WIN_MODULE70 and the
 // CSimpleArray<ATOM> it embeds.
 

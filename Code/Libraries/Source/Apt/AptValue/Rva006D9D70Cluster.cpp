@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // 0x00AD9D70, qsort comparator for the Apt array sort natives. The rowed
 // caller ?rva006D9F00 at 0x006D9F00 passes this address to qsort for mode 0;

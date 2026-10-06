@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Reconstructed from BFME2 and APT 0.19.03 Xbox final donor evidence.
 // Donor: ears_godfather_f PDB GUID 729627e9-b922-4d59-9b50-e116a2834635 age24;
 // SHA256 8f9525adc557812dfe2866ce0d621904bfce9f9ba83341f85ec330f0b8fc4fb5.

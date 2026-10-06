@@ -1,4 +1,4 @@
-// cl: /O1 /GS
+// cl: /GS
 // Microsoft Visual C++ .NET 2003 ATL 7.1 CAtlBaseModule constructor, from
 // atls.lib's atlbase.obj (src/atl/atls/atlbase.cpp), and the compiler-generated
 // _ATL_BASE_MODULE70 constructor it calls.

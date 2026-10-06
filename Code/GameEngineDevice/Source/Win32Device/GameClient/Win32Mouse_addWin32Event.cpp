@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Win32Mouse::addWin32Event, retail 0x00041A10 (115 bytes).
 //
 // The event ring sits immediately after the 0x5010-byte Mouse base

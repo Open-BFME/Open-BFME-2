@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006FE0B0@AptBasePtrStack@@QAEXH@Z @0x006FE0B0 105B capacity init over pool allocator.
 // Retail asserts m_nSize==0 (_AptBasePtrStack.h:0x59), stores arg to +4, allocs
 // size*4 via pool 0x00E176E8 (rowed/pinned allocBlock 0x006DB160), stores to +8,

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Six AptValue-derived constructors at 0x006DE480, 0x006DE510, 0x006DE5A0,
 // 0x006DE630, 0x006DE6D0 and 0x006DE790 (138 bytes each).

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Switch predicate at RVA 0x006DCA60 (32 bytes + tables).
 // Evidence: same this as rowed ?isUndefined@BfmeAptValue006DCD20@@QBE_NXZ via
 // caller at 0x00706A94 (tests isUndefined then this body); reads flags at +4

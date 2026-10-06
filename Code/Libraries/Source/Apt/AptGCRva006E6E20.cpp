@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva006E6E20Collect@@YAXXZ, retail 0x006E6E20 346B.
 // AptGC mark/sweep collector between ReleaseValues 0x006E6D90 and CleanAll
 // 0x006E6F80. Retail asserts pObject->getRefCount() > 0 at AptGC.cpp:151,

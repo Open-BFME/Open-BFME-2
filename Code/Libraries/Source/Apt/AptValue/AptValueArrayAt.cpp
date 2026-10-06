@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006D8A50@BfmeAptValue006DCD20@@QAEPAV1@H@Z @0x006D8A50 (121 bytes).
 // Array element access asserting nIndex < mnLength at _Apt.h:0x110 then
 // nIndex < mnCapacity at _Apt.h:0x111 via the shared Apt assert pointer at

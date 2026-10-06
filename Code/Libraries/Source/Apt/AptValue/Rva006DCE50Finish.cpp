@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?checkedString@BfmeAptValue006DCD20@@QAEPAV1@XZ @0x006DCE50, 68 bytes.
 //
 // NOT a copy of the sibling checked casts: the assert prefix at +0..+0x2D is

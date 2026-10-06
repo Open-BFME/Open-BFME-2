@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?rva006DBFA0@BfmeAptValue006DCD20@@QBEHXZ @0x006DBFA0 110B evidence same TU as isXmlNode family plus AptValue.inl lines 1407/1408 plus type 3 via sub 0x6000000
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;

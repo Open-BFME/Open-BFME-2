@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /G7
+// cl: /EHsc
 // ??1Rva00001E13@@QAE@XZ 0x00001E13 8B
 // Evidence: leaf 8B add ecx,4 + jmp rowed ??1W3DRadarResetSurface@@QAE@XZ; wrapper with member at +4.
 

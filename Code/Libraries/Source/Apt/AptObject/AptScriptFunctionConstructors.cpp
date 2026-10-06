@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc /GR-
+// cl: /MD /EHsc /GR-
 #include "AptScriptFunction.h"
 // Native constructor tags43/44 and field+30 agree with original PDB classes.
 

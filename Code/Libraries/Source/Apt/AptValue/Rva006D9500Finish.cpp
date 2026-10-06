@@ -1,5 +1,5 @@
 // ?rva006D9500@Rva006D9500@@QAEXH@Z
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // Apt array reserve: grow 4-byte elements to next pow2 >= requested (min 8)
 // via ChainBlockAllocator, memset new, memcpy old, free old.
 // Evidence: 210B __thiscall ret 4; +0x20 ptr +0x24 count; pow2 loop dec/sar;

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // APT0.19.03 Xbox final PDB/MAP names ForceDelete and the virtual interface.
 // Target constructor6DCD20 installs vtable VA CEAED0 after which its type setter
 // names AptValue/AptValue.inl. Slot8 of that table contains this26-byte body.

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // 14 Apt checked casts returning this after asserting isX().
 // Retail 0x006DCF60/57B isCIH(bUndefOK) line 840,
 // Retail 0x006DD020/50B isKey line 917, 0x006DD060/50B isMath line 995,

@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva006CC7C0@@YAXPBD@Z @ 0x006CC7C0 (87B).
 //
 // Builds a temporary refcounted string from a C-string argument and hands it
