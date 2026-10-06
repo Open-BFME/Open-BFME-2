@@ -65004,3 +65004,4 @@ uw_00777e88,,0x00777E88,25,Code/GameEngine/Source/Common/System/SaveGame/SaveGam
 uw_0077af33,,0x0077AF33,24,Code/GameEngine/Source/Common/Rva0031FAF0Dtor.cpp,matched,gen-funclet;parent=??1Rva0031FAF0@@QAE@XZ;object-symbol=$L1232
 uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp,matched,gen-funclet;parent=??0ControlBarScheme@@QAE@XZ;object-symbol=$L51427
 ?rva00504112@Rva00504112@@QAEPAXPAX@Z,,0x00504112,38,Code/GameEngine/Source/Common/Rva00504112Find.cpp,matched,hand-rolled lower_bound unsigned key at node+0x28
+?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z,,0x002C760B,167,Code/GameEngine/Source/Common/Rva002C7492Or.cpp,matched,sole caller 0x002C777E and memset import 0x6291AE and 19-dword layout
