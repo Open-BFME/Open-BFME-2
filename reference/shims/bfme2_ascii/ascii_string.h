@@ -39,6 +39,9 @@
 #pragma optimize("sy", on)
 class UnicodeString;
 class PooledString;
+// Per-unit switch, default off (without it this header compiles as before): BFME_ASCII_DTOR_DECL
+// declares ~AsciiString only, for a unit whose retail code calls its out-of-line copy 0x0048BA39
+// (e.g. inside the compiler's ??_GAsciiString) where /O1 would expand it (link census, 2026-10-06).
 
 class AsciiString
 {
@@ -66,7 +69,11 @@ public:
 		((StringBase<char> *)this)->StringBase<char>::StringBase(*(const StringBase<char> *)&that, start, len);
 	}
 	AsciiString(const UnicodeString &that);
+#ifdef BFME_ASCII_DTOR_DECL
+	~AsciiString();
+#else
 	~AsciiString() { ((StringBase<char> *)this)->releaseBuffer(); }
+#endif
 
 	AsciiString &operator=(const AsciiString &that)
 	{

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD
 // Dict pair clear plus releaseData.
 // Reference basis is BFME1 Dict_releaseData.cpp (retail 0x000681C0), which
 // carries the Dict layout, the pair switch and releaseData. BFME2 outlines

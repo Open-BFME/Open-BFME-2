@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX-
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /GX-
 //
 // ?rva003340C1@Rva003340C1@@QAEXPADHABVAsciiString@@@Z @0x003340C1 57B: Lua
 // dobuffer helper calling lua_dobuffer then lua_settop 0. Evidence: GetStr via

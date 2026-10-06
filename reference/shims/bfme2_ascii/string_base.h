@@ -85,10 +85,16 @@ public:
         m_data = other.m_data;
         other.m_data = tmp;
     }
+#ifdef BFME_SB_CLEAR_DECL
+    // Per-unit switch, default off: declared only, for a unit whose retail code calls the
+    // out-of-line clear (0x0048BA39 for char) instead of expanding it (link census, 2026-10-06).
+    void clear();
+#else
     void clear()
     {
         releaseBuffer();
     }
+#endif
     void __cdecl format(const T *fmt, ...);
     void format_va(const StringBase<T> &fmt, char *args);
     void format_va(const T *fmt, char *args);
