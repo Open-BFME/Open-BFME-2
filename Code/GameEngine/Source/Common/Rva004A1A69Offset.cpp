@@ -46,11 +46,10 @@ public:
 	unsigned char m_6c;
 };
 
-extern float g_00BC746C;
-
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 float Cos(float angle);
 float Sin(float angle);
+// 2pi is float 0x40C90FDB at 0x00FC746C (data_ledger literal); use literal so the TU links.
 
 class Rva004A1A69
 {
@@ -70,7 +69,7 @@ void Rva004A1A69::rva004A1A69(BuildListInfo *info)
 {
 	if (info == 0)
 		return;
-	float twoPi = g_00BC746C;
+	float twoPi = 6.2831854820251465f;
 	int id = info->m_74;
 	Rva004A1A69Info *rec = m_info;
 	m_24 = id;
