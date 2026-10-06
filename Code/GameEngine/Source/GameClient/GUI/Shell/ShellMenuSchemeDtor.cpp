@@ -41,7 +41,7 @@ private:
 
 Rva002006B0::~Rva002006B0()
 {
-	for (_STL::list<int>::iterator it = m_4.begin(); it != m_4.end(); )
+	for (_STL::list<int>::iterator it = m_4.begin(); it._M_node != m_4.end()._M_node; )
 	{
 		Payload002006B0 *p = (Payload002006B0 *)(int)*it;
 		it = m_4.erase(it);
@@ -51,7 +51,7 @@ Rva002006B0::~Rva002006B0()
 			delete p;
 		}
 	}
-	for (_STL::list<int>::iterator it = m_8.begin(); it != m_8.end(); )
+	for (_STL::list<int>::iterator it = m_8.begin(); it._M_node != m_8.end()._M_node; )
 	{
 		void *p = (void *)(int)*it;
 		it = m_8.erase(it);
@@ -79,7 +79,7 @@ Rva002007D5::Rva002007D5()
 Rva002007D5::~Rva002007D5()
 {
 	m_4 = 0;
-	for (_STL::list<int>::iterator it = m_0.begin(); it != m_0.end(); )
+	for (_STL::list<int>::iterator it = m_0.begin(); it._M_node != m_0.end()._M_node; )
 	{
 		Rva002006B0 *p = (Rva002006B0 *)(int)*it;
 		it = m_0.erase(it);

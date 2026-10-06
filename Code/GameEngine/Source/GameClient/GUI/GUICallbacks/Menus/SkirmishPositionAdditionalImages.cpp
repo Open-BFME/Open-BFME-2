@@ -122,7 +122,7 @@ void positionAdditionalImages(MapMetaData *mmd, GameWindow *mapWindow, Bool forc
 	Coord3DList::iterator it = mmd->m_supplyPositions.begin();
 	Int ulX = ul.x;
 	Int ulY = ul.y;
-	while( it != mmd->m_supplyPositions.end())
+	while( it._M_node != mmd->m_supplyPositions.end()._M_node)
 	{
 		ICoord2D markerPos;
 		Real position;
@@ -137,7 +137,7 @@ void positionAdditionalImages(MapMetaData *mmd, GameWindow *mapWindow, Bool forc
 	it = mmd->m_techPositions.begin();
 	ulX = ul.x;
 	ulY = ul.y;
-	while( it != mmd->m_techPositions.end())
+	while( it._M_node != mmd->m_techPositions.end()._M_node)
 	{
 		ICoord2D markerPos;
 		Real position;

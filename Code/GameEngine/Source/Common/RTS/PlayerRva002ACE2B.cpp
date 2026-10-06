@@ -72,7 +72,7 @@ int Player::getProductionCostChangeByObjectFilterID(void *arg)
 	int i = 0;
 	float f = 0.0f;
 	_STL::list<int>::iterator end = m_list6f4.end();
-	for (_STL::list<int>::iterator it = m_list6f4.begin(); it != end; ++it) {
+	for (_STL::list<int>::iterator it = m_list6f4.begin(); it._M_node != end._M_node; ++it) {
 		Rva002ACE2BEntry *e = (Rva002ACE2BEntry *)(*it);
 		Object *obj = TheGameLogic->findObjectByID((ObjectID)e->m_10);
 		if (obj == 0)

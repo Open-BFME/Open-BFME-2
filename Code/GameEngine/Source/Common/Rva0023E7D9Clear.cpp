@@ -46,7 +46,7 @@ void Rva0023E7D9::rva0023E7D9()
 		operator delete(m_head);
 		m_head = next;
 	}
-	for (m_cur = m_list.begin(); m_cur != m_list.end(); ++m_cur)
+	for (m_cur = m_list.begin(); m_cur._M_node != m_list.end()._M_node; ++m_cur)
 	{
 		int v = *m_cur;
 		if (v != 0)

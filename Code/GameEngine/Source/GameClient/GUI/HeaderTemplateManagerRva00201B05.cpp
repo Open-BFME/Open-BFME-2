@@ -69,7 +69,7 @@ private:
 
 void HeaderTemplateManager::populateGameFonts()
 {
-	for (HeaderTemplateList::iterator it = m_headerTemplateList.begin(); it != m_headerTemplateList.end(); ++it)
+	for (HeaderTemplateList::iterator it = m_headerTemplateList.begin(); it._M_node != m_headerTemplateList.end()._M_node; ++it)
 	{
 		HeaderTemplate *ht = *it;
 		int adjusted = TheGlobalLanguageData->adjustFontSize(ht->m_point);

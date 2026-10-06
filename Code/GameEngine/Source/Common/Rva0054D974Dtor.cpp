@@ -43,19 +43,19 @@ private:
 Rva0054D974::~Rva0054D974()
 {
 	_STL::list<int, _STL::allocator<int> >::iterator it;
-	while ((it = m04.begin()) != m04.end()) {
+	while ((it = m04.begin())._M_node != m04.end()._M_node) {
 		Rva0054D8D8 *p = (Rva0054D8D8 *)*it;
 		if (p != 0)
 			delete p;
 		m04.pop_front();
 	}
-	while ((it = m08.begin()) != m08.end()) {
+	while ((it = m08.begin())._M_node != m08.end()._M_node) {
 		Rva0054D8D8 *p = (Rva0054D8D8 *)*it;
 		if (p != 0)
 			delete p;
 		m08.pop_front();
 	}
-	while ((it = m00.begin()) != m00.end()) {
+	while ((it = m00.begin())._M_node != m00.end()._M_node) {
 		Rva0054D8D8 *p = (Rva0054D8D8 *)*it;
 		if (p != 0)
 			delete p;
@@ -68,17 +68,17 @@ Rva0054D8D8 *Rva0054D974::rva0054D6C8(int id)
 	if (id == 0)
 		return 0;
 	_STL::list<int, _STL::allocator<int> >::iterator it;
-	for (it = m04.begin(); it != m04.end(); ++it) {
+	for (it = m04.begin(); it._M_node != m04.end()._M_node; ++it) {
 		Rva0054D8D8 *p = (Rva0054D8D8 *)*it;
 		if (p->m38 == id)
 			return p;
 	}
-	for (it = m08.begin(); it != m08.end(); ++it) {
+	for (it = m08.begin(); it._M_node != m08.end()._M_node; ++it) {
 		Rva0054D8D8 *p = (Rva0054D8D8 *)*it;
 		if (p->m38 == id)
 			return p;
 	}
-	for (it = m00.begin(); it != m00.end(); ++it) {
+	for (it = m00.begin(); it._M_node != m00.end()._M_node; ++it) {
 		Rva0054D8D8 *p = (Rva0054D8D8 *)*it;
 		if (p->m38 == id)
 			return p;

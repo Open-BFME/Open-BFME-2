@@ -57,7 +57,7 @@ struct Rva000BC9B1 {
 
 void Rva000BC9B1::rva000BC9B1(bool flag)
 {
-    for (_STL::list<BfmeStringRecord000B757D, _STL::allocator<BfmeStringRecord000B757D> >::iterator it = m_list.begin(); it != m_list.end();) {
+    for (_STL::list<BfmeStringRecord000B757D, _STL::allocator<BfmeStringRecord000B757D> >::iterator it = m_list.begin(); it._M_node != m_list.end()._M_node;) {
         bool skip = false;
         if (flag) {
             BfmeStringRecord000B757D tmp = *it;

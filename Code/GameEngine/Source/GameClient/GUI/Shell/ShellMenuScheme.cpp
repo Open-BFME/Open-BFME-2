@@ -24,7 +24,7 @@ void ShellMenuScheme::draw( void )
 {
 
 	ShellMenuSchemeImageListIt imageIt = m_imageList.begin();
-	while(imageIt != m_imageList.end())
+	while(imageIt._M_node != m_imageList.end()._M_node)
 	{
 		ShellMenuSchemeImage *image = *imageIt;
 		if(image && image->m_image)
@@ -36,7 +36,7 @@ void ShellMenuScheme::draw( void )
 	}
 
 	ShellMenuSchemeLineListIt it = m_lineList.begin();
-	while(it != m_lineList.end())
+	while(it._M_node != m_lineList.end()._M_node)
 	{
 		ShellMenuSchemeLine *line = *it;
 		

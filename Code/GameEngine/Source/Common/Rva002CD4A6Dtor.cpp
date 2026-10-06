@@ -86,7 +86,7 @@ Rva002CD4A6::~Rva002CD4A6()
         void *v = m_e0;
         ::operator delete(v);
     }
-    for (_STL::list<int>::iterator it = m_list.begin(); it != m_list.end(); ++it)
+    for (_STL::list<int>::iterator it = m_list.begin(); it._M_node != m_list.end()._M_node; ++it)
     {
         if (m_160)
         {

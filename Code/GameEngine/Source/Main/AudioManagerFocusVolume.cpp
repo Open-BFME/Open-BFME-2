@@ -59,7 +59,7 @@ float LookupFocusChannelVolume(int channel)
 		return volume;
 	_STL::list<int> ids;
 	TheTransitionHandler->rva001DC57C(&ids);
-	for (_STL::list<int>::iterator it = ids.begin(); it != ids.end(); ++it) {
+	for (_STL::list<int>::iterator it = ids.begin(); it._M_node != ids.end()._M_node; ++it) {
 		FocusHandle *h = (FocusHandle *)(*it);
 		if (h == 0)
 			continue;
