@@ -111,8 +111,9 @@ class DieModule : public ModuleBase,
 	public BehaviorModuleInterface,
 	public DieModuleInterface
 {
-public:
+protected:
 	bool isDieApplicable(const DamageInfo *damageInfo) const;
+public:
 	Object *getObject() { return m_object; }
 	const UpgradeDieModuleData *getUpgradeDieModuleData() const
 	{
