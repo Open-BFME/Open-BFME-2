@@ -23,12 +23,14 @@ so a run that could reach a real install is proven not to have written there.
 The image is scaffolding unless boot_image overlays authored code; no outcome
 is progress by itself.
 
---overlay SET (as `boot_image.py link --overlay`) links authored units in. Each
-unit's first byte gets a one-shot breakpoint once the loader has relocated the
-image (--no-probes: none), so the outcome says which authored code actually ran
-(`authored_executed`). A crash names the authored unit it is in, if any.
+--overlay SET (as `boot_image.py link --overlay`) links authored units in. A
+crash names the authored unit it is in, if any. --probes puts a one-shot
+breakpoint on each unit's first byte once the loader has relocated the image,
+so the outcome says which authored code actually ran (`authored_executed`);
+every hit is a debugger round trip, so a large overlay boots slower probed.
 --bisect: when the overlay does not reach the menu, halve it deterministically
-(only units the failing run executed are candidates; each half is run alone)
+(with --probes only units the failing run executed are candidates; each half
+is run alone)
 down to the rows that fail by themselves, and write them to
 build/boot/boot_queue.json, which tools/repair_queue.py serves (`boot-crash`).
 """
@@ -451,14 +453,14 @@ def smoke(a, rows=None, tag="boot"):
         start_of = {rs: ns for _, rs, ns, _ in pieces_map}
         moved = {start_of[rva]: (rva, size, name) for rva, size, name in authored}
     res = run(a.game_dir / "lotrbfme2.exe", a.game_dir.resolve(), a.args, a.timeout, not a.no_version_lie,
-              () if a.no_probes else sorted(moved))
+              sorted(moved) if a.probes else ())
     out["run"] = {k: v for k, v in res.items() if k not in ("first_chance", "stack", "probes_hit")}
     out["run"]["first_chance"] = [[c, hex(x), [hex(i) for i in info]] for c, x, info in res["first_chance"]]
     if authored:
         hit = [moved[x] for x in res["probes_hit"] if x in moved]
         out["authored_executed"] = {"units": len(hit), "of_units": len(authored),
                                     "bytes": sum(z for _, z, _ in hit), "of_bytes": sum(z for _, z, _ in authored),
-                                    "probed": not a.no_probes,
+                                    "probed": a.probes,
                                     "rows": [[hex(rva), name] for rva, _, name in sorted(hit)]}
     loaded = res.get("image_base", base)
     authored_at = sorted((rva, rva + size, name) for rva, size, name in authored)
@@ -574,7 +576,9 @@ def main(argv=None):
     ap.add_argument("--overlay", action="append", default=[], metavar="SET",
                     help="authored units in the image (as boot_image.py link --overlay)")
     ap.add_argument("--status", type=Path, default=boot_image.LINK_STATUS)
-    ap.add_argument("--no-probes", action="store_true", help="no one-shot breakpoints at authored unit starts")
+    ap.add_argument("--probes", action="store_true",
+                    help="one-shot breakpoints at authored unit starts: which authored code ran (each hit is a "
+                         "debugger round trip; 9,001 hits delayed a boot past 150 s)")
     ap.add_argument("--bisect", action="store_true",
                     help="when the overlay fails, halve it to the guilty rows (build/boot/boot_queue.json)")
     a = ap.parse_args(argv)
