@@ -9,7 +9,7 @@
 #include "ascii_string.h"
 typedef bool Bool;
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
-struct Coord3D { float x; float y; float z; };
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Waypoint;
 class Object;
 class Team;

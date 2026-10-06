@@ -5,12 +5,7 @@
 // getWaypointByName via TheTerrainLogic with (Parameter+0x10) plus pin
 // rva002F477E via g_Va009FF0F8+0x10 pathfinder with (object from to 0);
 // Object +0x38 Coord3D; Waypoint +0x0c Coord3D; siblings 0x003E4F79 0x003E5105 /O1.
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Parameter
 {

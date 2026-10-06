@@ -7,12 +7,7 @@
 // Chain lane: calls 0x00265667 which we landed; guard byte plus machine slots plus base plus scale.
 // Evidence: caller at 0x0036BD51; callees rowed 0x00265667 plus gen-alias 0x003E3BFB.
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class StateMachine
 {

@@ -5,12 +5,7 @@
 // Thing at this+8, dot with Thing::getUnitDirectionVector2D, true when dot<0.
 // Callers at 0x00474A8E 0x00476F41; honest-address method.
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object
 {

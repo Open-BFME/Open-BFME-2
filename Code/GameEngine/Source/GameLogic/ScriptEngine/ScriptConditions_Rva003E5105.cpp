@@ -3,12 +3,7 @@
 // retail 0x003E5105 74B leaf free stdcall bool of 2x Parameter ret 8 from 0x003EC0F3. Evidence:
 // rowed ScriptEngine::getUnitNamed twice via g_Va009FE16C plus pin rva002F477E via g_Va009FF0F8+0x10
 // pathfinder with (object from to 0); Object +0x38 Coord3D; siblings 0x003E4F79 0x003E514F /O1.
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Parameter
 {

@@ -10,12 +10,7 @@ public:
 	float m_real;
 	AsciiString m_string;
 };
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Object
 {
 public:

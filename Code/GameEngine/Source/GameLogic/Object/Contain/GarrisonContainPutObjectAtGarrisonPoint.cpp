@@ -5,12 +5,7 @@
 // null plus 0x28 plus 3 bounds plus occupied check plus points[cond][point]
 // copy plus setPosition row plus ID stores plus TheGameLogic frame plus inc;
 // layout plus-0x100 data plus-0x420 count plus-0x424 points from remove TU.
-struct Coord3D
-{
-    float x;
-    float y;
-    float z;
-};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class Thing
 {
 public:
