@@ -1,0 +1,84 @@
+// ?rva0047BE23@Rva0047BE23@@QAEXH@Z
+// partial score=0.58 date=2026-10-06
+// cl: /MD
+// Target evidence: Ghidra boundary 0x0047BE23, 41 bytes. It reads a list
+// sentinel at this+0xFC, follows next at +0, and reads each payload at +8.
+// For non-null payloads it dispatches this object's vtable slot 41 with
+// (payload,false), then rereads the list head. The one stack word is unused;
+// its semantic type and the owning class identity remain unknown.
+struct Rva0047BE23ListNode {
+	Rva0047BE23ListNode *next;
+	Rva0047BE23ListNode *previous;
+	void *payload;
+};
+
+#define RVA0047BE23_VIRTUAL_SLOT(n) virtual void slot##n() = 0
+class Rva0047BE23Dispatch {
+public:
+	RVA0047BE23_VIRTUAL_SLOT(00);
+	RVA0047BE23_VIRTUAL_SLOT(01);
+	RVA0047BE23_VIRTUAL_SLOT(02);
+	RVA0047BE23_VIRTUAL_SLOT(03);
+	RVA0047BE23_VIRTUAL_SLOT(04);
+	RVA0047BE23_VIRTUAL_SLOT(05);
+	RVA0047BE23_VIRTUAL_SLOT(06);
+	RVA0047BE23_VIRTUAL_SLOT(07);
+	RVA0047BE23_VIRTUAL_SLOT(08);
+	RVA0047BE23_VIRTUAL_SLOT(09);
+	RVA0047BE23_VIRTUAL_SLOT(10);
+	RVA0047BE23_VIRTUAL_SLOT(11);
+	RVA0047BE23_VIRTUAL_SLOT(12);
+	RVA0047BE23_VIRTUAL_SLOT(13);
+	RVA0047BE23_VIRTUAL_SLOT(14);
+	RVA0047BE23_VIRTUAL_SLOT(15);
+	RVA0047BE23_VIRTUAL_SLOT(16);
+	RVA0047BE23_VIRTUAL_SLOT(17);
+	RVA0047BE23_VIRTUAL_SLOT(18);
+	RVA0047BE23_VIRTUAL_SLOT(19);
+	RVA0047BE23_VIRTUAL_SLOT(20);
+	RVA0047BE23_VIRTUAL_SLOT(21);
+	RVA0047BE23_VIRTUAL_SLOT(22);
+	RVA0047BE23_VIRTUAL_SLOT(23);
+	RVA0047BE23_VIRTUAL_SLOT(24);
+	RVA0047BE23_VIRTUAL_SLOT(25);
+	RVA0047BE23_VIRTUAL_SLOT(26);
+	RVA0047BE23_VIRTUAL_SLOT(27);
+	RVA0047BE23_VIRTUAL_SLOT(28);
+	RVA0047BE23_VIRTUAL_SLOT(29);
+	RVA0047BE23_VIRTUAL_SLOT(30);
+	RVA0047BE23_VIRTUAL_SLOT(31);
+	RVA0047BE23_VIRTUAL_SLOT(32);
+	RVA0047BE23_VIRTUAL_SLOT(33);
+	RVA0047BE23_VIRTUAL_SLOT(34);
+	RVA0047BE23_VIRTUAL_SLOT(35);
+	RVA0047BE23_VIRTUAL_SLOT(36);
+	RVA0047BE23_VIRTUAL_SLOT(37);
+	RVA0047BE23_VIRTUAL_SLOT(38);
+	RVA0047BE23_VIRTUAL_SLOT(39);
+	RVA0047BE23_VIRTUAL_SLOT(40);
+	virtual void slot41(void *payload, bool flag) = 0;
+};
+#undef RVA0047BE23_VIRTUAL_SLOT
+
+class Rva0047BE23 : public Rva0047BE23Dispatch {
+public:
+	char opaque04[0xF8];
+	Rva0047BE23ListNode *listHead;
+	void rva0047BE23(int unused);
+};
+
+void Rva0047BE23::rva0047BE23(int unused)
+{
+	Rva0047BE23ListNode *head;
+	Rva0047BE23ListNode *node;
+loop:
+	head = this->listHead;
+	node = head->next;
+	if (node == head) {
+		return;
+	}
+	if (node->payload != 0) {
+		((Rva0047BE23Dispatch *)this)->slot41(node->payload, false);
+	}
+	goto loop;
+}
