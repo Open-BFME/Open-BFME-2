@@ -15461,3 +15461,9 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?push_back@TunnelContainedItemsList@@QAEXABQAVObject@@@Z,0x0005548F,TunnelTracker contain-list append: TunnelTracker::addToContainList 0x004F56E5 calls the STLport four-byte list push_back body shared (ICF) with the rowed list<int> instance at 0x004F56F0; list<Object*>::push_back proper is the separate 0x001EC03C body so the tunnel list is modelled as its own class
 ??$_M_insert_dispatch@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@1@U?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@1@1ABU__false_type@1@@Z,0x00423216,Native REL32 in existing verified consumers; former scaffold compiler binding
 ??0?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@@_STL@@QAE@ABU?$less@W4NameKeyType@@@1@ABV?$allocator@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@1@@Z,0x00603AE0,Native REL32 in existing verified consumers; former scaffold compiler binding
+?_M_advance@?$_Deque_iterator_base@PAURva0054A202Element@@@_STL@@QAEXH@Z,0x00549CD4,
+??0?$_Rb_tree_base@URva001F068FElement@@V?$allocator@URva001F068FElement@@@_STL@@@_STL@@QAE@ABV?$allocator@URva001F068FElement@@@1@@Z,0x001F0534,
+??$_Construct@URva000BBC19Element@@U1@@_STL@@YAXPAURva000BBC19Element@@ABU1@@Z,0x000BBA47,
+??$_Construct@URva000CF529Element@@U1@@_STL@@YAXPAURva000CF529Element@@ABU1@@Z,0x000CF4D6,
+??$_Construct@URva000D04BCElement@@U1@@_STL@@YAXPAURva000D04BCElement@@ABU1@@Z,0x000D0469,
+??$_Construct@URva001D9B62Element@@U1@@_STL@@YAXPAURva001D9B62Element@@ABU1@@Z,0x001D9B0F,
