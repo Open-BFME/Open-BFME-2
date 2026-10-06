@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004DF207@Rva004DF207@@QAEXPAX@Z @ 0x004DF207 (42B)
 // Dispatches signed value at [arg+4]+0x548 to rowed power adds (mirror of twin 0x004DF231).
 // Retail negs before 0x004DF1AF (v<0 -> -v) and passes v straight to 0x004DF18D (v>0).

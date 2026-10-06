@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 //
 // ?rva004DC920@Rva004DC920@@QAE@XZ @0x004DC920, 205B.
 // Large record ctor with three AsciiStrings at +0x00/+0x3C/+0x188 from

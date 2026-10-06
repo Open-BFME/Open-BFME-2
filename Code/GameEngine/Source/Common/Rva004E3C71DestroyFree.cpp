@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva004E3C71@Rva004E3C71@@QAEXXZ, retail 0x004E3C71, 30 bytes.
 // Evidence: destroy Rva004E2382 range [begin,end) at +0/+4 via rowed _Destroy 0x004E377E then free begin via rowed _free 0x00030830; caller 0x004E3DE8; neighbours 0x004E3C32 vector dtor and 0x004E3CD0 parent dtor.

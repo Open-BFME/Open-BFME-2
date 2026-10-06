@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??$__copy_ptrs@PAUTreeHintRef00217D4C@@PAU1@@_STL@@YAPAUTreeHintRef00217D4C@@PAU1@00ABU__false_type@0@@Z @0x004F6A35 29B chain dispatcher via rowed 5-arg __copy.
 // Evidence: retail pushes 0 plus local tag and forwards 3 pointers to rowed 5-arg
 // _STL::__copy at 0x005E1A87; 4-arg callers at 0x004F6E47 0x004F70D1 0x000819EC pass tag;

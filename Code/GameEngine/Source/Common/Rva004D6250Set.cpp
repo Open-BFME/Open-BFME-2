@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD /EHsc
+// cl: /Oy- /MD /EHsc
 // Rva004D632D::rva004D6250, retail 0x004D6250 (89B):
 // AsciiString setter on Rva004D632D: converts the by-value argument via
 // GameState::realMapPathToPortableMapPath then assigns into the +0x1c member

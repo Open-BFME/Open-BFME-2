@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004EE540@Rva004EE540@@QAEXXZ @0x004EE540 30B
 // Vector clear: destroys [m_start, m_finish) via rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004D6C29@Rva004D6C29@@QAEXXZ @0x004D6C29 (31B):
 // Two-vector clear: erase of ScienceType vector at +0x04 via rowed erase
 // @0x00532803 then erase of void* vector at +0x10 via rowed erase @0x0031BD55.

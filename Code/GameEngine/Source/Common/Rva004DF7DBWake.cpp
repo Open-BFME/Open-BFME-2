@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004DF7DB@Rva004DF7DB@@QAEXW4UpdateSleepTime@@@Z, RVA 0x004DF7DB, 64 bytes.
 // UpdateModule wake helper: if Object at +0x8 has status 0 return else
 // setWakeFrame with FOREVER for INVALID/FOREVER else arg minus GameLogic frame.

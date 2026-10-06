@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 // ??0Rva004F692B@@QAE@ABU0@@Z, retail 0x004F692B, 24 bytes.
 // Copy ctor for 8-byte holder: pointer at +0 with inline AddRef at +4 plus
 // int at +4 zeroed (not copied). Evidence: mov eax ecx then copy ptr test

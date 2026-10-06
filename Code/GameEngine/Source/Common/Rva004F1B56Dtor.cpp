@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ??1Rva004F1B56@@UAE@XZ @ 0x004F1B56 54B evidence: dtor stores vtable 0x00C62E40 then destroys AsciiString at plus0x20 via releaseBuffer then restores base vtable 0x007BB554; EH prolog 0xB92CB5; caller 0x004F1D1F; same vtable as ctor 0x004F10E6 size 0x30
 #include "ascii_string.h"
 

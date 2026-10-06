@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?DoXfer@Rva004E1B00@@UAEXAAVXfer@@@Z retail 0x004E1302 58B: virtual slot 3
 // (offset 0x0C) of vtable 0x00C61DB4 (class of unrowed dtor ??1 at 0x004E1B00
 // tearing down AsciiStrings at +8 then +4 before restoring Snapshot base

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 // ?rva004FAFF2@Rva004FAFF2@@QAEAAU1@ABU1@@Z, retail 0x004FAFF2, 213 bytes.
 // Copy-assign over twelve AsciiStrings plus string vector plus int/byte tail.

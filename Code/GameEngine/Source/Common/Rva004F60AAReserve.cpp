@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004F60AA@Rva004F60AA@@QAEXXZ @0x004F60AA 66B: malloc retry loop halving capacity on failure with 0x1fffffff clamp.
 // Evidence: and [esi+8] 0 plus cmp 0x1fffffff plus shl 2 malloc IAT plus cdq-sub-sar halve plus caller 0x004F77BE; neighbours 0x004F6093 0x004F612A.
 extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int size);

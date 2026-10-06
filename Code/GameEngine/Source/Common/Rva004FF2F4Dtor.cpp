@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva004FF2F4@@QAE@XZ at 0x004FF2F4 (8B).
 // Tail-jmp dtor to rowed base 0x4E3184 at +4. Evidence: 5 callers incl
 // unwind funclets, unblocks 2.

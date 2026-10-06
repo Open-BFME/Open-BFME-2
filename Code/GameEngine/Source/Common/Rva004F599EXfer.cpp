@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva004F599E@@MAEXPAVXfer@@@Z, retail 0x004F59B2, 91 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00863254 (class of ??0Rva004F599E@@QAE@XZ rowed at 0x004F599E in Rva004F599EClear.cpp).
 // Persists two int[21] at +4 and +0x58 via Xfer slot 0x7C, Version1 via rowed 0x000053EE, IsLightCRC early-out via Xfer slot 0x10.

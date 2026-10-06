@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004DF18D@Rva004DF18D@@QAEXH@Z, RVA 0x004DF18D, 34 bytes.
 // Adds delta to m_04 then if m_0C Player non-null and m_04 < m_08 calls
 // rowed Player::onPowerBrownOutChange 0x002AB8D0 with (m_04 < m_08).

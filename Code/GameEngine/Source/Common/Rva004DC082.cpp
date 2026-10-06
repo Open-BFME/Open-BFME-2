@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004DC082@Rva004DC082@@QAEXXZ 0x004DC082 20B unlock lane thiscall copies [ecx+0x6c] to [ecx+0xac] and [ecx+0x70]-1 to [ecx+0xb0]; caller 0x0028470E unclaimed
 class Rva004DC082
 {

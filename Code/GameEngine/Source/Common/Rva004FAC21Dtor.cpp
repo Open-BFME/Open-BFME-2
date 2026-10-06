@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 //
 // ??1Rva004FAC21@@UAE@XZ, retail 0x004FADB8 (60 bytes).
 // Derived dtor of the rowed Rva004FAC21 ctor class (vtable 0x008633B0,

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva004D39DEGet@@YAHHH@Z @0x004D39DE 18B
 // Signed int helper. Evidence: free-function via two stack args plus ret

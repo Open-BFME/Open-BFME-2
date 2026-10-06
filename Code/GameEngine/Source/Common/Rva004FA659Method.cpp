@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004FA659@Rva004FA659@@QAEXXZ @0x004FA659 19B: thiscall, compares dwords
 // at +0x20/+0x24, forwards (m_20 != m_24) as unsigned char to member at +4
 // via rowed Rva004E060C::rva004E060C. Callers at 0x004FAA52/0x004FABC2/

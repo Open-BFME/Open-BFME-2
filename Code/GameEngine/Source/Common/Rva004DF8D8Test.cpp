@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?Rva004DF8D8Test@@YA_NPBUVec2@@00MMMM@Z @0x004DF8D8 133B
 // Evidence: EBP-frame SSE comiss/divss/mulss shape; 3 Vec2 ptrs + 4 floats; dot/cross/sum-squared test; caller at 0x0028F38A.
 struct Vec2

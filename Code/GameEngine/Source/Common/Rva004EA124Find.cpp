@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004EA124Find@@YAPAXPAX@Z, retail 0x004EA124, 37 bytes.
 // Free-function linear search over pointer table [g_00E04494, g_00E04498):
 // each entry points at an object whose dword at +0x70 is compared to the key.

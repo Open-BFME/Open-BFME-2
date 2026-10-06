@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004FC275@Rva004FC275@@QAEXE@Z, retail 0x004FC275 36B: flag set with two vtable notifies.
 // Evidence: __thiscall ret 4 with byte at +0x35 plus object at +0x24 calling slots 3/4; caller 0x002B6819.

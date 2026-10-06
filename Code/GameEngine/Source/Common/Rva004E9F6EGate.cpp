@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva004E9F6E@Rva004E9F6E@@QAEXXZ @0x004E9F6E 68B.
 // Empty-name gate: probe the +0x08 key through rowed 0x002A8B59 on the

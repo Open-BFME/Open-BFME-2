@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Oy- /DNDEBUG /MD /GX-
 // ?Rva004FD77CParse@@YAXPAVINI@@PAVRva004FD3E2@@@Z @0x004FD77C 98B.
 // TeamDefeatCondition ParseINI helper: new Rva004FCD49 0x14, initFromINI via
 // table g_00C63640, then holder->rva004FD3E2. Throws INIException code 3 with

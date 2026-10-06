@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /MD /DNDEBUG
+// cl: /GX- /MD /DNDEBUG
 // Opaque dtor at 0x004DF324 (vptr + consts + pool-member call, tail-jmp base).
 // Retail: push esi/mov esi,ecx/lea ecx,[esi+0x24]/mov [esi],0xC61588/
 // mov [esi+0xC],0xBEFF90/mov [esi+0x10],0xC6157C/call 0x268902/

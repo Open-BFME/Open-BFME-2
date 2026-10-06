@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva004F691E@@QAE@HHABUTreeHintRef00217D4C@@@Z, retail 0x004F68FC, 34 bytes.
 // Ctor for 12-byte holder (int +0, int +4, TargetRef* +8 with inline AddRef).
 // Evidence: next row dtor 0x004F691E releases +8 via rowed fastcall 0x0007DEEF;

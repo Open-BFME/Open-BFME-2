@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva004E3CD0@@UAE@XZ @ 0x004E3CD0 (72B). Virtual dtor: vtable 0x00862054,
 // cleanup this->rva004E2199 (row Code/.../Rva003EF14ADtor.cpp), then vector

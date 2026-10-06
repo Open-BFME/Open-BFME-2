@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004EE15B@Rva004EE15B@@QAEXPAURva004EE15BObj@@@Z @0x004EE15B 78B.
 // Triple-forward: run the argument's slot-0x28 hook on a paired 1-byte

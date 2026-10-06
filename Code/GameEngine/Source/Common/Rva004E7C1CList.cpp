@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ?rva004E7C1C@Rva004E7C1C@@QAEXXZ @0x004E7C1C 49B
 // List clear: free each node after running its +8 cleanup then reset sentinel.
 // Evidence: callees rva004E7A76 0x004E7A76 free 0x00030830 rowed; callers 0x004E7C8A 0x004E7CDD 0x004E7CFE; node next +0 prev +4 value +8 head reset.

@@ -1,5 +1,5 @@
 // ?rva004EDA60@Rva004ECECD@@QAEXXZ
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004EDA60@Rva004ECECD@@QAEXXZ at 0x004EDA60 (44B).
 // AITactic guard: early-out if +0x50 set or [ +0x20 ]+4 == 1, else
 // rva004ED372(&m_44), set +0x50=1, rva004ED748(0 0).

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004E0741@Rva004E0741@@QBEXXZ @0x004E0741 15B + ?rva004E0750@Rva004E0750@@QBEXXZ @0x004E0750 15B
 // Conditional void virtual tail-calls: if dword at +0x2c == 0 return void else
 // tail-jump to virtual slot 1 (0741, offset 4) / slot 2 (0750, offset 8) of the

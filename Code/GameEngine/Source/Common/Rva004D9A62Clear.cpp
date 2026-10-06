@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004D9A62@Rva004D9A62@@QAEXXZ @0x004D9A62 (41B):
 // Reset: if +4 zero return; else recurse rowed 0x004D968D on ptr+4, reinit
 // ptr+8/self ptr+4/0 ptr+0xC/self and +4/0. Evidence: chain lane, calls

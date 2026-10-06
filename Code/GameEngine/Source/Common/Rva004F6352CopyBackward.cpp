@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$__copy_backward@PAURva004F6352@@PAU1@H@_STL@@YAPAURva004F6352@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z, retail 0x004F6876, 50 bytes.
 // STL __copy_backward for 12-byte Rva004F6352 via rowed operator= 0x004F6352.
 // Evidence: stride 0xC idiv loop; callee rowed 0x004F6352; caller 0x004F70A5

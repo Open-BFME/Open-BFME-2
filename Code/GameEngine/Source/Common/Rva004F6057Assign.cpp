@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??4Rva004F6057@@QAEAAU0@ABU0@@Z, retail 0x004F6057, 39 bytes.
 // Ref-holder copy-assign: AddRef incoming TargetRef at +4 then Release held
 // via rowed fastcall 0x0007DEEF then copy ptr and return this. No self-check;

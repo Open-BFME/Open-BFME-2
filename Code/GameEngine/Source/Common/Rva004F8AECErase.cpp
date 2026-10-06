@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva004F8AEC@Rva004F8AEC@@QAEXPAURva004F8AECNode@@@Z retail 0x004F8AEC 53B
 // Rb _M_erase: recurse-right via +12 walk-left via +8 destroy value at +16 via pinned Rva004F7DD4 dtor 0x004F7DD4 and free 0x30830 ret 4.
 // Evidence: callees 0x004F7DD4 pin plus 0x30830 rowed; caller clear 0x004F8DD4 pushes root at +4 and resets header; same 53B shape as landed erases 0x003833BB and 0x00502610.

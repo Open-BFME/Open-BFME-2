@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ?rva004DD843@Rva004DD843@@QAEMXZ @ 0x004DD843 (10B).
 // Thiscall float getter forwarding int at +0x24 through rowed

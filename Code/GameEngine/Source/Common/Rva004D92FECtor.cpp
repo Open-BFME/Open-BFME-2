@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 //
 // ??0Rva004D92FE@@QAE@XZ @0x004D92FE 61B
 // Frameless 0x24-byte holder ctor: byte false at +0, four int zeros at

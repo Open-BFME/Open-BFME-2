@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004E08A9@Rva004E08A9@@QAE_N_N@Z 0x004E08A9 77: flag-gated player check.
 // Evidence: rowed Rva004E0705::rva004E0705 plus rowed Rva002B2B66::rva002B2B66
 // plus pin 0x002E0BC0 Rva002E0BC0Helper::rva002E0BC0; callers 0x004E0A58

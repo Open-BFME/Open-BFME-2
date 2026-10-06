@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ??1Rva004E9B46@@UAE@XZ @0x004E9BC6 77B. Identity: dtor storing vtable 0x00862874 then member cleanup via 0x004E9B70 and free of +0x0C then base vtable via 0x00506B28.
 // Evidence: vtable store at [this]; callees rowed 0x004E9B70 0x00506B28 free 0x00030830; unblocks 0x004E9F52.
 class Rva004E9B70

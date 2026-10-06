@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva004F70D1@Rva004F70D1@@QAEP AUTreeHintRef00217D4C@@PAU2@@Z @ 0x004F70D1 (57B). Vector erase for
 // TreeHintRef00217D4C: copy [pos+1 finish) to pos via rowed __copy_ptrs 0x004F6A35 then --finish
 // and destroy last via rowed deleting 0x005F8FCC returning pos. Evidence: ret 4 one ptr arg,

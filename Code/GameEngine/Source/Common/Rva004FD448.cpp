@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva004FD448@Rva004FD448@@QAEXPBVModuleData@@@Z @0x004FD448 102B.

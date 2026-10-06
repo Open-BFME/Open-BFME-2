@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??1Rva004F691E@@QAE@XZ @0x004F691E 13B
 // Holder dtor releasing TargetRef pointer at +8 via rowed fastcall 0x0007DEEF.
 // Evidence: tail-jmp to ?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z;

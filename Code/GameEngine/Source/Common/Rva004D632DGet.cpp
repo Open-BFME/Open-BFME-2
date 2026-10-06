@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Oy- /MD /EHsc
 // ?rva004D632D@Rva004D632D@@QBE?AVAsciiString@@XZ @0x004D632D (33B):
 // AsciiString value forwarder: returns TheGameState->portableMapPathToRealMapPath
 // of the +0x1c member. Retail lea via add ecx,0x1c; push member; push hidden

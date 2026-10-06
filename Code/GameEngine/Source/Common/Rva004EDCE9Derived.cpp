@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructors tail-calling Rva004EDCE9::~
 // Rva004EDCE9 at 0x004EDCE9 (pinned opaque SEH base dtor; identity

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // ??0Rva004DF418@@QAE@PAVThing@@PBVModuleData@@@Z @0x004DF418 (104B):
 // ObjectHelper-derived module ctor. Base ctor 0x0028C8DF; m_24 member init
 // 0x0029FB3B; setWakeFrame resolved to the 0x0044DF71 pin. The vptr/pointer

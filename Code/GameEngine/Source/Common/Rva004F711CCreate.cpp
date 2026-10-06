@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva004F711CCreate@@YGPAURva004F711CObj@@PBVRva00468520@@@Z, retail
 // 0x004F711C, 34 bytes. Allocates 0x10 via rowed byte allocator 0x000307F0
 // then inits embedded Rva00468520 at +8 via rowed Init 0x004F6B7B. First 8

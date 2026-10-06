@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004E93A8@Rva004E93A8@@QAEHXZ @0x004E93A8 64B count ptr array +0xc +0x10 where get()==0 and (elem+0x5c==1 or global flag) callees get 0x002AA22A callers 0x002C6C6D 0x004E974A
 class Rva002AA22AByteField
 {

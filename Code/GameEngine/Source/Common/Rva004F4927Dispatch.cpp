@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004F4927@Rva004F4927@@QAEXXZ @0x004F4927 59B.
 // Probe-gated quad dispatch: unless the pinned 0x002A8AB1 lookup on the

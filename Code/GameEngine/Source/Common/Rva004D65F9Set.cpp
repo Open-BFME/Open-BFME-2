@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Oy- /MD /EHsc
 // ?rva004D65F9@Rva004D64F5@@QAEXVAsciiString@@@Z @0x004D65F9 (52B):
 // AsciiString setter on Rva004D64F5: copies the by-value argument into the
 // +0x1c member via pin-only operator= 0x000366F0, then destroys the parameter

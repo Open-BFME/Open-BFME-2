@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 #include "unicode_string.h"
 
 // ?Rva004E74E0Append@@YAXPAVUnicodeString@@PBV1@@Z @0x004E74E0 38B

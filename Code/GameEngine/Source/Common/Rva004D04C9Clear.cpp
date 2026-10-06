@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004D04C9@Rva004D04C9@@QAEPAXXZ @0x004D04C9 23B: memset this 0x2000 plus return this.
 // Evidence: pin ji_006291ae memset plus caller 0x004D152E; neighbours ConnectionManagerO1.
 void *ji_006291ae(void *dst, int val, unsigned int size);

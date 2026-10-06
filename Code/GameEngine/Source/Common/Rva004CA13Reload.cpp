@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oa /MD
+// cl: /Ireference/shims/bfme2_ascii /Oa /MD
 //
 // ?rva002CF172@Rva004CA13@@UAE_NPA_N@Z, retail 0x002CF172, 87 bytes.
 // Virtual slot 4 (offset 0x10) of vtable 0x007C4858 (class of

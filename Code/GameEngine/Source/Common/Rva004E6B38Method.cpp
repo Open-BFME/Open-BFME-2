@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva004E6B38@Rva004E6B38@@QAEXXZ @ 0x004E6B38 (69B): flag-guarded Hide callback via Rva0043DB23 then two OwnedPointerResets clears. Callers at 0x004E6B8E and 0x004E724B and jmp at 0x004E7019. Callees rowed 0x00524021 0x0043DB23 0x004E6A1D. Global TheRva00222A8BTarget and string Hide.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

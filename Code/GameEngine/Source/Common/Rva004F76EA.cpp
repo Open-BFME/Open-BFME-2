@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva004F76EA@Rva004F76EA@@QAEXHHPAVRva004F76EAPred@@@Z, retail 0x004F76EA 71B.
 // Iterates vector<int> stored as map value: map array indexed by (a1+3),

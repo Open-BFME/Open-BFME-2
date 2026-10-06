@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva004FCDCF@Rva004FCDCF@@QAEXPAXPAXPAH@Z, retail 0x004FCDCF, 114 bytes.
 // Caller 0x004FD4D4 passes player plus vector plus maxOut; duplicate check by +0x12c then push_back plus max update.

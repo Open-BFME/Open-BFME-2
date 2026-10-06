@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva004E0425@Rva004E0425@@QAEXPAX@Z @0x004E0425 180B.
 // Five-pointer dispatch plus name-keyed release. Retail 0x004E0425..0x004E04D9.

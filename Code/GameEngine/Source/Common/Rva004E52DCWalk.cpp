@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Three small dump-range bodies: 0x4E52DC walks a circular node list
 // calling the pinned 0x4E50C8 on each member, 0x4E7277 is an m_08/m_40

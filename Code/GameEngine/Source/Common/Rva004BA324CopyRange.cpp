@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva004BA324CopyRange@@YAPAVRva004BA1C8@@PAV1@00H@Z, retail 0x004BA324 29B: tag temp plus null distance forwarder.
 // Evidence: same 29B shape as rowed ?Rva002915EBCopyRange at 0x002915EB; callee 0x004BA2E9 is 50B assign loop via rowed assign; caller 0x004BA399 is 51B erase-range like rowed EraseRange at 0x002983DA.

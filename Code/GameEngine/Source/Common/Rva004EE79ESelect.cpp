@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // stlport
 //
 // ?rva004EE79E@Rva004EE79E@@QAEXPAURva004EE79ESub@@@Z @0x004EE79E 79B.

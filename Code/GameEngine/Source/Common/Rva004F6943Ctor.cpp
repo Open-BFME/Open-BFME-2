@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva004F6943@@QAE@ABUTreeHintRef00217D4C@@ABUInts004F6943@@@Z, retail 0x004F6943, 35 bytes.
 // Ctor for 12-byte holder: pointer at +0 with inline AddRef at +4 plus ints
 // at +4/+8 copied from 8-byte pair. Same layout as Rva004F6966 copy ctor at

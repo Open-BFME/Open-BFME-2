@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva004D93F7Check@@YAEIPBUBfmePointFD@@@Z, retail 0x004D93F7, 92 bytes.
 // Shroud-audio bounds check: TheAudio slot 0x134 bounds vs two
 // Rva00739830 cell sums via TheShroudManager; unsigned char return.

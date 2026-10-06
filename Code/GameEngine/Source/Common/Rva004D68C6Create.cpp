@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /Oy- /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /Oy- /MD /EHsc
 // ?rva004D68C6@Rva004D68C6@@QAEPAVGameMessage@@XZ @0x004D68C6 (443B):
 // Builds a GameMessage from slot descriptor: validates GameInfo slot,
 // resolves player via NameKeyGenerator and PlayerList, allocates

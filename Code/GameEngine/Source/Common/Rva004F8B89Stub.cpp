@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 //
 // ?rva004F8B89@@YGXHHH@Z @0x004F8B89 25B.
 // Tiny stdcall repacker: forward three ints plus the address of the third

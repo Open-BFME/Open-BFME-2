@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004E7A85@Rva004E7A85@@QAEXXZ @0x004E7A85 82B.
 // First-shot refresh: when m_4 is still zero, sweep the +0x1C collector via

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004C0D4F@Rva004C0D4F@@QAE_NXZ 0x004C0D4F 77B: ask helper via GameLogic findObjectByID and AIUpdate slot 0xa4.
 // Evidence: 9 matched callers; global 0x009FE78C (TheGameLogic); pins bfmeAskBUE/BVF/BVG/CCD; vtable slot 0xa4; offsets +0x104 +0x100 +8 +0x74 +0xec +0x254.
 enum ObjectID {};

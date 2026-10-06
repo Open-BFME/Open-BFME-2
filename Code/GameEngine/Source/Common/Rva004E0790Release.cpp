@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004E0790@Rva004E0790@@QAEXXZ @0x004E0790 25B
 // Guarded TreeHint release: if Inner at +0x00 != 0 release its TargetRef at
 // +0xAC via rowed fastcall 0x0007DEEF then null the holder. Retail is push esi

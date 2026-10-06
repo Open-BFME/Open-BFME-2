@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004FF582@Rva004FF582@@QAEXPAURva004FF582Node@@@Z at 0x004FF582 (53B).
 // Tree/list free: recurse on child +0xC, destroy Rva004FF2F4 at +0x10, _free node, iterate via next +8.
 // Evidence: chain lane, callees rowed self plus ??1Rva004FF2F4 0x004FF2F4 plus _free 0x00030830, caller 0x004FF729.

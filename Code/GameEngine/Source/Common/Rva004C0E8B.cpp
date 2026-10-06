@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004C0E8B@Rva004C0E8B@@QAEPAXPAX@Z 0x004C0E8B 67B: Ask-gated memcpy-out like BfmeThing Go family.
 // Evidence: chain from 0x004C0D4F row; prev BfmeConv565 head 0xF0; memcpy thunk 0x006291A8; slot 0x38.
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004E8220@Rva004E8220@@QAEXH@Z @ 0x004E8220 (20B):
 // Leaf thiscall setter. If the dword at +0x27C is 1 set it to 2; single
 // unused int arg (ret 4). Evidence: reads ecx before writing it; caller at

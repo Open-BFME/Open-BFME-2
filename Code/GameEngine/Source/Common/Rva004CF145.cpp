@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /MD /EHsc
 // ?Rva004CF145@@YAXXZ @0x004CF145 104B. Audio event via TheAudio slot138.
 // Evidence: TheAudio 0x009FE6E8 plus rowed BfmeAudioEventPrefix136 ctor 0x002D97D6
 // plus AudioManager slots 0x64 addAudioEvent 0x138 provider plus rowed

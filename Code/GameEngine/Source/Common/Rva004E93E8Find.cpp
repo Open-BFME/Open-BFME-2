@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004E93E8@Rva004E93E8@@QAEPAXXZ @0x004E93E8 49B search ptr array +0xc +0x10 for [elem+0x5c]==1 or global flag caller 0x004E9710
 struct Elem004E93E8 { char _pad[0x5c]; int m_5c; };
 struct Glob004E93E8 { char _pad[0x860]; unsigned char m_860; };

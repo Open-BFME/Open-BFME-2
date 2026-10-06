@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva004D9539@@QAE@HHH@Z @0x004D9539 77B. EH ctor with two rowed Upgrades at +0/+8 then three ints at +0x10/+0x14/+0x18 plus zeroed +0x1C/+0x20.
 // Evidence: retail __EH_prolog call Upgrades state0 call Upgrades mov args ret 0xC; callee 0x004CEE6E Upgrades@CashHackSpecialPowerModuleData; caller 0x004DADA9.
 class CashHackSpecialPowerModuleData

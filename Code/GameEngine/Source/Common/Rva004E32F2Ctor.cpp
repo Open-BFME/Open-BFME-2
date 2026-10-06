@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS
 // stlport
 // ??0Rva004E32F2@@QAE@ABV0@@Z, retail 0x0052D477, 43 bytes.
 // Copy ctor of Rva004E32F2: vptr store plus int at +4 plus byte at +8 plus tree copy at +0xC.

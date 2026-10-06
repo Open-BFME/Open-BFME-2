@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004EE0C6@Rva004EE0C6@@QAEXHPAVRva003F498A@@@Z, retail 0x004EE0C6, 77 bytes.
 // Stores time(0) to +0x60; if rva003F486C(p [this+0xE4]) then rva003F4798(p
 // [this+0xE4] [p+0x38]) and inc +0xC8 when >=0 else +0xCC. Evidence: time IAT

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ??0Rva004E7392@@QAE@ABV0@@Z @0x004E7392 39B: copy constructor (caller
 // 0x004E74C1). It copies the state-free polymorphic base through its

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ?Rva004DD722Get@@YAMH@Z @ 0x004DD722 (25B).
 // Free int-to-float scaler: zero returns BfmeZeroRange else (float)value * g_integerToFloatScale.

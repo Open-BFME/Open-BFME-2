@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 // ?rva004D6C7C@Rva004D6C7C@@QAEXPBVObject@@@Z @0x004D6C7C (32B):
 // Conditional ScienceType push_back via by-value getter: null-check arg,
 // inline load of Science at +0x74 into eax, spill to dead arg slot [ebp+8],

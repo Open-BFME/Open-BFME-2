@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
 // ?rva004F597F@Rva004F599E@@QAEXXZ, retail 0x004F597F, 31 bytes.
 // Zeroes two int[21] blocks at +4 and +0x58; called from ctor 0x004F599E after vtable store.
 // ??0Rva004F599E@@QAE@XZ, retail 0x004F599E, 14 bytes.

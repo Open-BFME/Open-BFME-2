@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004F06E5@Rva004F06E5@@QAEXXZ @0x004F06E5 49B.
 // Holder teardown: when the +0x1C chain's +0x30 target carries flag bit 1 at

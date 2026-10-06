@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004E366E@Rva004E366E@@QAEXXZ @ 0x004E366E (28B).
 // Vector clear plus free: erases the BfmePod8 vector at +0 via rowed erase

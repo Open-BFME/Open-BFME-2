@@ -1,4 +1,4 @@
-// cl: /Os
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva004E075FGet@@YAHPAVRva004E075FObj@@H@Z @0x004E075F 24B
 // Free __cdecl wrapper: returns obj->v37("LivingWorldBuildingID", arg, 4) where
 // v37 is virtual slot 37 (offset 0x94). Retail is mov ecx,[esp+4] /

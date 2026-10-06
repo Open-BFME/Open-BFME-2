@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004E99B1@@YAPAXPAX@Z @0x004E99B1 37B.
 // Scan of the global RvaVector g_00E04484 (same view as Rva004E9B70Finish.cpp):

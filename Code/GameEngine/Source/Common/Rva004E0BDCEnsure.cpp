@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004E0BDC@Rva004E0BDC@@QAEXABURva004E0790Inner@@@Z @0x004E0BDC 109B ensure Inner at +0x3c via new plus copy ctor 0x0040D688 or assign 0x004E09FB then store +0x18 to +0xB4; chain via 0x0040D688
 void *__cdecl operator new(unsigned int size);
 void __cdecl operator delete(void *p);

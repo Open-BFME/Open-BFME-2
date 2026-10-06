@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva004E20AB@@YA_NPBURva004E20ABRec@@0@Z @0x004E20AB 76B.
 // Three-AsciiString-plus-flag equality: rowed StringBase compare 0x00069D6 on

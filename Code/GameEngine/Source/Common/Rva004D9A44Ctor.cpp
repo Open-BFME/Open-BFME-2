@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva004D9A44@@QAE@ABVRva0036CA00Str@@ABVRva004D964E@@@Z @0x004D9A44 (30B):
 // Two-member ctor: Rva0036CA00Str at +0 via rowed 0x000A8C7C then Rva004D964E
 // at +4 via rowed 0x004D964E, return-this ret-8. Evidence: chain lane, calls

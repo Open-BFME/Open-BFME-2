@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva004C0FB5@Rva004C0FB5@@QAEPAXPAX@Z 0x004C0FB5 81B: Ask-gated 8B copy via float+int.
 // Evidence: chain from 0x004C0D4F row; prev BfmeConv540; slot 0x7C; zero fallback.
 class Rva004C0D4F

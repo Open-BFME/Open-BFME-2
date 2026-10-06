@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva004D1EB1@Rva004D1EB1@@QAEXG@Z, retail 0x004D1EB1, 64 bytes.
 // STL bitset version of the Gen00667F30ClearRange window: last = id+0x800A,

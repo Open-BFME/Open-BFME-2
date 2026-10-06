@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva004E04D9@Rva004E04D9@@QAEXXZ @0x004E04D9 36B.
 // Reset for the Rva004E04FD layout (see Rva004E04FDCtor.cpp/Rva004E0513Xfer.cpp):

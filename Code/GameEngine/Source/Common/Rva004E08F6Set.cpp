@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004E08F6@Rva004E0790@@QAEXPAURva004E0790Inner@@@Z @0x004E08F6 34B
 // Ref-counted holder assignment for Rva004E0790: if (p != m_ptr) {
 // rva004E0790(); m_ptr = p; if (p) ++p->m_ref.references; } where references

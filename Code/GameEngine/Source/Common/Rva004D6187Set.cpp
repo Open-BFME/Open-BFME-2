@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD /EHsc
+// cl: /Oy- /MD /EHsc
 // ?rva004D6187@Rva004D60CA@@QAEXV?$StringBase@G@@@Z @0x004D6187 (52B):
 // Wide-string setter on Rva004D60CA: copies the by-value argument into the
 // +0x1c StringBase<wchar> member via pin-only set 0x00037150, then destroys

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004E94CA@Rva004E94CA@@QAE_NPAVPlayer@@@Z @0x004E94CA 49B if +4==0 false else nth=getNthPlayer([[[this]+8]+0x10]) return arg->getRelationship(nth)==ALLIES callees 0x002A7A29 0x002AC3E0 global ThePlayerList caller 0x002A949F
 enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
 class Player

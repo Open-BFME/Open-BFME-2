@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004FC9CE@Rva004FC9CE@@QAEPAXABVRva0059E2FD@@@Z @0x004FC9CE 62B.
 // Linear search over the +0x98/+0x9C pointer range: first entry whose
 // rowed Rva0059E2FD::rva0059E31F accepts the key answers rowed

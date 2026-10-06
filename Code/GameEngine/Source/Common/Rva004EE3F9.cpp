@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004EE3F9@Rva004EE3F9@@QAEHABV?$BitFlags@$0HE@@@0@Z, retail 0x004EE3F9, 78 bytes.
 // RB-tree sum with BitFlags filter: tree at +0xCC, sums +0x14 where +0x10 obj non-null
 // and its +0x108 flags pass testSetAndClear. Evidence: rowed 0x0030A146 0x00024250;

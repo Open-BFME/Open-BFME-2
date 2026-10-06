@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 // ??4Rva004F6352@@QAEAAU0@ABU0@@Z, retail 0x004F6352, 35 bytes.
 // 12-byte struct copy-assign: two dwords at +0/+4 plus TreeHintRef at +8 via
 // rowed operator= 0x002174A4 then return this. Evidence: stride 0xC in callers

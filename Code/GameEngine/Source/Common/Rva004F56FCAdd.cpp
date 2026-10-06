@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
 // stlport
 // ?rva004F56FC@Rva004F56FC@@QAEXPAVObject@@@Z, retail 0x004F56FC, 31 bytes.
 // List-add with count: inc +0x1C then push Object+0x74 ID into list<int> at +0x08

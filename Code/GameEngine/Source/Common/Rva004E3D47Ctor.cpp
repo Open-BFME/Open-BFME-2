@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva004E3D47@@QAE@XZ @ 0x004E3D35 (18B). Derived ctor: calls base
 // ??0Rva004E3CD0@@QAE@XZ row 0x004E3C8F then stores vtable 0x0086208C.
 // Chain lane: base just landed. No callers. Neighbours 0x004E3D2A/0x004E3D47

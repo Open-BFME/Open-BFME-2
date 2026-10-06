@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004DFA0E@Rva004DFA0E@@QAEXPAX0@Z @0x004DFA0E 53B
 // __thiscall guarded triple dispatch: if second arg ptr byte+1 >=2, builds
 // TwoBytes{1,1} by reusing dead arg slot at [ebp+0xC] (no new stack), calls

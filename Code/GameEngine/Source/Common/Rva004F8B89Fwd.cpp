@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 //
 // Three small dump-range forwarders/walkers: 0x4F8B89 repacks three ints

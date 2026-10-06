@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004E8D3E@Rva004E8D3E@@QAEHHHH@Z @0x004E8D3E 72B.
 // Triple-guarded bool: a pinned row-test hit, two magic/zero rejects, a

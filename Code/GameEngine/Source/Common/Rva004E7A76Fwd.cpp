@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004E7A76@Rva004E7A76@@QAEXXZ @0x004E7A76 15B
 // Null-checked tail forward to vtable slot 2 via +0x8. Evidence:

@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004EF4C1@Rva004EF4C1@@QAEXXZ @0x004EF4C1 95B.
 // Frame-rate pacer: unless the +0x0C chain's +0x338 flag is set, count the

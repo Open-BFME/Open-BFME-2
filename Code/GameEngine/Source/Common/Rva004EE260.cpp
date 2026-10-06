@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004EE260@Rva004EE260@@QAEXHPAVRva003F498A@@PAX@Z, retail 0x004EE260, 219 bytes.
 // Chain via 0x003F486C: same time-less head as 0x004EE0C6 (rva003F486C then
 // rva003F4798 into +0xD4/+0xD8) plus a pair-vector scan counting into

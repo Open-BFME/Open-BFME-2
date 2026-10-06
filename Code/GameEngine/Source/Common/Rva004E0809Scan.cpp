@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004E0809@Rva004E0809@@QAEXXZ @0x004E0809 60B
 // Scan pointer range [+0x30,+0x34) and keep last non-null virtual results:
 // slot 0x20 -> [+0x40], slot 0x28 -> [+0x44]. Retail is and [esi+0x40],0 /

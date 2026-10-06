@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva004E44FBSet@@YGXHHABVUnicodeString@@@Z @0x004E44FB 88B
 // Free __stdcall setter formatting "PlayerTable:%d:%d" via rowed AsciiString::format
 // 0x00038150 then pinned BfmeAptWindowManager::bfmeSetText 0x00225301 with false.

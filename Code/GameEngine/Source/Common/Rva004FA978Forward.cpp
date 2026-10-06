@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004FA978@Rva004FA978@@QAEXP8Rva004FA935Listener@@AEXPAX@Z0@Z @0x004FA978 26B leaf: forward same args to member list at +4 then tail to global g_00E044F0; callers 0x004FB1C6; callee forEach 0x004FA935
 
 class Rva004FA935Listener

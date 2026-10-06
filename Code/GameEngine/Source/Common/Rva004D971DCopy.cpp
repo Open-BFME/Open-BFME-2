@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva004D971D@@QAE@ABV0@@Z @0x004D971D (33B):
 // Copy ctor: Rva0036CA00Str at +0 via rowed 0x000A8C7C then Rva004D964E at +4
 // via rowed 0x004D964E, edi holds src across calls, return-this ret-4.

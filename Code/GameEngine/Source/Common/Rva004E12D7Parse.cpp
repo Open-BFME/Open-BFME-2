@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva004E12D7Parse@@YAXPAX0@Z @0x004E12D7, 24B.
 // INI parse helper for LivingWorldSpawnArmyID: calls INI slot 0x94 with
 // the string plus dest plus 4. Callers at 0x002BC6C7 plus 6 more pass

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva004D964E@@QAE@ABV0@@Z @0x004D964E (63B):
 // Copy ctor: two Rva002390CB members via rowed copy ctor 0x2390CB plus four
 // dwords plus byte. Evidence: push esi-edi plus two ??0 calls plus

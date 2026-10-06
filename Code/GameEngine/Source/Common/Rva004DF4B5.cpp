@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004DF4B5@Rva004DF4B5@@QAEXPAX@Z @0x004DF4B5 32B: if arg non-null take ObjectID at +0x74 and push_back into list at +0x24 via rowed BridgeBehaviorObjectIDList::push_back; caller 0x0028BC0F unblocks 0x0028BC05; neighbours share layout
 enum ObjectID
 {

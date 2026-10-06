@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ??1Rva004DC9EDEntry@@QAE@XZ, retail 0x004DC9ED, 71 bytes.
 // Opaque three-string record destructor: tears down AsciiStrings at +0x00,

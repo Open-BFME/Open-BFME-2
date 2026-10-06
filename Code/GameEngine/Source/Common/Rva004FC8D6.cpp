@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004FC8D6@Rva004FC8D6@@QAE_NPAVRva002E1001@@@Z @0x004FC8D6 (71B).
 // Evidence: rowed rva002104B6 0x002104B6 plus rowed rva002E1001 0x002E1001
 // plus g_009FEF10; caller 0x004FD5F0; prev 0x004FC563 next 0x004FC957;

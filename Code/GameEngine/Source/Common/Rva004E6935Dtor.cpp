@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva004E6935@@QAE@XZ retail 0x004E6935 72B
 // Member teardown in reverse order: UnicodeString at +0xC (EH state 1),
 // the ref holder at +8 released through the rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva004F7B42@Rva004F7B42@@QAEHHH@Z @ 0x004F7B42 (41B). Map array indexed by
 // (a1+3) with imul 0xc stride matching 12-byte map, upper_bound via rowed

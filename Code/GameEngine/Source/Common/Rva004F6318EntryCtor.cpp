@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva004F6318Entry@@QAE@PBHABVRva004F6093Holder@@@Z, retail 0x004F6318,
 // 29 bytes. Entry ctor for sorted vector: int key at +0 via pointer deref,
 // Holder value at +4 via rowed copy ctor 0x004F6093. Same 8-byte entry layout

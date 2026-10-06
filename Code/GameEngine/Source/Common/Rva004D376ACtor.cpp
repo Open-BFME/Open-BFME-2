@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva004D376A@@QAE@XZ 0x004D376A 177 ctor with 8x8 grid and parallel arrays, vtable 0x00C601DC
 
 struct Rva004D376AGridElem

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004D933BIs@@YA_NH@Z @0x004D933B (39B):
 // Free __cdecl predicate: arg is one of 0x7E6 0x7E7 0x7EC 0x7E8.
 // Evidence: unlock lane, 4x cmp-je plus xor-inc shape, caller 0x004D9492

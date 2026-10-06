@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva004CC63A@@MAEXPAVXfer@@@Z, retail 0x004CC72C, 105 bytes. Virtual
 // slot 3 (offset 0x0C) of vtable 0x0085F5A0 (class of rowed dtor

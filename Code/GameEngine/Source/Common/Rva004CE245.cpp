@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004CE245@@YAXPAX@Z retail 0x004CE245 34B
 // Free helper: if (!o->cond()) { o->step(); o->finish(0); } via vtable slots 0x1C/0x20/0x24.
 // Evidence: 2 callers 0x0028DA28 0x00290D42 passing pointer; unlocks 1 ready.

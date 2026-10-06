@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva004C6F77Median@@YAPAXPAX00P6A_N00@Z@Z @0x004C6F77 89B: median of three
 // via __cdecl bool predicate (call esi, test al). Returns one of the three

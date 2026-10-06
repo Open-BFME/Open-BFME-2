@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004E09FB@Rva004E0790Inner@@QAEAAU1@ABU1@@Z @0x004E09FB 93B
 // Copy-assign of Rva004E0790Inner: assigns leading BfmeAssignRecord172 at +0x00
 // via rowed 0x001EB20E, skips TargetRef at +0xAC (refcount preserved), then

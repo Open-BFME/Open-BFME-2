@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004E7AD7@Rva004E7A76@@QAEPAXI@Z @0x004E7AD7 28B.
 // Deleting-dtor shape for Rva004E7A76: run the rowed 0x004E7A76 dtor, free

@@ -1,5 +1,5 @@
 // ??0AnimationSoundTree@@QAE@XZ
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Pinned ctor for AnimationSoundTree, retail 0x004CA6DA, 25 bytes.
 // The header init is done by the rowed ?rva004CA13D@AnimationSoundTree (0x004CA13D),
 // which takes two unused dummy addresses; retail materialises a separate one-byte

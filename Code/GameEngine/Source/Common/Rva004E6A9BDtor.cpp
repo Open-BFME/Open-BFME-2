@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva004E6A9B@@QAE@XZ @0x004E6A9B 157B
 // Non-virtual dtor of Rva004E6A9B. Notifies via globals then clears holders.
 class Rva00222A8BTarget;

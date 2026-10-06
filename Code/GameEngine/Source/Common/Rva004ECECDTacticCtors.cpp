@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // Constructors of the skirmish-AI tactic prototypes: each builds its base
 // with the tactic's name (a temporary AsciiString) and then clears its own

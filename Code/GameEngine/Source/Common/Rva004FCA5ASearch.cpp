@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004FCA5A@Rva004FCA5A@@QAE PAXABVRva00376A62@@@Z at 0x004FCA5A (54B). Pointer-array search via forward.
 // Evidence: array at this+0xA4/+0xA8 of Rva00376A62*; call 0x59E872 with arg; return [found+4] else null;
 // chain lane via 0x59E872; same loop shape as tree predicate without tree.

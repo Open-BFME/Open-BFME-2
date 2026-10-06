@@ -1,5 +1,5 @@
 // ??1Rva004EDCE9@@UAE@XZ
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs
+// cl: /Ireference/shims/bfme2_ascii /MD /EHs
 // ??1Rva004EDCE9@@UAE@XZ at 0x004EDCE9 (100B).
 // Base dtor with vtable 0x008629E4, stop call 0x004ED748(0 1),
 // AsciiString at +0x2C via releaseBuffer, frees of +0x14 then +0x4.

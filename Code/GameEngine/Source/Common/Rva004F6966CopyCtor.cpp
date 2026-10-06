@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva004F6966@@QAE@ABU0@@Z @0x004F6966 (32B): copy ctor for 12-byte holder.
 // Copies pointer at +0 with inline AddRef at +4 plus ints at +4/+8. Same
 // shape as Rva004F692B copy ctor at 0x004F692B (8B with +4 zeroed) but with

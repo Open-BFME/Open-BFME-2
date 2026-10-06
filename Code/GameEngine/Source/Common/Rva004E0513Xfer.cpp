@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva004E0513@Rva004E0513@@QAEXPAVXfer@@@Z @0x004E0513 204B
 // Versioned Xfer body for the Rva004E04FD layout: three ints at +0x00/+0x08/+0x04
 // then Version(1 5) gating a pre-5 dummy int plus Unicode at +0x0C with

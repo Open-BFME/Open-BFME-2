@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /MD /DNDEBUG
+// cl: /GX- /MD /DNDEBUG
 //
 // ?rva004DF2E2@Rva004DF2E2@@QAEXXZ @0x004DF2E2 13B.
 // Sets DECK_HEIGHT_OFFSET (0x1d) to true on the Object at this+8 via rowed

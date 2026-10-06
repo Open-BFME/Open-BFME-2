@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // ?rva004E4038@Rva004E4038@@QAEHHII@Z @0x004E4038 110B evidence: gap between 0x004E400D and 0x004E40A6 same flags; calls rowed base 0x0051274F pin Rva005126F5 slot2 with three message args plus rowed getSlot 0x003FF29F on TheGameInfo and rowed GadgetCheckBoxIsChecked 0x00327B33; msg 0x4008 with 8-window loop at +0x28c and slot index bytes at +0x2ac storing checkbox result at GameSlot+0xA.
 class Rva005126F5
 {

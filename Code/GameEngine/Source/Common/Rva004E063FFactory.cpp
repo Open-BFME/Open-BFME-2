@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva004E063F@Rva004E063F@@QAEXXZ @0x004E063F 104B.
 // EH-guarded factory: look up a blob through the 0xDFE1C8 host via rowed

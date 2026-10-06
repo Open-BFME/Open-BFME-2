@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /Oi-
+// cl: /MD /Oi-
 // ?Rva004D6B6E@@YAMM@Z @0x004D6B6E 47B, callers 0x0025EDCB and 0x004D6BC0.
 // Free __cdecl float angle: pi/2 when value <= 0, else twice atan(12 / value).
 // Target evidence: SSE compare (movss/comiss) against the pooled 0.0 at

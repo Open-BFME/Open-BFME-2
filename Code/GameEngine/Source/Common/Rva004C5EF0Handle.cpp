@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O1
+// cl: /DNDEBUG /MD /EHs-c-
 //
 // Ported from Open-BFME-1 GameEngine/Source/Common/Rva004C5EF0Handle.cpp
 // (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled that way each body

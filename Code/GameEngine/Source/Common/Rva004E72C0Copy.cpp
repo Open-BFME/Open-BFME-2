@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ??0Rva004E72C0@@QAE@ABV0@@Z @0x004E72C0 11B: copy constructor of a
 // state-free polymorphic base; it only installs vtable 0x00BFCFF8. Its one

@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva004E3CD0@@QAE@XZ @ 0x004E3C8F (65B). Ctor: vtable 0x00862054,
 // BfmeVNITree at +4 via pin 0x005011C1, zero +0x10, vector at +0x14 via

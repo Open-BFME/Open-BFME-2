@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG
+// cl: /MD /GX /DNDEBUG
 //
 // Slot 9 ("create": a fresh tactic of the same kind) of the skirmish-AI
 // tactic prototypes the Rva00506909 generator pools hold. Every body is the

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004EBF93@Rva004EBF93@@QAEXXZ @0x004EBF93 177B.
 // Subsystem refresh from world flags: run the six rowed member sweeps

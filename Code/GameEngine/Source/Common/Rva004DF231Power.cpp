@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004DF231@Rva004DF231@@QAEXPAX@Z RVA 0x004DF231 size 42
 // Dispatches signed value at [arg+4]+0x548 to rowed power adds.
 // Evidence: caller 0x0028D99A passes Object in stack and Player+0x1bc in ecx;

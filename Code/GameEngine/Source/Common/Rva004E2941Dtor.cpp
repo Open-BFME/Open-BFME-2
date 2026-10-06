@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD
 // ??1Rva004E2382@@QAE@XZ @ 0x004E2941 (74B).
 // Dtor of Rva004E2382 whose ctor is 0x004E2382: frees vector buffer at +0x14
 // via rowed _free 0x00030830 then destroys trivial tree at +8 via rowed

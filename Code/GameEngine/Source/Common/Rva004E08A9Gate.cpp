@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004E08A9@Rva004E0705@@QAE_N_N@Z @0x004E08A9 77B.
 // Gate on the 0x004E0705 player lookup: when check is set and m_1C has reached

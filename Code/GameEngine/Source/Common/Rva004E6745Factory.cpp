@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // Two EH-guarded member factories in the 0x4E063F shape: 0x4E6745 news a
 // 0x20-byte Rva004E669A with (this plus three ints) and 0x4E7F43 news a

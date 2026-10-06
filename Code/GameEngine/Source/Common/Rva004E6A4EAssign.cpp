@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??4Rva004E6A37@@QAEAAV0@V0@@Z @ 0x004E6A4E (77B): owning-pointer assign stealing the by-value source pointer then deleting the old pointee via 0x004E6935 and operator delete 0x0002FD60; compiler destroys the emptied source via 0x004E6A37. Caller evidence at 0x004E6FEC and 0x004E722B; unwind stubs jmp to the dtor.
 class Rva004E6935
 {

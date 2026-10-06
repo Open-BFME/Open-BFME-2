@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_copy@PBURva004F6966@@PAU1@@_STL@@YAPAURva004F6966@@PBU1@0PAU1@ABU__false_type@0@@Z
 // @0x004F6B8D 38B: STLport __uninitialized_copy over the 12-byte ref-holding

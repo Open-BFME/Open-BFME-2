@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva004E1A04@@QAE@XZ, RVA 0x004E1A04, 47B. Unlock lane: non-virtual dtor
 // releasing two narrow StringBase members twice through rowed narrow
 // releaseBuffer at 0x00036410, first call under EH state 0 then state -1.

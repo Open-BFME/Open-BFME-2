@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004EE5D2@Rva004EE5D2@@QAEXXZ @0x004EE5D2 195B
 // Removes 8 embedded entries via rowed ?rva002B7250@Rva002B7250@@QAEXPAVCreateAHeroData@@@Z:

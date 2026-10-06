@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?rva004EDDD3@Rva00506909Item@@QAEXXZ at 0x004EDDD3 (276B).
 // Item average: if v4()==0 return; else gather Team positions via TheTeamFactory+findInstance into vector<Coord3D> then average into +0x38.

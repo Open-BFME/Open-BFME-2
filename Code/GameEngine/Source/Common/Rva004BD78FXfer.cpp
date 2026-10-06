@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva004BD78F@@MAEXPAVXfer@@@Z @0x004BD9A1 42B: slot 3 of 0x0085AE34 (class of ??1Rva004BD78F); evidence: Version1 0x000053EE then base ?xfer@BodyModule@@MAEXPAVXfer@@@Z 0x0058B043 then Xfer bool slot 0x90 member at +0x18; donor Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleXfer.cpp Xfer decl verbatim
 class AsciiString;
 class UnicodeString;

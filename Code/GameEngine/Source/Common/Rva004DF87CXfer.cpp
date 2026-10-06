@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva004DF87C@@QAEXPAVXfer@@@Z, retail 0x004DF87C 27B: slot-3 xfer calls rowed Xfer::Version1 then rowed Rva004DF81B xfer.
 // Evidence: vslot 3 of 0x007FBD98 plus 0x007FBDF0 plus 0x007FBE48 plus 0x00861588
 // plus rowed callees 0x000053EE and 0x004DF81B; class unproven so honest Rva name.

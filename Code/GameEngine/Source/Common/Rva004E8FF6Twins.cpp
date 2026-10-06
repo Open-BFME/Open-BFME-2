@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Twin walkers 0x4E8FF6/0x4E9040: sweep [m_00..m_04), and for each
 // gate-open element with a null relationship run the 0x49924B (or

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004F77AD@Rva004F60AA@@QAEPAV1@PAD0@Z, retail 0x004F77AD, 51 bytes.
 // Unlocks 0x004F8C16; caller passes local Temporary_buffer at ecx with first/last.

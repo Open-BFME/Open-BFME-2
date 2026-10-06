@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva004CA125@@QAE@ABV0@@Z, retail 0x004CA125, 24 bytes.
 // Derived copy ctor: calls rowed ??0Rva004C9FBF at 0x004C9FBF then installs
 // vptr 0xBEFE48 (Rva00252B68 vtable, DIR32). No extra members beyond the

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?clear@Rva004CBF9A@@QAEXXZ, RVA 0x004CBF9A, 45 bytes.
 // Opaque audio+holder clear: if TheAudio (data 0x009FE6E8) is present and the

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004D3906@Rva004D3906@@QAEXH@Z, retail 0x004D3906, 52 bytes.
 // Flag-guarded clear: if +0xc already 1 return; else call rowed global

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004DF17F@Rva004DF17F@@QBE_NXZ, RVA 0x004DF17F, 14 bytes.
 // Dword compare: returns m_04 >= m_08 as bool.
 // Evidence: mov eax [ecx+4] xor edx edx cmp eax [ecx+8] setge dl mov al dl;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?rva004FDB57@Rva004FDB57@@QAEXVAsciiString@@@Z, retail 0x004FDB57, 83 bytes.
 // Assigns the by-value AsciiString arg into the member at +0x1000 via the
 // pinned AsciiString::operator= at 0x000366F0, resolves an int through the

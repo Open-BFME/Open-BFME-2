@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE2
+// cl: /MD
 // Interface slot at 0x0085B738 in the 0x0085B6xx module vtable (no direct callers;
 // this is the +0x10 interface subobject, so the primary part sits at
 // this-0x10 as in the matched BfmeConv698.cpp slots). The zero result is

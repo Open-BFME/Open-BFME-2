@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque multiple-inheritance destructors tail-calling Rva004B96CC::~
 // Rva004B96CC at 0x004B96CC (pinned opaque MI base; identity unproven). Each

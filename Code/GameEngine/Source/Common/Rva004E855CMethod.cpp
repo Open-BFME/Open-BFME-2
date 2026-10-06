@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva004E855CClose@@YAXXZ @ 0x004E855C (196B):
 // Free guarded chat-close helper. If g_Va00E04478 and its state at +0x27C

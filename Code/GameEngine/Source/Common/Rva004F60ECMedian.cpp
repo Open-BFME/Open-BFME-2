@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004F60ECMedian@@YAPAURva004F6352@@PAU1@00@Z, retail 0x004F60EC, 62 bytes.
 // Median-of-three for quicksort caller 0x004F95A8: returns median of a b c by key at +8 via double deref.
 // Evidence: stride 0xC caller; loads [arg] then [+8]; integer compares; returns one arg; same shape as STL median.

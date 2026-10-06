@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004F6234@Rva004F6234@@QAEXHPAUPred004F6234@@@Z, retail 0x004F6234, 52 bytes.
 // Thiscall predicate loop over slot vectors: slot = m_slots[idx], iterate begin..end step 4 calling pred virtual.
 // Evidence: stride 0xC imul; offsets +0xC/+0x10 begin/end; virtual call via [edx] with ecx=pred; callers 0x005EAA9C 0x005EAB20 0x005EABD9.

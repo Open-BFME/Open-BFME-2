@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004E0A58@Rva004E0705@@QAE_NXZ @0x004E0A58 62B.
 // Refresh the Rva004E0705 gate state: snapshot the world m_FC id into m_1C

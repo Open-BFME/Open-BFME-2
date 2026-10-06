@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque multiple-inheritance destructors tail-calling Rva004C131B::~
 // Rva004C131B at 0x004C131B (row in Rva00493DEFDerived.cpp). Each class below

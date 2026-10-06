@@ -1,5 +1,5 @@
 // ??0Rva004E18A2@@QAE@ABV0@@Z @0x0052BB6D 45B copy ctor vtable 0x00861C30 int plus Rva0036CA00Str plus byte via rowed 0x000A8C7C caller 0x0052BD22
-// cl: /O1 /GX- /MD /DNDEBUG
+// cl: /GX- /MD /DNDEBUG
 class Rva0036CA00Str
 {
 public:

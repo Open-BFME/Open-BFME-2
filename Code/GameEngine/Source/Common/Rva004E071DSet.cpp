@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004E071D@Rva004E071D@@QAEX_N@Z @0x004E071D 36B
 // Setter with vcall side effect: if (v == m_50) return; m_50 = v; p = m_2C;
 // if (!p) return; v ? p->v3() (slot 0xC) : p->v4() (slot 0x10).

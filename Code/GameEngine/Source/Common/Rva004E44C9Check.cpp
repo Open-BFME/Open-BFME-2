@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /Oy-
+// cl: /GX- /Oy-
 // ?Rva004E44C9Check@@YGHHEE@Z @0x004E44C9 50B.
 // Chain lane on 0x004E40A6 (Rva0050E9D3Enable.cpp neighbour): when the int
 // is 0x15 and the byte is 1, 0xF or 0x1C (switch-lowered dec/sub chain),

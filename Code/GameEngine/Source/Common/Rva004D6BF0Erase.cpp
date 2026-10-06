@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Oy- /DNDEBUG /MD /EHsc
 // stlport
 // ?rva004D6BF0@Rva004D6BF0@@QAEXPAX@Z retail 0x004D6BF0 57B.
 // Vector find-and-erase void with null check: loads CreateAHeroData* at arg+0x74 into

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2 /MD
+// cl: /MD
 // ?rva004EBF4B@Rva004EBF4B@@QAEXPAUCoord3D@@@Z @0x004EBF4B 72B: wrapper over
 // rowed ?rva00506B74@Rva00506B74@@QAE_NPAUCoord3D@@@Z; zeroes temp Coord3D via
 // xorps plus three movss then forwards ecx+4 plus temp and block-copies temp

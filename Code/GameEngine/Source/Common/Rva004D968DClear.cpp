@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004D968D@Rva004D968D@@QAEXPAURva004D968DNode@@@Z @0x004D968D (45B):
 // Recursive list/tree free: if null return; recurse on +0xC child, free node
 // via rowed _free 0x00030830, iterate via +0x8 sibling. Evidence: unlock lane,

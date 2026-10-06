@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva004E13EB@@QAE@XZ, RVA 0x004E13EB, 43B. Unlock lane: ctor storing
 // vtable 0x008618CC then zeroing int at +4 floats at +8/+C/+10/+14 int at
 // +18 byte at +1C via xorps plus movss. Adjacent to DoXfer at 0x004E1398 but

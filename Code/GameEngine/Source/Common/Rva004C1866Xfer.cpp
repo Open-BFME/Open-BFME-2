@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva004C1866@@MAEXPAVXfer@@@Z, retail 0x004C1974, 104 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0085BE38 (class of ??1Rva004C1866@@UAE@XZ

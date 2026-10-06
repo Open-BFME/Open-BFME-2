@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Dump-range-25 packet family: seven homogeneous forwarders around the
 // unrowed EH pair 0x004E0918/0x004E0988 (pinned as honest address-derived

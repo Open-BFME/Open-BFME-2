@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G6 /arch:SSE /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva004EC16E@Rva004EC16E@@QAEPAXM@Z @ 0x004EC16E, 96 bytes.
 // Vector at +0x130/+0x134 of item pointers; each item has float virtual at
 // slot 2 ([eax+8]). Returns best item whose value is below input float.

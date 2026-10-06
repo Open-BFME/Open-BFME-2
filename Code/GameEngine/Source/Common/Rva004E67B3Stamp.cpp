@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004E67B3@Rva004E67B3@@QAEXI@Z @0x004E67B3 29B.
 // Timestamp the +0x48 slot when m_8 holds 2: flip m_8 to 3, then sample the

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004E7B0C@Rva004E7B0CHolder@@QAEXXZ, RVA 0x004E7B0C size 7.
 // Leaf lane with LINK BONUS (1 file 64B waits only for this body).
 // Evidence: LINK BONUS names this exact mangling; callee row 0x004E7A85;

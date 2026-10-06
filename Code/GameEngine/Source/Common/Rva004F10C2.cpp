@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004F10C2@Rva004F10C2@@QAE_NXZ @ 0x004F10C2 33B evidence: caller 0x004F19D3 tests result then walks GameWindow list via 0x0030F45F row; offsets this+0x14 head node+0x04 obj node+0x0C next node+0x19 flag obj+0x109 bit 0x40; true path jumps to next true getter at 0x004F10E3; prev S3IteratorMakers next ConstBoolTrueGetters
 struct Rva004F10C2Obj
 {

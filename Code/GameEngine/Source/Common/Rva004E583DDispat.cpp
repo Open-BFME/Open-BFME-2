@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004E583D@Rva004E583D@@QAEXXZ @0x004E583D 42B.
 // Frame-gated dispatch: read TheGameClient's slot-0x7C frame counter (slot1F

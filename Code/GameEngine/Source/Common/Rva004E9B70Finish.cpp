@@ -2,7 +2,7 @@
 // partial score=0.93 date=2026-09-30
 // ?rva004E9B70@Rva004E9B70@@QAEXXZ
 // partial score=0.93 date=2026-09-30
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004E9B70@Rva004E9B70@@QAEXXZ, retail 0x004E9B70, 86 bytes.
 // Clears member vector at +0x0C via rowed voidptr erase 0x0031BD55, then

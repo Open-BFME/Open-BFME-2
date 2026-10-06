@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva004EC166@Rva004EC166@@QAEXABVAsciiString@@@Z @ 0x004EC166, 8 bytes.
 // Tail-jmp wrapper add ecx,8 then jmp StringBase<char>::set.
 // Evidence: single add ecx,8 plus jmp to rowed 0x000366F0 set; same family as

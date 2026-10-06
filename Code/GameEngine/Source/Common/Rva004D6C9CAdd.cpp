@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004D6C9C@Rva004D6C9C@@QAEXW4ScienceType@@@Z @0x004D6C9C (16B):
 // Frameless vector<ScienceType>::push_back wrapper, member at +0x04.
 // Retail lea eax,[esp+4]; push eax; add ecx,4; call push_back @0x002E01C6;

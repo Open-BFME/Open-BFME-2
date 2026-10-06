@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004DF9E4@Rva004DF9E4@@QAEXPAXH@Z RVA 0x004DF9E4 size 42
 // Iterates pointer array at +0x2c..+0x30 calling vtable+4 when [elem+4] & mask.
 // Evidence: callers at 0x004E0449 0x004E0466 0x004E049B pass (ptr mask 2 1 4); neighbours use /O1 /MD.

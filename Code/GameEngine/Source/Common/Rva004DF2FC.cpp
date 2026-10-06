@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /MD /DNDEBUG
+// cl: /GX- /MD /DNDEBUG
 // ?rva004DF2FC@Rva004DF2E2@@QAEXPAVBfmeSubBEC@@@Z @0x004DF2FC 40B: guard on arg null and m_20 flag then forward m_08 via rowed BfmeSubBEC::rva0028BC17 and clear status via rowed rva004DF2EF; callers 0x004DF3D2 and 0x0028BBFD unblocks 0x0028BBF3 and 0x004DF3B0; neighbours share flags
 class BfmeSubBEC
 {

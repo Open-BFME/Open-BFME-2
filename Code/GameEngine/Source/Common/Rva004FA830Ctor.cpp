@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva004FA830@@QAE@ABV?$StringBase@D@@@Z @0x004FA815 27B: ctor of the
 // opaque AsciiString-holder at vtable 0x008633A0. Retail stores the vtable

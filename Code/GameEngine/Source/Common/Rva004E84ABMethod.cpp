@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?Rva004E84ABRun@@YAXXZ @ 0x004E84AB (56B):
 // Free guarded text-entry refresh. If g_Va00E04478 (rowed as int 3HA in one

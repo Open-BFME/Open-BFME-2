@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva004D3942@Rva004D3942@@QAEXPAVConnectionManager@@@Z, retail 0x004d3942, 156 bytes. Banked partial (score 0.98) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

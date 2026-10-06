@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /MD /DNDEBUG
+// cl: /GX- /MD /DNDEBUG
 // ?rva004DF3B0@Rva004DF2E2@@QAEXPAX@Z @0x004DF3B0 72B: resolve m_20 via TheGameLogic::findObjectByID then guarded forward via rowed rva004DF2FC else clear; second phase forward m_08 via rowed Rva0028BC05::rva0028BC05 and clear status via rva004DF2E2; caller 0x0028BBEB unblocks 0x0028BBE1
 enum ObjectID
 {

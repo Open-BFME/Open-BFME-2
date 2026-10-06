@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z, retail 0x004D79E1, 120 bytes.

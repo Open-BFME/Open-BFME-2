@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004DF161@Rva004DF161@@QBEMXZ, RVA 0x004DF161, 30 bytes.
 // Float ratio: returns 1.0f when m_08 is zero else (float)m_04/(float)m_08.
 // Evidence: fld 1.0f at 0x007BB8D8 plus fild [ecx+4] plus fidiv [ebp-4];

@@ -1,6 +1,6 @@
 // ?Rva004D9367Less@@YAEPBURva004D9367Key@@0@Z
 // partial score=0.94 date=2026-10-04
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva004D9367Less@@YAEPBURva004D9367Key@@0@Z, retail 0x004D9367, 78 bytes.
 // Strict-less on 0x14-byte key: m0 then flag m4 selects m8/mC vs m10 path.
 // Evidence: callers 0x004D93B5 (inequality via both orders) and 0x004DBC04; neighbours 0x004D9362/0x004D93F7.

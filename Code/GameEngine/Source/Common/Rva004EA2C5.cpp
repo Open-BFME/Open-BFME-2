@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs
+// cl: /Ireference/shims/bfme2_ascii /MD /EHs
 // ?Rva004EA2C5Get@@YAHXZ @0x004EA2C5 55B
 // Counts world objects whose template name matches global g_00E04490.
 // Evidence: leaf packet walks GameLogic list head +0xAC next +0x8C via rowed

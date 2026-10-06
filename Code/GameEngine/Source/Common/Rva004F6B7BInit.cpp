@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva004F6B7BInit@@YAXPAVRva00468520@@PBV1@@Z, retail 0x004F6B7B, 18 bytes.
 // Null-checked wrapper around rowed set 0x004F62FE for Rva00468520 (ptr at

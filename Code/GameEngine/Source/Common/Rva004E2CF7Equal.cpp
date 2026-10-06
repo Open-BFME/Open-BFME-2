@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva004E2CF7Equal@@YAHPBURva004E2CF7Data@@0@Z @0x004E2CF7 (348B): multi-string plus float plus range equal.
 // Compares dword +0x4C then StringBase members via rowed compare 0x000069D6 then
 // floats +0x20 +0x24 +0x44 via ucomiss then strings then byte +0x54 then string +0x50

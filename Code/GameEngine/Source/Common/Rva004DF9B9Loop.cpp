@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004DF9B9@Rva004DF9B9@@QAEXPAXH@Z RVA 0x004DF9B9 size 43
 // Sibling of 0x004DF9E4: iterates +0x2c..+0x30 calling vtable+0 when [elem+4] & mask with (arg 1).
 // Evidence: callers in 0x004E01E3; neighbours use /O1 /MD; same layout as 0x004DF9E4.

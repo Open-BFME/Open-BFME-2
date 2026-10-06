@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004D977D@Rva004D977D@@QAEXABURva002C99FB@@0@Z @0x004D977D 51B.
 // Conditional copy of two Rva002C99FB structs at +0 and +8.

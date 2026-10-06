@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Oy- /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?EraseRange@Rva004BA399Vector@@QAEPAVRva004BA1C8@@PAV2@0@Z, retail 0x004BA399 51B: range-erase via CopyRange plus DestroyRange.
 // Evidence: same 51B shape as rowed ?EraseRange@Rva002983DAVector at 0x002983DA; callees rowed CopyRange 0x004BA324 plus DestroyRange 0x004BA341; callers at 0x004BA4CD plus 0x004BA6D1; prev/next rows in Rva004BA1C8Record.cpp.
 class Rva004BA1C8;

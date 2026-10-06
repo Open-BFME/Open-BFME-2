@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE2
+// cl: /DNDEBUG /MD
 //
 // ?Rva004C20D5IsWithin@@YG_NMPBUCoord3D@@0@Z @0x004C20D5 82B. XY distance check.
 // Evidence: free __stdcall ret 0xC with float plus two 12B pointers, 3x movss

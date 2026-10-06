@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva004DFED8@@UAE@XZ, RVA 0x004DFED8, 84 bytes.
 // Dtor: vstore 0x008615D4, calls rowed clear 0x002827F3, frees vec buffers
 // at +0x10 and +0x4 via rowed free 0x00030830.

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 // ?rva004D6F86@Rva00263895Member@@QAEXPAX@Z retail 0x004D6F86 62B.
 // Leaf via vtable slot 0 of 0x007F9200: if arg cond slot 0x10 is false then call arg slot 0x28
 // with {1,1} temp then call member +0x04 slot0 and ptr +0x6c slot0 with arg.

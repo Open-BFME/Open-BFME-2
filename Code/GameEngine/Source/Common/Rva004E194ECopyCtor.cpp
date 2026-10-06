@@ -1,5 +1,5 @@
 // ??0Rva004E194E@@QAE@ABV0@@Z @0x0052BE96 51B copy ctor vtable 0x00861CA8 ints plus StringBase via rowed 0x000365F0 caller 0x0052C3F3
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 #include "ascii_string.h"
 
 class Rva004E194E

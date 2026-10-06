@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004CC829@Rva004CC829@@QAE_NXZ @0x004CC829 89B ObjectID validity check.
 // Evidence: m_28 ObjectID via findObjectByID 0x00049DC5 then Object+4 +0x117 flag 8 then controlling player ByteField 0 then +0x438 flag 1 then GameLogic+0x40 vs m_20 frame; callers 0x004CC8F9.
 enum ObjectID

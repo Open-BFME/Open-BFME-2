@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004F8CE0@@YGPAXABURva004F868AElement@@@Z @0x004F8CE0 34B.
 // Element factory: allocate a 0x20 block through rowed STLport

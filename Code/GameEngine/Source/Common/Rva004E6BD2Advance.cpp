@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004E6BD2@Rva004E6BD2@@QAEXI@Z @0x004E6BD2 36B.
 // State advance when m_8 holds 4: run the rowed 0x00524021 sweep on the

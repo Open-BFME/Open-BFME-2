@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004ED08A@Rva004ED08A@@QAEXXZ @0x004ED08A 77B.
 // AI group materialization sweep: walk the +0x14/+0x18 entry range in 0x14

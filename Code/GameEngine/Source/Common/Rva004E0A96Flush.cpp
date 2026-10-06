@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004E0A96@Rva004E0A96@@QAEXXZ @0x004E0A96 69B flush pending pointer at +0x2c via dword clearer then add Upgrades pair with amount 1 through global holder at +0x264
 class Rva0023D2D8DwordClearer
 {

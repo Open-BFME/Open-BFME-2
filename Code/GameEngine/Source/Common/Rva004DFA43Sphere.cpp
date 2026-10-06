@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva004DFA43@Rva004DFA43@@QAE_NPAX0@Z, RVA 0x004DFA43, 112 bytes.
 // __thiscall sphere test: radius m_04-m_14 vs distance from center
 // m_08/m_0C/m_10 to the point returned by the __cdecl getter in the second
