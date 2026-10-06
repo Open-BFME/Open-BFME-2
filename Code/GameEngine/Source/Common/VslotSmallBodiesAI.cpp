@@ -664,3 +664,34 @@ Rva0057709A::Rva0057709A(int v) : Rva005CBA04(g_00E0660C), m_08(v)
 {
 	*(const void **)this = g_00C6E8A8;
 }
+
+// 0x0057B9D8 (?rva0057B9D8@Rva0057B9D8@@QAEXXZ), 25B: slot 4 of the table
+// at 0x0086F26C (neighbours -8/-4 are the rowed 0x0057B97C/0x0057B9D0 of the
+// same +0x30/+0x34 layout). Clears the +0x30 hint through the rowed
+// ?clear@Rva002BED91@@QAEXXZ, then tail-jumps to the rowed
+// ?rva005D4F7D@Rva005D4F7D@@QAEXXZ of the +0x34 object when it exists.
+class Rva002BED91
+{
+public:
+	void clear();
+};
+class Rva005D4F7D
+{
+public:
+	void rva005D4F7D();
+};
+class Rva0057B9D8
+{
+public:
+	void rva0057B9D8();
+private:
+	char m_pad00[0x30];
+	Rva002BED91 m_30;
+	Rva005D4F7D *m_34;
+};
+void Rva0057B9D8::rva0057B9D8()
+{
+	m_30.clear();
+	if (m_34)
+		m_34->rva005D4F7D();
+}
