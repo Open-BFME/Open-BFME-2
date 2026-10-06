@@ -64440,3 +64440,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva005D303AFormat@@YA?AVUnicodeString@@HH@Z,,0x005D303A,99,Code/GameEngine/Source/Common/Rva005D303AFormat.cpp,matched,by-value UnicodeString formatter via g_00C380FC and rowed format copy release with LINK BONUS for Rva005D30EEAptCounters
 ?rva001F636C@Rva001F636C@@QAEXXZ,,0x001F636C,93,Code/GameEngine/Source/Common/Rva001F636C.cpp,matched,chain calls just-landed 0x00152D1C with 4 lock virtual slot2 flag 0x84
 ?bfmeShowDisconnectScreen@@YAXXZ,,0x00512DE1,104,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptDisconnectScreenShow.cpp,matched,show DisconnectScreen apt unless up caller turnOnScreen
+?_ALERT@@YAHPAUlua_State@@@Z,,0x003333D1,83,Code/GameEngine/Source/Common/LuaAlert.cpp,matched,Lua ALERT via lua_tostring and AsciiString
