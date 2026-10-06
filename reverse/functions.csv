@@ -65004,3 +65004,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?M7F3@Rva00604xx@@QAEHPBDPAXH@Z,,0x006047F3,62,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 6047F3: utf8-to-wide plus virt8; /O1
 ?M831@Rva00604xx@@QAE_NPBD@Z,,0x00604831,66,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 604831: null-guarded utf8-to-wide plus virt10 bool; /O1
 ?M948@Rva00604xx@@QAEHPBDPAX@Z,,0x00604948,59,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 604948: utf8-to-wide plus virt24; /O1
+?rva005E3A76@Rva005E3A76@@QAEXXZ,,0x005E3A76,44,Code/GameEngine/Source/Common/Rva005E3A76Slot.cpp,matched,
