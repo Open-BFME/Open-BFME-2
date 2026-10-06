@@ -10,10 +10,16 @@ public:
     char m_pad[0xDC - 4];
 };
 
-class Rva00447B0E
+class GameSlot
 {
 public:
+    void setMapAvailability(bool v);
+};
+
+struct Rva00447B0E
+{
     ~Rva00447B0E();
+    struct Rva00447B0E &rva00447B58(const struct Rva00447B0E &o);
     char m_pad[0x1D0];
 };
 
@@ -21,13 +27,26 @@ class Rva004482FB
 {
 public:
     ~Rva004482FB();
+    void rva00448352(int index, struct Rva00447B0E v);
 private:
     Rva00382FA7 m_base;
-    Rva00447B0E m_items[8];
+    struct Rva00447B0E m_items[8];
     char m_gap[8];
     UnicodeString m_wide;
 };
 
 Rva004482FB::~Rva004482FB()
 {
+}
+
+// ?rva00448352@Rva004482FB@@QAEXHURva00447B0E@@@Z @0x00448352 106B: assign m_items[index] from by-value Rva00447B0E plus index0 GameSlot setMapAvailability. Evidence: prev owns 8x0x1D0 at +0xDC; imul 0x1D0 and ret 0x1D4 prove by-value 0x1D0; callers 4 free; callees rowed.
+void Rva004482FB::rva00448352(int index, struct Rva00447B0E v)
+{
+    if (index < 0 || index >= 8)
+        return;
+    m_items[index].rva00447B58(v);
+    if (index != 0)
+        return;
+    m_items[0].m_pad[8] = 1;
+    ((GameSlot *)&m_items[0])->setMapAvailability(true);
 }
