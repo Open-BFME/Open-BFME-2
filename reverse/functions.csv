@@ -64754,3 +64754,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva004AD9E0@Rva004ADC88@@QAEXXZ,,0x004AD9E0,77,Code/GameEngine/Source/Common/Rva004ADC88Hide.cpp,matched,drop the object at +8 then destroy it
 ?rva004ADC88@Rva004ADC88@@QAEXXZ,,0x004ADC88,96,Code/GameEngine/Source/Common/Rva004ADC88Hide.cpp,matched,write 1.0f on the drawable then tail-call the drop
 ?rva004B0E9C@Rva004B0E9C@@QAEXXZ,,0x004B0E9C,32,Code/GameEngine/Source/Common/Rva004B0E9CClear.cpp,matched,call 0x004DD2C0 and clear the slot at +0x9C
+?rva00523EC0@Rva00523EC0@@QAEXXZ,,0x00523EC0,8,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Member dtor forwarder to pinned marker 0x0029D7C2 (ICF CameraMarker); honest address name

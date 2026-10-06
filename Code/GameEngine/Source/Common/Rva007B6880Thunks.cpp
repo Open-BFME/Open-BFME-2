@@ -7398,3 +7398,28 @@ void __cdecl rva007B9A37()
 	return p->~Rva003B55F9Dtor();
 }
 
+// CameraMarker-layout view for the thunk below. The destructor is declared
+// only; symbols.csv pins ??1Rva00523EC0Marker@@QAE@XZ to 0x0029D7C2 whose
+// identical bytes serve this teardown (ICF; rowed as ??1CameraMarker).
+class Rva00523EC0Marker
+{
+public:
+	~Rva00523EC0Marker();
+};
+
+// ?rva00523EC0@Rva00523EC0@@QAEXXZ @0x00523EC0 8B member dtor forwarder to
+// pinned ??1Rva00523EC0Marker@@QAE@XZ (0x0029D7C2). No callers. Honest
+// address name.
+class Rva00523EC0
+{
+public:
+	void rva00523EC0();
+private:
+	char m_pad[4];
+	Rva00523EC0Marker *m_member;
+};
+void Rva00523EC0::rva00523EC0()
+{
+	return m_member->~Rva00523EC0Marker();
+}
+

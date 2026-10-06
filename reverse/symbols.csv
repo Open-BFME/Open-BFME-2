@@ -13599,3 +13599,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva004500A3@Rva004500A3@@QAEXHHHHH@Z,0x004500A3,callee of ?rva0049C51A@Rva0049C51A@@QAEXHHHHH@Z
 ?rva0028BAC0@Rva0028BAC0@@QAEXXZ,0x0028BAC0,callee of ?rva004AD9E0@Rva004ADC88@@QAEXXZ
 ?rva004DD2C0@Rva004DD2C0@@QAEXXZ,0x004DD2C0,callee of ?rva004B0E9C@Rva004B0E9C@@QAEXXZ
+??1Rva00523EC0Marker@@QAE@XZ,0x0029D7C2,member dtor for the Rva007B6880Thunks.cpp thunk 0x00523EC0; identical bytes serve this teardown (ICF; rowed as ??1CameraMarker)
