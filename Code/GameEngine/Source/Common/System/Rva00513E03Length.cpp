@@ -81,6 +81,32 @@ int Rva005F1B75::write(char *dst)
 	return n + m_third.write(dst + n);
 }
 
+// The caller at 0x005F1DB0 materializes this four-part expression for the
+// region bonus label: the rowed three-part writer followed by the final text
+// pair. The class layout follows Rva005F1B75 plus the pair at +0x10.
+struct Rva005F1D06 : Rva005F1B75
+{
+	int write(char *dst);
+	Rva000B3F84Pair m_fourth;
+	operator AsciiString();
+};
+
+int Rva005F1D06::write(char *dst)
+{
+	int n = Rva005F1B75::write(dst);
+	return n + m_fourth.write(dst + n);
+}
+
+Rva005F1D06::operator AsciiString()
+{
+	AsciiString tmp;
+	int extra = m_fourth.m_len;
+	int length = Rva005F1B75::length() + extra;
+	char *buffer = ((StringBase<char> *)&tmp)->getBufferForRead(length);
+	write(buffer);
+	return tmp;
+}
+
 // Target bytes at 0x0059B115 call the rowed AsciiStringPlusText::length
 // body at 0x002DBF50, then add the dword at this+0x10. The four bytes at
 // this+0x0C are only layout padding here; the containing type is unresolved.
