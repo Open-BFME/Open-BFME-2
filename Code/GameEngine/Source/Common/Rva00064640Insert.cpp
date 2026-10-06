@@ -15,6 +15,11 @@ public:
 	unsigned int m_18;
 };
 typedef _STL::_Rb_tree<Rva00064640Record, Rva00064640Record, _STL::_Identity<Rva00064640Record>, _STL::less<Rva00064640Record>, _STL::allocator<Rva00064640Record> > VRva00064640RecordSetTree;
+// Declared-only: calls reach the retail-identical _M_create_node in
+// stlport_rb_tree_create_nodes.cpp, dropping our wrong COMDAT copies of
+// _M_create_node, _Construct and __malloc_alloc::allocate.
+template <>
+VRva00064640RecordSetTree::_Link_type VRva00064640RecordSetTree::_M_create_node(const VRva00064640RecordSetTree::value_type &);
 template VRva00064640RecordSetTree::iterator VRva00064640RecordSetTree::insert_equal(const VRva00064640RecordSetTree::value_type &);
 template VRva00064640RecordSetTree::iterator VRva00064640RecordSetTree::insert_equal(VRva00064640RecordSetTree::iterator, const VRva00064640RecordSetTree::value_type &);
 template _STL::pair<VRva00064640RecordSetTree::iterator, bool> VRva00064640RecordSetTree::insert_unique(const VRva00064640RecordSetTree::value_type &);
