@@ -10581,3 +10581,7 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva0060CE41@XferSave@@QAEXH@Z	0x0060CE41	281	blocked	vslot 11 XferSave 281B with throw format hashmap and stream slots no BFME2 donor ZH Xfer differs t=10 model=muse-10
 ?rva005E5920@Rva005E5920@@QAEHPAXH@Z	0x005E5920	34	blocked	tail jmp vs call plus pushes 41B vs 34B minimal tail jmps but full with write call does not t=12 model=muse-07
 ?rva003FD522@BfmeRectVNH@@QAE_NXZ	0x003FD522	98	blocked	BfmeRectVNH slot4 needs GameText vtbl 0x38 plus Unicode tmp plus InGameUI 0x29B16A t=10 model=muse-spark
+?rva005CCA0B@Rva005CCA0B@@QAEXPAVRva005CC9CB@@@Z	0x005CCA0B	76	partial	movzx vs mov al at +0x2f t=15 model=muse-03 score=0.97 stash=reverse/attempts/0x005cca0b.cpp
+??0Rva001684D6@@QAE@ABV0@@Z	0x00168527	119	blocked	true size 1108B needs full 0x108 member recovery no donor t=10 model=muse-03
+?rva000B508A@Rva000B508A@@QAEXH@Z	0x000B508A	239	blocked	vslot23 six Draw vtables needs slot mapping plus virtual slots 27 and 101 plus pin-only callee t=10 model=muse-03
+?rva002606E6@BfmeItemKA@@AAEXXZ	0x002606E6	161	blocked	pinned private needs StringBase wide private copy plus SSE idiv virtuals no donor t=10 model=muse-03
