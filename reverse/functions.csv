@@ -65057,3 +65057,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ??1Rva0057D4EE@@QAE@XZ,,0x0057D4EE,5,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewDtor0057D4EE.cpp,matched,5B jmp to rowed AptMapPreview dtor
 ?rva004FD6F9@Rva004FD6F9@@QAE_NABV?$StringBase@D@@@Z,,0x004FD6F9,32,Code/GameEngine/Source/Common/Rva004FD6F9.cpp,matched,find begin end cmp end
 ?rva004FD8A8@Rva004FD6F9@@QAE_NABV1@@Z,,0x004FD8A8,16,Code/GameEngine/Source/Common/Rva004FD6F9.cpp,matched,16B thunk forwards o.m_14
+?rva0057C525@Rva0057C525@@QAE_NABVRva004FD6F9@@@Z,,0x0057C525,36,Code/GameEngine/Source/Common/Rva0057C525.cpp,matched,chase to thunk tail jmp
