@@ -1,6 +1,14 @@
 // cl: /O2 /Ob0 /MD
 // Open-BFME5: STLport ios_base::iword, retail 0x0083F0C0, 117 bytes.
 
+struct FILE
+{
+	unsigned char _reserved[32];
+};
+
+extern "C" __declspec(dllimport) FILE _iob[];
+extern "C" __declspec(dllimport) int __cdecl fputs(const char *string, FILE *stream);
+
 namespace _STL
 {
 
@@ -13,10 +21,6 @@ struct GrowPair
 
 template <class T>
 GrowPair<T> *grow_array(GrowPair<T> *, T *, unsigned int, unsigned int);
-
-typedef void (__cdecl *IosBaseErrorCall)(void *, void *);
-extern IosBaseErrorCall g_call;
-extern void *g_global;
 
 class ios_base
 {
@@ -56,7 +60,7 @@ long &ios_base::iword(int index)
 
 	m_iostate |= 1;
 	if (m_iostate & m_exception_mask)
-		g_call((void *)"ios failure", (char *)g_global + 0x40);
+		fputs("ios failure", &_iob[2]);
 	static long fallbackIword;
 	return fallbackIword;
 }
@@ -74,7 +78,7 @@ void *&ios_base::pword(int index)
 
 	m_iostate |= 1;
 	if (m_iostate & m_exception_mask)
-		g_call((void *)"ios failure", (char *)g_global + 0x40);
+		fputs("ios failure", &_iob[2]);
 	static void *fallbackPword;
 	return fallbackPword;
 }
