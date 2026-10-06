@@ -65070,3 +65070,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ??1Rva0046468D@@QAE@XZ,,0x0046468D,5,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046468DDtor.cpp,matched,novtable empty dtor tail-jmp to rowed base
 ??0?$DynamicVectorClass@PAVFontCharsBuffer@@@@QAE@IPBQAVFontCharsBuffer@@@Z,,0x00196770,94,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp,matched,drift exact-ambiguous anchor votes 7
 ??1Rva002DE58D@@UAE@XZ,,0x002DE58D,180,Code/GameEngine/Source/Common/System/SaveGame/GameStateDtor.cpp,matched,GameState dtor per vtable C0402C and deleting dtor
+?rva005E92B1@Rva005E92B1@@QAEXXZ,,0x005E92B1,70,Code/GameEngine/Source/Common/Rva005E92B1Method.cpp,matched,ref table 0x878014 message 0x6AA three int args
