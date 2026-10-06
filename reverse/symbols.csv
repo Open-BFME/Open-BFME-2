@@ -13633,3 +13633,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva0032BD25@SidesList@@QAE_NW4NameKeyType@@HPAVBuildListInfo@@@Z,0x0032BD25,SidesList indexed BuildListInfo lookup on TheSidesList (0xE01D58): (key; idx; info out-param); called from range-17 0x3967A5 dispatch loop; Ghidra FUN_0072bd25 63B; identity unproven
 ?rva002ACECC@Player@@QAEXW4ObjectID@@@Z,0x002ACECC,callee of ?rva00489E2E@AIUpdateInterface@@QAEXXZ
 ?rva0028DCC4@Object@@QAEXXZ,0x0028DCC4,callee of ?rva00489E2E@AIUpdateInterface@@QAEXXZ
+??0Rva0010461F@@QAE@XZ,0x0010461F,callee of ?rva0008F32C@@YAXXZ
