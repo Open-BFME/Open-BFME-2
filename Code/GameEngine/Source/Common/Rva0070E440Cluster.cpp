@@ -25,7 +25,9 @@ private:
 
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-extern Rva0070E440Box g_rva00E180C4;
+// g_00E180C4: VA 0x00E180C4 default six-float box (zero-filled; beyond
+// .data raw, Ghidra shows zeros). Defined here; nothing else rowed or pinned it.
+Rva0070E440Box g_00E180C4;
 
 void Rva0070E440::rva0070E440(Rva0070E440Box *out)
 {
@@ -38,5 +40,5 @@ void Rva0070E440::rva0070E440(Rva0070E440Box *out)
 	if (m_count > 0)
 		*out = m_box;
 	else
-		*out = g_rva00E180C4;
+		*out = g_00E180C4;
 }
