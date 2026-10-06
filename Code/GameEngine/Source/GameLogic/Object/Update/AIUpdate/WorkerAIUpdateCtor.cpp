@@ -85,7 +85,7 @@
 // DozerAIUpdate::findGoodBuildOrRepairPositionAndTarget as a member: for a
 // bridge (kind-of bit 22 on the template, Thing +0x04 then +0x108) it picks
 // the reachable tower (bridge interface vslot 1, four towers, the pinned
-// isPathAvailable) whose position (the pinned findGoodBuildOrRepairPosition
+// isPathAvailable) whose position (the rowed findGoodBuildOrRepairPosition
 // 0x004AA4FE, whose own BEGIN line names it) is nearest, else it finds the
 // target's position. The diagnostics are BFME's: fprintf to the logic
 // random log file while the docking trace switch (0x00E03CA8, BFME 1's
@@ -106,6 +106,17 @@
 // search. New in BFME 2: the cleared preferred-dock trio is +0x4A4, the
 // +0x4A8 point and the +0x4B4 flag, and a build or repair also sets object
 // status 97 on the worker and the AIUpdateInterface byte at +0x3BA.
+//
+// ?findGoodBuildOrRepairPosition@WorkerAIUpdate@@IAE_NPBVObject@@0AAUCoord3D@@@Z,
+// retail 0x004AA4FE, 1069 bytes. Donor: BFME 1's
+// WorkerAIUpdateFindGoodBuildOrRepairPosition.cpp (BFME 1's ledger name,
+// a member) over ZH's DozerAIUpdate::findGoodBuildOrRepairPosition; its BEGIN
+// line names the function. As the rowed dozer twin 0x00489039 (half the
+// target's major radius, the pinned contact point helper 0x0026872B with
+// skipCollideTest true, else findPositionAround, whose verdict is dropped as
+// in the donor), with the donor's seven trace lines to the logic random log
+// file. The member-wise position copies give retail's movss loads (a struct
+// copy of the canonical Coord3D block-copies).
 #include "ascii_string.h"
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -315,6 +326,7 @@ public:
 	virtual void onDelete(); // vslot 8
 	Int getCurrentStateID() const;
 	Bool isPathAvailable(const Coord3D *destination) const;
+	Bool findNearestLabeledContactPointOnTarget(Object *target, Coord3D *result, const Coord3D *workingPosition, Bool skipCollideTest);
 protected:
 	virtual ~AIUpdateInterface();
 private:
@@ -383,6 +395,16 @@ public:
 	virtual void internalChangeHealth(Real delta, Int flag); // +0x80
 };
 
+class GeometryInfo
+{
+public:
+	Real getMajorRadius() const { return m_majorRadius; }
+private:
+	unsigned char m_pad00[0x10];
+	Real m_majorRadius; // +0x10
+	unsigned char m_pad14[0x5C - 0x14];
+};
+
 enum KindOfType
 {
 	KINDOF_BRIDGE = 22
@@ -437,6 +459,8 @@ public:
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
+	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
+	Bool isUsingAirborneLocomotor() const;
 	void setProducer(Object *obj);
 	void rva0028AFE7(Object *builder);
 	void setStatus(ObjectStatusTypes bit, Bool set);
@@ -454,7 +478,9 @@ public:
 private:
 	unsigned char m_pad044[0x74 - 0x44];
 	ObjectID m_id; // +0x74
-	unsigned char m_pad078[0x10C - 0x78];
+	unsigned char m_pad078[0xA8 - 0x78];
+	GeometryInfo m_geometryInfo; // +0xA8
+	unsigned char m_pad104[0x10C - 0x104];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x254 - 0x158];
 	BodyModuleInterface *m_body; // +0x254
@@ -588,6 +614,59 @@ private:
 };
 
 extern GameLogic *TheGameLogic;
+
+class WWMath
+{
+public:
+	static float __fastcall Inv_Sqrt(float val);
+};
+
+// WWMath's Vector3 (its inline members, WWINLINE as __forceinline).
+class Vector3
+{
+public:
+	float X;
+	float Y;
+	float Z;
+
+	__forceinline Vector3(void) {}
+	__forceinline Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
+	__forceinline Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
+	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
+	__forceinline float Length2(void) const { return X*X + Y*Y + Z*Z; }
+	__forceinline void Normalize(void)
+	{
+		float len2 = Length2();
+		if (len2 != 0.0f)
+		{
+			float oolen = WWMath::Inv_Sqrt(len2);
+			X *= oolen;
+			Y *= oolen;
+			Z *= oolen;
+		}
+	}
+	__forceinline friend Vector3 operator*(const Vector3 &a, float k) { return Vector3((a.X * k), (a.Y * k), (a.Z * k)); }
+};
+
+struct FindPositionOptions
+{
+	FindPositionOptions() : flags(0), minRadius(0.0f), maxRadius(0.0f), startAngle(-99999.9f),
+		maxZDelta(1e10f), ignoreObject(0), sourceToPathToDest(0), relationshipObject(0) {}
+	UnsignedInt flags;
+	Real minRadius;
+	Real maxRadius;
+	Real startAngle;
+	Real maxZDelta;
+	const Object *ignoreObject;
+	const Object *sourceToPathToDest;
+	const Object *relationshipObject;
+};
+
+class PartitionManager
+{
+public:
+	static Bool findPositionAround(const Coord3D *center, const FindPositionOptions *options, Coord3D *result);
+};
 
 enum BridgeTowerType
 {
@@ -1103,4 +1182,92 @@ void WorkerAIUpdate::newTask(DozerTask task, Object *target)
 			getObject()->getAIUpdateInterface()->aiIdle(CMD_FROM_AI);
 		m_workerMachine->setState(AS_DOZER);
 	}
+}
+
+Bool WorkerAIUpdate::findGoodBuildOrRepairPosition(const Object *me, const Object *target, Coord3D &positionOut)
+{
+	if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
+		fprintf(theLogicRandomLogFile, "    WorkerAIUpdate::findGoodBuildOrRepairPosition() BEGIN: Object %s(%d) with target %s(%d)",
+			me->getTemplate()->getName().str(), me->getID(),
+			target ? target->getTemplate()->getName().str() : "NULL", target ? target->getID() : 0);
+
+	// The place we go to build or repair is the closest spot from us to them
+	const Coord3D *ourPos = me->getPosition();
+	Coord3D ourPosition;
+	ourPosition.x = ourPos->x;
+	ourPosition.y = ourPos->y;
+	ourPosition.z = ourPos->z;
+	const Coord3D *theirPos = target->getPosition();
+	Coord3D theirPosition;
+	theirPosition.x = theirPos->x;
+	theirPosition.y = theirPos->y;
+	theirPosition.z = theirPos->z;
+
+	if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
+		fprintf(theLogicRandomLogFile, "    ourPosition=%g,%g,%g, theirPosition=%g,%g,%g",
+			ourPosition.x, ourPosition.y, ourPosition.z, theirPosition.x, theirPosition.y, theirPosition.z);
+
+	Coord3D bestPosition; // This answer is the best, as it includes findPositionAround
+	bestPosition.x = theirPosition.x;
+	bestPosition.y = theirPosition.y;
+	bestPosition.z = theirPosition.z;
+	Coord3D workingPosition; // But if findPositionAround fails, we need to say something.
+	workingPosition.x = theirPosition.x;
+	workingPosition.y = theirPosition.y;
+	workingPosition.z = theirPosition.z;
+
+	Vector3 offset(ourPosition.x - theirPosition.x,
+		ourPosition.y - theirPosition.y,
+		ourPosition.z - theirPosition.z);
+	offset.Normalize();
+	// This scaler makes FindPositionAround bias towards our side
+	Real targetRadius = target->getGeometryInfo().getMajorRadius();
+	offset = offset * targetRadius * 0.5f;
+
+	if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
+		fprintf(theLogicRandomLogFile, "    offset=%g,%g,%g, radius=%g", offset.X, offset.Y, offset.Z, targetRadius);
+
+	workingPosition.x += offset.X;
+	workingPosition.y += offset.Y;
+	workingPosition.z += offset.Z;
+
+	if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
+		fprintf(theLogicRandomLogFile, "    workingPosition=%g,%g,%g", workingPosition.x, workingPosition.y, workingPosition.z);
+
+	// this is a little cheesy... the idea is that we can only choose a location that is pretty close
+	// in z to the desired one. this prevents us from choosing a space at the bottom of a cliff when
+	// the space we want is at the top of the cliff. ideally we should do a funky terrain-zone compare
+	// but that isn't well-exposed... (srj)
+	const Real MAX_Z_DELTA = 10.0f;
+
+	FindPositionOptions fpOptions;
+	fpOptions.minRadius = 0.0f;
+	fpOptions.maxRadius = 100.0f;
+	fpOptions.sourceToPathToDest = me; // This makes it find a place forWhom can get to.
+	if (!me->isUsingAirborneLocomotor())
+		fpOptions.maxZDelta = MAX_Z_DELTA;
+	if (me->isUsingAirborneLocomotor())
+		fpOptions.ignoreObject = target; // Flyers can ignore stuff, so they can approach right over the target if they want.
+
+	Bool spotFound = findNearestLabeledContactPointOnTarget((Object *)target, &bestPosition, &workingPosition, true);
+
+	if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
+		fprintf(theLogicRandomLogFile, "    spotFound=%s, bestPosition=%g,%g,%g, workingPosition=%g,%g,%g",
+			spotFound ? "TRUE" : "FALSE", bestPosition.x, bestPosition.y, bestPosition.z,
+			workingPosition.x, workingPosition.y, workingPosition.z);
+
+	if (!spotFound)
+	{
+		PartitionManager::findPositionAround(&workingPosition, &fpOptions, &bestPosition);
+		if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
+			fprintf(theLogicRandomLogFile, "    TerrainLogic::FindPositionAround() workingPosition=%g,%g,%g, bestPosition=%g,%g,%g",
+				workingPosition.x, workingPosition.y, workingPosition.z, bestPosition.x, bestPosition.y, bestPosition.z);
+	}
+
+	positionOut = spotFound ? bestPosition : workingPosition;
+
+	if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
+		fprintf(theLogicRandomLogFile, "    positionOut=%g,%g,%g", positionOut.x, positionOut.y, positionOut.z);
+
+	return spotFound;
 }
