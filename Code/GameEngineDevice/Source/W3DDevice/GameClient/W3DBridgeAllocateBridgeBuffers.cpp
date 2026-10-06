@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?allocateBridgeBuffers@W3DBridgeBuffer@@QAEXXZ 0x000DD8B8 144B W3DBridgeBuffer::allocateBridgeBuffers from BFME1 donor W3DBridgeBufferAllocateBridgeBuffers.cpp; evidence: free call 0x0074011F when VB or IB present VB new 0x20 ctor 0x0013AC00 args 0x152 0x1F44 1 0 IB new 0x18 ctor 0x00138980 args 0x3E84 1 counts +8 +12 zeroed callers 0x00066A14 0x000DE581
 class Rva0074011F
 {

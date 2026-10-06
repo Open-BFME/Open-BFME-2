@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000433AC@W3DDisplay@@QAEXI@Z, retail 0x000433AC, 108 bytes.
 // Resolution apply: setWidth(arg), then floatconverted unsigned height (slot 17)
 // and width (slot 16) build RectClass(0,0,w,h) for the +0x168 Render2D member's

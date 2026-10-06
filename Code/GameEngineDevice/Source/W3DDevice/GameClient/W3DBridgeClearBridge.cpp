@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // readable body of ?clearBridge@W3DBridge@@QAEXXZ: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBuffer.cpp
 // W3DBridge::clearBridge, retail 0x006D7680 (78 bytes).
 //

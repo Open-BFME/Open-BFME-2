@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // ??0W3DQuadrupedDrawModuleData@@QAE@XZ, retail 0x000651C2, 73 bytes.
 // W3DQuadrupedDraw ModuleData ctor: runs the pinned W3DModelDrawModuleData

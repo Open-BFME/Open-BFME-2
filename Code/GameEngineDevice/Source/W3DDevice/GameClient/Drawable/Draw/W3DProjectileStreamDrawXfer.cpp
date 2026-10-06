@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // ?xfer@W3DProjectileStreamDraw@@MAEXPAVXfer@@@Z @0x000D11A6 44B
 // Slot 3 (offset 0x0C) of vtable 0x007CE010 (class of ??0W3DProjectileStreamDraw@@QAE@PAVThing@@PBVModuleData@@@Z).
 // Donor: ZH W3DProjectileStreamDraw::xfer (W3DProjectileStreamDraw.cpp: Version(1,1) then DrawModule::xfer, no data).

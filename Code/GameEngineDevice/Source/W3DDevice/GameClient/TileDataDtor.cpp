@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /MD /EHsc
+// cl: /Ob2 /MD /EHsc
 // ??1TileData@@UAE@XZ retail 0x0011172A 72B
 // Own vptr BCFAC0 (??_7TileData, whose slot 1 is the rowed ??_GTileData
 // 0x00111867); under EH state 0 the ref pointer at +0x2AB4 is released

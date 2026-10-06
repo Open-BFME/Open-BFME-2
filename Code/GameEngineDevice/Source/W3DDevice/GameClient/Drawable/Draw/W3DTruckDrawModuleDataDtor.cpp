@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG
 //
 // ??1W3DTruckDrawModuleData@@UAE@XZ, retail 0x000CB28E, 269 bytes.
 // W3DTruckDraw ModuleData dtor: reinstalls vtable 0xBCC508, tears down the

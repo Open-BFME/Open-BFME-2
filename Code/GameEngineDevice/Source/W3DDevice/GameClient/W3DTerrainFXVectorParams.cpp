@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // Effect-parameter callbacks of the BFME 2 terrain FX binding. Each is a
 // cdecl (effect, handle) function whose address a name dispatcher stores
 // for a shader parameter, and each ends in ID3DXEffect::SetVector (vtable

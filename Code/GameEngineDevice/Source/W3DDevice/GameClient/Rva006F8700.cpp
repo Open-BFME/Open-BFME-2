@@ -1,4 +1,4 @@
-// cl: -EHs-c- /Os -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
+// cl: -EHs-c- -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
 
 // Retail 0x006F8700. Four-argument thiscall: if the last pointer is null,
 // return 0; otherwise tail-jump to the 660-byte helper at 0x006E5406.

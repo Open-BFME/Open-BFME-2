@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000CE9EE@W3DTankDraw@@SA?AW4NameKeyType@@XZ @0xCE9EE
 // (69B): cached pool-name key for W3DTankDraw. The class
 // identity comes from the pool-name string the body pushes

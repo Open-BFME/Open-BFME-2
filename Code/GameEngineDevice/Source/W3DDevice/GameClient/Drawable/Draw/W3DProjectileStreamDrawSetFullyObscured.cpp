@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ?setFullyObscuredByShroud@W3DProjectileStreamDraw@@UAEX_N@Z, retail 0x000D1124, 130 bytes.
 // Vslot 35 (offset 0x8C) of vtable 0x007CE010 (class of ??0W3DProjectileStreamDraw@@QAE@PAVThing@@PBVModuleData@@@Z).

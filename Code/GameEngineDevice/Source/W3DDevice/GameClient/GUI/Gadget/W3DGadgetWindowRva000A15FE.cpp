@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva000A15FE@@QAE@PAX@Z @0x000A15FE 24B. Ctor forwards void* to base
 // Rva0078D310Host 0x00104F8F then stores vtable 0x007C8DB4 (same as
 // Rva000A1616Window input/system vtable in W3DGadgetWindowDrawSlots).

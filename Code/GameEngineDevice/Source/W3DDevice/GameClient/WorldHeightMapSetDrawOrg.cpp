@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // WorldHeightMap::setDrawOrg, retail 0x000AC40D (185 bytes): Zero Hour's body
 // verbatim over BFME 2's layout. Target facts: width/height at +0x08/+0x0C,

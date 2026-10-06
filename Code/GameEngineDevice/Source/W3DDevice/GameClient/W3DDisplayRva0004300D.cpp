@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0004300DGet@@YA_JXZ, retail 0x0004300D, 23 bytes.
 // Free-function QueryPerformanceCounter wrapper returning the 64-bit tick.
 // Evidence: IAT kernel32 QueryPerformanceCounter; edx:eax return; callers

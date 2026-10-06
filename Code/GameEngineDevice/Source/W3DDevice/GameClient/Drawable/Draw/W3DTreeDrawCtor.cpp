@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0W3DTreeDraw@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x000CEB4D,
 // 28 bytes. Behavior-side ctor completing the W3DTreeDraw file-unit

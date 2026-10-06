@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
 // BFME reset-list member destructor at retail 0x0094CDF0.
 
 class TextureBaseClass

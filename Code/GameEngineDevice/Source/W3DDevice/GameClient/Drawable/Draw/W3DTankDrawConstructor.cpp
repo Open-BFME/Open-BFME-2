@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0W3DTankDraw@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x000CEA6C, 192B
 // (pinned; called by W3DTankDraw::friend_newModuleInstance 0x00064B44).
 // Spelled from the Zero Hour / BFME1 W3DTankDraw constructor: base

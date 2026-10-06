@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2gwm /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ?d_00794790@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z @ 0x000A501C 646B
 // Vertical push-button image draw: top, tiled centre, bottom. Evidence: LINK

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Reset_D3D_Device@@YAX_N@Z, retail 0x0004312A, 278 bytes.
 // Ported from Open-BFME-1
 // (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayResetD3DDevice.cpp,

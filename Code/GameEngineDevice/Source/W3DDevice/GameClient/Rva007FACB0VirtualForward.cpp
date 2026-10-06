@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 // Retail replaces both incoming arguments with owner fields and tail-forwards
 // them through virtual slot one.  The names remain address-derived because no

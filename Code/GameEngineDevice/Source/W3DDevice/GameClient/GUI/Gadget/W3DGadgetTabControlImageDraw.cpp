@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2gwm /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // BFME ABI reconstruction of the image-backed tab-control draw callback at
 // retail RVA 0x00797EF0.  The tab-data offsets and the callback dispatch are
 // the BFME layouts; no generated body is included here.

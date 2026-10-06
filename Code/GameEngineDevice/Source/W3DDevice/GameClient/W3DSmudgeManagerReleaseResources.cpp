@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // W3DSmudgeManager::ReleaseResources, retail 0x00722190, 90 bytes.
 //
 // The lock and unlock at either end are a guard object, not two bare calls:

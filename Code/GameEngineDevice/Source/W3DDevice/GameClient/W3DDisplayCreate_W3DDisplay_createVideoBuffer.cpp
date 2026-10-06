@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
 //
 // ?createVideoBuffer@W3DDisplay@@UAEPAVVideoBuffer@@_N@Z
 // retail 0x00044D7F, 248 bytes. Dedicated TU ported from the Open-BFME-1

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /Ireference/shims/moduledata
 //
 // W3DPropDrawModuleData file-unit: parse proc and constructor.
 //

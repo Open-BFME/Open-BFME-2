@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
+// cl: -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
 
 class Rva007DB820ComRef
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ??1W3DRopeDraw@@UAE@XZ @0x000CA8BC 90B: W3DRopeDraw public virtual dtor.
 // Donor BFME1 W3DRopeDraw.cpp dtor calls tossSegments. Vptr installs plus vector

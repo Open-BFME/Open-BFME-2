@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O1 /arch:SSE /G7
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?Rva000FDCD7Get@@YAHXZ @0x000FDCD7 26B; chain of Rva000F630CGet.
 // Retail: call 0x000F630C / test al,al / jne / xor eax,eax / ret / xor eax,eax / mov [0x00DE1F50],0x00DB5BD4 / inc eax / ret.
 // Target facts: calls rowed ?Rva000F630CGet@@YAHXZ; tests low byte so false path needs xor; sets data 0x009E1F50 to data 0x009B5BD4 then returns 1 else 0.

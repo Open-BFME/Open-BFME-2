@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // ?Rva000ABD70Clear@@YAXXZ @0x000ABD70 42B
 // Unlock free function that releases a cached virtual object and clears a
 // global Dict. Evidence: ret-via-jmp tail to ?clear@Dict@@QAEXXZ, virtual

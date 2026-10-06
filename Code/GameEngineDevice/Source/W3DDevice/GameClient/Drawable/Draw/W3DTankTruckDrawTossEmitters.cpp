@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?tossEmitters@W3DTankTruckDraw@@IAEXXZ, retail 0x000CB5C3, 191 bytes.
 // Ported from Open-BFME-1 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp:201
 // (ZH GeneralsMD second: W3DTankTruckDraw.cpp tossEmitter); BFME2 deltas are the 12-byte smart handles.

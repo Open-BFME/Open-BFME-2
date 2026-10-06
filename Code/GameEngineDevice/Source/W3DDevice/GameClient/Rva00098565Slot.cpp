@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?rva00098565@Rva00098667Product@@QAEXXZ @0x00098565 14B: virtual slot 9
 // (offset 0x24) of vtable 0x007C8358, class of ??0Rva00098667Product@@QAE@XZ.

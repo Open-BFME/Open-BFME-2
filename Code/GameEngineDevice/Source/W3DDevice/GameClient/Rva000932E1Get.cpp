@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva000932E1@Rva000932E1@@QAEMXZ @0x000932E1 (104B):
 // Float getter: default shared 1.0f unless the weather global resolves and
 // both its +0x54 flag and this +0x50 flag are set, then a second resolve and

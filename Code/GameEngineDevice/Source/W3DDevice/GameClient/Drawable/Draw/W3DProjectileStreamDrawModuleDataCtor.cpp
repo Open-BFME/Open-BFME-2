@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // W3DProjectileStreamDrawModuleData file-unit (parse first; the ctor at
 // 0xD11D2 remains pinned for a follow-up).

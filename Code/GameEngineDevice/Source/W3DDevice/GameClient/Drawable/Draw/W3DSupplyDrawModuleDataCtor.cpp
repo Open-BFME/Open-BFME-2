@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG
 //
 // ??0W3DSupplyDrawModuleData@@QAE@XZ, retail 0x000CAF17, 25 bytes.
 // W3DSupplyDraw ModuleData ctor: calls the W3DModelDrawModuleData base ctor

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // Effect-parameter callbacks bound by the name dispatcher at 0x000806F3. Each
 // is a cdecl (effect, handle) function whose address the dispatcher stores
 // after a strcmp against a shader parameter name, and each ends in

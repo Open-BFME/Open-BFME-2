@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD /EHsc /DNDEBUG /arch:SSE
+// cl: /Oy- /MD /EHsc /DNDEBUG
 //
 // ?freeD3DAssets@W3DMouse@@AAEXXZ, retail 0x00098FF1, 102 bytes.
 // Ghidra boundary 0x98FF1/102. Target loops over the current 21 surface

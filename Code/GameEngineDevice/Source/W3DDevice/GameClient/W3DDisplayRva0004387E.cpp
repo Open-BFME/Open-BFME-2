@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004387E@W3DDisplay@@QAEXXZ, retail 0x0004387E, 77 bytes.
 // W3DDisplay debug-string row draw: 16 strings at +0x18c, each color(-1, black),
 // place(3, y, 1, 1), size(&w, &h), y += h from y=3.

@@ -21,7 +21,7 @@
 // AsciiString comes from the shared compatibility shim, not a TU-local class:
 // its destructor calls the releaseBuffer worker retail reaches directly at
 // 0x00036410, which is the tail call of this body.
-// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable
+// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable
 
 #include "ascii_string.h"
 

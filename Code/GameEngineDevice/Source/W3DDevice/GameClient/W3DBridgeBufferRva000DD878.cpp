@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000DD878@W3DBridgeBuffer@@QAEXH@Z 0x000DD878 64B W3DBridgeBuffer method ret 4 one unused int arg
 // evidence: neighbours 0x000DD816 clearBridge and 0x000DD8B8 allocateBridgeBuffers same TU flags
 // caller 0x000DF745 49B forwards its first arg and reads D7B6 D7B5 C count layout stride 0x114

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??0Rva00098667Product@@QAE@XZ @0x00098667 41B: game-client product
 // constructor (size 0x68, vtable 0x00BC8358). Calls the base constructor

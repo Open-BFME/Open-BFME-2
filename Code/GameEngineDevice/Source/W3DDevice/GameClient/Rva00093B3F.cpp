@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?reset@W3DSnowManager@@UAEXXZ @0x00093B3F (28B):
 // W3DSnowManager reset slot 9 of vtable 0x007C8144: base SnowManager::reset
 // 0x00201134, then copy helper 0x00093457, then zero m_a8 and m_50.

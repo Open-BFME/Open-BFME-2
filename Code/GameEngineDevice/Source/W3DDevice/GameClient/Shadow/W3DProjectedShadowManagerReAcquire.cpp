@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /arch:SSE /G7
+// cl: /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS
 // ?ReAcquireResources@W3DProjectedShadowManager@@QAE_NXZ @0x0010716D 127B
 // Target evidence: retail checks [this+0] then [this+4] for null, creates
 // BfmeDynamicNativeVB(2 0x7530 1 0) size 0x20 and DX8IndexBufferClass(0x7530 1)

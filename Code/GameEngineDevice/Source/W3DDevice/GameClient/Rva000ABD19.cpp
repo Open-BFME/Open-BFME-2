@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // ?rva000ABD19@Rva000ABD19@@QAE_NHH@Z @0x000ABD19 54B
 // Unlock lane body after TileData::getRGBDataForWidth. Evidence: bounds-checked
 // int-array presence test, ret 8 with two int args, offsets 0x8/0x20/0xa0/0x120e0/0x120e4.

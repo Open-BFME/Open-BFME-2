@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva00093457@Rva00093457@@QAEXXZ @0x00093457 176B
 // Weather sync method: zeroes two members, pulls an int through the second data
 // global, then copies weather fields through override hops. A shared global

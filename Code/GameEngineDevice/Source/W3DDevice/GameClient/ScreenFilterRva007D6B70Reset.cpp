@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail 0x000F8735 (279B, [0xF8735,0xF884C)): vtable 0x7CF254 slot6 reset.
 // Target facts (retail bytes, independent of donor):
 // - vtable 0x7CF254 slot6 == 0xF8735 (raw decode: F6D4F/F70EB/F6D56/F7187/5CB9FA/F816E/F8735;

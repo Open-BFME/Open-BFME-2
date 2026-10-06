@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000D0091@W3DStreakDraw@@QAEXXZ @0x000D0091 534B
 // W3DStreakDraw streak body. Reference: BFME1
 // reference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp

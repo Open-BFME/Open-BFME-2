@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /Ireference/shims/moduledata
+// cl: /MD /DNDEBUG /Ireference/shims/moduledata
 // ?rva000635AB@Rva000635AB@@QAEXHH@Z @0x000635AB 77B
 //
 // BFME 2 W3DGhostObjectManager shroud-refresh sweep over m_usedModules. The

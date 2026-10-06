@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // Target float wrappers around the MSVCR71 double fmod import.
 // Called by the snow update; original wrapper names are unknown.
 extern "C" double __cdecl fmod(double, double);

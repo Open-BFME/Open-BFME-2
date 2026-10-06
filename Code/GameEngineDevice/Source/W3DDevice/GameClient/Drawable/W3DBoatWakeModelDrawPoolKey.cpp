@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0000D0C93@W3DBoatWakeModelDraw@@SA?AW4NameKeyType@@XZ @0xD0C93
 // (69B): cached pool-name key for W3DBoatWakeModelDraw. The class
 // identity comes from the pool-name string the body pushes

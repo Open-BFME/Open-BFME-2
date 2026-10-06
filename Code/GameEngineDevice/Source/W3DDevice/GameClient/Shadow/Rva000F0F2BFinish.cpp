@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE2 /GX- /MD
+// cl: /GX- /MD
 // ???0Rva000F0F2B@@QAE@XZ @0x000F0F2B 48B: native boundary from Ghidra.
 // Address-derived constructor; the original class name remains unknown.
 // Body is byte-exact against retail and reuses the rowed void initializer

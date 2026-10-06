@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /arch:SSE /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // ?setLightPosition@W3DGameClientShadowShim@@QAEXHMMM@Z @0x0009A587 198B: LINK 61B plus vslot via pin plus rowed Inv_Sqrt 0x0004233A plus rowed rva0007D9CF 0x0007D9CF plus Vector3 at +0xC plus shadow global 0x00DE1FF8.
 // Evidence: LINK BONUS 1 file 61B plus callers 0x0006E5EE 0x0009A706 plus prev getLightPosWorld 0x0009A497 same class Vector3 at +0xC plus BFME1 vector3 donor.
 class WWMath

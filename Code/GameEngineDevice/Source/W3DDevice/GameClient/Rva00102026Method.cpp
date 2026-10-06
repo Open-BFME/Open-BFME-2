@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ?rva00102026@Rva00102026@@QAEXXZ @0x00102026 97B: unlock method on holder at +0.
 // Fills AsciiString temp via virtual slot0 on m_ptr, compares to global

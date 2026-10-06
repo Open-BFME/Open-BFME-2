@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00111D65@LookupTablePostEffect@@UAEXXZ, retail 0x00111D65, 53 bytes.
 // Virtual slot 3 (offset 0xC) of vtable 0x007CFAC8 (class of

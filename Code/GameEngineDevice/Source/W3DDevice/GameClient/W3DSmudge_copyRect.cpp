@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Ported from Open-BFME-1's game/GameEngineDevice/Source/W3DDevice/GameClient/W3DSmudge_copyRect.cpp
 // (donor revision 6583b3c1ff21db4a561285717028fdafc780b7db) with /O1 /arch:SSE
 // added to its flags, the settings W3DView.cpp's donor bodies match under.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000C9BCC@W3DLaserDraw@@SA?AW4NameKeyType@@XZ @0xC9BCC
 // (69B): cached pool-name key for W3DLaserDraw. The class
 // identity comes from the pool-name string the body pushes

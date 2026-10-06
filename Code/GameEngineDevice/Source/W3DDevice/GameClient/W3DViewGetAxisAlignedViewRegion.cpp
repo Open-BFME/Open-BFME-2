@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /EHsc
+// cl: /EHsc
 // Ported from Open-BFME-1's
 // game/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewGetAxisAlignedViewRegion.cpp
 // (donor revision 6583b3c1ff21db4a561285717028fdafc780b7db) with /O1 /arch:SSE

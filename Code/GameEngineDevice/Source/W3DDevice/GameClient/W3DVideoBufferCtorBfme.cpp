@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 //
 // BFME's W3DVideoBuffer grew beyond the Zero Hour layout.  The matched
 // W3DDisplay::createVideoBuffer(bool) caller allocates 0x4c bytes and calls

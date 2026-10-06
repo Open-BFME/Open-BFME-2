@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // W3DDisplay.cpp's debug-display placeholder callbacks. Zero Hour has
 // StatDebugDisplay(DebugDisplayInterface *, void *, FILE *) as a bare
 // DEBUG_CRASH; BFME 2 writes the separator and the placeholder message to the

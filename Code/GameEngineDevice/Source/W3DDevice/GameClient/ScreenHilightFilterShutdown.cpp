@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1
+// cl: /Ob1
 // stlport
 //
 // Bodies ported from Open-BFME-1's

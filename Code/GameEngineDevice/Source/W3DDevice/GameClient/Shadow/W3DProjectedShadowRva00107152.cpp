@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /arch:SSE /G7
+// cl: /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS
 // ?rva00107152@Rva00107152@@QAEXXZ @0x00107152 27B via honest-address while-delete-first-virtual
 // Evidence: this+8 loop while non-null; virtual slot 0 with int 0 returning ptr deleted via rowed ??3@YAXPAX@Z; caller unclaimed 0x0009A323
 void __cdecl operator delete(void *p);

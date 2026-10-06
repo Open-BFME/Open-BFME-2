@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // Cursor-slot render helper: release (0x000E473F, 93B) plus reinit
 // (0x000E479C, 234B). Both take the DX8 device mutex around their work.
 // The reinit drops any live vertex/index buffers through the release body,

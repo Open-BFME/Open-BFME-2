@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Native RVA0x0010BA2C /25B: address-derived resource-owner constructor.
 // The previous VictoryConditions identity is refuted by target evidence:
 // factory0x10BB11 allocates0x118 and reuses owners through+0x114; the separate

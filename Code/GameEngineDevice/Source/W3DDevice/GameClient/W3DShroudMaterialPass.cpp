@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?UnInstall_Materials@W3DShroudMaterialPassClass@@UBEXXZ, retail 0x000729EB, 9 bytes.
 // Slot 3 of ??_7W3DShroudMaterialPassClass 0x00BC6244 (WW3D MaterialPassClass

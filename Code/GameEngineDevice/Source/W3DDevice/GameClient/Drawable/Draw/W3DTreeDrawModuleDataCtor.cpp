@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG
 //
 // W3DTreeDrawModuleData file-unit (retail 0x000CEBBF..0x000CED02): the empty
 // virtual base brackets the EH states with no emitted code (its vtable store

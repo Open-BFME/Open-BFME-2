@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva000CFF4C@W3DStreakDraw@@UAEX_N@Z, retail 0x000CFF4C, 51 bytes.
 // W3DStreakDraw vslot 16 (offset 0x40) of vtable 0x00BCD9B8 (class of ??1W3DStreakDraw@@UAE@XZ).
 // Null-guarded forward of hidden and !hidden to the streak render object int slots 101 (0x194)

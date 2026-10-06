@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // W3DTankDraw::setHidden, retail 0x000CE129 (30 bytes), ported from Zero
 // Hour's GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/

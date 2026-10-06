@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
 //
 // Small W3DDisplay vtable slots (vtable VA 0x00BC3C80, which also holds
 // testMinSpecRequirements and the rows of W3DDisplayRva000433AC.cpp) that had

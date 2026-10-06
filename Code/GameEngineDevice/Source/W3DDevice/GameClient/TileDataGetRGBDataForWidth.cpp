@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // ?getRGBDataForWidth@TileData@@QAEPAEH@Z @0x000ABC71 86B
 // BFME2 TileData::getRGBDataForWidth. Donor: open-bfme-1
 // Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp:68 and

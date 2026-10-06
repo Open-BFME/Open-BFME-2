@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /GX /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG
 //
 // ??0W3DTreeDrawModuleData@@QAE@XZ 231B @0x000CEBBF.
 // Same file-unit layout as W3DTreeDrawModuleDataCtor.cpp (empty virtual base,

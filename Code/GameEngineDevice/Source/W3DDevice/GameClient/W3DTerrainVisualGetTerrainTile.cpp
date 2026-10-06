@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ?getTerrainTile@W3DTerrainVisual@@UAEPAVTerrainType@@MM@Z, retail 0x00092512, 104 bytes.
 // Zero Hour's W3DTerrainVisual::getTerrainTile (W3DTerrainVisual.cpp), the

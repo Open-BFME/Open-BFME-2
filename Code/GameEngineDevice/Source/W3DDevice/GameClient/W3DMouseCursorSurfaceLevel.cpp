@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD /EHsc /DNDEBUG /arch:SSE
+// cl: /Oy- /MD /EHsc /DNDEBUG
 
 // ?Get_Surface_Level@CursorTextureSlot@@QAE?AVW3DRadarResetSurface@@XZ,
 // retail 0x00132D70, 25 bytes. Zero-level forwarder: the cursor loader keeps

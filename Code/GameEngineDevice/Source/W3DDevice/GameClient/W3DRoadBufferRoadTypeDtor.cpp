@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1RoadType@@QAE@XZ retail 0x000D4F4F 108B
 // RoadType dtor (TU-local replica, mangles identically). Under EH state 1 the
 // two ref-counted render buffers at +8 and +0xC are released inline

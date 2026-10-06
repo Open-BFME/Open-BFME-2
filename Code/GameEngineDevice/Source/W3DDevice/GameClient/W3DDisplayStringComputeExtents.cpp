@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?computeExtents@W3DDisplayString@@IAEXXZ, 0x001065D9, 138B: W3DDisplayString::computeExtents (leaf). Evidence: vtable slots getTextLength+0xC getText+0x8, m_font+0x8, renderer+0x14, m_size+0x1DC/0x1E0 from Dtor TU layout, Get_Formatted_Text_Extents row 0x00159FF0, releaseBuffer row 0x00036E70.
 #include "unicode_string.h"
 

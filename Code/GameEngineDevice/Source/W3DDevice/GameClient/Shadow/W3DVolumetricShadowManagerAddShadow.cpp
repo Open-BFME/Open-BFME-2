@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?addShadow@W3DVolumetricShadowManager@@QAEPAVW3DVolumetricShadow@@PAVRenderObjClass@@PAUShadowTypeInfo@Shadow@@PAVDrawable@@@Z @0x000F2BB9 323B.
 // W3DVolumetricShadowManager::addShadow(RenderObjClass *robj,
 // Shadow::ShadowTypeInfo *shadowInfo, Drawable *draw): stencil + robj +

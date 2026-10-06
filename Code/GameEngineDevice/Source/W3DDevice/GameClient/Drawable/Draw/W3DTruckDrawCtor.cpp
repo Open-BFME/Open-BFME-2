@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG
 // ??0W3DTruckDraw@@QAE@PAVThing@@PBVModuleData@@@Z @0x000CB3FB 381B: LINK body, vtable slot ctor; evidence: base ??0W3DScriptedModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z pin 0x000C0DD8, three vptrs +0/+0xC/+0x10, bools +0x2E8, handles +0x2EC/+0x2F8/+0x304, zeros +0x310-+0x370, two BfmeAudioEventPrefix136 +0x374/+0x3FC via rowed 0x002D97D6, int +0x484; donor /workspace/reference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawConstructor.cpp plus Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawDtor.cpp layout
 class Thing;
 class ModuleData;

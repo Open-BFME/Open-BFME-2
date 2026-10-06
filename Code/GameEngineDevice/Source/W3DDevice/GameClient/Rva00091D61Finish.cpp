@@ -1,6 +1,6 @@
 // ?rva00091D61@Rva00091D61@@QAEXPAHH@Z
 // ?rva00091D61@Rva00091D61@@QAEXPAHH@Z
-// cl: /O1 /Oa /MD
+// cl: /Oa /MD
 
 // ?rva00091D61@Rva00091D61@@QAEXPAHH@Z @ 0x00091D61 (81B). Clamp twin of
 // BoundedShortGrid load/store: if grid null return else load (x+off y+off)

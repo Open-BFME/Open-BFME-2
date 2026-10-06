@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail 0x007D62F0, filter vtable 0x01128B24 slot 5.
 // The matched Rva007D6B70 constructor installs this vtable; original class name unknown.
 class StringClass {

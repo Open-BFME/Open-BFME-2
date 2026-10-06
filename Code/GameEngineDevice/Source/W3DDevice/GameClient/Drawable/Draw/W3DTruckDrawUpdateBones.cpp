@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG
 //
 // W3DTruckDraw::updateBones, retail 0x000CB8CB, 3766 bytes, ending where the
 // matched setHidden at 0x000CC781 begins.

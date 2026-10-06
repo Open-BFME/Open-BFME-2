@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Open@GameFileClass@@UAEHH@Z, retail 0x000783F8, 49 bytes: slot 7 of the
 // GameFileClass vtable 0x007C6788, where MSVC groups the two Zero Hour Open
 // overloads in reverse declaration order (slot 8 is the rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?FillFourSlots@Rva0011216CSlotQuartet@@QAEXXZ, retail 0x0011216C, 43 bytes.
 // Four-slot level filler: marks the quartet ready, then fills each slot's

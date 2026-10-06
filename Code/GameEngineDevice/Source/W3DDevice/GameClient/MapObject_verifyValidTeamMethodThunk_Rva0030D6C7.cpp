@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline /Os -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
 //
 // ?verifyValidTeam@MapObject@@QAEXXZ
 // retail 0x0030D6C7, 129 bytes. Dedicated TU ported from the Open-BFME-1

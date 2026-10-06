@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHs-c- /DNDEBUG
+// cl: /MD /EHs-c- /DNDEBUG
 // Clean BFME1 W3DViewCameraModFinalMoveToBfme at6d9434269164392c5ba62aaa7c15a86b5b020d76
 // guides the translation algorithm. Target Ghidra86761/177B/RET4 and
 // complete raw byte equality prove guards1DC/2354, signed count22F0,

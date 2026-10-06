@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // W3DTerrainLogic per-cell terrain queries that BFME added after isCliffCell.
 //
 // Target evidence: W3DTerrainLogic's vftable holds five adjacent (Real x, Real y)

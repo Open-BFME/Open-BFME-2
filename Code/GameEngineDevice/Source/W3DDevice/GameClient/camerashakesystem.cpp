@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // stlport
 // ?Random_Float@WWMath@@SAMMM@Z retail 0x0006598A (20B).
 // Ported from Open-BFME-1 Code/GameEngineDevice/Source/W3DDevice/GameClient/camerashakesystem.cpp

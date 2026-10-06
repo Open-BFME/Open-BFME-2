@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0000D140A@W3DProjectileStreamDraw@@SA?AW4NameKeyType@@XZ @0xD140A
 // (69B): cached pool-name key for W3DProjectileStreamDraw. The class
 // identity comes from the pool-name string the body pushes

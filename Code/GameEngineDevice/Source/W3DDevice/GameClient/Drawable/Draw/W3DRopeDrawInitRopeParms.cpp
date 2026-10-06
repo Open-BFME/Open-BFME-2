@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 //
 // ?initRopeParms@W3DRopeDraw@@UAEXMMABURGBColor@@MMM@Z @0x000CAC25 131B: W3DRopeDraw::initRopeParms (vslot 68 of 0x007CBC40).

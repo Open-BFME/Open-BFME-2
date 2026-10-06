@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00938C4@@UAE@XZ retail 0x000938C4 75B
 // The W3DSnowManager dtor shape (Zero Hour W3DSnow.cpp: ReleaseResources then
 // the snow texture ref): own vptr BC8144 (the W3DSnowManager vtable, see

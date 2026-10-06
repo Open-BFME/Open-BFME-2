@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1W3DTankDraw@@UAE@XZ, retail 0x000CE960, 142 bytes.
 // W3DTankDraw dtor: reinstalls vtables 0xBCCBE8/+0xC 0xBCC588/+0x10 0xBCA08C,

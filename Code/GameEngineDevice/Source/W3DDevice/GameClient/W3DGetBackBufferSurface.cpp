@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/GameEngineDevice/Source/W3DDevice/GameClient
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/GameEngineDevice/Source/W3DDevice/GameClient
 
 typedef int Int;
 typedef unsigned long UnsignedLong;

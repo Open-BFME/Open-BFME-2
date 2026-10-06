@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0W3DSupplyDraw@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x000CAE43,
 // 56 bytes. Draw-side ctor completing the W3DSupplyDraw file-unit (name

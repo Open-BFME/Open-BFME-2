@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 //
 // ?verifyValidUniqueID@MapObject@@QAEXXZ
 // retail 0x0030E0AA, 420 bytes (Ghidra FUN_0070e0aa boundary).

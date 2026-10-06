@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 
 // ?rva0011604D@W3DBufferManager@@QAE_NXZ, retail 0x0011604D, 198 bytes.
 // Evidence: __thiscall bool with no args (ret, al 1/0); loops 0x12 VB heads at

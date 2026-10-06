@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva00093349@Rva00093349@@QAEXXZ @0x00093349 (100B):
 // Weather sync helper: sets m_ac and m_41 then copies weather +0x70/+0x74/+0x78
 // to m_58/m_5c/m_60 through override hops. Same null/next diamond around pinned

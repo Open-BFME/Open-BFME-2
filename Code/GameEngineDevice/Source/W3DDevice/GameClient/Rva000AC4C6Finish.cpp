@@ -1,5 +1,5 @@
 // ?rva000AC4C6@WorldHeightMap@@QAEHH@Z
-// cl: /O1 /G7 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // 0x000AC4C6 78B binary-search-free interval lookup over the height map's
 // per-interval table. Retail walks the table with a pointer anchored on each

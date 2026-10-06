@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00115FF1@W3DBufferManager@@QAEXXZ @0x00115FF1 92B. Identity: W3DBufferManager release of DX8 VBs over 18 lists at +0x9000 then IBs at +0x263D0 via Release_Ref dec-call plus null.
 // Evidence: callers 0xF09BF; neighbours 0x115F73/0x116113; same +0x9000/+0x263D0 layout as W3DBufferManager_Slots; LINK BONUS via 0xF0972.
 #define MAX_VB_SIZES 512

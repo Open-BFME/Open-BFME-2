@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?setFrameFade@W3DDynamicLight@@QAEXII@Z @0x0006DF81 105B
 // BFME2 W3DDynamicLight::setFrameFade. Donor: reference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDynamicLight.cpp
 // Target facts: called from 0x0004430D (W3DDisplay::createLightPulse) and 0x000CF9FF (W3DLightDraw ctor) as (0,0)/(increase,decay); store order and offsets match upstream (decay to +0x150/+0x148, increase to +0x14c/+0x154, Ambient +0xD4 to +0x15C, Diffuse +0xE0 to +0x168, FarEnd +0x104 to +0x158).

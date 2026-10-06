@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail0x007DCAF0: vtable0x01128C5C slot1, matched Rva007DCA80 constructor.
 struct ComObject;
 struct ComVtable{char pad[8];unsigned (__stdcall *Release)(ComObject*);};

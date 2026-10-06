@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?clipCursorToClient@@YAXXZ, retail 0x000430C8, 98 bytes.
 #pragma optimize("y", off)
 // Ported from Open-BFME-1

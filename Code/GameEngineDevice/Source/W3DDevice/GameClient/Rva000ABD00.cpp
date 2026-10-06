@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // ?rva000ABD00@Rva000ABD00@@QAEHI@Z @0x000ABD00 25B
 // Unlock bounds-checked inline int-array getter. Evidence: ret 4 single
 // unsigned arg, jae 0x1000 to xor-eax fail, array at +0xb0 scale 4.

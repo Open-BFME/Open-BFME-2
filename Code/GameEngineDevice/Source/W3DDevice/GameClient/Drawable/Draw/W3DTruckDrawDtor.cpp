@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ??1W3DTruckDraw@@UAE@XZ, retail 0x000CDE73, 151 bytes.
 // W3DTruckDraw dtor: vptr stores at +0/+0xC/+0x10, tossEmitters, two 0x88 Audio
 // members at +0x374/+0x3FC via rowed 0x2D9A43, three 12B handles at

@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /G7
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?opaqueCall@Rva0013BE70Host@@QAEXPBD@Z, retail 0x0013BE70, 54 bytes.
 // Copies the render-object name into the +0x9C inline buffer via sprintf

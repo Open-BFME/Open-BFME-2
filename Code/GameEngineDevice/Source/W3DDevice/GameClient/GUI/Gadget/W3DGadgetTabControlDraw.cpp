@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2gwm /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Open-BFME: BFME ABI slice for the retail W3DGadgetTabControlDraw body.
 //
 // The vendored ZH GameWindow header is four bytes short before m_instData.

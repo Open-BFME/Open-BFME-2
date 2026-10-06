@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /arch:SSE /G7
+// cl: /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS
 // Target evidence: retail 0x0009A383 checks four global pointers in order and
 // calls each manager only when its pointer is non-null. The 91-byte body is
 // byte-verified.

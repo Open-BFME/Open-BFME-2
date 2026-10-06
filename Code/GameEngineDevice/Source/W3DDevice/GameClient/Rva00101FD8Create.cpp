@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ?Rva00101FD8Create@@YG... @0x00101FD8 78B: unlock factory comparing the input
 // StringBase to global g_00DEC3B8 via rowed compare 0x000069D6; on equality

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /MD /GX
 //
 // BFME2 W3DBridge enabled-flag setter, transferred from the exact BFME1
 // reconstruction

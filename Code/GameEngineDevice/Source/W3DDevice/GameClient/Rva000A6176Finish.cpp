@@ -7,7 +7,7 @@
 // W3DSmudgeManagerReleaseResources.cpp sibling, m_indexBuffer +0x34,
 // width +0x38 height +0x3C.
 //
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 #define SMUDGE_DRAW_SIZE 500
 

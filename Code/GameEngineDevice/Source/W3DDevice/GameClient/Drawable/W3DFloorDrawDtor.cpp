@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1W3DFloorDraw@@UAE@XZ @0x000CF1A6 102B
 // Dtor over W3DFloorDraw: restores both vptrs (+0 via Rva000CEB6F line and
 // +0x10 second base) then if moduleData (+4) and drawable (+8) are non-null

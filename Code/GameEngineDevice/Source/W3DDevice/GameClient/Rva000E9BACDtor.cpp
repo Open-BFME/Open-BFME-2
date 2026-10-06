@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/shims/stringinline
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/shims/stringinline
 // ??1Rva000E9BAC@@UAE@XZ @0x000E9BAC 99B: virtual dtor with array plus member plus base.
 // Evidence: vptr g_00BCECB8 Reset row 0xE7016 array 0x40x0x5C dtor 0x4E86B8 member 0x8B470 base pin 0xE6C6F; caller deleting dtor.
 

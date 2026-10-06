@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?rva00111F0E@Rva00111F0E@@QAEXXZ, retail 0x00111F0E, 97 bytes.
 // Unlock lane: releases four refcounted holders at +0x24 +0x2C +0x68 +0x70

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0000D07CB@W3DSailModelDraw@@SA?AW4NameKeyType@@XZ @0xD07CB
 // (69B): cached pool-name key for W3DSailModelDraw. The class
 // identity comes from the pool-name string the body pushes

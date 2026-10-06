@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD /EHsc /DNDEBUG /arch:SSE
+// cl: /Oy- /MD /EHsc /DNDEBUG
 //
 // ?releaseD3DCursorTextures@W3DMouse@@AAE_NW4MouseCursor@@@Z, retail
 // 0x00098F52, 111 bytes. Ghidra boundary 0x98F52/111. The neighboring

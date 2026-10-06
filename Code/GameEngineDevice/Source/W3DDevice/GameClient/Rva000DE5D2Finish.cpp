@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?Rva000DE5D2Copy@@YGHPAGHGPAX@Z 0x000DE5D2 118B.
 // Authentic donor body: reference/open-bfme-1/game/GameEngineDevice/Source/

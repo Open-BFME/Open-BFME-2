@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00043511@Rva00043511@@QAEXXZ, retail 0x00043511, 43 bytes.
 // Init: two RGBColor members to white via setFromInt(-1), then int 1, int 0, float 0.
 // Evidence: rowed RGBColor::setFromInt 0x00004EDF callee; callers 0x00045984/12 and 0x00049DEA/293.

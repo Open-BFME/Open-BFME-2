@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // readable body of ??1W3DWaypointBuffer@@QAE@XZ: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3dWaypointBuffer.cpp
 
 typedef int Int;

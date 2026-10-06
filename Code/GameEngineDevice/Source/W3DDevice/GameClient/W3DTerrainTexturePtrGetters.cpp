@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // By-value texture-handle getters the terrain FX texture callbacks call
 // (0x000E28C3 calls 0x000E2983 on TheTerrainRenderObject, VA 0x00DE1EAC, and
 // tests the returned handle before Peek_D3D_Base_Texture). Each copies one

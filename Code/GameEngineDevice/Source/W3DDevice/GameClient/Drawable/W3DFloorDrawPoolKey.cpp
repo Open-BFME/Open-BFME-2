@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000CF161@W3DFloorDraw@@SA?AW4NameKeyType@@XZ @0xCF161
 // (69B): cached pool-name key for W3DFloorDraw. The class
 // identity comes from the pool-name string the body pushes

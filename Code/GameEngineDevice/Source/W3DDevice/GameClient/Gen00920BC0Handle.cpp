@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /MD /EHsc /Ireference/open-bfme-1/Code/GameEngineDevice/Source/W3DDevice/GameClient
+// cl: /Ireference/shims/bfmecamera /MD /EHsc /Ireference/open-bfme-1/Code/GameEngineDevice/Source/W3DDevice/GameClient
 // Open-BFME: address-derived DX8 stage-state block at retail 0x00920BC0.
 // The three state bases index 5-int stage tables; modes 0 and 1 select the
 // alternate state values, while other modes leave that state unchanged.

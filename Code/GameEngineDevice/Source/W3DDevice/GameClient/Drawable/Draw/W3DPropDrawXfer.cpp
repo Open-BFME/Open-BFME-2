@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?xfer@W3DPropDraw@@MAEXPAVXfer@@@Z @0x000B221A 27B
 // Slot 3 (offset 0x0C) of vtable 0x007CD328 (class of ??0W3DPropDraw@@QAE@PAVThing@@PBVModuleData@@@Z).
 // Donor: Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp W3DPropDraw::xfer

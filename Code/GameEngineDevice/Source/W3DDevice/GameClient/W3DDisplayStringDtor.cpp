@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??1W3DDisplayString@@UAE@XZ, retail 0x00106162, 92 bytes (pinned; rowed
 // deleting wrapper 0x0010625B). The Zero Hour destructor is empty; what

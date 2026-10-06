@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004D6B3@W3DDisplay@@QAEXPAVImage@@MMMMHH@Z, retail 0x0004D6B3, 78 bytes.
 // W3DDisplay float-coordinate drawImage with mode (Image*, Real x0, Real y0,
 // Real x1, Real y1, Int color, Int mode). Evidence: TheDisplay global

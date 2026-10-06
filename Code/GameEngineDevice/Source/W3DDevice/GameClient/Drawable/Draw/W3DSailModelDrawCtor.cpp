@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0W3DSailModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x000D078F,
 // 60 bytes. Draw-side ctor completing the W3DSailModelDraw file-unit (name

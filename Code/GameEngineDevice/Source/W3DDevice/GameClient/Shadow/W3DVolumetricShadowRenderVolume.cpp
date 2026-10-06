@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?RenderVolume@W3DVolumetricShadow@@IAEXHH@Z @0x000F49D0 231B.
 // W3DVolumetricShadow::RenderVolume(int meshIndex, int lightIndex): refresh
 // the robj transform from its drawable when present (Get_User_Data /

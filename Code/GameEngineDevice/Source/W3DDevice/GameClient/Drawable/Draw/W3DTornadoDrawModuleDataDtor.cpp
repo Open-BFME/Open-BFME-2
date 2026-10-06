@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
+// cl: /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
 //
 // ??1W3DTornadoDrawModuleData@@UAE@XZ, retail 0x000D1713, 48 bytes.
 // Target evidence: the audited scalar deleting dtor 0x000D16F7 calls this

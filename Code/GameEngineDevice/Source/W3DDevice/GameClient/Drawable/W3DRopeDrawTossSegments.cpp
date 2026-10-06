@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // ?tossSegments@W3DRopeDraw@@AAEXXZ @0x000CA84D 111B: W3DRopeDraw::tossSegments clears m_segments.
 // Donor BFME1 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DRopeDraw.cpp tossSegments

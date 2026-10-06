@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00043BF9@W3DDisplay@@QAEXXZ, retail 0x00043BF9, 240 bytes.
 // W3DDisplay per-line color pass over the 25 debug strings at +0x1D0: each
 // present line gets a severity color picked by its index (sparse switch with

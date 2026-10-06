@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2 /G7
+// cl: /DNDEBUG /MD /EHsc /Ob2
 //
 // ?Rva00072480@W3DVideoBuffer@@UAEXXZ @0x00072480 32B
 // Virtual slot 12 (offset 0x30) of vtable 0x007C64D8 (class of ??0W3DVideoBuffer@@QAE@H@Z).

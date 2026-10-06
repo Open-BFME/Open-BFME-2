@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0W3DBridgeBuffer@@QAE@XZ 0x000DE52E 110B W3DBridgeBuffer ctor with 200-bridge array via ??_L plus clearAllBridges and allocateBridgeBuffers
 // evidence: ??_L pushes 0xC8 0x114 with dtor 0x000DDA6E and ctor 0x000DD97F for bridges at +0x10; nulls +0x0 +0x4 +0x8 +0xC +0xD7B0 and flag +0xD7B4 0 then 1; calls clearAllBridges 0x000DD948 and allocateBridgeBuffers 0x000DD8B8; chain from 0x000DD8B8; caller 0x0006CC2F in 0x0006C9CF
 class W3DBridge

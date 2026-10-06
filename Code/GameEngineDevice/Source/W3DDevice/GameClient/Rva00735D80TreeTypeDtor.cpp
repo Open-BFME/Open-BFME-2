@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/shims/stringinline
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/shims/stringinline
 //
 // ??1Rva00735D80TreeType@@QAE@XZ, retail 0x000EC6E1, 124 bytes.
 // Evidence: Rva00735D80TreeTypeCtor.cpp's destructor compiles to these bytes

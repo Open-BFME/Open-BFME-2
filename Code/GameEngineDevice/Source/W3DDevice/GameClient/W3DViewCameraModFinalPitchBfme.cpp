@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Ported from Open-BFME-1 6583b3c1ff21db4a561285717028fdafc780b7db.
 // Retail 0x0008691F..0x000869CF is 176 bytes, ending in RET 12.
 // W3DView vftable VA 0x00BC756C slot 33 selects this body.

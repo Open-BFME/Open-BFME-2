@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0000CA0CE@W3DQuadrupedDraw@@SA?AW4NameKeyType@@XZ @0xCA0CE
 // (69B): cached pool-name key for W3DQuadrupedDraw. The class
 // identity comes from the pool-name string the body pushes

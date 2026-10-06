@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // Nine more factory slots of vtable 0x00BC4738 (class Rva004C743, the game
 // client whose slots 48 and 49 Rva0004C662Factory.cpp holds), each Zero

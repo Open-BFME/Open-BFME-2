@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /Ireference/shims/moduledata
 //
 // ??1W3DStreakDrawModuleData@@UAE@XZ, retail 0x000D057C, 69 bytes.
 // W3DStreakDraw ModuleData dtor: reinstalls the vtable 0x00BCDAB0, tears

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD /Os -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
+// cl: -DNDEBUG -MD -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient
 // Retail 0x00729EA0: build a triangle normal and cast the test ray against it.
 
 struct Vector3

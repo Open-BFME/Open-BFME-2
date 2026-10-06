@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0LookupTablePostEffect@@QAE@XZ, retail 0x00111B84, 22 bytes.
 // Target identity: the body calls the base ctor 0x0011646E (pinned as

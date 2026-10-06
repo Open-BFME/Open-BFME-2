@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0025D2F6@W3DDisplay@@QAEXXZ @0x0025D2F6 69B: W3DDisplay clear helper.
 // Retail xorps plus push-3 countdown loop zeroes 3x0x18 array at +0x68 then
 // two floats at +0xC8/+0xCC then add ecx 0xB0 plus jmp to wide releaseBuffer.

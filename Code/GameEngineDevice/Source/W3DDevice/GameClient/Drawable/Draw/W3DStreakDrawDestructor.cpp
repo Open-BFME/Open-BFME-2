@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Open-BFME5: W3DStreakDraw destructor at retail 0x0077D510.
 
 class Rva0002B8C8TailBase

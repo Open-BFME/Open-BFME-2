@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Slots 1 and 2 forward the window and the message to the gadget's input
 // and system callbacks (cdecl (GameWindow *, msg, mData1, mData2)); slot 3

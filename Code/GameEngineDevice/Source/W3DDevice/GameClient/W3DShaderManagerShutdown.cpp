@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 //
 // W3DShaderManager's two-phase shutdown, retail 0x00076790 (186 bytes) and
 // 0x0007684A (171 bytes), back to back. Ported from the Open-BFME-1 donors

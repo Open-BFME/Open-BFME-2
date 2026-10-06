@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0
+// cl: /Ob0
 
 // Class views mirror the kept copy in W3DSmudge.cpp (Zero Hour W3DSmudge.h /
 // Smudge.h): SmudgeManager carries init/reset plus inline empty

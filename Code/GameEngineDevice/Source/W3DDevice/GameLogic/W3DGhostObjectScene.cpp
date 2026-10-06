@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /Ireference/shims/moduledata
+// cl: /MD /DNDEBUG /Ireference/shims/moduledata
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.

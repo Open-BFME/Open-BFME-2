@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@W3DRopeDraw@@MAEXPAVXfer@@@Z @0x000CA916 191B: W3DRopeDraw protected virtual xfer.
 // Slot 3 (offset 0x0C) of vtable 0x007CBD60 (class of rowed ??1W3DRopeDraw@@UAE@XZ).

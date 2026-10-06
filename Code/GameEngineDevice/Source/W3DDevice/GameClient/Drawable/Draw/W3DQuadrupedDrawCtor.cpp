@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0W3DQuadrupedDraw@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x000CA0A4,
 // 42 bytes. Draw-side ctor completing the W3DQuadrupedDraw file-unit (name

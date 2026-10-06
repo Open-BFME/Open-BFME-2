@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX- /MD
+// cl: /GX- /MD
 // Target EFA4E/132 initializes the observed 0x58-byte object prefix.
 // Native return is zero in EAX; all witnessed constructor callers ignore it.
 // Use a void address-derived initializer rather than assert a C++ constructor.
