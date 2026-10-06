@@ -50,7 +50,7 @@ public:
 	Int winGetSize(Int *w, Int *h);
 	Int winSetSize(Int w, Int h);
 	Int winHide(Bool hide);
-	Int winBringToTop(void);
+	Int rva0031475A(void);
 	void winSetUserData(void *data);
 	GameWindow *winGetChild(void);
 	GameWindow *winGetNext(void);
@@ -317,7 +317,7 @@ GameWindow *GameWindowManager::gogoMessageBox(Int x, Int y, Int width, Int heigh
 
 	//make sure the dialog is showing and bring it to the top
 	parent->winHide(FALSE);
-	parent->winBringToTop();
+	parent->rva0031475A();
 
 	//Changed By Chris
 	return trueParent;
