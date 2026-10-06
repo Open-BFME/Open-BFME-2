@@ -64371,3 +64371,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005CD563@@YAXPAVRva005CD1A9@@PAX111@Z,,0x005CD563,147,Code/GameEngine/Source/Common/Rva005CD3AAFamily.cpp,matched,Refcounted Rva005CDMorph D8 factory helper
 ?rva005D772D@Rva00049D20@@QAEHH@Z,,0x005D772D,24,Code/GameEngine/Source/Common/Rva005D772D.cpp,matched,callers 0x00573918 0x005D77BB 0x005EEB1C table layout from Rva00049D20Get and Rva005D7766
 ?rva00356FAF@ScriptEngine@@QAEXH@Z,,0x00356FAF,45,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00356FAF.cpp,matched,caller 0x00299F0E plus rowed callee 0x00203FA8 plus prev ScriptEngine TU
+?rva003FE05E@Rva003FE05E@@QAEXXZ,,0x003FE05E,85,Code/GameEngine/Source/Common/Rva003FE05E.cpp,matched,refresh hint from int via Helper op copy plus clear else
