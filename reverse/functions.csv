@@ -64971,3 +64971,5 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0078bd4c@@YAXXZ,,0x0078BD4C,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and direct transfer to rowed 0x0049C38A body are target bytes
 ?rva0078bd65@@YAXXZ,,0x0078BD65,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and direct transfer to rowed 0x0049C38A body are target bytes
 ?rva0078bd7e@@YAXXZ,,0x0078BD7E,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state-bit and direct transfer to rowed 0x0049C38A body are target bytes
+?rva000677CA@Rva000677CAHost@@QAE_NHHM@Z,,0x000677CA,54,Code/GameEngine/Source/Common/Rva000677CABodies.cpp,matched,dump range 1 float-to-int wrapper via pinned 0x67494; late bool init plus inverted return
+?rva0005F279@Rva0005F279Host@@QAEXXZ,,0x0005F279,66,Code/GameEngine/Source/Common/Rva0005F279Bodies.cpp,matched,dump range 1 stride-0x48 loop via pinned element test and host process; recomputed element twice
