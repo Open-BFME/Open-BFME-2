@@ -13184,3 +13184,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ??0Rva00342B1A@@QAE@PAVStateMachine@@H@Z,0x00342B1A,unrowed 0x78 AI-state ctor taking the branchless int selector called from 0x34316A; RETAIL REL32 at 0x0034322E
 ??0Rva0033F3B6@@QAE@PAVStateMachine@@_NN@Z,0x0033F3B6,TU-local (bool bool) spelling for the rowed 0x33F3B6 state ctor as declared in its own TU; RETAIL REL32 at 0x003432A1 in 0x34316A
 ??0Rva0034290D@@QAE@PAVStateMachine@@HHH@Z,0x0034290D,unrowed 0x74 AI-state ctor taking (outer-this plus 0 plus param plus 0) called from 0x343367; RETAIL REL32 at 0x003434FB
+??0Rva00342A50@@QAE@PAVStateMachine@@@Z,0x00342A50,unrowed 0x6C AI-state ctor called from 0x3435FB; RETAIL REL32 at 0x0034363B
