@@ -65,6 +65,19 @@
 // game's +0x58 and 1 when 0x00E0333C is set, and seed the logic random from
 // +0x50. The check result is named (filesOk) for retail's cmp al,bl; the
 // zero address is a temporary so its stores sink below the text fetch.
+//
+// LANAPI slot 46, retail 0x0024924D (367 bytes), named by address: Zero
+// Hour's OnGameOptions branch for options from the host (slot 0 while we are
+// not host), split into its own Bool virtual with BFME 2's (data, length)
+// options. Sender checked against the slot address with the ledger's
+// inequality test 0x00248CDD; setLastHeard (+0xF60), GameInfoToAsciiString
+// saves the old options, ParseGameOptionsString (0x00449258) applies the new
+// ones, and when no slot 1..7 holds the local address we were booted: count
+// it (0x00DFE95C), restore the old options and leave after 16 boots.
+// Otherwise refresh the slot list and the options view (0x00248D84, then the
+// lobby 0x00E03354 or 0x00248E98) and return true. ZH's nested
+// if( playerSlot == 0 && !amIHost() ) scope is what puts oldOptions in
+// playerSlot's home rather than the sender's.
 
 typedef int Int;
 typedef bool Bool;
@@ -76,7 +89,15 @@ typedef unsigned short WideChar;
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-struct BfmeNetAddress
+// The ledger's inequality test of two addresses (0x00248CDD) is a method of
+// a class named by its address; an empty base puts it on BfmeNetAddress.
+class Rva00248CDD
+{
+public:
+	Bool rva00248CDD( const Rva00248CDD &other ) const;
+};
+
+struct BfmeNetAddress : public Rva00248CDD
 {
 	Bool Rva00248CBF( const BfmeNetAddress *other ) const;
 	const BfmeNetAddress *self( void ) const { return this; }
@@ -227,7 +248,17 @@ public:
 };
 class LANGameInfo : public Rva004482FB
 {
+public:
+	Bool amIHost( void ) const;
+	void setLastHeard( UnsignedInt lastHeard ) { m_lastHeard = lastHeard; }
+
+private:
+	UnsignedInt m_preF60;
+	UnsignedInt m_lastHeard;			// +0xF60
 };
+
+AsciiString GameInfoToAsciiString( const GameInfo *game, Bool flag );
+Bool ParseGameOptionsString( LANGameInfo *game, AsciiString options, const void *data, Int length );
 
 class MultiplayerColorDefinition
 {
@@ -276,7 +307,19 @@ public:
 	void rva00444E8A( void );
 };
 
+class Rva00444462
+{
+public:
+	void rva00444462( void );
+};
+
 void Rva00248D84Enable( void );
+void Rva00248E98Enable( void );
+
+// Retries of an options update from the host that leaves us out of the game.
+extern Int LANGameOptionsRetries;
+
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime( void );
 
 // BFME 2's CreateTheNetwork (0x0025E46D): replaces TheNetwork with a new BFME2NativeNetwork.
 void CreateTheNetwork( void );
@@ -381,7 +424,9 @@ public:
 	virtual void OnGameStart( void );
 	virtual void rva0024900D( void );
 	BFME_VSLOT(44)
-	BFME_VSLOT(45) BFME_VSLOT(46) BFME_VSLOT(47) BFME_VSLOT(48) BFME_VSLOT(49)
+	BFME_VSLOT(45)
+	virtual Bool rva0024924D( const BfmeNetAddress &sender, Int playerSlot, const void *data, Int length );
+	BFME_VSLOT(47) BFME_VSLOT(48) BFME_VSLOT(49)
 	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53)
 	virtual Int AmIHost( void ) = 0;
 	BFME_VSLOT(55) BFME_VSLOT(56) BFME_VSLOT(57) BFME_VSLOT(58) BFME_VSLOT(59)
@@ -692,4 +737,55 @@ void LANAPI::rva0024900D( void )
 
 		InitGameLogicRandom( m_currentGame->getSeed() );
 	}
+}
+
+Bool LANAPI::rva0024924D( const BfmeNetAddress &sender, Int playerSlot, const void *data, Int length )
+{
+	LANGameInfo *game = m_currentGame;
+	if( !game )
+		return false;
+	if( game->getSlotAddress( playerSlot )->rva00248CDD( sender ) )
+		return false;
+	if( game->isGameInProgress() )
+		return false;
+
+	if( playerSlot == 0 && !game->amIHost() )
+	{
+		m_currentGame->setLastHeard( timeGetTime() );
+		AsciiString oldOptions = GameInfoToAsciiString( m_currentGame, true );
+		Bool booted = true;
+		if( ParseGameOptionsString( m_currentGame, AsciiString( "" ), data, length ) )
+		{
+			for( Int player = 1; player < MAX_SLOTS; ++player )
+			{
+				if( m_currentGame->getSlotAddress( player )->Rva00248CBF( getLocalAddress() ) )
+				{
+					booted = false;
+					break;
+				}
+			}
+		}
+
+		if( booted )
+		{
+			// restore the options with us in
+			++LANGameOptionsRetries;
+			ParseGameOptionsString( m_currentGame, oldOptions, 0, 0 );
+			if( LANGameOptionsRetries > 16 )
+			{
+				OnPlayerLeave( m_name );
+				LANGameOptionsRetries = 0;
+			}
+			return false;
+		}
+
+		Rva00248D84Enable();
+		if( !g_Va00E03354 )
+			Rva00248E98Enable();
+		else
+			((Rva00444462 *)g_Va00E03354)->rva00444462();
+		LANGameOptionsRetries = 0;
+		return true;
+	}
+	return false;
 }
