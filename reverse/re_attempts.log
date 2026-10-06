@@ -14901,3 +14901,10 @@ FUN_0068e01f	0x0028E01F	218	blocked	requires forbidden address-named global g_Va
 ?rva00242C86@GameLogic@@QAEXXZ	0x00242C86	151	blocked	identity and target record layout remain unproven from available donor evidence t=12 model=gpt-6.1
 ?rva0059B2EC@Rva0059B2EC@@QAE?AVAsciiString@@XZ	0x0059B2EC	105	blocked	donor conversion has different write target and retail pair layout is not established t=8 model=gpt-6.1
 ?rva0059B2EC@Rva0059B1A2@@QAE?AVAsciiString@@XZ	0x0059B2EC	105	blocked	donor conversion buffer API is absent from the shim and target member model still fails compilation t=18 model=gpt-6.1
+?Rva0059BE1F@@YA?XZ	0x0059BE1F	497	blocked	identity and signature unprovable from packet t=2 model=gpt-6
+?rva00057787@MilesAudioManager@@QAEXI@Z	0x00057787	92	blocked	map and callback semantics unresolved from conflicting manager layout t=4 model=gpt-6
+?rva0052C161@Rva0052C161@@QAEXXZ	0x0052C161	117	blocked	layout and loop control flow still differ after six variants; retail evidence identifies globals but owner and vector types remain unresolved t=12 model=gpt-6
+?Rva00567700Get@@YAHH@Z	0x00567700	32	blocked	lookup table data at VA 0x00C6CE8C has no data_ledger name; literal image address and guessed global are forbidden t=2 model=gpt-6
+??0BfmeVectorRecord001B4A39@@QAE@XZ	0x001B4B92	198	partial	same-size vector endpoint access differs in addressing form; direct offsets name same vector endpoints as retail lea-based accesses t=20 model=gpt-6 score=0.93 stash=reverse/attempts/0x001b4b92.cpp
+?rva001B4E82@Rva001B4E82@@QAEXPAVCreateAHeroData@@@Z	0x001B4E82	41	blocked	erase callee resolves to vector<CreateAHeroData*> specialization rather than retail vector<void*> owner t=7 model=GPT-6
+?rva00055E6C@Rva00055E6C@@QAE_NPBDHH@Z	0x00055E6C	350	blocked	stored callback behavior fits MilesAudioManager layout but slot identity and retail argument types remain unproven after donor search t=4 model=GPT-6

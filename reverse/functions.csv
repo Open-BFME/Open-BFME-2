@@ -66198,3 +66198,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0059B1A2@Rva0059B1A2@@QAEHPAD@Z,,0x0059B1A2,37,Code/GameEngine/Source/Common/System/Rva0059B1A2Write.cpp,matched,address-derived string writer combines rowed AsciiStringPlusText and pair writers
 ?rva0059B1C7@Rva0059B1C7@@QAEHPAD@Z,,0x0059B1C7,37,Code/GameEngine/Source/Common/System/Rva0059B1A2Write.cpp,matched,address-derived writer appends pair after the verified 0x0059B1A2 writer
 ?rva0059B355@Rva0059B355@@QAE?AV?$StringBase@D@@XZ,,0x0059B355,108,Code/GameEngine/Source/Common/System/Rva0059B355Write.cpp,matched,address-derived narrow StringBase builder with length and field offsets from retail
+??0BfmeVectorRecord001B4A39@@QAE@XZ,,0x001B4B92,198,Code/GameEngine/Source/Common/Rva001B4B92.cpp,matched,record layout inferred from retail copy callers donor scalar meanings unknown
