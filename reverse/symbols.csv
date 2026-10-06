@@ -13534,14 +13534,3 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 _chatSetLocalIP,0x0069BD40,Thread_Function 0x0038EDD7 passes the chosen IP here where the Zero Hour body calls chatSetLocalIP
 _peerJoinStagingRoomA,0x0069A130,GameSpy SDK C export peerJoinStagingRoomA (ANSI; PeerThread.cpp maps peerJoinStagingRoom to it as the BFME 2 SDK header does): PeerThread.cpp declares the sweep Peer.h with C linkage, and Thread_Function 0x0038EDD7 / doQuickMatch 0x0038E684 call this body where the Zero Hour source calls peerJoinStagingRoom
 _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.cpp declares the sweep Peer.h with C linkage, and Thread_Function 0x0038EDD7 / doQuickMatch 0x0038E684 call this body where the Zero Hour source calls peerStateChanged
-?rva005E1B9A@Rva005E1B9A@@QAEXXZ,0x005E1B9A,jump target of 17B forwarder 0x005E1BC4; original name unknown
-?rva005E2180@Rva005E2180@@QAEXXZ,0x005E2180,jump target of 17B forwarder 0x005E2226; original name unknown
-?rva005E254C@Rva005E254C@@QAEXXZ,0x005E254C,jump target of 17B forwarder 0x005E25DE; original name unknown
-?rva005F1B51@Rva005F1B51@@QAEXXZ,0x005F1B51,jump target of 17B forwarder 0x005E35C9; original name unknown
-?rva005E589E@Rva005E589E@@QAEXXZ,0x005E589E,jump target of 17B forwarder 0x005E590F; original name unknown
-?rva005E69AC@Rva005E69AC@@QAEXXZ,0x005E69AC,jump target of 17B forwarder 0x005E6A00; original name unknown
-?rva005E6A9D@Rva005E6A9D@@QAEXXZ,0x005E6A9D,jump target of 17B forwarder 0x005E6BA3; original name unknown
-?rva005E6AD8@Rva005E6AD8@@QAEXXZ,0x005E6AD8,jump target of 17B forwarder 0x005E6BB4; original name unknown
-??4Rva001F8CC2@@QAEAAV0@ABV0@@Z,0x001F8CC2,second-base assign called from 0x001F9CE7 in 0x001F9CCA; vector holder assign; original name unknown
-??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
-?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
