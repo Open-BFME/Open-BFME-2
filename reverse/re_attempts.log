@@ -13436,3 +13436,37 @@ FUN_00764551	0x00364551	1120	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va00BBB8D8 plu
 ?Rva004BD97ACreate@@YGPAVBfmeFixedStorage002CF0F0@@PAV1@@Z	0x004BD97A	39	blocked	placement new for copy ctor adds null cmp je retail lacks; memset via pin vs row types t=22 model=muse-06
 FUN_009d0f95	0x005D0F95	10	blocked	only EH_prolog in 10B no body no ret no callers signature unprovable t=5 model=muse-06
 FUN_009fb243	0x005FB243	87	blocked	fastcall fwd-passthrough pin-only callee identity unproven new-plus-refcount t=8 model=muse-06
+?rva00588BA8@Rva0047A040Base9E0@@QAEXPAVObject@@_N@Z	0x00588BA8	75	partial	mov ecx eax before test ecx vs test eax after getDrawable null check; 3 spellings tried t=10 model=muse-08 score=0.92 stash=reverse/attempts/0x00588ba8.cpp
+?rva002EF2A6@Pathfinder@@QAEXPAVObject@@@Z	0x002EF2A6	307	blocked	ADDRESS-NAMED g_Va00BC2428 escape hatch t=2 model=muse-08
+?rva00588BA8@Rva0047A040Base9E0@@QAEXPAVObject@@_N@Z	0x00588BA8	75	blocked	mov ecx eax before test ecx vs test eax after getDrawable null check; 6 spellings tried incl assign inherit Drawable-cast t=15 model=muse-08 (stash 0.92 kept)
+?rva002F133C@Pathfinder@@QAEHPAVObject@@PBUCoord3D@@PAH@Z	0x002F133C	445	blocked	complex Bresenham line walk with cell collection needs donor core t=15 model=muse-08
+?rva0034A570@Rva0034A871Host@@QAEXH@Z	0x0034A570	665	blocked	ADDRESS-NAMED g_Va007C26F0 new use refused t=2 model=muse-08
+FUN_006f14f9	0x002F14F9	987	blocked	ADDRESS-NAMED g_Va00BC2428 skip per taskfile t=1 model=muse-08
+FUN_0076ae79	0x0036AE79	650	blocked	ADDRESS-NAMED g_Va globals skip per taskfile t=1 model=muse-08
+FUN_00688874	0x00288874	96	blocked	unresolved callee 0x00288621 already blocked t=2 model=muse-08
+FUN_0074afcd	0x0034AFCD	189	blocked	unresolved callee 0x002919A7 chain needs 0x002CDC3D t=2 model=muse-08
+FUN_0074aedf	0x0034AEDF	238	blocked	same unresolved 0x002919A7 chain t=1 model=muse-08
+FUN_008efddc	0x004EFDDC	493	blocked	ADDRESS-NAMED g_Va007C26F0 plus 2 unresolved t=1 model=muse-08
+FUN_0074a879	0x0034A879	591	blocked	unresolved 0x002919A7 plus 0x0034311E chain t=1 model=muse-08
+FUN_008effc9	0x004EFFC9	830	blocked	ADDRESS-NAMED plus 2 unresolved t=1 model=muse-08
+FUN_0074aac8	0x0034AAC8	1047	blocked	over 1000B plus 3 unresolved incl 0x002919A7 t=1 model=muse-08
+FUN_008be8bd	0x004BE8BD	1189	blocked	ADDRESS-NAMED g_Va009FF0F8 plus over 1000B t=1 model=muse-08
+?rva00380523@Rva00380523@@QAEXXZ	0x00380523	152	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused t=2 model=muse-08
+?rva004BEE21@Rva004BEE21@@QAEXXZ	0x004BEE21	484	blocked	ADDRESS-NAMED g_Va00BBB8D8 plus unresolved callee 0x001D90A1 t=3 model=muse-08
+?updateInternal@AIAttackApproachTargetState@@AAE?AW4StateReturnType@@XZ	0x00348356	1369	blocked	ADDRESS-NAMED g_Va00DBA4E4 g_Va009FF0F8 plus unresolved callee 0x002FA2DC size over 1000B t=3 model=muse-08
+?rva00348BA4@Rva00348BA4@@QAEXXZ	0x00348BA4	1135	blocked	ADDRESS-NAMED multiple plus 4 unresolved callees size over 1000B t=2 model=muse-08
+?Rva00360B0FGet@@YAHXZ	0x00360B0F	74	blocked	unresolved callee 0x00360A92 needs 0x003609F7 blocked by muse-11 t=5 model=muse-08
+?rva00360A92@Rva00360A92@@QAEXXZ	0x00360A92	97	blocked	needs 0x003609F7 blocked DamageFX insertNode wall t=4 model=muse-08
+?rva0058943A@Rva005890A6@@QAEXM@Z	0x0058943A	294	blocked	ADDRESS-NAMED g_Va00BBB8D8 plus unresolved callee 0x002AC6E1 t=2 model=muse-08
+?rva00601C53@@YAXPAXH000@Z	0x00601C53	1027	blocked	ADDRESS-NAMED g_Rva hatch plus unrowed callee 0x006017DA t=1 model=muse-08
+FUN_004fe379	0x000FE379	1411	blocked	ADDRESS-NAMED g_Va hatch multiple uses t=1 model=muse-08
+?buildTerrainTexture@W3DRadar@@IAEXPAVTerrainLogic@@@Z	0x0004FAFF	1510	blocked	ADDRESS-NAMED g_Va hatch plus unrowed callee 0x0004E3F1 t=1 model=muse-08
+FUN_009a52fe	0x005A52FE	820	blocked	ADDRESS-NAMED g_Rva hatch t=1 model=muse-08
+?rva001F5A6A@Rva001F5A6A@@QAEPAXPAXHH@Z	0x001F5A6A	58	blocked	dead zeroed dword local push ecx plus mov ebp-4 edx never read; ours 54B pop-vs-leave follows frame t=15 model=muse-08 (stash 0.93 kept)
+?evaluateBezSegmentAtT@BezierSegment@@QBEXMPAUCoord3D@@@Z	0x0010FE6D	134	blocked	unresolved callee 0x0010F8D0 plus donor mismatch t=12 model=muse-spark
+?setSize@Shadow@@QAEXMM@Z	0x0010FD5E	139	blocked	unresolved callee 0x0010F8D0 blocked by ADDRESS-NAMED 0x0010F011 t=8 model=muse-spark
+?rva0007F9AD@Rva0007F944Host@@QAEPAVRva0007F944Item@@MM@Z	0x0007F9AD	126	blocked	register wall this-ebx-not-edi bestItem-spilled o-edi-not-ecx 6 variants t=25 model=muse-spark
+?rva0007FA2B@Rva0007F944Host@@QAEHMM@Z	0x0007FA2B	127	blocked	same family wall as 0x7F9AD: this-ebx-not-edi o-edi-not-ecx best-spilled 1 variant plus 6-variant search on sibling t=8 model=muse-spark
+?rva00277669@BFMERopeDrawable@@QAEXXZ	0x00277669	632	blocked	BFMERopeDrawable draw 632B first variant frame 0x54 vs 0x44 reg swap vtable offsets need fix t=12 model=muse-spark
+?rva001F5A6A@Rva001F5A6A@@QAEPAXPAXHH@Z	0x001F5A6A	58	blocked	dead push ecx plus mov ebp-4 edx never read; array0/1 and archSSE tried no frame t=18 model=muse-spark (stash 0.93 kept)
+?createEmitters@W3DTankTruckDraw@@IAEXXZ	0x000CB682	420	blocked	needs unrowed callee 0x001F5A6A createParticleSystem stash 0.93 dead-local wall t=20 model=muse-spark
