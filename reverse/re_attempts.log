@@ -11421,3 +11421,5 @@ FUN_00479ed4	0x00079ED4	29	blocked	hint-insert forwarder to rowed 0x79D14 same t
 ?rva00212655@Rva00DFE1C8Host@@QAEXH@Z	0x00212655	102	blocked	frame plus missing payload null-test t=30 model=muse-14
 ?rva00245F14@GameLogic@@QAEXUMyEntry@@@Z	0x00245F14	101	partial	push_back MyList vs rowed Rva pointer list and AsciiString list at 0x1C0 need resolution; bytes exact 0 regions t=25 model=muse-20 score=0.97 stash=reverse/attempts/0x00245f14.cpp
 ?rva004E3A6E@Rva004E3CD0@@QAEXXZ	0x004E3A6E	266	partial	rva003EEC63 this-arg order swapped lea-push before mov-mov t=25 model=muse-05 score=0.96 stash=reverse/attempts/0x004e3a6e.cpp
+?rva00151597@Rva00151597@@QAEPAXXZ	0x00151597	51	blocked	EH prolog + zero init missing: ours 31B vs retail 51B no EH_prolog call or fs restore placement-new AsciiString emits no EH frame t=5 model=muse-04
+?rva005FBA3C@Rva005FB770@@QAEXHPBVImage@@@Z	0x005FBA3C	194	blocked	ours 195B vs 194B extra push ecx plus AsciiString temp in ebp-10 vs retail reuse of incoming ebp+c plus bool show store hoisted vs late plus needs g_Rva0107301CEmptyString new use refused by publisher t=5 model=muse-04
