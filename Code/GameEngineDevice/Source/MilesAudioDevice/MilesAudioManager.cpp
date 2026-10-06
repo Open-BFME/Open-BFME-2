@@ -112,7 +112,8 @@ private:
 struct Rva00051107AudioRequest {
     int m_request;
     BfmePoolRef10 m_pendingEvent;         // +0x04
-    char at08[0x10 - 0x08];
+    unsigned int m_at08;                  // +0x08 (target stores one argument)
+    char at0C[0x10 - 0x0C];
     bool m_at10;                             // +0x10
     bool m_at11;
     bool m_at12;
@@ -233,6 +234,7 @@ public:
     bool rva00055FCA(int key, void **result, int flags);
     void rva000562CF(int key);
     void rva000562A2(int key, const void *value);
+    void rva000567C5(int argument);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
     AudioEventRTS *findLowestPrioritySound(AudioEventRTS *event);
     float rva0005A9F8(void *ref, int a, int b);
@@ -323,6 +325,16 @@ void MilesAudioManager::rva000562A2(int key, const void *value)
     void *result = 0;
     if (rva00055FCA(key, &result, 0) && result)
         reinterpret_cast<Rva002D9508 *>(result)->rva002D9508(value);
+}
+
+// Address-derived queue method; target writes request+0x08 and +0, then appends
+// the new request to the list at this+0x98.
+void MilesAudioManager::rva000567C5(int argument)
+{
+    Rva00051107AudioRequest *request = rva00051107();
+    request->m_at08 = argument;
+    request->m_request = 1;
+    m_audioRequests.push_back(request);
 }
 
 // Retail @ 0x0005AC61 gates the move-up helper on the per-view active system.
