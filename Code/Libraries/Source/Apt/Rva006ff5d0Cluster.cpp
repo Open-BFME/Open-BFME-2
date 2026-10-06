@@ -15,8 +15,11 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
 class AptValue;
-
-AptValue *Rva006D88C0MakeBool(bool value);
+class AptBoolean
+{
+public:
+    static AptValue *Create(bool value);
+};
 bool rva006fc370(AptValue *value);
 
 class AptBasePtrStack
@@ -50,6 +53,6 @@ AptValue *rva006ff5d0(AptActionInterpreter *pInterpreter, int nParams)
         if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
     }
     if (nParams == 0)
-        return Rva006D88C0MakeBool(true);
-    return Rva006D88C0MakeBool(rva006fc370(g_aptDateInterpreter.stack.At(0)));
+        return AptBoolean::Create(true);
+    return AptBoolean::Create(rva006fc370(g_aptDateInterpreter.stack.At(0)));
 }
