@@ -484,7 +484,7 @@ void Rva00810FF0(void *context, char *out, int outSize);
 
 int Rva0080E350(const int *crypto, unsigned char *data, int length)
 {
-	unsigned char context[0x54];
+	unsigned char SendHash[0x54];
 	int payloadLength;
 
 	payloadLength = length - 8;
@@ -492,9 +492,9 @@ int Rva0080E350(const int *crypto, unsigned char *data, int length)
 		return 0;
 	if (payloadLength < 0)
 		return -1;
-	Rva00810020(context);
-	Rva00810060(context, data, payloadLength);
-	Rva00810FF0(context, (char *)data + payloadLength, 8);
+	Rva00810020(SendHash);
+	Rva00810060(SendHash, data, payloadLength);
+	Rva00810FF0(SendHash, (char *)data + payloadLength, 8);
 	return 0;
 }
 
