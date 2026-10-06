@@ -66372,3 +66372,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004ABB4B@Rva004ABB4B@@QAEHXZ,,0x004ABB4B,273,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioRva004ABB4B.cpp,matched,LargeGroupAudioUpdate+0x10 refreshes the slot when the object state changes and returns the module delay
 ?rva004AF63E@RespawnUpdate@@QAEXXZ,,0x004AF63E,350,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF63E.cpp,matched,RespawnUpdate death entry: level rule lookup then death fx disabled and revival slot
 ?rva004B0FEB@Rva004B0FEB@@QAE_NPAVObject@@@Z,,0x004B0FEB,367,Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCheck.cpp,matched,target gate over status bits relationship filter and pathfinder
+?rva00489913@Rva00489913@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z,,0x00489913,244,Code/GameEngine/Source/GameLogic/Object/Update/Rva00489913Nearest.cpp,matched,bridge endpoint scan keeps the nearest squared distance
