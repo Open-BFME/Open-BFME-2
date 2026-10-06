@@ -64631,3 +64631,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva003EDC31@Rva0020DXXXElem@@QAEXXZ,,0x003EDC31,101,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003EDC31.cpp,matched,leaf via TerrainLogic slot30 rect plus pinned walk
 ?rva003802DF@Rva00380200@@QAEHXZ,,0x003802DF,157,Code/GameEngine/Source/Common/Rva003802DF.cpp,matched,unlock min selector plus rank store tail unblocks 4
 ?Rva00535087Parse@@YAXPAVINI@@PAX1PBX@Z,,0x00535087,51,Code/GameEngine/Source/Common/Rva00535087Parse.cpp,matched,PlayerPosition FieldParse via atoi slot plus initFromINI
+?rva001F45F4@ParticleSystem@@QAEX_N@Z,,0x001F45F4,56,Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F45F4.cpp,matched,Slave-chain flag setter via Make001FCBD7 with barrier

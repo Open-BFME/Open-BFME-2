@@ -11581,3 +11581,4 @@ FUN_008ee9e9	0x004EE9E9	245	blocked	adapted stash to pin name without hatches sc
 ??0Rva0022141E@@QAE@ABVAsciiString@@@Z	0x0022141E	136	partial	vtbl order fixed via volatile both but and-vs-mov plus lea vs push-eax t=15 model=muse-07 score=0.97 stash=reverse/attempts/0x0022141e.cpp
 ?rva003591F4@Rva00E01E28Owner@@QAEXURva003591F4Arg@@@Z	0x003591F4	36	blocked	push-ecx-plus-edx-fill vs push-eax systematic quirk t=14 model=muse-07 (stash 0.97 kept)
 ?rva00434A2F@AptSaveLoad@@QAEXXZ	0x00434A2F	127	partial	je-vs-jne branch order plus SaveButtonEnable string fixed t=14 model=muse-07 score=0.95 stash=reverse/attempts/0x00434a2f.cpp
+?Rva00527827@Holder00527827@@QAEXHPAMHH@Z	0x00527827	87	blocked	ADDRESS-NAMED g_Va007C26F0 t=1 model=muse-07
