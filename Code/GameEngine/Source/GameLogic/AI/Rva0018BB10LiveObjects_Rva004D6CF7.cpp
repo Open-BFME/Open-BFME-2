@@ -66,6 +66,7 @@ typedef _STL::vector<Object *> VecObjectPtr;
 class Rva0018BB10Roster
 {
 public:
+	const VecObjectPtr &rva004D6CAC();
 	const VecObjectPtr &liveObjects();
 
 private:
@@ -73,6 +74,23 @@ private:
 	VecObjectID m_objectIDs;			// +0x04
 	VecObjectPtr m_objectsCached;		// +0x10
 };
+
+// ?rva004D6CAC@Rva0018BB10Roster@@QAEABV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@XZ
+// Retail 0x004D6CAC, 75B, directly before liveObjects: the same cache
+// rebuild without pruning -- ids that no longer resolve are skipped and left
+// in the id vector. Player's selection (+0x730) walks this (0x002AABBC).
+const VecObjectPtr &Rva0018BB10Roster::rva004D6CAC()
+{
+	m_objectsCached.clear();
+	for (VecObjectID::iterator it = m_objectIDs.begin(); it != m_objectIDs.end(); ++it)
+	{
+		Object *obj = TheGameLogic->findObjectByID(*it);
+		if (obj)
+			m_objectsCached.push_back(obj);
+	}
+
+	return m_objectsCached;
+}
 
 const VecObjectPtr &Rva0018BB10Roster::liveObjects()
 {
