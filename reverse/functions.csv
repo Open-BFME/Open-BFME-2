@@ -65000,3 +65000,6 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ??1Rva00200667@@QAE@XZ,,0x00200667,5,Code/GameEngine/Source/Common/Rva00200667Dtor.cpp,matched,thunk jmp to List_base 0x004EC395 via base class empty dtor
 ?rva005F8427@Rva005F8427@@QAEXXZ,,0x005F8427,8,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,matched,Member forwarder to rowed 0x005F83B9; honest address name
 ?rva005FBB9E@Rva005FBB9E@@QAEXH@Z,,0x005FBB9E,8,Code/GameEngine/Source/Common/Rva005FFF62Family.cpp,matched,Member forwarder to rowed Set2 0x005FBAFE int passthrough; honest address name
+uw_00777e88,,0x00777E88,25,Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp,matched,gen-funclet;parent=??0BfmeSubobject00229875@@QAE@XZ;object-symbol=$L4160
+uw_0077af33,,0x0077AF33,24,Code/GameEngine/Source/Common/Rva0031FAF0Dtor.cpp,matched,gen-funclet;parent=??1Rva0031FAF0@@QAE@XZ;object-symbol=$L1232
+uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp,matched,gen-funclet;parent=??0ControlBarScheme@@QAE@XZ;object-symbol=$L51427
