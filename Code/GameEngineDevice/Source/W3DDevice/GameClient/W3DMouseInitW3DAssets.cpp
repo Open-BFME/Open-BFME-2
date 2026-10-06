@@ -30,6 +30,15 @@
 // W3DDisplay::m_3DInterfaceScene (0x009E1B3C) through Remove/Add_Render_Object
 // (slots 3 and 2). The D3D texture helpers keep their rowed names, which spell
 // MouseCursor at file scope.
+//
+// ?setRedrawMode@W3DMouse@@UAEXW4RedrawMode@Mouse@@@Z, retail 0x0009A04A, 438 bytes.
+// Zero Hour's W3DMouse::setRedrawMode. BFME 2 holds the thread mutex for the
+// DX8 drawing thread: entering DX8 mode hands a new MutexClass::LockClass on
+// threadMutex (0x009E5DA0, wait -1) to the file-scope holder at 0x009E5DF8
+// (Rva0009990D::set) before Execute, and every mode that stops the thread
+// first clears that holder. DX8 mode resets the W3D and polygon cursors
+// after the thread block, not before it. The virtual setCursor calls go
+// through slot 19 (+0x4C) of the W3DMouse vtable 0x00BC86D8.
 
 #include "ascii_string.h"
 
@@ -234,7 +243,13 @@ public:
 	};
 
 	virtual ~Mouse();
-	virtual void setCursor( MouseCursor cursor );
+	virtual void slot01(); virtual void slot02(); virtual void slot03(); virtual void slot04();
+	virtual void slot05(); virtual void slot06(); virtual void slot07(); virtual void slot08();
+	virtual void slot09(); virtual void slot10(); virtual void slot11(); virtual void slot12();
+	virtual void slot13(); virtual void slot14(); virtual void slot15(); virtual void slot16();
+	virtual void slot17(); virtual void slot18();
+	virtual void setCursor( MouseCursor cursor );		// slot 19 (+0x4C)
+	MouseCursor getMouseCursor( void ) { return m_currentCursor; }
 
 protected:
 	char m_pad004[0x0C - 4];
@@ -264,10 +279,14 @@ enum
 	MAX_2D_CURSOR_ANIM_FRAMES = 21
 };
 
+class Image;
+extern "C" const Image *cursorImages[Mouse::NUM_MOUSE_CURSORS];
+
 class W3DMouse : public Win32Mouse
 {
 public:
 	virtual void setCursor( MouseCursor cursor );
+	virtual void setRedrawMode( RedrawMode mode );
 
 private:
 	MouseCursor m_currentD3DCursor;
@@ -285,11 +304,53 @@ private:
 
 	Bool loadD3DCursorTextures( ::MouseCursor cursor );
 	Bool releaseD3DCursorTextures( ::MouseCursor cursor );
+	void initD3DAssets( void );
+	void freeD3DAssets( void );
 	void initW3DAssets( void );
+	void freeW3DAssets( void );
+	void initPolygonAssets( void );
+	void freePolygonAssets( void )
+	{
+		for (Int i=0; i<NUM_MOUSE_CURSORS; i++)
+			cursorImages[i]=NULL;
+	}
 	void setCursorDirection( MouseCursor cursor );
 };
 
+class MutexClass
+{
+public:
+	class LockClass
+	{
+	public:
+		LockClass( MutexClass &mutex, int time );
+		~LockClass();
+
+	private:
+		MutexClass &mutex;
+		int failed;
+	};
+};
+
+class ThreadClass
+{
+public:
+	virtual void Execute( void );
+	void Stop( void );
+	bool Is_Running( void );
+};
+
+class Rva0009990D
+{
+public:
+	void set( void *p );
+	void clear( void );
+};
+extern unsigned int g_Va009E5DF8;
+
 extern "C" CriticalSectionClass mutex;
+extern "C" MutexClass threadMutex;
+extern "C" ThreadClass thread;
 extern "C" Bool isThread;
 extern "C" RenderObjClass *cursorModels[Mouse::NUM_MOUSE_CURSORS];
 extern "C" HAnimClass *cursorAnims[Mouse::NUM_MOUSE_CURSORS];
@@ -447,4 +508,76 @@ void W3DMouse::setCursor( MouseCursor cursor )
 
 	// save current cursor
 	m_currentCursor = cursor;
+}
+
+void W3DMouse::setRedrawMode(RedrawMode mode)
+{
+	MouseCursor cursor = getMouseCursor();
+
+	//Turn off the previous cursor mode
+	setCursor(NONE);
+
+	m_currentRedrawMode=mode;
+
+	switch (mode)
+	{
+		case RM_WINDOWS:
+		{	//Windows default cursor needs to refreshed whenever we get a WM_SETCURSOR
+			if (thread.Is_Running())
+			{	((Rva0009990D *)&g_Va009E5DF8)->clear();
+				thread.Stop();
+			}
+			freeD3DAssets();
+			freeW3DAssets();
+			freePolygonAssets();
+			m_currentD3DCursor=NONE;
+			m_currentW3DCursor=NONE;
+			m_currentPolygonCursor=NONE;
+			break;
+		}
+		case RM_W3D:
+		{	//Model based cursors
+			if (thread.Is_Running())
+			{	((Rva0009990D *)&g_Va009E5DF8)->clear();
+				thread.Stop();
+			}
+			freeD3DAssets();
+			freePolygonAssets();
+			m_currentD3DCursor=NONE;
+			m_currentPolygonCursor=NONE;
+			initW3DAssets();
+			break;
+		}
+		case RM_POLYGON:
+		{	//Polygon cursor
+			if (thread.Is_Running())
+			{	((Rva0009990D *)&g_Va009E5DF8)->clear();
+				thread.Stop();
+			}
+			freeD3DAssets();
+			freeW3DAssets();
+			m_currentD3DCursor=NONE;
+			m_currentW3DCursor=NONE;
+			m_currentPolygonCursor=NONE;
+			initPolygonAssets();
+			break;
+		}
+		case RM_DX8:
+		{	//DX8 cursor
+			initD3DAssets();
+			freeW3DAssets();
+			freePolygonAssets();
+			if (!thread.Is_Running())
+			{	((Rva0009990D *)&g_Va009E5DF8)->set(new MutexClass::LockClass(threadMutex, -1));
+				thread.Execute();
+			}
+			m_currentW3DCursor=NONE;
+			m_currentPolygonCursor=NONE;
+			break;
+		}
+	}
+
+	//Force cursor update since we changed redraw methods.
+	setCursor(NONE);
+	setCursor(cursor);
 }
