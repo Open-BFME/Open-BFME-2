@@ -22,11 +22,27 @@ struct Rva00501813
 	int rva00501813(int key);
 };
 
+struct Rva00501844
+{
+	int m_head;
+	_STL::map<int, int> m_map;
+	int rva00501844(int key);
+};
+
 int Rva00501813::rva00501813(int key)
 {
 	const Rva00501DD4Sub *found = (const Rva00501DD4Sub *)&m_map.find(key)->second;
 	Rva00501DD4Sub tmp(*found);
 	int ret = *(const int *)((const char *)&tmp + 4);
+	((Rva00501776 *)&tmp)->~Rva00501776();
+	return ret;
+}
+
+int Rva00501844::rva00501844(int key)
+{
+	const Rva00501DD4Sub *found = (const Rva00501DD4Sub *)&m_map.find(key)->second;
+	Rva00501DD4Sub tmp(*found);
+	int ret = *(const int *)((const char *)&tmp + 8);
 	((Rva00501776 *)&tmp)->~Rva00501776();
 	return ret;
 }

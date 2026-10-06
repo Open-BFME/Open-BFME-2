@@ -64484,3 +64484,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva00501813@Rva00501813@@QAEHH@Z,,0x00501813,49,Code/GameEngine/Source/Common/Rva00501813Find.cpp,matched,map find plus Sub copy returning second dword via rowed 0x00388F63 pinned 0x005017B4 rowed 0x00501776
 ??1Rva006ED6F@@UAE@XZ,,0x0006ED6F,116,Code/GameEngine/Source/Common/Rva006ED6FDtor.cpp,matched,MI dtor: direct scene remove then ref release then GameEngineDeletingBase and SimpleSceneClass dtors
 ?rva00447B58@Rva00447B0E@@QAEAAU1@ABU1@@Z,,0x00447B58,69,Code/GameEngine/Source/Common/Rva00447B58Assign.cpp,matched,Rva00447B0E assign base plus 1AC plus string chain of 0x002DBAB9
+?rva00501844@Rva00501844@@QAEHH@Z,,0x00501844,49,Code/GameEngine/Source/Common/Rva00501813Find.cpp,matched,map find plus Sub copy returning third dword via rowed 0x00388F63 pinned 0x005017B4 rowed 0x00501776 sibling 0x00501813
