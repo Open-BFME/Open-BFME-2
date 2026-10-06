@@ -10,9 +10,14 @@
 // holders via rowed Release_Ref 0x00050ED3 (states 2/1/0), then Snapshot base
 // restores 0x00BBB554. Flammable/Production precedent.
 
-#include "Common/Snapshot.h"
-
 #include "ascii_string.h"
+
+class Snapshot
+{
+public:
+	Snapshot() {}
+	virtual ~Snapshot() {}
+};
 
 class OpaqueRefCounted
 {
