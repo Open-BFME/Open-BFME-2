@@ -48,6 +48,12 @@ public:
 	void reset();
 };
 
+class Rva005C6CC7Call
+{
+public:
+	void rva005C6CC7();
+};
+
 class GameWindow
 {
 public:
@@ -80,6 +86,7 @@ public:
 	typedef T *pointer;
 	typedef const T *const_pointer;
 	T *erase(T *it);
+	T *erase(T *first, T *last);
 	void swap(vector &other);
 	pointer begin() { return m_start; }
 	const_pointer begin() const { return m_start; }
@@ -123,6 +130,27 @@ void Rva0053ED1A::rva0053EF7B()
 		static_cast<Rva005C6D4D *>(this)->v5();
 	else
 		rva0053EF2E();
+}
+
+// Retail 0x0053EF2E, 77 bytes: the same owner as rowed 0x0053EF7B. It calls
+// the secondary-base helper at +0xC, parks each nonnull window from +0x48
+// at size 1 and position (-100,-100), then clears the vector through the
+// rowed pointer-range erase. The operation's wider purpose is unknown.
+void Rva0053ED1A::rva0053EF2E()
+{
+	typedef _STL::vector<void *, _STL::allocator<void *> > VoidVec;
+	((Rva005C6CC7Call *)((char *)this + 0xC))->rva005C6CC7();
+	GameWindow **it = m_vec48.m_begin;
+	while (it != m_vec48.m_end) {
+		GameWindow *win = *it;
+		if (win != 0) {
+			win->winSetSize(1, 1);
+			win->winSetPosition(-100, -100);
+		}
+		++it;
+	}
+	VoidVec *windows = (VoidVec *)&m_vec48;
+	windows->erase(windows->begin(), windows->end());
 }
 
 void Rva0053ED1A::rva0053EF92()
