@@ -7287,7 +7287,7 @@ _Rva00815300,,0x00681200,496,Code/Libraries/Source/DirtySock/commsrp.cpp,matched
 _CommSRPResolve,,0x00681660,28,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,bfme1 commsrp source; resolve stub always fails via diag
 _CommSRPSend,,0x006817B0,498,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,bfme1 commsrp source; outbound queue with sequence wrap
 _CommSRPListen,,0x00682560,674,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,bfme1 commsrp source; bind and listen with remap callback
-_CommSRPConnect,,0x00682870,547,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,bfme1 commsrp source; outbound connect with peer fill
+_CommSRPConnect,,0x00682870,640,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,bfme1 commsrp source; outbound connect with peer fill
 _Rva00812DD0,,0x0067ECD0,497,Code/Libraries/Source/DirtySock/Y4CommTapi.cpp,matched,bfme1 Y4CommTapi source; TAPI factory via op-table
 _Rva00812FD0,,0x0067EED0,291,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 Y4CommTickIdle source; TAPI worker message pump
 _Rva008139A0,,0x0067F8A0,158,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 Y4CommTickIdle source; TAPI release and teardown
