@@ -187,8 +187,14 @@ class SkirmishSetup(unittest.TestCase):
     def test_fixed_seed_replaces_the_time_seed(self):
         g = self.game()
         g.mem[self.INFO + gs.SEED_OFF] = 1791300000                    # time(0)
-        gs.skirmish_setup(True, seed=7)(g, 1, None)
+        glob = 0x6300000
+        g.mem[0x400000 + gs.RVA["TheGlobalData"]] = glob
+        g.mem[glob + gs.FIXED_SEED_OFF] = 0xFFFFFFFF                    # reset to -1 after parsing
+        req = gs.skirmish_setup(True, seed=7)(g, 1, None)
+        self.assertEqual((req["call"], req["args"]), (0x400000 + gs.RVA["InitRandom"], [7]))   # reseeds in-game
         self.assertEqual(g.u32(self.INFO + gs.SEED_OFF), 7)
+        self.assertEqual(g.u32(glob + gs.FIXED_SEED_OFF), 7)
+        self.assertEqual(g.res["setup"]["fixed_seed_before"], 0xFFFFFFFF)
         g2 = self.game()
         g2.mem[self.INFO + gs.SEED_OFF] = 1791300000
         gs.skirmish_setup(True)(g2, 1, None)                            # no seed: left alone

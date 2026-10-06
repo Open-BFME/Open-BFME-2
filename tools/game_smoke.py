@@ -84,8 +84,12 @@ RVA = {
     "TheGameLogic": 0x9FE78C,     # GameLogic*: +0x40 logic frame, +0x110 game mode
     "TheRecorder": 0xA02290,      # RecorderClass*
     "TheSkirmishGameInfo": 0xA02EF0,
-    "TheGameInfo": 0xA02EEC,      # GameInfo* of the game being played; the skirmish menu sets it
-    "theGameLogicSeed": 0x9BA3D0,  # GetGameLogicRandomValueReal's seed block (6 dwords)
+    "TheGameInfo": 0xA02EEC,
+    "TheGlobalData": 0x9FE758,    # GlobalData*: +0x1228 fixed seed (-1 = none), honoured by InitRandom 0x233F82      # GameInfo* of the game being played; the skirmish menu sets it
+    "theGameLogicSeed": 0x9BA3D0,
+    "theGameLogicBaseSeed": 0x9FE734,
+    "InitRandom": 0x233F82,       # InitRandom(seed): all three RNGs; GlobalData+0x1228 overrides seed unless -1
+    "InitGameLogicRandom": 0x233FC7,  # the seed InitRandom/InitGameLogicRandom last used  # GetGameLogicRandomValueReal's seed block (6 dwords)
     "fileSlotsSet": 0x2300DC,     # GameEngine::init -file branch, just after setSlot(0, "Test")
     "handleCRCMessage": 0x37D0A7,  # RecorderClass::handleCRCMessage(crc, player, fromPlayback, frame), ret 0x10
     "TheGameState": 0x9FF08C,     # GameState*
@@ -102,6 +106,7 @@ SLOTS_OFF, SLOT_STATE, SLOT_EASY_AI = 0x18, 4, 2
 # GameSlot::setState leaves -2, the observer, so a -file game has no factions and an
 # empty world; -1 (random) is resolved at game start from the game's seed.
 SLOT_TEMPLATE, TEMPLATE_RANDOM = 0x18, -1
+FIXED_SEED_OFF = 0x1228
 SEED_OFF = 0x50                   # GameInfo::setSeed (retail 0x3FF328) stores here; -file seeds it with time(0)
 # -file takes the short form: ConvertShortMapPathToLongMapPath (retail 0x3BA06E)
 # turns "maps\<name>.map" into "maps\<name>\<name>.map", the map cache's key.
@@ -199,6 +204,7 @@ class FrameHook:
     def __init__(self, every=None, at_first=False, modes=(2,)):
         self.every, self.at_first, self.modes = every, at_first, set(modes)
         self.crcs = []                # (logic frame, crc)
+        self.rng = []                 # (logic frame, logic RNG state hex, base seed) beside each CRC
         self.save_requested, self.save = False, {}
 
     def due(self, frame, mode):
@@ -223,6 +229,8 @@ class FrameHook:
         crc = {"call": game.va("GameLogic::getCRC"), "ecx": game.global_ptr("TheGameLogic"), "args": [0],
                "flag": game.va("crcInProgress")}
         if what == "crc":
+            self.rng.append((frame, (game.read(game.va("theGameLogicSeed"), 24) or b"").hex(),
+                             game.u32(game.va("theGameLogicBaseSeed"))))
             return {"calls": [crc], "keep": True, "done": lambda g, r: self.crcs.append((frame, r[0]))}
         self.save["requested_frame"] = frame
         save = {"call": game.va("GameState::autoSave"), "ecx": game.global_ptr("TheGameState")}
@@ -517,6 +525,17 @@ class Game:
         words = [struct.unpack_from("<I", stack, i)[0] for i in range(0, len(stack) - 3, 4)]
         return [self.where(w) for w in words if self.base <= w < self.base + 0xC00000][:n]
 
+    def _seeding(self, tid, ctx):
+        """Log every RNG seeding: (seconds, which, seed argument, GlobalData fixed
+        seed, logic frame, caller RVA). Rare, so it stays armed."""
+        glob = self.global_ptr("TheGlobalData")
+        arg, ret = self.u32(ctx.esp + 4), self.u32(ctx.esp)
+        which = "InitRandom" if ctx.eip - 1 - self.base in (self.rva_map(RVA["InitRandom"]),) or             ctx.eip - self.base == self.rva_map(RVA["InitRandom"]) else "InitGameLogicRandom"
+        self.res.setdefault("seeding", []).append(
+            [self.seconds(), which, arg, self.u32(glob + 0x1228) if glob else None, self.logic()[0],
+             hex(ret - self.base) if ret else None])
+        return True
+
     def _debug_exit(self, tid, ctx):
         """The game's own assertion/crash report is about to exit(1): keep its
         text (printable runs in the Debug object) and the return addresses."""
@@ -602,6 +621,8 @@ class Game:
                 self._arm(self.focus_va, None)
         for name in ("Debug::AssertDone/exit", "Debug::CrashDone/exit"):
             self._arm(self.va(name), Game._debug_exit)
+        for name in ("InitRandom", "InitGameLogicRandom"):
+            self._arm(self.va(name), Game._seeding)
         for rva, handler in self.handlers.items():
             self._arm(self.base + rva, handler)
         return True
@@ -670,6 +691,13 @@ def skirmish_setup(ai, seed=None):
         if seed is not None:
             game.write(info + SEED_OFF, struct.pack("<I", seed & 0xFFFFFFFF))
             game.res["setup"]["seed"] = seed
+            # -randomSeed's value is back to -1 by now (seen live: the logic RNG base
+            # seed was time(0)), so the fixed seed is set here, after start-up parsing
+            # and before the game starts; every InitRandom/InitGameLogicRandom uses it.
+            glob = game.global_ptr("TheGlobalData")
+            if glob:
+                game.res["setup"]["fixed_seed_before"] = game.u32(glob + FIXED_SEED_OFF)
+                game.write(glob + FIXED_SEED_OFF, struct.pack("<I", seed & 0xFFFFFFFF))
         slots = [game.u32(info + SLOTS_OFF + 4 * i) for i in (0, 1)]
         game.res["setup"]["templates_before"] = [game.u32(sl + SLOT_TEMPLATE) if sl else None for sl in slots]
         for sl in slots[:2 if ai else 1]:
@@ -681,6 +709,13 @@ def skirmish_setup(ai, seed=None):
             game.write(slot + SLOT_STATE, struct.pack("<I", SLOT_EASY_AI))
             game.write(slot + 8, b"\x01\x01")
             game.res["setup"]["ai"] = "slot 1 easy AI"
+        if seed is not None:
+            # The logic RNG is seeded once, by GameEngine::init's start-up
+            # InitRandom(time(0)) (0x23424C), before GlobalData exists, and a -file
+            # skirmish never reseeds (seen live: base seed = time(0) in both runs).
+            # The skirmish menu calls InitRandom(seed); so does the harness, here.
+            return {"call": game.va("InitRandom"), "ecx": 0, "args": [seed & 0xFFFFFFFF],
+                    "done": lambda g, r: g.res["setup"].update(reseeded=g.u32(g.va("theGameLogicBaseSeed")))}
         return False
     return handler
 
@@ -747,7 +782,12 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
     shutil.copyfile(exe, gd / "game.dat")
     before = {"guard": {str(g): boot_smoke.snapshot(g) for g in a.guard}}
     profile_guard = boot_smoke.ProfileGuard()
-    game = Game(gd, f"{a.args} {extra}".strip(), a.appdata, rva_map, focus_lie=not a.no_focus_lie)
+    # -randomSeed sets GlobalData's fixed seed (+0x1228, parseRandomSeed 0x3B9D2C):
+    # InitRandom / InitGameLogicRandom then ignore the time they are given, so
+    # two runs of one image start the logic RNG identically (seen live: without
+    # it two retail runs differ from the first CRC on).
+    seed = f"-randomSeed {a.seed}" if a.seed is not None else ""
+    game = Game(gd, f"{a.args} {seed} {extra}".strip(), a.appdata, rva_map, focus_lie=not a.no_focus_lie)
     for name, h in handlers:
         game.on(name, h)
     t0 = time.time()
@@ -795,7 +835,7 @@ def cmd_skirmish(a, keep_replay=None):
     game, out = launch(a, f'-file "{a.map}"', handlers, skirmish_tick(a, samples, a.mode))
     out["samples"] = samples
     if hook:
-        out["crcs"] = hook.crcs
+        out["crcs"], out["rng"] = hook.crcs, hook.rng
     res = out["run"]
     out["outcome"] = judge_skirmish(samples, a.mode, a.min_frames, crash_outcome(res), res.get("screenshot"))
     if keep_replay:
@@ -896,7 +936,7 @@ def cmd_determinism(a):
     handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
     crc = pair_crcs([(f, c, False) for f, c in record.get("crcs", [])] + [(f, c, True) for f, c in hook.crcs])
-    out.update(samples=samples[::5], crcs=hook.crcs, perturbed=perturbed or None, record_seed=record["run"].get(
+    out.update(samples=samples[::5], crcs=hook.crcs, rng=hook.rng, perturbed=perturbed or None, record_seed=record["run"].get(
         "setup", {}).get("seed"), crc=dict(crc, mismatches=crc["mismatches"][:10],
                                            unpaired_recorded=crc["unpaired_recorded"][:10],
                                            unpaired_computed=crc["unpaired_computed"][:10]))
@@ -961,7 +1001,7 @@ def main(argv=None):
     ap.add_argument("--map", default=SKIRMISH_MAP)
     ap.add_argument("--mode", type=int, default=2, help="GameLogic game mode of a skirmish")
     ap.add_argument("--no-ai", action="store_true")
-    ap.add_argument("--seed", type=lambda v: int(v, 0), default=1, help="skirmish seed (GameInfo+0x50)")
+    ap.add_argument("--seed", type=lambda v: int(v, 0), default=1, help="-randomSeed and the skirmish seed (GameInfo+0x50)")
     ap.add_argument("--seconds", type=float, default=60, help="skirmish seconds to simulate")
     ap.add_argument("--min-frames", type=int, default=100)
     ap.add_argument("--timeout", type=float, default=240)
