@@ -64,13 +64,14 @@ def branch_sweep(r, sites, out=bi.OUT):
     """{site: (width, target)} for every direct call/jmp/jcc operand in retail .text
     (width 4: rel32, 1: rel8). Linear sweep from every known function start to the
     next; an instruction starting on a relocation site is data (a jump table: MSVC
-    puts them after the code), which the sweep skips, resuming after it (code with no
-    known start can follow a table). Also {site: target} of every raw E8/E9 byte
-    whose rel32 lands on a known function start (`raw`), for units to be pinned by
-    a caller the sweep did not decode. Cached."""
+    puts them after the code), so the sweep leaves that function there (resuming
+    after a table decodes byte tables and inline data as branches). Code after a
+    table with no known start of its own is therefore not swept, so `raw` is also
+    returned: {site: target} of every raw E8/E9 byte whose rel32 lands on a known
+    function start, for units such an undecoded call reaches to stay put. Cached."""
     starts = bi.function_starts()
     tstart, tsize, text = r.secs[".text"]
-    key = hashlib.sha1(repr((3, len(text), starts[:50], len(starts), len(sites), sites[:50])).encode()).hexdigest()
+    key = hashlib.sha1(repr((4, len(text), starts[:50], len(starts), len(sites), sites[:50])).encode()).hexdigest()
     cache = out / "branches.pkl"
     if cache.exists():
         got = pickle.loads(cache.read_bytes())
@@ -82,12 +83,12 @@ def branch_sweep(r, sites, out=bi.OUT):
     starts = [s for s in starts if tstart <= s < tstart + tsize]
     for k, a in enumerate(starts):
         end = starts[k + 1] if k + 1 < len(starts) else tstart + tsize
-        while a < end:
-            last, data = a, None
+        data = False
+        while a < end and not data:
+            last = a
             for addr, size, mnem, ops in md.disasm_lite(text[a - tstart:end - tstart], a):
-                hit = [x for x in range(addr, addr + size) if x in siteset and (x == addr or x + 4 > addr + size)]
-                if hit:
-                    data = hit[0]                  # data (a table or a straddled field): skip it
+                if addr in siteset or any(x in siteset for x in range(addr + max(1, size - 3), addr + size)):
+                    data = True                    # data (a table or a straddled field): leave the function
                     break
                 if (mnem == "call" or mnem.startswith("j") or mnem.startswith("loop")) and ops.startswith("0x"):
                     op = text[addr - tstart]
@@ -95,12 +96,7 @@ def branch_sweep(r, sites, out=bi.OUT):
                     if op != 0x66 and (width == 1 or size >= 5):   # not rel16 / odd encodings
                         branches[addr + size - width] = (width, int(ops, 16))
                 last = addr + size
-            if data is not None:
-                while data in siteset:
-                    data += 4
-                a = max(data, last + 1)
-            else:
-                a = a + 1 if last == a else last   # an undecodable byte is skipped
+            a = a + 1 if last == a else last       # an undecodable byte is skipped
     starts_all = set(bi.function_starts())
     raw = {}
     for op in (bytes([0xE8]), bytes([0xE9])):
@@ -240,8 +236,10 @@ def choose_moves(r, units, branches, pinned=None, siteset=frozenset(), raw=None)
                     if v.rva not in starts_cache:
                         starts_cache[v.rva] = instruction_starts(r, v.rva, v.rva + v.size)
                     if t not in starts_cache[v.rva]:
-                        counts["inbound-not-an-instruction-ignored"] += 1
-                        continue                    # a sweep artefact: not a branch into this unit
+                        # likely data decoded as a branch, but it cannot be told apart: keep the unit
+                        kept[v.rva] = "branch-in-not-at-an-instruction"
+                        changed = True
+                        break
                 if width == 1:
                     kept[v.rva] = "short-branch-in"
                     changed = True
