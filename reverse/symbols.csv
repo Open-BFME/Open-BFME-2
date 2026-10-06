@@ -14208,3 +14208,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva004EE8B8@@YAXPAUObjectCountMap@@0@Z,0x004EE8B8,callee of ?rva004EE950@LivingWorldScoreKeeper@@QAEXPAVScoreKeeper@@@Z
 ?SetEnabled@Impl@AptScrollBar@@QAEX_N@Z,0x005D4949,callee of ?SetEnabled@Rva005D49CD@@QAEX_N@Z
 ?resize@?$vector@UBfmeStringRecord000B94D2@@V?$allocator@UBfmeStringRecord000B94D2@@@_STL@@@_STL@@QAEXIUBfmeStringRecord000B94D2@@@Z,0x000C4733,callee of ?resize@?$vector@UBfmeStringRecord000B94D2@@V?$allocator@UBfmeStringRecord000B94D2@@@_STL@@@_STL@@QAEXI@Z
+??0Rva005ECFE4@@QAE@PAX00@Z,0x005ECE81,callee of ?rva005ED15D@Rva005ECFE4@@SAPAXPAX00@Z
