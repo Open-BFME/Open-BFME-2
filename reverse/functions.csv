@@ -63964,3 +63964,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0056AA32@Rva0056AA32@@QAEHPBVRva004E0625@@@Z,,0x0056AA32,34,Code/GameEngine/Source/Common/Rva0056AA32Guard.cpp,matched,guarded equality via rowed const 0x004E0625; nested if shares one false target; int 0/1 (full-eax booleanize)
 ?rva0056AB97@Rva0056AB97@@QAE_NXZ,,0x0056AB97,41,Code/GameEngine/Source/Common/Rva0056AB97Flag.cpp,matched,guarded flag-set via pinned 0x0056A989 and rowed 0x0029B1A1 singleton; positive-if gives je-false layout
 ??0Rva0056AF94@@QAE@PAX@Z,,0x0056AF94,31,Code/GameEngine/Source/Common/Rva0056AF94Ctor.cpp,matched,ctor via pinned EH 0x0056AD80 then vftables at +0/+8; unblocks 0x0056AF4B
+??0Rva0056ADF1@@QAE@PAXH@Z,,0x0056ADF1,53,Code/GameEngine/Source/Common/Rva0056ADF1Ctor.cpp,matched,ctor via pinned 0x0056AD80 plus vtbl externs and g_00DFEF10 int plus arg
