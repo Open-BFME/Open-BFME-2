@@ -6,11 +6,6 @@ or commit message reports an edit to `AGENTS.md`.
 
 ## Verifier upgrade (October 2026): live rules
 
-**`master` is locked by the maintainers until the tooling fixes are
-completed.** Pushes are rejected: keep work in local commits or banked
-attempts, do not retry pushes in a loop, and rebase once this notice is
-removed.
-
 The step-3 gate checks are live in the hooks. They refuse:
 
 - a commit that edits `tools/` gate code, `.githooks/` or a baseline/whitelist
@@ -25,10 +20,15 @@ The step-3 gate checks are live in the hooks. They refuse:
 - `gen-alias` other than as an exact notes token whose masked callee is a
   byte-and-relocation twin; new `object-symbol=` alias rows.
 
-`.c` and `.asm` sources are byte-verified like `.cpp`. Still pending: the
-publisher (steps 1-2), escape-hatch counters, local static data checks and
-the link-based progress figure; until then add no `/alternatename` pragmas,
-`// class-gate: allow` comments or `present-unmatched` markers beyond need.
+`.c` and `.asm` sources are byte-verified like `.cpp`. Escape hatches
+(pins, `object-symbol=` rows, `/alternatename`, address-named globals,
+`class-gate: allow`, `present-unmatched`, `#pragma optimize`, `__emit`) are
+counted per file in `reverse/hatch_baseline.tsv` by `tools/hatch_counters.py`;
+it reports in shadow mode now and will refuse growth once enforced. Also
+available: `tools/link_cycle.py` (real `/ORDER` link measured against retail)
+and `tools/publisher.py` (receipted publisher, not yet the only path to
+`master`). Still pending: local static data checks, the data and code
+identity sweeps, and the link-based progress figure.
 
 Full plan and evidence: `docs/verifier_upgrade_plan.md`.
 
