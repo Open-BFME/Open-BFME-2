@@ -138,15 +138,24 @@ def load_receipt(ref):
     return out
 
 
-def store_receipt(src):
-    """Copy a link_cycle.py receipt into the committed location, keeping provenance and
-    the series and dropping the bulky per-link detail."""
+def store_receipt(src, allow_nonauthoritative=False):
+    """Copy a link_cycle.py receipt into the committed location, keeping provenance, the
+    series and the reproducible core's digest, and dropping the bulky per-link detail.
+    Only an authoritative receipt (an immutable snapshot, inputs unmoved, no stale cache,
+    every TU compiled, the quarantine loop at its fixed point) is the scoreboard; another
+    is stored only on request, and says so."""
     receipt = json.loads(Path(src).read_text(encoding="utf-8"))
     if receipt.get("tool") != "link_cycle" or "series" not in receipt or "commit" not in receipt:
         sys.exit(f"progress_v2: {src} is not a link_cycle.py receipt")
+    if receipt.get("authoritative") is not True and not allow_nonauthoritative:
+        sys.exit(f"progress_v2: {src} is not authoritative (authoritative={receipt.get('authoritative')}, "
+                 f"compile_failed={len(receipt.get('compile_failed') or [])}, "
+                 f"moved={receipt.get('moved_during_run')}); run link_cycle.py --snapshot, "
+                 f"or pass --allow-nonauthoritative")
     keep = ("tool", "rules", "commit", "dirty", "date_utc", "retail_sha256", "toolchain_sha256",
             "tool_digest", "objects_digest", "objects", "inputs", "iterations", "scaffold", "series",
-            "seconds", "commit_inputs", "provenance_note")
+            "seconds", "commit_inputs", "provenance_note", "core_sha256", "authoritative", "measure_env",
+            "compile_failed")
     out = ROOT / RECEIPT
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({k: receipt[k] for k in keep if k in receipt}, indent=1, sort_keys=True) + "\n",
@@ -356,9 +365,11 @@ def main(argv=None):
     ap.add_argument("--today", action="store_true", help="append/replace today's row in the v2 history")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--store-receipt", metavar="RECEIPT")
+    ap.add_argument("--allow-nonauthoritative", action="store_true",
+                    help="store a receipt link_cycle.py did not mark authoritative (kept marked so)")
     args = ap.parse_args(argv)
     if args.store_receipt:
-        store_receipt(args.store_receipt)
+        store_receipt(args.store_receipt, args.allow_nonauthoritative)
         return 0
     point = measure(args.ref)
     day = datetime.now(timezone.utc).date().isoformat()

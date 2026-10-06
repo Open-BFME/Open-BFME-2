@@ -96,10 +96,16 @@ def test_link_cycle_pending_then_from_the_committed_receipt(fake):
 def test_store_receipt_keeps_series_drops_detail(tmp_path, monkeypatch):
     monkeypatch.setattr(v2, "ROOT", tmp_path)
     src = tmp_path / "receipt.json"
-    src.write_text(json.dumps(RECEIPT))
+    src.write_text(json.dumps(dict(RECEIPT, authoritative=True, core_sha256="c0")))
     v2.store_receipt(src)
     stored = json.loads((tmp_path / v2.RECEIPT).read_text())
     assert stored["series"] == RECEIPT["series"] and "links" not in stored
+    assert stored["core_sha256"] == "c0" and stored["authoritative"] is True
+    src.write_text(json.dumps(dict(RECEIPT, authoritative=False)))     # a stale cache, moved inputs, ...
+    with pytest.raises(SystemExit):
+        v2.store_receipt(src)
+    v2.store_receipt(src, allow_nonauthoritative=True)                  # on request, and marked
+    assert json.loads((tmp_path / v2.RECEIPT).read_text())["authoritative"] is False
     src.write_text(json.dumps({"tool": "other"}))
     with pytest.raises(SystemExit):
         v2.store_receipt(src)
