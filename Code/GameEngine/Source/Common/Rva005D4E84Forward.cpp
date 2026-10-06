@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ?rva005D4E84@Rva005D4E84@@QAEXXZ @0x005D4E84 7B
 // Tail forwarder via member at +0x0 into rowed 0x005D4E63.
 // Evidence: chain callee 0x005D4E63 rowed; mov ecx,[ecx] then jmp;

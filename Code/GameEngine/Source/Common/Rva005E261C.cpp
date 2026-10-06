@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E261C@Rva005E261C@@QAEXXZ @0x005E261C 40B.
 // If +0x20 dword <0 return; else calls pinned 0x005E2460 (this-only void).
 // Then if +8->+8 byte 0 return; else virtual slot +0x1C on +8 object

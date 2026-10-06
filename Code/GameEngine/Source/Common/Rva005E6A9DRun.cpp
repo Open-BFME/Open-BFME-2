@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?run@Rva005E6A9DRun@@QAEXXZ @0x005E6A9D 59B
 // Chain run called by step 0x005E6BA3: if the +0x1C holder is non-empty,
 // compare its first word to the int helper on +0x08 and conditionally run

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005DBCA6@Rva005DBCA6@@QAEHGG@Z 0x005DBCA6 43B
 // Bounds-checked 2D dword lookup at +0x118 (8x8).
 // Evidence: callers 0x5A6FD4 0x5A80B4 0x5A81EA 0x5A820E; same shape as Rva005DB9BC 2D dword.

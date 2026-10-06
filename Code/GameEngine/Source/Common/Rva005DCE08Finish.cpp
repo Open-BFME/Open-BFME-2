@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva005DCE08@@QAE@XZ @0x005DCE08 (90 bytes).
 // Non-virtual destructor of an object holding a _STL::vector<Rva005DCE08Elem*>

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005D9DC1@@QAE@XZ, retail 0x005D9DCC, 26 bytes.
 // ??0Rva005D9D5A@@QAE@XZ, retail 0x005D9D48, 18 bytes.
 // Derived ctor for Rva005D9DC1 (vtable 0x00876464 same as rowed dtor 0x005D9DC1

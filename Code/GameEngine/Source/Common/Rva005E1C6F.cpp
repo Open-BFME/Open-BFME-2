@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E1C6F@Rva005E1C6F@@QAEXPAX@Z @ 0x005E1C6F (46B). Scan TreeHintRef vector at this+0x14
 // for entries whose m_target matches arg, erase via rowed 0x004F70D1 and set byte at +0x20.
 // Evidence: ret 4 one ptr arg, begin [this+0x14] end [this+0x18], callers 0x005E1CFF, chain from 0x004F70D1.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??1Rva005E21EB@@UAE@XZ retail 0x005E21EB 59B.
 // Virtual dtor, not a ctor: the only caller 0x005E25B1 is its scalar deleting

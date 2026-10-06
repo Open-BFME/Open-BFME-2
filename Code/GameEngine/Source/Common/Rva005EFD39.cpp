@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /D_CRTIMP=
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /D_CRTIMP=
 // ?rva005EFD39@Rva005EFD39@@QAEXXZ @0x005EFD39 26B: clear of Rva005EFB05* at +0.
 // Evidence: calls rowed dtor 0x005EFB05 plus rowed operator delete 0x0002FD60; caller 0x005EFDE4 tail-jmp after vtable store plus add ecx 4.
 class Rva005EFB05

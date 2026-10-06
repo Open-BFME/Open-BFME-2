@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 struct TreeHintRef00217D4C
 {
 	void *m_ptr;

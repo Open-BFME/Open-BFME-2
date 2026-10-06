@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 class Rva005E4BB7
 {
 public:

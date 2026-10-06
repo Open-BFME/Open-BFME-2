@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005E3266@Rva005E3266@@QAEXXZ @0x005E3266 8B: ptr-chase tail-jmp into rowed rva005E31EE 0x005E31EE via +0x04. Evidence: rowed callee plus caller 0x005CC7DF plus gap between 0x005E3258 and 0x005E326E same flags.
 class Rva005E31EE
 {

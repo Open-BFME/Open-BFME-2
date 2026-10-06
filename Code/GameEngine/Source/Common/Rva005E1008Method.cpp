@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /arch:SSE
+// cl: /MD
 // ?rva005E1008@Rva005E1008@@QAEXM@Z retail 0x005E1008 86B
 // Evidence: chain via rowed Fire 0x005277D9 with ShowTimerOverlay using level +0x08 prefix +0x0C from +8 else g_Rva0107301CEmptyString plus flags +0x40 +0x43 and true bool temp plus float arg to +0x3C; same Fire shape as Rva00527890Move.cpp; ret 4 float
 struct Rva005E1008Inner

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva005CF9FF@@UAE@XZ @0x005CF9FF 68B, ??1Rva005CFA43@@UAE@XZ @0x005CFA43
 // 68B and ??1Rva005CFA87@@UAE@XZ @0x005CFA87 68B: three sibling dtors,

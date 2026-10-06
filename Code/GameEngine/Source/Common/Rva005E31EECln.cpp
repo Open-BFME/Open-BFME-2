@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E31EE@Rva005E31EE@@QAEXXZ @0x005E31EE 48B cleanup loop.
 // If +0x2C != -1 calls pinned 0x005E31AA (this+int void) with it then sets -1.
 // Then loops 3x over +0x1C members: if non-null calls virtual +0x0C (no args).

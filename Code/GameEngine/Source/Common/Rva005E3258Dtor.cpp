@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva005E3258@@UAE@XZ @0x005E3258 14B
 // Virtual dtor storing vtable 0x00877BB4 then tail-jmping to member clear
 // 0x005E30CE at +4. Layout from retail add ecx 4: Rva005E30CE subobject at +4.

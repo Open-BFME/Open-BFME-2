@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?Rva005E2CFAGet@@YAPAXPBD@Z @0x005E2CFA 44B
 // Unlock table lookup: 3-entry {result, name} at 0x00C77B40 searched with strcmp.
 // Evidence: unlock lane plus callers 0x005E2D52 0x005E2DC8 plus callee strcmp 0x006291C6.

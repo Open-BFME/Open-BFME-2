@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?Rva005EF096Set@@YAXHPAURva005EF096Outer@@HH@Z retail 0x005EF096 207B
 // Evidence: TheGameText fetch slot 0x3C STRATEGICHUD:StatsCommandPoints; Unicode format 0x006CB5D0 with +8-or-NullChr; Ascii format APT:_level%u.%s_CommandPoints; bfmeSetText pin 0x00225301; globals 0x009FF0BC 0x009FE4CC 0x007BAC1C 0x007BB5C4; callers 0x005EF2DD 0x005EFADE; precedent Rva005D38C8Fetch.cpp plus Rva005FDF1CApt.cpp
 typedef unsigned short wchar_t;

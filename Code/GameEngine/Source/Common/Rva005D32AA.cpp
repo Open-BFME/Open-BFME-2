@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005D32AA@Rva005D32AA@@QAEXXZ @0x005D32AA 26B
 // Clears owned Rva005D309D pointer and deletes it.
 // Evidence: dtor 0x005D309D just landed plus operator delete 0x0002FD60;

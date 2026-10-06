@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ??1Rva005D40A6@@UAE@XZ retail 0x005D40A6 114B.
 // Dtor with vtable 0x008759D0, DisplayString at +0x24 freed via manager slot 0x3C,
 // UnicodeString at +0x28, Rva00524265 at +0x18, Rva0052413E at +0x0c, AsciiString

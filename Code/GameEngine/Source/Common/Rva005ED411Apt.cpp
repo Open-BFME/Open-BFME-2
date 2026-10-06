@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005ED411@Rva005ED445@@QAEXXZ @0x005ED411 52B: Apt FadeOut call with level and prefix from +4 and +8 then state 2 at +0x24. Evidence: calls rowed 0x00524EF4 AptCall; caller thunk 0x005ED5EB loads ecx+4; same +4 level and +8 outer layout as Rva005ED445 neighbour; FadeOut literal; empty-string and TheTarget globals.
 #include "ascii_string.h"
 

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005D1FD3@Rva005D1F45@@QAEHPAVGameMessage@@@Z @0x005D1FD3 51B: message-type 0x1b dispatcher that forwards arg0 region plus arg1 int to rva005D1F45. Evidence: chain lane calls 0x005D1F45 just landed; callers 0x005771F4 0x005CDE28; callees rowed getArgument 0x0030F4EA.
 struct IRegion2D
 {

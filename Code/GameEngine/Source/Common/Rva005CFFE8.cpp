@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?rva005CFFE8@Rva005CFFE8@@QAEXXZ @0x005CFFE8 76B: chain from 0x005EC4AF.
 // Sibling of ?rva005D1129@Rva005D1129@@QAEXXZ (same 76B shape): calls the

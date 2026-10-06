@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva005E0EE1@Rva005E0EE1@@QAEXH@Z @0x005E0EE1 221B
 // Chain via rowed Fire 0x005277D9 plus Apt ProductionCount update.

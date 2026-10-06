@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva005E56C8@@QAE@HPAX@Z @ 0x005E56C8 31B
 // Evidence: vtable 0x00877D58 at +0; +4 from arg1; +8 from arg2+0x12c; ret 8 two args; sibling 0x005E569A same shape.
 extern const void *const g_00C77D58[];

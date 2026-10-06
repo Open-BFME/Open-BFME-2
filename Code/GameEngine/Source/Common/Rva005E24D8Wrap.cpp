@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E24D8@Rva005E24D8@@QAEXH@Z @0x005E24D8 104B indexed guard.
 // If arg == +0x20 return; if +0x20 < 0 skip first region (virtual slot on
 // +8 object with +8 flag, rowed this-only call, first indexed bool-false

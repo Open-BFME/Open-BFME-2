@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /MD /DNDEBUG
+// cl: /GX- /MD /DNDEBUG
 // ?Rva005E5A24Init@@YAPAV?$BitFlags@$0L@@@PAV1@@Z @ 0x005E5A24 20B
 // Evidence: rowed BitFlags<11> ctor 0x005E5963 with pushes 0 0 3; caller 0x005E5A46 passes stack temp; prev Rva005E59FCCopy same flags.
 typedef int Int;

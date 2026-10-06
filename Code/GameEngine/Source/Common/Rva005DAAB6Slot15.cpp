@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva005DABD5@Rva005DAAB6@@QAE_N_N@Z @0x005DABD5 94B evidence: vslot 15 of 008765A8 class Rva005DAAB6 via dtor row; layout from Rva0055AED6Xfer base+derived m_2C/m_30/m_3C; callees rva002D06CA findObjectByID rowed plus global slot14 virtual; globals VA 0xDFF000 0xDFE78C 0xE027B8
 
 extern class Rva002D06CA *TheThingFactory;

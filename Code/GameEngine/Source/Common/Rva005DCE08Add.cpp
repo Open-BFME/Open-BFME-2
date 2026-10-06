@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?rva005DCE62@Rva005DCE08@@QAEXPAVRva00573E7C@@@Z @0x005DCE62 (16 bytes).
 // Adds one order pointer to the vector at this+0x04 via the rowed

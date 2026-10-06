@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005EF3CE@Rva005EF3CE@@QAEHH@Z retail 0x005EF3CE 16B
 // Evidence: array-index getter mov eax,[ecx+4]; mov eax,[eax+0x24]; mov eax,[eax+ecx*4] ret 4; caller 0x005E1B4E passes loop index and pushes result; neighbours Rva005EF283/Rva005EF3DE same TU flags.
 struct Rva005EF3CEInner

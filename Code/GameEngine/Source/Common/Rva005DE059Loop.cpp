@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // _rva005DE059 @0x005DE059 47B cdecl loop-forwarder.
 // For p in [begin,end) step 0x18: p->Callee(a,b) via pinned 0x005DDBAB
 // (this+2 ints void); then out->{a0=b4} = (a,b) with +4 stored first.

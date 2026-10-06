@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /GX- /GS
+// cl: /Ob2 /GX- /GS
 //
 // ?releaseAndEmptyHook@Rva005E6894@@QAEXXZ, retail 0x005e6894, 19 bytes. Banked partial (score 0.5789473684) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

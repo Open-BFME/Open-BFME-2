@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva005D1129Pointer@@QAE@XZ @0x005EC4AF 7B: chain from 0x005EC46F.
 // Forwarder: loads +0 and tail-runs rowed ?rva005EC46F@Rva005EC46F@@QAEXXZ.

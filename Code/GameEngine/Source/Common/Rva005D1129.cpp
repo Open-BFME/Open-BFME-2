@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // Target layout read from 0x005D1129: a next pointer at +4 and a one-pointer
 // wrapper at +8. Its constructor at 0x005D1175 confirms those offsets. The

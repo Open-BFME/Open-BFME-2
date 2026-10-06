@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /Ireference/shims/bfme2_ascii
+// cl: /EHsc /MD /D_CRTIMP= /Ireference/shims/bfme2_ascii
 // ??0Rva005DB271@@QAE@PAXPAUArg1Host005DB271@@@Z @0x005DB271 168B
 // ctor modeled on Rva005C4230::Rva005C4230 (Code/GameEngine/Source/Common/Rva005C4280.cpp):
 // base Rva005C4B56 via Helper005C4D4B temp with (1,0), vtable 0x00C766B8, +0xBC arg ptr,

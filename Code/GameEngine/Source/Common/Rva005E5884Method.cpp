@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E5884@Rva005E5884@@QAEHPAXH@Z @0x005E5884 26B.
 // Helper-then-member forwarder tail-called from 0x005E5920 when RAMFile write fails.
 // Evidence: thiscall ret 8 two ignored stack args; cmp [this+0x40] then [this+0x38]

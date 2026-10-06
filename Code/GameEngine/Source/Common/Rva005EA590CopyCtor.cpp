@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Rva005EA590CopyCtor.cpp (donor revision

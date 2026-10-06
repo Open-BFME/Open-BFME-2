@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva005D896FGet@@YGHPAVObject@@@Z @0x005D896F 27B.
 // Free stdcall helper over Object::getCurrentWeapon (rowed at 0x0028AEBD)
 // and the rowed byte getter at 0x002C9400. Retail takes Object* from

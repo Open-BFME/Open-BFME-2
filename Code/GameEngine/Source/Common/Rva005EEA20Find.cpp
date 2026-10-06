@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005EEA20@Rva005EEA20@@QAEPAVObject@@PAVPlayer@@_N1@Z, retail 0x005EEA20, 166 bytes.
 // First-match finder variant of Rva005EEB7BCollect: same map lookup then
 // LeaField+4 range, TheGameLogic findObjectByID, +4 flag 0x80 at +0x108,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva005E569A@@QAE@HPAX@Z @ 0x005E569A 28B
 // Evidence: vtable 0x00877D44 at +0; +4 from arg1; +8 from arg2+0x20; ret 8 two args; caller 0x005E580A passes outer arg and this+8; prev InlineDtorDeletingDtors1 same flags.
 extern const void *const g_00C77D44[];

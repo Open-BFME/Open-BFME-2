@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005D2664@Rva005D2664@@QAEXH@Z @0x005D2664 55B: indexed clear with guarded Hide tail.
 // Computes elem = this + (idx+1)*0x1C, clears +0x10/+0x0C via rowed

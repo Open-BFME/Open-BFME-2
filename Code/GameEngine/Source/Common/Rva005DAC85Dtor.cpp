@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005DAC85@@UAE@XZ @0x005DAC85 59B evidence: vtable VA 0x008765F8 at +0; StringBase char releaseBuffer at +0x3C via 0x00036410; base Rva0055B0CC dtor pin at 0x0055B0CC; unblocks deleting dtor 0x005DADD1
 
 template <typename T>

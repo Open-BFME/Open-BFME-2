@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 struct Rva005E4300Cmp
 {
 	bool operator()(int a, int b) const;

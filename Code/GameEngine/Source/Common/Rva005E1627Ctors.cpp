@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva005E1680@@QAE@HHH@Z @0x005E1680 39B
 // Derived ctor taking (a, b, c): forwards (a, b) to base 0x005E1627
 // (pinned), stores c at +0x0C, installs its own vtable, zeroes +0x10.

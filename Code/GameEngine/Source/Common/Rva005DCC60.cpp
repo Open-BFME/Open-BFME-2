@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva005DCC60@Rva005DCC60@@QAEXXZ, retail 0x005DCC60, 38 bytes.
 // Range loop over pointer array at this+4..this+8; for each element with
 // +0x10 == 0 call virtual slot at vtable+0x18 with (this+0x14, 0).

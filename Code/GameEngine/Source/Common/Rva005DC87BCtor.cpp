@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ??0Rva005DC87B@@QAE@ABVAsciiString@@@Z @0x005DC85F (28 bytes).
 // Derived ctor over Rva005DC73C: base ctor with tactic name, then zeroes
 // dword at +0x58, then stores vtable 0x00876808. Layout Rva005DC87B over

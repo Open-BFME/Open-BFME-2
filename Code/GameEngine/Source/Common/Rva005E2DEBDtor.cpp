@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva005E2DEB@@QAE@XZ @0x005E2DEB 79B
 // Non-virtual dtor destroying AsciiString at +8, Rva0052413E at +0x10 and
 // Rva005F8F96[3] at +0x1C via eh vector destructor. Layout from retail offsets:

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005D30EE@Rva005D30EE@@QAEXHH@Z @0x005D30EE 101B, ?rva005D3153@Rva005D30EE@@QAEXHH@Z @0x005D3153 101B,
 // ?rva005D31B8@Rva005D30EE@@QAEXHH@Z @0x005D31B8 101B: Apt counter setters (BuildPlots/ArmoryPoints/CommandPoints)
 // via rowed Rva005D2FD0Set and by-value "%d/%d" formatter pinned at 0x005D303A. Guarded pair caches at

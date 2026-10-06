@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 
 // ??1Rva005DD1EA@@UAE@XZ, RVA 0x005DD1EA, 65B. Chain lane: virtual dtor
 // storing vtable 0x008769B0, freeing the pointer at +0x20 via rowed _free

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005E2439@Rva005E2439@@QAEXXZ @0x005E2439 39B
 // Unlock sibling of 0x005E2460: same [this+0xC]->[+0x170][[this+0x20]] chain
 // then virtual slot 0x18 on [this+8] with D else slot 0x14 with entry.

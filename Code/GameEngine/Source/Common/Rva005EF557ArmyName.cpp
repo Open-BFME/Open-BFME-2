@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva005EF557@Rva005EF557@@QAEXABVUnicodeString@@@Z, retail 0x005EF557, 107 bytes.
 // Evidence: rowed compare 0x00006A7A and wide set 0x00037150; rowed Set 0x005EF02F;
 // rowed AptCall 0x005FB5E6 with SetArmyNameState _show; globals TheRva00222A8BTarget

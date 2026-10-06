@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E2371@Rva005E2371@@QAEXH@Z @0x005E2371 53B.
 // If +0x10->m_0 null return; else getter 0x005CB265 via m_8->+0x10 vs it;
 // if equal calls rowed 0x005CB260 forwarder; then clear +0x10 via rowed 0x002BED91.

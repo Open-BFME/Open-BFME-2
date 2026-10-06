@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005E3AE1@Rva005E3AE1@@QAEPAV1@H@Z @0x005E3AE1 57B.
 // Conditional init of +4/+8/+0xC when arg nonzero then vptr at +0 plus virtual-base-style store via offset at [m_04+4].
 // Evidence: EAX holds this at ret so returns this not void plus caller 0x005E4FBA ignores return; externs s_slot3E4first g_00BC6F20 g_00C77C70 plus vbtable VA 0x00C74ED4.

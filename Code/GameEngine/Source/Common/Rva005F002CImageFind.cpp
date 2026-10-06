@@ -3,7 +3,7 @@
 // then looks up the player and forwards its +0x40+0x20 AsciiString to
 // ImageCollection::findImageByName via TheMappedImageCollection.
 // TU-local honest-address views; offsets prove operations not original names.
-// cl: /O1 /MD
+// cl: /MD
 class AsciiString { void *m_data; };
 class Image;
 class ImageCollection { public: const Image *findImageByName(const AsciiString &n); };

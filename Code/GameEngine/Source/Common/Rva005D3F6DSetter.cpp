@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005D3F6D@Rva005D3F6D@@QAEXH@Z @0x005D3F6D 32B
 // Evidence: leaf; virtual call slot 0x28 on object at +0x24 with cache at +0x2C;
 // caller 0x0057A3A3; neighbours share /O1 /MD

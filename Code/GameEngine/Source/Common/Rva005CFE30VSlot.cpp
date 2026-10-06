@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005CFE30@Rva005CFA87@@UAEXXZ @0x005CFE30 62B.
 // VSlot 1 of vtable 0x008752DC (Rva005CFA87): time-guarded setter.
 // Evidence: vtable slot via donor Rva005CF9FFFlagNotifyDtors plus IAT timeGetTime plus global g_00E06640 plus new 8B vtable g_00C752A8 plus rowed 0x00575674 setter.

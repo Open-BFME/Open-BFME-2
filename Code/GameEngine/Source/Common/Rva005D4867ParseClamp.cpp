@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005D4867@Rva005D4867@@QAEXPBD@Z @0x005D4867 87B
 // String-driven setter: parse the text with the CRT atof (import slot
 // 0x00BBA550), clamp it to [0, 1 - the float at +0x18], store it at +0x20

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005DB3B3@Rva005DB3B3@@QAEXH@Z @0x005DB3B3 351B
 // Unlock Apt connection-player name/num setter via GameSpy slot + GameInfo slot.
 // Evidence: callers 0x005DB61E 0x005DB639 in 0x005DB5F2 (thiscall 1 int arg ret 4);

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005D57D3@@QAE@PAX@Z retail 0x005D57D3 24B
 // Derived ctor: calls rowed base ??0Rva005AFE86@@QAE@PAX@Z 0x005AFE86
 // with same arg, then overwrites base m_vtable slot at +0 with own

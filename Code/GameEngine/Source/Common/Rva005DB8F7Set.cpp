@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ?rva005DB8F7@Elem005DB98E@@QAEXMMM@Z 0x005DB8F7 49B
 // Sets three floats at +4 +8 +0xC and timeGetTime at +0x10 on Elem005DB98E (20B element).
 // Evidence: caller 0x5DBEC7 passes eax from rva005DB98E as this with three floats; IAT timeGetTime.

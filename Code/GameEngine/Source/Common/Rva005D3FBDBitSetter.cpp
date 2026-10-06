@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005D3FBD@Rva005D3FBD@@QAEX_N@Z retail 0x005D3FBD 39B
 // Evidence: bit2 of byte +0x3C from bool arg clearing bit3; callers 0x0057A488 0x0057A7B0
 class Rva005D3FBD

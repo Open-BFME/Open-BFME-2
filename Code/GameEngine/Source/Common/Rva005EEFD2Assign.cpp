@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??4Rva005EEFD2@@QAEAAV0@ABV0@@Z, retail 0x005EEFD2, 46 bytes.
 // Ref-counted holder assignment: if (this != &other) { if (other.m_ptr)
 // inc ref at +8; if (m_ptr) Release(m_ptr+4); m_ptr = other.m_ptr; }

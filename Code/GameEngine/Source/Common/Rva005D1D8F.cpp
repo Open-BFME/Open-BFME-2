@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005D1D8F@Rva005D1D8F@@QAEXH@Z, retail 0x005D1D8F, 32 bytes.
 // Chain via rowed rva002B7250 0x002B7250: load m_8, interior-this null check

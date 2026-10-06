@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 //
 // ?Rva005D64D9MakeHeap@@YAXPAVRva005D5A7E@@0H@Z retail 0x005D64D9 128 bytes.
 // make_heap for 12B Rva005D5A7E via rowed AdjustHeap 0x005D5E8A. Evidence:

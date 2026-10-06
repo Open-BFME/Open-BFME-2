@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c- /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /EHs-c- /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?rva005D796F@Rva005D791C@@UAE_NPAVObject@@@Z @0x005D796F 154B, slot 6

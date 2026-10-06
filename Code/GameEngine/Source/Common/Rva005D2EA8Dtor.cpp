@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005D2EA8@@UAE@XZ retail 0x005D2EA8 73B
 // Own vptr C75898, then if the listener at +4 is set it is told through its
 // slot 0 with this; the rowed member dtor ??1Rva0052413E@@QAE@XZ tears down

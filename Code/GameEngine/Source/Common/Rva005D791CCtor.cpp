@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva005D791C@@QAE@XZ @0x005D791C 55B
 // Ctor of an opaque Rva005EE30C-derived class: base ctor 0x005EE2E6,
 // then vtable 0x00875DFC, then set<AsciiString> member at +0x28 via the

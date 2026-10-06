@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005CE912@@QAE@HHHHHH@Z, retail 0x005CE912, 44 bytes.
 // __thiscall init of six dwords: m_00..m_10 from args 2..6, m_14 from arg1.
 // Evidence: packet disassembly, ret 0x18 (6 stack args), EBP frame,

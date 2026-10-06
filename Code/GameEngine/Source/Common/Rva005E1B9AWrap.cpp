@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E1B9A@Rva005E1B9A@@QAEXXZ @0x005E1B9A 42B.
 // If +0x20 byte nonzero calls pinned 0x005E1B4E (this-only void).
 // Then if +0x28 dword nonzero calls pinned 0x005E19CA (this+int void) with it

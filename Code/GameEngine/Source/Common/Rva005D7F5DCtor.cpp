@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /Ireference/shims/bfme2_ascii
+// cl: /EHsc /MD /Ireference/shims/bfme2_ascii
 // ??0Rva005D7F5D@@QAE@XZ @0x005D7F5D 73B unlock lane ctor via base plus memset.
 // Evidence: calls rowed base Rva005EE30C 0x005EE2E6 then memset via rowed ji_006291AE then rowed rva005D7E98 0x005D7E98; vtable 0x00875ED0 DIR32; same shape as WaypointStarts neighbours.
 void *ji_006291ae(void *dst, int val, unsigned int size);

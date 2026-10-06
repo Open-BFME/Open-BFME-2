@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ??0Rva005DD772@@QAE@XZ @0x005DD772 81B.
 // Default ctor of an 8-byte UnicodeString+float display record: base UnicodeString
 // from narrow "-" at 0x83DD78 via AsciiString temp then float 0.0f at +4 via xmm.

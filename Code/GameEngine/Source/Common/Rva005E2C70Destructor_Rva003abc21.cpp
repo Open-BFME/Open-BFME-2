@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // RVA 0x005E2C70, 139-byte implicit destructor.
 // Evidence: targets/game/reverse/identity_evidence/rva005e2c70.md
 #include "ascii_string.h"

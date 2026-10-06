@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E56FC@Rva005E56FC@@QAEPAXXZ @0x005E56FC 78B.
 // View then player then stdcall chain with redundant mov ecx before stdcall.
 // Evidence: thiscall ret 0 no args returning void pointer; global g_009FEF10

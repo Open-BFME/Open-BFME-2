@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructors tail-calling Rva005D9DC1::~
 // Rva005D9DC1 at 0x005D9DC1 (row in Rva004D759CDerived.cpp). Each class below

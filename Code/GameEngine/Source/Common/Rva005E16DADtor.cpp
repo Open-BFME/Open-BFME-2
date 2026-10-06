@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva005E16DA@@UAE@XZ @0x005E16FD 86B ctor at 0x005E16DA three AsciiStrings base dtor pin at 0x0022167C callers incl 0x005E184E
 #include "ascii_string.h"
 class Rva0022167C

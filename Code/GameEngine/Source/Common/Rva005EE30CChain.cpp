@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque destructor chain tail-calling through Rva0058AD7A at 0x0058AD7A
 // (pinned opaque empty base dtor: vtable store plus ret). Rva005EE30C is a

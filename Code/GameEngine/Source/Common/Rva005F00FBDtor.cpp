@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva005F00FB@@UAE@XZ retail 0x005F00FB 87B
 // Called by the rowed scalar deleting dtor 0x005F02C4 (vtable 0x00C78A78#0)
 // and the global dtor thunk 0x007B99B5. Two AsciiString arrays (+0x1C x8 and

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005DB5F2@Rva005DB5F2@@QAEXHHH@Z @0x005DB5F2 54B interior forwarder.
 // this points 0x58 into the container; o = this-0x58, then pinned
 // 0x005DB512 (this+3 ints void) as (a,b,c) and (a,c,b), then rowed

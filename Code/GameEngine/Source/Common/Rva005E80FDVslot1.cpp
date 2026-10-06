@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005E716D@Rva005E80FD@@QAEXXZ @0x005E716D 17B
 // Virtual slot 1 (offset 0x4) of vtable 0x00877F54 (class of ??1Rva005E80FD@@UAE@XZ).
 // Helper-then-member forwarder: folded empty helper on this, then tail-call

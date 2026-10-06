@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005E1158@Rva005E1158@@QAEXPBVImage@@@Z @0x005E1158 8B
 // Evidence: unlock lane tail-forwards this+8 to rowed Rva005E0E1D::rva005E0E1D callers 0x005E9473 0x005E8E4C prev Rva005E10A8Method
 class Image;

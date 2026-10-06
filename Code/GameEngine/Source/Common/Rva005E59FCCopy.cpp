@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /MD /DNDEBUG
+// cl: /GX- /MD /DNDEBUG
 // ?Rva005E59FCCopy@@YAPAHPAU_Rb_tree_node_base@_STL@@0PAHABU__true_type@2@@Z, retail 0x005E59FC, 40 bytes.
 // Copies int keys from map<int void*> RB nodes (value at +16) to int array with null-dest guard.
 // Callers are vector range-init 0x005E5F43 allocate-and-copy 0x005F4D62 and assign 0x005F4F74.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005E957C@Rva005E957C@@QAEXHHHHHH@Z, retail 0x005E957C, 44 bytes.
 // 6-dword init: copies 6 stack args to +0..+20; ret 0x18.
 // Callers 0x003F5242 and 0x005E9AED pass 6 dwords to a 24-byte local.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva005E9F3F@@UAE@XZ retail 0x005E9F3F 14B
 // Virtual dtor stores derived vtable then tail-jmps to member clear at +4.
 // Layout from caller 0x005E948B deleting wrapper vtable 0x00C780A8#0 and rowed clear 0x005E9E27.

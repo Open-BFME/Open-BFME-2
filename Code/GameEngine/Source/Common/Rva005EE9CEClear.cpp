@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005EE9CE@Rva005EE9CE@@QAEPAV1@XZ, retail 0x005EE9CE, 23 bytes.
 // Zeroes 16-byte struct at +0 +4 +8 +0xC and returns this. Called on stack
 // temp from 0x005D81CF 0x005D8483 0x005D8648. No callees.

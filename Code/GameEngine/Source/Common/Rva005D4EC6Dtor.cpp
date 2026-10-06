@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ??1Rva005D4EC6@@QAE@XZ @0x005D4EC6 72B
 // Member dtor calling Holder dtor at +0xC via rowed 0x005F4AD7 then direct
 // Release of TargetRef at +8 via rowed 0x0007DEEF then base dtor

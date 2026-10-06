@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005DBA9C@Rva005DB98E@@QAE_N_N@Z retail 0x005DBA9C 177B
 // Unlock human/slot scan for m_arr2 value 3; same class/offsets as neighbours.
 // Retail funnels both branches' success through the single `return true;` after

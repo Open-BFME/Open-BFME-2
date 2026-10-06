@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva005DBD4FUninitCopy@@YAPAVRva005DBCD1@@PAV1@00ABU__false_type@_STL@@@Z @0x005DBD4F 41B null-guarded uninitialized copy
 // via placement new with rowed copy ctor 0x005DBCD1 and stride 8. Evidence: callers 0x005DC4D7 0x005DC525 push four args
 // (first last result plus tag at ebp+0x1b) and clean 0x10; sibling fill_n at 0x005DBD78 shares null guard and stride.

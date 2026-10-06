@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva005DC87B@@UAEXPAVXfer@@@Z, retail 0x005DC903, 56 bytes.
 // Slot 5 (offset 0x14) of vtable 0x00876808 (class of ??1Rva005DC87B rowed

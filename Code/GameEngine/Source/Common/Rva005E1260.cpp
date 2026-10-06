@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E1260@Rva005E1260@@QAEAAV1@PBUInit005E1260@@@Z @0x005E1260 59B unlock ref-holder alloc via rowed operator new.
 // Evidence: retail push 0x10 call rowed ??2@YAPAXI@Z 0x0002FDA0 then vtable 0x00877990 refcount at +4 payload copy +8 +0xC store to [this] inc ref return this; callers 0x005C7D3F 0x005C7F0A 0x005E15EB.
 struct Init005E1260

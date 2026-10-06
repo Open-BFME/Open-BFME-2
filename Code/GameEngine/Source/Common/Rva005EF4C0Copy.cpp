@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva005EF4C0Copy@@YAPAVRva005EEFD2@@PAV1@00@Z, retail 0x005EF4C0, 47 bytes.
 // Forward copy for Rva005EEFD2 holders using rowed assignment 0x005EEFD2.
 // count = last-first; if <=0 return dest; else for (i=n;i!=0;--i)

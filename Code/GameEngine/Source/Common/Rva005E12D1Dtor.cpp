@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva005E12D1@@UAE@XZ retail 0x005E12D1 99B
 // Own vptr C779B4; under EH state 1, when the held ref at +0x10 is set and the
 // owner at +0xC reports it through the no-arg virtual getter (pinned twin

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005D3D4B@Rva005D3D4B@@QAEXXZ retail 0x005D3D4B 76B
 // Evidence: chain from just-landed 0x005D3AF2 plus rowed 0x005D3B9A portrait plus AptCall rowed 0x005FB5E6 with SetState _hide using level +0x04 outer +0x08 prefix from +8 else g_Rva0107301CEmptyString plus flags +0x30 +0x32; same level outer pattern as Rva005D39EACpState.cpp
 struct Rva005D2FD0Inner

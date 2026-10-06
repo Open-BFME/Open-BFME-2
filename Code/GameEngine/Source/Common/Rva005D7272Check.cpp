@@ -1,5 +1,5 @@
 // ?Rva005D7272Get@@YG_NPAVObject@@@Z
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?Rva005D7272Get@@YG_NPAVObject@@@Z, retail 0x005D7272 118B: slot 6 (offset 0x18) of
 // vtable 0x00875CA4 (class Rva005D724B). Stances gate (2) else victim gate, then speed

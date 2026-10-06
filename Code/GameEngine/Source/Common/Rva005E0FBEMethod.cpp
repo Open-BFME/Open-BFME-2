@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva005E0FBE@Rva005E0FBE@@QAEXXZ @0x005E0FBE 74B
 // Chain via rowed Fire 0x005277D9 with level +0x08 prefix +0x0C from +8 else

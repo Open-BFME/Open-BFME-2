@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva005E5823@Rva005E5823@@QAEXPAX@Z @ 0x005E5823 72B
 // Evidence: slot 16 of 0x00877D90 class of 0x005E5A38; virtual slot 1 predicate on [[this+8]+0x38] with outer arg; new 12 for 0x005E56C8 ctor; Set 0x00575674 with new object; chain from 0x005E56C8.
 typedef unsigned int UnsignedInt;

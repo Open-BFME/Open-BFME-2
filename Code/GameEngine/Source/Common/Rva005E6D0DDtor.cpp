@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva005E6D0D@@QAE@XZ retail 0x005E6D0D 103B
 // Non-virtual dtor of a polymorphic class: own vptr C77E4C; under EH state 1
 // the object passes itself to the rowed

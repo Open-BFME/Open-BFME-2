@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva005E10A8@Rva005E10A8@@QAEXH@Z retail 0x005E10A8 176B
 // Evidence: chain via rowed Fire 0x005277D9 triple Enable ShowProductionCount ShowTimerOverlay using level +0x08 prefix +0x0C from +8 else empty plus flags +0x41 +0x42 +0x43 and bool temps 0 1 1 plus final +0x40 to 1; same Fire shape as Rva00527890Move.cpp; ret 4 dummy int
 struct Rva005E10A8Inner

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005D4AD0@Rva005D4AD0@@QAEXM@Z @0x005D4AD0 79B: float page-size setter via rowed Fire 0x00527925 with SetPageSize plus EmptyString fallback. Evidence: ucomiss float at +0x18 plus rowed Fire callees plus TheRva00222A8BTarget 0x009FE4CC plus g_Rva0107301CEmptyString 0x007BAC1C plus SetPageSize literal plus unblocks 0x005D4BAE caller 0x005D4BB9 sibling 0x005D4B1F.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

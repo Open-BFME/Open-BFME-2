@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva005EF02FSet@@YAXHPAURva005EF02FOuter@@ABVUnicodeString@@@Z retail 0x005EF02F 103B
 // Evidence: format APT:_level%u.%s_ArmyName via 0x00038150; bfmeSetText via pin 0x00225301; releaseBuffer 0x00036410; globals 0x009FE4CC 0x007BAC1C; callers 0x005EF576 0x005EFAD0; precedent Rva005FDF1CApt.cpp
 template <typename T> struct BfmeStringData

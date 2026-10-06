@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005D9CE0@Rva005D9CD5@@QAE_NPAVObject@@@Z @0x005D9CE0 76B
 // Evidence: gap between Rva005D9CD5 dtor 0x005D9CD5 and deleting dtor 0x005D9D2C plus vslot 6 of 0x00876424.
 extern float g_00C76420;

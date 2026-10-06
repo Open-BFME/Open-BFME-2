@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005D4B6E@Rva005D4B6E@@QAEXM@Z @0x005D4B6E 64B: float pos firer via rowed Fire 0x00527925 with SetPos plus EmptyString fallback no store. Evidence: ucomiss float at +0x20 plus rowed Fire plus TheRva00222A8BTarget 0x009FE4CC plus g_Rva0107301CEmptyString 0x007BAC1C plus SetPos literal plus unblocks 0x005D4BD4 caller 0x005D4BDF siblings 0x005D4B1F 0x005D4AD0.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

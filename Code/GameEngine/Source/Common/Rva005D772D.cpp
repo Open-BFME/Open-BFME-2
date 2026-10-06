@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005D772D@Rva00049D20@@QAEHH@Z, retail 0x005D772D, 24 bytes.
 // Element count of the +0x1C vector of entry i of the +0x10 pointer vector (ret 4).
 // Evidence: callers 0x00573918 0x005D77BB 0x005D77F7 0x005EEB1C; table layout from

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva005E2D8AGet@@YAPAXPBD@Z retail 0x005E2D8A 97B
 // Evidence: unlock lane; callers 0x005E2F49 and 0x005E3226; callees rowed 0x005E2CFA 0x00036410 plus pin 0x004128F0; string "id" plus empty fallback g_Rva0107301CEmptyString.
 #include "ascii_string.h"

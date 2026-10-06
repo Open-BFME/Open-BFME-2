@@ -1,4 +1,4 @@
-// cl: /EHsc /Oy- /O1 /Ob2
+// cl: /EHsc /Oy- /Ob2
 // ?rva005E5CF9@Rva005E5CF9@@QAE?AURvaF1Handle@@H@Z, retail 0x005E5CF9 (84B).
 // Factory method returning RvaF1Handle by value: allocates 0x28 bytes, runs
 // rowed ??0Rva005F589E@@QAE@HPAX@Z with (int arg, this+8), null-checked AddRef

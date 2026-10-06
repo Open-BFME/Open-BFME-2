@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005DC8A2@Rva005DC8A2@@QAE_NXZ, retail 0x005DC8A2, 97 bytes.
 // Predicate over holder from g_00DFEEF8 map lookup keyed by Player at this+0x24.
 // Holder's first dword dereferenced, then index loop over bucket_count with

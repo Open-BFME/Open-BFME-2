@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E49FD@@YAXHHHH@Z @0x005E49FD 30B cdecl forwarder.
 // Takes (a, b, c, d), allocates a bool tmp, calls pinned 0x005E4817
 // (cdecl, 5 args: bool* + 4 ints), cleans 0x14, returns void.

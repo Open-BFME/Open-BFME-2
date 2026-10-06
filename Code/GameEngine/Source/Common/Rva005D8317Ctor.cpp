@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva005D8317@@QAE@H@Z RVA 0x005D835A size 65 evidence vtable 0x00875FEC base 0x005EE2E6 TheGameLogic+0x40 vector erase 0x003FA4DB caller 0x0058A6A8
 #include <vector>

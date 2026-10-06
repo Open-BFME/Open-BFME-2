@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva005DB335Get@@YAHH@Z @0x005DB335 53B
 // Unlock free function returning 0-3 via global at 0x00E05FB4 with virtuals at +0x10/+0x14.
 // Evidence: callers 0x005DB3AC (55B pushes int via ftol2) 0x0059EE00 0x0059F8E7; two virtual thresholds then 1/2/3.

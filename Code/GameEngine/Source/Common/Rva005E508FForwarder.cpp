@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005E508F@Rva005E508F@@QAEXH@Z @0x005E508F (8B).
 // Forwarder via +0x10 ptr to rowed Rva005E4DAF::rva005E4DE5; evidence callers

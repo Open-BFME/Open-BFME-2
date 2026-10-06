@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva005E0B8F@Rva005E0B0F@@QAEXH@Z @0x005E0B8F 47B
 // vslot slot 3 offset 0xC of vtable 0x00877960 class of ??1Rva005E0B0F.

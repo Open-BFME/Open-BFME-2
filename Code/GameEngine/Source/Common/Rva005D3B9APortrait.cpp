@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005D3B9A@Rva005D3B9A@@QAEXXZ @0x005D3B9A 109B
 // Evidence: chain from rowed erase thunk 0x00223A94; AsciiString::format row 0x00038150;
 // releaseBuffer row 0x00036410; default string VA 0x007BAC1C; table owner VA 0x009FE4CC;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005D3B26@Rva005D3B26@@QAEXXZ retail 0x005D3B26 116B
 // Evidence: unlock twin of rowed 0x005D3B9A portrait; format row 0x00038150 releaseBuffer row 0x00036410; empty VA 0x007BAC1C manager VA 0x009FE4CC; pinned callee 0x002239E2; callers 0x005D3CF0 0x005D3D44
 template <typename T> class StringBase;

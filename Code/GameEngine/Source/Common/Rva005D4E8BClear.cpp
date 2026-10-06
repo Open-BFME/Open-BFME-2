@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005D4E8B@Rva005D4E8B@@QAEXXZ, RVA 0x005D4E8B, 29B. Unlock lane holder clear:
 // releases TreeHintRef embedded at [ptr]+4+[[ptr+4]+4] via rowed fastcall
 // 0x0007DEEF then nulls holder. Evidence: retail mov eax,[esi]; test-je;

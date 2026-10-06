@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005D39EA@Rva005D39EA@@QAEXHH@Z retail 0x005D39EA 107B
 // Evidence: cached ints at +0x28 +0x2c via rowed 0x005D3966; shown-once bool at +0x31 via SetCPState _show rowed 0x005FB5E6; level at +0x04 outer at +0x08 prefix from +8 else g_Rva0107301CEmptyString; global TheRva00222A8BTarget; sibling Rva005D3B9A prefix layout
 struct Rva005D2FD0Inner

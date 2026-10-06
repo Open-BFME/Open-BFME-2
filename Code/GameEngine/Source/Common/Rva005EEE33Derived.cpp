@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructors tail-calling Rva005EEE33::~
 // Rva005EEE33 at 0x005EEE33 (matched opaque chain dtor in

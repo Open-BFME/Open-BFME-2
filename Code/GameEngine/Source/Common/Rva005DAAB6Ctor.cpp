@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ??0Rva005DAAB6@@QAE@XZ 45B @0x005DAA71: ctor for Rva005DAAB6 over base
 // Rva0055B0CC ctor at 0x0055B048, then installs vtable 0x008765A8, zeroes

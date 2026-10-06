@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?rva005E2D74@Rva005E2D74@@QAEHPAD@Z retail 0x005E2D74 22B
 // Evidence: unlock lane; callee write 0x000B44F0; unblocks 0x005E306D; prev Rva005E2144 same /O1 MD; members +0 byte +4 pair.

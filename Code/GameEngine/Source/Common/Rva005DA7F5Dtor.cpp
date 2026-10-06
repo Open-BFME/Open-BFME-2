@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva005DA7F5@@UAE@XZ @0x005DA7F5 60B
 // Opaque dtor called by the rowed ??_G 0x005DA7D9 (vtable 0x00C76510#1).
 // Target facts: stores its vtable 0x00C76510 { 0x005DA67F, ??_G 0x005DA7D9,

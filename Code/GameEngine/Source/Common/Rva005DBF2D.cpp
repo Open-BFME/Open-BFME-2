@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva005DBF2D@Rva005DB98E@@QAE_NGG@Z @0x005DBF2D 95B.
 // Rva005DB98E float bump notify: element +8 += 1.0f, stamp

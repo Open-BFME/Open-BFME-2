@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 struct Rva005E39AEInner
 {
 	virtual int f0();

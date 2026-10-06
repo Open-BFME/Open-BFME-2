@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005DB004@Rva005DB004@@QAEXXZ 0x005DB004 31B
 // Copies +0x10->+8 +0x24->+0xC +0x20->+0xA8 into struct at +0x38.
 // Evidence: callers 0x5DB06B 0x5DB0E9; unblocks 0x5DB023 0x5DB08F.

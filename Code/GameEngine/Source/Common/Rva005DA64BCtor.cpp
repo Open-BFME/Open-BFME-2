@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0Rva005DA64B@@QAE@PAX@Z, retail 0x005DA64B, 24 bytes.
 // Derived holder: forwards void* to rowed base Rva005DAA36 ctor at 0x005DAA36

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva005E9137Check@@YAEPAVRva00318F42@@@Z @0x005E9137 44B
 // Evidence: retail checks g_009FEF10 null then +0xF4 then Rva002B280C::check then tail to 0x00318F42.
 // Callers at 0x005E9169 0x005E9180 test al as bool.

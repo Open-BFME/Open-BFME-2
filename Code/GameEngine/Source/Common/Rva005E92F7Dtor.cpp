@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD
+// cl: /Ob2 /EHsc /MD
 // ??1Rva005E92F7@@UAE@XZ retail 0x005E92F7 60B
 // MI dtor second base at +8 via pin 0x005E12D1 plus base vtable restore to g_00BC6F20.
 // Layout from twin 0x005E91A9 60B and 0x005CC37C 60B plus deleting wrapper 0x005E948B.

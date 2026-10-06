@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // ??1Rva005E1D07@@QAE@XZ @ 0x005E1D07 (58B). Outer dtor zeroes +0x24 then destroys +0x14 via rowed 0x005E1C9D then +0x0C via rowed virtual 0x005EFDDB. Evidence: chain from 0x005E1C9D plus callers 0x005E1D44 and 0x005E1E8D prev next same dir.
 struct Rva005E1C9D
 {

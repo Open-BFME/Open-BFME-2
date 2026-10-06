@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 namespace _STL
 {
 typedef bool _Rb_tree_Color_type;

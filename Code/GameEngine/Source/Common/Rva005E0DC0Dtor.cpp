@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ??1Rva005E0DC0@@QAE@XZ @0x005E0DC0 93B
 // Non-virtual dtor: explicit m_04->rva005C3209 call then member dtors for

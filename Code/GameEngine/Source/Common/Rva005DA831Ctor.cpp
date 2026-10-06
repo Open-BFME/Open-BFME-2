@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva005DA831@@QAE@PAX@Z @0x005DA831 35B evidence: base Rva005DAA36 holder void* rowed in V3PolyCopyCtors; derived vtable 0x00876518; or -1 at +0x08 and 3 at +0x0C; caller 0x00597227; cross-TU base call forces esi save
 
 class Rva005DAA36

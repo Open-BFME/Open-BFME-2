@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /G7
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005ED708@Rva005ED445@@QAEXHH@Z, retail 0x005ED708, 98 bytes.
 // NumRegions cached setter via Rva005ED310Get and rva005ED516; imul needs /G7.
 // Evidence: calls 0x005ED310 0x005ED516 0x00036E70; string APT NumRegions via callee; base +0x44 slot size 0x14 field +0xC; caller 0x005ED849.

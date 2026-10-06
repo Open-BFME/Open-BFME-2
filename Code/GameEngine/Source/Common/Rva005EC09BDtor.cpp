@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005EC09B@@QAE@XZ retail 0x005EC09B 91B
 // Non-virtual dtor: under EH state 2, when the Apt window manager global
 // g_bfmeAptWindowManager (VA 0x00DFE4CC) is set, its pinned

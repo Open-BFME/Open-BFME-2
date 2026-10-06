@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005D3FE4@Rva005D3FE4@@QAEXM@Z @0x005D3FE4 28B
 // Evidence: unlock; float setter at +0x38 with flag clear at +0x3C bit4;
 // abuts prev 0x005D3FBD same flags byte; callers 0x0057B122 0x0057B2F6 0x0057B368 0x0057B443

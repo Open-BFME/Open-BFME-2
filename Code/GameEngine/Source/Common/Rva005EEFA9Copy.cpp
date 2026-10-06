@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva005EEFA9Copy@@YAPAURva005EEFA9Dst@@PAU1@PBURva005EEFA9Src@@H@Z, retail 0x005EEFA9, 41 bytes.
 // Copies 16-byte src plus int extra into 20-byte dst via 20-byte local.
 // Callers pass AsciiStringCharPlusText-like 16B src and use return (dst).

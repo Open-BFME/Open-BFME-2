@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005CF9C9@Rva005CF9C9@@QAEXH@Z @0x005CF9C9 54B
 // Emits GameMessage type 0x6a7 via MessageStreamSubsystem slot 0x48 then appends arg and [this+4]+0x14+0x30.
 // Evidence: unlock lane; callees rowed 0x0030F936 appendIntegerArgument; global MessageStreamSubsystem at VA 0x00A00950; callers 0x005D0DBB 0x005D0E10 pass this-8 and one int (ret 4).

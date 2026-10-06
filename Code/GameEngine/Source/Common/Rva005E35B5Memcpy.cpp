@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Copy constructors of tiny aggregate holders: each copies one word-array
 // member from its single argument with rep movsd (push N / pop ecx

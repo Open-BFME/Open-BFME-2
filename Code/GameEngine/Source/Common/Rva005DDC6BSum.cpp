@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /arch:SSE
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 
 // ?rva005DDC6B@Rva005DDC6B@@QAEMII@Z, RVA 0x005DDC6B, 58B. Unlock lane: float
 // range-sum method over 8-byte elements; base pointer at +4 has a 4-byte

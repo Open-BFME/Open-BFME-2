@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva005EF000CopyBackward@@YAPAVRva005EEFD2@@PAV1@00@Z, retail 0x005EF000, 47 bytes.
 // copy_backward for Rva005EEFD2 holders using rowed assignment 0x005EEFD2.
 // count = last-first; if <=0 return dest; else do { --last; --dest;

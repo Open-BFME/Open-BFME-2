@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva005F0584@@QAE@XZ retail 0x005F0584 75B
 // Non-virtual MI dtor reached through the thunk-reached scalar deleting dtor
 // 0x005F06D3. Own vftables at +0 and +4; notifies the listener at +0x14

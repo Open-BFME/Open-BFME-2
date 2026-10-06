@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva005D26B2@Rva005D2664@@QAEXPBD@Z @0x005D26B2 268B: parse idx/name, alloc Rva005D2462, Set.
 // Computes elem = this + (idx+1)*0x1C, checks [elem]==0, new 0x18 Rva005D2462

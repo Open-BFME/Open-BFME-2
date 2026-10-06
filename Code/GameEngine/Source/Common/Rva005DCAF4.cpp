@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005DCAF4@Rva005DC87B@@QAE_NXZ @ 0x005DCAF4 25B
 // Bool getter via pinned 0x005DCAE5 Object then bit0 at +0x438; caller v7 0x005A9BBF.
 class Object

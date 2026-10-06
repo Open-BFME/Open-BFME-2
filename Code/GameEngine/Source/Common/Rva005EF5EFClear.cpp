@@ -5,7 +5,7 @@
 // byte-identical there; this TU declares the 3-arg shape the call site uses.
 // Evidence: callers at 0x005EF8D5/0x005EF919/0x005F11EA/0x005F1217 pass container
 // first/last; landing unblocks 0x005F11D0 0x005EF8BB 0x005F120F 0x005EF8FA.
-// cl: /O1 /MD
+// cl: /MD
 struct Rva005F0647;
 void __cdecl Rva005F0C39Destroy(Rva005F0647 *begin, Rva005F0647 *end, bool *exists);
 void __cdecl Rva005EF5EFClear(Rva005F0647 *first, Rva005F0647 *last)

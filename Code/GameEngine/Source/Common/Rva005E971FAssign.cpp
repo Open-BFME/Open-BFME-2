@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005E971F@Rva005E971F@@QAEXPAVRva005E9625@@@Z, RVA 0x005E971F, 35 bytes.
 // Guarded assign of Rva005E9625 pointer at +0: if new != old then store new then delete old via rowed dtor.
 // Evidence: calls rowed dtor 0x005E9625 in Rva005E9625Dtor.cpp plus rowed delete 0x0002FD60; neighbours 0x005E9625 0x005E9742; caller 0x005E9D78.

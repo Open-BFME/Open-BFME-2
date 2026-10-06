@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva005D1846@@QAE@XZ @0x005D1846 75B
 // Non-virtual dtor with two EH-tracked members plus user forwarder call: user calls m_04->rva0057C2CC then implicit destroys m_10 via free then m_0C via clear.
 // Evidence: deleting dtor callers 0x005D1891 and 0x005D18C8; callees rowed 0x0057C2CC 0x000AD6F4 and free 0x00030830; states 1 0 -1 match two members; no vtable so QAE.

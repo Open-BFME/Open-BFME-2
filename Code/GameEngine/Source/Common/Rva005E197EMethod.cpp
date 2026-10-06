@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005E197E@Rva005E197E@@QAEXXZ retail 0x005E197E 54B
 // Evidence: unlock same shape as Rva005D3AF2Method.cpp with double indirection +0x10 to +8 for rowed slot1 0x005CB260 and pinned no-arg int 0x005CB265 plus always-clear +0x1C via rowed 0x002BED91; callers 0x005E1AD3 0x005E1C04
 class Rva005CB260

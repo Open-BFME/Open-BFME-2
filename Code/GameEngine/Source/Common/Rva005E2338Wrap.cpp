@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E2338@Rva005E2338@@QAEXH@Z @0x005E2338 57B indexed plus virtual.
 // m_8->m_C[index] -> element; if element->m_20 null or its rowed getter
 // 0x004E0625 (const int) 0 return; else virtual slot +0x10 on m_8->m_8

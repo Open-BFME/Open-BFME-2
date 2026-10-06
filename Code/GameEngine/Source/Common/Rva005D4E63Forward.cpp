@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ?rva005D4E63@Rva005D4E63@@QAEXXZ @0x005D4E63 12B
 // Null-guarded tail virtual slot-0 forwarder via member at +0xC.
 // Evidence: unlock callee of 0x005D4E84 jmp at 0x005D4E86; ecx is this;

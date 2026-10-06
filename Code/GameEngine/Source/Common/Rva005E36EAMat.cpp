@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 //
 // ?rva005E36EA@Rva005E36C5@@QAE?AV?$StringBase@D@@XZ retail 0x005E36EA 105B.
 // Five-part materializer: length via rowed 0x00513E03 plus tail len at +0x1C

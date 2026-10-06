@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005DB98E@Rva005DB98E@@QAEPAXGG@Z 0x005DB98E 46B
 // Bounds-checked 2D index into 20B elements at +0x218.
 // Evidence: callers 0x5A6D0A 0x5DB570 etc.; unblocks 8.

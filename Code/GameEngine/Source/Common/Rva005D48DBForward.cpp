@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005D48DB@Rva005D48DB@@QAEXPAX@Z, RVA 0x005D48DB, 21B. Unlock lane forwarder:
 // this holds member-fn ptr at +0 plus int at +4 and float at +8; invokes it with
 // ecx = stack arg and the two members as stack args. Evidence: retail mov eax,ecx;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva005D242F@@UAE@XZ retail 0x005D242F 26 bytes.
 // Stores vtable 0x008757D8 then if linked word at +0x18 equals member at +0xC

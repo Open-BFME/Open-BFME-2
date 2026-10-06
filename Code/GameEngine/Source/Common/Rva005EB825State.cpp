@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva005EB825@Rva005EB825@@QAEXXZ, retail 0x005EB825, 85 bytes.
 // State switch through inner at +0: clears +0xC, case 1 calls pinned

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005DB023@Rva005DB023@@QAEXXZ 0x005DB023 16B
 // Calls 0x39B246 then tail-jmps to 0x5DB004 copy.
 // Evidence: caller 0x59B2AA; unblocks 0x59B1EC.

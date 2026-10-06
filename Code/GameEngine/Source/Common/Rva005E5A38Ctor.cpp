@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva005E5A38@@QAE@H@Z @ 0x005E5A38 46B
 // Evidence: derived of rowed base 0x005CBA04 via temp built by rowed 0x005E5A24 bits 0 3; outer int at +8; vtable 0x00C77D90; caller 0x005E5B3E passes esi; sibling Rva005756B6 same shape.
 typedef int Int;

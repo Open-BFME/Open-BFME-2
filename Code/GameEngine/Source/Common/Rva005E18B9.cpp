@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E18B9@Rva005E18B9@@QAEXXZ @0x005E18B9 16B unlock vcall forwarder via member vtables.
 // Evidence: retail mov eax ecx mov ecx [eax] mov eax [eax+0x24] push [eax+0x14] vcall [edx+0x14] ret; guard caller 0x005E18D0 tests +0x24 then jumps here; caller 0x005E19CA 189B.
 class Rva005E18B9Inner

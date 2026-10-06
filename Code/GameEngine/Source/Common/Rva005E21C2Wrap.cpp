@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E21C2@Rva005E21C2@@QAEXXZ @0x005E21C2 41B.
 // Calls empty 0x00B3FD0 (pinned empty), then checks +0x28 vs +0x10 getter
 // 0x005CB265 (pinned UAEHXZ) and tail-jmps to rowed 0x005CB260 on match.

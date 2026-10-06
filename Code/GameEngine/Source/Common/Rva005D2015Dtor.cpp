@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005D2015@@UAE@XZ retail 0x005D2015 58B
 // Own vptr C75778; under EH state 0 the body unregisters this from the +4
 // subobject of the object at +8 through the rowed

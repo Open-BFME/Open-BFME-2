@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005D7766@Rva005D7706@@QAE_NPAVObject@@@Z, retail 0x005D7766, 221 bytes.
 // Evidence: slot 6 of 0x00875DB4 class Rva005D7706, terrain table via TheTerrainLogic+0x584 with shroud check then 0x005EE8DD.
 class Object;

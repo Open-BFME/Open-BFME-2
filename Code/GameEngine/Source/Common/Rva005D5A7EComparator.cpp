@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005D5A7E@Rva005D5A7E@@QBE_NABV1@@Z @0x005D5A7E 53B.
 // Ordering by int at +4 then AsciiString NoCase at inner+4.
 // Evidence: 13 callers (0x005D5B09 0x005D5B3C 0x005D5BC9 0x005D5C6F etc.)

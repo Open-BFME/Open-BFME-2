@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005D1210@@QAE@XZ retail 0x005D1210 61B
 // Pointee dtor run by the rowed owning-pointer reset 0x005D127C. Body (EH
 // state 0): delete the object at +4 through the rowed safe-delete helper

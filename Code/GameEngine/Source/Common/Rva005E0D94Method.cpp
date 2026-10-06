@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005E0D94@Rva005E0D94@@QAEXXZ @0x005E0D94 8B
 // Chain forwarder to rowed 0x005E0CC7 via +8 member tail jmp.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva005DCDD9@@QAE@HH@Z, retail 0x005DCDD9, 47 bytes.
 // Ctor: three bool members at +0..2 cleared, vector<BfmeE16> at +4 via rowed

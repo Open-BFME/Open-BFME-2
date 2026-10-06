@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva005EE05E@@UAE@XZ @0x005EE05E 14B
 // Dtor stores vtable 0x008786A8 then tail-jmps to member clear at +4 through
 // rowed 0x005EDFF5. Evidence: pin ??1Rva005EE05E, vtable immediate, rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005D7D93@Rva005EE816@@QAE_NPAVObject@@@Z, retail 0x005D7D93, 111 bytes.
 // Evidence: slot 6 of 0x00875EAC, pin Rva005EE816, calls rowed getControllingPlayer twice plus pinned record chain and rowed 0x005EEAC6 then pinned 0x005EE8DD; +0x28 finder.
 class Object;

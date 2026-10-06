@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva005D2355Get@@YAPBVImage@@PAURva005D2355In@@@Z @0x005D2355 102B
 // Image lookup: non-empty +0x18 string goes through global 0x009FF000 rowed 0x002D06CA
 // then tail-jmps ThingTemplate 0x0033BA46 else falls back to LivingWorld find 0x002B51F8

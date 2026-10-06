@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva005D62E8@Rva005D62E8@@QAEPAV1@PAVPlayerInfo@@@Z, retail 0x005D62E8, 178 bytes.
 // Evidence: __thiscall, ret 4 single PlayerInfo arg; calls g_00E05FB4 vf10,

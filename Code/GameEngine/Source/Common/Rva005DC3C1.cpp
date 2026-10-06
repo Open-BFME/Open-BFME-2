@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005DC3C1@Rva005DC3C1@@QAEXGGHH@Z @0x005DC3C1 71B unlock: two int[64] arrays at +0x18 and +0x118 plus list at +0x04 with forEach 0x005DBE6A and notify 0x001FF3A9, callers 0x005A68F8 and 0x005A8F41, neighbours forEach 0x005DBE6A and vector overflow 0x005DC499
 class Rva005DBE6AListener
 {

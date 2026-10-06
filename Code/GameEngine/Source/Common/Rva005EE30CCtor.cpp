@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0Rva005EE30C@@QAE@XZ, retail 0x005EE2E6, 38 bytes.
 // Derived ctor for Rva005EE30C (vtable 0x008786E8 same as rowed dtor 0x005EE30C
 // in Rva005EE30CChain.cpp). Calls base Rva0058AD7A ctor 0x0058AD4D with 5

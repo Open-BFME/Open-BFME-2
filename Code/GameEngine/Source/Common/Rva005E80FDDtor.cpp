@@ -1,5 +1,5 @@
 // ??1Rva005E80FD@@UAE@XZ
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??1Rva005E80FD@@UAE@XZ, retail 0x005E80FD 134B: MI virtual dtor with three
 // vptrs (+0 +8 +0xC), two CreateAHeroData erases via 0x002B7250, vector dtor

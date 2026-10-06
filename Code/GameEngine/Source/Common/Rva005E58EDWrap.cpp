@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E58ED@Rva005E58ED@@QAEXXZ @0x005E58ED 34B.
 // If +8->+0x18 object’s 0x00318C32 (pinned, this-only int) is 0 return.
 // Else call pinned 0x005E6836 (this + 2 args: +8->+0x18 value and first result).

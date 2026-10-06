@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005EEAC6@Rva005EEAC6@@QAE_NPAVPlayer@@0PAUCoord3D@@@Z, retail 0x005EEAC6, 181 bytes.
 // Best-entry Coord picker with shroud skip: zeroes out Coord, looks up table via
 // g_00DFEEF8 map, scans entries for highest count (Rva00049D20::rva005D772D),

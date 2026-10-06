@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_CRTIMP= /Ireference/shims/bfme2_ascii
+// cl: /MD /EHsc /D_CRTIMP= /Ireference/shims/bfme2_ascii
 // ??1Rva005DB221@@UAE@XZ @0x005DB221 80B
 // dtor modeled on Rva0056B9A2::~Rva0056B9A2 (Code/GameEngine/Source/Common/Rva0056B9A2Dtor.cpp):
 // vtable 0x00C766B8, AsciiString at +4 via base Rva003FCE38, notify rva002C004F

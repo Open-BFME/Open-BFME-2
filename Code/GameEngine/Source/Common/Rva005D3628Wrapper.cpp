@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva005D3628@@QAE@HH@Z @0x005D3628 66B new-wrapper.
 // Forwards (a, b) to inner ctor 0x005D3506 (pinned, 108B object) via new 0x6C
 // then stores result at +0. No vtable. Address-derived.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva005EB2E7@@QAEPAXI@Z, retail 0x005EB35D, 28 bytes.
 // Scalar deleting destructor shape (dtor call, flags byte test, conditional
 // scalar delete through pinned ??3@YAXPAX@Z 0x0002FD60, return this), same

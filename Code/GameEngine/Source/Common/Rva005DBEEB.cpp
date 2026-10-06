@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva005DBEEB@Rva005DB98E@@QAE_NGGH@Z @0x005DBEEB 66B.
 // Rva005DB98E indexed notify: bounds-checked element via rowed 0x005DB98E,

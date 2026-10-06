@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005D916A@Rva005D8EE8@@QAE_NPAVObject@@@Z @0x005D916A 47B
 // Evidence: vslot 6 of 0x00876254 class Rva005D8EE8 plus AI victim plus picker 0x005D8F0F.
 class Object;

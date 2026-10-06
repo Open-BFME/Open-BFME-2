@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva005DB100@@UAE@XZ @0x005DB100 69B
 // retail 0x005DB100 69 bytes unlock dtor vtable 0x008766A4 plus ReleaseTreeHintRef at +0x38+0xAC
 // via rowed Release 0x0007DEEF and rowed base dtor 0x0039AD56 caller deleting dtor 0x005DB1EB

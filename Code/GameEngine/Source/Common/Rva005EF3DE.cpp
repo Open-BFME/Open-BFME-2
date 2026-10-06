@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005EF3DE@Rva005EF3DE@@QAEXXZ retail 0x005EF3DE 8B
 // Evidence: forwarder mov ecx,[ecx+4]; jmp rowed 0x005EF283 ?rva005EF283@Rva005EF283@@QAEXXZ; caller 0x005E19FD.
 class Rva005EF283

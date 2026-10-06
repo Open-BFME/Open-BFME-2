@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?Rva005D5BA3PushHeap@@YAXPAVRva005D5A7E@@HHV1@H@Z @0x005D5BA3 90B.
 // __push_heap sift-up for 12B Rva005D5A7E via rva005D5A7E ordering.
 // Evidence: caller 0x005D5F09 in 0x005D5E8A cleans 0x1C (28B = 4+4+4+12+4);

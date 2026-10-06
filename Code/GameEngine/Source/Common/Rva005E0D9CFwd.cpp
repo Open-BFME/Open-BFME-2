@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E0D9C@Rva005E0D9C@@QAEXXZ @0x005E0D9C 36B.
 // If +0x10 null return; else call rowed no-arg int getter 0x005CB265 via +0x0C;
 // if result != +0x10 return; else tail-jmp to rowed void forwarder 0x005CB260.

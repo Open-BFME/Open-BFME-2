@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005EB87A@Rva005EB87A@@QAE_NXZ @0x005EB87A 21B
 // Predicate returning field08 neither 0 nor 4. Evidence: callers 0x005CFFE8 0x005CFF0F 0x005D1129 test al; no callees.
 struct Rva005EB87AInner {

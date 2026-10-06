@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ??1Rva005E0B0F@@UAE@XZ @0x005E0B0F 128B
 // Dtor with own vtable 0x00877960 and base 0x0086E330. Calls forwarder

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E51D3@Rva005E51D3@@QAEXXZ @0x005E51D3 31B lea-call-push-call.
 // Same shape as twins 0x005E3E41/0x005E4389 but first is empty 0x00B3FD0.
 // Address-derived.

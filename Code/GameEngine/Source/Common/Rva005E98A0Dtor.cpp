@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005E98A0@@QAE@XZ retail 0x005E98A0 65B
 // Pointee dtor run by the rowed owning-pointer reset 0x005E9E27. Body (EH
 // state 0): reset the member at +0x18 through the rowed

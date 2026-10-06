@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva005D309D@@QAE@XZ @0x005D309D 81B
 // Dtor with AsciiString at +4 and three Rva005D2EA8 members at +0x20 +0x38 +0x50.
 // Evidence: three calls to pinned ??1Rva005D2EA8@@UAE@XZ plus releaseBuffer

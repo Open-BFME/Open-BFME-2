@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?Rva005E30E8AptCall@@YAHPAV1PAXPBD1PAVRva005E2D74@@@Z, retail 0x005E30E8 99B free cdecl.
 // Level-gated AptCall via Rva005E2D74::rva005E306D string plus rowed 0x00222B19.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005D2F1D@@QAE@ABURvaS16@@ABURvaS08@@@Z @0x005D2F1D 34B and
 // ??0Rva005D2F3F@@QAE@ABURvaS24@@ABURvaS08@@@Z @0x005D2F3F 35B: concat ctors
 // building S24 from S16+pair and S32 from S24+pair via init lists. Evidence:

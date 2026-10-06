@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva005E16DA@@QAE@H@Z, retail 0x005E16DA, 35 bytes.
 //

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?Rva005F02E0Get@@YAPBVImage@@PAX@Z @0x005F02E0 56B
 // Evidence: unlock lane, prev Rva005F0220Get 0x005F0220 next rva005F05E6

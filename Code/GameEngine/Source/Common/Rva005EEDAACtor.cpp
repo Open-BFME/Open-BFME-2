@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005EEDAA@@QAE@XZ, retail 0x005EED92, 24 bytes.
 // Derived ctor for Rva005EEDAA (vtable 0x00878788 same as rowed dtor 0x005EEDAA
 // in Rva005EE30CChain.cpp). Calls base Rva0058AD7A ctor 0x0058AD4D with 3

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005D4F0E@Rva005D4F0E@@QAEXXZ @0x005D4F0E 25B
 // Triple clear: this+0 via rowed 0x0057C2CC then this+0xC via rowed 0x005D4E8B then tail jmp to rowed clear 0x002BED91 at this+8.
 // Evidence: callees all rowed; callers at 0x005D5012 and jmp at 0x005D4F7F; unblocks 0x005D4F7D.

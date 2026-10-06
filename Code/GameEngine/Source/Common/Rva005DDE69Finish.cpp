@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 //
 // ?rva005DDE69@Rva005DDE69@@QAEMIII@Z @0x005DDE69 54B. Bounds-checked wrapper
 // over range-max 0x005DDCA5; count from byte range at +4/+8 divided by 0x18,

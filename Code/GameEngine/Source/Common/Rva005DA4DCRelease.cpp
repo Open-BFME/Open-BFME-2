@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva005DA4DC@@QAE@XZ, retail 0x005DA4DC, 29 bytes.
 // Non-virtual dtor null-checking the +8 pointer member, dispatching its

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005D3AF2@Rva005D3AF2@@QAEXXZ retail 0x005D3AF2 52B
 // Evidence: unlock-lane body with rowed slot1 0x005CB260 and pinned no-arg int 0x005CB265 getters on +0x18 pointer compared against +0x1C holder first dword then clears +0x1C via rowed 0x002BED91; same shape as Rva005796B3Method.cpp and Rva005F3F14Method.cpp; callers 0x005D3C23 0x005D3C4F 0x005D3CB3 0x005D3D54 0x005D3DDE; neighbours share // cl: /O1 /MD /EHsc
 class Rva005CB260

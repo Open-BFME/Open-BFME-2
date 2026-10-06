@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005D20E5@Rva005D20E5@@QAEXXZ @0x005D20E5 44B.
 // Empty 0x00B3FD0 (reuses pinned empty); if +0x14 is 0 return; else calls
 // pinned 0x005CCB5B (this-only void), then pinned 0x002BF6A7 via +0x10

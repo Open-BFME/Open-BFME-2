@@ -1,4 +1,4 @@
-// cl: /Os /MD
+// cl: /MD
 // ??0Rva005CED37@@QAE@PBH@Z, retail 0x005CED37, 53 bytes.
 // Outer holds new 0xC-byte vtable object g_00C751F8 with +4 refcount and
 // +8 payload from *arg, stored to +0 with AddRef inc, returns this.

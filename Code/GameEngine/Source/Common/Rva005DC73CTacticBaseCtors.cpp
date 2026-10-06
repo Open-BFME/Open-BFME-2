@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // Skirmish-AI tactic base ctors taking the tactic name:
 //   ??0Rva005DC73C@@QAE@ABVAsciiString@@@Z @0x005DC722 26B, vtable 0x00C767DC

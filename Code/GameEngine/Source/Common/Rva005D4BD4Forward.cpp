@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005D4BD4@Rva005D4BD4@@QAEXM@Z @0x005D4BD4 19B: float forwarder to rowed SetPos 0x005D4B6E via member at +0x14. Evidence: fld fstp x87 copy plus rowed callee 0x005D4B6E plus caller 0x0057A4D6 sibling forwarders 0x005D4BAE 0x005D4BC1.
 class Rva005D4B6E
 {

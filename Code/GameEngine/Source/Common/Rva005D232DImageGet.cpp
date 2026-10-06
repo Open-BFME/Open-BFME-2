@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva005D232DGet@@YAPBVImage@@PAURva005D232DIn@@@Z @0x005D232D 40B
 // Image lookup sibling of 0x005D2355: +0x28 referent plus 0xC string goes through
 // global 0x009FF000 rowed 0x002D06CA then tail-jmps ThingTemplate 0x0033BA46.

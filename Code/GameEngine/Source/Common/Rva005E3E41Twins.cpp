@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Twins 2x31B: 0x005E3E41 and 0x005E4389.
 // Each: lea this2 = (inner+this-0x14) then call rowed 8B forwarder
 // (0x005F3F6B / 0x005F3FF4) then call pinned second (0x005E3AAA / 0x005E4087)

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005E5942@Rva005E5942@@QAEXXZ @ 0x005E5942 33B
 // Evidence: rowed rva00319B31 0x00319B31 and rva00319B0A 0x00319B0A via Owner at +0x18 and wide validate 0x000B3FD0; chain after 0x00319B0A; neighbours VslotSmallBodiesAI and BitFlags11.
 // class-gate: allow StringBase private validate for row ?validate@?$StringBase@G@@ABEXXZ at 0x000B3FD0

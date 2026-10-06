@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1Rva005EB753@@UAE@XZ @0x005EB753 14B: vptr store then tail clear on member at +4.
 // Evidence: vtable 0x00C7823C#0 plus ??_G 0x005EB761 in OpaqueScalarDeletingDtorsB17.cpp
