@@ -1,5 +1,3 @@
-// ?rva003802DF@Rva00380200@@QAEHXZ
-// partial score=0.92 date=2026-10-01
 // cl: /Ireference/shims/bfme2_ascii /GX- /O1 /arch:SSE
 // ?rva003802DF@Rva00380200@@QAEHXZ @0x003802DF 157B. Unlock min selector plus rank store tail.
 // evidence: abuts prev 0x0038028B same page same class Rva00380200; vcall +0x14 plus g_009FEF10 plus TheRankInfoStore get 0x003B0FC6 plus rva002B2AFD plus TheGameLogic mode +0x110 plus isInMultiplayerGame; unblocks 4.
@@ -48,7 +46,6 @@ public:
 private:
     Rva003802DFPayload *m_04;
 };
-// ?rva003802DF@Rva00380200@@QAEHXZ present-unmatched
 int Rva00380200::rva003802DF()
 {
     if (isReady() && g_009FEF10)
@@ -58,7 +55,7 @@ int Rva00380200::rva003802DF()
         const int &r = b < a ? b : a;
         return r;
     }
-    if (m_04)
+    else if (m_04)
     {
         GameLogic *logic = TheGameLogic;
         if (logic->m_gameMode == 2 || logic->isInMultiplayerGame())
@@ -76,5 +73,8 @@ int Rva00380200::rva003802DF()
             return r;
         }
     }
-    return ((Rva003B0FC6SarAvgField *)TheRankInfoStore)->get();
+    else
+    {
+        return ((Rva003B0FC6SarAvgField *)TheRankInfoStore)->get();
+    }
 }

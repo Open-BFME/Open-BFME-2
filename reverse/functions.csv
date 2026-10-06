@@ -64629,3 +64629,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva00569AA8@Rva00569AA8@@QAEXXZ,,0x00569AA8,21,Code/Libraries/Source/WWVegas/WWLib/Rva00569AA8Teardown.cpp,matched,linkbody 27B via and-zero plus teardown plus tail clear
 ?rva00155AD0@Rva00155AD0@@QAEXXZ,,0x00155AD0,47,Code/Libraries/Source/WWVegas/WW3D2/Rva00155AD0.cpp,matched,callers FUN_00505216 FUN_00506405 callees rowed pinned
 ?rva003EDC31@Rva0020DXXXElem@@QAEXXZ,,0x003EDC31,101,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003EDC31.cpp,matched,leaf via TerrainLogic slot30 rect plus pinned walk
+?rva003802DF@Rva00380200@@QAEHXZ,,0x003802DF,157,Code/GameEngine/Source/Common/Rva003802DF.cpp,matched,unlock min selector plus rank store tail unblocks 4

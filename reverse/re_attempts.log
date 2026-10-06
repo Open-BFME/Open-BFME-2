@@ -11565,3 +11565,6 @@ FUN_0061b7b6	0x0021B7B6	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use r
 FUN_0067edbc	0x0027EDBC	241	blocked	needs alternatename for 3-arg ji_006291ae memset thunk now refused; 0-arg row uncallable with pushes t=8 model=muse-08
 FUN_008ef6a0	0x004EF6A0	154	blocked	ADDRESS-NAMED g_Va009FF0F8 use refused per taskfile t=2 model=muse-08
 FUN_008ee9e9	0x004EE9E9	245	blocked	adapted stash to pin name without hatches scored lower 223B vs 245B missing EH-prolog states SEH; wall needs non-POD Elem dtor idea t=15 model=muse-08
+?rva0060DE23@BfmeRva00C7B388@@QAEXXZ	0x0060DE23	142	partial	push-before-reload vs retail reload-before-push plus sub-vs-add 0B same-size no reg-mem diffs t=20 model=muse-05 score=0.98 stash=reverse/attempts/0x0060de23.cpp
+?rva00318C32@Rva00318C32@@QAEHXZ	0x00318C32	71	blocked	eax-ecx spill mirror and early lea esi push scheduling only LINK BONUS name t=20 model=muse-05 (stash 0.9 kept)
+?rva0046E113@HordeContain@@UAE_NPAUCoord3D@@@Z	0x0046E113	320	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused t=1 model=muse-05
