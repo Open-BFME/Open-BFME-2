@@ -92,6 +92,7 @@ struct Gen_uwv_tail { Gen_uwv_tail(); ~Gen_uwv_tail() throw(); };
 struct Gen_uwv_0002cc70_s12 { char bytes[12]; Gen_uwv_0002cc70_s12() throw(); ~Gen_uwv_0002cc70_s12() throw(); };
 struct Gen_uwv_000b3fd0_s12 { char bytes[12]; Gen_uwv_000b3fd0_s12() throw(); ~Gen_uwv_000b3fd0_s12() throw(); };
 struct Gen_uwv_000b3fd0_s16 { char bytes[16]; Gen_uwv_000b3fd0_s16() throw(); ~Gen_uwv_000b3fd0_s16() throw(); };
+struct Gen_uwv_004d1d32_s12 { char bytes[12]; Gen_uwv_004d1d32_s12() throw(); ~Gen_uwv_004d1d32_s12() throw(); };
 struct Gen_uwv_00577998_s28 { char bytes[28]; Gen_uwv_00577998_s28() throw(); ~Gen_uwv_00577998_s28() throw(); };
 
 struct Gen_uwt_000b3fd0;
@@ -621,6 +622,10 @@ Gen_uwvh0_000b3fd0_n32_s12_o812::Gen_uwvh0_000b3fd0_n32_s12_o812() : tail() {  }
 struct Gen_uwvh0_000b3fd0_n32_s12_o1196 { char prefix[1196]; Gen_uwv_000b3fd0_s12 elements[32]; Gen_uwv_tail tail; Gen_uwvh0_000b3fd0_n32_s12_o1196(); };
 // ??0Gen_uwvh0_000b3fd0_n32_s12_o1196@@QAE@XZ absent-from-retail
 Gen_uwvh0_000b3fd0_n32_s12_o1196::Gen_uwvh0_000b3fd0_n32_s12_o1196() : tail() {  }
+
+struct Gen_uwvh8_004d1d32_n8_s12_o74064 { char prefix[74064]; Gen_uwv_004d1d32_s12 elements[8]; Gen_uwv_tail tail; Gen_uwvh8_004d1d32_n8_s12_o74064(); };
+// ??0Gen_uwvh8_004d1d32_n8_s12_o74064@@QAE@XZ absent-from-retail
+Gen_uwvh8_004d1d32_n8_s12_o74064::Gen_uwvh8_004d1d32_n8_s12_o74064() : tail() { char pad[8]; gen_uw_sink(pad); }
 
 struct Gen_uwvh4_00577998_n48_s28_o1360 { char prefix[1360]; Gen_uwv_00577998_s28 elements[48]; Gen_uwv_tail tail; Gen_uwvh4_00577998_n48_s28_o1360(); };
 // ??0Gen_uwvh4_00577998_n48_s28_o1360@@QAE@XZ absent-from-retail
