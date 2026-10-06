@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004A9B06@WorkerAIUpdate@@SA?AW4NameKeyType@@XZ @0x4A9B06
 // (68B): cached pool-name key for WorkerAIUpdate. The class
 // identity comes from the pool-name string the body pushes

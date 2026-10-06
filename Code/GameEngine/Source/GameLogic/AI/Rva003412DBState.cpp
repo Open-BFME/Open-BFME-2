@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003412DB@Rva003412DB@@QAE?AW4StateReturnType@@XZ @0x003412DB 94B.
 //

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // TurretAI::friend_turnTowardsPitch, retail 0x004D80EE (200 bytes), and
 // friend_turnTowardsAngle, retail 0x004D8990 (431 bytes), ported from Zero

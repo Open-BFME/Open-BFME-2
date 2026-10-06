@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ??1Rva0032BF1B@@QAE@XZ @0x0032BF1B 30B.
 // Vector-style dtor over Rva0032A3A9Element* (0x80-byte element with virtual dtor):

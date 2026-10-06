@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??4Payload@DeliverPayloadNugget@@QAEAAU01@ABU01@@Z @0x0027F589 29B
 // Payload copy-assign: plain-copy scalar at +0 then TreeHintRef assign at +4 then return this.
 // Evidence: pinned name; callee TreeHintRef assign 0x002174A4 rowed; caller STL copy in ObjectCreationList.cpp; prev/next Map TUs share flags.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // onExit overrides of the BFME 2 giant-bird flight states, each named by its
 // vtable's slot-2 name getter (the state's own name literal):

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0045D459@SlowDeathBehavior@@SA?AW4NameKeyType@@XZ @0x45D459
 // (68B): cached pool-name key for SlowDeathBehavior. The class
 // identity comes from the pool-name string the body pushes

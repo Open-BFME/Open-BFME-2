@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?openKeyboard@DirectInputKeyboard@@IAEXXZ, retail 0x00098BD4, 188 bytes
 // (formerly rowed as rva00098BD4; Zero Hour's openKeyboard, called by

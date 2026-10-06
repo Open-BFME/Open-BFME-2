@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 
 // ??0Path@@QAE@XZ, retail 0x00363DC8, 49 bytes. Path constructor: clears the
 // node list and cached-point state. Donor: BFME1 AIPathfind.cpp Path::Path

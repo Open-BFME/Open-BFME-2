@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Dump lane range 13: ?rva002EBA88 @0x002EBA88 67B. Init with defaults
 // (0x80, 0, 0, 0x42FFC0, 0x42FFE0, 0) then the pinned 6-arg 0x001FF36A;
 // returns this. Identity unproven.

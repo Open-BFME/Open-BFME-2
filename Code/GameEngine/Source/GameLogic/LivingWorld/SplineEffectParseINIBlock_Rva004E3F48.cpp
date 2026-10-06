@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/LivingWorld
+// cl: -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/LivingWorld
 // Open-BFME7: SplineEffect::ParseINIBlock (retail 0x003BB730 214 B; a gap
 // claimed through its own exception text -- despite the "::" the entry point
 // takes no `this`.  Unlike its neighbours it checks THREE arguments for

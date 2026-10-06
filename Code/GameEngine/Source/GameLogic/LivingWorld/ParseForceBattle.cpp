@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 // ParseForceBattle, retail RVA 0x004E16D9 (123 bytes). Target evidence:
 // the callback table at VA 0x00C6CD60 registers ForceBattle to this body, and
 // its error branch uses the matching literal at VA 0x00C61ABC. The local record

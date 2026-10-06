@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00363D20@Rva00363D20@@QAENXZ @0x00363D20 (84B).
 // Unlock path-length sum over consecutive PathNode positions (+0xC) via

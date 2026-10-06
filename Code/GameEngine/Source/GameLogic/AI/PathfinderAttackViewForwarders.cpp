@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI
 //
 // Open-BFME: the four Pathfinder attack-view forwarders -- the only bodies in
 // this class retail compiled with optimisation on.

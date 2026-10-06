@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // Retail 0x004573D4, 75B. Identity is the matching ZH method plus its same
 // list/object/interface traversal in BFME 1's BridgeBehaviorOnHealing.cpp
 // (donor revision 6583b3c1ff21db4a561285717028fdafc780b7db). Retail bytes

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/LivingWorld
+// cl: -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/LivingWorld
 // ParseFlashRegionsEvent: retail RVA 0x003B7190, 145 bytes through the
 // _CxxThrowException call. The following int3 is alignment, not body coverage.
 // Identity: exact exception literal ParseFlashRegionsEvent::Invalid data passed in.

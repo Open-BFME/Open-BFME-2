@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000485163@AnnounceBirthAndDeathBehavior@@SA?AW4NameKeyType@@XZ @0x485163
 // (69B): cached pool-name key for AnnounceBirthAndDeathBehavior. The class
 // identity comes from the pool-name string the body pushes

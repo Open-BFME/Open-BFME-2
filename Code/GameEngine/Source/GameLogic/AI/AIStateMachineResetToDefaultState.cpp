@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIStateMachine::resetToDefaultState, retail 0x00350392 (62 bytes): slot 6 of
 // vtable 0x00C14CD0, whose slot-2 name getter 0x00351753 returns

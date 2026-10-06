@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?xfer@GroupOrder@@UAEXPAVXfer@@@Z @0x00548AC2 70B evidence: vtable slot 3 offset 0xC of 0x0086A520 class of GroupOrder ctor; calls rowed Rva00398280Xfer 0x00398280 with this+4 vector; xferVersion 1-1 then xferUnsignedInt this+0x10 this+0x14; unblocks 0x00546FC9 etc.; callers 0x00546A48 etc.
 // Proven method keeps real name xfer (slot 3 recipe).

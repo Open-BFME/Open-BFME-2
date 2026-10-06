@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002F95B7@Pathfinder@@QAEH... retail 0x002F95B7 63B.
 // Pathfinder helper that converts two world positions to cells via rowed

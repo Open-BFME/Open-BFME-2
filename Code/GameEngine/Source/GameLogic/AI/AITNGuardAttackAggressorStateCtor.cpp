@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ??0AITNGuardAttackAggressorState@@QAE@PAVStateMachine@@@Z @0x00545E80 44B
 // AITNGuardAttackAggressorState ctor: State(machine, 0x33E96013), vtable
 // 0x00C6A298, exitConditions vtable 0x00C6A13C at +0x20 with giveUpFrame 0

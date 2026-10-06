@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI
 // stlport
 
 // Retail 0x0018BB10, 282 bytes. Shape-twin of Zero Hour's Squad::getAllObjects

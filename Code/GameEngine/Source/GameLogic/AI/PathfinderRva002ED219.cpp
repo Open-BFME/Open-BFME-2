@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002ED219@Pathfinder@@QAE_NPBUCoord3D@@0@Z @0x002ED219 29B Pathfinder wrapper: calls rowed rva002EADE1 with layer 1 and temp info then returns not. Evidence: rowed callee 0x002EADE1, callers 0x0027D276 0x00364551 0x004B0FEB, neighbours share flags.
 typedef int Int;
 typedef float Real;

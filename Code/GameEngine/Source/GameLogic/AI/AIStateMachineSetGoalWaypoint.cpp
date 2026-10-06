@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Native 0x003E3BFB..0x003E3C05: store the argument at +0x48; RET4.
 // AIUpdate team/waypoint callers pass null or a Waypoint pointer here.
 // ZH AI/AIStates.cpp setGoalWaypoint supplies the semantic source; BFME2's

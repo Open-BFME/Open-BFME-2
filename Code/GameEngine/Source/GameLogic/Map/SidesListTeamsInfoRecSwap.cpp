@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 // ?swap@TeamsInfoRec@@QAEXPAV1@@Z retail 0x0032B651 63 bytes.
 // TeamsInfoRec member-wise swap: rowed Rb_tree<int int> swap at 0x0032AC92

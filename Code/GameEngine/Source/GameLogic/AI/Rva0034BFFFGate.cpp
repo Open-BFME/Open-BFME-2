@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0034BFFF@@YGXPAVObject@@@Z @0x0034BFFF 51B.
 // Stdcall weapon-state applier (single object arg): resolves the current
 // weapon through rowed getCurrentWeapon and, when present, applies the

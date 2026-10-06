@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringbaseascii/Common -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Map
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringbaseascii/Common -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Map
 // Retail 0x00194050: full 159-byte LibraryMaps parser constructor.
 // Matched LibraryMapLists::readDataChunk at 0x00198700 names this constructor
 // with four void-pointer arguments through ILT 0x0001ED26 -> 0x00194050.

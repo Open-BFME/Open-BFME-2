@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?getCell@PathfindLayer@@QAEPAVPathfindCell@@HH@Z
 // retail 0x00366626, 69 bytes (Ghidra FUN_00766626).

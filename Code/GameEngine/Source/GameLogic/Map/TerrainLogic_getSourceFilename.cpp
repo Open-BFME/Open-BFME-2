@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG
 // TerrainLogic::getSourceFilename, retail 0x00062E72 (27 bytes): slot 17 of
 // the TerrainLogic vftable 0x00BFB2C8 and of W3DTerrainLogic's 0x00BC5890
 // (whose slot-2 name getters return TerrainLogic / W3DTerrainLogic, so the

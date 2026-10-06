@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/moduledata /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/moduledata /DNDEBUG /MD
 // cl: /O1 /DNDEBUG /MD /GX
 /*
 **	Command & Conquer Generals Zero Hour(tm)

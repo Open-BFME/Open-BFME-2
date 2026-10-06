@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/GameLogic/AI/TeamInQueueBuildPredicates.cpp (donor

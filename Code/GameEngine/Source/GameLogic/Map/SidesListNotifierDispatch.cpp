@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // SidesListNotifier's two walks, the dispatch half of the post() pair rowed
 // in SidesList_sidesInfo.cpp (0x0032B522, 0x0032B540).  They are the

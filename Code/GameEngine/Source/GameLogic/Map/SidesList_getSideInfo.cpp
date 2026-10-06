@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?getSideInfo@SidesList@@QAEPAUSidesInfo@@H@Z,
 // retail 0x002035BA, 25 bytes. Dedicated TU.

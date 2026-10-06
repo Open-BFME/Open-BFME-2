@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Unlock Path waypoint scan via head +0x4 and selected node +0x10 with
 // optimized links +0x8 and waypoint guard +0x20. Evidence: Path layout
 // matches PathCtor 0x00363DC8 and PathRva00363DF9 (head +4 sel +10

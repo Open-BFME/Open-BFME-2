@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // BFME2 BuildListInfo desired-gatherers getter, transferred from the exact
 // BFME1 reconstruction (Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp).

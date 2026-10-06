@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Pathfinder::getCell (retail 0x002E6D62) and fifteen cell-space line walks
 // that iterate the cells between two ICoord2D cells with Bresenham and hand

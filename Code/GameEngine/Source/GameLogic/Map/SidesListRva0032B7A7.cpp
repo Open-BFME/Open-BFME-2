@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0032B7A7@SidesList@@QAEXPAV1@@Z retail 0x0032B7A7 60 bytes.
 // SidesList single-teamrec swap: rowed TeamsInfoRec::swap at 0x0032B651 for
 // the record at +0xF44, plus rowed SidesListNotifier posts at 0x0032B540

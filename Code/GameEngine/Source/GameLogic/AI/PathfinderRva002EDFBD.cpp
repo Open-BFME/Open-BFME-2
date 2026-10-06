@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002EDFBD@Pathfinder@@QAEHPBUCoord3D@@PAU2@@Z @0x002EDFBD 60B Pathfinder helper: builds Rva002E7B02 info from this+4+*a then calls rowed rva002EB3D7 and copies back 12B on success. Evidence: rowed callees 0x002E7B02 0x002EB3D7, callers 0x002EFA95 0x00371721, neighbours share flags.
 typedef int Int;
 typedef float Real;

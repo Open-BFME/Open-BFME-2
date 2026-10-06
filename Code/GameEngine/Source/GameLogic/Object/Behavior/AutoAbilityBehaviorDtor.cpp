@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // ??1AutoAbilityBehavior@@UAE@XZ, retail 0x0045A37F, 73 bytes.
 // AutoAbilityBehavior dtor over the rowed UpdateModule base 0x0024A797.

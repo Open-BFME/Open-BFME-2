@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Byte-exact reconstruction of ?update@AIPickUpCrateState@@UAE?AW4StateReturnType@@XZ
 // at retail 0x0034DEDE (26B).
 // Donor: reference/open-bfme-1/Code/GameEngine/Source/GameLogic/AI/AIStates.cpp

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB
 // ?rva004D750F@StateMachine@@QAEXPAVObject@@@Z at retail 0x004D750F (14B).
 // Locked-guard tail-jmp to ?setGoalObject@StateMachine@@QAEXPAVObject@@@Z 0x004D7435.
 // Evidence: cmp byte [ecx+0x38] (m_locked per StateMachineGoal layout) then jmp to rowed

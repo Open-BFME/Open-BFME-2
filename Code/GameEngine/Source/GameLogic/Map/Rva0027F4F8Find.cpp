@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0027F4F8@Rva0027F4F8@@QAEPAXH@Z @0x0027F4F8 33B. Linear search of
 // 8-byte entries from [this+0x14] to [this+0x18]: return second dword
 // where first equals int arg else NULL. Caller 0x00283845.

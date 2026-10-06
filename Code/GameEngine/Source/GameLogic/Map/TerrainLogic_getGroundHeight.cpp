@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ZH donor: GeneralsMD TerrainLogic.cpp getGroundHeight and getLayerHeight,
 // the default (flat, zero-height) implementations.
 // ?getGroundHeight@TerrainLogic@@UBEMMMPAUCoord3D@@@Z @0x0027CE9A 34B and

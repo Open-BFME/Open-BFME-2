@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0BuildListInfo@@QAE@XZ @0x0032A0CE 184B
 // BuildListInfo default ctor (0x80 bytes).

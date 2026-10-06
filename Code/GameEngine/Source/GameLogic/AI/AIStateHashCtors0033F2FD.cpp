@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // State-derived constructors packed at 0x0033F2FD..0x0033F834, each
 // followed by its rowed 6-byte constant getter. Every body calls the State

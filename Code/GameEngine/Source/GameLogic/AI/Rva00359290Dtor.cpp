@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva00359290@@UAE@XZ @0x00359290 85B.
 // Virtual scalar dtor (vptr 0xC15398): vptr store, three member-dtor calls
 // in reverse order through the rowed Rva00358D62/Rva00358E6A bodies, then

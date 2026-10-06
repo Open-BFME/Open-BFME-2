@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?allow@Rva002619C1Filter@@UAE_NPAVObject@@@Z @0x002619C1 250B
 // Partition filter allow (vftable 0x00C07150 slot 1, Rva002619C1Filter):
 // line-of-sight/attack check using rowed getCurrentWeapon, Pathfinder

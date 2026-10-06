@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Map
+// cl: -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Map
 // TerrainLogic::newMap, retail 0x001AE190, 58 bytes.
 //
 // TerrainLogic's vtable at 0x0109C428 installs the target's ILT in slot 5;

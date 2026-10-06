@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // Retail 0x003063A9, 112 bytes.
 // Free Xfer helper for ThingTemplate*: copies the template name at +0x64 or

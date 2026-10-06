@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ??1SynchronizeGroupOrder@@UAE@XZ, retail 0x005468E1, 59 bytes.
 // SynchronizeGroupOrder destructor: reinstalls vtable 0x0086A314, destroys the +0x18

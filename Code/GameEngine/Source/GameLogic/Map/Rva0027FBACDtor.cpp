@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva0027FBAC@@UAE@XZ @0x0027FBAC 82B. Dtor stores vtable 0x00BFB1E0,
 // null-checked delete of +0xC8 via first virtual with int arg 0 returning
 // pointer freed by rowed ??3@YAXPAX@Z, then releases AsciiString at +8 via

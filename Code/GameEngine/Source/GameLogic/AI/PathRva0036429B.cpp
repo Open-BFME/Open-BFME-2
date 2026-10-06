@@ -1,5 +1,5 @@
 // ?rva0036429B@Rva0036429B@@QAEXPAUFreeNode@@@Z
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Rva0036429B free-list helper, retail 0x0036429B, 45 bytes: recurse on +0xC
 // then free via rowed _free walking +8. Evidence: self-call plus _free row

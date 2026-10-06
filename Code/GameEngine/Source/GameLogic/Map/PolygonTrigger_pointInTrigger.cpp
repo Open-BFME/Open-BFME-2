@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?pointInTrigger@PolygonTrigger@@QAE_NABVICoord3D@@@Z
 // Retail boundary 0x002E3A13..0x002E3A39 (38B); target bytes copy x/y into a
 // two-int local and call 0x00285B66 with that pointer and this+8. The ZH donor

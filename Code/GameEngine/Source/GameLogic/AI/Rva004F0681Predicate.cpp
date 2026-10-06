@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004F0681@Rva004F0681@@QAEEXZ @0x004F0681 37B TeamInQueue-area predicate.
 // Evidence: contiguous with TeamInQueue::isMinimumBuilt 0x004F06A6 (ends 0x004F06A6); triple deref +0x1C/+0x30/+0x1F8 gated >=1 then +0x24 plus value vs TheGameLogic+0x40 unsigned above; caller 0x004F1653+0x23; prev/next share /O1.
 struct Rva004F0681Inner

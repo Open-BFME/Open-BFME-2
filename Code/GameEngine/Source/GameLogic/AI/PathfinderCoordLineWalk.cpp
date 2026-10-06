@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?iterateCellsAlongLine@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002ED15AInfo@@@Z @0x002F0CF6 63B Coord3D overload converts both points via WorldToCell 0x002E7875 then walks via 0x002EF116.
 // Evidence: callees rowed WorldToCell PathfindShimWorldToCell.cpp and iterate PathfinderCellLineWalks.cpp; caller 0x002F1BC6 in 51B unclaimed.
 typedef int Int;

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?rva00281BF7@Rva00281BF7@@QAEHXZ, RVA 0x00281BF7, 28 bytes.
 // BuildListInfo-adjacent ID lookup: push ObjectID at +0x60, call rowed
 // GameLogic::findObjectByID 0x00049DC5 via TheGameLogic 0x00DFE78C, return 0

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0047801C@GarrisonContain@@SA?AW4NameKeyType@@XZ @0x47801C
 // (68B): cached pool-name key for GarrisonContain. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0045C812@BezierProjectileBehavior@@QAEXPBVObject@@@Z @0x0045C812 62B
 // Bezier fire-temp-weapon plus list push calling rowed WeaponStore::rva002CE8AA 0x002CE8AA and pinned push_back 0x002A1B6F

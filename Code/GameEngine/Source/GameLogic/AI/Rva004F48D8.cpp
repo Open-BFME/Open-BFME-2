@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva004F48D8@Rva004F07E6@@QAEXXZ at 0x004F48D8 (79B).
 // Vtable slot 18 of 0x00862DC8 (class Rva004F07E6 dtor 0x004F07E6).
 // Evidence: calls pin bfmeTailDTK 0x004F46A9 and vslot 0x68; global g_Va00DBA4E4; imul by 5 precedent AIRoamingDefenseTactic.

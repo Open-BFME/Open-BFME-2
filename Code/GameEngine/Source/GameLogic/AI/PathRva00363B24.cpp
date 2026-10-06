@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00363B24@Path@@QAEXH@Z @0x00363B24 (17B).
 // Leaf Path tail waypoint setter via tail +0x8 and waypoint +0x20.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??0Rva004E16D9Record@@QAE@XZ @0x004E15FB 135B (pinned; dtor row 0x004E1682
 // in Rva004E16D9RecordDtor.cpp; caller ParseForceBattle 0x004E16D9).
 // Stores vtable 0x00C61A70, copies AsciiString::TheEmptyString into +0x04

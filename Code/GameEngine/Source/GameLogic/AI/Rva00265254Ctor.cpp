@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva00265254@@QAE@IIII@Z retail 0x00265254 88B.
 // Unlock lane: memset 0x4c plus three bit sets; callers pass 0 plus three ids.
 // Evidence: callers at 0x00265B39 0x002671F1 pass 0 0x7b-0x7d 0x151-0x153.

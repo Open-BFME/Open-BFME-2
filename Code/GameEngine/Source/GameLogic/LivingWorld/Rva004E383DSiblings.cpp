@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 // ParseEyeTowerPointData, retail RVA 0x004E383D (123 bytes), recovered from the
 // ParseForceBattle recipe at 0x004E16D9. Same operand-masked shape: null-check
 // INI and instance, construct a stack record, INI::initFromINI it against the

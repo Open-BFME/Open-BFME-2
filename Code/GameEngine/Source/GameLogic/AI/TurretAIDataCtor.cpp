@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?TurretAIData ctor, retail 0x004D7E6C, 141B.
 // TurretAIData nullary ctor: turn/pitch defaults, 6-wide sweep/speed loop,

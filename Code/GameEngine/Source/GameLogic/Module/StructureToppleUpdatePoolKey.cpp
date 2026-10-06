@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004A5511@StructureToppleUpdate@@SA?AW4NameKeyType@@XZ @0x4A5511
 // (68B): cached pool-name key for StructureToppleUpdate. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000484F76@PillageModule@@SA?AW4NameKeyType@@XZ @0x484f76
 // (69B): cached pool-name key for PillageModule. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?clear@TeamsInfoRec@@QAEXXZ retail 0x0032C9C6 58 bytes, called and tail-jumped
 // by SidesList::emptyTeams 0x0032D065 / 0x0032D071 on the two TeamsInfoRecs at
 // SidesList +0xF44 / +0xF60.

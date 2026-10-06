@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002F714B@Pathfinder@@QAEHPAVObject@@PBUCoord3D@@1@Z @0x002F714B 91B.
 // Pathfinder helper that picks a layer then runs the Coord wrapper 0x002F6AE3.

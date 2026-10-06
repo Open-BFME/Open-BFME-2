@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Dump lane range 13: ?rva002EBC34 @0x002EBC34 37B. Frameless bounded-cell
 // helper: rowed IsOdd on one arg (sharing a pushed arg), then the pinned
 // bounded WorldToCell 0x002E7964, returning the out pointer. Identity unproven.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0AIPlayer@@QAE@PAVPlayer@@@Z @0x004F04FC 190B: AIPlayer::AIPlayer(Player*)
 // after the BFME1/Zero Hour donor, on the BFME2 layout read from the retail

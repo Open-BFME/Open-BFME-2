@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?defineState@StateMachine@@QAEXIPAUState@@IIPBUStateConditionInfo@@@Z at retail 0x004D7B0F (97B).

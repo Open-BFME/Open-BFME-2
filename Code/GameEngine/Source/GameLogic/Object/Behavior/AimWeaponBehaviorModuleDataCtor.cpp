@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0AimWeaponBehaviorModuleData@@QAE@XZ, retail 0x0045B1DD, 55 bytes.
 // Frameless store-only ctor over the Aim table 0xC41948 (AimLowThreshold@8,

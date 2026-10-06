@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // Class-name slots of six BFME 2 group orders (no Zero Hour counterpart).
 // Each order's slot 12 hands back its class key from the lazily-resolved

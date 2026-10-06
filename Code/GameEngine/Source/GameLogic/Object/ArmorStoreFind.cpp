@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva001D901B@Rva001D901B@@QBEPBVArmorTemplate@@ABVAsciiString@@@Z @0x001D901B 47B unlock.
 // Evidence: NameKeyGenerator->nameToKey 0x0009FA65 rowed plus hashtable _M_find

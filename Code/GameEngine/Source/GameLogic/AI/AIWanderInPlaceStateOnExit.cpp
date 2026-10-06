@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIWanderInPlaceState::onExit, retail 0x0034A364 (42 bytes): slot 5 of vtable
 // 0x00C12AC8, whose slot-2 name getter returns AIWanderInPlaceState and whose

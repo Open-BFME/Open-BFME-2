@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002EB675@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z 0x002EB675 63B Pathfinder helper converting two Coord3D to cells then iterateCellsAlongLine 0x002E8A47. Evidence: rowed WorldToCell 0x002E7875 twice plus rowed walk 0x002E8A47 caller 0x002EE97F unlocks 0x002EE96B.
 typedef int Int;
 typedef float Real;

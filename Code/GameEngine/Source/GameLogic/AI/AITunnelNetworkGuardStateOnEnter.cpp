@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // AITunnelNetworkGuardState::onEnter, retail 0x00342086 (154 bytes): slot 4
 // of vtable 0x00C11850, whose slot-2 name getter returns

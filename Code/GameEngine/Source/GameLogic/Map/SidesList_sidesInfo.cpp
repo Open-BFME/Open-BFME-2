@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // BFME2 SidesList.cpp bodies. Donor: ZH GameLogic/Map/SidesList.cpp
 // (SidesInfo::~SidesInfo/init, SidesList::clear/emptySides/emptyTeams/addSide).

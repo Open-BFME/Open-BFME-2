@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // AIWanderState::onEnter, retail 0x0034F1E1 (278 bytes): slot 4 of the
 // vtable whose slot-2 name getter returns AIWanderState. Ported from Zero

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/moduledata
+// cl: /MD /Ireference/shims/moduledata
 //
 // GroupOrder is the shared base: matched constructor/xfer TUs
 // identify it for GarrisonObjectGroupOrder and AttackObjectGroupOrder, whose dtors tail-jump to 0x548948.

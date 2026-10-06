@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0AISkirmishPlayer@@QAE@PAVPlayer@@@Z @0x004EF3A3 116B: Zero Hour
 // AISkirmishPlayer::AISkirmishPlayer(Player *p). Identity: the vtable it

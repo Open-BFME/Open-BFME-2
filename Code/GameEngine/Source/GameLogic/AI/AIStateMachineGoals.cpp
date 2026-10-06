@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // AIStateMachine goal setters, ported from Zero Hour's GameEngine/Source/
 // GameLogic/AI/AIStates.cpp (GeneralsMD tree vendored under

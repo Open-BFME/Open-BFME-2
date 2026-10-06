@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0AnnounceBirthAndDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00485125, 56 bytes.
 // AnnounceBirthAndDeathBehavior behavior ctor over the rowed CreateModule

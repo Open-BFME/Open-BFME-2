@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ZH donor: GeneralsMD TerrainLogic.cpp isBridgeRepaired and isBridgeBroken.
 // ?isBridgeRepaired@TerrainLogic@@QAE_NPBVObject@@@Z @0x0027D40B 60B and
 // ?isBridgeBroken@TerrainLogic@@QAE_NPBVObject@@@Z @0x0027D447 60B.

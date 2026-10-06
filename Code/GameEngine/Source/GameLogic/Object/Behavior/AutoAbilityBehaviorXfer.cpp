@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?xfer@AutoAbilityBehavior@@MAEXPAVXfer@@@Z, retail 0x0045A291, 86 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x0084175C (class of rowed dtor

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?xfer@BezierProjectileBehavior@@MAEXPAVXfer@@@Z @0x0045CA8E 483B
 // BezierProjectileBehavior::xfer snapshot slot 3 of vtable 0x00841E04 calling rowed UpdateModule::xfer 0x0044DF9F

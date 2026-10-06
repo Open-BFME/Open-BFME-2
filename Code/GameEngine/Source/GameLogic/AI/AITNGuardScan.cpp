@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ?TunnelNetworkScan@@YIPAVObject@@PAV1@@Z, retail 0x00545DEE, 146 bytes.
 // Zero Hour AITNGuard.cpp's file-static TunnelNetworkScan: the closest

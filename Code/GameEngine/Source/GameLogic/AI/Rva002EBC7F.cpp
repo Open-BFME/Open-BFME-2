@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Dump lane range 13: ?rva002EBC7F @0x002EBC7F 40B. Cdecl helper: rowed
 // IsOdd on one arg (sharing pushed args), then pinned cdecl 0x002E79A8
 // with a struct pair unpacked, returning the first arg. Identity unproven.

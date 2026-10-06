@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/LivingWorld
+// cl: -DNDEBUG -DWIN32 -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/LivingWorld
 // Open-BFME7: ParseWorldTextBlock (retail 0x003B8610 174 B; a gap claimed through
 // its own exception text).  With no INI or instance it throws INIException(3
 // "ParseWorldTextBlock::Invalid data passed in."); otherwise the record below is built inline filled through

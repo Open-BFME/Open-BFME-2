@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 #include "ascii_string.h"
 //
 // ?forward@Rva0019C520Owner@@QAEHVAsciiString@@H@Z @0x0032D7DB 64B

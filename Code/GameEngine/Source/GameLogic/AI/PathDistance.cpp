@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 #include <math.h>
 
 // ?Rva00363CF3Distance@@YANPBUCoord3D@@0@Z, retail 0x00363CF3, 45 bytes.

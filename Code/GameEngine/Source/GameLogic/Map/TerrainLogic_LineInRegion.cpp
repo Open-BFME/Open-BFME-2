@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ZH donor: GeneralsMD GameLogic/Map/TerrainLogic.cpp LineInRegion, verbatim.
 // ?LineInRegion@@YA_NPBUCoord2D@@0PBURegion2D@@@Z retail 0x0027C4F4 680B:
 // a Zero Hour engine sweep built /O1 /G7 /arch:SSE places the body uniquely in

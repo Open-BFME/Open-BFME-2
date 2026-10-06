@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // State-derived constructors outside the packed 0x0033F2FD family (see
 // AIStateHashCtors0033F2FD.cpp for the shared recipe): each calls the State

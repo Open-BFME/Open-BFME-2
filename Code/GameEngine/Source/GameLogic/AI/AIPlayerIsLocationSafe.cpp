@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // AIPlayer::isLocationSafe, retail 0x004F08A8, 295 bytes (caller 0x004F2C0B,
 // beside the matched checkForSupplyCenter 0x004F29E9 in AIPlayer.cpp, which

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004DF351@ObjectGuardingHelper@@SA?AW4NameKeyType@@XZ @0x4DF351
 // (69B): cached pool-name key for ObjectGuardingHelper. The class
 // identity comes from the pool-name string the body pushes

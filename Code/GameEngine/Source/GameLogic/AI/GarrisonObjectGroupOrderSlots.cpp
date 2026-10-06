@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GarrisonObjectGroupOrder slots 8 and 11 (vtable 0x00C6A3C4), the garrison
 // twins of AttackObjectGroupOrder's slots 8 and 11 (AttackObjectGroupOrderSlots.cpp):

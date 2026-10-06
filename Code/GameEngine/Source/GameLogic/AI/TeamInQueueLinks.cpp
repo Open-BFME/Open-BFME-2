@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // TeamInQueue's MAKE_DLINK members for TeamBuildQueue and TeamReadyQueue
 // (Zero Hour's GameEngine/Include/Common/GameCommon.h, GeneralsMD tree vendored

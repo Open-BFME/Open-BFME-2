@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00343F8A@@YAXPAVRva00343F8A@@PAX@Z @0x00343F8A 38B.
 //

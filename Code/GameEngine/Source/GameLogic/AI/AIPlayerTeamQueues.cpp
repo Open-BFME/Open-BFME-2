@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIPlayer's team build / ready queues: Zero Hour's MAKE_DLINK_HEAD
 // (AIPlayer) and MAKE_DLINK (TeamInQueue) members for TeamBuildQueue and

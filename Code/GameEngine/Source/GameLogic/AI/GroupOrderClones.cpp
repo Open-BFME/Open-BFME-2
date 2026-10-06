@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 //
 // Slot 13 of three BFME 2 group orders (no Zero Hour counterpart): a copy of
 // the order on the heap, through the rowed operator new and the order's rowed

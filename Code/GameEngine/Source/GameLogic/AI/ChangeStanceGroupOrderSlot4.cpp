@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00546BED@ChangeStanceGroupOrder@@UAEXW4ObjectID@@@Z, retail 0x00546BED,
 // 57 bytes: slot 4 of the ChangeStanceGroupOrder vtable 0x00C6A36C. Finds the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Dump lane range 13: ?rva002EADE1 @0x002EADE1 63B. Pathfinder helper
 // converting two Coord3D to cells (rowed WorldToCell twice, shared stack
 // args) then the pinned line-walker 0x002E8251. Mirrors rowed 0x002EB675

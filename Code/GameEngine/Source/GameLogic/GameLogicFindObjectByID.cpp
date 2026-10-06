@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GameLogic::findObjectByID, retail 0x00049DC5, 37 bytes.
 // Dedicated TU. Null ObjectID returns null; otherwise hashtable find at

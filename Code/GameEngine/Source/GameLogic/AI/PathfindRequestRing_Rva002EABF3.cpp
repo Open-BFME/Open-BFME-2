@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // The three members of BFME 2's pathfind request ring that
 // Pathfinder::queueForPath (0x002EBD31, PathfinderQueueForPath.cpp) calls: a 512-entry ObjectID ring at

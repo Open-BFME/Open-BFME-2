@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva00351570@Rva00351570@@QAEXABURva00351570Src@@@Z, RVA 0x00351570, 222 bytes.
 // Copy from template/init struct to instance. Evidence: dword copies +0/+4,
 // 12B via movsd x3 at +8, +0x14/+0x18 via [ptr+0x74] or 0, strings at

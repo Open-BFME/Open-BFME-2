@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ??0AITNGuardInnerState@@QAE@PAVStateMachine@@@Z @0x00545D50 40B
 // AITNGuardInnerState ctor: State(machine, 0xD405C261), vtable 0x00C6A140,
 // exitConditions vtable 0x00C6A13C at +0x20 with giveUpFrame 0 at +0x24.

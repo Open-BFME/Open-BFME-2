@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva003703CF@AIGroup@@QAEXPBUCoord3D@@W4GuardMode@@W4CommandSourceType@@@Z @0x003703CF 65B
 // AIGroup forward of aiGuardPosition to each member via rowed 0x0036F46A,
 // null position returns, same list-at-+0 plus Object+0x258 plus +0x20 loop.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0Rva0034005D@@QAE@PAVStateMachine@@@Z @ 0x0034005D (33B): ctor of unknown
 // AI state with vtable 0x00811EB8. Target evidence: stores vtable then byte 1

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00366500@Rva00366500@@QAE_NH@Z 0x00366500 45B bitfield setter at +0xC bits 4-9 mask 0x3F0 callers 0x0052E6E6 0x0052E914 0x00366E2E
 
 class Rva00366500

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // The evacuate AI states' enter/exit overrides. Each class is identified by
 // its vtable's slot-2 name getter (the state's own name literal):

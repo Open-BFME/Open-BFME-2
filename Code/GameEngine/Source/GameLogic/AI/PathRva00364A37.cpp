@@ -1,5 +1,5 @@
 // ?rva00364A37@Rva00364A37@@QAEXXZ
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Rva00364A37 clearer, retail 0x00364A37, 41 bytes: if +4 is null return
 // else free [0]+4 via rowed 0x0036426E then re-init [0]+8=[0] and [0]+4=0

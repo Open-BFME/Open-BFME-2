@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002F36E5@Pathfinder@@QAEPAVRva0052DE5B@@XZ @0x002F36E5 40B
 // ?rva002F370D@Pathfinder@@QAEHXZ @0x002F370D 43B clears queue at +0x1D1F0 marking each false via 0x0052DAE9 and popping via 0x002F301F returning count.
 // ?rva002F40E7@Pathfinder@@QAEHXZ @0x002F40E7 46B chain from 0x002F370D plus release 0x0052DE9B and stat adds at +0x34 +0x3C +0x40 +0x44 returning release result.

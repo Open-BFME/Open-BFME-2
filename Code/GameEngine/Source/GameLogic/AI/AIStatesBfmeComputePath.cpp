@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Small computePath (slot 17), onExit (slot 5) and other overrides of AI
 // states, each named by its vtable's own slot-2 name getter (the state's name

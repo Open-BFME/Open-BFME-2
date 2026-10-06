@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 // ?getLink@Waypoint@@QBEPAV1@H@Z @0x00085404
 // ?addLink@Waypoint@@QAEXPAV1@@Z @0x00272306
 // Waypoint link array: 8 slots at +0x20, count at +0x4C, source at +0x40.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva00363DF9@Path@@QAEPAUCoord3D@@PAU2@@Z @0x00363DF9 (199B).
 // Unlock Path position-out via head +0x4 and selected node +0x10 with

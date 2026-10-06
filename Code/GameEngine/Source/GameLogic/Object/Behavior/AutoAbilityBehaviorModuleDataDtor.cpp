@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
 //
 // ??1AutoAbilityBehaviorModuleData@@UAE@XZ, retail 0x0045A517, 73 bytes.
 // Destroys the query array at +0x2C (6 entries via ehvec ??_M with the pinned

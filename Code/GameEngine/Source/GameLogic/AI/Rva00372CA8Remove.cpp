@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ?rva00372CA8@Rva00372CA8@@QAEXH@Z retail 0x00372CA8 68 bytes.
 // Honest-address __thiscall method: fixed 8-slot dword array at +0x20 with count at +0x4C.

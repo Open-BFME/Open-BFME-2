@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva00547070@AttackObjectGroupOrder@@UAEPAUCoord3D@@H@Z, retail 0x00547070 41B.
 // Virtual slot 8 (offset 0x20) of vtable 0x0086A420 (class of

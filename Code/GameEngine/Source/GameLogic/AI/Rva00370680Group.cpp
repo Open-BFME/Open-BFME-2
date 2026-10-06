@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00370680@AIGroup@@QAEXXZ @0x00370680 72B
 // AIGroup member walk in the 0x003703CF..0x00370517 AIGroup block (same
 // list-at-+0 plus Object+0x258 AI loop as Rva00370410Group.cpp): for each

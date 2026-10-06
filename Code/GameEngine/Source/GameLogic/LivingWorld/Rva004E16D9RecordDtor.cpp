@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc
 //
 // ??1Rva004E16D9Record@@QAE@XZ, retail 0x004E1682, 87 bytes.
 // Target evidence: ParseForceBattle 0x004E16D9 constructs a stack record

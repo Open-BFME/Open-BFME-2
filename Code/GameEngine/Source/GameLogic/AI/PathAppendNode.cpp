@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva002655E3@Path@@QAEXPBUCoord3D@@W4PathfindLayerEnum@@H@Z, retail 0x002655E3 (132 bytes). Path tail append with duplicate-position
 // guard and waypoint-ID store. Donor: BFME1 AIPathfind.cpp Path::appendNode

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?Rva003641AEClamp@@YGHMM@Z @0x003641AE (68B).
 // Clamp a scaled product into [1,128]: the product of the two float factors

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva0036CE87@AIGroup@@QAEXXZ @0x0036CE87 73B
 // AIGroup ground-path reset: destroy the Path at +0x14 through its out-of-line
 // destructor, free it, then clear the path state. The four clears run from the

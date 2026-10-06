@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?rva00456725@Rva00456725@@QAE?AVAsciiString@@HH@Z @ 0x00456725 40B thiscall bridge string copy via StringBase copy
 // Evidence: caller 0x00456B0C; rowed callee 0x000365F0 StringBase copy; sibling 0x00456774 UDT return O1 G7 EHsc.
 #include "ascii_string.h"

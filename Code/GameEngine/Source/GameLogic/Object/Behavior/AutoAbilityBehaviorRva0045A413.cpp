@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva0045A413@AutoAbilityBehavior@@QAEXXZ, retail 0x0045A413, 14 bytes.
 // Sets the AsciiString at +0x20 to the empty string via the rowed

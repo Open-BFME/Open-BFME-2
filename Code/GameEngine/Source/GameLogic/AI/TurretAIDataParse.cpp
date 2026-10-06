@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // TurretAIData FieldParse procs from Zero Hour's TurretAI.cpp with the BFME 2
 // six-slot layout: m_turretFireAngleSweep[6] at +0x10 and

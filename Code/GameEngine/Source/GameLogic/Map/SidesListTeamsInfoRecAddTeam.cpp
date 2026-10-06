@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 //
 // ?addTeam@TeamsInfoRec@@QAEHPBVDict@@@Z retail 0x0032DA4E 184 bytes, plus its

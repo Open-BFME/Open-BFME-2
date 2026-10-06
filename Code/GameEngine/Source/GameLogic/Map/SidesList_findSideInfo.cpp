@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7
+// cl: /Ireference/shims/bfme2_ascii
 //
 // ?findSideInfo@SidesList@@QAEPAVSidesInfo@@VAsciiString@@PAH@Z @0x0032B0A9 150B
 // SidesList::findSideInfo: linear search of m_sides for the entry whose dict

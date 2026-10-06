@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // stlport
 //
 // ?xfer@BehaviorModule@@QAEXPAVXfer@@@Z retail 0x004C9C7D

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getMachineGoalObject@State@@QAEPAVObject@@XZ, retail 0x0033F263, 8 bytes.
 //

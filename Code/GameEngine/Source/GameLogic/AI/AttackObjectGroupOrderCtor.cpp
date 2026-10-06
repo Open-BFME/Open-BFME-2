@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0AttackObjectGroupOrder@@QAE@XZ @0x00546F03 44B evidence: stores vtable 0x0086A420; base ctor rowed 0x005488C5; clears dword at +0x18 then byte at +0x1c then 3 floats at +0x20 +0x24 +0x28 via xorps-movss; caller 0x00354FCC; returns this.
 // Ctor of AttackObjectGroupOrder via vtable store (naming rule).
 enum ObjectID

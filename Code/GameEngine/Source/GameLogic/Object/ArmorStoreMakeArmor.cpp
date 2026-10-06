@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?makeArmor@ArmorStore@@QBE?AVArmor@@ABVAsciiString@@@Z, retail 0x001D9001 (26B).
 // Zero Hour's inline ArmorStore::makeArmor (`return Armor(tmpl);`), out of line

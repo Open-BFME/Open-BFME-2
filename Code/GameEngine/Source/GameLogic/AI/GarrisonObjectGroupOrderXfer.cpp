@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@GarrisonObjectGroupOrder@@UAEXPAVXfer@@@Z @0x00546D15 65B evidence: slot 3 of 0x0086A3C4 GarrisonObjectGroupOrder dtor in Rva00548948Derived; base GroupOrder xfer rowed 0x00548AC2 then xferVersion 1-1 then XferObjectID rowed 0x003060B2 for this+0x18 then Xfer slot 0x60 virtual for this+0x1c.
 // Proven slot 3 keeps real name xfer; owner GarrisonObjectGroupOrder via vtable.
 typedef unsigned char UnsignedByte;

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI
+// cl: -DNDEBUG -MD -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI
 //
 // Retail 0x003E6E90: six-argument thiscall wrapper around 0x003DF580.  Forwards
 // the six arguments plus &arg6 and a trailing 0, then returns whether arg6 is

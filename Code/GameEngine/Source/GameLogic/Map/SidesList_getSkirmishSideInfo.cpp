@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?getSkirmishSideInfo@SidesList@@QAEPAUSidesInfo@@H@Z,
 // retail 0x002A98D1, 33 bytes. Dedicated TU.

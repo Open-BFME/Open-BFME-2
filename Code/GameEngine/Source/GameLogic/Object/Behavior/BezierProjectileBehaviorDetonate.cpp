@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // BezierProjectileBehavior's detonation 0x0045C026 (called from its update
 // 0x0045C226, its +0x20 slot 3 0x0045CD6E and 0x004A7580). Zero Hour's and

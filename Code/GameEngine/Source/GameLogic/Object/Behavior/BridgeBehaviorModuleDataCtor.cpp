@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 //
 // ??0BridgeBehaviorModuleData@@QAE@XZ, retail 0x00457FF1 (89 bytes).

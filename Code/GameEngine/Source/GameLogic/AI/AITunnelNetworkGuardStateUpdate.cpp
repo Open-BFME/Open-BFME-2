@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AITunnelNetworkGuardState::update, retail 0x00346487 (74 bytes): slot 6 of
 // vtable 0x00C11850, whose slot-2 name getter returns AITunnelNetworkGuardState

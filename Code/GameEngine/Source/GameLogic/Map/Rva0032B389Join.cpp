@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7
+// cl: /Ireference/shims/bfme2_ascii
 //
 // ?Rva0032B389Join@@YA?AVAsciiString@@ABV1@0@Z @ 0x0032B389 (98B).
 // Free path-join: tmp(a) + '/' + concat(b), return tmp by value via hidden

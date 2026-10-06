@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00265596@Path@@QAEXPBUCoord3D@@W4PathfindLayerEnum@@H@Z, retail 0x00265596 (77 bytes). Path head prepend
 // with waypoint-ID store. Donor: BFME1 AIPathfind.cpp Path::prependNode plus PathNodeInsertion.cpp layout

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // Pathfinder::queueForPath (retail 0x002EBD31, 52 bytes, pinned from the
 // byte-verified AIUpdateInterface::requestPath). It calls the three members

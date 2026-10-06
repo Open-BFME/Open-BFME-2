@@ -1,5 +1,5 @@
 // stlport
-// cl: /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS
 //
 // BFME2 ArmorTemplate, retail-measured from game.dat (NOT the ZH layout:
 // Zero Hour carries 38 coefficients and a scalar at +0x5C; BFME2 carries 27

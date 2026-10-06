@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 
 // ?rva002EDEAB@Rva002EDEAB@@QAEXPAURva002EDEABArg@@@Z, retail 0x002EDEAB, 153 bytes.
 // Rebuilds the Path at +0x58 from an arg list: notifies GameInfo at 0x00E02EEC

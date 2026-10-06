@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // class-gate: allow AsciiString 4-byte trivial view to pass VAsciiString by value to rowed base 0x004D79E1 with no copy-ctor call like the base TU's own view
 // ??0Rva003435FB@@QAE@PAVObject@@HVAsciiString@@@Z @0x003435FB 296B.
 // StateMachine-family ctor (thiscall): base-constructs the rowed

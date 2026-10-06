@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 //   0x004388E3  true when the third argument's +0x1C mask
 //               meets the object's +0x284 mask, an alive object of kind 94

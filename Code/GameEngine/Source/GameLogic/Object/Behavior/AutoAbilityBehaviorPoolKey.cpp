@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00045A3CE@AutoAbilityBehavior@@SA?AW4NameKeyType@@XZ @0x45A3CE
 // (69B): cached pool-name key for AutoAbilityBehavior. The class
 // identity comes from the pool-name string the body pushes

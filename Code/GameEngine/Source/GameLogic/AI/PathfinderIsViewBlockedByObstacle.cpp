@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Target: 0x002F3B6B, 49 bytes; Ghidra boundary FUN_006f3b6b.
 // Target evidence: its callee at 0x0030ADDC takes ECX=this, pushes 0.0f,
 // calls 0x0030AD8B and returns the boolean; the latter reads object flags and

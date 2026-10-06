@@ -1,4 +1,4 @@
-// cl: /MD /O1 /GX /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // Small virtual slots of the two MoveTo group orders (vftables 0x00C6A478 /
 // 0x00C6A4CC; layouts in MoveToGroupOrderCtor.cpp). No Zero Hour or BFME 1

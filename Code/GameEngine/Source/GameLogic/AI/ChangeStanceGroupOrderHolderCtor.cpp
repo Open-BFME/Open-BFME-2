@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0ChangeStanceGroupOrder@@QAE@PAVRva0036E346@@H@Z @0x00546AD0 31B evidence: stores vtable 0x0086A36C; base holder ctor rowed 0x00548A25; int at +0x18 from second arg; caller 0x00355A86 news int-sized; sibling default at 0x00546AEF in ChangeStanceGroupOrderCtor.cpp.
 // Holder overload of ChangeStanceGroupOrder (naming via vtable).
 class Rva0036E346;

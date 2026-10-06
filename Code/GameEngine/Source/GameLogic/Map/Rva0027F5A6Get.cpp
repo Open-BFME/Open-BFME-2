@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0027F5A6@Rva0027F5A6@@QAE?AVAsciiString@@XZ @0x0027F5A6 27B
 // AsciiString by-value getter copying member at +0x50. Evidence: retail copies
 // +0x50 via rowed StringBase<char> copy ctor 0x000365F0 then returns hidden out;

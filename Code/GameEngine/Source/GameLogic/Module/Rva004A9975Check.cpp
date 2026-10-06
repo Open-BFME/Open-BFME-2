@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva004A9975Check@@YA_NPAX@Z @0x004A9975 70B: free predicate over an AIUpdate machine.
 // Evidence: leaf lane; caller 0x004A99D7; rowed callee getCurrentStateID 0x00262FC3 on the +0x258 machine;
 // slot-12 virtual on its +0x3E8 subobject; true when that predicate holds or the state id is 0xE or 0x2F.

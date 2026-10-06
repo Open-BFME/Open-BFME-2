@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // ?parseSideInfo@AI@@SAXPAVINI@@PAX1PBX@Z, retail 0x002FE940 (188B). Zero
 // Hour's AI::parseSideInfo (AI.cpp): the AI data's side-info list (+0xF4,

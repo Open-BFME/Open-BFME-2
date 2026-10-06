@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/GameLogic/Map/Rva0019BC00SetFields.cpp (donor revision

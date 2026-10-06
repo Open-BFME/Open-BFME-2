@@ -1,6 +1,6 @@
 // ?rva0036617B@Rva0036617B@@QAEXW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z
 // partial score=0.93 date=2026-10-01
-// cl: /O1 /DNDEBUG /MD /arch:SSE /Oy-
+// cl: /DNDEBUG /MD /Oy-
 // ?rva0036617B@Rva0036617B@@QAEXW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z retail 0x0036617B 129B
 // Unlock over rowed vector<ScienceType>::push_back 0x002E01C6. Evidence: search
 // list via +8 for +0x20==st then push range filtering 0x7fffffff; slot reuse

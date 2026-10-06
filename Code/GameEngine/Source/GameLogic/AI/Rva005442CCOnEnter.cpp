@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?onEnter@Rva005442CC@@UAE?AW4StateReturnType@@XZ, retail 0x005442CC, 124 bytes.
 // Gap between 0x0054428B and 0x00544348 of AIDockStates.cpp, same flags.
 // Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed bfmeFindBEC 0x0028BCB4, checks slot 0x38, calls slot 0x34 with owner, calls slot 8 with owner and +0x20 and machine+0x3C, clears obstacle via rowed ignoreObstacle 0x00268D88, tail-chains to pinned base onEnter 0x0034C146. Evidence: gap TU flags; tri-pattern sibling Rva00544867 onEnter; tail to base onEnter.

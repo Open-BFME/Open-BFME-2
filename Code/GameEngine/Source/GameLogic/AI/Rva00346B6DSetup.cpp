@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00346B6D@@QAEXH@Z @0x00346B6D 80B.
 // Void damage setup (thiscall, one unused int): inits a 0x7C info block on
 // the frame through the pinned 0x263895 member init plus field stores,

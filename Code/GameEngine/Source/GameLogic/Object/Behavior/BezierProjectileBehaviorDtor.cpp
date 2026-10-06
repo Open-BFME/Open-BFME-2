@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ??1BezierProjectileBehavior@@UAE@XZ, retail 0x0045BF6E, 101 bytes.
 // ?rva0045BF06@BezierProjectileBehavior@@W3AE_NPAVObject@@@Z, retail

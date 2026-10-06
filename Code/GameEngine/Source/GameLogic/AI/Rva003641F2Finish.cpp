@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /arch:SSE
+// cl: /GX /DNDEBUG /MD
 //
 // ?rva003641F2@Path@@QBE?AUCoord3D@@XZ @0x003641F2 (124B).
 // Path last-valid-waypoint position, by-value Coord3D return (BFME1 donor

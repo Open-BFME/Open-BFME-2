@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0045A6FE@AutoAbilityBehavior@@QAEXPAX@Z, retail 0x0045A6FE, 74 bytes.
 // If src is null or its byte at +0x10C is clear, or its string at +0x10

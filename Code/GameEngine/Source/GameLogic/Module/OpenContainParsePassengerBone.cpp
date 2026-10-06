@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Oi-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Oi-
 // stlport
 // ?Rva00464574Parse@@YAXPAVINI@@PAX1PBX@Z @0x00464574 280B: OpenContain passenger-bone entry parser (PassengerBone KindOf pair into list at instance+0x48).
 // Evidence: BFME1 donor Rva002274A0ParsePassengerBone.cpp same shape (getNextToken sepsColon +0x420 vs +0x41C, parseAsciiString boneName, KindOf worker, rep-movsd entry assign, push_back list at +0x48 vs +0x11C); retail callees getNextToken 0x2DF97 parseAsciiString 0x2F11E rva00256499 0x256499 StringBase set 0x366F0 push_back 0x4643CE releaseBuffer 0x36410 INIException 0x2F681; Rva00463235Finish proves list at +0x48 holds 28B KindOf + AsciiString bone records.

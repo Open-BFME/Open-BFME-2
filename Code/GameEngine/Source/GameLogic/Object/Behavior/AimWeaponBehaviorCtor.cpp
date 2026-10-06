@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0AimWeaponBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0045B226,
 // 85 bytes. Behavior-side ctor completing the AimWeaponBehavior file-unit

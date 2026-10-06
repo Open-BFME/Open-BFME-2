@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AnnounceBirthAndDeathBehavior's two announcements (vtables installed by the
 // matched ctor 0x00485125 over the CreateModule base):

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Oi
+// cl: /DNDEBUG /MD /Oi
 // ??0BridgeBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x00457472 196B.
 // Recovered from the banked attempt reverse/attempts/0x00457472.cpp (0.97).
 // That bank already carried the lever that finishes the body: writing the

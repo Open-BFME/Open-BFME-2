@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // Dump lane range 13: ?rva002E99F9 @0x002E99F9 211B. Two-position cell
 // resolution (TerrainLogic layers, then Pathfinder cells) feeding the
 // union-find subobject at +0x460 through the pinned 0x0053241F/0x00531FD4

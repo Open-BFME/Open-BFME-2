@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /DNDEBUG /MD
+// cl: /GX- /DNDEBUG /MD
 //
 // ?friend_newModuleData@AutoHealBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0025694B, 52 bytes. Dedicated TU: the factory news 0x160, runs

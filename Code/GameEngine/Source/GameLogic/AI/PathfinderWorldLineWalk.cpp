@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002EED41@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E93A7Info@@@Z @0x002EED41 63B
 // World-to-cell line-walk wrapper: converts two world positions via rowed
 // 0x002E7875 WorldToCell then calls rowed 0x002EB6B4 iterateCellsAlongLine.

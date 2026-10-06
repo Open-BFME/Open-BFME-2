@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7 /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva0035149F@Rva0035149F@@QAEAAV1@ABV1@@Z, RVA 0x0035149F, 209 bytes.
 // Vector assign of 12-byte PODs. Evidence: size/capacity via (finish-start)/12,
 // grow path via rowed Rva000E016A 0x000E016A allocate+uninit_copy, free via

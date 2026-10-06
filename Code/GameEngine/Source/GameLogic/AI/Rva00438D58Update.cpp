@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 //
 // ?Rva00438D58Update@@YGXPAVObject@@@Z, retail 0x00438D58, 197 bytes.
 // Free __stdcall taking Object: Drawable via Thing::getDrawable, gates via

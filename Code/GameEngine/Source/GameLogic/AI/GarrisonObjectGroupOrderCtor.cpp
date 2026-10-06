@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0GarrisonObjectGroupOrder@@QAE@XZ @0x00546C57 40B evidence: stores vtable 0x0086A3C4; base ctor rowed 0x005488C5; clears ObjectID at +0x18 then 3 floats at +0x1c +0x20 +0x24 via xorps-movss; caller 0x00354FFA; returns this.
 // Ctor of GarrisonObjectGroupOrder via vtable store (naming rule).
 enum ObjectID

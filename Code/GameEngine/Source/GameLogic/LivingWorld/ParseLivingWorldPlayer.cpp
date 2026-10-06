@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc
 // ?Rva002E1D22Parse@@YAXPAVINI@@PAX@Z @0x002E1D22 241B ParseLivingWorldPlayer free function.
 // Evidence: error literals ParseLivingWorldPlayer::No name specified at 0x00804A58
 // and Invalid data passed in at 0x008049A4 via INIException 0x0002F681 plus

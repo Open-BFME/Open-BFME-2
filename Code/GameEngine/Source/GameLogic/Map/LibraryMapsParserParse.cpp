@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
 // ?parse@LibraryMapsParser@@QAE_NAAVDataChunkInput@@PAVDataChunkInfo@@@Z @0x0032D742 153B
 // Evidence: vslot slot 1 offset 0x4 of vtable 0x00C0D924 for LibraryMapsParser ctor 0x00329F83; donor open-bfme-1 game/GameEngine/Source/GameLogic/Map/LibraryMapsParserParse.cpp; all callees rowed

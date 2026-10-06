@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00370410@AIGroup@@QAEXPAVObject@@HW4CommandSourceType@@@Z @0x00370410 65B
 // AIGroup forward of rva0036F4DF to each member via rowed 0x0036F4DF,
 // null object returns, same list-at-+0 plus Object+0x258 plus +0x20 loop.

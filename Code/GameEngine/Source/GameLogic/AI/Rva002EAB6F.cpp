@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Dump lane range 13: ??0Rva002EAB6F @0x002EAB6F 127B. 8-arg constructor:
 // m0 plus the 0x10-byte Rva002E8BCF member at +0x4 are member-initialized
 // (the member-init emits the in-place lea+call with no null check and no

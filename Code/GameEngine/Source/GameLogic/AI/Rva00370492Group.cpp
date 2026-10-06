@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00370492@AIGroup@@QAEXPBVPolygonTrigger@@HW4CommandSourceType@@@Z @0x00370492 65B
 // AIGroup forward of rva0036F5BB to each member via rowed 0x0036F5BB,
 // null trigger returns, same list-at-+0 plus Object+0x258 plus +0x20 loop.

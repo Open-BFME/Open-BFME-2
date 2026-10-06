@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1BridgeBehavior@@UAE@XZ, retail 0x00457113, 150 bytes (pinned; rowed
 // deleting wrapper 0x00457536). The Zero Hour destructor body carries over:

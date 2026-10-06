@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004A99F6@Rva004A99F6@@QAEXXZ @0x004A99F6 28B: thiscall method passing member +0xE8 to TheAudio slot 0x6C virtual then setting it to 1.
 // Evidence: unlock lane; caller 0x004A9A12; TheAudio extern in use ?TheAudio@@3PAVAudioManager@@A; vtable slot 0x6C index 27; member +0xE8 proved by lea and push then dword store of 1.
 class AudioManager

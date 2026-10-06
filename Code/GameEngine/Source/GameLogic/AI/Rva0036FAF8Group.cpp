@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0036FAF8@Rva0036FAF8@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z @0x0036FAF8 95B
 // Group forward with m_410 clear plus mode switch: mode 1 via rowed rva00352F9D
 // with 0x7FFFFFFF, mode 0 via rowed aiFollowWaypointPathAsTeam, same list-at-+4

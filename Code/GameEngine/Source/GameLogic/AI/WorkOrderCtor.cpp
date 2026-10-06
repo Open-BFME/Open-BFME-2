@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // WorkOrder::WorkOrder, retail 0x004F10E6 (48 bytes), after Zero Hour's
 // inline constructor in GameEngine/Include/GameLogic/AIPlayer.h (GeneralsMD

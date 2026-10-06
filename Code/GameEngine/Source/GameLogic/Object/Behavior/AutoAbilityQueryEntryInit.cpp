@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?init@AutoAbilityQueryEntry@@QAEPAV1@XZ,
 // retail 0x0045A1D9, 18 bytes. Frameless Query-entry init over the Query

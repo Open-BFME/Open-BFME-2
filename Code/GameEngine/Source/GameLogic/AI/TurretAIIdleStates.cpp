@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // TurretAI idle and hold-turret states with their file-static
 // frameToSleepTime, ported from Zero Hour's GameEngine/Source/GameLogic/AI/

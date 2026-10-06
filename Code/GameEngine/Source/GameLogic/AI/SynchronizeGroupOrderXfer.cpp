@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?xfer@SynchronizeGroupOrder@@UAEXPAVXfer@@@Z @0x00546A34 68B evidence: vslot slot 3 offset 0xC of vtable 0x0086A314 class of ??1SynchronizeGroupOrder; base GroupOrder xfer rowed 0x00548AC2; version 1 1 via Xfer slot 0x28; set at +0x18 via rowed Rva002F1CDDXfer 0x002F1CDD; bool at +0x24 via Xfer slot 0x90.
 #include <set>

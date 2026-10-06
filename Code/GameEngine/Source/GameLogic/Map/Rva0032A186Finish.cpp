@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1BuildListInfo@@MAE@XZ @0x0032A186 120B. BuildListInfo list destructor.
 // Each +0x2C link is unlinked then released through the virtual deleteInstance(0)

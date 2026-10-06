@@ -1,5 +1,5 @@
 // stlport
-// cl: /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // ?rva0041F474@ArmorStore@@QBEPBVArmorTemplate@@ABVAsciiString@@@Z @0x0041F474 51B.
 // Armor map find by name via NameKey plus hash_map find (inlines to rowed
 // _M_find 0x002888D4) returning second.m_ptr via mov [eax+8]. Evidence:
