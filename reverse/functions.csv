@@ -65012,3 +65012,6 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva0006840A@Rva0006840A@@QAEXQAVVector3@@W4DrawableID@@_N@Z,,0x0006840A,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed addBibDrawable same offset as 0x000683FF
 ?rva00068415@Rva00068415@@QAEXXZ,,0x00068415,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed removeHighlighting same offset as 0x000683FF
 ?rva00068420@Rva00068420@@QAEXXZ,,0x00068420,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed clearAllBibs same offset as 0x000683FF
+uw_00777e88,,0x00777E88,25,Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp,matched,gen-funclet;parent=??0BfmeSubobject00229875@@QAE@XZ;object-symbol=$L4160
+uw_0077af33,,0x0077AF33,24,Code/GameEngine/Source/Common/Rva0031FAF0Dtor.cpp,matched,gen-funclet;parent=??1Rva0031FAF0@@QAE@XZ;object-symbol=$L1232
+uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp,matched,gen-funclet;parent=??0ControlBarScheme@@QAE@XZ;object-symbol=$L51427
