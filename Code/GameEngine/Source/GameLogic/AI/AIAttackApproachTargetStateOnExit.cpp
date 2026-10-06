@@ -40,11 +40,17 @@ enum StateExitType
 };
 enum StateReturnType
 {
-	STATE_CONTINUE = 0
+	STATE_CONTINUE = 0,
+	STATE_SUCCESS = -1,
+	STATE_FAILURE = -2
 };
 enum WhichTurretType
 {
 	TURRET_INVALID = -1
+};
+enum WeaponSlotType
+{
+	WEAPONSLOT_PRIMARY = 0
 };
 #define PATHFIND_CELL_SIZE_F 10.0f
 
@@ -85,6 +91,7 @@ template <> class AIApproachAISlots<0>
 };
 
 class Object;
+class Weapon;
 
 class AIUpdateInterface : public AIApproachAISlots<136>
 {
@@ -99,7 +106,11 @@ public:
 private:
 	unsigned char m_pad004[0x1F0 - 0x04];
 	Locomotor *m_curLocomotor; // +0x1F0
-	unsigned char m_pad1F4[0x3C7 - 0x1F4];
+	unsigned char m_pad1F4[0x3B2 - 0x1F4];
+public:
+	Bool m_3b2; // +0x3B2
+private:
+	unsigned char m_pad3B3[0x3C7 - 0x3B3];
 public:
 	Bool m_bfmeFlag3C7; // +0x3C7
 };
@@ -133,17 +144,41 @@ public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	Bool isKindOfProjectile() const { return getTemplate()->isKindOfProjectile(); }
 	Bool isMobile() const;
-private:
+	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	unsigned char m_pad044[0x258 - 0x44];
 	AIUpdateInterface *m_ai; // +0x258
 };
+
+class Rva002C9400ByteField
+{
+public:
+	unsigned char get() const;
+};
+
+class Weapon
+{
+public:
+	char rva002CB902(Object *source, void *pos, float extra, int flag) const;
+	char m_pad00[4];
+	Rva002C9400ByteField *m_field4; // +0x04
+};
+
+class GameLogic
+{
+public:
+	unsigned char m_pad00[0x1B4];
+	int m_1B4; // +0x1B4
+};
+
+extern GameLogic *TheGameLogic;
+extern "C" void *theLogicRandomLogFile;
+extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
 
 class StateMachine
 {
 public:
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
-private:
 	unsigned char m_pad00[0x14];
 	Object *m_owner; // +0x14
 };
@@ -158,6 +193,17 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
+	virtual void slot07();
+	virtual Bool isIdle() const;
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual Bool computePath();
 protected:
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
 	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
@@ -169,6 +215,8 @@ class AIInternalMoveToState : public State
 {
 public:
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
+	virtual Bool computePath();
 protected:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
@@ -269,8 +317,10 @@ public:
 	virtual StateReturnType update();
 private:
 	StateReturnType updateInternal( void );
-	unsigned char m_pad2C[0x61 - 0x2C];
+	unsigned char m_pad2C[0x60 - 0x2C];
+	Bool m_stopIfInRange; // +0x60
 	Bool m_isInitialApproach; // +0x61
+	Bool m_62; // +0x62
 };
 
 void AIAttackApproachTargetState00C12678::onExit( StateExitType status )
@@ -322,4 +372,41 @@ StateReturnType AIAttackApproachTargetState00C12678::update()
 	}
 
 	return code;
+}
+
+// ?updateInternal@AIAttackApproachTargetState00C12678@@AAE?AW4StateReturnType@@XZ @0x003489F2 185B
+// Evidence: pinned name; gap between onExit 0x0034894C and update 0x00348AAB;
+// retail position-attack branch (ZH AIStates.cpp updateInternal position part)
+// with m_stopIfInRange at +0x60 from AI byte +0x3B2, force at +0x62,
+// weapon contact bytefield at +0x04 (rowed 0x002C9400), TheGameLogic frame
+// check at +0x1B4 with masiwar updateInternal [2] log, Coord3D range test
+// via rowed 0x002CB902, computePath at slot 0x44 and tail to pinned base
+// update 0x00347460.
+StateReturnType AIAttackApproachTargetState00C12678::updateInternal()
+{
+	AIUpdateInterface *ai = m_machine->m_owner->m_ai;
+	m_stopIfInRange = (ai->m_3b2 == 0);
+	if (m_62)
+		m_stopIfInRange = true;
+	Object *source = m_machine->m_owner;
+	const Weapon *weapon = source->getCurrentWeapon(0);
+	if (weapon != 0 && ((Rva002C9400ByteField *)weapon->m_field4)->get() != 0)
+		m_stopIfInRange = false;
+	if (TheGameLogic->m_1B4 > 0)
+	{
+		if (m_stopIfInRange && weapon != 0)
+		{
+			void *log = theLogicRandomLogFile;
+			if (log != 0)
+				fprintf(log, "masiwar called by AIAttackPositionApproachTargetState::updateInternal [2]");
+		}
+	}
+	if (m_stopIfInRange && weapon != 0)
+	{
+		if (weapon->rva002CB902(source, (void *)&m_goalPosition, 0.0f, 1))
+			return STATE_SUCCESS;
+	}
+	if (!computePath())
+		return STATE_FAILURE;
+	return AIInternalMoveToState::update();
 }

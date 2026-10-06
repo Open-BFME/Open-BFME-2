@@ -64568,3 +64568,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002AABEE@Rva002AABEE@@QAEXXZ,,0x002AABEE,64,Code/GameEngine/Source/Common/RTS/Rva002AABEELevelValue.cpp,matched,level-indexed float table value at +0x20 clamped by min(size-1 level-1); level 0 gives 0; called by ctor 0x002AF581 and 0x002B0E55 0x002B212A; Ghidra 64B
 ?rva005E716D@Rva005E80FD@@QAEXXZ,,0x005E716D,17,Code/GameEngine/Source/Common/Rva005E80FDVslot1.cpp,matched,vslot1 helper-then-member forwarder via SmudgeManager init
 ?run@Rva005E6A9DRun@@QAEXXZ,,0x005E6A9D,59,Code/GameEngine/Source/Common/Rva005E6A9DRun.cpp,matched,chain run via int twin and member clear
+?updateInternal@AIAttackApproachTargetState00C12678@@AAE?AW4StateReturnType@@XZ,,0x003489F2,185,Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnExit.cpp,matched,pinned name gap position branch masiwar log range computePath tail base

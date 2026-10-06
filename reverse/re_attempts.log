@@ -11487,3 +11487,16 @@ FUN_00914fe9	0x00514FE9	88	blocked	ADDRESS-NAMED g_Va00A01E48 escape hatch t=1 m
 ?rva000F28C3@Rva000F28C3Holder@@QAEXXZ	0x000F28C3	160	blocked	156/160 exact incl EH-prolog plus call resolutions rowed Resize newarr ehvec pinned SetPoly and rowed Region3D ctor; wall 4B EH-state or-dword-ptr-ebp-4--1 after ehvec that cl7.1 emits for new-T12 but retail omits; tried Region3D rowed ctor extern-only globals throw-delete shape-lever user-dtor made worse 173B t=15 model=muse-spark (stash 0.975 kept)
 ?onEnter@Rva003428CC@@UAE?AW4StateReturnType@@XZ	0x00354D0D	419	blocked	finish 0.91 wall x87 fsub-fstp plus flags test-or mem-vs-reg plus SSE xmm3 keep; tried dz temps to SSE worse and k-hoist no effect t=10 model=muse-12
 ?buildSilhouette@W3DVolumetricShadow@@QAEXHPAVVector3@@@Z	0x000F2D25	422	partial	FP facing-dot scheduling: retail hoists normal.Z into xmm3 before dz/dy/dx, ours folds nz*dz late; cmp-1 neighborless fixed t=25 model=muse-spark score=0.92 stash=reverse/attempts/0x000f2d25.cpp
+?rva004FAEAA@Rva004FADF4@@QAE_NPAX@Z	0x004FAEAA	201	blocked	complex chain with this-adjust pin-only and vslot calls t=5 model=muse-spark
+?rva004FA9B1@Rva004FADF4@@QAE_NH@Z	0x004FA9B1	208	blocked	complex chain sibling of 0x004FAEAA with this-adjust pin-only t=3 model=muse-spark
+??1Rva00415CAB@@UAE@XZ	0x00415CAB	136	blocked	hashtable dtor with 5 callees needs full layout t=3 model=muse-spark
+?rva0041505B@Rva00414B0A@@QAEXXZ	0x0041505B	199	blocked	complex 199B playerlist loop with coord equals needs full layout t=6 model=muse-spark
+?rva00577D93@Rva00577D93@@QAE_NXZ	0x00577D93	78	blocked	ADDRESS-NAMED EmptyString use refused t=1 model=muse-spark
+?rva00352BD0@Rva00352BD0@@QAEHXZ	0x00352BD0	248	blocked	vslot slot 6 donor State has only dtor no mapping t=2 model=muse-spark
+?_M_push_back_aux_v@?$deque@UGen_t_00595870_p12cd@@V?$allocator@UGen_t_00595870_p12cd@@@_STL@@@_STL@@IAEXABUGen_t_00595870_p12cd@@@Z	0x00585B1E	109	blocked	STL deque wall already blocked by muse-01 no NEW idea t=1 model=muse-spark
+?cellCallback@Rva002F4D8BInfo@@QAEHPAVPathfindCell@@0HH@Z	0x002F4D8B	201	blocked	cellCallback bitfield no landed sibling of 15 copies t=2 model=muse-spark
+?rva0039BC85@Rva0039BD28@@QAEHXZ	0x0039BC85	115	blocked	ADDRESS-NAMED g_Va00BCF628 use refused t=1 model=muse-spark
+?rva003706C8@Rva003706C8@@QAE_NXZ	0x003706C8	205	blocked	ADDRESS-NAMED g_Va00BBB8D8 use refused t=1 model=muse-spark
+?Rva0044C0A8@@YAXVUnicodeString@@0PAX@Z	0x0044C0A8	158	blocked	complex UnicodeString MessageBox with pin-only needs full EH layout t=2 model=muse-spark
+?rva003E5267@Rva003E5267@@QAE_NXZ	0x003E5267	132	blocked	ADDRESS-NAMED g_Va globals use refused t=1 model=muse-spark
+??1Rva005DA7F5@@UAE@XZ	0x005DA67F	116	blocked	ours 60B vs retail 116B missing loop with SSE float compare plus 3-call sequence and extra branches t=5 model=muse-spark
