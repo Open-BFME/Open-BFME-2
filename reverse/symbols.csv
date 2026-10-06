@@ -13607,3 +13607,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva00600991@Rva00600991@@QAEXPAX0@Z,0x00600991,thiscall-2 helper for 0x00600BC6 wrapper; forwards this plus tmp out and arg; identity unproven
 ?rva00596B10@Rva00596B10@@QAEXXZ,0x00596B10,
 ??0Rva004E5610@@QAE@XZ,0x004E5610,
+??0Rva002C6EE0@@QAE@PBVModuleData@@PBVArmorTemplate@@_N@Z,0x002C6EE0,
