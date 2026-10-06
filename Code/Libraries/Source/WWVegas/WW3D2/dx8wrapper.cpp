@@ -1260,9 +1260,11 @@ void DX8Wrapper::Get_Format_Name(unsigned int format, StringClass *tex_format)
 		case D3DFMT_P8: *tex_format="D3DFMT_P8"; break;
 		case D3DFMT_X8R8G8B8: *tex_format="D3DFMT_X8R8G8B8"; break;
 		case D3DFMT_X1R5G5B5: *tex_format="D3DFMT_X1R5G5B5"; break;
-		case D3DFMT_R3G3B2: *tex_format="D3DFMT_R3G3B2"; break;
+		// Retail's jump table (slots 7 and 10) prints the R3G3B2 and X4R4G4B4
+		// names for each other; this reproduces that table exactly.
+		case D3DFMT_X4R4G4B4: *tex_format="D3DFMT_R3G3B2"; break;
 		case D3DFMT_A8R3G3B2: *tex_format="D3DFMT_A8R3G3B2"; break;
-		case D3DFMT_X4R4G4B4: *tex_format="D3DFMT_X4R4G4B4"; break;
+		case D3DFMT_R3G3B2: *tex_format="D3DFMT_X4R4G4B4"; break;
 		case D3DFMT_A8P8: *tex_format="D3DFMT_A8P8"; break;
 		case D3DFMT_A8L8: *tex_format="D3DFMT_A8L8"; break;
 		case D3DFMT_A4L4: *tex_format="D3DFMT_A4L4"; break;

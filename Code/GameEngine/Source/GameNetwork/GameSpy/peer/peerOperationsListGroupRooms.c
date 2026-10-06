@@ -775,19 +775,21 @@ PEERBool piNewJoinRoomOperation(PEER peer, int roomType,
 
 static int piEnterResultToJoinResult(int result)
 {
+	// Retail's table (+0x30) maps 0->0, 1->10, 2..5->1..4: the CHAT and
+	// PEER result enums are offset by one after success.
 	switch (result)
 	{
 	case 0:
 		return 0;
-	case 1:
-		return 1;
 	case 2:
-		return 2;
+		return 1;
 	case 3:
-		return 3;
+		return 2;
 	case 4:
-		return 4;
+		return 3;
 	case 5:
+		return 4;
+	case 1:
 		return 10;
 	default:
 		return 10;

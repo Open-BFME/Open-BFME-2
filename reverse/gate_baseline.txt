@@ -165,9 +165,6 @@ genalias 0x0049DD5E ?dup_0049DD5E@@YAXXZ
 genalias 0x004C3AF2 ?dup_004C3AF2@@YAXXZ
 genalias 0x005FE226 ?dup_005fe226@@YAXXZ
 genalias 0x005FE24C ?dup_005FE24C@@YAXXZ
-ltable 0x00040160 ?Execute@DebugIOFlat@@UAEXAAVDebug@@PBD_NIPBQBD@Z
-ltable 0x0011FE20 ?Get_Format_Name@DX8Wrapper@@SAXIPAVStringClass@@@Z
-ltable 0x00138280 ?Get_Description@ShaderClass@@QBEABVStringClass@@AAV2@@Z
 ltable 0x00669DF0 _Rva007FD920
 ltable 0x0066A030 _Rva007FDB60
 ltable 0x00670960 ?Rva00804920Update@@YAPBDPAURva008042B0Http@@@Z
@@ -183,15 +180,12 @@ ltable 0x0067F950 _Rva00813A50
 ltable 0x0067FFD0 _Rva008140D0
 ltable 0x00680670 _Rva00814770
 ltable 0x00681CA0 _Rva00815DA0
-ltable 0x00681F20 _Rva00816020
 ltable 0x00682560 _CommSRPListen
 ltable 0x00682870 _CommSRPConnect
 ltable 0x00684C90 _CommUdpListen
 ltable 0x00685200 _CommUDPConnect
 ltable 0x00685820 _Rva00819920
 ltable 0x00686F10 _Rva0081B010
-ltable 0x006A03A0 _piEnterResultToJoinResult
-ltable 0x006DD360 ?toInteger@BfmeAptValue006DCD20@@QBEHXZ
 ltable 0x006E2560 ?rva006E2560@AptCIH@@QAEXH@Z
 tail 0x001D5470 ?Rva001D5470_CpuFeatureProbe@@YAHXZ
 tail 0x00659A20 ?Rva007ECAF0@@YAHPADHPBDH@Z
@@ -241,7 +235,6 @@ tail 0x00685200 _CommUDPConnect
 tail 0x00685820 _Rva00819920
 tail 0x00686D20 _Rva0081AE20
 tail 0x00686F10 _Rva0081B010
-tail 0x006DD360 ?toInteger@BfmeAptValue006DCD20@@QBEHXZ
 truncated 0x00105D3B ?Set_Wrapping_Width@Render2DSentenceClass@@QAE_NM@Z
 truncated 0x0018B790 ?read_chunks@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
 truncated 0x001A5900 ?Update_Sub_Object_Transforms@Animatable3DObjClass@@MAEXXZ

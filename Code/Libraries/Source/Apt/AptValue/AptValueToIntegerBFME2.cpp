@@ -64,7 +64,10 @@ int BfmeAptValue006DCD20::toInteger() const
 
     int type = static_cast<int>(m_flags) >> 25;
     switch (type) {
-    case 1: {
+    // Retail's index table (+0xD0) sends type 42 to the string conversion,
+    // the same jump-table slot as type 1; there is no separate 42 case.
+    case 1:
+    case 42: {
         EAStringC *string = reinterpret_cast<EAStringC *>(
             static_cast<char *>(reinterpret_cast<Rva006DCE50Opaque *>(
                 const_cast<BfmeAptValue006DCD20 *>(this))->rva006DCE50()) + 8);
@@ -80,10 +83,6 @@ int BfmeAptValue006DCD20::toInteger() const
             const_cast<BfmeAptValue006DCD20 *>(this))->rva00144010();
     case 6:
         return static_cast<int>(reinterpret_cast<const Rva00723490FloatField *>(this)->get());
-    case 42:
-        if (this == g_aptUndefinedAtE18078)
-            return 0;
-        return 1;
     default:
         return this != g_aptUndefinedAtE18078;
     }

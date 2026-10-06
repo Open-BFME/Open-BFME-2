@@ -409,12 +409,14 @@ void Rva00816020( struct Rva00815B50Comm *comm,
 		}
 		break;
 
-	case 0x13:
+	/* Retail's jump table sends 0x14, not 0x13, to the state 3 -> 4 step;
+	 * 0x13 is the empty case. */
+	case 0x14:
 		if ( comm->m_state == 3 )
 			comm->m_state = 4;
 		break;
 
-	case 0x14:
+	case 0x13:
 		break;
 
 	default:
