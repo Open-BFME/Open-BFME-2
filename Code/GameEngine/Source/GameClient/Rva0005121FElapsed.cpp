@@ -34,7 +34,10 @@ public:
 	virtual void slot1C(); virtual void slot1D(); virtual void slot1E(); virtual unsigned int slot1F();
 };
 #define TheRva00DFE77C (*(Rva00DFE77CHolder **)&TheGameClient)
-extern float g_Va00DBA4FC;
+// g_00DBA4FC: matched references place it at VA 0xdba4fc (retail .data initial
+// value 0.033333335f, one client frame at 30fps; seconds-per-frame multiplier
+// and default return for the elapsed virtual in this TU).
+float g_00DBA4FC = 0.033333335f;
 
 struct Coord3D
 {
@@ -138,7 +141,7 @@ public:
 	virtual int slot160(const Coord3D *pos, ICoord2D *screen);
 };
 extern TacticalView *TheTacticalView;
-class Rva00DFEF18
+class Rva00DFEF18View
 {
 public:
 	virtual void _w000();
@@ -175,7 +178,8 @@ public:
 	virtual void _w031();
 	virtual void slot80(Coord3D *out);
 };
-extern Rva00DFEF18 *g_00DFEF18;
+class Rva002D3627Host;
+extern Rva002D3627Host *g_00DFEF18;
 class Rva0005121F
 {
 public:
@@ -195,7 +199,7 @@ float Rva0005121F::rva0005121F()
 {
 	if (m_678 == 0 && !m_6A5) {
 		if (TheRva00DFE77C) {
-			float elapsed = ((float)TheRva00DFE77C->slot1F() - (float)m_lastFrame) * g_Va00DBA4FC;
+			float elapsed = ((float)TheRva00DFE77C->slot1F() - (float)m_lastFrame) * g_00DBA4FC;
 			if (elapsed < 0.0f)
 				elapsed = 0.0f;
 			m_lastFrame = TheRva00DFE77C->slot1F();
@@ -204,7 +208,7 @@ float Rva0005121F::rva0005121F()
 	} else if (TheRva00DFE77C) {
 		m_lastFrame = TheRva00DFE77C->slot1F();
 	}
-	return g_Va00DBA4FC;
+	return g_00DBA4FC;
 }
 
 void Rva0005121F::rva000511C3(Coord3D *out)
@@ -218,7 +222,7 @@ void Rva0005121F::rva000511C3(Coord3D *out)
 		break;
 	case 1:
 		if (g_00DFEF18) {
-			g_00DFEF18->slot80(out);
+			((Rva00DFEF18View *)g_00DFEF18)->slot80(out);
 			return;
 		}
 		break;
@@ -238,7 +242,7 @@ bool Rva0005121F::rva000516EF(const Coord3D *pos)
 		break;
 	case 1:
 		if (g_00DFEF18)
-			return g_00DFEF18->slot3C(pos, &screen);
+			return ((Rva00DFEF18View *)g_00DFEF18)->slot3C(pos, &screen);
 		break;
 	default:
 		return true;
