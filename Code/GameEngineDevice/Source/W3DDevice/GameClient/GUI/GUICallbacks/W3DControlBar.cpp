@@ -37,6 +37,14 @@
 // is the rowed GameWindow draw 0x0009DC32, the border color is TheControlBar
 // +0x22C and Display::drawLine is the out-of-line W3DDisplay wrapper
 // 0x0004D664 (begin/line/end), called on TheDisplay.
+//
+// W3DPowerDraw @0x0009E365 (951B): ZH body. ZH's observer-or-local player
+// choice is the rowed PlayerList helper 0x002A7E14 (local player unless it
+// is inactive, then TheControlBar's observed player); the Energy is embedded
+// at Player +0x1BC; the power-bar fields are TheGlobalData +0xBC0 (base),
+// +0xBC4 (intervals) and +0xBC8 (yellow range); logN is the rowed
+// log-ratio helper 0x0009DE01; winDrawImage is TheWindowManager slot +0x108
+// and the clip calls are TheDisplay slots +0xA8 and +0xB0.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -54,9 +62,18 @@ enum
 };
 
 #define BitTest(x, i) (((x) & (i)) != 0)
+#define INT_TO_REAL(x) ((Real)(x))
 
 class WinInstanceData;
 class VideoBuffer;
+class Image;
+struct IRegion2D;
+
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
 
 class NameKeyGenerator
 {
@@ -95,12 +112,49 @@ public:
 	virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55();
 	virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59();
 	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);   // +0xF0
+	virtual void v61(); virtual void v62(); virtual void v63(); virtual void v64();
+	virtual void v65();
+	virtual void winDrawImage(const Image *image, Int startX, Int startY,
+		Int endX, Int endY, Color color = 0xFFFFFFFF);   // +0x108
+};
+
+class Energy
+{
+public:
+	Int getProduction(void) const { return m_energyProduction; }
+	Int getConsumption(void) const { return m_energyConsumption; }
+
+private:
+	char m_pad00[0x04];
+	Int m_energyProduction;    // +0x04
+	Int m_energyConsumption;   // +0x08
 };
 
 class Player
 {
 public:
 	Bool hasRadar(void) const;
+	Energy *getEnergy(void) { return &m_energy; }
+
+private:
+	char m_pad00[0x1BC];
+	Energy m_energy;   // +0x1BC
+};
+
+class BfmeMemberRV;
+
+class BfmeThingRV
+{
+public:
+	BfmeMemberRV *bfmePickRV(void);   // PlayerList: local player, else the observed one
+};
+
+struct GlobalData
+{
+	char m_pad000[0xBC0];
+	Int m_powerBarBase;          // +0xBC0
+	Real m_powerBarIntervals;    // +0xBC4
+	Int m_powerBarYellowRange;   // +0xBC8
 };
 
 class PlayerList
@@ -173,8 +227,11 @@ public:
 	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
 	virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
 	virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
-	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
-	virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
+	virtual void v40(); virtual void v41();
+	virtual void setClipRegion(IRegion2D *region);   // +0xA8
+	virtual void v43();
+	virtual void enableClipping(Bool onoff);         // +0xB0
+	virtual void v45(); virtual void v46(); virtual void v47();
 	virtual void v48(); virtual void v49(); virtual void v50(); virtual void v51();
 	virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55();
 	virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59();
@@ -195,6 +252,23 @@ struct ICoord2D
 	ICoord2D() {}
 	Int x;
 	Int y;
+};
+
+struct IRegion2D
+{
+	ICoord2D lo;
+	ICoord2D hi;
+};
+
+class Image
+{
+public:
+	Int getImageWidth(void) const { return m_imageSize.x; }
+	Int getImageHeight(void) const { return m_imageSize.y; }
+
+private:
+	char m_pad00[0x24];
+	ICoord2D m_imageSize;   // +0x24
 };
 
 class ControlBarSchemeManager
@@ -233,6 +307,10 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 extern PlayerList *ThePlayerList;
 extern Radar *TheRadar;
 extern ControlBar *TheControlBar;
+extern ImageCollection *TheMappedImageCollection;
+extern GlobalData *TheGlobalData;
+
+float Rva0009DE01Get(float value, float base);   // ZH logN
 
 void W3DLeftHUDDraw(GameWindow *window, WinInstanceData *instData)
 {
@@ -340,4 +418,100 @@ void W3DCommandBarGridDraw(GameWindow *window, WinInstanceData *instData)
 	((W3DDisplay *)TheDisplay)->rva0004D664(pos.x, pos.y + size.y * .66, pos.x + size.x, pos.y + size.y * .66, 1, color);
 	((W3DDisplay *)TheDisplay)->rva0004D664(pos.x + size.x * .33, pos.y, pos.x + size.x * .33, pos.y + size.y, 1, color);
 	((W3DDisplay *)TheDisplay)->rva0004D664(pos.x + size.x * .66, pos.y, pos.x + size.x * .66, pos.y + size.y, 1, color);
+}
+
+void W3DPowerDraw(GameWindow *window, WinInstanceData *instData)
+{
+	static const Image *centerBarYellow = TheMappedImageCollection->findImageByName("PowerPointY");
+	static const Image *centerBarRed = TheMappedImageCollection->findImageByName("PowerPointR");
+	static const Image *centerBarGreen = TheMappedImageCollection->findImageByName("PowerPointG");
+	const Image *centerBar = 0;
+	static const Image *slider = TheMappedImageCollection->findImageByName("PowerBarSlider");
+	Player *player = (Player *)((BfmeThingRV *)ThePlayerList)->bfmePickRV();
+
+	if (!player || !TheGlobalData)
+		return;
+	Energy *energy = player->getEnergy();
+	if (energy == 0)
+		return;
+
+	Int consumption = energy->getConsumption();
+	Int production = energy->getProduction();
+
+	ICoord2D pos, size;
+	window->winGetScreenPosition(&pos.x, &pos.y);
+	window->winGetSize(&size.x, &size.y);
+
+	static Real pixelsPerInterval = size.x / TheGlobalData->m_powerBarIntervals;
+	Int delta = TheGlobalData->m_powerBarYellowRange;
+
+	if ((consumption > energy->getProduction() - delta) && (consumption <= energy->getProduction()))
+		centerBar = centerBarYellow;
+	else if (consumption > production)
+		centerBar = centerBarRed;
+	else
+		centerBar = centerBarGreen;
+	if (!slider || !centerBar)
+		return;
+
+	Int range;
+	range = Rva0009DE01Get(production, TheGlobalData->m_powerBarBase) * (size.x / TheGlobalData->m_powerBarIntervals);
+	if (range >= size.x)
+		range = size.x;
+
+	// draw the center repeating bar
+	Int centerWidth, pieces;
+	centerWidth = range;
+	if (centerWidth > 0)
+	{
+		// how many whole repeating pieces will fit in that width
+		pieces = centerWidth / centerBar->getImageWidth();
+		ICoord2D start, end;
+		start.x = pos.x;
+		start.y = pos.y;
+		end.y = start.y + size.y;
+		for (Int i = 0; i < pieces; i++)
+		{
+			end.x = start.x + centerBar->getImageWidth();
+			TheWindowManager->winDrawImage(centerBar, start.x, start.y, end.x, end.y);
+			start.x += centerBar->getImageWidth();
+		}
+
+		// draw the last piece clipped to the window
+		IRegion2D reg;
+		reg.lo.x = start.x;
+		reg.lo.y = start.y;
+		reg.hi.x = pos.x + size.x;
+		reg.hi.y = pos.y + size.y;
+		centerWidth = pos.x + size.x - start.x;
+		if (centerWidth > 0)
+		{
+			TheDisplay->setClipRegion(&reg);
+			end.x = start.x + centerBar->getImageWidth();
+			TheWindowManager->winDrawImage(centerBar, start.x, start.y, end.x, end.y);
+			TheDisplay->enableClipping(false);
+		}
+	}
+	Int posXstart;
+	Int posXend;
+	Real consumptionForNeedle = (consumption == 1) ? 1.5f : INT_TO_REAL(consumption);   // log(1) == 0
+	range = Rva0009DE01Get(consumptionForNeedle, TheGlobalData->m_powerBarBase) * (size.x / TheGlobalData->m_powerBarIntervals);
+	if (centerWidth <= 0 && range <= 0)
+		return;
+	if (range >= size.x)
+	{
+		posXstart = pos.x + size.x - slider->getImageWidth();
+		posXend = pos.x + size.x;
+	}
+	else
+	{
+		posXstart = pos.x + range - slider->getImageWidth() / 2;
+		posXend = pos.x + range + slider->getImageWidth() / 2;
+	}
+	if (posXstart <= pos.x)
+	{
+		posXstart = pos.x;
+		posXend = pos.x + slider->getImageWidth();
+	}
+	TheWindowManager->winDrawImage(slider, posXstart, pos.y + size.y - slider->getImageHeight(), posXend, pos.y + size.y);
 }
