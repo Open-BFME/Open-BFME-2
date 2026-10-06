@@ -1618,3 +1618,25 @@ void Rva0029B5FD::reset(Rva004E668E *p)
 		}
 	}
 }
+
+// ?reset@Rva0042C1BC@@QAEXPAVRva0057417E@@@Z @0x0042C1BC 35B evidence: leaf reset same pointee as clear 0x0042C1DF via 2 callers in 0x0042C342; callees rowed plus pin 0x0057417E
+class Rva0042C1BC
+{
+public:
+	Rva0057417E *m_ptr;
+	void reset(Rva0057417E *p);
+};
+
+void Rva0042C1BC::reset(Rva0057417E *p)
+{
+	if (p != m_ptr)
+	{
+		Rva0057417E *old = m_ptr;
+		m_ptr = p;
+		if (old)
+		{
+			old->Rva0057417E::~Rva0057417E();
+			::operator delete(old);
+		}
+	}
+}

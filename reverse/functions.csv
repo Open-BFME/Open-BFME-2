@@ -66376,3 +66376,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0Rva00342C97@@QAE@PAVStateMachine@@@Z,,0x00342C97,34,Code/GameEngine/Source/Common/AIStateEvacLeafCtors.cpp,matched,gap leaf ctor false flag plus-0x68 0x6c base 0x00342BAE vtable 0x00812A70 caller 0x00352308
 ?rva003FD02E@Rva003FD02E@@QAEHPAD@Z,,0x003FD02E,40,Code/GameEngine/Source/Common/Rva003FD02EWrite.cpp,matched,vtable slot 2 at 0x00837C20 via two rowed writes
 ?rva002C5FBA@Rva002C5FBA@@QAEPAXH@Z,,0x002C5FBA,17,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,null-checked forwarder to rowed AITargetChooser plus caller
+?reset@Rva0042C1BC@@QAEXPAVRva0057417E@@@Z,,0x0042C1BC,35,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,leaf reset same pointee as clear 0x0042C1DF via 2 callers in 0x0042C342

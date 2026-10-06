@@ -15024,3 +15024,5 @@ Rva00521B16	0x00521B16	50	blocked	Ghidra boundary 0x00521B16/50; body copies a U
 ?rva004E00D9@Rva004E00BAOwner@@QAEXXZ	0x004E00D9	98	partial	second loop exact via empty guard; first loop swapped edi-ebx and erase push via esi+0x14 vs edi+4 t=25 model=muse-spark score=0.95 stash=reverse/attempts/0x004e00d9.cpp
 ?d_007e8b00@@YAXXZ	0x00655B90	549	blocked	pin YAXXZ is void-void but retail takes 3 args returns int so clean void definition cannot match bytes and table at 0xCE0E20 has no ledger owner t=20 model=muse-14
 ?Rva003F71D4Distance@@YGMPBURva003F71D4Point@@0@Z	0x003F71D4	53	partial	SSE load scheduling wall t=20 model=muse-spark score=0.93 stash=reverse/attempts/0x003f71d4.cpp
+?rva003628D3@Rva003628D3@@QAEXPAX@Z	0x003628D3	482	blocked	complex 482B EH plus many virtuals plus unknown class plus no donor t=5 model=muse-14
+??1Rva0042C5C3@@UAE@XZ	0x0042C5C3	180	blocked	dtor 180B EH plus 7 member calls plus 6 unnamed vtables plus WARN FF boundary plus no donor t=5 model=muse-14
