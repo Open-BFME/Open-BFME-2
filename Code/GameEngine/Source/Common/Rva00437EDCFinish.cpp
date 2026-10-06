@@ -63,10 +63,12 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva0054D222Prompt {
 public: bool prompt(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C);
 private: bool configure(int,const UnicodeString &,const UnicodeString &);
+ friend class Rva0054D3E1Prompt;
  unsigned m_level00; AsciiString m_movie04; char m_pad08[0xc]; int m_previous14; int m_state18; TreeHintRef00217D4C m_callback;
 };
 class Rva0054D3E1Prompt {
 public: bool prompt(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C);
+ bool configure(int,const UnicodeString &,const UnicodeString &);
 private: unsigned char m_pad00[4]; Rva0054D222Prompt *m_child04;
 };
 bool Rva0054D222Prompt::configure(int kind, const UnicodeString &title,
@@ -81,6 +83,16 @@ bool Rva0054D222Prompt::configure(int kind, const UnicodeString &title,
  g_bfmeAptWindowManager->bfmeSetText(prefix + "Title", title, true);
  g_bfmeAptWindowManager->bfmeSetText(prefix + "Text", message, true);
  return true;
+}
+
+// ?configure@Rva0054D3E1Prompt@@QAE_NHABVUnicodeString@@0@Z @0x0054D3D9 8B.
+// Target moves this+4 into ecx and tail-jumps to the rowed private
+// Rva0054D222Prompt::configure; adjacent prompt body and its child04 layout
+// identify this forwarding method and wrapper class.
+bool Rva0054D3E1Prompt::configure(int kind, const UnicodeString &title,
+ const UnicodeString &message)
+{
+ return m_child04->configure(kind, title, message);
 }
 
 
