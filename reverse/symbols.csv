@@ -14174,3 +14174,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?findGoodBuildOrRepairPosition@WorkerAIUpdate@@IAE_NPBVObject@@0AAUCoord3D@@@Z,0x004AA4FE,"its own docking-trace BEGIN line (.rdata 0x00C54558) names WorkerAIUpdate::findGoodBuildOrRepairPosition(); called twice from the rowed findGoodBuildOrRepairPositionAndTarget 0x004AABB4 (REL32 at 0x004AACE1 and 0x004AAD51) with the full object, worker, target and an out position, bool result; BFME 1 spelling"
 ?rva005B1A6C@Rva005B1A6C@@QAEXXZ,0x005B1A6C,callee of ?rva00513988@Rva00513988@@QAEXXZ
 ?rva0050F306@Rva0050F041@@QAEXXZ,0x0050F306,callee of ?rva0050FF1C@Rva0050F041@@QAEXXZ
+?rva005BD82E@@YAXXZ,0x005BD82E,callee of ?rva00516FA9@@YAXXZ
