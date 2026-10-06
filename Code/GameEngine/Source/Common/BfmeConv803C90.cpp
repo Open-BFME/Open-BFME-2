@@ -25,7 +25,13 @@ class BfmeOwner803C90
 {
 public:
 	void go(BfmeSrc803C90 *src);
-	void send(BfmeMsg803C90 *m) throw();
+};
+
+class BfmeC994;
+class Rva008038F0Sender
+{
+public:
+	void send(BfmeC994 *m) throw();
 };
 
 
@@ -38,5 +44,5 @@ void BfmeOwner803C90::go(BfmeSrc803C90 *src)
 	int tid = src->getInt((char *)"TID", -1);
 	if (tid != -1)
 		msg.addInt((char *)"TID", tid);
-	send(&msg);
+	((Rva008038F0Sender *)(void *)this)->send((BfmeC994 *)(void *)&msg);
 }
