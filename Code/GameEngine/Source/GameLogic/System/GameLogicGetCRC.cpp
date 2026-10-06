@@ -71,11 +71,11 @@ public:
 	virtual ~Xfer();
 };
 
-class Rva009D8630BlockWriter
+class XferSave
 {
 public:
-	Rva009D8630BlockWriter();
-	virtual ~Rva009D8630BlockWriter();
+	XferSave();
+	virtual ~XferSave();
 	virtual void slot1();
 	virtual void slot2();
 	virtual void slot3();
@@ -112,7 +112,7 @@ private:
 	char m_data[0x3C];
 };
 
-class BFMECRCWriter : public Rva009D8630BlockWriter
+class BFMECRCWriter : public XferSave
 {
 public:
 	BFMECRCWriter(bool full);
@@ -138,11 +138,6 @@ public:
 	void bfmeClose();
 };
 
-class XferSave
-{
-public:
-	virtual ~XferSave();
-};
 
 class Rva00210C66CmpBoolField
 {

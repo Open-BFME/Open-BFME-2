@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva003FFDFA@Rva003FFDFA@@QAEXHUBfmeSaveElement002295D7@@@Z, retail 0x003FFDFA, 87 bytes.
-// GameInfo-like set slot: index at [ebp+8] with 0..8 range check via +0x18
+// ?setSlot@GameInfo@@QAEXHVGameSlot@@@Z, retail 0x003FFDFA, 87 bytes.
+// GameInfo::setSlot: index at [ebp+8] with 0..8 range check via +0x18
 // pointer array, null check, slot-0 flag tweak (word04==6 sets flag08/flag09)
 // then rowed 0x002DBAB9 assign and rowed 0x002294FD dtor of by-value 0x1AC
 // element (ret 0x1B0 = 4+0x1AC). Layout from BfmeSaveElementAssign.cpp and
@@ -15,8 +15,9 @@ struct Rva005B5C02Entry {
 	unsigned int _pad[0x50];
 };
 
-struct BfmeSaveElement002295D7 {
-	virtual ~BfmeSaveElement002295D7();
+class GameSlot {
+public:
+	virtual ~GameSlot();
 	unsigned int word04;
 	unsigned char flag08;
 	unsigned char flag09;
@@ -46,20 +47,20 @@ struct BfmeSaveElement002295D7 {
 	Rva005B5C02Entry hero64;
 	unsigned char flag1A4;
 	AsciiString text1A8;
-	BfmeSaveElement002295D7 &rva002DBAB9(const BfmeSaveElement002295D7 &o);
+	GameSlot &rva002DBAB9(const GameSlot &o);
 };
 
-struct Rva003FFDFA {
+struct GameInfo {
 	char _pad[0x18];
-	BfmeSaveElement002295D7 *m_slot[8];
-	void rva003FFDFA(int index, BfmeSaveElement002295D7 elem);
+	GameSlot *m_slot[8];
+	void setSlot(int index, GameSlot elem);
 };
 
-void Rva003FFDFA::rva003FFDFA(int index, BfmeSaveElement002295D7 elem)
+void GameInfo::setSlot(int index, GameSlot elem)
 {
 	if (index < 0 || index >= 8)
 		return;
-	BfmeSaveElement002295D7 *slot = m_slot[index];
+	GameSlot *slot = m_slot[index];
 	if (!slot)
 		return;
 	if (index == 0) {

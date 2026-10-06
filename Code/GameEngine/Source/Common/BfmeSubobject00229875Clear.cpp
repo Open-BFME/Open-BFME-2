@@ -20,8 +20,9 @@ public:
 	virtual void xfer();
 };
 
-struct BfmeSaveElement002295D7 : Snapshot
+class GameSlot : Snapshot
 {
+public:
 	virtual void unkSlot4();
 	char _pad[0x1AC - 4];
 };
@@ -35,7 +36,7 @@ public:
 	void rva002DBA6A();
 private:
 	void *m_vptr;
-	BfmeSaveElement002295D7 m_elements[8];
+	GameSlot m_elements[8];
 	BfmeSaveBlock4 m_blockD64;
 	BfmeSaveBlock10 m_blockD74;
 	unsigned char m_flagD9C;

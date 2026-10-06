@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// ?rva002DBAB9@BfmeSaveElement002295D7@@QAEAAU1@ABU1@@Z, retail 0x002DBAB9, 225 bytes.
+// ?rva002DBAB9@GameSlot@@QAEAAV1@ABV1@@Z, retail 0x002DBAB9, 225 bytes.
 // Copy-assign of the 0x1AC-byte save element: scalars/flags field-by-field,
 // UnicodeString at +0x30 and AsciiStrings at +0x34/+0x1A8 via shared
 // AsciiString/UnicodeString operator= (inline set 0x37150/0x366F0), 0x140-byte
@@ -18,9 +18,9 @@ struct Rva005B5C02Entry
 };
 typedef char RvaEntrySizeCheck[sizeof(Rva005B5C02Entry) == 0x140 ? 1 : -1];
 
-struct BfmeSaveElement002295D7
-{
-	virtual ~BfmeSaveElement002295D7();
+class GameSlot {
+public:
+	virtual ~GameSlot();
 	unsigned int word04;
 	unsigned char flag08;
 	unsigned char flag09;
@@ -50,11 +50,11 @@ struct BfmeSaveElement002295D7
 	Rva005B5C02Entry hero64;
 	unsigned char flag1A4;
 	AsciiString text1A8;
-	BfmeSaveElement002295D7 &rva002DBAB9(const BfmeSaveElement002295D7 &o);
+	GameSlot &rva002DBAB9(const GameSlot &o);
 };
-typedef char BfmeSaveElementSizeCheck[sizeof(BfmeSaveElement002295D7) == 0x1AC ? 1 : -1];
+typedef char BfmeSaveElementSizeCheck[sizeof(GameSlot) == 0x1AC ? 1 : -1];
 
-BfmeSaveElement002295D7 &BfmeSaveElement002295D7::rva002DBAB9(const BfmeSaveElement002295D7 &o)
+GameSlot &GameSlot::rva002DBAB9(const GameSlot &o)
 {
 	word04 = o.word04;
 	flag08 = o.flag08;

@@ -82,7 +82,6 @@ Rva00077710Value *Rva00077710Value::rva0022D99A(Rva00077710Value &dst, int unuse
 	return &dst;
 }
 
-void Rva00077710Value::rva0022D189(int value)
-{
-	m_value = Rva0022CB5CHook(value, value);
-}
+// rva0022D189 is owned by GameEngineInit.cpp: VC7.1 needs its definition
+// visible there to prove that the post-try timing object's address does not
+// escape, and therefore reuse retail's expired catch-local stack storage.

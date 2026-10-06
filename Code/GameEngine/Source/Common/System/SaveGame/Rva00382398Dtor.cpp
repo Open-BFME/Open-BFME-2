@@ -2,7 +2,7 @@
 //
 // ??1Rva00382398@@UAE@XZ, retail 0x00382398, 119 bytes.
 // Virtual dtor (novtable suppresses its own vptr store) over
-// BfmeSaveElement002295D7 base (0x1AC) with five narrow
+// GameSlot base (0x1AC) with five narrow
 // StringBase members at +0x1b0/+0x1b4/+0x1b8/+0x1d8/+0x1dc destroyed in
 // reverse with EH states 4..0 then the rowed base dtor. Identity from caller
 // 0x003831EB (28B deleting dtor calling it then operator delete) and the
@@ -23,9 +23,10 @@ public:
     CreateAHeroData(const CreateAHeroData &);
     virtual ~CreateAHeroData();
 };
-struct BfmeSaveElement002295D7 : Snapshot {
-    BfmeSaveElement002295D7();
-    virtual ~BfmeSaveElement002295D7();
+class GameSlot : Snapshot {
+public:
+    GameSlot();
+    virtual ~GameSlot();
     unsigned int word04;
     unsigned char flag08, flag09, flag0A;
     unsigned int word0C, word10, word14, word18, word1C, word20, word24, word28, word2C;
@@ -39,7 +40,7 @@ struct BfmeSaveElement002295D7 : Snapshot {
     unsigned char flag1A4;
     AsciiString text1A8;
 };
-class __declspec(novtable) Rva00382398 : public BfmeSaveElement002295D7
+class __declspec(novtable) Rva00382398 : public GameSlot
 {
 public:
     ~Rva00382398();

@@ -51,8 +51,9 @@ public:
     CreateAHeroData(const CreateAHeroData &);
     virtual ~CreateAHeroData();
 };
-struct BfmeSaveElement002295D7 : Rva0022CE19SnapshotBase {
-    BfmeSaveElement002295D7();
+class GameSlot : Rva0022CE19SnapshotBase {
+public:
+    GameSlot();
     unsigned int word04;
     unsigned char flag08, flag09, flag0A;
     unsigned int word0C, word10, word14, word18, word1C, word20, word24, word28, word2C;
@@ -75,13 +76,13 @@ struct BfmeSubobject00229875 : Rva0022CE19SnapshotBase {
     virtual void crc(Xfer *);
     virtual const char *typeName() const;
     virtual void xfer(Xfer *);
-    BfmeSaveElement002295D7 elements[8];
+    GameSlot elements[8];
     BfmeSaveBlock4 blockD64;
     BfmeSaveBlock10 blockD74;
     unsigned char flagD9C;
     unsigned int wordDA0;
 };
-typedef char BfmeSaveElementSizeCheck[sizeof(BfmeSaveElement002295D7)==0x1AC ? 1 : -1];
+typedef char BfmeSaveElementSizeCheck[sizeof(GameSlot)==0x1AC ? 1 : -1];
 struct BfmeSubobject0022CE19 : Rva0022CE19SnapshotBase {
     virtual ~BfmeSubobject0022CE19();
     virtual void crc(Xfer *);

@@ -1,6 +1,6 @@
 // cl: /MD
 // ?rva00447B58@Rva00447B0E@@QAEAAU1@ABU1@@Z, retail 0x00447B58, 69 bytes.
-// Copy-assign of Rva00447B0E (0x1D0): base BfmeSaveElement002295D7 at +0 via
+// Copy-assign of Rva00447B0E (0x1D0): base GameSlot at +0 via
 // rowed 0x002DBAB9, Rva004479FD at +0x1AC via rowed 0x004479FD, StringBase at
 // +0x1C8 via set 0x366F0, dword at +0x1CC. Layout from Rva00447B0EDtor.cpp
 // (base 0x1AC, 0x1C at +0x1AC, StringBase at +0x1C8). Evidence: chain caller of
@@ -13,11 +13,11 @@ private:
 	T *m_data;
 };
 
-struct BfmeSaveElement002295D7
-{
-	virtual ~BfmeSaveElement002295D7();
+class GameSlot {
+public:
+	virtual ~GameSlot();
 	char _pad[0x1AC - 4];
-	BfmeSaveElement002295D7 &rva002DBAB9(const BfmeSaveElement002295D7 &o);
+	GameSlot &rva002DBAB9(const GameSlot &o);
 };
 
 struct Rva004479FD
@@ -34,7 +34,7 @@ struct Rva004479FD
 
 struct Rva00447B0E
 {
-	BfmeSaveElement002295D7 m_base00;
+	GameSlot m_base00;
 	Rva004479FD m_1AC;
 	StringBase<char> m_1C8;
 	int m_1CC;

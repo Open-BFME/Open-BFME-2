@@ -7,11 +7,11 @@
 // donor's GameLogic::getCRC body is omitted.
 class BfmeByteStream;
 
-class Rva009D8630BlockWriter
+class XferSave
 {
 public:
-	Rva009D8630BlockWriter();
-	virtual ~Rva009D8630BlockWriter();
+	XferSave();
+	virtual ~XferSave();
 	virtual void slot1();
 	virtual void slot2();
 	virtual void slot3();
@@ -21,7 +21,7 @@ private:
 	char data[0x3c];
 };
 
-class BFMECRCWriter : public Rva009D8630BlockWriter
+class BFMECRCWriter : public XferSave
 {
 public:
 	BFMECRCWriter( bool full );

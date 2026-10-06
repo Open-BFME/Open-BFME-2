@@ -318,11 +318,9 @@ GameInfo::GameInfo()
 	reset();
 }
 
-// ?init@GameInfo@@QAEXXZ present-unmatched
-void GameInfo::init( void )
-{
-	reset();
-}
+// init is owned by the BFME2 init recovery; the former unrowed
+// donor body here used BFME1 GameInfo/GameSlot layouts.
+
 
 // byte-exact reconstruction: game/GameEngine/Source/Common/GameInfo_resetMethodThunk.cpp
 // ?reset@GameInfo@@UAEXXZ present-unmatched
@@ -452,34 +450,9 @@ void GameInfo::endGame( void )
 	m_inProgress = false;
 }
 
-// ?setSlot@GameInfo@@UAEXHAVE-GameSlot@@@Z present-unmatched
-void GameInfo::setSlot( Int slotNum, GameSlot slotInfo )
-{
-	DEBUG_ASSERTCRASH( slotNum >= 0 && slotNum < MAX_SLOTS, ("GameInfo::setSlot - Invalid slot number"));
-	if (slotNum < 0 || slotNum >= MAX_SLOTS)
-		return;
+// setSlot is owned by the BFME2 init recovery; the former unrowed
+// donor body here used BFME1 GameInfo/GameSlot layouts.
 
-	DEBUG_ASSERTCRASH( m_slot[slotNum], ("NULL slot pointer"));
-	if (!m_slot[slotNum])
-		return;
-
-//	Bool isHuman = slotInfo.isHuman();
-//	Bool wasHuman = m_slot[slotNum]->isHuman();
-
-	if (slotNum == 0)
-	{
-		slotInfo.setAccept();
-		slotInfo.setMapAvailability(true);
-	}
-	*m_slot[slotNum] = slotInfo;
-
-#ifdef DEBUG_LOGGING
-	UnsignedInt ip = slotInfo.getIP();
-#endif
-
-	DEBUG_LOG(("GameInfo::setSlot - setting slot %d to be player %ls with IP %d.%d.%d.%d\n", slotNum, slotInfo.getName().str(),
-							ip >> 24, (ip >> 16) & 0xff, (ip >> 8) & 0xff, ip & 0xff));
-}
 
 GameSlot* GameInfo::getSlot( Int slotNum )
 {
@@ -737,11 +710,9 @@ void GameInfo::setMapSize( UnsignedInt mapSize )
 	}
 }
 
-// ?setSeed@GameInfo@@UAEXH@Z present-unmatched
-void GameInfo::setSeed( Int seed )
-{
-	m_seed = seed;
-}
+// setSeed is owned by the BFME2 init recovery; the former unrowed
+// donor body here used BFME1 GameInfo/GameSlot layouts.
+
 
 // ?setSlotPointer@GameInfo@@UAEXHPAVGameSlot@@@Z present-unmatched
 void GameInfo::setSlotPointer( Int index, GameSlot *slot )

@@ -14,9 +14,9 @@ struct Rva005B5C02Entry
 	unsigned int _pad[0x50];
 };
 
-struct BfmeSaveElement002295D7
-{
-	virtual ~BfmeSaveElement002295D7();
+class GameSlot {
+public:
+	virtual ~GameSlot();
 	unsigned int word04;
 	unsigned char flag08;
 	unsigned char flag09;
@@ -46,13 +46,13 @@ struct BfmeSaveElement002295D7
 	Rva005B5C02Entry hero64;
 	unsigned char flag1A4;
 	AsciiString text1A8;
-	BfmeSaveElement002295D7 &rva002DBAB9(const BfmeSaveElement002295D7 &o);
+	GameSlot &rva002DBAB9(const GameSlot &o);
 };
 
 struct BfmeSubobject00229875
 {
 	virtual ~BfmeSubobject00229875();
-	BfmeSaveElement002295D7 elements[8];
+	GameSlot elements[8];
 	unsigned char blockD64[0x10];
 	unsigned int blockD74[10];
 	unsigned char flagD9C;

@@ -2,11 +2,11 @@
 // ??4Rva00382E73@@QAEAAV0@ABV0@@Z @0x00382E73 308B: assign over Rva00381F04 at +0 via rowed 0x00381F04 eight Rva00382398 at +0xDC via just-landed 0x003824A5 AsciiStrings at +0xFDC/+0xFE8/+0xFFC/+0x1000 via rowed set 0x000366F0 plus ints bytes word tail to 0x1020. Evidence: chain caller of 0x003824A5 plus layout from loop 8x0x1E0 plus callers 0x0038589A 0x005A1BFD 0x005A3A78.
 #include "ascii_string.h"
 
-struct BfmeSaveElement002295D7
-{
-	virtual ~BfmeSaveElement002295D7();
+class GameSlot {
+public:
+	virtual ~GameSlot();
 	unsigned char m_pad04[0x1AC - 4];
-	BfmeSaveElement002295D7 &rva002DBAB9(const BfmeSaveElement002295D7 &o);
+	GameSlot &rva002DBAB9(const GameSlot &o);
 };
 
 class Rva00381F04
@@ -18,7 +18,7 @@ private:
 	unsigned char m_pad04[0xDC - 4];
 };
 
-class Rva00382398 : public BfmeSaveElement002295D7
+class Rva00382398 : public GameSlot
 {
 public:
 	virtual ~Rva00382398();
