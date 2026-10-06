@@ -197,6 +197,11 @@ private:
     OpaqueRefCounted *m_ptr;
 };
 
+class Rva002D9508 {
+public:
+    void rva002D9508(const void *value);
+};
+
 // hash map of event infos by name at +0xBC; its operator[] is 0x00059FBB.
 class Rva00059FBBMap {
 public:
@@ -225,6 +230,9 @@ public:
     virtual void slot65(); virtual void slot66(); virtual void slot67(); virtual void slot68(); virtual void slot69();
     virtual void slot70(); virtual void slot71(); virtual void slot72(); virtual void slot73(); virtual void slot74();
     virtual AudioEventInfoRef findAudioEventInfo(const AsciiString &name) const;
+    bool rva00055FCA(int key, void **result, int flags);
+    void rva000562CF(int key);
+    void rva000562A2(int key, const void *value);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
     AudioEventRTS *findLowestPrioritySound(AudioEventRTS *event);
     float rva0005A9F8(void *ref, int a, int b);
@@ -296,6 +304,25 @@ void MilesAudioManager::moveUpMusicSystems(int newMusicSystem, int viewType, int
 {
     putPlayingMusicOnStack(viewType, arg);
     m_activeMusicSystem[viewType] = (MusicSystem)newMusicSystem;
+}
+
+// Address-derived Manager method. The target passes the lookup output to the
+// manager helper and increments the returned object's +0x80 reference count.
+// The helper's address is read directly from the call at 0x000562E0.
+void MilesAudioManager::rva000562CF(int key)
+{
+    void *result = 0;
+    if (rva00055FCA(key, &result, 0) && result)
+        ++*reinterpret_cast<int *>(reinterpret_cast<char *>(result) + 0x80);
+}
+
+// The neighboring target uses the same helper; its returned object receives
+// the existing 0x002D9508 setter call with the second argument.
+void MilesAudioManager::rva000562A2(int key, const void *value)
+{
+    void *result = 0;
+    if (rva00055FCA(key, &result, 0) && result)
+        reinterpret_cast<Rva002D9508 *>(result)->rva002D9508(value);
 }
 
 // Retail @ 0x0005AC61 gates the move-up helper on the per-view active system.
