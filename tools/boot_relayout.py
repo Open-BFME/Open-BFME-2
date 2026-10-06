@@ -370,7 +370,11 @@ def sites_into(by_target, lo, hi):
 
 
 def target_index(r, sites):
-    pairs = sorted((r.u32(s) - bi.RETAIL_BASE, s) for s in sites)
+    """(sorted targets, their fields): retail's DIR32 sites plus the export and
+    resource directories' image-relative fields (an exported global is referenced
+    from the export table, which the scaffold keeps pointing at retail's copy)."""
+    pairs = sorted([(r.u32(s) - bi.RETAIL_BASE, s) for s in sites]
+                   + [(r.u32(f), f) for f in bi.export_fields(r) + bi.resource_fields(r)])
     return [p[0] for p in pairs], [p[1] for p in pairs]
 
 
