@@ -11,6 +11,7 @@ assume fs:nothing
 
 EXTERN ??1AsciiString@@QAE@XZ:PROC
 EXTERN ??1UnicodeString@@QAE@XZ:PROC
+EXTERN ?call@Rva002E3A80Holder@@QAEXXZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b96a09 at RVA 0x00796A09; 25-byte interval ends at RET.
@@ -68,6 +69,34 @@ PUBLIC ?rva00796E92@@YAXXZ
 cleanup_done_00796E92:
     ret
 ?rva00796E92@@YAXXZ ENDP
+
+; Unwind@00b97053 at RVA 0x00797053; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then loads the cleanup pointer from [ebp+8] and tail-jumps to matched Rva002E3A80Holder::call at 0x002E3A80.
+PUBLIC ?rva00797053@@YAXXZ
+?rva00797053@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00797053
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ?call@Rva002E3A80Holder@@QAEXXZ
+cleanup_done_00797053:
+    ret
+?rva00797053@@YAXXZ ENDP
+
+; Unwind@00b970e4 at RVA 0x007970E4; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-28], then loads the cleanup pointer from [ebp+8] and tail-jumps to matched Rva002E3A80Holder::call at 0x002E3A80.
+PUBLIC ?rva007970E4@@YAXXZ
+?rva007970E4@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-28]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007970E4
+    and DWORD PTR [ebp-28], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ?call@Rva002E3A80Holder@@QAEXXZ
+cleanup_done_007970E4:
+    ret
+?rva007970E4@@YAXXZ ENDP
 
 ; Unwind@00b975a4 at RVA 0x007975A4; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-16], then loads the cleanup pointer from [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
