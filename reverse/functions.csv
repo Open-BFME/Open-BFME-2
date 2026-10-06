@@ -63846,3 +63846,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005C8F17@HostClass005C8E0A@@QAEXXZ,,0x005C8F17,57,Code/GameEngine/Source/Common/HostClass005C8F17.cpp,matched,HostClass005C8E0A layout with TheAudio removeAudioEvent and callees 0x519BD 0x5C87F8 0x5C8E0A
 ?rva002E112A@Rva002E112A@@QAE_NPAVRva00319CED@@@Z,,0x002E112A,43,Code/GameEngine/Source/Common/Rva002E112A.cpp,matched,unlock rowed callees setle compare
 ?rva00499C6C@OneRingPenaltyUpdate@@AAEXXZ,,0x00499C6C,172,Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499C6C.cpp,matched,OneRing helper via rowed ring status audio and BfmeC987
+?rva0049924B@GateOpenAndCloseBehavior@@AAEX_N@Z,,0x0049924B,138,Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorRva0049924B.cpp,matched,Gate helper via pathfind state and flag vectors
