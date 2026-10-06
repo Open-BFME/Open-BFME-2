@@ -15701,3 +15701,160 @@ rva004E02D7@Rva004E02D7	0x004E02D7	52	blocked	Ghidra boundary 0x004E02D7/52; exi
 ?dup_0032ADA3@@YAXXZ	0x0032ADA3	37	blocked	explain_mismatch passes only under the current baseline gen-alias mask; deleting the mask exposes a single REL32 difference. Retail calls 0x0032ACFC, while this TU resolves Pair<AsciiString,NoCaseTreeValue4> _Construct to 0x001DD745. The local inventory also records 0x0032ACFC as an Rva0032DC80Element _Construct; the two callees are not proven byte-and-relocation twins, so identity and copy-ctor behavior remain unresolved.
 ?dup_0021c21b@@YAXXZ	0x0021C21B	177	converted	Strict call resolution now lands the retail REL32 at 0x00030830 through the existing address-derived Rva00030830FreeAllocation pin; the old unresolved __free spelling was the only blocker. Removing the genalias baseline line passes repair_queue pass-test and ./build.sh verifies 1/1 rows in the TU.
 FUN_006461F1	0x002461F1	34	blocked	The shard-8 similar tier served this 34B Ghidra boundary against _M_create_node siblings, but the suggested stlport_pod_list_bodies.cpp object contains no FUN_006461f1 symbol. decode_calls cannot compile a candidate body without that source definition; no C++ body or supported identity is available yet.
+FUN_009d6c3c	0x005D6C3C	60	blocked	false boundary: body starts in loop tail at 0x005D6C3C, branches back to 0x005D6AE6 and returns through that parent epilogue; Ghidra split is not an entry; t=3 model=gpt-6-luna
+FUN_009e31aa	0x005E31AA	68	blocked	false boundary: 0x005E31AA is a branch arm inside the contiguous conditional chain at 0x005E315E; incoming branch at 0x005E31A8 and all arms join at 0x005E3200, with no function entry/return at this split; t=2 model=gpt-6-luna
+FUN_009de433	0x005DE433	72	blocked	false boundary: 0x005DE433 lies inside rel32 immediate of call at 0x005DE431 (instruction bytes E8 88 1F 23 00); not an entry; t=1 model=gpt-6-luna
+FUN_009d46e3	0x005D46E3	73	blocked	false boundary: 0x005D46E3 continues an MMX unroll already loading offsets 0x40/0x48; candidate extent ends at 0x005D472C inside movq [edx+0x70]; no standalone return or call entry; t=1 model=gpt-6-luna
+FUN_009e1b4e	0x005E1B4E	76	blocked	false boundary: target begins at 0x005E1B4E inside movss instruction starting 0x005E1B4D; no entry instruction boundary; t=1 model=gpt-6-luna
+FUN_009e3463	0x005E3463	77	blocked	false boundary: 0x005E3463 is the second byte of shl edx,cl at 0x005E3462; not an instruction entry; t=1 model=gpt-6-luna
+FUN_009e589e	0x005E589E	79	blocked	false boundary: target starts at 0x005E589E in displacement byte 0x30 of movss [ebp+0x30],xmm0 at 0x005E589A; not an instruction boundary; t=1 model=gpt-6-luna
+FUN_009d7e45	0x005D7E45	83	blocked	false boundary: 0x005D7E45 is inside rel32 displacement of call at 0x005D7E42 to 0x005D7820; not a code entry; t=1 model=gpt-6-luna
+FUN_009e5fa8	0x005E5FA8	83	blocked	false boundary: target starts inside rel32 displacement of call at 0x005E5FA5 to 0x005E4912; not an instruction entry; t=1 model=gpt-6-luna
+FUN_009e38eb	0x005E38EB	92	blocked	false boundary: target starts at 0x005E38EB inside movss [ecx+0x28],xmm1 at 0x005E38E8; candidate is a mid-instruction block; t=1 model=gpt-6-luna
+FUN_009d4da9	0x005D4DA9	93	blocked	false boundary: 0x005D4DA9 is the displacement byte of a movq in the contiguous MMX store run starting at 0x005D4DA6; no standalone prologue or transfer; t=2 model=gpt-6-luna
+FUN_009e20a6	0x005E20A6	93	blocked	false boundary/extent: 0x005E20A6 is a mid-body conditional block using ebx and parent ebp locals; no entry/prologue, and 93-byte extent ends at 0x005E2103 inside the cmp beginning 0x005E2102; t=2 model=gpt-6-luna
+FUN_009e2c9d	0x005E2C9D	93	blocked	false boundary: target begins at 0x005E2C9D inside test byte ptr [esp+8],1 starting 0x005E2C9A; not an instruction entry; t=1 model=gpt-6-luna
+FUN_009e54f7	0x005E54F7	93	blocked	false boundary: target begins at 0x005E54F7 inside fild DWORD PTR [ebp-8] at 0x005E54F6; function state already uses the parent ebp frame; t=1 model=gpt-6-luna
+FUN_009dd0eb	0x005DD0EB	98	blocked	false boundary/extent: 0x005DD0EB begins with opaque continuation bytes, has no entry setup, and its 98-byte span crosses independent ret-delimited routines at 0x005DD10C and 0x005DD12B before ending before another epilogue; t=2 model=gpt-6-luna
+FUN_009e5b20	0x005E5B20	98	blocked	false boundary/extent: mid-body SIMD sequence consumes ebp/esi/xmm state set earlier; no entry prologue, and 98-byte extent ends at 0x005E5B82 inside addss beginning 0x005E5B80; t=1 model=gpt-6-luna
+FUN_009e254c	0x005E254C	101	blocked	false boundary/extent: starts inside displacement byte 0xD0 of movss at 0x005E2548 and ends inside the next long SIMD/x87 instruction sequence; not a body start; t=1 model=gpt-6-luna
+FUN_009d81a4	0x005D81A4	109	blocked	false boundary: target 0x005D81A4 begins inside movdqa xmm7,[ecx+0x60] starting 0x005D81A3; preceding SIMD stream has already entered after an earlier ret; t=1 model=gpt-6-luna
+FUN_009e4925	0x005E4925	112	blocked	false boundary/extent: 0x005E4925 continues the frameless helper begun at 0x005E491F, which returns at 0x005E4951; the 112-byte extent then crosses a separate entry at 0x005E4954; t=2 model=gpt-6-luna
+FUN_009db08f	0x005DB08F	113	blocked	false boundary: 0x005DB08F is the displacement byte of conditional branch at 0x005DB08E, within the 0x005DB085 constructor; t=1 model=gpt-6-luna
+FUN_009e29cd	0x005E29CD	115	blocked	false boundary/extent: target is fallthrough block after conditional at 0x005E29CB inside an ebx/ebp-frame method, then 115-byte span crosses next entry at 0x005E2A18; t=2 model=gpt-6-luna
+FUN_009dcc86	0x005DCC86	117	blocked	false boundary/extent: 0x005DCC86 starts in opaque continuation bytes; the extent crosses a ret at 0x005DCC9E, a new prologue at 0x005DCC9F, and several more independent leaf bodies; t=2 model=gpt-6-luna
+FUN_009e5b82	0x005E5B82	117	blocked	false boundary: 0x005E5B82 is inside addss xmm5,[ebp+0x50] beginning at 0x005E5B80 in parent SIMD body; not an instruction entry; t=1 model=gpt-6-luna
+FUN_009e3fe6	0x005E3FE6	118	blocked	false boundary/extent: starts in displacement byte 0xFC of movss at 0x005E3FE2; target is inside parent x87/SSE body and extent ends mid-instruction; t=1 model=gpt-6-luna
+FUN_009e5018	0x005E5018	119	blocked	false boundary: target lies inside the displacement field of mov [esi+0xE4],eax at 0x005E5014 in a straight-line object copy; no function entry; t=1 model=gpt-6-luna
+FUN_009daedf	0x005DAEDF	122	blocked	false boundary: 0x005DAEDF is the last byte of rel32 displacement for call at 0x005DAEDB; target lies inside parent method; t=1 model=gpt-6-luna
+FUN_009e39f3	0x005E39F3	123	blocked	false boundary/extent: 0x005E39F3 is a continuation of the aggregate member-copy run that started earlier; 123-byte extent ends inside the final mov [esi+0x9C],eax; t=1 model=gpt-6-luna
+FUN_009d56d0	0x005D56D0	124	blocked	false boundary/extent: 0x005D56D0 is the displacement byte of jle at 0x005D56CF inside the parent loop; 124-byte span then crosses its ret, padding, and a new function at 0x005D56F0; t=1 model=gpt-6-luna
+FUN_009e270e	0x005E270E	128	blocked	false boundary/extent: 0x005E270E is the third displacement byte of lea at 0x005E270B; extent crosses a ret at 0x005E2746 and a distinct ctor entry at 0x005E2747; t=1 model=gpt-6-luna
+FUN_009dd14d	0x005DD14D	131	blocked	false boundary/extent: 0x005DD14D begins with pop esi in the prior epilogue, followed by ret at 0x005DD14E and a new function prologue at 0x005DD14F; t=1 model=gpt-6-luna
+FUN_009dc93b	0x005DC93B	141	blocked	false boundary/extent: target starts on the displacement byte of lea eax,[ebp-0x10] at 0x005DC939; continues a repeated table-initializer store stream, no entry or return; t=1 model=gpt-6-luna
+FUN_009e3bd5	0x005E3BD5	146	blocked	false boundary/extent: target begins two bytes into mov [esi+0x104],eax at 0x005E3BD3 within a straight-line aggregate copy; no entry boundary; t=1 model=gpt-6-luna
+FUN_009e23a6	0x005E23A6	147	blocked	false boundary: target starts at 0x005E23A6 inside movss [ecx+8],xmm0 beginning 0x005E23A5 in an existing ebp-frame block; no entry; t=1 model=gpt-6-luna
+FUN_009e5a8b	0x005E5A8B	149	blocked	false boundary: target starts inside addss xmm7,xmm5 at 0x005E5A89 within the parent SIMD body; no independent entry; t=1 model=gpt-6-luna
+FUN_009e50e1	0x005E50E1	150	blocked	false boundary/extent: target begins inside mov [esi+0x118],eax starting at 0x005E50E0 in an uninterrupted aggregate copy already active before the RVA; t=1 model=gpt-6-luna
+FUN_009e22a0	0x005E22A0	152	blocked	false boundary/extent: 0x005E22A0 is a byte within branch displacement for je at 0x005E229E in an existing frame body; t=1 model=gpt-6-luna
+FUN_009e6110	0x005E6110	152	blocked	false boundary: 0x005E6110 falls straight through from body prologue at 0x005E6007 and reuses its ebp/esi/edi frame; no new entry transfer at 0x005E6108-10; t=3 model=gpt-6-luna
+FUN_009d4395	0x005D4395	158	blocked	false boundary: target begins inside the modrm byte of movq [edx],mm0 at 0x005D4393 in a continuous MMX transform; t=1 model=gpt-6-luna
+FUN_009dd22b	0x005DD22B	168	blocked	false boundary/extent: 0x005DD22B begins in parent epilogue (mov ecx,[ebp-0xc], segment restore, leave, ret at 0x005DD237); target span then contains several separate leaf bodies; t=1 model=gpt-6-luna
+FUN_009dd609	0x005DD609	173	blocked	false boundary/extent: 0x005DD609 begins inside and DWORD PTR [eax],0 at 0x005DD608; parent returns at 0x005DD66D and a new prologue begins 0x005DD670; t=2 model=gpt-6-luna
+FUN_009e1ff7	0x005E1FF7	175	blocked	false boundary: target begins in the final displacement byte of movss [ebp-0xA0],xmm1 at 0x005E1FF1 inside a parent SIMD frame; t=1 model=gpt-6-luna
+FUN_009d8443	0x005D8443	179	blocked	false boundary: 0x005D8443 is inside a straight-line SSE2 transform already running from at least 0x005D8380; live xmm registers and no entry transfer; t=2 model=gpt-6-luna
+FUN_009d8619	0x005D8619	187	blocked	false boundary: 0x005D8619 is the modrm byte of movdqa xmm4,xmm2 at 0x005D8617 within a continuous SSE2 transform; t=1 model=gpt-6-luna
+FUN_009d557f	0x005D557F	201	blocked	false boundary/extent: target begins in mov ecx,[ebp-0x10] inside prior EH epilogue; extent crosses several ret-delimited cleanup fragments before next independent routine at 0x005D55C0; t=2 model=gpt-6-luna
+FUN_009e2644	0x005E2644	202	blocked	false boundary/extent: 0x005E2644 is an internal call site with receiver/arguments prepared by earlier instructions; flow resumes at 0x005E2649 and the extent crosses another ctor entry at 0x005E264F; t=2 model=gpt-6-luna
+FUN_009e28fe	0x005E28FE	207	blocked	false boundary/extent: target is the last byte of rel32 call at 0x005E28FA; its span crosses the caller return at 0x005E2903 and a separate ctor entry at 0x005E2906; t=1 model=gpt-6-luna
+FUN_009e3f0a	0x005E3F0A	220	blocked	false boundary: target begins inside mov eax,[esp+4] at 0x005E3F08 in a leaf/getter cluster; span contains several independent ret-terminated routines; t=1 model=gpt-6-luna
+FUN_009dccfb	0x005DCCFB	222	blocked	false boundary: target address is inside the absolute memory operand of comiss at 0x005DCCF6 in the getter at 0x005DCCF0; t=1 model=gpt-6-luna
+FUN_009db512	0x005DB512	224	blocked	false boundary/extent: 0x005DB512 is the segment-restore instruction mov fs:0,ecx in a preceding EH epilogue (leave/ret at 0x005DB519); the oversized span crosses later constructors and methods; t=2 model=gpt-6-luna
+FUN_009da6f3	0x005DA6F3	230	blocked	false boundary/extent: 0x005DA6F3 is the second argument push in caller sequence started at 0x005DA6EC; call occurs at 0x005DA6F7, and 230-byte span crosses the caller return at 0x005DA73B and multiple new entries; t=2 model=gpt-6-luna
+FUN_009e1ed2	0x005E1ED2	234	blocked	false boundary/extent: target starts at the modrm byte of movss xmm4,[ebp-0x4C] at 0x005E1ECF in an active parent SSE frame; t=1 model=gpt-6-luna
+FUN_009e1753	0x005E1753	251	blocked	false boundary/extent: target starts in opaque continuation bytes of prior EH method; the 251-byte span crosses its cleanup ret at 0x005E1797 and a new constructor entry at 0x005E1798; t=2 model=gpt-6-luna
+FUN_009dc763	0x005DC763	252	blocked	false boundary/extent: 0x005DC763 is a loop head targeted from 0x005DC792 in a parent ebp/esi/edi frame, then runs to the parent EH epilogue and ret at 0x005DC7C4; t=2 model=gpt-6-luna
+FUN_009d4769	0x005D4769	254	blocked	false boundary: 0x005D4769 is the displacement byte 0x38 of movq mm1,[edx+0x38] beginning at 0x005D4766 in the aligned MMX transform; t=2 model=gpt-6-luna
+FUN_009cb748	0x005CB748	258	blocked	false boundary/extent: 0x005CB748 is inside the displacement of a byte-store instruction at 0x005CB746 in a long stack-local initialization sequence; t=2 model=gpt-6-luna
+FUN_009e4ca3	0x005E4CA3	268	blocked	false boundary: 0x005E4CA3 starts inside the movss store at 0x005E4CA2 in a straight-line object field initialization sequence; t=1 model=gpt-6-luna
+FUN_009d4287	0x005D4287	270	blocked	false boundary: target 0x005D4287 is byte 0xFD within paddw mm4,mm2 starting at 0x005D4286 in the SSE2 transform; t=1 model=gpt-6-luna
+FUN_009dc722	0x005DC722	26	blocked	false boundary: target is the final rel32 displacement byte of call at 0x005DC71E to 0x005DBE17; t=1 model=gpt-6-luna
+FUN_009dcb0d	0x005DCB0D	26	blocked	false boundary/extent: target continues a parent ebp-frame function from the global load at 0x005DCB07; 26-byte extent ends at 0x005DCB27 inside the push at 0x005DCB25; t=1 model=gpt-6-luna
+FUN_009e49fd	0x005E49FD	30	blocked	false boundary/extent: 0x005E49FD is the displacement byte of mov edi,[esp+0x10] at 0x005E49FA; 30-byte span ends in a following test operand; t=1 model=gpt-6-luna
+FUN_009e3e41	0x005E3E41	31	blocked	false boundary: target is the first immediate byte of ret 4 at 0x005E3E40 (bytes C2 04 00); subsequent decoded add al,0 is ret data; t=1 model=gpt-6-luna
+FUN_009e4389	0x005E4389	31	blocked	false boundary: target is the first immediate byte of ret 4 at 0x005E4388 (C2 04 00); t=1 model=gpt-6-luna
+FUN_009e51d3	0x005E51D3	31	blocked	false boundary: 0x005E51D3 is the final immediate byte of push 0xBDE8B8 at 0x005E51CF; no body entry; t=1 model=gpt-6-luna
+FUN_009e54d5	0x005E54D5	34	blocked	false boundary: 0x005E54D5 is inside the displacement of mov ebx,[esi+0x254] beginning 0x005E54D1; no entry instruction; t=1 model=gpt-6-luna
+FUN_009e58ed	0x005E58ED	34	blocked	false boundary: 0x005E58ED is the displacement byte of fstp [ebp+0x78] at 0x005E58EB in the active SIMD/x87 body; t=1 model=gpt-6-luna
+FUN_009e5628	0x005E5628	35	blocked	false boundary: target is the final displacement byte of addss xmm0,[edi+0xA0] at 0x005E5621; t=1 model=gpt-6-luna
+FUN_009e0d9c	0x005E0D9C	36	blocked	false boundary: target is the final immediate byte of add eax,0x148 at 0x005E0D98; t=1 model=gpt-6-luna
+FUN_005E1680	0x005E1680	39	blocked	starts in an EH epilogue (mov ecx,[ebp-0xc], FS restore, leave, ret); extent crosses next constructor prologue at 0x005E168D; t=1 model=gpt-6-luna
+FUN_005E21C2	0x005E21C2	41	blocked	starts at the displacement byte of conditional branch 0x005E21C1 (74 24); not a function boundary; t=1 model=gpt-6-luna
+FUN_005E1B9A	0x005E1B9A	42	blocked	starts at the disp8 byte within the preceding FF 51 8B indirect call encoding; not a function boundary; t=1 model=gpt-6-luna
+FUN_005E39AE	0x005E39AE	43	blocked	starts mid-function inside an unrolled field-copy sequence after repeated loads/stores for preceding offsets; extent ends inside same copy block; t=1 model=gpt-6-luna
+FUN_005D4E37	0x005D4E37	44	blocked	starts mid-stream inside a long MMX transform; same basic block continues from 0x005D4E29 with no entry prologue or control-flow boundary; t=1 model=gpt-6-luna
+FUN_005E3A76	0x005E3A76	44	blocked	starts on the final displacement byte of a mov eax,[edi+0xa0] inside an unrolled field-copy loop; t=1 model=gpt-6-luna
+FUN_005E25EF	0x005E25EF	45	blocked	starts inside a floating-point arithmetic block shortly after the parent epilogue prologue setup; no function entry, and its short extent exits mid-body; t=1 model=gpt-6-luna
+FUN_005DE059	0x005DE059	47	blocked	starts on the displacement byte of the parent block’s LEA before a CALL; no entry boundary at the claimed address; t=1 model=gpt-6-luna
+FUN_005E31EE	0x005E31EE	48	blocked	is displacement byte of unconditional short jump 0x005E31ED to join at 0x005E3200; Ghidra block fragment, not function; t=1 model=gpt-6-luna
+FUN_005E2371	0x005E2371	53	blocked	starts in the middle of a larger floating-point vector update routine; preceding SIMD stores lead directly into this instruction, no entry prologue; t=1 model=gpt-6-luna
+FUN_005DB5F2	0x005DB5F2	54	blocked	falls inside the four-byte immediate operand of PUSH 0x00CFE2FC at 0x005DB5F0; not executable entry; t=1 model=gpt-6-luna
+FUN_005E4DAF	0x005E4DAF	54	blocked	starts on RET ending the preceding function; extent then runs into the next constructor at 0x005E4DB0 and truncates it; t=1 model=gpt-6-luna
+FUN_005E4DE5	0x005E4DE5	54	blocked	starts within the FS:[0] restore instruction’s displacement after the parent CALL/epilogue; not a function boundary; t=1 model=gpt-6-luna
+FUN_005E3AAA	0x005E3AAA	55	blocked	starts within the displacement of the store to field +0xb0 in the same unrolled copy sequence; t=1 model=gpt-6-luna
+FUN_005E2338	0x005E2338	57	blocked	is the displacement byte of the short conditional jump at 0x005E2337; enters the middle of the same floating-point update block; t=1 model=gpt-6-luna
+FUN_005E50A7	0x005E50A7	58	blocked	is inside repeated unrolled object-field loads/stores around offsets 0x10a–0x124, with no prologue; t=1 model=gpt-6-luna
+FUN_005D498B	0x005D498B	66	blocked	is one instruction in a continuous MMX transform basic block that began above this RVA; no control-flow or function-entry boundary; t=1 model=gpt-6-luna
+FUN_005E5E7A	0x005E5E7A	67	blocked	is the immediate operand of PUSH 0 at 0x005E5E79 in a larger control-flow body; not an entry; t=1 model=gpt-6-luna
+FUN_005E5EBD	0x005E5EBD	67	blocked	is the displacement byte of short JMP at the same parent control-flow join (0x005E5EBC -> 0x005E5F0C); t=1 model=gpt-6-luna
+FUN_005E5F00	0x005E5F00	67	blocked	starts in the displacement of AND DWORD PTR [esi+0x11c],0xffffffbf at 0x005E5EFE; part of preceding function; t=1 model=gpt-6-luna
+FUN_005D19F8	0x005D19F8	74	blocked	is the immediate shift-count byte of MMX PSRAW at 0x005D19F6, inside an existing transform; extent crosses its RET and next prologue; t=1 model=gpt-6-luna
+FUN_005D1129	0x005D1129	76	blocked	begins within an ongoing SIMD/MMX image transform after earlier arithmetic, without a new function prologue or control-flow entry; t=1 model=gpt-6-luna
+FUN_005DB221	0x005DB221	80	blocked	is the final displacement byte of MOV EAX,[EBP-0xc] at 0x005DB21F, inside a large switch body; t=1 model=gpt-6-luna
+FUN_005E5CF9	0x005E5CF9	84	blocked	is the disp8 byte of MOVSS XMM1,[EDI+0x78] at 0x005E5CF5 within a vector-math routine; t=1 model=gpt-6-luna
+FUN_005DE8CD	0x005DE8CD	89	blocked	is the displacement byte of MOV [ESI+0x2c],AL at 0x005DE8CB; the parent object-copy function continues through its shared EH epilogue; t=1 model=gpt-6-luna
+FUN_005E0C6D	0x005E0C6D	90	blocked	is POP EBX in the preceding function’s EH epilogue, followed by FS restore/leave/ret; row extent crosses into later helpers; t=1 model=gpt-6-luna
+FUN_005E24D8	0x005E24D8	104	blocked	starts on LEAVE in the preceding function’s epilogue; the next function entry is 0x005E24DC and the row overlaps its body; t=1 model=gpt-6-luna
+FUN_005E2896	0x005E2896	104	blocked	lies inside the rel32 displacement of CALL at 0x005E2894, before the preceding constructor epilogue; not a function boundary; t=1 model=gpt-6-luna
+FUN_005E1680	0x005E1680	39	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E21C2	0x005E21C2	41	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E1B9A	0x005E1B9A	42	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E39AE	0x005E39AE	43	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005D4E37	0x005D4E37	44	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E3A76	0x005E3A76	44	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E25EF	0x005E25EF	45	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005DE059	0x005DE059	47	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E31EE	0x005E31EE	48	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E2371	0x005E2371	53	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005DB5F2	0x005DB5F2	54	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E4DAF	0x005E4DAF	54	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E4DE5	0x005E4DE5	54	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E3AAA	0x005E3AAA	55	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E2338	0x005E2338	57	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E50A7	0x005E50A7	58	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005D498B	0x005D498B	66	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E5E7A	0x005E5E7A	67	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E5EBD	0x005E5EBD	67	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E5F00	0x005E5F00	67	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005D19F8	0x005D19F8	74	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005D1129	0x005D1129	76	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005DB221	0x005DB221	80	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E5CF9	0x005E5CF9	84	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005DE8CD	0x005DE8CD	89	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E0C6D	0x005E0C6D	90	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E24D8	0x005E24D8	104	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E2896	0x005E2896	104	void	retract this seat’s erroneous attempt record: target was already matched in HEAD/origin master; not attempted; filter error corrected; t=0 model=gpt-6-luna
+FUN_005E4300	0x005E4300	137	no-boundary	begins at PUSH EAX inside the parent function that entered at 0x005E42F2; no entry prologue at the candidate RVA; t=1 model=gpt-6-luna
+FUN_005E4F6D	0x005E4F6D	171	no-boundary	starts within the repeated object-field copy block at field offsets 0xb8 and beyond; the parent routine continues through the sequence with no entry prologue; t=1 model=gpt-6-luna
+FUN_005E5FFB	0x005E5FFB	186	no-boundary	is the first rel32 displacement byte of CALL at 0x005E5FFA; the call lands in another routine and the claimed extent crosses the following function boundary; t=1 model=gpt-6-luna
+FUN_005E19CA	0x005E19CA	189	no-boundary	is within the displacement of the preceding function’s FS:[0] restore at 0x005E19C5; body starts earlier and extent crosses into the next constructor; t=1 model=gpt-6-luna
+FUN_005DBF8C	0x005DBF8C	228	no-boundary	is the third rel32 displacement byte of CALL at 0x005DBF89 in the preceding function; not an entry point; t=1 model=gpt-6-luna
+FUN_005DCEB7	0x005DCEB7	274	no-boundary	is the disp8 byte of MOV ECX,[EBP+8] at 0x005DCEB5 in a larger coordinate update; not a new entry; t=1 model=gpt-6-luna
+FUN_005E4E55	0x005E4E55	280	no-boundary	starts at the store of field +0x38 in the same straight-line object-copy run whose earlier fields appear before this RVA; no function entry at this position; t=1 model=gpt-6-luna
+FUN_005D415D	0x005D415D	298	no-boundary	is the final opcode byte of MOVQ MM7,MM0 at 0x005D415B inside an already-running MMX transform; t=1 model=gpt-6-luna
+FUN_005DC9C8	0x005DC9C8	285	no-boundary	is the displacement byte of MOV [EBP-0x10],EAX at 0x005DC9C6 in a longer repeated initialization sequence; t=1 model=gpt-6-luna
+FUN_005E2B45	0x005E2B45	344	no-boundary	starts at a conditional branch inside the parent container-copy body after arithmetic and a direct CALL at 0x005E2B35; no prologue at the candidate RVA; t=1 model=gpt-6-luna
+FUN_005DD48C	0x005DD48C	353	no-boundary	starts at CDQ inside the parent’s range check immediately after MOV/SUB; its actual function entry is earlier; t=1 model=gpt-6-luna
+FUN_005D7011	0x005D7011	377	no-boundary	starts at MOVQ within the middle of a SIMD conversion loop; the actual function prologue is before 0x005D7001; t=1 model=gpt-6-luna
+FUN_005DDED5	0x005DDED5	388	no-boundary	is the ModRM byte of MOV EAX,[ESI+0x20] beginning at 0x005DDED4 inside the previous EH body; row spills into the next function; t=1 model=gpt-6-luna
+FUN_005D528B	0x005D528B	400	no-boundary	starts at PUNPCKHWD inside a continuous MMX transform following earlier stores and shuffles; t=1 model=gpt-6-luna
+FUN_005D6AA4	0x005D6AA4	408	no-boundary	is within the disp32 operand of MOV [ESP+0x94],ECX at 0x005D6AA0 in a larger vector math routine; t=1 model=gpt-6-luna
+FUN_005E3753	0x005E3753	408	no-boundary	is the disp8 byte of FSTP DWORD PTR [EBP+8] at 0x005E3751 inside an in-progress floating-point vector routine; t=1 model=gpt-6-luna
+FUN_005E328A	0x005E328A	473	no-boundary	is the disp8 byte of MOV ECX,[EBP+8] at 0x005E3288 inside an existing EH-protected function; its actual prologue begins at 0x005E323B; t=1 model=gpt-6-luna
+FUN_005DEBF8	0x005DEBF8	575	no-boundary	is the ModRM byte of MOV EBP,ESP beginning at 0x005DEBF7; the nearest function entry starts two bytes earlier at 0x005DEBF6; t=1 model=gpt-6-luna
+FUN_005D4433	0x005D4433	661	no-boundary	is the ModRM byte of PADDSW MM1,MM1 at 0x005D4431 within an established MMX transform; t=1 model=gpt-6-luna
+FUN_005DEE37	0x005DEE37	781	no-boundary	starts at stack cleanup in the preceding function epilogue, five bytes before the next frame entry at 0x005DEE3C; extent spans multiple functions; t=1 model=gpt-6-luna
+FUN_005D6C94	0x005D6C94	824	no-boundary	starts at PUSH EDI after the function prologue at 0x005D6C90 (PUSH EBP; MOV EBP,ESP; PUSH ESI); the target is a large inner SIMD loop fragment; t=1 model=gpt-6-luna
+FUN_005D5F86	0x005D5F86	866	no-boundary	is the second byte of IMUL ESI,EDI at 0x005D5F85 in an ongoing unrolled vertex-field multiplication block; t=1 model=gpt-6-luna
+FUN_005D206B	0x005D206B	86	no-boundary	is MOV ECX,[EBP+0xc] inside the MMX pixel conversion body whose prologue begins at 0x005D2060; t=1 model=gpt-6-luna
+FUN_005D1CD3	0x005D1CD3	101	no-boundary	starts at PUNPCKLBW in the middle of the same MMX reconstruction block following prior transform operations; no function entry; t=1 model=gpt-6-luna
+FUN_005D1B01	0x005D1B01	132	no-boundary	is the 0F opcode byte of PUNPCKLWD beginning at 0x005D1B00 inside the same transform body; t=1 model=gpt-6-luna
+FUN_005D401E	0x005D401E	136	no-boundary	starts at POR MM7,MM3 inside the long MMX color conversion loop reached by back-edge 0x005D400C; function entry lies earlier; t=1 model=gpt-6-luna
+FUN_005D2A53	0x005D2A53	220	no-boundary	is the ModRM byte of MOVD [ESI+EDX],MM5 beginning at 0x005D2A51 near the end of the prior MMX routine; t=1 model=gpt-6-luna
+FUN_005D27E5	0x005D27E5	271	no-boundary	is MOV EAX,[EDX+ECX*4] within a function whose frame setup and parameter loads precede the candidate; the surrounding body is a continuous MMX routine; t=1 model=gpt-6-luna
+FUN_005D3506	0x005D3506	290	no-boundary	is the disp8 byte of MOVD MM7,[EBX+ECX+4] at 0x005D3502; callers_of.py finds no named direct caller, contradicting the prior report’s constructor relation to 0x005D3628; do not inherit that name; t=2 model=gpt-6-luna
+FUN_005D1DCB	0x005D1DCB	329	no-boundary	is the immediate displacement byte of MOV [ESP+0x22],AX at 0x005D1DC7 during SIMD scratch setup in an existing routine; t=1 model=gpt-6-luna
+FUN_005D3E06	0x005D3E06	359	no-boundary	is the second byte of MOVQ MM2,[EDX+0x28] beginning at 0x005D3E05, deep inside a continuous MMX transform; t=1 model=gpt-6-luna
+FUN_005D3398	0x005D3398	366	no-boundary	is the final ModRM byte of MOVQ MM3,MM2 at 0x005D3396 in a continuous MMX pixel conversion routine; contradicts older report’s body boundary; t=1 model=gpt-6-luna
+FUN_005D2184	0x005D2184	425	no-boundary	is the 0F opcode byte of PUNPCKLBW MM1,MM7 at 0x005D2183, within an existing MMX conversion loop; t=1 model=gpt-6-luna
+FUN_005D2BD4	0x005D2BD4	717	no-boundary	is the ModRM byte of PADDSB MM5,MM2 beginning at 0x005D2BD2 inside an existing MMX interpolation routine; its extent crosses the next frame setup at 0x005D2C20; t=1 model=gpt-6-luna
