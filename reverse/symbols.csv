@@ -22233,3 +22233,8 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 _xferThreeInts,0x0060BC53,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 dup_7e86b0,0x00655770
 rva009C7380WeightPairs,0x009B84E0
+?rva00154FD0@Rva00154FD0@@QAEXXZ,0x00154FD0,"thiscall setup, no args; first call of 0x155AD0 with ecx=this"
+?rva00118F50@Rva00118F50@@QAEXXZ,0x00118F50,"thiscall per-element op, no args; loop target over [0x38]-array"
+?rva0015288F@Rva0015288F@@QAEXHHHH@Z,0x0015288F,"844B EH body; called from 0x152CDA with (virtval, fallback, other+12, 4), ecx=this"
+?rva00151597@Rva00151597@@QAEPAXXZ,0x00151597,"51B EH builder: zeroes +0/+8, resets via 0x151248, returns this; inits 0x152DC6 scratch"
+?rva00152BDB@Rva00152BDB@@QAEXHURva00152DC6Tmp@@@Z,0x00152BDB,"108B EH grower true signature (int plus by-value 44B scratch); 0x152DC6 passes it in place"
