@@ -11387,3 +11387,10 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva005E2E3A@Rva005E2E3A@@QAEXH_N@Z	0x005E2E3A	87	blocked	register wall this-edx-vs-esi flag-ebx-vs-mem slot-esi-vs-edi t=12 model=muse-spark
 ?rva005E2E91@Rva005E2E91@@QAEHH@Z	0x005E2E91	92	blocked	same register wall as 0x005E2E3A this-edx-vs-esi slot-esi-vs-edi t=8 model=muse-spark
 ?rva005E2EED@Rva005E2EED@@QAEXH@Z	0x005E2EED	92	blocked	same register wall as 0x005E2E3A 0x005E2E91 this-edx-vs-esi slot-esi-vs-edi t=5 model=muse-spark
+??1Rva005CD9C0@@QAE@XZ	0x005CD9C0	50	blocked	vbase dtor with 4 vtable stores and ptr-clear layout unproven t=10 model=muse-03
+??1Rva005CDCEE@@QAE@XZ	0x005CDCEE	50	blocked	same vbase dtor wall as 0x005CD9C0 with 4 stores and ptr-clear t=2 model=muse-03
+?rva005CEC5D@@YAPAPAVRva005CEA74@@PAPAV1@PBUPayload@1@@Z	0x005CEC5D	50	blocked	factory with frame plus dead local and leave vs pop unproven t=15 model=muse-03
+?rva005CEC10@Rva005CEC10@@QAEHJ@Z	0x005CEC10	27	blocked	same dead-local frame wall as 0x005CEC5D with push-ecx-and-0 t=2 model=muse-03
+?rva0037DCE8@Rva0037DCE8@@QAEPAVObject@@XZ	0x0037DCE8	294	blocked	294B Object creation with SSE STL needs strong model t=3 model=muse-03
+?rva0050B98F@Made002CCC2D@@QAEXPAXH@Z	0x0050B98F	383	blocked	vslot6 SpawnAndFade 383B trig wall t=28 model=muse-03
+?Rva003B825FGet@@YAHXZ	0x003B825F	171	blocked	linkbody free STL deque EH 171B needs STL EH donor t=6 model=muse-03
