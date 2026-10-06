@@ -217,3 +217,9 @@ _io_writeto
 
 # w6-sol: 0x005BAB0B refused; see re_attempts.log and build/w6_gate_0x005BAB0B.log
 ??4?$list@URva005BAB0BElement@@V?$allocator@URva005BAB0BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+
+# w6-sol: 0x0053FCD7 refused; see re_attempts.log and build/w6_gate_0x0053FCD7.log
+??$distance@PAURva0053FCD7Element@@@_STL@@YAHABQAURva0053FCD7Element@@0@Z
+
+# w6-sol: 0x0053FCD7 refused; see re_attempts.log and build/w6_gate_0x0053FCD7.log
+??$distance@PAURva0053FCD7Element@@@_STL@@YAHABQAURva0053FCD7Element@@0@Z
