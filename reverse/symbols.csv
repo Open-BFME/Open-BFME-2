@@ -13597,3 +13597,146 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
 ?rva000347A0@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z,0x000347A0,address-derived thiscall GeneralAllocator realloc-engine member taking block size flags and returning void pointer; called from wrapper 0x00035190; identity unproven
 ?rva00034A60@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z,0x00034A60,address-derived thiscall GeneralAllocator calloc-engine member taking count size flags and returning void pointer; called from wrapper 0x00035210; identity unproven
+_Rva0021C777Apply,0x0021C777,REL32 callee of wrapper 0x0021D2B6 decoded from target call bytes; identity unproven
+_Rva002B5873Apply,0x002B5873,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva002B641FApply,0x002B641F,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva00331BD7Apply,0x00331BD7,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva003B0176Apply,0x003B0176,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva003BE532Apply,0x003BE532,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva004F73B3Apply,0x004F73B3,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva004F7780Apply,0x004F7780,REL32 callee decoded from target call bytes of same-family wrapper; identity unproven
+_Rva003FE245Lookup,0x003FE245,REL32 callee decoded from target call bytes of wrapper 0x00318D4E; identity unproven
+_Rva0052B1EFLookup,0x0052B1EF,REL32 callee decoded from target call bytes of wrapper 0x0052B225; identity unproven
+_Rva0059E0C1Lookup,0x0059E0C1,REL32 callee decoded from target call bytes of wrapper 0x0059E0F7; identity unproven
+?sharedInit@Rva005CDMorph@@QAEXHHHHH@Z,0x005CD1D3,REL32 shared-init callee decoded from target call bytes of morph family; identity unproven
+_g_pRva007B6890,0x00DA6214,global pointer read by singleton virtual forward 0x007B6890; identity unproven
+_Rva004097AFWorker,0x004097AF,REL32 callee decoded from target call bytes of wrappers 0x00409892/0x004098A9; identity unproven
+?method@Rva00224B7DTarget@@QAE_NH@Z,0x00224B7D,REL32 callee decoded from target call bytes of wrapper 0x00224BC9; Apt-global method identity unproven
+_g_pRva00224BC9,0x00DFE4CC,Apt window manager global read by wrapper 0x00224BC9 (peer-pinned role); identity unproven
+_g_pRva0039ABFF,0x00DFECC4,global pointer read by wrapper 0x0039ABFF; identity unproven
+?method@Rva004FC3DCTarget@@QAEHH@Z,0x004FC3DC,REL32 callee decoded from target call bytes of wrapper 0x003EFE72; identity unproven
+?method@Rva0054CBEFTarget@@QAEXH@Z,0x0054CBEF,REL32 callee decoded from target call bytes of wrapper 0x00437E9C; identity unproven
+_g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes same); identity unproven
+??1Rva002DFAD1Dtor@@QAE@XZ,0x002DFAD1,REL32 callee decoded from target call bytes of adjustor dtor 0x0022630F; identity unproven
+??1Rva00380459Dtor@@QAE@XZ,0x00380459,REL32 callee decoded from target call bytes of adjustor dtor 0x002A9ECA; identity unproven
+??1Rva002B0B32Dtor@@QAE@XZ,0x002B0B32,opaque alias: same body as matched STLport vector dtor row; callee of adjustor dtor 0x002B0B8E
+??1Rva00425756Dtor@@QAE@XZ,0x00425756,opaque alias: same body as matched STLport deque dtor row; callee of adjustor dtor 0x0042581E
+??1Rva005016C3Dtor@@QAE@XZ,0x005016C3,REL32 callee decoded from target call bytes of adjustor dtor 0x0050174A; identity unproven
+??1Rva005C8494Dtor@@QAE@XZ,0x005C8494,REL32 callee decoded from target call bytes of adjustor dtor 0x005C8565; identity unproven
+??1Rva00603AA8Dtor@@QAE@XZ,0x00603AA8,opaque alias: same body as matched STLport rb-tree dtor row; callee of adjustor dtor 0x00603C57
+?release@Rva00036E70Releaser@@QAEXXZ,0x00036E70,opaque alias: same body as rowed StringBase wide releaseBuffer; callee of string-release dtor 0x004E58ED
+??1Rva0030B706Obj@@QAE@XZ,0x0030B706,REL32 callee decoded from target call bytes of negative-adjust body 0x00330BDB; identity unproven
+??1Rva005CC788Obj@@QAE@XZ,0x005CC788,REL32 callee decoded from target call bytes of negative-adjust body 0x005CEC55; identity unproven
+?method@Rva0040D380Sub@@QAEHH@Z,0x0040D380,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0040D396Sub@@QAEHH@Z,0x0040D396,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0040FAFESub@@QAEHH@Z,0x0040FAFE,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0040D3E8Sub@@QAEHH@Z,0x0040D3E8,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0040D3FFSub@@QAEHXZ,0x0040D3FF,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0040D280Sub@@QAEXPAVObject@@H@Z,0x0040D280,opaque thiscall-view alias; same body as rowed stdcall Rva0040D280Set; identity unproven
+?method@Rva002E2D10Sub@@QAEHH@Z,0x002E2D10,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
+?method@Rva0059A71CSub@@QAEXPAX@Z,0x0059A71C,opaque thiscall-view alias; same body as rowed Rva0059A71C::rva; identity unproven
+?run@Rva001EB68ARun@@QAEXXZ,0x001EB68A,REL32 callee decoded from target call bytes of null-checked forward 0x001EB72F; identity unproven
+?run@Rva001EB6FERun@@QAEXXZ,0x001EB6FE,REL32 callee decoded from target call bytes of null-checked forward 0x001EB75C; identity unproven
+?run@Rva0020E9A1Run@@QAEXXZ,0x0020E9A1,REL32 callee decoded from target call bytes of null-checked forward 0x0020EB41; identity unproven
+?run@Rva005CB283Run@@QAEXXZ,0x005CB283,REL32 callee decoded from target call bytes of null-checked forward 0x005CCB16; identity unproven
+?run@Rva000B3FD0Run@@QAEXXZ,0x000B3FD0,opaque alias: shared folded empty body; callee of null-checked forward 0x005D13D5
+?run@Rva0010FA6BRun@@QAEXI@Z,0x0010FA6B,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8AA6; identity unproven
+?run@Rva0010FDE9Run@@QAEXI@Z,0x0010FDE9,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8B23; identity unproven
+?run@Rva0010FEF3Run@@QAEXI@Z,0x0010FEF3,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8B4B; identity unproven
+?run@Rva0010FFA2Run@@QAEXI@Z,0x0010FFA2,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8C6E; identity unproven
+?run@Rva005E18D0Run@@QAEXXZ,0x005E18D0,REL32 callee decoded from target call bytes of helper-member step 0x005E1906; identity unproven
+?noop@Rva000B3FD0Nop@@QAEXXZ,0x000B3FD0,opaque alias: the known folded empty body shared by many rows; identity unproven
+?run@Rva005D13C2Run@@QAEXXZ,0x005D13C2,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E18DCRun@@QAEXXZ,0x005E18DC,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E1B9ARun@@QAEXXZ,0x005E1B9A,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E254CRun@@QAEXXZ,0x005E254C,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E589ERun@@QAEXXZ,0x005E589E,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E6A9DRun@@QAEXXZ,0x005E6A9D,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva005E6AD8Run@@QAEXXZ,0x005E6AD8,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
+?run@Rva0053863ESub@@QAEXH@Z,0x0053863E,REL32 callee decoded from target call bytes of adjust-call-echo 0x0030BEE6; identity unproven
+?run@Rva00538674Sub@@QAEXH@Z,0x00538674,REL32 callee decoded from target call bytes of adjust-call-echo 0x0030BEF9; identity unproven
+?run@Rva0007E03ASub@@QAEXH@Z,0x0007E03A,REL32 callee decoded from target call bytes of adjust-call-echo 0x00330C0F; identity unproven
+?run@Rva002E3876Sub@@QAEXH@Z,0x002E3876,REL32 callee decoded from target call bytes of adjust-call-echo 0x00330C22; identity unproven
+?run@Rva00548527Runner@@QAEXXZ,0x00548527,REL32 callee decoded from target call bytes of find-then-run 0x0035519E; identity unproven
+?run@Rva00548632Runner@@QAEXXZ,0x00548632,REL32 callee decoded from target call bytes of find-then-run 0x003551D3; identity unproven
+?run@Rva0040F7E5Runner@@QAEXXZ,0x0040F7E5,REL32 callee decoded from target call bytes of find-then-run 0x0040FAFE; identity unproven
+?run@Rva003626ADRun@@QAEXHH@Z,0x003626AD,REL32 callee decoded from target call bytes of null-checked forward 0x00271BCC; identity unproven
+?run@Rva004E5EBERun@@QAEXHH@Z,0x004E5EBE,REL32 callee decoded from target call bytes of null-checked forward 0x0029B16A; identity unproven
+?run@Rva004F2ABCRun@@QAEXHH@Z,0x004F2ABC,REL32 callee decoded from target call bytes of null-checked forward 0x002A9CDE; identity unproven
+?run@Rva004F0819Run@@QAEXH@Z,0x004F0819,REL32 callee decoded from target call bytes of null-checked forward 0x002A9CF0; identity unproven
+?run@Rva004F2C14Run@@QAEXH@Z,0x004F2C14,REL32 callee decoded from target call bytes of null-checked forward 0x002A9DEC; identity unproven
+?Rva001EC1B4Worker@@YGXHHHPAD@Z,0x001EC1B4,REL32 callee decoded from target call bytes of top-byte forward 0x001ECB78; identity unproven
+?Rva004F7EE9Worker@@YGXHHHPAD@Z,0x004F7EE9,REL32 callee decoded from target call bytes of top-byte forwards 0x004F83F2/0x004F8B89; identity unproven
+?read@Rva001F206ESub@@QAEXPAH@Z,0x001F206E,REL32 callee decoded from target call bytes of read-through 0x004C7330; identity unproven
+?read@Rva004F69D6Sub@@QAEXPAH@Z,0x004F69D6,REL32 callee decoded from target call bytes of read-through 0x004F802C; identity unproven
+?read@Rva005017B4Sub@@QAEXPAH@Z,0x005017B4,REL32 callee decoded from target call bytes of read-through 0x00501DD4; identity unproven
+?read@Rva00501B33Sub@@QAEXPAH@Z,0x00501B33,REL32 callee decoded from target call bytes of read-through 0x005020AF; identity unproven
+?read@Rva005026EESub@@QAEXPAH@Z,0x005026EE,REL32 callee decoded from target call bytes of read-through 0x00502909; identity unproven
+?read@Rva0038630BSub@@QAEXPAH@Z,0x0038630B,REL32 callee decoded from target call bytes of read-through 0x005564EB; identity unproven
+?note@Rva00056BFESub@@QAEXH@Z,0x00056BFE,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?run@Rva00054BC3Sub@@QAEXHH@Z,0x00054BC3,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?note@Rva0053F1ECSub@@QAEXH@Z,0x0053F1EC,opaque alias of the rowed Armor hashtable resize at the same address; identity unproven
+?run@Rva000556ABSub@@QAEXHH@Z,0x000556AB,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?note@Rva000E0322Sub@@QAEXH@Z,0x000E0322,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?run@Rva000E0298Sub@@QAEXHH@Z,0x000E0298,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?note@Rva00212858Sub@@QAEXH@Z,0x00212858,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?run@Rva003EF264Sub@@QAEXHH@Z,0x003EF264,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?run@Rva0052B737Sub@@QAEXHH@Z,0x0052B737,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
+?get@Rva001F5DC0Slot@@QAEPAXPAX@Z,0x001F5DC0,REL32 finder decoded from target call bytes of chained find 0x001FBFEA; identity unproven
+?get@Rva001F5DACSlot@@QAEPAXPAX@Z,0x001F5DAC,REL32 finder decoded from target call bytes of chained find 0x001FC357; identity unproven
+?get@Rva001F5D98Slot@@QAEPAXPAX@Z,0x001F5D98,REL32 finder decoded from target call bytes of chained find 0x001FC451; identity unproven
+?fwd@Rva001FBA8C@@QAEHHH@Z,0x001FBA8C,chain tail decoded from target call bytes of chained find 0x001FBC43; identity unproven
+?run@Rva0010FAEARun@@QAEXXZ,0x0010FAEA,REL32 callee decoded from target call bytes of null-checked forward 0x000A8AB4; identity unproven
+?run@Rva0010FBDERun@@QAEXXZ,0x0010FBDE,REL32 callee decoded from target call bytes of null-checked forward 0x000A8ACC; identity unproven
+??0Rva000AB3E2Element@@QAE@ABV0@@Z,0x000A9851,copy ctor decoded from target call bytes of guarded construction 0x000A9DF8; identity unproven
+??0Rva000AB419Element@@QAE@ABV0@@Z,0x000A987D,copy ctor decoded from target call bytes of guarded construction 0x000A9E0A; identity unproven
+?prepare@Rva0010BA61@@AAEXXZ,0x00109D64,REL32 helper decoded from target call bytes of helper-member step 0x0010BA61; identity unproven
+?run@Rva0010BA61@@AAEXXZ,0x00108895,REL32 callee decoded from target call bytes of helper-member step 0x0010BA61; identity unproven
+?prepare@Rva005962E7@@AAEXXZ,0x0025C010,opaque alias: same body as rowed Rva0025C010::rva0025C010; helper of step 0x005962E7
+?run@Rva005962E7@@AAEXXZ,0x00596269,REL32 callee decoded from target call bytes of helper-member step 0x005962E7; identity unproven
+?Rva0007BF5AWorker@@YAHHHHPAD@Z,0x0007BF5A,REL32 callee decoded from target call bytes of tag-combine 0x0007C2F0; identity unproven
+?Rva00173714Worker@@YAHHHHPAD@Z,0x00173714,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
+?Rva003332FEWorker@@YAHHHHPAD@Z,0x003332FE,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
+?Rva00541214Worker@@YAHHHHPAD@Z,0x00541214,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
+?Rva00541231Worker@@YAHHHHPAD@Z,0x00541231,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
+?Rva005B09D8Worker@@YAHHHHPAD@Z,0x005B09D8,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
+?release@Rva0033B1CDNarrow@@QAEXXZ,0x00036410,opaque alias: same body as rowed narrow StringBase releaseBuffer; first phase of step 0x0033B1CD
+?release@Rva0033B1CDWide@@QAEXXZ,0x00036E70,opaque alias: same body as rowed wide StringBase releaseBuffer; second phase of step 0x0033B1CD
+?prepare@Rva005E549EHelper@@QAEXXZ,0x005E549E,REL32 helper decoded from target call bytes of helper-member step 0x005E5554; identity unproven
+?run@Rva005F327ARun@@QAEXXZ,0x005F327A,REL32 callee decoded from target call bytes of helper-member step 0x005E5554; identity unproven
+?step@Rva005E590FCaller@@QAEXXZ,0x005E590F,opaque alias: same body as rowed step 0x005E590F; first phase of step 0x005CDDF0 (separate type blocks same-TU inlining)
+?run@Rva00203AD5Run@@QAEXXZ,0x00203AD5,REL32 callee decoded from target call bytes of global-this forward 0x003BBEDE; identity unproven
+?run@Rva00203ADDRun@@QAEXXZ,0x00203ADD,REL32 callee decoded from target call bytes of global-this forward 0x003BBEE9; identity unproven
+?run@Rva002D37BDRun@@QAEXXZ,0x002D37BD,REL32 callee decoded from target call bytes of global-this forward 0x003BD424; identity unproven
+_g_pRva003BBEDE,0x00DFE16C,global pointer read by global-this forwards 0x003BBEDE/0x003BBEE9; identity unproven
+_g_pRva003BD424,0x00DFF028,global pointer read by global-this forward 0x003BD424; identity unproven
+??0Rva003B417E@@QAE@XZ,0x003B417E,member default ctor decoded from target call bytes of chained ctor 0x003B44DC; identity unproven
+_Rva0021E44BForward,0x0021E44B,REL32 callee decoded from target call bytes of wrapper 0x0021E741; identity unproven
+_Rva002B92A7Forward,0x002B92A7,REL32 callee decoded from target call bytes of wrapper 0x002BAE0F; identity unproven
+_Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wrapper 0x00337C55; identity unproven
+?run@Rva0021BDABSub@@QAEHH@Z,0x0021BDAB,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE42; identity unproven
+?run@Rva0021BDD3Sub@@QAEHH@Z,0x0021BDD3,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE62; identity unproven
+?run@Rva0021BDFBSub@@QAEHH@Z,0x0021BDFB,REL32 callee decoded from target call bytes of find-or-minus-one 0x0021BE82; identity unproven
+?Rva002BFA86Worker@@YGXPAUVideoPair@@@Z,0x002BFA86,REL32 worker decoded from target call bytes of pair-copy-call 0x002BFCF5; identity unproven
+?Rva002ADCE1Worker@@YGXPAUVideoPair@@@Z,0x002ADCE1,REL32 worker decoded from target call bytes of pair-copy-call 0x003A37DC; identity unproven
+?Rva00525407Worker@@YGXPAUVideoPair@@@Z,0x00525407,REL32 worker decoded from target call bytes of pair-copy-call 0x005258F8; identity unproven
+??0Rva005F5C77Holder@@QAE@PAXABVAsciiString@@0@Z,0x005E1680,holder ctor at +8 for button 0x005F5C77: ghidra 39B (push esi frame, ret 0xC, 3 stack args); vtable 0x00C779B4 plus arg words at +0xC/+0x10; forwards (a1,a2) to 0x005E1627; called with (arg1,button-temp,arg2[0])
+??0Rva005F6806Base@@QAE@PAX0H0@Z,0x005F3E93,base ctor at +0 for 0x005F6806 taking (a1,a2,1,a3): ghidra 80B EH ctor with ret 0x10; installs vtable 0x00C7936C and heap-inits +4 via 0x005F39D6
+??0Rva005F6806Heap@@QAE@PAX00@Z,0x005F654C,0x38-byte heap class ctor for 0x005F6806 member +8 taking (owner,a1,a2): ghidra 698B EH ctor with ret 0xC; called on operator-new result
+??0Rva005F830AHeap@@QAE@PAX0000@Z,0x005F7F21,0x68-byte heap class init for 0x005F830A member +4 taking (owner,a1,a2,a3,a4): ghidra 1001B; called on operator-new result like 0x005F39D6
+?rva00577944@Rva005F83B9@@QAEXXZ,0x00577944,thiscall helper refreshing the +4 slot pair for notifier 0x005F83B9: tail-jumps to 0x005C674A after two calls through [esi+4]; called with this and no stack args
+??0Rva005F86FEHeap@@QAE@PAX0@Z,0x005F8671,0x2C-byte heap class init for 0x005F86FE member +4 taking (a1,a2): ghidra 82B; installs vtable 0x00C79CBC with float words from 0x00BC6EA0; called on operator-new result
+?rva005E1160@@YIXPAVRva005F8A7ESub@@_N@Z,0x005E1160,sub-object at this+8 bool method called from 0x005F8A7E; identity unproven
+?rva005E1168@@YIXPAVRva005F8A7ESub@@H@Z,0x005E1168,sub-object at this+8 int method called from 0x005F8A7E; identity unproven
+?rva005E1170@@YIXPAVRva005F8A7ESub@@@Z,0x005E1170,sub-object at this+8 void method called from 0x005F8A7E; identity unproven
+?rva005E1178@@YIXPAVRva005F8A7ESub@@M@Z,0x005E1178,sub-object at this+8 float method called from 0x005F8A7E; identity unproven
+?rva005E118B@@YIXPAVRva005F8A7ESub@@@Z,0x005E118B,sub-object at this+8 void tail method called from 0x005F8A7E; identity unproven
+?Rva005F8A0C@@YA?AU__m128@@HHH@Z,0x005F8A0C,banked partial 0x005F8A0C: 3-int __m128 search QED called from 0x005F8A7E; identity unproven
+?rva005FE7A7@@YIXPAVRva005FE7A7Obj@@HHH@Z,0x005FE7A7,fastcall chained init called from 0x005F8E37 with fwd-passthrough edx; identity unproven
+?rva005FE640@@YIXPAVRva005FE640Obj@@HHH@Z,0x005FE640,fastcall chained init called from 0x005F8E5A with fwd-passthrough edx; identity unproven
+?rva00437050@@YIXPAVRva005F90F6Sub@@H@Z,0x00437050,fastcall sub method called from 0x005F90F6; identity unproven
+?rva005FEC0C@Rva005FA854Inner@@QAEXXZ,0x005FEC0C,thiscall-0 method on m_00 called from 0x005FA854 with ecx already set; EH-prolog body; identity unproven
+?rva005F9DCB@@YIXPAVRva005F9DCBObj@@HHHHHH@Z,0x005F9DCB,fastcall chained init called from 0x005FA0C9/0x005FA0F7 with fwd-passthrough edx; identity unproven
+?rva005FF0F6@@YIXPAVRva005FF0F6Obj@@HHHH@Z,0x005FF0F6,fastcall chained init called from 0x005FA89C with fwd-passthrough edx; identity unproven
+?rva00A00062@@YIXPAURva00A00062Sub@@HHH@Z,0x00A00062,fastcall sub method called from 0x005FA98C with fwd-passthrough edx; identity unproven
+?rva005FA8F5Find@@YGPAURva005FA8F5Entry@@H@Z,0x005FA8F5,"stdcall-1 view of rowed thiscall body for no-ecx-management callers (ecx is ambient-o, preserved by body which ends ret 4); called from 0x005FA98C"
