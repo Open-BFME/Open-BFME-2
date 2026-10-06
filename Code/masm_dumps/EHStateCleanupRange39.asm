@@ -1018,6 +1018,34 @@ cleanup_done_0079E352:
     ret
 ?rva0079E352@@YAXXZ ENDP
 
+; Unwind@00b9ee86 at RVA 0x0079EE86; 24-byte interval ends at RET.
+; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base [ebp-28] + 0x174, element size 12, count 2 and destructor pointer 0x0047FAB3.
+PUBLIC ?rva0079EE86@@YAXXZ
+?rva0079EE86@@YAXXZ PROC
+    push 0047FAB3h
+    push 2
+    push 12
+    mov eax, DWORD PTR [ebp-28]
+    add eax, 174h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0079EE86@@YAXXZ ENDP
+
+; Unwind@00b9ef60 at RVA 0x0079EF60; 24-byte interval ends at RET.
+; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base [ebp-20] + 0x174, element size 12, count 2 and destructor pointer 0x0047FAB3.
+PUBLIC ?rva0079EF60@@YAXXZ
+?rva0079EF60@@YAXXZ PROC
+    push 0047FAB3h
+    push 2
+    push 12
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 174h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0079EF60@@YAXXZ ENDP
+
 ; Unwind@00b9f01a at RVA 0x0079F01A; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-16], then loads the cleanup pointer from [ebp+8] and tail-jumps to UnicodeString at 0x005B804E.
 PUBLIC ?rva0079F01A@@YAXXZ
