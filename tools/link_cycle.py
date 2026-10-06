@@ -1350,7 +1350,13 @@ def provenance(rows, present, objs, out):
         rec = {"object": object_identity(o) if o else None}
         src = sources.get(p)
         if src is not None and Path(src).suffix.lower() != build.LIB_SUFFIX:
-            if not build.compile_is_current(src, p, strict=True, inventory_cache=inventory):
+            if build.compile_is_current(src, p, strict=True, inventory_cache=inventory):
+                rec["proof"] = "inventory"
+            elif build.compile_is_current(src, p):
+                # the compile could not inventory its include search (macro or parent-traversing
+                # includes): source, command and every recorded header still prove it
+                rec["proof"] = "deps"
+            else:
                 stale.append(rel)
             side = Path(p).with_suffix(".deps.json")
             rec.update(source=Path(src).relative_to(ROOT).as_posix(), source_sha256=sha256(src),
@@ -1367,7 +1373,7 @@ def provenance(rows, present, objs, out):
         raise SystemExit(f"link_cycle: {len(tampered)} object(s) changed with no compile behind the change, "
                          f"e.g. {tampered[:5]}; delete them (and their .deps.json) and run with --build")
     path.write_text(json.dumps(prov, indent=0, sort_keys=True), encoding="utf-8")
-    return sha256(path), len(prov)
+    return sha256(path), dict(sorted(collections.Counter(r.get("proof", "no source") for r in prov.values()).items()))
 
 
 def cache_file(path, stamp, allow_stale):
@@ -1397,7 +1403,7 @@ def receipt_core(receipt):
     left out; the core's sha256 is the receipt's identity."""
     keep = ("rules", "commit", "submodules", "snapshot", "dirty", "diff_sha256", "tool_digest",
             "retail_sha256", "toolchain_sha256", "inputs", "objects_digest", "provenance_sha256", "objects",
-            "objects_missing", "quarantine_sha256", "stubs_sha256", "not_ordered", "not_ordered_bytes", "analyze",
+            "objects_missing", "currency_proofs", "quarantine_sha256", "stubs_sha256", "not_ordered", "not_ordered_bytes", "analyze",
             "scaffold", "final_link", "series")
     return {k: receipt[k] for k in keep if k in receipt}
 
@@ -1462,7 +1468,7 @@ def cycle(args):
     objs = Objects(present)
     units, astat = analyze(rows, objs)
     obj_digest = objects_digest(objs, present)
-    prov_digest, nprov = provenance(rows, present, objs, out)
+    prov_digest, proofs = provenance(rows, present, objs, out)
     times["provenance"] = round(time.time() - t)
     pe_r, R, rsecs, rimp = pe_view(build.EXE)
     text0, textsz = rsecs[".text"]
@@ -1552,7 +1558,7 @@ def cycle(args):
     receipt = dict(start, tool="link_cycle", rules="link-cycle-2",
                    date_utc=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
                    objects_digest=obj_digest, provenance_sha256=prov_digest, objects=len(present),
-                   objects_missing=len(missing), warm_start=warm,
+                   objects_missing=len(missing), currency_proofs=proofs, warm_start=warm,
                    quarantine_sha256=digest_of(sorted(quarantine)), stubs_sha256=digest_of(sorted(stubs)),
                    links=history, iterations=iters, quarantined_units=len(quarantine),
                    not_ordered=dict(sorted(reasons.items())), not_ordered_bytes=dict(sorted(rbytes.items())),
