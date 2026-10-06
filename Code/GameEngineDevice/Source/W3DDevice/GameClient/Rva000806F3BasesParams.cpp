@@ -119,14 +119,22 @@ RVA000806F3_BASES_PARAM( Rva00080D9BBases811Z, rva00308509, 2 )
 // the callbacks below, each scaled by the 1.6f at VA 0x00BC7078. "Mean"
 // passes the vector to 0x0008103A (pinned) and "Bases03X" to the rowed
 // Rva000812E1Scale. The other eight (0x00081324..0x00081913, 217B each)
-// expand the scale inline. Retail loads each component and then multiplies
-// by the held scale. Every spelling tried here folds the local into mulss,
-// so those eight are banked, not landed (see reverse/re_attempts.log).
-// The out-of-line Scale body sits between 0x00081242 and 0x00081324, so it
-// was probably defined in this unit after its first caller.
+// expand the scale inline. The out-of-line Scale body sits between
+// 0x00081242 and 0x00081324, so it was probably defined in this unit after
+// its first caller.
+//
+// The scale is a float literal, not a named float. The 1.6f at VA 0x00BC7078
+// directly follows this unit's ten parameter-name strings in .rdata, where
+// the compiler pools literals. Only the literal gives retail's
+// load-then-multiply by the held xmm0. Reading a float variable, either
+// directly or through a local copy, lets the compiler fold the frame slot
+// into mulss (movaps xmm1,xmm0; mulss xmm1,[v]). The callback names follow
+// the dispatcher's string-to-address stores. The getter and group pushed in
+// each body agree with the first binding's X/Y/Z and 03/47/811 split.
 //
 // ?Rva00080F95Mean2@@YAXPAUID3DXEffect@@PBD@Z      @0x00080F95 165B
 // ?Rva00081242Bases03X2@@YAXPAUID3DXEffect@@PBD@Z  @0x00081242 159B
+// ?Rva00081324Bases03Y2@@YAXPAUID3DXEffect@@PBD@Z  @0x00081324 217B (and seven siblings)
 
 extern float g_00BC7078;
 void __cdecl Rva000812E1Scale(float *v);
@@ -167,3 +175,40 @@ void Rva00081242Bases03X2(ID3DXEffect *effect, D3DXHANDLE handle)
 	}
 	effect->SetVector(handle, &value);
 }
+
+// Rva000812E1Scale's body with the literal, expanded at each later call site.
+static inline void Rva00080E30Scale(float *v)
+{
+	v[0] *= 1.6f;
+	v[1] *= 1.6f;
+	v[2] *= 1.6f;
+	v[3] *= 1.6f;
+}
+
+#define RVA00080E30_BASES_PARAM( NAME, GETTER, GROUP )                    \
+	void NAME(ID3DXEffect *effect, D3DXHANDLE handle)                     \
+	{                                                                     \
+		Rva000806F3Vector4 value;                                         \
+		value.x = 0.0f;                                                   \
+		value.y = 0.0f;                                                   \
+		value.z = 0.0f;                                                   \
+		value.w = 0.0f;                                                   \
+		Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0; \
+		if (bases)                                                        \
+		{                                                                 \
+			float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_009BA4E8;  \
+			bases->rva003093F6();                                         \
+			value = bases->GETTER(time, GROUP);                           \
+			Rva00080E30Scale(&value.x);                                   \
+		}                                                                 \
+		effect->SetVector(handle, &value);                                \
+	}
+
+RVA00080E30_BASES_PARAM( Rva00081324Bases03Y2, rva00308417, 0 )
+RVA00080E30_BASES_PARAM( Rva000813FDBases03Z2, rva00308509, 0 )
+RVA00080E30_BASES_PARAM( Rva000814D6Bases47X2, rva00308325, 1 )
+RVA00080E30_BASES_PARAM( Rva000815AFBases47Y2, rva00308417, 1 )
+RVA00080E30_BASES_PARAM( Rva00081688Bases47Z2, rva00308509, 1 )
+RVA00080E30_BASES_PARAM( Rva00081761Bases811X2, rva00308325, 2 )
+RVA00080E30_BASES_PARAM( Rva0008183ABases811Y2, rva00308417, 2 )
+RVA00080E30_BASES_PARAM( Rva00081913Bases811Z2, rva00308509, 2 )
