@@ -9135,7 +9135,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00852A1C,12,.rdata,vtable,??_7Rva004A54A8@@6BRva0024A797_B2@@@,,literal,??_7Rva004A54A8@@6BRva0024A797_B2@@@;??_7StructureToppleUpdate@@6BUpdateModule@@@,0,2
 0x00852A28,164,.rdata,vtable,??_7Rva004A54A8@@6BRva0024A797_Root@@@,,literal,??_7Rva004A54A8@@6BRva0024A797_Root@@@;??_7StructureToppleUpdate@@6BBehaviorModuleBase@@@,0,2
 0x00852ACC,8,.rdata,float,__real@41c80000,,literal,,0,4
-0x00852AD4,556,.rdata,global,?g_integerToFloatScale@@3MA,Code/GameEngine/Source/Common/Rva004DD722Convert.cpp,owned,,1,1
+0x00852AD4,556,.rdata,global,?g_integerToFloatScale@@3MA,Code/GameEngine/Source/Common/Rva004DD843Getter.cpp,owned,,1,1
 0x00852D00,48,.rdata,vtable,??_7Rva004A653D@@6B@,,literal,??_7Rva004A653D@@6B@;_vtbl_00C52D00,0,2
 0x00852D30,64,.rdata,vtable,??_7Rva004A653D@@6BRva0024A797_Root@@@,,literal,??_7Rva004A653D@@6BRva0024A797_Root@@@;_vtbl_00C52D30,0,2
 0x00852D70,68,.rdata,global,_Rva004A6933_vftable,Code/GameEngine/Source/Common/StateDerivedCtors_muse-a7a4.cpp,owned,,1,1

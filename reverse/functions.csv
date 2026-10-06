@@ -43220,7 +43220,6 @@ _piRemoveXpingRva00862EF0,,0x006A3DE0,17,Code/GameEngine/Source/GameNetwork/Game
 ??0Rva003AF7D1@@QAE@ABV0@@Z,,0x003AF7D1,45,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoCopyCtors.cpp,matched,derived copy calls rowed 0x003AF7FE then own 4 vptrs
 ?clone@Rva003AF7D1@@QBEPAV1@XZ,,0x003AF79A,55,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF7D1Clone.cpp,matched,vslot2 clone via new plus rowed copy 0x003AF7D1
 ??0Rva003AF9A9@@QAE@ABV0@@Z,,0x003AF9A9,98,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoCopyCtors.cpp,matched,copy ctor via rowed base plus rowed TerrainFire copy
-?Rva004DD722Get@@YAMH@Z,,0x004DD722,25,Code/GameEngine/Source/Common/Rva004DD722Convert.cpp,matched,int to float via BfmeZeroRange plus scaled float ref
 ?rva004DD843@Rva004DD843@@QAEMXZ,,0x004DD843,10,Code/GameEngine/Source/Common/Rva004DD843Getter.cpp,matched,float getter via rowed 004DD722 plus ecx+0x24
 ?Rva0073C820Raster@@YADHHHVRva0073BBE0@@@Z,,0x0073C820,155,Code/GameEngine/Source/Common/RTS/Rva0073C820Raster.cpp,matched,circle raster via rowed BBE0 twin of BF40
 ?rva004CE2B0@Rva004CE2B0@@QAE_NPAVRva00406F9C@@@Z,,0x004CE2B0,146,Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModule.cpp,matched,chain dual mask check via two rowed calls
@@ -65788,3 +65787,5 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva002E713F@Rva002E713FOwner@@QAEXXZ,,0x002E713F,57,Code/GameEngine/Source/Common/Rva002E713FGuard.cpp,matched,
 ?rva002E7023@@YAXXZ,,0x002E7023,68,Code/GameEngine/Source/Common/Rva002E7023Walk.cpp,matched,dump-range-12 global+call list walk via TheGameLogic getFirstObject and +0x8C chain with +0x258/+0x140 checks
 ?rva005E3A76@Rva005E3A76@@QAEXXZ,,0x005E3A76,44,Code/GameEngine/Source/Common/Rva005E3A76Slot.cpp,matched,
+?Rva004DD722Get@@YAMH@Z,,0x004DD722,25,Code/GameEngine/Source/Common/Rva004DD843Getter.cpp,matched,
+?rva004DE511@Rva004DD843@@QAEXHH@Z,,0x004DE511,27,Code/GameEngine/Source/Common/Rva004DD843Getter.cpp,matched,
