@@ -5,6 +5,8 @@
 // Win32Device/GameClient/Win32Mouse_*.cpp as the shape donors.
 //
 //   0x00041839 translateEvent       317B  switch on msg-0x200, table after the ret
+//   0x00041976 Win32Mouse            89B  Mouse ctor 0x001EEC97, memset, cursor table
+//   0x000419E3 ~Win32Mouse           18B  clears TheWin32Mouse, tail jump to ~Mouse 0x001EE3DE
 //   0x00041A0B update                 5B  tail jump to Mouse::update 0x001EDE3A
 //   0x00041A83 setCursor             81B  Mouse::setCursor 0x001EEFD2, then SetCursor
 //   0x00041B10 getMouseEvent         89B  calls translateEvent 0x00041839
@@ -23,6 +25,7 @@
 
 #include <windows.h>
 #include <stdio.h>
+#include <string.h>
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -132,6 +135,7 @@ public:
 	};
 	enum { NUM_MOUSE_EVENTS = 256 };
 
+	Mouse(void);
 	virtual ~Mouse();
 	virtual void update(void);
 	virtual void setCursor(MouseCursor cursor);
@@ -150,6 +154,8 @@ HCURSOR cursorResources[Mouse::NUM_MOUSE_CURSORS][8];
 class Win32Mouse : public Mouse
 {
 public:
+	Win32Mouse(void);
+	virtual ~Win32Mouse(void);
 	virtual void update(void);
 	virtual void initCursorResources(void);
 	virtual void setCursor(MouseCursor cursor);
@@ -172,6 +178,30 @@ protected:
 	Int m_directionFrame;
 	Bool m_lostFocus;
 };
+
+#define MAX_2D_CURSOR_DIRECTIONS 8
+
+Win32Mouse::Win32Mouse(void)
+{
+	// zero our event list
+	memset(&m_eventBuffer, 0, sizeof(m_eventBuffer));
+	m_nextFreeIndex = 0;
+	m_nextGetIndex = 0;
+	m_currentWin32Cursor = NONE;
+	for (Int i = 0; i < NUM_MOUSE_CURSORS; i++)
+		for (Int j = 0; j < MAX_2D_CURSOR_DIRECTIONS; j++)
+			cursorResources[i][j] = NULL;
+	m_directionFrame = 0; // points up.
+	m_lostFocus = FALSE;
+}
+
+extern Win32Mouse *TheWin32Mouse;
+
+Win32Mouse::~Win32Mouse(void)
+{
+	// remove our global reference
+	TheWin32Mouse = NULL;
+}
 
 UnsignedByte Win32Mouse::getMouseEvent(MouseIO *result, Bool flush)
 {

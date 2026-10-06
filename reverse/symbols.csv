@@ -14069,3 +14069,5 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00208A09@ScriptEngine@@QAEXVAsciiString@@ABV2@@Z,0x00208A09,ScriptEngine member taking (by-value string, string ref); REL32 callee of dump-range-18 0x003C2019; identity unproven
 
 ?GadgetListboxCreateScrollbar@@YAXPAVGameWindow@@@Z,0x0032449E,"cdecl listbox scroll bar builder (Ghidra 677B); called by gogoGadgetListBox 0x002C1395 (REL32 at 0x002C145D) only when list data +0xA (scrollBar) is set, as in Zero Hour GadgetListBox.cpp"
+??0Mouse@@QAE@XZ,0x001EEC97,"Mouse constructor: writes the Mouse vtable 0x00BE0358 (slot 10 rowed Mouse::update 0x001EDE3A, slot 16 createStreamMessages 0x001EE630) after eh-vector-constructing m_cursorInfo[0x38] stride 0x54 at +0x0C; Win32Mouse ctor 0x00041976 calls it first"
+??1Mouse@@UAE@XZ,0x001EE3DE,"Mouse destructor (rowed as ??1Rva001EE3DE@@UAE@XZ): restores the Mouse vtable 0x00BE0358 that the pinned Mouse ctor 0x001EEC97 writes and destroys m_cursorInfo at +0x0C; Win32Mouse dtor 0x000419E3 tail-jumps to it"
