@@ -130,6 +130,17 @@ typedef _Rb_tree<NameKeyType, ModuleFactoryMapValue, ModuleFactoryMapKeyOf, Modu
 template ModuleFactoryMapTree::Node *ModuleFactoryMapTree::_M_clone_node(Node *x);
 template ModuleFactoryMapTree::Node *ModuleFactoryMapTree::_M_copy(Node *x, Node *p);
 
+// The 115-byte copy at 0x00383B39 calls the rowed clone at 0x003834AF.
+// That clone copies the byte/two-byte-value pair through 0x00381E41;
+// its existing short spelling preserves the unproved integer signedness.
+// The copy itself touches only the independently measured 16-byte node links.
+typedef pair<const unsigned char, short> ByteShortValue;
+typedef _Rb_tree<unsigned char, ByteShortValue, _Select1st<ByteShortValue>,
+    less<unsigned char>, allocator<ByteShortValue> > ByteShortTree;
+
+template <> ByteShortTree::Node *ByteShortTree::_M_clone_node(Node *x);
+template ByteShortTree::Node *ByteShortTree::_M_copy(Node *x, Node *p);
+
 }
 
 // Target 0x0029FBC9 is the unsigned-key STLport insertion variant. Its
