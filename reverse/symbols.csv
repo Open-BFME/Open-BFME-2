@@ -13689,3 +13689,6 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva005F422C@Rva005F422C@@QAEXXZ,0x005F422C,read from REL32 at 0x005E4232 in rva005E4202 0x005E4202 (thiscall no-arg: lea ecx plus no pushes); Ghidra FUN_009f422c bounds 40 bytes; callee body unclaimed
 ?rva005F4891@Rva005F4891@@QAEXXZ,0x005F4891,read from REL32 at 0x005E429F in rva005E426F 0x005E426F (thiscall no-arg: lea ecx plus no pushes); Ghidra FUN_009f4891 bounds 91 bytes; callee body unclaimed
 ?rva005D4F27@Rva005D4F27@@QAEXHH@Z,0x005D4F27,method pointer stored in delegate desc at 0x005D5029 in rva005D5001 0x005D5001 (EH prolog at entry, thiscall two-arg shape); Ghidra missed boundary (follows 0x005D4F0E); callee body unclaimed
+?rva005DB9E4@Rva005DB9E4@@QAEXXZ,0x005DB9E4,read from REL32 at 0x005DBA49 in rva005DBA3D 0x005DBA3D (thiscall no-arg, ecx already this); entry has ebp frame, bigger body unclaimed
+?rva005D415D@Rva005D415D@@QAE_NHPAX@Z,0x005D415D,read from REL32 at 0x005D473D in rva005D472C 0x005D472C (thiscall on +8 with dword plus out-ptr, al-tested bool; caller pops 8B so convention is caller-clean (non-standard thiscall); Ghidra 0x5D415D/298 unclaimed); Ghidra boundary 0x5D415D/298 unclaimed
+?rva005D4395@Rva005D4395@@QAEXXZ,0x005D4395,read from REL32 at 0x005D475D in rva005D472C 0x005D472C (thiscall no-arg); Ghidra boundary 0x5D4395/158 unclaimed
