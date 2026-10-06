@@ -4,15 +4,21 @@
 // A refcount base, an array of eight stage wrappers, then four fields.
 // The tail is written in retail store order: +0x28, +0x2C, +0x34, then +0x30.
 
+#pragma optimize("s", on)
 class RefCountClass
 {
 public:
 	RefCountClass() : m_numRefs(1) {}
 
-	virtual ~RefCountClass();
+	virtual void Delete_This();
 
+protected:
+	virtual ~RefCountClass() {}
+
+private:
 	int m_numRefs;
 };
+#pragma optimize("", on)
 
 class MaterialPassStage
 {
@@ -28,6 +34,7 @@ class MaterialPassClass : public RefCountClass
 {
 public:
 	MaterialPassClass();
+	virtual ~MaterialPassClass();
 
 private:
 	MaterialPassStage m_stages[8];
