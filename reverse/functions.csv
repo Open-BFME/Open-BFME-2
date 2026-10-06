@@ -64427,3 +64427,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002A8F56@Rva002A8F24@@QAEXPAVObject@@@Z,,0x002A8F56,138,Code/GameEngine/Source/Common/RTS/Rva002A8F56.cpp,matched,packet callers LINK BONUS via 0x28BAC0 prev-next offsets
 ??1Rva005EC09B@@QAE@XZ,,0x005EC09B,91,Code/GameEngine/Source/Common/Rva005EC09BDtor.cpp,matched,guarded Apt window manager call with m_04 then three member dtors
 ??1Rva00A9CC7@@UAE@XZ,,0x000A9CC7,111,Code/GameEngine/Source/Common/Rva000A9CC7Dtor.cpp,matched,Apt manager name release then display string free via TheDisplayStringManager then string member and inline base dtor
+??1StancesBehavior@@UAE@XZ,,0x0045F001,103,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorDtor.cpp,matched,three vptr stores then listener broadcast via forEach and slot0 forwarder then list free and Rva0024A797 base dtor
