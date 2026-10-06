@@ -11320,3 +11320,4 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ??0Rva0056B3F5@@QAE@PAX00@Z	0x0056B3F5	107	blocked	ctor double-vtable EH member needs modeling beyond quick sibling t=12 model=muse-07
 ??0Rva0056B4B4@@QAE@PAX0@Z	0x0056B4B4	113	blocked	same ctor family double-vtable EH wall as 0x56B3F5 t=3 model=muse-07
 ??0Rva0056B525@@QAE@PAX00@Z	0x0056B525	116	partial	push edi order and EH and-dword vs mov-byte plus lea hoisting t=25 model=muse-07 score=0.93 stash=reverse/attempts/0x0056b525.cpp
+?rva00567F3D@Rva00567F3D@@QAEPAPAVRva00567960@@PAPAV2@H@Z	0x00567F3D	84	partial	missing and [ebp-0x10],0 at +0xb 80v84 rest exact t=25 model=muse-12 score=0.95 stash=reverse/attempts/0x00567f3d.cpp
