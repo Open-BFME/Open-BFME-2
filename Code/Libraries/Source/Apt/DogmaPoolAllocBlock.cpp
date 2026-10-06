@@ -78,6 +78,39 @@ void *Rva006DB160::allocBlock(int blockSize)
     }
     return pool->AllocateBytes(nSize);
 }
+// ?rva006DAFE0@Rva006DB160@@QAEPAXI@Z @0x006DAFE0 172B
+// DOGMA pool free-list pop for a size whose head is non-null: unlink the head,
+// validate the doubly-linked prev pointer and stored size under the config
+// flag bits, via DogmaAllocator.cpp asserts at lines 0x227/0x22e.
+// Second trap uses __asm int 3 (same byte as __debugbreak) as a barrier: the
+// intrinsic lets MSVC hoist the return setup above the branch and split the
+// epilogue (+9B), the barrier keeps retail's single epilogue.
+void *Rva006DB160::rva006DAFE0(unsigned int nSize)
+{
+    void *pReturn = m_table[nSize >> 2];
+    void **slot = &m_table[nSize >> 2];
+    void *pNext = ((void **)pReturn)[m_cfg & 0xff];
+    --m_count;
+    *slot = pNext;
+    if (m_cfg & 0x20000000) {
+        if (pNext != 0) {
+            if (((void **)pNext)[m_prevIdx] != pReturn) {
+                g_bfmeAptAssertAtE17734("pNextBuffer[mnOffsetToStorePrev] == (uint32_t)pReturn", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\DogmaAllocator.cpp", 0x227);
+                if (g_bfmeAptBreakOnAssertAtDDC01C)
+                    __debugbreak();
+            }
+            ((void **)pNext)[m_prevIdx] = 0;
+        }
+    }
+    if (m_cfg & 0x10000000) {
+        if (((unsigned int *)pReturn)[m_sizeIdx] != nSize) {
+            g_bfmeAptAssertAtE17734("pReturn[mnOffsetToStoreSize] == (nSize)", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\DogmaAllocator.cpp", 0x22e);
+            if (g_bfmeAptBreakOnAssertAtDDC01C)
+                __asm int 3;
+        }
+    }
+    return pReturn;
+}
 
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
