@@ -49,6 +49,15 @@
 // notifying through the rowed 0x0028AE6D on change) on each task's target
 // (+0x3E8 ids, the rowed GameLogic::findObjectByID). New in BFME 2: it ends
 // with the dozer interface's finishBuildingSound (vslot 24, tail call).
+//
+// ?findGoodBuildOrRepairPositionAndTarget@DozerAIUpdate@@IAEPAVObject@@PAV2@0AAUCoord3D@@@Z,
+// retail 0x00489913, 244 bytes. ZH's static
+// DozerAIUpdate::findGoodBuildOrRepairPositionAndTarget as a member, the
+// Worker twin 0x004AABB4 without its docking-trace lines: for a bridge
+// (kind-of bit 22 on the template, Thing +0x04 then +0x108) it picks the
+// reachable tower (bridge interface vslot 1, four towers, the pinned
+// isPathAvailable) whose position (the pinned findGoodBuildOrRepairPosition
+// 0x00489039) is nearest, else it finds the target's position.
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 typedef bool Bool;
@@ -262,6 +271,7 @@ public:
 	virtual void v94(); virtual void v95(); virtual void v96(); virtual void v97(); virtual void v98(); virtual void v99(); virtual void v100();
 	virtual void v101(); virtual void v102(); virtual void v103(); virtual void v104(); virtual void v105(); virtual void v106(); virtual void v107(); virtual void v108(); virtual void v109();
 	virtual Bool isIdle() const; // vslot 110 (+0x1B8)
+	Bool isPathAvailable(const Coord3D *destination) const;
 protected:
 	virtual ~AIUpdateInterface();
 private:
@@ -288,9 +298,36 @@ private:
 	unsigned int m_words[19];
 };
 
-class Object
+enum KindOfType
+{
+	KINDOF_BRIDGE = 22
+};
+
+class ThingTemplate
 {
 public:
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 31)); }
+private:
+	unsigned char m_pad000[0x108];
+	UnsignedInt m_kindOf[4]; // +0x108
+};
+
+class Thing
+{
+public:
+	virtual ~Thing();
+	const ThingTemplate *getTemplate() const { return m_template; }
+	const Coord3D *getPosition() const { return &m_position; }
+private:
+	const ThingTemplate *m_template; // +0x04
+	unsigned char m_pad08[0x38 - 0x08];
+	Coord3D m_position; // +0x38
+};
+
+class Object : public Thing
+{
+public:
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	void rva0028AE6D();
 	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
@@ -302,7 +339,7 @@ public:
 		}
 	}
 private:
-	unsigned char m_pad000[0x10C];
+	unsigned char m_pad044[0x10C - 0x44];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
@@ -315,6 +352,30 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
+
+enum BridgeTowerType
+{
+	BRIDGE_TOWER_FROM_LEFT = 0,
+	BRIDGE_MAX_TOWERS = 4
+};
+
+class BridgeBehaviorInterface
+{
+public:
+	virtual void slot0();
+	virtual ObjectID getTowerID(BridgeTowerType type); // vslot 1
+};
+
+class BridgeBehavior
+{
+public:
+	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(Object *obj);
+};
+
+inline Real sqr(Real x)
+{
+	return x * x;
+}
 
 inline void zeroCoord(Coord3D &c)
 {
@@ -352,6 +413,11 @@ private:
 
 	void createMachines();
 
+protected:
+	Bool findGoodBuildOrRepairPosition(const Object *me, const Object *target, Coord3D &positionOut);
+	Object *findGoodBuildOrRepairPositionAndTarget(Object *me, Object *target, Coord3D &positionOut);
+
+private:
 	DozerTaskInfo m_task[DOZER_NUM_TASKS]; // +0x3E8
 	DozerPrimaryStateMachine *m_dozerMachine; // +0x400
 	Int m_currentTask; // +0x404
@@ -502,4 +568,41 @@ void DozerAIUpdate::onDelete(void)
 	}
 
 	finishBuildingSound();
+}
+
+Object *DozerAIUpdate::findGoodBuildOrRepairPositionAndTarget(Object *me, Object *target, Coord3D &positionOut)
+{
+	if (target->isKindOf(KINDOF_BRIDGE))
+	{
+		BridgeBehaviorInterface *bridgeInterface = BridgeBehavior::getBridgeBehaviorInterfaceFromObject(target);
+		if (bridgeInterface)
+		{
+			// pick the reachable tower position closest to us
+			AIUpdateInterface *ai = me->getAIUpdateInterface();
+			Real closestDistSq = 1e10f;
+			Object *closestTower = 0;
+			for (Int i = 0; i < BRIDGE_MAX_TOWERS; ++i)
+			{
+				Object *tower = TheGameLogic->findObjectByID(bridgeInterface->getTowerID((BridgeTowerType)i));
+				if (tower)
+				{
+					Coord3D pos;
+					if (findGoodBuildOrRepairPosition(me, tower, pos) && ai->isPathAvailable(&pos))
+					{
+						Real distSq = sqr(me->getPosition()->x - pos.x) + sqr(me->getPosition()->y - pos.y);
+						if (distSq < closestDistSq)
+						{
+							positionOut = pos;
+							closestDistSq = distSq;
+							closestTower = tower;
+						}
+					}
+				}
+			}
+			return closestTower;
+		}
+	}
+
+	findGoodBuildOrRepairPosition(me, target, positionOut);
+	return target;
 }

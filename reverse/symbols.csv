@@ -15202,3 +15202,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva000E7A40@Rva000E7B04@@QAEXH@Z,0x000E7A40,callee of ?rva000E7B04@Rva000E7B04@@QAEXXZ
 ?rva000EB2EF@Rva000EB3D1@@QAEXH@Z,0x000EB2EF,callee of ?rva000EB3D1@Rva000EB3D1@@QAEXXZ
 ?GetVertices@RoadSegment@@QAEHPAUVertexFormatXYZDUV1@@H@Z,0x000D45A3,callee of ?loadRoadSegment@W3DRoadBuffer@@QAEXPAGPAUVertexFormatXYZDUV1@@PAVRoadSegment@@@Z
+?findGoodBuildOrRepairPosition@DozerAIUpdate@@IAE_NPBVObject@@0AAUCoord3D@@@Z,0x00489039,"called twice from the rowed DozerAIUpdate::findGoodBuildOrRepairPositionAndTarget 0x00489913 (REL32 at 0x00489989 and 0x004899FB; its only callers) with dozer and target and an out position, bool result, exactly where the Worker twin 0x004AABB4 calls the pinned WorkerAIUpdate::findGoodBuildOrRepairPosition 0x004AA4FE; same body as that twin without the docking-trace lines (Inv_Sqrt then isUsingAirborneLocomotor twice then 0x0026872B and 0x00285202)"
