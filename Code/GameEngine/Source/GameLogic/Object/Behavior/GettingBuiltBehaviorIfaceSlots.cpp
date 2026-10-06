@@ -436,6 +436,41 @@ float GettingBuiltBehavior::rva0045342F(Object *obj)
 	return value * data()->m_30[body->rva0045342FSlot8()];
 }
 
+// The Ghidra boundary at 0x0045346D is 52B. Its first stack argument is
+// treated as a byte view whose +0x14 member is a StringBase<char>: retail
+// checks that string with the rowed isEmpty body at 0x00001E2F, looks it up
+// through the rowed factory helper at 0x002D06CA on the global at VA
+// 0x00DFF000, then calls the existing donor-derived pin at 0x0033CF34 with
+// the lookup result in ECX and the other two stack arguments. The nearby
+// module-data layout has a StringBase<char> at +0x14; treating this argument
+// as that record is a structural inference. The function's owner and meaning
+// remain unresolved, so its name is address-derived.
+class AsciiString;
+class Rva002D06CA
+{
+public:
+	void *rva002D06CA(const AsciiString *key);
+};
+extern Rva002D06CA *TheThingFactory;
+
+class Rva0020AA00Target
+{
+public:
+	void notify(int arg2, int arg3);
+};
+
+// ?rva0045346D@@YAXPBXHH@Z
+void __cdecl rva0045346D(const void *arg1, int arg2, int arg3)
+{
+	const GettingBuiltBehaviorModuleData *data = (const GettingBuiltBehaviorModuleData *)arg1;
+	if (!data->m_14.isEmpty())
+	{
+		void *found = TheThingFactory->rva002D06CA((const AsciiString *)&data->m_14);
+		if (found)
+			((Rva0020AA00Target *)found)->notify(arg2, arg3);
+	}
+}
+
 // ?rva00454501@GettingBuiltBehavior@@UAEXXZ, retail 0x00454501, 86 bytes: slot
 // 8 of the primary vtable 0x00C404FC. When the Object named by the owner's
 // +0x78 exists and Object::rva0028BCF4 finds its peer, the peer's slot 5 runs,
