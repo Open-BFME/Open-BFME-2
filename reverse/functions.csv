@@ -65950,3 +65950,7 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?GadgetCheckBoxInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x00327938,438,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetCheckBox.cpp,matched,
 ?GadgetImageComboBoxInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x0032386A,497,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetImageComboBox.cpp,matched,
 ?rva00323736@MpGameSetupComboRef@@QAEX_N@Z,,0x00323736,308,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetImageComboBox.cpp,matched,
+?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
+?getAttackRange@BfmeRangedWeaponTemplate@@QBEMPBVObject@@ABVWeaponBonus@@PBUCoord3D@@@Z,,0x002C99C4,55,Code/GameEngine/Source/GameLogic/Object/Rva002C99C4AttackRange.cpp,matched,
+?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z,,0x002C777E,257,Code/GameEngine/Source/Common/Rva002C777EBuild.cpp,matched,
+?rva002DEE9A@Rva002DEE9AOwner@@QAEXXZ,,0x002DEE9A,41,Code/GameEngine/Source/Common/Rva002DEE9AClear.cpp,matched,

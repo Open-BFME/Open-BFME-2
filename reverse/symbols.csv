@@ -14153,3 +14153,13 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva004ED6D2@AITactic@@QAEXPAVTeam@@@Z,0x004ED6D2,Restored missing collaborator binding from the held-back generator: direct native REL32s at 505932 and 505A4F respectively; AITactic and Team identities agree with existing start and NotifyTeamCancelled providers; member purpose remains address named
 ?GadgetTextEntryUpdateComposition@@YA_NPAVGameWindow@@@Z,0x00320B3C,callee of ?GadgetTextEntryInsertCharacter@@YA_NPAVGameWindow@@I@Z and GadgetTextEntryInput (which tests its bool)
 ?rva00432AEB@Rva0043283C@@QAEHH@Z,0x00432AEB,callee of ?GadgetTextEntrySystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
+?rva0005EA8F@Rva0005F279Host@@QAEXPAVRva0005F279Elem@@@Z,0x0005EA8F,dump range 1 loop callees for 0x5F279
+?rva000FF5E6@Rva0007E90ECallee@@QAEXH@Z,0x000FF5E6,dump range 1 marker callee for 0x7E90E
+?rva000B89E9@Rva000B8F5AOuter@@QAEHHPAM@Z,0x000B89E9,rva000BADE7 tail: address read from the REL32 at 0x000BAEA5 in 0x000BADE7; fresh address-derived Outer-method name (probe, float out) for the 1393B body; push order (out then probe) proves (probe, out) against the B8440 twin guess
+?rva000C0386@Rva000B8F5AOuter@@QAEXXZ,0x000C0386,rva000C144A probe: address read from the REL32 at 0x000C1450 in 0x000C144A; fresh address-derived Outer-method name for the 19B counter check (global 0xDE1B40 vs +0xB8, shared tail 0xBFDFE)
+?rva002C995D@BfmeRangedWeaponTemplate@@QAEMPAX0M@Z,0x002C995D,pin for BfmeRangedWeaponTemplate float view thiscall (void*,void*,float)
+?rva002C98E2@BfmeRangedWeaponTemplate@@QAEMPAX@Z,0x002C98E2,pin for BfmeRangedWeaponTemplate float view thiscall (void*)
+?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z,0x002C760B,pin for 0x2C777E mask bit-setter thiscall (zero + 7 ids) returns this
+?clear@Rva002DEE9A0E0C@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
+?clear@Rva002DEE9A0E10@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
+?rva002DE311@Rva002DEE9AOwner@@QAEXXZ,0x002DE311,pin for 0x2DEE9A thiscall void () on this
