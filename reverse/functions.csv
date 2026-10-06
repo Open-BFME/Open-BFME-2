@@ -65490,3 +65490,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva0005F279@Rva0005F279Host@@QAEXXZ,,0x0005F279,66,Code/GameEngine/Source/Common/Rva0005F279Bodies.cpp,matched,dump range 1 stride-0x48 loop via pinned element test and host process; recomputed element twice
 ?rva0007E90E@Rva0007E90EHost@@QAEXH@Z,,0x0007E90E,68,Code/GameEngine/Source/Common/Rva0007E90EBodies.cpp,matched,dump range 1 marker loop via pinned 0xFF5E6 plus rowed release; flag 0xA0
 ?rva0005106A@Rva0005F279Elem@@QAE_NXZ,,0x0005106A,19,Code/GameEngine/Source/Common/Rva0005106ABodies.cpp,matched,dump range 1 tiny bool leaf with tail jmp to 0x51038; inverted second test
+?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
