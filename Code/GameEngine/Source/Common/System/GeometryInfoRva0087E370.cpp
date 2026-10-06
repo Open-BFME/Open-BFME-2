@@ -4,7 +4,9 @@
 // Its owner and name are not proven, so it keeps its address.
 
 #include <vector>
-#include <math.h>
+
+extern "C" double __cdecl cos(double);
+extern "C" double __cdecl sin(double);
 
 typedef float Real;
 typedef bool Bool;
@@ -76,13 +78,13 @@ struct GeometryShape
 typedef char GeometryShape_size_check[sizeof(GeometryShape) == 0x24 ? 1 : -1];
 
 template <class T>
-inline const T &bfmeMin(const T &a, const T &b)
+static inline const T &bfmeMin(const T &a, const T &b)
 {
 	return (a < b) ? a : b;
 }
 
 template <class T>
-inline const T &bfmeMax(const T &a, const T &b)
+static inline const T &bfmeMax(const T &a, const T &b)
 {
 	return (a > b) ? a : b;
 }
