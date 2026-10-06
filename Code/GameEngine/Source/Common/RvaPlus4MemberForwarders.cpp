@@ -25,24 +25,6 @@ void Rva002A0D11::rva002A0D11()
     m_04.rva00239AF4();
 }
 
-class Rva00380459
-{
-public:
-    void rva00380459(int a);
-};
-class Rva002A9ECA
-{
-public:
-    void rva002A9ECA(int a);
-private:
-    int m_00;
-    int m_04;
-    Rva00380459 m_08;
-};
-void Rva002A9ECA::rva002A9ECA(int a)
-{
-    m_08.rva00380459(a);
-}
 // 0x003EE7C2 follows its existing pin spelling (the SplineEffectParseINIBlock
 // caller at 0x004E3F48 reaches it as Rva003BB730Owner::addEffect).
 class AsciiString;

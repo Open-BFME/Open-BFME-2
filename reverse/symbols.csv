@@ -12462,16 +12462,9 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?removeObject@AptDisplayList@@QAEXPAVAptCIH@@@Z,0x006F7230,alias rowed bfmeProcess1279; native removeClonedObject passes query result; donor removeObject role; alternatename provider
 ?rva006FBED0@AptScriptFunctionBase@@QAEXXZ,0x006FBED0,Native DefineLocal and DefineLocal2 receiver currentFunction+30; existing150B Rva8D0D80Result provider reads canonical creatorScope+28 reserve+2C and installs spFrameStackE1835C; linker alias binds same provider
 ??0AptValue@@IAE@W4AptVirtualFunctionTable_Indices@@@Z,0x006DCCC0,Original AptValue header504032fc6593aab6 protected enum ctor; native array ctor6D91B0 pushes type22 to existing87B value constructor; alias existing int-ABI provider
-?rva005D13C2@Rva005D13C2@@QAEXXZ,0x005D13C2,jump target of 17B forwarder 0x005D1516; original name unknown
-?rva005E18D0@Rva005E18D0@@QAEXXZ,0x005E18D0,jump target of 17B forwarder 0x005E1906; original name unknown
-?rva005E18DC@Rva005E18DC@@QAEXXZ,0x005E18DC,jump target of 17B forwarder 0x005E1917; original name unknown
-?rva005E1B9A@Rva005E1B9A@@QAEXXZ,0x005E1B9A,jump target of 17B forwarder 0x005E1BC4; original name unknown
 ?rva005E2180@Rva005E2180@@QAEXXZ,0x005E2180,jump target of 17B forwarder 0x005E2226; original name unknown
-?rva005E254C@Rva005E254C@@QAEXXZ,0x005E254C,jump target of 17B forwarder 0x005E25DE; original name unknown
 ?rva005F1B51@Rva005F1B51@@QAEXXZ,0x005F1B51,jump target of 17B forwarder 0x005E35C9; original name unknown
 ?rva005E69AC@Rva005E69AC@@QAEXXZ,0x005E69AC,jump target of 17B forwarder 0x005E6A00; original name unknown
-?rva005E6A9D@Rva005E6A9D@@QAEXXZ,0x005E6A9D,jump target of 17B forwarder 0x005E6BA3; original name unknown
-?rva005E6AD8@Rva005E6AD8@@QAEXXZ,0x005E6AD8,jump target of 17B forwarder 0x005E6BB4; original name unknown
 ??4Rva001F8CC2@@QAEAAV0@ABV0@@Z,0x001F8CC2,second-base assign called from 0x001F9CE7 in 0x001F9CCA; vector holder assign; original name unknown
 ?getVtblIndex@AptValue@@QBE?AW4AptVirtualFunctionTable_Indices@@XZ,0x006DBB30,Native isObjectOfType or DoesImplementObject call; original source and Godfather MAP signature; verified provider alias
 ?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z,0x0070B380,Native isObjectOfType or DoesImplementObject call; original source and Godfather MAP signature; verified provider alias
@@ -12577,17 +12570,9 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?ExecuteInitAction@AptCharacterAnimation@@QAEXPAVAptCIH@@H@Z,0x006E6A30,Native6E6B40 CIH-characterID calls; donor ExecuteInitAction semantics;209B supplier owned pending
 ?ExportClassDefinitionAssets@AptCharacterAnimation@@QAEXPAVAptCIH@@@Z,0x006E46A0,Native6E6A30 receiver animation and CIH argument; donor AptAnimation.cpp export init action worker; target278B provider pending
 ??0Rva001F41AF@@QAE@ABV0@@Z,0x001F41AF,copy-ctor spelling of the rowed clone-assign body; called on raw storage by copy ctor chain 0x001F9C73..0x001FC3BF and returns this
-?rva00380459@Rva00380459@@QAEXH@Z,0x00380459,tail jmp target of 8B forwarder 0x002A9ECA (ret 4); original name unknown
 ?rva004E37CF@Rva004E37CF@@QAEXAAVAsciiString@@PAVRva003BB730Record@@@Z,0x004E37CF,tail jmp target of 8B forwarder 0x003EE7C2 (ret 8); original name unknown
-?rva001EB68A@Rva001EB68ANullTarget@@QAEXXZ,0x001EB68A,null-checked tail jmp target of 13B forwarder 0x001EB72F; original name unknown
-?rva001EB6FE@Rva001EB6FENullTarget@@QAEXXZ,0x001EB6FE,null-checked tail jmp target of 13B forwarder 0x001EB75C; original name unknown
-?rva0020E9A1@Rva0020E9A1NullTarget@@QAEXXZ,0x0020E9A1,null-checked tail jmp target of 13B forwarder 0x0020EB41; original name unknown
-?rva005CB283@Rva005CB283NullTarget@@QAEXXZ,0x005CB283,null-checked tail jmp target of 13B forwarder 0x005CCB16; original name unknown
 ?rva0004232F@Rva0004232FNullTarget@@QAEXXZ,0x0004232F,null-checked tail jmp target of 13B forwarder 0x005CCB23; original name unknown
 ?rva003626AD@Rva003626ADNullTarget@@QAEXHH@Z,0x003626AD,null-checked tail jmp target of 18B forwarder; original name unknown
-?rva004E5EBE@Rva004E5EBENullTarget@@QAEXHH@Z,0x004E5EBE,null-checked tail jmp target of 18B forwarder; original name unknown
-?rva004F2ABC@Rva004F2ABCNullTarget@@QAEXHH@Z,0x004F2ABC,null-checked tail jmp target of 18B forwarder; original name unknown
-?rva004F0819@Rva004F0819NullTarget@@QAEXH@Z,0x004F0819,null-checked tail jmp target of 18B forwarder; original name unknown
 ?rva004F2C14@Rva004F2C14NullTarget@@QAEXH@Z,0x004F2C14,null-checked tail jmp target of 18B forwarder; original name unknown
 ?rva0059A153@Rva0059A153@@QAEXPAVTeamPrototype@@@Z,0x0059A153,tail jmp target of 11B forwarder 0x004EC07D at +0x90; original name unknown
 ?rva0040D3FF@Rva0040D3FF@@QAEHXZ,0x0040D3FF,tail jmp target of 11B forwarder 0x0023D0B7 at GameLogic+0x184; original name unknown

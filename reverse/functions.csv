@@ -63064,16 +63064,9 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002E0AEA@Rva002E0AEA@@QAE_NXZ,,0x002E0AEA,70,Code/GameEngine/Source/Common/Rva002B4B3D.cpp,matched,Rva any-of loop over pointer vector by REL32 graph
 ??1Rva005011B4@@QAE@XZ,,0x005011B4,8,Code/GameEngine/Source/Common/RvaMemberDtorForwarders.cpp,matched,Member dtor tail at plus4 into rowed dtor
 ??1Rva0023863E@@QAE@XZ,,0x0023863E,8,Code/GameEngine/Source/Common/RvaMemberDtorForwarders.cpp,matched,Member dtor tail at plus4 into rowed dtor
-?rva005D1516@Rva005D1516@@QAEXXZ,,0x005D1516,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
-?rva005E1906@Rva005E1906@@QAEXXZ,,0x005E1906,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
-?rva005E1917@Rva005E1917@@QAEXXZ,,0x005E1917,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
-?rva005E1BC4@Rva005E1BC4@@QAEXXZ,,0x005E1BC4,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva005E2226@Rva005E2226@@QAEXXZ,,0x005E2226,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
-?rva005E25DE@Rva005E25DE@@QAEXXZ,,0x005E25DE,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva005E35C9@Rva005E35C9@@QAEXXZ,,0x005E35C9,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva005E6A00@Rva005E6A00@@QAEXXZ,,0x005E6A00,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
-?rva005E6BA3@Rva005E6BA3@@QAEXXZ,,0x005E6BA3,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
-?rva005E6BB4@Rva005E6BB4@@QAEXXZ,,0x005E6BB4,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,Helper call on this then tail member call on held pointer by REL32
 ?rva002461DA@Rva002461DA@@QAEXXZ,,0x002461DA,23,Code/Libraries/Source/WWVegas/WWLib/StlportListRva002461DA.cpp,matched,list clear plus free via base at zero
 ?rva000E9CFB@Rva000E9BAC@@QAEXABVRva000E3A8D@@@Z,,0x000E9CFB,29,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACSetter.cpp,matched,vector assign at 0x4FB60 plus flag at 0x4FB5E via rowed 0xE3A8D
 ?rva005CACDE@GameSpyLoginPreferences@@QAEXVAsciiString@@000@Z,,0x005CACDE,245,Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp,matched,nick map plus pass date same TU same flags callers unblock
@@ -63197,28 +63190,18 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00544E76@Rva00544C2A@@QAEHXZ,,0x00544E76,59,Code/GameEngine/Source/Common/Rva00544E76.cpp,matched,leaf slot 4 of 0x00869CF8 chains plus18 to slot 0x17C and TheGameLogic plus40 to slot 0x24
 ?Rva00580BBFUnguardedSort@@YAXPAPAX0VRva000795C1Record@@@Z,,0x00580BBF,79,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,unguarded insertion sort wrapper calling 0x00580A54 with 16B record teardown
 ?rva002A0D11@Rva002A0D11@@QAEXXZ,,0x002A0D11,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
-?rva002A9ECA@Rva002A9ECA@@QAEXH@Z,,0x002A9ECA,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
 ?addEffect@Rva003BB730Owner@@QAEXAAVAsciiString@@PAVRva003BB730Record@@@Z,,0x003EE7C2,8,Code/GameEngine/Source/Common/RvaPlus4MemberForwarders.cpp,matched,Plus-N member forwarder tail jmp by REL32
 ?Rva0006297CClamp@@YGXPBM0PAM1@Z,,0x0006297C,160,Code/GameEngine/Source/Common/VslotSmallBodiesAT.cpp,matched,vslot 17 of Rva00628FD single callee GetRes neighbours VslotSmall
 ?rva0046D738@HordeContain@@QAEXXZ,,0x0046D738,119,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D738.cpp,matched,HordeContain 0x11C iface plus 0x2A0 ID via TheGameLogic findObjectByID row and Thing orientation row
 ?rva00355141@Rva00355B61@@QAEXXZ,,0x00355141,20,Code/GameEngine/Source/GameLogic/Object/Rva00355141Clear.cpp,matched,clears maps at 0x10 and 0x24 via rowed hashtable clear 0x1DBCDC slot 9 vtable 0x814E14
 ?rva005E5884@Rva005E5884@@QAEHPAXH@Z,,0x005E5884,26,Code/GameEngine/Source/Common/Rva005E5884Method.cpp,matched,helper then member forwarder tail called from 0x005E5920 when write fails
-?rva001EB72F@Rva001EB72FNullForwarder@@QAEXXZ,,0x001EB72F,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
-?rva001EB75C@Rva001EB75CNullForwarder@@QAEXXZ,,0x001EB75C,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
-?rva0020EB41@Rva0020EB41NullForwarder@@QAEXXZ,,0x0020EB41,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
-?rva005CCB16@Rva005CCB16NullForwarder@@QAEXXZ,,0x005CCB16,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva005CCB23@Rva005CCB23NullForwarder@@QAEXXZ,,0x005CCB23,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
-?rva005D13D5@Rva005D13D5NullForwarder@@QAEXXZ,,0x005D13D5,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders2.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva0005BDD2@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z,,0x0005BDD2,135,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005BDD2.cpp,matched,MilesAudioManager positional volume less loop caller 0x0005D54F
 ?Rva005200C5Add@@YAXPAXW4ScienceType@@@Z,,0x005200C5,47,Code/Libraries/Source/WWVegas/WWLib/Rva005200C5.cpp,matched,caller 0x00407FA0 pod 0x0040AAD5 isEmpty 0x00001E2F pushback 0x002E01C6
 ?Rva005809DBLinearInsert@@YAXPAPAX0PAXVRva000795C1Record@@@Z,,0x005809DB,121,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,guarded linear insert with copy backward and 16B record teardown
 ?rva00271BCC@Rva00271BCC@@QAEXHH@Z,,0x00271BCC,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
-?rva0029B16A@Rva0029B16A@@QAEXHH@Z,,0x0029B16A,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
-?rva002A9CDE@Rva002A9CDE@@QAEXHH@Z,,0x002A9CDE,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
-?rva002A9CF0@Rva002A9CF0@@QAEXH@Z,,0x002A9CF0,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
 ?rva002A9DEC@Rva002A9BF2@@QAEXH@Z,,0x002A9DEC,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
 ?rva0028BC4D@Object@@QAEXXZ,,0x0028BC4D,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
-?rva004EC072@Rva004EC072@@QAEXPAUArg@@@Z,,0x004EC072,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
 ?rva004EC07D@Rva002A8AB1Record@@QAEXPAVTeamPrototype@@@Z,,0x004EC07D,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
 ?rva0023D0B7@GameLogic@@QAEHXZ,,0x0023D0B7,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
 ?ClipStackMakeUnit@AptMath@@SAXXZ,,0x006DFEA0,254,Code/Libraries/Source/Apt/AptMathClipStack.cpp,matched,Audit7717f8b385e16d10-AptMath.cpp semantic guide; native matrix0..63 identity plus mul64/add80 float vectors; assertion top count and ordinary aggregate assignments explain32B stack temporaries; full RET/tail extent independently inspected; existing statics E180F4/E180F8/E180FC/E18100 and allocator reused.

@@ -38,69 +38,6 @@ void Rva00271BCC::rva00271BCC(Int a0, Int a1)
 		m_member->rva003626AD(a0, a1);
 }
 
-class Rva004E5EBENullTarget
-{
-public:
-	void rva004E5EBE(Int a0, Int a1);
-};
-
-class Rva0029B16A
-{
-public:
-	void rva0029B16A(Int a0, Int a1);
-private:
-	char m_lead[0x7F4];
-	Rva004E5EBENullTarget *m_member;
-};
-
-void Rva0029B16A::rva0029B16A(Int a0, Int a1)
-{
-	if (m_member)
-		m_member->rva004E5EBE(a0, a1);
-}
-
-class Rva004F2ABCNullTarget
-{
-public:
-	void rva004F2ABC(Int a0, Int a1);
-};
-
-class Rva002A9CDE
-{
-public:
-	void rva002A9CDE(Int a0, Int a1);
-private:
-	char m_lead[0x2DC];
-	Rva004F2ABCNullTarget *m_member;
-};
-
-void Rva002A9CDE::rva002A9CDE(Int a0, Int a1)
-{
-	if (m_member)
-		m_member->rva004F2ABC(a0, a1);
-}
-
-class Rva004F0819NullTarget
-{
-public:
-	void rva004F0819(Int a0);
-};
-
-class Rva002A9CF0
-{
-public:
-	void rva002A9CF0(Int a0);
-private:
-	char m_lead[0x2DC];
-	Rva004F0819NullTarget *m_member;
-};
-
-void Rva002A9CF0::rva002A9CF0(Int a0)
-{
-	if (m_member)
-		m_member->rva004F0819(a0);
-}
-
 class Rva004F2C14NullTarget
 {
 public:
@@ -149,20 +86,6 @@ class Rva0059A71C
 public:
 	void rva0059A71C(Arg *arg);
 };
-
-class Rva004EC072
-{
-public:
-	void rva004EC072(Arg *arg);
-private:
-	char m_lead[0x90];
-	Rva0059A71C m_member;
-};
-
-void Rva004EC072::rva004EC072(Arg *arg)
-{
-	m_member.rva0059A71C(arg);
-}
 
 class TeamPrototype;
 

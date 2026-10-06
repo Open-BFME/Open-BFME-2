@@ -11,89 +11,6 @@
 // Rva000B3FD0NullTarget pin. Every name is address-derived.
 
 typedef int Int;
-class Rva001EB68ANullTarget
-{
-public:
-	void rva001EB68A();
-};
-
-class Rva001EB72FNullForwarder
-{
-public:
-	void rva001EB72F();
-private:
-	char m_lead[0x10];
-	Rva001EB68ANullTarget *m_member;
-};
-
-void Rva001EB72FNullForwarder::rva001EB72F()
-{
-	if (m_member)
-		m_member->rva001EB68A();
-}
-
-class Rva001EB6FENullTarget
-{
-public:
-	void rva001EB6FE();
-};
-
-class Rva001EB75CNullForwarder
-{
-public:
-	void rva001EB75C();
-private:
-	char m_lead[0x10];
-	Rva001EB6FENullTarget *m_member;
-};
-
-void Rva001EB75CNullForwarder::rva001EB75C()
-{
-	if (m_member)
-		m_member->rva001EB6FE();
-}
-
-class Rva0020E9A1NullTarget
-{
-public:
-	void rva0020E9A1();
-};
-
-class Rva0020EB41NullForwarder
-{
-public:
-	void rva0020EB41();
-private:
-	char m_lead[0x8];
-	Rva0020E9A1NullTarget *m_member;
-};
-
-void Rva0020EB41NullForwarder::rva0020EB41()
-{
-	if (m_member)
-		m_member->rva0020E9A1();
-}
-
-class Rva005CB283NullTarget
-{
-public:
-	void rva005CB283();
-};
-
-class Rva005CCB16NullForwarder
-{
-public:
-	void rva005CCB16();
-private:
-	char m_lead[0x4];
-	Rva005CB283NullTarget *m_member;
-};
-
-void Rva005CCB16NullForwarder::rva005CCB16()
-{
-	if (m_member)
-		m_member->rva005CB283();
-}
 
 class Rva0004232FNullTarget
 {
@@ -121,18 +38,3 @@ class Rva000B3FD0NullTarget
 public:
 	void rva000B3FD0();
 };
-
-class Rva005D13D5NullForwarder
-{
-public:
-	void rva005D13D5();
-private:
-	char m_lead[0xC];
-	Rva000B3FD0NullTarget *m_member;
-};
-
-void Rva005D13D5NullForwarder::rva005D13D5()
-{
-	if (m_member)
-		m_member->rva000B3FD0();
-}
