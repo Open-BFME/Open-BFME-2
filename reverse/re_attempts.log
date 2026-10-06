@@ -13983,3 +13983,10 @@ FUN_0063e3ce	0x0023E3CE	602	blocked	EH-prolog large-frame MapCache body t=1 mode
 ?rva00373DF0@Rva00373DF0@@QAEXPAVObject@@@Z	0x00373DF0	198	blocked	regalloc plus frame plus returns wall t=20 model=muse-10; 2 variants tried direct-vs-saved plus reorder; pushes ebp-esi-edi vs ecx-ebx-ebp-esi-edi plus sub-vs-push-only plus mov-eax-1 vs xor-inc; layout offsets verified correct; needs allocator investigation
 ?rva0046DD67@Rva0046DD67@@QAEXP6AXPAVObject@@PAX@Z1H@Z	0x0046DD67	94	blocked	manual Rb loop plus12B push order and frame test differ t=18 model=muse-10
 ??0TeamTemplateInfo@@QAE@PAVDict@@@Z	0x003A26E6	399	partial	home Coord3D zeroed via stosd not xorps-movss; vptr and 0.5f relocs verify via gate t=30 model=muse-10 score=0.94 stash=reverse/attempts/0x003a26e6.cpp
+?rva0045D5DA@Rva0045D5DA@@QAEHPAX@Z	0x0045D5DA	92	blocked	SlowDeath 92B x87 ftol2 virtual 0x18 needs donor t=5 model=muse
+?removeAllContained@HordeSiegeEngineContain@@UAEX_N@Z	0x0047CD98	54	blocked	Horde removeAll 54B eaxecx swap plus bool saved to edi t=10 model=muse
+?rva0047CAEB@Rva0047CAEB@@QAEPAVBfmeObject872Header@@PAV2@PAVObject@@@Z	0x0047CAEB	84	partial	register allocation only: obj in edi not stack and outer via add not lea and out in esi not stack; 87B vs 84B t=22 model=muse-01 score=0.93 stash=reverse/attempts/0x0047caeb.cpp
+?rva0047CEBB@HordeSiegeEngineContain@@UAEXP6AXPAVObject@@PAX@Z1H@Z	0x0047CEBB	125	blocked	register allocation wall orig in stack plus local not ebx and userData in ebx not stack plus reverse push via eax not mem 147B vs 125B t=25 model=muse-01
+?doSpecialPower@Rva004C8C78@@UAEXI@Z	0x004C8C78	163	blocked	EH helper vs inline plus register what vs opts plus list walk and base pushes 268B vs 163B t=25 model=muse-01
+?rva0047CDCE@HordeSiegeEngineContain@@UAE_NH@Z	0x0047CDCE	62	blocked	needs /G6 for leave plus push ecx plus jmp sharing region gives /O1 /arch:SSE /G7 0 register wall 72B vs 62B t=30 model=muse-01
+?doSpecialPowerAtLocation@DevastateSpecialPower@@UAEXPBUCoord3D@@I@Z	0x004C82E5	472	blocked	does not compile: forward-declared Player/FXList/Money/TerrainLogic/WeaponStore used as complete types plus missing member layouts t=5 model=muse-01
