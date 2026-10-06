@@ -25,6 +25,18 @@ struct Db12
 extern Db12 g_00DB4470;
 extern Db12 g_00DB447C;
 
+struct FieldParse;
+extern const FieldParse g_shadowMapFieldParseTable[];
+
+class INI
+{
+public:
+	void initFromINI(void *what, const FieldParse *parseTable);
+};
+
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
+
 class Rva00152D1CObj
 {
 public:
@@ -79,5 +91,34 @@ void Rva0007BA35::rva0007BA35()
 	{
 		DX8DeviceGuard guard;
 		m_24->rva152d1c(4);
+	}
+}
+
+// The BlockParse node at VA 0x00DB4488 registers token "ShadowMap" with
+// this callback (target registration row at 0x007ABFE3). The target table at
+// VA 0x00BC6BA8 names its fields MapSize, MaxViewDistance, and
+// MinShadowedTerrainHeight. The other tested fields remain unnamed here.
+void parseShadowMapBlock(INI *ini)
+{
+	g_00DB447C = g_00DB4470;
+	if (*reinterpret_cast<int *>(reinterpret_cast<char *>(ini) + 8) == 2 &&
+		TheGameLODManager->m_177c >= 4)
+	{
+		int minimumMapSize = 0x800;
+		int *mapSize;
+		if (g_00DB447C.v0 < minimumMapSize)
+			mapSize = &minimumMapSize;
+		else
+			mapSize = &g_00DB447C.v0;
+		g_00DB447C.v0 = *mapSize;
+	}
+	ini->initFromINI(&g_00DB447C, g_shadowMapFieldParseTable);
+	int mode = *reinterpret_cast<int *>(reinterpret_cast<char *>(ini) + 8);
+	if (mode != 2 && mode != 4)
+	{
+		if (*reinterpret_cast<unsigned char *>(
+			reinterpret_cast<char *>(TheWritableGlobalData) + 0xD45))
+			g_00DB447C.v0 = 0x1000;
+		g_00DB4470 = g_00DB447C;
 	}
 }
