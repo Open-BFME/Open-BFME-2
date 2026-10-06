@@ -400,7 +400,6 @@ Code/GameEngine/Source/Common/MessageStream.cpp	?insertMessage@MessageStream@@UA
 Code/GameEngine/Source/Common/MessageStream.cpp	?insertMessage@MessageStream@@UAEPAVGameMessage@@W4Type@2@PAV2@@Z	?insertMessage@GameMessageList@@UAEXPAVGameMessage@@0@Z	0x0030F604	wrong
 Code/GameEngine/Source/Common/MessageStreamListCtors.cpp	??0GameMessageList@@QAE@XZ	??0SubsystemInterface@@QAE@XZ	0x001B4E63	wrong
 Code/GameEngine/Source/Common/MessageStreamListCtors.cpp	??1GameMessageList@@UAE@XZ	??1SubsystemInterface@@UAE@XZ	0x001B4E74	divergent
-Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp	?Rva0052DBCDInit@@YAXXZ	??0MixFileInfoBuffer@@QAE@XZ	0x0052DB99	unowned
 Code/GameEngine/Source/Common/MoneyVectorPushBack.cpp	?push_back@?$vector@VMoney@@V?$allocator@VMoney@@@_STL@@@_STL@@QAEXABVMoney@@@Z	??0Money@@QAE@ABV0@@Z	0x00063BE4	divergent
 Code/GameEngine/Source/Common/MoneyVectorPushBack.cpp	?push_back@?$vector@VMoney@@V?$allocator@VMoney@@@_STL@@@_STL@@QAEXABVMoney@@@Z	?_M_insert_overflow@?$vector@VMoney@@V?$allocator@VMoney@@@_STL@@@_STL@@IAEXPAVMoney@@ABV3@ABU__false_type@2@I_N@Z	0x006BF5E0	divergent
 Code/GameEngine/Source/Common/MultiplayerSettingsCtor.cpp	??0MultiplayerSettings@@QAE@XZ	??0SubsystemInterface@@QAE@XZ	0x001B4E63	wrong
@@ -2298,7 +2297,6 @@ Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp	?get@Rva00394173Fie
 Code/GameEngine/Source/Common/System/CrateCreationEntryList.cpp	??$_S_sort@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@U?$less@UcrateCreationEntry@@@3@@_STL@@YAXAAV?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@0@U?$less@UcrateCreationEntry@@@0@@Z	??$_S_merge@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@U?$less@UcrateCreationEntry@@@3@@_STL@@YAXAAV?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@0@0U?$less@UcrateCreationEntry@@@0@@Z	0x00288874	unowned
 Code/GameEngine/Source/Common/System/CrateCreationEntryList.cpp	??$_S_sort@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@U?$less@UcrateCreationEntry@@@3@@_STL@@YAXAAV?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@0@U?$less@UcrateCreationEntry@@@0@@Z	??$swap@V?$_STLP_alloc_proxy@PAU?$_List_node@UcrateCreationEntry@@@_STL@@U12@V?$allocator@U?$_List_node@UcrateCreationEntry@@@_STL@@@2@@_STL@@@_STL@@YAXAAV?$_STLP_alloc_proxy@PAU?$_List_node@UcrateCreationEntry@@@_STL@@U12@V?$allocator@U?$_List_node@UcrateCreationEntry@@@_STL@@@2@@0@0@Z	0x00574B2D	wrong
 Code/GameEngine/Source/Common/System/CrateCreationEntryList.cpp	??$_S_sort@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@U?$less@UcrateCreationEntry@@@3@@_STL@@YAXAAV?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@0@U?$less@UcrateCreationEntry@@@0@@Z	??0?$_List_base@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@QAE@ABV?$allocator@UcrateCreationEntry@@@1@@Z	0x00288978	divergent
-Code/GameEngine/Source/Common/System/CrateCreationEntryList.cpp	??$_S_sort@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@U?$less@UcrateCreationEntry@@@3@@_STL@@YAXAAV?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@0@U?$less@UcrateCreationEntry@@@0@@Z	??1?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@QAE@XZ	0x00288B47	unowned
 Code/GameEngine/Source/Common/System/CrateCreationEntryList.cpp	??$_S_sort@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@U?$less@UcrateCreationEntry@@@3@@_STL@@YAXAAV?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@0@U?$less@UcrateCreationEntry@@@0@@Z	??_F?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@QAEXXZ	0x00288B91	wrong
 Code/GameEngine/Source/Common/System/CrateCreationEntryList.cpp	?_M_create_node@?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@IAEPAU?$_List_node@UcrateCreationEntry@@@2@ABUcrateCreationEntry@@@Z	??$_Construct@UcrateCreationEntry@@U1@@_STL@@YAXPAUcrateCreationEntry@@ABU1@@Z	0x0035CA02	wrong
 Code/GameEngine/Source/Common/System/DataChunkInput.cpp	??1DataChunkInfo@@QAE@XZ	??1AsciiString@@QAE@XZ	0x00036410	divergent
@@ -2406,7 +2404,6 @@ Code/GameEngine/Source/Common/System/PooledString.cpp	??4PooledString@@QAEAAV0@A
 Code/GameEngine/Source/Common/System/PooledString.cpp	??4PooledString@@QAEAAV0@PBD@Z	?setString@PooledString@@AAEXPBD@Z	0x006CB7C0	unowned
 Code/GameEngine/Source/Common/System/RAMFileRead.cpp	?openFromArchive@RAMFile@@UAE_NPAVFile@@ABVAsciiString@@HH@Z	??4AsciiString@@QAEAAV0@ABV0@@Z	0x000366F0	divergent
 Code/GameEngine/Source/Common/System/RadarObjectXfer.cpp	?xfer@RadarObject@@MAEXPAVXfer@@@Z	__CxxThrowException@8	0x00629094	unowned
-Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp	??0Radar@@QAE@XZ	??0RadarEvent@@QAE@XZ	0x002D7CD9	unowned
 Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp	??BAsciiStringCharPlusText@@QAE?AVAsciiString@@XZ	??1AsciiString@@QAE@XZ	0x00036410	divergent
 Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp	??BAsciiStringPlusString@@QAE?AVAsciiString@@XZ	??1AsciiString@@QAE@XZ	0x00036410	divergent
 Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp	??BAsciiStringPlusStringText@@QAE?AVAsciiString@@XZ	??1AsciiString@@QAE@XZ	0x00036410	divergent
@@ -5263,17 +5260,12 @@ Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038E4B9Finish.cpp	?joinRoo
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038E4B9Finish.cpp	?joinRoomCallback@@YAXPAXHW4PEERJoinResult@@W4RoomType@@0@Z	?pushStatsToRoom@PeerThreadClass@@QAEXPAX@Z	0x0038AF29	unowned
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038E4B9Finish.cpp	?joinRoomCallback@@YAXPAXHW4PEERJoinResult@@W4RoomType@@0@Z	?stagingRoomPlayerEnum@@YAXPAXHW4RoomType@@HPBDH0@Z	0x0038B8B7	unowned
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva006609D0Destructor_Rva0054ffa5.cpp	??1Rva006609D0@@UAE@XZ	??1Rva006609D0LockHolder@@QAE@XZ	0x0009990D	wrong
-Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatChannel.c	_ciChannelEntered	_ciEnteringChannelComparator	0x006B10B0	unowned
-Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatChannel.c	_ciChannelEntered	_ciUserTableCompareFn	0x006B10B0	unowned
-Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatChannel.c	_ciChannelLeft	_ciEnteringChannelComparator	0x006B10B0	unowned
-Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatChannel.c	_ciInitChannels	_ciChannelTableCompareFn	0x006B10B0	unowned
 Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c	_gpiHandleData	_MD5Update	0x00606C40	wrong
 Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c	_gpiHandleEnd	_MD5Final	0x00606D00	wrong
 Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c	_gpiProcessCurrentFile	_MD5Update	0x00606C40	wrong
 Code/GameEngine/Source/GameNetwork/GameSpy/gp/gpiTransfer.c	_gpiSendFileEnd	_MD5Final	0x00606D00	wrong
 Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c	_MD5Digest	_MD5Final	0x00606D00	wrong
 Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c	_MD5Digest	_MD5Update	0x00606C40	wrong
-Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerPlayersRoomFlags.c	_piPlayersInit	_piPlayersTableCompareFn	0x006B10B0	unowned
 Code/GameEngine/Source/GameNetwork/GameSpy/serverbrowsing/sb_server.c	_SBAllocServer	_KeyValHashKey	0x0069B8A0	unowned
 Code/GameEngine/Source/GameNetwork/GameSpy/serverbrowsing/sb_server.c	_SBRefStrHash	_RefStringHash	0x0069B8A0	unowned
 Code/GameEngine/Source/GameNetwork/GameSpyOverlay.cpp	?CheckReOpenPlayerInfo@@YAXXZ	?GameSpyOpenOverlay@@YAXW4GSOverlayType@@@Z	0x00548DED	unowned
