@@ -64437,3 +64437,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005FE373@Rva005FE7FA@@QAEXHHHABVUnicodeString@@@Z,,0x005FE373,78,Code/Libraries/Source/WWVegas/WWLib/Rva005FE373.cpp,matched,vslot 1 of Rva005FE7FA vtable 0x0087A408 plus base tab update
 ?ObjectSetGeometryActive@@YAHPAUlua_State@@@Z,,0x00334BFA,165,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectSetGeometryActiveRva00334BFA.cpp,matched,Lua binding via rowed lookups plus setFlag plus siblings
 ?rva003AFFBE@@YAXHHHHH@Z,,0x003AFFBE,50,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_aux_rva003b02f4.cpp,matched,LINK BONUS push_heap_aux 12B entry via rowed 0x003AFE48
+?Rva005D303AFormat@@YA?AVUnicodeString@@HH@Z,,0x005D303A,99,Code/GameEngine/Source/Common/Rva005D303AFormat.cpp,matched,by-value UnicodeString formatter via g_00C380FC and rowed format copy release with LINK BONUS for Rva005D30EEAptCounters
