@@ -95,6 +95,10 @@ def test_hardcoded_operand_needs_no_relocation():
     # an opcode byte plus an immediate's low bytes (25 ff ff 00 = 0x00FFFF25) is not an operand
     masked = bytes.fromhex("25ffff00000d00000780c3")             # and eax,0xffff; or eax,0x80070000
     assert lc.hardcoded_operands(masked, B + 0x1000, set(), B + 0x1000, B + 0xADA000) == []
+    tag = bytes.fromhex("68746e6900c3")                             # push 0x696E74 ("int")
+    retail_data = (B + 0x7BA000, B + 0xADA000)
+    assert lc.hardcoded_operands(tag, B + 0x1000, set(), *retail_data) == []
+    assert lc.hardcoded_operands(tag, B + 0x1000, set(), *retail_data, starts={0x696E74}) == [1]
     small = bytes.fromhex("b810000000c3")                           # mov eax,0x10: not an address
     assert lc.hardcoded_operands(small, B + 0x1000, set(), B + 0x1000, B + 0xADA000) == []
 

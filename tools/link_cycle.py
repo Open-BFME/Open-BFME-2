@@ -616,10 +616,13 @@ def eh_verdict(I, lt, R, rt, lbase, rbase, translate=None):
     return None
 
 
-def hardcoded_operands(code, va, masked, lo, hi):
+def hardcoded_operands(code, va, masked, lo, hi, starts=frozenset()):
     """Offsets of 32-bit displacement/immediate operands in `code` (at `va`)
-    holding an absolute address in [lo, hi) that no relocation covers: they
-    cannot follow a rebase. Relative branch targets are not operands here."""
+    holding an absolute address in [lo, hi) or in `starts` that no relocation
+    covers: they cannot follow a rebase. Relative branch targets are not
+    operands here. The caller passes retail's data VAs and row starts: a
+    source hard-codes retail's addresses, and a whole-image range would also
+    take ASCII tags (push 0x696E74, "int") for addresses."""
     if _CSD is None:
         return []
     out = []
@@ -629,7 +632,8 @@ def hardcoded_operands(code, va, masked, lo, hi):
             if size != 4 or not off or ins.mnemonic == "call" or ins.mnemonic.startswith("j"):
                 continue
             k = at + off
-            if lo <= u32(code, k) < hi and not any(j in masked for j in range(k, k + 4)):
+            v = u32(code, k)
+            if (lo <= v < hi or v in starts) and not any(j in masked for j in range(k, k + 4)):
                 out.append(k)
     return out
 
@@ -1148,7 +1152,7 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
     # the pilot's rule, for comparison: code edges only, fillers are leaves
     pilot_edges = {n: {e for e in es if e[0] == "unit"} for n, es in edges.items()}
     closed_pilot = greatest_closure(ok, pilot_edges, bad_targets=())
-    hard = shifted_rows(out, recs, I, isecs, objs, have_shift, shift_base)
+    hard = shifted_rows(out, recs, I, rsecs, have_shift, shift_base)
     fold = out / "fold_list.csv"
     with fold.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
@@ -1211,12 +1215,13 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
     return res
 
 
-def shifted_rows(out, recs, I, isecs, objs, have_shift, shift_base):
+def shifted_rows(out, recs, I, rsecs, have_shift, shift_base):
     """ids of rows whose code holds an unrelocated absolute image address. With a
     shifted link, also confirm the linker laid the image out identically and every
     relocated word moved by exactly the base delta; rows that do not are added."""
     hard = set()
-    lo, hi = BASE + 0x1000, BASE + max(s + z for _, s, z in isecs.all)
+    lo, hi = BASE + rsecs[".rdata"][0], BASE + max(s + z for _, s, z in rsecs.all)
+    starts = {BASE + r["row"]["rva"] for r in recs}
     S = None
     if have_shift and (out / "shift.exe").exists():
         _, S, ssecs, _ = pe_view(out / "shift.exe")
@@ -1226,7 +1231,7 @@ def shifted_rows(out, recs, I, isecs, objs, have_shift, shift_base):
             continue
         r, L = rec["row"], rec["linked"]
         code = I[L:L + r["size"]]
-        if hardcoded_operands(code, L + BASE, rec["masked"], lo, hi):
+        if hardcoded_operands(code, L + BASE, rec["masked"], lo, hi, starts):
             hard.add(id(rec))
             continue
         if S is not None:
