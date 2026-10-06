@@ -65,18 +65,24 @@ public:
 
 extern VideoPlayerInterface *TheVideoPlayer;
 
+struct _s__ThrowInfo;
+extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
+extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");
+
+// Canonical 8-byte INIException layout (char * at +0, int at +4; dtor
+// ??1INIException@@QAE@XZ 0x0042BD30, copy 0x004588C5, filler
+// ??0INIException@@QAA@HPBDZZ 0x0002F681). Consumer only: throws via the
+// filler plus _CxxThrowException with the extern TI1, so this TU emits no
+// __TI1 COMDAT of its own (the kept retail copy links).
 class INIException
 {
 public:
-	INIException(Int code, const char *format, ...);
+	INIException(int argumentCount, const char *format, ...);
 	INIException(const INIException &other);
-
-private:
-	Int m_code;
-	const char *m_message;
+	~INIException();
+	char *mFailureMessage;
+	int m_argumentCount;
 };
-
-extern Real s_lineTableMinSpacing;
 
 // The parser is registered directly in SubtitleManager's FieldParse table.
 void parseSubtitleLineTable(INI *ini, void *instance, void *store, const void *userData)
@@ -90,7 +96,7 @@ void parseSubtitleLineTable(INI *ini, void *instance, void *store, const void *u
 		for (Int index = 0; index < 15; ++index)
 		{
 			Real value = ini->scanReal(ini->getNextToken(0));
-			if (!(value >= 0.0f && value <= 1.0f && value > previous + s_lineTableMinSpacing))
+			if (!(value >= 0.0f && value <= 1.0f && value > previous + 0.01875f))
 			{
 				throw INIException(8,
 					"LineTable values must be in the range (0.0 - 1.0) must increase in value. %s line %d",
