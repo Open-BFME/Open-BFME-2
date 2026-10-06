@@ -11525,3 +11525,4 @@ FUN_00914fe9	0x00514FE9	88	blocked	ADDRESS-NAMED g_Va00A01E48 escape hatch t=1 m
 ?rva00395BCB@Rva00395BCB@@QAEXPBX0@Z	0x00395BCB	181	partial	second flag check uses test byte vs shr plus mov t=18 model=muse-04 score=0.95 stash=reverse/attempts/0x00395bcb.cpp
 ?rva00395BCB@Rva00395BCB@@QAEXPBX0@Z	0x00395BCB	181	blocked	second flag check still test byte vs shr plus mov t=15 model=muse-04 (stash 0.95 kept)
 ?rva004F35A5@AIPlayer@@QAE_NXZ	0x004F35A5	523	blocked	ADDRESS-NAMED g_Va009FE16C g_Va00DBA4E4 g_Va009FF0F8 need counted hatch t=5 model=muse-01
+?Rva00419BCDCreate@@YAPAXXZ	0x00419BCD	45	partial	and [eax+8] before vtable not after mov byte [eax+4]; ctor emits member before vtable t=15 model=muse-06 score=0.93 stash=reverse/attempts/0x00419bcd.cpp

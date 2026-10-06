@@ -1,5 +1,5 @@
 // ?Rva00419BCDCreate@@YAPAXXZ
-// partial score=0.9 date=2026-10-05
+// partial score=0.93 date=2026-10-06
 // cl: /O1 /MD
 //
 // ?Rva00419BFAInit@@YAXXZ, retail 0x00419BFA, 105 bytes.
@@ -63,7 +63,7 @@ public:
 	virtual ~Rva00419BCD_IO() {}
 	bool m_04;
 	int m_08;
-	Rva00419BCD_IO() : m_04(false), m_08(0) {}
+	Rva00419BCD_IO() { m_04 = false; m_08 = 0; }
 };
 
 class Rva00419BFA_Cmd
@@ -72,7 +72,6 @@ public:
 	virtual ~Rva00419BFA_Cmd() {}
 };
 
-// ?Rva00419BCDCreate@@YAPAXXZ present-unmatched
 void *__cdecl Rva00419BCDCreate()
 {
 	if (g_00E030C4)

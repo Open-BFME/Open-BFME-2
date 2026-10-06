@@ -1,11 +1,9 @@
-// ?Rva003C4D5CDo@@YGXPBVAsciiString@@@Z
-// partial score=0.95 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /arch:SSE
 //
 // ?Rva003C4D5CDo@@YGXPBVAsciiString@@@Z @0x003C4D5C 102B (dump range 18).
 // Terrain node float dispatch: walks the TerrainLogic slot-0x84 list via
 // +0x1C links comparing each node's +8 AsciiString through the rowed
-// compare, and on the first match copies its +0xC Coord3D and fires the
+// compare, and on the first match copies its +0x0C Coord3D and fires the
 // slot-0x94 member on the 0x00DFEA3C global. Node/layout identities
 // unproven beyond byte roles.
 #include "ascii_string.h"
@@ -64,11 +62,11 @@ void __stdcall Rva003C4D5CDo(const AsciiString *name)
 	Rva003C4D5CNode *node = (Rva003C4D5CNode *)TheTerrainLogic->s33();
 	while (node != 0) {
 		if ((node->m_name.compare(*name)) == 0)
-			break;
+			goto found;
 		node = node->m_next;
 	}
-	if (node == 0)
-		return;
+	return;
+found:
 	Coord3D pos;
 	pos.x = node->m_pos.x;
 	pos.y = node->m_pos.y;
