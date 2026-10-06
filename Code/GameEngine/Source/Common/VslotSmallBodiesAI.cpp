@@ -310,6 +310,57 @@ void Rva00575CA6::rva00575CA6()
 	m_24.clear();
 }
 
+// 0x00575CAE: allocates the rowed 0x14-byte helper 0x0057551C from the
+// adjusted owner pointer, then stores it through the rowed setter at +0x28.
+// The helper identity follows the direct constructor call; owner type is
+// address-derived and the -4/+0x28 offsets come from the target instructions.
+class Rva0057551C
+{
+public:
+	Rva0057551C(void *a, void *b, void *c);
+
+private:
+	void *m_vtable;
+	void *m_04;
+	void *m_08;
+	void *m_0c;
+	int m_10;
+};
+class Object
+{
+public:
+	virtual void *deleteInstance(int flags);
+};
+class Rva00575674
+{
+public:
+	void rva00575674(Object *p);
+};
+void *__cdecl operator new(unsigned int size);
+inline void *__cdecl operator new(unsigned int size, void *place)
+{
+	return place;
+}
+class Rva00575CAE
+{
+public:
+	void rva00575CAE(void *arg);
+
+private:
+	char m_pad00[0x28];
+	Rva00575674 m_28;
+};
+void Rva00575CAE::rva00575CAE(void *arg)
+{
+	void *memory = operator new(0x14);
+	Rva0057551C *helper;
+	if (memory)
+		helper = new (memory) Rva0057551C((char *)this - 4, arg, 0);
+	else
+		helper = 0;
+	m_28.rva00575674((Object *)helper);
+}
+
 // 0x0057956D and 0x0057B9D0: assignment of the argument to the +0x18 (resp.
 // +0x30) tree hint through its rowed operator=.
 struct TreeHintRef00217D4C
