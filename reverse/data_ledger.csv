@@ -13578,7 +13578,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009BA3E8,52,.data,global,?DistributionTypeNames@GameClientRandomVariable@@2PAPBDA,Code/GameEngine/Source/Common/RandomValue.cpp,owned,,1,1
 0x009BA41C,164,.data,global,_s_useLocalUserMaps,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,owned,,1,4
 0x009BA4C0,36,.data,global,?TheVeterancyNames@@3PAPBDA,Code/GameEngine/Source/GameLogic/Object/WeaponParseVetLevels.cpp,owned,,1,5
-0x009BA4E4,4,.data,global,?g_rva0058AD9FBase@@3HA,,unowned,?g_009BA4E4@@3HB;?g_Va00DBA4E4@@3HA;?g_bfmeRva42E8C1Add@@3IA;?g_rva0058AD9FBase@@3HA,1,154
+0x009BA4E4,4,.data,global,?g_Va00DBA4E4@@3HA,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,provisional,?g_009BA4E4@@3HB;?g_Va00DBA4E4@@3HA;?g_bfmeRva42E8C1Add@@3IA,1,159
 0x009BA4E8,4,.data,global,?g_009BA4E8@@3HA,Code/GameEngine/Source/GameClient/LivingWorldEyeTowerProcessItems.cpp,owned,,1,454
 0x009BA4EC,4,.data,global,?g_parseDurationMsecScale@@3MA,Code/GameEngine/Source/Common/System/INI_parseDurationUnsignedShort.cpp,owned,,1,16
 0x009BA4F0,4,.data,float,__real@43480000,,literal,?g_00DBA4F0@@3MA;__real@43480000,1,2
