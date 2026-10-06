@@ -15766,3 +15766,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva00464431Element@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00464431Element@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00464431Element@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva00464431Element@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00464431Element@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva00464431Element@@@2@@Z,0x00463E4D,
 ??$_M_find@H@?$hashtable@U?$pair@$$CBHURva00054EBEElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva00054EBEElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva00054EBEElement@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHURva00054EBEElement@@@_STL@@@1@ABH@Z,0x00053FD2,
 ??$_M_find@H@?$hashtable@U?$pair@$$CBHURva000E0225Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva000E0225Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva000E0225Element@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHURva000E0225Element@@@_STL@@@1@ABH@Z,0x000E01B0,
+??1Rva00065D24Element@@QAE@XZ,0x000658BA,
+??3Rva00065D24Element@@SAXPAX@Z,0x00065D0E,
