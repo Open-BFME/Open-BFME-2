@@ -1,4 +1,6 @@
 // ?getShroudedStatus@PartitionData@@QAE?AW4ObjectShroudStatus@@H@Z
+// partial score=0.95 date=2026-10-06
+// ?getShroudedStatus@PartitionData@@QAE?AW4ObjectShroudStatus@@H@Z
 // partial score=0.95 date=2026-10-04
 // cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2
 // ?getShroudedStatus@PartitionData@@QAE?AW4ObjectShroudStatus@@H@Z @0x0073A6D0 392B via BFME1 donor PartitionManager.cpp simplified shroud loop
