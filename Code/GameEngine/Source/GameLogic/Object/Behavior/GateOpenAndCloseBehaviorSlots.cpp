@@ -84,8 +84,8 @@ protected:
 	const ModuleData *m_moduleData;
 	Object *m_object;
 };
-struct BehaviorModuleInterface { virtual void f0C(); };
-struct UpdateModuleInterface { virtual void f10(); };
+struct BehaviorModuleInterface { virtual void f0C() {} };
+struct UpdateModuleInterface { virtual void f10() {} };
 class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
 public:
