@@ -18,15 +18,42 @@ struct Rva0050F041Inner
 	char m_name[1];
 };
 
+class Player
+{
+public:
+	bool isLocalPlayer() const;
+};
+
+// The rowed method name is donor-derived. This view exists only to make the
+// thiscall at 0x002AA231; the target pointer's class and the method's meaning
+// remain unproven here.
+class BfmeMemberRV
+{
+public:
+	bool bfmeAskRV();
+};
+
+class PlayerList
+{
+public:
+	char m_pad00[0x10];
+	Player *m_localPlayer;
+};
+
+extern PlayerList *ThePlayerList;
+
 class Rva0050F041
 {
 public:
 	void rva0050EFFC(int state);
+	void rva0050F306();
+	void rva0050FF1C();
 private:
 	char m_pad00[0x5c];
 	int m_5c;
 	Rva0050F041Inner *m_60;
-	char m_pad64[0x10];
+	Player *m_64;
+	char m_pad68[0x0c];
 	int m_74;
 };
 
@@ -37,4 +64,27 @@ void Rva0050F041::rva0050EFFC(int state)
 	const char *prefix = m_60 ? m_60->m_name : g_Rva0107301CEmptyString;
 	Rva0050E9FEAptCall(TheRva00222A8BTarget, (void *)m_5c, prefix, "SetState", &g_00C6556C[state]);
 	m_74 = state;
+}
+
+// ?rva0050FF1C@Rva0050F041@@QAEXXZ 57B @0x0050FF1C.
+// Target facts: Ghidra bounds are 0x0050FF1C-0x0050FF54; the body calls
+// rowed Player::isLocalPlayer, then calls rowed 0x002AA231 on the PlayerList
+// local pointer and tail-jumps to 0x0050F306 after SetState. The only current
+// row for 0x002AA231 has a donor-derived name and an unproven target meaning.
+// Structural inference: the +0x64 pointer is a Player, and 0x0050F306 is the
+// shared update path also called by the constructor at 0x0050FC54. The class
+// and purpose of that update path remain address-named.
+void Rva0050F041::rva0050FF1C()
+{
+	if (m_64->isLocalPlayer())
+	{
+		rva0050EFFC(1);
+	}
+	else
+	{
+		Player *localPlayer = ThePlayerList->m_localPlayer;
+		if (localPlayer == 0 || !((BfmeMemberRV *)localPlayer)->bfmeAskRV())
+			rva0050EFFC(2);
+	}
+	rva0050F306();
 }
