@@ -7,6 +7,15 @@
 // at 0x001EA958 and list<int>::insert at 0x005925E2; caller 0x0041691F.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 struct BfmeStringRecord00415F34 { unsigned char m_data[24]; };
 
 bool operator==(const BfmeStringRecord00415F34 &a, const BfmeStringRecord00415F34 &b);

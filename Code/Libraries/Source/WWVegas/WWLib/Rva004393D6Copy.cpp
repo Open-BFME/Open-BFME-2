@@ -5,6 +5,15 @@
 // ints at +4 +8 +0xc. Unlocks 0x004395EC 0x0043964D.
 // Evidence: push edi mov esi ecx base-copy call then three eax movs ret 4.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 struct BfmePod196 { int a[49]; };
 inline bool operator==(const BfmePod196 &x, const BfmePod196 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod196 &x, const BfmePod196 &y) { return x.a[0] < y.a[0]; }

@@ -8,6 +8,15 @@
 // 0x001EA994; T is 8-byte record (two AsciiStrings in StringRecordCopyBFME2).
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 struct BfmeStringRecord001EA478 { unsigned char m_data[8]; };
 inline bool operator==(const BfmeStringRecord001EA478 &, const BfmeStringRecord001EA478 &) { return false; }
 inline bool operator<(const BfmeStringRecord001EA478 &, const BfmeStringRecord001EA478 &) { return false; }

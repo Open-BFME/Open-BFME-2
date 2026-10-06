@@ -3,6 +3,15 @@
 // ?insert@?$list@UBfmeStringRecord00239B46@@V?$allocator@UBfmeStringRecord00239B46@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeStringRecord00239B46@@U?$_Nonconst_traits@UBfmeStringRecord00239B46@@@_STL@@@2@U32@ABUBfmeStringRecord00239B46@@@Z retail 0x00239E80 37B
 // Evidence: calls rowed _M_create_node at 0x00239D27 then list hook insertion; caller 0x0023A025; same 37B shape as list TreeKey insert 0x002A1BC6.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 struct BfmeStringRecord00239B46 {
     unsigned char m_data[8];
 };

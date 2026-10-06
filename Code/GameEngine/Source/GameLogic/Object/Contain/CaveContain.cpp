@@ -2,6 +2,15 @@
 // stlport
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 // Target evidence: CaveContainCtor installs the secondary vftable at +0x20;
 // its slots +0xA4/+0xA8 target 0x004666C9/0x00466A50. The former takes an
 // object plus Bool and removes that object from the current tunnel tracker.

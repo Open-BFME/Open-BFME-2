@@ -7,6 +7,15 @@
 // Callers at 0x00297BAC 0x002A1B49 0x002A1BEE 0x002A4337 0x002DE5BC; unblocks 0x002A42D8 0x002A1BEB 0x002A1B1D.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 #include "ascii_string.h"
 
 struct CameraMarker

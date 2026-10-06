@@ -8,6 +8,15 @@
 // stash 0x004243BE score 0.95 plus callers none plus prev next same flags.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 class GameWindow;
 typedef _STL::list<GameWindow *, _STL::allocator<GameWindow *> > GWList;
 template void GWList::assign<GWList::const_iterator>(GWList::const_iterator, GWList::const_iterator);
