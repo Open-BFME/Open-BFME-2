@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "AIStartWoTRBattleTactic" skirmish-AI tactic (vtable 0x00872224; ctor
 // 0x005AB1B4 in Rva004ECECDTacticCtors.cpp, dtor 0x005AB125 and ??_G, slot 9

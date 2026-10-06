@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005B045D@Rva005B045D@@QAEPAXXZ @0x005B045D 22B
 // Evidence: caller 0x005B54A7; flag at +0x14c plus ptr at +0x144 else this.
 extern int g_00E06450;

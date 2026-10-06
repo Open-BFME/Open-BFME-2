@@ -1,4 +1,4 @@
-// cl: -O1 -Oy- -GR- -EHsc-
+// cl: -Oy- -GR- -EHsc-
 // ?rva0059E2DC@@YA_NPAPAVFileClass@@0URva0059E2DCBox@@@Z @0x0059E2DC 33B:
 // iterate [first, last), invoking the pinned thiscall callee (0x004FC957,
 // matched as W3DFileSystem::Return_File) on a by-value box with each element,

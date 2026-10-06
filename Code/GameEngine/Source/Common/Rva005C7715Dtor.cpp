@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /Ireference/shims/sweep
+// cl: /MD /Ireference/shims/sweep
 // ??1Rva005C7792@@QAE@XZ, retail 0x005C7715 125B.
 // Dtor releases the four FX draw-category ShareBuffers created by ctor 0x005C7792
 // (pos Vector3, RGBA Vector4, size float, angle unsigned char) via inlined

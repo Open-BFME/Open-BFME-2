@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
+// cl: /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
 //
 // ??1Rva005C48E5@@UAE@XZ @0x005C48E5 (85B)
 

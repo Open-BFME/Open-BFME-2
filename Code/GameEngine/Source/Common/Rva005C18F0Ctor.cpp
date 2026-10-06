@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs
 #include "unicode_string.h"
 
 // ??0Rva005C18F0@@QAE@XZ, RVA 0x005C1896, 62B. Unlock lane: default ctor

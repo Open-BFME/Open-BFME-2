@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE /MD
+// cl: /GX- /MD
 // ?rva0059A1C1@Rva0059A1C1@@QAEHPAVTeam@@@Z @0x0059A1C1 151B.
 // Chain of 0x002A8B73: lookup max via global Rva002A8F24 then float-gate the
 // Team sum of +0x51c over members whose template kind has 8 at +0x108 or 4 at

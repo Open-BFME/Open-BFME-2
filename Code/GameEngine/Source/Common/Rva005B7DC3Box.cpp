@@ -1,4 +1,4 @@
-// cl: -O1 -Oy- -GR- -EHsc-
+// cl: -Oy- -GR- -EHsc-
 // ?Run@Rva005B7DC3Box@@QAEXXZ @0x005B7DC3 54B: allocate-transform-consume.
 // Raw-allocates 0x28 bytes through the pinned cdecl callee (true callee is
 // operator new at 0x2FDA0), transforms non-null results through the pinned

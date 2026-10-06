@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ??0Rva0059734B@@QAE@XZ 26B @0x00597331: ctor for Rva0059734B over base
 // Rva0055B0CC ctor at 0x0055B048, then zeroes dwords at +0x2C and +0x30

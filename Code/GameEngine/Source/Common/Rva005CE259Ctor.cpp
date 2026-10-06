@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005CE259@@QAE@PBUPayload@0@@Z, retail 0x005CE259, 30 bytes.
 // vtable 0x00875124 at +0; +4 zeroed; 2-dword mov copy from src arg to +8; ret 4.
 // Caller 0x005CE2BA news 0x10 and stores with refcount inc; twin pattern of

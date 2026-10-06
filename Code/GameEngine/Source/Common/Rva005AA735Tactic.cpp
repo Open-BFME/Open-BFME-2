@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG
+// cl: /MD /GX /DNDEBUG
 //
 // The "SimpleDefense" skirmish-AI tactic (vtable 0x00871FBC; ctor 0x005AA7DF
 // in Rva004ECECDTacticCtors.cpp, dtor 0x005AA735 and ??_G, slot 9 in

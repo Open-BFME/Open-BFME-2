@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva005B2575@@UAE@XZ, retail 0x005B2575, 86 bytes.
 // Dtor of Rva005B2575 over inline base: closes CahBonus InitGadgets Apt screen
 // via pin-only _bfme_closeAptScreen plus rowed StringBase PBD ctor plus rowed

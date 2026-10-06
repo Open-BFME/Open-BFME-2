@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005B266D@@QAE@H@Z @0x005B266D 34B: thiscall ctor for 28-byte value object.
 // Evidence: leaf (no callees); caller 0x005B4695 constructs local at [ebp-0x2c] from esi then rep-movsd 7 dwords (28B);
 // and [0x18],0 plus or ecx,-1 plus byte [0x14],0 give /O1 shape; ret-4 thiscall with one int arg.

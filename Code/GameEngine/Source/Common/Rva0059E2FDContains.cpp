@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0059E2FD@Rva0059E2FD@@QAE_NABV?$StringBase@D@@@Z at 0x0059E2FD (34B). Vector-contains via rowed Find.
 // Evidence: this+0x1C/+0x20 as begin/end into Rva000BD22FFind at 0xBD22F; cmp against end plus setne;
 // chain lane via 0xBD22F; 16B thunk at 0x59E31F forwards same ecx with arg+0x14.

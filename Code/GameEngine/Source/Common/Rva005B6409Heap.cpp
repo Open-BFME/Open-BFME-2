@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva005B6409Heap@@YAXPAPAXHHPAXVRva005B61B3@@@Z @0x005B6409 97B.
 // Honest-address adjust heap over void* elements with the rowed comparator.
 // Downward child selection then delegates to the rowed push at 0x5B6353.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva005BEA22@@QAE@XZ retail 0x005BEA22 78B
 // Non-virtual dtor: under EH state 0 the object at +0 is deleted through its
 // slot-0 deleting dtor with flag 0 and the global ??3@YAXPAX@Z (a

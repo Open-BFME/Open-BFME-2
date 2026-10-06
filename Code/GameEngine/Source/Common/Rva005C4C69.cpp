@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 class Rva005C4CC1Sub {
 public:
 	char m_pad[0x34];

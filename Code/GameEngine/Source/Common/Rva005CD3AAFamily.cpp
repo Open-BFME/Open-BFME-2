@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // Family 0: 0x005CD3AA, 0x005CD43D, 0x005CD4D0 (147 bytes each, total 441 bytes)
 // Factory helpers constructing refcounted Rva005CD257/Rva005CD2A3/Rva005CD2EF elements
 // and adding them to Rva005CD1A9 container.

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva005B02B5@Rva005B02B5@@QAEXXZ @0x005B02B5 72B
 // ?rva005B02FD@Rva005B02B5@@QAEXXZ @0x005B02FD 77B sibling increment plus max-cap
 // Evidence: callers 0x00513929/0x0051393E and 0x005B2044/0x005B2062; callee ?isShift@Keyboard@@QAE_NXZ rowed;

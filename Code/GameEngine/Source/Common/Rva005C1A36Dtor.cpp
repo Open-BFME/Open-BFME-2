@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 
 // ??1Rva005C1A36@@UAE@XZ, RVA 0x005C1A36, 79B. Chain lane: virtual dtor
 // storing vtable 0x008743DC, releasing the held object at +0x2c through its

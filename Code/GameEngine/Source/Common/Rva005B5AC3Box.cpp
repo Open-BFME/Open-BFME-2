@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?Run@Rva005B5AC3Box@@QAEXXZ @0x005B5AC3 32B: non-negative one-shot. When
 // +0x24 reads non-negative, forward the twice-repeated runtime constant
 // (outside all PE sections, composed arithmetically so the link-debt gate

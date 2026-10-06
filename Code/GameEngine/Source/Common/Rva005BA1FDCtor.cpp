@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ??0Rva005BA1FDBox@@QAE@H@Z @0x005BA1FD 55B: composing constructor. Builds
 // the base with (0, arg) through the pinned base ctor, installs the three
 // polymorphic tables (all DIR32, copied from retail by the gate), publishes

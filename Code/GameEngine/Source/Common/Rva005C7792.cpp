@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva005C7792@@QAE@XZ, retail 0x005C7792 247B.
 // Ctor initializes the four FX draw-category ShareBuffers (pos Vector3, RGBA Vector4,
 // size float, angle unsigned char) with size 0x200 or 0x400 by TheWritableGlobalData+0xd45.

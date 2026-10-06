@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005C48D0@@QAE@XZ @0x005C48D0 21B
 // Honest address-derived ctor: stores vtable 0x00C40818 at [this] after
 // constructing member at +4 via rowed ??0Rva00330757Member@@QAE@XZ.

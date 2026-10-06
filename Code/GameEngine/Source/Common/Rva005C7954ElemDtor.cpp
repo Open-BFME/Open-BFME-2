@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ??1Rva005C7954Elem@@QAE@XZ @0x005C7954 213B: non-virtual dtor with twin AptCall hides plus 5 member dtors.
 // Evidence: callers 0x005C7C88 deleting dtor plus 0x005C7CAD clear in OpaqueScalarDeletingDtors.cpp; callees rowed 0x005FB5E6 AptCall plus 0x005C3209 plus 4 vector dtors plus releaseBuffer 0x00036410; strings SetAutoAbilityOverlayState SetFlashEffectState _hide plus g_Rva0107301CEmptyString plus TheRva00222A8BTarget; neighbour Rva005C7A29Overlay.cpp layout +08 +0C +4C +54 +55.
 #include "ascii_string.h"

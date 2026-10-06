@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ?rva005C8F50@Rva005C8F50Elem@@QAEXHH@Z @0x005C8F50 74B filtered erase over vector at +0x38 with conditional TargetObj notify. Evidence: caller 0x005C835D in RangeApplyWrappers plus rowed vector erase 0x0034C117 plus pinned TargetObj method 0x005C8DBF plus prev HostClass005C8F17 layout.
 #include <vector>

@@ -1,4 +1,4 @@
-// cl: -O1 -Oy- -GR- -EHsc-
+// cl: -Oy- -GR- -EHsc-
 // ?Run@Rva005A69C0Box@@QAEXHHH@Z @0x005A69C0 140B: two-slot validated swap
 // prep. After the predicate and triple ushort-guard (a<8, b<8, a!=b), both
 // slots must be present and human (pinned 0x3FF0F1); the +0x28 sub-object

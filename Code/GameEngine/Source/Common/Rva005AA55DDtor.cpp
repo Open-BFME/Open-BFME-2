@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005AA55D@@UAE@XZ @0x005AA55D 81B: virtual dtor of unknown class
 // (vptr 0x00871EB0 stored at +0x0). Member at +0x58 points at a heap record
 // whose +0x4 buffer is released with _free (row 0x00030830) before the record

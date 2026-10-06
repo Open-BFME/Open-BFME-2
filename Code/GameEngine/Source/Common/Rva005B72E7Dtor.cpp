@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva005B72E7@@QAE@XZ @0x005B72E7 107B.
 // Dtor frees DisplayString ptrs +0x10 +0x14 via manager 0x00DFEAD8 slot 0x3C then wide Strings +4 +8 via 0x36E70.
 // Evidence: deleting-dtor caller 0x005B7352 28B; list-dtor caller 0x005B77F1 151B; and-zero plus EH frame.

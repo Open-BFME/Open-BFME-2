@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva0059515C@Rva0059515C@@QAEXXZ @0x0059515C 35B: clear 8 stride-0x1E slots at this+0x9E plus flag at this+0x17C after base clear. Evidence: calls rowed 0x0059510D ?rva0059510D@Rva0059510D@@QAEXXZ; callers 0x00595D0B 0x0059534A.
 class Rva0059510D
 {

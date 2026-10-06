@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?Run@Rva005A6903Box@@QAEXH@Z @0x005A6903 92B: bounds-checked slot refresh.
 // Index >= 8 returns early; else the +0x28 sub-object consumes the index,
 // the +0x38 field of m_8[idx] stores through the m_90C[idx] pointer, the

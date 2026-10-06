@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005C4469@Rva005C4469@@QAEXPAVXfer@@@Z retail 0x005C4469 58B
 // Version(1 1) via Xfer slot 0x28 then rowed Rva004CE6E4 then bool at +0xC via Xfer slot 0x90.
 // Evidence: chain from 0x004CE6E4 landing; no callers; class unproven so honest Rva name.

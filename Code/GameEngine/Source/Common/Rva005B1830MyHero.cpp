@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva005B1830@Rva005B1830@@QAEXXZ, retail 0x005B1830 211B.
 // Double loop over +0x174 calling rowed 0x005B129F then three MyHero StringBase blocks via rowed 0x005241DF.

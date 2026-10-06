@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva005CD651@@QAE@H@Z @0x005CD651 63B:
 // Ctor with vtable 0x00874FF4: +4=arg +8=0 +0xC=1 then tail Enable 0x0052340D.
 // Empty inline base plus declared dtor arms EH state 0 per ModuleData recipe.

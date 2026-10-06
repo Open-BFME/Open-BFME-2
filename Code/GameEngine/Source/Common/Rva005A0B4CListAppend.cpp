@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?append@Rva005A0B4CList@@QAEXPAURva002BA8F1Listener@@@Z retail 0x005A0B4C 22B
 // Append listener as ModuleData to vector. Evidence: named pin plus rowed

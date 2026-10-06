@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005A688C@Rva005A688C@@QAEXHHHH@Z, 0x005A688C, 119B. Unlock wrapper that caches two (a,b) pairs at +0x94C/+0x950 and forwards 4/5->3/4 to Rva005DC3C1 at +0x28. Evidence: caller 0x005A6C90 passes [ecx+14]/[ecx+18]/[ecx+20]; callee row 0x005DC3C1; neighbours 0x005A687F/0x005A6A83.
 class Rva005DC3C1
 {

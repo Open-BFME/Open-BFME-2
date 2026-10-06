@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00596CEA@Rva00596CDF@@UAEXPAVXfer@@PAX@Z @0x00596CEA 147B
 // Xfer slot 12 (0x30) of Rva00596CDF (vtable 0x00870AF0, derived of Rva00573B23):
 // Version(1,1), base Rva00573B23::Rva00573A35 first, Coord +0x40 via 0x60,

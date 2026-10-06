@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva005C743B@Rva005C743B@@QBE_NXZ, retail 0x005C743B 13B.
 // Dword compare: returns m_00 >= m_04 as bool.

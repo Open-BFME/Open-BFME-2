@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva005B6324Insert@@YAXPAPAXPAXVRva005B61B3@@@Z @0x005B6324 47B.
 // Honest-address free function: __unguarded_linear_insert for void* elements
 // with the stateful comparator rowed at 0x5B61B3. Shifts while comp(val next)

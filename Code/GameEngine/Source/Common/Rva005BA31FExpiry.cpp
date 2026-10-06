@@ -1,4 +1,4 @@
-// cl: /Os /GX-
+// cl: /GX-
 // ?rva005BA31F@Rva005BA31F@@QAEHXZ @0x005BA31F 31B via expiry check with timeGetTime
 // Evidence: this+0x968 dword time vs timeGetTime via IAT winmm; zero-guard then unsigned jae; xor-inc 1 else xor 0; caller 0x005BB79C; prev/next getters same page
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);

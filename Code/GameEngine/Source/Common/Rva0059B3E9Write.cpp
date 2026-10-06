@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 //
 // ?rva0059B3E9@Rva0059B3E9@@QAEHPAD@Z retail 0x0059B3E9 55B.
 // Three-part write: Pair at +0 then AsciiStringRef at +8 then Pair at +0xC,

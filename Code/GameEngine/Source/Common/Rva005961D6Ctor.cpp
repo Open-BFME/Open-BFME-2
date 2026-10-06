@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva005961D6@@QAE@XZ, retail 0x005961D6, 79 bytes.
 // Derived ctor calling base Rva0025BFE3 ctor at 0x0025BFC7, then two

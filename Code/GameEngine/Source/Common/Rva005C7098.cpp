@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005C7098@Rva005C7098@@QAEPAVQuaternion@@PAV2@MHHPBV2@H1HHH@Z, retail 0x005C7098 67B.
 // Quaternion interpolator: if m_key is 1 LINE or 2 CATM Slerp tmp from src1
 // src2 with t then copy tmp to dst else copy src1 to dst. Evidence: int at +0

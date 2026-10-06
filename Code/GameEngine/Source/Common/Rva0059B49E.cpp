@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // ?rva0059B49E@Rva0059B49E@@QAEXPADHH@Z at 0x0059B49E (97B).
 // Bounded two-phase copy: length-clamped rva002AC2CF then memcpy remainder.
 // Evidence: caller 0x0059B428 same shape; callees length 0x00513B94 rowed pin rva002AC2CF memcpy import; prev Rva0059B3E9Write same flags.

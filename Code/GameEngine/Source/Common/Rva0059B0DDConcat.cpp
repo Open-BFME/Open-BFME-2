@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?Rva0059B0DDConcat@@YAPAV?$StringBase@D@@PAV1@PBD@Z @0x0059B0DD (56B)
 // Free concat helper wrapping arg2 as 8-byte CharSource on the stack then
 // calling rowed StringBase<char>::concat 0x00036A30 with arg1 as this,

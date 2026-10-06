@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?Run@Rva005C38EFBox@@QAEXXZ @0x005C38EF 59B: guarded triple dispatch.
 // Resolves a handle through the first global's pinned 1-arg callee; a
 // non-null handle must survive the second global (null-checked) and its

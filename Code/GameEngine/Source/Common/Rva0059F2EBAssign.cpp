@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva0059F2EB@Rva0059F2EB@@QAEXVAsciiString@@@Z @ 0x0059F2EB (55B).
 // Thiscall by-value AsciiString assign to member at this-4 via pin-only

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00596095Get@@YGHPAX@Z, retail 0x00596095, 44 bytes.
 // Bit-test predicate returning Int: loads inner pointer at arg+4, requires
 // byte at inner+0x10E &0x40 ==0, byte at inner+0x108 &0x80 ==0, byte at

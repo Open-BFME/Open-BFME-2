@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?Run@Rva005B692FBox@@QAEXXZ @0x005B692F 56B: conditional sub-object poke.
 // Unless +0x8 is clear, runs the pinned 0-arg helper (free-function
 // spelling: the site sets no ecx, entry ecx flows through untouched, same

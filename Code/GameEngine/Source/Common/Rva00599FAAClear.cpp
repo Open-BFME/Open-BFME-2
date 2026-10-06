@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 //
 // ?rva00599FAA@Rva00599FAA@@QAEXPAUNode00599FAA@@@Z @0x00599FAA 45B
 // Intrusive list clear with recursive child at +0x0C and next at +0x08

@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP=
+// cl: /EHs /MD /D_CRTIMP=
 //
 // Opaque dtor 0x0059EA42 (97 B), called by the rowed scalar deleting dtor
 // 0x0059EAA3 (vtable 0x00C71138#0). Deletes the owned record at +0x04 (an

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1Rva005CDA3D@@UAE@XZ @0x005CDA3D (22B).
 // Dtor restoring vptr plus +0x0C pointer field clear plus tail-jmp base dtor.

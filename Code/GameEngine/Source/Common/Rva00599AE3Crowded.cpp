@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ?rva00599AE3@Rva00599825@@QAE_NPAVObject@@@Z, retail 0x00599AE3, 281 bytes.
 // A member of the skirmish-AI owner record's +0x140 object list (Rva00599825,

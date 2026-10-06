@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005CCB6B@Rva005CCB6B@@QAEXXZ @0x005CCB6B 8B evidence: tail-jmp to rowed 0x005CC966; chain from own landing; prev Rva005CCB63
 class Rva005CC966
 {

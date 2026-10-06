@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00598149@Rva00598149@@QAEXPAX@Z @0x00598149 73B via map value-erase with increment
 // Evidence: thiscall ret4 void* arg; map at +8 via edi; node second at +0x14 vs arg; rowed _M_increment 0x00024250 plus rowed map<int void*> erase 0x005530A8; flag byte at +0x2C; callers unclaimed 0x004EC8F4

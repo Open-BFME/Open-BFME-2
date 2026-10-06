@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00598192@Rva00598192@@QAEHABVAsciiString@@@Z @0x00598192 51B via list count with StringBase compare
 // Evidence: thiscall ret4 one AsciiString arg; list at +0x14 with int payloads; payload+0xC AsciiString compared via rowed StringBase<char>::compare 0x000069D6; callers unclaimed 0x00598202 0x0059858C

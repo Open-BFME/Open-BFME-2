@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva005CD7BD@@QAE@PAXHH@Z retail 0x005CD7BD 29B init 3 dwords plus 0.
 // Evidence: 3 callers lea +0x18/+0x28 push 3; ret 0xC; stores +0/+4/+8; byte 0 +0xC.

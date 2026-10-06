@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005B61B3@Rva005B61B3@@QAE_NPAX0@Z @0x005B61B3 189B.
 // Honest-address __thiscall comparator with two sort keys at +0/+4.
 // Takes two element pointers (ret 8), compares Unicode name at +8 via

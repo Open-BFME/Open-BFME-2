@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005CC9F8@Rva005CC9F8@@QAEXXZ @0x005CC9F8 19B evidence: calls rowed ?Release_Ref@RefCountClass@@QAEXXZ; tail-jmp target of 0x005CCA57
 // Clears a RefCountClass pointer at +0: if set, Release_Ref then null it.
 class RefCountClass {

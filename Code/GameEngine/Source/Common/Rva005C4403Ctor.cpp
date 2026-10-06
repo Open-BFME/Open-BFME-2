@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005C436E@@QAE@II@Z retail 0x005C4403 32B
 // Evidence: vtable 0x008745A8 plus base ??0Rva0059B7CB@@QAE@II@Z plus byte +0xC plus caller 0x005C4507 unblocks 0x005C44DF
 class Rva0059B7CB

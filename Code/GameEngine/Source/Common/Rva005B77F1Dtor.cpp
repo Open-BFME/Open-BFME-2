@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva005B77F1@@UAE@XZ @0x005B77F1 151B.
 // Outer dtor over vtable 0x873918: clear list +0x14 then delete pointees in list +0xC via 0x005B72E7 plus erase then base GameEngineDeletingBase.

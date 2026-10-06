@@ -12,7 +12,7 @@ struct Rva005AFC21Class
 	void rva005AFC21(GameWindow* a1);
 };
 
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?rva005AFC21@Rva005AFC21Class@@QAEXPAVGameWindow@@@Z @0x005AFC21 43B:
 // stores the window, returns early on null, else forwards (window, 1000) to
 // the rowed list-length helper and (m_4, m_C) to the pinned cdecl callee.

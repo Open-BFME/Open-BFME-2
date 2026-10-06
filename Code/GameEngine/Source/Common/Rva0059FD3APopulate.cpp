@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva0059FD3A@Rva0059FD3A@@QAEXXZ @ 0x0059FD3A (241B).
 // Combo-box population from GameSpy map: reset, iterate RB tree from slot 3,

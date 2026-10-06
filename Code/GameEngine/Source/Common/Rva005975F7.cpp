@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005975F7@Rva005975F7@@QAEXXZ 27B @0x005975F7: pushes Player* at +0x14
 // into global g_00DFEEF8's rowed rva002A8F24, then passes the returned

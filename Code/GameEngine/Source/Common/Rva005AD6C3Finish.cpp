@@ -7,7 +7,7 @@
 // which is retail's `mov esi,[ebx+0x258]` / `push 0` / `push eax` / `call` /
 // `lea ecx,[esi+0x20]`. Inlined, the same expression schedules the
 // findObjectByID call first and reloads ecx from [ebx+0x258] afterwards.
-// cl: /O1 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // ??0Rva005AD6C3@@QAE@PBURva005DCC4BSource@@@Z @ 0x005AD6C3 39B

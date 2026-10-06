@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005962F7@Rva005962F7@@QAE_NPAX@Z @0x005962F7 111B.
 // Predicate over holder driven by 0x005960FF bit-test plus base push and
 // element clear with Science vector at plus 0x98 on the Check-false path.

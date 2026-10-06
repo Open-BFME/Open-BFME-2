@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?Run@Rva005A8666Box@@QAEXH@Z @0x005A8666 90B: guarded one-shot setter.
 // Unless +0x94C already reads 5, resolve m_8[m_14]; a present object with
 // its 0x40 flag set and a present m_8[m_18] plus both byte gates leads

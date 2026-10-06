@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME5 near-twin conversion.
 // Twin: ?parse@AttackNugget@@SAXPAVINI@@PAX1PBX@Z @ 0x001D8770,
 //       game/GameEngine/Source/Common/AttackNugget_parse_Thunk.cpp

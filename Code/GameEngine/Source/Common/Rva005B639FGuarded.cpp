@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva005B639FGuarded@@YAXPAPAX0PAXVRva005B61B3@@@Z @0x005B639F 69B.
 // Honest-address guarded linear insert over void* elements. If comp(val first)
 // shifts via rowed __copy_trivial_backward at 0x620840 and stores val at

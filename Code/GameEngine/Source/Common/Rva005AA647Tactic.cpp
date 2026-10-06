@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "SimpleAttack" skirmish-AI tactic (vtable 0x00871F80; its destructor
 // 0x005AA647 and ??_G are rowed in Rva005DC73CDerived.cpp). One of the

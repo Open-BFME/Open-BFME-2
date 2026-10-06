@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /MD /EHsc
 // ??0Rva00596B05@@QAE@XZ-style ctor @0x00596BF3 120B calls base ??0Rva0055B0CC then stores vtable 0x00870A98
 // Evidence: base call 0x0055B048 plus vptr store plus 4 stack args (ret 0x10) plus AsciiString temp "AIMoneyLender" set to +0x0C
 #include "ascii_string.h"

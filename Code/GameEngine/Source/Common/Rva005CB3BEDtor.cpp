@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 //
 // ??1Rva005CB3BE@@QAE@XZ, retail 0x005CB3BE, 116 bytes.
 // Evidence: unwind states 5..0 tear down six strings at +0x1C down to +0x08

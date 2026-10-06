@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva005AFE86@@QAE@PAX@Z, retail 0x005AFE86, 85 bytes.
 // Chain ctor: stores vtable 0x00C728B8, arg at +4, zeroes +8..+20,
 // then appends this to global list via Get 0x00381452 (returns 0x00E02310)

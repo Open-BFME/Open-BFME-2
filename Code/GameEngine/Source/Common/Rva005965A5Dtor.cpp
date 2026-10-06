@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva005965A5@@UAE@XZ retail 0x005965C6 83B
 // Own vptr C70A54; under EH state 0 the 4-byte-element vector at +0x10 is
 // emptied through the rowed range erase 0x00532803 (folded STLport

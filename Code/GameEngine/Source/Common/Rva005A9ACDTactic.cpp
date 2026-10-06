@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "SiegeGates" skirmish-AI tactic (vtable 0x00871E28; ctor 0x005A9C1E in
 // Rva004ECECDTacticCtors.cpp, dtor 0x005A9ACD and ??_G in

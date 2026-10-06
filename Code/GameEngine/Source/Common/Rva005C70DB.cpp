@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005C70DB@Rva005C70DB@@QAEMMPAMH0H0H0H@Z @0x005C70DB 210B: scalar interp switch 0 step 1 line 2 catm via Evaluate.
 // Calls row ?Rva00503D8EEvaluate@@YAMMMMMM@Z then same quaternion-style time deltas as Rva005C7098.
 float __cdecl Rva00503D8EEvaluate(float p0, float p1, float p2, float p3, float t);

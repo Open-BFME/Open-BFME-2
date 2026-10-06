@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0059E32F@Rva0059E32F@@QAEXPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z at 0x0059E32F (97B). Collect ModuleData list via Logic+0xb0 lookup.
 // Evidence: rowed vector erase 0x0031BD55 reserve 0x002B712E push_back 0x004DFCB0; g_009FEF10 via Rva002BA8F1Logic+0xb0 to rowed Rva002104B6 lookup; this+0x1c/0x20 begin/end like Rva0059E2FD.
 #include "ascii_string.h"

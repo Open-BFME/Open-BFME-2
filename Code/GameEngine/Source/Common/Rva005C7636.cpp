@@ -1,6 +1,6 @@
 // ?rva005C7636@Rva005C76C0@@QAEXXZ
 // partial score=0.93 date=2026-10-01
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva005C7636@Rva005C76C0@@QAEXXZ, retail 0x005C7636 138B.
 // Accumulator on Rva005C76C0::m_38[4]: m_38[i] += m_38[i+1] for i 0..2
 // plus ++m_00. Evidence: 9 movss/addss triples 0x38+=0x44 etc plus inc

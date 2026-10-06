@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // Open-BFME: INI parse-and-register factory at retail 0x0059EE10 (135B).
 // Same S4_PARSE_WITH_FIELDS shape as S4ParseThenRegisterWithFields.cpp

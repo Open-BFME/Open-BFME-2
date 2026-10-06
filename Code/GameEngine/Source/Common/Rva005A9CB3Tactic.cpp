@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "SimpleSiege" skirmish-AI tactic (vtable 0x00871E6C; ctor 0x005A9D33 in
 // Rva004ECECDTacticCtors.cpp, dtor 0x005A9CB3 and ??_G in

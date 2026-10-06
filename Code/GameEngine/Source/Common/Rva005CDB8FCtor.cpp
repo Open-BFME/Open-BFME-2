@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva005CDB8F@@QAE@PBUPayload@0@@Z retail 0x005CDB8F 31B copy 20B plus refcount 0.
 // Evidence: vtable 0x0087507C at +0; +4 zeroed (refcount inc at caller 0x005CDC43);

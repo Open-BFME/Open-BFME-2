@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD
+// cl: /Ob2 /EHsc /MD
 // ?rva005C802B@Rva005C802B@@QAE@HH@Z @0x005C802B 74B -> child 0x60 via 0x005C7D4A
 // ?rva005D19F8@Rva005D19F8@@QAE@HH@Z @0x005D19F8 74B -> child 0x1C via 0x005D18E2
 // ?rva005FF912@Rva005FF912@@QAE@HH@Z @0x005FF912 74B -> child 0x40 via 0x005FF675

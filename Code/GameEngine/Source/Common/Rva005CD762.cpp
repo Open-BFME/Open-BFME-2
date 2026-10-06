@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva005CD762Get@@YGEPAX@Z @0x005CD762 41B: stdcall uchar always-1 wrapper checking rowed get 0x005CCB3E then rowed Peek_Texture 0x005CCB37 vs 1 then rowed 0x005CCB63; evidence rows and ret-4 with mov-al-1
 class Rva005CCB3EByteChaseField
 {

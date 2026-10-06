@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??1Rva005CD651@@UAE@XZ retail 0x005CD6A9 67B dtor with Enable plus conditional erase.
 // Evidence: vtable 0x00874FF4 same as ctor 0x005CD651; calls Enable 0x0052340D rowed; reads +8 then Rva002B7250::rva 0x002B7250 rowed; second vtable 0x0086E330 base.

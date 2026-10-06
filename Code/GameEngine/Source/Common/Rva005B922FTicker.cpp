@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 #include "unicode_string.h"
 // ?rva005B9501@Rva005B922F@@QAEXXZ @0x005B9501 183B
 // Ticker date/time rows: GetLocalTime, format date via rowed 0x002DBFAD and

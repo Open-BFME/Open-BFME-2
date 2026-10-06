@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "AIBasePenetrationTroopsTactic" skirmish-AI tactic (vtable 0x00871DB4;
 // ctor 0x005A9988 in Rva004ECECDTacticCtors.cpp, dtor 0x005A990B and ??_G in

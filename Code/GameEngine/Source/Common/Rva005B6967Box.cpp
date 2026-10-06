@@ -1,4 +1,4 @@
-// cl: -O1 -Oy- -GR- -EHsc-
+// cl: -Oy- -GR- -EHsc-
 // ?Run@Rva005B6967Box@@QAEXPADH0@Z @0x005B6967 158B: two-path validated set.
 // Unless the third arg is null, strcmp it (imported) against two runtime
 // tables; a first-table miss fills a 3-int buffer (9/0x2E/0x2D) for the

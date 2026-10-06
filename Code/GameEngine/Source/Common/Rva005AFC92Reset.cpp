@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005AFC92@Rva005AFC92@@QAE_NXZ, retail 0x005AFC92, 34 bytes. Clears
 // +4 via rowed 0x00381C2D then resets +0xC via rowed GadgetListBoxReset

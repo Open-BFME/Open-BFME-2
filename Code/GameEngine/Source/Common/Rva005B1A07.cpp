@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /Ob0 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ob0 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva005B1A07@Rva005B1A07@@QAEXIUBfmePod20@@@Z, retail 0x005B1A07 73B.
 // Index into pod20 array at +0/+4: if in range tail-call rowed 0x005B129F else rowed fill_insert 0x005B1748.

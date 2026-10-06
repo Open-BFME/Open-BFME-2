@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // Family 4: 0x005CC468, 0x005E9295, 0x005F5694, 0x005F594C, 0x005F5D25 (28 bytes each, total 140 bytes)
 // Virtual slot 7 getters returning Rva005E1753Result from global singletons.
 

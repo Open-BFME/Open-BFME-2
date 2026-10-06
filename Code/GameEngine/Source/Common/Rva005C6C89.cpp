@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE2
+// cl: /MD
 class SubTree005C6B83 {
 public:
 	SubTree005C6B83();

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque single-inheritance destructors tail-calling Rva005AFE3F::~
 // Rva005AFE3F at 0x005AFE3F (pinned opaque base dtor; identity unproven).

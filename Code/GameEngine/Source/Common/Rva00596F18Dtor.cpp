@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva00596F18@@UAE@XZ @0x00596F18 11B
 // Derived dtor: stores its own vtable 0x00870B38, then tail-jumps to the rowed
 // base dtor ??1Rva00573F03@@UAE@XZ. Empty body, no new members.

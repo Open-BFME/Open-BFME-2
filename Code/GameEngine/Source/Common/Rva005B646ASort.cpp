@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva005B646ASort@@YAXPAPAX0VRva005B61B3@@@Z @0x005B646A 48B.
 // Honest-address insertion sort over void* elements. If first==last returns,
 // else loops i=first+1..last calling the rowed guarded insert at 0x5B639F.

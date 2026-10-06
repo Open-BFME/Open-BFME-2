@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0059CE80@Rva0059CE80@@QAEXPBX@Z @0x0059CE80 30B
 // Thiscall copies four dwords from src+0x24 to this+0x00. Called with
 // lea ecx [esi+0xEC] plus push edi at 0x004FB255. Evidence unlock lane

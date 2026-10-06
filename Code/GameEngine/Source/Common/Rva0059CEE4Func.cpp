@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?rva0059CEE4@Rva0059CEE4@@QAEMHPAXPAPAX@Z @0x0059CEE4 75B evidence: this+0xc int to float; callee 0x004FFB00 pin; float globals 007C26F0 00BC7508 00BC8980; callers 0x0059D453 0x0059D58E
 extern float g_Va007C26F0;
 extern float g_00BC7508;

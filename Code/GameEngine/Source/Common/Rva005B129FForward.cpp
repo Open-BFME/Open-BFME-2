@@ -1,4 +1,4 @@
-// cl: -O1 -Oy- -GR- -EHsc-
+// cl: -Oy- -GR- -EHsc-
 int __cdecl rva005B09D8_i(int a, int b, int c, char* d);
 
 struct Rva005B129FClass

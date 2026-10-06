@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?flagNeedToRefresh@FirewallHelperClass@@QAEX_N@Z @0x00595F80 215B evidence: ZH FirewallHelper.cpp plus BFME1 same with TRUE FALSE FirewallNeedToRefresh strings via OptionPreferences write; callers 0x005700E0 0x005A899B pass this plus bool; donor void flagNeedToRefresh(Bool)
 #include <map>

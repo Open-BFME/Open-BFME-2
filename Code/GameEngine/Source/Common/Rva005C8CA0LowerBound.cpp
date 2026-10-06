@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?rva005C8CA0@Rva005C8C73@@QAEPAXPBX@Z @0x005C8CA0 58B.
 // STLport float-keyed tree lower_bound, between the rowed Rva005C8C73 erase
 // (0x005C8C73) and clear (0x005C8CDA) in RvaTreeEraseClearFamily.cpp. Callers

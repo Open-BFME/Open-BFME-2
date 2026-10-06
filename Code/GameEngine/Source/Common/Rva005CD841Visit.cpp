@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ?Rva005CD841Find@@YA_NPAX@Z retail 0x005CD841 54B visit list via stack Visitor with bool result.
 // Evidence: callee 0x005CCD36 rowed visit caller 0x005CD8C2 tests al sibling of 0x005CD813 vtable 0x0087500C bool at +4.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva005C702D@Rva005C702D@@QAE_NPAVDataChunkInput@@PAUDataChunkInfo@@@Z, retail 0x005C702D 61B.
 // Interpolation-tag reader, inverse of Rva005C706A writer: default m_key to 2

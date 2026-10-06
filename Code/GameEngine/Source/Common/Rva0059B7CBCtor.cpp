@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 //
 // Retail RVA 0x0059B7CB, Ghidra boundary 25 bytes. It installs vtable
 // VA 0x00C70EBC and copies two four-byte arguments to +4 and +8, returning

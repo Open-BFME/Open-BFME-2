@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005C4808@Rva005C4808@@QAEXPAVXfer@@@Z retail 0x005C4808 61B
 // Version(1 2) via Xfer slot 0x28 gated helper Rva004CE6E4 then int at +0x20 via Xfer slot 0x7C.
 // Evidence: chain from 0x004CE6E4 landing; no callers; class unproven so honest Rva name.

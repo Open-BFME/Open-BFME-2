@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // ?rva005BA626@Rva005BA626@@QAE_NXZ, retail 0x005BA626, 200 bytes.
 // Sibling donor Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp
 // (BFME1 game/GameEngine/Source/GameClient/GUI/OnlineQuickMatchPopulateMaxPing.cpp).

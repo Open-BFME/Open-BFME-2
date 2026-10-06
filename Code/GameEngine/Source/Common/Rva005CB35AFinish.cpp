@@ -1,5 +1,5 @@
 // ??0Rva005CB35A@@QAE@XZ
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0Rva005CB35A@@QAE@XZ @0x005CB35A 100B.
 // Ctor of class Rva005CB35A (dtor rowed at 0x005CB3BE: six pointers at

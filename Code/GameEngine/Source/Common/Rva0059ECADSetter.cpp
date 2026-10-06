@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0059ECAD@Rva0059ECAD@@QAEXH@Z @0x0059ECAD 20B: 2-to-9 dword setter at +0x488.
 // If int at this plus 0x488 equals 2 store 9; stack arg is ignored but still

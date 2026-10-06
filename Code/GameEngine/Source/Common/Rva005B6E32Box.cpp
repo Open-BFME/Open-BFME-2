@@ -1,4 +1,4 @@
-// cl: -O1 -Oy- -GR- -EHsc-
+// cl: -Oy- -GR- -EHsc-
 // ?Probe@Rva005B6E32Box@@SAHXZ @0x005B6E32 159B: localhost connectivity probe.
 // WSAs up 2.2 into a 416-byte buffer, bails unless both version bytes read
 // 2, opens an AF_INET socket, zeroes a sockaddr tail-reusing the buffer,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 #include "ascii_string.h"
 
 // ?rva005C3ACD@Rva005C3ACD@@QAEXXZ @0x005C3ACD 113B

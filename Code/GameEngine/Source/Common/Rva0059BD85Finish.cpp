@@ -1,5 +1,5 @@
 // ?Rva0059BD85Find@@YG_NPAURange0059BD85@@HPAX@Z
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0059BD85Find@@YG_NPAURange0059BD85@@HPAX@Z @0x0059BD85 (52B)
 // Stdcall range find over 20-byte stride comparing first field with key.
 // Count via signed idiv 0x14 then unsigned index loop with jbe. Middle

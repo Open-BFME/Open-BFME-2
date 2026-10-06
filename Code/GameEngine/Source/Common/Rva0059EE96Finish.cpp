@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0059EE96@Rva0059EE96@@QAEXEE@Z @0x0059EE96 76B: guarded Enable/Disable AptCall.
 // If force a1 is clear and flag +0x4C1 already equals value a0 return; else
 // store flag, pick literal EnableButtonPlayGame vs DisableButtonPlayGame by a0,

@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?Run@Rva0059EB6FBox@@QAE_NH@Z @0x0059EB6F 64B: gated notify-set-go. With
 // the info singleton present and its flag word nonzero, fire the slot-0xDC
 // virtual on the info, forward the arg to the pinned 1-arg callee 0x44D5EE

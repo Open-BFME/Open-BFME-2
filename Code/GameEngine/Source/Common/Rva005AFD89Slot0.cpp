@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva005AFD89@Rva005AFE86@@UAEXHPBURva005AFD89Param@@@Z, retail 0x005AFD89, 60 bytes.
 // Slot 0 of vtable 0x008728B8 (Rva005AFE86 ctor TU): checks id vs +4 and

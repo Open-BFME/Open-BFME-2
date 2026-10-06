@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005C4986@@QAE@II@Z @0x005C4986 50B
 // Honest address-derived ctor: base ??0Rva0059B7CB@@QAE@II@Z with same this
 // plus two ints then member ??0Rva005C48D0@@QAE@XZ at +0xC then clear dword

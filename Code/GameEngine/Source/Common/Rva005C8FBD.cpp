@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva005C8FBD@@QAE@XZ @0x005C8FBD 94B
 // Dtor: call HostClass rva005C8F17 then free +0x38 via _free then tree dtor
 // at +0x2c (rowed ??1Rva005C8C73) then pool release at +8 via inline dtor.

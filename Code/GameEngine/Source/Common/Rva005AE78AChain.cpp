@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 int __cdecl rva005AE6F8(int a, int b, int c, char* z);
 
 // ?rva005AE78A@@YAHHHH@Z @0x005AE78A 27B: cdecl 3-arg wrapper passing a char

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005CB8D4@@QAE@XZ retail 0x005CB8AC 40B
 // Outer default ctor (vtable 0x00874DA8): allocates the 0x1C-byte inner elem
 // with operator new 0x0002FDA0 and constructs it with the rowed inner ctor

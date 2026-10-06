@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 //
 // ?rva005C7A29@Rva005C7A29@@QAEX_N@Z @0x005C7A29 (92B).
 // AutoAbility overlay show/hide via AptCall 0x0050E9FE with _show/_hide.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005AFE3F@@UAE@XZ retail 0x005AFE3F 71B
 // Own vptr C728B8; under EH state 0 the body unregisters this from the
 // registry returned by the rowed getter ?Rva00381452Get 0x00381452 through the

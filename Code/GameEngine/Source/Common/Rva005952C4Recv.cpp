@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva005952C4@Rva00594DC0@@QAE_NPAXGPAG@Z, retail 0x005952C4 134B.
 // Chain of landed Rva00594DC0 convert 0x00594DC0: memcpy 20B, CRC16,
 // htonl check, convert, htons key check at +0x88, word extract.

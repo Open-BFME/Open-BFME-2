@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005CCB5B@Rva005CCB5B@@QAEXXZ @0x005CCB5B 8B evidence: tail-jmp to rowed 0x005CCB16 Rva005CCB16NullForwarder; thiscall callers 0x005CD284 0x005CD2D0
 class Rva005CCB16NullForwarder
 {

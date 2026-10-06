@@ -1,6 +1,6 @@
 // ?rva005AD6F5@Rva005AD6C3@@QAEXXZ
 // Finish pass 2026-10-04 seat6 from reverse/attempts/0x005ad6f5.cpp
-// cl: /O1 /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??0Rva005AD6C3@@QAE@PBURva005DCC4BSource@@@Z @ 0x005AD6C3 39B

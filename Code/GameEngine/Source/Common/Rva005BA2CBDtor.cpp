@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??1Rva005BA2CB@@UAE@XZ @0x005BA2CB 40B dtor stores three vtables plus clears global plus tail-jmps to pinned base 0x005A0009 via caller ??_G 0x005BA303. Evidence: pin plus vtable slots plus rowed global g_Va00E06548 plus pinned base.
 extern int g_Va00E06548;
 

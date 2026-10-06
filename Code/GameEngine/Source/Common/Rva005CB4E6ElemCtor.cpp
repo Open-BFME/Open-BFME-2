@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005CB4E6Elem@@QAE@PAVRva005CB8D4@@@Z retail 0x005CB4C7 31B
 // Elem ctor storing the owner pointer at +0 then zeroing six dwords at
 // +4/+8/+0xC/+0x10/+0x14/+0x18 (size 0x1C). Evidence: sole caller 0x005CB8AC

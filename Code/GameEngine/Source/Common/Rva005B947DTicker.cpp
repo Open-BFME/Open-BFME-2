@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 #include "unicode_string.h"
 // ?rva005B947D@Rva005B922F@@QAEXHHH@Z @0x005B947D 104B
 // Ticker formatted row: formats m_64's text plus two ints through rowed

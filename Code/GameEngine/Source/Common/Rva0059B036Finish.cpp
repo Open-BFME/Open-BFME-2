@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 //
 // ?Rva0059B036Copy@@YAPAXPAX0H@Z retail 0x0059B036 42B.
 // 24-byte record build: copy the 20-byte head from src to stack tmp, store the

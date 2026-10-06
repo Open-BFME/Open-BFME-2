@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?Rva00595E46Save@@YAXXZ @0x00595E46 314B evidence: FirewallBehavior 0x7EB734 plus FirewallPortAllocationDelta 0x7EB700 strings via OptionPreferences map plus TheWritableGlobalData firewallBehavior+0xA4C and delta+0xA58 via g_a063b0 plus UserPreferences write; callers 0x00518324 0x00519CCC 0x005700D4
 #include <map>

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00596FF5@Rva00596F18@@QAEXE@Z @0x00596FF5 28B
 // Setter on the Rva00596F18 family: stores byte at +0x64, and when the byte
 // is 0 clears dwords at +0x24/+0x68 then calls virtual slot 7 (0x1c) with 0.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005AB45B@Rva005AB45B@@QAE_NXZ retail 0x005AB45B 94B.
 // Searches ID range from Rva002A8F24 map entry via LeaField for first live

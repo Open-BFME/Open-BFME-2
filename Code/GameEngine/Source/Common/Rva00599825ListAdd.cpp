@@ -1,6 +1,6 @@
 // ?rva00599825@Rva00599825@@QAEXH@Z
 // partial score=0.92 date=2026-09-29
-// cl: /O1 /GX- /MD
+// cl: /GX- /MD
 //
 // ?rva00599825@Rva00599825@@QAEXH@Z, retail 0x00599825, 75 bytes.
 // Guarded list add: resolve the id via TheGameLogic::findObjectByID, require

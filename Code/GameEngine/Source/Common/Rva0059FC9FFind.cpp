@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 //
 // ?rva0059FC9F@Rva0059FC9F@@QAEHXZ @ 0x0059FC9F (155B).
 // Lookup helper: copies Rva0059F479 record from this+0x58+0x298, fetches the

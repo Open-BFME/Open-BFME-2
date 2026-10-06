@@ -1,4 +1,4 @@
-// cl: -O1 -Oy- -GR- -EHsc-
+// cl: -Oy- -GR- -EHsc-
 // ?Run@Rva005B5C02Box@@QAEXXZ @0x005B5C02 110B: list-entry apply. Resolves
 // the selected index through the rowed GadgetListBoxGetSelected, fetches
 // the entry through the rowed 3-arg getter (literal 0 CSEd into ebx for

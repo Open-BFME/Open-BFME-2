@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva005961D6@@UAE@XZ retail 0x00596225 68B
 // Own vptr C70A4C; the owned buffer at +0x98 is freed when set (EH state 0),
 // then the rowed base dtor ??1Rva0025BFE3@@UAE@XZ 0x0025BFE3. Caller: the

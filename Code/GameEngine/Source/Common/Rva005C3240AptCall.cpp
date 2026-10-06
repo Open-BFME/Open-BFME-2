@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?Rva005C3240AptCall@@YAHPAVRva00222A8BTarget@@PAXPBD2ABVAsciiString@@3@Z @0x005C3240 63B: Apt forward with 2 strings.
 // Builds no temporaries: takes two AsciiStrings by reference, passes their text

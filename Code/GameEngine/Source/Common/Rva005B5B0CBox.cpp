@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?Run@Rva005B5B0CBox@@QAEXH@Z @0x005B5B0C 45B: manager sub-object handoff.
 // Hands m_4 + 0x27C to the pinned 1-arg manager method on the 0xDFE344
 // global, sets +0x16 and the +0x54 byte of the 0xE01E48 global, then runs

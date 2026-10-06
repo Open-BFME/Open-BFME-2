@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005CB9D1@Rva005CB9D1@@QAE_NH@Z @0x005CB9D1 34B: null-checked *(arg+0x10) then Rva005CB91E encoder result !=6. Evidence: caller 0x005CBAE6 jmp plus rowed callee 0x005CB91E.
 class Rva005CB91E
 {

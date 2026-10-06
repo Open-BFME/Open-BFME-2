@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0059ECD2@Rva0059ECD2@@QAEXH@Z @0x0059ECD2 70B: state 0xA apt ClosePassword flush.
 // Retail cmp [esi+0x488] 0xA then AptCall(Target edi virtual-string ClosePassword) sets 1 plus byte 0.
 // Evidence: neighbours 0x0059ECAD setter plus 0x0059EE7F clearer share 0x488 member; caller 0x005A6630; callee 0x00524EF4 rowed.

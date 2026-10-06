@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00595D0B@FirewallHelperClass@@QAEPAXI@Z @0x00595D0B 34B: store vtable 0x00870A2C then rowed clear 0x0059515C plus conditional delete. Evidence: vtable slot 0 of 0x00870A2C class FirewallHelperClass ctor 0x00594CDD; calls row 0x0059515C and rowed delete 0x0002FD60.
 class Rva0059515C
 {

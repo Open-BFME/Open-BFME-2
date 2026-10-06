@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005CD7DA@Rva005CD7DA@@QAEXXZ retail 0x005CD7DA 39B conditional get plus two virtuals.
 // Evidence: +4 PtrChase get 0x0042D6AE rowed +C bool early-out; virtuals +0x18 noargs and +4 with 0 on get result.

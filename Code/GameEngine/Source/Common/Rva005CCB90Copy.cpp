@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005CCB90@Rva005CCB90@@QAEXPBX@Z @0x005CCB90 24B evidence: no calls; tail callers 0x005D1DCB 0x005D2184; copies 12B then sets flag
 // Copies 12 bytes from arg into inner struct at +8+0x14 then sets byte +8+0x20 to 1.
 struct Twelve {

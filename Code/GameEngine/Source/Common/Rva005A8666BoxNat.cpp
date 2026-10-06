@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva005A7974@Rva005A8666Box@@QAEXGPAX@Z @0x005A7974 290B: NAT PORT request builder.
 // Target evidence: byte gates m_24=1 plus m_04/m_25 plus Consume 0x004D51ED pin,

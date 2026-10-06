@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0059E390@Rva0059E390@@QAEXPBVModuleData@@@Z @0x0059E390 23B: guarded ModuleData vector append at +4.
 // Evidence: rowed vector push_back 0x004DFCB0; caller 0x0059E46F in Rva0059E436Parse; pin ?rva0059E390@Rva0059E390@@QAEXPBVModuleData@@@Z.
 class ModuleData;

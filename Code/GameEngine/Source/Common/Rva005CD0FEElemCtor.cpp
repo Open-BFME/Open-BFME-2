@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva005CD0FEElem@@QAE@PAVRva005CD1A9@@@Z, retail 0x005CD0DC, 34 bytes.
 // Inner element ctor: parent pointer at +0, int at +4 (AND-zero under /O1),

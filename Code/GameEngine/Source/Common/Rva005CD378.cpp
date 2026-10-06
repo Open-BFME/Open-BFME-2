@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // class-gate: allow StringBase private validate for row ?validate@?$StringBase@G@@ABEXXZ at 0x000B3FD0
 // ?rva005CD378@Rva005CD378@@QAEXXZ @0x005CD378 45B: thiscall void calling wide validate then rowed 0x005CCB5B then pinned 0x002BF6A7 via +0x10 and virtual slot +0x10 via +0x14 both with +0x20->+0x18; evidence rows/pins and Rva005D20E5Wrap pattern
 template <typename T> class StringBase

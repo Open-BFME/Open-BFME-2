@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005CC254@@QAE@PAX@Z @0x005CC254 26B evidence: stores 0x00C74E04 at +0 then arg at +4 clears +8 sets +0xC to 1; caller 0x0057525F
 // Initializes 13-byte struct: +0 points at g_00C74E04 +4 holds ctor arg +8 zeroed +0xC set to 1.
 extern const void *const g_00C74E04[];

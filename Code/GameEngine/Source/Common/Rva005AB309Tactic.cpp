@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "ReturnTheRing" skirmish-AI tactic (vtable 0x00872284; ctor 0x005AB3BE
 // in Rva004ECECDTacticCtors.cpp, dtor 0x005AB309 and ??_G in

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /Ireference/shims/bfme2_ascii
+// cl: /EHsc /MD /D_CRTIMP= /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 
 struct Helper005C4D4B {

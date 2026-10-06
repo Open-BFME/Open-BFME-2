@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva005B63E4Sort@@YAXPAPAX00VRva005B61B3@@@Z @0x005B63E4 37B.
 // Honest-address free function: unguarded insertion sort aux over void*
 // elements using the rowed comparator cluster. Loops i=first..last calling

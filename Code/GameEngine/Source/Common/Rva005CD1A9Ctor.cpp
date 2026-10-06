@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??0Rva005CD1A9@@QAE@XZ, retail 0x005CD167, 66 bytes.
 // Outer default ctor (vtable 0x00874F60): allocates the 0xC-byte inner

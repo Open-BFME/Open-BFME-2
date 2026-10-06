@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva005CCC07@@UAE@XZ retail 0x005CCC07 73B: virtual dtor stores vtable then destroys StringBase member at +8 via releaseBuffer then releases RefCount pointer at +4 then stores base vtable.
 // Evidence: two vtable stores 0x00874F04 entry and 0x00877E7C exit with releaseBuffer and Release_Ref calls between; caller 0x005CCC69 tail-jmps here and deleting dtor 0x005CCC98 calls there.
 

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005CC966@Rva005CC966@@QAEXXZ @0x005CC966 30B evidence: Eva rva001DE2DA pin event pos 0; caller jmp 0x005CCB6B; global g_00DFDC30
 struct Coord3D
 {

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva0059F20BSet@@YAXHABVUnicodeString@@@Z @ 0x0059F20B (85B).
 // Free Apt connecting-player name setter: formats local AsciiString with

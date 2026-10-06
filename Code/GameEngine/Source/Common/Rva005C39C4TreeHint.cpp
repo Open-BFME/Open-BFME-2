@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005C39C4@Rva005C39C4@@QAE?AUTreeHintRef00217D4C@@H@Z @0x005C39C4 26B: TreeHintRef forwarder to virtual slot 2.
 // Retail: push ebp / mov ebp esp / push ecx / push [ebp+0xC] / mov eax,[ecx] / push [ebp+8] / and [ebp-4],0 / call [eax+8] / mov eax,[ebp+8] / leave / ret 8.
 // Target facts: hidden-pointer struct return (TreeHintRef 4B with user copy/dtor forces hidden plus RVO guard and [ebp-4],0); virtual at +8 is slot 2.

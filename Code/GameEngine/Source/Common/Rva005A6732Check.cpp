@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005A6732@Rva005A6732@@QBE_NXZ @0x005A6732 92B. Unlock lane: range plus
 // table-null checks on m_14/m_18 via m_table, then m_94c/m_950 must be 0/4/5.
 // Evidence: callers 0x005A8ABF/0x005A8F57, neighbours Rva005A6709Predicate and

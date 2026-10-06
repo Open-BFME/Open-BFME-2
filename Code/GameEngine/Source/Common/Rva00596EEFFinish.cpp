@@ -1,5 +1,5 @@
 // ??0Rva00596F18@@QAE@PAX@Z
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva00596F18@@QAE@PAX@Z @0x00596EEF 41B.
 // Ctor of Rva00596F18 (vtable 0x00870B38): base Rva00573E7C via pin
 // 0x00573E7C then zero +0x20/+0x64 bytes and +0x68/+0x6C dwords plus

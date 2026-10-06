@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??1Rva005997CD@@QAE@XZ retail 0x005997CD 88B.
 // Evidence: the body clears the list-like members at +0 and +4 through the

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005C8D17@Rva005C8D17@@QAEMXZ @0x005C8D17 23B: float getter default 1.0f.
 // Evidence: caller 0x005C8D79; callee none (only global g_Va00BBB8D8 1.0f); members +0x2C chain +8 +0x10 plus +0x30 flag; neighbours RvaTreeEraseClearFamily RvaTreeDtorFamily.
 extern float g_Va00BBB8D8;

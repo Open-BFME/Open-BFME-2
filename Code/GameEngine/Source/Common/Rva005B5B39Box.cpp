@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?Run@Rva005B5B39Box@@QAEXPAD@Z @0x005B5B39 89B: digit-string slot apply.
 // Null-guarded string must start with a digit (imported isdigit) and atoi
 // to 1..10 (imported atoi, minus one); a value already current returns,

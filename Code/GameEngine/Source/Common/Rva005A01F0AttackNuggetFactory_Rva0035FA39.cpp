@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // Near-twin of Rva0059EE10AttackNuggetFactory.cpp (retail 0x0059EE10, 135B):
 // same S4_PARSE_WITH_FIELDS shape (allocate, call the matched base

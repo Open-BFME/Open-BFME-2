@@ -1,4 +1,4 @@
-// cl: -O1 -Oy- -GR- -EHsc- /MD
+// cl: -Oy- -GR- -EHsc- /MD
 // ?Run@Rva005B57C6Box@@QAEXPAD@Z @0x005B57C6 52B: scan-and-forward. Runs the
 // imported sscanf over the string with the runtime table at 0xBE3878
 // (outside all PE sections, named extern), capturing an int local and the

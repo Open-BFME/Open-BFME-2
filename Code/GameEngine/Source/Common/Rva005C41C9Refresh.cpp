@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005C41C9@Rva005C41C9@@QAEXE@Z retail 0x005C41C9 73B
 // Evidence: caller 0x0052B024 forwards one stack arg over vector [ecx+0x2c,0x30); slots 0x44 twice then 0x48; members +0xC5 byte plus +0xAC chase +0x58/+0x5C; neighbours 0x005C4139 0x005C436E
 // Structural inference: the second slot-0x44 result reuses the parameter's

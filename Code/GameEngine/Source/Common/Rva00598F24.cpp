@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00598F24@Rva00598F24@@QAEXXZ @0x00598F24 27B via global store lookup plus add
 // Evidence: thiscall void; pushes Player at this+0x2C; rowed rva002A8F24 0x002A8F24 via global g_00DFEEF8; rowed rva004DFEC8 0x004DFEC8 with this as ModuleData; caller 0x004EBFBA
 class Player;

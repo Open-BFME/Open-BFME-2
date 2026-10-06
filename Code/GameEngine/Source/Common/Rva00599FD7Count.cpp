@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 //
 // ?Rva00599FD7Count@@YGHPAVTeam@@@Z @0x00599FD7 69B
 // Count team members whose template kind bytes have bit 8 at +0x108 or bit 4

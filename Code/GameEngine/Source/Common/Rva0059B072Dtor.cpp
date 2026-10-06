@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0059B072@@UAE@XZ @0x0059B072 (107B)
 // Virtual dtor storing derived vtable 0x00870E6C then releasing members at
 // +0x24 via virtual slot0 plus operator delete, +0x20 via rowed fastcall

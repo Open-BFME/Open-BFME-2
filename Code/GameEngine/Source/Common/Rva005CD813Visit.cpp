@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ?Rva005CD813Visit@@YAXPAX@Z retail 0x005CD813 46B visit list via stack Visitor.
 // Evidence: callee 0x005CCD36 rowed Rva005CCD36::rva005CCD36(Visitor*); temp vtable data 0x00875008; caller 0x005CD8A5 pushes one ptr cdecl void.

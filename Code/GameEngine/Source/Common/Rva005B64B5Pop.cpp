@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva005B64B5Pop@@YAXPAPAX00PAXVRva005B61B3@@H@Z @0x005B64B5 44B.
 // Honest-address pop heap helper over void* elements with the rowed
 // comparator. Moves *first to *result then adjusts [first last) of the

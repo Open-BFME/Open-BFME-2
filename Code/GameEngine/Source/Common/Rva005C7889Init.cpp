@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /EHsc /MD
+// cl: /EHsc /MD
 // ?Rva005C7889Init@@YAXXZ, retail 0x005C7889 64B.
 // Void initializer with function-local static Rva005C7792 (guard plus
 // ctor via row 0x005C7792 plus _atexit). Evidence: EH_prolog frame,

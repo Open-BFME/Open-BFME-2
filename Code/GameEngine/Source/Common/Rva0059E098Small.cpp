@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 int __cdecl rva0059E0C1(int a);
 
 // ?rva0059E0F7@@YAHH@Z @0x0059E0F7 24B: cdecl wrapper; null-checks the pinned

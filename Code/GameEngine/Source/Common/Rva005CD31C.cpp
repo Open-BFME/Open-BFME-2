@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // class-gate: allow StringBase private validate for row ?validate@?$StringBase@G@@ABEXXZ at 0x000B3FD0
 // ?rva005CD31C@Rva005CD31C@@QAEXXZ @0x005CD31C 47B: thiscall void like 0x005CD378 but null-checked cached +0x20->+0x18 in edi; evidence rows 0xB3FD0 0x5CCB5B pin 0x2BF6A7 sibling 0x005CD378
 template <typename T> class StringBase

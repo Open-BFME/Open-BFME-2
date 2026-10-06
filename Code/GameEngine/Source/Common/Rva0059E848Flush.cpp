@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva0059E848@Rva0059E848@@QAEXXZ @0x0059E848 25B: single-element vector flush to holder.
 // Retail loads [ecx+0x18]-[ecx+0x14], masks low bits, cmp 4, then copies *begin to [holder+4].
 // Evidence: caller 0x0059EA05 passes 0x20-byte object after initFromINI table 0x00871178,

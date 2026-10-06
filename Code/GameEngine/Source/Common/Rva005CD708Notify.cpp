@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 //
 // ?rva005CD708@Rva005CD708@@QAEXXZ retail 0x005CD708 47B lazy notify.
 // Evidence: get 0x0042D6C6 via +0x4; cache +0x8; append 0x005A0B4C via +4; virtual [eax+8] with +0xC.

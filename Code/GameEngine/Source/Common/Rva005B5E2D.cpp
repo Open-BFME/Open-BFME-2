@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005B5E2D@Rva005B5E2D@@QAEXPBD@Z @0x005B5E2D 257B
 // Chain of just-landed 0x00406E8F: atoi arg then holder+0x27c forward then
 // vector g_00E02F74 lookup then TheGameText fetch at slot 0x38 then

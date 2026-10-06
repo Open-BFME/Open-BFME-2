@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005B5BDC@Rva005B5BDC@@QAEXI@Z @0x005B5BDC 38B
 // Two-slot index tracker at +0x18/+0x1C with dirty byte at +0x20.
 // Retail: cmp old arg lea next jne then mov paths plus flag 1.

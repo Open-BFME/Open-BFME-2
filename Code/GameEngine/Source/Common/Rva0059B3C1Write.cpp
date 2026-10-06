@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 //
 // ?rva0059B3C1@Rva0059B3C1@@QAEHPAD@Z retail 0x0059B3C1 40B.
 // Two-part write: Rva0059B3E9 block at +0 then AsciiStringRef at +0x14,

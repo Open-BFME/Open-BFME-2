@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005A6A83@Rva005A6A83@@QAEXXZ @0x005A6A83 145B. Firewall NAT probe:
 // pre-check ++m_936==0 skips to open; loop two getNextTemporarySourcePort(0)
 // until second==first+1; openSpareSocket(m_936); ++m_934; sendToMangler

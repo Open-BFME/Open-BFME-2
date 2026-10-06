@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??0Rva005AD6C3@@QAE@PBURva005DCC4BSource@@@Z @ 0x005AD6C3 39B
 // Derived of rowed Rva005DCC4B: base converts source+0x74, then +0x08=0 and
 // +0x0C=TheGameLogic frame+0x40. Evidence: call at 0x005AD6CA to rowed

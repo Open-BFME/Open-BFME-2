@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00598007@Rva00598007@@QAEPAURva002A8AB1Record@@XZ @0x00598007 15B
 // Evidence: leaf lookup via global and rowed Rva002A8F24 rva002A8AB1 on member at +0x30; ready caller 0x00598CBC uses eax as pointer plus 0x160.
 struct Rva002A8AB1Record

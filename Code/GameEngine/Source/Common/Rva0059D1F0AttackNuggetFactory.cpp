@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // Near-twin of Rva0059EE10AttackNuggetFactory.cpp (retail 0x0059EE10, 135B)
 // and sibling of Rva005A01F0AttackNuggetFactory.cpp (retail 0x005A01F0,

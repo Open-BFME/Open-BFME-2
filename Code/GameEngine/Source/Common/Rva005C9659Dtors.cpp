@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG
+// cl: /MD /GX /DNDEBUG
 //
 // Large-object destructors, 80B each, sharing the vtable-restore + reverse
 // member teardown + base dtor shape. The bodies destroy (they call pinned

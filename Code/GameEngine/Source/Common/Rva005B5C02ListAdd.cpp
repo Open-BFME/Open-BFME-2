@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?Add@Rva005B5C02List@@QAE_NPAURva005B5C02Entry@@@Z @0x0040A384 45B
 // Evidence: leaf lane; caller 0x005B5C62 Run passes Entry* and ignores return;

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??1Rva005CDDA4@@UAE@XZ @0x005CDDA4 (76B).
 // Dtor restoring two vptrs plus +0x20 pointer field clear plus two base dtors.

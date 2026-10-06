@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005B01D3@Rva005B01D3@@QAEMMMM@Z, retail 0x005B01D3, 38 bytes.
 // Unlock leaf: lerp(a,b,t) with negative-t fallback to member at +0x60.
 // If t < 0, t = m_60; then return a + (b - a) * t (fld/fsub/fmul/fadd).

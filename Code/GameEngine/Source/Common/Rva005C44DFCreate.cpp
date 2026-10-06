@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX
+// cl: /MD /GX
 // ?rva005C44DF@Rva005C44DF@@QAEPAVRva005C436E@@I@Z retail 0x005C44DF 60B
 // Evidence: chain from 0x005C4403 rowed ??0Rva005C436E@@QAE@II@Z plus null-check je plus __EH_prolog; twin of 0x005C462B 60B new plus ctor EH with this-as-uint
 class Rva0059B7CB

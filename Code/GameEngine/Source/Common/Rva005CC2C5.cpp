@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005CC2C5@Rva005CC2C5@@QAEXH@Z @0x005CC2C5 23B unregister calls rowed 0x002B7250 erase with this then clears holder.
 // Evidence: callee rowed 0x002B7250; holder at +8 with list at +4; ret 4 one int param; no callers.
 class CreateAHeroData;

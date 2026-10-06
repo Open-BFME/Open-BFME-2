@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva005BE264Close@@YAXXZ @0x005BE264 110B
 // Evidence: free AptTimeLine InitGadgets close plus SetPlayerFocus via TheRva00222A8BTarget rowed rva00224455; strings AptTimeLine::InitGadgets AptTimeLine::SetPlayerFocus write literals; callees rowed StringBase ctor 0x00037BA0 releaseBuffer 0x00036410 pinned _bfme_closeAptScreen; caller 0x0051E500 unblocks 0x0051E4B0; precedent BfmeAptScreenScoreDestructor plus Rva00224455 shared AsciiString.
 #include "ascii_string.h"

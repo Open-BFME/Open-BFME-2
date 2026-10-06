@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00598016@Rva00598016@@QAEPAXXZ @0x00598016 15B via global store lookup
 // Evidence: thiscall ret0 returns void*; pushes Player at this+0x30; rowed rva002A8F24 0x002A8F24 via global g_00DFEEF8; caller 0x0059883B; same g_00DFEEF8 pattern as Rva005DC8A2
 class Player;

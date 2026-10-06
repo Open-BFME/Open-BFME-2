@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva005C706A@Rva005C706A@@QAEXPAVDataChunkOutput@@@Z, retail 0x005C706A 46B.
 // Interpolation-tag writer: maps the int at +0 (0 STEP, 1 LINE, 2 CATM) to the

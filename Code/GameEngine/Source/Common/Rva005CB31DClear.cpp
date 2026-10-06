@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva005CB31D@@QAE@XZ retail 0x005CB31D 26B
 // Holder dtor releasing Rva005E0B0F ptr at +0. Retail nulls first via
 // and [ecx] 0 then calls rowed ??1Rva005E0B0F@@UAE@XZ and rowed ??3 delete.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /Oy-
+// cl: /Ireference/shims/bfme2_ascii /MD /Oy-
 //
 // ?rva005AFD43@Rva005AFD43@@QAEXPAVGameWindow@@ABVUnicodeString@@@Z, retail 0x005AFD43, 70 bytes.
 // Unlock method: stores GameWindow* at +8; if null return; else

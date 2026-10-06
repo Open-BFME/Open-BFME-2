@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva005B5485@Rva005B5485@@QAEXHPAD_N@Z @0x005B5485 104B
 // Snprintf "%d" of outer/inner vector counts guarded by buf and flag.
 // Retail: xor edx cmp buf je cmp flag jne then sel 0/1 via sub/dec,

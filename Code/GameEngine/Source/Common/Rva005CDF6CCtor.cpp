@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005CDF6C@@QAE@PBUPayload@0@@Z @0x005CDF6C 31B copy 20B plus refcount 0.
 // Twin of 0x005CDB8F in Rva005CDB8FCtor.cpp: vtable 0x00875108 at +0; +4
 // zeroed; 5-dword rep movsd from src arg to +8; ret 4. Caller 0x005CE00E

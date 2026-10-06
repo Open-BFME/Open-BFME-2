@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva00595A9F@Rva00595A9F@@QAE_NXZ @0x00595A9F 248B evidence: calls rowed 0x00594E07 0x0059534A 0x0059517F plus IAT timeGetTime; offsets 0x54 0x68 0x6a 0x78 0x88 0x17c 0x180 0x184 match Rva00594E07 layout; caller 0x00595D2D
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
 

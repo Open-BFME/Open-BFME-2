@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?Run@Rva005BC474Box@@QAEXXZ @0x005BC474 33B: two-flag clearer. Runs the
 // pinned 0-arg callee when +0x78 is clear, returns when +0x79 is clear,
 // else runs the pinned 0-arg callee and clears +0x79. Targets from retail

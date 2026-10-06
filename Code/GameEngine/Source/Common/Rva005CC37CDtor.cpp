@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD
+// cl: /Ob2 /EHsc /MD
 // ??1Rva005CC37C@@UAE@XZ retail 0x005CC37C 60B
 // Dtor with MI second base at +8 via pin 0x005E12D1 plus base vtable restore.
 // Layout from deleting wrapper 0x005CC44C vtable 0x00C74E38#0.

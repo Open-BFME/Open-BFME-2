@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0059BD58@Rva0059BD58@@QAEXPAURva0059BD58Node@@@Z @0x0059BD58 (45B)
 // Recursive list free: for each node recurse into child at +0xC with same
 // this then free the node via rowed _free 0x00030830 and advance to +0x8.

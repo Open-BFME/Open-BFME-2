@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005BA36D@Rva005BA36D@@QAEPAVRva0054D8D8@@XZ @0x005BA36D 50B. ComboBox
 // selected-pos to item-data to Rva0054D974 finder. Evidence: rowed Gadget
 // GetSelectedPos 0x003228EB and GetItemData 0x00322981; rowed finder

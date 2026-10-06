@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0059F950@Rva0059F950@@QAEXXZ, retail 0x0059F950, 135 bytes.
 // Save prefs from GameSpy slot: getLocalSlotNum slot13, getGameSpySlot, three
 // GameModePreferences int setters from slot +0xC +0x18 +0x5C, amIHost slot12,

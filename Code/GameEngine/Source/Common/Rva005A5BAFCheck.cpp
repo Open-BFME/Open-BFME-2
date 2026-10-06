@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 void __stdcall rva005A57BA(int x);
 
 struct Rva005A5BAFClass

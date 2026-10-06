@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva005B62DBPartition@@YAPAPAXPAPAX0PAXVRva005B61B3@@@Z @0x005B62DB 73B.
 // Honest-address unguarded partition over void* elements with the rowed
 // comparator at 0x5B61B3. While comp(first pivot) advances first; then

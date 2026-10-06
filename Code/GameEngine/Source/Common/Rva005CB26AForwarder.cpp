@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva005CB26A@Rva005CB26A@@QAEXXZ @0x005CB26A 5B.
 // Evidence: retail mov eax,[ecx]; jmp [eax+0x10] (slot 4 forwarder); LINK BONUS

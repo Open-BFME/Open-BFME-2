@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /D_CRTIMP= /G7
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP=
 //
 // ?Rva00595C79FormatAddress@@YA?AVAsciiString@@PBURva00595C79Address@@@Z, retail 0x00595c79, 34 bytes. Banked partial (score 0.9) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

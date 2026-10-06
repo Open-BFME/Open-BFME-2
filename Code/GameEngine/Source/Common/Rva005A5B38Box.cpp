@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // ?Run@Rva005A5B38Box@@QAE_NXZ @0x005A5B38 119B: flag-gated refresh toggle.
 // When +0x4A0 is set, clear it, resolve the display name through the box's
 // own slot-0x28 virtual, and issue the rowed AptCall (manager global, the

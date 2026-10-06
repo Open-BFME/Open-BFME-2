@@ -1,4 +1,4 @@
-// cl: -O1 -GR- -EHsc-
+// cl: -GR- -EHsc-
 // Twin 4-arg stdcall forwarders: each forwards (a1, a2+1, a3, a4) to a
 // callee that cleans its own stack (both callees end ret 0x10). The wrappers
 // use no ecx and clean nothing themselves (ret 0x10). Callee signatures are
