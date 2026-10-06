@@ -14162,3 +14162,4 @@ FUN_00620D1E	0x00220D1E	175	blocked	g_00DFE490 conflicting shared views and stor
 ?Rva0031ABD9SetBorder@@YAXPAVGameWindow@@H@Z	0x0031ABD9	96	blocked	two source shapes remain 47B over and have wrong stack cleanup; exact shared-call control flow unresolved t=12 model=gpt-6
 ?rva0058D18C@NetPacket@@QAE_NPAVNetCommandRef@@@Z	0x0058D18C	133	blocked	two semantically aligned variants compile identically at 142B; register and argument stack shape remains 9B over t=9 model=gpt-6
 ?Rva0058D041Write@@YAXPAEPAVNetCommandRef@@@Z	0x0058D041	161	blocked	exact body has unresolved getData callee row and adding a pin is forbidden t=12 model=gpt-6
+FUN_0069cc19	0x0029CC19	441	blocked	ADDRESS-NAMED g_Va00DFEEB0 new use refused t=1 model=muse-02

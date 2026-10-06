@@ -287,3 +287,35 @@ Int Rva002AAD89::rva002AAD89()
 	Rva002AAD89Item *item = **m_04;
 	return item ? item->m_04 : 0;
 }
+
+// REF slots 0x007C7BBC 0x007FD544 neighbours rva0029C096/get: search the
+// circular list at +0x20 for a node whose dword field matches the arg.
+// ?rva0029C0A9@Rva0029C0A9@@QAE_NH@Z
+class Rva0055A88BDwordField
+{
+public:
+	int get() const;
+};
+struct Rva0029C0A9Node
+{
+	Rva0029C0A9Node *m_next;
+	void *m_04;
+	Rva0055A88BDwordField *m_08;
+};
+class Rva0029C0A9
+{
+public:
+	bool rva0029C0A9(int value);
+private:
+	Rva0029C0A9Node *begin() const { return m_20->m_next; }
+	Rva0029C0A9Node *end() const { return m_20; }
+	char m_pad00[0x20];
+	Rva0029C0A9Node *m_20;
+};
+bool Rva0029C0A9::rva0029C0A9(int value)
+{
+	for (Rva0029C0A9Node *it = begin(); it != end(); it = it->m_next)
+		if (it->m_08->get() == value)
+			return true;
+	return false;
+}
