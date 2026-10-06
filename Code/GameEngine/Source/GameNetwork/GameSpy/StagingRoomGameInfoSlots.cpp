@@ -15,6 +15,12 @@
 // name) is slot 14 of the GameInfo vtable; it is pinned under its virtual
 // name for the qualified base call.
 // Layout: m_inGame +0x10, m_localName +0xFE8.
+// Slot 6, retail 0x004FDC78 (105 bytes): the game-list column image. Column
+// 2 is "AptLock" (literal 0x00C3E4F4, shared with the LANGameInfo override
+// 0x00447BE0) while the byte at +0xFEC is set, read through an inline
+// accessor (load-then-test); other columns go to the base GameInfo body
+// 0x00401015. The names follow that base's address; the +0xFEC field's
+// meaning is not established.
 typedef bool Bool;
 typedef int Int;
 enum
@@ -39,6 +45,16 @@ public:
 };
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
+class Image;
+
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+
+extern ImageCollection *TheMappedImageCollection;
+
 class GameSlot
 {
 public:
@@ -50,7 +66,8 @@ class GameInfo
 public:
 	virtual ~GameInfo();
 	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
+	virtual void slot04(); virtual void slot05();
+	virtual const Image *rva00401015(Int column);
 	virtual void slot07(); virtual void slot08(); virtual void slot09();
 	virtual void slot10(); virtual void slot11();
 	virtual Bool amIHost(void) const;
@@ -68,9 +85,12 @@ public:
 	virtual Bool amIHost(void) const;
 	virtual Int getLocalSlotNum(void) const;
 	virtual void resetAccepted(void);
+	virtual const Image *rva00401015(Int column);
+	Bool getBfmeFEC(void) const { return m_bfmeFEC; }
 private:
 	unsigned char m_pad14[0xFE8 - 0x14];
 	AsciiString m_localName; // +0xFE8
+	Bool m_bfmeFEC; // +0xFEC
 };
 
 Bool GameSpyStagingRoom::amIHost( void ) const
@@ -112,4 +132,16 @@ void GameSpyStagingRoom::resetAccepted( void )
 		DEBUG_LOG(("resetAccepted() called peerStateChange()\n"));
 		*/
 	}
+}
+
+const Image *GameSpyStagingRoom::rva00401015( Int column )
+{
+	switch (column)
+	{
+		case 2:
+			if (getBfmeFEC())
+				return TheMappedImageCollection->findImageByName(AsciiString("AptLock"));
+			return NULL;
+	}
+	return GameInfo::rva00401015(column);
 }
