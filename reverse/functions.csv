@@ -67644,3 +67644,4 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva004ABB4B@Rva004ABB4B@@QAEHXZ,,0x004ABB4B,273,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioRva004ABB4B.cpp,matched,LargeGroupAudioUpdate+0x10 refreshes the slot when the object state changes and returns the module delay
 ?rva004AABB4@Rva004AABB4@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z,,0x004AABB4,426,Code/GameEngine/Source/GameLogic/Object/Update/Rva004AABB4BuildPos.cpp,matched,worker build position scan logs the bridge case and keeps the nearest tower
 ?xfer@WorkerAIUpdate@@MAEXPAVXfer@@@Z,,0x004AA1DB,453,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateXfer.cpp,matched,WorkerAIUpdate xfer: AIUpdateInterface base Version(1 2) three tasks docks machines TheAudio slot 88
+?rva000E6FC8@Rva000E6FC8@@QAEXXZ,,0x000E6FC8,27,Code/GameEngine/Source/Common/Rva000E6FC8.cpp,matched,GlobalData +0xD45 selects 0x14 or 2 then thiscall 0x000E6D94
