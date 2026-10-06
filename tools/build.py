@@ -491,7 +491,10 @@ def is_alias_row(row):
         return False
     if CLONE_LOCAL_RE.sub("", symbol) == CLONE_LOCAL_RE.sub("", name):
         return False
-    return not (DUP_ALIAS_RE.match(name) or GEN_PLACEHOLDER_RE.search(name))
+    # The ledger writes dup_ placeholders in either hex case; DUP_ALIAS_RE is
+    # shared with older checks and only knows lowercase.
+    return not (DUP_ALIAS_RE.match(name) or DUP_ALIAS_ANYCASE_RE.match(name)
+                or GEN_PLACEHOLDER_RE.search(name))
 
 
 def ledger_object_symbol(row):
@@ -2031,6 +2034,7 @@ GEN_PLACEHOLDER_RE = re.compile(
 # and the reference TU's COMDAT it compiled is recorded in object-symbol= only
 # as the build directive it is. Such a row claims an address without naming it.
 DUP_ALIAS_RE = re.compile(r"^\?dup_[0-9a-f]{8}@@YAXXZ$")
+DUP_ALIAS_ANYCASE_RE = re.compile(r"^\?dup_[0-9A-Fa-f]{8}@@YAXXZ$")
 # Ghidra's own default names always bake the function's address into the
 # label -- FUN_<va>, LAB_<va>, SUB_<va>, DAT_<va>, PTR_<va>, switchD_<va>,
 # joined_r0x<va>, Unwind@<va>, Catch@<va> (confirmed against the committed
