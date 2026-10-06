@@ -13436,3 +13436,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva0039E9A1@Team@@QAEXPAUCoord3D@@@Z,0x0039E9A1,Team member taking a Coord3D out-pointer; REL32 callee of dump-range-18 0x003BEBD6 alongside rowed 0x0039DC9E; identity unproven
 ?rva00372B09@@YGXHHH@Z,0x00372B09,stdcall spelling of the range-16 thiscall body (same bytes); dump-range-18 0x003BEB01 else-path sets no ecx so the call is spelled without this; identity unproven
 ?rva0036FB57@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z,0x0036FB57,AIGroup waypoint member mirroring rowed 0x0036F9FE; REL32 callee of dump-range-18 0x003BF39F selected by flag; identity unproven
+?rva002D88A4@Rva002D88A4@@QAEXPAUCoord3D@@PAXM@Z,0x002D88A4,float-4.0 Coord3D call on the 0x00DFF070 global; REL32 callee of dump-range-18 0x003C00CE; identity unproven
+?rva001DDAE1@Rva001DDAE1@@QAEXPAUCoord3D@@@Z,0x001DDAE1,Coord3D call on the 0x00DFDC30 global; REL32 callee of dump-range-18 0x003C00CE; identity unproven
