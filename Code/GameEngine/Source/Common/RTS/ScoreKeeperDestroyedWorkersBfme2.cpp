@@ -7,6 +7,7 @@ class ScoreKeeper
 {
 public:
     int rva0039B749();
+    int rva0039B773();
 
 private:
     int bfmeSumUnitsDestroyed20(const int *values);
@@ -17,6 +18,8 @@ private:
     int m_unitsDestroyed[20];
     char m_unrecovered70[0xA8];
     int m_unrecovered118[20];
+    char m_unrecovered168[0x8];
+    int m_unrecovered170[20];
 };
 
 int ScoreKeeper::bfmeSumBuildingsDestroyed20(const int *values)
@@ -40,4 +43,11 @@ int ScoreKeeper::bfmeSumUnitsDestroyed20(const int * /* values */)
 int ScoreKeeper::rva0039B749()
 {
     return bfmeSumBuildingsDestroyed20(m_unrecovered118);
+}
+
+// 0x0039B773: the call and +0x170 address are target evidence; this array's
+// semantic name is unknown.
+int ScoreKeeper::rva0039B773()
+{
+    return bfmeSumUnitsDestroyed20(m_unrecovered170);
 }
