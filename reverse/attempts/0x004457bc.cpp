@@ -1,4 +1,6 @@
 // ?rva004457BC@BfmeAptScreenLanLobby@@QAEXXZ
+// partial score=0.99 date=2026-10-06
+// ?rva004457BC@BfmeAptScreenLanLobby@@QAEXXZ
 // partial score=0.99 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
