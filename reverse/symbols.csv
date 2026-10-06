@@ -13631,3 +13631,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
 ?rva0020E7BD@Rva0020E7BD@@QAEXPAX@Z,0x0020E7BD,thiscall (void*) probe called by 0x0056AEC6 on g_00DFEF10 holder +0xB0 with vtable-carrying temp; honest address-derived name
 ??0Rva004E3184@@QAE@PAX@Z,0x004E30D5,ctor with void* arg 0 for local in 0x0056AA54 probe; honest address-derived name
+?rva004047E3@Rva004047E3@@QAEXMM@Z,0x004047E3,float-pair probe on 0xA8-stride array called by 0x0056C21B fan-out; honest address-derived name
