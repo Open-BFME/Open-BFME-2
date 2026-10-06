@@ -181,3 +181,24 @@ _io_writeto
 
 # w5-sol: 0x00626EF0 refused; see re_attempts.log and build/w5_gate_0x00626EF0.log
 ??$__copy@PAURva00626EF0Element@@PAU1@H@_STL@@YAPAURva00626EF0Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z
+
+# w5-sol: 0x00148B27 refused; see re_attempts.log and build/w5_gate_0x00148B27.log
+??$find@H@?$hashtable@U?$pair@$$CBHURva00148B27Element@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva00148B27Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva00148B27Element@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHURva00148B27Element@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00148B27Element@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva00148B27Element@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva00148B27Element@@@_STL@@@2@@1@ABH@Z
+
+# w5-sol: 0x00054ED9 refused; see re_attempts.log and build/w5_gate_0x00054ED9.log
+??$distance@U?$_Rb_tree_iterator@URva00054ED9Element@@U?$_Nonconst_traits@URva00054ED9Element@@@_STL@@@_STL@@@_STL@@YAHABU?$_Rb_tree_iterator@URva00054ED9Element@@U?$_Nonconst_traits@URva00054ED9Element@@@_STL@@@0@0@Z
+
+# w5-sol: 0x0008B632 refused; see re_attempts.log and build/w5_gate_0x0008B632.log
+??$distance@U?$_Rb_tree_iterator@URva0008B632Element@@U?$_Nonconst_traits@URva0008B632Element@@@_STL@@@_STL@@@_STL@@YAHABU?$_Rb_tree_iterator@URva0008B632Element@@U?$_Nonconst_traits@URva0008B632Element@@@_STL@@@0@0@Z
+
+# w5-sol: 0x000C4DEF refused; see re_attempts.log and build/w5_gate_0x000C4DEF.log
+??$distance@U?$_Rb_tree_iterator@URva000C4DEFElement@@U?$_Nonconst_traits@URva000C4DEFElement@@@_STL@@@_STL@@@_STL@@YAHABU?$_Rb_tree_iterator@URva000C4DEFElement@@U?$_Nonconst_traits@URva000C4DEFElement@@@_STL@@@0@0@Z
+
+# w5-sol: 0x00257469 refused; see re_attempts.log and build/w5_gate_0x00257469.log
+??$distance@U?$_Rb_tree_iterator@URva00257469Element@@U?$_Nonconst_traits@URva00257469Element@@@_STL@@@_STL@@@_STL@@YAHABU?$_Rb_tree_iterator@URva00257469Element@@U?$_Nonconst_traits@URva00257469Element@@@_STL@@@0@0@Z
+
+# w5-sol: 0x0043B1F0 refused; see re_attempts.log and build/w5_gate_0x0043B1F0.log
+??$distance@U?$_Rb_tree_iterator@URva0043B1F0Element@@U?$_Nonconst_traits@URva0043B1F0Element@@@_STL@@@_STL@@@_STL@@YAHABU?$_Rb_tree_iterator@URva0043B1F0Element@@U?$_Nonconst_traits@URva0043B1F0Element@@@_STL@@@0@0@Z
+
+# w5-sol: 0x004CC195 refused; see re_attempts.log and build/w5_gate_0x004CC195.log
+??$distance@U?$_Rb_tree_iterator@URva004CC195Element@@U?$_Nonconst_traits@URva004CC195Element@@@_STL@@@_STL@@@_STL@@YAHABU?$_Rb_tree_iterator@URva004CC195Element@@U?$_Nonconst_traits@URva004CC195Element@@@_STL@@@0@0@Z
