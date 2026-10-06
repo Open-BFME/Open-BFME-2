@@ -548,7 +548,16 @@ void Rva005C7BE1::rva005C7AE1(int count)
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 extern const char g_Rva0107301CEmptyString[];
-extern const char *g_00C74A98[];
+// Native table: eight DIR32 string pointers at VA 0x00C74A98..0x00C74AB8.
+// The next bytes begin the separate "_level%u" format literal. Keep the
+// established pointer ABI used by the rowed Apt call; the application name
+// of this table is unknown. Each entry below is read from its retail pointer.
+// Retail places the table in read-only storage; the call only reads its slot.
+#pragma section(".rdata", read)
+__declspec(allocate(".rdata")) const char *g_00C74A98[] = {
+    "_unused", "_disabled", "_extraDisabled", "_cantAfford",
+    "_static", "_notReady", "_up", "_visuallyEnabled"
+};
 int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char **a0);
 struct Rva005C7B96Team
 {
