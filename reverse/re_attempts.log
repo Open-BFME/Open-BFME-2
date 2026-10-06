@@ -13606,3 +13606,14 @@ FUN_009a52fe	0x005A52FE	820	blocked	ADDRESS-NAMED g_Rva hatch t=1 model=muse-08
 ?rva005423BC@Rva005423BC@@QAEXXZ	0x005423BC	52	blocked	needs 0x54226A and 0x542314 both unready one blocked by muse-01 t=5 model=muse-04
 ?rva0014D247@Rva0014D247@@QAEXABVMatrix3D@@@Z	0x0014D247	71	blocked	Quaternion copy via ebp reloads not eax deref; pops delayed 6 insns; 72B vs 71B first-load encoding t=25 model=muse-spark (stash 0.95 kept)
 ??0AITNGuardMachine@@QAE@PAVObject@@@Z	0x00546001	417	blocked	417B EH 6-state port needs full middle order-IDs; 1 probe 58B base-only far; 2 callees landed now ready t=30 model=muse-spark
+?rva0028125C@Rva0028125C@@QAEXH@Z	0x0028125C	99	blocked	ADDRESS-NAMED g_Va009FF0F8 new use refused plus unclaimed callee 0x00280C21 t=1 model=muse-09
+?updateState@Team@@QAEXXZ	0x0039F0E3	1163	blocked	unresolved callees 0x0020C140 0x00337DEF plus ADDRESS-NAMED g_Va009FE16C hatch t=2 model=muse-09
+FUN_00681eca	0x00281ECA	181	blocked	unresolved callees 0x0027FBFE 0x002E9442 plus ADDRESS-NAMED g_Va009FF0F8 hatch t=1 model=muse-09
+?rva0013F8D0@Rva0013F8D0@@QBE_NABV1@@Z	0x0013F8D0	626	partial	push ebx ebp early vs late plus ebx ebp mirror for lightCount outer target pointer and late or ecx -1 shape t=25 model=muse-09 score=0.94 stash=reverse/attempts/0x0013f8d0.cpp
+?Add_Line@Render2DClass@@QAEXABVVector2@@0MK@Z	0x00042A4D	563	blocked	ADDRESS-NAMED g_Va globals would need escape hatch t=5 model=muse-09
+?Add_Quad@Render2DClass@@QAEXABVRectClass@@0KKKK@Z	0x00042719	430	blocked	ADDRESS-NAMED g_Va globals plus unclaimed callee 0x0011BD80 t=3 model=muse-09
+?update@GarrisonContain@@UAE?AW4UpdateSleepTime@@XZ	0x00479643	217	blocked	ADDRESS-NAMED g_Va plus 6 unclaimed callees t=3 model=muse-09
+??0Rva00463D59@@QAE@XZ	0x00463D59	25	blocked	placement-new gives frame plus nullcheck 26B vs base-init frameless 15B t=30 model=muse-09
+??0OpenContainModuleData@@QAE@XZ	0x00465124	253	blocked	callee 0x00463D59 just blocked no row gate unresolvable t=5 model=muse-09
+?rva005478B5@Rva005478B5@@QAEHXZ	0x005478B5	143	blocked	callee 0x005476C8 already blocked complex 317B gate unresolvable t=5 model=muse-09
+?rva00465011@OpenContain@@QAEXH@Z	0x00465011	103	blocked	align exact 103B but gate picks dup 0x00445E8B over 0x0036ADF9 ICF twin t=30 model=muse-09
