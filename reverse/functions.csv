@@ -64321,3 +64321,7 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva000B3EB3@ModelConditionFlags@@QBE_NXZ,,0x000B3EB3,17,Code/GameEngine/Source/Common/ModelConditionFlagsRva000B3EB3.cpp,matched,19-word any predicate callers 0x002791E7 LINK BONUS 301B
 ?rva00567A27@Rva00567960@@QAEXXZ,,0x00567A27,66,Code/GameEngine/Source/Common/Rva00567A27Vslot.cpp,matched,vslot2 of 0x0086CEF0 via BfmeMsgDN inline ctor plus bfmeShowDN through g_bfmeWorldRV
 ??0Rva0056AF4B@@QAE@PAXHH@Z,,0x0056AF4B,45,Code/GameEngine/Source/Common/Rva0056AF4BCtor.cpp,matched,ctor via pinned 0x0056AD80 plus vtbls at 0 and 8 plus members 0x14 0x18
+??1Rva0056D76B@@QAE@XZ,,0x0056D76B,57,Code/GameEngine/Source/Common/Rva0056D76BDtor.cpp,matched,ref +8 via 0x0007DEEF then AsciiString +0
+??1Rva005961D6@@UAE@XZ,,0x00596225,68,Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp,matched,free +0x98 buffer then base 0x0025BFE3; /EHs
+??1Rva005D2015@@UAE@XZ,,0x005D2015,58,Code/GameEngine/Source/Common/Rva005D2015Dtor.cpp,matched,unregister via 0x002B7250 then base vtable C6E350
+??1Rva00938C4@@UAE@XZ,,0x000938C4,75,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00938C4Dtor.cpp,matched,W3DSnowManager dtor shape: ReleaseResources then texture ref then SnowManager dtor
