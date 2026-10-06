@@ -473,9 +473,9 @@ int Rva00813A50( struct Rva00813E50Comm *comm, const char *text,
 	char *name;
 	int iDevice;
 	int iResult;
-	int apiVersion;
-	struct Rva008136C0ExtensionId extensionId;
-	char capabilities[ 0x400 ];
+	int version;
+	struct Rva008136C0ExtensionId extend;
+	char caps[ 0x400 ];
 	char *initialOutput;
 
 	initialOutput = output;
@@ -494,18 +494,18 @@ int Rva00813A50( struct Rva00813E50Comm *comm, const char *text,
 		iDevice++ )
 	{
 		iResult = Rva0081BDBA( *(int *)( (char *)comm + 0x84 ), iDevice,
-			0x10004, 0x20002, &apiVersion, &extensionId );
+			0x10004, 0x20002, &version, &extend );
 		if ( iResult != 0 )
 			continue;
 
-		memset( capabilities, 0, 0x400 );
-		*(int *)capabilities = 0x400;
+		memset( caps, 0, 0x400 );
+		*(int *)caps = 0x400;
 		iResult = Rva0081BDD2( *(int *)( (char *)comm + 0x84 ), iDevice,
-			apiVersion, 0, capabilities );
-		if ( *(int *)( capabilities + 0x7C ) == 0 )
+			version, 0, caps );
+		if ( *(int *)( caps + 0x7C ) == 0 )
 			continue;
 
-		name = capabilities + *(int *)( capabilities + 0x24 );
+		name = caps + *(int *)( caps + 0x24 );
 		if ( strcmp( text, "localhost" ) == 0 )
 		{
 			if ( (unsigned int)( strlen( name ) + 2 )
