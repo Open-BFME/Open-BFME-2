@@ -64522,3 +64522,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0025DF01@Rva0025E4CD@@QAEXXZ,,0x0025DF01,160,Code/GameEngine/Source/Common/Rva0025E4CDDtor.cpp,matched,vslot1 Rva0025E4CD donor union plus imports
 ?rva002C108F@Rva0008FF12Host@@QAEXXZ,,0x002C108F,185,Code/GameEngine/Source/Common/Rva0008FF12HostRva002C108F.cpp,matched,vslot41 pin host caller drawWindow TheAudio
 ??$_Construct@VRva00285BEC@@V1@@_STL@@YAXPAVRva00285BEC@@ABV1@@Z,,0x0028625D,45,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva00285bec.cpp,matched,EH placement copy via rowed copy ctor 0x00285C30 same shape as 0x00481514 caller 0x00286693
+?rva005CFFE8@Rva005CFFE8@@QAEXXZ,,0x005CFFE8,76,Code/GameEngine/Source/Common/Rva005CFFE8.cpp,matched,chain from 0x005EC4AF sibling of 0x005D1129
