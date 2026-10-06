@@ -13684,3 +13684,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva00417DFBAppend@Rva00417DFB@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ?rva0021B7B6Append@Rva0021B7B6@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ?rva00288CA6@Rva00288CFA@@QAEHPAXHH@Z,0x00288CA6,Rva00288CFA int lookup taking an outer pointer plus int plus 0; called from range-17 0x39ADB9 min body; Ghidra FUN_00688ca6 84B; identity unproven
+?rva00051038@Rva0005F279Elem@@QAE_NXZ,0x00051038,dump range 1 tail target of 0x5106A
