@@ -260,4 +260,6 @@ if [ "${#verify_set[@]}" -ne 0 ]; then
         || fail "byte-verify of changed sources (see above)"
 fi
 
+python3 tools/data_check.py --staged || fail "data identity: staged data_check_baseline.txt grew (see above)"
+
 echo "PRE-COMMIT OK (ledger integrity + ${#verify_set[@]} source(s) byte-verified)"
