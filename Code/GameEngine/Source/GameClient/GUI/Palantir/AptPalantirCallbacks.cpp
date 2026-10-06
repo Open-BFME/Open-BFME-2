@@ -43,6 +43,18 @@ private:
 	void *m_0;
 };
 
+// Rva00527FA2's constructor allocates 0x18 bytes and calls this constructor
+// with its level and name arguments. The allocation extent is target evidence;
+// the payload's field layout and semantics remain unknown.
+class Rva00527FA7
+{
+public:
+	Rva00527FA7(int level, const AsciiString &name);
+
+private:
+	unsigned char m_pad00[0x18];
+};
+
 // The holders' rowed resets (OwnedPointerResets.cpp's views; the same
 // holders' clears are rowed under other names below).
 class Rva002D38AE
@@ -481,6 +493,15 @@ void AptPalantir::OnHelpBoxLoaded(const char *path)
 void AptPalantir::OnHeroSelectLoaded(const char *path)
 {
 	((Rva002D38AE *)&m_heroSelect)->reset(new Rva0052710C(Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path)), &m_c0, &m_f8));
+}
+
+// Retail 0x005281F0, 66 bytes: the call site at 0x002D408D constructs the
+// four-byte owner block here; this constructor allocates the 0x18-byte
+// address-derived payload and forwards level/name to its constructor at
+// 0x00527FA7. Payload layout and semantics are not established.
+Rva00527FA2::Rva00527FA2(int level, const AsciiString &name)
+	: m_0(new Rva00527FA7(level, name))
+{
 }
 
 // Retail 0x002D4038, 146 bytes: "AptPalantir::OnPlanningModeUILoaded".
