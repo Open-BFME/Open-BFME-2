@@ -17,6 +17,9 @@
 extern "C" const void *const vtbl_00BEFF90[];  // folded, 80 classes; via ??_7AIGateUpdate@@6BBehaviorModuleOther@@@
 #pragma comment(linker, "/alternatename:_vtbl_00BEFF90=??_7AIGateUpdate@@6BBehaviorModuleOther@@@")
 
+extern const void *const g_00C556B0[];
+extern const void *const g_00C556A4[];
+
 class Thing;
 class ModuleData;
 class Object;
@@ -75,9 +78,9 @@ RespawnUpdate::RespawnUpdate(Thing *thing, const ModuleData *moduleData)
 	m_38 = minusOne;
 	m_3C = minusOne;
 	m_28 = minusOne;
-	m_vtable = (const void *)0x00C556B0;
+	m_vtable = (const void *)g_00C556B0;
 	m_secondary0C = (const void *)((unsigned int)vtbl_00BEFF90);
-	m_secondary10 = (const void *)0x00C556A4;
+	m_secondary10 = (const void *)g_00C556A4;
 	m_2C = zero;
 	m_30 = zero;
 	m_40 = zero;
