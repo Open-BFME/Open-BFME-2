@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes) whose shape needs /O1 /G7 (imul-scaled indexing), batch
@@ -51,18 +51,36 @@ struct Rva003F468DRecord
 struct Rva003F468DEntry
 {
 	Int m_00;
-	Rva003F468DRecord *m_04;
-	char m_pad08[0x14];
+	struct Span
+	{
+		Rva003F468DRecord *m_begin;
+		Rva003F468DRecord *m_end;
+		Int size() const
+		{
+			return ((char *)m_end - (char *)m_begin) / 0x30;
+		}
+	} m_04;
+	char m_pad0c[0x10];
 };
 class Rva003F468D
 {
 public:
 	Int rva003F468D(Int a, Int b);
+	Int rva003F4DAE(Int a);
 private:
 	char m_pad00[0x18];
 	Rva003F468DEntry *m_18;
 };
 Int Rva003F468D::rva003F468D(Int a, Int b)
 {
-	return m_18[a].m_04[b].m_00;
+	return m_18[a].m_04.m_begin[b].m_00;
+}
+
+// ?rva003F4DAE@Rva003F468D@@QAEHH@Z, retail 0x003F4DAE, 28 bytes.
+// Counts the 0x30-byte participant records in side a's [begin, end) range.
+// The packet and GetLivingWorldTacticalVictor call site establish the 0x1C-byte
+// side table at +0x18; the neighboring entry accessor confirms the +4 begin.
+Int Rva003F468D::rva003F4DAE(Int a)
+{
+	return m_18[a].m_04.size();
 }
