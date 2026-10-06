@@ -3,6 +3,15 @@
 // ?setControlBarSchemeByPlayerTemplate@ControlBarSchemeManager@@QAEXPBVPlayerTemplate@@_N@Z @0x0031FD0D 316B unlock: ControlBarSchemeManager side selection by PlayerTemplate side
 // Evidence: donor BFME1/ZH ControlBarSchemeManager::setControlBarSchemeByPlayerTemplate (Small/Observer/Default literals, compare vs compareNoCase, Display width/height over res, findControlBarScheme Default fallback, init tail); callers at 0x31ADF9 0x31C5E7; unblocks 0x31C5C8; layout m_currentScheme+0 m_multiplyer+4 list+0xC from ControlBarScheme init TU; callees rowed StringBase copy/concat/compare/compareNoCase/set/releaseBuffer init find.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include "ascii_string.h"
 
 struct ICoord2D

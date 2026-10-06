@@ -4,6 +4,15 @@
 // ?rva004DF3F8@Rva004DF3F8@@QAEXPAX@Z @0x004DF3F8 32B: list BfmePod12 remove by int at +0x74 via rowed remove; caller jmp at 0x0028BC21 unblocks 0x0028BC17; this list at +0x24
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 struct BfmePod12
 {
 	int a[3];

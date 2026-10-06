@@ -8,6 +8,15 @@
 // lists through the rowed list<int>::operator= 0x002C54EE. Caller: the rowed
 // Rva00573B23 copy 0x00573AC8. Identity is address-derived.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include "ascii_string.h"
 
 class Rva0055B0CC

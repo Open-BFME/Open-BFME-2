@@ -18,6 +18,15 @@
 
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 // The target REL32 at 0x00464EFE selects the list<int> copy-constructor
 // twin at 0x0036ADF9. Its existing gen-alias record ties it to the typed
 // list copy body; this local wrapper stores exactly that list at offset zero.

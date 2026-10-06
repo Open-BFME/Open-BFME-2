@@ -7,6 +7,15 @@
 // element view with inline dtor from StlportOwnedDeque.cpp using Release_Ref 0x00050ED3; callers include pop_front 0x00054ACD and pop_back 0x00054AE3.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile *);
 
 class OpaqueRefCounted

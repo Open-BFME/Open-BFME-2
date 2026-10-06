@@ -3,6 +3,15 @@
 // ?clear@?$_List_base@UTreeHintOpaque0043671B@@V?$allocator@UTreeHintOpaque0043671B@@@_STL@@@_STL@@QAEXXZ @0x00434EC9 49B: list clear of TreeHintOpaque0043671B via rowed dtor 0x00229840 and _free; empty-check plus sentinel reset match list<int> precedent.
 // Layout from copy 0x0022D106 (UnicodeString +0, 0xDE8 subobject +4, words DEC/DF0); value at node+8 proves list node.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include "unicode_string.h"
 struct BfmeSubobject0022CE19 {
     virtual ~BfmeSubobject0022CE19();
