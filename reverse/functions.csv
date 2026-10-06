@@ -64342,3 +64342,8 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?method_005C901B@Rva005C847BRecord@@QAEXXZ,,0x005C901B,15,Code/GameEngine/Source/Common/HostClass005C815B.cpp,matched,chain wrapper calls rowed 0x005C8F17 then and word at 0x44
 ?rva0027D276@Rva0027D244@@QAEXPAV1@0@Z,,0x0027D276,151,Code/GameEngine/Source/Common/Rva0027D244Init.cpp,matched,chain sibling Rva0027D1EF plus Pathfinder rows
 ?rva004F941E@Rva004F941E@@QAEXABURva004F9018Element@@@Z,,0x004F941E,33,Code/Libraries/Source/WWVegas/WWLib/StlportVectorAppendTriple004F941E.cpp,matched,append triple via rowed push_back 0x4F9018 and pin 0x4F7767
+?d_00154630@@YAXXZ,,0x00154630,488,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_00554630
+?d_0007ffed@@YAXXZ,,0x0007FFED,233,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_0047ffed
+?d_001ea2cf@@YAXXZ,,0x001EA2CF,223,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_005ea2cf
+?d_004c40ba@@YAXXZ,,0x004C40BA,413,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_008c40ba
+?d_0014fac2@@YAXXZ,,0x0014FAC2,390,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_0054fac2
