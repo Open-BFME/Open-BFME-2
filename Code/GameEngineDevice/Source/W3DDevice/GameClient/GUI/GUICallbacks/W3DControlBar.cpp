@@ -65,6 +65,10 @@
 //
 // W3DCommandBarHelpPopupDraw @0x0009F796 (719B): ZH body unchanged; the
 // Helpbox images share guard 0x00DE60E0.
+//
+// drawSkinnyBorder @0x0009F0C8 (1742B): ZH body unchanged (Frame*
+// edge and corner images), drawing through the Real-coordinate drawImage
+// wrapper 0x0004D6B3 on TheDisplay.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -1051,5 +1055,149 @@ void W3DCommandBarHelpPopupDraw( GameWindow *window, WinInstanceData *instData )
 		TheWindowManager->winDrawImage(endBar, start.x, start.y, end.x, end.y);
 	}
 	
+
+}
+
+void drawSkinnyBorder( Int x, Int y, Int width, Int height)
+{
+
+	enum
+	{
+		BORDER_CORNER_SIZE	= 5,
+		BORDER_LINE_SIZE		= 5,
+	};
+	Int Offset = 2;
+	Int OffsetLower = 5;
+
+	// save original x, y
+	Int originalX = x;
+	Int originalY = y;
+	Int maxX = x + width;
+	Int maxY = y + height;
+	Int x2, y2;			// used for simultaneous drawing of line pairs
+	Int size = 5;
+	Int halfSize = size / 2;
+	Image *image1, *image2;
+	// Draw Horizontal Lines
+	// All border pieces are based on a 10 pixel offset from the centerline
+	y = originalY - Offset;
+	y2 = maxY - OffsetLower;
+	x2 = maxX - (OffsetLower + BORDER_LINE_SIZE);
+	image1 = (Image *)TheMappedImageCollection->findImageByName("FrameT");
+	image2 = (Image *)TheMappedImageCollection->findImageByName("FrameB");
+	for( x=(originalX + 3); x <= x2; x += BORDER_LINE_SIZE )
+	{
+
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image1,
+													 x, y, x + size, y + size );
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image2,
+													 x, y2, x + size, y2 + size );
+
+	}
+
+	x2 = maxX - 5;//BORDER_CORNER_SIZE;
+
+	// x == place to draw remainder if any
+	if( (x2 - x) >= (BORDER_LINE_SIZE / 2) )
+	{
+		
+		//Blit Half piece
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image1,
+													 x, y, x + halfSize, y + size );
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image2,
+													 x, y2, x + halfSize, y2 + size );
+
+		x += (BORDER_LINE_SIZE / 2);
+
+	}
+
+	// x2 - x ... must now be less than a half piece
+	// check for equals and if not blit an adjusted half piece border pieces have
+	// a two pixel repeat so we will blit one pixel over if necessary to line up
+	// the art, but we'll cover-up the overlap with the corners
+	if( x < x2 )
+	{
+		x -= ((BORDER_LINE_SIZE / 2) - (((x2 - x) + 1) & ~1));
+
+		//Blit Half piece
+		((W3DDisplay *)TheDisplay)->rva0004D6B3(image1,
+													 x, y, x + halfSize, y + size );
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image2,
+													 x, y2, x + halfSize, y2 + size );
+
+	}
+
+	// Draw Vertical Lines
+	// All border pieces are based on a 10 pixel offset from the centerline
+	image1 = (Image *)TheMappedImageCollection->findImageByName("FrameL");
+	image2 = (Image *)TheMappedImageCollection->findImageByName("FrameR");
+
+	x = originalX - Offset;
+	x2 = maxX - OffsetLower;
+	y2 = maxY - (OffsetLower + BORDER_LINE_SIZE);
+
+	for( y=(originalY + 3); y <= y2; y += BORDER_LINE_SIZE )
+	{
+
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image1,
+													 x, y, x + size, y + size );
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image2,
+													 x2, y, x2 + size, y + size );
+
+	}
+
+	y2 = maxY - OffsetLower;//BORDER_CORNER_SIZE;
+
+	// y == place to draw remainder if any
+	if( (y2 - y) >= (BORDER_LINE_SIZE / 2) )
+	{
+
+		//Blit Half piece
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image1,
+													 x, y, x + size, y + halfSize );
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image2,
+													 x2, y, x2 + size, y + halfSize );
+
+		y += (BORDER_LINE_SIZE / 2);
+	}
+
+	// y2 - y ... must now be less than a half piece
+	// check for equals and if not blit an adjusted half piece border pieces have
+	// a two pixel repeat so we will blit one pixel over if necessary to line up
+	// the art, but we'll cover-up the overlap with the corners
+	if( y < y2 )
+	{
+		y -= ((BORDER_LINE_SIZE / 2) - (((y2 - y) + 1) & ~1));
+
+		//Blit Half piece
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image1,
+													 x, y, x + size, y + halfSize );
+		((W3DDisplay *)TheDisplay)->rva0004D6B3( image2,
+													 x2, y, x2 + size, y + halfSize );
+
+	}
+
+	// Draw Corners
+	x = originalX - 2;//BORDER_CORNER_SIZE ;
+	y = originalY - 2;//BORDER_CORNER_SIZE;
+	image1 = (Image *)TheMappedImageCollection->findImageByName("FrameCornerUL");
+	((W3DDisplay *)TheDisplay)->rva0004D6B3( image1,
+												 x, y, x + size, y + size );
+	x = maxX - 5;//BORDER_CORNER_SIZE;
+	y = originalY - 2;//BORDER_CORNER_SIZE;
+	image1 = (Image *)TheMappedImageCollection->findImageByName("FrameCornerUR");
+	((W3DDisplay *)TheDisplay)->rva0004D6B3(image1,
+												 x, y, x + size, y + size );
+	x = originalX - 2;//BORDER_CORNER_SIZE;
+	y = maxY - 5;//BORDER_CORNER_SIZE;
+	image1 = (Image *)TheMappedImageCollection->findImageByName("FrameCornerLL");
+	((W3DDisplay *)TheDisplay)->rva0004D6B3( image1,
+												 x, y, x + size, y + size );
+	x = maxX - 5;//BORDER_CORNER_SIZE;
+	y = maxY - 5;//BORDER_CORNER_SIZE;
+	image1 = (Image *)TheMappedImageCollection->findImageByName("FrameCornerLR");
+	((W3DDisplay *)TheDisplay)->rva0004D6B3(image1,
+												 x, y, x + size, y + size );
+
 
 }
