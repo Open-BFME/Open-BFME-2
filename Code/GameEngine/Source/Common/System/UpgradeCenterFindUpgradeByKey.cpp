@@ -46,6 +46,7 @@ class UpgradeCenter
 public:
 	const UpgradeTemplate *findUpgradeByKey(NameKeyType key) const;
 	const UpgradeTemplate *rva0026EEA0(int key) const;
+	void linkUpgrade(UpgradeTemplate *upgrade);
 
 protected:
 	void unlinkUpgrade(UpgradeTemplate *upgrade);
@@ -102,4 +103,18 @@ void UpgradeCenter::unlinkUpgrade(UpgradeTemplate *upgrade)
 		upgrade->friend_getPrev()->friend_setNext(upgrade->friend_getNext());
 	else
 		m_upgradeList = upgrade->friend_getNext();
+}
+
+// ?linkUpgrade@UpgradeCenter@@QAEXPAVUpgradeTemplate@@@Z @0x0026EED0 34B.
+// ZH donor Upgrade.cpp with BFME2 list head and links measured above.
+void UpgradeCenter::linkUpgrade(UpgradeTemplate *upgrade)
+{
+	if (upgrade == 0)
+		return;
+
+	upgrade->friend_setPrev(0);
+	upgrade->friend_setNext(m_upgradeList);
+	if (m_upgradeList)
+		m_upgradeList->friend_setPrev(upgrade);
+	m_upgradeList = upgrade;
 }
