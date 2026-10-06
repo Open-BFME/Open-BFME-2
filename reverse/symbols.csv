@@ -16358,3 +16358,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva005FA3B1Inner@@QAE@PAX000@Z,0x005FA3B1,Address-derived inner constructor; target boundary and four pointer-sized stack arguments are supported by the 77B outer constructor callsites; inner identity and layout remain unresolved.
 ?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
 ?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
+?onContaining@HordeContain@@UAEXPAVObject@@_N@Z,0x0046FA46,callee of ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z
