@@ -634,6 +634,7 @@ Code/Libraries/Source/WWVegas/WWLib/STLMallocAlloc0Deallocate.cpp,-Od,1,1,region
 Code/Libraries/Source/WWVegas/WWLib/STLMallocAlloc0OutOfMemory.cpp,-Od,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/STLSlGlobalBoolReverse.cpp,-Od,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/STLSlGlobalBoolSpliceAfter3.cpp,-Od,1,1,region default loses rows
+Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/StlportDequeIntAux.cpp,,2,2,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/StlportNarrowAppendCStr.cpp,-Od,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/StlportNarrowAppendString.cpp,-Od,1,1,region default loses rows

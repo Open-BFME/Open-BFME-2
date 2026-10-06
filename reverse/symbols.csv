@@ -15054,3 +15054,17 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??$uninitialized_fill_n@PAURva001EBEABElement@@IU1@@_STL@@YAPAURva001EBEABElement@@PAU1@IABU1@@Z,0x001EBAB4,
 ??1Rva001EBEABElement@@QAE@XZ,0x0037DEE4,
 ?_M_insert_overflow@?$vector@URva001EBEABElement@@V?$allocator@URva001EBEABElement@@@_STL@@@_STL@@IAEXPAURva001EBEABElement@@ABU3@ABU__false_type@2@I_N@Z,0x001EBD3B,
+??1Rva005ADA40@@QAE@XZ,0x005ADA40,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+??0?$_Vector_base@PAVRva005ADA40@@V?$allocator@PAVRva005ADA40@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVRva005ADA40@@@1@@Z,0x00211E58,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+?rva00506B74@Rva00506B74@@QAE_NPAUCoord3D@@@Z,0x00506B74,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+??0Rva005ADA40@@QAE@IPAX@Z,0x005AD9FF,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+?rva005AE0AD@Rva005ADA40@@QAEXPAVXfer@@@Z,0x005AE0AD,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+?rva005AE26A@Rva005ADA40@@QAEXPAUCoord3D@@MH@Z,0x005AE26A,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+??0?$_Vector_base@PAURva00506909Item@@V?$allocator@PAURva00506909Item@@@_STL@@@_STL@@QAE@ABV?$allocator@PAURva00506909Item@@@1@@Z,0x00211E58,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+?rva004EDF03@Rva00506909Item@@QAEXXZ,0x004EDF03,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+?rva0058AFB3@Rva0058AFB3@@QAE_NPAX@Z,0x0058AFB3,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+?rva004ED81D@Rva00506909Item@@QAEXPAURva00506909Request@@PAX@Z,0x004ED81D,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+?rva004ED955@Rva00506909Item@@QAEXPAX@Z,0x004ED955,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+?rva0039D7CF@Rva005059A1Unit@@QAEPAURva005059A1Owner@@XZ,0x0039D7CF,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+?rva004ED6D2@Rva00506909Item@@QAEXPAURva005059A1Unit@@@Z,0x004ED6D2,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
+?rva004EDD4D@Rva00506909Item@@QAEXPAURva005059A1Unit@@@Z,0x004EDD4D,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
