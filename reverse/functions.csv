@@ -65185,32 +65185,3 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?getPlayerMask@Rva00260EB1Filter@@UAEHXZ,,0x00260E6A,71,Code/GameEngine/Source/GameLogic/Object/PartitionFilterAllowSlots.cpp,matched,slot 2 of partition filter vftable 0x00BFBC90: -1 without the +0x08 object's controlling player 0x0028AFA9; else PlayerList::getPlayersWithRelationship 0x002A7C70 of its +0x54 index with the flags' relationship mask (allies 3 enemies 4 neutral 8) and +0x10; /O1 /G7
 ?allow@Rva00260F1BFilter@@UAE_NPAVObject@@@Z,,0x00260F1B,32,Code/GameEngine/Source/GameLogic/Object/PartitionFilterAllowSlots.cpp,matched,slot 1 of partition filter vftable 0x00C6E1B0 (AITargetHeuristicBaseDefense 0x005737D6): +0x0C flags tested against 1 << Player::getRelationship 0x002AD11E of the +0x08 player to the candidate; /O1 /G7
 ?getPlayerMask@Rva00260F1BFilter@@UAEHXZ,,0x00260EE0,59,Code/GameEngine/Source/GameLogic/Object/PartitionFilterAllowSlots.cpp,matched,slot 2 of partition filter vftable 0x00C6E1B0: -1 without the +0x08 player; else PlayerList::getPlayersWithRelationship 0x002A7C70 of its +0x54 index with the flags' relationship mask and false; /O1 /G7
-?rva000677CA@Rva000677CAHost@@QAE_NHHM@Z,,0x000677CA,54,Code/GameEngine/Source/Common/Rva000677CABodies.cpp,matched,dump range 1 float-to-int wrapper via pinned 0x67494; late bool init plus inverted return
-?rva0005F279@Rva0005F279Host@@QAEXXZ,,0x0005F279,66,Code/GameEngine/Source/Common/Rva0005F279Bodies.cpp,matched,dump range 1 stride-0x48 loop via pinned element test and host process; recomputed element twice
-?rva0007E90E@Rva0007E90EHost@@QAEXH@Z,,0x0007E90E,68,Code/GameEngine/Source/Common/Rva0007E90EBodies.cpp,matched,dump range 1 marker loop via pinned 0xFF5E6 plus rowed release; flag 0xA0
-?rva0005106A@Rva0005F279Elem@@QAE_NXZ,,0x0005106A,19,Code/GameEngine/Source/Common/Rva0005106ABodies.cpp,matched,dump range 1 tiny bool leaf with tail jmp to 0x51038; inverted second test
-?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
-?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
-?rva0008F32C@@YAXXZ,,0x0008F32C,69,Code/GameEngine/Source/Common/Rva0008F32CFactory.cpp,matched,dump range 2 EH factory via new honest names
-?rva00086BC5@Rva00086BC5@@QAEXH@Z,,0x00086BC5,133,Code/GameEngine/Source/Common/Rva00086BC5Init.cpp,matched,dump range 2 EH reinit via new honest names
-?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
-?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
-?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
-?rva0014D522@@YAXPAX0@Z,,0x0014D522,66,Code/GameEngine/Source/Common/Rva0014D522Init.cpp,matched,
-?rva0014D564@@YAXPAX0@Z,,0x0014D564,49,Code/GameEngine/Source/Common/Rva0014D564Init.cpp,matched,
-?rva0014D722@Rva0014D722This@@QAEXPAVRva0014D722Outer@@PAX@Z,,0x0014D722,143,Code/GameEngine/Source/Common/Rva0014D722Init.cpp,matched,
-?rva0020E9F2@Rva0020E9F2Outer@@QAEXXZ,,0x0020E9F2,48,Code/Libraries/Source/WWVegas/WWLib/Rva0020E9A1Loops.cpp,matched,Outer vector clear via inner at plus8 calling rowed-pending 0x003F300A; bounds idiom gives retail add esi 0x2C
-?rva0020EA22@Rva0020EA22Outer@@QAEXH@Z,,0x0020EA22,54,Code/Libraries/Source/WWVegas/WWLib/Rva0020E9A1Loops.cpp,matched,Outer vector clear via inner at plus8 calling rowed-pending 0x003F3708 with outer arg; bounds idiom
-?rva001F4A90@Rva001F4A90Host@@QAEXPBDHH@Z,,0x001F4A90,113,Code/Libraries/Source/WWVegas/WWLib/Rva001F4A90Select.cpp,matched,Draw Physics Update dispatch via rowed 0x1530E9 plus import strcmp; lea selects embedded members; slot1 with ext-a2-a3
-?rva0020EEF4@Rva0020EEF4Outer@@QAEHH@Z,,0x0020EEF4,74,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEF4Search.cpp,matched,Predicate search via inner plus8 vector calling pinned 0x3F08D7; int preserves eax; reload count idiom
-?rva002B894D@Rva002B894DHost@@QAEXH@Z,,0x002B894D,55,Code/GameEngine/Source/Common/Rva002B894DTwins.cpp,matched,adjacent 55B twins backwards scan elem+0x34 vs arg then 0x2B7DE6; == variant
-?rva002B8984@Rva002B894DHost@@QAEXH@Z,,0x002B8984,55,Code/GameEngine/Source/Common/Rva002B894DTwins.cpp,matched,adjacent 55B twins backwards scan elem+0x34 vs arg then 0x2B7DE6; != variant
-?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
-?getAttackRange@BfmeRangedWeaponTemplate@@QBEMPBVObject@@ABVWeaponBonus@@PBUCoord3D@@@Z,,0x002C99C4,55,Code/GameEngine/Source/GameLogic/Object/Rva002C99C4AttackRange.cpp,matched,
-?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z,,0x002C777E,257,Code/GameEngine/Source/Common/Rva002C777EBuild.cpp,matched,
-?rva002DEE9A@Rva002DEE9AOwner@@QAEXXZ,,0x002DEE9A,41,Code/GameEngine/Source/Common/Rva002DEE9AClear.cpp,matched,
-?rva002DEE9A@Rva002DEE9AOwner@@QAEXXZ,,0x002DEE9A,41,Code/GameEngine/Source/Common/Rva002DEE9AClear.cpp,matched,
-?rva002E3A39@Rva002E3A39Owner@@QAEXPBX@Z,,0x002E3A39,46,Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp,matched,
-?rva002E713F@Rva002E713FOwner@@QAEXXZ,,0x002E713F,57,Code/GameEngine/Source/Common/Rva002E713FGuard.cpp,matched,
-?rva002E7023@@YAXXZ,,0x002E7023,68,Code/GameEngine/Source/Common/Rva002E7023Walk.cpp,matched,dump-range-12 global+call list walk via TheGameLogic getFirstObject and +0x8C chain with +0x258/+0x140 checks
-?rva005E3A76@Rva005E3A76@@QAEXXZ,,0x005E3A76,44,Code/GameEngine/Source/Common/Rva005E3A76Slot.cpp,matched,
