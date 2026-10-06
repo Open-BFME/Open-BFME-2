@@ -63605,9 +63605,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?onDie@UpgradeDie@@UAEXPBVDamageInfo@@@Z,,0x00486C00,118,Code/GameEngine/Source/GameLogic/Object/Die/UpgradeDieOnDie.cpp,matched,ZH-guided upgrade death cleanup; BFME2 player vs producer branches and layouts independently supported; terminal ret4 proves full118B extent; address-named Player callee ABI verified separately
 ?Rva005F88F4Get@@YAHH@Z,,0x005F88F4,44,Code/GameEngine/Source/Common/Rva005F88F4Get.cpp,matched,resumed banked partial: null-guarded lookup with null-tested tail to rowed 0x004E0625; /O1
 ?rva005F8920@Rva005F8920@@QAEXXZ,,0x005F8920,102,Code/GameEngine/Source/Common/Rva005F8920.cpp,matched,guarded message-build loop: 88F4 lookup plus slot-7 check plus isShift count plus MessageStream 0x6AC appends; pre-call counter decl places push ebx; if-guarded do-while; /O1
-?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
-?rva00035080@GeneralAllocator@Allocator@EA@@QAEPAXIH@Z,,0x00035080,120,Code/GameEngine/Source/Common/System/Rva00035080Finish.cpp,matched,Target-proven 120B counted lock wrapper at this+0x4E4; existing allocator class spelling remains uncertain; imports are nonthrowing and allocation call retains SEH; no new pins
-?onDie@UpgradeDie@@UAEXPBVDamageInfo@@@Z,,0x00486C00,118,Code/GameEngine/Source/GameLogic/Object/Die/UpgradeDieOnDie.cpp,matched,ZH-guided upgrade death cleanup; BFME2 player vs producer branches and layouts independently supported; terminal ret4 proves full118B extent; address-named Player callee ABI verified separately
 ??0Rva005E35B5@@QAE@ABV0@@Z,,0x005E35B5,20,Code/GameEngine/Source/Common/Rva005E35B5Memcpy.cpp,matched,copy ctor of 32-byte word-array holder with rep movsd
 ??0Rva005EEEFF@@QAE@ABV0@@Z,,0x005EEEFF,20,Code/GameEngine/Source/Common/Rva005E35B5Memcpy.cpp,matched,copy ctor of 20-byte word-array holder with rep movsd
 ??0Rva005F8F00@@QAE@ABV0@@Z,,0x005F8F00,20,Code/GameEngine/Source/Common/Rva005E35B5Memcpy.cpp,matched,copy ctor of 36-byte word-array holder with rep movsd
@@ -63617,13 +63614,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002F1C5F@Rva002F1C5F@@QAEPAV1@HH@Z,,0x002F1C5F,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x002F0C32
 ?rva002F1CB3@Rva002F1CB3@@QAEPAV1@HH@Z,,0x002F1CB3,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x002F0C55
 ?rva004152BC@Rva004152BC@@QAEPAV1@HH@Z,,0x004152BC,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x004151C4
-?rva001F8213@Rva001F8213@@QAEXHH@Z,,0x001F8213,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chain root calling virtual slot 3 then unrowed same-shape 0x001F6492
-?rva001F8960@Rva001F8960@@QAEXHH@Z,,0x001F8960,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001F8213 on member
-?rva001F8DE2@Rva001F8DE2@@QAEXHH@Z,,0x001F8DE2,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001F8960 on member
-?rva001F9424@Rva001F9424@@QAEXHH@Z,,0x001F9424,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001F8DE2 on member
-?rva001FA4C6@Rva001FA4C6@@QAEXHH@Z,,0x001FA4C6,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001F9424 on member
-?rva001FA7CE@Rva001FA7CE@@QAEXHH@Z,,0x001FA7CE,42,Code/GameEngine/Source/Common/Rva001F8213Chain.cpp,matched,chained conditional forward calling 0x001FA4C6 on member
-?rva0010BA61@Rva0010BA61@@QAEXXZ,,0x0010BA61,16,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-tail wrapper calling 0x00109D64 and rowed-pin tail 0x00108895
 ?rva004E54B8@Rva004E54B8@@QAEXXZ,,0x004E54B8,16,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-tail wrapper calling 0x004E5372 with tail 0x004E52DC
 ?rva005962E7@Rva005962E7@@QAEXXZ,,0x005962E7,16,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-tail wrapper calling rowed 0x0025C010 with tail 0x00596269
 ?rva005D1516@Rva005D1516@@QAEXXZ,,0x005D1516,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +8 member and tail 0x005D13C2
@@ -63634,8 +63624,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005E590F@Rva005E590F@@QAEXXZ,,0x005E590F,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +8 member and tail 0x005E589E
 ?rva005E6BA3@Rva005E6BA3@@QAEXXZ,,0x005E6BA3,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +0x20 member and tail 0x005E6A9D
 ?rva005E6BB4@Rva005E6BB4@@QAEXXZ,,0x005E6BB4,17,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,matched,helper-then-member-tail wrapper with +0x20 member and tail 0x005E6AD8
-??$__final_insertion_sort@PAUS4SortElem12@@US4Cmp002E1690@@@_STL@@YAXPAUS4SortElem12@@0US4Cmp002E1690@@@Z,,0x00332308,71,Code/Libraries/Source/WWVegas/WWLib/stlport_final_insertion_sorts_12_24.cpp,matched,_STL final_insertion_sort over 12B S4SortElem12 threshold split into pinned insertion 0x0033215E and unguarded 0x00331D67
-??$__final_insertion_sort@PAURva004F6352@@URva004F6352Cmp@@@_STL@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,,0x004F8C99,71,Code/Libraries/Source/WWVegas/WWLib/stlport_final_insertion_sorts_12_24.cpp,matched,_STL final_insertion_sort over 12B Rva004F6352 threshold split into pinned insertion 0x004F8651 and unguarded 0x004F786C
 ?Rva001DA980Parse@@YAXPAVINI@@@Z,,0x001DA980,74,Code/GameEngine/Source/Common/INI/Rva001DA980AudioParsers.cpp,matched,INI audio-block parse DefaultMusicTrack MusicTrack kind 0 via shared parser 0x001DA770
 ?Rva001DA9CAParse@@YAXPAVINI@@@Z,,0x001DA9CA,74,Code/GameEngine/Source/Common/INI/Rva001DA980AudioParsers.cpp,matched,INI audio-block parse DefaultSoundEffect AudioEvent kind 2 via shared parser 0x001DA770
 ?Rva001DAA14Parse@@YAXPAVINI@@@Z,,0x001DAA14,74,Code/GameEngine/Source/Common/INI/Rva001DA980AudioParsers.cpp,matched,INI audio-block parse DefaultDialog DialogEvent kind 1 via shared parser 0x001DA770
