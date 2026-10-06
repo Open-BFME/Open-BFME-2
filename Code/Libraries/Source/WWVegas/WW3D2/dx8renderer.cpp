@@ -2313,3 +2313,62 @@ static void Invalidate_FVF_Category_Container_List(FVFCategoryList& list)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??1Rva00145000@@UAE@XZ=??1DX8FVFCategoryContainer@@UAE@XZ")
+
+// ?Rva00143970Find@@YAPAVRva00143970Node@@PAV1@PAX@Z @0x00143970 155B
+// Free recursive search between Equal_Material and PolyRemover; slots 0xC/0x14/0x70/0x78
+// on a RefCount view with key at +0xC4; self-recursive, releases child ref.
+class Rva00143970Node : public RefCountClass
+{
+public:
+	virtual void d08();
+	virtual int Has_Something();
+	virtual void d10();
+	virtual Rva00143970Node *Get_Model();
+	virtual void d18();
+	virtual void d1C();
+	virtual void d20();
+	virtual void d24();
+	virtual void d28();
+	virtual void d2C();
+	virtual void d30();
+	virtual void d34();
+	virtual void d38();
+	virtual void d3C();
+	virtual void d40();
+	virtual void d44();
+	virtual void d48();
+	virtual void d4C();
+	virtual void d50();
+	virtual void d54();
+	virtual void d58();
+	virtual void d5C();
+	virtual void d60();
+	virtual void d64();
+	virtual void d68();
+	virtual void d6C();
+	virtual int Get_Count();
+	virtual void d74();
+	virtual Rva00143970Node *Get_At(int index);
+	char m_pad[0xC4 - 8];
+	void *m_key;
+};
+
+Rva00143970Node *__cdecl Rva00143970Find(Rva00143970Node *node, void *key)
+{
+	if (!node || !key)
+		return 0;
+	if (!node->Has_Something()) {
+		Rva00143970Node *m = node->Get_Model();
+		if (m->m_key == key)
+			return m;
+	}
+	for (int i = 0; i < node->Get_Count(); i++) {
+		Rva00143970Node *child = node->Get_At(i);
+		Rva00143970Node *res = Rva00143970Find(child, key);
+		if (child)
+			child->Release_Ref();
+		if (res)
+			return res;
+	}
+	return 0;
+}
