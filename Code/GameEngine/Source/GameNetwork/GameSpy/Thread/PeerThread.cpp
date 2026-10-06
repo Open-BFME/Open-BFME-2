@@ -2451,6 +2451,28 @@ void Rva0038B8B7Enum(PEER peer, PEERBool success, RoomType roomType, int index, 
 		TheGameSpyInfo->getStagingRoomList();
 }
 
+// ?Rva0038B91FList@@YAXPAXHHPAU_SBServer@@PBDHHHH0@Z @0x0038B91F 217B evidence: REF callback for peerListGroupRooms 0x0038BBAE; 10-param group-room enum; SBServerGetIntValue roomType 0x69BA20; string assign 0x1B790; PeerMessageQueue slot 0x20; flag 0x4A8 on groupID 0
+extern "C" int SBServerGetIntValueA(SBServer server, const char *key, int idefault);
+void Rva0038B91FList(PEER peer, PEERBool success, int groupID, SBServer server, const char *name, int numWaiting, int maxWaiting, int numGames, int numPlaying, void *param)
+{
+	if (!param || !success)
+		return;
+	PeerResponse resp;
+	resp.peerResponseType = PeerResponse::PEERRESPONSE_GROUPROOM;
+	resp.groupRoom.id = groupID;
+	resp.groupRoom.numWaiting = numWaiting;
+	resp.groupRoom.maxWaiting = maxWaiting;
+	resp.groupRoom.numGames = numGames;
+	resp.groupRoom.numPlaying = numPlaying;
+	if (server)
+		resp.unknown_payload[5] = SBServerGetIntValueA(server, "roomType", 1);
+	if (name)
+		resp.groupRoomName = name;
+	TheGameSpyPeerMessageQueue->addResponse(resp);
+	if (groupID == 0)
+		((unsigned char *)param)[0x4A8] = 1;
+}
+
 static void joinRoomCallback(PEER peer, PEERBool success, PEERJoinResult result, RoomType roomType, void *param)
 {
 	DEBUG_LOG(("JoinRoomCallback: success==%d, result==%d\n", success, result));
