@@ -1,15 +1,14 @@
 // ??1Rva003F2D03@@QAE@XZ
-// partial score=0.98 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHs /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ??1Rva003F2D03@@QAE@XZ @0x003F2D03 545B
-// Large cleanup dtor: two manual DeleteRange clears (basic_string vector at
-// +0xfc/0x100, Rva003F0C6C vector at +0x8/0xc, both flag false) then reverse
-// member teardown: AsciiString releases, null-checked frees, vector dtors,
-// Release_Ref pair, Snapshot vtable restore at +0x78. Evidence: chain lane
-// via 0x003F1E87, prev Rva003F2CD6 / next LivingWorldRegionConnectionXfer,
-// callee rows 0x3F2BEB 0x3F1E87 0x36410 0x30830 0x3F1797 0x50ED3 0x2CC70,
-// vtable g_00BBB554, EH prolog scope 0xb83cbc with states 0x1d..0.
+// Target bytes show two DeleteRange calls over members at +0xfc/+0x100 and
+// +0x08/+0x0c, then reverse member teardown, two Release_Ref calls and a
+// Snapshot vtable restore at +0x78. Callees: 0x003F2BEB 0x003F1E87
+// 0x00036410 0x00030830 0x003F1797 0x00050ED3 0x0002CC70; EH states 0x1d..0.
+// Structural inference: this is an address-named cleanup object in the
+// Common/System chain. Adjacent LivingWorldRegionConnection functions do not
+// establish this object's real class name. No named donor source was used.
 #include <vector>
 #include <string>
 #include "ascii_string.h"
@@ -21,13 +20,11 @@ extern const void *const g_00BBB554[];
 class Snapshot78
 {
 public:
-	virtual ~Snapshot78();
+	virtual ~Snapshot78()
+	{
+		*(const void **)this = g_00BBB554;
+	}
 };
-
-inline Snapshot78::~Snapshot78()
-{
-	*(const void **)this = g_00BBB554;
-}
 
 class OpaqueRefCounted
 {
@@ -137,20 +134,21 @@ private:
 	AsciiString m114; // +0x114
 };
 
-// ??1Rva003F2D03@@QAE@XZ present-unmatched
 Rva003F2D03::~Rva003F2D03()
 {
 	{
 		void *first = mfc.start;
 		Rva003F1E87Holder h1 = Rva003F1E87Holder();
+		void *last = mfc.finish;
 		Rva003F2BEBDeleteRange(
 			(_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > **)first,
-			(_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > **)mfc.finish,
+			(_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > **)last,
 			h1.flag);
 	}
 	{
 		void *first = m08.start;
 		Rva003F1E87Holder h2 = Rva003F1E87Holder();
-		Rva003F1E87DeleteRange((Rva003F0C6C **)first, (Rva003F0C6C **)m08.finish, h2);
+		void *last = m08.finish;
+		Rva003F1E87DeleteRange((Rva003F0C6C **)first, (Rva003F0C6C **)last, h2);
 	}
 }
