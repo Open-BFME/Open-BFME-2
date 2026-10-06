@@ -64520,3 +64520,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005E917A@Rva005E917A@@QAEXXZ,,0x005E917A,47,Code/GameEngine/Source/Common/Rva005E9137Check.cpp,matched,chain on 0x005E9137 via MessageStreamSubsystem slot 0x48
 ?v1@Rva0036783F@@UAEHXZ,,0x0036960E,63,Code/GameEngine/Source/Common/Rva0036783FDtor.cpp,matched,vslot4 v1 two dispatches plus 143 plus tail pin
 ?rva0025DF01@Rva0025E4CD@@QAEXXZ,,0x0025DF01,160,Code/GameEngine/Source/Common/Rva0025E4CDDtor.cpp,matched,vslot1 Rva0025E4CD donor union plus imports
+?rva002C108F@Rva0008FF12Host@@QAEXXZ,,0x002C108F,185,Code/GameEngine/Source/Common/Rva0008FF12HostRva002C108F.cpp,matched,vslot41 pin host caller drawWindow TheAudio
