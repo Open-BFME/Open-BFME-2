@@ -1,7 +1,8 @@
-// Four retail virtual-forward thunks (8B each). Retail shape per member:
+// Five retail virtual-forward thunks (8B each). Retail shape per member:
 // mov ecx, [ecx+adj], mov eax, [ecx], jmp [eax+slot]. Each forwards through
 // a pointer owned at a fixed displacement from this to one virtual slot:
 // 0x005E681E: adj +4, slot 0x18 (7th); 0x005E6826: adj +4, slot 0x14 (6th); 0x005E6836: adj +4, slot 0x08 (3rd);
+// 0x005E683E: adj +4, slot 0x04 (2nd, two stack args from callers 0x005CE130 0x005CE804);
 // 0x005E3AA2: adj -8 (pointer kept 8 below this), slot 0x0C (4th).
 // Slot/owner identities unproven; names are address-derived.
 // One ledger row per thunk.
@@ -35,6 +36,13 @@ public:
 	virtual void slot0();
 	virtual void slot1();
 	virtual void slot2();
+};
+
+class Rva005E683EOuter
+{
+public:
+	virtual void slot0();
+	virtual void slot1(int a, int b);
 };
 
 class Rva005E3AA2Outer
@@ -76,6 +84,16 @@ private:
 	Rva005E6836Outer *m_outer;
 };
 
+class Rva005E683EMid
+{
+public:
+	void fwd(int a, int b);
+
+private:
+	unsigned m_00;
+	Rva005E683EOuter *m_outer;
+};
+
 class Rva005E3AA2Mid
 {
 public:
@@ -95,6 +113,11 @@ void Rva005E6826Mid::fwd()
 void Rva005E6836Mid::fwd()
 {
 	m_outer->slot2();
+}
+
+void Rva005E683EMid::fwd(int a, int b)
+{
+	m_outer->slot1(a, b);
 }
 
 void Rva005E3AA2Mid::fwd()
