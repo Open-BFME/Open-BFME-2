@@ -3,6 +3,23 @@
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <map>
 
+struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
+typedef _STL::pair<const float, TreeOpaqueMapped00372FF4> TreeValue00372FF4;
+typedef _STL::pair<const int, void *> TreeValue005530A8;
+typedef _STL::_Rb_tree<int, TreeValue005530A8, _STL::_Select1st<TreeValue005530A8>, _STL::less<int>, _STL::allocator<TreeValue005530A8> > Tree005530A8;
+
+struct TreeNode005C8DBF
+{
+	char m_pad[0x14];
+	int m_count;
+};
+
+class Rva005C8C73 : public Tree005530A8
+{
+public:
+	void *rva005C8CA0(const void *key);
+};
+
 class AudioManager
 {
 public:
@@ -95,10 +112,7 @@ class Rva005C8D17
 {
 public:
 	float rva005C8D17();
-protected:
-	char m_pad00[8];
-	BfmePoolHolder *m_target08;
-	char m_pad0C[0x20];
+	char m_pad00[0x2c];
 	Rva005C8D17Mid *m_2C;
 	int m_30;
 };
@@ -110,10 +124,16 @@ float Rva005C8D17::rva005C8D17()
 	return m_2C->m_08->m_10;
 }
 
-class TargetObj005C8DBF : public Rva005C8D17
+class TargetObj005C8DBF
 {
 public:
+	char m_pad00[8];
+	BfmePoolHolder *m_target08;
+	char m_pad0C[0x20];
+	Rva005C8C73 m_tree2C;
+
 	void method_005C8D6B();
+	void method_005C8DBF(float val);
 };
 
 void TargetObj005C8DBF::method_005C8D6B()
@@ -121,10 +141,30 @@ void TargetObj005C8DBF::method_005C8D6B()
 	BfmePoolHolder *target = m_target08;
 	if (!target)
 		return;
-	float val = rva005C8D17();
+	float val = ((Rva005C8D17 *)this)->rva005C8D17();
 	if (val != target->m_float2C)
 	{
 		((Matrix3D *)target)->Set_Z_Translation(val);
 		TheAudio->method_DC(m_target08->m_audioHandle0C, val, 0);
+	}
+}
+
+void TargetObj005C8DBF::method_005C8DBF(float val)
+{
+	TreeValue00372FF4 v;
+	*(float *)&v.first = val;
+	v.second.m_bits = 0;
+	TreeNode005C8DBF *node = (TreeNode005C8DBF *)m_tree2C.rva005C8CA0(&v);
+	if (node != (TreeNode005C8DBF *)m_tree2C.end()._M_node)
+	{
+		int *p = &node->m_count;
+		(*p)--;
+		if (node->m_count == 0)
+		{
+			Tree005530A8::iterator it;
+			it._M_node = (_STL::_Rb_tree_node_base *)node;
+			m_tree2C.erase(it);
+			method_005C8D6B();
+		}
 	}
 }

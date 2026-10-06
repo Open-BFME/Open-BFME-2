@@ -64813,3 +64813,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0049CCF0@Rva0049CCF0@@QAEXH@Z,,0x0049CCF0,52,Code/GameEngine/Source/Common/Rva0049CCF0Forward.cpp,matched,controlling-player lookup into virtual slot 0x2C
 ?method_005C8D6B@TargetObj005C8DBF@@QAEXXZ,,0x005C8D6B,84,Code/GameEngine/Source/Common/TargetObj005C8DBF.cpp,matched,
 ?method_005C908B@HostClass005C8E0A@@QAEXVBfmePoolRef10@@E@Z,,0x005C908B,102,Code/GameEngine/Source/Common/HostClass005C908B.cpp,matched,
+?method_005C8DBF@TargetObj005C8DBF@@QAEXM@Z,,0x005C8DBF,75,Code/GameEngine/Source/Common/TargetObj005C8DBF.cpp,matched,TargetObj005C8DBF::method_005C8DBF float method erasing tree node
