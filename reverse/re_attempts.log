@@ -12420,3 +12420,6 @@ FUN_00b402c0	0x007402C0	661	blocked	ADDRESS-NAMED 3 uses new use refused t=1 mod
 FUN_00b41152	0x00741152	1100	blocked	over 1000B needs strong model t=1 model=muse-02
 ?rva00514950@Rva00514EAB@@QAEHHHH@Z	0x00514950	331	blocked	register wall state in eax vs retail ecx with movzx temp swapped ecx vs eax all 6 reg diffs 0 structural 331B exact t=18 model=muse-06 (stash 0.96 kept)
 ?rva001E4ABE@Rva001E4ABE@@QAEHHH@Z	0x001E4ABE	754	blocked	ADDRESS-NAMED g_Va globals a new use is refused per packet t=2 model=muse-06
+?rva0048A3B9@Object@@QAEX_NPAVObject@@@Z	0x0048A3B9	292	blocked	nonstandard convention this-in-ESI other-in-EDI bool-on-stack plain-ret cannot model as thiscall t=22 model=muse-spark
+?registerObject@PartitionManager@@QAEXPAVObject@@@Z	0x002D7FEC	512	partial	511of512 same-insns-1 test-dword-vs-test-byte and stack-slot-rotation and push-mem-vs-mov remain t=38 model=muse-spark score=0.94 stash=reverse/attempts/0x002d7fec.cpp
+?registerObject@PartitionManager@@QAEXPAVObject@@@Z	0x002D7FEC	512	partial	512of512 size-exact 164of165 insns jns-vs-jge plus stack-slot-rotation and push-mem-vs-mov remain t=25 model=muse-spark score=0.95 stash=reverse/attempts/0x002d7fec.cpp
