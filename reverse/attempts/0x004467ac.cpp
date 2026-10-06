@@ -1,4 +1,6 @@
 // ?refreshLanGameRva004467AC@BfmeAptScreenLanLobby@@QAE_NXZ
+// partial score=0.9424 date=2026-10-06
+// ?refreshLanGameRva004467AC@BfmeAptScreenLanLobby@@QAE_NXZ
 // partial score=0.94 date=2026-10-05
 // ?refreshLanGameRva004467AC@BfmeAptScreenLanLobby@@QAE_NXZ
 // partial score=0.99 date=2026-10-05
