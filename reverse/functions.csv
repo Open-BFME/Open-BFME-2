@@ -63831,3 +63831,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva005BA1FDBox@@QAE@H@Z,,0x005BA1FD,55,Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp,matched,composing constructor with pinned base and three tables plus global publish
 ?Run@Rva005BC474Box@@QAEXXZ,,0x005BC474,33,Code/GameEngine/Source/Common/Rva005BC474Box.cpp,matched,two-flag clearer with pinned callees
 ?Run@Rva005C38EFBox@@QAEXXZ,,0x005C38EF,59,Code/GameEngine/Source/Common/Rva005C38EFBox.cpp,matched,guarded triple dispatch with pinned finder checker and exec
+?Run@Rva005B7DC3Box@@QAEXXZ,,0x005B7DC3,54,Code/GameEngine/Source/Common/Rva005B7DC3Box.cpp,matched,allocate-transform-consume with pinned alloc and consumer
