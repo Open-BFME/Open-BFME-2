@@ -12999,3 +12999,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva00423648_init@@YAXPAXH@Z,0x00423648,free cdecl void(void*,int) initializer called by rva00423D0DCreate 0x00423D0D read from REL32
 ?run@Rva0042B068Host@@QAEHHHHPAD@Z,0x0042B038,thiscall 4-arg runner called by Rva0042B068Host::wrap 0x0042B068 read from REL32
 ??0Rva001DA19EBase@@QAE@XZ,0x001DA19E,default ctor base for Rva00433390 0x00433390 read from REL32
+?Rva004318A8Guard@@YA_NXZ,0x004318A8,guard for 0x00431A80 family read from REL32; Ghidra 30B overlaps published 3B fragment at 0x004318C3

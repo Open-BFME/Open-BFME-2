@@ -63681,3 +63681,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva00433390@@QAE@H@Z,,0x00433390,48,Code/Libraries/Source/WWVegas/WWLib/Rva00433390Ctor.cpp,matched,derived ctor vtable 0x00C3CB1C over base 0x001DA19E plus BitFlags 0x003B31AD plus int members; sibling 0x00433762 family
 ?Rva00425421Parse@@YAXPAVINI@@PAX@Z,,0x00425421,57,Code/GameEngine/Source/Common/Rva00425421Parse.cpp,matched,INI wrapper 2-entry FieldParse Row plus 0x004251C4 via rowed initFromINI 0x0002DE78
 ?append@Rva00420F0EHost@@QAEXHHH@Z,,0x00420F0E,49,Code/Libraries/Source/WWVegas/WWLib/Rva00420F0EAppend.cpp,matched,conditional list push_back via rowed 0x00420DF3; tmp from args; guard byte 0x14
+?work@Rva00431A80@@QAEXXZ,,0x00431A80,54,Code/GameEngine/Source/Common/Rva00431A80Work.cpp,matched,guarded factory guard 0x004318A8 new-8 vtable 0x00C3C988 setter 0x00575674; sibling 0x00431F0C pattern
