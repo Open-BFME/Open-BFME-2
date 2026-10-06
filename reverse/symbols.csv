@@ -13615,3 +13615,6 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??0Rva0053FADE@@QAE@XZ,0x0053FAB7,base default ctor (member+4 via rowed 0x00330757, vtable 0x00C694DC); init of derived default 0x00540BAD read from its REL32
 ?rva00541579@Rva00541579@@QAE_NH@Z,0x00541579,banked 200B sorted-key locator (score 0.65, stash reverse/attempts/0x00541579.cpp); callee of guarded removal 0x00541883 read from its REL32
 ?rva00541641@Rva005418CB@@QAE_NH@Z,0x00541641,head-verified 200B sorted-key locator sibling of banked 0x00541579; callee of guarded removal 0x005418CB read from its REL32
+?rva005F422C@Rva005F422C@@QAEXXZ,0x005F422C,read from REL32 at 0x005E4232 in rva005E4202 0x005E4202 (thiscall no-arg: lea ecx plus no pushes); Ghidra FUN_009f422c bounds 40 bytes; callee body unclaimed
+?rva005F4891@Rva005F4891@@QAEXXZ,0x005F4891,read from REL32 at 0x005E429F in rva005E426F 0x005E426F (thiscall no-arg: lea ecx plus no pushes); Ghidra FUN_009f4891 bounds 91 bytes; callee body unclaimed
+?rva005D4F27@Rva005D4F27@@QAEXHH@Z,0x005D4F27,method pointer stored in delegate desc at 0x005D5029 in rva005D5001 0x005D5001 (EH prolog at entry, thiscall two-arg shape); Ghidra missed boundary (follows 0x005D4F0E); callee body unclaimed
