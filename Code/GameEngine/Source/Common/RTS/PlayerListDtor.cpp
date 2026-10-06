@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1PlayerList@@UAE@XZ, retail 0x002A79A9, 122 bytes.
 // Virtual dtor over vtable 0x00BFD618 (slot 0 deleting dtor at 0x002A7ED5

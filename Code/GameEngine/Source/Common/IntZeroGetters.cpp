@@ -33,7 +33,7 @@ BFME_INT_ZERO_GETTER(Rva002632DEZeroGetter)
 // The receiver's dword at +0x13C is tested; when nonzero, the function
 // returns its byte address +0x3C. The boundary is inferred from the prior
 // RET 8 and next row at 0x000CB0FF; the original owner is unknown.
-// cl: /O1 /Ob1
+// cl: /Ob1
 class Rva000CB0EEPointerView
 {
 public:

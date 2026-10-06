@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva002AA3D4Closest@@YAHPAVObject@@PAX@Z @0x002AA3D4 70B
 // Object-iteration callback: keeps the nearest object that passes a
 // must-be-set / must-be-clear KindOf test. Its user data is the 0x4C-byte

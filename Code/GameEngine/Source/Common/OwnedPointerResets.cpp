@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Owning-pointer resets: 26-byte members that take the pointer at +0, null
 // the slot, and if it was set run the pointee's destructor and free it through

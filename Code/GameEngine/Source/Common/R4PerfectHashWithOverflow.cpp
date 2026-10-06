@@ -1,4 +1,4 @@
-// cl: /O2 /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
+// cl: /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
 // Open-BFME5: three near-twins of Rva008A9710 (twin 0x008A9710,
 // Code/Libraries/Source/EA/Apt/AptStringMethodLookup.cpp). Same two-level
 // gperf shape: a byte lookup table indexed by hash key either yields a

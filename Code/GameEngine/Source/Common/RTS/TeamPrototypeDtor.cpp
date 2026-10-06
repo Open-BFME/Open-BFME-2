@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /GX
 //
 // Zero Hour Team.cpp TeamPrototype teardown:
 //   ?deleteTeamCallback@@YAXPAVTeam@@@Z   retail 0x003A33A7, 38 bytes

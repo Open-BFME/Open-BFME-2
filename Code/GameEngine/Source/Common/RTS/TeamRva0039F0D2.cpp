@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0039F0D2@Team@@QAE_NXZ @0x0039F0D2 17B
 // Team bool getter through +0x118: returns (m_map->m_14 != 0).
 // Evidence: prev/next Team rows; Team+0x118 is the team-override map per

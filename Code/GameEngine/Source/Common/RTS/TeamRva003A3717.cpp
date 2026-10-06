@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003A3717@Team@@QAE_NABVAsciiString@@@Z, retail 0x003A3717 (31B).
 // The matched TEAM_HAS_CUSTOM_STATE caller invokes this on Team with its
 // state-name parameter. Retail passes Team+0x48 to the rowed

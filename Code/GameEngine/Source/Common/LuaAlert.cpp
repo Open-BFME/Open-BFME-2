@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?_ALERT@@YAHPAUlua_State@@@Z @0x003333D1 83B: Lua _ALERT building AsciiString "LUA Alert: " plus lua_tostring(L 1); evidence pinned name and rowed callees lua_tostring StringBase ctor concat releaseBuffer
 #include "ascii_string.h"
 

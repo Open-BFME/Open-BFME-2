@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0039DF1C@Team@@QAE_NURva0039DF1CFilter@@0@Z 0x0039DF1C 107 Team member kind filter
 // Retail walks via rowed iterate 0x263864 and advance 0x263526, skips dead
 // Object+0x438 bit0 and status Object+0x94 bit0, template +0x108 sign and

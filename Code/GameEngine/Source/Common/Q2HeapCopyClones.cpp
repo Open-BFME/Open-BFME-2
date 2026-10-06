@@ -1,4 +1,4 @@
-// cl: /O1 /EHs-c-
+// cl: /EHs-c-
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Q2HeapCopyClones.cpp (donor revision

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // BFME1 MultiPlayMultParseCallbacks.cpp donor, adapted to PC GlobalData.
 // Named PC FieldParse rows VA 0xBE9C20..0xBE9C50 all pass GlobalData+0xEC4.
 // INI colon separators are +0x420; scanReal is thiscall here.

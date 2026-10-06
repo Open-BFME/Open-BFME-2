@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Destructors of the 59-byte member-then-base shape: store the class vptr,
 // destroy one member at a fixed offset (EH state 0), then call the base

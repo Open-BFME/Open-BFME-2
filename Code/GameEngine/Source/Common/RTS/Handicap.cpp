@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O2 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // Handicap accessor.
 // Near-miss donor from Open-BFME-1 RTS/Handicap.cpp
 // (?getHandicap@Handicap@@QBEMW4HandicapType@1@PBVThingTemplate@@@Z @0x000C8410):

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?getSciencePurchaseCost@ScienceStore@@QBEHW4ScienceType@@@Z @0x1FF3DC (86B):
 // findScienceInfo (matched 0x1FF3AD) plus the BFME2 online-mode gate: the

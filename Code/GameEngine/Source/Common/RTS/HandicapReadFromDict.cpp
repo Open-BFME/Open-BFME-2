@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?readFromDict@Handicap@@QAEXPBVDict@@@Z @0x003B0EBD 227B
 // Handicap::readFromDict loads 2x2 multipliers from Dict via HANDICAP_<type>_<thing> keys.
 // Evidence: neighbour Handicap::getHandicap proves 2x2 table; donor open-bfme-1

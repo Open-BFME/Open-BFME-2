@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /O1 /Ob1 -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
+// cl: -DNDEBUG -MD -EHsc /Ob1 -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
 // Open-BFME7: the ControlPoint INI block parser at 0x00064680 (140 B).  Both
 // the INI and the instance must be present (else INIException(3
 // "ControlPoint::ParseINIBlock::Invalid data passed in.")); a record built by

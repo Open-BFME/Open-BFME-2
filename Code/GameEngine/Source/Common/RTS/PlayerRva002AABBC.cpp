@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva002AABBC@Player@@QAEXXZ @0x002AABBC (50B): with a current selection
 // (+0x730, the Squad view rowed as Rva0018BB10Roster/Gen_0018BC70), rebuild

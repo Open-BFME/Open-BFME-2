@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 // Reference: GeneralsMD Common/RTS/Player.cpp through open-bfme-1 revision
 // 6d9434269164392c5ba62aaa7c15a86b5b020d76. Radar count/disable-proof logic
 // is reused; target proves +A0/+A4/+A8 and index+54. Event data is target's

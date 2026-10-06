@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002AF614@Player@@QAEXPAX@Z @0x002AF614 (17B): Player ecx pass-through to iterateObjects with callback at 0x002AF5EF and forwarded userdata.
 // Evidence: push [esp+4] then push 0x6af5ef then call pinned Player::iterateObjects @0x002AB08B then ret 4; 17B matches void Player method with void* arg; sibling PlayerRva002AE475 @0x002AE475 same 17B shape with callback 0x002AE435.
 class Object;

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?isScienceGrantable@ScienceStore@@QBE_NW4ScienceType@@@Z @0x1FF432
 // (23B): ScienceStore::isScienceGrantable, BFME1 Science.cpp verbatim shape:

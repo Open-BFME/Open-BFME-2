@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?Rva00217F7DMake@@YAXPAUQ3SortElem16@@0UQ3SortCompare@@@Z @0x00217F7D 25B
 // Unlock thin __cdecl wrapper forwarding to rowed __make_heap at 0x00217BAE
 // with null tail args. Evidence: push-0 push-0 plus three pushes plus call

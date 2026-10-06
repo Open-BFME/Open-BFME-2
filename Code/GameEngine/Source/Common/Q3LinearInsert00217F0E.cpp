@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 // ?__linear_insert@@YAXPAUQ3SortElem16@@0U1@UQ3SortCompare@@@Z @0x00217F0E 111B CHAIN attempt under pinned Q3 name but FileInfo bodies via ICF
 // Evidence: caller Q3 insertion_sort at 0x002183BD with 0x1c cleanup; callees rowed FileInfo copy_backward 0x00217B93 assign 0x002174DF copy ctor 0x00217624 Insert 0x002176F1; cmp-first-dword plus copy_backward shift plus temp plus Insert matches S4 and Q3 donors.

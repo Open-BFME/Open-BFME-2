@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0039E9E0@Rva005059A1Unit@@QAEXXZ @0x0039E9E0 47B
 // Unit teardown via Team transfer or Object fallback. If the +0x30 team's
 // +8 link carries a +0x2EC unit different from this transfer to it via rowed

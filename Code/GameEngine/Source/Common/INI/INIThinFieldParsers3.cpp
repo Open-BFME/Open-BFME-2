@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /GX- /DNDEBUG /MD
+// cl: /GX- /DNDEBUG /MD
 //
 // More thin FieldParse procs (original names unproven; address names):
 //   0x004DC674 34B ModelConditions / ModelConditionsClear (0x00C61480 /

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?addTeamPrototypeToList@TeamFactory@@QAEXPAVTeamPrototype@@@Z @0x003A2B78 92B: TeamFactory add prototype.
 // Evidence: ret 4 one arg; TeamPrototype AsciiStrings at +0x10/+0x14 via TheNameKeyGenerator::nameToKey row; pair key via Rva0039EA4E lower_bound row 0x0039EA4E plus map operator[] row 0x003A2943 with map at +0xb0; caller 0x003A2BDF unblocks 0x003A2BD4.

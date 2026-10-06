@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?getTeamAsAIGroup@Team@@QAEXPAVAIGroup@@@Z
 // Target boundary 0x003A0F62..0x003A0FD2 (112B). BFME2's
 // TEAM_SET_ATTITUDE body at 0x003BEE5E passes the team as this and its newly

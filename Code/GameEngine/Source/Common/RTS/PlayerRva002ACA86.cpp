@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ?rva002ACA86@Player@@QAEXHPBVGameMessage@@@Z @0x002ACA86 117B: Player GameMessage ObjectID fill.
 // Evidence: prev PlayerRva002AC673 next PlayerRva002ACD09 same flags; +0x708 10-slot array
 // matches Rva002AA191 m_entries; callees Clear 0x004D6C29 getArgument 0x0030F4EA

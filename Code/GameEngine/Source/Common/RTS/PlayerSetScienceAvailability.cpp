@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?setScienceAvailability@Player@@QAEXW4ScienceType@@W4ScienceAvailabilityType@@@Z @ 0x002AD8C9 113B: Player science availability move
 // Evidence: caller 0x003BC785 pushes ScienceAvailabilityType (from rowed getScienceAvailabilityTypeFromString) and ScienceType (from rowed Rva001FF725Get) with this=Player; ZH Player.cpp setScienceAvailability donor removes from Disabled then Hidden then pushes by type; retail vectors at +0x2FC/+0x308 are Disabled/Hidden under +0x2F0 m_sciences layout.
 enum ScienceType

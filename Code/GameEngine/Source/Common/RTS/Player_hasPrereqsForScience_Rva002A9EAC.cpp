@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?hasPrereqsForScience@Player@@QBE_NW4ScienceType@@@Z
 // retail 0x002A9EAC, 30 bytes (Ghidra FUN_006a9eac).

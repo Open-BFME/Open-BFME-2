@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // MultiplayerSettings scalar deleting destructor (retail 0x00381277,
 // 28B): calls the rowed non-virtual destructor 0x00381293, then frees
 // through 0x002FD60 when the deleting flag is set. Same shell as the

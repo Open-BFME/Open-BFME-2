@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // NameKeyGenerator lowercase-key wrappers, BFME2 retail:
 //   ?Rva00148F02@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z @ 0x00148F02 (92B)

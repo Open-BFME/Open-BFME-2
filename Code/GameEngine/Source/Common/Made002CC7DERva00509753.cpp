@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00509753@Made002CC7DE@@QAEXHH@Z retail 0x00509753 45B.
 // Forward (a,b) to Rva002CA9CA at +0x128 when present, then tail to

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /Oy- /GX /DNDEBUG /MD
 //
 // Upgrade-list FieldParse proc (name address-derived): every remaining
 // token is resolved through TheUpgradeCenter (VA 0x00DFEB60) and each hit is

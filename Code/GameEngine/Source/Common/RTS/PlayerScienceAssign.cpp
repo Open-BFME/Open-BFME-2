@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 // ?rva002AC425@Player@@QAEXABV?$vector@HV?$allocator@H@_STL@@@_STL@@@Z @0x002AC425 (26B)
 // Player 4-byte-POD vector assign guard: assigns the vector at +0x2F0 (the

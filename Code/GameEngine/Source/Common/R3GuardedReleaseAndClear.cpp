@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // One of the BFME 1 "release the pointer I own, then forget it" bodies:
 //
 //     mov esi,ecx / mov eax,[esi+OFF] / test eax,eax / je ...

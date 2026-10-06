@@ -8,7 +8,7 @@
 // Each standalone entry needs independent native evidence; an internal
 // conditional branch alone does not supply it. Original identities remain
 // unrecovered and every view retains its address-qualified name.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 #define BFME_INT_ONE_GETTER(NAME) \
 	class NAME \
 	{ \

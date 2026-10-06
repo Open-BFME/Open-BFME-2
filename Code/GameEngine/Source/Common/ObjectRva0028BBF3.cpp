@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0028BBF3@Object@@QAEXPAV1@@Z @0x0028BBF3 18B: Object holder at +0x23c forwards guardee to rowed Rva004DF2E2::rva004DF2FC tail-jmp; caller AIGuardState::onExit 0x003513A4 passes owner and guardee; neighbours share /O1
 class BfmeSubBEC;
 class Rva004DF2E2

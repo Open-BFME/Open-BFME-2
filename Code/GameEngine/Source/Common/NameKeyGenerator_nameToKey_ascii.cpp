@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // NameKeyGenerator::nameToKey(const AsciiString&), retail 0x0009FA65, 29 bytes.
 // Thin wrapper over the landed char* overload at 0x00148E1A. Header text

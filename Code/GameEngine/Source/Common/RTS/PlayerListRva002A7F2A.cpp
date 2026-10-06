@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva002A7F2A@PlayerList@@QAEPAVPlayer@@PAX@Z @0x002A7F2A 49B
 // Evidence: thiscall ret 4 over the BFME2 PlayerList layout (count +0x14,

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
 // Open-BFME7: INI field parser at 0x003D4920 (125 B): every remaining token
 // becomes an AsciiString handed to LargeGroupAudioKeyMap::bfmeAddKey
 // (0x003D46A0, landed) on the map the store argument points at; the string

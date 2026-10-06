@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?get@Rva00148F5ECache@@QAE?AW4NameKeyType@@XZ, retail 0x00148F5E, 32 bytes.
 // Lazily-resolved NameKey cache: struct holds a key at +0 and a name string

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // Reused from reference/open-bfme-1/Code/GameEngine/Source/Common/MultiPlayMultParseCallbacks.cpp.
 // PC FieldParse row VA 0xBE9C10 binds MultiPlayMoneyMult to RVA 0x235AB6,
 // GlobalData+0xEC4. PC writes MP1..MP8 at subobject+0..0x1C; setter at

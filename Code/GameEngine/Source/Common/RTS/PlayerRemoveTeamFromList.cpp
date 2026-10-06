@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD
+// cl: /GX /MD
 // stlport
 // ?removeTeamFromList@Player@@QAEXPAVTeamPrototype@@@Z, RVA 0x002ABD48, size 75.
 // Evidence (target): REL32 call at 0x003A0CDC from TeamPrototype::rva003A0CD1

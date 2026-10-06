@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc /Os /G7
+// cl: /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc
 //
 // ?Rva0021889AFinalSort@@YAXPAUQ3SortElem16@@0UQ3SortCompare@@@Z @0x0021889A 74B
 // Final-insertion-sort for 16B Q3 records: small ranges go straight to

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /arch:SSE
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 //
 // ?rva00439920@Rva00439920@@QAEXXZ @0x00439920 30B.
 // Reset: clear map at +4 via landed 0x00240C60, zero +0x14, store 1.0f

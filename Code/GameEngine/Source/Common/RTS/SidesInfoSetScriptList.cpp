@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // SidesInfo::setScriptList, retail 0x003297F3 (8 bytes): `add ecx,8` then a
 // tail jump into the ScriptList member-wise swap at 0x003B58DF. ZH's

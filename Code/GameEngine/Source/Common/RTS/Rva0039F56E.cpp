@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?rva0039F56E@Rva0039F56E@@QAEXXZ, RVA 0x0039F56E, 41B. Chain lane: container
 // reset; when the +4 flag is set it tears down the +0/+4 chain through rowed

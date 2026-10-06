@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039DD12@Team@@QBEHP6AHPAVObject@@PAX@Z1@Z @0x0039DD12 (57B).
 // Team predicate all-of: returns 1 only when the callback returns nonzero

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?hasAnyObjects@Team@@QAE_N_N@Z @0x0039E042 (142B).
 // Team::hasAnyObjects(): returns true when a live member survives the dead,

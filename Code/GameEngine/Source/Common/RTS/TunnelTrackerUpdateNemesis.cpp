@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?updateNemesis@TunnelTracker@@QAEXPBVObject@@@Z @0x004F5935 (74B).
 // TunnelTracker nemesis refresh: when no current nemesis and the target

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002AA0DE@Player@@QAE_NPBVThing@@@Z @0x002AA0DE 69B: Player member that
 // answers whether a thing matches the kind-of filter held by the object at

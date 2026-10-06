@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva002ABD1D@Player@@QAEHHH@Z, RVA 0x002ABD1D, size 43: Player count of KindOf up to limit via iterateObjects.
 // Evidence: ecx pass-through to Player::iterateObjects pinned at 0x002AB08B; callback at 0x002AA531 tests Object::isKindOf and counts to limit; caller 0x003C2FEF passes kind in edi and limit 0x7ffffffe with Player in ecx and sums result.
 

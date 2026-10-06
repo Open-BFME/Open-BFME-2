@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // ?xfer@ShroudManagerImpl008FBA40Element@@QAEXPAVXfer@@@Z, retail 0x0073EBB0
 // (134 B).  ShroudManagerImpl008FBA40Element::xfer: write version 1.2 through

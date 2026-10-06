@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
+// cl: /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
 //
 // ??1TeamRelationMap@@MAE@XZ, retail 0x003A2563, 72 bytes (Ghidra
 // boundary), pinned under this name: the scalar deleting destructor

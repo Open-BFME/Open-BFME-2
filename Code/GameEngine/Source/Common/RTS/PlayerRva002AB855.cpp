@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002AB855@Player@@QBE_NPAVCreateAHeroData@@@Z @0x002AB855 (40B): Player const find over CreateAHeroData* vec at +0x308.
 // Evidence: identical 40B shape to just-landed Player::rva002AB82D @0x002AB82D over vec at +0x2FC via same rowed _STL::find @0x0020E873; neighbours are Player const methods with same flags.
 class CreateAHeroData;

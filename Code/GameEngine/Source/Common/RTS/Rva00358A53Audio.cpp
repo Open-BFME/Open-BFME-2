@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 // ?Rva00358A53Play@@YAXXZ @ 0x00358A53 120B
 // Evidence: honest free-function name; TheAudio null gate plus getMiscAudio slot 0x138 null gate,
 // then BfmeAudioEventPrefix136 event from Misc+0x80 with value30 0, posted via addAudioEvent slot 0x64.

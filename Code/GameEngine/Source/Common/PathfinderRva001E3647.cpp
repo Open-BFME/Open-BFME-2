@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva001E3647Pos@Pathfinder@@QAEPAXHPBUCoord3D@@@Z @0x001E3647 50B: Pathfinder pos-to-cell via bounded WorldToCell 0x002E7964 then getCell 0x002E6D62.
 // Evidence: calls pin-only 0x002E7964 plus rowed getCell 0x002E6D62 plus 30 callers including 0x001E4469 plus LINK 15 files 1664B plus prev 0x001E3624 next 0x001E3679.
 struct ICoord2D

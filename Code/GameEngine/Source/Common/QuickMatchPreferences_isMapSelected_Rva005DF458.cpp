@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os -Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *);
 

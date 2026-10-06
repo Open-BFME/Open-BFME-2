@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039DEC4@Team@@QAE_NXZ @0x0039DEC4 (88B).
 // Team member scan returning true when a live member passes the 0x108 kind

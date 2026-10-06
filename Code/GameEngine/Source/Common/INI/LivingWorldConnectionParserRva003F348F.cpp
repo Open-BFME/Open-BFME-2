@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // Native Ghidra [0x003F348F,0x003F34DD),78B. FieldParse entry at
 // VA0x00C36650 pairs "Connection" with this callback and store offset0x60.
 // It constructs the rowed24B LivingWorldRegionConnection view; native constructor

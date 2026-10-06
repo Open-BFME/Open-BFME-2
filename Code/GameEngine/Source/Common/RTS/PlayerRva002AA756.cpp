@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 // ?rva002AA756@Player@@QAEXH@Z @0x002AA756 144B
 // Player counter at +0x318 plus template audio at +0x34/+0x1a4 with playerIndex at +0x54.
 // Evidence: caller 0x003BC7EF passes Player* from getEachPlayerFromMask; callee rows

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva002AAE81@Rva002AAE81@@QAEXVAsciiString@@@Z 0x002AAE81 52B
 // Sets AsciiString at +8 from by-value param via temp dst-src order.
 // Evidence: calls 0x000366F0 assign plus 0x00036410 release; callers 0x2AAF19 etc.

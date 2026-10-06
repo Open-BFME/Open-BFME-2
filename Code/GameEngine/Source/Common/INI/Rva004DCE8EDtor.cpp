@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // stlport
 // ??1Rva004DCE8E@@QAE@XZ @0x004DCE8E 54B: dtor destroying two Rb_tree maps at +0x14 and +0x20.
 // Evidence: retail lea ecx [esi+0x20] calls rowed 0x004DCE51 then lea ecx [esi+0x14] calls rowed 0x004636FE with EH prolog table 0x00B916EC; pin ??1Rva004DCE8E@@QAE@XZ; caller deleting dtor in FamilyDeletingDtors11.cpp.

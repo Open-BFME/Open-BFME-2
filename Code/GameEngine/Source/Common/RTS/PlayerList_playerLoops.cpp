@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Three PlayerList virtuals that hand one Player call to each of the twenty
 // player slots (the inline pointer array at +0x18; MAX_PLAYER_COUNT is 20 in

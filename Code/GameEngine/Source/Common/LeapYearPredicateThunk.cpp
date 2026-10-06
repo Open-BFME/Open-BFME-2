@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2 /Ob2
+// cl: /DNDEBUG /MD /Ob2
 
 bool __stdcall isLeapYear(int year)
 {

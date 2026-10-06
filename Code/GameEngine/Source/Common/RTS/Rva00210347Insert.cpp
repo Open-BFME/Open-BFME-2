@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00210347@Rva00210347@@QAEAAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@ABU23@@Z @0x00210347 68B hash insert via resize plus bucketIndex plus node alloc
 // Evidence: same 68B shape as rowed Rva002249ED 0x002249ED calling resize 0x00212858 plus rowed bucketIndex 0x00223149 plus node allocator; allocator is thiscall twin of rowed free Rva0020F569Alloc 0x0020F569 via call-site mov ecx esi like 0x001DE556; buckets at +4 and count at +0x10; caller 0x002104ED.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // stlport
 //
 // Bodies ported from Open-BFME-1's

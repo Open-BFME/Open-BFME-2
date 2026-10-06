@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ??0Made002CC7DE@@QAE@XZ @0x0050968B 32B
 // Derived of Rva00507823 base 0x0050775B (vtable 0x00864010) overwrites vtable 0x00864588
 // zeroes +0x12C then +0x128. Caller parseWeaponOCLNugget 0x002CC803. Sibling Made002CC5E1

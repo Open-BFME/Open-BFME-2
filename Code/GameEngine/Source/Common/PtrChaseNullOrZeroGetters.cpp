@@ -14,7 +14,7 @@
 // with a trailing `return 1`, which MSVC 7.1 under /O1 emits with the two
 // forward jumps to the local tail. Identity is not recovered: every name is
 // derived from its address.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 class Rva00262117NullOrZero
 {
 public:

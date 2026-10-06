@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Oi
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Oi
 //
 // ?parseAudioLODDefinition@INI@@SAXPAV1@@Z, retail 0x00202F8A,
 // 153 bytes. Dedicated TU.

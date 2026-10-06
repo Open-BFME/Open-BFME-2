@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0MultiplayerColorDefinition@@QAE@XZ, retail 0x00380C4E, 90 bytes.
 // Dedicated TU (the shared MultiplayerSettings.cpp TU carries the ZH-shaped

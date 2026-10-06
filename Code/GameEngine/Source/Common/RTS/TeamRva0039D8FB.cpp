@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?Rva0039D8FBLess@@YAHABURva0039D8FBKey@@0@Z @0x0039D8FB (36B).
 // Free lexicographic less for an 8-byte two-int key (TeamFactory prototype map

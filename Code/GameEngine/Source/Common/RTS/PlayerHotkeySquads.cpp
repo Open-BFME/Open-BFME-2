@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 //
 // Zero Hour Player.cpp hotkey squad handlers, between the rowed
 // processCreateTeamGameMessage (0x002ACA86, PlayerRva002ACA86.cpp) and

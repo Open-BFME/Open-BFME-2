@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // The native network allocation path constructs a 0x40-byte object at
 // 0x0065E4A8, then calls this body before invoking the virtual init slot. The

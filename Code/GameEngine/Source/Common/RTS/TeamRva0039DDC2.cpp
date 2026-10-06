@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039DDC2@Team@@QAE_NURva0039DDC2Filter@@_N@Z @0x0039DDC2 (132B).
 // Team member scan returning true when a live member passes the 0x10E gate

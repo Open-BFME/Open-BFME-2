@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/moduledata /DNDEBUG /MD
+// cl: /Ireference/shims/moduledata /DNDEBUG /MD
 //
 // TeamPrototype's team-instance walks (retail 0x0039ECD9..0x0039F000), in
 // Zero Hour's Team.cpp order: each iterates the +0x334 DLINK team list with

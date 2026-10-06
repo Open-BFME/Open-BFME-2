@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ??1TeamFactory@@UAE@XZ, retail 0x003A383A, 95 bytes.
 // TeamFactory dtor: stores vtables 0x0081AE2C/0x0081AE1C, calls clear via pin 0x003A2F4C, clears TheTeamFactory, destroys member at +0xB0 via rowed 0x0039FB11, restores Snapshot base BBB554 then base GameEngineDeletingBase dtor via rowed 0x001B4E74.
 // Layout: GameEngineDeletingBase at +0 plus Snapshot at +0xC plus member at +0xB0 plus count. Evidence: unlock packet EH prolog plus singleton clear plus unblocks deleting dtor 0x003A398B; next Rva003A4322 dtor shares UAE pattern.

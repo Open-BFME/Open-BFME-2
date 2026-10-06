@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039E8EB@Team@@QAEPAVObject@@XZ @0x0039E8EB (20B).
 // Team::rva0039E8EB(): returns the first member of the team or null. Retail

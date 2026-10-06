@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // One of the BFME 1 zeroing-constructor family:
 //
 //     mov eax,ecx / xor ecx,ecx / <four or five member stores> / ret

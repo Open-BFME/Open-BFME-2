@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Donor: Generals Player::setUnitsVisionSpied(Bool, PlayerIndex) and its
 // callHandleShroud callback (reference/open-bfme-1/reference/

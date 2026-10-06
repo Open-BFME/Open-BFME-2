@@ -1,4 +1,4 @@
-// cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii
 // stlport
 // ?rva002AD5ED@Rva002AD5ED@@QAEMABVAsciiString@@@Z @0x002AD5ED 60B. Float lookup by name key in map at +0x288, miss returns BfmeZeroRange. Evidence: unlock lane, callees nameToKey 0x0009FA65 and _M_find 0x00388F63 rowed, data TheNameKeyGenerator and BfmeZeroRange, caller 0x0033A69A, neighbours Rva002AD19EArmor and PlayerO1Shard share RTS shard flags.
 #include <map>

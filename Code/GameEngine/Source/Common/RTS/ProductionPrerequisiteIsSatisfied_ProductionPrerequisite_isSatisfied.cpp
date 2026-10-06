@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/GameEngine/Source/Common/RTS
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/GameEngine/Source/Common/RTS
 //
 // ?isSatisfied@ProductionPrerequisite@@QBE_NPBVPlayer@@@Z
 // retail 0x004F4CE5, 219 bytes. Dedicated TU ported from the Open-BFME-1

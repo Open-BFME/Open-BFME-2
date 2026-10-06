@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0039F094@Team@@QAEXVAsciiString@@@Z @0x0039F094 62B
 // Team AsciiString setter by value. Loads +0x30 inner then sets AsciiString
 // at +0x318 from the by-value param at [ebp+8] via rowed StringBase set

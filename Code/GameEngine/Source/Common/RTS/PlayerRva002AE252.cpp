@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ?rva002AE252@Player@@QAEXXZ @0x002AE252 (155B): Player science init.
 // Resets sciences via rowed rva002AC673, assigns the science vector from the
 // template at +0x34 (0x120 vs 0x12C via rowed bfmeCall939D gate and rowed

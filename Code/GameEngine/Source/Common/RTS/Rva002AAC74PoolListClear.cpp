@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // The pooled circular list behind Player's team-prototype list (+0x32C):
 // its nodes come from the pool object at 0x009BBD2C (rowed node alloc

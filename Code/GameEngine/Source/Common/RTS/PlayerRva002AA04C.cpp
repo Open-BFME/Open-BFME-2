@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Target predicate boundary 0x002AA04C-0x002AA08E; called by the native
 // Player radar-removal notification at 0x002AA9C2. Target supplies the
 // slot-0x40 boolean query and the +0x734 / +0x8C5 / +0x70 / +0x40 tests.

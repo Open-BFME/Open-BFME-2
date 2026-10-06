@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // MixFileInfoBuffer intrusive-list file-unit: ?releaseInto (retail 0x0052DD41,
 // 35 bytes) unlinks the buffer when linked, links it into the given pool

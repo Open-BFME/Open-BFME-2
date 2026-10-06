@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?rva0039EA21@Rva0039EA21@@QAEXPAURva0039EA21Node@@@Z, RVA 0x0039EA21, 45B.
 // Unlock lane: recursive teardown; null entry returns, else recurses on the

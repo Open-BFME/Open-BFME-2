@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0039F72C@Rva0039FE6COwner@@QAEPAVTeamPrototype@@I@Z @0x0039F72C 53B
 // TeamFactory prototype map linear find by id. Walks the +0xB0 map from

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?createInstance@Rva003A3CBBOwner@@QAEPAVTeam@@ABVAsciiString@@0@Z @0x003A3CBB 30B
 // TeamFactory::createInstance: forwards both names to pin-only 0x003A3B7E then activates the Team.
 // Evidence: pin ECX is TeamFactory, caller 0x0035871D getTeamNamed passes (normalized,name), callee same args returns Team, status bytes +0x5D/+0x5E match Team::status setActive in ScriptEngineGetTeamNamed.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc /Os /G7
+// cl: /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc
 //
 // ?Rva002183D1SortHeap@@YAXPAURva004748F0Element@@0URva004748F0Compare@@@Z @0x002183D1 58B
 // Sort-heap tail of the MixFileCreator FileInfo partial-sort driver 0x002188E4.

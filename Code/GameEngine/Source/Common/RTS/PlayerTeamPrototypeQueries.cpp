@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Player's team-prototype queries (retail 0x002AB260..0x002AB427): each
 // walks the +0x32C list of TeamPrototype pointers (STL list nodes: next,

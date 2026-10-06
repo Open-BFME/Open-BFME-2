@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // Player's AI delegates, ported from Zero Hour's
 // GameEngine/Source/Common/RTS/Player.cpp (GeneralsMD tree vendored under

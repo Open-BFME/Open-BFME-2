@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // ?Rva0073EB00Xfer@@YAPAVXfer@@PAV1@PAG@Z @0x0073EB00 106B
 // Shroud PlayerState counters[3] Xfer helper N=3 twin of N=2 at 0x0073EA90.
 // Evidence: caller 0x0073EBB0 passes Xfer plus short ptr; slots 0x78 count and 0x80 per-short;

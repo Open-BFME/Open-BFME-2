@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // Four tiny members already pinned under placeholder names, each a guarded
 // forward to one callee (pinned here under its address):

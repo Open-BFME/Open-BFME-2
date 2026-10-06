@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 // ??0Rva003A3959@@QAE@XZ @0x003A3959 50B: outer ctor storing vtable 0x0081ADFC then constructing member at +4 via rowed 0x003A393A with EH frame.
 // Evidence: chain packet calls rowed 0x003A393A; vtable store at [this] plus EH_prolog with handler 0x00781A02; callers 0x002AF8BB and 0x003A3AB8; unblocks 0x003A39A7; empty base arms EH state 0 (ProductionUpdateModuleData precedent).

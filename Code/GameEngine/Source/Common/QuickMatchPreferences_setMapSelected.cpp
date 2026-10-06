@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ZH UserPreferences.cpp at donor 6583b3c1ff: setMapSelected.
 // Native 005DF73F..005DF7A7: two stack arguments, encoded map-name key,

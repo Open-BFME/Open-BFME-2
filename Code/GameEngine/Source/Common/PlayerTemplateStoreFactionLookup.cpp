@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva001FD367@PlayerTemplateStore@@QBE_NHPAH@Z @0x001FD367 95B.
 // Faction-index lookup over PlayerTemplateStore vector at +0x0C/+0x10 stride
 // 0x1DC: calls rowed Rva0033A3F4Lookup on the AsciiString at template +0x18,

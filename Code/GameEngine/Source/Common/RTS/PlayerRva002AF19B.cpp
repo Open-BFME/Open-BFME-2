@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // stlport
 // ?rva002AF19B@Player@@QAEXXZ @0x002AF19B 81B Player grants starting upgrades from template vector at +0x180 via UpgradeCenter 0x0026F26D plus rowed rva002AE329 with 2 0. Evidence: caller 0x002AFC28 plus callee pin rva002AE329 plus global TheUpgradeCenter plus sibling Rva00485C86Finish loop pattern.
 #include "ascii_string.h"

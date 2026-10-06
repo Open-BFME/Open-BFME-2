@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 // Target Ghidra [0x001EAD69,0x001EADD4),107B. This body consumes an
 // INI pointer and an owner pointer, reads through the independently rowed
 // getNextAsciiString233, builds an8B pair of strings with only the first

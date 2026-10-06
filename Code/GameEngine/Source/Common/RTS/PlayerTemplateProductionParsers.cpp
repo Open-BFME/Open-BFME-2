@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // PlayerTemplate production FieldParse procs (Zero Hour PlayerTemplate.cpp
 // protected statics) on the BFME 2 layout. Target evidence: the PlayerTemplate

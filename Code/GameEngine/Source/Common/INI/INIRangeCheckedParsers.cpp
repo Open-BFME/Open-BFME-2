@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // Range-checked FieldParse procs (names address-derived):
 //   0x004E8D8C 90B TargetPriorityModifiers (0x00BFD824): reals for every token

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 //
 // ?rva0041A3C4@Rva0041A3C4@@QAEXXZ @0x0041A3C4, 51B: deque node-boundary

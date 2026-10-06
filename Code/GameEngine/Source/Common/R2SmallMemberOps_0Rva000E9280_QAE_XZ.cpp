@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ??0Rva000E9280@@QAE@XZ
 // retail 0x002B598E, 17 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/R2SmallMemberOps.cpp (reference/open-bfme-1 @

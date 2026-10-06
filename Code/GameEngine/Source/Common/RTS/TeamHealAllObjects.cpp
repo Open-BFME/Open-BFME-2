@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?healAllObjects@Team@@QAEXXZ @0x0039DCE9 (41B).
 // Team::healAllObjects(): walks the member list through the pinned

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?didPartialEnter@Team@@QAE_NPAVPolygonTrigger@@I@Z @0x0039E20D (123B).
 // ?didPartialExit@Team@@QAE_NPAVPolygonTrigger@@I@Z @0x0039E288 (123B).

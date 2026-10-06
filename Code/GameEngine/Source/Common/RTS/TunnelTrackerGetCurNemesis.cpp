@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getCurNemesis@TunnelTracker@@QAEPAVObject@@XZ @0x004F5684 (97B).
 // TunnelTracker nemesis guard: returns 0 when no nemesis, when the nemesis

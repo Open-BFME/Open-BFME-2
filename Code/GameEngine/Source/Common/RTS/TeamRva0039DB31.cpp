@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039DB31@Team@@QAEXPBX@Z @0x0039DB31 (88B): hands an argument to every
 // member: through the member's contain interface (slot 31 of the Object

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z,
 // retail 0x002A7A29, 22 bytes,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva002AB22A@Player@@QBEPAVObject@@PBX@Z retail 0x002AB22A 54B. Player best-object
 // search via rowed Rva002A996F ctor plus pinned iterateObjects 0x002AB08B with

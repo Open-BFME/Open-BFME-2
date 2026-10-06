@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Player::isCapableOfPurchasingScience, retail 0x002ABE86 (67B): Zero
 // Hour's body - no invalid or already-owned science, the prerequisites

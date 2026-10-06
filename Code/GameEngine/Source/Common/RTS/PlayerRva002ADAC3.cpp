@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z @0x002ADAC3 (140B): Zero
 // Hour Player::removeUpgrade with BFME 2's pass-through int and a type gate.

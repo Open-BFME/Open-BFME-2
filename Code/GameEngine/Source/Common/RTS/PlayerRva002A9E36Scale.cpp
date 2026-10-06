@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002A9E36@Player@@QAEHH@Z @0x002A9E36 118B: Player member that scales an
 // amount by the living-world level of the player's linked entry. When the

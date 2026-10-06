@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ?rva0039D8D3@Team@@QAEXI@Z @0x0039D8D3 (40B).
 // Team::rva0039D8D3(unsigned ms): deadline at +0x124 is (ms/1000)*fps plus

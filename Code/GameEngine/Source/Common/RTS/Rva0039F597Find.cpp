@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0039F597@Rva0039EA4E@@QAEPAURva0039EA4ENode@@ABURva0039D8FBKey@@@Z @0x0039F597 49B
 // RB-tree walk for the TeamFactory prototype map without the trailing
 // header correction of sibling 0x0039EA4E. Same header/root/left/right/key

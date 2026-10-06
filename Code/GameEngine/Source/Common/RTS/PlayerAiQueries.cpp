@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Player AI query forwarders after the BFME1/Zero Hour donor (Player.cpp),
 // reading the AI player at +0x2DC.

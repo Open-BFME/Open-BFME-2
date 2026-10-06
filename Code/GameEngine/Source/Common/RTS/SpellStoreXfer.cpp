@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@SpellStore@@MAEXPAVXfer@@@Z, retail 0x0043C718, 60 bytes.
 // Slot 3 of the four-slot vftable 0x00C3D690 whose slot-2 name getter

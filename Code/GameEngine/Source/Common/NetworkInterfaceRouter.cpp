@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // The +0xAC native-network predicate is the small bridge used by the
 // frame-pacing query. It asks the connection manager whether its two router

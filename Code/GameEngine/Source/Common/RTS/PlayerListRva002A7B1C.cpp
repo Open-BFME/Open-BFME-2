@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002A7B1C@Rva002A7B1C@@QAEXXZ 24B @0x002A7B1C
 // Player array refresh: 20 entries at +0x18 calling updateTeamStates.
 // Evidence: neighbours PlayerListRva002A7AFE / PlayerList_getNthPlayer share

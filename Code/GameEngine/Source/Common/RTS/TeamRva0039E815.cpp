@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039E815@Team@@QAE_NXZ @0x0039E815 54B, true when any member template has byte +0x5e6 set.
 // Retail walks the 24-byte iterator via rowed iterate_TeamMemberList at

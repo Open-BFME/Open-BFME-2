@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /G7 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002ABFA0@Rva002ABFA0@@QAEXPAX@Z, RVA 0x002ABFA0, size 35.
 // Evidence: caller 0x003BD062 passes Player as this and void* from Rva002D06CAGet;

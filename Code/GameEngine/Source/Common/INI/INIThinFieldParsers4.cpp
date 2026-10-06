@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // Thin token FieldParse procs (original names unproven; address names):
 //   0x001DFBC7 33B / 0x001DFC09 33B Type (0x00BDD7F4 / 0x00BDD8A0, store

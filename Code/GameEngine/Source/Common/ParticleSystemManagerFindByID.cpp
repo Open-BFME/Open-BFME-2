@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /EHsc
+// cl: /MD /EHsc
 // ?findParticleSystemByID@ParticleSystemManager@@AAE?AVBfmeParticleSystemHandle@@W4ParticleSystemID@@@Z, retail 0x001F5B0A, 111 bytes.
 // Port of BFME1 ParticleSystemManager::findParticleSystemByID (game/GameEngine/Source/GameClient/System/ParticleSystemManager_findByID.cpp).
 // Evidence: caller 0x001F5B79 (destroyParticleSystemByID) lea ret [ebp-0x18] push ret push ID thiscall; ID at ParticleSystem+0xA8 matches BFME1 donor;

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /GX- /arch:SSE
+// cl: /MD /GX-
 // stlport
 // ?rva002ACE2B@Player@@QAEHPAX@Z @0x002ACE2B 161B: Player method iterating
 // list at +0x6f4 of Rva002AC3BE entries (vector<float> at +4, ObjectID at

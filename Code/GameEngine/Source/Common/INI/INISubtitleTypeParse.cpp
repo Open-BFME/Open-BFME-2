@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?Rva006882E0Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x006882E0 (35B): the
 // SubTitleType FieldParse proc (0x00CE43D0) of the subtitle font table at

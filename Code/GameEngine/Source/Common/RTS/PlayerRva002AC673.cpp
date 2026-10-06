@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ?rva002AC673@Player@@QAEXXZ @0x002AC673 (62B): Player science reset.
 // Iterates the ScienceType vector at +0x2F0..+0x2F4, notifying ScriptEngine
 // via rowed ?rva00357A03@ScriptEngine@@QAEXHW4ScienceType@@@Z at 0x00357A03

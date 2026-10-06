@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Miscellaneous literal string getters: six-byte const members with one shape:
 //
 //     mov eax,<offset string literal> / ret

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // BFME1 PlayerTemplateStore::getNthPlayerTemplate, with the retail
 // 0x1DC-byte vector element and its Overridable final-override lookup.
 class Overridable

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // BFME 1 ScoreKeeper_totalDestroyed.cpp semantics with BFME 2's measured
 // twenty-player arrays at +0x20 and +0x78. The retail getters call distinct
 // out-of-line sum workers, which remain declarations in this unit.

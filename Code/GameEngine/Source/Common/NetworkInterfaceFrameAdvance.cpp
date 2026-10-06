@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // BFME2's native-network vtable slot +0x54 decides how many logic frames may
 // advance during the current client tick.  The two branches are deliberately

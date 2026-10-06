@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva002A7A6F@PlayerList@@QAEPAVPlayer@@H@Z,
 // retail 0x002A7A6F, 49 bytes. Dedicated TU.

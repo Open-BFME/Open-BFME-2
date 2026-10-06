@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // INI block-parse registration initializers. BFME replaced Zero Hour's
 // theTypeTable array with 12-byte BlockParse nodes { next, token, parse } that

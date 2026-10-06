@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // ?Rva0033B938_ParseTranslatedLabel@INI@@SAXPAV1@PAX1PBX@Z, retail 0x0033B938
 // (153B), in the INI.cpp parse run. The {AsciiString label, UnicodeString text}

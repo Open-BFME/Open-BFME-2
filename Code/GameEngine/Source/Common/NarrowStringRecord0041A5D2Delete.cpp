@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 //
 // ?rva0041A241@BfmeNarrowRecord0041A5D2@@QAEPAXI@Z @0x0041A241, 28B:

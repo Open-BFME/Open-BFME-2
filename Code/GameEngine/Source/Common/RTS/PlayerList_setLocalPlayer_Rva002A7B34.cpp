@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?setLocalPlayer@PlayerList@@QAEXPAVPlayer@@@Z
 // retail 0x002A7B34, 93 bytes (Ghidra FUN_006a7b34).

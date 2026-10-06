@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039D9E3@Team@@QBEHXZ @0x0039D9E3 (71B).
 // Team::rva0039D9E3(): counts live members that either have an AI interface

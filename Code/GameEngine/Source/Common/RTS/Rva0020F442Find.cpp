@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0020F442@Rva0020F442@@QAEPAVAsciiString@@ABV2@@Z @0x0020F442 65B via vector find with StringBase compare
 // Evidence: retail loops (end-begin)>>2 at +0x34/+0x38 with index edi, calls rowed
 // ?compare@?$StringBase@D@@QBEHABV1@@Z @0x000069D6, returns matching element or NULL;

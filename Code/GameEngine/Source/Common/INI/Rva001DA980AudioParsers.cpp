@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 //
 // Five INI audio-block parse helpers: each builds a Default-name
 // AsciiString temporary and hands it, with a kind index and the event

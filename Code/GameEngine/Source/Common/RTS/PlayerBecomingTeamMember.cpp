@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?becomingTeamMember@Player@@QAEXPAVObject@@_N@Z @0x002AD4EC (257B): Zero
 // Hour Player::becomingTeamMember in source order, plus one BFME 2 tail.

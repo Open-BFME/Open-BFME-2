@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039E0D0@Team@@QAE_NXZ @0x0039E0D0 (141B).
 // Team::rva0039E0D0(): returns true when the Team gate byte at +0x112 is clear

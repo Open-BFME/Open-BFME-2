@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHs-c- /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHs-c- -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ??9Rva00077710Value@@QBE_NABV0@@Z
 // retail 0x0022CF4C, 34 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/ObfuscatedValueOperators.cpp

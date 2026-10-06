@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?setPlayerType@Player@@QAEXW4PlayerType@@_N@Z @0x002A9A18 180B:
 // Player::setPlayerType after the BFME1/Zero Hour donor. BFME2 also creates

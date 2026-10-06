@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ?setCurrentlySelectedAIGroup@Player@@QAEXPAVAIGroup@@@Z @0x002ACC53 80B: Player selection setter.
 // Evidence: BFME1 donor PlayerSetCurrentlySelectedAIGroup.cpp plus ZH Player.cpp;
 // BFME2 offset +0x730 with 0x1c Squad alloc via pin Squad ctor plus rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva003A2CEB@Team@@QAEXHPAVObject@@@Z 104B @0x003A2CEB: team map register plus filtered member notify.
 // Evidence: this plus0x118 map plus findSlot row 0x0041F4E5 plus iterate row 0x00263864 plus advance pin 0x00263526 plus rva00298C0B row plus Object plus0x438 plus0x94 plus0x250 filters. Caller at 0x003C09D0.
 class Object;

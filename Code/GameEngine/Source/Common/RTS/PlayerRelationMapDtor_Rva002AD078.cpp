@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
+// cl: /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
 //
 // ??1PlayerRelationMap@@MAE@XZ, retail 0x002AD078, 72 bytes (Ghidra
 // boundary), pinned under this name.

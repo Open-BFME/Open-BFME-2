@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0039DFF8@Team@@QAE_NXZ @0x0039DFF8 (74B).
 // Team member scan returning false on first live AI member whose slot 0x1b8

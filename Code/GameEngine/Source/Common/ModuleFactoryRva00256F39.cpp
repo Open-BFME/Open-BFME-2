@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva00256F39@ModuleFactory@@QAEHABVAsciiString@@W4ModuleType@@@Z @0x00256F39 46B
 // ModuleFactory helper: empty name returns 0; else findModuleTemplate (rowed
 // 0x0025674F) and return the int at template+0x0C, 0 when missing. isEmpty

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // ?Rva0046133BParse@@YAXPAVINI@@PAX1PBX@Z, retail 0x0046133B (176B): the
 // WayPoint FieldParse proc (row 0x00C42A58, store +0x120). Reads "Index" (an

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002AB82D@Player@@QBE_NPAVCreateAHeroData@@@Z @0x002AB82D (40B): Player const find over CreateAHeroData* vec at +0x2FC.
 // Evidence: same 40B shape as rowed Player::hasScience @0x002AB7D5 which finds over ScienceVec at +0x2F0 via rowed _STL::find @0x0020E873; this body calls the same rowed find for CreateAHeroData* with begin at [ecx+0x2FC] and end at [ecx+0x300] immediately after that ScienceVec; neighbours 0x002AB7FD and 0x002AB87D are Player const methods with same flags.
 class CreateAHeroData;

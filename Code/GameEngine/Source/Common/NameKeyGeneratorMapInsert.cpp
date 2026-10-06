@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // NameKeyGenerator::KeyToBucketMap::insert, retail 0x004DA240, 36 bytes,
 // NameKeyGenerator::KeyToBucketMap::do_insert, retail 0x0005574B, 112 bytes,

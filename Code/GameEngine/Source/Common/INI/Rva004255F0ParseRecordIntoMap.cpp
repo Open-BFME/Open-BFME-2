@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
 // Open-BFME7: INI block parser at 0x004255F0 (105 B): a zeroed (AsciiString
 // name + 4-byte value) record local is filled through INI::initFromINI with
 // the field table at VA 0x010F1B34 then inserted into the map the store

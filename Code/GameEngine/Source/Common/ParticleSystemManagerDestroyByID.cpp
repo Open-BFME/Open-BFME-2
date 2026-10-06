@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /EHsc
+// cl: /MD /EHsc
 //
 // ParticleSystemManager::destroyParticleSystemByID, retail 0x001F5B79 (69
 // bytes), after Zero Hour's GameEngine/Source/GameClient/System/

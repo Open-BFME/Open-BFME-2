@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002A7AFE@PlayerList@@QAEXPAX@Z @0x002A7AFE 30B.
 // PlayerList fan-out over 20 slots calling rowed armor remove. Evidence:
 // chain lane via 0x002AD19E, prev PlayerList::reset same TU, push-imm 0x14

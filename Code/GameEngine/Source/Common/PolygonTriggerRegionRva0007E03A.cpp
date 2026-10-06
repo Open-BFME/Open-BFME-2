@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0007E03A@PolygonTrigger@@QAE?AURegion2D@@XZ retail 0x0007E03A 19B
 // PolygonTrigger region forwarder: returns m_shape (at +0x08) region via the

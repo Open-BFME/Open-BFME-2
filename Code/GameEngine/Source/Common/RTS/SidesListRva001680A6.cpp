@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O1 /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // ?rva001680A6@Rva001680A6@@QAEXHPAXM@Z @0x001680A6 71B
 // Unlock callee of 0x000D0091; guarded 12B copy plus float store plus flag clear.
 // Evidence: retail push esi mov esi arg0 cmp esi [ecx+0xd0] jae skip; imul eax esi 0xc add eax [ecx+0xc8]; 3 dword copy via edi; mov eax [ecx+0xd8] movss [eax+esi*4] xmm0; and [ecx+0x12] 0xfd; ret 0xc; callers unclaimed; prev SidesList in Player.cpp contiguous.

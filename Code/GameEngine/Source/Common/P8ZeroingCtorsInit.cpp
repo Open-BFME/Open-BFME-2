@@ -1,4 +1,4 @@
-// cl: /O2 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // The target pin identifies the shared 36B dec-word-at-+4 release body.
 #pragma comment(linker, "/alternatename:?Release_Ref@TaggedRefObject@@QAEXXZ=?Release_Ref@TextureBaseClass@@QAEXXZ")
 

@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ??1Rva001976F0@@QAE@XZ
 // retail 0x0032C1C1, 54 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/R4TwoMemberDestructors.cpp

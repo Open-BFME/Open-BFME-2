@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /GX
 // ?xfer@TeamPrototype@@MAEXPAVXfer@@@Z @0x003A3E74 473B: slot 3 of vtable 0x0081AE94 (class of ??1TeamPrototype). Evidence: donor BFME1 Team.cpp xfer plus TeamPrototypeInstanceWalks xfer plus rowed getNthPlayer 0x002A7A29 plus pins 0x0039F761 0x003A3DBE plus disp8 getter 0x005C4AF5.
 // Slot 3 is TeamPrototype::xfer, retyped protected (MAE) from retail IsLightCRC early-out and Version(1,2) plus int player index plus Ascii plus bool plus Snapshot plus ushort count plus bool plus floats plus version-gated bools plus uint plus team save/load walks.
 #include "ascii_string.h"

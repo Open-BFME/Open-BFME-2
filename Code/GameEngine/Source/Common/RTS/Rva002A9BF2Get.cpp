@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002A9BF2@Rva002A9BF2@@QAEPAXXZ @ 0x002A9BF2 (27B). Unlock lane difficulty
 // getter shared by 13 callers. Evidence: GameWindow at this+0x2DC tail-jmps to
 // rowed winGetUserData 0x005C4ACD when present else returns TheScriptEngine

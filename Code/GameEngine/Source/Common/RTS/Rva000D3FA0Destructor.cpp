@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // Byte-twin of ??1TeamRelationMap@@UAE@XZ at 0x000F21C0
 // (Code/GameEngine/Source/Common/RTS/TeamRelationMapDestructor.cpp): identical

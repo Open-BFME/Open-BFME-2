@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 // ?friend_lookupScience@ScienceStore@@QBE?AW4ScienceType@@PBD@Z @0x1FF65D
 // (81B): ScienceStore::friend_lookupScience, ZH Science.cpp verbatim (public
 // const): NAMEKEY the name, isValidScience (row) or INIException(3, ...) via

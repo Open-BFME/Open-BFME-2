@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Thin FieldParse procs (original names unproven; address names). Each is
 // referenced from a retail FieldParse table entry named below.

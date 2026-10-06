@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?findScienceInfo@ScienceStore@@ABEPBVScienceInfo@@W4ScienceType@@@Z @0x1FF3AD
 // (47B): ScienceStore::findScienceInfo, BFME1 Science.cpp verbatim shape with a

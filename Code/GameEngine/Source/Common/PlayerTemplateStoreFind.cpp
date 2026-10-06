@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?findPlayerTemplate@PlayerTemplateStore@@QBEPBVPlayerTemplate@@W4NameKeyType@@@Z @0x001FD31B 45B
 // BFME1 PlayerTemplate.cpp findPlayerTemplate with BFME2 Overridable final-override lookup.
 // Retail vector first/last at +0x0C/+0x10 stride 0x1DC nameKey at +0x10 (PlayerTemplateGetName

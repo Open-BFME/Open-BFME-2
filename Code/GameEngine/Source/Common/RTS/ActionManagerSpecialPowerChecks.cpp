@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ActionManager special-power location checks called in a row by the
 // placement validator 0x0041D60B.

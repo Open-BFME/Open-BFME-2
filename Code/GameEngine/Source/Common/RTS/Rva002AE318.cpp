@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 //
 // ?rva002AE318@Rva002AE318@@QAEXXZ @0x002AE318 17B.
 // Calls rowed Rva00380200::rva0038028B on this then tail-jmps to rowed

@@ -1,4 +1,4 @@
-// cl: -GX- /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -GX- -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // stlport
 #include <algorithm>
 

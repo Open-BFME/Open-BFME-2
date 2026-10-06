@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Scalar deleting destructors with a sized release through the chain-block
 // pool at 0x00E176E8 (Rva006DB270::freeBlock 0x006DB270), same 35B shape and
 // recipe as Rva006CBF40Siblings.cpp: call the complete dtor, test the delete

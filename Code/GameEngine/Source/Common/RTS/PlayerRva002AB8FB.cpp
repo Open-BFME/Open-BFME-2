@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /G5
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 //
 // ?rva002AB8FB@Player@@QAEXPAVObject@@_N@Z retail 0x002AB8FB 322B. Player grant AI

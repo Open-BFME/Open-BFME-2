@@ -1,4 +1,4 @@
-// cl: /O1 -GX- /Ireference/shims/bfmealloc
+// cl: -GX- /Ireference/shims/bfmealloc
 // stlport
 //
 // Bodies ported from Open-BFME-1's

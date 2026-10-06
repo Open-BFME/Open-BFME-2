@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Dedicated TU for Rva0074AC80::Rva0074AC80 from the BFME1 donor
 // game/GameEngine/Source/Common/R3ScalarFieldConstructors3.cpp
 // (reference/open-bfme-1). Only this one placed body is defined here; the

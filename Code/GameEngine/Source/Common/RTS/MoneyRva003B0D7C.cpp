@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /arch:SSE /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 // ?rva003B0D7C@Rva003B0D7C@@QAEXHPAVRva0039B7AD@@_N@Z @0x003B0D7C 188B
 // Unlock lane: Money at Player+0x90 subobject, (amt,0,1) thiscall from script 0x003BC048; audio via TheAudio slots 0x138/0x64 with BfmeAudioEventPrefix136(ref+0x38,0)+set(+8)+addAudioEvent; then +4+=amt, g_00E032F8+8 cond, arg2 cond add.
 // Evidence: caller 0x003BC048 pushes (amt,0,1) with this=Player+0x90; callees ctor 0x002D97D6 dtor 0x002D9A43 set 0x0033F15D rva0039B7AD 0x0039B7AD rowed; TheAudio 0x009FE6E8 ThePlayerList 0x009FEEE8; neighbours HackInternetAIUpdate/Rva003B0E38Xfer.

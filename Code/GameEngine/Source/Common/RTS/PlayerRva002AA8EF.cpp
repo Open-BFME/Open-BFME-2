@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002AA8EF@Player@@QBE_NPBVUpgradeTemplate@@@Z @0x002AA8EF (48B):
 // null-guarded UpgradeTemplate bit test over the Player bit words at +0xBC,
 // the in-production twin of rowed rva002AB87D (+0x13C, out-of-line testBit).

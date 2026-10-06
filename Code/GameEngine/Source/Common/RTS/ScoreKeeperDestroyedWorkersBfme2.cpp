@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // The two twenty-player sum workers called by ScoreKeeper's total getters.
 // The building worker reads its pointer argument; the units worker uses this
 // plus the target-measured array offset while keeping the ABI's pointer slot.

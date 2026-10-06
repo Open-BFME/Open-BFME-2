@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?Rva002AA41A@@YAHPAVObject@@PAX@Z @0x002AA41A 64B
 // Best-object iteration callback beside 0x002AA3D4: with non-null user data
 // (a point, then best object +0xC and best squared distance +0x10), keep

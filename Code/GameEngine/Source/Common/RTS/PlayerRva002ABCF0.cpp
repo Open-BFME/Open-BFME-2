@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva002ABCF0@Player@@QAEHEPAH@Z, RVA 0x002ABCF0, size 45: Player iterate with byte flag and int result via iterateObjects.
 // Evidence: ecx pass-through to Player::iterateObjects pinned at 0x002AB08B; callback at 0x002AB01C (FUN_006ab01c) with 8B userdata {flag result}; caller 0x003BCEA7 passes flag and out pointer with Player in ecx and uses return; neighbours PlayerRva002ABD1D.cpp.
 

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0039D73A@TeamPrototype@@QAEXXZ @0x0039D73A (13B).
 // TeamPrototype priority decrement: subtracts the dword at +0x224 from the

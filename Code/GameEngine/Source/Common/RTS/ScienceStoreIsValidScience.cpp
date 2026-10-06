@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?isValidScience@ScienceStore@@QBE_NW4ScienceType@@@Z @0x1FF50D
 // (15B): ScienceStore::isValidScience, ZH Science.cpp verbatim (public const):
 // findScienceInfo (pinned at 0x1FF3AD) plus null-check normalized to Bool.

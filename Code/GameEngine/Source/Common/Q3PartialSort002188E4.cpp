@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc /Os /G7
+// cl: /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc
 //
 // ?Rva002188E4PartialSort@@YAXPAURva004748F0Element@@00HURva004748F0Compare@@@Z @0x002188E4 94B
 // Partial-sort driver for MixFileCreator FileInfo records: make-heap, sweep

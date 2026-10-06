@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Getter siblings of the BFME1-derived MultiPlayMults facade.
 // Array roles come from PC FieldParse callbacks and their matched setters.
 // PC callers add GlobalData+0xEC4 before the XP/speed accessors; no Xbox ABI reused.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?findPrototype@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z @0x0039FE6C 79B
 // TeamFactory prototype map find by two name keys. Converts both AsciiStrings
 // via TheNameKeyGenerator then lower_bounds the +0xB0 map through rowed

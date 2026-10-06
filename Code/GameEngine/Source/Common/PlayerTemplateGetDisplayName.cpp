@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Oy- /MD /EHsc
 // ?getDisplayName@PlayerTemplate@@QBE?AVUnicodeString@@XZ @0x00449B8F (27B):
 // PlayerTemplate::getDisplayName, by-value forward of the display-name member
 // at +0x14. Retail calls the wide StringBase copy-ctor at 0x37050 directly

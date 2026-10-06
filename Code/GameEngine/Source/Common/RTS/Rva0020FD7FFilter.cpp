@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0020FD7F@Rva0020FD7F@@QAEXPAURva0020FD7FFilter@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z @0x0020FD7F 96B via voidptr-erase plus ModuleData filter push
 // Evidence: retail clears out vector via rowed voidptr erase 0x0031BD55 then loops holder vector at (this+8)+0x2c comparing element+0x13c to filter+0x14 and push_back via rowed 0x004DFCB0; caller 0x002B7DE6; neighbours share /O1; Rva002B85ECFilter precedent for filter shape.
