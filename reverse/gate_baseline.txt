@@ -235,15 +235,8 @@ tail 0x00685200 _CommUDPConnect
 tail 0x00685820 _Rva00819920
 tail 0x00686D20 _Rva0081AE20
 tail 0x00686F10 _Rva0081B010
-truncated 0x00105D3B ?Set_Wrapping_Width@Render2DSentenceClass@@QAE_NM@Z
 truncated 0x0018B790 ?read_chunks@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
 truncated 0x001A5900 ?Update_Sub_Object_Transforms@Animatable3DObjClass@@MAEXXZ
-truncated 0x00263404 ?rva00263404@AIUpdateInterface@@UAEXPAVRva00263404Source@@@Z
-truncated 0x00264963 ?bfmePrivateCommand3E@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z
-truncated 0x00264AB2 ?bfmePrivateCommand53@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z
-truncated 0x003421F4 ?onExit@AIHuntState@@UAEXW4StateExitType@@@Z
-truncated 0x0034234C ?onExit@AIAttackAreaState@@UAEXW4StateExitType@@@Z
-truncated 0x0051C992 ?heroVetUpgrade@AptScoreScreen@@QAEXHPAD_N@Z
 truncated 0x0067F000 _Rva00813100@24
 truncated 0x006B9190 ?AddSubInternalFPF@@YAXEPAUInternalFPF@@00@Z
 truncated 0x006C9300 ?FormatURLFromRegistry@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@000@Z
