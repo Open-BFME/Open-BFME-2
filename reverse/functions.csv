@@ -65009,3 +65009,6 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva005E8892@Rva005E888A@@QAEXXZ,,0x005E8892,47,Code/GameEngine/Source/Common/Bfme/Rva005E8892Method.cpp,matched,gap body same class rowed callees caller 0x005E88DD
 ?rva005E88DD@Rva005E88DDNullTarget@@QAEXXZ,,0x005E88DD,7,Code/GameEngine/Source/Common/Bfme/Rva005E88DDForwarder.cpp,matched,chain forwarder to 0x005E8892 pinned callers
 ?rva004483BC@Rva004482FB@@QAEHVUnicodeString@@@Z,,0x004483BC,103,Code/GameEngine/Source/Common/Rva004482FBDtor.cpp,matched,LANGameInfo getSlotNum by Unicode name inGame 0x10 8x0x1D0 chain 0x4481A7
+?rva0006840A@Rva0006840A@@QAEXQAVVector3@@W4DrawableID@@_N@Z,,0x0006840A,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed addBibDrawable same offset as 0x000683FF
+?rva00068415@Rva00068415@@QAEXXZ,,0x00068415,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed removeHighlighting same offset as 0x000683FF
+?rva00068420@Rva00068420@@QAEXXZ,,0x00068420,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed clearAllBibs same offset as 0x000683FF

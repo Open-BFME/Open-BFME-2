@@ -13132,3 +13132,27 @@ Unwind@00b7b627	0x0077B627	25	blocked	Retail FuncInfo maps this cleanup to match
 ?rva0058A6A8@Rva0058A6A8@@QAEHH@Z	0x0058A6A8	1537	blocked	over 1000B factory 40 cases t=3 model=muse-09
 ?findPositionAround@PartitionManager@@SA_NPBUCoord3D@@PBUFindPositionOptions@@PAU2@@Z	0x00285202	1068	blocked	ADDRESS-NAMED g_Va00BBB8D8 g_Va007C26F0 new use refused plus unclaimed callee 0x00284AC6 t=2 model=muse-09
 ?rva0039F7A5@Rva0039F7A5@@QAEXXZ	0x0039F7A5	127	partial	head zeroing and vs xor-mov plus frame push-ecx vs sub-10 hook DIR32-store-call-edx vs imm-push-ebx-mem-call lea vs mov t=18 model=muse-09 score=0.95 stash=reverse/attempts/0x0039f7a5.cpp
+FUN_00691b7c	0x00291B7C	164	blocked	ADDRESS-NAMED g_Va009FF0F8 escape hatch t=1 model=muse-02
+FUN_009b566b	0x005B566B	256	blocked	pin 00219251 QAEXXZ but retail pushes 7 args ret1c plus inner 00409C3D unrowed t=5 model=muse-02
+?rva0049D867@Rva0049D867@@QAE_NPBVUpgradeTemplate@@@Z	0x0049D867	315	blocked	single global load [0x00DFEB60] vs [0] at +0x2d t=5 model=muse-02
+?bfmeOneTFB@BfmeThingTFB@@QAEXXZ	0x00291C20	100	blocked	ADDRESS-NAMED g_Va009FF0F8 is counted escape hatch per packet t=1 model=muse-02
+??0Rva00740FD9@@QAE@XZ	0x00740FD9	107	partial	base vtable CF1630 one store late plus mov ecx edi vs EH store order plus movss pair late t=20 model=muse-spark score=0.93 stash=reverse/attempts/0x00740fd9.cpp
+?appliesTo@Rva005AB7E5@@UAE_NPAX@Z	0x005AC011	164	blocked	esi-edi swap only this-in-edi-record-in-esi vs retail esi-edi push-order same t=30 model=muse-spark (stash 0.95 kept)
+?rva0009B7EA@Rva0009B7EA@@QAEXXZ	0x0009B7EA	698	blocked	big WW3D render 698B SSE-x87 dead-end t=2 model=muse-spark
+?rva00208343@Rva00208343@@QAEXXZ	0x00208343	884	blocked	huge 884B EH ctor STL maps t=2 model=muse-spark
+?rva002A9C5F@Rva002A9C5F@@QAEXXZ	0x002A9C5F	69	blocked	ADDRESS-NAMED g_Va009FE16C hatch plus unrowed callee 0x002C6A8D t=2 model=muse-spark
+?rva002C6779@Rva002C6779@@QAEXXZ	0x002C6779	73	blocked	unrowed callee 0x002C6607 t=2 model=muse-spark
+?rva004F288C@Rva004F288C@@QAEXXZ	0x004F288C	349	blocked	ADDRESS-NAMED hatch plus unrowed callee 0x004F09CF t=2 model=muse-spark
+?rva002B5AF7@Rva002B5A5F@@QAEXXZ	0x002B5AF7	94	blocked	unrowed callee 0x002B5A5F t=2 model=muse-spark
+?groupAttackObjectPrivate@AIGroup@@AAEX_NPAVObject@@HW4CommandSourceType@@@Z	0x0036FD64	463	blocked	unrowed callees 0x0054B7B7 0x0054C64A t=2 model=muse-spark
+?rva00740BCD@Rva00740BCD@@QAEXXZ	0x00740BCD	683	blocked	ADDRESS-NAMED hatches plus unrowed callees big 683B t=2 model=muse-spark
+FUN_004f2464	0x004F2464	1064	blocked	ADDRESS-NAMED g_Va009FE16C new use refused plus 4 unclaimed callees over 1000B t=1 model=muse-02
+?rva00044018@Rva00044018@@QAEXI@Z	0x00044018	479	blocked	ADDRESS-NAMED globals g_Va00BBB8D8 g_Va007C26F0 require counted escape hatch t=2 model=muse-02
+FUN_00764551	0x00364551	1120	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va00BBB8D8 plus 1120B over wall t=2 model=muse-02
+?rva0089E2B0@Rva0089EFE0@@QAEHPBD0@Z	0x006D47F0	682	blocked	register wall ebx-vs-edi for old plus this-in-esi-vs-ebp plus frame 0x20-vs-0x24 across whole body 6 variants t=30 model=muse-02
+?rva00092DD8@Rva00091A80@@QAEXPAUDrawParam00092DD8@@_NM@Z	0x00092DD8	717	blocked	complex 717B SSE bib transform needs donor t=12 model=muse-02
+?rva000EC75D@Rva000EC75D@@QAEXXZ	0x000EC75D	617	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString new use refused per packet t=2 model=muse-02
+?rva000ECA4D@Rva000ECA4D@@QAEXXZ	0x000ECA4D	936	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString new use refused per packet t=2 model=muse-02
+?Rva0017E210Init@@YAXXZ	0x0017E210	1792	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused per packet t=2 model=muse-02
+?Rva00044FF2Do@@YGXHHH@Z	0x00044FF2	148	blocked	unresolved callee 0x000731F4 chain hits wall 0x00072D5D partial 0.93 t=5 model=muse-02
+?rva000926AC@Rva000926AC@@QAEXHHH@Z	0x000926AC	64	blocked	contested callee 0x000365F0 plus unresolved 0x0006ABE7 plus prior blocked stack-temp idiom t=3 model=muse-02
