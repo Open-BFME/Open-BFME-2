@@ -64421,3 +64421,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva005FF5F6@@QAE@XZ,,0x005FF5F6,99,Code/GameEngine/Source/Common/Rva005FF5F6Dtor.cpp,matched,empty body with five member dtors incl CRT-freed buffer two strings and two vector wrappers
 ??1Rva005FCA8B@@QAE@XZ,,0x005FCA8B,89,Code/GameEngine/Source/Common/Rva005FCA8BDtor.cpp,matched,owner list broadcast via forEach with slot3 vcall PMF then three member dtors
 ?ObjectCreateAndFireTempWeapon@@YAHPAUlua_State@@@Z,,0x0033541C,186,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectCreateAndFireTempWeapon.cpp,matched,Lua binding via HasUpgrade sibling WeaponStore
+?rva005E3B25@Rva005E3B25@@QAEXH@Z,,0x005E3B25,8,Code/GameEngine/Source/Common/Rva005E3B25.cpp,matched,ptr chase tail jmp via rowed callee plus caller plus gap

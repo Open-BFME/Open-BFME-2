@@ -11394,3 +11394,4 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva0037DCE8@Rva0037DCE8@@QAEPAVObject@@XZ	0x0037DCE8	294	blocked	294B Object creation with SSE STL needs strong model t=3 model=muse-03
 ?rva0050B98F@Made002CCC2D@@QAEXPAXH@Z	0x0050B98F	383	blocked	vslot6 SpawnAndFade 383B trig wall t=28 model=muse-03
 ?Rva003B825FGet@@YAHXZ	0x003B825F	171	blocked	linkbody free STL deque EH 171B needs STL EH donor t=6 model=muse-03
+?rva005E314B@Rva005E314B@@QAEXH@Z	0x005E314B	95	blocked	struct sret copy plus arg-slot reuse plus reg wall t=15 model=muse-spark
