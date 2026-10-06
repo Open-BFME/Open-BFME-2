@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x004C888D (318 bytes): CombineHordeSpecialPower::rva004C888D, slot
 // 10 of its special-power interface vftable 0x0085E708 (+0x10 subobject;

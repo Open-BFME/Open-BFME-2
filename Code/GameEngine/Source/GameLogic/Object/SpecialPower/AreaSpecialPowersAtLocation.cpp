@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /GX
 //
 // doSpecialPowerAtLocation overrides of four BFME2 area powers: slot 12 of
 // each class's +0x10 special-power interface vftable (the slot

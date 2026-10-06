@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /arch:SSE
+// cl: /MD /DNDEBUG
 //
 // ??0StopSpecialPowerModuleData@@QAE@XZ, retail 0x004C68AB (22 bytes).
 // Frameless trivial ctor over the pinned SpecialPower base (0x4930A0):

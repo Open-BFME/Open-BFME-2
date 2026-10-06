@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // RepairSpecialPower::doSpecialPowerAtObject, retail 0x004C875E, 75 bytes:
 // slot 11 of the class's +0x10 special-power interface vftable 0x00C5E640

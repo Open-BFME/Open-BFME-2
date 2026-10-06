@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /EHsc
+// cl: /MD /DNDEBUG /EHsc
 //
 // ??1ActivateModuleSpecialPowerModuleData@@UAE@XZ, retail 0x0025714A, 93 bytes.
 // Target evidence: the audited scalar deleting dtor 0x0025712E calls this

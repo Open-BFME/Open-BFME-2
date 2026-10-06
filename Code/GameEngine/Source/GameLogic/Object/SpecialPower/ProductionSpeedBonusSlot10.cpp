@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?rva004C2F6A@ProductionSpeedBonus@@UAEXH@Z, retail 0x004C2F6A, 124 bytes:
 // slot 10 of the special-power interface vtable 0x00C5C9E0 that

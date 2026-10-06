@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /arch:SSE
+// cl: /MD /DNDEBUG
 // ?rva004C7F5C@Rva004C7F5C@@QAEXPAVObject@@@Z 222B @0x004C7F5C: heal guard via Thing KindOf plus relationship plus float range plus body mult plus attemptHealing plus doFXObj.
 // Evidence: retail push ebp frame plus Thing 0x11B test plus isAnyKindOf via BitFlags at this plus4 plus0x88 plus getRelationship pin 0x28D156 plus float range via BfmeZeroRange and g_00BCEA18 plus body at plus0x254 slot 0x18 mult plus attemptHealing row 0x28FE55 plus doFXObj row 0x0B2235. Caller at 0x004C8128.
 template<int N>

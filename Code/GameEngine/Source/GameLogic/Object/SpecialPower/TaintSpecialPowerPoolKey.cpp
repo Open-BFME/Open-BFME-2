@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004C48DF@TaintSpecialPower@@SA?AW4NameKeyType@@XZ @0x4C48DF
 // (69B): cached pool-name key for TaintSpecialPower. The class
 // identity comes from the pool-name string the body pushes

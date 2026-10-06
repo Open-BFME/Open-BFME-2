@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@AISpecialPowerUpdate@@MAEXPAVXfer@@@Z, retail 0x004B3352, 153 bytes.
 // Slot 3 of ??_7AISpecialPowerUpdate 0x00C56E1C (slot-2 name getter returns

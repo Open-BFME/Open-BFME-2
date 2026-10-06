@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00254CCF@ActivateModuleSpecialPowerModuleData@@UAEXPAVRva00254CCFArg@@@Z retail 0x00254CCF 60 bytes.
 // Vslot 34 offset 0x88 of vtable 0x7F3F60 owned by ActivateModuleSpecialPowerModuleData ctor 0x256DA1.

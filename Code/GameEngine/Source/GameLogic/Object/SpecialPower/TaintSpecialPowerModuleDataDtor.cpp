@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??1TaintSpecialPowerModuleData@@UAE@XZ, retail 0x004C4B07, 53 bytes.
 // TaintSpecialPower ModuleData dtor (ctor rowed at 0x004C4AB8 in

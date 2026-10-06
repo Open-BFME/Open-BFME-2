@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004C391E@ElvenWoodSpecialPower@@SA?AW4NameKeyType@@XZ @0x004C391E
 // (69B): cached pool-name key for ElvenWoodSpecialPower. The class
 // identity comes from the pool-name string the body pushes

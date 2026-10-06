@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00368344@Rva00368344@@QAEXPBUCoord3D@@H@Z @0x00368344 83B
 // Evidence: leaf called from 0x0036BDCB plus sibling Rva003683EA layout (+0x30 machine +0x528 done) plus rowed callees.
 struct Coord3D { float x; float y; float z; };

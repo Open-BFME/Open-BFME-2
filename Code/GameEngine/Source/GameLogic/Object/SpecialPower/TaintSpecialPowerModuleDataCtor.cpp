@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /arch:SSE
+// cl: /MD /DNDEBUG
 // ??0TaintSpecialPowerModuleData@@QAE@XZ at retail 0x004C4AB8 (51 bytes,
 // frameless): base call into the opaque intermediate 0x004930A0 (pinned),
 // explicit vtable store at +0, zeros at +0x7C/+0x84/+0x88, 10.0f at +0x80

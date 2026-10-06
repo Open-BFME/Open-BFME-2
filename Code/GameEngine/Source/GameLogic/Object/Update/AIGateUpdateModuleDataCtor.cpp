@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0AIGateUpdateModuleData@@QAE@XZ, retail 0x004B08C1, 22 bytes.
 // Frameless trivial ctor: vtable literal 0x00C4ED70 (the folded trivial

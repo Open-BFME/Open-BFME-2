@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // CurseSpecialPower's slot 17 (0x004CCEEE; SpecialAbilityUpdate's slot 17
 // first), its per-target curse (0x004CCE85) and the kind filter's implicit

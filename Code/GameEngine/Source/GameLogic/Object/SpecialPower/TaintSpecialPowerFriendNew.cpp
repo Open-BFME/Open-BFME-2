@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@TaintSpecialPower@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00251EAC, 56 bytes. Dedicated TU: retail news 0x34 (push-imm8)

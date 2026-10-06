@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva00263910@Rva00263910@@QAEXPBUCoord3D@@MH@Z
 //
 // retail 0x00263910 (297 bytes). AIUpdate goal-position helper: copy pos to

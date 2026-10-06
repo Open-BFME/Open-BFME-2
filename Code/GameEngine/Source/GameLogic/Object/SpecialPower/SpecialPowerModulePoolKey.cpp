@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000493DAA@SpecialPowerModule@@SA?AW4NameKeyType@@XZ @0x493daa
 // (69B): cached pool-name key for SpecialPowerModule. The class
 // identity comes from the pool-name string the body pushes

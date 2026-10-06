@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // stlport
 //
 // ??0GiveOrRestoreUpgradeSpecialPowerModuleData@@QAE@XZ, retail 0x004CD0B1,

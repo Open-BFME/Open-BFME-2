@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva002544B5@@UAE@XZ @0x002544B5 60B.
 // WorkerAI-adjacent dtor (rowed ctor 0x00254434 plus factory 0x002544F1) landed
 // under an honest address name because ??1WorkerAIUpdateModuleData@@UAE@XZ is

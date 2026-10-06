@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0048F690Helper@AssaultTransportAIUpdate@@QAEXXZ, retail 0x0048F690
 // (94 bytes). Passenger-AI sweep over the +0x3E8 ObjectID array for the

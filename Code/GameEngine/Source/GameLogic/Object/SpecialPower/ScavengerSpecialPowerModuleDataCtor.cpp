@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /Oy- /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /Oy- /DNDEBUG /DWIN32 /D_WINDOWS
 // Identity: ModuleFactory registers this data class under "WeaponChangeSpecialPowerModule" (addModule
 // pairs the name with this factory); formerly misnamed ScavengerSpecialPowerModuleData.
 // stlport

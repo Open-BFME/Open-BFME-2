@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 //
 // ??1ActiveBodyModuleData@@UAE@XZ, retail 0x00256CB0, 93 bytes. Virtual
 // dtor over vtable 0x0085AFB8 (slot 0 deleting dtor at 0x004BF9B8 calls

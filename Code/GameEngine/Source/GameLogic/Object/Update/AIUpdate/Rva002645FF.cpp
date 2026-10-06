@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002645FF@Rva002645FF@@QAE_NXZ retail 0x002645FF 87B.
 // AIUpdate slot 0x1B8 (110) shared by Siege/Transport/Wander/HordeWorker vtables.
 // Evidence: vtable slot 110 of 0x00847B98 0x0084D330 0x008505F8 0x008508C8 0x00853AA8 0x00853D30;

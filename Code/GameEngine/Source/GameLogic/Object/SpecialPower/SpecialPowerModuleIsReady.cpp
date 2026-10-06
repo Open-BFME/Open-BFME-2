@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /Oa /GX- /MD
+// cl: /Oa /GX- /MD
 // ?isReady@SpecialPowerModule@@UBE_NXZ @0x004934DE 128B: SpecialPowerModule::isReady virtual slot.
 // Evidence: ZH isReady semantic lead; target adds blocked+28 and status70 check;
 // MI receiver is SpecialPowerModuleInterface subobject at primary+10;

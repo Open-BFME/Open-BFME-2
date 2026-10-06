@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00267DF1@Rva00267DF1@@QAEXPAXPBUCoord3D@@HH@Z
 //
 // retail 0x00267DF1 (85 bytes). Chain lane: calls rowed 0x00265667 with own

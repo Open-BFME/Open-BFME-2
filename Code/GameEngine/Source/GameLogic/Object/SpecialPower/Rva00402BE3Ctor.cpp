@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00402BE3@@QAE@ABVAsciiString@@@Z @0x00402BE3 44B
 // Honest Rva ctor: AsciiString at +0 via rowed ascii_string copy 0x001D8F56,

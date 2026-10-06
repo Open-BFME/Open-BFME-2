@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?makeStateMachine@AnimalAIUpdate@@MAEPAVAIStateMachine@@XZ, retail
 // 0x0047EC69, 63 bytes: slot 150 of AnimalAIUpdate's primary vtable

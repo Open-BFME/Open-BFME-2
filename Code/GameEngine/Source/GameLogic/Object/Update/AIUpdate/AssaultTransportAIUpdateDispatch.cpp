@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0048F7A7Dispatch@AssaultTransportAIUpdateSecondary@@QAEXPAUBfmeBehaviorRequest@@@Z
 // retail 0x0048F7A7 (129 bytes). Request dispatcher on the behavior's

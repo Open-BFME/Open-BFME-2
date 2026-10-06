@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two DeflectSpecialPower interface slots, compiled with their subobject this.
 // The matched ctor 0x004C545D installs vtables at +0x00 (0x00C5DA7C), +0x0C,

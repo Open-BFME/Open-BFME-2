@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0048F61ACheck@AssaultTransportAIUpdate@@QAE_NXZ, retail 0x0048F61A
 // (52 bytes). Readiness gate over the +0x41A passenger flags: the +0x08

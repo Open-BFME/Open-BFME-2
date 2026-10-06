@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0045108D@GiveOrRestoreUpgradeSpecialPower@@UAEXXZ 0x004CD1B9 275B evidence: slot 17 of vtable 0x0085FA40; base SpecialAbilityUpdate rva0045108D pin 0x0045108D; ModuleData +0xCC UpgradeToGive +0xD0 toggle from rowed ctor 0x004CD0B1; Curse slot-17 precedent
 #include "ascii_string.h"
 

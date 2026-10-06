@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/moduledata
+// cl: /GX /DNDEBUG /MD /Ireference/shims/moduledata
 //
 // ??1AIUpdateModuleData@@UAE@XZ, retail 0x00494BE4, 52 bytes.
 // AIUpdate ModuleData dtor: releases the +0x10 holder through the rowed

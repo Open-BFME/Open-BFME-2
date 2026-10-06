@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // SpecialPowerTimerRefreshSpecialPower primary slot 13 (vtable 0x00BEFDB4),
 // retail 0x004C38B3 (29 bytes): the SpecialPowerModule slot-13 base 0x00493EA7

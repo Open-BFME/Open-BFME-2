@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@SiegeDeployHordeSpecialPower@@MAEXPAVXfer@@@Z, retail 0x004C6416, 92 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x0085DD94 (class of rowed ctor

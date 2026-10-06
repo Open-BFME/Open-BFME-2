@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva004590C5@Rva004590C5@@QAEXXZ, retail 0x004590C5 33B. Chain via 0x0045906E.
 // m_20 = m_04->v8 plus rva0045906E(true) on same this plus

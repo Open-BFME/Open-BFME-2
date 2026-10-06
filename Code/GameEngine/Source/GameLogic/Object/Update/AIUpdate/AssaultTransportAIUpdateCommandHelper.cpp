@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0048F6EEHelper@AssaultTransportAIUpdate@@QAEXXZ, retail 0x0048F6EE
 // (185 bytes). Dual-command passenger sweep over the +0x3E8 ObjectID array

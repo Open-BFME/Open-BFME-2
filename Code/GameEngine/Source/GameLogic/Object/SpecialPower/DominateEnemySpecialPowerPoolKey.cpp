@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004CC9DF@DominateEnemySpecialPower@@SA?AW4NameKeyType@@XZ @0x4CC9DF
 // (69B): cached pool-name key for DominateEnemySpecialPower. The class
 // identity comes from the pool-name string the body pushes

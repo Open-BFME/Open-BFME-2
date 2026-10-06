@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
+// cl: /MD /GX /DNDEBUG /Oy-
 // ?rva00493BD4@Rva00493BD4@@QAEXPAV1@@Z @0x00493BD4 134B. guarded copy of
 // +0x14..0x24 when override ids match; evidence: calls
 // ?friend_getFinalOverride@Overridable@@QBEPBV1@XZ at 0x00288609,

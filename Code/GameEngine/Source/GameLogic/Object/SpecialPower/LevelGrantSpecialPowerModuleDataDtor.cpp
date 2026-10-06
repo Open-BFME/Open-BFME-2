@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
+// cl: /MD /GX /DNDEBUG /Oy-
 // Rva0044ECCE is an address-derived base stand-in; its target class name is unproven.
 //
 // ??1LevelGrantSpecialPowerModuleData@@UAE@XZ, retail 0x004C2C22, 56 bytes.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004C4582@CloudBreakSpecialPower@@QAEXXZ retail 0x004C4582 77B.
 // Iterate TheGameLogic objects; for each where BfmeTab1026 at [this+4]+0x24

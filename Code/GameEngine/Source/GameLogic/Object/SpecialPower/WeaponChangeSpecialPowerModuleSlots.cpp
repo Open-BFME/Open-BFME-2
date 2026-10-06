@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two overrides in the special-power interface vtable WeaponChangeSpecialPowerModule's
 // ctor 0x004C3FF8 installs at +0x10 (0x00C5D150), both forwarding to slot 10

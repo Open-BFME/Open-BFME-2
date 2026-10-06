@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two StopSpecialPower overrides on the interface vtable 0x00C5DE08 its
 // matched ctor 0x004C676C installs at +0x10, compiled with that subobject

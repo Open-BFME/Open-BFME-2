@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00264274@Rva00264274@@QAE_NPBUCoord3D@@@Z @0x00264274 234B
 // unlock: path test with optional TransportShip locomotor set. Evidence: callers 0x0029DEFB 0x0034859A 0x003EA1FB; callee rows 0x00148E1A 0x001E7087 0x001E6FEA 0x001E88CE pins 0x002F477E 0x001E86D0; neighbours Rva00264237Dist.cpp.
 // naming: __thiscall method reading ecx+8, 1 stack arg (ret 4), bool return; honest Rva00264274 class.

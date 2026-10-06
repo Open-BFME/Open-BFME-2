@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?xfer@SiegeDeploySpecialPower@@MAEXPAVXfer@@@Z, retail 0x004C5B39, 170 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x0085DCFC (class of rowed ctor

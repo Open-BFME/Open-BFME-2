@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??1CloudBreakSpecialPowerModuleData@@UAE@XZ, retail 0x004C47F3, 56 bytes.
 // CloudBreakSpecialPower ModuleData dtor (ctor rowed at 0x004C479A in

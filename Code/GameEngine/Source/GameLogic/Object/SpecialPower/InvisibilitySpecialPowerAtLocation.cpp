@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // InvisibilitySpecialPower::doSpecialPowerAtObject, retail 0x004C2419, 52
 // bytes: slot 11 of the same interface; after the base (0x0049495B) the

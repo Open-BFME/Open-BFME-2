@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Os
+// cl: /DNDEBUG /MD /EHsc
 // Target registration pairs both HordeAIUpdate and HordeWorkerAIUpdate with
 // RVA 0x2541A3. This is their folded data factory, not DamageModule.
 // Retail allocates 0x64 bytes, calls the rowed TransportAIUpdateModuleData

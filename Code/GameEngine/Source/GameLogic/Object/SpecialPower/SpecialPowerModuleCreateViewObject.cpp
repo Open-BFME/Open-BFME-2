@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE2 /MD /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/bfme2_ascii
+// cl: /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/bfme2_ascii
 //
 // ?createViewObject@SpecialPowerModule@@IAEXPBUCoord3D@@@Z, retail 0x00493845,
 // 356 bytes. Zero Hour SpecialPowerModule::createViewObject semantic lead with

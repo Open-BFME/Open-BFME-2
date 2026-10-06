@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE /DNDEBUG /Oy- /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /Oy- /Ireference/shims/moduledata
 // ??1SpecialPowerModuleData@@UAE@XZ @0x0049334F 115B. Common SpecialPower ModuleData
 // intermediate base (0x7C bytes, ctor pinned at 0x004930A0): destroys strings
 // at +0x6C/+0x18 via 0x00036410, filters at +0x3C/+0x38/+0x24 via 0x00360D26,

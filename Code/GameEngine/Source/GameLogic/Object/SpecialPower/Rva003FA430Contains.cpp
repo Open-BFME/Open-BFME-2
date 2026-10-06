@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?rva003FA430@Rva003FA430@@QAE_NH@Z @0x003FA430 52B search Upgrades vector at +4 for science match; caller 0x003FA681 constructs Upgrades and push_back if not found
 #include <vector>

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ScavengerSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C4353, 46 bytes.
 // ScavengerSpecialPower behavior ctor over the pinned Rva00493C5A

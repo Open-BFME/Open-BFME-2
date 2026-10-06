@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ??1DeployStyleAIUpdate@@UAE@XZ, retail 0x0048E852 (90 bytes). Destructor
 // over the MI Transport base (five vptrs at +0x00/+0x0C/+0x10/+0x20/+0x24,

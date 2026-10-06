@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva004C7EC7Update@@YAXPAX00@Z @0x004C7EC7 52B: free update calling Rva001E11F8 0x001E11F8 and ObjectCreationList 0x001F0410.
 // Evidence: rowed callees 0x001E11F8 0x001F0410 with same two args; neighbours share flags.

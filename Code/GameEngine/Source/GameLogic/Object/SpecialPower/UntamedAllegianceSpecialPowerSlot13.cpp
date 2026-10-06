@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // UntamedAllegianceSpecialPower primary slot 13 (vtable 0x00C5E0E4), retail
 // 0x004C7BB0 (83 bytes): nothing for an Object with status 0x39; otherwise

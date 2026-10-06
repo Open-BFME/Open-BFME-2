@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0AISpecialPowerUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B2F2A, 53 bytes.
 // AISpecialPowerUpdate behavior ctor over the rowed UpdateModule base

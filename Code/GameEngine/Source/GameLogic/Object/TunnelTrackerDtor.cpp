@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 // ??1TunnelTracker@@MAE@XZ retail 0x004F561D 103B
 // Zero Hour TunnelTracker::~TunnelTracker shape: clear the tunnel-ID list at

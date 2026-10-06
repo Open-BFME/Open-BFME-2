@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004CD97B@StoreObjectsSpecialPower@@SA?AW4NameKeyType@@XZ @0x4CD97B
 // (69B): cached pool-name key for StoreObjectsSpecialPower. The class
 // identity comes from the pool-name string the body pushes

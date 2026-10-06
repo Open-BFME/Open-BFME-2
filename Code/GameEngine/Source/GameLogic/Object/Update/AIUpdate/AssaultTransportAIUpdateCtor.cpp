@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0AssaultTransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x0048F5A3 (89 bytes). Behavior ctor over the pinned opaque Transport

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0DeployStyleAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x0048E983 (112 bytes). Behavior ctor over the pinned opaque Transport

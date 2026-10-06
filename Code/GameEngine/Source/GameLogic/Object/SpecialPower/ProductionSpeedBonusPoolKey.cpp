@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004C2F25@ProductionSpeedBonus@@SA?AW4NameKeyType@@XZ @0x4C2F25
 // (69B): cached pool-name key for ProductionSpeedBonus. The class
 // identity comes from the pool-name string the body pushes

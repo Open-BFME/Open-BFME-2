@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG
 //
 // ??1WeaponFireSpecialAbilityUpdateModuleData@@UAE@XZ, retail 0x00492806, 56 bytes.
 // WeaponFireSpecialAbilityUpdate ModuleData dtor over the pinned Rva0044ECCE

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // DominateEnemySpecialPower's slot 17 (0x004CCBDF; SpecialAbilityUpdate's
 // slot 17 first) and its per-target helper (0x004CCB0E), beside the matched

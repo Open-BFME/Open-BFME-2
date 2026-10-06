@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0045906E@Rva0045906E@@QAEX_N@Z, retail 0x0045906E 87B. Unlocks 3 callers.
 // Bool selects setStatus 0x36 true/false plus set/clearWeaponSetFlag 0x16 plus

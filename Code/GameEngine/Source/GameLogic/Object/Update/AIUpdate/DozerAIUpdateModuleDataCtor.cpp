@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs-c-
+// cl: /MD /EHs-c-
 // Identity: ModuleFactory registers this data class under "WeaponModeSpecialPowerUpdate" (addModule
 // pairs the name with its factory); formerly misnamed DozerAIUpdate/DozerAIUpdateModuleData.
 // stlport

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /arch:SSE
+// cl: /MD /DNDEBUG
 //
 // ??0DefectorSpecialPowerModuleData@@QAE@XZ, retail 0x004C2A6A (26 bytes).
 // Frameless trivial ctor over the pinned SpecialPower base (0x4930A0):

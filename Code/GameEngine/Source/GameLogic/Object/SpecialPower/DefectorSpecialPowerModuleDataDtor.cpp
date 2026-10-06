@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??1DefectorSpecialPowerModuleData@@UAE@XZ @0x004C8AB0 5B.
 // DefectorSpecialPowerModuleData dtor (ctor rowed at 0x004C2A6A in

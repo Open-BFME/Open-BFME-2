@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 //
 // ??0ActivateModuleSpecialPowerModuleData@@QAE@XZ, retail 0x00256DA1,

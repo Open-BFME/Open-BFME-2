@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /arch:SSE
+// cl: /MD /DNDEBUG
 //
 // ??0PlayerHealSpecialPowerModuleData@@QAE@XZ, retail 0x004C803A (91 bytes).
 // SpecialPower-side ModuleData for the PlayerHeal power (PlayerHeal file-unit

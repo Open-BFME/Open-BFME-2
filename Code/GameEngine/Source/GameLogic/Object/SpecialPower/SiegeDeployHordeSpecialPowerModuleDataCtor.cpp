@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0SiegeDeployHordeSpecialPowerModuleData@@QAE@XZ, retail 0x004C64D3
 // (22 bytes). Frameless derived ctor over the rowed AIUpdateModuleData base

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ?rva0045108D@UnleashSpecialPower@@UAEXXZ, retail 0x004CE18A, 187 bytes:
 // slot 17 of UnleashSpecialPower's primary vtable 0x00C5FDC0 (ctor

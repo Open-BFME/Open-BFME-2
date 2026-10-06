@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0SiegeDeploySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004C56BA, 124 bytes. Behavior-side ctor (rowed instance factory

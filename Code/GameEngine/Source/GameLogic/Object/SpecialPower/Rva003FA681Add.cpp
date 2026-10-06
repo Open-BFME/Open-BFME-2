@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // ?rva003FA681@Rva003FA681@@QAEXHABH@Z @0x003FA681 51B add Upgrades pair if science not present; calls rowed contains 0x003FA430 plus Upgrades ctor 0x003FA38C plus push_back 0x003FA5F4
 // The emitted unsigned max copy must match retail RVA 0x00013740.

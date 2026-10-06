@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // CashHackSpecialPowerModuleData::Upgrades copy helper, retail 0x003FA3AF,
 // 36 bytes, sole caller the _STL::_Construct at 0x003FA3D3. Upgrades is the

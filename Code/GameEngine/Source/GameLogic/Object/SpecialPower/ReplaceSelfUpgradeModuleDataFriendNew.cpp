@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@ReplaceSelfUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x002506CE, 84 bytes. Dedicated TU: the factory news 0x124, runs

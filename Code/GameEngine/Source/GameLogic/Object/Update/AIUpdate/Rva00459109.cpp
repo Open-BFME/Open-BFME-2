@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva00459109@Rva00459109@@QAEHXZ, retail 0x00459109 75B. Chain via 0x0045906E.
 // Float m_10 vs 0 plus minus g_Va00BBB8D8 plus double lt0 plus reset 0 plus

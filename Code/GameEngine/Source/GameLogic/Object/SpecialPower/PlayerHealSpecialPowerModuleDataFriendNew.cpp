@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 
 // ?friend_newModuleData@PlayerHealSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x002525C7, 84 bytes. Dedicated TU: the factory news 0xAC, runs the

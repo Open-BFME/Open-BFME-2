@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 //
 // ??1WeaponChangeSpecialPowerModuleData@@UAE@XZ, retail 0x004C42EE, 74 bytes.
 // Target evidence: the audited scalar deleting dtor 0x004C42D2 (vtable

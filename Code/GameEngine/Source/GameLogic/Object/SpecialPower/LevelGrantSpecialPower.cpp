@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 //
 // LevelGrantSpecialPower (vftable 0x0085C920, deleting dtor 0x004C2C5A) helpers

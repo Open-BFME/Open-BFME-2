@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two DevastateSpecialPower overrides on the special-power interface vtable
 // 0x00C5E430 its matched ctor 0x004C81E3 installs at +0x10, compiled with that

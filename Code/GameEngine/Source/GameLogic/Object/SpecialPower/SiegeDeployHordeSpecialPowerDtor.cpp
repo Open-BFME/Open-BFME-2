@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1SiegeDeployHordeSpecialPower@@UAE@XZ, retail 0x004C63EF, 39 bytes.
 // Destructor for SiegeDeployHordeSpecialPower (ctor rowed at 0x004C6386 in

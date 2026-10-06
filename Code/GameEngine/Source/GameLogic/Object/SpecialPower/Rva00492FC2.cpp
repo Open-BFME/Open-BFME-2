@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00492FC2@Rva00492FC2@@QAEX_N@Z @0x00492FC2 71B evidence: thiscall void bool; vtable slot2 virtual float; TheGameLogic VA 0x00DFE78C +0x40 frame; members +0x08 accum +0x0C count +0x10 base +0x14 float; unblocks 0x004C4430 0x00493C5A; next Rva00493009Xfer same flags
 
 struct GameLogic

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@DefectorSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x002519E3, 81 bytes. Dedicated TU: the factory news 0x80, runs

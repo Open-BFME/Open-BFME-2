@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // FellBeastSwoopPower slot 17 (vftable 0x00C5DF80), retail 0x004C6E06, 67
 // bytes, on the primary this, and the two AICommandInterface commands it

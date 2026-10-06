@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004C2BC1@LevelGrantSpecialPower@@SA?AW4NameKeyType@@XZ @0x4C2BC1
 // (69B): cached pool-name key for LevelGrantSpecialPower. The class
 // identity comes from the pool-name string the body pushes

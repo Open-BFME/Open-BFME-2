@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
+// cl: /MD /GX /DNDEBUG /Oy-
 //
 // ??0DevastateSpecialPowerModuleData@@QAE@XZ, retail 0x004C84BD, 94 bytes.
 // SpecialPower-side ModuleData for the Devastate (earthquake) power. The

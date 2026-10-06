@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004C45CFCreate@@YGXPBUCoord3D@@PBVAsciiString@@@Z @0x004C45CF 82B: free stdcall helper creating object from template name and placing at pos. Evidence: rowed rva002D06CA plus pinned newObject plus rowed setPosition plus g_009FF000 plus caller 0x004C4621 plus neighbours 0x004C4582 0x004C479A.
 class AsciiString;
 struct Coord3D { float x; float y; float z; };

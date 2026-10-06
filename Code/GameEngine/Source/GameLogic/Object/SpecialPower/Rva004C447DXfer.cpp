@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@Rva004C447D@@MAEXPAVXfer@@@Z, retail 0x004C447D, 64 bytes. Virtual
 // slot 3 of vtable 0x0085D304 (ScavengerSpecialPower): Version(1,2) via slot

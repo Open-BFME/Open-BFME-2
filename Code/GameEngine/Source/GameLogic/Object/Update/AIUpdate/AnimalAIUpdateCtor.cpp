@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0AnimalAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0047ECA8
 // (121 bytes). Behavior ctor over the pinned opaque Transport base (0x26E9BD,

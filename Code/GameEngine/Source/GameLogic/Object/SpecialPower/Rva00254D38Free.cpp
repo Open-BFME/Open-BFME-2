@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00254D38@Rva00254D38@@QAEXPAURva00254D38Node@@@Z @0x00254D38 45B.
 // Recursive list free twin of 0x00254D0B: for each node recurse into child
 // at +0xC with same this then free the node via rowed _free 0x00030830 and

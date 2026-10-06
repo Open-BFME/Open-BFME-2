@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004CD3FB@TeleportToCasterSpecialPower@@SA?AW4NameKeyType@@XZ @0x004CD3FB
 // (69B): cached pool-name key for TeleportToCasterSpecialPower. The class
 // identity comes from the pool-name string the body pushes

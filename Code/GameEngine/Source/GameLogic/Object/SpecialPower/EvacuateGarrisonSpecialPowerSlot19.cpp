@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // EvacuateGarrisonSpecialPower primary slot 19 (vtable 0x00C5FC28), retail
 // 0x004CDCB4 (78 bytes): the SpecialAbilityUpdate slot-19 base 0x00451B92

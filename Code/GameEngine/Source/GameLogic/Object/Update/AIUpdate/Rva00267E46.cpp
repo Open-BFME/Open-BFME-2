@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00267E46@Rva00267E46@@QAEXXZ, retail 0x00267E46 72B. Chain via 0x001E42F2.
 // Null-check this+8 then Rva00265254 tmp 0 0x3d 0x85 0x86 0x89 0x8a 0x87 0x88

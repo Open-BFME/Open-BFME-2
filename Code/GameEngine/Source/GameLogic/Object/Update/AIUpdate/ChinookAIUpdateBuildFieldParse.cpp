@@ -14,7 +14,7 @@
 //
 // /O1 for the pop-ecx cdecl cleanup retail uses after the parent call.
 
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 struct FieldParse
 {

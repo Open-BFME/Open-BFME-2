@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // SpecialPowerModule's three "do" entries, Zero Hour SpecialPowerModule.cpp
 // shape with the BFME 2 differences the bytes show:

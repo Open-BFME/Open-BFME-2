@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE
+// cl: /DNDEBUG /MD /GX-
 //
 // ??0GiantBirdAIUpdateModuleData@@QAE@XZ, retail 0x0036812E (84 bytes).
 // Frameless ModuleData ctor over the pinned TransportAIUpdateModuleData

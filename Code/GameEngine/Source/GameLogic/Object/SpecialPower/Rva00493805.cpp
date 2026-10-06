@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00493805@SpecialPowerModule@@QAEXXZ @0x00493805 64B: vslot 12 frame-store guard.
 // Evidence: vtable slot 12 of SpecialPowerModule family; callees testStatus Overridable TheGameLogic.
 class Overridable {

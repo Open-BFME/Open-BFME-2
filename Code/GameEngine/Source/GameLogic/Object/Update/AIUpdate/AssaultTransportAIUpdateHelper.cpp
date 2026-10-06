@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?Rva0048F365Helper@AssaultTransportAIUpdate@@QAEXXZ, retail 0x0048F365
 // (93 bytes). Loop-zeroing helper over three count-sized arrays plus scalar

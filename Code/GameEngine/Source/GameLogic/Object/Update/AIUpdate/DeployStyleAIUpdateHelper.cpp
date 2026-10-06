@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // DeployStyle small-leaf shard: the home DeployStyleAIUpdateCtor TU carries
 // the file-unit's big bodies (ctor, dtor-adjacent reset), so single-serving

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@AIGateUpdate@@MAEXPAVXfer@@@Z, retail 0x004B095C, 139 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00856480 (class of rowed ctor

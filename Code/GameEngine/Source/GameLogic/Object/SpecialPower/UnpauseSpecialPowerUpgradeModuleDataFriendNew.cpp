@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@UnpauseSpecialPowerUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0025018E, 84 bytes. Dedicated TU: the factory news 0x120, runs

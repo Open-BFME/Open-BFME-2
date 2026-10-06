@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004CD121@GiveOrRestoreUpgradeSpecialPower@@SA?AW4NameKeyType@@XZ @0x4CD121
 // (69B): cached pool-name key for GiveOrRestoreUpgradeSpecialPower. The class
 // identity comes from the pool-name string the body pushes

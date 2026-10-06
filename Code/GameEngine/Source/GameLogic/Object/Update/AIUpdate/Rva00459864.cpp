@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00459864@Rva00459864@@QAEX_N@Z, retail 0x00459864 95B. Chain via 0x001E42F2.
 // Thing at this-0x18 via getDrawable null check then double memset 0x4c tmp

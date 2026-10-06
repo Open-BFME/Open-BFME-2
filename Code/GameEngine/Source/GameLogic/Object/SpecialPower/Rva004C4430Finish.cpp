@@ -2,7 +2,7 @@
 // partial score=0.97 date=2026-10-03
 // ?rva004C4430@Rva004C4430@@QAEX_N@Z
 // partial score=0.97 date=2026-10-03
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva004C4430@Rva004C4430@@QAEX_N@Z @0x004C4430 77B: chain from 0x00492FC2
 // Evidence: thiscall bool (cmp byte [ebp+8] ret 4); +0x24 gate then float from [this-0xC]+0x7C
 // zeroed when arg!=0 via movss/xorps; Object at [this-8] -> getControllingPlayer (row 0x0028AFA9)

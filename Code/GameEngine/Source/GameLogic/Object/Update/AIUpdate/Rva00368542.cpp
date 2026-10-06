@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00368542@Rva00368542@@QAEXHPBVWaypoint@@@Z @0x00368542 82B
 // Evidence: leaf called from 0x0036BD2C plus sibling Rva003683EA layout (+0x30 machine +0x528 done) plus rowed callees.
 class Object { public: bool rva002907A1(); };

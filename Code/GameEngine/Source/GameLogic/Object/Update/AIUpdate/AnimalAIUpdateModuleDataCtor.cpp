@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG
+// cl: /MD /GX /DNDEBUG
 //
 // ??0AnimalAIUpdateModuleData@@QAE@XZ, retail 0x0024BE43 (55 bytes).
 // Frameless ctor over the pinned Transport base (0x26E5D7): three int

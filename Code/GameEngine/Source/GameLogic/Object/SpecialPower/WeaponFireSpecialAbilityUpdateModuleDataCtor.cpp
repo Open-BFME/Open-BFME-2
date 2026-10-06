@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE /DNDEBUG
+// cl: /MD /GX /DNDEBUG
 //
 // ??0WeaponFireSpecialAbilityUpdateModuleData@@QAE@XZ,
 // retail 0x004926CA, 62 bytes. Ctor over table 0xBEF0A8 (SpecialWeapon

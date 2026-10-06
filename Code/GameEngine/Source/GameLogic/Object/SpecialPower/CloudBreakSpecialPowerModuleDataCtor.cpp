@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0CloudBreakSpecialPowerModuleData@@QAE@XZ, retail 0x004C479A, 61 bytes.
 // Frameless small ctor: runs the pinned opaque intermediate base ctor at

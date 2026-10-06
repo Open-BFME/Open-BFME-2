@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva004C8A95@@MAEXPAVXfer@@@Z, retail 0x004C8A95, 27 bytes. Virtual
 // slot 3 (offset 0x0C) of many SpecialPower vtables (e.g. 0x0085C51C

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00493218@InvisibilitySpecialPower@@UBE?AVRva002390CB@@XZ @0x00493218 30B.
 // Target evidence: the only reference to this body is slot 16 of the

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /Oy-
 //
 // ??0SpecialPowerModuleData@@QAE@XZ @0x004930A0 (359 bytes, Ghidra extent).
 // The SpecialPower module-data base ctor (formerly the address-derived

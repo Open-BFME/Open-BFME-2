@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // HordeAIUpdate's private-command overrides. Slots 13 and 23 of the vftable
 // 0x00C505F8 whose slot-2 name getter returns "HordeAIUpdate" replace the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Three SiegeDeploySpecialPower overrides on the interface vtables its matched
 // ctor 0x004C56BA installs over WeaponModeSpecialPowerUpdateBase: 0x00C5DCCC

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfmealloc /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ??0Rva003F9FA9@@QAE@ABVAsciiString@@@Z @0x003F9FA9 61B

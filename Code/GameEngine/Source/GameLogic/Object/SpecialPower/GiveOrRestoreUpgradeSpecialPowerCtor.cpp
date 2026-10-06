@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0GiveOrRestoreUpgradeSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004CD0DC, 63 bytes.
 // GiveOrRestoreUpgradeSpecialPower behavior ctor over the pinned Rva0044EF5E

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1AIGateUpdate@@UAE@XZ, retail 0x004B0802, 116 bytes (pinned; rowed
 // deleting wrapper 0x004B0926). Stores the three vtables, then

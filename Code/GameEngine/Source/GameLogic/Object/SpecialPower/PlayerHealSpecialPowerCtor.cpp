@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0PlayerHealSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004C7E7E, 39 bytes. PlayerHealSpecialPower behavior ctor over the pinned

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00254D0B@Rva00254D0B@@QAEXPAURva00254D0BNode@@@Z @0x00254D0B 45B.
 // Recursive list free: for each node recurse into child at +0xC with same
 // this then free the node via rowed _free 0x00030830 and advance to +0x8.

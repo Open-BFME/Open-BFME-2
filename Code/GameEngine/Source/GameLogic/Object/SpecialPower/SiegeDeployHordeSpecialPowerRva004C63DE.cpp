@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?Rva004C63DE@SiegeDeployHordeSpecialPower@@UAEXABUVector3@@@Z, retail
 // 0x004C63DE, 17 bytes. Virtual slot 14 (offset 0x38) of vtable 0x0085DD94:

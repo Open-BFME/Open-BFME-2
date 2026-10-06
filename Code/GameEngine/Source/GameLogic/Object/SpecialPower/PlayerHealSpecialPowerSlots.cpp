@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // PlayerHealSpecialPower's three doSpecialPower overrides: slots 10, 11 and
 // 12 of the class's +0x10 special-power interface vftable 0x00C5E308, so

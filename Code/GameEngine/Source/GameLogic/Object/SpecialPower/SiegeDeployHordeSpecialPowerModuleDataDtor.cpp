@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??1SiegeDeployHordeSpecialPowerModuleData@@UAE@XZ, retail 0x004C64E9, 5 bytes.
 // SiegeDeployHordeSpecialPowerModuleData dtor (ctor rowed at 0x004C64D3 in

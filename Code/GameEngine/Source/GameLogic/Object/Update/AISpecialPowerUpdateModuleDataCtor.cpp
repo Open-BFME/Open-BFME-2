@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0AISpecialPowerUpdateModuleData@@QAE@XZ, retail 0x004B2FCD, 38 bytes.
 // Frameless trivial ctor for the AISpecialPowerUpdate behavior's module

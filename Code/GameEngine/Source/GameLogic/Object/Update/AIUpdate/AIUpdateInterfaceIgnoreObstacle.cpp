@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIUpdateInterface::ignoreObstacle (BFME2 build)
 // retail 0x00268D88, 304 bytes. BFME2 AIUpdateInterface::ignoreObstacle with

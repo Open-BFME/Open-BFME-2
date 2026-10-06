@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1GiveOrRestoreUpgradeSpecialPower@@UAE@XZ, retail 0x004CD166, 83 bytes.
 // Dtor restoring four vptrs (+0 +0x0C +0x10 +0x20) then destroying AsciiString

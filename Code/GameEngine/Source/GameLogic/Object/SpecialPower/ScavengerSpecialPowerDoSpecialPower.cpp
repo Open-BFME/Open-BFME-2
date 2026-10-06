@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ScavengerSpecialPower::doSpecialPower, retail 0x004C4401, 47 bytes: slot
 // 10 of the class's +0x10 special-power interface vftable 0x00C5D2A0 (slots

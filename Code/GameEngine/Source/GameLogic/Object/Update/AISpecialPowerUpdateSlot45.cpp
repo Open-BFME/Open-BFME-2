@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AISpecialPowerUpdate slot 45 of its +0x0C interface table 0x00C56D60,
 // retail 0x004B33EB (18 bytes), so `this` is that subobject: with a non-null

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /arch:SSE
+// cl: /MD /GX /DNDEBUG
 //
 // ??0AssaultTransportAIUpdateModuleData@@QAE@XZ, retail 0x0024D221 (39 bytes).
 // Frameless ctor over the pinned Transport base (0x26E5D7): zeroes

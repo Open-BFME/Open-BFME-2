@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?Rva0048F472IsEqual@@YG_NPAX@Z @ 0x0048F472 58B
 // Evidence: single void* arg ret 4 stdcall bool; member +0x254 null-checked; virtual slots 0x10 and 0x18 returning float compared for equality; caller 0x0048FAB5 in 0x0048F828; unblocks 0x0048F828.
 class Rva0048F472Inner

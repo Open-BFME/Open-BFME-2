@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1AISpecialPowerUpdate@@UAE@XZ, retail 0x004B2E79, 85 bytes.
 // AISpecialPowerUpdate dtor: reinstalls the three MI vtable slots (+0

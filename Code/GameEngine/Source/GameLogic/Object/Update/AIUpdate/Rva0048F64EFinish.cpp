@@ -1,5 +1,5 @@
 // ?rva0048F64E@AssaultTransportAIUpdate@@QAE_NPAX@Z
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva0048F64E@AssaultTransportAIUpdate@@QAE_NPAX@Z @0x0048F64E 66B
 // __thiscall predicate on AssaultTransportAIUpdate: arg+0x254 slave provides

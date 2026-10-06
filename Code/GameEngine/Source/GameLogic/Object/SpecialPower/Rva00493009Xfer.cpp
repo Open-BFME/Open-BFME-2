@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?xfer@Rva00493009@@MAEXPAVXfer@@@Z @0x00493009 151B. versioned xfer
 // Version(1,3) via slot 0x28 plus BehaviorModule base via rowed 0x004C9C7D
 // plus gated uint at +0x14 plus uints at +0x18/+0x20 plus int at +0x1c
