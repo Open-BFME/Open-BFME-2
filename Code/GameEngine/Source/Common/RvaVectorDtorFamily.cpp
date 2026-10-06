@@ -726,6 +726,22 @@ Rva00500E3D::~Rva00500E3D()
 	Rva00500AF8Destroy(m_start, m_finish);
 }
 
+struct TreeHintRef00217D4C;
+
+// ??1Rva00577EB2@@QAE@XZ @0x00577EB2 63B -> ??$_Destroy@PAUTreeHintRef00217D4C@@@_STL@@YAXPAUTreeHintRef00217D4C@@0@Z
+// Vector dtor shape (destroy [start finish) then free with EH): member at +0x44
+// of Rva00577FA7 (MemberBaseDtorsB01.cpp caller 0x00577FC5); callees rowed
+// 0x005F97BC and 0x00030830.
+struct Rva00577EB2 : RvaVectorFamilyBase<TreeHintRef00217D4C>
+{
+	~Rva00577EB2();
+};
+
+Rva00577EB2::~Rva00577EB2()
+{
+	_STL::_Destroy(m_start, m_finish);
+}
+
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??1BfmeVector0022C55B@@QAE@XZ=??1Rva0022CAC4@@QAE@XZ")
