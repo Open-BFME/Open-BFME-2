@@ -65003,3 +65003,7 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 uw_00777e88,,0x00777E88,25,Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp,matched,gen-funclet;parent=??0BfmeSubobject00229875@@QAE@XZ;object-symbol=$L4160
 uw_0077af33,,0x0077AF33,24,Code/GameEngine/Source/Common/Rva0031FAF0Dtor.cpp,matched,gen-funclet;parent=??1Rva0031FAF0@@QAE@XZ;object-symbol=$L1232
 uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp,matched,gen-funclet;parent=??0ControlBarScheme@@QAE@XZ;object-symbol=$L51427
+?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
+?getAttackRange@BfmeRangedWeaponTemplate@@QBEMPBVObject@@ABVWeaponBonus@@PBUCoord3D@@@Z,,0x002C99C4,55,Code/GameEngine/Source/GameLogic/Object/Rva002C99C4AttackRange.cpp,matched,
+?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z,,0x002C777E,257,Code/GameEngine/Source/Common/Rva002C777EBuild.cpp,matched,
+?rva002DEE9A@Rva002DEE9AOwner@@QAEXXZ,,0x002DEE9A,41,Code/GameEngine/Source/Common/Rva002DEE9AClear.cpp,matched,
