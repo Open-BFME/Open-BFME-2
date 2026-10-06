@@ -28,5 +28,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 
+struct Rva002F3759Compare { bool operator()(unsigned int a,unsigned int b)const{return a<b;} };
 // Instantiate the recovered member; retain only its required template dependencies.
-template unsigned int & _STL::map<unsigned int, unsigned int, _STL::less<unsigned int>, _STL::allocator<_STL::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const &);
+template unsigned int & _STL::map<unsigned int, unsigned int, Rva002F3759Compare, _STL::allocator<_STL::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const &);

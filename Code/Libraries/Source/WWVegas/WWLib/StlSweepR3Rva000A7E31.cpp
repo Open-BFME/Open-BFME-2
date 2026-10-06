@@ -26,5 +26,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 
+struct Rva000A7E31Key { int word; bool operator<(const Rva000A7E31Key&b)const{return word<b.word;} bool operator==(const Rva000A7E31Key&b)const{return word==b.word;} };
 // Instantiate the recovered member; retain only its required template dependencies.
-template unsigned int _STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> >::erase(int const &);
+template unsigned int _STL::_Rb_tree<Rva000A7E31Key, Rva000A7E31Key, _STL::_Identity<Rva000A7E31Key>, _STL::less<Rva000A7E31Key>, _STL::allocator<Rva000A7E31Key> >::erase(Rva000A7E31Key const &);
