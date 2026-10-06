@@ -30,6 +30,24 @@ def git(cwd, *args, input=None, env=None, check=True):
     return got.stdout.strip() if check else got
 
 
+def make_fixtures(seat, where, cases):
+    """fixtures.json + one format-patch per (name, files, expect) on seat's HEAD."""
+    manifest = []
+    for name, files, expect in cases:
+        for path, text in files.items():
+            (seat / path).parent.mkdir(parents=True, exist_ok=True)
+            (seat / path).write_text(text, newline="\n")
+        git(seat, "add", "-A")
+        git(seat, "commit", "-q", "-m", f"fixture {name}")
+        (where / f"{name}.patch").write_bytes(subprocess.run(
+            ["git", "format-patch", "-1", "--stdout"], cwd=seat, capture_output=True,
+            check=True).stdout)
+        git(seat, "reset", "-q", "--hard", "HEAD~1")
+        manifest.append(dict(patch=f"{name}.patch", expect=expect))
+    (where / "fixtures.json").write_text(json.dumps(manifest))
+    return manifest
+
+
 class World:
     def __init__(self, tmp, builders=2, **cfg):
         self.tmp = tmp
@@ -49,13 +67,19 @@ class World:
         self.state = tmp / "state"
         self.inbox = tmp / "inbox"
         settings = dict(checker_paths=["checker"], gate="bash checker/gate.sh",
-                        inbox=str(self.inbox), poll_seconds=0.2, builders=builders, clean_keep=[])
+                        inbox=str(self.inbox), poll_seconds=0.2, builders=builders, clean_keep=[],
+                        ledger_cmd="git ls-files | sort", reverify_share=0.0, reverify_red=False)
         settings.update(cfg)
         pub.main(["init", "--state", str(self.state), "--target", str(self.origin),
                   *[a for k, v in settings.items() for a in ("--set", f"{k}={json.dumps(v)}")]])
         for name in ("opA", "opB"):
             pub.main(["operator", "--state", str(self.state), name])
-        ok, report = pub.promote(self.state, self.base)
+        self.fixtures = tmp / "base_fixtures"
+        self.fixtures.mkdir()
+        make_fixtures(self.seat, self.fixtures, [
+            ("exploit", {"bad_fixture.txt": "x\n"}, "reject"),
+            ("control", {"fine_fixture.txt": "x\n"}, "pass")])
+        ok, report = pub.promote(self.state, self.base, self.fixtures)
         assert ok, report
 
     def key(self, op):
@@ -141,12 +165,13 @@ def test_builder_is_scrubbed_remoteless_and_ignores_unit_commands(world, monkeyp
     state, record = where(world, unit)
     assert state == "landed" and "verify" not in record and "attach" not in record
     receipt = json.loads(Path(record["receipt"]).read_text())
-    assert pub.verify_mac(pub.State(world.state).receipt_key, receipt)
+    assert receipt["builder"] in pub.State(world.state).registry()
+    assert pub.verify_mac(pub.State(world.state).builder_key(receipt["builder"]), receipt)
     assert receipt["tip"] == world.master() == record["tip"]
     assert receipt["base"] == world.base and receipt["verdict"] == "green"
     assert receipt["checker"] == pub.Checkers(pub.State(world.state)).current()
     assert len(receipt["toolchain"]["python"]) == 64
-    log = (world.state / "logs" / f"{receipt['tip']}.{receipt['checker'][:12]}.log").read_text()
+    log = (world.state / "logs" / f"{receipt['tip']}.{receipt['builder']}.log").read_text()
     assert "secret-token-xyz" not in log and "secret-askpass" not in log
     assert "REMOTES:\n" in log.replace("\r", "") and "HELPER:\n" in log.replace("\r", "")
     assert not list(world.state.rglob("PWNED"))
@@ -322,7 +347,7 @@ def _virtual_red(blame, tmp=None):
 
 # ---- fairness -----------------------------------------------------------------
 def _flood(tmp_path, rate_a, fair=True):
-    world = load.VirtualWorld(tmp_path, builders=2, jitter=0.0, max_batch=10, fair=fair,
+    world = load.VirtualWorld(tmp_path, builders=2, jitter=0.0, max_batch=10, fair=fair, reverify_share=0.0,
                               operators={"opA": dict(rate=rate_a, burst=5), "opB": dict(rate=60)})
     arrivals = [(0.0, "opA", False, {}) for _ in range(200)]
     arrivals += [(60.0 + 300 * k, "opB", False, {}) for k in range(12)]
@@ -460,8 +485,15 @@ def test_scopes_overlap_on_shared_ledgers_headers_and_globs():
     assert not pub.in_scope("tools/x.py", dict(allow=["**"], forbid=["tools/**"]))
 
 
-def _concurrency(tmp_path, serialize):
+FUNCTIONS = "targets/game/reverse/functions.csv"
+HEADER = "name,export_rva,target_rva,target_size,source,status,notes"
+
+
+def _concurrency(tmp_path, serialize, same_row=True, graph=None):
     world = load.VirtualWorld(tmp_path, builders=3, jitter=0.0, serialize_scopes=serialize)
+    world.repo.headers[FUNCTIONS] = HEADER
+    if graph:
+        world.repo.graph = graph
     seen = []
     original = world.p._dispatch
 
@@ -469,7 +501,9 @@ def _concurrency(tmp_path, serialize):
         original(batch, digest)
         seen.append([u for b in world.p.inflight for u in b.units])
     world.p._dispatch = dispatch
-    shared = [world.submit("opA", paths=[f"x{i}.cpp", "functions.csv"]) for i in range(3)]
+    shared = [world.submit("opA", paths=[f"x{i}.cpp", FUNCTIONS],
+                           rows={FUNCTIONS: ["0x00401000" if same_row else f"0x0040{i}000"]})
+              for i in range(3)]
     loose = [world.submit("opB", paths=[f"y{i}.cpp"]) for i in range(3)]
     world.run([], 3 * 3600)
     done = {e["unit"]: e["ev"] for e in world.events() if e["ev"] in ("landed", "rejected")}
@@ -529,6 +563,10 @@ def test_equivalent_failures_are_refused_until_the_target_inputs_change(world):
         unit = attempt(n)
         settle(world.publisher())
         assert where(world, unit)[1]["reason"] == "gate"
+    # the shared ledger moving on is not a change of the target's inputs
+    world.submit({"functions.csv": "other rows\n"}, scope=["functions.csv"])
+    settle(world.publisher())
+    assert "functions.csv" in world.files()
     fourth = attempt(3, ledger=True)
     settle(world.publisher())
     assert where(world, fourth)[0] is None and refused() == ["retry-limit"]
@@ -541,3 +579,255 @@ def test_equivalent_failures_are_refused_until_the_target_inputs_change(world):
     again = attempt(5)
     settle(world.publisher())
     assert where(world, again)[1]["reason"] == "gate" and refused() == ["retry-limit"]
+
+
+# ---- row-level ledger scope and header dependencies ------------------------------
+def _diff(path, *lines):
+    return (f"diff --git a/{path} b/{path}\n--- a/{path}\n+++ b/{path}\n@@ -1 +1 @@\n"
+            + "".join(f"{line}\n" for line in lines)).encode()
+
+
+def test_ledger_rows_and_row_tokens_follow_the_ledger_key_rules():
+    ledgers = pub.DEFAULTS["row_ledgers"]
+    headers = {FUNCTIONS: HEADER, "targets/game/reverse/symbols.csv": "name,address,notes",
+               "reverse/data_rows.csv": "name,address,address_kind,size,section,source,status"}
+    diff = (_diff(FUNCTIONS, "-?a@@YAXXZ,,0x401000,10,x.cpp,matched,",
+                  '+?b@@YAXXZ,,0x00401000,10,x.cpp,matched,"note, with comma"',
+                  "+?c,,0x00402000,4,y.cpp,matched,")
+            + _diff("targets/game/reverse/symbols.csv", "+?g_x@@3HA,0x00500000,pin")
+            + _diff("reverse/data_rows.csv", "+?d@@3HA,0x00600000,va,4,.data,z.cpp,matched")
+            + _diff("targets/game/reverse/re_attempts.log", "+one attempt line")
+            + _diff("game/x.cpp", "+int a;"))
+    rows = pub.ledger_rows(diff, ledgers, headers.get)
+    assert rows[FUNCTIONS] == ["0x00401000", "0x00402000"]       # an edit is one row, RVAs normalised
+    assert rows["targets/game/reverse/symbols.csv"] == ["?g_x@@3HA"]
+    assert rows["reverse/data_rows.csv"] == ["0x00600000"]
+    assert len(rows["targets/game/reverse/re_attempts.log"]) == 1   # a line ledger keys whole lines
+    scope = pub.scope_from_diff(diff, ledgers, headers.get)
+    assert f"{FUNCTIONS}#0x00402000" in scope and "game/x.cpp" in scope and FUNCTIONS not in scope
+    # a header edit is a whole-file change
+    assert pub.scope_from_diff(_diff(FUNCTIONS, "-" + HEADER, "+" + HEADER + ",extra"),
+                               ledgers, headers.get) == [FUNCTIONS]
+    row = lambda key: dict(scope=dict(allow=[f"{FUNCTIONS}#{key}"]), paths=[FUNCTIONS],  # noqa: E731
+                           rows={FUNCTIONS: [key]})
+    whole = dict(scope=dict(allow=[FUNCTIONS]), paths=[FUNCTIONS], rows={FUNCTIONS: ["0x00409000"]})
+    assert not pub.scopes_overlap(row("0x00401000"), row("0x00402000"))   # disjoint rows
+    assert pub.scopes_overlap(row("0x00401000"), row("0x00401000"))       # positive control
+    assert pub.scopes_overlap(row("0x00401000"), whole)                    # a whole-file scope
+    assert not pub.in_scope(FUNCTIONS, dict(allow=[f"{FUNCTIONS}#0x00401000"]), "0x00402000")
+
+
+def test_disjoint_ledger_rows_run_together_and_the_same_row_serializes(tmp_path):
+    done, units, together, _ = _concurrency(tmp_path / "same", serialize=True, same_row=True)
+    assert together == 1 and all(done[u] == "landed" for u in units)
+    done, units, together, _ = _concurrency(tmp_path / "rows", serialize=True, same_row=False)
+    assert together == 3 and all(done[u] == "landed" for u in units)
+
+
+def test_a_header_overlaps_the_units_whose_sources_include_it(tmp_path):
+    graph = ({"a.h": {"game/x.cpp", "game/b.h"}, "b.h": {"game/y.cpp"}}, set())
+    world = load.VirtualWorld(tmp_path, builders=3, jitter=0.0)
+    world.repo.graph = graph
+    header = world.submit("opA", paths=["game/a.h"])
+    record = world.p.queue[header]
+    assert record["reach"] == ["game/b.h", "game/x.cpp", "game/y.cpp"]    # transitive, by name
+    x = world.submit("opB", paths=["game/x.cpp"])
+    y = world.submit("opB", paths=["game/y.cpp"])
+    z = world.submit("opB", paths=["game/z.cpp"])
+    q = world.p.queue
+    assert pub.scopes_overlap(q[header], q[x]) and pub.scopes_overlap(q[header], q[y])
+    assert not pub.scopes_overlap(q[header], q[z]) and not pub.scopes_overlap(q[x], q[y])
+    # macro includes count as including everything, except ignored STLport redirects
+    world.repo.graph = (graph[0], {"game/macro.cpp"})
+    assert "game/macro.cpp" in world.p._reach(["game/a.h"])
+    world.repo.graph = (graph[0], {"inputs/vendor/stlport/ctype.h"})
+    assert "inputs/vendor/stlport/ctype.h" not in world.p._reach(["game/a.h"])
+
+
+def test_rows_outside_the_declared_tokens_are_rejected_and_auto_scope_lands(tmp_path):
+    w = World(tmp_path)
+    w.commit({".gitattributes": "*.csv merge=union\n",
+              FUNCTIONS: HEADER + "\n?a,,0x00401000,4,a.cpp,matched,\n"})
+    git(w.seat, "push", "-q", str(w.origin), "HEAD:refs/heads/master")
+    w.commit({"g1.cpp": "1\n", FUNCTIONS: HEADER + "\n?a,,0x00401000,4,a.cpp,matched,\n"
+              "?b,,0x00402000,4,g1.cpp,matched,\n?c,,0x00403000,4,g1.cpp,matched,\n"})
+    sneaky = pub.submit(w.seat, "opA", w.key("opA"), "HEAD~1..HEAD", inbox=w.inbox,
+                        scope=["g1.cpp", f"{FUNCTIONS}#0x00402000"])
+    w.commit({"g2.cpp": "1\n", FUNCTIONS: HEADER + "\n?a,,0x00401000,4,a.cpp,matched,\n"
+              "?d,,0x00404000,4,g2.cpp,matched,\n"})
+    auto = pub.submit(w.seat, "opB", w.key("opB"), "HEAD~1..HEAD", inbox=w.inbox, scope="diff")
+    w.commit({"g3.cpp": "1\n", FUNCTIONS: HEADER + "\n?a,,0x00401000,4,a.cpp,matched,\n"
+              "?e,,0x00405000,4,g3.cpp,matched,\n"})
+    auto2 = pub.submit(w.seat, "opA", w.key("opA"), "HEAD~1..HEAD", inbox=w.inbox, scope="diff")
+    p = w.publisher()
+    settle(p)
+    state, record = where(w, sneaky)
+    assert state == "rejected" and record["paths"] == [f"{FUNCTIONS}#0x00403000"]
+    for unit in (auto, auto2):                                 # disjoint rows: both land
+        state, record = where(w, unit)
+        assert state == "landed" and f"{FUNCTIONS}#0x0040" in " ".join(record["scope"]["allow"])
+    text = git(w.origin, "show", f"master:{FUNCTIONS}")
+    assert "0x00404000" in text and "0x00405000" in text and "0x00403000" not in text
+
+
+# ---- distributed builders: re-verification, quarantine, racing publishers ----------
+def _jobs(world):
+    """Record (units, builder, operator) of every build the publisher starts."""
+    seen, original = [], world.ex._advance
+
+    def advance():
+        before = {id(j) for j in world.ex.running}
+        original()
+        for job in world.ex.running:
+            if id(job) not in before:
+                seen.append((tuple(job["units"]), job["builder"], world.ex.operator_of(job["builder"])))
+    world.ex._advance = advance
+    return seen
+
+
+def _done(world):
+    return {e["unit"]: (e["ev"], e.get("reason")) for e in world.events()
+            if e["ev"] in ("landed", "rejected")}
+
+
+def test_high_risk_and_sampled_units_are_reverified_by_another_operator(tmp_path):
+    world = load.VirtualWorld(tmp_path / "w", builders=3, jitter=0.0, reverify_share=0.0)
+    jobs = _jobs(world)
+    plain = world.submit("opB", paths=["game/x.cpp"])
+    world.run([], 3600)
+    header = world.submit("opA", paths=["game/a.h"])
+    world.run([], 2 * 3600)
+    assert _done(world) == {plain: ("landed", None), header: ("landed", None)}
+    assert len([op for units, _, op in jobs if plain in units]) == 1              # not high-risk
+    ops = [op for units, _, op in jobs if header in units]
+    assert len(ops) == 2 and len(set(ops)) == 2                                   # two operators
+    sampled = load.VirtualWorld(tmp_path / "s", builders=3, jitter=0.0, reverify_share=1.0)
+    sjobs = _jobs(sampled)
+    unit = sampled.submit("opB", paths=["game/y.cpp"])
+    sampled.run([], 3600)
+    assert len({op for units, _, op in sjobs if unit in units}) == 2
+
+
+def test_a_lying_builder_is_outvoted_and_quarantined(tmp_path):
+    # v0 (hostA) says green for a bad header unit: hostB says red, hostC decides
+    world = load.VirtualWorld(tmp_path / "green", builders=3, jitter=0.0, reverify_share=0.0)
+    world.ex.liars = {"v0": "green"}
+    bad = world.submit("opA", bad=True, paths=["game/a.h"])
+    world.run([], 3 * 3600)
+    assert _done(world)[bad] == ("rejected", "gate")
+    assert list(world.state.quarantined()) == ["v0"]
+    # v0 says red for a good unit: the lone red is reproduced first, and loses
+    world = load.VirtualWorld(tmp_path / "red", builders=3, jitter=0.0, reverify_share=0.0)
+    world.ex.liars = {"v0": "red"}
+    good = world.submit("opA", paths=["game/x.cpp"])
+    world.run([], 3 * 3600)
+    assert _done(world)[good] == ("landed", None)
+    assert list(world.state.quarantined()) == ["v0"]
+    # negative control: honest builders, nobody quarantined
+    world = load.VirtualWorld(tmp_path / "honest", builders=3, jitter=0.0, reverify_share=1.0)
+    world.submit("opA", paths=["game/z.h"])
+    world.submit("opA", bad=True, paths=["game/w.cpp"])
+    world.run([], 3 * 3600)
+    assert world.state.quarantined() == {} and len(_done(world)) == 2
+
+
+def test_reverification_without_another_operator_holds_the_unit(tmp_path):
+    registry = {f"v{i}": dict(operator="hostA", key_file=f"builders/v{i}.key") for i in range(2)}
+    world = load.VirtualWorld(tmp_path, builders=2, jitter=0.0, builders_registry=registry)
+    header = world.submit("opA", paths=["game/a.h"])
+    world.run([], 2 * 3600)
+    assert header not in _done(world)
+    assert any(e["ev"] == "reverify_unavailable" for e in world.events())
+
+
+def test_remote_builders_fetch_from_the_stage_and_a_forging_one_is_quarantined(tmp_path):
+    w = World(tmp_path)
+    stage = tmp_path / "stage.git"
+    git(tmp_path, "init", "-q", "--bare", str(stage))
+    for name, operator in (("alice-box", "alice"), ("bob-box", "bob")):
+        pub.main(["builder", "--state", str(w.state), name, "--operator", operator,
+                  "--home", str(tmp_path / f"{name}-home")])
+    cfg = json.loads((w.state / "config.json").read_text())
+    cfg.update(stage_remote=stage.as_uri(), reverify_share=1.0)
+    (w.state / "config.json").write_text(json.dumps(cfg))
+    unit = w.submit({"remote1.txt": "1\n"})
+    settle(w.publisher(), limit=300)                  # two remote builds; slow under load
+    state, record = where(w, unit)
+    assert state == "landed", (w.state / "events.jsonl").read_text()[-3000:]
+    staged = git(stage, "for-each-ref", "--format=%(refname)", "refs/publisher")
+    assert f"refs/publisher/candidates/{record['tip']}" in staged and "refs/publisher/checkers/" in staged
+    assert {p.name.split(".")[1] for p in (w.state / "logs").glob(f"{record['tip']}.*.log")} == {
+        "alice-box", "bob-box"}                       # both operators built the exact tip
+    # bob's host signs with a key the publisher did not register: forged receipts
+    forged = tmp_path / "bob-other.key"
+    pub.new_key(forged)
+    cfg = json.loads((w.state / "config.json").read_text())
+    cfg["builders_registry"]["bob-box"]["builder_key"] = str(forged)
+    (w.state / "config.json").write_text(json.dumps(cfg))
+    held = w.submit({"remote2.txt": "1\n"})
+    settle(w.publisher(), limit=60)
+    assert "bob-box" in pub.State(w.state).quarantined()
+    assert where(w, held)[0] == "queue"               # no second operator left: held, not published
+    assert "remote2.txt" not in w.files()
+
+
+def test_two_publishers_racing_on_one_branch_lose_by_compare_and_swap_and_regate(tmp_path):
+    w = World(tmp_path)
+    state2, inbox2 = tmp_path / "state2", tmp_path / "inbox2"
+    cfg = json.loads((w.state / "config.json").read_text())
+    pub.main(["init", "--state", str(state2), "--target", str(w.origin),
+              *[a for k in ("checker_paths", "gate", "poll_seconds", "builders", "clean_keep",
+                            "ledger_cmd", "reverify_share", "reverify_red")
+                for a in ("--set", f"{k}={json.dumps(cfg[k])}")],
+              "--set", f"inbox={json.dumps(str(inbox2))}"])
+    pub.main(["operator", "--state", str(state2), "opA"])
+    assert pub.promote(state2, w.base, w.fixtures)[0]
+    first = w.submit({"p1.txt": "1\n"})
+    w.commit({"p2.txt": "1\n"})
+    second = pub.submit(w.seat, "opA", state2 / "operators" / "opA.key", "HEAD~1..HEAD",
+                        inbox=inbox2, scope=["p2.txt"])
+    p1, p2 = w.publisher(), pub.Publisher(pub.State(state2))
+    raced = []
+
+    def interleave(point):                            # p2 lands while p1 is about to push
+        if point == "before_push" and not raced:
+            raced.append(settle(p2))
+    p1._crash = interleave
+    settle(p1)
+    events = [json.loads(line) for line in (w.state / "events.jsonl").read_text().splitlines()]
+    assert raced and any(e["ev"] == "publish_refused" for e in events)   # p1 lost the CAS
+    assert where(w, first)[0] == "landed"                                 # and regated
+    assert (state2 / "landed" / f"{second}.json").exists()
+    assert {"p1.txt", "p2.txt"} <= set(w.files())
+    assert git(w.origin, "rev-list", "--merges", "--count", "master") == "0"
+    # then both drain concurrently, with no lost or duplicated units
+    units1 = [w.submit({f"c1_{i}.txt": "1\n"}) for i in range(3)]
+    units2 = []
+    for i in range(3):
+        w.commit({f"c2_{i}.txt": "1\n"})
+        units2.append(pub.submit(w.seat, "opA", state2 / "operators" / "opA.key", "HEAD~1..HEAD",
+                                 inbox=inbox2, scope=[f"c2_{i}.txt"]))
+    threads = [threading.Thread(target=settle, args=(p,)) for p in (
+        w.publisher(), pub.Publisher(pub.State(state2)))]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert all(where(w, u)[0] == "landed" for u in units1)
+    assert all((state2 / "landed" / f"{u}.json").exists() for u in units2)
+    files = w.files()
+    assert all(f"c{p}_{i}.txt" in files for p in (1, 2) for i in range(3))
+
+
+def test_promotion_requires_exploits_benign_controls_and_a_ledger_command(world, tmp_path):
+    assert pub.promote(world.state, world.base)[1]["error"].startswith("promotion needs fixtures")
+    only = tmp_path / "only_exploits"
+    only.mkdir()
+    make_fixtures(world.seat, only, [("exploit", {"bad_x.txt": "x\n"}, "reject")])
+    ok, report = pub.promote(world.state, world.base, only)
+    assert not ok and "benign control" in report["error"]
+    cfg = json.loads((world.state / "config.json").read_text())
+    cfg["ledger_cmd"] = None
+    (world.state / "config.json").write_text(json.dumps(cfg))
+    ok, report = pub.promote(world.state, world.base, world.fixtures)
+    assert not ok and "ledger_cmd" in report["error"]

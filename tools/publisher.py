@@ -61,7 +61,16 @@ PIECES.
              .githooks/ are scope like any other. Two units whose scopes
              overlap (a path one touches is inside the other's scope, or the
              same glob) are never in flight together: the later one waits,
-             it is not rejected. After the rebase each unit's own diff must
+             it is not rejected. Row ledgers (`row_ledgers`: functions.csv
+             by target_rva, symbols.csv by name, data_rows.csv by address,
+             other union-merged ledgers by whole line) are scoped by row:
+             `targets/game/reverse/functions.csv#0x00401000` allows and
+             overlaps that row only; a plain path allows the whole file.
+             A unit's rows are read from its diff with the ledger's header.
+             A unit touching a file that others #include (by file name,
+             transitively, as header_dependents.py does; `#include MACRO`
+             counts as including everything) also overlaps every unit that
+             touches one of those includers. After the rebase each unit's own diff must
              stay inside its scope, or it is rejected with the offending
              paths (`out-of-scope`).
   RETRIES    A gate-red unit is fingerprinted: its +/- lines outside
@@ -121,6 +130,21 @@ DEFAULTS = dict(
     push_options=[], operators={}, infra_slots=2, aging_minutes=30.0, red_slow_lane=0.2,
     target_red_batch=0.1, min_batch=2, fair=True,
     scope_required=True, serialize_scopes=True, retry_limit=3,
+    builders_registry={}, stage_remote=None, reverify_share=0.1, reverify_red=True,
+    reverify_high_risk=True,
+    high_risk=["**/*.h", "**/*.hpp", "**/*.hh", "**/*.hxx", "**/*.inl", "**/*.inc",
+               "**/*baseline*", "**/*_known_red.txt", "**/*whitelist*", "**/gen_asm/**",
+               "**/gen_small/**"],
+    row_ledgers={"**/functions.csv": "target_rva", "**/symbols.csv": "name",
+                 "**/data_rows.csv": "address", "**/deleted_rows.csv": "",
+                 "**/name_votes.csv": "", "**/name_agreed.csv": "", "**/re_attempts.log": "",
+                 "**/attempts.jsonl": ""},
+    include_globs=["*.h", "*.hpp", "*.hh", "*.hxx", "*.inl", "*.inc", "*.cpp", "*.c", "*.cc",
+                   "*.cxx", "*.def", "*.tbl"],
+    include_scan_seconds=120, reach_limit=3000,
+    # STLport's `#include _STLP_NATIVE_HEADER(x)` redirects reach only toolchain
+    # headers; header_dependents sends STLport changes to the full gate anyway
+    macro_include_ignore=["**/stlport/**"],
     ledger_paths=["**/functions.csv", "**/symbols.csv", "**/data_rows.csv", "**/*baseline*",
                   "**/*_known_red.txt", "**/*whitelist*"],
 )
@@ -240,21 +264,173 @@ def glob_match(path, pattern):
     return rx.match(path) is not None
 
 
-def in_scope(path, scope):
-    return (any(glob_match(path, g) for g in scope.get("allow") or ())
-            and not any(glob_match(path, g) for g in scope.get("forbid") or ()))
+def _entry(entry):
+    """'path-glob' -> (glob, None); 'path-glob#KEY' -> (glob, KEY)."""
+    glob, _, key = entry.partition("#")
+    return glob, (key or None)
+
+
+def _forbidden(scope, path, key):
+    return any(glob_match(path, g) and (k is None or k == key)
+               for g, k in map(_entry, scope.get("forbid") or ()))
+
+
+def in_scope(path, scope, key=None):
+    """May a unit with `scope` change `path` (row `key` of a row ledger; None
+    = the whole file)? A row token allows only its own row."""
+    return (any(glob_match(path, g) and (k is None or (key is not None and k == key))
+                for g, k in map(_entry, scope.get("allow") or ()))
+            and not _forbidden(scope, path, key))
+
+
+def scope_touches(scope, path, key=None):
+    """Could a unit with `scope` touch what (path, key) touches? key None means
+    the whole file, which every row token of that file touches."""
+    return (any(glob_match(path, g) and (k is None or key is None or k == key)
+                for g, k in map(_entry, scope.get("allow") or ()))
+            and not _forbidden(scope, path, key))
+
+
+def footprint(record):
+    """{(path, row key or None)} a unit's diff touches."""
+    rows = record.get("rows") or {}
+    items = set()
+    for path in record.get("paths") or ():
+        keys = rows.get(path)
+        if keys and "*" not in keys:
+            items.update((path, k) for k in keys)
+        else:
+            items.add((path, None))
+    return items
 
 
 def scopes_overlap(a, b):
-    """Records a, b (with `scope` and `paths`) may not be in flight together."""
+    """Records a, b (scope, paths, rows, reach) may not be in flight together."""
     sa, sb = a.get("scope"), b.get("scope")
     if not sa or not sb:
         return True                         # an unscoped unit may touch anything
     if set(sa["allow"]) & set(sb["allow"]):
         return True
-    literal = lambda s: [g for g in s["allow"] if not set(g) & set("*?[")]  # noqa: E731
-    return (any(in_scope(p, sb) for p in list(a.get("paths") or ()) + literal(sa))
-            or any(in_scope(p, sa) for p in list(b.get("paths") or ()) + literal(sb)))
+    fa, fb = footprint(a), footprint(b)
+    literal = lambda s: {_entry(g) for g in s["allow"] if not set(_entry(g)[0]) & set("*?[")}  # noqa: E731
+    ra, rb = set(a.get("reach") or ()), set(b.get("reach") or ())
+    plain = lambda f: {p for p, k in f if k is None}  # noqa: E731
+    if ("*" in ra and (plain(fb) or rb)) or ("*" in rb and (plain(fa) or ra)):
+        return True                         # a header included nearly everywhere
+    if ra & (rb | plain(fb)) or rb & plain(fa):
+        return True                         # one edits what the other's TUs include
+    return (any(scope_touches(sb, p, k) for p, k in fa | literal(sa) | {(r, None) for r in ra})
+            or any(scope_touches(sa, p, k) for p, k in fb | literal(sb) | {(r, None) for r in rb}))
+
+
+def row_ledger(path, ledgers):
+    """The key column of a row ledger ('' = the whole line), None otherwise."""
+    for glob, column in ledgers.items():
+        if glob_match(path, glob):
+            return column
+    return None
+
+
+def _norm_key(value):
+    value = value.strip()
+    try:
+        if value.lower().startswith("0x"):
+            return f"0x{int(value, 16):08X}"
+    except ValueError:
+        pass
+    return value
+
+
+def ledger_rows(diff, ledgers, header_of=None):
+    """{ledger path: {row keys}} that a diff adds, changes or deletes. A key is
+    the ledger's key column (RVAs normalised), or 'L<hash>' of the whole line
+    for line ledgers and rows it cannot read; '*' = the header changed."""
+    import csv
+    rows, path, column, header = {}, None, None, None
+    for raw in diff.split(b"\n"):
+        got = re.match(rb"^diff --git a/\S+ b/(\S+)$", raw)
+        if got:
+            path = got.group(1).decode(errors="replace")
+            column = row_ledger(path, ledgers)
+            header = header_of(path) if (column and header_of) else None
+            continue
+        if re.match(rb"^From [0-9a-f]{40} ", raw) or raw == b"-- ":
+            path = column = header = None       # the next commit's message, or the signature
+            continue
+        if column is None or raw[:1] not in (b"+", b"-") or raw.startswith((b"+++ ", b"--- ")):
+            continue
+        text = raw[1:].rstrip(b"\r").decode(errors="replace")
+        keys = rows.setdefault(path, set())
+        if header is not None and text == header:
+            keys.add("*")
+            continue
+        key = None
+        if column and header:
+            names = next(csv.reader([header]))
+            if column in names:
+                try:
+                    cells = next(csv.reader([text]))
+                    if len(cells) > names.index(column) and cells[names.index(column)].strip():
+                        key = _norm_key(cells[names.index(column)])
+                except (csv.Error, StopIteration):
+                    key = None
+        keys.add(key or "L" + hashlib.sha1(text.encode()).hexdigest()[:12])
+    return {p: sorted(k) for p, k in rows.items()}
+
+
+def scan_includes(cwd, rev, globs):
+    """({included file name, lower case: {paths}}, {paths with `#include MACRO`})
+    of every #include in `rev`, read with one git grep."""
+    by_name, macro = {}, set()
+    got = git("grep", "-I", "-i", "-E", r"^[[:space:]]*#[[:space:]]*include", rev, "--", *globs,
+              cwd=cwd, check=False, timeout=600)
+    for line in got.stdout.decode(errors="replace").splitlines():
+        _, path, text = (line.split(":", 2) + ["", ""])[:3]
+        hit = re.search(r'include\s*[<"]([^>"]+)[>"]', text, re.IGNORECASE)
+        if hit:
+            by_name.setdefault(hit.group(1).replace("\\", "/").rsplit("/", 1)[-1].lower(),
+                               set()).add(path)
+        elif re.search(r"include\s*[A-Za-z_]", text):
+            macro.add(path)
+    return by_name, macro
+
+
+def reach_of(paths, graph, cfg):
+    """Every file that #includes one of `paths`, transitively by file name;
+    ['*'] past reach_limit."""
+    by_name, macro = graph
+    macro = {m for m in macro if not any(glob_match(m, g) for g in cfg["macro_include_ignore"])}
+    frontier = {p.rsplit("/", 1)[-1].lower() for p in paths
+                if row_ledger(p, cfg["row_ledgers"]) is None}
+    if not any(name in by_name for name in frontier):
+        return []
+    seen, names = set(), set()
+    while frontier:
+        name = frontier.pop()
+        names.add(name)
+        # a file with `#include MACRO` may include anything (header_dependents' rule)
+        for path in set(by_name.get(name, ())) | macro:
+            if path not in seen:
+                seen.add(path)
+                base = path.rsplit("/", 1)[-1].lower()
+                if base not in names:
+                    frontier.add(base)
+        if len(seen) > int(cfg["reach_limit"]):
+            return ["*"]
+    return sorted(seen - set(paths))
+
+
+def scope_from_diff(diff, ledgers, header_of=None):
+    """The exact scope of a diff: its paths, row ledgers as row tokens."""
+    rows = ledger_rows(diff, ledgers, header_of)
+    out = []
+    for path in patch_paths(diff):
+        keys = rows.get(path)
+        if keys and "*" not in keys:
+            out += [f"{path}#{k}" for k in keys]
+        else:
+            out.append(path)
+    return out
 
 
 def patch_paths(patch):
@@ -264,13 +440,18 @@ def patch_paths(patch):
                    re.findall(rb"^diff --git a/(\S+) b/\S+$", patch, re.MULTILINE)})
 
 
+def target_globs(scope, ledger):
+    """A unit's target: its scope without whole-file ledger globs (row tokens
+    stay: they name the rows it is about)."""
+    return [g for g in (scope or {}).get("allow") or ()
+            if "#" in g or not any(glob_match(g, l) for l in ledger)]
+
+
 def approach(patch, scope, ledger):
     """(target, fingerprint) of a unit: the target is its scope without ledger
     globs; the fingerprint hashes its +/- lines outside ledger files (no
     headers, messages, hashes or line numbers) with the target."""
-    target = hashlib.sha256(canonical(sorted(
-        g for g in (scope or {}).get("allow") or () if not any(glob_match(g, l) for l in ledger)
-    ))).hexdigest()[:16]
+    target = hashlib.sha256(canonical(sorted(target_globs(scope, ledger)))).hexdigest()[:16]
     lines, keep = [], False
     for line in patch.split(b"\n"):
         line = line.rstrip(b"\r")
@@ -307,6 +488,37 @@ class State:
     @property
     def receipt_key(self):
         return read_key(self.receipt_key_path)
+
+    def key_path(self, path):
+        path = Path(path)
+        return path if path.is_absolute() else self.root / path
+
+    def registry(self):
+        """{builder id: {operator, key_file, command?, home?, builder_key?, slots?}}.
+        Without `builders_registry`, `builders` local builders of operator
+        "local" (fine for one host; re-verification needs a second operator)."""
+        registry = dict(self.cfg.get("builders_registry") or {})
+        if not registry:
+            for i in range(int(self.cfg["builders"])):
+                key = self.root / "builders" / f"local{i}.key"
+                if not key.exists():
+                    new_key(key)
+                registry[f"local{i}"] = dict(operator="local", key_file=str(key))
+        return registry
+
+    def builder_key(self, builder):
+        entry = self.registry().get(builder) if isinstance(builder, str) else None
+        return read_key(self.key_path(entry["key_file"])) if entry else None
+
+    def quarantined(self):
+        return read_json(self.root / "quarantine.json", {}) or {}
+
+    def quarantine(self, builder, reason, **evidence):
+        found = self.quarantined()
+        if builder and builder not in found:
+            found[builder] = dict(evidence, reason=reason, time=time.time())
+            write_json(self.root / "quarantine.json", found)
+            self.event("builder_quarantined", builder=builder, reason=reason)
 
     def operator_key(self, name):
         op = self.cfg["operators"].get(name)
@@ -349,12 +561,10 @@ class Checkers:
         if not paths:
             raise RuntimeError(f"{commit} has none of checker_paths {self.state.cfg['checker_paths']}")
         tmp = self.state.root / "checkers" / f"tmp-{uuid.uuid4().hex}"
-        data = git("archive", "--format=tar", commit, "--", *paths, cwd=repo).stdout
-        with tarfile.open(fileobj=io.BytesIO(data)) as tar:
-            try:
-                tar.extractall(tmp, filter="data")
-            except TypeError:                   # Python < 3.11.4: no extraction filters
-                tar.extractall(tmp)
+        # byte-exact blobs whatever the host's core.autocrlf: the digest must
+        # come out the same on every builder
+        _extract(git("-c", "core.autocrlf=false", "archive", "--format=tar", commit, "--", *paths,
+                     cwd=repo).stdout, tmp)
         digest = tree_digest(tmp)
         final = self.state.root / "checkers" / digest
         if final.exists():
@@ -372,31 +582,78 @@ class Checkers:
 
 
 # ---- the isolated builder ---------------------------------------------------
-class Builder:
-    """One build slot: a remote-less clone borrowing the publisher's objects."""
+def _extract(data, dest):
+    with tarfile.open(fileobj=io.BytesIO(data)) as tar:
+        try:
+            tar.extractall(dest, filter="data")
+        except TypeError:                       # Python < 3.11.4: no extraction filters
+            tar.extractall(dest)
 
-    def __init__(self, state, name):
-        self.state, self.name = state, name
-        self.dir = state.root / "builders" / name
-        self.work = self.dir / "wt"
-        self.env = scrubbed_env(self.dir / "home")
+
+class Builder:
+    """One build slot on one host. It knows only its home, its id and its own
+    registered key; the job (source URL, refs, checker digest, gate) comes
+    from the publisher. Its clone has no remote; a local source lends its
+    objects (alternates), a remote one is fetched. The checker bundle is
+    extracted from the promoted commit and must hash to the digest."""
+
+    def __init__(self, home, builder_id, key):
+        self.home, self.id, self.key = Path(home), builder_id, key
+        self.home.mkdir(parents=True, exist_ok=True)
+        self.work = self.home / "wt"
+        self.env = scrubbed_env(self.home / "home")
 
     def _git(self, *args, **kw):
         return git(*args, cwd=self.work, env=self.env, **kw)
 
-    def checkout(self, tip, digest):
-        source = self.state.root / "repo"
+    def fetch(self, source, refs):
         if not (self.work / ".git").exists():
-            git("clone", "-q", "--shared", "--no-checkout", str(source), str(self.work),
-                cwd=self.dir, env=self.env)
-            self._git("remote", "remove", "origin")     # nothing to push to, by construction
+            self.work.mkdir(parents=True, exist_ok=True)
+            git("init", "-q", str(self.work), cwd=self.home, env=self.env)
+            # the scrubbed environment drops the host's global config, and with
+            # it core.longpaths: deep reference trees fail to check out on Windows
+            self._git("config", "core.longpaths", "true")
+        local = Path(source)
+        if local.is_dir():                      # same host: borrow its objects, copy nothing
+            objects = local / ".git" / "objects" if (local / ".git").is_dir() else local / "objects"
+            (self.work / ".git" / "objects" / "info").mkdir(parents=True, exist_ok=True)
+            # bytes: a text-mode write on Windows ends the path in \r, which git
+            # rejects -- and then fetches (copies) every object instead
+            (self.work / ".git" / "objects" / "info" / "alternates").write_bytes(
+                objects.resolve().as_posix().encode() + b"\n")
+        self._git("fetch", "-q", "--no-tags", str(source), *refs, timeout=3600)
+
+    def bundle(self, job):
+        digest = job["checker"]
+        where = self.home / "checkers" / digest
+        if where.is_dir() and tree_digest(where) == digest:
+            return where
+        self.fetch(job["source"], [f"+{job['checker_ref']}:refs/builder/checker"])
+        have = [p for p in job["checker_paths"] if self._git(
+            "cat-file", "-e", f"refs/builder/checker:{p}", check=False).returncode == 0]
+        tmp = self.home / "checkers" / f"tmp-{uuid.uuid4().hex}"
+        _extract(self._git("-c", "core.autocrlf=false", "archive", "--format=tar",
+                           "refs/builder/checker", "--", *have).stdout, tmp)
+        if tree_digest(tmp) != digest:
+            shutil.rmtree(tmp)
+            raise RuntimeError(f"{job['checker_ref']} does not hash to checker {digest[:12]}")
+        if where.exists():
+            shutil.rmtree(where)
+        os.replace(tmp, where)
+        return where
+
+    def checkout(self, job):
+        tip = job["tip"]
+        self.fetch(job["source"], [f"+{job['tip_ref']}:refs/builder/tip"])
+        if self._git("rev-parse", "refs/builder/tip").stdout.decode().strip() != tip:
+            raise RuntimeError(f"{job['tip_ref']} is not {tip}")
+        bundle = self.bundle(job)
         (self.work / ".git" / "index").unlink(missing_ok=True)   # drops old skip-worktree bits
         self._git("update-ref", "--no-deref", "HEAD", tip)
         self._git("reset", "-q", "--hard", tip)
-        keep = [a for k in self.state.cfg["clean_keep"] for a in ("-e", k)]
+        keep = [a for k in job.get("clean_keep") or () for a in ("-e", k)]
         self._git("clean", "-qfdx", *keep)
-        bundle = Checkers(self.state).path(digest)
-        paths = self.state.cfg["checker_paths"]
+        paths = job["checker_paths"]
         for rel in paths:
             target = self.work / rel
             if target.is_dir() and not target.is_symlink():
@@ -417,46 +674,47 @@ class Builder:
             "".join(f"/{p.strip('/')}\n" for p in paths), encoding="utf-8")
         return bundle
 
-    def toolchain(self, tip):
+    def toolchain(self, job):
         found = {}
-        for rel in self.state.cfg["toolchain_paths"]:
-            got = self._git("rev-parse", f"{tip}:{rel}", check=False)
+        for rel in job.get("toolchain_paths") or ():
+            got = self._git("rev-parse", f"{job['tip']}:{rel}", check=False)
             found[rel] = got.stdout.decode().strip() if got.returncode == 0 else None
         found["python"] = hashlib.sha256(Path(sys.executable).read_bytes()).hexdigest()
-        found["git"] = out("--version", cwd=self.dir)
+        found["git"] = out("--version", cwd=self.home)
         return found
 
-    def run(self, base, tip, digest, command=None, timeout=None):
-        """(exit code, output) of `command` (default: the gate) at `tip`."""
-        bundle = self.checkout(tip, digest)
-        env = dict(self.env, LANDING_BASE=base, LANDING_TIP=tip, CHECKER_DIR=bundle.as_posix(),
-                   CHECKER_DIGEST=digest)
+    def run(self, job, command=None):
+        """(exit code, output) of `command` (default: the job's gate) at the tip."""
+        bundle = self.checkout(job)
+        env = dict(self.env, LANDING_BASE=job["base"], LANDING_TIP=job["tip"],
+                   CHECKER_DIR=bundle.as_posix(), CHECKER_DIGEST=job["checker"])
         try:
-            got = subprocess.run(["bash", "-c", command or self.state.cfg["gate"]], cwd=self.work,
-                                 env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                 timeout=timeout or self.state.cfg["gate_timeout"])
+            got = subprocess.run(["bash", "-c", command or job["gate"]], cwd=self.work, env=env,
+                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                 timeout=float(job.get("gate_timeout") or 6 * 3600))
             code, output = got.returncode, got.stdout or b""
         except subprocess.TimeoutExpired as error:
             code, output = 124, (error.stdout or b"") + b"\n[publisher] gate timed out\n"
-        Checkers(self.state).path(digest)       # the bundle was not touched meanwhile
+        if tree_digest(bundle) != job["checker"]:
+            raise RuntimeError("the checker bundle changed during the gate")
         return code, output
 
-    def build(self, base, tip, digest):
+    def build(self, job):
+        """(signed receipt, gate output)."""
         started = time.time()
-        code, output = self.run(base, tip, digest)
-        log = self.state.root / "logs" / f"{tip}.{digest[:12]}.log"
-        log.write_bytes(output)
-        receipt = dict(v=1, tip=tip, base=base, tree=out("rev-parse", f"{tip}^{{tree}}", cwd=self.work),
-                       checker=digest, toolchain=self.toolchain(tip),
+        code, output = self.run(job)
+        result = re.findall(rb"^PUBLISHER-RESULT: (\S+)", output, re.MULTILINE)
+        receipt = dict(v=2, tip=job["tip"], base=job["base"],
+                       tree=self._git("rev-parse", f"{job['tip']}^{{tree}}").stdout.decode().strip(),
+                       checker=job["checker"], toolchain=self.toolchain(job),
                        verdict="green" if code == 0 else "red", exit=code,
-                       log_sha256=hashlib.sha256(output).hexdigest(), builder=self.name,
+                       result=result[-1].decode() if result else None,
+                       log_sha256=hashlib.sha256(output).hexdigest(), builder=self.id,
                        blame=sorted(set(m.decode(errors="replace").strip() for m in re.findall(
                            rb"^PUBLISHER-BLAME: (.+)$", output, re.MULTILINE)))[:200],
                        host=socket.gethostname(), started=started,
                        seconds=round(time.time() - started, 2))
-        receipt = signed(self.state.receipt_key, receipt)
-        write_json(receipt_path(self.state, tip, base, digest), receipt)
-        return receipt
+        return signed(self.key, receipt), output
 
 
 def receipt_path(state, tip, base, digest):
@@ -476,21 +734,41 @@ def kill_tree(proc):
             pass
 
 
-class ProcessExecutor:
-    """Runs each build as a separate `publisher.py build` process (scrubbed
-    environment, optional builder_prefix) on one of N slots."""
+class PoolExecutor:
+    """Runs builds on the registered builders (config `builders_registry`):
+    each is `<command> builder-run --home H --id ID --key K` on its own host
+    (a local process by default, `ssh host python3 .../publisher.py` for a
+    remote one), with the job on stdin and the signed receipt on stdout.
+    Quarantined builders get no jobs; a job may exclude operators, which is
+    how re-verification lands on another operator's builder."""
 
     def __init__(self, state):
         self.state = state
-        self.n = int(state.cfg["builders"])
-        self.free = collections.deque(f"b{i}" for i in range(self.n))
+        self.registry = state.registry()
+        self.slots = [(bid, i) for bid, b in sorted(self.registry.items())
+                      for i in range(int(b.get("slots", 1)))]
+        self.n = len(self.slots)
+        self.free = list(self.slots)
         self.waiting = collections.deque()
         self.lock = threading.Lock()
         self.wake = threading.Event()
 
-    def submit(self, base, tip, digest, units):
-        job = dict(base=base, tip=tip, digest=digest, units=list(units), result=None, proc=None,
+    def operator_of(self, builder):
+        return (self.registry.get(builder) or {}).get("operator")
+
+    def builder_of(self, job):
+        return job["slot"][0] if job and job.get("slot") else None
+
+    def _eligible(self, slot, job):
+        return (self.operator_of(slot[0]) not in job["exclude"] and slot[0] not in job["avoid"]
+                and slot[0] not in self.state.quarantined())
+
+    def submit(self, base, tip, digest, units, spec=None, exclude_operators=(), avoid=()):
+        job = dict(base=base, tip=tip, digest=digest, units=list(units), spec=spec or {},
+                   exclude=set(exclude_operators), avoid=set(avoid), result=None, proc=None,
                    cancelled=False, slot=None)
+        if not any(self._eligible(slot, job) for slot in self.slots):
+            return None                         # nobody may run it: the caller holds the batch
         with self.lock:
             self.waiting.append(job)
         self._start()
@@ -498,27 +776,41 @@ class ProcessExecutor:
 
     def _start(self):
         with self.lock:
-            while self.free and self.waiting:
-                job = self.waiting.popleft()
-                job["slot"] = self.free.popleft()
+            for job in list(self.waiting):
+                slot = next((sl for sl in self.free if self._eligible(sl, job)), None)
+                if slot is None:
+                    continue
+                self.waiting.remove(job)
+                self.free.remove(slot)
+                job["slot"] = slot
                 threading.Thread(target=self._run, args=(job,), daemon=True).start()
 
     def _run(self, job):
-        argv = [*self.state.cfg["builder_prefix"], sys.executable, str(Path(__file__).resolve()),
-                "build", "--state", str(self.state.root), "--slot", job["slot"],
-                "--base", job["base"], "--tip", job["tip"], "--checker", job["digest"]]
-        env = scrubbed_env(self.state.root / "builders" / job["slot"] / "home")
+        bid, index = job["slot"]
+        entry = self.registry[bid]
+        command = entry.get("command") or [sys.executable, str(Path(__file__).resolve())]
+        home = entry.get("home") or str(self.state.root / "builders" / bid)
+        key = entry.get("builder_key") or str(self.state.key_path(entry["key_file"]))
+        argv = [*command, "builder-run", "--home", f"{home}/slot{index}", "--id", bid, "--key", key]
+        env = scrubbed_env(self.state.root / "builders" / bid / "env")
         try:
             with self.lock:
                 if job["cancelled"]:
                     return
-                job["proc"] = subprocess.Popen(argv, env=env, stdout=subprocess.PIPE,
-                                               stderr=subprocess.STDOUT,
+                job["proc"] = subprocess.Popen(argv, env=env, stdin=subprocess.PIPE,
+                                               stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                                start_new_session=os.name != "nt")
-            text = job["proc"].communicate()[0].decode(errors="replace")
-            if not job["cancelled"]:
-                got = read_json(receipt_path(self.state, job["tip"], job["base"], job["digest"]))
-                job["result"] = got or dict(verdict="error", error=text[-2000:])
+            got, err = job["proc"].communicate(canonical(job["spec"]))
+            if job["cancelled"]:
+                return
+            try:
+                answer = json.loads(got.decode(errors="replace").strip().splitlines()[-1])
+                (self.state.root / "logs" / f"{job['tip']}.{bid}.log").write_text(
+                    answer.get("log", ""), encoding="utf-8")
+                job["result"] = answer["receipt"]
+            except (ValueError, IndexError, KeyError):
+                job["result"] = dict(verdict="error", builder=bid,
+                                     error=(err or got).decode(errors="replace")[-2000:])
         finally:
             with self.lock:
                 self.free.append(job["slot"])
@@ -545,6 +837,9 @@ class ProcessExecutor:
         self.wake.clear()
 
 
+ProcessExecutor = PoolExecutor
+
+
 # ---- the target repository --------------------------------------------------
 class GitRepo:
     """The publisher's private clone: the only place with push credentials."""
@@ -563,6 +858,7 @@ class GitRepo:
     def head(self):
         got = out("ls-remote", self.target, f"refs/heads/{self.branch}", cwd=self.dir).split()
         sha = got[0] if got else None
+        self._head = sha or getattr(self, "_head", None)
         if sha and git("cat-file", "-e", f"{sha}^{{commit}}", cwd=self.dir, check=False).returncode:
             git("fetch", "-q", "--no-tags", "target",
                 f"+refs/heads/{self.branch}:refs/publisher/head", cwd=self.dir)
@@ -573,7 +869,7 @@ class GitRepo:
         git("am", "--abort", cwd=self.dir, check=False)
         git("checkout", "-q", "-f", "--detach", base, cwd=self.dir)
         git("clean", "-qfd", cwd=self.dir)
-        self.unit_paths = {}
+        self.unit_paths, self.unit_diffs = {}, {}
         for unit, patch in patches:
             before = out("rev-parse", "HEAD", cwd=self.dir)
             got = git("-c", f"user.name={COMMITTER}", "-c", "user.email=", "am", "-q", "-3",
@@ -583,14 +879,67 @@ class GitRepo:
                 git("am", "--abort", cwd=self.dir, check=False)
                 return None, unit
             # the unit's own diff as rebased: what diff-vs-scope judges
-            self.unit_paths[unit] = out("diff", "--name-only", "--no-renames", before, "HEAD",
-                                        cwd=self.dir).split("\n")
+            diff = git("diff", "--no-renames", "-U0", "--binary", before, "HEAD",
+                       cwd=self.dir).stdout
+            self.unit_diffs[unit] = diff
+            self.unit_paths[unit] = patch_paths(diff)
         tip = out("rev-parse", "HEAD", cwd=self.dir)
         git("update-ref", f"refs/publisher/tips/{tip}", tip, cwd=self.dir)   # keep it reachable
         return tip, None
 
     def tree(self, tip):
         return out("rev-parse", f"{tip}^{{tree}}", cwd=self.dir)
+
+    def job(self, base, tip, digest):
+        """What a builder needs: where to fetch the tip and the checker, and
+        the gate. A remote builder fetches from `stage_remote`, where the
+        publisher stages both refs; a local one borrows this clone's objects."""
+        cfg = self.state.cfg
+        git("update-ref", f"refs/publisher/tips/{tip}", tip, cwd=self.dir)
+        checker_ref = f"refs/publisher/checkers/{digest}"
+        if git("rev-parse", "-q", "--verify", checker_ref, cwd=self.dir, check=False).returncode:
+            history = Checkers(self.state).index()["history"]
+            commit = next((h["commit"] for h in reversed(history) if h["digest"] == digest), None)
+            if commit is None:
+                raise RuntimeError(f"no promoted commit for checker {digest[:12]}")
+            git("update-ref", checker_ref, commit, cwd=self.dir)
+        source, tip_ref = str(self.dir), f"refs/publisher/tips/{tip}"
+        if cfg.get("stage_remote"):
+            staged = self.__dict__.setdefault("_staged", set())
+            if tip not in staged:
+                git("push", "-q", cfg["stage_remote"], f"{tip}:refs/publisher/candidates/{tip}",
+                    f"{checker_ref}:{checker_ref}", cwd=self.dir)
+                staged.add(tip)
+            source, tip_ref = cfg["stage_remote"], f"refs/publisher/candidates/{tip}"
+        return dict(source=source, tip_ref=tip_ref, tip=tip, base=base, checker=digest,
+                    checker_ref=checker_ref, checker_paths=cfg["checker_paths"], gate=cfg["gate"],
+                    toolchain_paths=cfg["toolchain_paths"], clean_keep=cfg["clean_keep"],
+                    gate_timeout=cfg["gate_timeout"])
+
+    def ledger_header(self, path):
+        """First line of a ledger at the last head read (cached per path)."""
+        cache = self.__dict__.setdefault("_headers", {})
+        if not getattr(self, "_head", None):
+            self.head()
+        if path not in cache and getattr(self, "_head", None):
+            got = git("show", f"{self._head}:{path}", cwd=self.dir, check=False)
+            cache[path] = (got.stdout.split(b"\n", 1)[0].rstrip(b"\r").decode(errors="replace")
+                           if got.returncode == 0 else None)
+        return cache.get(path)
+
+    def includers(self):
+        """({included file name (lower case): {paths including it}}, {paths
+        with a macro include}) at the last head; rescanned at most every
+        include_scan_seconds (stale edges only under-serialize: every batch
+        is still gated on its exact base)."""
+        cached = getattr(self, "_includes", None)
+        head = getattr(self, "_head", None) or self.head()
+        if cached and (cached[0] == head or
+                       time.time() - cached[1] < float(self.state.cfg["include_scan_seconds"])):
+            return cached[2]
+        graph = scan_includes(self.dir, head, self.state.cfg["include_globs"]) if head else ({}, set())
+        self._includes = (head, time.time(), graph)
+        return graph
 
     def inputs_digest(self, head, scope):
         """sha256 over the blobs at `head` that `scope` covers."""
@@ -766,6 +1115,8 @@ class Batch:
         self.job = None
         self.receipt = None
         self.probe = False
+        self.checks, self.check_jobs = [], []     # re-verification receipts and jobs
+        self.unavailable = False
 
     @property
     def units(self):
@@ -792,7 +1143,7 @@ class Publisher:
         self.heads = set()                  # every head seen: a red lone item there is red
         self.pause_until = 0.0
         self.head = None
-        self.stats = dict(gates=0, reused=0, batches=0, red_batches=0)
+        self.stats = dict(gates=0, reused=0, batches=0, red_batches=0, checks=0)
         self.lat = collections.deque(maxlen=5000)       # (landed time, latency seconds)
         if not offline:
             self.recover()
@@ -839,6 +1190,9 @@ class Publisher:
                       commits=patch.count(b"\nFrom ") + patch.startswith(b"From "),
                       paths=patch_paths(patch), scope=scope, target=target,
                       fingerprint=fingerprint,
+                      rows=ledger_rows(patch, self.cfg["row_ledgers"],
+                                       getattr(self.repo, "ledger_header", None)),
+                      reach=self._reach(patch_paths(patch)),
                       sim_bad=bool(envelope.get("sim_bad")))
         (self.state.root / "queue" / f"{unit}.patch").write_bytes(patch)
         write_json(self.state.root / "queue" / f"{unit}.json", record)
@@ -897,12 +1251,22 @@ class Publisher:
         self.event(where, unit=unit, operator=record["operator"], reason=extra.get("reason"),
                    wait=round(now - record["enqueued"], 1))
 
+    def _reach(self, paths):
+        if not hasattr(self.repo, "includers"):
+            return []
+        return reach_of(paths, self.repo.includers(), self.cfg)
+
     # ---- retry accounting -----------------------------------------------
     def _target_inputs(self, scope, head=None):
+        """The checker plus the blobs the target's non-ledger globs cover at
+        head; ledger files change on nearly every commit, so they are not
+        inputs (row tokens name the target instead)."""
         head = head or self.head or self.repo.head()
         if not scope or not head or not hasattr(self.repo, "inputs_digest"):
             return None
-        return f"{self.checkers.current()}:{self.repo.inputs_digest(head, scope)}"
+        globs = [g for g in target_globs(scope, self.cfg["ledger_paths"]) if "#" not in g]
+        digest = self.repo.inputs_digest(head, dict(allow=globs)) if globs else "-"
+        return f"{self.checkers.current()}:{digest}"
 
     def _retry_failed(self, record, base):
         path = self.state.root / "retries.json"
@@ -949,8 +1313,11 @@ class Publisher:
         return ok
 
     def verify_receipt(self, receipt, batch, head):
-        if not receipt or not verify_mac(self.state.receipt_key, receipt):
+        key = self.state.builder_key((receipt or {}).get("builder"))
+        if not receipt or key is None or not verify_mac(key, receipt):
             return "bad-mac"
+        if receipt["builder"] in self.state.quarantined():
+            return "quarantined-builder"
         if receipt["tip"] != batch.tip or receipt["base"] != batch.base:
             return "wrong-tip-or-base"
         if receipt["base"] != head:
@@ -974,7 +1341,10 @@ class Publisher:
                    dict(phase="publishing", base=batch.base, tip=batch.tip, units=batch.units,
                         checker=batch.receipt["checker"], receipt=str(path)))
         self._crash("before_push")
-        self.repo.publish(batch.tip)
+        if not self.repo.publish(batch.tip):
+            # the branch moved (another publisher won the compare-and-swap):
+            # nothing is published, the batch is regated on the new head
+            self.event("publish_refused", tip=batch.tip, base=batch.base)
         self._crash("after_push")
         return self._settle()
 
@@ -983,21 +1353,126 @@ class Publisher:
         for batch in self.inflight[start:]:
             if batch.job is not None:
                 self.executor.cancel(batch.job)
+            for job in batch.check_jobs:
+                self.executor.cancel(job)
         del self.inflight[start:]
 
     def _dispatch(self, batch, digest):
         self.stats["batches"] += 1
         path = receipt_path(self.state, batch.tip, batch.base, digest)
         cached = read_json(path)
-        if cached and verify_mac(self.state.receipt_key, cached):
+        if cached and self._authentic(cached, batch, digest):
             batch.receipt = cached                  # exact tip already gated: reuse
             self.stats["reused"] += 1
         else:
             self.stats["gates"] += 1
-            batch.job = self.executor.submit(batch.base, batch.tip, digest, batch.units)
+            batch.job = self.executor.submit(batch.base, batch.tip, digest, batch.units,
+                                             self._spec(batch, digest))
         self.inflight.append(batch)
         self.event("batch", tip=batch.tip, base=batch.base, units=len(batch.units),
                    reused=batch.receipt is not None, depth=len(self.inflight))
+
+    def _spec(self, batch, digest):
+        return self.repo.job(batch.base, batch.tip, digest) if hasattr(self.repo, "job") else {}
+
+    def _authentic(self, receipt, batch, digest, job=None):
+        """Signed by the registered, unquarantined builder that ran it, for
+        exactly this tip, base and checker."""
+        builder = receipt.get("builder")
+        key = self.state.builder_key(builder)
+        return (key is not None and verify_mac(key, receipt)
+                and builder not in self.state.quarantined()
+                and (job is None or builder == self.executor.builder_of(job))
+                and receipt.get("tip") == batch.tip and receipt.get("base") == batch.base
+                and receipt.get("checker") == digest)
+
+    def _poll(self, batch, digest):
+        """Collect a batch's receipt; a forged or misattributed one
+        quarantines the builder that returned it and the batch regates."""
+        if batch.receipt is not None or batch.job is None:
+            return
+        got = self.executor.poll(batch.job)
+        if got is None:
+            return
+        if got.get("verdict") != "error" and not self._authentic(got, batch, digest, batch.job):
+            self.state.quarantine(self.executor.builder_of(batch.job), "receipt does not verify",
+                                  tip=batch.tip, named=got.get("builder"))
+            batch.job = self.executor.submit(batch.base, batch.tip, digest, batch.units,
+                                             self._spec(batch, digest))
+            return
+        if got.get("verdict") != "error":
+            write_json(receipt_path(self.state, batch.tip, batch.base, digest), got)
+        batch.receipt = got
+
+    def _high_risk(self, batch):
+        globs = list(self.cfg["high_risk"]) + [g for p in self.cfg["checker_paths"]
+                                               for g in (p, f"{p.rstrip('/')}/**")]
+        return any(glob_match(path, g) for u in batch.units
+                   for path in (self.queue.get(u) or {}).get("paths") or () for g in globs)
+
+    def _needs_check(self, batch):
+        verdict = batch.receipt.get("verdict")
+        if verdict == "green":
+            if self._high_risk(batch) and self.cfg.get("reverify_high_risk", True):
+                return True
+            draw = int(hashlib.sha256(f"check:{batch.tip}".encode()).hexdigest()[:8], 16) / 0xFFFFFFFF
+            return draw < float(self.cfg["reverify_share"])
+        return verdict == "red" and len(batch.items) == 1 and bool(self.cfg["reverify_red"])
+
+    @staticmethod
+    def _outcome(receipt):
+        return (receipt.get("verdict"), receipt.get("tree"), receipt.get("checker"),
+                receipt.get("result"))
+
+    def _confirmed(self, batch, digest):
+        """The verdict to act on, or None while re-verification is pending.
+
+        A sampled or high-risk green, and a lone red, must be reproduced by a
+        builder of a different operator; on disagreement a third operator's
+        builder decides, and every builder outvoted is quarantined. With no
+        eligible builder the batch is held (event reverify_unavailable)."""
+        if not self._needs_check(batch):
+            return batch.receipt.get("verdict")
+        for job in list(batch.check_jobs):
+            got = self.executor.poll(job)
+            if got is None:
+                continue
+            batch.check_jobs.remove(job)
+            if got.get("verdict") == "error":
+                continue
+            if not self._authentic(got, batch, digest, job):
+                self.state.quarantine(self.executor.builder_of(job), "receipt does not verify",
+                                      tip=batch.tip)
+                continue
+            batch.checks.append(got)
+        receipts = [batch.receipt] + batch.checks
+        votes = collections.Counter(self._outcome(r) for r in receipts)
+        best, count = votes.most_common(1)[0]
+        if count >= 2:
+            for r in receipts:
+                if self._outcome(r) != best:
+                    self.state.quarantine(r.get("builder"), "receipt did not reproduce",
+                                          tip=batch.tip, said=r.get("verdict"), majority=best[0])
+            if self._outcome(batch.receipt) != best:
+                batch.receipt = next(r for r in receipts if self._outcome(r) == best)
+            return best[0]
+        if batch.check_jobs:
+            return None
+        used = {self.executor.operator_of(r.get("builder")) for r in receipts}
+        job = self.executor.submit(batch.base, batch.tip, digest, batch.units,
+                                   self._spec(batch, digest), exclude_operators=used,
+                                   avoid={r.get("builder") for r in receipts})
+        if job is None:
+            if not batch.unavailable:
+                self.event("reverify_unavailable", tip=batch.tip, operators=sorted(map(str, used)))
+                batch.unavailable = True
+            return None
+        batch.check_jobs.append(job)
+        self.stats["checks"] += 1
+        return None
+
+    def capacity(self):
+        return int(getattr(self.executor, "n", None) or self.cfg["builders"])
 
     def _compose(self, base, items, final):
         """A Batch of `items` on `base`; a unit that does not apply is rejected
@@ -1030,15 +1505,26 @@ class Publisher:
     def _outside_scope(self, units):
         """{unit: [paths outside its scope]} for the last composition."""
         found = {}
-        rebased = getattr(self.repo, "unit_paths", None) or {}
+        diffs = getattr(self.repo, "unit_diffs", None) or {}
         for unit in units:
             record = self.queue.get(unit) or {}
             if not record.get("scope"):
                 continue
-            paths = rebased.get(unit, record.get("paths") or [])
-            bad = sorted(p for p in paths if p and not in_scope(p, record["scope"]))
+            if unit in diffs:                   # the unit's own diff as rebased
+                paths = patch_paths(diffs[unit])
+                rows = ledger_rows(diffs[unit], self.cfg["row_ledgers"],
+                                   getattr(self.repo, "ledger_header", None))
+            else:
+                paths, rows = record.get("paths") or [], record.get("rows") or {}
+            bad = []
+            for path in paths:
+                keys = rows.get(path)
+                if keys and "*" not in keys:
+                    bad += [f"{path}#{k}" for k in keys if not in_scope(path, record["scope"], k)]
+                elif not in_scope(path, record["scope"]):
+                    bad.append(path)
             if bad:
-                found[unit] = bad
+                found[unit] = sorted(bad)
         return found
 
     def step(self):
@@ -1065,13 +1551,14 @@ class Publisher:
         while True:
             acted = False
             for batch in self.inflight:
-                if batch.receipt is None and batch.job is not None:
-                    batch.receipt = self.executor.poll(batch.job)
+                self._poll(batch, digest)
             for batch in list(self.inflight):
-                # a lone item red on a real head is red: rejecting never publishes
+                # a lone item red on a real head is red (once reproduced):
+                # rejecting never publishes
                 got = batch.receipt or {}
                 if (got.get("verdict") == "red" and len(batch.items) == 1
-                        and batch.base in self.heads and got.get("checker") == digest):
+                        and batch.base in self.heads and got.get("checker") == digest
+                        and self._confirmed(batch, digest) == "red"):
                     self._drop(batch)
                     self.stats["red_batches"] += 1
                     for u in batch.items[0]:
@@ -1083,9 +1570,13 @@ class Publisher:
                     continue
                 if batch.receipt is None:
                     break                            # settle in order: wait for it
+                verdict = batch.receipt.get("verdict")
+                if verdict not in ("error", None) and batch.receipt.get("checker") == digest:
+                    verdict = self._confirmed(batch, digest)
+                    if verdict is None:
+                        break                        # re-verification pending
                 acted = True
                 self._drop(batch)
-                verdict = batch.receipt.get("verdict")
                 if verdict == "error":                # no receipt: back off, then regate
                     self.event("builder_error", tip=batch.tip, error=batch.receipt.get("error"))
                     self.pause_until = self.clock() + 30
@@ -1112,6 +1603,9 @@ class Publisher:
             self.inflight.remove(batch)
         if batch.job is not None and batch.receipt is None:
             self.executor.cancel(batch.job)
+        for job in batch.check_jobs:
+            self.executor.cancel(job)
+        batch.check_jobs = []
 
     def _prune(self):
         """Drop orphans (their units stay queued); True when any was dropped."""
@@ -1147,7 +1641,7 @@ class Publisher:
                     probe.probe = True
                     self._dispatch(probe, digest)
             return
-        k = max(2, min(len(batch.items), int(self.cfg["builders"])))
+        k = max(2, min(len(batch.items), self.capacity()))
         size = -(-len(batch.items) // k)
         base = self.head
         for at in range(0, len(batch.items), size):
@@ -1163,7 +1657,7 @@ class Publisher:
         changed, skip = False, set()
         if self.clock() < self.pause_until:
             return False
-        while len(self.inflight) < int(self.cfg["builders"]) and self.queue:
+        while len(self.inflight) < self.capacity() and self.queue:
             chain = [b for b in self.inflight if not b.probe]
             if chain and any(self.queue.get(u, {}).get("kind") == "wide" for u in chain[-1].units):
                 break
@@ -1207,6 +1701,7 @@ class Publisher:
                     latency_p50_s=percentile(recent, 0.5), latency_p95_s=percentile(recent, 0.95),
                     inflight=len(self.inflight), builders_busy=self.executor.busy(),
                     checker=self.checkers.current(), **self.stats,
+                    quarantined=sorted(self.state.quarantined()),
                     slow_lane=sorted(op for op in self.cfg["operators"] if self.sched.slow(op)))
 
 
@@ -1222,7 +1717,10 @@ def drain(publisher, once=False, stop=None):
             publisher.event("error", error=str(error))
             print(json.dumps({"error": str(error)}), file=sys.stderr, flush=True)
             changed = False
-        if once and not publisher.inflight:
+        # once: until nothing is in flight; a backoff (builder error, refused
+        # push) with units still queued is waited out, not taken for idle
+        if once and not publisher.inflight and not (
+                publisher.queue and publisher.clock() < publisher.pause_until):
             return publisher.status()
         if not changed:
             publisher.executor.wait(float(publisher.cfg["poll_seconds"]))
@@ -1243,8 +1741,14 @@ def submit(repo, operator, key_file, rev="@{u}..HEAD", inbox=None, remote=None, 
     patch = make_unit(repo, rev)
     if not patch.strip():
         raise RuntimeError(f"nothing to submit in {rev}")
-    if scope == "diff":                     # declare exactly the paths the range touches
-        scope = patch_paths(patch)
+    if scope == "diff":                     # declare exactly the paths and rows it touches
+        base = rev.split("..")[0] if ".." in rev else f"{rev}~1"
+
+        def header_of(path):
+            got = git("show", f"{base}:{path}", cwd=repo, check=False)
+            return (got.stdout.split(b"\n", 1)[0].rstrip(b"\r").decode(errors="replace")
+                    if got.returncode == 0 else None)
+        scope = scope_from_diff(patch, DEFAULTS["row_ledgers"], header_of)
     envelope = dict(v=1, operator=operator, patch_sha256=hashlib.sha256(patch).hexdigest(),
                     kind=kind, after=list(after), bundle=bundle, priority=priority,
                     time=time.time(), nonce=uuid.uuid4().hex, **(extra or {}))
@@ -1274,43 +1778,54 @@ def submit(repo, operator, key_file, rev="@{u}..HEAD", inbox=None, remote=None, 
 
 # ---- promotion (admin side) ------------------------------------------------
 def promote(state, commit, fixtures=None, accept_diff=None, repo=None):
-    """Make the checker at `commit` current. Returns (ok, report dict)."""
+    """Make the checker at `commit` current. Returns (ok, report dict).
+
+    Refused without a fixture set holding at least one exploit (`reject`) and
+    one benign control (`pass`), and without `ledger_cmd`: a checker is never
+    promoted on its own word."""
     state = state if isinstance(state, State) else State(state)
+    manifest = read_json(Path(fixtures) / "fixtures.json", []) if fixtures else []
+    kinds = {f.get("expect") for f in manifest}
+    if not {"reject", "pass"} <= kinds:
+        return False, dict(error="promotion needs fixtures.json with at least one exploit "
+                                 "(expect: reject) and one benign control (expect: pass)")
+    if not state.cfg.get("ledger_cmd"):
+        return False, dict(error="promotion needs ledger_cmd (the full-ledger comparison)")
     repo = repo or GitRepo(state)
     head = repo.head()
     if git("cat-file", "-e", f"{commit}^{{commit}}", cwd=repo.dir, check=False).returncode:
         git("fetch", "-q", "--no-tags", "target", "+refs/heads/*:refs/publisher/target/*",
             cwd=repo.dir)
     digest = Checkers(state).materialize(repo.dir, commit)
+    git("update-ref", f"refs/publisher/checkers/{digest}", commit, cwd=repo.dir)
     old = Checkers(state).current()
-    builder = Builder(state, "promote")
+    builder = Builder(state.root / "builders" / "promote", "promote", b"promote")
     report = dict(digest=digest, commit=commit, head=head, fixtures=[], ledger=None)
     ok = True
-    manifest = read_json(Path(fixtures) / "fixtures.json", []) if fixtures else []
-    for fixture in manifest:           # [{"patch": "x.patch", "expect": "reject"|"pass"}]
+    for fixture in manifest:           # [{"patch": "x.patch", "expect": "reject"|"pass", "why": ...}]
         tip, bad = repo.compose(head, [("fixture", Path(fixtures) / fixture["patch"])])
         if bad:
             verdict = "does-not-apply"
         else:
-            code, _ = builder.run(head, tip, digest)
+            code, _ = builder.run(repo.job(head, tip, digest))
             verdict = "pass" if code == 0 else "reject"
         good = verdict == fixture["expect"]
         ok &= good
         report["fixtures"].append(dict(fixture, got=verdict, ok=good))
-    if state.cfg.get("ledger_cmd"):
-        outputs = {}
-        for name, which in (("old", old), ("new", digest)):
-            if which:
-                code, text = builder.run(head, head, which, command=state.cfg["ledger_cmd"])
-                outputs[name] = set(text.decode(errors="replace").splitlines())
-        added = sorted(outputs["new"] - outputs.get("old", outputs["new"]))
-        removed = sorted(outputs.get("old", outputs["new"]) - outputs["new"])
-        diff = [f"+ {line}" for line in added] + [f"- {line}" for line in removed]
-        accepted = set(Path(accept_diff).read_text(encoding="utf-8").splitlines()) if accept_diff else set()
-        unaccepted = [line for line in diff if line not in accepted]
-        report["ledger"] = dict(added=len(added), removed=len(removed), unaccepted=unaccepted[:50],
-                                diff_sha256=hashlib.sha256("\n".join(diff).encode()).hexdigest())
-        ok &= not unaccepted
+    outputs = {}
+    for name, which in (("old", old), ("new", digest)):
+        if which:
+            code, text = builder.run(repo.job(head, head, which), command=state.cfg["ledger_cmd"])
+            outputs[name] = set(text.decode(errors="replace").splitlines())
+    added = sorted(outputs["new"] - outputs.get("old", outputs["new"]))
+    removed = sorted(outputs.get("old", outputs["new"]) - outputs["new"])
+    diff = [f"+ {line}" for line in added] + [f"- {line}" for line in removed]
+    accepted = set(Path(accept_diff).read_text(encoding="utf-8").splitlines()) if accept_diff else set()
+    unaccepted = [line for line in diff if line not in accepted]
+    report["ledger"] = dict(added=len(added), removed=len(removed), unaccepted=unaccepted[:50],
+                            lines=len(outputs["new"]),
+                            diff_sha256=hashlib.sha256("\n".join(diff).encode()).hexdigest())
+    ok &= not unaccepted
     if ok:
         Checkers(state).record(digest, commit, report)
         state.event("promoted", digest=digest, commit=commit)
@@ -1351,8 +1866,18 @@ def main(argv=None):
     p.add_argument("--forbid", action="append", default=[], metavar="GLOB")
     p.add_argument("--scope-from-diff", action="store_true",
                    help="declare exactly the paths the range touches")
-    p = sub.add_parser("build", help="(internal) one isolated build; run by the executor")
-    for flag in ("--state", "--slot", "--base", "--tip", "--checker"):
+    p = sub.add_parser("builder", help="register a builder; writes its key file")
+    p.add_argument("--state", required=True)
+    p.add_argument("name")
+    p.add_argument("--operator", required=True, help="who runs the host (re-verification "
+                                                      "always uses another operator)")
+    p.add_argument("--command", help='JSON argv that runs publisher.py on the host, e.g. '
+                                     '["ssh","host","python3","/srv/bfme/tools/publisher.py"]')
+    p.add_argument("--home", help="the builder's work directory on its host")
+    p.add_argument("--builder-key", help="the key file's path on the builder host")
+    p.add_argument("--slots", type=int, default=1)
+    p = sub.add_parser("builder-run", help="(builder host) run one job from stdin, print the receipt")
+    for flag in ("--home", "--id", "--key"):
         p.add_argument(flag, required=True)
     p = sub.add_parser("drain")
     p.add_argument("--state", required=True)
@@ -1396,9 +1921,24 @@ def main(argv=None):
                      args.kind, args.after, args.bundle, args.priority, scope=scope,
                      forbid=args.forbid))
         return 0
-    if args.action == "build":
-        receipt = Builder(State(args.state), args.slot).build(args.base, args.tip, args.checker)
-        print(receipt["verdict"])
+    if args.action == "builder":
+        root = Path(args.state)
+        cfg = read_json(root / "config.json", {})
+        key = new_key(root / "builders" / f"{args.name}.key")
+        entry = dict(operator=args.operator, key_file=f"builders/{args.name}.key", slots=args.slots)
+        if args.command:
+            entry["command"] = json.loads(args.command)
+        for field in ("home", "builder_key"):
+            if getattr(args, field):
+                entry[field] = getattr(args, field)
+        cfg.setdefault("builders_registry", {})[args.name] = entry
+        write_json(root / "config.json", cfg)
+        print(key)              # install THIS file on the builder host only
+        return 0
+    if args.action == "builder-run":
+        job = json.loads(sys.stdin.buffer.read())
+        receipt, output = Builder(args.home, args.id, read_key(args.key)).build(job)
+        print(json.dumps(dict(receipt=receipt, log=output.decode(errors="replace")[-200000:])))
         return 0
     if args.action == "drain":
         print(json.dumps(drain(Publisher(args.state), once=args.once), indent=1))

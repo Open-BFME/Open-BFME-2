@@ -47,7 +47,7 @@ PROTECTED = (
     "tools/link_debt.py", "tools/class_gate.py", "tools/pin_consistency.py", "tools/header_dependents.py", "tools/ledger_guard.py",
     "tools/pin_admission.py", "tools/gate_baseline.py", "tools/check_module_registry.py",
     "tools/protected_paths.py", "tools/hatch_counters.py", "tools/retail_inventory.py",
-    "tools/publisher.py", "tools/publisher_pre_push.sh",
+    "tools/publisher.py", "tools/publisher_pre_push.sh", "tools/publisher_fixtures/*",
     # the advisory audit: its judge allowlist (judges.json), canaries and harness
     "tools/audit/*",
     "tools/publisher_gate.py", "tools/publisher_hook.py", "tools/publisher_service.py",

@@ -1,0 +1,44 @@
+[
+ {"name": "self_weakened_conversion_gate", "expect": "reject",
+  "why": "the candidate disables Rule A in its own conversion gate and adds an __emit lift; the pinned gate still runs",
+  "message": "convert PublisherFixtureEmit to exact C++",
+  "edits": [
+   {"path": "tools/conversion_gate.py", "append": "\n\ndef added_lift_lines(old, new):\n    return []\n"},
+   {"path": "Code/PublisherFixtures/FixtureEmit.cpp", "write": "// ?fixtureEmit@@YAXXZ\n__declspec(naked) void fixtureEmit(void)\n{\n\t__asm _emit 0xC3\n}\n"}]},
+ {"name": "naked_emit_lift", "expect": "reject",
+  "why": "Rule A: an added __declspec(naked)/__emit body under Code/ is a lift, not C++",
+  "message": "add exact C++ for fixtureNaked",
+  "edits": [
+   {"path": "Code/PublisherFixtures/FixtureNaked.cpp", "write": "// ?fixtureNaked@@YAXXZ\n__declspec(naked) void fixtureNaked(void)\n{\n\t__asm _emit 0x90\n\t__asm _emit 0xC3\n}\n"}]},
+ {"name": "named_gen_asm_dump", "expect": "reject",
+  "why": "Rule C1: a hand-written, named function in Code/gen_asm/ is outside the generator's grammar",
+  "message": "gen_asm: add a named dump",
+  "edits": [
+   {"path": "Code/gen_asm/publisher_fixture.asm", "write": ".386\n.model flat\n_TEXT SEGMENT\npublic ?fixtureNamed@@YAXXZ\n?fixtureNamed@@YAXXZ PROC\n    ret\n?fixtureNamed@@YAXXZ ENDP\n_TEXT ENDS\nEND\n"}]},
+ {"name": "disabled_push_hook", "expect": "reject",
+  "why": "the candidate empties its own pre-push hook and adds a lift; the overlaid hook still runs",
+  "message": "speed up the push hook",
+  "edits": [
+   {"path": ".githooks/pre-push", "write": "#!/usr/bin/env bash\nexit 0\n"},
+   {"path": "Code/PublisherFixtures/FixtureEmit2.cpp", "write": "// ?fixtureEmit2@@YAXXZ\n__declspec(naked) void fixtureEmit2(void)\n{\n\t__asm _emit 0xC3\n}\n"}]},
+ {"name": "baseline_growth", "expect": "reject",
+  "why": "a shrink-only list may not grow, even with a Verifier-Change trailer (protected_paths rule 2)",
+  "message": "module registry: record a known violation\n\nVerifier-Change: fixture, growing a shrink-only list",
+  "edits": [
+   {"path": "reverse/module_registry_baseline.txt", "append": "publisher-fixture-violation\n"}]},
+ {"name": "undeclared_verifier_edit", "expect": "reject",
+  "why": "a verifier edit without a Verifier-Change trailer (protected_paths rule 1)",
+  "message": "tidy check_csv",
+  "edits": [
+   {"path": "tools/check_csv.py", "append": "\n# tidied\n"}]},
+ {"name": "benign_doc", "expect": "pass",
+  "why": "control: a documentation edit passes",
+  "message": "docs: a note on publisher fixtures",
+  "edits": [
+   {"path": "docs/publisher.md", "append": "\n"}]},
+ {"name": "benign_new_test", "expect": "pass",
+  "why": "control: a new unprotected test file passes",
+  "message": "tests: a probe the publisher fixtures use",
+  "edits": [
+   {"path": "tools/tests/test_publisher_fixture_probe.py", "write": "def test_probe():\n    assert True\n"}]}
+]
