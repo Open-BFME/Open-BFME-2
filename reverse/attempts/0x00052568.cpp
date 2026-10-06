@@ -1,4 +1,6 @@
 // ??0Rva00052568@@QAE@XZ
+// partial score=0.9129 date=2026-10-06
+// ??0Rva00052568@@QAE@XZ
 // partial score=0.93 date=2026-10-05
 // cl: /EHsc /O1 /DNDEBUG /MD
 class TextureBaseClass
