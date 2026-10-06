@@ -65001,3 +65001,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva005F8427@Rva005F8427@@QAEXXZ,,0x005F8427,8,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,matched,Member forwarder to rowed 0x005F83B9; honest address name
 ?rva005FBB9E@Rva005FBB9E@@QAEXH@Z,,0x005FBB9E,8,Code/GameEngine/Source/Common/Rva005FFF62Family.cpp,matched,Member forwarder to rowed Set2 0x005FBAFE int passthrough; honest address name
 ?rva0036A524@Rva00368004@@QAEHXZ,,0x0036A524,151,Code/GameEngine/Source/Common/Rva00368004Getter.cpp,matched,dump range 16; flag refresh with goal dead-flag gate; same TU as 0x36A75C
+?onEnter@Rva0036A3E9GuardInnerState@@UAE?AW4StateReturnType@@XZ,,0x0036A3E9,315,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp,matched,dump range 16 head; second-system inner onEnter mirrors 0x54379B without deadline with else range recompute
