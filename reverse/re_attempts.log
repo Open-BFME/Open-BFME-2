@@ -11597,3 +11597,13 @@ FUN_008ee9e9	0x004EE9E9	245	blocked	adapted stash to pin name without hatches sc
 ?Rva0044C5C7Get@@YAHXZ	0x0044C5C7	683	blocked	address-named global g_Va00A06398 new use is counted escape hatch per packet t=1 model=muse-spark
 ?rva00112AD1@Rva00112AD1@@QAE_NHHHM@Z	0x00112AD1	749	blocked	address-named float g_Va00BBB8D8 new use is counted escape hatch per packet t=1 model=muse-spark
 ?groupEvacuate@AIGroup@@QAEXW4CommandSourceType@@@Z	0x003702B9	224	blocked	unrowed callee 0x002803F9 gate cannot resolve per packet t=1 model=muse-spark
+?rva00480093@ShareExperienceBehavior@@UAEXM@Z	0x00480093	467	blocked	scheduler wall 0.93 allocation BL vs EBX frame 0x60 old g_Va hatch no NEW idea t=5 model=muse-06
+?rva005294FC@Rva0052936C@@QAEXH@Z	0x005294FC	217	blocked	ebx-edi swap persists idx-arith no swap mov-esi vs push-mem t=10 model=muse-06 (stash 0.9 kept)
+?onEnter@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ	0x004D83D1	88	blocked	tail FOREVER pushes vs turret load scheduling turret-local inline identical no NEW idea t=5 model=muse-06 (stash 0.9 kept)
+?Rva00212AEF@Rva00212AEF@@QAE@XZ	0x00212AEF	996	blocked	ADDRESS-NAMED g_Va00BCF628 packet says skip t=2 model=muse-06
+?Rva00446EC9@Rva00446EC9@@QAE@XZ	0x00446EC9	614	blocked	ADDRESS-NAMED g_Va00E0333C packet says skip t=2 model=muse-06
+?startRotOrPitchSound@TurretAI@@AAEXXZ	0x004D8B50	211	blocked	needs unclaimed callee 0x00274CD8 t=5 model=muse-06
+?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ	0x001EC3B5	648	blocked	big WW3D 648B not strong t=2 model=muse-06
+?applyTopplingForce@ToppleUpdate@@QAEXPBUCoord3D@@MI@Z	0x004A83D7	784	blocked	big 784B not strong t=2 model=muse-06
+?Rva004FE987@Rva004FE987@@QAE@XZ	0x004FE987	942	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString packet says skip t=2 model=muse-06
+?Rva00356B78@Rva00356B78@@QAE@XZ	0x00356B78	790	blocked	big 790B not strong t=2 model=muse-06
