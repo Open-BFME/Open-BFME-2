@@ -160,8 +160,9 @@ m_uniqueID(-1)
 /** Frees index & vertex data. */
 //=============================================================================
 // RoadType::~RoadType (retail 0x000D4F4F) is BFME 2's own layout and is not
-// reconstructed here; the vector deleting form freeRoadBuffers uses calls it
-// through a pin.
+// reconstructed here; it lives as a TU-local replica in
+// W3DRoadBufferRoadTypeDtor.cpp, and the vector deleting form freeRoadBuffers
+// uses calls it.
 
 //=============================================================================
 // RoadType applyTexture
