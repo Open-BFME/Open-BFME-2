@@ -82,7 +82,13 @@ Rva002E8548 g_Va00DBD4C8 = { 128, 0, 0, Rva0002FFC0Alloc, Rva0002FFE0Free, 0 };
 // copies two words at node+16. The second word is an opaque storage view;
 // its application type and the original map instantiation remain unknown.
 typedef _STL::pair<const unsigned int,unsigned int> Pair;
-typedef _STL::_Rb_tree<unsigned int,Pair,_STL::_Select1st<Pair>,_STL::less<unsigned int>,_STL::allocator<Pair> > Tree;
+// Native unsigned comparison is a verified storage predicate; the original
+// comparator type is unknown. Avoid emitting a wrong shared less<unsigned>.
+struct Rva002F0DD6Less {
+    // ?Rva002F0DD6Less::operator() present-unmatched
+    bool operator()(const unsigned int &a, const unsigned int &b) const { return a < b; }
+};
+typedef _STL::_Rb_tree<unsigned int,Pair,_STL::_Select1st<Pair>,Rva002F0DD6Less,_STL::allocator<Pair> > Tree;
 
 namespace _STL { template <> void _Construct<Pair,Pair>(Pair *, const Pair &); }
 
@@ -104,5 +110,5 @@ void *__stdcall rva002EF25B(const Pair &value)
 namespace _STL {
 template <> _Rb_tree_node<Pair> *Tree::_M_create_node(const Pair &value);
 }
-#pragma comment(linker, "/alternatename:?_M_create_node@?$_Rb_tree@IU?$pair@$$CBII@_STL@@U?$_Select1st@U?$pair@$$CBII@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBII@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@2@ABU?$pair@$$CBII@2@@Z=?rva002EF25B@@YGPAXABU?$pair@$$CBII@_STL@@@Z")
+#pragma comment(linker, "/alternatename:?_M_create_node@?$_Rb_tree@IU?$pair@$$CBII@_STL@@U?$_Select1st@U?$pair@$$CBII@_STL@@@2@URva002F0DD6Less@@V?$allocator@U?$pair@$$CBII@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@2@ABU?$pair@$$CBII@2@@Z=?rva002EF25B@@YGPAXABU?$pair@$$CBII@_STL@@@Z")
 template Tree::iterator Tree::_M_insert(_STL::_Rb_tree_node_base*,_STL::_Rb_tree_node_base*,const Pair&,_STL::_Rb_tree_node_base*);
