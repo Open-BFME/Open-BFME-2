@@ -133,3 +133,12 @@ _io_writeto
 
 # Audit audio parser sweep 2026-10-05: 1D99E7 exact reference-plus-int ctor has no native E8/E9 or absolute-pointer reference; generic record identity uncorroborated.
 ??0BfmeStringTailRecord156@@QAE@ABVRva0036CA00Str@@H@Z
+
+# w5-sol: 0x005227C0 refused; see re_attempts.log and build/w5_gate_0x005227C0.log
+??4?$list@URva005227C0Element@@V?$allocator@URva005227C0Element@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+
+# w5-sol: 0x005BAB0B refused; see re_attempts.log and build/w5_gate_0x005BAB0B.log
+??4?$list@URva005BAB0BElement@@V?$allocator@URva005BAB0BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+
+# w5-sol: 0x00626EF0 refused; see re_attempts.log and build/w5_gate_0x00626EF0.log
+??$__copy@PAURva00626EF0Element@@PAU1@H@_STL@@YAPAURva00626EF0Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z
