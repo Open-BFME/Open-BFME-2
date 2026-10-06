@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // Zero Hour's WorkerAIUpdate (GeneralsMD GameLogic/Object/Update/AIUpdate/
 // WorkerAIUpdate.cpp) as BFME 2 kept it.
@@ -73,6 +73,22 @@
 // where ZH flattens; it returns at once when the object's +0xAC flag is set,
 // as ZH does for small geometry, before reading its position) and
 // onStructureCreated 0x002AA559 (ZH's callback slot, builder then structure).
+//
+// ?findGoodBuildOrRepairPositionAndTarget@WorkerAIUpdate@@IAEPAVObject@@PAV2@0AAUCoord3D@@@Z,
+// retail 0x004AABB4, 426 bytes. Donor: BFME 1's
+// WorkerAIUpdateFindGoodBuildOrRepairPositionAndTarget.cpp (BFME 1 0x002C9C40,
+// name and protected member spelling carried from its ledger). Target
+// evidence: its BEGIN log line names the function; called from the dozer
+// interface's newTask with the full object. ZH's static
+// DozerAIUpdate::findGoodBuildOrRepairPositionAndTarget as a member: for a
+// bridge (kind-of bit 22 on the template, Thing +0x04 then +0x108) it picks
+// the reachable tower (bridge interface vslot 1, four towers, the pinned
+// isPathAvailable) whose position (the pinned findGoodBuildOrRepairPosition
+// 0x004AA4FE, whose own BEGIN line names it) is nearest, else it finds the
+// target's position. The diagnostics are BFME's: fprintf to the logic
+// random log file while the docking trace switch (0x00E03CA8, BFME 1's
+// g_bfmeDockingTraceActive) is set; template name +0x64, id +0x74.
+#include "ascii_string.h"
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 typedef bool Bool;
@@ -81,6 +97,18 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 
 #define FALSE false
+
+struct _iobuf;
+typedef struct _iobuf FILE;
+
+extern "C" int __cdecl fprintf(FILE *stream, const char *format, ...);
+
+// The logic random log file; BFME 2's docking diagnostics write to it.
+extern "C" FILE *theLogicRandomLogFile;
+
+// BFME 1's names for the docking diagnostics switches.
+extern bool g_bfmeDockingDesyncLog;
+extern bool g_bfmeDockingTraceActive;
 
 enum ObjectID
 {
@@ -257,6 +285,7 @@ public:
 	virtual void v05(); virtual void v06(); virtual void v07();
 	virtual void onDelete(); // vslot 8
 	Int getCurrentStateID() const;
+	Bool isPathAvailable(const Coord3D *destination) const;
 protected:
 	virtual ~AIUpdateInterface();
 private:
@@ -320,11 +349,36 @@ public:
 	virtual void internalChangeHealth(Real delta, Int flag); // +0x80
 };
 
+enum KindOfType
+{
+	KINDOF_BRIDGE = 22
+};
+
+class ThingTemplate
+{
+public:
+	const AsciiString &getName() const { return m_name; }
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 31)); }
+	Int rva0033A69A(const Player *player, Int builder, Int a3) const;
+private:
+	unsigned char m_pad000[0x64];
+	AsciiString m_name; // +0x64
+	unsigned char m_pad068[0x108 - 0x68];
+	UnsignedInt m_kindOf[4]; // +0x108
+};
+
 class Thing
 {
 public:
+	virtual ~Thing();
+	const ThingTemplate *getTemplate() const { return m_template; }
+	const Coord3D *getPosition() const { return &m_position; }
 	void setPosition(const Coord3D *pos);
 	void setOrientation(Real angle);
+private:
+	const ThingTemplate *m_template; // +0x04
+	unsigned char m_pad08[0x38 - 0x08];
+	Coord3D m_position; // +0x38
 };
 
 class ModelConditionFlags
@@ -345,6 +399,8 @@ private:
 class Object : public Thing
 {
 public:
+	ObjectID getID() const { return m_id; }
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	void setProducer(Object *obj);
@@ -362,7 +418,9 @@ public:
 		}
 	}
 private:
-	unsigned char m_pad000[0x10C];
+	unsigned char m_pad044[0x74 - 0x44];
+	ObjectID m_id; // +0x74
+	unsigned char m_pad078[0x10C - 0x78];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x254 - 0x158];
 	BodyModuleInterface *m_body; // +0x254
@@ -421,11 +479,6 @@ private:
 	Rva0039B795 m_stats; // +0x3BC
 };
 
-class ThingTemplate
-{
-public:
-	Int rva0033A69A(const Player *player, Int builder, Int a3) const;
-};
 
 class ThingFactory
 {
@@ -497,6 +550,30 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
+
+enum BridgeTowerType
+{
+	BRIDGE_TOWER_FROM_LEFT = 0,
+	BRIDGE_MAX_TOWERS = 4
+};
+
+class BridgeBehaviorInterface
+{
+public:
+	virtual void slot0();
+	virtual ObjectID getTowerID(BridgeTowerType type); // vslot 1
+};
+
+class BridgeBehavior
+{
+public:
+	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(Object *obj);
+};
+
+inline Real sqr(Real x)
+{
+	return x * x;
+}
 
 enum AIStateType
 {
@@ -573,6 +650,8 @@ public:
 	Bool isSupplyTruckBrainActiveAndBusy();
 protected:
 	virtual ~WorkerAIUpdate();
+	Bool findGoodBuildOrRepairPosition(const Object *me, const Object *target, Coord3D &positionOut);
+	Object *findGoodBuildOrRepairPositionAndTarget(Object *me, Object *target, Coord3D &positionOut);
 private:
 	enum { DOZER_NUM_TASKS = 3 };
 	enum { DOZER_NUM_DOCK_POINTS = 3 };
@@ -841,4 +920,52 @@ Object *WorkerAIUpdate::construct(const ThingTemplate *what, const Coord3D *pos,
 	newTask(DOZER_TASK_BUILD, obj);
 
 	return obj;
+}
+
+Object *WorkerAIUpdate::findGoodBuildOrRepairPositionAndTarget(Object *me, Object *target, Coord3D &positionOut)
+{
+	if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
+		fprintf(theLogicRandomLogFile, "  WorkerAIUpdate::findGoodBuildOrRepairPositionAndTarget() BEGIN: Object %s(%d) with target %s(%d)",
+			me->getTemplate()->getName().str(), me->getID(),
+			target ? target->getTemplate()->getName().str() : "NULL", target ? target->getID() : 0);
+
+	if (target->isKindOf(KINDOF_BRIDGE))
+	{
+		if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
+			fprintf(theLogicRandomLogFile, "  target is a bridge case");
+
+		BridgeBehaviorInterface *bridgeInterface = BridgeBehavior::getBridgeBehaviorInterfaceFromObject(target);
+		if (bridgeInterface)
+		{
+			if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
+				fprintf(theLogicRandomLogFile, "  target has a bridge behavior");
+
+			// pick the reachable tower position closest to us
+			AIUpdateInterface *ai = me->getAIUpdateInterface();
+			Real closestDistSq = 1e10f;
+			Object *closestTower = 0;
+			for (Int i = 0; i < BRIDGE_MAX_TOWERS; ++i)
+			{
+				Object *tower = TheGameLogic->findObjectByID(bridgeInterface->getTowerID((BridgeTowerType)i));
+				if (tower)
+				{
+					Coord3D pos;
+					if (findGoodBuildOrRepairPosition(me, tower, pos) && ai->isPathAvailable(&pos))
+					{
+						Real distSq = sqr(me->getPosition()->x - pos.x) + sqr(me->getPosition()->y - pos.y);
+						if (distSq < closestDistSq)
+						{
+							positionOut = pos;
+							closestDistSq = distSq;
+							closestTower = tower;
+						}
+					}
+				}
+			}
+			return closestTower;
+		}
+	}
+
+	findGoodBuildOrRepairPosition(me, target, positionOut);
+	return target;
 }
