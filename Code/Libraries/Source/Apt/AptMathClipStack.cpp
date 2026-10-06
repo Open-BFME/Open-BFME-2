@@ -21,6 +21,7 @@ public:
     static void ClipStackInit(unsigned int);
     static void ClipStackMakeUnit();
 private:
+    friend void *__cdecl rva006F73A0(void *, void *, int);
     static ClipTransform_t *m_pStackBase;
     static unsigned short m_nStackCapacity;
     static unsigned short m_nStackCount;
@@ -119,4 +120,107 @@ void AptMath::ClipStackMakeUnit()
     p->m[1]=0.0f; p->m[2]=0.0f; p->m[3]=0.0f; p->m[4]=0.0f; p->m[6]=0.0f; p->m[7]=0.0f; p->m[8]=0.0f; p->m[9]=0.0f; p->m[11]=0.0f; p->m[12]=0.0f; p->m[13]=0.0f; p->m[14]=0.0f;
     p->mul=mul;
     p->add=add;
+}
+
+
+// Target evidence: 0x006F73A0 is the callback selected beside 0x006F7330 by
+// the retail traversal at 0x006F7720 when flag bit 2 is set. Its body checks
+// the AptMath clip-stack count/capacity (globals 0x00E18100/0x00E180FC), pushes
+// one 96-byte ClipTransform_t, composes its matrix through the rowed
+// bfmeCombine1236 helper, folds the four multiplier/add vectors, updates the
+// input object through 0x006E15C0, and tail-returns ClipStackPop at 0x006CBD10.
+// The six affine floats, color vectors, and field +0x48 are target-observed
+// offsets; the callback's owner/name and the two address-derived callee views
+// remain structural inferences, so the exported callback name stays RVA-based.
+struct Rva006F73A0Input
+{
+    unsigned char prefix00[0x0c];
+    float a, b, c, d, tx, ty;
+    AptMath::Color4 mul, add;
+    unsigned char pad44[4];
+    void *field48;
+};
+
+class Rva006DBB30SarDwordField
+{
+public:
+    int get() const;
+};
+class BfmeAptValue006DCD20
+{
+public:
+    bool isUndefined() const;
+};
+class Rva006E1260
+{
+public:
+    void call(void *);
+};
+class Rva006E15C0
+{
+public:
+    void call(void *, void *, int);
+};
+struct BfmeTransform1236
+{
+    float m[16];
+    float mul[4];
+    float add[4];
+};
+void __cdecl bfmeCombine1236(BfmeTransform1236 *, BfmeTransform1236 *, BfmeTransform1236 *);
+
+void *__cdecl rva006F73A0(void *argument1, void *argument2, int argument3)
+{
+    const Rva006F73A0Input *input = (const Rva006F73A0Input *)argument2;
+    if (input == 0) {
+        g_bfmeAptAssertAtE17734("this",
+            "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xC4);
+        if (g_bfmeAptBreakOnAssertAtDDC01C)
+            __debugbreak();
+    }
+    if (((const Rva006DBB30SarDwordField *)input)->get() == 15 &&
+        !((const BfmeAptValue006DCD20 *)input)->isUndefined()) {
+        ((Rva006E1260 *)input)->call(input->field48);
+    }
+    if (!(AptMath::m_nStackCount < AptMath::m_nStackCapacity)) {
+        g_bfmeAptAssertAtE17734("m_nStackCount < m_nStackCapacity",
+            "..\\..\\include\\apt\\AptStd/AptMath.h", 0x60);
+        if (g_bfmeAptBreakOnAssertAtDDC01C)
+            __debugbreak();
+    }
+    AptMath::ClipTransform_t *parent = AptMath::m_pStackBase + AptMath::m_nStackCount;
+    AptMath::ClipTransform_t *current = AptMath::ClipStackPush();
+
+    current->m[0] = input->a;
+    current->m[1] = input->b;
+    current->m[2] = 0.0f;
+    current->m[3] = 0.0f;
+    current->m[4] = input->c;
+    current->m[5] = input->d;
+    current->m[6] = 0.0f;
+    current->m[7] = 0.0f;
+    current->m[8] = 0.0f;
+    current->m[9] = 0.0f;
+    current->m[11] = 0.0f;
+    current->m[10] = 1.0f;
+    current->m[12] = input->tx;
+    current->m[13] = input->ty;
+    current->m[15] = 1.0f;
+    current->m[14] = 0.0f;
+    current->mul = input->mul;
+    current->add = input->add;
+
+    bfmeCombine1236((BfmeTransform1236 *)current,
+                    (BfmeTransform1236 *)parent,
+                    (BfmeTransform1236 *)current);
+    current->mul.a = parent->mul.a * current->mul.a;
+    current->mul.b = parent->mul.b * current->mul.b;
+    current->mul.c = parent->mul.c * current->mul.c;
+    current->mul.d = parent->mul.d * current->mul.d;
+    current->add.a = parent->add.a + current->add.a;
+    current->add.b = parent->add.b + current->add.b;
+    current->add.c = parent->add.c + current->add.c;
+    current->add.d = parent->add.d + current->add.d;
+    ((Rva006E15C0 *)input)->call(argument1, current, argument3);
+    return AptMath::ClipStackPop();
 }

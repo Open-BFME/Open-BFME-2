@@ -13579,3 +13579,9 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva005DD48C@Rva005B8EBB@@QAEXXZ,0x005DD48C,callees of 0x005B8EBB from retail REL32; names unknown
 ?rva00219251@Rva005B2725@@QAEXXZ,0x00219251,callee of 0x005B2725 from retail REL32; name unknown
 ?rva005A061B@Rva005A0D61@@QAEXXZ,0x005A061B,callee of 0x005A0D61 from retail REL32; name unknown
+?call@Rva006E1260@@QAEXPAX@Z,0x006E1260,address decoded from retail REL32 at 0x006F73ED; one pointer thiscall view follows callsite; callee identity remains address-derived
+?call@Rva006E15C0@@QAEXPAX0H@Z,0x006E15C0,address decoded from retail REL32 at 0x006F751D; three-argument thiscall view follows stack pushes; callee identity remains address-derived
+?add@Rva006E9A40List@@QAEXPAVAptCIH@@@Z,0x006E9A40,address decoded from retail calls at 0x006F7E71/0x006F7F40/0x006F7FD3/0x006F7FE2; one AptCIH pointer argument and list-subobject this view; callee name remains address-derived
+?dispatch@Rva006E2010Dispatcher@@QAEXHHH@Z,0x006E2010,address decoded from retail calls at 0x006F7F80 and 0x006F7F94; three integer arguments follow stack pushes; callee name remains address-derived
+_rva006F97F0Call,0x006F97F0,retail calls at 0x006F9A49 and 0x006F9B14 use EAX input EBX output and one stack output under a custom register ABI; helper identity remains address-derived
+_rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two stack dwords with x87 float return; address alias only because the helper identity at this RVA remains refused
