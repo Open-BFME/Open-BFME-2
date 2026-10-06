@@ -246,6 +246,7 @@ public:
     void rva00057151(int viewType, int musicSystem, int resume);
     void moveDownMusicSystems(int viewType, MusicSystem newMusicSystem, int arg, int resume);
     void rva0005774F(int viewType, int musicSystem, int arg);
+    void rva0005876E(int viewType, int musicSystem, int arg, int resume);
     bool addAudioEventMusic(BfmePoolRef10 &event, int requestType, int append);
     Rva00051107AudioRequest *rva00051107(void);
     void onPlayingAudioDeleted(PlayingAudio &playingAudioBeingDeleted);
@@ -396,6 +397,21 @@ void MilesAudioManager::rva0005774F(int viewType, int musicSystem, int arg)
     if (m_activeMusicSystem[viewType] == musicSystem)
         removeCurrentlyPlayingMusic(viewType, arg);
     m_musicStack[viewType][musicSystem].clear();
+}
+
+// Retail dispatches a nonzero active system through the preceding empty stack
+// entries before moving down; otherwise it clears the requested system directly.
+// Identity: same manager fields and callees as adjacent music-system handlers.
+void MilesAudioManager::rva0005876E(int viewType, int musicSystem, int arg, int resume)
+{
+    if (m_activeMusicSystem[viewType] == musicSystem && musicSystem != 0) {
+        int previous = musicSystem - 1;
+        while (previous > 0 && m_musicStack[viewType][previous].empty())
+            --previous;
+        moveDownMusicSystems(viewType, (MusicSystem)previous, arg, resume);
+    } else {
+        rva0005774F(viewType, musicSystem, arg);
+    }
 }
 
 

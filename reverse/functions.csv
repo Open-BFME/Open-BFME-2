@@ -66194,3 +66194,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?Rva005A671DNext@@YAHXZ,,0x005A671D,21,Code/GameEngine/Source/Common/Rva005A6709Predicate.cpp,matched,counter for 0x5A6903; increments g_00E063FC; called by NAT::processPlayerJoin at 0x005A694E
 ?rva003F4DAE@Rva003F468D@@QAEHH@Z,,0x003F4DAE,28,Code/GameEngine/Source/Common/VslotSmallBodiesZ.cpp,matched,battle side participant count from span size
 ?rva0005774F@MilesAudioManager@@QAEXHHH@Z,,0x0005774F,56,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,target offsets and callers support address-named music stack helper
+?rva0005876E@MilesAudioManager@@QAEXHHHH@Z,,0x0005876E,88,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,same manager fields and music transition callees
