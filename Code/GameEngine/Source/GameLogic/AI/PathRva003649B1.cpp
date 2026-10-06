@@ -20,6 +20,20 @@ struct Coord3D
 	Real z;
 };
 
+struct Rva003642DFNode;
+struct Rva003642DFResult
+{
+	Rva003642DFResult();
+	Rva003642DFNode *m_node;
+	Coord3D m_pos;
+};
+
+class Rva0008BB38FloatField
+{
+public:
+	Real get() const;
+};
+
 class PathNode
 {
 public:
@@ -47,6 +61,8 @@ class Path
 {
 public:
 	void rva003649B1(const PathNode *arg);
+	Rva003642DFResult rva003642DF(Real dist);
+	Rva003642DFResult rva00364521(const Rva0008BB38FloatField *arg);
 
 private:
 	char m_pad00[4];
@@ -54,6 +70,13 @@ private:
 	PathNode *m_pathTail;
 	Bool m_isOptimized;
 };
+
+Rva003642DFResult Path::rva00364521(const Rva0008BB38FloatField *arg)
+{
+	if (arg)
+		return rva003642DF(arg->get());
+	return rva003642DF(40.0f);
+}
 
 void Path::rva003649B1(const PathNode *arg)
 {

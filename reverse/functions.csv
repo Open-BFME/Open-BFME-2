@@ -66141,3 +66141,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005CCB7B@Rva005CCB7B@@QAEX_N@Z,,0x005CCB7B,8,Code/GameEngine/Source/Common/Rva005CCB7BForwarder.cpp,matched,tail-jmp to rowed 0x005CCAEC chain from own landing
 ??0Rva00438FA7@@QAE@XZ,,0x00438FA7,30,Code/Libraries/Source/WWVegas/WWLib/Rva00438FA7ListCtor.cpp,matched,target calls rowed list base and clears trailing fields BfmePod196 remains a size placeholder
 ??1Rva005D073A@@UAE@XZ,,0x005D073A,81,Code/GameEngine/Source/Common/System/Rva005D073ADtor.cpp,matched,pinned destructor with inferred two-base layout and rowed cleanup call
+?rva00364521@Path@@QAE?AURva003642DFResult@@PBVRva0008BB38FloatField@@@Z,,0x00364521,48,Code/GameEngine/Source/GameLogic/AI/PathRva003649B1.cpp,matched,Path method dispatches field distance or retail default through rowed path query
