@@ -40,3 +40,18 @@ void Rva005F83B9::rva005F83B9()
 			o->rva005F83B9Run();
 	}
 }
+
+// ?rva005F8427@Rva005F8427@@QAEXXZ @0x005F8427 8B member forwarder to rowed
+// ?rva005F83B9@Rva005F83B9@@QAEXXZ (0x005F83B9). No callers. Honest address name.
+class Rva005F8427
+{
+public:
+	void rva005F8427();
+private:
+	char m_pad[4];
+	Rva005F83B9 *m_member;
+};
+void Rva005F8427::rva005F8427()
+{
+	return m_member->rva005F83B9();
+}

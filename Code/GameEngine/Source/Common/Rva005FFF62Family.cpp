@@ -40,3 +40,19 @@ void Rva005FBAFE::Set2(int idx) {
   rva00977C23((int*)_g_pRva00224BC9, (int*)m_04, (int)prefix, (void*)name, (int)&idx, (int)&b0);
   e->_4 = 0;
 }
+
+// ?rva005FBB9E@Rva005FBB9E@@QAEXH@Z @0x005FBB9E 8B member forwarder to rowed
+// ?Set2@Rva005FBAFE@@QAEXH@Z (0x005FBAFE; int arg passes through the shared
+// stack slot). No callers. Honest address name.
+class Rva005FBB9E
+{
+public:
+  void rva005FBB9E(int idx);
+private:
+  char m_pad[4];
+  Rva005FBAFE *m_member;
+};
+void Rva005FBB9E::rva005FBB9E(int idx)
+{
+  return m_member->Set2(idx);
+}
