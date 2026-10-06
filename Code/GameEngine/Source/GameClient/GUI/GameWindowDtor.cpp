@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /GR
 // ??1GameWindow@@MAE@XZ @0x00314A0C 184B
 // GameWindow dtor: vtable 0x0080BBCC slot0 deleting dtor at 0x00314AC4 calls here.
 // Evidence: BFME1 GameWindowDestructorThunk donor (global check, inputData/editData deletes,
@@ -84,7 +84,9 @@ public:
 class GameWindow
 {
 protected:
-	virtual ~GameWindow();
+  virtual ~GameWindow();
+public:
+  virtual void winDrawBorder( void ) = 0;
 private:
 	GameWindowAnchor *m_anchor;
 	int m_status;
