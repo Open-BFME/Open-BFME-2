@@ -1,5 +1,5 @@
 // ?rva000E49B8@Rva000E48BC@@QAE_NH@Z
-// partial score=0.93 date=2026-10-05
+// partial score=0.95 date=2026-10-06
 // cl: /O1 /MD /arch:SSE
 //
 // ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z, retail 0x000E48BC, 252 bytes.
@@ -122,7 +122,6 @@ public:
 };
 extern PartitionManager *TheShroudManager;
 
-// ?rva000E49B8@Rva000E48BC@@QAE_NH@Z present-unmatched
 bool Rva000E48BC::rva000E49B8(int player)
 {
 	Drawable *d = m_drawable;
@@ -153,8 +152,8 @@ bool Rva000E48BC::rva000E49B8(int player)
 	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
 		return true;
 	c.X = m_pos.X;
-	float yPlus = m_pos.Y;
-	c.Y = yPlus + m_extent;
+	c.Y = m_pos.Y;
+	c.Y += m_extent;
 	c.Z = m_pos.Z;
 	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
 		return true;

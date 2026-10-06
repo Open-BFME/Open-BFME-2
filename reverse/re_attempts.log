@@ -11978,3 +11978,21 @@ FUN_0075b8aa	0x0035B8AA	673	blocked	673B ctor vtable 0x00816204 member types con
 ?rva00625040@Rva00625040@@QAEXXZ	0x00625040	646	blocked	big 646B linkbody not strong t=2 model=muse-06
 ?rva001E4DEB@Rva001E4DEB@@QAEXXZ	0x001E4DEB	961	blocked	big 961B leaf not strong t=2 model=muse-06
 ?rva0053EDF4@Rva0053EDF4@@QAEXXZ	0x0053EDF4	286	blocked	ADDRESS-NAMED g_Va007C26F0 packet says skip t=2 model=muse-06
+?rva0014FC48@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x0014FC48	126	blocked	tail delegate temp plus esi-edi swap t=10 model=muse-04 (stash 0.92 kept)
+?rva0014FF57@Rva00153664@@QAEXHPBDPAVRva0015354E@@@Z	0x0014FF57	159	blocked	unclaimed code pointers plus tail delegate wall t=2 model=muse-04
+?rva00171128@Rva00170BFF@@QAEPAURva00170999Data@@ABVAssetReference@@@Z	0x00171128	126	blocked	needs STL rework plus hidden-return wall t=5 model=muse-04
+?rva000E49B8@Rva000E48BC@@QAE_NH@Z	0x000E49B8	541	partial	ebx-held-1 plus shr-test plus mgr-push-order plus y-add-order plus tail-fold matrix-fixed-by-removing-yPlus t=28 model=muse-04 score=0.95 stash=reverse/attempts/0x000e49b8.cpp
+?rva0020FB8B@Rva0020EE29@@QAEXPAURva0020FB8BNode@@@Z	0x0020FB8B	132	blocked	custom Vec callees mismatch row vector names plus prologue ebx-edi wall t=12 model=muse-04
+?rva00397756@Rva00397756@@QAEXPAUIdRange@@H@Z	0x00397756	59	blocked	scheduler wall push-mem-vs-push-reg plus mov-between-pushes no NEW idea t=8 model=muse-04
+?Rva003C2019Do@@YGXPBVAsciiString@@PAVParameter@@_N@Z	0x003C2019	99	blocked	ADDRESS-NAMED g_Va009FE16C escape hatch refused t=2 model=muse-04
+?rva003F3133@Rva003F2352@@QAEXPAV1@@Z	0x003F3133	38	blocked	0.92 scheduler wall src-dst ecx-eax swap no NEW idea t=5 model=muse-04
+?rva001F5A6A@Rva001F5A6A@@QAEPAXPAXHH@Z	0x001F5A6A	58	partial	dead zeroed dword local push ecx + mov [ebp-4],edx never read; ours 54B leave-vs-pop follows frame t=20 model=muse-04 score=0.93 stash=reverse/attempts/0x001f5a6a.cpp
+?bfmeHas985C@BfmeArg985@@QAEDH@Z	0x002940B9	305	blocked	lea-vs-add plus edi-vs-ecx register choice; named-vs-unnamed and cont-separate tried no move t=25 model=muse-04 (stash 0.93 kept)
+?rva0049BCA3@Rva0049BCA3@@QAEXXZ	0x0049BCA3	685	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString plus unrowed callee 0x0049B98A t=2 model=muse-04
+?rva006F7720Sub@AptAnimationPoolData@@QAEXPAXH@Z	0x006F7720	636	blocked	complex Apt walk hidden code-ptrs 0x6F73A0/0x6F7330 unrowed plus array logic needs donor t=15 model=muse-04
+?rva000347A0@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z	0x000347A0	659	blocked	659B GeneralAllocator realloc no donor top-coalesce-split plus rep-movsd and jump-table copies far from retail t=12 model=muse-spark
+?rva000344A0@Rva000344A0@@QAEPAXIIII@Z	0x000344A0	759	blocked	759B allocator memalign same wall as 0x347A0 no donor top-bins-div-split needs malloc row 0x33ED0 t=5 model=muse-spark
+?Init@DX8Wrapper@@SA_NPAX_N@Z	0x00125620	732	blocked	732B DX8 Init needs blocked formatter 0x11FC20 plus SEH handler 0x765488 plus theDebug slot78 identity unproven t=18 model=muse-spark
+?rva004697E1@HordeContain@@UAEXXZ	0x004697E1	59	blocked	59B HordeContain gap needs unrowed thunk 0x4783D7 to 0x463C6E t=4 model=muse-spark
+?rva00363233@LaserUpdate@@QAEXXZ	0x00363233	809	blocked	809B LaserUpdate vslot uses ADDRESS-NAMED g_Va00BBB8D8 new use refused t=3 model=muse-spark
+?rva0034707A@Rva0034707A@@QAEXXZ	0x0034707A	150	blocked	ADDRESS-NAMED globals g_Va009FE16C g_Va009FF0F8 require escape hatch t=2 model=muse-04
