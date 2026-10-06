@@ -64622,3 +64622,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 _ciChannelTableCompareFn,,0x006B10B0,6,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatChannel.c,matched,auto-row=allowed_symbols
 ?reactToTransformChange@Drawable@@MAEXPBVMatrix3D@@PBUCoord3D@@M@Z,,0x002742E5,104,Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp,matched,vtable slot 9 drawmodule broadcast via ZH donor
 ?Rva001B4E21Get@@YGEPAX0@Z,,0x001B4E21,40,Code/GameEngine/Source/Common/Rva001B4E21Get.cpp,matched,callers 0x001B509F 0x001B50D8 plus vtable slot 0x10 plus m_4 guard plus link bonus
+?rva002D36AE@Rva002D36AEHost@@QAEXHH@Z,,0x002D36AE,21,Code/GameEngine/Source/Common/System/Rva002D36AE.cpp,matched,chain via rowed 0x005260FC null-guarded forwarder
