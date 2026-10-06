@@ -13684,6 +13684,3 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva00417DFBAppend@Rva00417DFB@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ?rva0021B7B6Append@Rva0021B7B6@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ?rva00288CA6@Rva00288CFA@@QAEHPAXHH@Z,0x00288CA6,Rva00288CFA int lookup taking an outer pointer plus int plus 0; called from range-17 0x39ADB9 min body; Ghidra FUN_00688ca6 84B; identity unproven
-?rva003F300A@Rva003F300A@@QAEXXZ,0x003F300A,placeholder thiscall 0-arg callee of dump 0x0020E9F2 loop; REL32 read from retail
-?rva003F3708@Rva003F3708@@QAEXH@Z,0x003F3708,placeholder thiscall 1-int-arg callee of dump 0x0020EA22 loop; REL32 read from retail
-?rva003F08D7@Rva003F08D7@@QAEHH@Z,0x003F08D7,placeholder int(int) twin for bool pin; retail tests eax not al
