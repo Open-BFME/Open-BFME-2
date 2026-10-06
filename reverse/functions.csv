@@ -7102,7 +7102,7 @@ _Rva0080E350,,0x0067A250,157,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,ma
 _Rva0080E4D0,,0x0067A3D0,36,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
 _Rva0080EA30,,0x0067A930,1055,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
 _Rva0080EEF0,,0x0067ADF0,81,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
-_Rva0080EF50,,0x0067AE50,356,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
+_Rva0080EF50,,0x0067AE50,381,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
 _Rva0080F0D0,,0x0067AFD0,46,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
 _Rva00810120,,0x0067C020,3791,Code/Libraries/Source/DirtySock/Y4CommDigest.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; upgrades pin to row
 _Rva008136C0,,0x0067F5C0,190,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; callees pinned

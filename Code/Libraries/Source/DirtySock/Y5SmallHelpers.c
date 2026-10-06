@@ -801,27 +801,27 @@ void Rva0080EF50(unsigned char *object, const char *name, char *alias,
 {
 	char *found;
 	char *dest;
-	char defaultName[0x100];
+	char temp[0x100];
 	const char *source;
 
 	if (*(void **)(object + 0x64) == 0)
 		*(void **)(object + 0x64) = Rva00812320(0x10);
 	if (alias == 0 || *alias == 0)
 	{
-		sprintf(defaultName, "Default Name");
+		sprintf(temp, "Default Name");
 		if (*(char **)object != 0)
 			source = *(char **)object;
 		else
 			source = g_Rva012C47A4;
-		found = strstr(source, defaultName);
+		found = strstr(source, temp);
 		if (found != 0)
 		{
 			found = strchr(found, ':') + 1;
-			for (dest = defaultName; *found >= ' '; found++, dest++)
+			for (dest = temp; *found >= ' '; found++, dest++)
 				*dest = *found;
 			*dest = 0;
 		}
-		alias = defaultName;
+		alias = temp;
 	}
 	_mbscpy((char *)object + 4, name);
 	Rva008119A0(*(struct Rva008119A0Table **)(object + 0x64), name, alias, detail,
