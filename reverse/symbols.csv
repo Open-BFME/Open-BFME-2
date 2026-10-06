@@ -13631,6 +13631,3 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva00051038@Rva0005F279Elem@@QAE_NXZ,0x00051038,dump range 1 tail target of 0x5106A
 ?rva0007ECA3@Rva0007F944Item@@QAE_NPBURva0007F944Vec@@@Z,0x0007ECA3,dump range 1 family containment test called by 0x7F944 (struct-qualified)
 ?rva0032BD25@SidesList@@QAE_NW4NameKeyType@@HPAVBuildListInfo@@@Z,0x0032BD25,SidesList indexed BuildListInfo lookup on TheSidesList (0xE01D58): (key; idx; info out-param); called from range-17 0x3967A5 dispatch loop; Ghidra FUN_0072bd25 63B; identity unproven
-?rva0046247D@Rva0046247D@@QAEPAXAAURva0046247DPair@@@Z,0x0046247D,callee of ?rva00464286@OpenContain@@UAEXXZ
-?rva0036AE51@Rva0036AE51ListView@@QAE?AV?$list@HV?$allocator@H@_STL@@@_STL@@XZ,0x0036AE51,callee of ?rva00464286@OpenContain@@UAEXXZ
-?rva00463AD3@Rva00463AD3@@QAEXH@Z,0x00463AD3,callee of ?rva004642D3@SlaughterHordeContain@@UAEXXZ
