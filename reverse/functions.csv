@@ -67241,3 +67241,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva005B2CE5@Rva005B2B6D@@QAEXPBD@Z,,0x005B2CE5,250,Code/GameEngine/Source/Common/Rva005B2B6D.cpp,matched,address derived callback shares UnicodeString offset with neighboring method
 ?rva000B4A9F@Rva000B4A9F@@QAEPBDXZ,,0x000B4A9F,22,Code/GameEngine/Source/Common/Rva000B4A9F.cpp,matched,finish-first via barrier plus empty literal plus 10 callers
 ?rva00222E29@Rva00222E29@@QAE_NI@Z,,0x00222E29,225,Code/GameEngine/Source/Common/Rva00222E29.cpp,matched,RVA-derived owner target record offsets and flags
+?rva00574910@Rva00574910@@QAEHPAX@Z,,0x00574910,73,Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,matched,Target calls rowed 0x005CC26E at this+0x5C; virtual slot 2 via this+0x54; direct helper at this+0x28 then fallback 0x005CBC95; address-derived identity and field purposes remain unknown
