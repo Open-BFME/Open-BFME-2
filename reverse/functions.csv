@@ -64552,3 +64552,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva004107CDParse@@YAXPAXPBD@Z,,0x004107CD,321,Code/GameEngine/Source/Common/Rva004107CDParse.cpp,matched,free cdecl via caller 0x004120E4 plus strings _light _frame _AnimMode plus sscanf plus virtuals plus StringBase
 ?rva00219407@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x00219407,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x19C twin of 0x002193D9
 ??$__push_heap_aux@PAURva004F6966@@URva004F81DBGreater@@HU1@@_STL@@YAXPAURva004F6966@@0URva004F81DBGreater@@PAH0@Z,,0x004F715B,56,Code/Libraries/Source/WWVegas/WWLib/stlport_pop_heap_rva004f7e61.cpp,matched,push_heap aux via rowed copy 0x4F6966 and rowed push_heap 0x4F6C64
+??1Rva005E80FD@@UAE@XZ,,0x005E80FD,134,Code/GameEngine/Source/Common/Rva005E80FDDtor.cpp,matched,MI three-vptr dtor via Rva0056B126 precedent with secondary-base erase args

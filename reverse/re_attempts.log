@@ -11481,3 +11481,5 @@ FUN_00914fe9	0x00514FE9	88	blocked	ADDRESS-NAMED g_Va00A01E48 escape hatch t=1 m
 ?rva000B937E@Rva000B937E@@QAEXPAVINI@@PAX@Z	0x000B937E	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString escape hatch t=1 model=muse-08
 ??1Rva005D0643@@UAE@XZ	0x005D0643	136	blocked	ADDRESS-NAMED g_Va00E05FAC escape hatch t=1 model=muse-08
 ?cellCallback@Rva002F18D4Info@@QAEHPAVPathfindCell@@0HH@Z	0x002F18D4	544	blocked	large 544B pathfind exceeds session t=15 model=muse-08
+?rva0024792F@GameLogic@@QAEXABVAsciiString@@HH@Z	0x0024792F	79	partial	79B exact size REMAINS mov esi ecx early before pushes vs retail late after pushes plus and ebp-4 0 before Rva args vs after Rva call t=20 model=muse-spark score=0.95 stash=reverse/attempts/0x0024792f.cpp
+?rva005E8CF8@Rva005E8D71@@UAEXXZ	0x005E8CF8	64	blocked	fastcall pin YIX vs retail push-plus-lea-ecx thiscall shape plus free row YAPAXXZ vs retail dead mov ecx plus frame push-ebp vs ours frameless ebx keep t=12 model=muse-spark
