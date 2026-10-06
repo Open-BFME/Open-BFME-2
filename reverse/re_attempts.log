@@ -13433,3 +13433,4 @@ FUN_00764551	0x00364551	1120	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va00BBB8D8 plu
 ?rva0031BAC3@Rva0031BAC3@@QAEHXZ	0x0031BAC3	658	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString new use refused t=2 model=muse-spark
 ?rva00400AF8@Rva00400AF8@@QAEHXZ	0x00400AF8	827	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString new use refused t=1 model=muse-spark
 ?Rva004BD8A2Zero@@YGXPAM@Z	0x004BD8A2	27	blocked	dead int local and [ebp-4] 0 plus SSE stores; 5 variants frameless then /Oy- frame without local t=18 model=muse-06
+?Rva004BD97ACreate@@YGPAVBfmeFixedStorage002CF0F0@@PAV1@@Z	0x004BD97A	39	blocked	placement new for copy ctor adds null cmp je retail lacks; memset via pin vs row types t=22 model=muse-06
