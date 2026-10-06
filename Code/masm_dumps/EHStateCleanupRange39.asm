@@ -34,6 +34,7 @@ EXTERN ??1Q1ReceiverLocalSet@@QAE@XZ:PROC
 EXTERN ??1BfmeWideResult@@QAE@XZ:PROC
 EXTERN ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ:PROC
 EXTERN ??1EAStringC@@QAE@XZ:PROC
+EXTERN ??1Rva004A9DF3Element@@QAE@XZ:PROC
 EXTERN ??1SBServer@@QAE@XZ:PROC
 
 _TEXT SEGMENT
@@ -2197,6 +2198,20 @@ PUBLIC ?rva007A80A8@@YAXXZ
 cleanup_done_007A80A8:
     ret
 ?rva007A80A8@@YAXXZ ENDP
+
+; Unwind@00ba81b8 at RVA 0x007A81B8; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+4] and tail-jumps to matched address-derived BfmeRefVGO handle destructor thunk at 0x000A9DF3.
+PUBLIC ?rva007A81B8@@YAXXZ
+?rva007A81B8@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A81B8
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+4]
+    jmp ??1Rva004A9DF3Element@@QAE@XZ
+cleanup_done_007A81B8:
+    ret
+?rva007A81B8@@YAXXZ ENDP
 
 ; Unwind@00bab0e9 at RVA 0x007AB0E9; 25-byte interval ends at RET.
 ; Retail tests and clears bit 1 at [ebp-24], then takes the cleanup object address at [ebp-20] and tail-jumps to AsciiString at 0x0048BA39.
