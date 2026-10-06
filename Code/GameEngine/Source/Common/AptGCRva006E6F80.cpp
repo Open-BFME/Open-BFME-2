@@ -13,7 +13,6 @@ public:
     virtual void DeleteThis();
     virtual void PreDestroy();
     virtual void DestroyGCPointers();
-    static bool sbSuspendRefcountDeletions;
 private:
     friend class AptGC;
     void SetDestroyedGC();
@@ -28,39 +27,37 @@ class AptBoolean { public: static void ClearPool(); };
 class AptInteger { public: static void ClearPool(); };
 class AptFloat { public: static void ClearPool(); };
 class StringPool { public: static void ClearTemporaryPool(); };
-void __cdecl AptDebuggerPrint(int,const char *,...);
+void __cdecl Rva006CC110Log(int,const char *,...);
 extern AptValueVector *g_releaseVectorAtE17710;
-extern AptValueGC_PoolManager *g_poolAtE176F4;
+class Rva006D2A60;
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;
+extern bool g_aptReleaseGateAtE180EC;
 class AptGC { public: static void CleanAll(); };
 void AptGC::CleanAll()
 {
     int cleaned=0;
     g_releaseVectorAtE17710->ReleaseValues();
-    AptValue *value=g_poolAtE176F4->GetFirstAptValue();
-    bool saved=AptValue::sbSuspendRefcountDeletions;
-    AptValue::sbSuspendRefcountDeletions=true;
+    AptValue *value=((AptValueGC_PoolManager *)g_pChainBlockAllocatorF4)->GetFirstAptValue();
+    bool saved=g_aptReleaseGateAtE180EC;
+    g_aptReleaseGateAtE180EC=true;
     while (value) {
         value->PreDestroy();
         value->DestroyGCPointers();
-        value=g_poolAtE176F4->GetNextAptValue(value);
+        value=((AptValueGC_PoolManager *)g_pChainBlockAllocatorF4)->GetNextAptValue(value);
         ++cleaned;
     }
-    AptValue::sbSuspendRefcountDeletions=saved;
+    g_aptReleaseGateAtE180EC=saved;
     g_releaseVectorAtE17710->ReleaseValues();
-    value=g_poolAtE176F4->GetFirstAptValue();
+    value=((AptValueGC_PoolManager *)g_pChainBlockAllocatorF4)->GetFirstAptValue();
     while (value) {
         value->SetDestroyedGC();
         value->DeleteThis();
-        value=g_poolAtE176F4->GetNextAptValue(value);
+        value=((AptValueGC_PoolManager *)g_pChainBlockAllocatorF4)->GetNextAptValue(value);
     }
     g_releaseVectorAtE17710->ReleaseValues();
-    if (cleaned) AptDebuggerPrint(4,"Apt-GC-CleanAll------------- Cleaned %d objects\n",cleaned);
+    if (cleaned) Rva006CC110Log(4,"Apt-GC-CleanAll------------- Cleaned %d objects\n",cleaned);
     AptBoolean::ClearPool();
     AptInteger::ClearPool();
     AptFloat::ClearPool();
     StringPool::ClearTemporaryPool();
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_poolAtE176F4@@3PAVAptValueGC_PoolManager@@A=?g_pChainBlockAllocatorF4@@3PAVRva006D2A60@@A")
