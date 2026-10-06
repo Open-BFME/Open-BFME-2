@@ -11548,3 +11548,4 @@ FUN_0061b7b6	0x0021B7B6	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use r
 ?Rva003BF39FDo@@YGXPBVAsciiString@@0_N1@Z	0x003BF39F	304	blocked	ADDRESS-NAMED globals g_Va009FE16C g_Va009FF0F8 g_Va00BBB8D8 new use refused t=1 model=muse-08
 ?Rva003BFF50Do@@YGXPBVAsciiString@@HPAVRGBColor@@@Z	0x003BFF50	156	blocked	ADDRESS-NAMED globals g_Va009FE16C g_Va00DBA4E4 new use refused t=1 model=muse-08
 ?Rva003BF4CFD0@@YGXPBVAsciiString@@0_N1@Z	0x003BF4CF	303	blocked	ADDRESS-NAMED globals g_Va009FE16C g_Va009FF0F8 g_Va00BBB8D8 new use refused t=1 model=muse-08
+?initKeyNames@Keyboard@@QAEXXZ	0x002306B8	8023	converted	Open-BFME-1 Keyboard::initKeyNames donor ported with BFME 2 layout (+0x81C names; byte shift2Key +0x0E) plus German-layout tail; exact first compile; t=25 model=claude-opus-5-5
