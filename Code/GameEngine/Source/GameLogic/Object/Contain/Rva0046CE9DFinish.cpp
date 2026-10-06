@@ -33,7 +33,6 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-extern float g_00BC8970;
 
 class Rva0046CE9D
 {
@@ -59,7 +58,7 @@ bool Rva0046CE9D::rva0046CE9D(Object *obj)
 		if (found == 0)
 			return false;
 		const void *other = *(const void *const *)((const char *)this - 0x114);
-		unsigned char flag = (unsigned char)(obj->rva00263763(other) < g_00BC8970);
+		unsigned char flag = (unsigned char)(obj->rva00263763(other) < 10000.0f);
 		Object *a = found->rva002931F5(false);
 		Object *b = obj->rva002931F5(false);
 		if (b == a)
