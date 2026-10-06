@@ -64785,3 +64785,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?onDie@UpgradeDie@@UAEXPBVDamageInfo@@@Z,,0x00486C00,118,Code/GameEngine/Source/GameLogic/Object/Die/UpgradeDieOnDie.cpp,matched,ZH-guided upgrade death cleanup; BFME2 player vs producer branches and layouts independently supported; terminal ret4 proves full118B extent; address-named Player callee ABI verified separately
 ?rva0056AA54@@YG_NPAX0@Z,,0x0056AA54,82,Code/GameEngine/Source/Common/Rva0056AA54Probe.cpp,matched,probe via local Rva004E3184 plus slot-0x10 virtual plus m_48 check
 ?rva0056C21B@Rva0056C21B@@QAEXMM@Z,,0x0056C21B,59,Code/GameEngine/Source/Common/Rva0056C21BFanout.cpp,matched,fan-out over 0xA8 array via pinned 0x004047E3
+?rva0056C4D3@Rva0056C4D3@@QAEXPAXMHH@Z,,0x0056C4D3,59,Code/GameEngine/Source/Common/Rva0056C4D3Probe.cpp,matched,single-shot probe via pinned 0x0056C0A5 plus rowed 0x00404781
