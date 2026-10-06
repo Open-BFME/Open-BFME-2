@@ -1,12 +1,13 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // getButtonTextColors 0x000A4999 (92B), drawButtonText 0x000A49F5 (248B),
-// Rva000A52AEDrawNumber 0x000A52AE (304B) and W3DGadgetPushButtonDraw
-// 0x000A53DE (783B): Zero Hour's W3DPushButton.cpp through BFME1's matched
-// split of it (Open-BFME-1 game/GameEngineDevice/Source/W3DDevice/
-// GameClient/GUI/Gadget/W3DPushButtonText_Thunk.cpp, W3DPushButtonDraw_Thunk.cpp
-// and W3DPushButtonDrawNumber00794B70.cpp), built /O1 /arch:SSE like the
-// matched W3DHorizontalSlider.cpp sibling; /G7 gives drawButtonText's
-// byte-register `and cl, 1` for the wrap-centered flag.
+// W3DGadgetPushButtonImageDrawThree 0x000A4B7C (1184B), Rva000A52AEDrawNumber
+// 0x000A52AE (304B) and W3DGadgetPushButtonDraw 0x000A53DE (783B): Zero Hour's
+// W3DPushButton.cpp through BFME1's matched split of it (Open-BFME-1
+// game/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/
+// W3DPushButtonText_Thunk.cpp, W3DPushButtonDraw_Thunk.cpp,
+// W3DPushButtonImageDrawThree.cpp and W3DPushButtonDrawNumber00794B70.cpp),
+// built /O1 /arch:SSE like the matched W3DHorizontalSlider.cpp sibling; /G7
+// gives drawButtonText's byte-register `and cl, 1` for the wrap-centered flag.
 //
 // Target evidence: the function lexicon entry at 0x009B3D18 names
 // W3DGadgetPushButtonDraw and points at 0x000A53DE, which push-button gadget
@@ -20,6 +21,9 @@
 // getButtonTextColors. 0x000A52AE runs when the button data's +0x28 byte is 1,
 // formats the +0x2C count with L"%d" into the +0x30 DisplayString and draws it
 // at the bottom right; nothing names it, so the address stays in the name.
+// symbols.csv pins 0x000A4B7C as W3DGadgetPushButtonImageDrawThree, the callee
+// of the lexicon-named W3DGadgetPushButtonImageDraw (0x000A6019) at the site
+// BFME1's dispatcher calls it; it too reaches drawButtonText in registers.
 //
 // BFME2 deltas from Zero Hour: the draw colours are read straight from the
 // GameWindow draw data, the text is set with setTextColor and drawn with a 1,1
@@ -38,12 +42,27 @@ typedef int Color;
 
 class GameFont;
 class VideoBuffer;
-class Image;
 
 struct ICoord2D
 {
 	Int x;
 	Int y;
+};
+
+struct IRegion2D
+{
+	ICoord2D lo;
+	ICoord2D hi;
+};
+
+// Only the image width is read here, at +0x24.
+class Image
+{
+public:
+	Int getImageWidth( void ) const { return m_width; }
+
+	unsigned char m_unreconstructed00[ 0x24 ];
+	Int m_width;                                           // +0x24
 };
 
 // BFME DisplayString slots: setText +0x04, getTextLength +0x0C, setFont +0x18,
@@ -82,7 +101,9 @@ public:
 	UnsignedInt m_state;                                   // +0x08
 	UnsignedInt m_style;                                   // +0x0C
 	UnsignedInt m_status;                                  // +0x10
-	unsigned char m_unreconstructed14[ 0x188 ];
+	unsigned char m_unreconstructed14[ 0x168 ];
+	ICoord2D m_imageOffset;                                // +0x17C
+	unsigned char m_unreconstructed184[ 0x18 ];
 	DisplayString *m_text;                                 // +0x19C
 	DisplayString *m_tooltip;                              // +0x1A0
 	VideoBuffer *m_videoBuffer;                            // +0x1A4
@@ -137,7 +158,9 @@ public:
 	virtual void unused52(); virtual void unused53(); virtual void unused54(); virtual void unused55();
 	virtual void unused56(); virtual void unused57(); virtual void unused58(); virtual void unused59();
 	virtual void unused60(); virtual void unused61(); virtual void unused62(); virtual void unused63();
-	virtual void unused64(); virtual void unused65(); virtual void unused66();
+	virtual void unused64(); virtual void unused65();
+	virtual void winDrawImage( const Image *image, Int startX, Int startY,
+		Int endX, Int endY, Color color = 0xFFFFFFFF );       // +0x108
 	virtual void winFillRect( Color color, Real width,
 		Int startX, Int startY, Int endX, Int endY );         // +0x10C
 	virtual void winOpenRect( Color color, Real width,
@@ -157,8 +180,11 @@ public:
 	virtual void unused28(); virtual void unused29(); virtual void unused30(); virtual void unused31();
 	virtual void unused32(); virtual void unused33(); virtual void unused34(); virtual void unused35();
 	virtual void unused36(); virtual void unused37(); virtual void unused38(); virtual void unused39();
-	virtual void unused40(); virtual void unused41(); virtual void unused42(); virtual void unused43();
-	virtual void unused44(); virtual void unused45(); virtual void unused46(); virtual void unused47();
+	virtual void unused40(); virtual void unused41();
+	virtual void setClipRegion( IRegion2D *region );      // +0xA8
+	virtual void unused43();
+	virtual void enableClipping( Bool onoff );             // +0xB0
+	virtual void unused45(); virtual void unused46(); virtual void unused47();
 	virtual void unused48(); virtual void unused49(); virtual void unused50(); virtual void unused51();
 	virtual void unused52(); virtual void unused53(); virtual void unused54(); virtual void unused55();
 	virtual void unused56(); virtual void unused57(); virtual void unused58(); virtual void unused59();
@@ -300,6 +326,208 @@ static void drawButtonText( GameWindow *window, WinInstanceData *instData )
 	text->draw( textPos.x, textPos.y, 1, 1 );
 
 }  // end drawButtonText
+
+// W3DGadgetPushButtonImageDrawThree ==========================================
+/** Draw a horizontal button from left, repeating center and right images */
+//=============================================================================
+void W3DGadgetPushButtonImageDrawThree( GameWindow *window, WinInstanceData *instData )
+{
+	const Image *leftImage, *rightImage, *centerImage;
+	CtorCoord origin, size, start, end;
+	Int xOffset, yOffset;
+	Int i;
+
+	// get screen position and size
+	window->winGetScreenPosition( &origin.x, &origin.y );
+	window->winGetSize( &size.x, &size.y );
+
+	// get image offset
+	xOffset = instData->m_imageOffset.x;
+	yOffset = instData->m_imageOffset.y;
+
+	if( BitTest( window->winGetStatus(), WIN_STATUS_ENABLED ) == FALSE )
+	{
+
+		if( BitTest( instData->getState(), WIN_STATE_SELECTED ) )
+		{
+			leftImage		= window->m_disabledDrawData[ 1 ].image;
+			rightImage	= window->m_disabledDrawData[ 4 ].image;
+			centerImage	= window->m_disabledDrawData[ 3 ].image;
+		}
+		else
+		{
+			leftImage		= window->m_disabledDrawData[ 0 ].image;
+			rightImage	= window->m_disabledDrawData[ 6 ].image;
+			centerImage	= window->m_disabledDrawData[ 5 ].image;
+		}
+
+	}  // end if, disabled
+	else if( BitTest( instData->getState(), WIN_STATE_HILITED ) )
+	{
+
+		if( BitTest( instData->getState(), WIN_STATE_SELECTED ) )
+		{
+			leftImage		= window->m_hiliteDrawData[ 1 ].image;
+			rightImage	= window->m_hiliteDrawData[ 4 ].image;
+			centerImage	= window->m_hiliteDrawData[ 3 ].image;
+		}
+		else
+		{
+			leftImage		= window->m_hiliteDrawData[ 0 ].image;
+			rightImage	= window->m_hiliteDrawData[ 6 ].image;
+			centerImage	= window->m_hiliteDrawData[ 5 ].image;
+		}
+
+	}  // end else if, hilited and enabled
+	else
+	{
+
+		if( BitTest( instData->getState(), WIN_STATE_SELECTED ) )
+		{
+			leftImage		= window->m_enabledDrawData[ 1 ].image;
+			rightImage	= window->m_enabledDrawData[ 4 ].image;
+			centerImage	= window->m_enabledDrawData[ 3 ].image;
+		}
+		else
+		{
+			leftImage		= window->m_enabledDrawData[ 0 ].image;
+			rightImage	= window->m_enabledDrawData[ 6 ].image;
+			centerImage	= window->m_enabledDrawData[ 5 ].image;
+		}
+
+	}  // end else, enabled only
+
+	// sanity, we need to have these images to make it look right
+	if( leftImage == NULL || rightImage == NULL || centerImage == NULL )
+		return;
+
+	// get image sizes for the ends
+	CtorCoord leftSize, rightSize;
+	leftSize.x = leftImage->getImageWidth();
+	rightSize.x = rightImage->getImageWidth();
+
+	// get two key points used in the end drawing
+	CtorCoord leftEnd, rightStart;
+	leftEnd.x = origin.x + leftSize.x + xOffset;
+	leftEnd.y = origin.y + size.y + yOffset;
+	rightStart.x = origin.x + size.x - rightSize.x + xOffset;
+	rightStart.y = origin.y + yOffset;
+
+	// draw the center repeating bar
+	Int centerWidth, pieces;
+
+	// get width we have to draw our repeating center in
+	centerWidth = rightStart.x - leftEnd.x;
+
+	if( centerWidth <= 0 )
+	{
+
+		// draw left end
+		start.x = origin.x + xOffset;
+		start.y = origin.y + yOffset;
+		end.y = leftEnd.y;
+		end.x = origin.x + xOffset + size.x / 2;
+		TheWindowManager->winDrawImage( leftImage, start.x, start.y, end.x, end.y );
+
+		// draw right end
+		start.y = rightStart.y;
+		start.x = end.x;
+		end.x = origin.x + size.x;
+		end.y = start.y + size.y;
+		TheWindowManager->winDrawImage( rightImage, start.x, start.y, end.x, end.y );
+
+	}
+	else
+	{
+
+		// how many whole repeating pieces will fit in that width
+		pieces = centerWidth / centerImage->getImageWidth();
+
+		// draw the pieces
+		start.x = leftEnd.x;
+		start.y = origin.y + yOffset;
+		end.y = start.y + size.y + yOffset;
+		for( i = 0; i < pieces; i++ )
+		{
+
+			end.x = start.x + centerImage->getImageWidth();
+			TheWindowManager->winDrawImage( centerImage, start.x, start.y, end.x, end.y );
+			start.x += centerImage->getImageWidth();
+
+		}  // end for i
+
+		// draw the clipped remainder of the center under the right end
+		IRegion2D reg;
+		reg.lo.x = start.x;
+		reg.lo.y = start.y;
+		reg.hi.x = rightStart.x;
+		reg.hi.y = end.y;
+		centerWidth = rightStart.x - start.x;
+		if( centerWidth > 0 )
+		{
+			TheDisplay->setClipRegion( &reg );
+			end.x = start.x + centerImage->getImageWidth();
+			TheWindowManager->winDrawImage( centerImage, start.x, start.y, end.x, end.y );
+			TheDisplay->enableClipping( FALSE );
+		}
+
+		// draw left end
+		start.x = origin.x + xOffset;
+		start.y = origin.y + yOffset;
+		end = leftEnd;
+		TheWindowManager->winDrawImage( leftImage, start.x, start.y, end.x, end.y );
+
+		// draw right end
+		start = rightStart;
+		end.x = start.x + rightSize.x;
+		end.y = start.y + size.y;
+		TheWindowManager->winDrawImage( rightImage, start.x, start.y, end.x, end.y );
+
+	}
+
+	// draw the button text
+	if( instData->getTextLength() )
+		drawButtonText( window, instData );
+
+	// get window position
+	window->winGetScreenPosition( &start.x, &start.y );
+	window->winGetSize( &size.x, &size.y );
+
+	// if we have a video buffer, draw the video buffer
+	if ( instData->m_videoBuffer )
+	{
+		TheDisplay->drawVideoBuffer( instData->m_videoBuffer, start.x, start.y, start.x + size.x, start.y + size.y );
+	}
+
+	PushButtonData *pData = (PushButtonData *)window->winGetUserData();
+	if( pData )
+	{
+		if( pData->overlayImage )
+		{
+			((W3DDisplay *)TheDisplay)->rva0004D6B3( pData->overlayImage, origin.x, origin.y, origin.x + size.x, origin.y + size.y, -1, 2 );
+		}
+
+		if( pData->drawClock )
+		{
+			if( pData->drawClock == NORMAL_CLOCK )
+			{
+				((Rva000A4826 *)TheDisplay)->rva000A4826( start.x, start.y, size.x, size.y, pData->percentClock, pData->colorClock );
+			}
+			else if( pData->drawClock == INVERSE_CLOCK )
+			{
+				((Rva000A4826 *)TheDisplay)->rva000A4875( start.x, start.y, size.x, size.y, pData->percentClock, pData->colorClock );
+			}
+			pData->drawClock = NO_CLOCK;
+			window->winSetUserData( pData );
+		}
+
+		if( pData->drawBorder && pData->colorBorder != WIN_COLOR_UNDEFINED )
+		{
+			((W3DDisplay *)TheDisplay)->rva0008EEF0( start.x - 1, start.y - 1, size.x + 2, size.y + 2, 1, pData->colorBorder );
+		}
+	}
+
+}  // end W3DGadgetPushButtonImageDrawThree
 
 // Rva000A52AEDrawNumber ======================================================
 /** Draw the button's count at its bottom right */
