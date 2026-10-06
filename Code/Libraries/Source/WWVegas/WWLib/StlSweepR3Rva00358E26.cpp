@@ -30,3 +30,6 @@ namespace _STL {template<>struct __type_traits<Rva00358E26Record>:__type_traits_
 
 // Instantiate the recovered member; retain only its required template dependencies.
 template void _STL::_Rb_tree<int, _STL::pair<int const, Rva00358E26Record>, _STL::_Select1st<_STL::pair<int const, Rva00358E26Record> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00358E26Record> > >::erase(_STL::_Rb_tree_iterator<_STL::pair<int const, Rva00358E26Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00358E26Record> > >, _STL::_Rb_tree_iterator<_STL::pair<int const, Rva00358E26Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00358E26Record> > >);
+
+// Incidental target placement 0x00358FA5: donor member spelling/layout remains an inference.
+template unsigned int _STL::_Rb_tree<int, _STL::pair<int const, Rva00358E26Record>, _STL::_Select1st<_STL::pair<int const, Rva00358E26Record> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00358E26Record> > >::erase(int const &);
