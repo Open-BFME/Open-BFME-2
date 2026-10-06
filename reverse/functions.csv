@@ -64623,3 +64623,4 @@ _ciChannelTableCompareFn,,0x006B10B0,6,Code/GameEngine/Source/GameNetwork/GameSp
 ?reactToTransformChange@Drawable@@MAEXPBVMatrix3D@@PBUCoord3D@@M@Z,,0x002742E5,104,Code/GameEngine/Source/GameClient/Drawable_rva00274176.cpp,matched,vtable slot 9 drawmodule broadcast via ZH donor
 ?Rva001B4E21Get@@YGEPAX0@Z,,0x001B4E21,40,Code/GameEngine/Source/Common/Rva001B4E21Get.cpp,matched,callers 0x001B509F 0x001B50D8 plus vtable slot 0x10 plus m_4 guard plus link bonus
 ?rva002D36AE@Rva002D36AEHost@@QAEXHH@Z,,0x002D36AE,21,Code/GameEngine/Source/Common/System/Rva002D36AE.cpp,matched,chain via rowed 0x005260FC null-guarded forwarder
+?Rva00428EEBIssueFireWeapon@@YGHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z,,0x00428EEB,284,Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp,matched,free issue 0x434 0x433 via MessageStreamSubsystem voice response

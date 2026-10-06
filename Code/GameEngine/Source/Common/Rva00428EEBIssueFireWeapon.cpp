@@ -1,5 +1,3 @@
-// ?Rva00428EEBIssueFireWeapon@@YGHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z
-// partial score=0.98 date=2026-10-05
 // cl: /O1 /MD
 // ?Rva00428EEBIssueFireWeapon@@YGHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z @0x00428EEB 284B: free issue command emitting 0x434/0x433 via MessageStreamSubsystem createMessage plus voice response.
 // Evidence: retail bytes options-7 isValid slot75 then 0x20 ground branch; rowed isValid 0x35B112 appends 0x30F936 0x30F9BB 0x30F979 ctor 0x4D92FE pinned pickAndPlay 0x4DAAFD; TheInGameUI MessageStreamSubsystem names.
@@ -125,36 +123,38 @@ int __stdcall Rva00428EEBIssueFireWeapon(const CommandButton *command, int comma
 
 	if (target && (command->m_options & 7) != 0)
 	{
-		if (!command->isValidObjectTarget(TheInGameUI->slot75(), target))
-			return GameMessage::MSG_INVALID;
+		if (command->isValidObjectTarget(TheInGameUI->slot75(), target))
+		{
+			int msgType = GameMessage::MSG_434;
+			if (commandType == 0)
+			{
+				GameMessage *msg = MessageStreamSubsystem->createMessage(msgType);
+				msg->appendObjectIDArgument(target->m_object ? target->m_object->m_id : OBJECTID_NONE);
+				msg->appendIntegerArgument(0);
 
-		int msgType = GameMessage::MSG_434;
+				Rva004D92FE info;
+				info.m_04 = target;
+				pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)msgType, (PickAndPlayInfo *)&info);
+			}
+			return msgType;
+		}
+		return GameMessage::MSG_INVALID;
+	}
+
+	if ((command->m_options & 0x20) != 0)
+	{
+		int msgType = GameMessage::MSG_433;
 		if (commandType == 0)
 		{
 			GameMessage *msg = MessageStreamSubsystem->createMessage(msgType);
-			msg->appendObjectIDArgument(target->m_object ? target->m_object->m_id : OBJECTID_NONE);
+			msg->appendLocationArgument(*pos);
 			msg->appendIntegerArgument(0);
 
 			Rva004D92FE info;
-			info.m_04 = target;
+			info.m_14 = *pos;
 			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)msgType, (PickAndPlayInfo *)&info);
 		}
 		return msgType;
 	}
-
-	if ((command->m_options & 0x20) == 0)
-		return GameMessage::MSG_INVALID;
-
-	int msgType = GameMessage::MSG_433;
-	if (commandType == 0)
-	{
-		GameMessage *msg = MessageStreamSubsystem->createMessage(msgType);
-		msg->appendLocationArgument(*pos);
-		msg->appendIntegerArgument(0);
-
-		Rva004D92FE info;
-		info.m_14 = *pos;
-		pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)msgType, (PickAndPlayInfo *)&info);
-	}
-	return msgType;
+	return GameMessage::MSG_INVALID;
 }

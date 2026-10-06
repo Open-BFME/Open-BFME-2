@@ -11544,3 +11544,7 @@ FUN_0061b7b6	0x0021B7B6	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use r
 ?rva003896BD@Rva003896BDOwner@@QAEPAXH@Z	0x003896BD	42	blocked	needs real STL map M_find plus ecx vs eax plus branchless t=10 model=muse-04
 ?rva00294898@Object@@QAE_NPAV1@H@Z	0x00294898	167	blocked	ADDRESS-NAMED g_Va009FF0F8 needs hatch t=2 model=muse-04
 ?rva001B4F6D@Rva001B4F6D@@QAEXXZ	0x001B4F6D	30	blocked	still cmp esi vs cmp eax after mov eax esi t=10 model=muse-04 (stash 0.93 kept)
+?Rva00445BAALanLobbyTooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z	0x00445BAA	507	blocked	ADDRESS-NAMED g_Va00A03354 and g_Va009FE958 required but new use refused t=2 model=muse-08
+?Rva003BF39FDo@@YGXPBVAsciiString@@0_N1@Z	0x003BF39F	304	blocked	ADDRESS-NAMED globals g_Va009FE16C g_Va009FF0F8 g_Va00BBB8D8 new use refused t=1 model=muse-08
+?Rva003BFF50Do@@YGXPBVAsciiString@@HPAVRGBColor@@@Z	0x003BFF50	156	blocked	ADDRESS-NAMED globals g_Va009FE16C g_Va00DBA4E4 new use refused t=1 model=muse-08
+?Rva003BF4CFD0@@YGXPBVAsciiString@@0_N1@Z	0x003BF4CF	303	blocked	ADDRESS-NAMED globals g_Va009FE16C g_Va009FF0F8 g_Va00BBB8D8 new use refused t=1 model=muse-08
