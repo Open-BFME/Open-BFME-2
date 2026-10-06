@@ -23,15 +23,17 @@ class Object
 public:
 	Player *getControllingPlayer() const;
 };
-struct Out00466398
+class Rva0036AE51ListView
 {
+	public:
 	int m_00;
 	_STL::list<int> *m_04;
+	_STL::list<int> rva0036AE51();
 };
 class Rva00466398
 {
 public:
-	void rva00466398(Out00466398 *out);
+	Rva0036AE51ListView rva00466398();
 };
 class Player
 {
@@ -112,9 +114,8 @@ public:
 };
 bool TunnelContain::rva0047DF44(int id)
 {
-	Out00466398 out;
 	Player *player = m_object->getControllingPlayer();
-	player->m_2E8->rva00466398(&out);
+	Rva0036AE51ListView out = player->m_2E8->rva00466398();
 	for (_STL::list<int>::iterator it = out.m_04->begin(); it != out.m_04->end(); ++it)
 	{
 		if (*it == id)
