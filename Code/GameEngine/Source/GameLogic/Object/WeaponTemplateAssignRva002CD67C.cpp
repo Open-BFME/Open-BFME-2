@@ -4,6 +4,15 @@
 // Evidence: tu_map proposes Weapon.cpp, +0x17C list<int> nuggets and +0x160 flag match WeaponTemplateRva002CBA59/ParseClearNuggets, +0x40 scatter vector via rowed BfmePod8 assign, caller 0x002CE063 new 0x180 then ctor+assign.
 #include <vector>
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
