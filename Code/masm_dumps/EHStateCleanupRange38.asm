@@ -24,6 +24,7 @@ EXTERN ??1CameraMarker@@QAE@XZ:PROC
 EXTERN ??1Rva005A9562@@QAE@XZ:PROC
 EXTERN ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ:PROC
 EXTERN ?apply@Rva00049C38ADwordImmSetter@@QAEXXZ:PROC
+EXTERN ??1Rva002390CB@@QAE@XZ:PROC
 
 EXTERN ??1Rva004E6A37@@QAE@XZ:PROC
 
@@ -2127,6 +2128,51 @@ PUBLIC ?rva0078fb97@@YAXXZ
 cleanup_done_0078fb97:
     ret
 ?rva0078fb97@@YAXXZ ENDP
+
+; Unwind@00b91289 at RVA 0x00791289; target byte boundary is 25 bytes.
+; State bit 0 gates cleanup at [ebp-28] via VA 0x008C9F38; parent and
+; concrete local type remain unknown.
+PUBLIC ?rva00791289@@YAXXZ
+?rva00791289@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-10h]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00791289
+    and DWORD PTR [ebp-10h], -2
+    lea ecx, [ebp-28h]
+    jmp ??1Rva002390CB@@QAE@XZ
+cleanup_done_00791289:
+    ret
+?rva00791289@@YAXXZ ENDP
+
+; Unwind@00b912a2 at RVA 0x007912A2; target byte boundary is 25 bytes.
+; State bit 1 gates cleanup at [ebp-20] via VA 0x008C9F38; parent and
+; concrete local type remain unknown.
+PUBLIC ?rva007912a2@@YAXXZ
+?rva007912a2@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-10h]
+    and eax, 2
+    jz NEAR PTR cleanup_done_007912a2
+    and DWORD PTR [ebp-10h], -3
+    lea ecx, [ebp-20h]
+    jmp ??1Rva002390CB@@QAE@XZ
+cleanup_done_007912a2:
+    ret
+?rva007912a2@@YAXXZ ENDP
+
+; Unwind@00b912cd at RVA 0x007912CD; target byte boundary is 25 bytes.
+; State bit 0 gates cleanup at [ebp-20] via VA 0x008C9F38; parent and
+; concrete local type remain unknown.
+PUBLIC ?rva007912cd@@YAXXZ
+?rva007912cd@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-10h]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007912cd
+    and DWORD PTR [ebp-10h], -2
+    lea ecx, [ebp-20h]
+    jmp ??1Rva002390CB@@QAE@XZ
+cleanup_done_007912cd:
+    ret
+?rva007912cd@@YAXXZ ENDP
 
 _TEXT ENDS
 END
