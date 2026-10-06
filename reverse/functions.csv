@@ -64388,3 +64388,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva00488D5C@@UAE@XZ,,0x00488D5C,79,Code/GameEngine/Source/Common/Rva00488D5CDtor.cpp,matched,global delete of +0x24 then OutwardEmissionVelocityInfo base dtor
 ?Rva003BB79DDo@@YGXPAVParameter@@PAX@Z,,0x003BB79D,69,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB79D.cpp,matched,leaf via getUnitNamed Radar Eva Object+0x38
 ?Rva003BB5B7Do@@YGXPAVParameter@@HPAURGBColor@@@Z,,0x003BB5B7,103,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB5B7.cpp,matched,leaf via getUnitNamed getDrawable scaled color Drawable
+?Rva003BB76EDo@@YGXPAUCoord3D@@PAX@Z,,0x003BB76E,47,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB76E.cpp,matched,leaf via Radar Eva Coord extra
