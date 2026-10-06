@@ -500,17 +500,17 @@ int Rva0080E350(const int *crypto, unsigned char *data, int length)
 
 int Rva0080E200(const int *crypto, const unsigned char *data, int length)
 {
-	unsigned char context[0x54];
-	char digest[0x10];
+	unsigned char RecvHash[0x54];
+	char strHash[0x10];
 
 	if (crypto[0] == 0 || crypto[1] == 0)
 		return 0;
 	if (length < 8)
 		return -1;
-	Rva00810020(context);
-	Rva00810060(context, data, length - 8);
-	Rva00810FF0(context, digest, 0x10);
-	if (memcmp(data + length - 8, digest, 8) != 0)
+	Rva00810020(RecvHash);
+	Rva00810060(RecvHash, data, length - 8);
+	Rva00810FF0(RecvHash, strHash, 0x10);
+	if (memcmp(data + length - 8, strHash, 8) != 0)
 		return -2;
 	return 0;
 }
