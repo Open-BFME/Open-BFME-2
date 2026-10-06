@@ -20,10 +20,7 @@
 
 class ControlBarScheme;
 
-struct Coord2D
-{
-	Real x, y;
-};
+#include "../../../../../Libraries/Include/Lib/Coord2D.h"
 
 class ControlBarSchemeManager
 {

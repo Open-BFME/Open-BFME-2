@@ -59,11 +59,7 @@ struct RGBColor
 	float blue;
 };
 
-struct Coord2D
-{
-	float x;
-	float y;
-};
+#include "../../../Libraries/Include/Lib/Coord2D.h"
 
 class DynamicDecalFXNugget : public Rva001DFEAABase
 {

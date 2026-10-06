@@ -6,11 +6,7 @@
 // BFME1 reference (reference/open-bfme-1/Code/GameEngine/Source/Common/INI/ini.cpp,
 // INI::parseCoord2D): verbatim X/Y sub-token floats.
 
-struct Coord2D
-{
-	float x;
-	float y;
-};
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 
 class INI
 {

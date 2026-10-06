@@ -24,11 +24,7 @@ struct ICoord2D
 	Int y;
 };
 
-struct Coord2D
-{
-	Real x;
-	Real y;
-};
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 
 struct RadarExtent
 {

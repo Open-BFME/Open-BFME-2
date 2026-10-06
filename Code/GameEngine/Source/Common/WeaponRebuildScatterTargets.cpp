@@ -31,11 +31,7 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 // the calls. Long is 32-bit signed like int, so index semantics are unchanged.
 typedef long ScatterIndex;
 
-struct Coord2D
-{
-    float x;
-    float y;
-};
+#include "../../../Libraries/Include/Lib/Coord2D.h"
 
 class WeaponTemplate
 {

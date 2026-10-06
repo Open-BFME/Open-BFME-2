@@ -35,7 +35,7 @@ public:
 private:
     TextureBaseClass *m_texture;
 };
-struct Coord2D { float x, y; };
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 struct Region2D { Coord2D lo, hi; };
 class Image
 {

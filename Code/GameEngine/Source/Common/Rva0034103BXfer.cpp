@@ -11,11 +11,7 @@ class Coord3DBase;
 class ICoord3D;
 class Region3D;
 class IRegion3D;
-struct Coord2D
-{
-	float x;
-	float y;
-};
+#include "../../../Libraries/Include/Lib/Coord2D.h"
 class ICoord2D;
 class Region2D;
 class IRegion2D;

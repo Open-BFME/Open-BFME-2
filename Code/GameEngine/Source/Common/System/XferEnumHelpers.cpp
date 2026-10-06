@@ -37,12 +37,7 @@ struct ICoord3D
 	int z;
 };
 
-class Coord2D
-{
-public:
-	float x;
-	float y;
-};
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 
 struct ICoord2D
 {
