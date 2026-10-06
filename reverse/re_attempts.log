@@ -11677,3 +11677,4 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?seh@Rva0041890FFamily@@QAEXXZ	0x0041890F	61	blocked	SEH funclet twin of 57B family, no prolog, shared EBP, same 0x629188/0x365F0/0x4188B6 calls; t=10 model=gemini-2.0
 ?seh@Rva0041890FFamily@@QAEXXZ	0x0041922E	61	blocked	SEH funclet twin of 57B family, no prolog, shared EBP, same 0x629188/0x365F0/0x4188B6 calls; t=10 model=gemini-2.0
 ?seh@Rva0041890FFamily@@QAEXXZ	0x004197E8	61	blocked	SEH funclet twin of 57B family, no prolog, shared EBP, same 0x629188/0x365F0/0x4188B6 calls; t=10 model=gemini-2.0
+??0SidesList@@QAE@ABV0@@Z	0x0032EF3E	364	partial	source layout reaches +0x2A then emits an extra EH-state byte; 372-byte trial is 8 bytes longer and still has blocked TeamsInfoRec/map dependencies; t=35min model=gpt-6-luna score=0.55 stash=reverse/attempts/0x0032ef3e.cpp
