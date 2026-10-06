@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?rva0049797F@BattlePlanUpdate@@QAEXXZ @0x0049797F 204B.
 // Slot 5 (offset 0x14) of vtable 0x0084FBAC (class of ??1Rva004978A3 in

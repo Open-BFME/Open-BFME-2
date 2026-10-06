@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00262FFF@AIUpdateInterface@@QAEXXZ, retail 0x00262FFF, 38 bytes.
 // AIUpdateInterface tail sibling of rva00263025 (same +0x21C/+0x3BC and

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?getMoodMatrixValue@AIUpdateInterface@@QBEIXZ @0x00264F5E 154B (Ghidra
 // FUN_00664f5e): the Zero Hour AIUpdate.cpp body at the pinned address, with
 // BFME 2's sixth attitude (-3) mapped to 0x2000; attitude read via the

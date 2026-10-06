@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Retail RE: ?ownerDocking@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z @0x004A6CF2 (35B).
 //

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@ArrowStormUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z.
 // Identity: ModuleFactory registers this instance factory under "ArrowStormUpdate"

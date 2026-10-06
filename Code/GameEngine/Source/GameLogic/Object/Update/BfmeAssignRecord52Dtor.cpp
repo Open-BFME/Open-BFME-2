@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1BfmeAssignRecord52@@QAE@XZ @ 0x002B707E 53B
 // Evidence: pin ??1BfmeAssignRecord52@@QAE@XZ; calls rowed vector dtor 0x002B703F at +0xC then rowed ??1Rva002B5558 at +0; callers are deleting dtor and __destroy_aux for BfmeAssignRecord52; chain from 0x002B703F.

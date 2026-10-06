@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?rva00497A4B@BattlePlanUpdate@@QAEXXZ @0x00497A4B 157B.
 // BattlePlanUpdate lazy vision-object creation: if m_visionObjectID (+0x88)

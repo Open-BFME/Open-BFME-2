@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?requestSafePath@AIUpdateInterface@@QAEXW4ObjectID@@@Z
 // retail 0x00263EA2, 261 bytes.

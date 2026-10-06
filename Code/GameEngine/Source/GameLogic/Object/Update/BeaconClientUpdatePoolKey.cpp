@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004C9607@BeaconClientUpdate@@SA?AW4NameKeyType@@XZ @0x004C9607
 // (69B): cached pool-name key for BeaconClientUpdate. The class
 // identity comes from the pool-name string the body pushes

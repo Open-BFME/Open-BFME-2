@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0AutoDepositUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0049A20F,
 // 68 bytes. AutoDepositUpdate behavior ctor over the rowed UpdateModule base

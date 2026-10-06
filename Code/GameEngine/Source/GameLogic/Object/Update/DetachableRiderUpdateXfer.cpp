@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@DetachableRiderUpdate@@MAEXPAVXfer@@@Z, retail 0x004AE7AD, 72 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00855468 (slot 0 deleting dtor at

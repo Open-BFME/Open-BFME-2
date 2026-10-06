@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /DWIN32 /D_WINDOWS
+// cl: /GX /DNDEBUG /MD /DWIN32 /D_WINDOWS
 //
 // DeletionUpdate::calcSleepDelay, retail 0x00488357 (52 bytes). Dedicated
 // TU so DeletionUpdate.cpp keeps its two matched bodies untouched: retail

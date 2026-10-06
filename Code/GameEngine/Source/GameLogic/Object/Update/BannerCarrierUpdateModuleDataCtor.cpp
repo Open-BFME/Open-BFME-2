@@ -1,4 +1,4 @@
-// cl: /Og /Os /Ob1 /arch:SSE /GX- /G7 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ob1 /GX- /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // stlport
 //
 // ??0BannerCarrierUpdateModuleData@@QAE@XZ, retail 0x00496FA5, 149 bytes.

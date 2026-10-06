@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00262804@AIUpdateInterface@@QAEXE@Z, retail 0x00262804, 38 bytes.
 // Sibling of wakeUpNow 0x00262871 and setQueueForPathTime 0x0026282A in the

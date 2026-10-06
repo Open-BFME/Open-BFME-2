@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // AttachUpdate (vftable 0x00C4DB20, UpdateModuleInterface view 0x00C4DB14;
 // ctor 0x00491A0F, data AttachUpdateModuleData 0x00491968: ObjectFilter

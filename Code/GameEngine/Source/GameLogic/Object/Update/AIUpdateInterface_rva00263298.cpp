@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00263298@AIUpdateInterface@@QAEXXZ, retail 0x00263298, 27 bytes.
 // AIUpdateInterface notifier: machine at +0x30, state ptr at +0x50 with id

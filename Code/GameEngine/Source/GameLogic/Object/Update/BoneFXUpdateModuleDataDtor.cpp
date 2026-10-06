@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /GX /DNDEBUG /MD
 //
 // ??1BoneFXUpdateModuleData@@UAE@XZ, retail 0x00487877, 111 bytes.
 //

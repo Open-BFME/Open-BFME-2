@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1AutoPickUpUpdate@@UAE@XZ retail 0x00495C48 32 bytes.
 // AutoPickUpUpdate destructor: restores the four vtable pointers of the
 // complete object -- the derived slot at +0x00 plus the BehaviorModuleOther

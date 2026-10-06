@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?enableTurret@BattlePlanUpdate@@IAEX_N@Z, retail 0x0049773F (42B).
 // Ported from the Zero Hour reference

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00260DED@AIUpdateInterface@@QBEHXZ, retail 0x00260DED, 20 bytes.
 // AI state-machine current-ID getter: machine at +0x30, current state at

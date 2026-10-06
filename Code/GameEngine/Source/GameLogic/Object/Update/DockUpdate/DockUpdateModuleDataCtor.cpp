@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0DockUpdateModuleData@@QAE@XZ,
 // retail 0x005896B0, 17 bytes. Dedicated TU.

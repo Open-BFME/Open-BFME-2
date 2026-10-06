@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0BloodthirstyUpdateModuleData@@QAE@XZ, retail 0x0044E2AC, 75 bytes. The
 // rowed buildFieldParse proc registers the table at 0x00C3F120

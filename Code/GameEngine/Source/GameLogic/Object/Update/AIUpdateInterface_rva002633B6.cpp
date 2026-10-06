@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002633B6@AIUpdateInterface@@QAEXXZ @0x002633B6 (61B).
 // AI slot advance: if +0x38 is set delete the +0x30 tracked object through

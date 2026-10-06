@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?xfer@AutoPickUpUpdate@@MAEXPAVXfer@@@Z retail 0x00495C77 89 bytes.
 // AutoPickUpUpdate xfer slot 3 offset 0x0C of vtable 0x0084F06C via rowed ctor
 // 0x00495D31: Version(1 2) via Xfer slot 0x28 then base UpdateModule xfer via

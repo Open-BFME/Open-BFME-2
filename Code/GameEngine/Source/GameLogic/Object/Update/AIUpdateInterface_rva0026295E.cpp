@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0026295E@AIUpdateInterface@@QAEXXZ, retail 0x0026295E, 15 bytes.
 // Sibling clearer in the AIUpdateInterface +0x134/+0x3BF cluster beside

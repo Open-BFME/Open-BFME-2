@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@ArrowStormUpdate@@MAEXPAVXfer@@@Z, retail 0x00490C9B, 111 bytes.
 // Slot 3 of the vftable 0x00C4D700 whose slot-2 name getter returns

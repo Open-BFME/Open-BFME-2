@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?requestAttackPath@AIUpdateInterface@@QAEXW4ObjectID@@PBUCoord3D@@@Z
 // retail 0x00263A39, 250 bytes.

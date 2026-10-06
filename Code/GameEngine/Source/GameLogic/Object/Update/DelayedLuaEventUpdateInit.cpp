@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // ?rva004A8F0B@DelayedLuaEventUpdate@@QAEXIABVDelayedLuaEventList@@W4UpdateSleepTime@@M_N2@Z @0x004A8F0B 71B
 // __thiscall void (unsigned f20, const DelayedLuaEventList&, sleep, float, bool, bool):
 // init m_f20/m_events/m_f70/m_f74/m_f75 plus setWakeFrame clamp.

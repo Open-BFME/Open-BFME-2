@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@DeletionUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00253CFF, 56 bytes. Dedicated TU: the factory news 0x10 with an

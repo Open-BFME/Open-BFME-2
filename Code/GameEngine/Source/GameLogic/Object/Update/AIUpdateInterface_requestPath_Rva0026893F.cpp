@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?requestPath@AIUpdateInterface@@QAEXPAUCoord3D@@_N@Z
 // retail 0x0026893F, 248 bytes (Ghidra FUN_0066893f).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?checkForCrateToPickup@AIUpdateInterface@@QAEPAVObject@@XZ
 // retail 0x00268B79, 92 bytes (Ghidra FUN_00668b79), pinned under this name.

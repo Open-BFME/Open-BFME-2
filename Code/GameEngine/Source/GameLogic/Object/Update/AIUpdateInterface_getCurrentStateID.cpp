@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getCurrentStateID@AIUpdateInterface@@QBEHXZ, retail 0x00262FC3, 40 bytes.
 // AIUpdateInterface::getCurrentStateID inlined from AIStateMachine: machine at

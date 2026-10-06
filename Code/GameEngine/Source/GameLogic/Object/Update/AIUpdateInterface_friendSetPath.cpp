@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?friend_setPath@AIUpdateInterface@@QAEXPAVPath@@@Z, retail 0x00262AF9, 22 bytes.
 // ZH donor AIUpdate.cpp friend_setPath verbatim: destroyPath then m_path at

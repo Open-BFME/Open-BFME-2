@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 //
 // ?getTurretTurnRate@AIUpdateInterface@@QBEMW4WhichTurretType@@@Z,
 // retail 0x00262730, 46 bytes. Dedicated TU.

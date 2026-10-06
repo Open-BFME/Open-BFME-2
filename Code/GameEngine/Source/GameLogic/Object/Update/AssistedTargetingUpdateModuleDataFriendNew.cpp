@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@AssistedTargetingUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00253C23, 68 bytes. Dedicated TU: the factory news 0x18 with an

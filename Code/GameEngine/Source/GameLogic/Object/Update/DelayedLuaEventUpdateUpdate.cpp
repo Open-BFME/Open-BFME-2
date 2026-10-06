@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE /G7
+// cl: /MD /GX
 // ?update@DelayedLuaEventUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x004A8F52 240B
 // Slot 0 of the +0x10 interface vftable 0x00C53A50 (ctor 0x004A8E7B stores it): relationship flags 2 and 6 when +0x74 plus bit0 when +0x75 via iterateObjectsInRange then Lua event 0x003360D2 then destroyObject; /G7 for or al 1.
 // Evidence: vftable slot plus rowed callees plus ThePartitionManager plus TheGameLogic; finish from stash 0x004a8f52 (0.97) via G7.

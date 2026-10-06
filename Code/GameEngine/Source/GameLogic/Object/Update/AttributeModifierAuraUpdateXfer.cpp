@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@AttributeModifierAuraUpdate@@MAEXPAVXfer@@@Z, retail 0x0049B66B, 67 bytes.
 // Slot 3 of the vftable 0x00C50D2C whose slot-2 name getter returns

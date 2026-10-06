@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@AutoDepositUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00254152, 81 bytes. Dedicated TU: the factory news 0x24, runs the

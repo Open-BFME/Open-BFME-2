@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00262B0F@AIUpdateInterface@@QAEXH@Z, retail 0x00262B0F, 42 bytes.
 // AIUpdateInterface lock-guard sibling of friend_setPath: save machine+0x30

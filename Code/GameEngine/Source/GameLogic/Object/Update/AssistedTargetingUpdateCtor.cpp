@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0AssistedTargetingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00486E8D,
 // 84 bytes. Behavior-side ctor completing the AssistedTargetingUpdate

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /Oy-
 //
 // ??0DamageFieldUpdateModuleData@@QAE@XZ, retail 0x00491102, 76 bytes.
 // DamageField behavior's module data: the rowed chained proc 0x004910E7

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0049B51EParse@@YAXPAVINI@@PAX1PBX@Z, retail 0x0049B51E (66B): the
 // AttributeModifierAuraUpdate AffectsKindOf FieldParse proc (row 0x00C50E28).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // BFME1 6583b3c1 SupplyTruckAIUpdate.cpp supplies the callback name and
 // core semantics; target-specific control flow and ABI come from retail.
 // Native registration: VA0x00C53318 VA0x00C53378 VA0x00C533C0 -> callbackVA0x008A6DA1 and transition1.

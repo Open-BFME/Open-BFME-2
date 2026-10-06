@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0BannerCarrierUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00496A98,
 // 42 bytes. Behavior-side ctor completing the BannerCarrierUpdate file-unit

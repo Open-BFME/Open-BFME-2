@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002632B3@AIUpdateInterface@@QBEHXZ, retail 0x002632B3, 20 bytes.
 // Leaf int beside AIUpdateInterface tail: machine at +0x30 null-safe

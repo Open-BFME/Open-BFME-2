@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0DefaultProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z retail
 // 0x00487FC7 120 bytes. Behavior-side ctor completing the

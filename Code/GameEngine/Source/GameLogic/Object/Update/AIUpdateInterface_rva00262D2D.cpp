@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00262D2D@AIUpdateInterface@@QAEXXZ, retail 0x00262D2D, 19 bytes.
 // AIUpdateInterface leaf: destroyPath then virtual slot 0x60 with 2. Callee

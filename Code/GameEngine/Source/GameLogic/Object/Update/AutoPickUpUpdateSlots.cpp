@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00495C6E@AutoPickUpUpdate@@UAEXXZ, retail 0x00495C6E, 9 bytes: slot 2 of
 // the vtable 0x00C4EF90 that AutoPickUpUpdate's ctors (0x00495C5C, 0x00495D77)

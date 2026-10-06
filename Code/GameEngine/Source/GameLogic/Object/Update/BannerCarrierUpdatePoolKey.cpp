@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000496A1E@BannerCarrierUpdate@@SA?AW4NameKeyType@@XZ @0x496a1e
 // (69B): cached pool-name key for BannerCarrierUpdate. The class
 // identity comes from the pool-name string the body pushes

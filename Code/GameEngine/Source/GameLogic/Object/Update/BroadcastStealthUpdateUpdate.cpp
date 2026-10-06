@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // BroadcastStealthUpdate::update (0x004A35C9, slot 0 of its
 // UpdateModuleInterface vftable 0x00852358). After 0x004A33EE (the member

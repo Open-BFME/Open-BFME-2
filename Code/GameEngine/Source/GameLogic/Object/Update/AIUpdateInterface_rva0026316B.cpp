@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0026316B@AIUpdateInterface@@MAEXPAXH@Z, retail 0x0026316B, 59 bytes.
 // Vtable slot 86 of DeployStyle Siege Transport Wander HordeWorker AIUpdates:

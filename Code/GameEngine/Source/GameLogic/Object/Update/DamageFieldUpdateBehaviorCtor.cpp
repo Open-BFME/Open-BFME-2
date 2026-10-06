@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0DamageFieldUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004912A9,
 // 81 bytes. Behavior-side ctor (poolkey rowed; ModuleData ctor rowed).

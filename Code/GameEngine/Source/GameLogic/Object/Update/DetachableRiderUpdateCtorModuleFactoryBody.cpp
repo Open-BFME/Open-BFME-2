@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ModuleFactory reaches this constructor body through ILT 0x0004773F. The
 // registration string and 0x24-byte allocation independently identify the
 // retail-only DetachableRiderUpdate class.

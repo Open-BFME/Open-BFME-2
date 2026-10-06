@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@AutoHealBehavior@@MAEXPAVXfer@@@Z, retail 0x00452401, 95 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0083FCDC (class of rowed AutoHealBehavior

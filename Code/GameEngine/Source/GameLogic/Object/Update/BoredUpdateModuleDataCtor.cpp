@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0BoredUpdateModuleData@@QAE@XZ, retail 0x004966FE, 130 bytes.
 // Bored behavior data: the own table at 0x00C4F4E8 carries ScanDelayTime

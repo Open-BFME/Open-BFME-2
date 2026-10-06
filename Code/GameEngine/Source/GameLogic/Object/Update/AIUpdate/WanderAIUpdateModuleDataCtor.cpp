@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG
+// cl: /MD /GX /DNDEBUG
 //
 // ??0WanderAIUpdateModuleData@@QAE@XZ, retail 0x0024F1CD (37 bytes).
 // Frameless ctor over the pinned Transport base (0x26E5D7): sets

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0AttributeModifierAuraUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x0049B560, 118 bytes. Behavior-side ctor (rowed instance factory

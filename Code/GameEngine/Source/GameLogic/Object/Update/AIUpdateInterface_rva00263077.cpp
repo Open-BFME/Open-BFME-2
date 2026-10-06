@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00263077@AIUpdateInterface@@QAE_NPAVObject@@@Z @0x00263077 126B
 // Evidence: chain lane calls rowed isWithinAttackRange 0x002CB933; neighbours rva0026304D and rva002630F5 prove AIUpdateInterface with m_object at +0x08.
 

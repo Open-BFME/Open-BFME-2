@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004966B9@BoredUpdate@@SA?AW4NameKeyType@@XZ @0x4966b9
 // (69B): cached pool-name key for BoredUpdate. The class
 // identity comes from the pool-name string the body pushes

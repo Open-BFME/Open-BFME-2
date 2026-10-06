@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?update@CritterEmitterUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail
 // 0x004C8DE2, 96 bytes. Identity: slot 0 of the vtable 0x00C5E8DC that the

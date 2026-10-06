@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00403415@AttributeModifierPoolUpdate@@QAEXPAHH@Z @0x00403415 51B
 // Conditional 15-dword fill at this+0x30: for each i in 0..14, if bit i of the
 // mask is set, store value. Evidence: caller at 0x00484A49 passes the pool

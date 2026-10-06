@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?xfer@BeaconClientUpdate@@MAEXPAVXfer@@@Z, retail 0x004C95C9, 62 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x0085EB30 (VA 0x00C5EB30, class of

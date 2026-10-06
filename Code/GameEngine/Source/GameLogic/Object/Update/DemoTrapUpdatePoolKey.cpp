@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000495935@DemoTrapUpdate@@SA?AW4NameKeyType@@XZ @0x495935
 // (69B): cached pool-name key for DemoTrapUpdate. The class
 // identity comes from the pool-name string the body pushes

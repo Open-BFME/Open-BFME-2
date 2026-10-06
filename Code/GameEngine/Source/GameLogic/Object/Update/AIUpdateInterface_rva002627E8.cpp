@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002627E8@Rva002627E8@@QBEMXZ @0x002627E8 28B
 // Float getter via member at +0x1f0 with null returning BfmeZeroRange. Evidence: callers 0x000CE5E7 0x002734A3 plus 12 more; callee 0x001E46E1 pinned plus BfmeZeroRange rowed.
 class Object;

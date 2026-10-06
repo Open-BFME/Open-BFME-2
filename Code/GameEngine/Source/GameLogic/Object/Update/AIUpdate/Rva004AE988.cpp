@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004AE988@Rva004AE988@@QAEXXZ, retail 0x004AE988 114B. Chain via 0x001E431E.
 // Random pick from 0x54 stride array at this+4 base+8 end+0xC via

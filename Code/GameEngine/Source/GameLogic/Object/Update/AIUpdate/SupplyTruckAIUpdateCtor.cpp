@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /arch:SSE
+// cl: /DNDEBUG /MD /EHs
 //
 // ??0SupplyTruckAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004A71A1
 // (212 bytes). ZH donor SupplyTruckAIUpdate.cpp ctor; the name is the pinned

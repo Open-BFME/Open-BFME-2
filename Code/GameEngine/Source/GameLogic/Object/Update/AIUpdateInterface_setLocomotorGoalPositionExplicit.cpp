@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?setLocomotorGoalPositionOnPath@AIUpdateInterface@@UAEXXZ, retail 0x00262C13, 34 bytes.
 // ?setLocomotorGoalPositionExplicit@AIUpdateInterface@@UAEXABUCoord3D@@@Z, retail 0x00262C35, 30 bytes.

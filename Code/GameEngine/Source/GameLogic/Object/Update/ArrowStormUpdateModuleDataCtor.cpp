@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0ArrowStormUpdateModuleData@@QAE@XZ, retail 0x00490639, 64 bytes.
 // ModuleData ctor over the pinned SpecialAbilityUpdateModuleData base (0x44EB54, 0xC8 bytes

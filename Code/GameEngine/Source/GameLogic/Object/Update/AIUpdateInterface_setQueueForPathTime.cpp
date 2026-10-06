@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?setQueueForPathTime@AIUpdateInterface@@QAEXH@Z, retail 0x0026282A, 71 bytes.
 // BFME1 donor AIUpdate.cpp setQueueForPathTime verbatim: frames greater than

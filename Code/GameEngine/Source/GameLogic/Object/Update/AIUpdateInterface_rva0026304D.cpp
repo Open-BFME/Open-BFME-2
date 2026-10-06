@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0026304D@AIUpdateInterface@@QAEXH@Z, retail 0x0026304D, 20 bytes.
 // Leaf setter beside AIUpdateInterface tail: stores int at +0x21C then clears

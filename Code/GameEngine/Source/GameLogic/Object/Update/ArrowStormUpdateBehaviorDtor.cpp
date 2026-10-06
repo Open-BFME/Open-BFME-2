@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE
+// cl: /DNDEBUG /MD /GX-
 //
 // ??1ArrowStormUpdate@@UAE@XZ, retail 0x004907C0, 49 bytes. Virtual dtor
 // shard: ctor TU keeps its verified shape untouched (adding a dtor decl

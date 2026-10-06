@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0026320D@AIUpdateInterface@@MAEXHPAVObject@@@Z, retail 0x0026320D, 139 bytes.
 // AIUpdateInterface switch on int 0/2/3/4/5 to state ids 0x30/0x2A/0x14/0x3B/0x3A

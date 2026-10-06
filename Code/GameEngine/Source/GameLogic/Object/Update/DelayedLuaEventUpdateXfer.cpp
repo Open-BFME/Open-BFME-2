@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ?xfer@DelayedLuaEventUpdate@@MAEXPAVXfer@@@Z, retail 0x004A8E0A, 113 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00853A5C, same primary as rowed ctor

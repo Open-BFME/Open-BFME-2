@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?setCompletedWaypoint@AIUpdateInterface@@QAEXPBVWaypoint@@@Z retail 0x00268AAA 85B
 // Stores the completed waypoint at +0x13C then forwards event 2 with object at +0x08
 // through the global dispatch at VA 0x00E01DBC via rowed rva003360D2 with a stack

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0DelayedDeathBodyModuleData@@QAE@XZ, retail 0x004C180A (37 bytes).
 // Frameless Body-side ModuleData for delayed death: runs the pinned

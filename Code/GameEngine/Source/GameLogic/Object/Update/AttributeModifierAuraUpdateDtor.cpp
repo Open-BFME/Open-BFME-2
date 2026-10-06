@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1AttributeModifierAuraUpdate@@UAE@XZ, retail 0x0049B6DD, 115 bytes.
 //

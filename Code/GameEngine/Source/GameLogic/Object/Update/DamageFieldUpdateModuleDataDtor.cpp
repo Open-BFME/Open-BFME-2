@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE /DNDEBUG /Oy-
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /Oy-
 //
 // ??1DamageFieldUpdateModuleData@@UAE@XZ, retail 0x0049116A, 68 bytes.
 // ModuleData dtor: tears down the RequiredUpgrade string at +0x18 through

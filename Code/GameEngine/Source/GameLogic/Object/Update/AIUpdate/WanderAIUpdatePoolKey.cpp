@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004A9384@WanderAIUpdate@@SA?AW4NameKeyType@@XZ @0x004A9384
 // (69B): cached pool-name key for WanderAIUpdate. The class
 // identity comes from the pool-name string the body pushes

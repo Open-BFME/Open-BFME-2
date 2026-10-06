@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AttachUpdate::xfer, retail 0x004918AC (102 bytes): slot 3 of the class's
 // primary vtable 0x00C4DB20. Version 3 over the UpdateModule base: the

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/moduledata
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/moduledata
 //
 // ??1BloodthirstyUpdateModuleData@@UAE@XZ, retail 0x0044E331, 67 bytes.
 // BloodthirstyUpdateModuleData destructor (ctor rowed at 0x0044E2AC in

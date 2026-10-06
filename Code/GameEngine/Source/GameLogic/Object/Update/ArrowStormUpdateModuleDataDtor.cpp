@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 //
 // ??1ArrowStormUpdateModuleData@@UAE@XZ, retail 0x00490695, 56 bytes.
 // Target evidence: the audited scalar deleting dtor 0x00490679 (vtable

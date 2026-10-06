@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?recenterTurret@AIUpdateInterface@@QAEXW4WhichTurretType@@@Z,
 // retail 0x0026266C, 23 bytes. Dedicated TU.

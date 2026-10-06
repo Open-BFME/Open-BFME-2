@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?getCommandOption@BattlePlanUpdate@@UBE?AW4CommandOption@@XZ, retail 0x0049771E (33B).
 // Ported from Open-BFME-1 BattlePlanUpdate.cpp (BFME1 0x00285550): donor switch

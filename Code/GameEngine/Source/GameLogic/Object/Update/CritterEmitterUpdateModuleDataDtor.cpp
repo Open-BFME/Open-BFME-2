@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 //
 // ??1CritterEmitterUpdateModuleData@@UAE@XZ @0x004C8F49 75B.

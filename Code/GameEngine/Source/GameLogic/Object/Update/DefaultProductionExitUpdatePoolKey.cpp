@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000487F82@DefaultProductionExitUpdate@@SA?AW4NameKeyType@@XZ @0x487f82
 // (69B): cached pool-name key for DefaultProductionExitUpdate. The class
 // identity comes from the pool-name string the body pushes

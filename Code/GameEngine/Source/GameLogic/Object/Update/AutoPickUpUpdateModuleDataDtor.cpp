@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
 //
 // ??1AutoPickUpUpdateModuleData@@UAE@XZ, retail 0x0049647C, 63 bytes, and
 // the destructor of its EatObjectEntry vector, retail 0x004962AB, 63 bytes.

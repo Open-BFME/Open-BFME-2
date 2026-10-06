@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1DestroyEnvironmentUpdate@@UAE@XZ, retail 0x004AC767, 70 bytes (pinned;
 // deleting wrapper 0x004AC7AD). Stores the three vtables, calls the helper

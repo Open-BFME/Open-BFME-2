@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@BloodthirstyUpdate@@MAEXPAVXfer@@@Z, retail 0x0044E006, 78 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0083F0B4 (class of rowed dtor

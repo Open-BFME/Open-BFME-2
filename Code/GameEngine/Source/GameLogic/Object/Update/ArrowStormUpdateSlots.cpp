@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ArrowStormUpdate's slot-15 and slot-17 overrides (vftable 0x00C4D700,
 // slot-2 name getter "ArrowStormUpdate"). Each first runs the base

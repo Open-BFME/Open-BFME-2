@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00262D40@AIUpdateInterface@@QAEXH@Z, retail 0x00262D40, 59 bytes.
 // ?rva00262D7B@AIUpdateInterface@@UBE_NXZ, retail 0x00262D7B, 20 bytes.

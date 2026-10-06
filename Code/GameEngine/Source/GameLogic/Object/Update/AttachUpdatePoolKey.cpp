@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000491912@AttachUpdate@@SA?AW4NameKeyType@@XZ @0x491912
 // (69B): cached pool-name key for AttachUpdate. The class
 // identity comes from the pool-name string the body pushes

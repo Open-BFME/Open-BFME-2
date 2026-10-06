@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@BroadcastStealthUpdate@@MAEXPAVXfer@@@Z, retail 0x004A3752, 202 bytes.
 // Slot 3 of ??_7BroadcastStealthUpdate 0x00C52364 (slot-2 name getter

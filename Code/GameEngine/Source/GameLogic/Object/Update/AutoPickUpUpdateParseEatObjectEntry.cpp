@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?iniParseEatObjectEntry@AutoPickUpUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z
 // retail 0x004964EF, 409 bytes.

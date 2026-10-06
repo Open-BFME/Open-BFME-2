@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?setCurrentVictim@AIUpdateInterface@@QAEXPBVObject@@@Z,
 // retail 0x00268D1F, 82 bytes. Dedicated TU.

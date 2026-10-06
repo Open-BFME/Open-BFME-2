@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva004A7E67@Rva004A7E67@@QAE_NPAVObject@@H@Z @0x004A7E67 273B
 // Dock rally-point jitter / gatherer-countdown: 2*radius vs rowed Object::rva00263763,
 // out-of-range jitters Thing position via GetGameLogicRandomValue(-4,4) lines 87/88

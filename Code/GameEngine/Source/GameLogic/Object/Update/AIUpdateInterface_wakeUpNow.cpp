@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?wakeUpNow@AIUpdateInterface@@IAEXXZ, retail 0x00262871, 36 bytes.
 // BFME1 donor AIUpdate.cpp wakeUpNow plus friend_notify spelled-out guard:

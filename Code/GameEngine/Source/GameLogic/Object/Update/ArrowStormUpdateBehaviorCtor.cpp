@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0ArrowStormUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004909D7,
 // 129 bytes. Behavior-side ctor (rowed instance factory news 0x9C with this

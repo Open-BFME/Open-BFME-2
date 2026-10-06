@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // stlport
 //
 // ??0AttributeModifierPoolUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,

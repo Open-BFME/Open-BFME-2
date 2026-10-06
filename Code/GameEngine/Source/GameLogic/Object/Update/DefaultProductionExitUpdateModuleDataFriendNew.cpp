@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /arch:SSE
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@DefaultProductionExitUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x002543C7, 81 bytes. Dedicated TU: the factory news 0x20 with an

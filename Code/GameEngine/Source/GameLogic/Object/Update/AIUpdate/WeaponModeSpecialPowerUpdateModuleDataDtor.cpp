@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // ??1WeaponModeSpecialPowerUpdateModuleData@@UAE@XZ, retail 0x00494D7C, 53 bytes.
 // WeaponMode ModuleData dtor: destroys the AsciiString member at +0x18 via

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /arch:SSE /Ireference/shims/sweep
+// cl: /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /Ireference/shims/sweep
 // stlport
 // ?update@DockUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail 0x00589F09 258B. DockUpdate::update via rowed vector bool operator[] 0x0006BE1F plus findObjectByID 0x00049DC5 plus overlap 0x00263546 plus bitset 0x0028F59A plus clear 0x001E42F2. Donor open-bfme-1 DockUpdateUpdateBfme.cpp plus ZH DockUpdate.cpp. Caller 0x004A111E.
 #include <stl/_bvector.h>

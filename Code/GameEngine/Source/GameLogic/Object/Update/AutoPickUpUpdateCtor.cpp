@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0AutoPickUpUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00495D31,
 // 121 bytes. Behavior-side ctor (rowed instance factory 0x24E061 news

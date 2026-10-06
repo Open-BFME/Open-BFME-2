@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 #include "Common/Snapshot.h"
 // ??1Rva00497DD6@@UAE@XZ retail 0x00497DD6 250B
 // Evidence: unlock lane no initial vtable store final BBB554 Snapshot base; 4 StringBase releaseBuffer at +0xA4 +0x48 +0x38 +0x24 plus 10 ref holders Release_Ref at +0x4C +0x44 +0x40 +0x3C +0x34 +0x30 +0x2C +0x28 +0x20 +0x1C; callees rowed releaseBuffer 0x00036410 plus Release_Ref 0x00050ED3; caller deleting dtor 0x00497DBA

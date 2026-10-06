@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00262AEA@AIUpdateInterface@@QAEXXZ, retail 0x00262AEA, 15 bytes.
 // Sibling two-field setter in the AIUpdateInterface +0x3B6 cluster beside

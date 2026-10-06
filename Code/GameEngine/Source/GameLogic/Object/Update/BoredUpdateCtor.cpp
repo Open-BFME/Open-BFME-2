@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ??0BoredUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00496791, 98 bytes. Dedicated TU: the Update ctor runs the

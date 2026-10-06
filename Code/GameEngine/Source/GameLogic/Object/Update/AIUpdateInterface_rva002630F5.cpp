@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002630F5@AIUpdateInterface@@QAEPAVRadarObject@@XZ, retail 0x002630F5, 8 bytes.
 // Tail forwarder beside AIUpdateInterface tail: loads m_object at +0x08 then

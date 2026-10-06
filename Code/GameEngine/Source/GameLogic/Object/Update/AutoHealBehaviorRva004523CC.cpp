@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004523CC@AutoHealBehavior@@QAEXXZ, retail 0x004523CC, 29 bytes.
 // Gap between 0x004523B6 (stopHealing) and 0x004523F5 (Rva ctor).

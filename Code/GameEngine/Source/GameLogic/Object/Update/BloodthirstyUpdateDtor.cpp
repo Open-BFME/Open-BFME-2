@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1BloodthirstyUpdate@@MAE@XZ, retail 0x0044DFE0, 32 bytes. Destructor for
 // BloodthirstyUpdate (ctor rowed at 0x0044E0AA in BloodthirstyUpdateCtor.cpp,

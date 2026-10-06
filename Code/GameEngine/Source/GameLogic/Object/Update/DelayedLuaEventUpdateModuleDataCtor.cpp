@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // DelayedLuaEventUpdateModuleData file-unit (parse first; the ctor at
 // 0xB28BF remains pinned for a follow-up).

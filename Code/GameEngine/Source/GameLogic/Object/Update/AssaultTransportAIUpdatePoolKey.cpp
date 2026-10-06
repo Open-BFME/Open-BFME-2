@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00048F411@AssaultTransportAIUpdate@@SA?AW4NameKeyType@@XZ @0x48f411
 // (69B): cached pool-name key for AssaultTransportAIUpdate. The class
 // identity comes from the pool-name string the body pushes

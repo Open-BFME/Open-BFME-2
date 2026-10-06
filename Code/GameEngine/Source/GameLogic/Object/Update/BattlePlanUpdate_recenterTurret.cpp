@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?recenterTurret@BattlePlanUpdate@@IAEXXZ, retail 0x00497769 (36B).
 // Ported from the Zero Hour reference

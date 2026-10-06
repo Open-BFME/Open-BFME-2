@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ??0DemoTrapUpdateModuleData@@QAE@XZ at retail 0x0049597A (55 bytes).
 // The module-data half of DemoTrapUpdate: vtable immediate 0x00C4ED70 modelled

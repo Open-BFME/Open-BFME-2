@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BloodthirstyUpdate +0x20 interface override (vtable 0x00C3EFC4, installed
 // by the matched ctor 0x0044E0AA and dtor 0x0044DFE0). Overrides of a

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?requestApproachPath@AIUpdateInterface@@QAEXPAUCoord3D@@@Z
 // retail 0x00263B33, 211 bytes.

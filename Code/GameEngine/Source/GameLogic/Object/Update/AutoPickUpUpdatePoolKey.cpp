@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000495CEC@AutoPickUpUpdate@@SA?AW4NameKeyType@@XZ @0x495cec
 // (69B): cached pool-name key for AutoPickUpUpdate. The class
 // identity comes from the pool-name string the body pushes

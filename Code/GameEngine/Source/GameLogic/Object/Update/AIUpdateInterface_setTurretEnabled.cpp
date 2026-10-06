@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?setTurretEnabled@AIUpdateInterface@@QAEXW4WhichTurretType@@_N@Z,
 // retail 0x00262651, 27 bytes. Dedicated TU.

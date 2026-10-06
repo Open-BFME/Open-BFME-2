@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000487A19@BoneFXUpdate@@SA?AW4NameKeyType@@XZ @0x487a19
 // (69B): cached pool-name key for BoneFXUpdate. The class
 // identity comes from the pool-name string the body pushes

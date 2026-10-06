@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ModuleFactory reaches this constructor through ILT 0x000212B5. The
 // registration string and 0x24-byte allocation identify the retail-only
 // DelayedWeaponSetUpgradeUpdate class.

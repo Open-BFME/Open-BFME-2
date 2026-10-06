@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1DelayedWeaponSetUpgradeUpdate@@MAE@XZ, retail 0x00488268, 32 bytes.
 // Destructor completing the DelayedWeaponSetUpgradeUpdate file-unit (ctor

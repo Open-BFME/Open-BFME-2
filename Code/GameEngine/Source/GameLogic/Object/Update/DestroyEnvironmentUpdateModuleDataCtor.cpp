@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0DestroyEnvironmentUpdateModuleData@@QAE@XZ, retail 0x004AC615, 20 bytes.
 // Frameless trivial ctor: the BFME1 DestroyEnvironmentUpdate.cpp donor models

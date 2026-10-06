@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?privateAttackPosition@TransportAIUpdate@@MAEXPBUCoord3D@@HW4CommandSourceType@@@Z @0x004A9279 153B: TransportAIUpdate slot 40 override fanning attack-position to passengers then base.
 // ?privateAttackObject@TransportAIUpdate@@MAEXPAVObject@@HW4CommandSourceType@@@Z @0x004A9147 153B and
 // ?privateForceAttackObject@TransportAIUpdate@@MAEXPAVObject@@HW4CommandSourceType@@@Z @0x004A91E0 153B: the same

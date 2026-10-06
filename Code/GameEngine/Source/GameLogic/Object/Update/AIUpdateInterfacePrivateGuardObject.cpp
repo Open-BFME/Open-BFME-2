@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 // ?privateGuardObject@AIUpdateInterface@@MAEXPAVObject@@W4GuardMode@@W4CommandSourceType@@@Z

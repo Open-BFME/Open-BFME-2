@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0AutoFindHealingUpdateModuleData@@QAE@XZ, retail 0x004950F9,
 // 47 bytes. Frameless SSE store-only ctor over table 0xC4EC68

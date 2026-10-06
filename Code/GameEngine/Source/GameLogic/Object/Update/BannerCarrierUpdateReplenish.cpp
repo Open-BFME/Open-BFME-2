@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // BannerCarrierUpdate's replenish scan (0x004973CF; REL32 from 0x00497524).
 // Field names are the module data's INI table (UnitSpawnFX +0x34,

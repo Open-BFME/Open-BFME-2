@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??1AttachUpdateModuleData@@UAE@XZ retail 0x00491AA0 48B.
 // Dtor lane: ctor rowed at 0x00491968 in AttachUpdateModuleDataCtor.cpp vtable

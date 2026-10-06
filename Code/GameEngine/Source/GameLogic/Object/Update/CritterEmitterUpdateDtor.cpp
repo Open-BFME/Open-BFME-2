@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1CritterEmitterUpdate@@MAE@XZ, retail 0x004C8D1B, 32 bytes. Destructor for
 // CritterEmitterUpdate (ctor rowed in CritterEmitterUpdateConstructorThunk.cpp,

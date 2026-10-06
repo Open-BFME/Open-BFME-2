@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?chooseLocomotorSetExplicit@AIUpdateInterface@@QAE_NH@Z
 // retail 0x00268A37, 115 bytes (Ghidra FUN_00668a37).

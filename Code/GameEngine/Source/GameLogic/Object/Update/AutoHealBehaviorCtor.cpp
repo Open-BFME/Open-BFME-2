@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0AutoHealBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00452592,
 // 189 bytes. Behavior-side ctor (rowed instance factory 0x24A8DC news

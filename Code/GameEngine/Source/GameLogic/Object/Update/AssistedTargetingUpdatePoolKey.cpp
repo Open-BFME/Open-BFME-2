@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000486E31@AssistedTargetingUpdate@@SA?AW4NameKeyType@@XZ @0x486e31
 // (69B): cached pool-name key for AssistedTargetingUpdate. The class
 // identity comes from the pool-name string the body pushes

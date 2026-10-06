@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00047EC1A@AnimalAIUpdate@@SA?AW4NameKeyType@@XZ @0x47ec1a
 // (69B): cached pool-name key for AnimalAIUpdate. The class
 // identity comes from the pool-name string the body pushes

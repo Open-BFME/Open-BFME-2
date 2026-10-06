@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Retail RE: ?ownerRva004A6D15@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
 // @0x004A6D15 (35B).

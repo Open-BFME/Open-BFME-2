@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0026331C@AIUpdateInterface@@QAEXXZ @0x0026331C (81B).
 // AI slot advance with 0x3E0 gate: if +0x34 is set and +0x30 is set with the

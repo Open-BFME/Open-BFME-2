@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /G7
+// cl: /DNDEBUG /MD
 // ?rva0026417F@AIUpdateInterface@@QAEHH@Z
 // 0x0026417F 59B: AIUpdateInterface score helper between slot139 0x0026412B and free 0x00264237. Reads owner at this+8 and template byte +0x109 bits 0x40 and 0x02 plus 10x Object::rva0028CE7B. Evidence: this+8 is m_object as in AIUpdateInterfacePrivateCommands slot bodies and Rva00263910Goal +8 model. Callee rowed-or-pinned 0x0028CE7B. Callers in 0x0026CF11 0x002EBE54 0x002EC0A2.
 class ThingTemplate

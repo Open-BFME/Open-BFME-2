@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00263025@AIUpdateInterface@@QAEXXZ, retail 0x00263025, 40 bytes.
 // Max-updater sibling of rva0026304D in the same AIUpdateInterface tail:

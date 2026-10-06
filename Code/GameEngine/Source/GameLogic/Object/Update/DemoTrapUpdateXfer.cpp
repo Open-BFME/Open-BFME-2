@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@DemoTrapUpdate@@MAEXPAVXfer@@@Z, retail 0x00495A74, 53 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0084ED3C (class of rowed dtor ??1Rva00495916

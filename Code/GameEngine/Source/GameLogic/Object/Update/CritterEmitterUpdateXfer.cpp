@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@CritterEmitterUpdate@@MAEXPAVXfer@@@Z, retail 0x004C8E42, 65 bytes.
 // CritterEmitterUpdate xfer (slot 3 offset 0x0C of vtable 0x0085E8E8, same

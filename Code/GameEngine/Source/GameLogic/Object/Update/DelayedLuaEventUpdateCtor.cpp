@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0DelayedLuaEventUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004A8E7B,
 // 116 bytes. DelayedLuaEventUpdate behavior ctor over the rowed UpdateModule

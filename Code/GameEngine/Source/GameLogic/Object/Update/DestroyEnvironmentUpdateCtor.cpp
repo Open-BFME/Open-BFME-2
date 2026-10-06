@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0DestroyEnvironmentUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004AC63A, 68 bytes. DestroyEnvironmentUpdate ctor over the rowed

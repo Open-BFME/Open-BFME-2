@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0026DE3B@AIUpdateInterface@@QAEXH@Z,
 // retail 0x0026DE3B, 60 bytes. Dedicated TU.

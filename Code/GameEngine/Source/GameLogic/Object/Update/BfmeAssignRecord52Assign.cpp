@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // ??4BfmeAssignRecord52@@QAEAAU0@ABU0@@Z @0x002B828A 75B: existing pin (callers
 // 0x002B832E 0x002B9167 0x002B91D7, the record's copy_backward/fill/copy).

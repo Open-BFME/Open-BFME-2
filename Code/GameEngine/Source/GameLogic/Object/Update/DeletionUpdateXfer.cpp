@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // DeletionUpdate::xfer shard.
 //
 // Retail 0x488483 is a frameless 39B three-call xfer:

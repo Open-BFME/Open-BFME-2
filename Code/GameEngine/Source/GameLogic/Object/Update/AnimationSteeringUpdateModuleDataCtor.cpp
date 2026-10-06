@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 // Identity: ModuleFactory registers this data class under "CivilianSpawnCollide" (addModule
 // pairs the name with its factory); formerly misnamed AnimationSteeringUpdate/AnimationSteeringUpdateModuleData.
 //

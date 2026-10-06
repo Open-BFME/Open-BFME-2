@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?isTurretInNaturalPosition@BattlePlanUpdate@@IAE_NXZ, retail 0x0049778D (40B).
 // Ported from the Zero Hour reference

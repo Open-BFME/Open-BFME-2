@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE /Oy-
+// cl: /DNDEBUG /MD /GX- /Oy-
 //
 // ?rva004911AE@DamageFieldUpdate@@QAEXPAVObject@@@Z @0x004911AE 126B: fires
 // the Weapon at +0x20 at the Object arg, or when that slot is null walks

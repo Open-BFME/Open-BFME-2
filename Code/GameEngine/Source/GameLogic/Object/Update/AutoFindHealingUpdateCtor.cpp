@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0AutoFindHealingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00495139, 46 bytes.
 // AutoFindHealingUpdate behavior ctor over the rowed UpdateModule base

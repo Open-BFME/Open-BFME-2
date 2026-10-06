@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?update@DemoTrapUpdate@@UAE?AW4UpdateSleepTime@@XZ 0x00495ABA 360B
 // DemoTrapUpdate::update via ZH DemoTrapUpdate.cpp update plus BFME1
 // game/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdate.cpp wide-result

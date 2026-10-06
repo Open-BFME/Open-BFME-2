@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // Retail 0x004906CD (RVA 0x004906CD) size 213: ArrowStorm range check then SpecialAbility base.
 // Evidence: vtable slot 39 of 0x0084D5A0 (ArrowStormUpdateModuleData class); calls pinned SpecialAbilityUpdate 0x0044EDA6, rowed WeaponStore find 0x002CB8BF, WeaponTemplate min 0x002C92FA, Object dist 0x002C97E8, BfmeRanged getAttackRange pin 0x002C99C4; TheWeaponStore +0xDFEFDC; ModuleData AsciiString +0xC8 via this-0x1C; Object via this-0x18.
 // Shape follows WeaponFireSpecialAbilityUpdateSlot8.cpp (same slot-8 override pattern over UpdateModule+0x04/+0x08 via second base at +0x20, same bit 0x108&4, same dist<min*min then optional range check): ArrowStorm looks up WeaponTemplate from ModuleData and uses default bonus, no -2.5.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00048828E@DelayedWeaponSetUpgradeUpdate@@SA?AW4NameKeyType@@XZ @0x48828e
 // (69B): cached pool-name key for DelayedWeaponSetUpgradeUpdate. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 //
 // ?erase@CameraMarkerVec@@QAEPAVCameraMarker@@PAV2@0@Z, retail 0x0048D042,
 // 51 bytes. CameraMarker vector erase(first, last): copies [last, finish)

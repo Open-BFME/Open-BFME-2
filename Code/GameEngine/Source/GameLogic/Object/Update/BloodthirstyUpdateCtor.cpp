@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0BloodthirstyUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0044E0AA,
 // 105 bytes. BloodthirstyUpdate behavior ctor over the rowed UpdateModule

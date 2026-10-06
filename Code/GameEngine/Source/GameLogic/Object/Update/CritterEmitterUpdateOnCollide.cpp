@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?onCollide@CritterEmitterUpdate@@UAEXPAVObject@@PBVCoord3D@@1@Z, retail
 // 0x004C8E83, 124 bytes: slot 0 of the vtable 0x00C5E8C4 that the matched

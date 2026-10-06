@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/moduledata
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/moduledata
 //
 // ??1AutoDepositUpdateModuleData@@UAE@XZ at retail 0x002552A7 (48B).
 // Virtual dtor over vtable 0x00BF1BC8 (slot 0 deleting dtor at 0x0025528B).

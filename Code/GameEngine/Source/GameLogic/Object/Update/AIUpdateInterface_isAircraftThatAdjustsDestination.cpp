@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?isAircraftThatAdjustsDestination@AIUpdateInterface@@QBE_NXZ, retail 0x00262CBE, 52 bytes.
 // ?getTreatAsAircraftForLocoDistToGoal@AIUpdateInterface@@UBE_NXZ, retail 0x00262CF2, 59 bytes.

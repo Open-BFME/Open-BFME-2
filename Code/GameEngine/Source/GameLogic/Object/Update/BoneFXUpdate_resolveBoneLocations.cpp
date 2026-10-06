@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O1 /G7
+// cl: /DNDEBUG /MD /EHs-c-
 //
 // ?resolveBoneLocations@BoneFXUpdate@@MAEXXZ, retail 0x00487634, 355 bytes.
 //

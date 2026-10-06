@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0CommandButtonHuntUpdateModuleData@@QAE@XZ, retail 0x0049529F, 31 bytes.
 // Root ModuleData ctor (no base call): installs vtable 0x00C4ED70

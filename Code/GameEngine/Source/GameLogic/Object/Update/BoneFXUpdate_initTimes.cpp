@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /O1 /G7
+// cl: /DNDEBUG /MD /EHs-c-
 // BoneFXUpdate::initTimes — retail 0x0048750B / 297B.
 // Upstream: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp
 // (BoneFXUpdate::initTimes, ZH uses REAL_TO_INT; retail BFME2 uses a plain

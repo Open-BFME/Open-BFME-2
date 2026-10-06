@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?parseTurret@AIUpdateModuleData@@CAXPAVINI@@PAX1PBX@Z, retail 0x002623C1
 // (117B). Zero Hour's AIUpdateModuleData::parseTurret (AIUpdate.cpp) in its
