@@ -13,6 +13,17 @@ struct BfmeE16
 	float w;
 };
 
+class Rva00318B5C
+{
+	public:
+	char m_body[0x10];
+};
+
+struct Rva00319F5A
+{
+	void rva0031A129(const Rva00318B5C &record);
+};
+
 // The range-erase callee used by 0x00538ED1 is already rowed for this 16-byte
 // element view. Its true payload identity is not established by the call.
 struct Elem003AF9E0
@@ -30,6 +41,7 @@ struct Rva00538E22
 	int m_val;
 	Rva00538E22(int v);
 	void rva00538ED1(int value);
+	void rva00538F10(const _STL::vector<BfmeE16> &source, int value);
 	void rva00538D3B(int value);
 };
 
@@ -52,6 +64,28 @@ void Rva00538E22::rva00538ED1(int value)
 	Elem003AF9E0 *last = records.end();
 	if (first != last) {
 		records.erase(first, last);
+		rva00538D3B(value);
+	}
+}
+
+// The 81-byte body walks a 16-byte source vector and appends each record to
+// this object's three-pointer vector through the matched 0x0031A129 method,
+// then calls the address-derived 0x00538D3B helper with the second argument.
+// The callers establish the vector-reference and integer ABI; the record
+// payload identity and the higher-level purpose remain unknown. BfmeE16 is
+// the local 16-byte vector view; the source element's semantic type is not
+// established by the target body.
+void Rva00538E22::rva00538F10(const _STL::vector<BfmeE16> &source, int value)
+{
+	const BfmeE16 *first = source.begin();
+	const BfmeE16 *last = source.end();
+	if (first != last) {
+		Rva00319F5A *destination = reinterpret_cast<Rva00319F5A *>(&m_vec);
+		for (unsigned int i = 0; i < source.size(); ++i) {
+			const Rva00318B5C &record =
+				*reinterpret_cast<const Rva00318B5C *>(&source[i]);
+			destination->rva0031A129(record);
+		}
 		rva00538D3B(value);
 	}
 }
