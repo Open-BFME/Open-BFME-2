@@ -64455,3 +64455,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva003F87A9@@UAE@XZ,,0x003F87A9,86,Code/GameEngine/Source/Common/Rva003F87A9Dtor.cpp,matched,byte twin of 0x3F8728 file vector hand-back then CRT free
 ??1Rva000E59D3@@UAE@XZ,,0x000E59D3,82,Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp,matched,self call then STLport list base and texture handle member dtors then base vptr restore
 ??1Rva002C5398@@UAE@XZ,,0x002C5398,112,Code/GameEngine/Source/Common/Rva002C5398Dtor.cpp,matched,two qualified self calls then delete and clear theBfmeDfdc14 then list base and GameEngineDeletingBase dtor
+??1Rva0059EA42@@UAE@XZ,,0x0059EA42,97,Code/GameEngine/Source/Common/Rva0059EA42Dtor.cpp,matched,delete owned set record then inline CRT buffer member then AsciiString vector member
