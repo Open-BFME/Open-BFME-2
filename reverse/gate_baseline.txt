@@ -53,7 +53,6 @@ ltable 0x0067FFD0 _Rva008140D0
 ltable 0x00680670 _Rva00814770
 ltable 0x00682560 _CommSRPListen
 ltable 0x00682870 _CommSRPConnect
-ltable 0x00685200 _CommUDPConnect
 ltable 0x00685820 _Rva00819920
 ltable 0x00686F10 _Rva0081B010
 tail 0x001D5470 ?Rva001D5470_CpuFeatureProbe@@YAHXZ
