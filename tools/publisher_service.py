@@ -27,7 +27,7 @@ verdict, red rate over the last 100 gated units, queue depth). queue.csv: one
 row per minute. heartbeat.json: last loop. health-<date>.json: daily verdict.
 
   python3 tools/publisher_service.py setup --state-root DIR --name N --origin URL --source REPO
-          [--commit REV] [--builders 8] [--gate-args '...'] [--checker-paths ...]
+          [--commit REV] [--builders 8] [--gate-args '...'] [--checker-paths ...] [--set K=JSON]
   python3 tools/publisher_service.py run --state DIR [--no-pump] [--until-drained] [--max-seconds S]
   python3 tools/publisher_service.py supervise DIR...     (restarts each `run`; stop with `stop`)
   python3 tools/publisher_service.py stop DIR...
@@ -95,7 +95,7 @@ def borrow(repo, *object_dirs):
 # ---- setup ------------------------------------------------------------------
 def setup(root, name, origin, source, commit="origin/master", builders=4, gate_args="",
           checker_paths=None, toolchain_paths=None, link=(), toolchain_source=None,
-          build_pool=2, host_lock=None):
+          build_pool=2, host_lock=None, extra=None):
     """One repository's publisher state under root/name, shadow target ready,
     checker at `commit` promoted, code pinned to `commit` in state/bin."""
     state = Path(root) / name
@@ -133,7 +133,7 @@ def setup(root, name, origin, source, commit="origin/master", builders=4, gate_a
     settings = dict(branch=SHADOW_BRANCH, inbox=str(state / "inbox"), builders=int(builders),
                     gate=gate, clean_keep=["build/"], fair=False,
                     checker_paths=checker_paths or ["tools", ".githooks"],
-                    toolchain_paths=toolchain_paths or [])
+                    toolchain_paths=toolchain_paths or [], **(extra or {}))
     pub.main(["init", "--state", str(state), "--target", str(mirror),
               *[a for k, v in settings.items() for a in ("--set", f"{k}={json.dumps(v)}")]])
     svc = dict(SERVICE, **(pub.read_json(state / "service.json", {}) or {}))
@@ -565,7 +565,7 @@ def replay(state, source, count=30, rev="origin/master", operator="replay"):
         envelope = pub.signed(bytes.fromhex(unauth_key(operator)), dict(
             v=1, operator=operator, patch_sha256=pub.hashlib.sha256(patch).hexdigest(), kind="normal",
             after=[], bundle=None, priority=0, time=time.time(), nonce=c, auth=AUTH,
-            base=f"{c}^", tip=c))
+            base=f"{c}^", tip=c, scope=dict(allow=pub.patch_paths(patch), forbid=[])))
         (inbox / f"{i:06d}-{c[:12]}.patch").write_bytes(patch)
         pub.write_json(inbox / f"{i:06d}-{c[:12]}.env.json", envelope)
     return picked
@@ -617,6 +617,8 @@ def main(argv=None):
     p.add_argument("--toolchain-paths", nargs="+")
     p.add_argument("--link", action="append", default=[])
     p.add_argument("--toolchain-source")
+    p.add_argument("--set", action="append", default=[], metavar="KEY=JSON",
+                   help="any other publisher.py config key")
     p = sub.add_parser("run")
     p.add_argument("--state", required=True)
     p.add_argument("--no-pump", action="store_true")
@@ -640,7 +642,8 @@ def main(argv=None):
     if args.action == "setup":
         print(setup(args.state_root, args.name, args.origin, args.source, args.commit,
                     args.builders, args.gate_args, args.checker_paths, args.toolchain_paths,
-                    args.link, args.toolchain_source, args.build_pool))
+                    args.link, args.toolchain_source, args.build_pool,
+                    extra={k: json.loads(v) for k, v in (s.split("=", 1) for s in args.set)}))
         return 0
     if args.action == "run":
         print(json.dumps(Service(args.state).run(pump=not args.no_pump,

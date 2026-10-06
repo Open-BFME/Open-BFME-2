@@ -84,14 +84,15 @@ def read_mode(remote_sha):
 
 
 def submit(remote, operator, base, tip, after=()):
-    """Push the range as a unit; returns its id (publisher.submit does the work)."""
+    """Push the range as a unit; returns its id (publisher.submit does the work).
+    Its scope is exactly the paths the range touches (--scope-from-diff)."""
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import publisher
     with tempfile.NamedTemporaryFile("w", suffix=".key", delete=False) as handle:
         handle.write(unauth_key(operator) + "\n")
     try:
         return publisher.submit(Path.cwd(), operator, handle.name, f"{base}..{tip}", remote=remote,
-                                after=after, extra=dict(auth=AUTH, base=base, tip=tip))
+                                after=after, scope="diff", extra=dict(auth=AUTH, base=base, tip=tip))
     finally:
         os.unlink(handle.name)
 
