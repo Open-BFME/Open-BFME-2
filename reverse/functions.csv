@@ -65948,3 +65948,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?GadgetHorizontalSliderSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x00321E5C,779,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetHorizontalSlider.cpp,matched,
 ?GadgetRadioButtonSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x003277F9,248,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetRadioButton.cpp,matched,
 ?GadgetCheckBoxInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x00327938,438,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetCheckBox.cpp,matched,
+?GadgetImageComboBoxInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x0032386A,497,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetImageComboBox.cpp,matched,
