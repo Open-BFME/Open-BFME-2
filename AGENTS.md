@@ -6,6 +6,11 @@ or commit message reports an edit to `AGENTS.md`.
 
 ## Verifier upgrade in progress (October 2026)
 
+**`master` is locked by the maintainers until the tooling fixes are
+completed.** Pushes are rejected: keep work in local commits or banked
+attempts, do not retry pushes in a loop, and rebase once this notice is
+removed.
+
 Stricter gate checks land over the next few days: string literals compared
 with their terminator, exact switch jump tables, bytes past a row's extent,
 `gen-alias` only as an exact token with a byte-identical callee,
