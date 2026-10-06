@@ -63880,3 +63880,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0AIPlayer@@QAE@PAVPlayer@@@Z,,0x004F04FC,190,Code/GameEngine/Source/GameLogic/AI/AIPlayerCtor.cpp,matched,BFME1/ZH donor AIPlayer ctor on BFME2 layout: queue heads then scalars then frame and difficulty and AI team seconds
 ??1Rva005C8FBD@@QAE@XZ,,0x005C8FBD,94,Code/GameEngine/Source/Common/Rva005C8FBD.cpp,matched,chain from 0x005C8F17 with holder tree pool dtors
 ?rva0056B89F@Rva0056B89F@@QAEEXZ,,0x0056B89F,56,Code/GameEngine/Source/Common/Rva0056B89F.cpp,matched,predicate over bc-ac-58-5e-c0 tail to Rva005C41C9 rva005C4B26
+??1Rva00386374@@UAE@XZ,,0x00386374,344,Code/GameEngine/Source/GameNetwork/GameSpy/Rva00386374Dtor.cpp,matched,vslot dtor vtable 0x00C19500 base 0x00C19230 GameSpyInfo reset plus 20 members
