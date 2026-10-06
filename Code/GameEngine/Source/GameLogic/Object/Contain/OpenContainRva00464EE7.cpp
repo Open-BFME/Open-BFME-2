@@ -96,7 +96,7 @@ public:
 	virtual void slot29() {}
 	virtual void slot30() {}
 	virtual void slot31() {}
-	virtual void slot32() {}
+	virtual void rva00465011(Object *object);
 	virtual void slot33() {}
 	virtual void slot34() {}
 	virtual void slot35() {}
@@ -169,6 +169,7 @@ public:
 	virtual void rva00464286() = 0;
 	virtual bool rva00464EE7(Object *object);
 private:
+	friend class OpenContainActionIface;
 	void *m_moduleData;
 	Object *m_object;
 	char m_pad0C[0x14];
@@ -176,6 +177,32 @@ private:
 	char m_pad24[0x30];
 	IntList m_containList;
 };
+
+// Target facts: 0x00465011 is slot 32 of the OpenContain +0x20 interface
+// vtable at 0x00C433B0. The body snapshots the list at parent+0x54, checks
+// each rider's AI pointer at Object+0x258, and calls the already matched
+// aiExit body at 0x0036F39B with the parent Object and the method argument.
+// The argument's semantic role is unresolved; this address-derived slot name
+// follows the target address rather than assigning a donor method name.
+//
+// Structural inference: this is the interface subobject at parent+0x20, as
+// shown by the target's accesses at this+0x34 and this-0x18. OpenContain field
+// layout is carried from adjacent target-matched bodies in this TU.
+void OpenContainActionIface::rva00465011(Object *object)
+{
+	OpenContain *contain = (OpenContain *)((char *)this - 0x20);
+	Rva0036ADF9ListCopy riders(contain->m_containList);
+	for (IntList::iterator it = riders.m_list.begin(); it != riders.m_list.end(); ++it)
+	{
+		Object *rider = (Object *)*it;
+		if (rider->m_ai != 0)
+		{
+			AIUpdateInterfaceView *currentAI = (AIUpdateInterfaceView *)rider->m_ai;
+			Object *owner = contain->m_object;
+			currentAI->m_command.aiExit(owner, (CommandSourceType)(unsigned long)object);
+		}
+	}
+}
 
 bool OpenContain::rva00464EE7(Object *object)
 {
