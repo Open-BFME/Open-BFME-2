@@ -836,17 +836,17 @@ char Rva012C4A80[44] = {
 
 void Rva00814D60( struct Rva00814D60Comm *comm )
 {
-	unsigned char address[ 16 ];
+	unsigned char SockAddr[ 16 ];
 
-	Rva007FDB60( comm->m_socket, 0x70656572, address, 16 );
-	comm->m_peerAddress = ( ( ( ( address[ 4 ] << 8 ) | address[ 5 ] )
-		<< 8 | address[ 6 ] ) << 8 ) | address[ 7 ];
-	comm->m_portA = ( address[ 2 ] << 8 ) | address[ 3 ];
+	Rva007FDB60( comm->m_socket, 0x70656572, SockAddr, 16 );
+	comm->m_peerAddress = ( ( ( ( SockAddr[ 4 ] << 8 ) | SockAddr[ 5 ] )
+		<< 8 | SockAddr[ 6 ] ) << 8 ) | SockAddr[ 7 ];
+	comm->m_portA = ( SockAddr[ 2 ] << 8 ) | SockAddr[ 3 ];
 
-	Rva007FDB60( comm->m_socket, 0x62696E64, address, 16 );
-	comm->m_bindAddress = ( ( ( ( address[ 4 ] << 8 ) | address[ 5 ] )
-		<< 8 | address[ 6 ] ) << 8 ) | address[ 7 ];
-	comm->m_portA = ( address[ 2 ] << 8 ) | address[ 3 ];
+	Rva007FDB60( comm->m_socket, 0x62696E64, SockAddr, 16 );
+	comm->m_bindAddress = ( ( ( ( SockAddr[ 4 ] << 8 ) | SockAddr[ 5 ] )
+		<< 8 | SockAddr[ 6 ] ) << 8 ) | SockAddr[ 7 ];
+	comm->m_portA = ( SockAddr[ 2 ] << 8 ) | SockAddr[ 3 ];
 
 	Rva007FE780( Rva012C4A80, comm->m_peerAddress, comm->m_portB,
 		comm->m_bindAddress, comm->m_portA );
