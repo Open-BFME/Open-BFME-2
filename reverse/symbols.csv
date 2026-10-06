@@ -14087,3 +14087,5 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00497FF3@BattlePlanUpdate@@QAEXH@Z,0x00497FF3,callee of ?rva0049862B@Rva0049862B@@QAEHXZ
 ?rva0021F47E@CreateAHeroCRC@@QAEXXZ,0x0021F47E,callee of ?getCRC@CreateAHeroCRC@@QAEIXZ
 ??0GameTextManager@@QAE@XZ,0x002E63AA,callee of ?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ
+??0CreateAHeroData@@QAE@HHHABVUnicodeString@@HHH@Z,0x00409C3D,callee of ??0GameSlot@@QAE@XZ
+?reset@GameSlot@@QAEXXZ,0x003FF50C,callee of ??0GameSlot@@QAE@XZ
