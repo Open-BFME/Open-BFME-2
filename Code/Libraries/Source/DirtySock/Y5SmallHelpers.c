@@ -518,33 +518,33 @@ int Rva0080E200(const int *crypto, const unsigned char *data, int length)
 void Rva0080DD80(unsigned char *output, const unsigned char *key,
 	int value, const char *name)
 {
-	unsigned char context[0x54];
-	unsigned char rc4[0x102];
-	char text[0x100];
+	unsigned char MD5[0x54];
+	unsigned char Arc4[0x102];
+	char strCrypt[0x100];
 	int combinedLength;
 
-	sprintf(text, "send-%s-send", name);
-	Rva00810020(context);
-	Rva00810060(context, (const unsigned char *)text, -1);
-	Rva00810FF0(context, (char *)output, 0x10);
+	sprintf(strCrypt, "send-%s-send", name);
+	Rva00810020(MD5);
+	Rva00810060(MD5, (const unsigned char *)strCrypt, -1);
+	Rva00810FF0(MD5, (char *)output, 0x10);
 
-	sprintf(text, "recv-%s-recv", name);
-	Rva00810020(context);
-	Rva00810060(context, (const unsigned char *)text, -1);
-	Rva00810FF0(context, (char *)output + 0x10, 0x10);
+	sprintf(strCrypt, "recv-%s-recv", name);
+	Rva00810020(MD5);
+	Rva00810060(MD5, (const unsigned char *)strCrypt, -1);
+	Rva00810FF0(MD5, (char *)output + 0x10, 0x10);
 
 	memcpy(output + 0x30, output, 0x20);
 	*(int *)(output + 0x50) = value;
 
-	sprintf(text, "iv-%s-iv", name);
-	Rva00810020(context);
-	Rva00810060(context, (const unsigned char *)text, -1);
-	Rva00810FF0(context, (char *)output + 0x20, 0x10);
+	sprintf(strCrypt, "iv-%s-iv", name);
+	Rva00810020(MD5);
+	Rva00810060(MD5, (const unsigned char *)strCrypt, -1);
+	Rva00810FF0(MD5, (char *)output + 0x20, 0x10);
 
 	combinedLength = Rva0080DC90(key, output + 0x20,
-		(unsigned char *)text);
-	Rva0080F200(rc4, (const unsigned char *)text, combinedLength, -1);
-	Rva0080F300(rc4, output + 0x30, 0x24);
+		(unsigned char *)strCrypt);
+	Rva0080F200(Arc4, (const unsigned char *)strCrypt, combinedLength, -1);
+	Rva0080F300(Arc4, output + 0x30, 0x24);
 }
 
 int Rva0080E030(int *crypto, const unsigned char *input,
