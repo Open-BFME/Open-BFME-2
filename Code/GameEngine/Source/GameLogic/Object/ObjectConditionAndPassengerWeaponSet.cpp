@@ -68,6 +68,7 @@ public:
 private:
 	unsigned int m_words[20];
 };
+class Rva00346BC0;
 class Object;
 struct Rva00293DACNode
 {
@@ -103,6 +104,8 @@ class Object
 {
 public:
 	void rva0028AE6D();
+	void rva0028CDEB(const Rva00346BC0 &mask, bool set);
+	void rva00293D3B(const Rva00346BC0 &mask, bool set);
 	Object *rva002931F5(bool flag);
 	void *rva0028C197() const;
 	void setWeaponSetFlag(WeaponSetType wst);
@@ -143,6 +146,8 @@ private:
 	Rva002716Holder *m_84; // +0x84
 	unsigned char m_pad088[0x10C - 0x88];
 	Rva0010CBits m_conditionBits; // +0x10C
+	unsigned char m_pad15C[0x455 - 0x15C];
+	bool m_statusPropagationGuard455; // Native 0x293D3B tests this byte; meaning unproven.
 };
 void Object::rva00290758(int a, int b)
 {
@@ -342,4 +347,25 @@ void Object::rva00293CD9(const int *a, bool b)
 	}
 }
 
-
+// Native 0x00293D3B, 113 bytes, RET8: mask plus bool. Same Object receiver,
+// container/list interface and raw node layout as adjacent matched 0x293DAC.
+// Leaf 0x28CDEB independently ends RET8 and reads both incoming arguments.
+void Object::rva00293D3B(const Rva00346BC0 &mask, bool set)
+{
+	if (m_statusPropagationGuard455)
+		return;
+	Object *top = rva002931F5(false);
+	if (top)
+	{
+		Rva00293DACIface *iface = (Rva00293DACIface *)top->rva0028C197();
+		if (!iface)
+			return;
+		Rva00293DACRange range;
+		iface->rva00293DACSlot66(&range);
+		for (Rva00293DACNode *node = range.m_list->m_head->m_next; node != range.m_list->m_head; node = node->m_next)
+			node->m_object->rva0028CDEB(mask, set);
+		top->rva0028CDEB(mask, set);
+	}
+	else
+		rva0028CDEB(mask, set);
+}
