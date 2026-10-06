@@ -59,6 +59,12 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     python3 tools/pin_consistency.py --check || fail "pin consistency (see above)"
     python3 tools/pin_consistency.py --assert-shrink-only "$base" --at "$local_sha" \
         || fail "pin_consistency_baseline.csv grew across the outgoing range (see above)"
+    python3 tools/pin_admission.py --range "$base" "$local_sha" \
+        || fail "pin/alias admission across the outgoing range (see above)"
+    if git cat-file -e "$base:tools/gate_baseline.py" 2>/dev/null; then
+        git show "$base:tools/gate_baseline.py" | python3 - --range "$base" "$local_sha" \
+            || fail "gate_baseline.txt grew across the outgoing range (see above)"
+    fi
 
     mapfile -t delta < <(python3 tools/delta_sources.py --range "$base" "$local_sha")
 
@@ -84,7 +90,7 @@ def git(*argv):
 claimed = {r["source"] for r in csv.DictReader(io.StringIO(
     git("show", "%s:reverse/functions.csv" % rev))) if r.get("status") == "matched"}
 touched = git("diff", "--name-only", "--diff-filter=ACMRT", base, rev,
-              "--", "Code/*.cpp", "Code/*.c").splitlines()
+              "--", "Code/*.cpp", "Code/*.c", "Code/*.asm").splitlines()
 sys.stdout.reconfigure(newline="\n")
 for path in sorted(set(touched) & claimed):
     print(path)

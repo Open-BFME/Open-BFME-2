@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import bisect
 import concurrent.futures
 import csv
 import functools
@@ -339,7 +340,8 @@ def read_object_symbols(data):
         section_number = struct.unpack_from("<h", data, offset + 12)[0]
         aux_count = data[offset + 17]
         symbols.append({"name": name, "value": value, "section": section_number,
-                        "storage": data[offset + 16], "aux": aux_count})
+                        "storage": data[offset + 16], "aux": aux_count,
+                        "type": u16(data, offset + 14)})
         for _ in range(aux_count):
             index += 1
             offset = symbol_table + index * 18
@@ -385,7 +387,14 @@ def defined_code_symbols(path):
             sections[s["section"] - 1]["characteristics"] & 0x20}
 
 
-def read_object_symbol_bytes(path, symbol_name, expected_size=None, *, code_only=False):
+def read_object_symbol_bytes(path, symbol_name, expected_size=None, *, code_only=False,
+                             detail=False):
+    """Bytes from the symbol to its section end, plus (offset, type, name) relocs.
+
+    detail=True adds a third value: the section number, the symbol's value, the
+    parsed symbol table and, per relocation, the INDEX of the symbol it binds.
+    Names alone cannot say which `$L` label or which `.text` a jump-table entry
+    targets: both repeat across sections of one object."""
     stat = path.stat()
     data, sections, symbols = _object_layout(str(path), stat.st_mtime_ns, stat.st_size)
     resolved_name = symbol_name
@@ -431,6 +440,7 @@ def read_object_symbol_bytes(path, symbol_name, expected_size=None, *, code_only
             bytes_data = data[start:end]
 
             relocs = []
+            reloc_symbols = []
             for r in range(section["reloc_count"]):
                 ro = section["reloc_pointer"] + r * 10
                 rva = u32(data, ro)
@@ -438,7 +448,12 @@ def read_object_symbol_bytes(path, symbol_name, expected_size=None, *, code_only
                 rtype = u16(data, ro + 8)
                 if value <= rva < value + len(bytes_data):
                     relocs.append((rva - value, rtype, symbols[sym_idx]["name"]))
+                    reloc_symbols.append(sym_idx)
 
+            if detail:
+                return bytes_data, relocs, {
+                    "section": symbol["section"], "value": value, "symbols": symbols,
+                    "section_size": section["raw_size"], "reloc_symbols": reloc_symbols}
             return bytes_data, relocs
 
         index += 1
@@ -451,6 +466,31 @@ def read_object_symbol_bytes(path, symbol_name, expected_size=None, *, code_only
             "reader. Split the batch that produced this TU: its limit is a section budget, "
             "not a row count.")
     raise ValueError(f"symbol not found in object: {symbol_name}")
+
+
+def notes_tokens(row):
+    """The `;`-separated tokens of a row's notes. Markers are whole tokens: a
+    substring test let any note that merely MENTIONED `gen-alias` switch on
+    relocation masking for its row."""
+    return {token.strip() for token in (row.get("notes") or "").split(";")}
+
+
+def is_alias_row(row):
+    """A row that claims a REAL name for bytes compiled under another symbol.
+
+    `object-symbol=` is legitimate build plumbing for funclet labels, dynamic
+    initializer ordinals, anonymous-namespace hashes and placeholder names
+    that disclaim identity. What remains binds a callee name to someone
+    else's body, and every caller of that name then resolves through it."""
+    match = re.search(r"(?:^|;)object-symbol=([^;]+)", row.get("notes") or "")
+    if not match:
+        return False
+    symbol, name = match.group(1).strip(), row["name"]
+    if symbol == name or re.fullmatch(r"\$L\d+|_\$E\d+", symbol):
+        return False
+    if CLONE_LOCAL_RE.sub("", symbol) == CLONE_LOCAL_RE.sub("", name):
+        return False
+    return not (DUP_ALIAS_RE.match(name) or GEN_PLACEHOLDER_RE.search(name))
 
 
 def ledger_object_symbol(row):
@@ -1367,6 +1407,11 @@ def load_symbol_map():
     thunks = build_call_thunks()
     symbol_map = {}
     for row in load_all_function_rows():
+        # An alias row that is not in the reviewed register is no evidence for
+        # its name: admitting it made "rename a row via object-symbol=" a way
+        # to resolve any caller's wrong callee (tools/pin_admission.py).
+        if is_alias_row(row) and not gate_baselined("alias-row", row):
+            continue
         body = int(row["target_rva"], 16)
         symbol_map[row["name"]] = thunks.get(body, []) + [body]
     if SYMBOLS.exists():
@@ -1724,7 +1769,7 @@ def compile_function(row, symbol_map, output):
     # for a row strict cannot prove. An ordinary conversion never takes the
     # fallback, and keeps full strictness.
     lib_member = (ROOT / row["source"]).suffix.lower() == LIB_SUFFIX
-    gen_alias = "gen-alias" in (row.get("notes") or "")
+    gen_alias = "gen-alias" in notes_tokens(row)
 
     def resolve(masked):
         resolved = bytearray(compiled[:target_size])
@@ -1772,7 +1817,13 @@ def compile_function(row, symbol_map, output):
     masked = lib_member
     if gen_alias and not lib_member and bytes(resolved) != target:
         alt_resolved, alt_unresolved, alt_covered = resolve(True)
-        if bytes(alt_resolved) == target:
+        # The mask is admitted only where it hides a call to a TWIN of the
+        # named callee: the retail target must have the named body's bytes
+        # and the same resolved call/jump targets. Masking anything else
+        # accepted a call to any function at all.
+        if bytes(alt_resolved) == target and (
+                gate_baselined("genalias", row)
+                or not masked_call_problems(target, target_rva, relocs, resolved, symbol_map)):
             resolved, unresolved, covered = alt_resolved, alt_unresolved, alt_covered
             masked = True
 
@@ -1791,6 +1842,163 @@ def compile_function(row, symbol_map, output):
 
 
 REL32 = 0x0014
+DIR32 = 0x0006
+IMAGE_BASE = 0x400000
+
+
+@functools.lru_cache(maxsize=1)
+def _ledger_bodies():
+    bodies = {}
+    for row in load_all_function_rows():
+        bodies.setdefault(row["name"], []).append((int(row["target_rva"], 16),
+                                                    int(row["target_size"])))
+    return bodies
+
+
+def _rel32_window(data, at):
+    """Start of the rel32 operand covering data[at], or None."""
+    for start in range(max(at - 3, 1), at + 1):
+        if data[start - 1] in (0xE8, 0xE9):
+            return start
+        if start >= 2 and data[start - 2] == 0x0F and 0x80 <= data[start - 1] <= 0x8F:
+            return start
+    return None
+
+
+def retail_twins(a, b, size):
+    """True when retail's bodies at a and b are the same code: equal bytes,
+    and every differing byte inside a call/jump displacement that resolves to
+    the SAME absolute target from both places."""
+    try:
+        da, db = read_target_bytes(a, size), read_target_bytes(b, size)
+    except ValueError:
+        return False
+    i = 0
+    while i < size:
+        if da[i] == db[i]:
+            i += 1
+            continue
+        start = _rel32_window(da, i)
+        if (start is None or start != _rel32_window(db, i) or start + 4 > size
+                or da[start - 1] != db[start - 1]):
+            return False
+        to_a = a + start + 4 + struct.unpack_from("<i", da, start)[0]
+        to_b = b + start + 4 + struct.unpack_from("<i", db, start)[0]
+        if to_a & 0xFFFFFFFF != to_b & 0xFFFFFFFF:
+            return False
+        i = start + 4
+    return True
+
+
+def masked_call_problems(target, target_rva, relocs, strict, symbol_map):
+    """Call sites a gen-alias mask would hide that are NOT a twin of their callee."""
+    bodies = _ledger_bodies()
+    problems = []
+    for offset, rtype, name in relocs:
+        if rtype != REL32 or offset + 4 > len(target):
+            continue
+        if strict[offset:offset + 4] == target[offset:offset + 4]:
+            continue
+        called = (target_rva + offset + 4 + struct.unpack_from("<i", target, offset)[0]) & 0xFFFFFFFF
+        named = bodies.get(name, [])
+        if not any(retail_twins(called, body, size) for body, size in named):
+            problems.append(f"+0x{offset:x} calls 0x{called:08X}, not a twin of {name}")
+    return problems
+
+
+@functools.lru_cache(maxsize=256)
+def _function_starts(path_str, mtime_ns, size):
+    """Per code section, the sorted offsets at which a function symbol starts."""
+    _, _, symbols = _object_layout(path_str, mtime_ns, size)
+    starts = {}
+    for symbol in symbols:
+        if (symbol["section"] > 0 and symbol["name"] and not symbol["name"].startswith("$")
+                and (symbol.get("type") == 0x20 or symbol.get("storage") == 2)):
+            starts.setdefault(symbol["section"], []).append(symbol["value"])
+    for values in starts.values():
+        values.sort()
+    return starts
+
+
+def body_extent_problems(row, patch, symbol_map, output, row_starts):
+    """What the byte compare of the claimed extent cannot see. Returns
+    [(check, message)] for:
+
+    ltable    -- a same-section DIR32 (switch jump-table entry, `mov r, offset
+                 $L`) whose retail value is not this row's own label: the
+                 compare copies every DIR32 from retail, so a swapped case
+                 mapping matched byte for byte. A same-section FUNCTION (a C
+                 file's static callback) is bound by name instead.
+    tail      -- compiled code/data past the row's extent that differs from
+                 retail. Only bytes inside the extent were ever compared.
+    truncated -- the compiled function continues past the extent, retail
+                 agrees, and no other row claims those bytes: the row is a
+                 prefix of the function it compiled.
+    """
+    rva = patch["target_rva"]
+    size = len(patch["target"])
+    body, relocs, info = read_object_symbol_bytes(
+        output, ledger_object_symbol(row), size, code_only=True, detail=True)
+    stat = output.stat()
+    section, value = info["section"], info["value"]
+    starts = _function_starts(str(output), stat.st_mtime_ns, stat.st_size).get(section, [])
+    index = bisect.bisect_right(starts, value)
+    end = starts[index] if index < len(starts) else info["section_size"]
+    func = body[:end - value].rstrip(b"\xcc")
+    problems = []
+    try:
+        retail = read_target_bytes(rva, max(len(func), size))
+    except ValueError:
+        retail = patch["target"]
+        problems.append(("tail", f"compiled body is {len(func)} bytes; retail past the "
+                                 f"{size}-byte extent is unreadable"))
+    resolved = bytearray(func)
+    for k, (offset, rtype, name) in enumerate(relocs):
+        if offset >= len(func):
+            continue
+        if offset + 4 > len(retail):
+            continue
+        symbol = info["symbols"][info["reloc_symbols"][k]]
+        if rtype == DIR32 and symbol["section"] == section:
+            addend = u32(body, offset)
+            got = u32(retail, offset)
+            if not name.startswith("$") and (symbol.get("type") == 0x20
+                                             or symbol.get("storage") == 2):
+                address = (got - addend - IMAGE_BASE) & 0xFFFFFFFF
+                if address not in symbol_map.get(name, ()):
+                    problems.append(("ltable", f"+0x{offset:x} function pointer {name}: "
+                                               f"retail 0x{address:08X} is not that function"))
+            else:
+                want = (IMAGE_BASE + rva + symbol["value"] + addend - value) & 0xFFFFFFFF
+                if got != want:
+                    problems.append(("ltable", f"+0x{offset:x} jump-table entry: compiled label "
+                                               f"0x{want - IMAGE_BASE:08X}, retail 0x{got - IMAGE_BASE:08X}"))
+            resolved[offset:offset + 4] = retail[offset:offset + 4]
+        elif offset >= size:
+            width = RELOC_WIDTH.get(rtype, 4)
+            if rtype == REL32 and name in symbol_map:
+                following = rva + offset + 4
+                for candidate in symbol_map[name]:
+                    displacement = struct.pack("<i", candidate - following)
+                    if displacement == retail[offset:offset + 4]:
+                        break
+                resolved[offset:offset + 4] = displacement
+            elif rtype != REL32:
+                resolved[offset:offset + width] = retail[offset:offset + width]
+    if len(func) > size:
+        tail = len(func) - size
+        if bytes(resolved[size:]) != retail[size:len(func)]:
+            first = next(i for i in range(size, len(func)) if resolved[i] != retail[i])
+            problems.append(("tail", f"compiled body continues {tail} byte(s) past the "
+                                     f"{size}-byte extent and differs from retail at +0x{first:x}"))
+        else:
+            index = bisect.bisect_right(row_starts, rva)
+            if index >= len(row_starts) or row_starts[index] >= rva + len(func):
+                problems.append(("truncated", f"compiled body is {len(func)} bytes and retail "
+                                              f"agrees, but the row claims {size}: raise its extent"))
+    return problems
+
+
 GHIDRA_FUNCTIONS = ROOT / "reverse" / "ghidra_functions.csv"
 RELOC_NAMES = ROOT / "reverse" / "reloc_names.csv"
 # MSVC hashes the absolute source path into anonymous-namespace symbols, so the
@@ -2125,6 +2333,7 @@ def verify_functions(only=None):
     failures = 0
     patches = []
     renumbered = []
+    row_starts = sorted({int(row["target_rva"], 16) for row in load_all_function_rows()})
     for row in rows:
         try:
             patch = compile_function(row, symbol_map, row_object(row))
@@ -2148,6 +2357,18 @@ def verify_functions(only=None):
 
         thin = patch["masked"] and patch["concrete"] < MIN_LIB_CONCRETE
         if compiled == target and not thin:
+            extent = []
+            if (ROOT / row["source"]).suffix.lower() != LIB_SUFFIX and not is_funclet_row(
+                    row, ledger_object_symbol(row)):
+                extent = [(check, message) for check, message in
+                          body_extent_problems(row, patch, symbol_map, row_object(row), row_starts)
+                          if not gate_baselined(check, row)]
+            if extent:
+                failures += 1
+                print(f"  FAIL {row['name']} ({row['source']})")
+                for check, message in extent[:6]:
+                    print(f"    {check}: {message}")
+                continue
             patches.append(patch)
             if patch["note"]:
                 renumbered.append(f"{row['name']} ({row['source']}): {patch['note']}")
@@ -2233,6 +2454,59 @@ def verify_noop_patch(patches):
     print(f"No-op patch: OK {NOOP_EXE.relative_to(ROOT)}")
 
 
+# Keyed, shrink-only debt register for gate checks that went live with rows
+# already red: one line per (check, retail address, ledger name). A key excuses
+# exactly that row from exactly that check. tools/gate_baseline.py refuses any
+# commit that adds a line, so the file can only shrink.
+GATE_BASELINE = ROOT / "reverse" / "gate_baseline.txt"
+
+
+def gate_baseline_key(check, row):
+    return f"{check} 0x{int(row['target_rva'], 16):08X} {row['name']}"
+
+
+@functools.lru_cache(maxsize=4)
+def _gate_baseline(path_str, mtime_ns):
+    path = Path(path_str)
+    if not mtime_ns or not path.exists():
+        return frozenset()
+    return frozenset(line.strip() for line in path.read_text(encoding="utf-8").splitlines()
+                     if line.strip() and not line.startswith("#"))
+
+
+def gate_baselined(check, row):
+    try:
+        mtime = GATE_BASELINE.stat().st_mtime_ns
+    except OSError:
+        mtime = 0
+    return gate_baseline_key(check, row) in _gate_baseline(str(GATE_BASELINE), mtime)
+
+
+def string_literal_bytes(symbol, section_bytes):
+    """MSVC's literal length includes its terminator, but excludes COFF padding.
+
+    A digit encodes lengths 1..10; A..P digits encode a hexadecimal length
+    terminated by @. The length is in bytes for both narrow and UTF-16 strings.
+    Preserve embedded/trailing NULs instead of rstrip-ing away evidence.
+    Ported from Open-BFME-1 0223827f8c.
+    """
+    match = re.match(r"\?\?_C@_([01])([0-9]|[A-P]+@)", symbol)
+    if not match:
+        raise ValueError("unrecognized MSVC string-literal length")
+    width = 2 if match[1] == "1" else 1
+    encoded = match[2]
+    length = int(encoded) + 1 if encoded.isdigit() else 0
+    if not encoded.isdigit():
+        for digit in encoded[:-1]:
+            length = length * 16 + ord(digit) - ord("A")
+    if length < width or length % width or length > len(section_bytes):
+        raise ValueError("invalid or truncated MSVC string literal")
+    value = section_bytes[:length]
+    if value[-width:] != b"\0" * width:
+        raise ValueError("MSVC string literal has no complete terminator")
+    return value
+
+
 def verify_string_refs(rows):
     """Independently VERIFY (not mask) every DIR32 relocation that points at a string literal:
     read the address the compiled code references, and confirm the string AT that address in the
@@ -2267,43 +2541,44 @@ def verify_string_refs(rows):
                 cs, _ = read_object_symbol_bytes(obj, sym)
                 str_rva = struct.unpack_from("<I", target, offset)[0] - 0x400000
             except (ValueError, struct.error) as exc:
-                mismatches.append((row["name"], f"<unverifiable {sym[:24]}: {exc}>".encode(), b""))
+                mismatches.append((row, f"<unverifiable {sym[:24]}: {exc}>".encode(), b""))
                 continue
             # DIR32 relocs carry an addend (pre-link value at the site): pooled string reuse
             # references symbol+addend (e.g. "DBGHELP.DLL"+4 == "ELP.DLL"), so the referenced
             # literal is content[addend:], and the binary holds it at str_rva == sym_rva+addend.
             addend = struct.unpack_from("<i", fn_bytes, offset)[0] if offset + 4 <= len(fn_bytes) else 0
-            content = cs.rstrip(b"\x00")
-            if 0 < addend <= len(content):
-                content = content[addend:]
-            if not content:
-                # empty string literal "": no content to match, but confirm the referenced location
-                # really is an empty string (a null byte) and not a stale/wrong pointer.
-                try:
-                    actual = read_pe_bytes(exe, pe, str_rva, 1)
-                except ValueError as exc:
-                    mismatches.append((row["name"], f"<unverifiable {sym[:24]}: {exc}>".encode(), b""))
-                    continue
-                if actual != b"\0":
-                    mismatches.append((row["name"], b'"" (empty)', actual))
-                else:
-                    empty_ok += 1
+            # The literal ENDS where its terminator is: comparing only the
+            # characters before it let any prefix of the retail string pass
+            # ("Default" for retail "Default ", L"000" for L"00000000.sav").
+            try:
+                literal = string_literal_bytes(sym, cs)
+            except ValueError as exc:
+                mismatches.append((row, f"<unverifiable {sym[:24]}: {exc}>".encode(), b""))
                 continue
+            if not 0 <= addend < len(literal):
+                mismatches.append((row, f"<invalid literal addend {addend}>".encode(), b""))
+                continue
+            content = literal[addend:]
             try:
                 actual = read_pe_bytes(exe, pe, str_rva, len(content))
             except ValueError as exc:
-                mismatches.append((row["name"], f"<unverifiable {sym[:24]}: {exc}>".encode(), b""))
+                mismatches.append((row, f"<unverifiable {sym[:24]}: {exc}>".encode(), b""))
                 continue
             if actual != content:
-                mismatches.append((row["name"], content, actual))
+                mismatches.append((row, content, actual))
+            elif not content.strip(b"\0"):
+                empty_ok += 1
             else:
                 checked += 1
+    known = [m for m in mismatches if gate_baselined("strnul", m[0])]
+    mismatches = [m for m in mismatches if not gate_baselined("strnul", m[0])]
     if mismatches:
         print(f"String-ref verify: FAIL {len(mismatches)} mismatch(es) (source string != binary string)")
-        for name, src_s, bin_s in mismatches[:12]:
-            print(f"    {name}: source={src_s!r} binary={bin_s!r}")
+        for row, src_s, bin_s in mismatches[:12]:
+            print(f"    {row['name']}: source={src_s!r} binary={bin_s!r}")
         raise SystemExit(1)
-    print(f"String-ref verify: OK ({checked} literals + {empty_ok} empty-string refs verified, 0 unverified/skipped)")
+    print(f"String-ref verify: OK ({checked} literals + {empty_ok} empty-string refs verified, "
+          f"{len(known)} baselined, 0 unverified/skipped)")
 
 
 REAL_LITERAL_RE = re.compile(r"__real@(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{16})$")

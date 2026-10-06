@@ -90,7 +90,8 @@ def test_string_verifier_checks_mapped_bss(monkeypatch, tmp_path, literal, passe
     monkeypatch.setattr(build, "EXE", exe)
     monkeypatch.setattr(build, "exe_image", lambda: (data, sections))
     monkeypatch.setattr(build, "require_row_object", lambda row: Path("fixture.obj"))
-    name = "??_C@test"
+    # a real MSVC literal name: its length digit is what the verifier compares
+    name = f"??_C@_0{len(literal) - 1}ABCDEFGH@test@"
     monkeypatch.setattr(build, "read_object_symbol_bytes", lambda path, symbol, size=None:
                         (literal, []) if symbol == name else (bytes(4), [(0, 6, name)]))
     rows = [{"name": "function", "source": "Code/fixture.cpp", "notes": "",
