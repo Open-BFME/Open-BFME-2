@@ -508,6 +508,13 @@ def nonreloc_diffs(got, want, masked):
     return sum(1 for k in range(len(want)) if k not in masked and (k >= len(got) or got[k] != want[k]))
 
 
+def pin_matches(pin, rva, base=BASE):
+    """symbols.csv pins data both as RVAs and as VAs (138 VA, 30 RVA on
+    2026-10-05). A retail datum's RVA (>= .rdata) and any datum's VA lie in
+    disjoint bands, so either spelling of the same address is accepted."""
+    return pin == rva or pin == rva + base
+
+
 def unique_bytes(spans):
     """Bytes covered by the union of [start, end) spans."""
     total, cur = 0, -1
@@ -542,8 +549,10 @@ def greatest_closure(ok, edges, bad_targets=("fill", "stub")):
 try:
     import capstone
     _CS = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    _CSD = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    _CSD.detail = True
 except ImportError:  # pragma: no cover
-    _CS = None
+    _CS = _CSD = None
 
 
 def _norm(ins):
@@ -608,18 +617,20 @@ def eh_verdict(I, lt, R, rt, lbase, rbase, translate=None):
 
 
 def hardcoded_operands(code, va, masked, lo, hi):
-    """Offsets of instruction operands in `code` (at `va`) holding an absolute
-    address in [lo, hi) that no relocation covers: they cannot follow a rebase."""
-    if _CS is None:
+    """Offsets of 32-bit displacement/immediate operands in `code` (at `va`)
+    holding an absolute address in [lo, hi) that no relocation covers: they
+    cannot follow a rebase. Relative branch targets are not operands here."""
+    if _CSD is None:
         return []
     out = []
-    for ins in _CS.disasm_lite(bytes(code), va):
-        at, size = ins[0] - va, ins[1]
-        for k in range(at, at + size - 3):
-            if k not in masked and lo <= u32(code, k) < hi and not any(j in masked for j in range(k, k + 4)):
-                if ins[2] not in ("call", "jmp") and not ins[2].startswith("j"):
-                    out.append(k)
-                    break
+    for ins in _CSD.disasm(bytes(code), va):
+        at = ins.address - va
+        for off, size in ((ins.disp_offset, ins.disp_size), (ins.imm_offset, ins.imm_size)):
+            if size != 4 or not off or ins.mnemonic == "call" or ins.mnemonic.startswith("j"):
+                continue
+            k = at + off
+            if lo <= u32(code, k) < hi and not any(j in masked for j in range(k, k + 4)):
+                out.append(k)
     return out
 
 
@@ -672,6 +683,8 @@ class Measure:
         return va, name, ob, self.allsyms[j][0] if j < len(self.allsyms) else va + 1
 
     def lsec(self, a):
+        if hasattr(self.isecs, "name_at"):
+            return self.isecs.name_at(a)
         return next((n for n, (s, z) in self.isecs.items() if s <= a < s + max(z, 1)), "outside")
 
     def relocs(self, L, rva, size, o, secno, off, owner):
@@ -747,6 +760,10 @@ class Measure:
         else:                                        # defined elsewhere: the map names its object
             S, ob = self.pub.get(tn), self.pubobj.get(tn)
             found = self.objs.lookup(ob, tn) if ob else None
+            if S is not None and not found and y is not None and y.sec == 0 and y.value > 0:
+                # a communal (uninitialized) global: the reference carries its size, and the
+                # map names an object that does not define it
+                return S, y.value, lt - S, o, None, 0, S
             if S is None or not found:
                 return None
             o, ys = found
@@ -761,8 +778,11 @@ class Measure:
     def data_ref(self, lt, rt, tn, y, o, addend):
         """(failures, code edges, pinned?) of one data reference beyond the 1:1 rule:
         the datum's content at retail's address, and its pin when it has one."""
-        if self.lsec(lt) == ".stubd":
+        sec = self.lsec(lt)
+        if sec == ".stubd":
             return [f"data-stub:{tn}"], set(), False
+        if sec == "outside":
+            return [f"data-outside-image:{tn}"], set(), False
         if lt in self.limports:
             want = self.rimports.get(rt)
             same = want and import_name(want[1]) == import_name(self.limports[lt][1])
@@ -772,7 +792,7 @@ class Measure:
             return [f"data-unmapped:{tn}"], set(), False
         start, size, k, do, sec, v0, S = d
         fails, pinned = [], tn in self.pins
-        if pinned and self.pins[tn] != rt - (lt - S):
+        if pinned and not pin_matches(self.pins[tn], rt - (lt - S), self.rbase):
             fails.append(f"data-pin:{tn}")
         key = (start, rt - k, size)
         if key not in self.datum_memo:
@@ -781,11 +801,11 @@ class Measure:
         return fails + cf, edges, pinned
 
     def datum_content(self, start, size, rstart, sec, value, name):
-        if size <= 0 or rstart < 0 or rstart + size > len(self.R):
+        if size <= 0 or rstart < 0 or rstart + size > len(self.R) or start < 0 or start + size > len(self.I):
             return [f"data-extent:{name}"], set()
         got, want = self.I[start:start + size], self.R[rstart:rstart + size]
         masked, edges, fails = set(), set(), []
-        for va, si, ty in sec.relocs:
+        for va, si, ty in (sec.relocs if sec is not None else ()):
             fo = va - value
             if not 0 <= fo < size:
                 continue
@@ -922,10 +942,24 @@ def load_pins():
     return pins, byaddr
 
 
+class SectionList(dict):
+    """{name: (rva, size)} of an image's sections (the first of a repeated name),
+    keeping every section for address lookups: link.exe can emit two .data."""
+    def __init__(self, entries):
+        super().__init__()
+        self.all = list(entries)
+        for n, a, z in self.all:
+            self.setdefault(n, (a, z))
+
+    def name_at(self, a):
+        return next((n for n, s, z in self.all if s <= a < s + max(z, 1)), "outside")
+
+
 def pe_view(path):
     import pefile
     pe = pefile.PE(str(path), fast_load=True)
-    secs = {s.Name.rstrip(b"\0").decode("latin-1"): (s.VirtualAddress, s.Misc_VirtualSize) for s in pe.sections}
+    secs = SectionList((s.Name.rstrip(b"\0").decode("latin-1"), s.VirtualAddress, s.Misc_VirtualSize)
+                       for s in pe.sections)
     pe.parse_data_directories(directories=[pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
     imps = {}
     for dll in getattr(pe, "DIRECTORY_ENTRY_IMPORT", []):
@@ -1165,7 +1199,7 @@ def shifted_rows(out, recs, I, isecs, objs, have_shift, shift_base):
     shifted link, also confirm the linker laid the image out identically and every
     relocated word moved by exactly the base delta; rows that do not are added."""
     hard = set()
-    lo, hi = BASE + 0x1000, BASE + max(s + z for s, z in isecs.values())
+    lo, hi = BASE + 0x1000, BASE + max(s + z for _, s, z in isecs.all)
     S = None
     if have_shift and (out / "shift.exe").exists():
         _, S, ssecs, _ = pe_view(out / "shift.exe")
@@ -1227,6 +1261,7 @@ def remeasure(args):
     if path.exists():   # the links are the receipt's; the measure, its digest and series are replaced
         receipt = json.loads(path.read_text(encoding="utf-8"))
         receipt.update(series=res, tool_digest=tool_digest(),
+                       measure_dirty=bool(git("status", "--porcelain", "--untracked-files=no")),
                        remeasured_utc=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
                        measure_commit=git("rev-parse", "HEAD"))
         receipt["seconds"]["measure"] = round(time.time() - t)

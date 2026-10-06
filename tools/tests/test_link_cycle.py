@@ -92,6 +92,9 @@ def test_hardcoded_operand_needs_no_relocation():
     code = bytes.fromhex("8b0db0a3c200") + bytes.fromhex("c3")   # mov ecx,[0xc2a3b0]; ret
     assert lc.hardcoded_operands(code, B + 0x1000, set(), B + 0x1000, B + 0xADA000) == [2]
     assert lc.hardcoded_operands(code, B + 0x1000, {2, 3, 4, 5}, B + 0x1000, B + 0xADA000) == []
+    # an opcode byte plus an immediate's low bytes (25 ff ff 00 = 0x00FFFF25) is not an operand
+    masked = bytes.fromhex("25ffff00000d00000780c3")             # and eax,0xffff; or eax,0x80070000
+    assert lc.hardcoded_operands(masked, B + 0x1000, set(), B + 0x1000, B + 0xADA000) == []
     small = bytes.fromhex("b810000000c3")                           # mov eax,0x10: not an address
     assert lc.hardcoded_operands(small, B + 0x1000, set(), B + 0x1000, B + 0xADA000) == []
 
@@ -162,6 +165,26 @@ def test_data_reference_checks_the_pinned_address():
     assert m.data_ref(0x3000, 0x3100, "_g", obj[1][0], obj, 0)[0] == ["data-pin:_g"]
     m = _measure(I, R, [], [(0x3000, "_g", "a.obj")], pins={"_g": 0x3100})
     assert m.data_ref(0x3000, 0x3100, "_g", obj[1][0], obj, 0) == ([], set(), True)
+    m = _measure(I, R, [], [(0x3000, "_g", "a.obj")], pins={"_g": B + 0x3100})   # pinned as a VA
+    assert m.data_ref(0x3000, 0x3100, "_g", obj[1][0], obj, 0) == ([], set(), True)
+
+
+def test_repeated_section_names_are_all_kept():
+    secs = lc.SectionList([(".data", 0x3000, 0x100), (".CRT", 0x4000, 0x10), (".data", 0x5000, 0x10)])
+    assert secs[".data"] == (0x3000, 0x100)
+    assert secs.name_at(0x3010) == ".data" and secs.name_at(0x5004) == ".data" and secs.name_at(0x6000) == "outside"
+
+
+def test_communal_global_is_sized_by_its_reference():
+    I, R = bytearray(0x6000), bytearray(0x6000)
+    ref = ([_sec(1, ".text", 8)], {0: _sym(0, "?TheX@@3PAVX@@A", 0, value=4)}, b"")   # COMMON, 4 bytes
+    m = _measure(I, R, [], [(0x3000, "?TheX@@3PAVX@@A", "other.obj")], pub={"?TheX@@3PAVX@@A": 0x3000},
+                 pubobj={"?TheX@@3PAVX@@A": "other.obj"})
+    assert m.data_ref(0x3000, 0x3100, "?TheX@@3PAVX@@A", ref[1][0], ref, 0)[0] == []
+    _put(R, 0x3102, b"")                                   # retail holds a non-zero byte there
+    m = _measure(I, R, [], [(0x3000, "?TheX@@3PAVX@@A", "other.obj")], pub={"?TheX@@3PAVX@@A": 0x3000},
+                 pubobj={"?TheX@@3PAVX@@A": "other.obj"})
+    assert m.data_ref(0x3000, 0x3100, "?TheX@@3PAVX@@A", ref[1][0], ref, 0)[0] == ["data-content:?TheX@@3PAVX@@A"]
 
 
 def test_data_stub_and_vtable_code_pointer():
