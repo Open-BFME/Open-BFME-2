@@ -11289,3 +11289,4 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?Rva003460DBCheck@@YA_NPAVObject@@@Z	0x003460DB	81	partial	tail block order swapped: ours jne-succeed fail-before-succeed vs retail je-fail succeed-before-fail size-exact t=20 model=muse-03 score=0.93 stash=reverse/attempts/0x003460db.cpp
 ?rva005CC30B@Rva005CC30B@@UAEXXZ	0x005CC30B	55	blocked	tail succeed-fail order swapped plus callee 0x005E1160 fastcall-pin vs retail push-thiscall single-shared-call t=25 model=muse-03
 ?Rva003C9C0AAttack@@YGXPAVParameter@@H@Z	0x003C9C0A	259	partial	missing two esp saves and xmm0 reuse vs xmm0-1-2 t=25 model=muse-03 score=0.93 stash=reverse/attempts/0x003c9c0a.cpp
+?rva00332975@Rva0026E7C8Ctor@@QAEXPAVXfer@@@Z	0x00332975	378	partial	ebx-edi swap vector-base vs elem plus k1 ebx vs edi plus push order and lea vs add -6B size() fixes extra mov t=20 model=muse-01 score=0.91 stash=reverse/attempts/0x00332975.cpp

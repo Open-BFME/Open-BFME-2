@@ -1,5 +1,5 @@
 // ?rva00332975@Rva0026E7C8Ctor@@QAEXPAVXfer@@@Z
-// partial score=0.9 date=2026-10-06
+// partial score=0.91 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 //
@@ -166,7 +166,7 @@ private:
 void Rva0026E7C8Ctor::rva00332975(Xfer *xfer)
 {
 	xfer->Version1();
-	int count = (int)(m_vec.end() - m_vec.begin());
+	int count = (int)m_vec.size();
 	*xfer == count;
 	m_vec.reserve(count);
 	int i = 0;
