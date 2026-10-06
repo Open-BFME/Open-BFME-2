@@ -14210,3 +14210,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva004FBED6@Rva004FBED6Call@@QAEPAXXZ,0x004FBED6,address-derived helper names; direct rel32 call targets of 0x00576ACB; Ghidra extents are 184 B at 0x004FBED6 and 123 B at 0x005768CB; helper semantics and interface names unproven
 ?rva005768CB@Rva005768CBCall@@QAEXPAX@Z,0x005768CB,address-derived helper names; direct rel32 call targets of 0x00576ACB; Ghidra extents are 184 B at 0x004FBED6 and 123 B at 0x005768CB; helper semantics and interface names unproven
 ?rva005CCB4C@Rva005CCB4CCall@@QAE_NXZ,0x005CCB4C,address-derived bool helper; direct rel32 call target of 0x0057544B; 8-byte wrapper at 0x005CCB4C before rowed sibling 0x005CCB5B; purpose unproven
+??0Rva005D12E3@@QAE@XZ,0x005D1296,callee of ??0Rva00576591@@QAE@PAX@Z
+??0Rva005CCDDD@@QAE@XZ,0x005CCD94,direct base-constructor callee of 0x00575406; writes vtable 0x00C74F44, whose slot-0 deleting dtor at 0x005CCF2B is rowed; base association inferred and original class identity unknown
+?rva005CCB73@Rva005CCB73@@QAEXPAX@Z,0x005CCB73,direct second-argument callee of 0x00575406; 7-byte thunk loads this+8 then tail-jumps to 0x005CCACA; parameter purpose unknown
