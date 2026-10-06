@@ -64198,3 +64198,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva004E8FF6@Rva004E8FF6@@QAEXPAX@Z,,0x004E8FF6,74,Code/GameEngine/Source/Common/Rva004E8FF6Twins.cpp,matched,gated relationship walk with null step; full byte gate
 ?rva004E9040@Rva004E8FF6@@QAEXPAX@Z,,0x004E9040,76,Code/GameEngine/Source/Common/Rva004E8FF6Twins.cpp,matched,flagged twin of null step; full byte gate
 ?rva004E8D3E@Rva004E8D3E@@QAEHHHH@Z,,0x004E8D3E,72,Code/GameEngine/Source/Common/Rva004E8D3EGuard.cpp,matched,triple guard with shared tails via or-form; full byte gate
+??0Rva00567960@@QAE@HPBURva00567CCDInfo@@@Z,,0x00567CCD,135,Code/GameEngine/Source/Common/Rva00567CCDCtor.cpp,matched,MI ctor Mid base copies before vtables Button AsciiString Get stance
