@@ -64379,3 +64379,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva00574C1B@@UAE@XZ,,0x00574C1B,83,Code/GameEngine/Source/Common/Rva00574C1BDtor.cpp,matched,two-base dtor unregister via 0x002B7250 then pinned base 0x005746D2
 ??1Rva0056AD19@@UAE@XZ,,0x0056AD19,88,Code/GameEngine/Source/Common/Rva0056AD19Dtor.cpp,matched,MI-derived dtor member clear 0x002BED91 then ref release then base 0x0056AC26
 ??1Rva005D1D38@@UAE@XZ,,0x005D1D38,87,Code/GameEngine/Source/Common/Rva005D1D38Dtor.cpp,matched,two-base dtor guarded unregister via 0x002B7250 then pinned base 0x005CCDDD
+??1WeaponSet@@UAE@XZ,,0x002C7311,81,Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp,matched,ZH WeaponSet dtor shape: global delete of six slots then Snapshot base vtable
