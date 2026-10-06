@@ -10,6 +10,7 @@ public:
 	virtual void v0c();
 	virtual void v10();
 	virtual void v14(int value);
+	virtual void v18();
 };
 
 class Rva005E18B9Other
@@ -21,6 +22,7 @@ public:
 
 class Rva005E18B9
 {
+protected:
 	Rva005E18B9Inner *m_0;
 	char m_pad[0x20];
 	Rva005E18B9Other *m_24;
@@ -32,3 +34,28 @@ void Rva005E18B9::rva005E18B9()
 {
 	m_0->v14(m_24->m_14);
 }
+
+class Rva005E18D0Forwarder : public Rva005E18B9
+{
+public:
+	void tail005E18D0();
+};
+
+void Rva005E18D0Forwarder::tail005E18D0()
+{
+	if (m_24 != 0)
+		rva005E18B9();
+}
+
+class Rva005E18DCForwarder : public Rva005E18B9
+{
+public:
+	void tail005E18DC();
+};
+
+void Rva005E18DCForwarder::tail005E18DC()
+{
+	if (m_24 != 0)
+		m_0->v18();
+}
+
