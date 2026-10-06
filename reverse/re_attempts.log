@@ -11459,3 +11459,9 @@ FUN_009fd197	0x005FD197	186	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use r
 ??1Rva004FA2E2@@QAE@XZ	0x004FA2E2	231	blocked	complex multi-vector dtor with unclaimed funclet 0x004F9630 t=4 model=muse-spark
 ??1Rva004E6A9B@@QAE@XZ	0x004E6A9B	157	partial	missing 2 EH states before explicit clears at 0x44/0x40 t=18 model=muse-05 score=0.95 stash=reverse/attempts/0x004e6a9b.cpp
 ?rva0039E9E0@Rva005059A1Unit@@QAEXXZ	0x0039E9E0	47	partial	loop block order inverted test-bottom vs test-top t=15 model=muse-05 score=0.93 stash=reverse/attempts/0x0039e9e0.cpp
+?Rva006CDF60Shutdown@@YAXXZ	0x006CDF60	284	partial	mov direction esi-ecx swapped for both pool cleanups t=40 model=muse score=0.96 stash=reverse/attempts/0x006cdf60.cpp
+?Rva00447CA9Skip@@YAXXZ	0x00447CA9	812	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString t=2 model=muse
+?rva003B07B8@Rva003B0401@@QAEXXZ	0x003B07B8	125	partial	store-load order swapped ours mov ebp-8 ecx then mov eax eax+8 test vs retail mov eax eax+8 test mov ebp-8 ecx t=20 model=muse-02 score=0.96 stash=reverse/attempts/0x003b07b8.cpp
+FUN_007b0578	0x003B0578	576	blocked	ADDRESS-NAMED g_Va00BBB8D8 and g_Va00BC28F4 counted escape hatch publisher refuses t=2 model=muse-02
+??1Rva003B0344@@UAE@XZ	0x003B0344	169	blocked	EH dtor needs ThreadLock Assert plus VB layout plus ref at +4 and queues manual free beyond quick box t=12 model=muse-02
+??1Rva0038ADE2@@UAE@XZ	0x0038ADE2	327	blocked	EH dtor needs PeerThreadClass layout with 10 frees plus map trees plus string beyond quick box prior wall t=2 model=muse-02

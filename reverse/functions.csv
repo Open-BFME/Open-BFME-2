@@ -64526,3 +64526,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva002BF4F3@Rva002BF4F3@@QAE_NPAVRenderObjClass@@PBVVector3@@PAV3@H_N@Z,,0x002BF4F3,189,Code/Libraries/Source/WWVegas/WW3D2/Rva002BF4F3.cpp,matched,AABox early-out then Host Cast via pin at 0x002BF198 with box slot 0x108 and callers 0x002BF5B0 0x002BF935
 ?rva004FA978@Rva004FA978@@QAEXP8Rva004FA935Listener@@AEXPAX@Z0@Z,,0x004FA978,26,Code/GameEngine/Source/Common/Rva004FA978Forward.cpp,matched,forward same args to list at plus4 then tail to global g_00E044F0 via forEach 0x004FA935
 ??1Rva004E6A9B@@QAE@XZ,,0x004E6A9B,157,Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp,matched,nonvirtual dtor with implicit holder clears and 4 member dtors
+?rva002C6845@Rva002C6845@@QAEXXZ,,0x002C6845,52,Code/GameEngine/Source/Common/Rva002C6845Method.cpp,matched,pinned leaf with caller 0x004E9507 and rowed callees
