@@ -217,7 +217,14 @@ Rva00435DE7::Rva00435DE7(EmitVtableTag *)
 {
 }
 
-class Rva0043A351
+class Rva00355D66
+{
+public:
+	Rva00355D66();
+	virtual ~Rva00355D66();
+};
+
+class Rva0043A351 : public Rva00355D66
 {
 public:
 	Rva0043A351(EmitVtableTag *);
