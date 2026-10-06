@@ -14196,3 +14196,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0035C7CF@Shell@@QAEX_N@Z,0x0035C7CF,callee of ??1Rva0043A351@@UAE@XZ
 ?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
 ?Rva000E68C5SwayOffsets@@YAXPAUID3DXEffect@@PBD@Z,0x000E68C5,Vegetation FX SwayOffsets callback (banked partial; IV base); bound by dispatcher 0x000E67E3
+?Rva001F7888Size@@YAXPAUID3DXEffect@@PBD@Z,0x001F7888,Particle Update FX Size callback (banked partial; frame slot layout); bound by dispatcher 0x001F7740
