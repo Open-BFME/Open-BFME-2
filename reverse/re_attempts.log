@@ -11964,3 +11964,17 @@ FUN_0075b8aa	0x0035B8AA	673	blocked	673B ctor vtable 0x00816204 member types con
 ?rva0034F758@Rva0034F758@@QAEXXZ	0x0034F758	1055	blocked	over 1000B 1055B plus ADDRESS-NAMED g_Rva0107301CEmptyString t=1 model=muse-03
 ?rva0021857E@FontLibrary@@QAEPAVGameFont@@PBVAsciiString@@M_NH@Z	0x0021857E	296	blocked	ADDRESS-NAMED g_Va007C26F0 plus unresolved callee 0x00218468 t=1 model=muse-03
 ?rva00091D0D@Rva00091D0D@@QAEXXZ	0x00091D0D	37	blocked	unresolved callee 0x0010082F logged blocked t=1 model=muse-03
+?rva0052991E@Rva0052991E@@QAEXXZ	0x0052991E	259	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString packet says skip t=2 model=muse-06
+?named0029080C@@YA_XZ	0x0029080C	274	blocked	needs unclaimed callees 0xB3FA5 0x43846D t=2 model=muse-06
+?named00548DED@@YA_XZ	0x00548DED	393	blocked	needs unclaimed callees 0x548C59 0x548D62 t=2 model=muse-06
+?rva000B3FA5@Rva000B3FA5@@QAEXHH@Z	0x000B3FA5	43	blocked	branchless bit set regalloc wall 7reg 2mem same size tried unsigned signed array stepwise O1 t=8 model=muse-06
+?rva0048071D@Rva0048071D@@QAEXXZ	0x0048071D	170	blocked	ADDRESS-NAMED g_Va009FF0F8 packet says skip t=2 model=muse-06
+?rva005CDE01@Rva005CDE01@@QAEXXZ	0x005CDE01	48	blocked	needs unclaimed callees 0x5E5BF7 0x5E687F t=2 model=muse-06
+?rva005CDE31@Rva005CDE31@@QAEXXZ	0x005CDE31	56	blocked	needs unclaimed callees 0x5E5920 0x5E687F t=2 model=muse-06
+?rva001ECBAD@Rva001ECBAD@@QAEXXZ	0x001ECBAD	326	blocked	needs unclaimed callees 0x1EC0A0 0x1ECA2D t=2 model=muse-06
+?rva00554AF2@Rva00554AF2@@QAEXXZ	0x00554AF2	1150	blocked	big 1150B over 1000 not strong t=2 model=muse-06
+?rva001BC3D0@Rva001BC3D0@@QAEXXZ	0x001BC3D0	1503	blocked	big 1503B over 1000 not strong t=2 model=muse-06
+?rva003240A6@Rva003240A6@@QAEXXZ	0x003240A6	633	blocked	big 633B linkbody not strong t=2 model=muse-06
+?rva00625040@Rva00625040@@QAEXXZ	0x00625040	646	blocked	big 646B linkbody not strong t=2 model=muse-06
+?rva001E4DEB@Rva001E4DEB@@QAEXXZ	0x001E4DEB	961	blocked	big 961B leaf not strong t=2 model=muse-06
+?rva0053EDF4@Rva0053EDF4@@QAEXXZ	0x0053EDF4	286	blocked	ADDRESS-NAMED g_Va007C26F0 packet says skip t=2 model=muse-06
