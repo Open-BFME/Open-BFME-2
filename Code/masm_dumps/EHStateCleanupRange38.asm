@@ -2100,5 +2100,33 @@ cleanup_done_0079592c:
     ret
 ?rva0079592c@@YAXXZ ENDP
 
+; Unwind@00b8fb7e at RVA 0x0078FB7E; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-16] then tail-jumps with local [ebp-24] to VA 0x0088BA39.
+PUBLIC ?rva0078fb7e@@YAXXZ
+?rva0078fb7e@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-10h]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0078fb7e
+    and DWORD PTR [ebp-10h], -2
+    lea ecx, [ebp-18h]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0078fb7e:
+    ret
+?rva0078fb7e@@YAXXZ ENDP
+
+; Unwind@00b8fb97 at RVA 0x0078FB97; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 1 at [ebp-16] then tail-jumps with local [ebp-20] to VA 0x0088BA39.
+PUBLIC ?rva0078fb97@@YAXXZ
+?rva0078fb97@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-10h]
+    and eax, 2
+    jz NEAR PTR cleanup_done_0078fb97
+    and DWORD PTR [ebp-10h], -3
+    lea ecx, [ebp-14h]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0078fb97:
+    ret
+?rva0078fb97@@YAXXZ ENDP
+
 _TEXT ENDS
 END
