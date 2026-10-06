@@ -64532,3 +64532,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?executeCrateBehavior@UnitCrateCollide@@MAE_NPAVObject@@@Z,,0x004BCCBD,373,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollideExecute.cpp,matched,UnitCrateCollide execute slot12 vtable0085A914 donorZH
 ?rva003F20E5@Rva003F209C@@QAEXHH@Z,,0x003F20E5,33,Code/GameEngine/Source/Common/System/Rva003F209CClear20E5.cpp,matched,caller 0x0020FB72 plus rowed 0x003F209C plus pin 0x003F076D
 ?rva0048C7BF@FlammableUpdate@@QAEXXZ,,0x0048C7BF,96,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateRva0048C7BF.cpp,matched,FlammableUpdate audio start via rowed ctor dtor TheAudio
+?xfer@TeamPrototype@@MAEXPAVXfer@@@Z,,0x003A3E74,473,Code/GameEngine/Source/Common/RTS/TeamPrototypeXfer.cpp,matched,vslot3 xfer two dispatches plus version plus team walks

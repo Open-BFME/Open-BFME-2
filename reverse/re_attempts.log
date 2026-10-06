@@ -11470,3 +11470,4 @@ FUN_007b0578	0x003B0578	576	blocked	ADDRESS-NAMED g_Va00BBB8D8 and g_Va00BC28F4 
 FUN_004b071d	0x000B071D	314	blocked	complex 314B EH STL no donor unclaimed code ref t=8 model=muse-10
 FUN_009f267e	0x005F267E	189	blocked	ADDRESS-NAMED g_Va00BBB8D8 use refused t=2 model=muse-10
 FUN_0070c40a	0x0030C40A	156	blocked	virtual-base EH dtor vbase90 array forEach needs family t=10 model=muse-10
+?rva00350020@Rva00346CDD@@UAE?AW4StateReturnType@@XZ	0x00350020	198	blocked	ADDRESS-NAMED g_Va009FF0F8 at 0x009FF0F8 counted escape hatch plus new use refused t=2 model=muse-04
