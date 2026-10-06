@@ -113,3 +113,26 @@ extern "C" bool Rva0043802B(int kind, const UnicodeString &title,
 {
  return ((Rva0054D3E1Prompt *)g_Va00E032FC)->prompt(kind, title, message, callback);
 }
+
+
+// Target Ghidra FUN_00838083 [438083,43812F) is a 172B cdecl prompt
+// wrapper. The exact body ends in ret at +0xAB. Retail reads the prompt from
+// g_Va00E032FC, passes kind/title/message to 54D4CD, and keeps the two
+// counted callback values alive across that call. The owner and behavior
+// remain address-derived; 54D4CD is a five-argument thiscall child forwarder.
+class Rva0054D4CDPrompt
+{
+public:
+ bool prompt(int, const UnicodeString &, const UnicodeString &,
+  TreeHintRef00217D4C, TreeHintRef00217D4C);
+};
+
+extern "C" bool Rva00438083(int kind, const UnicodeString &title,
+ const UnicodeString &message, TreeHintRef00217D4C callback1,
+ TreeHintRef00217D4C callback2)
+{
+ if (g_Va00E032FC == 0)
+  return false;
+ return ((Rva0054D4CDPrompt *)g_Va00E032FC)->prompt(
+  kind, title, message, callback1, callback2);
+}
