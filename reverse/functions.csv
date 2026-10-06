@@ -64767,3 +64767,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?M948@Rva00604xx@@QAEHPBDPAX@Z,,0x00604948,59,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 604948: utf8-to-wide plus virt24; /O1
 ?Set@Rva005FFF62@@QAEXH_N@Z,,0x005FFF62,95,Code/GameEngine/Source/Common/Rva005FFF62Family.cpp,matched,apt swap-button state: idx*2+0x4C cache plus _up/_disabled plus SetSwapButtonState; /O1
 ?Set2@Rva005FBAFE@@QAEXH@Z,,0x005FBAFE,79,Code/GameEngine/Source/Common/Rva005FFF62Family.cpp,matched,try b0 first
+?rva004E9446@Rva004E94FB@@QAEXXZ,,0x004E9446,91,Code/GameEngine/Source/Common/Rva004E9446Erase.cpp,matched,predicate-gated erase walk over vector at +0x18; rowed pred 0x004E9378 delete 0x0002FD60 erase 0x001FF51F helper pin 0x00596B10
