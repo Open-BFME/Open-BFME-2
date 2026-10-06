@@ -81,6 +81,8 @@ public:
 protected:
 	Node *_M_clone_node(Node *x);
 	Node *_M_create_node(const Value &x);
+	Node *m_header;
+	unsigned int m_nodeCount;
 
 private:
 	Node *_M_copy(Node *x, Node *p);
@@ -128,4 +130,63 @@ typedef _Rb_tree<NameKeyType, ModuleFactoryMapValue, ModuleFactoryMapKeyOf, Modu
 template ModuleFactoryMapTree::Node *ModuleFactoryMapTree::_M_clone_node(Node *x);
 template ModuleFactoryMapTree::Node *ModuleFactoryMapTree::_M_copy(Node *x, Node *p);
 
+}
+
+// Target 0x0029FBC9 is the unsigned-key STLport insertion variant. Its
+// 136-byte Ghidra boundary ends in RET 20, including the iterator result
+// pointer. Unlike the signed-key body at 0x0041362C, its comparison is JB.
+// Both calls reach the independently rowed node creator at 0x0029E11A:
+// a 32-byte node, 16 bytes of links and a 16-byte key/value record. The
+// application's type name at this call site remains unproved; this address
+// name records the variant without assigning it ModuleFactory's _M_insert.
+// Algorithm reference: vendor/stlport/stl/_tree.c::_M_insert.
+namespace _STL {
+template <class T> struct _Rb_global {
+    static void _Rebalance(_Rb_tree_node_base *, _Rb_tree_node_base *&);
+};
+}
+
+struct Rva0029FBC9Iterator
+{
+    _STL::_Rb_tree_node_base *m_node;
+    Rva0029FBC9Iterator(_STL::_Rb_tree_node_base *node) : m_node(node) {}
+};
+
+class Rva0029FBC9Tree : public _STL::ModuleFactoryMapTree
+{
+public:
+    Rva0029FBC9Iterator insert(_STL::_Rb_tree_node_base *x,
+        _STL::_Rb_tree_node_base *y, const _STL::ModuleFactoryMapValue &value,
+        _STL::_Rb_tree_node_base *forceRight);
+};
+
+// ?insert@Rva0029FBC9Tree@@QAE?AURva0029FBC9Iterator@@PAU_Rb_tree_node_base@_STL@@0ABU?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@4@0@Z
+Rva0029FBC9Iterator Rva0029FBC9Tree::insert(_STL::_Rb_tree_node_base *x,
+    _STL::_Rb_tree_node_base *y, const _STL::ModuleFactoryMapValue &value,
+    _STL::_Rb_tree_node_base *forceRight)
+{
+    Node *node;
+    if (y == m_header || (forceRight == 0 &&
+        (x != 0 || (unsigned int)value.first <
+            (unsigned int)((Node *)y)->m_value.first))) {
+        node = _M_create_node(value);
+        y->m_left = node;
+        if (y == m_header) {
+            m_header->m_parent = node;
+            m_header->m_right = node;
+        } else if (y == m_header->m_left) {
+            m_header->m_left = node;
+        }
+    } else {
+        node = _M_create_node(value);
+        y->m_right = node;
+        if (y == m_header->m_right)
+            m_header->m_right = node;
+    }
+    node->m_parent = y;
+    node->m_left = 0;
+    node->m_right = 0;
+    _STL::_Rb_global<bool>::_Rebalance(node, m_header->m_parent);
+    ++m_nodeCount;
+    return Rva0029FBC9Iterator(node);
 }
