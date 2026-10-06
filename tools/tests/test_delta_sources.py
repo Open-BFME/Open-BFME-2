@@ -62,8 +62,15 @@ class DeltaTest(unittest.TestCase):
 
     def test_corrupt_head_commit(self):
         oid = self.git('rev-parse', 'HEAD').stdout.decode().strip()
-        (self.root / '.git/objects' / oid[:2] / oid[2:]).unlink()
+        self.remove_object(oid)
         self.refused(self.cli('--staged'))
+
+    def remove_object(self, oid):
+        # Git writes loose objects read-only; Windows requires making the
+        # isolated fixture's object writable before simulating corruption.
+        path = self.root / '.git/objects' / oid[:2] / oid[2:]
+        path.chmod(0o600)
+        path.unlink()
 
     def test_absent_historical_and_index(self):
         out = self.cli('--staged')
@@ -121,7 +128,7 @@ class DeltaTest(unittest.TestCase):
     def test_missing_blob_is_not_absence(self):
         self.ledger(HEADER + A, True)
         oid = self.git('rev-parse', 'HEAD:reverse/functions.csv').stdout.decode().strip()
-        (self.root / '.git/objects' / oid[:2] / oid[2:]).unlink()
+        self.remove_object(oid)
         self.refused(self.cli('--range', self.empty, 'HEAD'))
         self.refused(self.cli('--staged'))
 
@@ -135,8 +142,13 @@ class DeltaTest(unittest.TestCase):
     def test_symlink_ledger_rejected(self):
         path = self.root / 'reverse/functions.csv'
         path.parent.mkdir()
-        path.symlink_to('../sentinel')
-        self.git('add', 'reverse/functions.csv')
+        # The guard checks Git's symlink mode, not the working-tree target.
+        # Build that index entry directly so the test needs no OS privilege.
+        oid = subprocess.check_output(
+            ['git', '-C', str(self.root), 'hash-object', '-w', '--stdin'],
+            input=b'../sentinel').decode().strip()
+        self.git('update-index', '--add', '--cacheinfo',
+                 f'120000,{oid},reverse/functions.csv')
         self.refused(self.cli('--staged'))
 
 if __name__ == '__main__': unittest.main()
