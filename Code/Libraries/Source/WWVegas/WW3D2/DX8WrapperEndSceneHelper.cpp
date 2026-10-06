@@ -60,10 +60,7 @@ struct Rva00959410Ptr
 {
 	Rva00958910Object *m_p;
 
-	operator bool() const
-	{
-		return m_p != 0;
-	}
+	operator bool() const;
 
 	Rva00958910Object *operator->() const
 	{
@@ -76,6 +73,6 @@ extern Rva00959410Ptr Rva00959410Dispatch;
 // ?bfmeEndSceneTouch00958910@@YAXPAX@Z
 void bfmeEndSceneTouch00958910(void *argument)
 {
-	if (Rva00959410Dispatch)
+	if (Rva00959410Dispatch.m_p != 0)
 		Rva00959410Dispatch->invoke(argument);
 }
