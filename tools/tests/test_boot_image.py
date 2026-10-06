@@ -47,6 +47,8 @@ class CheckImage(unittest.TestCase):
     def setUpClass(cls):
         cls.r = boot_image.Retail()
         rep = json.loads((BOOT / "boot.json").read_text())
+        if rep.get("relayout"):
+            raise unittest.SkipTest("build/boot holds a boot_relayout.py image (test_boot_relayout.py checks those)")
         cls.pieces = boot_image.layout(cls.r, rep.get("overlay", {}).get("specs", ()))[0]   # boot_smoke may overlay
         cls.base = int(rep["base"], 16)
         cls.publics = boot_image.read_publics(BOOT / "boot.map", cls.base)

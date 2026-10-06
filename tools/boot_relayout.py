@@ -131,10 +131,47 @@ def instruction_starts(r, lo, hi):
     return {a for a, _, _, _ in md.disasm_lite(text[lo - tstart:hi - tstart], lo)}
 
 
-def choose_moves(r, units, branches, pinned=None):
+TERMINATORS = {"ret", "retf", "jmp", "ljmp", "int3", "ud2", "hlt", "iretd"}
+
+
+def falls_through(r, lo, hi, siteset):
+    """Whether the code in [lo, hi) can run on past hi: decoded linearly (stopping at
+    data, a relocation site where an instruction would start), the last instruction
+    ends exactly at hi and is not a ret / jmp / int3."""
+    tstart, _, text = r.secs[".text"]
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    last = None
+    for addr, size, mnem, _ops in md.disasm_lite(text[lo - tstart:hi - tstart], lo):
+        if addr in siteset:
+            return False
+        last = (addr + size, mnem)
+    return last is not None and last[0] == hi and last[1] not in TERMINATORS
+
+
+def fallthrough_pins(r, units, siteset):
+    """{unit rva: why}: units joined to the code before or after them by
+    fall-through (no branch to follow: a compiler initializer split in two rows, a
+    call to a no-return function at a row's end), which must keep retail's order."""
+    starts = sorted(set(bi.function_starts()) | {u.rva for u in units})
+    begins = {u.rva for u in units}
+    pins = {}
+    for u in units:
+        i = bisect.bisect_left(starts, u.rva)
+        prev = starts[i - 1] if i else None
+        if prev is not None and u.rva - prev < 0x4000 and falls_through(r, prev, u.rva, siteset):
+            pins[u.rva] = "falls-through-in"
+        if falls_through(r, u.rva, u.rva + u.size, siteset):
+            pins.setdefault(u.rva, "falls-through-out")
+            if u.rva + u.size in begins:
+                pins.setdefault(u.rva + u.size, "falls-through-in")
+    return pins
+
+
+def choose_moves(r, units, branches, pinned=None, siteset=frozenset()):
     """(moved units, {unit rva: why kept}, scaffold redirects [(site, unit, target)],
     counts). A unit moves unless something that cannot be relocated reaches into
-    it or leaves it; keeping one can keep others (fixpoint)."""
+    it or leaves it (a short branch, an unrelocated branch, fall-through); keeping
+    one can keep others (fixpoint)."""
     spans = sorted((u.rva, u.rva + u.size, u) for u in units)
     los = [s[0] for s in spans]
 
@@ -142,6 +179,8 @@ def choose_moves(r, units, branches, pinned=None):
         i = bisect.bisect_right(los, t) - 1
         return spans[i][2] if i >= 0 and t < spans[i][1] else None
     kept, counts = dict(pinned or {}), collections.Counter()
+    for k, v in fallthrough_pins(r, units, siteset).items():
+        kept.setdefault(k, v)
     rel32 = {u.rva: {o for o, k, n in u.relocs if k == bi.REL32} for u in units}
     for u in units:
         if u.rva <= r.entry < u.rva + u.size:
@@ -244,11 +283,12 @@ def is_writable(r, rlo, o, sec):
     return r.section_of(rlo) in (".data", "STLPORT_") or bool(o[0][sec - 1].flags & WRITABLE)
 
 
-def plan_own(r, live, refs, by_target, objs, banned=()):
+def plan_own(r, live, refs, by_target, objs, banned=(), sites=()):
     """({rlo: (size, path, sec, lo, writable)} owned data, Counter of bytes not owned
     by reason, Counter of data not owned by reason). `refs` {unit rva: [(rlo, size,
     path, sec, lo)]} are the defined-data references bind_unit saw; writable data is
-    owned only when every retail reference to it lies in a live unit."""
+    owned only when every retail reference to it lies in a live unit, and data whose
+    relocations are not exactly retail's sites there stays retail's."""
     spans = sorted((u.rva, u.rva + u.size) for u in live)
     los = [s[0] for s in spans]
 
@@ -283,6 +323,9 @@ def plan_own(r, live, refs, by_target, objs, banned=()):
                 why[rlo] = (n, "writable-shared-with-retail-code")
             elif any(not lo <= x[0] <= lo + n - 4 or x[2] != bi.DIR32 for x in relocs):
                 why[rlo] = (n, "reloc-not-dir32-inside")
+            elif {rlo + x[0] - lo for x in relocs} != set(sites[bisect.bisect_left(sites, rlo):
+                                                                 bisect.bisect_left(sites, rlo + n - 3)]):
+                why[rlo] = (n, "relocs-not-retail-sites")
             else:
                 owned[rlo] = (n, path, sec, lo, w)
         if rlo < prev_end:                          # overlapping retail ranges: neither is ours
@@ -576,13 +619,13 @@ def admit(r, sites, lost, rows, objs, own_data, banned_data):
     live, refused, names = bi.overlay_plan(r, sites, lost, rows, objs, opts)
     owned, nb, nd = {}, collections.Counter(), collections.Counter()
     for _ in range(6):
-        owned, nb, nd = plan_own(r, live, opts["ctx"]["datum_refs"], by_target, objs, banned_data)
+        owned, nb, nd = plan_own(r, live, opts["ctx"]["datum_refs"], by_target, objs, banned_data, sites)
         opts.update(defer_data=False, own={k: v[0] for k, v in owned.items()}, datum_refs={})
         live2, refused, names = bi.overlay_plan(r, sites, lost, rows, objs, opts)
         stable = {u.rva for u in live2} == {u.rva for u in live}
         live = live2
         if stable:
-            again = plan_own(r, live, opts["ctx"]["datum_refs"], by_target, objs, banned_data)[0]
+            again = plan_own(r, live, opts["ctx"]["datum_refs"], by_target, objs, banned_data, sites)[0]
             if again.keys() == owned.keys():
                 break
     return live, refused, names, opts["ctx"], owned, nb, nd
@@ -615,7 +658,7 @@ def build_image(base=0x10000000, out=bi.OUT, tag="boot", overlay=(), status=bi.L
         pinned = {} if relayout else {u.rva: "relayout-off" for u in live}
         for _ in range(4):
             pieces, problems = bi.plan(r, usites, live)
-            moved_units, kept, redirects, mcounts = choose_moves(r, live, branches, pinned)
+            moved_units, kept, redirects, mcounts = choose_moves(r, live, branches, pinned, set(usites))
             scaffold, moved, bad_redirects = relayout_pieces(pieces, moved_units, redirects, seed)
             if not bad_redirects:
                 break
@@ -679,7 +722,8 @@ def build_image(base=0x10000000, out=bi.OUT, tag="boot", overlay=(), status=bi.L
         layout = {"scaffold": scaffold, "moved": moved, "datums": datums, "branches": branches, "sites": usites,
                   "publics": publics}
         history.append({"round": rnd + 1, "units": len(live), "moved": len(moved), "blamed": len(blame),
-                        "reloc-bad": counts.get("reloc-bad"), "bytes-differ": counts.get("bytes-differ")})
+                        "reloc-bad": counts.get("reloc-bad"), "bytes-differ": counts.get("bytes-differ"),
+                        "examples": bad[:8]})
         unit_blame = {k[1]: v for k, v in blame.items() if k[0] == "unit"}
         data_blame = {k[1] for k in blame if k[0] == "datum"}
         if not blame or rnd + 1 == rounds:

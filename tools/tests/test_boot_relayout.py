@@ -227,5 +227,20 @@ class OwnData(unittest.TestCase):
         self.assertTrue(all(why.startswith("datum-differs") for _, why in refused))
 
 
+class FallThrough(unittest.TestCase):
+    """A row entered by fall-through cannot move: nothing branches to it."""
+    def test_split_initializer_tail_is_pinned(self):
+        import types
+        import boot_relayout
+        r = boot_image.Retail()
+        sites = set(boot_image.all_sites(r)[0])
+        # 0x7AE8B0: mov ecx, theSystemString; call ctor -- then runs on into the
+        # ??__EtheSystemString row at 0x7AE8BA (push dtor; call _atexit; pop ecx; ret)
+        tail = types.SimpleNamespace(rva=0x7AE8BA, size=12)
+        whole = types.SimpleNamespace(rva=0x7AE8B0, size=22)
+        self.assertEqual(boot_relayout.fallthrough_pins(r, [tail], sites), {0x7AE8BA: "falls-through-in"})
+        self.assertEqual(boot_relayout.fallthrough_pins(r, [whole], sites), {})
+
+
 if __name__ == "__main__":
     unittest.main()
