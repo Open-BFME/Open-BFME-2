@@ -1,6 +1,8 @@
 // ?rva0021857E@FontLibrary@@QAEPAVGameFont@@PBVAsciiString@@M_NH@Z
+// partial score=0.9869 date=2026-10-06
+// ?rva0021857E@FontLibrary@@QAEPAVGameFont@@PBVAsciiString@@M_NH@Z
 // partial score=0.95 date=2026-10-02
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Oy-
 // stlport
 //
 // ?rva002186A6@FontLibrary@@QAEPAXPBVAsciiString@@M@Z, retail 0x002186A6, 69 bytes.
@@ -66,6 +68,20 @@ public:
 	int style;               // +0x1C
 };
 
+// The existing matched 0x002173E3 helper prepends a node through +0x04 and
+// updates the FontLibrary list head/count at +0x0C/+0x10.
+struct Rva002173E3Node
+{
+	int m_pad;
+	Rva002173E3Node *m_next;
+};
+
+class Rva002173E3
+{
+public:
+	void rva002173E3(Rva002173E3Node *node);
+};
+
 struct BfmeFontRecord
 {
 	unsigned char m_pad[8];
@@ -79,7 +95,6 @@ public:
 	GameFont *getFont(const AsciiString *name, float size, bool bold);
 	GameFont *rva0021857E(const AsciiString *name, float size, bool bold, int style);
 	void rva00218468(AsciiString *name, float *size, bool *bold);
-	void rva002173E3(GameFont *font);
 
 	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
 	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
@@ -89,7 +104,7 @@ public:
 private:
 	char m_pad04[0x0C - 4];
 	GameFont *m_fontList; // +0x0C
-	char m_pad10[0x14 - 0x10];
+	int m_fontCount; // +0x10, updated by the matched list-prepend helper
 	_STL::map<AsciiString, AsciiString> m_tables;
 };
 
@@ -126,8 +141,8 @@ GameFont *FontLibrary::getFont(const AsciiString *name, float size, bool bold)
 // normalised by 0x00218468 (pinned), and fonts also match on style (+0x1C).
 GameFont *FontLibrary::rva0021857E(const AsciiString *namePtr, float size, bool bold, int style)
 {
-	float fstyle = (float)style;
-	size = size * fstyle + 0.5f;
+	const float fstyle = (float)style;
+	size = fstyle * size + 0.5f;
 	size = (float)(floor(size) / fstyle);
 	AsciiString name(*namePtr);
 	rva00218468(&name, &size, &bold);
@@ -141,13 +156,15 @@ GameFont *FontLibrary::rva0021857E(const AsciiString *namePtr, float size, bool 
 	}
 
 	font = new GameFont;
-	if (font == 0)
+	if (0 == font)
 		return 0;
 
 	font->nameString = name;
+	const bool newBold = bold;
+	const float newSize = size;
 	font->fontData = 0;
-	font->pointSize = size;
-	font->bold = bold;
+	font->pointSize = newSize;
+	font->bold = newBold;
 	font->style = style;
 
 	if (loadFontData(font) == false)
@@ -156,6 +173,6 @@ GameFont *FontLibrary::rva0021857E(const AsciiString *namePtr, float size, bool 
 		return 0;
 	}
 
-	rva002173E3(font);
+	((Rva002173E3 *)this)->rva002173E3((Rva002173E3Node *)font);
 	return font;
 }

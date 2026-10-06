@@ -1,4 +1,6 @@
 // ?rva0039DC05@Team@@QBEHH_N0@Z
+// partial score=0.888 date=2026-10-06
+// ?rva0039DC05@Team@@QBEHH_N0@Z
 // partial score=0.96 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 //
@@ -9,8 +11,8 @@
 // slot, via the rowed Object::testStatus) when asked - Zero Hour's
 // countObjectsByThingTemplate filters applied to a kind instead of a
 // template list. Same member walk as TeamRva0039DDC2.cpp. Retail tests the
-// kind test's AL, so it is declared bool here (alias pin beside the row's
-// int-returning name). Caller 0x003E5E6A.
+// kind test's AL; keep the existing int-returning row name and convert its
+// low byte at the call site instead of introducing an alias. Caller 0x003E5E6A.
 
 class Object;
 
@@ -35,7 +37,7 @@ enum ObjectStatusTypes
 class ThingTemplate
 {
 public:
-	bool rva000456AC(int kind) const;
+	int rva000456AC(int kind) const;
 };
 
 class Object
@@ -69,7 +71,7 @@ int Team::rva0039DC05(int kind, bool ignoreDead, bool ignoreUnderConstruction) c
 			continue;
 		if (ignoreUnderConstruction && obj->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
 			continue;
-		if (!obj->getTemplate()->rva000456AC(kind))
+		if (!(unsigned char)obj->getTemplate()->rva000456AC(kind))
 			continue;
 		++count;
 	}

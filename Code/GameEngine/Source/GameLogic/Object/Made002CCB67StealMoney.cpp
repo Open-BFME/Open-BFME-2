@@ -1,13 +1,15 @@
 // ?rva0050B62B@Made002CCB67@@UAEXPBURva0050B62BArg@@PAVObject@@@Z
-// partial score=0.94 date=2026-10-05
+// Slot 5 (vtable offset 0x14) from the target table at 0x00864D80. The
+// matched ctor at 0x0050B6B4 installs this table for the nugget
+// allocated by parseStealMoneyNugget. The method name remains
+// address-derived; identity is limited to this class and slot.
+// Target layout evidence: the matched ctor places the amount at
+// +0x128 over rowed base Rva00507823. Retail accesses Player money
+// at +0x90 and its tracker at +0x3BC. Retail callees are the rowed
+// findObjectByID, getControllingPlayer, withdraw and deposit bodies.
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // ?rva0050B62B@Made002CCB67@@UAEXPBURva0050B62BArg@@PAVObject@@@Z retail 0x0050B62B 137B
-// Evidence: vslot slot 5 (offset 0x14) of vtable 0x00864D80 installed by
-// ??0Made002CCB67 0x0050B6B4; StealMoney nugget built by parseStealMoneyNugget
-// 0x002CCB8C; callees findObjectByID 0x00049DC5 + getControllingPlayer
-// 0x0028AFA9 + Money withdraw 0x003B0CB3 / deposit 0x003B0D7C + __ftol2;
-// float amount at +0x128 same as ctor; Player Money at +0x90 tracker at +0x3BC.
 enum ObjectID
 {
 	INVALID_ID = 0
@@ -89,7 +91,6 @@ private:
 	float m_128;
 };
 
-// ?rva0050B62B@Made002CCB67@@UAEXPBURva0050B62BArg@@PAVObject@@@Z present-unmatched
 void Made002CCB67::rva0050B62B(const Rva0050B62BArg *arg, Object *other)
 {
 	Object *object = TheGameLogic->findObjectByID(arg->m_08);
@@ -102,6 +103,6 @@ void Made002CCB67::rva0050B62B(const Rva0050B62BArg *arg, Object *other)
 	if (!victim)
 		return;
 	unsigned int taken = victim->m_money90.rva003B0CB3((unsigned int)m_128, &victim->m_tracker, true);
-	int deposit = (int)(float)taken;
-	thief->m_money90.rva003B0D7C(deposit, (Rva0039B7AD *)&thief->m_tracker, true);
+	float amount = (float)taken;
+	thief->m_money90.rva003B0D7C((int)amount, (Rva0039B7AD *)&thief->m_tracker, true);
 }

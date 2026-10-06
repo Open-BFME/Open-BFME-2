@@ -1,4 +1,6 @@
 // ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
+// partial score=0.9886 date=2026-10-06
+// ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
 // partial score=0.988 date=2026-10-05
 // cl: /Ireference/shims/bfme2renderobj /Ireference/shims /Ireference/shims/bfmerendobj /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfmevector /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // HLodClass::Update_Obj_Space_Bounding_Volumes, RVA19DB50, 2501B: near miss.
