@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // HTreeClass::Get_Bone_Index (retail 0x00160B60, 68 bytes),
 // HTreeClass::Get_Bone_Name (retail 0x00160BB0, 22 bytes) and

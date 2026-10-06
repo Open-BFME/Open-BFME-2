@@ -1,4 +1,4 @@
-// cl: /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00118810@@YAXXZ 0x00118810 129 unlock DX8 render-state setup via Set_DX8_Render_State caller 0x00155AD0
 class DX8Wrapper
 {

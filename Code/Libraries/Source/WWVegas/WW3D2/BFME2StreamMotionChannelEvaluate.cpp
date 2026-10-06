@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Slots 3, 4 and 5 of the two BFME 2 stream motion channel encodings: slot
 // 3 at 0x001B28FA (encoding 1, table 0x007D6CD0) and 0x001B2B5F (encoding

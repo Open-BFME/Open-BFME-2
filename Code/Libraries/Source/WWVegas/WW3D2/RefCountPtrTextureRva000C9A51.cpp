@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /MD /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // ?rva000C9A51@Rva000C9A51@@QAEXXZ @0x000C9A51 30B
 // Neighbours Rva000C99F9Destroy and W3DLaserDrawModuleData ctor; unlocks 0x000C9C17.
 // Evidence: dual RefCountPtr<TextureClass> destroy call 0x000C99F9 then free 0x00030830 of +0 member; caller 0x000C9CAD.

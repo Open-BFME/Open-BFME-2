@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /MD
+// cl: /MD
 //
 // MeshModelClass::get_sort_flags(int), retail 0x00189270, 125 bytes.
 // Dedicated TU so meshmdlio.cpp keeps its matched bodies.

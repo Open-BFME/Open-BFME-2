@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BfmeResetShaderRef::operator=(const BfmeResetAnyRef &), retail 0x0015142A,
 // 50 bytes. Dedicated TU so dx8wrapper.cpp and the texture-assign unit cannot

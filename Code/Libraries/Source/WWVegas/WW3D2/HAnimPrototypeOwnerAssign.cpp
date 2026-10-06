@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // HAnimPrototypeOwner assign-from-Ref (retail 0x0014CDE4, 48 bytes).
 // Validates the source prototype's FourCC via slot 0x34 ("MINA" 0x414E494D);
 // null or matching sources assign through the folded 4B-holder copy at

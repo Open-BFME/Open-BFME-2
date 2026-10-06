@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // EA Zero Hour meshmatdesc.h single-texture getter, adapted to BFME2 handles.
 // Retail D2026: complete 37B body; texture slots at +0x78 with pass/stage indexing.
 // The out-of-line handle copy at 424BB is the existing 21B AssetReference copy

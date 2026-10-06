@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /Oy /DNDEBUG /MD
+// cl: /Oy /DNDEBUG /MD
 //
 // DX8TextureCategoryClass::Remove_Polygon_Renderer, retail 0x001460E0, 78 bytes.
 // Dedicated TU so the matched bodies in dx8renderer.cpp stay untouched.

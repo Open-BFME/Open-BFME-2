@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Debug_Statistics::Begin_Statistics, retail 0x0012A400, 67 bytes. Eleven
 // dword counters zeroed, then two helpers. /O2 tail-jumps the second.

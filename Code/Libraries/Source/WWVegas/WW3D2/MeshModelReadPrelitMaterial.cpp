@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE2 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?read_prelit_material@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
 // retail 0x0018B4F0 (249 bytes).

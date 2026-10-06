@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0016ABC0@MeshGeometryClass@@QAEPAVVector3@@XZ
 //
 // MeshGeometryClass::rva0016ABC0 at 0x0016ABC0 (20 bytes): returns

@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib
 //
 // ??1DX8MeshRendererClass@@QAE@XZ at retail 0x00147F60 (172B). Dedicated TU:
 // the Code/ dx8renderer.cpp TU builds against the ZH header (file-static

@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
 //
 // Animatable3DObjClass::Release at 0x001A4AA0.
 //

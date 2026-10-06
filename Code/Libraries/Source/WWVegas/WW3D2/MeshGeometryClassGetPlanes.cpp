@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?get_planes@MeshGeometryClass@@IAEPAVVector4@@_N@Z
 //
 // MeshGeometryClass::get_planes at 0x0016AC00 (136 bytes): lazily builds

@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE2 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?read_material_pass@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
 // retail 0x0018B400 (175 bytes).

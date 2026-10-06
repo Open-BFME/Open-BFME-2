@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // BFME1 MaterialInfoCopyCtor.cpp, adapted to BFME2 RVA 0x16FFD0 (351B).
 // Uses the layout and vector vtable identities already established by
 // MaterialInfoClassCtor.cpp. Upstream matinfo.cpp clones vertex materials;

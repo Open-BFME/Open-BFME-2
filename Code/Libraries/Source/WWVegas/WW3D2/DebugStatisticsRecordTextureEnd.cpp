@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Record_Texture_End@@YAXXZ, retail 0x00129E50, 948 bytes. Dedicated TU so
 // the /G7 scheduling this body needs cannot disturb the TextureStatistics

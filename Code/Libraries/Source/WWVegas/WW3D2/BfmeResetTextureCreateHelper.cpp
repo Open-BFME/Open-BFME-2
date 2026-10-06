@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00120720CreateTexture@@YAPAXHHHHHH@Z, retail
 // 0x00120720 (137 bytes). Cdecl D3DX texture creator behind the backend

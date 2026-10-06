@@ -1,4 +1,4 @@
-// cl: /O2 /G6 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // FontCharsClass::Get_Char_Data, retail 0x00158520, 81 bytes.
 // Dedicated TU. Retail is a map lookup at this+0x450, not the ZH

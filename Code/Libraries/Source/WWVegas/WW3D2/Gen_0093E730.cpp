@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHs-c- /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHs-c- /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // DynamicVectorClass::Add of an 8-byte record whose second word is a COM
 // pointer (AddRef slot 1, Release slot 2).
 

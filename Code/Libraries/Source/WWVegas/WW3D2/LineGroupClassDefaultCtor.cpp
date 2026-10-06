@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE2 /MD
+// cl: /MD
 //
 // LineGroupClass default ctor, retail 0x001B3490, 114 bytes.
 // Dedicated TU so linegrp.cpp keeps its other bodies.

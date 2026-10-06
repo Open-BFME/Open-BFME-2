@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // PointGroupClass shader-prep, retail 0x00179180 (108 bytes). BFME1 port of
 // PointGroupClassPrepareShader.cpp (their 0x00912E60, 153 bytes, x87): disable
 // the extra cull bit, then set primary gradient from the 0.9961 (254/255)

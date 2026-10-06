@@ -1,4 +1,4 @@
-// cl: /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // DX8Wrapper::Get_DX8_Render_State_Value_Name (retail 0x00121A10, 651 bytes):
 // switch over the D3D render state formatting the value into a StringClass.
 // BFME1 dx8wrapper.cpp verbatim: retail's switch map (states 7..195) sends

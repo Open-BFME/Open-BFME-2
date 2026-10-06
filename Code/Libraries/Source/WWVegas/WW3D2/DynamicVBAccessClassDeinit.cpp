@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /MD
+// cl: /MD
 //
 // DynamicVBAccessClass::_Deinit, retail 0x0013A840, 150 bytes.
 // Dedicated TU so bfmedynamicvertexbuffer.cpp keeps its matched bodies.

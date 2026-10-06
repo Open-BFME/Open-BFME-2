@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /EHsc
+// cl: /DNDEBUG /EHsc
 // ?rva0018FB70@HCompressedAnimClass@@UAEHXZ @0x0018FB70 166B
 // Retail vtable 0x007D5D88 slot 22 offset 0x58 of ctor 0x0018F0E0.
 // BFME2 VectorMotion (24B rows at +0x58) plus NodeMotion (28B rows at +0x54)

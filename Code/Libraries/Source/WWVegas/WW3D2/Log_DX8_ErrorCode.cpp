@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 //
 // Log_DX8_ErrorCode, retail 0x0011F450, 88 bytes.
 // Dedicated TU. Retail is a typed crash dump (fourcc DXER plus the HRESULT)

@@ -1,5 +1,5 @@
 // ?Rva00118AC0@@YAXXZ
-// cl: /G7 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00118AC0@@YAXXZ @ 0x00118AC0 (138B): stencil-gated Clear unlock.
 // Sets the unlock flag, and when Has_Stencil (rowed in dx8wrapper.cpp) is true
 // decrements the gate counter 0x00DB5FB4, wrapping to 0xFF when it drops below

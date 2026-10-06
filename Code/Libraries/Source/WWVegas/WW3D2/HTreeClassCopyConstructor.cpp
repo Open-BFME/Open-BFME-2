@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // HTreeClass's copy constructor at 0x001662A0.
 //

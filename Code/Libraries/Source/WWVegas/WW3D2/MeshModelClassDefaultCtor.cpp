@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ??0MeshModelClass@@QAE@XZ at retail 0x001727E0 (335 bytes).
 //

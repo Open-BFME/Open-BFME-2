@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // ??1BfmeNonRefSceneList@@UAE@XZ, retail 0x00141780, 96 bytes.
 // Dedicated TU (SimpleSceneClass_dtor.cpp calls this dtor twice for its
 // list_bc/list_d4 members; a same-TU definition would capture those REL32s

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /G7 /arch:SSE /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
+// cl: /DNDEBUG /MD /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
 // ??4LightEnvironmentClass@@QAEAAV0@ABV0@@Z
 // BFME adds a leading byte before the Zero Hour light-environment layout.
 

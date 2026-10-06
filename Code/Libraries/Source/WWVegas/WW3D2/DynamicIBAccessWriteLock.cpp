@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // DynamicIBAccessClass::WriteLockClass constructor at 0x00138CA0 and
 // destructor at 0x00138D80.  dx8indexbuffer.cpp carries the Zero Hour bodies,

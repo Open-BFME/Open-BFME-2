@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Donor: BFME1 LightEnvironmentClassConstructor.cpp at 0x0094AAF0.
 // Target: 0x0013F410/523B; layout agrees with matched assignment 0x0014A230
 // and DX8Wrapper::Set_Light_Environment at 0x00122EA0. The donor helper

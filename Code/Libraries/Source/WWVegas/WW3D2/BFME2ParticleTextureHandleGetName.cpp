@@ -1,4 +1,4 @@
-// cl: /O2 /Oy /G7 /DNDEBUG /MD /EHsc
+// cl: /Oy /DNDEBUG /MD /EHsc
 //
 // ?Get_Texture_Name@BFME2ParticleTextureHandle@@QBE?AVStringClass@@XZ,
 // retail 0x00129D30, 176 bytes. Dedicated TU so no other unit can see these

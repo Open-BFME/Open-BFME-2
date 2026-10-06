@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHs-c- /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHs-c- /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // readable body of ?Convert_Vert@Render2DClass@@: Code/Libraries/Source/WWVegas/WW3D2/render2d.cpp
 // BFME Render2DClass::Convert_Vert, retail 0x006E7190 (42 B) and 0x006E71D0 (41 B).
 //

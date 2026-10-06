@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??1BfmeRefSceneList@@UAE@XZ, retail 0x0006F29B, 68 bytes.
 // Dtor drains the list via the rowed Release_Head, then the rowed generic
 // base dtor runs. Single-inheritance chain so one vtable store lands.

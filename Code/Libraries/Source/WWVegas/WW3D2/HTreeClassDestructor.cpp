@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // HTreeClass destructor, retail 0x001667E0, 26 bytes.
 // Dedicated TU so htree.cpp cannot see this body. Calls Free then the

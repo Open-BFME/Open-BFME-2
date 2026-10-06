@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // HAnimPrototypeOwner copy ctor (retail 0x0014CED0, 49 bytes).
 // Zeroes the prototype holder, then assigns from the source ref through the
 // rowed operator= at 0x0014CDE4 (which validates the MINA FourCC).

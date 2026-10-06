@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // ?Reset@Render2DSentenceClass@@UAEXXZ at 0x00155A20 173B: BFME2 thread-guarded Reset.
 // Donor: reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp Render2DSentenceClass::Reset.
 // Evidence: callees Release_Pending_Surfaces 0x00154F70 and Reset_Sentence_Data 0x00154F10 (rowed),

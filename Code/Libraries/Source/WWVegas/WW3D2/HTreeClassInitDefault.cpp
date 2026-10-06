@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // HTreeClass::Init_Default at 0x001666D0.
 //

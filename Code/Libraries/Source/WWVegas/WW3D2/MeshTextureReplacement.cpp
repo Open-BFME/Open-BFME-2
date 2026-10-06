@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // BFME2 MeshClass::Replace_Texture, complete 189B body at RVA 0x0014B800.
 // Reference source: EA BFME1 W3DAssetManager::replaceMeshTexture algorithm,
 // adapted into MeshClass with retail owning handles and no status return.

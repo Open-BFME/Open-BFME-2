@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Texture-holder setter at 0x000456C9 (39B): reassigns the RefCountPtr at
 // +0x40 through the rowed 0x000424D0 operator= when the referent changes,
 // then records -(ptr != 0) at +0x44. The free-function operator!= (inlined,

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Debug_Statistics::End_Statistics, retail 0x0012A450, 122 bytes. Snapshot
 // last-frame counters then tail-jump DX8Wrapper::End_Statistics.

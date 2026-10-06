@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?read_Rva00188AF0@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
 // retail 0x00188AF0 (190 bytes: ret C2 08 00 at 0x188BAB).

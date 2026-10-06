@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // BFME_DX8_Thread_Lock at 0x0011F520.  BFME guards DX8 buffer access with a
 // real device mutex where Zero Hour had a thread assert that compiles to

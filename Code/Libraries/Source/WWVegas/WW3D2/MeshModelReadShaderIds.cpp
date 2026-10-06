@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE2 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?read_shader_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
 // retail 0x001889B0 (307 bytes).

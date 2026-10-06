@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // MeshModelClass::clone_materials, retail 0x001881C0 (202 bytes).
 // BFME1 meshmdlio.cpp clone_materials port (their 203B row): the release

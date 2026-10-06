@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // readable body of ?Reset_Sentence_Data@Render2DSentenceClass@@AAEXXZ: Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp
 // Clean BFME layout for Render2DSentenceClass::Reset_Sentence_Data.
 

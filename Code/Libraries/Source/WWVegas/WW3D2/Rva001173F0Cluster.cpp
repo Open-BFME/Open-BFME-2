@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva001173f0@@YAXXZ, retail 0x001173F0, 22 bytes.
 //

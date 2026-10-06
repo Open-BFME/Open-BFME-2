@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // DynamicVectorClass<BfmeHandleCX>::DynamicVectorClass(unsigned, const
 // BfmeHandleCX *) at retail 0x0016FE00 (46B): the texture-handle vector whose

@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ @ 0x0015CAE0 (427B).
 // BFME1 donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescClass_ComputeRamSize.cpp
 // (base 0xF4, 8 UV + 2 color + per-pass material/texture/material-array/shader-array).

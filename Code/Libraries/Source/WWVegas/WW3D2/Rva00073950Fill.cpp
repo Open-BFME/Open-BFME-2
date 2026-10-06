@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00073950@Rva00073950@@QAEXIPAX@Z @0x00073950 110B via surface fill plus clear
 // Evidence: calls rowed rva00116680 0x00116680 plus rowed clear 0x00116760; caller 0x000745AC; uses TheWritableGlobalData

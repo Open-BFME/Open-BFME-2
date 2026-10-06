@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Release_Bone@HTreeClass@@QAEXH@Z, retail 0x001661F0, 70 bytes.
 //

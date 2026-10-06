@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Bodies ported from Open-BFME-1's
 // Libraries/Source/WWVegas/WW3D2/DX8Wrapper_Set_Pixel_Shader_Constant.cpp

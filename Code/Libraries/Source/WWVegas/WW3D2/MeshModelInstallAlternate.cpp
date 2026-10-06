@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /arch:SSE /G7
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // BFME2 MeshModelClass::install_alternate_material_desc, retail RVA 0x00188290.
 // Dedicated TU: the shared meshmdlio.cpp TU cannot host the out-of-line body
 // (its include chain already declares the member). TU-local views anchored to

@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /Oy /DNDEBUG /MD
+// cl: /Oy /DNDEBUG /MD
 //
 // DX8Wrapper::_Create_DX8_Surface, retail 0x0011DC60, 62 bytes.
 // Dedicated TU so SurfaceClass's constructor cannot inline this body.

@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /O1 /Ob2 /EHsc
+// cl: /DNDEBUG /MD /Ob2 /EHsc
 // ?Get_UV_Array_By_Index@MeshMatDescClass@@QAEPAVVector2@@H_N@Z @0x000D1F40 125B
 // Create-gated UV buffer accessor with legacy Get_UV_Array fallback.
 // Evidence: retail EH_prolog, new 0x1c plus UVBuffer ctor with

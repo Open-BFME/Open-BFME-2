@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // ??1FVFCategoryList@@UAE@XZ at retail 0x00144750 (95B) with its scalar
 // deleting destructor ??_GFVFCategoryList@@UAEPAXI@Z at 0x00144890 (27B).

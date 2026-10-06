@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?read_textures@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
 // retail 0x0018AE50 (284 bytes).

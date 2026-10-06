@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Debug_Statistics::Record_Texture_Mode / Get_Record_Texture_Mode,
 // retail 0x00129470 (10B) and 0x00129480 (6B).

@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /EHsc
+// cl: /DNDEBUG /EHsc
 // Retail compressed-animation cleanup at RVA 0x0018FE30.
 // The second node type has no recovered source name; the BFME2 prefix marks
 // a descriptive reconstruction, not a claim about its original spelling.

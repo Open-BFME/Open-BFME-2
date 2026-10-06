@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Read_Subobject@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z, retail 0x001A34D0,
 // 139 bytes. Dedicated TU: BFME2 keeps the aggregate Read family as plain

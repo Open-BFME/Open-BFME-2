@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE2 /G7 /MD
+// cl: /MD
 //
 // GridTextureMapperClass::initialize, retail 0x00182480, 261 bytes.
 // Dedicated TU so mapper.cpp keeps its matched bodies.

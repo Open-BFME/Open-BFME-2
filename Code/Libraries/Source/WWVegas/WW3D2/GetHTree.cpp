@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?Get_HTree@@YAPAVHTreeClass@@PBD@Z @ 0x0017FC7C (178 bytes).
 // Free hierarchy lookup: builds the "h*"+name key lowercased, fetches the

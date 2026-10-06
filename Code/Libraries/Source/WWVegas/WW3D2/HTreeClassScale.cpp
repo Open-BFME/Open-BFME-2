@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc /arch:SSE2
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Scale@HTreeClass@@QAEXM@Z,
 // retail 0x00160C00 (108 bytes). Dedicated TU.

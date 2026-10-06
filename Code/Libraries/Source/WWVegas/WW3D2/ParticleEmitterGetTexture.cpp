@@ -1,4 +1,4 @@
-// cl: /O2 /Oy /DNDEBUG /MD
+// cl: /Oy /DNDEBUG /MD
 //
 // ParticleEmitterClass::Get_Texture, retail 0x001A0D10, 33 bytes.
 // Dedicated TU so part_emt.cpp and part_buf.cpp cannot see this body.

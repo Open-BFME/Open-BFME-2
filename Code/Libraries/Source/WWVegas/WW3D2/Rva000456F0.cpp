@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // 0x000456F0 is a 24B wrapper: forward this and both RectClass references,
 // duplicate the color into four arguments, call 0x00042719, then ret 0xC.

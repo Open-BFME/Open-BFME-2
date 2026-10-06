@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /EHsc /MD /DNDEBUG
+// cl: /Ob0 /EHsc /MD /DNDEBUG
 //
 // LineRendererShim::getTexture, retail 0x0015E120 (33B).
 // Retail calls BFMELineRendererTexture::Get_Texture at 0x00191210 and uses

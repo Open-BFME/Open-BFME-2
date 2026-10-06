@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // FontCharsClass::loadCharacterData, retail 0x00158580 (260 bytes).
 // Dedicated TU: the Thai-first glyph-ensure helper behind Get_Char_Spacing

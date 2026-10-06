@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?setShader@Rva00075655@@SAHHH@Z @0x00075655 64B.
 // Static shader-cache check: when both args match the cached pair return 1,

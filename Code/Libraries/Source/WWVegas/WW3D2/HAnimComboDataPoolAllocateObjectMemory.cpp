@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ObjectPoolClass<HAnimComboDataClass,256>::Allocate_Object_Memory,
 // retail 0x001963A0, 198 bytes.
 //

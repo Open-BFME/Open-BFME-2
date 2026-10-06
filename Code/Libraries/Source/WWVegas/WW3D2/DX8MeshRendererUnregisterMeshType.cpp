@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ?Unregister_Mesh_Type@DX8MeshRendererClass@@QAEXPAVMeshModelClass@@@Z at
 // retail 0x001445E0 (54B). Dedicated TU: BFME1's dx8renderer.cpp body also

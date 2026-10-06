@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Save_Class_Info@AggregateDefClass@@MAE?AW4WW3DErrorType@@AAVChunkSaveClass@@@Z,
 // retail 0x001A3690, 60 bytes. Dedicated TU: BFME2 keeps the aggregate Save

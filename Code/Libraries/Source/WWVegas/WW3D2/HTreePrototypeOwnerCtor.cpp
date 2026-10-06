@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // HTreePrototypeOwner copy ctor (retail 0x0017FBED, 49 bytes).
 // Twin of the HAnim owner copy ctor: zeroes the prototype holder, then
 // assigns from the source ref through the rowed operator= at 0x0017FB0F

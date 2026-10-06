@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00118990@@YAXXZ @ 0x00118990 (48B): global initializer with xor-first
 // xor eax,eax; mov [0x00DEC4A8],eax; mov [0x00DEC4A4],eax;
 // mov [0x00DEC4A0],eax; mov [0x00DB5FBC],7; mov [0x00DB5FC0],2;

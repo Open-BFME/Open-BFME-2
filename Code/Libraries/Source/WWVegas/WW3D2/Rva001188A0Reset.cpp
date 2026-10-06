@@ -1,4 +1,4 @@
-// cl: /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva001188A0@@YAXXZ @ 0x001188A0 (22B): conditional DX8 render-state reset
 // cmp dword [0x00DEC4A8],0; je; push 0; push 0x34; call
 // ?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z; add esp,8; ret. Sets state 0x34 to

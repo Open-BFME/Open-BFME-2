@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 //
 // ?rva00156540@Render2DSentenceClass@@QAEXPBURva00156540Param@@@Z, retail 0x00156540, 256 bytes. Banked partial (score 0.96) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

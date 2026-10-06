@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00118B50@@YAXXZ @ 0x00118B50 (68B): conditional float plus triple stores
 // call ?Has_Stencil@DX8Wrapper@@SA_NXZ; test al,al;
 // mov [0x00DB5FC4],5; mov [0x00DB5FC0],2; mov [0x00DB5FBC],7; jne;

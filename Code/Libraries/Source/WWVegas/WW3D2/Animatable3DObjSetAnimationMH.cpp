@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Animatable3DObjClass::Set_Animation( HAnimClass *, float, int ) at 0x001A4BF0.
 //

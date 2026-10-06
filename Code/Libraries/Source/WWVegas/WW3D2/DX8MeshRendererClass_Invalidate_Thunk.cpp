@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Invalidate@DX8MeshRendererClass@@QAEX_N@Z @ 0x00145FA0 (265B).
 // BFME2 port of the BFME1 thunk (reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/
 // DX8MeshRendererClass_Invalidate_Thunk.cpp, itself the ZH dx8renderer.cpp body).

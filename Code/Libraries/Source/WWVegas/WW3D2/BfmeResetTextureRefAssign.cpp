@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BfmeResetTextureRef::operator=(const BfmeResetAnyRef &), retail 0x00131D99,
 // 50 bytes. Dedicated TU so dx8wrapper.cpp cannot see this body.

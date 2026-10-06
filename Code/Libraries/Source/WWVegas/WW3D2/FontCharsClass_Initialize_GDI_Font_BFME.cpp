@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // BFME keeps a floating point font size and one additional integer setting.
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/wwstring.h

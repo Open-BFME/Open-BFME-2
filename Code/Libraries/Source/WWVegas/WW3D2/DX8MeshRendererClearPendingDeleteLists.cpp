@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ?Clear_Pending_Delete_Lists@DX8MeshRendererClass@@QAEXXZ at retail
 // 0x00144580 (91B). Dedicated TU: retail keeps the two pending-delete lists

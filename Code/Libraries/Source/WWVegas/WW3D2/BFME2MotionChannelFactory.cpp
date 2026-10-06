@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 // Descriptive BFME2 channel types: original retail class names are unrecovered.
 // Factory RVA 0x001A46B4 reads the eight-byte on-disk header and dispatches
 // encoding 0/1/2. The trailing data member represents the payload convention

@@ -1,4 +1,4 @@
-// cl: /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // DX8Wrapper::Get_DX8_Texture_Stage_State_Value_Name (retail 0x00120B90,
 // 266 bytes): switch over the D3D texture-stage state formatting the value
 // into a StringClass. BFME1 dx8wrapper.cpp with one evidence-backed repair:

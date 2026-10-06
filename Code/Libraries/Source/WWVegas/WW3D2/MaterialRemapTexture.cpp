@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?Remap_Texture@MaterialRemapperClass@@QAE?AVBfmeHandleCX@@ABV2@@Z
 // retail 0x0016EC00, 196 bytes. Dedicated TU.
 //

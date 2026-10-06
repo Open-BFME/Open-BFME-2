@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // Two small hooks just below BFME_DX8_Thread_Lock, each driving a function
 // pointer the engine can install:

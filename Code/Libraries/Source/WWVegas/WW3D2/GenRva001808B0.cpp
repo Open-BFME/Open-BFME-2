@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva001808B0@Gen_dtor_00972460@@UAEXXZ, retail 0x001808B0, 171 bytes.
 // Chain from 0x0007882F landing: vtable slot 2 of Gen_dtor_00972460 vtable
 // 0x007D5010. Copies name to 260B stack buffer via _mbscpy thunk, replaces

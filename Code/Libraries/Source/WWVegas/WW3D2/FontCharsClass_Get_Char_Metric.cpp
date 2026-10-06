@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /G6 /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // FontCharsClass::Get_Char_Metric, retail 0x00158690 (73 bytes). Same
 // adaptation as the sibling Get_Char_Spacing unit: the donor calls the

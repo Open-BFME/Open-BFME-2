@@ -1,4 +1,4 @@
-// cl: /G7 /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Target texture-slot view; the original class and method names are unknown.
 // Callers establish the +0x78 slot table and release the owning result through
 // TextureClass::Release_Ref at 0x61ED10. Its refcount is a WORD at +4.

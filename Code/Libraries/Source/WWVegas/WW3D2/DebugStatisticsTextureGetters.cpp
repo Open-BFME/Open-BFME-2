@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Debug_Statistics last-frame texture getters. Each is `mov eax, [last]; ret`.
 

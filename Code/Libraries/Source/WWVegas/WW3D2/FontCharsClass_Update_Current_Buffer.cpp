@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // ?Update_Current_Buffer@FontCharsClass@@AAEXH@Z @0x00156490 164B
 // FontChars glyph-buffer rotation: when the buffer list is empty or the
 // scaled advance would pass the tail buffer's BufferMax, grows a new

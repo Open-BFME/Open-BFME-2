@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // DX8Wrapper::Set_Render_Target(surface, depth) retail 0x00905470.
 // Sibling of the bool overload at 0x009052B0; D3D9 split SetRenderTarget /
 // SetDepthStencilSurface, IsRenderToTexture = true.

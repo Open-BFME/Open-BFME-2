@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /MD /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // RVA 0x000C99F9, 25 bytes, native Ghidra start and complete RET extent.
 // Retail advances four bytes per element and calls the independently matched
 // RefCountPtr<TextureClass> destructor at 0x0017098D. Reuse the owning template

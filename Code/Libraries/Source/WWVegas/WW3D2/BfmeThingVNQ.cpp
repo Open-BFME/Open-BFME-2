@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // ?bfmeTotalVNQ@BfmeThingVNQ@@QAEHXZ 0x0016EEE0 63B evidence: BFME1 donor BfmeConv1517.cpp bfmeTotalVNQ same layout same total; BFME2 callee rowed VertexMaterial rva0013D250 const; caller 0x00188117 unblocks link bonus
 class VertexMaterialClass
 {

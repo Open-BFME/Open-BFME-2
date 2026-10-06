@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Statistics texture-handle shutdown, RVA 0x007B7040 (10 bytes).
 // Target facts: the initializer at 0x007ACCCA registers this callback;
 // it passes global VA 0x00DEE918 to the rowed RefCountPtr<TextureClass>

@@ -2,7 +2,7 @@
 // partial score=0.7 date=2026-09-24
 // ?CreateTexture@BfmeResetTextureBackend@@QAEXHHHHHHH@Z
 // retail 0x001310E3, 199 bytes.
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 
 // ?CreateTexture@BfmeResetTextureBackend@@QAEXHHHHHHH@Z @0x001310E3,
 // retail 197 bytes. Backend texture (re)creation worker: refreshes the saved

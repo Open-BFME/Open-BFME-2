@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Do_Onetime_Device_Dependent_Inits@DX8Wrapper@@SAXXZ @ 0x001245A0 (283B).
 // Dedicated TU: this function spans DX8Caps, DX8MeshRendererClass,

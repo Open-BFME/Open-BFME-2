@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00118A90@@YAXXZ @ 0x00118A90 (36B): conditional stencil flag reset
 // cmp byte [0x00DB5FB8],0; je; call ?Has_Stencil@DX8Wrapper@@SA_NXZ;
 // test al,al; je; mov dword [0x00DB5FB4],0x100; mov byte [0x00DB5FB8],0; ret.

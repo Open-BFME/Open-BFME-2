@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // readable body of ?Add_Outline@Render2DClass@@: Code/Libraries/Source/WWVegas/WW3D2/render2d.cpp
 
 // BFME emits the three-argument outline overload directly instead of routing

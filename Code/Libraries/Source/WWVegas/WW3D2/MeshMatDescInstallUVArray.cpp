@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Install_UV_Array@MeshMatDescClass@@QAEXHHPAVVector2@@H@Z,
 // retail 0x0015B960 (413 bytes).

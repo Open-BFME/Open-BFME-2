@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2StreamMotionChannel::BFME2StreamMotionChannel, retail 0x001B2138, 22
 // bytes. Dedicated TU so BFME2MotionChannelFactory.cpp cannot see this body.

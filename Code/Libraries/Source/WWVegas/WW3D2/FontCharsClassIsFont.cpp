@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // FontCharsClass::Is_Font, retail 0x00154840 (66 bytes).
 // Donor is ZH render2dsentence.cpp Is_Font (name/size/bold triple match with

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0004D729@Rva0004D729@@QAEPAV1@PAXPAPAXPAHHHHH@Z @0x0004D729 43B
 // Lock-rect helper: stores surf at +0, calls rowed 0x001166E0 with
 // pitchOut/left/top/right/bottom, stores bits to *bitsOut, returns this.

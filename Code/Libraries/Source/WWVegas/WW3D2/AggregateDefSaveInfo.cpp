@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 /*
  * Command & Conquer Generals Zero Hour(tm)
  * Copyright 2025 Electronic Arts Inc.

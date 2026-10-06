@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // BFME2 mesh-model texture replacement, RVA 0x00172BF0 (329 bytes).
 // Derived from EA Zero Hour GeneralsMD WW3D2/meshmdl.cpp (GPL-3.0-or-later).
 // Retail keeps the stage/pass/polygon traversal, using owning texture handles.

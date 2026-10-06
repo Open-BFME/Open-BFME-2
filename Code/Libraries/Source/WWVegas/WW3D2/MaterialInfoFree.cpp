@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // ?Free@MaterialInfoClass@@AAEXXZ
 // BFME1 MaterialInfoFree.cpp, adapted with /G7 for BFME2 RVA 0x16EE70.
 // The matched MaterialInfo destructor calls this body at 0x17015C.

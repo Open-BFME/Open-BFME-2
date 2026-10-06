@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00133DA0Set@CameraClass@@QAEXABUMatrix4@@@Z, retail 0x00133DA0, 150 bytes.
 // CameraClass AdditionalTransform setter (second Matrix4 at +0x38C, BFME2

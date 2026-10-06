@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva00171780@MeshModelClass@@QAEXXZ 0x00171780 11B chain calls 0x0015B8C0 loads [ecx+0x94] then jmp
 class MeshMatDescClass
 {

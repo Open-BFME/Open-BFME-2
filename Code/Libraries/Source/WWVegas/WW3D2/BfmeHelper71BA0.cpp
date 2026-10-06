@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2 /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 
 class RenderObjClass;
 RenderObjClass * __cdecl Create_Render_Obj(const char *name);

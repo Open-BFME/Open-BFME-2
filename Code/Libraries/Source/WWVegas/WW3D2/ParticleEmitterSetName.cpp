@@ -1,4 +1,4 @@
-// cl: /Ireference/shims /Ireference/shims/bfmerendobj /arch:SSE /G7 /DNDEBUG /MD
+// cl: /Ireference/shims /Ireference/shims/bfmerendobj /DNDEBUG /MD
 // ?Set_Name@ParticleEmitterClass@@UAEXPBD@Z @ 0x001A2220 (55B NameString+0x120).
 //
 // BFME1 donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp

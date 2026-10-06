@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva0018037B@Gen_dtor_00970f60@@UAEPAXXZ, retail 0x0018037B, 38 bytes. Virtual
 // slot 15 (offset 0x3C) of vtable 0x007D4F90 (class of ??1Gen_dtor_00970f60@@UAE@XZ).

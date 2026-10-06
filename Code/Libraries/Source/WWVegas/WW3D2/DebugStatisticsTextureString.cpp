@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Debug_Statistics::Get_Record_Texture_String, retail 0x00129500, 6 bytes.
 // Returns the address of the statistics string object.

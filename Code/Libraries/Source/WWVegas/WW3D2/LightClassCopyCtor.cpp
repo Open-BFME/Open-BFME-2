@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /MD /EHsc /arch:SSE
+// cl: /MD /EHsc
 //
 // LightClass's copy constructor (retail 0x00130C00, 307 bytes), destructor
 // (0x00130E80), Clone (0x00130EA0), object-space bounding sphere and box

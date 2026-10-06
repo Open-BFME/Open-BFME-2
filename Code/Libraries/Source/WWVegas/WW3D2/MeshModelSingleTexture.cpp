@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // Reference meshmdl.h current-description single-texture forwarding shape.
 // BFME2 D206A is a complete 35B owning-handle return via CurMatDesc at +0x94.
 // Its callee is the independently verified MeshMatDesc getter D2026.

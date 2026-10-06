@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // MaterialInfoClass::Reset_Texture_Mappers (retail 0x00184010, 69 bytes) and
 // MaterialInfoClass::Has_Time_Variant_Texture_Mappers (retail 0x00184060,

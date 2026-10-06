@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // BFME MaterialInfoClass destructor at 0x00930F60 / 175 bytes.
 // Layout/vtable identities follow MaterialInfoClassCtor.cpp. Free releases
 // materials first, then owned texture cells and vertex-pointer storage unwind.

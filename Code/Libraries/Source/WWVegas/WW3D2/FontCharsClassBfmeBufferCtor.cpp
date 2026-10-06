@@ -1,4 +1,4 @@
-// cl: /O2 /EHsc /MD /DNDEBUG
+// cl: /EHsc /MD /DNDEBUG
 //
 // BfmeFontCharsBuffer::BfmeFontCharsBuffer at 0x001541E0 (65 bytes).
 //

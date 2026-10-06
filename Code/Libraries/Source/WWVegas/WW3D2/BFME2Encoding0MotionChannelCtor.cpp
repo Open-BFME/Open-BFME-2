@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BFME2Encoding0MotionChannel::BFME2Encoding0MotionChannel, retail 0x001B2E2C,
 // 26 bytes. Dedicated TU so the factory and stream-ctor units cannot see this

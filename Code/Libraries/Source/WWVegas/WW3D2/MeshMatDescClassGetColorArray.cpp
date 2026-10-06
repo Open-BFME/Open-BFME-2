@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /O1 /Ob2 /EHsc
+// cl: /DNDEBUG /MD /Ob2 /EHsc
 //
 // MeshMatDescClass::Get_Color_Array, retail 0x00D1FBD (105 bytes). BFME1
 // header-inline shape (reference/.../meshmatdesclayout/meshmatdesc.h in this

@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /GR- /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /GR- /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // readable body of ?Flush@DX8MeshRendererClass@@QAEXXZ: Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp
 // ?Flush@DX8MeshRendererClass@@QAEXXZ
 // Retail 0x00949DD0 size 193. BFME Flush: rigid then skin FVF lists via

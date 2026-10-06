@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // HTreeClass::Is_Bone_Captured (retail 0x00162030, 48 bytes).
 //

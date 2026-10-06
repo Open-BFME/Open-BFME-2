@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // FontCharsClass::Free_Character_Arrays, retail 0x00154890 (166 bytes).
 // Dedicated TU: render2dsentence.cpp already carries this body verbatim from

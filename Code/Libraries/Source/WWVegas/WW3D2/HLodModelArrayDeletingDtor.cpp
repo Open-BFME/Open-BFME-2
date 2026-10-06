@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 
 // ??_GModelArrayClass@HLodClass, the scalar deleting destructor for
 // HLodClass::ModelArrayClass (retail 0x0019F4E0, 30 bytes). The class is

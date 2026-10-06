@@ -1,4 +1,4 @@
-// cl: /EHsc /O1 /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 // Gamma-setter at 0x00043073 (85B): when the +0x18 flag is clear, takes the
 // DX8 device lock, sets the gamma ramp, and releases. The inline unwind guard
 // couples the rowed acquire 0x0011F520 with the rowed release 0x00120F50, and

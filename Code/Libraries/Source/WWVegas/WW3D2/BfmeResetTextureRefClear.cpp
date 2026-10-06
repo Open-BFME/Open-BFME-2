@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // BfmeResetTextureRef::clear, retail 0x0004D75B, 19 bytes.
 // Dedicated TU so the assign unit cannot see this body. /O1 for and-zero

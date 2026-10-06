@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Save_W3D@AggregateDefClass@@UAE_NAAVChunkSaveClass@@@Z, retail 0x001A35A0,
 // 83 bytes. Dedicated TU: BFME2 keeps the aggregate Save family as plain

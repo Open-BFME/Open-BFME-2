@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?Peek_Vertex_Material@MaterialInfoClass@@QBEPAVVertexMaterialClass@@H@Z
 // retail 0x000636C9, 22 bytes, size-optimised (/O1).
 //

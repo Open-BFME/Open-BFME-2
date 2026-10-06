@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /G6 /EHsc /arch:SSE /G7
+// cl: /DNDEBUG /MD /EHsc
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/Render2DRawArrayAdd.cpp at 6583b3c1ff; include paths repointed at the
 // reference checkout and built the BFME2 way (/arch:SSE /G7), where its body places
 // exactly once in game.dat by masked byte search.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Class_ID@CameraClass@@UBEHXZ, retail 0x0007C3F8, 4 bytes.
 // BFME1/ZH camera.h: `virtual int Class_ID(void) const { return CLASSID_CAMERA; }`

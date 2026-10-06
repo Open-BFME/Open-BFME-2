@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // EA BFME1 matinfo.h texture accessors, adapted to BFME2 owning handles.
 // Retail Textures vector data is at +0x24. Peek returns a retained copy,
 // unlike the ancestor's raw pointer. Copy424BB and assignment424D0 identities

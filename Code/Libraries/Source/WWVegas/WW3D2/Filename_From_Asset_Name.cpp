@@ -1,4 +1,4 @@
-// cl: /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/local /FIbfme_wwstring_teardown.h /G7 /DNDEBUG /MD /ICode/Libraries/Source/WWVegas/WWLib
+// cl: /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/local /FIbfme_wwstring_teardown.h /DNDEBUG /MD /ICode/Libraries/Source/WWVegas/WWLib
 // Extracted from the BFME1 WW3D2 rendobj.cpp reference unit.  This keeps the
 // reference helper body isolated while the surrounding RenderObj implementation
 // remains queued behind its larger header dependency graph.

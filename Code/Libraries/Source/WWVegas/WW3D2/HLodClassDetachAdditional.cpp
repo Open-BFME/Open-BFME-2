@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Target HLodClass primary-vtable slot 41 at RVA 0x0019CEA0 (168 bytes).
 // The target public method name is unresolved. The BFME1 donor is
 // HLodClass::_bfme_ro_v40 in

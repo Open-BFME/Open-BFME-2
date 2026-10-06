@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Debug_Statistics last-frame getters. Each is `mov eax, [last]; ret` (6 bytes).
 

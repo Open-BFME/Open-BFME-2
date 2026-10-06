@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Apply@BfmeApplyTextureRef@@QAEXI@Z @0x132AF8 (139B): per-stage texture apply.
 //
 // Null-resource path is DX8Wrapper::Set_DX8_Texture(stage, pointer) inlined

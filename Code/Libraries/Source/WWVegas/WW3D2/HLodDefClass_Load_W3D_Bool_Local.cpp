@@ -1,4 +1,4 @@
-// cl: /G7 /DNDEBUG /MD /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Include
+// cl: /DNDEBUG /MD /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Include
 // Donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/HLodDefClass_Load_W3D_Bool_Local.cpp
 // BFME's HLodDefClass::Load_W3D returns bool in the retail ABI.  Keep this
 // ABI view local: the shared ZH header still declares the method as

@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Opaque FontCharsClass blit twin, retail 0x001588A0 (222 bytes).
 // Dedicated TU (the true Blit_Char lives at 0x001587C0 in

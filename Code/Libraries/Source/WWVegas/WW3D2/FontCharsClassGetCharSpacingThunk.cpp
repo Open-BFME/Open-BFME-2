@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // FontCharsClass::Get_Char_Spacing, retail 0x00158760 (90 bytes).
 // Dedicated TU (render2dsentence.cpp documents the ABI as

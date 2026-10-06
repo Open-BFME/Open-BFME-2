@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // HTree prototype register helper (retail 0x0017FD2F, 92 bytes). Twin of
 // Register_Aggregate_Prototype at 0x0014D01C: skips null names and names
 // already present (Render_Obj_Exists via the 0x0061F0D0 row), otherwise

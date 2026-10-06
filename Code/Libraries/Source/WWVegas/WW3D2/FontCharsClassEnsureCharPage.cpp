@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // FontCharsClass::ensureCharPage, retail 0x00155220 (249 bytes).
 // Dedicated TU: the caller (loadCharacterData) lives in

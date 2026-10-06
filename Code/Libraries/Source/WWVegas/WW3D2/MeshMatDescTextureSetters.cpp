@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // EA Zero Hour meshmatdesc.cpp setters adapted to BFME2 owning handles.
 // Single slots at +0x78; indexed buffer array pointer at +8. Each assignment
 // AddRefs the new texture before releasing the old one and replacing the slot.

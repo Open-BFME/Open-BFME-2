@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // FontCharsClass::Blit_Char, retail 0x001587C0 (215 bytes).
 // Dedicated TU (render2dsentence.cpp keeps the ZH simple-copy Blit as an

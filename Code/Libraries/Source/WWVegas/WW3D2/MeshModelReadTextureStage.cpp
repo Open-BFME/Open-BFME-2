@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?read_texture_stage@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
 // retail 0x0018B080 (247 bytes: code through ret C2 08 00 at 0x18B0E9/0x18B11C,

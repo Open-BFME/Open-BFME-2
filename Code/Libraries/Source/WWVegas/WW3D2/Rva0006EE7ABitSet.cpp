@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva0006EE7A@@QAE@HHH@Z, retail 0x0006EE7A, 66 bytes. Fixed 28-byte
 // (224-bit) bitset two-bit constructor: memsets this with 0 over 0x1C bytes

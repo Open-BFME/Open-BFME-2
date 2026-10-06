@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Animatable3DObjClass::Set_Animation(HAnimComboClass *), retail 0x001A4D90,
 // 39 bytes. Dedicated TU so animobj.cpp and hlod.cpp cannot see this body.

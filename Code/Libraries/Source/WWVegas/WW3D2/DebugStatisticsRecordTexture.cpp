@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
 // Open-BFME7: WW3D2 statistics.cpp texture recording cluster from dump
 // d_00930e00.asm: Debug_Statistics::Record_Texture (0x00937D60, 335 B) and the
 // two file-static helpers it is the only caller of, Find_Record_Texture

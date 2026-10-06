@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // PivotClass, BFME 2's 0x58-byte hierarchy pivot.
 //
