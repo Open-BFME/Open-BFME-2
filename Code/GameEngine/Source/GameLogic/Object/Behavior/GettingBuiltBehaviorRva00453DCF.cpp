@@ -136,6 +136,7 @@ class GettingBuiltBehavior : public UpdateModule, public GettingBuiltBehaviorSec
 {
 public:
 	GettingBuiltBehavior(Thing *thing, const ModuleData *moduleData);
+	void rva00453D92();
 	bool rva00453DCF();
 private:
 	int m_x24;
@@ -154,6 +155,25 @@ private:
 	unsigned char m_b3E;
 	_STL::list<Rva004530ED, _STL::allocator<Rva004530ED> > m_workList;
 };
+
+// The Ghidra 61B body at 0x00453D92 walks the same +0x40 work list used by
+// rva00453DCF. Each entry's first dword is passed to rowed GameLogic lookup
+// 0x00049DC5; missing objects are erased through the rowed list<int>::erase
+// body at 0x00438539. The erase helper only relinks and frees list nodes, so
+// an int-list view preserves its ABI while reading the entry ID at node+8.
+// The shared field and call chain support this class view; the method's name
+// and any higher-level purpose remain address-derived.
+// ?rva00453D92@GettingBuiltBehavior@@QAEXXZ
+void GettingBuiltBehavior::rva00453D92()
+{
+	typedef _STL::list<int, _STL::allocator<int> > IdList;
+	IdList &entries = *(IdList *)&m_workList;
+	for (IdList::iterator it = entries.begin(); it != entries.end(); ++it)
+	{
+		if (!TheGameLogic->findObjectByID((ObjectID)*it))
+			it = entries.erase(it);
+	}
+}
 
 bool GettingBuiltBehavior::rva00453DCF()
 {
