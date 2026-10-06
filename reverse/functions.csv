@@ -64611,3 +64611,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva0037BCC4Create@@YAPAVRva0037BBED@@XZ,,0x0037BCC4,53,Code/GameEngine/Source/Common/Rva0037BCC4.cpp,matched,leaf factory via rowed new and pinned ctor
 ?Rva003C4D5CDo@@YGXPBVAsciiString@@@Z,,0x003C4D5C,102,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C4D5CDo.cpp,matched,Terrain node float dispatch via slot-0x84 list and slot-0x94
 ?rva00202739@Rva00202739@@QAE_NH@Z,,0x00202739,51,Code/GameEngine/Source/Common/Rva00202739StaticLOD.cpp,matched,Native static-LOD setter: reject -1; value 5 forces apply; otherwise change-detect at +0x1768; call 0x002022E9 before store. Full ret4 extent and ctor-proven field; donor semantics only; original class name unknown.
+?rva000D0091@W3DStreakDraw@@QAEXXZ,,0x000D0091,534,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp,matched,W3DStreakDraw streak update via BFME1 donor
