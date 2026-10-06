@@ -64659,7 +64659,3 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
 ?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
 ?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
-?rva003705C2@AIGroup@@QAEXXZ,,0x003705C2,190,Code/GameEngine/Source/GameLogic/AI/AIGroupRva003705C2.cpp,matched,"dump range 16; AIGroup order walk, rowed callees 0x268D71 0x290B73 0x295A0F slot-110 isIdle"
-?rva0036DC46@Rva0036ListOwner@@QAEXH@Z,,0x0036DC46,41,Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp,matched,
-?rva0036D6B4@Rva0036ListOwner@@QAEXXZ,,0x0036D6B4,64,Code/GameEngine/Source/Common/Rva0036ListWalkers.cpp,matched,
-?rva0037DCCC@@YAXPAVObject@@H@Z,,0x0037DCCC,28,Code/GameEngine/Source/Common/Rva0037DCCCForward.cpp,matched,
