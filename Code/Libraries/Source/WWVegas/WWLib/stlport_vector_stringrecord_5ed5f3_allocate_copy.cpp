@@ -29,4 +29,10 @@ struct BfmeStringRecord005ED5F3
 namespace _STL {
 template <> void _Construct<BfmeStringRecord005ED5F3, BfmeStringRecord005ED5F3>(BfmeStringRecord005ED5F3 *, const BfmeStringRecord005ED5F3 &);
 }
-template class _STL::vector<BfmeStringRecord005ED5F3, _STL::allocator<BfmeStringRecord005ED5F3> >;
+template BfmeStringRecord005ED5F3 *_STL::__uninitialized_fill_n(BfmeStringRecord005ED5F3 *, unsigned int, const BfmeStringRecord005ED5F3 &, const _STL::__false_type &);
+template BfmeStringRecord005ED5F3 *_STL::__uninitialized_copy(const BfmeStringRecord005ED5F3 *, const BfmeStringRecord005ED5F3 *, BfmeStringRecord005ED5F3 *, const _STL::__false_type &);
+template BfmeStringRecord005ED5F3 *_STL::uninitialized_fill_n(BfmeStringRecord005ED5F3 *, unsigned int, const BfmeStringRecord005ED5F3 &);
+template BfmeStringRecord005ED5F3 *_STL::__copy_ptrs(BfmeStringRecord005ED5F3 *, BfmeStringRecord005ED5F3 *, BfmeStringRecord005ED5F3 *, _STL::__false_type);
+template void _STL::vector<BfmeStringRecord005ED5F3, _STL::allocator<BfmeStringRecord005ED5F3> >::_M_clear();
+template void _STL::_Destroy<BfmeStringRecord005ED5F3 *>(BfmeStringRecord005ED5F3 *, BfmeStringRecord005ED5F3 *);
+template _STL::vector<BfmeStringRecord005ED5F3, _STL::allocator<BfmeStringRecord005ED5F3> >::~vector();
