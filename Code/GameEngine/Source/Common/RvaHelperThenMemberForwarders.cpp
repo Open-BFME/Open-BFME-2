@@ -203,6 +203,12 @@ void Rva005E6BB4::rva005E6BB4()
     ((SmudgeManager *)this)->SmudgeManager::init();
     m_20->rva005E6AD8();
 }
+// 0x005E590F is rowed as ?step@Rva005E590F@@QAEXXZ (RvaHelperMemberSteps.cpp).
+class Rva005E590F
+{
+public:
+	void step();
+};
 template <typename T> class StringBase
 {
 	friend class Rva005CDDF0;
@@ -215,6 +221,6 @@ public:
 };
 void Rva005CDDF0::rva005CDDF0()
 {
-	((Rva005E590F *)this)->rva005E590F();
+	((Rva005E590F *)this)->step();
 	((StringBase<unsigned short> *)((char *)this + 0xc))->validate();
 }
