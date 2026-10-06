@@ -13891,3 +13891,4 @@ FUN_006fe382	0x002FE382	670	blocked	ADDRESS-NAMED g_Va00DBA4E4 hatch t=2 model=m
 ?load@GameWindowTransitionsHandler@@QAEXXZ	0x001DC7E1	780	blocked	INI frame 0x884 vs retail 0x880 4B layout plus 2 parse callees with no row-pin 0x0035FD73 TYPETEXT and 0x0035F6E2 COUNTUP invented names cannot resolve t=8 model=muse-03
 ??0Rva00740FD9@@QAE@XZ	0x00740FD9	107	blocked	base vtable CF1630 one store late plus mov ecx edi vs EH store order plus movss pair late tried ReadWriteBarrier volatile floats init-list no gain t=25 model=muse-03 (stash 0.93 kept)
 ?rva0047A413@Rva0047A413@@QAEXXZ	0x0047A413	608	blocked	608B horde solver 3 variants best 688B frame 0x54 vs 0x44 44 mem diffs indexed rewrite did not fold needs donor restructure t=20 model=muse-03
+?rva00740EEE@Rva00740EEE@@QAEXHPAD_N@Z	0x00740EEE	235	blocked	register allocation wall SSE-x87 EBP spills pushes-from-regs vs mem t=25 model=muse-03

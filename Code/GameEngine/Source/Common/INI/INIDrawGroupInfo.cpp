@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/iniexception /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 //
 // Bodies ported from Open-BFME-1's
@@ -42,6 +42,7 @@
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 #include "Common/INI.h"
+#include "Common/INIException.h"
 #include "GameClient/DrawGroupInfo.h"
 
 void parseInt( INI* ini, void * /*instance*/, void *store, const void* userData )
@@ -70,6 +71,16 @@ void parsePercentToReal( INI* ini, void * /*instance*/, void *store, const void*
 	}
 
 	INI::parsePercentToReal(ini, NULL, store, NULL);
+}
+
+// ?parseDrawGroupNumberDefinition@INI@@SAXPAV1@@Z @0x001DCC9F 63B evidence: REF table slot 0x009B8D30 neighbours DrawGroupInfo NONE HOLD; TheDrawGroupInfo null check INIException 9; initFromINI with FieldParse
+/*static*/ void INI::parseDrawGroupNumberDefinition(INI* ini)
+{
+	if (!TheDrawGroupInfo) {
+		throw INIException(9, "TheDrawGroupInfo==NULL");
+	}
+
+	ini->initFromINI(TheDrawGroupInfo, TheDrawGroupInfo->getFieldParse());
 }
 
 
