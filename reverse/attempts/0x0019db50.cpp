@@ -1,21 +1,16 @@
 // ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
-// partial score=0.9886 date=2026-10-06
-// ?Update_Obj_Space_Bounding_Volumes@HLodClass@@MAEXXZ
-// partial score=0.988 date=2026-10-05
+// partial score=0.9899 date=2026-10-06
 // cl: /Ireference/shims/bfme2renderobj /Ireference/shims /Ireference/shims/bfmerendobj /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfmevector /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // HLodClass::Update_Obj_Space_Bounding_Volumes, RVA19DB50, 2501B: near miss.
 // Identity as the bank: HLod definition constructor 19FF2F and installed table
 // 7D6780 slot114; OBBOX class1B / "BOUNDINGBOX" search then child sphere/box
 // combine in base pose. Pivot transform is quaternion+translation at 30/40,
 // stride 58; the rotation expansion is the Add_Lod_Model recovery.
-// What is still wrong (19 instructions): the loop's inlined pivot expansion
-// keeps the xy product in retail's operand order (retail movss [q+30] then
-// mulss [q+34]) where ours loads [q+34] first, and the loop tmpsphere.Transform
-// keeps retail's register allocation. Binding the pivot transform to a local
-// reference before pivotMatrix at the FIRST call site only (treeMatrixB vs the
-// unbound treeMatrixU in the loop) fixed the pre-loop expansion's commutative
-// operand order; binding it at both sites moves the flip into the loop instead.
-// Not byte-verified progress. The similarity score measures byte sequences.
+// The loop-only pivotMatrixLoop uses a volatile q.X read to preserve retail's
+// q.X then q.Y order for the xy product. Current explain: exact 2501B extent,
+// 17 differing instruction rows, with the first remaining difference at
+// +0x6A0 in tmpsphere.Transform register allocation. Not byte-verified progress.
+// Similarity is measured on the relocation-patched byte sequence.
 #define Matrix4x4 Matrix4
 #include <sweep/winbase_shim.h>
 #include <string.h>
@@ -80,9 +75,38 @@ static __forceinline Matrix3D &pivotMatrix(const HlodTransformView &q, Matrix3D 
     return m;
 }
 
+static __forceinline Matrix3D &pivotMatrixLoop(const HlodTransformView &q, Matrix3D &m)
+{
+    const float xx = q.X * q.X * 2.0f;
+    // Retail reloads q.X before multiplying the xy term by q.Y.
+    const volatile float &x_for_xy = q.X;
+    const float xy = x_for_xy * q.Y * 2.0f;
+    const float xz = q.Z * q.X * 2.0f;
+    const float wx = q.W * q.X * 2.0f;
+    const float yy = q.Y * q.Y * 2.0f;
+    const float yz = q.Z * q.Y * 2.0f;
+    const float wy = q.W * q.Y * 2.0f;
+    const float zz = q.Z * q.Z * 2.0f;
+    const float wz = q.W * q.Z * 2.0f;
+
+    m[0][0] = 1.0f - yy - zz;
+    m[0][1] = xy - wz;
+    m[0][2] = xz + wy;
+    m[1][0] = xy + wz;
+    m[1][1] = 1.0f - zz - xx;
+    m[1][2] = yz - wx;
+    m[2][0] = xz - wy;
+    m[2][1] = yz + wx;
+    m[2][2] = 1.0f - yy - xx;
+    m[0][3] = q.Position.X;
+    m[1][3] = q.Position.Y;
+    m[2][3] = q.Position.Z;
+    return m;
+}
+
 static __forceinline Matrix3D &treeMatrix(const HTreeClass *tree, int index, Matrix3D &m) { return pivotMatrix(reinterpret_cast<const HlodTreeView *>(tree)->Pivot[index].Transform,m); }
 static __forceinline Matrix3D &treeMatrixB(const HTreeClass *tree, int index, Matrix3D &m) { const HlodTransformView &q = reinterpret_cast<const HlodTreeView *>(tree)->Pivot[index].Transform; return pivotMatrix(q,m); }
-static __forceinline Matrix3D &treeMatrixU(const HTreeClass *tree, int index, Matrix3D &m) { return pivotMatrix(reinterpret_cast<const HlodTreeView *>(tree)->Pivot[index].Transform,m); }
+static __forceinline Matrix3D &treeMatrixU(const HTreeClass *tree, int index, Matrix3D &m) { return pivotMatrixLoop(reinterpret_cast<const HlodTreeView *>(tree)->Pivot[index].Transform,m); }
 void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 {
 	//
