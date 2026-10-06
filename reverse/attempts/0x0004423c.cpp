@@ -2,6 +2,8 @@
 // partial score=0.95 date=2026-10-06
 // ?createLightPulse@W3DDisplay@@QAEXPBUVector3@@0MMII@Z
 // partial score=0.95 date=2026-10-06
+// ?createLightPulse@W3DDisplay@@QAEXPBUVector3@@0MMII@Z
+// partial score=0.95 date=2026-10-06
 // Banked candidate for W3DDisplay::createLightPulse @0x0004423C (233B). 232/233 bytes exact.
 // WALL = single scheduling diff at +0x95: retail hoists lea ecx,[ebp-0xC] (&loc) BEFORE the
 // y-store and delays the z-store past the call push; all variants emit lea late + z-store early.
@@ -10,6 +12,12 @@
 // m_lines-style indexing not needed here; pool 0x6F94A candidate pin + slot-0x58 virtual via
 // 23 dummies + g_00BC2904 floor all settled. Next: perturb loc-init scheduling (ploc-after-x
 // tried, no move) or accept 4B. t=55 model=muse-spark
+// 2026-10-06 r00b: scheduler insensitive to source shape. Tried (a) y/z temp-split
+// (float y=pos->y; ploc->y=y; float z=pos->z; ploc->z=z) and (b) per-use &loc with
+// ploc declared after y-load ((&loc)->y=y; (&loc)->z=z; setVec006e(&loc)): both emit
+// byte-identical output (lea late + z-store early). The sinking/hoisting is pure
+// backend scheduling freedom; needs a different lever (e.g. intervening sequence point
+// the backend cannot cross, or a reg-pressure change). t=25 model=muse-spark
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // ?createLightPulse@W3DDisplay@@QAEXPBUVector3@@0MMII@Z @0x0004423C 233B.
 // W3DDisplay::createLightPulse: pulse light setup. Skips when the summed
