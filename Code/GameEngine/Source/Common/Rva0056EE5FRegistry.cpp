@@ -13,5 +13,5 @@ Bool8 Rva0056EE5F::rva0056EE5F()
 {
 	AsciiString val;
 	GetStringFromRegistry("", "Registered", val);
-	return (Bool8)(val.compareNoCase("true") == 0);
+	return (Bool8)(((const StringBase<char> &)val).compareNoCase("true") == 0);
 }
