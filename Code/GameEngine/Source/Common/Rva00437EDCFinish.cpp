@@ -83,3 +83,17 @@ bool Rva0054D222Prompt::configure(int kind, const UnicodeString &title,
  return true;
 }
 
+
+// Native Ghidra [54D222,54D286)100B; successful configuration retains
+// the passed callback at1C. Both returns release the owned by-value input.
+bool Rva0054D222Prompt::prompt(int kind, const UnicodeString &title,
+ const UnicodeString &message, TreeHintRef00217D4C callback)
+{
+ if (configure(kind, title, message))
+ {
+  TreeHintRef00217D4C &destination = m_callback;
+  destination = callback;
+  return true;
+ }
+ return false;
+}
