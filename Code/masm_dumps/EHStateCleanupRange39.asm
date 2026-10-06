@@ -29,7 +29,7 @@ EXTERN ??1Rva005F918D@@QAE@XZ:PROC
 EXTERN ??1Rva00087A93@@QAE@XZ:PROC
 EXTERN ??1Rva005F4AD7@@QAE@XZ:PROC
 EXTERN ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ:PROC
-EXTERN BasicStringCharDtor_dup:PROC
+EXTERN ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ:PROC
 EXTERN ??1Q1ReceiverLocalSet@@QAE@XZ:PROC
 EXTERN ??1BfmeWideResult@@QAE@XZ:PROC
 EXTERN ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ:PROC
@@ -2107,7 +2107,7 @@ PUBLIC ?rva007A6D3D@@YAXXZ
     jz NEAR PTR cleanup_done_007A6D3D
     and DWORD PTR [ebp-16], -2
     lea ecx, [ebp-32]
-    jmp BasicStringCharDtor_dup
+    jmp ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
 cleanup_done_007A6D3D:
     ret
 ?rva007A6D3D@@YAXXZ ENDP

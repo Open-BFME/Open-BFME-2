@@ -16,7 +16,6 @@ EXTERN ??1Rva003ED94FDtor@@QAE@XZ:PROC
 EXTERN ??1Rva002606AFDtor@@QAE@XZ:PROC
 EXTERN ?call@Rva002E3A80Holder@@QAEXXZ:PROC
 EXTERN ??1Rva005F8F96@@QAE@XZ:PROC
-EXTERN BasicStringCharDtor_dup:PROC
 EXTERN ??1Rva004F6093Holder@@QAE@XZ:PROC
 EXTERN ??1Rva00410688@@QAE@XZ:PROC
 EXTERN ??1Rva0045EF90Object@@UAE@XZ:PROC
@@ -795,7 +794,7 @@ PUBLIC ?rva00785754@@YAXXZ
     jz NEAR PTR cleanup_done_00785754
     and DWORD PTR [ebp-16], -2
     mov ecx, DWORD PTR [ebp+8]
-    jmp BasicStringCharDtor_dup
+    jmp ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
 cleanup_done_00785754:
     ret
 ?rva00785754@@YAXXZ ENDP
@@ -949,7 +948,7 @@ PUBLIC ?rva00786c20@@YAXXZ
     jz NEAR PTR cleanup_done_00786c20
     and DWORD PTR [ebp-16], -3
     lea ecx, [ebp-28]
-    jmp BasicStringCharDtor_dup
+    jmp ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
 cleanup_done_00786c20:
     ret
 ?rva00786c20@@YAXXZ ENDP
