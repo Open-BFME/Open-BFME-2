@@ -9,6 +9,7 @@ class Rva00559AC1
 {
 public:
 	int rva00559AC1(int v);
+	int rva00559ADC(int v);
 	const Image *rva00559C25(int side, int v);
 	Rva00559AC1 *rva00559A76(int dummy);
 private:
@@ -23,6 +24,18 @@ int Rva00559AC1::rva00559AC1(int v)
 			return i - 1;
 	}
 	return 10;
+}
+
+// ?rva00559ADC@Rva00559AC1@@QAEHH@Z @0x00559ADC 29B: distance to the next
+// rank threshold, returning zero once the search reaches its terminal slot.
+// Evidence: adjacent body calls this object's rowed search and reads the same
+// threshold array at +4; callers use the same this pointer and int argument.
+int Rva00559AC1::rva00559ADC(int v)
+{
+	int idx = rva00559AC1(v);
+	if (idx >= 10)
+		return 0;
+	return m_vals[idx + 1] - v;
 }
 
 const Image *Rva00559AC1::rva00559C25(int side, int v)
