@@ -13514,3 +13514,42 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??4Rva001F8CC2@@QAEAAV0@ABV0@@Z,0x001F8CC2,second-base assign called from 0x001F9CE7 in 0x001F9CCA; vector holder assign; original name unknown
 ??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
 ?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
+?aiMoveToPosition@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z,0x0026C26D,REL32 callee of TunnelContain::scatterToNearbyPosition 0x0047E16B; same body as rowed ?rva0026C26D@AICommandInterface@@QAEXPBUCoord3D@@H@Z (AICommandInterfaceAttackCommands.cpp); CMD_FROM_AI push 2 plus interface at ai+0x20
+?rva002197A6@Rva00219B9E@@QAEPAVCreateAHeroData@@H@Z,0x002197A6,REL32 callee of rva0033B634 hero-image fallback 0x0033B634; CreateAHeroManager two-phase hero-entry scan (8 slots via 0x003FF29F then +0x174 vector); arg is the +0x74 key callers push; entry +0x13c is the returned portrait
+??0Rva00342843@@QAE@PAVStateMachine@@I@Z,0x0034286E,second Rva00342843 ctor forwarding (machine hash) to the AIInternalMoveToState pin 0x0033F279; same vtable 0x008124D8 and member shape as rowed 0x00342843; base for leaf ctors 0x00342892 0x003428AF 0x003428CC
+?find@Rva0033D3B8Map@@QAEPAUMapNode@@ABVAsciiString@@@Z,0x001F8437,Rva0033D3B8 string-map find at this+0x394; aliases the rowed STLport _M_find worker body (same 78B key-only shape as the Skirmish/MapCache twins)
+??0Rva00342BAE@@QAE@PAVStateMachine@@_N@Z,0x00342BAE,AIInternalMoveToState-derived ctor (machine flag) with float/int/bool members; true size 70 (ghidra 33B extent is short); base for leaf ctors 0x00342C47 0x00342D19
+?rva0002DFE2@INI@@QAEPBDPBDPA_N@Z,0x0002DFE2,91B INI quoted-token reader: getNextTokenOrNull 0x2DEED over default seps plus preprocessMacro 0x2D0A9 with substituted-flag out (*flag = expanded != token); throws INIException(3) via filler 0x2F681 plus _CxxThrow when null and flag is NULL; RETAIL REL32 in 0x33B84E loop-top call; null-tolerant when flag != 0
+??0Rva0033B84ETok@@QAE@PBD@Z,0x00037BA0,TU-local spelling for the StringBase const-char ctor; RETAIL REL32 in 0x33B84E tmp construction targets 0x37BA0
+??1Rva0033B84ETok@@QAE@XZ,0x00036410,TU-local spelling for the AsciiString teardown; RETAIL REL32 in 0x33B84E EH cleanup targets 0x36410
+?reset@Rva0033B84ETok@@QAEXXZ,0x00036410,TU-local spelling for the accumulator reset; RETAIL REL32 at 0x33B86C targets the 0x36410 releaseBuffer fold; exact source spelling (clear/dtor/releaseBuffer) unproven
+?nextToken@Rva0033B84ETok@@QAE_NPAV1@PBD@Z,0x00036D90,TU-local spelling for narrow StringBase nextToken; RETAIL REL32 in 0x33B84E quoted-arm split targets 0x36D90
+?rva0033B84EAppend@Rva0033AFBB@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for the join-append helper: caller codegen (ecx=edi receiver setup at both 0x33B84E call sites) proves a worker-member call; callee body ignores its receiver so the YG row verifies unchanged; RETAIL REL32s in 0x33B84E
+?countIntersection@?$BitFlags@$0HF@@@QBEHABV1@@Z,0x0033ADFC,87B narrow BitFlags intersection popcount over 4 words ((mine & theirs) SWAR); first call of findBestInfoSlow 0x33BDF8 loop next to countInverseIntersection 0x33AE53; RETAIL REL32 in 0x33BDF8; SWAR shape read from the 87B body
+??0MyRecord@@QAE@XZ,0x0033B0EF,TU-local record default ctor; RETAIL REL32 in 0x33E102 temp construction targets 0x33B0EF (EH body calling 0x7B31AD plus 0x73A865 with +4 zero)
+?erase@?$vector@UBfmeContainerRecord002CF46E@@V?$allocator@UBfmeContainerRecord002CF46E@@@_STL@@@_STL@@QAEXPAUBfmeContainerRecord002CF46E@@0@Z,0x000C059B,TU-local spelling for the 12B-element vector range erase; RETAIL REL32 in 0x33E102 targets the rowed Rva000B435F-erase fold at 0xC059B
+?rva0033C247@MyRecord@@QAEXPAX@Z,0x0033C247,TU-local record fill from the 0x33E102 arg; RETAIL REL32 in 0x33E102 targets 0x33C247 (11B forwarder pushing record plus string-const into 0x2DE78)
+??1Rva0026E1A6@@QAE@XZ,0x0026E1A6,TU-local member dtor for the +0x3ac field of the 0x33DDA1 teardown; RETAIL REL32 in 0x33DDA1 targets 0x26E1A6 (56B EH body freeing its +0 member via 0x66DEE4 plus 0x30830)
+??1Rva0033DDA1E14@@QAE@XZ,0x0046C94B,TU-local element dtor for the 2x0x14 array at +0x3c4; pushed as the ehvec-dtor address in 0x33DDA1; body is a 5B tail-jump to 0x46BF2A
+??1Rva0033DDA1E8@@QAE@XZ,0x004C9F38,TU-local element dtor for the 0x38x8 array at +0x124; pushed as the ehvec-dtor address in 0x33DDA1
+??1Rva0033DDA1E4@@QAE@XZ,0x0088BA39,TU-local element dtor for the 5x4 array at +0x7c; pushed as the ehvec-dtor address in 0x33DDA1; body tail-jumps to the 0x36410 string fold
+??1Rva0033D00ATree@@QAE@XZ,0x0033D00A,TU-local spelling for the stlport tree member dtor at +0x394; RETAIL REL32 in 0x33DDA1 targets the rowed 0x33D00A body
+??1Rva0025742CTree@@QAE@XZ,0x0025742C,TU-local spelling for the record-tree member dtor at +0x388; RETAIL REL32 in 0x33DDA1 targets the rowed 0x25742C body
+??1Rva0033D4ABVec@@QAE@XZ,0x0033D4AB,TU-local spelling for the vector member dtor at +0x370; RETAIL REL32 in 0x33DDA1 targets the rowed 0x33D4AB body
+??1Rva0033CA81Vec@@QAE@XZ,0x0033CA81,TU-local spelling for the prereq-vector member dtor at +0x324; RETAIL REL32 in 0x33DDA1 targets the rowed 0x33CA81 body
+??1Rva0033CD02Vec@@QAE@XZ,0x0033CD02,TU-local spelling for the string-record vector member dtors at +0x2e4/+0x2f0/+0x2fc/+0x308/+0x364; RETAIL REL32s in 0x33DDA1 target the rowed 0x33CD02 body
+?rva00390533@Rva00390533@@QAE_NXZ,0x00390533,TU-local flag-pair check (bit31 of +0x118 or bit8 of +0x114); RETAIL REL32 in 0x341C54 targets 0x390533
+?rva002F23A6@Rva002F23A6@@QAE_NPAVObject@@HHPAUCoord3D@@0@Z,0x002F23A6,TU-local five-arg dispatch reached via the +0x10 member of the global at 0xDFF0F8; RETAIL REL32 in 0x341C54 targets 0x2F23A6 (1215B EH body)
+?Rva006CEC42@@YAXPAXPBDNN@Z,0x006CEC42,TU-local double-printing log helper (file plus format plus two doubles); RETAIL REL32 in 0x341C54 targets 0x6CEC42
+?TheGameLogic@@3PAVGameLogic@@A,0x00DFE78C,TheGameLogic global; +0x1b4 count read by 0x341C54
+?g_00DFEFF0@@3PAXA,0x00DFEFF0,log-file global tested non-null by 0x341C54
+?g_00DFF0F8@@3PAXA,0x00DFF0F8,dispatch-table global whose +0x10 member receives the 0x341C54 five-arg call
+?rva00343DD8@@YAXPAVRva00343F8A@@PAX@Z,0x00343DD8,TU-local goal-path callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x343DD8 when getGoalObject is non-null
+?rva0033FD98@@YAXPAVRva00343F8A@@PAX@Z,0x0033FD98,TU-local no-goal callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x33FD98 when getGoalObject is null
+
+?rva00409F1B@Rva00409F1B@@QAEXHH@Z,0x00409F1B,thiscall (mov esi plus ecx prolog) reached from 0x33C965 with two int args after the 0x31D5F8 lookup hit; RETAIL REL32 at 0x0033CA6B; address-named
+?g_00DFE758@@3PAXA,0x00DFE758,flag-holder global tested at +0x1110 by 0x33C965 before the 0x31D5F8 lookup
+?g_00E01CFC@@3PAXA,0x00E01CFC,lookup-table global receiving the 0x31D5F8 call in 0x33C965
+?Rva003430A3Check@@YA_NPAXPAVObject@@H@Z,0x003430A3,free goal check called from 0x343DD8 with (esi plus ebp plus edi); RETAIL REL32 at 0x00343E9B; recovery is blocked so this spelling only serves the call
+?rva0047A699@Rva002C9400ByteField@@QBE_NXZ,0x0047A699,const predicate on the Weapon +4 byte-field reached from 0x343DD8; RETAIL REL32 at 0x00343E72; address-named
+?rva002CB902@Weapon@@QBEDPAVObject@@PAXMH@Z,0x002CB902,const Weapon byte predicate over (object plus aux plus float plus int) called from 0x33FD98; RETAIL REL32 at 0x0033FDC4; byte return avoids caller-side bool normalization; address-named
