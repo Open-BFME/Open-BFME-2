@@ -9,13 +9,13 @@
 // eight-byte range through virtual slot zero, then frees the allocation.
 // All six helper aliases were independently full-byte verified, including
 // their called constructor/destruction chain, before entering symbols.csv.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Keep the inline max overload local to avoid a competing external definition.
 // Define it for speed, then restore this unit's flags for its own bodies.
 #include <stl/_algobase.h>
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
@@ -33,5 +33,11 @@ public:
 };
 // Instantiate only the served overflow member; helper COMDATs retain their
 // reference definitions and can link against the existing record constructor.
+// Preserve STLport placement-copy inlining without emitting another external
+// specialization; StlportConstructCopySiblings.cpp owns the retail helper.
+namespace _STL {
+static inline void _Construct(Rva005DBCD1 *dest, const Rva005DBCD1 &source) { new (dest) Rva005DBCD1(source); }
+}
+
 template void _STL::vector<Rva005DBCD1, _STL::allocator<Rva005DBCD1> >::_M_insert_overflow(
     Rva005DBCD1 *, const Rva005DBCD1 &, const _STL::__false_type &, unsigned int, bool);

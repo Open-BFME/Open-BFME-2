@@ -6,7 +6,7 @@
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 { return a < b ? b : a; }
 }
 #pragma optimize("", on)
@@ -19,5 +19,11 @@ public:
  virtual ~Rva0014F480();
  short m_field04, m_field06;
 };
+// Preserve STLport placement-copy inlining without emitting another external
+// specialization; StlportConstructCopySiblings.cpp owns the retail helper.
+namespace _STL {
+static inline void _Construct(Rva0014F480 *dest, const Rva0014F480 &source) { new (dest) Rva0014F480(source); }
+}
+
 template void _STL::vector<Rva0014F480, _STL::allocator<Rva0014F480> >::_M_insert_overflow(
     Rva0014F480 *, const Rva0014F480 &, const _STL::__false_type &, unsigned int, bool);
