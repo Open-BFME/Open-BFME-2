@@ -32,3 +32,59 @@ void __stdcall Rva003BB31DClear(const AsciiString &name)
 			p->m_flag339 = 0;
 	} while (mask != 0);
 }
+
+// Three same-shape player-mask actions from adjacent Ghidra starts. Their
+// action identities are unresolved, so the recovered entries use RVA names.
+// The only semantic anchors used here are the rowed player-mask resolver and
+// PlayerList iterator shared with the neighboring target-proven set/clear
+// actions above. The unrowed Player call targets stay address-derived pins.
+class Rva002AE9B8
+{
+public:
+	void rva002AE9B8(int a0, int a1);
+};
+
+class Rva002ABD93
+{
+public:
+	void rva002ABD93(int a0, int a1);
+};
+
+void __stdcall Rva003BB29D(const AsciiString &name)
+{
+	int mask = TheScriptEngine->rva00357475(name, 0);
+	if (mask == 0)
+		return;
+	Player *p;
+	do {
+		p = ThePlayerList->getEachPlayerFromMask(mask);
+		if (p)
+			((Rva002AE9B8 *)p)->rva002AE9B8(1, 1);
+	} while (mask != 0);
+}
+
+void __stdcall Rva003BB35B(const AsciiString &name, int arg)
+{
+	int mask = TheScriptEngine->rva00357475(name, 0);
+	if (mask == 0)
+		return;
+	Player *p;
+	do {
+		p = ThePlayerList->getEachPlayerFromMask(mask);
+		if (p)
+			((Rva002ABD93 *)p)->rva002ABD93(arg, 0);
+	} while (mask != 0);
+}
+
+void __stdcall Rva003BB41A(const AsciiString &name, int arg)
+{
+	int mask = TheScriptEngine->rva00357475(name, 0);
+	if (mask == 0)
+		return;
+	Player *p;
+	do {
+		p = ThePlayerList->getEachPlayerFromMask(mask);
+		if (p)
+			((Rva002ABD93 *)p)->rva002ABD93(arg, 1);
+	} while (mask != 0);
+}

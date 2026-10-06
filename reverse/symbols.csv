@@ -16352,3 +16352,5 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00295F05@Object@@QAEXH@Z,0x00295F05,callee of ?rva00583794@Rva00583794@@QAEXPAVObject@@@Z
 ?rva001EC859@Rva001EC859@@QAEPAXHH@Z,0x001EC859,Address-derived direct callees read from retail REL32 displacements; semantic identity unresolved.
 ?rva001EC8C0@Rva001EC8C0@@QAE_NHHH@Z,0x001EC8C0,Address-derived direct callees read from retail REL32 displacements; semantic identity unresolved.
+?rva002AE9B8@Rva002AE9B8@@QAEXHH@Z,0x002AE9B8,Address-derived direct callees of player-mask actions at 0x003BB29D; 0x003BB35B; and 0x003BB41A; target identity unresolved.
+?rva002ABD93@Rva002ABD93@@QAEXHH@Z,0x002ABD93,Address-derived direct callees of player-mask actions at 0x003BB29D; 0x003BB35B; and 0x003BB41A; target identity unresolved.
