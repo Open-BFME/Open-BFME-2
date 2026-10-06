@@ -14683,3 +14683,4 @@ Rva0076D3D2	0x0076D3D2	25	blocked	boundary: 25-byte Ghidra Unwind body ends at r
 ?rva0035164E@Rva0035164E@@QAEXAAURva0035164EDest@@@Z	0x0035164E	165	blocked	copy scheduling and vector-copy codegen differ by 10 bytes after 2 variants; address identity only t=5 model=gpt-6.1-sol
 ?update@AIMoveToPositionAndDieState@@UAE?AW4StateReturnType@@XZ	0x003513C9	214	blocked	target offsets and donor flow match but control-flow and call setup still differ across several regions after 6 variants; vtable identity confirmed t=15 model=gpt-6.1-sol
 ?rva000E9C1D@Rva000E9C1D@@QAE...	0x000E9C1D	194	blocked	unclaimed code address 0x00763710 and unnamed data at RVA 0x003CECB8 prevent a valid callee/global model; no class identity evidence t=3 model=gpt-6.1-sol
+?rva005EBCCE@Rva005EBCCE@@QAEXXZ	0x005EBCCE	241	blocked	register allocation and spill shape unresolved after five variants t=8 model=GPT-6
