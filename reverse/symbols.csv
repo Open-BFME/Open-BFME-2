@@ -13191,3 +13191,6 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ??_7Rva0055B0CC@@6B@,0x00C6B900,Rva0055B0CC vtable installed by its copy ctor 0x0055B182 (mov [esi] imm at 0x0055B195)
 ??_7Rva00573B23@@6B@,0x00C6E270,Rva00573B23 vtable: slot 0 rowed ??_GRva00573B23 0x00573C60; installed by ctor 0x00573A9B and copy ctor 0x00573AC8; 0x00C6E2A0 is the same table from slot 12
 ?rva000BBDDF@@YGPAXHH@Z,0xBBDDF,rva000BBE29 probe: address read from the REL32 at 0x000BBE34 in 0x000BBE29; fresh address-derived stdcall name (int selector, int key) for the 74B map-find wrapper calling stlport _M_find at 0x00388F63
+?rva000B8440@Rva000B8F5AOuter@@QAEHPAMH@Z,0xB8440,rva000BAD2B tail: address read from the REL32 at 0x000BADCD in 0x000BAD2B; fresh address-derived Outer-method name (float out, int probe) returning the final int
+?rva00016EE40@Rva00016EE40@@QAEPAPAXPAPAXH@Z,0x16EE40,rva000E509B table fetch: address read from the REL32 at 0x000E52CF in 0x000E509B; fresh address-derived name (out, index) returning the out-pointer for the 37B array RefCount bump body
+?rva000117D89@@YAXPAX0@Z,0x117D89,rva000E509B name resolve: address read from the REL32 at 0x000E536E in 0x000E509B; fresh address-derived cdecl name (out, in) filling the verify string slot
