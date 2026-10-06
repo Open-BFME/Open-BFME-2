@@ -38,6 +38,14 @@ struct Rva000C144AEntry
 	char m_pad04[0x1C - 0x04];
 };
 
+struct Rva000C14BDTarget
+{
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void *v03();
+};
+
 class Rva000B8F5A
 {
 public:
@@ -45,6 +53,7 @@ public:
 	void rva000BFD77();
 	void rva000BFD9F();
 	int rva000C144A();
+	void *rva000C14BD(int i);
 
 private:
 	char m_pad00[0x0C];
@@ -124,4 +133,22 @@ int Rva000B8F5A::rva000C144A()
 		e++;
 	} while (n < 3);
 	return n;
+}
+
+// ?rva000C14BD@Rva000B8F5A@@QAEPAXH@Z @0x000C14BD 56B
+// Indexed entry fetch: runs the outer 0xC0386 probe, bounds-checks the
+// index against the 3 x 0x1C +0x104 entries, and returns the entry target's
+// slot-3 virtual (or null when out of range or empty).
+void *Rva000B8F5A::rva000C14BD(int i)
+{
+	((Rva000B8F5AOuter *)((char *)this - 12))->rva000C0386();
+	if (i < 0 || (unsigned)i >= 3)
+		return 0;
+	Rva000C144AEntry *e = &m_entries104[i];
+	// Volatile view: retail tests the slot in memory (cmp [eax],0) and
+	// reloads it for the call instead of forwarding one load.
+	Rva000C144AEntry volatile *ve = e;
+	if (ve->m_ptr00 == 0)
+		return 0;
+	return ((Rva000C14BDTarget *)ve->m_ptr00)->v03();
 }
