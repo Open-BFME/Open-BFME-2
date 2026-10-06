@@ -3,10 +3,10 @@
 // Owning-pointer resets: 26-byte members that take the pointer at +0, null
 // the slot, and if it was set run the pointee's destructor and free it through
 // operator delete 0x0002FD60, the shape of the rowed ?clear@Rva00053D89@@QAEXXZ
-// (Rva00053D89Clear.cpp).  Each holder is named after its reset's address and
-// each pointee after the destructor address the retail call proves; those
-// destructors are declared, not defined, and resolve to their ledger rows or
-// address-named pins.  Owner and pointee identities are not recovered.
+// (Rva00053D89Clear.cpp). Each holder is named after its reset's address and
+// each pointee after the destructor address the retail call proves. The
+// 0x004E668E destructor is defined below from its own boundary; other names
+// remain address-derived. Owner and pointee type identities are not recovered.
 //
 //   reset       pointee dtor  callers
 //   0x000AF146  0x000AD71D    2
@@ -115,6 +115,20 @@ class Rva004E668E
 public:
 	~Rva004E668E();
 };
+
+// Target identity: the reset methods below and the scalar deleting destructor
+// call 0x004E668E as this pointee's destructor. Its five-byte body tail-jumps
+// without adjusting this to the rowed cleanup method at 0x004E63E2; preserve
+// the pin's address-derived class name.
+struct Rva004E63E2
+{
+	void rva004E63E2();
+};
+
+Rva004E668E::~Rva004E668E()
+{
+	((Rva004E63E2 *)this)->rva004E63E2();
+}
 
 class Rva0029B5E3
 {
