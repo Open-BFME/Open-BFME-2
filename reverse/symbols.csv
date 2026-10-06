@@ -15342,3 +15342,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva00240D8C@Rva002419ABOwner@@QAEPAXPBVAsciiString@@@Z,0x00240D8C,direct call at 0x002419C0 from Ghidra body 0x002419AB; Ghidra boundary 73B; ECX is caller this and the stack argument points to a 4B string object; owner and operation remain inferred
 ?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
 ?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
+?onContaining@HordeContain@@UAEXPAVObject@@_N@Z,0x0046FA46,callee of ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z
