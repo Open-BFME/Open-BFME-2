@@ -10674,3 +10674,6 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva005B736E@Rva005B736E@@QAE_NXZ	0x005B736E	184	blocked	184B vslot INI Credits load with unclaimed callback 0x5B72A5 plus SSE EH needs donor t=6 model=muse-06
 ?rva0050ADEE@Made002CC9D4@@QAE_NHH@Z	0x0050ADEE	189	blocked	189B Made vslot slot1 with Object virtuals list BitFlags enum no donor t=8 model=muse-06
 ?insert@?$vector@URva00504755Record@@V?$allocator@URva00504755Record@@@_STL@@@_STL@@QAEPAURva00504755Record@@PAU3@ABU3@@Z	0x00504D57	161	partial	movss vs movsd float copy plus ecx vs esi and esp 0x18 vs 0x1c 9B short t=15 model=muse-06 score=0.91 stash=reverse/attempts/0x00504d57.cpp
+?rva006E4150@Rva006E4150@@QAEXXZ	0x006E4150	562	blocked	AptTimerFunc dispatcher 562B with 15 callees and asserts; no BFME1 donor for AptTimerFunc t=15 model=muse-12
+?rva005967B3@Rva0059675A@@QAEXXZ	0x005967B3	341	blocked	vslot 341B diverged across 6 shapes: frame 8B plus x87-vs-SSE muls plus ucomis guard plus pin arity plus ebx temp t=30 model=muse-12
+?rva007405A9@Rva00740242@@QAEXHHHH@Z	0x007405A9	312	blocked	vslot 312B 6 shapes without exact: frame fixed but xmm round-robin plus w-h home swap plus fh fresh slot persist t=35 model=muse-12
