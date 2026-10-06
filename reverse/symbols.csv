@@ -14913,3 +14913,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 dup_7e86b0,0x00655770
 rva009C7380WeightPairs,0x009B84E0
 ?dup_0060C9D9@_STL@@YAXPAU?$pair@$$CBII@1@ABU21@@Z,0x0060C9D9,Address-derived placeholder for native 23B two-word copy target; template and scalar identity unknown
+?_M_insert@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva00359032Value@@U?$_Nonconst_traits@URva00359032Value@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva00359032Value@@0@Z,0x00358E9F,callee of ?insert_unique@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@URva00359032Value@@U?$_Nonconst_traits@URva00359032Value@@@_STL@@@_STL@@_N@2@ABURva00359032Value@@@Z
