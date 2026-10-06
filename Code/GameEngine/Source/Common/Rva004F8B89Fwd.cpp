@@ -217,3 +217,37 @@ void Rva004E94FB::rva004E9710()
 		}
 	}
 }
+
+class Rva0059AED2
+{
+public:
+	void rva0059AED2();
+};
+
+class Rva004F6187
+{
+public:
+	void rva004F6187();
+
+private:
+	char m_pad[0x0C];
+};
+
+// ?rva004F6187@Rva004F6187@@QAEXXZ @0x004F6187 42B.
+void Rva004F6187::rva004F6187()
+{
+	void ***pend = (void ***)((char *)this + 0x10);
+	int n = 2;
+	do
+	{
+		void **p = (void **)pend[-1];
+		void **end = *pend;
+		while (p != end)
+		{
+			((Rva0059AED2 *)*p)->rva0059AED2();
+			++p;
+		}
+		pend = (void ***)((char *)pend + 0xC);
+		--n;
+	} while (n != 0);
+}

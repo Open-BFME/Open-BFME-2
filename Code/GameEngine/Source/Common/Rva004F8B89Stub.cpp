@@ -13,3 +13,21 @@ void __stdcall rva004F8B89(int a, int b, int c)
 {
 	rva004F7EE9(a, b, c, (void *)((char *)&c + 3));
 }
+
+// ?rva004F83F2@@YGXHHHH@Z @0x004F83F2 25B.
+void __stdcall rva004F83F2(int a, int b, int c, int d)
+{
+	rva004F7EE9(a, b, c, (void *)((char *)&c + 3));
+}
+
+void __cdecl rva004F8C16(int a, int b, int c, int d, int e, int f);
+
+// ?rva004F904F@@YAXHHHH@Z @0x004F904F 40B.
+void __cdecl rva004F904F(int a, int b, int c, int d)
+{
+	if (a == b)
+		return;
+	if (b == c)
+		return;
+	rva004F8C16(a, b, c, 0, 0, d);
+}

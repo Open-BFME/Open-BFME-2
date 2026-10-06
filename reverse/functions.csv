@@ -63758,3 +63758,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004E951C@Rva004E94FB@@QAEXPAX@Z,,0x004E951C,67,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,virtual pre-pass plus member walk; full byte gate
 ?rva004E955F@Rva004E94FB@@QAEPAXHH@Z,,0x004E955F,51,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,keyed search with double-load; full byte gate
 ?rva004E9710@Rva004E94FB@@QAEXXZ,,0x004E9710,182,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,conditional rescale plus null-guarded walk plus twin global resolves; full byte gate
+?rva004F83F2@@YGXHHHH@Z,,0x004F83F2,25,Code/GameEngine/Source/Common/Rva004F8B89Stub.cpp,matched,stdcall 4-arg repack twin; full byte gate
+?rva004F904F@@YAXHHHH@Z,,0x004F904F,40,Code/GameEngine/Source/Common/Rva004F8B89Stub.cpp,matched,cdecl twin-guard plus 6-arg forward; full byte gate
+?rva004F6187@Rva004F6187@@QAEXXZ,,0x004F6187,42,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,dual-array pointer walk with hoisted end; full byte gate
