@@ -5,6 +5,11 @@
 
 typedef int Int;
 
+enum ObjectStatusTypes
+{
+	Rva0053E4B1Status = 2
+};
+
 class GameWindow
 {
 };
@@ -12,6 +17,8 @@ class GameWindow
 class Object
 {
 public:
+	bool testStatus(ObjectStatusTypes bit) const;
+
 	float getConstructionPercent()
 	{
 		return m_constructionPercent;
@@ -22,13 +29,23 @@ private:
 	float m_constructionPercent;
 };
 
+struct Rva0053E4B1Owner
+{
+	unsigned char m_pad[0xfc];
+	Object *m_fc;
+};
+
 class ControlBar
 {
 public:
 	void updateConstructionTextDisplay(Object *obj);
+	void rva0053E4B1();
+	void rva0031D230();
 
 private:
-	unsigned char m_pad[0x78];
+	unsigned char m_pad0[0x6c];
+	Rva0053E4B1Owner *m_6c;
+	unsigned char m_pad70[8];
 	float m_displayedConstructPercent;
 };
 
@@ -153,4 +170,19 @@ void ControlBar::updateConstructionTextDisplay(Object *obj)
 	text.format(TheGameText->slot44("CONTROLBAR:UnderConstructionDesc", 0), obj->getConstructionPercent());
 	GadgetStaticTextSetText(descWindow, text);
 	m_displayedConstructPercent = obj->getConstructionPercent();
+}
+
+// ?rva0053E4B1@ControlBar@@QAEXXZ @0x0053E4B1 64B: inspect the selected
+// object's status bit 2, then compare its +0x280 construction value to the
+// cached ControlBar value at +0x78. The owner path through +0x6C/+0xFC is a
+// target-layout view; the original method name remains unknown.
+void ControlBar::rva0053E4B1()
+{
+	Object *obj = m_6c->m_fc;
+	if (!obj->testStatus(Rva0053E4B1Status)) {
+		return rva0031D230();
+	}
+	if (m_displayedConstructPercent != obj->getConstructionPercent()) {
+		updateConstructionTextDisplay(obj);
+	}
 }

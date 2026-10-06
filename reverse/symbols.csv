@@ -14155,6 +14155,7 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva005C6CC7@Rva005C6CC7Call@@QAEXXZ,0x005C6CC7,address-derived void helper; direct call target of 0x00577E43; 5-byte thunk tail-jumps to rowed reset method 0x005C6C89; caller purpose remains unknown
 ?rva00571B75@Rva00571B75Call@@QAEXXZ,0x00571B75,callee of ?rva00571C60@Rva00571C60@@QAEXXZ
 ?rva005706D4@Rva005706D4Call@@QAEXXZ,0x005706D4,callee of ?rva00571C60@Rva00571C60@@QAEXXZ
+?rva0031D230@ControlBar@@QAEXXZ,0x0031D230,direct tail call from 0x0053E4B1 on the same ControlBar this when Object status bit 2 is clear; Ghidra boundary 968; address-derived fallback method, purpose unknown
 ??0Rva005D12E3@@QAE@XZ,0x005D1296,callee of ??0Rva00576591@@QAE@PAX@Z
 ?Rva00598A3D@AIUnitBuilder@@QAEXXZ,0x00598A3D,callee of ?Rva00598D7A@AIUnitBuilder@@QAEXXZ
 ?Rva00598961@AIUnitBuilder@@QAEXXZ,0x00598961,callee of ?Rva00598D7A@AIUnitBuilder@@QAEXXZ
