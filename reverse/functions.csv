@@ -67252,3 +67252,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ??0Rva000AB910@@QAE@ABVAsciiString@@@Z,,0x000AB910,70,Code/GameEngine/Source/Common/Rva000AB910Ctor.cpp,matched,target offsets support string integer and two maps
 ??0Rva0022A9DDSubsystem@@QAE@XZ,,0x0022DF79,55,Code/GameEngine/Source/GameClient/Rva0022DF79SubsystemCtor.cpp,matched,GameEngine init caller names subsystem; matching sibling constructor recipe
 ?rva00211570@Rva00211570@@QAEXXZ,,0x00211570,25,Code/GameEngine/Source/GameClient/Rva00211570.cpp,matched,Observed helper call and conditional direct tail jump; field purpose unresolved
+?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z,,0x00477B69,57,Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainOnDie.cpp,matched,Secondary +0x28 target vtable and one-pointer ABI support onDie; module-data flag/helper meaning remains unnamed; direct callee 0x0047778B has an address-derived pin

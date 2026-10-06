@@ -15354,3 +15354,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva004D0E8B@ConnectionManager@@QAEXXZ,0x004D0E8B,REL32 target read at 0x0025E23D; target Ghidra boundary is 8B; body pushes zero and calls existing pinned 0x004D00BB then returns; ECX is Network+0x0C; ConnectionManager ownership follows target TU map and caller layout; helper operation remains unresolved.
 ?rva00211505@Rva00211505@@QAEXXZ,0x00211505,REL32 call and tail jump observed in target 0x00211570; address-derived names only
 ?rva003F92DA@Rva003F92DA@@QAEXXZ,0x003F92DA,REL32 call and tail jump observed in target 0x00211570; address-derived names only
+?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
