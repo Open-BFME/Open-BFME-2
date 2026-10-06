@@ -13435,3 +13435,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Rva00525D9A@@YGXPAUObj00526309@@@Z,0x00525D9A,stdcall callee of flag dispatcher 0x00526309 (REL32 at 0x0052632B); Ghidra 102B unrecovered; address name
 ?rva005C4180@Obj0052B003@@QAEXH@Z,0x005C4180,thiscall callee of range loop 0x0052B003 (REL32 at 0x0052B013); body unrecovered; address name
 ?rva005657FE@Elem0052BFE1@@QAE_NHH@Z,0x005657FE,thiscall predicate for stride search 0x0052BFE1 (REL32 at 0x0052C00F); Ghidra 103B unrecovered; address name
+?Rva00525CC5@Holder00526309@@QAEXPAUObj00526309@@@Z,0x00525CC5,thiscall callee of flag dispatcher 0x00526309 (REL32 at 0x0052631A); Ghidra 213B unrecovered; address name
+?Rva00525D9A@Holder00526309@@QAEXPAUObj00526309@@@Z,0x00525D9A,thiscall callee of flag dispatcher 0x00526309 (REL32 at 0x0052632B); Ghidra 102B unrecovered; address name
