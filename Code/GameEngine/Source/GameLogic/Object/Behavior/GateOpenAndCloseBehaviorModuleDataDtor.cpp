@@ -10,9 +10,14 @@
 // Teardown ends with the Snapshot vtable 0x00BBB554 store. Member types beyond
 // the pinned callees are unrecovered.
 
-#include "Common/Snapshot.h"
-
 #include "ascii_string.h"
+
+class Snapshot
+{
+public:
+	Snapshot() {}
+	virtual ~Snapshot() {}
+};
 
 class OpaqueRefCounted
 {
