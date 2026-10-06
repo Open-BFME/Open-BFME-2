@@ -13578,3 +13578,5 @@ _peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.c
 ?rva005B89A1@Rva005B8EBB@@QAEXXZ,0x005B89A1,callees of 0x005B8EBB from retail REL32; names unknown
 ?rva005B8A40@Rva005B8EBB@@QAEXXZ,0x005B8A40,callees of 0x005B8EBB from retail REL32; names unknown
 ?rva005DD48C@Rva005B8EBB@@QAEXXZ,0x005DD48C,callees of 0x005B8EBB from retail REL32; names unknown
+?rva00219251@Rva005B2725@@QAEXXZ,0x00219251,callee of 0x005B2725 from retail REL32; name unknown
+?rva005A061B@Rva005A0D61@@QAEXXZ,0x005A061B,callee of 0x005A0D61 from retail REL32; name unknown
