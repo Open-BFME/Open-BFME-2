@@ -64432,3 +64432,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?set@Rva002A98F2Coord3DSetter@@QAEXUCoord3D@@@Z,,0x002A98F2,17,Code/GameEngine/Source/Common/Rva002A98F2Coord3DSetter.cpp,matched,by-value Coord3D copy into +0xC in the Player-side setter gap
 ?set@Rva002A9903FloatSetter@@QAEXM@Z,,0x002A9903,14,Code/GameEngine/Source/Common/Rva002A9903FloatSetter.cpp,matched,SSE float store at +0x20 in the Player-side setter gap
 ??1Rva000F82F5Dtor@@QAE@XZ,,0x000F82F5,83,Code/GameEngine/Source/Common/Rva000F82F5Dtor.cpp,matched,empty body with CRT-freed buffer and two texture handle member dtors
+??1Rva000FA7E8Dtor@@QAE@XZ,,0x000FA7E8,83,Code/GameEngine/Source/Common/Rva000FA7E8Dtor.cpp,matched,empty body with two texture handle member dtors then CRT-freed buffer
