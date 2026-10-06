@@ -5,6 +5,15 @@
 // Skips when arg is 0; callers 0x00489DA0 0x0048A38D; unblocks 0x0048A15A.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 struct Rva0029F93A
 {
 	char m_pad[0x9C4];

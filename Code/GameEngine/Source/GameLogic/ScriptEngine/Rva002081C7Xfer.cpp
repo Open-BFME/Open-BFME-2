@@ -5,6 +5,15 @@
 // Evidence: Xfer list helper like 0x00207F91 but saving/loading via rowed Rva00203E11Xfer at edi+8; virtual slots 0x28 version 0x2C typename 0x78 count 0x08 isSaving; loading checks empty via FormatText plus Throw then reloads via Chain plus rowed insert 0x00207B90; strings std::list plus List must be empty on load.
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include "ascii_string.h"
 
 typedef unsigned char UnsignedByte;

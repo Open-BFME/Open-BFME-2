@@ -5,6 +5,15 @@
 // Same 49B shape as TreeHintOpaque list clear; value at node+8 proves list node layout.
 // Chain from rowed dtor; unblocks List_base dtor 0x005CD032.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
 struct Rva005F8F96
 {

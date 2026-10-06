@@ -5,6 +5,15 @@
 // Evidence: leaf lane free Xfer list helper; virtual slots 0x28 version 0x2C typename 0x78 count 0x08 isSaving match rowed xferListInt 0x00206861 and Rva00460216 donor; saving walks nodes via rowed Chain 0x00203D6A at edi+8; loading checks empty via FormatText plus Throw then reloads via Chain plus rowed insert wrapper 0x00207B90; strings std::list plus List must be empty on load.
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include "ascii_string.h"
 
 typedef unsigned char UnsignedByte;

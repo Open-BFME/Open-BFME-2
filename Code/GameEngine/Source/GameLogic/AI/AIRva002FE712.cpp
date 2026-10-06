@@ -7,6 +7,15 @@
 // list at +0x14 matches createGroup push_back<int> at 0x002FEC4B, donor
 // BFME1 ai.cpp destroyGroup find+erase+deleteInstance shape.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include <algorithm>
 
 enum ObjectID

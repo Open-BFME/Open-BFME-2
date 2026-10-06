@@ -14,6 +14,15 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 // 32-byte element; layout owner stlport_list_create_nodes.cpp.
 struct BfmeContainerRecord00462D62 { char m_pad[32]; public: BfmeContainerRecord00462D62(const BfmeContainerRecord00462D62 &); ~BfmeContainerRecord00462D62(); };
 // 12-byte element; layout owner stlport_pod_list_bodies.cpp.

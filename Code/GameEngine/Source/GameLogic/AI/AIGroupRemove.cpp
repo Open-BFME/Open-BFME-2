@@ -30,6 +30,15 @@
 // Same broadcast shape calling provider slot35 instead of slot34.
 // Evidence: byte-identical loop to 0x0036D805 above, caller 0x003787FA.
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include <algorithm>
 
 enum ObjectID

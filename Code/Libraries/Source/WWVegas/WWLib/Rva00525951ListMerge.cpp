@@ -1,6 +1,15 @@
 // cl: /Ireference/shims/bfmelist /ICode/GameEngine/Source/Common /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include "Rva00525119.h"
 // STLport4.5.3 _list.c supplies the merge algorithm. The native comparison
 // at525976 calls the independently rowed29B pointer/float comparator525119.

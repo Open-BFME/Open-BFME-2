@@ -5,6 +5,15 @@
 // Evidence: thiscall 0 args ret void; movss m_04 to m_18 plus list chase at +0x14 counting via next at +0 plus fild unsigned size plus fadd m_04 plus fstp m_18; vtable slot 5 of 0x0086B900 class Rva0055B0CC; neighbours 0x0055B166 0x0055B266; float 2^32 via fild adjust.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 class Rva0023DAA5List : public _STL::list<int, _STL::allocator<int> >
 {
 public:
