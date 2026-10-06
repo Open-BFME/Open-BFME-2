@@ -1,5 +1,6 @@
 # Escape-hatch register, shrink-only. Written by tools/hatch_counters.py; you may lower or
 # delete lines by hand (re-verified), never raise or add them. hatch	path	token	count
+# mode: shadow
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText.cpp	g_Va007C9260	2
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText.cpp	g_Va00E06398	2
 address_global	Code/GameEngine/Source/Common/AptImageKeySetters.cpp	g_Rva0107301CEmptyString	2
