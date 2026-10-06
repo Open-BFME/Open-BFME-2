@@ -1,3 +1,5 @@
+// ?rva00579542@Rva005794ED@@UAEXXZ
+// partial score=0.8 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ??1Rva005794ED@@UAE@XZ @0x005794ED 85B: virtual dtor with AsciiString at +8 plus Rva0052413E at +0xC plus TargetRef at +0x18.
 // Evidence: deleting-dtor callers 0x0042D4EB 0x0042D7A3 0x0042D7C6 plus rowed Release 0x0007DEEF plus rowed 0x0052413E plus rowed releaseBuffer 0x00036410 plus vtables 0x00C6ECBC 0x00C6EE28; prev Rva004FAC6BCtor.
@@ -33,10 +35,13 @@ inline Rva005794EDBase::~Rva005794EDBase()
 	*(const void **)this = g_00C6EE28;
 }
 
-struct Rva005794EDHolder18
+struct TreeHintRef00217D4C
 {
+	TreeHintRef00217D4C() : m_ptr(0) {}
+	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
+	__forceinline ~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
+
 	TargetRef00217D4C *m_ptr;
-	__forceinline ~Rva005794EDHolder18() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
 
 class __declspec(novtable) Rva005794ED : public Rva005794EDBase
@@ -46,12 +51,13 @@ public:
 	virtual void rva00579435(bool newState);
 	virtual void PlayAlertFlash();
 	virtual void HaltAlertFlash();
+	virtual void rva00579542();
 	void OnClicked(const char *unused);
 private:
 	int m_04;
 	AsciiString m_08;
 	Rva0052413E m_0C;
-	Rva005794EDHolder18 m_18;
+	TreeHintRef00217D4C m_18;
 	bool m_1C;
 };
 
@@ -110,4 +116,13 @@ void Rva005794ED::PlayAlertFlash()
 void Rva005794ED::HaltAlertFlash()
 {
 	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_04, Rva005794EDGetStr(m_08), "HaltAlertFlash");
+}
+
+// ?rva00579542@Rva005794ED@@UAEXXZ @0x00579542 43B: vtable slot 6; empties
+// the +0x18 target (slot 5 0x0057956D assigns it). Retail registers the
+// temporary's unwind (out-of-line dtor 0x005F8F96) but never runs its inline
+// release on the normal path; cl 13.10 here reloads and tests the temporary.
+void Rva005794ED::rva00579542()
+{
+	m_18 = TreeHintRef00217D4C();
 }
