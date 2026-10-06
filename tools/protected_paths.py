@@ -48,6 +48,8 @@ PROTECTED = (
     "tools/pin_admission.py", "tools/gate_baseline.py", "tools/check_module_registry.py",
     "tools/protected_paths.py", "tools/hatch_counters.py", "tools/retail_inventory.py",
     "tools/publisher.py", "tools/publisher_pre_push.sh",
+    # the advisory audit: its judge allowlist (judges.json), canaries and harness
+    "tools/audit/*",
     # the hooks that run all of the above
     ".githooks/*", ".github/workflows/*",
     # debt registers and exemption lists
