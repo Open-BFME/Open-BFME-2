@@ -35,3 +35,18 @@ void AptScrollBar::Impl::SetVisible(bool v)
 	Rva005277D9Fire(TheRva00222A8BTarget, m_level04, prefix, "SetVisible", &v);
 	m_25 = flag;
 }
+
+class Rva005D49D5
+{
+public:
+	void SetVisible(bool visible);
+
+private:
+	unsigned char m_pad00[0x14];
+	AptScrollBar::Impl *m_impl14;
+};
+
+void Rva005D49D5::SetVisible(bool visible)
+{
+	m_impl14->SetVisible(visible);
+}
