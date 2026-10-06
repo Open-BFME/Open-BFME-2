@@ -13617,3 +13617,4 @@ FUN_00681eca	0x00281ECA	181	blocked	unresolved callees 0x0027FBFE 0x002E9442 plu
 ??0OpenContainModuleData@@QAE@XZ	0x00465124	253	blocked	callee 0x00463D59 just blocked no row gate unresolvable t=5 model=muse-09
 ?rva005478B5@Rva005478B5@@QAEHXZ	0x005478B5	143	blocked	callee 0x005476C8 already blocked complex 317B gate unresolvable t=5 model=muse-09
 ?rva00465011@OpenContain@@QAEXH@Z	0x00465011	103	blocked	align exact 103B but gate picks dup 0x00445E8B over 0x0036ADF9 ICF twin t=30 model=muse-09
+?rva00462B4A@Rva00462B4A@@QAE_NXZ	0x00462B4A	73	partial	test-mem2 vs mov-shr-test-al1; explicit shr folds to test t=18 model=muse-09 score=0.93 stash=reverse/attempts/0x00462b4a.cpp
