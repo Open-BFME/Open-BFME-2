@@ -63873,3 +63873,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00153EE5@Rva00153EE5@@QAEXH@Z,,0x00153EE5,35,Code/GameEngine/Source/Common/Rva00153EE5Adapter.cpp,matched,dump range 5 scratch adapter via in-place by-value temp and 0x1538A8 builder
 ?rva00167ED8@Rva00167ED8@@QAEXM@Z,,0x00167ED8,32,Code/GameEngine/Source/Common/Rva00167E5AFamily.cpp,matched,dump range 5 float clamp-store with flag clear
 ?rva00167EF8@Rva00167EF8@@QAEXABURva00167EF8Rec@@@Z,,0x00167EF8,29,Code/GameEngine/Source/Common/Rva00167E5AFamily.cpp,matched,dump range 5 field-wise 12B record copy into +0xF0
+?rva001683A7@Rva001683A7@@QAEPAV1@H@Z,,0x001683A7,28,Code/GameEngine/Source/Common/Rva001683A7Init.cpp,matched,dump range 5 builder via 0x16801A init plus vtable stamp
