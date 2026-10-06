@@ -27,6 +27,7 @@ class InGameNotificationBoxMovieClip
 {
 public:
 	void CloseImmediately();
+	void rva004E7019();
 	unsigned char m_pad00[4];
 	void *m_owner;
 	int m_state;
@@ -46,4 +47,11 @@ void InGameNotificationBoxMovieClip::CloseImmediately()
 	}
 	m_hold40.clear();
 	m_hold44.clear();
+}
+
+// Target identity: the five-byte entry at 0x004E7019 tail-jumps to this
+// matched method with no this adjustment. Keep the wrapper address-derived.
+void InGameNotificationBoxMovieClip::rva004E7019()
+{
+	CloseImmediately();
 }
