@@ -11,7 +11,6 @@ __int64 GetClockCyclesFast(void);
 int main(void)
 {
 	ProfileHighLevel::Id id = ProfileHighLevel::AddProfile("harness", "pilot", "calls", 0, 0);
-	id.Increment(2.0);
 	Profile::StartRange("frame");
 	Profile::StopRange("frame");
 	ProfileId::Shutdown();

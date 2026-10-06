@@ -2157,10 +2157,3 @@ int Rva005DAFFEGet(void)
 	return (int)"ExperienceTrackerAutoResolve";
 }
 
-// ?Rva006C75F0Get@@YAHXZ @ 0x006c75f0 (6B): returns 0x00ce7d4c.
-// Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-int Rva006C75F0Get(void)
-{
-	return (int)"file_csv";
-}

@@ -338,15 +338,15 @@ int Rva0069BD50Get(void)
 	return G00E0BE00;
 }
 
-// ?Rva006C5E70Get@@YAHXZ @ 0x006C5E70 (6B): returns global at 0xE0C620.
+// ?Rva006C5E70Get@@YAHXZ @ 0x006C5E70 (6B): returns ProfileId::first (0xE0C620,
+// defined in profile/profile_highlevel.cpp); inside that unit's address range.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-extern int G00E0C620;
-// G00E0C620: matched references place it at VA 0xe0c620 (zero-filled .bss).
-int G00E0C620;
+#include "../../../Libraries/Source/profile/internal_highlevel.h"
+
 int Rva006C5E70Get(void)
 {
-	return G00E0C620;
+	return (int)ProfileId::GetFirst();
 }
 
 // ?G009B5F94@@3HA: the global at this VA is ?NPatchesLevel@WW3D@@0IA; this name is an alias for it.

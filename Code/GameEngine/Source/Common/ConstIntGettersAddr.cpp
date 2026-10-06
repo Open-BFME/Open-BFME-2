@@ -341,23 +341,6 @@ int Rva000907A1Get(void)
 	return 0x00CE4818;
 }
 
-// ?Rva006C7580Get@@YAHXZ @ 0x006C7580 (6B): returns 0x00CE7D14.
-// Follows a ret-12 (0x6C757D-7F) with CC padding, 8xCC after, carried
-// at 1 .rdata slot, no direct callers, no branch sources.
-// Opaque address-derived name.
-int Rva006C7580Get(void)
-{
-	return (int)"file_dot";
-}
-
-// ?Rva006C7590Get@@YAHXZ @ 0x006C7590 (6B): returns 0x00CE7CBC.
-// CC-island (8xCC before and after), carried at 1 .rdata slot, no
-// direct callers, no branch sources. Opaque address-derived name.
-int Rva006C7590Get(void)
-{
-	return (int)"file_gtt_dot";
-}
-
 // ?Rva003007A2Get@@YAHXZ @ 0x003007A2 (6B): returns 0x00700778.
 // Follows a leave/ret (0x30079F-A1) with a frame-style function after
 // (0x3007A8: push ebp). Ghidra-6, carried at 1 .rdata slot, no direct

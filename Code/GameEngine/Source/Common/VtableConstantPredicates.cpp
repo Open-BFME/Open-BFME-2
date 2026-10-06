@@ -54,17 +54,6 @@ bool Rva005CB9FF::rva005CB9FF(int a)
 	return false;
 }
 
-class Rva006C8770
-{
-public:
-	bool rva006C8770(int a, int b, int c);
-};
-
-bool Rva006C8770::rva006C8770(int a, int b, int c)
-{
-	return false;
-}
-
 // The two below return Int rather than Bool -- `xor eax,eax`, not `xor al,al`.
 
 class Rva005748AD

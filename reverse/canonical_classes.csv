@@ -27,3 +27,14 @@ AptScriptFunctionBase,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h,or
 AptScriptFunctionByteCodeBlock,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h,original Redwood6 PDB declarations reconciled with native constructor layout and25-slot PC vtable; static consumers share the header
 AptScriptFunction2,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h,original Redwood6 PDB declarations reconciled with native constructor layout and25-slot PC vtable; static consumers share the header
 AptScriptFunction1,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.h,original Redwood6 PDB class52 and PC constructor709B90 plus vtable8EE938; same canonical base layout as ScriptFunction2
+Profile,Code/Libraries/Source/profile/profile.h,Zero Hour profile.h; BFME2 FrameName/PatternListEntry layouts from StartRange/StopRange
+ProfileHighLevel,Code/Libraries/Source/profile/profile_highlevel.h,Zero Hour profile_highlevel.h
+ProfileFuncLevel,Code/Libraries/Source/profile/profile_funclevel.h,Zero Hour profile_funclevel.h (!HAS_PROFILE build)
+ProfileResultInterface,Code/Libraries/Source/profile/profile_result.h,Zero Hour profile_result.h; vtable WriteResults/Delete/GetName
+ProfileId,Code/Libraries/Source/profile/internal_highlevel.h,Zero Hour internal_highlevel.h; 0x58-byte AddProfile allocation
+ProfileCmdInterface,Code/Libraries/Source/profile/internal_cmd.h,Zero Hour internal_cmd.h; numResFunc +4, resFunc +8
+ProfileResultFileCSV,Code/Libraries/Source/profile/internal_result.h,BFME2 CSV writer, vtable 0x00CE85E4
+ProfileResultFileDOT,Code/Libraries/Source/profile/internal_result.h,Zero Hour DOT writer, vtable 0x00CE84D0
+ProfileResultFileGTT,Code/Libraries/Source/profile/internal_result.h,BFME2-new GTT writer, vtable 0x00CE85D8
+ProfileFuncLevelTracer,Code/Libraries/Source/profile/internal_funclevel.h,BFME2 hook-gate tracer (FrameStart 0x006C8380, FrameEnd 0x006C83A0)
+FastCriticalSectionClass,Code/Libraries/Source/WWVegas/WWLib/mutex.h,WWLib spin lock; spin 0x006C5EF0, lock ctor 0x006C5F40
