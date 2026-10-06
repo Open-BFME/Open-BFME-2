@@ -11504,3 +11504,5 @@ FUN_00914fe9	0x00514FE9	88	blocked	ADDRESS-NAMED g_Va00A01E48 escape hatch t=1 m
 ?Rva00419789Copy@@YAXXZ	0x00419789	95	blocked	EH copy with unclaimed scopetable plus pin-only Rva copy t=5 model=muse-06
 ?rva005B6052@Rva005B6052@@QAEXXZ	0x005B6052	276	blocked	compile fail BfmePod40 int10 lacks m_image m_name at +0x10 +0x18 AsciiString pair needs mapped pod type t=3 model=muse-06
 ?Helper@Rva005B6967Box@@QAEXXZ	0x005B6755	474	blocked	complex 474B EH STL sort+vector copy with SSE scale GameText fetchLabel and dual AddEntryText needs full layout count-before-copy and arch SSE t=15 model=muse-06
+?rva004787B0@GarrisonContain@@QAEXXZ	0x004787B0	160	partial	missing second test-edi plus jle and cmp-mem-vs-mov-test payload plus extra mov t=18 model=muse-12 score=0.94 stash=reverse/attempts/0x004787b0.cpp
+?Rva0041CB10Check@@YG_NPAVObject@@PBVCoord3D@@@Z	0x0041CB10	341	blocked	ADDRESS-NAMED g_Va009FF0F8 escape hatch skip t=2 model=muse-12
