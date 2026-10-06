@@ -117,3 +117,7 @@ template<> R3WideTree::iterator R3WideTree::insert_unique(iterator __position,co
 }
 }
 template class _STL::set<Rva0056FB0BRecord>;
+
+// This caller's native REL32 already names the kept provider at 0x00448D3C.
+// Compatible calling convention and argument/return ABI; binding is address-proven.
+#pragma comment(linker, "/alternatename:??M@YA_NABURva0056FB0BRecord@@0@Z=??M@YA_NABUBfmeStringRecord00448113@@0@Z")

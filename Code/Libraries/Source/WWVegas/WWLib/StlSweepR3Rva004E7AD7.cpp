@@ -22,3 +22,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva004E7AD7Record { Rva004E7AD7Record(); Rva004E7AD7Record(const Rva004E7AD7Record&); ~Rva004E7AD7Record(); Rva004E7AD7Record&operator=(const Rva004E7AD7Record&); char bytes[1]; bool operator<(const Rva004E7AD7Record&)const; };
 template void _STL::stable_sort(Rva004E7AD7Record*,Rva004E7AD7Record*);
+
+// This caller's native REL32 already names the kept provider at 0x004E7A76.
+// Compatible calling convention and argument/return ABI; binding is address-proven.
+#pragma comment(linker, "/alternatename:??1Rva004E7AD7Record@@QAE@XZ=?rva004E7A76@Rva004E7A76@@QAEXXZ")

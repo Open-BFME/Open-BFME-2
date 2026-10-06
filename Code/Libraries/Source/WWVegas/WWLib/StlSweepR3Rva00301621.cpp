@@ -22,3 +22,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct Rva00301621Record { Rva00301621Record(); Rva00301621Record(const Rva00301621Record&); ~Rva00301621Record(); Rva00301621Record&operator=(const Rva00301621Record&); char bytes[4]; bool operator==(const Rva00301621Record&) const; bool operator<(const Rva00301621Record&) const; };
 namespace _STL {template<> void _Construct<Rva00301621Record,Rva00301621Record>(Rva00301621Record*,const Rva00301621Record&);}
 template class _STL::map<Rva00301621Record,Rva00301621Record>;
+
+// This caller's native REL32 already names the kept provider at 0x004EC395.
+// Compatible calling convention and argument/return ABI; binding is address-proven.
+#pragma comment(linker, "/alternatename:??1Rva00301621Record@@QAE@XZ=??1?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ")
