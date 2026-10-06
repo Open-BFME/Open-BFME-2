@@ -13454,3 +13454,7 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Rva003430A3Check@@YA_NPAXPAVObject@@H@Z,0x003430A3,free goal check called from 0x343DD8 with (esi plus ebp plus edi); RETAIL REL32 at 0x00343E9B; recovery is blocked so this spelling only serves the call
 ?rva0047A699@Rva002C9400ByteField@@QBE_NXZ,0x0047A699,const predicate on the Weapon +4 byte-field reached from 0x343DD8; RETAIL REL32 at 0x00343E72; address-named
 ?rva002CB902@Weapon@@QBEDPAVObject@@PAXMH@Z,0x002CB902,const Weapon byte predicate over (object plus aux plus float plus int) called from 0x33FD98; RETAIL REL32 at 0x0033FDC4; byte return avoids caller-side bool normalization; address-named
+??0Rva00342A96@@QAE@PAVStateMachine@@@Z,0x00342A96,unrowed 0x64 AI-state ctor (hash plus self plus base-call plus vtable 0xC12800) called from 0x34316A; RETAIL REL32 at 0x003431AA
+??0Rva00342AD6@@QAE@PAVStateMachine@@@Z,0x00342AD6,unrowed 0x68 AI-state ctor called from 0x34316A; RETAIL REL32 at 0x003431E5
+??0Rva00342B1A@@QAE@PAVStateMachine@@H@Z,0x00342B1A,unrowed 0x78 AI-state ctor taking the branchless int selector called from 0x34316A; RETAIL REL32 at 0x0034322E
+??0Rva0033F3B6@@QAE@PAVStateMachine@@_NN@Z,0x0033F3B6,TU-local (bool bool) spelling for the rowed 0x33F3B6 state ctor as declared in its own TU; RETAIL REL32 at 0x003432A1 in 0x34316A
