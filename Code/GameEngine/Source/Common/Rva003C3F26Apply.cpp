@@ -35,7 +35,7 @@ public:
 	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
 };
 
-extern SpecialPowerStore *g_00E02D4C;
+extern SpecialPowerStore *TheSpecialPowerStore;
 
 class BfmeSubBEC
 {
@@ -76,7 +76,7 @@ void __stdcall Rva003C3F26Apply(const AsciiString &playerName, const AsciiString
 	Object *obj = player->rva002AC629();
 	if (obj == 0)
 		return;
-	const SpecialPowerTemplate *found = g_00E02D4C->findSpecialPowerTemplate((AsciiString &)powerName);
+	const SpecialPowerTemplate *found = TheSpecialPowerStore->findSpecialPowerTemplate((AsciiString &)powerName);
 	if (found == 0)
 		return;
 	void *sub = ((BfmeSubBEC *)obj)->rva0028BB9E((void *)found);
