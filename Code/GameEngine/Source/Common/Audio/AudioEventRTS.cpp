@@ -60,3 +60,24 @@ OpaqueRefElement4 &Rva002D9C2F::rva002D9C2F(const OpaqueRefElement4 &other)
 {
 	return m_ref = other;
 }
+
+// ?rva002D9AC3@Rva002D9AC3@@QAEPBDXZ @ 0x002D9AC3 17B
+// Honest address-named thiscall getter: if ptr at +8 is null return empty
+// string else return ptr+8. Evidence: 17B shape mov eax [ecx+8] test je
+// add 8 ret mov empty ret; compiler empty-string literal; callers at
+// 0x00054777 0x000547BC 0x00055ED8 0x00055F5E 0x0005BC43 0x002D9D8D;
+// neighbours 0x002D9A43 dtor and 0x002D9AD4 forwarder in this TU.
+class Rva002D9AC3
+{
+public:
+	const char *rva002D9AC3();
+	char m_pad[8];
+	char *m_ptr;
+};
+
+const char *Rva002D9AC3::rva002D9AC3()
+{
+	if (m_ptr != 0)
+		return m_ptr + 8;
+	return "";
+}

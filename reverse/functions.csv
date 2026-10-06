@@ -66008,3 +66008,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva0040FCC0@Rva0040FCC0@@QAEXH@Z,,0x0040FCC0,92,Code/GameEngine/Source/Common/Rva0040FCC0Shutdown.cpp,matched,ref neighbours WindowLayout rowed callees globals VTABLE Locomotor disagrees
 ??0RvaSmartPtr12@@QAE@PAX@Z,,0x0004CBF7,34,Code/GameEngine/Source/Common/System/SmartPtrCopyCtor.cpp,matched,raw pointer constructor matches adjacent smart pointer layout
 ?rva0045969F@Rva0045969F@@UAEHXZ,,0x0045969F,90,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0045969F.cpp,matched,ref slot 0x00841194 Thing-8 getDrawable AI+0x258 slot 0x1b8 iface+0x10
+?rva002D9AC3@Rva002D9AC3@@QAEPBDXZ,,0x002D9AC3,17,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,matched,honest getter ptr+8 or empty callers abut 0x002D9AD4
