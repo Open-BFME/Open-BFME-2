@@ -20,6 +20,12 @@ public:
 
 class Player;
 
+class Upgrade;
+enum UpgradeStatusType
+{
+	UPGRADE_STATUS_COMPLETE = 2
+};
+
 class Object
 {
 public:
@@ -41,7 +47,7 @@ extern "C" void _ReadWriteBarrier(void);
 class Player
 {
 public:
-	void rva002AE329(const UpgradeTemplate *tmpl, int a, int b);
+	Upgrade *rva002AE329(const UpgradeTemplate *tmpl, UpgradeStatusType s, int x);
 };
 
 class BfmeObject872Header
@@ -114,7 +120,7 @@ void SupplyWarehouseCreate::rva004B901D()
 	if (tmpl->m_04 == 0)
 	{
 		Player *player = m_object08->getControllingPlayer();
-		player->rva002AE329(tmpl, 2, 0);
+		player->rva002AE329(tmpl, UPGRADE_STATUS_COMPLETE, 0);
 	}
 	else
 		m_object08->rva00293077(tmpl);
