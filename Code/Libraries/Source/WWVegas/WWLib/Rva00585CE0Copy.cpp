@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_copy@PAVRva00585B16@@PAV1@@_STL@@YAPAVRva00585B16@@PAV1@00ABU__false_type@0@@Z @0x00585CE0 38B
 // Evidence: retail (first, last, result) loop calls rowed _Construct at

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva005503B1@Rva005503B1@@QAEPAVRva0055011A@@XZ @0x005503B1 53B.
 // Factory method returning a fresh Rva0055011A from throwing scalar new inside an EH frame.
 // Evidence: new-size 0xB4 equals the landed Rva0055011A layout; callee ctor at 0x0055011A rowed;

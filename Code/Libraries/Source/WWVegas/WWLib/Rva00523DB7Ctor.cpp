@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00523DB7@@QAE@PBHABV?$StringBase@D@@@Z @0x00523DB7 29B:
 // 2-arg ctor copying int from *arg1 into +0 and StringBase<char> from arg2
 // into +4 via rowed copy 0x000365F0. Called by _Construct wrapper 0x0023FC23

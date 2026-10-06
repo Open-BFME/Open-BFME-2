@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ?rva0050EE23@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z @0x0050EE23
 // (53B): StringBase<char> compareNoCase wrapper extracting data/len with
 // empty fallback then tail-calling rowed compareRangeNoCase; unblocks 41B.

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ?rva005B6F1E@Rva005B6F1E@@QAEXPBG0@Z @ 0x005B6F1E (242B): init two wide strings then CoCreateInstance chain.
 // Evidence: ret 8 two wchar args; wcslen/new[]/wcscpy prefix; CoCreateInstance IAT 0x00BBABE4 with GUID VAs
 // 0x00C73770/0x00C73780; vtable calls +0x1c/+0x1c/+0x20 with Release at +8; flags at +8/+0xa; com ptr at +0x10.

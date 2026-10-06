@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?findIndex@Rva0040A3F9@@QBEHPAVCreateAHeroData@@@Z @0x0040A3F9 43B
 // Evidence: unlock lane; vector-like +0/+4 of CreateAHeroData* searched via

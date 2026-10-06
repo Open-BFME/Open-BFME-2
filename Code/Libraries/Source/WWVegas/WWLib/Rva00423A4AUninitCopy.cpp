@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??$__uninitialized_copy@PAURva00423A4A@@PAU1@@_STL@@YAPAURva00423A4A@@PAU1@00ABU__false_type@0@@Z @0x00423ED1 (38B).
 // _STL::__uninitialized_copy<Rva00423A4A>, retail 38 bytes. Dedicated TU so

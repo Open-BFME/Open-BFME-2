@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 // ?rva00463FFB@Rva004638C5@@QAEPAU_Rb_tree_node_base@_STL@@PAURva00463FFBOut@@PBUTreeKey00242F5E@@@Z 0x00463FFB 134B
 // TreeKey insert_unique via rowed _M_decrement 0x242C0 plus just-landed _M_insert 0x463F73.

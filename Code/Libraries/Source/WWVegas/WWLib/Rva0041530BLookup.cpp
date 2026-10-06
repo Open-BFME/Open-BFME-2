@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva0041530B@Rva0041530B@@QAEPAHH@Z, retail 0x0041530B 64B. Floor lookup over map<int,int> at +8 via rowed lower_bound 0x00382A92 and rowed decrement 0x000242C0. Empty is node_count at +0xC. Caller 0x004DAD40.
 #include <map>

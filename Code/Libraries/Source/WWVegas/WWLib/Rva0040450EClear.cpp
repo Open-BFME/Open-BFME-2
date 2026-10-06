@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva0040450E@Rva0040450E@@QAEXH@Z retail 0x0040450E 111 bytes.
 // Reset method: erases vector at +0 via rowed erase 0x004043AE, sets +0x14 to

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva005537EB@Rva005537EB@@QAEGXZ @0x005537EB 49B: Rb sum walks header +0x10 via increment summing word +0x12. Evidence: unlock lane calls rowed increment 0x00024250 plus callers 0x0038B08F 0x005BE01F plus empty check left versus header.
 #include <deque>

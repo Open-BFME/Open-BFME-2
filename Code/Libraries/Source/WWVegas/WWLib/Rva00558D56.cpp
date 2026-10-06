@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00558D56@@QAE@XZ @0x00558D56 21B: Default ctor wraps DequeBase E16 with temp allocator plus 0 then returns this. Evidence: unlock lane calls rowed DequeBase 0x0055334A plus caller 0x00558F07 plus push0 lea-b shape.
 // The emitted unsigned max copy must match retail RVA 0x00013740.

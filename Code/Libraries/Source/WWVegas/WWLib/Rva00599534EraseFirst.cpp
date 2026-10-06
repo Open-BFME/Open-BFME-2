@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // stlport
 // ?rva00599534@Rva00599534@@QAEXH@Z @0x00599534 48B: list<int> at +4 erase first match via rowed erase 0x00438539; callers 0x004EC911 and 0x004EC055
 #include <list>

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Actionscript exception reporter and its URL-escape helpers, next to the
 // rowed forwarder in Rva006FD060Forward.cpp. Donor is open-bfme-1

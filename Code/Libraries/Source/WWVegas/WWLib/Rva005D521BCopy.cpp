@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$__uninitialized_copy@PBUBfmeStringRecord005D511F@@PAU1@@_STL@@YAPAUBfmeStringRecord005D511F@@PBU1@0PAU1@ABU__false_type@0@@Z retail 0x005D521B 38B.
 // _STL::__uninitialized_copy<BfmeStringRecord005D511F> 38B. Dedicated TU so the
 // rowed _Construct 0x005D51EE cannot inline into this loop (same pattern as Rva005D5241FillN).

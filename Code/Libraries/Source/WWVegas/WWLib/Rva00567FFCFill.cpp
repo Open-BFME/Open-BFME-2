@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva00567FFCFill@@YAPAVRva00567BD7@@PAV1@IPBV1@@Z @0x00567FFC 37B
 // Evidence: fills [dst,dst+count) with value via rowed ?Rva00567F91Copy (chain from 0x00567F91);
 // dst+=0x10 per step (sizeof Rva00567BD7), returns end; caller 0x005680EF.

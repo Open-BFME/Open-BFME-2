@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // ?rva00502787@Rva00502787@@QAEXXZ @0x00502787 41B
 // Evidence: chain from 0x005025DB which you just landed; clear resetting header parent/left/right and count via rowed erase 0x005025DB; callers at 0x005029A2 0x00503693 0x00502988; neighbours stlport_map_int_vector_vector_pod88 and stlport_tree_erase_00502610.
 struct Rva005025DB

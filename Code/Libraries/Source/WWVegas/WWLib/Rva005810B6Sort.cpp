@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD
+// cl: /EHsc /MD
 // Native Ghidra5810B6..58113D RET0: two four-byte iterator endpoints and a
 // sixteen-byte by-value record. The original element/comparator names and
 // key meaning are unknown. A dword followed by a twelve-byte owned vector

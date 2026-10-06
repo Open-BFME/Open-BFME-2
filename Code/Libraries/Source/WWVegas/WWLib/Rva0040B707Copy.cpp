@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /Ireference/shims/bfme2_ascii
+// cl: /EHsc /Ireference/shims/bfme2_ascii
 // stlport
 // ??0Rva0040B707@@QAE@ABV0@@Z @0x0040B707 119B unlock copy ctor with vector ScienceType plus three AsciiStrings plus vector BfmeRecord0040B61A; caller 0x0040B9BB
 #include <vector>

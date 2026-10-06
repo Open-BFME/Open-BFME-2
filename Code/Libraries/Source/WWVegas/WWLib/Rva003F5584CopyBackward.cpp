@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva003F5584CopyBackward@@YAPADPAD00@Z @0x003F5584 50B counted copy-backward stride 48.
 // Evidence: (last-first)/0x30 with idiv then counted loop decrementing last/result before each Element assign 0x003F554C; callers 0x003F58B6; sibling of Rva003F1F38CopyBackward 0x003F1F38.
 struct Rva003F610FElement

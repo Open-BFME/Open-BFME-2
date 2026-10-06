@@ -1,6 +1,6 @@
 // Pristine STLport4.5.3 byte storage operations; target byte stride, memmove/fill calls and vector fields establish family.
 // Unsigned byte spelling is donor source provenance; signedness is not distinguished by these target operations.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.

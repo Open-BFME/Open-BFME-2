@@ -1,4 +1,4 @@
-// cl: /O2 /GR- /GX- /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /GR- /GX- /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 //
 // ??0strstreambuf@_STL@@QAE@PADH0@Z, retail 0x00602A30 (105 B).

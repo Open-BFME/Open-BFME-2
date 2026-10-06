@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?Rva0054A5EEPushHeap@@YAXV?$_Deque_iterator@UBfmeE8@@U?$_Nonconst_traits@UBfmeE8@@@_STL@@@_STL@@HHU BfmeE8@@@Z @0x0054A5EE (141B):

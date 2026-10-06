@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva0050ED58@@QAE@XZ 91B @0x0050ED58: dtor destroying 7x8B array at +0x24 via ??_M then member dtors at +0x14 plus +0x08 plus StringBase release at +0x04 with EH states 2 1 0 -1. Sizes from ??_M pushes (8 7) and member spans; member classes copied from their owner TUs (dtors rowed, declared only here). Evidence: EH prolog plus rowed callees plus callers at 0x0050F185 0x0050F69D 0x0050F6B9.
 #include <vector>

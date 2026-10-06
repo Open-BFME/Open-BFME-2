@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00523EFFEqual@@YAHPBURva00523DB7@@0@Z @0x00523EFF 35B:
 // 2-ptr equality for 8B struct (int +0 plus StringBase<char> +4 via rowed
 // compare 0x000069D6). Called 7x by array-find 0x0052408B. Owner unproven,

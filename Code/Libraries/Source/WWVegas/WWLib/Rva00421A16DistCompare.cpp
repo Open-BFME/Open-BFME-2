@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva00421A16@Rva00421A16@@QAE_NPBM0@Z @0x00421A16 53B
 // Comparator: true when a lies nearer the functor's own 2D point than b, by
 // the squared distance at 0x004219F4 (Rva004219F4Dist.cpp, called twice,

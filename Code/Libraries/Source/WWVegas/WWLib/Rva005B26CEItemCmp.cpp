@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // stlport
 // The E16 STLport family calls this thiscall comparator on 16-byte records.
 // Its rowed stdcall twin compares the four dwords as nullness-ordered cells;

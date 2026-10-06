@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0042476C@@QAE@ABV0@@Z @0x0042476C 61B
 // ??$__uninitialized_fill_n@PAVRva0042476C@@IV1@@_STL@@YAPAVRva0042476C@@PAV1@IABV1@ABU__false_type@0@@Z @0x00424D8C 37B

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva00549F02Median@@YAABQAUFoo00549DCB@@ABQAU1@00URva00549DCB@@@Z, RVA 0x00549F02, 101B
 // Median-of-three via Rva00549DCB comparator (5 calls). Evidence: chain lane
 // after 0x00549DCB; 12-byte refs (Foo* const&) plus empty comp at +0x14 whose

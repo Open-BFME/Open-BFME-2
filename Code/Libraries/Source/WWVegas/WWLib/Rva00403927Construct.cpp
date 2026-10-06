@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??$_Construct@VRva00403927@@V1@@_STL@@YAXPAVRva00403927@@ABV1@@Z @0x00403B5A 45B
 // _STL::_Construct for stride-0x14 Rva00403927 (two ints + vector<AsciiString> at +8).

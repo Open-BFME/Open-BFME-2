@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // ?rva005B35E8@Rva005B35E8@@QAEXXZ @0x005B35E8 33B
 // Evidence: retail calls rowed Rva002162CFInvoke with TheRva00222A8BTarget plus owner at [ecx+4]+0x274 plus SetPowersSelectedNum literal plus arg at ecx+0x50 plus callers at 0x005B373D 0x005B3D89 0x005B45E8.
 class Rva00222A8BTarget;

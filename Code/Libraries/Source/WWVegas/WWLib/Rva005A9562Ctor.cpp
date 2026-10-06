@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ??0Rva005A9562@@QAE@PAX@Z, retail 0x005A9562 38B.

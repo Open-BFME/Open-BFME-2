@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva00534E13@@QAE@XZ, RVA 0x00534E13, size 134.
 // Dtor destroying two AsciiStrings at +0x20/+0x24, Coord3D[8] at +0x3C,

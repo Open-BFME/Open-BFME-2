@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva005533BC@Rva005533BC@@QAEPAXPBX@Z @0x005533BC 37B
 // Evidence: unlock lane tree lower_bound byte key at +0x10 left +8 right +0xC
 // header root at +4 via holder at +0; callers 0x005538BE 0x00554822 0x00554868

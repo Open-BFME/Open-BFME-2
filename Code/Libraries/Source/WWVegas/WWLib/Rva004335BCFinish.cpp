@@ -1,5 +1,5 @@
 // ??0Rva001DA2D5@@QAE@ABV0@@Z retail 0x004335BC 422B
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // Copy ctor: installs vtable 0x00BDA270, copies two AsciiString members and
 // 16+11 int members and four /O1 STLport vectors, and zeroes the 4-byte base

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva004DD73B@Rva004DD73B@@QAEPAXXZ @ 0x004DD73B (137B).
 // Pool allocate: 16-byte nodes x1024 per block (0x4004 bytes via the rowed

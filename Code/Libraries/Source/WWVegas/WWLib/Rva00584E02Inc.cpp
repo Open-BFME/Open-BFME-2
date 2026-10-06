@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00584E02@Rva00584E02@@QAEAAV1@XZ @0x00584E02 12B
 // Pre-increment wrapper calling rowed _M_increment 0x00421B1E then returning *this.

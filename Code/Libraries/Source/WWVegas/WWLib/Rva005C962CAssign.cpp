@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?rva005C962C@Rva005C962C@@QAEAAU1@ABU1@@Z, retail 0x005C962C (45B).
 // Copy-assignment-like method: AsciiString set at +0 then dword +4 then
 // TreeHintRef00217D4C operator= at +8 then dword +0xC returns this.

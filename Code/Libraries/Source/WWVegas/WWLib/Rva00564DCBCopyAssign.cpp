@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??4Rva00564DCB@@QAEAAU0@ABU0@@Z @0x00564DCB 39B.
 // Copy-assignment over 0x10-byte elements (caller 0x005657B2 strides dst
 // and src by 0x10): copies dword +4, assigns the OpaqueRefElement4 at +8

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ??0Rva00603FD2@@QAE@PBIABV?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@@Z @0x00603FD2 29B: copy int from ptr plus tree copy at plus4. Evidence: caller 0x00604251 passes ptr plus tree; callee rowed Rb_tree copy 0x00603EEB; ret 8 two args.
 #include <map>

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
 // Bodies ported from Open-BFME-1's
 // Libraries/Source/WWVegas/WWLib/Rva00C6E2C0TimerInit.cpp (donor revision

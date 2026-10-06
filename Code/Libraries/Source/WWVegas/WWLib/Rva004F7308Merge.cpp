@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // ?Rva004F7308Merge@@YAPAUTreeHintRef00217D4C@@PAU1@0000@Z, retail 0x004F7308, 166 bytes.
 // Evidence: free merge of TreeHintRef ranges descending by key at [m_ptr+8]+0xc; calls ReleaseTreeHintRef00217D4C operator= Rva004F6E47Copy; prev Rva004F72EDDestroy next stlport_rva004f6352_sort; 5 args first1 last1 first2 last2 result.
 struct KeyObj004F7308

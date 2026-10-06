@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00586B92Destroy@@YAXPAVRva00585B16@@0@Z @0x00586B92 25B.
 // Destroy range [first,last) elem 0x54 via rowed ??1Rva00585B16 0x585B16. Callers 0x586BB3 0x586C31 0x586EA5. Unlocks 3.
 class Rva00585B16 {

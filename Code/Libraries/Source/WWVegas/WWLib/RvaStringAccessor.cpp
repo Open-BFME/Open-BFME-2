@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // Bodies ported from Open-BFME-1's
 // Libraries/Source/WWVegas/WWLib/RvaStringAccessor.cpp (donor revision

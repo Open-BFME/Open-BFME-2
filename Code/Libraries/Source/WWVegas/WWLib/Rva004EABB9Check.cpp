@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva004EABB9@Rva004EABB9@@QAE_NXZ, retail 0x004EABB9, 14 bytes.
 // Returns 1 when dwords at +0x34 and +0x3C are both zero.
 // Evidence: xor-cmp-jne-cmp-jne-inc shape, caller at 0x004E9DF0.

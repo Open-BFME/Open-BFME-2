@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva005635F4Write@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDABURva005635DEPayload@@@Z @0x005635F4 66B: free ostream INI key-long line with pad via rowed Pad/Put.
 // Evidence: calls rowed Pad 0x001F6951 then rowed _M_put_nowiden 0x001F5F65 twice (key then " = ") then rowed Rva005635DEPut 0x005635DE then rowed _M_put_char 0x001F5E51 newline; caller at 0x0056364C in 0x00563636/31; pattern from Rva001F8BA1Write 0x001F8BA1.

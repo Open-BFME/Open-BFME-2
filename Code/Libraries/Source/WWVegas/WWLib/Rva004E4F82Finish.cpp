@@ -1,5 +1,5 @@
 // ??0Rva004E4F82@@QAE@XZ
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /Ow /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /Ireference/shims/bfmelist /EHsc /Ow /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva004E4F82@@QAE@XZ @0x004E4F82 144B
 // __thiscall no-arg ctor: six floats +0..+0x14 zero, +0x18 zero,

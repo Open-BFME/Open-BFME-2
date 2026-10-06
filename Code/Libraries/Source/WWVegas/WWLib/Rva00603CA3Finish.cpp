@@ -2,7 +2,7 @@
 // partial score=0.95 date=2026-09-29
 // ?rva00603CA3@Rva00603C0F@@QAE_NPBDPAUOut603CA3@@@Z
 // partial score=0.95 date=2026-09-29
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 #include <map>
 extern "C" char *__cdecl strcpy(char *dest, const char *src);

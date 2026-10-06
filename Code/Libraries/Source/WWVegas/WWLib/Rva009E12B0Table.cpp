@@ -1,4 +1,4 @@
-// cl: /O2 /MD /arch:SSE /G7
+// cl: /MD
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WWLib/Rva009E12B0Table.cpp at 6583b3c1ff; include paths repointed at the
 // reference checkout and built the BFME2 way (/arch:SSE /G7), where its body places
 // exactly once in game.dat by masked byte search.

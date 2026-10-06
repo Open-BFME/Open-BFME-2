@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_Construct@VRva004E5012@@V1@@_STL@@YAXPAVRva004E5012@@ABV1@@Z @0x004E52FB (45B)
 // True _STL::_Construct for the Rva004E5012 element: placement copy via the rowed copy ctor at 0x004E5012.

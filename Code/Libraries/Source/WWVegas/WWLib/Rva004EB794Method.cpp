@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva004EB794@Rva004EB794@@QAE_NPBVModuleData@@@Z @0x004EB794 56B
 // Evidence: unlock thiscall ret 4 1 arg; vector at +8 begin/end via +8 +0xC; loops items comparing +0x50 key to arg +0x50; duplicate returns false else push_back rowed 0x004DFCB0 returns true; caller 0x004E9D24.

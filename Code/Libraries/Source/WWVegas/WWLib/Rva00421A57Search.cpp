@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva00421A57@Rva00421A57@@QAE_NH@Z @0x00421A57 45B
 // Search pointer range [+0xC,+0x10) for element whose table has (v,0):
 // for (p = m_begin; p != m_end; ++p) if ((*p)->bfmeHas1026(v, 0)) return true;

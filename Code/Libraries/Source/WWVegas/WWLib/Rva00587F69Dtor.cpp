@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1Rva00587F69@@UAE@XZ, retail 0x00587F69 59B.
 // Dtor: derived from Rva005D6FCC (vptr+held at +0, vtbl 0x00C75C38) with char* at +8
 // freed via rowed _free 0x00030830 then base dtor (ICF twin of rowed apply 0x005D6FDE).

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva00549DCB@Rva00549DCB@@QBE_NABQAUFoo00549DCB@@0@Z, RVA 0x00549DCB, 39B
 // Comparator for sort: unsigned WORD at +0x5da via Foo+4 indirection.
 // Evidence: 12 callers all lea ecx (this) + 2 pushes + direct call; twin

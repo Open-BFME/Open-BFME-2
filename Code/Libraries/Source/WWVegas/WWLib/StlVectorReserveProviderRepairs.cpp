@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc
+// cl: /MD /EHsc
 // Reference: STLport4.5.3 stl/_vector.c reserve algorithm, at BFME1 donor
 // 6583b3c1ff21db4a561285717028fdafc780b7db. PC callers independently establish
 // the three pointers at0/4/8, element stride4 (12 at4EE55E), and every helper.

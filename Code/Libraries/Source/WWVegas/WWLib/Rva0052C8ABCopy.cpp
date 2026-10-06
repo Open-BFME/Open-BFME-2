@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0052C8AB@@QAE@ABV0@@Z 0x0052C8AB 68B evidence: Vector_base 0x00421D73 row E16; get_allocator 0x0021983A row AsciiString; uninit-copy 0x0052C2CA row Rva003A6360Record; caller 0x0052D555; sibling Rva005386F5Copy same recipe
 struct BfmeE16 { float x, y, z, w; };
 class Rva003A6360Record

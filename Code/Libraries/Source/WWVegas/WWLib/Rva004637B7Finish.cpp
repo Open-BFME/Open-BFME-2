@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 // ?rva004637B7@Rva00463782@@QAE?AURva00463782Iter@@PAU_Rb_tree_node_base@_STL@@0PBVRva0046267A@@H@Z 0x004637B7 136B
 // _Rb_tree::_M_insert for the Rva0046267A (0x50B) red-black tree: create the

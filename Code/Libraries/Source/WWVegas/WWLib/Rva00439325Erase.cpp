@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?rva00439325@Rva00439325@@QAEXPAURva00439325Node@@@Z @0x00439325 59B.
 // Rb erase: rebalance-for-erase then destroy Rva0023D377 value at +16 and free.

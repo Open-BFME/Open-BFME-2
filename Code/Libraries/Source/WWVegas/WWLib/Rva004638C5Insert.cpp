@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 // ?rva00463F73@Rva004638C5@@QAEPAPAU_Rb_tree_node_base@_STL@@PAPAU23@PAU23@1PBUTreeKey00242F5E@@H@Z 0x00463F73 136B
 // TreeKey tree insert core: create via rowed member 0x4638C5 in both the

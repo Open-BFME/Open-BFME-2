@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$uninitialized_fill_n@PAV?$vector@IV?$allocator@I@_STL@@@_STL@@IV12@@_STL@@YAPAV?$vector@IV?$allocator@I@_STL@@@0@PAV10@IABV10@@Z @0x003F1EEB 27B:
 // _STL::uninitialized_fill_n for _STL::vector<unsigned int> (12-byte payload).
 // Untagged dispatcher: forwards (first n value) to the rowed tagged worker at

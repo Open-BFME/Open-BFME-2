@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // BFME1 donor6d9434269164392c5ba62aaa7c15a86b5b020d76:
 // game/Libraries/Source/WWVegas/WWLib/hashtemplate.h destructor, emitted by
 // clean stripoptimizer.cpp under BFME2 O1/G7/MD (also exact with SSE).

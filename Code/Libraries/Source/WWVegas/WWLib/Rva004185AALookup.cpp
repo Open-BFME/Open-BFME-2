@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva004185AA@Rva004185AA@@QAEMH@Z @0x004185AA 58B floor lookup over map<int,float> at +0xc via rowed lower_bound 0x00382A92 and rowed decrement 0x000242C0 default BfmeZeroRange caller 0x0059AF30
 #include <map>

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -D_STLP_USE_STATIC_LIB /Os -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: -DNDEBUG -MD -EHsc -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 //
 // ?_M_bkt_num_key@?$hashtable@U?$pair@PBDURva009D7350Mapped@@@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@@_STL@@ABEIABQBDI@Z

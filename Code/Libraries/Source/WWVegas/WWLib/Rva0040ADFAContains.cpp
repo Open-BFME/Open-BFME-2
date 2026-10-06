@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva0040ADFA@Rva0040ADFA@@QBE_NPBX@Z @0x0040ADFA 50B
 // Evidence: unlock lane; +4/+8 int sorted array searched via rowed
 // binary_search int 0x40AD75 for key from rowed NameKeyGenerator::nameToKey

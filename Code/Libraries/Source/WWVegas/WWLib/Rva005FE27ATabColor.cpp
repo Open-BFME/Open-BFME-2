@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva005FE27A@Rva005FE750@@QAEXHHHABVUnicodeString@@@Z @0x005FE27A 249B: Rva005FE750 tab color update.
 // Kept apart from Rva005FE750.cpp, whose declared-only vector specialization (for

@@ -1,6 +1,6 @@
 // ??$__copy_backward_ptrs@PAVRva0054103E@@PAV1@@_STL@@YAPAVRva0054103E@@PAV1@00ABU__false_type@0@@Z
 // partial score=0.95 date=2026-10-02
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 //
 // ??$__copy_backward_ptrs@PAVRva0054103E@@PAV1@@_STL@@YAPAVRva0054103E@@PAV1@00ABU__false_type@0@@Z @0x005412C5 (29B).

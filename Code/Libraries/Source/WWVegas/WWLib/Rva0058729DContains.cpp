@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0058729D@Rva0058729D@@QAE_NABUICoord2DBase@@@Z, retail 0x0058729D 50B.
 // Linear search: count at +0x10, inline ICoord2D array at +0x14 (8B each).

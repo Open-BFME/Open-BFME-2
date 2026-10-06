@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX- /arch:SSE2
+// cl: /Ireference/shims/bfme2_ascii /GX-
 // ?rva00599564@Rva00599564@@QAEXPAVObject@@@Z, retail 0x00599564, 162 bytes.
 // Unlock lane; prev Rva00599534EraseFirst /O1 GX- SSE2; callers 0x00599EAC.
 // Evidence: pin-only callees 0x002A8AB1 0x0028BC58; rowed 0x00327C1B 0x002D06CA;

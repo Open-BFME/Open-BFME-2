@@ -1,6 +1,6 @@
 // ?Rva004C7621Collect@@YGXPAURva004C7621Range@@PBURva004C7621Pos@@PAV?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@Z
 // partial score=0.96 date=2026-10-02
-// cl: /O1 /G7 /EHsc /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?Rva004C7621Collect@@YGXPAURva004C7621Range@@PBURva004C7621Pos@@PAV?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@Z @0x004C7621 (139B):

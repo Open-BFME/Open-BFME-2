@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva005B2DDF@Rva005B2DDF@@QAEPAXII@Z @0x005B2DDF 42B
 // Unlock lane: bounds-checked 2D grid lookup over a vector of 16-byte rows at +0x14.

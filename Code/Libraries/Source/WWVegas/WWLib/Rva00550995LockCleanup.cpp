@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /MD /DNDEBUG /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 // Retail [0x00550995..0x005509AF) clears the receiver's pointer at +0 before
 // calling the independently recovered CriticalSectionClass::LockClass

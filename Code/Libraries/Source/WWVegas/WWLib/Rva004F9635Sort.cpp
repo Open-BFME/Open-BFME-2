@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004F9635@@YGXPAURva004F9635Rec@@@Z @0x004F9635 35B.
 // Range sort: run the rowed _STL::sort 0x004F9565 over the record's pointer

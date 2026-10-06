@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$__uninitialized_copy@PAVRva003A6F70@@PAV1@@_STL@@YAPAVRva003A6F70@@PAV1@00ABU__false_type@0@@Z 0x0052C27E 38B evidence: copy stride 0x20 via rowed _Construct 0x0052BD04; callers 0x0052C854 0x00565DE0 0x00565E2B; sibling Rva00564C58FillN same record same flags
 class Rva003A6F70
 {

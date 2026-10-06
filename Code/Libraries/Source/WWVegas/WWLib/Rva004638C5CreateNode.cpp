@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva004638C5@Rva004638C5@@QAEPAURva004638C5Node@@ABUTreeKey00242F5E@@@Z 0x004638C5 34B
 // TreeKey tree create_node as a thiscall member with unused receiver (both

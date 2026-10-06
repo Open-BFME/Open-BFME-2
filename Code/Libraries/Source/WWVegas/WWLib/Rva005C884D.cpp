@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005C884D@Rva005C884D@@QAEXG@Z, retail 0x005C884D, 41 bytes.
 // Saturating word add at +0x44 with 0xFFFF clamp on carry; callers 0x00569719/0x005697DA pass dword.
 // Evidence: unlock lane; prev Rva005C87F8Adjust /O1; vslot none; naming __thiscall ret 4.

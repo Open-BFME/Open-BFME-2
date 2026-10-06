@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O2 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 
 __declspec(naked) void StackProbeBodyThunk()
 {

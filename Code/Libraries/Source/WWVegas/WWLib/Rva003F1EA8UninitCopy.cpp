@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$__uninitialized_copy@PAURva003F1EA8Elem@@PAU1@@_STL@@YAPAURva003F1EA8Elem@@PAU1@00ABU__false_type@0@@Z @0x003F1EA8 38B:
 // _STL::__uninitialized_copy stride 12 via dup _Construct 0x003F1A5F called
 // through dup cast per TreeKey00242F5EUninitCopy precedent so the gate

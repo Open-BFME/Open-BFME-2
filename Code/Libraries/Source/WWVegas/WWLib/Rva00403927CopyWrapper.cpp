@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$copy@PAVRva00403927@@PAV1@@_STL@@YAPAVRva00403927@@PAV1@00@Z @0x00403BD2 29B
 // _STL::copy<Rva00403927> forwarding wrapper, retail 29 bytes. Pushes NULL
 // distance and a tag local, then calls the rowed 5-arg __copy at 0x004039E0.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva005635DEPut@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@AAV12@ABURva005635DEPayload@@@Z @0x005635DE (22B): ostream payload put.
 // Outputs the 4-byte payload as long via rowed _M_put_num J at 0x0055C000.
 // Caller at 0x005635F4 prints key then " = " then value then newline, same as

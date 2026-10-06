@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva003F1F38CopyBackward@@YAPADPAD00@Z @0x003F1F38 50B:
 // counted copy-backward stride 12 via rowed vector uint assign 0x0026F4F4;
 // (last-first)/12 with idiv then counted loop decrementing last/result

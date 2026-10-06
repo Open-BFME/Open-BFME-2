@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /arch:SSE2
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?Rva0055C0E1Write@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@AAV12@ABURGBColor@@@Z at 0x0055C0E1 size 170
 // Evidence: unlock lane; writes "R:"/"G:"/"B:" with int-scaled color components via

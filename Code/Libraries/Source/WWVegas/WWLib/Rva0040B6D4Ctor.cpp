@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /Ireference/shims/bfme2_ascii
+// cl: /EHsc /Ireference/shims/bfme2_ascii
 // stlport
 // ??0Rva0040B6D4@@QAE@XZ @ 0x0040B6D4 (51B). Default ctor with two BfmeE16 vectors plus four ints.
 // Evidence: retail zeroes +0 +10 +14 +18 then constructs rowed _Vector_base E16 0x00211E58 at +4 and +1C; caller 0x0040C137 in 0x0040C125; neighbours share E16 vector and ascii shims.

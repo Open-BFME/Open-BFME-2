@@ -1,6 +1,6 @@
 // ?rva005996FF@Rva005996FF@@QAEXPAURva005996FFArg@@_N@Z
 // partial score=0.94 date=2026-09-29
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva005996FF@Rva005996FF@@QAEXPAUArg@@_N@Z @ 0x005996FF 85B list erase plus string flag.
 // Evidence: walks list<int> nodes via [eax+8] vs arg+0x74 then rowed erase 0x00438539; rowed StringBase compare 0x000069D6 for this+8 vs arg+4+0x64 then byte at +0x10; ret 8 is thiscall 2 args; neighbours Keyframe /O1 /GX- /arch:SSE2 plus DispByte default; unblocks 0x004EC869 plus 0x005ABAF6 plus 0x004ECB19.

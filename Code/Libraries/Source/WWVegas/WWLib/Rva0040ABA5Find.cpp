@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0040ABA5Find@@YAPBURva0040ABA5Item@@PBU1@0PBVRva0040A7D5@@H@Z @0x0040ABA5 179B
 // Evidence: chain lane; 4-wide unrolled find over 0x10 items via 0x0040A937 row; caller 0x0040AD6B.
 class Rva0040A7D5

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$__copy@PAVRva00403927@@PAV1@H@_STL@@YAPAVRva00403927@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z @0x004039E0 50B
 // _STL::__copy<Rva00403927> random-access loop, retail 50 bytes. Count via
 // idiv by stride 0x14, per-element operator= through the rowed 0x00403927.

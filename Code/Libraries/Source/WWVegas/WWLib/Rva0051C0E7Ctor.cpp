@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??0Rva0051C0E7@@QAE@XZ @0x0051C0E7 82B: default ctor, two ints + AsciiString[8] via ehvec plus 8B tail memset; evidence callees 0x0048BA39 clear/dtor 0x00326BE6 UnicodeString/AsciiString ctor 0x00629512 ehvec 0x006291AE memset caller 0x005202C8
 #include "ascii_string.h"

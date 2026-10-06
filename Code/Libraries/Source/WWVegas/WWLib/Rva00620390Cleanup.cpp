@@ -1,4 +1,4 @@
-// cl: /O2 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ?rva00620390@Rva00620390@@QAEXPAX@Z, RVA 0x00620390, 51 bytes.
 // Evidence: unlock missing callee of 0x6206E0 and 0x620A00 which reset sentinel
 // at [esi] plus size +4 after calling here; self-recursive plus _free 0x30830

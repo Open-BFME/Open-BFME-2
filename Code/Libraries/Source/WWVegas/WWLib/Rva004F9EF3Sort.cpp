@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva004F9EF3@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z @0x004F9EF3 70B.
 // Sort driver for 12-byte Rva004F6352 records: skip empty ranges, count the

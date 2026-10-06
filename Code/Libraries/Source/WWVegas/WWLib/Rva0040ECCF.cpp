@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /G7 /EHsc
+// cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /EHsc
 // stlport
 // ?rva0040ECCF@Rva0040ECCF@@QAEHABVRva004F6093Holder@@@Z @0x0040ECCF 128B
 // Adds holder to sorted entry vector and broadcasts to listener list.

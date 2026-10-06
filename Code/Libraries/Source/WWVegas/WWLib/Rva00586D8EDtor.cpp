@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1Rva00586D8E@@UAE@XZ, retail 0x00586E51 53B.
 // Dtor of Rva00586D8E (ctor rowed 0x00586D8E 49B in Rva00586D8ECtor.cpp):
 // base Rva005D6FCC (vptr+held at +0 vtbl 0x00C75C38 base dtor pin ??1Rva005D6FCC at 0x005D6FDE twin of apply)

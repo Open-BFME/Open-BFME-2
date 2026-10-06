@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?rva0051C139@Rva0051CBC6@@QAEHXZ @0x0051C139 69B
 // evidence: chain from 0x0051BF47 you landed, vtable slot 5 of 0x00866FAC class Rva0051CBC6, caller none, callees rowed showCampaignReview plus enable target plus vslots
 class MessageStream

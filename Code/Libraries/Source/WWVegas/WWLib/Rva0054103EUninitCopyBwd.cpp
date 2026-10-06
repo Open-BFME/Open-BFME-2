@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0054115FCopy@@YAPAVRva0054103E@@PAV1@00@Z @0x0054115F (50B).
 // Backward copy of 0x14-byte Rva0054103E via its rowed copy ctor at 0x0054103E.

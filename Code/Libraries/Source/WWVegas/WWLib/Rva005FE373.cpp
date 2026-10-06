@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ?rva005FE373@Rva005FE7FA@@QAEXHHHABVUnicodeString@@@Z @0x005FE373 78B via vslot 1 of vtable 0x0087A408 plus base tab update
 // Evidence: vslot lane slot 1 of Rva005FE7FA vtable 0x0087A408; base call rowed 0x005FE27A; compare rowed 0x00006A7A set rowed 0x00037150 Rva005FDF83Set rowed 0x005FDF83; neighbours same flags.
 

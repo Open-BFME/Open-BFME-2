@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva005843DA@@QAE@PAX@Z @0x005843DA 43B
 // Derived ctor: base Rva005D6FCC at +0 via rowed 0x005D6FCC then vector<BfmeE16> at +8

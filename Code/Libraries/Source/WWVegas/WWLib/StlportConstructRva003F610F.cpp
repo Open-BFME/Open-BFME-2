@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$_Construct@URva003F610FElement@@U1@@_STL@@YAXPAURva003F610FElement@@ABU1@@Z @ 0x003F5822 45B
 // True _STL::_Construct for the 48-byte Rva003F610FElement: placement copy via the pinned copy ctor at 0x003F54DC.

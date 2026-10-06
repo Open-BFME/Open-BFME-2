@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva003F5BDB@Rva003F498A@@QAEXPAXPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z @0x003F5BDB 116B: Rva003F498A filter via rva003F4DEE and pred 0x003F3F83 into ScienceType vector; callers at 0x00217116; erase and push_back rowed; size via sar 2 and unsigned jb loop

@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /O1 /EHsc- /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc- /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??1?$deque@UBfmePod16@@V?$allocator@UBfmePod16@@@_STL@@@_STL@@QAE@XZ @0x0054FF17 87B

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ??RRva00422CA8@@QBE_NHH@Z retail 0x00422CA8 65B.
 // Sort/heap comparator for 0x20-byte slot structs: each int element is a

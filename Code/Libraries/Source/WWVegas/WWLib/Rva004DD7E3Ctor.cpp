@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0Rva004DD7E3@@QAE@H@Z @ 0x004DD7E3 39B
 // Ctor stores int arg at +0 then constructs three 0x18 members at +4 +0x1C +0x34

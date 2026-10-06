@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00421E1CMerge@@YAXAAUMiniList00421E1C@@0VRva00421A16@@@Z @0x00421E1C 98B
 // Merge two intrusive lists ordered by nearer-point comparator 0x00421A16.

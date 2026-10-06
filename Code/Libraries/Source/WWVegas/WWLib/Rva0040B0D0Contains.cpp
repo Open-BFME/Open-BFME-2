@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva0040B0D0@Rva0040B0D0@@QAE_NPBX@Z @ 0x0040B0D0 (126B). BitFlags + contains check.
 // Evidence: calls rowed BitFlags218 any 0x002C7501 BitFlags69 test 0x002615C0 and rowed rva0040AE2C 0x0040AE2C rva0040ADFA 0x0040ADFA; members +0x1C +0x38 (7-word flags); arg+4 with +0x108 key; caller 0x0040894A.
 template <int N>

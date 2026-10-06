@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 // ?rva0046383F@Rva00463782@@QAEPAU_Rb_tree_node_base@_STL@@PAURva0046383FOut@@PBVRva0046267A@@@Z @0x0046383F 134B: _Rb_tree insert_unique for Rva0046267A tree via rowed _M_insert plus _M_decrement.
 // Evidence: callees _M_decrement 0x000242C0 plus rva004637B7 0x004637B7 both rowed; caller 0x00463E4D; prev 0x004637B7 and next 0x004638C5 share flags and node layout.

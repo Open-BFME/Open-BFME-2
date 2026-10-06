@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Oy- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?EraseRange@Rva005EDA8AVector@@QAEPAUBfmeStringRecord005ED5F3@@PAU2@0@Z @0x005EDA8A 51B: range erase over 20-byte BfmeStringRecord005ED5F3 copying [last finish) to first via rowed __copy_ptrs 0x005ED869 destroying tail via rowed _Destroy 0x005EDA14 storing new finish returning first. Evidence: same 51B shape as rowed erase siblings Rva0015229C Rva002983DA; callees rowed; caller 0x005EE09A.
 struct BfmeStringRecord005ED5F3;

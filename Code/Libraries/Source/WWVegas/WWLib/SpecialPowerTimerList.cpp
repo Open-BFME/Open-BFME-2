@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /ICode/GameEngine/Source/Common
+// cl: /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /ICode/GameEngine/Source/Common
 // stlport
 // ZH Player timer purpose, independently supported by target2AC6B1/48,
 //2AC7A0/70 and list helpers:8B timer {templateID,readyFrame}, node16.

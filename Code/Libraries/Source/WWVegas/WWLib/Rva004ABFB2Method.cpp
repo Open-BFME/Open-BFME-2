@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva004ABFB2@Rva004ABFB2@@QAEXH@Z @0x004ABFB2 39B
 // evidence: unlock caller 0x004ABFD9 dtor passes global 0x00A03CE0 as this plus int key; callees rowed tree-erase 0x004ABE65 plus Rva0020DAE0 0x0020DAE0; registry-remove pattern from Rva00E03CE0RegistryInsert

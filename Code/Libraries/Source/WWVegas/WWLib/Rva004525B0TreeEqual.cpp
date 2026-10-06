@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -D_STLP_USE_STATIC_LIB /Os -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: -DNDEBUG -DWIN32 -MD -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 
 #define _STLP_NO_EXCEPTIONS 1

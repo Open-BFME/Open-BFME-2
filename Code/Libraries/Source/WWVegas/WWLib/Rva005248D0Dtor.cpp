@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ??1Rva005248D0@@UAE@XZ @0x005248D0 111B: dtor destroying six vector-holder members.
 // Stores vtable 0x00802A80 then destroys +0x4C +0x40 +0x34 +0x1C +0x10 +0x04 in reverse

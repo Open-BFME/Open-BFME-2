@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
 // stlport
 //
 // ?_M_insert_overflow@?$vector@VRva0054103E@@V?$allocator@VRva0054103E@@@_STL@@@_STL@@IAEXPAVRva0054103E@@ABV3@ABU__false_type@2@I_N@Z @0x005417C6 189B.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva005410B1Copy@@YAPAVRva0054103E@@PAV1@00@Z @0x005410B1 50B.
 // Forward copy of 0x14-byte Rva0054103E via its rowed copy ctor at 0x0054103E.
 // Count is (last-first)/0x14 via idiv; loop advances first/result in place.

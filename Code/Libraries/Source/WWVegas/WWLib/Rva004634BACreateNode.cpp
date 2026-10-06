@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?Rva004634BACreate@@YGPAURva004634BANode@@ABVRva0046267A@@@Z 0x004634BA 34B
 // _Rb_tree<Rva0046267A> create_node: alloc 0x60 via rowed byte allocator 0x307F0

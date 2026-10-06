@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva005C8F9A@Rva005C8F9A@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@_N@_STL@@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@3@@Z @0x005C8F9A 35B
 // __thiscall wrapper that forwards to the rowed _Rb_tree<float,pair<const

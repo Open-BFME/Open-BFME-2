@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0041EA88@Rva0041EA88@@QAEXXZ @0x0041EA88 73B via hashtable clear twin of 0x00410A3D
 // Retail walks buckets at +4/+8 with count at +0x10. Walks each chain via +0

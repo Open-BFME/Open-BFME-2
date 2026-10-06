@@ -3,7 +3,7 @@
 // releases the incumbent when non-null, and stores the new one. The target's
 // reference-counted base is the stlport rb_tree hint layout; the class here is
 // an honest address-named view (offset 0x6c proven by the add ecx).
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 struct TargetRef00217D4C
 {
 	void *m_vtbl;

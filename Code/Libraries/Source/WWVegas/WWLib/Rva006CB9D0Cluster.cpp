@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O2
+// cl: /Ireference/shims/bfme2_ascii
 // ?Rva006CB9D0@@YAPAXPBD@Z @ 0x006CB9D0 (51B). Assert-guarded wrapper from
 // AptValueFactory.cpp: it validates a string argument then hands it to the
 // unnamed creational helper at 0x006D7090 and returns that helper's value.

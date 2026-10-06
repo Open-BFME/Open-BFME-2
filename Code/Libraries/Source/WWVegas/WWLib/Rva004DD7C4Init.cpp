@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0Rva004DD7C4@@QAE@XZ @ 0x004DD7C4 31B
 // 0x18-byte subobject init: magic -666666 (0xFFF5D3D6) x2 then 0 1 0 0.

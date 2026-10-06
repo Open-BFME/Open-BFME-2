@@ -1,4 +1,4 @@
-// cl: /O2 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ?Release@Rva006FBDF0@@QAEXXZ, retail 0x006FBDF0 (20 B).
 // Mnemonic-sequence sibling of the rowed ??0INIClass@@QAE@XZ 0x006169A0
 // (push esi / mov esi,ecx / three stores / call / mov / pop / ret), but the

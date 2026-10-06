@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?rva0040A424@Rva0040A424@@QAE_NPAVCreateAHeroData@@@Z @0x0040A424 29B
 // Evidence: unlock lane; ecx is StringBase (caller 0x0040A46F passes ebp+0x10
 // which later calls releaseBuffer 0x36410, and this calls compareNoCase 0x6A00);

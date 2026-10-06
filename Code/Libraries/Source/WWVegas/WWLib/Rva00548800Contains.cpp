@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00548800@Rva00548800@@QAE_NABV?$list@PAVCreateAHeroData@@V?$allocator@PAVCreateAHeroData@@@_STL@@@_STL@@@Z @0x00548800 59B contains-check of list nodes via rowed find 0x0020E873.
 // Evidence: __thiscall bool ret 4 single list arg; callers 0x0035541D 0x00548167; this+4 +8 as vector first last; arg list nodes with data at +8.

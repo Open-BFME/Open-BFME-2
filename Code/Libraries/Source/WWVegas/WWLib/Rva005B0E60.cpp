@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva005B0E60Get@@YGHPAX@Z @0x005B0E60 63B
 // Evidence: AsciiString at +0x88 str pattern plus empty global; strstr needle g_00BBD3F0 plus atoi; caller 0x005B1ACB; ret 4 stdcall.
 extern const char g_Rva0107301CEmptyString[];

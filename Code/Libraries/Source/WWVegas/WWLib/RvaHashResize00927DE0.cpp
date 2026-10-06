@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 
 // Open-BFME: STLport hashtable<V, K>::resize, near-twin of the 20-body family

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva004EAC8C@Rva004EAC8C@@QAEXM@Z, retail 0x004EAC8C, 39 bytes.
 // Sets float at +4 on single ptr +0x4 and on every entry in [begin+0x8, end+0xC).
 // Evidence: movss float arg, +4 stores, 4-byte stride loop, caller at 0x004EAF3D.

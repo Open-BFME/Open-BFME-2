@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005531DD@Rva005531DD@@QAEXPAX@Z @0x005531DD 45B: Tree erase helper recurses +0xC loops +8 frees via free. Evidence: unlock lane callee of 0x005532D6 plus self recursion plus free 0x00030830 rowed.
 extern "C" void __cdecl free(void *block);
 struct Rva005531DDNode

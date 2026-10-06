@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 //
 // ??0Rva0054103E@@QAE@ABV0@@Z @0x0054103E (29B).
 // Rva0054103E copy ctor: dword at +0 plus Region2D at +4 (20B total).

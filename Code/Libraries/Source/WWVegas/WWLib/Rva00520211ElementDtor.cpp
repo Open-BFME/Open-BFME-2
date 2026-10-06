@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ??1Rva00520211Element@@QAE@XZ
 // RVA 0x0051FB52 size 135. The byte-verified vector helpers at 0x5200F4,

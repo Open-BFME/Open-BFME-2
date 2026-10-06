@@ -1,6 +1,6 @@
 // ??_GRva004E16D9Record@@UAEPAXI@Z
 // partial score=0.95 date=2026-09-28
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva004E16D9Record@@UAEPAXI@Z @0x004E1BE0 (28B).
 // Scalar deleting dtor slot 0 of vtable 0x00861A70; calls rowed
 // ??1Rva004E16D9Record@@QAE@XZ at 0x004E1682 plus delete at 0x0002FD60.

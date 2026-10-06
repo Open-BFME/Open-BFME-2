@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00550083@@QAE@XZ @0x00550083 21B.
 // Default ctor of a 40-byte single-deque wrapper; the inlined deque init calls the rowed _Deque_base.

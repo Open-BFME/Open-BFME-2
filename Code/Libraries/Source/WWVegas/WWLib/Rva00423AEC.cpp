@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva00423AEC@Rva00423AEC@@QAE_NPAVPlayer@@PAVRva0029FB3BMember@@@Z @0x00423AEC 147B.
 // Unlock: collects matching roster Objects into out list via rowed reset/append

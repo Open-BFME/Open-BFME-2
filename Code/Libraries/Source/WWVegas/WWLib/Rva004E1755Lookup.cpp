@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // Dump-range-25 string-keyed lookup trio on Rva00319CED (whose rowed layout
 // is pad[0x2C] plus AsciiString m_2C): 0x4E1755 returns the rowed-pinned

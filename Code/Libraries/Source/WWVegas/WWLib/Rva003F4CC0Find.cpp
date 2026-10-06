@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva003F4CC0@Rva003F4CC0@@QAEPAURva003F4CC0Inner@@H@Z @0x003F4CC0 73B unlock linear search inners for unk0 matching int arg returning element pointer else NULL; callers 0x003F6755 0x003F4DFD; same dir sizes flags as Rva003F4DCAInnerSize

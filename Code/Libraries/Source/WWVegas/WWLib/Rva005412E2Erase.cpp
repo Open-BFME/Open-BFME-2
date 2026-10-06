@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?erase@?$vector@URva0054107FRecord@@V?$allocator@URva0054107FRecord@@@_STL@@@_STL@@QAEPAURva0054107FRecord@@PAU3@@Z @0x005412E2 47B single erase
 // Evidence: chain lane calls rowed copy wrapper 0x00541214 which folds pin __copy_ptrs for this 28-byte record; shape-identical 47B single erase precedent 0x00216267 pod28; range-erase sibling 0x0054152D same vector; caller 0x00541883

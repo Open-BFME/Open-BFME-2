@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??$__uninitialized_fill_n@PAVRva00585B16@@IV1@@_STL@@YAPAVRva00585B16@@PAV1@IABV1@ABU__false_type@0@@Z @0x005859F3 37B
 // Evidence: loop calls rowed _Construct at 0x005859C6, dst advances by 0x54,

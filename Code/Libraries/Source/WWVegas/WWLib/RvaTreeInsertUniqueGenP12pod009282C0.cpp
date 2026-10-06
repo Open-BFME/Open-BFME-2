@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /arch:SSE /G7
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WWLib/RvaTreeInsertUniqueGenP12pod009282C0.cpp at 6583b3c1ff; include paths repointed at the
 // reference checkout and built the BFME2 way (/arch:SSE /G7), where its body places
 // exactly once in game.dat by masked byte search.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?rva0051C17E@Rva0051C17E@@QAEXH@Z @0x0051C17E 195B: thiscall update via GadgetTextEntryGetText then wide set plus listbox add with winEnable guards; evidence rowed GadgetTextEntryGetText 0x00320AAB wide set 0x00037150 winEnable 0x00313BEC listbox 0x00326BEC copy 0x00037050 release 0x00036E70 caller 0x0051C4B8 globals g_00DD16C4
 #include "unicode_string.h"
 

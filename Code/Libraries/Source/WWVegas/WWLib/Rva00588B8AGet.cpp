@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP=
+// cl: /EHsc /MD /D_CRTIMP=
 // ?Rva00588B8AGet@@YGHPAX@Z @0x00588B8A 30B null-safe virtual-slot caller.
 // Evidence: 11 callers in 0x477xxx plus 0x588BF3/0x588E44; arg+0x250 null-checked
 // twice then vtable slot 0x7C called; callees none direct (virtual only).

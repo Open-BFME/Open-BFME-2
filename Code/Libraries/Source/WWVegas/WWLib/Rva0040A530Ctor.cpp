@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0040A530@@QAE@_N@Z @0x0040A530 28B
 // Evidence: unlock lane; calls rowed Vector_base<BfmeE16> 0x00211E58; copies byte to +0xC; callers 0x21FEC3 0x5B582C.

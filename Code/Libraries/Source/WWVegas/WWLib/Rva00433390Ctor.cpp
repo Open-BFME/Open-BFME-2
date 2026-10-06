@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /EHs-c- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHs-c- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ??0Rva00433390@@QAE@H@Z @0x00433390 48B: derived ctor installs vtable over base 0x001DA19E plus BitFlags at +0xC4 plus int at +0xC8 plus arg at +0xCC. Evidence: vtable store 0x00C3CB1C plus thiscall base 0x001DA19E plus rowed BitFlags 0x003B31AD plus ret-4 single int arg; sibling 0x00433762 family.
 #include "ascii_string.h"
 

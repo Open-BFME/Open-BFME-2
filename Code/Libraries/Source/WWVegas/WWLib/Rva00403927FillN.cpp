@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$__uninitialized_fill_n@PAVRva00403927@@IV1@@_STL@@YAPAVRva00403927@@PAV1@IABV1@ABU__false_type@0@@Z @0x00403BAD 37B
 // _STL::__uninitialized_fill_n<Rva00403927>, retail 37 bytes. Dedicated TU so
 // no local _Construct definition can inline into this loop. Element stride is

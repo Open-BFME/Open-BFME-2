@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??0Rva00567BD7@@QAE@ABV0@@Z @0x00567BD7 38B
 // Evidence: __thiscall copy ctor (ret 4, returns this); copies +0 dword, +4 byte, +8 refptr with inc [edx+4], +0xC byte.
 // Caller 0x00567F91 conditionally copy-constructs; unblocks 0x00567F91.

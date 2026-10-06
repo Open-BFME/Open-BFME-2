@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00549D30Median@@YAABURva00549D30Elem@@ABU1@00@Z, RVA 0x00549D30, 75B
 // Median-of-three on the float key at +4. Evidence: sits between

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00553890@@QAE@II@Z @0x00553890 42B: Derived ctor calls base Rva00553395 0x00553395 with second arg then zeroes +4 and buffer header byte +0 dword +4 plus self links +8 +0xC. Evidence: chain lane base now rowed plus caller 0x00558D7A plus unblocks 0x00558D6B.
 #include <deque>

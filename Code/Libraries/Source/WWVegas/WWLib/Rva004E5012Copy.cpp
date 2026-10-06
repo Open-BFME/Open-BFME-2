@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva004E5012@@QAE@ABV0@@Z @0x004E5012 (116B)
 // Copy ctor with Pod12 pair at +0/+0xC via movsd, ints at +0x18/+0x24/+0x28/+0x2C/+0x30,

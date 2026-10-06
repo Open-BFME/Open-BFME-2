@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ?Rva00580776Insert@@YAXPAPAXPAXVRva000795C1Record@@@Z @0x00580776 88B
 // Unguarded linear insert for the 0x00580xxx introsort family: shifts while

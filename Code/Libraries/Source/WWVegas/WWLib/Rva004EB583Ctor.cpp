@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva004EB583@@QAE@H@Z @0x004EB583 102B
 // Evidence: unlock ctor stores vtable 0x00862928 at +0; 3x BfmeE16 Vector_base via rowed 0x00211E58 at +8 +0x1C +0x28; ints +4 +0x14 +0x18 +0x34 +0x3C zeroed +0x38 +0x40 -1; id from g_00E044A0 at +0x44 with inc; arg at +0x48; callers 0x004E9AFD 0x004E9CBC.

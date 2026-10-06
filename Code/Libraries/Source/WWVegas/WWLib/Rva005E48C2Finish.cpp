@@ -1,5 +1,5 @@
 // ??$__adjust_heap@PAHHHURva005E4300Cmp@@@_STL@@YAXPAHHHHURva005E4300Cmp@@@Z
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // _STL::__adjust_heap<int*, int, int, Compare> at 0x5E48C2, retail 94 bytes.

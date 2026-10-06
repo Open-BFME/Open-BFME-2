@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00587204@Rva00587204@@QAEAAURva0046247DPair@@AAU2@@Z, retail 0x00587204 19B.
 // Forwarder: pointer at +4 to rowed rva0046247D 0x0046247D; returns arg. Caller 0x00587AB8 passes stack Pair.
 struct Rva0046247DPair { void *first; void *second; };

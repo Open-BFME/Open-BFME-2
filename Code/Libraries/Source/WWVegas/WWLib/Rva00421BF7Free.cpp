@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva00421BF7@Rva00421BF7@@QAEXPAX@Z @0x00421BF7 45B
 // Walk +8 chain freeing each node after recursing on its +0xC child:
 // while (n) { rva00421BF7(n->m_child); next = n->m_next; free(n); n = next; }

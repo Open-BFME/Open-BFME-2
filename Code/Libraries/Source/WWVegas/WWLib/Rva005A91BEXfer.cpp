@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 //
 // ?rva005A91BE@Rva005A91BE@@QAEXPAVXfer@@@Z, retail 0x005A91BE, 87 bytes.
 // Xfer-style body: Version(1,2) via Xfer slot 0x28 then count via slot 0x78

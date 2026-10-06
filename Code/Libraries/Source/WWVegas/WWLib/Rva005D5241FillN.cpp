@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$__uninitialized_fill_n@PAUBfmeStringRecord005D511F@@IU1@@_STL@@YAPAUBfmeStringRecord005D511F@@PAU1@IABU1@ABU__false_type@0@@Z retail 0x005D5241 37B.
 // _STL::__uninitialized_fill_n<BfmeStringRecord005D511F>, retail 37 bytes. Dedicated TU
 // so BfmeStringRecord005D511FConstruct cannot inline _Construct into this loop.

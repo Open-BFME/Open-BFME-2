@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 #include "windows.h"
 
 struct Rva00958A30Record

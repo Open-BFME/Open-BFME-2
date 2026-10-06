@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva00567BFDGet@@YAPBVCommandButton@@H@Z @0x00567BFD 169B
 // Evidence: static stance table (1 Battle, 2 Aggressive, 3 HoldGround) with guard at 0x00A062D4,
 // ControlBar::findCommandButton row 0x0031BE3C via g_bfmeWorldRV, StringBase ctor 0x00037BA0 / releaseBuffer 0x00036410.

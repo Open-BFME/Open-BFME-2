@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva003F1ECEFill@@YAXPAD00@Z @0x003F1ECE 29B:
 // range fill stride 12 via rowed vector uint assign 0x0026F4F4 (pinned true
 // name); while (first != last) assign *value into *first and advance by 12.

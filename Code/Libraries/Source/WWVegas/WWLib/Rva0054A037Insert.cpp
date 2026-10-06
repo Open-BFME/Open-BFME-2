@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0054A037Insert@@YAXU?$_Deque_iterator_base@UBfmeE8@@@_STL@@UBfmeE8@@@Z 0x0054A037 79B deque insertion-sort shift for 8B elements with inline float-key compare (sibling Rva0054A0D8Insert.cpp uses a Comp call; here the +4 key compares via comiss). Evidence: 4x movsd 16B iterator copies plus 8B shifts plus rowed _M_decrement 0x00549D7B plus movss/comiss on value+4 plus callers 0x0054A4C6 0x0054ADCB.
 struct BfmeE8

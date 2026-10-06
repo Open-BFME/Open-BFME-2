@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva005504F9@Rva0055011A@@QAEXABUBfmeNarrowRecord0054FEF1@@@Z @0x005504F9 125B.
 // Rva0055011A slot-6 method: lock m_14, map[text]=word0, lock m_0C, m_70++, m_44.push_back.

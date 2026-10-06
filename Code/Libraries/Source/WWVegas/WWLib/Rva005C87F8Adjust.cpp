@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005C87F8@Rva005C87F8@@QAEX_N@Z @0x005C87F8 85B
 // __thiscall bool method: adjusts the low nibble at +0x47 of each non-null
 // child in the 8-pointer array at +0xc and then its own +0x47, by +1 when the

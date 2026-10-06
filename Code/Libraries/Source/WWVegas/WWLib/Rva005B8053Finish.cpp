@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005B8053@Rva005B8053@@QAEPAXPBE@Z @0x005B8053 58B. Unlock lane tree
 // lookup shared by 0x005B808D/0x005B80AF/0x005B80D0/0x005B80F2 plus 0x00559DA0
 // and 0x00553CDE. Evidence: lower_bound walk over byte key at node+0x10 with

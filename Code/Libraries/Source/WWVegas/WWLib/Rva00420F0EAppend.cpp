@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?append@Rva00420F0E@@QAEXHHH@Z @0x00420F0E 49B: conditional list append via rowed list<BfmePod12>::push_back 0x00420DF3. Evidence: cmp byte [ecx+0x14] guard plus 12B stack tmp {arg2->+0x74, arg1, arg3 byte} plus add ecx,0x10 plus REL32 to rowed 0x00420DF3; ret 0xC three args.
 #define _STLP_NO_EXCEPTIONS 1

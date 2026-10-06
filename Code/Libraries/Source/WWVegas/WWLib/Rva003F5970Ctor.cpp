@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva003F5970@Rva003F5970@@QAE@HPBVModuleData@@@Z @0x003F5970 142B
 // Evidence: caller 0x003F652E builds Pod48 temp via this; dtor Rva003F610FElement 0x003F535B; vectors ModuleData* + Pod104; base E16 via 0x00211E58

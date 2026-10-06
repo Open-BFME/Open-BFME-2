@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva003F5DBD@Rva003F5DBD@@QAEXPAXH@Z @0x003F5DBD 130B: element science push_back via rowed 0x002E01C6 plus inner vector loop via rowed 0x002B7250 plus erase via rowed 0x003F5C72; callers at 0x003F5E7A; class from this+4 vector and this+10 ScienceType vector

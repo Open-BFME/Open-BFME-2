@@ -1,5 +1,5 @@
 // ?rva00583C88@Rva005843DA@@QAEXH@Z
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva00583C88@Rva005843DA@@QAEXH@Z 44B @0x00583C88: virtual slot 10
