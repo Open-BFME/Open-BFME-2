@@ -14140,3 +14140,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??1Rva004FFE96@@QAE@XZ,0x0050298D,callee of ??0Rva00502EC6@@QAE@XZ
 ?rva00515B0A@@YAXPAVRva00515Handle@@H@Z,0x00515B0A,callee of ?Rva00515BCA@@YAXH@Z
 ?rva0053856F@Rva0053863ESub@@QAEXXZ,0x0053856F,helper reached by the 0x0053863E body with ECX=this; Ghidra boundary size 132 and matching accesses to +0x0C and +0x20; address-derived symbol only
+?rva00538D3B@Rva00538E22@@QAEXH@Z,0x00538D3B,called by 0x00538ED1 with the same this and one 32-bit stack argument; Ghidra boundary size 134; address-derived helper with identity and semantics unproven
