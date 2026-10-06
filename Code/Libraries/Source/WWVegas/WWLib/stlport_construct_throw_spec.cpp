@@ -72,7 +72,7 @@ public:
 
 namespace _STL {
 template<> inline void _Construct<RvaSmartPtr12, RvaSmartPtr12>(RvaSmartPtr12 *dest, const RvaSmartPtr12 &source) throw() { new (dest) RvaSmartPtr12(source); }
-template<> void _Construct<AssetReference, AssetReference>(AssetReference *dest, const AssetReference &source) throw() { new (dest) AssetReference(source); }
+template<> inline void _Construct<AssetReference, AssetReference>(AssetReference *dest, const AssetReference &source) throw() { new (dest) AssetReference(source); }
 template<> void _Construct<WeaponTemplateSetHead, WeaponTemplateSetHead>(WeaponTemplateSetHead *dest, const WeaponTemplateSetHead &source) throw() { new (dest) WeaponTemplateSetHead(source); }
 template<> inline void _Construct<Rva0036CA00Str, Rva0036CA00Str>(Rva0036CA00Str *dest, const Rva0036CA00Str &source) throw() { new (dest) Rva0036CA00Str(source); }
 template<> void _Construct<Rva0028F68F, Rva0028F68F>(Rva0028F68F *dest, const Rva0028F68F &source) throw() { new (dest) Rva0028F68F(source); }
@@ -88,12 +88,13 @@ template<> void _Construct<Rva003A6F70, Rva003A6F70>(Rva003A6F70 *dest, const Rv
 // here collided in the linked build. This anchor only makes this unit emit its
 // copies for the ledger rows; it is not retail code.
 #pragma inline_depth(0)
-// ?bfmeEmitstlport_construct_throw_spec@@YAXPAVRvaSmartPtr12@@PAVRva002390CB@@PAVRva0036CA00Str@@PAVRva00064640Record@@@Z present-unmatched
-void bfmeEmitstlport_construct_throw_spec(RvaSmartPtr12 *p1, Rva002390CB *p2, Rva0036CA00Str *p3, Rva00064640Record *p4)
+// ?bfmeEmitstlport_construct_throw_spec@@YAXPAVRvaSmartPtr12@@PAVRva002390CB@@PAVRva0036CA00Str@@PAVRva00064640Record@@PAVAssetReference@@@Z present-unmatched
+void bfmeEmitstlport_construct_throw_spec(RvaSmartPtr12 *p1, Rva002390CB *p2, Rva0036CA00Str *p3, Rva00064640Record *p4, AssetReference *p5)
 {
 	_STL::_Construct(p1, *p1);
 	_STL::_Construct(p2, *p2);
 	_STL::_Construct(p3, *p3);
 	_STL::_Construct(p4, *p4);
+	_STL::_Construct(p5, *p5);
 }
 #pragma inline_depth()
