@@ -65706,3 +65706,4 @@ uw_0075b500,,0x0075B500,10,Code/GameEngine/Source/Main/CreateGameEngine.cpp,matc
 ?rva004A33EE@BroadcastStealthUpdate@@QAEXXZ,,0x004A33EE,64,Code/GameEngine/Source/Common/Rva004A33EEWalk.cpp,matched,walk the id list at +0x28 then reset it
 ?rva0049CCF0@Rva0049CCF0@@QAEXH@Z,,0x0049CCF0,52,Code/GameEngine/Source/Common/Rva0049CCF0Forward.cpp,matched,controlling-player lookup into virtual slot 0x2C
 ?rva004B15E6@Rva004B15E6@@QAEXXZ,,0x004B15E6,77,Code/GameEngine/Source/Common/Rva004B15E6Clear.cpp,matched,clear the slot at +0x7C then destroy the vector at +0x70
+?rva0049329E@Rva0049329E@@QAEXXZ,,0x0049329E,55,Code/GameEngine/Source/Common/Rva0049329ESync.cpp,matched,sync the byte at +0x20 with the predicate at this-0x10
