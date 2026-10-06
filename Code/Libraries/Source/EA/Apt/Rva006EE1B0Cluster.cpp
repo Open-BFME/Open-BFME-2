@@ -27,20 +27,27 @@ class BfmeAptValue006DCD20
 {
 public:
 	BfmeAptValue006DCD20 *rva006DCF60(bool undefOK);
-	bool rva006cfcd0();
 
 	char m_pad4C[0x4C];
 	Rva006EE1B0Inner *m_inner; // +0x4C
+};
+
+// Rowed predicate at 0x006CFCD0 (Rva006CFCD0Apt.cpp). Retail calls it here;
+// declaration only, definition lives in the row owner.
+class Rva006CFCD0
+{
+public:
+	bool isSpriteInstBase() const;
 };
 
 extern AptValue *g_rva00e18078;
 
 AptValue *rva006ee1b0(BfmeAptValue006DCD20 *entry)
 {
-	if (entry->rva006DCF60(false)->rva006cfcd0())
+	if (((const Rva006CFCD0 *)entry->rva006DCF60(false))->isSpriteInstBase())
 	{
 		BfmeAptValue006DCD20 *value = entry->rva006DCF60(false);
-		if (!value->rva006cfcd0())
+		if (!((const Rva006CFCD0 *)value)->isSpriteInstBase())
 		{
 			g_bfmeAptAssertAtE17734("isSpriteInstBase()",
 				"c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
@@ -54,10 +61,10 @@ AptValue *rva006ee1b0(BfmeAptValue006DCD20 *entry)
 
 AptValue *rva006ee210(BfmeAptValue006DCD20 *entry)
 {
-	if (entry->rva006DCF60(false)->rva006cfcd0())
+	if (((const Rva006CFCD0 *)entry->rva006DCF60(false))->isSpriteInstBase())
 	{
 		BfmeAptValue006DCD20 *value = entry->rva006DCF60(false);
-		if (!value->rva006cfcd0())
+		if (!((const Rva006CFCD0 *)value)->isSpriteInstBase())
 		{
 			g_bfmeAptAssertAtE17734("isSpriteInstBase()",
 				"c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
