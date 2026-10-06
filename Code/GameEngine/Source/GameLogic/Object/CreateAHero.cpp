@@ -164,6 +164,7 @@ public:
 	virtual void init();
 
 	Int GetBlingCount(Int blingKey, const CreateAHeroHero *hero) const;
+	Int rva0021BEE0(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex) const;
 	Int GetSubClassDefaultBlingId(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex) const;
 	const AsciiString &GetBlingNameTag(Int blingKey, const CreateAHeroHero *hero, UnsignedInt index);
 	const AsciiString &GetBlingDescTag(Int blingKey, const CreateAHeroHero *hero, UnsignedInt index);
@@ -264,6 +265,15 @@ Bool CreateAHeroManager::FindBlingByUpgradeName(const AsciiString &upgradeName, 
 	*index = it - m_blings.begin();
 	*blingId = it->m_blingId;
 	return true;
+}
+
+// Target calls the matched CreateAHeroClass::GetBlingCount at 0x0021BE23.
+// The original method name is not independently proven, so keep the RVA label.
+Int CreateAHeroManager::rva0021BEE0(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex) const
+{
+	if (classIndex < m_classes.size())
+		return m_classes[classIndex].GetBlingCount(blingKey, subClassIndex);
+	return 0;
 }
 
 // CreateAHeroManager::GetSubClassDefaultBlingId, retail 0x0021BF11.
