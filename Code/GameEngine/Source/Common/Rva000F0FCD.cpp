@@ -1,6 +1,5 @@
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 // ?rva000F0FCD@Rva000F0FCD@@QAEXHPAG@Z
-// partial score=0.7 date=2026-10-05
-// cl: /O1 /DNDEBUG /MD
 // ?rva000F0FCD@Rva000F0FCD@@QAEXHPAG@Z @0x000F0FCD (67B): three-word
 // remap write. Record i (6 bytes: three word indices) is read from the
 // table at [[this]+0xC]; each index is mapped through the word table at

@@ -1,5 +1,5 @@
+// cl: /O2 /arch:SSE /G7 /DBFME_WWSTRING_CTOR_BUFFER_RELOAD /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/banked_segline /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // ?rva00913AF0@PointGroupClass@@QAEXH_N@Z
-// partial score=1.0 date=2026-10-06
 // Full body byte-exact; integration remains blocked, so this is not progress.
 // 2026-10-06 follow-up: bracketing ONLY Set_Shader's definition in
 // reference/shims/banked_segline/dx8wrapper.h with pragma optimize("gsy", on)
@@ -11,7 +11,6 @@
 // but shrinks this body to3266; narrowing to the four-vector constructor or
 // Transpose does not resolve the helper. All trial header changes reverted.
 // The sorting Insert provider at0x0012FE00 landed in6c063da4fc.
-// cl: /DBFME_WWSTRING_CTOR_BUFFER_RELOAD /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/banked_segline /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // PointGroup vertex-buffer submission, retail RVA 0x00179B50, 3377 bytes.
 // Ported from Open-BFME-1 PointGroupClassSubmit.cpp at 6583b3c1ff;
 // resumed bank from 2026-10-05. The donor provides the submission semantics

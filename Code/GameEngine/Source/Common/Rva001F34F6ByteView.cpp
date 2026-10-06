@@ -1,5 +1,5 @@
+// cl: /O1 /arch:SSE /G7
 // ?rva001F34F6@@YAEPBURva001F34F6ByteView@@@Z
-// partial score=1.0 date=2026-10-05
 // Whole readByte.cpp donor @5cc75ddda6455c338a5068307e587a793f96d6b3.
 // Blob eb7d42fbb3d74056c8b6e9483122a0e78cadea49; no includes.
 // Exact 8-byte physical ABI draft. Standalone entry remains unproved:

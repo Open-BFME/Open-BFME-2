@@ -1,6 +1,5 @@
+// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva005D3C2B@@UAE@XZ
-// partial score=0.99 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // Banked 123-byte virtual destructor at RVA 0x005D3C2B; no original application class name asserted.
 // Target: Ghidra [0x005D3C2B,0x005D3CA6), RET0; constructor 0x005D3E06
 // stores the same derived table 0x00C7598C. Rowed owner reset 0x0057873E

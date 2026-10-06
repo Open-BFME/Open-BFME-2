@@ -1,6 +1,5 @@
+// cl: /O1 /arch:SSE /G7 /MD /Oy-
 // ?rva003FD27E@Rva003FD2C2@@QAE_NXZ
-// partial score=0.93 date=2026-10-06
-// cl: /MD /Oy-
 //
 // ?rva003FD27E@Rva003FD2C2@@QAE_NXZ, retail 0x003FD27E, 68 bytes.
 // Slot 4 of vtable 0x007FE058 (neighbours slot 3 Xfer rva003FD2C2,

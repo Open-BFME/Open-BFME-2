@@ -1,6 +1,5 @@
+// cl: /O1 /arch:SSE /G7 /MD
 // ?rva005CD737@Rva005CD737@@QAEEPAX@Z
-// partial score=0.95 date=2026-10-06
-// cl: /MD
 //
 // ?rva005CD737@Rva005CD737@@QAEEPAX@Z, retail 0x005CD737, 43 bytes.
 // Thiscall uchar method with one void* param: if rowed get 0x005CCB3E on the
