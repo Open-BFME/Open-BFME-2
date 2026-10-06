@@ -44,7 +44,7 @@ public:
 class Rva00484EF4_B2
 {
 public:
-	virtual void f2();
+  virtual void f2() {}
 };
 
 class Rva00484EF4 : public PrimaryP, public Rva00484EF4_B2
@@ -75,7 +75,7 @@ void Rva00484EF4_Anchor()
 class Rva004BD763_B2
 {
 public:
-	virtual void f2();
+  virtual void f2() {}
 };
 
 class Rva004BD763 : public PrimaryP, public Rva004BD763_B2
@@ -98,7 +98,7 @@ void Rva004BD763_Anchor()
 class Rva004B96CC_B2
 {
 public:
-	virtual void f2();
+  virtual void f2() {}
 };
 
 class Rva004B96CC : public PrimaryP, public Rva004B96CC_B2
@@ -121,7 +121,7 @@ void Rva004B96CC_Anchor()
 class Rva004BB68E_B2
 {
 public:
-	virtual void f2();
+  virtual void f2() {}
 };
 
 class Rva004BB68E : public PrimaryP, public Rva004BB68E_B2
@@ -144,7 +144,7 @@ void Rva004BB68E_Anchor()
 class Rva00462151_B2
 {
 public:
-	virtual void f2();
+  virtual void f2() {}
 };
 
 class Rva00462151 : public PrimaryP, public Rva00462151_B2
