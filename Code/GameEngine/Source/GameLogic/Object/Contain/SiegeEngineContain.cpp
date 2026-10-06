@@ -20,6 +20,12 @@ class Object;
 class Thing;
 class ModuleData;
 
+class Object
+{
+public:
+	void rva00298979(Object *source, bool wasSelected);
+};
+
 class GameLogic
 {
 public:
@@ -39,6 +45,9 @@ private:
 
 class TransportContain : public OpenContain
 {
+public:
+	virtual void onContaining(Object *rider, bool wasSelected);
+
 private:
 	unsigned char m_padding100[0x11C - 0x100];
 };
@@ -65,4 +74,56 @@ void SiegeEngineContain::onDelete()
 		TheGameLogic->destroyObject(object);
 	}
 	m_riderObjects.clear();
+}
+
+// Target evidence: SiegeEngineContain's constructor installs vtable 0x00C46F80
+// at full-object +0x20; entry 66 at 0x00C47088 is 0x0047BEF8. The same body is
+// present at entry 83 of vtable 0x00C47834 installed at +0xFC. In the +0x20
+// view, the list head at +0xFC is the constructor's list<int> at full-object
+// +0x11C. Retail walks it backwards, calls Object::rva00298979 on each stored
+// receiver with the incoming Object and selection flag, then calls the base
+// routine at 0x00463191 with both arguments.
+//
+// Identity evidence: the vtable entries and the BFME1 donor signature support
+// SiegeEngineContain::onContaining(Object *, Bool), whose donor implementation
+// forwards to TransportContain::onContaining. The target body remains
+// address-labelled because its entry uses the +0x20 subobject this-view. The
+// partial class below starts at that view; its +0xFC field is the proven full
+// object +0x11C list. The node word is used as an Object receiver by the target
+// call, while its semantic type remains inferred from the existing list<int>
+// declaration.
+struct Rva0047BEF8Node
+{
+	Rva0047BEF8Node *m_next;
+	Rva0047BEF8Node *m_previous;
+	int m_value;
+};
+
+class __declspec(novtable) Rva0047BEF8
+{
+public:
+	virtual void rva0047BEF8(Object *rider, bool wasSelected);
+
+private:
+	unsigned char m_pad04[0xFC - 4];
+	Rva0047BEF8Node *m_headFC;
+};
+
+void Rva0047BEF8::rva0047BEF8(Object *rider, bool wasSelected)
+{
+	Rva0047BEF8Node *current = m_headFC;
+	if (current != current->m_next) {
+		do {
+		Rva0047BEF8Node *previous = current->m_previous;
+			Object *receiver = (Object *)previous->m_value;
+			if (wasSelected) {
+				receiver->rva00298979(rider, true);
+			} else {
+				receiver->rva00298979(rider, false);
+			}
+			current = current->m_previous;
+		} while (current != m_headFC->m_next);
+	}
+
+	((TransportContain *)this)->TransportContain::onContaining(rider, wasSelected);
 }
