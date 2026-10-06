@@ -11471,3 +11471,8 @@ FUN_004b071d	0x000B071D	314	blocked	complex 314B EH STL no donor unclaimed code 
 FUN_009f267e	0x005F267E	189	blocked	ADDRESS-NAMED g_Va00BBB8D8 use refused t=2 model=muse-10
 FUN_0070c40a	0x0030C40A	156	blocked	virtual-base EH dtor vbase90 array forEach needs family t=10 model=muse-10
 ?rva00350020@Rva00346CDD@@UAE?AW4StateReturnType@@XZ	0x00350020	198	blocked	ADDRESS-NAMED g_Va009FF0F8 at 0x009FF0F8 counted escape hatch plus new use refused t=2 model=muse-04
+?rva003A3E37@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z	0x003A3E37	61	partial	retail parks findPrototype hit in ecx then loads list into eax ours keeps hit in eax and loads list into ecx plus extra mov for return t=22 model=muse-04 score=0.93 stash=reverse/attempts/0x003a3e37.cpp
+?rva005F0BF2@Rva005F0584@@QAEXXZ	0x005F0BF2	71	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use refused per packet t=3 model=muse-04
+?rva004054E1@Rva004054E1@@QAEXXZ	0x004054E1	190	blocked	ADDRESS-NAMED g_Va00BBB8D8 escape hatch t=1 model=muse-04
+?rva00417DFB@Rva00417DFB@@QAE_NPBD@Z	0x00417DFB	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString escape hatch t=1 model=muse-04
+?rva0049B8A0@Rva0049B8A0@@QAE_NPBD@Z	0x0049B8A0	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString escape hatch t=1 model=muse-04
