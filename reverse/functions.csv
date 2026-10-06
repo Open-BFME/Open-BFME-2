@@ -65012,5 +65012,3 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva0006840A@Rva0006840A@@QAEXQAVVector3@@W4DrawableID@@_N@Z,,0x0006840A,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed addBibDrawable same offset as 0x000683FF
 ?rva00068415@Rva00068415@@QAEXXZ,,0x00068415,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed removeHighlighting same offset as 0x000683FF
 ?rva00068420@Rva00068420@@QAEXXZ,,0x00068420,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed clearAllBibs same offset as 0x000683FF
-?rva0036A524@Rva00368004@@QAEHXZ,,0x0036A524,151,Code/GameEngine/Source/Common/Rva00368004Getter.cpp,matched,dump range 16; flag refresh with goal dead-flag gate; same TU as 0x36A75C
-?onEnter@Rva0036A3E9GuardInnerState@@UAE?AW4StateReturnType@@XZ,,0x0036A3E9,315,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp,matched,dump range 16 head; second-system inner onEnter mirrors 0x54379B without deadline with else range recompute
