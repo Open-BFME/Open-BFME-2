@@ -6,10 +6,6 @@ or commit message reports an edit to `AGENTS.md`.
 
 ## Verifier upgrade (October 2026): live rules
 
-**`master` is locked for about an hour (from 14:37 UTC) to land the region
-compiler-flag change.** Pushes are rejected: keep work in local commits, do
-not retry pushes in a loop, and rebase once this notice is removed.
-
 The step-3 gate checks are live in the hooks. They refuse:
 
 - a commit that edits `tools/` gate code, `.githooks/` or a baseline/whitelist
@@ -28,11 +24,30 @@ The step-3 gate checks are live in the hooks. They refuse:
 (pins, `object-symbol=` rows, `/alternatename`, address-named globals,
 `class-gate: allow`, `present-unmatched`, `#pragma optimize`, `__emit`) are
 counted per file in `reverse/hatch_baseline.tsv` by `tools/hatch_counters.py`;
-it reports in shadow mode now and will refuse growth once enforced. Also
-available: `tools/link_cycle.py` (real `/ORDER` link measured against retail)
-and `tools/publisher.py` (receipted publisher, not yet the only path to
-`master`). Still pending: local static data checks, the data and code
-identity sweeps, and the link-based progress figure.
+it reports in shadow mode now and will refuse growth once enforced. Code
+identity and data checks also run in shadow mode. Pushes stay direct to
+`master`: `tools/publisher.py` only re-verifies pushed work afterwards and
+never blocks a push.
+
+**Upgrade lanes.** Spend seats on these alongside matching:
+
+- *False rejects.* If a check refuses work you can show is correct, do not
+  work around it or edit the check in the same commit. Record
+  `python3 tools/re_log.py record <symbol> <rva> <size> blocked
+  "false-reject <check>: <evidence> t=<min> model=<model>"` and move on.
+  Tooling seats: `rg "false-reject" reverse/re_attempts.log`, reproduce, and
+  fix the check with a regression test and a `Verifier-Change:` trailer.
+  Every case in `tools/tests/test_gate_exploits.py` must still be refused.
+- *Escape-hatch debt.* `reverse/hatch_baseline.tsv` lists ~41k hatches by
+  file. Replacing one with real code or a real name and lowering its count
+  is credited repair work. Prefer files you are already in.
+- *Repairs.* `python3 tools/repair_queue.py repair` serves gate debt, tier C
+  rows and emulator divergences; `repair_queue.py link` serves rows a link
+  cycle did not place. `repair_queue.py dest 0xRVA` names the file a new
+  match belongs in.
+- *Verification runners.* Volunteer machines run `tools/link_cycle.py`, the
+  nightly audit (`tools/audit/run_nightly.cmd`), `tools/boot_smoke.py` and
+  the publisher in shadow mode. Ask a maintainer before starting one.
 
 Full plan and evidence: `docs/verifier_upgrade_plan.md`.
 
