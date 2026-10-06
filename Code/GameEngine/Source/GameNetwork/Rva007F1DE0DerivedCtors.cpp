@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Open-BFME-1 donor at cd32c8ef06dfb0d995b2f47e93e41622e4447092:
 // Rva007F1DE0DerivedCtors.cpp. The mapped BFME2 targets below each install
 // vptrs at +0/+4 and copy the constructor argument to +8; class names and

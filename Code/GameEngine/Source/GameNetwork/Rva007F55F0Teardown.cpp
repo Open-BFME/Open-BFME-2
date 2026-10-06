@@ -1,4 +1,4 @@
-// cl: /O2 /GX-
+// cl: /GX-
 // Converted from Code/gen_asm/d_007f2a50.asm (?d_007f55f0@@YAXXZ).
 // Same teardown as BfmeThingTWB::bfmeDelTWB without the scalar-delete tail.
 

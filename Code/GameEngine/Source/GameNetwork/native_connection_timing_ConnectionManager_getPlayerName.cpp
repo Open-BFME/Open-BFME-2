@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
 //
 // ?getPlayerName@ConnectionManager@@QAE?AVUnicodeString@@H@Z
 // retail 0x004D0198, 61 bytes. Dedicated TU ported from the Open-BFME-1

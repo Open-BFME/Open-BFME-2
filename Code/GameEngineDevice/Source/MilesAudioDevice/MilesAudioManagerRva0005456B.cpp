@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc
 // stlport
 // ?rva0005456B@MilesAudioManager@@QAEHXZ @0x0005456B 43B.
  // MilesAudioManager available-sample pop via list erase plus empty check.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00041DC9@Win32GameEngine@@UAEPAXXZ @0x00041DC9 50B
 // Virtual slot 33 factory returning new Rva0004CA4C (0x3C) via new plus ctor
 // 0x0004CA3A. Evidence: chain lane calls just-landed ctor; vtable 0x007C2530

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?rva00594A06@UDP@@QAEHXZ @0x00594A06 118B WSA error to internal code map.
 // Retail reads int at +0x1c, returns 0 if 0, else maps 0x2714->-10 0x2734->-3
 // 0x274D->-9 0x2726->-14 0x2748->-2 0x2736->-11 0x274C->-15 0x2735->-4

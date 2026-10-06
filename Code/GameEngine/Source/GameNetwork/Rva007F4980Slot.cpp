@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007F4980: ariesudp.cpp slot store. Index must be 0 or 1; otherwise
 // Get()->fail("false", ariesudp.cpp, 76).
 

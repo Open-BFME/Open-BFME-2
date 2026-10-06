@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // ?_M_rva00625699@BfmeDfe6e4@@QAEXXZ
 // retail 0x00225699, 39 bytes. Guarded counter decrement under the class
 // critical section, refreshing the timestamp first via the matched

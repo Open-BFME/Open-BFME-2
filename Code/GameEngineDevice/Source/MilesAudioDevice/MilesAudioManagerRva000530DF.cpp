@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
 // ?rva000530DF@MilesAudioManager@@QAEXXZ @ 0x000530DF 52B: guard over +0x9D4 then zero +0xBE4 then call row 0x000512C4 with 0. Evidence: same MilesMutexGuard ctor/dtor rows as 0x00052917; mutex +0x9D4 proven by StopAudio; callee row Code/GameEngine/Source/Common/Rva000512C4.cpp.
 class MilesMutexGuard
 {

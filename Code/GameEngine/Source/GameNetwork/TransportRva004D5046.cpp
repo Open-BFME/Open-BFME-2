@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004D5046@Transport@@QBEMXZ @0x004D5046 68B: Transport unsigned average
 // over m_stats5[30] at +0x410CC skipping index m_int40E6C. Sums via fild
 // with 2^32 fixup at 0x007C26EC for high-bit values then fmul by

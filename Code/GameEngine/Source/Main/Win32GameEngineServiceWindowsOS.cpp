@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00042121@Win32GameEngine@@UAEXXZ @0x00042121 163B
 // Win32 message pump with WM_TIMER audio notify. Evidence: vtable 0x007C2530
 // slot 23 of Win32GameEngine; TheMessageTime 0x009E1B20; Peek/Get/Translate/

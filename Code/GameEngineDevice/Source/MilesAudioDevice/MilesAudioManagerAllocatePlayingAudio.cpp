@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Donor: reference/open-bfme-1/Code/GameEngineDevice/Source/MilesAudioDevice/
 // MilesAudioManagerAllocatePlayingAudio.cpp. Donor supplies allocation purpose
 // and PlayingAudio names; target boundary 0x5320F (114B) allocates 0x50 bytes,

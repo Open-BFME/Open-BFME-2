@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // BFMENetwork's other three queue members, vtable 0x00C6B318 slots 4, 6 and 7
 // (popQueue0 is slot 5, native_network_BFMENetwork_popQueue0.cpp). Ported from

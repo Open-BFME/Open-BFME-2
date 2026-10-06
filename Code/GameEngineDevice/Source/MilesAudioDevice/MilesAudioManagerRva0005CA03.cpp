@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /arch:SSE2
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Frameless (/Oy via /O1) EH pair sharing the 0xB5D851 __EH_prolog head with
 // the 5C8BB cluster (same guard over +0x9D4, same fs:[0] shell):
 //  ?rva0005CA03@MilesAudioManager@@QAEXPAXMH@Z @0x0005CA03 114B,

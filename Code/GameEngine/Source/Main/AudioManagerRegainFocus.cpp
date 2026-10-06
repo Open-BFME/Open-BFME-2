@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?regainFocus@AudioManager@@QAEXXZ
 // retail 0x0035D2F7, 47 bytes. Dedicated TU: WinMain.cpp owns the class
 // declaration (stub `class AudioManager { void regainFocus(); }`) and the

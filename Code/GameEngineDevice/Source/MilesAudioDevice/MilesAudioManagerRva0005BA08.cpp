@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE2
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 // ?rva0005BA08@MilesAudioManager@@QAEXPAX@Z @0x0005BA08 330B.
 // BFME 2 twin of ZH MilesAudioManager::initFilters (BFME 1 donor 0x006B1B40,
 // MilesAudioManagerInitFilters.cpp): sets volume/pan, pitch-scaled playback

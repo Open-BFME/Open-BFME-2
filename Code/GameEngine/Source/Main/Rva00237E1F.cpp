@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2 /EHsc
+// cl: /EHsc
 
 // 0x00237E1F 9B: combines two dwords at +0/+4 as (m00<<16)|m04.
 // Evidence: leaf, caller 0x0004953C in 2249B FUN_00449271, no callees,

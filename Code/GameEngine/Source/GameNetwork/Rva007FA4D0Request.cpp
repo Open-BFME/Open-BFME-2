@@ -1,4 +1,4 @@
-// cl: /O2 /GX-
+// cl: /GX-
 // 0x007FA4D0 is the FESL transactor request-slot operation.  The constructor
 // and dispatch rows establish Rva007FA2C0 as the owner; the four stack
 // arguments and ret 0x10 establish the request, cdecl callback, context and

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /arch:SSE2
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Frameless (/Oy via /O1) EH cluster sharing the 0xB5D851 __EH_prolog head:
 //  ?rva0005C8BB@Rva0005C8BB@@QAEXMH@Z @0x0005C8BB 118B,
 //  ?rva0005CAE2@Rva0005C8BB@@QAEXXZ @0x0005CAE2 87B,

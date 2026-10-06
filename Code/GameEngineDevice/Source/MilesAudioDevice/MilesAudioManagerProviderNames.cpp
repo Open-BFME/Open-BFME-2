@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE2
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /DWIN32 /MD /EHsc
 // Two MilesAudioManager AsciiString-returning accessors over the 3D provider
 // table proven by createListener/rva00052F4C (ProviderInfo[64] of 12 bytes at
 // +0x6CC, count +0x9CC, selection +0x9D0).

@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007FA5E0: FESL send path. Rejects a live valid() on the argument (-103)
 // or an id mismatch at +0x6A8 (-105), then drives vslot 0/5 on +0x24 and
 // dispatch(arg, "->R").

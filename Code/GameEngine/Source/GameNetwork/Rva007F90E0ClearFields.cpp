@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007F90E0 clears seven consecutive four-byte fields, second before first.
 struct Rva007F90E0Fields
 {

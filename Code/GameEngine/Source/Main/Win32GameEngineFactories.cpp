@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Five of Win32GameEngine's subsystem factories (vtable 0x00BC2530), each
 // Zero Hour's inline `return NEW X;` shape: the global operator new of the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE2
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 // ?rva0005B96D@MilesAudioManager@@QAEXPAX@Z @0x0005B96D 155B.
 // BFME 2 twin of BFME 1 MilesAudioManagerUpdateFadeVolume 0x006B1A00
 // (game/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerUpdateFadeVolume006B1A00.cpp):

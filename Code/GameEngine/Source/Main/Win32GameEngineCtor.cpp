@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0Win32GameEngine@@QAE@XZ
 // retail 0x00041D41, 29 bytes. Dedicated shard.

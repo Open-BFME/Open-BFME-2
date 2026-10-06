@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Donor: Open-BFME-1 Zero Hour MilesAudioManager.cpp::buildProviderList.
 // Target identity: openDevice at 0x61680 calls the provider enumerator in its

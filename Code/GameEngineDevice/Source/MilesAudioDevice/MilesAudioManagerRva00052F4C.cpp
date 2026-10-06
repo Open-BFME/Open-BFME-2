@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva00052F4C@MilesAudioManager@@QAEMXZ @0x00052F4C 84B.
 // Same this as createListener via provider count/selection at +0x9CC/+0x9D0
 // plus provider id at +0x6D0 and flag at +0x6A7. Returns reverb level for

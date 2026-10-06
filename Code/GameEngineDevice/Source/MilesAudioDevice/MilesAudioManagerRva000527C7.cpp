@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?Rva000527C7Delete@@YGXPAX@Z @0x000527C7 27B. Null-checked destroy+free of
 // Rva00A86CE: dtor pin ??1Rva00A86CE@@UAE@XZ at 0x00A86CE then rowed
 // ??3@YAXPAX@Z operator delete. Evidence: retail call pair 0xA86CE pin-only

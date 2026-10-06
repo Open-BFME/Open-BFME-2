@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /Oi- /Ob1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // Donor: reference/open-bfme-1/Code/GameEngineDevice/Source/MilesAudioDevice/
 // MilesAudioManager.cpp. init3DSamplePools is the donor's semantic name.

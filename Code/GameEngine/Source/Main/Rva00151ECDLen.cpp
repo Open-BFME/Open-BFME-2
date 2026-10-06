@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00151ECDLen@@YAHPBD@Z at 0x00151ECD (21B).
 // Free length helper via Rva000B3F84Pair::init: builds the 8-byte pair on
 // the stack and returns its +4 length. Evidence: init row 0xB3F84 in

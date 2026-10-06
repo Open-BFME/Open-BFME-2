@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Transferred unchanged from Open-BFME-1 5cae4bdff game/GameEngine/Source/GameNetwork/Rva007F7360EntryRequest.cpp;
 // bfme1_sweep places the same masked body: requestEntry at BFME2 0x00663A50. Addresses in the donor text are BFME1.
 // FESL game-browser LID/GID entry request at retail 0x007F7360 (vtable slot

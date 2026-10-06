@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2 /EHsc
+// cl: /EHsc
 // ?rva00237E28@Rva00237E28@@QAEXPAV1@@Z 0x00237E28 29B
 // Evidence: leaf unlock body, 16B this->dest copy, ret 4; neighbours Rva00237E1F (same flags) and Vector4::Set.
 

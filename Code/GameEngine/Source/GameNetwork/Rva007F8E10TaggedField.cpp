@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Returns the field associated with a FESL message category. The six literal
 // tags and the field offsets come directly from the retail comparisons/loads.
 struct Rva007F8E10Fields

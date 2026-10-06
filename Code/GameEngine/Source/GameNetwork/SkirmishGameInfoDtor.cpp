@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1SkirmishGameInfo@@UAE@XZ retail 0x0022C516 69B
 // Called by the scalar deleting dtor 0x0022C4FA (slot 0 of vtable 0x00BE7480).
 // The eight 0x1AC-byte slot records at +0xDC run the vector dtor iterator with

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /DWIN32 /D_WINDOWS /MD /arch:SSE2 /GX-
+// cl: /Oy- /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
 // ?rva0005C892@Rva0005C892@@QAEXXZ @0x0005C892 41B.
 // Zero the float at +0x90, default-construct the 8-byte Rva00052B3D helper
 // (rowed ctor ??0Rva00052B3D@@QAE@XZ) in an 8-byte frame slot, then call the

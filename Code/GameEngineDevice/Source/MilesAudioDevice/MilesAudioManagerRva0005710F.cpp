@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva0005710F@MilesAudioManager@@QAEXXZ @0x0005710F 66B
 // Guarded clear of vector<BfmePod8> at +0xB54 with flag at +0x6AA. Evidence:

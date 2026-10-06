@@ -1,7 +1,7 @@
 // Rva007F5FB0::wrap at retail RVA 0x007F5FB0 (36 bytes).
 // A zero-initialized one-dword value is passed as the third slot-32 argument;
 // its aggregate lifetime reproduces retail's ESI argument shuttle.
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 struct Rva007F5FB0Zero
 {

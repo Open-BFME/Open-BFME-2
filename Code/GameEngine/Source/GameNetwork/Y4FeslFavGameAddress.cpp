@@ -1,4 +1,4 @@
-// cl: /O2 /GS
+// cl: /GS
 // Retail 0x0080A9B0 copies a game address record and sends its IP through ->L.
 
 class BfmeC994

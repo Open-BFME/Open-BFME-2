@@ -1,4 +1,4 @@
-// cl: /O2 /GS
+// cl: /GS
 // Transferred unchanged from Open-BFME-1 5cae4bdff game/GameEngine/Source/GameNetwork/Rva007F65E0GameReply.cpp;
 // bfme1_sweep places the same masked body: handleGameLobbyReply at BFME2 0x00662D70. Addresses in the donor text are BFME1.
 // ?handleGameLobbyReply@Rva007F65E0Owner@@QAEXPAVRva007E8810Message@@H@Z

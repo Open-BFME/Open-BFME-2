@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc
 //
 // ?getFileLengthMS@MilesAudioManager@@UBEMVAsciiString@@@Z, retail 0x00054930.
 // Dedicated TU.

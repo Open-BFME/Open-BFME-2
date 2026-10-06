@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Retail RVA 0x00001720, 19 bytes. Free cdecl wrapper that forwards its one
 // dword argument to Debug vtable slot 0xB0 on the singleton at 0x00DE0880.

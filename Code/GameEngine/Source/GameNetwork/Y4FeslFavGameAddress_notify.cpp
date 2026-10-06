@@ -1,4 +1,4 @@
-// cl: /O2 /GS
+// cl: /GS
 //
 // Retail 0x006768B0 (202B). FESL game-address notify path: builds a BfmeC994
 // message from the sink entry, formats the address text and dispatches it

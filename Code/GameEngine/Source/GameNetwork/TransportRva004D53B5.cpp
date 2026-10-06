@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva004D53B5@Transport@@QAE_NPAX@Z @0x004D53B5 225B: Transport winsock init plus buffer clear.
 // Target evidence: WSAStartup IAT 0x00BBA96C plus WSACleanup 0x00BBA970 plus timeGetTime 0x00BBA918 plus clearSlot 0x004D5133 plus offsets +0x40E00/+0x40E04/+0x40E08/+0x40E6C/+0x40E70 plus ret 4; caller 0x005A6B28; neighbours Transport.cpp and TransportRva004D5046.cpp.
 extern "C" {

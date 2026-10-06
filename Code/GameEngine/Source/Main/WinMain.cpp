@@ -16,7 +16,7 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 // Modified for BFME2: local CRT declaration and original-binary compiler flags.
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE2 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // /EHsc (VC's /GX) lets the extern "C" Win32 imports count as non-throwing.
 // Retail initializeAppWindows keeps its title UnicodeString temporary alive

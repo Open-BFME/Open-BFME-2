@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
 // ?rva00053CE1@Rva00053CE1@@QAEXMHH@Z @0x00053CE1 69B: thiscall volume flags idx.
 // Locks MilesMutexGuard over +0x9D4 then calls row 0x000523A0
 // ?setVolumes@Rva00699180Owner@@QAEXME@Z on array elem at +0x12C stride 0x1C4.

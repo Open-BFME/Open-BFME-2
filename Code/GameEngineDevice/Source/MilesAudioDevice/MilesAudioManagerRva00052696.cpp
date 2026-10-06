@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva00052696@MilesAudioManager@@QAEPAXPAX@Z @0x00052696 47B.
 // Same +0xBD4 handle-state table (72-byte records) and PlayingAudio +8/+0x14
 // layout as MilesAudioManagerStopAudio (handle +8, type +0x14). Arg is pointer

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Donor: Open-BFME-1 Zero Hour MilesAudioManager.cpp::getProviderIndex.
 // Target identity: Ghidra boundary 0x56634/60B is called by the retail helper

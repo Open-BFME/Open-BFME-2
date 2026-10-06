@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0005BDD2@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z @0x0005BDD2 135B PROBE
 // MilesAudioManager positional check with volume less loop.
 // Evidence: unlock lane caller 0x0005D54F pin 0x00059AD0 row isPositionalAudio.

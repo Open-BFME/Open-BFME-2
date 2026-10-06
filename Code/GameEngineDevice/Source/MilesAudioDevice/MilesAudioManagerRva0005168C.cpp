@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
 // ?rva0005168C@MilesAudioManager@@QAEXEE@Z @0x0005168C 99B
 // Flag-gated byte stores under guard over +0x9D4. Evidence: same guard rows as
 // 0x0005710F/0x00052917; mutex +0x9D4 proven by StopAudio; next sibling

@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007F7640: BfmeThingZI FESL game-browser entry reply handler.
 //
 // The retail caller and the 0x007FBC30 constructor establish the message and

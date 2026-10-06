@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Seven words are reset, beginning at +4 then +0.
 class Rva007F9640Fields
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE2
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 // ?rva0005A9F8@MilesAudioManager@@QAEMPAXHH@Z @0x0005A9F8 122B.
 // Effective volume of a playing-audio reference: the event volume from
 // 0x00059AD0, optionally scaled by the fade factor of rowed rva0005117B

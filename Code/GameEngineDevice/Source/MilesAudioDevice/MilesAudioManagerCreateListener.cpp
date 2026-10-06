@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // MilesAudioManager::createListener, retail 0x00053B63 (62 bytes).
 // Ported from reference/open-bfme-1/.../MilesAudioManagerCreateListener.cpp

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ?popQueue0@BFMENetwork@@QAE_NPAVBFMENetworkQueueItem@@@Z
 // retail 0x00557D98, 99 bytes. Dedicated TU ported from the Open-BFME-1

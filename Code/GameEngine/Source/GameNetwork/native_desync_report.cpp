@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // BFME1 GameNetwork/native_desync_report.cpp donor for the per-frame client CRC
 // guard's constructor: when CRC checking is enabled and the game mode passes the

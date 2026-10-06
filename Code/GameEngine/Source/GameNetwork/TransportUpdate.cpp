@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva004D54C1@Transport@@QAE_N_N@Z, retail 0x004D54C1 (115B).
 // Zero Hour's Transport::update (Transport.cpp) for BFME 2's transport, which

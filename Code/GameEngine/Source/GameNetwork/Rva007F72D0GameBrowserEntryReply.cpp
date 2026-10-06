@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007F72D0: FESL game-browser reply for a LID/GID entry.
 //
 // The callback thunk at 0x007F7350 proves a one-dword message argument and

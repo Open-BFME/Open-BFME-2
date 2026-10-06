@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /Oi- /EHsc
+// cl: /Oi- /EHsc
 //
 // Shard (not graft): copyWchars needs /G7 P4 tuning, under which the m_len
 // doubling emits add-eax-eax where /O1-/O2/G6 all fold to shl-eax-1, while

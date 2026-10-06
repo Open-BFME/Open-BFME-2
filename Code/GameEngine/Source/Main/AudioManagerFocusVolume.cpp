@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?LookupFocusChannelVolume@@YAMH@Z @0x0035D20C 166B.

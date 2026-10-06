@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // BFME2 network Transport constructor. Same class model as Transport.cpp
 // but this TU builds without EH: retail's constructor has no exception

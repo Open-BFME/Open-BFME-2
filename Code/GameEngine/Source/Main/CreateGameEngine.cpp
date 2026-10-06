@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?CreateGameEngine@@YAPAVGameEngine@@XZ,
 // retail 0x00001D1F, 74 bytes. Dedicated shard.

@@ -1,5 +1,5 @@
 // ??1Rva004D060B@@QAE@XZ
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ??1Rva004D060B@@QAE@XZ @0x004D060B 66B
 // Dtor: wide string at +0x14 via releaseBuffer 0x36E70 plus iface ptr at +0x18

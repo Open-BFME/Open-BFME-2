@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Donor: reference/open-bfme-1/Code/GameEngineDevice/Source/MilesAudioDevice/
 // MilesAudioManager.cpp, openDevice. Target Ghidra boundary 0x61680/284B.
 // Identity evidence: MSS directory literal and the startup/quick_startup/

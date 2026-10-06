@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7 /Oy-
+// cl: /DNDEBUG /MD /EHsc /Oy-
 // ?rva00225492@BfmeDfe6e4@@QAEXXZ
 // retail 0x00225492, 60 bytes. Dedicated TU: refresh the class timestamp
 // when called on the owning thread (GetCurrentThreadId gate at +0x50), via

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE2
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 // ?rva000581FA@MilesAudioManager@@QAEXABURva0005BA08InfoRef@@H@Z @0x000581FA 83B.
 // Called by initFilters twin 0x0005BA08 with the event's info reference and
 // its +0x30 int: feeds the info's channel entries to the volume owner for

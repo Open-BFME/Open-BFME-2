@@ -15,7 +15,7 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // Narrow-pair to wide-string helpers for the WinMain title builders,
 // retail 0x0023428D (26 bytes), 0x0023436C (60 bytes) and 0x00234788

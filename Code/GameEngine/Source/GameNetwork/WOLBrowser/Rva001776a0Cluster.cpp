@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Address-derived recovery of 0x001776A0 (109B), a void DX8WebBrowser helper
 // that forwards a browser name through the COM pointer. Retail:
 //   if (g_bfmeObjECF != 0)

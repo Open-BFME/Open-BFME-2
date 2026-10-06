@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /MD /EHsc /arch:SSE2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc
 // stlport
 // ?rva000544EB@MilesAudioManager@@QAEXXZ @0x000544EB 64B
 // MilesAudioManager release-all-2D-samples: loop over list<int> at +0xA38 releasing

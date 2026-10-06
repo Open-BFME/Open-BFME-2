@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // 0x007FA990: thiscall constructor. A secondary-base vptr lands at +4,
 // then the most-derived vptrs at +0 and +4, then four 16-byte cells at +8
 // through a walking pointer, then the argument and trailing zeros.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva007FBE70@Rva007FBC60Game@@QAEPADXZ @0x668370 (15B):
 // Rva007FBC60Game platform-buffer accessor used by the FESL game-browser

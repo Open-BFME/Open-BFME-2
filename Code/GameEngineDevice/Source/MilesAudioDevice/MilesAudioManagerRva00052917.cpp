@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
 // ?rva00052917@MilesAudioManager@@QAEHXZ @0x00052917 51B
 // Post-increment counter at +0xD0 under guard over +0x9D4 returning old value.
 // Evidence: same MilesMutexGuard ctor/dtor rows as 0x0005710F; mutex +0x9D4

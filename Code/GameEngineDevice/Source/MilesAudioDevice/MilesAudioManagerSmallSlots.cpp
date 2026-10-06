@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
 //
 // Small MilesAudioManager vtable slots (vtable VA 0x00BC55B0, which also holds
 // stopAudio and the rows of MilesAudioManagerRva0005168C.cpp) that had no

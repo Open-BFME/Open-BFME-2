@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva00052F1E@MilesAudioManager@@QAEHPAX@Z @0x00052F1E 46B.
 // Same this+0x10 table as MilesAudioManagerRva00052F4C (ReverbTable at +0x10)
 // and Rva000535CC (+0x10+0x78, /arch:SSE). Arg is outer struct with inner

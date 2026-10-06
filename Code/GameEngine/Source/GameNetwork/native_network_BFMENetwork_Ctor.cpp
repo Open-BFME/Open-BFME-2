@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0BFMENetwork@@QAE@XZ
 // retail 0x00558EC1, 173 bytes. Dedicated TU ported from the Open-BFME-1

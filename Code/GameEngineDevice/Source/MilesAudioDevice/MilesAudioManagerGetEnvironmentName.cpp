@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oi-
+// cl: /DNDEBUG /MD /EHsc /Oi-
 // Retail omits the frame pointer here, so no /Oy- like its siblings.
 //
 // Environment preset name lookup (retail 0x00050F7D, 35B). Dedicated TU.

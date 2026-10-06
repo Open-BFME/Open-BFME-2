@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva000A870EGet@@YA?AVAsciiString@@H@Z, retail 0x000A870E, 206 bytes.
 // AudioRequest type to AsciiString: 8 dense cases (AR_Play 0, AR_StopHandle 1,

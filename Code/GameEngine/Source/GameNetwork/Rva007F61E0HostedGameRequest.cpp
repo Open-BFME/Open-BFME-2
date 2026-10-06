@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME 2: Open-BFME-1's file (submodule 10af19f44a), byte-identical in game.dat:
 // requestHostedGame at 0x00662980 and the reply adapter at 0x00662210 (the
 // callback the request pushes). The addresses below are BFME 1's.

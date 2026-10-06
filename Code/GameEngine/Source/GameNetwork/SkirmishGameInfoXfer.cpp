@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 
 // ?xfer@SkirmishGameInfo@@UAEXPAVXfer@@@Z
 // Retail 0x003FFA3C (272B): persists the skirmish setup through the Xfer

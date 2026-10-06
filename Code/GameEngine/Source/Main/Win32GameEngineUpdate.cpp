@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Win32GameEngine::update, retail 0x00041EC3 (166B), slot 10 of vtable
 // 0x00BC2530 (GameEngine's own table 0x00BE7188 has GameEngine::update,

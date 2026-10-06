@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 class Rva007E8810Message;
 class Rva007F6260GameBrowser;

@@ -1,5 +1,5 @@
 // ??0Rva0006AB90FunctionCurve@@QAE@PAVRva0006AB10Curve@@@Z
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ??0Rva0006AB90FunctionCurve@@QAE@PAVRva0006AB10Curve@@@Z @ 0x00504682 (46B):
 // Leaf thiscall constructor. Stores the Curve* argument at +0, 1 at +4, four
 // zero floats at +8..+14 and zero bytes at +18/+19.
