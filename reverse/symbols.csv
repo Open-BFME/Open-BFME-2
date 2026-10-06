@@ -15466,3 +15466,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00531FE6@Rva002E99F9Sub460@@QAEGHHG@Z,0x00531FE6,callee of ?rva00532041@Rva002E99F9Sub460@@QAEGHHHPAPAURva00532041Record@@@Z
 ?rva0059DD3F@Rva0059DD3F@@QAEXPAX000HPAHH@Z,0x0059DD3F,Native REL32 at RVA 004FB2B3 in the 67B wrapper; callee Ghidra entry 0059DD3F has RET 28 and clears the sixth output-count argument at EBP+1C; address-derived receiver and method.
 ?rva0059D2DA@Rva0059D2DA@@QAEXPAX000HHHPAH@Z,0x0059D2DA,Native REL32 at RVA 004FB2F5 in the 66B wrapper; Ghidra helper entry 0059D2DA ends in RET32; wrapper supplies eight stack arguments and uses the last argument as output count; address-derived identity.
+?SetEnabled@Impl@AptScrollBar@@QAEX_N@Z,0x005D4949,callee of ?SetEnabled@Rva005D49CD@@QAEX_N@Z
