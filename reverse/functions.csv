@@ -64276,3 +64276,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva004E52DC@Rva004E52DC@@QAEXXZ,,0x004E52DC,31,Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,matched,circular list walk calling pinned member; full byte gate
 ?rva004E7277@Rva004E7277@@QAEXXZ,,0x004E7277,36,Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,matched,state gate tail-calling rowed Close; full byte gate
 ?rva004E7392@Rva004E7277@@QAEPAXPAV1@@Z,,0x004E7392,39,Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,matched,same-class copy-init through pinned setter; full byte gate
+?rva004ED3A2@Rva004ED3A2@@QAEPAXPAX@Z,,0x004ED3A2,47,Code/GameEngine/Source/Common/Rva004ED3A2Pair.cpp,matched,conditional refresh plus cursor rewind; full byte gate
