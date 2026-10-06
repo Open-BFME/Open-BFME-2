@@ -15,10 +15,12 @@ void __debugbreak();
 extern "C" int __cdecl memcmp(const void *left, const void *right, unsigned int count);
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
 extern "C" unsigned int __cdecl strlen(const char *str);
+extern "C" void *__cdecl memset(void *dst, int value, unsigned int count);
 extern "C" int __cdecl strcmp(const char *left, const char *right);
 extern "C" int __cdecl _strcmpi(const char *left, const char *right);
 #pragma intrinsic(memcpy)
 #pragma intrinsic(strlen)
+#pragma intrinsic(memset)
 #pragma intrinsic(strcmp)
 
 unsigned short __cdecl hashLower(const char *text);
@@ -74,6 +76,7 @@ public:
 	EAStringC Left(int count) const;
 	EAStringC(const char *text);
 	EAStringC(unsigned int nSize);
+	EAStringC(unsigned int nSize, unsigned int fillChar);
 	EAStringC &operator=(const EAStringC &other);
 	~EAStringC();
 	EAStringC &clear();
@@ -230,6 +233,26 @@ EAStringC::EAStringC(unsigned int nSize)
 		SetSize(0);
 		m_pData->m_uHash = 0;
 		reinterpret_cast<char *>(m_pData)[sizeof(StringDataC)] = 0;
+	} else {
+		m_pData = &g_eaEmptyStringData;
+		++g_eaEmptyStringData.m_uRefCount;
+	}
+}
+
+// ??0EAStringC@@QAE@II@Z, retail 0x006D4640 (114B). Fill constructor:
+// reserve nSize bytes, repeat the low byte of fillChar, then set the logical
+// size, clear the cached hash, and append the terminator. Target calls the
+// rowed Reserve and SetSize methods; its two-argument ctor pin proves identity.
+EAStringC::EAStringC(unsigned int fillChar, unsigned int nSize)
+{
+	m_pData = 0;
+	if (nSize) {
+		Reserve(nSize);
+		memset(reinterpret_cast<char *>(m_pData) + sizeof(StringDataC),
+			(int)fillChar, nSize);
+		SetSize((int)nSize);
+		m_pData->m_uHash = 0;
+		reinterpret_cast<char *>(m_pData)[sizeof(StringDataC) + nSize] = 0;
 	} else {
 		m_pData = &g_eaEmptyStringData;
 		++g_eaEmptyStringData.m_uRefCount;

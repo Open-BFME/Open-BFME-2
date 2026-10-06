@@ -14725,3 +14725,5 @@ FUN_00870dc1	0x00470DC1	1699	blocked	over-1000B HordeContain vslot35 SSE-STL t=3
 ?rva0053DA75@Rva0053DA75@@QAE_N_N@Z	0x0053DA75	91	partial	ebx-edi swap for sub-vtable push timing late je-vs-jne t=22 model=muse-05 score=0.93 stash=reverse/attempts/0x0053da75.cpp
 ?rva0053DA75@Rva0053DA75@@QAE_N_N@Z	0x0053DA75	91	blocked	ebx-edi swap sub-vtable mgr-reload-via-reg push-timing late je-vs-jne t=25 model=muse-05 (stash 0.93 kept)
 ?rva004ABB4B@LargeGroupAudioUpdate@@UAEHXZ	0x004ABB4B	273	blocked	compile fail C2065 m_24 undeclared; class layout missing member at +0x24, first defined m_28 mismatches use of m_24 t=10 model=muse-05
+?Rva00274DD4Get@@YAHXZ	0x00274DD4	135	blocked	static initialization depends on unnamed globals and unresolved handler target; packet and four lookups do not establish safe C++ identities t=10 model=gpt-6.1-sol
+?rva00274D6F@Rva00274D6F@@QAE_NXZ	0x00274D6F	71	blocked	adjacent Drawable methods suggest context but do not prove owner; the virtual target identities/layout remain unknown so no evidence-backed member body can be compiled t=13 model=gpt-6.1-sol
