@@ -89,6 +89,21 @@
 // lobby 0x00E03354 or 0x00248E98) and return true. ZH's nested
 // if( playerSlot == 0 && !amIHost() ) scope is what puts oldOptions in
 // playerSlot's home rather than the sender's.
+//
+// LANAPI slot 45, retail 0x0024A348 (1088 bytes), named by address: the rest
+// of Zero Hour's OnGameOptions, everything but slot 46's branch. Same sender,
+// in-progress and host checks; "User=" and "Host=" go to the slot's rowed
+// setters 0x0024955E / 0x00249595. When we host and the sender is not us,
+// refresh the sender's last-heard time (0x00248D35) and apply the request:
+// Color, PlayerTemplate, StartPos, Team as in ZH but without the color
+// availability loop or the StartPos upper bound, a StartPos also vetted by
+// the open game setup screen (0x00E0333C, 0x0043DCFA) and stored at +0x10 and
+// +0x14, and BFME 2's Hero (decodeHero, a change when +0x50..+0x5C move),
+// Handicap (0, -5 .. -100) and NAT (1..0x80, +0x40). A change resets the
+// accepts (GameInfo slot 14) unless only the color or NAT moved, broadcasts
+// the game (slot 26) and refreshes the slot list. The flat host check and
+// the direct 0x00248D35 call (no inline wrapper) give retail's allocation:
+// edi as the zero register, then the slot, and ebx lent to the old hero kind.
 
 typedef int Int;
 typedef bool Bool;
@@ -140,27 +155,60 @@ enum
 	MAX_SLOTS = 8
 };
 
+enum
+{
+	PLAYERTEMPLATE_OBSERVER = -2,
+	PLAYERTEMPLATE_MIN = PLAYERTEMPLATE_OBSERVER
+};
+
 class GameSlot
 {
 public:
 	void setMapAvailability( Bool hasMap );
 	Bool isHuman( void ) const;
+	Bool decodeHero( UnsignedByte hero );
+	void setPlayerTemplate( Int playerTemplate );
 	Int getColor( void ) const { return m_color; }
+	void setColor( Int color ) { m_color = color; }
+	Int getStartPos( void ) const { return m_startPos; }
+	void setStartPos( Int startPos ) { m_startPos = startPos; }
+	void setBfme14( Int startPos ) { m_bfme14 = startPos; }
+	Int getPlayerTemplate( void ) const { return m_playerTemplate; }
+	Int getTeamNumber( void ) const { return m_teamNumber; }
+	void setTeamNumber( Int teamNumber ) { m_teamNumber = teamNumber; }
+	void setHandicap( Int handicap ) { m_handicap = handicap; }
+	void setNATBehavior( Int behavior ) { m_NATBehavior = behavior; }
 	const UnicodeString &getName( void ) const { return m_name; }
 
 private:
 	UnsignedByte m_pre0C[0x0C];
 	Int m_color;					// +0x0C
-	UnsignedByte m_pre30[0x30 - 0x10];
+	Int m_startPos;					// +0x10
+	Int m_bfme14;					// +0x14, set with the start position
+	Int m_playerTemplate;				// +0x18
+	Int m_teamNumber;				// +0x1C
+	Int m_handicap;					// +0x20
+	UnsignedByte m_pre30[0x30 - 0x24];
 	UnicodeString m_name;				// +0x30
 	UnsignedByte m_pre38[0x38 - 0x34];
 
 public:
 	BfmeNetAddress m_address;			// +0x38
-	UnsignedByte m_pre4C[0x4C - 0x40];
+	Int m_NATBehavior;				// +0x40
+	UnsignedByte m_pre4C[0x4C - 0x44];
 	Int m_bfme4C;					// +0x4C, the living-world battle's index
-	UnsignedByte m_pre1A4[0x1A4 - 0x50];
+	Int m_hero[4];					// +0x50, what decodeHero sets
+	UnsignedByte m_pre1A4[0x1A4 - 0x60];
 	Bool m_bfme1A4;					// +0x1A4
+};
+
+// The LAN slot's login and host setters (0x0024955E, 0x00249595), under the
+// ledger's class name.
+class Rva0024955E : public GameSlot
+{
+public:
+	void rva0024955E( AsciiString login );
+	void rva00249595( AsciiString host );
 };
 
 struct LANSlotAddress
@@ -213,6 +261,8 @@ public:
 	virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8();
 	virtual void v9(); virtual void v10();
 	virtual void startGame( Int gameID );		// slot 11 (+0x2C)
+	virtual void v12(); virtual void v13();
+	virtual void resetAccepted( void );		// slot 14 (+0x38)
 
 	GameSlot *getSlot( Int slotNum );
 	AsciiString getMap( void ) const;
@@ -251,7 +301,7 @@ class Rva00447773 : public GameInfo
 public:
 	void *rva00447773( Int index );			// getLANSlot
 
-	GameSlot *getLANSlot( Int index ) { return (GameSlot *)rva00447773( index ); }
+	Rva0024955E *getLANSlot( Int index ) { return (Rva0024955E *)rva00447773( index ); }
 	const BfmeNetAddress *getSlotAddress( Int index ) const { return &m_slots[index].m_address; }
 };
 
@@ -262,6 +312,14 @@ public:
 
 	const BfmeNetAddress *getHostAddress( void ) const { return &m_slots[0].m_address; }
 };
+// setPlayerLastHeard (0x00248D35), under the ledger's class name; retail
+// calls it on the current game directly, not through an inline wrapper.
+class Rva00248D35
+{
+public:
+	void rva00248D35( Int index, Int value );
+};
+
 class LANGameInfo : public Rva004482FB
 {
 public:
@@ -290,6 +348,18 @@ class MultiplayerSettings
 {
 public:
 	MultiplayerColorDefinition *getColor( Int which );
+	Int getNumColors( void )
+	{
+		if( m_numColors == 0 )
+			m_numColors = m_colorCount;
+		return m_numColors;
+	}
+
+private:
+	UnsignedByte m_pre38[0x38];
+	Int m_colorCount;				// +0x38
+	UnsignedByte m_pre40[0x40 - 0x3C];
+	Int m_numColors;				// +0x40
 };
 extern MultiplayerSettings *TheMultiplayerSettings;
 
@@ -430,6 +500,31 @@ extern MessageStream *MessageStreamSubsystem;
 
 extern Int g_Va00E0333C;
 
+class AptMpGameSetup
+{
+public:
+	Bool rva0043DCFA( Int startPos );
+};
+
+class PlayerTemplate
+{
+	UnsignedByte m_data[0x1DC];
+};
+
+class PlayerTemplateStore
+{
+public:
+	Int getPlayerTemplateCount( void ) const { return m_end - m_begin; }
+
+private:
+	UnsignedByte m_pre0C[0x0C];
+	PlayerTemplate *m_begin;			// +0x0C
+	PlayerTemplate *m_end;				// +0x10
+};
+extern PlayerTemplateStore *ThePlayerTemplateStore;
+
+extern "C" __declspec(dllimport) Int __cdecl atoi( const char *text );
+
 Bool Rva0044C3D4( void );
 class GameWindow;
 GameWindow *MessageBoxOk( UnicodeString titleString, UnicodeString bodyString, void (*okCallback)( void ) );
@@ -460,7 +555,7 @@ public:
 	virtual void OnGameStart( void );
 	virtual void rva0024900D( void );
 	BFME_VSLOT(44)
-	BFME_VSLOT(45)
+	virtual void rva0024A348( const BfmeNetAddress &sender, Int playerSlot, AsciiString options );
 	virtual Bool rva0024924D( const BfmeNetAddress &sender, Int playerSlot, const void *data, Int length );
 	BFME_VSLOT(47) BFME_VSLOT(48) BFME_VSLOT(49)
 	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53)
@@ -875,4 +970,164 @@ Bool LANAPI::rva0024924D( const BfmeNetAddress &sender, Int playerSlot, const vo
 		return true;
 	}
 	return false;
+}
+
+void LANAPI::rva0024A348( const BfmeNetAddress &sender, Int playerSlot, AsciiString options )
+{
+	LANGameInfo *game = m_currentGame;
+	if( !game )
+		return;
+	if( game->getSlotAddress( playerSlot )->rva00248CDD( sender ) )
+		return;
+	if( game->isGameInProgress() )
+		return;
+	if( playerSlot == 0 && !game->amIHost() )
+		return;
+
+	// Check for user/host updates
+	{
+		AsciiString key;
+		AsciiString munkee = options;
+		munkee.nextToken( &key, "=" );
+
+		Rva0024955E *slot = m_currentGame->getLANSlot( playerSlot );
+		if( !slot )
+			return;
+
+		if( key.compare( "User" ) == 0 )
+		{
+			slot->rva0024955E( AsciiString( munkee.str() + 1 ) );
+			return;
+		}
+		else if( key.compare( "Host" ) == 0 )
+		{
+			slot->rva00249595( AsciiString( munkee.str() + 1 ) );
+			return;
+		}
+	}
+
+	// Parse player requests (side, color, etc)
+	if( !(UnsignedByte)AmIHost() || !getLocalAddress()->rva00248CDD( sender ) )
+		return;
+	if( options.compare( "HELLO" ) == 0 )
+	{
+		((Rva00248D35 *)m_currentGame)->rva00248D35( playerSlot, timeGetTime() );
+	}
+	else
+	{
+		((Rva00248D35 *)m_currentGame)->rva00248D35( playerSlot, timeGetTime() );
+		Bool change = false;
+		Bool shouldUnaccept = false;
+		AsciiString key;
+		options.nextToken( &key, "=" );
+		Int val = atoi( options.str() + 1 );
+
+		GameSlot *slot = m_currentGame->getLANSlot( playerSlot );
+		if( !slot )
+			return;
+
+		if( key.compare( "Color" ) == 0 )
+		{
+			if( val >= -1 && val < TheMultiplayerSettings->getNumColors() && val != slot->getColor() && slot->getPlayerTemplate() != PLAYERTEMPLATE_OBSERVER )
+			{
+				slot->setColor( val );
+				change = true;
+			}
+		}
+		else if( key.compare( "PlayerTemplate" ) == 0 )
+		{
+			if( val >= PLAYERTEMPLATE_MIN && val < ThePlayerTemplateStore->getPlayerTemplateCount() && val != slot->getPlayerTemplate() )
+			{
+				slot->setPlayerTemplate( val );
+				if( val == PLAYERTEMPLATE_OBSERVER )
+				{
+					slot->setColor( -1 );
+					slot->setStartPos( -1 );
+					slot->setTeamNumber( -1 );
+				}
+				change = true;
+				shouldUnaccept = true;
+			}
+		}
+		else if( key.compare( "StartPos" ) == 0 && slot->getPlayerTemplate() != PLAYERTEMPLATE_OBSERVER )
+		{
+			if( val >= -1 && val != slot->getStartPos() )
+			{
+				Bool startPosAvailable = true;
+				if( val != -1 )
+				{
+					for( Int i = 0; i < MAX_SLOTS; i++ )
+					{
+						GameSlot *checkSlot = m_currentGame->getLANSlot( i );
+						if( val == checkSlot->getStartPos() && slot != checkSlot )
+						{
+							startPosAvailable = false;
+							break;
+						}
+					}
+					if( startPosAvailable && g_Va00E0333C )
+						startPosAvailable = ((AptMpGameSetup *)g_Va00E0333C)->rva0043DCFA( val );
+				}
+				if( startPosAvailable )
+				{
+					slot->setStartPos( val );
+					slot->setBfme14( val );
+				}
+				change = true;
+				shouldUnaccept = true;
+			}
+		}
+		else if( key.compare( "Team" ) == 0 )
+		{
+			if( val >= -1 && val < MAX_SLOTS / 2 && val != slot->getTeamNumber() && slot->getPlayerTemplate() != PLAYERTEMPLATE_OBSERVER )
+			{
+				slot->setTeamNumber( val );
+				change = true;
+				shouldUnaccept = true;
+			}
+		}
+		else if( key.compare( "Hero" ) == 0 )
+		{
+			if( slot->getPlayerTemplate() == PLAYERTEMPLATE_OBSERVER && val != 0 )
+				val = 0;
+			Int hero0 = slot->m_hero[0];
+			Int hero1 = slot->m_hero[1];
+			Int hero2 = slot->m_hero[2];
+			Int hero3 = slot->m_hero[3];
+			slot->decodeHero( (UnsignedByte)val );
+			if( hero0 != slot->m_hero[0] || hero1 != slot->m_hero[1] || hero2 != slot->m_hero[2] || hero3 != slot->m_hero[3] )
+			{
+				change = true;
+				shouldUnaccept = true;
+			}
+		}
+		else if( key.compare( "Handicap" ) == 0 )
+		{
+			if( val <= 0 && val >= -100 && val % 5 == 0 )
+			{
+				slot->setHandicap( val );
+				change = true;
+				shouldUnaccept = true;
+			}
+		}
+		else if( key.compare( "NAT" ) == 0 )
+		{
+			if( val >= 1 && val <= 0x80 )
+			{
+				slot->setNATBehavior( val );
+				change = true;
+			}
+		}
+
+		if( change )
+		{
+			if( shouldUnaccept )
+				m_currentGame->resetAccepted();
+			BfmeNetAddress noAddress;
+			noAddress.m_ip = 0;
+			noAddress.m_port = 0;
+			rva004497EC( true, &noAddress );
+			Rva00248D84Enable();
+		}
+	}
 }
