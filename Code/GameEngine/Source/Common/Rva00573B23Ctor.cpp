@@ -24,6 +24,7 @@ class Rva00573B23 : public Rva0055B0CC
 {
 public:
 	Rva00573B23();
+	~Rva00573B23();
 private:
 	AsciiString m_2c;
 	Coord3DBase m_30;
