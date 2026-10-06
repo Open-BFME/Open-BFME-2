@@ -64607,3 +64607,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0036FB57@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z,,0x0036FB57,110,Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036FB57.cpp,matched,AIGroup bfme ready step plus waypoint mode switch
 ?rva00423AEC@Rva00423AEC@@QAE_NPAVPlayer@@PAVRva0029FB3BMember@@@Z,,0x00423AEC,147,Code/Libraries/Source/WWVegas/WWLib/Rva00423AEC.cpp,matched,unlock roster filter callees rowed Player+0x730 Object+0x74
 ?rva000C38F8@Rva000C38F8@@QAEXXZ,,0x000C38F8,253,Code/GameEngine/Source/Common/System/INIRva000C38F8.cpp,matched,leaf clear via memset vector erase string clear list clear no commas
+?rva002B0E55@Rva002B0E55@@QAEXPBUOther002B0E55@@PBVAsciiString@@@Z,,0x002B0E55,138,Code/GameEngine/Source/Common/System/GeometryInfoRva002B0E55.cpp,matched,callers at 0x004B5A96 0x004B5AF1 plus vector at +0x3B0 plus stride 0x24 plus rowed erase compare ranges
