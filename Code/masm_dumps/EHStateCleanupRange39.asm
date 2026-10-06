@@ -28,6 +28,7 @@ EXTERN ??1Rva005F4179@@UAE@XZ:PROC
 EXTERN ??1Rva005F918D@@QAE@XZ:PROC
 EXTERN ??1Rva00087A93@@QAE@XZ:PROC
 EXTERN ??1Rva005F4AD7@@QAE@XZ:PROC
+EXTERN ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ:PROC
 EXTERN ??1SBServer@@QAE@XZ:PROC
 
 _TEXT SEGMENT
@@ -2045,6 +2046,51 @@ PUBLIC ?rva007A680D@@YAXXZ
 cleanup_done_007A680D:
     ret
 ?rva007A680D@@YAXXZ ENDP
+
+; Unwind@00ba6a40 at RVA 0x007A6A40; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-20], then uses [ebp-16] + 100 as ECX and tail-jumps to matched STLport narrow basic_ios destructor at 0x00013420.
+PUBLIC ?rva007A6A40@@YAXXZ
+?rva007A6A40@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A6A40
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp-16]
+    add ecx, 100
+    jmp ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ
+cleanup_done_007A6A40:
+    ret
+?rva007A6A40@@YAXXZ ENDP
+
+; Unwind@00ba6a80 at RVA 0x007A6A80; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-20], then uses [ebp-16] + 104 as ECX and tail-jumps to matched STLport narrow basic_ios destructor at 0x00013420.
+PUBLIC ?rva007A6A80@@YAXXZ
+?rva007A6A80@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A6A80
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp-16]
+    add ecx, 104
+    jmp ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ
+cleanup_done_007A6A80:
+    ret
+?rva007A6A80@@YAXXZ ENDP
+
+; Unwind@00ba6ac0 at RVA 0x007A6AC0; 28-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-20], then uses [ebp-16] + 108 as ECX and tail-jumps to matched STLport narrow basic_ios destructor at 0x00013420.
+PUBLIC ?rva007A6AC0@@YAXXZ
+?rva007A6AC0@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A6AC0
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp-16]
+    add ecx, 108
+    jmp ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ
+cleanup_done_007A6AC0:
+    ret
+?rva007A6AC0@@YAXXZ ENDP
 
 ; Unwind@00bab0e9 at RVA 0x007AB0E9; 25-byte interval ends at RET.
 ; Retail tests and clears bit 1 at [ebp-24], then takes the cleanup object address at [ebp-20] and tail-jumps to AsciiString at 0x0048BA39.
