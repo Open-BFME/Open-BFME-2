@@ -53,7 +53,6 @@ public:
 };
 
 extern ClientFrameSubsystem *TheGameClient;
-extern const float BfmeZeroRange;
 extern const float g_00BBB9AC;
 
 struct Sub08
@@ -93,7 +92,7 @@ float Rva002DA153::rva002DA153()
 				unsigned char c = (unsigned char)v;
 				c = (unsigned char)~c;
 				if ((c & 1) == 0)
-					return BfmeZeroRange;
+					return 0.0f;
 			}
 		}
 	}
@@ -103,14 +102,14 @@ float Rva002DA153::rva002DA153()
 		if (p != 0)
 		{
 			if (*(unsigned char *)((char *)p + 0x44A) == 0)
-				return BfmeZeroRange;
+				return 0.0f;
 		}
 	}
 	if (m_28 == g_00BBB9AC)
 	{
 		if (m_08 != 0)
 			return m_08->m_1C * m_2C;
-		return BfmeZeroRange;
+		return 0.0f;
 	}
 	return m_2C * m_28;
 }
