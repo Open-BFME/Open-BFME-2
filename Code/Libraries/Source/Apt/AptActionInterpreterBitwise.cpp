@@ -21,10 +21,12 @@ public:
 	int toInteger() const;
 };
 
+class AptValue;
+
 class AptInteger
 {
 public:
-	static BfmeAptValue006DCD20 *Create(int nValue);
+	static AptValue *Create(int nValue);
 };
 
 extern BfmeAptValue006DCD20 *g_aptUndefinedAtE18078;
@@ -66,7 +68,7 @@ void AptActionInterpreter::_FunctionAptActionBitAnd(AptActionInterpreter *const 
 	{
 		int nA = pA->toInteger();
 		int nB = pB->toInteger();
-		pResult = AptInteger::Create(nB & nA);
+		pResult = (BfmeAptValue006DCD20 *)AptInteger::Create(nB & nA);
 	}
 	pInterpreter->stack.rva006FE880(2, pResult);
 }
@@ -81,7 +83,7 @@ void AptActionInterpreter::_FunctionAptActionBitOr(AptActionInterpreter *const p
 	{
 		int nA = pA->toInteger();
 		int nB = pB->toInteger();
-		pResult = AptInteger::Create(nB | nA);
+		pResult = (BfmeAptValue006DCD20 *)AptInteger::Create(nB | nA);
 	}
 	pInterpreter->stack.rva006FE880(2, pResult);
 }
@@ -96,7 +98,7 @@ void AptActionInterpreter::_FunctionAptActionBitXor(AptActionInterpreter *const 
 	{
 		int nA = pA->toInteger();
 		int nB = pB->toInteger();
-		pResult = AptInteger::Create(nB ^ nA);
+		pResult = (BfmeAptValue006DCD20 *)AptInteger::Create(nB ^ nA);
 	}
 	pInterpreter->stack.rva006FE880(2, pResult);
 }
@@ -111,7 +113,7 @@ void AptActionInterpreter::_FunctionAptActionBitLShift(AptActionInterpreter *con
 	{
 		int nA = pA->toInteger();
 		int nB = pB->toInteger();
-		pResult = AptInteger::Create(nB << nA);
+		pResult = (BfmeAptValue006DCD20 *)AptInteger::Create(nB << nA);
 	}
 	pInterpreter->stack.rva006FE880(2, pResult);
 }
@@ -126,7 +128,7 @@ void AptActionInterpreter::_FunctionAptActionBitRShift(AptActionInterpreter *con
 	{
 		int nA = pA->toInteger();
 		int nB = pB->toInteger();
-		pResult = AptInteger::Create(nB >> nA);
+		pResult = (BfmeAptValue006DCD20 *)AptInteger::Create(nB >> nA);
 	}
 	pInterpreter->stack.rva006FE880(2, pResult);
 }
