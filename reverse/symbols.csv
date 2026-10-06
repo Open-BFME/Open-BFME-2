@@ -14129,3 +14129,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva004D759C@@QAE@PAVObject@@I_N@Z,0x004D79E1,scalar-key spelling of the rowed StateMachine base ctor ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z: callers push the name key as one immediate dword (DozerPrimaryStateMachine 0x488DAB pushes 0x3EA7DE5F) which only a scalar parameter reproduces
 ?canTransferSuppliesAt@ActionManager@@QAE_NPBVObject@@0@Z,0x0041BCA1,callee of ?computeRelativeCost@@YAMPAVObject@@0PAM@Z
 ?rva00598431@Rva00598149@@QAEXH@Z,0x00598431,callee of ?rva004EC30E@Rva002A8AB1Record@@QAEXPAVObject@@@Z
+?rva005B1A6C@Rva005B1A6C@@QAEXXZ,0x005B1A6C,callee of ?rva00513988@Rva00513988@@QAEXXZ
