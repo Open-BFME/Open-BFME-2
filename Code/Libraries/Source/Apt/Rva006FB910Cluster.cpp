@@ -73,6 +73,9 @@ public:
     void rva006FA100(AptCIH *value, int mode); // address-derived, 0x006FA100
     void rva006FA340(); // address-derived call target from this object view
     void rva006FB860(int value, char isFirst);
+    void rva006FB120(int x, int y, int packed, int field, char isFirst);
+    void rva006FB5B0(int x, int y, int packed, int field);
+    bool rva006FACA0(int x, int y, void **candidate);
     void Rva006F9EF0();
     void rva006FB910();
     void rva006FAA20();
@@ -212,6 +215,38 @@ void Rva006FB860::rva006FAF80(AptCIH *candidate, int eventCode,
         rva006FA100(m6c, 8);
         return;
     }
+}
+
+// ?rva006FB860@Rva006FB860@@QAEXHD@Z @0x006FB860 173B.
+// The target uses thiscall with two stack arguments (ret 8). When the packed
+// value is four-aligned it updates the global Apt coordinates at +0x74/+0x78;
+// otherwise it extracts three bit fields. Both paths feed two direct helper
+// calls, then a local AptCIH output slot passed to 0x006FACA0; a false result
+// forwards that value and the extracted coordinates to 0x006FAF80.
+void Rva006FB860::rva006FB860(int value, char isFirst)
+{
+    void *candidate = 0;
+    unsigned int packed = (unsigned int)value;
+    int x;
+    int y;
+    int field;
+    if ((packed & 3) == 0) {
+        *(int *)((char *)g_bfmeAptPtrAtE176D0 + 0x74) = packed >> 17;
+        unsigned int yValue = (packed >> 2) & 0x7FFF;
+        x = 0xC8;
+        y = 5;
+        field = 1;
+        *(int *)((char *)g_bfmeAptPtrAtE176D0 + 0x78) = yValue;
+    } else {
+        x = packed >> 17;
+        y = (packed >> 10) & 0x7F;
+        field = (packed >> 2) & 0xFF;
+    }
+
+    rva006FB120(x, y, value, field, isFirst);
+    rva006FB5B0(x, y, value, field);
+    if (!rva006FACA0(x, y, &candidate))
+        rva006FAF80((AptCIH *)candidate, x, y);
 }
 
 typedef char PoolCountOffset[(sizeof(Rva006FB860) >= 0x44 + sizeof(BfmeAptValue006DCD20)) ? 1 : -1];
