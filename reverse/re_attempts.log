@@ -11500,3 +11500,7 @@ FUN_00914fe9	0x00514FE9	88	blocked	ADDRESS-NAMED g_Va00A01E48 escape hatch t=1 m
 ?Rva0044C0A8@@YAXVUnicodeString@@0PAX@Z	0x0044C0A8	158	blocked	complex UnicodeString MessageBox with pin-only needs full EH layout t=2 model=muse-spark
 ?rva003E5267@Rva003E5267@@QAE_NXZ	0x003E5267	132	blocked	ADDRESS-NAMED g_Va globals use refused t=1 model=muse-spark
 ??1Rva005DA7F5@@UAE@XZ	0x005DA67F	116	blocked	ours 60B vs retail 116B missing loop with SSE float compare plus 3-call sequence and extra branches t=5 model=muse-spark
+?Rva003C606CDo@@YAXXZ	0x003C606C	124	blocked	address-named g_Va009FE16C hatch t=2 model=muse-06
+?Rva00419789Copy@@YAXXZ	0x00419789	95	blocked	EH copy with unclaimed scopetable plus pin-only Rva copy t=5 model=muse-06
+?rva005B6052@Rva005B6052@@QAEXXZ	0x005B6052	276	blocked	compile fail BfmePod40 int10 lacks m_image m_name at +0x10 +0x18 AsciiString pair needs mapped pod type t=3 model=muse-06
+?Helper@Rva005B6967Box@@QAEXXZ	0x005B6755	474	blocked	complex 474B EH STL sort+vector copy with SSE scale GameText fetchLabel and dual AddEntryText needs full layout count-before-copy and arch SSE t=15 model=muse-06
