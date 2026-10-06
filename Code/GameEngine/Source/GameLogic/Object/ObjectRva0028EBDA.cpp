@@ -36,8 +36,16 @@ class EmotionTrackerUpdate
 public:
 	void rva004B0D4C(int index, void *source);
 	void rva004B0D70(int index, void *source, int delay);
-	void rva004B0DA0(int index);
 	void rva004B0DAC(int index, float value, int arg);
+};
+
+// Rowed owner of the 12B indexed byte-clear at 0x004B0DA0
+// (Code/GameEngine/Source/Common/Rva004B0DA0Setter.cpp): same this+index+0x24
+// active-flag byte the rowed EmotionTrackerUpdate::rva004B0D70 sets.
+class Rva004B0DA0Holder
+{
+public:
+	void rva004B0DA0(int index);
 };
 
 class Object
@@ -99,7 +107,7 @@ void Object::rva0028EC88(int index)
 	while (obj->m_containedBy274)
 		obj = obj->m_containedBy274;
 	if (obj->m_emotionTracker24C)
-		obj->m_emotionTracker24C->rva004B0DA0(index);
+		((Rva004B0DA0Holder *)obj->m_emotionTracker24C)->rva004B0DA0(index);
 }
 
 void Object::rva0028ECA8(int index, float value, int arg)
