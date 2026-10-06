@@ -64477,3 +64477,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva00421242@@MAE@XZ,,0x00421312,128,Code/GameEngine/Source/Common/Rva00421242Dtor.cpp,matched,global-delete non-null owned entries of void* vector then erase and storage free then GameEngineDeletingBase dtor
 ??1Rva000AADC1@@UAE@XZ,,0x000AADC1,124,Code/GameEngine/Source/Common/Rva000AADC1Dtor.cpp,matched,global-delete owned entries of void* vector then erase and storage free then inline base vftable restore
 ??1SkirmishGameInfo@@UAE@XZ,,0x0022C516,69,Code/GameEngine/Source/GameNetwork/SkirmishGameInfoDtor.cpp,matched,slot record array via vector dtor iterator then rowed base Rva00382FA7 dtor
+?rva005CB9D1@Rva005CB9D1@@QAE_NH@Z,,0x005CB9D1,34,Code/GameEngine/Source/Common/Rva005CB9D1.cpp,matched,caller 0x005CBAE6 jmp plus rowed callee 0x005CB91E
