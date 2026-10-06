@@ -65066,3 +65066,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?onBuildComplete@CaveContain@@UAEXXZ,,0x00466790,65,Code/GameEngine/Source/GameLogic/Object/Contain/CaveContainOnBuildComplete.cpp,matched,CaveContain::onBuildComplete donor identity supported by vftable 0x843A5C slot 1 and rowed flag getter 0x466467; target offsets match CaveContain layout evidence; call sequence follows BFME1 donor role; helper names remain donor-derived inferences
 ??0Rva00545DB0@@QAE@PAVStateMachine@@@Z,,0x00545DB0,28,Code/GameEngine/Source/Common/Rva00545DB0Ctor.cpp,matched,base Rva00342EAC plus vtable and 0x54 zero
 ??0Rva00545D7E@@QAE@PAVStateMachine@@@Z,,0x00545D7E,44,Code/GameEngine/Source/Common/Rva00545D7ECtor.cpp,matched,State hash CDECC1F9 plus vtables
+?rva0030682A@Rva0030682A@@QAEPAXPAX0@Z,,0x0030682A,230,Code/GameEngine/Source/GameLogic/Object/Rva0030682AGet.cpp,matched,callers 0x00362561 0x00362A3B ModuleInfo donor Debug pattern like Rva0033BA46
