@@ -41,6 +41,32 @@ public:
 	void rva0039E5B9(Coord3D *pos);
 };
 
+struct BfmePod20
+{
+	int a[5];
+};
+inline bool operator==(const BfmePod20 &x, const BfmePod20 &y) { return x.a[0] == y.a[0]; }
+inline bool operator<(const BfmePod20 &x, const BfmePod20 &y) { return x.a[0] < y.a[0]; }
+struct PodVec
+{
+	BfmePod20 *begin;
+	BfmePod20 *end;
+};
+namespace _STL {
+template <class _InputIter, class _Tp>
+_InputIter find(_InputIter, _InputIter, const _Tp &);
+}
+class Rva004ED3A2
+{
+public:
+	void *rva004ED3A2(void *pos);
+};
+class Rva004ECECD
+{
+public:
+	void rva004ED748(int a, int b);
+};
+
 extern "C" void __cdecl free(void *p);
 extern float g_Va00BBB8D8;
 extern float g_00BC26EC;
@@ -60,12 +86,24 @@ public:
 	virtual void v3();
 	virtual unsigned v4();
 	void rva004EDDD3();
+	void rva004EDD4D(struct Rva005059A1Unit *arg);
 private:
-	char m_pad04[0x14 - 0x04];
+	char m_pad04[0x10 - 0x04];
+	unsigned char m_10;
+	char m_pad11[0x14 - 0x11];
 	Rva004EDDD3Node *m_begin;
 	Rva004EDDD3Node *m_end;
-	char m_pad1C[0x38 - 0x1C];
+	char m_pad1C[0x28 - 0x1C];
+	unsigned char m_28;
+	char m_pad29[0x34 - 0x29];
+	unsigned char m_34;
+	char m_pad35[0x38 - 0x35];
 	Coord3D m_38;
+};
+struct Rva005059A1Unit
+{
+	char m_pad[0x34];
+	int m_34;
 };
 
 void Rva00506909Item::rva004EDDD3()
@@ -99,4 +137,29 @@ void Rva00506909Item::rva004EDDD3()
 	m_38.x *= inv;
 	m_38.y *= inv;
 	m_38.z *= inv;
+}
+// ?rva004EDD4D@Rva00506909Item@@QAEXPAURva005059A1Unit@@@Z @ 0x004EDD4D 93B.
+// Leaf: if m_28 return; find Pod20 by Unit+0x34 in vector at +0x14,
+// erase via rowed 0x004ED3A2, if not empty return; if m_34==0 and m_10!=0
+// return else rowed rva004ED748(0,0). Same class as rva004EDDD3.
+// Evidence: pin QAEXPAURva005059A1Unit; caller 0x00505AE6; callees rowed
+// find 0x002198AD erase 0x004ED3A2 plus pin rva004ED748 0x004ED748.
+void Rva00506909Item::rva004EDD4D(Rva005059A1Unit *arg)
+{
+	if (m_28 != 0)
+		return;
+	int key = arg->m_34;
+	BfmePod20 *end = (BfmePod20 *)m_end;
+	PodVec *vec = (PodVec *)&m_begin;
+	BfmePod20 *found = _STL::find(vec->begin, end, *(const BfmePod20 *)&key);
+	if (found != end)
+		((Rva004ED3A2 *)vec)->rva004ED3A2((void *)found);
+	if (vec->begin != vec->end)
+		return;
+	if (m_34 == 0)
+	{
+		if (m_10 != 0)
+			return;
+	}
+	((Rva004ECECD *)this)->rva004ED748(0, 0);
 }

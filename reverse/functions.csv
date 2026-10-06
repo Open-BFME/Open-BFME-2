@@ -64150,3 +64150,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0020F77C@Rva0020F77C@@QAEXPAVObjectCreationNugget@@@Z,,0x0020F77C,25,Code/GameEngine/Source/Common/Rva0020F77CPush.cpp,matched,
 ??0Rva001F4D06@@QAE@PAX0@Z,,0x001F4D06,28,Code/GameEngine/Source/Common/Rva001F4D06Ctor.cpp,matched,
 ??1Rva000E6387@@UAE@XZ,,0x000E6387,57,Code/GameEngine/Source/Common/Rva000E6387VegetationBinderDtor.cpp,matched,Vegetation FX binder dtor erases its registration via rowed 0x1532E1 like the Terrain binder
+?rva004EDD4D@Rva00506909Item@@QAEXPAURva005059A1Unit@@@Z,,0x004EDD4D,93,Code/GameEngine/Source/Common/Rva004EDDD3.cpp,matched,leaf vec base edi end ebx caller 0x00505AE6 find rowed erase rowed
