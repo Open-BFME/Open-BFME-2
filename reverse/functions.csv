@@ -63663,3 +63663,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004E23E2@Rva00319CED@@QAEPAXXZ,,0x004E23E2,42,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp,matched,wide span map through rowed indexed get plus rowed tail; full byte gate
 ??4BfmeAssignRecord52@@QAEAAU0@ABU0@@Z,,0x002B828A,75,Code/GameEngine/Source/GameLogic/Object/Update/BfmeAssignRecord52Assign.cpp,matched,Memberwise op= via rowed Rva002B5558 op= and vector op= then seven words; existing pin name
 ??4Rva005F91C6@@QAEAAU0@ABU0@@Z,,0x005F91C6,45,Code/GameEngine/Source/Common/Rva005F91C6Assign.cpp,matched,Memberwise op= via rowed TreeHintRef00217D4C op= and UnicodeString set
+??4Rva005232D0@@QAEAAU0@ABU0@@Z,,0x005232D0,51,Code/GameEngine/Source/Common/Rva005232D0Assign.cpp,matched,Memberwise op= via rowed Rva00523149 assign and list op= and AsciiString set
