@@ -270,6 +270,41 @@ def write_baseline(entries):
             writer.writerow([name, rva, verdict])
 
 
+def assert_shrink_range(base, tip):
+    """Check each outgoing commit against its parents; temporary growth is debt.
+
+    A merge introduces only keys absent from every parent. Missing baseline
+    blobs mean empty debt, while invalid revisions and Git errors fail closed.
+    """
+    def git(*args):
+        result = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
+        if result.returncode:
+            raise SystemExit("EH baseline: Git failed: " + result.stderr.strip())
+        return result.stdout
+
+    def keys(rev):
+        # Inspect the tree to distinguish a genuinely absent path from failure.
+        listed = git("ls-tree", rev, "--", "reverse/eh_baseline.csv")
+        if not listed.strip():
+            return set()
+        return set(load_baseline(git("show", rev + ":reverse/eh_baseline.csv")))
+
+    git("rev-parse", "--verify", base + "^{commit}")
+    git("rev-parse", "--verify", tip + "^{commit}")
+    bad = 0
+    for commit in git("rev-list", "--reverse", base + ".." + tip).splitlines():
+        parents = git("rev-list", "--parents", "-n", "1", commit).split()[1:]
+        added = keys(commit)
+        for parent in parents:
+            added -= keys(parent)
+        if added:
+            for name, rva in sorted(added)[:20]:
+                print(f"  added to reverse/eh_baseline.csv in {commit[:10]}: {name} {rva}")
+            bad += len(added)
+    print(f"EH baseline: {'FAIL' if bad else 'OK'} (outgoing shrink-only; {bad} new key(s))")
+    return 1 if bad else 0
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("sources", nargs="*")
@@ -284,7 +319,13 @@ def main(argv=None):
                         help="rewrite the baseline: drop fixed rows, never add (creates it if absent)")
     parser.add_argument("--assert-shrink-only", metavar="REV",
                         help="fail if the baseline has a key that REV's baseline lacks")
+    parser.add_argument("--assert-shrink-range", nargs=2, metavar=("BASE", "TIP"),
+                        help="refuse new EH debt in every outgoing commit, judged against its parents")
     args = parser.parse_args(argv)
+    if args.assert_shrink_range:
+        if args.assert_shrink_only or args.write_baseline or args.sources or args.sources_from or args.all:
+            parser.error("--assert-shrink-range cannot be combined with verification or baseline writes")
+        return assert_shrink_range(*args.assert_shrink_range)
     if args.sources_from:
         data = sys.stdin.buffer.read() if args.sources_from == "-" else Path(args.sources_from).read_bytes()
         entries = data.split(b"\0") if b"\0" in data else [l.rstrip(b"\r") for l in data.split(b"\n")]
