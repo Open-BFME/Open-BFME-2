@@ -13500,3 +13500,7 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002E713F@Rva002E713F@@QAEXXZ,0x002E713F,thiscall void tail callee of 0x004E8FF6/0x004E9040 read from REL32; body unrowed
 ?rva0051274F@Rva0051274F@@QAEHHHH@Z,0x0051274F,thiscall int callee of 0x004E8D3E read from its REL32 displacement (this plus 3); body unrowed
 ?rva004E8820@Rva004E8820@@QAEXH@Z,0x004E8820,thiscall callee of 0x004E8D3E read from its REL32 displacement (this plus 0); in-range target, provisional signature
+??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
+?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
+?copyFrom@Rva004E1FE4TreeCopyView@@QAEXABV1@@Z,0x004E1FE4,opaque 12-byte copy member; native REL32 at 0x004E2C92 and Ghidra FUN_008E1FE4 boundary 165B establish destination; source identity inferred
+??0Rva004E1D4EVectorCopyView@@QAE@ABV0@@Z,0x004E1D4E,opaque 12-byte vector copy view; native REL32 at 0x004E2CA2 reaches Ghidra FUN_008E1D4E boundary 71B; source identity inferred
