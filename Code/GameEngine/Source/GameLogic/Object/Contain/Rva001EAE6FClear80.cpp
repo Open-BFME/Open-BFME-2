@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ, retail 0x001EAE6F, 23 bytes.
 // Dedicated TU (kept apart from its callers so the shared body is placed

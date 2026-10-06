@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // CreateModuleData::buildFieldParse procs: GrantUpgrade is a single-table
 // leaf (11 bytes); ObjectCreationUpgrade registers its own table followed by

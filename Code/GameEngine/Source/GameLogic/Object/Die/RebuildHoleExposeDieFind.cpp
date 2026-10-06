@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva00486687Find@@YAPAXPAX@Z @0x00486687 108B: free finder scanning the
 // +0x244 module list for the cached RebuildHoleExposeDie key; static guard
 // plus nameToKey call match the rowed RebuildHoleExposeDie pool-key body,

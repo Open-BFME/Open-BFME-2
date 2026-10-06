@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@EvacuateDamage@@MAEXPAVXfer@@@Z, retail 0x004BAC83, 44 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00859E2C (VA 0x00C59E2C, class of

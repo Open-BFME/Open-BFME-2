@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@CallHelpOnDamage@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00250F25, 56 bytes. Dedicated TU: retail news 0x18 (push-imm8)

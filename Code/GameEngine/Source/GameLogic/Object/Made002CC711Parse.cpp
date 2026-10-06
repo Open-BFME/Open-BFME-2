@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CC711@@YAXPAXPAVMade002CC711@@HH@Z @0x00508EBF (77B).
 // ParalyzeNugget field parser: MultiIni tmp, add table from getter

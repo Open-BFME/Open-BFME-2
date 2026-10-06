@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004C22C9@HeroDie@@SA?AW4NameKeyType@@XZ @0x4C22C9
 // (69B): cached pool-name key for HeroDie. The class
 // identity comes from the pool-name string the body pushes

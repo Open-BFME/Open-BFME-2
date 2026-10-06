@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva004C9A51@EvaAnnounceClientCreate@@UAEXXZ, retail 0x004C9A51, 49 bytes:
 // slot 1 of the vtable EvaAnnounceClientCreate's ctor 0x004C99D4 installs at

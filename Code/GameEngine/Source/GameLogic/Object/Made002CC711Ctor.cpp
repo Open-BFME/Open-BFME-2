@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ??0Made002CC711@@QAE@XZ @0x00508F51 59B: ParalyzeNugget ctor over rowed
 // base Rva00507823; zeroes +0x128/+0x12c/+0x134, pi at +0x130 via 0x7C7468,
 // vtable 0x8644A0. Caller parseParalyzeNugget 0x2CC736.

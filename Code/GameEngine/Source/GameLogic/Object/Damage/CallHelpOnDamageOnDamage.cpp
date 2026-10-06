@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // CallHelpOnDamage::onDamage (0x004BB547, slot 0 of its DamageModuleInterface
 // vftable 0x00859FD0, the +0x10 subobject; deleting dtor 0x004BB4B5 heads the

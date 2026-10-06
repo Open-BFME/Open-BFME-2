@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0DamageFilteredCreateObjectDieModuleData@@QAE@XZ, retail 0x00485F42,
 // 35 bytes. Frameless ctor over the pinned SEH base

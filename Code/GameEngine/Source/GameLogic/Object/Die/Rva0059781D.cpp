@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // ?rva0059781D@Rva0059781D@@QAEXXZ @0x0059781D 208B: prune two voidptr vectors at +0x24/+0x30 erasing null or checked via rowed findObjectByID 0x00049DC5 and 0x004E9378 with slot0+delete then 0x0055ADBA on flag; caller 0x00597FC5
 enum ObjectID
 {

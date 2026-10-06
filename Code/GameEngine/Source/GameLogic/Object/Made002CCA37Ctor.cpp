@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ??0Made002CCA37@@QAE@XZ @0x0050B1FC (32B).
 // DOTNugget ctor: calls the pin-only base ??0Made002CC5E1@@QAE@XZ at

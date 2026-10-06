@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1ProductionQueueHordeContain@@UAE@XZ retail 0x00481230 67 bytes.
 // ProductionQueueHordeContain public virtual destructor over GarrisonContain base 0x00478067.

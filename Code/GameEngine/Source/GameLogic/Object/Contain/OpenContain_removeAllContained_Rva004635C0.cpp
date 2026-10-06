@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?removeAllContained@OpenContain@@UAEX_N@Z
 // retail 0x004635C0, 44 bytes (Ghidra FUN_008635c0).

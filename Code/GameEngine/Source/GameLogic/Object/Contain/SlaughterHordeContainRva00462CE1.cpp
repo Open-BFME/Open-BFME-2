@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00462CE1@SlaughterHordeContain@@UAEPAVBfmeObject872Header@@PAV2@H@Z, retail 0x00462CE1, 23 bytes.
 // Virtual slot 82 (offset 0x148) of vtable 0x00848AA0 (class of

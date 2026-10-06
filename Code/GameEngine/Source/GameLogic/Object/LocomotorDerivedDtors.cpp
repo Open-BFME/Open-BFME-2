@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque multiple-inheritance destructor tail-calling the matched
 // Locomotor::~Locomotor at 0x003067D2 (defined in

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva00466E23@@QAE@XZ retail 0x00466E23 53B
 // Non-virtual dtor destroying two StringBase<char> members at +0 and +4
 // via rowed releaseBuffer 0x00036410 (reverse order +4 then +0) with

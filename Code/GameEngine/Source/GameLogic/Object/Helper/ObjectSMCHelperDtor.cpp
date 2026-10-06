@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
 // stlport
 //
 // ??1ObjectSMCHelper@@UAE@XZ retail 0x004DE767 91 bytes.

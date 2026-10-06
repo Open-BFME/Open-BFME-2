@@ -1,5 +1,5 @@
 // ?rva00485C86@CreateObjectDieIfEldestKindof@@QAEXPBVDamageInfo@@@Z
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // stlport
 //
 // ?rva00485C86@CreateObjectDieIfEldestKindof@@QAEXPBVDamageInfo@@@Z, retail 0x00485C86 139B:

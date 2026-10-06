@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // stlport
 //
 // ??1ProductionQueueHordeContainModuleData@@UAE@XZ, retail 0x004817B6, 62 bytes.

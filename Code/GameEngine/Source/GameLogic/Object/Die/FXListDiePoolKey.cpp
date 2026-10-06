@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000486598@FXListDie@@SA?AW4NameKeyType@@XZ @0x486598
 // (69B): cached pool-name key for FXListDie. The class
 // identity comes from the pool-name string the body pushes

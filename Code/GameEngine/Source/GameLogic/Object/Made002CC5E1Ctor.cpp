@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // stlport
 //
 // ??0Made002CC5E1@@QAE@XZ retail 0x00507C2D 343B

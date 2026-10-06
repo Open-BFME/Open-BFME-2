@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CC971@@YAXPAXPAVMade002CC971@@HH@Z @0x0050AAEA (77B).
 // SlaveAttackNugget field parser: same two-add 77B shape as Grab sibling.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?newLocomotor@LocomotorStore@@QAEPAVLocomotor@@PBVLocomotorTemplate@@_N@Z
 // retail 0x001E4A81, 61 bytes (Ghidra FUN_005e4a81), pinned from

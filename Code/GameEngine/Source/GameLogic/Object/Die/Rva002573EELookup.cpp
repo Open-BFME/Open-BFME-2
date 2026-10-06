@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 // ?rva002573EE@Rva002573EE@@QAEXHHHW4ModuleType@@ABVAsciiString@@H@Z @0x002573EE 62B
 // Fill Pod16 slot from 6 args via decorated name key plus subscript lookup.
 // Evidence: chain lane (calls just-landed 0x00257252); caller passes key at

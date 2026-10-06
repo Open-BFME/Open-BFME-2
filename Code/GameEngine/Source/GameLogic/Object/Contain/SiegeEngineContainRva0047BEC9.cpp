@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva0047BEC9@SiegeEngineContain@@QAEXXZ retail 0x0047BEC9 47B
 // Walks circular list at +0xFC calling Object::rva0029A12B on node+8 then
 // tail-calls SlaughterHordeContain::rva004631C9. Layout from neighbours

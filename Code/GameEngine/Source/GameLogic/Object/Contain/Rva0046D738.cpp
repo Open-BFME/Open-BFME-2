@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva0046D738@HordeContain@@QAEXXZ, RVA 0x0046D738 size 119.
 // Unlock lane Contain body via TheGameLogic findObjectByID row; evidence:
 // +0x11C iface virtual +0x138 and +0x2C8 target virtual +0x14 match

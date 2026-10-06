@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CC841@@YAXPAXPAVMade002CC841@@HH@Z @0x00509780 (77B).
 // ProjectileNugget field parser: MultiIni tmp, add table from getter

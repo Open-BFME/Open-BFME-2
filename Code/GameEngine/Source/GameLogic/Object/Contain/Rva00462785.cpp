@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00462785@Rva00462785@@QAEHXZ, retail 0x00462785, 23 bytes.
 // Leaf just after SlaughterHordeContain slot81 (0x0046274C) in the 00462xxx

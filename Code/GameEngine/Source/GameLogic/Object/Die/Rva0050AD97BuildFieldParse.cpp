@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0050AD97BuildFieldParse@@YAXAAVMultiIniFieldParse@@@Z retail 0x0050AD97 34B two adds.
 // Evidence: callees rowed 0x00507552 0x0002BC6E; data VA 0x00864B60; caller 0x0050ADB9 pushes one parse ref.
 struct FieldParse

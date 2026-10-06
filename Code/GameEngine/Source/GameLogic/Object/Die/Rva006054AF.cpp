@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva006054AF@Rva006054AF@@QAEPAXPBD@Z, retail 0x006054AF (56B).
 // Unlock: missing callee of 3 free functions; deque push_back helper that
 // strdups via rowed new[] 0x0002FDE0 plus strlen 0x00629170 plus _mbscpy

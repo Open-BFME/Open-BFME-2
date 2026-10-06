@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00462C72@OpenContain@@UAEXXZ, retail 0x00462C72, 97 bytes.
 // Virtual slot 17 (offset 0x44) shared by OpenContain/CaveContain/HealContain

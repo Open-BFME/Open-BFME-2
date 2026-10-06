@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: ExperienceLevelCreate module ctor.
 // Out-of-line base MI, then three most-derived vtbls at +0/+0xC/+0x10.

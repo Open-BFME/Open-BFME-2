@@ -1,5 +1,5 @@
 // ?onDie@UpgradeDie@@UAEXPBVDamageInfo@@@Z
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // stlport
 //
 // ?onDie@UpgradeDie@@UAEXPBVDamageInfo@@@Z, retail 0x00486C00 118B (ret 4 at

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva004DEA68@Rva0028AF76Sub@@QAEHXZ, retail 0x004DEA68 (8B), filling the
 // gap between the rowed 0x004DEA62 and 0x004DEA70 after the FiringTracker

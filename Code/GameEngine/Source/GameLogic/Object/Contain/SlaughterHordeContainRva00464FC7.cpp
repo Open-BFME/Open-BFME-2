@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva00464FC7@SlaughterHordeContain@@UAE_NPAXH@Z, retail 0x00464FC7, 74 bytes.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0TunnelContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0047DBF7, 98 bytes.
 // TunnelContain behavior ctor over the pinned HordeGarrisonContain

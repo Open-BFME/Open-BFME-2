@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // SlaughterHordeContain::rva004631FA, retail 0x004631FA (50 bytes). Built from
 // the banked attempt reverse/attempts/0x004631fa.cpp; fix: the list walk
 // starts at the node after the head (end = *m04, cur = *end), which is

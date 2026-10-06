@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0HeroDie@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C2324, 42 bytes.
 // Behavior-side ctor completing the HeroDie file-unit (poolkey rowed at

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 //
 // ?rva00507991@Made002CC5E1@@QAEX... retail 0x00507991 94B slot 5 of 0x00864048
 // (Made002CC5E1) and 0x00864C38 (Made002CCA37 inherits). Float at +0x130 vs

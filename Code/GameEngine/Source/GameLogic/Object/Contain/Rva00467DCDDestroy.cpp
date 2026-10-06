@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00467DCDDestroy@@YAXPAUElem00467DCD@@0@Z retail 0x00467DCD 25B
 // Range destroy over 0xC elements calling rowed dtor 0x00466E23 at +0.
 // Evidence: mov esi first jmp cmp loop with mov ecx esi call add esi 0xC

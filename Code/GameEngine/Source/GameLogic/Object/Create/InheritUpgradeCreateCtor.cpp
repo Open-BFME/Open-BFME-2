@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0InheritUpgradeCreate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B9428, 42 bytes.
 // InheritUpgradeCreate behavior ctor over the rowed CreateModule base

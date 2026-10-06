@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ??0TransitionDamageFXModuleData@@QAE@XZ, retail 0x004BA58A, 367 bytes.

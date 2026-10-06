@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@DamageFilteredCreateObjectDie@@MAEXPAVXfer@@@Z, retail 0x00485FE3, 50 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0084AB54 (class of ??0DamageFilteredCreateObjectDie

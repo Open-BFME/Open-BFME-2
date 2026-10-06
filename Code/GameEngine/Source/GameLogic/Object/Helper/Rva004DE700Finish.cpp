@@ -1,5 +1,5 @@
 // ?framesUntilNext@ObjectSMCHelper@@AAEHXZ
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
 // stlport
 //
 // ?framesUntilNext@ObjectSMCHelper@@AAEHXZ, retail 0x004DE700, 77 bytes.

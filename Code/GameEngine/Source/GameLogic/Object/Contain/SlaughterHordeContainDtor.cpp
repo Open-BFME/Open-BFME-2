@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??1SlaughterHordeContain@@UAE@XZ, retail 0x004803FB, 118 bytes.
 // Virtual dtor over vtable 0x00C48AA0 (slot 0 deleting dtor at 0x00480645

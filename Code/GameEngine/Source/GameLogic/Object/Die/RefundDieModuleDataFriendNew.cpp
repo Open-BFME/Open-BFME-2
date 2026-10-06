@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@RefundDieModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00253940, 81 bytes. Dedicated TU: the factory news 0x44, runs the

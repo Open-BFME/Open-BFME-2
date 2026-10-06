@@ -1,5 +1,5 @@
 // ?rva004780E7@SlaughterHordeContain@@UAEPAVPlayer@@PBV2@@Z
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva004780E7@SlaughterHordeContain@@UAEPAVPlayer@@PBV2@@Z, retail 0x004780E7, 90 bytes.
 // Virtual slot 57 (offset 0xE4) of vtable 0x00C48AA0 (SlaughterHordeContain primary

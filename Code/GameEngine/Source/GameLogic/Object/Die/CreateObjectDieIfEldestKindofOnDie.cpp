@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // CreateObjectDieIfEldestKindof::onDie, retail 0x00485D11 (119 bytes): slot
 // 0 of the class's +0x10 die-module interface table 0x00C4A810. Only when

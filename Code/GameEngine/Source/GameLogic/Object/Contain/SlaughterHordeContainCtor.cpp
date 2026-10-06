@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0SlaughterHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0048034E, 98 bytes.
 // SlaughterHordeContain behavior ctor over the pinned HordeGarrisonContain

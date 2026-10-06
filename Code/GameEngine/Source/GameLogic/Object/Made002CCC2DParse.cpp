@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CCC2D@@YAXPAXPAVMade002CCC2D@@HH@Z @0x0050B8DB (77B).
 // SpawnAndFadeNugget field parser: MultiIni tmp, add table from getter

@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /DNDEBUG /MD /EHsc
+// cl: /Ob2 /DNDEBUG /MD /EHsc
 // ??1Rva001DFA48Owner@@UAE@XZ @0x1DFA48 (60B): virtual destructor.
 // Formerly spelled ~TransportContainModuleData; that identity belongs to
 // 0x004684F1 (slot 0 of TransportContainModuleData vtable 0x00C442F8, installed

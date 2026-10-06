@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00475EA2@Rva00475EA2@@QAEXXZ retail 0x00475EA2 136B
 // Chain on just-landed 0x00298E6A: -0xFC slot-70 fill plus list chase calling it then +0x54 RB map via TheGameLogic findObjectByID calling it plus -0x114 pool EraseRange clear.
 // Evidence: callees rowed 0x00298E6A 0x00049DC5 0x00024250 0x0028BDD7 0x002983DA; TheGameLogic extern in use 72 TUs; prev HordeContainModuleDataParse next HorseHordeContainCtor.

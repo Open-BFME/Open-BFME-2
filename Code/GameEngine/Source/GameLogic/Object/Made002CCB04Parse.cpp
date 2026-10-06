@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CCB04@@YAXPAXPAVMade002CCB04@@HH@Z @0x0050B42C (77B).
 // EmotionWeaponNugget field parser: same two-add 77B shape as the OpenGate

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /D_CRTIMP= /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP=
 //
 // ?xfer@ExperienceTracker@@MAEXPAVXfer@@@Z @0x0039AFC8 257B (pinned): slot 3
 // of vtable 0x0081AD20; also called by the ExperienceTrackerAutoResolve xfer

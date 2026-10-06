@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 // ??1LocomotorStore@@QAE@XZ, retail 0x002207C4 68B.
 // LocomotorStore dtor after ctor 0x0022078E in same file area: destroys +8 via
 // rowed 0x00360D26 then two StringBase<char> members at +4/+0 via rowed

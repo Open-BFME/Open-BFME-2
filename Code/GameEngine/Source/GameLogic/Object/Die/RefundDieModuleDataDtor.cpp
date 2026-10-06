@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /arch:SSE
+// cl: /GX /DNDEBUG /MD
 //
 // ??1RefundDieModuleData@@UAE@XZ, retail 0x00255067, 48 bytes.
 // ModuleData dtor: tears down the filter at +0x40 through the folded 0x360D26

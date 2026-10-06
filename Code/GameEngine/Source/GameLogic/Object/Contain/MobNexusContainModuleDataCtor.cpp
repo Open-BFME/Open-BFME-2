@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0InvisibilitySpecialPowerModuleData@@QAE@XZ, retail 0x004C244D, 118 bytes.
 // Mob-nexus contain data: the own table at 0x00C5C468 carries

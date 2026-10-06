@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0RiderChangeContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0047E268,
 // 120 bytes. Behavior ctor over the pinned SiegeEngineContain base 0x47C21E

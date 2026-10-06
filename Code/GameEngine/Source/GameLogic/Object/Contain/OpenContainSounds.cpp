@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 //
 // OpenContain::doLoadSound, retail 0x0046279C (143 bytes), and
 // OpenContain::doUnloadSound, retail 0x0046282B (128 bytes), ported from Zero

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CC7DE@@YAXPAXPAVMade002CC7DE@@HH@Z @0x005095AE (77B).
 // WeaponOCLNugget field parser: MultiIni tmp, add table from getter

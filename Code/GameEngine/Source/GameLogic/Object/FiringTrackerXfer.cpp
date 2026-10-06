@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?xfer@FiringTracker@@MAEXPAVXfer@@@Z retail 0x004DEBC1 199 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00861530 (class of rowed dtor

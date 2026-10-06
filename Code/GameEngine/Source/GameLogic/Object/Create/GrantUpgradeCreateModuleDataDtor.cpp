@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/moduledata /O1 /GX /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/moduledata /GX /DNDEBUG /MD
 //
 // ??1GrantUpgradeCreateModuleData@@UAE@XZ, retail 0x004B914B, 48 bytes.
 // ModuleData dtor: tears down upgradeName at +0x08 through the folded 0x36410

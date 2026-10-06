@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
 // stlport
 // ??1Rva00220C17@@QAE@XZ, retail 0x00220C17 63B.
 // Vector-like holder dtor stride 0xC: derived calls rowed 0x00220AEB then

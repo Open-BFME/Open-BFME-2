@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // Retail 0x0047BD4C (161 bytes): SiegeEngineContain rider override, slot 13 of

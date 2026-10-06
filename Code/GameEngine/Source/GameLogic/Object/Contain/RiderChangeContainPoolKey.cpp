@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00047E2E0@RiderChangeContain@@SA?AW4NameKeyType@@XZ @0x47e2e0
 // (69B): cached pool-name key for RiderChangeContain. The class
 // identity comes from the pool-name string the body pushes

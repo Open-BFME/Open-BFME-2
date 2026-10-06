@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva004851E3@@MAEXPAVXfer@@@Z, retail 0x004851E3 27B: Version1 plus base CreateModule xfer.
 // Evidence: slot 3 of 8 vtables including Create subclasses; rowed Version1 0x000053EE plus rowed CreateModule xfer 0x004B8D4E; no members.

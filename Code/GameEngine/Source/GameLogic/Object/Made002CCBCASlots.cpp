@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Made002CCBCA slots 5 and 6, retail 0x0050B7D2 (113 bytes) and 0x0050B843
 // (112 bytes). Identity: slots 5/6 of the vtable 0x00864DFC (VA 0x00C64DFC) that

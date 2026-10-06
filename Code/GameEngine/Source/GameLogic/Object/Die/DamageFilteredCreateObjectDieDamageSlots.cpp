@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // DamageFilteredCreateObjectDie's +0x14 damage-module interface overrides
 // (table 0x00C4AA84, installed by the matched ctor 0x00485F87, which also

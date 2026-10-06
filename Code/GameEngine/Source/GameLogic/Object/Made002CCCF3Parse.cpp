@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CCCF3@@YAXPAXPAVMade002CCCF3@@HH@Z @0x0050BDED (71B).
 // FireLogicNugget field parser: MultiIni tmp on stack, static

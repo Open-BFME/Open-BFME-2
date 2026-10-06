@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva004DF725@ObjectDefectionHelper@@QAEXI_N@Z, RVA 0x004DF725, 73 bytes.
 // ObjectDefectionHelper method over the rowed ObjectHelper base (0x20 bytes,
 // Object at +8 via UpdateModule): Object+0x438 bit1 clear sleeps FOREVER via

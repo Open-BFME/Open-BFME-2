@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ExperienceLevelCreate::onBuildComplete, retail 0x004B9231 (38 bytes): slot 1
 // of the class's +0x10 create-module interface vftable 0x00C5955C, so `this`

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /arch:SSE
+// cl: /MD /EHsc /DNDEBUG
 // Made002CC8A4 ctor, retail 0x0050A39B (263 bytes). Built from the banked
 // attempt reverse/attempts/0x0050a39b.cpp; fix: m_150 is assigned before
 // m_144, which is the order retail stores the two zeroed floats.

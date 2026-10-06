@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CC774@@YAXPAXPAVMade002CC774@@HH@Z @0x00509379 (77B).
 // DamageFieldNugget field parser: MultiIni tmp, add table from getter

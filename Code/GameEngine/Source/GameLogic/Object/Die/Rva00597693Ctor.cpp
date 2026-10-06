@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00597693@@QAE@PAX@Z @0x00597693 128B: ctor with EH prolog building Rva00506B1B at +0xc and three Vector_base<BfmeE16> at +0x18/+0x24/+0x30 via rowed 0x00506B1B and 0x00211E58; caller 0x004EC4B7
 #include <vector>

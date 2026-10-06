@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CCB67@@YAXPAXPAVMade002CCB67@@HH@Z @0x0050B5F6 (53B).
 // StealMoneyNugget field parser: same 53B MultiIni pattern as the DOTNugget

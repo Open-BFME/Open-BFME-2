@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // Zero Hour module-data FieldParse procs on their BFME 2 layouts:
 //   GarrisonContainModuleData::parseInitialRoster 0x0025363A (72B): InitialRoster

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@GhostObject@@MAEXPAVXfer@@@Z, retail 0x003059F5, 154 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0080793C (class of ??1GhostObject@@UAE@XZ).

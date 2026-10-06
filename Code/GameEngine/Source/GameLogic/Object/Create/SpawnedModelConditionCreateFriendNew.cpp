@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@SpawnedModelConditionCreate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0025496D, 56 bytes. Dedicated TU: retail news 0x18 (push-imm8)

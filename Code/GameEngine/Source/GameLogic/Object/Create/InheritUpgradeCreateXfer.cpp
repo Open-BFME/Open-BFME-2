@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@InheritUpgradeCreate@@MAEXPAVXfer@@@Z, retail 0x004B94E3, 37 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x008596F4 (class of rowed ctor

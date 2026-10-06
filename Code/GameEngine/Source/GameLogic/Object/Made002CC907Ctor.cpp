@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0Made002CC907@@QAE@XZ retail 0x0050AA97 83B Grab ctor.
 // Evidence: pin; base Rva00507823 0x0050775B; vtable 0x00864AC0; float 1.0 via 0x007BB8D8;

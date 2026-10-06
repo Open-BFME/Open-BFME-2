@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??$_Construct@VRva0046267A@@V1@@_STL@@YAXPAVRva0046267A@@ABV1@@Z @0x00462D83 18B.
 // _STL::_Construct<Rva0046267A> null-guarded placement-new copy over the 0x50-byte
 // Contain record (int at +0 plus WeaponTemplateSetHead at +0x4 via rowed 0x45455).

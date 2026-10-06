@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0ObjectHelper@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0028C8DF, 84 bytes.
 // ObjectHelper intermediate behavior base over the pinned UpdateModule base

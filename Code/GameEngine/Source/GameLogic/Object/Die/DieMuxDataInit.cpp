@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // stlport
 //
 // ?init@DieMuxData@@QAEPAV1@XZ, retail 0x004CE534, 57 bytes. Frameless

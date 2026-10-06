@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@RebuildHoleExposeDie@@MAEXPAVXfer@@@Z retail 0x004866F3 44 bytes.
 // Virtual slot 3 of RebuildHoleExposeDie (DieModule family) doing Version

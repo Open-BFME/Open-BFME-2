@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque multiple-inheritance destructors tail-calling DieModule::~DieModule
 // at 0x0045CE54. Each class below derives (in order) from DieModule, a shared

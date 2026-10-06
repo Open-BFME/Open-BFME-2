@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@ExperienceLevelCreate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00250B92, 56 bytes. Dedicated TU: retail news 0x18 (push-imm8)

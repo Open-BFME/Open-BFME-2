@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0ObjectRecoveryHelper@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0028C9F9, 84 bytes.
 // ObjectRecoveryHelper behavior ctor over the rowed ObjectHelper base

@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
+// cl: /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
 //
 // ?calcNaturalRallyPoint@Object@@QAEXPAUCoord2D@@@Z retail 0x0028B65F, 67
 // bytes: the Zero Hour Object.cpp body, placed by masked whole-.text search of

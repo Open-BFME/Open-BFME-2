@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /arch:SSE
+// cl: /DNDEBUG /MD /EHs
 //
 // FellBeastSwoopPower::update, retail 0x004C6E49 (254 bytes): slot 0 of the
 // vtable 0x00C5DF74 that the matched FellBeastSwoopPower ctor 0x004C6C1E

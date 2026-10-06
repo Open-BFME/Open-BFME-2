@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?addLocomotor@LocomotorSet@@QAEXPBVLocomotorTemplate@@_N@Z
 // retail 0x001E88CE, 92 bytes (Ghidra FUN_005e88ce), pinned from

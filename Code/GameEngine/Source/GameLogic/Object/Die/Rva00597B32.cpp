@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE2
+// cl: /GX-
 // ?rva00597B32@Rva00597B32@@QAEXXZ @0x00597B32 162B: vslot2 of 0x00870C18 clearing two voidptr vectors with slot0+delete then hero remove via g_00DFEEF8 and ScienceType clear; callers 0x00597BFE
 class Player;
 class CreateAHeroData;

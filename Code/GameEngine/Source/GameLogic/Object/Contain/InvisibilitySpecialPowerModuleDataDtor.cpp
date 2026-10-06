@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??1InvisibilitySpecialPowerModuleData@@UAE@XZ @0x004C24DF (56B): virtual destructor.
 // Destroys the pool-aware filter at +0x138 through 0x00360D26 then calls the
 // SpecialPower intermediate base dtor at 0x0049334F. Layout from the matched

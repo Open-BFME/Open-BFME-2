@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /DNDEBUG /Oy- /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /Oy- /DWIN32 /D_WINDOWS
 //
 // ??1RiderChangeContainModuleData@@UAE@XZ, retail 0x0047EB36, 66 bytes.
 // RiderChangeContain ModuleData dtor over the pinned SiegeEngine base

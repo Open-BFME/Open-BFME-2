@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CC6AE@@YAXPAXPAVMade002CC6AE@@HH@Z @0x00508D2F (77B).
 // SpecialModelConditionNugget field parser: MultiIni tmp, add table

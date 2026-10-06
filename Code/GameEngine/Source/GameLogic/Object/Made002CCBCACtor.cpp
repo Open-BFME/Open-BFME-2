@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Made002CCBCA@@QAE@XZ, retail 0x0050B8B3, 35 bytes.
 // Evidence: pin ??0Made002CCBCA@@QAE@XZ; rowed base Rva00507823 0x0050775B;
 // vtable 0x00864DFC plus byte +0x128=0 plus dword +0x12c=5; caller

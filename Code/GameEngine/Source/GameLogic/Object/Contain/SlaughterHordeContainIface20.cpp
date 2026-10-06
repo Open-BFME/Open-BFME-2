@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00464D02@SlaughterHordeContain@@UAEXPAVObject@@@Z, retail 0x004806D3, 41 bytes.
 // Slot 23 of SlaughterHordeContain's +0x20 interface vftable 0x00C48918

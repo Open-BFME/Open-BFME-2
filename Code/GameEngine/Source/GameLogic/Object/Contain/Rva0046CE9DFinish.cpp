@@ -1,5 +1,5 @@
 // ?rva0046CE9D@Rva0046CE9D@@QAE_NPAVObject@@@Z
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva0046CE9D@Rva0046CE9D@@QAE_NPAVObject@@@Z
 // retail 0x0046CE9D (132 bytes). Chain from 0x00263763: every callee rowed.
 // Null param or null/expired tracker ID returns false; ID resolved via

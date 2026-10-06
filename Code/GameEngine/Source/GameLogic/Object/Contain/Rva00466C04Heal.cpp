@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00466C04@Rva00466C04@@QAE_NPAVObject@@I@Z 0x00466C04 144B
 // Healing with frame check: DamageInfo 0x7C via rowed Rva00263895Member ctor, source from this+8 ID, damage 7 death 1, amount via body slot06 direct or divided by unsigned val, body slot01 attemptHealing, returns frame check.
 // Evidence: calls rowed 0x263895 ctor; TheGameLogic+0x40 minus obj+0x27C vs val (jb); slot06 at +0x18 fstp to +0x20 then slot01 at +4; fild/fadd g_00BC26EC/fdivp unsigned val conversion; callers 0x466CEA.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00468FB4@Rva00468FB4@@QAEXPAVXfer@@@Z at retail 0x00468FB4 (40B). Unlock
 // body calling rowed Xfer::Version1 0x000053EE plus pinned
 // Rva003063A9XferThingTemplate 0x003063A9 plus Xfer slot 0x7C (int

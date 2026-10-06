@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva00462CF8@@QAE@XZ, retail 0x00462CF8, 16 bytes.
 // Gap between 0x00462CE1 (SlaughterHordeContain slot 82) and 0x00462D62.

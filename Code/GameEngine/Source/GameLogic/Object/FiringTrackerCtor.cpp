@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0FiringTracker@@QAE@PAVThing@@PBVModuleData@@@Z @0x004DEB10 (149B).
 // FiringTracker ctor over rowed UpdateModule base 0x00253390 with

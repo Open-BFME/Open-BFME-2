@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // InheritUpgradeCreate::onBuildComplete, retail 0x004B96A9 (27 bytes): slot 1
 // of the class's +0x10 create-module interface vftable 0x00C596E4 (the

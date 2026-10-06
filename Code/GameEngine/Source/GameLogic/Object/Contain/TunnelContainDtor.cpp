@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1TunnelContain@@UAE@XZ retail 0x0047DB00 67 bytes.
 // TunnelContain public virtual destructor over GarrisonContain base 0x00478067.

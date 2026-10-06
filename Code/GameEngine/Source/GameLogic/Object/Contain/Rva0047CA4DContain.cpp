@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0047CA4D@Rva0047CA4D@@QAE_NPAVObject@@HH@Z, retail 0x0047CA4D, 142 bytes.
 // Evidence: slot38-shape leaf like the matched 0x0047BA69 row (Object::testStatus
 // 0x0004E536 STATUS_62 refusal, this-0x18 Object / this-0x1c table base,

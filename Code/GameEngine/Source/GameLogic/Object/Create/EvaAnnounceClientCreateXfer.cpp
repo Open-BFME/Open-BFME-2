@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@EvaAnnounceClientCreate@@MAEXPAVXfer@@@Z, retail 0x004C9B44, 75 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0085ED50 (same primary as rowed ctor

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00588D24@Rva0047A040Base9E0@@QAE_NPAXPAVObject@@@Z @0x00588D24 117B
 // Evidence: unlock lane, caller 0x00479ADA lea ecx [esi+0x9E0] (HordeGarrisonContain second base),
 // pin rva00588BF3 member of Rva0047A040Base9E0, slots 0x20/0xF4/0x100,

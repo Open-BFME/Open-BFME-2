@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@ReflectDamage@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00250D8A, 56 bytes. Dedicated TU: retail news 0x14 (push-imm8)

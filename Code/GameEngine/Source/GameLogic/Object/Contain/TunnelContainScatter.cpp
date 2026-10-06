@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?scatterToNearbyPosition@TunnelContain@@IAEXPAVObject@@@Z @0x0047E16B 253B.
 //

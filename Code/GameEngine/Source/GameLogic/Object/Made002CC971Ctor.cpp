@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Made002CC971@@QAE@XZ retail 0x0050ABF7 18B base plus vtable.
 // Evidence: pin ??0Made002CC971@@QAE@XZ; rowed base Rva00507823 0x0050775B;

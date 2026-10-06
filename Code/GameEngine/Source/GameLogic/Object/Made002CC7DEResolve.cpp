@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?rva005095FB@Made002CC7DE@@UAEXXZ @0x005095FB (48B).
 // WeaponOCLNugget resolve slot 8 of vtable 0x00864588: base resolve

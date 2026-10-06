@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 //
 // ?rva00462F75@OpenContain@@UAEXPAVObject@@@Z, retail 0x00462F75 62 bytes.

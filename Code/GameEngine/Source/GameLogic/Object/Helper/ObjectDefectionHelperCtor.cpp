@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0ObjectDefectionHelper@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0028C955, 61 bytes.
 // ObjectDefectionHelper behavior ctor over the rowed ObjectHelper base

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -D_STLP_USE_STATIC_LIB /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Helper
+// cl: -DNDEBUG -MD -EHsc -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Helper
 //
 // ??0ObjectSMCHelper@@QAE@PAVThing@@PBVModuleData@@@Z
 // retail 0x002927F8, 81 bytes. Dedicated TU ported from the Open-BFME-1 donor

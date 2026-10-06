@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0ObjectWeaponStatusHelper@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0028CB45, 81 bytes.
 // ObjectWeaponStatusHelper behavior ctor over the rowed ObjectHelper base

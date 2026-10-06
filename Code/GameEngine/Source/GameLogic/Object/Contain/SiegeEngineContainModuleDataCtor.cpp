@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /DNDEBUG /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /DNDEBUG /EHsc
 //
 // ??0SiegeEngineContainModuleData@@QAE@XZ, retail 0x0047C927 (136 bytes).
 // EH derived ctor over the pinned TransportContainModuleData base

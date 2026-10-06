@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ObjectRepulsorHelper@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0028CAB4, 42 bytes.
 // ObjectRepulsorHelper behavior ctor over the rowed ObjectHelper base

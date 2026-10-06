@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0CallHelpOnDamage@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004BB43C,
 // 44 bytes. Behavior-side ctor completing the CallHelpOnDamage file-unit

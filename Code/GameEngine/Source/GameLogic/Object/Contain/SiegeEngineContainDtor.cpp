@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??1SiegeEngineContain@@UAE@XZ, retail 0x0047BF43, 207 bytes.

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0ReflectDamageModuleData@@QAE@XZ, retail 0x004BAB9A, 26 bytes.
 // Frameless trivial ctor: the BFME1 ReflectDamageModuleDataConstructor.cpp

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CC5E1@@YAXPAXPAVMade002CC5E1@@HH@Z @0x005088F0 (53B).
 // DamageNugget field parser: MultiIni tmp, buildFieldParse via rowed

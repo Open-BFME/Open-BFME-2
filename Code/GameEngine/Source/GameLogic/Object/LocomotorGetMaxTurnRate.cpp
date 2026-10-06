@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?getMaxTurnRate@Locomotor@@QBEMPAVObject@@@Z @0x001E3E9F 105B. Locomotor turn-rate
 // query taking the owning Object: reads Body damage state via slot 0x20, picks the
 // normal vs damaged angular period (uints at template +0x2C/+0x30), returns

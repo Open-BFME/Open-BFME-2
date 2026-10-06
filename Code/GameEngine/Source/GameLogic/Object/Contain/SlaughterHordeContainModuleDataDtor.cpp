@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??1SlaughterHordeContainModuleData@@UAE@XZ, retail 0x004810D5, 62 bytes.
 // Slaughter horde ModuleData dtor: stores vtable 0x00C48DC0 (DIR32, pin

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1DamageFilteredCreateObjectDie@@UAE@XZ, retail 0x00485EC3, 32 bytes.
 // Target evidence: the audited scalar deleting dtor 0x00485FC7 calls this

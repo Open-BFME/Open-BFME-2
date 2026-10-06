@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0DamageFilteredCreateObjectDie@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00485F87, 64 bytes.
 // DamageFilteredCreateObjectDie behavior ctor over the pinned DieModule base

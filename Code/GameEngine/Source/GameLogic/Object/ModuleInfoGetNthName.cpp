@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /G7
+// cl: /Oy- /DNDEBUG /MD /GX
 //
 // ModuleInfo::getNthName, retail 0x001F12DF (64 bytes): bounds-checked
 // indexed copy-out of a module name. A negative index or one past the end

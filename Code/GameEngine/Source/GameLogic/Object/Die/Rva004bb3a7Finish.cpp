@@ -1,6 +1,6 @@
 // ??0CallHelpOnDamageModuleData@@QAE@XZ
 // finish candidate from reverse/attempts/0x004bb3a7.cpp (score=0.93)
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // CallHelpOnDamageModuleData default constructor @0x4BB3A7 (116B). INI tables
 // 0x00C6BB18 and 0x00C59F70 name the members (DamageTypes +8, CallRadius +C,
 // CallDelay +10, MoveToAttacker +14, ValidObjects +18). Retail unwind map:

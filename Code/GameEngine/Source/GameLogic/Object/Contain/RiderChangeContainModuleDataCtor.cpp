@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /DNDEBUG /Oy- /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /Oy- /DWIN32 /D_WINDOWS
 //
 // ??0RiderChangeContainModuleData@@QAE@XZ, retail 0x0047EABC, 94 bytes.
 // RiderChangeContain ModuleData default ctor over the pinned SiegeEngine

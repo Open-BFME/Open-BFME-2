@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // SlaughterHordeContainModuleData parse-unit (see SlaughterHordeContainCtor.cpp
 // for the owning family).

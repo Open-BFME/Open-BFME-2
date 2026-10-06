@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004DEACB@FiringTracker@@SA?AW4NameKeyType@@XZ @0x4DEACB
 // (69B): cached pool-name key for FiringTracker. The class
 // identity comes from the pool-name string the body pushes

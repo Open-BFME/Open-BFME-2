@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004672B7@TransportContain@@UAEXHH@Z @0x004672B7 99B: slot 9 Contain method with early-out plus flag-gated subobject virtuals.
 // Evidence: slots 9 of six Contain vtables 0x00844278 0x00845C38 0x00845EB8 0x00846D28 0x008470F8 0x008474A0, ret 8 two args, flag byte at +0x1c8 bit 0x20 via +0x08, subobject at +0x20 slots 0x80 0x8c 0xa8 0xd8 0xe0.
 

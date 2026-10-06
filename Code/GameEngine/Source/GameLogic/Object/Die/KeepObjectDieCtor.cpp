@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0KeepObjectDie@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00486D73,
 // 165 bytes. Behavior-side ctor completing the KeepObjectDie file-unit

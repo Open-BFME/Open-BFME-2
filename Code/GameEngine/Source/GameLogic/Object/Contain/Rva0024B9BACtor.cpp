@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0Rva0024B9BA@@QAE@XZ @0x0024B9BA 18B.
 // Frameless derived ctor over rowed HordeContainModuleData base 0x00475C9A;

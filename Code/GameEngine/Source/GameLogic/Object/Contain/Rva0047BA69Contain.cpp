@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0047BA69@Rva0047BA69@@QAE_NPAVObject@@HH@Z, retail 0x0047BA69, 126 bytes.
 // Evidence: leaf lane called from 0x0047E530 thunk; callees Object::testStatus 0x0004E536,
 // Object::getControllingPlayer 0x0028AFA9, BfmeTab1026::bfmeHas1026 pin 0x00362437,

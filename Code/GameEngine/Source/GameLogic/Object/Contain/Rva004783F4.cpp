@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva004783F4@Rva004783F4@@QAEPAVTeam@@XZ, retail 0x004783F4, 24 bytes.
 // Honest-address method: if the +0xFC instance pointer is null return null,

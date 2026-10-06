@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva00462516@SlaughterHordeContain@@QAEXPAX0PAUDamageInfoInput00462516@@@Z, retail 0x00462516, 72 bytes.
 // Gap between 0x00462504 (slot 63) and 0x0046255E in

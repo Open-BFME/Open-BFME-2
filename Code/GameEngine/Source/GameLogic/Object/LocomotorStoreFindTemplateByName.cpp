@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 //
 // ?findLocomotorTemplate@LocomotorStore@@QAEPAVLocomotorTemplate@@ABVAsciiString@@@Z

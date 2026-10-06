@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // TransitionDamageFXModuleData's destructor, lifted from its MASM dump to C++.
 //

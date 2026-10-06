@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??0OpenContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004649F8, 386 bytes.

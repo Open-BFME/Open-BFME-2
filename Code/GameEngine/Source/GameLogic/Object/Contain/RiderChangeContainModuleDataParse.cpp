@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?buildFieldParse@RiderChangeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z,
 // retail 0x0047E477, 119 bytes. Chained on the rowed SiegeEngineContain base

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@SpecialPowerCompletionDie@@MAEXPAVXfer@@@Z, retail 0x00486AC2 63B: slot-3 xfer of vtable 0x0084AE88
 // (class of rowed dtor ??1Rva004869FC@@UAE@XZ in DieModuleDerived.cpp, rowed ctor 0x00486A74,

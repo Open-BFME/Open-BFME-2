@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?notifyScriptEngine@SpecialPowerCompletionDie@@QAEXXZ, retail 0x00486B01, 55 bytes.
 // Pinned named body; caller onDie at 0x00486B4D in SpecialPowerCompletionDie.cpp.

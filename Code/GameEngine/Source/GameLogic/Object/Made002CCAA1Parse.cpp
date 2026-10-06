@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CCAA1@@YAXPAXPAVMade002CCAA1@@HH@Z @0x0050B23B (77B).
 // OpenGateNugget field parser: same MultiIni init tail as the DOT/StealMoney

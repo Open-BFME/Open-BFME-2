@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@RefundDie@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0024C819, 56 bytes. Dedicated TU: retail news 0x14 (push-imm8)

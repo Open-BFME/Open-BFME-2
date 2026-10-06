@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 //
 // ??1Made002CC774@@UAE@XZ @0x00509564 (56B).
 // DamageFieldNugget dtor: novtable derived of Rva00507823 base rowed at

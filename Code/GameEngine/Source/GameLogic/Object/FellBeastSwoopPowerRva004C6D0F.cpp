@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail 0x004C6D0F (38 bytes): ?rva004C6D0F@FellBeastSwoopPower@@UAEX_N0@Z.
 // Identity: slot 13 of the primary vtable 0x00C5DF80 installed by the matched
 // FellBeastSwoopPower ctor 0x004C6C1E (slots 3/4 are the matched

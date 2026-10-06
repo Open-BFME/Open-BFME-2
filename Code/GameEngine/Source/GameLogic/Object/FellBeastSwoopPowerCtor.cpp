@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0FellBeastSwoopPower@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C6C1E, 56 bytes.
 // FellBeastSwoopPower behavior ctor over the pinned Rva0044EF5E intermediate

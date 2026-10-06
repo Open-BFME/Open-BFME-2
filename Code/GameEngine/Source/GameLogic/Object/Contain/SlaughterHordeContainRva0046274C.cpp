@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0046274C@SlaughterHordeContain@@UAEXPAXH0@Z, retail 0x0046274C, 57 bytes.
 // Virtual slot 81 (offset 0x144) of vtable 0x00848AA0 (class of

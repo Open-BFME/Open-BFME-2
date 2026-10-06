@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva004670D6@TransportContain@@QAEXXZ, retail 0x004670D6, 214 bytes.
 // Slot 28 (offset 0x70) of TransportContain vtable 0x00844278 and
 // HordeTransportContain vtable 0x00845EB8. Iterates the contain list at

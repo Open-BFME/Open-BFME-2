@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ??0Made002CCC2D@@QAE@XZ, retail 0x0050BB0E 88B.
 // Base Rva00507823 plus member at +0x128 via pinned 0x003623E5,
 // int at +0x12c=0, three floats at +0x130 zeroed (SSE). Caller

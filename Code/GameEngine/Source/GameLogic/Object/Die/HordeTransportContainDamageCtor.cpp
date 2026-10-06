@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0HordeTransportContainDamage@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004BB130, 40 bytes. Behavior-side ctor completing the

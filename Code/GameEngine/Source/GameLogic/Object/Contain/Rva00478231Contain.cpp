@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00478231@Rva00478231@@QAEX_N@Z @0x00478231 (46B): GarrisonContain
 // removeAllContained shape after the slot38-leaf precedent — the donor TU's
 // class model has the wrong vtable slots, so this uses flat classes: a

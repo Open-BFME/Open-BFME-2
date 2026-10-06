@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
+// cl: /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
 //
 // ??1OpenContainModuleData@@UAE@XZ, retail 0x00257481, 134 bytes.
 // Target evidence: the base ctor 0x00465124 installs vtable 0x00C43658, whose

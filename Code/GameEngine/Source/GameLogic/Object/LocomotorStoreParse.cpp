@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ?Rva00220FC4Parse@@YAXPAVINI@@PAXPAV?$vector@UBfmeStringRecord0022074B@@V?$allocator@UBfmeStringRecord0022074B@@@_STL@@@_STL@@@Z, retail 0x00220FC4 (78 bytes).

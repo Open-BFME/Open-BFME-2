@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CC8A4@@YAXPAXPAVMade002CC8A4@@HH@Z @0x00509DAB (77B).
 // Field parser: MultiIni tmp, add table from getter 0x00507552

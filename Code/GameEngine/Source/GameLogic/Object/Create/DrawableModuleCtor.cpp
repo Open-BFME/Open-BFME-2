@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX /Oi-
 //
 // ??0DrawableModule@@QAE@PAVThing@@PBVModuleData@@@Z at retail 0x00306B19
 // (108B). Dedicated TU (its base-callers 0xB19A1/0x252B68/0x362EC7 live in

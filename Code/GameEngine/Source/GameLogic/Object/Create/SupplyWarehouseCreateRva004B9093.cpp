@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // stlport
 // ?rva004B9093@SupplyWarehouseCreate@@UAEXXZ @0x004B9093 78B
 // vslot 13 of SupplyWarehouseCreate vtable 0x008593F8: upgrade grant on create.

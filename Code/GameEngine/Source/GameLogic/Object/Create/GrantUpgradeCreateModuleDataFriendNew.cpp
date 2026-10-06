@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 
 // ?friend_newModuleData@GrantUpgradeCreateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00250B41, 81 bytes. Dedicated TU: the factory news 0x20, runs the

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@CreateModule@@MAEXPAVXfer@@@Z, retail 0x004B8D4E, 51 bytes. Virtual
 // slot 3 (offset 0x0C) of vtable 0x00859368 (class of rowed ctor

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0046800B@Rva0046800B@@QAEXXZ retail 0x0046800B 30B
 // Range-destroy helper over two Elem pointers at +0/+4 via rowed cdecl
 // Destroy 0x00467DCD then free +0 via rowed _free 0x00030830 if non-null.

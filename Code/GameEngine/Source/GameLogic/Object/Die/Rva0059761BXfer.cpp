@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?rva0059761B@Rva0059761B@@QAEXPAX@Z 47B @0x0059761B: thiscall with one
 // void* arg (Xfer* per caller 0x004EC1D9 which passes the same Xfer* it

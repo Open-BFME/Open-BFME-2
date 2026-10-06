@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@ProductionQueueHordeContain@@MAEXPAVXfer@@@Z, retail 0x0048127E, 54 bytes.
 // Slot 3 of the ProductionQueueHordeContain vftable (slot 0 the rowed ??_G

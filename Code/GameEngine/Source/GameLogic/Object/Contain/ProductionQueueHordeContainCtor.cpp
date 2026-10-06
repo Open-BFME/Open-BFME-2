@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ProductionQueueHordeContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00481343, 84 bytes.
 // ProductionQueueHordeContain behavior ctor over the pinned

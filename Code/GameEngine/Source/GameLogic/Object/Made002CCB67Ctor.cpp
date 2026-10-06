@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0Made002CCB67@@QAE@XZ retail 0x0050B6B4 29B
 // Evidence: pin ??0Made002CCB67; callee base Rva00507823 0x0050775B;

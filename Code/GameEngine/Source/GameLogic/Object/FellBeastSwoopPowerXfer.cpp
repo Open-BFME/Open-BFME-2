@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@FellBeastSwoopPower@@MAEXPAVXfer@@@Z @0x004C6CE2 45B: slot 3 (offset 0x0C)
 // of vtable 0x0085DF80 (class of ??0FellBeastSwoopPower ctor 0x004C6C1E).

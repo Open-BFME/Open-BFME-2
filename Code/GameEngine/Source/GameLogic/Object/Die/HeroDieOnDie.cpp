@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // HeroDie::onDie, retail 0x004C236A (31 bytes): slot 0 of the class's +0x10
 // die-module interface vftable 0x00C5C424 (stored by the matched ctor

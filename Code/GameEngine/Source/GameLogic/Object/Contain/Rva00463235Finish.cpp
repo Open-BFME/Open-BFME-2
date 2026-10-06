@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva00463235@Rva00463235@@QAE?AVAsciiString@@PAVThing@@@Z, retail 0x00463235, 92 bytes.
 // Search the passenger-bone list at moduleData+0x48 for the first node whose
 // 116-bit KindOf mask (node+0x08) passes Thing::isKindOfMulti against

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000477185@HordeTransportContain@@SA?AW4NameKeyType@@XZ @0x477185
 // (69B): cached pool-name key for HordeTransportContain. The class
 // identity comes from the pool-name string the body pushes

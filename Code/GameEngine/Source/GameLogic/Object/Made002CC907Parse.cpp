@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CC907@@YAXPAXPAVMade002CC907@@HH@Z @0x0050A7E5 (77B).
 // GrabNugget field parser: same two-add 77B shape as EmotionWeapon sibling.

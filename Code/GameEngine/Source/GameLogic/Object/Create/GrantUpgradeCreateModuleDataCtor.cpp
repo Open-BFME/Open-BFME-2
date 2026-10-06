@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // stlport
 
 // ??0GrantUpgradeCreateModuleData@@QAE@XZ, retail 0x004B90E1 (78 bytes).

@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@ProductionQueueHordeContain@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0024C154, 59 bytes. Dedicated TU: retail news 0x9E4 (push-imm32)

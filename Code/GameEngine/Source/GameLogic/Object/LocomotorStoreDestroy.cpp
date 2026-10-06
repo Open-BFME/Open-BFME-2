@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00220AEBDestroy@@YAXPAVLocomotorStore@@0@Z, retail 0x00220AEB 25B.
 // Range-destroy for LocomotorStore array stride 0xC: calls rowed
 // ??1LocomotorStore@@QAE@XZ at 0x002207C4 per element. Chain from that

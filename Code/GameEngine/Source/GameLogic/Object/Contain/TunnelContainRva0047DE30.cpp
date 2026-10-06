@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva0047DE30@TunnelContain@@UAEXXZ, retail 0x0047DE30, 60 bytes.
 // TunnelContain chain method: virtual slot03 check then controlling-player 0x2E8 manager rva004F56FC add of m_object plus flag bytes at +0x9B0/+0x9B1.
 // Layout: 8-base OpenContain family per TunnelContainRva0047DCDF (Iface34 at +0x34) so [esi-0x2C] is B00 m_object at +8; Player m_2E8 is Rva004F56FC per Rva004F56FCAdd caller 0x0047DE30; slot03 bool tentative. Evidence: chain via 0x004F56FC plus neighbours DCDF DF44.

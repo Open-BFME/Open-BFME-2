@@ -1,6 +1,6 @@
 // PC identity update: the registered FXListDie data factory 0x253AB4 calls
 // this constructor and pushes its parser 0x253A92.
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 // ??0FXListDieModuleData@@QAE@XZ @0x00253A78 26B derived ctor.
 // Retail calls base ??0DestroyDieModuleData@@QAE@XZ, zeroes +0x38, stores vtable
 // 0x0084ED70, sets +0x3C to 1. Evidence: leaf lane; vtable store;

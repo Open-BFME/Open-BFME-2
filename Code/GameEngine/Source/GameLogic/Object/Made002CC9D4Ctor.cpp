@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ??0Made002CC9D4@@QAE@XZ, retail 0x0050AEAB, 57 bytes.
 // Evidence: pin ??0Made002CC9D4@@QAE@XZ; rowed base Rva00507823 0x0050775B;
 // vtable 0x00864BB0 plus dword +0x128=0 plus two 0x1C members at +0x12c/+0x148

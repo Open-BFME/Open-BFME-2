@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00466398@Rva00466398@@QAEXPAUOut00466398@@@Z retail 0x00466398 26B
 // Branchless out-param writer: out->a = this ? this+4 : 0 via neg/sbb/and
 // then out->b = this+0x10. Evidence: mov edx ecx neg lea sbb and sequence

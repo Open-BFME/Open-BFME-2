@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /arch:SSE
+// cl: /GX /DNDEBUG /MD
 //
 // ??1RebuildHoleExposeDieModuleData@@UAE@XZ, retail 0x004869CC, 48 bytes.
 // ModuleData dtor: tears down HoleName at +0x38 through the folded 0x36410

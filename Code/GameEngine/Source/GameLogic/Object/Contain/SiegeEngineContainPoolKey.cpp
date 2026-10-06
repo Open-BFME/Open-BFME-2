@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00047C03A@SiegeEngineContain@@SA?AW4NameKeyType@@XZ @0x47C03A
 // (69B): cached pool-name key for SiegeEngineContain. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 //
 // ?rva0047DCDF@TunnelContain@@UAEXP6AXPAX0@Z0I@Z @0x0047DCDF 48B.
 // Target evidence: the only reference to this body is slot 73 of the vtable

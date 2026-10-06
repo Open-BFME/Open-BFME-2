@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7 /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva0047DF44@TunnelContain@@UAE_NH@Z @0x0047DF44 61B.

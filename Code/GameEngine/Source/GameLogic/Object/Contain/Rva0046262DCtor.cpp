@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva0046262D@@QAE@PAXABVWeaponTemplateSetHead@@@Z, retail 0x0046262D, 29 bytes.
 // Two-arg ctor just after SlaughterHordeContain slot129 (0x004625F0) in the

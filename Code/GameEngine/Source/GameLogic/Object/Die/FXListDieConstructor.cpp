@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // readable body of ??0FXListDie@@: Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp
 
 class Thing;

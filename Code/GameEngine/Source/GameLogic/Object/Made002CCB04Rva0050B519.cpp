@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0050B519@Made002CCB04@@QAEXPAX0@Z @0x0050B519 130B
 // Partition query then per-object rva0050B479: max(m_12C global) range via SSE, ForwardWideA with (b  range  3  0), EOF loop calling rowed 0x0050B479. Evidence: vtable slot 6 of 0x00864D10, members 0x12C in Ctor, globals g_Va00BBB8D8 plus ThePartitionManager, callees rowed Forward plus EOF plus rva plus WideResult dtor, chain from 0x0050B479.
 extern float g_Va00BBB8D8;

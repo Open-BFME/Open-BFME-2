@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ivendor/stlport
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ivendor/stlport
 // stlport
 //
 // ?rva004BAF2D@EvacuateDamage@@QAEXPAX@Z @ 0x004BAF2D 40B

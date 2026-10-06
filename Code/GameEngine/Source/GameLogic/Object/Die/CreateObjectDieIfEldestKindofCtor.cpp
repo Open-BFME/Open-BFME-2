@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0CreateObjectDieIfEldestKindof@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00485B4B, 53 bytes.
 // CreateObjectDieIfEldestKindof behavior ctor over the rowed CreateObjectDie

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0EvaAnnounceClientCreate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C99D4, 50 bytes.
 // EvaAnnounceClientCreate behavior ctor over the rowed Rva00362EC7 base

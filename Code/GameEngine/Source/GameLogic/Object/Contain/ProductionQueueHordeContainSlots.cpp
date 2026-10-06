@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ProductionQueueHordeContain primary slots 29 and 30 (vtable 0x00C49040),
 // over the HordeGarrisonContain slot-29/30 bases (0x00479B7F rowed,

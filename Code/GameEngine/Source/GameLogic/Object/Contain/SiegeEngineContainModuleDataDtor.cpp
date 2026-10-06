@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /Oy- /DWIN32 /D_WINDOWS
+// cl: /MD /GX /DNDEBUG /Oy- /DWIN32 /D_WINDOWS
 //
 // ??1SiegeEngineContainModuleData@@UAE@XZ, retail 0x0047C9CB, 74 bytes.
 // Target evidence: vtable 0x00C47180 (installed by the matched ctor

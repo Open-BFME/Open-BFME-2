@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva0046267A@@QAE@ABV0@@Z @0x0046267A 29B.
 // Copy ctor just after Rva0046262D (0x0046262D) in the 00462xxx page: int at +0
 // direct-copied then WeaponTemplateSetHead at +0x4 copy-constructed via the rowed

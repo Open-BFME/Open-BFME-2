@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?q4Notify002CCC90@@YAXPAXPAVMade002CCC90@@HH@Z @0x0050BBEB (58B).
 // LuaEventNugget field parser: same MultiIni init tail as the DOT/StealMoney

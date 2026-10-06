@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004631C9@SlaughterHordeContain@@UAEXXZ, retail 0x004631C9 49B.
 // SlaughterHordeContain vtable 0x00848AA0 slot 105: fetch pair via slot 70
 // (0x118) then walk list at +4 calling Object::rva0029A12B on node+8.

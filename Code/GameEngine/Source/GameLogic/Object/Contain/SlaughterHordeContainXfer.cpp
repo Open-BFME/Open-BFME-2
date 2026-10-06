@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?xfer@SlaughterHordeContain@@MAEXPAVXfer@@@Z, retail 0x0048029A, 88 bytes.
 // Slot 3 of ??_7SlaughterHordeContain 0x00C48AA0 (slot 0 the rowed ??_G

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0LocomotorStore@@QAE@XZ, retail 0x0022078E (55 bytes).
 // LocomotorStore default ctor: nulls +0/+4, constructs the +0x08 member

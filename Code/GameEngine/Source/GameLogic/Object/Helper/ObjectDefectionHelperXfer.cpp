@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?xfer@ObjectDefectionHelper@@MAEXPAVXfer@@@Z, RVA 0x004DF76E, 84 bytes.
 // Slot 3 of vtable 0x007FBD40 (class of ObjectDefectionHelper ctor 0x0028C955).
 // Base Rva004DF81B xfer via rowed 0x004DF81B then IsLightCRC early-out via Xfer slot 0x10

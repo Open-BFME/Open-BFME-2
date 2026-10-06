@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // SlaughterHordeContain's slot-29 chain (??_7SlaughterHordeContain 0x00C48AA0;
 // CitadelSlaughterHordeContain inherits it). The amount at +0x9E4 and the

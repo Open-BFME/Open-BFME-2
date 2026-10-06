@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva004BFD83Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x004BFD83 (115B): the
 // DamageCreationList FieldParse proc (row 0x00C5B2F8). Reads an

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oa
+// cl: /MD /Oa
 // stlport
 #include <map>
 

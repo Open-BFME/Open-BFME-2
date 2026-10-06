@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva00485536Test@@YG_NPAX0@Z, retail 0x00485536 47B: null-checked BitFlags testSetAndClear gate.
 // Evidence: free function ret 8 with rowed testSetAndClear 0x0030A146 plus g_defaultStorage009FEFA4 0x009FEFA4; offsets +0x1C/+0x108; caller 0x004857B3.

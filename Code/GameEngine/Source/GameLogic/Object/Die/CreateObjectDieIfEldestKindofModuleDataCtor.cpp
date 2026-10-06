@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??0CreateObjectDieIfEldestKindofModuleData@@QAE@XZ, retail 0x00485E19,
 // 55 bytes. CreateObjectDie-eldest data over the rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0050B479@Made002CCB04@@QAEXPAXPAVObject@@@Z @0x0050B479 105B
 // Emotion tracker forward: Made virtual slot 1 check, then GameLogic findObjectByID via global plus arg+8 fallback, then Object::rva0028ECA8 with m_128 plus (float)m_130 plus found as int. Evidence: members 0x128/0x130 in Made002CCB04Ctor, TheGameLogic plus g_Va00DFEFD8 plus findObjectByID rowed, float 0xBC26EC for unsigned conversion, callees rowed, callers in 0x0050B519.
 class GameLogic;
