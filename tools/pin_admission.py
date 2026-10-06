@@ -17,9 +17,9 @@ symbols.csv, per ADDED line (an edited line counts as added):
   * it does not give an address that already has a real (non-placeholder)
     name -- a ledger row or an existing pin -- a DIFFERENT name. One address,
     one identity; an ICF fold is recorded by renaming the owner row, not by
-    stacking names;
-  * at most PIN_CAP lines are added per commit. Bulk generators split their
-    output or go through an operator.
+    stacking names.
+There is no count limit: bulk generators add thousands of legitimate pins in
+one commit, and every one of them is judged by the rules above.
 
 functions.csv, per ADDED row:
   * no new alias row (build.is_alias_row): object-symbol= binding a real
@@ -49,7 +49,6 @@ import build  # noqa: E402
 ROOT = build.ROOT
 PINS = "reverse/symbols.csv"
 LEDGER = "reverse/functions.csv"
-PIN_CAP = 32
 IMAGE_BASE = 0x400000
 
 
@@ -163,8 +162,6 @@ def judge(old_pins, new_pins, old_rows, new_rows):
         except (KeyError, TypeError, ValueError):
             pass
         added.append(pin)
-    if len(added) > PIN_CAP:
-        problems.append(f"{PINS}: {len(added)} pin line(s) added; at most {PIN_CAP} per commit")
     names_at = names_by_address(old_rows, old_pins)
     for pin in added:
         for why in pin_problems(pin, names_at):

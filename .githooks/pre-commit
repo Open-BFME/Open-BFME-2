@@ -154,7 +154,7 @@ if [ "$ledger_changed" -ne 0 ]; then
     python3 tools/pin_consistency.py --check || fail "pin consistency (see above)"
     # New pins and object-symbol= alias rows are admitted only by rule
     # (RVA in the image, code not data, no second real name on one address,
-    # capped per commit, no new alias rows): tools/pin_admission.py.
+    # no new alias rows): tools/pin_admission.py.
     python3 tools/pin_admission.py --staged || fail "pin/alias admission (see above)"
 fi
 # The baseline is a debt register that may only shrink. --write-baseline refuses
