@@ -399,6 +399,7 @@ class Rva004E7F29
 public:
 	Rva004E7DC8 *m_ptr;
 	void clear();
+	void rva004E7F7E();
 };
 
 void Rva004E7F29::clear()
@@ -410,6 +411,14 @@ void Rva004E7F29::clear()
 		p->Rva004E7DC8::~Rva004E7DC8();
 		::operator delete(p);
 	}
+}
+
+// Target identity: retail's five-byte entry at 0x004E7F7E forwards the
+// unchanged this pointer into the matched reset at 0x004E7F29. Keep the
+// wrapper name address-derived.
+void Rva004E7F29::rva004E7F7E()
+{
+	clear();
 }
 
 class Rva0052634F
