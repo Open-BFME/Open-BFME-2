@@ -13692,3 +13692,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva00464984@Rva004650A0@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVAsciiString@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@U23@ABU?$pair@$$CBHVAsciiString@@@3@@Z,0x00464984,callee of ?rva004650A0@Rva004650A0@@QAEAAVAsciiString@@ABH@Z
 ?registerNewCave@CaveSystem@@QAEXH@Z,0x004276B6,donor CaveSystem::registerNewCave(Int); target calls from CaveContain registration paths support this role; donor name is carried rather than independently proven
 ?getTunnelTrackerForCaveIndex@CaveSystem@@QAEPAVRva004F56FC@@H@Z,0x004275B6,target CaveContain callers pass the index and use the returned tracker; target code indexes the CaveSystem vector; donor method name is inferred; prior Rva004275B6 body attempt was not repeated
+?rva002B7DE6@Rva002B894DHost@@QAEXPAVRva002B894DElem@@@Z,0x002B7DE6,callee of ?rva002B894D@Rva002B894DHost@@QAEXH@Z
