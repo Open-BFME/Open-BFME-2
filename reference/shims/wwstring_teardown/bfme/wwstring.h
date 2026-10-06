@@ -428,7 +428,15 @@ StringClass::StringClass (int initial_len, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
 {
 	Get_String (initial_len, hint_temporary);
+#ifdef BFME_WWSTRING_CTOR_BUFFER_RELOAD
+	// PointGroup submit reloads the buffer after Get_String and loads the
+	// terminator into CL first (retail RVA 0x0017A025). Preserve that single
+	// pointer read without changing the StringClass layout or stored value.
+	TCHAR *buffer = *(TCHAR *volatile *)&m_Buffer;
+	buffer[0] = m_NullChar;
+#else
 	m_Buffer[0]	= m_NullChar;
+#endif
 
 	return ;
 }

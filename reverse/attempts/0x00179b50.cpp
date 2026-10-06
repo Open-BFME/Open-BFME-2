@@ -1,11 +1,19 @@
 // ?rva00913AF0@PointGroupClass@@QAEXH_N@Z
-// partial score=0.997 date=2026-10-05
-// cl: /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/banked_segline /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
-// Banked partial for retail 0x00179B50 (3371B): BFME1 PointGroupClassSubmit.cpp donor ported with
-// BFME2 views (BfmeSortingVBAccess 24B/WriteLock 12B, FVF offsets 0xC/0x10/0x24/0x44, sorting insert
-// 0x0012FE00, banked_segline 4-arg Draw_Triangles IIII). Compiles to 3377B; only residual is the
-// Set_Shader snapshot StringClass ctor store at +0x4D5: retail loads m_NullChar into cl before the
-// buffer (as Line3D Render 0x00167705 does), this body loads the buffer first (1 byte shorter).
+// partial score=1.0 date=2026-10-06
+// Full body byte-exact; integration still blocked, so this is not progress.
+// link_check --new-variants rejects new Set_Shader and Set_Transform COMDAT
+// copies. The sorting Insert provider at 0x0012FE00 is also still missing.
+// cl: /DBFME_WWSTRING_CTOR_BUFFER_RELOAD /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/banked_segline /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// PointGroup vertex-buffer submission, retail RVA 0x00179B50, 3377 bytes.
+// Ported from Open-BFME-1 PointGroupClassSubmit.cpp at 6583b3c1ff;
+// resumed bank from 2026-10-05. The donor provides the submission semantics
+// and address-derived method name. BFME2 Render's call at RVA 0x0017F6C6
+// proves this helper's receiver and two arguments independently.
+// Target accesses prove the 24-byte VB access, 12-byte write lock and FVF
+// offsets below. Ghidra's 3371-byte extent omits the final six-byte epilogue;
+// retail ends at 0x0017A881, before padding to the next entry at 0x0017A890.
+// BFME_WWSTRING_CTOR_BUFFER_RELOAD reproduces the target's inlined snapshot
+// string constructor at 0x0017A025. Full body and relocations are verified.
 #define Matrix4x4 Matrix4
 #include "pointgr.h"
 #include "vector.h"
@@ -25,7 +33,9 @@ extern DX8IndexBufferClass *Tris;
 extern DX8IndexBufferClass *Quads;
 extern SortingIndexBufferClass *SortingTris;
 extern SortingIndexBufferClass *SortingQuads;
-extern bool Rva012D6D75;
+// Retail's second sorting flag at VA 0x00DB5F7D is owned by
+// GlobalByteGetters.cpp; reuse that definition instead of the donor's name.
+extern unsigned char g_Va00DB5F7D;
 
 // BFME2's FVF record: the stride, location, first texture-coordinate and
 // diffuse offsets read here sit at +0x0C/+0x10/+0x24/+0x44 (retail 0x0017A2C5..
@@ -101,7 +111,10 @@ static __forceinline void ClampPointColor(Vector4 &color)
 		return;
 	}
 
-	// This CMOV branch matches the 94-byte sequence in the matched clamp at 0x0090F310.
+	// Retain the donor's bounded 94-byte CMOV implementation: VC7.1 emits
+	// branches for the equivalent integer clamp expressions. The independently
+	// matched BFME1 Clamp_Color at 0x0090F310 and its point-submit evidence
+	// establish this codegen blocker; the surrounding algorithm is C++.
 	__asm
 	{
 		mov esi, dword ptr color
@@ -171,7 +184,7 @@ void PointGroupClass::rva00913AF0(int vnum, bool no_diffuse)
 	BoxSetTexture(0, reinterpret_cast<TextureBaseClass *&>(Texture));
 	const bool sort = (Shader.Get_Dst_Blend_Func() != ShaderClass::DSTBLEND_ZERO)
 		&& (Shader.Get_Alpha_Test() == ShaderClass::ALPHATEST_DISABLE)
-		&& WW3D::Is_Sorting_Enabled() && Rva012D6D75;
+		&& WW3D::Is_Sorting_Enabled() && g_Va00DB5F7D;
 	IndexBufferClass *indexbuffer;
 	int verticesperprimitive;
 	if (PointMode == QUADS) {
