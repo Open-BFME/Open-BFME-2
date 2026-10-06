@@ -66133,3 +66133,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0059AE55@Rva0059AE55@@QAEXPAXPAPAX@Z,,0x0059AE55,29,Code/GameEngine/Source/Common/Rva0059ADB9.cpp,matched,Address-derived copy helper; copies five source dwords and indirect pointer to +0x14
 ?rva0059AC4D@Rva0059AC4D@@QAEXPAX@Z,,0x0059AC4D,33,Code/GameEngine/Source/Common/Rva0059ADB9.cpp,matched,Address-derived update; unsigned clamp at +0x2D0 then call to 0x0059ABC9
 ?rva0059AE11@Rva0059AE11@@QAEPAXPAXPAI@Z,,0x0059AE11,33,Code/GameEngine/Source/Common/Rva0059ADB9.cpp,matched,Address-derived copy helper; three-word prefix plus two dword tail fields; returns this
+?rva0059AE32@Rva0059AE32@@QAEPAXPAXPAI@Z,,0x0059AE32,35,Code/GameEngine/Source/Common/Rva0059ADB9.cpp,matched,Address-derived copy helper; five-word prefix plus two dword tail fields; returns this

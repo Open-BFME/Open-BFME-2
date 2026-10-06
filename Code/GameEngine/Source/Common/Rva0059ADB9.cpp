@@ -138,3 +138,31 @@ void *Rva0059AE11::rva0059AE11(void *source, unsigned int *tail)
 	m_second = tail[1];
 	return this;
 }
+
+// ?rva0059AE32@Rva0059AE32@@QAEPAXPAXPAI@Z @0x0059AE32 35B
+// Target evidence: copies five dwords from the first stack argument, then
+// copies two dwords from the second to this+0x14 and this+0x18; returns this.
+// Structure identity and field meaning remain address-derived.
+struct Rva0059AE32Prefix
+{
+	unsigned int m_words[5];
+};
+
+class Rva0059AE32
+{
+public:
+	void *rva0059AE32(void *source, unsigned int *tail);
+
+private:
+	Rva0059AE32Prefix m_prefix;
+	unsigned int m_first;
+	unsigned int m_second;
+};
+
+void *Rva0059AE32::rva0059AE32(void *source, unsigned int *tail)
+{
+	m_prefix = *(Rva0059AE32Prefix *)source;
+	m_first = tail[0];
+	m_second = tail[1];
+	return this;
+}
