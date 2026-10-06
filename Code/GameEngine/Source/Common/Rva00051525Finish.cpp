@@ -1,5 +1,5 @@
 // ?rva00051525@Rva00051525@@QAE_NXZ
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00051525@Rva00051525@@QAE_NXZ @ 0x00051525 57B
 // Evidence: __thiscall via ecx plus ret no stack args; +0xBF0 range 1-5 check;
 // TheGameLODManager null check plus +0x1770 index plus +0x21C byte table with

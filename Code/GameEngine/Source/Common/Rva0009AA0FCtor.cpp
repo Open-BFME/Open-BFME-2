@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??0Rva0009AA0F@@QAE@H@Z @0x0009AA0F 30B: derived constructor taking one
 // int/pointer stored at +0x108, then installing vtable 0x00BC8900. Calls

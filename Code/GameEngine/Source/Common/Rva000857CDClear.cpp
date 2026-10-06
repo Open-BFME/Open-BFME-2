@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /O1 /arch:SSE /G7 /GS-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /GS-
 // ?rva000857CD@Rva000857CD@@QAEPAV1@XZ 0x000857CD 37B: thiscall clears three floats at +0/+4/+8 and five bytes at +C..+10 returns this; caller 0x0008B7CF
 class Rva000857CD
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?rva000AAD88@@YAPAXPAURva000AAD88Arg@@@Z @0x000AAD88 57B: optional clone.
 // Null yields null. When bit 0x406 of the +0x58 word is clear, runs the

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /O1 /arch:SSE /G7 /GS-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /GS-
 // ?rva00085FA8@Rva00085FA8@@QAEXPAM@Z 0x00085FA8 178B: thiscall projects two points via Camera at +0x104 and writes screen delta to out; caller 0x00087E4C
 class Vector3
 {

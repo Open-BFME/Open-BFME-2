@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00041078@@QAE@XZ @0x00041344 69B
 // Non-virtual dtor of the wait-set class: body re-queries via rva00041118
 // then three trailing ArrayHolders at +0x58/+0x5C/+0x60 inline to delete[].

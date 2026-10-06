@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva0008AFDCDestroy@@YAXPAX0@Z @0x0008AFDC 24B: two-arg range-destroy
 // forwarder in the Rva003B8E13DestroyRange shape (push ebp / mov ebp,esp /

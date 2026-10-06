@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // ?Rva000B992CBuild@@YA?AVAsciiString@@ABV1@0_NH@Z 0x000B992C 198B
 // Evidence: unlock lane; AsciiString locals via friend StringBase ctor copy release rows; isEmpty set concat via StringBase casts; sprintf IAT "%d"; empty-string extern; callers 0x000BE027 0x000BF7E8 unclaimed.
 

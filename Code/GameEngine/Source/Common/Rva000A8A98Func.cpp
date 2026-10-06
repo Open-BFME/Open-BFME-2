@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000A8A98@Rva000A8A98@@QAEHXZ @0x000A8A98 14B unlock.
 // Null-guarded +0x20 deref else +0x04 fallback; callers 0x0005AB19 0x0005AADD.
 // Evidence: mov eax [ecx] test je mov eax [eax+0x20] ret mov eax [ecx+4] ret.

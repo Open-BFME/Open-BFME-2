@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?Rva0007912DGet@@YAHXZ @ 0x0007912D (26B): clamped LOD index from
 // [0xDFE144]+0x1788. Returns ([global]+0x1788)-1 clamped to 0..2 (dec/jns
 // zero path plus push-2/pop-2 cap). Callers 0x79147/0x79157/0x79176 index

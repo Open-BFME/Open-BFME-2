@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Oy-
+// cl: /DNDEBUG /MD /Oy-
 // ?Rva0009DE01Get@@YAMMM@Z @ 0x0009DE01 37B.  log-ratio helper computing
 // log10(a)/log10(b) through the rowed msvcr71 log10 import thunk at 0x0062997C.
 // The two logs are computed into named locals before the divide; assigning

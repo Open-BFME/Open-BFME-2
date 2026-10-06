@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0006E567@Rva0006E567@@QAEXPAVRva0006E567Obj@@H@Z, retail 0x0006E567, 57 bytes.
 // __thiscall indexed refcounted-pointer assign: bounds-checks idx+1 against

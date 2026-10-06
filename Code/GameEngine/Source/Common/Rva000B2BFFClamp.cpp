@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?Rva000B2BFFClamp@@YAXPAMM@Z @0x000B2BFF 190B, call sites 0x000B4DFF and
 // 0x000B7227 (in the functions at 0x000B4CE2 and 0x000B710D). Steps the angle
 // at p toward v by 0.1 (the long way round when the gap exceeds pi), snaps

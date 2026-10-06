@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000A8B59@Rva000A8B59@@QAE_NH@Z @0x000A8B59 20B unlock.
 // Guarded forward to rowed ?rva0010F11C@Rva0010F110@@QAE_NH@Z then return true.
 // Evidence: mov ecx [ecx] test je push [esp+4] call 0x0010F11C mov al 1 ret 4; caller at 0x00055EF1.

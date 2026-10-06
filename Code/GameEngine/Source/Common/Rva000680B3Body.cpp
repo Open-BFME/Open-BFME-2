@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Dump range 1 (0x000680B3 35B): dual guarded member dispatches. The first
 // guard calls through +0x3850; the second restores esi before the branch

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva000467B2@Rva000467B2@@QAEXPAVAsciiString@@H@Z @0x000467B2 117B
 // Bitflag-to-string builder: clears out then loops 0..0x24E via Rva000454F3::rva000454F3 ModelConditionNames with ", " and g_00BBE498 wrap.
 // Evidence: callees releaseBuffer concat rva000454F3 rowed; callers 0x4BA85 0x4BCF1 unclaimed; bound 0x24F and ", " literal from packet.

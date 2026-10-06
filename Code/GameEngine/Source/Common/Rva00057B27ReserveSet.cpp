@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Wave-3 shape-family batch, five 36-byte frameless reserve-then-set twins:
 //   push esi; eax=[this+0x10]+1; C1(eax); C2(b, a); return a; ret 8
 // (C1 is a one-arg thiscall on the same this with ecx passing through; C2 a

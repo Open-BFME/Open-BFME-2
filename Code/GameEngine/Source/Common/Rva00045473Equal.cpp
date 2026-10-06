@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva00045473Equal@@YA_NPBX0@Z @0x00045473 (24B).
 // Free memcmp wrapper: returns memcmp(a b 0x4c)==0 as bool. Retail pushes

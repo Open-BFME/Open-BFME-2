@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ??0Rva00085815@@QAE@XZ, retail 0x00085815, 67 bytes.
 // Ctor with Region3D[3] at +0 and +0x30 via vector ctor plus ParabolicEase
 // at +0x68 via rowed 0x0008517E with (0 0 1). Evidence: rowed Region3D ctor

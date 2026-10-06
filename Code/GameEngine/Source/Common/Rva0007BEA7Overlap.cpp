@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0007BEA7@Rva007C454@@UAE_NABVSphereClass@@@Z @0x0007BEA7 (51B):
 // Slot-129 overlap scan: walks PlaneClass array [+0x3FC,+0x400) stride 16

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva0006B7BF@BaseHeightMapRenderObjClass@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@M@Z @0x0006B7BF 69B
 // Wrapper over rowed 0x000E6135: loads Rva000E6135* from this+0x3860 and forwards
 // (id, by-value AsciiString name, float value) if non-null. By-value name gives

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva000B6498@Rva000B6498@@QAEXPAURva000B6498Node@@@Z, retail 0x000B6498, 45 bytes.
 // __thiscall method freeing a linked structure: if arg null return; else loop
 // recursing on node+0xc then freeing the node via rowed _free 0x00030830 and

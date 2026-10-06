@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva000A77B3@Rva000A77B3@@QAEXXZ, retail 0x000A77B3, 38 bytes.
 // Closes the thread handle at +0x48 after waiting on it, sets byte at +0x4C.

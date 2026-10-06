@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?clear@Rva000A8C9B@@QAEXXZ, RVA 0x000A8C9B, 19 bytes.
 // Opaque single-holder clear: releases the OpaqueRefCounted referent at +0

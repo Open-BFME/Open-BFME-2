@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000728E2@Rva000728E2@@QAEXXZ, RVA 0x000728E2, 14B. Small clear wrapper:
 // if the BfmeResetTextureRef holder at +0x1c is non-null tail-jump to its
 // clear (rowed 0x0004D75B). Evidence: 7 callers pass holder owners at

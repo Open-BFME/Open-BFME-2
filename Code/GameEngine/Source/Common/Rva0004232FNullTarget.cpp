@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0004232F@Rva0004232FNullTarget@@QAEXXZ @0x0004232F 5B
 // LINK target for VslotNullCheckedForwarders2 forwarder 0x005CCB23.
 // Forwards to vtable slot 0x30 (v12). Same shape as in-file attempt which

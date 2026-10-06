@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva0006EB3BReverse@@YAHH@Z, retail 0x0006EB3B, 50 bytes. Frameless
 // __cdecl 4-bit reversal: accumulates reversed low nibble of the single int

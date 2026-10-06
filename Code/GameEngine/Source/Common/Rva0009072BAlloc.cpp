@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?Rva0009072BAlloc@@YAPAXHH@Z @0x0009072B 40B
 // Gap between FrameDataManagerCounts 0x0009070B and Disp8ByteOneSetters 0x00090753.
 // Allocates size bytes via rowed operator new[] 0x0002FDE0, zeroes via CRT memset

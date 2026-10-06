@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00051CF1@Rva00051CF1@@QAE_NAAV1@@Z @0x00051CF1 49B
 // Honest-address 5-element array equals via rowed ?rva00051CBA@Rva00051CBA@@QAEHABV1@@Z.
 // Evidence: chain packet calls 0x00051CBA; loop bumps esi by 0x10 five times; caller 0x00052B53.

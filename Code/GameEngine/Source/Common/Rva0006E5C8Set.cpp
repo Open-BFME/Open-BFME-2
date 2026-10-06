@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva0006E5C8Set@@YGXPAVVector3@@@Z @0x0006E5C8 (61B).
 // Sets shadow-manager light 0 from src then clears volumetric shadow list.

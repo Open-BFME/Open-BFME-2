@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva000B3A2D@Rva000B3A2D@@QAEXXZ @0x000B3A2D 59B
 // Unlock lane: validate wide string at +0, int global g_Va00DE1B40 to +0xb8,
 // TheGameClient slot 0x7c int to g_Va00DB3BDC, if int at +0x214 >=0 call

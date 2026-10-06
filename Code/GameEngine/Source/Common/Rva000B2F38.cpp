@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva000B2F38@Rva000B2F38@@QAE_NM@Z 0x000B2F38 131B evidence: iface at +0x50 slot3 int vs 0x19 slot47 ptr then int slot5 float slot6 with fild fmul fdivr plus BfmeZeroRange comiss divss store +0x9c bool return; callers at 0x000B3770/0x000B7104 unblocks 0x000B7074; neighbours 0x000B2D4D/0x000B304B same flags
 
 class Rva000B2F38B;

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva000789A0Update@@YGXPAVRva000789A0Outer@@@Z, retail 0x000789A0, 67 bytes.
 // Free __stdcall setter: calls outer virtual at +0xC4 (slot 49), then if the
 // holder at +0x2E8 is non-null stores nameToKey of the provider name (virtual

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 //
 // ?rva0009C0EB@Rva0009C0EB@@QAEXPAPAURva0009C0EBRef@@PBVAsciiString@@@Z
 // @0x0009C0EB 73B: acquire-and-release. Resolves the input string through

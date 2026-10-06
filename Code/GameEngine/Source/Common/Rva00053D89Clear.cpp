@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?clear@Rva00053D89@@QAEXXZ, retail 0x00053D89, 26 bytes.
 // Same shape as ?clear@Rva000A8879@@QAEXXZ at 0x000A8879. Holder at +0xB90 of
 // MilesAudioManager (owned device, see MilesAudioManagerOpenDevice) whose

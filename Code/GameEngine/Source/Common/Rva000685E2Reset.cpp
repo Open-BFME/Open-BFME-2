@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva000685E2Reset@@YAXXZ @0x000685E2 272B
 // Bulk DX8 texture-stage + render-state reset. Retail is 4x
 // Set_DX8_Texture_Stage_State, 2x direct SetTextureStageState slot

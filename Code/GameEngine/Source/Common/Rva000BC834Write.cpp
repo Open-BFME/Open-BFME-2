@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?write@Rva000BC834@@QAEHPAD@Z retail 0x000BC834 37B
 // Narrow concat node "Rva000BBD66 + AsciiStringRef": first slice write via

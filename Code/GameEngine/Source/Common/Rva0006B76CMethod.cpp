@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0006B76C@BaseHeightMapRenderObjClass@@QAEXPBVRva0055A88BDwordField@@VAsciiString@@@Z @0x0006B76C 83B
 // Wrapper over 0x000E5EE5: loads Rva000E5EE5* from this+0x3860 and forwards
 // (id, by-value AsciiString name) if non-null. Same shape as sibling 0x0006B7BF

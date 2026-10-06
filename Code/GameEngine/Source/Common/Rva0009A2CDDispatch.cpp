@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // class-gate: allow StringBase private validate via friend free function for rowed 0x000B3FD0
 //
 // ?Rva0009A2CDRun@@YAXXZ @ 0x0009A2CD (61B):

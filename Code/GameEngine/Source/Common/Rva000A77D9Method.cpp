@@ -5,7 +5,7 @@
 // neighbouring +0x48/+0x4C thread-handle layout in the same page; this TU
 // keeps an honest page-local class with retail-measured +0x40/+0x50.
 // Caller 0x00061ABD/277.
-// cl: /O1 /MD
+// cl: /MD
 class MilesMutexGuard
 {
 public:

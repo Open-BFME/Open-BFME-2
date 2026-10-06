@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O2 /Ob0
+// cl: /DNDEBUG /MD /EHsc /Ob0
 
 // Open-BFME5: implicit destructor at 0x00078460. Retail is the 16-byte
 // `eh vector destructor iterator' (??_M at 0x009F6D76) setup: destroy 8

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /O1 /arch:SSE /G7 /GS-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /GS-
 // ?Rva00075695Notify@@YAXH@Z 0x00075695 42B: free function indexed via g_00DE1F24 null check then virtual slot 1 call gated and cleared by g_00DE1F54; sibling Rva00075725Check.cpp pattern
 class Rva00075695Item
 {

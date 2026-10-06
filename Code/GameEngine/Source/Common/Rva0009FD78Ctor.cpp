@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva0009FD78@@QAE@PAX@Z @0x0009FD60 24B ctor installing vtable 0x007C8C54.
 // Evidence: calls base ??0Rva0078D310Host@@QAE@PAX@Z 0x00104F8F with same void* arg then stores vtable; dispatch 0x0009FD78 is slot5 of same table; callers 0x0008F925 and 0x0009FDBD.
 class Rva0078D310Host {

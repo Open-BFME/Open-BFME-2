@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?Rva00056EB1Free@@YGXPAX@Z, retail 0x00056EB1 (28B).
 // Single-node deleter for the bucket-vector table cleared at 0x00057FC1.
 // Destroys the Rva000543F5Record at +4 via the rowed ??1Rva000543F5Record

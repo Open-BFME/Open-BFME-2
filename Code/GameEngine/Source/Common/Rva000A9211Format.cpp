@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?rva000A9211@@YAPAXPAX@Z @0x000A9211 45B: format-and-create. Fills a
 // 0x100-byte stack buffer through the pinned Apt-manager method 0x00223E4B

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000724C7@Rva000724AE@@QAEHXZ, RVA 0x000724C7, 16B. Non-null check on
 // +0x08/+0x0c pointers: returns 1 if either is non-null else 0. Evidence:
 // sits between 0x000724AE and 0x000724D7 of the same class Rva000724AE,

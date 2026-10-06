@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00068295@Rva00068295@@QAEXXZ 0x00068295 35B
 // If +0x3850 calls rowed rva000EA24D, if +0x3854 tail-jmps rowed rva000E7016.
 // Same +0x3850/+0x3854 members and flags as Rva000682B8 neighbour.

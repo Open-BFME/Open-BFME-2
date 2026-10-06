@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00051B89Mod@@YGIPAXI@Z @0x00051B89 24B
 // Unsigned modulo helper. Evidence: free-function via two stack args plus

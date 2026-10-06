@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // "Reload INI file" notifications (slot 4) of ten INI-backed stores, each
 // in the vftable of the class its rowed deleting destructor names. When the

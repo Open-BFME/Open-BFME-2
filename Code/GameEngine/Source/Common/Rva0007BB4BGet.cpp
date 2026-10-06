@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0007BB4B@Rva0007BB4B@@QAE?AVAssetReference@@XZ @ 0x0007BB4B (46B):
 // by-value AssetReference getter selecting between the two refs at +0x14

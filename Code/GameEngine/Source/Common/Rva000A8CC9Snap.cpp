@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?rva000A8CC9@Rva000A8CC9@@QAEXXZ @0x000A8CC9 28B: snapshot-and-clear.
 // When the +0x0 member is set, copies its +0x20 int into +0x4 and calls

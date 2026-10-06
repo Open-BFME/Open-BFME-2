@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00A86CE@@UAE@XZ retail 0x000A86CE 64B
 // No vptr store at all (novtable): the handle at +0xC is torn down through
 // the rowed ??1Rva00690FF0Handle@@QAE@XZ 0x000A8A37 (EH state 0), then the

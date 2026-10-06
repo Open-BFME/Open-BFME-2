@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0007B9EE@Rva0007B9EE@@QAE?AVAssetReference@@XZ @ 0x0007B9EE (27B):
 // by-value AssetReference getter returning the member at +0x08. Retail

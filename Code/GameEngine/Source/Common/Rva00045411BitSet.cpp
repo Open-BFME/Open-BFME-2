@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // Fixed 28-byte (224-bit) bitset. The two-argument constructor zeroes the
 // whole object with memset and then sets a single bit; retail reads only the

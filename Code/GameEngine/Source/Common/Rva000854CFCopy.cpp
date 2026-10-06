@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000854CF@Rva000854CF@@QAEPAUOut12@@PAU2@@Z 0x000854CF 29B: thiscall copies 12B at +0x620 (float int int) to out ptr returns out; caller 0x0008ADEA
 struct Out12
 {

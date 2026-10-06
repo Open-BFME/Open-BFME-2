@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0007BF77Copy@@YAPAURegion2D@@PAU1@00ABU__false_type@_STL@@H@Z @0x0007BF77 47B
 // Counted copy of 16-byte Region2D records via rowed copy ctor 0x0004254E.
 // Evidence: stride 0x10 sar 4 and direct thiscall to Region2D copy; caller 0x0007BF5A wrapper forwards first last result tag 0.

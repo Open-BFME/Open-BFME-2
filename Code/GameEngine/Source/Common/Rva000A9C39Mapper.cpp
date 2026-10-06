@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva000A9C39@Rva000A9C39@@QAEXPBVTextureBaseClass@@@Z @0x000A9C39 142B
 // __thiscall UV scaler: if m_15 set or tex null dword return; fu=1.0f/(float)(unsigned)w via fdivr 1.0f; fv same; u0 u1 u2 *=fu then v0 v1 v2 *=fv with fv kept in ST0.
 // Evidence: EBP frame ret4; cmp [esi+0x15] jne end; cmp [edi] je end; calls to TextureBaseClass width 0x001327D8 height 0x00132802; fild-jge-fadd 2^32-fdivr 1.0f g_Va00BBB8D8; fld-fmul-fstp order with fld st0 trick; caller at 0x000AA2C0.

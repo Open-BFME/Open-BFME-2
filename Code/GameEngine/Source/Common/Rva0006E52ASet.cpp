@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0006E52A@Rva0006E52A@@QAEXPAVRva0006E52AObj@@H@Z, retail 0x0006E52A,
 // 61 bytes. __thiscall indexed refcounted-pointer assign with growing

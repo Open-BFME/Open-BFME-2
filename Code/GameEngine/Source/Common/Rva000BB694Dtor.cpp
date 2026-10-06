@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 //
 // ??1Rva000BB694@@QAE@XZ, retail 0x000BB694, 56 bytes.
 // Non-virtual dtor of a list container holding Rva000B6498 at +0: user code

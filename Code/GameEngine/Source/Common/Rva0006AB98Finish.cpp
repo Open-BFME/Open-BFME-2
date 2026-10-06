@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0006AB98@Rva0006AB98@@QAEEHH@Z @0x0006AB98 79B evidence: bounds at +0x8 +0xc; stride at +0x34; buffer at +0x74 size via +0x78; bit test via and-7 shl setne; caller 0x0006B1F1.
 // Honest-address bit test (naming rule). The read/write barrier before the
 // final load keeps `this` in esi (retail's shape); it emits no code.

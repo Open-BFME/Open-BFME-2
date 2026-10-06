@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?assign@Rva00053D66DeviceRef@@QAEXPAVRva000A8903AudioDevice@@@Z @0x00053D66 35B:
 // DeviceRef assign with release: same-pointer early-out, null-tolerant store,
 // then explicit virtual dtor plus global operator delete on old object.

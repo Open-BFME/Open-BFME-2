@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva000BB491@@QAE@ABV0@@Z retail 0x000BB491 27B
 // Derived copy constructor over the rowed Rva000B9074 base at +0 via its

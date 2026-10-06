@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva000AE84A@Rva000AE84A@@QAEXHHPAEH@Z, retail 0x000AE84A (319 bytes).
 // Thiscall, ret 0x10, four args (x, y, out, unused); caller 0x00115322.

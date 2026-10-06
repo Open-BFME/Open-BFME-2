@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?Rva000B2CBDGet@@YAHXZ @0x000B2CBD 40B GameLogic/GameState flag check.
 // Evidence: TheGameLogic+0x70 then TheGameState+0xE18 then 1 else 0; callers 0x000BBED5/0x000BE26F/0x000BE798/0x000C389E.
 class GameLogic

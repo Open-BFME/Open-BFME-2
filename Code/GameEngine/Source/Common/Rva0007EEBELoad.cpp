@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // Rva0007EEBE::rva0007EEBE, retail 0x0007EEBE, 119 bytes.
 // Per-index particle texture load: string holder at +0x40 via rowed
 // Rva0030BBA9 getter, skip when isEmpty, filename at buf+8 or "",

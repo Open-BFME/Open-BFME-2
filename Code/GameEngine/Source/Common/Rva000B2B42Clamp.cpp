@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva000B2B42Clamp@@YAXPAH0H@Z @0x000B2B42 58B:
 // Clamp helper (void,int*,int*,int): *a1 clamped to [0,a3], sum=*a2+*a1orig
 // min-clamped then max-clamped to a3, *a2=sum-clamped. Callers 0x000B6ACF

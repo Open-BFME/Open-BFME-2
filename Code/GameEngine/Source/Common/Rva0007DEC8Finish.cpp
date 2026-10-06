@@ -1,5 +1,5 @@
 // ?Rva0007DEC8Add@@YAXPAMMMPBM@Z
-// cl: /O2 /arch:SSE /MD
+// cl: /MD
 //
 // ?Rva0007DEC8Add@@YAXPAMMMPBM@Z @0x0007DEC8, 39B. Free SSE add of a 2-float
 // vector: out[0]=b[0]+ax, out[1]=b[1]+ay, all through movss/addss.

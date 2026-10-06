@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /O1 /arch:SSE /G7 /GS-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /GS-
 //
 // Rva00075A23Draw, retail 0x00075A23, 437 bytes. Banked partial (score 0.97,
 // instruction scheduling) closed by tools/permute.py: statement order, operand

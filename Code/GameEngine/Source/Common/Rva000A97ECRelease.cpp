@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva000A97EC@Rva000A97EC@@QAE_N_N@Z @0x000A97EC 26B: zero-and-release.
 // Clears +0x0, frees this through the rowed operator delete when the flag
 // bit is set, and returns this. Honest address-derived names; boundary

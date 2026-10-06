@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ??0Rva0004708A@@QAE@XZ @0x0004708A 22B leaf ctor zeroing two ints plus member Rva0042526Member at +8; callee row ??0Rva0042526Member@@QAE@XZ; caller 0x0004B36B
 class Rva0042526Member
 {

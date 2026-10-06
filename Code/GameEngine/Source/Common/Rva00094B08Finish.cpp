@@ -1,4 +1,4 @@
-// cl: /O2 /Ob1 /GX- /GS /arch:SSE
+// cl: /Ob1 /GX- /GS
 // ?rva00094B08@@YAXPAURva00094B08FloatBlock@@@Z @0x00094B08 95B.
 // Zeroes twelve of a sixteen-float block and writes 1.0f into the remaining
 // four (0, 5, 10, 15). Retail emits one `movss xmm0,[0x00BBB8D8]` after the

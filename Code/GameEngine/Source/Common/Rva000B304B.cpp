@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva000B304B@Rva000B304B@@QAEXPAX_N@Z @0x000B304B 73B
 // Honest address-derived placeholder: method rva000B304B in new opaque class
 // Rva000B304B. Unlock lane: landing it makes 0x000B5179/97 0x000B4E43/583

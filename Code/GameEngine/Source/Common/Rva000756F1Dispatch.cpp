@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /O1 /arch:SSE /G7 /GS-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /GS-
 // ?Rva000756F1Dispatch@@YA_NHHHHH@Z 0x000756F1 52B: free function indexed via g_00DE1F2C null check then virtual slot 3 call with four args clears g_00DE1F5C on null; neighbours Rva000756BFSelect/Rva00075725Check pattern
 class Rva000756F1Item
 {

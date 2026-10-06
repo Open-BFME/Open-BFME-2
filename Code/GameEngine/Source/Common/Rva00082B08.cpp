@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva00082B08@Rva00082B08@@QAEXXZ @0x00082B08 127B: triple conditional Rva002B7250 erase plus two vector range erases plus conditional tail to Rva000FE001 move drain. Evidence: three Rva002B7250 row calls plus two 0x819EC vector erase row calls plus tail jmp to 0xFE188 row plus caller 0x91CF2.
 #include <vector>

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000B4E23@Rva000B4E23@@QAEMXZ 0x000B4E23 32B evidence: stride-64 float at +0x14 via mid+0x50 with null and index-negative fallback to BfmeZeroRange VA 0x00BBAEAC; caller at 0x000B708C in 0x000B7074; neighbours 0x000B4CBE/0x000B6253 same flags
 extern const float BfmeZeroRange;
 

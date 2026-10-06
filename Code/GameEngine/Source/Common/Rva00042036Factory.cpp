@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00042036@Rva00042036@@QAEPAVRva000647B5@@XZ @0x00042036 50B: factory news 16B Rva then calls rowed ctor 0x000647B5. Evidence: calls rowed new 0x0002FDA0 and rowed ctor; chain from 0x000647B5; between GameLogic and ModuleFactory name getters.
 class BfmeSnapshotBase
 {

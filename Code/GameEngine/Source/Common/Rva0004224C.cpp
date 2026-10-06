@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 // ?rva0004224C@Rva0004224C@@QAEPAV1@XZ @0x0004224C 22B
 // Chain: calls 0x000421FD just landed; global 0x00DFE78C is TheGameLogic.

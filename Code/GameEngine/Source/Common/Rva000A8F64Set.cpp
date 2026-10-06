@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva000A8F64Set@@YAX_N@Z @0x000A8F64 52B leaf.
 // Pause-style timer flag: byte flag at 0x009B4CE0, time base at 0x009E6180,
 // accumulated at 0x009E617C via winmm timeGetTime. Same-value early return,

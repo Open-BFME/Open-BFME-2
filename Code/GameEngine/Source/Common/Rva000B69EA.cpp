@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ?Rva000B69EAGet@@YA?AVAsciiString@@ABV1@H@Z @0x000B69EA 125B free function returning AsciiString.
 // Early return src when mode<0 else local copy plus switch 1/2 concat then copy out.
 // Callees rowed 0x000365F0 copy plus 0x00005629 concat plus 0x00036410 release.

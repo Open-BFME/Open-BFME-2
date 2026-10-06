@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??4Rva000A8CAE@@QAEAAV0@ABV0@@Z @0x000A8CAE 27B unlock.
 // Copy assignment for opaque holder plus int: OpaqueRefElement4 at +0 via
 // rowed ??4OpaqueRefElement4@@QAEAAU0@ABU0@@Z then int at +4, return *this.

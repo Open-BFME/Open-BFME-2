@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // The three byte-identical 29-byte loops at 0x00499ED0, 0x00499FF0 and
 // 0x0049A190.
 //

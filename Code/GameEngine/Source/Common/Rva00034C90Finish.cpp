@@ -1,5 +1,5 @@
 // ?wrapper@Rva00034C90@@QAEXXZ
-// cl: /O2 /MD
+// cl: /MD
 // ?wrapper@Rva00034C90@@QAEXXZ @0x00034C90 104B address-derived refcount guard
 // wrapper: m_pLock at +0x4E4 points at a CRITICAL_SECTION+refcount lock.
 // EnterCriticalSection (IAT 0xBBA200) runs, the volatile +0x18 refcount is

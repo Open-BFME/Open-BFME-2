@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /EHsc /MD
 // ??0Rva0007C50B@@QAE@XZ @0x0007C50B 174B, called from 0x0009A892.
 // Allocates a 0x408-byte Rva007C454 (rowed ctor 0x0007C3CD) into the
 // ref-counting holder at +0, then a 0x3FC-byte CameraClass (rowed ctor

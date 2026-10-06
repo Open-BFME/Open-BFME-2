@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Target-owned handle/critical-section ABI views; original class names,
 // abstractness and full sizes remain unknown. Three-slot tables independently
 // prove virtual lock / unlock / scalar-destructor ordering. Base BC16B8 is

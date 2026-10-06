@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /O1 /arch:SSE /G7 /GS-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /GS-
 // ?Rva00075725Check@@YA_NHH@Z 0x00075725 33B: free function indexed via g_00DE1F2C, null check then virtual slot 4 call; callers 0x00085F6A/0x00085F50 test al
 class Rva00075725Item
 {

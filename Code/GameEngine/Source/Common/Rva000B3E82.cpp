@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva000B3E82@Rva000B3E82@@QAEXE@Z @0x000B3E82 20B
 // Forwarder via this+0x50 helper vtable slot 0x1ac taking byte. Evidence: retail movzx edx byte [esp+4] mov ecx [ecx+0x50] mov eax [ecx] push edx call [eax+0x1ac] ret 4; caller 0x000C5ACD; neighbours Rva000B3C61 Rva000B3E96Get.
 class Helper000B3E82

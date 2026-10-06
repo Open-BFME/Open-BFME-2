@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00041078@Rva00041078@@QAE_NKHPAH@Z @0x00041078 160B
 // WaitForMultipleObjects wrapper: waits on m_handles with timeout, marks
 // m_done bytes and optionally reports the signaled index via out. Evidence:

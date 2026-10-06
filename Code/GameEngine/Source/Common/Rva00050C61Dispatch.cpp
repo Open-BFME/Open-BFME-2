@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00050C61Dispatch@@YAXPAVAudioReceiver@@PAX@Z @0x00050C61 24B virtual slot +0x94 forward with "AudioViewType"; callers 0x0005E456; siblings 0x00050C79 0x00050C91.
 // ?Rva00050C79Dispatch@@YAXPAVAudioReceiver@@PAX@Z @0x00050C79 24B virtual slot +0x94 forward with "AudioViewTypeBits"; callers 0x0005E473.
 // ?Rva00050C91Dispatch@@YAXPAVAudioReceiver@@PAX@Z @0x00050C91 24B virtual slot +0x94 forward with "MusicSystem"; callers 0x0005E4AA.

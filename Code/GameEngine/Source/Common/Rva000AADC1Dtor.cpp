@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva000AADC1@@UAE@XZ retail 0x000AADC1 124B
 // Own vftable 0x00BC942C. Global-deletes every
 // owned polymorphic entry of the void* vector at +0x04, clears it through the

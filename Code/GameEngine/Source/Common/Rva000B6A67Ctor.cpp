@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva000B6A67@@QAE@XZ, retail 0x000B6A67, 66 bytes.
 // __thiscall ctor with EH frame: implicit StringBase<char> default at +0x10,
 // m4=-1 via or, set("") via rowed 0x000055F5, then m0=0 m8=0 mc=0, returns

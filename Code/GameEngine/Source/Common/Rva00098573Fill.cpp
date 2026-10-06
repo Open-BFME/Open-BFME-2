@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva00098573@Rva00098573@@QAEPAMPAMHH@Z @ 0x00098573 95B
 // Fill out vec3: init to 1.0f, query grid cell via rowed Rva00285D34
 // at g_00DFEC68, copy this+0x20 on 1 and this+0x14 on 2, then copy to out.

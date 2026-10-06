@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva000B6AF5Build@@YAPAURva000B6AF5Rec@@PAU1@PAPAXH@Z @0x000B6AF5 90B:
 // Build 12B rec sibling of 0x000B6AA9: w1=movzx else 0, tmp=w1-val, w2=movzx,
 // Clamp(&tmp,&val,w2), pack (srcpp,tmp,val) via tmp movsd x3 returning dest.

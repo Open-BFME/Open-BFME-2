@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva000B3E96Get@@YGHH@Z retail 0x000B3E96 29B
 // Wrapper over rowed GetGameClientRandomValue 0x0023404A: return
 // GetGameClientRandomValue(0 arg-1 file 0x28F8). Evidence: mov eax-esp+4

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??4Rva00072A94@@QAEAAV0@ABV0@@Z, RVA 0x00072A94, 47B. Ref-counted holder
 // assignment with self-check: Add_Ref the incoming referent (inc dword at
 // +4) then Release_Ref the held one (dec dword at +4, Delete_This at vtable

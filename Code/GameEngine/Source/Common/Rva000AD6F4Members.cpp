@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque destructors that call Rva000AD6F4::clear at 0x000AD6F4 (pinned
 // opaque guarded-delete helper: nulls its pointer at +0 then ::deletes it;

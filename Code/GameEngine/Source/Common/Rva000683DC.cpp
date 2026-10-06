@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva000683DC@Rva000683DC@@QAEXXZ 0x000683DC 35B
 // If +0x3858 calls rowed notifyShroudChanged, if +0x3854 tail-jmps rowed
 // rva000E73CE. Same +0x3854 member and flags as Rva000682B8/Rva000683FF

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Dump range 1 twins (0x00068073 64B, 0x000680D6 67B): guarded pairs through
 // +0x3854/+0x3858. The first guard calls, the second restores esi before its

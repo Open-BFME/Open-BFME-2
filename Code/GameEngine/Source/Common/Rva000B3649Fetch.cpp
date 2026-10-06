@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?rva000B3649@Rva000B3649@@QAE_NHPAURva000B3649Out@@@Z @0x000B3649 133B:
 // guarded virtual fetch. Resolves an int through slot 50 of the +0x44

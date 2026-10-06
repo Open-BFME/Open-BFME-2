@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??4Rva000B3F15@@QAEAAV0@ABV0@@Z @0x000B3F15 46B
 // Ref-counted smart-pointer assignment: self-check on object addresses, inc
 // new Payload TargetRef references at +0x2c, release old via rowed

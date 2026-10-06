@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva0008587B@Rva0008587B@@QAEPAV1@XZ, retail 0x0008587B, 35 bytes.
 // __thiscall initializer forwarding (0 0 1) to rowed ParabolicEase
 // 0x0008517E at +0x18 then returning this. Evidence: same callee and args

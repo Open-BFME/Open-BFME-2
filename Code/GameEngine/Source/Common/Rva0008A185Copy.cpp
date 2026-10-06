@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0008A185Copy@@YAPAVRva00089822@@PAV1@00@Z, retail 0x0008A185, 38 bytes.
 // Uninitialized_copy helper: copy [first last) via rowed 0x0008A173, return dst end.
 // Evidence: jmp to cmp, push dst push src call 0x8A173 in loop with 0x18 strides cmp jne mov eax esi bare ret. Callers pass 4 args and clean 0x10. Owner unknown so honest Rva name.

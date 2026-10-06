@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva000B2D4D@Rva000B2D4D@@QAEXHH@Z @0x000B2D4D 17B:
 // Null-guarded delegate to +0x10 target slot 3 (void,int,int): if (!m_ptr)
 // return; return m_ptr->target(a,b) for tail jmp. Callers 0x000BC954

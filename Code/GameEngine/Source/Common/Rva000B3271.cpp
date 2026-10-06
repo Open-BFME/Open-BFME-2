@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva000B3271@Rva000B3271@@QAEXPBVRadiusDecalTemplate@@@Z, retail 0x000B3271, 81 bytes.
 // Leaf via vtable slot 29 of W3D draws (Horde Quadruped Supply Truck Tank Sail).

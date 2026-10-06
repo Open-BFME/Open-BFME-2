@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?rva00091DC4@Rva00091DC4@@QAEXPAVRva0055A88BDwordField@@@Z @0x00091DC4
 // 31B: conditional forward. When the dword at +0x1C is nonzero, reads the

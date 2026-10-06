@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0009A3DECleanup@@YAXXZ retail 0x0009A3DE 61 bytes.
 // Four guarded releases via rowed callees with null-checked globals.
 // Evidence: callers at 0x0006689A in 0x00066808 plus chain from 0x00109DCF.

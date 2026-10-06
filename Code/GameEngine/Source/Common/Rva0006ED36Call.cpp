@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0006ED36@Rva0006ED36@@QAEXPAX@Z @0x0006ED36 (31B).
 // Stores arg at +0x814 then virtual slot 12 on member at +0x108 then clears.

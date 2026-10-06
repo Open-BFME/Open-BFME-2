@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000ADA6D@Rva000ADA6D@@QAEXXZ @0x000ADA6D 28B: sentinel fill. Fills
 // [+0x50, +0x54) through the rowed _STL::fill char body at 0x000ABC25 after
 // seeding a 0xFF sentinel local, mirroring Rva000AD9ABFinish.cpp's zero

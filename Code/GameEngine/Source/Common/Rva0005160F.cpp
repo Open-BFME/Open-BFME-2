@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /arch:SSE /MD
+// cl: /Oy- /MD
 //
 // ?Rva0005160FGet@@YG?AUBfmeEventPositionView@@PAVAudioEventRTS@@AA_N@Z @0x0005160F 64B
 // Returns owner position view and validity: non-positional events get zeros

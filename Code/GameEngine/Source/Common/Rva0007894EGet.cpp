@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0007894EGet@@YG_NPAVRva0007894EOuter@@@Z @0x0007894E 61B probe v1
 // Free stdcall bool tester: Outer+8 Rva with flags 0x440/0x441 plus rowed

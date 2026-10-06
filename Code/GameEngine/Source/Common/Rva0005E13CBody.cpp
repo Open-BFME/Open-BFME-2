@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Dump range 1 (0x0005E13C 44B): frameless thiscall predicate over a
 // two-level pointer chain. Null outer yields true, null inner yields false,

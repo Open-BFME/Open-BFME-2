@@ -1,6 +1,6 @@
 // ??0Rva000A8684@@QAE@XZ
 // partial score=0.92 date=2026-09-29
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0Rva000A8684@@QAE@XZ, retail 0x000A8684, 74 bytes.
 // Honest-address default ctor (size 0x18 via new at 0x00051107).

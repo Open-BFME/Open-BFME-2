@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0008A173Copy@@YAXPAVRva00089822@@ABV1@@Z, retail 0x0008A173, 18 bytes.
 // Guarded copy-construct helper: if dst non-null placement-new copy via rowed 0x00089822.
 // Evidence: mov ecx from [esp+4] test je push [esp+8] call copy ctor bare ret. Callers loop with 0x18 stride and caller cleans via pops. Owner unknown so honest Rva name.

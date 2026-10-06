@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc
+// cl: /EHsc
 // ?rva000B49F9@Rva000B49F9@@QAEEXZ, RVA 0x000B49F9, 35 bytes.
 // Flag check: if ModelConditionFlags at +4 fails return true, if byte at
 // +0x64 set return true, else return bit5 of dword at +0x5C. Evidence: rowed

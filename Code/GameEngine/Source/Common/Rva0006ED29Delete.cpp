@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0006ED29@Rva0006ED29@@QAEXPAX@Z, retail 0x0006ED29, 13 bytes.
 // Frameless __thiscall delete wrapper: pushes the single stack arg and

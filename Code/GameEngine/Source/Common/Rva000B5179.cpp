@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva000B5179Apply@@YAXPAXPAXPAX@Z 0x000B5179 97B evidence: leaf via rowed 0x000B304B; outer 6 buckets at +0xA4 stride 0xC end at +0xB0 flags at +0xF6 bit 8 at +0xF4 inner stride 0x3C check +8
 class Rva000B304B
 {

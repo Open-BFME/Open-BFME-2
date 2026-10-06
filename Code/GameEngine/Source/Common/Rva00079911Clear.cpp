@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00079911@Rva00079911@@QAEXXZ @0x00079911 116B via vector pair clear with ref release plus list clear
 // Evidence: thiscall ret0 tail jmp to List_base<string> clear; two vector<void*> erases; and [ecx+0x310],0 plus dec [ecx+4] release and virtual slot 0xec call; caller 0x0007A54B

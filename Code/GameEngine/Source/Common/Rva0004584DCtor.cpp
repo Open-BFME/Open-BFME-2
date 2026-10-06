@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0Rva0004584D@@QAE@ABVBfmeFixedStorage0004543D@@0@Z @0x0004584D 43B
 // Two-storage holder ctor: vtable 0x00BC2908 (3 slots) at +0, int zero at +4

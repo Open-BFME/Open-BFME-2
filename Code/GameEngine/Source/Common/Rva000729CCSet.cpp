@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000729CC@Rva000729CC@@QAEX_N@Z, RVA 0x000729CC, 14B. Two-byte flag setter:
 // [ecx+0x36]=arg byte then [ecx+0x35]=1, ret 4. Evidence: adjacent to 0x000729DA,
 // callers in unclaimed 0x0046d58b/0x00444fb9/0x00444ff2; honest address name.

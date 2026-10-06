@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva000A8B6D@Rva000A8B6D@@QAEXXZ @0x000A8B6D 12B.
 // ?rva000A8B79@Rva000A8B6D@@QAEXPAVRva000A8C2BObj@@@Z @0x000A8B79 178B chain.
 // 0x000A8B6D null-guarded forward to rowed ?rva0010F110@Rva0010F110@@QAEXXZ.

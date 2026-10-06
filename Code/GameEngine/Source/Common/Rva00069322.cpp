@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00069322@Rva00069322@@QAE?AVAssetReference@@XZ @0x00069322 27B
 // By-value AssetReference getter returning member at +0x3C. Retail copies
 // into hidden return buffer via rowed copy ctor 0x000424BB. Evidence: unlock

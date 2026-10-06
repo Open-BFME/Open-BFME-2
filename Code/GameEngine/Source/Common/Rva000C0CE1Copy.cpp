@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva000C0CE1Copy@@YAPAUBfmeVectorRecord000C0BEC@@PAU1@00@Z at 0x000C0CE1 (50B). Array copy via rowed operator=.
 // Evidence: byte stride 0x14 with push/pop idiv; loop calls 0xBDD21; returns final dest;
 // chain lane via 0xBDD21; same idiv shape as generic vector copy.

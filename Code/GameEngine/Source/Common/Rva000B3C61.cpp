@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva000B3C61@Rva000B3C61@@QAEXH@Z @0x000B3C61 110B
 // Evidence: neighbours 0x000B3A68 (same +0x110 class) and 0x000B3E96;
 // array at +0x110 stride 0x1c (elem 28B: ptr/floats/int/bytes);

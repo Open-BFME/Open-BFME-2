@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva0009AAA8Get@@YAMM@Z @0x0009AAA8 (39B).
 // Free float helper calling sqrt; callers 0x9B510 0x9BAA4 pass a float and

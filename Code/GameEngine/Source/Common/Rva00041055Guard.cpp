@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00041055@MilesMutexGuard@@QAE_NXZ @0x00041055 35B
 // Guard-state query: if m_held, refresh it from slot-1 virtual of the +0
 // mutex object (neg/sbb/inc normalizes the uchar result), return m_held.

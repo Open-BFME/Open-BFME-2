@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000724AE@Rva000724AE@@QAEXXZ, RVA 0x000724AE, 25B. Triple clear: call
 // rowed cleanup@Rva00739C70 on +0x00 then clear@BfmeResetTextureRef on +0x08
 // then tail-jump to rva000723AC@W3DRadarResetSurface on +0x0c. Evidence:

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva000B450B@@QAE@ABV0@@Z @0x000B450B 33B
 // Copy ctor: gslice member at +0 copy-constructed via pinned ??0gslice@_STL,
 // Rva000B3F15 member at +0x14 assigned via rowed ??4Rva000B3F15; stride 0x18

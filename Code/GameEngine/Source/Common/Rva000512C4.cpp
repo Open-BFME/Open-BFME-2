@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva000512C4@Rva000512C4@@QAEXH@Z @ 0x000512C4 143B: audio room update via AIL with LOD gate; evidence TheGameLODManager extern IAT mss32 AIL_set_3D_room_type and AIL_set_digital_master_room_type callers 0x530DF 0x5522C
 class GameLODManager
 {

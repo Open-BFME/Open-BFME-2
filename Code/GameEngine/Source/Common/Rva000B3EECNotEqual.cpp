@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva000B3EECNotEqual@@YA_NPBX0@Z @0x000B3EEC (21B).
 // Free inequality wrapper: returns !Rva00045473Equal(a b) for the 76-byte

@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0
+// cl: /Ob0
 // ?rva00078C10@Rva00078C10@@QAE_NPBV1@PAH1@Z @0x00078C10 114B
 //
 // Guarded LOD-index query: zero both out params, require the +0x18 handles to

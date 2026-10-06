@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva00A9CC7@@UAE@XZ retail 0x000A9CC7 111B
 // Own vptr BC9400; under EH state 1, when the AsciiString at +4 is not empty
 // (rowed isEmpty 0x00001E2F), the Apt window manager global

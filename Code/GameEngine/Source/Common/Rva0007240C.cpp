@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0007240CGet@@YAHH_N@Z, retail 0x0007240C 49B.
 // Free __cdecl mapper from small enum 1-5 to D3D-like codes 0x14-0x18.
 // Case 5 selects 0x15 when second byte arg is non-zero else 0x16 via

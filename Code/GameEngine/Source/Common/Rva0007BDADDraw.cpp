@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0007BDAD@Rva0007BDAD@@QAEXXZ @ 0x0007BDAD (113B):
 // __thiscall texture-list draw: validates list at +0x24, queries count via

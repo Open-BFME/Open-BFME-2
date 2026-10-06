@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva000907A7@Rva009111B@@QAEXXZ @0x000907A7 16B
 // Gap between ConstIntGetters 0x000907A1 and Disp8FloatChase 0x000910C0.
 // Calls rowed StringBase<G> debugIgnoreLeaks 0x0069E440 twice on same this

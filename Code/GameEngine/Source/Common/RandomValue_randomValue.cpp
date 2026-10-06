@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc
+// cl: /MD /EHsc
 // Dedicated TU for the fastcall multi-word random helper, retail 0x00233EC3
 // (119 bytes). The RandomValue.cpp unit builds /O2, which materialises the
 // ADC carry boolean through a hoisted constant; retail uses /O1 inc-shape.

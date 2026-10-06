@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva000514EB@Rva000514EB@@QAEXXZ @0x000514EB 16B
 // Guarded decrement at +0x684. Evidence: __thiscall via ecx plus no

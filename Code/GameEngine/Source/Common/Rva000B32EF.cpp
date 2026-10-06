@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Draw decal helpers in the 0xB32 table family (retail 0xB3198/0xB32C2/0xB32D7/0xB32EF).
 // Dedicated TU with TU-scoped views only; no shared-header edits.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00041037@MilesMutexGuard@@QAE_NH@Z @0x00041037 30B
 // Guarded acquire: if m_flag set return false else call slot-0 virtual of
 // +0 mutex with int arg store result to +4 and return it. Evidence: ctor

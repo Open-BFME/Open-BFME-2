@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 // ?rva000425CB@Rva000425CB@@QAEMXZ @0x000425CB 58B
 // Unlock: virtual 0x18 gate, unsigned 0xC/0x14 division, 0.0 default.

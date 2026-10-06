@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Dump range 1 small pair (0x0007D9B5 26B, 0x0007D9CF 29B). Boundaries are
 // ret-4 terminated extents verified from retail bytes via the tools.

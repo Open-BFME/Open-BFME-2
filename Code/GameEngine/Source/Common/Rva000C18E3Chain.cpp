@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD
+// cl: /MD
 //
 // ?rva000C18E3@Rva000C18E3@@QAEXPAUSrcArg000C18E3@@@Z, retail 0x000C18E3, 186 bytes.
 // Chain of the landed 0x000C0513 resize: if the source block is null it

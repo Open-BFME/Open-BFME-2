@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva000687B8@Rva000687B8@@QAEXXZ retail 0x000687B8 55B unlock lane.
 // Evidence: releases ref-counted holders at +0x37A4/+0x37A8 (dec ref at +4,
 // virtual slot0 if zero, then and-zero); caller at 0x00069347 unclaimed.

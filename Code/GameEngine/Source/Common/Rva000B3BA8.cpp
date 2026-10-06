@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva000B3BA8@Rva000B3BA8@@QAEXPAVRva000B3BA8Arg@@@Z @0x000B3BA8 39B
 // Leaf lane: null-checked arg plus m_110/m_114 via v45 slot 0xb4 (int float int)
 // same as Rva000B3B2B v45 shape. Caller 0x000B5FA7. Neighbours Rva000B3B2B/Rva000B3C61.

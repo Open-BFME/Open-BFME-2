@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // 0x0007F92A (26B): guard wrapper tail-jumping to 0x0007F87C. Returns
 // unless TheTerrainRenderObject (VA 0x00DE1EAC) and its +0x37C0 subobject

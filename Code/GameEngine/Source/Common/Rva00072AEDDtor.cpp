@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /MD /EHsc
+// cl: /Ob2 /MD /EHsc
 // ??1Rva0072AED@@UAE@XZ retail 0x00072AED 56B
 // No own vptr store (novtable): the counted ref at +8 is
 // dropped (decrement the count at +4 of the pointee, destroy through its

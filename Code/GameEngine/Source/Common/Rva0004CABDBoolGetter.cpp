@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?get@Rva0004CABDSevenEight@@QBEHXZ, retail 0x0004CABD (16 bytes own plus
 // shared 4-byte true-tail at 0x4CACD).

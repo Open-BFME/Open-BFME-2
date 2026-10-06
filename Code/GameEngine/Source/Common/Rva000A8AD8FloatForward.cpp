@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000A8AD8@Rva000A8AD8@@QAEXM@Z @0x000A8AD8 22B
 // ?rva000A8AEE@Rva000A8AEE@@QAEXM@Z @0x000A8AEE 22B
 // Null-guarded float forwards through a member pointer: when [this] is null

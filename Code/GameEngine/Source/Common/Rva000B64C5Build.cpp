@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva000B64C5Build@@YA?AURva000B64C5S28@@ABURva000B64C5S16@@ABURva000B64C5S12@@@Z, retail 0x000B64C5, 44 bytes.
 // Free function building a 28-byte struct from a 16-byte struct plus a 12-byte
 // struct: copies 16 bytes to a local then 12 bytes to local+16 then copies 28

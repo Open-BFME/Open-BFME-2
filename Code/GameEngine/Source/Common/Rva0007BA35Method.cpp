@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?rva0007BA35@Rva0007BA35@@QAEXXZ @ 0x0007BA35 (161B):
 // __thiscall method on the +0x20/+0x24 holder object reached by tail jmp

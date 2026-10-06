@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?rva0009A361@Rva0009A361@@QAEXH@Z @0x0009A361 34B: guarded forward.
 // Calls the pinned method 0x000F4AB7 on the 0x00DEBCD8 object (kept in

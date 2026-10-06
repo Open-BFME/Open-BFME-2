@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00094DD3@Rva00094DD3@@QAEXPAURva00094DD3Val@@@Z @0x00094DD3 18B evidence: leaf 2 callers in FUN_00495821; no callees; float at +0x50 int at +0x54
 struct Rva00094DD3Val
 {

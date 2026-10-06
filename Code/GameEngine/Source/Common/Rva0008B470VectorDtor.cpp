@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ??1Rva0008B470@@QAE@XZ @0x0008B470 63B: vector dtor in the
 // RvaVectorDtorFamily 63B shell shape (unwind-only EH, no try/catch per

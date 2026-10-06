@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva000647B5@@QAE@XZ @0x000647B5 25B: empty derived ctor over GODupBase then own two vtables. Evidence: calls rowed GODupBase ctor 0x00306782 then two vptr stores; same two-base shape as GODupBase; caller 0x00042036.
 
 class BfmeSnapshotBase

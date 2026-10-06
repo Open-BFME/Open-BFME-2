@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva000BBD66@Rva000BBD66@@QAEHPAD@Z retail 0x000BBD66 25B
 // Forwarding write over the rowed Rva000B980E base at +0: copies the held

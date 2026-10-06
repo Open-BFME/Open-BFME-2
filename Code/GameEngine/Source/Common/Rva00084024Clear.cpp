@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00084024@Rva00084024@@QAEXXZ @0x00084024 49B
 // Clears per-node fields while walking +0x1320 chain from +0x10 head:
 // byte +0x1310 to 0, byte +0x131D to 1, dwords +0x130C/+0x1308/+0x30/+0x34 to 0.

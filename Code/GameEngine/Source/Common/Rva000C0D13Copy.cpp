@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva000C0D13Copy@@YAPAUBfmeVectorRecord000BDF17@@PAU1@00@Z at 0x000C0D13 (47B). Array copy via rowed operator=.
 // Evidence: byte stride 0x40 with sar 6; loop calls 0xBDFAC; returns final dest;
 // chain lane via 0xBDFAC; same lazy-esi n/c shape as 0xC0CE1.

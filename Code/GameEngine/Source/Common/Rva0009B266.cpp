@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0009B266@Rva0009B266@@QBE?AV?$RefCountPtr@VTextureClass@@@@HHH@Z @0x0009B266 38B: forward to +0x94 texture provider Get_Texture. Evidence: same +0x94 shape as Rva006FD440::bfmeGet, callee rowed Get_Texture 0x15A910, caller unclaimed 0x9CD9B.
 class TextureBaseClass { public: void Release_Ref(); };
 class TextureClass : public TextureBaseClass {

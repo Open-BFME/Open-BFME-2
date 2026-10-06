@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // Small float-vector fetch around 0x000BBE29 (93B). A two-argument stdcall:
 // looks a key up through the pinned map probe (0x000BBDDF), zeroes the
 // three-float out-vector and reports false when the probe misses, otherwise

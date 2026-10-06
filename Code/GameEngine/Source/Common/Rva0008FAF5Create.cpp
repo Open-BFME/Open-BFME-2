@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva0008FAF5Create@@YGPAVRva000A0CE7@@PAX@Z @0x0008FAF5 58B: factory creating Rva000A0CE7.
 // Calls rowed operator new 0x0002FDA0 with 0x2F0 then rowed ctor 0x000A0CE7 with void* arg.

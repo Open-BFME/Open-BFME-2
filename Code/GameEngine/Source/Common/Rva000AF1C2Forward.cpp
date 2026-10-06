@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?rva000AF1C2@@YAXHHH@Z @0x000AF1C2 27B: three-int forwarder. Passes its
 // three arguments plus the address of a 1-byte stack local to the pinned

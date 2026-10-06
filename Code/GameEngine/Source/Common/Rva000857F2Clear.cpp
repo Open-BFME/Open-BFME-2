@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /O1 /arch:SSE /G7 /GS-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /GS-
 // ?rva000857F2@Rva000857F2@@QAEXXZ 0x000857F2 35B: thiscall clears three floats at +0/+4/+8 and five bytes at +C..+10; unlocks 0x0008D925
 class Rva000857F2
 {

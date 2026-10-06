@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0007BAD6@Rva0007BAD6@@QAEXXZ @ 0x0007BAD6 (64B): release-all clear
 // over +0x14..+0x24. Retail unconditionally runs the rowed holder release

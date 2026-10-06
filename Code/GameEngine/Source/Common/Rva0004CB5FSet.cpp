@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0004CB5FSet@@YAXH@Z @0x0004CB5F 20B
 // Null-guarded dispatch to ParticleSystemManager (0x00DFDD04) slot 0x44.
 // Evidence: global TheParticleSystemManager per INI_parseParticleSystemTemplate;

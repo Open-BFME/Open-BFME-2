@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva000A97C9@@YAXPAVRva000A97C9Holder@@@Z @0x000A97C9 35B: explicit
 // destroy-and-clear. Runs the subobject's slot0 probe (or null) through the
 // rowed operator delete, then clears the holder slot. Honest

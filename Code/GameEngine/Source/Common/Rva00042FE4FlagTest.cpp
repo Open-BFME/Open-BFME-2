@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME1 donor1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
 // game/GameEngine/Source/Common/Bfme5TinySix3.cpp, compiled /O1.
 // Target Ghidra00042FE4/20B independently proves a pointer at+40,

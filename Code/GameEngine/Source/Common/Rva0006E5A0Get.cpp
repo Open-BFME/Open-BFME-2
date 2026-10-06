@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva0006E5A0Get@@YGXPAVVector3@@@Z @0x0006E5A0 (40B).
 // Copies shadow-manager light 0 into dest via the landed getLightPosWorld.

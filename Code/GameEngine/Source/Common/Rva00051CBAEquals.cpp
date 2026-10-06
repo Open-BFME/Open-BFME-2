@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00051CBA@Rva00051CBA@@QAEHABV1@@Z @0x00051CBA 38B
 // Honest-address equals helper: Coord3D at +0 via rowed equals then byte at +0xC.
 // Retail pushes other, calls ?equals@Coord3D@@QBE_NABUCoord3DBase@@@Z, early-false

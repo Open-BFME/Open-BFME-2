@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00065E21@Rva00065E21@@QAE_NXZ @0x00065E21 27B list scan for nonzero flag
 // Scans embedded head at +4 from [this+8] until this+4 checking [node+0xC]; callers 0x0008C833; prev ctor at 0x00065D40 same flags
 struct Rva00065E21Node

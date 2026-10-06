@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00049D20@Rva00049D20@@QAEPAXPAXH@Z @0x00049D20 36B
 // evidence: 4 callers; 0x005EEAC6 fills stack 12B then PartitionManager::getShroudStatusForPlayer takes it as Coord3D; this+0x10 is table begin with end at +0x14 in caller; returns dest in EAX.
 struct Payload { float f; int a; int b; };

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 //
 // ?rva000C0513@Rva000C0513@@QAEXIUCoord3D@@@Z, retail 0x000C0513, 73 bytes.
 // Resize-shaped helper over a 12-byte element vector at +0: when the count

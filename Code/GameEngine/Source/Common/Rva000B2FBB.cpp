@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva000B2FBB@Rva000B2FBB@@QAEXMPBVMatrix3D@@@Z 0x000B2FBB 144B evidence: float to +0x2c0 48B Matrix3D copy +0x290 Thing at +8 setTransformMatrix rowed TheGameClient slot0x7c int to +0x2c4; neighbours 0x000B2F38/0x000B304B
 class Matrix3D
 {

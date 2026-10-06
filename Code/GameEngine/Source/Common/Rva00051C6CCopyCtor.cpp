@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00051C6C@@QAE@ABV0@@Z @ 0x00051C6C 29B
 // Evidence: __thiscall copy ctor via ecx plus ret 4 with this-return; +0x00 dword copy plus +0x04 BfmePoolRef10 copy ctor at 0x00051950; caller 0x00053FB0; neighbours Rva002D9893Copy plus Rva00051CBAEquals use /O1 /MD.
 class BfmePoolRef10

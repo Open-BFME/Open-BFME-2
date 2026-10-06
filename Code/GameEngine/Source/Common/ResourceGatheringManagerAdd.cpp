@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// cl: /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
 // stlport
 // ?addSupplyWarehouse@ResourceGatheringManager@@QAEXPAVObject@@@Z, retail 0x004F5C64, 32 bytes.
 // BFME1 donor game/GameEngine/Source/Common/RTS/ResourceGatheringManagerLists.cpp

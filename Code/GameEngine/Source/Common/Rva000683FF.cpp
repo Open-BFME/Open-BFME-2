@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva000683FF@Rva000683FF@@QAEXQAVVector3@@W4ObjectID@@_N@Z retail 0x000683FF 11B unlock lane.
 // Evidence: mov ecx,[ecx+0x385C] then tail-jmp to rowed
 // ?addBib@W3DBibBuffer@@QAEXQAVVector3@@W4ObjectID@@_N@Z; unblocks 0x00092DD8.

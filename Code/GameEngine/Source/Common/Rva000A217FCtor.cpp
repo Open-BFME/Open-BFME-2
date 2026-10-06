@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva000A217F@@QAE@PAX@Z @0x000A217F 24B.
 // Rva000A217F ctor forwarding void* to base Rva000A2137 then storing vtable

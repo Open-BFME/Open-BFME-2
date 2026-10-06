@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00098690@Rva00098690@@QAEXXZ, retail 0x00098690, 87 bytes.
 // Two contiguous BfmeParticleSystemHandles at +0x4C/+0x58: if m_system then
 // get()->destroy() (null-or-Make fallback via pinned Make001FCBD7 then rowed

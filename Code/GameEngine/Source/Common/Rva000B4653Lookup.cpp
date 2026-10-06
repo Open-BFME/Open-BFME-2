@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?rva000B4653@Rva000B4653@@QAEPAXH@Z @0x000B4653 29B: masked-index read.
 // When the unsigned argument is below (m_0 & 7), resolves the pinned

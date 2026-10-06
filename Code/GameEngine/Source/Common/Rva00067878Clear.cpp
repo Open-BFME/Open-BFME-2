@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00067878@Rva00067878@@QAEXXZ, retail 0x00067878, 67 bytes.
 // Unlock lane: releases ref-counted holders at +0xCC/+0xD0 (dec ref at +4,

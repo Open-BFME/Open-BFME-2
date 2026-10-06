@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc
+// cl: /EHsc
 // ?rva000686F2@Rva000686F2@@QAEXXZ @0x000686F2 198B
 // Creates vertex + index buffers at +0x37a4/+0x37a8. Sizes at
 // +0x37b8/+0x37bc come from TheWritableGlobalData+0xd45 flag

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00041D03@Rva00041D03@@QAEXXZ @0x00041D03 31B
 // Flag-gated audio notify: if +0 set and TheAudio non-null call slot 0x198
 // virtual then clear +0. Evidence: TheAudio VA 0x00DFE6E8 mangled

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 //
 // 0x00082B87 / 0x00082BB4 twins: same detach-key-and-clear manager shape as
 // 0x000824C3 (branchless diff ternary, rowed Rva002B7250::rva002B7250, slot

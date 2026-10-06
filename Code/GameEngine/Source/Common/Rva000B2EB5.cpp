@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva000B2EB5@Rva000B2EB5@@QAEMXZ 0x000B2EB5 131B evidence: iface at +0x50 slot3 int vs 0x19 slot0x208 4-outparam then x87 neg check vs BfmeZeroRange SSE int-float compare vs g_Va00BBB8D8 div path else g_00BBB9AC; neighbours 0x000B2D4D/0x000B2F38 same dir
 extern const float BfmeZeroRange;
 extern float g_Va00BBB8D8;

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /arch:SSE
+// cl: /Oy- /DNDEBUG /MD
 //
 // 0x0007C2F0 (38B): Region2D pointer-filter. Forwards (p2, m_04, p1) plus
 // the trailing address operand to the rowed 0x0007BF5A through the 4-push

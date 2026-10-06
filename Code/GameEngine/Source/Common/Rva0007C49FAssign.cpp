@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // ??4Rva0007C49F@@QAEAAV0@ABV0@@Z @0x0007C49F 37B: memberwise assignment of a
 // CameraClass-derived class (vtables 0x00BC6C58/0x00BC6C54 in its copy ctor

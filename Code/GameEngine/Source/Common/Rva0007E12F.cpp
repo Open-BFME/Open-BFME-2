@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva0007E12F@Rva0007E12F@@QAEXXZ retail 0x0007E12F 76B lock DX8 thread then
 // clear embedded reset-texture ref at +0xF8 and release Rva00083E5C holder
 // at +0x100 via its 43B dual release. Evidence: chain calls 0x00083E5C;

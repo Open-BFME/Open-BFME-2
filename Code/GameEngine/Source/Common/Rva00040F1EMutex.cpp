@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00040F1E@@QAE@HPBDPAX@Z at 0x00040F1E (46B). Mutex ctor vtable 0x007C16C4
 // CreateMutexA IAT 0x00BBA210. Caller at 0x0005D189 passes 1 0 0 giving
 // CreateMutex NULL FALSE NULL. Non-virtual base holds handle at +4 so its

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva000B6AA9Build@@YAPAURva000B6AA9Rec@@PAU1@PAPAXH@Z @0x000B6AA9 76B:
 // Build 12B rec at dest from srcpp plus Clamp 0x000B2B42 of word+4: local=0,
 // w=srcpp?word else 0, Clamp(&local,&val,w), pack (srcpp,local,val) via tmp

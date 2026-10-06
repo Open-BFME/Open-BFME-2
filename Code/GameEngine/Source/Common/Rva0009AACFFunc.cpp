@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ?rva0009AACF@@YGXHM@Z @0x0009AACF 44B: free function clamping a float
 // argument at >= 0 and forwarding (int, float) to the pinned callee

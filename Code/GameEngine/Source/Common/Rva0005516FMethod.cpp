@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /arch:SSE2 /Oi /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /Oi /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // ?rva0005516F@Rva0005516F@@QAEXPAUHolder@@H@Z @0x0005516F 83B.
 // Outer array at +0x12C stride 0x1C4 of Rva00699180Owner; first calls elem[key] then if key==2 fans out to elems 0,1 with key 2.
 // Evidence: same +0x12C/0x1C4 array as MilesAudioManagerRva00053CE1.cpp and Rva00059A25Method.cpp; callee row 0x000550F7; caller 0x0005FDCA.

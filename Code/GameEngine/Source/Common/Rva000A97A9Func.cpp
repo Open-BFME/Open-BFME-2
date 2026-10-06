@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva000A97A9@Rva000A97A9@@QAEXPAX@Z @0x000A97A9 32B
 // Honest thiscall method: ecx=this with float at +0x1c and int at +0x20,
 // dst void* written at +0x40(float copy) +0x44(int) +0x20(bits) +0x1c(=1).

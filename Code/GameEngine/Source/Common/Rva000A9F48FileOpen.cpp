@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva000A9F48Get@@YAPAVFile@@PBVAsciiString@@@Z @0x000A9F48 61B
 // Free file-open helper: AsciiString m_data ? m_data+8 : empty, then loop
 // TheFileSystem->openFile(s,1,0) stripping leading path via strchr(s,'\\').

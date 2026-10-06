@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva000B08F7@Rva000B08F7@@QAEXXZ @0x000B08F7 147B
 // Chain from Pod36 one-arg 0x000B0899 plus E16 one-arg 0x000B086E. Large clear with two 0x1000 int blocks plus vector resizes. Evidence: calls rowed Pod36 resize plus E16 resize, members 0x80B0 E16 plus 0x80BC Pod36 plus 0x120E0-E8 plus loop 0xB0 0x40B0, callers 0x000B0ACD plus 0x000B0C38, prev Pod36 plus next Vslot forwarder.
 class BfmeE16Vector

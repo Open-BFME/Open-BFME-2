@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva000682B8@Rva000682B8@@QAEX_N@Z retail 0x000682B8 41B chain lane.
 // Evidence: forwards the same bool arg to two members at +0x3850/+0x3854;
 // rowed callees ?rva000EA21A@Rva000EA21A@@QAEX_N@Z and

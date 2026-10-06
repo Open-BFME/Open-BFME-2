@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva000B980E@Rva000B980E@@QAEXPADHH@Z retail 0x000B980E 44B
 // String-data memcpy: copy size bytes from the held AsciiString data

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000B4BED@Rva000B4BED@@QAEPAXPBX@Z @0x000B4BED 176B.
 // Finds first entry whose WeaponTemplateSetHead is a subset of the query
 // ((entry & query) == entry, skipping empty heads), else first empty head,

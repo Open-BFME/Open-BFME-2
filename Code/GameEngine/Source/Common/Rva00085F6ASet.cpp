@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /O1 /arch:SSE /G7 /GS-
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX- /GS-
 // ?rva00085F6A@Rva00085F6A@@QAE_NH@Z 0x00085F6A 62B: thiscall sets m_110 to arg validates via Rva00075725Check restores on false; chain from 0x00075725
 bool __cdecl Rva00075725Check(int index, int arg);
 

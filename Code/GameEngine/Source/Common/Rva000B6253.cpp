@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva000B6253@Rva000B6253@@QAEPAV1@HIIIII@Z @0x000B6253 129B memset 0x4c plus five bit sets.
 // First arg ignored (callers pass 0) then five ids set via m_bits[id>>5] |= 1u<<(id&31). Returns this.
 // Evidence: caller 0x002C8B9B pushes 0 0x90 0x91 0x92 0x93 0x94 via local 0x4c buffer.

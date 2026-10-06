@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0007E2FACopy@@YAPAPAXPAPAX00ABU__false_type@_STL@@@Z @ 0x0007E2FA (38B):
 // __uninitialized_copy for 4-byte owning refs; calls rowed Rva00087A5CCopy per
 // element. Evidence: chain from 0x00087A5C plus 31 callers including 178B

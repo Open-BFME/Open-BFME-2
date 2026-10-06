@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Wave-3 F34 shape family: range-apply wrappers. Each body walks a begin/end
 // pointer pair (at +0x58/+0x5C for the pointer array, +0x8/+0xC for the

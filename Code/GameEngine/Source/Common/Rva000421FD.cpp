@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 // ?rva000421FD@Rva000421FD@@QAEXXZ @0x000421FD 21B
 // Unlock: missing callee of 2; counter at +0x1B4 with setFPMode on first use.

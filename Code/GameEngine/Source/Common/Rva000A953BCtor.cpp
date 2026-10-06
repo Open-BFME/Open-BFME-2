@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva000A953B@@QAE@XZ @0x000A953B 22B
 // Honest address ctor for class whose only member is Coord2D m_arr[3] at +0.
 // Retail pushes element ctor VA 0x87A6A9 (rowed Coord2D empty ctor at

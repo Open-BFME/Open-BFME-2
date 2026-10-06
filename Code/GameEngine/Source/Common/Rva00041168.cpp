@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00041168@Rva00041168@@QAEXPAX@Z retail 0x00041168 28B
 // Evidence: unlock lane; callee delete[] 0x0002FD80; unblocks 0x0004123B 0x0004128E; prev Rva00041004Lock same /O1 MD; setter frees old array if different.

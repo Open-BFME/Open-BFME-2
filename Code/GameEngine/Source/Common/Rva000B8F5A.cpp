@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // String-slot cluster around 0x000B82F9. Members carry a flag byte, a raw
 // name pointer and AsciiString slots; destruction of by-value AsciiString
 // parameters emits the shared releaseBuffer worker (0x00036410) through the

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0006653B@Rva0006653B@@QAEGHH@Z @ 0x0006653B 64B
 // Clamped 2D ushort lookup: each index is pinned to [0, dim), dims at +0x08
 // and +0x0C, ushort table at +0x24, column-major index dim8 * c + r.

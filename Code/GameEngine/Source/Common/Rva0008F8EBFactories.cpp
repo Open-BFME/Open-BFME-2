@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Four more 58-byte __stdcall factories of the rowed
 // ?Rva0008F6E1Create@@YGPAVRva000A0891@@PAX@Z shape (Rva0008F6E1Create.cpp):

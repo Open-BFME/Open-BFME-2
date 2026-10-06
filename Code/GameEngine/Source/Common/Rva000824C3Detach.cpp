@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 //
 // 0x000824C3 family: detach-key-and-clear manager bodies. Retail passes
 // (this == 0xD0 ? null : this) as the erase key to the rowed

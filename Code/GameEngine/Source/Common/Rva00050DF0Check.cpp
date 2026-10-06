@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00050DF0@Rva00050DF0@@QAE_NXZ @0x00050DF0 21B triple-byte OR predicate at +0x12/+0x13/+0x14; callers 0x00053606 0x00053646; no donor; honest Rva class.
 class Rva00050DF0
 {

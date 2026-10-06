@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Dump range 1 (0x00066A9A 55B): head calls plus dual guarded tail.
 // Head calls the pinned 0x00077F80 on this, then the pinned 0x0007E89C

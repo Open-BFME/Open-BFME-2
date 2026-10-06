@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva000B3814@Rva000B3814@@QAEXPAVRva000B3814Arg@@M@Z @0x000B3814 113B
 // Unlock lane: this+0x1c9 flag, callee slots 0x5c (int,float) and 0x194 (int),
 // float global g_Va00BBB8D8 (1.0f). Caller 0x000B38F9. Neighbours DispByteOneSetters/Rva000B3A68.

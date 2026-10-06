@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?Rva000ADE45Copy@@YAPAUBfmeStringRecord00063BE4@@PAU1@00@Z, retail 0x000ADE45, 29 bytes.
 // Free copy wrapper over rowed __copy 0x00332F29 with tag and null distance.

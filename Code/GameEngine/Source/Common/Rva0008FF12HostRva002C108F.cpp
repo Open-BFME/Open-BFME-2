@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva002C108F@Rva0008FF12Host@@QAEXXZ, retail 0x002C108F, 185B: slot 41 of vtable 0x007FF658.
 // Evidence: vslot slot 41; pin Rva0008FF12Host; caller jmp 0x0008FF1D; callee drawWindow 0x002C0FC9; TheTransitionHandler (DIR32 0x00DFDC14, the
 // GameWindowTransitionsHandler global; TheAudio is the distinct pointer at 0x00DFE6E8).

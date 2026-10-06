@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva00059A25@Rva00059A25@@QAEXABVAsciiString@@H@Z @ 0x00059A25 87B: thiscall
 // locks MilesMutexGuard over +0x9D4 then calls row 0x000591A3 on array elem
 // at +0x12C stride 0x1C4 with idx and AsciiString; chain from 0x000591A3.

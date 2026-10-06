@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva0007EBFB@@QAE@XZ @0x0007EBFB 73B WaterDraw registering ctor with vtable plus two members.
 // Evidence: stores 0x007C6F80/5C/64 then Register WaterDraw; empty base arms EH state 0. Precedents Rva000E6350Ctor.cpp Rva0018BEC7Ctor.cpp.
 void __cdecl Rva00153565Register(const char *name, void *obj);
