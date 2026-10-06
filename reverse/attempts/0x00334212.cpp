@@ -1,5 +1,5 @@
 // ?EvaluateCondition@@YAHPAUlua_State@@@Z
-// partial score=0.97 date=2026-10-05
+// partial score=0.97 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
 #include <string.h>
 
@@ -58,6 +58,8 @@ private:
 	ObjectStatusMask m_objectStatus;
 };
 
+class ScriptAction { public: Parameter *getParameter(int index); };
+
 class Condition
 {
 public:
@@ -67,7 +69,6 @@ public:
 	virtual ~Condition();
 
 	int getNumParameters() const { return m_numParms; }
-	Parameter *getParameter(int index);
 
 	ConditionType m_actionType;
 	int m_numParms;
@@ -117,7 +118,10 @@ public:
 extern ScriptEngine *TheScriptEngine;
 extern ScriptConditionsInterface *TheScriptConditions;
 
-// ?ExecuteAction@@YAHPAUlua_State@@@Z
+// The target Condition view and the matched ScriptAction view share the
+// vptr/action-type/count/parameter-array prefix; both parameter getters fold to
+// the existing ScriptAction::getParameter owner at 0x00203553. Reuse that
+// owner instead of pinning a second real name to the same address.
 int EvaluateCondition(lua_State *state)
 {
 	const char *name = lua_tostring(state, 1);
@@ -146,7 +150,7 @@ int EvaluateCondition(lua_State *state)
 
 	for (int i = 0; i < numArgs - 1; ++i)
 	{
-		Parameter *parameter = action->getParameter(i);
+		Parameter *parameter = reinterpret_cast<ScriptAction *>(action)->getParameter(i);
 		if (lua_isnumber(state, i + 2))
 		{
 			double value = lua_tonumber(state, i + 2);
