@@ -15572,3 +15572,4 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva004E50C8@Rva004E50C8@@QAEXXZ,0x004E50C8,thiscall void callee of 0x004E52DC read from its REL32 displacement; body unrowed
 ?rva004E701E@Rva004E7277@@QAEXXZ,0x004E701E,thiscall void callee of 0x004E7277 read from its REL32 displacement (same this); body unrowed
 ?rva004E72C0@Rva004E7277@@QAEXPAX@Z,0x004E72C0,thiscall void callee of 0x004E7392 read from its REL32 displacement (same this plus arg); body unrowed
+?rva004E30D5@Rva004E30D5@@QAEXPAX@Z,0x004E30D5,thiscall void callee of 0x004E3BD8 read from its REL32 displacement (buffer plus int); body unrowed
