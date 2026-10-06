@@ -11524,3 +11524,4 @@ FUN_00914fe9	0x00514FE9	88	blocked	ADDRESS-NAMED g_Va00A01E48 escape hatch t=1 m
 ?rva00357F5E@ScriptEngine@@QAE_NABVAsciiString@@_N@Z	0x00357F5E	280	partial	timer zero after call vs before plus EH state before call vs after mov-eax fixed exact 280B 90insns 2 regions t=25 model=muse-05 score=0.97 stash=reverse/attempts/0x00357f5e.cpp
 ?rva00395BCB@Rva00395BCB@@QAEXPBX0@Z	0x00395BCB	181	partial	second flag check uses test byte vs shr plus mov t=18 model=muse-04 score=0.95 stash=reverse/attempts/0x00395bcb.cpp
 ?rva00395BCB@Rva00395BCB@@QAEXPBX0@Z	0x00395BCB	181	blocked	second flag check still test byte vs shr plus mov t=15 model=muse-04 (stash 0.95 kept)
+?rva004F35A5@AIPlayer@@QAE_NXZ	0x004F35A5	523	blocked	ADDRESS-NAMED g_Va009FE16C g_Va00DBA4E4 g_Va009FF0F8 need counted hatch t=5 model=muse-01
