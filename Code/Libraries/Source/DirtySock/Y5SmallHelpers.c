@@ -377,9 +377,9 @@ void *Rva0080EA30(unsigned char *object)
 	int i;
 	int selected;
 	unsigned int candidate;
-	char address[ 0x100 ];
+	char text[ 0x100 ];
 	unsigned int value;
-	unsigned int extra;
+	unsigned int host;
 	void *selectedTransport;
 
 	selected = -1;
@@ -394,29 +394,29 @@ void *Rva0080EA30(unsigned char *object)
 		if (i == 4)
 		{
 			value = Rva00812220(*(void **)(object + 0x68),
-				Rva012C48F0, (char *)object + 0x24, &extra, 0);
+				Rva012C48F0, (char *)object + 0x24, &host, 0);
 			if (value != 0)
 			{
-				Rva007FE780(Rva012C48F8, value, extra);
-				if ((unsigned int)value > (unsigned int)extra)
+				Rva007FE780(Rva012C48F8, value, host);
+				if ((unsigned int)value > (unsigned int)host)
 				{
 					*(int *)(object + 0x70) = value;
-					*(int *)(object + 0x74) = extra;
-					sprintf(address, Rva012C4924,
+					*(int *)(object + 0x74) = host;
+					sprintf(text, Rva012C4924,
 						(unsigned char)(value >> 24),
 						(unsigned char)(value >> 16),
 						(unsigned char)(value >> 8), (unsigned char)value,
 						(char *)object + 0x24);
 					Rva0080E6C0(object, *(int *)(object + 0x7C) | 2,
-						address);
+						text);
 				}
 				else
 				{
-					*(int *)(object + 0x70) = extra;
+					*(int *)(object + 0x70) = host;
 					*(int *)(object + 0x74) = value;
-					sprintf(address, Rva012C4934, (char *)object + 0x24);
+					sprintf(text, Rva012C4934, (char *)object + 0x24);
 					Rva0080E6C0(object, *(int *)(object + 0x7C) | 1,
-						address);
+						text);
 				}
 			}
 		}
