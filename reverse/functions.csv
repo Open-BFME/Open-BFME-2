@@ -64374,3 +64374,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva003FE05E@Rva003FE05E@@QAEXXZ,,0x003FE05E,85,Code/GameEngine/Source/Common/Rva003FE05E.cpp,matched,refresh hint from int via Helper op copy plus clear else
 ?rva00497A4B@BattlePlanUpdate@@QAEXXZ,,0x00497A4B,157,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateRva00497A4B.cpp,matched,BattlePlanUpdate vision create via ThingFactory lookup and newObject
 ?helper@Rva002F1C5F@@AAEPAV1@H@Z,,0x002F0C32,35,Code/GameEngine/Source/Common/Rva002F0C32Helper.cpp,matched,leaf helper proxy 0x14F3C4 pool 0x002EB448 caller 0x002F1C66 returns this
+?helper@Rva002F1CB3@@AAEPAV1@H@Z,,0x002F0C55,35,Code/GameEngine/Source/Common/Rva002F0C55Helper.cpp,matched,leaf helper alloc-proxy plus pool pop via rowed callees caller 0x002F1CBA
