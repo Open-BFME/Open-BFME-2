@@ -65767,3 +65767,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva005C3C0B@Rva005C3C0B@@QAEXPBD@Z,,0x005C3C0B,340,Code/GameEngine/Source/Common/Rva005C3C0BMethod.cpp,matched,callback parses index and name and fills an empty record
 ?rva000A8CE5@Rva000A8C9B@@QAEXPAVOpaqueRefCounted@@@Z,,0x000A8CE5,38,Code/GameEngine/Source/Common/Rva000A8CE5SetRef.cpp,matched,setter retains and replaces opaque ref via Rva000A8C9B clear
 ?rva000A8856@Rva000A8856@@QAEXPAVRva000A8903AudioDevice@@@Z,,0x000A8856,35,Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp,matched,Caller is AudioDevice constructor and old pointer cleanup targets rowed destructor
+?rva000567C5@MilesAudioManager@@QAEXI@Z,,0x000567C5,47,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerQueueRequest.cpp,matched,Target stores and adjacent MilesAudioManager layout
