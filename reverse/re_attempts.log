@@ -11940,3 +11940,27 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?_FunctionAptActionImplementsOp@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z	0x00705D90	721	blocked	final Pop setup mov ecx ebx after push edi not before t=12 model=muse-spark (stash 0.9958 kept)
 FUN_00918d2b	0x00518D2B	703	blocked	address-named g_Va00BBB8D8 new use refused t=2 model=muse-spark
 FUN_0075b8aa	0x0035B8AA	673	blocked	673B ctor vtable 0x00816204 member types contradict rowed dtor layout Vector_base E16 vs AsciiString needs re-derivation t=8 model=muse-spark
+??0Rva003676A2@@QAE@PAVObject@@VAsciiString@@@Z	0x003676A2	267	blocked	StateMachine ctor needs private AsciiString trivial view for VAsciiString base 0x004D79E1; shared header emits copy lea and breaks prolog per Rva00343756Ctor plus Rva0033FC0A; class-gate allow refused since 2026-10-06 t=12 model=muse-03
+?cellCallback@Rva002E7ED6Info@@QAEHPAVPathfindCell@@0HH@Z	0x002E7ED6	72	partial	exact 72B with pointer-return callee mov esi eax; pin 0x2E79A8 void blocks gate needs retype t=15 model=muse-03 score=0.99 stash=reverse/attempts/0x002e7ed6.cpp
+?Rva003BD5E0Emit@@YGXUOpaqueRefElement4@@@Z	0x003BD5E0	153	blocked	EH early and-0 plus mov-1 mov-0 remain; AudioManager plus EHsc tried same late-and; nested-if already tried per log; need source shape opening state 0 before null check t=15 model=muse-03 (stash 0.92 kept)
+?Rva003BD72FEmit@@YGXUOpaqueRefElement4@@0@Z	0x003BD72F	179	blocked	ADDRESS-NAMED g_Va009FE16C ScriptEngine plus two-state EH wall same as 0x3BD5E0; packet says skip t=2 model=muse-03
+?rva003BD391@@YGXH@Z	0x003BD391	34	blocked	slot10 load into ecx not eax whenever pushed flag is 0; O1 O2 G7 Os hoisted barrier all give ecx-shape 32B vs retail eax-shape 34B t=22 model=muse-spark (stash 0.94 kept)
+?rva003BD34D@@YGXH@Z	0x003BD34D	34	blocked	flag-0 ecx wall same as twin 0x003BD391: O1 baseline 32/34 ecx-shape; O2 G7 Os hoisted barrier all failed on twin t=5 model=muse-spark
+??0Rva00150DFD@@QAE@H@Z	0x00150DFD	87	blocked	tail mov-or order swapped only size exact t=25 model=muse-03 (stash 0.95 kept)
+?rva00499AFD@OneRingPenaltyUpdate@@AAEXXZ	0x00499AFD	284	blocked	store pos scheduling among Get setup size exact t=20 model=muse-03 (stash 0.93 kept)
+?Rva003E4519Get@@YAHXZ	0x003E4519	76	blocked	address-named g_Va009FE16C t=2 model=muse-03
+?rva006638A0@BfmeThingDGD@@QAEXHH@Z	0x006638A0	286	blocked	address-named g_Rva0107301CEmptyString t=2 model=muse-03
+?rva005ADAB2@Rva005ADA40@@QAEXXZ	0x005ADAB2	433	blocked	cmp mem0 vs retail mov eax test eax at +0x108 and lea eax scheduling vs mov ecx order at +0x13f t=15 model=muse-03 (stash 0.97 kept)
+?rva00499AFD@OneRingPenaltyUpdate@@AAEXXZ	0x00499AFD	284	blocked	store pos scheduling among Get setup size exact no NEW idea t=10 model=muse-03
+?rva00507D84@Rva00507D84@@QAEXXZ	0x00507D84	924	blocked	ADDRESS-NAMED g_Va00BBB8D8 g_Va00BC2428 packet says skip t=1 model=muse-03
+?copyFromQueueNode@BFMENetworkQueueItem1@@QAEXPAX@Z	0x00556132	155	blocked	unresolved callee 0x003874B0 gate cannot resolve t=1 model=muse-03
+?copyFromQueueNode@BFMENetworkQueueItem@@QAEXPAX@Z	0x005565C5	175	blocked	unresolved callee 0x003874B0 deep chain t=1 model=muse-03
+?rva00219F36@Rva00219F36@@QAEXXZ	0x00219F36	88	blocked	unresolved callee 0x002195E6 blocked plus ADDRESS-NAMED t=2 model=muse-03
+?rva002D21BB@Rva002D21BB@@QAEXXZ	0x002D21BB	64	blocked	unresolved callee 0x00522B0E 1595B over 1000B wall t=1 model=muse-03
+??1HordeContainModuleData@@UAE@XZ	0x00475942	667	blocked	ICF twin gen-alias dup_00469dce needs mov ecx before cdecl no-arg call plus 10 member dtors t=10 model=muse-03
+?rva0007F0FB@Rva0007F0FB@@QAEXXZ	0x0007F0FB	1921	blocked	over 1000B 1921B plus ADDRESS-NAMED g_Va00BC28F4 g_Va00BBB8D8 packet says skip t=1 model=muse-03
+?bfmeAccept@BfmeSinkB@@QAEXPAVBfmeFlagTarget@@@Z	0x0073D8B0	818	blocked	434vs818B missing EH CRC newarray xfer loops needs Element ctor and 36-slot vtable t=20 model=muse-03
+?rva006BEF80@Rva006BEF80@@QAEXXZ	0x006BEF80	1079	blocked	over 1000B 1079B plus ADDRESS-NAMED g_Va00BBB8D8 g_Va007C26F0 g_Rva0107301CEmptyString t=1 model=muse-03
+?rva0034F758@Rva0034F758@@QAEXXZ	0x0034F758	1055	blocked	over 1000B 1055B plus ADDRESS-NAMED g_Rva0107301CEmptyString t=1 model=muse-03
+?rva0021857E@FontLibrary@@QAEPAVGameFont@@PBVAsciiString@@M_NH@Z	0x0021857E	296	blocked	ADDRESS-NAMED g_Va007C26F0 plus unresolved callee 0x00218468 t=1 model=muse-03
+?rva00091D0D@Rva00091D0D@@QAEXXZ	0x00091D0D	37	blocked	unresolved callee 0x0010082F logged blocked t=1 model=muse-03
