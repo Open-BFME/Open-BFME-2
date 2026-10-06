@@ -70,21 +70,16 @@ public:
 		PEERREQUEST_MESSAGEROOM,
 		PEERREQUEST_JOINGROUPROOM,
 		PEERREQUEST_LEAVEGROUPROOM,
+		// BFME 2 adds a leave-group-only request here: Thread_Function at
+		// 0x0038EDD7 dispatches value 6 to it and STARTGAMELIST..LEAVESTAGINGROOM
+		// to 7..12, which keeps UTMPLAYER at 13 as the NAT call sites store it.
+		PEERREQUEST_LEAVEGROUPROOMONLY,
 		PEERREQUEST_STARTGAMELIST,
 		PEERREQUEST_STOPGAMELIST,
 		PEERREQUEST_CREATESTAGINGROOM,
 		PEERREQUEST_SETGAMEOPTIONS,
 		PEERREQUEST_JOINSTAGINGROOM,
 		PEERREQUEST_LEAVESTAGINGROOM,
-		// Both NAT call sites that the reference writes as PEERREQUEST_UTMPLAYER
-		// -- notifyTargetOfProbe and notifyUsersOfConnectionFailed -- store 13,
-		// not 12. Two independent sites agreeing is much better evidence for the
-		// enum having gained a value ahead of UTMPLAYER than for both of them
-		// having switched to UTMROOM. Where the extra value really sits is not
-		// recoverable from those two stores; putting it here is the minimal
-		// assumption, since it shifts UTMPLAYER and everything after it and
-		// leaves the values before it alone.
-		PEERREQUEST_BFMEUNKNOWN,
 		PEERREQUEST_UTMPLAYER,
 		PEERREQUEST_UTMROOM,
 		PEERREQUEST_STARTGAME,
@@ -93,6 +88,12 @@ public:
 		PEERREQUEST_STOPQUICKMATCH,
 		PEERREQUEST_PUSHSTATS,
 		PEERREQUEST_GETEXTENDEDSTAGINGROOMINFO,
+		// BFME 2 additions, numbered by Thread_Function's dispatch table.
+		PEERREQUEST_MESSAGEROOMNOTICE,
+		PEERREQUEST_REFRESHGAMELIST,
+		PEERREQUEST_LISTGROUPROOMS,
+		PEERREQUEST_UTMSTAGINGPN,
+		PEERREQUEST_PUSHSTATSVALUES,
 		PEERREQUEST_MAX
 	} peerRequestType;
 
