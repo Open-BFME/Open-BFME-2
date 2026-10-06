@@ -13944,3 +13944,4 @@ FUN_0067cd63	0x0027CD63	285	blocked	ADDRESS-NAMED g_Va00DBA4E4 new use refused t
 ?getAbleToAttackSpecificObject@WeaponSet@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@1W4CommandSourceType@@@Z	0x002C83FC	856	partial	esi-edi swap plus bl-vs-mem allow-reject plus byte-test-vs-shr130 t=28 model=muse-12 score=0.9 stash=reverse/attempts/0x002c83fc.cpp
 FUN_0063e99a	0x0023E99A	1217	blocked	over-1000B with mid-function WARN and EH prolog t=2 model=muse-12
 FUN_0063e3ce	0x0023E3CE	602	blocked	EH-prolog large-frame MapCache body t=1 model=muse-12
+?Rva0023958B@@YAHPAX_N@Z	0x0023958B	462	blocked	large 462B EH logo callback multi-global needs full RE t=5 model=muse-12
