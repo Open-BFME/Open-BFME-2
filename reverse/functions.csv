@@ -67711,3 +67711,6 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ??0Rva00576B5E@@QAE@PAXH@Z,,0x00576ED9,89,Code/GameEngine/Source/Common/Rva00576ED9Ctor.cpp,matched,Vtable and rowed base ctor tie this to Rva00576B5E; raw args and nested constructor identity remain address-derived
 ??0Rva005772BF@@QAE@PAXH@Z,,0x00577747,89,Code/GameEngine/Source/Common/Rva00577747Ctor.cpp,matched,Vtable and rowed base ctor tie this to Rva005772BF; raw args and nested constructor identity remain address-derived
 ?rva00583794@Rva00583794@@QAEXPAVObject@@@Z,,0x00583794,92,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeHoldGround.cpp,matched,Address-derived list walk; Object helpers rowed except direct target 0x00295F05; table context suggests Horde family
+?rva001EC99B@Rva001EC99B@@QAEPAXHH@Z,,0x001EC99B,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,wide-scan null-checked forwarder; identity remains address-derived
+?rva001EC9AC@Rva001EC9AC@@QAE_NHHH@Z,,0x001EC9AC,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,wide-scan null-checked bool forwarder; identity remains address-derived
+?rva002C5FBA@Rva002C5FBA@@QAEPAXH@Z,,0x002C5FBA,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,null-checked forwarder to matched AITargetChooser method

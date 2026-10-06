@@ -16350,3 +16350,5 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva00576DF1@@QAE@PAVRva00576B5E@@H@Z,0x00576DF1,callee of ??0Rva00576B5E@@QAE@PAXH@Z
 ??0Rva005776A7@@QAE@PAVRva005772BF@@H@Z,0x005776A7,callee of ??0Rva005772BF@@QAE@PAXH@Z
 ?rva00295F05@Object@@QAEXH@Z,0x00295F05,callee of ?rva00583794@Rva00583794@@QAEXPAVObject@@@Z
+?rva001EC859@Rva001EC859@@QAEPAXHH@Z,0x001EC859,Address-derived direct callees read from retail REL32 displacements; semantic identity unresolved.
+?rva001EC8C0@Rva001EC8C0@@QAE_NHHH@Z,0x001EC8C0,Address-derived direct callees read from retail REL32 displacements; semantic identity unresolved.

@@ -356,3 +356,74 @@ void Rva004FC176NullForwarder::rva004FC176(Int a0)
 	if (m_member)
 		m_member->rva004E0D19(a0);
 }
+
+// Three more null-checked direct forwarders from the wide family scan. The
+// wrapper identities and the two unrowed callees remain address-derived; the
+// third callee is the already-rowed AITargetChooser::rva00505408. Field offsets
+// and return/argument shapes come from each retail body.
+class Rva001EC859
+{
+public:
+	void *rva001EC859(Int a0, Int a1);
+};
+
+class Rva001EC99B
+{
+public:
+	void *rva001EC99B(Int a0, Int a1);
+private:
+	char m_lead[0x10];
+	Rva001EC859 *m_member;
+};
+
+void *Rva001EC99B::rva001EC99B(Int a0, Int a1)
+{
+	if (m_member)
+		return m_member->rva001EC859(a0, a1);
+	return 0;
+}
+
+class Rva001EC8C0
+{
+public:
+	bool rva001EC8C0(Int a0, Int a1, Int a2);
+};
+
+class Rva001EC9AC
+{
+public:
+	bool rva001EC9AC(Int a0, Int a1, Int a2);
+private:
+	char m_lead[0x10];
+	Rva001EC8C0 *m_member;
+};
+
+bool Rva001EC9AC::rva001EC9AC(Int a0, Int a1, Int a2)
+{
+	if (m_member)
+		return m_member->rva001EC8C0(a0, a1, a2);
+	return false;
+}
+
+class Rva002C589B;
+class AITargetChooser
+{
+public:
+	Rva002C589B *rva00505408(Int a0);
+};
+
+class Rva002C5FBA
+{
+public:
+	void *rva002C5FBA(Int a0);
+private:
+	char m_lead[0xc];
+	AITargetChooser *m_member;
+};
+
+void *Rva002C5FBA::rva002C5FBA(Int a0)
+{
+	if (m_member)
+		return m_member->rva00505408(a0);
+	return 0;
+}
