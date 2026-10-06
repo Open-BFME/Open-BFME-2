@@ -6,11 +6,23 @@ enum ObjectID
 	INVALID_OBJECT_ID = 0
 };
 
+class Player;
+
+class ThingTemplate
+{
+public:
+	char m_pad[0x117];
+	unsigned char m_flags117;
+};
+
 class Object
 {
 public:
-	char m_pad[0x74];
+	char m_pad0[4];
+	ThingTemplate *m_template;
+	char m_pad[0x74 - 8];
 	ObjectID m_id;
+	Player *getControllingPlayer() const;
 };
 
 class GameLogic
@@ -26,16 +38,38 @@ class Player
 	char m_pad[0x6f0];
 	ObjectID m_cachedID;
 public:
-	void iterateObjects(void (*func)(Object *, void *), void *userData) const;
+	int iterateObjects(int (*func)(Object *, void *), void *userData) const;
 	Object *rva002AC629();
 };
 
-void doFindRva002AC629(Object *obj, void *userData);
+struct Rva002AC629Info
+{
+	Player *player;
+	Object *obj;
+};
+
+// ?doFindRva002AC629@@YAHPAVObject@@PAX@Z @0x002AA45A (61B): the callback
+// rva002AC629 passes to iterateObjects (DIR32 push at 0x002AC642). Keeps the
+// first object whose template has bit 3 of byte +0x117 set and whose
+// controlling player (rowed 0x0028AFA9) is the searching player; answers 0
+// to stop the walk once found, 1 otherwise (and for a null object).
+int doFindRva002AC629(Object *obj, void *userData)
+{
+	if (obj == 0)
+		return 1;
+	Rva002AC629Info *info = (Rva002AC629Info *)userData;
+	if (info->obj == 0 && (obj->m_template->m_flags117 & 8)
+		&& obj->getControllingPlayer() == info->player) {
+		info->obj = obj;
+		return 0;
+	}
+	return 1;
+}
 
 Object *Player::rva002AC629()
 {
 	if (m_cachedID == INVALID_OBJECT_ID) {
-		struct { Player *player; Object *obj; } info;
+		Rva002AC629Info info;
 		info.player = this;
 		info.obj = 0;
 		iterateObjects(doFindRva002AC629, &info);
