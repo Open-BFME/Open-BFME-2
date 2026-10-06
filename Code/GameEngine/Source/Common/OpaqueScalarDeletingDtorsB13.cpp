@@ -115,17 +115,47 @@ Rva005764F9::Rva005764F9(EmitVtableTag *)
 {
 }
 
-class Rva00576591
+class Rva005D12E3
+{
+public:
+	Rva005D12E3();
+	virtual ~Rva005D12E3();
+
+private:
+	void *m_holder;
+};
+class Rva005CD5FA
+{
+public:
+	void rva005CD5FA(unsigned char value);
+};
+
+class Rva00576591 : public Rva005D12E3
 {
 public:
 	Rva00576591(EmitVtableTag *);
+	Rva00576591(void *owner);
 public:
 	virtual ~Rva00576591();
+
+private:
+	void *m_owner;
 };
 
 // ?<Rva00576591::Rva00576591> absent-from-retail
 Rva00576591::Rva00576591(EmitVtableTag *)
 {
+}
+
+// 0x00576550: constructor overload of the class whose dtor at 0x00576591
+// shares vtable 0x00C6E798. The direct base ctor and paired base dtor use
+// 0x00C755B4; target bytes store the argument at +8 and notify 0x005CD5FA
+// on its +0x30 member. Field meaning remains unknown.
+Rva00576591::Rva00576591(void *owner)
+	: Rva005D12E3()
+	, m_owner(owner)
+{
+	((Rva005CD5FA *)((char *)owner + 0x30))->rva005CD5FA(0);
 }
 
 class Rva00576803
