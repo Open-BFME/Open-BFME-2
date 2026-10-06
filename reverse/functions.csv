@@ -65059,3 +65059,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva004FD8A8@Rva004FD6F9@@QAE_NABV1@@Z,,0x004FD8A8,16,Code/GameEngine/Source/Common/Rva004FD6F9.cpp,matched,16B thunk forwards o.m_14
 ?rva0057C525@Rva0057C525@@QAE_NABVRva004FD6F9@@@Z,,0x0057C525,36,Code/GameEngine/Source/Common/Rva0057C525.cpp,matched,chase to thunk tail jmp
 ?rva0057CC70@AptMapPreview@@QAEPAURva0057CC70Color@@PAU2@PAUCC70Arg@@@Z,,0x0057CC70,246,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewRva0057CC70.cpp,matched,chain from 0x0057C525 via AptMapPreview neighbours
+?Rva0055D686Compute@@YGXPAVCoord3D@@PAVCoord2D@@MM@Z,,0x0055D686,81,Code/GameEngine/Source/GameClient/Rva0055D686Scale.cpp,matched,REF slot EmissionVolumeInfo cylinder helper normalize then scale
