@@ -66175,3 +66175,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?Rva0024080FAdd@@YAXPAXPAV?$list@HV?$allocator@H@_STL@@@_STL@@@Z,,0x0024080F,34,Code/GameEngine/Source/Common/Rva0024080FObjectIdList.cpp,matched,address callback reads integer at object offset 74 and appends to list int
 ??0Rva005750CF@@QAE@HPAX@Z,,0x005750CF,86,Code/GameEngine/Source/Common/Rva005750CFCtor.cpp,matched,target vtable stores and rowed base and append calls
 ?rva0057517B@Rva00574815@@UAEXPAX@Z,,0x0057517B,114,Code/GameEngine/Source/Common/Rva005751EDMethod.cpp,matched,vtable slot 12 and matching manager state flow
+??0Rva005DA6F3@@QAE@PAX@Z,,0x005DA6F3,230,Code/GameEngine/Source/Common/Rva005DA6F3Ctor.cpp,matched,identity inferred from rowed base constructor and target call chain

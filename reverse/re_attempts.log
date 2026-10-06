@@ -14856,3 +14856,8 @@ FUN_00761817	0x00361817	162	blocked	two align variants (162B int-parameter and 1
 ?calcCostToBuild@UpgradeTemplate@@QBEIPAVPlayer@@I@Z	0x0026EF50	315	blocked	BFME2 body adds player upgrade filtering and difficulty scaling absent from donor; modeled virtual slot and player/global ABI still produce major structural/register mismatches after one C++ variant t=12min model=gpt-6.1-sol
 ?rva00403744@AttributeModifierPoolUpdate@@QAEXPBV?$StringBase@D@@@Z	0x00403744	483	blocked	required global RVA 0x009FE1D4 has no data-ledger name and address aliases are prohibited t=3 model=gpt-6
 ?rva00240E18@Rva00240E18@@QAEX_N@Z	0x00240E18	164	blocked	external float literal ownership and vector end-field address shape unresolved after four variants t=5 model=GPT-6
+?rva00575CAE@Rva00575CAE@@UAEXPAX@Z	0x00575CAE	49	blocked	cannot express conditional constructor call after raw operator new without unsupported placement overload t=4 model=gpt-6
+??0Rva004E669A@@QAE@PAXHHH@Z	0x004E669A	171	blocked	six variants left constructor ABI and field codegen mismatches across initial stores and local color outputs t=12 model=gpt-6
+?rva004E6898@Rva004E6898@@QAEXPAX000@Z	0x004E6898	144	blocked	remaining x87 conversion and stack codegen differ after vtable slots verified t=2 model=gpt-6
+?set@Rva00504EADCurve@@QAEXMMMM@Z	0x00504EAD	92	partial	one result-byte load at +0x4f is missing and stack allocation differs by 8 bytes t=12 model=gpt-6 score=0.94 stash=reverse/attempts/0x00504ead.cpp
+?set@Rva00504EADCurve@@QAEXMMMM@Z	0x00504EAD	92	blocked	result byte load at +0x4f has no supported semantic use and frame remains 8B smaller after documented three-float array recipe t=8 model=gpt-6
