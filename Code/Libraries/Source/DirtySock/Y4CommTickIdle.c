@@ -1348,16 +1348,16 @@ int Rva008136C0( int lineApplication, int deviceId, void *line,
 	int callbackInstance, int privileges, int mediaModes )
 {
 	int iResult;
-	int apiVersion;
-	struct Rva008136C0ExtensionId extensionId;
+	int version;
+	struct Rva008136C0ExtensionId extend;
 
-	apiVersion = 0;
+	version = 0;
 	iResult = Rva0081BDBA( lineApplication, deviceId, 0x10004, 0x20002,
-		&apiVersion, &extensionId );
+		&version, &extend );
 	if ( iResult != 0 )
 		return iResult;
 
-	return Rva0081BDB4( lineApplication, deviceId, line, apiVersion, 0,
+	return Rva0081BDB4( lineApplication, deviceId, line, version, 0,
 		callbackInstance, privileges, mediaModes, 0 );
 }
 
