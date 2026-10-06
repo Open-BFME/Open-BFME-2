@@ -69393,3 +69393,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva00468AEC@@YAXPAVObject@@PAX@Z,,0x00468AEC,56,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,iterateContained callback pushed by slot 48 0x004707DB; passes the value to 0x0039B3D1 of an Object whose template +0x5D8 matches the key
 ?rva001E7C2B@Rva001E7C2B@@QAEXHHMM@Z,,0x001E7C2B,33,Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp,matched,
 ?rva001E9045@Rva001E9045@@QAEXHHMM@Z,,0x001E9045,33,Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp,matched,
+?rva0018C6D5@Rva0018C6D5@@QAEXPBG0@Z,,0x0018C6D5,48,Code/GameEngine/Source/Common/Rva0018C6D5Loop.cpp,matched,
