@@ -64915,3 +64915,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?Rva004361B3@@YAPAUTreeHintOpaque0043671B@@PBE@Z,,0x004361B3,41,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp,matched,Target reads digest pointer; rowed _MD5Print formats its 16 bytes and address-derived 0x4360B3 lookup receives the resulting AsciiString by value; callee rel32 and MpGameSetup caller confirm chain
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
 ?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
+?rva0008F32C@@YAXXZ,,0x0008F32C,69,Code/GameEngine/Source/Common/Rva0008F32CFactory.cpp,matched,dump range 2 EH factory via new honest names
