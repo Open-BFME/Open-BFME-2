@@ -21,4 +21,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva00289FBCRecord { Rva00289FBCRecord(); Rva00289FBCRecord(const Rva00289FBCRecord&); ~Rva00289FBCRecord(); Rva00289FBCRecord&operator=(const Rva00289FBCRecord&); char bytes[1]; bool operator==(const Rva00289FBCRecord&) const; bool operator<(const Rva00289FBCRecord&) const; };
 namespace _STL {template<> void _Construct<Rva00289FBCRecord,Rva00289FBCRecord>(Rva00289FBCRecord*,const Rva00289FBCRecord&);}
-template class _STL::list<Rva00289FBCRecord>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::list<Rva00289FBCRecord, _STL::allocator<Rva00289FBCRecord> > & _STL::list<Rva00289FBCRecord, _STL::allocator<Rva00289FBCRecord> >::operator=(_STL::list<Rva00289FBCRecord, _STL::allocator<Rva00289FBCRecord> > const &);

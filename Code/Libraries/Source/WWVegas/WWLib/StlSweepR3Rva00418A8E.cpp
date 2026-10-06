@@ -18,7 +18,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <hash_set>
 
 
-template class _STL::hash_set<int>;
-template class _STL::hash_set<unsigned int>;
-template class _STL::hash_set<short>;
-template class _STL::hash_set<unsigned short>;
+
+
+
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::pair<_STL::_Ht_iterator<int, _STL::_Nonconst_traits<int>, int, _STL::hash<int>, _STL::_Identity<int>, _STL::equal_to<int>, _STL::allocator<int> >, bool> _STL::hashtable<int, int, _STL::hash<int>, _STL::_Identity<int>, _STL::equal_to<int>, _STL::allocator<int> >::insert_unique(int const &);

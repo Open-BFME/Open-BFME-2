@@ -20,5 +20,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 struct Rva005258F8Record {  char bytes[1];  bool operator==(const Rva005258F8Record&)const; };
-template class _STL::hash_multimap<int,Rva005258F8Record>;
-template class _STL::hash_multimap<unsigned int,Rva005258F8Record>;
+
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::hash_multimap<int, Rva005258F8Record, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, Rva005258F8Record> > >::erase(_STL::_Ht_iterator<_STL::pair<int const, Rva005258F8Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva005258F8Record> >, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<int const, Rva005258F8Record> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, Rva005258F8Record> > >);

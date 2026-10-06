@@ -18,10 +18,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <set>
 
 
-template class _STL::multiset<int>;
-template class _STL::multiset<unsigned int>;
-template class _STL::multiset<short>;
-template class _STL::multiset<unsigned short>;
-template class _STL::multiset<float>;
-template class _STL::multiset<double>;
-template class _STL::multiset<void*>;
+
+
+
+
+
+
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::_Rb_tree_iterator<unsigned int, _STL::_Nonconst_traits<unsigned int> > _STL::_Rb_tree<unsigned int, unsigned int, _STL::_Identity<unsigned int>, _STL::less<unsigned int>, _STL::allocator<unsigned int> >::_M_insert(_STL::_Rb_tree_node_base *, _STL::_Rb_tree_node_base *, unsigned int const &, _STL::_Rb_tree_node_base *);

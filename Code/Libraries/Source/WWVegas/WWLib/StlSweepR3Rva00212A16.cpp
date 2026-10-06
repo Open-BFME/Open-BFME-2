@@ -21,4 +21,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva00212A16Record { Rva00212A16Record(); Rva00212A16Record(const Rva00212A16Record&); ~Rva00212A16Record(); Rva00212A16Record&operator=(const Rva00212A16Record&); char bytes[1]; bool operator==(const Rva00212A16Record&) const; bool operator<(const Rva00212A16Record&) const; };
 namespace _STL {template<> void _Construct<Rva00212A16Record,Rva00212A16Record>(Rva00212A16Record*,const Rva00212A16Record&); template<>struct hash<Rva00212A16Record> { unsigned int operator()(const Rva00212A16Record&) const; };}
-template class _STL::hash_map<Rva00212A16Record,Rva00212A16Record>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::pair<Rva00212A16Record const, Rva00212A16Record> & _STL::hashtable<_STL::pair<Rva00212A16Record const, Rva00212A16Record>, Rva00212A16Record, _STL::hash<Rva00212A16Record>, _STL::_Select1st<_STL::pair<Rva00212A16Record const, Rva00212A16Record> >, _STL::equal_to<Rva00212A16Record>, _STL::allocator<_STL::pair<Rva00212A16Record const, Rva00212A16Record> > >::_M_insert(_STL::pair<Rva00212A16Record const, Rva00212A16Record> const &);

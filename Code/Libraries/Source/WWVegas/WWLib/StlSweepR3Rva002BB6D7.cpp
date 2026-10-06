@@ -20,4 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 struct Rva002BB6D7Record { ~Rva002BB6D7Record(); char bytes[1]; };
-template class _STL::vector<Rva002BB6D7Record>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::vector<Rva002BB6D7Record, _STL::allocator<Rva002BB6D7Record> >::_M_clear(void);

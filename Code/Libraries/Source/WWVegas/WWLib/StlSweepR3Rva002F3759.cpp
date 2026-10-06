@@ -18,12 +18,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <map>
 
 
-template class _STL::map<int,int>;
-template class _STL::map<unsigned int,unsigned int>;
-template class _STL::map<short,short>;
-template class _STL::map<unsigned short,unsigned short>;
-template class _STL::map<char,char>;
-template class _STL::map<unsigned char,unsigned char>;
-template class _STL::map<float,float>;
-template class _STL::map<double,double>;
-template class _STL::map<void*,void*>;
+
+
+
+
+
+
+
+
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template unsigned int & _STL::map<unsigned int, unsigned int, _STL::less<unsigned int>, _STL::allocator<_STL::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const &);

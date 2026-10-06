@@ -20,4 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 struct Rva00525951Record { unsigned char bytes[1]; bool operator==(const Rva00525951Record&) const; bool operator<(const Rva00525951Record&) const; };
-template class _STL::list<Rva00525951Record>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::_S_merge<Rva00525951Record, _STL::allocator<Rva00525951Record>, _STL::less<Rva00525951Record> >(_STL::list<Rva00525951Record, _STL::allocator<Rva00525951Record> > &, _STL::list<Rva00525951Record, _STL::allocator<Rva00525951Record> > &, _STL::less<Rva00525951Record>);

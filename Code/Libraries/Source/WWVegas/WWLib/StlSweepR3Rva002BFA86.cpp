@@ -21,4 +21,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva002BFA86Record { Rva002BFA86Record(); Rva002BFA86Record(const Rva002BFA86Record&); ~Rva002BFA86Record(); Rva002BFA86Record&operator=(const Rva002BFA86Record&); char bytes[1]; bool operator==(const Rva002BFA86Record&) const; bool operator<(const Rva002BFA86Record&) const; };
 namespace _STL {template<> void _Construct<Rva002BFA86Record,Rva002BFA86Record>(Rva002BFA86Record*,const Rva002BFA86Record&); template<>struct hash<Rva002BFA86Record> { unsigned int operator()(const Rva002BFA86Record&) const; };}
-template class _STL::hash_map<Rva002BFA86Record,Rva002BFA86Record>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::hashtable<_STL::pair<Rva002BFA86Record const, Rva002BFA86Record>, Rva002BFA86Record, _STL::hash<Rva002BFA86Record>, _STL::_Select1st<_STL::pair<Rva002BFA86Record const, Rva002BFA86Record> >, _STL::equal_to<Rva002BFA86Record>, _STL::allocator<_STL::pair<Rva002BFA86Record const, Rva002BFA86Record> > >::erase(_STL::_Ht_iterator<_STL::pair<Rva002BFA86Record const, Rva002BFA86Record>, _STL::_Const_traits<_STL::pair<Rva002BFA86Record const, Rva002BFA86Record> >, Rva002BFA86Record, _STL::hash<Rva002BFA86Record>, _STL::_Select1st<_STL::pair<Rva002BFA86Record const, Rva002BFA86Record> >, _STL::equal_to<Rva002BFA86Record>, _STL::allocator<_STL::pair<Rva002BFA86Record const, Rva002BFA86Record> > > const &);

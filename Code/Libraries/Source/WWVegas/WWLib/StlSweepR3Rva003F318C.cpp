@@ -20,4 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva003F318CRecord { Rva003F318CRecord(); Rva003F318CRecord(const Rva003F318CRecord&); ~Rva003F318CRecord(); Rva003F318CRecord&operator=(const Rva003F318CRecord&); char bytes[24]; };
 namespace _STL {template<> void _Construct<Rva003F318CRecord,Rva003F318CRecord>(Rva003F318CRecord*,const Rva003F318CRecord&);}
-template class _STL::vector<Rva003F318CRecord>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::vector<Rva003F318CRecord, _STL::allocator<Rva003F318CRecord> > & _STL::vector<Rva003F318CRecord, _STL::allocator<Rva003F318CRecord> >::operator=(_STL::vector<Rva003F318CRecord, _STL::allocator<Rva003F318CRecord> > const &);

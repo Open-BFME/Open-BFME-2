@@ -21,4 +21,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva00057FC1Record { Rva00057FC1Record(); Rva00057FC1Record(const Rva00057FC1Record&); ~Rva00057FC1Record(); Rva00057FC1Record&operator=(const Rva00057FC1Record&); char bytes[1]; bool operator==(const Rva00057FC1Record&) const; bool operator<(const Rva00057FC1Record&) const; };
 namespace _STL {template<> void _Construct<Rva00057FC1Record,Rva00057FC1Record>(Rva00057FC1Record*,const Rva00057FC1Record&); template<>struct hash<Rva00057FC1Record> { unsigned int operator()(const Rva00057FC1Record&) const; };}
-template class _STL::hash_map<Rva00057FC1Record,Rva00057FC1Record>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::hashtable<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record>, Rva00057FC1Record, _STL::hash<Rva00057FC1Record>, _STL::_Select1st<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record> >, _STL::equal_to<Rva00057FC1Record>, _STL::allocator<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record> > >::clear(void);

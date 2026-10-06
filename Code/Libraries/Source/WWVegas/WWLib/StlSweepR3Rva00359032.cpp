@@ -9,4 +9,7 @@ struct Rva00359032Record {
  char bytes[8];
 };
 bool operator<(const Rva00359032Record&,const Rva00359032Record&);
-template class _STL::set<Rva00359032Record>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::pair<_STL::_Rb_tree_iterator<Rva00359032Record, _STL::_Nonconst_traits<Rva00359032Record> >, bool> _STL::_Rb_tree<Rva00359032Record, Rva00359032Record, _STL::_Identity<Rva00359032Record>, _STL::less<Rva00359032Record>, _STL::allocator<Rva00359032Record> >::insert_unique(Rva00359032Record const &);

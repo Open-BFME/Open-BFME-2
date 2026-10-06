@@ -20,7 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 struct Rva002A3FAFRecord { Rva002A3FAFRecord(); Rva002A3FAFRecord(const Rva002A3FAFRecord&); ~Rva002A3FAFRecord(); Rva002A3FAFRecord&operator=(const Rva002A3FAFRecord&); char bytes[52]; bool operator==(const Rva002A3FAFRecord&)const; bool operator<(const Rva002A3FAFRecord&)const; };
-template class _STL::hash_map<int,Rva002A3FAFRecord>;
+
 
 // This caller's native REL32 already names the kept provider at 0x00330E5D.
 // Compatible calling convention and argument/return ABI; binding is address-proven.
@@ -29,3 +29,6 @@ template class _STL::hash_map<int,Rva002A3FAFRecord>;
 // This caller's native REL32 already names the kept provider at 0x000B6CF1.
 // Compatible calling convention and argument/return ABI; binding is address-proven.
 #pragma comment(linker, "/alternatename:??1Rva002A3FAFRecord@@QAE@XZ=??1BfmeStringRecord000B94D2@@QAE@XZ")
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template Rva002A3FAFRecord & _STL::hash_map<int, Rva002A3FAFRecord, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, Rva002A3FAFRecord> > >::operator[](int const &);

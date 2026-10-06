@@ -21,4 +21,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva00502645Record { Rva00502645Record(); Rva00502645Record(const Rva00502645Record&); ~Rva00502645Record(); Rva00502645Record&operator=(const Rva00502645Record&); char bytes[24]; bool operator==(const Rva00502645Record&) const; bool operator<(const Rva00502645Record&) const; };
 namespace _STL {template<> void _Construct<Rva00502645Record,Rva00502645Record>(Rva00502645Record*,const Rva00502645Record&);}
-template class _STL::map<Rva00502645Record,Rva00502645Record>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::_Rb_tree_node<_STL::pair<Rva00502645Record const, Rva00502645Record> > * _STL::_Rb_tree<Rva00502645Record, _STL::pair<Rva00502645Record const, Rva00502645Record>, _STL::_Select1st<_STL::pair<Rva00502645Record const, Rva00502645Record> >, _STL::less<Rva00502645Record>, _STL::allocator<_STL::pair<Rva00502645Record const, Rva00502645Record> > >::_M_create_node(_STL::pair<Rva00502645Record const, Rva00502645Record> const &);

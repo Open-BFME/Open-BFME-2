@@ -18,10 +18,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <set>
 
 
-template class _STL::set<int>;
-template class _STL::set<unsigned int>;
-template class _STL::set<short>;
-template class _STL::set<unsigned short>;
-template class _STL::set<float>;
-template class _STL::set<double>;
-template class _STL::set<void*>;
+
+
+
+
+
+
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::_Rb_tree_iterator<int, _STL::_Const_traits<int> > _STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> >::find<int>(int const &) const;

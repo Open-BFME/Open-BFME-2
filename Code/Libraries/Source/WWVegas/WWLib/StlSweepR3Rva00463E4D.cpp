@@ -20,4 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 struct Rva00463E4DRecord {  char bytes[1]; };
-template class _STL::map<unsigned int,Rva00463E4DRecord>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::_Rb_tree_iterator<_STL::pair<unsigned int const, Rva00463E4DRecord>, _STL::_Nonconst_traits<_STL::pair<unsigned int const, Rva00463E4DRecord> > > _STL::_Rb_tree<unsigned int, _STL::pair<unsigned int const, Rva00463E4DRecord>, _STL::_Select1st<_STL::pair<unsigned int const, Rva00463E4DRecord> >, _STL::less<unsigned int>, _STL::allocator<_STL::pair<unsigned int const, Rva00463E4DRecord> > >::insert_unique(_STL::_Rb_tree_iterator<_STL::pair<unsigned int const, Rva00463E4DRecord>, _STL::_Nonconst_traits<_STL::pair<unsigned int const, Rva00463E4DRecord> > >, _STL::pair<unsigned int const, Rva00463E4DRecord> const &);

@@ -20,4 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 struct Rva002FED53PointerTarget;
-template class _STL::list<Rva002FED53PointerTarget*>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::list<Rva002FED53PointerTarget *, _STL::allocator<Rva002FED53PointerTarget *> >::push_front(Rva002FED53PointerTarget *const &);

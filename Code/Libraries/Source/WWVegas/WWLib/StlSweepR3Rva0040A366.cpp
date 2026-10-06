@@ -18,7 +18,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <string>
 
 
-template class _STL::basic_string<char>;
-template class _STL::basic_string<unsigned char>;
-template class _STL::basic_string<unsigned short>;
-template class _STL::basic_string<wchar_t>;
+
+
+
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template char const * _STL::find_if<char const *, _STL::_Not_within_traits<_STL::char_traits<char> > >(char const *, char const *, _STL::_Not_within_traits<_STL::char_traits<char> >);

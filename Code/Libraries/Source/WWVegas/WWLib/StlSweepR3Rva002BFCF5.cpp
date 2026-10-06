@@ -18,9 +18,12 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <hash_map>
 
 
-template class _STL::hash_map<int,int>;
-template class _STL::hash_map<unsigned int,unsigned int>;
-template class _STL::hash_map<short,short>;
-template class _STL::hash_map<unsigned short,unsigned short>;
-template class _STL::hash_map<char,char>;
-template class _STL::hash_map<unsigned char,unsigned char>;
+
+
+
+
+
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, int> > >::erase(_STL::_Ht_iterator<_STL::pair<int const, int>, _STL::_Nonconst_traits<_STL::pair<int const, int> >, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<int const, int> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, int> > >);

@@ -21,8 +21,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva00502EA4Record { Rva00502EA4Record(); Rva00502EA4Record(const Rva00502EA4Record&); ~Rva00502EA4Record(); Rva00502EA4Record&operator=(const Rva00502EA4Record&); char bytes[92]; bool operator==(const Rva00502EA4Record&) const; bool operator<(const Rva00502EA4Record&) const; };
 namespace _STL {template<> void _Construct<Rva00502EA4Record,Rva00502EA4Record>(Rva00502EA4Record*,const Rva00502EA4Record&);}
-template class _STL::set<Rva00502EA4Record>;
+
 
 // This caller's native REL32 already names the kept provider at 0x00502C53.
 // Compatible calling convention and argument/return ABI; binding is address-proven.
 #pragma comment(linker, "/alternatename:??$_Construct@URva00502EA4Record@@U1@@_STL@@YAXPAURva00502EA4Record@@ABU1@@Z=??$_Construct@URva00502C53Element@@U1@@_STL@@YAXPAURva00502C53Element@@ABU1@@Z")
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::_Rb_tree_node<Rva00502EA4Record> * _STL::_Rb_tree<Rva00502EA4Record, Rva00502EA4Record, _STL::_Identity<Rva00502EA4Record>, _STL::less<Rva00502EA4Record>, _STL::allocator<Rva00502EA4Record> >::_M_create_node(Rva00502EA4Record const &);

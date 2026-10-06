@@ -26,4 +26,7 @@ bool operator<(const Rva00384ED4Record&b)const{return word<b.word;}
 bool operator==(const Rva00384ED4Record&b)const{return word==b.word;}
 };
 namespace _STL {template<>struct __type_traits<Rva00384ED4Record>:__type_traits_aux<1>{};}
-template class _STL::map<int,Rva00384ED4Record>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::_Rb_tree<int, _STL::pair<int const, Rva00384ED4Record>, _STL::_Select1st<_STL::pair<int const, Rva00384ED4Record> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00384ED4Record> > >::erase(_STL::_Rb_tree_iterator<_STL::pair<int const, Rva00384ED4Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00384ED4Record> > >, _STL::_Rb_tree_iterator<_STL::pair<int const, Rva00384ED4Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva00384ED4Record> > >);

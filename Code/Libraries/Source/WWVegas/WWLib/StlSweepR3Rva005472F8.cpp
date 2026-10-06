@@ -27,4 +27,7 @@ bool operator==(const Rva005472F8Record&b)const{return word==b.word;}
 };
 namespace _STL {template<>struct __type_traits<Rva005472F8Record>:__type_traits_aux<1>{};}
 namespace _STL{template<>struct hash<Rva005472F8Record>{unsigned operator()(const Rva005472F8Record&x)const{return (unsigned)x.word;}};}
-template class _STL::hash_set<Rva005472F8Record>;
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::pair<_STL::_Ht_iterator<Rva005472F8Record, _STL::_Nonconst_traits<Rva005472F8Record>, Rva005472F8Record, _STL::hash<Rva005472F8Record>, _STL::_Identity<Rva005472F8Record>, _STL::equal_to<Rva005472F8Record>, _STL::allocator<Rva005472F8Record> >, bool> _STL::hashtable<Rva005472F8Record, Rva005472F8Record, _STL::hash<Rva005472F8Record>, _STL::_Identity<Rva005472F8Record>, _STL::equal_to<Rva005472F8Record>, _STL::allocator<Rva005472F8Record> >::insert_unique_noresize(Rva005472F8Record const &);

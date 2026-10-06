@@ -18,12 +18,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <map>
 
 
-template class _STL::multimap<int,int>;
-template class _STL::multimap<unsigned int,unsigned int>;
-template class _STL::multimap<short,short>;
-template class _STL::multimap<unsigned short,unsigned short>;
-template class _STL::multimap<char,char>;
-template class _STL::multimap<unsigned char,unsigned char>;
-template class _STL::multimap<float,float>;
-template class _STL::multimap<double,double>;
-template class _STL::multimap<void*,void*>;
+
+
+
+
+
+
+
+
+
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::_Rb_tree_iterator<_STL::pair<int const, int>, _STL::_Nonconst_traits<_STL::pair<int const, int> > > _STL::multimap<int, int, _STL::less<int>, _STL::allocator<_STL::pair<int const, int> > >::insert(_STL::_Rb_tree_iterator<_STL::pair<int const, int>, _STL::_Nonconst_traits<_STL::pair<int const, int> > >, _STL::pair<int const, int> const &);
