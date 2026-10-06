@@ -14,7 +14,18 @@ class EAStringC
 public:
     const char *rva00620090() const;
 };
-class Rva006DCE50Opaque { public: void *rva006DCE50(); };
+class BfmeAptValue006DCD20
+{
+    virtual void vtableSlot0();
+    unsigned int m_flags;
+public:
+    bool isUndefined() const;
+    BfmeAptValue006DCD20 *checkedString();
+    BfmeAptValue006DCD20 *rva006DCEA0();
+    BfmeAptValue006DCD20 *checkedInteger();
+    BfmeAptValue006DCD20 *checkedFloat();
+    float rva006DD460();
+};
 class Rva006D89D0ByteField { public: unsigned char get() const; };
 class Rva00723490FloatField { public: float get() const; };
 class Rva00144010Opaque { public: int rva00144010(); };
@@ -25,17 +36,6 @@ struct NumberStringView
     unsigned char pad[8];
     EAStringC text;
 };
-class BfmeAptValue006DCD20
-{
-    virtual void vtableSlot0();
-    unsigned int m_flags;
-public:
-    bool isUndefined() const;
-    BfmeAptValue006DCD20 *rva006DCEA0();
-    BfmeAptValue006DCD20 *checkedInteger();
-    BfmeAptValue006DCD20 *checkedFloat();
-    float rva006DD460();
-};
 extern BfmeAptValue006DCD20 *g_aptUndefinedAtE18078;
 float BfmeAptValue006DCD20::rva006DD460()
 {
@@ -44,8 +44,7 @@ float BfmeAptValue006DCD20::rva006DD460()
     switch (static_cast<int>(m_flags) >> 25) {
     case 1:
     case 42: {
-        NumberStringView *string = static_cast<NumberStringView *>(
-            reinterpret_cast<Rva006DCE50Opaque *>(this)->rva006DCE50());
+        NumberStringView *string = reinterpret_cast<NumberStringView *>(checkedString());
         return (float)Rva006CD070Atof(string->text.rva00620090());
     }
     case 5:
