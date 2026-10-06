@@ -63835,3 +63835,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005B80AF@@YAHEPAVRva005B8053@@@Z,,0x005B80AF,33,Code/Libraries/Source/WWVegas/WWLib/Rva005B80AFFinish.cpp,matched,byte-key int lookup via rowed lower_bound and int at 0x14
 ?rva005B80F2@@YAMEMPAVRva005B8053@@@Z,,0x005B80F2,36,Code/Libraries/Source/WWVegas/WWLib/Rva005B80F2Finish.cpp,matched,byte-key float lookup with caller default via rowed lower_bound
 ?Run@Rva005B6967Box@@QAEXPADH0@Z,,0x005B6967,158,Code/GameEngine/Source/Common/Rva005B6967Box.cpp,matched,two-path validated set with strcmp tables and pinned fillers
+?Probe@Rva005B6E32Box@@SAHXZ,,0x005B6E32,159,Code/GameEngine/Source/Common/Rva005B6E32Box.cpp,matched,localhost connectivity probe with explicit winsock imports
