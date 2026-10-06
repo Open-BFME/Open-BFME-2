@@ -65016,3 +65016,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva00068436@Rva00068436@@QAEXH@Z,,0x00068436,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed removeBibDrawable
 ??0Rva0057796E@@QAE@HHABVAsciiString@@@Z,,0x0057796E,42,Code/GameEngine/Source/Common/Rva0057796ECtor.cpp,matched,caller 0x00577E26 needs this ctor layout plus0 int plus4 int plus8 AsciiString
 ?rva00577DFB@Rva00577DE1OwningCell@@QAEPAV1@HABVAsciiString@@@Z,,0x00577DFB,67,Code/GameEngine/Source/Common/Rva00577DFBCreate.cpp,matched,gap between clear and forwardClear level int plus AsciiString temp via rowed ctor
+?rva003EDD68@Rva0020DXXXElem@@QAE?AVRva003ED658@@XZ,,0x003EDD68,108,Code/GameEngine/Source/GameLogic/System/Rva0020DXXXRva003EDD68.cpp,matched,Elem range merge via ObjectCreationList sret unblocks 0x0020D86C

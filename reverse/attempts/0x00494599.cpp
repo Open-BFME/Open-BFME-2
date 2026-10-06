@@ -1,5 +1,5 @@
 // ?rva00494599@Rva00494599@@QAE_NPBUCoord3D@@@Z
-// partial score=0.95 date=2026-10-06
+// partial score=1.0 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
@@ -9,12 +9,16 @@
 
 #include <vector>
 
-struct Coord3D
+struct Coord3DBase
 {
-	float length() const;
 	float x;
 	float y;
 	float z;
+};
+
+struct Coord3D : public Coord3DBase
+{
+	float length() const;
 };
 
 class Player;
@@ -50,10 +54,8 @@ public:
 bool Rva00494599::rva00494599(const Coord3D *pos)
 {
 	Rva00494599Holder *holder = m_holder;
-	if (holder == 0)
-		return true;
-	Object *obj = m_obj;
-	if (obj == 0)
+	Object *obj;
+	if (holder == 0 || (obj = m_obj) == 0)
 		return true;
 	Player *player = obj->getControllingPlayer();
 	if (player == 0)
