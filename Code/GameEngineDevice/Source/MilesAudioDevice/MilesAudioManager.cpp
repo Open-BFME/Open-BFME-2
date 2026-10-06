@@ -257,6 +257,8 @@ public:
     AudioEventRTS *findLowestPrioritySound(AudioEventRTS *event);
     float rva0005A9F8(void *ref, int a, int b);
     float rva00059AD0(void *event, int a);
+    void rva000578B3(int key);
+    void rva00057948(const void *input);
     // Ledger rows name it (refreshAll/rva00052048 share its this).
     class GlobalVolumeData {
     public:
@@ -580,6 +582,14 @@ bool MilesAudioManager::rva000570C8(AudioEventRTS *event)
         return rva00056670(event->getObjectID()) || rva00055426(
             static_cast<ObjectID>(reinterpret_cast<Rva002D9576 *>(event)->rva002D9576()));
     return false;
+}
+
+// ?MilesAudioManager::rva00057948 present-unmatched
+void MilesAudioManager::rva00057948(const void *input)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    rva000578B3(*reinterpret_cast<const int *>(
+        reinterpret_cast<const char *>(input) + 0x0C));
 }
 
 bool __cdecl Rva000515E4Less(const Rva000515E4Key *x, const Rva000515E4Key *y)
