@@ -11457,3 +11457,5 @@ FUN_009fd197	0x005FD197	186	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString use r
 ?rva002BF935@Rva002BF935@@QAE_NPAXPBVVector3@@PAV3@Z	0x002BF935	221	blocked	ADDRESS-NAMED g_Rva EmptyString use refused t=3 model=muse-spark
 ?rva004FA6B5@Rva004FADF4@@QAEHXZ	0x004FA6B5	131	blocked	vslot slot 14 no donor virtuals to map t=4 model=muse-spark
 ??1Rva004FA2E2@@QAE@XZ	0x004FA2E2	231	blocked	complex multi-vector dtor with unclaimed funclet 0x004F9630 t=4 model=muse-spark
+??1Rva004E6A9B@@QAE@XZ	0x004E6A9B	157	partial	missing 2 EH states before explicit clears at 0x44/0x40 t=18 model=muse-05 score=0.95 stash=reverse/attempts/0x004e6a9b.cpp
+?rva0039E9E0@Rva005059A1Unit@@QAEXXZ	0x0039E9E0	47	partial	loop block order inverted test-bottom vs test-top t=15 model=muse-05 score=0.93 stash=reverse/attempts/0x0039e9e0.cpp
