@@ -445,3 +445,19 @@ void Rva003EEE8E::rva003EEE8E(Int a)
 	Int tmp[3];
 	((Rva003EEB9F *)this)->rva003EEB9F(a, ((Rva003EE7CA *)this)->rva003EE7CA((Int)&tmp, a));
 }
+// ?rva003EEF13@Rva003EEF13@@QAEXH@Z @0x003EEF13 37B chain via 0x003EE7CA+0x003EEBC4
+// Retail: tmp[3] at ebp-0xc; this->rva003EE7CA(&tmp,arg) then
+// this->rva003EEBC4(arg,ret); prev 0x003EEEB3 next 0x003EEF38 same TU.
+class Rva003EEF13
+{
+public:
+	void rva003EEF13(Int a);
+private:
+	char m_pad[8];
+	Rva004E35D5 m_owner;
+};
+void Rva003EEF13::rva003EEF13(Int a)
+{
+	Int tmp[3];
+	((Rva003EEBC4 *)this)->rva003EEBC4(a, ((Rva003EE7CA *)this)->rva003EE7CA((Int)&tmp, a));
+}
