@@ -41424,7 +41424,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva0073F83F@Rva0073F778@@QAE_NHIHPAX@Z,,0x0073F83F,30,Code/GameEngine/Source/Common/Rva0073F778Thread.cpp,matched,chain lane thread wrapper with fixed start
 ??1BfmeStringRecord00219B0B@@QAE@XZ,,0x0021A75E,69,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp,matched,dtor 3 AsciiString via releaseBuffer
 ??1BfmeStringRecord0021A940@@QAE@XZ,,0x0021A90F,8,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp,matched,dtor tailjmp rec via 0x0021A75E chain
-?Rva000A4999Get@@YAXPAVObject@@PAXPAPAX2@Z,,0x000A4999,92,Code/GameEngine/Source/GameLogic/Object/Rva000A4999Get.cpp,matched,module pair fetch via rowed Object SidesList Category accessors
 ??_GBfmeStringRecord0021A940@@QAEPAXI@Z,,0x0021AAC5,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-10-0021AAC5.cpp,matched,deleting dtor via rowed dtor plus delete chain
 ?rva003081DF@Rva003081DF@@QAEXXZ,,0x003081DF,28,Code/GameEngine/Source/GameClient/Rva00330B2EMemberCall.cpp,matched,gap string set 0080 via 000055F5 plus flag 0088
 ??1Rva0073F96A@@UAE@XZ,,0x0073F96A,103,Code/GameEngine/Source/Common/Rva0073F96ADtor.cpp,matched,unlock lane dtor with static releases via base
