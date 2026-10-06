@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE2
+// cl: /MD
 // ?rva0073F895@Rva0073F895@@QAEHXZ @0x0073F895 213B, caller 0x0073FAB8.
 // Fade state machine: state +0x40 (0 fade in, 1 held, 2 fade out, 3 off)
 // steps the fade +0x44 by the 1/60 literal at 0x00BC625C, then returns the

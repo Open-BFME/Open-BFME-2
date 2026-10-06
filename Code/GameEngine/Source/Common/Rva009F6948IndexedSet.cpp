@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Open-BFME5: clean C++ conversion of the indexed pointer-slot assignment.
 
 class Rva009F6948Array

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva_5322de_fill_unsigned_short@@YAPAGPAGI0@Z @ 0x005322DE 37B
 // Counted 4-byte splat: dst advances, src fixed, returns end pointer.
 // Evidence: chain caller of rowed 0x0053229D (declared only so the gate

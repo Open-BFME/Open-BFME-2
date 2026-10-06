@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Static-initializer copies for three more freelist pools, the siblings of the
 // behavior pool strip in Rva007AB800PoolInits.cpp: 0xDB8FEC (popped by the

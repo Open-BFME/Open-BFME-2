@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Donor: Open-BFME-1 game/GameEngine/Source/Common/Rva007EB6E0VirtualTail.cpp
 // (verified BFME 1 pointer; source identity remains address-derived).
 // Target evidence: BFME 2 body at 0x00658670 has the same 16 bytes; its

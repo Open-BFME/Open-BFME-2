@@ -1,4 +1,4 @@
-// cl: /EHsc /Oy- /O1
+// cl: /EHsc /Oy-
 // Family-6 value-return forwarders (28B each): each holder method returns
 // Helper(m_field); retail forwards the hidden out-slot to the helper under
 // /EHsc /Oy- /O1 with no temporary. The return type needs a non-trivial

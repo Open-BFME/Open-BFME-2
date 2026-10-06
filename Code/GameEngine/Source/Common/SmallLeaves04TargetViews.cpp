@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Clean whole BFME1 donor at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24:
 // game/GameEngine/Source/Common/UnclaimedSmallLeaves04.cpp.
 // Native entries independently establish the receiver-first-word access.

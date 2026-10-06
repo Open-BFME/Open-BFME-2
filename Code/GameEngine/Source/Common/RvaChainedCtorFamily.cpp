@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Six chained default ctors: each zeroes its leading ints via member
 // initializers, then implicitly constructs the trailing member (whose
 // default ctor it tail-calls after the stores, returning this):

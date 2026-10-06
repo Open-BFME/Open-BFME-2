@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // ?Rva00113BA0@@YAHPAVGenSlot08@@@Z 0x00306A4E, 16 bytes
 //   (the donor's own @-comment cites 0x00113BA0, which is its BFME 1 RVA)

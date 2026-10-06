@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Clone@Rva007C454@@UBEPAVRenderObjClass@@XZ @0x0007C4C6 58B: the clone
 // slot of the CameraClass-derived Rva007C454: return new Rva007C454(*this).

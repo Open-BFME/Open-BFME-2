@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 
 void __cdecl Rva009A7950(
 	int *table,

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Ported from Open-BFME-1's game/GameEngine/Source/Common/Rva0089CompactHelpers.cpp
 // (donor revision: reference/open-bfme-1 @ a38d345e) by tools/bfme1_sweep.py:

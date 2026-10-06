@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva0045F4C2NotEqual@@YAHPBX0@Z @0x0045F4C2 (21B).
 // Logical NOT of rowed ?Rva0037DC8AEqual@@YA_NPBX0@Z (memcmp 0x80 == 0).

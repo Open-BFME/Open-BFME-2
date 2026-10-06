@@ -1,4 +1,4 @@
-// cl: /O2 /Oy- /Z7 /MD
+// cl: /Oy- /Z7 /MD
 // Address-derived identity: MMX dispatch slot VA 0x01356E60, RVA 0x009BA790.
 // Boundary, five-argument ABI and MMX codegen evidence:
 // targets/game/reverse/identity_evidence/009ba790.md

@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/S3SplitDispatchers.cpp

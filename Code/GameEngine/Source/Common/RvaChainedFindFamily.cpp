@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Four chained lookups (38B each): push [esp+8], mov esi, ecx,
 // mov ecx, [esp+0x10], call <find>, push [esp+0x0C], lea ecx, [esi+4],
 // push [esp+0x0C], mov [esi], eax, call <chain>, pop esi, ret 8. Each

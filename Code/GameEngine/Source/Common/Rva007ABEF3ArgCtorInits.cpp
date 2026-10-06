@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Static-initializer strip: file-scope objects built by an already-rowed
 // constructor that takes arguments, some followed by atexit() of the

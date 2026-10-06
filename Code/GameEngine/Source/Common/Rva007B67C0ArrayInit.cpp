@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /MD /EHsc
+// cl: /Ob0 /MD /EHsc
 // Clean C++ donor: Open-BFME/Open-BFME-1 2791daf5536e4e2147dc3a4aa25c17816828dd69,
 // game/GameEngine/Source/Common/Rva00C6DC90ArrayInit.cpp, b1 0x00C6DC90.
 // Native BFME2 initializer 0x007B67C0 (39B, independent int3 extent) passes

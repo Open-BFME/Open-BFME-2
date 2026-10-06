@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 // Address-derived spread-table body. Four source rows are combined with the
 // signed residual block in each pass, then the verified clamp routine writes

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Clean reconstruction of the three-field pointer-array RemoveAll operation.
 
 // BFME releases this array through the CRT free import thunk at 0x00628F98

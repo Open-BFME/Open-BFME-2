@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004D7127@State@@QAEXPBUStateConditionInfo@@@Z at retail 0x004D7127 (33B).
 // State transitions array setter called by StateMachine::defineState 0x004D7B0F.
 // Evidence: caller 0x004D7B0F stores id/success/failure then calls here with conditions;

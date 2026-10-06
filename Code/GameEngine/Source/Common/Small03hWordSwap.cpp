@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /G6 /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Provenance: Open-BFME-1 game/GameEngine/Source/Common/Small03hWordSwap.cpp at
 // 10af19f44a (BFME1 byte-identical donor, b1 0x009CC290, here 0x006038EF). Only

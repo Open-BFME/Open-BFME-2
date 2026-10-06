@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0074011F@Rva0074011F@@QAEXXZ, retail 0x0074011F, 43 bytes.
 // Releases two RefCount holders via inlined Release_Ref then nulls holder.
 // Evidence: callers at 0x00066817 0x00066835 0x000D1C9F 0x007402A3; pattern matches TerrainTracks free precedent; container in 0x000D1C83 holds VB+IB pair.

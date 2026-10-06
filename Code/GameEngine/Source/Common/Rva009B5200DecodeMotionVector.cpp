@@ -8,7 +8,7 @@
 // The long branch loads the next probability before combining the previous
 // decoded bit. The Y output accumulates in its short destination; MSVC folds
 // the two assignments into retail's one add and one short store.
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 extern int Rva009B4600DecodeBool(void *coder, int prob);
 

@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // RVA 0x009AF530: choose one of two bounding-table builders by mode.
 struct Rva009AF490Context;
 int *Rva009AF490SetupBounding(Rva009AF490Context *, int);

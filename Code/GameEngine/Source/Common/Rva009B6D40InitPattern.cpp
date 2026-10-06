@@ -2,7 +2,7 @@
 // dispatch slot 1 for both the SSE and MMX tiers.  Its target buffer is the
 // 32-byte-aligned block at context+0x3c plus 0x400; the six stores are the
 // scalar pattern used by the corresponding image-filter path.
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 struct Rva009B6D40Context
 {

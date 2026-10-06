@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /G6 /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x00758C20 (38 B): a stdcall list-teardown walk. While the head is
 // non-null it fetches the next link at +0x30, frees the head through operator

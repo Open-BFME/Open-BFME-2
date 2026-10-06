@@ -1,7 +1,7 @@
 // Target 0x001B6400 forwards bytes to bfmeAllocBlock at 0x001B63C0.
 // Its allocator and native14B body differ from NameKeyGenerator::Bucket's
 // donor operator new. Address-derived identity; original class is unknown.
-// cl: /O2 /Ob0 /DNDEBUG /MD
+// cl: /Ob0 /DNDEBUG /MD
 // Codec subobject allocation family. Retail helpers use private ESI (cleanup)
 // and EAX (initializer) arguments; static C++ preserves those conventions.
 // Full bodies: 009A6DA0/67, 009A6DF0/206, 009A6F20/73.

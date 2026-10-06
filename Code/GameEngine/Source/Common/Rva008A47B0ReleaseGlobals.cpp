@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // Open-BFME7: near-twin of Rva008A48D0ReleaseGlobals.cpp (0x008A48D0, 131 B),
 // same shape (release each ref-counted global through vtable slot +4, then

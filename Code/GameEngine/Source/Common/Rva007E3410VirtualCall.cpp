@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Open-BFME: mode-gated virtual call reconstructed from retail RVA 0x007E3410.
 
 class Rva007E3410Target

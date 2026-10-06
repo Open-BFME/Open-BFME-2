@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Second MMX four-tap vertical Bink filter sharing the 0x00DB81A0 round
 // table with rva009C6470BinkMmx: same four rows (-stride, 0, +stride,

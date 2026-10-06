@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Tail-jmp dtors to pinned StringBase<char> dtor 0x00036410 (17 pins): add ecx,disp; jmp.
 // Each outer class holds StringBase<char> at the retail displacement; empty dtor tail-calls it at /O1.
 template <typename T> class StringBase { public: ~StringBase(); };

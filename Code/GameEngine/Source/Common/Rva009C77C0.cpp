@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 // ?rva009C77C0@@YAXPBX0PAX@Z
 // Transferred unchanged from Open-BFME-1 5cae4bdff game/GameEngine/Source/Common/
 // Rva009C77C0.cpp (BFME1 0x009C77C0). bfme1_sweep places the same masked body at

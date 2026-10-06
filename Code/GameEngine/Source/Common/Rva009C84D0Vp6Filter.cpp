@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 typedef void (__cdecl *Rva009C84D0FilterCopy)(void *, void *, int, int);
 typedef void (__cdecl *Rva009C84D0FilterRow)(void *, int, int);

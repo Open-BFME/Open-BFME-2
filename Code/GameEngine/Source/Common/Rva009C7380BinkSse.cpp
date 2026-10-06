@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 // Open-BFME-1 donor at cd32c8ef06dfb0d995b2f47e93e41622e4447092:
 // Rva009C7380BinkSse.cpp, BFME 1 RVA 0x009C7380.
 // BFME2 target RVA 0x001D7C80 is selected by the address map and independently

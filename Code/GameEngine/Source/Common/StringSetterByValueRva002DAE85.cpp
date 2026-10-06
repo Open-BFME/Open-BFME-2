@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP=
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP=
 // BFME1 donor 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
 // game/GameEngine/Source/Common/P7ByValueStringSetters.cpp. The entire donor
 // was compiled with canonical string headers before selecting this body.

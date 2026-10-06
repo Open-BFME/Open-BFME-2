@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Four adjust-call-echo members (19B each): push [esp+4], add ecx, -N,
 // call <run>, mov eax, [esp+4], ret 4. Each runs its argument through the
 // adjusted object at this-N, then returns the argument itself. /O1 keeps

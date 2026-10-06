@@ -2,7 +2,7 @@
 // decoder at 0x009B5200. Full retail boundary [0x009B4600,0x009B4672).
 // This copy updates the bit count only after renormalization; the separate
 // 0x009B4800 implementation has a different assignment/scheduling shape.
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 struct Rva009B4600State
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Oy- /DNDEBUG /MD /EHsc
 // Adapted from Open-BFME-1 Code/GameEngine/Source/Common/SideFlagsParseCallbacks.cpp
 // at reference commit cbe617fac51a07d5fe0e19c870d37450ec0cad87.
 // Donor callback names and source organization are descriptive, not recovered

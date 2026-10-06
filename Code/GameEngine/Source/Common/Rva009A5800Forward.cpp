@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // Carried from the Open-BFME-1 donor at submodule revision 77db49c3
 // (game/GameEngine/Source/Common/Rva009A5800Forward.cpp). Target evidence: the
 // 477B decode body is byte-identical at BFME2 0x001B60E0 (donor b1 0x009A5620)

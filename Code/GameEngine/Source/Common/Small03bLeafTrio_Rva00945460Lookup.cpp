@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?Rva00945460Lookup@@YAHHH@Z
 // retail 0x00143310, 19 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/Small03bLeafTrio.cpp (reference/open-bfme-1),

@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 // Address-derived identity; the body offsets an 8x8 signed sample block
 // before passing it to the verified byte clamp routine.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // class-gate: allow StringBase private validate for row ?validate@?$StringBase@G@@ABEXXZ at 0x000B3FD0
 // Twelve 17B member forwarders of one shape (see Rva005E21EBDtor.cpp's
 // rva005E25CD): call a folded base helper on this then tail-jump into a

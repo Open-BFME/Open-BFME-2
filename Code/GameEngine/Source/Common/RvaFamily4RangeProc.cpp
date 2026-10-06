@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /Oy-
 // Family-4 split-range processors (68B each): each function processes the
 // pointer range [a, b) with the element helper when the aligned span is 64
 // bytes or less, else it runs the head helper over the first 64 bytes and

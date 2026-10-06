@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Static-initializer strip for the behavior freelist pool at VA 0x00DA60E8.
 // Retail repeats one 26-byte dynamic initializer 716 times between

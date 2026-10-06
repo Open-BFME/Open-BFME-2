@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0039BEC3Count@@YGHABV?$BitFlags@$0HE@@@0PBUObjectCountMap@@@Z @0x0039BEC3 72B free helper summing ObjectCountMap.
 // Donor: ZH ScoreKeeper::getTotalUnitsBuilt (same null-check plus testSetAndClear
 // plus sum-second loop). Evidence: 4 callers 0x39BF0B/22/39/50 pass ecx+0x1C8/1D4/

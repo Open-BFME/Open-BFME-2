@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /G6
+// cl: /Ob2
 // Open-BFME5: clean C++ conversion of the geometry-record pointer update.
 
 struct Rva0087F270Record

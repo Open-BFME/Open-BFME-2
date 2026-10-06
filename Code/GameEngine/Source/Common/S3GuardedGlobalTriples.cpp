@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // ?h00040601@GenAlpha@@QAEXXZ 0x000F0AD7, 16 bytes
 // ?h000053B7@GenAlpha@@QAEXXZ 0x000F0AE7, 16 bytes

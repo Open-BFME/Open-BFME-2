@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // STLport red-black tree node erase and clear bodies, one pair per tree
 // instantiation, with the shapes of the rowed Rva00226883::rva00226883 (45-byte

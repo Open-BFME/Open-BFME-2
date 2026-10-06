@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Three retail lookup-or-zero wrappers (21B each). Retail shape per member:
 // push [esp+4], call <lookup>, test eax, eax, pop ecx, je +4,
 // mov eax, [eax+off], ret, xor eax, eax, ret.

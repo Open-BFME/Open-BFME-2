@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Transferred from Open-BFME-1 5cae4bdff game/GameEngine/Source/Common/Rva0084D200Alloc.cpp;
 // bfme1_sweep places the same masked body: dup_0084d200 at BFME2 0x00020550. Addresses in the donor text are BFME1.
 //

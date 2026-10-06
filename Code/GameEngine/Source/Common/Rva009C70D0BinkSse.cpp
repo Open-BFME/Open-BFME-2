@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // One-row horizontal fixed-point Bink pixel filter, four-pixel variant:
 // widens eight source bytes, applies the caller's coefficient pair like

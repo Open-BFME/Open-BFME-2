@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Dynamic initializers of two file-scope objects whose constructor is
 // expanded in place. Target evidence: game.dat's __xc_a table points at
 // 0x007B401C and 0x007B4081; each builds a temporary AsciiString of a button

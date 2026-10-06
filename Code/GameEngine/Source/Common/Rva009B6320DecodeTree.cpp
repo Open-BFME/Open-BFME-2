@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // VP6 prefix-code tree walker, retail [0x009B6320,0x009B63CF).
 // A left leaf does not terminate the walk: the right child is processed too.
 // Re-read node indices after output writes, preserving retail alias behavior.

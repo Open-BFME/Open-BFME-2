@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // MMX two-row Bink pixel filter.  Retail 0x009C6780, 125 bytes.
 // MSVC 7.1 does not form this packed-word loop from scalar C++, so the

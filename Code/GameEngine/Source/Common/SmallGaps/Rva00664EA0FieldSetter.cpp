@@ -1,4 +1,4 @@
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Address-derived body for retail 0x00664EA0 (17 bytes). The exact BFME1
 // donor is setPair in Rva007F0A50PairStore.cpp, but its owner and member names

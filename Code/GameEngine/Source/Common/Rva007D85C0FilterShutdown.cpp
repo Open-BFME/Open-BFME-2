@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1
+// cl: /Ob1
 // stlport
 
 #include <vector>

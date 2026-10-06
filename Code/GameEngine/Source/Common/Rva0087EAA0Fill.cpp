@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O2 /Ob0 /G6
+// cl: /Ireference/shims/bfme2_ascii /Ob0
 // ?Rva006BE270Fill@@YAXPAUBfmeElem60@@0ABU1@@Z 0x006BE270 112B evidence: BfmeVec60::insert caller 0x006BF800 fills range with value; struct layout from GeometryInfoSet BfmeElem60 plus AsciiString op= pin 0x000366F0; sibling bfmeCopyAA TU flags
 #include "ascii_string.h"
 

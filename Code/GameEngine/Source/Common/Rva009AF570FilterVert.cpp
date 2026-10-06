@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 extern const unsigned char g_bfmeClampTable[];
 
 void Rva009AF570FilterVert(void *, unsigned char *ptr, int stride, const int *bounding)

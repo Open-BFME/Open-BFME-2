@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/SmallGaps
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common/SmallGaps
 // ?copyPairsStrided@@YAXPAXHPBURva0090FE10Pair@@H@Z
 struct Rva0090FE10Pair { int m_a; int m_b; };
 void copyPairsStrided(void* dst, int stride, const Rva0090FE10Pair* src, int count)

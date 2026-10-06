@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Derived-class destructors with empty bodies: store the class's vtable, then
 // tail-jump to the rowed base destructor (11 bytes: mov [ecx], vtable; jmp).

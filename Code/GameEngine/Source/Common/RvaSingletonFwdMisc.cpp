@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Four singleton/global forwarder bodies (18B + 13B + 16B + 16B). Each pushes
 // its operand from a stack slot (/O1), loads a global pointer into ecx and
 // calls one thiscall method on it (thiscall is callee-cleanup, hence no

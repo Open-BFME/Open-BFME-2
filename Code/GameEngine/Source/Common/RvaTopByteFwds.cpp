@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /Oy-
 // Four top-byte forwards (25B each): push ebp, mov ebp, esp,
 // lea eax, [ebp+0x13], push eax, push [ebp+0x10], push [ebp+0x0C],
 // push [ebp+8], call <worker>, pop ebp, ret N. Each forwards (a, b, c)

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // More dynamic initializers from the 0x007AB7DA strip of the shape
 // Rva007AB81ACtorInits.cpp already recovers: run an already-rowed default

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 // Retail 0x009A7F60, 123 bytes. The matched Rva009A7FE0 caller passes a
 // destination that this body advances one BYTE per column and writes with
 // mov byte ptr. Its 0x009A7950 sibling instead writes 16-bit samples.

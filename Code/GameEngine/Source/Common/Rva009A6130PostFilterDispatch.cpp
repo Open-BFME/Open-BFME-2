@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?Rva009A6130PostFilterDispatch@@YAXPAURva009A6130Context@@HHHHPAE11HH@Z
 // BFME 2 RVA 0x001B6BA0: 1155 code bytes, followed by a nine-entry switch table.
 // Clean C++ donor: Open-BFME-1 10af19f44a89ab7ecc23195bb9a842ceafbc02c9,

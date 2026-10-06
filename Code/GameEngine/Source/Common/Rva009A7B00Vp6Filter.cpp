@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 // Scalar VP6 fractional-pixel block predictor at retail 0x009A7B00 (spread-table slot B54).
 // Tables: four-tap weights at 0x012D7798 and two-tap weights at 0x012D7818, eight modes each.
 //

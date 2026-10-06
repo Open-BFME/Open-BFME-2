@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // Destructors whose only nontrivial member is a null-checked owning pointer
 // released through an already-rowed callee (both bodies are 13B: load the

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE2
+// cl: /MD
 // ??0Rva0073F96A@@QAE@HM@Z @0x0073F85D 56B.
 // Ctor of MaterialPassClass-derived Rva0073F96A: base ctor row 0x0013EDD0
 // then int +0x38, float +0x3C, zero +0x40/+0x44, inc g_bfmeCountAtE1F290.

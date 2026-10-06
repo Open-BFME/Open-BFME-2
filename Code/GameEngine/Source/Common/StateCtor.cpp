@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0State@@QAE@PAVStateMachine@@VAsciiString@@@Z at retail 0x004D73FC (43B).
 // Base State ctor: three INVALID_STATE_IDs (999999), owner machine, vector
 // homes zeroed, base vtable. BFME1 donor

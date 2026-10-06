@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // Open-BFME7: release the eighteen ref-counted globals at 0x01337A34 through
 // 0x01337A78 through virtual slot +4, then clear each slot.

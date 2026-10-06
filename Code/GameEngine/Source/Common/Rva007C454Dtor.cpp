@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva007C454@@UAE@XZ @0x0007C454 75B (existing pin): destructor of the
 // CameraClass-derived Rva007C454 (ctor 0x0007C3CD, copy 0x0007C404). It

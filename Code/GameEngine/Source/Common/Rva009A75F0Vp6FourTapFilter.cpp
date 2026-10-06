@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 // VP6 four-tap fractional-pixel filter, 8-bit source to 16-bit destination,
 // retail 0x001B8050 (174 bytes; BFME 1 0x009A75F0, a dump there). The scalar
 // predictor Rva009A7B00Vp6Filter calls it for the bicubic one-dimensional

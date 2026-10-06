@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 // Address-derived spread-table body: add two 8x8 signed blocks in place, then
 // clamp the result into the byte output block.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // The shared, reference-counted buffer behind every StringBase. isEmpty tests a
 // 16-bit field at offset 4 rather than the first character, so the length lives

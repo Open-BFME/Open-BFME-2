@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /MD /EHsc
 // BfmeThingCGD::bfmeOneCGD, retail 0x00758D10, 193B. Sibling definition lives
 // in BfmeConv597.cpp, which already carries the rowed 41B bfmeGoCGD driver
 // (0x0075A490) that calls this; the two units agree on one class layout.

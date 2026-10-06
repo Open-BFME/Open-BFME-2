@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Four more of the hash-compare shape S3HandleCompareAssign.cpp already lands
 // -- each reads the dword at +0x04 of two objects, hands them to a __cdecl
 // helper and tests the answer against a constant that is NOT zero, so the

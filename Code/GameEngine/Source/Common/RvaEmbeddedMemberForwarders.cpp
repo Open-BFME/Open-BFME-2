@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // add ecx N / jmp forwarders into a void method of an embedded member at +N,
 // found by a .text byte scan of unowned starts whose jump target is a rowed

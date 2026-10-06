@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?lookup56@Rva00DFF024Registry@@QAEPAXHH@Z
 // RVA 0x002D2371 size 48. Pinned fallback lookup; tries (a 5) then (a 6) when

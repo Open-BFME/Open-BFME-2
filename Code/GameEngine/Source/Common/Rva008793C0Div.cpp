@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0
+// cl: /Ob0
 
 unsigned rva008793c0(unsigned value)
 {

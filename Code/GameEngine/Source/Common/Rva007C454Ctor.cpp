@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ??0Rva007C454@@QAE@XZ @0x0007C3CD 43B:
 // Constructor for the Camera-derived class with vptr 0x007C6C58/0x007C6C54

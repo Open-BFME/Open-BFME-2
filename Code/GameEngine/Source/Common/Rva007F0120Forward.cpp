@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva007F0120@@YAXPAX0@Z, retail 0x0065D000, 5 bytes: a single tail jump to
 // the rowed ?Rva007F00B0@@YAXPAX0@Z (0x0065CF90) with the same two

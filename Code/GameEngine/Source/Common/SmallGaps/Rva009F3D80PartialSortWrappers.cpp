@@ -1,6 +1,6 @@
 // ?q3PartialSort009F3D80@@YAXPAUQ3SortElem8@@00UQ3SortCompare@@@Z
 // ?q3PartialSort009F3DA0@@YAXPAUQ3SortElem8@@00UQ3SortCompare@@@Z
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // BFME1 SmallGaps donor Rva009F3D80PartialSortWrappers.cpp (b1 pair
 // 0x009F3D80/0x009F3DA0, 31 B each) retargeted: the Gen depth-zero callees
 // are the landed STLport rows ??$__partial_sort@PAUS4SortElem8@@... at

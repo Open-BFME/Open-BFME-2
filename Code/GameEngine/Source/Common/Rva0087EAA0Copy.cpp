@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /G6
+// cl: /Ob0
 // bfmeCopyAA at 0x006BE370: backward copy of 0x24-byte elements, ported from
 // the BFME1 Rva0087EAA0Copy.cpp donor. Two retail adaptations: the middle
 // member is a StringBase<char> assigned via set() (retail calls the shared

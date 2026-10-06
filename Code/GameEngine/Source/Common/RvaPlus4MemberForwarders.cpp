@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // 8B add ecx N / jmp forwarders into a member call at +N. Jump targets that are
 // unrowed arrive as address-derived pins with the arity their ret proves:
 // 0x0050174A -> 0x005016C3 (ret 0); 0x002A9ECA -> +8 0x00380459 (ret 4);

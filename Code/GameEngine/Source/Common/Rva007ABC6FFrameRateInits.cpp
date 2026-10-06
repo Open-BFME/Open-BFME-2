@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 //
 // Dynamic initializers from the 0x007AB7DA strip that derive an int from the
 // logic frame rate: g_Va00DBA4E4 (LOGICFRAMES_PER_SECOND, 30) or g_00DBA4E8

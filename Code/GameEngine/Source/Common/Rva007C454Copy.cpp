@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0Rva007C454@@QAE@ABV0@@Z @0x0007C404 80B: copy constructor of the
 // CameraClass-derived Rva007C454 (rowed ctor 0x0007C3CD, deleting dtor

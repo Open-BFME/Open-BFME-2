@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 // Transferred unchanged from Open-BFME-1 5cae4bdff game/GameEngine/Source/Common/Rva009A78E0.cpp;
 // bfme1_sweep places the same masked body: Rva009A78E0 at BFME2 0x001B8340. Addresses in the donor text are BFME1.
 // 0x009A78E0..0x009A794E: INT3 before entry and after complete RET.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?HasBeenDisplayed@SubTitleManager@@QAE_NH@Z retail 0x000468AD 89B.
 // Bounds-checked read of the displayed flag at record+0x20 via the pointer

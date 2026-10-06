@@ -1,4 +1,4 @@
-// cl: -GR- -EHsc -MD -DNDEBUG /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -GR- -EHsc -MD -DNDEBUG -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // 96B twin of ?bfmeMarkAX@BfmeMaskAX@@QAEXHHE@Z (BfmeMaskAX.cpp): identical
 // bounds-check-then-set/clear-bit shape, but the byte-buffer begin/end

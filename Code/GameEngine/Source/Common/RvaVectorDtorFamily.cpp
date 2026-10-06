@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // STLport vector destructors, one per element type, with the shape of the rowed
 // ??1?$vector@UPrereqUnitRec@ProductionPrerequisite@@... at 0x002D040C (63 bytes:

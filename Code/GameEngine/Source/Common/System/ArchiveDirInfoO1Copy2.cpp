@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0Rva00382FA7@@QAE@ABU0@@Z, retail 0x00382FA7, 295 bytes.
 // Copy ctor with vptr, UnicodeString at +0x04, ints/bytes, two rep-movsd

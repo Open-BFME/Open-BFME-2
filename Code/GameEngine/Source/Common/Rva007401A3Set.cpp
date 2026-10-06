@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva007401A3@Rva007401A3@@QAEXHH@Z, retail 0x007401A3, 66 bytes.
 // Setter caching two ints then notifying via vtable slot 0xB4 with float conversion.
 // Evidence: callers 0x00740AAB 0x00740BA7; callee virtual slot 0xB4; uses SSE cvtsi2ss.

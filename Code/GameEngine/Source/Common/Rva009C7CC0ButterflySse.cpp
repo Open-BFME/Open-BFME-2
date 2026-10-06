@@ -1,5 +1,5 @@
 // ?rva009C7CC0@@YAXPBX0PAX@Z
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 
 // Straight-line SSE2 leaf, no calls, no branches.  Elementwise-multiplies
 // two 4-row (8-word) coefficient planes, runs an 8-point butterfly against

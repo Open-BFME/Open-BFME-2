@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Two __cdecl two-argument functions that hand their second argument to a
 // __thiscall member of a sub-object of their first:
 //

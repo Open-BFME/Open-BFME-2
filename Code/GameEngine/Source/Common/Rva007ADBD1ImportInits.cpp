@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Static-initializer strip: file-scope globals initialized from a Win32
 // import at startup. Each is one translation unit's compiler-generated

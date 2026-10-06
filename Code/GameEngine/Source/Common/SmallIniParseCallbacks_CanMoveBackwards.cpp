@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?parseCanMoveBackwards@@YAXPAVINI@@PAX1PBX@Z at retail 0x001E38F9 (53B).
 // Split TU (precedent: INI_parseBool.cpp dedicated frameless TU): the sibling
 // TU Code/GameEngine/Source/Common/SmallIniParseCallbacks.cpp keeps bare

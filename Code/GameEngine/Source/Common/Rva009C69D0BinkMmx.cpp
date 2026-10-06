@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Retail 0x009C69D0, 83 bytes.  Runs the two landed MMX Bink filters back to
 // back over a 256-byte scratch strip: the horizontal pass at 0x009C6390 reads

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Three intrinsic-memcpy-return-this members (20B each): push esi,
 // mov esi, [esp+8], push edi, mov eax, ecx, push N, pop ecx, mov edi, eax,
 // rep movsd [edi], [esi], pop edi, pop esi, ret 4. Each copies N dwords

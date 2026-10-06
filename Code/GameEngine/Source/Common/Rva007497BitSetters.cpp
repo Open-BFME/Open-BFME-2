@@ -1,4 +1,4 @@
-// cl: -GR- -EHsc -MD -DNDEBUG /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -GR- -EHsc -MD -DNDEBUG -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 class Rva007497A0
 {

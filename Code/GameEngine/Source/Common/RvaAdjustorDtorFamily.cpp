@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Eight empty non-virtual dtors (8B each) of one shape: add ecx, N then
 // tail-jump the teardown of the member at +N. No vtable install, no other

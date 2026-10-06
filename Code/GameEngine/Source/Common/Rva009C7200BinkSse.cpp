@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Two-row horizontal/vertical fixed-point resampler used by the Bink pixel
 // filter.  Each iteration consumes eight source bytes from two adjacent rows,

@@ -1,7 +1,7 @@
 // Rva007EFF60::call at retail RVA 0x007EFF60 (28 bytes).
 // The compiler barrier in the null branch preserves retail's duplicated
 // ret 8 exits while emitting no instruction or relocation.
-// cl: /O2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 extern "C" void __cdecl _ReadWriteBarrier(void);
 

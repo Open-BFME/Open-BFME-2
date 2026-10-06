@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /MD
+// cl: /Ob0 /DNDEBUG /MD
 // Full retail reader [0x009B47B0,0x009B47FA), ret9B47F9 thenCC.
 struct Vp6RawBits { unsigned bits; unsigned value; const unsigned char *next; };
 static int Rva009B47B0ReadBit(Vp6RawBits *state)

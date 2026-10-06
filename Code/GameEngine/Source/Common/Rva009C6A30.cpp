@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 extern const unsigned short g_bfmeBinkRoundMmx[4];
 extern void __cdecl rva009C6390BinkMmx(const void *, void *, int, int, int, int, const void *);
 extern void __cdecl rva009C66F0BinkMmx(const void *, void *, int, int, int, int, const void *);

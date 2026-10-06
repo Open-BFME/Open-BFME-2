@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0073F778@Rva0073F778@@QAE_NP6GIPAX@Z0HIH0@Z @0x0073F778 129B.
 // Creates a suspended thread via _beginthreadex, sets priority from an index,
 // optionally resumes, and reports success. Evidence: unlock lane packet;

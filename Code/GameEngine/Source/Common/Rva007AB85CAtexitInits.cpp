@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // Dynamic initializers from the 0x007AB7DA strip whose atexit cleanup is
 // already rowed: the 12-byte ones only register the cleanup (the object's

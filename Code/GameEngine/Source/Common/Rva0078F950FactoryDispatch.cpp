@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ob0
+// cl: /DNDEBUG /MD /EHsc /Ob0
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Rva0078F950FactoryDispatch.cpp (donor revision

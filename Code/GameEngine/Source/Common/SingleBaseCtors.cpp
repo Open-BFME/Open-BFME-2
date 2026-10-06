@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Wave-3 F24 shape family: single-base constructors forwarding one int (or
 // the constant 1) to a pinned base constructor, then stamping the derived

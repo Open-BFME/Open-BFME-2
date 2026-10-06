@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Five pre-increment-then-two-call members (36B each): push esi,
 // mov esi, ecx, mov eax, [esi+0x10], inc eax, push eax, call <note>,
 // push [esp+0x0C], mov ecx, esi, push [esp+0x0C], call <run>,

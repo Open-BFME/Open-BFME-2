@@ -2,7 +2,7 @@
 // 0x009B50F0.  The caller at 0x009B5AF0 supplies the decoder context,
 // previous mode, and probability plane.  The matched 0x009B4600 helper
 // establishes the arithmetic-decoder state at context offset 0x150.
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 int Rva009B4600DecodeBool(void *state, int probability);
 

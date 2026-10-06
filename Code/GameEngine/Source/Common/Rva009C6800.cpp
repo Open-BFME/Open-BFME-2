@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 
 extern const unsigned short g_bfmeBinkRoundMmx[4];
 

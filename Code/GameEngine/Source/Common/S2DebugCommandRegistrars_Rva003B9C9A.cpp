@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Four __cdecl no-argument functions that hand one string literal to the same
 // virtual slot of the same global object and return 1:
 //

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Static-initializer strip: half the logic frame rate into a TU-local static.
 // Retail repeats one 16-byte dynamic initializer 429 times between 0x007AB7F0

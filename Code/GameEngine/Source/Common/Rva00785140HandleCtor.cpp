@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??0Rva00785140Handle@@QAE@ABVAssetReference@@@Z @0x000A9EB2 27B handle-from-AssetReference ctor: vtable 0x00BC940C at [this] then AssetReference copy at +4 via ??0AssetReference@@QAE@ABV0@@Z rowed; caller 0x000AB193
 class AssetReference
 {

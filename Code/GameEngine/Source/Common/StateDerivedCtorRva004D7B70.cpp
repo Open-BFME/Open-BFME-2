@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva004D7B70@@QAE@PAVStateMachine@@VAsciiString@@@Z at retail 0x004D7B70 (28B).
 // State-derived ctor forwarding (machine, name) to ??0State@@QAE@PAVStateMachine@@VAsciiString@@@Z
 // 0x004D73FC then installing vtable 0x00860790. Same esi-homing recipe as

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /Oy-
 // Six tag-combine members (38B each): push ebp, mov ebp, esp, push esi,
 // lea eax, [ebp+0x0B], push eax, push [ebp+8], mov esi, ecx, push [esi+4],
 // push [ebp+0x0C], call <worker>, add esp, 0x10, mov [esi+4], eax,

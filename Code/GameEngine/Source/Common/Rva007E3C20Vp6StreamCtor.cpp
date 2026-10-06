@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Rva007E3C20Vp6StreamCtor.cpp (donor revision

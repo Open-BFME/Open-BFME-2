@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // Retail 0x009C8130 is a two-argument leaf.  It samples four bytes at
 // offsets 0, 2, 4, and 6 from four rows, where the row advance is twice the

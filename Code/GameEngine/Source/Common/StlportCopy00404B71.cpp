@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??$__copy@PAURva0040538FElement@@PAU1@H@_STL@@YAPAURva0040538FElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z retail 0x00404B71 50 bytes.
 // STLport __copy for Rva0040538FElement view: count via (last-first)/0x18 then
 // copy-constructs each slot through rowed Rva001DE4F0 copy 0x00404A72.

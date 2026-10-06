@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ?setMode@Rva00785FD0Renderer@@QAIXH@Z, retail 0x001100CA, 12 bytes,
 // pinned from rva00785FD0Flush (0x000AA5E1): a __fastcall member (this in

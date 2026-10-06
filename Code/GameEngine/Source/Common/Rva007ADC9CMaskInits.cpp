@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Static-initializer strip: clear a file-scope bit mask through memset.
 // Each is one translation unit's dynamic initializer of the same shape the

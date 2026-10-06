@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Eight retail wrappers (23B each) forwarding (a, b, c) to a four-argument
 // callee with a zero third argument. Retail bytes prove the shape per member:
 // push [esp+0x0C], push 0, push [esp+0x10], push [esp+0x10],

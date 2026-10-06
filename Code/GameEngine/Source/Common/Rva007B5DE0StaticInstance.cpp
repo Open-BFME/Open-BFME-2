@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Dynamic initializer of a file-scope object whose inline constructor only
 // sets its vptr, so the compiler writes that vptr into the object's static
 // data and the initializer keeps nothing but the atexit registration of its

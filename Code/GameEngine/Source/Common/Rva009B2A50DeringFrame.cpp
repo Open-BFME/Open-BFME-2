@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?Rva009B2A50@@YAXPAURva009A6130Context@@PAE1@Z
 // Retail 0x009B2A50, 1835 bytes (single ret at +0x72A, int3 padding to
 // 0x009B3180; the generated scaffold's 1832 stopped three bytes short).

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 
 // ??0StatsCollector@@QAE@XZ, retail 0x004376FA (91 bytes).
 // BFME1 StatsCollector.cpp donor, trimmed to the constructor; the remaining

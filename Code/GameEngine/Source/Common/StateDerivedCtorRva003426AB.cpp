@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva003426AB@@QAE@PAVStateMachine@@@Z, retail 0x003426AB, 29 bytes.
 // State-derived ctor (machine) forwarding hash 0x9AA7C3F8 to the

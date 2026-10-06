@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Static-initializer strip: zero a 4-byte TU-local static through memset.
 // Retail repeats one 18-byte dynamic initializer 63 times from 0x007AD295,

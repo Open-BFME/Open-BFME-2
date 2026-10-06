@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // ?set@Rva003D5630@@QAEPAV1@HEHH@Z 0x002E7067, 32 bytes.
 //

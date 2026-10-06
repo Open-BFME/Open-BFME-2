@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Six 29B State-derived ctors calling ??0State@@QAE@PAVStateMachine@@I@Z
 // (0x004D73FC, ICF twin of the rowed VAsciiString overload) then installing
 // their own vtable. Retail pushes a 4-byte hash (not a string address) with

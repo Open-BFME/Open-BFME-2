@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??4BfmeVectorRecord000BDF17@@QAEAAU0@ABU0@@Z at 0x000BDFAC (123B). Copy-assign the 64-byte record beside 0xBDF17.
 // Evidence: same offsets as the rowed copy-ctor TU (names at +0, text0 at +0xC, text1 at +0x10, scalars to +0x3C);

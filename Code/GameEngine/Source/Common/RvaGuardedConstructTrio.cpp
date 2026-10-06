@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Three guarded explicit copy-constructions (18B each): mov ecx, [esp+4],
 // test ecx, ecx, je ret, push [esp+8], call <copy-ctor>, ret. Each
 // copy-constructs the source into the given buffer unless it is null.

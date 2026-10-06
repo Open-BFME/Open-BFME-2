@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 // Zigzag-order coefficient multiply: reads two 8x8 arrays of 16-bit
 // coefficients in JPEG/MPEG zigzag scan order and writes their per-index

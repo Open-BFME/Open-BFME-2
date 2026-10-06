@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Member forwarders, address-named except where an existing pin already
 // spells the forwarder (those spellings are followed):

@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?Rva000696C0Distance@@YAHABURva000696C0Iterator@@0@Z
 // retail 0x002174CF, 16 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/SixteenByteIteratorArithmetic.cpp

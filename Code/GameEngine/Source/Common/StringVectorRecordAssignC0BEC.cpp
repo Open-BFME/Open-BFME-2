@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??4BfmeVectorRecord000C0BEC@@QAEAAU0@ABU0@@Z at 0x000BDD21 (39B). Copy-assign the text/vector/word10 record.
 // Evidence: same offsets as the rowed copy-ctor TU (text at +0, names at +0x04, word10 at +0x10);

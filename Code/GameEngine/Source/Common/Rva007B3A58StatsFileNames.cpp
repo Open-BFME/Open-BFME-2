@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Dynamic initializers of two file-scope UnicodeString globals, each built
 // from a temporary AsciiString of a stats .ini name and registered for
 // destruction with atexit. Target evidence: game.dat's __xc_a table points

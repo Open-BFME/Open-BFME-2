@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // One-row horizontal fixed-point Bink pixel filter. Retail 0x009C72C0.
 // The neighboring Bink MMX and SSE2 bodies use the same coefficient table at

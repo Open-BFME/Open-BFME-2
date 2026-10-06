@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // MMX two-row Bink pixel filter.  Retail 0x009C66F0 uses the same ABI and
 // weight table as Rva009C6780BinkMmx, but filters the low and high four-pixel

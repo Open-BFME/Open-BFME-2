@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Two-row byte average with a per-column round-bias table: blends row0
 // and row1 (>>1 after adding), adds the caller's 8-entry qword-pair

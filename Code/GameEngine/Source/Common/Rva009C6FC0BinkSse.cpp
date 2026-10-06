@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Four-tap vertical fixed-point Bink pixel filter: blends source rows at
 // -stride, 0, +stride and +stride*2 through the caller's four-entry

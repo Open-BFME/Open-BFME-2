@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /G6 /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Retail 0x009414A0 is the metric-sum twin of the FontCharsClass body at
 // 0x00941450: it forwards the character to Get_Char_Data, tests the raw

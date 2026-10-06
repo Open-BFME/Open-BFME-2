@@ -9,7 +9,7 @@
 // cleanup expands string releases then free; /Ob1 restores native scheduling.
 // The verified copy/fill workers use three cdecl arguments. Native pushes an
 // additional unused dispatch-tag argument; aliases preserve that call ABI.
-// cl: /O2 /Ob1 /G6 /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc_alloconly
+// cl: /Ob1 /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc_alloconly
 // stlport
 #include <memory>
 #pragma comment(linker, "/alternatename:?bfmeCopyCD@@YAPAUBfmeElemCD@@PBU1@0PAU1@ABUBfmeFalseCD@@@Z=?bfmeCopyF4@@YAPAUBfmeElemF4@@PAU1@00@Z")

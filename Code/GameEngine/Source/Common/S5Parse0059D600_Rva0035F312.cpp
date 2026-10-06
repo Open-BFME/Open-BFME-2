@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Parse the BfmeB1140 definition, then register the populated record.
 // The vtable at 0x0110C814 matches BfmeB1140 and the sibling constructor at
 // 0x0059D570.  Volatile fields preserve the retail store order around m_14.

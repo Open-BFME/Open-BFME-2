@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Three find-or-minus-one members (32B each): push [esp+8],
 // call <find>, test eax, eax, je null, push [esp+4], mov ecx, eax,
 // call <run>, jmp end, null: or eax, -1, end: ret 8. Each resolves (b)

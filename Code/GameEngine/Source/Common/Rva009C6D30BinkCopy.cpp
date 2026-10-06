@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // 8x8 pixel block copy by stride, used by the Bink filter dispatch to relay
 // an unmodified block.  Retail 0x009C6D30, 110 bytes, esp-relative with no

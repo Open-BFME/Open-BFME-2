@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // VP6 macroblock decode: 0x009B5AF0 reads the mode and motion vectors; 0x009B5DB0 decodes the
 // block flag at +0xc8 and points the six 8x8 block decodes (0x009B58F0) at their plane offsets.
 //

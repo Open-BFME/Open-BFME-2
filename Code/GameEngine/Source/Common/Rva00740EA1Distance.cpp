@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00740EA1DistanceSquared@@YAHPBE0@Z, retail 0x00740EA1, 77 bytes.
 // Squared distance between two 4-byte vectors via movzx sub imul add.
 // Evidence: caller at 0x00741459; no callees; reads 4 bytes each.

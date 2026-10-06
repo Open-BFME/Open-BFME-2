@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Address-derived nonvirtual leaf at retail 0x009C81C0.  The object carries a
 // 0x40-entry coefficient area ending at +0x4938 and a fill/count word at

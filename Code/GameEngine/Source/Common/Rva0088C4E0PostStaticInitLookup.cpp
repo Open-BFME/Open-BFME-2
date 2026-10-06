@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Rva0088C4E0PostStaticInitLookup.cpp (donor revision

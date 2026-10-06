@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // STLport red-black tree node erases that destroy each node's value, with the
 // shape of the rowed BfmeSubEBD::bfmeEraseSubtree (53 bytes: erase the right

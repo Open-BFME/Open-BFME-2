@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00740A60Get@@YAHABV?$StringBase@D@@@Z, retail 0x00740A60, 54 bytes.
 // Table walk with compareNoCase returning index else 0.
 // Evidence: caller at 0x00740E49 pushes dword; callee rowed compareNoCase 0x00037980; global table data 0x009DDF68.

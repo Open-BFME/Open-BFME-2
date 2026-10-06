@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHs-c- /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHs-c- -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 // ?movePair@BfmeB996@@QAEDPAH0PAII@Z
 // retail 0x00106812, 98 bytes. Dedicated TU ported from the Open-BFME-1 donor

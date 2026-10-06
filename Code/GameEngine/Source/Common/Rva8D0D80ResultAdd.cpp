@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva006FBB90@Rva8D0D80Result@@QAEXPAVRva8D0D80String@@PAVRva8D0D80Value@@@Z, retail 0x006FBB90, 8 bytes.
 // Rva8D0D80Result::add forwarder over m_table at +8 tail-jumping to Rva8D0D80Table::add

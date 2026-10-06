@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Destructors of three-AsciiString records with the shape of the rowed
 // GenericObjectCreationNugget::AnimSet destructor (0x001F0495, 68 bytes: release

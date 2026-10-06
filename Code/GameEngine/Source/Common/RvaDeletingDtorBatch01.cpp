@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Five scalar deleting destructors sharing one 28B shape (dtor call, flags
 // byte test, conditional scalar delete through pinned ??3@YAXPAX@Z
 // 0x0002FD60, return this), same recipe as the landed 0x005E948B/0x005E3051/

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // The handle-from-plain constructor at 0x00785140 installs VA 0x01126AB8
 // and increments its target's WORD count at +4. That vtable's slot 0 reaches
 // 0x007851A0 through ILT 0x00017DAA; it calls the destructor at 0x007851D0.

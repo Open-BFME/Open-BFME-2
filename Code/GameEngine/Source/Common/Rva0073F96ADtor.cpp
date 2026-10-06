@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva0073F96A@@UAE@XZ @0x0073F96A 103B.
 // Derived dtor releasing refcounted statics then base MaterialPassClass.
 // Evidence: unlock lane packet; vtable store; globals E1F290/294/298.

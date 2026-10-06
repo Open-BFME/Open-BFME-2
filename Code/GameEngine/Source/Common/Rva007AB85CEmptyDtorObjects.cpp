@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Static-initializer strip: file-scope objects whose class has an empty
 // inline constructor and an empty user-declared destructor. The constructor
 // leaves nothing to run, so each dynamic initializer is only

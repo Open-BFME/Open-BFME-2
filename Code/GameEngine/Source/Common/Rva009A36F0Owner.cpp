@@ -12,7 +12,7 @@
 // Adaptation vs the donor: the donor calls destroyDirect() on the thing, but
 // the b2 retail call target 0x00758500 is the ledger-rowed
 // ??1Rva009A45A0CollisionData@@QAE@XZ, so this TU calls that dtor directly.
-// cl: /O2 /Ob1
+// cl: /Ob1
 
 class Rva009A36F0Thing
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /Oy-
 // Three pair-copy-calls (30B each): push ebp, mov ebp, esp, push ecx x2,
 // copy [ebp+8]/[ebp+0x0C] to [ebp-8]/[ebp-4], lea eax, [ebp-8], push eax,
 // call <worker>, leave, ret 8. Each copies its 8-byte pair argument to a

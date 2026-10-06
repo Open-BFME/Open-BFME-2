@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Three 4-to-5 const-zero forwarders (27B each): push [esp+0x10],
 // push 0, push [esp+0x14] x3, call <callee>, add esp, 0x14, ret. Each
 // forwards (a, b, c, d) as callee(a, b, c, 0, d). /O1 keeps the pushes on

@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /MD /Ireference/open-bfme-1/Code/GameEngine/Source/Common
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /Ireference/open-bfme-1/Code/GameEngine/Source/Common
 // Retail 0x007AED00: update two entry-relative offsets when their bases are nonzero.
 
 struct Rva007AED00Entry

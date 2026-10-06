@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Two-pass SSE2 Bink filter helper. The first pass filters eight horizontal
 // rows into a 256-byte temporary buffer. The second pass filters eight rows

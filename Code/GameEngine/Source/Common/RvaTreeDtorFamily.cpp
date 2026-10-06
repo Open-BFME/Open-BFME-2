@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 //
 // Destructors of STLport red-black trees, one per instantiation, with the shape
 // of the rowed ??1Rva0046A93E (56 bytes: clear the tree through its rowed clear,

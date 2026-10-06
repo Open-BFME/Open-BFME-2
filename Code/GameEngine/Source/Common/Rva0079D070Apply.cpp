@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /O1 /Ob1 -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Ob1 -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 class Rva0079D070Apply
 {

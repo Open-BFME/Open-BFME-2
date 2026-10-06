@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0048896B@@QAE@PAVStateMachine@@@Z @0x0048896B 29B
 // State-derived ctor calling ??0State@@QAE@PAVStateMachine@@I@Z (0x004D73FC,
 // ICF twin pin of the rowed VAsciiString overload) then installing its own

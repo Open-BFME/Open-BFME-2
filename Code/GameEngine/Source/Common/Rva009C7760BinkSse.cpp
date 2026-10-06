@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // SSE2 sibling of rva009C6CB0BinkMmx: same two-row byte average with a
 // per-column round-bias table, but the whole 8-word lane fits in one xmm

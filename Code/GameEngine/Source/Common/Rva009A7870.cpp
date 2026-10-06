@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 // Address-derived identity: retail 0x009A7870, 107 bytes, seven-argument cdecl.
 // Two-tap unsigned-byte to unsigned-short filter. The same source pattern is
 // inlined in the matched Rva009A7B00Vp6Filter at 0x009A7B00.

@@ -11,7 +11,7 @@
 //
 // All seven relocations are DIR32 data references (the two bounding tables and
 // the three indirect callback slots); there are no direct calls and no pins.
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 extern "C" void * __cdecl memcpy(void *, const void *, unsigned int);
 #pragma intrinsic(memcpy)

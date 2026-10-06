@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Fuzzy-twin (r0.937) of ?rva009C7200BinkSse@@YAXPBXPAXH00@Z in
 // Code/GameEngine/Source/Common/Rva009C7200BinkSse.cpp: identical two-row

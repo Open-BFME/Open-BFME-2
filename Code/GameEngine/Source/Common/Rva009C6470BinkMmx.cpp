@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // MMX sibling of rva009C6FC0BinkSse: same four-tap vertical fixed-point
 // filter (taps at -stride, 0, +stride, +stride*2), but each MMX register

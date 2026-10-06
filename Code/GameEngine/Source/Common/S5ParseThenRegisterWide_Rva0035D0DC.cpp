@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME7: three more bodies of the INI definition-parsing family that
 // S4ParseThenRegisterWithFields.cpp describes (allocate a derived record whose
 // constructor is inlined after the shared base constructor 0x00489210, fill it

@@ -1,6 +1,6 @@
 // VPx Scale2D conversion recovered from the retail codec body at RVA 0x009A9AD0.
 // Callback bodies at 0x009A9980 and 0x009A9A20 use the witnessed Scale1D ABI.
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 
 #include <string.h>
 

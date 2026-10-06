@@ -1,4 +1,4 @@
-// cl: /O1 /Oy-
+// cl: /Oy-
 // Four retail morph-init bodies (45B each). Retail shape per member: ebp
 // frame, 5 args, push esi/edi, cache 5th arg in edi, forward all five to a
 // shared init, store the 5th arg at +0x20, then a trailing vtable install at

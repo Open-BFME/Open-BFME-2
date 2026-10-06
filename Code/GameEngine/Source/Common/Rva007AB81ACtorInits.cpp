@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Dynamic initializers from the 0x007AB7DA strip that run an already-rowed
 // default constructor (or in-place init member) on a file-scope object, then

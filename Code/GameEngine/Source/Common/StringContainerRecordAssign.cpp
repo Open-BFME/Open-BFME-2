@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Oy-
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Oy-
 // stlport
 // ?rva0004B1D2@Rva0004B1D2@@QAEPAUBfmeContainerRecord00048139@@PAU2@PBD@Z @0x0004B1D2 51B
 // Range assign updating +4 via rowed copyRecordRangeWithScratch 0x0004811C

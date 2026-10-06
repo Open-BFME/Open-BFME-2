@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // Address-derived body at retail RVA 0x009AAD20, 208 bytes.
 // Four INT3 bytes precede entry; every branch stays inside the body and the
 // last complete RET is at +0xCF, immediately before the next entry at 0x009AADF0.

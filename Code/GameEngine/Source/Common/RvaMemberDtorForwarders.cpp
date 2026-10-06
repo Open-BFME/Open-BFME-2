@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // Destructors whose only non-trivial member sits at +4 and whose bodies are
 // therefore the 8B add ecx 4 / jmp tail into that member's destructor:
 // 0x005011B4 -> rowed ??1Rva00500E3D@@QAE@XZ (RvaVectorDtorFamily.cpp) with

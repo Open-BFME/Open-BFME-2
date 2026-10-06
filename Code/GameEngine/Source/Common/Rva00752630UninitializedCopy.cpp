@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva000791EDCopy@@YAPAVRva00752630@@PAV1@00@Z @0x000791ED 50B
 // __uninitialized_copy for Rva00752630 (24B stride 0x18, rowed copy ctor

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Dynamic initializers from the 0x007AB7DA strip that construct a file-scope
 // STLport container through its allocator-taking constructor: the defaulted

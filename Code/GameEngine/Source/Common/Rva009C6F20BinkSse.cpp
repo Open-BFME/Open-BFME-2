@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // Four-tap horizontal fixed-point Bink pixel filter: reads one unaligned
 // 16-byte window starting at source-1 plus a second at source, and pulls

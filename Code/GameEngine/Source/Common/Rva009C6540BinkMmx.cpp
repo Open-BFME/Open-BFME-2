@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // MMX four-tap horizontal Bink filter: pulls all four taps (source-1,
 // source, source+1, source+2) out of a single unaligned qword load via

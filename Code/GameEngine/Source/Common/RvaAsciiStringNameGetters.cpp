@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Virtual name getters with the shape of the rowed
 // LookupTablePostEffect::rva00111BE9 (28 bytes: construct the returned

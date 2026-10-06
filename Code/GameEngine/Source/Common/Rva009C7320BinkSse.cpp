@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O2
+// cl: /DNDEBUG /MD
 //
 // One-row horizontal fixed-point Bink pixel filter, two-tap variant: each
 // output pixel blends the corresponding source byte and its next-row

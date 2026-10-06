@@ -5,7 +5,7 @@
 // The three spread-table cells are one shared void* blob declared by the
 // codec installer.  Their callback signatures are recovered from the retail
 // push order at 0x009B5830, not inferred from a Zero Hour wrapper.
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 
 struct Rva009B5830State
 {

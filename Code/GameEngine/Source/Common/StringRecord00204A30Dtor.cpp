@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ??1BfmeStringRecord00204A30@@QAE@XZ retail 0x00204848 54B.
 // Same layout as the 0x00204A30 copy ctor in StringRecordInlineCopyBFME2.cpp
 // (word AsciiString word AsciiString word = 0x14). Destroys text1 at +0x0C

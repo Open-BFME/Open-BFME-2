@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0
+// cl: /Ob0
 
 // `copyFrom` copies the narrow-string tail at +0x0C. The matched
 // StringBase<char> copy constructor at 0x000365F0 shares that buffer under the

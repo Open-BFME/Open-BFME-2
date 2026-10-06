@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // VP6 six-bit prefix lookup expansion, retail [9B62A0,9B6314).
 // Only the low byte is needed before loading a complete node from the tree.
 // Bitfield initialization preserves the unused bits without treating the

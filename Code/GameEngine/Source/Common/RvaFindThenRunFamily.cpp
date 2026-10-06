@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Four find-then-run members (23B each): push [esp+4], call <find>,
 // test eax, eax, je +7, mov ecx, eax, call <run>, ret 4. /O1 keeps the
 // argument push on the stack slot.

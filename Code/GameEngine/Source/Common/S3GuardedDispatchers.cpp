@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // A guarded dispatcher whose whole content is a null test around one call:
 //
 //     mov ecx,[esp+0x10] / test ecx,ecx / je OUT

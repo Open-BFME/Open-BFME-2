@@ -1,4 +1,4 @@
-// cl: /EHs-c- /O2 /Ob2
+// cl: /EHs-c- /Ob2
 // BFME1 BfmeConv1033 semantic reference, reconciled with the BFME2 PE imports.
 // Address-based class names preserve the proven identity without inventing an
 // original application name. Base vtable VA CE1E14 has four pure virtual slots;
