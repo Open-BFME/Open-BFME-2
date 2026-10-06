@@ -622,5 +622,74 @@ PUBLIC ?rva00784220@@YAXXZ
 cleanup_done_00784220:
     ret
 ?rva00784220@@YAXXZ ENDP
+
+; Unwind@00b84239 at RVA 0x00784239; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 1 at [ebp-16] and tail-jumps through [ebp+8] to the rowed UnicodeString thunk.
+PUBLIC ?rva00784239@@YAXXZ
+?rva00784239@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 2
+    jz NEAR PTR cleanup_done_00784239
+    and DWORD PTR [ebp-16], -3
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva002606AFDtor@@QAE@XZ
+cleanup_done_00784239:
+    ret
+?rva00784239@@YAXXZ ENDP
+
+; Unwind@00b84973 at RVA 0x00784973; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-28] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva00784973@@YAXXZ
+?rva00784973@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-28]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00784973
+    and DWORD PTR [ebp-28], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00784973:
+    ret
+?rva00784973@@YAXXZ ENDP
+
+; Unwind@00b849c6 at RVA 0x007849C6; 25-byte state-bit cleanup ends at RET.
+; Same state-bit cleanup as 0x784973; frame slot is [ebp-28].
+PUBLIC ?rva007849c6@@YAXXZ
+?rva007849c6@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-28]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007849c6
+    and DWORD PTR [ebp-28], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007849c6:
+    ret
+?rva007849c6@@YAXXZ ENDP
+
+; Unwind@00b84a1f at RVA 0x00784A1F; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-68] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva00784a1f@@YAXXZ
+?rva00784a1f@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-68]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00784a1f
+    and DWORD PTR [ebp-68], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00784a1f:
+    ret
+?rva00784a1f@@YAXXZ ENDP
+
+; Unwind@00b84ac6 at RVA 0x00784AC6; 25-byte vector cleanup ends at RET.
+; Target passes [ebp-0xe7c] to the rowed iterator with element size 0x1ac count 8 and dtor VA 0x006294FD.
+PUBLIC ?rva00784ac6@@YAXXZ
+?rva00784ac6@@YAXXZ PROC
+    push 006294FDh
+    push 8
+    push 1ACh
+    lea eax, DWORD PTR [ebp-0E7Ch]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00784ac6@@YAXXZ ENDP
 _TEXT ENDS
 END
