@@ -13991,3 +13991,7 @@ FUN_0063e3ce	0x0023E3CE	602	blocked	EH-prolog large-frame MapCache body t=1 mode
 ?rva0047CDCE@HordeSiegeEngineContain@@UAE_NH@Z	0x0047CDCE	62	blocked	needs /G6 for leave plus push ecx plus jmp sharing region gives /O1 /arch:SSE /G7 0 register wall 72B vs 62B t=30 model=muse-01
 ?doSpecialPowerAtLocation@DevastateSpecialPower@@UAEXPBUCoord3D@@I@Z	0x004C82E5	472	blocked	does not compile: forward-declared Player/FXList/Money/TerrainLogic/WeaponStore used as complete types plus missing member layouts t=5 model=muse-01
 ?rva0047CAEB@Rva0047CAEB@@QAEPAVBfmeObject872Header@@PAV2@PAVObject@@@Z	0x0047CAEB	84	blocked	register allocation only: obj in edi not stack and filter via add not lea and out in esi not stack; 87B vs 84B t=20 model=muse-01 (stash 0.93 kept)
+?rva0029C2F6@Rva0029C2F6@@QAEXHH@Z	0x0029C2F6	89	blocked	EH prolog plus wide temp plus slot14 signature unclear t=12 model=muse-02
+??0Rva0027C2C9@@QAE@PBHHME@Z	0x0027C2C9	61	blocked	and-vs-mov zero plus movss-vs-mov float plus src-load hoisted above plus4 t=15 model=muse-02
+??4Rva00210F3D@@QAEAAV0@ABV0@@Z	0x00210F3D	39	partial	scratch eax reused vs rot ecx edx t=12 model=muse-02 score=0.93 stash=reverse/attempts/0x00210f3d.cpp
+?rva005C7CC9@Rva005C7CC9@@QAEXH@Z	0x005C7CC9	129	blocked	two bodies merged 110 plus 19 plus WARN FF before start plus EH strings t=5 model=muse-02
