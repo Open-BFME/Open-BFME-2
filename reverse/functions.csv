@@ -65046,3 +65046,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva005FBED8@Rva005FBEBA@@QAEXH@Z,,0x005FBED8,157,Code/GameEngine/Source/Common/Rva005FBED8Audio.cpp,matched,callback slot 0x00879F0C audio refresh via TheAudio prefix
 ?Rva0042FE3BForward@@YAXXZ,,0x0042FE3B,5,Code/GameEngine/Source/Common/Rva0042FE3B.cpp,matched,tail-jmp to rowed dup_0042fd1c
 ?CanSelectDrawable@@YA_NPBVDrawable@@_N@Z,,0x0042FA63,300,Code/GameEngine/Source/GameClient/GUI/SelectionCanSelectDrawable.cpp,matched,donor SelectionXlatCanSelectDrawable with BFME2 layouts
+??1Rva004638E7@@QAE@XZ,,0x004638E7,5,Code/Libraries/Source/WWVegas/WWLib/Rva004638E7Dtor.cpp,matched,5B novtable jmp to rowed Rb_tree dtor 0x004636C6 Unwind callers
