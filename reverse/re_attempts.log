@@ -10680,3 +10680,4 @@ FUN_009d401e	0x005D401E	136	void	Correction: retract the prior boundary refusal;
 ?rva00548984@Rva00548984@@QAEXXZ	0x00548984	133	blocked	133B recursion with hero remove Science erase Armor find self-call and dup alias YAXXZ vs thiscall plus virtuals t=12 model=muse-10
 ?rva00548464@Rva0054840A@@QAEXHH@Z	0x00548464	195	blocked	195B Rva0054840A-like with list push find insert plus Armor find and direct plus8 plusC writes needs ctor layout and ObjectID find shape t=10 model=muse-10
 ??1Rva0040FB4A@@QAE@XZ	0x0040FB4A	82	blocked	82B dtor with MI puzzle both calls ECX=this for BfmeQuickMatch finish and Rva00538C5F dtor plus global pin and plus24 member no donor t=10 model=muse-10
+?rva005E56FC@Rva005E56FC@@QAEPAXXZ	0x005E56FC	78	partial	missing redundant mov ecx g_009FEF10 before stdcall 0x002B4948; 72B vs 78B; branch fixed via nested not-equal t=10 model=muse-07 score=0.92 stash=reverse/attempts/0x005e56fc.cpp

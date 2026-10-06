@@ -409,3 +409,22 @@ void Rva003EEF38::rva003EEF38(Int p)
 		}
 	}
 }
+
+// ?rva003EF041@Rva003EF041@@QAEXXZ @0x003EF041 37B
+// Evidence: guard this+0x14 then this->rva003EE7CA(&tmp,m_saved) then this->rva003EEE64(ret); callees rowed; callers at 0x002B396A/0x003EF0E4; LINK BONUS via 0x003EF08B
+class Rva003EF041
+{
+public:
+	void rva003EF041();
+private:
+	char m_pad[8];
+	Rva004E35D5 m_owner;
+	Int m_saved;
+};
+void Rva003EF041::rva003EF041()
+{
+	if (m_saved != 0) {
+		Int tmp[3];
+		((Rva003EEE64 *)this)->rva003EEE64(((Rva003EE7CA *)this)->rva003EE7CA((Int)&tmp, m_saved));
+	}
+}
