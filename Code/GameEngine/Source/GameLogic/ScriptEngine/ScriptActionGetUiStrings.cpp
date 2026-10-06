@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getUiStrings@ScriptAction@@QAEHQAVAsciiString@@@Z, retail 0x003B2843, 21 bytes.
 // Thin wrapper: fetch the ActionTemplate for m_actionType (+4) via the rowed

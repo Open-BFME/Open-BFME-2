@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003BF8B4Hunt@@YGXABVAsciiString@@@Z @0x003BF8B4 79B
 // Script team hunt via getTeamNamed pin 0x003584E9 with false, createGroup
 // pin 0x002FEC4B, getTeamAsAIGroup pin 0x003A0F62, then rowed groupHunt

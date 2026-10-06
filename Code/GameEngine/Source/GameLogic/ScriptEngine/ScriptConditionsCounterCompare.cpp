@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline
 // ScriptConditions counter-compare condition, retail 0x003E7CBA (201B):
 // compares the values of two script counters. Ported from Open-BFME-1's
 // ScriptConditionsCounterCompareRva00325BC0.cpp (donor revision

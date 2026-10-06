@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?getParameter@ScriptAction@@QAEPAVParameter@@H@Z at retail 0x00203553 (24B).
 // Donor: ZH Scripts.h ScriptAction::getParameter (inline bounds-checked

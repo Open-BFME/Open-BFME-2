@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Rva003BF903Do@@YGXABVAsciiString@@H@Z @0x003BF903 108B.
 // Script team waypoint via getTeamNamed then TerrainLogic slot 0x88,

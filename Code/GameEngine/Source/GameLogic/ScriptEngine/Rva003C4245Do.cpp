@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail 0x003C4245 (RVA 0x003C4245) size 116: script apply power to named target.
 // Evidence: ScriptEngine 0xDFE16C getUnitNamed then lookupUnitByValue then SpecialPowerStore 0xE02D4C findSpecialPowerTemplate then BfmeSubBEC rva0028BB9E then vtable+0x2c with 0x40000.
 #include "ascii_string.h"

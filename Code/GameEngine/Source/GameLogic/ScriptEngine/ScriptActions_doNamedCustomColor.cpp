@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::doNamedCustomColor, retail 0x003BB596 (33B): Zero Hour's
 // body - the unit by name (BFME2 resolves it from its parameter through the

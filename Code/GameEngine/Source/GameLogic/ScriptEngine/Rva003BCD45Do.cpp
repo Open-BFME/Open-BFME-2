@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003BCD45Do@@YGXPAVParameter@@@Z @0x003BCD45 146B: gate behavior triple-check.
 // Evidence: getUnitNamed 0x003588E7 then static gateKey via TheNameKeyGenerator nameToKey GateOpenAndCloseBehavior then findModule 0x0028B6D6 then gate-4 view with slots 0x18 0x28 0x20 bool checks; globals g_Va009FE16C TheNameKeyGenerator; ret 4; caller 0x003CDDAC.

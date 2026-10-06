@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003C0DE1Do@@YGXABVAsciiString@@_N@Z @0x003C0DE1 81B.
 // Script team helper over named team via getTeamNamed iterate Rva-advance,

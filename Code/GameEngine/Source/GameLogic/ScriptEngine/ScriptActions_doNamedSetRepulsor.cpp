@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ScriptActions::doNamedSetRepulsor, retail 0x003BEEAE, 35 bytes.
 // Target evidence: action template 0x1EB is NAMED_SET_REPULSOR and executeAction

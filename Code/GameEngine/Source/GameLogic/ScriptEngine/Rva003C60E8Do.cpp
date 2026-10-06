@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
 // stlport
 // ?Rva003C60E8Do@@YGXPAVParameter@@PAURva003C60E8Arg@@@Z @0x003C60E8 169B.
 // Script free function getting unit by Parameter name then setting status

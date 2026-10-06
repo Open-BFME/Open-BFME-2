@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BA96F@@YGXMMMMM@Z @0x003BA96F 64B: free stdcall five floats null-guarded to AudioManager slot 0xf4 with int 0.
 // Evidence: ret 20 five float args; mov ecx TheAudio test je; five fld-fstp push 0 call [eax+0xf4]; caller 0x003CAA80.
 class AudioManager

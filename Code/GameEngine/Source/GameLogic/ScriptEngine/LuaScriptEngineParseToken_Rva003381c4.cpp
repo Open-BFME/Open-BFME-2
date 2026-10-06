@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /O1 -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 // LuaScriptEngine::rva002EC770ParseToken, retail RVA 0x002EC770.
 // Sibling of LuaScriptEngineParseTokenFile.cpp's rva002EC840ParseTokenFile,
 // which calls this body once per XML tag through the

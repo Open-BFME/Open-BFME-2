@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?Rva003C5825Do@@YGXPAVParameter@@ABVAsciiString@@1@Z @0x003C5825 164B: unit command-button with two-object lookup via getUnitNamed plus by-value lookupUnitByValue then CommandSet loop 32 compare then rva00297000. Evidence: rowed getUnitNamed 0x3588E7 StringBase copy 0x365F0 lookupUnitByValue 0x358752 rva00290E67 0x290E67 rva0031D5F8 0x31D5F8 getCommandButton 0x409EE8 isEmpty 0x1E2F compare 0x69D6 pin rva00297000 0x297000 g_Va009FE16C g_bfmeWorldRV; caller 0x003CCAA7; ret 0xC stdcall.
 #include "ascii_string.h"
 

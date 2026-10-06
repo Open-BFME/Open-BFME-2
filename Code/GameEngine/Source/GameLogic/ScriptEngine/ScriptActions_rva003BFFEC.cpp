@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003BFFECDo@@YGXABVAsciiString@@H@Z @0x003BFFEC 97B
 // Display fullscreen plus trigger via Display virtual 0x114 check, rowed
 // rva002B2466 0x002B2466 with 0 0 1 1, StringBase pin 0x000365F0 temp,

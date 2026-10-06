@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Two single-unit script actions on the unit's +0x264 object (the unit
 // resolved from its parameter by the rowed getUnitNamed); its two methods

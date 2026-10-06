@@ -1,5 +1,5 @@
 // ?doTeamFaceNamed@ScriptActions@@IAEXABVAsciiString@@0@Z
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Target identity: action-template index 0x135 is TEAM_FACE_NAMED and
 // executeAction case 0x135 calls VA 0x007C9A80 (RVA 0x003C9A80), 153 bytes.
 // Target body resolves the team, resolves the face target through the opaque

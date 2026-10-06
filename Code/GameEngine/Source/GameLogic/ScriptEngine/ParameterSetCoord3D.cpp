@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?setCoord3D@Parameter@@IAEXPBUCoord3D@@@Z, retail 0x003B27E2 (22 bytes).
 // Parameter::setCoord3D protected setter: if m_paramType==COORD3D (0x10),

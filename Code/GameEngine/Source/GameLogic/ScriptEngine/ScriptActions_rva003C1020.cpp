@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C1020Do@@YGXABVAsciiString@@0PAVParameter@@@Z @0x003C1020 184B
 // Team command-button on object via rowed callees.
 // Evidence: caller 0x003CCCBE; neighbours 0x003C0FEA 0x003C10D8;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?Rva003BC4FFForward@@YAXXZ @0x003BC4FF 17B: script forwards to TheAudio slot 0xbc with 0.
 // Evidence: mov ecx,[0xDFE6E8]=TheAudio mov eax,[ecx] push 0 call [eax+0xbc] ret; caller 0x003CD1C6; sibling TacticalView forwarders same tail shape.
 class AudioManager

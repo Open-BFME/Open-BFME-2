@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ?Rva00206E63Search@@YAXPAVINI@@@Z @0x00206E63 100B: chain sibling of 0x00206DFF.
 // Builds local Rva003B39C7 via ctor 0x003B39C7, initFromINI with table

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C07C1Do@@YGXABVAsciiString@@00@Z @0x003C07C1 136B: team unit command-button order.
 // Evidence: rowed getTeamNamed 0x003584E9 with false via g_Va009FE16C, rowed
 // lookupUnitByValue 0x00358752 via same global cast to Rva00358752Opaque,

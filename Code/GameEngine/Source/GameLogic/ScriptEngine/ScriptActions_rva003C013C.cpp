@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003C013C@ScriptActions@@IAEXABVAsciiString@@0@Z @0x003C013C 111B: trigger-area shroud reveal.
 // Evidence: calls rowed StringBase copy 0x000365F0 via by-value AsciiString temp plus rowed getQualifiedTriggerAreaByName 0x0035768D plus pinned PolygonTrigger rect 0x002E3954 plus rowed player-mask 0x00357475 plus rowed shroud siblings 0x00739AF0 0x00739CA0; globals g_Va009FE16C TheShroudManager; ret 8 two AsciiStrings.
 #include "ascii_string.h"

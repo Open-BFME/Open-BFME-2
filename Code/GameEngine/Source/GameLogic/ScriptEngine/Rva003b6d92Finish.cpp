@@ -1,7 +1,7 @@
 // ?ParseConditionDataChunk@Condition@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z
 // partial score=0.99 date=2026-10-05
 // ?ParseConditionDataChunk@Condition@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z
-// cl: /Ireference/shims/bfme2_ascii /O1 /Gy /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /Gy /DNDEBUG /MD
 // BFME1 donor 6583b3c1: Condition_ParseConditionDataChunk_Thunk.cpp.
 // Target callback registered as Condition by OrCondition parser 3B7587.
 // BFME2 layout 50 bytes, template bound CA, internal key +10, two flags

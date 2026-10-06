@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003C43A3Do@@YGXABVAsciiString@@0@Z @0x003C43A3 80B.
 // Script free function finding Player by name key and Team named then
 // calling rowed armor remove. Evidence: chain lane via 0x002AD19E,

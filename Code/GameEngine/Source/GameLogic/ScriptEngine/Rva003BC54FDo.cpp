@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?Rva003BC54FDo@@YGXH@Z @0x003BC54F 23B: script forwards int arg to TheAudio vslot 0xc4 with 0.
 // Evidence: mov ecx,[0xDFE6E8]=TheAudio mov eax,[ecx] push 0 push [esp+8] call [eax+0xc4] ret 4; caller 0x003CD21E; sibling Rva003BC4D1Do slot 0xb4 same shape.
 class AudioManager

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?rva003C1E69@Rva003C1E69@@QAEPAVTeam@@ABVAsciiString@@0@Z @0x003C1E69 35B
 // Team lookup via rowed getTeamNamed 0x003584E9 with false.
 // Evidence: caller 0x003CD484; neighbours 0x003C1D70 0x003C1FAD;

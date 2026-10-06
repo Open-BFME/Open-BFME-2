@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Rva003BF9FADo@@YGXABVAsciiString@@M0@Z @0x003BF9FA 125B.
 // Script team action chaining landed rva003570D1: prototype via first name

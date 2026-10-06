@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ?rva003B779C@ScriptList@@QAEXPAXPAURva003B31DF@@@Z @0x003B779C (118B):
 // recursive group teardown on this ScriptList. Captures the node's group
 // through the rowed Rva003B40A1Holder::captureGroup, drains its +4 chain

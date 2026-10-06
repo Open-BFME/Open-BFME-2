@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // ?rva00332E60@Rva00332E60@@QAEPAXH@Z @0x00332E60 35B
 // retail 0x00332E60 35 bytes unlock search 17-entry table at +0x14 each 8 bytes
 // compares first dword to arg returns entry pointer or null caller 0x00333918

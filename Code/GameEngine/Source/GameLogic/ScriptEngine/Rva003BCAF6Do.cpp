@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BCAF6Do@@YGXPAVParameter@@MMM@Z @0x003BCAF6 65B: script TerrainLogic slot 0x88 then TacticalView slot 0xa8.
 // Evidence: mov ecx,[0xDFEC50]=TheTerrainLogic push [esp+4] call [eax+0x88] fld [esp+8] mov ecx,[0xDFEA3C]=TheTacticalView mov edx,[ecx] sub esp,0xc fstp [esp+8] add eax,0xc fld [esp+0x18] fstp [esp+4] fld [esp+0x1c] fstp [esp] push eax call [edx+0xa8] ret 0x10; caller 0x003CD7C5; sibling Rva003BC33DDo same TerrainLogic float slot shape.
 class Parameter

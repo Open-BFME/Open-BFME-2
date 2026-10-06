@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail RVA 0x003C004D, 68 bytes.
 // ?rva003C004D@ScriptActions@@IAEXABVAsciiString@@M@Z
 // Honest address name: ScriptActions area method dispatched from FUN_007ca4be

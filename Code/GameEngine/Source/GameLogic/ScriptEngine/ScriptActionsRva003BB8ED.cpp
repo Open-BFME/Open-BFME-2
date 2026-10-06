@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BB8EDReveal@@YGXABVAsciiString@@M0@Z, retail 0x003BB8ED, 95 bytes.
 // Reveal/shroud circle at waypoint for player mask.
 // Evidence: leaf lane; callees TerrainLogic slot 0x88 ScriptEngine rva00357475 ShroudManager rva00739A30 rva00739BE0; caller 0x003CBE39.

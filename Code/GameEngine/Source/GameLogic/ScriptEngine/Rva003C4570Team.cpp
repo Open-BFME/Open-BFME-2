@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003C4570Do@@YGXABVAsciiString@@0@Z @0x003C4570 100B.
 // Team-plus-ExperienceLevel script helper: getTeamNamed kir teamizmi level find

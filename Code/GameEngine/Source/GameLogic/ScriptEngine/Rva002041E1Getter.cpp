@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ?rva002041E1@Rva002041E1@@QBE?AVAsciiString@@XZ @0x002041E1 27B: AsciiString getter at +0x44.
 // Evidence: same copy-through-pin shape as ParticleSystemTemplate getters 0x00002600 and 0x0000261E;

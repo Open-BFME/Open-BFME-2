@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003BFCBFDo@@YGXABVAsciiString@@H@Z @0x003BFCBF 155B
 // Script team priority decrease with delta via getTeamNamed pin 0x003584E9,
 // Team+0x30 TeamPrototype rowed rva0039D754 0x0039D754 with delta, format row

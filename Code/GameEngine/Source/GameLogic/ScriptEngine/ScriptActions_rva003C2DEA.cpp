@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C2DEADo@@YGXPAVParameter@@0@Z @0x003C2DEA 119B
 // Script sum team member Object+0x618 field then set counter: team via rowed
 // getTeamNamed 0x003584E9 by value with false, iterate via rowed 0x00263864,

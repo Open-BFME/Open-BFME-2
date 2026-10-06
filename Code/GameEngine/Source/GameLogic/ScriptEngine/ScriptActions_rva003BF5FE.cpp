@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003BF5FEDo@@YGXABVAsciiString@@H_N@Z @0x003BF5FE 288B.
 // Script team waypoint average via getTeamNamed, member centroid, terrain

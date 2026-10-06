@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // stlport
 //
 // ?Rva00335CAELowerBound@@YAPAURva00335CAERec@@PAU1@0ABVAsciiString@@@Z, retail 0x00335CAE 79B.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BBD02Do@@YGXPAVParameter@@PAX@Z @ 0x003BBD02 (55B).
 // Free-function wrapper: looks up Object via TheScriptEngine getUnitNamed
 // Parameter row 0x003588E7 then double getDrawable Thing row 0x005508E2

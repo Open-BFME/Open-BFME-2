@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva003BC048Set@@YGXABVAsciiString@@H@Z @0x003BC048 95B leaf caller 0x003CC558 globals 0x009FE16C 0x009FEEE8
 // Evidence: ScriptEngine::rva00357475 mask-from-name then PlayerList::getEachPlayerFromMask loop with Money withdraw-all then deposit arg at Player+0x90.
 #include "ascii_string.h"

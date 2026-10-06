@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ?Rva003C8C6EDo@@YGXABVAsciiString@@@Z @0x003C8C6E (95B).
 // Unit evacuate via lookupUnitByValue plus kind flag 0x108/0x80 plus AI

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003C43F3Do@@YGXABVAsciiString@@0PAVObject@@@Z @0x003C43F3 86B.
 // Script free function finding Team named then Player by name key and calling
 // rowed Team map register 0x003A2D53 with player index key plus object.

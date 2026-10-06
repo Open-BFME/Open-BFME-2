@@ -1,4 +1,4 @@
-// cl: /O1 /Oi /DNDEBUG /MD /EHsc
+// cl: /Oi /DNDEBUG /MD /EHsc
 // ?duplicate@ScriptAction@@QBEPAV1@XZ @0x003B5449 147B chain from typed ctor 0x003B5413.
 // Evidence: calls new 0x0002FDA0 typed ctor 0x003B5413 Rva assign 0x003B270F plus self recursion for next chain; donor ZH Scripts.cpp ScriptAction::duplicate const deep copy with tailByte delta.
 typedef bool Bool;

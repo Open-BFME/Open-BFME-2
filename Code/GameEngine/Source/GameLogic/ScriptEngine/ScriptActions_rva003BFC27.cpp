@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003BFC27Do@@YGXABVAsciiString@@@Z @0x003BFC27 152B
 // Script team priority decrease via getTeamNamed pin 0x003584E9 with false,
 // Team+0x30 TeamPrototype rowed rva0039D73A 0x0039D73A, AsciiString format

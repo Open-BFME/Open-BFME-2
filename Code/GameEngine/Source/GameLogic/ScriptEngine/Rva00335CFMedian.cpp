@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // stlport
 //
 // ?Rva00335CFMedian@@YAPBVAsciiString@@PBV1@00@Z, retail 0x00335CFD 94B.

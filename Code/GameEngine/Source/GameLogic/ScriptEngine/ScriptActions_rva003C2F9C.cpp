@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C2F9CDo@@YGXABVAsciiString@@00@Z @0x003C2F9C 129B
 // Script count KindOf objects across players in mask into a counter: mask from
 // first arg via rowed rva00357475 0x00357475 with NULL, kind bit via rowed

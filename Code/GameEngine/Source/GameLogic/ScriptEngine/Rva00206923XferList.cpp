@@ -1,5 +1,5 @@
 // ?Rva00206923XferList@@YAPAVXfer@@PAV1@PAV?$list@UBfmeSpecialPowerTimer8@@V?$allocator@UBfmeSpecialPowerTimer8@@@_STL@@@_STL@@@Z @0x00206923 205B
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 // Free list<BfmeSpecialPowerTimer8> Xfer helper version {1 1} via slot 0x28 size via slots 0x2C 0x78 IsSaving via slot 0x08 saving walks timers via rowed Chain 0x00203D86 loading checks empty via FormatText plus Throw then reloads via Chain plus rowed push_back 0x004DE74D. Evidence: leaf lane 2 callers; prev 0x00206861 next 0x00206ABE; strings std::list List must be empty on load; same skeleton as rowed xferListInt 0x00206861 and Rva00207F91.
 #define _STLP_NO_EXCEPTIONS 1

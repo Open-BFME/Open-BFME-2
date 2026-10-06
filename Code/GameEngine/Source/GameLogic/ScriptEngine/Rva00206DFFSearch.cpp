@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ?Rva00206DFF... @0x00206DFF 100B: chain from ??1Rva003B39C7. Builds a local
 // Rva003B39C7 via ctor 0x003B39C7, initFromINI with table g_00BE3908, then if

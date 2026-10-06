@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C2EC9Do@@YGXPBX00@Z @0x003C2EC9 211B
 // Set counter from KindOf-filtered object count for player: mask from first arg
 // via rowed rva00357475 0x00357475 with NULL, player via rowed getPlayerFromMask

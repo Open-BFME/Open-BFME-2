@@ -1,5 +1,5 @@
 // ?evaluateNamedUnitRankLevel@ScriptConditions@@IAE_NPAVParameter@@0@Z
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateNamedUnitRankLevel@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E92DF 148B
 // Target evidence: retail pushes Parameter* to rowed getUnitNamed 0x003588E7,
 // warn-once byte at 0x00E02E34, string at 0x00835B8C, rowed concat 0x00006987,

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva003BE26DGrantUpgrade@@YGXPAVParameter@@ABVAsciiString@@@Z @0x003BE26D 110B.
 // Grants an upgrade to a named unit: ScriptEngine::getUnitNamed(arg1), then

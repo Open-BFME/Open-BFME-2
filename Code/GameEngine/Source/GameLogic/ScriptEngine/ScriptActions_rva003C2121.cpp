@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003C2121Grant@@YGXABVAsciiString@@0@Z @0x003C2121 69B
 // Grant upgrade to named team: ScriptEngine::getTeamNamed(team,false) via
 // rowed 0x003584E9 with StringBase copy 0x000365F0, UpgradeCenter::findUpgrade

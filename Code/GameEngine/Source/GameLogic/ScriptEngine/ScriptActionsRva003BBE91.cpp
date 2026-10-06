@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BBE91Set@@YGX_NH@Z @0x003BBE91 66B leaf caller 0x003CC271 globals 0xDFEA3C slots 0xB4 0xBC 0xC0
 // Evidence: TheTacticalView triple virtual call with 1 6 and (arg2, arg1?1:-1).
 class TacticalView

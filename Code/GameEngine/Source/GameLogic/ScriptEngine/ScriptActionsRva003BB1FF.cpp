@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?Rva003BB1FFAttack@@YGXPAVParameter@@ABVAsciiString@@@Z, retail 0x003BB1FF, 52 bytes.
 // Set AI attack priority info for named unit.
 // Evidence: leaf lane; callees getUnitNamed getAttackInfo; caller 0x003CB30C.

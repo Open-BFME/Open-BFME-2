@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?evaluateTeamCountCompare@ScriptConditions@@IAE_NPAVParameter@@00@Z, retail 0x003e5e2f, 78 bytes. Banked partial (score 0.82) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

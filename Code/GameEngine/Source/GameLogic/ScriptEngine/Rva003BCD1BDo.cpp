@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BCD1BDo@@YGXPAVParameter@@@Z @0x003BCD1B 42B: script fire special power slot 0x44.
 // Evidence: push [esp+4] mov ecx,[0xDFE16C]=g_Va009FE16C call rowed getUnitNamed 0x003588E7 test je; push 0x2d mov ecx,eax call rowed findSpecialPowerModuleInterface 0x00290E22 test je; mov edx,[eax] mov ecx,eax call [edx+0x44] ret 4; caller 0x003CDCD0; sibling Rva003BCCC6Do same 0x2d pattern.
 class Parameter;

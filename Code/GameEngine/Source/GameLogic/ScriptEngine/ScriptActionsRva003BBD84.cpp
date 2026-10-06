@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // Twin mask sweeps over players, range-17 batch (same family as rowed
 // Rva003BB233Set 0x003BB233, which sweeps a caller val; these sweep constant

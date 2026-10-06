@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Rva003BF96FDo@@YGXABVAsciiString@@0@Z @0x003BF96F 89B.
 // Script unit player action via lookupUnitByValue then player mask and

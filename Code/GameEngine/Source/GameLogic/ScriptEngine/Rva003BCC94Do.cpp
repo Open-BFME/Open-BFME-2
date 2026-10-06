@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BCC94Do@@YAXXZ @0x003BCC94 14B: free Do calling g_00DFEF18 slot 0x28 with (1).
 // Evidence: mov ecx,[0xDFEF18] mov eax,[ecx] push 1 call [eax+0x28] ret; caller 0x003CDC68; neighbours Rva003BCC08Do Rva003BCCA2Do same dir.
 class Rva003BCC94Host

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ScriptActions::doUnitGarrisonNearestBuilding, retail 0x003C8F86, 299 bytes
 // (called from the action dispatcher 0x003CA4BE at 0x003CC1DF). Zero Hour's

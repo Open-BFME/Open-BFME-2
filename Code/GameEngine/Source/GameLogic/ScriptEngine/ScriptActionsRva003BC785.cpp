@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // ?Rva003BC785Set@@YGXABVAsciiString@@00@Z @0x003BC785 106B: free stdcall science-availability mask loop.
 // Evidence: mask from ScriptEngine::rva00357475 0x00357475 with (name,0); loop ThePlayerList getEachPlayerFromMask 0x002A7BC9 then Player::getScienceAvailabilityTypeFromString 0x002ABEC9 with third arg then ScienceStore::rva001FF725 0x001FF725 with second arg then Player::setScienceAvailability 0x002AD8C9; globals g_Va009FE16C ThePlayerList TheScienceStore; ret 12; caller 0x003CD5C2.

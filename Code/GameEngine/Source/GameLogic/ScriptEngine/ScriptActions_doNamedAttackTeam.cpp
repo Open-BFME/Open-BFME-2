@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::doNamedAttackTeam, retail 0x003C841F, 99 bytes.
 // Target identity: initActionTemplates index 0x31 (49) is NAMED_ATTACK_TEAM;

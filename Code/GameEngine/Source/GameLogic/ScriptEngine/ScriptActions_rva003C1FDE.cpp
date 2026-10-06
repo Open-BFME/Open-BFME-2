@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?rva003C1FDE@Rva003C1FDE@@QAEXABVAsciiString@@PAX@Z @0x003C1FDE 59B
 // Display flag via rowed StringBase copy and virtuals.
 // Evidence: caller 0x003CDC9C; neighbours 0x003C1FAD 0x003C2662; global TheDisplay.

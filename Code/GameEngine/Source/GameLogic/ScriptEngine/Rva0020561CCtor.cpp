@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ??0Rva0020561C@@QAE@ABU?$pair@VAsciiString@@V1@@_STL@@ABV?$StringBase@D@@@Z @0x0020561C 57B
 // Honest placeholder ctor: pair<AsciiString,AsciiString> at +0 via rowed
 // 0x0020492B plus StringBase<char> at +8 via pinned 0x000365F0, returns this.

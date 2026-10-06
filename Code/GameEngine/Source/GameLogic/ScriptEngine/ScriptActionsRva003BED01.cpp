@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva003BED01@ScriptActions@@IAEXPAVParameter@@ABVAsciiString@@@Z @ 0x003BED01 (88B). Binds a unit to a team with a virtual hook.
 // Evidence: neighbours doSetTeamState 0x003BEC9B doTeamAttackTeam 0x003BED59 same flags; callees getUnitNamed getTeamNamed isEmpty rva00298AE4 iterate rowed getAttackInfo pinned; caller 1 unclaimed.

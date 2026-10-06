@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva003C91D1Idle@@YGXPAVParameter@@@Z, retail 0x003C91D1 53 bytes.
 // Free stdcall helper resolving a unit via rowed getUnitNamed 0x003588E7

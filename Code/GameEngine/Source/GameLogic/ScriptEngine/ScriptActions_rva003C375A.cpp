@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva003C375A@ScriptActions@@IAEXPAVParameter@@HM@Z @0x003C375A (102B): a
 // script action (dispatcher call 0x003CE964) that, for an emotion index in

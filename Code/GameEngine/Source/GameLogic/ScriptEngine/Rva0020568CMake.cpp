@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ?Rva0020568CMake@@YA?AURva0020561C@@ABU?$pair@VAsciiString@@V1@@_STL@@ABV?$StringBase@D@@@Z @0x0020568B 27B
 // Hidden-dest forwarder over rowed Rva0020561C pair-plus-StringBase ctor 0x0020561C.
 // Same 27B shape as rowed make_pair 0x0032ACCF and siblings 0x002056A6 0x00205655 0x00205670.

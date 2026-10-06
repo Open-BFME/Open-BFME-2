@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva003C90B1Exit@@YGXPAVParameter@@@Z @0x003C90B1 44B: free stdcall helper
 // resolving a unit via rowed getUnitNamed 0x003588E7 then issuing rowed aiExit

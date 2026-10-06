@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // The Lua callback ObjectCountNearbyEnemies (0x003362FE): the registration at
 // 0x00338531 pushes it with lua_pushcclosure and lua_setglobal names it next.

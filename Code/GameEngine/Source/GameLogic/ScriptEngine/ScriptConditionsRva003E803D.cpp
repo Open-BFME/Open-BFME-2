@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /GX
 // ?Rva003E803DGet@@YG_NPAVParameter@@0@Z @0x003E803D 157B: free stdcall team contains unit test.
 // Evidence: ret 8 two params; Parameter+0x10 AsciiString by-value plus false to ScriptEngine::getTeamNamed row; Parameter to getUnitNamed row; null je; Team::iterate_TeamMemberList row plus Rva001705A0 advance row walking members; Object+0x250 AI virtual +0x7c sub virtual +0xe8 with unit+0x74 plus Object+0x44c equals unit+0x74; caller 0x003EBEED.
 #include "ascii_string.h"

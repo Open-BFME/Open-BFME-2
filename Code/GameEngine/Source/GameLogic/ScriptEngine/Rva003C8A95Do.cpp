@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ?Rva003C8A95Do@@YGXPAVParameter@@@Z @0x003C8A95 (42B).
 // Unit hunt via getUnitNamed plus AI +0x258 plus aiHunt.

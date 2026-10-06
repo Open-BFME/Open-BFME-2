@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003C4350Do@@YGXABVAsciiString@@0PAVObject@@@Z @0x003C4350 83B.
 // Script free function finding Player by name key and Team named then
 // calling rowed rva002ADFC7 store. Evidence: prev doTeamAttackNamed and

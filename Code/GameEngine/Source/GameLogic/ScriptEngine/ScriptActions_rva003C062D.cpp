@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva003C062D@ScriptActions@@IAEXABVAsciiString@@M@Z, retail 0x003C062D, 110 bytes.
 // Target evidence: dispatched from FUN_007ca4be (caller at 0x003CC3F4) like sibling

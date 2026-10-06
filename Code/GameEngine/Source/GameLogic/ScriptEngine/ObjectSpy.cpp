@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // Retail RE: ?ObjectSpy@@YAHPAUlua_State@@@Z @0x00335B88 (218B).
 //

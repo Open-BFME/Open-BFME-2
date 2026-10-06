@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /DNDEBUG
 // Clean reference: BFME1 game/GameEngine/Source/GameLogic/Object/
 // ObjectTypesRemoveObjectType.cpp at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
 // itself preserving the Zero Hour ObjectTypes::removeObjectType algorithm.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 //
 // ?rva00206706@Rva00206706@@QAEXPAURva00206706Node@@@Z @0x00206706 53B: thiscall
 // recursive clear over child +0x0C with iteration over next +0x08, destroying

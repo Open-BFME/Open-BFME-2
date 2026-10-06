@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ?Rva003C8A15Do@@YGXPAVParameter@@ABVAsciiString@@1@Z @0x003C8A15 (128B).
 // Unit guard in trigger area via getQualifiedTriggerAreaByName plus

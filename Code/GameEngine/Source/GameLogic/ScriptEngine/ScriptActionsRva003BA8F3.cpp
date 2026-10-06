@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva003BA8F3Get@@YAEXZ @0x003BA8F3 69B: free predicate over PlayerList ScriptEngine GameLogic.
 // Evidence: mov ecx,[0xDFEEE8] call 0x2A7DD0 test al jne true; mov ecx,[0xDFE16C]

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Target identity: action-template index 0x133 is NAMED_FACE_NAMED and
 // executeAction case 0x133 calls VA 0x007C99C1 (RVA 0x003C99C1), 99 bytes.
 // The body resolves a named unit, resolves a second by-value name through the

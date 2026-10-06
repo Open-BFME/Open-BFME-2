@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -D_STLP_USE_STATIC_LIB /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
+// cl: -DNDEBUG -DWIN32 -MD -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 // stlport
 
 // The registration table at 0x002EC990 pushes ILT thunk 0x0003D4BF, which

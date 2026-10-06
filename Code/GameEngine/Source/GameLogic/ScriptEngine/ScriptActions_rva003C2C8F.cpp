@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C2C8FDo@@YGXPAVParameter@@0@Z @0x003C2C8F 73B
 // Script set counter from unit's ExperienceTracker float at Object+0x264 inner +0x10.
 // Evidence: rowed getUnitNamed 0x003588E7 via g_Va009FE16C, pin bfmeCounter 0x0020874B

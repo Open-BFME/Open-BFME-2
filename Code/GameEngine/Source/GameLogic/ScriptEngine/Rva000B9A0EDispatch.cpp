@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000B9A0E@Rva000B9A0E@@QAEXPAXHH@Z retail 0x000B9A0E 144B
 // Loop over 0xC entries from +0x90 to +0x94; filter [esi+8]==arg2 and (arg2!=0 or [esi]==arg3); build BfmeDelayedLuaEventList and dispatch index 15 via global dispatch.
 // Evidence: callees rowed ctor 0x000B6D8B and set 0x000B28A5 and dispatch 0x003360D2 plus dtor pin 0x000B6DD2; same list+dispatch pattern as sibling rva00335FE1; callers 0x000BD6C2 0x000BF9FC 0x000BEE25.

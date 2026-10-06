@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BC47ADo@@YGXH@Z @0x003BC47A 49B: script TacticalView getPos then slot 0x1ac.
 // Evidence: push ebp mov ebp,esp sub esp,0xc mov ecx,[0xFEA3C]=TheTacticalView mov eax,[ecx] lea edx,[ebp-0xc] push edx call [eax+0x118]=getPos push [ebp+8] mov ecx,[TheTacticalView] mov eax,[ecx] lea edx,[ebp-0xc] push edx call [eax+0x1ac] leave ret 4; caller 0x003CD11E; sibling Rva003E7FD5 same getPos slot 0x118 pattern.
 class TacticalView

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?Rva00333BCALog@@YAXPAXPAULuaAr@@@Z @0x00333BCA 263B: lua traceback line printer via rowed lua_getinfo 0x0074D330 plus sprintf IAT plus rowed bfmeLogMsg574 0x00333B36. Evidence: Snl query namewhat/what/short_src/currentline strings callers 0x00333D80 0x003345AA unblocks 0x00333CD1 0x00334587 donor liolib_bfme1.c errorfb.
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buf, const char *fmt, ...);
 extern "C" int __cdecl lua_getinfo(void *L, const char *what, void *ar);

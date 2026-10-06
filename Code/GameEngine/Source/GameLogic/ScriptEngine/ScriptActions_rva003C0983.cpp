@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003C0983@ScriptActions@@IAEXABVAsciiString@@0PAVObject@@@Z 87B @0x003C0983: two team lookups plus filtered map register.
 // Evidence: ScriptActions neighbours 0x003C062D 0x003C0F09 plus getTeamNamed row 0x003584E9 twice plus StringBase copy row 0x000365F0 twice plus Team rva003A2CEB row plus Team plus0x34 key. Caller at 0x003CC94B.
 #include "ascii_string.h"

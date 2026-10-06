@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BBF51Set@@YGXPAVParameter@@M@Z @0x003BBF51 62B gap caller 0x003CC4A7 globals 0xDFE16C float 0x7C26F0 offsets 0x258 0x1F0 0x3C
 // Evidence: getUnitNamed then [eax+0x258] [eax+0x1F0] null checks then movss xmm0,[esp+8] comiss with g_Va007C26F0 jb skip movss [eax+0x3C],xmm0 ret 8.
 class Object;

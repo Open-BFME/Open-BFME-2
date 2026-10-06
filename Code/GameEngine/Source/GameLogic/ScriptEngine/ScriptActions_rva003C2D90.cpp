@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C2D90Do@@YGXPAVParameter@@0@Z @0x003C2D90 90B
 // Script set counter from player field: mask via rowed rva00357475 0x00357475 with NULL,
 // player via rowed getPlayerFromMask 0x002A7B91, value via rowed rva002A7461 0x002A7461

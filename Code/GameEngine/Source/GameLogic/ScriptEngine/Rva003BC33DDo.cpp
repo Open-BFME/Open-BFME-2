@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BC33DDo@@YGXPAVParameter@@MMM@Z @0x003BC33D 63B: script TerrainLogic slot 0x74 then slot 0x80 with 3 floats.
 // Evidence: mov ecx,[0xDFEC50]=TheTerrainLogic push [esp+4] mov eax,[ecx] call [eax+0x74] test eax je; fld [esp+0x10] mov ecx,[TheTerrainLogic] mov edx,[ecx] sub esp,0xc fstp [esp+8] fld [esp+0x18] fstp [esp+4] fld [esp+0x14] fstp [esp] push eax call [edx+0x80] ret 0x10; caller 0x003CD047; sibling Rva003BC306Do same slot 0x74 then float slot shape.
 class Parameter

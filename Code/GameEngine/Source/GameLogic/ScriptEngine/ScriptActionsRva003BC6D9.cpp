@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // ?Rva003BC6D9Set@@YGXABVAsciiString@@0@Z @0x003BC6D9 86B: free stdcall grant-science mask loop.
 // Evidence: ScienceType from rowed Rva001FF725Get 0x001FF725 with second arg then -1 check; mask from ScriptEngine::rva00357475 0x00357475 with (name,0) then PlayerList getEachPlayerFromMask 0x002A7BC9 loop reaching Player::grantScience 0x002AD85E; globals TheScienceStore 0x009FE0E0 g_Va009FE16C ThePlayerList; ret 8; caller 0x003CD56B.

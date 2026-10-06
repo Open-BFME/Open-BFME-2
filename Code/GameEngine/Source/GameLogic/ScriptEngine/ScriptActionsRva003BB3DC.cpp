@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BB3DCSet@@YGXABVAsciiString@@@Z @0x003BB3DC 62B: free stdcall setting Player byte +0x339 for each player in a name mask.
 // Target evidence: calls ScriptEngine::rva00357475 (0x00357475) once then getEachPlayerFromMask (0x002A7BC9) loop writing byte [eax+0x339]=1; globals g_Va009FE16C (0x009FE16C) and ThePlayerList (0x009FEEE8); ret 4; caller 0x003CB81C; sibling of 0x003BB31D.
 class AsciiString;

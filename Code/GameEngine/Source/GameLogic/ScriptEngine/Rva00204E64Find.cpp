@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ?Rva00204E64Find@@YGPAVScriptList@@ABVAsciiString@@@Z @0x00204E64 87B: free
 // function mapping a side name to its ScriptList: key via TheNameKeyGenerator,

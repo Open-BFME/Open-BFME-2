@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ScriptActions bool setter over the TerrainLogic singleton, retail
 // 0x003BC392 (19 bytes, ret 4): null-checked store of the argument byte to

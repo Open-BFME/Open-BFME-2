@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /EHsc
 // ?doDisplayText@ScriptActions@@IAEXABVAsciiString@@@Z @0x003BFD88 35B
 //
 // Target identity (BFME2 evidence): ScriptActions::executeAction action-template

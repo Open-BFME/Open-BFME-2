@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BBFFBSet@@YGXHM@Z @0x003BBFFB 77B leaf caller 0x003CC50F globals 0xBCF628 0xBBB8D8 TheAudio slot 0xEC
 // Evidence: float clamp of arg2 scaled by g_Va00BCF628 into 0..g_Va00BBB8D8 then TheAudio virtual 0xEC with (clamped, arg1, 0).
 class AudioManager

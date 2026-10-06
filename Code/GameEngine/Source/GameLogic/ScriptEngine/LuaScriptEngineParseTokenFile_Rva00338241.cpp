@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /O1 -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 // ?rva00338241@LuaScriptEngine@@QAEXPBD_N@Z, retail 0x00338241, 214 bytes.
 // BFME2 ParseTokenFile over LuaScriptEngine: openFile 3-arg plus size plus
 // new[] plus read plus close plus Rva00542806 init plus finish loop plus

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /GX
 // ?Rva003E84C5Get@@YG_NPAVParameter@@0@Z @0x003E84C5 112B: free stdcall two Parameters team+waypoint path test.
 // Evidence: ret 8 two params; Parameter+0x10 AsciiString by-value plus false to ScriptEngine::getTeamNamed row; null je; Team::rva0039E8EB row null je; Parameter+0x10 to TheTerrainLogic slot 0x88 returning Waypoint with Coord3D at +0xc null jne; TheAI+0x10 Pathfinder::rva002F477E pin with teamObj positions plus 0; caller 0x003EC119.
 #include "ascii_string.h"

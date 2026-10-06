@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ScriptActions float setter over the writable GlobalData singleton, retail 0x003BA8DD
 // (22 bytes, ret 4): movss the argument into [TheWritableGlobalData+0x950]. Boundary

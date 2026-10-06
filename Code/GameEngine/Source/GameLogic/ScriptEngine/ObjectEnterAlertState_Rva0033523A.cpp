@@ -1,4 +1,4 @@
-// cl: -MD /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
+// cl: -MD -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 
 // The registration table at 0x002EC990 binds the name ObjectEnterAlertState to
 // the ILT thunk at 0x0002F24D, which jumps here to 0x002E63C0: the body pushed

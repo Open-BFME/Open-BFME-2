@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva003C89D1Guard@@YGXPAVParameter@@0@Z retail 0x003C89D1 68B
 // Evidence: abuts 0x003C8964 doUnitGuardPosition; caller 0x003CB695; rowed getUnitNamed 0x003588E7 plus rva0036F4DF guard plus AI +0x258 +0x20
 class Parameter;

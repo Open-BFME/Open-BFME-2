@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::doTeamExitAll, retail 0x003BEFFA, 75 bytes.
 // Target identity: initActionTemplates index 0x38 (56) is TEAM_EXIT_ALL;

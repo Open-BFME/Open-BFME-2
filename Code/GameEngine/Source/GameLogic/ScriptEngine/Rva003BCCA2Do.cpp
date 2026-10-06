@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BCCA2Do@@YAXXZ @0x003BCCA2 36B: free check GlobalData byte +0x11CB then Display slot 0x150 with (10000,1).
 // Evidence: retail mov eax,[0xDFE758]=TheWritableGlobalData cmp [eax+0x11CB],0 jne ret; mov ecx,[0xDFE9D8]=TheDisplay mov eax,[ecx] push 1 push 0x2710 call [eax+0x150]; caller 0x003CDC74; neighbours Rva003BCBC7Set Rva003BCCC6Do same dir.
 class GlobalData

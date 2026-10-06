@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BC22EDo@@YGXMMM@Z @0x003BC22E 43B: script move camera via TacticalView slot 0xe4 with 3 floats.
 // Evidence: fld [esp+0xc] mov ecx,[0xFEA3C]=TheTacticalView mov eax,[ecx] sub esp,0xc fstp [esp+8] fld [esp+0x14] fstp [esp+4] fld [esp+0x10] fstp [esp] call [eax+0xe4] ret 0xc; caller 0x003CC91A; sibling Rva003E7FD5 same TacticalView dummy pattern.
 class TacticalView

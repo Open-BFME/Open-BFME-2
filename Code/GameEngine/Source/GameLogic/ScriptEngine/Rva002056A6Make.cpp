@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?Rva002056A6Make@@YA?AURva00204ABF@@ABU?$pair@VAsciiString@@V1@@_STL@@ABH@Z @0x002056A6 27B
 // Hidden-dest forwarder over rowed Rva00204ABF pair-plus-int ctor 0x00204ABF.
 // Same 27B shape as rowed make_pair 0x0032ACCF and forwarder 0x0033BEF5.

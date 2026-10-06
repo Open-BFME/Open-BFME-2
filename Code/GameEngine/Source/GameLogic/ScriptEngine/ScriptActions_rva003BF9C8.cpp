@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Rva003BF9C8Do@@YGXABVAsciiString@@@Z @0x003BF9C8 50B.
 // Script team action via landed rva003570D1 prototype then handler at

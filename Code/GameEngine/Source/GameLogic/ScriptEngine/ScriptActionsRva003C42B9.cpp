@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003C42B9@ScriptActions@@QAEXPAVParameter@@ABVAsciiString@@1@Z @0x003C42B9 151B
 // Script unit command-button dispatch: named unit plus object-types or
 // thing-template fallback, then command-button ready checks. Evidence:

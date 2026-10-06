@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::rva003C3609, retail 0x003C3609 (110B; dispatcher call
 // 0x003CE888): for the parameter-named team, asks TheGameLogic's +0x184

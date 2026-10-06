@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?Rva003BB1A4Grant@@YGXABVAsciiString@@0@Z, retail 0x003BB1A4, 91 bytes.
 // Grant upgrade to players matching name mask.
 // Evidence: leaf lane; callees ScriptEngine rva00357475 getEachPlayerFromMask findUpgrade Player rva002AE329; caller 0x003CA957.

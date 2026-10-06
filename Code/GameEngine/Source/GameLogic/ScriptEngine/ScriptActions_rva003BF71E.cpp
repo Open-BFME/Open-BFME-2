@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003BF71EDo@@YGXABVAsciiString@@0@Z @0x003BF71E 142B
 // Script team guard via TerrainLogic slot 0x88 getWaypointByName plus
 // getTeamNamed pin 0x003584E9 with false, createGroup pin 0x002FEC4B,

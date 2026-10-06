@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 
 // Evidence: retail 0x003B4A3C (60 bytes) references the string literal
 // "OrCondition", which ZH's Scripts.cpp uses only as the chunk name in

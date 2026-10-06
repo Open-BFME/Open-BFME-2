@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva003BEDD1@ScriptActions@@IAEXABVAsciiString@@0@Z @ 0x003BEDD1 (141B). Sets attack priority info on a team and its members.
 // Evidence: neighbours ScriptActions_doTeamAttackTeam 0x003BED59 Rva003BEE5EFinish 0x003BEE5E same flags; callees getTeamNamed 0x003584E9 getAttackInfo pinned isEmpty rva0039F094 iterate advance rowed; caller 1 unclaimed.

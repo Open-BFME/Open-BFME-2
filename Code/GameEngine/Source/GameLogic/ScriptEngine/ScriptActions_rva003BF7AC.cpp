@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003BF7ACDo@@YGXABVAsciiString@@PAVParameter@@@Z @0x003BF7AC 103B
 // Script team group order via getUnitNamed row 0x003588E7 (Parameter overload)
 // plus getTeamNamed pin 0x003584E9 with false, createGroup pin 0x002FEC4B,

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BBAD3Set@@YAXXZ @0x003BBAD3 99B unlock callers 0x003BD5AC 0x003BE5EC 0x003BE6FC 0x003CBF32 callees setInputEnabled setVisibility appendBooleanArgument rva00405AA7 clearFlags slots 0x48 0x110
 // Evidence: InGameUI+Mouse disables then MessageStream 0x3EC boolean then InGameUI slot 0x110 and 0x8B0 clear then tail clearFlags.
 class InGameUI

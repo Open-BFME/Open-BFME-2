@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BCFF5Forward@@YAXXZ @0x003BCFF5 14B: script forwards to TheTacticalView slot 0x250.
 // Evidence: mov ecx,[0xDFEA3C]=TheTacticalView mov eax,[ecx] jmp [eax+0x250]; caller 0x003CE680; sibling Rva003BCFE7Forward slot 0x24c same tail shape.
 class TacticalView

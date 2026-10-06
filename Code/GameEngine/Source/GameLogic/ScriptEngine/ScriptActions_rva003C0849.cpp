@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C0849Do@@YGXABVAsciiString@@00@Z @0x003C0849 131B: team waypoint command-button order.
 // Evidence: rowed getTeamNamed 0x003584E9 with false via g_Va009FE16C, TerrainLogic slot
 // 0x88 getWaypointByName via TheTerrainLogic, findCommandButton 0x0031BE3C via

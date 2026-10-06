@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C2E61Do@@YGXPBX00@Z @0x003C2E61 104B
 // Set counter for player: mask from first arg via rowed rva00357475 0x00357475 with NULL,
 // player via rowed getPlayerFromMask 0x002A7B91, value via rowed rva0039C0F4 0x0039C0F4 on

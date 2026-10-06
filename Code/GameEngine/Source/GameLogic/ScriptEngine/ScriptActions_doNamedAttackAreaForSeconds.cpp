@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::doNamedAttackAreaForSeconds, retail 0x003C83AD, 114 bytes.
 // Target identity: initActionTemplates index 0x30 (48) is

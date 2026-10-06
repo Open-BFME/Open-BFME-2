@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?getCoord3D@Parameter@@QBEXPAUCoord3D@@@Z, retail 0x003B27BB (39 bytes).
 // Parameter::getCoord3D const getter: zeroes *pLoc via xmm0/movss, then if

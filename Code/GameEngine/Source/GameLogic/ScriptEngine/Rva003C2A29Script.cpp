@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C2A29Do@@YGXABVAsciiString@@0@Z @0x003C2A29 118B
 // Script team group order via two getTeamNamed pins 0x003584E9 with false,
 // createGroup pin 0x002FEC4B, getTeamAsAIGroup pin 0x003A0F62,

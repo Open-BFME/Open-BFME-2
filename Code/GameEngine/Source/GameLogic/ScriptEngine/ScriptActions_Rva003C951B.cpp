@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ScriptActions::rva003C951B, retail 0x003C951B, 353 bytes (called from the
 // action dispatcher 0x003CA4BE at 0x003CD2BF). A BFME2 script action: the

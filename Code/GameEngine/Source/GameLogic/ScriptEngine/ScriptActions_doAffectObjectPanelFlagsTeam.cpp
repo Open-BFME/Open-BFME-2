@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::doAffectObjectPanelFlagsTeam, retail 0x003C5C93 (102B;
 // dispatcher call 0x003CD8F0): Zero Hour's body - the team by name, then

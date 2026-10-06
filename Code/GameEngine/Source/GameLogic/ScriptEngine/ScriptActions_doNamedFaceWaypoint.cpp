@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Target identity: action-template index 0x134 is NAMED_FACE_WAYPOINT and
 // executeAction case 0x134 calls VA 0x007C9A24 (RVA 0x003C9A24), 92 bytes.
 // Target body resolves the named Object, obtains a Waypoint through

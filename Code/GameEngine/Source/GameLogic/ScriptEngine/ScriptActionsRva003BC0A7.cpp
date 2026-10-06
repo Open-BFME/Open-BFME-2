@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva003BC0A7Set@@YGXABVAsciiString@@H@Z @0x003BC0A7 96B leaf caller 0x003CC57C globals 0x009FE16C 0x009FEEE8
 // Evidence: ScriptEngine::rva00357475 mask then getEachPlayer loop Money at Player+0x90 deposit if amount>=0 else withdraw -amount.
 #include "ascii_string.h"

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?Rva003C3175Do@@YGXABVAsciiString@@_N@Z @0x003C3175 126B: lookup unit by value then DualWeaponBehavior module flag via cached NameKey. Evidence: rowed lookupUnitByValue 0x358752 via g_Va009FE16C nameToKey PBD 0x148E1A via TheNameKeyGenerator findModule 0x28B6D6 StringBase copy 0x365F0 globals g_Va00E02DCC g_00E02DC8 DualWeaponBehavior literal; caller 0x003CE542; ret 0x8 stdcall.
 #include "ascii_string.h"
 

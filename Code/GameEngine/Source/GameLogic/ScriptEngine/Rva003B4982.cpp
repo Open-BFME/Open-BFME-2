@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva003B4982@Rva003B4982@@QAEXPAX@Z @0x003B4982 (158B): recursive script skip/clear over two head lists via captureGroup plus self plus skipGroup/skipScript with clear and delete. Evidence: callers 0x003B49AB self plus 0x003B7373; rowed captureGroup 0x003B40A1 skipGroup 0x003B485A skipScript 0x003B48B9 clears 0x003B31DF 0x003B3204 delete 0x0002FD60; ret 4 single void-star arg from retail bytes. Rows say skipGroup/skipScript return int but retail tests al so truncate via unsigned char to get test al al while keeping row mangling.
 class Rva003B40A1Holder
 {

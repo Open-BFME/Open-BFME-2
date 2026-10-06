@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BAA2D@@YGXM@Z @0x003BAA2D 25B: free stdcall one float forwarding to Display slot 0xd0.
 // Evidence: ret 4 one float arg; mov ecx TheDisplay fld [esp+4] mov eax [ecx] push ecx fstp [esp] call [eax+0xd0]; caller 0x003CAB22.
 class Display

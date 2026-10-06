@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::doTeamAvailableForRecruitment, retail 0x003C01AB, 55 bytes.
 // Target evidence: action template 0x5E is TEAM_AVAILABLE_FOR_RECRUITMENT and

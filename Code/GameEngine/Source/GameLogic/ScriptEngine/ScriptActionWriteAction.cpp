@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?WriteActionDataChunk@@YAXPADAAVDataChunkOutput@@PAVScriptAction@@@Z,
 // retail 0x003B3DFF, 169 bytes. Dedicated TU.

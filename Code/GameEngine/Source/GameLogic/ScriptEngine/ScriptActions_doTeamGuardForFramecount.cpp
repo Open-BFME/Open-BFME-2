@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?doTeamGuardForFramecount@ScriptActions@@IAEXABVAsciiString@@H_N@Z @0x003C9363 161B.
 // Team guard for framecount: resolve team by name, guard each member at its
 // position via rowed aiGuardPosition, then set sequential timer on the team.

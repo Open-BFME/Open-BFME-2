@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?doBorderSwitch@ScriptActions@@IAEXH@Z,
 // retail 0x003BC3A8, 101 bytes. Dedicated TU.

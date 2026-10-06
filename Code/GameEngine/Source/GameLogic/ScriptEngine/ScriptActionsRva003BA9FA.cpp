@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BA9FA@@YGXMMMM@Z @0x003BA9FA 51B: free stdcall four floats forwarding to Display slot 0xcc.
 // Evidence: ret 16 four float args; fld [esp+0x10] mov ecx [TheDisplay] sub esp 0x10 four fld-fstp to [esp]; call [eax+0xcc]; caller 0x003CAB07.
 class Display

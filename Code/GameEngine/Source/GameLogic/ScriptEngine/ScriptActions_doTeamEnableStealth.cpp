@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Landed from the banked attempt once Zero Hour's null-member skip
 // (Object *obj = iter.cur(); if (!obj) continue;) was added to the member

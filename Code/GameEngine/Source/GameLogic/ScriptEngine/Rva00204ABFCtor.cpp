@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ??0Rva00204ABF@@QAE@ABU?$pair@VAsciiString@@V1@@_STL@@ABH@Z @0x00204ABF 27B: pair plus int ctor.
 // Evidence: same pair-copy shape as Rva00204AA4 0x00204AA4 via rowed pair 0x0020492B;

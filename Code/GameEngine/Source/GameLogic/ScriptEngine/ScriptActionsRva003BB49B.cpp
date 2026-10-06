@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BB49BDestroy@@YGXPAVParameter@@@Z @0x003BB49B 34B leaf caller 0x003CB8F1 callees getUnitNamed destroyObject
 // Evidence: ScriptEngine getUnitNamed then GameLogic destroyObject.
 class Object;

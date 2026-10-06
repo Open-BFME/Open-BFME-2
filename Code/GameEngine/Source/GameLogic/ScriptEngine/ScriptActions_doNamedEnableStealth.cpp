@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?doNamedEnableStealth@ScriptActions@@IAEXABVAsciiString@@_N@Z @0x003BBD39 40B
 // Chain from Object::setScriptStatus 0x00292969: named-unit wrapper setting
 // UNSTEALTHED bit 8 with !enabled. BFME1 donor ScriptActions.cpp

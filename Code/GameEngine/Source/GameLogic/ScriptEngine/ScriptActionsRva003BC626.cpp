@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // ?Rva003BC626Set@@YGXABVAsciiString@@H@Z @0x003BC626 84B: free stdcall mask loop over players with two per-player calls.
 // Evidence: mov ecx,[0xDFE16C] call ScriptEngine::rva00357475 0x00357475 with (name,0) test mask je; loop ThePlayerList 0x009FEEE8 getEachPlayerFromMask 0x002A7BC9 then virtual slot1 on Player+8 with second arg then GameSlot::setTeamNumber 0x002E6A93 with Player+0x1c; cmp mask jne loop ret 8; sibling 0x003BC7EF same mask-loop shape.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003BF045Do@@YGXABVAsciiString@@0_N@Z @0x003BF045 442B.
 // Script team centroid to formatted waypoint via getTeamNamed createGroup

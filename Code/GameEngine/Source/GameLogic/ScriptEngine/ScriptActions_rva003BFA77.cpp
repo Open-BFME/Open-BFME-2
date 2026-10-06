@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Rva003BFA77Do@@YGXABVParameter@@H@Z @0x003BFA77 76B.
 // Script unit damage via getUnitNamed then DamageInfo 0x7C with int amount

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?lookupTableEntry@Rva003B3F09Holder@@QAEPAXHH@Z,
 // retail 0x003B3F09, 38 bytes. Dedicated TU.

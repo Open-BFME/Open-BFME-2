@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ScriptActions slot 15 helper, retail 0x003BA8C4 (25 bytes, ret 4):
 // stores argument byte into [ecx+0xC] (m_suppressNewWindows), then checks

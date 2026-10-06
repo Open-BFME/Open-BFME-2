@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Target identity: action-template index 0x11E is NAMED_FOLLOW_WAYPOINTS_EXACT;
 // executeAction dispatches it to VA 0x007C8773 (RVA 0x003C8773), a 126-byte
 // body. Target evidence shows named-unit lookup, Coord3D at Object+0x38,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?captureGroup@Rva003B40B6Holder@@QAEPAXPAX@Z,
 // retail 0x003B40B6, 21 bytes. Dedicated TU.

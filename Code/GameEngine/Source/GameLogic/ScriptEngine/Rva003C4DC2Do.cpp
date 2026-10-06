@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?Rva003C4DC2Do@@YGXABVAsciiString@@@Z @0x003C4DC2 102B.
 // Script free function walking TerrainLogic list at 0xDFEC50 comparing
 // name at +8 via rowed StringBase compare then calling holder at 0xDFEA3C

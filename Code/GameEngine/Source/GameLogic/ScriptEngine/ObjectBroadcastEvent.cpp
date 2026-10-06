@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /GX
 //
 // The ObjectBroadcastEventTo* Lua callbacks. The registration at 0x003383F1
 // pushes each with lua_pushcclosure and the lua_setglobal after it names it:

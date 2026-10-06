@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BA9CA@@YGXH@Z @0x003BA9CA 27B: free stdcall one int null-guarded to AudioManager slot 0xfc with int 0.
 // Evidence: ret 4 one arg; mov ecx TheAudio test je; mov eax [ecx] push 0 push [esp+8] call [eax+0xfc]; caller 0x003CAAB0.
 class AudioManager

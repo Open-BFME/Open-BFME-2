@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva003B48E4@Rva003B48E4@@QAEXPAX@Z @0x003B48E4 (158B): recursive script check/clear over two head lists via captureGroup plus self plus leaf checks with clear and delete. Evidence: callers 0x003B490D self plus 0x003B694C; rowed captureGroup 0x003B40A1 check 0x003B483D check 0x003B489C clears 0x003B31DF 0x003B3204 delete 0x0002FD60; ret 4 single void-star arg from retail bytes.
 class Rva003B40A1Holder
 {

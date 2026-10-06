@@ -1,5 +1,5 @@
 // ?updateTeamSetAttitude@ScriptActions@@IAEXABVAsciiString@@H@Z
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::updateTeamSetAttitude, retail 0x003BEE5E, 80 bytes.
 // Target identity: initActionTemplates index 0x2E (46) is TEAM_SET_ATTITUDE;

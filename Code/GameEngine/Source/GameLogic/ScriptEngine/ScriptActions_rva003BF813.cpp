@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003BF813Do@@YGXABVAsciiString@@00@Z @0x003BF813 161B
 // Script team trigger waypoint order via getQualifiedTriggerAreaByName pin
 // 0x0035768D plus getTeamNamed pin 0x003584E9 with false, TerrainLogic slot

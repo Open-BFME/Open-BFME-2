@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BCFD4Set@@YGX_N@Z @0x003BCFD4 19B: script sets ClientFrameSubsystem +0xc0 byte from bool arg.
 // Evidence: mov al,[esp+4] mov ecx,[0xDFE77C]=TheGameClient mov [ecx+0xc0],al ret 4; caller 0x003CE62F; siblings Rva003BCA7BSet same shape.
 class ClientFrameSubsystem

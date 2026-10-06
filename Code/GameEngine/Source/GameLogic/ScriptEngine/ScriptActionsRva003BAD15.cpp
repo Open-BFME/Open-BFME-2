@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii
 // ?Rva003BAD15@@YGXABVAsciiString@@MM0@Z @0x003BAD15 239B: free two strings plus two floats resolving two Terrain coords to four TacticalView calls.
 // Evidence: ret 16 four args; push [ebp+8] call Terrain s34 je; movss [ebp-0xc] triple; push [ebp+0x14] call s34 je; TV s60 with 1 0 0 and zeros; lea [ebp-0x18] TV s94; fld [ebp+0x10] TV s88 with zeros; fld [ebp+0xc] TV s7c with zeros; caller 0x003CABBF.
 #include "ascii_string.h"

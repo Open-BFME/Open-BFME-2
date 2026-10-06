@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail RVA 0x003C9206, 146 bytes.
 // ?doNamedFireWeaponFollowingWaypointPath@ScriptActions@@IAEXABVAsciiString@@0@Z
 // BFME1 donor reference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doNamedFireWeaponFollowingWaypointPath.cpp

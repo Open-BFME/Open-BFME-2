@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 // ?Rva003BB556Set@@YGXABVAsciiString@@H@Z @0x003BB556 64B chain via 0x0031BE3C caller 0x003CBAEC globals 0xE01CFC 0xDBA4E8
 // Evidence: ControlBar::findCommandButton row 0x0031BE3C, g_bfmeWorldRV alias, FramesPerSecond g_00DBA4E8, CommandButton+0xF8 store.

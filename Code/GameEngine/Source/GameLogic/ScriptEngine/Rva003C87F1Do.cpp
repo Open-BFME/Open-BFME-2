@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003C87F1Do@@YGXPAVParameter@@ABVAsciiString@@@Z @0x003C87F1 (121B).
 // Named follow waypoints exact via getUnitNamed plus closest waypoint plus

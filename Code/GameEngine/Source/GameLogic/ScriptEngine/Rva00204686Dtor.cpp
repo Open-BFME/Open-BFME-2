@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ??1Rva00204686@@QAE@XZ @0x00204686 53B: non-virtual dtor over pair at +0 and
 // AsciiString at +8. Evidence: rowed _STL::pair<const AsciiString,AsciiString>

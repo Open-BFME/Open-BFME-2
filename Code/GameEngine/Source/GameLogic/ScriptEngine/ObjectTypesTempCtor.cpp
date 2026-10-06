@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0ObjectTypesTemp@@QAE@XZ @0x003BA7FF 64B: ObjectTypesTemp default ctor.
 // Evidence: push 0x14 plus rowed operator new 0x0002FDA0 plus rowed

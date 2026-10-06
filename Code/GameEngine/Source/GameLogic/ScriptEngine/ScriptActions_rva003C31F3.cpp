@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?Rva003C31F3Do@@YGXABVAsciiString@@0_N@Z @0x003C31F3 217B: lookup unit by value then AutoAbilityBehavior module via cached NameKey then CommandButton compare loop. Evidence: rowed lookupUnitByValue 0x358752 nameToKey 0x148E1A findModule 0x28B6D6 findCommandButton 0x31BE3C rva00290E67 0x290E67 rva0031D5F8 0x31D5F8 getCommandButton 0x409EE8 rva0045A748 0x45A748 StringBase copy 0x365F0 globals g_Va009FE16C TheNameKeyGenerator g_bfmeWorldRV AutoAbilityBehavior literal; caller 0x003CE5F9; ret 0xc stdcall.
 #include "ascii_string.h"
 

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // Parameter::WriteParameter, retail 0x003B3A38, 129 bytes.
 //

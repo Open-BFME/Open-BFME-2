@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::rva003C207C, retail 0x003C207C (78B): looks the team up by
 // its parameter's name (rowed getTeamNamed) and the unit by its parameter

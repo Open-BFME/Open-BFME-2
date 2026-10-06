@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // ?Rva003BC86ESet@@YGXABVAsciiString@@0@Z @0x003BC86E 65B: free stdcall mask loop over players.
 // Evidence: mov ecx,[0xDFE16C] call ScriptEngine::rva00357475 0x00357475 with (name,0) test mask je; loop ThePlayerList 0x009FEEE8 getEachPlayerFromMask 0x002A7BC9 then Rva002A9F17::rva002A9F17 0x002A9F17 with second string; cmp mask jne loop ret 8; caller 0x003CDB27; sibling 0x003BB233 65B shape.

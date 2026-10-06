@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // ?Rva003C4D5CDo@@YGXPBVAsciiString@@@Z @0x003C4D5C 102B (dump range 18).
 // Terrain node float dispatch: walks the TerrainLogic slot-0x84 list via

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ?rva002041AC@Rva002041AC@@QBE?AVAsciiString@@I@Z @0x002041AC 53B: bounds-checked
 // AsciiString getter over the pointer pair at +8/+0xc; out of range yields the

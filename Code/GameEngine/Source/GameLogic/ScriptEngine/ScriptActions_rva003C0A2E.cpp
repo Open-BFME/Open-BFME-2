@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003C0A2E@ScriptActions@@IAEXABVAsciiString@@@Z 61B @0x003C0A2E: single team lookup plus two armor map removes.
 // Evidence: ScriptActions neighbour 0x003C09DA plus getTeamNamed row 0x003584E9 plus StringBase copy row 0x000365F0 plus Rva003A2897 row 0x003A2897 plus Rva003A28ED row 0x003A28ED. Caller at 0x003CC988.
 #include "ascii_string.h"

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?Rva003C1FADDestroy@@YAXXZ @0x003C1FAD 49B
 // Destroy flagged GameLogic objects via rowed getFirstObject 0x0023CAD2
 // and destroyObject 0x00242C09. Evidence: caller 0x003CDA80;

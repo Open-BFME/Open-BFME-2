@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::rva003BA943, retail 0x003BA943 (44B): the unit resolved
 // from its parameter by the rowed getUnitNamed hands the flag to its

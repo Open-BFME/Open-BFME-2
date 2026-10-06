@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva003B275A@Rva003B275A@@QAEHXZ 0x003B275A 17B
 // Evidence: pushes member at +4 into rowed ScriptEngine::getConditionTemplate
 // 0x00203941 through the engine pointer at 0x00DFE16C, returns the template's

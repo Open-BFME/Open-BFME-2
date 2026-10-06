@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::doTeamEnterNamed, retail 0x003BEF8D, 109 bytes.
 // Target identity: initActionTemplates index 0x36 (54) is TEAM_ENTER_NAMED;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /GX
 // ?Rva003E80DAGet@@YG_NPAVParameter@@0@Z @0x003E80DA 270B evidence: free stdcall bool Parameter pair like sibling 0x003E803D; callees rowed StringBase copy resolveName findPrototype rva00357B82 getPlayerFromMask rva002A7548 rva002D06CA releaseBuffer plus globals g_Va009FE16C TheTeamFactory ThePlayerList g_009FF000 g_Va007C26F0; caller 0x003EBF46
 #include "ascii_string.h"
 

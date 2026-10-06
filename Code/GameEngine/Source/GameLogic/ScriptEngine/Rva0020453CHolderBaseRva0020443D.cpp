@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0020443D@Rva0020453CHolderBase@@UAEXPBD@Z @0x0020443D 138B
 // slot 8 of vtable 0x00BE39F4 (RVA 0x007E39F4), class of ??1Rva0020453CHolderBase.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ??0Rva002048A2@@QAE@PAVAsciiString@@ABV1@@Z @0x002048A2 74B: virtual-class
 // ctor storing vtable at +0, default-constructing AsciiString at +4, aliasing

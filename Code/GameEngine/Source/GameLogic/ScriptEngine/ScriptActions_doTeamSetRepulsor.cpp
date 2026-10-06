@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Two ScriptActions team setters: look the team up by name through
 // TheScriptEngine's rowed getTeamNamed (name by value, false) and walk its

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva003C2BC0Do@@YGXPAVParameter@@0@Z @0x003C2BC0 104B
 // Script sum player+0x94 over mask then set counter: mask via rowed rva00357475
 // 0x00357475 with NULL, each player via rowed getEachPlayerFromMask 0x002A7BC9,

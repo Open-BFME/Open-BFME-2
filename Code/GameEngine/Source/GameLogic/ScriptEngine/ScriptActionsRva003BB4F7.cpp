@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BB4F7Kill@@YGXPAVParameter@@@Z @0x003BB4F7 33B leaf caller 0x003CBA4F callees getUnitNamed kill
 // Evidence: ScriptEngine getUnitNamed then Object kill 8 0.
 enum DamageType { DAMAGE_8 = 8 };

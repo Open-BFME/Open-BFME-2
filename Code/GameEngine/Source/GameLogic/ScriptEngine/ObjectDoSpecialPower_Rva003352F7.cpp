@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?ObjectDoSpecialPower@@YAHPAUlua_State@@@Z @0x003352F7 178B.
 // Lua callback ObjectDoSpecialPower: with at least 2 args and TheAudio present,

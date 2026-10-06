@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?Rva003C36C0Do@@YGXPAVParameter@@_N@Z @0x003C36C0 62B: lookup unit by value then drawable flag. Evidence: rowed lookupUnitByValue 0x358752 getDrawable 0x5508E2 rva00270FAC 0x270FAC StringBase copy 0x365F0 globals g_Va009FE16C; caller 0x003CE8C2; ret 0x8 stdcall.
 #include "ascii_string.h"
 

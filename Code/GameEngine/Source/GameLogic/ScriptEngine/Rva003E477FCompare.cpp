@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // free compare-mask @ 0x003E477F 145B leaf from 0x003EB941. Evidence:
 // 3x Parameter ret 0xc; mask via rowed rva00357B82 walked with rowed
 // getEachPlayerFromMask; Player diff +0x1C0-+0x1C4 vs [param+8]; op at

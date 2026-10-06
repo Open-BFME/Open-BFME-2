@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Retail RE: ?rva002628C3@Rva002628C3@@QAEXPAXHH@Z @0x002628C3 (29B).
 //
 // BFME2 ScriptEngine event/spy adapter from ObjectSpy 0x335B88.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ??0Rva00204B12@@QAE@ABU0@@Z @0x00204B12 33B: pair plus two-int copy ctor.
 // Evidence: same pair-copy shape as siblings via rowed pair 0x0020492B;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ?rva003B7389@ScriptList@@QAEXPAXPAURva003B3204@@@Z @0x003B7389 (60B):
 // unlink a node from the +4 link chain of the passed list head, then drop
 // its subrecord entry through the rowed Rva003B573E::rva003B71B4 on this+0x2c

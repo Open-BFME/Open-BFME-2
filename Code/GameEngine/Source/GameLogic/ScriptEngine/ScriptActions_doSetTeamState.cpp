@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::doSetTeamState, retail 0x003BEC9B, 50 bytes.
 // Target evidence: executeAction action index 0x25 is named TEAM_SET_STATE by

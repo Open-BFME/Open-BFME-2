@@ -1,5 +1,5 @@
 // ?rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ?rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z
 // @0x003E4921 151B gate condition via rowed getUnitNamed 0x003588E7 plus
 // rowed nameToKey 0x00148E1A plus rowed findModule 0x0028B6D6.

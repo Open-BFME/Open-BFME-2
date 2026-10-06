@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptActions::doNamedEnterNamed, retail 0x003C8669, 92 bytes.
 // Target identity: initActionTemplates index 0x35 (53) is NAMED_ENTER_NAMED;

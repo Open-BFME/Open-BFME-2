@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?Rva003C388EDo@@YGXPAVParameter@@_N@Z @0x003C388E 60B: team named then Team predicate iterate. Evidence: rowed getTeamNamed 0x3584E9 rva0039DD12 0x39DD12 StringBase copy 0x365F0 globals g_Va009FE16C; caller 0x003CE9DF; ret 0x8 stdcall.
 #include "ascii_string.h"
 

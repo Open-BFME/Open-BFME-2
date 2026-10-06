@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003C45D4Apply@@YGXPAVParameter@@ABVAsciiString@@@Z @0x003C45D4 81B.
 // Script unit helper: getUnitNamed via g_Va009FE16C, nameToKey via
 // TheNameKeyGenerator, level lookup via g_00DFECC4 and rowed 0x0028951F,

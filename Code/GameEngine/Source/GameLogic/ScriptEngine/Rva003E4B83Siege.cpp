@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ?Rva003E4B83Get free @ 0x003E4B83 119B leaf from 0x003EBD81. Evidence:
 // 1x Parameter ret 4; rowed getUnitNamed plus static SiegeDeploySpecialPower
 // key via rowed nameToKey plus rowed findModule plus rowed bool getter

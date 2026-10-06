@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 //
 // ScriptActions::doNamedAttackArea, retail 0x003C8351, 92 bytes.
 // Target identity: initActionTemplates index 0x2F (47) is NAMED_ATTACK_AREA;

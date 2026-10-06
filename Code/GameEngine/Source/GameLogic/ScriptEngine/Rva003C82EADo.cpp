@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva003C82EADo@@YGXPAVParameter@@0@Z @0x003C82EA (103B).
 // Two-unit guard/attack via getUnitNamed plus leaveGroup plus rva0028B38D

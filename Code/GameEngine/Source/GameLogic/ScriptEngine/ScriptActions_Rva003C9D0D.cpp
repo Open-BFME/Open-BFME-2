@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ?rva003C9D0D@ScriptActions@@QAEXABVAsciiString@@M@Z, retail 0x003C9D0D,
 // 321 bytes (called from the action dispatcher 0x003CA4BE at 0x003CE56A).
