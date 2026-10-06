@@ -64073,3 +64073,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005C8F50@Rva005C8F50Elem@@QAEXHH@Z,,0x005C8F50,74,Code/GameEngine/Source/Common/Rva005C8F50Method.cpp,matched,caller 005C835D vector erase plus TargetObj notify
 ??1Rva0056B9A2@@UAE@XZ,,0x0056B9A2,80,Code/GameEngine/Source/Common/Rva0056B9A2Dtor.cpp,matched,dtor via AsciiString str to rva002C004F base Rva005C4B1B
 ?rva004ED1FD@Rva004ECECD@@QAEXHPBUCoord3D@@@Z,,0x004ED1FD,90,Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ED1A1.cpp,matched,gap same TU rowed find create fill destroy pinned order
+?rva002AA0DE@Player@@QAE_NPBVThing@@@Z,,0x002AA0DE,69,Code/GameEngine/Source/Common/RTS/PlayerRva002AA0DEKindTest.cpp,matched,Player kind-of filter test via +0xB8 must-be and must-not-be masks and rowed Thing::isAnyKindOf
