@@ -1,8 +1,5 @@
 // ?rva004F941E@Rva004F941E@@QAEXABURva004F9018Element@@@Z
-// partial score=0.95 date=2026-10-05
-// ?rva004F941E@Rva004F941E@@QAEXABURva004F9018Element@@@Z
-// partial score=0.95 date=2026-10-05
-// cl: /O1
+// cl: /G7 /O1
 //
 // ?rva004F941E@Rva004F941E@@QAEXABURva004F9018Element@@@Z @0x004F941E 33B.
 // Append-then-triple: push the element through the rowed 0x004F9018 vector
