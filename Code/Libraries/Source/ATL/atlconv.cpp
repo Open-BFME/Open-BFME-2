@@ -109,8 +109,8 @@ namespace ATL
 // single callable-pointer spelling cannot express.
 typedef UINT(__stdcall *ATLGETTHREADACP)();
 
-// Body at 0x0044827C, still unconverted; only its address is needed here.
-UINT __stdcall _AtlGetThreadACPReal();
+// Retail body at 0x0044827C: push 3 / pop eax / ret (CP_THREAD_ACP).
+UINT __stdcall _AtlGetThreadACPReal() { return 3; }
 
 UINT __stdcall _AtlGetThreadACPFake() throw()
 {
