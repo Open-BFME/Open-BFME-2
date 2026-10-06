@@ -635,6 +635,8 @@ Code/Libraries/Source/WWVegas/WWLib/STLMallocAlloc0OutOfMemory.cpp,-Od,1,1,regio
 Code/Libraries/Source/WWVegas/WWLib/STLSlGlobalBoolReverse.cpp,-Od,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/STLSlGlobalBoolSpliceAfter3.cpp,-Od,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp,-O2,1,1,region default loses rows
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00148B27.cpp,-O1 -G7,1,1,region default loses rows
+Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00626EF0.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/StlportDequeIntAux.cpp,,2,2,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/StlportNarrowAppendCStr.cpp,-Od,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/StlportNarrowAppendString.cpp,-Od,1,1,region default loses rows
@@ -685,6 +687,7 @@ Code/Libraries/Source/WWVegas/WWLib/stlport_sort_s4sortelem8_desc.cpp,,1,1,regio
 Code/Libraries/Source/WWVegas/WWLib/stlport_stdexcept_dtors_od.cpp,-Od,10,10,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool.cpp,,5,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_assignment.cpp,-G7,3,1,region default loses rows
+Code/Libraries/Source/WWVegas/WWLib/stlport_vector_geometryshape_base.cpp,-O1 -G7,2,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp,,12,7,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/stlport_vector_uint.cpp,-Od,3,3,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,-Od,17,17,region default loses rows

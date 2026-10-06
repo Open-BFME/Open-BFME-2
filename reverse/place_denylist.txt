@@ -202,3 +202,9 @@ _io_writeto
 
 # w5-sol: 0x004CC195 refused; see re_attempts.log and build/w5_gate_0x004CC195.log
 ??$distance@U?$_Rb_tree_iterator@URva004CC195Element@@U?$_Nonconst_traits@URva004CC195Element@@@_STL@@@_STL@@@_STL@@YAHABU?$_Rb_tree_iterator@URva004CC195Element@@U?$_Nonconst_traits@URva004CC195Element@@@_STL@@@0@0@Z
+
+# w5-sol: 0x00380DA3 refused; see re_attempts.log and build/w5_gate_0x00380DA3.log
+??4Rva00380DA3Element@@QAEAAU0@ABU0@@Z
+
+# w5-sol: 0x005DFBB8 refused; see re_attempts.log and build/w5_gate_0x005DFBB8.log
+??4Rva005DFBB8Element@@QAEAAU0@ABU0@@Z
