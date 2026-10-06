@@ -1,8 +1,12 @@
+// Opaque member ABI views use explicit Rva names. Target callee identities now known:
+// +4 member cleanup at0x0033B1CD calls protected StringBase<unsigned short>::~StringBase at0x00036E70.
+// +0xC member cleanup at0x005CDDF0 calls Coord2D::~Coord2D at0x000B3FD0.
+// Holder identity and complete member layouts remain unproven; only access offsets and call ABI are claimed.
 // Family-7 tail pairs (20B each): each holder method calls first() on
 // itself, then tail-calls second() on a member (three members at positive
 // offsets, one reached at this-8). first/second are opaque address-named
 // pins; holder, member and callee identities are unproven.
-class Mbr0004378D
+class Rva0004378DMember
 {
 public:
 	void second();
@@ -15,7 +19,7 @@ public:
 	void first();
 private:
 	char m_pad[0x280];
-	Mbr0004378D m_280; // +0x280
+	Rva0004378DMember m_280; // +0x280
 };
 
 void Rva0004378D::method()
@@ -68,7 +72,7 @@ void Rva005CDDF0::method()
 	m_0C.second();
 }
 
-class Mbr005E5554
+class Rva005E5554Member
 {
 public:
 	void second();
@@ -84,5 +88,5 @@ public:
 void Rva005E5554::method()
 {
 	first();
-	((Mbr005E5554 *)((char *)this - 8))->second();
+	((Rva005E5554Member *)((char *)this - 8))->second();
 }
