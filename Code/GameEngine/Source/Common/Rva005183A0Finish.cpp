@@ -2,7 +2,7 @@
 // partial score=0.99 date=2026-09-30
 // ?rva005183A0@Rva005183A0@@QAE_NXZ
 // partial score=0.99 date=2026-09-30
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005183A0@Rva005183A0@@QAE_NXZ, retail 0x005183A0, 90 bytes.
 // Unlock: if +0x310 null return false else if !=5 return true else
 // OptionPreferences forward via rowed ctor/forward/base-dtor returning

@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // ?Rva0051AF0BEnable@@YAXH@Z @0x0051AF0B 59B.
 // One-shot enabler with stored int: if global 0x00A04910 is null or its byte
 // at +0x278 is set, return; else set it, store the arg at +0x280, set the byte

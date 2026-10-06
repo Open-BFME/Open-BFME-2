@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00540F4D@Rva00540F4D@@QAEXPAVDataChunkOutput@@@Z, retail 0x00540F4D 66B.
 // Array writer for 0x14-stride keyframes (time plus Rva00540CED 0x10 body):

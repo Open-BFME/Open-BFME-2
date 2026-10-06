@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 int g_rva00545D60;
 

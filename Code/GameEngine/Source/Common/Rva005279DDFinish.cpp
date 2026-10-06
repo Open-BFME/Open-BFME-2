@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005279DD@Rva005279DD@@QAEXXZ @ 0x005279DD (270B): thiscall state switch calling Hide Show SampleContentWidth via rowed AptCall wrappers plus float Fire 0x00527925. Evidence: calls just-landed 0x00527925 plus rowed 0x005278DD 0x00524EF4 plus int-return twin 0x005CB260 row says void but retail uses int return pinned QAEHH; strings Show Hide SampleContentWidth; globals TheRva00222A8BTarget g_Rva0107301CEmptyString; neighbours Rva0052798FConcat Rva00527AEBWrapper.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

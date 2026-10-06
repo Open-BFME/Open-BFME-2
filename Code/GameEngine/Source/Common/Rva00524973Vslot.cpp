@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva00524973@Rva00524B7A@@QAEXXZ @0x00524973 186B
 // Slot 0x30 of vtable 0x00867DFC (class of ??0Rva00524B7A). Guards on
 // +0x24 bit0 and +0x0C null, virtual slot15 result, TheDisplay slot 0x104

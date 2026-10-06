@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // ?Rva00500AF8Destroy@@YAXPAURva004FABE2@@0@Z @0x00500AF8 25B: range destroy.
 // Destroys [first, last) with stride 0xC calling ??1Rva004FABE2@@QAE@XZ.

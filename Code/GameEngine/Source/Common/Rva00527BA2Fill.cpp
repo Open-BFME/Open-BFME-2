@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Range-27 table-driven fill.
 // ?Rva00527BA2@Holder00527BA2@@QAEXPADHH@Z @0x00527BA2 98B
 // Thiscall (dst, n, m): when n < 1, takes k = m (or 1 - n when n + m

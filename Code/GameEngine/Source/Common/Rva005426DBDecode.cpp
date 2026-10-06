@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 // ?rva005426DB@Rva005426DB@@QAE_NPAE@Z @0x005426DB 96B
 // XML entity decoder: ++m_ptr then 5-entry table at 0x00DD1E74 via strlen
 // thunk 0x00629170 plus strncmp IAT then advance past name and require ';'

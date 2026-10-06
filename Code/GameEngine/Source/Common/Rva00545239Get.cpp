@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /G7
+// cl: /DNDEBUG /MD
 // Built from the banked attempt reverse/attempts/0x00545239.cpp; fix: the
 // scale is the compiler literal 1.15f (retail __real@3f933333 at 0x007FC15C),
 // not a global, which is what keeps retail's load-local-then-mulss order.

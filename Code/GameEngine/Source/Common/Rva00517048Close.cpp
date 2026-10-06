@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva00516EE9@Rva00517048@@QAEXXZ @0x00516EE9 31B unlock via 0x00415EF8.
 // Chat logout close invoke with ChatMessageClose plus six zeros. Evidence: same-class
 // sibling ?rva00517048@Rva00517048@@QAEXABVUnicodeString@@@Z at 0x00517048 in

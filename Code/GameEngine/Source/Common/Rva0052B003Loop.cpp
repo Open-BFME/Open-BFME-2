@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0052B003@Holder0052B003@@QAEXH@Z @0x0052B003 33B
 // Pointer-range loop: for each Obj* from +0x2C to +0x30 call pinned
 // 0x005C4180 with the int arg.

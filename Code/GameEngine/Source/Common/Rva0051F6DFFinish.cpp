@@ -2,7 +2,7 @@
 // Seat-4 finish pass from the 0.96 bank
 // ??4Rva0051F6DF@@QAEAAV0@ABV0@@Z
 // partial score=0.9 date=2026-09-29
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ??4Rva0051F6DF@@QAEAAV0@ABV0@@Z @0x0051F6DF 206B
 // Vector operator= for 20-byte Rva0039B893: self-check, realloc via rowed

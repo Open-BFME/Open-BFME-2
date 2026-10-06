@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0052D83B@Rva0052D83B@@QAEXABURva0052D801Record@@@Z @0x0052D83B 8B
 // Evidence: unlock lane unblocks 0x00566D83; add ecx,0xC tail-jmp to rowed vector push_back 0x0052D801; neighbours share /O1 /G7.
 typedef int Int;

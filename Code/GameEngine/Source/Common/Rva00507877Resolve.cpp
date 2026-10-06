@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 // stlport
 //
 // ?rva00507877@Rva00507823@@UAEXXZ retail 0x00507877 163B

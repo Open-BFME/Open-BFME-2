@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00501DF1@Rva00501DF1@@QAEHH@Z @0x00501DF1 49B: map find plus Sub copy returning first dword; evidence rowed _M_find 0x00388F63 pinned copy 0x005017B4 rowed dtor 0x00501776 and caller 0x004FB5AD
 #include <map>

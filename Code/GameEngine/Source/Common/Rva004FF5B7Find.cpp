@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004FF5B7@Rva004FF5B7@@QAE?AU Rva004FF5B7Iter@@H@Z @0x004FF5B7 60B: linear scan via rowed _M_increment 0x00024250 for node+0x14 == key, returns iterator via hidden out, miss returns begin. Evidence: unlock lane ret 8 thiscall out-plus-int, header at +0x10 leftmost at +8, callers 0x0059BC97 0x0059DA96.
 namespace _STL {
 struct _Rb_tree_node_base

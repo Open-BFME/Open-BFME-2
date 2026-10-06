@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva00512C88Shutdown@@YAXXZ, retail 0x00512C88, 69 bytes.
 // Global teardown: if 0x00A048CC set call slot3(0) then slot1(0) and delete

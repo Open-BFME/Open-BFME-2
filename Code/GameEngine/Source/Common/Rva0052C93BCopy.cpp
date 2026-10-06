@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0052C93BGet@@YAPAXPAX00@Z retail 0x0052C93B 38B. Chain lane:
 // uninitialized copy over 0x0C-stride elements via rowed _Construct
 // ??$_Construct@VRva0052BDE6@@V1@@_STL@@YAXPAVRva0052BDE6@@ABV1@@Z at

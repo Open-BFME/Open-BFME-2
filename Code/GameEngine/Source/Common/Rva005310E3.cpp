@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005310E3@Rva005310E3@@QAEHXZ, retail 0x005310E3, 30 bytes.
 // Unlock lane: sits right after 0x0053104A (ends 0x005310E3) before 0x00531113.
 // Reads dword [ecx+8] as signed count, bytes [ecx+4] [ecx+5] as flags; returns doubled sum.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva00531BA7@Rva00531A44@@QAEXPAVXfer@@@Z @ 0x00531BA7 (173B): __thiscall Xfer-like crc over 4 arrays; IsCRC gate via slot 0x0C; ushort arrays via slot 0x80 uchar via 0x88; caller 0x005342CB.
 class AsciiString;
 class UnicodeString;

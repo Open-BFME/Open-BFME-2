@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00516F21Invoke@@YAXPAVRva00222A8BTarget@@PAXPBD2@Z @0x00516F21 30B unlock.
 // Free invoke wrapper: target->invoke(owner, name, 1, value, 0, 0, 0, 0) via
 // pin 0x00222A8B. Evidence: caller 0x0042D653 pushes _fadeOut SetState owner

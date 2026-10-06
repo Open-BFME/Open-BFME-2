@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0052C9ADGet@@YAPAXPAX00@Z retail 0x0052C9AD 38B. Unlock lane:
 // uninitialized copy over 0x10-stride opaque elements via Construct helper

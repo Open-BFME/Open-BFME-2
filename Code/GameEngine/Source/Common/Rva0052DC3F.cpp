@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0052DC3F@Rva0052DC3F@@QAEHPBURva0052DC3FArg@@@Z, retail 0x0052DC3F, 88 bytes.
 // Integer 2D distance with sqrt scale floor and fistp return. this+0 holds point,
 // arg+0 holds point, each point has int x at +0 y at +4. dx*dx+dy*dy via imul,

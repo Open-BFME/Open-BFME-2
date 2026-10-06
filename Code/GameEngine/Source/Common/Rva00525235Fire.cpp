@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva00525235Fire@@YAHPAX0PBD1PAH2@Z, retail 0x00525235 152B unlock via AptCall plus double Get.
 // Two rowed Get 0x00222834 temps then AptCall 0x00222B19 argc 2 with empty fallback.
 // Evidence: callees rowed Get plus AptCall plus releaseBuffer 0x00036410; callers 0x00526706 plus 9 more; prev 0x0052519D same pattern.

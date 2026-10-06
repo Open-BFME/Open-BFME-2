@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva005472D3Alloc@@YGPAXABUBfmeFloat4Record00469C61@@@Z retail 0x005472D3 37B
 // Allocate 20B node, zero the head int, construct Float4 record at +4.

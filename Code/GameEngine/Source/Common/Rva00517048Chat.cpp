@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva00517048@Rva00517048@@QAEXABVUnicodeString@@@Z @0x00517048 108B
 // Chat login APT text plus ChatMessageOpen invoke. AsciiString temp from
 // "APT:ChatFriendLogInMessage" via rowed 0x00037BA0; bfmeSetText via pin

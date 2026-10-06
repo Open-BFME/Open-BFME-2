@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0052DA95@Rva0052DA95@@QAE_NH@Z, retail 0x0052DA95, 47 bytes.
 // Holder reset via rowed MixFileInfoBuffer::bfmeUnlink 0x002E6BE2 then field clears.
 // Evidence: unlock lane unblocking 7 callers; callee rowed; offsets +8 +0x10 +0x12 +0x2c bits.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00529628Get@@YA_NPBDPAH@Z @0x00529628 112B evidence: free cdecl bool const-char plus int-out like caller 0x005297A0; GetParam index plus atoi 0-5 plus AsciiString temp; pin Rva004128F0GetParam plus IAT atoi plus releaseBuffer; string index; unblocks 6 callers
 #include "ascii_string.h"
 

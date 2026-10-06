@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00548B97Free@@YAXH@Z @0x00548B97 83B. Free cdecl void(int): if index
 // 8 and global 0x00A05FA8 set calls rowed Rva003B3371Call(22), then frees
 // global array 0x00A05F88[index] via virtuals slot3(int) slot8() slot1(int)

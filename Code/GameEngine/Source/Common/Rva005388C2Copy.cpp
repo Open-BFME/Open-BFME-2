@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005388C2@@QAE@ABV0@@Z @0x005388C2 53B
 // Holder copy ctor via rowed Rva005386F5 vector copy then byte and conditional region float copy.
 // Evidence: callee 0x005386F5 row Rva005386F5; caller none; prev reserve Float4 next slot4; layout matches Rva005386B7Swap.

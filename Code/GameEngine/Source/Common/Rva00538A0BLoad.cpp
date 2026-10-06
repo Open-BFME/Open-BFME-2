@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00538A0B@Rva005388C2@@QAEXAAVDataChunkInput@@H@Z @0x00538A0B 165B
 // Holder vector load via DataChunkInput readInt/readReal plus flag at +0x20.

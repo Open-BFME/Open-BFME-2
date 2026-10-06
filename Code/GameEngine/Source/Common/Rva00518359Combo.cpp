@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00518359@Rva00518359@@QAEXXZ @0x00518359 71B
 // Restores combo selection: if m_2B0 set, clears it, scans 6 items via GadgetComboBoxGetItemData for m_310 match then GadgetComboBoxSetSelectedPos false, restores m_2B0.
 // Evidence: 5 callers pass this with no args ret void; rowed GadgetCombo calls; offsets +0x2B0 +0x310.

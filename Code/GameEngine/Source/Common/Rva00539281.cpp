@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00539281@Rva00539281@@QAEXHH@Z @0x00539281 65B
 // Evidence: virtual count via slot 0x34 plus per-index slot 0x3C plus element slot 0x38 with two int args; byte at +0x28 vs first arg; callers 0x003FE549; neighbours Rva005391FD.

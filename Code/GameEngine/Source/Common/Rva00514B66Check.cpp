@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00514B66@Rva00514B66@@QAEEXZ @0x00514B66 39B unlock lane bool guard via BfmeThingTTD.
 // Evidence: reads ecx+0x298 and 0x29a then add 0x290 call rowed rva005B7032 0x005B7032; callers 0x00515FBD 0x005160F0.
 class BfmeThingTTD

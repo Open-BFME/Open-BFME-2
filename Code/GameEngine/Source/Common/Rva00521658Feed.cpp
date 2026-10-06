@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Range-27 Skirmish screen sub-panel feed.
 // ?Rva00521658@Holder00521658@@QAEXXZ @0x00521658 78B
 // Thiscall drives four member objects: virtual slot 4 on +0x668, then

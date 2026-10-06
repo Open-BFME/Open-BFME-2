@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00540C59@Rva00540C59@@QAEXPAVDataChunkOutput@@@Z, retail 0x00540C59 89B.
 // Five-float keyframe writer: interpolation tag at +0 via rowed

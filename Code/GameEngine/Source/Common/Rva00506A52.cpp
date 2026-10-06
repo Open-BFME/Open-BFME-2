@@ -1,4 +1,4 @@
-// cl: /O1 /Ob0 /EHsc /MD
+// cl: /Ob0 /EHsc /MD
 // stlport
 // ?rva00506A52@Rva00506A52@@QAEXXZ @ 0x00506A52 168B (placeholder, real signature TBD)
 // Chain from 0x005AD6C3: iterates hash_map buckets via rowed bucket_count,

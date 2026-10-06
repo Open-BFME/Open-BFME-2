@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // ?Rva0050E9FEAptCall@@YAHPAVRva00222A8BTarget@@PAXPBD2PAPBD@Z @0x0050E9FE 36B: chain via 0x00222B19 thiscall. Evidence: 5 stack args, ECX=arg1 plus 9 pushes (4x0 plus *arg5 plus 1 plus arg4/3/2) to rowed AptCall thiscall.
 class Rva00222A8BTarget
 {

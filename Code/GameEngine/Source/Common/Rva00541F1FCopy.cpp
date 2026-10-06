@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ??0Rva00541F1F@@QAE@ABV0@@Z @0x00541F1F 83B: copy constructor. It copies
 // the rowed polymorphic base Rva0053FADE (0x0053FADE), installs vtable

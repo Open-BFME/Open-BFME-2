@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00512CE9@Rva00512CE9@@QAEXH_N@Z, retail 0x00512CE9, 94 bytes.
 // Kick-button UI: formats player index via sprintf %d then invokes Apt

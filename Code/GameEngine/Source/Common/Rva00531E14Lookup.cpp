@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva00531E14@Rva00531E14@@QAEEG@Z @ 0x00531E14 (71B): __thiscall table-walk predicate over two word chains.
 // Words at +2/+4 start each chain, +6 limit, +8 word table; returns 0 when val hits either chain else 1.
 // Caller at 0x00534397. Owner unknown so honest address name. /G7 drops the redundant movzx.

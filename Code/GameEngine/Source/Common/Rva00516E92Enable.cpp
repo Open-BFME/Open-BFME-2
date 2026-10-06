@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00516E92Enable@@YAXXZ @0x00516E92 21B unlock via twin 0x00433D27.
 // If g_Va00A04904 is null return else tail-jmp Rva00222479ByteOneSetter enable
 // via TheRva00222A8BTarget. Evidence: same 21B shape as Rva00433D27Enable;

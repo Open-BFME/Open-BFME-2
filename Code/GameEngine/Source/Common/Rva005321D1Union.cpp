@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005321D1@Rva005321D1@@QAEXGG@Z @ 0x005321D1 94B.
 // Union-style with indirection: order two words, parent map via +4,
 // remap via +0xC/+0x10 tables, rank bytes via +8 with 0xFE cap.

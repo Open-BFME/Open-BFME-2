@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ?rva005173CB@Rva005173CB@@QAEPAU1@ABURva0051732A@@@Z @0x005173CB 45B
 // Allocating setter: new 12B Rva00517345 via rowed ctor at 0x00517345
 // forwarding the holder arg, store into +0, AddRef the new object at +4,

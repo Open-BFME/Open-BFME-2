@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 // ?rva005423F0@Rva005423F0@@QAEPADPAD@Z @0x005423F0 53B
 // Whitespace skip with line counting via isspace IAT and newline check
 // updating current at +0x08 and line at +0x0C. Evidence: retail bytes unlock

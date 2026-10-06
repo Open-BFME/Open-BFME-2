@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva00531978@Rva00531978@@QAEXPAVXfer@@@Z @ 0x00531978 (204B): __thiscall unpack 20-bit field via Xfer ushort slot 0x80; IsCRC gate slot 0x0C; caller 0x005343BC.
 class AsciiString;
 class UnicodeString;

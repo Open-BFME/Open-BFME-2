@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00531F79Chain@@YAPAVRva00531F79@@PAV1@PAG@Z 0x00531F79 34B
 // Evidence: leaf with 2 callers in 0x005334DB; two virtual calls to slot 0x80 with wchar ptr then ptr+1; frameless push-esi shape matches /O1 neighbour Rva00532069Check.
 class Rva00531F79

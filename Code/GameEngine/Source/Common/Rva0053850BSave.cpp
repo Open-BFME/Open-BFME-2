@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0053850B@Rva0053850B@@QAEXPAVDataChunkOutput@@@Z @0x0053850B 100B
 // Vector Float4 save via rowed DataChunkOutput writeInt count then writeReal xyzw loop.
 // Evidence: callee 0x00306CFF row writeReal writeInt folded; next uninit-copy Float4; prev Rva005382A6Getter /O1.

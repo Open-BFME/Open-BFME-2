@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva005297A0@Rva0052936C@@QAEXPBD@Z @0x005297A0 61B evidence: chain on 0x00529628 GetParam index atoi 0-5; array base +0x64 stride 0x14 count 6 like dtor 0x0052936C; clears via rowed 0x002BED91 plus 0x000AD6F4 plus null +0x10
 struct Rva000AD6F4
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0051ECC3@@QAE@ABV0@@Z @0x0051ECC3 71B vector copy ctor via rowed Vector_base SaveMapPreview get_allocator AsciiString uninit-copy Rva0039BA22
 // Evidence: caller 0x0051F87B member at +0x14; stride 0x14; callees 0x0021983A row AsciiString 0x004FF36C pin SaveMapPreview 0x0039BA22 row Rva0039B893; precedent Rva005386F5Copy.cpp
 class SaveMapPreview

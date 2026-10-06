@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva0050BFFD@Rva0050BFFD@@QAEXVAsciiString@@@Z @0x0050BFFD (49B).
 // AsciiString by-value setter with EH (leaf lane, called by the unclaimed

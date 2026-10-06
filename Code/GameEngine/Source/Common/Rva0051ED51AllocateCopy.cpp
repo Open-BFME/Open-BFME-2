@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0051ED51@Rva0051ED51Holder@@QAEPAVRva0039B893@@IPAV2@0@Z @0x0051ED51 45B allocate-and-copy
 // via rowed 20-byte allocator 0x00395960 and rowed null-guarded uninit copy 0x0039BA22.
 // Evidence: chain from just-landed 0x0039BA22; callers 0x0039C062 0x0051F71E push three args.

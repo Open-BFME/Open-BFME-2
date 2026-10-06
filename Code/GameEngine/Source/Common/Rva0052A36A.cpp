@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva0052A36A@Rva0052A36A@@QAEXPAUOut0052A36A@@@Z @0x0052A36A 29B leaf: array element fetch (base+((idx+4)*20)), float@+8 int@+12 to out; caller 0x0052A628
 struct Elem0052A36A {
     char m_pad0[8];

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 #include "ascii_string.h"
 // ?Rva005185D8Init@@YAX_N000@Z @0x005185D8 128B
 // Options.apt push plus 4 flag bytes into struct at g_Va00A04908 +0x280-0x284 plus show background mode 1.

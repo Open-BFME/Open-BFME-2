@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0051AEEF@Rva0051AEEF@@QBE_NXZ @ 0x0051AEEF, 20 bytes.
 // Two-byte-flag predicate: xor eax,eax; cmp [ecx+0xB4],al; je; cmp
 // [ecx+0xB6],al; je; inc eax; ret. Evidence: single caller at 0x0051B450 in

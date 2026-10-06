@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva00528309@Rva00528309@@QAEXXZ retail 0x00528309 64B
 // Evidence: loop dec count at +0xD8; elem (count+3)*12 + this; clear +0 via 0xAD6F4 plus +4 via 0x2BED91; or +8 -1; caller 0x005283E6
 struct Rva000AD6F4

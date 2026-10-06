@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva0052906BUpdate@@YAXH@Z @0x0052906B 197B
 // Free Apt HeroRank updater: static "APT:RankLabel"/"APT:HeroRank" with guards,

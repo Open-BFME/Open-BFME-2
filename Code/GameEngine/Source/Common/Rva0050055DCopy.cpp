@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // ??0Rva0050055D@@QAE@ABV0@@Z @0x0050055D 61B: copy constructor of a holder of
 // two STLport int->void* trees: the rowed _Rb_tree copy constructors

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005440CD@Rva005440BC@@QAEXXZ, retail 0x005440CD, 41 bytes.
 // Virtual slot 15 (offset 0x3C) of vtable 0x008699A0 (VA 0x00C699A0), class of
 // ??1Rva005440BC@@UAE@XZ in Rva004D759CDerived.cpp. Gets TurretStateMachine

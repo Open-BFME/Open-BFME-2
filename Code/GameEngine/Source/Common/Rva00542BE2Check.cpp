@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00542BE2@Rva00542BE2@@QAE_NPBVObject@@@Z @0x00542BE2 55B
 // Evidence: chain packet; callees rowed getCurrentWeapon 0x0028AEBD and isWithinAttackRange 0x002CB933; owner at +0xc and single Object arg feed isWithinAttackRange with 0.0f and 1; no caller or vtable so honest address name.
 class Object;

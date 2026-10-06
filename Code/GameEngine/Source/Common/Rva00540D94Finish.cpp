@@ -1,5 +1,5 @@
 // ??0Rva00540D94@@QAE@ABURva00540E9DSrc@@MMH@Z
-// cl: /O1 /arch:SSE /Ob0
+// cl: /Ob0
 //
 // ??0Rva00540D94@@QAE@ABURva00540E9DSrc@@MMH@Z, retail 0x00540D94, 54 bytes.
 // Constructor: int at +0 = v; the 12-byte Rva00540E9DSrc at +4..+0xC copied

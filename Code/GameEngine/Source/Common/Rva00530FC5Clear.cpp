@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00530FC5@Rva00530FC5@@QAEXXZ, retail 0x00530FC5, 67 bytes.
 // Bitmask-guarded clear of 128B chunks: m_count at +0, m_data at +4, m_bits at +8.
 // bitsEnd = m_bits + (m_count>>5); early out when empty; loop from the top clearing

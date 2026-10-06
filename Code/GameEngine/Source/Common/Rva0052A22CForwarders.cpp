@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Three tiny range-27 forwarders (24-30B).
 // ?rva0052A22C@Holder0052A22C@@QAEXPAVObj0052A22C@@@Z @0x0052A22C 24B
 // Thiscall through-call: forwards o->m_74 (or 0) to the pinned 0x529DA9

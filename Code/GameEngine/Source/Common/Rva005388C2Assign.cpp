@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005388F7@Rva005388C2@@QAEAAV1@ABV1@@Z @0x005388F7 53B
 // Holder copy-assign via rowed vector<BfmePod16> assign then flag and conditional region copy.
 // Evidence: callee 0x00538782 row vector<BfmePod16> assign; prev 0x005388C2 holder copy same layout region+flag; next 0x00538A0B holder load same layout.

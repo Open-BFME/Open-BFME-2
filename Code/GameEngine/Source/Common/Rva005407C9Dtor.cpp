@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ??1Rva005407C9@@QAE@XZ @0x005407C9 65B inner dtor.
 // Retail frees +0x10 then +0 via rowed _free with __EH_prolog frame.
 // Evidence: unlock lane; caller 0x0054080A lea ecx [esi+0x24] then base

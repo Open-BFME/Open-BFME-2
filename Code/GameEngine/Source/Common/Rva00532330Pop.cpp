@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00532330@Rva00532330@@QAE_NPAG0@Z @ 0x00532330 (49B): __thiscall pop two WORDs from top, empty when +0x38==+0x3c.
 // Evidence: offsets +0x38/+0x3c compare then WORD loads at top-4/top-2 into out params, add [ecx+0x3c],-4, al 0/1, ret 8; callers at 0x00533000 0x00533049.
 extern "C" void _ReadWriteBarrier(void);

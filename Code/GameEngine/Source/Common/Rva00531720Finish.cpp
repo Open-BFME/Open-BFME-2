@@ -1,6 +1,6 @@
 // ?rva00531720@Rva00531720@@QAEEII@Z
 // partial score=0.93 date=2026-10-04
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00531720@Rva00531720@@QAEEII@Z @ 0x00531720 (55B): __thiscall bit-gated element test;
 // array at +0xC stride 4 tests [e+1]&0x80 when (a>>1)&1 and [e+2]&1 when (a>>2)&1;
 // callers at 0x0053192B 0x0053193A. The two gate masks live in a local two-byte

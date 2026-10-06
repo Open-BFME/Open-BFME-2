@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00529130@Rva00529130@@QAEXH@Z @0x00529130 27B
 // Chain on 0x0052906B: __thiscall setter beside Rva0052906BUpdate. Forwards

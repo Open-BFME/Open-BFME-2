@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00532165@Rva00532165@@QAEXGG@Z @ 0x00532165 108B.
 // Union-by-rank: order by counts at +8, parent map via +4,
 // remap via +0xC/+0x10, rank inc via +8 with 0xFE cap.

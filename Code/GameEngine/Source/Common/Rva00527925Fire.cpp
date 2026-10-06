@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva00527925Fire@@YAHPAX0PBD1PBM@Z @ 0x00527925 (106B): free float Apt firer via rowed Get 0x002228E8 plus rowed AptCall 0x00222B19 and empty fallback g_Rva0107301CEmptyString. Evidence: callers pass level prefix function plus float; callees rowed; neighbours Rva00527890Move and Rva0052798FConcat.
 #include "ascii_string.h"
 

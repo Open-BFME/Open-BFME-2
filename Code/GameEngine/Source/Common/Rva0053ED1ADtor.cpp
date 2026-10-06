@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??1Rva0053ED1A@@UAE@XZ @0x0053ED78 90B dtor installs vtables plus frees vector buffer plus secondary plus base via caller ??_G 0x0053EF12. Evidence: pin plus vtable slots plus rowed base GameEngineDeletingBase plus twin-pinned secondary Rva005C6D4D at 0x005C6C7B plus rowed _free.

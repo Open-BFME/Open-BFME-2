@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00549252@Rva00549252@@QAEXXZ, RVA 0x00549252, 243B
 // Zero slot counts at +8 stride 0x1c then nested loops over +0x120 array
 // with 0x258/0x1f0/0x78 gate plus leaf 0x568 accumulate and bfmePush.

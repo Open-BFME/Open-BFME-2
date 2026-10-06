@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0053222F@Rva0053222F@@QAEXGG@Z @0x0053222F 84B.
 // Union-by-rank: early out when words equal rank table at +0x200 decides
 // swap parent map at +0 then rank increment when ranks equal below 0xFE.

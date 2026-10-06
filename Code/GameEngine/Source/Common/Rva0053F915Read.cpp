@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // Rva0053FB33::rva0053F915, retail 0x0053F915, 106 bytes.
 // Vslot 4 of 0x008694DC (Rva0053FB33): reads AsciiString via rowed
 // DataChunkInput::rva0030750A into +0x18 via an inline AsciiString::op=

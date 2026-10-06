@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0051E437@Rva0051E437@@QAEAAV1@ABV1@@Z @0x0051E437 33B: __thiscall copy of three words at +4/+6/+8; caller 0x0051E939 loops with stride 0xC
 class Rva0051E437
 {

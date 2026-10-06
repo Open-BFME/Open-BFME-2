@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00524BB4@@UAE@XZ retail 0x00524BB4 75B
 // Own vptr C67DFC; under EH state 1 the body empties the object through the
 // rowed ?clear@Rva00524A4C 0x00524A4C; the ref holder at +0x34 is released

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ??1Rva0052A470@@QAE@XZ @0x0052A470 (69B).
 // Non-virtual dtor: AsciiString at +8 plus Rva0052413E at +0x10 plus

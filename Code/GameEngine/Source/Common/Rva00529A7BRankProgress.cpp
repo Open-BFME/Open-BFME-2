@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00529A7B@Rva00529A7B@@QAEXM@Z 185B @0x00529A7B
 // Rank progress Apt updater: Show/HideRankProgress around a clamped
 // SetRankProgressBar from arg*scale. Evidence: strings ShowRankProgress

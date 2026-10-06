@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?clear@Rva00524A4C@@QAEXXZ @0x00524A4C (25B): clears the +0x0C interface
 // pointer through its slot-7 virtual then clears the low two flag bits at
 // +0x24. Called by the dtor at 0x00524BB4 and by 0x00524D01 plus a jmp from

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00506B74@Rva00506B74@@QAE_NPAUCoord3D@@@Z @0x00506B74 34B: copy member
 // Coord3D at +0x28 to *out via three movsd then return !m_28.equals(global
 // 0x00DD0870). Callers 0x004EBF4B (ecx+4 forwarding) 0x00507522 (flag +0x24

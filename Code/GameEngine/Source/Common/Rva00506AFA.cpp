@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ?rva00506AFA@Rva00506A52@@QAEXXZ @ 0x00506AFA 33B
 // Chain from 0x00506A52: calls rowed filler with same this, then calls

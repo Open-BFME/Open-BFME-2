@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0052DB11@Rva0052DB11@@QAE_NH@Z, retail 0x0052DB11, 60 bytes.
 // Outer/inner list search returning true on inner hit with id mismatch.
 // Evidence: unlock lane; no callees; callers 0x002E76DF 0x002ED452 0x002F2ED6.

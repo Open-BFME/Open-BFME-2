@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva0052CFB1@@UAEXPAVXfer@@@Z @0x0052BAFE 42B: slot 3 xfer with IsLightCRC early-out plus Version1 plus int at +0x08 via Xfer slot 0x7c.
 // Evidence: vtable 0x00868780 slot 3 of class of ??1Rva0052CFB1 rowed at 0x0052CFB1, IsLightCRC slot 0x10 plus Version1 row 0x000053EE plus int slot 0x7c per Rva00589079 precedent, layout +0x08 int from Rva0052CFB1Dtor. Xfer declaration copied verbatim from PoisonedBehaviorXfer.cpp.
 

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00540CED@Rva00540CED@@QAEXPAVDataChunkOutput@@@Z, retail 0x00540CED 61B.
 // Vector3-style keyframe writer: interpolation tag at +0 via rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva005445D4@@QAE@PAVStateMachine@@@Z, retail 0x005445D4, 37 bytes.
 // Derived State ctor via rowed/pinned State hash ctor 0x004D73FC with hash
 // 0x90B65C1D then zero of +0x20/+0x24 then vtable 0x00869A20. Evidence:

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva0052DE9BRelease (retail 0x0052DE9B, 56 bytes): walks a MixFileInfoBuffer
 // list via +0x34, unlinks each node, clears 0x10 at +0x2c and calls

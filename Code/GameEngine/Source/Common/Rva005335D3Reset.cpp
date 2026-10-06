@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva005335D3@Rva005312BE@@QAEXXZ @ 0x005335D3 145B.
 // Reset grid 8x7 words at +0x1B596, frees Item arrays via 0x00532F9F,
 // zeroes header and rect, preserves word at +0 into +4, sets flag +0x1BA31.

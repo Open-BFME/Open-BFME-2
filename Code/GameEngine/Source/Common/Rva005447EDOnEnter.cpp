@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?onEnter@Rva005447ED@@UAE?AW4StateReturnType@@XZ, retail 0x00544133, 124 bytes.
 // Virtual slot 4 (offset 0x10, onEnter) of vtable 0x00869AB0, class of ??0Rva005447ED@@QAE@PAVStateMachine@@@Z.
 // Gets TurretStateMachine goal object via rowed getGoalObject 0x004D7726, finds BfmeGotBEC via rowed bfmeFindBEC 0x0028BCB4, checks slot 0x38, notifies slot 0x34 with owner, calls slot 0x04 with owner and goalPosition and machine+0x3C, clears obstacle via rowed ignoreObstacle 0x00268D88, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva005447EDCtor; prev Rva005440BCVSlot5440CD same call pair.

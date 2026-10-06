@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0053FB91@Rva0053FB91@@QAE_NPAVDataChunkInput@@PAUDataChunkInfo@@@Z, retail 0x0053FB91 109B.
 // Eight-float keyframe reader: interpolation tag at +0 via rowed Rva005C702D

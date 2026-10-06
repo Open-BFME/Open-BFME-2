@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00537F74@Rva00537F74@@QAEXABVAsciiString@@@Z @0x00537F74 44B setter: if arg.compare(m_s20)!=0 then m_s20.set(arg) plus virtual [eax+8].
 // Evidence: packet disassembly; callees rowed compare 0x000069D6 set 0x000366F0; caller 0x00537FCC passes AsciiString temp; prev row 0x00537EAD same +0x20 string.
 #include "ascii_string.h"

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?onExit@Rva0054484A@@UAEXW4StateExitType@@@Z, retail 0x00544572, 98 bytes.
 // Virtual slot 5 (offset 0x14, onExit) of vtable 0x00869BA0, class of ??0Rva0054484A@@QAE@PAVStateMachine@@@Z.
 // Same BEC tricall prologue as sibling update 0x0054452A and onEnter 0x00544480: gets

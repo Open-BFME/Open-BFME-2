@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // ?rva00528B72@Rva00528B72@@QAEPAV1@PAX@Z retail 0x00528B72 38B
 // Evidence: movss xmm0 [0x00BBB9AC -1.0f]; init +0 with ptr zeroes +4 +8 +0xC +0x10 float +0x14 returns this; caller 0x0052A00E
 class Rva00528B72

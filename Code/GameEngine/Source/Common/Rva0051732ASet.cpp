@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0051732A@Rva0051732A@@QAEPAU1@PAUTargetRef00217D4C@@@Z @0x0051732A 27B
 // Refcounted-pointer setter: store raw TargetRef pointer at +0, if non-null
 // AddRef at +4 then call rowed fastcall Release at 0x0007DEEF, return this.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva00524B7A@@QAE@XZ @0x00524B7A 58B
 // Ctor with explicit vtable in the middle via single-class model plus
 // baseConstruct through a cast. Calls rowed base 0x001B4E63; sole caller

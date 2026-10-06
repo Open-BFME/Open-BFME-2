@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??1Rva00507823@@UAE@XZ retail 0x00507823 84B
 // Base dtor storing vtable 0x00864010 same as ctor 0x0050775B. Destroys

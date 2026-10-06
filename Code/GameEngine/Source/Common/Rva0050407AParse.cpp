@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ob1 /DNDEBUG /MD /EHsc
 // ?Rva0050407AParseColorControlPointBlock@@YAXPAVINI@@PAX1PBX@Z @0x0050407A (151B):
 // ColorControlPoint INI block parser. Retail checks INI and instance, throws
 // INIException(3, "ColorControlPoint::ParseINIBlock::Invalid data passed in.")

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0052DB73@Rva0052DB73@@QAE_NH@Z, retail 0x0052DB73, 38 bytes.
 // Single-list all-match check returning true when every id equals arg.
 // Evidence: unlock lane; no callees; callers 0x002EAB18 0x002F2E09.

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0052E0CE@Rva0052E0CE@@QAE_N_N@Z retail 0x0052E0CE 46B: bit-23 setter at
 // +0xC returning whether the bit changed. Callers in 0x0052F2EC.

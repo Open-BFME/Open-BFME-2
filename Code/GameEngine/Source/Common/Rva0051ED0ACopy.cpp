@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0051ED0A@@QAE@ABV0@@Z @0x0051ED0A 71B vector copy ctor via rowed Vector_base PrereqUnitRec get_allocator AsciiString uninit-copy nested PrereqUnitRec
 // Evidence: caller 0x0051F87B member at +0x20; stride 0x0C; callees 0x0021983A row AsciiString 0x005C8C37 row PrereqUnitRec 0x004EE1E2 row nested uninit-copy; precedent Rva005386F5Copy.cpp
 struct PrereqUnitRec

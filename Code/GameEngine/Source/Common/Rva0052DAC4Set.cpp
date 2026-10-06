@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0052DAC4@Rva0052DAC4 (retail 0x0052DAC4, 14 bytes): nested one-field
 // setter that copies *source into m_inner->m_first (+8). Shape mirrors

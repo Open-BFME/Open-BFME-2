@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00514DDA@Rva00514DDA@@QAEXH@Z @0x00514DDA, 70B.
 // Gate on this+0x288==8 and arg==3, then TheGameClient branch on this+0x282,

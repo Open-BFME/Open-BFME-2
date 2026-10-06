@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?rva00524FA7@Rva00524FA7@@QAEXXZ @0x00524FA7 (70B): combine InGameUI +0x988 scaled
 // by g_00DBA500 with TheGameClient slot31 into +0x1DC. Evidence: single caller
 // 0x005270EB, TheInGameUI/TheGameClient globals, unsigned x87 fild/fadd/fmul/ftol2

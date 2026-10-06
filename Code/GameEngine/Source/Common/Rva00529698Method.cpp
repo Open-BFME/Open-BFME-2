@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00529698@Rva0052936C@@QAEXPBD@Z @0x00529698 264B.
 // Chain from 0x00529628: parse index and name params, find empty slot,

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // vector<Rva005334A4Element>::_M_allocate_and_copy, retail 0x00532303, 45 bytes.
 // 4-byte non-trivial view used by push_back 0x005334A4. Allocates via the

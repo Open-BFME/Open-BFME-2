@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva00521CBAAdvance@@YAXPAPAURva00521CBANode@@HPAX@Z retail 0x00521CBA 41B
 // Evidence: caller 0x00521EC2 pushes 3 args; no callees; walks a doubly-linked
 // node forward via +0 for positive count and via +4 for negative count. The

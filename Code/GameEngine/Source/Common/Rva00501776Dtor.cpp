@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1Rva00501776@@QAE@XZ @0x00501776 54B: dtor destroying vectors at +0x14/+0x20
 // via rowed ??1Rva005011DA@@QAE@XZ (Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp).
 // Evidence: retail calls 0x005011DA twice with ecx=esi+0x20 then esi+0x14 under

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva005490AE@Rva005490D2@@QBEHXZ, RVA 0x005490AE, 36B
 // ?rva005490D2@Rva005490D2@@QBEHXZ, RVA 0x005490D2, 31B
 // Max and summing loops over the array at +4 with count at +0 via double

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?update@Rva0054484A@@UAE?AW4StateReturnType@@XZ, retail 0x0054452A, 72 bytes.
 // Virtual slot 6 (offset 0x18, update) of vtable 0x00869BA0, class of ??0Rva0054484A@@QAE@PAVStateMachine@@@Z.
 // Same BEC tricall prologue as the matched onEnter at 0x00544480: gets TurretStateMachine goal

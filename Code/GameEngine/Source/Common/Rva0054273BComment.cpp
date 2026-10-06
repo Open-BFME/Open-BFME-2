@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 // ?rva0054273B@Rva0054273B@@QAE_NXZ @0x0054273B 86B
 // XML comment-end skip: after +2 expects "--" then scans to "-->" returning
 // true on '>' else false on NUL. Evidence: retail bytes leaf lane plus

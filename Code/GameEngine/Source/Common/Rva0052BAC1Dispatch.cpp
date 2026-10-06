@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Range-27 view-dispatch lookup.
 // ?Rva0052BAC1@Holder0052BAC1@@QAEHH@Z @0x0052BAC1 61B
 // Thiscall: answers arg unchanged when this+0x1C is null; otherwise runs

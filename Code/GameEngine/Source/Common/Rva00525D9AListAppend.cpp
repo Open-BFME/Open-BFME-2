@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 // Range-27 list-append with notify.
 // ?Rva00525D9A@Holder00525D9A@@QAEXPAUObj00525D9A@@@Z @0x00525D9A 102B
 // Thiscall (this passes in ecx, stack arg in edx): walks the Pod12 node

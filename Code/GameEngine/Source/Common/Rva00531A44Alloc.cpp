@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 //
 // ?rva00531A44@Rva00531A44@@QAEAAV1@G@Z, retail 0x00531A44, 79 bytes.
 // Honest-address allocator: stores ushort count at +0, clears word at +2,

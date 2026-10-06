@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0050539C@Rva0050539C@@QAEPAVPlayer@@XZ, retail 0x0050539C, 8 bytes.
 // Evidence: tail-jmp to rowed ?rva005A910E@Rva005A910E@@QAEPAVPlayer@@XZ 0x005A910E; caller 0x002C5FD9 null-checks +0xc then jmps here.
 class Player;

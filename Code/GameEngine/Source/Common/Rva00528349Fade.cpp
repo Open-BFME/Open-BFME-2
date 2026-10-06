@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva00528349@Rva00528349@@QAEXXZ @0x00528349 64B: FadeIn Apt setter with state at +0x14 plus prefix at +0x18 plus level at +0x4.
 // Evidence: rowed AptCall 0x00524EF4 plus strings FadeIn plus empty plus TheRva plus caller 0x00528868; neighbours Rva00528309Clear.
 class Rva00222A8BTarget;

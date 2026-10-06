@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 // ?rva00542953@Rva00542953@@QAEXPADHHHH@Z @0x00542953 31B
 // Reset parser state: flush pending byte via 0x005427F1 then clear +0x1C/+0x28 and copy 5 dwords of args to +0x00. Evidence: retail bytes chain lane plus neighbours Rva005426DBDecode and Rva00542806Init same +0x20/+0x24 layout and rep movsd 5 with ret 0x14.
 class Rva005427F1

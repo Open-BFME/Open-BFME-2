@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?rva00503E17@Rva00503E17@@QAEMXZ @0x00503E17 56B
 // Bezier caller sibling of 0x00503DEB: Evaluate(0.0 g_863BFC 0.5 g_7BB8D8 minus m_14).
 // SSE for t computation, x87 for args. Unlocks 0x005042F2.

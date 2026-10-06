@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // class-gate: allow AsciiString donor TU-local StringBase-derived view emits the retail 297B dtor at 0x00518769; its temporary calls the out-of-line StringBase ctor 0x00037BA0 and dtor 0x00036410, which the shared header force-inlines
 // ??1Rva00518769@@UAE@XZ @0x00518769 297B
 // AptOptions dtor: current-window global clear, audio handle release via TheAudio slot 0x70, InitGadgets close, GameClient triple, globals gate Shell, three strings free base AptGameWindow. Evidence: literal AptOptions::InitGadgets 0x0086667C, base pin 0x005126F5, caller 0x00518AE9 deleting dtor.

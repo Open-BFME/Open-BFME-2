@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00547223@Rva00547223@@QAEPAV1@PAH0@Z retail 0x00547223 34B.
 // Fluent setter: copies *a into +0 and b[0..2] into +4/+8/+0xC, then returns

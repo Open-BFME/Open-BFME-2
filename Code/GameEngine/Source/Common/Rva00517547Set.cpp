@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva00517547@Rva00517547@@QAEPAU1@URva0051732A@@@Z @0x00517547 59B
 // EH setter: forward the by-value holder at [ebp+8] as const ref to rowed
 // setter 0x005173CB (new wrapper plus AddRef), then Release the input

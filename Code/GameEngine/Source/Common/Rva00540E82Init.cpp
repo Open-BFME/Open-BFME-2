@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /Ob0
+// cl: /Ob0
 //
 // ??0Rva00540E82@@QAE@XZ, retail 0x00540E82 27B.
 // Constructor: int at +0 = 2, floats at +4 +8 +0xC = 0.0 via xorps/movss.

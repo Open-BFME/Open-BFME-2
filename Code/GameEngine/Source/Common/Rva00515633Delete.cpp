@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?Rva00515633Delete@@YAXXZ @ 0x00515633 108B
 // Delete save file built from wide literal via GameState helper then DeleteFileW.
 // Evidence: StringBase<G> ctor row 0x00037E30 plus releaseBuffer row 0x00036E70 plus rva002DC74A row 0x002DC74A plus TheGameState plus TheNullChr plus DeleteFileW IAT plus caller 0x005158BD plus prev OpaqueSingleInheritanceDtors /O1.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva00531ED3@Rva00531ED3@@QAEGG@Z @ 0x00531ED3 (35B): __thiscall union-find Find with path compression over inline word table at +0; callers 0x00532480 0x0053248C 0x00532AE4 0x00532BB8.
 class Rva00531ED3
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva005189CF@Rva005189CF@@QAEXXZ @0x005189CF 282B
 // Master-option APT text: formats APT:MasterOption_%s from m_310 table when
 // 0..5, builds Unicode via TheGameText fetch slots 0x38/0x3C plus concats,

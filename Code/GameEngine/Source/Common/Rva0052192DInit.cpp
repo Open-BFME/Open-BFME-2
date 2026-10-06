@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 #include "ascii_string.h"
 // ?Rva0052192DInit@@YAXH@Z retail 0x0052192D 74B
 // Evidence: chain via Shell::push 0x0035C74A; callers 0x00515C64; strings Skirmish.apt; globals g_00E04930 g_00DD179C g_Va00A01E48 TheRva00222A8BTarget; callees StringBase 0x00037BA0 Shell::push 0x0035C74A rva002233A6 0x002233A6; precedent Rva00434160Init same Shell push pattern.

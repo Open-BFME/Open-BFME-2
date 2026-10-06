@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005312BE@Rva005312BE@@QAEXXZ @ 0x005312BE (66B): __thiscall clears byte at +0x34 of each 0x44-sized entry.
 // ?rva00531300@Rva005312BE@@QAEXXZ @ 0x00531300 (66B): same shape sets byte to 1.
 // ?rva00531431@Rva005312BE@@QAEXHH@Z @ 0x00531431 (80B): bounded setter writes byte at +0x35 and flag at +0x1BA30.

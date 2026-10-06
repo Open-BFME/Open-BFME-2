@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00544E76@Rva00544C2A@@QAEHXZ @0x00544E76 59B.
 // Leaf slot 4 of vtable 0x00869CF8 (class of Rva00544C2A ctor): chains
 // +0x18->+0x14->+0x258 through slot 0x17C, then TheGameLogic+0x40 plus

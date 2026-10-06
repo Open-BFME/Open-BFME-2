@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0053FF1D@Rva0053FF1D@@QAEXPAVDataChunkOutput@@@Z @0x0053FF1D 66B
 // Keyframe-track writer: count at +0x10/+0x14 via rowed writeInt then for each
 // 0x28-byte key writes int at +0 via writeInt and the 8-float keyframe at +4

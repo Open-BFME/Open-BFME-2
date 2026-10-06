@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva0053249DLowerBound@@YAPAHPAH0PAG@Z retail 0x0053249D 59B.
 // Binary lower bound over dword array with word key: count from byte delta

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00540CB2@Rva00540CB2@@QAE_NPAVDataChunkInput@@PAUDataChunkInfo@@@Z, retail 0x00540CB2 59B.
 // Three-float keyframe reader, inverse of Rva00540CED writer: interpolation tag

@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ??1Rva0054080A@@UAE@XZ @0x0054080A 59B outer dtor.
 // Retail stores vtable 0x008694F8, destroys inner at +0x24 via rowed
 // ??1Rva005407C9@@QAE@XZ, then base ??1Rva0053FB33@@UAE@XZ with

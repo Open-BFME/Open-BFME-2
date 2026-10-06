@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva0050C807@Rva0050C807@@QBE?AVAsciiString@@H@Z @ 0x0050C807 66B
 // Bounds-checked AsciiString getter over the pointer pair at +0/+4; element
 // size 0x14 with the string at +4, out of range yields the exported

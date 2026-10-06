@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // stlport
 // ??1Rva00541EB8@@UAE@XZ @0x00541EB8 74B outer dtor.
 // Retail stores vtable 0x00869514 destroys two BfmeNarrowRecord0041A5D2 at

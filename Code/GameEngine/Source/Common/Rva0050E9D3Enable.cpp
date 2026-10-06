@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // ?Rva0050E9D3Enable@@YAXXZ @0x0050E9D3 43B.
 // One-shot enabler: if global 0x00A046B4 is null or its byte at +0x278 is
 // set, return; else set it and the byte at +0x54 of global 0x00A01E48, then

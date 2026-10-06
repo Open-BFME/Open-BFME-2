@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 //
 // ??0Rva0053FADE@@QAE@ABV0@@Z @0x0053FADE 85B: user-written copy
 // constructor of a polymorphic class (vtable 0x00C694DC) shared as the base

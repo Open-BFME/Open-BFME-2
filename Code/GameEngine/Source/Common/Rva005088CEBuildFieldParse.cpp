@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?buildFieldParse@Rva005088CE@@SAXAAVMultiIniFieldParse@@@Z retail 0x005088CE 34B
 // Static buildFieldParse registering two INI tables: one via table getter

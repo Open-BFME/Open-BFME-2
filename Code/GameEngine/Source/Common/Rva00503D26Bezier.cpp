@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs-c-
+// cl: /DNDEBUG /MD /EHs-c-
 // ?Rva00503D26Evaluate@@YAMMMMM@Z @0x00503D26 40B
 // Quadratic Bezier scalar evaluate(a b c t) = (1-t)^2*a + 2*(1-t)*t*b + t^2*c.
 // Pure x87, EBP frame. Unlocks 0x00503DEB 0x00503E17.

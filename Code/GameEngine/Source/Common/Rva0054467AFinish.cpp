@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?onEnter@Rva00544884@@UAE?AW4StateReturnType@@XZ, retail 0x0054467A, 141 bytes.
 // Virtual slot 4 (offset 0x10, onEnter) of vtable 0x00869C30, class of ??0Rva00544884@@QAE@PAVStateMachine@@@Z.
 // Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed bfmeFindBEC 0x0028BCB4, calls slot 0x1C with owner and goalPosition, loads AI at owner+0x258, checks slot 0x48, regets goal and calls rowed ignoreObstacle 0x00268D88, CritterDesync log via theLogicRandomLogFile and _fprintf when g_00E03745 set, clears adjustsDestination at +0x48, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva00544884Ctor; sibling Rva005447EDOnEnter same tri pattern; AIStatesSmallUpdates CritterDesync precedent.

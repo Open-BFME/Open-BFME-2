@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva0052CEDDClear@@YAXPAVRva004E1A04@@0@Z retail 0x0052CEDD 25B
 // Evidence: chain lane; callee dtor 0x004E1A04 rowed in Rva004E1A04Dtor.cpp;

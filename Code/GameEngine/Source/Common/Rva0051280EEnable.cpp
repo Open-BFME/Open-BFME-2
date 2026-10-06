@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0051280EEnable@@YAXXZ @0x0051280E 21B: if g_obj12F495C==0 return else tail-jmp Rva00222479ByteOneSetter::enable via TheRva00222A8BTarget; twin of Rva00433D27Enable Rva00516E92Enable
 extern void *g_obj12F495C;
 class Rva00222A8BTarget;

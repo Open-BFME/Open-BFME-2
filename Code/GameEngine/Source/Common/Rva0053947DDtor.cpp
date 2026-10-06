@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva0053947D@@UAE@XZ @0x0053947D 87B:
 // Virtual dtor: vtable 0x00869228, base list at +4 via rowed forEach 0x005393F3
 // with forwarder 0x001FF3A9 and arg this, erase via rowed 0x002BF6B7 on

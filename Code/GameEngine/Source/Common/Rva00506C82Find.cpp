@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva00506C82Find@@YAPAVGameSlot@@PBURva00506C82Arg@@@Z @0x00506C82 65B:
 // search 8 GameSlots via TheGameInfo->getSlot(i) for slot whose m_ip key
 // (NameKeyGenerator->nameToKey at +0x34) equals arg key at +0x50; return slot

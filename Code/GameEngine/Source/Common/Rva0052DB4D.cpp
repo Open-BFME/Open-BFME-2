@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0052DB4D@Rva0052DB4D@@QAE_NH@Z, retail 0x0052DB4D, 38 bytes.
 // Single-list mismatch search returning true on first id not equal to arg.
 // Evidence: unlock lane; no callees; callers 0x002EFF09 0x002F051D.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0052C987Get@@YAPAXPAX00@Z retail 0x0052C987 38B. Unlock lane:
 // uninitialized copy over 0x14-stride elements via rowed _Construct
 // ??$_Construct@VRva004E194E@@V1@@_STL@@YAXPAVRva004E194E@@ABV1@@Z at

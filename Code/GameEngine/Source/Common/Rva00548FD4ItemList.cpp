@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // Capped 36-item list at 0x00548FD4 (45 bytes, ghidra FUN_00948fd4).
 // Leaf thiscall: clears the item's state word, appends the item while fewer

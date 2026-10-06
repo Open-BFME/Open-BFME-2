@@ -2,7 +2,7 @@
 // partial score=0.98 date=2026-10-04
 // ?Rva005440F6Get@@YA_NPAVRva00544884State@@@Z
 // partial score=0.93 date=2026-10-03
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva005440F6Get@@YA_NPAVRva00544884State@@@Z, retail 0x005440F6, 61 bytes.
 // Virtual slot 18 (offset 0x48) of vtable 0x00C69C30, class of ??0Rva00544884@@QAE@PAVStateMachine@@@Z.
 // Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed bfmeFindBEC 0x0028BCB4, calls slot 0x10 with owner and machine+0x3C, returns bool. Evidence: vslot slot 18; ctor TU Rva00544884Ctor; prev Rva005440BCVSlot5440CD same call pair; next Rva005447EDOnEnter same machine+owner pattern.

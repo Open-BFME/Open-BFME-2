@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc /Oi-
+// cl: /DNDEBUG /MD /EHsc /Oi-
 // ?Rva00504830UpperBound@@YAPAURva00504830Item@@PAU1@0PBMHH@Z @ 0x00504830 (64B):
 // Upper-bound binary search over 16-byte records keyed by first float.
 // len=(last-first); while len>0 { half=len>>1; mid=first+half;

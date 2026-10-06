@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Donor: Open-BFME-1 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
 // game/GameEngine/Source/Common/BfmeConv1105.cpp, bfmeGo1105C, /O1.
 // Target Ghidra entry504138/45B, callers2BE9AE and3FD311 recorded by the

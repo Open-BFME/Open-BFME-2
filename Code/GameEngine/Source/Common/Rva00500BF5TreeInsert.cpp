@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Retail 0x00500BF5, Ghidra boundary 136 bytes. Reference algorithm:
 // STLport 4.5.3 stl/_tree.c::_M_insert, also emitted by the served

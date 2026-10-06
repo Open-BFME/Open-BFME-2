@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0053FBFE@Rva0053FBFE@@QAEXPAVDataChunkOutput@@@Z @0x0053FBFE 131B
 // Eight-float keyframe writer: interp tag at +0 via rowed Rva005C706A writer,
 // then eight floats at +4 +8 +0xC +0x10 +0x14 +0x18 +0x1C +0x20 via

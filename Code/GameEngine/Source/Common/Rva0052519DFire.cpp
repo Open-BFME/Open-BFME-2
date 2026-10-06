@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0052519D@Rva0052519D@@QAEHPAX0PBD1PAH@Z, retail 0x0052519D 102B unlock via AptCall plus Get.
 // Free int ID via rowed Get 0x00222834 then AptCall 0x00222B19 with empty fallback.
 // Evidence: callees rowed Get plus AptCall plus releaseBuffer 0x00036410; callers

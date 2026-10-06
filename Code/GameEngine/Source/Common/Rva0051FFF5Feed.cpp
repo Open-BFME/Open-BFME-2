@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Range-27 xfer feed sequence.
 // ?Rva0051FFF5@Holder0051FFF5@@QAEXPAVXfer0051FFF5@@@Z @0x0051FFF5 125B
 // Thiscall feeds holder fields to an Xfer-like object's virtual slots

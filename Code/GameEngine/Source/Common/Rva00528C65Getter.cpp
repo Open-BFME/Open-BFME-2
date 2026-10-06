@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Oy- /MD /EHsc
 // ?rva00528C65@Rva00528C65@@QBE?AVAsciiString@@XZ retail 0x00528C65 32B
 // Evidence: EBP frame; copy [ecx+4]+0x12C via StringBase copy 0x365F0 into hidden return; caller 0x00529224
 #include "ascii_string.h"

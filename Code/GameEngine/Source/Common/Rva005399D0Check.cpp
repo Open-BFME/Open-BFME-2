@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva005399D0Check@@YGHPAVObject@@@Z @0x005399D0 67B:
 // Free __stdcall predicate over Object*: null check then isLocallyControlled
 // then isSelectable then rva0028D481==0 then TheInGameUI slot 0x188 call,

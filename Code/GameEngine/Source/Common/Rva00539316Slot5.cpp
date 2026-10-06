@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva00539316@Rva0053947D@@UAEXPBUVector3@@@Z @0x00539316 112B:
 // Virtual slot 5 (0x14) of vtable 0x00869228 (class of ??1Rva0053947D):
 // count via slot 0x34, per-index elem via slot 0x3C, blend arg Vector3 with

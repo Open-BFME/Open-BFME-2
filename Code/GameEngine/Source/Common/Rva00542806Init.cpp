@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 // ?rva00542806@Rva00542806@@QAEPAV1@PADHH@Z @0x00542806 116B
 // XML buffer init: memset 0x14 + 0x184 via 0x6291AE, stores args at +0x14/+0x18/+0x00,
 // flag 1 at +0x0C, skips "<?xml version="1.0"?>" header. Evidence: retail bytes

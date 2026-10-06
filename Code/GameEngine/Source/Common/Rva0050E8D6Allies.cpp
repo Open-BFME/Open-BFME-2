@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0050E8D6@Rva0050E8D6@@QAEXXZ @0x0050E8D6 124B
 // Ally collector: seeds local player from ThePlayerList+0x10 then appends
 // relationship==2 players via rowed getNthPlayer 0x002A7A29 plus bfmeAskRV

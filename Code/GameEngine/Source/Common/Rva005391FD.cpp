@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005391FD@Rva005391FD@@QAEXXZ @0x005391FD 42B
 // Honest address-derived loop: count via virtual slot 0x34 then for each
 // index call virtual slot 0x3C to get Rva005C4B56 object then call its

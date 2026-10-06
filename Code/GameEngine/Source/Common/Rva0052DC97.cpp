@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0052DC97@Rva0052DC97@@QAEHPBVRva002E6C79@@@Z, retail 0x0052DC97, 170 bytes.
 // Path cost with dx/dy zero guard word+10/14 flag+14 second-point dot and 0/4/8/16.
 // this+0 holds point, arg is Rva002E6C79 with m_ptr at +0 to point with x+0 y+4

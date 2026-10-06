@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 //
 // ??1Rva00508CF7@@UAE@XZ retail 0x00508CF7 56B
 // Novtable derived of Rva00507823 base rowed at 0x00507823. Destroys

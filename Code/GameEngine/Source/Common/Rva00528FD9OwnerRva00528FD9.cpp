@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?reset@Rva00528FD9Owner@@QAEXXZ, retail 0x00528fd9, 7 bytes. Banked partial (score 0.9) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

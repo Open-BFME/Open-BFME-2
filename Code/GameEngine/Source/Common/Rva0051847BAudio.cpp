@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /arch:SSE
+// cl: /MD /EHsc
 // ?rva0051847B@Rva0051847B@@QAEXH@Z @0x0051847B 220B
 // Audio options apply: if m_27c==2 and m_284==0 set 1 and tail to rowed
 // rva00518359 else build OptionPreferences local, drive Display via 0x009FE9D8

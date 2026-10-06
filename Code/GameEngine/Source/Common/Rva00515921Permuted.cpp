@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /MD /DNDEBUG
 //
 // ?goodCampaignRva00515921@@YAHM_N@Z, retail 0x00515921, 95 bytes. Banked partial (score 0.98) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.

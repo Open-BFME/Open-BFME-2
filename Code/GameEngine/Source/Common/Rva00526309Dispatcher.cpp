@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Range-27 flag dispatcher.
 // ?Rva00526309@Holder00526309@@QAEXPAUObj00526309@@@Z @0x00526309 42B
 // Thiscall: this (ecx) passes straight through to the callee; the stack

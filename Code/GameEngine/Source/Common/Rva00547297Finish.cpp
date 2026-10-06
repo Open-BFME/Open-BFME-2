@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva00547297Init@@YAPAVRva00547223@@PAV1@PAH1@Z, retail 0x00547297, 22 bytes.
 // Free-function wrapper over rowed Rva00547223::rva00547223 0x00547223:

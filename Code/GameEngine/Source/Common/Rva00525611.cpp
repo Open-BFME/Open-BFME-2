@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva00525611@Rva00525611@@QAEXXZ, retail 0x00525611 34B leaf via list clear.
 // Clears +0xc down a sentinel list at m_10->+0x14 then clears +0x1da.
 // Evidence: no callees; callers 0x00526FEE 0x0052703A; prev 0x005255E2 next 0x005258B2 same flags.

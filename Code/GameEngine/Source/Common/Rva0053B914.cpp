@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?rva0053B914@Rva0053B914@@QAEXXZ 50B @0x0053B914: hide-all loop over this+0xDC window array with global 8B clear at g_00E05E24. Clears two dwords per slot and hides present windows via rowed winHide. Evidence: rowed winHide at 0x00313C64 plus callers at 0x0031EAAE 0x0053D375 0x0053E7AC.
 class GameWindow
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // ?Rva005210ECEnable@@YAX_N@Z retail 0x005210EC 37B
 // Evidence: unlock; callees enable 0x00222479 rowed; callers 0x00435F22 plus self region; globals g_Va00E0492C g_Va00A01E48 TheRva00222A8BTarget; precedent Rva0050E9D3Enable same tail-jmp enable pattern.
 extern int g_Va00E0492C;

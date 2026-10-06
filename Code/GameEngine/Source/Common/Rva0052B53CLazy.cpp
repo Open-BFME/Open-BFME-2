@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0052B53C@Rva0052B53C@@QAEXXZ @0x0052B53C 29B. Unlock lane: lazy MD5Final
 // of digest at +0x41 with ctx ptr at +0x54 guarded by flag at +0x58; callers
 // at 0x002DE265/0x0052B562; unblocks 0x0052B559. Prev/next are Disp getters

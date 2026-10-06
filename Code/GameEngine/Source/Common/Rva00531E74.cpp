@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?rva00531E74@Rva00531E74@@QAEXXZ @ 0x00531E74 (49B): __thiscall collect bucket chains 0..4000 onto list at +0x3E84 then clear buckets.
 // Callers at 0x005320C4 0x00533C38. Owner unknown so honest address name.
 void operator delete[](void *block);

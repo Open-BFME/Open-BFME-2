@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /GX-
 // ?Rva00518262Enable@@YAXXZ @0x00518262 21B
 // Guarded enabler: if int at 0x00A04908 is 0 return else tail-jmp to rowed
 // enable 0x00222479 on global 0x009FE4CC. Evidence: 4 callers with no pushes

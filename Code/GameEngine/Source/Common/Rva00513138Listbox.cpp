@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva00513138@Rva00513138@@QAEXVUnicodeString@@@Z @0x00513138 86B: listbox wrapper passing this+0x27c with incoming UnicodeString by value plus global color plus -1 -1 true.
 // Evidence: rowed StringBase<G> copy 0x00037050 plus GadgetListBoxAddEntryText 0x00326BEC plus releaseBuffer 0x00036E70 with EH_prolog handler 0x00794F68; caller 0x004D10D0; neighbours 0x00512CE9 0x00513813.
 // Private wide StringBase/UnicodeString copied from GadgetListBoxAddEntryText.cpp to inline copy/dtor to the rowed workers.

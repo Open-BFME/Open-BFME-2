@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00517027@Rva00517027@@QAEXPBD@Z @0x00517027 33B
 // Conditional string set: if StringBase at +0x28C isEmpty via rowed
 // 0x00001E2F then set via rowed 0x000055F5 with the const char arg.

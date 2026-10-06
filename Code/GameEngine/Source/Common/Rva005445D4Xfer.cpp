@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?xfer@Rva005445D4@@UAEXPAVXfer@@@Z, retail 0x00544AD2, 65 bytes.
 // Slot 3 of vtable 0x00869A20, class of ??0Rva005445D4@@QAE@PAVStateMachine@@@Z.
 // Version(1,2) via slot 0x28 then ObjectID at +0x24 via rowed XferObjectID

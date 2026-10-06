@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0052E0A1@Rva0052E0A1@@QAE_NH@Z retail 0x0052E0A1 45B: 2-bit field at [ecx+0xC] bits 19-20 compare-and-set returning changed. Evidence: 4 callers in 0x0052E11A/0x0052E914, shr 0x13/and 3/shl 0x13/mask 0x180000, ret 4 thiscall bool(int).
 class Rva0052E0A1
 {

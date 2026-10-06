@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??1Rva00508E87@@UAE@XZ retail 0x00508E87 56B
 // Novtable derived of Rva00507823 base rowed at 0x00507823. Destroys

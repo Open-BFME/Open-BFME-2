@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00528FE6@Rva00528FE6@@QAEXPAUCameraMarker@@@Z retail 0x00528FE6 35B
 // Evidence: cmp new vs old at [ecx]; store new; dtor old via 0x0029D7C2 plus delete 0x0002FD60; callers 0x0052991E 0x005D2920
 struct CameraMarker

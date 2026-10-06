@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?rva00505AF1@Rva00505AF1@@QAEXXZ, retail 0x00505AF1, 201 bytes.
 // Evidence: 4 voidptr vectors at +0x10 +0x28 +0x40 +0x58 pruned via byte at +0x28 virtual slot0(0) plus rowed delete 0x0002FD60 and rowed erase 0x001FF51F; caller 0x005069B7.

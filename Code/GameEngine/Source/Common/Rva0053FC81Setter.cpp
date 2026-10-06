@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Retail RVA 0x0053FC81, 24 bytes.
 // ?rva0053FC81@Rva0053FC81@@QAEPAV1@PAVRva0053F8E5DwordCounter@@@Z
 // Ref-store setter at this+0x0 via rowed inc 0x0053F8E5: store new pointer

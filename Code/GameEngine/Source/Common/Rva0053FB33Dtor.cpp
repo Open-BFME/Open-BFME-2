@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ??1Rva0053FB33@@UAE@XZ, retail 0x0053FB33, 66 bytes.
 // Virtual dtor: installs vtable 0x008694DC, destroys StringBase<char> at
 // +0x18 via rowed releaseBuffer 0x00036410, frees heap pointer at +4 via

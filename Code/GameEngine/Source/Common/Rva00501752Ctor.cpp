@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00501776@@QAE@XZ @0x00501752 36B: ctor constructing vectors at +0x14/+0x20 via rowed Vector_base 0x00211E58; evidence same offsets as dtor 0x00501776 and caller 0x00503A28
 #include <vector>

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0052DA1C@Rva0052DA1C@@QAE_NH@Z, retail 0x0052DA1C, 71 bytes.
 // Low-nibble type setter with owner guard at +0x0/+0x28.
 // Evidence: unlock lane unblocking 6 callers; same /O1 shape as Common neighbour.

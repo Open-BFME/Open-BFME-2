@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??0Rva0054482D@@QAE@PAVStateMachine@@@Z, retail 0x0054482D, 29 bytes.
 // Derived AIInternalMoveToState ctor via pinned base ctor 0x0033F279 with hash
 // 0x58821EDA then vtable 0x00C69B58. Evidence: vtable store at [this]; base

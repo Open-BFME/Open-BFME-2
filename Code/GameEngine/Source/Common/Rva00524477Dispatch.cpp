@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // Range-27 string-out-param dispatch.
 // ?Rva00524477@Holder00524477@@QAEXHH@Z @0x00524477 101B
 // Thiscall (a1, a2): bails when the 0x00DFE4CC singleton is null, else

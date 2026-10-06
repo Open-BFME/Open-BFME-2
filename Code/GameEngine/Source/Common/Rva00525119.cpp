@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva00525119@Rva00525119@@QAEHPAV1@@Z, retail 0x00525119 29B leaf via float compare.
 // Returns other->inner->+0x10 > this->inner->+0x10; SSE comiss shape.
 // Evidence: no callees; callers 0x00525481 0x00525976; prev 0x0052510C same flags plus SSE.

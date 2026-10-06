@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ??1Rva005262BF@@QAE@XZ retail 0x005262BF 76B
 // Pointee dtor of the owning-pointer reset 0x00526F2C. Members torn down in
 // reverse order: STLport int list bases at +0x14 and +0x10 (rowed

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD
 //
 // ??4Rva005232D0@@QAEAAU0@ABU0@@Z @0x005232D0 51B: memberwise assignment of a
 // record whose first member is Rva00523149 (rowed pointer-taking assign

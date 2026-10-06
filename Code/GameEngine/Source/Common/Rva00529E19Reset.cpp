@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // Range-27 string reset plus notify.
 // ?Rva00529E19@Holder00529E19@@QAEXXZ @0x00529E19 34B
 // Thiscall stashes m_30, clears it, releases the m_34 string through

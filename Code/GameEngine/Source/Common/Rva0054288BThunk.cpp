@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oi-
+// cl: /MD /Oi-
 // ?rva0054288B@Rva0054288B@@QAEXXZ, retail 0x0054288B, 5 bytes.
 // Tail-jmp to rowed 0x005427F1 ?rva005427F1@Rva005427F1@@QAEXXZ.
 // Evidence: packet disassembly (jmp 0x005427F1), callees all rowed,

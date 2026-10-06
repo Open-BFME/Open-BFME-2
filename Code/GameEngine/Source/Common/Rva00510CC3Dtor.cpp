@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ??1Rva00510CC3@@QAE@XZ 68B @0x00510CC3: dtor calls holder clear at +0x24 then member dtor Rva0052413E at +0x14 then member dtor Rva0050EA74 at +0x00 with EH states 1 0 -1. Evidence: rowed callees 0x0050F6AD 0x0052413E 0x0050EA22 plus caller deleting dtor 0x00510CA7 plus layout from Rva0050EA74Ctor 0x14 plus Rva0052413E 0xC plus gap 4.
 #include "ascii_string.h"
 

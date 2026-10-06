@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // stlport
 //
 // ?rva00507558@Rva00507823@@QAEEPBX@Z retail 0x00507558 126B

@@ -1,5 +1,5 @@
 // ?rva00538ADC@BfmeQuickMatchScreenBase@@UAEXXZ
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Slot 8 (offset 0x20) of vtable 0x00839608, retail 0x00538ADC 43B.
 // Drains the screen's window list: for each window it calls slot 7 (offset

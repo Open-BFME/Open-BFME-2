@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ??0Rva0050EA74@@QAE@HABVAsciiString@@@Z @0x0050EA74 69B
 // Ctor with vtable 0x0086551C plus int at +8 plus AsciiString at +0xc via
 // rowed StringBase copy 0x000365F0 plus zeroed +4 and byte +0x10; ret 8.

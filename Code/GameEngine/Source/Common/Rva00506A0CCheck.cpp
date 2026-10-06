@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00506A0C@Rva00506A0C@@QAE_NPBURva00506A0COther@@@Z @0x00506A0C 40B:
 // search pointer range [+4 begin +8 end] for element whose dword at +4 equals
 // arg dword at +0x74; true on first hit else false. Caller 0x00506A99 tests al.

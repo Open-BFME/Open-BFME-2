@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva005396E6@@QAE@XZ @0x005396E6 89B:
 // Non-virtual dtor: frees void* at +0x0C and +0x10 via DisplayManager global
 // 0x009FEAD8 slot 0x3C (FreeEntry) then wide StringBase members at +4/+8 via

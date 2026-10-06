@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Rva0052DE5B::rva0052DE5B (retail 0x0052DE5B, 64 bytes): finish-reset that
 // releases the node buffer back to the pool at 0x00A049D0 when the low nibble

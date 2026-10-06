@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00517397@@UAE@XZ @0x00517397 52B
 // Dtor releasing TargetRef holder at +8 via rowed fastcall 0x0007DEEF then
 // storing base vtable 0x007C6F20 via empty inline base dtor. Derived adds no

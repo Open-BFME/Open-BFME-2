@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva00516F3F@Rva00516F3F@@QAEXXZ @0x00516F3F 36B unlock via copy sibling 0x00516F63.
 // Reset three header ints to -1, clear two AsciiStrings via releaseBuffer worker
 // rowed 0x00036410, reset tail int to -1. Evidence: same-layout copy method at

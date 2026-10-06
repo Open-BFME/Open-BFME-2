@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00531196@Rva00531196@@QAEXPAI@Z @ 0x00531196 (159B): __thiscall.
 // Zeroes 4 bytes then inserts seven bit-fields of m_val from the packed dword
 // p[3]: masks 7, 0x1f8, 0x7e00, 0x8000, 0x10000, 0x60000, 0x80000 taken from

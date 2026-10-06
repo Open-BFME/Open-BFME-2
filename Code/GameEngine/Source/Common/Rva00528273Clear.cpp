@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00528273@Rva00528273@@QAEXXZ retail 0x00528273 7B
 // Evidence: mov eax [ecx]; and [eax+0x1C] 0; ret; caller jmp at 0x002D36A9
 class Rva00528273Inner

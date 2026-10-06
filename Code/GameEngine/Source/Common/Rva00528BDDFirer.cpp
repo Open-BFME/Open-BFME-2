@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // ?rva00528BDD@Rva00528BDD@@QAEXXZ retail 0x00528BDD 36B
 // Evidence: UI invoke via 0x00222A8B with HideCostModifierUpgradeInterface plus global 0x009FE4CC; clears +4; callers 0x00528F30 0x0052914B
 class Rva00222A8BTarget

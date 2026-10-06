@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ??0Rva00540845@@QAE@ABV0@@Z @0x00540845 67B: copy constructor (sibling of
 // the rowed Rva00541F1F copy 0x00541F1F). It copies the rowed polymorphic

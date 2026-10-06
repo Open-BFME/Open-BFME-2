@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /Oy-
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /Oy-
 // ?Rva00525203Fire@@YAHPAX0PBD1PBVAsciiString@@@Z, retail 0x00525203 50B unlock via AptCall plus direct GetStr.
 // Direct AsciiString pointer GetStr then AptCall 0x00222B19 argc 1 with empty fallback.
 // Evidence: callee rowed AptCall 0x00222B19; callers 0x00525606 0x00578157; prev 0x0052519D same pattern.

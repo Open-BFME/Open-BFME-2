@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva00505D91@Rva00505D91@@QAEPAXABVAsciiString@@@Z, retail 0x00505D91, 51 bytes.
 // Evidence: search ptr range +0x4 +0x8 for elem whose AsciiString at +0x2c matches arg via rowed compare 0x000069D6 then virtual slot 0x24 else null; caller 0x00506651.
 #include "ascii_string.h"
