@@ -13680,3 +13680,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??0Rva00395561@@QAE@XZ,0x00395534,Rva00395561 default ctor: zeroes counter then drains GameLogic +0x1B4 into it; Ghidra FUN_00795534 45B; paired with rowed drain method 0x395561
 ?rva000B937EAppend@Rva000B937E@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for ModelCondition join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ?rva0049B8A0Append@Rva0049B8A0@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
+?rva0049DD83Append@Rva0049DD83@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for bitstring-list join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same

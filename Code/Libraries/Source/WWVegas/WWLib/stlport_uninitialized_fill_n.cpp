@@ -131,3 +131,79 @@ template Rva0039A48EElement *_STL::__uninitialized_fill_n<Rva0039A48EElement *, 
 // __uninitialized_fill_n 0x005DDDA5 with a false_type tag temporary.
 // Unlock lane: caller is 0x005DE6EA in 0x005DE651/260.
 template BfmeStringRecord005DDD40 *_STL::uninitialized_fill_n(BfmeStringRecord005DDD40 *, unsigned int, const BfmeStringRecord005DDD40 &);
+
+// ?rva0049DD83@Rva0049DD83@@QAEXPAVINI@@PAX@Z @0x0049DD83 234B
+// Bitstring-list INI driver, same shape as the KindOf driver Rva00256499
+// (System/Rva00256499Parse.cpp) and its twins. The worker is the rowed
+// 0x0049D67F single-token worker; Append, Tok, INI and the empty string
+// mirror the prototype TU (undefined externals).
+class INI
+{
+public:
+	const char *rva0002DFE2(const char *seps, bool *substituted);
+};
+
+class Rva0033B84ETok
+{
+public:
+	Rva0033B84ETok(const char *s);
+	~Rva0033B84ETok();
+	Rva0033B84ETok() : m_data(0) {}
+	const char *str() const { return m_data ? (const char *)m_data + 8 : ""; }
+	bool nextToken(Rva0033B84ETok *out, const char *seps);
+	void reset();
+
+private:
+	void *m_data;
+};
+
+extern const char g_Rva0107301CEmptyString[];
+
+__forceinline const char *GetStr0049DD83(const Rva0033B84ETok &s)
+{
+	char *t = *(char * *)(void *)&s;
+	return t ? t + 8 : g_Rva0107301CEmptyString;
+}
+
+class Rva0049D67F
+{
+public:
+	bool rva0049D67F(const char *token, bool *foundNormal, bool *foundAddOrSub);
+};
+
+class Rva0049DD83 : public Rva0049D67F
+{
+public:
+	void rva0049DD83(INI *ini, void *extra);
+	void rva0049DD83Append(const char *s, Rva0033B84ETok *b);
+};
+
+void Rva0049DD83::rva0049DD83(INI *ini, void *extra)
+{
+	Rva0033B84ETok *accum = (Rva0033B84ETok *)extra;
+	if (accum != 0)
+		accum->reset();
+
+	bool foundNormal = false;
+	bool foundAddOrSub = false;
+	bool wasQuoted = false;
+
+	const char *token;
+	while ((token = ini->rva0002DFE2(0, &wasQuoted)) != 0) {
+		if (wasQuoted) {
+			Rva0033B84ETok tmp(token);
+			Rva0033B84ETok part;
+			while (tmp.nextToken(&part, 0)) {
+				const char *s = GetStr0049DD83(part);
+				rva0049DD83Append(s, accum);
+				if (!rva0049D67F(s, &foundNormal, &foundAddOrSub))
+					break;
+			}
+			wasQuoted = false;
+		} else {
+			rva0049DD83Append(token, accum);
+			if (!rva0049D67F(token, &foundNormal, &foundAddOrSub))
+				break;
+		}
+	}
+}
