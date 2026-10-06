@@ -531,9 +531,9 @@ int Rva007ECAF0( char *record, int size, const char *name, int flags )
 {
 	char *p;
 	const char *pLetter;
-	char strField[ 0x120 ];
+	char item[ 0x120 ];
 
-	p = Rva007EC730( record, strField, name );
+	p = Rva007EC730( record, item, name );
 
 	for( pLetter = g_Rva0112A410FlagLetters;
 		flags != 0 && *pLetter != 0; flags >>= 1, pLetter++ )
@@ -547,7 +547,7 @@ int Rva007ECAF0( char *record, int size, const char *name, int flags )
 
 	*p = 0;
 
-	return Rva007EC780( ( unsigned char * )record, size, strField );
+	return Rva007EC780( ( unsigned char * )record, size, item );
 }
 
 // 0x007ECD90 IS THE INVERSE OF THE FOUR-CHARACTER TAG PACKER at 0x007EE8B0,
