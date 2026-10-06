@@ -30,6 +30,7 @@ EXTERN ??1Rva00087A93@@QAE@XZ:PROC
 EXTERN ??1Rva005F4AD7@@QAE@XZ:PROC
 EXTERN ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ:PROC
 EXTERN BasicStringCharDtor_dup:PROC
+EXTERN ??1Q1ReceiverLocalSet@@QAE@XZ:PROC
 EXTERN ??1SBServer@@QAE@XZ:PROC
 
 _TEXT SEGMENT
@@ -2106,6 +2107,20 @@ PUBLIC ?rva007A6D3D@@YAXXZ
 cleanup_done_007A6D3D:
     ret
 ?rva007A6D3D@@YAXXZ ENDP
+
+; Unwind@00ba75d0 at RVA 0x007A75D0; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-44], then loads the cleanup pointer from [ebp+4] and tail-jumps to matched Q1ReceiverLocalSet destructor at 0x0006C94B.
+PUBLIC ?rva007A75D0@@YAXXZ
+?rva007A75D0@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-44]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007A75D0
+    and DWORD PTR [ebp-44], -2
+    mov ecx, DWORD PTR [ebp+4]
+    jmp ??1Q1ReceiverLocalSet@@QAE@XZ
+cleanup_done_007A75D0:
+    ret
+?rva007A75D0@@YAXXZ ENDP
 
 ; Unwind@00bab0e9 at RVA 0x007AB0E9; 25-byte interval ends at RET.
 ; Retail tests and clears bit 1 at [ebp-24], then takes the cleanup object address at [ebp-20] and tail-jumps to AsciiString at 0x0048BA39.
