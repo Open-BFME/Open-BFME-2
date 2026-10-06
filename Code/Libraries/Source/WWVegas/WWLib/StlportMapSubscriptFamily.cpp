@@ -32,14 +32,20 @@ public:
 struct TreeHintPayload001F8ACB { int m_val; TreeHintPayload001F8ACB() : m_val(0) {} TreeHintPayload001F8ACB(const TreeHintPayload001F8ACB &o) : m_val(o.m_val) {} };
 typedef _STL::pair<const AsciiString, TreeHintPayload001F8ACB> TreeHintPair001F8ACB;
 typedef _STL::map<AsciiString,TreeHintPayload001F8ACB,_STL::less<AsciiString >,_STL::allocator<TreeHintPair001F8ACB> > MapSubscript001F8ACB;
+typedef _STL::_Rb_tree<AsciiString, TreeHintPair001F8ACB, _STL::_Select1st<TreeHintPair001F8ACB>, _STL::less<AsciiString>, _STL::allocator<TreeHintPair001F8ACB> > TreeHint001F8ACB;
+template <> TreeHint001F8ACB::_Link_type TreeHint001F8ACB::_M_create_node(const TreeHintPair001F8ACB &);
 template TreeHintPayload001F8ACB &MapSubscript001F8ACB::operator[](const AsciiString &);
 
 struct TreeHintPayload00410B17 { int m_val; TreeHintPayload00410B17() : m_val(0) {} TreeHintPayload00410B17(const TreeHintPayload00410B17 &o) : m_val(o.m_val) {} };
 typedef _STL::pair<const AsciiString, TreeHintPayload00410B17> TreeHintPair00410B17;
 typedef _STL::map<AsciiString,TreeHintPayload00410B17,_STL::less<AsciiString >,_STL::allocator<TreeHintPair00410B17> > MapSubscript00410B17;
+typedef _STL::_Rb_tree<AsciiString, TreeHintPair00410B17, _STL::_Select1st<TreeHintPair00410B17>, _STL::less<AsciiString>, _STL::allocator<TreeHintPair00410B17> > TreeHint00410B17;
+template <> TreeHint00410B17::_Link_type TreeHint00410B17::_M_create_node(const TreeHintPair00410B17 &);
 template TreeHintPayload00410B17 &MapSubscript00410B17::operator[](const AsciiString &);
 
 struct TreeHintPayload004E2257 { int m_val; TreeHintPayload004E2257() : m_val(0) {} TreeHintPayload004E2257(const TreeHintPayload004E2257 &o) : m_val(o.m_val) {} };
 typedef _STL::pair<const AsciiString, TreeHintPayload004E2257> TreeHintPair004E2257;
 typedef _STL::map<AsciiString,TreeHintPayload004E2257,_STL::less<AsciiString >,_STL::allocator<TreeHintPair004E2257> > MapSubscript004E2257;
+typedef _STL::_Rb_tree<AsciiString, TreeHintPair004E2257, _STL::_Select1st<TreeHintPair004E2257>, _STL::less<AsciiString>, _STL::allocator<TreeHintPair004E2257> > TreeHint004E2257;
+template <> TreeHint004E2257::_Link_type TreeHint004E2257::_M_create_node(const TreeHintPair004E2257 &);
 template TreeHintPayload004E2257 &MapSubscript004E2257::operator[](const AsciiString &);
