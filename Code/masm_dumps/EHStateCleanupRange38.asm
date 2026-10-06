@@ -1399,5 +1399,75 @@ PUBLIC ?rva00789842@@YAXXZ
 cleanup_done_00789842:
     ret
 ?rva00789842@@YAXXZ ENDP
+
+; Unwind@00b898a1 at RVA 0x007898A1; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-20] and tail-jumps through [ebp+8] to the rowed UnicodeString thunk.
+PUBLIC ?rva007898a1@@YAXXZ
+?rva007898a1@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007898a1
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva002606AFDtor@@QAE@XZ
+cleanup_done_007898a1:
+    ret
+?rva007898a1@@YAXXZ ENDP
+
+; Unwind@00b89920 at RVA 0x00789920; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-20] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva00789920@@YAXXZ
+?rva00789920@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00789920
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_00789920:
+    ret
+?rva00789920@@YAXXZ ENDP
+
+; Unwind@00b8995b at RVA 0x0078995B; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-20] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva0078995b@@YAXXZ
+?rva0078995b@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0078995b
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0078995b:
+    ret
+?rva0078995b@@YAXXZ ENDP
+
+; Unwind@00b8998e at RVA 0x0078998E; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-20] and tail-jumps through [ebp+8] to AsciiString dtor.
+PUBLIC ?rva0078998e@@YAXXZ
+?rva0078998e@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-20]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0078998e
+    and DWORD PTR [ebp-20], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0078998e:
+    ret
+?rva0078998e@@YAXXZ ENDP
+
+; Unwind@00b8a669 at RVA 0x0078A669; 24-byte vector cleanup ends at RET.
+; Target passes [ebp-16]+0x88 to the rowed iterator with element size 12 count 4 and raw dtor VA 0x0047FAB3.
+PUBLIC ?rva0078a669@@YAXXZ
+?rva0078a669@@YAXXZ PROC
+    push 0047FAB3h
+    push 4
+    push 0Ch
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 88h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078a669@@YAXXZ ENDP
 _TEXT ENDS
 END
