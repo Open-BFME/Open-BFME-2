@@ -11285,3 +11285,7 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva002EE4DE@Pathfinder@@QAEHPAVObject@@PBUCoord3D@@PAU3@@Z	0x002EE4DE	364	blocked	SSE Pathfinder Object layout plus info struct plus float global unknown t=15 model=muse-09
 ??0Rva00150DFD@@QAE@H@Z	0x00150DFD	87	partial	tail mov-or order swapped only EH states plus size exact t=20 model=muse-09 score=0.95 stash=reverse/attempts/0x00150dfd.cpp
 ?rva005294FC@Rva0052936C@@QAEXH@Z	0x005294FC	217	partial	ebx-edi swap for this-index plus mov-esi-mem vs push-mem plus mov-ecx-eax scheduling t=20 model=muse-09 score=0.9 stash=reverse/attempts/0x005294fc.cpp
+?rva005CCCFC@Rva005CCCD0@@QAEXXZ	0x005CCCFC	58	blocked	branch jle+mov vs retail cmovg pair and next-load after cmp t=15 model=muse-03 (stash 0.93 kept)
+?Rva003460DBCheck@@YA_NPAVObject@@@Z	0x003460DB	81	partial	tail block order swapped: ours jne-succeed fail-before-succeed vs retail je-fail succeed-before-fail size-exact t=20 model=muse-03 score=0.93 stash=reverse/attempts/0x003460db.cpp
+?rva005CC30B@Rva005CC30B@@UAEXXZ	0x005CC30B	55	blocked	tail succeed-fail order swapped plus callee 0x005E1160 fastcall-pin vs retail push-thiscall single-shared-call t=25 model=muse-03
+?Rva003C9C0AAttack@@YGXPAVParameter@@H@Z	0x003C9C0A	259	partial	missing two esp saves and xmm0 reuse vs xmm0-1-2 t=25 model=muse-03 score=0.93 stash=reverse/attempts/0x003c9c0a.cpp
