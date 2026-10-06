@@ -65714,3 +65714,4 @@ uw_0075b500,,0x0075B500,10,Code/GameEngine/Source/Main/CreateGameEngine.cpp,matc
 ?rva004A78E1@MissileUpdate@@QAEXXZ,,0x004A78E1,137,Code/GameEngine/Source/Common/Rva004A78E1Spawn.cpp,matched,holder FX then particle spawn when the name is set; frame at +0x98 and state 3
 ?rva0049520B@Rva0049520B@@QAEHXZ,,0x0049520B,148,Code/GameEngine/Source/GameLogic/Object/Rva0049520BGate.cpp,matched,player field +0x5c gates counter +0x10 then view float compare and actor slot 110 command 2
 ?rva004ADB1B@Rva004ADB1B@@QAE_NXZ,,0x004ADB1B,188,Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp,matched,kind 2 lerps drawable +0xb0 from 1.0f toward source +0xc8 over the unsigned +0x28 ratio
+?rva0049CD4F@Rva0049CD4F@@QAEHPAVRva0049CD4FArg@@@Z,,0x0049CD4F,170,Code/GameEngine/Source/Common/Rva0049CD4F.cpp,matched,kind 1/2/3 then scale a non-positive answer up to 1 by object query 0xD
