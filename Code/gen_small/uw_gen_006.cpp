@@ -79,7 +79,6 @@ struct Gen_uw_00689500 { int m; ~Gen_uw_00689500(); };
 struct Gen_uw_0069e440 { int m; ~Gen_uw_0069e440(); };
 struct Gen_uw_006c5f60 { int m; ~Gen_uw_006c5f60(); };
 struct Gen_uw_006cd530 { int m; ~Gen_uw_006cd530(); };
-struct Gen_uw_006ce570 { int m; ~Gen_uw_006ce570(); };
 struct Gen_uw_006ce7f0 { int m; ~Gen_uw_006ce7f0(); };
 struct Gen_uw_006d3010 { int m; ~Gen_uw_006d3010(); };
 struct Gen_uw_0070a840 { int m; ~Gen_uw_0070a840(); };
@@ -678,12 +677,6 @@ void gen_uw_l140_0060d0b3()
 	Gen_uw_0060d0b3 v; gen_uw_ext();
 }
 
-void gen_uw_l4_0060f210()
-{
-	Gen_uw_0060f210 v0; gen_uw_ext();
-	Gen_uw_0060f210 v1; gen_uw_ext();
-}
-
 void gen_uw_l72_0060f210()
 {
 	char pad[72]; gen_uw_sink(pad);
@@ -821,12 +814,6 @@ void gen_uw_l152_00615a50()
 	Gen_uw_00615a50 v; gen_uw_ext();
 }
 
-void gen_uw_l3096_00615a50()
-{
-	char pad[3096]; gen_uw_sink(pad);
-	Gen_uw_00615a50 v; gen_uw_ext();
-}
-
 void gen_uw_l40_00617ac0()
 {
 	char pad[40]; gen_uw_sink(pad);
@@ -845,12 +832,6 @@ void gen_uw_l10288_00617ac0()
 	Gen_uw_00617ac0 v; gen_uw_ext();
 }
 
-void gen_uw_l24_0061a8c0()
-{
-	char pad[24]; gen_uw_sink(pad);
-	Gen_uw_0061a8c0 v; gen_uw_ext();
-}
-
 void gen_uw_l10264_0061a8c0()
 {
 	char pad[10264]; gen_uw_sink(pad);
@@ -860,12 +841,6 @@ void gen_uw_l10264_0061a8c0()
 void gen_uw_l152_0061b0a0()
 {
 	char pad[152]; gen_uw_sink(pad);
-	Gen_uw_0061b0a0 v; gen_uw_ext();
-}
-
-void gen_uw_l3096_0061b0a0()
-{
-	char pad[3096]; gen_uw_sink(pad);
 	Gen_uw_0061b0a0 v; gen_uw_ext();
 }
 
@@ -946,12 +921,6 @@ void gen_uw_l260_006cd530()
 	Gen_uw_006cd530 v; gen_uw_ext();
 }
 
-void gen_uw_l24_006ce570()
-{
-	char pad[24]; gen_uw_sink(pad);
-	Gen_uw_006ce570 v; gen_uw_ext();
-}
-
 void gen_uw_l288_006ce7f0()
 {
 	char pad[288]; gen_uw_sink(pad);
@@ -1014,12 +983,6 @@ void gen_uw_l36_006d3010()
 void gen_uw_l40_006d3010()
 {
 	char pad[40]; gen_uw_sink(pad);
-	Gen_uw_006d3010 v; gen_uw_ext();
-}
-
-void gen_uw_l76_006d3010()
-{
-	char pad[76]; gen_uw_sink(pad);
 	Gen_uw_006d3010 v; gen_uw_ext();
 }
 
@@ -1173,7 +1136,7 @@ void gen_uw_l24_0073ef44()
 	Gen_uw_0073ef44 v; gen_uw_ext();
 }
 
-void gen_uw_p5_00007150(Gen_uw_00007150 a0, Gen_uw_00007150 a1, Gen_uw_00007150 a2, Gen_uw_00007150 a3, Gen_uw_00007150 a4) { gen_uw_ext(); }
+void gen_uw_p4_00007150(Gen_uw_00007150 a0, Gen_uw_00007150 a1, Gen_uw_00007150 a2, Gen_uw_00007150 a3) { gen_uw_ext(); }
 
 void gen_uw_p3_000309b0(Gen_uw_000309b0 a0, Gen_uw_000309b0 a1, Gen_uw_000309b0 a2) { gen_uw_ext(); }
 
