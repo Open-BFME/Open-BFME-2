@@ -27,3 +27,21 @@ void Rva002654E9::rva002654E9()
 	if (m_object)
 		m_object->setStatus((ObjectStatusTypes)m_status, false);
 }
+
+// Retail 0x002654D6, 19 bytes: same shape with true; caller 0x0026892F.
+// ?rva002654D6@Rva002654D6@@QAEXXZ
+class Rva002654D6
+{
+public:
+	void rva002654D6();
+private:
+	Object *m_object;
+	int m_status;
+};
+
+// ?rva002654D6@Rva002654D6@@QAEXXZ @0x002654D6
+void Rva002654D6::rva002654D6()
+{
+	if (m_object)
+		m_object->setStatus((ObjectStatusTypes)m_status, true);
+}
