@@ -63871,3 +63871,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00150D42@Rva00150D42@@QAEXH@Z,,0x00150D42,72,Code/GameEngine/Source/Common/Rva00150B8DFamily.cpp,matched,dump range 5 resize over 0x4C elems via 0x150C74 adapter with guarded do-while fill
 ?rva00152DC6@Rva00152DC6@@QAEXH@Z,,0x00152DC6,35,Code/GameEngine/Source/Common/Rva00152DC6Adapter.cpp,matched,dump range 5 scratch adapter via in-place by-value temp and 0x151597 builder
 ?rva00153EE5@Rva00153EE5@@QAEXH@Z,,0x00153EE5,35,Code/GameEngine/Source/Common/Rva00153EE5Adapter.cpp,matched,dump range 5 scratch adapter via in-place by-value temp and 0x1538A8 builder
+?rva00167ED8@Rva00167ED8@@QAEXM@Z,,0x00167ED8,32,Code/GameEngine/Source/Common/Rva00167E5AFamily.cpp,matched,dump range 5 float clamp-store with flag clear
+?rva00167EF8@Rva00167EF8@@QAEXABURva00167EF8Rec@@@Z,,0x00167EF8,29,Code/GameEngine/Source/Common/Rva00167E5AFamily.cpp,matched,dump range 5 field-wise 12B record copy into +0xF0

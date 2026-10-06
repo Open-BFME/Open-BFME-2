@@ -22240,3 +22240,5 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00152BDB@Rva00152BDB@@QAEXHURva00152DC6Tmp@@@Z,0x00152BDB,"108B EH grower true signature (int plus by-value 44B scratch); 0x152DC6 passes it in place"
 ?rva001538A8@Rva001538A8@@QAEPAXXZ,0x001538A8,"builder: zeroes +0, inits +4 via import 0xA29512, returns this; inits 0x153EE5 scratch"
 ?rva00153E6F@Rva00153E6F@@QAEXHURva00153EE5Tmp@@@Z,0x00153E6F,"118B EH grower true signature (int plus by-value 84B scratch); 0x153EE5 passes it in place"
+?rva000D6A3F@Rva000D6A3F@@QAEXH@Z,0x000D6A3F,"thiscall (int); member op at this+0 called from 0x167E5A via this+0xE4"
+?rva000283A7@Rva000283A7@@QAEXH@Z,0x000283A7,"thiscall (int); base/init helper called from 0x1683A7 before vtable install"
