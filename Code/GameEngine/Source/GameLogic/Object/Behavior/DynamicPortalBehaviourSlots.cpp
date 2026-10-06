@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport
 //
 // Two DynamicPortalBehaviour overrides that run its pinned private member
 // 0x00461257 (the one its slot-1 loadPostProcess tail-calls). The matched ctor
@@ -11,6 +12,7 @@
 // +0x6E flag is set.
 // ?rva0046132F@DynamicPortalBehaviour@@UAEXXZ, retail 0x0046132F, 12 bytes:
 // +0x20 slot 1; clears +0x3D, then runs the member.
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Object872.h"
 
 class Object;
 class ModuleData;
@@ -107,4 +109,27 @@ void DynamicPortalBehaviour::rva00461257()
 	const unsigned char *moduleData = (const unsigned char *)m_moduleData;
 	if (!m_3D && (moduleData[0x13C] != 0 || m_3C))
 		reinterpret_cast<Rva00460F90 *>(this)->rva00460F90();
+}
+
+// The target Ghidra boundary at 0x00460872 is 43B. It loads the pointer at
+// this+8, adds 0x94, then calls the rowed BfmeObject872Header copy ctor at
+// RVA 0x002CF108 (VA 0x006CF108) into a 16-byte local. Bit 7 of local+4 selects
+// 0x14 or 0x1E. The neutral header view and observed offsets do not establish
+// the enclosing object's identity or field meaning.
+class Rva00460872
+{
+public:
+	int rva00460872();
+
+private:
+	unsigned char m_pad00[8];
+	const unsigned char *m_source;
+};
+
+// ?rva00460872@Rva00460872@@QAEHXZ
+int Rva00460872::rva00460872()
+{
+	BfmeObject872Header local(*(const BfmeObject872Header *)(m_source + 0x94));
+	unsigned char selected = (unsigned char)((*(const unsigned int *)((const char *)&local + 4) >> 7) & 1);
+	return selected ? 0x1E : 0x14;
 }
