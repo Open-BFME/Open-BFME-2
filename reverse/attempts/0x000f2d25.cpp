@@ -1,6 +1,6 @@
-// ?buildSilhouette@W3DVolumetricShadow@@QAEXHPAVVector3@@@Z
+// ?buildSilhouette@W3DVolumetricShadow@@QAEXHPAVector3@@@Z
 // partial score=0.92 date=2026-10-06
-// cl: /O1 /arch:SSE2 /DNDEBUG /MD
+// cl: /O1 /arch:SSE2 /DNDEBUG /MD /Op /Oy-
 // ?buildSilhouette@W3DVolumetricShadow@@QAEXHPAVVector3@@@Z @0x000F2D25 422B.
 // W3DVolumetricShadow::buildSilhouette(Int meshIndex, Vector3 *lightPosObject):
 // per-polygon light-facing test (dot < 0 sets POLY_VISIBLE) then silhouette
@@ -104,17 +104,17 @@ private:
 void W3DVolumetricShadow::buildSilhouette(int meshIndex, Vector3 *lightPosObject)
 {
 	PolyNeighbor *polyNeighbor;
-	bool visibleNeighborless;
-	int numPolys;
-	Rva007BDB70ArrayOwner *geomMesh;
-	int i;
 	int j;
+	int i;
+	int numPolys;
 	int meshEdgeStart = 0;
+	Rva007BDB70ArrayOwner *geomMesh;
+	bool visibleNeighborless;
 
 	BfmeShadowGeometryView *geometry = m_geometry;
 	Rva007BDB70ArrayOwner *mesh = &geometry->m_meshList[meshIndex];
-	geomMesh = mesh;
 	(void)geomMesh;
+	geomMesh = mesh;
 	if (!mesh->m_polygonNormals)
 		mesh->buildPolygonNormals();
 
@@ -134,15 +134,15 @@ void W3DVolumetricShadow::buildSilhouette(int meshIndex, Vector3 *lightPosObject
 
 		const Vector3 &vertex = mesh->m_verts[poly[0]];
 		float nz = normal.Z;
+		float dx = vertex.X - lightPosObject->X;
 		float dz = vertex.Z - lightPosObject->Z;
 		float dy = vertex.Y - lightPosObject->Y;
-		float dx = vertex.X - lightPosObject->X;
 		float dot = nz * dz + normal.Y * dy + normal.X * dx;
 		if (dot < 0.0f)
 			polyNeighbor->status = 0x01;
 	}
 
-	for (i = 0; i < numPolys; i++) {
+	for (i = 0; numPolys > i; i++) {
 		PolyNeighbor *otherNeighbor;
 
 		polyNeighbor = (PolyNeighbor *)mesh->lookup(i);
