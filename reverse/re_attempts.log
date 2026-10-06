@@ -11476,3 +11476,5 @@ FUN_0070c40a	0x0030C40A	156	blocked	virtual-base EH dtor vbase90 array forEach n
 ?rva004054E1@Rva004054E1@@QAEXXZ	0x004054E1	190	blocked	ADDRESS-NAMED g_Va00BBB8D8 escape hatch t=1 model=muse-04
 ?rva00417DFB@Rva00417DFB@@QAE_NPBD@Z	0x00417DFB	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString escape hatch t=1 model=muse-04
 ?rva0049B8A0@Rva0049B8A0@@QAE_NPBD@Z	0x0049B8A0	234	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString escape hatch t=1 model=muse-04
+?rva00514950@Rva00514EAB@@QAEHHHH@Z	0x00514950	331	partial	register wall REMAINS state in eax vs retail ecx with movzx temp swapped ecx vs eax all 6 reg diffs 0 structural 331B exact t=25 model=muse-03 score=0.96 stash=reverse/attempts/0x00514950.cpp
+FUN_00914fe9	0x00514FE9	88	blocked	ADDRESS-NAMED g_Va00A01E48 escape hatch t=1 model=muse-03

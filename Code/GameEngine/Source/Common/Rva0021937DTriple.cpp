@@ -28,6 +28,7 @@ public:
 	void rva0021937D(Rva0021937DTarget *u);
 	void rva002193AB(Rva0021937DTarget *u);
 	void rva002193D9(Rva0021937DTarget *u);
+	void rva00219407(Rva0021937DTarget *u);
 };
 
 void Rva0021937D::rva0021937D(Rva0021937DTarget *u)
@@ -54,5 +55,14 @@ void Rva0021937D::rva002193D9(Rva0021937DTarget *u)
 		return;
 	u->rva00407E94();
 	u->rva004089C7(m_1A0, 1);
+	u->rva004074CF();
+}
+
+void Rva0021937D::rva00219407(Rva0021937DTarget *u)
+{
+	if (!u)
+		return;
+	u->rva00407E94();
+	u->rva004089C7(m_19C, 1);
 	u->rva004074CF();
 }
