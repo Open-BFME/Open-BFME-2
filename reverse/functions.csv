@@ -64320,3 +64320,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?first@Gen_00943CF0@@AAEXPAXPAH11@Z,,0x00140FA0,266,Code/GameEngine/Source/Common/Gen_00943CF0_First.cpp,matched,BFME1 donor Gen_00943CF0_First with BFME2 vtable shift and rowed map_x map_y
 ?rva000B3EB3@ModelConditionFlags@@QBE_NXZ,,0x000B3EB3,17,Code/GameEngine/Source/Common/ModelConditionFlagsRva000B3EB3.cpp,matched,19-word any predicate callers 0x002791E7 LINK BONUS 301B
 ?rva00567A27@Rva00567960@@QAEXXZ,,0x00567A27,66,Code/GameEngine/Source/Common/Rva00567A27Vslot.cpp,matched,vslot2 of 0x0086CEF0 via BfmeMsgDN inline ctor plus bfmeShowDN through g_bfmeWorldRV
+??0Rva0056AF4B@@QAE@PAXHH@Z,,0x0056AF4B,45,Code/GameEngine/Source/Common/Rva0056AF4BCtor.cpp,matched,ctor via pinned 0x0056AD80 plus vtbls at 0 and 8 plus members 0x14 0x18
