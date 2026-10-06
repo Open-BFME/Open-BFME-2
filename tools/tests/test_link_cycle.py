@@ -184,10 +184,25 @@ def test_communal_global_is_sized_by_its_reference():
     m = _measure(I, R, [], [(0x3000, "?TheX@@3PAVX@@A", "other.obj")], pub={"?TheX@@3PAVX@@A": 0x3000},
                  pubobj={"?TheX@@3PAVX@@A": "other.obj"}, objs=objs)
     assert m.data_ref(0x3000, 0x3100, "?TheX@@3PAVX@@A", ref[1][0], ref, 0)[0] == []
-    _put(R, 0x3102, b"")                                   # retail holds a non-zero byte there
+    _put(R, 0x3102, bytes.fromhex('01'))  # retail holds a non-zero byte there
     m = _measure(I, R, [], [(0x3000, "?TheX@@3PAVX@@A", "other.obj")], pub={"?TheX@@3PAVX@@A": 0x3000},
                  pubobj={"?TheX@@3PAVX@@A": "other.obj"}, objs=objs)
     assert m.data_ref(0x3000, 0x3100, "?TheX@@3PAVX@@A", ref[1][0], ref, 0)[0] == ["data-content:?TheX@@3PAVX@@A"]
+
+
+def test_alternatename_alias_resolves_through_the_real_definition():
+    I, R = bytearray(0x6000), bytearray(0x6000)
+    _put(I, 0x3000, bytes.fromhex('07000000'))
+    _put(R, 0x3100, bytes.fromhex('07000000'))
+    definer = ([_sec(1, ".data", 4)], {0: _sym(0, "?Real@@3HA", 1)}, b"")
+    ref = ([_sec(1, ".text", 8)], {0: _sym(0, "?Alias@@3HA", 0)}, b"")
+    m = _measure(I, R, [], [(0x3000, "?Alias@@3HA", "d.obj"), (0x3000, "?Real@@3HA", "d.obj")],
+                 objs=FakeObjs({"d.obj": definer}), pub={"?Alias@@3HA": 0x3000, "?Real@@3HA": 0x3000},
+                 pubobj={"?Alias@@3HA": "d.obj", "?Real@@3HA": "d.obj"})
+    assert m.data_ref(0x3000, 0x3100, "?Alias@@3HA", ref[1][0], ref, 0)[0] == []
+    _put(R, 0x3100, bytes.fromhex('08'))  # the content check still applies
+    m.datum_memo.clear()
+    assert m.data_ref(0x3000, 0x3100, "?Alias@@3HA", ref[1][0], ref, 0)[0] == ["data-content:?Alias@@3HA"]
 
 
 def test_data_stub_and_vtable_code_pointer():

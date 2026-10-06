@@ -760,6 +760,13 @@ class Measure:
         else:                                        # defined elsewhere: the map names its object
             S, ob = self.pub.get(tn), self.pubobj.get(tn)
             found = self.objs.lookup(ob, tn) if ob else None
+            if S is not None and not found:
+                # an /alternatename alias: the map gives it the address and object of the
+                # name it stands for; take that definition's datum
+                i = bisect.bisect_left(self.avas, S)
+                while not found and i < len(self.allsyms) and self.allsyms[i][0] == S:
+                    found = self.objs.lookup(self.allsyms[i][2], self.allsyms[i][1])
+                    i += 1
             if S is not None and not found and self.communal(tn):
                 # an uninitialized global: a COMMON record sizes it (the linker takes the
                 # largest), and the map names an object that does not define it
