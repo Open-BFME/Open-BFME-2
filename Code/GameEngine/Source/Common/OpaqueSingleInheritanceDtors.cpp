@@ -95,13 +95,14 @@ inline Rva008FCA3::~Rva008FCA3()
 class Rva0023AE08
 {
 public:
+	Rva0023AE08();
 	virtual ~Rva0023AE08();
 
 private:
 	char m_pad04[8];
 };
 
-class MiBase1_4C743
+class __declspec(novtable) MiBase1_4C743
 {
 public:
 	virtual void f1();
@@ -110,8 +111,15 @@ public:
 class Rva004C743 : public Rva0023AE08, public MiBase1_4C743
 {
 public:
+	Rva004C743();
 	virtual ~Rva004C743();
 };
+
+// ??0Rva004C743@@QAE@XZ @0x0004C43E (25B): derived ctor beside the rowed
+// 2-vptr dtor; pinned primary-base ctor then both vptrs (compiler-emitted).
+inline Rva004C743::Rva004C743() : Rva0023AE08()
+{
+}
 
 inline Rva004C743::~Rva004C743()
 {
@@ -263,7 +271,7 @@ Rva00180EA0::~Rva00180EA0()
 void _bfmeOpaqueSingleInheritanceDtorInlineAnchor(void *storage)
 {
 	Rva004C743 *rva004C743 = (Rva004C743 *)storage;
-	rva004C743->Rva004C743::~Rva004C743();
+	rva004C743->Rva004C743::Rva004C743();
 	Rva004CA13 *rva004CA13 = (Rva004CA13 *)storage;
 	rva004CA13->Rva004CA13::~Rva004CA13();
 	Rva00514E6B *rva00514E6B = (Rva00514E6B *)storage;

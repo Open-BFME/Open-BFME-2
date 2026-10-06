@@ -64174,3 +64174,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva0045878Count@@YAHXZ,,0x00045878,106,Code/Libraries/Source/WWVegas/WW3D2/Rva0045878Video.cpp,matched,
 ?Rva00458E2Get@@YGXHPAH00@Z,,0x000458E2,162,Code/Libraries/Source/WWVegas/WW3D2/Rva0045878Video.cpp,matched,
 ?rva000456C9@Rva000456C9@@QAEXPBV?$RefCountPtr@VTextureClass@@@@@Z,,0x000456C9,39,Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp,matched,
+??0Rva004C743@@QAE@XZ,,0x0004C43E,25,Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp,matched,
