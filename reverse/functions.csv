@@ -64364,3 +64364,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1TileData@@UAE@XZ,,0x0011172A,72,Code/GameEngineDevice/Source/W3DDevice/GameClient/TileDataDtor.cpp,matched,vtable BCFAC0 then ref release at +0x2AB4 then RefCountClass base vtable BC650C
 ??1Rva00200E95@@UAE@XZ,,0x00200E95,79,Code/GameEngine/Source/Common/Rva00200E95Dtor.cpp,matched,implicit dtor string +0x3C then second-base string then base 0x001E3624
 ??1Rva0020182B@@UAE@XZ,,0x0020182B,79,Code/GameEngine/Source/Common/Rva0020182BDtor.cpp,matched,implicit dtor string +0x18 then second-base string then base 0x001E3624
+??1Rva0057605D@@UAE@XZ,,0x00575E9C,78,Code/GameEngine/Source/Common/Rva0057605DDtor.cpp,matched,two-base dtor unregister via 0x002B7250 then vtables C77F44 and C6E60C
