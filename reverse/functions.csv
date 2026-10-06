@@ -66010,3 +66010,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva0045969F@Rva0045969F@@UAEHXZ,,0x0045969F,90,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0045969F.cpp,matched,ref slot 0x00841194 Thing-8 getDrawable AI+0x258 slot 0x1b8 iface+0x10
 ?rva002D9AC3@Rva002D9AC3@@QAEPBDXZ,,0x002D9AC3,17,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,matched,honest getter ptr+8 or empty callers abut 0x002D9AD4
 ?rva00210F96@LivingWorldManager@@QAEXXZ,,0x00210F96,48,Code/GameEngine/Source/Common/Rva00210F96Body.cpp,matched,unlock lane null gate plus tail jmp same 0x268 as rowed 0x00210D68
+?rva003235B8@Rva003235B8@@QAEHPBVImage@@HHH@Z,,0x003235B8,97,Code/GameEngine/Source/GameClient/GUI/Gadget/Rva003235B8Method.cpp,matched,rowed callees winGetUserData SetListLength AddEntryImage via adjacent Rva00323619 pattern
