@@ -1,5 +1,3 @@
-// ?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z
-// partial score=0.99 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z @0x00334AF3 263B: Lua binding. Evidence: pinned plus donor plus rowed callees plus siblings.
 #include "ascii_string.h"
@@ -16,7 +14,7 @@ class Drawable
 {
 public:
     bool rva00278689(const AsciiString &name, bool a2, bool a3);
-    void rva002724FD(const AsciiString &name, int a2, int a3, float a4, float a5);
+    void rva002724FD(const AsciiString &name, unsigned char a2, int a3, float a4, float a5);
 };
 class Object
 {
@@ -29,7 +27,6 @@ public:
     Object *findObjectByID(ObjectID id);
 };
 extern GameLogic *TheGameLogic;
-// ?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z present-unmatched
 int ObjectHideSubObjectPermanently(lua_State *state)
 {
     unsigned id;
