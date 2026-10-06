@@ -13838,10 +13838,8 @@ rva009C7380WeightPairs,0x009B84E0
 
 ?Rva00447CA9@@YAXPAVLANGameInfo@@PADH@Z,0x00447CA9,callee of ?Rva0044802D@@YAXPADH@Z
 
-??0LANGameInfo@@QAE@XZ,0x004481D4,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
 ?enterGame@GameInfo@@QAEXXZ,0x003FF268,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
 ?setName@LANGameInfo@@QAEXVUnicodeString@@@Z,0x00449A81,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
-??0LANGameSlot@@QAE@XZ,0x00448150,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
 ?setLogin@LANGameSlot@@QAEXVAsciiString@@@Z,0x0024955E,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
 ?setHost@LANGameSlot@@QAEXVAsciiString@@@Z,0x00249595,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
 ??0LANGameSlot@@QAE@ABV0@@Z,0x0044B27F,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
@@ -13849,3 +13847,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?addGame@LANAPI@@IAEXPAVLANGameInfo@@@Z,0x0044B2EA,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
 ??1LANPreferences@@UAE@XZ,0x0044D285,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
 ??1LANGameSlot@@UAE@XZ,0x00447B0E,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
+?setSlotPointer@GameInfo@@QAEXHPAVGameSlot@@@Z,0x003FF332,callee of ??0LANGameInfo@@QAE@XZ
