@@ -1,5 +1,5 @@
 // ?rva002AD93A@Player@@QAEXPBVUpgradeTemplate@@H@Z
-// partial score=0.96 date=2026-10-05
+// partial score=0.9491 date=2026-10-05
 // cl: /O1 /Ireference/shims/moduledata /DNDEBUG /MD
 typedef bool Bool;
 typedef int Int;
@@ -28,10 +28,9 @@ public:
 	DLINK_ITERATOR(OBJCLASS* cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc)
 	{
 	}
-	void advance()
+	__forceinline void advance()
 	{
-		if (m_cur)
-			m_cur = ((*m_cur).*(m_getNextFunc))();
+		m_cur = ((*m_cur).*(m_getNextFunc))();
 	}
 	Bool done() const
 	{
@@ -140,7 +139,8 @@ void Player::rva002AD93A(const UpgradeTemplate *upgrade, Int x)
 	for (PlayerTeamNode *it = m_playerTeamPrototypes->m_next; it != m_playerTeamPrototypes; it = it->m_next)
 	{
 		DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList();
-		while (!iter.done())
+	team_loop:
+		if (!iter.done())
 		{
 			for (DLINK_ITERATOR<Object> iter2 = iter.cur()->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
 			{
@@ -150,6 +150,7 @@ void Player::rva002AD93A(const UpgradeTemplate *upgrade, Int x)
 				obj->updateUpgradeModules();
 			}
 			iter.advance();
+			goto team_loop;
 		}
 	}
 	if (upgrade == 0 || x != 0)

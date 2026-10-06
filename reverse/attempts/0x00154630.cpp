@@ -1,5 +1,5 @@
 // ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
-// partial score=0.9 date=2026-10-05
+// partial score=0.9269 date=2026-10-05
 // ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
 // partial score=0.9 date=2026-09-21
 // ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z

@@ -1,5 +1,5 @@
 // ?createWindowStatic@@YAPAVGameWindow@@PADHPAXPAV1@@Z
-// partial score=0.93 date=2026-10-05
+// partial score=0.5004 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 //
 // ?createWindow@@YAPAVGameWindow@@PADHPAUHINSTANCE__@@PAVGameWindow@@@Z, retail 0x00316BD2, 294 bytes.

@@ -1,5 +1,5 @@
 // ?buildSegments@W3DRopeDraw@@AAEXXZ
-// partial score=0.93 date=2026-09-27
+// partial score=0.9182 date=2026-10-05
 // ?buildSegments@W3DRopeDraw@@AAEXXZ
 // partial score=0.93 date=2026-09-27
 // cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc

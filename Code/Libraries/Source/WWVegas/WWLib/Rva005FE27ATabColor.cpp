@@ -1,10 +1,11 @@
-// ?rva005FE27A@Rva005FE750@@QAEXHHHABVUnicodeString@@@Z
-// partial score=0.9684 date=2026-10-05
-// ?rva005FE27A@Rva005FE750@@QAEXHHHABVUnicodeString@@@Z
-// partial score=0.95 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Oy- /Op
+// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// ??1Rva005FE750@@UAE@XZ @0x005FE750 87B via vtable plus StringBase plus Rva members plus wide vector
+// ?rva005FE27A@Rva005FE750@@QAEXHHHABVUnicodeString@@@Z @0x005FE27A 249B: Rva005FE750 tab color update.
+// Kept apart from Rva005FE750.cpp, whose declared-only vector specialization (for
+// linking) cannot express the STLport subscript this body's codegen needs. The
+// subscript is spelled as STLport's *(begin() + n) through a helper of its own,
+// so this unit odr-uses no vector member (other units emit those under other
+// flags, which tools/link_check.py refuses as a second copy).
 // Evidence: prev 0x005FE589 and next 0x005FE835 same vector family same flags; callees rowed vector 0x005FE4A3 Rva 0x005242D7 Rva 0x0052413E releaseBuffer 0x00036410; vtable 0x0087A3F4.
 
 #include <vector>
@@ -71,14 +72,16 @@ private:
 	_STL::vector<BfmeContainerRecord005FDEC7, _STL::allocator<BfmeContainerRecord005FDEC7> > m_28;
 };
 
-Rva005FE750::~Rva005FE750()
+
+__forceinline BfmeContainerRecord005FDEC7 *Start005FE27A(
+	const _STL::vector<BfmeContainerRecord005FDEC7, _STL::allocator<BfmeContainerRecord005FDEC7> > &v)
 {
+	return *(BfmeContainerRecord005FDEC7 *const *)&v;
 }
 
-// ?rva005FE27A@Rva005FE750@@QAEXHHHABVUnicodeString@@@Z present-unmatched
 void Rva005FE750::rva005FE27A(int idx, int w0, int w1, const UnicodeString &text)
 {
-	BfmeContainerRecord005FDEC7 &rec = m_28[idx];
+	BfmeContainerRecord005FDEC7 &rec = *(Start005FE27A(m_28) + idx);
 	if (w0 != rec.word0)
 	{
 		AsciiString key;
@@ -92,9 +95,10 @@ void Rva005FE750::rva005FE27A(int idx, int w0, int w1, const UnicodeString &text
 	}
 	if (w1 != rec.word1)
 	{
+		int savedW1 = w1;
 		const char *mid2 = GetStr005FE27A(m_08);
-		rec.word1 = (unsigned int)w1;
 		Rva00525235Fire(TheRva00222A8BTarget, (void *)m_04, mid2, "SetTabColor", &idx, &w1);
+		rec.word1 = (unsigned int)savedW1;
 	}
 	if (text.compare(rec.text) != 0)
 	{

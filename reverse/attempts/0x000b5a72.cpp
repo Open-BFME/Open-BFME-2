@@ -1,5 +1,5 @@
 // ?rva000B5A72@Rva000B5C41@@QAEXPAUArg000B5A72@@@Z
-// partial score=0.92 date=2026-10-02
+// partial score=0.8495 date=2026-10-05
 // cl: /O1 /MD /arch:SSE /Oi
 // ?rva000B5C41@Rva000B5C41@@QAEXXZ 0x000B5C41 318B evidence: chain via 0x002707FA rowed; array at +0x18 base+0x50 end+0x54 stride 0x40 floats +0x34 +0x38 flag +0x3c vs BfmeZeroRange g_Va00BBB8D8; helper +0x110 slot0x14 int; target +0x50 slots 0x194 0x5c; setter +0x8 is Rva002707FA
 #include <math.h>

@@ -1,5 +1,5 @@
 // ?rva002A4A68@Rva002A4A68@@QAEXXZ
-// partial score=0.92 date=2026-10-05
+// partial score=0.8919 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /arch:SSE
 // stlport
 // ?rva002A4A68@Rva002A4A68@@QAEXXZ @0x002A4A68 404B
@@ -146,8 +146,8 @@ del:;
 update:;
         p->m_4 += p->m_14;
         p->m_14 *= p->m_1c;
-        p->m_8 += p->m_18;
         p->m_18 *= p->m_1c;
+        p->m_8 += p->m_18;
         if (p->m_10 & 1) {
             int cur2 = p->m_c - TheGameClient->getFrame();
             if ((unsigned)cur2 < (unsigned)g_00DFEE08) {

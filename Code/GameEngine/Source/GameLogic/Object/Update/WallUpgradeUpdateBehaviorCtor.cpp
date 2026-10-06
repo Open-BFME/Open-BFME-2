@@ -36,6 +36,8 @@ extern "C" const void *const vtbl_00C54774[];  // ??_7Rva004AB246@@6BRva0024A797
 #pragma comment(linker, "/alternatename:_vtbl_00C54774=??_7Rva004AB246@@6BRva0024A797_B2@@@")
 extern "C" const void *const vtbl_00C54780[];  // ??_7Rva004AB246@@6BRva0024A797_Root@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C54780=??_7Rva004AB246@@6BRva0024A797_Root@@@")
+extern "C" const void *const vtbl_00C1C780[];  // folded, 49 classes; via ??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C1C780=??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")
 
 class Thing;
 class ModuleData;
@@ -87,7 +89,7 @@ WallUpgradeUpdate::WallUpgradeUpdate(Thing *thing, const ModuleData *moduleData)
 	int *wakeSlot20 = (int *)&m_secondary20;
 	*wakeSlot20 = (int)((unsigned int)vtbl_00BE2B78);
 	int *wakeSlot24 = (int *)&m_secondary24;
-	*wakeSlot24 = (int)0x00C1C780;
+	*wakeSlot24 = (int)((unsigned int)vtbl_00C1C780);
 	m_vtable = (const void *)((unsigned int)vtbl_00C54780);
 	m_secondary0C = (const void *)((unsigned int)vtbl_00C49800);
 	m_secondary10 = (const void *)((unsigned int)vtbl_00C54774);

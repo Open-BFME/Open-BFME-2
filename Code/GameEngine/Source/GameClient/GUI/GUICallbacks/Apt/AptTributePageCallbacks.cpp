@@ -67,11 +67,18 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef0051030C
 {
 	TargetRef00217D4C *m_ptr;
+	TreeHintRef0051030C() : m_ptr(0) {}
+	TreeHintRef0051030C(TargetRef00217D4C *ptr) : m_ptr(ptr)
+	{
+		if (m_ptr)
+			++m_ptr->references;
+	}
 	TreeHintRef0051030C(const TreeHintRef0051030C &other) : m_ptr(other.m_ptr)
 	{
 		if (m_ptr)
 			++m_ptr->references;
 	}
+	TreeHintRef0051030C &operator=(const TreeHintRef0051030C &other);
 	__forceinline ~TreeHintRef0051030C()
 	{
 		if (m_ptr)
@@ -99,10 +106,13 @@ public:
 	int rva0050EBC5(int message, int key, int state);
 	void OnPageUnloaded(const char *name);
 	void OnPageSelected(const char *name);
+	void OnPageLoaded(const char *params);
 
 private:
 	typedef _STL::map<AsciiString, TreeHintRef0051030C> PageMap;
-	unsigned char m_pad000[0x27C];
+	unsigned char m_pad000[0x274];
+	int m_level;
+	unsigned char m_pad278[0x27C - 0x278];
 	PageMap m_pages;         // +0x27C, pages by name
 	Rva00510D0CPage *m_page; // +0x288
 };
@@ -187,6 +197,64 @@ void Rva00510D0C::OnPageSelected(const char *name)
 		if (m_page)
 			m_page->v02();
 		m_page = 0;
+	}
+}
+
+// The two page kinds, named by their rowed destructors. Their constructors
+// are pinned by the factory below; both forward the level and path to the
+// rowed refcounted base.
+class Rva005105D7 : public TargetRef00217D4C
+{
+public:
+	Rva005105D7(int level, const AsciiString &path);
+	unsigned char m_pad08[0xD0 - 0x08];
+};
+
+class Rva00510CC3 : public TargetRef00217D4C
+{
+public:
+	Rva00510CC3(int level, const AsciiString &path);
+	unsigned char m_pad08[0x28 - 0x08];
+};
+
+class Rva0050EE23;
+int __cdecl rva0050F841(Rva0050EE23 *a, const char *b);
+const char *__cdecl Rva00412845AfterLevel(const char *path);
+bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiString &value);
+int __cdecl Rva004128BBGetLevel(const char *path);
+
+class RvaMapView
+{
+public:
+	TreeHintRef0051030C &operator[](const AsciiString &key);
+};
+#pragma comment(linker, "/alternatename:??ARvaMapView@@QAEAAUTreeHintRef0051030C@@ABVAsciiString@@@Z=??A?$map@VAsciiString@@UTreeHintRef0051030C@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef0051030C@@@_STL@@@4@@_STL@@QAEAAUTreeHintRef0051030C@@ABVAsciiString@@@Z")
+
+static TreeHintRef0051030C Rva00510D98CreatePage(const AsciiString &type, int level, const AsciiString &name)
+{
+	if (rva0050F841((Rva0050EE23 *)&type, "StatusPage") == 0)
+		return TreeHintRef0051030C(new Rva005105D7(level, AsciiString(Rva00412845AfterLevel(name.str()))));
+	if (rva0050F841((Rva0050EE23 *)&type, "TributePage") == 0)
+		return TreeHintRef0051030C(new Rva00510CC3(level, AsciiString(Rva00412845AfterLevel(name.str()))));
+	return TreeHintRef0051030C();
+}
+
+// ?OnPageLoaded@Rva00510D0C@@QAEXPBD@Z present-unmatched
+void Rva00510D0C::OnPageLoaded(const char *params)
+{
+	AsciiString name;
+	if (!Rva004128F0GetParam(params, "name", name))
+		return;
+	int level = Rva004128BBGetLevel(name.str());
+	if (level == m_level)
+	{
+		AsciiString type;
+		if (Rva004128F0GetParam(params, "type", type))
+		{
+			TreeHintRef0051030C page = Rva00510D98CreatePage(type, level, name);
+			if (page.m_ptr)
+				(*(RvaMapView *)&m_pages)[name] = page;
+		}
 	}
 }
 

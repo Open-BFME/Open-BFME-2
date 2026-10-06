@@ -1,5 +1,5 @@
 // ?Calculate_Texture_Matrix@WSEnvMapperClass@@UAEXAAVMatrix4@@@Z
-// partial score=0.915601023 date=2026-09-27
+// partial score=0.9269 date=2026-10-05
 // cl: /Ireference/shims/bfmestages /G7 /Ireference/shims/bfmerendobj /Ireference/shims/bfmemapper /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 
 // Banked partial: WSEnvMapperClass::Calculate_Texture_Matrix, RVA 0x1854E0.
@@ -33,14 +33,14 @@ void WSEnvMapperClass::Calculate_Texture_Matrix(Matrix4x4 &tex_matrix)
 	tex_matrix[0].Y = 0.5f;
 	tex_matrix[0].Z = 0.0f;
 	tex_matrix[0].W = 0.5f;
-	tex_matrix[1].X = 0.0f;
 	tex_matrix[1].Y = 0.0f;
 	tex_matrix[1].Z = 0.5f;
+	tex_matrix[1].X = 0.0f;
 	tex_matrix[1].W = 0.5f;
-	tex_matrix[2].X = 0.0f;
-	tex_matrix[2].Y = 0.0f;
-	tex_matrix[2].Z = 1.0f;
 	tex_matrix[2].W = 0.0f;
+	tex_matrix[2].Z = 1.0f;
+	tex_matrix[2].Y = 0.0f;
+	tex_matrix[2].X = 0.0f;
 	tex_matrix[3].X = 0.0f;
 	tex_matrix[3].Y = 0.0f;
 	tex_matrix[3].Z = 0.0f;
@@ -51,18 +51,18 @@ void WSEnvMapperClass::Calculate_Texture_Matrix(Matrix4x4 &tex_matrix)
 	tex_matrix[0].Y = 0.0f;
 	tex_matrix[0].Z = 0.0f;
 	tex_matrix[0].W = 0.5f;
-	tex_matrix[1].X = 0.0f;
 	tex_matrix[1].Y = 0.0f;
-	tex_matrix[1].Z = 0.5f;
+	tex_matrix[1].X = 0.0f;
 	tex_matrix[1].W = 0.5f;
+	tex_matrix[1].Z = 0.5f;
+	tex_matrix[2].W = 0.0f;
+	tex_matrix[2].Z = 1.0f;
 	tex_matrix[2].X = 0.0f;
 	tex_matrix[2].Y = 0.0f;
-	tex_matrix[2].Z = 1.0f;
-	tex_matrix[2].W = 0.0f;
-	tex_matrix[3].X = 0.0f;
 	tex_matrix[3].Y = 0.0f;
-	tex_matrix[3].Z = 0.0f;
 	tex_matrix[3].W = 1.0f;
+	tex_matrix[3].Z = 0.0f;
+	tex_matrix[3].X = 0.0f;
 			break;
 		case AXISTYPE_Z:
 		default:
@@ -78,28 +78,28 @@ void WSEnvMapperClass::Calculate_Texture_Matrix(Matrix4x4 &tex_matrix)
 	tex_matrix[2].Y = 0.0f;
 	tex_matrix[2].Z = 1.0f;
 	tex_matrix[2].W = 0.0f;
-	tex_matrix[3].X = 0.0f;
-	tex_matrix[3].Y = 0.0f;
-	tex_matrix[3].Z = 0.0f;
 	tex_matrix[3].W = 1.0f;
+	tex_matrix[3].Y = 0.0f;
+	tex_matrix[3].X = 0.0f;
+	tex_matrix[3].Z = 0.0f;
 			break;
 	}
 	// multiply by inverse of view transform	
 	Matrix4x4 mat;	
-	DX8Wrapper::Get_Transform(D3DTS_VIEW,mat);		
 	Matrix4x4 mat2;
+	DX8Wrapper::Get_Transform(D3DTS_VIEW,mat);		
 	mat2[0].X = mat[0].X;
+	mat2[1].W = 0.0f;
+	mat2[1].X = mat[0].Y;
 	mat2[0].Y = mat[1].X;
 	mat2[0].Z = mat[2].X;
-	mat2[0].W = 0.0f;
-	mat2[1].X = mat[0].Y;
+	mat2[2].X = mat[0].Z;
 	mat2[1].Y = mat[1].Y;
 	mat2[1].Z = mat[2].Y;
-	mat2[1].W = 0.0f;
-	mat2[2].X = mat[0].Z;
-	mat2[2].Y = mat[1].Z;
-	mat2[2].Z = mat[2].Z;
 	mat2[2].W = 0.0f;
+	mat2[0].W = 0.0f;
+	mat2[2].Z = mat[2].Z;
+	mat2[2].Y = mat[1].Z;
 	mat2[3].X = 0.0f;
 	mat2[3].Y = 0.0f;
 	mat2[3].Z = 0.0f;

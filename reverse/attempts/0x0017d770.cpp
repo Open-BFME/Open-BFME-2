@@ -1,5 +1,5 @@
 // ?rva00916CD0@PointGroupClass@@QAEXPAEHH@Z
-// partial score=0.93 date=2026-10-05
+// partial score=0.9574619 date=2026-10-05
 // cl: /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // Banked partial for retail 0x0017D770 (1583B, UV fill helper called from Render 0x0017F3DE).
 // BFME1 PointGroupClassUVFill.cpp donor under /arch:SSE /G7; this shape (VertexUV read at the top of
@@ -75,8 +75,8 @@ void PointGroupClass::rva00916CD0(unsigned char *point_frame, int active_points,
     }
   } else {
     if (PointMode != QUADS) {
-      Vector2 *uv_ptr = _TriVertexUVFrameTable[FrameRowColumnCountLog2] + ((DefaultPointFrame & frame_mask) * 3);
       Vector2 *vertex_uv = &VertexUV[0];
+      Vector2 *uv_ptr = _TriVertexUVFrameTable[FrameRowColumnCountLog2] + ((DefaultPointFrame & frame_mask) * 3);
       if (bounds_address) {
         const float *bounds = (const float *)bounds_address;
         float u0 = bounds[0], v0 = bounds[1], du = bounds[2] - u0,

@@ -1,5 +1,5 @@
 // ?Rva0038190FSendChat@@YA_NABVUnicodeString@@ABV?$vector@IV?$allocator@I@_STL@@@_STL@@@Z
-// partial score=0.91 date=2026-10-01
+// partial score=0.8415 date=2026-10-05
 // ?Rva0038190FSendChat@@YA_NABVUnicodeString@@ABV?$vector@IV?$allocator@I@_STL@@@_STL@@@Z
 // partial score=0.90 date=2026-09-30
 // cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc

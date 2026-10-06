@@ -28,6 +28,8 @@ extern "C" const void *const vtbl_00C493FC[];  // ??_7Rva00481F82@@6BRva00481F82
 #pragma comment(linker, "/alternatename:_vtbl_00C493FC=??_7Rva00481F82@@6BRva00481F82_S2@@@")
 extern "C" const void *const vtbl_00C49408[];  // ??_7Rva00481F82@@6BRva0024A797@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C49408=??_7Rva00481F82@@6BRva0024A797@@@")
+extern "C" const void *const vtbl_00C1C780[];  // folded, 49 classes; via ??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C1C780=??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")
 
 class Thing;
 class ModuleData;
@@ -78,7 +80,7 @@ TerrainResourceBehavior::TerrainResourceBehavior(Thing *thing, const ModuleData 
 	float fzero = 0.0f;
 	int *slot20 = (int *)&m_20;
 	int *slot24 = (int *)&m_24;
-	*slot20 = (int)0x00C1C780;
+	*slot20 = (int)((unsigned int)vtbl_00C1C780);
 	*slot24 = (int)((unsigned int)vtbl_00C4EF80);
 	m_vtable = (const void *)((unsigned int)vtbl_00C49408);
 	m_secondary0C = (const void *)((unsigned int)vtbl_00C42B60);

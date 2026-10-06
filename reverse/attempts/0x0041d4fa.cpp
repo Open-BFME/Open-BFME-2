@@ -1,5 +1,5 @@
 // ?rva0041D4FA@ActionManager@@QAE_NPBVObject@@PBUCoord3D@@PBVSpecialPowerTemplate@@@Z
-// partial score=0.95 date=2026-10-04
+// partial score=0.9552 date=2026-10-05
 // cl: /O1 /MD /GX /arch:SSE
 class Object;
 class Player;
@@ -118,8 +118,8 @@ public:
 bool ActionManager::rva0041D4FA(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
 {
 	if (sp->getFinalOverride()->flag2()) {
-		float range = sp->getFinalOverride()->m_54;
 		Player *player = obj->getControllingPlayer();
+		float range = sp->getFinalOverride()->m_54;
 		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, range, 0,
 			Rva0026119DFilter().link(&Rva002614ECFilter(sp->getFinalOverride()->m_60, player, true)), 0);
 		if (hits.size() <= 0)

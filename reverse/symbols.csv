@@ -12835,7 +12835,6 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?g_00DFF0F8@@3PAXA,0x00DFF0F8,dispatch-table global whose +0x10 member receives the 0x341C54 five-arg call
 ?rva00343DD8@@YAXPAVRva00343F8A@@PAX@Z,0x00343DD8,TU-local goal-path callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x343DD8 when getGoalObject is non-null
 ?rva0033FD98@@YAXPAVRva00343F8A@@PAX@Z,0x0033FD98,TU-local no-goal callee (cdecl state plus opaque); RETAIL REL32 in 0x343F8A targets 0x33FD98 when getGoalObject is null
-
 ?rva00409F1B@Rva00409F1B@@QAEXHH@Z,0x00409F1B,thiscall (mov esi plus ecx prolog) reached from 0x33C965 with two int args after the 0x31D5F8 lookup hit; RETAIL REL32 at 0x0033CA6B; address-named
 ?g_00DFE758@@3PAXA,0x00DFE758,flag-holder global tested at +0x1110 by 0x33C965 before the 0x31D5F8 lookup
 ?g_00E01CFC@@3PAXA,0x00E01CFC,lookup-table global receiving the 0x31D5F8 call in 0x33C965
@@ -12976,3 +12975,9 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva004E0918@Rva004E0918@@QAEXPAX@Z,0x004E0918,EH packet callee of 0x004E0ADB read from its REL32 displacement; Ghidra range body 112B; body unrowed
 ?rva004E0988@Rva004E0918@@QAEXPAX@Z,0x004E0988,EH packet callee of 0x004E0B02 read from its REL32 displacement; Ghidra range body 115B; body unrowed
 ?rva003B8E89@Rva003B8E89@@QAEPAXPAX@Z,0x003B8E89,thiscall lookup callee of 0x004E1755 and 0x004E23C1 read from REL32 (host plus key); body unrowed
+??0Rva005105D7@@QAE@HABVAsciiString@@@Z,0x005103A3,StatusPage constructor called by page factory 0x00510D98
+??0Rva00510CC3@@QAE@HABVAsciiString@@@Z,0x00510B72,TributePage constructor called by page factory 0x00510D98
+?findBestTunnel@@YAPAVObject@@PAVPlayer@@PBUCoord3D@@@Z,0x00545F80,REL32 callee of AITNGuardReturnState::onEnter 0x005465E5; selects a tunnel from the owner's Player and position
+?rva00262B0F@AIUpdateInterface@@QAEXPAVObject@@@Z,0x00262B0F,REL32 callee of AITNGuardReturnState::onEnter 0x005465E5 with the selected tunnel passed to the owner's AI; object-pointer view of the rowed goal setter body
+?rva004EC072@Rva004EC072@@QAEXPAUArg@@@Z,0x004EC072,second name for the 11-byte forwarder rowed at 0x004EC072 as ?fwd@Rva004EC072Owner@@QAEXPAX@Z (263b7dc5b1 dropped this row as a duplicate); TeamPrototype::rva003A2BD4 0x003A2BD4 still calls it by this name
+?rva005CCB16@Rva005CCB16NullForwarder@@QAEXXZ,0x005CCB16,second name for the 13-byte forwarder rowed at 0x005CCB16 as ?poll@Rva005CCB16@@QAEXXZ (263b7dc5b1 dropped this row as a duplicate); Rva005CCB5B::rva005CCB5B 0x005CCB5B still calls it by this name

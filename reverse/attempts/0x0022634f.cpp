@@ -1,5 +1,5 @@
 // ?_bfme_updateNetworkAndLogic@GameEngine@@UAEXH@Z
-// partial score=0.9 date=2026-09-06
+// partial score=0.8676 date=2026-10-05
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /Os /GX /arch:SSE
 //
 // GameEngine's vtable slot 38 (RVA 0x0022634F) advances network and logic

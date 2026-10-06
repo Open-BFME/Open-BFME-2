@@ -40,10 +40,15 @@ public:
 	const Image *rva005E16B9();
 };
 
-struct Rva002BA8F1Listener
+// The listener base's vptr is 0x00C79544, the listener vtable Rva005E4AE2Ctor.cpp
+// names Rva005E4AE2Listener; Rva002BA8F1Listener's own vtable is 0x00C77F44
+// (Rva0057605DCtor.cpp, vtbl_00C77F44), so the list's pointer type is only
+// declared here and the base is cast to it, as Rva005E4AE2Ctor.cpp does.
+struct Rva002BA8F1Listener;
+struct Rva005E4AE2Listener
 {
-	Rva002BA8F1Listener() {}
-	virtual ~Rva002BA8F1Listener();
+	Rva005E4AE2Listener() {}
+	virtual ~Rva005E4AE2Listener();
 };
 
 class Rva005A0B4CList
@@ -80,7 +85,7 @@ struct Rva005E16DA;
 
 extern Rva005E16DA g_rva00E06918;
 
-class Rva005F5F2B : public Rva005F5C77Base0, public Rva005F5C77Holder, public Rva002BA8F1Listener
+class Rva005F5F2B : public Rva005F5C77Base0, public Rva005F5C77Holder, public Rva005E4AE2Listener
 {
 public:
 	Rva005F5F2B(void *a1, Rva005F5F2BIn *a2);
@@ -93,11 +98,11 @@ private:
 Rva005F5F2B::Rva005F5F2B(void *a1, Rva005F5F2BIn *a2)
 	: Rva005F5C77Base0()
 	, Rva005F5C77Holder(a1, AsciiString("button"), a2->m_00)
-	, Rva002BA8F1Listener()
+	, Rva005E4AE2Listener()
 {
 	m_20 = a2->m_04;
 	m_24 = a2->m_08;
 	const Image *img = ((Rva005E16B9 *)&g_rva00E06918)->rva005E16B9();
 	((Rva005E1158 *)this)->rva005E1158(img);
-	m_24->append((Rva002BA8F1Listener *)this);
+	m_24->append((Rva002BA8F1Listener *)static_cast<Rva005E4AE2Listener *>(this));
 }

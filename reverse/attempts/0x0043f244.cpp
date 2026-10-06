@@ -1,5 +1,5 @@
 // ?rva0043F244@MpGameSetup@@QAEXH_N@Z
-// partial score=0.95 date=2026-10-05
+// partial score=0.9803 date=2026-10-05
 // ?rva0043F244@MpGameSetup@@QAEXH_N@Z draft (the whole MpGameSetupSlots.cpp TU with it appended): 575B, every instruction right except the frame slots of the UnicodeString text (retail ebp-0x18) and the forced team (retail ebp-0x1C) are swapped; declaration order, block scoping, ?:, if-declaration all leave them swapped. Needs pin ?rva0057C71F@Rva0057E3DB@@QAEPAURva0057C71FEntry@@H@Z=0x0057C71F.
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport

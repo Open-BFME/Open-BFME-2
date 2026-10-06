@@ -9,6 +9,8 @@
 
 extern "C" const void *const vtbl_00C4EF80[];  // folded, 7 classes; via ??_7ContainIface34@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C4EF80=??_7ContainIface34@@6B@")
+extern "C" const void *const vtbl_00C1C780[];  // folded, 49 classes; via ??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C1C780=??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")
 
 #include <string.h>
 
@@ -56,7 +58,7 @@ FakePathfindPortalBehaviour::FakePathfindPortalBehaviour(Thing *thing, const Mod
 {
 	int *slot20 = (int *)&m_20;
 	int *slot24 = (int *)&m_24;
-	*slot20 = 0x00C1C780;
+	*slot20 = ((unsigned int)vtbl_00C1C780);
 	*slot24 = ((unsigned int)vtbl_00C4EF80);
 	m_30 = false;
 	m_31 = false;

@@ -17,6 +17,8 @@
 
 extern "C" const void *const vtbl_00C078DC[];  // folded, 4 classes; via ??_7BfmeCtor001B3A20@@6BBfmeCtorVirtualBase001B3A20@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C078DC=??_7BfmeCtor001B3A20@@6BBfmeCtorVirtualBase001B3A20@@@")
+extern "C" const void *const vtbl_00C1C780[];  // folded, 49 classes; via ??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C1C780=??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")
 
 class Thing;
 class ModuleData;
@@ -66,7 +68,7 @@ RebuildHoleBehavior::RebuildHoleBehavior(Thing *thing, const ModuleData *moduleD
 	: UpdateModule(thing, moduleData)
 {
 	int *slot20 = (int *)&m_secondary20;
-	*slot20 = (int)0x00C1C780;
+	*slot20 = (int)((unsigned int)vtbl_00C1C780);
 	int *slot24 = (int *)&m_secondary24;
 	*slot24 = (int)((unsigned int)vtbl_00C078DC);
 	m_28 = 0;

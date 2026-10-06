@@ -1,4 +1,6 @@
 // ??0W3DBridge@@QAE@XZ
+// partial score=0.9439 date=2026-10-05
+// ??0W3DBridge@@QAE@XZ
 // partial score=0.99 date=2026-10-04
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // ??0W3DBridge@@QAE@XZ 0x000DD97F 239B W3DBridge ctor with scale/length 1.0 via g_Va00BBB8D8 plus Matrix rows via Region3D empty ctor

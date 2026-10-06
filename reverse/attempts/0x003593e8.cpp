@@ -1,5 +1,5 @@
 // ?rva003593E8@Rva003593E8@@QAE_NABVAsciiString@@_N@Z
-// partial score=0.92 date=2026-10-03
+// partial score=0.6268 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE2 /MD /DNDEBUG /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva003593E8@Rva003593E8@@QAE_NABVAsciiString@@_N@Z @0x003593E8 366B evidence: chain from 0x00358ACB; TheGameLogic isGamePaused plus TheInGameUI 0x15 0x16 plus vtable 0x17c gates; lower then upper map finds at +0xc +0x18 via rowed 0x1F8437; virtuals +4 +8 +0xc plus audio 0x358A53 0x358ACB

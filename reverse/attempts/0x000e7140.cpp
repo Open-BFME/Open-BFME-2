@@ -1,5 +1,5 @@
 // ?rva000E7140@Rva000E7140@@QAE_NHMMMPBX@Z
-// partial score=0.93 date=2026-10-05
+// partial score=0.7661 date=2026-10-05
 // ?rva000E7140@Rva000E7140@@QAE_NHMMMPBX@Z
 // partial score=0.93 date=2026-10-05
 // cl: /O1 /MD /G7 /arch:SSE
@@ -114,14 +114,14 @@ bool Rva000E7140::rva000E7140(int id, float x, float y, float z, const void *src
 	char *base = (char *)this;
 	for (int i = 0; i < m_count; ++i)
 	{
-		char *pid = base + 0x19B0 + i * 0xA0;
+		const char *pid = base + 0x19B0 + i * 0xA0;
 		if (*(int *)pid != id)
 			continue;
 		char *p = base + i * 0xA0;
 		*(float *)(p + 0x1958) = x;
 		*(float *)(p + 0x195C) = y;
-		*(float *)(p + 0x1960) = z;
 		const SrcBlock *b = (const SrcBlock *)src;
+		*(float *)(p + 0x1960) = z;
 		*(int *)(p + 0x1968) = b->v0;
 		*(int *)(p + 0x196C) = b->v1;
 		*(int *)(p + 0x1970) = b->v2;
@@ -134,9 +134,9 @@ bool Rva000E7140::rva000E7140(int id, float x, float y, float z, const void *src
 		*(int *)(p + 0x198C) = b->v9;
 		*(int *)(p + 0x1990) = b->v10;
 		*(int *)(p + 0x1994) = b->v11;
-		int idx2 = *(int *)(p + 0x1998);
 		Region2D *dst = (Region2D *)(base + (i + 0x29) * 0xA0);
-		Region2D *s = (Region2D *)(base + 0x4FB80 + idx2 * 0x5C);
+		int idx2 = *(int *)(p + 0x1998);
+		const Region2D *s = (Region2D *)(base + 0x4FB80 + idx2 * 0x5C);
 		dst->Region2D::Region2D(*s);
 		float sc = *(float *)(p + 0x1964);
 		dst->x_min *= sc;

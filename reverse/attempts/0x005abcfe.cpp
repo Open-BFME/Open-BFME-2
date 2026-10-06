@@ -1,6 +1,6 @@
 // ?rva005ABCFE@Rva005AB7E5@@QAE_NPAUCoord3DBase@@ABVAsciiString@@@Z
-// partial score=0.92 date=2026-10-04
-// cl: /O1 /G7 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
+// partial score=0.6691 date=2026-10-05
+// cl: /O1 /G6 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii /Op /Oy-
 //
 // The "StructureCreep" skirmish-AI tactic (vtable 0x008722EC; ctor 0x005AB91D
 // in Rva004ECECDTacticCtors.cpp, slot 9 0x005AB9AF in
@@ -652,29 +652,29 @@ extern Rva00A027B8 *g_00A027B8;
 bool Rva005AB7E5::rva005ABCFE(Coord3DBase *out, const AsciiString &name)
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
-	Rva005ABEA2Site *site = rva005AB7C4(m_owner, (int)m_68);
 	Coord3DBase delta;
+	Rva005ABEA2Site *site = rva005AB7C4(m_owner, (int)m_68);
 	((Rva004EBF4B *)record)->rva004EBF4B((Coord3D *)&delta);
 	float sx = site->m_pos.x;
 	float sy = site->m_pos.y;
 	float sz = site->m_pos.z;
 	delta.x -= sx;
-	delta.y -= sy;
+	delta.y = delta.y - (sy);
 	delta.z -= sz;
 	float lenSq = delta.z * delta.z + delta.y * delta.y + delta.x * delta.x;
 	if (lenSq != BfmeZeroRange) {
 		float inv = WWMath::Inv_Sqrt(lenSq);
-		delta.x *= inv;
 		delta.y *= inv;
-		delta.z *= inv;
+		delta.z = delta.z * (inv);
+		delta.x *= inv;
 	}
-	float scale = site->m_radius * g_Va007C26F0;
+	float scale = g_Va007C26F0 * site->m_radius;
 	delta.x *= scale;
 	delta.y *= scale;
-	delta.z *= scale;
 	Coord3DBase target;
+	delta.z = delta.z * (scale);
+	target.y = delta.y + sy;
 	target.x = sx + delta.x;
-	target.y = sy + delta.y;
 	target.z = sz + delta.z;
 	target.z = TheTerrainLogic->getGroundHeight(target.x, target.y, 0);
 	void *tmpl = g_009FF000->rva002D06CA(&name);

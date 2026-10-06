@@ -1,8 +1,8 @@
 // ?xfer@StateMachine@@MAEXPAVXfer@@@Z
-// partial score=0.92 date=2026-09-28
+// partial score=0.875 date=2026-10-05
 // ?xfer@StateMachine@@MAEXPAVXfer@@@Z
 // partial score=0.92 date=2026-09-28
-// cl: /O1 /G7 /DNDEBUG /MD /GX /arch:SSE /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G6 /DNDEBUG /MD /GX /arch:SSE /D_STLP_USE_STATIC_LIB /Op /Oy-
 // stlport
 #include <cfloat>
 #include <map>
@@ -73,8 +73,8 @@ __declspec(noreturn) void __stdcall _CxxThrowException(void *pExc, void *pInfo);
 // ?xfer@StateMachine@@MAEXPAVXfer@@@Z present-unmatched
 void StateMachine::xfer(Xfer *xfer)
 {
-  if (xfer->IsLightCRC()) return;
   Xfer::Version version(1, 4); *xfer == version;
+  if (xfer->IsLightCRC()) return;
   *xfer == m_sleepTill; *xfer == (UnsignedInt&)m_defaultStateID;
   UnsignedInt curStateID = (UnsignedInt)getCurrentStateID(); *xfer == curStateID;
   if (version.m_minimum >= 2) { if ((StateID)curStateID == INVALID_STATE_ID) return; }
@@ -85,7 +85,7 @@ void StateMachine::xfer(Xfer *xfer)
     for (i = m_stateMap.begin(); i != m_stateMap.end(); ++i) count++;
     Int saveCount = count; *xfer == saveCount;
     if (saveCount != count) { BfmeFormattedText error; bfmeFormatText(&error, 5, 0); _CxxThrowException(&error, (void*)0x00CFFD18); }
-    for (i = m_stateMap.begin(); i != m_stateMap.end(); ++i) {
+    for (i = m_stateMap.begin(); i != m_stateMap.end(); i++) {
       State *state = (*i).second; UnsignedInt id = (UnsignedInt)state->getID(); *xfer == id;
       if ((StateID)id != state->getID()) { BfmeFormattedText error; bfmeFormatText(&error, 5, 0); _CxxThrowException(&error, (void*)0x00CFFD18); }
       if (state == 0) { state = internalGetState(m_defaultStateID); }
@@ -99,8 +99,8 @@ void StateMachine::xfer(Xfer *xfer)
     *xfer == (Snapshot&)*(State*)m_currentState;
   }
   XferObjectID(xfer, &m_goalObjectID);
-  *xfer == (Coord3DBase&)m_goalPosition;
   XferObjectID(xfer, &m_unk34ID);
+  *xfer == (Coord3DBase&)m_goalPosition;
   *xfer == m_locked; *xfer == m_defaultStateInited; *xfer == m_extra3A;
   ObjectID tmpID = (ObjectID)0;
   if (xfer->IsLoading()) {

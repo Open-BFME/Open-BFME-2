@@ -1,5 +1,5 @@
 // ?_DumpFragmentation@MemoryPool@@YAXPAU_iobuf@@_NPBD@Z
-// partial score=0.95 date=2026-09-23
+// partial score=0.908 date=2026-10-05
 // BFME 2's memory-pool entry points. `namespace MemoryPool` is retail's own
 // name: every `_`-prefixed function here is exported under it
 // (reverse/exports.csv), and 0x00030730 resolves each export back out of the

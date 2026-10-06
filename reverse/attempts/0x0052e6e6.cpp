@@ -1,5 +1,5 @@
 // ?rva0052E6E6@Rva0052E6E6@@QAE_NHHPAURva0052E6E6Obj@@PAVPolygonTrigger@@H_N@Z
-// partial score=0.94 date=2026-10-03
+// partial score=0.964 date=2026-10-05
 // cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
 // ?rva0052E6E6@Rva0052E6E6@@QAE_NHHPAURva0052E6E6Obj@@PAVPolygonTrigger@@H_N@Z retail 0x0052E6E6 558B: cell-corner trigger test then flag/grid update. Evidence: 4x pointInTrigger corners counting in [ebp-4], float compare at this+0x1BE78 via Rva002E6E8AGet range, grid at this+0x460 via Rva005312BE::rva00531431, TheGameLogic findObjectByID + Rva0052DE5B::rva0052DFB1, Rva00366500/Rva0052DA1C/Rva0052E001 setters. Caller at 0x0052FCF4.
 
@@ -132,8 +132,8 @@ bool Rva0052E6E6::rva0052E6E6(int x, int y, Rva0052E6E6Obj *obj, PolygonTrigger 
 			if (o && ((Rva0052DE5B *)obj)->rva0052DFB1((Rva0052DFB1Arg *)o))
 				((Rva005312BE *)((char *)this + 0x460))->rva00531431(x, y);
 		}
-		bool t = ((Rva0052E001 *)obj)->rva0052E001(true);
-		t = t | ((Rva00366500 *)obj)->rva0036652D(0);
+		volatile bool t = ((Rva0052E001 *)obj)->rva0052E001(true);
+		t = (bool)((unsigned char)t | (unsigned char)((Rva00366500 *)obj)->rva0036652D(0));
 		if (t | ((Rva0052DA1C *)obj)->rva0052DA1C(0))
 			((Rva005312BE *)((char *)this + 0x460))->rva00531431(x, y);
 		obj->m_C &= ~0x10000u;

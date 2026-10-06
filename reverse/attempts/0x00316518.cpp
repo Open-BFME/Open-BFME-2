@@ -1,5 +1,5 @@
 // ?createGadget@@YAPAVGameWindow@@PADPAXPAVGadgetCreateView@@PAV1@@Z
-// partial score=0.93 date=2026-10-02
+// partial score=0.8206 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?createGadget@@YAPAVGameWindow@@PADPAXPAVGadgetCreateView@@PAV1@@Z at retail 0x00316518 (1722B).
 // BFME1 donor GameWindowManagerScriptCreateGadget.cpp (four-arg descriptor ABI,

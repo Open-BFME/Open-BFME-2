@@ -1,4 +1,6 @@
 // ?calculate@Gen009F5040@@QAEXPAUGen009F5040Node@@PAH11@Z
+// partial score=0.949866 date=2026-10-05
+// ?calculate@Gen009F5040@@QAEXPAUGen009F5040Node@@PAH11@Z
 // partial score=0.95 date=2026-10-05
 // ?calculate@Gen009F5040@@QAEXPAUGen009F5040Node@@PAH11@Z
 //
@@ -107,8 +109,8 @@ void Gen009F5040::calculate(Gen009F5040Node *node, int *result28, int *result2c,
 	unsigned int comb = ((BfmeHostER *)this)->bfmeIndexER(base + v1->m_x) ^ (unsigned int)*result28;
 	comb |= ((BfmeHostES *)this)->bfmeIndexES(base + v1->m_y) ^ (unsigned int)*result2c;
 	*result24 = (int)comb;
-	if (comb != 0) {
-		unsigned int a = comb;
+	unsigned int a = comb;
+	if (a != 0) {
 		int c = 0;
 		if ((a & 0xffff0000) != 0) {
 			a >>= 16;

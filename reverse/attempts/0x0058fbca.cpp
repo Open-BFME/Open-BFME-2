@@ -1,5 +1,5 @@
 // ?rva0058FBCA@NetPacket@@IAE_NPAVNetCommandRef@@@Z
-// partial score=0.93 date=2026-10-05
+// partial score=0.9544 date=2026-10-05
 // cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /G7
 // ?rva0058FBCA@NetPacket@@IAE_NPAVNetCommandRef@@@Z, RVA 0x0058FBCA, size 587.
 // Evidence: packet T/R/S/P/C/D tags with getPercentage 0x004C54EC and getDataOffset
@@ -102,8 +102,8 @@ Bool NetPacket::rva0058FBCA(NetCommandRef *msg)
 	if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 		m_packet[m_packetLen] = 'T';
 		++m_packetLen;
-		m_packet[m_packetLen] = (UnsignedByte)cmdMsg->getNetCommandType();
 		++m_packetLen;
+		m_packet[m_packetLen] = (UnsignedByte)cmdMsg->getNetCommandType();
 		m_lastCommandType = (UnsignedByte)cmdMsg->getNetCommandType();
 	}
 	if (m_lastRelay != msg->getRelay()) {
@@ -139,7 +139,7 @@ Bool NetPacket::rva0058FBCA(NetCommandRef *msg)
 	}
 	m_lastCommandID = cmdMsg->getID();
 	m_packet[m_packetLen] = 'D';
-	++m_packetLen;
+	m_packetLen++;
 	UnsignedByte pct = ((NetProgressCommandMsg *)cmdMsg)->getPercentage();
 	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(m_packet + m_packetLen, &pct, 1);
 	++m_packetLen;

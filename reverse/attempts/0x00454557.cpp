@@ -1,5 +1,5 @@
 // ?xfer@GettingBuiltBehavior@@MAEXPAVXfer@@@Z
-// partial score=0.9 date=2026-10-04
+// partial score=0.8665 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /GX /arch:SSE
 //
 // ?xfer@GettingBuiltBehavior@@MAEXPAVXfer@@@Z, retail 0x00454557, 551 bytes:

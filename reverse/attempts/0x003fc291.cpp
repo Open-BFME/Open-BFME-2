@@ -1,5 +1,5 @@
 // ?rva003FC291@Rva003FC291@@QAEXM@Z
-// partial score=0.9 date=2026-10-03
+// partial score=0.6221 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 // ?rva003FC291@Rva003FC291@@QAEXM@Z @0x003FC291 339B
 // Sibling of 0x003FC149: this+8 delegate with matrix at +0x18 and scale at +0x48,

@@ -32,6 +32,8 @@ extern "C" const void *const vtbl_00C5285C[];  // ??_7Rva004A4C19@@6BRva0024A797
 #pragma comment(linker, "/alternatename:_vtbl_00C5285C=??_7Rva004A4C19@@6BRva0024A797_B2@@@")
 extern "C" const void *const vtbl_00C52868[];  // ??_7Rva004A4C19@@6BRva0024A797_Root@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C52868=??_7Rva004A4C19@@6BRva0024A797_Root@@@")
+extern "C" const void *const vtbl_00C1C780[];  // folded, 49 classes; via ??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@
+#pragma comment(linker, "/alternatename:_vtbl_00C1C780=??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")
 
 class Thing;
 class ModuleData;
@@ -86,7 +88,7 @@ RubbleRiseUpdate::RubbleRiseUpdate(Thing *thing, const ModuleData *moduleData)
 {
 	float fzero = 0.0f;
 	int *slot20 = (int *)&m_secondary20;
-	*slot20 = (int)0x00C1C780;
+	*slot20 = (int)((unsigned int)vtbl_00C1C780);
 	float *lingerSlot = &m_linger38;
 	Object **objSlot = &m_object;
 	int zero = 0;

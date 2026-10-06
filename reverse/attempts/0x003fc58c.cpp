@@ -1,5 +1,5 @@
 // ??0Rva003FC58C@@QAE@ABV?$StringBase@D@@@Z
-// partial score=0.9 date=2026-10-03
+// partial score=0.6374 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // ??0Rva003FC58C@@QAE@ABV?$StringBase@D@@@Z @0x003FC58C 311B
 // ModuleData ctor with StringBase at +4 many ints floats and pushback.

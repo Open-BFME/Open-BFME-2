@@ -1,6 +1,6 @@
 // ?rva00596F23@Rva00596F18@@QAEXXZ
-// partial score=0.93 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /G7 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// partial score=0.9438 date=2026-10-05
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /G6 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE /Oy-
 // stlport
 // ?rva00596F23@Rva00596F18@@QAEXXZ @0x00596F23 210B evidence: vtable slot 5 of 0x00870B38 class Rva00596F18; layout from Rva00596FF5 plus base float +0x04; callees pin rva002A8AB1 plus rowed rva002A8F24 bucket_count rva002A8B59 get rva002A7461; globals g_secondsPerLogicFrame g_Va00BC2428 g_00BC26EC g_00BC897C g_00DFEEF8
 #include "ascii_string.h"
@@ -100,17 +100,17 @@ void Rva00596F18::rva00596F23()
 		return;
 	void *obj = g_00DFEEF8->rva002A8F24((Player *)m_68);
 	unsigned int count = (*(IntMap **)((char *)obj + 0xC))->bucket_count();
-	if (count < 1)
+	if (1 > count)
 		count = 1;
 	Rva002A8B59Data *data = g_00DFEEF8->rva002A8B59(m_68);
 	float interval = g_secondsPerLogicFrame * data->m_4C / (float)count;
 	float fa = (float)((Rva002A7389 *)((char *)m_68 + 0x60))->get(0);
 	float div = fa / (float)((Rva002A7461 *)((char *)m_68 + 0x60))->rva002A7461();
 	float k = div * interval;
-	k *= g_Va00BC2428;
-	k += interval;
+	k = k + (interval);
 	float nv = m_04 + k;
-	if (nv > g_00BC897C)
+	k = k * (g_Va00BC2428);
+	if (g_00BC897C < nv)
 		nv = g_00BC897C;
 	m_04 = nv;
 }
