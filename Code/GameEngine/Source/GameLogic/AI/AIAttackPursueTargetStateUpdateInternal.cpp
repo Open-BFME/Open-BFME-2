@@ -1,5 +1,3 @@
-// ?updateInternal@AIAttackPursueTargetState@@AAE?AW4StateReturnType@@XZ
-// partial score=0.95 date=2026-10-06
 // cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
 //
 // ?updateInternal@AIAttackPursueTargetState@@AAE?AW4StateReturnType@@XZ @0x0034939E 515B
@@ -69,8 +67,6 @@ public:
 };
 
 extern AI *g_Va009FF0F8;
-extern Real g_Va00BC4DD4;
-extern Real g_00C10DE0;
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
@@ -253,9 +249,9 @@ StateReturnType AIAttackPursueTargetState::updateInternal()
 			m_isInitialApproach = false;
 			Real victimSpeed = victim->rva0028AC7D();
 			if (((Rva002CB35CObj *)weapon)->rva002CB35C((int)source, (void *)&source->m_position, (void *)victim, (void *)&victim->m_position, 0.0f, 1))
-				victimSpeed = victimSpeed * g_Va00BC4DD4;
+				victimSpeed *= 0.95f;
 			if (((Rva0029493F *)source)->rva0029493F((int)victim, 2))
-				victimSpeed = g_00C10DE0;
+				victimSpeed = 999999.0f;
 			ai->setDesiredSpeed(victimSpeed);
 			Locomotor *locomotor = ai->m_curLocomotor;
 			if (locomotor && ((Rva0008BB38FloatField *)locomotor)->get() == 0.0f)
@@ -263,7 +259,7 @@ StateReturnType AIAttackPursueTargetState::updateInternal()
 		}
 		else
 		{
-			ai->setDesiredSpeed(g_00C10DE0);
+			ai->setDesiredSpeed(999999.0f);
 		}
 	}
 	return code;
