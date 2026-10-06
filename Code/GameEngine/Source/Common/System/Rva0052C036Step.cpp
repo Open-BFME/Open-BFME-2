@@ -16,6 +16,20 @@ public:
 
 extern Rva0021294A *g_009FE1C8;
 
+class Rva003F812CObject
+{
+public:
+	void rva003F812C();
+};
+
+class Rva0059E647World
+{
+public:
+	void rva002B77AD();
+};
+
+extern Rva0059E647World *g_rva0059E647World;
+
 class Glo012F1024Item
 {
 public:
@@ -26,12 +40,17 @@ class Rva0052C036
 {
 public:
 	bool rva0052C036();
+	bool rva0052C9F9();
+	void rva0052C161();
+	void rva0052C45E();
 private:
 	char m_pad0[8];
 	int m_8;
 	char *m_c;
 	char m_pad10[8];
 	int m_18;
+	char m_pad1c[4];
+	void *m_20;
 };
 
 bool Rva0052C036::rva0052C036()
@@ -44,4 +63,20 @@ bool Rva0052C036::rva0052C036()
 	}
 	((Glo012F1024Item *)((char *)m_c + m_8 * 0xB8))->bfmeEnter();
 	return true;
+}
+
+// ?rva0052C9F9@Rva0052C036@@QAE_NXZ @0x0052C9F9 52B: release the optional
+// object at +0x20, set +8 to -1, call two same-this helpers and a method on the
+// world pointer at VA 0x00DFEF10, then tail-call the matched step at 0x0052C036.
+// Helper identities and the +0x20 payload type remain unknown.
+bool Rva0052C036::rva0052C9F9()
+{
+	if (m_20 != 0) {
+		((Rva003F812CObject *)m_20)->rva003F812C();
+	}
+	m_8 |= -1;
+	rva0052C161();
+	rva0052C45E();
+	g_rva0059E647World->rva002B77AD();
+	return rva0052C036();
 }
