@@ -3,8 +3,19 @@
 // ?rva0030B76F@Rva0030B76F@@QAEXPAU1@@Z, retail 0x0030B76F, 78 bytes.
 // Swap holder via rowed vector swap 0x00567ECD plus rowed Region2D swap 0x0030B31A plus float and byte swaps.
 // Evidence: chain from 0x0030B31A; caller 0x0030B81B; prev copy-backward next reserve both vector e8 /O1 /EHsc.
-#include <vector>
 struct BfmeE12 { float x, y, z; };
+namespace _STL
+{
+template <class T> class allocator;
+template <class T, class A> class vector
+{
+public:
+	void *m_start;
+	void *m_finish;
+	void *m_end;
+	void swap(vector &);
+};
+}
 struct Region2D
 {
 	Region2D(const Region2D &that);
