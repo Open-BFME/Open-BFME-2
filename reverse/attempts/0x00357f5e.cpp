@@ -1,5 +1,5 @@
 // ?rva00357F5E@ScriptEngine@@QAE_NABVAsciiString@@_N@Z
-// partial score=0.93 date=2026-10-04
+// partial score=0.97 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Include
 // stlport
 // ?rva00357F5E@ScriptEngine@@QAE_NABVAsciiString@@_N@Z @0x00357F5E 280B
@@ -30,6 +30,11 @@ private:
 
 extern float g_00DBA4F0;
 
+struct MyRef4 {
+	OpaqueRefCounted *referent;
+	~MyRef4() { if (referent) referent->Release_Ref(); }
+};
+
 class GameLogic
 {
 public:
@@ -38,7 +43,7 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
-class AudioManagerView
+class AudioManager
 {
 public:
 	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03(); virtual void slot04();
@@ -60,7 +65,7 @@ public:
 	virtual void slot76(); virtual void slot77(); virtual void slot78(); virtual void slot79();
 	virtual float getLength(const BfmeAudioEventPrefix136 *ev);
 };
-extern AudioManagerView *TheAudio;
+extern AudioManager *TheAudio;
 
 class ScriptEngine
 {
@@ -81,22 +86,24 @@ bool ScriptEngine::rva00357F5E(const AsciiString &s, bool remove)
 			break;
 	}
 	if (it == lst.end()) {
+		MyRef4 ref;
+		OpaqueRefElement4 *pOut = (OpaqueRefElement4*)&ref;
+		AudioManager *pAudio = TheAudio;
 		BfmeSpecialPowerTimer8 timer;
+		pAudio->lookupRef(pOut, s);
 		timer.m_templateID = 0;
 		timer.m_readyFrame = 0;
-		OpaqueRefElement4 ref;
-		TheAudio->lookupRef(&ref, s);
-		if (ref.referent == 0)
+		if (((OpaqueRefElement4*)&ref)->referent == 0)
 			return true;
-		BfmeAudioEventPrefix136 ev(ref, 0);
+		{
+		BfmeAudioEventPrefix136 ev(*(const OpaqueRefElement4*)&ref, 0);
 		float len = TheAudio->getLength(&ev);
 		int frames = (int)(len / g_00DBA4F0);
-		timer.m_templateID = crc;
 		timer.m_readyFrame = TheGameLogic->m_frame + frames;
+		timer.m_templateID = crc;
 		((Rva00357DF8 *)&lst)->rva00357DF8(timer);
 		it = lst.begin();
-		if (ref.referent != 0)
-			ref.referent->Release_Ref();
+		}
 	}
 	if (TheGameLogic->m_frame >= it->m_readyFrame) {
 		if (remove) {
