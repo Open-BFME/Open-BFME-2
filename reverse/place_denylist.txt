@@ -208,3 +208,6 @@ _io_writeto
 
 # w5-sol: 0x005DFBB8 refused; see re_attempts.log and build/w5_gate_0x005DFBB8.log
 ??4Rva005DFBB8Element@@QAEAAU0@ABU0@@Z
+
+# w6-sol: 0x005007AA refused; see re_attempts.log and build/w6_gate_0x005007AA.log
+??4Rva005007AAElement@@QAEAAU0@ABU0@@Z
