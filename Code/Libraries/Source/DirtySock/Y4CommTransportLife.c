@@ -900,7 +900,7 @@ void Rva00817640( struct Rva00816BF0Comm *comm )
 	int iCount;
 	int iBudget;
 	int iChunk;
-	struct Rva00816F60Message packet;
+	struct Rva00816F60Message multi;
 	struct Rva00816F60Message *record;
 	unsigned int uNextCode;
 
@@ -958,7 +958,7 @@ void Rva00817640( struct Rva00816BF0Comm *comm )
 			- comm->m_sendRecordSize ) % comm->m_sendBufferSize;
 		record = (struct Rva00816F60Message *)( comm->m_sendBuffer
 			+ iOffset );
-		memcpy( &packet, record, record->m_length + 0x10 );
+		memcpy( &multi, record, record->m_length + 0x10 );
 		--iCount;
 
 		for ( ; iCount > 0; --iCount )
@@ -972,37 +972,37 @@ void Rva00817640( struct Rva00816BF0Comm *comm )
 				comm->m_sendProc( comm, record->m_body,
 					record->m_length, 0 );
 
-			packet.m_code += 0x10000000;
-			memcpy( packet.m_body + packet.m_length, record->m_body,
+			multi.m_code += 0x10000000;
+			memcpy( multi.m_body + multi.m_length, record->m_body,
 				record->m_length );
-			packet.m_length += record->m_length;
-			packet.m_body[ packet.m_length ] =
+			multi.m_length += record->m_length;
+			multi.m_body[ multi.m_length ] =
 				(unsigned char)record->m_length;
-			++packet.m_length;
+			++multi.m_length;
 		}
 
 		while ( iOffset != comm->m_sendReadOffset
-			&& (unsigned int)packet.m_code <= g_Rva012C4DF4 )
+			&& (unsigned int)multi.m_code <= g_Rva012C4DF4 )
 		{
 			iOffset = ( iOffset + comm->m_sendBufferSize
 				- comm->m_sendRecordSize ) % comm->m_sendBufferSize;
 			record = (struct Rva00816F60Message *)( comm->m_sendBuffer
 				+ iOffset );
 
-			if ( packet.m_length + record->m_length > 0x40 )
+			if ( multi.m_length + record->m_length > 0x40 )
 				break;
 
 			if ( comm->m_sendProc != 0 )
 				comm->m_sendProc( comm, record->m_body,
 					record->m_length, 0 );
 
-			packet.m_code += 0x10000000;
-			memcpy( packet.m_body + packet.m_length, record->m_body,
+			multi.m_code += 0x10000000;
+			memcpy( multi.m_body + multi.m_length, record->m_body,
 				record->m_length );
-			packet.m_length += record->m_length;
-			packet.m_body[ packet.m_length ] =
+			multi.m_length += record->m_length;
+			multi.m_body[ multi.m_length ] =
 				(unsigned char)record->m_length;
-			++packet.m_length;
+			++multi.m_length;
 		}
 
 		if ( iOffset == comm->m_sendReadOffset )
@@ -1019,11 +1019,11 @@ void Rva00817640( struct Rva00816BF0Comm *comm )
 		}
 
 		comm->m_reportedSequence = comm->m_recvSequence;
-		packet.m_value = comm->m_reportedSequence - 1;
-		if ( Rva00817030( comm, &packet ) < 0 )
+		multi.m_value = comm->m_reportedSequence - 1;
+		if ( Rva00817030( comm, &multi ) < 0 )
 			break;
 
-		iBudget = iBudget - packet.m_length;
+		iBudget = iBudget - multi.m_length;
 	}
 }
 

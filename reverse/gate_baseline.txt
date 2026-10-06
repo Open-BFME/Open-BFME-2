@@ -214,7 +214,6 @@ tail 0x00682060 _Rva00816160
 tail 0x00682560 _CommSRPListen
 tail 0x00682870 _CommSRPConnect
 tail 0x00682E60 _Rva00816F60
-tail 0x00683540 _Rva00817640
 tail 0x00684C90 _CommUdpListen
 tail 0x00685200 _CommUDPConnect
 tail 0x00685820 _Rva00819920
