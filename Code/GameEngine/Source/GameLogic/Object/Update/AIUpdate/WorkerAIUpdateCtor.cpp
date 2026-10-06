@@ -20,12 +20,14 @@
 // dtor's BfmeWorkerDockPoint). As in ZH it clears the rebuild flag and the
 // dozer machine, the tasks (+0x3F0) and dock points, sets the current task
 // to DOZER_TASK_INVALID and the build sub-task to
-// DOZER_SELECT_BUILD_DOCK_LOCATION, clears the supply truck machine, the box
-// count, both force flags and the worker machine, then creates the
-// machines. Member roles past the dock points follow ZH's order (sub-task,
-// box count, preferred dock, the three flags, the machines); new in BFME 2:
-// +0x4A0, the +0x4A8 point, the +0x4B4 flag and +0x4CC (set to 1, where ZH
-// copied its supplies-depleted voice). The preferred dock is zeroed first.
+// DOZER_SELECT_BUILD_DOCK_LOCATION, clears the supply truck machine, +0x4A4
+// with the +0x4A8 point and the +0x4B4 flag (where ZH clears the box count;
+// newTask clears the same three where ZH clears the preferred dock, so their
+// role is open), both force flags and the worker machine, then creates the
+// machines. Other member roles past the dock points follow ZH's order
+// (sub-task, preferred dock, the three flags, the machines); new in BFME 2:
+// +0x4A0 and +0x4CC (set to 1, where ZH copied its supplies-depleted voice).
+// The preferred dock is zeroed first.
 //
 // ??0WorkerStateMachine@@QAE@PAVObject@@@Z, retail 0x004A9D79, 169 bytes. As
 // in ZH: the StateMachine base (rowed 0x004D79E1; name key 0xF80D13C5, flag
@@ -88,6 +90,22 @@
 // target's position. The diagnostics are BFME's: fprintf to the logic
 // random log file while the docking trace switch (0x00E03CA8, BFME 1's
 // g_bfmeDockingTraceActive) is set; template name +0x64, id +0x74.
+//
+// ?newTask@WorkerAIUpdate@@UAEXW4DozerTask@@PAVObject@@@Z, retail 0x004AADB1,
+// 671 bytes (dozer interface vslot 12, so its this is the +0x3E4
+// interface). Donor: BFME 1's WorkerAIUpdateNewTaskBfme.cpp (BFME 1
+// 0x002CA130) over ZH's WorkerAIUpdate::newTask: for a build or repair task
+// it cancels a pending one (vslots 6 and 13), finds the position and target
+// (rowed 0x004AABB4), sets the builder (rowed 0x0028AFE7) for builds and
+// fills the three dock points; then it records the target id and frame
+// (TheGameLogic +0x40), resets the dozer machine (vslot 6) and, when the
+// worker machine acts as a supply truck, idles the AI (rowed aiIdle,
+// CMD_FROM_AI) and sets the dozer state (vslot 8). As in BFME 1 the docking
+// diagnostics run while the switch at 0x00DCBF44 (BFME 1's
+// g_bfmeDockingDesyncLog) is set and raise the trace switch around the
+// search. New in BFME 2: the cleared preferred-dock trio is +0x4A4, the
+// +0x4A8 point and the +0x4B4 flag, and a build or repair also sets object
+// status 97 on the worker and the AIUpdateInterface byte at +0x3BA.
 #include "ascii_string.h"
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -97,6 +115,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 
 #define FALSE false
+#define TRUE true
 
 struct _iobuf;
 typedef struct _iobuf FILE;
@@ -159,8 +178,10 @@ class StateMachine
 public:
 	virtual ~StateMachine();
 	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
+	virtual void slot04(); virtual void slot05();
+	virtual void resetToDefaultState(); // vslot 6
 	virtual StateReturnType initDefaultState();
+	virtual StateReturnType setState(StateID newStateID); // vslot 8
 	void defineState(StateID id, struct State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = 0);
 	StateID getCurrentStateID() const { return m_currentState ? m_currentState->getID() : INVALID_STATE_ID; }
 	Object *getOwner() const { return m_owner; }
@@ -264,10 +285,18 @@ private:
 	Int m_reserved1C; // +0x1C
 };
 
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_SCRIPT,
+	CMD_FROM_AI
+};
+
 class AICommandInterface
 {
 public:
 	virtual void aiDoCommand();
+	void aiIdle(CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface24
@@ -289,7 +318,11 @@ public:
 protected:
 	virtual ~AIUpdateInterface();
 private:
-	unsigned char m_pad28[0x3E4 - 0x28];
+	unsigned char m_pad28[0x3BA - 0x28];
+protected:
+	Bool m_3BA; // +0x3BA
+private:
+	unsigned char m_pad3BB[0x3E4 - 0x3BB];
 };
 
 enum ModelConditionFlagType
@@ -319,7 +352,8 @@ private:
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_UNDER_CONSTRUCTION = 2,
-	OBJECT_STATUS_RECONSTRUCTING = 21
+	OBJECT_STATUS_RECONSTRUCTING = 21,
+	OBJECT_STATUS_97 = 97 // BFME 2's; set on a worker given a build or repair task
 };
 
 struct ObjectStatusMask
@@ -547,6 +581,10 @@ class GameLogic
 {
 public:
 	Object *findObjectByID(ObjectID id);
+	UnsignedInt getFrame() const { return m_frame; }
+private:
+	unsigned char m_pad00[0x40];
+	UnsignedInt m_frame; // +0x40
 };
 
 extern GameLogic *TheGameLogic;
@@ -584,7 +622,8 @@ enum AIStateType
 enum DozerTask
 {
 	DOZER_TASK_FIRST = 0,
-	DOZER_TASK_BUILD = DOZER_TASK_FIRST
+	DOZER_TASK_BUILD = DOZER_TASK_FIRST,
+	DOZER_TASK_REPAIR
 };
 
 class DozerAIInterface
@@ -646,6 +685,7 @@ public:
 	virtual void supplyTruckSlot0();
 	virtual void exitingSupplyTruckState();
 	virtual Bool isForcedIntoWantingState() const;
+	virtual void newTask(DozerTask task, Object *target);
 	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int unused);
 	Bool isSupplyTruckBrainActiveAndBusy();
 protected:
@@ -657,6 +697,7 @@ private:
 	enum { DOZER_NUM_DOCK_POINTS = 3 };
 	enum { DOZER_TASK_INVALID = -1 };
 	enum { DOZER_SELECT_BUILD_DOCK_LOCATION = 0 };
+	enum { DOZER_DOCK_POINT_START = 0, DOZER_DOCK_POINT_ACTION, DOZER_DOCK_POINT_END };
 
 	struct DozerTaskInfo
 	{
@@ -671,7 +712,7 @@ private:
 	BfmeWorkerDockPoint m_dockPoint[DOZER_NUM_TASKS][DOZER_NUM_DOCK_POINTS]; // +0x40C
 	Int m_buildSubTask; // +0x49C
 	Int m_4A0; // +0x4A0
-	Int m_numberBoxes; // +0x4A4
+	Int m_4A4; // +0x4A4
 	Coord3D m_4A8; // +0x4A8
 	Bool m_4B4; // +0x4B4
 	ObjectID m_preferredDock; // +0x4B8
@@ -704,7 +745,7 @@ WorkerAIUpdate::WorkerAIUpdate(Thing *thing, const ModuleData *moduleData)
 	m_buildSubTask = DOZER_SELECT_BUILD_DOCK_LOCATION;
 
 	m_supplyTruckStateMachine = 0;
-	m_numberBoxes = 0;
+	m_4A4 = 0;
 	zeroCoord(m_4A8);
 	m_4B4 = FALSE;
 	m_4A0 = 0;
@@ -968,4 +1009,98 @@ Object *WorkerAIUpdate::findGoodBuildOrRepairPositionAndTarget(Object *me, Objec
 
 	findGoodBuildOrRepairPosition(me, target, positionOut);
 	return target;
+}
+
+void WorkerAIUpdate::newTask(DozerTask task, Object *target)
+{
+	// sanity
+	if (target == 0)
+		return;
+
+	// where ZH forgets the preferred dock, BFME 2 clears these
+	m_4A4 = 0;
+	zeroCoord(m_4A8);
+	m_4B4 = FALSE;
+
+	//
+	// special check for the build task, we should never be given more than one of them ...
+	// for the other tasks we just forget what we were doing and the new target takes
+	// precedence for the task
+	//
+	if (task == DOZER_TASK_BUILD || task == DOZER_TASK_REPAIR)
+	{
+		// handle getting two tasks
+		if (isTaskPending(task) == TRUE)
+			cancelTask(task);
+
+		// get our object
+		Object *me = getObject();
+
+		Coord3D position;
+		if (g_bfmeDockingDesyncLog)
+		{
+			if (theLogicRandomLogFile)
+				fprintf(theLogicRandomLogFile, "DockingDesync(WORKER) BEGIN: Object %s(%d) with target %s(%d) at %g,%g,%g",
+					me->getTemplate()->getName().str(), me->getID(),
+					target->getTemplate()->getName().str(), target->getID(),
+					me->getPosition()->x, me->getPosition()->y, me->getPosition()->z);
+			g_bfmeDockingTraceActive = true;
+		}
+
+		target = findGoodBuildOrRepairPositionAndTarget(me, target, position);
+		if (target == 0)
+		{
+			if (g_bfmeDockingDesyncLog)
+			{
+				if (theLogicRandomLogFile)
+					fprintf(theLogicRandomLogFile, "DockingDesync(WORKER) END: Object %s(%d) with no target found docking position %g,%g,%g",
+						me->getTemplate()->getName().str(), me->getID(),
+						position.x, position.y, position.z);
+				g_bfmeDockingTraceActive = false;
+			}
+			return; // could happen for some bridges
+		}
+
+		if (g_bfmeDockingDesyncLog)
+		{
+			if (theLogicRandomLogFile)
+				fprintf(theLogicRandomLogFile, "DockingDesync(WORKER) END: Object %s(%d) with target %s(%d) found docking position %g,%g,%g",
+					me->getTemplate()->getName().str(), me->getID(),
+					target->getTemplate()->getName().str(), target->getID(),
+					position.x, position.y, position.z);
+			g_bfmeDockingTraceActive = false;
+		}
+
+		//
+		// for building, we say that even "thinking" about building or rebuilding an object
+		// sets us as the current builder of that object
+		//
+		if (task == DOZER_TASK_BUILD)
+			target->rva0028AFE7(me);
+
+		m_dockPoint[task][DOZER_DOCK_POINT_START].valid = TRUE;
+		m_dockPoint[task][DOZER_DOCK_POINT_START].location = position;
+		m_dockPoint[task][DOZER_DOCK_POINT_ACTION].valid = TRUE;
+		m_dockPoint[task][DOZER_DOCK_POINT_ACTION].location = position;
+		m_dockPoint[task][DOZER_DOCK_POINT_END].valid = TRUE;
+		m_dockPoint[task][DOZER_DOCK_POINT_END].location = position;
+
+		me->setStatus(OBJECT_STATUS_97, true);
+		m_3BA = TRUE;
+	}
+
+	// set the new task target and the frame in which we got this order
+	m_task[task].m_targetObjectID = target->getID();
+	m_task[task].m_taskOrderFrame = TheGameLogic->getFrame();
+
+	// reset the dozer behavior so that it can re-evluate which task to continue working on
+	m_dozerMachine->resetToDefaultState();
+
+	// reset the workermachine, if we've been acting like a supply truck
+	if (m_workerMachine->getCurrentStateID() == AS_SUPPLY_TRUCK)
+	{
+		if (getObject()->getAIUpdateInterface())
+			getObject()->getAIUpdateInterface()->aiIdle(CMD_FROM_AI);
+		m_workerMachine->setState(AS_DOZER);
+	}
 }
