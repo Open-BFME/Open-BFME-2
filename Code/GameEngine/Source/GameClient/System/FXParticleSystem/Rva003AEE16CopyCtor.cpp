@@ -114,3 +114,20 @@ Rva003AF076::Rva003AF076(const Rva003AF076 &other)
 }
 // ??1Rva003AF076@@UAE@XZ present-unmatched
 Rva003AF076::~Rva003AF076() {}
+
+// ??0Gen005ED0D0@@QAE@PAVHost005ED050@@@Z @0x003AF049 45B: derived ctor calling rowed base 0x003AF076 then own 4 vptrs.
+// Evidence: calls 0x003AF076 rowed copy then stores at +0/+0x14/+0x18/+0x20 DIR32;
+// same 45B shape as rowed Gen005EDB10 @0x003AF645 calling 0x003AF672; caller 0x003AF012 create;
+// LINK BONUS 1 file 110B; Q4 size 0x44 matches Rva003AF076 size.
+class Host005ED050;
+class Gen005ED0D0 : public Rva003AF076
+{
+public:
+	Gen005ED0D0(Host005ED050 *owner);
+	virtual ~Gen005ED0D0();
+};
+
+Gen005ED0D0::Gen005ED0D0(Host005ED050 *owner)
+	: Rva003AF076(*(const Rva003AF076 *)owner)
+{
+}
