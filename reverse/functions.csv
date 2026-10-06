@@ -65942,3 +65942,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?GadgetTextEntryInsertCharacter@@YA_NPAVGameWindow@@I@Z,,0x00320C6F,314,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetTextEntryInsertCharacter.cpp,matched,
 ?GadgetTextEntrySystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x003207F5,694,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetTextEntrySystem.cpp,matched,
 ?GadgetTextEntryInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x00320DA9,1607,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetTextEntryInput.cpp,matched,
+?GadgetVerticalSliderInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x00321620,656,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetVerticalSlider.cpp,matched,
