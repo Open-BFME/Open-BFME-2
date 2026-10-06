@@ -172,3 +172,12 @@ _io_writeto
 
 # w5-sol: 0x004CC195 refused; see re_attempts.log and build/w5_gate_0x004CC195.log
 ??$distance@U?$_Rb_tree_iterator@U?$pair@$$CBURva004CC195Element@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBURva004CC195Element@@H@_STL@@@2@@_STL@@@_STL@@YAHABU?$_Rb_tree_iterator@U?$pair@$$CBURva004CC195Element@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBURva004CC195Element@@H@_STL@@@2@@0@0@Z
+
+# w5-sol: 0x005227C0 refused; see re_attempts.log and build/w5_gate_0x005227C0.log
+??4?$list@URva005227C0Element@@V?$allocator@URva005227C0Element@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+
+# w5-sol: 0x005BAB0B refused; see re_attempts.log and build/w5_gate_0x005BAB0B.log
+??4?$list@URva005BAB0BElement@@V?$allocator@URva005BAB0BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+
+# w5-sol: 0x00626EF0 refused; see re_attempts.log and build/w5_gate_0x00626EF0.log
+??$__copy@PAURva00626EF0Element@@PAU1@H@_STL@@YAPAURva00626EF0Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z
