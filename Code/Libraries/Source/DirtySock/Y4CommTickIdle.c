@@ -1290,21 +1290,21 @@ int __stdcall Rva0081BDC6( int line, int address, char *destination,
 int Rva00813890( int line, int address, const char *destination,
 	int countryCode )
 {
-	unsigned char callParameters[ 0x470 ];
+	unsigned char dial[ 0x470 ];
 
-	memset( callParameters, 0, sizeof( callParameters ) );
-	*(int *)( callParameters + 0x00 ) = sizeof( callParameters );
-	*(int *)( callParameters + 0x04 ) = 1;
-	*(int *)( callParameters + 0x10 ) = 0x10;
-	*(int *)( callParameters + 0x14 ) = 2;
-	*(int *)( callParameters + 0x18 ) = 1;
-	*(int *)( callParameters + 0x1C ) = 0;
-	*(int *)( callParameters + 0x3C ) = 0x70;
-	_mbscpy( (char *)callParameters + 0x70, destination );
-	*(int *)( callParameters + 0x38 ) = strlen( (char *)callParameters + 0x70 );
+	memset( dial, 0, sizeof( dial ) );
+	*(int *)( dial + 0x00 ) = sizeof( dial );
+	*(int *)( dial + 0x04 ) = 1;
+	*(int *)( dial + 0x10 ) = 0x10;
+	*(int *)( dial + 0x14 ) = 2;
+	*(int *)( dial + 0x18 ) = 1;
+	*(int *)( dial + 0x1C ) = 0;
+	*(int *)( dial + 0x3C ) = 0x70;
+	_mbscpy( (char *)dial + 0x70, destination );
+	*(int *)( dial + 0x38 ) = strlen( (char *)dial + 0x70 );
 
-	return Rva0081BDC6( line, address, (char *)callParameters + 0x70,
-		countryCode, callParameters );
+	return Rva0081BDC6( line, address, (char *)dial + 0x70,
+		countryCode, dial );
 }
 
 // Rva012C4A40: matched references place it at VA 0xdd9198; retail contents, sized to the
