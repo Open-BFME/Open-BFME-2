@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 //
 // ?erase@?$_Rb_tree@UTreeKey00242F5E@@U1@U?$_Identity@UTreeKey00242F5E@@@_STL@@U?$less@UTreeKey00242F5E@@@3@V?$allocator@UTreeKey00242F5E@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@UTreeKey00242F5E@@U?$_Nonconst_traits@UTreeKey00242F5E@@@_STL@@@2@0@Z, retail 0x000a79f7, 68 bytes. Banked partial (score 0.95) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
@@ -13,6 +13,7 @@
 #include <set>
 struct TreeKey00242F5E
 {
+	~TreeKey00242F5E();
 	unsigned int m_id;
 	void *m_name;
 	bool operator<(const TreeKey00242F5E &o) const { return m_id < o.m_id; }

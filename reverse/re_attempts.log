@@ -12623,3 +12623,6 @@ FUN_00850635	0x00450635	642	blocked	ADDRESS-NAMED global g_Va00BBB8D8 use is cou
 ?rva005E61A8@Rva005E61A8@@QAEHXZ	0x005E61A8	143	blocked	143B EH vector range plus 5 callees no donor scopetable 0x7A3BAD unclaimed needs strong model t=5 model=muse-07
 ?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z	0x00462E3A	250	blocked	ADDRESS-NAMED g_Va009FF0F8 new use refused t=2 model=muse-07
 ?rva00489256@Rva00489256@@QAEXXZ	0x00489256	95	partial	prologue saves esi+edi via mov esi ecx vs retail push edi only with mov ecx esi from incoming esi; early pop edi vs late pops; 97B vs 95B t=25 model=muse-07 score=0.93 stash=reverse/attempts/0x00489256.cpp
+??0Rva0057EE5C@@QAE@PAUTargetRef00217D4C@@@Z	0x0057EDB2	170	blocked	ctor base-call identity rva002D2C34 vs Rva005248D0 plus placement-new null checks plus vptr order; variant1 size +14 with extra frame t=18 model=muse-spark
+?Rva003C6507Get@@YAHXZ	0x003C6507	240	blocked	requires ADDRESS-NAMED globals g_Va009FE16C and g_Va00BCF628; new use refused per packet t=2 model=muse-spark
+?Rva003C6871Get@@YAHXZ	0x003C6871	258	blocked	requires ADDRESS-NAMED global g_Va009FE16C; new use refused per packet t=1 model=muse-spark
