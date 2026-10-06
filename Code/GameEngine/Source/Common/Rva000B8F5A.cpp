@@ -15,6 +15,7 @@ class Rva000B4BED
 {
 public:
 	void *rva000B4C9D(const void *entry);
+	void *rva000B4CBE(const void *entry);
 };
 
 struct Rva000B8F5AOuter
@@ -27,6 +28,7 @@ class Rva000B8F5A
 public:
 	void rva000B8F5A(char *a, AsciiString b);
 	void rva000BFD77();
+	void rva000BFD9F();
 
 private:
 	char m_pad00[0x0C];
@@ -56,6 +58,18 @@ void Rva000B8F5A::rva000B8F5A(char *a, AsciiString b)
 void Rva000B8F5A::rva000BFD77()
 {
 	void *e = (*(Rva000B4BED **)((char *)this - 8))->rva000B4C9D(m_ptr0C);
+	if (e != 0)
+	{
+		m_flag280 = true;
+		((Rva000B8F5AOuter *)((char *)this - 12))->rva000BF9FC(e, 1, 0);
+	}
+}
+
+// ?rva000BFD9F@Rva000B8F5A@@QAEXXZ @0x000BFD9F 40B
+// Twin of 0xBFD77 through the get-next sibling probe (0xB4CBE).
+void Rva000B8F5A::rva000BFD9F()
+{
+	void *e = (*(Rva000B4BED **)((char *)this - 8))->rva000B4CBE(m_ptr0C);
 	if (e != 0)
 	{
 		m_flag280 = true;
