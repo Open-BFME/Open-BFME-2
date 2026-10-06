@@ -60,6 +60,9 @@ extern VertexBufferClass *g_vb;
 extern int g_quadIndex;
 extern unsigned g_fvfShader;
 extern unsigned g_numberOfDX8Calls;
+VertexBufferClass *g_vb;
+int g_quadIndex;
+unsigned g_fvfShader;
 
 struct Vec4
 {
