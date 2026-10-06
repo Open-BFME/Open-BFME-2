@@ -33,22 +33,27 @@ private:
 	int m_24; // +0x14 -> +0x24
 };
 
-class __declspec(novtable) BFME2NativeNetwork
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork()
-	{
-		baseConstruct();
-	}
 	BFME2NativeNetwork *baseConstruct();
-	virtual ~BFME2NativeNetwork();
+};
+
+class __declspec(novtable) BFME2NativeNetworkBase
+{
+public:
+	__forceinline BFME2NativeNetworkBase() { ((BFME2NativeNetwork *)this)->baseConstruct(); }
+	virtual ~BFME2NativeNetworkBase() { _ReadWriteBarrier(); }
 private:
 	char m_flag04;
 	char m_pad05[3];
 	int m_value08;
 };
 
-class Rva0039225E : public BFME2NativeNetwork
+class Rva0039225E : public BFME2NativeNetworkBase
 {
 public:
 	Rva0039225E();
