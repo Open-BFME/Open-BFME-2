@@ -9,8 +9,6 @@
 
 typedef float Real;
 
-extern const float BfmeZeroRange;
-
 struct BfmePointF0
 {
 	Real x;
@@ -59,7 +57,7 @@ bool BfmeBoxF0::contains(const BfmePointF0 *point, Real radius) const
 	Real proj[2];
 	proj[0] = deltaY * m_axisY + deltaX * m_axisX;
 	proj[1] = deltaY * m_perpY + deltaX * m_perpX;
-	Real distSq = BfmeZeroRange;
+	Real distSq = 0.0f;
 	if (proj[0] < -m_extentX)
 	{
 		Real distAxis = proj[0] + m_extentX;
