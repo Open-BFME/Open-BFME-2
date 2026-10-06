@@ -65019,3 +65019,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva003EDD68@Rva0020DXXXElem@@QAE?AVRva003ED658@@XZ,,0x003EDD68,108,Code/GameEngine/Source/GameLogic/System/Rva0020DXXXRva003EDD68.cpp,matched,Elem range merge via ObjectCreationList sret unblocks 0x0020D86C
 ?rva00448280@Rva00448280@@QAE?AV?$StringBase@G@@XZ,,0x00448280,30,Code/GameEngine/Source/Common/Rva004482B7Finish.cpp,matched,sibling by-value accessor m_wide 0xF64 same frame as 0x4482B7
 ?rva0044829E@Rva004482B7@@QAE?AV?$StringBase@G@@XZ,,0x0044829E,25,Code/GameEngine/Source/Common/Rva004482B7Finish.cpp,matched,zero-index wrapper over rowed 0x4482B7 same frame
+?rva0028FBBE@Object@@QAEHXZ,,0x0028FBBE,90,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FBBE.cpp,matched,thiscall int return virtuals 0x14 0x118 offsets 0x250 0x5F1 sentinel list sum

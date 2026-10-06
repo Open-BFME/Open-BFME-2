@@ -13290,3 +13290,10 @@ FUN_00764551	0x00364551	1120	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va00BBB8D8 plu
 ?rva00541F72@Rva00541F72@@QAEXXZ	0x00541F72	90	blocked	needs 2 unclaimed callees 0x00541955 281B plus 0x00541AB0 281B t=1 model=muse-01
 ?rva0024A178@LANAPI@@UAEXABVUnicodeString@@ABUBfmeNetAddress@@0H@Z	0x0024A178	464	blocked	complex 464B 4-way chat switch needs donor first variant 497B with control-flow diffs t=15 model=muse-04
 ?rva0058219D@Rva0058219D@@QAEXXZ	0x0058219D	234	blocked	ADDRESS-NAMED g_Va009FE958 plus complex slot logic t=3 model=muse-04
+?Slave_Update@HTreeClass@@QAEXPBV1@ABVMatrix3D@@@Z	0x00160CB0	770	blocked	quaternion rebase math wall: donor tiny vs 770B SSE retail. Tried direct quat multiply plus translation transform with Scale flags then reduced temps then /O1. Best /O1 769B minus1 but EBP frame vs retail esp frame and 27 structural regions. Needs exact Matrix3D Quaternion formula and stack order t=25 model=muse-03
+?Rva000694A3Get@@YAHXZ	0x000694A3	1618	blocked	ADDRESS-NAMED g_Va00BBB8D8 escape hatch plus 1618B over wall t=1 model=muse-03
+?rva00091FBA@Rva00091FBA@@QAEXXZ	0x00091FBA	90	blocked	unrowed callee 0x68223 needs 0xE91CE 1254B wall beyond 1000B t=2 model=muse-03
+?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z	0x00268EB8	1710	blocked	ADDRESS-NAMED g_Va009FF0F8 plus unrowed callee 0x002FFFA3 t=5 model=muse-03
+?rva002E698B@Rva002E698B@@QAEXXZ	0x002E698B	173	blocked	unrowed callee 0x002E68EC itself needs 0x002E57C6 and 0x002E5EA5 t=5 model=muse-03
+?rva000918BC@Rva000918BC@@QAE_NXZ	0x000918BC	361	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString plus unrowed callee 0x0010694B t=2 model=muse-03
+?Rva0009133FGet@@YAXXZ	0x0009133F	478	blocked	ADDRESS-NAMED plus unrowed callee 0x006898D0 t=1 model=muse-03
