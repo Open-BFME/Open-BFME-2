@@ -40,7 +40,7 @@ class ThreadClass
 public:
 	ThreadClass(const char *name);
 	virtual ~ThreadClass();
-	void Execute(void);
+	virtual void Execute(void);
 	void Stop(void);
 	virtual void Thread_Function(void) = 0;
 
