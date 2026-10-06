@@ -983,10 +983,10 @@ char Rva012C4C24[] = "_CommSRPProcessRecvQueue: Error %d - closing connection\n"
 void Rva00815DA0( struct Rva00815DA0Comm *comm )
 {
 	int result;
-	int addressLength;
+	int sinlen;
 	int status;
 	char *payload;
-	unsigned char address[ 16 ];
+	unsigned char sin[ 16 ];
 	struct Rva00815DA0Record *record;
 
 	status = 0;
@@ -995,16 +995,16 @@ void Rva00815DA0( struct Rva00815DA0Comm *comm )
 		record = (struct Rva00815DA0Record *)( (char *)comm->m_buffer
 			+ comm->m_readOffset );
 		payload = (char *)record + 8;
-		addressLength = 16;
+		sinlen = 16;
 		result = Rva007FDA50( comm->m_socket, payload,
-			comm->m_receiveSize, 0, (char *)address, &addressLength );
+			comm->m_receiveSize, 0, (char *)sin, &sinlen );
 		if ( result > 0 )
 		{
 			record->m_length = result;
-			record->m_address = ( ( ( ( address[ 8 ] << 8 ) | address[ 9 ] )
-				<< 8 | address[ 10 ] ) << 8 ) | address[ 11 ];
+			record->m_address = ( ( ( ( sin[ 8 ] << 8 ) | sin[ 9 ] )
+				<< 8 | sin[ 10 ] ) << 8 ) | sin[ 11 ];
 			if ( record->m_type >= 0x10 && record->m_type <= 0x3F )
-				Rva00816020( comm, record, address );
+				Rva00816020( comm, record, sin );
 			else if ( record->m_type >= 0xC0 )
 				Rva00815FA0( comm, record );
 			else
