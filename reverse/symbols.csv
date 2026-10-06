@@ -13187,3 +13187,4 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ??0Rva00342A50@@QAE@PAVStateMachine@@@Z,0x00342A50,unrowed 0x6C AI-state ctor called from 0x3435FB; RETAIL REL32 at 0x0034363B
 ??0Rva00343042@@QAE@PAVStateMachine@@@Z,0x00343042,unrowed 0x58 AI-state ctor called from 0x343838; RETAIL REL32 at 0x00343877
 ??0Rva00342978@@QAE@PAVStateMachine@@@Z,0x00342978,unrowed 0x64 AI-state ctor called from 0x3438C7; RETAIL REL32 in 0x343A14
+??0Rva0034301B@@QAE@PAVStateMachine@@@Z,0x0034301B,unrowed 0x58 AI-state ctor called from 0x3444CE; RETAIL REL32 at 0x00344518
