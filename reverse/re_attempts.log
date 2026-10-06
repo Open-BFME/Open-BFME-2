@@ -12192,3 +12192,4 @@ FUN_0076a5bb	0x0036A5BB	417	blocked	ADDRESS-NAMED g_Va009FF0F8 use refused per p
 ?Rva003C3C0A@@YAXXZ	0x003C3C0A	619	blocked	ADDRESS-NAMED g_Va009FE16C g_Rva0107301CEmptyString g_Va00E02DE4 escape hatch refused t=2 model=muse-spark
 ?rva005F2A07@Rva005F2A07@@QAEXXZ	0x005F2A07	43	blocked	unresolved callee 0x005F258E has no row and needs ADDRESS-NAMED global t=5 model=muse-10
 ?rva0048CE3E@Rva0048CE3E@@QAEXXZ	0x0048CE3E	453	blocked	unresolved callee 0x0036AE51 has no row and is fleet-blocked t=5 model=muse-10
+?rva0028DB3C@Object@@QAEXXZ	0x0028DB3C	392	blocked	structural divergence 20 regions size+17 register/memory wall t=5 model=muse-10
