@@ -66208,3 +66208,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0057CD66@AptMapPreview@@QAEXXZ,,0x0057CD66,18,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewSetMapDescription.cpp,matched,AptMapPreview callees rowed caller 0x0057CDA1 neighbours AptMapPreview
 ?tail005E18D0@Rva005E18D0Forwarder@@QAEXXZ,,0x005E18D0,12,Code/GameEngine/Source/Common/Rva005E18B9.cpp,matched,tail forwarder to 0x005E18B9 if +0x24 set
 ?tail005E18DC@Rva005E18DCForwarder@@QAEXXZ,,0x005E18DC,14,Code/GameEngine/Source/Common/Rva005E18B9.cpp,matched,tail forwarder to m_0 vtable slot 0x18 if +0x24 set
+?rva005E2180@Rva005E2180@@QAEXXZ,,0x005E2180,15,Code/GameEngine/Source/Common/VslotSmallBodiesH.cpp,matched,jump target of forwarder 0x005E2226; calls vslot 7 on +0x08 if +0x20 >= 0

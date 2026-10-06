@@ -96,6 +96,32 @@ void Rva005E2171::rva005E2171(Int unused)
 	m_14 = true;
 }
 
+class Rva005E2180Target
+{
+public:
+	virtual void vslot00(); virtual void vslot01(); virtual void vslot02();
+	virtual void vslot03(); virtual void vslot04(); virtual void vslot05();
+	virtual void vslot06(); virtual void vslot07();
+};
+
+class Rva005E2180
+{
+public:
+	void rva005E2180();
+private:
+	char m_pad00[0x08];
+	Rva005E2180Target *m_08;
+	char m_pad0C[0x20 - 0x0C];
+	Int m_20;
+};
+
+void Rva005E2180::rva005E2180()
+{
+	if (m_20 >= 0)
+		m_08->vslot07();
+}
+
+
 // slots at VA 0x00C6E30C and 0x00C70B7C: the normalized sum of the +0x4C and
 // +0x3C angles (rowed normalizeAngle).
 class Rva00573E1A
