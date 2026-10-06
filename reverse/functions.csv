@@ -66368,3 +66368,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?xfer@WorkerAIUpdate@@MAEXPAVXfer@@@Z,,0x004AA1DB,453,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateXfer.cpp,matched,WorkerAIUpdate xfer: AIUpdateInterface base Version(1 2) three tasks docks machines TheAudio slot 88
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
 ?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
+?rva0008F32C@@YAXXZ,,0x0008F32C,69,Code/GameEngine/Source/Common/Rva0008F32CFactory.cpp,matched,dump range 2 EH factory via new honest names
