@@ -13,6 +13,8 @@ struct Rva002E0CD4Inner
 	char m_pad[8];
 	int m_8;
 	int m_C;
+	int m_10;
+	int m_14;
 };
 
 struct Rva002E0CD4
@@ -21,11 +23,21 @@ struct Rva002E0CD4
 	Rva002E0CD4Inner *m_40;
 	char m_pad2[0x260 - 0x44];
 	int m_260;
-	char m_pad3[0x294 - 0x264];
+	char m_pad3[0x290 - 0x264];
+	int m_290;
 	int m_294;
+	int rva002E0CAC() const;
 	int get() const;
 	int rva002E14DD() const;
 };
+
+// ?rva002E0CAC@Rva002E0CD4@@QBEHXZ @0x002E0CAC 40B.
+int Rva002E0CD4::rva002E0CAC() const
+{
+	int a = m_40->m_10 + m_290;
+	int b = m_40->m_14;
+	return *(a < b ? &a : &b);
+}
 
 int Rva002E0CD4::get() const
 {
@@ -41,3 +53,4 @@ int Rva002E0CD4::rva002E14DD() const
 {
 	return get() - m_40->m_8;
 }
+
