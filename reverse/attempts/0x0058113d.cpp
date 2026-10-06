@@ -1,5 +1,5 @@
 // ?rva0058113D@Rva0058113D@@QAEPAVLANGameInfo@@I@Z
-// partial score=0.93 date=2026-10-06
+// partial score=0.97 date=2026-10-06
 // cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0058113D@Rva0058113D@@QAEPAVLANGameInfo@@I@Z @0x0058113D 87B
@@ -43,8 +43,8 @@ class Rva0058113D
 public:
 	LANGameInfo *rva0058113D(unsigned int index);
 private:
-	LANGameInfo **volatile m_begin;
-	LANGameInfo **volatile m_end;
+	LANGameInfo **m_begin;
+	LANGameInfo **m_end;
 	LANGameInfo **m_alloc;
 	char m_pad[9];
 	bool m_sorted;
