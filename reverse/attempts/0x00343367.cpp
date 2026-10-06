@@ -1,4 +1,6 @@
 // ??0Rva00343367@@QAE@PAVObject@@HVAsciiString@@HHH@Z
+// partial score=0.9892 date=2026-10-06
+// ??0Rva00343367@@QAE@PAVObject@@HVAsciiString@@HHH@Z
 // partial score=0.978 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD /EHsc
 // class-gate: allow AsciiString 4-byte trivial view to pass VAsciiString by value to rowed base 0x004D79E1 with no copy-ctor call like the base TU's own view

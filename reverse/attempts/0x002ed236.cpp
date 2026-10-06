@@ -1,4 +1,6 @@
 // ?rva002ED236@Pathfinder@@QAEHPAVRva0028B984ByteField@@UTwoFloats@@M@Z
+// partial score=0.98 date=2026-10-06
+// ?rva002ED236@Pathfinder@@QAEHPAVRva0028B984ByteField@@UTwoFloats@@M@Z
 // partial score=0.98 date=2026-10-05
 // cl: /O1 /MD /arch:SSE
 // ?rva002ED236@Pathfinder@@QAEHPAVRva0028B984ByteField@@UTwoFloats@@M@Z
