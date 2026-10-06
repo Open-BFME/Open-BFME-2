@@ -62,6 +62,24 @@ enum ParticleSystemID
 
 typedef _STL::vector<ParticleSystemID, _STL::allocator<ParticleSystemID> > ParticleSystemIDVec;
 
+namespace _STL {
+// Declared-only explicit specializations: keep the calls external so this TU
+// emits no COMDAT copy of its own (the kept retail/first copies link).
+// throw() keeps retail's nothrow analysis (no extra EH state in the ctor).
+template <>
+void allocator<ParticleSystemID>::deallocate(
+	allocator<ParticleSystemID>::pointer p,
+	allocator<ParticleSystemID>::size_type n) const throw();
+template <>
+void _STLP_alloc_proxy<ParticleSystemID *, ParticleSystemID, allocator<ParticleSystemID> >::deallocate(
+	ParticleSystemID *p, unsigned n) throw();
+template <>
+vector<ParticleSystemID, allocator<ParticleSystemID> >::iterator
+vector<ParticleSystemID, allocator<ParticleSystemID> >::erase(
+	vector<ParticleSystemID, allocator<ParticleSystemID> >::iterator first,
+	vector<ParticleSystemID, allocator<ParticleSystemID> >::iterator last) throw();
+}
+
 enum BodyDamageType
 {
 	BODY_PRISTINE = 0,
