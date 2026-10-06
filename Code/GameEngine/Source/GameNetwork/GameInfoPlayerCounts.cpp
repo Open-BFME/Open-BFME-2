@@ -1,4 +1,5 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /O1 /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// stlport
 
 // GameInfo player-count file-unit plus the two GameSlot predicates the
 // counts call through. BFME1 GameNetwork/GameInfo.cpp donor shapes, with two
@@ -21,6 +22,7 @@ typedef int Int;
 
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include <string>
 
 enum { MAX_SLOTS = 8 };
 
@@ -139,17 +141,36 @@ public:
 	bool decodeHero(unsigned char v);
 	void rva003FF1A7(int v);
 	bool isOpen() const { return m_state == SLOT_OPEN; }
+	Int getState() const { return m_state; }
+	bool isAccepted() const { return m_isAccepted; }
+	bool hasMap() const { return m_hasMap; }
+	Int getColor() const { return m_color; }
+	Int getStartPos() const { return m_startPos; }
 	Int getPlayerTemplate() const { return m_playerTemplate; }
 	Int getTeamNumber() const { return m_teamNumber; }
+	const UnicodeString &getName() const { return m_name; }
+	Int rva20() const { return m_20; }
+	Int rva40() const { return m_40; }
 
 private:
 	Int m_state;                    // +0x04
-	char m_pad08[0x10];             // +0x08
+	bool m_isAccepted;              // +0x08
+	bool m_hasMap;                  // +0x09
+	bool m_isMuted;                 // +0x0A
+	Int m_color;                    // +0x0C
+	Int m_startPos;                 // +0x10
+	Int m_14;                       // +0x14
 	Int m_playerTemplate;           // +0x18
 	Int m_teamNumber;               // +0x1C
-	char m_pad20[0x18];             // +0x20..+0x37
+	Int m_20;                       // +0x20
+	Int m_origTriple[3];            // +0x24..+0x2F
+	UnicodeString m_name;           // +0x30
+	AsciiString m_34;               // +0x34
+public:
 	BfmeNetAddress m_addr38;        // +0x38
-	char m_pad40[0x10];             // +0x40
+private:
+	Int m_40;                       // +0x40
+	char m_pad44[0x0C];             // +0x44
 public:
 	Int m_50;                       // +0x50
 	Int m_54;                       // +0x54
@@ -206,14 +227,34 @@ public:
 	void setSlot(Int slotNum, GameSlot slotInfo);
 	bool rva003FF457() const;
 	bool isHeroDataReadyForSlot(unsigned short slotNum) const;
+	AsciiString getMap() const;
+	unsigned int getMapCRC() const { return m_mapCRC; }
+	unsigned int getMapSize() const { return m_mapSize; }
+	Int getMapContentsMask() const { return m_mapMask; }
+	Int getSeed() const { return m_seed; }
+	Int rva58() const { return m_58; }
+	Int rva5C() const { return m_5c; }
+	Int rva88() const { return m_88; }
 private:
 	char m_pad[0x14];
 	GameSlot *m_slot[MAX_SLOTS];    // +0x18
 	char m_pad38[0x08];
 	AsciiString m_mapName;          // +0x40
-	char m_pad44[0x18];
+	unsigned int m_mapCRC;          // +0x44
+	unsigned int m_mapSize;         // +0x48
+	Int m_mapMask;                  // +0x4C
+	Int m_seed;                     // +0x50
+	Int m_54;                       // +0x54
+public:
+	Int m_58;                       // +0x58
 	Int m_5c;                       // +0x5C
+	Int m_60[10];                   // +0x60, the "GR=" list
+	Int m_88;                       // +0x88, the "GSID=" value
 };
+
+AsciiString __cdecl Rva00400783Get(const AsciiString &path, bool flag);
+void __cdecl Rva0055A087Format(int *vals, AsciiString *out);
+_STL::string WideCharStringToMultiByte(const unsigned short *orig);
 
 // ?isOccupied@GameSlot@@QBE_NXZ
 bool GameSlot::isOccupied() const
@@ -532,4 +573,98 @@ void GameInfo::adjustSlotsForMap()
 			}
 		}
 	}
+}
+
+// StringBase<char>::concat(char) expanded in place, as in the sibling
+// GameInfoSetMap.cpp: the byte goes to a stack slot and into concat(text, 1)
+// at 0x000369A0.
+static inline void concatChar(AsciiString &s, char c)
+{
+	((StringBase<char> *)&s)->concat(&c, 1);
+}
+
+// StringBase<char>::str(): an empty string reads the function-local
+// TheNullChr (0x00BBAC1C) rather than the shared header's "" literal.
+static inline const char *baseStr(const AsciiString &s)
+{
+	return ((const StringBase<char> *)&s)->str();
+}
+
+// ?GameInfoToAsciiString@@YA?AVAsciiString@@PBVGameInfo@@_N@Z @0x00400AF8
+// (827B): BFME1/ZH GameInfoToAsciiString, the lobby's slot-list string.
+// BFME2 rewrites the header ("M=%3.3x%s;MC=%X;MS=%d;SD=%d;GSID=%X;GT=%d;SI=%d;"
+// then a "GR=" list of ten ints from +0x60 through 0x0055A087), drops the
+// name-length budget, appends +0x20, +0x40 and the hero byte (0x003FF16F) to
+// the slot records, adds a fourth AI letter 'B' for state 5 and takes a flag
+// that blanks the human names. The flag's callers pass 1 or a register.
+// Retail's argument scheduling separates getters from plain member reads:
+// getter results are loaded before the hero-byte call (and the header's
+// before the str() branch), the connection record's ip/port after it.
+AsciiString GameInfoToAsciiString(const GameInfo *game, bool withNames)
+{
+	if (!game)
+		return AsciiString::TheEmptyString;
+
+	AsciiString mapName = Rva00400783Get(game->getMap(), false);
+
+	AsciiString optionsString;
+	optionsString.format("M=%3.3x%s;MC=%X;MS=%d;SD=%d;GSID=%X;GT=%d;SI=%d;",
+		game->getMapContentsMask(), baseStr(mapName), game->getMapCRC(), game->getMapSize(),
+		game->getSeed(), game->rva88(), game->rva5C(), game->rva58());
+
+	{
+		AsciiString rules("GR=");
+		Rva0055A087Format(const_cast<Int *>(game->m_60), &rules);
+		rules.concat(";");
+		optionsString.concat(rules);
+	}
+
+	concatChar(optionsString, 'S');
+	concatChar(optionsString, '=');
+	for (Int i = 0; i < MAX_SLOTS; ++i)
+	{
+		const GameSlot *slot = game->getConstSlot(i);
+
+		AsciiString str;
+		if (slot && slot->isHuman())
+		{
+			AsciiString name = WideCharStringToMultiByte(slot->getName().str()).c_str();
+			str.format("H%s,%X,%d,%c%c,%d,%d,%d,%d,%d,%d,%d:",
+				withNames ? baseStr(name) : "",
+				slot->m_addr38.m_ip, slot->m_addr38.m_port,
+				slot->isAccepted() ? 'T' : 'F',
+				slot->hasMap() ? 'T' : 'F',
+				slot->getColor(), slot->getPlayerTemplate(),
+				slot->getStartPos(), slot->getTeamNumber(),
+				slot->rva20(), slot->rva40(), slot->encodeHero());
+		}
+		else if (slot && slot->isAI())
+		{
+			char c;
+			if (slot->getState() == SLOT_EASY_AI)
+				c = 'E';
+			else if (slot->getState() == SLOT_MED_AI)
+				c = 'M';
+			else if (slot->getState() == SLOT_BRUTAL_AI)
+				c = 'H';
+			else
+				c = 'B';
+			str.format("C%c,%d,%d,%d,%d,%d,%d:", c,
+				slot->getColor(), slot->getPlayerTemplate(),
+				slot->getStartPos(), slot->getTeamNumber(),
+				slot->rva20(), slot->encodeHero());
+		}
+		else if (slot && slot->getState() == SLOT_OPEN)
+		{
+			str = "O:";
+		}
+		else
+		{
+			str = "X:";
+		}
+		optionsString.concat(str);
+	}
+	concatChar(optionsString, ';');
+
+	return optionsString;
 }
