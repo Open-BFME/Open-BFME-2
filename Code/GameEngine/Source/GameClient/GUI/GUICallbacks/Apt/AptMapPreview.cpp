@@ -49,16 +49,31 @@ struct Rva00DFE1C8Host
 
 extern Rva00DFE1C8Host *g_00DFE1C8;
 
+// The campaign manager (0x00E02D6C): the index of a campaign in its +0x14
+// vector, -1 when absent (0x003B8BC8, unrowed).
+class Rva00E02D6C
+{
+public:
+	Int rva003B8BC8(void *campaign);	// 0x003B8BC8
+};
+
+extern Rva00E02D6C *TheCampaignManager;
+
+class GameWindow;
+
 class AptMapPreview
 {
 public:
 	Bool AllowsStartInRegion(Int region);
 	void SelectCampaign(Int campaign);
 	void UpdateStrategicScenarioDesc();	// 0x0057C99E
+	Int rva0057C621();
 
 private:
 	unsigned char m_pad00[0x4];
-	unsigned char m_field04[0x68 - 0x4];	// +0x04, handed to the campaign owner
+	unsigned char m_field04[0x50 - 0x4];	// +0x04, handed to the campaign owner
+	GameWindow *m_strategicScenarioComboBox;	// +0x50
+	unsigned char m_pad54[0x68 - 0x54];
 	AptLivingWorldWindow *m_livingWorldWindow;	// +0x68
 };
 
@@ -92,4 +107,15 @@ void AptMapPreview::SelectCampaign(Int campaign)
 		}
 	}
 	UpdateStrategicScenarioDesc();
+}
+
+// AptMapPreview::rva0057C621, retail 0x0057C621: the selected campaign's
+// index in the campaign manager, -1 without the strategic scenario combo
+// box (+0x50, as GetStrategicScenarioComboBoxSelectedCampaign 0x0057C649
+// reads it) or a selected campaign.
+Int AptMapPreview::rva0057C621()
+{
+	if (m_strategicScenarioComboBox != 0 && m_livingWorldWindow != 0 && m_livingWorldWindow->m_info != 0)
+		return TheCampaignManager->rva003B8BC8(m_livingWorldWindow->m_info);
+	return -1;
 }
