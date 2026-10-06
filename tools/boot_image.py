@@ -21,18 +21,28 @@ This tool builds the image that does run, so startup can be tested:
      link needs no /FORCE and runs at any base.
   3. Check: the linked image is compared to retail field by field: every
      non-relocated byte equal, every relocated field pointing at the moved
-     copy of retail's target, every IAT slot the same (dll, name).
+     copy of retail's target, every IAT slot the same (dll, name), every .text
+     piece at one offset from retail, base relocations exactly those fields.
+  4. Overlay (`--overlay SET`): authored units, the tree's compiled function
+     sections, replace the retail pieces at their RVAs (see "overlay" below);
+     the check holds them to the same rule and counts them apart, and the
+     report gives their share of retail .text.
 
 The scaffold is retail bytes. It is never progress: no row is credited here.
+The overlay's authored share is what the image runs of the tree's own code.
 
   python3 tools/boot_image.py relocs [--validate]
-  python3 tools/boot_image.py link [--base 0x10000000] [--out build/boot]
+  python3 tools/boot_image.py link [--base 0x10000000] [--out build/boot] [--tag boot]
+  python3 tools/boot_image.py link --overlay Code/Libraries/Source/profile/   # a tree path prefix
+  python3 tools/boot_image.py link --overlay closed [--status build/link_cycle/link_status.csv]
+  python3 tools/boot_image.py link --overlay shift-safe | --overlay rows:FILE
 """
 import argparse
 import bisect
 import collections
 import csv
 import json
+import re
 import struct
 import subprocess
 import sys
@@ -53,6 +63,8 @@ RELOC_SECTION = b"        "             # retail's .reloc, renamed by the wrappe
 DIR32, DIR32NB = 6, 7
 FUNCLETS = 0x75B460                     # .text$x, $yc, $yd: EH funclets and initializers
 ALIGN_4096 = 0x00D00000
+ALIGN_1 = 0x00100000
+CODE = 0x60000020
 NRELOC_OVFL = 0x01000000
 FLAGS = {
     ".text": 0x60000020 | ALIGN_4096,
@@ -317,35 +329,44 @@ def export_fields(r):
 
 
 class Piece:
-    __slots__ = ("name", "start", "size", "flags", "relocs", "label", "pad")
+    __slots__ = ("name", "start", "size", "flags", "relocs", "label", "pad", "unit", "public")
 
-    def __init__(self, name, start, size, flags):
+    def __init__(self, name, start, size, flags, unit=None):
         self.name, self.start, self.size, self.flags, self.relocs = name, start, size, flags, []
-        self.label = None
+        self.label, self.unit = None, unit
+        self.public = unit.label if unit else f"_bootp_{start:08X}"
         # a page-aligned piece cut from mid-section keeps retail's address mod 4096
         # (movdqa on a .data table faults when a carve shifts it by 8)
         self.pad = start & 0xFFF if flags & 0x00F00000 == ALIGN_4096 else 0
 
 
-def plan(r, sites):
+def plan(r, sites, units=()):
     """(pieces sorted by start, problems). Each piece carries its relocations
     [(site, type, target)]; target = ("piece", Piece, rva) | ("imp", (dll, name,
-    ordinal)) | ("base", offset)."""
+    ordinal)) | ("base", offset). Overlay units cut .text into pieces in retail
+    order, each 1-byte aligned so it keeps its retail offset."""
     pieces = []
     carve = crt_pieces(r)
     exp = r.pe.OPTIONAL_HEADER.DATA_DIRECTORY[0]
     carve[".edata"] = (exp.VirtualAddress, exp.Size)
+    by_label = {u.label: u for u in units}
     for sec, (start, size, _) in r.secs.items():
         coff = ".rsrc$01" if sec == ".rsrc" else sec
-        cuts = sorted((s, sz, n) for n, (s, sz) in carve.items() if start <= s < start + size)
+        cuts = sorted([(s, sz, n) for n, (s, sz) in carve.items() if start <= s < start + size]
+                      + [(u.rva, u.size, u.label) for u in units if sec == ".text"])
         cur = start
         for s, sz, n in cuts + [(start + size, 0, None)]:
             if s > cur:
                 pieces.append(Piece(coff, cur, s - cur, FLAGS[coff]))
-            if n:
+            if n in by_label:
+                pieces.append(Piece(".text", s, sz, CODE | ALIGN_1, by_label[n]))
+            elif n:
                 pieces.append(Piece(n, s, sz, FLAGS[".CRT" if n.startswith(".CRT") else n]))
             cur = max(cur, s + sz)
     pieces.sort(key=lambda p: p.start)
+    if units:
+        for k, p in enumerate(x for x in pieces if x.name == ".text"):
+            p.name, p.flags, p.pad = f".text$p{k:06d}", CODE | (ALIGN_4096 if k == 0 else ALIGN_1), 0
     starts = [p.start for p in pieces]
 
     def owner(rva, end_ok=False):
@@ -391,58 +412,94 @@ def coff_name(name, strings):
     return struct.pack("<II", 0, o)
 
 
-def write_scaffold(r, pieces, path):
-    """One COFF object: one section per piece, DIR32/DIR32NB relocations against
-    the owning piece's label (addend in place), __imp_ and ___ImageBase
-    externals, `_boot_entry` and a `_bootp_<rva>` public at each piece start.
-    Returns the import symbols it references."""
-    syms, index = [], {}
+def section_name(name, strings):
+    """A COFF section name field: longer than 8 bytes is `/<string table offset>`."""
+    raw = name.encode("latin-1")
+    if len(raw) <= 8:
+        return raw.ljust(8, b"\0")
+    o = len(strings)
+    strings.extend(raw + b"\0")
+    return f"/{o}".encode().ljust(8, b"\0")
 
-    def sym(name, sec, value, cls):
-        if name not in index:
-            index[name] = len(syms)
-            syms.append((name, sec, value, cls))
-        return index[name]
-    for k, p in enumerate(pieces, 1):
-        p.label = sym(f"_bootp_{p.start:08X}", k, p.pad, 2)
-    entry = next(k for k, p in enumerate(pieces, 1) if p.start <= r.entry < p.start + p.size)
-    sym("_boot_entry", entry, r.entry - pieces[entry - 1].start + pieces[entry - 1].pad, 2)
-    bodies, relocs = [], []
-    for p in pieces:
-        s0, _, raw = next(v for v in r.secs.values() if v[0] <= p.start < v[0] + v[1])
-        body = bytearray(p.pad) + bytearray(raw[p.start - s0:p.start - s0 + p.size])
-        rl = bytearray()
-        for site, kind, tgt in p.relocs:
-            if tgt[0] == "piece":
-                si, add = tgt[1].label, tgt[2] - tgt[1].start
-            elif tgt[0] == "imp":
-                si, add = sym("__imp_" + import_symbol(tgt[1]), 0, 0, 2), 0
-            else:
-                si, add = sym("___ImageBase", 0, 0, 2), tgt[1]
-            struct.pack_into("<I", body, site - p.start + p.pad, add & 0xFFFFFFFF)
-            rl += struct.pack("<IIH", site - p.start + p.pad, si, kind)
-        bodies.append(bytes(body))
-        relocs.append((len(p.relocs), bytes(rl)))
+
+def write_coff(path, sections, syms):
+    """sections [(name, flags, body, [(offset, symbol index, type)])], syms
+    [(name, section number (0 undefined, -1 absolute), value, storage class)]."""
     strings = bytearray(4)
-    hdr_end = 20 + 40 * len(pieces)
+    hdr_end = 20 + 40 * len(sections)
     shdr, blob = bytearray(), bytearray()
-    for p, body, (n, rl) in zip(pieces, bodies, relocs):
+    for name, flags, body, rels in sections:
         ptr = hdr_end + len(blob) if body else 0
         blob += body
+        n = len(rels)
         rptr = hdr_end + len(blob) if n else 0
-        flags, count = p.flags, n
+        count = n
         if n >= 0xFFFF:                       # IMAGE_SCN_LNK_NRELOC_OVFL: the first entry holds the count
             blob += struct.pack("<IIH", n + 1, 0, 0)
             flags, count = flags | NRELOC_OVFL, 0xFFFF
-        blob += rl
-        shdr += coff_name(p.name, strings) + struct.pack("<IIIIIIHHI", 0, 0, len(body), ptr, rptr, 0, count, 0, flags)
+        blob += b"".join(struct.pack("<IIH", *x) for x in rels)
+        shdr += section_name(name, strings) + struct.pack("<IIIIIIHHI", 0, 0, len(body), ptr, rptr, 0, count, 0,
+                                                          flags)
     symtab = bytearray()
     for name, sec, value, cls in syms:
         symtab += coff_name(name, strings) + struct.pack("<IhHBB", value, sec, 0, cls, 0)
     strings[0:4] = struct.pack("<I", len(strings))
-    path.write_bytes(struct.pack("<HHIIIHH", 0x14C, len(pieces), 0, hdr_end + len(blob), len(syms), 0, 0)
+    path.write_bytes(struct.pack("<HHIIIHH", 0x14C, len(sections), 0, hdr_end + len(blob), len(syms), 0, 0)
                      + shdr + blob + symtab + strings)
-    return sorted(n[len("__imp_"):] for n in index if n.startswith("__imp_"))
+
+
+class Symbols(list):
+    """A COFF symbol table under construction; one entry per name."""
+    def __init__(self):
+        super().__init__()
+        self.index = {}
+
+    def add(self, name, sec=0, value=0, cls=2):
+        if name not in self.index:
+            self.index[name] = len(self)
+            self.append((name, sec, value, cls))
+        return self.index[name]
+
+
+def write_scaffold(r, pieces, path, names=None):
+    """One COFF object: one section per retail piece, DIR32/DIR32NB relocations
+    against the owning piece's label (addend in place), __imp_ and ___ImageBase
+    externals, `_boot_entry` and a `_bootp_<rva>` public at each piece start.
+    Overlay pieces are not in it: a reference into one names the authored
+    definition, and every name in `names` {name: rva} outside the overlay is
+    defined here at its retail address. Returns the import symbols it references."""
+    syms = Symbols()
+    own = [p for p in pieces if p.unit is None]
+    for k, p in enumerate(own, 1):
+        p.label = syms.add(p.public, k, p.pad)
+    starts = [p.start for p in pieces]
+    for name, rva in sorted((names or {}).items()):
+        p = pieces[bisect.bisect_right(starts, rva) - 1]
+        if p.unit is None and name not in ABSOLUTE:
+            syms.add(name, syms[p.label][1], rva - p.start + p.pad)
+    for name in sorted(set(names or ()) & set(ABSOLUTE)):
+        syms.add(name, -1, ABSOLUTE[name])
+    entry = next(p for p in own if p.start <= r.entry < p.start + p.size)
+    syms.add("_boot_entry", syms[entry.label][1], r.entry - entry.start + entry.pad)
+    sections = []
+    for p in own:
+        s0, _, raw = next(v for v in r.secs.values() if v[0] <= p.start < v[0] + v[1])
+        body = bytearray(p.pad) + bytearray(raw[p.start - s0:p.start - s0 + p.size])
+        rl = []
+        for site, kind, tgt in p.relocs:
+            if tgt[0] == "piece" and tgt[1].unit is not None:
+                si, add = syms.add(unit_public(tgt[1].unit, names)), tgt[2] - tgt[1].start
+            elif tgt[0] == "piece":
+                si, add = tgt[1].label, tgt[2] - tgt[1].start
+            elif tgt[0] == "imp":
+                si, add = syms.add("__imp_" + import_symbol(tgt[1])), 0
+            else:
+                si, add = syms.add("___ImageBase"), tgt[1]
+            struct.pack_into("<I", body, site - p.start + p.pad, add & 0xFFFFFFFF)
+            rl.append((site - p.start + p.pad, si, kind))
+        sections.append((p.name, p.flags, bytes(body), rl))
+    write_coff(path, sections, syms)
+    return sorted(n[len("__imp_"):] for n in syms.index if n.startswith("__imp_"))
 
 
 def write_import_lib(entries, path):
@@ -491,6 +548,375 @@ def descriptor_libs(dlls, out):
     return libs
 
 
+# ---------------------------------------------------------------- overlay
+# `link --overlay SET` puts authored code in the image. A unit is one COMDAT
+# function section of a tree object (for an EH funclet, the slice at its label),
+# admitted to replace retail [rva, rva + size) only when, against retail:
+#   - every byte outside its relocation fields is equal;
+#   - every relocation resolves to retail's target at that site: a name with a
+#     retail identity (ledger row or symbols.csv pin) or an authored definition
+#     must denote that address; an import must be the same (dll, name); a target
+#     in its own section the same offset; any other target (TU statics,
+#     literals, EH thunks) binds to retail's address, with the object's bytes
+#     for it equal to retail's there when the object defines it;
+#   - every retail relocation site inside it is one of its DIR32 fields, and in
+#     pages retail's table covers, every DIR32 field is a retail site.
+# .text is cut in retail order (`.text$pNNNNNN`, 1-byte aligned, so every piece
+# keeps its retail offset and the rel32 operands retail never relocated stay
+# right). Units go to their own object with their compiled bytes and
+# relocations; names resolve to definitions the scaffold makes at retail
+# addresses, and scaffold references into a unit to the authored definition.
+# A name is used only while it denotes one address; otherwise the reference
+# binds to an address label (`_boota_<rva>`). Refusals iterate to a fixpoint:
+# a refused unit no longer defines names the others resolved to.
+ABSOLUTE = {"__except_list": 0}         # exsup.asm: an FS: offset, not an address (as link_cycle.py)
+REL32, EXTERNAL, WEAK = 0x14, 2, 105
+COMDAT = 0x1000
+LINK_STATUS = ROOT / "build" / "link_cycle" / "link_status.csv"
+SETS = {   # link_cycle.py's certification (link_status.csv columns), real rows only
+    "closed": lambda s: s["placed"] == "1" and s["closed_strict"] == "1",
+    "shift-safe": lambda s: s["placed"] == "1" and s["self_strict"] == "1" and s["hardcoded"] == "0",
+}
+
+
+class Unit:
+    __slots__ = ("rows", "obj", "path", "sec", "off", "size", "rva", "body", "relocs", "folded", "label", "why",
+                 "bind")
+
+    def __init__(self, rows, obj, path, sec, off, size, rva):
+        self.rows, self.obj, self.path, self.sec, self.off, self.size, self.rva = rows, obj, path, sec, off, size, rva
+        self.body, self.relocs, self.folded, self.why, self.bind = b"", [], [], None, collections.Counter()
+        self.label = f"_bootu_{rva:08X}"
+
+
+def ledger_rows():
+    with open(ROOT / "reverse/functions.csv", newline="", encoding="utf-8") as f:
+        return [r for r in csv.DictReader(f) if r.get("target_rva")]
+
+
+def overlay_rows(specs, status=LINK_STATUS):
+    """Matched ledger rows a list of specs names: `closed` / `shift-safe` (link_cycle
+    certification in link_status.csv), `rows:FILE` (lines `0xRVA [name]`), `rva:0xA,0xB` or a
+    source path prefix (`Code/Libraries/Source/profile/`)."""
+    by_key = {(int(r["target_rva"], 16), r["name"]): r for r in ledger_rows() if r["status"] == "matched"}
+    out = {}
+    for spec in specs:
+        if spec in SETS:
+            with open(status, newline="", encoding="utf-8") as f:
+                for s in csv.DictReader(f):
+                    key = (int(s["retail_rva"], 16), s["name"])
+                    if s["kind"] == "real" and SETS[spec](s) and key in by_key:
+                        out[key] = by_key[key]
+        elif spec.startswith(("rows:", "rva:")):
+            want = collections.defaultdict(set)
+            lines = spec[4:].split(",") if spec.startswith("rva:") else \
+                Path(spec[5:]).read_text(encoding="utf-8").splitlines()
+            for line in lines:
+                f = line.split(None, 1)
+                if f and not f[0].startswith("#"):
+                    want[int(f[0], 16)].add(f[1].strip() if len(f) > 1 else None)
+            out.update({k: r for k, r in by_key.items()
+                        if k[0] in want and (None in want[k[0]] or k[1] in want[k[0]])})
+        else:
+            prefix = spec.replace("\\", "/")
+            if not (ROOT / prefix).exists():
+                raise SystemExit(f"boot_image: overlay set {spec!r} is not {'/'.join(SETS)}, rows:FILE, rva:LIST "
+                                 "or a tree path")
+            out.update({k: r for k, r in by_key.items() if r["source"].startswith(prefix)})
+    return [out[k] for k in sorted(out)]
+
+
+def funclet_label(r, o, rva, size):
+    """A funclet row's static `$L` label in a .text$x section whose bytes equal
+    retail's outside relocation fields (an edit to the TU renumbers the label)."""
+    secs, syms, data = o
+    tstart, _, text = r.secs[".text"]
+    want = text[rva - tstart:rva - tstart + size]
+    for y in syms.values():
+        if y.name.startswith("$L") and 0 < y.sec <= len(secs) and secs[y.sec - 1].name == ".text$x":
+            s = secs[y.sec - 1]
+            if y.value + size <= s.size:
+                got = data[s.ptr + y.value:s.ptr + y.value + size]
+                masked = {k for off, _, _ in s.relocs for k in range(off - y.value, off - y.value + 4)}
+                if all(got[k] == want[k] or k in masked for k in range(size)):
+                    return y
+    return None
+
+
+def find_units(r, rows, objs):
+    """(units sorted by RVA, refusals [(row, why)]): one unit per object section
+    (COMDAT) or funclet slice holding the rows."""
+    tstart, tsize, _ = r.secs[".text"]
+    units, refused = {}, []
+    for row in rows:
+        rva, size = int(row["target_rva"], 16), int(row["target_size"] or 0)
+        try:
+            p = build.row_object(row)
+        except SystemExit:
+            p = None
+        o = objs.get(p) if p else None
+        if o is None:
+            refused.append((row, "no-object"))
+            continue
+        secs, syms, _ = o
+        name = (re.search(r"(?:^|;)object-symbol=([^;]+)", row.get("notes", "")) or [None, row["name"]])[1]
+        y = next((y for y in syms.values() if y.name == name and 0 < y.sec <= len(secs)), None)
+        if y is None and "gen-funclet" in row.get("notes", ""):
+            y = funclet_label(r, o, rva, size)
+        if y is None:
+            refused.append((row, "symbol-not-in-object"))
+            continue
+        s = secs[y.sec - 1]
+        if not s.name.startswith(".text") or not size:
+            refused.append((row, "not-code"))
+            continue
+        # a function's COMDAT is the unit; funclets share an associative .text$x COMDAT, one slice each
+        whole = s.flags & COMDAT and y.value == 0 and not s.name.startswith(".text$x")
+        off, n = (0, s.size) if whole else (y.value, size)
+        start = rva - (y.value - off)
+        if not (tstart <= start and start + n <= tstart + tsize):
+            refused.append((row, "outside-text"))
+            continue
+        # one compiled body may be several retail copies (one name at several RVAs): a unit each,
+        # and the name, denoting several addresses, binds by address
+        key = (str(p), y.sec, off, start)
+        if key not in units:
+            units[key] = Unit([], o, str(p), y.sec, off, n, start)
+        units[key].rows.append(row)
+    return sorted(units.values(), key=lambda u: (u.rva, -u.size, u.rows[0]["name"])), refused
+
+
+def identities(r):
+    """{name: RVAs}: ledger rows, data_ledger.csv names and symbols.csv pins. A pin
+    is an RVA (code pins must be) unless it lies past the image, then a VA:
+    retail's data VAs start at 0xBBA000, beyond SizeOfImage, so the two
+    spellings cannot be confused."""
+    out = collections.defaultdict(set)
+    for row in ledger_rows():
+        out[row["name"]].add(int(row["target_rva"], 16))
+    with open(ROOT / "reverse/data_ledger.csv", newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            a = int(row["address"], 16)
+            if row["kind"] != "import" and row["name"] and 0 < a < r.size_of_image:
+                out[row["name"]].add(a)
+    with open(ROOT / "reverse/symbols.csv", newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            if row["address"].startswith("0x"):
+                a = int(row["address"], 16)
+                a = a if a < r.size_of_image else a - RETAIL_BASE
+                if 0 < a < r.size_of_image:
+                    out[row["name"]].add(a)
+    return out
+
+
+def import_entry_name(sym):
+    """Retail's import name for an `__imp_` reference (a C name loses `_` and stdcall @N)."""
+    rest = sym[len("__imp_"):]
+    return rest if rest.startswith("?") else re.sub(r"@\d+$", "", rest[1:] if rest.startswith("_") else rest)
+
+
+def object_datum(o, sec, q):
+    """(start offset, bytes, masked offsets) of the object datum holding section
+    offset q: from the last symbol at or before q to the next one or the section end."""
+    secs, syms, data = o
+    s = secs[sec - 1]
+    offs = section_symbols(o)[1].get(sec, [0])
+    i = bisect.bisect_right(offs, q)
+    lo = offs[i - 1]
+    hi = min(offs[i] if i < len(offs) else s.size, s.size, lo + 0x1000)
+    raw = data[s.ptr + lo:s.ptr + hi] if s.ptr else bytes(hi - lo)
+    masked = {k for off, _, _ in s.relocs if lo - 4 < off < hi for k in range(off - lo, off - lo + 4)}
+    return lo, raw, masked
+
+
+_SECTION_SYMBOLS = {}
+
+
+def section_symbols(o):
+    """({section: [(external name, value)]}, {section: sorted symbol offsets incl. 0}) of object o."""
+    key = id(o)
+    if key not in _SECTION_SYMBOLS:
+        secs, syms, _ = o
+        ext, offs = collections.defaultdict(list), collections.defaultdict(set)
+        for y in syms.values():
+            if 0 < y.sec <= len(secs):
+                offs[y.sec].add(y.value)
+                if y.cls == EXTERNAL:
+                    ext[y.sec].append((y.name, y.value))
+        _SECTION_SYMBOLS[key] = (o, dict(ext), {k: sorted(v | {0}) for k, v in offs.items()})
+    return _SECTION_SYMBOLS[key][1:]
+
+
+def bind_unit(u, r, ctx):
+    """Check u against retail and bind its relocations [(offset, type, name)];
+    returns None, or why it is refused."""
+    secs, syms, data = u.obj
+    s = secs[u.sec - 1]
+    tstart, _, text = r.secs[".text"]
+    body = bytearray(data[s.ptr + u.off:s.ptr + u.off + u.size])
+    want = text[u.rva - tstart:u.rva - tstart + u.size]
+    masks, relocs, bind, need = set(), [], collections.Counter(), {}
+    for off, si, kind in s.relocs:
+        o = off - u.off
+        if o + 4 <= 0 or o >= u.size:
+            continue
+        if o < 0 or o + 4 > u.size:
+            return "reloc-straddles-extent"
+        if kind not in (DIR32, REL32):
+            return f"reloc-type-{kind:#x}"
+        y = syms[si]
+        add = struct.unpack_from("<i", body, o)[0]
+        masks.update(range(o, o + 4))
+        if kind == DIR32:
+            v = struct.unpack_from("<I", want, o)[0]
+            if y.sec == 0 and y.name in ABSOLUTE:
+                if v != (ABSOLUTE[y.name] + add) & 0xFFFFFFFF:
+                    return f"absolute-differs:{y.name}"
+                relocs.append((o, kind, y.name))
+                need[y.name] = ABSOLUTE[y.name]
+                bind["absolute"] += 1
+                continue
+            t = v - RETAIL_BASE
+            if not 0 < t < r.size_of_image:
+                return "dir32-retail-not-an-address"
+            if u.rva + o not in ctx["sites"] and not ctx["lost"][0] <= u.rva + o < ctx["lost"][1]:
+                return "dir32-not-a-retail-site"
+        else:
+            t = u.rva + o + 4 + struct.unpack_from("<i", want, o)[0]
+        if y.sec == u.sec and u.off <= y.value + add <= u.off + u.size:        # its own section
+            if t != u.rva + y.value + add - u.off:
+                return "internal-target-differs"
+            struct.pack_into("<i", body, o, y.value + add - u.off)
+            relocs.append((o, kind, u.label))
+            bind["internal"] += 1
+        elif y.sec == 0 and y.name.startswith("__imp_"):
+            e = ctx["iat"].get(t)
+            if kind != DIR32 or add or e is None or (e[1] or "") != import_entry_name(y.name):
+                return f"import-differs:{y.name}"
+            relocs.append((o, kind, "__imp_" + import_symbol(e)))
+            bind["import"] += 1
+        else:
+            named = y.cls in (EXTERNAL, WEAK) and (y.name in ctx["ident"] or y.name in ctx["authored"])
+            defined = 0 < y.sec <= len(secs)
+            if named:                                   # a retail identity: it must be this address
+                at = t - add
+                known = ctx["ident"].get(y.name, set()) | ctx["authored"].get(y.name, set())
+                if at not in known:
+                    return f"identity-differs:{y.name}"
+                name = y.name if known == {at} else f"_boota_{at:08X}"
+                bind["name" if known == {at} else "name-of-several-addresses"] += 1
+            else:                                       # TU statics, literals, unidentified externals
+                at, name = t, f"_boota_{t:08X}"
+                struct.pack_into("<i", body, o, 0)
+                bind["site-content" if defined else "site"] += 1
+            # data the object defines (and code it defines under no identity) must equal retail's there
+            if defined and not (named and secs[y.sec - 1].name.startswith(".text")):
+                q = y.value + add
+                lo, raw, masked = object_datum(u.obj, y.sec, q)
+                rlo = t - (q - lo)
+                rsec = r.section_of(rlo)
+                if not raw or rsec is None or r.section_of(rlo + len(raw) - 1) != rsec:
+                    return f"datum-outside-retail:{y.name}"
+                s0, _, rraw = r.secs[rsec]
+                rb = rraw[rlo - s0:rlo - s0 + len(raw)]
+                if any(raw[k] != rb[k] for k in range(len(raw)) if k not in masked):
+                    return f"datum-differs:{y.name}"
+                bind["content-equal"] += 1
+            if r.section_of(at, end_ok=True) is None:   # nothing of the image's to define the name in
+                return f"target-outside-kept-sections:{y.name}"
+            relocs.append((o, kind, name))
+            need[name] = at
+    if any(body[k] != want[k] for k in range(u.size) if k not in masks):
+        return "bytes-differ"
+    dir32 = {u.rva + o for o, k, n in relocs if k == DIR32 and n not in ABSOLUTE}
+    sl = ctx["site_list"]
+    if any(x not in dir32 for x in sl[bisect.bisect_left(sl, u.rva):bisect.bisect_left(sl, u.rva + u.size)]):
+        return "retail-site-unrelocated"
+    u.body, u.relocs, u.bind = bytes(body), relocs, bind
+    ctx["need"].update(need)
+    return None
+
+
+def unit_names(u):
+    """{external name: rva} the unit's own section defines."""
+    return {n: u.rva + v - u.off for n, v in section_symbols(u.obj)[0].get(u.sec, ())
+            if u.off <= v < u.off + u.size}
+
+
+def overlay_plan(r, sites, lost, rows, objs=None):
+    """(admitted units, refusals [(row, why)], names {name: rva}) for the rows;
+    `names` holds every name the units reference or define, each one address."""
+    if objs is None:
+        import link_cycle
+        objs = link_cycle.Objects([])
+    units, refused = find_units(r, rows, objs)
+    kept = []
+    for u in units:
+        if kept and u.rva < kept[-1].rva + kept[-1].size:
+            if (u.rva, u.size) == (kept[-1].rva, kept[-1].size):     # ICF: one body, several rows
+                kept[-1].folded += [x["name"] for x in u.rows]
+                refused += [(x, "folded-into:" + kept[-1].rows[0]["name"]) for x in u.rows]
+            else:
+                refused += [(x, "overlaps-another-unit") for x in u.rows]
+            continue
+        kept.append(u)
+    ident = identities(r)
+    ctx = {"sites": set(sites), "site_list": sites, "lost": lost, "iat": r.imports(), "ident": ident}
+    live = kept
+    while True:
+        authored = collections.defaultdict(set)
+        for u in live:
+            for n, a in unit_names(u).items():
+                authored[n].add(a)
+        ctx.update(authored=authored, need={})
+        ok = []
+        for u in live:
+            u.why = bind_unit(u, r, ctx)
+            if u.why is None:
+                ok.append(u)
+        if len(ok) == len(live):
+            break
+        live = ok
+    refused += [(x, u.why) for u in kept if u.why for x in u.rows]
+    names = dict(ctx["need"])
+    for u in live:
+        names[u.label] = u.rva
+        for n, a in unit_names(u).items():
+            if ctx["authored"][n] == {a} and ident.get(n, {a}) == {a}:
+                names.setdefault(n, a)
+        for n in u.folded:
+            if ident.get(n) == {u.rva}:
+                names.setdefault(n, u.rva)
+    return live, refused, names
+
+
+def unit_public(u, names):
+    """The name scaffold references into u resolve to: its row's own name when that
+    is the authored definition at u's start, else u's label."""
+    n = u.rows[0]["name"]
+    return n if (names or {}).get(n) == u.rva else u.label
+
+
+def write_overlay(pieces, path, names):
+    """The authored object: one section per unit piece (its compiled bytes, its
+    relocations against the bound names) and a public for every name in `names`
+    that lies inside a unit."""
+    syms = Symbols()
+    mine = [p for p in pieces if p.unit is not None]
+    for k, p in enumerate(mine, 1):
+        p.label = syms.add(p.public, k, 0)
+    starts = [p.start for p in mine]
+    for name, rva in sorted(names.items()):
+        i = bisect.bisect_right(starts, rva) - 1
+        if name not in ABSOLUTE and i >= 0 and rva < mine[i].start + mine[i].size:
+            syms.add(name, i + 1, rva - mine[i].start)
+    sections = []
+    for p in mine:
+        sections.append((p.name, p.flags, p.unit.body, [(o, syms.add(n), k) for o, k, n in p.unit.relocs]))
+    write_coff(path, sections, syms)
+    return sorted(n[len("__imp_"):] for n in syms.index if n.startswith("__imp_"))
+
+
 def link_image(objs, base, out, tag, entry="boot_entry"):
     """link.exe without /FORCE: (exit code, log, seconds)."""
     root = build.vc71_root()
@@ -525,7 +951,10 @@ def read_publics(mapfile, base):
 def check_image(r, pieces, exe, base, publics):
     """Field-by-field equivalence of the linked image with retail: every
     non-relocated byte equal; every relocated field points at the moved copy of
-    retail's target; every IAT reference imports retail's (dll, name)."""
+    retail's target; every IAT reference imports retail's (dll, name). Overlaid
+    (authored) pieces are held to the same rule and also counted apart. Every
+    .text piece keeps one offset from retail (rel32 operands are not relocated),
+    and the image's base relocations are exactly the relocated fields."""
     pe = pefile.PE(str(exe))
     img = pe.get_memory_mapped_image()
     new_iat = {}
@@ -534,12 +963,14 @@ def check_image(r, pieces, exe, base, publics):
             new_iat[imp.address - base] = (d.dll.decode("latin-1").lower(),
                                            imp.name.decode("latin-1") if imp.name else None,
                                            None if imp.name else imp.ordinal)
-    moved = {p.start: publics[f"_bootp_{p.start:08X}"] for p in pieces}
+    moved = {p.start: publics[p.public] for p in pieces}
     c, bad = collections.Counter(), []
+    fields = set()
     for p in pieces:
         s0, _, raw = next(v for v in r.secs.values() if v[0] <= p.start < v[0] + v[1])
         want = bytearray(raw[p.start - s0:p.start - s0 + p.size])
         got = bytearray(img[moved[p.start]:moved[p.start] + p.size])
+        tag = "authored-" if p.unit is not None else ""
         for site, kind, tgt in p.relocs:
             o = site - p.start
             v = struct.unpack_from("<I", got, o)[0]
@@ -550,12 +981,27 @@ def check_image(r, pieces, exe, base, publics):
             else:
                 ok = v == base + tgt[1]
             c["reloc-ok" if ok else "reloc-bad"] += 1
+            if tag:
+                c[tag + ("reloc-ok" if ok else "reloc-bad")] += 1
             if not ok and len(bad) < 20:
-                bad.append(f"{site:#x} {tgt[0]} got {v:#x}")
+                bad.append(f"{site:#x} {tgt[0]} got {v:#x}" + (f" in authored {p.unit.rows[0]['name']}" if tag else ""))
+            if kind == DIR32:
+                fields.add(moved[p.start] + o)
             got[o:o + 4] = want[o:o + 4] = b"\0\0\0\0"
         diff = sum(1 for x, y in zip(got, want) if x != y)
         c["bytes-equal"] += p.size - diff
         c["bytes-differ"] += diff
+        if tag:
+            c["authored-bytes-equal"] += p.size - diff
+            c["authored-bytes-differ"] += diff
+            if diff and len(bad) < 20:
+                bad.append(f"{p.start:#x} authored {p.unit.rows[0]['name']}: {diff} byte(s) differ")
+    text = [p for p in pieces if p.name.startswith(".text")]
+    c["text-pieces-moved"] = sum(1 for p in text if moved[p.start] - p.start != moved[text[0].start] - text[0].start)
+    dd = pe.OPTIONAL_HEADER.DATA_DIRECTORY[5]
+    image_fields = set(parse_blocks(pe.get_data(dd.VirtualAddress, dd.Size))[0]) if dd.Size else set()
+    c["baserelocs-missing"] = len(fields - image_fields)
+    c["baserelocs-extra"] = len(image_fields - fields)
     c["imports"] = len(new_iat)
     c["resource-dir"] = int(pe.OPTIONAL_HEADER.DATA_DIRECTORY[2].VirtualAddress == moved[r.secs[".rsrc"][0]])
     c["entry-ok"] = int(pe.OPTIONAL_HEADER.AddressOfEntryPoint == publics["_boot_entry"])
@@ -565,31 +1011,97 @@ def check_image(r, pieces, exe, base, publics):
     return dict(c), bad
 
 
-def build_image(base=0x10000000, out=OUT, tag="boot"):
+def overlay_report(r, units, refused, rows, path):
+    """Summary of an overlay, and <tag>.overlay.csv: one line per requested row."""
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["retail_rva", "size", "name", "source", "overlay"])
+        lines = [(u.rva, u.size, x["name"], x["source"], "overlaid") for u in units for x in u.rows]
+        lines += [(int(x["target_rva"], 16), int(x["target_size"] or 0), x["name"], x["source"],
+                   why if why.startswith("folded") else "refused:" + why) for x, why in refused]
+        for rva, size, name, source, st in sorted(lines):
+            w.writerow(["0x%08X" % rva, size, name, source, st])
+    reasons, binds = collections.Counter(), collections.Counter()
+    for _, why in refused:
+        reasons[why.split(":")[0]] += 1
+    folded = sum(v for k, v in reasons.items() if k.startswith("folded"))
+    reasons = {k: v for k, v in reasons.items() if not k.startswith("folded")}
+    for u in units:
+        binds.update(u.bind)
+    nbytes = sum(u.size for u in units)
+    return {"rows_requested": len(rows), "rows_overlaid": sum(len(u.rows) for u in units),
+            "rows_folded_into_an_overlaid_body": folded, "units": len(units),
+            "bytes": nbytes, "share_of_text": round(nbytes / r.secs[".text"][1], 6),
+            "refused": dict(sorted(reasons.items(), key=lambda kv: -kv[1])), "bindings": dict(sorted(binds.items())),
+            "rows_csv": str(path)}
+
+
+def layout(r, overlay=(), status=LINK_STATUS, rows=None):
+    """(pieces, problems, reloc info, units, refusals, names, rows): the scaffold's
+    pieces with the overlay's admitted units cut in (rows None: no overlay)."""
+    sites, info = all_sites(r)
+    units, refused, names = (), [], {}
+    if overlay or rows is not None:
+        rows = overlay_rows(overlay, status) if rows is None else rows
+        lost = tuple(int(x, 16) for x in info["lost_pages"])
+        units, refused, names = overlay_plan(r, sites, lost, rows)
+        # a unit's DIR32 fields in pages the table lost are checked like retail's sites
+        sites = sorted(set(sites) | {u.rva + o for u in units for o, k, n in u.relocs
+                                     if k == DIR32 and n not in ABSOLUTE})
+    pieces, problems = plan(r, sites, units)
+    return pieces, problems, info, units, refused, names, rows
+
+
+def build_image(base=0x10000000, out=OUT, tag="boot", overlay=(), status=LINK_STATUS, rows=None):
+    """Link (and check) the image; `overlay` specs (or explicit ledger `rows`) put
+    authored units in it."""
     out.mkdir(parents=True, exist_ok=True)
     r = Retail()
     t = time.time()
-    sites, info = all_sites(r)
-    pieces, problems = plan(r, sites)
-    used = write_scaffold(r, pieces, out / "scaffold.obj")
+    pieces, problems, info, units, refused, names, rows = layout(r, overlay, status, rows)
+    ov = None
+    if rows is not None:
+        ov = overlay_report(r, units, refused, rows, out / (tag + ".overlay.csv"))
+        ov["specs"] = list(overlay)
+    objs = [out / "scaffold.obj"]
+    used = write_scaffold(r, pieces, objs[0], names)
+    if units:
+        objs.append(out / "overlay.obj")
+        used = sorted(set(used) | set(write_overlay(pieces, objs[1], names)))
     by_sym = {}
     for e in r.imports().values():
         by_sym.setdefault(import_symbol(e), e)
     write_import_lib([(n, by_sym[n]) for n in used], out / "retail_imports.lib")
     descs = descriptor_libs(sorted({by_sym[n][0] for n in used}), out)
-    rc, log, secs = link_image([out / "scaffold.obj", out / "retail_imports.lib"] + descs, base, out, tag)
+    rc, log, secs = link_image(objs + [out / "retail_imports.lib"] + descs, base, out, tag)
     report = {"base": hex(base), "relocs": info, "problems": dict(problems), "pieces": len(pieces),
               "imports_used": len(used), "link_exit": rc, "link_seconds": round(secs, 1),
               "link_log": log.strip().splitlines()[-20:],
               "crt": {p.name: [hex(p.start), p.size] for p in pieces if p.name.startswith(".CRT")}}
+    if ov is not None:
+        report["overlay"] = ov
     if rc == 0:
-        counts, bad = check_image(r, pieces, out / (tag + ".exe"), base, read_publics(out / (tag + ".map"), base))
-        report.update(check=counts, check_bad=bad)
         publics = read_publics(out / (tag + ".map"), base)
-        report["pieces_map"] = [[p.name, p.start, publics[f"_bootp_{p.start:08X}"], p.size] for p in pieces]
+        counts, bad = check_image(r, pieces, out / (tag + ".exe"), base, publics)
+        report.update(check=counts, check_bad=bad)
+        report["pieces_map"] = [[p.name, p.start, publics[p.public], p.size] for p in pieces]
+        report["authored"] = [[u.rva, u.size, u.rows[0]["name"]] for u in units]
+        if ov is not None:
+            ok = not (counts.get("authored-bytes-differ") or counts.get("authored-reloc-bad"))
+            ov["verified_bytes"] = ov["bytes"] if ok else 0
+            ov["verified_share_of_text"] = ov["share_of_text"] if ok else 0
     report["seconds"] = round(time.time() - t, 1)
     (out / (tag + ".json")).write_text(json.dumps(report, indent=1), encoding="utf-8")
     return report
+
+
+def image_ok(rep):
+    """The link succeeded and the check found no difference of any kind."""
+    chk = rep.get("check", {})
+    return rep["link_exit"] == 0 and bool(chk) and not any(
+        chk.get(k) for k in ("reloc-bad", "bytes-differ", "text-pieces-moved", "baserelocs-missing",
+                             "baserelocs-extra")) and all(chk.get(k) == 1 for k in ("entry-ok", "export-dir",
+                                                                                    "resource-dir"))
 
 
 def main(argv=None):
@@ -601,12 +1113,15 @@ def main(argv=None):
     p.add_argument("--base", type=lambda v: int(v, 0), default=0x10000000)
     p.add_argument("--out", type=Path, default=OUT)
     p.add_argument("--tag", default="boot")
+    p.add_argument("--overlay", action="append", default=[], metavar="SET",
+                   help="authored units to link in: closed | shift-safe (link_cycle certification), "
+                        "rows:FILE, or a tree path prefix; repeatable (union)")
+    p.add_argument("--status", type=Path, default=LINK_STATUS, help="link_cycle link_status.csv for closed/shift-safe")
     args = ap.parse_args(argv)
     if args.cmd == "link":
-        rep = build_image(args.base, args.out, args.tag)
-        print(json.dumps(rep, indent=1))
-        chk = rep.get("check", {})
-        return 0 if rep["link_exit"] == 0 and not chk.get("reloc-bad") and not chk.get("bytes-differ") else 1
+        rep = build_image(args.base, args.out, args.tag, args.overlay, args.status)
+        print(json.dumps({k: v for k, v in rep.items() if k not in ("pieces_map", "authored")}, indent=1))
+        return 0 if image_ok(rep) else 1
     r = Retail()
     if args.cmd == "relocs":
         if args.validate:
