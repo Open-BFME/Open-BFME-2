@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O2 /MD
 //
-// Three global-object teardowns in the 0x007B7024 neighbourhood, continuing the
+// Four global-object teardowns in the 0x007B700A neighbourhood, continuing the
 // Rva007B6880Thunks.cpp page (that file's last row is 0x007B71C0).
 //
 // 0x007B7024 (26B): refcounted-release for the global at VA 0x00DEE86C, the
@@ -28,6 +28,19 @@ public:
 			release();
 	}
 };
+
+// 0x007B700A (26B): target bytes show the same refcount-release shape as the
+// adjacent 0x007B7024 body, but through the pointer slot at VA 0x00DEE870.
+// The object's owner is unknown; this address-derived helper preserves that.
+Rva007B7024Object *g_Va00DEE870;
+
+#pragma optimize("s", on)
+void __cdecl rva007B700A()
+{
+	if (g_Va00DEE870 != 0)
+		g_Va00DEE870->Release();
+}
+#pragma optimize("", on)
 
 // The global address is an absolute DIR32 operand, masked by the byte gate.
 Rva007B7024Object *g_Va00DEE86C;
