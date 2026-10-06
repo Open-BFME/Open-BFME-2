@@ -34,19 +34,32 @@ public:
 class Rva00285BEC : public Rva00285BECBase, public Rva00285BECSnapshotBase
 {
 public:
+	struct Pair080C
+	{
+		int m_00;
+		int m_04;
+		Pair080C() {}
+		Pair080C(int a, int b) : m_00(a), m_04(b) {}
+		Pair080C(const Pair080C &src) : m_00(src.m_00), m_04(src.m_04) {}
+	};
+	Rva00285BEC(int a, int b);
 	Rva00285BEC(const Rva00285BEC &src);
 	virtual ~Rva00285BEC();
 
 private:
-	int m_08;
-	int m_0C;
+	Pair080C m_08;
 	int m_10;
 };
 
+Rva00285BEC::Rva00285BEC(int a, int b) : m_08(a, b), m_10(-1)
+{
+	((Rva00285708Host *)this)->rva00285708();
+}
+
 Rva00285BEC::Rva00285BEC(const Rva00285BEC &src)
 {
-	m_08 = src.m_08;
-	m_0C = src.m_0C;
+	m_08.m_00 = src.m_08.m_00;
+	m_08.m_04 = src.m_08.m_04;
 	m_10 = -1;
 	((Rva00285708Host *)this)->rva00285708();
 }
