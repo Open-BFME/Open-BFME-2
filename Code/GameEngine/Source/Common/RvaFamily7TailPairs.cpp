@@ -24,7 +24,7 @@ void Rva0004378D::method()
 	m_280.second();
 }
 
-class Mbr0033B1CD
+class Rva0033B1CDMbr
 {
 public:
 	void second();
@@ -37,7 +37,7 @@ public:
 	void first();
 private:
 	int m_pad;
-	Mbr0033B1CD m_04; // +4
+	Rva0033B1CDMbr m_04; // +4
 };
 
 void Rva0033B1CD::method()
@@ -46,7 +46,7 @@ void Rva0033B1CD::method()
 	m_04.second();
 }
 
-class Mbr005CDDF0
+class Rva005CDDF0Mbr
 {
 public:
 	void second();
@@ -59,7 +59,7 @@ public:
 	void first();
 private:
 	char m_pad[0xC];
-	Mbr005CDDF0 m_0C; // +0xC
+	Rva005CDDF0Mbr m_0C; // +0xC
 };
 
 void Rva005CDDF0::method()
