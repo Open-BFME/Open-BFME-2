@@ -5,8 +5,6 @@
 // after the player refund, unless the byte at +0xFD is clear and the
 // float at +0x14 is at least the global.
 
-extern float g_00BC292C;
-
 struct Rva0039BAD2Input;
 
 class Rva0039B7AD;
@@ -75,7 +73,7 @@ void Rva0049DC50::rva0049DC50(int id)
 	Rva0049DC50Node *node = m_list;
 	while (node != 0)
 	{
-		bool flag = node->m_14 >= g_00BC292C && m_100 != 0;
+		bool flag = node->m_14 >= 100.0f && m_100 != 0;
 		if (node->m_10 == id && (m_fd != 0 || flag == 0))
 		{
 			Player *player = (*(Object **)((char *)this - 0x18))->getControllingPlayer();
