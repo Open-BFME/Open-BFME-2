@@ -16,7 +16,6 @@ public:
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
-extern const float BfmeZeroRange;
 
 class Rva002AD5ED
 {
@@ -32,5 +31,5 @@ float Rva002AD5ED::rva002AD5ED(const AsciiString &name)
 	_STL::map<int, int>::iterator it = m_map.find(key);
 	if (it != m_map.end())
 		return *(const float *)&it->second;
-	return BfmeZeroRange;
+	return 0.0f;
 }
