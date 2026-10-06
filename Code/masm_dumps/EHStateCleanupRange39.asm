@@ -471,6 +471,20 @@ cleanup_done_0079A522:
     ret
 ?rva0079A522@@YAXXZ ENDP
 
+; Unwind@00b9a59c at RVA 0x0079A59C; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-16], then loads the cleanup pointer from [ebp+8] and tail-jumps to matched Rva005F8F96 destructor at 0x005F8F96.
+PUBLIC ?rva0079A59C@@YAXXZ
+?rva0079A59C@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0079A59C
+    and DWORD PTR [ebp-16], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva005F8F96@@QAE@XZ
+cleanup_done_0079A59C:
+    ret
+?rva0079A59C@@YAXXZ ENDP
+
 ; Unwind@00b9a5bf at RVA 0x0079A5BF; 25-byte interval ends at RET.
 ; Retail tests and clears bit 1 at [ebp-16], then takes the cleanup object address at [ebp-28] and tail-jumps to UnicodeString at 0x005B804E.
 PUBLIC ?rva0079A5BF@@YAXXZ
@@ -526,6 +540,20 @@ PUBLIC ?rva0079A61E@@YAXXZ
 cleanup_done_0079A61E:
     ret
 ?rva0079A61E@@YAXXZ ENDP
+
+; Unwind@00b9a637 at RVA 0x0079A637; 25-byte interval ends at RET.
+; Retail tests and clears bit 2 at [ebp-16], then loads the cleanup pointer from [ebp+8] and tail-jumps to matched Rva005F8F96 destructor at 0x005F8F96.
+PUBLIC ?rva0079A637@@YAXXZ
+?rva0079A637@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 4
+    jz NEAR PTR cleanup_done_0079A637
+    and DWORD PTR [ebp-16], -5
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva005F8F96@@QAE@XZ
+cleanup_done_0079A637:
+    ret
+?rva0079A637@@YAXXZ ENDP
 
 ; Unwind@00b9a66c at RVA 0x0079A66C; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-16], then takes the cleanup object address at [ebp-28] and tail-jumps to UnicodeString at 0x005B804E.
@@ -597,6 +625,20 @@ cleanup_done_0079A968:
     ret
 ?rva0079A968@@YAXXZ ENDP
 
+; Unwind@00b9afb2 at RVA 0x0079AFB2; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-28], then loads the cleanup pointer from [ebp+8] and tail-jumps to matched Rva005F8F96 destructor at 0x005F8F96.
+PUBLIC ?rva0079AFB2@@YAXXZ
+?rva0079AFB2@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-28]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0079AFB2
+    and DWORD PTR [ebp-28], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva005F8F96@@QAE@XZ
+cleanup_done_0079AFB2:
+    ret
+?rva0079AFB2@@YAXXZ ENDP
+
 ; Unwind@00b9b71a at RVA 0x0079B71A; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
 PUBLIC ?rva0079B71A@@YAXXZ
@@ -638,6 +680,20 @@ PUBLIC ?rva0079B88E@@YAXXZ
 cleanup_done_0079B88E:
     ret
 ?rva0079B88E@@YAXXZ ENDP
+
+; Unwind@00b9baec at RVA 0x0079BAEC; 25-byte interval ends at RET.
+; Retail tests and clears bit 0 at [ebp-24], then loads the cleanup pointer from [ebp+8] and tail-jumps to matched Rva005F8F96 destructor at 0x005F8F96.
+PUBLIC ?rva0079BAEC@@YAXXZ
+?rva0079BAEC@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0079BAEC
+    and DWORD PTR [ebp-24], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva005F8F96@@QAE@XZ
+cleanup_done_0079BAEC:
+    ret
+?rva0079BAEC@@YAXXZ ENDP
 
 ; Unwind@00b9bb1f at RVA 0x0079BB1F; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-28], then loads the cleanup pointer from [ebp+8] and tail-jumps to UnicodeString at 0x005B804E.
