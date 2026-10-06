@@ -13535,3 +13535,4 @@ FUN_009a52fe	0x005A52FE	820	blocked	ADDRESS-NAMED g_Rva hatch t=1 model=muse-08
 ?rva0057D19A@AptMapPreview@@QAEXPAVMapMetaData@@@Z	0x0057D19A	852	blocked	complex EH AptMapPreview MapMetaData method needs unknown wide literal g_00C6F3A0 plus GameInfo+0x58 and lookup+0x1c layouts plus TheGameText fetch slot mapping t=14 model=muse-01
 ?v7@Rva005AAB91@@UAEXXZ	0x005AB085	160	blocked	esi edi swap persists across def-order inline and G7 trials t=18 model=muse-01 (stash 0.9 kept)
 ?updateCache@MapCache@@QAEXXZ	0x00305749	98	blocked	needs 4 unrowed callees 0x3006C4 0x3006E1 0x303409 0x30529C donor MapCache updateCache t=8 model=muse-01
+?rva0055DDD1@Rva0055DDD1@@QAEXXZ	0x0055DDD1	1295	blocked	ADDRESS-NAMED g_Va00E06220 hatch plus 1295B over strong-model limit t=3 model=muse-01
