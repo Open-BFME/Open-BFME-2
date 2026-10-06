@@ -122,3 +122,7 @@ ParticleSystemTemplateTail::ParticleSystemTemplateTail(const ParticleSystemTempl
 {
 }
 } // namespace FXParticleSystem
+
+// 0x001F41AF is rowed as ??4Rva001F41AF (clone-assign); the copy-ctor spelling
+// above calls the same address on raw storage, so alias it to the row.
+#pragma comment(linker, "/alternatename:??0Rva001F41AF@@QAE@ABV0@@Z=??4Rva001F41AF@@QAEAAV0@ABV0@@Z")
