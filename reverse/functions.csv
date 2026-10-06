@@ -66368,3 +66368,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?xfer@WorkerAIUpdate@@MAEXPAVXfer@@@Z,,0x004AA1DB,453,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateXfer.cpp,matched,WorkerAIUpdate xfer: AIUpdateInterface base Version(1 2) three tasks docks machines TheAudio slot 88
 ?Rva00143970Find@@YAPAVRva00143970Node@@PAV1@PAX@Z,,0x00143970,155,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,honest Rva view slots 0xC 0x14 0x70 0x78 key at 0xC4 self-recursive
 ?rva005EF3F6@Rva005EF3F6@@QAEXXZ,,0x005EF3F6,8,Code/GameEngine/Source/Common/AptStateCalls.cpp,matched,forwarder loads this+4 and tail-jumps to rowed Update in same TU
+?rva002B5CBB@Rva002B5CBB@@QAE_NPAURva002B5CBBArg@@@Z,,0x002B5CBB,64,Code/GameEngine/Source/Common/Rva002B5CBB.cpp,matched,map at +0x130 via increment like sibling node +0x14 flag +0x1c pin compare
