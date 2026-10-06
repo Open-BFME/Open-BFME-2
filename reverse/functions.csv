@@ -66162,3 +66162,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004AF63E@RespawnUpdate@@QAEXXZ,,0x004AF63E,350,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF63E.cpp,matched,RespawnUpdate death entry: level rule lookup then death fx disabled and revival slot
 ?rva004B0FEB@Rva004B0FEB@@QAE_NPAVObject@@@Z,,0x004B0FEB,367,Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCheck.cpp,matched,target gate over status bits relationship filter and pathfinder
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
+?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
