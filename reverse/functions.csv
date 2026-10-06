@@ -64993,3 +64993,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ??_ERva000525E5@@QAEPAXI@Z,,0x0005277C,75,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000525E5VectorDeletingDtor.cpp,matched,vector deleting dtor size 0x48 via MM plus rowed dtor
 ?rva0050B62B@Made002CCB67@@UAEXPBURva0050B62BArg@@PAVObject@@@Z,,0x0050B62B,137,Code/GameEngine/Source/GameLogic/Object/Made002CCB67StealMoney.cpp,matched,slot 5 of vtable 0x00864D80; address-derived method name; steal-money flow from target callees
 ?rva003967A5@@YAXPAVRva003967A5Owner@@HH@Z,,0x003967A5,297,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003967A5Notify.cpp,matched,Range-17 dump lane notify via node chain plus pair array
+?rva003973EB@Rva003973EB@@QAE_NPAVPlayer@@H@Z,,0x003973EB,62,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003973EBFind.cpp,matched,Range-17 int-tree key check via rowed _M_find; unsigned count read
