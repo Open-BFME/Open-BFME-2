@@ -2084,5 +2084,21 @@ cleanup_done_007963cf:
     ret
 ?rva007963cf@@YAXXZ ENDP
 
+
+; Unwind@00b9592c at RVA 0x0079592C; 27-byte state-bit cleanup ends at RET.
+; Retail tests and clears bit 7 of the byte at [ebp-16]; the set path passes [ebp-32] to AsciiString.
+; Parent identity and layout remain unproven; MASM preserves this compiler-generated EH helper.
+PUBLIC ?rva0079592c@@YAXXZ
+?rva0079592c@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 80h
+    jz NEAR PTR cleanup_done_0079592c
+    and BYTE PTR [ebp-16], 7Fh
+    lea ecx, [ebp-32]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0079592c:
+    ret
+?rva0079592c@@YAXXZ ENDP
+
 _TEXT ENDS
 END
