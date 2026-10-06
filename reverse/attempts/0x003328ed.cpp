@@ -1,5 +1,5 @@
 // ?rva003328ED@Rva003328ED@@QAEXPAXHH@Z
-// partial score=0.9 date=2026-10-06
+// partial score=0.92 date=2026-10-06
 // cl: /O1 /EHsc /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -24,13 +24,13 @@ struct Rva003328B6Element
 class Rva003320C7ListOwner
 {
 public:
-	void appendIfAbsent(void *value);
+	void appendIfAbsent(void *value) throw();
 };
 
 class PoolMember
 {
 public:
-	void Rva00268902();
+	void Rva00268902() throw();
 };
 
 class Rva0029FB3BMember : public PoolMember
@@ -63,8 +63,8 @@ private:
 // ?rva003328ED@Rva003328ED@@QAEXPAXHH@Z present-unmatched
 void Rva003328ED::rva003328ED(void *x, int k1, int k2)
 {
-	bool found = false;
 	Rva003328B6Element *p = m_vec.begin();
+	bool found = false;
 	do
 	{
 		if (p == m_vec.end())
@@ -74,9 +74,9 @@ void Rva003328ED::rva003328ED(void *x, int k1, int k2)
 			((Rva003320C7ListOwner *)p)->appendIfAbsent(x);
 			found = true;
 		}
-		p = (Rva003328B6Element *)((char *)p + 12);
+		++p;
 	} while (!found);
-	if (found)
+	if (found != false)
 		return;
 	Rva00331EAD tmp(k1, k2);
 	m_vec.push_back(*(Rva003328B6Element *)&tmp);
