@@ -13439,3 +13439,5 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva002D88A4@Rva002D88A4@@QAEXPAUCoord3D@@PAXM@Z,0x002D88A4,float-4.0 Coord3D call on the 0x00DFF070 global; REL32 callee of dump-range-18 0x003C00CE; identity unproven
 ?rva001DDAE1@Rva001DDAE1@@QAEXPAUCoord3D@@@Z,0x001DDAE1,Coord3D call on the 0x00DFDC30 global; REL32 callee of dump-range-18 0x003C00CE; identity unproven
 ?rva0039D97E@Team@@QAEXPAVPlayer@@@Z,0x0039D97E,Team member taking a Player; REL32 callee of dump-range-18 0x003C01E2 joining two teams players; identity unproven
+?rva0036FC23@AIGroup@@QAEXH@Z,0x0036FC23,AIGroup member taking an int (called with 1); REL32 callee of dump-range-18 0x003C08CC after getTeamAsAIGroup; identity unproven
+?rva003C01E2@Rva003C01E2@@QAEXPBVAsciiString@@0@Z,0x003C01E2,thiscall spelling of banked 0x003C01E2 (retail sets ecx from forwarded this); same body as the stdcall bank name; use this spelling when landing
