@@ -1,5 +1,5 @@
 // ?rva002B4C35@Rva002B4C35@@QAEXXZ
-// partial score=0.9 date=2026-10-06
+// partial score=0.94 date=2026-10-06
 // cl: /O1 /MD
 // ?rva002B4C35@Rva002B4C35@@QAEXXZ @0x002B4C35 184B: __thiscall void nest.
 // Outer recount loop over the +0x8C/+0x90 table; inner recount loop over
@@ -26,6 +26,8 @@
 // Boundary: 184B [0x2B4C35,0x2B4CED); prev ret, next prologue (rowed
 // 0x2B4CED body). Sibling shape of blocked 0x2B49A8 with resolved pins.
 // Names address-derived except the rowed 0x2B388D schedule and pins.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 class Refresh0023FA80AI;
 class Refresh0023FA80Object;
 
@@ -61,8 +63,8 @@ struct Rva002B4C35Outer
 	char m_pad[0x14];
 	int m_14; // +0x14
 	char m_pad18[0x1B8 - 0x18];
-	int m_begin1B8; // +0x1B8
-	int m_end1BC; // +0x1BC
+	Rva00318C79Owner **m_begin1B8; // +0x1B8 table of element pointers
+	Rva00318C79Owner **m_end1BC; // +0x1BC end
 };
 
 class Rva002B4C35
@@ -71,23 +73,23 @@ public:
 	void rva002B4C35();
 private:
 	char m_pad[0x8C];
-	int m_begin8C; // +0x8C
-	int m_end90; // +0x90
+	Rva002B4C35Outer **m_begin8C; // +0x8C table of outer pointers
+	Rva002B4C35Outer **m_end90; // +0x90 end
 };
 
 void Rva002B4C35::rva002B4C35()
 {
-	int d = m_end90;
-	d -= m_begin8C;
+	int n = m_end90 - m_begin8C;
 	unsigned i = 0;
-	if ((d >> 2) != 0) {
+	if (n != 0) {
+		_ReadWriteBarrier();
 		do {
-			Rva002B4C35Outer *o = ((Rva002B4C35Outer **)m_begin8C)[i];
-			int d2 = o->m_end1BC - o->m_begin1B8;
+			Rva002B4C35Outer *o = m_begin8C[i];
+			int n2 = o->m_end1BC - o->m_begin1B8;
 			unsigned j = 0;
-			if ((d2 >> 2) != 0) {
+			if (n2 != 0) {
 				do {
-					Rva00318C79Owner *e = ((Rva00318C79Owner **)o->m_begin1B8)[j];
+					Rva00318C79Owner *e = o->m_begin1B8[j];
 					if (e->m_74 == 0) {
 						Rva00318C32Ret *r = e->rva00318C32();
 						if (r != 0) {
@@ -101,9 +103,9 @@ void Rva002B4C35::rva002B4C35()
 						}
 					}
 					++j;
-				} while (j < (((o->m_end1BC - o->m_begin1B8) >> 2)));
+				} while (j < (unsigned)(o->m_end1BC - o->m_begin1B8));
 			}
 			++i;
-		} while (i < (((m_end90 - m_begin8C) >> 2)));
+		} while (i < (unsigned)(m_end90 - m_begin8C));
 	}
 }

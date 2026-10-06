@@ -64497,3 +64497,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva00285708@Rva00285708Host@@QAEXXZ,,0x00285708,34,Code/GameEngine/Source/Common/Rva00285708.cpp,matched,guarded refresh via global 0xDFE1A8 callee 0x20D925 then stamp TheGameLogic frame
 ?rva002E0764@Rva002E0764@@QAEXPAVRva00319CED@@@Z,,0x002E0764,27,Code/GameEngine/Source/Common/Rva002E0764Sub.cpp,matched,callee rowed 0x004E1755 ret4 clamp sibling /O1
 ?rva002B32CE@Rva002B32CE@@QAE_NXZ,,0x002B32CE,87,Code/GameEngine/Source/Common/Rva002B32CE.cpp,matched,same family as 0x002B3288 all-of loop with id filter
+??0Rva005F589E@@QAE@HPAX@Z,,0x005F589E,174,Code/GameEngine/Source/Common/Rva005F589ECtor.cpp,matched,button ctor sibling of 0x005F5C77 via pinned 0x005E1680 and rowed image append
