@@ -15660,3 +15660,6 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??0Rva00501A5FElement@@QAE@ABU0@@Z,0x005017B4,
 ??0Rva00500839Element@@QAE@ABU0@@Z,0x0050055D,
 ??0Rva00540053Element@@QAE@ABU0@@Z,0x0053FFCE,
+??$__lower_bound@PAURva00336283Element@@U1@U?$less@URva00336283Element@@@_STL@@H@_STL@@YAPAURva00336283Element@@PAU1@0ABU1@U?$less@URva00336283Element@@@0@PAH@Z,0x00335CAE,
+??$__lower_bound@PAURva004235B2Element@@U1@U?$less@URva004235B2Element@@@_STL@@H@_STL@@YAPAURva004235B2Element@@PAU1@0ABU1@U?$less@URva004235B2Element@@@0@PAH@Z,0x00423098,
+??$__lower_bound@PAURva00532829Element@@U1@U?$less@URva00532829Element@@@_STL@@H@_STL@@YAPAURva00532829Element@@PAU1@0ABU1@U?$less@URva00532829Element@@@0@PAH@Z,0x0053249D,
