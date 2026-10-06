@@ -231,15 +231,8 @@ void GameWindowManager::init( void )
 //-------------------------------------------------------------------------------------------------
 /** Update cycle for game widnow manager */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::update present-unmatched
-void GameWindowManager::update( void )
-{
-
-	// Process windows waiting to be destroyed
-	processDestroyList();
-	if(TheTransitionHandler)
-		TheTransitionHandler->update();
-}  // end update
+// GameWindowManager::update: defined in GameWindowManagerModal.cpp (its row's unit).
+  // end update
 
 //-------------------------------------------------------------------------------------------------
 /** Puts a window at the head of the window list */
@@ -1050,70 +1043,8 @@ GameWindow *GameWindowManager::winCreate( GameWindow *parent,
 /** Take a window and its children off the top level list and free
 	* their allocation class data. */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::winDestroy present-unmatched
-Int GameWindowManager::winDestroy( GameWindow *window )
-{
-	GameWindow *child, *next;
-	
-	if( window == NULL )
-		return WIN_ERR_INVALID_WINDOW;
-
-	//
-	// we should never have edit data allocated in the window code, it's
-	// completely handled by the editor ONLY
-	//
-	DEBUG_ASSERTCRASH( window->winGetEditData() == NULL,
-										 ("winDestroy(): edit data should NOT be present!\n") );
-
-	if( BitTest( window->m_status, WIN_STATUS_DESTROYED ) )
-		return WIN_ERR_OK;
-
-	BitSet( window->m_status, WIN_STATUS_DESTROYED );
-	window->freeImages();
-
-	if( m_mouseCaptor == window )
-		winRelease( window );
-
-	if( m_keyboardFocus == window )
-		winSetFocus( NULL );
-
-	if( (m_modalHead != NULL) && (window == m_modalHead->window) )
-		winUnsetModal( m_modalHead->window );
-
-	if( m_currMouseRgn == window )
-		m_currMouseRgn = NULL;
-
-	if( m_grabWindow == window )
-		m_grabWindow = NULL;
-
-	for( child = window->m_child; child; child = next )
-	{
-		next = child->m_next;
-		winDestroy( child );
-	}
-
-	// Remove the top level window from list
-	if( window->m_parent == NULL )
-		unlinkWindow( window );
-	else
-		unlinkChildWindow( window );
-
-	// Add to head of the destroy list
-	window->m_prev = NULL;
-	window->m_next = m_destroyList;
-
-	m_destroyList = window;
-
-	//
-	// if this window is part of a layout screen, notify the screen that
-	// this window is going away
-	//
-	if( window->m_layout )
-		window->m_layout->removeWindow( window );
-
-	return WIN_ERR_OK;
-
-}  // winDestroy
+// GameWindowManager::winDestroy: defined in GameWindowManagerModal.cpp (its row's unit).
+  // winDestroy
 
 //-------------------------------------------------------------------------------------------------
 /** Destroy all windows on the window list IMMEDIATELY */
