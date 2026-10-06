@@ -40,6 +40,17 @@
 // SYSTEM chat line before refreshing the slot list (0x00248D84). willTransfer
 // is the pinned cdecl 0x00300E42 on the game, whatever the metadata says.
 //
+// LANAPI slot 41, retail 0x00249B08 (574 bytes), named by address: the
+// living-world counterpart of OnGameStart's map half, given the battle. The
+// map is maps\<name>\<name>.map for the name of the battle's holder (+0x24,
+// its AsciiString at +0x18), written to TheWritableGlobalData's pending file
+// and the game (setMapForwarder); the map transfer then fails exactly as in
+// OnGameStart, or every slot gets its battle data (0x003EFDDB on the holder
+// and 0x003F486C on the battle, both by the slot's +0x4C, the latter into
+// +0x1A4) before the game starts and the logic random is seeded. The holder
+// goes through locals: the name's for retail's folded [eax+0x18] load, the
+// loop's (fetched after the slot's index) for its ecx-first scheduling.
+//
 // LANAPI::OnGameStart, retail 0x002495CC (814 bytes), slot 42: Open-BFME-1's
 // LANAPIOnGameStart.cpp without the preferences save, with BFME 2's hero
 // transfer check (0x0044C3D4, failing with GUI:CouldNotTransferHero) ahead of
@@ -146,6 +157,10 @@ private:
 
 public:
 	BfmeNetAddress m_address;			// +0x38
+	UnsignedByte m_pre4C[0x4C - 0x40];
+	Int m_bfme4C;					// +0x4C, the living-world battle's index
+	UnsignedByte m_pre1A4[0x1A4 - 0x50];
+	Bool m_bfme1A4;					// +0x1A4
 };
 
 struct LANSlotAddress
@@ -201,6 +216,7 @@ public:
 
 	GameSlot *getSlot( Int slotNum );
 	AsciiString getMap( void ) const;
+	void setMapForwarder( AsciiString mapName );
 
 	Bool isGameInProgress( void ) const { return m_inProgress; }
 	UnsignedInt getSeed( void ) const { return m_seed; }
@@ -356,6 +372,26 @@ public:
 };
 extern LivingWorldManager *TheLivingWorldManager;
 
+struct Rva003EFDDBOut;
+
+class Rva003EFDDBHolder
+{
+public:
+	void rva003EFDDB( Int index, Rva003EFDDBOut *out );
+
+	UnsignedByte m_pre18[0x18];
+	AsciiString m_mapName;				// +0x18
+};
+
+class LivingWorldBattle
+{
+public:
+	Bool rva003F486C( Int index );
+
+	UnsignedByte m_pre24[0x24];
+	Rva003EFDDBHolder *m_holder;			// +0x24
+};
+
 class LivingWorldLogic
 {
 public:
@@ -420,7 +456,7 @@ public:
 	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
 	virtual void OnChat( const UnicodeString &player, const BfmeNetAddress *ip,
 		const UnicodeString &message, LANAPIInterface::ChatType format );
-	BFME_VSLOT(41)
+	virtual void rva00249B08( LivingWorldBattle *battle );
 	virtual void OnGameStart( void );
 	virtual void rva0024900D( void );
 	BFME_VSLOT(44)
@@ -590,6 +626,57 @@ void LANAPI::OnHasMap( const BfmeNetAddress *ip, Bool status )
 		OnChat( UnicodeString( L"SYSTEM" ), getLocalAddress(), text, LANAPIInterface::LANCHAT_SYSTEM );
 	}
 	Rva00248D84Enable();
+}
+
+void LANAPI::rva00249B08( LivingWorldBattle *battle )
+{
+	if( !battle )
+		return;
+
+	Rva003EFDDBHolder *battleHolder = battle->m_holder;
+	const char *name = battleHolder->m_mapName.str();
+	AsciiString mapName;
+	mapName.format( "maps\\%s\\%s.map", name, name );
+	TheWritableGlobalData->m_pendingFile.format( &mapName );
+
+	if( m_currentGame )
+	{
+		m_currentGame->setMapForwarder( mapName );
+		Bool filesOk = DoAnyMapTransfers( m_currentGame );
+
+		TheMapCache->updateCache();
+		if( !filesOk || TheMapCache->findMap( m_currentGame->getMap() ) == 0 )
+		{
+			OnPlayerLeave( m_name );
+			removeGame( m_currentGame );
+			::delete m_currentGame;
+			m_currentGame = 0;
+			m_inLobby = true;
+			if( TheNetwork )
+			{
+				::delete TheNetwork;
+				TheNetwork = 0;
+			}
+			MessageBoxOk( TheGameText->fetch( "GUI:ErrorStartingGame" ),
+				TheGameText->fetch( "GUI:CouldNotTransferMap" ), 0 );
+			OnChat( UnicodeString::TheEmptyString, NoAddress().self(),
+				TheGameText->fetch( "GUI:CouldNotTransferMap" ), LANAPIInterface::LANCHAT_SYSTEM );
+			return;
+		}
+
+		for( Int i = 0; i < MAX_SLOTS; ++i )
+		{
+			GameSlot *slot = m_currentGame->getSlot( i );
+			Int index = slot->m_bfme4C;
+			Rva003EFDDBHolder *holder = battle->m_holder;
+			holder->rva003EFDDB( index, (Rva003EFDDBOut *)slot );
+			slot->m_bfme1A4 = battle->rva003F486C( index );
+		}
+
+		m_currentGame->startGame( 0 );
+		TheWritableGlobalData->m_pendingFile = m_currentGame->getMap();
+		InitGameLogicRandom( m_currentGame->getSeed() );
+	}
 }
 
 void LANAPI::OnGameStart( void )
