@@ -64907,3 +64907,8 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva00785bc3@@YAXXZ,,0x00785BC3,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-16] then tail-jumps with [ebp-24] to AsciiString dtor; parent layout unknown
 ?rva00785bee@@YAXXZ,,0x00785BEE,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-16] then tail-jumps through [ebp+8] to AsciiString dtor; parent layout unknown
 ?rva00785c19@@YAXXZ,,0x00785C19,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-16] then tail-jumps through [ebp+8] to the rowed CameraMarker destructor; parent layout unknown
+?rva00785e8a@@YAXXZ,,0x00785E8A,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state bit and AsciiString tail call are target bytes
+?rva007862be@@YAXXZ,,0x007862BE,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state bit and AsciiString tail call are target bytes
+?rva00786c20@@YAXXZ,,0x00786C20,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state bit and local destructor tail call are target bytes
+?rva00786c39@@YAXXZ,,0x00786C39,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state bit and local destructor tail call are target bytes
+?rva00787397@@YAXXZ,,0x00787397,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,unwind funclet RVA identity from retail boundary; state bit and AsciiString tail call are target bytes
