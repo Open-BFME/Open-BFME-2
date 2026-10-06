@@ -33,4 +33,14 @@ public:
 	void *m_ref;
 };
 
-template class _STL::vector<AssetReference, _STL::allocator<AssetReference> >;
+namespace _STL {
+template <> void _Construct<AssetReference, AssetReference>(AssetReference *, const AssetReference &);
+}
+
+template void _STL::vector<AssetReference>::_M_insert_overflow(
+	AssetReference *,
+	const AssetReference &,
+	const _STL::__false_type &,
+	unsigned int,
+	bool);
+template void _STL::vector<AssetReference, _STL::allocator<AssetReference> >::push_back(const AssetReference &);
