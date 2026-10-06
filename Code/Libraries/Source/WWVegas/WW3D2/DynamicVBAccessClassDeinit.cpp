@@ -24,12 +24,12 @@ public:
 };
 
 extern bool bfmeDynamicVBInUse[15];
-extern BfmeDynamicVB *bfmeDynamicVBs[15];
+BfmeDynamicVB *bfmeDynamicVBs[15];
 // bfmeDynamicVBSizes: matched references place it at VA 0xdf2a64 (zero-filled).
 unsigned short bfmeDynamicVBSizes[15] = { 0 };
 extern unsigned short bfmeDynamicVBOffsets[15];
 extern unsigned bfmeDynamicFVFs[15];
-extern BfmeFVFDescriptor bfmeDynamicFVFDescs[15];
+BfmeFVFDescriptor bfmeDynamicFVFDescs[15];
 extern bool BfmeDynamicSortingVertexArrayInUse;
 // bfmeSortingVB: matched references place it at VA 0xdf2a8c (retail .data initial value 0).
 BfmeDynamicVB * bfmeSortingVB = 0;
