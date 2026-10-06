@@ -2,6 +2,22 @@
 // PersistentStorageThread.cpp -- GameSpy persistent-stats members recovered
 // from WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names
 // each function; retail supplies the bytes.
+
+namespace _STL
+{
+template <class CharT> class char_traits;
+template <class CharT> class allocator;
+template <class CharT, class Traits, class Alloc> class basic_string
+{
+public:
+	basic_string &operator=(const CharT *text);
+};
+}
+
+typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> >
+	Rva00385333String;
+
+extern const char g_Rva0107301CEmptyString[];
 //
 // PSPlayerAllStats keeps the player id at +0x00 and three stats blocks: the
 // open-play block at +0x1B0 (0x190 bytes), the strategic block at +0x340
@@ -37,12 +53,19 @@ public:
 class Rva00385333	// tournament stats block
 {
 public:
+	void rva00553FDD();
+	void rva00555F68();
 	~Rva00385333();						// 0x00385333
 	Rva00385333 &operator=(const Rva00385333 &that);	// 0x00387A68
 
 	unsigned char m_pad00[0x150];
 	Int m_id;						// +0x150
-	unsigned char m_pad154[0x1a8 - 0x154];
+	unsigned char m_pad154[0x190 - 0x154];
+	unsigned short m_190;
+	unsigned short m_192;
+	Int m_194;
+	Int m_198;
+	unsigned char m_pad19C[0x1a8 - 0x19c];
 };
 
 class PSPlayerAllStats
@@ -102,4 +125,18 @@ void PSPlayerAllStats::setTournamentStats(Rva00385333 stats)
 		m_id = stats.m_id;
 		m_tournamentStats = stats;
 	}
+}
+
+// ?rva00555F68@Rva00385333@@QAEXXZ, retail 0x00555F68. Target evidence:
+// this 56-byte body calls 0x00553FDD; writes the final scalar fields at +0x190
+// through +0x198; and assigns the narrow string at +0x19C from 0x00BBAC1C.
+// The original method name remains unresolved.
+void Rva00385333::rva00555F68()
+{
+	rva00553FDD();
+	m_190 &= 0;
+	m_192 &= 0;
+	m_194 |= -1;
+	m_198 |= -1;
+	((Rva00385333String *)m_pad19C)->operator=(g_Rva0107301CEmptyString);
 }

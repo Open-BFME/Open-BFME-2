@@ -15248,3 +15248,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva000A8B04@Rva000A8B04@@QAEXMM@Z,0x000A8B04,Ghidra 31B target reached from 0x53AFA at 0x53B3D and 0x53B5A; thiscall receiver is pending-slot object plus 0x0C; body reads two float arguments and calls 0x10FD5E; owner identity remains unresolved
 ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z,0x0009FE49,callee of ?W3DGadgetTextEntryDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
 ?rva00553CDE@Rva00553CDE@@QAEGE@Z,0x00553CDE,callee of ?rva00553D26@Rva00553D26@@QAEEXZ
+?rva00553FDD@Rva00385333@@QAEXXZ,0x00553FDD,callee of ?rva00555F68@Rva00385333@@QAEXXZ
