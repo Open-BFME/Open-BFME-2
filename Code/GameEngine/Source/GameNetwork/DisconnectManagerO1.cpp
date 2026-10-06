@@ -134,6 +134,7 @@ class BFMEDisconnectManager : public DisconnectManager
 public:
 	Bool hasPingSuccessRatioAtLeast(Real ratio);
 	Bool hasPlayerConnectionTimedOut(Int slot, void *connectionManager);
+	Int rva004D3E5D(ConnectionManager *conMgr);
 	Int rva004D3E93(Int slot, ConnectionManager *conMgr);
 };
 
@@ -409,6 +410,25 @@ Int DisconnectManager::countVotesForPlayer(Int slot, ConnectionManager *conMgr) 
 
 // ?rva004D3E93@BFMEDisconnectManager@@QAEHHPAVConnectionManager@@@Z @ 0x004D3E93 (60B). Counts eligible voter slots excluding one.
 // Evidence: callees hasPlayerConnectionTimedOut 0x004D3B7E isPlayerInGame 0x004CF0A6 rowed; caller 1 unclaimed; unlocks 1.
+// ?rva004D3E5D@BFMEDisconnectManager@@QAEHPAVConnectionManager@@@Z @ 0x004D3E5D (54B).
+// Target bytes scan all eight slots, skip those reported timed out by rowed
+// hasPlayerConnectionTimedOut (0x004D3B7E), then count those for which rowed
+// isPlayerInGame (0x004CF0A6) returns false. The adjacent 0x004D3E93 method
+// performs the same walk while excluding one slot. This address-derived
+// method label records the call and loop evidence without naming its purpose.
+Int BFMEDisconnectManager::rva004D3E5D(ConnectionManager *conMgr) {
+	Int count = 0;
+	BFMEConnectionManager *bfmeMgr = (BFMEConnectionManager *)conMgr;
+	for (Int slot = 0; slot < MAX_SLOTS; ++slot) {
+		if (hasPlayerConnectionTimedOut(slot, conMgr))
+			continue;
+		if ((unsigned char)bfmeMgr->isPlayerInGame(slot) != 0)
+			continue;
+		++count;
+	}
+	return count;
+}
+
 Int BFMEDisconnectManager::rva004D3E93(Int excludedSlot, ConnectionManager *conMgr) {
 	Int count = 0;
 	BFMEConnectionManager *bfmeMgr = (BFMEConnectionManager *)conMgr;
@@ -423,5 +443,4 @@ Int BFMEDisconnectManager::rva004D3E93(Int excludedSlot, ConnectionManager *conM
 	}
 	return count;
 }
-
 
