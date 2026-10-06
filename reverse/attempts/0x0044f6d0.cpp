@@ -1,4 +1,8 @@
 // ?rva0044F6D0@SpecialAbilityUpdate@@QAEXXZ
+// partial score=0.968 date=2026-10-06
+// ?rva0044F6D0@SpecialAbilityUpdate@@QAEXXZ
+// partial score=0.968 date=2026-10-06
+// ?rva0044F6D0@SpecialAbilityUpdate@@QAEXXZ
 // partial score=0.968 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 //
