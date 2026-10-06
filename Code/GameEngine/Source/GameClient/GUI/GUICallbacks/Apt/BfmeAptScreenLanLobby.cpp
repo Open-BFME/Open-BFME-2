@@ -252,10 +252,25 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-// Unrowed cdecl forwarders onto the object at g_Va00E032FC, pinned by
-// address: 0x00437E84 passes (type, text, title) to its method 0x0054D2DD
-// and 0x00437E9C passes one int to 0x0054CBEF.
+// Address-derived calls through the pointer held at the matched, address-named
+// global at VA 0x00E032FC. The target class and member identities remain
+// address-derived.
+class Rva0054D2DDTarget
+{
+public:
+	void method(int type, const UnicodeString &text, const UnicodeString &title);
+};
+
+class Rva0054D3D9Target
+{
+public:
+	void method(int type, const UnicodeString &text, const UnicodeString &title);
+};
+
+extern int g_Va00E032FC;
+
 void Rva00437E84(int type, const UnicodeString &text, const UnicodeString &title);
+void Rva00437EAC(int type, const UnicodeString &text, const UnicodeString &title);
 void Rva00437E9C(int value);
 
 // Unrowed 0x0044C0A8 (158 bytes, cdecl, takes both strings by value and a
@@ -617,6 +632,20 @@ bool AptLanLobby::MpOwnerSelectPlayer(GameSlot *slot, SlotState state, int unuse
 		TheLAN->requestSerializedGameInfo(true, &address);
 	}
 	return true;
+}
+
+// Target body pushes (type, text, title), loads the object pointer from the
+// matched global g_Va00E032FC at VA 0x00E032FC and calls address-derived
+// method 0x0054D2DD.
+void Rva00437E84(int type, const UnicodeString &text, const UnicodeString &title)
+{
+	((Rva0054D2DDTarget *)g_Va00E032FC)->method(type, text, title);
+}
+
+// Same target-proven forwarder shape; the callee's identity remains its RVA.
+void Rva00437EAC(int type, const UnicodeString &text, const UnicodeString &title)
+{
+	((Rva0054D3D9Target *)g_Va00E032FC)->method(type, text, title);
 }
 
 // Retail 0x00444DC3, 166 bytes: vftable 0x00C3E098 slot 16. BFME1's
