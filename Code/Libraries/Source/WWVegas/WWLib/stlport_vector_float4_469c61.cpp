@@ -25,4 +25,7 @@ struct BfmeFloat4Record00469C61 {
     BfmeFloat4Record00469C61(const BfmeFloat4Record00469C61 &o) : x(o.x), y(o.y), z(o.z), w(o.w) {}
     BfmeFloat4Record00469C61 &operator=(const BfmeFloat4Record00469C61 &o) { x=o.x; y=o.y; z=o.z; w=o.w; return *this; }
 };
-template class _STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> >;
+template BfmeFloat4Record00469C61 *_STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> >::_M_allocate_and_copy<BfmeFloat4Record00469C61 *>(unsigned int, BfmeFloat4Record00469C61 *, BfmeFloat4Record00469C61 *);
+template void _STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> >::reserve(unsigned int);
+template void _STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> >::_M_insert_overflow(BfmeFloat4Record00469C61 *, const BfmeFloat4Record00469C61 &, const _STL::__false_type &, unsigned int, bool);
+template void _STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> >::push_back(const BfmeFloat4Record00469C61 &);
