@@ -13445,6 +13445,10 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Rva005CC208@Obj00527827@@QAEXHH@Z,0x005CC208,thiscall (a0,a1) spelling of the rowed vtable slot-2 forwarder for range clamp 0x00527827 (REL32 at 0x00527875, ecx flows from the m_1C null check); body rowed as ?rva005CC208@Rva005CC208@@UAEXXZ; address name
 ?Rva00529DA9@Holder00529E19@@QAEXH@Z,0x00529DA9,thiscall int notify of range reset 0x00529E19 on the same holder (REL32 at 0x00529E33); Ghidra 112B unrecovered; address name
 ?rva004E37CF@Rva004E37CF@@QAEXHH@Z,0x004E37CF,tail jmp target of 8B forwarder 0x003EE7C2 (ret 8); original name unknown
+?rva005016C3@Rva005016C3@@QAEXXZ,0x005016C3,tail jmp target of 8B forwarder 0x0050174A (ret 0); original name unknown
+?rva00380459@Rva00380459@@QAEXH@Z,0x00380459,tail jmp target of 8B forwarder 0x002A9ECA (ret 4); original name unknown
+?rva004E37CF@Rva004E37CF@@QAEXHH@Z,0x004E37CF,tail jmp target of 8B forwarder 0x003EE7C2 (ret 8); original name unknown
+??0Rva004E1D4EVectorCopyView@@QAE@ABV0@@Z,0x004E1D4E,"REL32 at 0x004E2CA2 in banked copy 0x004E2C66; Ghidra start/extent 71B; constructor label carried from the bank's +0x14 vector-prefix view, retained as a candidate identity"
 ??0Rva004E1FE4TreeCopyView@@QAE@ABV0@@Z,0x004E1FE4,"REL32 at 0x004E2C92 in banked copy 0x004E2C66; Ghidra start/extent 165B; constructor label carried from the bank's +0x08 tree-prefix view, retained as a candidate identity"
 ?insert@?$list@PAVRva002ADCC7Obj@@V?$allocator@PAVRva002ADCC7Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva002ADCC7Obj@@U?$_Nonconst_traits@PAVRva002ADCC7Obj@@@_STL@@@2@U32@ABQAVRva002ADCC7Obj@@@Z,0x002ACF9C,ICF freelist insert for list push_back 0x002ADCC7
 ?placeObject@AptDisplayList@@QAEXPAUAptPlaceControl@@PAVAptCIH@@@Z,0x006F8EC0,Native70F370 control+4 and CIH args; donor old PlaceObject2 semantic match; provider unrowed
@@ -13504,3 +13508,12 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?insert@Rva004D272EMapHintInsert@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBGVAsciiString@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBGVAsciiString@@@_STL@@@2@@_STL@@U23@ABU?$pair@$$CBGVAsciiString@@@3@@Z,0x004D272E,caller 0x004D2941 passes its lower_bound iterator and pair; this 12B-cleanup wrapper forwards hint and value to rowed WORD-key insert_unique at 0x004D2209; structural adapter name only because exact target template identity remains unknown
 ?lower_bound@Rva0046A9ABMapLowerBound@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBGVAsciiString@@@_STL@@@_STL@@ABG@Z,0x0046A9AB,structural adapter for operator[] at 0x004D2941; target performs the required map lower_bound search and matches the established ushort AsciiString map lower_bound body at 0x00156680
 
+?rva003705C2@AIGroup@@QAEXXZ,0x003705C2,tail-callee of AIGroup 0x00372C05 on the same this (REL32 jmp at 0x372C1B); void-void thiscall; identity not recovered
+?rva005D13C2@Rva005D13C2@@QAEXXZ,0x005D13C2,jump target of 17B forwarder 0x005D1516; original name unknown
+?rva005E18D0@Rva005E18D0@@QAEXXZ,0x005E18D0,jump target of 17B forwarder 0x005E1906; original name unknown
+?rva005E18DC@Rva005E18DC@@QAEXXZ,0x005E18DC,jump target of 17B forwarder 0x005E1917; original name unknown
+?rva005E1B9A@Rva005E1B9A@@QAEXXZ,0x005E1B9A,jump target of 17B forwarder 0x005E1BC4; original name unknown
+?rva005E254C@Rva005E254C@@QAEXXZ,0x005E254C,jump target of 17B forwarder 0x005E25DE; original name unknown
+?rva005E589E@Rva005E589E@@QAEXXZ,0x005E589E,jump target of 17B forwarder 0x005E590F; original name unknown
+?rva005E6A9D@Rva005E6A9D@@QAEXXZ,0x005E6A9D,jump target of 17B forwarder 0x005E6BA3; original name unknown
+?rva005E6AD8@Rva005E6AD8@@QAEXXZ,0x005E6AD8,jump target of 17B forwarder 0x005E6BB4; original name unknown
