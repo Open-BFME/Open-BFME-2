@@ -34,6 +34,7 @@ public:
 class Rva0007DF07
 {
 public:
+	Rva0007DF07();
 	virtual ~Rva0007DF07() {}
 };
 
