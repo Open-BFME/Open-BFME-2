@@ -57,11 +57,6 @@ private:
 
 extern void *g_bfmeAptDefaultValueAtE18078;	// VA 0x00E18078
 
-EAStringC::EAStringC()
-{
-	clear();
-}
-
 class BfmeAptValue006DCD20
 {
 public:

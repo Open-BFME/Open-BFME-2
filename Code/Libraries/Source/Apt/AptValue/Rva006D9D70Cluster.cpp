@@ -16,10 +16,7 @@ class EAStringC
 	void *m_pData;
 
 public:
-	EAStringC()
-	{
-		clear();
-	}
+	EAStringC();
 	EAStringC &clear();
 	const char *rva00620090() const;
 	~EAStringC();

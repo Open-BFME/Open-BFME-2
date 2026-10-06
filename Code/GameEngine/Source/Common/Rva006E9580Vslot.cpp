@@ -10,10 +10,7 @@ class EAStringC
 	void *m_pData;
 
 public:
-	EAStringC()
-	{
-		clear();
-	}
+	EAStringC();
 	EAStringC &clear();
 	bool rva006D3490(const char *text) const;
 	bool rva006D3510(const char *text) const;
