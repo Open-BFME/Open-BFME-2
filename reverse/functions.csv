@@ -64433,3 +64433,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?set@Rva002A9903FloatSetter@@QAEXM@Z,,0x002A9903,14,Code/GameEngine/Source/Common/Rva002A9903FloatSetter.cpp,matched,SSE float store at +0x20 in the Player-side setter gap
 ??1Rva000F82F5Dtor@@QAE@XZ,,0x000F82F5,83,Code/GameEngine/Source/Common/Rva000F82F5Dtor.cpp,matched,empty body with CRT-freed buffer and two texture handle member dtors
 ??1Rva000FA7E8Dtor@@QAE@XZ,,0x000FA7E8,83,Code/GameEngine/Source/Common/Rva000FA7E8Dtor.cpp,matched,empty body with two texture handle member dtors then CRT-freed buffer
+?Rva003354D6@@YAHPAUlua_State@@_N@Z,,0x003354D6,220,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectRva003354D6.cpp,matched,Lua gap grant remove via HasUpgrade sibling
