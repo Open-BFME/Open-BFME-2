@@ -13677,5 +13677,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?Rva004360B3@@YAPAUTreeHintOpaque0043671B@@VAsciiString@@@Z,0x004360B3,callee of ?Rva004361B3@@YAPAUTreeHintOpaque0043671B@@PBE@Z
 ?rva0043684C@AptSaveLoad@@QAEXXZ,0x0043684C,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
 ?rva002DF3B0@GameState@@QAEXPAVGameWindow@@0_NH@Z,0x002DF3B0,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
-?rva0032BD25@SidesList@@QAE_NW4NameKeyType@@HPAVBuildListInfo@@@Z,0x0032BD25,SidesList indexed BuildListInfo lookup on TheSidesList (0xE01D58): (key; idx; info out-param); called from range-17 0x3967A5 dispatch loop; Ghidra FUN_0072bd25 63B; identity unproven
 ??0Rva00395561@@QAE@XZ,0x00395534,Rva00395561 default ctor: zeroes counter then drains GameLogic +0x1B4 into it; Ghidra FUN_00795534 45B; paired with rowed drain method 0x395561
