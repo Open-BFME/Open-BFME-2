@@ -65029,3 +65029,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva00104107@Rva00104107@@QAEXXZ,,0x00104107,8,Code/GameEngine/Source/Common/Rva00104107.cpp,matched,ptr-chase setter neighbours Unwind
 ??0Rva001040D5@@QAE@XZ,,0x001040D5,18,Code/GameEngine/Source/Common/Rva001040D5Ctor.cpp,matched,ctor base pin vtable neighbours
 ?update@HijackerUpdate@@UAE?AW4UpdateSleepTime@@XZ,,0x004A40DB,313,Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdateUpdate.cpp,matched,HijackerUpdate update via BFME1 donor and table slot
+??F?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU01@H@Z,,0x00503EC9,26,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_iterator_postdec_00503ec9.cpp,matched,Target postfix iterator decrement; hidden result receives old node and this stores the call to rowed _M_decrement 0x000242C0; type specialization inferred from matched sibling 0x003ED377.
