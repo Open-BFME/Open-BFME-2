@@ -38,8 +38,8 @@ public:
 class NetCommandRef
 {
 public:
-	NetCommandMsg *getCommand() { return m_msg; }
-	UnsignedByte getRelay() const { return m_relay; }
+	NetCommandMsg *getCommand();
+	UnsignedByte getRelay() const;
 	NetCommandMsg *m_msg;
 	NetCommandRef *m_next;
 	NetCommandRef *m_prev;
@@ -77,11 +77,11 @@ UnsignedByte NetPacket::rva0059188C(NetCommandRef *msg)
 {
 	Int len = 0;
 	Bool needNewCommandID = false;
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = msg->m_msg;
 	if (m_lastCommandType != cmdMsg->m_commandType) {
 		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 	}
-	if (m_lastRelay != msg->getRelay()) {
+	if (m_lastRelay != msg->m_relay) {
 		++len;
 		++len;
 	}
