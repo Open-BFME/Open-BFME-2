@@ -63963,3 +63963,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0056B1F2@Rva0056B1F2@@QAEXPAX@Z,,0x0056B1F2,38,Code/GameEngine/Source/Common/Rva0056B1F2Release.cpp,matched,conditional release via rowed 0x002B7250; ternary gives branchless neg-sbb-and select
 ?rva0056B296@Rva0056B296@@QAEXPAX@Z,,0x0056B296,71,Code/GameEngine/Source/Common/Rva0056B296Release.cpp,matched,twin-slot release via rowed 0x002B7250 with branchless select; twin of 0x0056B1F2
 ?rva0056B613@Rva0056B613@@QAEXH@Z,,0x0056B613,43,Code/GameEngine/Source/Common/Rva0056B613Forward.cpp,matched,gated forward via pinned 0x002B269E singleton check and banked-spelling 0x0056B7A0
+??0Rva007C454@@QAE@ABV0@@Z,,0x0007C404,80,Code/GameEngine/Source/Common/Rva007C454Copy.cpp,matched,Copy ctor: rowed CameraClass copy then both vptrs 0xBC6C58/0xBC6C54 then rowed Rva005386F5 member copy
