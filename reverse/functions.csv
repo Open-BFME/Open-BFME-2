@@ -65709,3 +65709,4 @@ uw_0075b500,,0x0075B500,10,Code/GameEngine/Source/Main/CreateGameEngine.cpp,matc
 ?rva0049329E@Rva0049329E@@QAEXXZ,,0x0049329E,55,Code/GameEngine/Source/Common/Rva0049329ESync.cpp,matched,sync the byte at +0x20 with the predicate at this-0x10
 ?rva004B3AFF@Rva004B3AFF@@QAEXXZ,,0x004B3AFF,67,Code/GameEngine/Source/Common/Rva004B3AFFNotify.cpp,matched,notify the skirmish manager and mark the control bar
 ?rva004B2F7B@Rva004B2F7B@@QAE_NPBVSpecialPowerTemplate@@@Z,,0x004B2F7B,82,Code/GameEngine/Source/Common/Rva004B2F7BCheck.cpp,matched,status 0x5A then the special-power store then module slot 1; missing module clears +0x20
+?rva004A5B09@Rva004A5B09@@QAEXPAVPosHolder@@H@Z,,0x004A5B09,88,Code/GameEngine/Source/Common/Rva004A5B09Finish.cpp,matched,slot 15 bit gate then FXList::doFXPos and the sibling at 0x004A584B
