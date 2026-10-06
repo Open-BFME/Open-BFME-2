@@ -12410,3 +12410,6 @@ _Rva0080C960	0x00678860	3040	blocked	ltable pair is RTC CheckStackVars table not
 _Rva008140D0	0x0067FFD0	475	blocked	ltable needs alias surgery not case swap: our statics Rva00814400/14460 are identical twins but gen-alias rows point BOTH dup_00680300 and dup_00680360 at _Rva00814400 while _Rva00814460 has none; our Rva008143A0 duplicates rowed Rva008143A0Set 0x006802A0 in another TU; dup_006803C0 aliases _Rva008144C0. Needs re-alias plus dup removal plus caller repoint with link check; no Code edit left
 ?rva005E426F@Rva005E426F@@QAEXXZ	0x005E426F	66	blocked	neg-sbb branchless select with negative offsets needs STL interior model t=10 model=muse-03
 ?rva005E4202@Rva005E4202@@QAEXXZ	0x005E4202	66	blocked	same neg-sbb negative-offset wall as 0x005E426F needs STL interior model t=5 model=muse-03
+FUN_0049b28c	0x0009B28C	644	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused t=3 model=muse-02
+FUN_007901da	0x003901DA	836	blocked	ADDRESS-NAMED g_Va007C26F0 new use refused t=2 model=muse-02
+FUN_00484271	0x00084271	793	blocked	ADDRESS-NAMED g_Va007C26F0 g_Va00BBB8D8 new uses refused t=2 model=muse-02

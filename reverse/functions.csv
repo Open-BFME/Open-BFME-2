@@ -64981,3 +64981,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ??0Rva0039AE30@@QAE@PAVRva0039AE30Arg@@@Z,,0x0039AE30,69,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0039AE30Setup.cpp,matched,Range-17 setup with pinned lookup
 ?rva002E6451@Rva002E6451@@QAEPAXPBD@Z,,0x002E6451,74,Code/GameEngine/Source/GameClient/Rva002E6451Find.cpp,matched,leaf lookup via 0x002E6329 forwarder over StringLookUp array count at +0 base at +8
 ?rva0034BE57@AIRampageState@@QAEXPAVObject@@@Z,,0x0034BE57,108,Code/GameEngine/Source/GameLogic/AI/AIRampageStateRva0034BE57.cpp,matched,vtable slot 6 caller 0x0034FE10 weapon status gate flag 0x20
+??1Rva00203CC7@@QAE@XZ,,0x00203CC7,15,Code/GameEngine/Source/Common/Rva00203CC7Dtor.cpp,matched,dtor stores vtable g_00BE39EC then links
