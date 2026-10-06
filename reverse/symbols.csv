@@ -14803,3 +14803,9 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??0Rva003F40EFRecord@@QAE@ABU0@@Z,0x0040E96D
 ??4Rva003F40EFRecord@@QAEAAU0@ABU0@@Z,0x0040EAED
 ??1Rva003F40EFRecord@@QAE@XZ,0x0040E499
+??M@YA_NABURva00448FF2Record@@0@Z,0x00448D3C
+?_M_insert@?$_Rb_tree@URva00448FF2Record@@U1@U?$_Identity@URva00448FF2Record@@@_STL@@U?$less@URva00448FF2Record@@@3@V?$allocator@URva00448FF2Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva00448FF2Record@@U?$_Nonconst_traits@URva00448FF2Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva00448FF2Record@@0@Z,0x00448E64
+?insert_unique@?$_Rb_tree@URva00448FF2Record@@U1@U?$_Identity@URva00448FF2Record@@@_STL@@U?$less@URva00448FF2Record@@@3@V?$allocator@URva00448FF2Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@URva00448FF2Record@@U?$_Nonconst_traits@URva00448FF2Record@@@_STL@@@_STL@@_N@2@ABURva00448FF2Record@@@Z,0x00448EF8
+??M@YA_NABURva0056FB0BRecord@@0@Z,0x00448D3C
+?_M_insert@?$_Rb_tree@URva0056FB0BRecord@@U1@U?$_Identity@URva0056FB0BRecord@@@_STL@@U?$less@URva0056FB0BRecord@@@3@V?$allocator@URva0056FB0BRecord@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva0056FB0BRecord@@U?$_Nonconst_traits@URva0056FB0BRecord@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva0056FB0BRecord@@0@Z,0x0056F8A6
+?insert_unique@?$_Rb_tree@URva0056FB0BRecord@@U1@U?$_Identity@URva0056FB0BRecord@@@_STL@@U?$less@URva0056FB0BRecord@@@3@V?$allocator@URva0056FB0BRecord@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@URva0056FB0BRecord@@U?$_Nonconst_traits@URva0056FB0BRecord@@@_STL@@@_STL@@_N@2@ABURva0056FB0BRecord@@@Z,0x0056F93A
