@@ -64280,3 +64280,6 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva005CFA87@@UAE@XZ,,0x005CFA87,68,Code/GameEngine/Source/Common/Rva005CF9FFFlagNotifyDtors.cpp,matched,dtor: flag +0x0C gates pinned 0x54CBEF(0) on g_Va00E05FAC then base vtable 0xC75290
 ??1Rva005E8D71@@UAE@XZ,,0x005E8D71,60,Code/GameEngine/Source/Common/Rva005E8D71Dtor.cpp,matched,MI dtor twin of 0x005E92F7
 ??1Rva009111B@@UAE@XZ,,0x0009111B,56,Code/GameEngine/Source/Common/Rva0009111BDtor.cpp,matched,VideoPlayer-derived dtor calls rva000907A7
+??1ModelConditionSpecialAbilityUpdateModuleData@@UAE@XZ,,0x00490E7B,56,Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateModuleDataDtor.cpp,matched,filter 0x00360D26 at +0xD4 then base 0x0044ECCE; novtable; layout from ctor 0x00490DDB
+??1Rva00415AE0@@QAE@XZ,,0x00415AE0,53,Code/GameEngine/Source/Common/Rva00415AE0Dtor.cpp,matched,member 0x004159AA at +8 then AsciiString at +0
+??1Rva00301621Dtor@@QAE@XZ,,0x00301621,53,Code/GameEngine/Source/Common/Rva00301621Dtor.cpp,matched,two list<int> members via rowed _List_base dtor 0x004EC395
