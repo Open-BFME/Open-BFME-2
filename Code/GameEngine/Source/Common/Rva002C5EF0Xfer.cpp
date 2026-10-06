@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002C5EF0@Rva002C5EF0@@QAEXPAVXfer@@@Z @0x002C5EF0 117B. Xfer-style persist with Version(1 3) then uint at +0 m_0, Coord at +4, uint at +0x10, float at +0x14, global g_00DFEFC8, float at +0x18, version-gated uint at +0x1c. Evidence: unlock lane, slots 0x28 Version 0x78 uint 0x60 Coord 0x70 float match reversed-overload layout, callers 0x002C6429 0x002C64A4 in 0x002C63A1, neighbours DispDwordLeaFieldGetters/Disp8NullAdjustGetters.
 class AsciiString;
 class UnicodeString;

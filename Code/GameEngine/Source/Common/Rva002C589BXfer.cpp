@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002C5B46@Rva002C589B@@QAEXPAVXfer@@@Z @0x002C5B46 217B: Version(1,2)
 // via slot 0x28 then uint global g_00DFEFC0 plus members +4/+8 uint via
 // slot 0x78 Coord at +C via 0x60 bools +18/+19 via 0x90 ints +1C/+20 via

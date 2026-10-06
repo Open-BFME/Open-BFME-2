@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B5CFB@Rva002B5CFB@@QAE_NHH@Z @0x002B5CFB 59B: __thiscall bool probe.
 // Resolves id through the rowed 0x2B51F8 find, runs the rowed 0x2104B6
 // check on the +0x2C-adjusted hit through +0xB0, and compares its +0x12C

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002B4CED@Rva002B4CED@@QAEXPAX@Z @0x002B4CED 84B: notify singleton then vector erase.
 // Evidence: callers 0x002B4E7B 0x002BD9B4; rowed vector voidptr erase 0x001FF51F;

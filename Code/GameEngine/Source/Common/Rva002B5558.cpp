@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B5558@Rva002B5558@@QAEXXZ @0x002B5558 41B.
 // Chain lane; calls rowed 0x002B43BA recursive free; clears sentinel and count.
 // Evidence: calls 0x002B43BA which this session landed; callers 0x002B609F 56B and 0x002B62DE 115B pass ecx with no pushes; unblocks 0x002B609F and 0x002B62DE.

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 // Open-BFME5: near-twin of bfmePopHeap00531A40 (S4PopHeapElem12.cpp).  Same
 // STLport __pop_heap shape over a twelve-byte element, but the element field

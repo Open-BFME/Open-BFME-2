@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // Rva002CECAEAppend, retail 0x002CECAE, 120 bytes.
 //

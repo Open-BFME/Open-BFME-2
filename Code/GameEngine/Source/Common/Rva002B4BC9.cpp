@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B4BC9@Rva002B4BC9@@QAE_NH@Z @0x002B4BC9 64B: __thiscall bool fetch.
 // When the rowed StringBase<char>::isEmpty on the +0x18 member of the
 // argument passes false, fetches through the cdecl 0x20E873 worker with the

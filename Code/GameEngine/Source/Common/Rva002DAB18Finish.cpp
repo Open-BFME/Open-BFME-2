@@ -1,6 +1,6 @@
 // ??0Rva002DAB18@@QAE@XZ
 // partial score=0.97 date=2026-09-30
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ??0Rva002DAB18@@QAE@XZ @0x002DAB18 (70B):
 // Multiple-inheritance ctor: primary base SnapBase at +0 installs vtable

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva002DAAF2@Rva002DAAF2@@QAE_NABVAsciiString@@HHHH@Z @0x002DAAF2 38B
 // Leaf: vtable slot 4 of 0x00803910 (class of Rva002DAB18); calls rowed
 // StringBase::isEmpty 0x00001E2F and StringBase::set 0x000366F0; +0x10 member

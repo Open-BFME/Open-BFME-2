@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??0Rva002D22CA@@QAE@XZ
 // RVA 0x002D22AC size 30. Ctor calls GameEngineDeletingBase ctor at 0x1B4E63

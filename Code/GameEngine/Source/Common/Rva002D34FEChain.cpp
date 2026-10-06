@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002D34FE@Rva002D34FE@@QAEXH@Z @0x002D34FE 46B: guarded two-stage helper
 // chain. Retail bails when the pinned thiscall check

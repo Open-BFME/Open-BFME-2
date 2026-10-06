@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002C5D8B@Rva002C5D8B@@QAEXPAVObject@@M@Z @0x002C5D8B 27B: forwards Object+0x38 position plus float plus Object+0x74 to 0x002C5CF7. Evidence pin REL32 at 0x005739CE in AITargetHeuristicBaseDefense slot 1 with 200.0 plus neighbours Rva002C589BXfer Dtor share flags.
 struct Coord3D
 {

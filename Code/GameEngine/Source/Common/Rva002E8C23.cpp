@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002E8C23Call@@YAHHEPAURva002E8C23Param@@@Z @0x002E8C23 42B: free cdecl wrapper passing through two ints plus fields from ptr+0/+0xC to pinned 0x002E79A8; evidence pin ?rva002E79A8@@YAXHEHHH@Z and callers in 0x002EE1C7/0x002F9DBA
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002CF1FB@Rva002CF1FB@@QAEPAURva002CF1FBNode@@G@Z @0x002CF1FB 32B.
 // List search: head at this+0xC, walk next at node+0x484, compare word at
 // node+0x5D8 to the key arg, return the match or 0, ret 4. Callers in

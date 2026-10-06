@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002E36D5Find@@YAPAXH@Z, retail 0x002E36D5, 26 bytes.
 // Leaf __cdecl find-by-ID over global list at 0x00DBD0F4 (holder head at +0).
 // Node next at +0x3C ID at +0x44. Callers 0x00058880 0x004B082F. Owning

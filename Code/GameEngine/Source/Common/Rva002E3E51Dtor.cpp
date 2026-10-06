@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??1Rva002E3E51@@UAE@XZ @0x002E3E51 47B:
 // Base dtor storing vtable 0x00C04C28 at [this], second vtable 0x00C04C0C
 // at base+4 and link at base, then frees buffer at +8 via rowed free.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B2AFD@Rva002B2AFD@@QAEHXZ, retail 0x002B2AFD, 48 bytes.
 // Selector: if selection locked or TheGameLogic check fails, return
 // TheWritableGlobalData field +0xe84, else TheGameLogic field +0x118.

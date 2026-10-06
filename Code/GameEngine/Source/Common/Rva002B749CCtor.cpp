@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva002B749C@@QAE@XZ @0x002B749C 66B ctor calls map 0x0033C432 at +0 and Vector_base BfmeE16 0x00211E58 at +0xc then inits floats from g_Va00BBB8D8 and ints 0/-1.
 // Evidence: push ecx push esi mov esi ecx lea esp+7 pattern for Vector_base; movss from g_Va00BBB8D8 at +0x18/+0x1c/+0x20; and-mem-0 at +0x24/+0x28 and or-mem--1 at +0x2c/+0x30 under /O1; caller 0x002BC944; callees rowed.

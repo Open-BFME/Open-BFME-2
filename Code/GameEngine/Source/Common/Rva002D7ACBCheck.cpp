@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Returns true when arg is outside 0..1 (signed less-than-zero or greater-than-one).
 // Retail uses xor-inc plus jl-jg plus xor-al shape. Evidence: 1 caller at

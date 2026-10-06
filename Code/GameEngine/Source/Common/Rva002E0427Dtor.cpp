@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva002E0427@@UAE@XZ @0x002E0427 81B dtor over two hash members and GameEngineDeletingBase
 // Vtable 0x00BE7628 slot 0 (deleting dtor 0x0022DA4A calls here); members at +0x10
 // (Rva0022CC67 dtor 0x0022CF13) and +0x24 (Rva0022366C dtor 0x0022366C) with base

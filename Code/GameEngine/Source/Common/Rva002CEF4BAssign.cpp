@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??4Rva002CEF4B@@QAEAAU0@ABU0@@Z, RVA 0x002CEF4B, 33B.
 // Copy-assignment copying an AsciiString member at +0 via pinned
 // ??4AsciiString@@QAEAAV0@ABV0@@Z then setting a wide-string member at +4

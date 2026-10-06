@@ -1,4 +1,4 @@
-// cl: /O1 /Oi- /MD
+// cl: /Oi- /MD
 //
 // ?rva002DB9B6@Rva002DB9B6@@QAEXPAX@Z, retail 0x002DB9B6, 21 bytes.
 // __thiscall memcpy-out of 0x28 bytes from this+0x60 to its arg via CRT

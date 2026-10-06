@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002D76C6Remove@@YG_NPAURva002D76C6Owner@@PAPAURva002D76C6Node@@@Z @0x002D76C6 78B: unlink node whose +4 is owner then virtual delete.
 // Callers 0x002D772A 0x002D773A pass owner in esi slot and list heads at +0x18/+0x14; LINK via 0x002D7714.
 struct Rva002D76C6Node

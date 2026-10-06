@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?get@Rva002E063B@@QBEHXZ @0x002E063B 13B.
 // Honest address name: __thiscall sum getter with 2 callers and no callees.

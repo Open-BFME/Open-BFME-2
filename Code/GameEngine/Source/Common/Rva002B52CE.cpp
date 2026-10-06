@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B52CE@Rva002B52CE@@QAEXXZ @0x002B52CE 102B: __thiscall void sweep.
 // Skips everything when the +0x8C/+0x90 table holds under 4 bytes
 // (test eax,-4 / jle: the (diff>>2)<=0 shape, which MSVC folds to the mask

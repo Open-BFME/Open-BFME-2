@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E1001@Rva002E1001@@QAEHXZ retail 0x002E1001 69 bytes.
 // Unlock-lane counter: triple-deref global at 0x00DFEF10 through +0xB0 and
 // +8, plus 0x2C bias or zero, counts array entries whose +0x13C field equals

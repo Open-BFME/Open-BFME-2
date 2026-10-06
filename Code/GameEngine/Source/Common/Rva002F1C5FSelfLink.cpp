@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Self-link init methods: each runs an unrowed member helper (pinned from
 // the body's own REL32), zeroes its +4 word and its pointed-to sub-object's

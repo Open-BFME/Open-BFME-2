@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX- /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /GX- /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?rva002C6EA4@Rva002C6EA4@@QAE_NABVAsciiString@@@Z @0x002C6EA4 31B

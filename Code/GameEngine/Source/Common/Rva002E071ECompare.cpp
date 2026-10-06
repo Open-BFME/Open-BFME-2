@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002E071E@Rva002E071E@@QBE_NPBV1@@Z @0x002E071E 48B.
 // Equality-like predicate: true when dword at +0x14 matches, else compares

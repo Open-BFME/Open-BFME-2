@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // stlport
 // ?rva002CFB4C@Rva002CFB4C@@QAEPAXPBX@Z @0x002CFB4C 68B via bucket insert plus create
 // Evidence: thiscall ret4 takes pair at offset0 AsciiString; rowed bucketIndex 0x00223149 plus pin rva00212858 0x00212858 on Rva000427195; rowed create 0x002CF9DC; caller 0x002CFEEC passes pair and uses return+4

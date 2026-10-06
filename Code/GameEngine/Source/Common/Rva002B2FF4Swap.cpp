@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002B2FF4Swap@@YAXAAVRva002B2F97@@0@Z, retail 0x002B2FF4, 85 bytes.
 // std::swap-style three-move exchange of the ref-counted holder Rva002B2F97:
 // copy-construct a temp from a (which incs the refcount and captures a.m_ptr

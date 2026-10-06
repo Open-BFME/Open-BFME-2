@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 //
 // ?rva002C693B@Rva002C693B@@QAEXXZ @0x002C693B 258B
 // Evidence: unlock lane sibling 002C68CE prev Rva002C68CE next stlport caller

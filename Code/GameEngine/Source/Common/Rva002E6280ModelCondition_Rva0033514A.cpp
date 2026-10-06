@@ -1,4 +1,4 @@
-// cl: -MD /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -MD -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // 125B twin of bfmeHelper6320 (Rva002E6320ModelCondition.cpp, retail
 // 0x002E6320): byte-identical two-lua-arg object lookup shape, only the

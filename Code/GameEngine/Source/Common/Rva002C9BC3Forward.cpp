@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva002C9BC3@Rva002C9BC3Owner@@QAEXPAX0@Z @0x002C9BC3 33B: float-delta
 // forwarder (thiscall). Retail reads float arg2[2], subtracts arg1[0x10],

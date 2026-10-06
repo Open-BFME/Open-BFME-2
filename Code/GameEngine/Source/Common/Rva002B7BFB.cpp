@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002B7BFB@Rva002B7BFB@@QAEXXZ @0x002B7BFB 121B. Unlock: outer vector at
 // +0x8C holds holders with inner vector at +0x1B8 of Rva003193D1; each inner

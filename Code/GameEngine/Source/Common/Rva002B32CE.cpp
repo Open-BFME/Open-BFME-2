@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002B32CE@Rva002B32CE@@QAE_NXZ @0x002B32CE 87B.
 // Filtered all-of loop over pointer vector at +0x10C calling pinned byte predicate

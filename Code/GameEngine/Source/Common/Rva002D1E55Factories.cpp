@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Factory entries: 58-byte __stdcall functions that allocate a fixed-size
 // object through operator new 0x0002FDA0 and construct it from their one

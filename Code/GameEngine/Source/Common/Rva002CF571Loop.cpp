@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002CF571Loop@@YAXPAURva002CF571Item@@0PAX@Z @0x002CF571 26B.
 // Range loop over 0x5c-byte records: for each item calls virtual slot 0 with
 // literal 0 (push 0, ecx=item, call [vptr]), stride add esi,0x5c, bounds

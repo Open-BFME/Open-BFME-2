@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002C67DC@Rva002C67DC@@QAE_NXZ @0x002C67DC 105B
 // Evidence: unlock lane, prev Disp8CmpBoolGetters 0x002C67CF next stlport

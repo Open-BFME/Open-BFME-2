@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B5F8A@Rva002B5F8A@@QAE_NXZ @0x002B5F8A 98B: __thiscall bool emit.
 // When +0xF4 is below 6 and the pinned 0x2B5EB5 probe passes, builds a
 // message through the established MessageStreamSubsystem slot-18

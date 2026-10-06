@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva002D2DF6@Rva002D2DF6@@QAEXXZ @0x002D2DF6 58B: virtual touch plus
 // sub-struct init. Retail calls virtual slot 9 (call [eax+0x24], no args) on

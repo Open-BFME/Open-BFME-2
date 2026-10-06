@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva002DB9EFGet@@YAHPAURva002DB9EFObj@@PAX@Z, retail 0x002DB9EF, 24 bytes.
 // Free function forwarding to virtual slot 0x94 (37) on its first arg:

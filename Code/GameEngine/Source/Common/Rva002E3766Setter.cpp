@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?set@Rva002E3766Holder@@QAEXHH@Z, retail 0x002E3766, 17 bytes.
 // ?Rva002E3777Invoke@Rva002E3766Holder@@QAEXH@Z, retail 0x002E3777, 29 bytes.
 // ?Rva002E3794Invoke@Rva002E3766Holder@@QAEXH@Z, retail 0x002E3794, 29 bytes.

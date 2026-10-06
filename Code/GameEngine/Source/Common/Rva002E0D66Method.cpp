@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E0D66@Rva002E0D66@@QAEXPAX@Z @0x002E0D66 45B recursive free of two-link list
 // Evidence: callee rowed 0x00030830 free; self recursion; callers 0x002E0D78 self and 0x002E15F4; neighbours 0x002E0CD4 getter and 0x002E0D93 assign share /O1
 extern "C" void __cdecl free(void *);

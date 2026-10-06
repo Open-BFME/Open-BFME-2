@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1Rva002BAEAB@@QAE@XZ @0x002BAEAB 53B.
 // Non-virtual dtor over WindModuleInfo member at +0 and RvaVec member

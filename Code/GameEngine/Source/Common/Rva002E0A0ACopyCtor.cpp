@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ??0Rva002E0A0A@@QAE@ABV0@@Z @0x002E0A0A 149B copy ctor with vptr then 1 wide and 4 narrow StringBase copies then ints and byte
 // Evidence: callees rowed 0x00037050 wide plus 0x000365F0 narrow x4; callers 0x002E2943 0x0052C1F2; vtable VA 0x00804948 via virtual dtor filled by gate
 // Link note: TU-local StringBase kept because shared header's copy ctor is private to AsciiString/UnicodeString friends, so direct member copies need a friend grant here

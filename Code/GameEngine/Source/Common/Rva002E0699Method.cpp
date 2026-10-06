@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E0699@Rva002E0699@@QAEHXZ @0x002E0699 31B switch over +0x44 with tail to Encoding0 slot2
 // Returns +0x2B4 when 0, tails to BFME2Encoding0MotionChannel::UnknownSlot2 at +0x4C
 // when 1, else 3. Evidence: callers at 0x002BDEC4 0x002BDF54, neighbours share /O1.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002D22D5@Rva002D22CA@@QAE_NXZ
 // RVA 0x002D22D5 size 108. Duplicate-unk validator over the 12 tables at +0x0C:

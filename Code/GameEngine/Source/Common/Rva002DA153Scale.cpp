@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva002DA153@Rva002DA153@@QAEMXZ @0x002DA153 121B: float getter with mode branches.
 // Evidence: TheGameLogic findObjectByID row 0x49DC5, TheGameClient virtual 0x40,
 // BfmeZeroRange, g_00BBB9AC -1.0f, call sites 0x00059B4C and 0x0005C974,

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B3A48@Rva002B3A48@@QAEHXZ @0x002B3A48 84B
 // Sum over pointer array at +8/+C: for each element take rowed 0x00318FBE int value minus [rowed 0x00319159 result +0x618] when non-null, accumulate.
 // Evidence: unlock lane; callees rowed 0x00318FBE 0x00319159; callers 0x002B3B0B 0x002B3B16 compare two objects results; ret no args returning sum; honest address name.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva002B5D36@Rva002B5D36@@QAEXXZ @0x002B5D36 383B.
 // End-game UI: PlayerTemplate evil flag at +0x1BC plus victory byte at +0x3C4
 // select Gui_Victory/DefeatScreen, CheerEvil/Good, APT:EndVictorious/Defeat

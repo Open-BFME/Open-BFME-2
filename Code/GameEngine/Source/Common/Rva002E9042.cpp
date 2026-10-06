@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002E9042@Rva002E9042@@QAEXPAX@Z retail 0x002E9042 93 bytes.
 // Converts arg+0xC via WorldToCell 0x002E7875, gets Pathfinder cell 0x002E6D62 layer 1,
 // clears via 0x0052DA63 and updates grid 0x0053155E when cell+4 matches arg, then clears byte at +0x48.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002C6845@Rva002C6845@@QAEXXZ @0x002C6845 52B
 // Leaf with pinned name; skips when flag at +0x168 set, otherwise refreshes via rowed 0x004EBF93, runs rowed 0x002C5F65 on object at +0x164, then sets byte at +4 of that object when global +0x85D flag set.
 // Evidence: pin name, caller 0x004E9507, callees rowed, prev/next same dir with /O1.

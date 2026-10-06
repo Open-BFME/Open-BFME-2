@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E0BEB@Rva002E0BEB@@QAEXPAX@Z @0x002E0BEB 64B copy two-wide then conditional add
 // Evidence: callees rowed 0x002E077F operator= and 0x0020E250 six-int add; callers 0x0020E68A 0x0020F538; neighbours 0x002E0A0A copy ctor and 0x002E0CD4 getter share /O1
 class Rva002E077F

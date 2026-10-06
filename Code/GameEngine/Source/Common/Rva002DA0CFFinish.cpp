@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva002DA0CF@Rva002DA0CF@@QAENXZ, retail 0x002DA0CF, 132 bytes.
 //
 // Double getter with the same mode branches as the matched sibling

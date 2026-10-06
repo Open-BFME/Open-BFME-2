@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002E1046@Rva002E1046@@QAE_NXZ @0x002E1046 119B: thiscall bool scan over
 // LivingWorld players via rowed rva002B52A8 plus pinned helper 0x002E0BC0.

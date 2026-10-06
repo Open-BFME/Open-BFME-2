@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?call@Rva002E3A80Holder@@QAEXXZ, retail 0x002E3A80, 13 bytes.
 // Leaf null-guarded virtual slot-0 call with 1. Callers are 12x unwind
 // jmp thunks plus 0x002E3907 0x00330C29. Owning class unproven so honest

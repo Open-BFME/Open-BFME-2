@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B2FCB@Rva002B2FCB@@QAEXPAX@Z, retail 0x002B2FCB, 23 bytes.
 // Forwarder: this holds member-fn ptr at +0 and four params at +4/+8/+c/+10;
 // invokes it with ecx = stack arg and the four members as stack args.

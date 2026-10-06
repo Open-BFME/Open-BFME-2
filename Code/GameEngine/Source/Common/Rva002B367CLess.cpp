@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?Rva002B367CLess@@YG_NPAPAVRva0037DCA5@@0@Z @0x002B367C 66B. Stdcall bool
 // comparator of Rva0037DCA5 pointers via float at +8 then rowed Get.
 // Evidence: SSE sub plus cvttss2si plus rowed Get 0x0037DCA5 twice; ret 8

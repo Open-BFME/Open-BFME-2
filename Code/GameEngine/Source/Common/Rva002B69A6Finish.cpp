@@ -1,5 +1,5 @@
 // ?rva002B69A6@Rva002B69A6@@QAEXPAX@Z
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva002B69A6@Rva002B69A6@@QAEXPAX@Z @0x002B69A6 94B: unlock callee of
 // 0x002B77F7; vector at this+0x8c, rank at elem+0x34; clears arg via rowed

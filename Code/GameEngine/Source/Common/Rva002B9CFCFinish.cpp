@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 //
 // ?rva002B9CFC@Rva002B9CFC@@QAEXPAVOther002B9CFC@@@Z @0x002B9CFC 203B
 // Rebuild with Other virtuals (0x28/4/0x78/0x30) plus Rva clear 0x002B6900

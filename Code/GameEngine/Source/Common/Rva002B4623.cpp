@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B4623@@YAXHHH@Z @0x002B4623 29B: cdecl 3-arg forwarder into the
 // 5-arg cdecl 0x2B3049 worker: pushes 0, the address of the top byte of its
 // single dword local, then c, b, a (right-to-left), call, add esp,0x14,

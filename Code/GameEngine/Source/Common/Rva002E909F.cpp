@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002E909F@Rva002E909F@@QAE_NPBUCoord3D@@HHHPBVObject@@@Z retail 0x002E909F 203 bytes.
 // Pathfinder layer check over INV-scaled cell with Object-gated second lookup via 0x002E6DC4.
 // Evidence: 11 unclaimed callers; callees rowed getCell 0x002E6D62 Rva002E6E8AGet 0x002E6E8A Object 0x0028AC62 0x0028AFBB 0x002E6DC4; LINK chain from 0x002E9042; flags from next 0x002E9B31.

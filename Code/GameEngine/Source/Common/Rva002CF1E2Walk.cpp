@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002CF1E2@Rva002CF1E2@@QAEXXZ @0x002CF1E2 25B: intrusive list walk.
 // Retail reads the head at +0x0C, then while non-null calls the pinned

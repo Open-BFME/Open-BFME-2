@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva002B34E5@Rva002B34E5@@QAEX_N@Z @0x002B34E5 184B: __thiscall void(bool) storing flag at +0x10B then notifying matching outers. Evidence: retail mov cl,[ebp+8] lea [esi+0x10B] cmp/mov byte plus outer array [+0x8C,+0x90) of Rva002E071E* compared via rowed Rva002E071E::rva002E071E against +0x98 with self-skip then inner array [+0x1B8,+0x1BC) calling rowed Rva003FDE71::rva003FDE71 via +0x88; caller at 0x0042CF44; callees rowed.
 class Rva002E071E
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Range-11 pair sharing class Rva002B4C09 (callee defined in-TU so the
 // caller keeps `this` in ecx across the call with no esi park).
 // ?rva002B3621@Rva002B4C09@@QAE_NXZ @0x002B3621 23B: __thiscall bool probe.

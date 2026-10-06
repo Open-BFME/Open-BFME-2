@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002C7492@Rva002C7492@@QAEXPBV1@@Z @0x002C7492, 25B.
 // 19-dword OR-merge: this[i] |= other[i]. Retail computes other-this once

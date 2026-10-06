@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ??1Rva002E1F42@@UAE@XZ retail 0x002E1F42 65 bytes.
 // Unlock-lane dtor: vptr store 0x00804A84 at +0, frees +0x0C via rowed
 // _free 0x00030830 when non-null, then rowed GameEngineDeletingBase dtor

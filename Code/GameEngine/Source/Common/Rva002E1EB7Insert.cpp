@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva002E1EB7Insert@@YAXPAPAX0PAX1@Z @0x002E1EB7 58B.
 // Guarded linear insert over void* elements keyed at +0xC. If new key exceeds

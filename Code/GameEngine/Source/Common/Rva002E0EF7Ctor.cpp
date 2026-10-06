@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ??0Rva002E0EF7@@QAE@XZ @0x002E0EF7 39B.
 // Default ctor: stores vtable 0x00804948, zeroes members, sets +0x1C to -1.

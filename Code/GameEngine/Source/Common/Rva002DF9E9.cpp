@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva002DF9E9@Rva002DF9E9@@QAE?AVUnicodeString@@XZ, retail 0x002DF9E9, 90 bytes.
 // TheGameText fetch via slot 0x38 into UnicodeString temp at ebp-0x10 then
 // StringBaseWide copy ctor 0x00037050 into hidden return plus release 0x00036E70.

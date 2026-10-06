@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002D317C@Rva002D317C@@QAEXPBMPBMHH@Z, retail 0x002D317C, 295 bytes.
 // Chain (calls 0x002D7BB7 ready). Evidence: TheRadar virtual [0x1C] with 5

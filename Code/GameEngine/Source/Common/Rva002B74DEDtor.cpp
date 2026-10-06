@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /MD /EHs
 // ??1Rva002B74DE@@QAE@XZ retail 0x002B74DE 93B
 // Non-virtual dtor with an empty body: member dtors in reverse order under EH
 // states 2..0 -- the vectors at +0x1C and +0x10 (inline CRT free of each

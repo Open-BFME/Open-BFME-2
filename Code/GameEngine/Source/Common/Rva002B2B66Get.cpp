@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002B2B66@Rva002B2B66@@QAEHXZ @0x002B2B66 18B
 // Null-guarded indirect getter: pointer at +0x98, null returns -1 via

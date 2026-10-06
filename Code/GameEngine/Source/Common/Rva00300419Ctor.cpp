@@ -1,4 +1,4 @@
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // ??0Rva00300419@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x00300419 104B
 // MPPositionList parser binding ctor, same recipe as Rva003085FB (StandingWaterAreas 104B).
 // Evidence: unlock lane, caller 0x003030E4 in 0x00302F2B, literal MPPositionList, base pin 0x000ABB87.

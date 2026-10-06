@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002E6FDF@Rva002E6FDF@@QAEPAV1@XZ @0x002E6FDF 59B.
 // Honest address name: unclaimed __thiscall clearer returning this with 11 callers

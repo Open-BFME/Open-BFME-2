@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva002B3669@Rva002BA8F1Logic@@QAE_NXZ @0x002B3669 19B: Rva002BA8F1Logic method
 // returning byte at item +0xAA or false. Evidence: same shape as sibling rva002B3740
 // in PinnedForwarders1830.cpp; callee 0x002B2B2D pin-only; caller 0x0023DA5B.

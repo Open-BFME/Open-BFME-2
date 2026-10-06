@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 // ??1Rva00301621Dtor@@QAE@XZ retail 0x00301621 53B
 // Two STLport list<int> members at +0 and +4 torn down in reverse order

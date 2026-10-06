@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 // ?rva002B35F7@Rva002BA8F1Logic@@QAEXXZ @0x002B35F7 42B: Rva002BA8F1Logic method
 // forwarding item +0x98 int with float g_00BCEAFC to rowed RadarWindowOverrideSource::rva002D3772.
 // Evidence: caller 0x002B4D6B passes this in ecx; callee 0x002B2B2D pin-only returns

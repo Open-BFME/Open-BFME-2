@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002CFB90@Rva002CFB90@@QAEXXZ @0x002CFB90 30B.
 // Destroy-range-then-free method over a two-pointer (begin/end) holder:
 // calls the rowed 0x002CF891 wrapper with (m_begin, m_end), reloads m_begin,

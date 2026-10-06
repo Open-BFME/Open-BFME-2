@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002B2F49@Rva002B2F49@@QAEPAXI@Z @0x002B2F49 40B
 // Conditional release plus conditional delete: if holder at +0 is present

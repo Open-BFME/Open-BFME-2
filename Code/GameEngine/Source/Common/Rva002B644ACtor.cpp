@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 //
 // ??0Rva002B644A@@QAE@XZ @0x002B644A 44B

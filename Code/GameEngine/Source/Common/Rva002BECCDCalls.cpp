@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva002BECCD@Rva002BECCD@@QAEXMMM@Z, RVA 0x002BECCD, 67 bytes.
 // Three-float method: builds a 12-byte local {a, b, 0.0f} then calls virtual

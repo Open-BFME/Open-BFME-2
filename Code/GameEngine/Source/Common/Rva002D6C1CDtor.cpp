@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva002D6C1C@@UAE@XZ retail 0x002D6C1C 93B
 // Own vptr C0331C; under EH state 0 the singly linked list at +0xC (next at
 // +4 of each node) is drained, each node deleted through its slot-0 deleting

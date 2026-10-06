@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva002E37E5Write@@YAXPAUTriggerArea002E37E5@@PAVDataChunkOutput@@PAVTriggerFilter002E37E5@@@Z retail 0x002E37E5 145B: writes TriggerAreas chunk with filtered count then each area strings plus int plus sub-writer.
 // Evidence: push 1 plus VA 0x00C04BEC "TriggerAreas" to rowed openDataChunk; count loop via virtual slot +4 test with inc [ebp-4] then rowed writeInt; second loop rowed writeAsciiString +0x40 +0x4c plus rowed writeInt +0x44 plus rowed rva0030B2FE +8 then rowed closeDataChunk; chain from 0x0030B2FE.
 

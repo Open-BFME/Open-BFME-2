@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva0030050EGet@@YAIVAsciiString@@0@Z retail 0x0030050E 286B
 // File CRC: copy second arg string via _mbscpy using empty global fallback, strip 4-char extension, set local path, open via TheFileSystem, loop read plus BFMEComputeCRC; first arg unused but destroyed; callers 0x00304FDD.
 #include "ascii_string.h"

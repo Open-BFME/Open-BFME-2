@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B4650@Rva002B4650@@QAEHXZ @0x002B4650 30B: __thiscall int gate.
 // Returns 1 only when the 0x2B2BAA guard passes and the 0x2B3DB2 measure
 // comes back zero (retained in eax: test/jne fail, inc eax on the zero

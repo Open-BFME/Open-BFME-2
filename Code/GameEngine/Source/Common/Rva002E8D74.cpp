@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva002E8D74@Rva002E8D74@@QAEMHH@Z @0x002E8D74 54B.
 // Squared scaled distance via x87: (a*10-px)^2+(b*10-py)^2 with the
 // fild/fsub/fld/fmul/faddp/fstp dance. Evidence: ret 8 two ints;

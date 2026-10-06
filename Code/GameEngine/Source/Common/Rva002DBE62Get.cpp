@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002DBE62Get@@YAHXZ @0x002DBE62 123B
 // Evidence: unlock lane; callers 0x002DD3A7 0x002DD7F8 0x00434B57 0x00435768 0x00435A44; callees rowed isSelectionLocked 0x4253A and get 0x210C66; globals TheGameLogic g_009FEF10 g_Rva0023D607Holder; GameLogic +0x110 +0x114 layout from Disp8 getters and holder check.
 class GameLogic

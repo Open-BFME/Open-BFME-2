@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 // stlport
 // ?rva002B48E1@Rva002B48E1@@QAEPAURva002E1948Entry@@ABVAsciiString@@@Z, retail 0x002B48E1, 72 bytes.
 // Searches the Rva002E1948Lookup vector at +0x8C for the first entry whose

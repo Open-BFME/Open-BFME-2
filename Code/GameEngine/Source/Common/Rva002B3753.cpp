@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva002B3753@Rva002B3753@@QAEHXZ @0x002B3753 22B: __thiscall int predicate.
 // Difference of the two dwords at +0x90 and +0x8C, masked with ~3, tested for
 // zero through MSVC's neg/sbb/inc idiom. Evidence: retail

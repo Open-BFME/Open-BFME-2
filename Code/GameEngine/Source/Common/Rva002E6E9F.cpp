@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva002E6E9FGet@@YAPAXPAX@Z @0x002E6E9F 43B
 // Evidence: unlock lane; free scan over pointer table at +0x244 calling slot
 // 0x68 on subobject at +0xC and tail-calling slot 0 on success; callers

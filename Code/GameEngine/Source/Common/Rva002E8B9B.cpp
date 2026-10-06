@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E8B9B@Rva002E8B9B@@QAEPAVMixFileInfoBuffer@@PAUIn002E6BA1@@@Z, retail 0x002E8B9B, 52 bytes.
 // Calls rowed Rva0052DBCDInit 0x0052DBCD then rowed Rva002E8B7AInit 0x002E8B7A then stores node.
 // Evidence: chain from 0x002E8B7A; global 0x00A049D0 compare plus push; caller none; prev 0x002E8B70 next 0x002E8BCF.

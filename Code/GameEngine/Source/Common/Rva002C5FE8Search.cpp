@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002C5FE8@Rva002C5FE8@@QAEPAXH@Z 0x002C5FE8 34B search pointer table at +0x20/+0x24 for entry whose first dword equals key
 // Evidence: retail loops eax=[ecx+0x20] to edx=[ecx+0x24], double-derefs each element and compares to stack arg, returns entry or null; caller 0x005AB7C4 passes its own arg through
 class Rva002C5FE8

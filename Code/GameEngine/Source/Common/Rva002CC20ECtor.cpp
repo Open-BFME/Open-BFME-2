@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 // stlport
 // ??0Rva002CC20E@@QAE@XZ @0x002CC20E 47B evidence: baseConstruct 0x001B4E63 plus vtable 0x00C02114 plus 2x Vector_base 0x00211E58 at +0x0C +0x18 plus caller 0x0022EB76; same pattern as Rva00426402Ctor with 3 vectors.
 #include <vector>

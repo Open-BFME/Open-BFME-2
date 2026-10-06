@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B2646@Rva002B2646@@QAE_NPAUArg54@@0@Z @0x002B2646 44B.
 // Chain on 0x002B254F with two args: if this->check==0 return true else
 // global lookup virtual +0x28 on the args.

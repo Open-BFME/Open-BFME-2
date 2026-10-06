@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002D7714@Rva002D7714@@QAEXPAURva002D76C6Owner@@@Z @0x002D7714 48B: remove owner from dual lists via ICF twin of rowed 0x002D76C6.
 struct Rva002D76C6Node
 {

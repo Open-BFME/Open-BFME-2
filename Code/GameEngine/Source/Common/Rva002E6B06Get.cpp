@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002E6B06@Rva002E6B06@@QAEHXZ @0x002E6B06 19B.
 // Honest address name: unclaimed __thiscall null-checked ptr-chase bit test.

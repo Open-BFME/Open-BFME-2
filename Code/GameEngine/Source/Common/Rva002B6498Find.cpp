@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oy-
+// cl: /MD /Oy-
 //
 // ?rva002B6498@Rva002B6498@@QAEPAVArmorTemplate@@W4NameKeyType@@@Z @0x002B6498 32B
 // Hashtable find over the +0x10 ArmorTemplate table via rowed _M_find

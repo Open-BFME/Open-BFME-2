@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX- /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /GX- /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002C717E@Rva002A8AB1Record@@QAEXABVAsciiString@@H@Z 0x002C717E 24B
 // Store an int under an AsciiString key in the +0x17C map via rowed map operator[].

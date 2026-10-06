@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E15E6@Rva002E15E6@@QAEXXZ @0x002E15E6 41B.
 // Reset-after-free: if m_04==0 return; else free m_00->m_04 via rowed
 // rva002E0D66, then self-link m_00->m_08 and m_00->m_0C to m_00 and zero

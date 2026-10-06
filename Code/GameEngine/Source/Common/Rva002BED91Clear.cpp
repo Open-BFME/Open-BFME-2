@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?clear@Rva002BED91@@QAEXXZ, RVA 0x002BED91, 19 bytes.
 // Opaque single-holder clear: releases the TargetRef00217D4C referent at +0

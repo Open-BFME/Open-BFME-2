@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva002D76A6@@QAE@XZ @0x002D76A6 (17B).
 // Ctor stores vtable 0x0087506C then zeroes dwords at +0x04 and +0x08.

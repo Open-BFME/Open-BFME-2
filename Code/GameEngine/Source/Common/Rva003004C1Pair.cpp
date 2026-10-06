@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva003004C1@@QAE@ABVAsciiString@@ABE@Z retail 0x003004C1 27B
 // Two-arg ctor: AsciiString key via rowed StringBase copy 0x365F0 then one byte from second ref to +4; caller 0x002056C1 forwards pair for insert; ret 8 proves two args.
 #include "ascii_string.h"

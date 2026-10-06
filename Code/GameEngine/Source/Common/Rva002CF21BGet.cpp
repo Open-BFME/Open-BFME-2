@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002CF21B@Rva002CF21B@@QAEHPAXHH@Z @0x002CF21B 99B.
 // Manager dispatch: null arg returns 0, else virtual slot 0x70 on the global
 // at 0x009FE77C with 3 args, then walk the pointer array at result+0x154;

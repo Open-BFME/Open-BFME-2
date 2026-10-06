@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?get@Rva002E6ECA@@QBEHXZ @0x002E6ECA 46B.
 // Honest address name: unclaimed predicate with 14 callers and no donor

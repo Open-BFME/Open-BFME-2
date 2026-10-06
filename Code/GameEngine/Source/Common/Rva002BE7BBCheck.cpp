@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002BE7BB@Rva002BE7BB@@QAE_NXZ @0x002BE7BB 32B: returns m_110==0||6||1||5. Evidence: caller 0x002BF4CF plus prev 0x002BE7AE plus next 0x002BE7DB.
 class Rva002BE7BB
 {

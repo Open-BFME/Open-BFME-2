@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??4Rva002E077F@@QAEAAV0@ABV0@@Z @0x002E077F 45B operator= copying 6 dwords at +4..+0x18 then returning this
 // Evidence: no callees; caller 0x002E0BFE in 0x002E0BEB; neighbours 0x002E071E compare and 0x002E07AC adder share /O1
 class Rva002E077F

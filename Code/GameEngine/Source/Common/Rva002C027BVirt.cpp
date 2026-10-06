@@ -1,4 +1,4 @@
-// cl: /Os /MD
+// cl: /MD
 // ?rva002C027B@Rva002C027B@@QAEPAXXZ @0x002C027B 23B: null-checked virtual slot3 forward
 // Evidence: gap between GlobalFloatGetters 0x002BFBF0 and DispDwordFieldGetters 0x002C0292; callers 0x002C235A 0x002C248E 0x003149C2; this+0x1A0 ptr plus vtable slot3 jmp; no callees rowed
 class Inner

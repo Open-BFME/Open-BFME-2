@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002EBCD6Split@@YAXPAXPAH1@Z @0x002EBCD6 32B unlock 9 callers
 // Evidence: sibling Split at 0x002EBCA7 in Rva002EBBFBIsOdd.cpp; retail calls rowed Get then cdq-sub-sar half store then remainder store.
 int __cdecl Rva002E9B31Get(void *p);

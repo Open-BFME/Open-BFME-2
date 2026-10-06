@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfmelist /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 // ?rva002E1FC2@Rva002E1FC2@@QAEXXZ 0x002E1FC2 139 merge second map minus first via rowed increment fetch and forEach vtable 0x00875590 callers 0x0020F53F
 #define _STLP_NO_EXCEPTIONS 1

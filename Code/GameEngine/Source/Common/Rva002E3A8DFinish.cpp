@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?get@Rva002E3A8DHolder@@QAEPAURva002E3A8DPair@@PAU2@H@Z, retail 0x002E3A8D, 27 bytes.
 // Target evidence: leaf; returns the destination pointer in EAX (retail's tail
 // leaves out in EAX), which is what pins the void-vs-pointer signature. Next

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E204D@Rva002E204D@@QAEPAVRva002E0D93@@PAV2@@Z @0x002E204D 61B: erase pos from 216B Rva002E0D93 array via rowed copy 0x002E1E9A then pin dtor 0x001EB63C; callers 0x002E2279 0x0037EEF0.
 class Rva002E0D93
 {

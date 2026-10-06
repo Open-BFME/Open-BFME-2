@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 // stlport
 // ??0Rva002E1F42@@QAE@XZ @0x002E1F21 33B ctor via baseConstruct plus vtable plus vector base.
 // Evidence: thiscall ctor storing vtable 0x00804A84 at +0 then vector_base

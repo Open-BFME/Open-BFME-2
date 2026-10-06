@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002B2C40@Rva002B2C40@@QAE_NPAUArg54@@0@Z @0x002B2C40 75B.
 // Chain on 0x002B254F: early false on +0x54 mismatch, same pointer, +0xF4 set;
 // if this->check==0 return true else delegate to global lookup virtual +0xC.

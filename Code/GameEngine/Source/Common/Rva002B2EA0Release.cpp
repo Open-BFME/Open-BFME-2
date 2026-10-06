@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002B2EA0@Rva002B2EA0@@QAEXXZ @0x002B2EA0 39B
 // Conditional release of a prefixed guarded pointer: null or zero-prefix goes

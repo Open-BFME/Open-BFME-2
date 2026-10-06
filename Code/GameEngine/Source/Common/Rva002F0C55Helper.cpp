@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?helper@Rva002F1CB3@@AAEPAV1@H@Z @0x002F0C55 35B.
 // Leaf helper pinned as ?helper@Rva002F1CB3@@AAEXH@Z: builds the

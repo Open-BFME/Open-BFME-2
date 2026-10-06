@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002DB44F@Rva002DB44F@@QAEXHABUOpaqueRefElement4@@@Z, retail 0x002DB44F, 20 bytes.
 // __thiscall array setter storing via rowed OpaqueRefElement4::operator=

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ??1Rva002FDF72@@UAE@XZ @0x002FDF72 201B: ModuleData-style dtor with vtable
 // 0x008071E4 then Snapshot base restore 0x00BBB554; three intrusive lists at
 // +0xF4 (next +0x1BC) +0xFC (next +0x10) +0xF8 (next +0xC) each destructed via

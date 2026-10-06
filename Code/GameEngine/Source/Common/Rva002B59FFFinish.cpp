@@ -1,5 +1,5 @@
 // ?rva002B59FF@Rva002B59FF@@QAE_NXZ @0x002B59FF 96B
-// cl: /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 // stlport
 //
 // Gap-page unlock draining 002B5xxx: a bool predicate with no stack args (ret,

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E0687@Rva002E0687@@QBE_NXZ @0x002E0687 18B.
 // Self-identity test via global logic holder: return g_009FEF10->m_98 == this.
 // Evidence: mov edx [0x00DFEF10] plus cmp [edx+0x98] ecx plus sete al;

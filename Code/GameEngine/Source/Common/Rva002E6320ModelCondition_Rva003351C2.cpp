@@ -1,4 +1,4 @@
-// cl: -MD /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -MD -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 struct Rva00990030Value
 {

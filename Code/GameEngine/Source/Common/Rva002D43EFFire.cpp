@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Rva002D43EFFire, retail 0x002D43EF, 117 bytes, sole caller 0x002D4A95.
 // UI callback firer: formats the int through the rowed Rva00222834Get
 // 0x00222834 and passes its text and the given AsciiString's text (both

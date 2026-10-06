@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002CF1C9@Rva002CF1C9@@QAEXXZ @ 0x002CF1C9 25B.
 // List iterate: head at this+0xC, walk next at node+0x484, call
 // ?rva0033B9D1@Rva0033B9D1@@QAEXXZ on each node. Same head/next layout as

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /G7
+// cl: /MD
 // ?Rva002C5556SortHeap@@YAXPAPAX0P6A_NPAX1@Z@Z @0x002C5556 58B
 // sort_heap over 4-byte entries via rowed pop_heap 0x0021BAFC; caller
 // 0x002C567B; same HeapLess comp. /G7 for retail and-al encoding.

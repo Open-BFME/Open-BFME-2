@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva002B2FE2Copy@@YAXPAVRva004F6093Holder@@ABV1@@Z @0x002B2FE2 18B.
 // Null-checked placement copy through the rowed Rva004F6093Holder copy ctor.
 // Evidence: retail mov ecx,[esp+4]; test ecx,ecx; je ret; push [esp+8];

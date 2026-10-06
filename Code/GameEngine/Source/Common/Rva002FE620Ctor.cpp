@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob2
 // ??0Rva002FE620@@QAE@XZ @0x002FE620 123B: ctor storing vtable 0x00807240. Evidence: callers at 0x002FE9A7 0x002FFE38; two AsciiString members at +4 +0x1B8.
 // ??1Rva002FE620@@UAE@XZ @0x002FE6B7 63B: dtor restoring vtable 0x00807240 tearing down AsciiStrings at +4 +0x1B8. Evidence: vtable store with two releaseBuffer calls; caller is deleting dtor at 0x002FE69B.
 #include "ascii_string.h"

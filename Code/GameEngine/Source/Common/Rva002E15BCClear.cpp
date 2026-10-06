@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002E15BC@Rva002E15BC@@QAEXPAX@Z @0x002E15BC 42B.
 // Bit-clear method: if arg+4 nonzero return, else clear bit arg+0x38 in

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002B47B1Get@@YAPAXXZ @0x002B47B1 18B.
 // Unlock chase through global 0x00E02D6C Rva003B8BAA index/array plus +0x40
 // field. Evidence: same global/index/array shape as rowed Rva003B8BAA

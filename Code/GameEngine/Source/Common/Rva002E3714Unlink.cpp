@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002E3714Unlink@@YAXPAURva002E36D5Node@@@Z, retail 0x002E3714, 40 bytes.
 // Leaf __cdecl unlink of a node from the singly linked list whose head is
 // the global at 0x00DFF0B8 (next pointer at +0x3C, as in the rowed

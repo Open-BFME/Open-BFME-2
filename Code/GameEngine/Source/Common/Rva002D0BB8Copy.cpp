@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva002D0BB8Copy@@YAPADPAD00@Z @0x002D0BB8 50B counted copy stride 92.
 // Evidence: (last-first)/0x5C with idiv then counted loop calling bfmeAssign 0x00064605; caller 0x002D0D71; sibling of Rva003F58F8Copy 0x003F58F8.
 struct BfmeCopyElementA

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ?rva002B9A85@Rva002B9A85@@QAEXABURva002B9062Element@@@Z, retail 0x002B9A85, 11 bytes.
 // Tail-jump forwarder: adds 0x154 then jumps to rowed vector push_back
 // 0x002B9062 for 4-byte element Rva002B9062Element. Evidence: unlock packet;

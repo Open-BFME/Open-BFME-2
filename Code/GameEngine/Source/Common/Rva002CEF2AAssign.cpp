@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??4Rva002CEF2A@@QAEAAU0@ABU0@@Z, RVA 0x002CEF2A, 33B.
 // Copy-assignment copying an AsciiString member at +0 via pinned
 // ??4AsciiString@@QAEAAV0@ABV0@@Z then dwords at +4 and +8, returning this

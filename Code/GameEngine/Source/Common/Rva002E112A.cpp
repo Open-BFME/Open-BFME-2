@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E112A@Rva002E112A@@QAE_NPAVRva00319CED@@@Z @ 0x002E112A 43B.
 // Unlock-lane __thiscall bool taking Rva00319CED*: sums this->rva002E0C68
 // 0x002E0C68 plus arg->rva004E1755 0x004E1755 and compares against

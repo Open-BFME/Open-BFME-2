@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva002B3EFA@@YAXPAX@Z @0x002B3EFA 65B: file-static scan, MSVC private
 // EAX-incoming convention (StringBaseWideTrim/0x35800 precedent: a static
 // taking the pointer arrives in eax; the sole retail caller 0x2BE23E does

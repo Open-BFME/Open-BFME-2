@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002B44C1Destroy@@YAXPAVRva002B2F49@@0@Z @0x002B44C1 27B.
 // Chain via rowed 0x002B2F49: destroy range of Rva002B2F49 holders calling
 // rowed release with flag 0. Evidence: single call site shape push 0 plus

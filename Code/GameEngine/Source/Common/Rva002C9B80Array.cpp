@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002C9B80@Rva002C9B80Owner@@QAEXPAXM@Z @0x002C9B80 67B: unit-float array
 // plus two-stage call. Retail fills a 6-float stack array with 1.0f via rep

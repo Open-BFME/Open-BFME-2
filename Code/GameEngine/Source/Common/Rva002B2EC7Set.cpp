@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002B2EC7@Rva002B2EC7@@QAEXPAUItem002B2EC7@@@Z @0x002B2EC7 57B
 // Guarded-pointer setter with same release as 0x002B2EA0: if new differs

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002B41F4@Rva002B41F4@@QAEXXZ @0x002B41F4 140B.
 // Unlock lane; counts array at +0x8C/0x90 whose elements have +0x44==0 and +0x3C4==0,

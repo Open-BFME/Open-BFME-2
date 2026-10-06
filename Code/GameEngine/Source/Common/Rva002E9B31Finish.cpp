@@ -1,5 +1,5 @@
 // ?Rva002E9B31Get@@YAHPAX@Z
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva002E9B31Get@@YAHPAX@Z @0x002E9B31 180B
 // Free __cdecl int (void*) over an Object-like layout: +4 template, kind bytes
 // +0x109 &4, +0x115 &0x20, +0x11F &0x80, float +0x52C, radius +0xB8.

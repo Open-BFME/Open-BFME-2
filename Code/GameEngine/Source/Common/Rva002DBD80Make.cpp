@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002DBD80Make@@YA?AURva002DBD80Val@@HPBG@Z @0x002DBD80 52B
 // Evidence: unlock lane; callee initWide 0x002342D5 rowed; hidden-pointer return with int+pair 12B temp copied via movsd x3.
 class Rva000B3F84Pair

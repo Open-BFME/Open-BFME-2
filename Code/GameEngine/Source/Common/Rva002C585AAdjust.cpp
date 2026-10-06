@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002C585A@Rva002C585A@@QAEXH@Z 0x002C585A 45B rescale member at +0x20 by divisor at +0x30 unless mode at +4 is 2
 // Evidence: retail cmps [ecx+4] with 2, divides [ecx+0x20] by [ecx+0x30] when nonzero then multiplies by stack arg, stores arg to +0x30; caller 0x004E9710
 class Rva002C585A

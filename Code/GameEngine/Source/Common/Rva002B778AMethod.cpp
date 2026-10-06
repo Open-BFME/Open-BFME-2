@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva002B778A@Rva002B778A@@QAEXABVAsciiString@@@Z @0x002B778A 24B.
 // Find-by-name then erase/notify: rowed Rva002B68AA find 0x002B68AA on this
 // with the name ref, then rowed Rva002B4CED erase 0x002B4CED on this with the

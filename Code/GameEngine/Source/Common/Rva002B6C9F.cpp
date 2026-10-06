@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B6CE5@Rva002B6C9F@@QAE_NHHH@Z @0x002B6CE5 51B: __thiscall bool
 // probe. Returns the rowed 0x2B2C40 check ANDed with the normalized pinned
 // 0x2B6BCF stage; the AND form shares the bare-pops exit (al still 0 from

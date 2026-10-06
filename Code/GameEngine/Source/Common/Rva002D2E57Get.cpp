@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva002D2E57Get@@YAHXZ @0x002D2E57 101B
 // Evidence: globals g_009FEF10 TheGameLogic ThePlayerList g_00E02D6C plus rowed isSelectionLocked rva0042219 bfmePickRV; caller 0x002D666B; neighbours Rva002D2D13Calls/Rva002D317CCalls.

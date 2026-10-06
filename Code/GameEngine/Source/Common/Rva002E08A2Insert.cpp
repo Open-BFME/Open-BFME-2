@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva002E08A2Insert@@YAXPAPAXPAX1@Z @0x002E08A2 37B.
 // Sorted pointer-array insert: shifts slots backwards while the new element's

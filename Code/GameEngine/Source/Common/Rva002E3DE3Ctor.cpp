@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??0Rva002E3DE3@@QAE@HH@Z retail 0x002E3DE3 71B.
 // Evidence: forwards the list head at 0x00DFF0B8 (the global the rowed

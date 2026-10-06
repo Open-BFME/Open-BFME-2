@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc
 // ?Rva002B4948Find@@YGPAXPAX00@Z @0x002B4948 96B: search vector at +0x1B8 for empty-string owner.
 // Evidence: callers 0x002B6721 0x002B6A1F 0x002BA8CB; rowed isEmpty 0x00001E2F;
 // pin 0x00318C32 Rva00318C79Owner::rva00318C32; prev Rva002B48E1Find idiom.

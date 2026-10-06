@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B4FEB@Rva002B4FEB@@QAEXXZ @0x002B4FEB 56B.
 // Chain lane; calls 0x002B41F4 and 0x002B4280 just landed plus virtuals via 0x009FEF18.
 // First cond slot 0x8C calls 41F4 then second cond slot 0x90 tail-jmps 4280.

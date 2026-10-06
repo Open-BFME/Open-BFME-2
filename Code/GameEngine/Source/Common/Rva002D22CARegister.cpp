@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva002D23ED@Rva002D22CA@@QAEXPAXH@Z
 // RVA 0x002D23ED size 106. Table-register helper of Rva002D22CA: converts each

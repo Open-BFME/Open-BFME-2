@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva002E6E8AGet@@YAHH@Z @0x002E6E8A 21B.
 // Honest address name: unclaimed free-function range predicate testing

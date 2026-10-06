@@ -7,7 +7,7 @@
 // 0x000055F5; level name from rowed indexed getter 0x00202678; key
 // "AudioLOD" at 0x804CB8; manager at 0x9FE144.
 
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 
 #include <map>
 #include <stdlib.h>

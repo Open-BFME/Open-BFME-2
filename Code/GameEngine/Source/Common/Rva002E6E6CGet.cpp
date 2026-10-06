@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva002E6E6CGet@@YAHH@Z @0x002E6E6C 19B.
 // Honest address name: free __cdecl predicate with 22 UNCLAIMED callers and

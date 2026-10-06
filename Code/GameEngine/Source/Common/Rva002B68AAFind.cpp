@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva002B68AA@Rva002B68AA@@QAEPAUFindElem002B68AA@@ABVAsciiString@@@Z @0x002B68AA 86B
 // Linear find over pointer vector at +0xBC/+0xC0 with key StringBase at +0x10
 // via rowed compare 0x000069D6; caller at 0x002B7791.

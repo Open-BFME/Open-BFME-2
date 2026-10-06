@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva002DA414@Rva002DA414@@QAEPAXXZ @0x002DA414 77B: this+0x38 selects GameLogic vs GameClient lookup of id at +0x34 then common getControllingPlayer +0x54 else +0x6c.
 // Evidence: callees findObjectByID 0x00049DC5 getControllingPlayer 0x0028AFA9; data TheGameLogic 0x009FE78C TheGameClient 0x009FE77C; caller 0x00053C13.
 enum ObjectID

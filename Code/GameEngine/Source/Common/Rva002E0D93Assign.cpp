@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ??4Rva002E0D93@@QAEAAV0@ABV0@@Z @0x002E0D93 233B.
 // Honest copy-assign of 0xD8 record: 5 dwords plus 0x80 block via rep movsd then dword/byte members then sub-record assign then two StringBase set calls; returns *this.
 // Evidence: sole caller 0x002E17A0 array copy (count = bytes/0xD8); callees rowed Rva001EAFC1::op= 0x001EAFC1 and StringBase<char>::set 0x000366F0; layout from retail offsets with Rva001EAFC1 0x18 per Rva001EAFC1Assign.cpp.

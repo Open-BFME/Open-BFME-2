@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002B3F9F@@YAXPAXH@Z @0x002B3F9F 52B: resolve, clear, tail-release.
 // Same resolve-then-act family as the banked 0x2B3F3B (same +0x78 vector,
 // same 0x40CBD7 lookup-or-null with lea [ebp+8] out-param, same +0xC4 flag

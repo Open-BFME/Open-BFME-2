@@ -1,5 +1,5 @@
 // ??1Rva002B644A@@EAE@XZ
-// cl: /O1 /MD /EHs /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC
+// cl: /MD /EHs /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC
 // stlport
 // 0x004FC05C 81B private virtual dtor (pin EAE) slot? caller ??_G at 0x002B647F.
 // Derived vtable 0x007FE280 then host release of +0x18 via rowed 0x00212655

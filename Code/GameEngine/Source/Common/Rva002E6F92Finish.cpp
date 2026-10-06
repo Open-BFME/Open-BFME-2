@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E6F92@Rva002E6F92@@QAEHHPAUIn002E6F92@@HH@Z, retail 0x002E6F92, 77 bytes.
 // Float select on low nibble at input +0x0C: 7/1 scales two ints by 10 to
 // +0x00/+0x04 with zero at +0x08 else byte 1 at +0x0C; first int arg unused

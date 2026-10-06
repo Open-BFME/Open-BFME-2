@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva002C5AE6@Rva002C589B@@QAEMXZ @0x002C5AE6 96B via max array float plus m_28
 // Evidence: pin QAEMXZ float no args; caller 0x00505383 matched plus 0x0059A1F0; this+0 m_00 via global g_00DFEEF8 to rowed rva002A8AB1 pin; rec+0x164 plus 0x20 bounds; elems float at +0x18 max from 0.0f; m_28 float at +0x28 max; SSE xorps movss comiss plus fld return; prev/next Rva002C589B same class
 class Rva002A8F24;

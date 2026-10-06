@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002D2457@Rva002D22CA@@UAE_NXZ
 // RVA 0x002D2457 size 135. Slot1 init of Rva002D22CA: registers 9 tables at

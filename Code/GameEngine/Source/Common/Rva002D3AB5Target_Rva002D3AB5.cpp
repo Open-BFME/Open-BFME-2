@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?rva002D3AB5@Rva002D3AB5Target@@QAEXH@Z @ 0x002D3AB5 123B
 // Evidence: LINK BONUS caller jmp 0x002D4683 names this mangled name; first-field state index >=0 like neighbour Gen0058BCD0::handle 0x002D3A53; g_009FEF10 null plus BfmeSelectionState::isSelectionLocked selects NonCommand_CommandPointsLivingWorld else NonCommand_CommandPoints; ControlBar::findCommandButton 0x31BE3C then ControlBar::rva004C1B60 0x405DBC.
 #include "ascii_string.h"

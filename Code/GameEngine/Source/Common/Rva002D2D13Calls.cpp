@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002D2D13@Rva002D2D13@@QAEXPAXH@Z
 // RVA 0x002D2D13 size 32. Calls virtual slot 31 (0x7C) on obj arg twice with
 // this and this+4. Evidence: callers at 0x2D649B in unclaimed 0x2D6460;

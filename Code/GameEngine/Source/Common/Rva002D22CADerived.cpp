@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque destructor tail-calling Rva002D22CA::~Rva002D22CA at 0x002D22CA
 // (matched opaque derived dtor in GameEngineDeletingBaseDerived.cpp, itself

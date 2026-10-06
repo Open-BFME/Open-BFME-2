@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0030594D@Rva0030594D@@QAEXPAVXfer@@@Z @0x0030594D 31B via Xfer Version1 plus int operator== slot 0x7c
 // Retail Version1 then Xfer virtual at +0x7c with this+4; reverse-overload layout puts int at 0x7c.
 class AsciiString;

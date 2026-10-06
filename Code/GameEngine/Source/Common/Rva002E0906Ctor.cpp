@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??0Rva002E0906@@QAE@XZ @0x002E0906 100B, called from 0x002E2417.
 // Retail's unwind map destroys narrow StringBase members at +0x00, +0x04
 // and +0x20, in that order of construction. The first two and the third are

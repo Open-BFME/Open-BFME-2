@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva002E2F39@Rva002E2F39@@QAEXABURva002E2D10Record@@@Z 0x002E2F39 11: tail-forwards to vector push_back.
 // Evidence: rowed push_back 0x002E2D10 plus caller 0x0037EB3C.

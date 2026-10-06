@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002DBC97Get@@YGPAXH@Z @0x002DBC97 51B
 // Evidence: unlock lane; 8 callers push 1 int and use pointer result; globals g_00DBD03C g_00DBD040 g_00DBD044 g_00DBD048; ret 4 stdcall.
 extern void *g_00DBD03C;

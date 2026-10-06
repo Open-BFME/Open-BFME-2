@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // ?rva002B2F0C@Rva002B2F0C@@QAEAAV1@PAURva002B2F0CTarget@@@Z, RVA 0x002B2F0C, 21 bytes.
 // Intrusive-ref setter: stores the pointer at this+0 then increments the

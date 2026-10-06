@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // ??0Rva002B91EDElement@@QAE@ABU0@@Z @0x002B90D6 103B: existing pin (copy
 // constructor called by the rowed EH _Construct 0x002B91ED). 0x34-byte element:

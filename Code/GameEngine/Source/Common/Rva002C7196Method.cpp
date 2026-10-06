@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX- /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /GX- /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002C7196@Rva002A8AB1Record@@QAEHABVAsciiString@@@Z @0x002C7196 (52B):
 // get-or-default int field off the +0x17C map. Contains check through the

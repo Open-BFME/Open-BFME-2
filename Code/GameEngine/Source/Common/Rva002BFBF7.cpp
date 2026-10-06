@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ?rva002BFBF7@Rva002BFBF7@@QAEXXZ 0x002BFBF7 87B evidence: unlock erase vector BfmePod16 0x002BF70F plus curve set 0x00504EAD twice; caller 0x002C0205
 struct BfmePod16 { int a[4]; };
 namespace _STL

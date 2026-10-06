@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002CEC34@Rva002CEC0A@@QAEXXZ @0x002CEC34 14B
 // Clears the vector<AsciiString> at +4 via the rowed erase at 0x0002CCFC.
 // Same class and member as Rva002CEC0ADtor (dtor at 0x002CEC0A tail-calls

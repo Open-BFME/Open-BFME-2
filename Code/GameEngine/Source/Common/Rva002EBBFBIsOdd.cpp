@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002EBBFBIsOdd@@YAEPAX@Z @0x002EBBFB 25B
 // Free __cdecl unsigned char (void*) wrapping ?Rva002E9B31Get@@YAHPAX@Z parity test.
 // Evidence: 12 callers pass single pointer and use result as bool for WorldToCell;

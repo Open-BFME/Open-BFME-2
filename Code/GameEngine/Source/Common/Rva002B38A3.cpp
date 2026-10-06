@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002B38A3@Rva002B38A3@@QAEPAXH@Z 47B @0x002B38A3: linear find over the
 // pointer array at +0xCC/+0xD0; returns the element whose virtual slot

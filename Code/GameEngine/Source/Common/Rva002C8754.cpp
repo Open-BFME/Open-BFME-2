@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva002C8754@Rva002C8754@@QAEXPAVINI@@PAX@Z @0x002C8754 234B.
 // Multi-token INI bitstring-list driver over BitFlags104 worker 0x002C82C8.
 // Direct transfer of the landed 234B sibling ?rva0033B84E@Rva0033AFBB in

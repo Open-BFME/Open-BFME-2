@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002DBA3F@Rva002DBA3F@@QAEXPAVXfer@@@Z, retail 0x002DBA3F, 43 bytes.
 // __thiscall xfer-style method taking Xfer*: Version1 via rowed 0x000053EE

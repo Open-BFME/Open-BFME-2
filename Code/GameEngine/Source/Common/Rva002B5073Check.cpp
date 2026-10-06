@@ -2,7 +2,7 @@
 // Vector at +0xCC searched for an element whose virtual slot 0x18 result overlaps the mask.
 // Returns true on first overlap else false. Callees are all rowed. Unblocks 2 functions.
 // TU-local honest-address views; element virtuals prove slot only not original names.
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 #include <vector>
 struct Rva002B5073Elem {

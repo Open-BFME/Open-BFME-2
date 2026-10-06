@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?xfer@Rva002E0A0A@@MAEXPAVXfer@@@Z @0x0052BA0A 161B slot 3 xfer via Version plus IsLightCRC plus strings plus ints.
 // Evidence: vslot slot 3 of 0x00804948; donor CopyCtor 0x002E0A0A same members; callers vtable.
 #include "ascii_string.h"

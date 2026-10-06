@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E1FA5@Rva002E1FA5@@QAEXXZ @0x002E1FA5 29B.
 // Swap-then-reset: swap maps at +0x29C/+0x2A8 via rowed Rb_tree swap 0x0032AC92
 // then tail-jmp to rowed reset 0x002E15E6 on +0x29C. Evidence: same esi for

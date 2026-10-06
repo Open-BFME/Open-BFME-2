@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002BE833@Rva002BE833@@QAEXPAVXfer@@@Z, RVA 0x002BE833, 155 bytes.
 // Xfer-style body: Version(1,1) via Xfer slot 0x28, IsCRC early-out via slot

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva002FED8D@@UAE@XZ @0x002FEDEC 64B virtual dtor via vptr plus List_base AsciiString plus releaseBuffer
 // Evidence: vtable 0x00807408; List_base dtor 0x002FECBC; releaseBuffer 0x00036410; caller deleting dtor 0x002FFCEA; ctor sibling Rva002FED8DCtor same flags.

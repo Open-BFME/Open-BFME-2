@@ -1,5 +1,5 @@
 // ?rva002DB4DA@Rva002DB4DA@@QAEPAURva002DB4DANode@@V?$StringBase@D@@@Z
-// cl: /O1 /GX /MD
+// cl: /GX /MD
 //
 // Fix over the banked attempt: declare the leaf compare `throw()` so MSVC omits
 // the `and dword ptr [ebp-4],0` unwind-state init, keep releaseBuffer a plain

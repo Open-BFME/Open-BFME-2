@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002B442DCopy@@YAPAVRva002B2F97@@PAV1@00@Z, retail 0x002B442D, 47 bytes.
 // Forward copy for Rva002B2F97 holders using rowed assignment 0x002B2F97.
 // Same shape as Rva005EF4C0Copy for Rva005EEFD2. Caller at 0x002B4423.

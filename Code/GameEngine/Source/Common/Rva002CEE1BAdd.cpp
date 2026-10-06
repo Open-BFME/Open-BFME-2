@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002CED84@Rva002CEE1B@@QAEXPAX00@Z @0x002CED84 83B
 // Method of Rva002CEE1B (array at +0x0C, 128 x 0x1C from dtor TU) that finds
 // first empty slot and fills {ptr + 12B + 12B}. Evidence: ecx+0x0C base with

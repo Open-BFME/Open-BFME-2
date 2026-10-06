@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??1Rva002CEE1B@@UAE@XZ, RVA 0x002CEE1B, 72 bytes.
 // Dtor via vtable 0x00802244 plus ehvec array at +0x0C plus rowed base
 // GameEngineDeletingBase dtor 0x001B4E74. Evidence: EH_prolog plus vtable

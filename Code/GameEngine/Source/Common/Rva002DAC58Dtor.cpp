@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva002DAC58@@UAE@XZ @0x002DAC58 128B: dtor with two node lists plus GameEngineDeletingBase.
 // Evidence: vptr 0x00C03D64 store, lists at +0xC/+0x10 with virtual slot0 get(0) plus global delete row 0x2FD60, base dtor row 0x1B4E74, deleting dtor caller 0x002DACD8 28B, neighbour Rva002DB311Dtor /O1 /MD /EHsc.
 

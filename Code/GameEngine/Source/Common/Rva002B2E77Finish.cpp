@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva002B2E77Append@@YGXH@Z @0x002B2E77 23B
 // __stdcall void(int) wrapper: global factory at 0x00A00950 slot 0x48 creates
 // message 0x6B9, then tail-appends the incoming int argument through the rowed

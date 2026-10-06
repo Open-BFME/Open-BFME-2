@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002C68CE@Rva002C68CE@@QAEHXZ @0x002C68CE 109B
 // Evidence: unlock lane sibling of 0x002C67DC same page 002C6xxx prev

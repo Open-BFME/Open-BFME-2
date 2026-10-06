@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 //
 // ??0Rva002CEC0A@@QAE@XZ @0x002CEBEE 28B: ctor storing vtable 0x0080222C

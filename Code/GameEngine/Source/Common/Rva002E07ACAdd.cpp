@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?add@Rva002E07AC@@QAEXH@Z @0x002E07AC 13B.
 // Honest address name: __thiscall void adder with 1 caller and no callees.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva002B5558@@QAE@XZ @0x002B609F 56B.
 // List destructor for the Rva002B5558 family: clears via the rowed
 // rva002B5558, then the inline head-handle member dtor frees the sentinel

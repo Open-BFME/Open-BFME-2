@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002E5611@Rva002E5611@@QAEHABV1@@Z, retail 0x002E5611, 103 bytes.
 // Signed 64-bit compare of the (high at +8 low at +c) pair against the same
 // pair in the argument. Each side builds (__int64)high * 0x100000000 + low

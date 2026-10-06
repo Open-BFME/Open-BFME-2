@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva002B82D5@@QAE@XZ @0x002B82D5 53B.
 // Family dtor: member Rva002B57D5 at +0xC through the rowed 0x002B62A6,
 // then base Rva002B57AC at +0 through the rowed 0x002B626E, with the

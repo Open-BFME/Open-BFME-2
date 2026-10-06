@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ??1Rva002C589B@@QAE@XZ @0x002C589B 24B: non-virtual dtor that deletes the
 // +0x24 heap object via the rowed Rva003ECDB7 dtor 0x003ECDB7 plus the rowed
 // operator delete 0x0002FD60. Called by the unclaimed deleting dtor 0x0050526D

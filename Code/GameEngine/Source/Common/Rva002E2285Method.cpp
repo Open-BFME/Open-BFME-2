@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 // ?rva002E2285@Rva002E2285@@QAEXPAHABVRva0020E449@@@Z retail 0x002E2285 102 bytes.
 // Unlock lane: if map<int,int> at +0x2A8 lacks *elem, broadcast via

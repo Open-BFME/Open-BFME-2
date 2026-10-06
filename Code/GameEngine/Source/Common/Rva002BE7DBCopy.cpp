@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002BE7DB@Rva002BE7DB@@QBEAAURva002BE7DBValue@@AAU2@@Z, RVA 0x002BE7DB, 23 bytes.
 // 12-byte copy: float at +0 via x87 then two dword moves at +4/+8, from this

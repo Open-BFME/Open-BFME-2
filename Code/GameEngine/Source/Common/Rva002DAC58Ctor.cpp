@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??0Rva002DAC58@@QAE@XZ @0x002DAC34 36B: ctor via rowed baseConstruct 0x001B4E63 plus lists at +0xC/+0x10 plus global g_00DFF088.
 // Evidence: vtable 0x00803D64 store; callees baseConstruct 0x001B4E63; data g_00DFF088 0x009FF088; caller 0x0022E874; neighbour dtor 0x002DAC58.
 extern int g_00DFF088;

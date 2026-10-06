@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva002E0D02Get@@YAHPAURva002E0D02Arg@@@Z @ 0x002E0D02 100B sum via indexed get.
 // Evidence: neighbours Rva002E0CD4Get plus Rva002E0D66Method share /O1; rowed get@Rva0040CB2CIndexedField 0x0040CB2C plus EBP frame plus and-mem-zero plus sar-3 so /O1; ret is cdecl 1 arg; unblocks 0x005235D5 plus 0x005D13E2.
 struct Entry8

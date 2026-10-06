@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva002E217BSort@@YAXPAPAX0PAX@Z @0x002E217B 58B.
 // Heap pop-sort via rowed 0x002E1F0A: while byte len>4 call Reinsert then
 // shrink end. Evidence: and 0xfffffffc plus cmp 4 with byte-only and al 0xfc

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // ?rva002DCDBF@Rva002DCDBF@@QAEPAXV?$StringBase@D@@H@Z, retail 0x002DCDBF, 101 bytes.
 // Bucketed circular-list find by AsciiString key: bucket = this+0x10[index],

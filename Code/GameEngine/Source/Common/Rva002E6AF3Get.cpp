@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?get@Rva002E6AF3@@QBEHXZ @0x002E6AF3 19B.
 // Honest address name: unclaimed const getter with 22 callers and no donor

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002B4DE2@Rva002B4DE2@@QAEHXZ @0x002B4DE2 139B.
 // Unlock lane; list of BfmeStringRecord002B4DC1 at +0xF0 counted by word1

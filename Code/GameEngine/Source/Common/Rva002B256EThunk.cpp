@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002B256EGet@@YAPAXXZ @0x002B256E 11B.
 // Global-to-method tail jump: mov ecx,[0x00E02D6C]; jmp 0x003B8BAA.
 // Evidence: retail 8B 0D 6C 2D E0 00 E9 ...; callee is rowed

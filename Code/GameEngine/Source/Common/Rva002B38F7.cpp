@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 // ?setLocal@Rva002BA8F1Logic@@QAEXPAVRva002E2903Player@@@Z @0x002B38F7 216B.
 // setLocal logic player: skip when same; unregister old via rowed 0x002B359D;
 // TheAudio slot 0x8C with 1,1,0; store new at +0x98; TheMouse slot 0x4C with 1;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva002D9608@Rva002D9608@@QAE_NXZ @ 0x002D9608 26B
 // Audio gate: if TheAudio is null return false else return TheAudio slot 0xd0 with m_0C.
 // Evidence: honest address name; __thiscall bool via test jne xor al and virtual call [edx+0xd0]; TheAudio data 0x009FE6E8; caller in FUN_006d9fd9; neighbours Weapon.cpp and BfmeStringTailRecord144 dtor.

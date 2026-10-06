@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /arch:SSE
+// cl: /MD /EHsc
 // Built from the banked attempt reverse/attempts/0x002db1ca.cpp; fix: the float
 // read through g_Va00BBB8D8 is a compiler literals holding the retail
 // values, not extern globals, which is what gives retail's operand order.

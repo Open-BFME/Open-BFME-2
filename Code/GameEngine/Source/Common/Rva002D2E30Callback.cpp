@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002D2E30@Rva002D2E30@@QAEXH@Z @0x002D2E30 39B: guarded callback fire.
 // Retail reads a cdecl callback pointer at +0x14C; if non-null it materializes

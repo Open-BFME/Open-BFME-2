@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002B4E83@Rva002B4E83@@QAEXPAVRva002E0687@@@Z @0x002B4E83 233B.
 // Unlock lane; defeat message: if selection locked and local player use GUI:YouHaveBeenDefeated else GUI:PlayerHasBeenDefeated formatted with player name at +0x1c+8 or TheNullChr, then InGameUI message at 0x4C plus rva0029B16A(&msg 8).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva002C943B@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z, retail 0x002C943B, 39 bytes.
 // Five-field copy with first field via +0x04 pointer plus +0x0C.
 // Evidence: unlock lane; caller 0x002C8D2A; prev/next TU flags.

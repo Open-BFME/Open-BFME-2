@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002B29BDFire@@YAXXZ, retail 0x002B29BD, 27 bytes.
 // Fires HideEndGame UI callback through the global target: invoke with
 // owner (void*)13, name "HideEndGame", rest 0. Same recipe as the landed

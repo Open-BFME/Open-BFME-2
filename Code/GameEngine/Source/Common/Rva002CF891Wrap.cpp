@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002CF891Wrap@@YAXPAURva002CF571Item@@0@Z @0x002CF891 24B.
 // EBP-frame cdecl wrapper over the rowed 0x002CF571 range loop: reserves one
 // dword local, passes the address of its low byte plus the two through args

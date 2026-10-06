@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002E373CClear@@YAXXZ, retail 0x002E373C, 42 bytes.
 // Leaf __cdecl clear of global list at 0x00DBD0F4 plus counter reset at
 // 0x00DBD0F0 to 1. Head in ECX cleared via AND plus virtual slot-0 call

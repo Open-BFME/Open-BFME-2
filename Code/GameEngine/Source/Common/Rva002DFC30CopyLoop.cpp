@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva003319C9Copy@@YAPAVRva002DFC30@@PAV1@00@Z @0x003319C9 50B: forward 12-byte copy loop via rowed copy ctor 0x00331759; caller 0x00331BA2; twin backward 0x0033177E
 #include <new.h>
 class BfmeSubA

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva002E1E9ACopy@@YAPAVRva002E0D93@@PAV1@00PAD@Z @0x002E1E9A 29B.
 // Copy wrapper: forwards first three args plus fresh byte flag and 0 to rowed
 // 0x002E17A0 copy; returns its result. Evidence: caller pushes 0x002E204D

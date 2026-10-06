@@ -1,5 +1,5 @@
 // ?rva002DB496@Rva002DB496@@QAEPAXVAsciiString@@@Z
-// cl: /O1 /EHs
+// cl: /EHs
 //
 // ?rva002DB496@Rva002DB496@@QAEPAXVAsciiString@@@Z @0x002DB496 68B. Evidence:
 // StringBase<char>::compare at rowed 0x000069D6 and releaseBuffer at rowed

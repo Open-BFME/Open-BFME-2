@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002BE8D4@Rva002BE8D4@@QAE_NXZ, RVA 0x002BE8D4, 25 bytes.
 // Or-predicate: true when byte at +0x78 is non-zero or the 0x00DFE1C8

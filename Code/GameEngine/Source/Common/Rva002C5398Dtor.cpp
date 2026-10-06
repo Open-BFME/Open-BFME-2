@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva002C5398@@UAE@XZ retail 0x002C5398 112B
 // Own vptr BFF658; under EH state 1 this object runs the rowed
 // ?rva002C124C@Rva002C124C@@UAEHXZ 0x002C124C and

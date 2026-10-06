@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002B4280@Rva002B4280@@QAEXXZ @0x002B4280 140B.
 // Unlock lane; sibling of 0x002B41F4 with flag +0x177 state +0x98->0x2C0 message 0x6BB.

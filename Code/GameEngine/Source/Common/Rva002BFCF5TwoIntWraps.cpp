@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two-int pack wrappers: each packs its two int arguments into a stack
 // TwoInts and passes its address to an unrowed member helper (pinned in

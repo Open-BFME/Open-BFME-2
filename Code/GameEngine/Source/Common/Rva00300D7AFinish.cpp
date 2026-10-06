@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00300D7A@Rva00300D7A@@QAE?AVAsciiString@@XZ retail 0x00300D7A 200B
 //
 // Finish draft for the banked near miss reverse/attempts/0x00300d7a.cpp.
