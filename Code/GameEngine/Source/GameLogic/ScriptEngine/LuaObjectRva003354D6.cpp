@@ -97,3 +97,19 @@ int Rva003354D6(lua_State *L, bool b)
 	}
 	return 1;
 }
+
+// ?ObjectGrantUpgrade@@YAHPAUlua_State@@@Z, retail 0x00335692 14B: the Lua
+// callback registration 0x003386BF names ObjectGrantUpgrade (pushcclosure
+// then setglobal); it forwards to the shared worker above with grant=true.
+int ObjectGrantUpgrade(lua_State *L)
+{
+	return Rva003354D6(L, true);
+}
+
+// ?ObjectRemoveUpgrade@@YAHPAUlua_State@@@Z, retail 0x003356A0 14B: the Lua
+// callback registration 0x003386DA names ObjectRemoveUpgrade; same worker
+// with grant=false.
+int ObjectRemoveUpgrade(lua_State *L)
+{
+	return Rva003354D6(L, false);
+}
