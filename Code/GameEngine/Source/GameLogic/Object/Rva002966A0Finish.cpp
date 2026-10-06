@@ -51,15 +51,6 @@ class EmissionVelocityInfo
 {
 public:
 	virtual void DoXfer(Xfer &xfer);
-	// The same body as DoXfer, reached DIRECTLY. Retail at 0x002966C9 does
-	// `lea ecx,[ebx+0x3bc] / call 0x0047A69C` -- a non-virtual call to the address
-	// the ledger already rows as ?DoXfer@EmissionVelocityInfo@FXParticleSystem@@
-	// UAEXAAVXfer@@@Z (the shared empty-override fold). Calling it virtually
-	// instead costs two instructions (`mov eax,[ecx] / call [eax]`) and 7 bytes.
-	// Both spellings are declared because the resolver keys the REL32 site on the
-	// mangled name: `UAEX` is the virtual one, and a direct call needs `QAEX`, so
-	// the non-virtual spelling carries its own pin to the same address.
-	void DoXferDirect(Xfer &xfer);
 };
 }
 
@@ -122,7 +113,7 @@ void Object::rva002966A0(Player *a, Player *b)
 	Rva002966A0Holder *holder = *(Rva002966A0Holder **)((char *)this + 0x258);
 	if (holder != 0 && a != b)
 		holder->m_ai.aiIdle(CMD_FROM_AI);
-	((FXParticleSystem::EmissionVelocityInfo *)((char *)b + 0x3bc))->DoXferDirect(*(Xfer *)this);
+	((FXParticleSystem::EmissionVelocityInfo *)((char *)b + 0x3bc))->EmissionVelocityInfo::DoXfer(*(Xfer *)this);
 	Rva002966A0Item **arr = *(Rva002966A0Item ***)((char *)this + 0x244);
 	for (; *arr != 0; ++arr)
 		(*arr)->rva002966A0Call(a, b);
