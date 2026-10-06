@@ -11067,7 +11067,7 @@ name,address,notes
 ?run@Rva004F2ABCRun@@QAEXHH@Z,0x004F2ABC,REL32 callee decoded from target call bytes of null-checked forward 0x002A9CDE; identity unproven
 ?run@Rva004F2C14Run@@QAEXH@Z,0x004F2C14,REL32 callee decoded from target call bytes of null-checked forward 0x002A9DEC; identity unproven
 ?run@Rva0052B737Sub@@QAEXHH@Z,0x0052B737,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
-?run@Rva0053863ESub@@QAEXH@Z,0x0053863E,REL32 callee decoded from target call bytes of adjust-call-echo 0x0030BEE6; identity unproven
+?run@Rva0053863ESub@@QAEHH@Z,0x0053863E,REL32 callee decoded from target call bytes of adjust-call-echo 0x0030BEE6; final stack load returns the 32-bit input; semantic type and identity unproven
 ?run@Rva00538674Sub@@QAEXH@Z,0x00538674,REL32 callee decoded from target call bytes of adjust-call-echo 0x0030BEF9; identity unproven
 ?run@Rva00548527Runner@@QAEXXZ,0x00548527,REL32 callee decoded from target call bytes of find-then-run 0x0035519E; identity unproven
 ?run@Rva00548632Runner@@QAEXXZ,0x00548632,REL32 callee decoded from target call bytes of find-then-run 0x003551D3; identity unproven
@@ -14139,3 +14139,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva004FFE96@@QAE@XZ,0x004FFE96,callee of ??0Rva00502EC6@@QAE@XZ
 ??1Rva004FFE96@@QAE@XZ,0x0050298D,callee of ??0Rva00502EC6@@QAE@XZ
 ?rva00515B0A@@YAXPAVRva00515Handle@@H@Z,0x00515B0A,callee of ?Rva00515BCA@@YAXH@Z
+?rva0053856F@Rva0053863ESub@@QAEXXZ,0x0053856F,helper reached by the 0x0053863E body with ECX=this; Ghidra boundary size 132 and matching accesses to +0x0C and +0x20; address-derived symbol only
