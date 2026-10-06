@@ -64815,3 +64815,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?method_005C908B@HostClass005C8E0A@@QAEXVBfmePoolRef10@@E@Z,,0x005C908B,102,Code/GameEngine/Source/Common/HostClass005C908B.cpp,matched,
 ?method_005C8DBF@TargetObj005C8DBF@@QAEXM@Z,,0x005C8DBF,75,Code/GameEngine/Source/Common/TargetObj005C8DBF.cpp,matched,TargetObj005C8DBF::method_005C8DBF float method erasing tree node
 ?rva0005106A@Rva0005F279Elem@@QAE_NXZ,,0x0005106A,19,Code/GameEngine/Source/Common/Rva0005106ABodies.cpp,matched,dump range 1 tiny bool leaf with tail jmp to 0x51038; inverted second test
+?rva0036A524@Rva00368004@@QAEHXZ,,0x0036A524,151,Code/GameEngine/Source/Common/Rva00368004Getter.cpp,matched,dump range 16; flag refresh with goal dead-flag gate; same TU as 0x36A75C
