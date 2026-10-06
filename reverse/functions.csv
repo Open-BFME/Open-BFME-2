@@ -63699,3 +63699,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005C8E2C@HostClass005C8E0A@@QAE?AVBfmePoolRef10@@XZ,,0x005C8E2C,135,Code/GameEngine/Source/Common/HostClass005C8E2C.cpp,matched,take pool ref at +8 via copy clear adjust and iterate caller 0x56A430
 ?rva00256499@Rva00256499@@QAEXPAVINI@@PAX@Z,,0x00256499,234,Code/GameEngine/Source/Common/System/Rva00256499Parse.cpp,matched,LINK BONUS KindOf driver via Veterancy donor with member Append homing
 ??0Rva004191E5@@QAE@ABU0@@Z,,0x004191E5,73,Code/GameEngine/Source/Common/Rva004191E5Copy.cpp,matched,Record copy ctor via AsciiString copy and pinned member copy 0x00419035 and rowed BfmeFixedStorage copy
+??0Rva002E55D8@@QAE@XZ,,0x002E55FF,18,Code/GameEngine/Source/Common/Rva002E55D8Ctor.cpp,matched,ctor via rowed baseConstruct then vtable 00804E90 same flags as prev
