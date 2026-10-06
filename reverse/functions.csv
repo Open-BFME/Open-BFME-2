@@ -65013,3 +65013,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva00068415@Rva00068415@@QAEXXZ,,0x00068415,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed removeHighlighting same offset as 0x000683FF
 ?rva00068420@Rva00068420@@QAEXXZ,,0x00068420,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed clearAllBibs same offset as 0x000683FF
 ?rva0006842B@Rva0006842B@@QAEXW4ObjectID@@@Z,,0x0006842B,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed removeBib same offset as 0x000683FF
+?rva00068436@Rva00068436@@QAEXH@Z,,0x00068436,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed removeBibDrawable
