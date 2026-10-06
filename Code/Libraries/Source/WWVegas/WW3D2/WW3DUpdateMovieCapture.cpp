@@ -30,6 +30,7 @@ extern "C" __declspec(dllimport) int __stdcall GetWindowRect(void *,RECT *);
 void Log_DX8_ErrorCode(UInt);
 extern void *g_WW3D_Hwnd;
 class WW3D { public: static FrameGrabClass *Movie; static void Update_Movie_Capture(); };
+FrameGrabClass *WW3D::Movie;
 void WW3D::Update_Movie_Capture()
 {
     char *image=(char *)Movie->GetBuffer();
