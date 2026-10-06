@@ -66037,3 +66037,8 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva001DCD8C@Rva001DCDAF@@QAEXXZ,,0x001DCD8C,35,Code/GameEngine/Source/GameLogic/System/Rva001DCDAF.cpp,matched,
 ?rva001DCE3E@Rva001DCDAF@@QAEXXZ,,0x001DCE3E,14,Code/GameEngine/Source/GameLogic/System/Rva001DCDAF.cpp,matched,
 ?rva002E0CAC@Rva002E0CD4@@QBEHXZ,,0x002E0CAC,40,Code/GameEngine/Source/Common/Rva002E0CD4Get.cpp,matched,
+?rva002E6CD8@Rva002E6CD8Owner@@QAEAAV1@HEHEE@Z,,0x002E6CD8,38,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,
+?rva002E6CFE@Rva002E6CFE@@QAEXHHH@Z,,0x002E6CFE,49,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,
+?rva002E6D2F@Rva002E6CFE@@QAE_NXZ,,0x002E6D2F,19,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,
+?rva002E6D42@@YAHHH@Z,,0x002E6D42,18,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,
+?rva002E6D54@@YAHHH@Z,,0x002E6D54,14,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,

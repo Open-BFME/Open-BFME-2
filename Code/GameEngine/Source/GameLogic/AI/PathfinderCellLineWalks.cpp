@@ -123,6 +123,72 @@ private:
 	PathfindLayer m_layers[16];
 };
 
+class Rva002E6CD8Owner
+{
+public:
+	Rva002E6CD8Owner& rva002E6CD8(int a0, unsigned char a1, int a2, unsigned char a3, unsigned char a4);
+private:
+	int m_00;
+	unsigned char m_04;
+	unsigned char m_05;
+	char m_pad06[2];
+	int m_08;
+	unsigned char m_0C;
+};
+
+// ?rva002E6CD8@Rva002E6CD8Owner@@QAEAAV1@HEHEE@Z @0x002E6CD8 38B
+Rva002E6CD8Owner& Rva002E6CD8Owner::rva002E6CD8(int a0, unsigned char a1, int a2, unsigned char a3, unsigned char a4)
+{
+	m_00 = a0;
+	m_04 = a1;
+	m_05 = a3;
+	m_08 = a2;
+	m_0C = a4;
+	return *this;
+}
+
+class Rva002E6CFE
+{
+	int m_00;
+	int m_04;
+	int m_08;
+public:
+	void rva002E6CFE(int a, int b, int c);
+	bool rva002E6D2F();
+};
+
+// ?rva002E6CFE@Rva002E6CFE@@QAEXHHH@Z @0x002E6CFE 49B
+void Rva002E6CFE::rva002E6CFE(int a, int b, int c)
+{
+	m_08 = c;
+	if (c > 0) {
+		m_04 = ((b - a) << 8) / c;
+		m_00 = (m_04 / 2) + (a << 8);
+	}
+}
+
+// ?rva002E6D2F@Rva002E6CFE@@QAE_NXZ @0x002E6D2F 19B
+bool Rva002E6CFE::rva002E6D2F()
+{
+	m_00 += m_04;
+	return --m_08 > 0;
+}
+
+// ?rva002E6D42@@YAHHH@Z @0x002E6D42 18B
+int __cdecl rva002E6D42(int a, int b)
+{
+	int next = a + 1;
+	return (next == b) ? 0 : next;
+}
+
+// ?rva002E6D54@@YAHHH@Z @0x002E6D54 14B
+int __cdecl rva002E6D54(int a, int b)
+{
+	if (a != 0)
+		return a - 1;
+	return b - 1;
+}
+
 PathfindCell *Pathfinder::getCell( PathfindLayerEnum layer, Int cellX, Int cellY )
 {
 	if (cellX >= m_extent.lo.x && cellX <= m_extent.hi.x &&
