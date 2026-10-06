@@ -11607,3 +11607,6 @@ FUN_008ee9e9	0x004EE9E9	245	blocked	adapted stash to pin name without hatches sc
 ?applyTopplingForce@ToppleUpdate@@QAEXPBUCoord3D@@MI@Z	0x004A83D7	784	blocked	big 784B not strong t=2 model=muse-06
 ?Rva004FE987@Rva004FE987@@QAE@XZ	0x004FE987	942	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString packet says skip t=2 model=muse-06
 ?Rva00356B78@Rva00356B78@@QAE@XZ	0x00356B78	790	blocked	big 790B not strong t=2 model=muse-06
+?createCrate@CreateCrateDie@@AAEPAVObject@@PBVCrateTemplate@@@Z	0x00485565	590	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString hatch skip t=2 model=muse-12
+?update@WeaponModeSpecialPowerUpdate@@UAE?AW4UpdateSleepTime@@XZ	0x00494C18	105	blocked	ebx edi swap persists across definition-order variants t=12 model=muse-12 (stash 0.95 kept)
+?update@Rva001048C0@@QAE_NPBMPAM@Z	0x0033EC93	402	blocked	ADDRESS-NAMED g_Va00BBB8D8 new use refused skip t=2 model=muse-12
