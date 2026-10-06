@@ -65713,3 +65713,4 @@ uw_0075b500,,0x0075B500,10,Code/GameEngine/Source/Main/CreateGameEngine.cpp,matc
 ?rva0049CD4F@Rva0049CD4F@@QAEHPAVRva0049CD4FArg@@@Z,,0x0049CD4F,170,Code/GameEngine/Source/Common/Rva0049CD4F.cpp,matched,kind 1/2/3 then scale a non-positive answer up to 1 by object query 0xD
 ?rva0049862B@Rva0049862B@@QAEHXZ,,0x0049862B,213,Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateRva0049862B.cpp,matched,BattlePlanUpdate+0x10 state 0..3 drives the plan helper and the turret calls; always returns 1
 ??0Squad@@QAE@XZ,,0x00268CAC,42,Code/GameEngine/Source/GameLogic/AI/SquadCtor.cpp,matched,Squad ctor: vftable 0xBF9D60 (slot3 rowed Squad::xfer) plus vectors at +4/+0x10 via ICF-shared _Vector_base 0x211E58; setGoalTeam/setGoalAIGroup new 0x1C block
+?getCRC@CreateAHeroCRC@@QAEIXZ,,0x0021F5E3,21,Code/GameEngine/Source/Common/CreateAHeroCRCGet.cpp,matched,lazy CRC at +0x1F0 rebuilt by 0x21F47E (hero list at +0x174); GameEngine::init caller REL32
