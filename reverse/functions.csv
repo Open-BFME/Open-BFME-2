@@ -64430,3 +64430,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1StancesBehavior@@UAE@XZ,,0x0045F001,103,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorDtor.cpp,matched,three vptr stores then listener broadcast via forEach and slot0 forwarder then list free and Rva0024A797 base dtor
 ??1Rva005F2B22@@QAE@XZ,,0x005F2B22,84,Code/GameEngine/Source/Common/Rva005F2B22Dtor.cpp,matched,guarded self call when holder empty and Apt manager set then holder clear and base vptr restore
 ?set@Rva002A98F2Coord3DSetter@@QAEXUCoord3D@@@Z,,0x002A98F2,17,Code/GameEngine/Source/Common/Rva002A98F2Coord3DSetter.cpp,matched,by-value Coord3D copy into +0xC in the Player-side setter gap
+?set@Rva002A9903FloatSetter@@QAEXM@Z,,0x002A9903,14,Code/GameEngine/Source/Common/Rva002A9903FloatSetter.cpp,matched,SSE float store at +0x20 in the Player-side setter gap
