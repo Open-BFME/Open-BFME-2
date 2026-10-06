@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva003A97E0@@UAEPAXI@Z @0x003AE73C 28B
 // Deleting dtor calls rowed ??1Rva003A97E0@@UAE@XZ at 0x003A97E0 then rowed operator delete at 0x0002FD60.
 // Evidence: dtor lane; retail push esi call ??1 test flag delete ret 4;

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 class TargetObj005C8DBF {
 public:

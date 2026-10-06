@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva00329D0E@@QAEPAXI@Z @0x00329D98
 // Deleting dtor for Rva00329D0E whose ??1 is rowed at 0x00329D0E.
 // Evidence: retail push esi mov esi ecx call ??1 test flag delete ret 4;

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?known@Dict@@QBE_NW4NameKeyType@@W4DataType@1@@Z
 // retail 0x002A9880, 21 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/Dict_getAsciiString.cpp (reference/open-bfme-1

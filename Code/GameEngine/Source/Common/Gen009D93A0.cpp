@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // Clean C++ conversion of the word formatter at retail RVA 0x009D93A0.
 extern "C" void __cdecl bfmeAppend(void *stream, const char *format, ...);
 

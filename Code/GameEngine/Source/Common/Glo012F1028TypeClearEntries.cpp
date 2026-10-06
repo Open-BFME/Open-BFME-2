@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?j_00008c0b@Glo012F1028Type@@QAEXXZ, retail 0x002B7D50, 65 bytes.
 // Shard TU (home TU Glo012F1024ItemRun.cpp keeps the file-unit decls plus the

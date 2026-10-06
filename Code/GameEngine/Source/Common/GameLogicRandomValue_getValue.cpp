@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME1 GameLogicRandomVariable::getValue transferred to the BFME2 layout,
 // mirroring the matched GameClient twin at 0x002341A1 (70 bytes). Retail
 // 0x00234206 issues the same shapes: CONSTANT falls through to UNIFORM

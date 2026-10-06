@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // These predicates sit directly on the BFME2 frame-stall and command-routing
 // paths.  The state predicate accepts states 1 through 3; the connection

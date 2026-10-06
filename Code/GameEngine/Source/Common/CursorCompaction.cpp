@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Wave-3 F47 shape family: cursor-compaction wrappers. Each body loads the
 // +0x4 cursor, and when (char*)p + K differs calls a pinned cdecl helper

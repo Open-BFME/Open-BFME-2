@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GMonitorConditionUpdateModuleData@@UAEPAXI@Z @0x004916F5 28B
 // Deleting dtor slot 0 of vtable 0x0084DA50; calls rowed ??1 at 0x00491711 then rowed operator delete at 0x0002FD60.
 class MonitorConditionUpdateModuleData { public: __declspec(noinline) virtual ~MonitorConditionUpdateModuleData(); private: int m_famgen; };

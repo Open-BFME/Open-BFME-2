@@ -10,7 +10,7 @@
 // `mov ecx,imm32` (five bytes). All divisors here need imm32, so /O1 emits
 // mov. Fourteen-to-fifteen bytes total. Identity is not recovered: every
 // name is derived from its address.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 #define BFME_DISP8_DIV_MOV_DWORD_GETTER(NAME, DISP1, DISP2, DIVISOR) \
 	class NAME \
 	{ \

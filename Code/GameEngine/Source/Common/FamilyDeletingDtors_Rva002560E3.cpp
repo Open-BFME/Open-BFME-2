@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva002560E3@@UAEPAXI@Z @0x002560C7 28B: scalar deleting dtor calling the
 // rowed ??1Rva002560E3 0x002560E3 then sized operator delete. Family block
 // per §4.3 (public for UAE).

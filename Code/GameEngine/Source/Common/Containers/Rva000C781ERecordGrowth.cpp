@@ -1,4 +1,4 @@
-// cl: /G7 /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc/stl
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc/stl
 // stlport
 // Whole clean BFME1 donor1281192f682ce6f29b8f06b7daea4b5e8fdfbb24:
 // game/GameEngine/Source/Common/Containers/Rva007701C0Vector.cpp.

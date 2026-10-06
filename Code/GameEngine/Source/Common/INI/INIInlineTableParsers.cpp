@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // Two more FieldParse procs (names address-derived):
 //   0x0033A49B 102B FormationPreviewDecal / FormationPreviewItemDecal

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // Clean C++ conversion of the formatted text builder at retail RVA 0x009D6220.
 #include <stdarg.h>
 #include <string.h>

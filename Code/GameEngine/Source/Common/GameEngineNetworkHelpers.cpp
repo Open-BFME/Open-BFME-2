@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /Os /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // Small dependencies recovered while tracing GameEngine's network/logic
 // advancement method.  The pause byte getter and Debug frame-report wrapper

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // FrameDataManager::reset clears every fixed-size frame ring entry, marks the
 // local manager's expected counts as unknown, and clears its quit state.  The

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /Oi-
+// cl: /Ireference/shims/bfme2_ascii /MD /Oi-
 //
 // ?rva004479B1@GameSlot@@QAEPAXXZ @0x004479B1 76B.
 // If GameSlot::isHuman, copy connectInfo +0x38/+0x3C to +0x1C0/+0x1C4, copy

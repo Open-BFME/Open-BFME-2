@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // The first BFME2 connection-manager virtual after the two destructors
 // reinitializes frame data and clears the announced frame horizon.  This is a

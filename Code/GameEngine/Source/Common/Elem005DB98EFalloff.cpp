@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva005DB928@Elem005DB98E@@QAEMXZ @0x005DB928 51B, caller 0x005DB96B (same
 // this as 0x005DB95B). Falloff: 0 when m_08 <= 1, else
 // max(m_08 - m_0C - 1, 0) / m_08.

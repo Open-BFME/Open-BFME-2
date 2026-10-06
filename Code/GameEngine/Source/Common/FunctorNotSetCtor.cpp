@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0FunctorNotSet@@QAE@XZ, retail 0x002035E2, 19 bytes. FunctorNotSet
 // default ctor (frameless leaf: CRT std::exception base through the

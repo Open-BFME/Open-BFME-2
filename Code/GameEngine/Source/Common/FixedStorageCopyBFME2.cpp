@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // BFME2 fixed-storage member copies. Complete retail constructors copy
 // exactly 0x1C or 4 bytes through memcpy; application type names are unknown.
 // As with the BFME1-derived WeaponTemplateSetHead copy, keep these helpers

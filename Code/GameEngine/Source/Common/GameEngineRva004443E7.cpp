@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva004443E7@GameEngine@@QAEXXZ, retail 0x004443E7 37B.
 // Calls member at +0x288 slot 1 then global 0xDFE958 slot 0x48 then tail to GameEngine terminateChild.

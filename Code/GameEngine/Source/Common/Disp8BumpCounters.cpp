@@ -8,7 +8,7 @@
 // eax across the increment and the reload. Every displacement here fits
 // disp8 (every offset is below 0x80). Identity is not recovered: every name
 // is derived from its address.
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 #define BFME_DISP8_BUMP_COUNTER(NAME, DISP) \
 	class NAME \
 	{ \

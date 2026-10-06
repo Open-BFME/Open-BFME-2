@@ -6,7 +6,7 @@
 // MSVC 7.1 emits `F3 0F 10 44 24 04` plus `F3 0F 11 81 DISP32` plus
 // `C2 04 00` for seventeen bytes total with /arch:SSE. Identity is not
 // recovered: every name is derived from its address.
-// cl: /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 #define BFME_DISP32_FLOAT_SETTER(NAME, DISP) \
 	class NAME \
 	{ \

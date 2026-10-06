@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??$uninitialized_fill_n@PAUCoord3D@@IU1@@_STL@@YAPAUCoord3D@@PAU1@IABU1@@Z @0x000CA1D3 27B: STLport uninitialized_fill_n for 12-byte Coord3D.
 // Forwards (first n value) to the rowed 4-arg __uninitialized_fill_n at 0x002CA849 with a false_type tag temporary at ebp-1. Chain lane: caller of the just-landed worker.

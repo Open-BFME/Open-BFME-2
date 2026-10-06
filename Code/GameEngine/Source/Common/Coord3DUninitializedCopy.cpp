@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??$__uninitialized_copy@PAUCoord3D@@PAU1@@_STL@@YAPAUCoord3D@@PAU1@00ABU__false_type@0@@Z @0x00346C2D 38B: STLport __uninitialized_copy for 12-byte Coord3D.
 // Retail calls the pinned Coord3D _Construct at 0x002CA82C (UCoord3D pin thermodynamics via list node 0x27F4A9) with stride 0x0C adds.

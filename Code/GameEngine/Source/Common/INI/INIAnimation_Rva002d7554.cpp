@@ -15,7 +15,7 @@
 // AsciiString comes from the shared compatibility shim, not a TU-local class:
 // name.set(token) reaches the rowed StringBase<char>::set at 0x000055F5 and the
 // scope exit the releaseBuffer worker at 0x00036410, both as retail calls them.
-// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
+// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
 
 #include "ascii_string.h"
 

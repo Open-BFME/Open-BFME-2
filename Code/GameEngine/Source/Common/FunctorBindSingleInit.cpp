@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // The byte-identical 18-byte __cdecl initialisers of BFME's functor-bind family
 // whose bound pointer-to-member is a SINGLE-inheritance PMF.
 //

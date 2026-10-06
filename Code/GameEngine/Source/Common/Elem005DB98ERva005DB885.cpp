@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG /Oy-
+// cl: /MD /DNDEBUG /Oy-
 // Built from the banked attempt reverse/attempts/0x005db885.cpp; fix: 0.5 and
 // 1.0f are compiler literals (retail constants at VA 0x00BC26F8 and
 // 0x00BBB8D8), not extern globals, which is what gives retail's early

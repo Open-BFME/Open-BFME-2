@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // Opaque destructors that free a heap member at +0x04 (null-checked), the
 // same shape seven times with distinct vtables. The free target at

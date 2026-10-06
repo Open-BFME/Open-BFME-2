@@ -16,7 +16,7 @@
 // AsciiString comes from the shared compatibility shim, not a TU-local class,
 // per the class gate; its release worker at 0x00036410 is this body's tail
 // call, as in retail.
-// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
+// cl: /Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common/INI
 
 #include "ascii_string.h"
 

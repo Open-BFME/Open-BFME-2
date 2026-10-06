@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva00414932@@UAEPAXI@Z @0x00414AEE 28B: scalar deleting dtor calling ??1Rva00414932 at 0x00414932.
 // Same-shape sibling of ??_GVersion; needs ??1 row to exist.
 

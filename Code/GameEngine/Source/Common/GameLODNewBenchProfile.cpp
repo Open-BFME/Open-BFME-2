@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?newBenchProfile@RetailBenchProfileAllocator@@QAEPAUBenchProfile@@XZ
 // retail 0x0020200D, 30 bytes. Dedicated shard.

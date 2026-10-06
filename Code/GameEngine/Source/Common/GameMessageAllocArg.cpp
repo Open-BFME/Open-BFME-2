@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GameMessage::allocArg, retail 0x0030F8FF, 55 bytes.
 // Dedicated TU so MessageStream.cpp cannot see this body.

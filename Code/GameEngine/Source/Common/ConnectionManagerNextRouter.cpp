@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // BFME2 keeps a fallback packet-router order at +0x12030.  This helper returns
 // the entry following the supplied router slot, matching the BFME1

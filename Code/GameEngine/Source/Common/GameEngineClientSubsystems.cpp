@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // GameEngine's vtable slot 39 (RVA 0x00225C12) is the client-side half of
 // the frame loop.  Its ordering is useful for the later delay investigation:

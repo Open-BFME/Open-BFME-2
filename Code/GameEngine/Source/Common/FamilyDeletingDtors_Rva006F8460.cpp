@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva006F8460@@UAEPAXI@Z @0x006F8490 35B.
 // Scalar deleting dtor calls rowed ??1 at 0x006F8460 plus sized pool free
 // via pinned 0x006DB270 with pool at 0x00E176E8 and class size 0x18.

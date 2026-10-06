@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Disp8 div-avg dword getters: thirteen-byte __thiscall members with one shape:
 //
 //     mov eax,[ecx+<DISP1>] / sub eax,[ecx+<DISP2>] / push <DIV> / cdq

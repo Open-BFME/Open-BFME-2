@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // Object-record FieldParse proc (name address-derived):
 //   0x003F341E 113B ConnectsTo (0x00C36640): for every token (separators

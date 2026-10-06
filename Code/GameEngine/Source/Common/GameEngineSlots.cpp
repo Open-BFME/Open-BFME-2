@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Three of GameEngine's own virtuals (vtable 0x00BE7188, also reached
 // through Win32GameEngine's 0x00BC2530 at the same slots):

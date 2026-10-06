@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GameEngine::~GameEngine, retail 0x00225B9B, 11 bytes.
 // Dedicated TU so GameEngineDestructor.cpp's scalar deleting wrapper cannot

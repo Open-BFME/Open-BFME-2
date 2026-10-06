@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Each class is declared locally only so its deleting destructor is emitted;
 // the complete destructor call resolves through that destructor's own row.
 // Same-shape family as FamilyDeletingDtors2.cpp (??_GVersion 0x21C7 shape):

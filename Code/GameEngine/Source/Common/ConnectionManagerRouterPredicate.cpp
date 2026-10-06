@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O2 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 
 class BFMEConnectionManager
 {

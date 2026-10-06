@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // 6 bodies that set or clear one bit of a member according to a byte
 // argument (one of the six is placed here; see the note below):
 //

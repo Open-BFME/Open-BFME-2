@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // Retail RVA 0x00850600 is the 103-byte INIException(int, const char *, ...)
 // constructor. The formatter writes the retail global at VA 0x0130C650 and
 // imports _vsnprintf through IAT VA 0x01359360.

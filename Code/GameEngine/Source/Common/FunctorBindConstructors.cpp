@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // The 82 byte-identical 25-byte constructors of BFME's functor-binding family.
 //
 // WHAT THE BODY IS. Retail:

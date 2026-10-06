@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva00278644@Drawable@@QAEXXZ retail 0x00278644 69B Drawable one-shot
 // audio trigger: +0x44A flag once via rowed Drawable::rva002784EB then Host

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // Twelve derived destructors sharing one shape: clear the field at +0xC,
 // restore the class vtable, and tail-call the base destructor at 0x1DBAC3.
 // Owners are unidentified, so each keeps an address name; the base is

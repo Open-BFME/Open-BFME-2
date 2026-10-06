@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva005C8E2C@HostClass005C8E0A@@QAE?AVBfmePoolRef10@@XZ @0x005C8E2C 135B
 // Take the pool ref at +8: if null return null, else copy to a local,
 // clear the member, clear byte +0x46, adjust via Rva005C87F8(false) and

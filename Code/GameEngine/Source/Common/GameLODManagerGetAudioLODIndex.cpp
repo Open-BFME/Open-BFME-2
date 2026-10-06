@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /DNDEBUG /MD
+// cl: /GX- /DNDEBUG /MD
 //
 // ?getAudioLODIndex@GameLODManager@@QAEHABVAsciiString@@@Z, retail 0x00202C76,
 // 124 bytes. Dedicated TU.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Disp8 dword OR setters: five-byte __thiscall members with one shape:
 //
 //     or dword ptr [ecx+<DISP>],<IMM8> / ret   (83 49 XX YY C3)

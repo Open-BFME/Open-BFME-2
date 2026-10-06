@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // The vtable at 0x00BE7188 is installed by the GameEngine constructor and
 // carries the frame-loop method at 0x00225DA9.  Its slot 0 is the 28-byte

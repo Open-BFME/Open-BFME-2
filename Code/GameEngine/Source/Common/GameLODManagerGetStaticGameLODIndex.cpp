@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ?getStaticGameLODIndex@GameLODManager@@QAEHVAsciiString@@@Z, retail
 // 0x00202C30, 70 bytes. Dedicated TU (abuts the audio sibling at 0x202C76).

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva0057C04F@@QAEPAXI@Z @0x0042D55B 28B.
 // Deleting dtor via rowed ??1 at 0x0057C04F plus rowed delete 0x0002FD60.
 // Evidence: chain lane calls 0x0057C04F now resolved; same 28B shape as FamilyDeletingDtors_Rva00574499 QAEPAXI family.

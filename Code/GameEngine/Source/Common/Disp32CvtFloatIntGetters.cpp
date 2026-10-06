@@ -8,7 +8,7 @@
 // are at least 0x80); the 0x78 sibling below compiles to the six-byte disp8
 // encoding. Identity is not recovered: every name is derived from
 // its address.
-// cl: /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 #define BFME_DISP32_CVT_FLOAT_INT_GETTER(NAME, DISP) \
 	class NAME \
 	{ \

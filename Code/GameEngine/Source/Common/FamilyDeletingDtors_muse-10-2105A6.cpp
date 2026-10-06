@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva002105A6@@UAEPAXI@Z @0x00210604 28B
 // Deleting dtor slot 0; calls rowed ??1Rva002105A6@@UAE@XZ at 0x002105A6
 // then rowed operator delete at 0x0002FD60. Evidence: chain lane after

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ??1FrameDataManager@@UAE@XZ, retail 0x0058B623, 67 bytes.
 // FrameDataManager virtual dtor: stores vtable 0x00870A0C, re-inits each

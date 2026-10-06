@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??_GAutoAbilityBehaviorModuleData@@UAEPAXI@Z, retail 0x0045A4FB, 28 bytes.
 // Scalar deleting dtor (slot 0) for AutoAbilityBehaviorModuleData: calls the

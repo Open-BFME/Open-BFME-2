@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?_bfme_terminateChildProcesses@GameEngine@@AAEXXZ, retail 0x002260F7 42B.
 // BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/Common/GameEngineTerminateChildProcesses.cpp

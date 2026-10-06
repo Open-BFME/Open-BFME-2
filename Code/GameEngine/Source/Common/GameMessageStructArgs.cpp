@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // GameMessage struct-argument appends (retail 0x0030F9BB..0x0030FA13): the
 // rowed MessageStream TU carries these two functions but compiles them to

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva003AB9FF@@UAEPAXI@Z @0x003AE720 28B
 // Deleting dtor calls rowed ??1Rva003AB9FF@@UAE@XZ at 0x003AB9FF then rowed operator delete at 0x0002FD60.
 // Evidence: sibling of 0x003AE73C; retail push esi call ??1 test flag delete ret 4;

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // BFME2's client frame gate totals the command counts held by its eight
 // per-player frame rings.  The local ring stores the expected total; the

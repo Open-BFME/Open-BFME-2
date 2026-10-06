@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva0026E7EA@@UAEPAXI@Z @0x0026E81A, 28B.
 // Scalar deleting dtor; calls rowed ??1 at 0x0026E7EA plus rowed delete at
 // 0x0002FD60.

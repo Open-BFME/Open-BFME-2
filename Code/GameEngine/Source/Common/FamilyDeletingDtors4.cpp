@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Each class is declared locally so its deleting destructor is emitted;
 // the retail dtor callee (a rowed UAE dtor) selects the identity.
 // Same-shape family as FamilyDeletingDtors.cpp (??_GVersion 0x21C7 shape):

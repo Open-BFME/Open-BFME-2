@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // Donor: BFME1 hash helper at 0x008D42C0; the name remains provisional.
 // Target: R4PerfectHashWordSets calls this body at 0x00710C70.
 // Retail changes association-table entries 71, 84 and 87 to zero.

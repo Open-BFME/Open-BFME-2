@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??_GRva002544B5@@UAEPAXI@Z, retail 0x00254499, 28 bytes. Deleting dtor for
 // Rva002544B5: calls rowed ??1Rva002544B5 60B at 0x002544B5 then operator

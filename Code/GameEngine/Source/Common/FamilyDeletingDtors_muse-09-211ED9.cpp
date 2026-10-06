@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00211ED9@Rva00211ED9@@QAEPAXI@Z, RVA 0x00211ED9, 28B. Chain lane:
 // scalar-delete shape calling rowed 0x002115C5 then rowed operator delete
 // 0x0002FD60 on flag bit0; returns this, ret 4. Rowed dtor keeps rva name

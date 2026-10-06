@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // Dict::setReal plus float movss shape.
 // Reference basis is ZH Dict.cpp setReal via rowed setPrep at 0x0031369D
 // and rowed sortPairs at 0x00313299. Retail moves float via xmm.

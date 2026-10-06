@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O2 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // The GameEngine stores the client-frame period at +0x34, the derived
 // client-frame counter at +0x38, and the interpolation ratio at +0x3c.  These timing

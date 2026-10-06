@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc /Os
+// cl: /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc
 // Retail 0x002EADF0 forwards to the S4 pop specialization. The 12-byte
 // tail facade and StringBase access match the existing canonical owners.
 

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004B0FA0@Gen_0028EF10@@QAE_NXZ, retail 0x004B0FA0, 25 bytes.
 // Bool getter chasing the Gen_0028EF10 link at +0x9C then tail-calling
 // rowed ?Rva004B0E34Get@@YG_NI@Z with *(link->m_bfmeNext + 4); false when

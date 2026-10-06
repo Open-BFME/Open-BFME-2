@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // Named-real list FieldParse procs (one shape; names address-derived): the
 // first token is a name, the rest of the line a real parsed through

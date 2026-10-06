@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?GetBasePathFromPath@@YA?AVAsciiString@@V1@@Z @0x0044C872 (194B):
 // GetBasePathFromPath, BFME1 donor FileTransfer_GetBasePathFromPath.cpp
 // (reverseFind '\\' then prefix copy via getBufferForRead plus memcpy,

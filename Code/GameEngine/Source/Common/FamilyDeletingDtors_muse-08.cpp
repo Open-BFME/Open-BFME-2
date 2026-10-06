@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 // ??_GRva004104C9@@QAEPAXI@Z @0x004105A8
 class Rva004104C9 { public: __declspec(noinline) ~Rva004104C9(); private: int m_famgen;

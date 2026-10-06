@@ -12,7 +12,7 @@
 // with Rva002620ADIntGetter at 0x2620AD/0x2620B6.
 // Identity is not recovered: every name is derived from its
 // address.
-// cl: /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 #define BFME_DISP32_INT_TO_FLOAT_SETTER(NAME, DISP) \
 	class NAME \
 	{ \

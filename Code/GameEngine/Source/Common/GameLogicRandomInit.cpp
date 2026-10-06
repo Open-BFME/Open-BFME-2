@@ -1,4 +1,4 @@
-// cl: /Ob0 /O1 /MD /DNDEBUG
+// cl: /Ob0 /MD /DNDEBUG
 // ?InitRandom@@YAXI@Z @ 0x00233F82 (69B) and ?InitGameLogicRandom@@YAXI@Z
 // @ 0x00233FC7 (44B). Seeded-random initializers ported from Open-BFME-1
 // Code/GameEngine/Source/Common/System/random_value.cpp

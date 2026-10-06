@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // BFME2 ConnectionManager local-slot getter, transferred from the exact
 // BFME1 reconstruction (Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp).

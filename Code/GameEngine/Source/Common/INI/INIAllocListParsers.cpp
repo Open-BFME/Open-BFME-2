@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /arch:SSE /DNDEBUG /MD
+// cl: /GX- /DNDEBUG /MD
 //
 // ?Rva0048E022Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x0048E022 (125B): the
 // FloodMember FieldParse proc (row 0x00C4C9A8). News a zeroed 0x38-byte member

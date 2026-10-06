@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GStructureToppleUpdateModuleData@@UAEPAXI@Z @0x00257C6C, 28B.
 // Scalar deleting dtor; calls rowed ??1 at 0x00257C88 plus rowed delete at
 // 0x0002FD60.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva0041579E@@QAEPAXI@Z @0x00415782 28B chain via rowed ??1Rva0041579E.
 // Deleting dtor: calls rowed ??1Rva0041579E then operator delete 0x0002FD60.
 // Evidence: call to rowed 0x004156FC at 0x00415785, test [esp+8] 1, call to

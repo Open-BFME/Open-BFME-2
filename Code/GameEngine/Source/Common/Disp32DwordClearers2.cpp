@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Disp32 dword clearers: eight-byte __thiscall members with one shape:
 //
 //     and dword ptr [ecx+<DISP32>],0 / ret     (83 A1 XX XX XX XX 00 C3)

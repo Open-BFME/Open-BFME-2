@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // GameEngineDeletingBase::~GameEngineDeletingBase, retail 0x001B4E74,
 // 14 bytes. Dedicated TU so Locomotor.cpp keeps its matched bodies. Sets the

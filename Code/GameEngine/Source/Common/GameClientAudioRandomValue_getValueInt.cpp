@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?GetGameClientRandomValue@@YAHHHPADH@Z @ 0x0023404A (36B) and
 // ?GetGameAudioRandomValue@@YAHHHPADH@Z @ 0x0023406E (36B) trial ports
 // from Open-BFME-1 Code/GameEngine/Source/Common/System/random_value.cpp

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O2
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // CPU-tier flags at 0x001C4390, calling the feature probe at 0x001D5470
 // with three int* output slots. Ported from the Open-BFME-1 conversion of
 // its twin (Code/GameEngine/Source/Common/BfmeCpuTierFlags.cpp): the

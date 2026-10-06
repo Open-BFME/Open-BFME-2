@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva004FAC21@@UAEPAXI@Z, retail 0x004FAD9C (28 bytes).
 // Scalar deleting destructor (slot 0 of vtable 0x008633B0) over the rowed
 // ??1Rva004FAC21 at 0x004FADB8. The dtor TU cannot emit it (novtable

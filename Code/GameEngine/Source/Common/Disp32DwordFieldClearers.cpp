@@ -11,7 +11,7 @@
 // separate TU so that TU keeps its flagless defaults; same-class-in-2-TUs is
 // precedented). Identity is not recovered: every name is derived from its
 // address.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 #define BFME_DISP32_DWORD_CLEAR(NAME, DISP) \
 	class NAME \
 	{ \

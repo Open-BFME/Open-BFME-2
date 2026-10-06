@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva00517397@@UAEPAXI@Z @0x0051737B 28B
 // Deleting dtor calls rowed ??1Rva00517397@@UAE@XZ at 0x00517397 then rowed operator delete at 0x0002FD60.
 class Rva00517397 { public: __declspec(noinline) virtual ~Rva00517397(); private: int m_famgen;

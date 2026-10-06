@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?parseCommonStuff@@YAXPAVINI@@PBQBDAAH222@Z, retail 0x00360613, 118 bytes.
 // DamageFX parseCommonStuff: BFME1 Code/GameEngine/Source/Common/DamageFX.cpp
 // parseCommonStuff shape verbatim (vet pair via scanIndexList or 0/3, damage via

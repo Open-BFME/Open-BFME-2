@@ -9,7 +9,7 @@
 // this tree's Disp* convention (address-derived Rva<addr>DwordOrSetter,
 // identity unrecoverable from 4 bytes). Retail cleans none (`ret`, not
 // `ret 4`), so the members take no parameters.
-// cl: /O1 (at defaults MSVC 7.1 folds `x |= -1` into `mov [ecx],-1`;
+// cl: (at defaults MSVC 7.1 folds `x |= -1` into `mov [ecx],-1`;
 // /O1 keeps the read-modify-write OR form, as in Disp8DwordClearers.cpp).
 class Rva002620FADwordOrSetter
 {

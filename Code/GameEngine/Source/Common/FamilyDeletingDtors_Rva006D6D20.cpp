@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva006D6D20@@UAEPAXI@Z @0x006D7320 35B.
 // Scalar deleting dtor calls rowed ??1 at 0x006D6D20 plus sized pool free
 // via pinned 0x006DB270 with pool g_pChainBlockAllocator 0x00E176E8 and

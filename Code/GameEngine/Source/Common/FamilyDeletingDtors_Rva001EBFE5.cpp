@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva001EBFE5@@UAEPAXI@Z @0x001EBFC9, 28B.
 // Scalar deleting dtor slot 0; calls rowed ??1 at
 // 0x001EBFE5 plus rowed delete at 0x0002FD60.

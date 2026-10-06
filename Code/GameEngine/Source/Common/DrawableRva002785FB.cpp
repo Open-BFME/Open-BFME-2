@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva002785FB@Drawable@@QAEX_N@Z retail 0x002785FB 49B Drawable bool setter +0x448
 // true: Host 0x002783F6 with 0 then rowed Drawable::rva002784EB

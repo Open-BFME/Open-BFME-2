@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GW3DBufferManager@@QAEPAXI@Z @0x000F0956 28B; calls rowed ??1W3DBufferManager@@QAE@XZ @0x001163E7 then operator delete 0x0002FD60.
 // Evidence: retail push esi/mov esi,ecx/call/test [esp+8],1 pop-ecx shape; QAE non-virtual dtor so QAEPAXI; rowed dtor in W3DBufferManager.cpp.
 // ??_GW3DBufferManager@@QAEPAXI@Z @0x000F0956

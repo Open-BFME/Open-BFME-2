@@ -1,4 +1,4 @@
-// cl: /Os /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva00329CF0@Dict@@QAEXPBV1@@Z @0x00329CF0 30B
 // Dict nullable-pointer copy: clear then conditional assign.

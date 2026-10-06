@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?get@Rva002C8EF9ByteFloatField@@QBEMXZ, retail 0x002C8EF9, 19 bytes.
 // Byte-to-float getter between two DispByteFieldGetters rows (prev 0x2C8EF2/7

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Oy-
+// cl: /DNDEBUG /MD /EHsc /Oy-
 //
 // Wave-3 F22 shape family: ebp-frame forwarders. Each body passes its first
 // two stack args through to a pinned thiscall callee plus a pointer computed

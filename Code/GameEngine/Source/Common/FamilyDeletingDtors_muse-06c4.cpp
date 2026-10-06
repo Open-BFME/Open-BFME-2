@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GRva008A2C80@@UAEPAXI@Z @0x006E6B10, 35B.
 // Scalar deleting dtor slot 1 of vtable 0x008EC278; calls rowed ??1 at
 // 0x006E5FF0 plus sized pool free via pinned 0x006DB270 with pool at

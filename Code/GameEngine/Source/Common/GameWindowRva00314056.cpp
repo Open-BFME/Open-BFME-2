@@ -1,6 +1,6 @@
 // ?rva00314056@GameWindow@@QAEHH@Z
 // partial score=0.93 date=2026-10-01
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00314056@GameWindow@@QAEHH@Z, retail 0x00314056, 78 bytes.
 // Honest GameWindow method: detach from old parent/list then attach.
 // Evidence: this+0x200 is GameWindow::m_parent (same offset as

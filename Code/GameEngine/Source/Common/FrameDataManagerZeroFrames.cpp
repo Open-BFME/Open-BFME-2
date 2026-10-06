@@ -1,5 +1,5 @@
 // ?zeroFrames@FrameDataManager@@QAEXII@Z
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // FrameDataManager::zeroFrames, retail 0x0058B7AF, 62 bytes. BFME1
 // FrameDataManager.cpp shape verbatim (EA GPL-3.0-or-later): fold the start

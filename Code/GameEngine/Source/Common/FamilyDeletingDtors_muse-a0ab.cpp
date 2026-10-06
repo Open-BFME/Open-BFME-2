@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Each class redeclares its public virtual destructor and defines it locally,
 // which emits the scalar deleting destructor in this TU; the dtor call inside
 // resolves through that destructor's own row (same pattern as spec_gdtor).

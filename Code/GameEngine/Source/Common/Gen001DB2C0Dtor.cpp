@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /GX- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??1Gen_001DB2C0@@QAE@XZ retail 0x004DE5D0 36B

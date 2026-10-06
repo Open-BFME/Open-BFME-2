@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Scalar deleting destructors that retail keeps but never references: no
 // vtable slot, call or jmp reaches them. Each is the 28B shape that calls
 // the pinned complete destructor, tests bit 0 of the flags, frees through

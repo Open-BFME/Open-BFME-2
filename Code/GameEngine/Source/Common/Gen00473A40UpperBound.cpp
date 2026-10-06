@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // STLport __upper_bound over 16-byte records, comparing the first dword.
 // Retail 0x00473A40, 72 bytes.

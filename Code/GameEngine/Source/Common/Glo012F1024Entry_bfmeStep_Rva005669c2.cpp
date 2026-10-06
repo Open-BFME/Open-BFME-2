@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // class-gate: allow AsciiString donor TU-local 4-byte single-pointer view emits the retail 128B body at 0x005669C2; GetName returns AsciiString by hidden buffer and the temporary is destroyed through the out-of-line dtor 0x00036410, which the shared header does not reproduce
 
 // Open-BFME5: Glo012F1024Entry::bfmeStep, retail 0x003A7320, 62 bytes. The body

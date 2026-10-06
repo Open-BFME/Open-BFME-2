@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // Adapted from Open-BFME-1 FrameDataManager.cpp (EA GPL-3.0-or-later).
 // BFME2 callers and retail bodies verify the ring global, 20-byte stride,
 // count accessors and quit-state offsets independently of BFME1.

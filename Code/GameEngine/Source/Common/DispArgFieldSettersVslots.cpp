@@ -1,4 +1,4 @@
-// cl: /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // Argument field setters found in vtable slots with no ledger owner: each
 // stores its one stack argument (a float, a byte or a dword) at a fixed

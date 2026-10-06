@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // Clean C++ conversion of the flagged attach helper at retail RVA 0x009D8BD0.
 
 class Snapshot;

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // Clean C++ conversion of the peer attach/finalize helper at retail RVA 0x009D6E10.
 
 class BfmePeer

@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Disp8 imul-add dword getters: twelve-byte __thiscall members with one shape:
 //
 //     mov eax,[esp+4] / imul eax,eax,<IMM> / add eax,[ecx] / ret 4

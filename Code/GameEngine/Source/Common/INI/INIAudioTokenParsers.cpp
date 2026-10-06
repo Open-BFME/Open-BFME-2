@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Three FieldParse procs that read one token and hand it, with the store, to
 // a cdecl audio-event token parser (each parser checks "NoSound"; the 0x339235

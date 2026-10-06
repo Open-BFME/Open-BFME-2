@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 
 struct Rva005C847BRecord {
 	char pad[0x48];

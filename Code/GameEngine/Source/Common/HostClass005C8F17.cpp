@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva005C8F17@HostClass005C8E0A@@QAEXXZ @0x005C8F17 57B
 // Void method on HostClass005C8E0A sharing layout with rva005C8E2C: if pool
 // ref at +8 is non-null notify TheAudio slot 0x6c removeAudioEvent with the

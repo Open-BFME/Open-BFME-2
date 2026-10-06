@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva002B7D03@Glo012F1028Type@@QAEXXZ, retail 0x002B7D03, 77 bytes.
 // Swap-clear sibling of ?j_00008c0b@Glo012F1028Type@@QAEXXZ (0x002B7D50, 65B

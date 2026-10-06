@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva0021EA74@Rva0021EA74@@QAEHABUBfmeStringRecord00219A68@@@Z @0x0021EA74 95B: find-or-add returning index for BfmeStringRecord00219A68 vector at +0x168; find compares first dword only via rowed BfmePod20 find 0x2198AD; push_back via rowed 0x21E6D3; caller parseCreateAHeroBling 0x21ED9C passes global 0xDFE344 plus stack record.
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // GameMessage scalar-argument appends (retail 0x0030F936 tag 0 and
 // 0x0030FA2A tag 10): donor order from

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: GODupBase's constructor, retail 0x001B0D20, 85 bytes. The body
 // carried only a machine byte-dump row; reverse/reloc_names.csv holds the name

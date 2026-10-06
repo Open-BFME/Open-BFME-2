@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 // Same-shape family as FamilyDeletingDtors3.cpp but caller cleanup as
 // add-esp (je+9, 30B) instead of pop-ecx (je+7, 28B); /O2 speed opts pick
 // add-esp where /O1 size-opts pop-ecx (probe-proven). Members selected by a

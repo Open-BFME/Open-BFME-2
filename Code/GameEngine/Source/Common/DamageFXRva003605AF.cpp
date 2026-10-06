@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva003605AF@Rva003605AF@@QAEXXZ, retail 0x003605AF, 38 bytes.
 // Zeroes a 30x4 table of 16-byte elements (float + 3 ints) at +0x00.
 // Evidence: unlock lane, neighbours ?clear@DFX@DamageFX (0x0036059C) and

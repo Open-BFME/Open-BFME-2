@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?j_00036124@Glo012F1024Item@@QAEXXZ @0x0056552C 176B BFME1 donor j_00036124 adapted to BFME2 layout Outer at +0x9C and single global g_009FE1C8 with rowed forwarders 0x00210EBF 0x00210ECF 0x00210EE1. Evidence: caller 0x005669A3 bfmeEnter plus donor game/GameEngine/Source/Common/Glo012F1024Entry_bfmeStep.cpp plus retail offsets +0x9C +0xA0 stride 0xC inner stride 8.
 
 class Rva0021294A;

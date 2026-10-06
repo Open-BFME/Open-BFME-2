@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // The archive-derived constructor identity and single zeroing store establish
 // that the lock volume begins with one scalar lock state.
 

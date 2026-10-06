@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getArgument@GameMessage@@QBEPBTGameMessageArgumentType@@H@Z retail 0x0030F4EA 34 bytes.
 // GameMessage::getArgument from ZH MessageStream.cpp donor verbatim: walks

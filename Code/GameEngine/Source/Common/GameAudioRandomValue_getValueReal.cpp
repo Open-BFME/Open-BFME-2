@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?GetGameAudioRandomValueReal@@YAMMMPADH@Z @ 0x00234159 (72B) trial port
 // from Open-BFME-1 Code/GameEngine/Source/Common/System/random_value.cpp
 // (GetGameAudioRandomValueReal). Dedicated TU mirroring the landed client

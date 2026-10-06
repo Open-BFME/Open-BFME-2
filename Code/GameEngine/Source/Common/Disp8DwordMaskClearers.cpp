@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Disp8 dword mask set/clear: __thiscall members with one stack mask argument:
 //
 //     mov eax,[esp+4] / or [ecx+<DISP>],eax / ret 4                      (10 B)

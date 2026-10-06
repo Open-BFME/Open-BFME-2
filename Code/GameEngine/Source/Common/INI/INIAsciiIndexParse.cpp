@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // ?Rva004DBFF1Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x004DBFF1 (145B): the
 // SkirmishAIHeuristic FieldParse proc (row 0x00BFA878, store +0x98). The

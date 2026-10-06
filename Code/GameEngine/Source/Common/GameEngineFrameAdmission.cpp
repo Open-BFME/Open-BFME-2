@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // BFME2's 108-byte frame-admission helper at RVA 0x00225BA6 is the local
 // counterpart to BFME1's _bfme_shouldSkipClientFrame.  The GameEngine vtable

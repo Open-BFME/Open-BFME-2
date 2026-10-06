@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7 /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 // ?addNetCommandMsg@FrameDataManager@@QAEPAVNetCommandRef@@PAVNetCommandMsg@@@Z RVA 0x0058B6AB size 38
 // Evidence: donor Open-BFME-1 game/GameEngine/Source/GameNetwork/FrameDataManager.cpp
 // FrameDataManager::addNetCommandMsg does frame = msg->getExecutionFrame() then

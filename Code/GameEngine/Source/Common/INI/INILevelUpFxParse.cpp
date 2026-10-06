@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // ?Rva00289C24Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x00289C24 (199B): the
 // LevelUpFx FieldParse proc (row 0x00BFBB10). Expects the token "FX"

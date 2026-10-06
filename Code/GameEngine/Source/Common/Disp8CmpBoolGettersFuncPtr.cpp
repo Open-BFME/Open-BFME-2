@@ -5,7 +5,7 @@
 // callback). Neither callback has a matched body yet, so the immediates stay
 // literal here and only these two rows wait on them; the rest of the family
 // links. Identity is not recovered: names derive from the addresses.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 #define BFME_DISP8_CMP_IMM_BOOL_GETTER(NAME, DISP, IMM, OP) \
 	class NAME \

@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 // DualIndexedDispatchThunk::dispatch is the donor DualIndexedDispatchThunk.cpp
 // body; the donor's sibling dispatchSix is omitted. Retail 0x00388D61 calls the

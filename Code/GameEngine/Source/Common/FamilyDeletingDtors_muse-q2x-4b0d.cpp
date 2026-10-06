@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??_GTeleportSpecialAbilityUpdateModuleData@@UAEPAXI@Z @0x00492EFD
 // Deleting dtor slot 0 of vtable 0xC4E208; calls the rowed ??1 at 0x492F19.
 class TeleportSpecialAbilityUpdateModuleData { public: __declspec(noinline) virtual ~TeleportSpecialAbilityUpdateModuleData(); private: int m_famgen; };

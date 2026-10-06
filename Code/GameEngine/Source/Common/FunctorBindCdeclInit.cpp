@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // The byte-identical 25-byte __cdecl siblings of the functor-bind constructor
 // family in game/GameEngine/Source/Common/FunctorBindConstructors.cpp.
 //

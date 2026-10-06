@@ -10,7 +10,7 @@
 // test as `m_value ? true : false`, which the compiler emits as a bare
 // compare-plus-setcc with no xor (probe-proven). Identity is not recovered:
 // every name is derived from its address.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 #define BFME_DISP8_CMP_IMM_BOOL_GETTER(NAME, DISP, IMM, OP) \
 	class NAME \
 	{ \
