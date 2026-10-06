@@ -39,3 +39,47 @@ Rva004E2382::Rva004E2382()
     : m_00(), m_04(0), m_08(), m_14()
 {
 }
+
+// Private copy views preserve the 12-byte field widths while leaving their
+// target type names address-derived. The tree wrapper tests call scheduling:
+// its member call may keep ECX live before the source pointer is pushed.
+class Rva004E1FE4TreeCopyView
+{
+public:
+    // ?Rva004E1FE4TreeCopyView::Rva004E1FE4TreeCopyView absent-from-retail
+    __forceinline Rva004E1FE4TreeCopyView(const Rva004E1FE4TreeCopyView &that)
+    {
+        copyFrom(that);
+    }
+    void copyFrom(const Rva004E1FE4TreeCopyView &that);
+    ~Rva004E1FE4TreeCopyView();
+private:
+    unsigned char m_prefix[12];
+};
+
+class Rva004E1D4EVectorCopyView
+{
+public:
+    Rva004E1D4EVectorCopyView(const Rva004E1D4EVectorCopyView &that);
+private:
+    unsigned char m_prefix[12];
+};
+
+class Rva004E2C66
+{
+public:
+    Rva004E2C66(const Rva004E2C66 &that);
+private:
+    AsciiString m_string00;
+    int m_unknown04;
+    Rva004E1FE4TreeCopyView m_tree08;
+    Rva004E1D4EVectorCopyView m_vector14;
+};
+
+Rva004E2C66::Rva004E2C66(const Rva004E2C66 &that)
+    : m_string00(that.m_string00)
+    , m_unknown04(that.m_unknown04)
+    , m_tree08(that.m_tree08)
+    , m_vector14(that.m_vector14)
+{
+}
