@@ -59,7 +59,8 @@ class Rva002CA9CA
 public:
 	void rva002CA942();
 };
-extern void *g_rva002CADFARegistry;
+class ThingFactory;
+extern ThingFactory *TheThingFactory;
 template <class T>
 struct Rva002CADFAVector
 {
@@ -79,7 +80,7 @@ private:
 };
 void Rva002CADFA::rva002CADFA()
 {
-	if (g_rva002CADFARegistry)
+	if (TheThingFactory)
 	{
 		for (UnsignedInt i = 0; i < m_0C.size(); i++)
 		{
@@ -93,8 +94,8 @@ void Rva002CADFA::rva002CADFA()
 // 0x003400F9 (AI state tables): logs "CritterDesync: ComputePath3" to the
 // file at VA 0x00DFEFF0 while the flag at VA 0x00E03745 is set, then sets
 // +0x49 and answers true.
-extern bool g_rva003400F9LogEnabled;
-extern FILE *g_rva003400F9LogFile;
+extern unsigned char g_00E03745;
+extern void *g_00DFEFF0;
 class Rva003400F9
 {
 public:
@@ -105,8 +106,8 @@ private:
 };
 bool Rva003400F9::rva003400F9()
 {
-	if (g_rva003400F9LogEnabled && g_rva003400F9LogFile)
-		fprintf(g_rva003400F9LogFile, "CritterDesync: ComputePath3");
+	if (g_00E03745 && g_00DFEFF0)
+		fprintf((FILE *)g_00DFEFF0, "CritterDesync: ComputePath3");
 	m_49 = true;
 	return true;
 }
@@ -262,12 +263,8 @@ void Rva003AFD22::rva003AFD5C(Rva003AFD22Node *node)
 
 // 0x003BCC37: the rowed Object 0x0028B238 with the argument on every object
 // of TheGameLogic, then the byte at +0x1A4D5 of the object at VA 0x00DFE16C.
-struct Rva003BCC37Global
-{
-	char m_pad00[0x1A4D5];
-	bool m_1A4D5;
-};
-extern Rva003BCC37Global *g_rva003BCC37Global;
+class ScriptEngine;
+extern ScriptEngine *TheScriptEngine;
 class Rva003BCC37
 {
 public:
@@ -277,12 +274,12 @@ void Rva003BCC37::rva003BCC37(bool b)
 {
 	for (Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->m_next8C)
 		obj->rva0028B238(b);
-	g_rva003BCC37Global->m_1A4D5 = b;
+	*(bool *)((char *)TheScriptEngine + 0x1A4D5) = b;
 }
 
 // 0x00406B39 and 0x004059F6: ids drawn once each from the counter at VA
 // 0x00DFEE18.
-extern Int g_rva00406B39Counter;
+__declspec(selectany) Int g_00DFEE18 = 0;
 class Rva00406B39
 {
 public:
@@ -291,12 +288,12 @@ public:
 };
 Int Rva00406B39::rva00406B39()
 {
-	static Int s_id = g_rva00406B39Counter++;
+	static Int s_id = g_00DFEE18++;
 	return s_id;
 }
 Int Rva00406B39::rva004059F6()
 {
-	static Int s_id = g_rva00406B39Counter++;
+	static Int s_id = g_00DFEE18++;
 	return s_id;
 }
 
