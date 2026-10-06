@@ -13445,3 +13445,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Rva005243FA@@YAHHHH@Z,0x005243FA,int-returning spelling of rowed void forwarder 0x005243FA for range dispatch 0x00524477 (REL32 at 0x005244A5); body forwards 0x0052408B eax; address name
 ?Rva002245FF@G00524477@@QAEXHH@Z,0x002245FF,thiscall change-handler of range dispatch 0x00524477 on the 0x00DFE4CC singleton (REL32 at 0x005244C8); body unrecovered; address name
 ?Rva00523EC8@C00524477@@QAEXH@Z,0x00523EC8,thiscall int sink of range dispatch 0x00524477 on this+0xC (REL32 at 0x005244D0); body unrecovered; address name
+?Rva005CC208@Obj00527827@@QAEXHH@Z,0x005CC208,thiscall (a0,a1) spelling of the rowed vtable slot-2 forwarder for range clamp 0x00527827 (REL32 at 0x00527875, ecx flows from the m_1C null check); body rowed as ?rva005CC208@Rva005CC208@@UAEXXZ; address name
