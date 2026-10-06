@@ -50,6 +50,8 @@ PROTECTED = (
     "tools/publisher.py", "tools/publisher_pre_push.sh",
     # the advisory audit: its judge allowlist (judges.json), canaries and harness
     "tools/audit/*",
+    "tools/publisher_gate.py", "tools/publisher_hook.py", "tools/publisher_service.py",
+    "reverse/publisher_mode",
     # the hooks that run all of the above
     ".githooks/*", ".github/workflows/*",
     # debt registers and exemption lists

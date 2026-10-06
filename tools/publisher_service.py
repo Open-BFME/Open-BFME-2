@@ -98,8 +98,10 @@ def setup(root, name, origin, source, commit="origin/master", builders=4, gate_a
           build_pool=2, host_lock=None, extra=None):
     """One repository's publisher state under root/name, shadow target ready,
     checker at `commit` promoted, code pinned to `commit` in state/bin."""
-    state = Path(root) / name
+    state = Path(root).resolve() / name
     state.mkdir(parents=True, exist_ok=True)
+    source = str(Path(source).resolve())
+    toolchain_source = toolchain_source and str(Path(toolchain_source).resolve())
     objects, _ = git_dirs(source)
     commit = out("rev-parse", f"{commit}^{{commit}}", cwd=source)
     master = out("rev-parse", "origin/master^{commit}", cwd=source)
@@ -154,7 +156,7 @@ def setup(root, name, origin, source, commit="origin/master", builders=4, gate_a
 # ---- the service ------------------------------------------------------------
 class Service:
     def __init__(self, state, load=True):
-        self.dir = Path(state)
+        self.dir = Path(state).resolve()     # publisher.py hands git relative patch paths
         self.svc = dict(SERVICE, **pub.read_json(self.dir / "service.json"))
         self.mirror = Path(self.svc["mirror"])
         self.seen = set(pub.read_json(self.dir / "pump_seen.json", []) or [])
@@ -492,7 +494,7 @@ def parse_t(text):
 # ---- health -----------------------------------------------------------------
 def health(state, hours=24.0, now=None, criteria=None):
     """Keeps up? p95? red rate? -> dict with checks and go (bool) for stage B."""
-    state, now = Path(state), now or time.time()
+    state, now = Path(state).resolve(), now or time.time()
     crit = dict(CRITERIA, **(criteria or {}))
     since = now - hours * 3600
     units = [r for r in read_csv(state / "metrics.csv") if parse_t(r["time"]) >= since]
@@ -539,7 +541,7 @@ def health(state, hours=24.0, now=None, criteria=None):
 
 
 def status(state):
-    state = Path(state)
+    state = Path(state).resolve()
     st = pub.State(state)
     p = pub.Publisher(st, repo=pub._OfflineRepo(), executor=pub.ProcessExecutor(st), offline=True)
     beat = pub.read_json(state / "heartbeat.json", {}) or {}
@@ -553,7 +555,7 @@ def status(state):
 def replay(state, source, count=30, rev="origin/master", operator="replay"):
     """Queue the last `count` first-parent, non-merge commits of `rev` as units,
     in order, onto a shadow branch reset to the first one's parent."""
-    state = Path(state)
+    state = Path(state).resolve()
     commits = out("rev-list", "--first-parent", f"-n{count * 2}", rev, cwd=source).split()
     picked = []
     for c in commits:
