@@ -64644,3 +64644,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?Rva002E8C4DCall@@YAHHEPAURva002E8C23Pair@@H@Z,,0x002E8C4D,33,Code/GameEngine/Source/Common/Rva002E8C23.cpp,matched,LINK 5 files adjacent row 0x002E8C23 pin rva002E79A8
 ?bfmeCompact@Gen_0018BC70@@QAEPAVBfmeVecAK@@_N@Z,,0x004D6D4F,70,Code/GameEngine/Source/Common/Gen0018BC70BfmeCompact.cpp,matched,LINK 1 file donor Bfme5CompactAlive pin liveObjects
 ?Rva003552BDJump@@YAXXZ,,0x003552BD,5,Code/GameEngine/Source/GameLogic/Object/Rva003552BD.cpp,matched,5B jmp to rowed dup_00355257 callers are Unwind funclets
+?rva003552C2@Rva00355B61@@QAE_NW4NameKeyType@@@Z,,0x003552C2,77,Code/GameEngine/Source/GameLogic/Object/Rva003552C2.cpp,matched,this Rva00355B61 via rowed find global g_00E01E18 Armor check virtual slot 0x10
