@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?rva00211541@Rva00211541@@QAEXPAVCreateAHeroData@@@Z, RVA 0x00211541, 47 bytes.
 // Vector find-and-erase on +0x258 like Rva00223D02: rowed find 0x0020E873 then

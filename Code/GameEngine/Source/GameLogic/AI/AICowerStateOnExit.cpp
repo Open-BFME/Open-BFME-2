@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /G7
+// cl: /DNDEBUG /MD
 //
 // ?onExit@AICowerState@@UAEXW4StateExitType@@@Z, retail 0x003402FC, 70 bytes.
 // Slot 5 (0x14) of vtable 0x00811958 (class Rva0033F7C8): AICowerState::onExit

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // AI::getAdjustedVisionRangeForObject, retail 0x002FDD0A (138 bytes), ported
 // from Zero Hour's GameEngine/Source/GameLogic/AI/AI.cpp (GeneralsMD tree

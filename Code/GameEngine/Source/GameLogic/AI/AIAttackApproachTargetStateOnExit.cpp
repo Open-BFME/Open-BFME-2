@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /G7
+// cl: /DNDEBUG /MD
 //
 // AIAttackApproachTargetState::onExit, retail 0x0034894C (166 bytes): slot 5
 // of vtable 0x00C12610, whose slot-2 name getter returns

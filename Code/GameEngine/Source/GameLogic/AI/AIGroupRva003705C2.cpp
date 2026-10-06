@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // ?rva003705C2@AIGroup@@QAEXXZ, retail 0x003705C2, 190 bytes.
 // AIGroup order-issuing walk over the raw member list at +4 (same ListNode
 // idiom as AIGroupRva0036DF92): phase 1 keeps the first

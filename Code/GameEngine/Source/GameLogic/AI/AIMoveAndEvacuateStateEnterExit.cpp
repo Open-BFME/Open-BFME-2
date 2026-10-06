@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIMoveAndEvacuateState::onEnter, retail 0x0034EB7E (106 bytes), and
 // AIMoveAndEvacuateState::onExit, retail 0x00349FD0 (37 bytes): slots 4 and

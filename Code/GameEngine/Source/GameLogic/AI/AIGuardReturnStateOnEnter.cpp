@@ -1,5 +1,5 @@
 // ?onEnter@AIGuardReturnState@@UAE?AW4StateReturnType@@XZ
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // The rest of the ZH AIGuard port -- every class below, and the sibling
 // onEnter/update/onExit bodies -- lives in AIGuardStates.cpp, which already

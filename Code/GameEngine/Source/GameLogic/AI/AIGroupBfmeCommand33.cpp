@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0036FBC5@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@@Z, retail 0x0036FBC5, 61 bytes.
 // AIGroup forward of aiBfmeCommand33 to each member via the rowed

@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD -D_STLP_USE_STATIC_LIB /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI
+// cl: -DNDEBUG -DWIN32 -MD -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI
 // stlport
 // Open-BFME: the two AIGroup lookups that answer "which member should carry out
 // this order" by returning the first one that can.

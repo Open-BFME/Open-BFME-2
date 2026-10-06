@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?add@AIGroup@@QAEXPAVObject@@@Z @0x0036E5F1 103B: AIGroup group add with KindOf gate.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getSpeed@AIGroup@@QAEMXZ @0x0036E333 (19B), Zero Hour AIGroup.cpp shape:
 // recompute when dirty, then return the cached group speed. Target evidence:

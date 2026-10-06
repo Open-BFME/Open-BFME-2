@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0047971C@AICommandInterface@@QAEXABVRva0035149F@@PAVObject@@W4CommandSourceType@@@Z @ 0x0047971C (115B).
 // AICommandInterface wrapper cmd 0x0A: builds AICommandParms block via
 // 0x00351BD0 plus vector assign 0x0035149F into +0x20 plus m_obj store

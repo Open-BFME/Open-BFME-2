@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00372C05@AIGroup@@QAEXXZ, retail 0x00372C05, 29 bytes.
 // Idle guard then two-pass work: rowed AIGroup::isIdle on our own this,
 // rowed AIGroup::rva0036DF92, then the pinned AIGroup 0x003705C2 tail call

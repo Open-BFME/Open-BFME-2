@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // AIGuardMachine::rva00543326, retail 0x00543326 (212 bytes): the guard
 // position Zero Hour's AIGuard.cpp computes inline in lookForInnerTarget and

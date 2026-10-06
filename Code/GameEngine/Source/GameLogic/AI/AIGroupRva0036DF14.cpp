@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0036DF14@AIGroup@@QAEXPBVUpgradeTemplate@@@Z, retail 0x0036DF14, 57 bytes.
 // Leaf between queueUpgrade 0x0036DE89 and isIdle 0x0036DF4D. Evidence: same

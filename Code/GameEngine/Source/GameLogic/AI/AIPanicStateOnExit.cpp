@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIPanicState::onExit, retail 0x0034A4DB (45 bytes).
 // Identity: slot 5 of vtable 0x00C12B70 (installed by the unrowed ctor at

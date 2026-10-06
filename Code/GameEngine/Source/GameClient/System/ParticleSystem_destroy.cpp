@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?destroy@ParticleSystem@@QAEXXZ, retail 0x001F462C, 50 bytes.
 // Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/System/ParticleSys.cpp
 // ParticleSystem::destroy (their matched 52B row): retail's body is a LOOP, not

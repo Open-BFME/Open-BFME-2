@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0036F9FE@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z, retail 0x0036F9FE, 88 bytes.
 // AIGroup mode switch forwarding to each member via rowed aiFollowWaypointPath

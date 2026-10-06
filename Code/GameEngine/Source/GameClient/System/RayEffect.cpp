@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Include/Precompiled -Ireference/open-bfme-1/game/GameEngine/Source/Common/System -Ireference/open-bfme-1/game/GameEngine/Source/GameClient -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/System
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Include/Precompiled -Ireference/open-bfme-1/game/GameEngine/Source/Common/System -Ireference/open-bfme-1/game/GameEngine/Source/GameClient -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/System
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.

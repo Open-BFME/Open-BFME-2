@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?doFXObj@TintDrawableFXNugget@@UBEXPBVObject@@0@Z retail 0x001E09D8 99B
 // Evidence: chain lane; calls 0x00271779 which this session landed; vtable slot 2 of 0x007DD8E0 TintDrawableFXNugget; BFME1 donor TintDrawableFXNugget_doFXObj_Thunk.cpp doFXObj with getDrawable plus status 0x20 plus applyTint RGB times freq amp; retail status at +0x118; caller none.

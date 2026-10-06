@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIDeadState::onExit, retail 0x00347110 (30 bytes): slot 5 of vtable
 // 0x00C11318, whose slot-2 name getter returns AIDeadState; the Zero Hour

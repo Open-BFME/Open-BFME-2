@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 
 // VideoPlayer::closeAllStreams, retail 0x006891B0, 36B (vtable slot19).
 // Shape-proof: the body calls vtable slot18 in a null-tested loop and

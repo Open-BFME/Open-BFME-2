@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva00472B54@Rva00472B54@@QAEXPAVObject@@W4CommandSourceType@@@Z, retail 0x00472B54, 314 bytes.

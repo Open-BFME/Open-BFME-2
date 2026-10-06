@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0025EB36@Rva0025EB36@@QAEXXZ at 0x0025EB36 (13B).
 // Thiscall copying +0x48 to +0x28 and +0x4C to +0x2C. Evidence: retail moves,
 // caller 0x0008D256, no vtable.

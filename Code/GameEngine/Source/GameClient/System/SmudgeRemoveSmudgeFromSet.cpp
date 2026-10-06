@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 // SmudgeSet::removeSmudgeFromSet at retail 0x002D282E (31B).
 //
 // Dedicated TU. BFME1 donor

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1
+// cl: /DNDEBUG /MD /GX-
 // SmudgeSet::reset at retail 0x002D269B (35B).
 //
 // Dedicated TU: the home TU (Smudge.cpp) defines the DLList/DLNode templates

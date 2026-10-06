@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ZH donor: GeneralsMD GameClient/Water.cpp WaterSetting::WaterSetting.
 // ??0WaterSetting@@QAE@XZ @0x00309CF8 166B. The static initializer at
 // 0x007AE6C2 hands this constructor and the destructor right behind it

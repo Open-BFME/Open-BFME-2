@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ?aiForceAttackObject@AICommandInterface@@QAEXPAVObject@@HW4CommandSourceType@@@Z,
 // retail 0x0036F05A, 110 bytes, plus

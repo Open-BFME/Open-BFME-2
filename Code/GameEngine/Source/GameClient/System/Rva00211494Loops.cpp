@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00211494@Rva00211494@@QAEXXZ, RVA 0x00211494, 113 bytes.
 // Two back-to-back vectors of object pointers at +0x234/+0x240; each element
 // virtual slot 3 (+0x0C) called in index order. Evidence: caller 0x002123BE

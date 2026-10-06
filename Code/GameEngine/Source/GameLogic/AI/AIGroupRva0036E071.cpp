@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0036E071@AIGroup@@QBE_NXZ, retail 0x0036E071, 69 bytes.
 // AIGroup predicate walk like isIdle 0x0036DF4D. Evidence: same list loop,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIExitState::onEnter, retail 0x00341B11 (61 bytes), onExit, retail
 // 0x0035118A (63 bytes), and update, retail 0x00341B4E (171 bytes): slots 4,

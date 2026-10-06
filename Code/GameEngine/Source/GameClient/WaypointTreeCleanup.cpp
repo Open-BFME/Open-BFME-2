@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // WaypointMap at MapMetaData+38 uses this AsciiString-to-Coord3D tree.
 // Its copy chain reaches the proven32B node constructor3012CE; destruction

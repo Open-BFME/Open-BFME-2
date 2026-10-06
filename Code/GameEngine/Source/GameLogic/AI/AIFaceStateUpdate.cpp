@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // AIFaceState::update, retail 0x0035487E (199 bytes): slot 6 of vtable
 // 0x00C12FA0, whose slot-2 name getter returns AIFaceState (slot 3 is the

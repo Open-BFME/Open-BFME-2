@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O1
+// cl: /DNDEBUG /MD /GX-
 // SmudgeManager::addSmudgeSet at retail 0x002D291B (95B).
 //
 // Dedicated TU: the home TU (Smudge.cpp) defines SmudgeSet::SmudgeSet, so a

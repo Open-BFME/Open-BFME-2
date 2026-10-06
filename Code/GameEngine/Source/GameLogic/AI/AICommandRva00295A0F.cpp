@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 // ?Rva00295A0FCommand@Rva00295A0FCommands@@QAEXPAXHH@Z @0x00295A0F 117B leaf
 // Position command via rowed AICommandParms ctor 0x351BD0 (cmd 0x0F + source),
 // pos copy to m_pos, maxShots to m_intValue, aiDoCommand at vtable slot 0,

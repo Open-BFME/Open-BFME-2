@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // AIGuard state bodies ported from Zero Hour's GameEngine/Source/GameLogic/AI/
 // AIGuard.cpp (GeneralsMD tree vendored under reference/open-bfme-1/inputs/

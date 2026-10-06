@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0036DF92@AIGroup@@QAEXXZ, retail 0x0036DF92, 223B.
 // AIGroup two-pass member walk: first finds the minimum positive worker

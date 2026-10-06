@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIAttackState::onExit, retail 0x0034B889 (201 bytes): slot 5 of vtable
 // 0x00C13B78, whose slot-2 name getter returns AIAttackState.

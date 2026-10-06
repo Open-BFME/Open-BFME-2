@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIAttackFireWeaponState::onExit, retail 0x0034B08A (83 bytes): slot 5 of
 // vtable 0x00C111F8, whose slot-2 name getter returns AIAttackFireWeaponState.

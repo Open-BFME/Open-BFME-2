@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIAttackPursueTargetState::update, retail 0x003495A1 (92 bytes): slot 6 of
 // vtable 0x00C12730, whose slot-2 name getter returns

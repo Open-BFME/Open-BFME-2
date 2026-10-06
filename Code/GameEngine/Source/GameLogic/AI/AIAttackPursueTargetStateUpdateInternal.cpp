@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?updateInternal@AIAttackPursueTargetState@@AAE?AW4StateReturnType@@XZ @0x0034939E 515B
 // Evidence: pinned name; callers 0x003495A9 (rowed update); donor ZH AIStates.cpp:3025

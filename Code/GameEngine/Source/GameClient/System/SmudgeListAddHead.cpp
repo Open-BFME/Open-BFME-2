@@ -1,4 +1,4 @@
-// cl: /O1 /Os /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // DLListClass<Smudge>::Add_Head, from the BFME1 Smudge list model.
 struct Smudge;
 struct SmudgeSet;

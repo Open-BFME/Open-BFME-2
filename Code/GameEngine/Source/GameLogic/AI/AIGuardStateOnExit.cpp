@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIGuardState::onExit, retail 0x0035135D (108 bytes): slot 5 of vtable
 // 0x00C11740, whose slot-2 name getter returns "AIGuardState". Ported from

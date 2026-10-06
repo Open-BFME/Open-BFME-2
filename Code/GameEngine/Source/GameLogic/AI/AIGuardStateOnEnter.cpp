@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // AIGuardState::onEnter, retail 0x003511E3 (378 bytes): slot 4 of vtable
 // 0x00C11740, whose slot-2 name getter returns "AIGuardState". Ported from

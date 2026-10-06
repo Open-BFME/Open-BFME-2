@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // Bodies ported from Open-BFME-1's

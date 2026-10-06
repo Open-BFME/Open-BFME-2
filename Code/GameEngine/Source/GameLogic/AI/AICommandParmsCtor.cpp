@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0AICommandParms@@QAE@W4AICommandType@@W4CommandSourceType@@@Z,
 // retail 0x00351BD0, 120 bytes. Dedicated shard TU for the parameter-block

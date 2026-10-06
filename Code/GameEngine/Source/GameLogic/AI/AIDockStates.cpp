@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIDock state bodies ported from Zero Hour's GameEngine/Source/GameLogic/AI/
 // AIDock.cpp (GeneralsMD tree vendored under reference/open-bfme-1/inputs/

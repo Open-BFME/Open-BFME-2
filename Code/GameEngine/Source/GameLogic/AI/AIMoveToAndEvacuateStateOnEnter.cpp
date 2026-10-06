@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // AIMoveToAndEvacuateState::onEnter, retail 0x003500E6 (103 bytes): slot 4
 // of vtable 0x00C12D50; subtracts owner position from the stored goal, calls
 // Rva0033FA64Do(owner), then runs AIMoveToState::onEnter when length exceeds INV.

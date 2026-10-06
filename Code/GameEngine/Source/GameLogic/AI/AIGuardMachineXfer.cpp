@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // cl: /O1 /DNDEBUG /MD /GX
 /*
 **	Command & Conquer Generals Zero Hour(tm)

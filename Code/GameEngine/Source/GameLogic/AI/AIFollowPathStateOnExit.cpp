@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // AIFollowPathState::onExit, retail 0x00349D92 (131 bytes): slot 5 of vtable
 // 0x00C12BC8, whose slot-2 name getter returns AIFollowPathState. Ported from

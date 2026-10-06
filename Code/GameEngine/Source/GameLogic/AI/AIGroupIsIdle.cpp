@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?isIdle@AIGroup@@QBE_NXZ, retail 0x0036DF4D, 69B.
 // BFME1 AIGroupStatePredicates donor isIdle (0x151280 73B) via ZH AIGroup.

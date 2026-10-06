@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ?onEnter@AIMeleeReAcquireState@@UAE?AW4StateReturnType@@XZ, retail
 // 0x0034BA9E: slot 4 of the state vftable 0x00C11588 whose name slot

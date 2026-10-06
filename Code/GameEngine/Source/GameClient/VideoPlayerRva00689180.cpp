@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /O2 /Ob2
+// cl: /DNDEBUG /MD /GX- /Ob2
 //
 // ?Rva00689180@VideoPlayer@@UAEXXZ, retail 0x00689180, 21 bytes. Virtual
 // slot 9 (offset 0x24) of vtable 0x008E4918 (class of ??1VideoPlayer@@UAE@XZ):

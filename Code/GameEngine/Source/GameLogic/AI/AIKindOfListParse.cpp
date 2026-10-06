@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?parseAIKindOfList@@YAXPAVINI@@PBDPAH@Z, retail 0x004E8EA6, 88 bytes.
 // Dedicated TU.

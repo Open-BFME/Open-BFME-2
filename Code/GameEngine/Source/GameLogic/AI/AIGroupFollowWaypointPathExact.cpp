@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0036FA56@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@@Z, retail 0x0036FA56, 54 bytes.
 // AIGroup forward of aiFollowWaypointPathExact to each member via the rowed

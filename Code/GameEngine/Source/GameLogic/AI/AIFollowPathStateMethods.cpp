@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // AIFollowPathState::onEnter, retail 0x0034DEF8 (396 bytes), and update,
 // retail 0x0034E084 (643 bytes): slots 4 and 6 of vtable 0x00C12BC8, whose

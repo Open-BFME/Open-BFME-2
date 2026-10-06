@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // AIGuardRetaliateState::onEnter, retail 0x003463DA (173 bytes): slot 4 of
 // vtable 0x00C117F0, whose slot-2 name getter returns AIGuardRetaliateState.

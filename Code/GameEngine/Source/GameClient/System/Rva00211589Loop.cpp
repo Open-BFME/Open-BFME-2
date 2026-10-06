@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00211589@Rva00211589@@QAEXXZ @0x00211589 60B
 // Iterates array at +0x24C/+0x250 calling rowed 0x003FD6E0 on each entry.
 // Evidence: count via (end-begin)>>2 with je then jb loop; caller 0x002129B4.

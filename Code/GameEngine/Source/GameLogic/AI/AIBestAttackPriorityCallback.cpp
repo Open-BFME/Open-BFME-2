@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva002FDB93Callback@@YAXPAVObject@@PAX@Z @0x002FDB93 49B
 // Iteration callback that keeps the highest attack priority seen: for each
 // target it asks the user data's AttackPriorityInfo (+4) for

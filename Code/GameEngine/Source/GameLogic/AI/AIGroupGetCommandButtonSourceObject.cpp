@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIGroup::getCommandButtonSourceObject(GUICommandType), retail 0x0036E158
 // (107 bytes), pinned. Zero Hour's body (GameLogic/AI/AIGroup.cpp): the

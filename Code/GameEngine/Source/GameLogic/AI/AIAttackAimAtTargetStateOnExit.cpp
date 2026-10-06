@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // AIAttackAimAtTargetState::onExit, retail 0x0034A508 (104 bytes): slot 5 of
 // vtable 0x00C11008, whose slot-2 name getter returns AIAttackAimAtTargetState

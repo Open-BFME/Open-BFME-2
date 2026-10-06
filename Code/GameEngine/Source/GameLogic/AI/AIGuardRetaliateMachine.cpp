@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ?lookForInnerTarget@AIGuardRetaliateMachine@@QAE_NXZ, retail 0x005455E3,
 // 362 bytes (the pinned name: REL32 callee of AIGuardRetaliateReturnState::

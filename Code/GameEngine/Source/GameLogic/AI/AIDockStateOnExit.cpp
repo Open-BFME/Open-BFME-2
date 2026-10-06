@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 //
 // AIDockState::onExit, retail 0x00341723 (77 bytes): slot 5 of vtable
 // 0x00C11368, whose slot-2 name getter returns AIDockState.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0TintDrawableFXNugget@@QAE@XZ 82B @0x1E0986: no-arg ctor called by
 // TintDrawableFXNugget::parse (0x001E1798) for the TintDrawable FXList

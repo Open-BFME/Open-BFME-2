@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 // Trimmed from Open-BFME-1
 // (Code/GameEngine/Source/GameClient/System/Smudge.cpp): only the placed
 // SmudgeManager::removeSmudgeSet and SmudgeSet::SmudgeSet bodies are defined

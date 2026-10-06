@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00204386Get@@YGPAVParticleSystemTemplate@@PBD@Z @0x00204386 111B
 // slot 1 of vtable 0x00BE39F4 (RVA 0x007E39F4) but body uses no this: free __stdcall
 // clone helper like Rva002043F5Get plus new(0xD4) and FXParticleSystem copy ctor.

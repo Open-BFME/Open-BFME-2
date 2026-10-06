@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /MD
 
 // Scalar deleting destructor (vtable slot0) for VideoPlayer, retail
 // 0x006894E0, 28B flag-test shape. The destructor itself is rowed at

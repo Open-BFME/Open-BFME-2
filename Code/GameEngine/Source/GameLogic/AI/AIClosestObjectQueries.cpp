@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ai.cpp holds the donor-flag ports; these are built with BFME2 flags.
 //

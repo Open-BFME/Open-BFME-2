@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIMoveAndDeleteState::update, retail 0x0034A02D (158 bytes): slot 6 of
 // vtable 0x00C12C88, whose slot-2 name getter returns AIMoveAndDeleteState;

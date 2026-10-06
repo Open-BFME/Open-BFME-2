@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIMoveAndEvacuateState::update, retail 0x00353C27 (100 bytes): slot 6 of
 // vtable 0x00C12C28, whose slot-2 name getter 0x00342DA5 returns

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // AIGroup::groupDoCommandButtonAtPosition, retail 0x0036DCB8 (47 bytes), and
 // AIGroup::groupDoCommandButtonAtObject, retail 0x0036DCE7 (47 bytes), ported

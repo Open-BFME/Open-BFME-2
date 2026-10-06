@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // BFME1 Q2NamedScriptCallbacks.cpp donor pattern: free functions firing one
 // named UI callback with one string argument through a global target and a
 // global owner. Retail passes (owner, callback, 1, arg, 0, 0, 0, 0) with the

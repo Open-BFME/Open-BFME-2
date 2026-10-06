@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva002043F5Get@@YG... @0x002043F5 72B: wrapper building a local AsciiString
 // from a const char* then returning TheParticleSystemManager->findTemplate.

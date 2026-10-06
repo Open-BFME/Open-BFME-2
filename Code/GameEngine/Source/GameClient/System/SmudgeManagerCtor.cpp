@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 // SmudgeManager::SmudgeManager at retail 0x002D25BA (40B).
 //
 // Dedicated TU (pin->row upgrade of the ??0SmudgeManager@@QAE@XZ pin).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // AIInternalMoveToState::onExit, retail 0x003473A4 (188 bytes).
 // Identity (target evidence): slot 5 of vtable 0x00C10DE8, whose slot 4 is the

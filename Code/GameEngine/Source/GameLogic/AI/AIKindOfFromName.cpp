@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?getAIKindOfFromName@@YAH PBD@Z, retail 0x004E8DE7, 112 bytes.
 // Dedicated TU.

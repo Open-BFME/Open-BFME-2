@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva0036FB57@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z @0x0036FB57 110B
 // Evidence: pin AIGroup; BfmeC986 ready guard 0x0036E357 plus step 0x005494A0; same list-at-+0 plus Object+0x258 plus +0x20 subobject mode switch as Rva0036FAF8Group (mode1 rowed rva00352F9D with 0x7FFFFFFF mode0 rowed aiFollowWaypointPathAsTeam); no m_410 clear like AIGroupWaypointMode; callers 0x003BF4B0 0x003BF5DE.
 #include <list>

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 // SmudgeManager::reset at retail 0x002D27CC (57B).
 //
 // Dedicated TU. BFME1 donor

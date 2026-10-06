@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1SmudgeManager@@UAE@XZ, retail 0x002D29F7, 140 bytes.
 // Virtual dtor over vtable 0x00C02A60 (slot 0 deleting dtor at 0x002D2A83

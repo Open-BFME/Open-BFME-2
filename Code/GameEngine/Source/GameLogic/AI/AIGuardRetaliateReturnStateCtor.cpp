@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ??0AIGuardRetaliateReturnState@@QAE@PAVStateMachine@@@Z @0x005453BB 33B
 // AIGuardRetaliateReturnState ctor: AIInternalMoveToState(machine,
 // 0xC784A170), vtable 0x00C69F38, m_nextReturnScanTime 0 at +0x4C.

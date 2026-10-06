@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // AIGroup::groupAttackArea (?groupAttackArea@AIGroup@@QAEXPAVPolygonTrigger@@W4CommandSourceType@@@Z),
 // retail 0x00370517, 61 bytes.

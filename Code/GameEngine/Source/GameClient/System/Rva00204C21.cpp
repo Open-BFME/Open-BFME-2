@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Address-derived method at 0x00204C21 (71B), immediately after the matched
 // holder-base destructor at 0x00204C16. Target bytes call release 0x0020453C,

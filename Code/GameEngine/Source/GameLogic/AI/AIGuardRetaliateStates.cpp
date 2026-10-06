@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // AIGuardRetaliate state bodies ported from Zero Hour's
 // GameEngine/Source/GameLogic/AI/AIGuardRetaliate.cpp (GeneralsMD tree

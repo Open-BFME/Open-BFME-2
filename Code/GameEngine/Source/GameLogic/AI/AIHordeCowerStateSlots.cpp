@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /G7
+// cl: /DNDEBUG /MD
 //
 // BFME 2 AI state enter/exit overrides with no Zero Hour counterpart. Each
 // class is named by its vtable's slot-2 name getter (the state's own name
