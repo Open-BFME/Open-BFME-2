@@ -63,10 +63,33 @@ Rva00574CC1::Rva00574CC1(EmitVtableTag *)
 {
 }
 
-class Rva005CD3A5
+class Rva005CCDDD
+{
+public:
+	Rva005CCDDD();
+	virtual ~Rva005CCDDD();
+private:
+	char m_pad[4];
+	void *m_member08;
+};
+
+class UnicodeString;
+class Rva005CCE13
+{
+public:
+	void rva005CCE13(const UnicodeString &arg);
+};
+class Rva005CCB73
+{
+public:
+	void rva005CCB73(void *arg);
+};
+
+class Rva005CD3A5 : public Rva005CCDDD
 {
 public:
 	Rva005CD3A5(EmitVtableTag *);
+	Rva005CD3A5(const UnicodeString &arg0, void *arg1);
 public:
 	virtual ~Rva005CD3A5();
 };
@@ -74,6 +97,20 @@ public:
 // ?<Rva005CD3A5::Rva005CD3A5> absent-from-retail
 Rva005CD3A5::Rva005CD3A5(EmitVtableTag *)
 {
+}
+
+// Target evidence: constructor 0x00575406 installs the vtable also used by
+// deleting dtor 0x0057569A, calls the base constructor at 0x005CCD94 (whose
+// vtable is 0x00C74F44), forwards a UnicodeString reference through the
+// already-rowed 0x005CCE13 thunk, then forwards an opaque pointer through
+// 0x005CCB73. The base relationship is a structural inference from those
+// vtable stores and call order; the class identity and pointer meaning remain
+// unknown.
+Rva005CD3A5::Rva005CD3A5(const UnicodeString &arg0, void *arg1)
+	: Rva005CCDDD()
+{
+	((Rva005CCE13 *)this)->rva005CCE13(arg0);
+	((Rva005CCB73 *)this)->rva005CCB73(arg1);
 }
 
 class Rva00575D45
