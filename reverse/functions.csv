@@ -64867,3 +64867,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?Rva0007B701Cmp@@YA_NABUBfmeE8@@0@Z,,0x0007B701,24,Code/Libraries/Source/WWVegas/WWLib/Rva004C7621Finish.cpp,matched,float distSq less comparator for BfmeE8 sort via rowed sort
 ?rva002E21D1@Rva002E21D1@@QAEXXZ,,0x002E21D1,84,Code/GameEngine/Source/Common/Rva002E21D1Clear.cpp,matched,unlock lane clear vec 1b8 via GameLogic pin and STL erase row
 ?rva002B7B25@Rva002B7B25@@QAEXXZ,,0x002B7B25,76,Code/GameEngine/Source/Common/Rva002B7B25Clear.cpp,matched,chain lane erase vec 10c then per-elem 002E21D1
+?rva002E10FE@Rva002E10BDOwner@@QAEXH@Z,,0x002E10FE,44,Code/GameEngine/Source/Common/Rva002E10BDFind.cpp,matched,leaf lane same owner vec erase and GameLogic forward

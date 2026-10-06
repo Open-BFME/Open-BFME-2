@@ -29,6 +29,7 @@ class Rva002E10BDOwner
 {
 public:
 	void rva002E10BD(CreateAHeroData *o);
+	void rva002E10FE(int p);
 
 private:
 	char m_pad[0x1b8];
@@ -45,4 +46,13 @@ void Rva002E10BDOwner::rva002E10BD(CreateAHeroData *o)
 		return;
 	v->rva001FF51FErase((int)it);
 	TheGameLogic->rva0023D007(*(const int *)((const char *)o + 0x78));
+}
+
+// ?rva002E10FE@Rva002E10BDOwner@@QAEXH@Z
+void Rva002E10BDOwner::rva002E10FE(int p)
+{
+	int o = **(int **)p;
+	TheGameLogic->rva0023D007(*(const int *)(o + 0x78));
+	Rva002E10BDVec *v = &m_1b8;
+	v->rva001FF51FErase(*(int *)p);
 }
