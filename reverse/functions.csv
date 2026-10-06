@@ -64785,8 +64785,6 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0056C4D3@Rva0056C4D3@@QAEXPAXMHH@Z,,0x0056C4D3,59,Code/GameEngine/Source/Common/Rva0056C4D3Probe.cpp,matched,single-shot probe via pinned 0x0056C0A5 plus rowed 0x00404781
 ??0Rva0056DC4C@@QAE@PAX@Z,,0x0056DC4C,31,Code/GameEngine/Source/Common/Rva0056DC4CCtor.cpp,matched,tiny ctor via pinned 0x002D2C34 plus vtbl plus arg
 ?method@Rva005773A6@@QAE?AURvaF6Ret@@XZ,,0x005773A6,26,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,value-return forwarder via +0x8 member through matched 0x005773C0 under /EHsc /Oy- /O1
-?Rva003EC991@@YAKPBDHK@Z,,0x003EC991,60,Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp,matched,counted CRC with 0xC35BD0 table case-sensitive sibling of 0x3EC9CD volatile keeps ecx plus memory not
-?Rva003EC9CD@@YAKPBDHK@Z,,0x003EC9CD,70,Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp,matched,counted case-insensitive CRC with inline a-z fold volatile keeps ecx plus memory not
 ?Rva003E8FEE@@YG_NPAVParameter@@@Z,,0x003E8FEE,59,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8FEE.cpp,matched,trigger-area plus manager gate via getQualifiedTriggerAreaByName and pinned 0x286772
 ?Rva003E9029@@YG_NPBVAsciiString@@@Z,,0x003E9029,57,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8FEE.cpp,matched,AsciiString plus ScriptEngine 0x208DB8 plus LivingWorld 0xB0 0x2104B6 booleanized
 ?Rva003C0E87Do@@YGXABVAsciiString@@H@Z,,0x003C0E87,130,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C0E87.cpp,matched,lookup unit plus SupplyWarehouseDockUpdate module int dispatch via cached NameKey sibling of 0x3C3175
