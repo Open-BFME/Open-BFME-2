@@ -22,7 +22,8 @@ public:
 	void rva002B7250(CreateAHeroData *v);
 };
 int __cdecl Rva00381452Get();
-extern CreateAHeroData g_00E048C4;
+class CreateAHeroData { char m_pad[0x140]; };
+CreateAHeroData g_00E048C4;
 void __cdecl Rva00511F73Run()
 {
 	Rva00511730(0);
