@@ -64361,3 +64361,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0028BC58@Object@@QAEPAXH@Z,,0x0028BC58,60,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BC58.cpp,matched,Object plus244 array via plus0C slot28 then slot30 byte-tested int arg
 ?Rva002E8C23Call@@YAHHEPAURva002E8C23Param@@@Z,,0x002E8C23,42,Code/GameEngine/Source/Common/Rva002E8C23.cpp,matched,pin rva002E79A8 callers 0x002EE1C7 unsigned shift
 ?rva005CD378@Rva005CD378@@QAEXXZ,,0x005CD378,45,Code/GameEngine/Source/Common/Rva005CD378.cpp,matched,rows 0xB3FD0 0x5CCB5B pins 0x2BF6A7 pattern Rva005D20E5Wrap
+??1TileData@@UAE@XZ,,0x0011172A,72,Code/GameEngineDevice/Source/W3DDevice/GameClient/TileDataDtor.cpp,matched,vtable BCFAC0 then ref release at +0x2AB4 then RefCountClass base vtable BC650C
