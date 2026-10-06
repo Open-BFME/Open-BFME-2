@@ -27,6 +27,15 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 
 class ModuleData;
 
+// This name is already present in the ledger as an address-derived partial
+// row. 0x004FD571's REL32 call proves the target RVA used below; the helper's
+// owner and semantics remain unresolved.
+class Rva004FCE73
+{
+public:
+	void rva004FD013(int key, _STL::vector<const ModuleData *> *records, int *out);
+};
+
 struct Rva004FCD49Vec {
     void *vtbl;
     _STL::vector<int> m_vec;
@@ -36,6 +45,7 @@ struct Rva004FCD49Vec {
 class Rva004FD448 {
 public:
     void rva004FD448(const ModuleData *p);
+    void rva004FD571(int key, _STL::vector<const ModuleData *> *records, int *out) const;
 private:
     char m_pad00[0x68];
     _STL::multimap<int, int> m_map;
@@ -53,4 +63,24 @@ void Rva004FD448::rva004FD448(const ModuleData *p)
         m_map.insert(_STL::multimap<int, int>::value_type(v, (int)p));
     }
     m_vec.push_back(p);
+}
+
+// 0x004FD571 86B.
+// Shares the +0x68 multimap field with the matched 0x004FD448 body. The target
+// clears the supplied vector, obtains a const equal_range, and calls the
+// address-derived 0x004FD013 helper once per mapped pointer; the helper's
+// identity is still an inference carried from its partial ledger row.
+void Rva004FD448::rva004FD571(int key, _STL::vector<const ModuleData *> *records, int *out) const
+{
+	// The target vector holds four-byte pointers. Use the already-rowed
+	// vector<void *> erase body; this changes only the template spelling.
+	_STL::vector<void *> *clearRecords = (_STL::vector<void *> *)records;
+	clearRecords->erase(clearRecords->begin(), clearRecords->end());
+    *out = 0;
+    _STL::pair<_STL::multimap<int, int>::const_iterator,
+        _STL::multimap<int, int>::const_iterator> range = m_map.equal_range(key);
+    for (_STL::multimap<int, int>::const_iterator it = range.first; it != range.second; ++it) {
+        Rva004FCE73 *candidate = (Rva004FCE73 *)(*it).second;
+        candidate->rva004FD013(key, records, out);
+    }
 }
