@@ -223,6 +223,17 @@ class OverlayCheck(unittest.TestCase):
         self.assertTrue(any(line.endswith("overlay.obj") and "?StartRange@Profile@@SAXPBD@Z" in line
                             for line in (self.tmp / "ov.map").read_text(encoding="latin-1").splitlines()))
 
+    def test_split_objects_link_the_same(self):
+        """Past MAX_SECTIONS the scaffold and the overlay split into several objects."""
+        saved, boot_image.MAX_SECTIONS = boot_image.MAX_SECTIONS, 20
+        try:
+            rep = boot_image.build_image(0x10000000, self.tmp / "split", "sp", [PILOT])
+        finally:
+            boot_image.MAX_SECTIONS = saved
+        self.assertTrue(boot_image.image_ok(rep), rep.get("check_bad"))
+        self.assertEqual(rep["check"]["authored-bytes-equal"], self.rep["check"]["authored-bytes-equal"])
+        self.assertGreater(len(list((self.tmp / "split").glob("overlay*.obj"))), 1)
+
     def test_authored_wrong_relocation_target_is_caught(self):
         p = self.authored(0x6C5940)
         site, _, tgt = next(x for x in p.relocs if x[2][0] == "piece")

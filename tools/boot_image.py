@@ -461,45 +461,65 @@ class Symbols(list):
         return self.index[name]
 
 
+MAX_SECTIONS = 60000                    # a COFF object holds at most 65,279 sections
+
+
+def chunk_paths(path, n):
+    """`path` for the first object of a split, path stem + index for the rest."""
+    return [path if i == 0 else path.with_name(f"{path.stem}{i}{path.suffix}") for i in range(n)]
+
+
 def write_scaffold(r, pieces, path, names=None):
-    """One COFF object: one section per retail piece, DIR32/DIR32NB relocations
-    against the owning piece's label (addend in place), __imp_ and ___ImageBase
-    externals, `_boot_entry` and a `_bootp_<rva>` public at each piece start.
-    Overlay pieces are not in it: a reference into one names the authored
-    definition, and every name in `names` {name: rva} outside the overlay is
-    defined here at its retail address. Returns the import symbols it references."""
-    syms = Symbols()
+    """COFF objects (several when the pieces exceed MAX_SECTIONS): one section per
+    retail piece, DIR32/DIR32NB relocations against the owning piece's label
+    (addend in place), __imp_ and ___ImageBase externals, `_boot_entry` and a
+    `_bootp_<rva>` public at each piece start. Overlay pieces are not in them: a
+    reference into one names the authored definition, and every name in `names`
+    {name: rva} outside the overlay is defined here at its retail address.
+    Returns (the import symbols referenced, the object paths)."""
     own = [p for p in pieces if p.unit is None]
-    for k, p in enumerate(own, 1):
-        p.label = syms.add(p.public, k, p.pad)
+    chunks = [own[i:i + MAX_SECTIONS] for i in range(0, len(own), MAX_SECTIONS)]
+    home = {p.start: (c, k) for c, chunk in enumerate(chunks) for k, p in enumerate(chunk, 1)}
     starts = [p.start for p in pieces]
+    defs = collections.defaultdict(list)                  # chunk -> [(name, section, value)]
     for name, rva in sorted((names or {}).items()):
         p = pieces[bisect.bisect_right(starts, rva) - 1]
         if p.unit is None and name not in ABSOLUTE:
-            syms.add(name, syms[p.label][1], rva - p.start + p.pad)
-    for name in sorted(set(names or ()) & set(ABSOLUTE)):
-        syms.add(name, -1, ABSOLUTE[name])
+            c, k = home[p.start]
+            defs[c].append((name, k, rva - p.start + p.pad))
     entry = next(p for p in own if p.start <= r.entry < p.start + p.size)
-    syms.add("_boot_entry", syms[entry.label][1], r.entry - entry.start + entry.pad)
-    sections = []
-    for p in own:
-        s0, _, raw = next(v for v in r.secs.values() if v[0] <= p.start < v[0] + v[1])
-        body = bytearray(p.pad) + bytearray(raw[p.start - s0:p.start - s0 + p.size])
-        rl = []
-        for site, kind, tgt in p.relocs:
-            if tgt[0] == "piece" and tgt[1].unit is not None:
-                si, add = syms.add(unit_public(tgt[1].unit, names)), tgt[2] - tgt[1].start
-            elif tgt[0] == "piece":
-                si, add = tgt[1].label, tgt[2] - tgt[1].start
-            elif tgt[0] == "imp":
-                si, add = syms.add("__imp_" + import_symbol(tgt[1])), 0
-            else:
-                si, add = syms.add("___ImageBase"), tgt[1]
-            struct.pack_into("<I", body, site - p.start + p.pad, add & 0xFFFFFFFF)
-            rl.append((site - p.start + p.pad, si, kind))
-        sections.append((p.name, p.flags, bytes(body), rl))
-    write_coff(path, sections, syms)
-    return sorted(n[len("__imp_"):] for n in syms.index if n.startswith("__imp_"))
+    imports, paths = set(), chunk_paths(path, len(chunks))
+    for c, chunk in enumerate(chunks):
+        syms = Symbols()
+        for k, p in enumerate(chunk, 1):
+            syms.add(p.public, k, p.pad)
+        for name, k, value in defs[c]:
+            syms.add(name, k, value)
+        if c == 0:
+            for name in sorted(set(names or ()) & set(ABSOLUTE)):
+                syms.add(name, -1, ABSOLUTE[name])
+        if home[entry.start][0] == c:
+            syms.add("_boot_entry", home[entry.start][1], r.entry - entry.start + entry.pad)
+        sections = []
+        for p in chunk:
+            s0, _, raw = next(v for v in r.secs.values() if v[0] <= p.start < v[0] + v[1])
+            body = bytearray(p.pad) + bytearray(raw[p.start - s0:p.start - s0 + p.size])
+            rl = []
+            for site, kind, tgt in p.relocs:
+                if tgt[0] == "piece" and tgt[1].unit is not None:
+                    si, add = syms.add(unit_public(tgt[1].unit, names)), tgt[2] - tgt[1].start
+                elif tgt[0] == "piece":
+                    si, add = syms.add(tgt[1].public), tgt[2] - tgt[1].start
+                elif tgt[0] == "imp":
+                    si, add = syms.add("__imp_" + import_symbol(tgt[1])), 0
+                else:
+                    si, add = syms.add("___ImageBase"), tgt[1]
+                struct.pack_into("<I", body, site - p.start + p.pad, add & 0xFFFFFFFF)
+                rl.append((site - p.start + p.pad, si, kind))
+            sections.append((p.name, p.flags, bytes(body), rl))
+        write_coff(paths[c], sections, syms)
+        imports |= {n[len("__imp_"):] for n in syms.index if n.startswith("__imp_")}
+    return sorted(imports), paths
 
 
 def write_import_lib(entries, path):
@@ -898,23 +918,29 @@ def unit_public(u, names):
 
 
 def write_overlay(pieces, path, names):
-    """The authored object: one section per unit piece (its compiled bytes, its
+    """The authored objects: one section per unit piece (its compiled bytes, its
     relocations against the bound names) and a public for every name in `names`
-    that lies inside a unit."""
-    syms = Symbols()
+    that lies inside a unit. Returns (the import symbols referenced, the paths)."""
     mine = [p for p in pieces if p.unit is not None]
-    for k, p in enumerate(mine, 1):
-        p.label = syms.add(p.public, k, 0)
+    chunks = [mine[i:i + MAX_SECTIONS] for i in range(0, len(mine), MAX_SECTIONS)]
     starts = [p.start for p in mine]
+    defs = collections.defaultdict(list)
     for name, rva in sorted(names.items()):
         i = bisect.bisect_right(starts, rva) - 1
         if name not in ABSOLUTE and i >= 0 and rva < mine[i].start + mine[i].size:
-            syms.add(name, i + 1, rva - mine[i].start)
-    sections = []
-    for p in mine:
-        sections.append((p.name, p.flags, p.unit.body, [(o, syms.add(n), k) for o, k, n in p.unit.relocs]))
-    write_coff(path, sections, syms)
-    return sorted(n[len("__imp_"):] for n in syms.index if n.startswith("__imp_"))
+            defs[i // MAX_SECTIONS].append((name, i % MAX_SECTIONS + 1, rva - mine[i].start))
+    imports, paths = set(), chunk_paths(path, len(chunks))
+    for c, chunk in enumerate(chunks):
+        syms = Symbols()
+        for k, p in enumerate(chunk, 1):
+            syms.add(p.public, k, 0)
+        for name, k, value in defs[c]:
+            syms.add(name, k, value)
+        sections = [(p.name, p.flags, p.unit.body, [(o, syms.add(n), k) for o, k, n in p.unit.relocs])
+                    for p in chunk]
+        write_coff(paths[c], sections, syms)
+        imports |= {n[len("__imp_"):] for n in syms.index if n.startswith("__imp_")}
+    return sorted(imports), paths
 
 
 def link_image(objs, base, out, tag, entry="boot_entry"):
@@ -1063,11 +1089,12 @@ def build_image(base=0x10000000, out=OUT, tag="boot", overlay=(), status=LINK_ST
     if rows is not None:
         ov = overlay_report(r, units, refused, rows, out / (tag + ".overlay.csv"))
         ov["specs"] = list(overlay)
-    objs = [out / "scaffold.obj"]
-    used = write_scaffold(r, pieces, objs[0], names)
+    for stale in list(out.glob("scaffold*.obj")) + list(out.glob("overlay*.obj")):
+        stale.unlink()
+    used, objs = write_scaffold(r, pieces, out / "scaffold.obj", names)
     if units:
-        objs.append(out / "overlay.obj")
-        used = sorted(set(used) | set(write_overlay(pieces, objs[1], names)))
+        more, paths = write_overlay(pieces, out / "overlay.obj", names)
+        used, objs = sorted(set(used) | set(more)), objs + paths
     by_sym = {}
     for e in r.imports().values():
         by_sym.setdefault(import_symbol(e), e)
