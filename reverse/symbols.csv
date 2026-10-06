@@ -13747,3 +13747,4 @@ _Rva00337999Forward,0x00337999,REL32 callee decoded from target call bytes of wr
 ?rva009CB265@@YGXXZ,0x005CB265,stdcall-0 global view (ignores ambient ecx) for 0x005F96D4 null-guarded sites; identity unproven
 ?rva005F8F31@Rva005F963AElem@@QAEXXZ,0x005F8F31,thiscall-0 on m_40/m_50 elements called from 0x005F96D4 loops; identity unproven
 ?rva00200A40@@YIXPAURva00200A40Sub@@HH@Z,0x00600A40,fastcall mid-function entry called from 0x00600BFB/0x00600F76 with fwd untouched in edx; identity unproven
+?rva00600305@@YIXPAVRva00600305Obj@@HHHH@Z,0x00600305,fastcall chained init called from 0x00600352 with fwd untouched in edx; identity unproven
