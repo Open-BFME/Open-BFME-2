@@ -202,6 +202,33 @@ def definitions(objs):
     return out
 
 
+_OBJECTS = {}
+
+
+def row_object(row):
+    """build.row_object without Path.resolve(): ledger sources are already
+    repo-relative, and resolving 64k of them costs ~30 s on Windows."""
+    src = row["source"]
+    member = build.ledger_member(row) if src.lower().endswith(build.LIB_SUFFIX) else None
+    key = (src, member)
+    if key not in _OBJECTS:
+        stem = "_".join(Path(src).with_suffix("").parts)
+        if member is not None:
+            stem += "_" + build.member_stem(member)
+        _OBJECTS[key] = build.BUILD_DIR / ("".join(("^" + c.lower()) if c.isupper() else c for c in stem) + ".obj")
+    return _OBJECTS[key]
+
+
+def link_order(rows):
+    """Existing objects of the rows, in link_census.link_order's order (lowest
+    retail RVA of the object's rows, then path)."""
+    first = {}
+    for row in rows:
+        obj, rva = row_object(row), int(row["target_rva"], 16)
+        first[obj] = min(first.get(obj, rva), rva)
+    return [p for p in sorted(first, key=lambda o: (first[o], o.as_posix())) if p.exists()]
+
+
 # ---------------------------------------------------------------- identity
 class Identity:
     """Retail address identities for one tree (its ledger, its objects)."""
@@ -367,7 +394,7 @@ class Identity:
         src = row["source"]
         if src.lower().endswith((".asm", build.LIB_SUFFIX)):
             return []
-        path = build.row_object(row)
+        path = row_object(row)
         if not path.exists():
             return []
         o = self.obj(str(path))
@@ -397,7 +424,9 @@ def load(sources=None):
     """(Identity, rows to check). Definitions cover every object of the tree;
     the rows checked are all matched rows, or those in `sources`."""
     rows = census.ledger()
-    objs, _ = census.objects(rows, data=[])
+    # link_census.objects() also extracts library members; a member not
+    # extracted yet defines nothing here, as in the link that needs it
+    objs = link_order(rows)
     ident = Identity(rows, objs, definitions(objs))
     if sources:
         want = {s.replace("\\", "/") for s in sources}

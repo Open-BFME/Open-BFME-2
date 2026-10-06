@@ -61,7 +61,7 @@ def owners_by_name(rows):
         if "icf-owner=" in (row.get("notes") or ""):
             continue
         for name in {row["name"], build.ledger_object_symbol(row)}:
-            out[name].add(str(build.row_object(row)))
+            out[name].add(str(allowed.row_object(row)))
     return out
 
 
@@ -134,7 +134,7 @@ def read_baseline(path=BASELINE):
 
 def load():
     rows = census.ledger()
-    objs, _ = census.objects(rows, data=[])
+    objs = allowed.link_order(rows)
     defs = allowed.definitions(objs)
     return rows, defs, census.RetailTruth(rows)
 
@@ -212,7 +212,7 @@ def remove_identical_extras(found, rows, limit=0):
     {source: [names removed]}."""
     source_of = {}
     for row in rows:
-        source_of.setdefault(rel(build.row_object(row)), row["source"])
+        source_of.setdefault(rel(allowed.row_object(row)), row["source"])
     plan = collections.defaultdict(list)
     for d in found:
         if d["class"] == "duplicate" and d["owner"]:
