@@ -36,6 +36,11 @@ class Rva0053ED1A : public GameEngineDeletingBase, public Rva005C6D4D
 public:
 	Rva0053ED1A();
 	virtual ~Rva0053ED1A();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void rva0053EDD2();
 private:
 	_STL::vector<int> m_at48;
 	int m_at54;
@@ -44,4 +49,36 @@ private:
 
 Rva0053ED1A::Rva0053ED1A() : m_at54(0), m_at58(0)
 {
+}
+
+class GameLogic;
+extern GameLogic *TheGameLogic;
+class Object;
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+class GameLogic
+{
+public:
+	Object *findObjectByID(ObjectID id);
+};
+class Rva005C6C7B
+{
+public:
+	void reset();
+};
+class Rva005C65F1
+{
+public:
+	void rva005C65F1();
+};
+
+void Rva0053ED1A::rva0053EDD2()
+{
+	Object *obj = TheGameLogic->findObjectByID(*(ObjectID *)&m_at48);
+	if (obj == 0)
+		return ((Rva005C6C7B *)this)->reset();
+	else
+		return ((Rva005C65F1 *)this)->rva005C65F1();
 }
