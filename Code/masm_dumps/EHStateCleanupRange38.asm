@@ -24,6 +24,7 @@ EXTERN ??1Rva004104C9@@QAE@XZ:PROC
 EXTERN ??1CameraMarker@@QAE@XZ:PROC
 EXTERN ??1Rva005A9562@@QAE@XZ:PROC
 EXTERN ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ:PROC
+EXTERN ?apply@Rva00049C38ADwordImmSetter@@QAEXXZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b7c8c4 at RVA 0x0077C8C4; 24-byte body ends at RET.
@@ -1469,5 +1470,75 @@ PUBLIC ?rva0078a669@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva0078a669@@YAXXZ ENDP
+
+; Unwind@00b8a681 at RVA 0x0078A681; 24-byte vector cleanup ends at RET.
+; Target passes [ebp-16]+0xb8 to the rowed iterator with element size 12 count 4 and raw dtor VA 0x0047FAB3.
+PUBLIC ?rva0078a681@@YAXXZ
+?rva0078a681@@YAXXZ PROC
+    push 0047FAB3h
+    push 4
+    push 0Ch
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0B8h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078a681@@YAXXZ ENDP
+
+; Unwind@00b8b58e at RVA 0x0078B58E; 24-byte vector cleanup ends at RET.
+; Target passes [ebp-16]+0x338 to the rowed iterator with element size 16 count 60 and raw dtor VA 0x004B3FD0.
+PUBLIC ?rva0078b58e@@YAXXZ
+?rva0078b58e@@YAXXZ PROC
+    push 004B3FD0h
+    push 3Ch
+    push 10h
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 338h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078b58e@@YAXXZ ENDP
+
+; Unwind@00b8bd4c at RVA 0x0078BD4C; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 0 at [ebp-24], passes [ebp-124] in ECX, then jumps to the rowed 0x0049C38A body.
+PUBLIC ?rva0078bd4c@@YAXXZ
+?rva0078bd4c@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0078bd4c
+    and DWORD PTR [ebp-24], -2
+    lea ecx, [ebp-124]
+    jmp ?apply@Rva00049C38ADwordImmSetter@@QAEXXZ
+cleanup_done_0078bd4c:
+    ret
+?rva0078bd4c@@YAXXZ ENDP
+
+; Unwind@00b8bd65 at RVA 0x0078BD65; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 1 at [ebp-24], passes [ebp-88] in ECX, then jumps to the rowed 0x0049C38A body.
+PUBLIC ?rva0078bd65@@YAXXZ
+?rva0078bd65@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 2
+    jz NEAR PTR cleanup_done_0078bd65
+    and DWORD PTR [ebp-24], -3
+    lea ecx, [ebp-88]
+    jmp ?apply@Rva00049C38ADwordImmSetter@@QAEXXZ
+cleanup_done_0078bd65:
+    ret
+?rva0078bd65@@YAXXZ ENDP
+
+; Unwind@00b8bd7e at RVA 0x0078BD7E; 25-byte state-bit cleanup ends at RET.
+; Target clears bit 2 at [ebp-24], passes [ebp-76] in ECX, then jumps to the rowed 0x0049C38A body.
+PUBLIC ?rva0078bd7e@@YAXXZ
+?rva0078bd7e@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 4
+    jz NEAR PTR cleanup_done_0078bd7e
+    and DWORD PTR [ebp-24], -5
+    lea ecx, [ebp-76]
+    jmp ?apply@Rva00049C38ADwordImmSetter@@QAEXXZ
+cleanup_done_0078bd7e:
+    ret
+?rva0078bd7e@@YAXXZ ENDP
 _TEXT ENDS
 END
