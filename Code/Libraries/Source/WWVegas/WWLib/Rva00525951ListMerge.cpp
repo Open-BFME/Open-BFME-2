@@ -1,4 +1,4 @@
-// cl: /ICode/GameEngine/Source/Common /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /ICode/GameEngine/Source/Common /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <list>
 #include "Rva00525119.h"
@@ -18,3 +18,14 @@ struct Rva00525951Less {
 template void _STL::_S_merge(_STL::list<Rva00525119, _STL::allocator<Rva00525119> > &,
                             _STL::list<Rva00525119, _STL::allocator<Rva00525119> > &,
                             Rva00525951Less);
+
+// Native52611D344B sort calls the exact96B float-pointer merge; the old
+// list<short> identity was contradicted by that comparator and is retired.
+// ??$_S_sort@VRva00525119@@V?$allocator@VRva00525119@@@_STL@@URva00525951Less@@@_STL@@YAXAAV?$list@VRva00525119@@V?$allocator@VRva00525119@@@_STL@@@0@URva00525951Less@@@Z
+template void _STL::_S_sort(_STL::list<Rva00525119, _STL::allocator<Rva00525119> > &,
+                           Rva00525951Less);
+namespace _STL {
+template<> __declspec(noinline) void list<Rva00525119, allocator<Rva00525119> >::sort()
+{ Rva00525951Less compare; _S_sort(*this, compare); }
+}
+template void _STL::list<Rva00525119, _STL::allocator<Rva00525119> >::sort();
