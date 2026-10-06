@@ -1,4 +1,6 @@
 // ?rva003BD391@@YGXH@Z
+// partial score=0.94 date=2026-10-06
+// ?rva003BD391@@YGXH@Z
 // partial score=0.94 date=2026-10-05
 // ?rva003BD391@@YGXH@Z @0x003BD391 34B -- partial 32/34
 // Same source shape as the exact flag-1 sisters, but the pushed flag 0 makes

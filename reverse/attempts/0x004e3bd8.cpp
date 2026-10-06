@@ -1,4 +1,6 @@
 // ?rva004E3BD8@@YAXPAVINI@@HPAV?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@@Z
+// partial score=0.9547 date=2026-10-06
+// ?rva004E3BD8@@YAXPAVINI@@HPAV?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@@Z
 // partial score=0.9 date=2026-10-06
 // cl: /O1 /MD /EHsc
 //

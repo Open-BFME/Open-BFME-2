@@ -1,4 +1,6 @@
 // ?rva00044018@Rva00044018@@QAEXI@Z
+// partial score=0.9 date=2026-10-06
+// ?rva00044018@Rva00044018@@QAEXI@Z
 // partial score=0.9 date=2026-10-05
 // cl: /O1 /MD /arch:SSE /Oi-
 // ?rva00044018@Rva00044018@@QAEXI@Z @0x00044018 479B

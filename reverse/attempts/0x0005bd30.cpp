@@ -1,4 +1,6 @@
 // ?rva0005BD30@MilesAudioManager@@QAEPAURva0005BDD2AudioEvent@@PAVAudioEventRTS@@@Z
+// partial score=0.92 date=2026-10-06
+// ?rva0005BD30@MilesAudioManager@@QAEPAURva0005BDD2AudioEvent@@PAVAudioEventRTS@@@Z
 // partial score=0.92 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
 // ?rva0005BD30@MilesAudioManager@@QAEPAURva0005BDD2AudioEvent@@PAVAudioEventRTS@@@Z @0x0005BD30 162B PROBE

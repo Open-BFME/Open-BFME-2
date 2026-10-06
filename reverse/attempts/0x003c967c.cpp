@@ -1,4 +1,6 @@
 // ?doMoveTeamTowardsNearest@ScriptActions@@IAEXABVAsciiString@@0V2@@Z
+// partial score=0.9153 date=2026-10-06
+// ?doMoveTeamTowardsNearest@ScriptActions@@IAEXABVAsciiString@@0V2@@Z
 // partial score=0.9153 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
 #include "ascii_string.h"

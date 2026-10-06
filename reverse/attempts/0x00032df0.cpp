@@ -1,4 +1,6 @@
 // ?rva00032DF0@GeneralAllocator@Allocator@EA@@QAEPAXI@Z
+// partial score=0.9532 date=2026-10-06
+// ?rva00032DF0@GeneralAllocator@Allocator@EA@@QAEPAXI@Z
 // partial score=0.94 date=2026-10-05
 // ?rva00032DF0@GeneralAllocator@Allocator@EA@@QAEPAXI@Z
 // partial score=0.94 date=2026-10-05
@@ -241,35 +243,35 @@ bool GeneralAllocator::rva00031BB0(const void *block)
 // ?rva00032DF0@GeneralAllocator@Allocator@EA@@QAEPAXI@Z present-unmatched
 void *GeneralAllocator::rva00032DF0(unsigned int size)
 {
-	unsigned int rounded = size + 0x101E;
-	rounded &= 0xFFFFF000;
+	int rounded = size + 0x101E;
+	rounded = rounded & (0xFFFFF000);
 	if (rounded >= size)
 	{
-		unsigned int allocType = 0x3000;
+		int allocType = 0x3000;
 		if (m_coreFlags)
 			allocType = 0x103000;
 		void *base = VirtualAlloc(0, rounded, allocType, 4);
 		if (base != 0)
 		{
-			m_coreCount++;
-			m_coreBytes += rounded;
-			unsigned int misalign = (unsigned int)base & 7;
-			unsigned int usable = rounded - 0x10;
+			m_coreBytes = m_coreBytes + (rounded);
 			void *aligned;
+			++m_coreCount;
+			long usable = rounded - 0x10;
+			unsigned int misalign = (unsigned int)base & 7;
 			if (misalign)
 			{
-				unsigned int adjust = 8 - misalign;
+				unsigned long adjust = 8 - misalign;
 				// Commuted and still [ecx+eax]: SIB order is reg-driven here, not source order.
-				aligned = adjust + (char *)base;
 				usable -= adjust;
+				aligned = adjust + (char *)base;
 				((unsigned int *)aligned)[0] = adjust;
 				((unsigned int *)aligned)[1] = (usable - adjust) | 2;
 			}
 			else
 			{
+				aligned = base;
 				((unsigned int *)base)[0] = 0;
 				((unsigned int *)base)[1] = usable | 2;
-				aligned = base;
 			}
 			char *footer = (char *)aligned + usable;
 			((unsigned int *)footer)[0] = usable;

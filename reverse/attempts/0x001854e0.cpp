@@ -1,4 +1,6 @@
 // ?Calculate_Texture_Matrix@WSEnvMapperClass@@UAEXAAVMatrix4@@@Z
+// partial score=0.9248 date=2026-10-06
+// ?Calculate_Texture_Matrix@WSEnvMapperClass@@UAEXAAVMatrix4@@@Z
 // partial score=0.9228 date=2026-10-06
 // cl: /Ireference/shims/bfmestages /G7 /Ireference/shims/bfmerendobj /Ireference/shims/bfmemapper /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 
@@ -37,8 +39,8 @@ void WSEnvMapperClass::Calculate_Texture_Matrix(Matrix4x4 &tex_matrix)
 	tex_matrix[1].Y = 0.0f;
 	tex_matrix[1].Z = 0.5f;
 	tex_matrix[1].W = 0.5f;
-	tex_matrix[2].Z = 1.0f;
 	tex_matrix[2].W = 0.0f;
+	tex_matrix[2].Z = 1.0f;
 	tex_matrix[2].Y = 0.0f;
 	tex_matrix[2].X = 0.0f;
 	tex_matrix[3].X = 0.0f;
@@ -94,13 +96,13 @@ void WSEnvMapperClass::Calculate_Texture_Matrix(Matrix4x4 &tex_matrix)
 	mat2[0].Z = mat[2].X;
 	mat2[1].W = 0.0f;
 	mat2[1].Y = mat[1].Y;
-	mat2[0].W = 0.0f;
 	mat2[2].Y = mat[1].Z;
-	mat2[1].Z = mat[2].Y;
+	mat2[0].W = 0.0f;
 	mat2[2].X = mat[0].Z;
+	mat2[1].Z = mat[2].Y;
 	mat2[2].Z = mat[2].Z;
-	mat2[3].Y = 0.0f;
 	mat2[3].Z = 0.0f;
+	mat2[3].Y = 0.0f;
 	mat2[3].X = 0.0f;
 	mat2[3].W = 1.0f;
 	mat2[2].W = 0.0f;

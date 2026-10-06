@@ -1,5 +1,7 @@
 // ?rva003460DB@@YA_NPAVObject@@@Z
 // partial score=0.975 date=2026-10-06
+// ?rva003460DB@@YA_NPAVObject@@@Z
+// partial score=0.975 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
 // ?rva003460DB@@YA_NPAVObject@@@Z @0x003460DB 81B.
 // Cdecl bool gate (single object arg, frameless): returns true on a set

@@ -1,4 +1,6 @@
 // ??0LightningEmissionInfo@FXParticleSystem@@QAE@XZ
+// partial score=0.9785 date=2026-10-06
+// ??0LightningEmissionInfo@FXParticleSystem@@QAE@XZ
 // partial score=0.95 date=2026-09-26
 // ??0LightningEmissionInfo@FXParticleSystem@@QAE@XZ
 // partial score=0.95 date=2026-09-26
