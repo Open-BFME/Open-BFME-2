@@ -13,14 +13,15 @@ enum NameKeyType
 class Rva00148F5ECache
 {
 public:
+	Rva00148F5ECache(const char *n) : m_key(NAMEKEY_INVALID), m_name(n) {}
 	NameKeyType get();
 private:
 	NameKeyType m_key;
 	const char *m_name;
 };
 
-extern Rva00148F5ECache g_00DBDE64;
-extern Rva00148F5ECache g_00DBDE6C;
+Rva00148F5ECache g_00DBDE64("playerColor");
+Rva00148F5ECache g_00DBDE6C("playerNightColor");
 
 class Dict
 {
