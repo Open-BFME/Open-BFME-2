@@ -22,6 +22,12 @@
 // stride 0x1D0) instead of by name and reports the status byte (+0x44) to
 // OnHasMap (slot 39) with the sender's address. Retail tests the counter at
 // the bottom of the walk, so the loop is written that way.
+//
+// LANAPI::handleLobbyAnnounce, retail 0x00581C4E (223 bytes), message type 2:
+// Zero Hour's body, the remote half of the rowed RequestSetName. The player is
+// looked up by address (slot 63), allocated or unlinked, takes the name (+0x04)
+// and the one-character host (+0x1C) and login (+0x1A) fields, is re-added
+// and reported to OnNameChange (slot 48). LANPlayer is RequestSetName's view.
 
 typedef int Int;
 typedef bool Bool;
@@ -29,6 +35,8 @@ typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 typedef unsigned short WideChar;
+
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime( void );
 
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -44,11 +52,19 @@ struct BfmeNetAddress
 class LANPlayer
 {
 public:
+	LANPlayer() : m_lastHeard( 0 ), m_next( 0 )
+	{
+		m_address.m_ip = 0;
+		m_address.m_port = 0;
+	}
+
 	LANPlayer *getNext( void ) { return m_next; }
 	const BfmeNetAddress *getAddress( void ) const { return &m_address; }
 
-private:
-	UnsignedByte m_pre10[0x10];
+	UnicodeString m_name;				// +0x00
+	UnicodeString m_login;				// +0x04
+	UnicodeString m_host;				// +0x08
+	UnsignedInt m_lastHeard;			// +0x0C
 	LANPlayer *m_next;				// +0x10
 	BfmeNetAddress m_address;			// +0x14
 };
@@ -114,7 +130,9 @@ public:
 struct LANMessage
 {
 	Int LANMessageType;
-	WideChar name[13];
+	WideChar name[11];				// +0x04
+	char userName[2];				// +0x1A
+	char hostName[2];				// +0x1C
 	union
 	{
 		struct
@@ -157,16 +175,20 @@ public:
 	BFME_VSLOT(35) BFME_VSLOT(36) BFME_VSLOT(37) BFME_VSLOT(38)
 	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
 	BFME_VSLOT(40) BFME_VSLOT(41) BFME_VSLOT(42) BFME_VSLOT(43) BFME_VSLOT(44)
-	BFME_VSLOT(45) BFME_VSLOT(46) BFME_VSLOT(47) BFME_VSLOT(48)
+	BFME_VSLOT(45) BFME_VSLOT(46) BFME_VSLOT(47)
+	virtual void OnNameChange( BfmeNetAddress *from, UnicodeString newName );
 	virtual LANGameInfo *LookupGame( UnicodeString gameName );
 	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53) BFME_VSLOT(54)
 	BFME_VSLOT(55) BFME_VSLOT(56) BFME_VSLOT(57) BFME_VSLOT(58) BFME_VSLOT(59)
-	BFME_VSLOT(60) BFME_VSLOT(61) BFME_VSLOT(62) BFME_VSLOT(63)
+	BFME_VSLOT(60) BFME_VSLOT(61) BFME_VSLOT(62)
+	virtual LANPlayer *LookupPlayer( const BfmeNetAddress *who );
 	virtual BfmeNetAddress *getLocalAddress( void ) = 0;
 
 protected:
 	void removePlayer( LANPlayer *player );
+	void addPlayer( LANPlayer *player );
 	void handleRequestLobbyLeave( LANMessage *msg, const BfmeNetAddress *sender );
+	void handleLobbyAnnounce( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleJoinDeny( LANMessage *msg, const BfmeNetAddress *sender );
 	void handleHasMap( LANMessage *msg, const BfmeNetAddress *sender );
 
@@ -238,4 +260,27 @@ void LANAPI::handleHasMap( LANMessage *msg, const BfmeNetAddress *sender )
 			} while( i < MAX_SLOTS );
 		}
 	}
+}
+
+void LANAPI::handleLobbyAnnounce( LANMessage *msg, const BfmeNetAddress *sender )
+{
+	LANPlayer *player = LookupPlayer( sender );
+	if( !player )
+	{
+		player = new LANPlayer;
+		player->m_address = *sender;
+	}
+	else
+	{
+		removePlayer( player );
+	}
+
+	player->m_name.set( UnicodeString( msg->name ) );
+	player->m_host.translate( msg->hostName );
+	player->m_login.translate( msg->userName );
+	player->m_lastHeard = timeGetTime();
+
+	addPlayer( player );
+
+	OnNameChange( &player->m_address, player->m_name );
 }
