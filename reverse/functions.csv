@@ -65133,3 +65133,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?parseDrawGroupNumberDefinition@INI@@SAXPAV1@@Z,,0x001DCC9F,63,Code/GameEngine/Source/Common/INI/INIDrawGroupInfo.cpp,matched,REF slot DrawGroupInfo TheDrawGroupInfo null check INIException 9 initFromINI
 ?rva00362518@Rva00362518@@QAE_NHHPAX0H@Z,,0x00362518,171,Code/GameEngine/Source/Common/Rva00362518.cpp,matched,callers 0x0036284D callees rowed rva00419BA5 and rva0030682A float 1.0f TheGameLogic g_00DFF190
 ?rva0014D982@Rva0014D982This@@QAEXPAUID3DXEffect@@PBD@Z,,0x0014D982,113,Code/GameEngine/Source/Common/Rva0014D982Init.cpp,matched,bracket prev next same flags WhiteTexture fallback SetTexture slot52
+?rva0014D887@Rva0014D887This@@QAEXPAVRva0014D887Outer@@PAX@Z,,0x0014D887,135,Code/GameEngine/Source/Common/Rva0014D887Init.cpp,matched,point Center sibling 0x0014D722 slot88
