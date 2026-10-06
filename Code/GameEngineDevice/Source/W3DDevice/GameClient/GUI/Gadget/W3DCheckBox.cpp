@@ -1,12 +1,21 @@
-// ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
-// partial score=0.98 date=2026-10-05
-// ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
-// partial score=0.98 date=2026-10-05
-// ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
-// partial score=0.97 date=2026-10-01
-// ?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
-// partial score=0.97 date=2026-10-01
-// cl: /O1 /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /O1 /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// drawCheckBoxText 0x000A43CD (261B), W3DGadgetCheckBoxDraw 0x000A44D2 (485B)
+// and W3DGadgetCheckBoxImageDraw 0x000A46B7 (204B): Zero Hour's W3DCheckBox.cpp
+// through BFME1's donor of the same name (Open-BFME-1 game/GameEngineDevice/
+// Source/W3DDevice/GameClient/GUI/Gadget/), built /O1 like the matched
+// W3DRadioButton.cpp and W3DComboBox.cpp siblings.
+//
+// Target evidence: the function lexicon names both draw callbacks; both end in
+// WinInstanceData::getTextLength (0x000A3DCC) and a same-TU call to 0x000A43CD
+// with the window in ECX and instData in EAX, which symbols.csv already pins as
+// the file-static drawCheckBoxText. BFME2 deltas: the text goes through BFME's
+// DisplayString slots (setTextColor, then draw with a 1,1 drop offset), the
+// image getters read the bfme2gwm draw data directly, and the ICoord2D locals
+// carry an empty default constructor (it fixes the operand order of the
+// rectangle and box arithmetic).
+// stlport
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 // stlport
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -56,6 +65,8 @@
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
 #include <stdlib.h>
 
+#include "../../../../../../../inputs/reference/shims/w3ddisplaystring/GameClient/DisplayString.h"
+
 // USER INCLUDES //////////////////////////////////////////////////////////////
 #include "GameClient/GadgetCheckBox.h"
 #include "GameClient/GameWindowGlobal.h"
@@ -73,15 +84,44 @@
 
 // PRIVATE PROTOTYPES /////////////////////////////////////////////////////////
 
+// BFME's DisplayString vtable: no virtual destructor slot, a separate
+// text-color setter at +0x28, draw at +0x38 and getSize at +0x3C.
+class BFMEDisplayString
+{
+public:
+	virtual void unused00();
+	virtual void unused01();
+	virtual void unused02();
+	virtual Int getTextLength();
+	virtual void unused04();
+	virtual void unused05();
+	virtual void setFont( GameFont *font );
+	virtual GameFont *getFont();
+	virtual void unused08();
+	virtual void unused09();
+	virtual void setTextColor( Color color, Color dropColor );
+	virtual void unused11();
+	virtual void unused12();
+	virtual void unused13();
+	virtual void draw( Int x, Int y, Int xDrop, Int yDrop );
+	virtual void getSize( Int *width, Int *height );
+};
+
+// Coordinates with an empty default constructor; see the header note.
+struct CtorCoord : ICoord2D
+{
+	CtorCoord() {}
+};
+
 // drawCheckBoxText ===========================================================
 /** Draw the text for a checkbox */
 //=============================================================================
 static void drawCheckBoxText( GameWindow *window, WinInstanceData *instData )
 {
-	ICoord2D origin, size, textPos;
+	CtorCoord origin, size, textPos;
 	Int width, height;
 	Color textColor, dropColor;
-	DisplayString *text = instData->getTextDisplayString();
+	BFMEDisplayString *text = (BFMEDisplayString *)instData->getTextDisplayString();
 
 	// sanity
 	if( text == NULL || text->getTextLength() == 0 )
@@ -120,7 +160,8 @@ static void drawCheckBoxText( GameWindow *window, WinInstanceData *instData )
 	textPos.y = origin.y + (size.y / 2) - (height / 2);
 
 	// draw it
-	text->draw( textPos.x, textPos.y, textColor, dropColor );
+	text->setTextColor( textColor, dropColor );
+	text->draw( textPos.x, textPos.y, 1, 1 );
 
 }  // end drawCheckBoxText
 
@@ -140,7 +181,7 @@ void W3DGadgetCheckBoxDraw( GameWindow *window, WinInstanceData *instData )
 				backBorder,
 				boxColor,
 				boxBorder;
-	ICoord2D origin, size, start, end;
+	CtorCoord origin, size, start, end;
 
 	// get window position and size
 	window->winGetScreenPosition( &origin.x, &origin.y );
@@ -262,7 +303,7 @@ void W3DGadgetCheckBoxImageDraw( GameWindow *window, WinInstanceData *instData )
 {
 	Int checkOffsetFromLeft;
 	const Image  *boxImage = NULL;//*backgroundImage = NULL,
-	ICoord2D origin, start, end, size;
+	CtorCoord origin, start, end, size;
 
 	// get window position and size
 	window->winGetScreenPosition( &origin.x, &origin.y );
@@ -332,19 +373,8 @@ void W3DGadgetCheckBoxImageDraw( GameWindow *window, WinInstanceData *instData )
 
 		start.x = origin.x + instData->m_imageOffset.x + checkOffsetFromLeft;
 		start.y = origin.y +  3;
-		// Named once so both leas share one value. Measured this session: sharing
-		// `size.y - 6` is the ONLY switch found that moves the operand rank, and it
-		// fixes end.x (retail `lea edi,[ecx+eax-6]`, ours previously
-		// `lea edi,[eax+ecx-6]`) while moving the flip to end.y (retail
-		// `lea edi,[edx+ecx-6]`, ours `lea edi,[ecx+edx-6]`). Sharing is therefore
-		// per-statement in retail: the two leas cannot both come from one shared
-		// local, because retail needs the shared operand ecx to be the BASE in
-		// end.x and the INDEX in end.y. This form is the best of 22 measured
-		// spellings (204B, one differing instruction, at +0x96); all others leave
-		// the diff at +0x8A.
-		Int box = size.y - 6;
-		end.x = start.x + box;
-		end.y = start.y + box;
+		end.x = (size.y - 6) + start.x;
+		end.y = start.y + (size.y - 6);
 		TheWindowManager->winDrawImage( boxImage, start.x, start.y, 
 																	  end.x, end.y );
 
