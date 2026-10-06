@@ -15385,3 +15385,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva003FA781@Rva003FA835@@QAEXH@Z,0x003FA781,Called by fresh 0x00210E5B with ECX from rowed Rva002BFDAE result and its second stack argument; target consumes the low byte as a zero/nonzero state; address-derived method; exact semantics and parameter type remain unknown
 ?rva003FCD71@Rva003FCD71@@QAEXXZ,0x003FCD71,Direct method targets on vector elements in unclaimed 0x00212761/0x002110DF; address-derived receiver class and operation remain unresolved; 0x003FCD71 body stays blocked in re_attempts.log
 ?rva003FCDD5@Rva003FCD71@@QAEXH@Z,0x003FCDD5,Direct method targets on vector elements in unclaimed 0x00212761/0x002110DF; address-derived receiver class and operation remain unresolved; 0x003FCD71 body stays blocked in re_attempts.log
+?rva0059DFFB@Rva0059DFFB@@QAEXXZ,0x0059DFFB,callee of ?rva004FC470@Rva004FC470@@QAEX_N@Z
