@@ -14174,3 +14174,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva005D4395@Rva005D4395@@QAEXXZ,0x005D4395,read from REL32 at 0x005D475D in rva005D472C 0x005D472C (thiscall no-arg); Ghidra boundary 0x5D4395/158 unclaimed
 ?rva004DFF2C@Rva004E00BAOwner@@QAEXPAVObject@@@Z,0x004DFF2C,called by 0x004E00BA after push_back with the same receiver and Object pointer; address-derived name and unresolved identity
 ?rva00596074@Rva00596074@@QAEXXZ,0x00596074,5-byte thunk at 0x00596074 jumps to matched 0x0025C010; called by 0x004DF95D with field+4 in ECX; placeholder name preserves the entry address
+?canTransferSuppliesAt@ActionManager@@QAE_NPBVObject@@0@Z,0x0041BCA1,callee of ?computeRelativeCost@@YAMPAVObject@@0PAM@Z
