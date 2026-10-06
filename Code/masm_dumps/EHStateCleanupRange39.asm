@@ -2122,6 +2122,34 @@ cleanup_done_007A75D0:
     ret
 ?rva007A75D0@@YAXXZ ENDP
 
+; Unwind@00ba770c at RVA 0x007A770C; 24-byte interval ends at RET.
+; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base [ebp-24] + 0x80, element size 40, count 7 and destructor pointer 0x00B3C8C0.
+PUBLIC ?rva007A770C@@YAXXZ
+?rva007A770C@@YAXXZ PROC
+    push 00B3C8C0h
+    push 7
+    push 40
+    mov eax, DWORD PTR [ebp-24]
+    add eax, 80h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007A770C@@YAXXZ ENDP
+
+; Unwind@00ba7786 at RVA 0x007A7786; 24-byte interval ends at RET.
+; Retail calls matched MSVC 7.1 vector destructor iterator 0x00629110 with object base [ebp-40] + 0x80, element size 40, count 7 and destructor pointer 0x00B3C8C0.
+PUBLIC ?rva007A7786@@YAXXZ
+?rva007A7786@@YAXXZ PROC
+    push 00B3C8C0h
+    push 7
+    push 40
+    mov eax, DWORD PTR [ebp-40]
+    add eax, 80h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007A7786@@YAXXZ ENDP
+
 ; Unwind@00bab0e9 at RVA 0x007AB0E9; 25-byte interval ends at RET.
 ; Retail tests and clears bit 1 at [ebp-24], then takes the cleanup object address at [ebp-20] and tail-jumps to AsciiString at 0x0048BA39.
 PUBLIC ?rva007AB0E9@@YAXXZ
