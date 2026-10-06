@@ -302,5 +302,37 @@ class Bisect(unittest.TestCase):
             shutil.rmtree(tmp, ignore_errors=True)
 
 
+class FocusLieAndMenu(unittest.TestCase):
+    """boot_smoke: the WM_ACTIVATEAPP arm is found by its bytes; the menu bar decides reached-menu."""
+    def setUp(self):
+        try:
+            import boot_smoke
+        except (ImportError, ValueError, OSError):
+            self.skipTest("boot_smoke needs Win32")
+        self.bs = boot_smoke
+
+    def test_arm_found_in_retail_and_not_in_a_copy_without_it(self):
+        exe = boot_image.build.EXE
+        if not Path(exe).exists():
+            self.skipTest("no retail image")
+        self.assertEqual(self.bs.focus_arm_rva(exe), 0x19A5)
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            data = bytearray(Path(exe).read_bytes())
+            at = data.index(bytes.fromhex("837D10000F95C03A05"))
+            data[at + 3] = 1                               # cmp [ebp+10h], 1: no longer the arm
+            (tmp / "g.dat").write_bytes(bytes(data))
+            self.assertIsNone(self.bs.focus_arm_rva(tmp / "g.dat"))
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_menu_bar_needs_the_green_buttons(self):
+        from PIL import Image, ImageDraw
+        img = Image.new("RGB", (640, 360), (90, 110, 140))           # a shell-map-like frame
+        self.assertLess(self.bs.menu_bar(img), self.bs.MENU_BAR)
+        ImageDraw.Draw(img).rectangle((0, 322, 639, 348), fill=(60, 120, 60))   # the button bar
+        self.assertGreater(self.bs.menu_bar(img), self.bs.MENU_BAR)
+
+
 if __name__ == "__main__":
     unittest.main()

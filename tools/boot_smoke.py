@@ -14,8 +14,18 @@ Outcome (build/boot/smoke.json, also printed):
                         mapped back to retail's RVA and the ledger row holding it
   exit-<code>           the process exited by itself before the timeout
   no-window             alive at the timeout without a visible window
-  reached-menu          alive at the timeout with a visible, non-blank window
-                        (a screenshot is saved; compare with the --retail run)
+  reached-menu          alive at the timeout with the main menu's button bar
+                        visible (a screenshot is saved; compare with --retail)
+  no-picture            alive with a window that renders nothing (black)
+  loading-screen        alive with a picture, but the main menu's button bar is
+                        not up yet (the splash, or the shell map before the menu)
+
+The focus lie (on unless --no-focus-lie): BFME2 stops loading while its window
+lacks focus (WndProc's WM_ACTIVATEAPP(FALSE) arm sets isWinMainActive and
+TheGameEngine->setIsActive(false)). One breakpoint on that arm, located by its
+bytes in the image under test, rewrites wParam 0 to 1, so a run need not keep
+the focus (`focus_lie` in the outcome counts hits and rewrites). --defocus N
+minimises the window N s after launch to prove it.
 
 --guard DIR (repeatable) snapshots DIR's file names, sizes and mtimes before
 and after the run and fails the outcome (`guard-violation`) if anything changed,
@@ -42,6 +52,7 @@ import ctypes
 import ctypes.wintypes as wt
 import json
 import os
+import re
 import shutil
 import struct
 import sys
@@ -57,6 +68,10 @@ DEBUG_PROCESS = 0x1
 DBG_CONTINUE, DBG_NOT_HANDLED = 0x00010002, 0x80010001
 EXCEPTION, CREATE_PROCESS, EXIT_PROCESS, LOAD_DLL = 1, 3, 5, 6
 BREAKPOINTS = {0x80000003, 0x4000001F}          # int3, WOW64 int3
+# share of green pixels in the band of the main menu's button bar (menu_bar):
+# 0.74-0.75 with the buttons up (also over a white, unrendered shell map),
+# 0.13 on the loading splash, under 0.01 on the shell map before the buttons
+MENU_BAR = 0.4
 QUIET = {0x406D1388, 0xE06D7363, 0x40010006}    # thread naming, C++ throw, OutputDebugString
 
 
@@ -180,12 +195,71 @@ def clear_probe(k, hproc, tid, addr, byte):
         k.CloseHandle(h)
 
 
-def run(launcher, game_dir, args, timeout, version_lie=True, probes=()):
+# WndProc's WM_ACTIVATEAPP arm (WinMain.cpp; retail 0x0019A5): `cmp ebx, 1Ch; jne
+# default`, then `cmp dword [ebp+10h], 0; setne al; cmp al, [isWinMainActive]`. The
+# breakpoint sits on the `cmp [ebp+10h]` (wParam), so only this message costs a
+# debug event; the isWinMainActive operand is relocated, so it is a wildcard.
+FOCUS_ARM = re.compile(rb"\x83\xFB\x1C\x0F\x85....(\x83\x7D\x10\x00)\x0F\x95\xC0\x3A\x05", re.DOTALL)
+SINGLE_STEP = {0x80000004, 0x4000001E}          # single step, WOW64 single step
+
+
+def focus_arm_rva(exe):
+    """RVA of the WM_ACTIVATEAPP arm's wParam test in `exe` (retail or a boot image,
+    found by its bytes), or None unless exactly one place matches."""
+    import pefile
+    pe = pefile.PE(str(exe), fast_load=True)
+    hits = []
+    for sec in pe.sections:
+        if sec.Characteristics & 0x20000000:          # executable
+            hits += [sec.VirtualAddress + m.start(1) for m in FOCUS_ARM.finditer(sec.get_data())]
+    pe.close()
+    return hits[0] if len(hits) == 1 else None
+
+
+def write_code(k, hproc, addr, data):
+    old = wt.DWORD()
+    k.VirtualProtectEx(wt.HANDLE(hproc), ctypes.c_void_p(addr), len(data), 0x40, ctypes.byref(old))
+    k.WriteProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(addr), data, len(data), None)
+    k.VirtualProtectEx(wt.HANDLE(hproc), ctypes.c_void_p(addr), len(data), old.value, ctypes.byref(old))
+    k.FlushInstructionCache(wt.HANDLE(hproc), ctypes.c_void_p(addr), len(data))
+
+
+def focus_lie(k, hproc, tid, addr, byte):
+    """At the WM_ACTIVATEAPP arm a deactivation (wParam 0) becomes an activation, so
+    the engine never stops for focus loss. The original instruction then runs under
+    the trap flag; the breakpoint goes back on the single step. True if rewritten."""
+    k.OpenThread.restype = wt.HANDLE
+    h = k.OpenThread(0x1FFFFF, False, tid)
+    ctx = WOW64_CONTEXT()
+    ctx.flags = 0x10001                       # WOW64_CONTEXT_CONTROL: ebp, eip, eflags, esp
+    rewritten = False
+    if h and k.Wow64GetThreadContext(wt.HANDLE(h), ctypes.byref(ctx)):
+        slot, buf = ctx.ebp + 0x10, ctypes.create_string_buffer(4)
+        if k.ReadProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(slot), buf, 4, None) and buf.raw == bytes(4):
+            rewritten = bool(k.WriteProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(slot), struct.pack("<I", 1), 4,
+                                                  None))
+        write_code(k, hproc, addr, byte)
+        ctx.eip, ctx.eflags = addr, ctx.eflags | 0x100
+        k.Wow64SetThreadContext(wt.HANDLE(h), ctypes.byref(ctx))
+    if h:
+        k.CloseHandle(h)
+    return rewritten
+
+
+def main_window(pid):
+    wins = [w for w in windows_of(pid) if w[1][2] - w[1][0] > 100 and w[1][3] - w[1][1] > 100]
+    return max(wins, key=lambda w: (w[1][2] - w[1][0]) * (w[1][3] - w[1][1]))[2] if wins else None
+
+
+def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rva=None, defocus_at=None):
     """Start `launcher` (retail's lotrbfme2.exe, which hands game.dat its start-up
     token; game.dat started directly exits 0 at once) under a debugger that
     follows children; the child whose image is game.dat is the one classified.
     `probes` (RVAs) get one-shot breakpoints once the loader has relocated the
-    image; the ones reached are listed in res["probes_hit"]."""
+    image; the ones reached are listed in res["probes_hit"]. `focus_rva`: the
+    WM_ACTIVATEAPP arm, where a deactivation is rewritten to an activation (the
+    focus lie). `defocus_at` (seconds): minimise the game window then (Windows
+    activates another one), and show it again unactivated 15 s before the end."""
     k = k32()
     k.QueryFullProcessImageNameW.argtypes = [wt.HANDLE, wt.DWORD, wt.LPWSTR, ctypes.POINTER(wt.DWORD)]
     si, pi = STARTUPINFO(), PROCESS_INFORMATION()
@@ -197,7 +271,11 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=()):
     ev = ctypes.create_string_buffer(256)
     procs = {}                                        # pid -> (hProcess, image path, base)
     res = {"first_chance": [], "first_chance_count": 0, "processes": [], "probes_hit": []}
-    armed = {}
+    armed, focus, stepping = {}, {}, {}
+    if focus_rva is not None:
+        res["focus_lie"] = {"rva": hex(focus_rva), "hits": 0, "rewritten": 0}
+    u = ctypes.WinDLL("user32")
+    u.ShowWindowAsync.argtypes = [wt.HWND, ctypes.c_int]   # never wait on a thread stopped at a breakpoint
     t0 = time.time()
     try:
         while True:
@@ -205,6 +283,16 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=()):
             if left <= 0:
                 res["outcome"] = "timeout" if "pid" in res else "no-game-process"
                 break
+            if defocus_at is not None and "pid" in res:
+                d = res.setdefault("defocus", {})
+                if "minimised" not in d and time.time() - t0 >= defocus_at:
+                    d["hwnd"] = main_window(res["pid"])
+                    if d["hwnd"]:
+                        u.ShowWindowAsync(d["hwnd"], 6)     # SW_MINIMIZE: another window is activated
+                        d["minimised"] = round(time.time() - t0, 1)
+                if d.get("hwnd") and "shown" not in d and left <= 15:
+                    u.ShowWindowAsync(d["hwnd"], 4)         # SW_SHOWNOACTIVATE: back for the capture, unfocused
+                    d["shown"] = round(time.time() - t0, 1)
             if not k.WaitForDebugEvent(ev, int(min(left, 1.0) * 1000)):
                 continue
             code, pid, tid = (int.from_bytes(ev.raw[o:o + 4], "little") for o in (0, 4, 8))
@@ -237,7 +325,16 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=()):
                 nparam = int.from_bytes(ev.raw[40:44], "little")
                 info = [int.from_bytes(ev.raw[48 + 8 * i:56 + 8 * i], "little") for i in range(min(nparam, 2))]
                 hit = next((a for a in (addr, addr - 1) if a in armed), None) if exc in BREAKPOINTS and game else None
-                if hit is not None:
+                at_focus = next((a for a in (addr, addr - 1) if a in focus), None) \
+                    if exc in BREAKPOINTS and game else None
+                handled = at_focus is not None or (exc in SINGLE_STEP and game and tid in stepping)
+                if at_focus is not None:
+                    res["focus_lie"]["hits"] += 1
+                    res["focus_lie"]["rewritten"] += focus_lie(k, procs[pid][0], tid, at_focus, focus[at_focus])
+                    stepping[tid] = at_focus
+                elif handled:
+                    write_code(k, procs[pid][0], stepping.pop(tid), b"\xCC")
+                elif hit is not None:
                     clear_probe(k, procs[pid][0], tid, hit, armed.pop(hit))
                     res["probes_hit"].append(hit - procs[pid][2])
                 elif exc == 0x4000001F and pid in procs and len(procs[pid]) == 3:
@@ -247,7 +344,10 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=()):
                     if game and probes:
                         armed.update(set_probes(k, h, base, probes))
                         res["probes_armed"] = len(armed)
-                if exc not in BREAKPOINTS:
+                    if game and focus_rva is not None:
+                        focus.update(set_probes(k, h, base, [focus_rva]))
+                        res["focus_lie"]["armed"] = bool(focus)
+                if exc not in BREAKPOINTS and not handled:
                     status = DBG_NOT_HANDLED
                     if first and game:
                         res["first_chance_count"] += 1
@@ -269,6 +369,8 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=()):
     finally:
         for pid, (h, *_rest) in procs.items():
             k.TerminateProcess(h, 1)
+        for pid, (h, *_rest) in procs.items():      # gone before game.dat is written again
+            k.WaitForSingleObject(wt.HANDLE(h), 30000)
         k.CloseHandle(pi.hThread)
         k.CloseHandle(pi.hProcess)
     return res
@@ -312,7 +414,9 @@ def sample_eips(k, hthread, n=8):
 
 
 def screenshot(pid):
-    from PIL import ImageGrab, ImageStat
+    """The game window's own picture, never the screen: a screen grab shows whatever
+    lies on top of the window, which may be anything on the owner's desktop."""
+    from PIL import ImageStat
     wins = [w for w in windows_of(pid) if w[1][2] - w[1][0] > 100 and w[1][3] - w[1][1] > 100]
     if not wins:
         return None
@@ -321,18 +425,14 @@ def screenshot(pid):
     rc = wt.RECT()
     u.GetClientRect(h, ctypes.byref(rc))
     img = window_image(h, rc.right, rc.bottom)
+    if img is None:                           # nothing rendered (all black) or the capture failed
+        return {"capture": "none"}
     how = "PrintWindow"
-    if img is None:                           # fall back to the screen, which shows whatever is on top
-        how = "screen"
-        u.SetForegroundWindow(h)
-        pt = wt.POINT(0, 0)
-        u.ClientToScreen(h, ctypes.byref(pt))
-        time.sleep(0.5)
-        img = ImageGrab.grab(bbox=(pt.x, pt.y, pt.x + rc.right, pt.y + rc.bottom), all_screens=True)
     path = OUT / f"smoke_{pid}.png"
     img.save(path)
     stat = ImageStat.Stat(img.convert("L"))
-    out = {"path": str(path), "mean": round(stat.mean[0], 1), "stddev": round(stat.stddev[0], 1), "capture": how}
+    out = {"path": str(path), "mean": round(stat.mean[0], 1), "stddev": round(stat.stddev[0], 1), "capture": how,
+           "menu_bar": menu_bar(img)}
     ref = OUT / "smoke_retail.json"
     try:
         shot = json.loads(ref.read_text())["run"]["screenshot"]["path"]
@@ -373,6 +473,16 @@ def window_image(h, w, ht):
         return None
     img = Image.frombuffer("RGBX", (w, ht), buf.raw, "raw", "BGRX", 0, 1).convert("RGB")
     return img if img.getextrema() != ((0, 0), (0, 0), (0, 0)) else None
+
+
+def menu_bar(img):
+    """Share of green pixels (the menu buttons) in the bottom band of the content."""
+    g = img.convert("L")
+    rgb = img.convert("RGB").crop(g.point(lambda v: 255 if v > 8 else 0).getbbox() or (0, 0) + g.size)
+    w, h = rgb.size
+    band = rgb.crop((0, int(h * 0.89), w, int(h * 0.97))).resize((256, 16))
+    px = [band.getpixel((x, y)) for y in range(16) for x in range(256)]
+    return round(sum(1 for r, gr, b in px if gr > r + 12 and gr > b + 12) / len(px), 3)
 
 
 def image_distance(img, other_path):
@@ -452,8 +562,11 @@ def smoke(a, rows=None, tag="boot"):
     if pieces_map:
         start_of = {rs: ns for _, rs, ns, _ in pieces_map}
         moved = {start_of[rva]: (rva, size, name) for rva, size, name in authored}
+    focus_rva = None if a.no_focus_lie else focus_arm_rva(exe)
+    if not a.no_focus_lie and focus_rva is None:
+        out["focus_lie"] = "WM_ACTIVATEAPP arm not found (no lie)"
     res = run(a.game_dir / "lotrbfme2.exe", a.game_dir.resolve(), a.args, a.timeout, not a.no_version_lie,
-              sorted(moved) if a.probes else ())
+              sorted(moved) if a.probes else (), focus_rva, a.defocus)
     out["run"] = {k: v for k, v in res.items() if k not in ("first_chance", "stack", "probes_hit")}
     out["run"]["first_chance"] = [[c, hex(x), [hex(i) for i in info]] for c, x, info in res["first_chance"]]
     if authored:
@@ -514,7 +627,10 @@ def smoke(a, rows=None, tag="boot"):
         if "Exception" in titles:                   # the game's own crash dialog
             out["outcome"] = "crash-dialog"
         else:
-            out["outcome"] = "reached-menu" if shot and shot["stddev"] > 8 else "no-window" if not shot else "blank-window"
+            out["outcome"] = ("no-window" if not shot else "no-picture" if "path" not in shot else
+                              "reached-menu" if shot["stddev"] > 8 else "blank-window")
+            if out["outcome"] == "reached-menu" and shot.get("menu_bar", 0) < MENU_BAR:
+                out["outcome"] = "loading-screen"           # alive, but the main menu's button bar is not up
     for g, snap in before.items():
         after = snapshot(Path(g))
         changed = sorted(set(after) ^ set(snap) | {p for p in snap if p in after and after[p] != snap[p]})
@@ -522,6 +638,12 @@ def smoke(a, rows=None, tag="boot"):
         if changed:
             out["outcome"] = "guard-violation"
     return out
+
+
+def broke(outcome):
+    """A start-up the overlay broke: a crash, an exit, no or a blank window (not a slow
+    load still showing the splash, not a link or guard failure)."""
+    return outcome.startswith(("crash", "exit-")) or outcome in ("no-window", "blank-window")
 
 
 def bisect_rows(a, rows, executed=None):
@@ -541,7 +663,7 @@ def bisect_rows(a, rows, executed=None):
             res = smoke(a, [r for x in h for r in by_rva[x]], tag="bisect")
             steps.append({"units": len(h), "first": hex(h[0]), "last": hex(h[-1]), "outcome": res["outcome"]})
             print(f"boot_smoke: bisect {len(h)} unit(s) {h[0]:#x}..{h[-1]:#x}: {res['outcome']}", flush=True)
-            if res["outcome"] != "reached-menu":
+            if broke(res["outcome"]):
                 nxt = h
                 break
         if nxt is None:
@@ -576,6 +698,11 @@ def main(argv=None):
     ap.add_argument("--overlay", action="append", default=[], metavar="SET",
                     help="authored units in the image (as boot_image.py link --overlay)")
     ap.add_argument("--status", type=Path, default=boot_image.LINK_STATUS)
+    ap.add_argument("--no-focus-lie", action="store_true",
+                    help="let WM_ACTIVATEAPP(FALSE) through (by default it is rewritten to TRUE: loading stalls "
+                         "while the window lacks focus)")
+    ap.add_argument("--defocus", type=float, metavar="SECONDS",
+                    help="minimise the game window SECONDS after launch, show it unfocused 15 s before the end")
     ap.add_argument("--probes", action="store_true",
                     help="one-shot breakpoints at authored unit starts: which authored code ran (each hit is a "
                          "debugger round trip; 9,001 hits delayed a boot past 150 s)")
@@ -590,7 +717,8 @@ def main(argv=None):
         if a.game_dir.resolve() == g.resolve() or g.resolve() in a.game_dir.resolve().parents:
             raise SystemExit(f"boot_smoke: --game-dir is inside guarded {g}")
     out = smoke(a)
-    if a.bisect and a.overlay and out["outcome"] not in ("reached-menu", "link-error", "guard-violation"):
+    (OUT / ("smoke_retail.json" if a.retail else "smoke.json")).write_text(json.dumps(out, indent=1))
+    if a.bisect and a.overlay and broke(out["outcome"]):
         with open(OUT / "boot.overlay.csv", newline="", encoding="utf-8") as f:
             kept = {(int(x["retail_rva"], 16), x["name"]) for x in csv.DictReader(f) if x["overlay"] == "overlaid"}
         rows = [r for r in boot_image.overlay_rows(a.overlay, a.status)
