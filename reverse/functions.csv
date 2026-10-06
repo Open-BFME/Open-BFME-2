@@ -64787,3 +64787,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?method@Rva005773A6@@QAE?AURvaF6Ret@@XZ,,0x005773A6,26,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,value-return forwarder via +0x8 member through matched 0x005773C0 under /EHsc /Oy- /O1
 ?Rva003EC991@@YAKPBDHK@Z,,0x003EC991,60,Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp,matched,counted CRC with 0xC35BD0 table case-sensitive sibling of 0x3EC9CD volatile keeps ecx plus memory not
 ?Rva003EC9CD@@YAKPBDHK@Z,,0x003EC9CD,70,Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp,matched,counted case-insensitive CRC with inline a-z fold volatile keeps ecx plus memory not
+?Rva003E8FEE@@YG_NPAVParameter@@@Z,,0x003E8FEE,59,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8FEE.cpp,matched,trigger-area plus manager gate via getQualifiedTriggerAreaByName and pinned 0x286772
