@@ -64505,3 +64505,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005D14AB@Rva005D14AB@@QAEXXZ,,0x005D14AB,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerListRva005D14AB.cpp,matched,tail jmp rowed 0x005D13D5 via +4 caller 0x00576D65
 ?setLocal@Rva002BA8F1Logic@@QAEXPAVRva002E2903Player@@@Z,,0x002B38F7,216,Code/GameEngine/Source/Common/Rva002B38F7.cpp,matched,finish stash 0.97 with single-overwrite esi fix
 ?rva003FFDFA@Rva003FFDFA@@QAEXHUBfmeSaveElement002295D7@@@Z,,0x003FFDFA,87,Code/GameEngine/Source/GameNetwork/Rva003FFDFAAssign.cpp,matched,chain caller of 0x002DBAB9 unblocks 0x00448423
+?rva00603C5F@Rva00604465@@QAEHPBD@Z,,0x00603C5F,68,Code/GameEngine/Source/Common/Rva00603C5F.cpp,matched,vtable slot 3 plus rowed callees plus neighbours

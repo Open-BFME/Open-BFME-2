@@ -11429,3 +11429,5 @@ FUN_00479ed4	0x00079ED4	29	blocked	hint-insert forwarder to rowed 0x79D14 same t
 ?update@AIWanderInPlaceState@@UAE?AW4StateReturnType@@XZ	0x0034F3EB	282	blocked	store early plus addss xmm1 vs xmm0 t=18 model=muse-08 (stash 0.9 kept)
 ?onEnter@Rva00340BDC@@UAE?AW4StateReturnType@@XZ	0x0034DC05	540	blocked	WARN FF before start mid-function plus 540B EH new wall t=5 model=muse-08
 ?onEnter@Rva003429B9@@UAE?AW4StateReturnType@@XZ	0x0034D1C8	381	blocked	ADDRESS-NAMED g_Va00DBA4E4 at 0x009BA4E4 counted escape hatch plus present-unmatched marker wall t=5 model=muse-08
+?rva004C4621@CloudBreakSpecialPower@@QAEXPBUCoord3D@@@Z	0x004C4621	377	blocked	address-named globals g_Va007C26F0 g_Va00BBB8D8 refused t=5 model=muse-spark
+?rva004C4940@Rva004C4940@@QAEPAVObject@@PBUCoord3D@@PBVAsciiString@@@Z	0x004C4940	110	partial	second je to xor not mov 74 1e vs 74 1a t=20 model=muse-spark score=0.99 stash=reverse/attempts/0x004c4940.cpp
