@@ -13658,3 +13658,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva003F08D7@Rva003F08D7@@QAEHH@Z,0x003F08D7,placeholder int(int) twin for bool pin; retail tests eax not al
 ?rva003F2150@Rva003F2150@@QAEXH@Z,0x003F2150,placeholder thiscall 1-int-arg callee of dump 0x20EB4E loop; REL32 read
 ?rva003F1AB9@Rva003F1AB9@@QAEXHHHHHH@Z,0x003F1AB9,placeholder thiscall void(6 ints) callee of dump 0x20EEC8; REL32 read
+?rva0020EA58@Rva0020EA58@@QAE_NPAXH@Z,0x0020EA58,placeholder bool(void*;int) callee of dump 0x20F27E; REL32 read
