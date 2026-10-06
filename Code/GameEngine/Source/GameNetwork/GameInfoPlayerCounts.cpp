@@ -23,6 +23,19 @@ typedef int Int;
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include <string>
+#include <stdlib.h>
+#include <string.h>
+
+// The parser reaches atoi, sscanf and strtol through msvcr71's import table
+// while free and strdup are the game's direct bodies. /D_CRTIMP= gives the
+// direct calls; <stdlib.h> already declares the plain forms, so the IAT forms
+// live in their own scope to avoid C2375 (as MultiByteToWideCharSingleLine.cpp).
+namespace CrtIAT
+{
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *s);
+extern "C" __declspec(dllimport) int __cdecl sscanf(const char *s, const char *fmt, ...);
+extern "C" __declspec(dllimport) long __cdecl strtol(const char *s, char **end, int base);
+}
 
 enum { MAX_SLOTS = 8 };
 
@@ -139,7 +152,15 @@ public:
 	bool isObserver() const;
 	unsigned char encodeHero() const;
 	bool decodeHero(unsigned char v);
-	void rva003FF1A7(int v);
+	void setPlayerTemplate(Int playerTemplate);
+	void setAccept() { m_isAccepted = true; }
+	void unAccept() { if (isHuman()) m_isAccepted = false; }
+	void setMapAvailability(bool hasMap) { if (isHuman()) m_hasMap = hasMap; }
+	void setColor(Int color) { m_color = color; }
+	void setStartPos(Int startPos) { m_startPos = startPos; }
+	void setTeamNumber(Int teamNumber) { m_teamNumber = teamNumber; }
+	void rva20Set(Int v) { m_20 = v; }
+	void rva40Set(Int v) { m_40 = v; }
 	bool isOpen() const { return m_state == SLOT_OPEN; }
 	Int getState() const { return m_state; }
 	bool isAccepted() const { return m_isAccepted; }
@@ -235,6 +256,15 @@ public:
 	Int rva58() const { return m_58; }
 	Int rva5C() const { return m_5c; }
 	Int rva88() const { return m_88; }
+	void setMap(AsciiString mapName);
+	void setMapCRC(unsigned int mapCRC);
+	void setMapSize(unsigned int mapSize);
+	void setMapContentsMask(Int mask) { m_mapMask = mask; }
+	void setSeed(Int seed) { m_seed = seed; }
+	void rva88Set(Int v) { m_88 = v; }
+	void rva003FF1A7(int v);
+	void rva58Set(Int v) { m_58 = v; }
+	void rva60Set(const Int *rules) { memcpy(m_60, rules, sizeof(m_60)); }
 private:
 	char m_pad[0x14];
 	GameSlot *m_slot[MAX_SLOTS];    // +0x18
@@ -253,6 +283,49 @@ public:
 };
 
 AsciiString __cdecl Rva00400783Get(const AsciiString &path, bool flag);
+AsciiString _Rva00621350GameInfoMapPath(const AsciiString &path, bool flag);
+void Rva00559F11Parse(const char *text, int *rules);
+char *strtok_r(char *str, const char *delim, char **pos);
+_STL::wstring MultiByteToWideCharSingleLine(const char *orig);
+
+// Zero Hour's MultiplayerSettings::getNumColors: the color count cached at
+// +0x40 on first use from the +0x38 count.
+class MultiplayerSettings
+{
+public:
+	Int getNumColors()
+	{
+		if (m_numColors == 0)
+			m_numColors = m_colorCount;
+		return m_numColors;
+	}
+private:
+	char m_pad00[0x38];
+	Int m_colorCount;               // +0x38
+	Int m_3c;
+	Int m_numColors;                // +0x40
+};
+
+extern MultiplayerSettings *TheMultiplayerSettings;
+
+// PlayerTemplateStore::getPlayerTemplateCount: the template vector's size,
+// 0x1DC-byte elements between +0x0C and +0x10.
+struct PlayerTemplateBody
+{
+	char m_bytes[0x1DC];
+};
+
+class PlayerTemplateStore
+{
+public:
+	Int getPlayerTemplateCount() { return m_finish - m_start; }
+private:
+	char m_pad00[0x0C];
+	PlayerTemplateBody *m_start;    // +0x0C
+	PlayerTemplateBody *m_finish;   // +0x10
+};
+
+extern PlayerTemplateStore *ThePlayerTemplateStore;
 void __cdecl Rva0055A087Format(int *vals, AsciiString *out);
 _STL::string WideCharStringToMultiByte(const unsigned short *orig);
 
@@ -486,16 +559,19 @@ bool GameSlot::decodeHero(unsigned char v)
 	return true;
 }
 
-// ?rva003FF1A7@GameSlot@@QAEXH@Z @0x003FF1A7 27B: mode setter at +0x5C with
+// ?rva003FF1A7@GameInfo@@QAEXH@Z @0x003FF1A7 27B: mode setter at +0x5C with
 // rules reset at +0x60 via pinned Rva00559FAC 0x00559FAC. Early-out when the
-// stored mode already equals the new value. Evidence: +0x5C/+0x60 layout
-// matches GameSlot m_5c/m_60, pin-only callee YAXHPAX, 8 callers.
-void GameSlot::rva003FF1A7(int v)
+// stored mode already equals the new value. A GameInfo member, not GameSlot
+// (the earlier spelling): ParseAsciiStringToGameInfo 0x00401EF0 calls it on
+// its GameInfo argument with the parsed "GT=" value, between the inline
+// GSID and "SI=" stores and before copying the parsed "GR=" ten-int rules
+// block (the one Rva00559FAC fills) over +0x60. 8 callers.
+void GameInfo::rva003FF1A7(int v)
 {
 	if (m_5c == v)
 		return;
 	m_5c = v;
-	Rva00559FAC(v, &m_60);
+	Rva00559FAC(v, m_60);
 }
 
 // ?adjustSlotsForMap@GameInfo@@UAEXXZ @0x0040052C (599B): vtable slot 16
@@ -590,6 +666,14 @@ static inline const char *baseStr(const AsciiString &s)
 	return ((const StringBase<char> *)&s)->str();
 }
 
+// StringBase<unsigned short>::isEmpty expanded in place, as AsciiString's
+// in ascii_string.h: no buffer, or a zero length in its header.
+static inline bool wideIsEmpty(const UnicodeString &s)
+{
+	const char *data = *(const char *const *)&s;
+	return data == 0 || *(const unsigned short *)(data + 4) == 0;
+}
+
 // ?GameInfoToAsciiString@@YA?AVAsciiString@@PBVGameInfo@@_N@Z @0x00400AF8
 // (827B): BFME1/ZH GameInfoToAsciiString, the lobby's slot-list string.
 // BFME2 rewrites the header ("M=%3.3x%s;MC=%X;MS=%d;SD=%d;GSID=%X;GT=%d;SI=%d;"
@@ -667,4 +751,473 @@ AsciiString GameInfoToAsciiString(const GameInfo *game, bool withNames)
 	concatChar(optionsString, ';');
 
 	return optionsString;
+}
+
+// The "M=" value's first three characters are the map contents mask in hex.
+static Int grabHexInt(const char *s)
+{
+	char tmp[6] = "0xfff";
+	tmp[2] = s[0];
+	tmp[3] = s[1];
+	tmp[4] = s[2];
+	Int b = CrtIAT::strtol(tmp, NULL, 16);
+	return b;
+}
+
+// ?ParseAsciiStringToGameInfo@@YA_NPAVGameInfo@@VAsciiString@@_N@Z @0x0040116B
+// (3595B): BFME1/ZH ParseAsciiStringToGameInfo, the inverse of
+// GameInfoToAsciiString above. BFME2 keys: M (three hex digits of mask, the
+// map path through 0x00400898), MC, MS, SD, GR (ten ints through 0x00559F11),
+// GSID, GT, SI and the S slot list. Human records add the +0x20 (-100..0) and
+// +0x40 (0..256) fields and the hero byte, AI records +0x20, a fourth letter
+// 'B' (state 5) and the hero byte; start positions lose their upper bound.
+// The hero byte is applied after copying +0x5C from the game's current slot.
+// The new flag keeps the game's current names when a record's name is empty.
+bool ParseAsciiStringToGameInfo(GameInfo *game, AsciiString options, bool withNames)
+{
+	char *buf = strdup(options.str());
+	char *bufPtr = buf;
+	char *strPos, *keyValPair;
+	GameSlot newSlot[MAX_SLOTS];
+	bool optionsOk = true;
+	AsciiString mapName;
+	Int si = -1;
+	Int mapContentsMask = 0;
+	unsigned int mapCRC = 0;
+	unsigned int mapSize = 0;
+	Int seed = 0;
+	Int gsid = 0;
+	Int gt = 0;
+	Int gameRules[10];
+	Rva00559FAC(-1, gameRules);
+
+	bool sawMap, sawMapCRC, sawMapSize, sawSeed, sawSlotlist, sawGR, sawGSID, sawGT, sawSI;
+	sawMap = sawMapCRC = sawMapSize = sawSeed = sawSlotlist = sawGR = sawGSID = sawGT = sawSI = false;
+	UnicodeString oldNames[MAX_SLOTS];
+
+	if (!withNames)
+	{
+		for (unsigned int i = 0; i < MAX_SLOTS; ++i)
+			oldNames[i] = game->getConstSlot(i)->getName();
+	}
+
+	while ((keyValPair = strtok_r(bufPtr, ";", &strPos)) != NULL)
+	{
+		bufPtr = NULL;
+
+		AsciiString key, val;
+		char *pos = NULL;
+		char *keyPtr, *valPtr;
+		keyPtr = strtok_r(keyValPair, "=", &pos);
+		valPtr = strtok_r(NULL, "\n", &pos);
+		if (keyPtr)
+			key = keyPtr;
+		if (valPtr)
+			val = valPtr;
+
+		if (val.isEmpty())
+		{
+			optionsOk = false;
+			break;
+		}
+
+		if (key.compare("M") == 0)
+		{
+			if (val.getLength() < 3)
+			{
+				optionsOk = false;
+				break;
+			}
+			mapContentsMask = grabHexInt(val.str());
+			mapName = _Rva00621350GameInfoMapPath(AsciiString(val.str() + 3), false);
+			sawMap = true;
+		}
+		else if (key.compare("MC") == 0)
+		{
+			mapCRC = 0;
+			CrtIAT::sscanf(val.str(), "%X", &mapCRC);
+			sawMapCRC = true;
+		}
+		else if (key.compare("MS") == 0)
+		{
+			mapSize = CrtIAT::atoi(val.str());
+			sawMapSize = true;
+		}
+		else if (key.compare("SD") == 0)
+		{
+			seed = CrtIAT::atoi(val.str());
+			sawSeed = true;
+		}
+		else if (key.compare("GR") == 0)
+		{
+			Rva00559F11Parse(val.str(), gameRules);
+			sawGR = true;
+		}
+		else if (key.compare("GSID") == 0)
+		{
+			gsid = 0;
+			CrtIAT::sscanf(val.str(), "%X", &gsid);
+			sawGSID = true;
+		}
+		else if (key.compare("GT") == 0)
+		{
+			gt = CrtIAT::atoi(val.str());
+			sawGT = true;
+		}
+		else if (key.compare("SI") == 0)
+		{
+			si = CrtIAT::atoi(val.str());
+			sawSI = true;
+		}
+		else if (key.getLength() == 1 && *key.str() == 'S')
+		{
+			sawSlotlist = true;
+			char *rawSlotBuf = strdup(val.str());
+			char *freeMe = NULL;
+			AsciiString rawSlot;
+			for (int i = 0; i < MAX_SLOTS; ++i)
+			{
+				rawSlot = strtok_r(rawSlotBuf, ":", &pos);
+				if (rawSlotBuf)
+					freeMe = rawSlotBuf;
+				rawSlotBuf = NULL;
+				// The slot pointer lives in ESI across the switch, and the AI
+				// record's tokenizer position has its own frame slot (it does not
+				// share the human record's): both are declared out here.
+				GameSlot *slot = &newSlot[i];
+				char *aiSlotPos;
+				switch (*baseStr(rawSlot))
+				{
+					case 'H':
+					{
+						char *slotPos = NULL;
+						AsciiString slotValue(strtok_r((char *)baseStr(rawSlot), ",", &slotPos));
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						UnicodeString name;
+						name.set(MultiByteToWideCharSingleLine(slotValue.str() + 1).c_str());
+						if (!withNames && wideIsEmpty(name))
+							name = oldNames[i];
+
+						slotValue = strtok_r(NULL, ",", &slotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						unsigned int playerIP = 0;
+						CrtIAT::sscanf(slotValue.str(), "%x", &playerIP);
+
+						slotValue = strtok_r(NULL, ",", &slotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						unsigned int playerPort = 0;
+						CrtIAT::sscanf(slotValue.str(), "%d", &playerPort);
+
+						GameSlotConnectInfo connectInfo;
+						connectInfo.m_ip = playerIP;
+						connectInfo.m_port = playerPort;
+						slot->setState(SLOT_PLAYER, name, &connectInfo);
+
+						slotValue = strtok_r(NULL, ",", &slotPos);
+						if (slotValue.getLength() != 2)
+						{
+							optionsOk = false;
+							break;
+						}
+						const char *svs = slotValue.str();
+						if (*svs == 'T')
+							slot->setAccept();
+						else if (*svs == 'F')
+							slot->unAccept();
+						++svs;
+						if (*svs == 'T')
+							slot->setMapAvailability(true);
+						else
+							slot->setMapAvailability(false);
+
+						slotValue = strtok_r(NULL, ",", &slotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int color = CrtIAT::atoi(slotValue.str());
+						if (color < -1 || color >= TheMultiplayerSettings->getNumColors())
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->setColor(color);
+
+						slotValue = strtok_r(NULL, ",", &slotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int playerTemplate = CrtIAT::atoi(slotValue.str());
+						if (playerTemplate < PLAYERTEMPLATE_OBSERVER || playerTemplate >= ThePlayerTemplateStore->getPlayerTemplateCount())
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->setPlayerTemplate(playerTemplate);
+
+						slotValue = strtok_r(NULL, ",", &slotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int startPos = CrtIAT::atoi(slotValue.str());
+						if (startPos < -1)
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->setStartPos(startPos);
+
+						slotValue = strtok_r(NULL, ",", &slotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int team = CrtIAT::atoi(slotValue.str());
+						if (team < -1 || team >= MAX_SLOTS / 2)
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->setTeamNumber(team);
+
+						slotValue = strtok_r(NULL, ",", &slotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int v20 = CrtIAT::atoi(slotValue.str());
+						if (v20 < -100 || v20 > 0)
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->rva20Set(v20);
+
+						slotValue = strtok_r(NULL, ",", &slotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int v40 = CrtIAT::atoi(slotValue.str());
+						if (v40 < 0 || v40 > 0x100)
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->rva40Set(v40);
+
+						slotValue = strtok_r(NULL, ",", &slotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int hero = CrtIAT::atoi(slotValue.str());
+						slot->m_5c = game->getSlot(i)->m_5c;
+						slot->decodeHero(hero);
+					}
+					break;
+					case 'C':
+					{
+						aiSlotPos = NULL;
+						AsciiString slotValue(strtok_r((char *)baseStr(rawSlot), ",", &aiSlotPos));
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						switch (*(slotValue.str() + 1))
+						{
+							case 'E':
+							{
+								GameSlotConnectInfo connectInfo;
+								slot->setState(SLOT_EASY_AI, UnicodeString::TheEmptyString, &connectInfo);
+							}
+							break;
+							case 'M':
+							{
+								GameSlotConnectInfo connectInfo;
+								slot->setState(SLOT_MED_AI, UnicodeString::TheEmptyString, &connectInfo);
+							}
+							break;
+							case 'H':
+							{
+								GameSlotConnectInfo connectInfo;
+								slot->setState(SLOT_BRUTAL_AI, UnicodeString::TheEmptyString, &connectInfo);
+							}
+							break;
+							case 'B':
+							{
+								GameSlotConnectInfo connectInfo;
+								slot->setState(SLOT_AI_5, UnicodeString::TheEmptyString, &connectInfo);
+							}
+							break;
+							default:
+							{
+								optionsOk = false;
+							}
+							break;
+						}
+
+						slotValue = strtok_r(NULL, ",", &aiSlotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int color = CrtIAT::atoi(slotValue.str());
+						if (color < -1 || color >= TheMultiplayerSettings->getNumColors())
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->setColor(color);
+
+						slotValue = strtok_r(NULL, ",", &aiSlotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int playerTemplate = CrtIAT::atoi(slotValue.str());
+						if (playerTemplate < PLAYERTEMPLATE_OBSERVER || playerTemplate >= ThePlayerTemplateStore->getPlayerTemplateCount())
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->setPlayerTemplate(playerTemplate);
+
+						slotValue = strtok_r(NULL, ",", &aiSlotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int startPos = CrtIAT::atoi(slotValue.str());
+						bool isStartPosBad = false;
+						if (startPos < -1)
+							isStartPosBad = true;
+						for (Int j = 0; j < i; ++j)
+						{
+							if (startPos >= 0 && startPos == slot->getStartPos())
+								isStartPosBad = true;
+						}
+						if (isStartPosBad)
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->setStartPos(startPos);
+
+						slotValue = strtok_r(NULL, ",", &aiSlotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int team = CrtIAT::atoi(slotValue.str());
+						if (team < -1 || team >= MAX_SLOTS / 2)
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->setTeamNumber(team);
+
+						slotValue = strtok_r(NULL, ",", &aiSlotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int v20 = CrtIAT::atoi(slotValue.str());
+						if (v20 < -100 || v20 > 0)
+						{
+							optionsOk = false;
+							break;
+						}
+						slot->rva20Set(v20);
+
+						slotValue = strtok_r(NULL, ",", &aiSlotPos);
+						if (slotValue.isEmpty())
+						{
+							optionsOk = false;
+							break;
+						}
+						Int hero = CrtIAT::atoi(slotValue.str());
+						slot->m_5c = game->getSlot(i)->m_5c;
+						slot->decodeHero(hero);
+					}
+					break;
+					case 'O':
+					{
+						GameSlotConnectInfo connectInfo;
+						slot->setState(SLOT_OPEN, UnicodeString::TheEmptyString, &connectInfo);
+					}
+					break;
+					case 'X':
+					{
+						GameSlotConnectInfo connectInfo;
+						slot->setState(SLOT_CLOSED, UnicodeString::TheEmptyString, &connectInfo);
+					}
+					break;
+					default:
+					{
+						optionsOk = false;
+					}
+					break;
+				}
+			}
+			if (freeMe)
+				free(freeMe);
+		}
+		else
+		{
+			optionsOk = false;
+			break;
+		}
+	}
+	if (buf)
+		free(buf);
+
+	if (optionsOk && sawMap && sawMapCRC && sawMapSize && sawSeed && sawSlotlist && sawGR && sawGSID && sawGT && sawSI)
+	{
+		if (!game)
+			return true;
+
+		for (Int i = 0; i < MAX_SLOTS; i++)
+			game->setSlot(i, newSlot[i]);
+
+		game->setMap(mapName);
+		game->setMapCRC(mapCRC);
+		game->setMapSize(mapSize);
+		game->setMapContentsMask(mapContentsMask);
+		game->setSeed(seed);
+		game->rva88Set(gsid);
+		game->rva003FF1A7(gt);
+		game->rva58Set(si);
+		game->rva60Set(gameRules);
+		return true;
+	}
+
+	return false;
 }
