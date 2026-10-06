@@ -1,5 +1,3 @@
-// ?rva0039E9E0@Rva005059A1Unit@@QAEXXZ
-// partial score=0.93 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
 // ?rva0039E9E0@Rva005059A1Unit@@QAEXXZ @0x0039E9E0 47B
 // Unit teardown via Team transfer or Object fallback. If the +0x30 team's
@@ -42,14 +40,13 @@ void Rva005059A1Unit::rva0039E9E0()
         Team *u = ((Rva0039Owner *)t)->m_unit;
         if ((Team *)this != u)
             ((Team *)this)->transferUnitsTo(u);
-        return;
+    } else {
+        Object *o;
+        do {
+            o = m38;
+            if (o == 0)
+                break;
+            o->rva00298AE4(0);
+        } while (o != 0);
     }
-top:
-    {
-        Object *o = m38;
-        if (!o)
-            return;
-        o->rva00298AE4(0);
-    }
-    goto top;
 }
