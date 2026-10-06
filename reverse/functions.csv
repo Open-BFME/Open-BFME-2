@@ -63748,3 +63748,5 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005F8E5AInit@@YIPAVRva005F8E5A@@PAV1@HHHH@Z,,0x005F8E5A,35,Code/GameEngine/Source/Common/Rva005F8E5A.cpp,matched,fastcall chained init via pinned 0x005FE640 with fwd-passthrough edx; m_38 plus vtable 0x00C79D0C; returns this; /O1
 ?rva005F8F14Init@@YIXPAVRva005F8F14@@H0PAH@Z,,0x005F8F14,29,Code/GameEngine/Source/Common/Rva005F8F14.cpp,matched,fastcall 32-byte struct copy plus m_20 deref store; ret 8; /O1
 ?rva005FA854@Rva005FA854@@QAE_NXZ,,0x005FA854,32,Code/GameEngine/Source/Common/Rva005FA854.cpp,matched,null-guarded thiscall-0 plus logical-not of m_10 via rowed-inner pin 0x005FEC0C; /O1
+?rva005FA0C9Init@@YIPAVRva005FA0C9@@PAV1@HPAURva005FA0C9A@@HH@Z,,0x005FA0C9,46,Code/GameEngine/Source/Common/Rva005FA0C9.cpp,matched,fastcall chained init via pinned 0x005F9DCB; literal vtable 0x00C79D78; returns this; /O1
+?rva005FA0F7Init@@YIPAVRva005FA0F7@@PAV1@HPAURva005FA0F7A@@HH@Z,,0x005FA0F7,46,Code/GameEngine/Source/Common/Rva005FA0F7.cpp,matched,fastcall chained init via pinned 0x005F9DCB; literal vtable 0x00C79D78; returns this; /O1
