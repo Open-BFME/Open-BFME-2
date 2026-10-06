@@ -64429,3 +64429,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva00A9CC7@@UAE@XZ,,0x000A9CC7,111,Code/GameEngine/Source/Common/Rva000A9CC7Dtor.cpp,matched,Apt manager name release then display string free via TheDisplayStringManager then string member and inline base dtor
 ??1StancesBehavior@@UAE@XZ,,0x0045F001,103,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorDtor.cpp,matched,three vptr stores then listener broadcast via forEach and slot0 forwarder then list free and Rva0024A797 base dtor
 ??1Rva005F2B22@@QAE@XZ,,0x005F2B22,84,Code/GameEngine/Source/Common/Rva005F2B22Dtor.cpp,matched,guarded self call when holder empty and Apt manager set then holder clear and base vptr restore
+?set@Rva002A98F2Coord3DSetter@@QAEXUCoord3D@@@Z,,0x002A98F2,17,Code/GameEngine/Source/Common/Rva002A98F2Coord3DSetter.cpp,matched,by-value Coord3D copy into +0xC in the Player-side setter gap
