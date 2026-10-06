@@ -18,6 +18,13 @@ struct NoCaseTreeValue4
 	char m_body[4];
 };
 
+// Target push_back 0x0039A48E proves an 8-byte element stride; its application
+// layout is otherwise kept address-derived.
+struct Rva0039A48EElement
+{
+	int a[2];
+};
+
 struct TreeKey00242F5E
 {
 public:
@@ -90,6 +97,7 @@ typedef _STL::pair<const AsciiString, char> FillPairC;
 namespace _STL {
 template<> void _Construct<TreeKey00242F5E, TreeKey00242F5E>(TreeKey00242F5E *, const TreeKey00242F5E &);
 template<> void _Construct<FillNoCasePair, FillNoCasePair>(FillNoCasePair *, const FillNoCasePair &);
+template<> __declspec(nothrow) void _Construct<Rva0039A48EElement, Rva0039A48EElement>(Rva0039A48EElement *, const Rva0039A48EElement &);
 template<> void _Construct<FillPairC, FillPairC>(FillPairC *, const FillPairC &);
 template<> void _Construct<BfmeStringRecord005DDD40, BfmeStringRecord005DDD40>(BfmeStringRecord005DDD40 *, const BfmeStringRecord005DDD40 &);
 template<> void _Construct<Rva0048130E, Rva0048130E>(Rva0048130E *, const Rva0048130E &);
@@ -113,6 +121,10 @@ template _STL::vector<AsciiString, _STL::allocator<AsciiString> >::vector(unsign
 template _STL::vector<Rva0040CB11Entry, _STL::allocator<Rva0040CB11Entry> >::vector(unsigned int, const Rva0040CB11Entry &, const _STL::allocator<Rva0040CB11Entry> &);
 template _STL::vector<BfmeStringRecord002199C8, _STL::allocator<BfmeStringRecord002199C8> >::vector(unsigned int, const BfmeStringRecord002199C8 &, const _STL::allocator<BfmeStringRecord002199C8> &);
 template _STL::vector<BfmeStringRecord00219A68, _STL::allocator<BfmeStringRecord00219A68> >::vector(unsigned int, const BfmeStringRecord00219A68 &, const _STL::allocator<BfmeStringRecord00219A68> &);
+
+// Target _M_insert_overflow 0x00399EBE calls the 37-byte fill worker at
+// 0x003961F0; the worker calls the _Construct placement at 0x00396170.
+template Rva0039A48EElement *_STL::__uninitialized_fill_n<Rva0039A48EElement *, unsigned int, Rva0039A48EElement>(Rva0039A48EElement *, unsigned int, const Rva0039A48EElement &, const _STL::__false_type &);
 
 // Retail 0x005DE088 (27B): public _STL::uninitialized_fill_n for
 // BfmeStringRecord005DDD40, forwarding first/n/value to the rowed 4-arg
