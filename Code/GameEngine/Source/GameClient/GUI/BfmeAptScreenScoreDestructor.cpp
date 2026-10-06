@@ -47,7 +47,7 @@ void _bfme_closeAptScreen(const AsciiString &name);
 
 struct GlobalA01E48;
 extern struct GlobalA01E48 *g_Va00A01E48;
-extern int g_00E04914;
+int g_00E04914;
 extern "C" void __cdecl free(void *ptr);
 
 struct FreeBuf
