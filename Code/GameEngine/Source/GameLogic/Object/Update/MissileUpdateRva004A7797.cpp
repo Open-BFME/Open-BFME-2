@@ -24,7 +24,7 @@ protected:
 class GameLogic
 {
 public:
-	unsigned int getFrame() { return m_frame; }
+ 	unsigned int getFrame() const { return m_frame; }
 
 private:
 	unsigned char m_pad[0x40];
