@@ -25,9 +25,18 @@ class BfmeThingVJI
 {
 public:
 	void bfmeGoVJI(BfmeMsgVJI *src);
-	void bfmeSendVJI(BfmeMsgVJI *m) throw();
 	char m_bfmePad[0x18];
 	BfmeSubVJI *m_bfme18;
+};
+
+// Rowed sender at 0x0066F930 (Rva008038F0SenderSend.cpp). Retail calls it
+// here; declaration only, definition lives in the row owner. throw() keeps
+// the caller's EH-less shape (no state for the local msg dtor).
+class BfmeC994;
+class Rva008038F0Sender
+{
+public:
+	void send(BfmeC994 *message) throw();
 };
 
 void BfmeThingVJI::bfmeGoVJI(BfmeMsgVJI *src)
@@ -42,5 +51,5 @@ void BfmeThingVJI::bfmeGoVJI(BfmeMsgVJI *src)
 	if (tid != -1)
 		msg.bfmeSet3VJI("TID", tid);
 	m_bfme18->bfmeNoteVJI(name);
-	bfmeSendVJI(&msg);
+	((Rva008038F0Sender *)this)->send((BfmeC994 *)&msg);
 }
