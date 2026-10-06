@@ -64766,3 +64766,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?M831@Rva00604xx@@QAE_NPBD@Z,,0x00604831,66,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 604831: null-guarded utf8-to-wide plus virt10 bool; /O1
 ?M948@Rva00604xx@@QAEHPBDPAX@Z,,0x00604948,59,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,family 604948: utf8-to-wide plus virt24; /O1
 ?Set@Rva005FFF62@@QAEXH_N@Z,,0x005FFF62,95,Code/GameEngine/Source/Common/Rva005FFF62Family.cpp,matched,apt swap-button state: idx*2+0x4C cache plus _up/_disabled plus SetSwapButtonState; /O1
+?Set2@Rva005FBAFE@@QAEXH@Z,,0x005FBAFE,79,Code/GameEngine/Source/Common/Rva005FFF62Family.cpp,matched,try b0 first

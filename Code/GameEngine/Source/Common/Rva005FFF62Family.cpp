@@ -21,3 +21,22 @@ void Rva005FFF62::Set(int idx, bool flag) {
   Rva005252CDInvoke(_g_pRva00224BC9, m_04, prefix, name, idx, b);
   e->_1 = flag;
 }
+// 0x005FBAFE sibling.
+void __cdecl rva00977C23(int* a0, int* a1, int a2, void* a3, int a4, int a5);
+struct Rva005FBAFE {
+  void* m_00;
+  void* m_04;
+  AsciiString m_08;
+  unsigned char m_pad[0x3C - 0x08 - sizeof(AsciiString)];
+  struct Elem { unsigned char _0[4]; unsigned char _4; unsigned char _5[3]; } m_3C[1];
+  void Set2(int idx);
+};
+void Rva005FBAFE::Set2(int idx) {
+  Elem* e = &m_3C[idx];
+  if (e->_4 == 0) return;
+  bool b0 = false;
+  const char* prefix = m_08.str();
+  const char* name = "SetBannerVisibility";
+  rva00977C23((int*)_g_pRva00224BC9, (int*)m_04, (int)prefix, (void*)name, (int)&idx, (int)&b0);
+  e->_4 = 0;
+}
