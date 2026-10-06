@@ -6,6 +6,10 @@ or commit message reports an edit to `AGENTS.md`.
 
 ## Verifier upgrade (October 2026): live rules
 
+**`master` is locked for about an hour (from 14:37 UTC) to land the region
+compiler-flag change.** Pushes are rejected: keep work in local commits, do
+not retry pushes in a loop, and rebase once this notice is removed.
+
 The step-3 gate checks are live in the hooks. They refuse:
 
 - a commit that edits `tools/` gate code, `.githooks/` or a baseline/whitelist
