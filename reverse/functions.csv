@@ -64887,3 +64887,8 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0078378d@@YAXXZ,,0x0078378D,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-16] then tail-jumps through [ebp+8] to the rowed Rva003ED94F destructor; parent layout unknown
 ?rva0078382a@@YAXXZ,,0x0078382A,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-20] then tail-jumps with [ebp-32] to AsciiString dtor; parent layout unknown
 ?rva00783928@@YAXXZ,,0x00783928,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-16] then tail-jumps with [ebp-24] to AsciiString dtor; parent layout unknown
+?rva0078398a@@YAXXZ,,0x0078398A,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-16] then tail-jumps with [ebp-20] to the rowed UnicodeString thunk; parent layout unknown
+?rva007839a3@@YAXXZ,,0x007839A3,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 1 at [ebp-16] then tail-jumps through [ebp+8] to the rowed UnicodeString thunk; parent layout unknown
+?rva00783a5e@@YAXXZ,,0x00783A5E,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-32] then tail-jumps through [ebp+8] to the rowed UnicodeString thunk; parent layout unknown
+?rva00783ac1@@YAXXZ,,0x00783AC1,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-28] then tail-jumps through [ebp+8] to the rowed UnicodeString thunk; parent layout unknown
+?rva00784220@@YAXXZ,,0x00784220,25,Code/masm_dumps/EHStateCleanupRange38.asm,matched,MASM SEH; clears state bit 0 at [ebp-16] then tail-jumps with [ebp-20] to the rowed UnicodeString thunk; parent layout unknown
