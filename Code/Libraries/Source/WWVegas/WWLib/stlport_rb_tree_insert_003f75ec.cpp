@@ -51,7 +51,7 @@ template <> bool _STL::operator==<int, Rva003F75ECValue, Rva003F75ECKey, _STL::g
     Rva003F75ECTree::const_iterator first = a.begin();
     Rva003F75ECTree::const_iterator last = a.end();
     Rva003F75ECTree::const_iterator other = b.begin();
-    for (; first != last; ++first, ++other)
+    for (; !(first == last); ++first, ++other)
         if (!(*first == *other))
             return false;
     return true;
