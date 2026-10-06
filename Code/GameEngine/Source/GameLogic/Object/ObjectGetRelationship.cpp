@@ -1,11 +1,7 @@
-// ?rva0028D156@Object@@QAEHPBV1@@Z
-// partial score=0.96 date=2026-10-03
-// ?rva0028D156@Object@@QAEHPBV1@@Z
-// partial score=0.95 date=2026-10-01
 // cl: /O1 /MD
 //
-// ?rva0028D156@Object@@QAEHPBV1@@Z @0x0028D156 253B
-// Chain candidate: every callee rowed. Splashes through template flags at
+// ?getRelationship@Object@@QBE?AW4Relationship@@PBV1@@Z @0x0028D156 253B,
+// the name 19 matched callers pin. Every callee is rowed. Splashes through template flags at
 // +0x108/+0x10E/+0x115/+0x118, the +0x130 bit13 gate, the rva0028C197 double
 // call plus vtable slot 0x110 provider, the current-weapon contains(6)
 // gate, then Team relationship fallback. Layout from Object siblings:
@@ -20,9 +16,9 @@ enum KindOfType
 
 enum Relationship
 {
-	REL_ALLIES = 0,
-	REL_NEUTRAL = 1,
-	REL_ENEMIES = 2
+	ENEMIES = 0,
+	NEUTRAL,
+	ALLIES
 };
 
 enum WeaponSlotType
@@ -96,7 +92,8 @@ public:
 	void *rva0028C197() const;
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	bool isKindOf(KindOfType t) const;
-	int rva0028D156(const Object *other);
+	Relationship getRelationship(const Object *other) const;
+	bool testStatusBit13() const { return m_130b13; }
 
 private:
 	char m_pad00[4];
@@ -104,15 +101,16 @@ private:
 	char m_pad08[0x74 - 8];
 	int m_74;
 	char m_pad78[0x130 - 0x78];
-	unsigned int m_130;
+	unsigned int m_130lo : 13;
+	unsigned int m_130b13 : 1;
+	unsigned int m_130hi : 18;
 	char m_pad134[0x304 - 0x134];
 	Team *m_team304;
 	char m_pad308[0x438 - 0x308];
 	unsigned char m_byte438;
 };
 
-// ?rva0028D156@Object@@QAEHPBV1@@Z present-unmatched
-int Object::rva0028D156(const Object *other)
+Relationship Object::getRelationship(const Object *other) const
 {
 	if (other != 0)
 	{
@@ -123,8 +121,7 @@ int Object::rva0028D156(const Object *other)
 			unsigned int flags = tThis->m_field118;
 			if ((flags & 0x1000) != 0)
 			{
-				unsigned int v130 = *(volatile unsigned int *)&m_130;
-				if (((v130 >> 13) & 1) != 0)
+				if (testStatusBit13())
 					goto ret0;
 			}
 			Object *cand;
@@ -155,7 +152,7 @@ int Object::rva0028D156(const Object *other)
 			if (!w->m_parent->rva002CA9CA(6, w))
 				goto team;
 ret0:
-			return 0;
+			return ENEMIES;
 		}
 	}
 team:
@@ -164,14 +161,14 @@ team:
 		if (t != 0 && other != 0 && (m_byte438 & 2) == 0)
 		{
 			if ((other->m_byte438 & 2) != 0)
-				return 2;
+				return ALLIES;
 			if (isKindOf(KIND_206))
 			{
 				if (m_74 != other->m_74)
-					return 0;
+					return ENEMIES;
 			}
 			return t->getRelationship(other->m_team304);
 		}
-		return 1;
+		return NEUTRAL;
 	}
 }
