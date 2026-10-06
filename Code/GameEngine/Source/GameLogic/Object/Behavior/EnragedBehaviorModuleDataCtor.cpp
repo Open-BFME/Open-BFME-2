@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0EnragedBehaviorModuleData@@QAE@XZ, retail 0x00458F7C, 22 bytes.
 // Root ModuleData ctor (no base call): installs vtable 0x00C4ED70

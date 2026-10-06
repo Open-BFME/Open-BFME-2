@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00453AB8Insert@@YGPAPAXPAPAXPAXABVRva004530ED@@@Z @ 0x00453AB8 37B: list insert via rowed 0x004534A1 create then splice between pos and pos->next. Evidence: callee rowed Create; caller 0x00453B06 passes (&arg edx arg); same shape as Rva00283401Insert 0x00283401 and Rva00239D02Insert 0x00239D02.
 class Rva004530ED;
 void *__stdcall Rva004534A1Create(const Rva004530ED &src);

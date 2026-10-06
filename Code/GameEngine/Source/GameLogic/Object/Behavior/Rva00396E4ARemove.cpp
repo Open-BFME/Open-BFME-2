@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Oy- /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva00396E4A@Rva00396E4A@@QAEXPAVObject@@@Z @0x00396E4A 72B
 // Map remove: find key from Object+0x74 in map at +0x8c via rowed _M_find

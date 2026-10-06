@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva004B4E56@Rva004B4E56@@QAEEXZ @0x004B4E56 109B: mask check via Intersect.
 // Clears two 0x80 buffers via rowed 0x001EAE6F, fills via virtual +0x2C on +0x10,
 // tests [edi+0x284] vs buf2 via rowed 0x00406F9C (false if true), else Player

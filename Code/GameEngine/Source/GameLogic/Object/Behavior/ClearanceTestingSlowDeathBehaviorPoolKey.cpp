@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000483CF4@ClearanceTestingSlowDeathBehavior@@SA?AW4NameKeyType@@XZ @0x483cf4
 // (69B): cached pool-name key for ClearanceTestingSlowDeathBehavior. The class
 // identity comes from the pool-name string the body pushes

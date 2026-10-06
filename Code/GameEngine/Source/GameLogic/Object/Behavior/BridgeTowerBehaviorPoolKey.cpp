@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00045876C@BridgeTowerBehavior@@SA?AW4NameKeyType@@XZ @0x45876C
 // (69B): cached pool-name key for BridgeTowerBehavior. The class
 // identity comes from the pool-name string the body pushes

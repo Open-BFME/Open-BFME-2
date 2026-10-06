@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@RandomSoundSelectorClientBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00252D2A, 56 bytes. Dedicated TU: retail news 0x18 (push-imm8)

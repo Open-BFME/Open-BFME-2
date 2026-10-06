@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva003307F2@Rva003307F2@@QAEXPBVModuleData@@@Z retail 0x003307F2 61 bytes.
 // Unlock lane: broadcast arg via Rva0033068BList::forEach at +0 with rowed

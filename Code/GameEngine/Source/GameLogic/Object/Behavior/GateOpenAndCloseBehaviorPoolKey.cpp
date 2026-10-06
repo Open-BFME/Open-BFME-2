@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000498857@GateOpenAndCloseBehavior@@SA?AW4NameKeyType@@XZ @0x498857
 // (69B): cached pool-name key for GateOpenAndCloseBehavior. The class
 // identity comes from the pool-name string the body pushes

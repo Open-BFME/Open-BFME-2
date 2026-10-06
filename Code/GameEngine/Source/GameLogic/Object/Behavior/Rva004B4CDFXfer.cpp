@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@Rva004B4CDF@@MAEXPAVXfer@@@Z, retail 0x004B4F67, 42 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00857C40 (class of rowed dtor

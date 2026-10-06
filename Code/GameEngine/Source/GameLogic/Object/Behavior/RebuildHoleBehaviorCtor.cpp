@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0RebuildHoleBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00483271,
 // 102 bytes. RebuildHoleBehavior ctor over the rowed UpdateModule base

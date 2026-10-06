@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00462213@RunOffMapBehavior@@UAEXXZ, retail 0x00462213, 17 bytes: slot 5
 // of the primary vtable 0x00C4307C that RunOffMapBehavior's ctor 0x0046217B

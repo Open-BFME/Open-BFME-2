@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0RunOffMapBehaviorModuleData@@QAE@XZ, retail 0x00254ECE (86 bytes).
 // The module-data half of RunOffMapBehavior: vtable 0x00BF3298,

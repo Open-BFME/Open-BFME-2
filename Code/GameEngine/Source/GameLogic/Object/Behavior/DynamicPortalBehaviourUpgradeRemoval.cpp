@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // DynamicPortalBehaviour::upgradeRemovalImplementation, retail 0x00460C7D
 // (61 bytes): slot 8 of the +0x10 UpgradeMux vtable 0x00C427C0 (the recipe of

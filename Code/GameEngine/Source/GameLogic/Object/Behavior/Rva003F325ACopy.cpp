@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // ?Rva003F325ACopy@@YAPAVRva003F2A11@@PAV1@00@Z @0x003F325A 29B
 // Forwards 3 ranges to rowed 0x003F2A3E array-copy with dummy tag (push 0 +
 // [ebp-1] dead-slot+3) via 5-arg cast, same pattern as Rva003F3159Finish 4-arg

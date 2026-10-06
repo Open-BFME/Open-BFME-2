@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0HitReactionBehaviorModuleData@@QAE@XZ, retail 0x004591EA, 45 bytes.
 // Frameless loop ctor over table 0xC410F0 (HitReactionLifeTimer1 at +8,

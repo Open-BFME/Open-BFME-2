@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??1ClearanceTestingSlowDeathBehaviorModuleData@@UAE@XZ, retail 0x00483EE1, 56 bytes.
 // SlowDeath-side ModuleData dtor (ctor rowed at 0x483E25). Layout from the ctor

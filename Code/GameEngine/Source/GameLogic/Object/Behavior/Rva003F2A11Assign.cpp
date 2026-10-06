@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?rva003F2A11@Rva003F2A11@@QAEAAV1@ABV1@@Z @0x003F2A11 45B
 // __thiscall copy-assignment: AsciiString at +4 via rowed StringBase::set,

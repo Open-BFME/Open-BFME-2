@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@OathbreakersFadeAwayBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00254936, 55 bytes. Dedicated TU: the factory news 0xC with an

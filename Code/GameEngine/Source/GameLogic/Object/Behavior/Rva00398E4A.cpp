@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ?rva00398E4A@CastleBehavior@@QAEXPAURva00398E4AArg@@@Z @0x00398E4A 80B evidence: this CastleBehavior via caller 0x0039922D findModule CastleBehavior then call; map at this+0xa0 via insert_unique rowed 0x001E6F5F map-int-int; bits at arg+0xc loop test-shr-inc; value TheGameLogic+0x40 via global 0x009FE78C.
 // Honest address-derived method on proven class (Object-rva precedent).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?getSelectedValue@RandomSoundSelectorClientBehavior@@UAE_NPAI@Z, retail 0x004CBD44, 56 bytes.
 // Secondary interface method (secondary this +0x0C; reroll via primary -0x0C,

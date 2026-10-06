@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0PropagandaTowerBehaviorModuleData@@QAE@XZ, retail 0x0048197C, 66 bytes.
 // Frameless ModuleData ctor: implicit base (no base call, derived writes the

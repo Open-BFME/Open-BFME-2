@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0003955DA@CastleBehavior@@SA?AW4NameKeyType@@XZ @0x3955DA
 // (69B): second cached pool-name key for CastleBehavior (retail holds two
 // function-local statics over the same "CastleBehavior" string; the landed

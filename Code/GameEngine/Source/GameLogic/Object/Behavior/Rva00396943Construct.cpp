@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00396943Construct@@YA?AURva0039627D@@PAPAXABUBfmeStringRecord004071F7@@@Z @0x00396943 27B
 // Chain from 0x0039627D: by-value return (hidden dst pointer at [ebp+8]).
 // Caller at 0x003998D7 does call/add esp,0xc/push eax (hidden + 2 args).

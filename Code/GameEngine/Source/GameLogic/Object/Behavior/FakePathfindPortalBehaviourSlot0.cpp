@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // FakePathfindPortalBehaviour slot 0 of its +0x20 interface table 0x00C42B50,
 // retail 0x0046190A (19 bytes), so `this` is that subobject: the pinned

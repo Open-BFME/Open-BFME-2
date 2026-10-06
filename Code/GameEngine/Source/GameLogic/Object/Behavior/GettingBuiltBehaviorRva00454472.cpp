@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva00454472@GettingBuiltBehaviorSecondary@@QAEXH@Z, retail 0x00454472,
 // 29 bytes. Secondary-this wrapper in the GettingBuilt file-unit (prev poolkey

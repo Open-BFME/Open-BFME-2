@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva0039922D@CastleBehavior@@QAEXPAURva00398E4AArg@@@Z @0x0039922D 70B evidence: float at arg+0x70 vs 0.0 at 0x00BBAEAC; this+8 ObjectID via findObjectByID rowed 0x00049DC5; CastleBehavior key via rva0003955DA rowed 0x003955DA; module via findModule rowed 0x0028B6D6; then rva00398E4A rowed 0x00398E4A.
 // Honest-address method on proven class (Object-rva precedent).
 enum ObjectID

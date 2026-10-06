@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??1FireWeaponWhenDamagedBehavior@@UAE@XZ, retail 0x00482551 (234 bytes).
 // Behavior-side dtor completing the FireWeaponWhenDamagedBehavior file-unit

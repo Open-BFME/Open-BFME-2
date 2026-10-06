@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00390601@PhysicsBehavior@@QAE?AW4UpdateSleepTime@@XZ @0x00390601 40B. Identity: PhysicsBehavior sleep select via 12B vector at +0x20 size vs +0x5C/+0x58; returns NONE(1) when vector nonempty or flags pass else FOREVER.
 // Evidence: caller 0x3913DA; neighbours 0x3901C9/0x390729; same +0x20/+0x58/+0x5C layout as PhysicsBehaviorCtor.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ?rva00396722@Rva00396722@@QAE_NPAX@Z @0x00396722 131B
 // Contains check: +0x38 fast path, RB-tree at +0x8c via rowed _M_increment

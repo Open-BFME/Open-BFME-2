@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 // stlport
 // ??1Rva0039A1CA@@UAE@XZ, retail 0x0039A1CA (123 bytes).
 // Identity: virtual ModuleData-style dtor restoring Snapshot vtable g_00BBB554;

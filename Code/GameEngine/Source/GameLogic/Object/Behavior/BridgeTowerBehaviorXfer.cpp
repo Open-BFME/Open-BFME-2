@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@BridgeTowerBehavior@@MAEXPAVXfer@@@Z, retail 0x004587CD,
 // 62 bytes. Slot 3 (offset 0x0C) of vtable 0x00840D64 (class of rowed ctor

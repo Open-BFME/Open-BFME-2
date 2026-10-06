@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@FireWeaponWhenDamagedBehavior@@MAEXPAVXfer@@@Z, retail 0x004A4EE9,
 // 137 bytes. Slot 3 (offset 0x0C) of vtable 0x00852868 (class of rowed dtor

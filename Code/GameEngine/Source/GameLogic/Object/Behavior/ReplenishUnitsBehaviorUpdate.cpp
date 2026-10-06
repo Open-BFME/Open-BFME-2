@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ?update@ReplenishUnitsBehavior@@UAE?AW4UpdateSleepTime@@XZ, retail
 // 0x0048438A: slot 0 of ReplenishUnitsBehavior's UpdateModuleInterface

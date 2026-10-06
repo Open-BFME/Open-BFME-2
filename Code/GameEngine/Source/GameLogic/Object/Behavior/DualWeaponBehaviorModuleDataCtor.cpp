@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0DualWeaponBehaviorModuleData@@QAE@XZ, retail 0x0045AE25,
 // 31 bytes. Frameless store-only ctor over table 0xC41858

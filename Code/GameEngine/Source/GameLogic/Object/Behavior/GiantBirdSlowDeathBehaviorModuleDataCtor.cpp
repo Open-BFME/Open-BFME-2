@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??0GiantBirdSlowDeathBehaviorModuleData@@QAE@XZ, retail 0x00461F7F,
 // 110 bytes. Derived ModuleData ctor over table 0xC42D08 (FXHitGround@?,

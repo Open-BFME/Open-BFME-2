@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@PropagandaTowerBehavior@@MAEXPAVXfer@@@Z retail 0x00481842 216 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00849248 (PropagandaTowerBehavior via pool

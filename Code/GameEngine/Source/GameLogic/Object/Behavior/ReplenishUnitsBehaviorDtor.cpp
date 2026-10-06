@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1ReplenishUnitsBehavior@@UAE@XZ, retail 0x00484161, 32 bytes. Behavior-side
 // destructor (caller is the slot-0 scalar-deleting dtor at 0x4842C4 in

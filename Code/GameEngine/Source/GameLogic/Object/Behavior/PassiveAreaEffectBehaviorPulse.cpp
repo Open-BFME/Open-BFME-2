@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // PassiveAreaEffectBehavior's per-object pulse virtuals (primary vftable
 // 0x00C4A448, slot-2 name getter "PassiveAreaEffectBehavior", installed by

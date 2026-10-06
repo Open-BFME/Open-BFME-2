@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1CastleMemberBehavior@@MAE@XZ, retail 0x00395759, 103 bytes.
 // CastleMemberBehavior dtor: restores the three MI vptrs (+0 0xC1A22C

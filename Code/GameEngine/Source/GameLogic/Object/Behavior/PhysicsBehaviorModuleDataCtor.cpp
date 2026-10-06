@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 
 // PhysicsBehaviorModuleData default constructor @0x390119 (176B). Identity:
 // the factory 0x24E774 (landed PhysicsBehaviorModuleDataFriendNew.cpp) news

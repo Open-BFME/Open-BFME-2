@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /arch:SSE
+// cl: /GX /DNDEBUG /MD
 //
 // ??0RandomSoundSelectorClientBehaviorModuleData@@QAE@XZ, retail 0x0025785C,
 // 102 bytes. Nullary ModuleData ctor over the rowed factory (0x25792A, news

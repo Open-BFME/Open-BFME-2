@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // ?rva00339E80@Rva00339E80@@QAEPAUDynamicPortalLink@@PAU2@0@Z @0x00339E80 51B:
 // __thiscall copy-destroy tail over DynamicPortalLink ranges: rowed copy
 // 0x001FFC38 with a dummy tag temp, then rowed _Destroy 0x003F29F8

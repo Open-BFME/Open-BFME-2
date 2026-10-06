@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0GateOpenAndCloseBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0049889C, 200 bytes.

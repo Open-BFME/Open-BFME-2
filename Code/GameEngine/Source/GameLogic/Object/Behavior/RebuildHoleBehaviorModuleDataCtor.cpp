@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??0RebuildHoleBehaviorModuleData@@QAE@XZ,
 // retail 0x0048323E, 34 bytes. Frameless ModuleData ctor: the vtable literal

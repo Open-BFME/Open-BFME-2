@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ClearanceTestingSlowDeathBehavior::rva00483C69, retail 0x00483C69, 12
 // bytes: slot 13 of the primary vtable 0x00C49E4C that

@@ -1,4 +1,4 @@
-// cl: /G7 /O1 /MD
+// cl: /MD
 // ?rva000EFC7A@Rva000EFC7A@@QAEPAGHPAG@Z @0x000EFC7A 61B: Word triple load from base plus idx times 6 into out plus return base plus idx times 2. Evidence: unlock lane between 0x000EFB68 and 0x000EFCB7 same flags plus caller 0x000F478F plus imul6 word-copy lea-return shape.
 class Rva000EFC7A {
 public:

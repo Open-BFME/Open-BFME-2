@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 //
 // ??1GiantBirdSlowDeathBehaviorModuleData@@UAE@XZ, retail 0x00461FED, 5 bytes.
 // GiantBirdSlowDeathBehaviorModuleData dtor (ctor rowed at 0x00461F7F in

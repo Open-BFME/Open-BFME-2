@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0FakePathfindPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00461944, 99 bytes. Frameless behavior ctor over the rowed

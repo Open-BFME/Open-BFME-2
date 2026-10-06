@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
 //
 // ??1CastleMemberBehaviorModuleData@@UAE@XZ, retail 0x00395B2C, 58 bytes.
 // Virtual dtor over vtable 0x00C1A380 (slot 0 deleting dtor at 0x00396007

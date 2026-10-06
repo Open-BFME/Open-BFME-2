@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004619AD@FakePathfindPortalBehaviour@@SA?AW4NameKeyType@@XZ @0x4619AD
 // (69B): cached pool-name key for FakePathfindPortalBehaviour. The class
 // identity comes from the pool-name string the body pushes

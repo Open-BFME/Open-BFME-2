@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva004534A1Create@@YGPAXABVRva004530ED@@@Z @ 0x004534A1 34B: list node create allocating 0x1c via rowed 0x000307F0 and constructing Rva004530ED at +8 via rowed 0x0045323C. Evidence: caller 0x00453AB8 list insert links node; same shape as Rva00397CC9Alloc 0x00397CC9 and Rva002FE8AA 0x002FE8AA.
 namespace _STL

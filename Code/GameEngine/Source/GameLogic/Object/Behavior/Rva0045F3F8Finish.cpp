@@ -2,7 +2,7 @@
 // partial score=0.93 date=2026-09-28
 // ?shouldTryToSpawn@SpawnBehavior@@QAE_NXZ
 // partial score=0.93 date=2026-09-28
-// cl: /O1 /G7 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?shouldTryToSpawn@SpawnBehavior@@QAE_NXZ, retail 0x0045F3F8, 103 bytes.
 // Slot-free __thiscall (direct E8 caller at 0x00460448 in update 0x004602F4).

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva004B4EC3@@YG_NPAVDrawable@@PAXMM@Z @0x004B4EC3 78B: drawable subobject broadcast.
 // Iterates AsciiString range at +0xC (begin at +0 end at +4, 4B elements),
 // calls rowed Drawable 0x00278689 with (elem,1,0) then rowed 0x002724FD with

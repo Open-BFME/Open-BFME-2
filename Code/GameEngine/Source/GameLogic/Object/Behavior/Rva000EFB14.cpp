@@ -1,4 +1,4 @@
-// cl: /G7 /O1 /MD
+// cl: /MD
 // ?rva000EFB14@Rva000EFB14@@QAEPAXPAXH@Z @0x000EFB14 27B: Ternary pointer-or-table select with offset 0x9000 array. Evidence: unlock lane plus 4 callers in 0x000F4017 and 0x000F4AB7 plus test-jne-field shape.
 struct FieldAt10 { char _p[16]; void *p10; };
 class Rva000EFB14 {

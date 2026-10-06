@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@GateProxyBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00253FB1, 87 bytes. Dedicated TU: the factory news 0x4C through

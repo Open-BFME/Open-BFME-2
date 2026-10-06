@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00397CC9Alloc@@YGPAXABURva0039627D@@@Z @0x00397CC9 34B
 // Allocate 0x20-byte tree node via rowed allocator<char>::allocate 0x000307F0

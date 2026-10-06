@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000482F27@PoisonedBehavior@@SA?AW4NameKeyType@@XZ @0x482f27
 // (69B): cached pool-name key for PoisonedBehavior. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva004CBDAC@Rva004CBDAC@@QAE_NHPAURva002C99FB@@@Z, retail 0x004CBDAC, 35 bytes.
 // Indexed 8-byte record fetch: base+idx*8 checked at +0xC (second half of the

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva004B4F11@@YG_NPAVDrawable@@PAXMM@Z @0x004B4F11 86B: drawable conditional broadcast.
 // Iterates AsciiString range at +0xC, calls rowed 0x00278689 with (elem,0,1);
 // if false calls rowed 0x002724FD with (elem,0,1,-c,d) where c at +0x10

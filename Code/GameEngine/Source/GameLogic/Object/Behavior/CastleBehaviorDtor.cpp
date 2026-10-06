@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1CastleBehavior@@UAE@XZ @0x0039857D 225B evidence: pinned name; vtable VA 0x00C1A780 slot0 deleting dtor caller 0x00399357; donor open-bfme-1 CastleBehaviorDestructorThunk.cpp; callees rowed 0x00397E50 0x003968D3 0x00036410 0x002F0B52 0x00030830 0x00455050
 #include "ascii_string.h"
 

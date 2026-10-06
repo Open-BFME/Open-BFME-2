@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0PoisonedBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00482F7D,
 // 120 bytes. Behavior-side ctor completing the PoisonedBehavior file-unit

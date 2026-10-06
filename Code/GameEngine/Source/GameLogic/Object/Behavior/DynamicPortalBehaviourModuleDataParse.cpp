@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // DynamicPortalBehaviourModuleData parse-unit (the ctor lives in
 // DynamicPortalBehaviourCtor.cpp).

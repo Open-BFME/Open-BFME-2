@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@ClearanceTestingSlowDeathBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x0024C545, 84 bytes. Dedicated TU: the factory news 0x208, runs

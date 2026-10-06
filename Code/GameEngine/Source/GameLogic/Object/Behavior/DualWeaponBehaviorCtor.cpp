@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??0DualWeaponBehavior@@QAE@PAVThing@@PBVModuleData@@@Z at retail
 // 0x0045AE55, 88 bytes. Behavior-side ctor in the DualWeapon file-unit:

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /GX
 //
 // ??1GettingBuiltBehaviorModuleData@@UAE@XZ, retail 0x00453315, 129 bytes.
 // Virtual dtor over vtable 0x00C40090 (slot 0 deleting dtor at 0x004534D9).

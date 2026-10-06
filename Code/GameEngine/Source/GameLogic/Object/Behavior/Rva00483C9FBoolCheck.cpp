@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00483C9F@Rva00483C9F@@QAE_NPAVObject@@@Z 0x00483C9F 80B evidence: gap between Disp8 getter 0x00483C75 and pool-key 0x00483CF4; thiscall bool(Object*) via ret 4 plus al returns; rowed isUsingAirborneLocomotor 0x0028B81E plus pinned rva0028CE7B plus virtual slot 8 on +0x254 with cmp 3; honest Rva name
 class Object;
 struct LocoSlot

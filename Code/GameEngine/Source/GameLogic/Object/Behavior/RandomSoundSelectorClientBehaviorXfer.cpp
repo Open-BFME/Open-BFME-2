@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@RandomSoundSelectorClientBehavior@@MAEXPAVXfer@@@Z, retail 0x004CBD7C, 48 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0085F378 (same primary as rowed ctor 0x004CBC2B):

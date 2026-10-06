@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /GX /DNDEBUG /MD
 //
 // ??1RebuildHoleBehaviorModuleData@@UAE@XZ, retail 0x0048334A, 48 bytes.
 // RebuildHole ModuleData dtor over the pinned base vtable 0x00BBB554: destroys

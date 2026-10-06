@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004561C1@BuildingBehavior@@SA?AW4NameKeyType@@XZ @0x4561C1
 // (69B): cached pool-name key for BuildingBehavior. The class
 // identity comes from the pool-name string the body pushes

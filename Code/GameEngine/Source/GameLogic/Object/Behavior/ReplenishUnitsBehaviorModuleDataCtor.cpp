@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 // stlport
 //
 // ??0ReplenishUnitsBehaviorModuleData@@QAE@XZ, retail 0x004841CC, 91 bytes.

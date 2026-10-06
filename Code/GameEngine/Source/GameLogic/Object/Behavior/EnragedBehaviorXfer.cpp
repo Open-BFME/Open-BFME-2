@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@EnragedBehavior@@MAEXPAVXfer@@@Z, retail 0x00459047, 39 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00840FBC: Version1 via rowed 0x000053EE,

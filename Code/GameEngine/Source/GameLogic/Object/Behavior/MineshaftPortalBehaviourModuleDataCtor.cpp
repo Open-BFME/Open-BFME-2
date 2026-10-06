@@ -1,4 +1,4 @@
-// cl: /O1 /MD -D_STLP_NO_EXCEPTIONS /EHs-c-
+// cl: /MD -D_STLP_NO_EXCEPTIONS /EHs-c-
 //
 // ??0MineshaftPortalBehaviourModuleData@@QAE@XZ, retail 0x00372DB8,
 // 32 bytes. ModuleData ctor over the rowed Rva00253487Base base

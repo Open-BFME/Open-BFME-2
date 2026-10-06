@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // ?doScan@PropagandaTowerBehavior@@MAEXXZ, retail 0x00481DA4: slot 14 (+0x38)
 // of PropagandaTowerBehavior's vftable 0x00C49248 (removeAllInfluence

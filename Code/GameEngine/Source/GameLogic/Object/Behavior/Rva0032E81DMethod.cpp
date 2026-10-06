@@ -1,4 +1,4 @@
-// cl: /O1 /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0032E81D@Rva0032E81D@@QAEPAV1@PAX0@Z, retail 0x0032E81D, 29 bytes.
 // Two-arg setter copying int from *a and vector from *b via rowed nested

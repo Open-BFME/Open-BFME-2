@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // ??_GRva00087A93@@QAEPAXI@Z @ 0x00087A93 (38B): null-guarded 4-byte
 // owning-reference deleting dtor; decrements pointee refcount at +4 and calls
 // slot 0 when it reaches zero then conditionally deletes. Evidence: callers

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 //
 // ??1PropagandaTowerBehaviorModuleData@@UAE@XZ retail 0x00481BCE 48 bytes.
 // Virtual dtor over vtable 0x00C49288 (slot 0 deleting dtor at 0x00481BB2).

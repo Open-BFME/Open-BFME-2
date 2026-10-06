@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleData@GateOpenAndCloseBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00253F1F, 81 bytes. Dedicated TU: the factory news 0x4C, runs the

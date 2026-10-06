@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000373109@MineshaftPortalBehaviour@@SA?AW4NameKeyType@@XZ @0x373109
 // (69B): cached pool-name key for MineshaftPortalBehaviour. The class
 // identity comes from the pool-name string the body pushes

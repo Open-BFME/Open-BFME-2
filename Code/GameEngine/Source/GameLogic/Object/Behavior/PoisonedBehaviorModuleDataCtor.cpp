@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0PoisonedBehaviorModuleData@@QAE@XZ, retail 0x00253CDD, 17 bytes.
 // Frameless trivial ctor with no base call: the and-zeros of the

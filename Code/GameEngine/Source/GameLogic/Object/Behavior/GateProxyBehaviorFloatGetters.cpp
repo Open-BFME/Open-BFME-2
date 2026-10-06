@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva00256A7C@GateProxyBehavior@@UBEMXZ, retail 0x00256A7C, 40 bytes.
 // ?rva00256AA4@GateProxyBehavior@@UBEMXZ, retail 0x00256AA4, 40 bytes.

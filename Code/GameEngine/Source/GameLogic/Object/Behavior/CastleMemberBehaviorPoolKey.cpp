@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0003959B5@CastleMemberBehavior@@SA?AW4NameKeyType@@XZ @0x3959B5
 // (69B): cached pool-name key for CastleMemberBehavior. The class
 // identity comes from the pool-name string the body pushes

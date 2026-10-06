@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /EHsc /MD
+// cl: /Oy- /EHsc /MD
 //
 // ?rva00395C80@@YAHPAVObject@@@Z @0x00395C80 107B: cached module-key veto.
 // First call resolves the module name key once through TheNameKeyGenerator

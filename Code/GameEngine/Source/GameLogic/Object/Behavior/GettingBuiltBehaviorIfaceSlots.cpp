@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 //
 // Overrides in the vtables the matched GettingBuiltBehavior ctor 0x004542FA
 // installs at +0x20 (0x00C403C8, over the all-purecall 27-slot base

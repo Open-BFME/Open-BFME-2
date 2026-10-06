@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1PoisonedBehavior@@MAE@XZ, retail 0x00482ED9, 32 bytes. Behavior-side
 // destructor completing the PoisonedBehavior file-unit (ctor rowed at

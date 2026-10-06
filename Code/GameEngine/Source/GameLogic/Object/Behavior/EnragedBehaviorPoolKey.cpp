@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000459002@EnragedBehavior@@SA?AW4NameKeyType@@XZ @0x459002
 // (69B): cached pool-name key for EnragedBehavior. The class
 // identity comes from the pool-name string the body pushes

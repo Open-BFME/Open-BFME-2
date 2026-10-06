@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 //
 // ?rva00455076@CastleBehavior@@QAEXABUOpaqueRefElement4@@H@Z 104B @0x00455076:
 // slot 13 of CastleBehavior vtable 0x0081A780 (and Rva00455050 0x00840608).

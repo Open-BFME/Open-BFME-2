@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?Rva00498B8BGet@@YAEPAVObject@@@Z, retail 0x00498B8B, 36 bytes.
 // Evidence: calls rowed 0x0028B511 Object::rva0028B511; flag byte at +0x108 bit 2; caller at 0x00498F5E pushes one pointer and tests al; free shape mov ecx [esp+4].

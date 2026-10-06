@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?rva004B7A9D@Rva004B7A9D@@QAEXXZ, retail 0x004B7A9D, 62 bytes.
 // Chain from Drawable 0x00274C88: get Drawable via Thing at this-8 then

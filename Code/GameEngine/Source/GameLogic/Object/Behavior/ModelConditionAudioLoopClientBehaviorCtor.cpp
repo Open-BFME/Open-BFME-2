@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0ModelConditionAudioLoopClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004CBECA, 67 bytes.
 // ModelConditionAudioLoopClientBehavior behavior ctor over the rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1FakePathfindPortalBehaviour@@UAE@XZ, retail 0x004619F2, 84 bytes
 // (pinned; rowed deleting wrapper 0x00461C03). Stores

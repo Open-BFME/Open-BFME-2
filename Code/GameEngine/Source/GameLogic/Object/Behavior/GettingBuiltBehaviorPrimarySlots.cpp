@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // GettingBuiltBehavior primary-vtable (0x00C404FC) slot 5, retail 0x004534F5
 // (194 bytes), installed by the matched ctor 0x004542FA. Method identity is

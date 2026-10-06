@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@DrawModule@@MAEXPAVXfer@@@Z, retail 0x004CBF58, 21 bytes.
 // Slot 3 (offset 0x0C) of DrawModule vtable 0x007C9690 (VA 0x00BC9690, class of

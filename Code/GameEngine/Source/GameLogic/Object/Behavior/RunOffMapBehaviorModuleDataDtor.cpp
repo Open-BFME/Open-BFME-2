@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 //
 // ??1RunOffMapBehaviorModuleData@@UAE@XZ at retail 0x00255EA8 (48B).
 // Virtual dtor over vtable 0x00BF3298 (slot 0 deleting dtor at 0x00255E8C).

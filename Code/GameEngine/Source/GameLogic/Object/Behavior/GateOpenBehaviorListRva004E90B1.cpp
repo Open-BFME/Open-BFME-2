@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /Oy-
+// cl: /DNDEBUG /MD /Oy-
 //
 // ?rva004E90B1@GateOpenBehaviorList@@QAEPAXPBUCoord3D@@PBVPlayer@@@Z, retail 0x004E90B1, 200 bytes.
 // Gate list closest-allied scan over the +0/+4 pointer range (same layout as

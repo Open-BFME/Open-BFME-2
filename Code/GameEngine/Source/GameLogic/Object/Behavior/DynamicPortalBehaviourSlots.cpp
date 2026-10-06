@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two DynamicPortalBehaviour overrides that run its pinned private member
 // 0x00461257 (the one its slot-1 loadPostProcess tail-calls). The matched ctor

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // PhysicsBehavior::rva00390629(bool), retail 0x00390629 (150 bytes), and
 // PhysicsBehavior::rva003906BF(), retail 0x003906BF (106 bytes): the two methods

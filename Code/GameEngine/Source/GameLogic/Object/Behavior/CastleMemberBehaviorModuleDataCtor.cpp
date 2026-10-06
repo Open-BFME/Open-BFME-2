@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0CastleMemberBehaviorModuleData@@QAE@XZ, retail 0x00395B03, 41 bytes.
 // Frameless store-only ctor over table 0xC1A310 (CampDestroyedOwnerEvaEvent

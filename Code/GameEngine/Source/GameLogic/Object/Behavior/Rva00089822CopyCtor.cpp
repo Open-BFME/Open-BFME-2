@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // ??0Rva00089822@@QAE@ABV0@@Z, retail 0x00089822, 35 bytes.
 // Copy ctor: 8-byte head via two movs, Rva0073DAB0 member at +8 via rowed
 // set 0x00087A74 on other's +8 as Blk (same address as first member).

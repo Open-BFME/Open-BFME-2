@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?getRebuildHoleBehaviorInterfaceFromObject@RebuildHoleBehavior@@SAPAVRebuildHoleBehaviorInterface@@PAVObject@@@Z @0x004831CB 115B. Static RebuildHoleBehavior
 // NameKey plus behavior-module scan at +0x244 via slot 0x10 tag compare, returns module+0x24.
 // Evidence: "RebuildHoleBehavior" literal with TheNameKeyGenerator row 0x00148E1A; callers

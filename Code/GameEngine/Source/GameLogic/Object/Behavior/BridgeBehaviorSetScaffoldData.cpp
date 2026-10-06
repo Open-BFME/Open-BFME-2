@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 // Retail 0x004568EC, 338B; this six-argument thiscall returns with ret 0x18.
 // The ZH member declaration and body establish BridgeBehavior::setScaffoldData;
 // the BFME 1 port is at

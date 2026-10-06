@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 
 // ?rva00395A60@Rva00395A60@@QAEMXZ @0x00395A60 34B
 // Unlock: ptr at +4 with float at +0x2C or 0.0. Uses SSE movss.

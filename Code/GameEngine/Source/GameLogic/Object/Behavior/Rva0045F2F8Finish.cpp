@@ -1,5 +1,5 @@
 // ?rva0045F2F8@Rva0045F2F8@@QAEEM@Z
-// cl: /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?rva0045F2F8@Rva0045F2F8@@QAEEXM@Z @0x0045F2F8 107B: vslot 23 of SpawnBehavior
 // vtable 0x00842550. Predicate taking float (Real maxSelfTaskersRatio) similar

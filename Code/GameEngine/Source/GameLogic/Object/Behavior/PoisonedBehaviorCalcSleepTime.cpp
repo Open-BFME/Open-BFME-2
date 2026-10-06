@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 //
 // ?calcSleepTime@PoisonedBehavior@@IAE?AW4UpdateSleepTime@@XZ, retail 0x00482EFF,
 // 40 bytes. Poisoned file-unit drain: returns UPDATE_SLEEP_FOREVER when the

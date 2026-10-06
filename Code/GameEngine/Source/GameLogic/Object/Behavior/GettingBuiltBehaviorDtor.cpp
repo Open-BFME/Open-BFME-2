@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /DNDEBUG /MD /GX /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??1GettingBuiltBehavior@@UAE@XZ, retail 0x0045448F, 114 bytes. Behavior-side

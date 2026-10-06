@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG /Ireference/shims/moduledata
 //
 // ??1GateOpenAndCloseBehaviorModuleData@@UAE@XZ, retail 0x00498D46, 145 bytes.
 // Target evidence: the pinned ctor 0x00498E2E installs vtable 0x00C501B0,

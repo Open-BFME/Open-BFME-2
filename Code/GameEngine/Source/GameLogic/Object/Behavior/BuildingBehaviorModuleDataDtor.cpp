@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD /Ireference/shims/moduledata
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD /Ireference/shims/moduledata
 //
 // ??1BuildingBehaviorModuleData@@UAE@XZ, retail 0x004564E6, 58 bytes.
 // ModuleData dtor: four-element window-name array at +0x08 torn down via

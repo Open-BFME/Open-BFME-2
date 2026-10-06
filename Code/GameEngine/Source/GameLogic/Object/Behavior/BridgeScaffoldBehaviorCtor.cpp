@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0BridgeScaffoldBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0045831C,
 // 141 bytes. Behavior-side ctor (called by the rowed friend_newModuleInstance

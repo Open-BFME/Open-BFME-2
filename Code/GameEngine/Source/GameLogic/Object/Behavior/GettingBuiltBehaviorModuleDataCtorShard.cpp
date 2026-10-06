@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // GettingBuiltBehaviorModuleData ctor shard (retail 0x0045324E, 199 bytes).
 // File-unit with GettingBuiltBehaviorModuleDataCtor.cpp (parse proc there).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Oi
+// cl: /DNDEBUG /MD /Oi
 //
 // ??0DynamicPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00460B6C,
 // 95 bytes. Behavior-side ctor completing the DynamicPortalBehaviour

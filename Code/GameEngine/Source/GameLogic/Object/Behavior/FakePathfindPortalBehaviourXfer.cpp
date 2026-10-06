@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@FakePathfindPortalBehaviour@@MAEXPAVXfer@@@Z, retail 0x00461B1B, 232 bytes.
 // Slot 3 of ??_7FakePathfindPortalBehaviour 0x00C42C1C (slot-2 name getter

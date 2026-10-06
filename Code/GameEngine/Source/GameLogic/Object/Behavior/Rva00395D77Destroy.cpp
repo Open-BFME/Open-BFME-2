@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ??$_Destroy@PAURva00395D77@@@_STL@@YAXPAURva00395D77@@0@Z @0x00399336 25B
 // Range destroy over 12-byte elements via rowed dtor at 0x00395D77.

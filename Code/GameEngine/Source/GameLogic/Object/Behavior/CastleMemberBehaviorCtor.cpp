@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0CastleMemberBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00395B66, 73 bytes.
 // CastleMemberBehavior behavior ctor over the rowed BehaviorModule base

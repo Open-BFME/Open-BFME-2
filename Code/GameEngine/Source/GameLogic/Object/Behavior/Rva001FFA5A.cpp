@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva001FFA5A@Rva001FFA5A@@QAEXPAVCreateAHeroData@@@Z @0x001FFA5A 71B: push_back ModuleData vector at +0x18 via 0x004DFCB0 then flag +0xC then find 0x0020E873 plus voidptr erase 0x001FF51F over CreateAHeroData vector at +0xC. Evidence: callees rowed; caller 0x001FFF3A unclaimed; layout mirrors WeaponRva002CDB0E vectors at +0xC/+0x18.
 // The emitted unsigned max copy must match retail RVA 0x00013740.

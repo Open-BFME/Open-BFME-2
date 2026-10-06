@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?rva00498980@GateOpenAndCloseBehavior@@QAE_NXZ @0x00498980 (87B):
 // Gate open/close state test. ModuleData at +8, state at +0x28, timer at

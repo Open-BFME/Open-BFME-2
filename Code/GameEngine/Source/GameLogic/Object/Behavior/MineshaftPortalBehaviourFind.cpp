@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?Rva00372D3AFind@@YAPAXPAX@Z retail 0x00372D3A 108 bytes.
 // Free-function finder for MineshaftPortalBehaviour: caches the

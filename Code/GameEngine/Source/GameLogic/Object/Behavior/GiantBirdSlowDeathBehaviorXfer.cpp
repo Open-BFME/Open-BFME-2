@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@GiantBirdSlowDeathBehavior@@MAEXPAVXfer@@@Z, retail 0x00461F34, 75 bytes.
 // GiantBirdSlowDeathBehavior xfer (slot 3 offset 0x0C of vtable 0x00842E64,

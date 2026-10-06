@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 // Target: ModuleFactory registers this factory as "PhysicsBehavior"; it calls
 // the ctor at 0x00390119 and pushes the parser at 0x003901C9.
 // Donor: the BFME1 DumbProjectileBehavior data header informed the 0x5C layout;

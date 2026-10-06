@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?loadPostProcess@DynamicPortalBehaviour@@MAEXXZ, retail 0x00461274, 16 bytes.
 // Slot 1 of vftable 0x00C428C4 (??_7DynamicPortalBehaviour, slot 0 is the rowed ??_G,

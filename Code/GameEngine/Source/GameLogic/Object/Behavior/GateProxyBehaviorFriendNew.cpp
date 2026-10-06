@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /GX /DNDEBUG /MD
 //
 // ?friend_newModuleInstance@GateProxyBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00253F70, 65 bytes. Dedicated TU: retail news 0x50 and runs the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0EnragedBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00458FA3,
 // 89 bytes. Behavior-side ctor completing the EnragedBehavior file-unit

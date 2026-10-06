@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /GX /MD /DNDEBUG
+// cl: /GX /MD /DNDEBUG
 //
 // ??0ClearanceTestingSlowDeathBehaviorModuleData@@QAE@XZ, retail 0x00483E25,
 // 160 bytes. SlowDeath ModuleData ctor over the ClearanceTesting table.

@@ -1,4 +1,4 @@
-// cl: /O1 /Oi /DNDEBUG /MD
+// cl: /Oi /DNDEBUG /MD
 //
 // ??0ClickReactionBehaviorModuleData@@QAE@XZ, retail 0x004595F0, 27 bytes.
 // ClickReactionBehaviorModuleData frameless store-only ctor over table

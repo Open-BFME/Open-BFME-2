@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@ClickReactionBehavior@@MAEXPAVXfer@@@Z, retail 0x00459579, 50 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0084125C: Version1 via rowed 0x000053EE,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GettingBuiltBehaviorModuleData file-unit (parse first; the ctor at
 // 0x45324E remains pinned for a follow-up).

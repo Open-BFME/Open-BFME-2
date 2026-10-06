@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??$_Construct@VRva0032E81D@@V1@@_STL@@YAXPAVRva0032E81D@@ABV1@@Z, retail 0x0032E94B, 45 bytes.
 // Null-guarded placement copy via rowed 0x0032E800 copy ctor. Evidence: calls

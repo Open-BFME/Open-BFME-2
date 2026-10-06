@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ??0Rva004530ED@@QAE@ABV0@@Z @0x004530ED 32B.
 // Copy constructor of a 20-byte record (int, 12-byte middle block, int) in the
 // Object/Behavior region. Callers 0x00453248, 0x00453BD6, 0x00453C50,

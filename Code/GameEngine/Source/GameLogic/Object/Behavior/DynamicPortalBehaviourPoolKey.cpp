@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000460BD3@DynamicPortalBehaviour@@SA?AW4NameKeyType@@XZ @0x460BD3
 // (69B): cached pool-name key for DynamicPortalBehaviour. The class
 // identity comes from the pool-name string the body pushes

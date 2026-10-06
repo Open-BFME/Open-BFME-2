@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1DynamicPortalBehaviour@@MAE@XZ, retail 0x00460C18, 91 bytes. Behavior-side
 // destructor completing the DynamicPortalBehaviour file-unit (ctor rowed at

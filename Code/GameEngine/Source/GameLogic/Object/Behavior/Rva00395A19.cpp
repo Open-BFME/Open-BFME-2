@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00395A19@Rva00395A19@@QAEPAXI@Z RVA 0x00395A19 size 28 leaf vtable slot 0 calls rowed apply and delete.
 class Rva00049C38ADwordImmSetter
 {

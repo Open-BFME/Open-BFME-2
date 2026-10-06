@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva0032E83A@@QAE@XZ — RVA 0x0032E83A, 8B.
 // Non-virtual dtor destroying a vector<DynamicPortalLink> member at +4

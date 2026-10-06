@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00498831@GateOpenAndCloseBehavior@@QAEXH@Z @0x00498831 30B
 // GateOpenAndCloseBehavior delta clamp-add at +0x40. Evidence: gap between
 // Disp8ByteFieldGetters and GateOpenAndCloseBehaviorPoolKey; offset 0x40

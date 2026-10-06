@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // ?rva00087AC9@Rva00087AC9@@QAEXPAURva00087AC9Pair@@0@Z @ 0x00087AC9 (43B):
 // __thiscall copy of two 8-byte float-plus-int pairs from +0xC8/+0xD0 to two
 // out params. Evidence: callers 0x00087AF4/0x00087B81/0x00087C55 pass stack

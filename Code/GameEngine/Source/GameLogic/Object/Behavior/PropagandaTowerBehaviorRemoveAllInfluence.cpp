@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?removeAllInfluence@PropagandaTowerBehavior@@MAEXXZ @0x00481D4C (88B):
 // vtable slot 13 (offset 0x34) of 0x00849248 (class of ??1Rva0048180C@@UAE@XZ,
 // PropagandaTowerBehavior via pool string and name getter 0x0048182C).

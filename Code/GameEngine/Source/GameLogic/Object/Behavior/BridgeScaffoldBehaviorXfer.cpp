@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@BridgeScaffoldBehavior@@MAEXPAVXfer@@@Z, retail 0x00458638,
 // 115 bytes. Slot 3 (offset 0x0C) of vtable 0x00840C54 (class of rowed ctor

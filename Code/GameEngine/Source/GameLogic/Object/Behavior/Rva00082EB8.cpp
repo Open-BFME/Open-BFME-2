@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva00082EB8@Rva00082EB8@@QAEXABURva00082EB8Rec@@@Z @0x00082EB8 61B: Vector find-or-insert by compareNoCase with assign-or-push_back. Evidence: linkbody lane plus 20 callers plus compare-assign-push_back shape plus 0x24 stride.
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's

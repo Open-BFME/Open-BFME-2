@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
 //
 // ??0BuildingBehaviorModuleData@@QAE@XZ, retail 0x00456489, 65 bytes.
 // ModuleData default ctor: vtable 0xC40798 plus a four-element window-name

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /GX
+// cl: /DNDEBUG /MD /GX
 //
 // Four GateOpenAndCloseBehavior overrides on the primary vtable 0x00C50178
 // that its matched ctor 0x0049889C installs at +0 (the gate interface ahead of

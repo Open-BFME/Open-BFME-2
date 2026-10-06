@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@PillageModule@@MAEXPAVXfer@@@Z retail 0x00484FBB 39B vslot 3 of
 // vtable 0x0084A51C (class of ??0PillageModule@@QAE@PAVThing@@PBVModuleData@@@Z).

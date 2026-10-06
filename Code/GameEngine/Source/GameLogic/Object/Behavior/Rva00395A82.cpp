@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00395A82@Rva00395A82@@QAEMXZ RVA 0x00395A82 size 29 leaf float 1-minus-divide else zero.
 extern const float BfmeZeroRange;
 extern float g_Va00BBB8D8;

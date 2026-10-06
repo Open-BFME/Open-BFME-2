@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // Open-BFME5: ClearanceTestingSlowDeathBehavior module ctor (ICF 74B family).
 // Base call, interim vtbl at +0x50, then most-derived vtbls at

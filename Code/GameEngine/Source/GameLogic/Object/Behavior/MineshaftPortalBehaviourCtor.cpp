@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // stlport
 //
 // ??0MineshaftPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z,

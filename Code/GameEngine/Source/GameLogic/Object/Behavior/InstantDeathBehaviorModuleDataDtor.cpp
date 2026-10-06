@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1InstantDeathBehaviorModuleData@@UAE@XZ @0x0045D28D 105B via 3 inline vector frees plus rowed vector dtor, novtable restores g_00BBB554
 #include <vector>

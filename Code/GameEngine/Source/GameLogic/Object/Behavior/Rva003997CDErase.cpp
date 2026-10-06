@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Oy-
+// cl: /MD /Oy-
 // ?rva003997CD@Rva00399800@@QAEPAVRva0039597C@@PAV2@0@Z @0x003997CD 51B evidence: chain from rowed copy 0x00396260; erase-like shift over the owning range shared with rowed dtor TU Rva00395D77Destroy (same Destroy row 0x00399336 and layout); EBP frame under /O1 needs /Oy- (293 precedents); copy tag is last byte of first-arg slot per retail lea ebp+0xb; destroys [new_end m_end) per push order.
 class Rva0039597C;
 struct Rva00395D77;

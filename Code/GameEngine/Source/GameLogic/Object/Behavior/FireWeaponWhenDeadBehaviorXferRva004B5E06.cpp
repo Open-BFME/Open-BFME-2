@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004B5E06@Rva004B5E06@@QAEXPAVXfer@@@Z retail 0x004B5E06 64B
 // Slot 3 of vtables 0x008581CC 0x008583B0; Version(1 2) via Xfer slot 0x28 gating bool at +0x20 via slot 0x90 then base UpgradeModule xfer.
 // Evidence: vtable slot 3 plus Xfer slot order Version 0x28 bool 0x90 from Rva005C45D2 plus rowed UpgradeModule xfer 0x004CE3F9.

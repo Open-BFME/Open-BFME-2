@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@PoisonedBehavior@@MAEXPAVXfer@@@Z, retail 0x004830A9, 82 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x008498BC (class of ??1PoisonedBehavior

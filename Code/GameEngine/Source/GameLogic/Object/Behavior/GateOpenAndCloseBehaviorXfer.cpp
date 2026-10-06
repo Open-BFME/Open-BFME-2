@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?xfer@GateOpenAndCloseBehavior@@MAEXPAVXfer@@@Z, retail 0x00498BCB, 225 bytes.
 //

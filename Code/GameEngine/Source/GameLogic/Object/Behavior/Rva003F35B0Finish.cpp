@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD
+// cl: /Oy- /DNDEBUG /MD
 // ?rva003F35B0@ConnectionVec@@QAEPAVLivingWorldRegionConnection@@PAV2@0@Z @0x003F35B0 51B
 // Copy-destroy tail over LivingWorldRegionConnection ranges: rowed copy
 // 0x003F325A with a 4-arg cast and dead-arg-slot dummy [ebp+0xb], then rowed

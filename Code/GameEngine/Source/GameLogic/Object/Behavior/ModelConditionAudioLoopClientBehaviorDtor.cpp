@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1ModelConditionAudioLoopClientBehavior@@UAE@XZ, retail 0x004CC0FE, 95 bytes.
 // ModelConditionAudioLoopClientBehavior dtor: restores the three MI vptrs

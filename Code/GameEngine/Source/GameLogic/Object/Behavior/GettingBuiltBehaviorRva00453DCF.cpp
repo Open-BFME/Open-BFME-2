@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /DNDEBUG /MD /GX /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva00453DCF@GettingBuiltBehavior@@QAE_NXZ @ 0x00453DCF 141B evidence: GettingBuiltBehavior layout (+8 object +20 secondary +40 workList) matches neighbours; secondary slot16 bool; Rva004530ED copy rowed 0x004530ED; TheGameLogic findObjectByID rowed 0x00049DC5; Object rva0028BD17 rowed 0x0028BD17; iface slot15 bool; callers 0x004547B3

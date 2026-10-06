@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1RebuildHoleBehavior@@UAE@XZ, retail 0x0048353E, 118 bytes. Behavior-side
 // destructor restoring the five MI vptrs (+0 0x849A74 +0x0C 0x849188 +0x10

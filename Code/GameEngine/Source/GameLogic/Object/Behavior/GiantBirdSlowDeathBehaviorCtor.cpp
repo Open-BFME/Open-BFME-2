@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ??0GiantBirdSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00461E58, 72 bytes.
 // GiantBirdSlowDeathBehavior behavior ctor over the pinned SlowDeathBehavior

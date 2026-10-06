@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // Three slots of the +0x20 interface vtable 0x00C403C8 that GettingBuiltBehavior's
 // ctor 0x004542FA installs, over the work list at +0x40 (+0x20 from the

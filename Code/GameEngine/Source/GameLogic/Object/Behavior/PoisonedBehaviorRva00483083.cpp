@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ?rva00483083@PoisonedBehavior@@QAEXXZ, retail 0x00483083, 38 bytes.
 // Clears m_poisonDamageFrame at +0x24 and m_poisonOverallStopFrame at +0x28

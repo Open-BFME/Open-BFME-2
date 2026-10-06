@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?appendOnce@GateOpenBehaviorList@@QAEXPAX@Z, retail 0x004E9353, 37 bytes.
 // Dedup-append helper: linear find over the pointer range at +0/+4, push_back

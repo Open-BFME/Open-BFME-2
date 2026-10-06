@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?xfer@ReplenishUnitsBehavior@@MAEXPAVXfer@@@Z, retail 0x00484365, 37 bytes.
 // Slot 3 of ??_7ReplenishUnitsBehavior 0x00C4A034 (slot-2 name getter

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?update@PoisonedBehavior@@UAE?AW4UpdateSleepTime@@XZ, retail 0x00483133,
 // 152 bytes: Zero Hour's PoisonedBehavior::update (Behavior/

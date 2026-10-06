@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000254BAC@ModelConditionSoundSelectorClientBehavior@@SA?AW4NameKeyType@@XZ @0x254BAC
 // (69B): cached pool-name key for ModelConditionSoundSelectorClientBehavior. The class
 // identity comes from the pool-name string the body pushes

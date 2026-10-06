@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?xfer@RebuildHoleBehavior@@MAEXPAVXfer@@@Z, retail 0x004833EC, 338 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00849A74 (class of ??0RebuildHoleBehavior

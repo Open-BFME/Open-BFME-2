@@ -1,4 +1,4 @@
-// cl: /G7 /O1 /MD
+// cl: /MD
 // ?rva000EFCB7@Rva000EFCB7@@QAEHHPAG@Z @0x000EFCB7 55B: Word triple copy via base plus idx times 6 with reloads plus return 3. Evidence: unlock lane prev 0x000EFB68 same flags plus 6 callers in 0x000EFDF6 plus imul6 word-store push3 shape.
 class Rva000EFCB7 {
 public:

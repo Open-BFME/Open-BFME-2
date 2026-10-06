@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ModelConditionAudioLoopClientBehavior's two condition-change entries, both
 // running the class's 0x004CBFC7 (pinned by address) on the primary this

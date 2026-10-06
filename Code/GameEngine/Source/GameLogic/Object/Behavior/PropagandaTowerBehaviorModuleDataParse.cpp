@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // PropagandaTowerBehaviorModuleData file-unit (parse first; the ctor
 // remains pinned for a follow-up). Distinct TU name because

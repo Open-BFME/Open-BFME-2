@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??_GRva0039A1CA@@UAEPAXI@Z, retail 0x0039A1AE (28 bytes).
 // Deleting dtor for Rva0039A1CA whose ??1 is rowed at 0x0039A1CA; the call

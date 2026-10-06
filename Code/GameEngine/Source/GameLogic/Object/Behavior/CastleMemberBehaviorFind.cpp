@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva000395708@CastleBehavior@@SAPAVModule@@PAVObject@@@Z @0x395708
 // (81B): static CastleBehavior lookup over an Object: guards a function-local
 // NameKeyType for "CastleMemberBehavior" through TheNameKeyGenerator, then

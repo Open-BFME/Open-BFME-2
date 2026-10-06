@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0Rva00254FE4Member@@QAE@XZ, retail 0x00254FE4, 27 bytes. Voice-slot
 // array member ctor: 56 eight-byte elements built in place through the

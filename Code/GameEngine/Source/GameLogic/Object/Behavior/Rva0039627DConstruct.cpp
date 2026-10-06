@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??$_Construct@URva0039627D@@U1@@_STL@@YAXPAURva0039627D@@ABU1@@Z @0x0039695E 45B
 // _STL::_Construct<Rva0039627D,Rva0039627D> via vendored <memory> (EH framed 45B precedent

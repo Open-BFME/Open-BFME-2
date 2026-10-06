@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0PillageModule@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00484F0D, 46 bytes.
 // Pillage behavior ctor over the pinned Rva00588FFA base (sole-caller

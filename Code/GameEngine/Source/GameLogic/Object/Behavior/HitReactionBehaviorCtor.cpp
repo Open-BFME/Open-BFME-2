@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // ??0HitReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00459228,
 // 93 bytes. Behavior-side ctor completing the HitReactionBehavior file-unit

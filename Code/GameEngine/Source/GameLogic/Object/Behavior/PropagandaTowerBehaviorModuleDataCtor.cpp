@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // Identity: ModuleFactory registers this data class under "DetachableRiderUpdate" (addModule
 // pairs the name with its factory); formerly misnamed PropagandaTowerBehavior/PropagandaTowerBehaviorModuleData.
 // stlport

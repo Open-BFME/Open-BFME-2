@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /GX
+// cl: /DNDEBUG /MD /GX
 // ?rva0049924B@GateOpenAndCloseBehavior@@AAEX_N@Z @0x0049924B 138B: private helper;
 // if +0x2C==1 return; if flag runs pinned 0x00498FAA; removes object from
 // pathfind shim, sets state 1 via Object::rva0028B79C(9), clears two
