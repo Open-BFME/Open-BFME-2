@@ -64365,3 +64365,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva00200E95@@UAE@XZ,,0x00200E95,79,Code/GameEngine/Source/Common/Rva00200E95Dtor.cpp,matched,implicit dtor string +0x3C then second-base string then base 0x001E3624
 ??1Rva0020182B@@UAE@XZ,,0x0020182B,79,Code/GameEngine/Source/Common/Rva0020182BDtor.cpp,matched,implicit dtor string +0x18 then second-base string then base 0x001E3624
 ??1Rva0057605D@@UAE@XZ,,0x00575E9C,78,Code/GameEngine/Source/Common/Rva0057605DDtor.cpp,matched,two-base dtor unregister via 0x002B7250 then vtables C77F44 and C6E60C
+?Rva005CD762Get@@YGEPAX@Z,,0x005CD762,41,Code/GameEngine/Source/Common/Rva005CD762.cpp,matched,rows 0x005CCB3E 0x005CCB37 0x005CCB63 stdcall always-1
