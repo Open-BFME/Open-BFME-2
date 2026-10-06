@@ -46,7 +46,7 @@
 // must be the one below, and the element type is never dereferenced here.
 
 #define __PLACEMENT_VEC_NEW_INLINE
-#include <list>
+#include <list> // before PreRTS.h so STLport node_alloc is used (not NEWALLOC)
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -55,7 +55,6 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
                               const _List_iterator<T, Traits>& b)
 { return a._M_node != b._M_node; }
 }
-		// before PreRTS.h so STLport node_alloc is used (not NEWALLOC)
 #include <vector>
 #include "PreRTS.h"
 
