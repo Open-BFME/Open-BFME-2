@@ -15222,3 +15222,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??$_M_allocate_and_copy@PBURva0021C21BElement@@@?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@IAEPAURva0021C21BElement@@IPBU2@0@Z,0x0031B9EB,callee of ??4?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
 ??$__copy_ptrs@PBURva0021C21BElement@@PAU1@@_STL@@YAPAURva0021C21BElement@@PBU1@0PAU1@ABU__false_type@0@@Z,0x0025BF40,callee of ??4?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
 ??$__uninitialized_copy@PBURva0021C21BElement@@PAU1@@_STL@@YAPAURva0021C21BElement@@PBU1@0PAU1@ABU__false_type@0@@Z,0x001DD10D,callee of ??4?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
+??0Rva005D1ADE@@QAE@PAX0H@Z,0x005D1BA1,address-derived constructor pin; Ghidra function start 0x005D1BA1 size 270; paired vtable and destructor evidence at 0x00C75694
