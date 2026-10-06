@@ -14209,3 +14209,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?SetEnabled@Impl@AptScrollBar@@QAEX_N@Z,0x005D4949,callee of ?SetEnabled@Rva005D49CD@@QAEX_N@Z
 ?resize@?$vector@UBfmeStringRecord000B94D2@@V?$allocator@UBfmeStringRecord000B94D2@@@_STL@@@_STL@@QAEXIUBfmeStringRecord000B94D2@@@Z,0x000C4733,callee of ?resize@?$vector@UBfmeStringRecord000B94D2@@V?$allocator@UBfmeStringRecord000B94D2@@@_STL@@@_STL@@QAEXI@Z
 ??0Rva005ECFE4@@QAE@PAX00@Z,0x005ECE81,callee of ?rva005ED15D@Rva005ECFE4@@SAPAXPAX00@Z
+??0Rva005D1ADE@@QAE@PAX0H@Z,0x005D1BA1,address-derived constructor pin; Ghidra function start 0x005D1BA1 size 270; paired vtable and destructor evidence at 0x00C75694
