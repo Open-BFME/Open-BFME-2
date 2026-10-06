@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateUnitHasObjectStatus@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // @0x003E5AE9 40B. BFME1 donor ScriptConditions.cpp evaluateUnitHasObjectStatus;
 // BFME2 getUnitNamed takes the Parameter (matched 0x003588E7) and asks the

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Zero Hour's ScriptConditions::evaluateAllDestroyed (retail 0x003E3C89,
 // 135B) and evaluateAllBuildFacilitiesDestroyed (0x003E3D10, 133B; adjacent

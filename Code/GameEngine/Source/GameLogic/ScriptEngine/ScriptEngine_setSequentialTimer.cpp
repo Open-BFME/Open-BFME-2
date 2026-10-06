@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?setSequentialTimer@ScriptEngine@@QAEXPAVObject@@H@Z at retail 0x00203FCF (51B).

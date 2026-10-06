@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ScriptConditions::evaluateTeamOutsideAreaEntirely @0x003E674C 56B.
 // ZH donor body: neither entirely nor partially inside. Calls the matched
 // evaluateTeamInsideAreaEntirely 0x003E66EA and

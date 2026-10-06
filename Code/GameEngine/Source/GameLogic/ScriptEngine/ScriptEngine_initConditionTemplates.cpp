@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ScriptEngine condition template table, retail 0x003CF6B7 (20,516 bytes).
 // ScriptEngine::init calls it on its own `this` between the action table

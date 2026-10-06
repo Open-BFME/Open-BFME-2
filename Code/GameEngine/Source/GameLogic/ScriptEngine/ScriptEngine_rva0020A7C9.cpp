@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs
+// cl: /Ireference/shims/bfme2_ascii /EHs
 // stlport
 //
 // Retail 0x0020A7C9 (144 bytes): ScriptEngine clears the +0x1A120 vector,

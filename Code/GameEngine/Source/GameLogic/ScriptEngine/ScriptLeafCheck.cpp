@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?check@Rva003B489CHolder@@QBE_NPBX@Z,
 // retail 0x003B489C, 27 bytes. Dedicated TU.

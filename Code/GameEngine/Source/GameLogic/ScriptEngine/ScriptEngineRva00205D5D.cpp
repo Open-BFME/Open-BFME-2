@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?rva00205D5D@ScriptEngine@@QAEPAURva00205D5DEntry@@ABVAsciiString@@_N@Z, retail 0x00205D5D, 128 bytes.
 // ScriptEngine attack-priority-set table: 256 entries of 0x10 at 0x19100 with

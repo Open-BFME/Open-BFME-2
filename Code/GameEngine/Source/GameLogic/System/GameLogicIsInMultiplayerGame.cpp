@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?isInMultiplayerGame@GameLogic@@QAE_NXZ @0x42235 (23B):
 // GameLogic::isInMultiplayerGame, ZH GameLogic.h:404 verbatim shape

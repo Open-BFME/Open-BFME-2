@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // ScriptEngine action template table, retail 0x003D46DB (62,675 bytes).
 // ScriptEngine::init calls it on its own `this` just before the condition

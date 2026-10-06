@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // BFME1 donor: ScriptConditionsTriggerAreas.cpp.
 #include "ascii_string.h"
 class Parameter

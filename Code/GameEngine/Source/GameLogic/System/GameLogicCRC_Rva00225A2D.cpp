@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/System
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/System
 
 // BFMECRCWriter::BFMECRCWriter(bool) from the donor GameLogicCRC.cpp. The base
 // block-writer ctor is retail 0x0060D1F7 (the donor's own comment fixes the

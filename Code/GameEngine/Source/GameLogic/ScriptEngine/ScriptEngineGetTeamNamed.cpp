@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 // ?getTeamNamed@ScriptEngine@@QAEPAVTeam@@VAsciiString@@_N@Z
 // Target: 0x003584E9, 617 bytes (Ghidra boundary). The existing retail pin

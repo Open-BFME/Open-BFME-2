@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?deselectObject@GameLogic@@QAEXPAVObject@@IH@Z retail 0x0023C9F8, 171 bytes.
 // Zero Hour GameLogic::deselectObject (no CRC log) with one BFME 2 addition:

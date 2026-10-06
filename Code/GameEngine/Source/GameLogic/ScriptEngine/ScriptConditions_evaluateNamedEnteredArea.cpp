@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateNamedEnteredArea@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E6D0A 86B.
 // ZH donor ScriptConditions.cpp in donor order; BFME2 getUnitNamed takes the
 // Parameter (matched 0x003588E7); isKindOf(KINDOF_INERT) is the inline template bit test (+0x04 template, byte +0x113 bit 0x02); Object::didEnter/didExit

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // ?Rva003BEA10Do@@YGXPBVAsciiString@@PAX@Z @0x003BEA10 241B (dump range 18).
 // Team-plus-position AI-group dispatch: copies the team name on the stack

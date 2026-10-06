@@ -9,7 +9,7 @@
 // to preserve the retail translation-unit call boundary.
 // TU-local layout views; unnamed fields and address-qualified types are intentional.
 // The bytecode proves offsets/operations, not original EA type names or full layouts.
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 // stlport
 #include <vector>
 class AsciiString { public: int compare(const AsciiString &) const; private: void *data; };

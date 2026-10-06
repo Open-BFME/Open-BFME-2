@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 //
 // ?rva003BE7ED@Rva003BE7ED@@QAEXXZ @0x003BE7ED 239B (dump range 18).
 // Defeat-screen emit, mirror of the landed 0x003BE5C9 victory-screen emit:

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // ?Rva003C35AADo@@YGXPBVAsciiString@@PAX_N@Z @0x003C35AA 77B (dump range 18).
 // Trigger-area wiring: team-name copy, rowed ScriptEngine

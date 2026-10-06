@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ScriptEngine template finishing pass, retail 0x00204D87 (221 bytes).
 // ScriptEngine::init calls it right after the action (0x003D46DB) and

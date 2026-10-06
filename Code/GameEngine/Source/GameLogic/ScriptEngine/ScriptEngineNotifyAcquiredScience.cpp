@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?notifyOfAcquiredScience@ScriptEngine@@QAEXHW4ScienceType@@@Z @0x00357F43 27B
 // ScriptEngine::notifyOfAcquiredScience: m_acquiredSciences[playerIndex].push_back(science).
 // Donor: ZH ScriptEngine::notifyOfAcquiredScience (ScriptEngine.cpp:7258) one-liner.

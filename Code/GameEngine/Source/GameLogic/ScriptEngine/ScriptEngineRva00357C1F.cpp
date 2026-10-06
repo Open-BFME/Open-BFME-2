@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva00357C1F@ScriptEngine@@QAEXPAX0@Z, retail 0x00357C1F 75B chain.
 // Evidence: calls ScriptEngine 0x00357340 just landed; EBP frame with 12B
 // Coord3D temp; movss x/y spill and restore needs /arch:SSE.

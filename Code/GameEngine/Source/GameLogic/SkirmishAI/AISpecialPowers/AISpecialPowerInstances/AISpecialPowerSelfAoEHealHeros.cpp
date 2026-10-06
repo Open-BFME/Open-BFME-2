@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // AISpecialPowerSelfAoEHealHeros.cpp (the unit retail's random-range assert
 // names, 0x00C76340).

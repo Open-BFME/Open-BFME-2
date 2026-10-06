@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?Rva003E52EBCheck@@YG_NPAVParameter@@PAUCondA003E52EB@@PAUCondB003E52EB@@@Z
 // retail 0x003E52EB 146B leaf free stdcall bool of 3x Parameter ret 0xc. Evidence:
 // rowed ScriptEngine::rva00357475 via g_Va009FE16C with (Parameter+0x10 AsciiString and NULL)

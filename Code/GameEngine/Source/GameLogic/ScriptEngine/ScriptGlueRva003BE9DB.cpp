@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003BE9DBSet@@YGXABVAsciiString@@M@Z @0x003BE9DB 53B (dump range 18).
 // Team float setter through the doSetTeamState argument idiom: copies the

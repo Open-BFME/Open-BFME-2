@@ -8,7 +8,7 @@
 // recompiled /Os). Only the placed body is defined here; the donor's other
 // definitions (addCounter and subCounter) are omitted.
 //
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 // The three script-action entry points that write a named flag or counter:
 //
 //   0x00345CA0  addCounter  71 bytes

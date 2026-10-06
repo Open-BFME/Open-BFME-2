@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva0023CFE4@GameLogic@@QAEXPAVXfer@@@Z @0x0023CFE4, 24B.
 // GameLogic forwarder: Version1 then tail to submodule at +0x184 slot 3 (xfer).

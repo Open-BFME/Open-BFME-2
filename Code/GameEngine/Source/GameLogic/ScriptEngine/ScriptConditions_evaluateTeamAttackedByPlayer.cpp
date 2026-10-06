@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateTeamAttackedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // @0x003E6784 127B. BFME1 donor ScriptConditionsTeamMembers.cpp
 // evaluateTeamAttackedByPlayer: player mask from the ScriptEngine helper

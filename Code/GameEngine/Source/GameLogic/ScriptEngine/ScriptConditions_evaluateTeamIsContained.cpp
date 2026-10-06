@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateTeamIsContained@ScriptConditions@@MAE_NPAVParameter@@_N@Z
 // @0x003E70AC 126B. Virtual: the ScriptConditions vtable (0x00835B38) holds
 // it in slot 16 next to evaluateSkirmishCommandButtonIsReady, the ZH

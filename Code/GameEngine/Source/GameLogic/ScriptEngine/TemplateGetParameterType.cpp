@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getParameterType@Template@@QBE?AW4ParameterType@Parameter@@H@Z, retail 0x003B27A3 (24 bytes).
 // Template::getParameterType shared by ActionTemplate and ConditionTemplate

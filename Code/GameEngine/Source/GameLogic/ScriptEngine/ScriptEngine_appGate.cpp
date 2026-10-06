@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ScriptEngine app-continuation gate at retail 0x00203B47 (106B).
 // Decoded from retail bytes (all verified):
 // - TheGameLogic->isGamePaused() row gate (matched 7B leaf at 0x23CD97).

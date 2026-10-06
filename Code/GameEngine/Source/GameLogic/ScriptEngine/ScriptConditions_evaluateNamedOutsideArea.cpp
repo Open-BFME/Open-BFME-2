@@ -2,7 +2,7 @@
 // Target evidence: template 14 is NAMED_OUTSIDE_AREA. Retail boundary
 // 0x003E66D5 calls the pinned inside-area handler at 0x003E5EFF and negates
 // its Boolean result. The BFME1 donor implements the same outside-area rule.
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 class Parameter;
 class ScriptConditions
 {

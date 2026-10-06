@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004E98DE@Rva004E98DE@@QAEEXZ, retail 0x004E98DE, 25 bytes.
 // thiscall reads this+8 as owner for rowed-adjacent pin rva002A8AB1 0x002A8AB1 via g_00DFEEF8 then tests +0x16c > 0. Caller 0x004E9DB8.
 struct Rva002A8AB1Record

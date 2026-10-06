@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateIsBuildingEmpty@ScriptConditions@@IAE_NPAVParameter@@@Z
 // @0x003E4079 54B. ZH donor: GeneralsMD ScriptConditions.cpp
 // evaluateIsBuildingEmpty. Target evidence: the evaluateCondition jump table

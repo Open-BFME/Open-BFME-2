@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /DNDEBUG /MD /GX
 //
 // AIUpgradeScienceBuilder.cpp (the unit its random-value asserts name; the
 // builder class itself is not established, hence the address name).

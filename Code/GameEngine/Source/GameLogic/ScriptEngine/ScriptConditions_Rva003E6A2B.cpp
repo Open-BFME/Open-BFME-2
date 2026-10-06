@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 // ?rva003E6A2B@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E6A2B 126B
 // Chain via 0x0028D2A2; neighbours Rva003E6835 and evaluateTeamOwnedByPlayer.
 // Evidence: ScriptConditions 2-Parameter bool via dispatcher 0x003EADEF; getUnitNamed 0x003588E7; flag +0x1C8 bit 8; player mask 0x00357B82 walked by getEachPlayerFromMask 0x002A7BC9; Object gate 0x002943B2 skipping shroud 0x0028D2A2 for Player +0x54 with FOGGED SHROUDED true.

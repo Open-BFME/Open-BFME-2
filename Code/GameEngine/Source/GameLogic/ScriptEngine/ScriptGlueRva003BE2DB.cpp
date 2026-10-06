@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Rva003BE2DBSet@@YGXPAVParameter@@PBVAsciiString@@H@Z @0x003BE2DB 176B
 // (dump range 18). Unit-plus-mask module gate: resolves the unit through

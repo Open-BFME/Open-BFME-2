@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 // ?xferListInt@@YAPAVXfer@@PAV1@PAV?$list@HV?$allocator@H@_STL@@@_STL@@@Z @0x00206861 194B free list<int> Xfer helper version {1,1} via slot 0x28 size via slot 0x2C/0x78 IsStoring via slot 0x08 saving walks ints via slot 0x78 loading checks empty via FormatText 0x0060C36E plus Throw 0x00629094 then reloads via slot 0x78 plus rowed push_back 0x0005548F.
 // Evidence: unlock lane every callee rowed or pinned; donor BFME1 ScriptEngine/XferListInt.cpp same skeleton; same shape as BFME2 XferListObjectID 0x0036ABAF 196B.

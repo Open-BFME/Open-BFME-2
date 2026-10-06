@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00357E14@Rva00357E14@@QAEXABUBfmeFloat4Record00469C61@@@Z, retail 0x00357E14 28B chain.
 // Evidence: rowed list<BfmeFloat4Record> insert 0x1DD86F, begin double-deref shape.

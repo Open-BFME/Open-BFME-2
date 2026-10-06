@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00203B08@Rva00203B08@@QAE_NXZ at retail 0x00203B08 (35B).
 // Evidence: [ecx+0x1A4D9] flag like ScriptEngine m_useLogicDebugFrame in
 // ScriptEngine_updateClientDebugFrame.cpp (same offset); dword at 0x00DFE158

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 class Rva00203B08
 {
 	char m_pad[0x1A4D9];

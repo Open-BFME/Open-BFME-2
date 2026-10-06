@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateSkirmishPlayerIsFaction@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // @0x003E9E62 78B. ZH donor: GeneralsMD ScriptConditions.cpp
 // evaluateSkirmishPlayerIsFaction. Target evidence: the evaluateCondition jump

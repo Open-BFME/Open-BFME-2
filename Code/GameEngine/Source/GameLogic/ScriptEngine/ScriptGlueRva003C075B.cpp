@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // ?Rva003C075BDo@@YGXPBVAsciiString@@0@Z @0x003C075B 102B (dump range 18).
 // Team command-button dispatch: team-name copy, getTeamNamed, command

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ScriptConditions constructor, retail 0x003E5513 (18 bytes). ScriptEngine::init
 // creates it with operator new(0xC) and stores it in TheScriptConditions. The

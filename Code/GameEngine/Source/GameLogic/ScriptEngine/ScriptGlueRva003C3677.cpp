@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // ?Rva003C3677Do@@YGXPAVParameter@@@Z @0x003C3677 73B (dump range 18).
 // Object flag dispatch: string copy from param+0x10 (explicit arithmetic),

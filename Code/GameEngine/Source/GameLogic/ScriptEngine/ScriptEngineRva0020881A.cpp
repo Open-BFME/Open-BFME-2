@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs
+// cl: /Ireference/shims/bfme2_ascii /EHs
 // stlport
 // ?rva0020881A@ScriptEngine@@QAEPAXVAsciiString@@@Z @0x0020881A 134B
 // Unlock sibling of 0x002086C5 via resolveName plus Rva0002C4FD plus find

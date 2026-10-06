@@ -1,5 +1,5 @@
 // ?rva0033BA46@ThingTemplate@@QAEPBVImage@@XZ
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ThingTemplate portrait-image resolver, retail 0x0033BA46, 190 bytes.
 // BFME1 donor GameEngine/Source/Common/Thing/ThingTemplate.cpp resolveNames

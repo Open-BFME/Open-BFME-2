@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00204136@Rva00204136@@QAEXPAX@Z at retail 0x00204136 (45B).
 // Frees a malloc'd node tree with links at +8 (next) and +0xC (other) via rowed _free;

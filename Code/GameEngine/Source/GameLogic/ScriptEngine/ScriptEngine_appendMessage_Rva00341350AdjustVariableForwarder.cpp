@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 //
 // ?Rva00341350AdjustVariableForwarder@@YGXABVAsciiString@@HD@Z
 // retail 0x00206559, 32 bytes. Dedicated TU ported from the Open-BFME-1

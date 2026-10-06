@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00203B2B@Rva00203B2BHost@@QAEXXZ at retail 0x00203B2B (28B).
 // Opaque-host App-module tail-jump sibling of Rva00203B47Host::rva00203B47:

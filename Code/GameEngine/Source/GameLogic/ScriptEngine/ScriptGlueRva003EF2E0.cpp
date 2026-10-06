@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003EF2E0@Rva003EF2E0@@QAEXXZ @0x003EF2E0 31B (dump range 18).
 // Clear-plus-register: zeroes +0x44, points +0x48 at the +0x4C element,

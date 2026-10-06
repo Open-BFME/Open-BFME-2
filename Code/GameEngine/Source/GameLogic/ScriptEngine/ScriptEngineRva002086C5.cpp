@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs
+// cl: /Ireference/shims/bfme2_ascii /EHs
 // stlport
 // ?rva002086C5@ScriptEngine@@QAEPAXVAsciiString@@@Z @0x002086C5 134B
 // Unlock of 5 free functions (2 ready): findTeam-like lookup via resolveName plus Rva0002C4FD plus find.

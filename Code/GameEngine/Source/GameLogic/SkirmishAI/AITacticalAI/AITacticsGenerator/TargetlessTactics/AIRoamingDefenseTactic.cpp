@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "AIRoamingDefenseTactic" skirmish-AI tactic (vtable 0x008720E8; ctor
 // 0x005AABC6 in Rva004ECECDTacticCtors.cpp, dtor 0x005AAB91 and ??_G, slot 9

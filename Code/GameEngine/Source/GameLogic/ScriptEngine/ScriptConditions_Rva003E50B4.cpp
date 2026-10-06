@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003E50B4Check@@YG_NPAVParameter@@0@Z
 // retail 0x003E50B4 81B leaf free stdcall bool of 2x Parameter ret 8. Evidence:
 // rowed ScriptEngine::getUnitNamed via g_Va009FE16C plus TerrainLogic slot 0x88

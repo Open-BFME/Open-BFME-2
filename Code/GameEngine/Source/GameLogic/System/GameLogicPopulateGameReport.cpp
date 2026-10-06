@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // GameLogic::bfmePopulateGameReport, retail 0x00247378, 1463 bytes.
 // Derived from GameLogic.cpp, Copyright 2025 Electronic Arts Inc., GPL-3.0-or-later.

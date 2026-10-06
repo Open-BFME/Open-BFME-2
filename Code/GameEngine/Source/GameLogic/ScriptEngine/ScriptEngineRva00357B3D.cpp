@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00357B3D@ScriptEngine@@QAE_NHW4ObjectID@@_N@Z, retail 0x00357B3D 69B leaf.
 // Evidence: next to ScriptEngine 0x00357AF8 same flags; playerVectors[20] at

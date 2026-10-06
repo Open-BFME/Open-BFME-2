@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ScriptConditions::rva003EA764, retail 0x003EA764, 280 bytes (caller 0x003EC55A in the condition
 // dispatcher 0x003EA9AF). A BFME2 script condition: the number of objects

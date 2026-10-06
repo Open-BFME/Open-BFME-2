@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00357A03@ScriptEngine@@QAEXHW4ScienceType@@@Z, retail 0x00357A03, 51 bytes.
 // Removes one ScienceType from ScriptEngine per-player vector at +0x1A3A8[index].

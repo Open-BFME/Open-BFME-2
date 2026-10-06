@@ -1,7 +1,7 @@
 // ?Rva003E514FCheck@@YG_NPAVParameter@@PAUCondA003E514F@@PAUCondB003E514F@@@Z
 // retail 0x003E514F, 138 bytes.
 // Evidence: leaf via rowed ScriptEngine::getUnitNamed plus ThePlayerList not needed; g_Va009FE16C ScriptEngine global; Object +0x264 ptr plus +0x24 value; op switch 0..5 to setl/setle/sete/setge/setg/setne.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 class Parameter
 {

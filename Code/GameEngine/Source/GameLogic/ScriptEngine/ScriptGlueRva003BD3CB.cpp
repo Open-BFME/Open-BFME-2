@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003BD3CB@@YGXPAXMH@Z @0x003BD3CB 58B (dump range 18).
 // Frameless stdcall triple: queries TheTerrainLogic slot 0x88 with the

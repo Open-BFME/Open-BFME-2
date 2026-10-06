@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0035721A@ScriptEngine@@QAE_NHABVAsciiString@@_NH@Z, retail 0x0035721A 98B leaf.
 // Evidence: same shape as ScriptEngine 0x003571B8 (bounds 20 CRC 0x3ECA13

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // AISpellBookShroudReveal.cpp (the unit retail's random-range asserts name,
 // 0x00C75EF0).

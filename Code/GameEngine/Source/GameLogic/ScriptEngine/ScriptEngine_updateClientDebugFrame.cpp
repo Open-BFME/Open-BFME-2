@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ScriptEngine client-debug-frame updater at retail 0x00204806 (55B).
 // BFME1 ScriptEngineDebugFrame.cpp _bfme_updateClientDebugFrame port: the
 // middle (debug-window inputs + SetFrameNumber proc call) is factored into

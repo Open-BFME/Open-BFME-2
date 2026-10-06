@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 // AISPecialPower.cpp -- named by retail's own __FILE__ literal at 0x00C70938,
 // pushed with line 94 into GetGameLogicRandomValueReal by the body below.
 //

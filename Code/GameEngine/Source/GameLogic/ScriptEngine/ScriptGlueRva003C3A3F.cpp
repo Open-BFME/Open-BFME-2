@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003C3A3FSet@@YGXABVAsciiString@@H@Z @0x003C3A3F 58B (dump range 18).
 // Trigger-area int setter: copies the name through the rowed StringBase

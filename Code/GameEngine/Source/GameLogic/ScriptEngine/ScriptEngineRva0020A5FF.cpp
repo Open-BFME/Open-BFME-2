@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs
+// cl: /Ireference/shims/bfme2_ascii /EHs
 // stlport
 //
 // ?rva0020A5FF@ScriptEngine@@QAEXPAVObject@@ABVAsciiString@@@Z @0x0020A5FF 374B.

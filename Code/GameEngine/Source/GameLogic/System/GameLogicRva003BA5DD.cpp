@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva003BA5DD@GameLogic@@QAEXH@Z @0x003BA5DD 21B: GameLogic clamp-min-1 setter at +0x118.
 // Evidence: mov eax,[esp+4] cmp eax,1 jge store xor eax,eax inc eax store at

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?WriteScriptSubRecord_Rva003B24F2@@YAXAAVDataChunkOutput@@PBUScriptSubRecord@@@Z,
 // retail 0x003B24F2, 66 bytes. Dedicated TU.

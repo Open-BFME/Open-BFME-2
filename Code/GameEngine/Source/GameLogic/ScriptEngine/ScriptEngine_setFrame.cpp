@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ScriptEngine frame setter at retail 0x00204094 (83B).
 // Decoded from retail bytes (all verified):
 // - Calls rva00203C21 row (SetTheSidesList gate, 89B) then GetProcAddress

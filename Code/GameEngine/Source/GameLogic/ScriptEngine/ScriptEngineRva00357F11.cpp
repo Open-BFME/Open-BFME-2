@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00357F11@ScriptEngine@@QAEXHABVAsciiString@@H@Z @0x00357F11 50B
 // ScriptEngine per-player timer push: m_lists1A358[index].push_back({crc,val}).

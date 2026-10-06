@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?equalTag_Rva003B31C7@@YA_NPBX0H@Z,
 // retail 0x003B31C7, 24 bytes. Dedicated TU.

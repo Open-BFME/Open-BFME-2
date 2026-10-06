@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003E7FD5Get@@YG_NPAVParameter@@@Z retail 0x003E7FD5 104 bytes.
 // Evidence: leaf lane free function ret 4 with 1 Parameter arg; caller 0x003EBDD7; prev/next same cl; calls getQualifiedTriggerAreaByName pin plus TacticalView slot 0x118 plus pointInTrigger row.
 #include "ascii_string.h"

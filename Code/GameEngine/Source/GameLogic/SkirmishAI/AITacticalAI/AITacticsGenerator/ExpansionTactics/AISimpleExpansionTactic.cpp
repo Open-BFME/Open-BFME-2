@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "SimpleExpansion" skirmish-AI tactic (vtable 0x00871FF4; ctor 0x005AA9DB
 // in Rva004ECECDTacticCtors.cpp, dtor 0x005AA860 and ??_G, slot 9 in

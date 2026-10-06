@@ -9,7 +9,7 @@
 // off retail's call sites (reverse/symbols.csv). Only the placed bodies are
 // carried; the donor's other definitions are omitted.
 // partial score=0.93 date=2026-09-02
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 class Gen_0035B8A0
 {

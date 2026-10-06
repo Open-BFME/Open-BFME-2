@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Rva003BD19CSet@@YGXPAXPAVParameter@@@Z @0x003BD19C 212B (dump range 18).
 // Unit-named-plus-player-mask loop: resolves the unit through rowed

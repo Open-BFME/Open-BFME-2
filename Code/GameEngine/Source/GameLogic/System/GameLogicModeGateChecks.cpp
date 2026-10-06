@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 //
 // GameLogic game-mode gate leaf called by BFMEDesyncCheck::writeReportIfMismatched:
 // it rejects modes 9/4/7. Retail keeps the cold return in a tail block after

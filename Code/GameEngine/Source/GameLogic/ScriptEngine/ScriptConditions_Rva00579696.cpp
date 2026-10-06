@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getStatus@Parameter@@QBE?AV?$BitFlags@$0CN@@@XZ
 // retail 0x00579696, 18 bytes. Dedicated TU ported from the Open-BFME-1 donor

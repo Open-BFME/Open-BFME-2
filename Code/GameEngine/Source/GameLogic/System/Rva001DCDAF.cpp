@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva001DCDAF@Rva001DCDAF@@QAE_NPBUArg001DCDAF@@PBUVec001DCDAF@@1@Z @0x001DCDAF 143B
 // Unlock leaf: float max/update vs vector store. Evidence: caller 0x001DD468 (stride 0x30/0x34 arrays),
 // BfmeZeroRange at VA 0x00BBAEAC, unsigned fild+fadd 2^32 pattern via g_00BC26EC.

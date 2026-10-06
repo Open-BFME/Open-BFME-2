@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003C3B4A@Rva003BE5C9@@QAEXXZ @0x003C3B4A 51B (dump range 18).
 // Sibling member of rowed 0x003BE5C9 on the same this (no ecx reload for

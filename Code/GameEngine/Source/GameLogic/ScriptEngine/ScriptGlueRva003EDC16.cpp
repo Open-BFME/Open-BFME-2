@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003EDC16@Rva003EDC16@@QAEXXZ @0x003EDC16 27B (dump range 18).
 // Pointer-array walk: calls the pinned 0x00569AA8 member on each element

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptConditions::rva003E4AE4, retail 0x003E4AE4 (70B; dispatcher call
 // 0x003EBD27): true when any player of the BFME2 player mask answers the

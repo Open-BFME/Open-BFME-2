@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003E5D95Check@@YGEPAVParameter@@PAUCond003E5D95@@@Z
 // @0x003E5D95 56B. Leaf via rowed ScriptEngine::getUnitNamed 0x003588E7
 // via g_Va009FE16C; Object+4 inner +0x118 bit27 vs second param +8 int.

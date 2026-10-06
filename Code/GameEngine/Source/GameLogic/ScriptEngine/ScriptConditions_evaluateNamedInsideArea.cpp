@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ScriptConditions::evaluateNamedInsideArea, target 0x003E5EFF (116 bytes).
 // Identity: target retrieves the named unit and trigger, converts the unit's
 // three position coordinates to ints, then calls the trigger point test.

@@ -1,7 +1,7 @@
 // ?Rva003E54B4Check@@YG_NPAVParameter@@@Z
 // retail 0x003E54B4, 67 bytes.
 // Evidence: leaf via pin-only ScriptEngine::rva00357B82 plus rowed PlayerList::getEachPlayerFromMask; ThePlayerList 0x009FEEE8 plus g_Va009FE16C ScriptEngine global; Player +0x750 == 2.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 class Parameter
 {

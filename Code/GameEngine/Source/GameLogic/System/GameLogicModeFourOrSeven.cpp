@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 // ?rva00085124@GameLogic@@QAE_NXZ @0x85124 (23B):
 // GameLogic mode predicate called by RecorderClass::isMultiplayer.

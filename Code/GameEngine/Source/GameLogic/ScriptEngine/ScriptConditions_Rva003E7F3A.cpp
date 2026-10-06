@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003E7F3AGet@@YG_NPAVParameter@@0@Z retail 0x003E7F3A 155 bytes.
 // Evidence: leaf free stdcall ret 8 two Parameter args; caller 0x003EBEC7; prev/next same cl;
 // calls rowed getUnitNamed 0x003588E7 via g_Va009FE16C plus StringBase copy 0x365F0 plus releaseBuffer 0x36410 plus IAT strcmpi; isEmpty plus str plus strcmpi==0 shape.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // ?Rva003C00CEDo@@YGXPBVAsciiString@@PAX@Z @0x003C00CE 110B (dump range 18).
 // Team-centre dispatch: team-name copy, getTeamNamed, rowed Team kind check

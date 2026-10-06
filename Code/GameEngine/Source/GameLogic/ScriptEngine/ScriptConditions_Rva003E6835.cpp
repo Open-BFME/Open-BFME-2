@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ScriptConditions::rva003E6835, retail 0x003E6835, 502 bytes (caller
 // 0x003EAEAA in the condition dispatcher 0x003EA9AF). The team twin of the

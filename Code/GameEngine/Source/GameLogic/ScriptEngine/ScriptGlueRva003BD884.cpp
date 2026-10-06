@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Rva003BD884Set@@YGXPAVParameter@@PBVAsciiString@@@Z @0x003BD884 129B
 // (dump range 18). Unit-plus-mask team wiring: resolves the unit through

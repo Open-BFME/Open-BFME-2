@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 //
 // ?rva003B44AB@Rva003B44AB@@QAEPAV1@PBV1@@Z retail 0x003B44AB 28B.
 // Clear +0x00 then copy Rva003529B0 member at +0x04 from other+0x04.

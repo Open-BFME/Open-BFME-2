@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // DllHandle::LoadFailure, retail 0x00203EA8 (18 bytes).
 // The thrown object of DllHandle::DllHandle on LoadLibrary failure; throw

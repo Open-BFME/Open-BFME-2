@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 // ?Rva005EE317@@YGXPAVCoord3D@@@Z @ 0x005EE317 125B
 // Random XY direction in AISPecialPowerTargetAoE.cpp (__FILE__ at 0x00878708
 // line 150-151): GetGameLogicRandomValueReal(-1.0f at 0x007BB9AC, 1.0f) twice

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?getObjectCount@GameLogic@@QAEIXZ @0x0023CFCE, 22B.
 // GameLogic::getObjectCount. Counts world objects by walking the object list:

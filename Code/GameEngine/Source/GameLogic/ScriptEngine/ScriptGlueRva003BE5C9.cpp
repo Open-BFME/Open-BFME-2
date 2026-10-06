@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 //
 // ?rva003BE5C9@Rva003BE5C9@@QAEXXZ @0x003BE5C9 258B (dump range 18).
 // Victory-screen emit with an EH frame: clears its +0x0C byte, runs the

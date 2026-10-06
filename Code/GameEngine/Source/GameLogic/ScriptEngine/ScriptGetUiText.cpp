@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Script::getUiText @0x003B6AB2..0x003B6C6F (445 bytes).
 // Donor: ZH Scripts.cpp via BFME1 6583b3c1ff21db4a561285717028fdafc780b7db,
 // Script_getUiText_Thunk.cpp. Clause heads +30/+34/+38, next links +3C,

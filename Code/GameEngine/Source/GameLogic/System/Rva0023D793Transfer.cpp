@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0023D793Transfer@@YGXHHH@Z, retail 0x0023D793, 241 bytes.
 // Player index pair transfer with Money withdraw/deposit and tracker adds.
 // Evidence: leaf lane; callees Rva0023D339Get getNthPlayer Rva002AA22AByteField MoneyRva003B0D7C Rva0039B795; caller 0x0037AB1B.

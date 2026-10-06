@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // ?didUnitExist@ScriptEngine@@QAE_NABVAsciiString@@@Z, retail 0x0035743F, 54 bytes.
 // Donor: BFME1 ScriptEngine::didUnitExist (reference/open-bfme-1/Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_didUnitExist.cpp).

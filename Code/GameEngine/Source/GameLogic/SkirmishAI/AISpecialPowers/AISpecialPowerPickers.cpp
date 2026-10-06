@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /MD /GX
 //
 // AoE special-power picker slots (the picker class whose 0x005EE816 and
 // 0x005EE8DD live in AISPecialPowerTargetAoE.cpp; retail file unknown).

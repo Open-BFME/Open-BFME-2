@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // Zero Hour's ScriptConditions::evaluateScienceAcquired (retail 0x003E4403,
 // 108B) and evaluateCanPurchaseScience (0x003E446F, 98B), next after the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00356FAF@ScriptEngine@@QAEXH@Z @0x00356FAF 45B via unlock callee evidence
 // Evidence: calls rowed ScriptEngine::rva00203FA8 0x00203FA8; prev ScriptEngine TU; clears +0x1A114/+0x1A11C.
 class ScriptEngine

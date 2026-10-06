@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00357A36@ScriptEngine@@QAE_NABVAsciiString@@_N@Z, retail 0x00357A36 97B unlock.
 // Evidence: CRC Rva003ECA13Get 0x3ECA13, std::find ObjectID 0x29B694,

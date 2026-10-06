@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GameLogic::lastHeardFrom, retail 0x0023CF1C, 35 bytes.
 // Dedicated TU so GameLogicProcessProgress.cpp cannot see this body.

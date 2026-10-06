@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1CrateTemplate@@MAE@XZ, retail 0x0035CCCA (89B), and
 // ??_GCrateTemplate@@MAEPAXI@Z, retail 0x0035CF10 (28B): CrateTemplate's

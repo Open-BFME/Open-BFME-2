@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 //
 // ScriptEngine::init, retail 0x00205AFD (406 bytes, including the catch(...)
 // block Ghidra splits off at 0x00205BEF). Vtable slot 1 of the table at

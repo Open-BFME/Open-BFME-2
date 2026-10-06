@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva004ECE61@Rva004ECE61@@QAE_NPAXH@Z @ 0x004ECE61, 50 bytes.
 // Reads [this+0x20]->+4, random 3..5 into [arg1+0x2d4], always returns true.
 // Evidence: 4 callers forwarding (this, arg1, arg2) e.g. 0x005AC924; rowed callee

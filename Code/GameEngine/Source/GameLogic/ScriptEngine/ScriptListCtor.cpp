@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 //
 // ScriptList constructor at 0x003B7720 (37B) plus clear at 0x003B7812
 // (36B, banked near-miss only -- see below).

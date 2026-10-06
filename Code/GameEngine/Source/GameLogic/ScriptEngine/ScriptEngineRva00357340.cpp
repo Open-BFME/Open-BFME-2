@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00357340@ScriptEngine@@QAEXPAXPAVCoord3D@@@Z, retail 0x00357340 132B unlock.
 // Evidence: list at +0x1A498 from ScriptEngine_dtor; StringBase isEmpty rowed

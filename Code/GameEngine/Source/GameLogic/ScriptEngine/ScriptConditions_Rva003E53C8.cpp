@@ -1,7 +1,7 @@
 // ?Rva003E53C8Check@@YG_NPAUCondA003E53C8@@PAUCondB003E53C8@@@Z
 // retail 0x003E53C8, 114 bytes.
 // Evidence: chain lane via rowed PlayerList::rva002A7C0B 0x002A7C0B; ThePlayerList 0x009FEEE8; two condition structs with int at +8; switch 0..5 to setl/setle/sete/setge/setg/setne.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 class PlayerList
 {

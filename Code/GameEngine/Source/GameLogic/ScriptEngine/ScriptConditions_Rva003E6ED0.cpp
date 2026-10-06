@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ScriptConditions::rva003E6ED0, retail 0x003E6ED0, 378 bytes (caller
 // 0x003EB1F0 in the condition dispatcher 0x003EA9AF). The castle form of

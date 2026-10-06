@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateTeamHasObjectStatus@ScriptConditions@@IAE_NPAVParameter@@0_N@Z
 // @0x003E712A 114B. BFME1 donor ScriptConditionsTeamMembers.cpp
 // evaluateTeamHasObjectStatus, member walk through the pinned

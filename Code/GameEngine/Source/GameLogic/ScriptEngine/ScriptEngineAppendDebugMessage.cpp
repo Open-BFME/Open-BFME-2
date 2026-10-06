@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?AppendDebugMessage@ScriptEngine@@QAEXABVAsciiString@@_N@Z @0x00205263 171B
 // Retail ScriptEngine debug-window append: disabled/DLL guards, AppendMessage
 // proc via GetProcAddress, frame from TheGameLogic+0x40 or TheRva00DFEF10+0xFC

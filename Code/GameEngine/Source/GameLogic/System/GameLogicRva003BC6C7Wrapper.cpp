@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva003BC6C7Set@@YGXH@Z @0x003BC6C7 18B: free wrapper forwarding to GameLogic::rva003BA5DD.
 // Evidence: mov ecx,[0x00DFE78C] test ecx je ret jmp 0x003BA5DD ret 4; chain

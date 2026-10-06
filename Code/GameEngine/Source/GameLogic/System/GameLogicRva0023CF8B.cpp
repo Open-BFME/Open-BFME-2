@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0023CF8B@GameLogic@@QAEXXZ, RVA 0x0023CF8B, 67 bytes.
 // GameLogic method filling timeout array at +0x130 with timeGetTime per

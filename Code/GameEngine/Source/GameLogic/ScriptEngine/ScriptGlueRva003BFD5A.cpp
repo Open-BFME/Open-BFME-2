@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003BFD5ASet@@YGXABVAsciiString@@@Z @0x003BFD5A 46B (dump range 18).
 // Team nullary setter through the doSetTeamState argument idiom: copies

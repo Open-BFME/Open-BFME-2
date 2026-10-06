@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva004E98B4Get@@YGMH@Z @0x004E98B4 42B free stdcall float Get(int unused) wraps rowed GetGameLogicRandomValueReal 0x00234092 with globals file-line 180 caller 0x004E9DA8
 float __cdecl GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 extern float g_00C62800;

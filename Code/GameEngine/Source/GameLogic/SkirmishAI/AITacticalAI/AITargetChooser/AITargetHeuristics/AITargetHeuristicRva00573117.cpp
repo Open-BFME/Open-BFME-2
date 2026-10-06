@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // The target heuristic whose class keeps its address-derived name
 // Rva00573117 (ctor 0x005730FF, dtor 0x00573117, vftable 0x00C6E0B8: slot 0

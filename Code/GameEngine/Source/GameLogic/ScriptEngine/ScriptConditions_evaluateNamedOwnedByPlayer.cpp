@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateNamedOwnedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // @0x003E40D2 96B. ZH donor: GeneralsMD ScriptConditions.cpp
 // evaluateNamedOwnedByPlayer. Target evidence: the evaluateCondition jump

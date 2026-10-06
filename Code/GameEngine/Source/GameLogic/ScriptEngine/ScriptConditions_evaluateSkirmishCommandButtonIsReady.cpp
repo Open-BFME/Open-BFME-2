@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateSkirmishCommandButtonIsReady@ScriptConditions@@MAE_NPAVParameter@@00_N@Z
 // @0x003E73E7 183B. BFME1 donor ScriptConditionsTeamMembers.cpp; BFME2
 // compares the command type with 0x17 (BFME1 0x16). Callees pinned from this

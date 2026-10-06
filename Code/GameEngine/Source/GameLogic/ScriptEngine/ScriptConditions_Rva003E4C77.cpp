@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003E4C77Get@@YAHXZ
 // retail 0x003E4C77 22B leaf free cdecl int of 0 params ret from 0x003EC0A7. Evidence:
 // TheAudio global plus vslot 0x9c slot 39 taking 0 returning int then logical not

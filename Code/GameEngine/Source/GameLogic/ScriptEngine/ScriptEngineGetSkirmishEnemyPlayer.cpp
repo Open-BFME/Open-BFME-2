@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getSkirmishEnemyPlayer@ScriptEngine@@QAEPAVPlayer@@XZ, retail 0x00356F6E
 // (65B). Identity: Zero Hour's getPlayerFromAsciiString answers

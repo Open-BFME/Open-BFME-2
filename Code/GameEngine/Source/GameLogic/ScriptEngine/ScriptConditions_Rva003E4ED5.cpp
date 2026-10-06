@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Three stdcall script-condition evaluators beside the rowed 0x003E4EA5,
 // each taking the condition's Parameter (its Real at +0xC, as Zero Hour's
 // Parameter lays it out) and comparing a float getter of TheTacticalView

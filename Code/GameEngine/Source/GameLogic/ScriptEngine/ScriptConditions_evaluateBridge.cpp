@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ZH donor: GeneralsMD ScriptConditions.cpp evaluateBridgeBroken and
 // evaluateBridgeRepaired. Target evidence: the evaluateCondition jump table
 // (0x007EC5C0) sends cases 55 and 54 to 0x003E3D95 and 0x003E3DC6, which

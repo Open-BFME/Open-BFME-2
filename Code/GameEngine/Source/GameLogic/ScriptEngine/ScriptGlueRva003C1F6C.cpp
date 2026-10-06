@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // ?Rva003C1F6CDo@@YGXPBVAsciiString@@H@Z @0x003C1F6C 65B (dump range 18).
 // Team player forward: team-name copy, getTeamNamed, rowed Team

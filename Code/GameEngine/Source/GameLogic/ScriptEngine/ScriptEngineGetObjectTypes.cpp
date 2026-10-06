@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?getObjectTypes@ScriptEngine@@QAEPAVObjectTypes@@ABVAsciiString@@@Z @0x00357651 60B
 // ScriptEngine::getObjectTypes: search m_allObjectTypeLists (+0x1A4C8 vector) by list name.
 // Donor: ZH ScriptEngine::getObjectTypes (ScriptEngine.cpp:5860) loop with null skip and

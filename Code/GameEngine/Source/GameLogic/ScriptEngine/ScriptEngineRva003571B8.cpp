@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva003571B8@ScriptEngine@@QAE_NHABVAsciiString@@_NH@Z, retail 0x003571B8 98B unlock.
 // Evidence: bounds 20 plus CRC 0x3ECA13 plus per-player lists at +0x1A268 from dtor,

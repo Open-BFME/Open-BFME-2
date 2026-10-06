@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ??1RankInfo@@UAE@XZ, retail 0x00200236, 74 bytes. RankInfo dtor over the
 // same layout as the rowed ctor 0x0020010B in RankInfoCtor.cpp (Overridable

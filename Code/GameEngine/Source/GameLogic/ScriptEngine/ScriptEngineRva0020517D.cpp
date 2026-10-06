@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ?rva0020517D@ScriptEngine@@QAEXPAVObject@@@Z @0x0020517D 58B: remove sequential scripts for an object.
 // Evidence: caller 0x003BC259 passes getUnitNamed Object*; loops m_sequentialScripts +0x10..+0x14 calling rowed cleanupSequentialScript 0x00204733 with (it,1,1) when slot empty or +8 matches Object+0x74; same shape as siblings 0x00205140 and 0x002051B7.
 class Object;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateTeamInsideAreaPartially@ScriptConditions@@IAE_NPAVParameter@@00@Z
 // @0x003E5E7D 130B. ZH/BFME1 donor body (some inside or all inside), same
 // shape as the matched evaluateTeamInsideAreaEntirely sibling; Team methods

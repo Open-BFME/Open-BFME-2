@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Sides-list setter gate at retail 0x00203C21 (89B).
 // Decoded from retail bytes (all verified, no E8 calls):
 // - App module at [0xDFE158]; SetTheSidesList via kernel32!GetProcAddress

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003E41CBGet@@YG_NPAVParameter@@@Z
 // retail 0x003E41CB 24B leaf free stdcall bool of 1x Parameter ret 4 from 0x003EB3ED. Evidence:
 // Parameter string at +0x10 forwarded with true to rowed ScriptEngine::rva00357A97

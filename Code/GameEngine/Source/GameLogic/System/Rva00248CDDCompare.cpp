@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // Retail RVA 0x00248CDD, 30 bytes.
 // ?rva00248CDD@Rva00248CDD@@QBE_NABV1@@Z
 // Honest address name: __thiscall 6-byte key comparison (dword at +0, word at

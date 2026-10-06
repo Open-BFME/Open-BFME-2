@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?Rva003E5017Check@@YG_NPAVParameter@@00@Z
 // retail 0x003E5017 157B leaf free stdcall bool of 3x Parameter ret 0xc. Evidence:
 // rowed Rva002D06CA::rva002D06CA via g_009FF000 with (Parameter+0x10 AsciiString)

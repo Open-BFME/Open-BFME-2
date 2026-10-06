@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptConditions::rva003E586B, retail 0x003E586B (133B; dispatcher call
 // 0x003EAF8D): the shape of Zero Hour's

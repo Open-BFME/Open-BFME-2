@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /MD /GX
 //
 // ?rva003E5CB1@ScriptConditions@@QAE_NPAVParameter@@0@Z, retail 0x003E5CB1,
 // 228 bytes (caller 0x003EB385 in the condition dispatcher 0x003EA9AF). A

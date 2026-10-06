@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00358853@ScriptEngine@@QAEPAUBfmeStringRecord00204A30@@ABVAsciiString@@0M0H@Z @0x00358853 148B.
 // ScriptEngine get-or-create helper over the vector<BfmeStringRecord00204A30>
 // at +0x1A49C: CRCs the name via rowed Rva003ECA13Get, scans the 0x14-stride

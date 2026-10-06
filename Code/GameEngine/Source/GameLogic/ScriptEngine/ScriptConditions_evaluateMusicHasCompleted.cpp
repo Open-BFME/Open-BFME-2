@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateMusicHasCompleted@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // @0x003E7AFC 90B. ZH donor ScriptConditions.cpp evaluateMusicHasCompleted:
 // copy the track name, ask TheAudio (global 0x00DFE6E8) through vslot +0x80.

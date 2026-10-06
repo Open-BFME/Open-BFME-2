@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?bindObjectAndDrawable@GameLogic@@QAEXPAVObject@@PAVDrawable@@@Z retail
 // 0x0023CD4A, 29 bytes: the Zero Hour GameLogic.cpp body, which a /O1 build

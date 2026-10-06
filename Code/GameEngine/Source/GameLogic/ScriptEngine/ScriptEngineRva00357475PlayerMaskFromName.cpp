@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00357475@ScriptEngine@@QAEHABVAsciiString@@PA_N@Z, retail 0x00357475
 // (476B). Player-name to player-mask resolution behind the Parameter

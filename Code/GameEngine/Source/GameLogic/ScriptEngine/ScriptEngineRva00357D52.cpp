@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // ?rva00357D52@ScriptEngine@@QAEXABVAsciiString@@@Z, retail 0x00357D52, 52 bytes.
 // Removes the BfmeStringRecord00204A30 entry whose word0 equals the CRC of the name.

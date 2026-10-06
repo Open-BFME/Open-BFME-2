@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 // ??1BfmeNodeZ@@QAE@XZ @0x003B3F5E (8B): add ecx,4 then tail-jmp the pinned
 // ??1Script@@MAE@XZ at 0x003B35B1. Non-virtual public dtor over a Script
 // member at +0x04 with the list link at +0x00. Evidence: callers drain node

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?WriteScriptListDataChunk@ScriptList@@QAEXAAVDataChunkOutput@@@Z,
 // retail 0x003B73C5, 49 bytes, plus

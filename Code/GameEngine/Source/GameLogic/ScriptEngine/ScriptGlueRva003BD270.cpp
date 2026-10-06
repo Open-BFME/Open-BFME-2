@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two small stdcall free functions from the 0x003BD2xx ScriptEngine/GameLogic
 // glue area (dump range 18).

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0058AF47Check@@YG_NPAVRva002A9BF2@@@Z @0x0058AF47 108B, caller 0x004B332D.
 // Free stdcall chance test: indexes a 32-byte entry table at +0x888 of the
 // g_00DFEEF8 owner by the rowed 0x002A9BF2 difficulty getter (shl eax,5,

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003BFAC3Set@@YGXABVAsciiString@@H@Z @0x003BFAC3 49B (dump range 18).
 // Team int setter through the doSetTeamState argument idiom: copies the

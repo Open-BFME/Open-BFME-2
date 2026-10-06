@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?Rva00248CBF@BfmeNetAddress@@QBE_NPBU1@@Z, retail 0x00248CBF, 30 bytes.
 // Const 6-byte key equality (dword +0 word +4), 1 if equal else 0.

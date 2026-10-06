@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ScriptConditions::rva003E56C5, retail 0x003E56C5, 422 bytes (caller
 // 0x003EAE77 in the condition dispatcher 0x003EA9AF). Zero Hour's

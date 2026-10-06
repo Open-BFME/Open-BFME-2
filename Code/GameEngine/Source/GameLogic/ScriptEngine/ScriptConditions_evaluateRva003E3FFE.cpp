@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003E3FFECheck@@YG_NPAVParameter@@0@Z @0x003E3FFE (123B): unit-player ownership check via +0x250 slot 0x144 mask
 // Evidence: neighbours ScriptConditions_evaluateNamedUnit and evaluateIsBuildingEmpty same flags
 // rowed getUnitNamed 0x003588E7 pin rva00357B82 rowed getPlayerFromMask getEachPlayerFromMask

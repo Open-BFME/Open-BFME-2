@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // ?Rva003C21E5Do@@YGXPBVAsciiString@@HPBV0@@Z @0x003C21E5 123B (dump range 18).
 // Two-team wiring: team-name copy (true flag), getTeamNamed, second

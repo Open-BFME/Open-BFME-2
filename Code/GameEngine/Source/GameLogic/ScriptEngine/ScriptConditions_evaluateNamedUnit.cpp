@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ZH donor: GeneralsMD ScriptConditions.cpp evaluateNamedUnitDestroyed,
 // evaluateNamedUnitExists, evaluateNamedCreated, evaluateNamedUnitDying and
 // evaluateNamedUnitTotallyDead. Target evidence: the evaluateCondition jump

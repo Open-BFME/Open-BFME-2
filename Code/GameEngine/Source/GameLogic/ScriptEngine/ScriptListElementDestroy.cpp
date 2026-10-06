@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Element destroy loops at 0x003B678A and 0x003B713E (41B each): they
 // drain the 0x14-byte string-record elements in [start,finish),

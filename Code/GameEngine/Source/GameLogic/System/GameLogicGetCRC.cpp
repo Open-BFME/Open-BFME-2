@@ -1,4 +1,4 @@
-// cl: /Os /DNDEBUG /MD /EHsc /G7 -Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc -Ireference/shims/moduledata
 //
 // ?getCRC@GameLogic@@QAEIH@Z @0x0023CB2C 542B
 // Evidence: LINK BONUS 1 file 51B; donor BFME1 GameLogicCRC.cpp getCRC plus BFME2 BFMECRCWriter ctor 0x00225A2D; callers 0x0024583A 0x00245861 0x002CEA44 0x002CEA8D; neighbours 0x0023CAD2 0x0023CD97 same class GameLogic first at +0xAC.

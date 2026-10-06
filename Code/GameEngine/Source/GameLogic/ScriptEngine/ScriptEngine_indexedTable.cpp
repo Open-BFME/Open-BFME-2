@@ -1,4 +1,4 @@
-// cl: /O1 /G7
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Indexed accessors over the 20B-stride table at this+0xC, decoded from
 // retail (ScriptEngine cluster at 0x0020487E/0x0020488E).
 // - 0x0020487E (16B): imul idx*0x14, return the leading dword of the slot.

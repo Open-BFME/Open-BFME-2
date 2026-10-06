@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 // stlport
 //
 // ?friend_parseRankDefinition@RankInfoStore@@SAXPAVINI@@@Z,

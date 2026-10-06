@@ -1,4 +1,4 @@
-// cl: /O1 /MD /GX-
+// cl: /MD /GX-
 //
 // Node teardown at 0x003B448C (15B): restores the 0x00BBB554 base
 // vtable word at +0x04, then tail-jumps the rowed clear at 0x003B4071

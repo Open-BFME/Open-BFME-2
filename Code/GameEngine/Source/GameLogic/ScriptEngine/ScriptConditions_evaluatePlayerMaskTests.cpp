@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ZH donor: GeneralsMD ScriptConditions.cpp evaluateSciencePurchasePoints and
 // evaluateSkirmishStartPosition. Target evidence: the evaluateCondition jump
 // table (0x007EC5C0) sends case 101 to 0x003E44D1 and case 107 to 0x003E4B2A,

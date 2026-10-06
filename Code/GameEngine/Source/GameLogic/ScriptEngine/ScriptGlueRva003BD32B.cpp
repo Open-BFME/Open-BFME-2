@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Two of a four-strong homogeneous family at 0x003BD32B..0x003BD391
 // (34B each, dump range 18). Each resolves the 0x00E031E8 global's +0x10

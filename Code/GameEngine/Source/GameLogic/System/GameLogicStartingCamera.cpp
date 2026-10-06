@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?formatPlayerStartWaypointName@GameLogic@@QAEXPAVAsciiString@@@Z @0x24822B (77B):
 // GameLogic helper that fills the starting-camera waypoint name for the local
 // human slot. Retail first resolves the local slot through

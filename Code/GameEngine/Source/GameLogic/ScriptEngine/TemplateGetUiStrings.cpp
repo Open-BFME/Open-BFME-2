@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?getUiStrings@Template@@QBEHQAVAsciiString@@@Z, retail 0x003B276B, 56 bytes.
 // Template::getUiStrings copies m_numUiStrings AsciiStrings from +0x18 to the

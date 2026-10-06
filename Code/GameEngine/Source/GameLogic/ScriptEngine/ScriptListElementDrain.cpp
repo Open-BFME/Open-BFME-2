@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Element drain at 0x003B675B (47B): the twin of the rowed
 // clearRva00359330Nodes at 0x003B578E, draining the node chain off a

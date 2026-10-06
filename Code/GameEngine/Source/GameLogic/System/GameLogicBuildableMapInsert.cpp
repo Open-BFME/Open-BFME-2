@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 // stlport
 //
 // ?rva0002CA72@Rva0002CA72@@QAEPAUOut0002CA72@@PAU2@PBUPair0002CA72@@@Z @0x0002CA72 124B

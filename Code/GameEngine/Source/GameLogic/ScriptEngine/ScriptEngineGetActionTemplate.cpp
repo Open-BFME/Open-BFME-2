@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?getActionTemplate@ScriptEngine@@QAEPBVActionTemplate@@H@Z,
 // retail 0x00203926, 27 bytes. Dedicated TU.

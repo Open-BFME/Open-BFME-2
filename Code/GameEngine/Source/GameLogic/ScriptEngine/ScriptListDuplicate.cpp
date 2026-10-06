@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ?duplicate@ScriptList@@QBEPAV1@XZ, retail 0x003B8945, 55 bytes.
 // ScriptList deep-copy factory (donor BFME1 Scripts.cpp duplicate, same

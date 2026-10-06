@@ -1,7 +1,7 @@
 // ?Rva003E537DCheck@@YG_NPAVParameter@@@Z
 // retail 0x003E537D, 52 bytes.
 // Evidence: leaf free __stdcall bool with 1 Parameter arg frameless; rowed ScriptEngine::getUnitNamed; Object +0x250 Mid with vslot 69 (0x114) taking int returning unsigned; unsigned <=0 gives jbe.
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 class Parameter
 {

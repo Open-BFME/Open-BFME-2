@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateSkirmishPlayerIsOutsideArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z
 // @0x003E79AF 70B. BFME1 donor ScriptConditions.cpp without the player
 // preflight (BFME2 only checks the trigger), then the negation of

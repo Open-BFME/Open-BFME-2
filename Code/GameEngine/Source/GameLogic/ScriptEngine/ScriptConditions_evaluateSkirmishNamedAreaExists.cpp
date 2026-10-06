@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateSkirmishNamedAreaExists@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // @0x003E77FF 46B. BFME1 donor ScriptConditions.cpp (byte-exact in BFME1):
 // the qualified trigger lookup on the second parameter is non-null.

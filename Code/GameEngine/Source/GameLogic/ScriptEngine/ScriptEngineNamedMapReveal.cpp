@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ScriptEngine::doNamedMapReveal (0x003577DA, 195B) and undoNamedMapReveal
 // (0x0035789D, 195B). Zero Hour's pair (BFME 1 donor

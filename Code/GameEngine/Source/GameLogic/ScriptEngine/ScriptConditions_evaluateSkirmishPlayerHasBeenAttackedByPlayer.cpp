@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateSkirmishPlayerHasBeenAttackedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // @0x003E4BFA 125B. ZH donor: GeneralsMD ScriptConditions.cpp
 // evaluateSkirmishPlayerHasBeenAttackedByPlayer. Target evidence: the

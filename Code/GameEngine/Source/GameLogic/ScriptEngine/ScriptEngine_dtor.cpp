@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs
+// cl: /Ireference/shims/bfme2_ascii /EHs
 //
 // ScriptEngine::~ScriptEngine, retail 0x0020A2B0 (726 bytes). Its scalar
 // deleting destructor (0x0020C0C7) is slot 0 of the vtable at 0x007E3D70.

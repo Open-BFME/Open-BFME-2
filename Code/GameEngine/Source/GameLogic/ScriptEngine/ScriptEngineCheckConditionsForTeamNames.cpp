@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?checkConditionsForTeamNames@ScriptEngine@@QAEXPAVScript@@ABVAsciiString@@@Z, retail 0x002062A8 547B
 // Evidence: warning string ***WARNING multiple non-singleton team conditions, TeamFactory findPrototype pin 0x39FE6C,
 // resolveName row 0x2046C0, AppendDebugMessage row 0x205263, GameLogic gate 0x1DCD1C, GetGameLogicRandomValue row 0x233FF4,

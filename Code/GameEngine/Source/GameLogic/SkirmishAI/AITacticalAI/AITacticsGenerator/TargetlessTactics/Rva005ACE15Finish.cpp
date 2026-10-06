@@ -1,6 +1,6 @@
 // ?rva005ACE15@Rva005ACCE4@@QAEMPBUCoord3D@@00@Z
 // recovered 2026-10-05 from the 0.97 bank; exact 179/179
-// cl: /O1 /G7 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
+// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "FarmKillSquad" skirmish-AI tactic (vtable 0x00872474; ctor 0x005ACF38
 // in Rva004ECECDTacticCtors.cpp, dtor 0x005ACCE4 and ??_G, slot 9 0x005ACFAB

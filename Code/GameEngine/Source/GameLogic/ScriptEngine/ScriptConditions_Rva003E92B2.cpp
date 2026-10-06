@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003E92B2Check@@YG_NPAVParameter@@@Z @0x003E92B2 45B
 // Target evidence: ret 4 free __stdcall, Parameter+0x10 string via rowed
 // compareNoCase 0x00037980 against "ringheroes", then TheGameInfo null or

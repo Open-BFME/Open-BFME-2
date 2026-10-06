@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva003BD598@Rva003BD598@@QAEXXZ @0x003BD598 72B (dump range 18).
 // Thiscall clearer ending in a tail jump: clears its +0x0C byte, runs the

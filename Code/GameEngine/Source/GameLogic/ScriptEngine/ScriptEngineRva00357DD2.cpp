@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00357DD2@ScriptEngine@@QAEXABVAsciiString@@@Z @0x00357DD2 38B
 // ScriptEngine::rva00357DD2: crc AsciiString arg via rowed 0x003ECA13 then
 // push_front int to list at +0x1A264 (matched dtor m_list1A264 sibling of

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Rva005D839BCheck RVA 0x005D839B size 168 evidence vector BfmeE8 TheGameLogic+0x40, call site 0x005D84BB.
 // The random-range __FILE__ literal is the one retail pushes (0x00C76008,

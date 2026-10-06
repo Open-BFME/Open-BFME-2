@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva00205CE7@ScriptEngine@@QAE?AVAsciiString@@V2@@Z @0x00205CE7 118B
 // ScriptEngine path join: resolveName(param) plus '/' plus param via rowed
 // AsciiString plus-char and StringBase concat; by-value param and return.

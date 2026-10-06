@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ScriptConditions::rva003E4A63, retail 0x003E4A63 (129B; dispatcher call
 // 0x003EBD0F): a cached player condition in Zero Hour's

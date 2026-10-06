@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva003EED9D@Rva003EED9D@@QAEXXZ @0x003EED9D 57B (dump range 18).
 // Guarded forward: bails when this+4 is set, otherwise copies the

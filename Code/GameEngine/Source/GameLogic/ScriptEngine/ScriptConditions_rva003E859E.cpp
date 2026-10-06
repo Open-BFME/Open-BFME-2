@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003E859E@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E859E 66B.
 // Target evidence: the evaluateCondition jump table (0x007EC5C0) sends case
 // 143 here, and initConditionTemplates gives template 143 the internal name

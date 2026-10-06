@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /MD /O1 /Ob1
+// cl: /DNDEBUG /DWIN32 /MD /Ob1
 //
 // One unit for openLuaLibraries and its only caller, as in retail: the
 // static function takes its lua_State in esi, a convention MSVC uses only

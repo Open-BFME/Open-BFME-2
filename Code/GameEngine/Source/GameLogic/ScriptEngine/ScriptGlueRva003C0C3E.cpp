@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003C0C3ESet@@YGXABVAsciiString@@@Z @0x003C0C3E 51B (dump range 18).
 // Team forward through the doSetTeamState argument idiom: copies the name

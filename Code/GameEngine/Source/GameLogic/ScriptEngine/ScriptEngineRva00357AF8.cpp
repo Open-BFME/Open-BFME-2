@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00357AF8@ScriptEngine@@QAE_NPAX@Z, retail 0x00357AF8 69B leaf.
 // Evidence: prev ScriptEngine 0x00357A36 same TU flags; map at +0x190B8 from

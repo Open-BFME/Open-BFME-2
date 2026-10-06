@@ -11,7 +11,7 @@
 // The exact target-owned flags at +24/+44 are retained without enum-name claims.
 // TU-local layout views; unnamed fields and address-qualified types are intentional.
 // The bytecode proves offsets/operations, not original EA type names or full layouts.
-// cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /MD /EHsc
 // stlport
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.

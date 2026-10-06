@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /GX /DNDEBUG
+// cl: /MD /GX /DNDEBUG
 // AITacticDefensive.cpp -- named by retail's __FILE__ literal at 0x00C76860,
 // pushed with line 43 into GetGameLogicRandomValueReal below.
 //

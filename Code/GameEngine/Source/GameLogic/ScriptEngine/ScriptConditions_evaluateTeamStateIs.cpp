@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ZH donor: GeneralsMD ScriptConditions.cpp evaluateTeamStateIs and
 // evaluateTeamStateIsNot. Target evidence: the evaluateCondition jump table
 // (0x007EC5C0) sends cases 11 and 12 to 0x003E9471 and 0x003E94E5, which

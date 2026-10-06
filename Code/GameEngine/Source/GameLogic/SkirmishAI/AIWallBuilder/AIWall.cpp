@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // AIWall.cpp (the unit 0x004EAFBD's asserts name). The wall planner class is
 // not established, hence the address name after that asserting member.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva0032A9D3Split@@YA?AVAsciiString@@AAV1@ABV1@@Z, retail 0x0032A9D3 (141B),
 // and ?resolveName@Rva002046C0Owner@@QAE?AVAsciiString@@ABV2@@Z, retail

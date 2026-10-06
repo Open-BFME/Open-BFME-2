@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?evaluateNamedExitedArea@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E6D60 74B.
 // ZH donor ScriptConditions.cpp in donor order; BFME2 getUnitNamed takes the
 // Parameter (matched 0x003588E7); Object::didEnter/didExit

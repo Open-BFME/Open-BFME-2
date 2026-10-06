@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?Rva003BD062Set@@YGXPAXPBVAsciiString@@E@Z @0x003BD062 102B (dump range 18).
 // Template-plus-player-mask loop: resolves the template name through the

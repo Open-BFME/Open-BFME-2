@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003E4E6AGet@@YG_NPAVParameter@@@Z @0x003E4E6A 59B leaf single-param unit-mesh check via rowed ScriptEngine::getUnitNamed and rowed MeshGeometryClass::get_polys. Evidence: caller 0x003EBEA1; prev 0x003E4C77 next 0x003E4EA5 same // cl: /O1.
 class Parameter;
 class Vector3i16;

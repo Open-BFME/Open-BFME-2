@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00206255@Rva00206255@@QAEPAXHABVAsciiString@@@Z, retail 0x00206255 83B leaf.
 // Evidence: PlayerList::getNthPlayer 0x2A7A29 via ThePlayerList 0xDFEEE8,

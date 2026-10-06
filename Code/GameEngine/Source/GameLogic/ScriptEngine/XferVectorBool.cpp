@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 // ?Rva0060C253Xfer@@YAPAVXfer@@PAV1@PAV?$vector@_NV?$allocator@_N@_STL@@@_STL@@@Z @0x0060C253 283B free vector<bool> Xfer helper version {1,1} via slot 0x28 size via slot 0x2C/0x78 isSaving via slot 0x08 saving walks bits via slot 0x90 loading checks empty via FormatText 0x0060C36E plus Throw 0x00629094 then reserve 0x0060C1C0 plus rowed push_back.
 // Evidence: chain lane every callee rowed or pinned; skeleton mirrors landed XferListInt 0x00206861; caller 0x004EF0C3.

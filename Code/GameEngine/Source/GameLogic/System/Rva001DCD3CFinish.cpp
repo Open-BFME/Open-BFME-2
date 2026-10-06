@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
 // ?rva001DCD3C@Rva001DCD3C@@QAEXXZ @ 0x001DCD3C 80B
 // Honest address name: __thiscall clearer beside GameLogicModeGateChecks.
 // Target evidence: 80B retail, SSE movss/xorps, no calls, 5 callers

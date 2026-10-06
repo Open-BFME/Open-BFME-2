@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?rva00357B82@ScriptEngine@@QAEHPAVParameter@@@Z, retail 0x00357B82 (157B).
 // Resolves a player Parameter to a player mask (1 << player index). Donor:

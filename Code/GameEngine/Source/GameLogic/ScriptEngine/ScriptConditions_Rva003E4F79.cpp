@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003E4F79Get@@YG_NPAVParameter@@00@Z
 // retail 0x003E4F79 158B leaf free stdcall bool of 3x Parameter ret 0xc from 0x003EBF20. Evidence:
 // mask via rowed ScriptEngine::rva00357B82 walked with rowed PlayerList::getEachPlayerFromMask

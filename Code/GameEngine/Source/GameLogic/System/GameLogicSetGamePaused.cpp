@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva0023CD9E@GameLogic@@QAEX_NH0@Z @0x0023CD9E 327B
 // BFME2 GameLogic 3-arg pause setter, evolution of BFME1

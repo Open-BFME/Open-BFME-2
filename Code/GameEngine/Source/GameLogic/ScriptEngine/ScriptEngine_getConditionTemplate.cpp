@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ScriptEngine::getConditionTemplate, retail 0x00203941 (30 bytes).
 // Condition template table at +0x12BA0, 128 bytes per entry, 202 entries;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ScriptConditions::evaluateTeamCreated @0x003E6803 50B. returns the team's isCreated byte (+0x5E), ZH donor shape;
 // retail returns an unsigned char (mangled E).
 // Same style as the matched ScriptConditions siblings (/O1, TheScriptEngine).

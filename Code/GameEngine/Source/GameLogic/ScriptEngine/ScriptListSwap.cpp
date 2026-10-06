@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ScriptList::swap at 0x003B58DF (57B). The by-value ScriptList is 0x4C
 // bytes: a 4-byte head, an 8-byte Gen_00350E60-style record at +0x04

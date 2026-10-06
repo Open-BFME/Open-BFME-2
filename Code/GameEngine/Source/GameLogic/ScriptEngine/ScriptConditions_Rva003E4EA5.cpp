@@ -1,5 +1,5 @@
 // ?Rva003E4EA5Get@@YG_NPAVParameter@@@Z
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // @0x003E4EA5 48B leaf single-param terrain-tactical check via TheTerrainLogic
 // slot 0x88 plus TheTacticalView slot 0x6C. Evidence: caller 0x003EBDBF;
 // prev 0x003E4BFA evaluateSkirmishPlayerHasBeenAttackedByPlayer; next

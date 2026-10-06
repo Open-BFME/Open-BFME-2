@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 // ?rva003184B8@Rva003184B8@@QAEXXZ @ 0x003184B8 (119B). Unlock: TheAudio removeAudioEvent on +0x14 then array +0x30 stride 8 indexed by +0x10 then handle=1 then BfmeAudioEventPrefix136 from entry with 0 then addAudioEvent slot 0x64 storing handle. Evidence: callees BfmeAudioEventPrefix136 ctor 0x002D97D6 and BfmeStringTailRecord144 dtor 0x002D9A43 rowed plus TheAudio 0x009FE6E8 plus AudioManager slots 0x64/0x6c matching Rva00358A53Audio and Rva0030D606; callers 0x00318711 0x003187A3; neighbours GlobalWeatherSystem parseWeatherData and Rva0028C6FB.
 #include "Common/BfmeAudioEventPrefix136.h"
 

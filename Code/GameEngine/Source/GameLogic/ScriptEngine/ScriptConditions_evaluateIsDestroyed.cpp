@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE2 /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ScriptConditions::evaluateIsDestroyed @0x003E5DE9 70B. BFME2 also requires the team byte at +0x128 before testing
 // !hasAnyObjects(false) (rowed 0x0039E042); ZH donor tests the team only.
 // Same style as the matched ScriptConditions siblings (/O1, TheScriptEngine).

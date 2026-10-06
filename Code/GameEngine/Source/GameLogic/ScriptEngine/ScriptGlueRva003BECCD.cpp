@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva003BECCDSet@@YGXABVAsciiString@@HH@Z @0x003BECCD 52B (dump range 18).
 // Team pair setter through the doSetTeamState argument idiom: copies the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 //
 // CrateSystem's lifetime and reset, Zero Hour CrateSystem.cpp bodies:
 //   ??0CrateSystem@@QAE@XZ       retail 0x0035CAD6  49B

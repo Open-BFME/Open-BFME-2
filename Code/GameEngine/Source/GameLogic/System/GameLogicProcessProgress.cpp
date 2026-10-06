@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // GameLogic::processProgress, retail 0x0023D740, 46 bytes.
 // Dedicated TU so ConnectionManager.cpp cannot see this body.

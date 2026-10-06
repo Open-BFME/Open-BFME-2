@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // ?rva003C08CC@Rva003C08CC@@QAEXPBVAsciiString@@PAX@Z @0x003C08CC 183B.
 // Team member-flag dispatch: team-name copy, getTeamNamed, AI createGroup,
