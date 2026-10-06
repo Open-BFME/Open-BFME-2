@@ -64179,3 +64179,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva003063A9XferThingTemplate@@YAXPAVXfer@@PAPBVThingTemplate@@@Z,,0x003063A9,112,Code/GameEngine/Source/GameLogic/AI/Rva003063A9XferThingTemplate.cpp,matched,callers WorkOrder xfer 0x4F073B and 0x468FC5; TheEmptyString and g_009FF000; LINK BONUS 2 files
 ??1Rva005DA7F5@@UAE@XZ,,0x005DA7F5,60,Code/GameEngine/Source/Common/Rva005DA7F5Dtor.cpp,matched,dtor frees +0x08 buffer under EH state 0 (/EHs) then base vtable 0xC70B80
 ??1Rva0056D3FD@@UAE@XZ,,0x0056D3FD,59,Code/GameEngine/Source/Common/Rva0056D3FDDtor.cpp,matched,member-then-base dtor: vptr 0xC6DAA4 then rowed 0x56D3E3 on +0x08 then pinned base dtor 0x4E84A4
+??1Rva005CFDA6@@UAE@XZ,,0x005CFDA6,54,Code/GameEngine/Source/Common/Rva005CFDA6Dtor.cpp,matched,implicit MI dtor: rowed second-base dtor 0x5E9F3F at +0x08 then primary base vtable 0xC75290
