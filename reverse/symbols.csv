@@ -13784,3 +13784,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?HideControlBar@@YAX_N@Z,0x00402960,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
 ??0XferSave@@QAE@XZ,0x0060D1F7,BFMECRCWriter base reconciliation with rowed XferSave dtor 0x60D0B3 and native init; same constructor target already pinned as Rva009D8630BlockWriter; preserves +0x40 full and +0x44 CRC
 ??0Rva0010461F@@QAE@XZ,0x0010461F,callee of ?rva0008F32C@@YAXXZ
+??0Rva0030F404@@QAE@H@Z,0x0030F404,callee of ?rva00086BC5@Rva00086BC5@@QAEXH@Z
+?rva0030F36B@Rva0030F36B@@QAEXXZ,0x0030F36B,callee of ?rva00086BC5@Rva00086BC5@@QAEXH@Z
