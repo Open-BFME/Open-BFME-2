@@ -65060,3 +65060,7 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva0057C525@Rva0057C525@@QAE_NABVRva004FD6F9@@@Z,,0x0057C525,36,Code/GameEngine/Source/Common/Rva0057C525.cpp,matched,chase to thunk tail jmp
 ?rva0057CC70@AptMapPreview@@QAEPAURva0057CC70Color@@PAU2@PAUCC70Arg@@@Z,,0x0057CC70,246,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewRva0057CC70.cpp,matched,chain from 0x0057C525 via AptMapPreview neighbours
 ?Rva0055D686Compute@@YGXPAVCoord3D@@PAVCoord2D@@MM@Z,,0x0055D686,81,Code/GameEngine/Source/GameClient/Rva0055D686Scale.cpp,matched,REF slot EmissionVolumeInfo cylinder helper normalize then scale
+?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z,,0x002DBCCA,31,Code/GameEngine/Source/Common/Rva002DBCCAForward.cpp,matched,
+?getAttackRange@BfmeRangedWeaponTemplate@@QBEMPBVObject@@ABVWeaponBonus@@PBUCoord3D@@@Z,,0x002C99C4,55,Code/GameEngine/Source/GameLogic/Object/Rva002C99C4AttackRange.cpp,matched,
+?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z,,0x002C777E,257,Code/GameEngine/Source/Common/Rva002C777EBuild.cpp,matched,
+?rva002DEE9A@Rva002DEE9AOwner@@QAEXXZ,,0x002DEE9A,41,Code/GameEngine/Source/Common/Rva002DEE9AClear.cpp,matched,
