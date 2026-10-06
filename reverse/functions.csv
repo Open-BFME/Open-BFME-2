@@ -66964,3 +66964,4 @@ _rva0062AF56D3DXVec3Transform@12,,0x0062AF56,6,Code/GameEngine/Source/Common/Rva
 ?rva002833C5@Rva002833A3C5Owner@@QAEXPAX0@Z,,0x002833C5,34,Code/GameEngine/Source/Common/Rva002833A3C5.cpp,matched,Target +0x3C lookup has the same verified 34B shape and releases the output handle via rowed 0x0007DEEF; address-derived owner; class identity unproven
 ?rva00081E36@Rva00081E36@@QAEXPAXH@Z,,0x00081E36,114,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00081E36IndexedAsset.cpp,matched,target call flow plus matched donor-backed AssetList layout; owner and first argument remain unknown
 ?rva00072AC3@Rva0072AED@@QAE?AVRva0072AEDRef@@XZ,,0x00072AC3,27,Code/GameEngine/Source/Common/Rva00072AEDDtor.cpp,matched,
+?parseShadowMapBlock@@YAXPAVINI@@@Z,,0x0007BE1E,137,Code/GameEngine/Source/Common/Rva0007BA35Method.cpp,matched,ShadowMap registration at 0x00DB4488 and table fields at 0x00BC6BA8; mode gates and config copies match target bytes
