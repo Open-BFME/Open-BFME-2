@@ -67170,3 +67170,4 @@ _gpSetInfoCacheFilenameA,,0x0072D2C0,5,Code/GameEngine/Source/GameNetwork/GameSp
 ?rva002B2F71@Rva002B2F71@@QAEPAXHHHHH@Z,,0x002B2F71,38,Code/GameEngine/Source/Common/Rva002B2F71.cpp,matched,Target stores five stack dwords at this offsets 0 through 0x10 and preserves this in EAX
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
 ?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
+?rva0008F32C@@YAXXZ,,0x0008F32C,69,Code/GameEngine/Source/Common/Rva0008F32CFactory.cpp,matched,dump range 2 EH factory via new honest names
