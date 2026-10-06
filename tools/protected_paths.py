@@ -41,6 +41,7 @@ import sys
 PROTECTED = (
     # the byte gate and what decides which sources it verifies
     "build.sh", "build.cmd", "tools/build.py", "tools/delta_sources.py",
+    "tools/flag_defaults.py", "reverse/flag_overrides.csv", "tools/eh_verify.py",
     "tools/find_declared_unmatched.py", "tools/gen_case_shims.py",
     # ledger, identity and direction guards the hooks call
     "tools/check_csv.py", "tools/check_case_collisions.py", "tools/conversion_gate.py",
