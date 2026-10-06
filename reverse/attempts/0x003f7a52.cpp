@@ -1,4 +1,6 @@
 // ?rva003F7A52@Rva003F7A52@@QAEXPAM00@Z
+// partial score=0.9671 date=2026-10-06
+// ?rva003F7A52@Rva003F7A52@@QAEXPAM00@Z
 // partial score=0.94 date=2026-10-03
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // ?rva003F7A52@Rva003F7A52@@QAEXPAM00@Z, retail 0x003F7A52 (188B).
