@@ -3,9 +3,9 @@
 //
 // The skirmish-AI object behind vtable 0x00863FAC, newed by 0x004EC430 in the
 // AITactic.cpp range (its assert path is at 0x00862968; the neighbouring
-// asserts at 0x005061FD.. name AITacticsGenerator.cpp). No RTTI and no donor:
-// the class keeps the address-derived name its matched member 0x00506B74
-// already carries (Rva00506B74CopyCompare.cpp).
+// asserts at 0x005061FD.. name AITacticsGenerator.cpp). WorldBuilder and the matched
+// collaborator providers identify AIBaseBuilder and its owned AIBase objects.
+// The measured layout below is unchanged (Rva00506B74CopyCompare.cpp).
 //
 // Target evidence for the layout:
 //   +0x00 base Rva00506B1B (ctor 0x00506B1B, dtor 0x00506B28, vtable
@@ -141,13 +141,16 @@ public:
 
 class Rva00506FE9Hit;
 
-class Rva005ADA40
+// Legacy vector spelling is an opaque pointer handle. Its existing container
+// ABI is retained; only AIBase objects are constructed and accessed through it.
+class Rva005ADA40;
+class AIBase
 {
 public:
-	Rva005ADA40(unsigned int index, void *owner);
-	~Rva005ADA40();
-	void rva005AE0AD(Xfer *xfer);
-	void rva005AE26A(Coord3D *point, float angle, int more);
+	AIBase(unsigned int index, void *owner);
+	~AIBase();
+	void DoXfer(Xfer *xfer);
+	void loadBestFitTemplate(Coord3D *point, float angle, int more);
 	void rva005AD99C(const AsciiString &name, _STL::vector<Rva00506FE9Hit *> *hits);
 	void rva005ADC63();
 	Rva005AD9C0Hit *rva005AD9C0(void *arg);
@@ -228,11 +231,11 @@ extern Rva002A8F24 *g_00DFEEF8;
 
 Coord3D __cdecl Rva00506CF5(void *owner, Coord3D *point);
 
-class Rva00506B74 : public Rva00506B1B
+class AIBaseBuilder : public Rva00506B1B
 {
 public:
-	Rva00506B74(void *owner);
-	virtual ~Rva00506B74();
+	AIBaseBuilder(void *owner);
+	virtual ~AIBaseBuilder();
 	virtual void v1();
 	virtual void v2();
 	bool rva00506B74(Coord3D *out);
@@ -241,7 +244,7 @@ public:
 	Rva005AD9C0Hit *rva00506BF7(void *arg);
 	bool rva00506C39(void *arg);
 	Rva005ADA40 *rva00506C64(unsigned int index);
-	void rva00507522();
+	void postInit();
 	void rva00506FE9(Object *obj);
 	void rva005073D6(Xfer *xfer);
 private:
@@ -252,8 +255,8 @@ private:
 	Coord3D m_28;
 };
 
-// ??0Rva00506B74@@QAE@PAX@Z
-Rva00506B74::Rva00506B74(void *owner)
+// ??0AIBaseBuilder@@QAE@PAX@Z
+AIBaseBuilder::AIBaseBuilder(void *owner)
 	: m_08(owner)
 {
 	m_18.set(&Gen00DD0870);
@@ -262,38 +265,38 @@ Rva00506B74::Rva00506B74(void *owner)
 	m_28 = Rva00506CF5(m_08, &m_18);
 }
 
-// ??1Rva00506B74@@UAE@XZ
-Rva00506B74::~Rva00506B74()
+// ??1AIBaseBuilder@@UAE@XZ
+AIBaseBuilder::~AIBaseBuilder()
 {
 	v2();
 }
 
 // Slot 1 (0x00506BDC).
-void Rva00506B74::v1()
+void AIBaseBuilder::v1()
 {
 	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
-		(*it)->rva005ADC63();
+		reinterpret_cast<AIBase *>(*it)->rva005ADC63();
 }
 
 // Slot 2 (0x005071A1): free every element, then empty the vector.
-void Rva00506B74::v2()
+void AIBaseBuilder::v2()
 {
 	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
-		delete *it;
+		delete reinterpret_cast<AIBase *>(*it);
 	m_0C.clear();
 }
 
-void Rva00506B74::rva00506B96(const Coord3D *point)
+void AIBaseBuilder::rva00506B96(const Coord3D *point)
 {
 	if (!m_24)
 		m_18 = *point;
 }
 
-Rva005AD9C0Hit *Rva00506B74::rva00506BF7(void *arg)
+Rva005AD9C0Hit *AIBaseBuilder::rva00506BF7(void *arg)
 {
 	Rva005ADA40 **end = m_0C.end();
 	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it) {
-		Rva005AD9C0Hit *hit = (*it)->rva005AD9C0((char *)arg + 0xC);
+		Rva005AD9C0Hit *hit = reinterpret_cast<AIBase *>(*it)->rva005AD9C0((char *)arg + 0xC);
 		if (hit) {
 			hit->v3(arg);
 			return hit;
@@ -302,23 +305,23 @@ Rva005AD9C0Hit *Rva00506B74::rva00506BF7(void *arg)
 	return 0;
 }
 
-bool Rva00506B74::rva00506C39(void *arg)
+bool AIBaseBuilder::rva00506C39(void *arg)
 {
 	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it) {
-		if ((*it)->rva005AD9C0(arg))
+		if (reinterpret_cast<AIBase *>(*it)->rva005AD9C0(arg))
 			return true;
 	}
 	return false;
 }
 
-Rva005ADA40 *Rva00506B74::rva00506C64(unsigned int index)
+Rva005ADA40 *AIBaseBuilder::rva00506C64(unsigned int index)
 {
 	if (index < m_0C.size())
 		return m_0C[index];
 	return 0;
 }
 
-void Rva00506B74::rva00507522()
+void AIBaseBuilder::postInit()
 {
 	if (!m_24) {
 		if (rva00506B74(&m_28))
@@ -330,7 +333,7 @@ void Rva00506B74::rva00507522()
 // 0x00506FE9: collect the owned elements' hits for the object's template name
 // (its rebuild template when it is a rebuild hole), then rescale and re-run
 // every hit that belongs to this object.
-void Rva00506B74::rva00506FE9(Object *obj)
+void AIBaseBuilder::rva00506FE9(Object *obj)
 {
 	_STL::vector<Rva00506FE9Hit *> hits;
 	AsciiString name;
@@ -341,7 +344,7 @@ void Rva00506B74::rva00506FE9(Object *obj)
 		name = ((Rva00506FE9ObjectView *)obj)->m_template->m_name;
 	Rva005ADA40 **end = m_0C.end();
 	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it)
-		(*it)->rva005AD99C(name, &hits);
+		reinterpret_cast<AIBase *>(*it)->rva005AD99C(name, &hits);
 	if (!hits.empty()) {
 		Rva002A8B59Data *data = g_00DFEEF8->rva002A8B59(m_08);
 		for (Rva00506FE9Hit **h = hits.begin(); h != hits.end(); ++h) {
@@ -359,7 +362,7 @@ void Rva00506B74::rva00506FE9(Object *obj)
 // 0x005073D6: save/load. Version 2 added the +0x28 point; on load the owned
 // elements are rebuilt (0x2C bytes each, ctor 0x005AD9FF) before each one
 // transfers itself (0x005AE0AD).
-void Rva00506B74::rva005073D6(Xfer *xfer)
+void AIBaseBuilder::rva005073D6(Xfer *xfer)
 {
 	Xfer::Version version(1, 2);
 	*xfer == version;
@@ -372,17 +375,17 @@ void Rva00506B74::rva005073D6(Xfer *xfer)
 	if (xfer->IsLoading()) {
 		if (!m_0C.empty()) {
 			for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
-				delete *it;
+				delete reinterpret_cast<AIBase *>(*it);
 			m_0C.clear();
 		}
 		for (unsigned int i = 0; i < count; ++i) {
-			Rva005ADA40 *element = new Rva005ADA40(i, m_08);
+			Rva005ADA40 *element = reinterpret_cast<Rva005ADA40 *>(new AIBase(i, m_08));
 			m_0C.push_back(element);
 		}
 	}
 	Rva005ADA40 **end = m_0C.end();
 	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it)
-		(*it)->rva005AE0AD(xfer);
+		reinterpret_cast<AIBase *>(*it)->DoXfer(xfer);
 }
 
 // 0x00506CC3: the waypoint with this name, walking TheTerrainLogic's list from
@@ -439,7 +442,7 @@ struct Rva0050722AExtent
 };
 
 // 0x0050722A: add an element facing from the point towards the map centre.
-void Rva00506B74::rva0050722A(Coord3D *point)
+void AIBaseBuilder::rva0050722A(Coord3D *point)
 {
 	Rva0050722AExtent extent;
 	TheTerrainLogic->getExtent((Region3D *)&extent);
@@ -456,7 +459,7 @@ void Rva00506B74::rva0050722A(Coord3D *point)
 		angle *= -1.0f;
 	angle = normalizeAngle(angle - 1.5707964f);
 	unsigned int index = m_0C.empty() ? 0 : m_0C.size();
-	Rva005ADA40 *element = new Rva005ADA40(index, m_08);
+	Rva005ADA40 *element = reinterpret_cast<Rva005ADA40 *>(new AIBase(index, m_08));
 	m_0C.push_back(element);
-	element->rva005AE26A(point, angle, index != 0);
+	reinterpret_cast<AIBase *>(element)->loadBestFitTemplate(point, angle, index != 0);
 }

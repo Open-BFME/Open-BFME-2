@@ -11863,7 +11863,7 @@ name,address,notes
 ?rva0039E5B9@Team@@QAEXPAUCoord3D@@@Z,0x0039E5B9,Team centre into a Coord3D; REL32 at 0x005AB5EC in ReturnTheRing 0x005AB5B7
 ?rva0039E76C@Team@@QAEXM@Z,0x0039E76C,thiscall (float) on the getTeamNamed team; stack-float callee of dump-range-18 0x003BE9DB
 ?rva0039E9A1@Team@@QAEXPAUCoord3D@@@Z,0x0039E9A1,Team member taking a Coord3D out-pointer; REL32 callee of dump-range-18 0x003BEBD6 alongside rowed 0x0039DC9E; identity unproven
-?rva0039E9E0@Rva005059A1Unit@@QAEXXZ,0x0039E9E0,fallback when no item claims the unit; REL32 at 0x00505A43 in Rva00506909::rva005059A1
+?rva0039E9E0@Team@@QAEXXZ,0x0039E9E0,fallback when no item claims the unit; REL32 at 0x00505A43 in Rva00506909::rva005059A1
 ?rva003A0CD1@TeamPrototype@@QAEXXZ,0x003A0CD1,Ghidra FUN_007a0cd1 57B out-of-line owner/factory removal (m_owningPlayer->removeTeamFromList 0x002ABD48 then m_factory 0x0039FE11); REL32 at 0x003A33FA in ~TeamPrototype
 ?rva003A10FE@Team@@QAEXH@Z,0x003A10FE,thiscall (int) on the getTeamNamed team; callee of dump-range-18 0x003BFAC3
 ?rva003A1626@Team@@QAEXPAX0HPAV1@@Z,0x003A1626,Team member taking (two opaque pointers, int, team); REL32 callee of dump-range-18 0x003C21E5; identity unproven
@@ -12171,7 +12171,7 @@ name,address,notes
 ?rva004EC072@Player@@QAEXPAVTeamPrototype@@@Z,0x004EC072,Player entry taking this; read from REL32 at 0x003A2C06 in rva003A2BD4 0x003A2BD4
 ?rva004EC072@Rva004EC072@@QAEXPAUArg@@@Z,0x004EC072,second name for the 11-byte forwarder rowed at 0x004EC072 as ?fwd@Rva004EC072Owner@@QAEXPAX@Z (263b7dc5b1 dropped this row as a duplicate); TeamPrototype::rva003A2BD4 0x003A2BD4 still calls it by this name
 ?rva004EC07D@Rva002A8AB1Record@@QAEXPAVTeamPrototype@@@Z,0x004EC07D,Ghidra 11B add ecx 0x90 then jmp 0x0059A153; REL32 call at 0x003A0CF6 in TeamPrototype::rva003A0CD1 on the per-owner record
-?rva004ECE1C@Rva00506909Item@@QAEXXZ,0x004ECE1C,second per-item call of the Rva00506909 0x00505924 pass (REL32 at 0x00505939)
+?rva004ECE1C@AITactic@@QAEXXZ,0x004ECE1C,second per-item call of the Rva00506909 0x00505924 pass (REL32 at 0x00505939)
 ?rva004ECE93@Rva004ECE93@@QAEMPAX@Z,0x004ECE93,thiscall float-returning callee of 0x004EDDAA read from its REL32 displacement; body unrowed
 ?rva004ED1FD@Rva004ECECD@@QAEXHPBUCoord3D@@@Z,0x004ED1FD,AITactic member taking an int and a point (move the team there); REL32 at 0x005A9F32 in the SimpleSiege slot 7
 ?rva004ED342@Rva004ECECD@@QAEXPAX@Z,0x004ED342,AITactic member taking a point; REL32 at 0x005AA66A in the SimpleAttack slot 6
@@ -12214,7 +12214,6 @@ name,address,notes
 ?rva00506178@Rva00506909@@AAE_NPAURva00506909Request@@PAX@Z,0x00506178,kind 0 and 2 handler of Rva00506909::rva005069CE (REL32 at 0x00506A04)
 ?rva00506265@Rva00506909@@AAE_NPAURva00506909Request@@PAX@Z,0x00506265,kind 1 handler of Rva00506909::rva005069CE (REL32 at 0x005069F8)
 ?rva0050633B@Rva00506909@@AAE_NPAURva00506909Request@@PAX@Z,0x0050633B,kind 3 handler of Rva00506909::rva005069CE (REL32 at 0x005069EC)
-?rva0050722A@Rva00506B74@@QAEXPAUCoord3D@@@Z,0x0050722A,thiscall on the +0x28 point; REL32 at 0x0050753C in Rva00506B74::rva00507522 (also called from 0x005AA886)
 ?rva005075D6@Rva00508925@@QAEEHH@Z,0x005075D6,address-derived callee of matched slot 0x00508925; retail REL32 targets 0x005075D6; Ghidra FUN bounds 372 bytes; thiscall on the caller object two args ret 8; caller tests al; callee body remains unclaimed; no named identity inferred
 ?rva00508120@Made002CC5E1@@AAE_NPAXPAVObject@@PAVDamageInfo@@_NPBUCoord3D@@@Z,0x00508120,"Native nonvirtual member on same Made002CC5E1 receiver: REL32 at508523 in186B slot14 wrapper5084FC; helper boundary508120..5084FC988B RET20; reads weapon+8 target viaECX2615E3 DamageInfo thirdarg bool fourtharg and coordinate-pointer fiftharg; original method name unknown."
 ?rva00511CE6@AptMessenger@@QAEXXZ,0x00511CE6,unrowed thiscall (Ghidra FUN_00911CE6; plain ret) on the messenger screen; REL32 read in the AptMessenger::OnBttn_0/OnBttn_1 callbacks (0x005AEF16/0x005AEF32) with ECX=this; address name
@@ -12381,11 +12380,10 @@ name,address,notes
 ?rva005AC294@Rva005AB7E5@@QAE_NXZ,0x005AC294,"StructureCreep: pick a creep structure name and start its build order at a free spot; REL32 in StructureCreep slot 7 0x005AC549 (body banked 0.85)"
 ?rva005AC98A@Rva005AC7E1@@QAE_NXZ,0x005AC98A,AIRingHeroTactic enemy-ring check (rowed under the address name Rva005AC98A); REL32 at 0x005ACB69 in the AIRingHeroTactic slot 1
 ?rva005ACDA9@Rva004ECECD@@QAE_NXZ,0x005ACDA9,"bool-returning view of the already-recovered 0x005ACDA9 body (rowed as ?rva005ACDA9@Rva004ECECD@@QAEHXZ, 13B). Rva005ACCE4::v7 0x005AD5DD tests the result with test al,al, so this unit declares the narrow width; binds to the same 13-byte body via the multi-pin resolver."
-?rva005AD99C@Rva005ADA40@@QAEXABVAsciiString@@PAV?$vector@PAVRva00506FE9Hit@@V?$allocator@PAVRva00506FE9Hit@@@_STL@@@_STL@@@Z,0x005AD99C,element collect-by-name (rowed under Rva005AD99C); REL32 at 0x0050704B in Rva00506B74::rva00506FE9
-?rva005AD9C0@Rva005ADA40@@QAEPAVRva005AD9C0Hit@@PAX@Z,0x005AD9C0,element lookup returning a polymorphic hit; REL32s at 0x00506C0F and 0x00506C49 in Rva00506B74 searches
+?rva005AD99C@AIBase@@QAEXABVAsciiString@@PAV?$vector@PAVRva00506FE9Hit@@V?$allocator@PAVRva00506FE9Hit@@@_STL@@@_STL@@@Z,0x005AD99C,element collect-by-name (rowed under Rva005AD99C); REL32 at 0x0050704B in Rva00506B74::rva00506FE9
+?rva005AD9C0@AIBase@@QAEPAVRva005AD9C0Hit@@PAX@Z,0x005AD9C0,element lookup returning a polymorphic hit; REL32s at 0x00506C0F and 0x00506C49 in Rva00506B74 searches
 ?rva005AD9E6@Rva005AD9E6@@QAEIXZ,0x005AD9E6,unsigned list-size walk of the +0x140 list (retail 0x005AD9E6 walks the circular head to count); REL32 at 0x005ADB25 in Rva005ADA40::rva005ADAB2
-?rva005ADAB2@Rva005ADA40@@QAEXXZ,0x005ADAB2,Rva00506B74 element: start its +0x28 object when it has none; REL32 at 0x005ADCA4 in Rva005ADA40::rva005ADC63
-?rva005ADC63@Rva005ADA40@@QAEXXZ,0x005ADC63,per-element update; REL32 at 0x00506BE8 in Rva00506B74 slot 1
+?rva005ADC63@AIBase@@QAEXXZ,0x005ADC63,per-element update; REL32 at 0x00506BE8 in Rva00506B74 slot 1
 ?rva005AE6F8@@YAHHHHPAD@Z,0x005AE6F8,cdecl 4-arg int-returning callee of 0x5AE78A (caller adds esp 16; result passes through); arg types guessed (3 int + char buffer); boundary has normal ebp prologue
 ?rva005AE7C6@AptMessenger@@QAEXXZ,0x005AE7C6,unrowed thiscall (Ghidra FUN_009AE7C6; plain ret) on the messenger screen; REL32 read in the AptMessenger::OnBttn_0/OnBttn_1 callbacks (0x005AEF16/0x005AEF32) with ECX=this; address name
 ?rva005AE886@AptMessenger@@QAEXXZ,0x005AE886,unrowed thiscall (Ghidra FUN_009AE886; plain ret) on the messenger screen; REL32 read in the AptMessenger::OnBttn_0/OnBttn_1 callbacks (0x005AEF16/0x005AEF32) with ECX=this; address name
@@ -14151,3 +14149,5 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva00395CEB@@QAE@XZ,0x0033C432,callee of the CastleBehavior ctor 0x003983D4 read from retail; ICF-folded STLport ctor under the CastleBehavior dtor/clear TU spelling
 ??0DozerPrimaryStateMachine@@QAE@PAVObject@@@Z,0x00488DAB,ZH DozerPrimaryStateMachine ctor: StateMachine base ctor then defineState 0;1;2..; createMachines 0x488EFC news 0x3C and calls it with getObject()
 ??0WorkerStateMachine@@QAE@PAVObject@@@Z,0x004A9D79,ZH WorkerStateMachine ctor: StateMachine base ctor then defineState; WorkerAIUpdate::createMachines 0x4A9ED5 news 0x3C and calls it first with getObject() storing +0x4C0 (the dtor 0x4A9A12's m_workerMachine)
+?rva004EDF03@AITactic@@QAEXXZ,0x004EDF03,Restored missing collaborator binding from the held-back generator: direct native REL32s at 505932 and 505A4F respectively; AITactic and Team identities agree with existing start and NotifyTeamCancelled providers; member purpose remains address named
+?rva004ED6D2@AITactic@@QAEXPAVTeam@@@Z,0x004ED6D2,Restored missing collaborator binding from the held-back generator: direct native REL32s at 505932 and 505A4F respectively; AITactic and Team identities agree with existing start and NotifyTeamCancelled providers; member purpose remains address named

@@ -119,17 +119,21 @@ public:
 // AITactic.cpp range).
 struct Rva00506909Request;
 
-struct Rva00506909Item
+// The native objects are AITactic. The legacy pointer type is only an opaque
+// handle preserving already-established STLport container ABI spellings.
+struct Rva00506909Item;
+class AITactic
 {
-	virtual ~Rva00506909Item();
+public:
+	virtual ~AITactic();
 	virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
 	virtual void xfer(Xfer *xfer);	// slot 5
 	void rva004EDF03();
 	void rva004ECE1C();
-	void rva004ED81D(Rva00506909Request *request, void *arg);
-	void rva004ED955(void *owner);
-	void rva004ED6D2(struct Rva005059A1Unit *unit);
-	void rva004EDD4D(struct Rva005059A1Unit *unit);
+	void start(Rva00506909Request *request, void *arg);
+	void start(void *owner);
+	void rva004ED6D2(class Team *unit);
+	void NotifyTeamCancelled(class Team *unit);
 	char m_pad04[0x2C - 4];
 	AsciiString m_name;	// +0x2C
 	int m_id;	// +0x30
@@ -193,15 +197,17 @@ struct Rva005059A1Team
 	int m_id;	// +0x2D8
 };
 
-struct Rva005059A1Owner
+class Player
 {
+public:
 	char m_pad00[0x2EC];
-	struct Rva005059A1Unit *m_unit;	// +0x2EC
+	class Team *m_unit;	// +0x2EC
 };
 
-struct Rva005059A1Unit
+class Team
 {
-	Rva005059A1Owner *rva0039D7CF();
+public:
+	Player *getControllingPlayer() const;
 	void rva0039E9E0();
 	char m_pad00[0x30];
 	Rva005059A1Team *m_team;	// +0x30
@@ -210,8 +216,8 @@ struct Rva005059A1Unit
 class Rva00506909
 {
 public:
-	void rva005059A1(Rva005059A1Unit *unit);
-	void rva00505A56(Rva005059A1Unit *unit);
+	void rva005059A1(Team *unit);
+	void rva00505A56(Team *unit);
 	Rva00506909(void *owner);
 	~Rva00506909();
 	void xfer(Xfer *xfer);
@@ -279,23 +285,23 @@ void Rva00506909::rva00505924()
 	Rva00506909Item **it;
 	for (it = m_10.begin(); it != m_10.end(); ++it) {
 		Rva00506909Item *item = *it;
-		item->rva004EDF03();
-		item->rva004ECE1C();
+		reinterpret_cast<AITactic *>(item)->rva004EDF03();
+		reinterpret_cast<AITactic *>(item)->rva004ECE1C();
 	}
 	for (it = m_28.begin(); it != m_28.end(); ++it) {
 		Rva00506909Item *item = *it;
-		item->rva004EDF03();
-		item->rva004ECE1C();
+		reinterpret_cast<AITactic *>(item)->rva004EDF03();
+		reinterpret_cast<AITactic *>(item)->rva004ECE1C();
 	}
 	for (it = m_40.begin(); it != m_40.end(); ++it) {
 		Rva00506909Item *item = *it;
-		item->rva004EDF03();
-		item->rva004ECE1C();
+		reinterpret_cast<AITactic *>(item)->rva004EDF03();
+		reinterpret_cast<AITactic *>(item)->rva004ECE1C();
 	}
 	for (it = m_58.begin(); it != m_58.end(); ++it) {
 		Rva00506909Item *item = *it;
-		item->rva004EDF03();
-		item->rva004ECE1C();
+		reinterpret_cast<AITactic *>(item)->rva004EDF03();
+		reinterpret_cast<AITactic *>(item)->rva004ECE1C();
 	}
 }
 
@@ -341,15 +347,15 @@ void Rva00506909::rva00506020()
 int Rva0058AEB6Get();
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class Rva0058AFB3
+class AIDifficulty
 {
 public:
-	bool rva0058AFB3(void *arg);
+	bool allowOffensiveTactic(class Rva002A9BF2 *arg);
 };
 
 bool Rva00506909::rva00506178(Rva00506909Request *request, void *arg)
 {
-	if (((Rva0058AFB3 *)Rva0058AEB6Get())->rva0058AFB3(arg)) {
+	if (((AIDifficulty *)Rva0058AEB6Get())->allowOffensiveTactic((Rva002A9BF2 *)arg)) {
 		_STL::vector<Rva00506909Gen *> candidates;
 		for (Rva00506909Gen **it = m_04.begin(); it != m_04.end(); ++it) {
 			Rva00506909Gen *gen = *it;
@@ -361,7 +367,7 @@ bool Rva00506909::rva00506178(Rva00506909Request *request, void *arg)
 		if (!candidates.empty()) {
 			int pick = GetGameLogicRandomValue(0, candidates.size() - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\AITacticsGenerator.cpp", 326);
 			Rva00506909Item *item = candidates[pick]->create();
-			item->rva004ED81D(request, arg);
+			reinterpret_cast<AITactic *>(item)->start(request, arg);
 			m_10.push_back(item);
 			return true;
 		}
@@ -382,7 +388,7 @@ bool Rva00506909::rva00506265(Rva00506909Request *request, void *arg)
 	if (!candidates.empty()) {
 		int pick = GetGameLogicRandomValue(0, candidates.size() - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\AITacticsGenerator.cpp", 357);
 		Rva00506909Item *item = candidates[pick]->create();
-		item->rva004ED81D(request, arg);
+		reinterpret_cast<AITactic *>(item)->start(request, arg);
 		m_28.push_back(item);
 		return true;
 	}
@@ -402,7 +408,7 @@ bool Rva00506909::rva0050633B(Rva00506909Request *request, void *arg)
 	if (!candidates.empty()) {
 		int pick = GetGameLogicRandomValue(0, candidates.size() - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\AITacticsGenerator.cpp", 388);
 		Rva00506909Item *item = candidates[pick]->create();
-		item->rva004ED81D(request, arg);
+		reinterpret_cast<AITactic *>(item)->start(request, arg);
 		m_40.push_back(item);
 		return true;
 	}
@@ -432,7 +438,7 @@ bool Rva00506909::rva00506411(void *owner)
 		chosen.push_back(optional[GetGameLogicRandomValue(0, optional.size() - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\AITacticsGenerator.cpp", 426)]);
 	for (Rva00506909Gen **c = chosen.begin(); c != chosen.end(); ++c) {
 		Rva00506909Item *item = (*c)->create();
-		item->rva004ED955(owner);
+		reinterpret_cast<AITactic *>(item)->start(owner);
 		m_58.push_back(item);
 	}
 	return !chosen.empty();
@@ -440,70 +446,70 @@ bool Rva00506909::rva00506411(void *owner)
 
 // 0x005059A1 / 0x00505A56: hand the unit to the item, in any of the four
 // item lists, that belongs to its team.
-void Rva00506909::rva005059A1(Rva005059A1Unit *unit)
+void Rva00506909::rva005059A1(Team *unit)
 {
-	if (unit == unit->rva0039D7CF()->m_unit)
+	if (unit == unit->getControllingPlayer()->m_unit)
 		return;
 	Rva00506909Item **it;
 	for (it = m_10.begin(); it != m_10.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (item->m_id == unit->m_team->m_id) {
-			item->rva004ED6D2(unit);
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+			reinterpret_cast<AITactic *>(item)->rva004ED6D2(unit);
 			return;
 		}
 	}
 	for (it = m_28.begin(); it != m_28.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (item->m_id == unit->m_team->m_id) {
-			item->rva004ED6D2(unit);
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+			reinterpret_cast<AITactic *>(item)->rva004ED6D2(unit);
 			return;
 		}
 	}
 	for (it = m_40.begin(); it != m_40.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (item->m_id == unit->m_team->m_id) {
-			item->rva004ED6D2(unit);
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+			reinterpret_cast<AITactic *>(item)->rva004ED6D2(unit);
 			return;
 		}
 	}
 	for (it = m_58.begin(); it != m_58.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (item->m_id == unit->m_team->m_id) {
-			item->rva004ED6D2(unit);
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+			reinterpret_cast<AITactic *>(item)->rva004ED6D2(unit);
 			return;
 		}
 	}
 	unit->rva0039E9E0();
 }
 
-void Rva00506909::rva00505A56(Rva005059A1Unit *unit)
+void Rva00506909::rva00505A56(Team *unit)
 {
 	Rva00506909Item **it;
 	for (it = m_10.begin(); it != m_10.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (item->m_id == unit->m_team->m_id) {
-			item->rva004EDD4D(unit);
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+			reinterpret_cast<AITactic *>(item)->NotifyTeamCancelled(unit);
 			return;
 		}
 	}
 	for (it = m_28.begin(); it != m_28.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (item->m_id == unit->m_team->m_id) {
-			item->rva004EDD4D(unit);
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+			reinterpret_cast<AITactic *>(item)->NotifyTeamCancelled(unit);
 			return;
 		}
 	}
 	for (it = m_40.begin(); it != m_40.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (item->m_id == unit->m_team->m_id) {
-			item->rva004EDD4D(unit);
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+			reinterpret_cast<AITactic *>(item)->NotifyTeamCancelled(unit);
 			return;
 		}
 	}
 	for (it = m_58.begin(); it != m_58.end(); ++it) {
 		Rva00506909Item *item = *it;
-		if (item->m_id == unit->m_team->m_id) {
-			item->rva004EDD4D(unit);
+		if (reinterpret_cast<AITactic *>(item)->m_id == unit->m_team->m_id) {
+			reinterpret_cast<AITactic *>(item)->NotifyTeamCancelled(unit);
 			return;
 		}
 	}
@@ -523,13 +529,13 @@ Rva00506909::~Rva00506909()
 		::delete *gen;
 	Rva00506909Item **item;
 	for (item = m_10.begin(); item != m_10.end(); ++item)
-		::delete *item;
+		::delete reinterpret_cast<AITactic *>(*item);
 	for (item = m_28.begin(); item != m_28.end(); ++item)
-		::delete *item;
+		::delete reinterpret_cast<AITactic *>(*item);
 	for (item = m_40.begin(); item != m_40.end(); ++item)
-		::delete *item;
+		::delete reinterpret_cast<AITactic *>(*item);
 	for (item = m_58.begin(); item != m_58.end(); ++item)
-		::delete *item;
+		::delete reinterpret_cast<AITactic *>(*item);
 }
 
 // 0x0050652D: Version(1, 1), the four generator-pool sizes, then each item
@@ -554,16 +560,16 @@ void Rva00506909::xfer(Xfer *xfer)
 	if (xfer->IsStoring()) {
 		Rva00506909Item **end = m_10.end();
 		for (Rva00506909Item **it = m_10.begin(); it != end; ++it) {
-			AsciiString name((*it)->m_name);
+			AsciiString name(reinterpret_cast<AITactic *>(*it)->m_name);
 			*xfer == name;
-			(*it)->xfer(xfer);
+			reinterpret_cast<AITactic *>(*it)->xfer(xfer);
 		}
 	} else if (xfer->IsLoading()) {
 		for (unsigned int i = 0; i < count; ++i) {
 			AsciiString name;
 			*xfer == name;
 			Rva00506909Item *item = rva00505D91(name);
-			item->xfer(xfer);
+			reinterpret_cast<AITactic *>(item)->xfer(xfer);
 			m_10.push_back(item);
 		}
 	}
@@ -572,16 +578,16 @@ void Rva00506909::xfer(Xfer *xfer)
 	if (xfer->IsStoring()) {
 		Rva00506909Item **end = m_28.end();
 		for (Rva00506909Item **it = m_28.begin(); it != end; ++it) {
-			AsciiString name((*it)->m_name);
+			AsciiString name(reinterpret_cast<AITactic *>(*it)->m_name);
 			*xfer == name;
-			(*it)->xfer(xfer);
+			reinterpret_cast<AITactic *>(*it)->xfer(xfer);
 		}
 	} else if (xfer->IsLoading()) {
 		for (unsigned int i = 0; i < count; ++i) {
 			AsciiString name;
 			*xfer == name;
 			Rva00506909Item *item = rva00505DC4(name);
-			item->xfer(xfer);
+			reinterpret_cast<AITactic *>(item)->xfer(xfer);
 			m_28.push_back(item);
 		}
 	}
@@ -590,16 +596,16 @@ void Rva00506909::xfer(Xfer *xfer)
 	if (xfer->IsStoring()) {
 		Rva00506909Item **end = m_40.end();
 		for (Rva00506909Item **it = m_40.begin(); it != end; ++it) {
-			AsciiString name((*it)->m_name);
+			AsciiString name(reinterpret_cast<AITactic *>(*it)->m_name);
 			*xfer == name;
-			(*it)->xfer(xfer);
+			reinterpret_cast<AITactic *>(*it)->xfer(xfer);
 		}
 	} else if (xfer->IsLoading()) {
 		for (unsigned int i = 0; i < count; ++i) {
 			AsciiString name;
 			*xfer == name;
 			Rva00506909Item *item = rva00505DF7(name);
-			item->xfer(xfer);
+			reinterpret_cast<AITactic *>(item)->xfer(xfer);
 			m_40.push_back(item);
 		}
 	}
@@ -608,16 +614,16 @@ void Rva00506909::xfer(Xfer *xfer)
 	if (xfer->IsStoring()) {
 		Rva00506909Item **end = m_58.end();
 		for (Rva00506909Item **it = m_58.begin(); it != end; ++it) {
-			AsciiString name((*it)->m_name);
+			AsciiString name(reinterpret_cast<AITactic *>(*it)->m_name);
 			*xfer == name;
-			(*it)->xfer(xfer);
+			reinterpret_cast<AITactic *>(*it)->xfer(xfer);
 		}
 	} else if (xfer->IsLoading()) {
 		for (unsigned int i = 0; i < count; ++i) {
 			AsciiString name;
 			*xfer == name;
 			Rva00506909Item *item = rva00505E2A(name);
-			item->xfer(xfer);
+			reinterpret_cast<AITactic *>(item)->xfer(xfer);
 			m_58.push_back(item);
 		}
 	}
