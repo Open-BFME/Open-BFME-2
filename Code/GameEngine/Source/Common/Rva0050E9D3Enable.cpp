@@ -97,6 +97,13 @@ void *Rva004E4312GetRoute(void)
 	return Rva004E4179Get();
 }
 
+// Target body at 0x004E4317 calls the rowed guarded getter and sets byte +4
+// of its returned global block. Keep the entry name address-derived.
+void rva004E4317(void)
+{
+	((unsigned char *)Rva004E4179Get())[4] = 1;
+}
+
 // ?Rva004E432ASet@@YAXE@Z @0x004E432A 34B.
 // Flag setter on the 0x004E4179 singleton block: if the byte arg equals the
 // flag byte at +4 of the block, return; if arg is 0, call rowed enable
