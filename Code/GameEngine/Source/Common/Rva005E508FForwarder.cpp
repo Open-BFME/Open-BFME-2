@@ -8,12 +8,14 @@ class Rva005E4DAF
 {
 public:
 	void rva005E4DE5(int v);
+	void rva005E4DAF(int v);
 };
 
 class Rva005E508F
 {
 public:
 	void rva005E508F(int v);
+	void rva005E5097(int v);
 
 private:
 	char m_pad00[0x10];
@@ -23,4 +25,9 @@ private:
 void Rva005E508F::rva005E508F(int v)
 {
 	m_10->rva005E4DE5(v);
+}
+
+void Rva005E508F::rva005E5097(int v)
+{
+	m_10->rva005E4DAF(v);
 }
