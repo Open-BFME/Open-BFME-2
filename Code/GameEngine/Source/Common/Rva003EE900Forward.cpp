@@ -359,3 +359,27 @@ void Rva003EE91A::rva003EE91A(Int a)
 	((Rva004E35FF *)&m_owner)->rva004E35FF(g_Rva00E02E80, (Int)p, (Int)&tmp);
 	((Rva004E35AF *)&m_owner)->rva004E35AF(g_Rva00E02E80, 0);
 }
+
+// ?rva003EEEB3@Rva003EEEB3@@QAEXH@Z @0x003EEEB3 96B chain via 0x003EE7CA+0x003EEA1A loop
+// Retail: map 6C/1 at owner+8 then loop over int array at arg calling
+// this->rva003EE7CA(&tmp,v) and this->rva003EEA1A(v,ret); tmp[3] at ebp-0x10.
+class Rva003EEEB3
+{
+public:
+	void rva003EEEB3(Int p);
+private:
+	char m_pad[8];
+	Rva004E35D5 m_owner;
+};
+void Rva003EEEB3::rva003EEEB3(Int p)
+{
+	((Rva004E3629 *)&m_owner)->rva004E3629(g_Rva00E02E6C, 1);
+	Int *arr = (Int *)p;
+	for (unsigned int i = 0; i < (unsigned int)((arr[1] - arr[0]) >> 2); ++i) {
+		Int v = *(Int *)(arr[0] + i * 4);
+		if (v != 0) {
+			Int tmp[3];
+			((Rva003EEA1A *)this)->rva003EEA1A(v, ((Rva003EE7CA *)this)->rva003EE7CA((Int)&tmp, v));
+		}
+	}
+}
