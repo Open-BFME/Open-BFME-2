@@ -11355,3 +11355,5 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?Rva005E7582Get@@YAHXZ	0x005E7582	95	blocked	boundary 95 vs 133 plus esi-edi incoming unclear plus 3 virtuals plus EH t=10 model=muse-01
 ?Rva005E72B4Get@@YAHXZ	0x005E72B4	110	blocked	EH plus 3 virtuals plus 2 pins plus global plus Rva004E3184 layout t=10 model=muse-01
 ?Rva002EBEF0Intro@@YAXPAUS4SortElem20@@00HUS4Cmp002EB8E0@@@Z	0x00337D21	136	blocked	custom introsort needs 5 callees plus no direct Intro donor plus Rva-vs-S4 pivot t=10 model=muse-01
+?rva00540A88@Rva0054080A@@QAEPAXPAX@Z	0x00540A88	123	blocked	EH clone new+copy+dual setters needs 3 EH states 1-0-2 vs 0-1-minus1 t=18 model=muse-10
+?rva005093C6@Made002CC774@@QAEXPAUInput005093C6@@PBUCoord3D@@@Z	0x005093C6	348	blocked	Made spawn 348B EH frame with 3 callee-saved vs 2 and static flag reg t=15 model=muse-10
