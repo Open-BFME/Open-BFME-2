@@ -10,6 +10,7 @@ assume fs:nothing
 EXTERN ??_M@YGXPAXIHP6EX0@Z@Z:PROC
 EXTERN ??1AsciiString@@QAE@XZ:PROC
 EXTERN ??1UnicodeString@@QAE@XZ:PROC
+EXTERN ??1Rva00087A93@@QAE@XZ:PROC
 EXTERN ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ:PROC
 
 _TEXT SEGMENT
@@ -338,5 +339,75 @@ PUBLIC ?rva007817fb@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva007817fb@@YAXXZ ENDP
+
+; Unwind@00b818a6 at RVA 0x007818A6; 24-byte array cleanup ends at RET.
+; Target passes [ebp-16]+0xac with size 4 count 32 and raw dtor VA 0x0088BA39.
+PUBLIC ?rva007818a6@@YAXXZ
+?rva007818a6@@YAXXZ PROC
+    push 0088BA39h
+    push 20h
+    push 4
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0ACh
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007818a6@@YAXXZ ENDP
+
+; Unwind@00b8190d at RVA 0x0078190D; 24-byte array cleanup ends at RET.
+; Same target type and array parameters as 0x7818A6; frame slot is [ebp-20].
+PUBLIC ?rva0078190d@@YAXXZ
+?rva0078190d@@YAXXZ PROC
+    push 0088BA39h
+    push 20h
+    push 4
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 0ACh
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078190d@@YAXXZ ENDP
+
+; Unwind@00b819a3 at RVA 0x007819A3; 25-byte state-bit cleanup ends at RET.
+; Retail clears bit 0 at [ebp-16] and tail-jumps to [ebp-24] via AsciiString dtor.
+PUBLIC ?rva007819a3@@YAXXZ
+?rva007819a3@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_007819a3
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-24]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_007819a3:
+    ret
+?rva007819a3@@YAXXZ ENDP
+
+; Unwind@00b81ee6 at RVA 0x00781EE6; 25-byte state-bit cleanup ends at RET.
+; Retail clears bit 0 at [ebp-16] and tail-jumps to [ebp-20] via the rowed dtor.
+PUBLIC ?rva00781ee6@@YAXXZ
+?rva00781ee6@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_00781ee6
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-20]
+    jmp ??1Rva00087A93@@QAE@XZ
+cleanup_done_00781ee6:
+    ret
+?rva00781ee6@@YAXXZ ENDP
+
+; Unwind@00b81eff at RVA 0x00781EFF; 25-byte state-bit cleanup ends at RET.
+; Retail clears bit 2 at [ebp-16] and tail-jumps through [ebp+8] via the rowed dtor.
+PUBLIC ?rva00781eff@@YAXXZ
+?rva00781eff@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 4
+    jz NEAR PTR cleanup_done_00781eff
+    and DWORD PTR [ebp-16], -5
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1Rva00087A93@@QAE@XZ
+cleanup_done_00781eff:
+    ret
+?rva00781eff@@YAXXZ ENDP
 _TEXT ENDS
 END
