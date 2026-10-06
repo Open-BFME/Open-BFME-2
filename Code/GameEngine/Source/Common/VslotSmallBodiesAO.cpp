@@ -7,7 +7,7 @@
 typedef int Int;
 
 // 0x0058AD9F (42 tables): five times the Int at VA 0x00DBA4E4.
-extern Int g_rva0058AD9FBase;
+extern Int g_Va00DBA4E4;
 class Rva0058AD9F
 {
 public:
@@ -15,6 +15,6 @@ public:
 };
 Int Rva0058AD9F::rva0058AD9F()
 {
-	return g_rva0058AD9FBase * 5;
+	return g_Va00DBA4E4 * 5;
 }
 

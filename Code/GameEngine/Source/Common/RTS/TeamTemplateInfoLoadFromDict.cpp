@@ -20,7 +20,7 @@
 typedef bool Bool;
 typedef int Int;
 #include <string.h>
-extern int g_rva0058AD9FBase; // LogicFramesPerSecond: target initial value 5, existing owner ColdGlobalDwordGetters.cpp.
+extern int g_Va00DBA4E4; // LogicFramesPerSecond: target initial value 5, existing owner ColdGlobalDwordGetters.cpp.
 enum NameKeyType { NAMEKEY_INVALID=0 };
 enum AttitudeType { AI_NORMAL=0 };
 enum VeterancyLevel { LEVEL_REGULAR=0 };
@@ -298,7 +298,7 @@ void TeamTemplateInfo::loadFromDict(Dict *d)
 	m_maxInstances = d->getInt(teamKey(TheKey_teamMaxInstances), &exists);
 
 	m_scriptOnIdle = d->getAsciiString(teamKey(TheKey_teamOnIdleScript), &exists);
-	m_initialIdleFrames = g_rva0058AD9FBase * d->getInt(teamKey(TheKey_teamInitialIdleSeconds), &exists);
+	m_initialIdleFrames = g_Va00DBA4E4 * d->getInt(teamKey(TheKey_teamInitialIdleSeconds), &exists);
 	m_scriptOnEnemySighted = d->getAsciiString(teamKey(TheKey_teamEnemySightedScript), &exists);
 	m_scriptOnAllClear = d->getAsciiString(teamKey(TheKey_teamAllClearScript), &exists);
 	m_scriptOnDestroyed = d->getAsciiString(teamKey(TheKey_teamOnDestroyedScript), &exists);

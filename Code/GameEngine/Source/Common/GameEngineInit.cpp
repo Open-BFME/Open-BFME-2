@@ -470,7 +470,7 @@ void Rva00419CC8Init();
 void Rva00419BFAInit();
 void HideControlBar(Bool immediate);
 extern Int g_009BA4E8;
-extern int g_rva0058AD9FBase;
+extern int g_Va00DBA4E4;
 
 void Rva000B3FD0(Int argc, char *argv[]);
 void InitRandom();
@@ -872,7 +872,7 @@ void GameEngine::init(Int argc, char *argv[])
 	if (!TheGlobalData->m_playIntro)
 		TheGlobalData->m_afterIntro = true;
 	m_34 = 0;
-	m_38 = g_009BA4E8 / g_rva0058AD9FBase;
+	m_38 = g_009BA4E8 / g_Va00DBA4E4;
 	m_48 = 0.0f;
 	m_44 = (float)m_38;
 	Rva00419CC8Init();
