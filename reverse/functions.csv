@@ -65056,3 +65056,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva00560A4C@Rva00560A4C@@QAEPAXXZ,,0x00560A4C,12,Code/GameEngine/Source/GameClient/Rva003AE50BCtor.cpp,matched,abuts Rva00560A1B ctor plus rowed QuadDraw getInstance plus returns this
 ??1Rva0057D4EE@@QAE@XZ,,0x0057D4EE,5,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewDtor0057D4EE.cpp,matched,5B jmp to rowed AptMapPreview dtor
 ?rva004FD6F9@Rva004FD6F9@@QAE_NABV?$StringBase@D@@@Z,,0x004FD6F9,32,Code/GameEngine/Source/Common/Rva004FD6F9.cpp,matched,find begin end cmp end
+?rva004FD8A8@Rva004FD6F9@@QAE_NABV1@@Z,,0x004FD8A8,16,Code/GameEngine/Source/Common/Rva004FD6F9.cpp,matched,16B thunk forwards o.m_14
