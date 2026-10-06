@@ -21,6 +21,18 @@
 // +0x50. Callees: fillInLANMessage (vslot 57), OnPlayerLeave (vslot 37), the
 // rowed send helper 0x004495A2, Transport::update 0x004D54C1 and removeGame
 // 0x00449913.
+//
+// LANAPI::RequestChat, retail 0x0044A652 (267 bytes), slot 21: Zero Hour's
+// body (message type MSG_CHAT 11, game name, chat type at +0x40, a 100-char
+// message at +0x44, then OnChat). BFME 2 differences: OnChat is vslot 40
+// taking both strings by reference and the local address from vslot 64; the
+// body pops a third stack argument it never reads, which both retail callers
+// (0x00381830, 0x00444916) pass as a pushed zero, so it is typed Int here.
+//
+// LANAPI::RequestEnableMPSetupUI, retail 0x0044A75D (171 bytes), slot 22:
+// Open-BFME-1's LANAPIRequestEnableMPSetupUI.cpp (BFME 1 retail 0x00686780),
+// MSG_ENABLE_MPSETUP_UI (12) with the Bool at +0x40, sent and flushed through
+// Transport::update.
 
 typedef int Int;
 typedef bool Bool;
@@ -48,8 +60,22 @@ enum
 {
 	MSG_REQUEST_GAME_LEAVE = 6,
 	MSG_REQUEST_HOST_LEAVE = 8,
+	MSG_CHAT = 11,
+	MSG_ENABLE_MPSETUP_UI = 12,
 	ACT_LEAVE = 3,
-	LAN_GAME_NAME_LENGTH = 16
+	LAN_GAME_NAME_LENGTH = 16,
+	LAN_MAX_CHAT_LENGTH = 100
+};
+
+class LANAPIInterface
+{
+public:
+	enum ChatType
+	{
+		LANCHAT_NORMAL = 0,
+		LANCHAT_EMOTE,
+		LANCHAT_SYSTEM = 3
+	};
 };
 
 struct BfmeNetAddress
@@ -84,13 +110,32 @@ private:
 	BfmeNetAddress m_hostAddress;			// +0x114, slot 0's address
 };
 
+#pragma pack(push, 1)
 struct LANMessage
 {
 	Int LANMessageType;
 	UnsignedByte m_prefix[0x1E - 4];
-	WideChar gameName[LAN_GAME_NAME_LENGTH + 1];
-	UnsignedByte m_remainder[0x1D8 - 0x40];
+	union
+	{
+		struct
+		{
+			WideChar gameName[LAN_GAME_NAME_LENGTH + 1];
+		} GameToLeave;
+		struct
+		{
+			WideChar gameName[LAN_GAME_NAME_LENGTH + 1];
+			Bool enable;
+		} EnableMPSetupUI;
+		struct
+		{
+			WideChar gameName[LAN_GAME_NAME_LENGTH + 1];
+			LANAPIInterface::ChatType chatType;
+			WideChar message[LAN_MAX_CHAT_LENGTH + 1];
+		} Chat;
+		UnsignedByte m_body[0x1D8 - 0x1E];
+	};
 };
+#pragma pack(pop)
 
 class Transport
 {
@@ -103,7 +148,8 @@ class LANAPI : public VSlots<18>
 public:
 	virtual void RequestGameLeave( void );
 	virtual void slot19( void ) = 0; virtual void slot20( void ) = 0;
-	virtual void slot21( void ) = 0; virtual void slot22( void ) = 0;
+	virtual void RequestChat( UnicodeString message, LANAPIInterface::ChatType format, Int unused );
+	virtual void RequestEnableMPSetupUI( Bool enable );
 	virtual void slot23( void ) = 0; virtual void slot24( void ) = 0;
 	virtual void slot25( void ) = 0; virtual void slot26( void ) = 0;
 	virtual void slot27( void ) = 0; virtual void slot28( void ) = 0;
@@ -113,7 +159,9 @@ public:
 	virtual void slot35( void ) = 0; virtual void slot36( void ) = 0;
 	virtual void OnPlayerLeave( UnicodeString player ) = 0;
 	virtual void slot38( void ) = 0; virtual void slot39( void ) = 0;
-	virtual void slot40( void ) = 0; virtual void slot41( void ) = 0;
+	virtual void OnChat( const UnicodeString &player, const BfmeNetAddress *ip,
+		const UnicodeString &message, LANAPIInterface::ChatType format ) = 0;
+	virtual void slot41( void ) = 0;
 	virtual void slot42( void ) = 0; virtual void slot43( void ) = 0;
 	virtual void slot44( void ) = 0; virtual void slot45( void ) = 0;
 	virtual void slot46( void ) = 0; virtual void slot47( void ) = 0;
@@ -152,8 +200,8 @@ void LANAPI::RequestGameLeave( void )
 	msg.LANMessageType = ( m_currentGame && m_currentGame->getHostAddress()->Rva00248CBF( getLocalAddress() ) )
 		? MSG_REQUEST_HOST_LEAVE : MSG_REQUEST_GAME_LEAVE;
 	fillInLANMessage( &msg );
-	wcsncpy( msg.gameName, ( m_currentGame ) ? m_currentGame->getName().str() : L"", LAN_GAME_NAME_LENGTH );
-	msg.gameName[LAN_GAME_NAME_LENGTH] = 0;
+	wcsncpy( msg.GameToLeave.gameName, ( m_currentGame ) ? m_currentGame->getName().str() : L"", LAN_GAME_NAME_LENGTH );
+	msg.GameToLeave.gameName[LAN_GAME_NAME_LENGTH] = 0;
 	Rva004495A2( &msg, 0 );
 	m_transport->Rva004D54C1( false );
 
@@ -170,4 +218,31 @@ void LANAPI::RequestGameLeave( void )
 		m_pendingAction = ACT_LEAVE;
 		m_expiration = timeGetTime() + m_actionTimeout;
 	}
+}
+
+void LANAPI::RequestChat( UnicodeString message, LANAPIInterface::ChatType format, Int unused )
+{
+	LANMessage msg;
+	fillInLANMessage( &msg );
+	wcsncpy( msg.Chat.gameName, ( m_currentGame ) ? m_currentGame->getName().str() : L"", LAN_GAME_NAME_LENGTH );
+	msg.Chat.gameName[LAN_GAME_NAME_LENGTH] = 0;
+	msg.LANMessageType = MSG_CHAT;
+	msg.Chat.chatType = format;
+	wcsncpy( msg.Chat.message, message.str(), LAN_MAX_CHAT_LENGTH );
+	msg.Chat.message[LAN_MAX_CHAT_LENGTH] = 0;
+	Rva004495A2( &msg, 0 );
+
+	OnChat( m_name, getLocalAddress(), message, format );
+}
+
+void LANAPI::RequestEnableMPSetupUI( Bool enable )
+{
+	LANMessage msg;
+	msg.LANMessageType = MSG_ENABLE_MPSETUP_UI;
+	fillInLANMessage( &msg );
+	wcsncpy( msg.EnableMPSetupUI.gameName, ( m_currentGame ) ? m_currentGame->getName().str() : L"", LAN_GAME_NAME_LENGTH );
+	msg.EnableMPSetupUI.gameName[LAN_GAME_NAME_LENGTH] = 0;
+	msg.EnableMPSetupUI.enable = enable;
+	Rva004495A2( &msg, 0 );
+	m_transport->Rva004D54C1( false );
 }
