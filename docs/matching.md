@@ -15,7 +15,9 @@
      references (`verify_dir32_consistency`). Write the real literal, not a lookalike.
    - **REL32** (calls/jumps): resolved to the callee's address. A matched callee resolves
      automatically; for anything else (CRT helpers like `__ftol2`, not-yet-matched functions)
-     add `name,address` to `reverse/symbols.csv`. The build prints the unresolved name on
+     pin it with `python3 tools/pin_admission.py --add NAME 0xRVA` (or `add_match.py --pin
+     NAME=0xRVA`): the tool checks the pin and admits it in the escape-hatch register, which
+     refuses hand-typed pins once enforced. The build prints the unresolved name on
      failure. Find the address by disassembling the target and computing the call destination,
      or look it up in the Ghidra inventory (`tools/ghidra/`). Append with canonical LF: the
      file is `merge=union`, so a pin that differs from its twin only by a `\r` is a new line

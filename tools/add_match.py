@@ -158,6 +158,40 @@ def remove_stash(rva, root):
         )
 
 
+def add_callee_pins(specs, root, name):
+    """Write each --pin NAME=0xRVA through tools/pin_admission.add_pins: its rules,
+    the pin_consistency check, then a hatch-register admission of exactly these
+    pins (a hand-typed pin stays refused). Returns a callable that restores
+    symbols.csv and the register when the row does not verify."""
+    if not specs:
+        return lambda: None
+    if root != DEFAULT_ROOT.resolve():
+        fail("--pin works on the live tree only (pin_admission reads build.ROOT)")
+    pins = []
+    for spec in specs:
+        pin_name, sep, address = spec.rpartition("=")
+        if not sep or not pin_name:
+            fail(f"--pin {spec!r}: expected NAME=0xRVA")
+        pins.append((pin_name, address))
+    import hatch_counters
+    import pin_admission
+
+    saved = {path: path.read_bytes() if path.exists() else None
+             for path in (root / pin_admission.PINS, root / hatch_counters.BASELINE)}
+
+    def restore():
+        for path, data in saved.items():
+            if data is not None:
+                path.write_bytes(data)
+
+    problems = pin_admission.add_pins(pins, notes=f"callee of {name}",
+                                      reason=f"add_match --pin for {name}")
+    if problems:
+        restore()
+        fail("pin admission refused (nothing written):", *problems[:20])
+    return restore
+
+
 def main():
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -184,6 +218,15 @@ def main():
         help="retire the SCAFFOLD row at this address and claim it "
         "under the new name (the dump -> C++ conversion path); "
         "the old row is restored if verification fails",
+    )
+    parser.add_argument(
+        "--pin",
+        action="append",
+        default=[],
+        metavar="NAME=0xRVA",
+        help="a callee pin this body needs; judged by tools/pin_admission.py "
+        "(its rules + pin_consistency), appended to reverse/symbols.csv and "
+        "admitted in the hatch register; removed if verification fails (repeatable)",
     )
     parser.add_argument(
         "--no-verify",
@@ -360,6 +403,7 @@ def main():
     )
 
     saved_source = source_path.read_bytes()
+    restore_pins = add_callee_pins(args.pin, root, name)
     new_source = strip_marker(source_path, name)
     if new_source is not None:
         source_path.write_bytes(new_source)
@@ -399,6 +443,7 @@ def main():
         # revert: an unverifiable row must not survive
         functions_csv.write_bytes(raw)
         source_path.write_bytes(saved_source)
+        restore_pins()
         fail(f"no build.sh at {root} — cannot verify; append reverted")
 
     if sys.platform == "win32":
@@ -413,6 +458,7 @@ def main():
     except BaseException:
         functions_csv.write_bytes(raw)
         source_path.write_bytes(saved_source)
+        restore_pins()
         print(
             "add_match: interrupted — append and marker strip REVERTED", file=sys.stderr
         )
@@ -420,6 +466,7 @@ def main():
     if result.returncode != 0:
         functions_csv.write_bytes(raw)
         source_path.write_bytes(saved_source)
+        restore_pins()
         fail(
             f"verification failed (exit {result.returncode}) — append and "
             "marker strip REVERTED; nothing was changed"
