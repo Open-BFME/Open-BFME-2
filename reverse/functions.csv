@@ -64278,3 +64278,5 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva005CF9FF@@UAE@XZ,,0x005CF9FF,68,Code/GameEngine/Source/Common/Rva005CF9FFFlagNotifyDtors.cpp,matched,dtor: flag +0x10 gates pinned 0x54CBEF(0) on g_Va00E05FAC then base vtable 0xC75290
 ??1Rva005CFA43@@UAE@XZ,,0x005CFA43,68,Code/GameEngine/Source/Common/Rva005CF9FFFlagNotifyDtors.cpp,matched,dtor: flag +0x08 gates pinned 0x54CBEF(0) on g_Va00E05FAC then base vtable 0xC75290
 ??1Rva005CFA87@@UAE@XZ,,0x005CFA87,68,Code/GameEngine/Source/Common/Rva005CF9FFFlagNotifyDtors.cpp,matched,dtor: flag +0x0C gates pinned 0x54CBEF(0) on g_Va00E05FAC then base vtable 0xC75290
+??1Rva005E8D71@@UAE@XZ,,0x005E8D71,60,Code/GameEngine/Source/Common/Rva005E8D71Dtor.cpp,matched,MI dtor twin of 0x005E92F7
+??1Rva009111B@@UAE@XZ,,0x0009111B,56,Code/GameEngine/Source/Common/Rva0009111BDtor.cpp,matched,VideoPlayer-derived dtor calls rva000907A7
