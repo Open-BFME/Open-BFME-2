@@ -71,7 +71,7 @@ class Rva005E16DA : public Rva00221635
 
 public:
 	Rva005E16DA(int arg);
-	virtual void Rva005E16DA_pure() = 0;
+	virtual ~Rva005E16DA();
 };
 
 Rva005E16DA::Rva005E16DA(int arg)
