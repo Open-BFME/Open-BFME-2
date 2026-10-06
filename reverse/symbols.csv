@@ -13410,3 +13410,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Rva003808F0Show@@YAXPAXPAVAsciiString@@HHH@Z,0x003808F0,Apt ShowToolTip firer called from Mouse tooltip update 0x001EF06F (text, font, size, bold, color args plus MoveToolTip positioning); Ghidra boundary 0x003808F0; original name unknown
 ?consume@Rva003909FAObj@@QAEXPAXHH@Z,0x003909FA,thiscall consumer of computed vector at Rva001F01F1 site: (buf,0,0) on the +0x25C object; REL32 read from placed 0x001F01F1 body
 ?rva001F0247@@YAXMMMMPAX@Z,0x001F0247,cdecl 5-arg vector helper at Rva001F01F1 site: plain ret proves caller cleanup; 5th param is the out-vector written through (12B stores at its tail); REL32 read from placed 0x001F01F1 body
+?freeRva001F092AVecBuf@@YAXPAX@Z,0x00030830,TU-local throwing free spelling for the Rva001F092A vector-buffer inline teardown (DynamicPortal WayPoint precedent); C++ decoration emits retail state stores; same body as free at this address
