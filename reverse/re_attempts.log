@@ -11996,3 +11996,6 @@ FUN_0075b8aa	0x0035B8AA	673	blocked	673B ctor vtable 0x00816204 member types con
 ?rva004697E1@HordeContain@@UAEXXZ	0x004697E1	59	blocked	59B HordeContain gap needs unrowed thunk 0x4783D7 to 0x463C6E t=4 model=muse-spark
 ?rva00363233@LaserUpdate@@QAEXXZ	0x00363233	809	blocked	809B LaserUpdate vslot uses ADDRESS-NAMED g_Va00BBB8D8 new use refused t=3 model=muse-spark
 ?rva0034707A@Rva0034707A@@QAEXXZ	0x0034707A	150	blocked	ADDRESS-NAMED globals g_Va009FE16C g_Va009FF0F8 require escape hatch t=2 model=muse-04
+?rva000BAEBF@Rva000B8F5A@@QAEHPAM@Z	0x000BAEBF	188	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString requires escape hatch t=1 model=muse-04
+??0Rva000E59D3@@QAE@XZ	0x000E5A47	102	blocked	lea ecx after push vs retail lea lea push t=8 model=muse-04 (stash 0.97 kept)
+?rva004C4940@Rva004C4940@@QAEPAVObject@@PBUCoord3D@@PBVAsciiString@@@Z	0x004C4940	110	blocked	second je to xor not mov 74 1e vs 74 1a barrier fixes branch but swaps ebx esi to esi edi t=15 model=muse-04 (stash 0.99 kept)

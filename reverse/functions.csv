@@ -64871,3 +64871,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?Rva00322714@@YAXPAVBfmeKeyLC@@HE@Z,,0x00322714,39,Code/GameEngine/Source/GameClient/GUI/Gadget/Rva00322714.cpp,matched,Gadget item-data helper via bfmeGo925A and Rva0032431FSet
 ?rva0028FC8F@Object@@QAEXXZ,,0x0028FC8F,74,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FC8F.cpp,matched,Object method via rowed builders and rva0028CFB2
 ?rva003EFDF5@Rva003EFDF5Host@@QAEXPAX@Z,,0x003EFDF5,73,Code/GameEngine/Source/Common/Rva003EFDF5.cpp,matched,leaf via caller 0x0020E37C no commas
+?rva004B0DAC@EmotionTrackerUpdate@@QAEXHMH@Z,,0x004B0DAC,115,Code/GameEngine/Source/Common/EmotionTrackerUpdateRva004B0DAC.cpp,matched,linkbody via caller 0x0028ECD3 no commas
