@@ -9,6 +9,7 @@ assume fs:nothing
 ; shape as a VC7.1 SEH codegen blocker.
 
 EXTERN ??1AsciiString@@QAE@XZ:PROC
+EXTERN ??1UnicodeString@@QAE@XZ:PROC
 EXTERN ??1Gen_uw_0017098d@@QAE@XZ:PROC
 EXTERN ??1Gen_uw_000519ab@@QAE@XZ:PROC
 EXTERN ??1BfmeStringTailRecord156@@QAE@XZ:PROC
@@ -104,6 +105,58 @@ PUBLIC ?rva0075DABF@@YAXXZ
 cleanup_done_0075DABF:
     ret
 ?rva0075DABF@@YAXXZ ENDP
+
+; Unwind@00b5daea: bit 0 at [ebp-0x10], local object at [ebp-0x18].
+PUBLIC ?rva0075DAEA@@YAXXZ
+?rva0075DAEA@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0075DAEA
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp-24]
+    jmp ??1AsciiString@@QAE@XZ
+cleanup_done_0075DAEA:
+    ret
+?rva0075DAEA@@YAXXZ ENDP
+
+; Unwind@00b5dbaf: bit 0 at [ebp-0x18], cleanup pointer at [ebp+8].
+PUBLIC ?rva0075DBAF@@YAXXZ
+?rva0075DBAF@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-24]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0075DBAF
+    and DWORD PTR [ebp-24], -2
+    mov ecx, DWORD PTR [ebp+8]
+    jmp ??1BfmeStringTailRecord156@@QAE@XZ
+cleanup_done_0075DBAF:
+    ret
+?rva0075DBAF@@YAXXZ ENDP
+
+; Unwind@00b5dc3d: bit 0 at [ebp-0x10], object address at [ebp+8].
+PUBLIC ?rva0075DC3D@@YAXXZ
+?rva0075DC3D@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-16]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0075DC3D
+    and DWORD PTR [ebp-16], -2
+    lea ecx, [ebp+8]
+    jmp ??1BfmeStringTailRecord156@@QAE@XZ
+cleanup_done_0075DC3D:
+    ret
+?rva0075DC3D@@YAXXZ ENDP
+
+; Unwind@00b5dc92: bit 0 at [ebp-0x1c], local object at [ebp-0x2c].
+PUBLIC ?rva0075DC92@@YAXXZ
+?rva0075DC92@@YAXXZ PROC
+    mov eax, DWORD PTR [ebp-28]
+    and eax, 1
+    jz NEAR PTR cleanup_done_0075DC92
+    and DWORD PTR [ebp-28], -2
+    lea ecx, [ebp-44]
+    jmp ??1UnicodeString@@QAE@XZ
+cleanup_done_0075DC92:
+    ret
+?rva0075DC92@@YAXXZ ENDP
 
 _TEXT ENDS
 END
