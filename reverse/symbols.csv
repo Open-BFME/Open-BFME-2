@@ -13516,3 +13516,4 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva000B2361@Rva000B4653@@QAEPAURva000B2361Slot@@H@Z,0x000B2361,31B index dispatcher returning interior slot pointers (+4/+8/+0xC by int arg 0/1/2, default +4); called on the same object from 0x000B4653; original name unknown
 ?rva0010E4F6@@YAXPAXH@Z,0x0010E4F6,172B cdecl helper taking (acquired pointer, 0) from 0x0009C0EB; caller-popped; original name unknown
 ?xferSaveData@GameState@@QAEXPAVXfer@@W4SnapshotType@@@Z,0x002DCE24,friend_xferSaveDataForCRC 0x002DDD0B calls here (decode_calls); callee body stashed at reverse/attempts/0x002dce24.cpp with SAVE branch exact; pin retires when the xferSaveData row lands
+??0?$hash_map@W4NameKeyType@@VFXList@@U?$hash@W4NameKeyType@@@rts@@U?$equal_to@W4NameKeyType@@@4@V?$allocator@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@_STL@@@_STL@@QAE@XZ,0x001E3386,hash_map<NameKeyType FXList> default ctor called by FXListStore ctor (0x001E33A5)
