@@ -65121,7 +65121,6 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?Rva0055E636Compute@@YGXPAVCoord3D@@0MM@Z,,0x0055E636,97,Code/GameEngine/Source/GameClient/Rva0055E636Scale.cpp,matched,sibling XY trick normalizes Coord3D then scales
 ?rva00516FE5@Rva00516FE5@@QAEHHII@Z,,0x00516FE5,66,Code/GameEngine/Source/Common/Rva00516FE5Handler.cpp,matched,vtable slot2 calls base 0x0051274F then child array
 ?step@Rva005E5565@@QAEXXZ,,0x005E5565,16,Code/GameEngine/Source/Common/Rva005E5565Step.cpp,matched,vtable slot validate then 0xC tail-jmp twin RvaHelperMemberSteps
-??0Rva00544810@@QAE@PAVStateMachine@@@Z,,0x00544810,29,Code/GameEngine/Source/Common/Rva00544810Ctor.cpp,matched,State derived ctor via hash 0x26F20F3B plus vtable 0x00869B10
 ?rva000448CF@Rva000448CF@@QAEXMMMMMK@Z,,0x000448CF,89,Code/GameEngine/Source/Common/Rva000448CF.cpp,matched,ref slot forwarder via Render2DClass Add_Line
 ?rva002654E9@Rva002654E9@@QAEXXZ,,0x002654E9,19,Code/GameEngine/Source/GameLogic/Object/Rva002654E9Apply.cpp,matched,caller jmp at 0x0026893A abuts 0x002654FC via rowed Object setStatus
 ?parseMiscEvaData@INI@@SAXPAV1@@Z,,0x001DCFE5,70,Code/GameEngine/Source/Common/INI_parseMiscEvaData.cpp,matched,BlockParse MiscEvaData token parse donor BFME1 Eva.cpp TheEva+0x80
@@ -65140,3 +65139,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva005CECF3@Rva005CECF3@@QBE?AURva005CECF3Handle@@XZ,,0x005CECF3,68,Code/GameEngine/Source/Common/Rva005CECF3Clone.cpp,matched,VTABLE slot1 table 0x008751D0 Family1 clone shape
 ?rva005CEDAF@Rva005CEDAF@@QBE?AURva005CEDAFHandle@@XZ,,0x005CEDAF,69,Code/GameEngine/Source/Common/Rva005CEDAFClone.cpp,matched,VTABLE slot1 table 0x008751E8 Family1 clone shape
 ?rva005CE3C4@Rva005CE3C4@@QAE?AURvaF6Ret@@XZ,,0x005CE3C4,26,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,VTABLE slot1 table 0x00875140 forwarder via plus8 to 0x005CE3DE
+?rva0006842B@Rva0006842B@@QAEXW4ObjectID@@@Z,,0x0006842B,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed removeBib same offset as 0x000683FF
