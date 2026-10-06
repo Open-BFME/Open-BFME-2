@@ -41,16 +41,27 @@
 // creates the machines. New in BFME 2: +0x4A4 is zeroed in the init list,
 // the +0x40C flag (construct 0x00488F52's isRebuild) is cleared and +0x408
 // is set to 1.
+//
+// ?onDelete@DozerAIUpdate@@UAEXXZ, retail 0x00489CA1, 104 bytes (primary vslot 8; the
+// dozer interface's slot 0 reaches it through its this-adjusting entry). As
+// in ZH: cancel every pending task (dozer interface vslots 6 and 13), then
+// clear MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED (Object +0x114 bit 5,
+// notifying through the rowed 0x0028AE6D on change) on each task's target
+// (+0x3E8 ids, the rowed GameLogic::findObjectByID). New in BFME 2: it ends
+// with the dozer interface's finishBuildingSound (vslot 24, tail call).
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
-typedef unsigned int ObjectID;
 
 #define FALSE false
-#define INVALID_ID 0
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
 
 class Thing;
 class ModuleData;
@@ -215,12 +226,21 @@ public:
 class DozerAIInterface
 {
 public:
-	virtual void slot0() = 0;
+	virtual void onDelete() = 0; // vslot 0
 	virtual void slot1() = 0;
 	virtual void slot2() = 0;
 	virtual void slot3() = 0;
 	virtual void slot4() = 0;
 	virtual DozerTask getMostRecentCommand() = 0; // vslot 5
+	virtual Bool isTaskPending(DozerTask task) = 0; // vslot 6
+	virtual void slot7() = 0; virtual void slot8() = 0; virtual void slot9() = 0;
+	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0;
+	virtual void cancelTask(DozerTask task) = 0; // vslot 13
+	virtual void slot14() = 0; virtual void slot15() = 0; virtual void slot16() = 0;
+	virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
+	virtual void slot20() = 0; virtual void slot21() = 0; virtual void slot22() = 0;
+	virtual void slot23() = 0;
+	virtual void finishBuildingSound() = 0; // vslot 24
 };
 
 class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24
@@ -228,7 +248,7 @@ class AIUpdateInterface : public UpdateModule, public AICommandInterface, public
 public:
 	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
 	// Primary vtable slots 1-92 (slot 0 is the destructor).
-	virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09(); virtual void v10();
+	virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07(); virtual void onDelete(); virtual void v09(); virtual void v10();
 	virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20();
 	virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30();
 	virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40();
@@ -248,14 +268,53 @@ private:
 	unsigned char m_pad28[0x3E4 - 0x28];
 };
 
+enum ModelConditionFlagType
+{
+	MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED = 69 // +0x114 bit 5
+};
+
+class ModelConditionFlags
+{
+public:
+	unsigned int test(unsigned int bit) const
+	{
+		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void clear(unsigned int bit)
+	{
+		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
+	}
+private:
+	unsigned int m_words[19];
+};
+
 class Object
 {
 public:
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+	void rva0028AE6D();
+	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
+	{
+		if (m_modelConditionFlags.test(mc) != 0)
+		{
+			m_modelConditionFlags.clear(mc);
+			rva0028AE6D();
+		}
+	}
 private:
-	unsigned char m_pad000[0x258];
+	unsigned char m_pad000[0x10C];
+	ModelConditionFlags m_modelConditionFlags; // +0x10C
+	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
 };
+
+class GameLogic
+{
+public:
+	Object *findObjectByID(ObjectID id);
+};
+
+extern GameLogic *TheGameLogic;
 
 inline void zeroCoord(Coord3D &c)
 {
@@ -279,7 +338,7 @@ class DozerAIUpdate : public AIUpdateInterface, public DozerAIInterface
 public:
 	DozerAIUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~DozerAIUpdate();
-	virtual void slot0();
+	virtual void onDelete();
 private:
 	enum { DOZER_NUM_TASKS = 3 };
 	enum { DOZER_NUM_DOCK_POINTS = 3 };
@@ -420,4 +479,27 @@ void DozerAIUpdate::createMachines()
 		m_dozerMachine = new DozerPrimaryStateMachine(getObject());
 		m_dozerMachine->initDefaultState();
 	}
+}
+
+void DozerAIUpdate::onDelete(void)
+{
+	Int i;
+
+	// cancel any of the tasks we had queued up
+	for (i = DOZER_TASK_FIRST; i < DOZER_NUM_TASKS; ++i)
+	{
+		if (isTaskPending((DozerTask)i))
+			cancelTask((DozerTask)i);
+	}
+
+	for (i = 0; i < DOZER_NUM_TASKS; i++)
+	{
+		Object *goalObject = TheGameLogic->findObjectByID(m_task[i].m_targetObjectID);
+		if (goalObject != 0)
+		{
+			goalObject->clearModelConditionState(MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED);
+		}
+	}
+
+	finishBuildingSound();
 }
