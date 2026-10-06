@@ -14375,3 +14375,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva003B1244@SpecialPowerStore@@QAE_NPAVObject@@PBVSpecialPowerTemplate@@@Z,0x003B1244,callee of ?rva004B2F7B@Rva004B2F7B@@QAE_NPBVSpecialPowerTemplate@@@Z
 ?rva004A584B@Rva004A5B09@@QAEXHPAUCoord3D@@@Z,0x004A584B,callee of ?rva004A5B09@Rva004A5B09@@QAEXPAVPosHolder@@H@Z
 ?rva00495489@Rva00495840@@QAEPAVObject@@XZ,0x00495489,callee of ?rva00495840@Rva00495840@@QAEHPAVArg@@@Z
+?rva001F5AA4@ParticleSystemManager@@QAEHPAVParticleSystemTemplate@@PBVObject@@H@Z,0x001F5AA4,callee of ?rva004A78E1@MissileUpdate@@QAEXXZ
