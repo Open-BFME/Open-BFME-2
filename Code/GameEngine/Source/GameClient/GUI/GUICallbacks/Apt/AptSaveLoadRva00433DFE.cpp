@@ -54,7 +54,7 @@ void AptSaveLoad::Rva00433DFE(int query, char *value, bool set)
 		if (m_filterEnabled & 4)
 			_mbscat(value, "Replay");
 		if (m_filterEnabled & 8)
-			_mbscat(value, "WOTR");
+			_mbscat(value, "WOTRSP");
 		if (m_filterEnabled & 16)
 			_mbscat(value, "WOTRMP");
 		break;
@@ -67,7 +67,7 @@ void AptSaveLoad::Rva00433DFE(int query, char *value, bool set)
 			m_mode = 2;
 		else if (_strcmpi(value, "Replay") == 0)
 			m_mode = 4;
-		else if (_strcmpi(value, "WOTR") == 0)
+		else if (_strcmpi(value, "WOTRSP") == 0)
 			m_mode = 8;
 		else if (_strcmpi(value, "WOTRMP") == 0)
 			m_mode = 16;

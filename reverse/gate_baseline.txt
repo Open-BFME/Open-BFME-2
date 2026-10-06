@@ -193,10 +193,6 @@ ltable 0x00686F10 _Rva0081B010
 ltable 0x006A03A0 _piEnterResultToJoinResult
 ltable 0x006DD360 ?toInteger@BfmeAptValue006DCD20@@QBEHXZ
 ltable 0x006E2560 ?rva006E2560@AptCIH@@QAEXH@Z
-strnul 0x00433DFE ?Rva00433DFE@AptSaveLoad@@QAEXHPAD_N@Z
-strnul 0x0047F9D4 ??0CivilianSpawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
-strnul 0x0048B7D9 ?rva0048B7D9@Rva0048B7D9@@QAEIXZ
-strnul 0x00512894 ??1BfmeAptScreenCampaignReview@@UAE@XZ
 tail 0x001D5470 ?Rva001D5470_CpuFeatureProbe@@YAHXZ
 tail 0x00659A20 ?Rva007ECAF0@@YAHPADHPBDH@Z
 tail 0x00659CC0 ?Rva007ECD90@@YAHPADHPBDH@Z

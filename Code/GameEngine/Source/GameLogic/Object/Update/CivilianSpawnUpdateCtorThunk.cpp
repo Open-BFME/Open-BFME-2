@@ -74,6 +74,6 @@ CivilianSpawnUpdate::CivilianSpawnUpdate(Thing *thing, const ModuleData *moduleD
     m_spawnFrame = GetGameLogicRandomValue(
         m_moduleData->m_spawnDelay / 2,
         m_moduleData->m_spawnDelay,
-        "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update",
+        "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\CivilianSpawnUpdate.cpp",
         61);
 }

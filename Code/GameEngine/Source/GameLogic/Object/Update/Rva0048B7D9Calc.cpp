@@ -53,7 +53,7 @@ private:
 
 unsigned int Rva0048B7D9::rva0048B7D9()
 {
-	unsigned int r = (unsigned int)GetGameLogicRandomValue(m_data->m_min, m_data->m_max, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\FireSpreadUpdate.c", 0x98);
+	unsigned int r = (unsigned int)GetGameLogicRandomValue(m_data->m_min, m_data->m_max, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\FireSpreadUpdate.cpp", 0x98);
 	if (r < 1)
 		r = 1;
 	return r;
