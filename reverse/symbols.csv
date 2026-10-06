@@ -15214,3 +15214,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0052B17F@Rva0052B17F@@QAEXXZ,0x0052B17F,callee of ?rva004E0CA3@Rva004E0B60@@QAEXXZ
 ?rva00031430@GeneralAllocator@Allocator@EA@@QAEHPBXIPAD@Z,0x00031430,callee of ?rva000327E0@GeneralAllocator@Allocator@EA@@QAEHPBXIPAD@Z
 ?rva00055FCA@MilesAudioManager@@QAE_NHPAPAXH@Z,0x00055FCA,callee of ?rva000562CF@MilesAudioManager@@QAEXH@Z
+?rva0005623E@MilesAudioManager@@QAE_NHPAPAXH@Z,0x0005623E,callee of ?rva0005A92A@MilesAudioManager@@QAEXHPAV?$vector@URva0005A084Element@@V?$allocator@URva0005A084Element@@@_STL@@@_STL@@@Z

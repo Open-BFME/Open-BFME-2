@@ -124,6 +124,9 @@ struct Rva00051107AudioRequest {
 
 typedef _STL::list<Rva00051107AudioRequest *> Rva00051107AudioRequestList;
 
+struct Rva0005A084Element { int m_value; };
+typedef _STL::vector<Rva0005A084Element> Rva0005A084Vector;
+
 class MilesMutexGuard {
 public:
     MilesMutexGuard(void *mutex, int defer);
@@ -232,9 +235,11 @@ public:
     virtual void slot70(); virtual void slot71(); virtual void slot72(); virtual void slot73(); virtual void slot74();
     virtual AudioEventInfoRef findAudioEventInfo(const AsciiString &name) const;
     bool rva00055FCA(int key, void **result, int flags);
+    bool rva0005623E(int key, void **result, int flags);
     void rva000562CF(int key);
     void rva000562A2(int key, const void *value);
     void rva000567C5(int argument);
+    void rva0005A92A(int key, Rva0005A084Vector *output);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
     AudioEventRTS *findLowestPrioritySound(AudioEventRTS *event);
     float rva0005A9F8(void *ref, int a, int b);
@@ -335,6 +340,15 @@ void MilesAudioManager::rva000567C5(int argument)
     request->m_at08 = argument;
     request->m_request = 1;
     m_audioRequests.push_back(request);
+}
+
+// Address-derived lookup wrapper; target appends the found record's +8 dword
+// to the caller's four-byte vector using the already matched push_back body.
+void MilesAudioManager::rva0005A92A(int key, Rva0005A084Vector *output)
+{
+    void *result = 0;
+    if (rva0005623E(key, &result, 0) && result)
+        output->push_back(*reinterpret_cast<const Rva0005A084Element *>(reinterpret_cast<char *>(result) + 8));
 }
 
 // Retail @ 0x0005AC61 gates the move-up helper on the per-view active system.
