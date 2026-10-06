@@ -66093,3 +66093,4 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ??0Rva000C38F8@@QAE@XZ,,0x000C47F4,231,Code/GameEngine/Source/Common/System/Rva000C38F8Ctor.cpp,matched,ctor via Vector_base List_base and helper rva000C38F8
 ?Rva000C4BAEParse@@YAXPAVINI@@PAX1PBX@Z,,0x000C4BAE,197,Code/GameEngine/Source/Common/System/INI_Rva000C4BAEParse.cpp,matched,REF TimeOfDayTexture Bfme 0x2C layout all callees rowed
 ??0EAStringC@@QAE@II@Z,,0x006D4640,114,Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp,matched,two-argument EAStringC fill ctor backed by pin and call sites
+?rva0040471B@Rva0040471B@@QAEXPAVRva0040471BXfer@@@Z,,0x0040471B,65,Code/GameEngine/Source/Common/Rva0040471BMethod.cpp,matched,address-derived five-field virtual serializer by target call shape
