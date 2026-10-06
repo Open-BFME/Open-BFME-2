@@ -240,6 +240,7 @@ class Rva00576B5E : public Rva00575395
 public:
 	virtual ~Rva00576B5E();
 	void rva00576B99(int a);
+	void rva00576ACB(void *unused, void *lookup);
 
 private:
 	char m_unmodelled_04[0x4];
@@ -270,6 +271,36 @@ void Rva00576B5E::rva00576B99(int a)
 			return;
 	}
 	((Rva00577302 *)this)->rva005753A4(a);
+}
+
+class Rva004FBED6Call
+{
+public:
+	void *rva004FBED6();
+};
+class Rva005768CBCall
+{
+public:
+	void rva005768CB(void *lookup);
+};
+class Rva00576ACBExpected
+{
+public:
+	char m_unmodelled_00[0x14];
+	void *m_expected;
+};
+// Target evidence: slot 4 of the vptr stored by the destructor at 0x00576B5E;
+// the body reads this+0x0C and that pointer's +0x14 field, compares it with
+// the 0x004FBED6 call result, and conditionally calls 0x005768CB on this-0x0C.
+// The record and helper interfaces are structural views; their identities and
+// argument meanings remain unknown.
+void Rva00576B5E::rva00576ACB(void *unused, void *lookup)
+{
+	(void)unused;
+	Rva00576ACBExpected *expected = *(Rva00576ACBExpected **)((char *)this + 0xC);
+	void *expected_value = expected->m_expected;
+	if (((Rva004FBED6Call *)lookup)->rva004FBED6() == expected_value)
+		((Rva005768CBCall *)((char *)this - 0xC))->rva005768CB(lookup);
 }
 
 class Rva005772BF : public Rva00575395
