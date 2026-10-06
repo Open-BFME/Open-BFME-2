@@ -15468,3 +15468,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0059D2DA@Rva0059D2DA@@QAEXPAX000HHHPAH@Z,0x0059D2DA,Native REL32 at RVA 004FB2F5 in the 66B wrapper; Ghidra helper entry 0059D2DA ends in RET32; wrapper supplies eight stack arguments and uses the last argument as output count; address-derived identity.
 ?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
 ?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
+?onContaining@HordeContain@@UAEXPAVObject@@_N@Z,0x0046FA46,callee of ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z
