@@ -1,6 +1,4 @@
-// ?rva005CCACA@Rva005CCACA@@QAEXH@Z
-// partial score=0.93 date=2026-10-06
-// cl: /MD
+// cl: /O1 /arch:SSE /G7 /MD
 // ?rva005CCACA@Rva005CCACA@@QAEXH@Z @0x005CCACA 34B evidence: calls rowed ??_9@$BBE@AE; tail-jmp target of 0x005CCB73
 // Setter with change notification: if new value differs from cached +0xC, notify listener at +4 via its +0x14 virtual then cache it.
 class Rva005CCACAListener
