@@ -59,6 +59,7 @@ python3 tools/conversion_gate.py HEAD : || fail "conversion direction (see above
 python3 tools/link_debt.py --staged || fail "new hard-coded image address (see above)"
 # A class with a shared header (reverse/canonical_classes.csv) gets no new private copies.
 python3 tools/class_gate.py --staged || fail "new private copy of a class with a shared header (see above)"
+python3 tools/hatch_counters.py --staged || fail "escape hatches grew or a retail inventory was hand-edited (see above)"
 
 staged_sources=()
 ledger_changed=0
