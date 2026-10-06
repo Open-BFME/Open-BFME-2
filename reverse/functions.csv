@@ -65249,3 +65249,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ??1Rva005CCDDD@@UAE@XZ,,0x005CCDDD,54,Code/GameEngine/Source/Common/Rva005CCDDDDtor.cpp,matched,dtor stores vtables plus member Rva005CCD3E at plus8 Evidence ret plus calls
 ?findMessage@NetCommandList@@QAEPAVNetCommandRef@@GEW4NetCommandType@@I@Z,,0x0058B121,83,Code/GameEngine/Source/GameNetwork/NetCommandList.cpp,matched,same TU four argument findMessage exact retail bytes
 ?rva0031BF1B@Rva0031BF1B@@QAEXPAVModuleData@@@Z,,0x0031BF1B,73,Code/Libraries/Source/WWVegas/WWLib/Rva0031BF1BRemove.cpp,matched,unlinks a ModuleData entry using retail offsets and queues it in the rowed vector
+?Rva002040E7GetFrameNumber@@YAXXZ,,0x002040E7,79,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setFrame.cpp,matched,debug SetFrameNumber callback reads selected frame field via mode gate

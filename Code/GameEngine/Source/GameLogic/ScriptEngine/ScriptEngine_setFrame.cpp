@@ -19,9 +19,21 @@ extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(HMODULE module, 
 class GameLogic
 {
 public:
+	char m_pad00[0x40];
+	int m_frameNumber;
 	bool rva001DCD1C();
 };
 extern GameLogic *TheGameLogic;
+
+class LivingWorldLogic
+{
+public:
+	char m_pad00[0xFC];
+	int m_frameNumber;
+};
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+extern "C" HMODULE st_DebugDLL;
 
 #define TheAppModule g_00DFE158
 
@@ -57,5 +69,27 @@ void rva00204094()
 		value = TheRva00DFE77C->slot1F();
 	else
 		value = *(int *)((char *)TheRva00DFEF10 + 0xFC);
+	proc(value);
+}
+
+// ?Rva002040E7GetFrameNumber@@YAXXZ @0x002040E7 79B.
+// Evidence: adjacent debug frame setter uses GetProcAddress("SetFrameNumber");
+// target bytes select GameLogic::m_frameNumber or
+// TheLivingWorldLogic::m_frameNumber after the rowed mode check.
+void Rva002040E7GetFrameNumber()
+{
+	if (!st_DebugDLL)
+		return;
+	rva00203C21();
+	typedef void (__cdecl *SetFrameProc)(int value);
+	SetFrameProc proc = (SetFrameProc)GetProcAddress(st_DebugDLL, "SetFrameNumber");
+	if (!proc)
+		return;
+	GameLogic *logic = TheGameLogic;
+	int value;
+	if (!logic->rva001DCD1C())
+		value = logic->m_frameNumber;
+	else
+		value = TheLivingWorldLogic->m_frameNumber;
 	proc(value);
 }
