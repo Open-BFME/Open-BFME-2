@@ -14127,3 +14127,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva0026AFDAMember@@QAE@XZ,0x0026AFDA,member ctors GiantBirdAIUpdate ctor 0x36B717 runs at member position: +0x3F0 (0xC4 member; DeployStyle's +0x3E4 one; rowed dtor 0x26B03D) and +0x4C8 (0x60 member; vtable 0x7C7514)
 ??0Rva00312C95@@QAE@XZ,0x00312C95,member ctors GiantBirdAIUpdate ctor 0x36B717 runs at member position: +0x3F0 (0xC4 member; DeployStyle's +0x3E4 one; rowed dtor 0x26B03D) and +0x4C8 (0x60 member; vtable 0x7C7514)
 ??0Rva004D759C@@QAE@PAVObject@@I_N@Z,0x004D79E1,scalar-key spelling of the rowed StateMachine base ctor ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z: callers push the name key as one immediate dword (DozerPrimaryStateMachine 0x488DAB pushes 0x3EA7DE5F) which only a scalar parameter reproduces
+?canTransferSuppliesAt@ActionManager@@QAE_NPBVObject@@0@Z,0x0041BCA1,callee of ?computeRelativeCost@@YAMPAVObject@@0PAM@Z
