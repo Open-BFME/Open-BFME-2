@@ -60,7 +60,7 @@ void ScriptEngine::rva00357340(void *p, Coord3D *dst)
 	if (!dst)
 		return;
 	unsigned long crc = Rva003ECA13Get(arg->m_str88);
-	for (_STL::list<Rva00357340Entry, _STL::allocator<Rva00357340Entry> >::iterator it = m_list1A498.begin(); it != m_list1A498.end(); ++it)
+	for (_STL::list<Rva00357340Entry, _STL::allocator<Rva00357340Entry> >::iterator it = m_list1A498.begin(); it._M_node != m_list1A498.end()._M_node; ++it)
 	{
 		if (it->m_key == (int)crc)
 		{

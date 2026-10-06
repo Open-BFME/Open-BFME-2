@@ -27,7 +27,7 @@ Rva00201B64::Rva00201B64()
 
 Rva00201B64::~Rva00201B64()
 {
-	for (_STL::list<int>::iterator it = m_list00.begin(); it != m_list00.end();)
+	for (_STL::list<int>::iterator it = m_list00.begin(); it._M_node != m_list00.end()._M_node;)
 	{
 		int v = *it;
 		if (v != 0)

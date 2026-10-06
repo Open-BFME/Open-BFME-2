@@ -116,7 +116,7 @@ bool TunnelContain::rva0047DF44(int id)
 {
 	Player *player = m_object->getControllingPlayer();
 	Rva0036AE51ListView out = player->m_2E8->rva00466398();
-	for (_STL::list<int>::iterator it = out.m_04->begin(); it != out.m_04->end(); ++it)
+	for (_STL::list<int>::iterator it = out.m_04->begin(); it._M_node != out.m_04->end()._M_node; ++it)
 	{
 		if (*it == id)
 			return true;

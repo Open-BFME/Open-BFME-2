@@ -20,7 +20,7 @@ private:
 int Rva00598192::rva00598192(const AsciiString &key)
 {
 	int count = 0;
-	for (_STL::list<int>::iterator it = m_list.begin(); it != m_list.end(); ++it) {
+	for (_STL::list<int>::iterator it = m_list.begin(); it._M_node != m_list.end()._M_node; ++it) {
 		Rva00598192Item *item = (Rva00598192Item *)(int)*it;
 		if (item->m_name.compare(key) == 0)
 			++count;

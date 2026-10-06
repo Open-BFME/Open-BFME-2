@@ -168,7 +168,7 @@ void GettingBuiltBehavior::rva00453D92()
 {
 	typedef _STL::list<int, _STL::allocator<int> > IdList;
 	IdList &entries = *(IdList *)&m_workList;
-	for (IdList::iterator it = entries.begin(); it != entries.end(); ++it)
+	for (IdList::iterator it = entries.begin(); it._M_node != entries.end()._M_node; ++it)
 	{
 		if (!TheGameLogic->findObjectByID((ObjectID)*it))
 			it = entries.erase(it);
@@ -184,7 +184,7 @@ bool GettingBuiltBehavior::rva00453DCF()
 	if ((inner->m_flag11b & 0x10) == 0)
 		return false;
 	int lo = m_object->m_7c;
-	for (_STL::list<Rva004530ED, _STL::allocator<Rva004530ED> >::iterator it = m_workList.begin(); it != m_workList.end(); ++it)
+	for (_STL::list<Rva004530ED, _STL::allocator<Rva004530ED> >::iterator it = m_workList.begin(); it._M_node != m_workList.end()._M_node; ++it)
 	{
 		Rva004530ED tmp(*it);
 		int id = tmp.m_00;

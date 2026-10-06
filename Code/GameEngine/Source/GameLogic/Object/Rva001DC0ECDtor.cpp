@@ -44,7 +44,7 @@ private:
 Rva001DC0EC::~Rva001DC0EC()
 {
 	_STL::list<int, _STL::allocator<int> >::iterator it = m_list.begin();
-	while (it != m_list.end()) {
+	while (it._M_node != m_list.end()._M_node) {
 		Rva001DBC77 *p = (Rva001DBC77 *)*it;
 		if (p != 0)
 			delete p;

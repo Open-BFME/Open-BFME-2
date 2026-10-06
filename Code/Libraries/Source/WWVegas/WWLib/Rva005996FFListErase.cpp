@@ -43,7 +43,7 @@ void Rva005996FF::rva005996FF(Rva005996FFArg *arg, bool flag)
 		goto skip_erase;
 	{
 		int value = arg->m_74;
-		while (it != m_list.end()) {
+		while (it._M_node != m_list.end()._M_node) {
 			if (*it == value)
 				goto do_erase;
 			++it;

@@ -118,7 +118,7 @@ void __stdcall Rva003C60E8Do(Parameter *p, Rva003C60E8Arg *a)
 		return;
 	_STL::list<int> lst;
 	((Rva003C60E8ListIface *)rva)->fillList(&lst);
-	for (_STL::list<int>::iterator it = lst.begin(); it != lst.end(); ++it)
+	for (_STL::list<int>::iterator it = lst.begin(); it._M_node != lst.end()._M_node; ++it)
 	{
 		Object *o = (Object *)(*it);
 		o->setStatus(OBJECT_STATUS_44, a->m_08 != 0);

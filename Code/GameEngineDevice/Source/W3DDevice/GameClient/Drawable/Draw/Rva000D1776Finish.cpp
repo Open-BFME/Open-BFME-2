@@ -92,7 +92,7 @@ void W3DTornadoDraw::xfer(Xfer *xfer)
 	DrawModule::xfer(xfer);
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	for (_STL::list<int>::iterator it = m_boneIndices.begin(); it != m_boneIndices.end(); ++it) {
+	for (_STL::list<int>::iterator it = m_boneIndices.begin(); it._M_node != m_boneIndices.end()._M_node; ++it) {
 		RadiusDecal *decal = reinterpret_cast<RadiusDecal *>(*it);
 		decal->rva00330F7D(xfer);
 	}

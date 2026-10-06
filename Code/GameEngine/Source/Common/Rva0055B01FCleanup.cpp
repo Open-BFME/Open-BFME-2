@@ -22,7 +22,7 @@ public:
 
 void Rva0055B0CC::rva0055B01F()
 {
-	for (_STL::list<int, _STL::allocator<int> >::iterator it = m_list.begin(); it != m_list.end(); ++it) {
+	for (_STL::list<int, _STL::allocator<int> >::iterator it = m_list.begin(); it._M_node != m_list.end()._M_node; ++it) {
 		((Rva0055AFBF *)*it)->rva0055AFBF((int)this);
 	}
 	m_list.clear();

@@ -33,7 +33,7 @@ void __cdecl operator delete(void *p);
 void Rva0029D7CA::rva0029D7CA()
 {
 	_STL::list<int>::iterator it = m_8D0.begin();
-	while (it != m_8D0.end()) {
+	while (it._M_node != m_8D0.end()._M_node) {
 		int v = *it;
 		Rva0029D7CAHolder *h = (Rva0029D7CAHolder *)v;
 		if (h != 0) {

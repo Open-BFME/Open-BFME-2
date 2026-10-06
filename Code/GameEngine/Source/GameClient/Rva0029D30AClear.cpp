@@ -28,7 +28,7 @@ void __cdecl operator delete(void *p);
 void Rva0029D30A::rva0029D30A()
 {
 	_STL::list<int>::iterator it = m_8A0.begin();
-	while (it != m_8A0.end()) {
+	while (it._M_node != m_8A0.end()._M_node) {
 		int v = *it;
 		it = m_8A0.erase(it);
 		Rva0029D30APayload *p = (Rva0029D30APayload *)v;

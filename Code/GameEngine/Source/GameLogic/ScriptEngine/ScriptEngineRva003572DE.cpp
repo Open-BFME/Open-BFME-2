@@ -33,7 +33,7 @@ bool ScriptEngine::rva003572DE(int playerIndex, const AsciiString &s, bool remov
 		return false;
 	_STL::list<Rva003572DEEntry, _STL::allocator<Rva003572DEEntry> > &lst = m_lists[playerIndex];
 	unsigned long crc = Rva003ECA13Get(s);
-	for (_STL::list<Rva003572DEEntry, _STL::allocator<Rva003572DEEntry> >::iterator it = lst.begin(); it != lst.end(); ++it)
+	for (_STL::list<Rva003572DEEntry, _STL::allocator<Rva003572DEEntry> >::iterator it = lst.begin(); it._M_node != lst.end()._M_node; ++it)
 	{
 		if (it->m_key == (int)crc && (val == 0 || val == it->m_val))
 		{

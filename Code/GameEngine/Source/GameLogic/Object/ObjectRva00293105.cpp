@@ -166,6 +166,6 @@ void Object::rva00293105()
 		return;
 	_STL::list<int> lst;
 	((FillTarget *)t)->f67(lst);
-	for (_STL::list<int>::iterator it = lst.begin(); it != lst.end(); ++it)
+	for (_STL::list<int>::iterator it = lst.begin(); it._M_node != lst.end()._M_node; ++it)
 		((Object *)(*it))->rva00293105();
 }
