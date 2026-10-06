@@ -11400,3 +11400,7 @@ Unwind@00b7c091	0x0077C091	25	blocked	same conditional AsciiString parameter cle
 ?rva00150C4B@Rva00150C4B@@QAEXH@Z	0x00150C4B	41	blocked	same triple same-addr wall as 0x00150C22 blocked this session t=1 model=muse-09
 ?createCrate@CreateCrateDie@@AAEPAVObject@@PBVCrateTemplate@@@Z	0x00485565	590	partial	eax ecx swap in sentinel iter loop plus je to end vs jne xor jmp for crateType null plus movss shift consequence t=28 model=muse-09 score=0.96 stash=reverse/attempts/0x00485565.cpp
 ?rva005FE7A7@@YIXPAVRva005FE7A7Obj@@HHH@Z	0x005FE7A7	83	blocked	EH prolog plus states 0 1 missing with EHsc EHs EHa plus empty base dtor plus empty local dtor all give 50B vs 83B no unwind entry t=18 model=muse-09
+?rva00152CDA@Rva00152D1CObj@@QAEPAV1@PAV1@@Z	0x00152CDA	66	partial	ebx edi mirror for this and str and push order esp 8 vs c; str-first order fixed insns; G7 O2 helper same t=20 model=muse-02 score=0.9 stash=reverse/attempts/0x00152cda.cpp
+?Rva00152C47Create@@YAPAXPAPAXPBD1HH@Z	0x00152C47	147	blocked	factory needs full 52B layout plus lock order plus EH states 1 2 plus auto-holder investigation t=15 model=muse-02
+?rva00152E4D@Rva00152E4D@@QAEHXZ	0x00152E4D	385	blocked	385B chunk loader with 15 callees loops idiv vectors virtuals needs subsystem modeling beyond 6-variant box t=5 model=muse-02
+?rva00152CDA@Rva00152D1CObj@@QAEPAV1@PAV1@@Z	0x00152CDA	66	blocked	ebx edi mirror; shape-lever definition-order says define locals in retail materialize order other this str virtual; try s inner v reorder t=2 model=muse-02 (stash 0.9 kept)

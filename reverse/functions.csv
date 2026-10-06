@@ -64438,3 +64438,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?ObjectSetGeometryActive@@YAHPAUlua_State@@@Z,,0x00334BFA,165,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectSetGeometryActiveRva00334BFA.cpp,matched,Lua binding via rowed lookups plus setFlag plus siblings
 ?rva003AFFBE@@YAXHHHHH@Z,,0x003AFFBE,50,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_aux_rva003b02f4.cpp,matched,LINK BONUS push_heap_aux 12B entry via rowed 0x003AFE48
 ?Rva005D303AFormat@@YA?AVUnicodeString@@HH@Z,,0x005D303A,99,Code/GameEngine/Source/Common/Rva005D303AFormat.cpp,matched,by-value UnicodeString formatter via g_00C380FC and rowed format copy release with LINK BONUS for Rva005D30EEAptCounters
+?rva001F636C@Rva001F636C@@QAEXXZ,,0x001F636C,93,Code/GameEngine/Source/Common/Rva001F636C.cpp,matched,chain calls just-landed 0x00152D1C with 4 lock virtual slot2 flag 0x84
