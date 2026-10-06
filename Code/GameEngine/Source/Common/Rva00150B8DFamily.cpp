@@ -1,3 +1,4 @@
+#include <new>
 // cl: /O1 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // Dump-lane range 5: contiguous 0x150B8D-0x150F19 container family plus the
@@ -24,6 +25,30 @@
 //   live in neighbouring TUs (Rva0015068CFinish.cpp, Rva00150959Insert.cpp,
 //   StlportVectorEraseRangeFamily.cpp).
 
+namespace _STL
+{
+template <class T> class allocator
+{
+public:
+	allocator() {}
+};
+template <class T, class Alloc> class _Vector_base
+{
+public:
+	_Vector_base(const Alloc &a);
+	T *_M_start;
+	T *_M_finish;
+	T *_M_end_of_storage;
+};
+}
+
+extern const void *const g_00BD3854[];
+extern const void *const g_00BD385C[];
+extern const void *const g_00BD3864[];
+extern const void *const g_00BD3A3C[];
+extern const void *const g_00BD3A44[];
+extern const void *const g_00BD3A4C[];
+
 struct Rva00150C97Elem
 {
 	int m_00;
@@ -37,10 +62,20 @@ struct Rva00150D42Elem
 
 // 41B grow wrappers (0x150BF9/0x150C22/0x150C4B): pinned until their bodies
 // land below. thiscall (int), ret 4.
+struct Rva00150A8BArg;
 class Rva00150BF9
 {
 public:
+	Rva00150BF9()
+	{
+	}
+	Rva00150BF9(const _STL::allocator<int> &a)
+	{
+		((_STL::_Vector_base<int, _STL::allocator<int> > *)this)->_STL::_Vector_base<int, _STL::allocator<int> >::_Vector_base(a);
+	}
 	void rva00150BF9(int n);
+	void rva00150A8B(int n, Rva00150A8BArg t);
+	~Rva00150BF9();
 	int size() const { return (m_last - m_first) >> 3; }
 	int m_first;
 	int m_last;
@@ -49,6 +84,8 @@ class Rva00150C22
 {
 public:
 	void rva00150C22(int n);
+	void rva00150AE1(int n, int s1, int s2);
+	~Rva00150C22();
 	int size() const { return (m_last - m_first) >> 3; }
 	int m_first;
 	int m_last;
@@ -57,6 +94,8 @@ class Rva00150C4B
 {
 public:
 	void rva00150C4B(int n);
+	void rva00150B37(int n, int s1, int s2);
+	~Rva00150C4B();
 	int size() const { return (m_last - m_first) >> 3; }
 	int m_first;
 	int m_last;
@@ -67,29 +106,43 @@ public:
 class Rva00150C97
 {
 public:
+	Rva00150C97(int n);
 	void rva00150C97(int n);
-private:
-	int m_00;
+	volatile const void *m_vtable;
 	Rva00150BF9 m_vec;
+	int m_pad0C;
+	const void *m_10;
+	int m_14;
 };
 class Rva00150CD0
 {
 public:
+	Rva00150CD0(int n);
 	void rva00150CD0(int n);
-private:
-	int m_00;
+	volatile const void *m_vtable;
 	Rva00150C22 m_vec;
+	int m_pad0C;
+	const void *m_10;
+	int m_14;
 };
 class Rva00150D09
 {
 public:
+	Rva00150D09(int n);
 	void rva00150D09(int n);
-private:
-	int m_00;
+	volatile const void *m_vtable;
 	Rva00150C4B m_vec;
+	int m_pad0C;
+	const void *m_10;
+	int m_14;
 };
 
 // ?rva00150C97@Rva00150C97@@QAEXH@Z
+// 87B subclass ctors (0x150D8A/0x150DFD/0x150F19): each installs its own
+// vtable, placement-constructs the {first,last} member through the pinned
+// 0x211E58 _Vector_base ctor (empty-allocator temporary, address only),
+// stamps the +0x10/0x14 pair, and grows when n > 0.
+
 // ?rva00150C97@Rva00150C97@@QAEXH@Z
 void Rva00150C97::rva00150C97(int n)
 {
@@ -190,3 +243,32 @@ void Rva00150D42::rva00150D42(int n)
 		off += 76;
 	} while (oldCount < n);
 }
+
+// 86B growers (0x150A8B/0x150AE1/0x150B37): resize core over the 8-byte
+// elements. Shrink goes through the rowed 0x150659 vector range erase;
+// grow recomputes size and forwards (end, n-size, &scratch) to 0x1506BF.
+// The extra int params are the 41B wrapper's scratch slots (address-used).
+
+struct Rva00150659Element;
+namespace _STL
+{
+template <class T, class A> class vector
+{
+public:
+	T *erase(T *first, T *last);
+};
+}
+class Rva001506BF
+{
+public:
+	void rva001506BF(void *pos, int n, void *scratch);
+};
+
+struct Rva00150A8BArg
+{
+	int m_a;
+	int m_b;
+	~Rva00150A8BArg()
+	{
+	}
+};
