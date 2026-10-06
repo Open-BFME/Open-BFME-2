@@ -54,6 +54,7 @@ struct Rva004F81DBGreater
 };
 
 template void _STL::pop_heap<Rva004F6966 *, Rva004F81DBGreater>(Rva004F6966 *, Rva004F6966 *, Rva004F81DBGreater);
+template void _STL::push_heap<Rva004F6966 *, Rva004F81DBGreater>(Rva004F6966 *, Rva004F6966 *, Rva004F81DBGreater);
 
 // Retail 0x004F64FC is rowed as ??4Rva004F64FC but serves as the assignment
 // this heap family calls; alias our assignment name to that row.
