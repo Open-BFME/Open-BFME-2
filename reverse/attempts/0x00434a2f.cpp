@@ -1,5 +1,7 @@
 // ?rva00434A2F@AptSaveLoad@@QAEXXZ
 // partial score=0.95 date=2026-10-06
+// ?rva00434A2F@AptSaveLoad@@QAEXXZ
+// partial score=0.95 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 #include "unicode_string.h"
 class GameWindow;
