@@ -55,11 +55,13 @@ struct AudioEventInfo {
     AsciiString m_audioName;                 // +0x08
     char at0C[0x44 - 0x0C];
     int m_priority;                          // +0x44
+    unsigned int m_type;                     // +0x48
 };
 
 class AudioEventRTS {
 public:
     bool isPositionalAudio(void) const;
+    ObjectID getObjectID(void);
     unsigned int getSoundClass(void) const;
     bool hasMoreLoops(void) const;
     void rva002D9ADC(void);
@@ -206,6 +208,11 @@ public:
     void rva002D9508(const void *value);
 };
 
+class Rva002D9576 {
+public:
+    int rva002D9576(void);
+};
+
 // hash map of event infos by name at +0xBC; its operator[] is 0x00059FBB.
 class Rva00059FBBMap {
 public:
@@ -236,12 +243,16 @@ public:
     virtual AudioEventInfoRef findAudioEventInfo(const AsciiString &name) const;
     bool rva00055FCA(int key, void **result, int flags);
     bool rva0005623E(int key, void **result, int flags);
+    bool rva00054899(ObjectID objectID, int otherID);
+    bool rva00056670(ObjectID objectID);
+    bool rva00055426(int objectID);
     void rva000562CF(int key);
     void rva000562A2(int key, const void *value);
     void rva000567C5(int argument);
     void rva0005A92A(int key, Rva0005A084Vector *output);
     void rva0005774F(int viewType, MusicSystem newMusicSystem, int arg);
     void rva00057297(Rva00051107AudioRequest &request);
+    bool rva000570C8(AudioEventRTS *event);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
     AudioEventRTS *findLowestPrioritySound(AudioEventRTS *event);
     float rva0005A9F8(void *ref, int a, int b);
@@ -560,6 +571,15 @@ void MilesAudioManager::rva00057297(Rva00051107AudioRequest &request)
         if (!stack.empty())
             stack.pop_back();
     }
+}
+
+// ?MilesAudioManager::rva000570C8 present-unmatched
+bool MilesAudioManager::rva000570C8(AudioEventRTS *event)
+{
+    if (event->m_info->m_type & 0x10)
+        return rva00056670(event->getObjectID()) || rva00055426(
+            static_cast<ObjectID>(reinterpret_cast<Rva002D9576 *>(event)->rva002D9576()));
+    return false;
 }
 
 bool __cdecl Rva000515E4Less(const Rva000515E4Key *x, const Rva000515E4Key *y)
