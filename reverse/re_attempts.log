@@ -13618,3 +13618,12 @@ FUN_00681eca	0x00281ECA	181	blocked	unresolved callees 0x0027FBFE 0x002E9442 plu
 ?rva005478B5@Rva005478B5@@QAEHXZ	0x005478B5	143	blocked	callee 0x005476C8 already blocked complex 317B gate unresolvable t=5 model=muse-09
 ?rva00465011@OpenContain@@QAEXH@Z	0x00465011	103	blocked	align exact 103B but gate picks dup 0x00445E8B over 0x0036ADF9 ICF twin t=30 model=muse-09
 ?rva00462B4A@Rva00462B4A@@QAE_NXZ	0x00462B4A	73	partial	test-mem2 vs mov-shr-test-al1; explicit shr folds to test t=18 model=muse-09 score=0.93 stash=reverse/attempts/0x00462b4a.cpp
+?rva002EDFF9@Pathfinder@@QAE_NPAVObject@@PAUCoord3D@@@Z	0x002EDFF9	462	partial	frame 0x34 vs 0x2c plus shr vs test plus loop reg plus list nulls t=20 model=muse-12 score=0.92 stash=reverse/attempts/0x002edff9.cpp
+?rva002EDFF9@Pathfinder@@QAE_NPAVObject@@PAUCoord3D@@@Z	0x002EDFF9	462	partial	frame 0x34 vs 0x2c plus shr vs test plus loop y-check plus outer reg t=25 model=muse-12 score=0.94 stash=reverse/attempts/0x002edff9.cpp
+?rva000CEA39@W3DTankDraw@@QAEXXZ	0x000CEA39	23	blocked	unresolved callee 0x000CE7B4 is 0.95 wall t=5 model=muse-12
+?rva00082C98@Rva00082C98Host@@QAEXIHHH@Z	0x00082C98	73	partial	imul-vs-lea for a0*12 only t=22 model=muse-12 score=0.96 stash=reverse/attempts/0x00082c98.cpp
+?rva002ED7F7@Rva002ED7F7@@QAEXXZ	0x002ED7F7	1280	blocked	oversize 1280B over 1000B dead-end with SSE loops t=5 model=muse-12
+?rva000CE16A@W3DTankDraw@@QAEXXZ	0x000CE16A	628	blocked	26 structural regions size +15 float ucomiss-lahf vs comiss-jbe plus imul-vs-lea plus xmm spill vs reg plus loop shape wall t=10 model=muse-12
+?method_005C902A@TargetObj005C8DBF@@QAEXM@Z	0x005C902A	63	partial	add-eax-0x14 plus inc-eax vs inc-eax-plus-0x14 only t=15 model=muse-12 score=0.96 stash=reverse/attempts/0x005c902a.cpp
+?method_005C902A@TargetObj005C8DBF@@QAEXM@Z	0x005C902A	63	blocked	add-eax-0x14 plus inc-eax vs inc-eax-plus-0x14 only t=15 model=muse-12 (stash 0.96 kept)
+??0Rva002CD4A6@@QAE@XZ	0x002CD169	829	partial	EH 4-5-6-8-9 vs 3-4-5 plus m_C8 lea scheduling plus 3C-3D-10 order only t=30 model=muse-12 score=0.94 stash=reverse/attempts/0x002cd169.cpp

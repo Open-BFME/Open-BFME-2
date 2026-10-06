@@ -1,5 +1,5 @@
 // ?rva00082C98@Rva00082C98Host@@QAEXIHHH@Z
-// partial score=0.85 date=2026-10-06
+// partial score=0.96 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // Dump range 1 (0x00082C98 73B): vector clamp/erase wrapper over 12-byte
@@ -12,7 +12,7 @@ class Rva00082C98Vec
 {
 public:
 	void eraseAux(void *first, void *last);
-	void helperAux(int *p, unsigned int v, void *e);
+	void helperAux(void *e, unsigned int v, int *p);
 };
 
 class Rva00082C98Host
@@ -36,8 +36,6 @@ void Rva00082C98Host::rva00082C98(unsigned int a0, int a1, int a2, int a3)
 	}
 	else
 	{
-		unsigned int c = ((char *)m_end - (char *)m_begin) / 12;
-		unsigned int v = a0 - c;
-		((Rva00082C98Vec *)this)->helperAux(&a1, v, m_end);
+		((Rva00082C98Vec *)this)->helperAux(m_end, a0 - ((char *)m_end - (char *)m_begin) / 12, &a1);
 	}
 }
