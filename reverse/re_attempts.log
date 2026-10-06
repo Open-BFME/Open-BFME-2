@@ -13372,3 +13372,4 @@ FUN_00764551	0x00364551	1120	blocked	ADDRESS-NAMED g_Va009FF0F8 g_Va00BBB8D8 plu
 ?loadBridges@W3DBridgeBuffer@@QAEXPAVW3DTerrainLogic@@_N@Z	0x000DFB3C	371	blocked	needs callee 0xDF612 which needs 2774B wall t=5 model=muse-10
 ?rva0058EB82@NetPacket@@QAE_NPAVNetCommandRef@@@Z	0x0058EB82	621	blocked	621B NetPacket EH needs exact donor t=15 model=muse-10
 ??0W3DStreakDraw@@QAE@PAVThing@@PBVModuleData@@@Z	0x000D02A7	406	blocked	406B streakdraw ctor needs donor t=4 model=muse-10
+?rva00104956@Rva001040D5@@QAEXI@Z	0x00104956	113	partial	push ebp+8 in body vs retail cond plus extra pop ecx 112vs113B t=12 model=muse-10 score=0.96 stash=reverse/attempts/0x00104956.cpp
