@@ -63552,3 +63552,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005E4DE5@Rva005E4DAF@@QAEXH@Z,,0x005E4DE5,54,Code/GameEngine/Source/Common/Rva005E4DAFTwins.cpp,matched,
 ?rva005E4E1B@Rva005E4E1B@@QAEXXZ,,0x005E4E1B,58,Code/GameEngine/Source/Common/Rva005E4E1BIter.cpp,matched,
 ?rva005E50A7@@YAXPAH0URva005E4300Cmp@@@Z,,0x005E50A7,58,Code/GameEngine/Source/Common/Rva005E50A7SortHeap.cpp,matched,
+?rva00395C80@@YAHPAVObject@@@Z,,0x00395C80,107,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00395C80Check.cpp,matched,Cached module-key veto: static wrapper resolves key via TheNameKeyGenerator once then findModule plus flag checks; int return proven by full-reg booleanize; /O1 shared EH prolog
