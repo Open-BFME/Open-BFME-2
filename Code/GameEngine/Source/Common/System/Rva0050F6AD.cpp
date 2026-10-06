@@ -9,10 +9,22 @@ public:
 class Rva0050F6AD
 {
 public:
+	void rva0050F68A(Rva0050ED58 *p);
 	void rva0050F6AD();
 private:
 	Rva0050ED58 *m_ptr;
 };
+
+void Rva0050F6AD::rva0050F68A(Rva0050ED58 *p)
+{
+	if (p == m_ptr)
+		return;
+	Rva0050ED58 *old = m_ptr;
+	m_ptr = p;
+	if (old == 0)
+		return;
+	delete old;
+}
 
 void Rva0050F6AD::rva0050F6AD()
 {
