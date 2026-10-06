@@ -90,8 +90,6 @@ public:
 };
 
 extern const float g_00C5A910;
-extern const float g_00BE118C;
-extern const float g_bfmeClearA;
 
 class AudioManager;
 extern AudioManager *TheAudio;
@@ -244,13 +242,13 @@ bool UnitCrateCollide::executeCrateBehavior(Object *other)
 			creationPoint.z = other->m_pos.z;
 			FindPositionOptions fpOptions;
 			fpOptions.startAngle = g_00C5A910;
-			fpOptions.maxZDelta = g_00BE118C;
+			fpOptions.maxZDelta = 10000000000.0f;
 			fpOptions.minRadius = 0.0f;
 			fpOptions.flags = 0;
 			fpOptions.ignoreObject = 0;
 			fpOptions.sourceToPathToDest = 0;
 			fpOptions.relationshipObject = 0;
-			fpOptions.maxRadius = g_bfmeClearA;
+			fpOptions.maxRadius = 20.0f;
 			PartitionManager::findPositionAround(&creationPoint, &fpOptions, &creationPoint);
 			newObj->setOrientation(other->getOrientation());
 			newObj->setPosition(&creationPoint);

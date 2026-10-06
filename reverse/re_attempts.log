@@ -13526,3 +13526,4 @@ FUN_009a52fe	0x005A52FE	820	blocked	ADDRESS-NAMED g_Rva hatch t=1 model=muse-08
 ?rva0047727E@HordeTransportContain@@QAEXPAVThing@@@Z	0x0047727E	58	blocked	scheduling xmm rotation plus dead add eax-8 needs lever t=15 model=muse-07
 ?rva002B2858@Rva002B2858@@QAEXPAH00@Z	0x002B2858	89	blocked	row 0x20FAEA returns void but caller uses eax cmp needs central retype t=12 model=muse-07
 ?rva002B212A@Rva002B212A@@QAEXPAUArg112@@ABVAsciiString@@@Z	0x002B212A	197	blocked	needs central record alias Bfme-vs-AABEE-vs-AF1EC plus Equal bool-vs-int retype t=20 model=muse-07
+?read_chunks@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@@Z	0x0016D340	251	partial	switch CSE folds bytes/want into one lea missing edx second computation 423/435B 5 reg t=30 model=muse-15 score=0.9 stash=reverse/attempts/0x0016d340.cpp
