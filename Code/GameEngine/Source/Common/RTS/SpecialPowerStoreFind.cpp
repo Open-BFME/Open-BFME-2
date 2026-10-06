@@ -44,6 +44,11 @@ private:
 	_STL::vector<SpecialPowerTemplate *> m_specialPowerTemplates; // +0x0C
 };
 
+// BFME1 d6db6bfa4f: Common/RTS/SpecialPower.cpp owns this null global.
+// Target callers and the data ledger place its four-byte pointer at VA
+// 0x00E02D4C, in the native .data section's zero-filled tail.
+SpecialPowerStore *TheSpecialPowerStore = 0;
+
 //-------------------------------------------------------------------------------------------------
 SpecialPowerTemplate* SpecialPowerStore::findSpecialPowerTemplatePrivate( AsciiString name )
 {
