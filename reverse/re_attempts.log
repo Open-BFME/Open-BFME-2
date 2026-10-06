@@ -13119,3 +13119,7 @@ Unwind@00b7b627	0x0077B627	25	blocked	Retail FuncInfo maps this cleanup to match
 ?setTransformMatrix@Object@@QAEXPBVMatrix3D@@@Z	0x0028D412	111	blocked	unresolved callee 0x0023D3AF has banked partial 0.9 wall t=4 model=muse-10
 ?cell@BfmeGridWM@@QAEXHH@Z	0x000ADCE3	235	blocked	unresolved callee 0x000ADB2F no row no pin plus float g_00BC958C unknown literal t=10 model=muse-15
 ?rva0007989C@Rva00079AB9Tree@@QAEPAXABVRva00079AB9Value@@@Z	0x0007989C	34	blocked	needs twin-pin dup 0x7975E vs true 0x21C671 refused since 2026-10-06 t=10 model=muse-15
+?rva003F3B28@Rva003F3AB5@@QAEXI@Z	0x003F3B28	39	blocked	Vector_base inlines vs calls wall t=25 model=muse-04
+?rva00397F45@Rva00397F45@@QAE_NPAVPlayer@@H@Z	0x00397F45	166	blocked	ADDRESS-NAMED g_Rva0107301CEmptyString t=1 model=muse-04
+?rva004B0C27@Rva004B0C27@@QAEXXZ	0x004B0C27	173	blocked	unresolved callee 0x004B0AAA needs ADDRESS-NAMED g_Va007C26F0 plus 3 unclaimed callees t=5 model=muse-04
+?rva004B0348@Rva004B0348@@QAEXXZ	0x004B0348	204	blocked	ADDRESS-NAMED g_Va00BBB8D8 plus unresolved callee 0x0044F0B3 t=3 model=muse-04

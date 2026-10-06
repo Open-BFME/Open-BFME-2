@@ -79,3 +79,33 @@ Bool GameSlot::isPlayer(UnicodeString userName) const
 	userName.releaseBuffer();
 	return result;
 }
+
+// ?isPlayer@Rva004481A7@@QBE_NVUnicodeString@@@Z @0x004481A7 (45B):
+// Same GameSlot layout (m_state +4 == 6 is SLOT_PLAYER, m_name +0x30);
+// retail calls compareNoCase on the by-value param with m_name as the
+// argument (add ecx,0x30 then push, lea ecx,[esp+0xc]), where the 0x3FFF62
+// twin calls it on m_name. Frameless 45B with explicit releaseBuffer, ret 4.
+class Rva004481A7
+{
+public:
+	virtual void reset(void) = 0;
+	Bool isPlayer(UnicodeString userName) const;
+
+protected:
+	Int m_state;
+	unsigned char m_gap08[0x30 - 0x08];
+	UnicodeString m_name;
+};
+
+// ?isPlayer@Rva004481A7@@QBE_NVUnicodeString@@@Z
+Bool Rva004481A7::isPlayer(UnicodeString userName) const
+{
+	Bool result;
+	if (m_state == SLOT_PLAYER && userName.compareNoCase(m_name) == 0)
+		result = true;
+	else
+		result = false;
+
+	userName.releaseBuffer();
+	return result;
+}
