@@ -80,7 +80,8 @@ public:
 	virtual AudioEventInfoRef findAudioEvent(const AsciiString &name);
 };
 
-extern AptGlobalAudioView *TheAudio;
+class AudioManager;
+extern AudioManager *TheAudio;
 
 // Retail 0x00412731, 11 bytes: "CloseWindow" closes the current Apt window.
 void __cdecl CloseWindow(const char *unused)
@@ -93,11 +94,11 @@ void __cdecl PlaySound(const char *eventName)
 {
 	if (!TheAudio)
 		return;
-	AudioEventInfoRef info = TheAudio->findAudioEvent(AsciiString(eventName));
+	AudioEventInfoRef info = ((AptGlobalAudioView *)TheAudio)->findAudioEvent(AsciiString(eventName));
 	if (!info.m_info)
 		return;
 	BfmeAudioEventPrefix136 event(*(const OpaqueRefElement4 *)&info, 2);
-	TheAudio->addAudioEvent(&event);
+	((AptGlobalAudioView *)TheAudio)->addAudioEvent(&event);
 }
 
 // Retail 0x004127D3, 11 bytes: "OnClickThroughPress".
