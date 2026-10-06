@@ -64928,3 +64928,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva003F1241@Rva003F1241@@QAE?AVUnicodeString@@XZ,,0x003F1241,767,Code/GameEngine/Source/Common/System/Rva003F1241RegionBonus.cpp,matched,LINK BONUS via 0x003F15D1 fetch slot 0x3C set release concat format rowed
 ?rva006E4390@Rva006E4390@@QAEXXZ,,0x006E4390,240,Code/Libraries/Source/Apt/Rva006E4390.cpp,matched,unlock lane AptCIH container button sprite virtual slot1
 ?rva003F830F@Rva003F81FDProxy@@QAEXPAX@Z,,0x003F830F,61,Code/GameEngine/Source/Common/Rva003F830F.cpp,matched,unlock lane proxy getter plus loop callback
+?rva0046E8EE@HordeContain@@UAEXXZ,,0x0046E8EE,422,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046E8EE.cpp,matched,vtable slot 28 HordeContain TransportContain chain
