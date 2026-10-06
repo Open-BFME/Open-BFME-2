@@ -127,8 +127,6 @@ private:
 	ListNode *m_17c;
 };
 
-extern const float BfmeZeroRange;
-
 class Rva002D06CA
 {
 public:
@@ -236,7 +234,7 @@ void Rva002CA9CA::rva002CAA9D(int a1, const void *a2, const void *a3, int a4)
 float Rva002CA9CA::rva002CACD7(const void *arg)
 {
 	if (arg == 0)
-		return BfmeZeroRange;
+		return 0.0f;
 	ListNode *cur = m_17c->m_next;
 	while (cur != m_17c)
 	{
@@ -265,7 +263,7 @@ float Rva002CA9CA::rva002CACD7(const void *arg)
 		}
 		cur = cur->m_next;
 	}
-	return BfmeZeroRange;
+	return 0.0f;
 }
 
 bool Rva002CA9CA::rva002CAD8B()
