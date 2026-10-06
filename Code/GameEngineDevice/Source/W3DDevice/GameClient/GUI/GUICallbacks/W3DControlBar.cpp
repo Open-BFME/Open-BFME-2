@@ -49,6 +49,10 @@
 // W3DPowerDrawA @0x0009E71C (1649B): ZH body, the unused end-capped power
 // bar that follows W3DPowerDraw (its PowerBar*EndL/EndR/center images name
 // it), with the same BFME 2 player, Energy and settings deltas.
+//
+// W3DCommandBarGenExpDraw @0x0009ED8D (827B): ZH body. Player skill points
+// are a Real at +0x14 (level up/down Ints at +0x28/+0x2C), so the progress
+// percentage is computed in float; isPlayerActive is the pinned 0x002AA231.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -138,11 +142,20 @@ class Player
 {
 public:
 	Bool hasRadar(void) const;
+	Bool isPlayerActive(void) const;
 	Energy *getEnergy(void) { return &m_energy; }
+	Real getSkillPoints(void) const { return m_skillPoints; }
+	Int getSkillPointsLevelUp(void) const { return m_levelUp; }
+	Int getSkillPointsLevelDown(void) const { return m_levelDown; }
 
 private:
-	char m_pad00[0x1BC];
-	Energy m_energy;   // +0x1BC
+	char m_pad00[0x14];
+	Real m_skillPoints;   // +0x14
+	char m_pad18[0x28 - 0x18];
+	Int m_levelUp;        // +0x28
+	Int m_levelDown;      // +0x2C
+	char m_pad30[0x1BC - 0x30];
+	Energy m_energy;      // +0x1BC
 };
 
 class BfmeMemberRV;
@@ -695,3 +708,126 @@ void W3DPowerDrawA( GameWindow *window, WinInstanceData *instData )
 	TheWindowManager->winDrawImage(slider, posXstart, pos.y + size.y - slider->getImageHeight(), posXend, pos.y + size.y);
 }
 
+void W3DCommandBarGenExpDraw( GameWindow *window, WinInstanceData *instData )
+{
+	Player *player = ThePlayerList->getLocalPlayer();
+	if(!player->isPlayerActive())
+		return;
+	static const Image *endBar = TheMappedImageCollection->findImageByName("GenExpBarTop1");
+	static const Image *beginBar = TheMappedImageCollection->findImageByName("GenExpBarBottom1");
+	static const Image *centerBar = TheMappedImageCollection->findImageByName("GenExpBar1");
+	Int progress;
+	progress = ((player->getSkillPoints() - player->getSkillPointsLevelDown()) * 100) /(player->getSkillPointsLevelUp() - player->getSkillPointsLevelDown());
+	
+	if(progress <= 0)
+		return;
+
+	// GS This should never be necessary, but scripts can change the points required or even disable a level.
+	// A disabled level will be -1 for points required.  Just be totally safe and bind to 100, and we will
+	// fix the scripts to bind the points gained later.
+	if( progress > 100 )
+		progress = 100;
+
+	ICoord2D pos, size;
+	window->winGetScreenPosition( &pos.x, &pos.y );
+	window->winGetSize( &size.x, &size.y );
+
+
+
+	if( !endBar || !beginBar || !centerBar)
+		return;
+
+	Int range;
+	range = size.y * progress / 100;
+
+
+	// get image sizes for the ends
+	ICoord2D topSize, bottomSize, start, end;
+	bottomSize.x = beginBar->getImageWidth();
+	bottomSize.y = beginBar->getImageHeight();
+	topSize.x = endBar->getImageWidth();
+	topSize.y = endBar->getImageHeight();
+
+	// get two key points used in the end drawing
+	ICoord2D bottomEnd, topStart;
+	bottomEnd.x = pos.x + size.x;
+	bottomEnd.y = pos.y + size.y - bottomSize.y;
+	topStart.x = pos.x;
+	topStart.y = pos.y +size.y - range - topSize.y;
+
+	// draw the center repeating bar
+	Int centerWidth, pieces;
+
+	// get width we have to draw our repeating center in
+	centerWidth = bottomEnd.y - topStart.y;
+	
+	if( centerWidth <= 0)
+	{
+		// draw left end
+		start.x = pos.x;
+		start.y = pos.y + size.y - bottomSize.y;
+		end.y = pos.y + size.y;
+		end.x = pos.x + size.x;
+		TheWindowManager->winDrawImage(beginBar, start.x, start.y, end.x, end.y);
+
+		// draw right end
+		start.y = pos.y + size.y - bottomSize.y - topSize.y;
+		start.x = pos.x;
+		end.x = pos.x + size.x;
+		end.y = start.y + topSize.y;
+		TheWindowManager->winDrawImage(endBar, start.x, start.y, end.x, end.y);
+	}
+	else
+	{
+		
+		// how many whole repeating pieces will fit in that width
+		pieces = centerWidth / centerBar->getImageHeight();
+
+		// draw the pieces
+		start.x = pos.x;
+		start.y = topStart.y;
+		end.x = start.x + size.x; //centerImage->getImageHeight() + yOffset;
+		for( Int i = 0; i < pieces; i++ )
+		{
+
+			end.y = start.y + centerBar->getImageHeight();
+			TheWindowManager->winDrawImage( centerBar, 
+																			start.x, start.y,
+																			end.x, end.y );
+			start.y += centerBar->getImageHeight();
+
+		}  // end for i
+
+		// we will draw the image but clip the parts we don't want to show
+		IRegion2D reg;
+		reg.lo.x = start.x;
+		reg.lo.y = start.y;
+		reg.hi.x = bottomEnd.x;
+		reg.hi.y = bottomEnd.y;
+		centerWidth = bottomEnd.y - start.y;
+		if( centerWidth > 0)
+		{
+			TheDisplay->setClipRegion(&reg);
+			end.y = start.y + centerBar->getImageHeight();
+			TheWindowManager->winDrawImage( centerBar,
+																			start.x, start.y,
+																			end.x, end.y );
+			TheDisplay->enableClipping(false);
+		}
+
+		// draw left end
+		end.x = pos.x + size.x;
+		end.y = pos.y + size.y;
+		start.x = pos.x;
+		start.y = bottomEnd.y;
+		TheWindowManager->winDrawImage(beginBar, start.x, start.y, end.x, end.y);
+
+		// draw right end
+		start.x = pos.x;
+		start.y = pos.y +size.y - range;
+		end.x = pos.x + size.x;
+		end.y = pos.y +size.y - range - topSize.y;
+		TheWindowManager->winDrawImage(endBar, start.x, start.y, end.x, end.y);
+	}
+
+}
