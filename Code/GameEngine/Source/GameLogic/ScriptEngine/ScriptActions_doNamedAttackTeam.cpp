@@ -44,12 +44,11 @@ extern ScriptEngine *TheScriptEngine;
 class Object
 {
 public:
+    AIUpdateInterface *getAIUpdateInterface()
+    {
+        return *(AIUpdateInterface **)((char *)this + 0x258);
+    }
     void leaveGroup();
-    // Retail-measured AIUpdate at +0x258; direct member so this TU emits
-    // no COMDAT copy of Object::getAIUpdateInterface, whose kept copy
-    // (e.g. Player.cpp via ZH Object.h) reads +0x19C and differs.
-    unsigned char m_pad[0x258];
-    AIUpdateInterface *m_aiUpdate; // +0x258
 };
 
 class ScriptActions
@@ -68,7 +67,7 @@ void ScriptActions::doNamedAttackTeam(const AsciiString &unitName, const AsciiSt
     if (!theTeam) {
         return;
     }
-    AIUpdateInterface *aiUpdate = theSrcUnit->m_aiUpdate;
+    AIUpdateInterface *aiUpdate = theSrcUnit->getAIUpdateInterface();
     if (!aiUpdate) {
         return;
     }

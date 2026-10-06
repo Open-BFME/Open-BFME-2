@@ -92,11 +92,7 @@ public:
 class Object
 {
 public:
-    ContainModuleInterface *getContain() const;
-
-    // +0x250 contain-module member read directly (not via getContain): retail's
-    // rowed getContain reads a different offset; this body's own bytes prove
-    // +0x250 here.
+    ContainModuleInterface *getContain() const { return m_contain; }
     unsigned char m_pad000[0x250];
     ContainModuleInterface *m_contain;
 };
@@ -119,7 +115,7 @@ bool ScriptConditions::evaluateIsBuildingEmpty(Parameter *pItemParm)
         return false;
     }
 
-    ContainModuleInterface *contain = theBuilding->m_contain;
+    ContainModuleInterface *contain = theBuilding->getContain();
     if (!contain) {
         return false;
     }
