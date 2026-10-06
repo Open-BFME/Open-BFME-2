@@ -4,17 +4,12 @@
 // them with eight other caller-supplied words to FESL service slot 0x18.
 class Rva007E8810Message;
 class Rva007F7980Browser;
-class BfmeC994
+class BfmeMsgVJH
 {
 public:
-	BfmeC994(char *buffer, int capacity);
-	char m_data[0x34];
-};
-class BfmeMsg1052 : public BfmeC994
-{
-public:
-	BfmeMsg1052(char *buffer, int capacity) : BfmeC994(buffer, capacity) {}
-	~BfmeMsg1052();
+	BfmeMsgVJH(char *buffer, int capacity);
+	virtual ~BfmeMsgVJH();
+	char m_data[0x30];
 };
 void Rva00800040JoinI64(const __int64 *parts, unsigned count,
 	char *dest, unsigned destSize, char separator);
@@ -43,7 +38,7 @@ public:
 	virtual void v0c() = 0;
 	virtual void v10() = 0;
 	virtual void v14() = 0;
-	virtual void send(BfmeMsg1052 *message,
+	virtual void send(BfmeMsgVJH *message,
 		int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8,
 		const char *ids, const char *strings) = 0;
 };
@@ -52,7 +47,7 @@ class Rva007F7AE0AsyncService
 public:
 	virtual void v00() = 0;
 	virtual void v04() = 0;
-	virtual void send(BfmeMsg1052 *message,
+	virtual void send(BfmeMsgVJH *message,
 		void (__cdecl *callback)(Rva007E8810Message *, Rva007F7980Browser *),
 		Rva007F7980Browser *browser, int transaction) = 0;
 };
@@ -95,7 +90,7 @@ void Rva007F7AE0Owner::request(int a1, int a2, int a3, int a4,
 	const char **strings, unsigned stringCount)
 {
 	beforeRequest();
-	BfmeMsg1052 message(m_buffer, sizeof(m_buffer));
+	BfmeMsgVJH message(m_buffer, sizeof(m_buffer));
 	char stringText[0x100];
 	char idText[0x100];
 	stringText[0] = 0;

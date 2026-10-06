@@ -14543,3 +14543,6 @@ _Rva00437FB3	0x00437FB3	120	partial	Two callback refcount copies and the direct 
 ?Rva00574BA5Create@@YAPAPAVRva00574ABB@@PAPAV1@PBUPayload@1@@Z	0x00574BA5	50	blocked	Clone-factory regalloc wall p-out regs swapped plus pop-vs-add plus leave-vs-movpop t=16 model=muse-09
 ?rva004DFBED@Rva004DFBED@@QBEPBVArmorTemplate@@ABVAsciiString@@@Z	0x004DFBED	51	blocked	STL hash_map frame-vs-inline wall: frameless-plus-call 70B vs framed-plus-inline 97B vs retail framed-plus-call 51B t=14 model=muse-09
 ?rva00574A98@Rva00574A98@@QAEIXZ	0x00574A98	13	partial	branchless neg-sbb-and exact but mov-ecx-plus-mov-add vs mov-eax-plus-lea t=15 model=muse-09 score=0.9 stash=reverse/attempts/0x00574a98.cpp
+?Rva0040351CParse@@YAXPAVINI@@PAX1PBX@Z	0x0040351C	242	blocked	EH prolog helper vs inline plus holder reload shape t=25 model=muse-spark
+?rva00403CA8@Rva00403CA8@@QAEXXZ	0x00403CA8	403	blocked	ADDRESS-NAMED g_00DFE1D4 needs name t=5 model=muse-spark
+?rva004B9301@Rva004B9301@@QAEXXZ	0x004B9301	68	partial	mem-form test/or vs reg-form with lea; /O1 fixed Player cmp and tail but dword/byte flag RMW stays value-in-reg t=25 model=muse-17 score=0.93 stash=reverse/attempts/0x004b9301.cpp
