@@ -64848,3 +64848,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva004B15E6@Rva004B15E6@@QAEXXZ,,0x004B15E6,77,Code/GameEngine/Source/Common/Rva004B15E6Clear.cpp,matched,clear the slot at +0x7C then destroy the vector at +0x70
 ?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
 ?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
+?rva0008F32C@@YAXXZ,,0x0008F32C,69,Code/GameEngine/Source/Common/Rva0008F32CFactory.cpp,matched,dump range 2 EH factory via new honest names
