@@ -37,22 +37,56 @@ sys.path.insert(0, str(TOOLS))
 build = _load("build")
 pin_consistency = _load("pin_consistency")
 
-# Two retail copies of one 25-byte function. Both call 0x000247E9; the only
-# difference between them is the E8 displacement at offset 17, which is what
-# makes the pair the exact shape a legitimately-duplicated template takes.
-TWIN_A, TWIN_B, TWIN_SIZE, TWIN_SITE = 0x000BB8F0, 0x000BC440, 25, 17
-# 0x0001AAE1 -> 0x003D34D0 -> 0x00887940: two `?j_` stubs before the body.
-CHAIN_PIN, CHAIN_MID, CHAIN_BODY = 0x0001AAE1, 0x003D34D0, 0x00887940
+# Controlled code fixtures keep these guards independent of changing retail
+# ledgers (the original integration addresses came from BFME 1).
+TWIN_A, TWIN_B, TWIN_SIZE, TWIN_SITE = 0x1100, 0x1200, 25, 17
+CHAIN_PIN, CHAIN_MID, CHAIN_BODY = 0x1300, 0x1400, 0x1500
+COLOUR_A, COLOUR_B, INIT_BODY = 0x1600, 0x1700, 0x1800
 
 
 @pytest.fixture(scope="module")
 def twins():
-    return (build.read_target_bytes(TWIN_A, TWIN_SIZE),
-            build.read_target_bytes(TWIN_B, TWIN_SIZE))
+    def body(rva):
+        return (b"\x90" * 16 + b"\xe8"
+                + struct.pack("<i", 0x1900 - (rva + TWIN_SITE + 4))
+                + b"\x90" * 3 + b"\xc3")
+    return body(TWIN_A), body(TWIN_B)
 
 
-@pytest.fixture(scope="module")
-def scanner():
+@pytest.fixture
+def scanner(monkeypatch):
+    data = bytearray(b"\xcc" * 0x1000)
+    def put(rva, body):
+        data[rva - 0x1000:rva - 0x1000 + len(body)] = body
+    def jump(source, target):
+        return b"\xe9" + struct.pack("<i", target - source - 5)
+    put(CHAIN_PIN, jump(CHAIN_PIN, CHAIN_MID))
+    put(CHAIN_MID, jump(CHAIN_MID, CHAIN_BODY))
+    # A genuine tail-call body starts like a thunk, but its proven extent
+    # makes following it incorrect. Exercise that distinction explicitly.
+    put(CHAIN_BODY, jump(CHAIN_BODY, COLOUR_A) + b"\x90\xc3")
+    put(COLOUR_A, b"\xb8\x01\x00\x00\x00\xc3")
+    put(COLOUR_B, b"\xb8\x02\x00\x00\x00\xc3")
+    put(INIT_BODY, b"\x90" * 31 + b"\xc3")
+    matched = {
+        CHAIN_BODY: {7: ["?tail@@YAXXZ"]},
+        COLOUR_A: {6: ["?colourA@@YAXXZ"]},
+        COLOUR_B: {6: ["?colourB@@YAXXZ"]},
+        INIT_BODY: {32: ["?init@ModuleFactory@@UAEXXZ"]},
+    }
+    monkeypatch.setattr(pin_consistency, "load_ledger",
+                        lambda: (matched, matched, {}))
+    monkeypatch.setattr(pin_consistency, "load_extra_boundaries", lambda: ({}, {}))
+    def image_init(image, ledger_sizes):
+        image.data = bytes(data)
+        image.sections = [{"name": ".text", "rva": 0x1000, "size": len(data),
+                           "raw_size": len(data), "raw_pointer": 0}]
+        image.imports = {}
+        image.low, image.high = 0x1000, 0x2000
+        image.ledger_sizes, image._cache = ledger_sizes, {}
+    monkeypatch.setattr(pin_consistency.Image, "__init__", image_init)
+    monkeypatch.setattr(build, "read_target_bytes",
+                        lambda rva, size: bytes(data[rva - 0x1000:rva - 0x1000 + size]))
     return pin_consistency.Scanner()
 
 
@@ -108,7 +142,7 @@ def test_jcc_displacements_are_anchored_too():
 
 
 def test_thunk_walk_reaches_the_body_not_the_next_stub(scanner):
-    """One hop lands on 0x003D34D0, which is another 5-byte `jmp`, not a body."""
+    """One hop lands on another 5-byte `jmp`, not the proven body."""
     body, chain = scanner.image.resolve(CHAIN_PIN)
     assert body == CHAIN_BODY
     assert chain == [CHAIN_PIN, CHAIN_MID, CHAIN_BODY]
@@ -126,39 +160,32 @@ def test_the_walk_stops_at_a_body_the_ledger_has_proven(scanner):
     assert scanner.image.resolve(CHAIN_BODY) == (CHAIN_BODY, [CHAIN_BODY])
 
 
-def test_the_gamewindow_colour_setters_are_reported(scanner):
-    """The live defect ba1dbf6f8 logged, caught by mechanism instead of prose.
-
-    0x00014867 is pinned as four different GameWindow colour setters at once.
-    Whichever one is right, three are wrong, and the sixteen rows that sit one
-    body early are downstream of that. A guard that reports zero here is not
-    measuring identity.
-    """
-    pins = pin_consistency.load_pins()
+def test_the_gamewindow_colour_setters_are_reported(scanner, tmp_path):
+    """Different setters pinned under one name must remain a violation."""
     name = "?winSetEnabledColor@GameWindow@@QAEHHH@Z"
-    assert 0x00014867 in pins[name]
+    path = tmp_path / "symbols.csv"
+    path.write_text("name,address,notes\n"
+                    f"{name},0x{COLOUR_A:08X},first setter\n"
+                    f"{name},0x{COLOUR_B:08X},different setter\n", encoding="utf-8")
+    pins = pin_consistency.load_pins(path)
+    assert pins[name] == [COLOUR_A, COLOUR_B]
     violation = scanner.inspect(name, pins[name])
     assert violation is not None
-    assert violation["kind"] in ("divergent-bodies", "size-disagreement")
-    assert len(violation["bodies"]) > 1
+    assert violation["kind"] == "divergent-bodies"
+    assert violation["bodies"] == [COLOUR_A, COLOUR_B]
 
 
 def test_a_pin_inside_a_proven_body_is_named_as_such(scanner):
-    """0x0012C877 is 0x597 bytes into ModuleFactory::init, pinned as freeBytes.
-
-    An address inside a byte-verified extent cannot be a function entry, so it
-    cannot be any callee. Left unlabelled it reads as merely "unclaimed" -- the
-    same as a body nobody has got to yet -- and sits in the backlog forever.
-    """
-    inside = scanner.interior_of(0x0012C877)
-    assert inside == ("?init@ModuleFactory@@UAEXXZ", 0x0012C2E0, 18040)
-    assert scanner.interior_of(0x0012C2E0) is None, "an entry is not its own interior"
+    """An interior address must name its proven owner rather than look unclaimed."""
+    inside = scanner.interior_of(INIT_BODY + 7)
+    assert inside == ("?init@ModuleFactory@@UAEXXZ", INIT_BODY, 32)
+    assert scanner.interior_of(INIT_BODY) is None, "an entry is not its own interior"
 
 
 def test_one_pin_per_name_is_never_a_violation(scanner):
     """A single address cannot disagree with itself -- the guard costs nothing
     for the 70,144 symbols that pin one."""
-    assert scanner.inspect("?whatever@@YAXXZ", [0x00014867]) is None
+    assert scanner.inspect("?whatever@@YAXXZ", [COLOUR_A]) is None
 
 
 def _violation(symbol, bodies, kind="divergent-bodies", evidence="e"):
