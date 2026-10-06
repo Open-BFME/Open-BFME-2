@@ -18,12 +18,6 @@ public:
     const char *rva00620090() const;
 };
 
-class Rva006DCE50Opaque
-{
-public:
-    void *rva006DCE50();
-};
-
 class Rva006D89D0ByteField
 {
 public:
@@ -52,6 +46,7 @@ public:
 private:
 public:
     bool isUndefined() const;
+    BfmeAptValue006DCD20 *checkedString();	// rowed 0x006DCE50 (Rva006DCE50Finish.cpp)
     int toInteger() const;
 };
 
@@ -68,9 +63,8 @@ int BfmeAptValue006DCD20::toInteger() const
     // the same jump-table slot as type 1; there is no separate 42 case.
     case 1:
     case 42: {
-        EAStringC *string = reinterpret_cast<EAStringC *>(
-            static_cast<char *>(reinterpret_cast<Rva006DCE50Opaque *>(
-                const_cast<BfmeAptValue006DCD20 *>(this))->rva006DCE50()) + 8);
+        EAStringC *string = reinterpret_cast<EAStringC *>(reinterpret_cast<char *>(
+            const_cast<BfmeAptValue006DCD20 *>(this)->checkedString()) + 8);
         if (static_cast<int>(string->rva006D3750()) > 2 &&
             string->GetAt(0) == '0' && string->GetAt(1) == 'x')
             return strtol(string->rva00620090(), 0, 16);

@@ -33,6 +33,7 @@ private:
 
 public:
 	void concat(const T *text, int length);
+	void set(const StringBase<T> &other);	// rowed 0x000366F0
 };
 
 class AsciiString : private StringBase<char>
@@ -42,7 +43,9 @@ public:
 	~AsciiString() { releaseBuffer(); }
 
 	void clear();
-	AsciiString &operator=(const AsciiString &other);
+	// Inline, as retail expands it: openFromArchive calls StringBase<char>::set (0x000366F0)
+	// directly, not the out-of-line copy at 0x00001733 (link census, 2026-10-06).
+	AsciiString &operator=(const AsciiString &other) { set(other); return *this; }
 
 	void concat(const char *text, int length)
 	{
