@@ -76,8 +76,13 @@ public:
 	{
 		return m_node->m_next == m_node;
 	}
-	void push_back(const ObjectID &value);
 	BridgeBehaviorObjectIDNode *m_node;
+};
+
+class Rva002A1B6FNativeList
+{
+public:
+	void append(void *const &value);
 };
 
 struct XferException
@@ -118,7 +123,7 @@ Xfer *xferSTLObjectIDList(Xfer *xfer, BridgeBehaviorObjectIDList *list)
 		while (count != 0) {
 			--count;
 			XferObjectID(xfer, &value);
-			list->push_back(value);
+			((Rva002A1B6FNativeList *)list)->append((void *const &)value);
 		}
 	}
 	return xfer;
