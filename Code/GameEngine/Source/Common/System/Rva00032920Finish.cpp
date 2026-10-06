@@ -84,30 +84,6 @@ private:
 	Lock *m_4E4;
 };
 
-// ?rva00031680@GeneralAllocator@Allocator@EA@@QAEPAXPBX@Z @ 0x00031680 (47B):
-// intrusive circular-list search returning the node containing the address, or
-// null. Same body as the row memory_pool.cpp already carries for its own call
-// sites; this copy is the callee of this body's non-small-list path, and its
-// relative call is what fixes rva00032920's register allocation.
-//
-// ?rva00031680@GeneralAllocator@Allocator@EA@@QAEPAXPBX@Z present-unmatched
-void *GeneralAllocator::rva00031680(const void *block)
-{
-	ListNode *cur = m_sentinel.m_next;
-	ListNode *sentinel = &m_sentinel;
-	while (cur != sentinel)
-	{
-		if ((unsigned int)block >= (unsigned int)cur)
-		{
-			unsigned int end = (unsigned int)cur + cur->m_size;
-			if ((unsigned int)block < end)
-				return cur;
-		}
-		cur = cur->m_next;
-	}
-	return 0;
-}
-
 // ?rva00032920@GeneralAllocator@Allocator@EA@@QAE_NPBX@Z @0x00032920 (190B):
 // owns-address test. Header bit1 at block-4 selects the small-list scan at
 // +0x49C: each node stores the block base it owns, and the test compares
