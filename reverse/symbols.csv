@@ -5253,102 +5253,102 @@ name,address,notes
 ??RRva005B26CEItemCmp@@QBE_NABURva005B2FDCItem@@0@Z,0x005B26CE,thiscall reference twin of the rowed stdcall Rva005B26CELess: the same statement as a const operator() over Rva005B2FDCItem references compiles byte-identical here; called by the E16 sort family bodies
 ??RRva005E4300Cmp@@QBE_NHH@Z,0x005E4300,"stateful comparator operator() reached by the __adjust_heap<int*,int,int,Compare> body at 0x005E48C2 (call site 0x005E48E1) and by the rest of the heap/sort family 0x005E452C-0x005E519E; thiscall with two by-value ints and a 4-byte stateful functor as this; address-derived identity"
 ??RRva006038D4Less@@QBE_NPBD0@Z,0x006038D4,ICF twin of rowed Rva0006038D4CStrLess proven by 27B probe and _M_find callsite 0x00603A2D
-??_7?$DynamicVectorClass@VBfmeHandleCX@@@@6B@,0x00BD4688,DynamicVectorClass<BfmeHandleCX> vtable: matched ctor at 0x0016FE00 installs 0x00BD4688; slot 2 at 0x00BD4690 points to matched Resize at 0x0016FE30
-??_7AODCrushCollideModuleData@@6B@,0x00C5A350,AODCrushCollideModuleData vtable installed by ctor 0x4BBF89 (mov [esi] imm at 0x4BBFAA); slot0 is scalar-deleting dtor 0x8BC06C; slot1 is shared ret stub 0x4B3FD0
+??_7?$DynamicVectorClass@VBfmeHandleCX@@@@6B@,0x007D4688,DynamicVectorClass<BfmeHandleCX> vtable: matched ctor at 0x0016FE00 installs 0x00BD4688; slot 2 at 0x00BD4690 points to matched Resize at 0x0016FE30
+??_7AODCrushCollideModuleData@@6B@,0x0085A350,AODCrushCollideModuleData vtable installed by ctor 0x4BBF89 (mov [esi] imm at 0x4BBFAA); slot0 is scalar-deleting dtor 0x8BC06C; slot1 is shared ret stub 0x4B3FD0
 ??_7AptError@@6B@,0x008EC85C,Native6FC2D0 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
 ??_7AptScriptColour@@6B@,0x008ECE50,Native6F24E0 stores final vtable after canonical AptObject base; factory Color branch plus original PDB/MAP identify class and overrides
 ??_7AptSound@@6B@,0x008ECF18,Native6F38B0 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
 ??_7AptStringObject@@6B@,0x008EDE4C,Native6FE380 stores this final vtable after canonical AptObject base; factory branch and original PDB/MAP establish class identity and virtual overrides
-??_7AssaultTransportAIUpdateModuleData@@6B@,0x00C4B6C8,AssaultTransportAIUpdateModuleData vtable installed by ctor 0x24D221; ICF-folded with the Worker and Wander vtables at the same address (identical trivial-hierarchy layout); TU spelling alias of their ??_7 pins
-??_7AttachUpdateModuleData@@6B@,0x00C4DD18,AttachUpdateModuleData vtable installed by ctor 0x491968; slot0 is scalar-deleting dtor 0x491A84; slot1 is shared ret stub 0x4B3FD0
-??_7BaseUpgradeModuleData@@6B@,0x00C57150,BaseUpgradeModuleData vtable installed by ctor 0x4B3698 (mov [esi] imm); slot0 is scalar-deleting dtor shape 0x4B3769; slot1 is shared ret stub 0x4B3FD0
-??_7CitadelSlaughterHordeContainModuleData@@6B@,0x00C48E40,CitadelSlaughterHordeContainModuleData vtable installed by ctor 0x48112F; slot0 is scalar-deleting dtor 0x4811CA
-??_7CostModifierUpgradeModuleData@@6B@,0x00C58210,CostModifierUpgradeModuleData vtable installed by ctor 0x4B5BAC (mov [esi] imm); slot0 is scalar-deleting dtor 0x4B5C64 sitting right after the ctor; slot1 is shared ret stub 0xB3FD0
-??_7DamageFieldUpdateModuleData@@6B@,0x00C4D8E8,DamageFieldUpdateModuleData vtable installed by ctor 0x491102; slot0 is scalar-deleting dtor 0x49114E sitting right after the ctor; slot1 is shared ret stub 0x4B3FD0
+??_7AssaultTransportAIUpdateModuleData@@6B@,0x0084B6C8,AssaultTransportAIUpdateModuleData vtable installed by ctor 0x24D221; ICF-folded with the Worker and Wander vtables at the same address (identical trivial-hierarchy layout); TU spelling alias of their ??_7 pins
+??_7AttachUpdateModuleData@@6B@,0x0084DD18,AttachUpdateModuleData vtable installed by ctor 0x491968; slot0 is scalar-deleting dtor 0x491A84; slot1 is shared ret stub 0x4B3FD0
+??_7BaseUpgradeModuleData@@6B@,0x00857150,BaseUpgradeModuleData vtable installed by ctor 0x4B3698 (mov [esi] imm); slot0 is scalar-deleting dtor shape 0x4B3769; slot1 is shared ret stub 0x4B3FD0
+??_7CitadelSlaughterHordeContainModuleData@@6B@,0x00848E40,CitadelSlaughterHordeContainModuleData vtable installed by ctor 0x48112F; slot0 is scalar-deleting dtor 0x4811CA
+??_7CostModifierUpgradeModuleData@@6B@,0x00858210,CostModifierUpgradeModuleData vtable installed by ctor 0x4B5BAC (mov [esi] imm); slot0 is scalar-deleting dtor 0x4B5C64 sitting right after the ctor; slot1 is shared ret stub 0xB3FD0
+??_7DamageFieldUpdateModuleData@@6B@,0x0084D8E8,DamageFieldUpdateModuleData vtable installed by ctor 0x491102; slot0 is scalar-deleting dtor 0x49114E sitting right after the ctor; slot1 is shared ret stub 0x4B3FD0
 ??_7DevastateSpecialPowerModuleData@@6B@,0x0085E518,DevastateSpecialPowerModuleData vtable installed by ctor 0x4C84BD; slot0 is scalar-deleting dtor 0x4C851B sitting right after the ctor; slot1 is shared ret stub 0xB3FD0
-??_7EnragedBehavior@@6B@,0x00C40FBC,primary vtable installed by EnragedBehavior ctor at 0x458FA3 with slot0 scalar-deleting dtor at 0x4AF161
-??_7FreeLifeBodyModuleData@@6B@,0x00C5BC48,FreeLifeBodyModuleData vtable installed by ctor 0x4C1B3B; slot0 is scalar-deleting dtor 0x4C182F calling dtor-thunk 0x4C1B7B
-??_7GateOpenAndCloseBehaviorModuleData@@6B@,0x00C501B0,vtable installed by pinned ctor 0x00498E2E; slot 0 ??_G 0x00498DD7
-??_7GateProxyBehavior@@6BProxyBaseA@@@,0x00BEF338
-??_7GateProxyBehavior@@6BProxyBaseB@@@,0x00BEF304
-??_7GateProxyBehavior@@6BProxyBaseC@@@,0x00BEF248
-??_7GateProxyBehavior@@6BProxyBaseD@@@,0x00BEF23C
-??_7GateProxyBehaviorModuleData@@6B@,0x00BEF380
-??_7GeometryInfo@@6B@,0x00BC4E94,GeometryInfo vtable installed by ctor 0x50B74; slot0 is the deleting wrapper at 0x450C31 per the dtor pin note
+??_7EnragedBehavior@@6B@,0x00840FBC,primary vtable installed by EnragedBehavior ctor at 0x458FA3 with slot0 scalar-deleting dtor at 0x4AF161
+??_7FreeLifeBodyModuleData@@6B@,0x0085BC48,FreeLifeBodyModuleData vtable installed by ctor 0x4C1B3B; slot0 is scalar-deleting dtor 0x4C182F calling dtor-thunk 0x4C1B7B
+??_7GateOpenAndCloseBehaviorModuleData@@6B@,0x008501B0,vtable installed by pinned ctor 0x00498E2E; slot 0 ??_G 0x00498DD7
+??_7GateProxyBehavior@@6BProxyBaseA@@@,0x007EF338
+??_7GateProxyBehavior@@6BProxyBaseB@@@,0x007EF304
+??_7GateProxyBehavior@@6BProxyBaseC@@@,0x007EF248
+??_7GateProxyBehavior@@6BProxyBaseD@@@,0x007EF23C
+??_7GateProxyBehaviorModuleData@@6B@,0x007EF380
+??_7GeometryInfo@@6B@,0x007C4E94,GeometryInfo vtable installed by ctor 0x50B74; slot0 is the deleting wrapper at 0x450C31 per the dtor pin note
 ??_7GeometryUpgradeModuleData@@6B@,0x008589F0,GeometryUpgradeModuleData vtable installed by ctor 0x4B6EE2 (mov [esi] imm at 0x4B6F0A); slot0 is scalar-deleting dtor 0x4B6F65 sitting right after the ctor; slot1 is shared ret stub 0x4B3FD0
-??_7HitReactionBehavior@@6B@,0x00C41004,primary vtable installed by HitReactionBehavior ctor at 0x459228 with slot0 scalar-deleting dtor at 0x459285
-??_7HordeGarrisonContainModuleData@@6B@,0x00BF4328,HordeGarrisonContainModuleData vtable installed by ctor 0x47A251; slot0 is scalar-deleting dtor 0x2579E9 calling dtor 0x257A05
-??_7InvisibilitySpecialPowerModuleData@@6B@,0x00C5C558,derived vtable installed by EH ctor 0x4C244D mid-init; RousingSpeech precedent
-??_7LANAPI@@6B@,0x00C3E680,Target LANAPI destructor installs this vtable at 0x44B9A4; LANAPI request and reset bodies establish its method family
-??_7LANAPIInterface@@6B@,0x00C3E588,Target LANAPI destructor installs this base vtable before chaining to SubsystemInterface; BFME1 declares LANAPIInterface as its base
-??_7LevelGrantSpecialPowerModuleData@@6B@,0x00C5C828,LevelGrantSpecialPowerModuleData vtable installed by ctor 0x4C2AA0; slot0 is scalar-deleting dtor 0x4C2C06
+??_7HitReactionBehavior@@6B@,0x00841004,primary vtable installed by HitReactionBehavior ctor at 0x459228 with slot0 scalar-deleting dtor at 0x459285
+??_7HordeGarrisonContainModuleData@@6B@,0x007F4328,HordeGarrisonContainModuleData vtable installed by ctor 0x47A251; slot0 is scalar-deleting dtor 0x2579E9 calling dtor 0x257A05
+??_7InvisibilitySpecialPowerModuleData@@6B@,0x0085C558,derived vtable installed by EH ctor 0x4C244D mid-init; RousingSpeech precedent
+??_7LANAPI@@6B@,0x0083E680,Target LANAPI destructor installs this vtable at 0x44B9A4; LANAPI request and reset bodies establish its method family
+??_7LANAPIInterface@@6B@,0x0083E588,Target LANAPI destructor installs this base vtable before chaining to SubsystemInterface; BFME1 declares LANAPIInterface as its base
+??_7LevelGrantSpecialPowerModuleData@@6B@,0x0085C828,LevelGrantSpecialPowerModuleData vtable installed by ctor 0x4C2AA0; slot0 is scalar-deleting dtor 0x4C2C06
 ??_7Mapping@@6B@,0x00807EAC,vtable store in read 0x003071E9 new Mapping size 0x10 next at +4 name at +8 id at +0x0C matches GetName and DataChunk layouts
-??_7ModelConditionSpecialAbilityUpdateModuleData@@6B@,0x00C4D828,slot0 is ??_G at 0x00490E5F immediately after the 132B ctor; vtable for the ModelCondition file-unit
-??_7ModelConditionUpgradeModuleData@@6B@,0x00BF2558,folded base vtable shared with OpenContainModuleData which installs the same address
-??_7MoneyCrateCollideModuleData@@6B@,0x00BF3AC0,MoneyCrateCollideModuleData vtable installed by ctor 0x2562FA (mov [esi] imm at 0x256306); shared-fold with VeterancyCrate sibling ctor 0x255B09; address read from the mov immediate
-??_7MonsterDockUpdateModuleData@@6B@,0x00C51DA8,slot0 is scalar-deleting ??_G at 0x4A1552 sitting right after ctor 0x4A1517 plus slot1 is 0x4B3FD0 ret-pair
-??_7OCLSpecialPowerModuleData@@6B@,0x00C5CCB0,OCLSpecialPowerModuleData vtable installed by ctor 0x4C32BC; slot0 is scalar-deleting dtor 0x4C37A4 calling dtor 0x4C37C0
-??_7OilSpillUpdateModuleData@@6B@,0x00C4C2F8,OilSpillUpdateModuleData vtable installed by ctor 0x48C16C; slot0 is scalar-deleting dtor 0x48C1DB
+??_7ModelConditionSpecialAbilityUpdateModuleData@@6B@,0x0084D828,slot0 is ??_G at 0x00490E5F immediately after the 132B ctor; vtable for the ModelCondition file-unit
+??_7ModelConditionUpgradeModuleData@@6B@,0x007F2558,folded base vtable shared with OpenContainModuleData which installs the same address
+??_7MoneyCrateCollideModuleData@@6B@,0x007F3AC0,MoneyCrateCollideModuleData vtable installed by ctor 0x2562FA (mov [esi] imm at 0x256306); shared-fold with VeterancyCrate sibling ctor 0x255B09; address read from the mov immediate
+??_7MonsterDockUpdateModuleData@@6B@,0x00851DA8,slot0 is scalar-deleting ??_G at 0x4A1552 sitting right after ctor 0x4A1517 plus slot1 is 0x4B3FD0 ret-pair
+??_7OCLSpecialPowerModuleData@@6B@,0x0085CCB0,OCLSpecialPowerModuleData vtable installed by ctor 0x4C32BC; slot0 is scalar-deleting dtor 0x4C37A4 calling dtor 0x4C37C0
+??_7OilSpillUpdateModuleData@@6B@,0x0084C2F8,OilSpillUpdateModuleData vtable installed by ctor 0x48C16C; slot0 is scalar-deleting dtor 0x48C1DB
 ??_7PhysicsBehaviorModuleData@@6B@,0x0084ED70,PhysicsBehaviorModuleData vtable installed by ctor 0x390119 (mov [eax] imm); slot 0 is the deleting-dtor thunk 0x4A10FD
-??_7PlayerUpgradeSpecialPowerModuleData@@6B@,0x00C5E1C0,slot0 is ??_G at 0x004C7DB8 immediately after the 80B ctor; vtable for the PlayerUpgrade file-unit
-??_7ProductionSpeedBonusModuleData@@6B@,0x00C5CA80,slot0 is ??_G at 0x004C3048 immediately after the 98B ctor; vtable for the ProductionSpeedBonus file-unit
-??_7RampageBehavior@@6B@,0x00C40DA8,primary vtable installed by RampageBehavior ctor at 0x458B60 with slot0 scalar-deleting dtor at 0x458BC5
-??_7RemoveUpgradeUpgradeModuleData@@6B@,0x00C58EF0,slot0 is 0x4B8034 sitting right after ctor 0x4B7FF1 plus slot1 is 0x4B3FD0 ret-pair
-??_7RespawnBodyModuleData@@6B@,0x00C5BA00,RespawnBodyModuleData vtable installed by ctor 0x4C14DF; the RespawnBody data factory 0x251596 news this class
-??_7RousingSpeechUpdateModuleData@@6B@,0x00C55048,derived vtable installed by EH ctor 0x4AD0EE mid-init; slot0 is scalar-deleting-dtor after ctor per Devastate precedent
+??_7PlayerUpgradeSpecialPowerModuleData@@6B@,0x0085E1C0,slot0 is ??_G at 0x004C7DB8 immediately after the 80B ctor; vtable for the PlayerUpgrade file-unit
+??_7ProductionSpeedBonusModuleData@@6B@,0x0085CA80,slot0 is ??_G at 0x004C3048 immediately after the 98B ctor; vtable for the ProductionSpeedBonus file-unit
+??_7RampageBehavior@@6B@,0x00840DA8,primary vtable installed by RampageBehavior ctor at 0x458B60 with slot0 scalar-deleting dtor at 0x458BC5
+??_7RemoveUpgradeUpgradeModuleData@@6B@,0x00858EF0,slot0 is 0x4B8034 sitting right after ctor 0x4B7FF1 plus slot1 is 0x4B3FD0 ret-pair
+??_7RespawnBodyModuleData@@6B@,0x0085BA00,RespawnBodyModuleData vtable installed by ctor 0x4C14DF; the RespawnBody data factory 0x251596 news this class
+??_7RousingSpeechUpdateModuleData@@6B@,0x00855048,derived vtable installed by EH ctor 0x4AD0EE mid-init; slot0 is scalar-deleting-dtor after ctor per Devastate precedent
 ??_7Rva00041004@@6B@,0x007C16DC
 ??_7Rva000851F3@@6B@,0x007C745C,Actual three-slot base vtable: scalar85241/29B plus two genuine game purecall3B810 slots; target stores851F3 and8523A; compiled weak E-to-G slot independently verified in native link; original class name unknown
-??_7Rva00200D38@@6B@,0x00BE2B78,"row ??0Rva00200D38 at 0x00200D38 stores this vftable at [this]; retail slots 0-2 are __purecall at VA 0x0043B810 (matched RVA 0x0003B810)"
-??_7Rva00260E01Filter@@6B@,0x00C172A8,"partition filter vftable stored inline at AIGuardRetaliateMachine::lookForInnerTarget 0x005455E3 (no members beyond the +0x04 link; built and never linked); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260E01, slot 2 0x0036CC7A"
-??_7Rva00260E2AFilter@@6B@,0x00BFAD04,"partition filter vftable stored inline at RespawnUpdate 0x004AF1CE (+0x08 the object's controlling player); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260E2A, slot 2 0x00260E1E"
-??_7Rva00260E44Filter@@6B@,0x00C5A99C,"partition filter vftable stored inline at SalvageCrateCollide::executeCrateBehavior 0x004BD442 (no members beyond the +0x04 link; allow 0x00260E44)"
-??_7Rva00260EB1Filter@@6B@,0x00BFBC90,"partition filter vftable stored inline at 0x002FDBC4 (+0x08 the object, +0x0C flags 4, +0x10 false); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260EB1, slot 2 0x00260E6A"
-??_7Rva00260F1BFilter@@6B@,0x00C6E1B0,"partition filter vftable stored inline at AITargetHeuristicBaseDefense slot 1 0x005737D6 (+0x08 the player, +0x0C relationship flags 1); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260F1B, slot 2 0x00260EE0"
-??_7Rva00260FD0Filter@@6B@,0x00BF91B0,"partition filter vftable stored inline at TunnelNetworkScan 0x00545DEE and AIGuardRetaliateMachine::lookForInnerTarget 0x005455E3 (+0x08 the owner, +0x0C 2, +0x10 0); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260FD0, slot 2 0x0036CC7A"
-??_7Rva00261058@@6B@,0x00BF8FE4,"vftable of the player filter whose out-of-line ctor is 0x00261058 (stored there), also stored inline at AIPlayer::isLocationSafe 0x004F093D with the AI player's +0x0C player and false; slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x0026109D, slot 2 0x0036CC7A"
-??_7Rva0026119DFilter@@6B@,0x00BFAD10,"partition filter vftable stored inline at StructureCreep 0x005ABEA2 (also 0x005AC0B5, 0x005AC549); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x0026119D (object status +0x438 bit 0 clear: ZH PartitionFilterAlive), slot 2 0x0036CC7A"
-??_7Rva002611AFFilter@@6B@,0x00C56930,"partition filter vftable stored inline at EntEnragedUpdate 0x004B25C9 (no members beyond the +0x04 link); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002611AF, slot 2 0x0036CC7A"
-??_7Rva002611BFFilter@@6B@,0x00BF91BC,"partition filter vftable stored inline at 0x002FDBC4 (+0x08 the object); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002611BF, slot 2 0x0036CC7A"
-??_7Rva002611DDFilter@@6B@,0x00BFAD1C,"partition filter vftable stored inline at Drawable 0x00272AD5 (no members beyond the +0x04 link); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002611DD, slot 2 0x0036CC7A"
-??_7Rva00261246Filter@@6B@,0x00C07160,"partition filter vftable stored inline at AIPlayer::isLocationSafe 0x004F08A8 (+0x08 true, +0x09 false; Zero Hour's PartitionFilterInsignificantBuildings there); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261246, slot 2 0x0036CC7A"
-??_7Rva0026137EFilter@@6B@,0x00BFAD28,"partition filter vftable stored inline at Drawable 0x00272AD5 (+0x08 ThePlayerList +0x10, +0x0C true); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x0026137E, slot 2 0x00261368"
-??_7Rva002613AFFilter@@6B@,0x00C1FDE0,"partition filter vftable stored inline at script condition 0x003EA764 (+0x08 a player mask, +0x0C true); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002613AF, slot 2 0x002613A3"
-??_7Rva00261409Filter@@6B@,0x00C004D8,"partition filter vftable stored inline at StructureCreep 0x005ABEA2 (also 0x005AC0B5, 0x005AC549); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261409 (player relationship against the +0x10 flags, +0x0C the match bool), slot 2 0x002613E1"
-??_7Rva0026144CFilter@@6B@,0x00C1FE04,"partition filter vftable stored inline at script action 0x003BDB03 (+0x08 true; Zero Hour's PartitionFilterGarrisonable in the team twin); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x0026144C, slot 2 0x0036CC7A"
-??_7Rva002614BCFilter@@6B@,0x00C1FE34,"partition filter vftable stored inline at script action 0x003BDE5D (+0x08 the unit, +0x0C the command button, +0x10 true, +0x14 1; Zero Hour's PartitionFilterValidCommandButtonTarget there); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002614BC, slot 2 0x0036CC7A"
-??_7Rva002614DFFilter@@6B@,0x00C07190,"partition filter vftable stored inline at 0x002FDBC4 (+0x08 the object); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002614DF, slot 2 0x0036CC7A"
-??_7Rva002614ECFilter@@6B@,0x00BCECF0,"partition filter vftable stored inline at RespawnUpdate 0x004AF1CE (+0x08 module data +0x08, +0x0C the player, +0x10 true); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002614EC, slot 2 0x0036CC7A"
-??_7Rva00261723Filter@@6B@,0x00C07184,"partition filter vftable stored inline at ScriptActions::doMoveUnitTowardsNearest 0x003C9404 (+0x08 the polygon trigger; Zero Hour's PartitionFilterPolygonTrigger there); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261723, slot 2 0x0036CC7A"
-??_7Rva00261750Filter@@6B@,0x00C1FDEC,"partition filter vftable stored inline at ScriptActions::doMoveUnitTowardsNearest 0x003C9404 (+0x08 the thing template, +0x0C true; Zero Hour's PartitionFilterThing there); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261750, slot 2 0x0036CC7A"
-??_7Rva002619C1Filter@@6B@,0x00C07150,"partition filter vftable stored inline at 0x002FDBC4 (+0x08 the object); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002619C1, slot 2 0x0036CC7A"
-??_7Rva00261BFBFilter@@6B@,0x00C07178,"partition filter vftable stored inline at AI::findClosestRepulsor 0x002FDC9A (+0x08 the object); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261BFB, slot 2 0x0036CC7A"
-??_7Rva00261C58Filter@@6B@,0x00C1FE28,"partition filter vftable stored inline at ScriptActions::doTeamCaptureNearestUnownedFactionUnit 0x003C1D70 (+0x08 true; Zero Hour's PartitionFilterUnmannedObject there); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261C58, slot 2 0x0036CC7A"
-??_7Rva00261D01Filter@@6B@,0x00C35B28,"partition filter vftable stored inline at script condition 0x003EA764 (no members beyond the +0x04 link); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261D01, slot 2 0x0036CC7A"
+??_7Rva00200D38@@6B@,0x007E2B78,"row ??0Rva00200D38 at 0x00200D38 stores this vftable at [this]; retail slots 0-2 are __purecall at VA 0x0043B810 (matched RVA 0x0003B810)"
+??_7Rva00260E01Filter@@6B@,0x008172A8,"partition filter vftable stored inline at AIGuardRetaliateMachine::lookForInnerTarget 0x005455E3 (no members beyond the +0x04 link; built and never linked); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260E01, slot 2 0x0036CC7A"
+??_7Rva00260E2AFilter@@6B@,0x007FAD04,"partition filter vftable stored inline at RespawnUpdate 0x004AF1CE (+0x08 the object's controlling player); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260E2A, slot 2 0x00260E1E"
+??_7Rva00260E44Filter@@6B@,0x0085A99C,"partition filter vftable stored inline at SalvageCrateCollide::executeCrateBehavior 0x004BD442 (no members beyond the +0x04 link; allow 0x00260E44)"
+??_7Rva00260EB1Filter@@6B@,0x007FBC90,"partition filter vftable stored inline at 0x002FDBC4 (+0x08 the object, +0x0C flags 4, +0x10 false); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260EB1, slot 2 0x00260E6A"
+??_7Rva00260F1BFilter@@6B@,0x0086E1B0,"partition filter vftable stored inline at AITargetHeuristicBaseDefense slot 1 0x005737D6 (+0x08 the player, +0x0C relationship flags 1); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260F1B, slot 2 0x00260EE0"
+??_7Rva00260FD0Filter@@6B@,0x007F91B0,"partition filter vftable stored inline at TunnelNetworkScan 0x00545DEE and AIGuardRetaliateMachine::lookForInnerTarget 0x005455E3 (+0x08 the owner, +0x0C 2, +0x10 0); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00260FD0, slot 2 0x0036CC7A"
+??_7Rva00261058@@6B@,0x007F8FE4,"vftable of the player filter whose out-of-line ctor is 0x00261058 (stored there), also stored inline at AIPlayer::isLocationSafe 0x004F093D with the AI player's +0x0C player and false; slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x0026109D, slot 2 0x0036CC7A"
+??_7Rva0026119DFilter@@6B@,0x007FAD10,"partition filter vftable stored inline at StructureCreep 0x005ABEA2 (also 0x005AC0B5, 0x005AC549); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x0026119D (object status +0x438 bit 0 clear: ZH PartitionFilterAlive), slot 2 0x0036CC7A"
+??_7Rva002611AFFilter@@6B@,0x00856930,"partition filter vftable stored inline at EntEnragedUpdate 0x004B25C9 (no members beyond the +0x04 link); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002611AF, slot 2 0x0036CC7A"
+??_7Rva002611BFFilter@@6B@,0x007F91BC,"partition filter vftable stored inline at 0x002FDBC4 (+0x08 the object); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002611BF, slot 2 0x0036CC7A"
+??_7Rva002611DDFilter@@6B@,0x007FAD1C,"partition filter vftable stored inline at Drawable 0x00272AD5 (no members beyond the +0x04 link); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002611DD, slot 2 0x0036CC7A"
+??_7Rva00261246Filter@@6B@,0x00807160,"partition filter vftable stored inline at AIPlayer::isLocationSafe 0x004F08A8 (+0x08 true, +0x09 false; Zero Hour's PartitionFilterInsignificantBuildings there); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261246, slot 2 0x0036CC7A"
+??_7Rva0026137EFilter@@6B@,0x007FAD28,"partition filter vftable stored inline at Drawable 0x00272AD5 (+0x08 ThePlayerList +0x10, +0x0C true); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x0026137E, slot 2 0x00261368"
+??_7Rva002613AFFilter@@6B@,0x0081FDE0,"partition filter vftable stored inline at script condition 0x003EA764 (+0x08 a player mask, +0x0C true); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002613AF, slot 2 0x002613A3"
+??_7Rva00261409Filter@@6B@,0x008004D8,"partition filter vftable stored inline at StructureCreep 0x005ABEA2 (also 0x005AC0B5, 0x005AC549); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261409 (player relationship against the +0x10 flags, +0x0C the match bool), slot 2 0x002613E1"
+??_7Rva0026144CFilter@@6B@,0x0081FE04,"partition filter vftable stored inline at script action 0x003BDB03 (+0x08 true; Zero Hour's PartitionFilterGarrisonable in the team twin); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x0026144C, slot 2 0x0036CC7A"
+??_7Rva002614BCFilter@@6B@,0x0081FE34,"partition filter vftable stored inline at script action 0x003BDE5D (+0x08 the unit, +0x0C the command button, +0x10 true, +0x14 1; Zero Hour's PartitionFilterValidCommandButtonTarget there); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002614BC, slot 2 0x0036CC7A"
+??_7Rva002614DFFilter@@6B@,0x00807190,"partition filter vftable stored inline at 0x002FDBC4 (+0x08 the object); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002614DF, slot 2 0x0036CC7A"
+??_7Rva002614ECFilter@@6B@,0x007CECF0,"partition filter vftable stored inline at RespawnUpdate 0x004AF1CE (+0x08 module data +0x08, +0x0C the player, +0x10 true); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002614EC, slot 2 0x0036CC7A"
+??_7Rva00261723Filter@@6B@,0x00807184,"partition filter vftable stored inline at ScriptActions::doMoveUnitTowardsNearest 0x003C9404 (+0x08 the polygon trigger; Zero Hour's PartitionFilterPolygonTrigger there); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261723, slot 2 0x0036CC7A"
+??_7Rva00261750Filter@@6B@,0x0081FDEC,"partition filter vftable stored inline at ScriptActions::doMoveUnitTowardsNearest 0x003C9404 (+0x08 the thing template, +0x0C true; Zero Hour's PartitionFilterThing there); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261750, slot 2 0x0036CC7A"
+??_7Rva002619C1Filter@@6B@,0x00807150,"partition filter vftable stored inline at 0x002FDBC4 (+0x08 the object); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x002619C1, slot 2 0x0036CC7A"
+??_7Rva00261BFBFilter@@6B@,0x00807178,"partition filter vftable stored inline at AI::findClosestRepulsor 0x002FDC9A (+0x08 the object); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261BFB, slot 2 0x0036CC7A"
+??_7Rva00261C58Filter@@6B@,0x0081FE28,"partition filter vftable stored inline at ScriptActions::doTeamCaptureNearestUnownedFactionUnit 0x003C1D70 (+0x08 true; Zero Hour's PartitionFilterUnmannedObject there); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261C58, slot 2 0x0036CC7A"
+??_7Rva00261D01Filter@@6B@,0x00835B28,"partition filter vftable stored inline at script condition 0x003EA764 (no members beyond the +0x04 link); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x00261D01, slot 2 0x0036CC7A"
 ??_7Rva0040EDB@@6B@,0x007C16B8
-??_7Rva004ACDACFilter@@6B@,0x00C54EB4,"partition filter vftable stored inline at 0x004AD1A1 in RousingSpeechUpdate 0x004AD176 (+0x08 a radius; +0x0C a centre); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x004ACDAC, slot 2 0x0036CC7A"
-??_7Rva004E14E1FlashRecord@@6B@,0x00C619A0
+??_7Rva004ACDACFilter@@6B@,0x00854EB4,"partition filter vftable stored inline at 0x004AD1A1 in RousingSpeechUpdate 0x004AD176 (+0x08 a radius; +0x0C a centre); slot 0 the shared deleting dtor 0x00395A19, slot 1 allow 0x004ACDAC, slot 2 0x0036CC7A"
+??_7Rva004E14E1FlashRecord@@6B@,0x008619A0
 ??_7Rva00514E6B@@6B@,0x007C93A0
-??_7Rva00552C0FBase@@6B@,0x00C6B090,Rva00552C0FBase vtable installed by ctor 0x00552C56; slot0 is scalar deleting dtor 0x00552C0F; slots 1-15 are __purecall
-??_7Rva005C802B@@6B@,0x00C74ACC,Rva005C802B vtable installed by ctor 0x005C802B (mov [esi] imm); slots unrecovered; address-derived name
-??_7Rva005D19F8@@6B@,0x00C75688,Rva005D19F8 vtable installed by ctor 0x005D19F8 (mov [esi] imm); slots unrecovered; address-derived name
-??_7Rva005FF912@@6B@,0x00C7A530,Rva005FF912 vtable installed by ctor 0x005FF912 (mov [esi] imm); slot0 is the rowed scalar deleting dtor 0x005FF9A9; address-derived name
+??_7Rva00552C0FBase@@6B@,0x0086B090,Rva00552C0FBase vtable installed by ctor 0x00552C56; slot0 is scalar deleting dtor 0x00552C0F; slots 1-15 are __purecall
+??_7Rva005C802B@@6B@,0x00874ACC,Rva005C802B vtable installed by ctor 0x005C802B (mov [esi] imm); slots unrecovered; address-derived name
+??_7Rva005D19F8@@6B@,0x00875688,Rva005D19F8 vtable installed by ctor 0x005D19F8 (mov [esi] imm); slots unrecovered; address-derived name
+??_7Rva005FF912@@6B@,0x0087A530,Rva005FF912 vtable installed by ctor 0x005FF912 (mov [esi] imm); slot0 is the rowed scalar deleting dtor 0x005FF9A9; address-derived name
 ??_7Rva0089971@@6B@,0x007C74F4,target BC74F4 three slots independently identify scalar899C9 empty RET4 47A69C and RET24 initializer86B2C; original names unknown
-??_7ScavengerSpecialPowerModuleData@@6B@,0x00C5D1F0,ScavengerSpecialPowerModuleData vtable installed by ctor 0x4C4257; slot0 is the scalar-deleting dtor at 0x4C42D2 immediately after the ctor
-??_7SlaughterHordeContainModuleData@@6B@,0x00C48DC0,SlaughterHordeContainModuleData vtable installed by ctor 0x48104D; slot0 is scalar-deleting dtor 0x481113 calling dtor 0x4810D5
-??_7SlavedUpdateModuleData@@6B@,0x00BF34C0,slot0 is scalar-deleting ??_G at 0x255FA5 plus slot1 is 0x4B3FD0 ret-pair
-??_7Snapshot@@6B@,0x00BBB554,"slot 0 VA 0x00401750 uses Snapshot's 4-byte array-dtor callback VA 0x0089B47C (matched ??1Snapshot at RVA 0x0049B47C) and scalar path restores the same vptr; slots 1-3 are __purecall at RVA 0x0003B810"
-??_7StealthDetectorUpdateModuleData@@6B@,0x00BF3540,slot0 is scalar-deleting ??_G at 0x256000 plus slot1 is 0x4B3FD0 ret-pair
-??_7TerrainResourceBehaviorModuleData@@6B@,0x00C49440,TerrainResourceBehaviorModuleData vtable installed by ctor 0x48202F; slot0 is scalar-deleting dtor 0x482259 calling dtor 0x482275
-??_7ToggleMountedSpecialAbilityUpdateModuleData@@6B@,0x00C55220,derived vtable for ToggleMountedSpecialAbilityUpdateModuleData ctor 0x4AE0AC; slot0 is scalar-deleting dtor 0x4AE0EF sitting right after the ctor cluster; slot1 is shared ret stub 0x4B3FD0
-??_7TransportContain@@6B@,0x00C44278,TransportContain vtable installed by ctor 0x468559; slot0 is scalar-deleting dtor 0x468029 calling dtor 0x467E61; slot1 is 0x4783D7; slot2 is name getter 0x467F26
-??_7UnitCrateCollideModuleData@@6B@,0x00BF39C0,UnitCrateCollideModuleData vtable installed once by ctor 0x255A72 (mov [esi] imm at 0x255A8D); factory 0x255AB8 news 0x64 for this class; address read from the mov immediate at 0x255A8D
-??_7VeterancyCrateCollideModuleData@@6B@,0x00BF3AC0,VeterancyCrateCollideModuleData vtable installed by ctor 0x255B09 (mov [esi] imm at 0x255B1C); shared-fold with MoneyCrate sibling ctor 0x2562FA; address read from the mov immediate
-??_7W3DLaserDrawModuleData@@6B@,0x00BCB960,W3DLaserDrawModuleData vtable installed by ctor 0xC9A6F and restored by dtor 0xC9AE7; factory 0x64962 news 0x74; base restore is Snapshot 0xBBB554
-??_7W3DLightDrawModuleData@@6B@,0x00BCD820,W3DLightDrawModuleData vtable installed by ctor 0xCFB3E (mov [eax] imm) and restored by dtor 0xCFBA9 (mov [esi] imm); factory 0x64E2F news 0x48; base restore is Snapshot 0xBBB554
-??_7W3DTankDrawModuleData@@6B@,0x00BCCB58,W3DTankDrawModuleData vtable installed by ctor 0xCE6E6 (mov esi imm at 0xCE70B); factory 0x64B7F news 0x19C; slot0 scalar-deleting dtor unclaimed
-??_7WallHubBehaviorModuleData@@6B@,0x00C3FF98,WallHubBehaviorModuleData vtable installed by ctor 0x453020 and restored by dtor 0x452F9F; factory 0x24A94C news 0x3C; base restore is Snapshot 0xBBB554
-??_7WanderAIUpdateModuleData@@6B@,0x00C4B6C8,WanderAIUpdateModuleData vtable installed by ctor 0x24F1CD (mov [esi] imm at 0x24F1D9); derived from TransportAIUpdateModuleData; address read from the mov immediate
-??_7WorkerAIUpdateModuleData@@6B@,0x00C4B6C8,WorkerAIUpdateModuleData vtable installed by ctor 0x24EE77; ICF-folded with the Wander vtable at the same address (identical trivial-hierarchy layout); TU spelling alias of the Wander ??_7 pin
+??_7ScavengerSpecialPowerModuleData@@6B@,0x0085D1F0,ScavengerSpecialPowerModuleData vtable installed by ctor 0x4C4257; slot0 is the scalar-deleting dtor at 0x4C42D2 immediately after the ctor
+??_7SlaughterHordeContainModuleData@@6B@,0x00848DC0,SlaughterHordeContainModuleData vtable installed by ctor 0x48104D; slot0 is scalar-deleting dtor 0x481113 calling dtor 0x4810D5
+??_7SlavedUpdateModuleData@@6B@,0x007F34C0,slot0 is scalar-deleting ??_G at 0x255FA5 plus slot1 is 0x4B3FD0 ret-pair
+??_7Snapshot@@6B@,0x007BB554,"slot 0 VA 0x00401750 uses Snapshot's 4-byte array-dtor callback VA 0x0089B47C (matched ??1Snapshot at RVA 0x0049B47C) and scalar path restores the same vptr; slots 1-3 are __purecall at RVA 0x0003B810"
+??_7StealthDetectorUpdateModuleData@@6B@,0x007F3540,slot0 is scalar-deleting ??_G at 0x256000 plus slot1 is 0x4B3FD0 ret-pair
+??_7TerrainResourceBehaviorModuleData@@6B@,0x00849440,TerrainResourceBehaviorModuleData vtable installed by ctor 0x48202F; slot0 is scalar-deleting dtor 0x482259 calling dtor 0x482275
+??_7ToggleMountedSpecialAbilityUpdateModuleData@@6B@,0x00855220,derived vtable for ToggleMountedSpecialAbilityUpdateModuleData ctor 0x4AE0AC; slot0 is scalar-deleting dtor 0x4AE0EF sitting right after the ctor cluster; slot1 is shared ret stub 0x4B3FD0
+??_7TransportContain@@6B@,0x00844278,TransportContain vtable installed by ctor 0x468559; slot0 is scalar-deleting dtor 0x468029 calling dtor 0x467E61; slot1 is 0x4783D7; slot2 is name getter 0x467F26
+??_7UnitCrateCollideModuleData@@6B@,0x007F39C0,UnitCrateCollideModuleData vtable installed once by ctor 0x255A72 (mov [esi] imm at 0x255A8D); factory 0x255AB8 news 0x64 for this class; address read from the mov immediate at 0x255A8D
+??_7VeterancyCrateCollideModuleData@@6B@,0x007F3AC0,VeterancyCrateCollideModuleData vtable installed by ctor 0x255B09 (mov [esi] imm at 0x255B1C); shared-fold with MoneyCrate sibling ctor 0x2562FA; address read from the mov immediate
+??_7W3DLaserDrawModuleData@@6B@,0x007CB960,W3DLaserDrawModuleData vtable installed by ctor 0xC9A6F and restored by dtor 0xC9AE7; factory 0x64962 news 0x74; base restore is Snapshot 0xBBB554
+??_7W3DLightDrawModuleData@@6B@,0x007CD820,W3DLightDrawModuleData vtable installed by ctor 0xCFB3E (mov [eax] imm) and restored by dtor 0xCFBA9 (mov [esi] imm); factory 0x64E2F news 0x48; base restore is Snapshot 0xBBB554
+??_7W3DTankDrawModuleData@@6B@,0x007CCB58,W3DTankDrawModuleData vtable installed by ctor 0xCE6E6 (mov esi imm at 0xCE70B); factory 0x64B7F news 0x19C; slot0 scalar-deleting dtor unclaimed
+??_7WallHubBehaviorModuleData@@6B@,0x0083FF98,WallHubBehaviorModuleData vtable installed by ctor 0x453020 and restored by dtor 0x452F9F; factory 0x24A94C news 0x3C; base restore is Snapshot 0xBBB554
+??_7WanderAIUpdateModuleData@@6B@,0x0084B6C8,WanderAIUpdateModuleData vtable installed by ctor 0x24F1CD (mov [esi] imm at 0x24F1D9); derived from TransportAIUpdateModuleData; address read from the mov immediate
+??_7WorkerAIUpdateModuleData@@6B@,0x0084B6C8,WorkerAIUpdateModuleData vtable installed by ctor 0x24EE77; ICF-folded with the Wander vtable at the same address (identical trivial-hierarchy layout); TU spelling alias of the Wander ??_7 pin
 ??_9@$B3AE,0x005CB260,"MSVC vcall thunk for a member-function pointer to virtual slot +0x04 (mov eax [ecx]; jmp [eax+4]); ICF-folded retail copy pushed by the 0x00C088D8 broadcast slot 0x0030C1FC and the base broadcast 0x0053805D"
 ??_9@$B7AE,0x005CC208,"MSVC vcall thunk for a member-function pointer to virtual slot +0x08; ICF-folded retail copy pushed by 0x0030C214 and 0x0053806C"
 ??_9@$BBA@AE,0x005CB26A,"MSVC vcall thunk for a member-function pointer to virtual slot +0x10; ICF-folded retail copy pushed by 0x0030C271"
@@ -6403,11 +6403,11 @@ name,address,notes
 ?StopStopwatch@@YAKK@Z,0x006B8C40,address read from the REL32 displacement at a placed body
 ?Store_GDI_Char@FontCharsClass@@AAEPBVFontCharsClassCharDataStruct@@G@Z,0x00157FF0,retail REL32 from Get_Char_Data at 0x00158520
 ?Test_Aligned_Box@@YA_NPAUBoxTestStruct@@@Z,0x00714300,retail REL32 from CollisionMath LineSeg-AABox Collide at 0x007146E0
-?TheControlBar@@3PAVControlBar@@A,0x00E01CFC,Target RVA 0x004B3B88 loads this global and writes the pointed ControlBar +0x28 dirty flag; address confirmed by retail absolute operand and existing BFME2 ControlBar references.
-?TheGameLogic@@3PAVGameLogic@@A,0x00DFE78C,TheGameLogic global; +0x1b4 count read by 0x341C54
+?TheControlBar@@3PAVControlBar@@A,0x00A01CFC,Target RVA 0x004B3B88 loads this global and writes the pointed ControlBar +0x28 dirty flag; address confirmed by retail absolute operand and existing BFME2 ControlBar references.
+?TheGameLogic@@3PAVGameLogic@@A,0x009FE78C,TheGameLogic global; +0x1b4 count read by 0x341C54
 ?TheNullChr@?1??str@?$StringBase@D@@QBEPBDXZ@4DB,0x007BAC1C,retail export ordinal 1424 (.rdata data): the function-local null character StringBase<char>::str returns; str 0x000023EE loads this address
 ?TheNullChr@?1??str@?$StringBase@G@@QBEPBGXZ@4GB,0x007BB5C4,retail export ordinal 1425 (.rdata data): the function-local null character StringBase<unsigned short>::str returns; str 0x000023FE loads this address
-?TheObjectFlagsNames@@3PAPBDA,0x00DC10FC,retail flag-name table read by changeObjectPanelFlagForSingleObject 0x003C4C07 (Enabled..Player Targetable)
+?TheObjectFlagsNames@@3PAPBDA,0x009C10FC,retail flag-name table read by changeObjectPanelFlagForSingleObject 0x003C4C07 (Enabled..Player Targetable)
 ?TheStancesStore@@3PAVRva00425F10@@A,0x00A031D4,TheStancesStore global pointer at 0x00E031D4
 ?Transform_Center_Extent_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z,0x00712CA0,address read from the REL32 displacement at a placed body
 ?Transform_Min_Max_AABox@Matrix3D@@QBEXABVVector3@@0PAV2@1@Z,0x00712B60
@@ -9165,34 +9165,34 @@ name,address,notes
 ?g_009FEFA4@@3VBfmeFixedStorage0004543D@@B,0x009FEFA4,shared fixed-storage object the Made002CC8A4 ctor 0x0050A39B copies twice (push of VA 0x00DFEFA4); named extern replacing the literal address
 ?g_00C3C614@@3QBUFieldParse@@B,0x0083C614,FieldParse table in .rdata read by LivingWorldAutoResolveArmorStore::parseArmorDefinition at 0x00427392
 ?g_00C78174@@3QBQBXB,0x00878174,vtable for Rva005EA0C0Link stored at new+0 in 0x005EA0C0 tail slot1
-?g_00DBC1B8TacticTypeNames@@3PAPBDA,0x00DBC1B8,"skirmish-AI tactic type name table (TARGETLESS, EXPANSION, OPPORTUN...); StructureCreep slot 6 0x005ABAF6 pushes entry 0 into its team name"
-?g_00DDEEFCStaticEmpty@@3V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@B,0x00DDEEFC,static empty narrow-string copy source for init at 0x00017AA0; start at +0 finish at +4; 16 zero bytes in .data
-?g_00DDEF08StaticEmpty@@3V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@B,0x00DDEF08,static empty narrow-string copy source for init at 0x00017A40; start at +0 finish at +4; 16 zero bytes in .data
-?g_00DDEF38StaticEmpty@@3V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@B,0x00DDEF38,static empty narrow-string copy source for init at 0x00019D30; start at +0 finish at +4; 16 zero bytes in .data
-?g_00DFE758@@3PAXA,0x00DFE758,flag-holder global tested at +0x1110 by 0x33C965 before the 0x31D5F8 lookup
-?g_00DFEFF0@@3PAXA,0x00DFEFF0,log-file global tested non-null by 0x341C54
-?g_00DFF0F8@@3PAXA,0x00DFF0F8,dispatch-table global whose +0x10 member receives the 0x341C54 five-arg call
-?g_00E01CFC@@3PAXA,0x00E01CFC,lookup-table global receiving the 0x31D5F8 call in 0x33C965
+?g_00DBC1B8TacticTypeNames@@3PAPBDA,0x009BC1B8,"skirmish-AI tactic type name table (TARGETLESS, EXPANSION, OPPORTUN...); StructureCreep slot 6 0x005ABAF6 pushes entry 0 into its team name"
+?g_00DDEEFCStaticEmpty@@3V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@B,0x009DEEFC,static empty narrow-string copy source for init at 0x00017AA0; start at +0 finish at +4; 16 zero bytes in .data
+?g_00DDEF08StaticEmpty@@3V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@B,0x009DEF08,static empty narrow-string copy source for init at 0x00017A40; start at +0 finish at +4; 16 zero bytes in .data
+?g_00DDEF38StaticEmpty@@3V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@B,0x009DEF38,static empty narrow-string copy source for init at 0x00019D30; start at +0 finish at +4; 16 zero bytes in .data
+?g_00DFE758@@3PAXA,0x009FE758,flag-holder global tested at +0x1110 by 0x33C965 before the 0x31D5F8 lookup
+?g_00DFEFF0@@3PAXA,0x009FEFF0,log-file global tested non-null by 0x341C54
+?g_00DFF0F8@@3PAXA,0x009FF0F8,dispatch-table global whose +0x10 member receives the 0x341C54 five-arg call
+?g_00E01CFC@@3PAXA,0x00A01CFC,lookup-table global receiving the 0x31D5F8 call in 0x33C965
 ?g_00E06620@@3VRva005E1753Class@@A,0x00A06620,Singleton instance at 0x00E06620
 ?g_00E0675C@@3VRva005E1753Class@@A,0x00A0675C,Singleton instance at 0x00E0675C
 ?g_00E068EC@@3VRva005E1753Class@@A,0x00A068EC,Singleton instance at 0x00E068EC
 ?g_00E06900@@3VRva005E1753Class@@A,0x00A06900,Singleton instance at 0x00E06900
 ?g_00E06918@@3VRva005E1753Class@@A,0x00A06918,Singleton instance at 0x00E06918
-?g_Rva00E02EEC@@3PAULANGameInfo@@A,0x00E02EEC,address-derived global pointer compared with LANAPI::removeGame argument at 0x449913 and cleared on equality
+?g_Rva00E02EEC@@3PAULANGameInfo@@A,0x00A02EEC,address-derived global pointer compared with LANAPI::removeGame argument at 0x449913 and cleared on equality
 ?g_Va00DE204C@@3HA,0x009E204C,target-owned signed runtime period cell: DIR32 in132B88EB4; PEinitialzero; writes4C6C6 and7AC08C independently verified; original name unknown
-?g_bfmeAptDefaultValueAtE18078,0x00E18078,"default Apt value returned by rva006D7350 on a negative index or a null lookup; global read directly by retail"
-?g_bfmeEmptyF9@@3PADA,0x00BBAC1C
-?g_bfmeIidTSA@@3U_GUID@@A,0x00BD4E3C
-?g_bfmeS1082_0@@3PAVBfmeS1082@@A,0x00E1821C
-?g_bfmeS1082_1@@3PAVBfmeS1082@@A,0x00E18220
-?g_bfmeS1082_2@@3PAVBfmeS1082@@A,0x00E18224
-?g_bfmeS1082_3@@3PAVBfmeS1082@@A,0x00E18228
-?g_bfmeS1082_4@@3PAVBfmeS1082@@A,0x00E1822C
-?g_bfmeS1082_5@@3PAVBfmeS1082@@A,0x00E18230
-?g_bfmeS1082_6@@3PAVBfmeS1082@@A,0x00E18234
-?g_bfmeS1082_7@@3PAVBfmeS1082@@A,0x00E18238
-?g_bfmeVJA@@3PAXA,0x00E09ED4
-?g_bfmeVJB@@3PAXA,0x00E09F64
+?g_bfmeAptDefaultValueAtE18078,0x00A18078,"default Apt value returned by rva006D7350 on a negative index or a null lookup; global read directly by retail"
+?g_bfmeEmptyF9@@3PADA,0x007BAC1C
+?g_bfmeIidTSA@@3U_GUID@@A,0x007D4E3C
+?g_bfmeS1082_0@@3PAVBfmeS1082@@A,0x00A1821C
+?g_bfmeS1082_1@@3PAVBfmeS1082@@A,0x00A18220
+?g_bfmeS1082_2@@3PAVBfmeS1082@@A,0x00A18224
+?g_bfmeS1082_3@@3PAVBfmeS1082@@A,0x00A18228
+?g_bfmeS1082_4@@3PAVBfmeS1082@@A,0x00A1822C
+?g_bfmeS1082_5@@3PAVBfmeS1082@@A,0x00A18230
+?g_bfmeS1082_6@@3PAVBfmeS1082@@A,0x00A18234
+?g_bfmeS1082_7@@3PAVBfmeS1082@@A,0x00A18238
+?g_bfmeVJA@@3PAXA,0x00A09ED4
+?g_bfmeVJB@@3PAXA,0x00A09F64
 ?g_rva00A176D4@@3IA,0x00A176D4,Apt native store6CD030 DIR32 provider; observed scalar4B native accesses and initial00000000; original name and role unproven; defined Code/Libraries/Source/Apt/Rva006CD030Store.cpp
 ?g_rva00A176D8@@3IA,0x00A176D8,Apt native store6CD030 DIR32 provider; observed scalar4B native accesses and initial00000000; original name and role unproven; defined Code/Libraries/Source/Apt/Rva006CD030Store.cpp
 ?g_rva00A176DC@@3IA,0x00A176DC,Apt native store6CD030 DIR32 provider; observed scalar4B native accesses and initial00000000; original name and role unproven; defined Code/Libraries/Source/Apt/Rva006CD030Store.cpp
@@ -12030,15 +12030,15 @@ name,address,notes
 ?zeroFrame@FrameData@@QAEXXZ,0x005DA5E3,BFME2 frame-ring entry zeroing helper used by bulk frame clearing
 @_RTC_CheckStackVars@8,0x0075A5C5,address read from the REL32 displacement in DirtySock Y4CommTable Rva00811E20 at 0x0067DD20; compiler stack-check helper next to RTC_CheckEsp; body not yet converted
 @__security_check_cookie@4,0x00629BAB,address read from the REL32 displacement in DirtySock Y4CommTable Rva00811E20 at 0x0067DD20; compiler stack-cookie helper in the static CRT cluster; body not yet converted
-G00DB5FBC,0x00DB5FBC,Render2DClass ctor 0x0011C0F0 stores 7; donor Render2DClassConstructor names this ThirdEB; opaque address-derived name
-G00DB5FC0,0x00DB5FC0,Render2DClass ctor 0x0011C0F0 stores 2; donor Render2DClassConstructor names this FourthEB; opaque address-derived name
-G00DB5FC4,0x00DB5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClassConstructor names this FifthEB; opaque address-derived name
-G00DEC4A0,0x00DEC4A0,Render2DClass ctor 0x0011C0F0 zeroes this dword third; opaque address-derived name
-G00DEC4A4,0x00DEC4A4,Render2DClass ctor 0x0011C0F0 zeroes this dword second; opaque address-derived name
-G00DEC4A8,0x00DEC4A8,Render2DClass ctor 0x0011C0F0 zeroes this dword first; opaque address-derived name
+G00DB5FBC,0x009B5FBC,Render2DClass ctor 0x0011C0F0 stores 7; donor Render2DClassConstructor names this ThirdEB; opaque address-derived name
+G00DB5FC0,0x009B5FC0,Render2DClass ctor 0x0011C0F0 stores 2; donor Render2DClassConstructor names this FourthEB; opaque address-derived name
+G00DB5FC4,0x009B5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClassConstructor names this FifthEB; opaque address-derived name
+G00DEC4A0,0x009EC4A0,Render2DClass ctor 0x0011C0F0 zeroes this dword third; opaque address-derived name
+G00DEC4A4,0x009EC4A4,Render2DClass ctor 0x0011C0F0 zeroes this dword second; opaque address-derived name
+G00DEC4A8,0x009EC4A8,Render2DClass ctor 0x0011C0F0 zeroes this dword first; opaque address-derived name
 Gen_f265_b7a8aa_0081dad0,0x006887F0
-Rva00891FA0SendRecord,0x00E17740
-Rva00891FA0SendText,0x00E17744
+Rva00891FA0SendRecord,0x00A17740
+Rva00891FA0SendText,0x00A17744
 _AVIFileCreateStreamA@12,0x00654790,jmp [IAT 0xBBA068] stub; import table names avifil32!AVIFileCreateStreamA
 _AVIFileInit@0,0x0065479C,jmp [IAT 0xBBA050] stub; import table names avifil32!AVIFileInit
 _AVIFileOpen@16,0x00654796,jmp [IAT 0xBBA054] stub; import table names avifil32!AVIFileOpen
@@ -12331,7 +12331,7 @@ _bfmeRva0042CF86,0x0002CF86,address read from the REL32 in WndProc's message 0x2
 _bfmeScanYA,0x00629892
 _bfmeSearch1155,0x00029EB0
 _bfmeVftSF,0x00816778
-_bfmeVftTL,0x00BBCCAC
+_bfmeVftTL,0x007BCCAC
 _bfme_MallocAlloc0OomMalloc_82B820,0x00024200,STLport __malloc_alloc<0>::_S_oom_malloc callee of allocate at 0x00025090
 _bfme_debugAllocInnerAllocate_82AD80,0x00023790
 _bfme_debugAllocInnerDeallocate_82AD90,0x000237B0
@@ -12367,12 +12367,12 @@ _fornum,0x00754590
 _fprintf,0x002CEC42,statically linked CRT fprintf (not the msvcr71 import at 0xBBA5C4); 357 direct-E8 callers pass FILE+format; address read from REL32 at 0x00234104 in GetGameLogicRandomValueReal (e8 39 ab 09 00 -> 0x002CEC42); BFME1 random_value.cpp notes fprintf is statically linked here
 _free,0x00628F98,CRT free import linker thunk (jmp [0xBBA6E8]); RemoveAll@Rva009F68C6PointerArray calls it directly
 _funcname,0x00754980
-_g_pRva00224BC9,0x00DFE4CC,Apt window manager global read by wrapper 0x00224BC9 (peer-pinned role); identity unproven
-_g_pRva0039ABFF,0x00DFECC4,global pointer read by wrapper 0x0039ABFF; identity unproven
-_g_pRva003BBEDE,0x00DFE16C,global pointer read by global-this forwards 0x003BBEDE/0x003BBEE9; identity unproven
-_g_pRva003BD424,0x00DFF028,global pointer read by global-this forward 0x003BD424; identity unproven
-_g_pRva00437E9C,0x00E032FC,global pointer read by wrapper 0x00437E9C (peer notes same); identity unproven
-_g_pRva007B6890,0x00DA6214,global pointer read by singleton virtual forward 0x007B6890; identity unproven
+_g_pRva00224BC9,0x009FE4CC,Apt window manager global read by wrapper 0x00224BC9 (peer-pinned role); identity unproven
+_g_pRva0039ABFF,0x009FECC4,global pointer read by wrapper 0x0039ABFF; identity unproven
+_g_pRva003BBEDE,0x009FE16C,global pointer read by global-this forwards 0x003BBEDE/0x003BBEE9; identity unproven
+_g_pRva003BD424,0x009FF028,global pointer read by global-this forward 0x003BD424; identity unproven
+_g_pRva00437E9C,0x00A032FC,global pointer read by wrapper 0x00437E9C (peer notes same); identity unproven
+_g_pRva007B6890,0x009A6214,global pointer read by singleton virtual forward 0x007B6890; identity unproven
 _gameTextPrepare@16,0x00629110
 _gameTextRelease,0x0002FD80
 _gethostbyname@4,0x006556A0,PE-verified FF25 import thunk to wsock32.dll!gethostbyname via IAT 0x00BBA978; independently read from retail import directory
@@ -12812,7 +12812,7 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ?selectObject@GameLogic@@QAEXPAVObject@@_NI1@Z,0x0023C924,ZH GameLogic::selectObject (ret 0x10): null/selectable guard then getEachPlayerFromMask loop with TheAI createGroup + add + setCurrentlySelectedAIGroup or addAIGroupToCurrentSelection + destroyGroup and affectClient InGameUI select; sibling of the rowed deselectObject 0x0023C9F8; BFME2 PlayerMaskType 32-bit; REL32 at 0x002ACB91 and 0x002ACC40
 ?awardInitialCaptureBonus@AutoDepositUpdate@@QAEXPAVPlayer@@@Z,0x0049A26F,ZH AutoDepositUpdate::awardInitialCaptureBonus: rearms m_depositOnFrame (+0x20) from TheGameLogic frame plus module-data frame then returns unless a player and the +0x24 award flag and a positive module-data bonus (+0x10); REL32 at 0x002AD544 in Player::becomingTeamMember on the module found by NAMEKEY AutoDepositUpdate
 ?rva002AD9FD@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002AD9FD,Player member (ret 8): (upgrade template + int) onUpgradeRemoved counterpart of the onUpgradeCompleted body 0x002AD93A walking the +0x32C team prototypes with the DLINK member pointer 0x009C4AF5; REL32 at 0x002ADB46 in Player::rva002ADAC3 (removeUpgrade family) as the type-1 bypass and the completed-status tail; address-named
-??_7Upgrade@@6B@,0x00BFAA9C,Upgrade vtable installed by the matched ctor 0x0026EDDC (mov [eax] imm at 0x0026EDE7); slot0 deleting dtor 0x0026EF34 then 0x000B3FD0 then name getter 0x0026EDF9 (Upgrade) then status xfer 0x0026EE11
+??_7Upgrade@@6B@,0x007FAA9C,Upgrade vtable installed by the matched ctor 0x0026EDDC (mov [eax] imm at 0x0026EDE7); slot0 deleting dtor 0x0026EF34 then 0x000B3FD0 then name getter 0x0026EDF9 (Upgrade) then status xfer 0x0026EE11
 ?rva002AD93A@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002AD93A,Player member (ret 8): ZH onUpgradeCompleted shape (team-prototype walk updating upgrade modules then the template EVA events gated by the int); REL32 at 0x002AE3DD in Player::rva002AE329 (addUpgrade) on the UPGRADE_STATUS_COMPLETE path with the template and the int; address-named
 ?insert@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVTeamPrototype@@U?$_Nonconst_traits@PAVTeamPrototype@@@_STL@@@2@U32@ABQAVTeamPrototype@@@Z,0x002ACF9C,STLport list<TeamPrototype*>::insert(pos x): node from _M_create_node 0x002AC04E linked before pos and returned through the hidden iterator; REL32 at 0x002ADCD9 in list<TeamPrototype*>::push_back 0x002ADCC7 (insert(end() x)); same body as the rowed stdcall view Rva002ACF9CInsert
 ??$__copy_ptrs@PAUBfmeStringHeadRecord184@@PAU1@@_STL@@YAPAUBfmeStringHeadRecord184@@PAU1@00ABU__false_type@0@@Z,0x003120FB,callee read from retail REL32 in vector erase 0x00312C44; template-name alias of the hand-rowed _Rva003120FBCopyDispatch body
@@ -12928,20 +12928,20 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??$__copy_ptrs@PAUBfmeStringRecord002CF4C6@@PAU1@@_STL@@YAPAUBfmeStringRecord002CF4C6@@PAU1@00ABU__false_type@0@@Z,0x005B09D8,STLport __copy_ptrs for BfmeStringRecord002CF4C6: callee of vector<BfmeStringRecord002CF4C6>::erase at 0x005B129F
 ?Add@Rva005C3A37Elem@@QAEXUTreeHintRef00217D4C@@@Z,0x005C3A86,Rva005C3A37Elem::Add called by 0x005C3E31
 ??0Rva004FA830@@QAE@ABVAsciiString@@@Z,0x004FA815,Rva004FA830::Rva004FA830(AsciiString const&) alias for 0x004FA815
-??_7Rva005C4A91@@6B@,0x00C747A8,Rva005C4A91 vtable installed by ctor 0x005C49EF
-?g_00DFEF18@@3PAVRva002D3627Host@@A,0x00DFEF18,global singleton pointer at 0x00DFEF18
+??_7Rva005C4A91@@6B@,0x008747A8,Rva005C4A91 vtable installed by ctor 0x005C49EF
+?g_00DFEF18@@3PAVRva002D3627Host@@A,0x009FEF18,global singleton pointer at 0x00DFEF18
 ?rva002C004F@Rva002D3627Host@@QAEXPBD@Z,0x002C004F,member function on 0xDFEF18 taking const char*
-??_7Rva005C4230@@6B@,0x00C744E8,Rva005C4230 vtable installed by dtor 0x005C4230
+??_7Rva005C4230@@6B@,0x008744E8,Rva005C4230 vtable installed by dtor 0x005C4230
 ??1SecondaryBase@@UAE@XZ,0x004FAC80,SecondaryBase destructor called by Rva005C48E5 destructor
 ?check@Rva0040C804Target@@QAE_NXZ,0x0040C804,check method called by Rva005C4A91::rva005C4952
-??_7Rva005C3F02@@6B@,0x00C744AC,vftable of Rva005C3F02
+??_7Rva005C3F02@@6B@,0x008744AC,vftable of Rva005C3F02
 ??0Rva005C3A37Elem@@QAE@PAVRva005C3F02@@PAX1@Z,0x005C3F2C,Rva005C3A37Elem constructor called by Rva005C3F02::Rva005C3F02
 ?rva005C4B26@Rva005C41C9@@QAEEXZ,0x005C4B26,tail callee of Rva005C41C9::v17
-?g_00DFE1C8@@3PAVRva00DFE1C8Host@@A,0x00DFE1C8,singleton pointer to Rva00DFE1C8Host
+?g_00DFE1C8@@3PAVRva00DFE1C8Host@@A,0x009FE1C8,singleton pointer to Rva00DFE1C8Host
 ?rva00210E5B@Rva00DFE1C8Host@@QAEXHH@Z,0x00210E5B,Rva00DFE1C8Host method called by Rva005C4B56::rva005C4C69 and rva005C4C95
 ?rva003FCCC9@Rva003FB65C@@QAEXE@Z,0x003FCCC9,Rva003FB65C method called by Rva005C4B56::rva005C4B96
 ?rva003FBF38@Rva003FB65C@@QAEEXZ,0x003FBF38,Rva003FB65C::rva003FBF38 (same as Rva003FBF38::rva003FBF38)
-??_7Rva005C6C7B@@6B@,0x00C74918,vftable of Rva005C6C7B
+??_7Rva005C6C7B@@6B@,0x00874918,vftable of Rva005C6C7B
 ??0SubTree005C6B83@@QAE@XZ,0x0033C432,SubTree005C6B83 constructor called by Rva005C6C7B::Rva005C6C7B
 ?clear@SubTree005C6B83@@QAEXXZ,0x005C6B83,SubTree005C6B83 clear method called by Rva005C6C7B::reset
 ?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@ABH@Z,0x00382A92,lower bound for int TreeHintRef00217D4C map
@@ -13051,9 +13051,9 @@ _ceil,0x00629934,CRT ceil thunk identified by native PE import slot 0x00BBA578 a
 ??0Rva004186F2@@QAE@ABV0@@Z,0x004186F2,12-byte member copy constructor REL32 callee at 0x004188CC and 0x004188DC in record copy 0x004188B6; identity unproven; address-derived name
 ?rva00256499Append@Rva00256499@@QAEXPBDPAVRva0033B84ETok@@@Z,0x0049B6AE,TU-local MEMBER spelling for KindOf join-append caller codegen ecx edi proves worker-member call body ignores receiver YG row verifies same
 ??0Rva00419035@@QAE@ABV0@@Z,0x00419035,12-byte member copy constructor REL32 callee at 0x0041920B in record copy 0x004191E5 (+4); identity unproven; address-derived name
-??_7GameSpyStagingRoom@@6B@,0x00C19440,GameSpyStagingRoom vtable installed by copy ctor 0x003835F4 (mov [esi] imm at 0x00383632); slot0 is rowed ??_GGameSpyStagingRoom 0x00383768; slots 12-14 are rowed ZH amIHost/getLocalSlotNum/resetAccepted
+??_7GameSpyStagingRoom@@6B@,0x00819440,GameSpyStagingRoom vtable installed by copy ctor 0x003835F4 (mov [esi] imm at 0x00383632); slot0 is rowed ??_GGameSpyStagingRoom 0x00383768; slots 12-14 are rowed ZH amIHost/getLocalSlotNum/resetAccepted
 ??0Rva001408C0Target@@QAE@ABU0@@Z,0x004ABCE6,polymorphic base copy constructor REL32 callee at 0x004ABF5D in Rva004ABFD9 copy 0x004ABF47 (base at offset 0 is the key that object registers in 0x00E03CE0); identity unproven
-??_7Rva004ABFD9@@6B@,0x00C549F8,Rva004ABFD9 vtable installed by copy ctor 0x004ABF47 (mov [esi] imm at 0x004ABF6D); slot0 is rowed ??_GRva004ABFD9 0x004AC021
+??_7Rva004ABFD9@@6B@,0x008549F8,Rva004ABFD9 vtable installed by copy ctor 0x004ABF47 (mov [esi] imm at 0x004ABF6D); slot0 is rowed ??_GRva004ABFD9 0x004AC021
 ?copyFrom@Rva004E1FE4TreeCopyView@@QAEXABV1@@Z,0x004E1FE4,opaque 12-byte copy member; native REL32 at 0x004E2C92 and Ghidra FUN_008E1FE4 boundary 165B establish destination; source identity inferred
 ??0Rva004E1D4EVectorCopyView@@QAE@ABV0@@Z,0x004E1D4E,opaque 12-byte vector copy view; native REL32 at 0x004E2CA2 reaches Ghidra FUN_008E1D4E boundary 71B; source identity inferred
 ??0Rva0037BBED@@QAE@XZ,0x0037BB98,constructor called with this by AptSaveLoad 0x0043448C; vtable 0x00C18828 matches rowed destructor 0x0037BBED
@@ -13072,11 +13072,11 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva0037D6E8@Bfme939Helper@@QAE_NABVUnicodeString@@0@Z,0x0037D6E8,Address-derived member on g_bfme939Helper at 0x00E02290: caller 0x004358C8 passes trimmed and raw filename strings; AL selects replay-save outcome
 ??BBFME2WideConcatPair@@QAE?AVUnicodeString@@XZ,0x0021C3F7,Caller-side UnicodeString ABI alias for rowed BFME2WideConcatPair StringBase materializer at same address; both return the same one-pointer string object layout
 ??0?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintOpaque0043671B@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintOpaque0043671B@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintOpaque0043671B@@@_STL@@@3@@_STL@@QAE@ABU?$less@VAsciiString@@@1@ABV?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintOpaque0043671B@@@_STL@@@1@@Z,0x00434C3D,Direct REL32 at 0x00435CEF targets the rowed 42-byte tree header constructor with ECX=this and two same-address stack temporaries; TreeHint map specialization and less/allocator ABI names follow the adjacent 0x00436E3B tree family
-??_7Rva00567847@@6B@,0x00C6CED8,Rva00567847 vtable installed by its rowed ctor 0x00567847 and copy ctor 0x00567CA6 (mov [esi] imm at 0x00567CB4)
-??_7Rva0044B27F@@6B@,0x00C3E4FC,Rva0044B27F vtable installed by its copy ctor 0x0044B27F (mov [esi] imm at 0x0044B2AB) after the BfmeSaveElement002295D7 base copy
-??_7Rva004E72C0@@6B@,0x00BFCFF8,Rva004E72C0 vtable installed by its copy ctor 0x004E72C0
-??_7Rva004E7392@@6B@,0x00BFD010,Rva004E7392 vtable installed by its copy ctor 0x004E7392 (mov [esi] imm at 0x004E73A0)
-??_7Rva0053FADE@@6B@,0x00C694DC,Rva0053FADE vtable installed by its copy ctor 0x0053FADE (mov [esi] imm at 0x0053FB0A)
+??_7Rva00567847@@6B@,0x0086CED8,Rva00567847 vtable installed by its rowed ctor 0x00567847 and copy ctor 0x00567CA6 (mov [esi] imm at 0x00567CB4)
+??_7Rva0044B27F@@6B@,0x0083E4FC,Rva0044B27F vtable installed by its copy ctor 0x0044B27F (mov [esi] imm at 0x0044B2AB) after the BfmeSaveElement002295D7 base copy
+??_7Rva004E72C0@@6B@,0x007FCFF8,Rva004E72C0 vtable installed by its copy ctor 0x004E72C0
+??_7Rva004E7392@@6B@,0x007FD010,Rva004E7392 vtable installed by its copy ctor 0x004E7392 (mov [esi] imm at 0x004E73A0)
+??_7Rva0053FADE@@6B@,0x008694DC,Rva0053FADE vtable installed by its copy ctor 0x0053FADE (mov [esi] imm at 0x0053FB0A)
 ?rva0053241F@Rva002E99F9Sub460@@QAEGPAXG@Z,0x0053241F,18B forwarder thunk (struct*, word)->word: push/push/push-1 to 0x00531FE6; retail E8 at 0x002E9A6C/0x002E9A7F/0x002E9AAC/0x002E9ABE in 0x002E99F9 read from REL32; union-find-adjacent (sibling 0x00531FD4 reaches rowed Rva00531A44::rva00531B20); identity unproven
 ?rva00531FD4@Rva002E99F9Sub460@@QAEGPAXG@Z,0x00531FD4,18B this-adjusting thunk (struct*, word)->word: ecx+0x1b9f4 then E8 to rowed ?rva00531B20@Rva00531A44@@QAEGG@Z; retail E8 at 0x002E9A8E/0x002E9A9D in 0x002E99F9 read from REL32; identity unproven
 ?rva002E6C23@Rva002E6C23@@QAE_NH@Z,0x002E6C23,thiscall bool (int): tag==4-gated containment check reading [ecx+0xc] nibble and [ecx]/[eax+0x28]; retail E8 at 0x002E9DB1 in 0x002E9D09 read from REL32; no Ghidra extent; identity unproven
@@ -13121,7 +13121,7 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?rva0059AED2@Rva0059AED2@@QAEXXZ,0x0059AED2,thiscall void callee of 0x004F6187 read from its REL32 displacement; body unrowed
 ??0Rva004E669A@@QAE@PAXHHH@Z,0x004E669A,EH-guarded ctor callee of 0x004E6745 read from its REL32 displacement (new 0x20 with 4 args); body unrowed
 ??0Rva004E7D72@@QAE@PAX@Z,0x004E7D72,EH-guarded ctor callee of 0x004E7F43 read from its REL32 displacement (new 0x28 with 1 arg); in-range target, body unrowed
-??_7Rva00541F1F@@6B@,0x00C69514,Rva00541F1F vtable installed by its copy ctor 0x00541F1F (mov [esi] imm at 0x00541F45) after the Rva0053FADE base copy
+??_7Rva00541F1F@@6B@,0x00869514,Rva00541F1F vtable installed by its copy ctor 0x00541F1F (mov [esi] imm at 0x00541F45) after the Rva0053FADE base copy
 ?rva002D335B@Rva002D335B@@QAEXXZ,0x002D335B,tail-call target of the byte-verified Rva0004E4BD::rva0004E4BD 0x0004E4BD on its +0x0 member read from its REL32 displacement; name unknown
 ?rva0010FA6B@Rva0010FA6B@@QAEXH@Z,0x0010FA6B,tail-call target of the byte-verified Rva000A8AA6::rva000A8AA6 0x000A8AA6 on its +0x0 member read from its REL32 displacement; name unknown
 ?rva003626AD@Rva003626AD@@QAEXHH@Z,0x003626AD,tail-call target of the byte-verified Rva00271BCC::rva00271BCC 0x00271BCC on its +0x450 member read from its REL32 displacement; name unknown
@@ -13178,11 +13178,11 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?Lookup@Rva0059E647Factory@@QAEPAURva0059E647Entry@@PAH@Z,0x002B931C,wrapper-call spelling for the 0x59E647 factory token lookup (ecx+1 push no caller cleanup); target REL32 from retail call at 0x0059E68E
 ?Check@Rva0059E647Entry@@QAE_NH@Z,0x002DFA43,wrapper-call spelling for the 0x59E647 entry predicate (thiscall 1 arg ret 4 verified); target REL32 from retail call at 0x0059E6A1
 ?Apply@Rva0059E647World@@QAEXPAURva0059E647Entry@@PAXPAURva0059E647Arg@@@Z,0x002B2590,wrapper-call spelling for the 0x59E647 world apply (ecx+3 push; callee ends ret 0xc); target REL32 from retail call at 0x0059E6B7
-?g_rva0059E647World@@3PAURva0059E647World@@A,0x00DFEF10,world pointer used by 0x59E647 (deref +0xB0 for lookup object; self as apply object)
-?g_rva0059E647Factory@@3PAURva0059E647Factory@@A,0x00DFF09C,factory pointer used by 0x59E647 token lookup
+?g_rva0059E647World@@3PAURva0059E647World@@A,0x009FEF10,world pointer used by 0x59E647 (deref +0xB0 for lookup object; self as apply object)
+?g_rva0059E647Factory@@3PAURva0059E647Factory@@A,0x009FF09C,factory pointer used by 0x59E647 token lookup
 ?SetScenario@Rva0059EB6FSub@@QAEXH@Z,0x0044D5EE,wrapper-call spelling for the 0x59EB6F +0x40C sub-object call (thiscall 1 int arg; true callee matched as GameModePreferences::setStrategicScenario); target REL32 from retail call at 0x0059EB9D
-?g_rva0059EB6FInfo@@3PAURva0059EB6FInfo@@A,0x00E02320,info singleton tested and slot-0xDC-called by 0x59EB6F
-?g_rva0059EB6FFlag@@3HA,0x00E02324,flag word gated by 0x59EB6F
+?g_rva0059EB6FInfo@@3PAURva0059EB6FInfo@@A,0x00A02320,info singleton tested and slot-0xDC-called by 0x59EB6F
+?g_rva0059EB6FFlag@@3HA,0x00A02324,flag word gated by 0x59EB6F
 ?DoRefresh@Rva005A5B38Box@@QAEXHPAX@Z,0x005A51B9,wrapper-call spelling for the 0x5A5B38 helper refresh (thiscall 2 args callee cleanup ret 8 verified; true callee unrowed 325B SEH body); target REL32 from retail call at 0x005A5B82
 ?DoX@Rva005A6903Sub@@QAEXH@Z,0x005DC291,wrapper-call spelling for the 0x5A6903 +0x28 sub-object index consumer (thiscall 1 arg callee cleanup); target REL32 from retail call at 0x005A6915
 ?Check@Rva005A6903Box@@QAE_NXZ,0x005A6709,wrapper-call spelling for the 0x5A6903 gate (thiscall 0 args al result; true callee matched as const predicate rva005A6709); target REL32 from retail call at 0x005A6931
@@ -13230,12 +13230,12 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ??0Rva00343042@@QAE@PAVStateMachine@@@Z,0x00343042,unrowed 0x58 AI-state ctor called from 0x343838; RETAIL REL32 at 0x00343877
 ??0Rva00342978@@QAE@PAVStateMachine@@@Z,0x00342978,unrowed 0x64 AI-state ctor called from 0x3438C7; RETAIL REL32 in 0x343A14
 ??0Rva0034301B@@QAE@PAVStateMachine@@@Z,0x0034301B,unrowed 0x58 AI-state ctor called from 0x3444CE; RETAIL REL32 at 0x00344518
-?g_00DBA4E4@@3HA,0x00DBA4E4,int global tripled by 0x344F57 before the table add
-?g_00DFE78C@@3PAXA,0x00DFE78C,table global read at +0x40 by 0x344F57
+?g_00DBA4E4@@3HA,0x009BA4E4,int global tripled by 0x344F57 before the table add
+?g_00DFE78C@@3PAXA,0x009FE78C,table global read at +0x40 by 0x344F57
 ?rva00344EB2Gate@@YA_NPAVObject@@PAVThing@@@Z,0x00344EB2,forward pin for the banked 0x344EB2 gate called from 0x344F57; RETAIL REL32 at 0x00344FDA; superseded when the gate lands
-??_7Rva00540845@@6B@,0x00C694F8,Rva00540845 vtable installed by its copy ctor 0x00540845 (mov [esi] imm at 0x0054086B) after the Rva0053FADE base copy
-??_7Rva0055B0CC@@6B@,0x00C6B900,Rva0055B0CC vtable installed by its copy ctor 0x0055B182 (mov [esi] imm at 0x0055B195)
-??_7Rva00573B23@@6B@,0x00C6E270,Rva00573B23 vtable: slot 0 rowed ??_GRva00573B23 0x00573C60; installed by ctor 0x00573A9B and copy ctor 0x00573AC8; 0x00C6E2A0 is the same table from slot 12
+??_7Rva00540845@@6B@,0x008694F8,Rva00540845 vtable installed by its copy ctor 0x00540845 (mov [esi] imm at 0x0054086B) after the Rva0053FADE base copy
+??_7Rva0055B0CC@@6B@,0x0086B900,Rva0055B0CC vtable installed by its copy ctor 0x0055B182 (mov [esi] imm at 0x0055B195)
+??_7Rva00573B23@@6B@,0x0086E270,Rva00573B23 vtable: slot 0 rowed ??_GRva00573B23 0x00573C60; installed by ctor 0x00573A9B and copy ctor 0x00573AC8; 0x00C6E2A0 is the same table from slot 12
 ?rva000BBDDF@@YGPAXHH@Z,0xBBDDF,rva000BBE29 probe: address read from the REL32 at 0x000BBE34 in 0x000BBE29; fresh address-derived stdcall name (int selector, int key) for the 74B map-find wrapper calling stlport _M_find at 0x00388F63
 ?rva000B8440@Rva000B8F5AOuter@@QAEHPAMH@Z,0xB8440,rva000BAD2B tail: address read from the REL32 at 0x000BADCD in 0x000BAD2B; fresh address-derived Outer-method name (float out, int probe) returning the final int
 ?rva00016EE40@Rva00016EE40@@QAEPAPAXPAPAXH@Z,0x16EE40,rva000E509B table fetch: address read from the REL32 at 0x000E52CF in 0x000E509B; fresh address-derived name (out, index) returning the out-pointer for the 37B array RefCount bump body
@@ -13252,7 +13252,7 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ??0W3DVolumetricShadow@@QAE@XZ,0x000F1528,retail REL32 at 0x000F2C4A in 0x000F2BB9 targets 0x000F1528 (thiscall 0 stack args; NEW W3DVolumetricShadow ctor; donor ctor identity; pin candidate-not-proof)
 ?RenderMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@@Z,0x000F200A,retail REL32 at 0x000F4AAB in 0x000F49D0 targets 0x000F200A (thiscall 3 stack args meshIndex lightIndex xform; donor RenderMeshVolume identity; pin candidate-not-proof)
 ?RenderDynamicMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@@Z,0x000F42FF,retail REL32 at 0x000F4AA4 in 0x000F49D0 targets 0x000F42FF (thiscall 3 stack args meshIndex lightIndex xform; donor RenderDynamicMeshVolume identity; pin candidate-not-proof)
-?Rva00DDD9D0Identity@@3VMatrix3D@@B,0x00DDD9D0,value-verified 3x4 identity floats; role-consistent with Matrix3D::Identity; address-derived pin candidate-not-proof
+?Rva00DDD9D0Identity@@3VMatrix3D@@B,0x009DD9D0,value-verified 3x4 identity floats; role-consistent with Matrix3D::Identity; address-derived pin candidate-not-proof
 ?rva00154FD0@Rva00154FD0@@QAEXXZ,0x00154FD0,"thiscall setup, no args; first call of 0x155AD0 with ecx=this"
 ?rva00118F50@Rva00118F50@@QAEXXZ,0x00118F50,"thiscall per-element op, no args; loop target over [0x38]-array"
 ?rva0015288F@Rva0015288F@@QAEXHHHH@Z,0x0015288F,"844B EH body; called from 0x152CDA with (virtval, fallback, other+12, 4), ecx=this"
