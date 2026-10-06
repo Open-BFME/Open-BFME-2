@@ -171,6 +171,42 @@ Int Rva005753AC::rva005753AC(const void *buffer, Int bytes)
 	return m_04->RAMFile::write(buffer, bytes);
 }
 
+// 0x005785CD: target starts after the ret at 0x005785CC and ends at the ret
+// before the rowed 0x005785F6 entry. It conditionally calls 0x005D2A53 for
+// this+0x44 then the shared empty body 0x000B3FD0 for this+0x4C and this+0x48.
+// Field ownership and the address-derived class identity are structural
+// views; the routine's original name and purpose are unknown.
+class Rva005D2A53Call
+{
+public:
+	void rva005D2A53();
+};
+class Rva000B3FD0
+{
+public:
+	void rva000B3FD0();
+};
+class Rva005785CD
+{
+public:
+	void rva005785CD();
+
+private:
+	char m_pad00[0x44];
+	Rva005D2A53Call *m_44;
+	Rva000B3FD0 *m_48;
+	Rva000B3FD0 *m_4C;
+};
+void Rva005785CD::rva005785CD()
+{
+	if (m_44 != 0)
+		m_44->rva005D2A53();
+	if (m_4C != 0)
+		m_4C->rva000B3FD0();
+	if (m_48 != 0)
+		m_48->rva000B3FD0();
+}
+
 // 0x0059B19A: the rowed length 0x00513E03 of the +0x04 object.
 class Rva00513E03
 {
