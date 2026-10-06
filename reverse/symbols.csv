@@ -13654,3 +13654,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??1Rva0038465B@@QAE@XZ,0x0038465B,address-derived 5-byte forwarding thunk reached by unwind cleanup 0x0078228F; retail E9 at this address targets rowed body 0x00383EB2; class identity unproven
 ?insert@?$map@IVWeaponTemplateSetHead@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@2@U32@ABU?$pair@$$CBIVWeaponTemplateSetHead@@@2@@Z,0x00464431,callee of byte-true lookup-or-create at 0x00464923
 ??0Rva0010461F@@QAE@XZ,0x0010461F,callee of ?rva0008F32C@@YAXXZ
+??0Rva0030F404@@QAE@H@Z,0x0030F404,callee of ?rva00086BC5@Rva00086BC5@@QAEXH@Z
+?rva0030F36B@Rva0030F36B@@QAEXXZ,0x0030F36B,callee of ?rva00086BC5@Rva00086BC5@@QAEXH@Z
