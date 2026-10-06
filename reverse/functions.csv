@@ -66140,3 +66140,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005CCAEC@Rva005CCAEC@@QAEX_N@Z,,0x005CCAEC,34,Code/GameEngine/Source/Common/Rva005CCAECSetter.cpp,matched,calls rowed virtual notify via base plus0x21 cache
 ?rva005CCB7B@Rva005CCB7B@@QAEX_N@Z,,0x005CCB7B,8,Code/GameEngine/Source/Common/Rva005CCB7BForwarder.cpp,matched,tail-jmp to rowed 0x005CCAEC chain from own landing
 ??0Rva00438FA7@@QAE@XZ,,0x00438FA7,30,Code/Libraries/Source/WWVegas/WWLib/Rva00438FA7ListCtor.cpp,matched,target calls rowed list base and clears trailing fields BfmePod196 remains a size placeholder
+??1Rva005D073A@@UAE@XZ,,0x005D073A,81,Code/GameEngine/Source/Common/System/Rva005D073ADtor.cpp,matched,pinned destructor with inferred two-base layout and rowed cleanup call
