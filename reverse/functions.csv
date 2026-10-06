@@ -65043,3 +65043,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?Rva0039A565_ParseNameNameReal@INI@@SAXPAV1@PAX1PBX@Z,,0x0039A565,198,Code/GameEngine/Source/Common/INI/INIRecordListParsers.cpp,matched,table slot 0x0081ABD4 neighbours FactionDecal INI FieldParse
 ?Rva00604983Get@@YG_NPAGPAX@Z,,0x00604983,85,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,table slot 0x0087A9CC neighbours M948 FindFirstFileW wrapper
 ?rva00604895@Rva00604xx@@QAEXPBD000PAX1@Z,,0x00604895,179,Code/GameEngine/Source/Common/Rva006047F3Family.cpp,matched,table slot 0x0087A9C0 neighbours M831 four-string Virt60 helper
+?rva005FBED8@Rva005FBEBA@@QAEXH@Z,,0x005FBED8,157,Code/GameEngine/Source/Common/Rva005FBED8Audio.cpp,matched,callback slot 0x00879F0C audio refresh via TheAudio prefix
