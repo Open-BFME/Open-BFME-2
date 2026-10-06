@@ -13444,23 +13444,3 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?Rva00523EC8@C00524477@@QAEXH@Z,0x00523EC8,thiscall int sink of range dispatch 0x00524477 on this+0xC (REL32 at 0x005244D0); body unrecovered; address name
 ?Rva005CC208@Obj00527827@@QAEXHH@Z,0x005CC208,thiscall (a0,a1) spelling of the rowed vtable slot-2 forwarder for range clamp 0x00527827 (REL32 at 0x00527875, ecx flows from the m_1C null check); body rowed as ?rva005CC208@Rva005CC208@@UAEXXZ; address name
 ?Rva00529DA9@Holder00529E19@@QAEXH@Z,0x00529DA9,thiscall int notify of range reset 0x00529E19 on the same holder (REL32 at 0x00529E33); Ghidra 112B unrecovered; address name
-??0BfmePairEL@@QAE@ABVBfmeWordEL@@0@Z,0x0002C4FD,BfmePairEL two-word ctor; BfmeWordEL is the rowed 4-byte StringBase<char> view so this is the same bytes as the matched ??0Rva0002C4FD@@QAE@ABV?$StringBase@D@@0@Z body (cf existing pair@VAsciiString ICF-alias pin); called by the bfmeMakePairEL factory at 0x0002C621
-?rva002ADAC3@Player@@QAEXPBVUpgradeTemplate@@H@Z,0x002ADAC3,"Player member (ret 8): (upgrade template, int); REL32 callee of UpgradeDie::onDie 0x00486C00 m_04==0 player path with hoisted pushes; list-unlink plus bit-clear body in the ZH Player::removeUpgrade family with a BFME2 m_04==1 bypass to 0x2AD9FD; address-named"
-?rva000347A0@GeneralAllocator@Allocator@EA@@QAEPAXPAXIH@Z,0x000347A0,address-derived thiscall GeneralAllocator realloc-engine member taking block size flags and returning void pointer; called from wrapper 0x00035190; identity unproven
-?rva00034A60@GeneralAllocator@Allocator@EA@@QAEPAXIIH@Z,0x00034A60,address-derived thiscall GeneralAllocator calloc-engine member taking count size flags and returning void pointer; called from wrapper 0x00035210; identity unproven
-?rva00409F1B@Rva00409F1B@@QAEXHH@Z,0x00409F1B,thiscall (mov esi plus ecx prolog) reached from 0x33C965 with two int args after the 0x31D5F8 lookup hit; RETAIL REL32 at 0x0033CA6B; address-named
-?g_00DFE758@@3PAXA,0x00DFE758,flag-holder global tested at +0x1110 by 0x33C965 before the 0x31D5F8 lookup
-?g_00E01CFC@@3PAXA,0x00E01CFC,lookup-table global receiving the 0x31D5F8 call in 0x33C965
-?Rva003430A3Check@@YA_NPAXPAVObject@@H@Z,0x003430A3,free goal check called from 0x343DD8 with (esi plus ebp plus edi); RETAIL REL32 at 0x00343E9B; recovery is blocked so this spelling only serves the call
-?rva0047A699@Rva002C9400ByteField@@QBE_NXZ,0x0047A699,const predicate on the Weapon +4 byte-field reached from 0x343DD8; RETAIL REL32 at 0x00343E72; address-named
-?rva002CB902@Weapon@@QBEDPAVObject@@PAXMH@Z,0x002CB902,const Weapon byte predicate over (object plus aux plus float plus int) called from 0x33FD98; RETAIL REL32 at 0x0033FDC4; byte return avoids caller-side bool normalization; address-named
-??0Rva00342A96@@QAE@PAVStateMachine@@@Z,0x00342A96,unrowed 0x64 AI-state ctor (hash plus self plus base-call plus vtable 0xC12800) called from 0x34316A; RETAIL REL32 at 0x003431AA
-??0Rva00342AD6@@QAE@PAVStateMachine@@@Z,0x00342AD6,unrowed 0x68 AI-state ctor called from 0x34316A; RETAIL REL32 at 0x003431E5
-??0Rva00342B1A@@QAE@PAVStateMachine@@H@Z,0x00342B1A,unrowed 0x78 AI-state ctor taking the branchless int selector called from 0x34316A; RETAIL REL32 at 0x0034322E
-??0Rva0033F3B6@@QAE@PAVStateMachine@@_NN@Z,0x0033F3B6,TU-local (bool bool) spelling for the rowed 0x33F3B6 state ctor as declared in its own TU; RETAIL REL32 at 0x003432A1 in 0x34316A
-??0Rva0034290D@@QAE@PAVStateMachine@@HHH@Z,0x0034290D,unrowed 0x74 AI-state ctor taking (outer-this plus 0 plus param plus 0) called from 0x343367; RETAIL REL32 at 0x003434FB
-??0Rva00342A50@@QAE@PAVStateMachine@@@Z,0x00342A50,unrowed 0x6C AI-state ctor called from 0x3435FB; RETAIL REL32 at 0x0034363B
-??0Rva00343042@@QAE@PAVStateMachine@@@Z,0x00343042,unrowed 0x58 AI-state ctor called from 0x343838; RETAIL REL32 at 0x00343877
-?rva00293D3B@Rva00346C53@@QAEXPAUObjectStatusMask@@@Z,0x00293D3B,thiscall mask hook on the 0x346C53 host taking the built mask; RETAIL REL32 at 0x00346C6F
-?g_00BBB8D8@@3MA,0x00BBB8D8,float global scaled into the 0x346B6D damage block
-?rva00291916@Object@@QAEXPAX@Z,0x00291916,thiscall hook on Object taking the +0x38 member address called from 0x34BFFF; RETAIL REL32 at 0x0034C02B
