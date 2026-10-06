@@ -27,6 +27,9 @@ void Rva005FED59::rva005FED59() const
 // ?rva005E218F@Rva005E218F@@UAEXXZ @ 0x005E218F (14B).
 // Vtable slot 3 of 0x00877B2C; ref table slot 0x00877B38.
 // Validates wide string at +0 via rowed validate 0x000B3FD0 then sets +0x2C.
+// ?rva005E219D@Rva005E218F@@UAEXXZ @ 0x005E219D (14B).
+// Vtable slot 4 of 0x00877B2C; ref slot 0x00877B3C with neighbour "territory".
+// Same class and shape as slot 3, clears +0x2C.
 class Rva005E218F
 {
 public:
@@ -34,6 +37,7 @@ public:
 	virtual void d01() {}
 	virtual void d02() {}
 	virtual void rva005E218F();
+	virtual void rva005E219D();
 private:
 	char m_pad04[0x28];
 	unsigned char m_2C;
@@ -43,4 +47,10 @@ void Rva005E218F::rva005E218F()
 {
 	((StringBase<unsigned short> *)this)->validate();
 	m_2C = 1;
+}
+
+void Rva005E218F::rva005E219D()
+{
+	((StringBase<unsigned short> *)this)->validate();
+	m_2C = 0;
 }
