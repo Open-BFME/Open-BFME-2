@@ -109,5 +109,20 @@ PUBLIC ?rva0077ed89@@YAXXZ
 cleanup_done_0077ed89:
     ret
 ?rva0077ed89@@YAXXZ ENDP
+
+; Unwind@00b7edb4 at RVA 0x0077EDB4; 27-byte array cleanup ends at RET.
+; Target passes [ebp-20]+0xdc to eh-vector-dtor with element size 0x1ac,
+; count 8, and raw destructor VA 0x006294FD.
+PUBLIC ?rva0077edb4@@YAXXZ
+?rva0077edb4@@YAXXZ PROC
+    push 006294FDh
+    push 8
+    push 1ACh
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 0DCh
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0077edb4@@YAXXZ ENDP
 _TEXT ENDS
 END
