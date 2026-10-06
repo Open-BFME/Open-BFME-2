@@ -64711,3 +64711,5 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?Run@Rva005B8EBB@@QAEXXZ,,0x005B8EBB,73,Code/GameEngine/Source/Common/Rva005B8EBBBox.cpp,matched,dispatch plus tail; rowed 0x5DE96B plus pinned callees; targets from retail REL32
 ?Run@Rva005A0D61@@QAEXH@Z,,0x005A0D61,97,Code/GameEngine/Source/Common/Rva005A0D61Box.cpp,matched,flag-gated refresh with timeGetTime; rowed 0x580172 plus GameSpyInfo slot; targets from retail REL32
 ?onEnter@Rva0036A3E9GuardInnerState@@UAE?AW4StateReturnType@@XZ,,0x0036A3E9,315,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp,matched,dump range 16 head; second-system inner onEnter mirrors 0x54379B without deadline with else range recompute
+?Rva003EC991@@YAKPBDHK@Z,,0x003EC991,60,Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp,matched,counted CRC with 0xC35BD0 table case-sensitive sibling of 0x3EC9CD volatile keeps ecx plus memory not
+?Rva003EC9CD@@YAKPBDHK@Z,,0x003EC9CD,70,Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp,matched,counted case-insensitive CRC with inline a-z fold volatile keeps ecx plus memory not

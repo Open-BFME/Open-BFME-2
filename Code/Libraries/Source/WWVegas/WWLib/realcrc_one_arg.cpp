@@ -100,3 +100,32 @@ unsigned long Rva003ECA13Get(const AsciiString &s)
 {
   return CRC_String(s.str());
 }
+
+unsigned long Rva003EC991(const char *s, int len, volatile unsigned long crc)
+{
+  if (s == 0 || len == 0)
+    return crc;
+  crc = ~crc;
+  do {
+    char c = *s;
+    crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ c];
+    ++s;
+  } while (--len != 0);
+  crc = ~crc;
+  return crc;
+}
+
+unsigned long Rva003EC9CD(const char *s, int len, volatile unsigned long crc)
+{
+  if (s == 0 || len == 0)
+    return crc;
+  crc = ~crc;
+  do {
+    char c = *s++;
+    if (c >= 'a' && c <= 'z')
+      c &= 0xDF;
+    crc = (crc >> 8) ^ Rva00835BD0Crc32Table[(char)crc ^ c];
+  } while (--len != 0);
+  crc = ~crc;
+  return crc;
+}
