@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva004FAF73@Rva004FAF73@@QAEXPAVXfer@@@Z @0x004FAF73 67B evidence: chain via just-landed Rva004FACD0Xfer 0x004FACD0; callees rowed rva004CE6E4 0x004CE6E4 plus Rva004FACD0Xfer plus Xfer slots 0x28 version and 0x7c; vector Science at +0x20 member at +0x2c.
 // Honest Rva thiscall taking Xfer returning void ret-4.

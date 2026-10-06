@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ??0Rva0052BEF0@@QAE@ABV0@@Z, retail 0x0052BEF0, 67 bytes.
 // Copy ctor for an address-named value type holding a string at +4 and a
 // byte at +8 with vtable 0x00C61DC4. Evidence: StringBase<char> copy via

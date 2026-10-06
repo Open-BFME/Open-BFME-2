@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // stlport
 //
 // ??0Rva0022C9F6@@QAE@XZ @0x0022C987 75B: ctor for the class whose

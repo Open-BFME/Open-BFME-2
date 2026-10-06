@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0052D71AFillN@@YAPAVRva0056616B@@PAV1@IABV1@@Z @0x0052D71A 40B
 // Array fill_n helper calling 0x0052D6BE Construct in a 0xB8-stride loop with count.
 // Evidence: chain from 0x0052D6BE; caller 0x0052D742 pushes (dst count src); returns end pointer in eax.

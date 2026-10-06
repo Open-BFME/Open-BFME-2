@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Eight 22B slot stores, the leaf form of Rva001FA836ForwardChain.cpp: each
 // stores the rowed Slot get(a) of b at +0 and returns (thiscall ret 8).
 // Getters by REL32: 001F63F5 -> 001F5D98; 001F6430 -> 001F5DAC; 001F6446 ->

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 // ?rva0035B77D@Rva0035B77D@@QAEXXZ @0x0035B77D 92B: image-name array resolve loop
 // over AsciiString slots [+0xB4,+0xB8) pushing found Images into the ModuleData

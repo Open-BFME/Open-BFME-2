@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva0026F28BParse@@YAXPAVINI@@PAXPAI@Z, retail 0x0026F28B, 325 bytes. Parses
 // space-separated upgrade names from the INI stream into a 0x80-byte mask.
 #include "ascii_string.h"

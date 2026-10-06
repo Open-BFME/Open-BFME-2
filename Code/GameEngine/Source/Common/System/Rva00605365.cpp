@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00605365@@YAPADPAD@Z, retail 0x00605365, 72 bytes.
 // Normalizes a backslash path in place then trims to its parent, returning
 // the new end. Combines the Rva00605324 normalize loop with the Rva006053AD

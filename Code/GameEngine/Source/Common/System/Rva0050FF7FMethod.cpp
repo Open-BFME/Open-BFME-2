@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva0050FF7F@Rva0050F5A6@@QAEHIPAVGameWindow@@I@Z retail 0x0050FF7F 65B
 // Message router over Rva0050F5A6 array: forwards msg/window/val to each
 // non-null Rva0050F0AB entry via rowed rva0050FED4, returns 1 on first handled,

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva001D98BD@Rva001D98BD@@QAE_NH@Z @0x001D98BD 79B unlock
 // Recursive predicate: +0xB0 type; 5 means internal node over vector at +0x80/+0x84
 // of 8B entries whose first dword is child pointer, else compare type to arg.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?GameGetColorComponents@@YAXHPAE000@Z, retail 0x002D2A9F, 43 bytes.
 //

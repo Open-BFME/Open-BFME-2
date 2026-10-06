@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva002D0E14@@QAE@XZ @0x002D0E14 85B: SubsystemInterface base via 0x001B4E63 vtable 0x00C0233C member Rva002D0C71 at +0x14 plus +0xC zero plus +0x10 one plus reserve 0x3000 via pinned rva00212858. Evidence: caller 0x0004CA01 revtables to 0x007C4858; calls baseConstruct and hashtable ctor.
 #include <hash_map>

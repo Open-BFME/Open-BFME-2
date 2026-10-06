@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva004FADF4@@QAE@II@Z @0x004FADF4 64B evidence: base II ctor 0x0059B7CB plus base 0x004FAC6B plus BfmeE16 Vector_base 0x00211E58; vptrs 0x00863438 0x008633FC; vector at +0x20 int at +0x2c; caller 0x004FAFB6.
 // Honest Rva ctor with II args ret-8 returning this.

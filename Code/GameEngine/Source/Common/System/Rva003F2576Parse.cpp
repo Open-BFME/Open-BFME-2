@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX-
+// cl: /Oy- /DNDEBUG /MD /GX-
 // ?Rva003F2576Parse@@YAXPAVINI@@PAURva003F2576Outer@@@Z @0x003F2576 104B
 // BuildingRestriction ParseINI helper: null-check INI and holder, new Rva003F1FB6
 // 0x10, initFromINI via table g_00C36EE0, then holder at +0x14 -> rva003F255C.

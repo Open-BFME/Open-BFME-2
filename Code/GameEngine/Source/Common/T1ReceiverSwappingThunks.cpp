@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Six bodies that make ONE call and hand the receiver over to something else.
 // Two arities, both of them pure forwarding.
 //

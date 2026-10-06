@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0033C84A@ModuleInfo@@QAE_NH@Z @0x0033C84A 56B: vector<Nugget> filter by interfaceMask and flags erases matches returns bool.
 // Evidence: calls rowed vector erase at 0x0033C3BC; mask at +0xC flags at +0x10/+0x11; stride 0x14 finish at +4; callers at 0x0033D963/71/7F/8D.
 namespace _STL

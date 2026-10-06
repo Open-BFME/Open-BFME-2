@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002D3756@Rva002D3756@@QAEXPAX@Z, retail 0x002D3756 28B unlock via rowed 0x005258B2.
 // Null-guarded double check: arg null or inner null returns; else tail jmp to rowed setter.
 // Evidence: callee ?rva005258B2@Rva005258B2@@QAEXPAX@Z rowed; caller 0x0027B469; prev 0x002D371D next 0x002D3772.

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // ModuleInfo indexed accessor (Locomotor/AIUpdate parse cluster).
 
 class ModuleData

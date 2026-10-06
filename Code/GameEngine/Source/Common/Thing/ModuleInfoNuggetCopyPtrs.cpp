@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // STLport five-argument __copy_ptrs worker over ModuleInfo::Nugget, retail
 // 0x002CF0BE (50 bytes). The rowed four-argument forwarder at 0x002CF2B8

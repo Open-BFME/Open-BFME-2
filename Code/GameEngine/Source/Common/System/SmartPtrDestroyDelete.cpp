@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?destroyDelete@Rva0004CCFF@@QAEPAXI@Z, retail 0x0004CCFF (33 bytes).
 //

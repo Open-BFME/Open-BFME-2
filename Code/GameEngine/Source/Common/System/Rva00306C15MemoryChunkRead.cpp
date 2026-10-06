@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00306C15@Rva00306C49@@QAEHPAXH@Z @0x00306C15 45B
 // Slot 0 of the four-slot table at VA 0x00BEDAA8, whose other slots are the
 // rowed 0x00306C42 (cursor minus base), 0x00306C49 (seek from base, true)

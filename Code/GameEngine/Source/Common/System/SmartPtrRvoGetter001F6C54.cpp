@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX
+// cl: /Oy- /DNDEBUG /MD /GX
 //
 // ?get@Rva001F6C54SmartField@@QBE?AVRvaSmartPtr12@@XZ @ 0x001F6C54 27B
 // RVO smart-pointer getter. Same shape as rowed 0x003FDA90 (30B) with member

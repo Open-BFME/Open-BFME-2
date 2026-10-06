@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva001F9465@Rva001F9465@@QAEXH@Z @0x001F9465 34B: null-checked virtual slot 3 at +0 with int arg then rowed Rva001F8E23 on this+4.
 // Evidence: push esi mov esi ecx mov ecx [esi] test je then push arg plus call [eax+0xC] then push arg lea ecx [esi+4] plus call 0x001F8E23 plus pop esi ret 4; caller at 0x001FA520; precedent Rva001F8E23.cpp same shape.
 class Helper001F9465

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?Rva0033E9DECopy@@YAPAVProductionPrerequisite@@PAV1@00@Z @0x0033E9DE 50B: copy loop over ProductionPrerequisite via rowed rva assign 0x002D0C44. Evidence: caller 0x002D0F36 pushes tag plus 0 plus 3 pointers; stride 0x24 per copy ctor 0x002D08DA; twin of dup 0x0042830D which is ZH 0x18 stride.
 #include <vector>

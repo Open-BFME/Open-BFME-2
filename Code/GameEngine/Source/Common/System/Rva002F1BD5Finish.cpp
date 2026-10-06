@@ -1,4 +1,4 @@
-// cl: /Os /MD
+// cl: /MD
 //
 // ?rva002F1BD5@Rva002F1BD5@@QAEHHPAURva002F1BD5Arg@@HH@Z, retail 0x002F1BD5, 80 bytes.
 // Evidence: caller 0x002F203F; callee findObjectByID rowed 0x00049DC5 via global

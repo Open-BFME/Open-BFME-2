@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 //
 // BfmeRva00C7B388 (text-dumping Xfer, vtable 0x00C7B388) stream-attach worker
 // at 0x0060F0CE, 43 bytes. Layout taken from BfmeRva00C7B388Xfer.cpp: +4 is

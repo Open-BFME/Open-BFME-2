@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?Rva0033B5B8Build@@YAXPAVModuleInfo@@W4ModuleType@@HH@Z @0x0033B5B8 124B
 // ModuleInfo entry loop: per 0x14-sized entry fetch name (rowed getNthName
 // 0x001F12DF into an EH temp) plus data nested in the factory call (rowed

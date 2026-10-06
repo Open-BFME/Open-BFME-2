@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1BfmePod216@@QAE@XZ 0x0021E50F 164B via Rva0021E85A layout with set54; evidence pin BfmePod216 callers 0x0021E77A 0x0021F188 trees 0x0021D61F 0x0021B775 0x0021E0FC free 0x00030830 releaseBuffer 0x00036410
 #include <vector>

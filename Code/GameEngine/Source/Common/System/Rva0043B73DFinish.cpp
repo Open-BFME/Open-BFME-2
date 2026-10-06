@@ -1,5 +1,5 @@
 // ?rva0043B73D@Rva0043B725@@QAEXXZ
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // Evidence: this+4 Rva0043B2E2 tree via rva0043B72D erase; TheGameLogic+0x40

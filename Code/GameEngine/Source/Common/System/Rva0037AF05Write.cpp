@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0037AF05@Rva0037AF05@@QAEXHHHHH@Z @0x0037AF05 131B: recorder message arg writer via fwrite sizes 4 1 12 8 16 2. Evidence: FILE at +0x10 plus IAT fwrite plus same sizes as Rva0037AF88Read plus ret 0x14 five dwords; same FILE+0x10 family as Rva0037ADB6Write and Rva0037AF88Read; caller 0x0037B567.
 struct FILE;
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(const void *buf, unsigned int size, unsigned int count, FILE *stream);

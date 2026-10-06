@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHs-c- /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHs-c- -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME-1: leaf bodies out of d_0005b6c0.asm that carry no relocation at
 // all, so every byte of them is proof.
 //

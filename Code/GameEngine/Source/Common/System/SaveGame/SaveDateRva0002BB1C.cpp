@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva0002BB1C@SaveDate@@QAEXXZ @0x0002BB1C 85B
 // Refreshes this SaveDate from GetLocalTime, swapping wDay/wDayOfWeek to
 // SaveDate order (year month day dayOfWeek hour minute second milliseconds).

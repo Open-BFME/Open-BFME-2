@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0037B7C7@Rva0037B7C7@@QAEXXZ retail 0x0037B7C7 47B.
 // Fread-into-+0xE78 helper: fread 4x1 from FILE at +0x10 into int at +0xE78; on success return else set -1 and tail-jmp rowed 0x0037B3F7.
 // Evidence: IAT fread plus rowed 0x0037B3F7 callee; callers 0x0037BC98 0x0037D337; neighbours Rva0037B5DFDtor and Rva0037B9D4Get same flags.

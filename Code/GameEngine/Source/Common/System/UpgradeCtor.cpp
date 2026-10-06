@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/moduledata /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/moduledata /DNDEBUG /MD
 //
 // ??0Upgrade@@QAE@PBVUpgradeTemplate@@@Z @0x0026EDDC (29B): Zero Hour
 // Upgrade::Upgrade(const UpgradeTemplate *). Target evidence: the only caller,

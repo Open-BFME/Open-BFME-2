@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Multimedia timer initialization pair:
 // 0x007B5510 (20B): calls timeBeginPeriod(1) and registers atexit(rva007B9AC0).

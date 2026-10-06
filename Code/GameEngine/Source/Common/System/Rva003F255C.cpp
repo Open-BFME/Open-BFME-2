@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva003F255C@Rva003F255C@@QAEXPBVModuleData@@@Z @0x003F255C 26B
 // Null-checked push_back into vector at +0xfc. Retail cmp [esp+4] je then

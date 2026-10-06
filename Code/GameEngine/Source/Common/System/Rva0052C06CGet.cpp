@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?Rva0052C06CGet@@YAHPAVGameInfo@@@Z @0x0052C06C 92B: random unlocked untaken color via MultiplayerSettings and GameInfo.
 // Evidence: TheMultiplayerSettings +0x40 +0x38 refill, GetGameLogicRandomValue 0-A8 file, getColor +0x3C check, isColorTaken -1 loop, caller 0x0052C629, neighbours Rva0052BF33DestroyTagged.
 class MultiplayerColorDefinition {

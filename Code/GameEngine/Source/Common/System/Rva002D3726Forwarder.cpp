@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002D3726@Rva002D3726@@QAEXPAUObj00526309@@@Z @0x002D3726 24B: null-guarded forward.
 // Target evidence: null check on stack arg then [this+0x10]+0xc0 tail-jmp to rowed
 // ?rva00526333@Rva00526333@@QAEXPAUObj00526309@@@Z 0x00526333; callers 0x00291C64

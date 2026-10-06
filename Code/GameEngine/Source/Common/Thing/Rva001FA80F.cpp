@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva001FA80F@Rva001FA80F@@QAEXH@Z @0x001FA80F (34B)
 // Evidence: chain via rowed 0x001FA507; null-checked virtual slot 3 at +0 with int arg then rowed Rva001FA507 on this+4. Caller at 0x001FB23A. Honest Rva names.
 class Helper001FA80F

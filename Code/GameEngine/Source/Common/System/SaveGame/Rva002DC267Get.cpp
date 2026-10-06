@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva002DC267@Rva002DC267@@QBE?AVUnicodeString@@XZ @0x002DC267 (118B):
 // Unicode save-directory builder. Ascii user-data path from GlobalData
 // rva002360DE at 0x002360DE widens through UnicodeString ctor at 0x006CB6D0

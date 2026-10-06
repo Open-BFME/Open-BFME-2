@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00255CD1@Rva00255CD1@@QAEXXZ @0x00255CD1 41B.
 // Twin of 0x00255CA8 but via rowed Rva00254D0B::rva00254D0B: if +4 is 0
 // return else free list at [inner+4] then reset inner +8 to self plus +4

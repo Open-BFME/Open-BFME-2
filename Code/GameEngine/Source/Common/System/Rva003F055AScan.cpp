@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?rva003F055A@Rva003F055A@@QAEXXZ 0x003F055A 46B
 // Scan pointer range at +0x170/+0x174 calling rowed 0x4E0845 on entry+0x20 when nonzero and byte at entry+0x34 is zero.
 // Evidence: callee 0x4E0845 rowed; caller at 0x3F104B; same +0x170/+0x20/+0x34 shape as LivingWorldRegionConnection 0x3F287F vector.

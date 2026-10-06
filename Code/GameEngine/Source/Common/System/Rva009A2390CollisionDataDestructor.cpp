@@ -2,7 +2,7 @@
 // allocated by the named Rva009A45A0CollisionData constructor.  The synthetic
 // scalar-deleting wrapper at 0x009A2920 calls the same body, but its generated
 // class name is not used as the semantic identity here.
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 struct Rva009A2390PrimaryLink
 {

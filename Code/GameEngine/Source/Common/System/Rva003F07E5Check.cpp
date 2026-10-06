@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?rva003F07E5@Rva003F07E5@@QAE_NPAVCreateAHeroData@@PAH@Z @0x003F07E5 85B:
 // __thiscall bool check: hero+0x1C must equal this else *out=5 false;
 // this+0x1A3 must be zero else *out=3 false; hero+0x20 must be zero

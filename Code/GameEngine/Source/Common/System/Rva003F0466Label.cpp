@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003F0466@Rva003F0466@@QAE?AVUnicodeString@@XZ, retail 0x003F0466, 122 bytes.
 // __thiscall UnicodeString getter via AsciiString at +0x124: returns TheEmptyString
 // when empty else TheGameText virtual slot 0x38 fetch. Evidence: rowed StringBase<char>

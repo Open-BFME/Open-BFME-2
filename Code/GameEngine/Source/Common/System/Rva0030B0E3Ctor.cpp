@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??0Rva0030B0E3@@QAE@XZ, retail 0x0030B0E3, 54 bytes.
 // Ctor stores vtable 0x00808830 then zeroes +0xC/+0x10 and calls 0x0030B055 method.
 // Evidence: caller chain from 0x0030B055 row; vtable store at [this].

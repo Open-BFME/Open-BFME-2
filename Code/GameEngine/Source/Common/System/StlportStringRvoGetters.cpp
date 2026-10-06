@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX
+// cl: /Oy- /DNDEBUG /MD /GX
 //
 // Value-returning STLport-string getters with the RVO idiom proven by
 // AsciiStringRvoGetters.cpp (retail 0x00274DB6 etc., 30 bytes):

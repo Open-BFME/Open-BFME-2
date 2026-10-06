@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX
+// cl: /Oy- /DNDEBUG /MD /GX
 //
 // ?get@Rva00555A8BNarrowField@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ @0x00555A8B 27B
 // Value-returning STLport-string getter matching sibling 0x00555AC1 (30B):

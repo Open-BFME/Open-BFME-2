@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??0RvaSmartPtr12@@QAE@ABV0@@Z, retail 0x0004CC19 (36 bytes).
 // ??4RvaSmartPtr12@@QAEAAV0@ABV0@@Z, retail 0x0004CC3D (44 bytes).

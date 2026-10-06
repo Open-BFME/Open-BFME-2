@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?length@Rva00513E03@@QBEHXZ @0x00513E03 34B: four-part narrow concat length (Text+String+Text+String); base TextPlusString length at 0x00513B94 plus third pair len at +0x10 plus fourth string len at +0x14; chain from 0x00513B94 landing; callers 0x00513E6F 0x005E3693 0x005E36EA.
 #include "ascii_string.h"
 class UnicodeString;

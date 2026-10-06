@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // ?rva004FBC02@Rva004FBC02@@QAEXPBURva004FBC02Src@@@Z 0x004FBC02 21: copies 12 bytes
 // from arg to +0x18 and sets byte at +0x24 to 1. Evidence: callers 0x002BA331 and
 // 0x002BA7E1 pass a pointer; no other callees.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0037B5A0@Rva0037B5A0@@QAE?AVUnicodeString@@XZ retail 0x0037B5A0 40B.
 // Conditional string getter: if int at +0x1c is 1 copy UnicodeString at +0x20 else copy UnicodeString::TheEmptyString via rowed wide copy ctor 0x37050 into return buffer.
 // Evidence: callee rowed 0x37050 plus TheEmptyString 0x00A0C898 in use; caller 0x0051B9C0; neighbours Rva0037B3D1 and Rva0037B5DFDtor same flags.

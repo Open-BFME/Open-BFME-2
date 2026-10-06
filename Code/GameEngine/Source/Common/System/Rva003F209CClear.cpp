@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva003F209C@Rva003F209C@@QAEXXZ, retail 0x003F209C 20B.
 // Clears the ScienceType vector at this+0x164 via rowed erase 0x00532803.

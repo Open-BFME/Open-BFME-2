@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?Rva002DC081@@YA?AVUnicodeString@@USYSTEMTIME@@H@Z @0x002DC081 233B evidence: GetVersionExA GetTimeFormatA-W IAT; UnicodeString translate 0x006CB5F0; StringBase wide copy 0x00037050 set 0x0000565D release 0x00036E70 rowed; callers 4 one 183B shows SYSTEMTIME by value plus int flag; neighbours Rva002DBFADFormat and Rva002DC267Get same flags
 // Private StringBase copy like neighbour Rva002DBFADFormat.cpp which byte-matches the same call sequence; shared ascii header holds no UnicodeString translate with these row names so private copy is kept for gate parity.
 

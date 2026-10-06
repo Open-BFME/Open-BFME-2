@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00420E67@@QAE@XZ, retail 0x00420E0D, 82 bytes. MI ctor over
 // GameEngineDeletingBase-size base plus Snapshot plus Coord3D list at +0x10

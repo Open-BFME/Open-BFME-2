@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /EHsc
 // UpgradeCenter::canAffordUpgrade from the Upgrade.cpp reference, isolated
 // so its BFME 2 money and UI layouts can be checked against retail.
 

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1
+// cl: /DNDEBUG /MD
 // XferException: the object every Xfer failure throws. Retail's throw
 // information for it (__TI1?AVXferException@@ at VA 0x00CFFD18) names the
 // destructor at 0x0002BD30 and, through its one catchable type, the copy

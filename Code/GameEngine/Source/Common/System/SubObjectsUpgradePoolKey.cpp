@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004B4D1E@SubObjectsUpgrade@@SA?AW4NameKeyType@@XZ @0x4b4d1e
 // (69B): cached pool-name key for SubObjectsUpgrade. The class
 // identity comes from the pool-name string the body pushes

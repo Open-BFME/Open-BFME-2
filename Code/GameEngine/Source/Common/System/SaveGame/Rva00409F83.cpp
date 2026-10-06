@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva00409F83@Rva00409FFA@@QAEXXZ @0x00409F83 29B
 // Evidence: unlock lane; same 0x9C Rva00409FFA layout as siblings 0x409FA0
 // (landed) 0x409FCC (landed) and 0x409FFA banked (array32 +0x14 count +0x94

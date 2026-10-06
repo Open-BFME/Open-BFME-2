@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7 /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva005748F2@Rva005748F2@@QAEXXZ retail 0x005748F2 30 bytes.
 // Holder at +0x54 with flag at +0x58; null ptr returns; flag set tail-calls
 // virtual slot1 on the held pointer else tail-jmps to pinned clear.

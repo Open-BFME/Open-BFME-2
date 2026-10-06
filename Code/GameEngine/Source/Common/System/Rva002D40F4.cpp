@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Os /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /MD /EHsc
 //
 // ?rva002D40F4@Rva002D3573@@QAEXXZ retail 0x002D40F4 332B.
 // Slot 14 of 0x00802AA8 (class of ??1Rva002D3573@@UAE@XZ in

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva00400783Get@@YA?AVAsciiString@@ABV1@_N@Z, retail 0x00400783 (277 bytes).
 // Portable map-path builder: TheGameState->realMapPathToPortableMapPath

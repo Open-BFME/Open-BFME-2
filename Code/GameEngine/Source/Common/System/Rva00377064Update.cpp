@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00377064@Rva00377064@@QAEXHHH@Z @0x00377064 168B.
 // Unlock lane: thiscall with three int args (ret 0xc); stores to GameLogic
 // +0xa4/+0x110, moves GlobalData string +0xac0 to +0x0c when non-empty via

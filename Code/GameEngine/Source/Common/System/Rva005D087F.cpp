@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // ??BRva005D087F@@QAE?AVUnicodeString@@XZ, retail 0x005D087F, 98 bytes.
 // Wide materializer twin of Rva0002CB02Operator (98B Ascii): length via rowed
 // Rva005D0507, buffer via shared getBufferForRead, payloads via rowed

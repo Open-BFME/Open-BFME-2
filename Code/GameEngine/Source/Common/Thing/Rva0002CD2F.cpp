@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // stlport
 // ?rva0002CD2F@Rva0002CD2F@@QAEPAUOut0002CA72@@PAU2@PBUPair0002CA72@@@Z @0x0002CD2F 36B
 // Evidence: unlock lane; hashtable insert wrapper forwarding (Out*, Pair*) to rowed

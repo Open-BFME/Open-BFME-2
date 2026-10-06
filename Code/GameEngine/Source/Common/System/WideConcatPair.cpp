@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 //
 // Wide-string concat pair behind retail 0x0021C3F7 (98 bytes) with its
 // helpers: length sum at 0x002198C8 (36 bytes), payload copy at 0x0021B8A0

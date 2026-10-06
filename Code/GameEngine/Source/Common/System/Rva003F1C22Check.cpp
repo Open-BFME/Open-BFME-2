@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?rva003F1C22@Rva003F1C22@@QAE_NPAVCreateAHeroData@@PAH@Z, retail 0x003F1C22, 52 bytes.
 class CreateAHeroData;
 

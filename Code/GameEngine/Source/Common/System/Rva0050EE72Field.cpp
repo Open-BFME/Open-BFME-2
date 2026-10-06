@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva0050EE72Set@@YAXHABVAsciiString@@HABVUnicodeString@@@Z @0x0050EE72 106B
 // APT field setter: key.format APT:_level%u.%s_field%d via rowed 0x00038150
 // plus pinned bfmeSetText 0x00225301 plus releaseBuffer 0x00036410;

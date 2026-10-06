@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Rva00398280Xfer@@YAPAVXfer@@PAV1@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z @0x00398280 204B evidence: donor XferAsciiStringVector.cpp same xferVersion xferTypeName std-vector xferUnsignedInt isSaving shape; callees rowed XferObjectID 0x003060B2 reserve 0x002A1410 push_back 0x002E01C6 _bfmeFormatText 0x0060C36E plus pin _CxxThrowException 0x00629094; strings std-vector and Vector-must-be-empty-on-load; callers 0x00548AC2 0x003994C5.
 // Free-function honest Rva name with Xfer verb; container ScienceType per rowed reserve/push_back rows; elements xferred via rowed XferObjectID with ObjectID cast (both 4B).

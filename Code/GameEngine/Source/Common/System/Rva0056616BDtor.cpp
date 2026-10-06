@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??1Rva0056616B@@UAE@XZ
 // retail 0x0056616B, 243 bytes (Ghidra FUN_0096616b). Virtual dtor storing

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /O1 /Ob2
+// cl: /DNDEBUG /MD /Ob2
 // ?rva0056DCBF@Rva0056DCBF@@QAEX_N@Z @0x0056DCBF 83B. Window enabler: stores bool
 // arg to +0xCE then winEnable(arg) on each non-null GameWindow at
 // +0xA4 +0xA8 +0xAC +0xB0 via rowed winEnable 0x00313BEC. Evidence: four

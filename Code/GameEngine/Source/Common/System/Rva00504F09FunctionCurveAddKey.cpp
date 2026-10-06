@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?addKey@Rva00504F09FunctionCurve@@QAEXMMPBM0@Z, retail 0x00504F09, 307B.
 // BFME2 counterpart of the BFME1 key accumulator (donor
 // reference/open-bfme-1/game/GameEngine/Source/Common/Rva0006AB90FunctionCurveAddKey.cpp,

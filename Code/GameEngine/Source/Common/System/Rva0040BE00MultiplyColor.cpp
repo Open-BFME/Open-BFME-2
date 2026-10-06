@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Include/GameClient -Ireference/open-bfme-1/game/GameEngine/Include/Precompiled /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/System
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Include/GameClient -Ireference/open-bfme-1/game/GameEngine/Include/Precompiled -Ireference/open-bfme-1/game/GameEngine/Source/Common/System
 // Retail 0x0040BE00 multiplies the four packed-color channels.
 
 #include "prerts.h"

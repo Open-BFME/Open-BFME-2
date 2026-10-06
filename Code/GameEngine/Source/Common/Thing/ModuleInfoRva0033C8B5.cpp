@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0033C8B5@ModuleInfo@@QAE_NXZ @0x0033C8B5 51B: vector<Nugget> filter via ModuleData virtual slot 7 erases matching entries returns bool.
 // Evidence: calls rowed vector erase at 0x0033C3BC; vcall [eax+0x1c] on [esi+8]; stride 0x14 finish at +4; sibling clearAiModuleInfo 51B same shape.
 class ModuleData

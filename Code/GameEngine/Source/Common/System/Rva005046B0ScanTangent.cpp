@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc /Oi-
+// cl: /DNDEBUG /MD /EHsc /Oi-
 // ?Rva005046B0ScanTangentAngle@@YANPAVINI@@PBD@Z 0x005046B0 111B evidence: BFME1 donor Rva000697B0ScanTangentAngle same messages same range check; BFME2 member scanReal plus double tan import; callers 0x00505159 0x00505184 unblocks 0x005050EA
 typedef int Int;
 typedef float Real;

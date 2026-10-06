@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0039834C@Rva0039834C@@QAEXAAPAURvaNode0039834C@@PAU2@1PBURva0039627D@@1@Z @0x0039834C 136B evidence: chain lane calls rowed alloc 0x00397CC9 plus Rebalance 0x00025490 plus signed key at plus10; caller 0x00399312 unblocks 0x003992B0; sibling Rva001364F7Insert same 136B shape; factory called as thiscall member per two retail mov ecx edi so pinned twin member at same address ICF with free row.
 // Proven blocker note: retail passes this in ecx to the node factory (push v then mov ecx edi then call) so the factory is __thiscall; the ledger rows it as free __stdcall with identical 34B body that ignores ecx. Calling the rowed free name omits both movs (132B vs 136B). Twin member pin at 0x00397CC9 keeps the bytes and the correct target address.
 struct Rva0039627D {

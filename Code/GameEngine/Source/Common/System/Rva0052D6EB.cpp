@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva0052D6EBCopy@@YAPAVRva0056616B@@PAV1@00@Z @0x0052D6EB 47B
 // Array uninitialized_copy helper calling 0x0052D6BE Construct stepping 0xB8.
 // Evidence: chain from 0x0052D6BE; compares src vs end and returns dst end in eax.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/moduledata /O1 /MD /EHsc
+// cl: /Ireference/shims/moduledata /MD /EHsc
 //
 // ??1Rva00420E67@@UAE@XZ retail 0x00420E67 76B.
 // MI dtor in the shape of Rva002D3573Dtor.cpp: primary GameEngineDeletingBase

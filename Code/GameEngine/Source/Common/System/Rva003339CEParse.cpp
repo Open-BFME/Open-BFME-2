@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ?rva00334506@Rva003339CE@@QAEXVAsciiString@@@Z @0x00334506 129B: multi-token
 // BodyState parser looping nextToken and driving single-token worker 0x003339CE.

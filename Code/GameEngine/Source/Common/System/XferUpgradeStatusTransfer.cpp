@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // Rva0026EDC4Xfer at retail 0x0026EDC4, 24 bytes (mangled Rva0026EDC4Xfer free cdecl
 // taking Xfer and void). Free helper called by Upgrade xfer at 0x0026EE11:

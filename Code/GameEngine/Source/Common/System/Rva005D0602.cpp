@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva005D0602@Rva005D0602@@QAEHPAG@Z, retail 0x005D0602, 28 bytes.
 // Ref-plus-char copy: copies BFME2WideStringRef payload via rowed
 // copyPayloadTo then appends word at this+4 and returns len+1.

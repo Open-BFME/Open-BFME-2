@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?rva00513D8F@Rva00513D8F@@QAEHPAG@Z @0x00513D8F 37B
 // Unlock lane: landing it makes 0x00513E25 ready. Prev/next vector ctors
 // in stlport_vector_s_o1.cpp (adjacent rows only). Calls rowed

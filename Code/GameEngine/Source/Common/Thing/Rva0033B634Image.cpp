@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0033B634Get@@YAPBVImage@@PAVThingTemplate@@PAVRva0028F2F8Host@@@Z @0x0033B634 67B linkbody
 // Evidence: LINK 2 files wait via 0x00525CC5; tail-jmp row rva0033B580 ThingTemplateButtonImage; pin rva002197A6 via g_00DFE344 same pattern as Rva0028F2F8; 8 callers; prev next same Thing dir
 struct Rva0028F2F8Aux {

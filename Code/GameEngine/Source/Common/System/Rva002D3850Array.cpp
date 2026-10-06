@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002D3850@Rva002D3850@@QAEPAMH@Z retail 0x002D3850 (17B).
 // Outer+0x10 inner array at +0xFC stride 8 returning float pair.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs-c-
+// cl: /Ireference/shims/bfme2_ascii /MD /EHs-c-
 // ??1Rva0033B1CD@@QAE@XZ @0x0033B1CD 17B dtor releases AsciiString plus UnicodeString tail
 // Evidence: call releaseBuffer D 0x00036410 then tail jmp releaseBuffer G 0x00036E70; no vptr; neighbours ThingTemplate and BfmeStringRecord dtor
 #include "ascii_string.h"

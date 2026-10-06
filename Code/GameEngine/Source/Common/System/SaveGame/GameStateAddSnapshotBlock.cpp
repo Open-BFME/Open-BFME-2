@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // BFME1 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 and ZH GameState.cpp
 // establish the registration purpose and nested record relationship. Native
 // 2DE34B independently tests the string and Snapshot pointer then copies an

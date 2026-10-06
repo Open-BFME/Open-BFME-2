@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
 // ?rva003F0442@Rva003F0442@@QAEPBVImage@@XZ, retail 0x003F0442, 36 bytes.
 // __thiscall image getter via AsciiString at +0x120: returns NULL when empty
 // else TheMappedImageCollection->findImageByName. Evidence: rowed isEmpty

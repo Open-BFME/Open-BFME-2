@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common/System
+// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common/System
 // Four inline-asm profiler helpers recovered from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/System/Rva54b800.cpp (reference/open-bfme-1),
 // recompiled /Os. Each is byte-identical to retail once relocations are masked,

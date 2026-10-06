@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // 8-byte vector copy pair, retail 0x00254D65 (47 bytes, rowed as
 // ?dup_00254D65) plus its 0x00255CFA forwarder (29 bytes, rowed as

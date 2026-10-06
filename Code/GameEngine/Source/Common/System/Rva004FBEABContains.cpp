@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy-
+// cl: /Ireference/shims/bfme2_ascii /Oy-
 // stlport
 // ?rva004FBEAB@Rva004FBEAB@@QAE_NPAVCreateAHeroData@@@Z 0x004FBEAB 43: contains check
 // over the CreateAHeroData* registry range [m_begin, m_end) via rowed _STL::find

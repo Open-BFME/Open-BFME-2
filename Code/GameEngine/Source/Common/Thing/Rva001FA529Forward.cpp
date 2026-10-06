@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001FA529@Rva001FA529@@QAEXPAX0@Z @0x001FA529, 36B.
 // Forwards two void args to rowed rva001F5D71 on this then rowed rva001F8E45

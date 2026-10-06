@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ??1Rva0050FAEC@@UAE@XZ retail 0x0050FAEC 11B
 // Trivial dtor: stores vtable 0x00865518 then tail-jmps to pinned base dtor
 // 0x005248D0. Evidence: 11B mov-plus-jmp shape, no EH prolog, caller 0x0050E7C8,

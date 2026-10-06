@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 //
 // ?rva005D0507@Rva005D0507@@QAEHXZ, retail 0x005D0507, 38 bytes.
 // Combined length of two AsciiString targets plus one for terminator.

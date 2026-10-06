@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Oy-
+// cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Oy-
 // ?rva003F03C9@Rva003F03C9@@QAE?AVUnicodeString@@XZ @0x003F03C9 58B
 // Honest-address thiscall returning UnicodeString via holder at
 // singleton 0x00DFEF10 +0xB0 method 0x0020EDD5 with index at this+0x5c,

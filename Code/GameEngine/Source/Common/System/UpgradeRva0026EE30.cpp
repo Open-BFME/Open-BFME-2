@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0026EE30@UpgradeTemplate@@QAEHPAX0@Z @ 0x0026EE30 (112B) unlock: difficulty-gated cost factor via rowed Rva002A9BF2 plus pinned Rva002A8AB1 record plus float globals. Evidence: caller 0x005974B3 thiscall ecx=UpgradeTemplate proven by calcCostToBuild same edi; ret 8 two args; g_00DFEEF8 plus g_Va00BBB8D8 plus g_Va00DBA4E4; +0x30 factor; +0x854 limit.
 class Rva002A9BF2
 {

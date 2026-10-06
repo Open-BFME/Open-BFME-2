@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva001D9A00@Rva001D9A00@@QAE_NXZ @0x001D9A00 79B unlock
 // Same layout as sibling 0x001D98BD (+0xB0 type, +0x80/0x84 vector, +0x50/0x54
 // +0x60/0x64 +0x70/0x74 vectors, +0x0C string). Case 2 checks the three

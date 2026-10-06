@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0037B3D1@Rva0037B3D1@@QAEXXZ retail 0x0037B3D1 38B.
 // Close helper: if FILE at +0x10 is set fclose it and null it then clear UnicodeString at +0x14 via rowed releaseBuffer 0x36E70 then tail-call virtual slot1.
 // Evidence: callees rowed 0x36E70 plus IAT fclose; caller 0x0043684C; neighbours Rva0037B287Write and Rva0037B5DFDtor same flags.

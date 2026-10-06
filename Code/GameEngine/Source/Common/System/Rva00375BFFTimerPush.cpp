@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva00375BFF@Rva00375BFF@@QAEXIM@Z @0x00375BFF 41B conditional timer push to list at +0x10 via rowed list<BfmeSpecialPowerTimer8>::push_back 0x004DE74D.
 // Evidence: null-checked first word plus movss float second word assembled into 8B record; caller 0x00201042 in 0x00200EE4 tail; honest Rva name.

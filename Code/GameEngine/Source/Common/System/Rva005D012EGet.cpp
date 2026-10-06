@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?Rva005D012EGet@@YA?AVUnicodeString@@H@Z @0x005D012E 46B: starting battle message fetch.
 // Evidence: selects STRATEGICHUD StartingAutoResolve vs StartingRTS by flag==1 then rowed TheGameText fetch slot 0x3C with 0 exists; sret via hidden out pointer; callers in 0x005D015C.
 #include "ascii_string.h"

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003824A5@Rva00382398@@QAEAAV1@ABV1@@Z @0x003824A5 207B: assign twin of copy 0x003830EA over BfmeSaveElement002295D7 base via rowed 0x002DBAB9 plus int at +0x1AC three AsciiStrings +0x1B0/+0x1B4/+0x1B8 seven ints +0x1BC..+0x1D4 two AsciiStrings +0x1D8/+0x1DC return this. Evidence: same layout as Rva00382398Copy.cpp plus Rva00447B58Assign.cpp recipe plus caller 0x00382E9B plus rowed set 0x000366F0.
 #include "ascii_string.h"
 

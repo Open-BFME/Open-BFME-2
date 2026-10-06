@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Forwarding chain 001FA836 .. 001FC451 (seven 38B bodies) over the rowed
 // root Rva001FA54DForward.cpp: each link stores the rowed Slot get(a) of b at
 // +0 then forwards (a, b) to the next link held at +4. Getters and next links

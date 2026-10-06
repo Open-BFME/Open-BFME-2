@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // ?Rva003821A0Copy@@YAXPAX0@Z 0x003821A0 25B
 // Free copy helper: copies byte at +0 and word at +2, skipping pad at +1.
 // Evidence: single caller 0x00382BA1 pushes (dst=buf+0x10, src=arg) then calls here;

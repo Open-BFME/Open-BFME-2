@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??0Rva005D00A6@@QAE@XZ, retail 0x005D00A6, 90 bytes.
 // Evidence: hardcoded "BattleResolver" AsciiString temp passed to base pinned at 0x00221635, then two 1000 stores and vtable store; caller at 0x007B4A1F.
 #include "ascii_string.h"

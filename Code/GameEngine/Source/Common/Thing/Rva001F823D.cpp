@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva001F823D@Rva001F823D@@QAEXXZ 0x001F823D 23B
 // Evidence: chain from rowed 0x001F64D2; null-checked virtual slot +4 at +0 then tail-jmp to rowed Rva001F64D2 on this+4. Caller jmp at 0x001F899C. Honest Rva names.
 

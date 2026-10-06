@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 //
 // ?Rva002D2ACAGet@@YAXHPAM000@Z
 // RVA 0x002D2ACA size 114. Float version of GameGetColorComponents (prev row

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0060BC53Xfer3@@YAPAVXfer@@PAV1@PAH@Z @0x0060BC53 88B
 // Free Xfer helper that checks a uint count of 3 through slot 30 then moves three ints through slot 31.
 // Evidence: Xfer.cpp vtable with Ascii slot 27 plus Unicode slot 26 proves reverse order so slot 30 is uint plus slot 31 is int

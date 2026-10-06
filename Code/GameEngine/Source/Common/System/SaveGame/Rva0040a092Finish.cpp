@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?Rva0040A092Parse@@YAXPAVINI@@PAXPAPBVCommandButton@@H@Z @0x0040A092 173B
 // Evidence: chain lane; calls rowed findCommandButton 0x0031BE3C via g_bfmeWorldRV,

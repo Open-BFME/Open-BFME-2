@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ??1Rva005D078B@@UAE@XZ @ 0x005D078B 86B: MI virtual dtor unregistering the
 // second base via rowed erase 0x002B7250 on holder at g_009FEF10+0x6C then
 // pinned base dtor 0x005CF8E3. Evidence: deleting-dtor caller 0x005D0A9F;

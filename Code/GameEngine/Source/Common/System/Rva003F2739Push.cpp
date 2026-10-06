@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva003F2739@Rva003F2739@@QAEXW4ScienceType@@@Z, retail 0x003F2739 19B.
 // Pushes a ScienceType value into the vector at this+0x164 via rowed

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O2 /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2
 //
 // ??1ModuleTagString@@QAE@XZ, retail 0x006CE7F0, 97 bytes. Dedicated TU: the
 // ModuleInfoNuggetDestructor unit declares this dtor for its member call, so

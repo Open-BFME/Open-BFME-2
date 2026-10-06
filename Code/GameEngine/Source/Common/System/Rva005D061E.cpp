@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?rva005D061E@Rva005D061E@@QAEHPAG@Z, retail 0x005D061E, 37 bytes.
 // Pair copy: first ref-plus-char via rowed Rva005D0602 then second ref via
 // rowed copyPayloadTo, returns sum. Evidence: callees rowed; caller 0x005D08AE;

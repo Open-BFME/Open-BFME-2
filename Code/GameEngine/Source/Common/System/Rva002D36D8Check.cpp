@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002D36D8@Rva002D36D8@@QAEHXZ retail 0x002D36D8 29 bytes. Null-guarded
 // int check loading inner pointer at +0xC8 via mid pointer at +0x10 then
 // calling rowed forwarder 0x005CC208 and testing its byte result. Evidence:

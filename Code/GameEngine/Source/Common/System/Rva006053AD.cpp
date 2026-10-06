@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva006053AD@@YAPADPAD@Z, retail 0x006053AD, 42 bytes.
 // Trims a backslash path to its parent in place: scans to NUL then back to
 // the last backslash and truncates there, returning the name after it (the

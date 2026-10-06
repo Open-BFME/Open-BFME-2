@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva003992B0@Rva0039834C@@QAEPAURvaInsertOut@@PAU2@PBURva0039627D@@@Z @0x003992B0 134B
 //
 // Finish draft for the banked near miss reverse/attempts/0x003992b0.cpp.

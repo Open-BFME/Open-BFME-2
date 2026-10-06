@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??4BfmeSubobject0022CE19@@QAEAAU0@ABU0@@Z, retail 0x002DDC76, 149 bytes.
 // Copy-assign of BfmeSubobject0022CE19: three AsciiString at +4/+8/+0C via

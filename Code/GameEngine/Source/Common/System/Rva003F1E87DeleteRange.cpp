@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /Oy-
+// cl: /DNDEBUG /MD /GX- /Oy-
 //
 // ?Rva003F1E87DeleteRange@@YA_NPAPAVRva003F0C6C@@0URva003F1E87Holder@@@Z, retail 0x003F1E87 33B
 // Delete-range loop returning its by-value flag: for (; first != last; ++first)

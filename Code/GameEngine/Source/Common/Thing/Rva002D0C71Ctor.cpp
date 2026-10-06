@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva002D0C71@@QAE@XZ @0x002D0C71 31B: hashtable wrapper ctor via Armor hashtable 0x002D0B5A slash 0x00360B59 with 100 buckets. Evidence: caller 0x002D0E14 constructs member at +0x14; three empty args share one byte at ebp-1; returns this. ICF twin needs unique equal_to spelling same code.
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 // BFME1 GameStateInit.cpp at revision1281192f682ce6f29b8f06b7daea4b5e8fdfbb24
 // and ZH GameState.cpp provide the subsystem registration semantics.
 // Target2DE641/2137 independently proves all54 token/provider/kind triples,

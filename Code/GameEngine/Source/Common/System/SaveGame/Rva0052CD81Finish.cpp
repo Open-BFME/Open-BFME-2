@@ -1,4 +1,4 @@
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ??0Rva0052CD81@@QAE@ABV0@@Z @ 0x0052CD81 96B. STLport vector<SaveMapPreview>
 // copy constructor: _Vector_base(count, get_allocator()) then the 20-byte-stride

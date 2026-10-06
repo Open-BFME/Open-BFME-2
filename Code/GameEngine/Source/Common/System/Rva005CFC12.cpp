@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva005CFC12@Rva005D00A6@@UAEXPAVINI@@@Z @0x005CFC12 163B
 // Slot 1 of vtable 0x00875374 (class Rva005D00A6): INI parse of two floats via table 0x00875344 then floor(1000x+0.5) to m_8/m_c.
 // Evidence: vslot lane slot 1 offset 0x4; donor TU Rva005D00A6Ctor.cpp; callees rowed initFromINI 0x0002DE78 plus IAT floor; BfmeZeroRange 0.0f; 1000.0f at 0x007BE358 and 0.5f at 0x007C26F0 are compiler literals (Rva001DCF82/Rva00285DC5 precedent: extern hoists scale ahead); callers none.

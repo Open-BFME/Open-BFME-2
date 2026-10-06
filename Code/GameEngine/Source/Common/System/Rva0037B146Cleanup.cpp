@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0037B146@Rva0037B146@@QAEXXZ retail 0x0037B146 70B.
 // Cleanup helper: if byte at +0xE70 is set return; else walk TheCommandList
 // first-message chain (+0xC) and delete nodes whose +0x10 id is in (1000,1999)

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva001D982B@Rva001D982B@@QAE_NXZ @0x001D982B 60B unlock.
 // Evidence: leaf predicate; +0xB0 type check plus +0x34 zero check plus +0x4C flag
 // plus three pair compares; callers 0x0006204A 0x00062182 in 0x00061E37;

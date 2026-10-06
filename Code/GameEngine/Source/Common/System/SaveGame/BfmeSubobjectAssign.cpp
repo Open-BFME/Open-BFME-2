@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva002DBC1F@BfmeSubobject00229875@@QAEAAU1@ABU1@@Z, retail 0x002DBC1F, 120 bytes.
 // Copy-assign of BfmeSubobject00229875: eight 0x1AC elements at +4 via rowed
 // 0x002DBAB9 assign, 0x10 bytes at +0xD64, ten dwords at +0xD74, byte +0xD9C

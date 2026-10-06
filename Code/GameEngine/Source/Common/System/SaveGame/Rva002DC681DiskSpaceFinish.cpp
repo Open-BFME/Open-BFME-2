@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ?rva002DC681@Rva002DC267@@QBE_NXZ, retail 0x002DC681, 201 bytes.
 //
 // Save-dir disk-space check via rva002DC267 + GetDiskFreeSpaceExW. Retail

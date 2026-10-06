@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 //
 // ?rva002D352C@Rva002D352C@@QAEXHH@Z retail 0x002D352C (42B).
 // Max-store of a FramesPerSecond-scaled timeout into an 8-byte-stride slot

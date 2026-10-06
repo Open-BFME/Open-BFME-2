@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX-
 // ?rva003F038E@Rva003F038E@@QAEPBVImage@@XZ, retail 0x003F038E, 43 bytes.
 // __thiscall cached image load via AsciiString at +0x70: returns NULL when empty
 // else TheMappedImageCollection->findImageByName stores to +0x19C and returns it.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva003F20E5@Rva003F209C@@QAEXHH@Z retail 0x003F20E5 33B: clear via rowed rva003F209C plus zero dword at +0x17C plus zero byte at +0x1A3 plus pin rva003F076D. Evidence: caller 0x0020FB72 plus rowed callee 0x003F209C plus pin 0x003F076D plus same vector layout as Rva003F209CClear.
 #include <vector>

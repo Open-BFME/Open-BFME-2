@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 
 // The composite transfer operators need real layouts: each one announces a
 // four-character tag with a zero-length transfer and then moves the payload as

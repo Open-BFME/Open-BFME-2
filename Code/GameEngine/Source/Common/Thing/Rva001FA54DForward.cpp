@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001FA54D@Rva001FA54D@@QAEXPAX0@Z @0x001FA54D 39B: forwards two void args to rowed get on b then pinned accept on b with this-plus-4 storing get result at this. Evidence: __thiscall ret 8; callees rowed get 0x001F5E24 plus pin accept 0x001F8A38; caller 0x001FA853; prev Rva001FA529 same family.
 class Rva001F5E24Slot
 {

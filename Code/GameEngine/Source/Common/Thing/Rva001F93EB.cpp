@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva001F93EB@Rva001F93EB@@QAEXXZ @0x001F93EB 23B
 // Chain via rowed 0x001F8DA9: null-checked virtual slot +4 at +0 then
 // tail-jmp to rowed Rva001F8DA9 on this+4. Caller jmps from 0x001FA49F.

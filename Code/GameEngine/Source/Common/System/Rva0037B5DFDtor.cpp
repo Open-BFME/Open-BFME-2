@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ??1Rva0037B5DF@@QAE@XZ retail 0x0037B5DF 105B.
 // Non-virtual dtor destroying five StringBase<unsigned short> at +0x58 +0x48 +0x44 +0x30 +0x28
 // and one StringBase<char> at +0x20 via rowed releaseBuffer 0x00036E70 and 0x00036410

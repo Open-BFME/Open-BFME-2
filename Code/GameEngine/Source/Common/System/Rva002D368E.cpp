@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002D368E@Rva002D368E@@QAEXXZ retail 0x002D368E 32B. Dual-subobject reset via mid pointer.
 // Evidence: callees rowed 0x00528FD9 reset and 0x00528273 clear; callers 0x0031BF64 0x0053E4F1; neighbours 0x002D3627 0x002D36C3 same /O1.
 class Rva00528FD9Owner

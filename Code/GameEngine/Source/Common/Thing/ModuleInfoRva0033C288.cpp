@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0033C288@ModuleInfo@@QBEPBHH@Z @0x0033C288 43B: map<int int> find at +0x3AC guarded by flag at +0x3B0 returns mapped int* else 0.
 // Evidence: calls rowed map _M_find at 0x00388F63; node+0x14 value (0x18 node via stlport_map_int_int_os); caller 0x00268A46; neighbours ModuleInfo rows.

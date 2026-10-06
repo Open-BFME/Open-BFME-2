@@ -1,6 +1,6 @@
 // ?Rva003F2BEBDeleteRange@@YA_NPAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@0_N@Z
 // partial score=0.91 date=2026-09-29
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 //
 // ?Rva003F2BEBDeleteRange@@YA_NPAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@0_N@Z retail 0x003F2BEB 33B
 // Range delete over narrow strings. Retail passes the element on the stack and

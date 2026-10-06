@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0Rva00382398@@QAE@ABV0@@Z, retail 0x003830EA, 257 bytes.
 // Copy ctor over BfmeSaveElement002295D7 base (0x1AC) with int at +0x1AC,

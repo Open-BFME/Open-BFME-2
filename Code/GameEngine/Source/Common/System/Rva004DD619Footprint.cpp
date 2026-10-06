@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva004DD619Footprint@@YAPAVXfer@@PAV1@PAH@Z @ 0x004DD619 (30B).
 // Free XferEnum helper moving 4 bytes through slot-37 XferEnum with the

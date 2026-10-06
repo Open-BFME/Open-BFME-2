@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX
+// cl: /Oy- /DNDEBUG /MD /GX
 //
 // ?get@Rva0055DDB6SmartField@@QBE?AVRvaSmartPtr12@@XZ, retail 0x0055DDB6, 27 bytes.
 // Value-returning smart-pointer getter same shape as siblings 0x003FDA90

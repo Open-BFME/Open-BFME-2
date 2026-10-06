@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 //
 // ??0Rva0022CD65@@QAE@XZ @0x0022CD65 19B: opaque map-holder ctor with int flag.

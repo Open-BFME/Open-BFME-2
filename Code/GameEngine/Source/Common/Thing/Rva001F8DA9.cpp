@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ?rva001F8DA9@Rva001F8DA9@@QAEXXZ, retail 0x001F8DA9, 23 bytes.
 // Chain via rowed 0x001F5CF7: null-checked virtual slot +4 at +0 then

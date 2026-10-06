@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ?Rva0037BA97Init@@YA?AUTriple12@@PBUPair8@@H@Z @0x0037BA97 43B
 // Value-returning (struct-return) Triple12 builder: loads the two ints of the
 // Pair8 source, stores them plus the third argument into a stack temporary and

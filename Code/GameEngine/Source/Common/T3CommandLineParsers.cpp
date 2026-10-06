@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHs-c- /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHs-c- -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME-1: BFME's own CommandLine.cpp option handlers.
 //
 // Every body here is an `Int parseXxx(char *args[], int num)` of the shape the

@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // Retail 0x009A4620, 127 bytes. Address-derived owner; the list nodes
 // have the existing CollisionData destructor identity at 0x009A2390.
 // The two embedded table clear bodies (0x009A3200 and 0x009A4290)

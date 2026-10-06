@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/moduledata /O1 /MD /EHsc
+// cl: /Ireference/shims/moduledata /MD /EHsc
 //
 // ??1Rva002D3573@@UAE@XZ retail 0x002D3573 76B.
 // MI dtor: primary GameEngineDeletingBase (size 0xC) at +0 with vtable

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??0Rva001F8C5B@@QAE@ABV?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@@Z, retail 0x001F8C5B, 103 bytes.

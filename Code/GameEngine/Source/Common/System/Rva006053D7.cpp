@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva006053D7@@YA_NPBD0@Z, retail 0x006053D7, 141 bytes.
 // Wildcard match with '*' and '?' over NUL-terminated strings. Adapted from
 // the BFME1 ArchiveFile::SearchStringMatches donor (AsciiString form) to the

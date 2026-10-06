@@ -1,6 +1,6 @@
 // Address-derived identity: the complete callers and field layout identify a
 // 0x493-bucket collision-data table, but no named retail caller is available.
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 
 struct Rva009A3300Node
 {

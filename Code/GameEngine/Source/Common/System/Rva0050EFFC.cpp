@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0050EFFC@Rva0050F041@@QAEXH@Z @0x0050EFFC 69B
 // SetState setter on Rva0050F041 layout: m_5c level m_60 name holder +8 m_74 state.
 // Evidence: chain via rowed 0x0050E9FE AptCall; caller 0x0050FF48; sibling Rva0050F041;

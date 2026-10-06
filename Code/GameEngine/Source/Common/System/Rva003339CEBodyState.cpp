@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// cl: /Oy- /DNDEBUG /MD /GX- /Oi-
 //
 // ?rva003339CE@Rva003339CE@@QAE_NPBDPA_N1@Z @0x003339CE 308B
 // Single-token BodyState bitstring worker. Evidence: the BodyStateNames table

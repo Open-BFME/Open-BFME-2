@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1
+// cl: /DNDEBUG /MD /EHsc
 // Xfer::operator==(Version &), ported from Open-BFME-1's
 // XferVersionTransfer.cpp. BFME 2 inserts one virtual ahead of the raw
 // transfer, so it is slot +0x98 here (BFME 1: +0x94); the version checks and

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // stlport
 //
 // ??1Rva0022C9F6@@UAE@XZ @0x0022C9F6 59B: opaque virtual dtor.

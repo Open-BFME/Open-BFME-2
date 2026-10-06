@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /DNDEBUG /MD /EHs
 // ?rva00283262@TerrainLogic@@QAEXPBUCoord3D@@M@Z @0x00283262 221B
 // Evidence: same-this TerrainLogic rva00282CFB pin plus ThePartitionManager iterateObjectsInRange pin 0x00625610 with float radius via fld fstp plus BitSet 0x00045411 and holder 0x0004584D plus GameLogic destroyObject
 struct Coord3D

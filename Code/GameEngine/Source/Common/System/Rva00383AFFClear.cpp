@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva00383AFF@Rva00383AFF@@QAEXXZ, retail 0x00383AFF, 49 bytes.
 // List clear over BuddyMessage nodes via rowed dtor 0x0038215B plus rowed
 // free 0x00030830. Identity from unlock (makes 0x00383F3C ready) and callers

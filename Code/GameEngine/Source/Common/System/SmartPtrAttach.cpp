@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?attach@RvaSmartPtr12@@QAEXXZ, retail 0x0004CB9A (38 bytes).
 //

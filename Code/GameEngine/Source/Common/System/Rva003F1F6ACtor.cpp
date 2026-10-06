@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX- /arch:SSE
+// cl: /DNDEBUG /MD /GX-
 // ??0Rva003F1F6A@@QAE@PAX@Z, retail 0x003F1F6A, 76 bytes.
 // Ctor storing void* at +0 then default vector<BfmeE16> at +4 via rowed
 // Vector_base 0x00211E58 with one-byte stack allocator temp at [ebp+0xb]

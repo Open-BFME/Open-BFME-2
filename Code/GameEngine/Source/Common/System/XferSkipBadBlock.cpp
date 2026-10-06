@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME1 Xfer::SkipBadBlock is an intentional no-op; BFME2 retains the same
 // virtual hook and emits only the thiscall epilogue.
 

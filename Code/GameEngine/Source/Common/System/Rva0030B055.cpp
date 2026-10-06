@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ?rva0030B055@Rva0030B055@@QAEXXZ, retail 0x0030B055, 37 bytes.
 // Four virtual calls slots 3 8 6 9 with 0 0 then 0 then get then forward.
 // Evidence: caller 0x0030B0E3 ctor stores vtable then calls; unblocks 0x0030B0E3.

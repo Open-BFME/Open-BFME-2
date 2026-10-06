@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??$__uninitialized_fill_n@PAVSaveMapPreview@@IV1@@_STL@@YAPAVSaveMapPreview@@PAV1@IABV1@ABU__false_type@0@@Z @0x002DBF28 40B
 // Evidence: unlock lane; caller 0x002DDDB9 pushes dst count value false_type; callee rowed copy ctor 0x2262E7; stride 0x14.
 inline void *__cdecl operator new(unsigned int, void *p) throw() { return p; }

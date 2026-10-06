@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /GX /Ireference/shims/bfme2_ascii
 //
 // Snapshot xfer methods (slot 3) of four BFME 2 snapshot classes, each named
 // by its vftable's slot-2 name literal; members are labelled by offset and

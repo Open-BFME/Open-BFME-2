@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva0037B3F7@Rva0037B3F7@@QAEXXZ retail 0x0037B3F7 54B.
 // Close-plus-notify: if FILE at +0x10 is set fclose and null it then clear UnicodeString at +0x14 via rowed releaseBuffer 0x36E70; if byte at +0xE70 is set return else MessageStreamSubsystem->v18(0x1D).
 // Evidence: callees rowed 0x36E70 plus IAT fclose; global MessageStreamSubsystem 0x00A00950 in use; caller jmp 0x0037B7EE; neighbours Rva0037B3D1 and Rva0037B5A0 same flags.

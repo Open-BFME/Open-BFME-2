@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004B4A99@StatusBitsUpgradeIfEldestKindof@@SA?AW4NameKeyType@@XZ @0x4B4A99
 // (69B): cached pool-name key for StatusBitsUpgradeIfEldestKindof. The class
 // identity comes from the pool-name string the body pushes

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?rva003F1AFF@Rva003F1AFF@@QAEXH@Z 0x003F1AFF 125: int-keyed broadcast.
 // Evidence: rowed find 0x002B51F8 plus pin 0x002E0BC0 plus rowed broadcast
 // 0x003F1A03 plus row 0x001FF3A9 forwarder; callers 0x003F2A8C 0x003F3F27;

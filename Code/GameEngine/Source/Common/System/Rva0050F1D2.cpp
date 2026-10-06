@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc
+// cl: /EHsc
 // ?rva0050F1D2@BFME2WideConcatPair@@QBEHXZ @0x0050F1D2
 // (13B): returns totalLength() plus int at +0xc; pinned callee 0x002198C8.
 // Identity via BFME2WideConcatPair totalLength pin plus same-page sibling

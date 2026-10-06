@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0050F041@Rva0050F041@@QAEXHABVUnicodeString@@@Z, retail 0x0050F041, 106 bytes.
 // If m_60 null use empty at 0x007BAC1C else +8 name; format m_5c plus mid plus
 // field via AsciiString::format APT:_level%u.%s_field%d into local key and

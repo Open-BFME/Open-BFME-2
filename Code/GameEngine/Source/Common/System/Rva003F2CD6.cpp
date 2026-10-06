@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??$_M_allocate_and_copy@PAVLivingWorldRegionConnection@@@?$vector@UBfmeStringRecord000B9534@@V?$allocator@UBfmeStringRecord000B9534@@@_STL@@@_STL@@IAEPAUBfmeStringRecord000B9534@@IPAVLivingWorldRegionConnection@@0@Z @0x003F2CD6 45B
 // vector<BfmeStringRecord000B9534>::_M_allocate_and_copy, same 45B ebp-tag shape as 0x00319304 and 0x004F6C05.
 // Allocates n 24B slots through the end-of-storage proxy (rowed BfmeStringRecord000B9534 allocate at 0x00395944,

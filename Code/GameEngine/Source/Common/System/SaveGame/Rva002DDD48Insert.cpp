@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /G7
+// cl: /Oy-
 //
 // ?rva002DDD48@Rva002DDD48@@QAEXPAVSaveMapPreview@@ABV2@ABU__false_type@_STL@@I_N@Z
 // retail 0x002DDD48, 186 bytes.

@@ -1,5 +1,5 @@
 // ?addModuleInfo@ModuleInfo@@QAEXPAVThingTemplate@@ABVAsciiString@@1PBVModuleData@@H_N3@Z
-// cl: /O1 /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception
+// cl: /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception
 // Semantic donor BFME1 6583b3c1ff21db4a561285717028fdafc780b7db
 // game/GameEngine/Source/Common/Thing/ThingTemplate.cpp addModuleInfo.
 // Target diagnostics spell addModuleInfo; parser33D865 passes this7-arg ABI.

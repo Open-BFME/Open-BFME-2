@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002D36C3@Rva002D36C3@@QAEXPAX@Z, retail 0x002D36C3 21B chain via rowed 0x0052518E.
 // Null-guarded forwarder: inner = m_mid->m_c4; if inner call rowed setter with same arg; tail jmp.
 // Evidence: callee ?rva0052518E@Rva0052518E@@QAEXPAX@Z rowed; caller 0x003BD29E; prev 0x002D3627 next 0x002D36D8 same /O1.

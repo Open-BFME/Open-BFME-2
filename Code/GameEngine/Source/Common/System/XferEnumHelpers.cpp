@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 
 // Labelled-enum transfer helpers: each one moves a 4-byte enum through the
 // text-mode Xfer's slot-37 XferEnum virtual with its field-name label (the

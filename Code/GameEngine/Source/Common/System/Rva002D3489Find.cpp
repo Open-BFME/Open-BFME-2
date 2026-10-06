@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /MD
+// cl: /Oy- /MD
 //
 // ?Rva002D3489Find@@YAPADPAD0ABD@Z retail 0x002D3489 89B.
 // Free byte search over [first last) for value passed by reference.

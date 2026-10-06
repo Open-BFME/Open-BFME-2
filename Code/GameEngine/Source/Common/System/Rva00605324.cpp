@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00605324@@YAXPAD@Z, retail 0x00605324, 65 bytes.
 // Normalizes a backslash path in place: '/' to '\', tolower, then strips
 // trailing backslashes. No donor; honest address name.

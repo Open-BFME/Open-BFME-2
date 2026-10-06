@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva004FAFB6@Rva004FAC21@@QAEPAVRva004FADF4@@I@Z @0x004FAFB6 60B evidence: chain via just-landed Rva004FADF4 0x004FADF4; new 0x30 plus II ctor; vtable slot 1 of 0x008633B0 Rva004FAC21; caller none.
 // Honest Rva factory returning new Rva004FADF4 via EH new.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 //
 // ?rva0056612F@Rva0056612FVec@@QAEXXZ retail 0x0056612F 30B
 // Evidence: unlock lane; callee Rva0052CEDDClear 0x0052CEDD plus _free 0x00030830; caller 0x0056644E; prev ScrapStorage and next 0x0056614D same shape same flags; members start finish end.

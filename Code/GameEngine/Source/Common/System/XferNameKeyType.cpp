@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /GX /MD /D_CRTIMP= /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP=
 //
 // ?Rva00149101XferNameKey@@YAAAVXfer@@AAV1@AAW4NameKeyType@@@Z @0x00149101
 // 140B: a cdecl helper that transfers a NameKeyType as its name. Loading

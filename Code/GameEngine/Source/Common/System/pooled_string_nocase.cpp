@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // getIdNoCase and isEqualNoCase, split out of PooledString.cpp for one flag.
 // Both select the case-folded alias with a conditional move, and cl 13.10

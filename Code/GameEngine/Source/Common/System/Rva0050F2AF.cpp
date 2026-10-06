@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /arch:SSE
+// cl: /EHsc
 // ?rva0050F2AF@Rva0050F0AB@@QAEXI@Z @0x0050F2AF
 // (87B): clamp val to 99999, update m_68/m_6c with focus-gated text refresh
 // plus Send; chain from Send 0x0050E776 plus F0AB 0x0050F0AB.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva00255CA8@Rva00255CA8@@QAEXXZ @0x00255CA8 41B.
 // Chain from 0x00254D38: if +4 is 0 return else free list at [inner+4] via
 // rowed Rva00254D38::rva00254D38 then reset inner +8 to self plus +4 to 0

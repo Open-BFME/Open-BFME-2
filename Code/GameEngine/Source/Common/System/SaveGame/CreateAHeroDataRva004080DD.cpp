@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva004080DD@CreateAHeroData@@QAE_NABVAsciiString@@PAI@Z @0x004080DD 44B. Identity: CreateAHeroData try-get via StringPayloadMap at +0x50; copies second.value at node+0x14 to out and returns true else false.
 // Evidence: map50 at +0x50 in CreateAHeroDataDtor layout; callers 0x408109/0x40A99A pass key and out int and test al; callee _M_find rowed.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Chain wrappers for ?rva002D352C@Rva002D352C@@QAEXHH@Z retail 0x002D352C.
 // Each is a 17B thiscall on the outer object at +0x10 delegating to the inner

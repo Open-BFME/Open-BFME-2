@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // Retail proc at 0x50B5CF adds an UpgradeMux table and a module table; both
 // offsets are 0. Its donor-derived AutoHeal class identity conflicts with the

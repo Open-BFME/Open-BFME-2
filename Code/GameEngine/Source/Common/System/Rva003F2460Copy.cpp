@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva003F2460Copy@@YAXPAD00@Z @0x003F2460 29B:
 // wrapper calling rowed 0x003F1F06 copy with two extra ignored trailing
 // args (local byte plus 0). Caller 0x003F316D unblocks 0x003F3159.

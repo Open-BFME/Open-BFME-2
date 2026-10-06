@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva0004CCCDCopyRange@@YAPAVRvaSmartPtr12@@PAV1@00@Z, retail 0x0004CCCD (50 bytes).
 //

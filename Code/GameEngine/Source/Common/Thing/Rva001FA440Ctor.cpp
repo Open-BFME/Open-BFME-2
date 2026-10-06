@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva001FA440@@QAE@XZ @0x001FA440 31B: hashtable wrapper ctor via Armor hashtable 0x001F9363 slash 0x00360B59 with 100 buckets. Evidence: caller 0x001FA69F; three empty args share one byte at ebp-1; returns this.
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's

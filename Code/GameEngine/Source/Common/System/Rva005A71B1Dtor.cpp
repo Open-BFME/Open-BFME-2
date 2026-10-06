@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 
 // ??1Rva005A71B1@@UAE@XZ @0x005A71B1 79B: dtor stores vtable 0x00871BF8,
 // destroys 0x40-element array at +0x218 via ehvec dtor, frees ptr at +4 via

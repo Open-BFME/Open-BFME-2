@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?check@Rva002D3627Host@@QAE_NXZ retail 0x002D3627 23 bytes. Dual byte check
 // via global plus member target. Evidence: pin check, caller 0x003FE8F1,

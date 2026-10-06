@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0004B55EE@WeaponBonusUpgrade@@SA?AW4NameKeyType@@XZ @0x4B55EE
 // (69B): cached pool-name key for WeaponBonusUpgrade. The class
 // identity comes from the pool-name string the body pushes

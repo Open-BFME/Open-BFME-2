@@ -2,7 +2,7 @@
 // partial score=0.94 date=2026-09-30
 // ?rva003F26AA@LivingWorldRegionConnection@@QAE_NPBVModuleData@@PAURva003F26AAPair@@@Z
 // partial score=0.94 date=2026-09-30
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /Oy- /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Oy- /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva003F26AA@LivingWorldRegionConnection@@QAE_NPBVModuleData@@PAURva003F26AAPair@@@Z, retail 0x003F26AA 143B.
 // Picks the slot tables by arg+0x18 StringBase<char>::isEmpty (rowed 0x00001E2F): a non-empty

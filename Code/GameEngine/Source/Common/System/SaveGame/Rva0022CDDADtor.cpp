@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva0022CDDA@@UAE@XZ @0x0022CDDA 63B
 // Virtual dtor over GameEngineDeletingBase at +0 (rowed 0x001B4E74) and
 // fixed array Rva00226883 m_arr[2] at +0xC with element size 0x10 via

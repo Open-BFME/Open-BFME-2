@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 #include "unicode_string.h"
 // ?rva00513E6F@Rva00513E6F@@QAE?AVUnicodeString@@XZ @0x00513E6F 98B
 // Chain lane: calls 0x00513E4A just landed; length via rowed 0x00513E03 then

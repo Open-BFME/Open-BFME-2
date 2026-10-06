@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX-
 // ?Rva0052BF33DestroyTagged@@YAXPAURva0052BF33Elem@@0ABU__false_type@_STL@@@Z
 // @0x0052BF33 26B. Unlock lane: destroys range through each 8-byte element's
 // virtual dtor (scalar-deleting slot with zero flag); caller 0x005A6EDA is the

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // _STL::__uninitialized_copy<AsciiString*, AsciiString*>, retail
 // 0x0002C4B2, 38 bytes. Dedicated TU so the AsciiString _Construct helper
