@@ -75,6 +75,40 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "GameClient/DisconnectMenu.h"
 #include "GameClient/InGameUI.h"
 
+class Rva004D272EMapHintInsert
+{
+public:
+	typedef FileCommandMap::iterator iterator;
+	typedef FileCommandMap::value_type value_type;
+	iterator insert(iterator position, const value_type &value);
+};
+
+class Rva0046A9ABMapLowerBound
+{
+public:
+	_STL::_Rb_tree_node<FileCommandMap::value_type> *lower_bound(const unsigned short &key) const;
+};
+
+#pragma optimize("s", on)
+template <> AsciiString &FileCommandMap::operator[](const unsigned short &key)
+{
+	iterator i(((Rva0046A9ABMapLowerBound *)this)->lower_bound(key));
+	if (i == end() || key_comp()(key, (*i).first))
+		i = ((Rva004D272EMapHintInsert *)this)->insert(
+			i, value_type(key, AsciiString()));
+	return (*i).second;
+}
+#pragma optimize("", on)
+
+// Keep the map helpers that the original operator[] instantiation emitted.
+// ?Rva004D2941MapInstantiationAnchor present-unmatched
+void Rva004D2941MapInstantiationAnchor()
+{
+	FileCommandMap fileCommandMap;
+	FileCommandMap::iterator position = fileCommandMap.lower_bound(0);
+	fileCommandMap.insert(position, FileCommandMap::value_type(0, AsciiString()));
+}
+
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)

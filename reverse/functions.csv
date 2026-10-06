@@ -64213,3 +64213,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva0044D774@GameModePreferences@@QAE_NPAVGameSlot@@@Z,,0x0044D774,194,Code/GameEngine/Source/Common/GameModePreferences.cpp,matched,
 ?rva0044D986@GameModePreferences@@QAE?AVAsciiString@@XZ,,0x0044D986,290,Code/GameEngine/Source/Common/GameModePreferences.cpp,matched,
 ??0Rva004E2C66@@QAE@ABV0@@Z,,0x004E2C66,83,Code/GameEngine/Source/Common/Rva004E2382Ctor.cpp,matched,
+??A?$map@GVAsciiString@@U?$less@G@_STL@@V?$allocator@U?$pair@$$CBGVAsciiString@@@_STL@@@3@@_STL@@QAEAAVAsciiString@@ABG@Z,,0x004D2941,134,Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp,matched,FileCommandMap ushort AsciiString operator[] from processFileAnnounce; target lower_bound and hint insert calls match structural adapters at 0x0046A9AB and 0x004D272E
