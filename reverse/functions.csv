@@ -63761,3 +63761,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004E6745@Rva004E6745@@QAEPAV1@HHH@Z,,0x004E6745,70,Code/GameEngine/Source/Common/Rva004E6745Factory.cpp,matched,EH member factory with 4-arg ctor; full byte gate
 ?rva004E7F43@Rva004E7F43@@QAEPAV1@XZ,,0x004E7F43,59,Code/GameEngine/Source/Common/Rva004E6745Factory.cpp,matched,EH member factory with 1-arg ctor; full byte gate
 ??0Rva00541F1F@@QAE@ABV0@@Z,,0x00541F1F,83,Code/GameEngine/Source/Common/Rva00541F1FCopy.cpp,matched,Copy ctor: rowed Rva0053FADE base copy then vtable 0xC69514 then rowed Rva00541913 and Rva00541A6E member copies
+?rva004CDEED@ActivateModuleSpecialPower@@UAEXXZ,,0x004CDEED,19,Code/GameEngine/Source/GameLogic/Object/Update/ActivateModuleSpecialPowerVslot.cpp,matched,vslot17 of 0085FC88 calls SpecialAbilityUpdate 0x45108D and 0xCDDBA with 0
