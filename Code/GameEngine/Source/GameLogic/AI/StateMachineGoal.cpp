@@ -7,7 +7,7 @@
 // retail 0x004D7435, 39 bytes, plus
 // ?setGoalPosition@StateMachine@@QAEXPBUCoord3D@@M@Z,
 // retail 0x004D745C, 26 bytes, plus
-// ?setGoalPosition@TurretStateMachine@@QAEXPBUCoord3D@@@Z,
+// ?setGoalPosition@StateMachine@@QAEXPBUCoord3D@@@Z,
 // retail 0x00262224, 22 bytes, plus
 // ?halt@StateMachine@@QAEXXZ,
 // retail 0x004D73A4, 9 bytes, plus
@@ -20,7 +20,7 @@
 // ?hasState@StateMachine@@QAE_NH@Z,
 // retail 0x004D76F2, 29 bytes. Dedicated TU for the StateMachine goal
 // file-unit: the lock-gated setter, the storing worker, the object setter,
-// the TurretAI wrapper that supplies the default range, the halt, the
+// the one-argument overload that supplies the default range, the halt, the
 // state-map lookup, the transition worker that exits the old state,
 // enters the new one, and handles sleep versus transition returns,
 // and the default-state initializer guarded by the inited flag,
@@ -142,6 +142,7 @@ public:
 	bool m_defaultStateInited; // +0x39
 
 	void setGoalPosition(const Coord3D *pos, float goalRange);
+	void setGoalPosition(const Coord3D *pos);
 	void internalSetGoalPosition(const Coord3D *pos, float goalRange);
 	void setGoalObject(Object *obj);
 	void halt();
@@ -163,12 +164,6 @@ public:
 	Bool rva0026220D() const;
 	void lock(const char *msg);
 	void rva004D7395();
-};
-
-class TurretStateMachine : public StateMachine
-{
-public:
-	void setGoalPosition(const Coord3D *pos);
 };
 
 // ?internalSetGoalPosition@StateMachine@@QAEXPBUCoord3D@@M@Z
@@ -201,8 +196,9 @@ void StateMachine::setGoalObject(Object *obj)
 	}
 }
 
-// ?setGoalPosition@TurretStateMachine@@QAEXPBUCoord3D@@@Z
-void TurretStateMachine::setGoalPosition(const Coord3D *pos)
+// ?setGoalPosition@StateMachine@@QAEXPBUCoord3D@@@Z (the unlimited-range
+// overload; 10 matched callers pin this name)
+void StateMachine::setGoalPosition(const Coord3D *pos)
 {
 	StateMachine::setGoalPosition(pos, FLT_MAX);
 }

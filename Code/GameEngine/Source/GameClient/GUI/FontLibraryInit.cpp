@@ -34,7 +34,7 @@ class INI
 public:
 	INI();
 	~INI();
-	void loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer);
+	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer);	// 0x0002DC75 returns 1
 	const char *getNextToken(const char *seps);
 	int scanIndexList(const char *token, const char * const *names);
 	AsciiString getFilename() const;

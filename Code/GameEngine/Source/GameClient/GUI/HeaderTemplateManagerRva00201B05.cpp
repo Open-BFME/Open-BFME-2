@@ -38,7 +38,7 @@ class INI
 public:
 	INI();
 	~INI();
-	void loadFile(AsciiString filename, INILoadType type, Xfer *xfer);
+	unsigned char loadFile(AsciiString filename, INILoadType type, Xfer *xfer);	// 0x0002DC75 returns 1
 private:
 	char m_pad[0x87C];
 };

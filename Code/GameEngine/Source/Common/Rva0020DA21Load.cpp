@@ -25,7 +25,7 @@ enum INILoadType
 class INI
 {
 public:
-	void loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer);
+	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer);	// 0x0002DC75 returns 1
 	char m_pad00[8];
 	INILoadType m_08;
 };
