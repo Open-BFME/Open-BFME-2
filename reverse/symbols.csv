@@ -13170,3 +13170,7 @@ _Rva00438083,0x00438083,Address-derived bool prompt helper directly called by 0x
 ?Rva005B7DC3Alloc@@YAPAXH@Z,0x0002FDA0,wrapper-call spelling for the 0x5B7DC3 raw alloc (cdecl 1 arg; true callee is operator new); target REL32 from retail call at 0x005B7DCC
 ?Xform@Rva005B7DC3Block@@QAEPAU1@XZ,0x005B72BE,wrapper-call spelling for the 0x5B7DC3 block transform (thiscall 0 args pointer result); target REL32 from retail call at 0x005B7DD8
 ?Consume@Rva005B7DC3Sub@@QAEXPAPAX@Z,0x0005548F,wrapper-call spelling for the 0x5B7DC3 sub-object consumer (thiscall 1 arg); target REL32 from retail call at 0x005B7DF1
+?Rva005B6967F@@YAXPADHPAH@Z,0x003252EA,wrapper-call spelling for the 0x5B6967 buffer filler (cdecl 3 args); target REL32 from retail calls at 0x005B69AB and 0x005B69E7
+?Helper@Rva005B6967Box@@QAEXXZ,0x005B6755,wrapper-call spelling for the 0x5B6967 path helper (thiscall 0 args); target REL32 from retail call at 0x005B69B8
+?Rva005B6967G@@YAXPAD@Z,0x00325199,wrapper-call spelling for the 0x5B6967 single callee (cdecl 1 arg); target REL32 from retail call at 0x005B69ED
+?Tail@Rva005B6967Box@@QAEXXZ,0x005B5F2E,wrapper-call spelling for the 0x5B6967 path tail (thiscall 0 args); target REL32 from retail call at 0x005B69FA
