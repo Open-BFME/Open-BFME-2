@@ -64457,3 +64457,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva002C5398@@UAE@XZ,,0x002C5398,112,Code/GameEngine/Source/Common/Rva002C5398Dtor.cpp,matched,two qualified self calls then delete and clear theBfmeDfdc14 then list base and GameEngineDeletingBase dtor
 ??1Rva0059EA42@@UAE@XZ,,0x0059EA42,97,Code/GameEngine/Source/Common/Rva0059EA42Dtor.cpp,matched,delete owned set record then inline CRT buffer member then AsciiString vector member
 ??1Rva0022E0E5@@UAE@XZ,,0x001B4D16,77,Code/GameEngine/Source/Common/Rva0022E0E5Dtor.cpp,matched,body list clear then member list base teardown then GameEngineDeletingBase dtor
+??1Rva005F00FB@@UAE@XZ,,0x005F00FB,87,Code/GameEngine/Source/Common/Rva005F00FBDtor.cpp,matched,two AsciiString arrays via vector dtor iterator then rowed base Rva0022167C dtor
