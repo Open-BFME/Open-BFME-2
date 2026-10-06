@@ -26,10 +26,9 @@ class UpdateModule;
 class GameLogic
 {
 public:
-	UnsignedInt getFrame() { return m_frame; }
+	UnsignedInt getFrame();
 	void friend_awakenUpdateModule(Object *obj, UpdateModule *u, UnsignedInt when);
 
-private:
 	unsigned char m_pad[0x40];
 	UnsignedInt m_frame; // +0x40 (Poisoned precedent)
 };
@@ -108,7 +107,7 @@ public:
 // ?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z @0x0044DF71
 void UpdateModule::setWakeFrame(Object *obj, UpdateSleepTime wakeDelay)
 {
-	UnsignedInt now = TheGameLogic->getFrame();
+	UnsignedInt now = TheGameLogic->m_frame;
 	TheGameLogic->friend_awakenUpdateModule(obj, this, now + (UnsignedInt)wakeDelay);
 }
 
@@ -117,7 +116,7 @@ void UpdateModule::setWakeFrame(Object *obj, UpdateSleepTime wakeDelay)
 // +0x14 word, so BFME2 dropped the phase shift here.
 UpdateSleepTime UpdateModule::getWakeFrame() const
 {
-	UnsignedInt now = TheGameLogic->getFrame();
+	UnsignedInt now = TheGameLogic->m_frame;
 	UnsignedInt nextCallFrame = m_nextCallFrameAndPhase;
 	if (nextCallFrame > now)
 		return UPDATE_SLEEP(nextCallFrame - now);
