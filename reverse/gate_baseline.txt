@@ -235,14 +235,5 @@ tail 0x00685200 _CommUDPConnect
 tail 0x00685820 _Rva00819920
 tail 0x00686D20 _Rva0081AE20
 tail 0x00686F10 _Rva0081B010
-truncated 0x0018B790 ?read_chunks@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
 truncated 0x001A5900 ?Update_Sub_Object_Transforms@Animatable3DObjClass@@MAEXXZ
-truncated 0x0067F000 _Rva00813100@24
-truncated 0x006B9190 ?AddSubInternalFPF@@YAXEPAUInternalFPF@@00@Z
 truncated 0x006C9300 ?FormatURLFromRegistry@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@000@Z
-truncated 0x006DA630 ?objectMemberLookup@AptArray@@UBEPAVAptValue@@QAV2@QBVEAStringC@@@Z
-truncated 0x006DD460 ?rva006DD460@BfmeAptValue006DCD20@@QAEMXZ
-truncated 0x006DD6C0 ?toString@AptValue@@QBEXAAVEAStringC@@@Z
-truncated 0x006E2560 ?rva006E2560@AptCIH@@QAEXH@Z
-truncated 0x0070F040 ?DoTemporaryFrameControls@AptMovie@@QAEXPAVAptPseudoDisplayList@@H@Z
-truncated 0x0070F370 ?doFrameControls@AptMovie@@QAEXPAVAptDisplayList@@PAVAptCIH@@H@Z
