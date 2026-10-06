@@ -11,6 +11,16 @@
 // defines the dozer states) for the object and enter its default state
 // (machine vslot 7, initDefaultState).
 //
+// ??0DozerPrimaryStateMachine@@QAE@PAVObject@@@Z, retail 0x00488DAB, 309
+// bytes. As in ZH: the StateMachine base (rowed 0x004D79E1; name key
+// 0x3EA7DE5F, flag false; vtable 0x0084B668) and the five dozer states in
+// ZH's order: idle (rowed ctor 0x004886C7) with the idle conditions table
+// (retail .rdata 0x0084B808: three tests, states 1-3, then a terminator;
+// the tests 0x0048899D/0x004889E8/0x00488A34 are ZH's is*MostImportant),
+// the build, repair and fortify action states (rowed ctor 0x00488883 with
+// tasks 0-2) and going home (rowed ctor 0x0048896B), every success and
+// failure id idle except the idle state's INVALID_STATE_ID.
+//
 // ??0DozerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004894F5,
 // 239 bytes. Target evidence: the body runs the pinned AIUpdateInterface
 // ctor 0x0026E9BD and the implicit ctor of the all-_purecall interface at
@@ -46,6 +56,17 @@ enum StateReturnType
 	STATE_FAILURE
 };
 
+typedef UnsignedInt StateID;
+enum { INVALID_STATE_ID = 999999 };
+
+class State;
+struct StateConditionInfo
+{
+	Bool (*test)(State *thisState, void *userData);
+	StateID toStateID;
+	void *userData;
+};
+
 class StateMachine
 {
 public:
@@ -53,14 +74,82 @@ public:
 	virtual void slot01(); virtual void slot02(); virtual void slot03();
 	virtual void slot04(); virtual void slot05(); virtual void slot06();
 	virtual StateReturnType initDefaultState();
+	void defineState(StateID id, struct State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = 0);
+protected:
+	unsigned char m_pad04[0x3C - 0x04]; // operator new size 0x3C
 };
 
-class DozerPrimaryStateMachine : public StateMachine
+// BFME 2's StateMachine constructor (owner, name key, flag), rowed by
+// address as ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z. Every
+// caller passes the name as one dword, and only a scalar parameter gives
+// retail's push of the immediate key, so this view takes the key as one.
+class Rva004D759C : public StateMachine
+{
+public:
+	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
+	virtual ~Rva004D759C();
+};
+
+struct State
+{
+public:
+	virtual ~State();
+protected:
+	unsigned char m_pad04[0x20 - 0x04];
+};
+
+// ZH's DozerPrimaryIdleState (rowed ctor 0x004886C7).
+class Rva004886C7 : public State
+{
+public:
+	Rva004886C7(StateMachine *machine);
+private:
+	unsigned char m_pad20[0x2C - 0x20];
+};
+
+// ZH's DozerActionState (machine, task) (rowed ctor 0x00488883).
+class Rva00488D5C : public State
+{
+public:
+	Rva00488D5C(StateMachine *machine, Int task);
+private:
+	unsigned char m_pad20[0x28 - 0x20];
+};
+
+// ZH's DozerPrimaryGoingHomeState (rowed ctor 0x0048896B).
+class Rva0048896B : public State
+{
+public:
+	Rva0048896B(StateMachine *machine);
+};
+
+enum DozerTask
+{
+	DOZER_TASK_INVALID = -1,
+	DOZER_TASK_FIRST = 0,
+	DOZER_TASK_BUILD = DOZER_TASK_FIRST,
+	DOZER_TASK_REPAIR,
+	DOZER_TASK_FORTIFY
+};
+
+enum
+{
+	DOZER_PRIMARY_IDLE = 0,
+	DOZER_PRIMARY_BUILD,
+	DOZER_PRIMARY_REPAIR,
+	DOZER_PRIMARY_FORTIFY,
+	DOZER_PRIMARY_GO_HOME
+};
+
+class DozerPrimaryStateMachine : public Rva004D759C
 {
 public:
 	DozerPrimaryStateMachine(Object *owner);
-private:
-	unsigned char m_pad04[0x3C - 0x04];
+	virtual ~DozerPrimaryStateMachine();
+
+	static Bool isBuildMostImportant(State *thisState, void *userData);
+	static Bool isRepairMostImportant(State *thisState, void *userData);
+	static Bool isFortifyMostImportant(State *thisState, void *userData);
 };
 
 class ObjectModule
@@ -152,7 +241,6 @@ public:
 private:
 	enum { DOZER_NUM_TASKS = 3 };
 	enum { DOZER_NUM_DOCK_POINTS = 3 };
-	enum { DOZER_TASK_INVALID = -1 };
 	enum { DOZER_SELECT_BUILD_DOCK_LOCATION = 0 };
 
 	struct DozerTaskInfo
@@ -197,6 +285,24 @@ DozerAIUpdate::DozerAIUpdate(Thing *thing, const ModuleData *moduleData)
 	m_408 = 1;
 
 	createMachines();
+}
+
+DozerPrimaryStateMachine::DozerPrimaryStateMachine(Object *owner) : Rva004D759C(owner, 0x3EA7DE5F, false)
+{
+	static const StateConditionInfo idleConditions[] =
+	{
+		{ isBuildMostImportant, DOZER_PRIMARY_BUILD, 0 },
+		{ isRepairMostImportant, DOZER_PRIMARY_REPAIR, 0 },
+		{ isFortifyMostImportant, DOZER_PRIMARY_FORTIFY, 0 },
+		{ 0, 0, 0 } // keep last
+	};
+
+	// order matters: first state is the default state.
+	defineState(DOZER_PRIMARY_IDLE, new Rva004886C7(this), INVALID_STATE_ID, INVALID_STATE_ID, idleConditions);
+	defineState(DOZER_PRIMARY_BUILD, new Rva00488D5C(this, DOZER_TASK_BUILD), DOZER_PRIMARY_IDLE, DOZER_PRIMARY_IDLE);
+	defineState(DOZER_PRIMARY_REPAIR, new Rva00488D5C(this, DOZER_TASK_REPAIR), DOZER_PRIMARY_IDLE, DOZER_PRIMARY_IDLE);
+	defineState(DOZER_PRIMARY_FORTIFY, new Rva00488D5C(this, DOZER_TASK_FORTIFY), DOZER_PRIMARY_IDLE, DOZER_PRIMARY_IDLE);
+	defineState(DOZER_PRIMARY_GO_HOME, new Rva0048896B(this), DOZER_PRIMARY_IDLE, DOZER_PRIMARY_IDLE);
 }
 
 void DozerAIUpdate::createMachines()
