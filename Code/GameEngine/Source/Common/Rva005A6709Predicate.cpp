@@ -18,3 +18,12 @@ Int Rva005A6709::rva005A6709() const
 {
 	return (m_0C != 8) && (m_0C == m_14);
 }
+
+extern unsigned long g_00E063FC;
+int Rva005A671DNext()
+{
+	if (!g_00E063FC)
+		++g_00E063FC;
+	return g_00E063FC++;
+}
+
