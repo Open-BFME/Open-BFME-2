@@ -8,6 +8,7 @@ enum Relationship
 };
 
 class Object;
+class Player;
 class Rva00390533
 {
 public:
@@ -26,20 +27,39 @@ class Object
 {
 public:
 	Relationship getRelationship(const Object *that) const;
+	Player *getControllingPlayer() const;
 
 public:
 	void *m_vtbl;
 	FlagBlock *m_block4;
-	char m_pad08[0x25C - 8];
+	char m_pad08[0x125 - 8];
+	unsigned char m_125;
+	char m_pad126[0x25C - 0x126];
 	Rva00390533 *m_p25C;
 	char m_pad260[0x438 - 0x260];
 	unsigned char m_flags438;
 };
 
+class Player
+{
+public:
+	char m_pad[0x54];
+	int m_54;
+};
+
+class PlayerList
+{
+public:
+	int getPlayersWithRelationship(int a, unsigned int b, bool c);
+};
+
+extern PlayerList *ThePlayerList;
+
 class Rva002FE13D
 {
 public:
 	unsigned char rva002FE13D(Object *obj);
+	int rva002FE108();
 	Object *m_pad0;
 	Object *m_pad4;
 	Object *m_target;
@@ -63,5 +83,19 @@ unsigned char Rva002FE13D::rva002FE13D(Object *obj)
 		if ((blk->m_115 & 0x20) != 0)
 			return 0;
 		return m_target->getRelationship(obj) == ENEMIES;
+	}
+}
+
+// ?rva002FE108@Rva002FE13D@@QAEHXZ @0x002FE108 53B evidence: VTABLE slot 2 table 0x008071B4 neighbour Rva002FE13D; this+8 Object for rowed getControllingPlayer 0x0028AFA9; flag 0x125 bit 0x40; Player+0x54 via ThePlayerList rowed getPlayersWithRelationship 0x002A7C70 args 0 4
+int Rva002FE13D::rva002FE108()
+{
+	Player *player = m_target->getControllingPlayer();
+	if (player == 0)
+		return -1;
+	if ((m_target->m_125 & 0x40) == 0) {
+		int f54 = player->m_54;
+		return ThePlayerList->getPlayersWithRelationship(f54, 4, false);
+	} else {
+		return -1;
 	}
 }

@@ -65129,3 +65129,4 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva002FE13D@Rva002FE13D@@QAEEPAVObject@@@Z,,0x002FE13D,86,Code/GameEngine/Source/Common/Rva002FE13DHandler.cpp,matched,REF slot 0x008071B8 flags 0x438 bits 1 8 pinned 0x390533 0x28D156
 ?Rva0038B8B7Enum@@YAXPAXHW4RoomType@@HPBDH0@Z,,0x0038B8B7,104,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,REF callback for peerEnumPlayers in joinRoomCallback nick success peerGetProfileIDA flag 0x20 GameSpyInfo
 ?Rva0038B91FList@@YAXPAXHHPAU_SBServer@@PBDHHHH0@Z,,0x0038B91F,217,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,REF callback for peerListGroupRooms group-room enum SBServerGet roomType queue slot 0x20
+?rva002FE108@Rva002FE13D@@QAEHXZ,,0x002FE108,53,Code/GameEngine/Source/Common/Rva002FE13DHandler.cpp,matched,VTABLE slot 2 table 0x008071B4 neighbour Rva002FE13D controlling player 125 flag PlayerList
