@@ -76,3 +76,17 @@ RvaF6Ret Rva005CE3DE::method()
 {
 	return Helper0056BB8C(m_00);
 }
+
+class Rva005773A6
+{
+public:
+	RvaF6Ret method();
+private:
+	char m_pad[8];
+	Rva005773C0 m_08; // +0x8
+};
+
+RvaF6Ret Rva005773A6::method()
+{
+	return m_08.method();
+}
