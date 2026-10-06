@@ -72,7 +72,8 @@ public:
 	virtual void rva0046132F();
 private:
 	void rva00461257();
-	unsigned char m_pad24[0x3D - 0x24];
+	unsigned char m_pad24[0x3C - 0x24];
+	bool m_3C;
 	bool m_3D; // +0x3D
 };
 
@@ -88,4 +89,22 @@ void DynamicPortalBehaviour::rva0046132F()
 {
 	m_3D = false;
 	rva00461257();
+}
+
+// Target 0x00461257 is the private member tail-called by both rowed virtual
+// slots above and by loadPostProcess at 0x00461274. The Ghidra 29B body checks
+// member bytes +0x3D and +0x3C plus the module-data byte +0x13C, then tail-jumps
+// to the address-derived 0x00460F90 callee. The behavior identity comes from
+// its vtable callers; the helper's identity and semantics remain unknown.
+class Rva00460F90
+{
+public:
+	void rva00460F90();
+};
+
+void DynamicPortalBehaviour::rva00461257()
+{
+	const unsigned char *moduleData = (const unsigned char *)m_moduleData;
+	if (!m_3D && (moduleData[0x13C] != 0 || m_3C))
+		reinterpret_cast<Rva00460F90 *>(this)->rva00460F90();
 }
