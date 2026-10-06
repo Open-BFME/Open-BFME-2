@@ -13294,3 +13294,6 @@ _D3DXMatrixTranspose@8,0x0062AF44,PE FF25 thunk at62AF44 references IAT BBA9C4 d
 ?rva005EF3F6@Rva005EF3F6@@QAEXXZ,0x005EF3F6,pin for 0x005E1B9A tail; address-derived
 ?rva005E31AA@Rva005E31AA@@QAEXH@Z,0x005E31AA,pin for 0x005E31EE cleanup; address-derived
 ?rva005DDBAB@Rva005DDBAB@@QAEXHH@Z,0x005DDBAB,this+2 ints void callee for 0x005DE059 loop; address-derived pin
+?rva0056A989@Rva0056A989@@QAEHXZ,0x0056A989,this-only int getter for 0x005D1CAF twin; address-derived pin
+?rva00318F42@Rva00318F42@@QAEHXZ,0x00318F42,this-only int getter for 0x005D20C1 twin; address-derived pin
+?rva005CCB7B@Rva005CCB7B@@QAEXH@Z,0x005CCB7B,void-int last call for hybrid-bool twins; address-derived pin
