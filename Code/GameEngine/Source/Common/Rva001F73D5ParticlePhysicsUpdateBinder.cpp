@@ -32,6 +32,13 @@
 //
 // As in the Draw binder, retail's EH state ranges show that the getter and
 // the handle destructor 0x0044CBC0 cannot throw; both are declared throw().
+//
+// ??1Rva001F4B01@@UAE@XZ @0x001F4B01 70B: destructor of the "Particle" binder
+// that owns the three sub-binders (vtable 0x00BE171C = { ??_G 0x001F4B47
+// (rowed), select 0x001F4A90 (rowed as Rva001F4A90Host) }). Like the
+// WaterDraw dtor 0x0007EC44 it erases its registration (0x001532E1,
+// "Particle") and leaves all four vptrs at the base vtable 0x00BC6F24; the
+// sub-binders declare no dtor.
 
 typedef const char *D3DXHANDLE;
 typedef int BOOL;
@@ -291,6 +298,7 @@ void Rva001F8009ZRotationDamping(ID3DXEffect *effect, D3DXHANDLE handle)
 	effect->SetVector(handle, &value);
 }
 
+void __cdecl Rva001532E1Erase(const char *name);
 void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
 
@@ -361,6 +369,32 @@ struct Rva001F4A90Host_Update : public FXShaderParameterSourceNamespace_Struct
 {
 	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
+
+// "Draw" sub-binder, vtable 0x00BE16E8 (dispatcher 0x001F69B1, rowed in
+// Rva001F69B1ParticleDrawBinder.cpp).
+struct Rva001F4A90Host_Draw : public FXShaderParameterSourceNamespace_Struct
+{
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
+};
+
+// The "Particle" binder, vtable 0x00BE171C = { ??_G 0x001F4B47, select
+// 0x001F4A90 }, holding the three sub-binders at +4/+8/+0xC.
+class Rva001F4B01 : public Base
+{
+public:
+	virtual ~Rva001F4B01();
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
+
+private:
+	Rva001F4A90Host_Draw m_04;
+	Rva001F4A90Host_Physics m_08;
+	Rva001F4A90Host_Update m_0C;
+};
+
+Rva001F4B01::~Rva001F4B01()
+{
+	Rva001532E1Erase("Particle");
+}
 
 void Rva001F4A90Host_Physics::ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry)
 {
