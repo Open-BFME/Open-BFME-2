@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00203E11Xfer@@YAXPAVRva00203E11A@@PAVRva00203E11B@@@Z at retail
 // 0x00203E11 (27B). Free __cdecl helper: xfers the ObjectID at b+4 through

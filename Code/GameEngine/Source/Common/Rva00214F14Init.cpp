@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva00214F14@Rva009519B@@QAEXXZ retail 0x00214F14 426 bytes.
 // Virtual slot 14 (offset 0x38) of vtable 0x007C81A8, class of
 // ??1Rva009519B@@UAE@XZ. Initializes the five AsciiStrings at +0x0C +0x10

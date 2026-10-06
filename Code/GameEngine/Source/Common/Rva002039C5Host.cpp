@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002039C5@Rva002039C5Host@@QAEXXZ at retail 0x002039C5 (15B).
 // Copies TheGameLogic->m_frame (+0x40) into this+0x1A160, the sibling of

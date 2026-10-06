@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00210EE1@Rva00210EE1@@QAEXXZ @0x00210EE1 16B
 // Thunk that tail-calls LivingWorldEyeTower::rva003F9B5A (rowed 0x003F9B5A)
 // on the member at +0x2c4 when non-null. Evidence: callers 0x005655D4,

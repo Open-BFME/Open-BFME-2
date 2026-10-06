@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 // ??1Rva001E2906@@UAE@XZ retail 0x001E2906 76B
 // Two-base dtor: own vptrs BDD978 at +0 and BDD974 at +0x28; under EH state 1

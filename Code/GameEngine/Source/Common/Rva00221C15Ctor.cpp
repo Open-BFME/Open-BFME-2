@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 // ??0Rva00221C15@@QAE@ABVAsciiString@@ABVRva00221A58@@PAVINI@@@Z @0x00221C15 71B
 // Outer ctor forwarding same 3 args to member Rva00221B42 at +8. Explicit
 // vtable slot: base g_00BC6F20 via volatile (kept early) then derived

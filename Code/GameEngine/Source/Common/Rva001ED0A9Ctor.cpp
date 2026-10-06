@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva001ED0A9@@QAE@ABVAsciiString@@@Z @0x001ED0A9 53B.
 // Ctor: AsciiString at +0 via pinned 0x000365F0, ints at +4/+8 zeroed, two vector<BfmeE16> bases via rowed 0x00211E58.

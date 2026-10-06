@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00203693@Rva00203693Host@@QAEHXZ at retail 0x00203693 (22B).
 // Returns 2 when TheGameLogic->rva001DCD1C() is true, else 1.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001E4A4E@Rva001E4A4E@@QAEHH@Z @0x001E4A4E 21B
 // __thiscall int(int bit): return Rva001E4426Test(bits at this+0x1c8, bit).

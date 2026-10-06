@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001FF6AE@Rva001FF6D7@@QAEXXZ @0x001FF6AE 41B
 // Chain lane: clears the container by tearing down the node list at

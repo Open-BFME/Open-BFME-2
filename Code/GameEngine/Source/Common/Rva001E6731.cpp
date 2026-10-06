@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001E6731@Rva001E6731@@QAEXXZ @0x001E6731 41B chain via rowed rva001E4954
 // __thiscall clear: if m_04==0 return else destroy m_00->m_04 via rowed 0x001E4954 then reset m_00 links and m_04.
 // Evidence: calls rowed 0x001E4954 with [eax+4]; and [m],0 idiom; callers 0x001E6773 0x001E6F3C 0x001E7305; unblocks 0x001E675A 0x001E72B4.

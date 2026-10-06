@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva001ED3A2@Rva001ED3A2@@QAEXXZ @0x001ED3A2 30B.
 // Manual destroy-plus-free of Rva001ED0DE range at +0..+4 via rowed 0x001ED34A plus rowed free 0x00030830.

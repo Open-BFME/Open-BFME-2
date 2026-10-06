@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 // ??0Rva00221B42@@QAE@ABVAsciiString@@ABVRva00221A58@@PAVINI@@@Z @0x00221B42 75B
 // Ctor: Rva00221A58 at +0 via rowed copy 0x00221A58 plus AsciiString at +0x1C
 // via StringBase copy 0x000365F0 plus INI::initFromINI 0x0002DE78 with table

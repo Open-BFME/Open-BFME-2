@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?get@Rva001F53AASlot@@QBEPBURGBColor@@XZ @0x001F53AA 18B.
 // Null-checked RGBColor holder at +0x1AC via virtual slot +0x14 with tail jmp.
 // Shape matches 0x001F4E1B and 0x001F512F siblings. Callers at 0x001F6F7D and 0x001F70E0.

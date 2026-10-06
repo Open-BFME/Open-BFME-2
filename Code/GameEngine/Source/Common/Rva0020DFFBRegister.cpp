@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // stlport
 //
 // ?Rva0020DFFBRegister@@YAXPBVModuleData@@@Z, retail 0x0020DFFB, 44 bytes.

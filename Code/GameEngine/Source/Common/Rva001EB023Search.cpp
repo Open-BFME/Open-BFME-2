@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001EB023@Rva001EB023@@QAEPAURva001EB023Elem@@AAVRva00376A62@@@Z at 0x001EB023 (54B). Struct-array search.
 // Evidence: array at this+0xA4/+0xA8 stride 0xAC with StringBase at +4 into contains 0x376A62;
 // returns found element else end; chain lane via 0x376A62; same loop as 0xFCA5A with structs.

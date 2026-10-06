@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00203E2CXfer@@YAXPAVRva00203E2CA@@PAVRva00203E2CB@@@Z at retail
 // 0x00203E2C (27B). Sibling of Rva00203E11Xfer (0x00203E11): free __cdecl

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001EDD1C@Rva001EDD1C@@QAEXXZ @0x001EDD1C 100B.
 // Triple flag-gated value clamp at +0x4F24..+0x4F7C via push-pop immediates.
 // Evidence: no callees; caller 0x001EE0B0 in 0x001EE069; same push-pop shape as /O1 idiom.

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00210D68@Rva00210D68@@QAEXXZ, retail 0x00210D68, 78B.
 // Evidence: __thiscall (reads ecx first into esi); clears +0x268 via rowed

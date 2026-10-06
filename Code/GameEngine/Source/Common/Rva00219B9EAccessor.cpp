@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva00219B9E@Rva00219B9E@@QAEPAXI@Z @0x00219B9E 44B
 // Bounds-checked accessor for the 216-byte (0xD8) element vector at +0x14/+0x18.

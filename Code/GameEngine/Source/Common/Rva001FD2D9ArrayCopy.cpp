@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD
+// cl: /MD
 // ?rva001FD2D9@Rva001FD2D9@@QAEPAUCoord3D@@PAU2@H@Z @0x001FD2D9 66B.
 // Bounds-checked copy of Coord3D from array at +0x70 (10 entries stride 12)
 // to dest; zeroes dest via SSE when index out of range 0-9; returns dest.

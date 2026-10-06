@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001E3459@Rva001E3459@@QAEXH_N@Z, retail 0x001E3459, 31 bytes.
 // Flag bit set/clear at +0x44: mask=1<<bit; if on m|=mask else m&=~mask.

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00216762@Rva00216762@@QAEPAXABU?$pair@$$CBVAsciiString@@VGen_003A8BE0@@@_STL@@@Z, retail 0x00216762, 37 bytes.
 // Evidence: allocate 0x14 via row 0x000307F0 plus _Construct row 0x002165EB at +4 with and [esi],0 head;
 // caller 0x00216D87 passes this in ecx plus pair ref; twin of Rva0046AC30 _M_create_node style.

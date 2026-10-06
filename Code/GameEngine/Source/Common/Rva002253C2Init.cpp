@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva002253C2Init@@YAXXZ @ 0x002253C2 158B
 // Heap setup: lowercases the command line, enables zerofill iff
 // "-zerofillmemory" is present without "--zerofillmemory", clears then

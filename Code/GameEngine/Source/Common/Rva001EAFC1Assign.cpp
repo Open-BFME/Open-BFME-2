@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ??4Rva001EAFC1@@QAEAAV0@ABV0@@Z @0x001EAFC1 61B: honest sub-record assign
 // 3 dwords at +0x00/+0x04/+0x08 then UnicodeString at +0x0C via pinned set
 // 0x00037150 then AsciiString at +0x10 via pinned 0x000366F0 then byte at

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?Rva00222C93Append@@YAAAVAsciiString@@AAV1@PBD@Z @0x00222C93 56B
 // Free concat helper wrapping arg as CharSource then StringBase concat.
 // Evidence: EH_prolog plus concat 0x00036A30 plus g_00BE6D5C vtable store plus caller 0x002250F9; same 56B shape as 0x0059B0DD and 0x00317C68.

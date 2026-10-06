@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 #include "ascii_string.h"
 // ?rva00219757@Rva00219757@@QAEXPAVObject@@@Z, retail 0x00219757, 79 bytes.
 // Leaf: grants upgrade from this+0x190 AsciiString via UpgradeCenter to

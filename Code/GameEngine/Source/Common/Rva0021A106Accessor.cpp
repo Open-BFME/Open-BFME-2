@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD
+// cl: /MD
 // ?rva0021A106@Rva00219B9E@@QAEPAXI@Z @0x0021A106 46B
 // Bounds-checked accessor for the 20-byte element vector at +0x168/+0x16C.
 // Count via signed idiv by 0x14, element via imul 0x14; null on miss.

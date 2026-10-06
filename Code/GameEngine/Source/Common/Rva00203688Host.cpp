@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00203688@Rva00203688Host@@QAE_NXZ at retail 0x00203688 (11B).
 // Opaque-host tail-jump wrapper: return TheGameLogic->rva001DCD1C().

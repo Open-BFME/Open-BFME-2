@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva0021F876@@QAE@XZ @0x0021F8F3 104B. Dtor of the five-AsciiString plus
 // vector<BfmePod216> record proven by the copy ctor at 0x0021F876 in

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001E434A@Rva001E434A@@QAEPAXXZ @0x001E434A 19B: select member pointer by flag at +0x1a6.
 // Evidence: 3 callers at 0x001E62E6 0x001E8460 0x00274C4B; offsets +0x38 +0x198 +0x1a6.
 class Rva001E434A

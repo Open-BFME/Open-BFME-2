@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva0022CC67@@QAE@XZ @0x0022CF13 57B dtor over Rva0022CC67 clear loop
 // Hash-table dtor sharing the rowed ?rva0022CC67@Rva0022CC67@@QAEXXZ clear
 // at 0x0022CC67 then freeing the bucket array at +4 via free 0x00030830 with

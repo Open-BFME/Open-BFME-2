@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??4Rva001F41AF@@QAEAAV0@ABV0@@Z @0x001F41AF 30B.
 // Assignment clones holder at +0 via second virtual slot returning void* with null else zero then returns self.
 // Callers at 0x001F9C89 and 0x001FA647 pass own this plus stack arg and ignore return proving thiscall ret4.

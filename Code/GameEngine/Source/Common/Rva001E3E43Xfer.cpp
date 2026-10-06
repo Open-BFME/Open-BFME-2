@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?xfer@Rva001E3E43@@MAEXPAVXfer@@@Z, retail 0x001E525A 382B. Slot 3 (offset 0xC)
 // of vtable 0x007DE888 (class of ??1Rva001E3E43 rowed at 0x001E3E43).

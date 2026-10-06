@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?set@Rva001F38C1Slot@@QAEXABURva001F38C1Arg@@@Z @0x001F38C1 109B.
 // Copies arg+0x00..+0x2C (12 dwords) to +0xBC..+0xE8 and clears byte at
 // +0x1A0. Same family as Rva001F3899Slot::set on this page (bulk copy plus

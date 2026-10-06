@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva001E38B9@Rva001E38B9@@QAEXXZ, retail 0x001E38B9, 64 bytes.
 // Lazy init [0x30] from [0x2c], clamp negative [0x4c] from [0x48],

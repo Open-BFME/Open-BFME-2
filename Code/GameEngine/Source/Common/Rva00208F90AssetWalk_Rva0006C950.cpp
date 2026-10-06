@@ -1,4 +1,4 @@
-// cl: -G6 -D_STLP_USE_STATIC_LIB /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // class-gate: allow AsciiString TU-local 4-byte view; retail 0x0006C950 is the
 // compiler-synthesised copy-assign over this struct's members and touches no
 // string, so the donor's own view is kept verbatim to hold the layout.

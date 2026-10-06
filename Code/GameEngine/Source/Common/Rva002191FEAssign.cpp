@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ??4Rva002191FE@@QAEAAV0@ABV0@@Z @0x002191FE 59B
 // Honest-address copy-assignment for int plus three AsciiStrings.
 // Retail: self-check (cmp esi,edi je skip), dword copy at +0, three

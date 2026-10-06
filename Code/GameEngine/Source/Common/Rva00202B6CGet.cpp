@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD
 //
 // ?rva00202B6C@Rva00202B6C@@QAEHVAsciiString@@@Z, retail
 // 0x00202B6C, 70 bytes. Unlock lane: landing it readies 0x00202BB2 and

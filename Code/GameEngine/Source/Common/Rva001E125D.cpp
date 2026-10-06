@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /DNDEBUG /MD /EHsc
 #include "ascii_string.h"
 // ??1Rva001E125D@@UAE@XZ retail 0x001E125D 62B
 // Evidence: unlock lane stores vtable at this then destroys member at +0x148 via releaseBuffer then base ??1Rva001DFA48Owner. Caller 0x001E1241 28B.

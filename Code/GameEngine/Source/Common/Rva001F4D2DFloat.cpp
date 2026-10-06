@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva001F4D2D@Rva001F4D2D@@QAEMXZ @ 0x001F4D2D (34B):
 // If sub at +0x9C is null return 0.0f else return its virtual slot 4.
 // Evidence: mov ecx [ecx+0x9C] test je xorps movss fld; mov eax [ecx]

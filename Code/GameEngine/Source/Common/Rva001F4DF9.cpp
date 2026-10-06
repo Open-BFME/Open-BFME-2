@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva001F4DF9@Rva001F4DF9@@QAEMXZ @0x001F4DF9 34B.
 // Float getter reads holder at +0x98 via sixth virtual slot plus 0x14 with 0.0f else via xorps.
 // Sibling of 0x001F4DC4 plus 0x9c via slot 0x20 same flags and same 7-caller family.

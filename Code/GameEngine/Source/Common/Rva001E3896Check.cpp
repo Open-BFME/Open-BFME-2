@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD
+// cl: /MD
 //
 // ?Rva001E3896Check@@YAHM@Z @0x001E3896 (35B).
 // Returns fabs(arg) < threshold as int via fabs import plus float compare.

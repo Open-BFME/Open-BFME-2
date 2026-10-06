@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva001F58D4@Rva001F58D4@@QAEXXZ, retail 0x001F58D4, 79 bytes.
 // Reset/clear method: drains list at +0x4C via rowed rva001F4206 while +0x58

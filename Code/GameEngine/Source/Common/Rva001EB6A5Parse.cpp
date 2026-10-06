@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva001EB6A5@Rva001EB6A5@@QAE_NPAURva001EB6A5Out@@@Z, retail 0x001EB6A5, 89 bytes.
 // Finish from stash 0.93 (eax edx swap for add base idx): copies m_C0 to out+8,
 // add is (m_C3==0 and m_C0!=0) ? 1 : 0, idx is base m_0C plus add via rowed

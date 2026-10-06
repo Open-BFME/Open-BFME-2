@@ -2,7 +2,7 @@
 // partial score=0.97 date=2026-09-27
 // ?rva002120A4@Rva002120A4@@QAEHW4NameKeyType@@@Z
 // partial score=0.97 date=2026-09-27
-// cl: /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?rva002120A4@Rva002120A4@@QAEHW4NameKeyType@@@Z, retail 0x002120A4 30B.
 // NameKeyType map value lookup at this+0x218 via the public twin of Armor

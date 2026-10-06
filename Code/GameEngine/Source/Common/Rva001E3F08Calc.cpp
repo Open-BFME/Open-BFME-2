@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001E3F08@Rva001E3F08@@QAEMPAURva001E3F08Arg@@@Z, retail 0x001E3F08, 31 bytes.
 // Float product: [esp+4]->+0x258->+0x1f8 times [this+4]->+0x28 times

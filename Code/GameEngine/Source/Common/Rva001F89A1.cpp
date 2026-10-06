@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /EHsc
+// cl: /MD /EHsc
 // ?rva001F89A1@Rva001F89A1@@QAEXH@Z 0x001F89A1 34B
 // Evidence: chain via rowed 0x001F8254; null-checked virtual slot 3 at +0 with int arg then rowed Rva001F8254 on this+4. Caller at 0x001F8E3C. Honest Rva names.
 struct Rva001F8254 {

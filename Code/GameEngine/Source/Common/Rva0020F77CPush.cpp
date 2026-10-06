@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?rva0020F77C@Rva0020F77C@@QAEXPAVObjectCreationNugget@@@Z @0x0020F77C 25B.

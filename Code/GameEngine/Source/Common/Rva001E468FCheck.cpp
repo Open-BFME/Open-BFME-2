@@ -1,6 +1,6 @@
 // ?rva001E468F@Rva001E468F@@QAE_NPAVObject@@@Z
 // partial score=0.93 date=2026-10-01
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001E468F@Rva001E468F@@QAE_NPAVObject@@@Z @0x001E468F 82B unlock lane Object status/kind predicate.
 // Evidence: calls rowed Object::testStatus 0x0004E536 with 0x16 0x1E plus rowed Object::rva00293926 0x00293926 with 0x84; byte guards +0x108 via +4 and +0x249; caller 0x001E4742.
 enum ObjectStatusTypes {

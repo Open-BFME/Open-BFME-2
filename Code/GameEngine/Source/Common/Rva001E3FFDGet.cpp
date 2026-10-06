@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?Rva001E3FFDGet@@YAPAXPAURva001E3FFDOuter@@@Z @0x001E3FFD (24B).
 // Two-level ptr-chase getter: outer+0x258 then inner+0x140 else null.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001F37C4@Rva001F37C4@@QAEXPAVXfer@@@Z, retail 0x001F37C4, 100 bytes.
 // Xfer-shaped body: IsLightCRC early-out via Xfer slot 0x10, Version1 via

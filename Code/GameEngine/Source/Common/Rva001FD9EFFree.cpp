@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001FD9EF@Rva001FD9EF@@QAEXPAX@Z @0x001FD9EF 28B
 // Hash-node free: clears the AsciiString key at +0x04 via rowed StringBase clear
 // at 0x0048BA39 then frees the node via rowed _free at 0x00030830 with a null guard.

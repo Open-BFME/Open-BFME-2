@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ?rva00225F12@GameEngine@@QAEPAVMessageStream@@XZ @0x00225F12 50B vslot 30
 // factory returning new MessageStream via rowed operator new 0x0002FDA0 plus
 // rowed ctor 0x0030F697 with EH prolog. Evidence: vslot 30 of GameEngine and

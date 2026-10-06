@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001EB74B@Rva001EB74B@@QAE_NPAURva001EB6A5Out@@@Z, retail 0x001EB74B, 17 bytes.
 // Chain from 0x001EB6A5: null-check wrapper over rowed 0x001EB6A5, if ptr at +0x10
 // is null return false else tail-jmp to Rva001EB6A5::rva001EB6A5 forwarding out.

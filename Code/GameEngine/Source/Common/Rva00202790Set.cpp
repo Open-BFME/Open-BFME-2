@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00202790@Rva00202790@@QAEXH@Z @0x00202790 33B. Range-checked setter at
 // +0x1770 for values 0..1 with change detection then rowed audio refresh.

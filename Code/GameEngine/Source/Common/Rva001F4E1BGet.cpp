@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?get@Rva001F4E1BSlot@@QBEPBURGBColor@@XZ @0x001F4E1B 18B.
 // Null-checked RGBColor holder at +0x94 via virtual slot +0x14 with tail jmp.
 // Callers at 0x0055C60E copy 12B or zero and at 0x0004D1E7 use getAsInt.

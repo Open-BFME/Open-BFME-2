@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva00226146Less@@YG_NHH@Z @0x00226146 (16B): signed int less predicate.
 // Retail is frameless: mov ecx [esp+4]; xor eax eax; cmp ecx [esp+8];
 // setl al; ret 8. Two stack args popped by callee so __stdcall. setl proves

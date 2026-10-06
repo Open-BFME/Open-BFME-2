@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?get@Rva001F45DFSlot@@QBEHXZ @0x001F45DF 16B.
 // Reads pointer at +0x3c, falls back to pinned ?Make001FCBD7@@YAPAVParticleSystem@@XZ
 // when null, then returns dword at +0x7c through it. Caller at 0x001F4892.

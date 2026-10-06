@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00210EBF@Rva00210EBF@@QAEXXZ @0x00210EBF 16B null-checked tail-jmp forwarder.
 // Member Rva003F9DB0* at +0x2C4 forwards to rowed rva003F9DB0 0x003F9DB0.
 // Evidence: caller 0x00565554 loads global g_009FE1C8 as this; same shape as sibling 0x00210EE1; callee row Rva003F9DB0Erase.cpp.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG /arch:SSE2
+// cl: /MD /DNDEBUG
 // Reference: GameLOD.cpp / GameLODManagerConstructor.cpp at BFME 1 revision
 // 10af19f44a89ab7ecc23195bb9a842ceafbc02c9 guide the LOD default-initialization
 // purpose. Retail manager constructor 0x00201EAC (Ghidra extent 353B) passes

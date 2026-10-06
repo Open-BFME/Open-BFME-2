@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 
 // ?rva001F385A@Rva001F385A@@QAEXPAX@Z, RVA 0x001F385A, 63B.
 // Unlock lane: no callees (frameless SSE copy, memcpy inlined as movsd).

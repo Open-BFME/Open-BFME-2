@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001E43CF@Rva001E43CF@@QAEXPAX@Z @0x001E43CF 87B
 // __thiscall 12-dword copy from src to +0x68..+0x94; same matrix as 0x001E41FA

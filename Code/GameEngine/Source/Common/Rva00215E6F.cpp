@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00215E6F@Rva00215E6F@@QAEXPAI@Z, retail 0x00215E6F, 24 bytes.
 // Two-slot pointer holder: stores the parameter when its leading index is 0

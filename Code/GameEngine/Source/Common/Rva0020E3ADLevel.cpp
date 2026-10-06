@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0020E3AD@Rva0020E3AD@@QAEHH@Z, retail 0x0020E3AD, 41 bytes.
 // Three-threshold level via pointer at +0x08 with ints at +0x10/+0x14/+0x18
 // returning 0/1/2/3. Caller jmp at 0x002B2B61.

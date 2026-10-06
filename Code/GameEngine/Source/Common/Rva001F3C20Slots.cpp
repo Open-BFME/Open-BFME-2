@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?set@Rva001F3C20Slot@@QAEXPBVRva0055A88BDwordField@@@Z @0x001F3C20 35B,
 // ?set@Rva001F3C43Slot@@QAEXPBURva001F3C43Arg@@@Z @0x001F3C43 29B,
 // ?set@Rva001F3C60Slot@@QAEAAVAsciiString@@ABV2@@Z @0x001F3C60 11B.

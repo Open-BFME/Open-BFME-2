@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 // ??0Rva002217EA@@QAE@ABV0@@Z @0x002217EA 51B
 // Copy ctor: UnicodeString at +0 via StringBase wide copy 0x00037050 plus
 // Rva0036CA00Str at +4 via nothrow copy 0x000A8C7C plus ints at +8 +0xC +0x10.

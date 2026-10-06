@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /EHsc
+// cl: /MD /EHsc
 // ?rva001F5D4F@Rva001F5D4F@@QAEXH@Z @0x001F5D4F 34B.
 // Null-checked virtual slot 3 at +0 with int arg, then rowed Rva001F42BA::call on this+4.
 // Sibling of 0x001F5D38 (same shape without args); callers at 0x001F6502 and

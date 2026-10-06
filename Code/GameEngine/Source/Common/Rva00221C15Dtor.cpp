@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 // ??1Rva00221C15@@QAE@XZ @0x00221C78 54B
 // Dtor of Rva00221C15: second base Rva00221B42 at +8 via rowed 0x00221B0D plus
 // base vtable restore to g_00BC6F20. Layout from rowed ctor 0x00221C15.

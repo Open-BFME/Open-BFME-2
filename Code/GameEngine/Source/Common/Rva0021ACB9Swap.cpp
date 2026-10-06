@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 //
 // ?Rva0021ACB9Swap@@YAXPAVRva0021915B@@0@Z, retail 0x0021ACB9, 74 bytes.

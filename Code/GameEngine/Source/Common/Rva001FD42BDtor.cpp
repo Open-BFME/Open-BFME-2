@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva001FD42B@@QAE@XZ @0x001FD6BC 56B.
 // Tree destructor for the Rva001FD42B node family: clears via the rowed
 // rva001FD630, then the inline header-handle member dtor frees the sentinel

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva002026A0@Rva002026A0@@QBEHXZ @0x002026A0 20B. Compare ints at +0x17d8
 // and +0x17f0 returning 0/1. Evidence: retail mov eax [ecx+0x17d8] plus xor

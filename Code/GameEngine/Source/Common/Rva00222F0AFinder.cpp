@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // ?rva00222F0A@Rva00222F0A@@QAEHXZ @0x00222F0A 75B
 // Scan 14-entry table at +0xD8 for -1 slots and return first index absent from map at +0x84.

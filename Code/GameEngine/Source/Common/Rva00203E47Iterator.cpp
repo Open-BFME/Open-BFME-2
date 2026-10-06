@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /DNDEBUG
+// cl: /MD /DNDEBUG
 // Target boundary 0x00203E47-0x00203E65 is bracketed by independent returns.
 // Reference lead: GeneralsMD Common/GameCommon.h DLINK_ITERATOR and
 // Common/RTS/Player.cpp through open-bfme-1 revision

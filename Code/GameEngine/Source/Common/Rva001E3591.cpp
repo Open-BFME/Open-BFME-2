@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva001E3591@Rva001E3591@@QAE_NXZ, retail 0x001E3591, 37 bytes.
 // Guarded validity check over the 0x20 family (sibling of the readers at 0x001E34FA and

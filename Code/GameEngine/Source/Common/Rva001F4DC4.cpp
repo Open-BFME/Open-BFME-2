@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva001F4DC4@Rva001F4DC4@@QAEMXZ @0x001F4DC4 34B.
 // Float getter reads holder at +0x9c via eighth virtual slot plus 0x20 with 0.0f else via xorps.
 // Callers at 0x0004D20C and 0x0055C646 prove thiscall float void. Prev STLport put_num and next 0x001F4E1B.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // stlport
 // ??0Rva0022CA74@@QAE@XZ @0x0022CA74 33B
 // Derived ctor: baseConstruct via inlined base then vtable 0xBE2704 then

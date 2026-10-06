@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva001F4DE6@Rva001F4DE6@@QAEHXZ @0x001F4DE6 19B.
 // Int getter reads holder at +0x9c via eleventh virtual slot plus 0x28 with 1 else.
 // Same holder offset as float siblings Rva001F4D76 Rva001F4D9D; default 1 via inc.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?Rva001EB2CCGetMapPath@@YA?AVAsciiString@@PBD@Z, retail 0x001EB2CC, 93 bytes.
 // Free function returning AsciiString by value (hidden pointer at +8, caller cleans 8B, returns +8 in eax):
 // formats "maps\%s\%s.map" with same name twice, copy-constructs return value from local tmp via rowed

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001F5467@Rva001F5467@@QAEXABVRvaSmartPtr12@@@Z, retail 0x001F5467, 47 bytes.
 // Smart-ptr assign at +0x16C via rowed 0x4CC3D, then pointee+0xA8 to +0x178

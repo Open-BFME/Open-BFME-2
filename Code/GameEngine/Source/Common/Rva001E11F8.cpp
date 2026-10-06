@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?rva001E11F8@Rva001E11F8@@QAEXHH@Z retail 0x001E11F8 41B
 // Evidence: unlock lane adjacent to Gen_00428090 bfmeContains 0x001E11D6 with same list at +4 and node next +0 item +8. Caller 0x000CED4B forwards same two ints as notify HH. Virtual slot 0xC.
 class Rva001E11F8_Item

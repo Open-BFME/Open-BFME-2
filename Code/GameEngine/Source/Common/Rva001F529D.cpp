@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva001F529D@Rva001F529D@@QAEXPAUVec2001F529D@@@Z, retail 0x001F529D, 47 bytes.
 // Null-checked helper at +0x1B4 via virtual slot10, copies floats at +4/+8

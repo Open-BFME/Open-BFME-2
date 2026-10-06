@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 // ??0Rva00221A58@@QAE@ABV0@@Z @0x00221A58 99B
 // Copy ctor: AsciiString at +0 +4 +8 via StringBase copies plus
 // Rva0022185A at +0xC via its copy plus int at +0x18. Chain after 0x22185A.

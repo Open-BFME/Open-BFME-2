@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001EB73C@Rva001EB73C@@QAE_NXZ, retail 0x001EB73C, 15 bytes.
 // Null-check wrapper over rowed 0x001EB435: if ptr at +0x10 is null return true
 // else tail-jmp to Rva001EB435::rva001EB435. Evidence: tail call to rowed

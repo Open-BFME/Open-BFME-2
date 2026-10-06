@@ -1,7 +1,7 @@
 // Whole BFME1 game/GameEngine/Source/Common/S1ZeroingConstructors.cpp
 // revision5cc75ddda6455c338a5068307e587a793f96d6b3,
 // blob b187205c78b391e963d12db299c952caf0cfa20f; no headers.
-// cl: /O1 /Ob1
+// cl: /Ob1
 // ?rva002035AD@Rva002035ADZeroView@@QAEPAV1@XZ @0x002035AD 13B
 // Evidence: abuts prev 0x002035A9/4 (ends at start) and next 0x002035BA (starts at +13); reads ecx first (thiscall mov eax,ecx); ret-terminated; no callees.
 // Donor labels do not establish identity so honest RvaZeroView names are used; second method left unmatched per stash caution.

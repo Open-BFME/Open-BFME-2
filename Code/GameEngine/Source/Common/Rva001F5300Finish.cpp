@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva001F5300@Rva001F5300@@QAEXPAM@Z @ 0x001F5300 76B: thiscall writes 2 floats
 // to out from extern float g_Va00BBB8D8 or from virtuals slot8/9 at +0x1C4
 // returning int converted via cvtsi2ss; caller 0x001F71CF in 0x001F713E.

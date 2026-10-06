@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /DNDEBUG /MD /EHsc
 // ?rva0020E27B@Rva0020E449@@QAEXM@Z @0x0020E27B 105B
 // Honest Rva0020E449 method scaling six ints at +4..+18 by float factor:
 // cvtsi2ss/mulss/cvttss2si per field. Evidence: caller 0x0020F3AC calls it

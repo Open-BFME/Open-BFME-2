@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ?rva001E67BF@Rva001E4DB0@@QAE?AV1@XZ, retail 0x001E67BF, 94 bytes.
 // By-value copy helper: makes a local Rva001E4DB0 from *this through the

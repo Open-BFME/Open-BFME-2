@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?Rva002026B4Audio@@YAXXZ @0x002026B4 19B. Null-guarded TheAudio tail call
 // to vtable slot 0x188 (slot 98). Evidence: mov ecx,[TheAudio 0x009FE6E8]

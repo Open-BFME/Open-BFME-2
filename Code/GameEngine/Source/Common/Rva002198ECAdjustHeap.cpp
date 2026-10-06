@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva002198ECAdjustHeap@@YAXPAPAXHHPAXP6A_N11@Z@Z @0x002198EC 91B
 // __adjust_heap for 4-byte entries: percolate hole down then tail-call __push_heap.
 // Evidence: packet disassembly matches STL __adjust_heap shape; calls rowed

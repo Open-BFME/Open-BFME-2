@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva00202739@Rva00202739@@QAE_NH@Z @0x00202739 51B. Static-LOD level setter:
 // rejects -1, treats level 5 as always-apply, otherwise applies only on change,

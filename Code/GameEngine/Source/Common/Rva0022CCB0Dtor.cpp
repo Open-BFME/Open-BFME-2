@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva0022CCB0@@QAE@XZ @0x0022CCB0 53B
 // Non-virtual dtor over AsciiString at +0 and rowed member ??1Rva00226829@@QAE@XZ
 // at +8 with 4B POD gap at +4. Retail calls the +8 dtor first (lea ecx [esi+8]

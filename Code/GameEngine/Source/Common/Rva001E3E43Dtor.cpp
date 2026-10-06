@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ??1Rva001E3E43@@UAE@XZ, retail 0x001E3E43, 19 bytes.
 // Scalar dtor: stores derived vtable 0x00BDE888, dec global 0x00DFDC64,

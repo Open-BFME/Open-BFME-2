@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /EHsc
+// cl: /MD /EHsc
 // ?rva001F5CF7@Rva001F5CF7@@QAEXXZ @0x001F5CF7 23B.
 // Null-checked virtual slot +4 at +0 then tail-jmp to rowed Rva001F425C::call on this+4.
 // Callers jmp from 0x001F6488 0x001F8206 0x001F8953 0x001F8DBB. Honest Rva names.

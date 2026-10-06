@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva001F553F@Rva001F553F@@QAEPAUCoord3D@@PAU2@II@Z @0x001F553F 105B
 // Evidence: chain lane; calls rowed 0x003AFB2A Rva003AFB2A::rva003AFB2A; SSE scale via TheWritableGlobalData+0x9ec 1.0f 0.5f; null member at +0x1c0 zeroes Coord3D out; ret 0xc with out in eax on both paths so returns Coord3D*.
 

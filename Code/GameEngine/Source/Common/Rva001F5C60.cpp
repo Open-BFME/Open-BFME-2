@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /EHsc
+// cl: /MD /EHsc
 //
 // ?rva001F5C60@Rva001F5C60@@QAEXPAXPAUHolder001F5C60@@@Z, retail 0x001F5C60, 39 bytes.
 // Null-checked fetch at holder+0x1B0, virtual slot0 of object at +0x14,

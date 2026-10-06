@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001F3C9A@Rva001F3C9A@@QAE_NXZ, retail 0x001F3C9A, 105 bytes.
 // Bool predicate over a large object (>=0x1A5 bytes): nullable helper at

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002196A9@Rva002196A9@@QAEHI@Z 0x002196A9 34B bit-test word at +0x68 caller 0x0021D5A2 tests al
 class Rva002196A9
 {

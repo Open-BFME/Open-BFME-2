@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00203DA2Chain@@YAXPAVRva00203DA2A@@PAX@Z at retail 0x00203DA2 (28B).
 // Sibling of Rva00203D86Chain (0x00203D86): free __cdecl chain with slot

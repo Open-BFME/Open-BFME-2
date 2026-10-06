@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME1 reference 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24:
 // game/GameEngine/Source/Common/BoundedIndexPredicates.cpp (whole file tried).
 // Target: Ghidra entry 001E3679 is 21 bytes, ending RET at 001E368D.

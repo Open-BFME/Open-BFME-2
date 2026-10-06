@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // ?rva0022161B@Rva0022161B@@QAEXXZ, retail 0x0022161B 26B.
 // Holder at +4 of Rva0022167C owns Rva002215F4 pointer at +0; derived dtor
 // 0x0022167C stores vtable 0x00BE6BA8 then add ecx,4 jmp here. Evidence: retail

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??0Rva0020479E@@QAE@XZ @0x0020479E 43B, call sites 0x0020756E 0x0020A0B9
 // 0x0020A936. Installs the vtable at 0x00BE3A90, zeroes +0x04..+0x10, then the
 // +0x14..+0x20 block (0, -1, 0, -1), the +0x24 byte and +0x28.

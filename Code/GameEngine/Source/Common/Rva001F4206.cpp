@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001F4206@Rva001F4206@@QAEXXZ @0x001F4206 21B.
 // Null-checked holder at +0 via virtual slot 0 taking 0 returning void* then rowed operator delete 0x0002FD60.
 // Callers at 0x001F58E8 with this plus 8 and at 0x001F904E with own this prove __thiscall void void.

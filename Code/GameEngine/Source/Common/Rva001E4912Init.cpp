@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001E4912@Rva001E4912@@QAEPAV1@HII@Z @0x001E4912 66B: memset 0x4c-bitfield init plus two bit sets.
 // Evidence: 24 callers pushing (0 bit1 bit2) e.g. 0x001E5E7E (0 0x8a 0x86) 0x001E5E93 (0 0x89 0x85) 0x001E5FA5 (0 0xf0 0xef) 0x00275DBA (0 0x43 0x45); returns this.
 #pragma function(memset)

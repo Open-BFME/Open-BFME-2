@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva001E4461@Pathfinder@@QAEPAXHH@Z @0x001E4461 44B evidence: forwards this plus two ints to pinned Pathfinder lookup ?rva001E3647@Pathfinder@@QAEPAXHH@Z @0x001E3647 then tag check low nibble of +0xC equals 4 plus null checks plus return of +0x28 else 0; callers unclaimed; abuts prev 0x001E4445 and next 0x001E448D
 class Pathfinder
 {

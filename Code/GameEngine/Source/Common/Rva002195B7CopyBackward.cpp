@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva002195B7CopyBackward@@YAPAVRva0021915B@@PAV1@00PAXH@Z @0x002195B7 47B
 // copy_backward for Rva0021915B 8-byte entries using rowed assignment 0x0021915B.
 // Same 47B shape as Rva0040D251CopyBackward (backwards --last/--dest loop with

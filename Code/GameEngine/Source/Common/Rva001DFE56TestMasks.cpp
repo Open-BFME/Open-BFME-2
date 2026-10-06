@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva001DFE56@Rva001DFE56@@QBE_NPBX0@Z @0x001DFE56 66B
 // 19-dword dual-mask tester: (exempt & this)==0 and (required & this)==required.
 // Donor: Code/GameEngine/Source/Common/Rva0026157ETestMasks.cpp (4-dword 66B shape)

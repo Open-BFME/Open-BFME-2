@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // ?Rva001FF725Get@@YG?AW4ScienceType@@ABVAsciiString@@@Z @0x001FF725 30B
 // Unlock lane: if AsciiString empty return SCIENCE_INVALID (-1) else tail-jmp

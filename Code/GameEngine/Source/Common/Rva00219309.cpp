@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva00219309@Rva00219309@@QAEHXZ @0x00219309 53B
 // Honest-address count of leading non-null CommandButtons for the CommandSet
 // looked up by the AsciiString at this+0x1dc via g_bfmeWorldRV.

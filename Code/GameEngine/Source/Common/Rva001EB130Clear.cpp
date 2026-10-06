@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?rva001EB130@Rva001EB130Holder@@QAEXXZ @0x001EB130 42B: circular list clear.
 // Same shape as ?reset@Rva0029FB3BMember@@QAEXXZ at 0x0026549E (42B; /O1
 // /DNDEBUG /MD): drains nodes from sentinel at this+0 to freelist then

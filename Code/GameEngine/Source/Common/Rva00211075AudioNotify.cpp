@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
 // ?rva00211075@Rva00211075@@QAEXXZ @ 0x00211075 (106B): set flag then post audio event via TheAudio.
 // Evidence: ret no args thiscall reads ecx; byte [ecx+0x2c0]=1; TheAudio null gate 0x009FE6E8;
 // OpaqueRefElement4 at +0x164 null gate then BfmeAudioEventPrefix136 ctor 0x002D97D6 with 1;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Ob2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob2
 // ??1Rva00216108@@QAE@XZ 0x00216108 53B evidence: outer dtor with AsciiString at +0 and Rva002160C4 at +4 via rowed inner dtor plus releaseBuffer; chain from 0x002160C4 landing; callers 0x002161C5 0x0021678F 0x00217008
 #include "ascii_string.h"
 class Rva002160C4 {

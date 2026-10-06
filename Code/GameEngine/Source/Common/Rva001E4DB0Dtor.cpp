@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
 // ??1Rva001E4DB0@@UAE@XZ @0x001E4DB0 59B
 // Virtual dtor storing vtable 0x007DE8B4, destroying AsciiString at +0x10

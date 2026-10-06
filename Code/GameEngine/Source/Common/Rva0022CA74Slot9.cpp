@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 // ?rva002000A4@Rva0022CA74@@QAEXXZ @0x002000A4 51B
 // vtable slot 9 (offset 0x24) of 0x007E2704 = class of ??0Rva0022CA74@@QAE@XZ.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 //
 // ??0Rva001E3E43@@QAE@ABV0@@Z, retail 0x001E4641, 78 bytes.
 // Copy ctor: default-constructs 3x0x10 Region3D array at +0x68 via rowed

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva0021929DFree@@YGXPAPAX@Z @0x0021929D 35B
 // Honest-address free function: virtual slot 0 with 0 then operator delete and clear.
 // Evidence: retail mov eax,[ecx]; push 0; call [eax] plus direct call to rowed

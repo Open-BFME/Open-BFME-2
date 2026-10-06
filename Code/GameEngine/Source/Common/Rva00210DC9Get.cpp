@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00210DC9Get@@YAEXZ, retail 0x00210DC9, 12 bytes.
 // Free unsigned-char getter for the 0x00DFEF10 singleton byte at +0xB4.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?get@Rva001F5DACSlot@@QAEPAXPAX@Z @0x001F5DAC 20B.
 // Null-checked holder at +0xA8 via virtual slot +0x8 with tail jmp forwarding one arg.
 // Callers at 0x001F643B and 0x001FC362. Honest Rva names; /O1 for je plus tail-jmp shape.

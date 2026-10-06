@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 // ?rva0020385F@Rva0020385FHost@@QAEXPAUParam0020385F@@@Z @0x0020385F 192B. __thiscall method reading a 5-slot param block (count at +8, pointers at +0xc..+0x1c); float slot at +0xc of slot0 becomes angle/sin/cos, dwords at +0xc of slots1,2,4 and word at +8 of slot3 (clamped >=1) fill members. Callees Sin/Cos rowed in wwmath.cpp. Retail-selected pointers deref unconditionally (null+0xc when count short), hence the xor-then-load shape.
 float Sin(float value);
 float Cos(float value);

@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHs /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ??1Rva002105A6@@UAE@XZ @ 0x002105A6 94B

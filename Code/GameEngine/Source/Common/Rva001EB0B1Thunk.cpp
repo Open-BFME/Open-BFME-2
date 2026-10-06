@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001EB0B1@Rva001EB0B1Holder@@QAEXXZ @0x001EB0B1 8B: add ecx 0x10 plus jmp.
 // Tail-jmp thunk to pinned ?clear@Rva000AD6F4@@QAEXXZ at 0x000AD6F4; same
 // shape as Rva000A89C1Thunk (return member clear gives add plus jmp at /O1).

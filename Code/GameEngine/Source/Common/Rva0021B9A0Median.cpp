@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?Rva0021B9A0Median@@YAABVRva0021915B@@ABV1@00URva0021B753@@@Z @0x0021B9A0 101B
 // __median for 8-byte AsciiString-plus-bool entries with empty comparator
 // Rva0021B753 (rowed 0x0021B753). Returns median of three const refs.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 //
 // Retail 0x001EF291 58B:
 // ?Rva001EF291Find@@YAHABVAsciiString@@@Z

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 // ??0Rva0022181D@@QAE@XZ @0x0022181D 61B
 // Default ctor: three AsciiStrings at +0 +4 +8 defaulted plus FontDesc at +0xC via rowed
 // ctor 0x00376900 plus int at +0x18 set to -1. Member at +0xC of outer ctor

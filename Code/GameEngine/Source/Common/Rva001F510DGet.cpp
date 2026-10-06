@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /Oy-
+// cl: /MD /Oy-
 //
 // ?rva001F510D@Rva001F510D@@QAEMXZ, retail 0x001F510D, 34 bytes.
 // Null-checked float getter via holder at +0x1B8 and virtual slot +0x10,

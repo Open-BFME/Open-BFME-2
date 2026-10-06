@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001FF36A@Rva001FF36A@@QAE_NHHHHHH@Z @0x001FF36A 63B
 // Leaf with conditional stores to +0 +0x0C +0x10 plus unconditional +0x14

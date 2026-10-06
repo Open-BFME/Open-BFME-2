@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00203D6AChain@@YAXPAVRva00203D6AA@@PAX@Z at retail 0x00203D6A (28B).
 // Free __cdecl chain: mid = a->slot27(b); mid->slot30((char*)b+4).

@@ -1,5 +1,5 @@
 // ?rva0020202B@Rva0020202B@@QAEPAXH@Z
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 //
 // ?rva0020202B@Rva0020202B@@QAEPAXH@Z, retail 0x0020202B, 45 bytes.
 // Fixed-slot pool allocator. The sibling constructor Rva00201EACLODManager

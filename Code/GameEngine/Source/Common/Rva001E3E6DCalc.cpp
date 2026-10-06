@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001E3E6D@Rva001E3E6D@@QAEMPAURva001E3E6DArg@@@Z, retail 0x001E3E6D, 50 bytes.
 // Same arg+this offsets as sibling 0x001E3F08 ([arg+0x258]->+0x1f8, [this+4]).

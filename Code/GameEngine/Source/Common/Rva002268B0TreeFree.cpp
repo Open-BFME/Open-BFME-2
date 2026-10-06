@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // ?rva002268B0@Rva002268B0@@QAEXPAX@Z, retail 0x002268B0 45B.
 // Tree free twin of 0x00226829: recursive child at +0x0C then free node and iterate sibling at +0x08.

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /EHsc /MD
 // ??1Rva00216094@@UAE@XZ @0x00216094 (48B):
 // Virtual dtor: destroys wide string at +4 via inlined releaseBuffer under
 // EH state 0, then stores vtable 0x007E5838 through an inline base dtor

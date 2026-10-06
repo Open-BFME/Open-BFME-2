@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva002150CE@Rva002150CE@@QAEXXZ @0x002150CE 51B reset.
 // Evidence: leaf lane, called from 2 unclaimed Unwind sites, neighbours Rva00214D59Pack and Open2Destructors, SSE plus int zeros per disassembly.
 class Rva002150CE

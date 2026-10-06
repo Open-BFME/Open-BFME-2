@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ??1Rva001E3624@@UAE@XZ, retail 0x001E3624, 35 bytes.
 // Virtual destructor of an opaque chain node (vptr 0x00BDDC48) that owns the

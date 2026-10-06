@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 // ?Rva00202678Get@@YGPBDH@Z @0x00202678 40B. Indexed string getter: 0<=i<2
 // returns table g_00DB96B0[i], -1 returns "Unknown", else g_00BBE8E8.
 // Evidence: caller 0x002E53FA passes int and uses result for StringBase::set,

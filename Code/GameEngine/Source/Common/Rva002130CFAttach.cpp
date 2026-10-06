@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 //
 // ?rva002130CF@Rva002130CF@@QAEXPAURva002130CFOwner@@@Z @0x002130CF 39B: an
 // attach-style override: run the base step 0x00210D1D (unrowed, address-derived

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Assignment chain 001F9CCA .. 001FC231 (seven 41B bodies). Each operator=
 // assigns the first base through the rowed Rva001F41CDAssign.cpp operator=
 // at 0x001F41CD then the second base at +4 through the next link (the

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva001F636C@Rva001F636C@@QAEXXZ @0x001F636C 93B evidence: chain calls just-landed 0x00152D1C with 4; callers none; prev Rva001F4D22Dtor next Rva001F63C9Erase.
 // Evidence: callees rowed 0x001F58D4 lock 0x00152D1C assert virtual slot2; prev/next Common WWLib.
 void __cdecl BFME_DX8_Thread_Lock();

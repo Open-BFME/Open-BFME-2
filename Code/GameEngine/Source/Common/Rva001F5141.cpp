@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva001F5141@Rva001F5141@@QAEPAUPair001F5141@@PAU2@@Z, retail 0x001F5141, 61 bytes.
 // Null-checked helper at +0x1B8 via virtual slot6 taking temp at ebp-8,

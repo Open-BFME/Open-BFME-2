@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0020E250@Rva0020E449@@QAEXABV1@@Z, retail 0x0020E250, 43 bytes.
 // Six-int add at +0x04..+0x18 from sibling Rva0020E449 (layout per
 // Rva0020E449Scale 0x0020E27B and copy ctor 0x0020E449).

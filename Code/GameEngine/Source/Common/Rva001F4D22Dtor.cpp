@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva001F4D22@@UAE@XZ @ 0x001F4D22 (11B):
 // Virtual dtor stores its vtable then tail-jmps to rowed base
 // ??1Rva001F4C67@@UAE@XZ. Evidence: mov [ecx] 0xBE174C then jmp 0x1F4C67;

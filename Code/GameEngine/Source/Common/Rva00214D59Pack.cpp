@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /DNDEBUG /MD
 // ?rva00214D59@Rva00214D59@@QAEHXZ retail 0x00214D59 169B
 // Packed 0xFFRRGGBB from +0x64/+0x68/+0x6c scaled by +0x70 plus double-based
 // base; upper clamp via cmov and lower via branch; final add/shl pack.

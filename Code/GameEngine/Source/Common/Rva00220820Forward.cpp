@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Retail 0x00220820 forwards the second argument's dword at +4 to the first.
 class BfmeItem1005
 {

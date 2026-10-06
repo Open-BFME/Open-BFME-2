@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ??4Rva001F41CD@@QAEAAV0@ABV0@@Z @0x001F41CD 57B.
 // Assignment clones other holder at +0 via slot plus 4 then deletes old holder at +0 via slot 0 plus 0.
 // Then stores clone and returns self via rowed operator delete 0x0002FD60.

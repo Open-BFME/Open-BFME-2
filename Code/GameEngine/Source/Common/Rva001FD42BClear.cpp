@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001FD630@Rva001FD42B@@QAEXXZ @0x001FD630 41B.
 // Tree clear for the Rva001FD42B node family: if the count at +4 is nonzero,
 // erase the root via the rowed rva001FD42B, reset the header sentinel at

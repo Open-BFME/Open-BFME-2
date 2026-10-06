@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 // ??1Rva002217EA@@QAE@XZ @0x002217B1 57B
 // Dtor of Rva002217EA: releases ref member at +4 via rowed Release_Ref plus
 // wide string at +0 via releaseBuffer. Layout from rowed copy ctor 0x002217EA.

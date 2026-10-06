@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /G6
+// cl: /MD
 // ??0Rva001F376E@@QAE@XZ, RVA 0x001F376E, 80B.
 // Unlock lane: no callees. Callers at 0x001F4B76/0x001F9BDD.
 // Ctor storing vtable 0x007E15B4 and zeroing twelve floats at

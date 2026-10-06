@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva001EB329@Rva001EB329@@QAEXPAVINI@@@Z, retail 0x001EB329, 89 bytes.
 // __thiscall INI parse validator: initFromINI(this) via rowed 0x0002DE78 and table
 // g_00BDF0E8, then if map string at +4 isEmpty (rowed StringBase 0x00001E2F) throw

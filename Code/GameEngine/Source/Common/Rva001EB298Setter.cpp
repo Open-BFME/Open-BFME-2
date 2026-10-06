@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva001EB298@Rva001EB298@@QAEXVAsciiString@@@Z, retail 0x001EB298, 52 bytes.
 // __thiscall setter taking AsciiString by value (ret 4): copies param into member at +0x2C
 // via rowed StringBase<char>::set 0x000366F0 then destroys param via rowed releaseBuffer

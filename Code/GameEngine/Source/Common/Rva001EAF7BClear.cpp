@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ @0x001EAF7B 32B: honest pool clear loop
 // head at +0x04 popped via *node then deleter at +0x10 called as
 // __cdecl (node at +0x04 plus ctx at +0x14) with caller cleanup; returns

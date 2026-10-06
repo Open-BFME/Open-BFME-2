@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001EDDC6@Rva001EDDC6@@QAEXE@Z @0x001EDDC6 57B: if m_4FA1 return else shift 0x4F9D..0x4FA0 and store arg plus flag. Evidence: caller 0x0051B48B plus prev 0x001EDDBB plus next 0x001EDDFF.
 class Rva001EDDC6
 {

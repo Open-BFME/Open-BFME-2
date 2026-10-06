@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /EHsc
+// cl: /MD /EHsc
 // Forwarding chain 001F6492 .. 001FA7CE (seven 42B bodies) with the
 // Rva001F5D0E.cpp shape: null-checked virtual slot 0xc on the pointer at +0
 // with (int,int) then the same call on the next link at +4. Next-link callees

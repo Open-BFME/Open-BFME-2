@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001F4882@Rva001F4882@@QAEXPAUNode001F4882@@@Z @0x001F4882 (93B)
 // Unlink node from doubly-linked prev at +0x6c next at +0x70 with in-use
 // flag at +0x75. Slot from rowed get at 0x001F45DF indexes head arrays at

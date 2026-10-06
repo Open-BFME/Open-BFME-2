@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001EB0CA@Rva001EB0CAHolder@@QAEXXZ @0x001EB0CA 15B: null-checked byte set.
 // Loads pointer at this+0x10 and stores 1 at pointee+0xC1. Callers at
 // 0x003BE6F5 0x003BE7C6 0x003BE8C0. No donor; honest address names.

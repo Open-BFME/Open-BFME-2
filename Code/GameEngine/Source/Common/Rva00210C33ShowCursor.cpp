@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva00210C33@Rva00210C33@@QAEXXZ, retail 0x00210C33, 25 bytes.
 // Show-cursor-once wrapper: if byte at +0x5008 is 0, calls user32 ShowCursor(1)

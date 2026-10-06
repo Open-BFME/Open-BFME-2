@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?Rva00216787Free@@YGXPAURva00216787Node@@@Z 0x00216787 28B evidence: custom free destroys Rva00216108 at +4 via rowed dtor then _free on non-null; chain from 0x00216108 landing; caller 0x00216B17
 #include "ascii_string.h"
 class Rva002160C4 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva001F4D06@Rva001F4D06@@QAE@PAX0@Z @0x001F4D06 28B.
 // Derived constructor: forwards two opaque words to the unrowed base ctor

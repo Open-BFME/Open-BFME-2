@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ??4Rva0021915B@@QAEAAV0@ABV0@@Z @0x0021915B 31B
 // ??RRva0021B753@@QBE_NABVRva0021915B@@0@Z @0x0021B753 34B
 // Honest-address copy-assignment for an 8-byte AsciiString-plus-bool entry.

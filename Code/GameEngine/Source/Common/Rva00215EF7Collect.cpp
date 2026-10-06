@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00215EF7Collect@@YAXPAPAIPAI111@Z @0x00215EF7 43B collector.
 // Evidence: finish lane stash score 0.95, calls rowed 0x00215E6F, walks 0x1C records, copies slots to out. Fix final load order.
 class Rva00215E6F

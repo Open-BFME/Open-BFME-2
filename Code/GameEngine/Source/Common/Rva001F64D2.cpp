@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /EHsc
+// cl: /MD /EHsc
 // ?rva001F64D2@Rva001F64D2@@QAEXXZ 0x001F64D2 23B
 // Evidence: chain from 0x001F5D38; null-checked virtual slot +4 at +0 then tail-jmp to rowed Rva001F5D38::rva001F5D38 on this+4.
 

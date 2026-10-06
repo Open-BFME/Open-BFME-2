@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva0021A0C2@@QAE@XZ @0x0021A0C2 (68B):
 // Honest-address destructor: three narrow StringBase members at +0/+4/+8,
 // each released via rowed StringBase<D>::releaseBuffer at 0x36410.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /G6
+// cl: /MD
 // ?Rva001F3744IsZero@@YA_NPBUS001F3744@@@Z @0x001F3744 42B
 // Evidence: __cdecl free predicate returning both-floats-zero via ucomiss
 // lahf test jp; callers 40x incl 0x001F8FF4 test al al; prev/next SSE flags.

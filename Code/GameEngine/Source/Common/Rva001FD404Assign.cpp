@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva001FD404@Rva001FD404@@QAEPAU1@ABU1@@Z @0x001FD404 39B
 // 0x10-byte assign helper: AsciiString at +0x00 via rowed operator= at 0x000366F0
 // plus three dwords at +0x04/+0x08/+0x0C, returns this. Called from the big

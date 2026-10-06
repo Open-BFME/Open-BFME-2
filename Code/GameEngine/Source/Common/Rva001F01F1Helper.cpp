@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 //
 // ?rva001F01F1@Rva001F01F1@@... @0x001F01F1 86B.
 // Tiny x87 float helper (ObjectCreationNugget neighbourhood, per the range

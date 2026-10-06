@@ -1,4 +1,4 @@
-// cl: /O1 /EHs /MD
+// cl: /EHs /MD
 // ??1Rva00226883@@QAE@XZ @0x0022C612 (56B):
 // Non-virtual dtor of Rva00226883: calls clear rva0022999F at 0x22999F
 // then destroys header member whose inline dtor null-checks and frees

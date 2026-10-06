@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ?rva00201A33@Rva00201A33@@QAEPAXV?$StringBase@D@@@Z 0x00201A33 81B: list find by string.
 // Evidence: unlock lane (unblocks 0x00201A84 0x00201CAF); callers 0x00201AA7 0x00201CEB; StringBase compare 0x69D6 release 0x36410; slot compare; head at +0.
 template <typename T>

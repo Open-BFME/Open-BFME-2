@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ?rva0020DEB0@Rva0020DEB0@@QAEPAVOverridable@@XZ @0x0020DEB0 91B: cleanup of two
 // pointer vectors then tail to Overridable::deleteOverrides. Evidence: rowed

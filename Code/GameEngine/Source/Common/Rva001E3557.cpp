@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE
+// cl: /MD
 //
 // ?rva001E3557@Rva001E3557@@QAE_NXZ @0x001E3557 (58B).
 // Guarded bool check sibling of 0x001E3591: +4 set plus +0x10 object

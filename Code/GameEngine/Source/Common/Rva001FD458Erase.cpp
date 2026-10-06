@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001FD458@Rva001FD458@@QAEXPAURva001FD458Node@@@Z @0x001FD458 45B.
 // Tree erase for a second RB-tree family: recurse right via +0xC, free the
 // node via rowed _free 0x00030830, walk left via +8, ret 4. Same 45B shape

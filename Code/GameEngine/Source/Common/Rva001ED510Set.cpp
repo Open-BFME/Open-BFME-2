@@ -1,4 +1,4 @@
-// cl: /Os -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
 extern "C" const void *bfmeVftPartitionFilterValidCommandButtonTarget[];
 #pragma comment(linker, "/alternatename:_bfmeVftPartitionFilterValidCommandButtonTarget=??_7PartitionFilterValidCommandButtonTarget@@6B@")

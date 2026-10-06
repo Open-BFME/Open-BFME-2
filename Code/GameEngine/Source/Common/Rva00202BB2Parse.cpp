@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 //
 // ?Rva00202BB2Parse@@YAXPAVINI@@@Z, retail 0x00202BB2, 126 bytes.
 // Chain lane: calls 0x00202B6C (Rva00202B6C::rva00202B6C, landed just before),

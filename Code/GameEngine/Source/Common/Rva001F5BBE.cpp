@@ -1,4 +1,4 @@
-// cl: /O1 /MD /arch:SSE /EHsc
+// cl: /MD /EHsc
 //
 // ?rva001F5BBE@Rva001F58D4@@QAEXPAURva001F5BBEArg@@@Z, retail 0x001F5BBE, 123 bytes.
 // List drain at +0x4C matching Rva001F58D4 TU: iterate sentinel list,

@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?set@Rva001F3D03Slot@@QAEXMM@Z @0x001F3D03 30B.
 // Forwards two floats to GameClientRandomVariable at +0x14 via rowed
 // ?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z with

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD
+// cl: /MD
 // ?Rva001E3FADGet@@YAMPBUCoord3D@@0@Z, retail 0x001E3FAD, 80 bytes.
 // Diff of two Coord3D then normalize then (y+x)*BfmeZeroRange+z.
 // Evidence: calls rowed ?normalize@Coord3D@@QAEXXZ 0x000035B6, uses BfmeZeroRange VA 0x00BBAEAC.

@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /MD /EHsc
 // ??1Rva00222061@@UAE@XZ retail 0x00221FFA 74B
 // Own vptr BE6C3C; the AsciiString-keyed tree at +0x28 is torn down through
 // its rowed _Rb_tree dtor 0x00221E02 (EH state 1), the member at +0xC through

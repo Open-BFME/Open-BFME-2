@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // INI reload slots of the Locomotor store (vftable 0x00BDE970, class
 // Rva001E72B4):

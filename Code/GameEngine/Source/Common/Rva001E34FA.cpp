@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001E34FA@Rva001E34FA@@QAEHXZ, retail 0x001E34FA, 23 bytes.
 // Guarded two-level field reader: eax=[this]; if null return 1;

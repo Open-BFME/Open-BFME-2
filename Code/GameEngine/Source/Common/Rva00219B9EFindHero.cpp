@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 //
 // ?rva0021A6C8@Rva00219B9E@@QAEPAVCreateAHeroData@@H@Z @0x0021A6C8 (96B).
 // Find hero by id: scan hero list at +0x174 via rowed rva0040A32F plus

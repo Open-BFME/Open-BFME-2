@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /DNDEBUG /MD
 
 // ??0Rva002111C8@@QAE@ABV0@@Z, RVA 0x002111C8, 27B. Unlock lane: copy ctor
 // copy-constructing the 12B RvaSmartPtr12 member at +0 through rowed

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // ??0Rva00224CDC@@QAE@XZ @0x00224CDC 83B
 // Subsystem ctor: EH baseConstruct via novtable Shell-pattern base, then own
 // vtable 0x007E6EE8, then the hash_map-shaped member at +0xC constructed via

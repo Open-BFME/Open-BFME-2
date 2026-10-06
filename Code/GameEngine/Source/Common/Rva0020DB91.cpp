@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /MD
 // ?rva0020DB91@Rva0020DB91@@QAEPAXABVAsciiString@@@Z 0x0020DB91 46B scan ptr array with StringBase compareNoCase
 // Evidence: retail iterates [ecx+0x10] to [ecx+0x14] step 4 calling 0x00006A00 compareNoCase on [esi]+0x18; callers 0x0020DC8F 0x00568709
 #include "ascii_string.h"

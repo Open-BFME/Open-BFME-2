@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva001F458BWrite@@YAAAVFile@@AAV1@ABURva001F458BText@@@Z @0x001F458B 29B.
 // File::write at vtable +0x10 with (start and finish-start) from ostringstream text.
 // Donor BFME1 fx_particle_system_bulk.cpp writeStreamText via FileWriteShim.

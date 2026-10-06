@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // Chained holder-fetch wrappers, 38B each. Every member stores its slot's
 // fetch at +0 and delegates to the previous level at +4:
 //

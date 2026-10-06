@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002034E9@Rva002034E9Host@@QAE_NXZ at retail 0x002034E9 (25B).
 // Returns true when this+0x114 != 3, else the rowed callee on the same this.

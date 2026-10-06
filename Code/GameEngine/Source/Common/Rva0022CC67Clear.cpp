@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX
 // ?rva0022CC67@Rva0022CC67@@QAEXXZ @0x0022CC67 73B leaf array-of-lists clear
 // calling rowed ?Rva0022C8FBDestroy@@YGXPAURva0022C8FBElem@@@Z at 0x0022C8FB.
 // Start at +4 end at +8 count=(end-start)>>2; each slot frees its Elem chain

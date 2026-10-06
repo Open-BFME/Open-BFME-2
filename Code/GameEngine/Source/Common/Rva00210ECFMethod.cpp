@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00210ECF@Rva00210ECF@@QAEXABUBfmeE8@@@Z @0x00210ECF (18B). Null-checked
 // tail-jmp forwarder: member Rva003F9DDA* at +0x2C4, forwards the const
 // BfmeE8& argument to rowed rva003F9DDA 0x003F9DDA. Chain from just-landed

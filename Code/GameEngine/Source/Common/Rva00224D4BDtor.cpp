@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc
 // ??1Rva00224CDC@@UAE@XZ @0x00224D4B 53B
 // Virtual dtor calling member at +0xC (rowed Rva002236B9 0x002236B9) then
 // rowed base GameEngineDeletingBase 0x001B4E74. Chain from 0x002236B9.

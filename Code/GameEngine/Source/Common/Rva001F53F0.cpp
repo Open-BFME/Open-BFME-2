@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001F53F0@Rva001F53F0@@QAEHXZ @0x001F53F0 14B
 // Null-checked ptr at +0x1c8 returning dword at +0x20 else 0. Caller at 0x003A5A89.
 // Honest Rva names; /O1 for je shape like sibling Rva001F53BCGet.

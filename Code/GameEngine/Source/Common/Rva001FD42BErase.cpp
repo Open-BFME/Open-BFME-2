@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001FD42B@Rva001FD42B@@QAEXPAURva001FD42BNode@@@Z @0x001FD42B 45B.
 // Tree erase: recurse right via +0xC, free the node via rowed _free 0x00030830,
 // walk left via +0x8, ret 4. Same 45B shape as Rva002CF32FErase precedent.

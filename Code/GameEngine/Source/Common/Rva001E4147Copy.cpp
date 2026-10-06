@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001E4147@Rva001E4147@@QAEXPAURva001E4147Twelve@@@Z @0x001E4147 24B: copy 12B from src+0x38 to this+0x14 if src.
 // Evidence: 12 callers e.g. 0x0026457D 0x0026B4C1 0x0026D588; 3x movsd shape.
 struct Rva001E4147Twelve { int a; int b; int c; };

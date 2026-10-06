@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1
+// cl: /Ireference/shims/bfme2_ascii
 // stlport
 //
 // ?rva00210749@Rva00210749@@QAEXXZ, retail 0x00210749, 38 bytes.

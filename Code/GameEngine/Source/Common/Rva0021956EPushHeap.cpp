@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?Rva0021956EPushHeap@@YAXPAPAXHHPAXP6A_N11@Z@Z @0x0021956E 73B
 // __push_heap for 4-byte entries: while hole>top && comp(parent,value) shift parent down.
 // Evidence: packet disassembly matches STL __push_heap shape; caller 0x002198EC is

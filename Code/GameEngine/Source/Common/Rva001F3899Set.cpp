@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?set@Rva001F3899Slot@@QAEXABURva001F3899Arg@@@Z @0x001F3899 40B.
 // Copies arg+0/+4/+8 to +0xc8/+0xd8/+0xe8 and clears byte at +0x1a0. Callers at
 // 0x000C70D8/0x000C7337/0x000C7CC3/0x001E225A among 24 sites. Honest Rva names;

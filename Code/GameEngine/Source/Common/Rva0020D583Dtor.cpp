@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1Rva0020D583@@UAE@XZ 0x0020D583 99B evidence: dtor with vptr 0x007E3F98 plus 5 StringBase D releaseBuffer rowed; caller Unwind deleting dtor; prev ConstZeroGetters
 template <typename T> class StringBase {
 public: StringBase() { m_data = 0; }

@@ -1,4 +1,4 @@
-// cl: /O1
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00203DBEChain@@YAXPAVRva00203DBEA@@PAX@Z at retail 0x00203DBE (28B).
 // Sibling of Rva00203D86Chain (0x00203D86) and Rva00203DA2Chain (0x00203DA2):

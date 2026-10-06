@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /G7 /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0021E85A@@QAE@ABV0@@Z @0x0021E85A 250B: copy ctor with five StringBase plus ints plus hero map plus two Science vectors plus int-int map plus long-LadderPref map plus FixedStorage plus 108B tail; caller 0x0021EF82
 #define _STLP_NO_EXCEPTIONS 1

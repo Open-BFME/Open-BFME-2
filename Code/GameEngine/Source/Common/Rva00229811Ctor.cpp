@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG
 //
 // ??0Rva00229811@@QAE@XZ, retail 0x00229811, 47 bytes.
 // Evidence: retail zeroes the dword at +0, enters unwind state 0, constructs

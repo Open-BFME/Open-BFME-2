@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc
 // Retail RVA 0x00202058, 492 bytes.
 // Rva00202058::rva00202058: reads OptionPreferences enum forwarders
 // (0x002E42EE..0x002E432E rowed in OptionPreferences_enumDispatch.cpp)

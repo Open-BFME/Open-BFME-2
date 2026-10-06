@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 // ?rva001E431E@Rva001E431E@@QAEXPBH@Z @0x001E431E 44B unlock via Object 0x0028CFB2.
 // Zero 0x4C local via ji_006291ae then Object::rva0028CFB2 with buffer and arg.
 // Evidence: 31 callers; rowed memset thunk 0x006291AE;

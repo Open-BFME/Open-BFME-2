@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva00214E02@Rva00214E02@@QAEPAV1@ABV1@@Z retail 0x00214E02 274 bytes.
 // Copy-assign: five AsciiStrings at +0x00 +0x04 +0x08 +0x14 +0x94 via rowed
 // StringBase<char>::set 0x000366F0, ints/bytes plus four 12-byte blocks,

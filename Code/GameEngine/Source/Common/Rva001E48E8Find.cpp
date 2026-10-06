@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /MD
 //
 // ?rva001E48E8@Rva001E48E8@@QAEPAXI@Z @0x001E48E8 42B
 // __thiscall void *(unsigned): scan pointer range [this+4,this+8) for the first
