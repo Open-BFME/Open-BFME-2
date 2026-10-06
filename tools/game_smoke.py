@@ -896,6 +896,13 @@ def cmd_load(a):
     rec = json.loads((OUT / f"save_{'retail' if a.retail else a.image}.json").read_text()) if a.saved_frame is None else None
     saved_frame = a.saved_frame if a.saved_frame is not None else rec["save"]["frame"]
     hook = FrameHook(at_first=True, modes=(a.mode,))
+    # GameEngine::execute reads the save's header through the path as given
+    # (relative to the game folder), and loadGame then looks for the same name
+    # in the profile's Save folder (seen live: with only the first, the game
+    # quits at once), so the save is in both places.
+    save_dir = sandbox_profile(a.appdata) / "Save"
+    save_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(a.game_dir / a.save_name, save_dir / a.save_name)
     game, out = launch(a, f"-file {a.save_name}", [("GameEngine::update", hook)], skirmish_tick(a, samples, a.mode))
     res = out["run"]
     game_frames = [f for t, f, m in samples if m == a.mode and f]
