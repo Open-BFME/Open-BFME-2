@@ -7,7 +7,7 @@
 // at +0x94 by RequestGameLeave). Zero Hour's body without the preferences
 // save: out of the lobby, with a current game that is not in progress (+0x11),
 // a leave by our own name (m_name +0x14) hands off to the LAN menu at VA
-// 0x00E03354 (its 0x00444E8A, rowed under the class name GameEngine) or, with
+// 0x00E03354 (its 0x00444E8A, rowed as AptLanLobby::rva00444E8A) or, with
 // no menu, pops the shell (0x0035BEC7) and sets LANbuttonPushed -- the
 // OnHostLeave pattern (LANAPILobbyMenuForwarders.cpp). Anyone else leaving a
 // game we host (slot-0 address +0x114 equal to the local address, vslot 64)
@@ -252,7 +252,7 @@ extern Bool LANbuttonPushed;
 struct Rva004469D1Receiver;
 extern Rva004469D1Receiver *g_Va00E03354;
 
-class GameEngine
+class AptLanLobby
 {
 public:
 	void rva00444E8A( void );
@@ -260,8 +260,8 @@ public:
 
 void Rva00248D84Enable( void );
 
-// BFME 2's createTheNetwork: replaces TheNetwork with a new BFME2NativeNetwork.
-void Rva0025E46DReset( void );
+// BFME 2's CreateTheNetwork (0x0025E46D): replaces TheNetwork with a new BFME2NativeNetwork.
+void CreateTheNetwork( void );
 
 class NetworkInterface
 {
@@ -393,7 +393,7 @@ void LANAPI::OnPlayerLeave( UnicodeString player )
 		}
 		else
 		{
-			((GameEngine *)g_Va00E03354)->rva00444E8A();
+			((AptLanLobby *)g_Va00E03354)->rva00444E8A();
 		}
 	}
 	else
@@ -529,7 +529,7 @@ void LANAPI::rva0024900D( void )
 	{
 		m_isInLANMenu = false;
 
-		Rva0025E46DReset();
+		CreateTheNetwork();
 		BfmeNetAddress localAddress = *getLocalAddress();
 		localAddress.m_port += 8;
 		TheNetwork->setLocalAddress( &localAddress );

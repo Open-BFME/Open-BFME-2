@@ -25,7 +25,7 @@
 // LANAPI::RequestHasMap, retail 0x0044A3BF (659 bytes), slot 20: Open-BFME-1's
 // LANAPIRequestHasMap.cpp (BFME 1 retail 0x006861C0), Zero Hour's body with
 // the BFME changes: MSG_MAP_AVAILABILITY (10) carries the local slot's hasMap
-// at +0x40 and the portable map path's CRC (the rowed cdecl BFMEComputeCRC)
+// at +0x40 and the portable map path's CRC (the rowed cdecl ComputeCRC 0x003EC8F7)
 // at +0x44, the send is flushed through Transport::update, the willTransfer
 // test without cached map data is the pinned cdecl 0x00300E42 on the game,
 // the label is TheGameText's slot 17 pointer straight into
@@ -59,7 +59,7 @@ extern "C" __declspec(dllimport) WideChar * __cdecl wcsncpy(
 #include "unicode_string.h"
 
 typedef unsigned int CRCValue;
-CRCValue BFMEComputeCRC( const UnsignedByte *data, unsigned int length, unsigned int seed );
+CRCValue ComputeCRC( const UnsignedByte *data, unsigned int length, unsigned int seed );
 
 class GameTextInterface
 {
@@ -217,7 +217,7 @@ struct LANMessage
 class Transport
 {
 public:
-	Bool Rva004D54C1( Bool flag );
+	Bool update( Bool flag );
 };
 
 class LANAPI : public VSlots<18>
@@ -281,7 +281,7 @@ void LANAPI::RequestGameLeave( void )
 	wcsncpy( msg.GameToLeave.gameName, ( m_currentGame ) ? m_currentGame->getName().str() : L"", LAN_GAME_NAME_LENGTH );
 	msg.GameToLeave.gameName[LAN_GAME_NAME_LENGTH] = 0;
 	Rva004495A2( &msg, 0 );
-	m_transport->Rva004D54C1( false );
+	m_transport->update( false );
 
 	if( m_currentGame && m_currentGame->getHostAddress()->Rva00248CBF( getLocalAddress() ) )
 	{
@@ -310,9 +310,9 @@ void LANAPI::RequestHasMap( void )
 	wcsncpy( msg.MapStatus.gameName, m_currentGame->getName().str(), LAN_GAME_NAME_LENGTH );
 	msg.MapStatus.gameName[LAN_GAME_NAME_LENGTH] = 0;
 	AsciiString portableMapName = TheGameState->realMapPathToPortableMapPath( m_currentGame->getMap() );
-	msg.MapStatus.mapCRC = BFMEComputeCRC( (const UnsignedByte *)portableMapName.str(), portableMapName.getLength(), 0 );
+	msg.MapStatus.mapCRC = ComputeCRC( (const UnsignedByte *)portableMapName.str(), portableMapName.getLength(), 0 );
 	Rva004495A2( &msg, 0 );
-	m_transport->Rva004D54C1( false );
+	m_transport->update( false );
 
 	if( !msg.MapStatus.hasMap )
 	{
@@ -363,5 +363,5 @@ void LANAPI::RequestEnableMPSetupUI( Bool enable )
 	msg.EnableMPSetupUI.gameName[LAN_GAME_NAME_LENGTH] = 0;
 	msg.EnableMPSetupUI.enable = enable;
 	Rva004495A2( &msg, 0 );
-	m_transport->Rva004D54C1( false );
+	m_transport->update( false );
 }
