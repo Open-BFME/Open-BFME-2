@@ -30,12 +30,11 @@ typedef int Int;
 class INIException
 {
 public:
-	INIException( Int code, const char *msg, ... );
-	INIException( const INIException &other );
-
-private:
-	Int m_code;
-	const char *m_msg;
+	INIException(int argCount, const char *format, ...);
+	char *mFailureMessage;
+	int mErrorCode;
+	INIException(const INIException &that);
+	~INIException();
 };
 
 class INI
