@@ -1,4 +1,6 @@
 // ?rva0005C931@MilesAudioManager@@QAEXPAXPAURva0005C931Pos@@@Z
+// partial score=0.9896 date=2026-10-06
+// ?rva0005C931@MilesAudioManager@@QAEXPAXPAURva0005C931Pos@@@Z
 // partial score=0.95 date=2026-10-06
 // cl: /O1 /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /arch:SSE2
 // ?rva0005C931@MilesAudioManager@@QAEXPAXPAX@Z @0x0005C931 210B.
