@@ -6,6 +6,15 @@
 // same two xfer helpers), setPatrolStartOrder @0x005481F9.
 // Evidence: caller 0x0035545C; list at +4 with NameKey at +8; find 0x00355155 row; virtual [edx+0x24]; contains 0x00548800 row
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include <algorithm>
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };

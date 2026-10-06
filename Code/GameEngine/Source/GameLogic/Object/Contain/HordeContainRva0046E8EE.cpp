@@ -11,6 +11,15 @@
 // createPayload (100-m_damagePercent)*0.01 count destroy loop.
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 typedef _STL::list<int, _STL::allocator<int> > IntList;
 
 struct Rva0046247DPair

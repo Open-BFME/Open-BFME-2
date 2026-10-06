@@ -4,6 +4,15 @@
 // Evidence: leaf lane 3 callers in FUN_0060a859; prev 0x00206FE6 next 0x002070F7; strings std-list List-must-be-empty.
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include "ascii_string.h"
 
 typedef unsigned char UnsignedByte;

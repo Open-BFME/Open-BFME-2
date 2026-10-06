@@ -12,6 +12,15 @@
 
 #include <list>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+
+
 // Retail's string comparisons register no unwind state for their
 // temporaries: StringBase<unsigned short>'s compare and compareNoCase are
 // taken not to throw (as the throw() view in stlport_sort_mapmetadata.cpp).
