@@ -28,7 +28,7 @@ class LocomotorStore
 public:
 	LocomotorTemplate *findLocomotorTemplate(int key);
 };
-extern LocomotorStore *g_00DFDC5C;
+extern class LocomotorStore *TheLocomotorStore;
 
 class LocomotorSet
 {
@@ -75,7 +75,7 @@ public:
 	char _pad00[0x10];
 	Pathfinder *m_pathfinder; // +0x10
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class Pathfinder
 {
@@ -105,13 +105,13 @@ bool Rva00264274::rva00264274(const Coord3D *dest)
 		{
 			static NameKeyType s_transportKey = TheNameKeyGenerator->nameToKey("TransportShipLocomotorForUnitInteraction");
 			Rva001E7087 set;
-			((LocomotorSet *)&set)->addLocomotor(g_00DFDC5C->findLocomotorTemplate(s_transportKey), false);
-			AI *ai = g_Va009FF0F8;
+			((LocomotorSet *)&set)->addLocomotor(TheLocomotorStore->findLocomotorTemplate(s_transportKey), false);
+			AI *ai = TheAI;
 			Pathfinder *pf = ai->m_pathfinder;
 			return pf->rva002F477E((Object *)obj, from, dest, (int)&set);
 		}
 	}
-	AI *ai2 = g_Va009FF0F8;
+	AI *ai2 = TheAI;
 	Pathfinder *pf2 = ai2->m_pathfinder;
 	return pf2->rva002F477E((Object *)obj, from, dest, 0);
 }

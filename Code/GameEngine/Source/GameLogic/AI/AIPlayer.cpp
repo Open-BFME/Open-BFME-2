@@ -167,7 +167,7 @@ public:
 	unsigned char m_pad[0xA5C];
 	Int m_baseValuePerSupplyBox;		// +0xA5C
 };
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 // BFME2's partition filter chain (the view AIStructureCreepTactic.cpp
 // documents): a vptr, the +0x04 link to the next filter, then each
@@ -270,7 +270,7 @@ private:
 
 // Matched DIR32 references in AIPlayer, Object and GettingBuiltBehavior place
 // TheAI at VA 0x00DFF0F8; the retail image's zero-filled slot starts null.
-AI *TheAI = 0;
+extern class AI *TheAI;
 
 class Player;
 
@@ -398,7 +398,7 @@ Object *AIPlayer::findSupplyCenter(Int minimumCash)
 			SupplyWarehouseDockUpdate *warehouseModule =
 				(SupplyWarehouseDockUpdate *)obj->findModule(key_warehouseUpdate);
 			if (warehouseModule) {
-				Int availableCash = warehouseModule->getBoxesStored() * TheGlobalData->m_baseValuePerSupplyBox;
+				Int availableCash = warehouseModule->getBoxesStored() * TheWritableGlobalData->m_baseValuePerSupplyBox;
 				if (availableCash < minimumCash)
 					continue;
 				if (m_player->getRelationship(obj->getTeam()) == ENEMIES)

@@ -45,7 +45,7 @@ public:
 	unsigned char m_pad000[0x134];
 	TimeOfDay m_timeOfDay; // +0x134
 };
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 inline Color GameMakeColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
 {
@@ -163,7 +163,7 @@ void Object::rva0028D253()
 	Drawable *draw = m_drawable;
 	if (draw)
 	{
-		if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
+		if (TheWritableGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
 			draw->setIndicatorColor(getNightIndicatorColor());
 		else
 			draw->setIndicatorColor(getIndicatorColor());

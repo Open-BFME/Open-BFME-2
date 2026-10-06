@@ -60,7 +60,7 @@ public:
 	Pathfinder *m_pathfinder;
 };
 
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class TerrainLogic
 {
@@ -114,7 +114,7 @@ bool Rva002619C1Filter::allow(Object *obj)
 		end.y = obj->m_pos.y;
 		end.z = obj->m_pos.z;
 		if (obj->m_template->m_10F & 0x10) {
-			AI *ai = g_Va009FF0F8;
+			AI *ai = TheAI;
 			if (ai != 0 && ai->m_pathfinder != 0)
 				ai->m_pathfinder->rva002EE96B(&end, &start);
 		}
@@ -124,7 +124,7 @@ bool Rva002619C1Filter::allow(Object *obj)
 		if (!TheTerrainLogic->slot15(&start, &end))
 			return false;
 	}
-	AI *ai2 = g_Va009FF0F8;
+	AI *ai2 = TheAI;
 	if (ai2 == 0)
 		goto ret_true;
 	{

@@ -148,7 +148,7 @@ public:
 	Rva002E9042 *m_10;
 };
 
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class FakePathfindPortalBehaviour : public UpdateModule
 {
@@ -203,7 +203,7 @@ void FakePathfindPortalBehaviour::xfer(Xfer *xfer)
 // and sets +0x32 again. Called from xfer on load when +0x32 is set.
 void FakePathfindPortalBehaviour::rva004618AB()
 {
-	g_Va009FF0F8->m_10->rva002E8FE5(m_28[0]);
-	g_Va009FF0F8->m_10->rva002E8FE5(m_28[1]);
+	TheAI->m_10->rva002E8FE5(m_28[0]);
+	TheAI->m_10->rva002E8FE5(m_28[1]);
 	m_32 = true;
 }

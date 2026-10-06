@@ -37,7 +37,7 @@ public:
 	Int m_xResolution;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class GlobalLanguage
 {
@@ -47,7 +47,7 @@ public:
 
 Int GlobalLanguage::adjustFontSize(Int theFontSize)
 {
-	Real ratio = TheGlobalData->m_xResolution / 1024.0f;
+	Real ratio = TheWritableGlobalData->m_xResolution / 1024.0f;
 	Real size = theFontSize;
 	return REAL_TO_INT_FLOOR(size * ratio);
 }

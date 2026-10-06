@@ -48,7 +48,7 @@ public:
 	Bool m_turnOffMessengerInGame;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class OptionPreferences : public AsciiPreferenceMap
 {
@@ -62,7 +62,7 @@ Bool OptionPreferences::getTurnOffMessengerInGame(void)
 {
 	OptionPreferences::const_iterator it = find("TurnOffMessengerInGame");
 	if (it == end())
-		return TheGlobalData->m_turnOffMessengerInGame;
+		return TheWritableGlobalData->m_turnOffMessengerInGame;
 
 	if (strcmp(it->second.str(), "yes") == 0) {
 		return true;

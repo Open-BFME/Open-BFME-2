@@ -107,7 +107,6 @@ public:
 };
 extern GlobalData *TheWritableGlobalData;
 extern const float g_00C17CFC;
-extern const float g_00BE118C;
 
 class PathDeleteArgument
 {
@@ -147,7 +146,7 @@ void AIGroup::recompute()
 	Coord3D center;
 	getCenter(&center);
 	rva0036CE87();
-	m_speed08 = g_00BE118C;
+	m_speed08 = 1e+10f;
 	for (BfmeListNodeBase *it = m_list04->m_next; it != m_list04; it = it->m_next)
 	{
 		Object *obj = ((BfmeMemberNode *)it)->m_value;

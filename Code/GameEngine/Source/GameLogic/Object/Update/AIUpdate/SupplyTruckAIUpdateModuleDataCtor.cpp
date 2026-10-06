@@ -49,7 +49,7 @@ public:
 	AsciiString m_healingBuff;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class FXList;
 class FXListStore
@@ -122,7 +122,7 @@ ActiveBodyModuleData::ActiveBodyModuleData()
 	m_grabOffsetY = 0.0f;
 	m_damagedAttr.clear();
 	m_reallyDamagedAttr.clear();
-	AsciiString &healingDefault = TheGlobalData->m_healingBuff;
+	AsciiString &healingDefault = TheWritableGlobalData->m_healingBuff;
 	if (!healingDefault.isEmpty())
 		m_healingBuffFx = TheFXListStore->findFXList(healingDefault.c_str());
 }

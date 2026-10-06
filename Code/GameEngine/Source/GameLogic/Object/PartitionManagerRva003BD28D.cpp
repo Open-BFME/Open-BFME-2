@@ -13,10 +13,10 @@ class RadarWindowOverrideSource
 };
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
-extern int g_00DBA4E8;
+extern int g_009BA4E8;
 
 void __stdcall Rva003BD28DSet(int value)
 {
-	int scaled = g_00DBA4E8 * value;
+	int scaled = g_009BA4E8 * value;
 	((Rva002D36C3 *)theRadarWindowOverrideSource)->rva002D36C3((void *)scaled);
 }

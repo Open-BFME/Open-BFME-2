@@ -53,7 +53,7 @@ public:
 	unsigned char m_pad00[0x10];
 	BFMEPathfinderMapShim *m_pathfinder;
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 extern Rva00287C21Host *g_00DFEC68;
 
@@ -85,8 +85,8 @@ void Object::rva0028AB75(bool flag)
 		q->rva002710EC();
 	if (flag)
 	{
-		g_Va009FF0F8->m_pathfinder->rva002E718A(this);
-		g_Va009FF0F8->m_pathfinder->addObjectToPathfindMap(this);
+		TheAI->m_pathfinder->rva002E718A(this);
+		TheAI->m_pathfinder->addObjectToPathfindMap(this);
 	}
 	if (m_49C < 0)
 		return;

@@ -47,7 +47,7 @@ public:
 	void rva00357EDF(int playerIndex, const AsciiString &name, int creatorID);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 class DieModuleBase
 {
@@ -76,6 +76,6 @@ void SpecialPowerCompletionDie::notifyScriptEngine()
 		const AsciiString *tmplName = (const AsciiString *)namePtr;
 		Player *player = m_object->getControllingPlayer();
 		int playerIndex = player->m_playerIndex;
-		g_Va009FE16C->rva00357EDF(playerIndex, *tmplName, m_creatorID);
+		TheScriptEngine->rva00357EDF(playerIndex, *tmplName, m_creatorID);
 	}
 }

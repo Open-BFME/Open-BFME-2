@@ -15,7 +15,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 namespace _STL
 {
@@ -70,7 +70,7 @@ void ProductionUpdate::rva0049E368()
 {
 	for (AsciiString *p = m_vec130.m_start; p != m_vec130.m_finish; ++p)
 	{
-		void *tmpl = g_009FF000->rva002D06CA(p);
+		void *tmpl = TheThingFactory->rva002D06CA(p);
 		m_iface20.slot34(tmpl, 1);
 	}
 	_STL::vector<AsciiString, _STL::allocator<AsciiString> > &v = m_vec130;

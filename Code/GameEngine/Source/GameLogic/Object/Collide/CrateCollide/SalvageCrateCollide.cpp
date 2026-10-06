@@ -137,7 +137,7 @@ public:
 	char m_pad000[0xEC4];
 	MultiPlayMults m_multiPlayMults;	// +0xEC4
 };
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class UpgradeTemplate
 {
@@ -286,7 +286,7 @@ void SalvageCrateCollide::doMoney(Object *other)
 		money = data->m_minMoney;
 	if (money > 0) {
 		if (TheGameLogic->rva0023C6FD()) {
-			float mult = TheGlobalData->m_multiPlayMults.getMoneyMult(ThePlayerList->rva002A7C0B(false));
+			float mult = TheWritableGlobalData->m_multiPlayMults.getMoneyMult(ThePlayerList->rva002A7C0B(false));
 			money = (int)(money * mult);
 		}
 		Player *player = other->getControllingPlayer();

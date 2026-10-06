@@ -72,7 +72,7 @@ private:
 	char m_pad00[0x10];
 	Pathfinder *m_pathfinder;
 };
-extern AI *g_Va009FF0F8;
+extern class AI *TheAI;
 
 class Path;
 
@@ -279,5 +279,5 @@ void AIUpdateInterface::requestSafePath(ObjectID repulsor)
 	}
 
 	m_requestedDestination = getObject()->getPosition();
-	g_Va009FF0F8->pathfinder()->queueForPath(getObject()->getID());
+	TheAI->pathfinder()->queueForPath(getObject()->getID());
 }

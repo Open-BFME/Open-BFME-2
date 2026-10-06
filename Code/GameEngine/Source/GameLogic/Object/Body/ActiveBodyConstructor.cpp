@@ -99,7 +99,7 @@ public:
 	float m_unitReallyDamagedThresh;
 };
 
-extern GlobalData *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 extern unsigned g_Va00DE0878;
 
 template<int N>
@@ -181,9 +181,9 @@ ActiveBody::ActiveBody(Thing *thing, const ModuleData *moduleData)
 	if (data->m_useDefault)
 	{
 		if (m_damagedThreshold == 0.0f)
-			m_damagedThreshold = TheGlobalData->m_unitDamagedThresh;
+			m_damagedThreshold = TheWritableGlobalData->m_unitDamagedThresh;
 		if (m_reallyDamagedThreshold == 0.0f)
-			m_reallyDamagedThreshold = TheGlobalData->m_unitReallyDamagedThresh;
+			m_reallyDamagedThreshold = TheWritableGlobalData->m_unitReallyDamagedThresh;
 	}
 	for (int i = 0; i < 4; ++i)
 	{

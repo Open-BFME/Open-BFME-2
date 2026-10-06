@@ -15,7 +15,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *g_009FF000;
+extern class Rva002D06CA *TheThingFactory;
 
 class PClass
 {
@@ -164,7 +164,7 @@ void TransportContain::rva004670D6()
 		int count = *(int *)((char *)aname + 4);
 		if (count <= 0)
 			return;
-		void *res = g_009FF000->rva002D06CA(aname);
+		void *res = TheThingFactory->rva002D06CA(aname);
 		if (res == 0)
 			return;
 		Object *obj = m_8;

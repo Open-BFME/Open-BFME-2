@@ -19,11 +19,11 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003BD032Set(Parameter *p1, void *p2)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(p1);
+	Object *obj = TheScriptEngine->getUnitNamed(p1);
 	if (obj == 0)
 		return;
 	if (*(int *)((char *)p2 + 8) > 0)
