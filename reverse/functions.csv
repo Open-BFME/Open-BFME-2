@@ -64464,3 +64464,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??0?$_Rb_tree@HU?$pair@$$CBHURva00501130Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00501130Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00501130Mapped@@@_STL@@@2@@_STL@@QAE@ABV01@@Z,,0x00501E88,165,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_Rva00501130_copyctor_00501E88.cpp,matched,copy ctor via rowed Mcopy 0x00501CFE and base 0x004FF4F1 unlocks 0x005026EE
 ??0Rva00501776@@QAE@XZ,,0x00501752,36,Code/GameEngine/Source/Common/Rva00501752Ctor.cpp,matched,ctor vectors at +14 +20 via rowed Vector_base dtor and caller match
 ??1Rva00382FA7@@UAE@XZ,,0x00400A7F,121,Code/GameEngine/Source/GameNetwork/GameInfoDtor.cpp,matched,GameInfo dtor via vtable 0x008193C8 and copy 0x00382FA7
+??1Rva005262BF@@QAE@XZ,,0x005262BF,74,Code/GameEngine/Source/Common/Rva005262BFDtor.cpp,matched,two STLport int list bases then inline CRT buffer member
