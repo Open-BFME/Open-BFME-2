@@ -293,20 +293,33 @@ def frozen(hatch, new_total, ref_totals):
 
 def check_staged():
     errors, warnings = [], []
-    staged_base = read_blobs([":" + BASELINE])[":" + BASELINE]
-    inv = [p for p in git("diff", "--cached", "--name-only", "--no-renames", "--", INVENTORY_DIR).split()]
+    changed = git("diff", "--cached", "--name-only", "--no-renames", "-z").split("\0")
+    inv = [p for p in changed if p.startswith(INVENTORY_DIR)]
     if inv:
         errors += check_inventory(inv)
+    touched = [p for p in changed if relevant(p)]
+    if not touched and BASELINE not in changed:
+        return errors, warnings                     # nothing this gate reads was staged
+    staged_base = read_blobs([":" + BASELINE])[":" + BASELINE]
     parents = ["HEAD"]
     merge_head = git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip()
     if merge_head:
         parents.append(merge_head)
-    parent_texts = read_blobs(["%s:%s" % (p, BASELINE) for p in parents])
+    if BASELINE in changed or merge_head:
+        parent_texts = read_blobs(["%s:%s" % (p, BASELINE) for p in parents])
+    else:                                           # register untouched: it is its own parent
+        parent_texts = {"HEAD": staged_base}
     introduced = all(t is None for t in parent_texts.values())
     if staged_base is None:
         if not introduced:
             errors.append("%s deleted; the register may shrink line by line, never disappear" % BASELINE)
         return errors, warnings                     # register not introduced yet
+    if BASELINE not in changed and not merge_head:
+        # Only the touched files' lines matter: filter before parsing the 40k-line register.
+        want = set(touched)
+        staged_base = "\n".join(l for l in staged_base.splitlines() if l.split("\t", 2)[1:2] and
+                                l.split("\t", 2)[1] in want)
+        parent_texts = {"HEAD": staged_base}
     b1, allow1 = parse(staged_base)
     if introduced:
         # The commit that introduces the register must record the tree exactly (one full scan, once).
@@ -317,7 +330,6 @@ def check_staged():
     for text in parent_texts.values():
         for key, n in parse(text or "")[0].items():
             b0[key] = max(n, b0.get(key, 0))
-    touched = [p for p in git("diff", "--cached", "--name-only", "--no-renames").split() if relevant(p)]
     lowered = sorted({k[1] for k in set(b0) | set(b1) if b1.get(k, 0) < b0.get(k, 0)})
     paths = sorted(set(touched) | set(lowered))
     texts = read_blobs([":" + p for p in paths])
