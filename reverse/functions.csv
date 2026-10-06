@@ -65054,3 +65054,4 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva002B2579@Rva002BA8F1Logic@@QAEPAURva002B2579Result@@H@Z,,0x002B2579,23,Code/GameEngine/Source/Common/Rva002B2579Forward.cpp,matched,leaf null-gated forward via rowed 0x0020EEF4 plus 0xB0
 ?getAllSelectedLocalDrawables@InGameUI@@UAEPBV?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@XZ,,0x002A3908,84,Code/GameEngine/Source/GameClient/InGameUIGetAllSelectedLocalDrawables.cpp,matched,ZH InGameUI donor vtable slot 64 with getMoney neighbours
 ?rva00560A4C@Rva00560A4C@@QAEPAXXZ,,0x00560A4C,12,Code/GameEngine/Source/GameClient/Rva003AE50BCtor.cpp,matched,abuts Rva00560A1B ctor plus rowed QuadDraw getInstance plus returns this
+??1Rva0057D4EE@@QAE@XZ,,0x0057D4EE,5,Code/GameEngine/Source/GameClient/GUI/AptMapPreviewDtor0057D4EE.cpp,matched,5B jmp to rowed AptMapPreview dtor

@@ -13531,3 +13531,7 @@ FUN_009a52fe	0x005A52FE	820	blocked	ADDRESS-NAMED g_Rva hatch t=1 model=muse-08
 ?rva00280294@Rva00280294@@QAEXXZ	0x00280294	106	blocked	ADDRESS-NAMED g_Va009FF0F8 new use refused plus unclaimed 810B callee 0x0027F882 t=1 model=muse-01
 ?rva002804B2@Rva002804B2@@QAEXXZ	0x002804B2	271	blocked	ADDRESS-NAMED g_Va00BC2428 new use refused plus 2 unclaimed callees 447B 713B t=1 model=muse-01
 ?Rva003916ABEnumerate@@YGXPAXM0M00@Z	0x003916AB	676	blocked	footprint grid with cos sin plus TerrainLogic heights plus callback needs donor and frame 0x4c vs 0x68 t=25 model=muse-spark
+?rva00561564@Rva00561564@@QAEXXZ	0x00561564	1744	blocked	size 1744B over 1000B wall t=2 model=muse-01
+?rva0057D19A@AptMapPreview@@QAEXPAVMapMetaData@@@Z	0x0057D19A	852	blocked	complex EH AptMapPreview MapMetaData method needs unknown wide literal g_00C6F3A0 plus GameInfo+0x58 and lookup+0x1c layouts plus TheGameText fetch slot mapping t=14 model=muse-01
+?v7@Rva005AAB91@@UAEXXZ	0x005AB085	160	blocked	esi edi swap persists across def-order inline and G7 trials t=18 model=muse-01 (stash 0.9 kept)
+?updateCache@MapCache@@QAEXXZ	0x00305749	98	blocked	needs 4 unrowed callees 0x3006C4 0x3006E1 0x303409 0x30529C donor MapCache updateCache t=8 model=muse-01
