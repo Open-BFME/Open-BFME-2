@@ -5,8 +5,10 @@
 // (InitRandom/InitGameLogicRandom), with BFME2's frame-override check:
 // when TheGameLogic runs a frame other than -1 the frame number seeds the
 // generators instead of the passed seed. /Ob0 keeps the seedRandom calls
-// out of line in retail's mov-reg form; the static emits the same 48-byte
-// body the ledger already owns at 0x00233F3A, so the calls resolve there.
+// out of line in retail's mov-reg form. This TU also owns the 48-byte static
+// seedRandom body at 0x00233F3A: VC7.1 passes its arguments in eax/ecx and
+// preserves edx only while the implementation is visible. An extern declaration
+// changes the ABI to stack arguments and breaks all three existing bodies.
 typedef unsigned int UnsignedInt;
 
 static UnsignedInt theGameAudioSeed[6] =
@@ -74,4 +76,15 @@ void InitGameLogicRandom(UnsignedInt seed)
 		seed = TheGameLogic->m_frame;
 	seedRandom(seed, theGameLogicSeed);
 	theGameLogicBaseSeed = seed;
+}
+
+// Startup overload called by GameEngine::init at RVA 0x0022E2E4.
+// BFME1 random_value.cpp (d6db6bfa4fd3bd86c1d7ca4a5ab882d7c453a92c)
+// supplies the time(0) seeding role. BFME2 delegates to its existing seeded
+// overload, preserving that overload's frame-override behavior.
+// Retail 0x0023424C..0x0023425D: time import, InitRandom(seed), RET (17B).
+extern "C" __declspec(dllimport) long __cdecl time(long *timer);
+void InitRandom()
+{
+    InitRandom((UnsignedInt)time(0));
 }
