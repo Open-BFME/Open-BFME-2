@@ -1,6 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
 // ?rva002C108F@Rva0008FF12Host@@QAEXXZ, retail 0x002C108F, 185B: slot 41 of vtable 0x007FF658.
-// Evidence: vslot slot 41; pin Rva0008FF12Host; caller jmp 0x0008FF1D; callee drawWindow 0x002C0FC9; TheAudio.
+// Evidence: vslot slot 41; pin Rva0008FF12Host; caller jmp 0x0008FF1D; callee drawWindow 0x002C0FC9; TheTransitionHandler (DIR32 0x00DFDC14, the
+// GameWindowTransitionsHandler global; TheAudio is the distinct pointer at 0x00DFE6E8).
 
 class GameWindow
 {
@@ -29,12 +30,12 @@ template <> class BfmeVirtualSlots<0>
 {
 };
 
-class AudioManager : public BfmeVirtualSlots<12>
+class GameWindowTransitionsHandler : public BfmeVirtualSlots<12>
 {
 public:
 	virtual void slot12();
 };
-extern AudioManager *TheAudio;
+extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 class Rva0008FF12Host
 {
@@ -101,7 +102,7 @@ void Rva0008FF12Host::rva002C108F()
 	}
 	if (m_3C != 1)
 		return;
-	AudioManager *audio = TheAudio;
-	if (audio != 0)
-		audio->slot12();
+	GameWindowTransitionsHandler *handler = TheTransitionHandler;
+	if (handler != 0)
+		handler->slot12();
 }
