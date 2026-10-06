@@ -32,10 +32,7 @@ void bfmeRva0011F340(const char *text, void *context)
 	}
 }
 
-// ?bfmeRva0011F3C0@@YAXXZ present-unmatched
-void bfmeRva0011F3C0(void)
-{
-	BfmeVoidHook hook = bfmeData00DEDBE0;
-	if (hook != 0)
-		hook();
-}
+// Declaration only: the 12 B body at 0x0011F3C0 is pinned but not rowed, and
+// this TU emits a wrong COMDAT copy (je02 jmp ret vs retail jne01 ret jmp).
+// Calls reach the retail copy once it lands.
+void bfmeRva0011F3C0(void);
