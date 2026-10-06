@@ -64689,3 +64689,4 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva002E6329@@YAPAXPAX0000@Z,,0x002E6329,33,Code/GameEngine/Source/Common/Rva002E6329Forward.cpp,matched,
 ?rva002E10BD@Rva002E10BDOwner@@QAEXPAVCreateAHeroData@@@Z,,0x002E10BD,65,Code/GameEngine/Source/Common/Rva002E10BDFind.cpp,matched,
 ?rva002D363E@Rva002D363EOwner@@QAEXH@Z,,0x002D363E,80,Code/GameEngine/Source/Common/Rva002D363EForward.cpp,matched,
+?rva0036A524@Rva00368004@@QAEHXZ,,0x0036A524,151,Code/GameEngine/Source/Common/Rva00368004Getter.cpp,matched,dump range 16; flag refresh with goal dead-flag gate; same TU as 0x36A75C

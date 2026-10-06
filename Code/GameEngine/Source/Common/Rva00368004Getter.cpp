@@ -33,6 +33,12 @@ struct Coord3D
 
 class Object;
 
+class StateMachine
+{
+public:
+	Object *getGoalObject();
+};
+
 class GameLogic
 {
 public:
@@ -95,6 +101,7 @@ public:
 	virtual int slot10() = 0;
 	bool rva00368004();
 	int rva0036A75C();
+	int rva0036A524();
 
 private:
 	char m_pad04[0x14]; // +0x04..0x18 (vptr at +0x00)
@@ -129,6 +136,32 @@ int Rva00368004::rva0036A75C()
 	else if (team != NULL)
 		team->rva0039E5B9(&m_pos);
 	int inner = m_ptr->slot18();
+	if (rva00368004())
+		return -1;
+	return inner;
+}
+int Rva00368004::rva0036A524()
+{
+	if (m_flag40) {
+		m_flag40 = false;
+		return slot10();
+	}
+	if (m_ptr == NULL)
+		return -1;
+	Rva0036A75CInfo *info = m_info;
+	Object *obj = TheGameLogic->findObjectByID(info->m_objectID);
+	Team *team = TheTeamFactory->findTeamByID(info->m_teamID);
+	if (obj != NULL)
+		m_pos = *(Coord3D *)((char *)obj + 0x38);
+	else if (team != NULL)
+		team->rva0039E5B9(&m_pos);
+	int inner = m_ptr->slot18();
+	StateMachine *sm = *(StateMachine **)((char *)m_ptr + 0x18);
+	Object *goal = sm->getGoalObject();
+	if (goal != NULL) {
+		if ((*(unsigned char *)((char *)goal + 0x438) & 1) == 0)
+			return inner;
+	}
 	if (rva00368004())
 		return -1;
 	return inner;
