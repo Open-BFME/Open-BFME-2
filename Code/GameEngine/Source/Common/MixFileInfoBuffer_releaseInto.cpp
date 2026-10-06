@@ -37,7 +37,6 @@ extern int TheMixFileInfoPool; // 0x00A049D0
 void *__cdecl operator new[](unsigned int size);
 void __cdecl operator delete[](void *block);
 
-// ??0MixFileInfoBuffer@@QAE@XZ present-unmatched
 MixFileInfoBuffer::MixFileInfoBuffer()
 {
 	m_bfmeNext = 0;

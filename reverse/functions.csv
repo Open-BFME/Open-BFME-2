@@ -64616,3 +64616,7 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005E5CF9@Rva005E5CF9@@QAE?AURvaF1Handle@@H@Z,,0x005E5CF9,84,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,chain callee 0x005F589E rowed new 0x28 this+8 hidden-ret handle
 ?Rva00525E07@Holder00525E07@@QAEXPBVAsciiString@@H@Z,,0x00525E07,78,Code/GameEngine/Source/Common/Rva00525E07MaxUpdate.cpp,matched,Range-27 walk via findObjectByID and StringBase compare
 ?rva005260FC@Rva005260FC@@QAEXPBVAsciiString@@H@Z,,0x005260FC,7,Code/GameEngine/Source/Common/Rva00525E07MaxUpdate.cpp,matched,Tail forward to Holder max-update walk
+??0MixFileInfoBuffer@@QAE@XZ,,0x0052DB99,11,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp,matched,auto-row=allowed_symbols
+??1?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@QAE@XZ,,0x00288B47,5,Code/GameEngine/Source/Common/System/CrateCreationEntryListClear.cpp,matched,auto-row=allowed_symbols
+??0RadarEvent@@QAE@XZ,,0x002D7CD9,7,Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp,matched,auto-row=allowed_symbols
+_ciChannelTableCompareFn,,0x006B10B0,6,Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatChannel.c,matched,auto-row=allowed_symbols
