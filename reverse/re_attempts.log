@@ -14780,3 +14780,6 @@ FUN_00459ce6	0x00059CE6	197	blocked	frame and register allocation diverge across
 ??4Rva00383FD7@@QAEAAV0@ABV0@@Z	0x00383FD7	115	blocked	body remains 137B versus 115B retail with member scheduling and loop shape differences; latest clear tweak is ill-typed pointer operation t=18 model=gpt-6.1
 ?rva0054CBB0@Rva0054C941@@QAEXH@Z	0x0054CBB0	63	blocked	class identity and local tree-hint ref are plausible but source emits 115B with FS registration and holder at +0x18; retail is 63B with _EH_prolog and holder +0x20; unresolved EH and layout delta t=12 model=gpt-6.1
 ?rva0033B479@ThingTemplate@@QAEIXZ	0x0033B479	84	blocked	object emits const QBE getter at 107 B instead of requested QAE body; identity/code shape unresolved t=1 model=luna
+?rva0033B427@ThingTemplate@@QAEPBVModuleData@@H@Z	0x0033B427	82	blocked	prior round limit; comparison now matches structurally but stalled identity or landing basis t=1 model=gpt-6
+?rva0033B3D7@Rva0033B3D7@@QAEPAVAIUpdateModuleData@@XZ	0x0033B3D7	162	partial	register allocation and list traversal shape leave 63 bytes of structural difference after vtable slot repair t=12 model=gpt-6 score=0.9 stash=reverse/attempts/0x0033b3d7.cpp
+FUN_00637ab1	0x00237AB1	588	blocked	table neighbours GameData NONE HOLD do not prove identity or signature; parser body purpose unresolved t=12 model=gpt-6
