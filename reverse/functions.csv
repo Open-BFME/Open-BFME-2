@@ -64390,3 +64390,4 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva003BB5B7Do@@YGXPAVParameter@@HPAURGBColor@@@Z,,0x003BB5B7,103,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB5B7.cpp,matched,leaf via getUnitNamed getDrawable scaled color Drawable
 ?Rva003BB76EDo@@YGXPAUCoord3D@@PAX@Z,,0x003BB76E,47,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB76E.cpp,matched,leaf via Radar Eva Coord extra
 ?rva003FE0EB@Rva003FE05E@@QAE?AUTreeHintRef00217D4C@@XZ,,0x003FE0EB,83,Code/GameEngine/Source/Common/Rva003FE0EB.cpp,matched,refresh hint via rowed rva003FE05E plus pinned helper plus global g_009FEF10 plus sibling layouts
+?rva00094DD3@Rva00094DD3@@QAEXPAURva00094DD3Val@@@Z,,0x00094DD3,18,Code/GameEngine/Source/Common/Rva00094DD3.cpp,matched,leaf 2 callers in FUN_00495821 no callees float at +0x50 int at +0x54
