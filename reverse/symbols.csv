@@ -15573,3 +15573,18 @@ _rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with 
 ?rva004E701E@Rva004E7277@@QAEXXZ,0x004E701E,thiscall void callee of 0x004E7277 read from its REL32 displacement (same this); body unrowed
 ?rva004E72C0@Rva004E7277@@QAEXPAX@Z,0x004E72C0,thiscall void callee of 0x004E7392 read from its REL32 displacement (same this plus arg); body unrowed
 ?rva004E30D5@Rva004E30D5@@QAEXPAX@Z,0x004E30D5,thiscall void callee of 0x004E3BD8 read from its REL32 displacement (buffer plus int); body unrowed
+?rva004F7EE9@@YGXHHHPAX@Z,0x004F7EE9,stdcall 4-arg callee of 0x004F8B89 read from its REL32 displacement; body unrowed
+?rva004E98F7@@YAXHHHPAX@Z,0x004E98F7,cdecl 4-arg callee of 0x004E99D6 read from its REL32 displacement; body unrowed
+?rva002C6845@Rva002C6845@@QAEXXZ,0x002C6845,thiscall void callee of 0x004E94FB read from its REL32 displacement; body unrowed
+?rva002C7008@Rva002C7008@@QAEXPAX@Z,0x002C7008,thiscall void callee of 0x004E951C read from its REL32 displacement (this plus arg); body unrowed
+?rva002C5FBA@Rva002C5FBA@@QAEPAXH@Z,0x002C5FBA,thiscall pointer callee of 0x004E955F read from its REL32 displacement (this plus int); body unrowed
+?rva004E8FF6@Rva004E8FF6@@QAEXPAX@Z,0x004E8FF6,thiscall single-arg callee of 0x004E9710 read from its REL32 displacement; body unrowed
+?rva004E9040@Rva004E8FF6@@QAEXPAX@Z,0x004E9040,same-object single-arg callee of 0x004E9710 (global plus 0x940) read from REL32; in-range target, provisional class
+?rva004E9446@Rva004E94FB@@QAEXXZ,0x004E9446,thiscall no-arg callee of 0x004E9710 read from its REL32 displacement (same this); in-range target, provisional class
+?rva002C6BFF@Rva002C6BFF@@QAEXXZ,0x002C6BFF,thiscall no-arg callee of 0x004E9710 read from its REL32 displacement; body unrowed
+?rva004F8C16@@YAXHHHHHH@Z,0x004F8C16,cdecl 6-arg callee of 0x004F904F read from its REL32 displacement; in-range target, provisional signature
+?rva0059AED2@Rva0059AED2@@QAEXXZ,0x0059AED2,thiscall void callee of 0x004F6187 read from its REL32 displacement; body unrowed
+??0Rva004E669A@@QAE@PAXHHH@Z,0x004E669A,EH-guarded ctor callee of 0x004E6745 read from its REL32 displacement (new 0x20 with 4 args); body unrowed
+??0Rva004E7D72@@QAE@PAX@Z,0x004E7D72,EH-guarded ctor callee of 0x004E7F43 read from its REL32 displacement (new 0x28 with 1 arg); in-range target, body unrowed
+?rva005B09D8@@YAXPAX000@Z,0x005B09D8,cdecl 4-arg callee of 0x004ED3A2 read from its REL32 displacement; body unrowed
+?rva004ECE93@Rva004ECE93@@QAEMPAX@Z,0x004ECE93,thiscall float-returning callee of 0x004EDDAA read from its REL32 displacement; body unrowed
