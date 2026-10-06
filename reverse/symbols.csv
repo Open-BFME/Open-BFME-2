@@ -14176,3 +14176,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0052C161@Rva0052C036@@QAEXXZ,0x0052C161,direct same-this call from 0x0052C9F9; Ghidra boundary 117; address-derived method, identity and semantics unknown
 ?rva0052C45E@Rva0052C036@@QAEXXZ,0x0052C45E,direct same-this call from 0x0052C9F9; Ghidra boundary 717; address-derived method, identity and semantics unknown
 ?rva002B77AD@Rva0059E647World@@QAEXXZ,0x002B77AD,called by 0x0052C9F9 with ECX loaded from existing world pointer at VA 0x00DFEF10; Ghidra boundary 5 thunk; address-derived method, identity and semantics unknown
+??0Rva005D1ADE@@QAE@PAX0H@Z,0x005D1BA1,address-derived constructor pin; Ghidra function start 0x005D1BA1 size 270; paired vtable and destructor evidence at 0x00C75694
