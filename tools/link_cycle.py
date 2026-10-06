@@ -87,6 +87,7 @@ import re
 import struct
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -1229,7 +1230,13 @@ def export_snapshot(rev, parent):
     sha = git("rev-parse", "--verify", rev + "^{commit}")
     if not re.fullmatch(r"[0-9a-f]{40}", sha):
         raise SystemExit(f"link_cycle: {rev!r} is not a commit")
-    dest = Path(parent).resolve() / sha[:12]
+    dest = Path(parent).resolve() / sha[:10]
+    if len(str(dest)) > len(str(ROOT)):
+        # cl.exe 7.1 opens includes by unnormalised path (`dir\..\..\x.h`) under MAX_PATH:
+        # a root deeper than the tree that builds today fails TUs the tree compiles
+        print(f"link_cycle: warning: snapshot path {dest} is {len(str(dest)) - len(str(ROOT))} characters "
+              f"longer than {ROOT}; a TU near MAX_PATH there will not compile (counted in objects_missing)",
+              flush=True)
     mark = dest / SNAPSHOT_MARK
     if mark.exists():
         meta = json.loads(mark.read_text())
@@ -1806,8 +1813,10 @@ def main(argv=None):
                     help="reuse quarantine/stubs computed for other objects (the receipt is then not authoritative)")
     ap.add_argument("--snapshot", metavar="REV",
                     help="measure an immutable export of REV (git archive incl. submodules), not the worktree")
-    ap.add_argument("--snapshot-dir", default=str(ROOT / "build" / "link_cycle_snapshots"),
-                    help="where snapshots live (one directory per commit; outputs in its build/)")
+    ap.add_argument("--snapshot-dir", default=os.environ.get("LINK_CYCLE_SNAPSHOTS") or
+                    str(Path(tempfile.gettempdir()) / "lcs"),
+                    help="where snapshots live, one directory per commit with its outputs in build/; "
+                         "no deeper than this tree (MAX_PATH)")
     ap.add_argument("--measure-only", action="store_true", help="re-measure the last links (no link)")
     ap.add_argument("--out", default=str(OUT))
     args = ap.parse_args(argv)
