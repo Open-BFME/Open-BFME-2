@@ -31,11 +31,6 @@ private:
 	int m_handle;
 };
 
-// ??1Rva003623E5Filter@@QAE@XZ present-unmatched
-Rva003623E5Filter::~Rva003623E5Filter()
-{
-}
-
 class RefundDieModuleData : public DestroyDieModuleData
 {
 public:

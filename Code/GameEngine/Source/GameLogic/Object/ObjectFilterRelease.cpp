@@ -55,3 +55,9 @@ Rva00360D26Member::~Rva00360D26Member()
 {
     Rva00360CB0Release((int *)this);
 }
+
+// Units that construct the record through its 0x003623E5 ctor name the class
+// after it, as Rva003623E5Member (31 units) or Rva003623E5Filter (21 units);
+// their teardown calls bind to this body.
+#pragma comment(linker, "/alternatename:??1Rva003623E5Member@@QAE@XZ=??1Rva00360D26Member@@QAE@XZ")
+#pragma comment(linker, "/alternatename:??1Rva003623E5Filter@@QAE@XZ=??1Rva00360D26Member@@QAE@XZ")
