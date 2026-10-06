@@ -63878,3 +63878,4 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva001DF8F8@Rva001DF8F8@@QAEXH@Z,,0x001DF8F8,35,Code/GameEngine/Source/Common/Rva001DF8F8Adapter.cpp,matched,dump range 5 scratch adapter via in-place record temp and rowed ctor
 ??0AISkirmishPlayer@@QAE@PAVPlayer@@@Z,,0x004EF3A3,116,Code/GameEngine/Source/GameLogic/AI/AISkirmishPlayerCtor.cpp,matched,ZH AISkirmishPlayer ctor: pinned AIPlayer(Player*) base then defense fields zeroed then frame from TheGameLogic and setCanBuildUnits
 ??0AIPlayer@@QAE@PAVPlayer@@@Z,,0x004F04FC,190,Code/GameEngine/Source/GameLogic/AI/AIPlayerCtor.cpp,matched,BFME1/ZH donor AIPlayer ctor on BFME2 layout: queue heads then scalars then frame and difficulty and AI team seconds
+??1Rva005C8FBD@@QAE@XZ,,0x005C8FBD,94,Code/GameEngine/Source/Common/Rva005C8FBD.cpp,matched,chain from 0x005C8F17 with holder tree pool dtors
