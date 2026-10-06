@@ -30,6 +30,13 @@
 // only these observed ABI details; they are not additional object definitions.
 // Helper calls reuse existing ledger owners, including historically misnamed
 // folded child accessors. Donor role alone must not rename those owners.
+// Static guard ownership remains a data-ledger follow-up: the compiler emits
+// ?$S14... at VA 0xDFEFA0, also named g_Va00DFEFA0 by GlobalFlagClearers_04/08.
+// Target handler RVA 0x776DCD names FuncInfo 0x91E74C; its 25-entry unwind map
+// at 0x91E684 explicitly identifies clearers 0x776C65..0x776DBD as this body
+// cleanup funclets. This TU emits those same guard clear operations naturally.
+// The legacy stand-alone clearer rows and their data name need reconciliation;
+// no alias, pin or data-check baseline exception is added here.
 // All image literals, static color initialization and helper relocations are
 // checked by the normal byte gate. No raw image addresses are used as globals.
 
@@ -49,6 +56,21 @@
 #include "GameClient/GadgetRadioButton.h"
 #include "GameClient/GadgetCheckBox.h"
 #include "GameClient/GlobalLanguage.h"
+
+// These six getters inline with the target GameWindow layout (+0x30 instance data).
+// A distinct TU-local view avoids emitting incompatible copies of the older
+// GameWindow color getters used by the W3D GUI units. Inlining depth remains
+// the donor depth; flattening the expressions changes the compiler inline budget.
+struct GadgetAppearanceWindowDataView {
+ char prefix[0x30];
+ WinInstanceData m_instData;
+ Color winGetEnabledColor(Int index) { return m_instData.m_enabledDrawData[index].color; }
+ Color winGetEnabledBorderColor(Int index) { return m_instData.m_enabledDrawData[index].borderColor; }
+ Color winGetDisabledColor(Int index) { return m_instData.m_disabledDrawData[index].color; }
+ Color winGetDisabledBorderColor(Int index) { return m_instData.m_disabledDrawData[index].borderColor; }
+ Color winGetHiliteColor(Int index) { return m_instData.m_hiliteDrawData[index].color; }
+ Color winGetHiliteBorderColor(Int index) { return m_instData.m_hiliteDrawData[index].borderColor; }
+};
 
 // Native language accesses use this target-specific offset.
 struct GadgetAppearanceLanguageView
@@ -412,27 +434,27 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 		//
 		// enabled
 		Rva002C055FSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "HSliderThumbEnabled" ) );
-		Rva002C0579Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetEnabledColor(0) );
-		Rva002C0594Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetEnabledBorderColor(0) );
+		Rva002C0579Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetEnabledColor(0) );
+		Rva002C0594Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetEnabledBorderColor(0) );
 		Rva002C05AFSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "HSliderThumbEnabled" ) );
-		Rva002C05C9Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetEnabledBorderColor(0) );
-		Rva002C05E4Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetEnabledColor(0) );
+		Rva002C05C9Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetEnabledBorderColor(0) );
+		Rva002C05E4Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetEnabledColor(0) );
 
 		// disabled
 		Rva002C05FFSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "HSliderThumbDisabled" ) );
-		Rva002C0619Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetDisabledColor(0) );
-		Rva002C0634Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetDisabledBorderColor(0) );
+		Rva002C0619Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetDisabledColor(0) );
+		Rva002C0634Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetDisabledBorderColor(0) );
 		Rva002C064FSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "HSliderThumbDisabled" ) );
-		Rva002C0669Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetDisabledBorderColor(0) );
-		Rva002C0684Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetDisabledColor(0) );
+		Rva002C0669Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetDisabledBorderColor(0) );
+		Rva002C0684Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetDisabledColor(0) );
 
 		// hilite
 		Rva002C069FSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "HSliderThumbHilite" ) );
-		Rva002C06B9Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetHiliteColor(0) );
-		Rva002C06D4Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetHiliteBorderColor(0) );
+		Rva002C06B9Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetHiliteColor(0) );
+		Rva002C06D4Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetHiliteBorderColor(0) );
 		Rva002C06EFSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "HSliderThumbHiliteSelected" ) );
-		Rva002C0709Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetHiliteBorderColor(0) );
-		Rva002C0724Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetHiliteColor(0) );
+		Rva002C0709Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetHiliteBorderColor(0) );
+		Rva002C0724Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetHiliteColor(0) );
 
 
 	}  // end if
@@ -473,27 +495,27 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 		//
 		// enabled
 		Rva002C055FSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderThumbEnabled" ) );
-		Rva002C0579Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetEnabledColor(0) );
-		Rva002C0594Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetEnabledBorderColor(0) );
+		Rva002C0579Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetEnabledColor(0) );
+		Rva002C0594Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetEnabledBorderColor(0) );
 		Rva002C05AFSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderThumbEnabled" ) );
-		Rva002C05C9Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetEnabledBorderColor(0) );
-		Rva002C05E4Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetEnabledColor(0) );
+		Rva002C05C9Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetEnabledBorderColor(0) );
+		Rva002C05E4Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetEnabledColor(0) );
 
 		// disabled
 		Rva002C05FFSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderThumbDisabled" ) );
-		Rva002C0619Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetDisabledColor(0) );
-		Rva002C0634Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetDisabledBorderColor(0) );
+		Rva002C0619Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetDisabledColor(0) );
+		Rva002C0634Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetDisabledBorderColor(0) );
 		Rva002C064FSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderThumbDisabled" ) );
-		Rva002C0669Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetDisabledBorderColor(0) );
-		Rva002C0684Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetDisabledColor(0) );
+		Rva002C0669Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetDisabledBorderColor(0) );
+		Rva002C0684Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetDisabledColor(0) );
 
 		// hilite
 		Rva002C069FSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderThumbHilite" ) );
-		Rva002C06B9Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetHiliteColor(0) );
-		Rva002C06D4Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetHiliteBorderColor(0) );
+		Rva002C06B9Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetHiliteColor(0) );
+		Rva002C06D4Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetHiliteBorderColor(0) );
 		Rva002C06EFSet(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderThumbHiliteSelected" ) );
-		Rva002C0709Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetHiliteBorderColor(0) );
-		Rva002C0724Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), gadget->winGetHiliteColor(0) );
+		Rva002C0709Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetHiliteBorderColor(0) );
+		Rva002C0724Set(reinterpret_cast<Rva003140C8DwordField *>(gadget), reinterpret_cast<GadgetAppearanceWindowDataView *>(gadget)->winGetHiliteColor(0) );
 
 	}  // end else if
 	else if( BitTest( instData->getStyle(), GWS_SCROLL_LISTBOX ) )
