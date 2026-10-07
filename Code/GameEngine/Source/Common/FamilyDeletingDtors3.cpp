@@ -95,3 +95,21 @@ void Rva00577E43::rva00577E43()
         ((Rva005F8FCC *)m_end)->rva005F8FCC(0);
     }
 }
+
+// ?rva00577EAA@Rva00577EAA@@QAEXXZ retail 0x00577EAA 8 bytes. Forwards to
+// rowed 0x00577E43 via the pointer at +4. Evidence: single caller 0x005F882E
+// passes its own this in ecx with no pushes; target is the rowed
+// Rva00577E43::rva00577E43 in this file; no vtable or strings.
+class Rva00577EAA
+{
+public:
+    void rva00577EAA();
+
+private:
+    char m_pad00[4];
+    Rva00577E43 *m_target;
+};
+void Rva00577EAA::rva00577EAA()
+{
+    m_target->rva00577E43();
+}
