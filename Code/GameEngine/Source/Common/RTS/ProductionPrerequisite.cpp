@@ -87,32 +87,7 @@ void ProductionPrerequisite::init()
 }
 
 //=============================================================================
-// ?resolveNames@ProductionPrerequisite@@QAEXXZ present-unmatched
-void ProductionPrerequisite::resolveNames()
-{
-	for (Int i = 0; i < m_prereqUnits.size(); i++)
-	{
-
-		//
-		// note that this will find the template at the "top most" level (not override
-		// sub-temlates), which is what we want ... we conceptually only have one
-		// template for any given thing, it's only the *data* that is overridden
-		//
-		if( m_prereqUnits[ i ].name.isNotEmpty() )
-		{
-			m_prereqUnits[i].unit = TheThingFactory->findTemplate(m_prereqUnits[i].name);	// might be null
-
- 			/** @todo for now removing this assert until we can completely remove
- 			the GDF stuff, the problem is that some INI files refer to GDF names, and they
- 			aren't yet loaded in the world builder but will all go away later anyway etc */
-			DEBUG_ASSERTCRASH(m_prereqUnits[i].unit,("could not find prereq %s\n",m_prereqUnits[i].name.str()));
-
-			m_prereqUnits[i].name.clear(); // we're done with it
-		}
-
-	}
-
-}
+// ProductionPrerequisite::resolveNames is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/ProductionPrerequisiteResolveNames.cpp (0x004F4B6D).
 
 //-----------------------------------------------------------------------------
 Int ProductionPrerequisite::calcNumPrereqUnitsOwned(const Player *player, Int counts[MAX_PREREQ]) const
@@ -166,45 +141,7 @@ const ThingTemplate *ProductionPrerequisite::getExistingBuildFacilityTemplate( c
 }
 
 //-----------------------------------------------------------------------------
-// ?isSatisfied@ProductionPrerequisite@@QBE_NPBVPlayer@@@Z present-unmatched
-Bool ProductionPrerequisite::isSatisfied(const Player *player) const
-{
-	Int i;
-
-	if (!player)
-		return false;
-
-	// gotta have all the prereq sciences.
-	for (i = 0; i < m_prereqSciences.size(); i++)
-	{
-		if (!player->hasScience(m_prereqSciences[i]))
-			return false;
-	}
-
-	// the player must have at least one instance of each prereq unit.
-	Int ownCount[MAX_PREREQ];
-	Int cnt = calcNumPrereqUnitsOwned(player, ownCount);
-
-	// fix up the "or" cases. (start at 1!)
-	for (i = 1; i < cnt; i++)
-	{
-		if (m_prereqUnits[i].flags & UNIT_OR_WITH_PREV)
-		{
-			ownCount[i] += ownCount[i-1];	// lump 'em together for prereq purposes
-			ownCount[i-1] = -1;						// flag for "ignore me"
-		}
-	}
-
-	for (i = 0; i < cnt; i++)
-	{
-		if (ownCount[i] == -1)	// the magic "ignore me" flag
-			continue;	
-		if (ownCount[i] == 0)		// everything not ignored, is required
-			return false;
-	}
-
-	return true;
-}
+// ProductionPrerequisite::isSatisfied is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/ProductionPrerequisiteIsSatisfied_ProductionPrerequisite_isSatisfied.cpp (0x004F4CE5).
 
 //-------------------------------------------------------------------------------------------------
 /** Add a unit prerequisite, if 'orWithPrevious' is set then this unit is said

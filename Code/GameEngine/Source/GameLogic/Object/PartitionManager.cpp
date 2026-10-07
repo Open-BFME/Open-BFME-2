@@ -5167,12 +5167,7 @@ Bool PartitionFilterRepulsor::allow( Object *other )
 
 //-----------------------------------------------------------------------------
 
-// ?allow@PartitionFilterIrregularArea@@ present-unmatched
-Bool PartitionFilterIrregularArea::allow( Object *other )
-{
-
-	return PointInsideArea2D(other->getPosition(), m_area, m_numPointsInArea);
-}
+// PartitionFilterIrregularArea::allow is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/PartitionFilters_allow_Thunk.cpp (0x0026170A).
 
 //-----------------------------------------------------------------------------
 // ?allow@PartitionFilterPolygonTrigger@@ present-unmatched
@@ -5187,11 +5182,7 @@ Bool PartitionFilterPolygonTrigger::allow( Object *other )
 
 //-----------------------------------------------------------------------------
 
-// ?allow@PartitionFilterPlayer@@ present-unmatched
-Bool PartitionFilterPlayer::allow( Object *other )
-{
-	return ((m_player == other->getControllingPlayer()) == m_match);
-}
+// PartitionFilterPlayer::allow is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/PartitionFilters_allow_Thunk.cpp (0x0026137E).
 
 //-----------------------------------------------------------------------------
 // ?allow@PartitionFilterPlayerAffiliation@@ present-unmatched
@@ -5493,23 +5484,7 @@ PartitionFilterPossibleToAttack::PartitionFilterPossibleToAttack(AbleToAttackTyp
 }
 
 //-----------------------------------------------------------------------------
-// ?allow@PartitionFilterPossibleToAttack@@ present-unmatched
-Bool PartitionFilterPossibleToAttack::allow(Object *objOther)
-{
-	// objOther is guaranteed to be non-null, so we don't need to check (srj)
-	
-	// we should have already filtered out isAbleToAttack!
-#ifdef _DEBUG
-	// disable this assert for INTERNAL builds (srj)
-	DEBUG_ASSERTCRASH(m_obj && m_obj->isAbleToAttack(), ("if the object is unable to attack at all, you should filter that out ahead of time!"));
-#endif
-	CanAttackResult result = m_obj->getAbleToAttackSpecificObject( m_attackType, objOther, m_commandSource );
-	if( result == ATTACKRESULT_POSSIBLE || result == ATTACKRESULT_POSSIBLE_AFTER_MOVING )
-	{
-		return TRUE;
-	}
-	return FALSE;
-}
+// PartitionFilterPossibleToAttack::allow is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/PartitionFilterPossibleToAttackAllow.cpp (0x00260FD0).
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------

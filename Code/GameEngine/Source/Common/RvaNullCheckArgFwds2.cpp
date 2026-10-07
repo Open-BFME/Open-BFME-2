@@ -92,12 +92,7 @@ private:
 	Rva004F2C14Run *m_ptr;
 };
 
-void Rva00271BCC::rva00271BCC(int a, int b)
-{
-	Rva003626ADRun *target = m_ptr;
-	if (target)
-		target->run(a, b);
-}
+// Rva00271BCC::rva00271BCC is defined with its retail-matched body in Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp (0x00271BCC).
 
 void Rva0029B16AOwner::fwd(int a, int b)
 {
@@ -120,9 +115,4 @@ void Rva002A9CF0Owner::fwd(int value)
 		target->run(value);
 }
 
-void Rva002A9BF2::rva002A9DEC(int value)
-{
-	Rva004F2C14Run *target = m_ptr;
-	if (target)
-		target->run(value);
-}
+// Rva002A9BF2::rva002A9DEC is defined with its retail-matched body in Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp (0x002A9DEC).

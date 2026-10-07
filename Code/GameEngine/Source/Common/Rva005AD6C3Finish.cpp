@@ -190,37 +190,7 @@ AINavyUnitBattleShip::AINavyUnitBattleShip(const Rva005DCC4BSource *source)
 	m_field0C = (Int)TheGameLogic->m_frame;
 }
 
-void AINavyUnitBattleShip::patrol()
-{
-	Object *ship = TheGameLogic->findObjectByID((ObjectID)m_field04);
-	if (!ship->m_ai->isIdle())
-		return;
-	Player *player = (Player *)g_00DFEEF8->rva002A8AB1(ship->getControllingPlayer())->rva002C6ACB();
-	Rva005C4AD1LeaField *units = ((Rva005AD6C3Holder *)g_00DFEEF8->rva002A8F24(player))->m_08;
-	bool attacked = false;
-	unsigned int count = ((IntMap *)units)->bucket_count();
-	if (count > 0) {
-		for (unsigned int i = 0; i < count; ++i) {
-			if (attacked)
-				return;
-			Object *obj = TheGameLogic->findObjectByID((*(ObjectID **)units->get())[i]);
-			if (obj->m_04->m_11F & 0x10) {
-				ship->m_ai->m_commands.rva003C7653(obj, CMD_FROM_PLAYER);
-				attacked = true;
-			}
-		}
-		if (attacked)
-			return;
-	}
-	for (Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->m_8C) {
-		if ((obj->m_04->m_11F & 0x10) && GetGameLogicRandomValue(0, 9,
-			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticalNavy\\AINavyUnitBattleShip.cpp",
-			120) == 0) {
-			ship->m_ai->m_commands.rva003C7653(obj, CMD_FROM_PLAYER);
-			return;
-		}
-	}
-}
+// AINavyUnitBattleShip::patrol is defined with its retail-matched body in Code/GameEngine/Source/Common/Rva005AD6F5Finish.cpp (0x005AD6F5).
 
 void AINavyUnitBattleShip::update()
 {

@@ -379,71 +379,7 @@ LocomotorTemplate::~LocomotorTemplate()
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?LocomotorTemplate::validate present-unmatched
-void LocomotorTemplate::validate()
-{
-	// this is ok; parachutes need it!
-	//DEBUG_ASSERTCRASH(m_lift == 0.0f || m_lift > fabs(TheGlobalData->m_gravity), ("Lift is too low to counteract gravity!"));
-	//DEBUG_ASSERTCRASH(m_liftDamaged == 0.0f || m_liftDamaged > fabs(TheGlobalData->m_gravity), ("LiftDamaged is too low to counteract gravity!"));
-	//DEBUG_ASSERTCRASH(m_preferredHeight == 0.0f || (m_behaviorZ == Z_SURFACE_RELATIVE_HEIGHT || m_behaviorZ == Z_ABSOLUTE_HEIGHT || m_appearance == LOCO_THRUST), 
-	//	("You must use Z_SURFACE_RELATIVE_HEIGHT or Z_ABSOLUTE_HEIGHT (or THRUST) to use preferredHeight"));
-
-	// for 'damaged' stuff that was omitted, set 'em to be the same as 'undamaged'...
-	if (m_maxSpeedDamaged < 0.0f)
-		m_maxSpeedDamaged = m_maxSpeed;
-	
-	if (m_maxTurnRateDamaged < 0.0f)
-		m_maxTurnRateDamaged = m_maxTurnRate;
-
-	if (m_accelerationDamaged < 0.0f)
-		m_accelerationDamaged = m_acceleration;
-
-	if (m_liftDamaged < 0.0f)
-		m_liftDamaged = m_lift;
-
-	if (m_appearance == LOCO_WINGS)
-	{
-		if (m_minSpeed <= 0.0f)
-		{
-			DEBUG_CRASH(("WINGS should always have positive minSpeeds (otherwise, they hover)"));
-			m_minSpeed = 0.01f;
-		}
-		if (m_minTurnSpeed <= 0.0f)
-		{
-			DEBUG_CRASH(("WINGS should always have positive minTurnSpeed"));
-			m_minTurnSpeed = 0.01f;
-		}
-	}
-
-	if (m_appearance == LOCO_THRUST)
-	{
-		if (m_behaviorZ != Z_NO_Z_MOTIVE_FORCE ||
-				m_lift != 0.0f ||
-				m_liftDamaged != 0.0f)
-		{
-			DEBUG_CRASH(("THRUST locos may not use ZAxisBehavior or lift!\n"));
-			throw INI_INVALID_DATA;
-		}
-		if (m_maxSpeed <= 0.0f)
-		{
-			// if one of these was omitted, it defaults to zero... just quietly heal it here, rather than crashing
-			DEBUG_LOG(("THRUST locos may not have zero m_maxSpeed; healing...\n"));
-			m_maxSpeed = 0.01f;
-		}
-		if (m_maxSpeedDamaged <= 0.0f)
-		{
-			// if one of these was omitted, it defaults to zero... just quietly heal it here, rather than crashing
-			DEBUG_LOG(("THRUST locos may not have zero m_maxSpeedDamaged; healing...\n"));
-			m_maxSpeedDamaged = 0.01f;
-		}
-		if (m_minSpeed <= 0.0f)
-		{
-			// if one of these was omitted, it defaults to zero... just quietly heal it here, rather than crashing
-			DEBUG_LOG(("THRUST locos may not have zero m_minSpeed; healing...\n"));
-			m_minSpeed = 0.01f;
-		}
-	}
-}
+// LocomotorTemplate::validate is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/LocomotorTemplateValidate.cpp (0x001E38B9).
 
 //-------------------------------------------------------------------------------------------------
 static void parseFrictionPerSec( INI* ini, void * /*instance*/, void *store, const void* /*userData*/ )
@@ -583,23 +519,7 @@ void LocomotorStore::update()
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?LocomotorStore::reset present-unmatched
-void LocomotorStore::reset()
-{
-	// cleanup overrides.
-	LocomotorTemplateMap::iterator it;
-	for (it = m_locomotorTemplates.begin(); it != m_locomotorTemplates.end(); ) {
-		Overridable *locoTemp = it->second->deleteOverrides();
-		if (!locoTemp)
-		{
-			m_locomotorTemplates.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
-}
+// LocomotorStore::reset is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/LocomotorStoreReset.cpp (0x001E681D).
 
 //-------------------------------------------------------------------------------------------------
 // ?LocomotorStore::newOverride present-unmatched
@@ -2783,43 +2703,7 @@ void LocomotorSet::loadPostProcess( void )
 }  // end loadPostProcess
 
 //-------------------------------------------------------------------------------------------------
-// ?LocomotorSet::xferSelfAndCurLocoPtr present-unmatched
-void LocomotorSet::xferSelfAndCurLocoPtr(Xfer *xfer, Locomotor** loco)
-{
-	xfer->xferSnapshot(this);
-
-	if (xfer->getXferMode() == XFER_SAVE)
-	{
-		AsciiString name;
-		if (*loco)
-			name = (*loco)->getTemplateName();
-		xfer->xferAsciiString(&name);
-	}
-	else if (xfer->getXferMode() == XFER_LOAD)
-	{
-		AsciiString name;
-		xfer->xferAsciiString(&name);
-
-		if (name.isEmpty())
-		{
-			*loco = NULL;
-		}
-		else
-		{
-			for (int i = 0; i < m_locomotors.size(); ++i)
-			{
-				if (m_locomotors[i]->getTemplateName() == name)
-				{
-					*loco = m_locomotors[i];
-					return;
-				}
-			}
-
-			DEBUG_CRASH(( "LocomotorSet::xfer - template %s not found\n", name.str() ));
-			throw XFER_UNKNOWN_STRING;
-		}
-	}
-}
+// LocomotorSet::xferSelfAndCurLocoPtr is defined with its retail-matched body in Code/GameEngine/Source/Common/LocomotorSetXferSelfAndCurLocoPtrRva001E70C2.cpp (0x001E70C2).
 
 //-------------------------------------------------------------------------------------------------
 // ?LocomotorSet::clear present-unmatched

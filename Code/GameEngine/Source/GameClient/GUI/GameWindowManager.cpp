@@ -213,14 +213,7 @@ GameWindowManager::~GameWindowManager( void )
 //-------------------------------------------------------------------------------------------------
 /** Initialize the game window manager system */
 //-------------------------------------------------------------------------------------------------
-// ?GameWindowManager::init present-unmatched
-void GameWindowManager::init( void )
-{
-	if(!TheTransitionHandler)
-		TheTransitionHandler = NEW GameWindowTransitionsHandler;
-	TheTransitionHandler->load();
-	TheTransitionHandler->init();
-}  // end init
+// GameWindowManager::init is defined with its retail-matched body in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_init.cpp (0x002C0A0F).
 
 //-------------------------------------------------------------------------------------------------
 /** Reset window system */
@@ -1097,15 +1090,7 @@ void GameWindowManager::winSetGrabWindow( GameWindow *window )
 //-------------------------------------------------------------------------------------------------
 /** Create a Modal Message Box */
 //-------------------------------------------------------------------------------------------------
-GameWindow *GameWindowManager::gogoMessageBox(Int x, Int y, Int width, Int height, UnsignedShort buttonFlags,
-                        UnicodeString titleString, UnicodeString bodyString,
-                        GameWinMsgBoxFunc yesCallback,
-                        GameWinMsgBoxFunc noCallback,
-                        GameWinMsgBoxFunc okCallback,
-                        GameWinMsgBoxFunc cancelCallback )
-{
-	return gogoMessageBox(x,y, width,height,buttonFlags,titleString,bodyString,yesCallback,noCallback,okCallback,cancelCallback, FALSE);
-}
+// GameWindowManager::gogoMessageBox is defined with its retail-matched body in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_gogoMessageBox.cpp (0x002C187D).
 
 // The 12-argument implementation is in GameWindowManagerMessageBox.cpp.
 

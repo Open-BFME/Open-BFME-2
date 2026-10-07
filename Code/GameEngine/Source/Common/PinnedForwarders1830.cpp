@@ -208,11 +208,7 @@ private:
 	Rva003626AD *m_450;
 };
 
-void Rva00271BCC::rva00271BCC(int a, int b)
-{
-	if (m_450)
-		m_450->rva003626AD(a, b);
-}
+// Rva00271BCC::rva00271BCC is defined with its retail-matched body in Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp (0x00271BCC).
 
 class Rva000EDB47
 {

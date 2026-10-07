@@ -1030,43 +1030,7 @@ void GarrisonContain::healObjects( void )
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?GarrisonContain::healSingleObject present-unmatched
-void GarrisonContain::healSingleObject( Object *obj, Real framesForFullHeal)
-{
-	// setup the healing damageInfo structure with all but the amount
-	DamageInfo healInfo;
-	healInfo.in.m_damageType = DAMAGE_HEALING;
-	healInfo.in.m_deathType = DEATH_NONE;
-	//healInfo.in.m_sourceID = getObject()->getID();
-
-	// get body module of the thing to heal
-	BodyModuleInterface *body = obj->getBodyModule();
-
-	// if we've been in here long enough ... set our health to max
-	if( TheGameLogic->getFrame() - obj->getContainedByFrame() >= framesForFullHeal )
-	{
-	
-		// set the amount to max just to be sure we're at the top
-		healInfo.in.m_amount = body->getMaxHealth();
-		
-		// set max health
-		body->attemptHealing( &healInfo );
-
-	}  // end if
-	else
-	{
-		//
-		// given the *whole* time it would take to heal this object, lets pretend that the
-		// object is at zero health ... and give it a sliver of health as if it were at 0 health
-		// and would be fully healed at 'framesForFullHeal'
-		//
-		healInfo.in.m_amount = body->getMaxHealth() / framesForFullHeal;
-
-		// do the healing
-		body->attemptHealing( &healInfo );
-
-	}  // end else
-}
+// GarrisonContain::healSingleObject is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainHealSingleObject.cpp (0x004786F8).
 
 //-------------------------------------------------------------------------------------------------
 /** return the player that *appears* to control this unit. if null, 
@@ -1296,44 +1260,7 @@ void GarrisonContain::loadGarrisonPoints( void )
 /** Validate any exit rally point that has been chosen (if any).  If it's not valid,
 	* try to find a new one */
 // ------------------------------------------------------------------------------------------------
-// ?GarrisonContain::validateRallyPoint present-unmatched
-void GarrisonContain::validateRallyPoint( void )
-{
-
-	// if we have a rally point already picked, make sure it's valid
-	if( m_rallyValid == TRUE )
-	{
-		Coord3D result;
-		FindPositionOptions options;
-
-		// ask for a valid position exactly at the rally point
-		options.flags = FPF_IGNORE_ALLY_OR_NEUTRAL_UNITS;
-		options.minRadius = 0.0f;
-		options.maxRadius = 0.0f;
-		options.ignoreObject = getObject();
-		options.relationshipObject = getObject();
-		if( ThePartitionManager->findPositionAround( &m_exitRallyPoint, &options, &result ) == FALSE )
-			m_rallyValid = FALSE;
-
-	}  // end if
-
-	// if no rally point is present, try to find one
-	if( m_rallyValid == FALSE )
-	{
-		FindPositionOptions options;
-
-		// pick a location for everybody to rally at
-		options.flags = FPF_IGNORE_ALLY_OR_NEUTRAL_UNITS;
-		options.minRadius = getObject()->getGeometryInfo().getBoundingCircleRadius();
-		options.maxRadius = options.minRadius * 1.8f;  // arbitrary max distance away, change as needed
-		options.ignoreObject = getObject();
-		options.relationshipObject = getObject();
-		m_rallyValid = ThePartitionManager->findPositionAround( getObject()->getPosition(),
-																													  &options,
-																													  &m_exitRallyPoint );
-	}  // end if
-
-}  // end validateRallyPoint
+// GarrisonContain::validateRallyPoint is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainValidateRallyPoint.cpp (0x00478141).
 
 
 

@@ -220,31 +220,7 @@ Bool SpecialPowerModule::isModuleForPower( const SpecialPowerTemplate *specialPo
 /** Is this special power ready to use */
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule_isReady_Thunk.cpp
-// ?isReady@SpecialPowerModule@@UBE_NXZ present-unmatched
-Bool SpecialPowerModule::isReady() const
-{
-#if defined(_DEBUG) || defined(_INTERNAL) || defined(_ALLOW_DEBUG_CHEATS_IN_RELEASE)
-	// this is a cheat ... remove this for release!
-	if( TheGlobalData->m_specialPowerUsesDelay == FALSE )
-		return TRUE;
-#endif
-
-	const Object* obj = getObject();
-	const SpecialPowerModuleData *modData = getSpecialPowerModuleData();
-
-	if ( obj && modData )
-	{
-		Player *player = getObject()->getControllingPlayer();
-		if ( player )
-		{
-			if ( modData->m_specialPowerTemplate->isSharedNSync())
-				return (TheGameLogic->getFrame() >= player->getOrStartSpecialPowerReadyFrame( modData->m_specialPowerTemplate ) );
-		}
-	}
-	
-	return (m_pausedCount == 0) && (TheGameLogic->getFrame() >= m_availableOnFrame);
-
-}  // end isReady
+// SpecialPowerModule::isReady is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleIsReady.cpp (0x004934DE).
 
 //-------------------------------------------------------------------------------------------------
 /** Get the percentage ready a special power is to use
@@ -428,44 +404,7 @@ void SpecialPowerModule::triggerSpecialPower( const Coord3D *location )
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 // Matched via Code/masm_dumps/SpecialPowerModule_createViewObject.asm @ 0x00269130 (422B)
-// ?SpecialPowerModule::createViewObject present-unmatched
-void SpecialPowerModule::createViewObject( const Coord3D *location )
-{
-	const SpecialPowerModuleData *modData = getSpecialPowerModuleData();
-	const SpecialPowerTemplate *powerTemplate = modData->m_specialPowerTemplate;
-
-	if( modData == NULL  ||  powerTemplate == NULL )
-		return;
-
-	Real visionRange = powerTemplate->getViewObjectRange();
-	UnsignedInt visionDuration = powerTemplate->getViewObjectDuration();
-
-	if( visionRange == 0 || visionDuration == 0 )
-		return; // We don't want a view object at all.
-
-	AsciiString objectName = TheGlobalData->m_specialPowerViewObjectName;
-	if( objectName.isEmpty() )
-		return;
-
-	const ThingTemplate *viewObjectTemplate = TheThingFactory->findTemplate( objectName );
-	if( viewObjectTemplate == NULL )
-		return;
-
-	Object *viewObject = TheThingFactory->newObject( viewObjectTemplate, getObject()->getControllingPlayer()->getDefaultTeam() );
-
-	if( viewObject == NULL )
-		return;
-
-	viewObject->setPosition( location );
-	viewObject->setShroudClearingRange( visionRange );
-
-	static NameKeyType key_DeletionUpdate = NAMEKEY("DeletionUpdate");
-	DeletionUpdate* dup = (DeletionUpdate*)viewObject->findUpdateModule(key_DeletionUpdate);
-	if( dup )
-	{
-		dup->setLifetimeRange( visionDuration, visionDuration );
-	}	
-}
+// SpecialPowerModule::createViewObject is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCreateViewObject.cpp (0x00493845).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -609,49 +548,11 @@ void SpecialPowerModule::aboutToDoSpecialPower( const Coord3D *location )
 //then all we do is initiate the special power, and trust that the update module will 
 //do the rest.
 //-------------------------------------------------------------------------------------------------
-// ?doSpecialPower@SpecialPowerModule@@UAEXI@Z present-unmatched
-void SpecialPowerModule::doSpecialPower( UnsignedInt commandOptions )
-{
-	if (m_pausedCount > 0 || getObject()->isDisabled()) {
-		return;
-	}
-
-	//This tells the update module that we want to do our special power. The update modules
-	//will then start processing each frame.
-	initiateIntentToDoSpecialPower( NULL, NULL, NULL, commandOptions );
-
-	//Only trigger the special power immediately if the updatemodule doesn't start the attack.
-	//An example of a case that wouldn't trigger immediately is for a unit that needs to 
-	//close to range before firing the special attack. A case that would trigger immediately
-	//is the napalm strike. If we don't call this now, it's up to the update module to do so.
-	if( !getSpecialPowerModuleData()->m_updateModuleStartsAttack )
-	{
-		triggerSpecialPower( NULL );// Location-less trigger
-	}
-} 
+// SpecialPowerModule::doSpecialPower is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDo.cpp (0x0049490F).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?doSpecialPowerAtObject@SpecialPowerModule@@UAEXPAVObject@@I@Z present-unmatched
-void SpecialPowerModule::doSpecialPowerAtObject( Object *obj, UnsignedInt commandOptions )
-{
-	if (m_pausedCount > 0 || getObject()->isDisabled()) {
-		return;
-	}
-
-	//This tells the update module that we want to do our special power. The update modules
-	//will then start processing each frame.
-	initiateIntentToDoSpecialPower( obj, NULL, NULL, commandOptions );
-
-	//Only trigger the special power immediately if the updatemodule doesn't start the attack.
-	//An example of a case that wouldn't trigger immediately is for a unit that needs to 
-	//close to range before firing the special attack. A case that would trigger immediately
-	//is the napalm strike. If we don't call this now, it's up to the update module to do so.
-	if( !getSpecialPowerModuleData()->m_updateModuleStartsAttack )
-	{
-		triggerSpecialPower( obj->getPosition() );
-	}
-}  
+// SpecialPowerModule::doSpecialPowerAtObject is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDo.cpp (0x0049495B).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------

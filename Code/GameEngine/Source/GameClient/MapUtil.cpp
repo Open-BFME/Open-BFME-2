@@ -547,27 +547,7 @@ void MapCache::updateCache( void )
 #endif
 }
 
-// ?clearUnseenMaps@MapCache@@ present-unmatched
-Bool MapCache::clearUnseenMaps( AsciiString dirName )
-{
-	((StringBase<char> *)&dirName)->toLower();
-	Bool erasedSomething = FALSE;
-
-	std::map<AsciiString, Bool>::iterator it = m_seen.begin();
-
-	while (it != m_seen.end())
-	{
-		AsciiString mapName = it->first;
-		if (it->second == FALSE && ((const StringBase<char> *)&mapName)->startsWithNoCase(dirName.str()))
-		{
-			// not seen in the dir - clear it out.
-			erase(mapName);
-			erasedSomething = TRUE;
-		}
-		++it;
-	}
-	return erasedSomething;
-}
+// MapCache::clearUnseenMaps is defined with its retail-matched body in Code/GameEngine/Source/GameClient/MapCacheClearUnseenMaps_Rva0030469e.cpp (0x0030469E).
 
 // ?loadStandardMaps@MapCache@@ present-unmatched
 void MapCache::loadStandardMaps(void)

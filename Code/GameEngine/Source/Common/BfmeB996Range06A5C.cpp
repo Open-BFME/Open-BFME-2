@@ -33,38 +33,9 @@ private:
 	int m_limit;
 };
 
-char BfmeB996Range::checkRange( int first, unsigned int *second, char *stop )
-{
-	int firstClass = m_dev->classify( first, 4 );
-	*stop = 0;
-	if ( firstClass != 4 ) {
-		if ( firstClass != 0 ) {
-			*stop = 1;
-		}
-		return 0;
-	}
+// BfmeB996Range::checkRange is defined with its retail-matched body in Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp (0x00106715).
 
-	int secondClass = m_dev->classify( (int)second, 4 );
-	unsigned int remaining = m_limit - m_dev->cursor();
-	if ( secondClass == 4 && *second >= 8 && *second - 8 <= remaining ) {
-		return 1;
-	}
-	*stop = 1;
-	return 0;
-}
-
-bool BfmeB996Range::rva001068D1( int first, unsigned int *second, char *third )
-{
-	if ( m_kind == 6 ) {
-		if ( checkRange( first, second, third ) != 0 ) {
-			if ( *third == 0 ) {
-				m_dev->v5( -8, 1 );
-				return true;
-			}
-		}
-	}
-	return false;
-}
+// BfmeB996Range::rva001068D1 is defined with its retail-matched body in Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp (0x001068D1).
 
 class Rva007E3410Object
 {

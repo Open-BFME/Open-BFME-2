@@ -224,31 +224,10 @@ void PlayerList::newGame()
 }
 
 //-----------------------------------------------------------------------------
-// ?PlayerList::init present-unmatched
-void PlayerList::init()
-{
-	m_playerCount = 1;
-	m_players[0]->init(NULL);
-
-	for (int i = 1; i < MAX_PLAYER_COUNT; i++)
-		m_players[i]->init(NULL);
-
-	// call setLocalPlayer so that becomingLocalPlayer() gets called appropriately
-	setLocalPlayer(m_players[0]);
-
-}
+// PlayerList::init is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerList_playerLoops.cpp (0x002A7EF1).
 
 //-----------------------------------------------------------------------------
-// ?PlayerList::update present-unmatched
-void PlayerList::update()
-{
-	// update all players
-	for( Int i = 0; i < MAX_PLAYER_COUNT; i++ )
-	{
-		m_players[i]->update();
-	}  // end for i
-
-}
+// PlayerList::update is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerList_playerLoops.cpp (0x002A7AB6).
 
 //-----------------------------------------------------------------------------
 // ?PlayerList::newMap present-unmatched
@@ -302,48 +281,7 @@ Team *PlayerList::validateTeam( AsciiString owner )
 }
 
 //-----------------------------------------------------------------------------
-// ?PlayerList::setLocalPlayer present-unmatched
-void PlayerList::setLocalPlayer(Player *player)
-{
-	// can't set local player to null -- if you try, you get neutral.
-	if (player == NULL)
-	{
-		DEBUG_CRASH(("local player may not be null"));
-		player = getNeutralPlayer();
-	}
-
-	if (player != m_local)
-	{
-		// m_local can be null the very first time we call this.
-		if (m_local)
-			m_local->becomingLocalPlayer(false);
-		m_local = player;
-		player->becomingLocalPlayer(true);
-	}
-
-#ifdef INTENSE_DEBUG
-	if (player)
-	{
-		DEBUG_LOG(("\n----------\n"));
-		// did you know? you can use "%ls" to print a doublebyte string, even in a single-byte printf...
-		DEBUG_LOG(("Switching local players. The new player is named '%ls' (%s) and owns the following objects:\n",
-			player->getPlayerDisplayName().str(),
-			TheNameKeyGenerator->keyToName(player->getPlayerNameKey()).str()
-		));
-		for (Object *obj = player->getFirstOwnedObject(); obj; obj = obj->getNextOwnedObject())
-		{
-			DEBUG_LOG(("Obj %08lx is of type %s",obj,obj->getTemplate()->getName().str()));
-			if (!player->canBuild(obj->getTemplate()))
-			{
-				DEBUG_LOG((" (NOT BUILDABLE)"));
-			}
-			DEBUG_LOG(("\n"));
-		}
-		DEBUG_LOG(("\n----------\n"));
-	}
-#endif
-
-}
+// PlayerList::setLocalPlayer is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerList_setLocalPlayer_Rva002A7B34.cpp (0x002A7B34).
 
 //-----------------------------------------------------------------------------
 // ?PlayerList::getPlayerFromMask present-unmatched
