@@ -198,6 +198,8 @@ protected:
 	Bool addRouterFallbackCommand(NetCommandRef *msg);
 	Bool addPlayerLeaveCommand(NetCommandRef *msg);
 	Bool addFrameCommand(NetCommandRef *msg);
+	Bool isAckRepeat(NetCommandRef *msg);
+	Bool addAckCommand(NetCommandRef *msg, UnsignedShort commandID, UnsignedByte originalPlayerID, UnsignedInt ackValue20, UnsignedInt ackValue24);
 
 public:
 	UnsignedByte m_packet[0x1DC];
@@ -2279,6 +2281,67 @@ Bool NetPacket::addFrameCommand(NetCommandRef *msg)
 		m_packetLen += sizeof(UnsignedInt);
 		UnsignedInt value24 = cmdMsg->get24();
 		memcpy(m_packet + m_packetLen, &value24, sizeof(UnsignedInt));
+		m_packetLen += sizeof(UnsignedInt);
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+			m_lastCommand = 0;
+		}
+		m_lastCommand = new NetCommandRef(msg->getCommand());
+		m_lastCommand->setRelay(msg->getRelay());
+		++m_numCommands;
+		return true;
+	}
+	return false;
+}
+
+// ?addAckCommand@NetPacket@@IAE_NPAVNetCommandRef@@GEII@Z, retail 0x00591B1B, 498 bytes:
+// the shared ack writer behind the folded ack arm rva005939EE. ZH's
+// addAckCommand (isAckRepeat 'Z' path, then room check rva0058D70B, T/P/D,
+// command ID word and original player byte) with two more dwords, the ack
+// message's +0x20/+0x24, where the BFME1 donor has one. The repeat path clears
+// m_lastCommand outside the delete test, as in the donor.
+Bool NetPacket::addAckCommand(NetCommandRef *msg, UnsignedShort commandID, UnsignedByte originalPlayerID, UnsignedInt ackValue20, UnsignedInt ackValue24)
+{
+	if (isAckRepeat(msg)) {
+		if (m_packetLen >= MAX_PACKET_SIZE) {
+			return false;
+		}
+		m_packet[m_packetLen] = 'Z';
+		++m_packetLen;
+		++m_numCommands;
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+		}
+		m_lastCommand = 0;
+		m_lastCommand = new NetCommandRef(msg->getCommand());
+		m_lastCommand->setRelay(msg->getRelay());
+		return true;
+	}
+	if (rva0058D70B(msg)) {
+		NetCommandMsg *cmdMsg = msg->getCommand();
+		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+			m_packet[m_packetLen] = 'T';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getNetCommandType();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastCommandType = cmdMsg->getNetCommandType();
+		}
+		if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+			m_packet[m_packetLen] = 'P';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getPlayerID();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastPlayerID = cmdMsg->getPlayerID();
+		}
+		m_packet[m_packetLen] = 'D';
+		++m_packetLen;
+		memcpy(m_packet + m_packetLen, &commandID, sizeof(UnsignedShort));
+		m_packetLen += sizeof(UnsignedShort);
+		memcpy(m_packet + m_packetLen, &originalPlayerID, sizeof(UnsignedByte));
+		m_packetLen += sizeof(UnsignedByte);
+		memcpy(m_packet + m_packetLen, &ackValue20, sizeof(UnsignedInt));
+		m_packetLen += sizeof(UnsignedInt);
+		memcpy(m_packet + m_packetLen, &ackValue24, sizeof(UnsignedInt));
 		m_packetLen += sizeof(UnsignedInt);
 		if (m_lastCommand != 0) {
 			delete m_lastCommand;
