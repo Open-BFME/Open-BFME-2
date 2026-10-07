@@ -254,9 +254,9 @@ public:
 class PlayerList
 {
 public:
-	Player *getLocalPlayer( void ) { return m_local; }
-
 	unsigned char m_unreconstructed00[ 0x10 ];
+	// Retail's button bodies access +0x10 directly; this local layout view
+	// does not supply the shared getter for the other PlayerList views.
 	Player *m_local;                                       // +0x10
 };
 
@@ -941,9 +941,9 @@ void W3DGadgetPushButtonImageDrawOne( GameWindow *window, WinInstanceData *instD
 				else if( pData->drawClock == INVERSE_CLOCK && pData->percentClock < 100 )
 				{
 					Color clockColor = 0;
-					if( ThePlayerList && ThePlayerList->getLocalPlayer() )
+					if( ThePlayerList && ThePlayerList->m_local )
 					{
-						LocalPlayerInfo *info = ThePlayerList->getLocalPlayer()->m_info;
+						LocalPlayerInfo *info = ThePlayerList->m_local->m_info;
 						if( info && info->m_flag1BC )
 							clockColor = TheGlobalData->m_radialClockColorFlagged;
 						else
