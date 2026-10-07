@@ -387,6 +387,25 @@ void DisconnectManager::playerHasAdvancedAFrame(Int slot, UnsignedInt frame) {
 	}
 }
 
+// Target evidence: ConnectionManager's 0x004CF90D forwards (slot, this) here;
+// the target indexes the vote table at DisconnectManager+0x30 with 8-byte
+// entries and uses the incoming slot directly. The BFME1 donor below provides
+// the method's purpose and call order, while target bytes establish BFME2's
+// direct-slot behavior in place of untranslatedSlotPosition. The target reads
+// the GameLogic frame at +0x40; the BFME1 inline getter reads +0x3C.
+// Donor: Open-BFME-1 GameNetwork/DisconnectManager.cpp::voteForPlayerDisconnect.
+// Its source is unchanged between checkout 6583b3c1 and fetched official master
+// 31950178; the donor structure is guidance and is not treated as target proof.
+void DisconnectManager::voteForPlayerDisconnect(Int slot, ConnectionManager *conMgr) {
+	if (m_playerVotes[slot][conMgr->getLocalPlayerID()].vote == FALSE) {
+		m_playerVotes[slot][conMgr->getLocalPlayerID()].vote = TRUE;
+		sendVoteCommand(slot, conMgr);
+		applyDisconnectVote(slot,
+			reinterpret_cast<GameLogic *>(reinterpret_cast<char *>(TheGameLogic) + 4)->getFrame(),
+			conMgr->getLocalPlayerID(), conMgr);
+	}
+}
+
 // ?countVotesForPlayer@DisconnectManager@@IAEHHPAVConnectionManager@@@Z @ 0x004D3BD7 (91B). Counts voting slots for a player: vote table at +0x30 rows of 8 entries stepped by 8 with flag at +0; skips timed-out and active slots.
 // Evidence: callees hasPlayerConnectionTimedOut 0x004D3B7E isPlayerSlotActive 0x004CF0CD rowed; vote table BfmeDisconnectVoteTable; callers 4 unclaimed; unlocks 4.
 Int DisconnectManager::countVotesForPlayer(Int slot, ConnectionManager *conMgr) {
@@ -443,4 +462,3 @@ Int BFMEDisconnectManager::rva004D3E93(Int excludedSlot, ConnectionManager *conM
 	}
 	return count;
 }
-
