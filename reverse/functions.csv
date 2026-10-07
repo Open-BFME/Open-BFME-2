@@ -68201,7 +68201,6 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?d_00032160@@YAXXZ,,0x00032160,137,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00032ec0@@YAXXZ,,0x00032EC0,151,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00037af0@@YAXXZ,,0x00037AF0,66,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
-?d_00041403@@YAXXZ,,0x00041403,84,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_000443ba@@YAXXZ,,0x000443BA,132,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00044ff2@@YAXXZ,,0x00044FF2,148,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00084c05@@YAXXZ,,0x00084C05,160,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
@@ -68353,3 +68352,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ??_GHashTableClass@@QAEPAXI@Z,,0x000F0B65,28,Code/GameEngine/Source/Common/Rva000F1AD8Clear.cpp,matched,Nonvirtual HashTable scalar deleting wrapper; native calls613B90 and2FD60; class proved by ctor613C20; replaces withdrawn virtual scaffold
 ?allocateGeometry006e@Render2DClass@@AAEPAUBfmeRenderVertex@@IIPAPAKPAK@Z,,0x0011BD80,875,Code/Libraries/Source/WWVegas/WW3D2/Render2DClassReset.cpp,matched,Native Render2D Add_* callers establish reserve ABI; 44-byte vertices and 16-bit indices; bank 2bbec0d919 repaired in home unit; native FuncInfo 0x909034 exact
 ??ARender2DRawArray@@QAEAAUBfmeRenderVertex@@I@Z,,0x00118D40,31,Code/Libraries/Source/WWVegas/WW3D2/Render2DClassReset.cpp,matched,Native extent 0x118D40..0x118D5F between padding and next array ctor; data +0 count +8; unsigned bounds clamp to element zero and 44-byte stride; accessor used inline by native allocator
+?rva00041403@@YAXPAEH@Z,,0x00041403,84,Code/GameEngine/Source/Common/Rva00041403.cpp,matched,Native ECX base EAX offset RET0; three float words72 apart; raw-word NaN replacement; internal ABI emitted by source-only anchor
