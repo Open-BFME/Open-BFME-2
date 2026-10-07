@@ -237,7 +237,7 @@ def test_wrong_parent_body_cannot_supply_eh_identity(monkeypatch):
     monkeypatch.setattr(build, "funclet_eh_object", lambda *_: SimpleNamespace(by_name={PARENT: {}}))
     monkeypatch.setattr(build, "load_symbol_map", lambda: {})
     monkeypatch.setattr(build, "compile_function", lambda *_: {
-        "bytes": b"\xc3", "target": b"\xc2", "unresolved": []})
+        "bytes": b"\xc3", "target": b"\xc2", "unresolved": [], "masked": False})
     assert build.funclet_eh_locations("wrong-parent.obj", 1, 1, PARENT, "ledger", 1, 1, "pins", 1, 1) == {}
 
 
@@ -248,7 +248,7 @@ def test_unresolved_parent_call_cannot_supply_eh_identity(monkeypatch):
     monkeypatch.setattr(build, "funclet_eh_object", lambda *_: SimpleNamespace(by_name={PARENT: {}}))
     monkeypatch.setattr(build, "load_symbol_map", lambda: {})
     monkeypatch.setattr(build, "compile_function", lambda *_: {
-        "bytes": b"\xc3", "target": b"\xc3", "unresolved": ["unproved"]})
+        "bytes": b"\xc3", "target": b"\xc3", "unresolved": ["unproved"], "masked": False})
     assert build.funclet_eh_locations("unresolved-parent.obj", 1, 1, PARENT, "ledger", 1, 1, "pins", 1, 1) == {}
 
 
@@ -264,3 +264,14 @@ def test_parent_call_map_is_cached_and_invalidated_by_both_inputs(monkeypatch):
     assert len(calls) == 1
     assert build.funclet_parent_symbol_map("ledger", 3, 10, "pins", 2, 20) != one
     assert build.funclet_parent_symbol_map("ledger", 3, 10, "pins", 4, 20)["callee"] == [3]
+
+
+def test_masked_parent_cannot_supply_eh_identity(monkeypatch):
+    from types import SimpleNamespace
+    parent = {"name": PARENT, "target_rva": "0x1000", "status": "matched", "notes": ""}
+    monkeypatch.setattr(build, "funclet_parent_rows", lambda *_: {PARENT: [parent]})
+    monkeypatch.setattr(build, "funclet_eh_object", lambda *_: SimpleNamespace(by_name={PARENT: {}}))
+    monkeypatch.setattr(build, "load_symbol_map", lambda: {})
+    monkeypatch.setattr(build, "compile_function", lambda *_: {
+        "bytes": b"\xc3", "target": b"\xc3", "unresolved": [], "masked": True})
+    assert build.funclet_eh_locations("masked-parent.obj", 1, 1, PARENT, "ledger", 1, 1, "pins", 1, 1) == {}

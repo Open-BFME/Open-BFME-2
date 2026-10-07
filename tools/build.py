@@ -1768,7 +1768,7 @@ def funclet_eh_locations(path, mtime, size, parent, ledger_path, ledger_mtime, l
     symbol_map = funclet_parent_symbol_map(ledger_path, ledger_mtime, ledger_size,
                                            pin_path, pin_mtime, pin_size)
     patch = compile_function(parents[0], symbol_map, Path(path))
-    if patch["unresolved"] or patch["bytes"] != patch["target"]:
+    if patch["masked"] or patch["unresolved"] or patch["bytes"] != patch["target"]:
         return {}
     return eh_verify.verified_funclet_locations(
         funclet_retail_image(), obj, parent, int(parents[0]["target_rva"], 16))
