@@ -1,4 +1,8 @@
 // ?rva003B81C5@Rva003B573E@@QAEHHABV?$StringBase@D@@@Z
+// partial score=0.944444 date=2026-10-07
+// Fresh BFME1 1399ad37 BfmeConv1700 lead: native CMP/MOV/JE loads original index for failed lookup; return index is required.
+// Byte-exact 72B with the existing callee pin; no C++ provider yet for 3B7C47, so linking is incomplete.
+// ?rva003B81C5@Rva003B573E@@QAEHHABV?$StringBase@D@@@Z
 // partial score=0.97 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
@@ -43,7 +47,7 @@ int Rva003B573E::rva003B81C5(int index, const StringBase<char> &key)
 {
 	int destination = rva003B7C47(key);
 	if (destination == -1)
-		return destination;
+		return index;
 	Rva003B675BRecord *source = &m_records[index];
 	BfmeNodeZ *node = (BfmeNodeZ *)source->m_nodes;
 	source->m_nodes = node->m_next;

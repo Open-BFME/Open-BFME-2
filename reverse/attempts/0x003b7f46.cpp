@@ -1,132 +1,59 @@
 // ?rva003B7F46@Rva003B573E@@QAEHHABV?$StringBase@D@@@Z
-// partial score=0.86 date=2026-10-07
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// partial score=0.944444 date=2026-10-07
+// Fresh BFME1 1399ad37 BfmeConv1700 lead: native CMP/MOV/JE loads original index for failed lookup; return index is required.
+// Byte-exact 72B with the existing callee pin; no C++ provider yet for 3B7C47, so linking is incomplete.
+// ?rva003B7F46@Rva003B573E@@QAEHHABV?$StringBase@D@@@Z
+// partial score=0.97 date=2026-10-07
+// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
 #include "ascii_string.h"
 
-// ?rva003B66D8@Rva003B573E@@QAEXH@Z @0x003B66D8 (131B): remove record at index
-// from the 0x14-stride ScriptList subrecord. Same object as the rowed search
-// 0x003B573E (thiscall on same this): dec references at +0xE, mark released
-// at +0xC, return while nodes at +0x10 remain; else locate sorted position via
-// search, unlink prev/next with tail at +0x1C, push to free list at +0x18,
-// release the name buffer, erase the sorted entry. Evidence: chain from
-// 0x003B573E, record shape from Rva003B675BRecord, subrecord layout of two
-// vectors plus two ints from ScriptListSubrecordCtor.
-
+// ?rva003B7F46@Rva003B573E@@QAEHHABV?$StringBase@D@@@Z @0x003B81C5 72B
+// Same class and record model as ScriptListSubrecordRemove.cpp; target search
+// uses the supplied key, then transfers one linked node and removes its source.
 struct Rva003B675BRecord
 {
-	int m_previous; // +0x00
-	int m_next; // +0x04
-	AsciiString m_name; // +0x08
-	unsigned char m_released; // +0x0C
-	unsigned char m_pad; // +0x0D
-	unsigned short m_references; // +0x0E
-	void *m_nodes; // +0x10
+	int m_previous;
+	int m_next;
+	AsciiString m_name;
+	unsigned char m_released;
+	unsigned char m_pad;
+	unsigned short m_references;
+	void *m_nodes;
 };
-
-void __cdecl operator delete(void *block);
 
 class BfmeNodeZ
 {
 public:
-	~BfmeNodeZ();
 	BfmeNodeZ *m_next;
-};
-
-class Rva003B448C
-{
-public:
-	~Rva003B448C();
-	Rva003B448C *m_next;
 };
 
 class Rva003B573E
 {
 public:
-	int rva003B573E(const StringBase<char> &key);
-	int rva003B6633(const StringBase<char> &key);
-	void rva003B66D8(int index);
 	int rva003B7C47(const StringBase<char> &key);
+	void rva003B66D8(int index);
 	int rva003B7F46(int index, const StringBase<char> &key);
-	void rva003B7096(int index);
-	void rva003B71B4(int index);
+
 private:
-	_STL::vector<void *> m_sorted; // +0x00
-	_STL::vector<Rva003B675BRecord> m_records; // +0x0C
-	int m_freeHead; // +0x18
-	int m_tail; // +0x1C
+	_STL::vector<void *> m_sorted;
+	_STL::vector<Rva003B675BRecord> m_records;
+	int m_freeHead;
+	int m_tail;
 };
 
-void Rva003B573E::rva003B66D8(int index)
-{
-	Rva003B675BRecord *rec = &m_records[index];
-	--rec->m_references;
-	rec->m_released = 1;
-	if (rec->m_nodes != 0)
-		return;
-	int pos = rva003B573E(*(const StringBase<char> *)&rec->m_name);
-	if (rec->m_previous != -1)
-		m_records[rec->m_previous].m_next = rec->m_next;
-	if (rec->m_next != -1)
-		m_records[rec->m_next].m_previous = rec->m_previous;
-	else
-		m_tail = rec->m_previous;
-	rec->m_previous = m_freeHead;
-	m_freeHead = index;
-	rec->m_name.~AsciiString();
-	m_sorted.erase(m_sorted.begin() + pos);
-}
-
-int Rva003B573E::rva003B6633(const StringBase<char> &key)
-{
-	int pos = rva003B573E(key);
-	if ((unsigned int)pos < m_sorted.size()) {
-		int idx = (int)m_sorted[pos];
-		if ((*(const StringBase<char> *)&m_records[idx].m_name).compare(key) == 0)
-			return idx;
-	}
-	return -1;
-}
-
-void Rva003B573E::rva003B71B4(int index)
-{
-	Rva003B675BRecord *rec = &m_records[index];
-	BfmeNodeZ *nd = (BfmeNodeZ *)rec->m_nodes;
-	rec->m_nodes = nd->m_next;
-	delete nd;
-	rva003B66D8(index);
-}
-
-// ?rva003B7096@Rva003B573E@@QAEXH@Z @0x003B7096 (52B): pop head node with the
-// rowed Rva003B448C dtor then remove the record via rowed rva003B66D8. Twin of
-// rowed rva003B71B4 which uses the pinned BfmeNodeZ dtor. Evidence: chain from
-// 0x003B66D8, same 0x14-stride unlink plus delete plus tail remove shape,
-// callers at 0x003B70F8 and 0x003B77F8.
-void Rva003B573E::rva003B7096(int index)
-{
-	Rva003B675BRecord *rec = &m_records[index];
-	Rva003B448C *nd = (Rva003B448C *)rec->m_nodes;
-	rec->m_nodes = nd->m_next;
-	delete nd;
-	rva003B66D8(index);
-}
-
-// Native 0x003B7F46..0x003B7F8E: move the first node to the named record,
-// then drop its old record reference. Both record indices use the verified
-// 0x14-byte layout above; 0x003B7C47 receives the same StringBase key as
-// 0x003B573E and compares it against record +8. Original method name unknown.
 int Rva003B573E::rva003B7F46(int index, const StringBase<char> &key)
 {
 	int destination = rva003B7C47(key);
-	if (destination != -1) {
-		Rva003B675BRecord *source = &m_records[index];
-		BfmeNodeZ *node = (BfmeNodeZ *)source->m_nodes;
-		source->m_nodes = node->m_next;
-		Rva003B675BRecord *target = &m_records[destination];
-		node->m_next = (BfmeNodeZ *)target->m_nodes;
-		target->m_nodes = node;
-		rva003B66D8(index);
-	}
+	if (destination == -1)
+		return index;
+	Rva003B675BRecord *source = &m_records[index];
+	BfmeNodeZ *node = (BfmeNodeZ *)source->m_nodes;
+	source->m_nodes = node->m_next;
+	Rva003B675BRecord *target = &m_records[destination];
+	node->m_next = (BfmeNodeZ *)target->m_nodes;
+	target->m_nodes = node;
+	rva003B66D8(index);
 	return destination;
 }
