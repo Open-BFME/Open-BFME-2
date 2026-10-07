@@ -67935,3 +67935,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0Rva005C44A3@@QAE@ABV?$StringBase@D@@@Z,,0x005C44A3,32,Code/GameEngine/Source/Common/Rva005C44A3Ctor.cpp,matched,delegate base string ctor clear state install vtable
 ?rva001DD7C1@Rva001DCDAF@@QAEXPAUArg001DCDAF@@PBUVec001DCDAF@@@Z,,0x001DD7C1,74,Code/GameEngine/Source/GameClient/Eva.cpp,matched,status record method identity from matched offsets and counter call
 ?rva005E1178@Rva005E1178@@QAEXM@Z,,0x005E1178,19,Code/GameEngine/Source/Common/Rva005E1158Forward.cpp,matched,leaf float forwarder via plus8 to rowed rva005E1008
+?rva002A7818@Rva002AE5EB@@UAEXPAVXfer@@@Z,,0x002A7818,393,Code/GameEngine/Source/Common/Rva002AE5EBXfer.cpp,matched,slot 3 vtable 0x007FDDB4 via ctor 0x002AE5EB plus Version 1 7 plus rowed callees
