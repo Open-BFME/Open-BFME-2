@@ -19,6 +19,13 @@
 //   0x005ACE15  (not here yet) the distance from a point to the line through two others
 //   0x005AD152  the player's first tracked object whose template has +0x120
 //               bit 2 (the base building the squad farms around)
+//   0x005AD5DD  slot 7 update (the slot the sibling tactics' rowed update bodies
+//               fill): stop when 0x005ACDA9 answers; while the +0x58 target is
+//               kept (0x004ED169 says not to retarget) only forget it once it is
+//               gone; otherwise, with a farm finder and the owner's record base,
+//               attack the farm target 0x005AD404 or the production target
+//               0x005AD243 (a game-logic roll, line 135, picks when both exist),
+//               and stop when there is neither
 #include <vector>
 #include "ascii_string.h"
 
@@ -157,7 +164,9 @@ public:
 	Rva005ACCE4Template *m_04;	// +0x04
 	char m_pad008[0x38 - 8];
 	Coord3D m_pos;			// +0x38
-	char m_pad044[0x438 - 0x44];
+	char m_pad044[0x74 - 0x44];
+	ObjectID m_id;			// +0x74
+	char m_pad078[0x438 - 0x78];
 	unsigned char m_438;		// +0x438
 };
 
@@ -273,6 +282,10 @@ public:
 	virtual void v8();
 	virtual AITactic *create();
 	Team *rva004ECECD(int index);
+	bool rva005ACDA9();
+	unsigned char rva004ED169();
+	void teamAttackObject(int a, Object *target);
+	void end(int a, int b);
 };
 
 class AITacticOffensive : public AITactic
@@ -292,10 +305,13 @@ public:
 	virtual void cleanUp();
 	virtual bool initializeTeamTemplate(void *unit, int count);
 	virtual void xfer(Xfer *xfer);
+	virtual void update();
 	float rva005ACDD2(const Coord3D *a, const Coord3D *b);
 	Object *getFarmFinder();
 	float rva005ACE15(const Coord3D *point, const Coord3D *from, const Coord3D *to);
 	Object *findEnemyFortress(Player *player);
+	Object *findProductionTarget(void *player);
+	Object *findFarmTarget(void *player);
 private:
 	ObjectID m_58;		// +0x58
 	ObjectID m_5C;		// +0x5C
@@ -398,4 +414,49 @@ Object *AIFarmKillSquad::findEnemyFortress(Player *player)
 			found = obj;
 	}
 	return found;
+}
+
+void AIFarmKillSquad::update()
+{
+	if (rva005ACDA9()) {
+		end(1, 0);
+		return;
+	}
+	if (m_58 != 0 && !rva004ED169()) {
+		if (!TheGameLogic->findObjectByID(m_58))
+			m_58 = INVALID_ID;
+		return;
+	}
+	if (getFarmFinder()) {
+		void *player = g_00DFEEF8->rva002A8AB1(m_owner)->rva002C6ACB();
+		if (player) {
+			Object *target = 0;
+			Object *farm = findFarmTarget(player);
+			Object *prod = findProductionTarget(player);
+			if (farm) {
+				if (prod) {
+					if (GetGameLogicRandomValue(0, 2,
+							"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\TargetlessTactics\\AIFarmKillSquad.cpp",
+							135) == 0)
+						target = farm;
+					else
+						target = prod;
+				} else {
+					target = farm;
+				}
+			} else if (prod) {
+				target = prod;
+			} else {
+				end(1, 0);
+			}
+			if (target) {
+				m_58 = target->m_id;
+				teamAttackObject(0, target);
+			}
+		} else {
+			end(1, 0);
+		}
+	} else {
+		end(1, 0);
+	}
 }
