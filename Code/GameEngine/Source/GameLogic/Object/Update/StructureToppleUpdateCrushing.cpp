@@ -7,6 +7,7 @@
 // ?doToppleStartFX@StructureToppleUpdate@@IAEXPAVObject@@PBVDamageInfo@@@Z, retail 0x004A5B09, 88 bytes.
 // ?doAngleFX@StructureToppleUpdate@@IAEXMM@Z, retail 0x004A57DB, 112 bytes.
 // ?doToppleDelayBurstFX@StructureToppleUpdate@@IAEXXZ, retail 0x004A5B61, 299 bytes.
+// ?doToppleDoneStuff@StructureToppleUpdate@@IAEXXZ, retail 0x004A5628, 435 bytes.
 //
 // Donor: Zero Hour's StructureToppleUpdate.cpp through BFME 1's matched
 // bodies (reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/
@@ -44,7 +45,13 @@
 //   (Make001FCBD7) are the same as in SlavedUpdateRepair.cpp, and the
 //   object's getDrawable is the pinned 0x005508E2. Its unwind is why the unit
 //   builds with /GX.
+// - doToppleDoneStuff is Zero Hour's: the static BoneFXUpdate name key
+//   (string 0x00BF4FA8) through the NameKeyGenerator body at 0x00148E1A,
+//   Object::findModule (0x0028B6D6), BoneFXUpdate::stopAllBoneFX
+//   (0x00487A95), Thing::setOrientation (0x0030AB9D) and the Object
+//   setTransformMatrix override pinned at 0x0028D412.
 
+#include "matrix3d.h"
 #include "ascii_string.h"
 
 typedef bool Bool;
@@ -79,6 +86,21 @@ public:
 
 	Real toAngle() const;
 };
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+#define NAMEKEY(s) TheNameKeyGenerator->nameToKey(s)
 
 enum UpdateSleepTime
 {
@@ -206,19 +228,37 @@ private:
 	Real m_minorRadius; // Object+0xD0
 };
 
-class Object
+class Module;
+
+class Thing
 {
 public:
 	const Coord3D *getPosition() const { return &m_pos; }
 	Real getOrientation() const { return m_orientation; }
+	const Matrix3D *getTransformMatrix() const { return &m_transform; }
+	void setOrientation(Real angle);
+	void setTransformMatrix(const Matrix3D *mx);
+
+private:
+	unsigned char m_pad000[0x08];
+	Matrix3D m_transform; // +0x08
+	Coord3D m_pos; // +0x38
+	Real m_orientation; // +0x44
+};
+
+class Object : public Thing
+{
+public:
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	Drawable *getDrawable() const;
+	Module *findUpdateModule(NameKeyType key) const { return findModule(key); }
+	void setTransformMatrix(const Matrix3D *mx);
+
+protected:
+	Module *findModule(NameKeyType key) const;
 
 private:
-	unsigned char m_pad000[0x38];
-	Coord3D m_pos; // +0x38
-	Real m_orientation; // +0x44
 	unsigned char m_pad048[0xCC - 0x48];
 	GeometryInfo m_geometryInfo; // +0xCC
 	unsigned char m_pad0d4[0x254 - 0xD4];
@@ -300,6 +340,12 @@ class Drawable
 {
 public:
 	Int getPristineBonePositions(const char *boneNamePrefix, Int startIndex, Coord3D *positions, Matrix3D *transforms, Int maxBones, Int unused) const;
+};
+
+class BoneFXUpdate
+{
+public:
+	void stopAllBoneFX();
 };
 
 class TerrainLogic
@@ -399,6 +445,7 @@ protected:
 	void doToppleStartFX(Object *building, const DamageInfo *damageInfo);
 	void doAngleFX(Real curAngle, Real newAngle);
 	void doToppleDelayBurstFX();
+	void doToppleDoneStuff();
 	void doDamageLine(Object *building, const WeaponTemplate *wt, Real jcos, Real jsin, Real facingWidth, Real toppleAngle);
 	void doPhaseStuff(StructureTopplePhaseType stphase, const Coord3D *target);
 
@@ -626,4 +673,25 @@ void StructureToppleUpdate::doToppleDelayBurstFX()
 
 	doPhaseStuff(STPHASE_DELAY, &m_delayBurstLocation);
 
+}
+
+// ?doToppleDoneStuff@StructureToppleUpdate@@IAEXXZ
+void StructureToppleUpdate::doToppleDoneStuff()
+{
+	static NameKeyType key_BoneFXUpdate = NAMEKEY("BoneFXUpdate");
+	BoneFXUpdate *bfxu = (BoneFXUpdate *)getObject()->findUpdateModule(key_BoneFXUpdate);
+	if (bfxu != 0) {
+		bfxu->stopAllBoneFX();
+	}
+
+	Object *building = getObject();
+
+	Real origAngle = building->getOrientation();
+	building->setOrientation(origAngle);
+
+	Real toppleAngle = m_toppleDirection.toAngle();
+
+	Matrix3D xfrm = *building->getTransformMatrix();
+	xfrm.In_Place_Pre_Rotate_Z(toppleAngle-origAngle);
+	building->setTransformMatrix(&xfrm);
 }
