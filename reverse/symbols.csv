@@ -15774,3 +15774,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?Rva000AC6F9SetupAlphaTiles@@YAXXZ,0x000AC6F9,callee of ?blendTile@Rva000ADDCEWorldHeightMapView@@QAEXPAUTBlendTileInfo@@HH@Z
 ?Rva000AC63FBlendPixels@@YAXPAE00H@Z,0x000AC63F,callee of ?blendTile@Rva000ADDCEWorldHeightMapView@@QAEXPAUTBlendTileInfo@@HH@Z
 ?ReAcquireResources@WaterTracksRenderSystem@@QAEXXZ,0x000FE065,callee of ?init@WaterTracksRenderSystem@@QAEXXZ
+?rva003731CB@Rva0037381C@@QAEXPAVRva00373373Portal@@PAVPlayer@@@Z,0x003731CB,callee of ?Init@Rva003733B5Base@@QAEXXZ
