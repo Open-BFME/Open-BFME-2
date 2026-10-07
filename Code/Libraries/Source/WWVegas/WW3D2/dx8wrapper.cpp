@@ -2148,59 +2148,7 @@ void DX8Wrapper::Begin_Scene(void)
 	DX8WebBrowser::Update();
 }
 
-// ?End_Scene@DX8Wrapper@@ present-unmatched
-void DX8Wrapper::End_Scene(bool flip_frames)
-{
-	DX8_THREAD_ASSERT();
-	DX8CALL(EndScene());
-
-	DX8WebBrowser::Render(0);
-
-	if (flip_frames) {
-		DX8_Assert();
-		HRESULT hr;
-		{
-			WWPROFILE("DX8Device::Present()");
-			hr=_Get_D3D_Device8()->Present(NULL, NULL, NULL, NULL);
-		}
-
-		number_of_DX8_calls++;
-
-		if (SUCCEEDED(hr)) {
-#ifdef EXTENDED_STATS
-			if (stats.m_sleepTime) {
-				::Sleep(stats.m_sleepTime);
-			}
-#endif
-			IsDeviceLost=false;
-			FrameCount++;
-		}
-		else {
-			IsDeviceLost=true;
-		}
-
-		// If the device was lost we need to check for cooperative level and possibly reset the device
-		if (hr==D3DERR_DEVICELOST) {
-			hr=_Get_D3D_Device8()->TestCooperativeLevel();
-			if (hr==D3DERR_DEVICENOTRESET) {
-				Reset_Device();
-			}
-			else {
-				// Sleep it not active
-				ThreadClass::Sleep_Ms(200);
-			}
-		}
-		else {
-			DX8_ErrorCode(hr);
-		}
-	}
-
-	// Each frame, release all of the buffers and textures.
-	Set_Vertex_Buffer(NULL);
-	Set_Index_Buffer(NULL,0);
-	for (int i=0;i<CurrentCaps->Get_Max_Textures_Per_Pass();++i) Set_Texture(i,NULL);
-	Set_Material(NULL);
-}
+// End_Scene is defined after the D3D9 device view below.
 
 
 void DX8Wrapper::Flip_To_Primary(void)
@@ -2895,6 +2843,99 @@ struct BfmeApplyOps:DX8Wrapper {
   Device()->SetTransform(type,reinterpret_cast<const D3DMATRIX *>(&matrix));number_of_DX8_calls++;
  }
 };
+// BFME 2's End_Scene (retail 0x00122BE0). Zero Hour's body on the D3D9 device,
+// defined after Set_Vertex_Buffer and Set_Index_Buffer, which retail inlines
+// here. BFME 2 adds a statistics roll-over every Interval presented frames, a
+// texture release that passes each stage a NULL texture holder (the EH state
+// around every stage) and drops the light environment with the rest of the
+// per-frame state. The three statistics globals are only touched here.
+static unsigned bfmeEndSceneStatInterval=1;
+static unsigned bfmeEndSceneStatCount;
+static unsigned bfmeEndSceneStatLastCount;
+
+// BFME 2's Set_Texture (retail 0x0011F4B0, rowed as BFME2Set_Texture) takes
+// an owning texture holder; End_Scene passes it NULL, and VC7 inlines that
+// body here: the WORD reference count at +4 is bumped through the incoming
+// holder before the current stage texture is released. The slot update is a
+// separate inline assignment: flattened into Set_Texture, VC7 merges the two
+// null tests of the current stage texture that retail keeps apart.
+struct BfmeEndSceneTextureResource : BfmeResetResource { unsigned Vtable; unsigned short Refs; };
+struct BfmeEndSceneTextureRef {
+	BfmeEndSceneTextureResource *Ptr;
+	BfmeEndSceneTextureRef(BfmeEndSceneTextureResource *p):Ptr(p) { if (Ptr) ++Ptr->Refs; }
+	~BfmeEndSceneTextureRef() { if (Ptr) Ptr->Release_Ref(); }
+};
+static void bfmeEndSceneAssign(BfmeEndSceneTextureResource *&dst,const BfmeEndSceneTextureRef &src)
+{
+	if (src.Ptr) ++src.Ptr->Refs;
+	if (dst) dst->Release_Ref();
+	dst=src.Ptr;
+}
+static void bfmeEndSceneSetTexture(BfmeEndSceneTextureResource **current,unsigned stage,const BfmeEndSceneTextureRef &texture,unsigned &changed,unsigned stage0_changed)
+{
+	if (texture.Ptr==current[stage]) return;
+	bfmeEndSceneAssign(current[stage],texture);
+	changed|=(stage0_changed<<stage);
+}
+
+// ThreadClass::Sleep_Ms is the same 12-byte Sleep forwarder as GameSpy's
+// msleep (0x0060A830), and retail folded the two; the call is spelled with
+// the name that address already carries.
+extern "C" void msleep(unsigned long msec);
+// The embedded-browser render hook (0x00176E00, DX8WrapperEndSceneHelper.cpp)
+// in the place of Zero Hour's DX8WebBrowser::Render(0).
+void bfmeEndSceneTouch00958910(void *argument);
+
+void DX8Wrapper::End_Scene(bool flip_frames)
+{
+	if (flip_frames && FrameCount%bfmeEndSceneStatInterval==0) {
+		bfmeEndSceneStatLastCount=bfmeEndSceneStatCount;
+		bfmeEndSceneStatCount=0;
+	}
+
+	BfmeApplyOps::Device()->EndScene();
+	number_of_DX8_calls++;
+
+	bfmeEndSceneTouch00958910(0);
+
+	if (flip_frames) {
+		HRESULT hr=BfmeApplyOps::Device()->Present(NULL, NULL, NULL, NULL);
+		number_of_DX8_calls++;
+
+		if (SUCCEEDED(hr)) {
+			FrameCount++;
+			IsDeviceLost=false;
+		}
+		else {
+			IsDeviceLost=true;
+		}
+
+		// If the device was lost we need to check for cooperative level and possibly reset the device
+		if (hr==D3DERR_DEVICELOST) {
+			hr=BfmeApplyOps::Device()->TestCooperativeLevel();
+			if (hr==D3DERR_DEVICENOTRESET) {
+				Reset_Device();
+			}
+			else {
+				// Sleep it not active
+				msleep(200);
+			}
+		}
+		else {
+			DX8_ErrorCode(hr);
+		}
+	}
+
+	// Each frame, release all of the buffers and textures.
+	Set_Vertex_Buffer(NULL);
+	Set_Index_Buffer(NULL,0);
+	for (int i=0;i<reinterpret_cast<BfmeEnumerationCaps *>(CurrentCaps)->GetMaxTextures();++i) {
+		bfmeEndSceneSetTexture(reinterpret_cast<BfmeEndSceneTextureResource **>(render_state.Textures),i,NULL,render_state_changed,TEXTURE0_CHANGED);
+	}
+	Set_Material(NULL);
+	Light_Environment=NULL;
+}
+
 void DX8Wrapper::Apply_Render_State_Changes()
 {
  if (!render_state_changed) return;
