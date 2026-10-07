@@ -938,6 +938,11 @@ void __cdecl rva007B9BF0()
 	p->GeometryInfo::~GeometryInfo();
 }
 
+// ?rva007B9C00@@YAXXZ @ 0x007B9C00 (1B). Empty stub: ret.
+void __cdecl rva007B9C00()
+{
+}
+
 // ?rva007B9C20@@YAXXZ @ 0x007B9C20 (10B): ecx=&g_Va00E176A0, tail-jump to rowed ??1Rva00041004@@UAE@XZ (0x00040FE5)
 void __cdecl rva007B9C20()
 {

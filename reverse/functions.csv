@@ -68179,3 +68179,6 @@ uw_0076892b,,0x0076892B,11,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matche
 ?rva005D3FB4@Rva005D3FBD@@QBEEXZ,,0x005D3FB4,9,Code/GameEngine/Source/Common/Rva005D3FBDBitSetter.cpp,matched,
 ?rva002D2C12@Rva005248D0@@QBEEXZ,,0x002D2C12,6,Code/GameEngine/Source/Common/Rva002D2C12BitGetters.cpp,matched,
 ?rva002D2C18@Rva005248D0@@QBEEXZ,,0x002D2C18,9,Code/GameEngine/Source/Common/Rva002D2C12BitGetters.cpp,matched,
+?rva007B981A@@YAXXZ,,0x007B981A,1,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B9BD0@@YAXXZ,,0x007B9BD0,1,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,
+?rva007B9C00@@YAXXZ,,0x007B9C00,1,Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp,matched,

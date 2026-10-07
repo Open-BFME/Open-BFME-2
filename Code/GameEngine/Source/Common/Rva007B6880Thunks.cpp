@@ -5856,6 +5856,11 @@ void __cdecl rva007B9810()
 	return p->~Init();
 }
 
+// ?rva007B981A@@YAXXZ @ 0x007B981A (1B). Empty stub: ret.
+void __cdecl rva007B981A()
+{
+}
+
 class LightEnvironmentClass
 {
 public:
@@ -5984,6 +5989,11 @@ void __cdecl rva007B9BC0()
 {
 	_STL::vector<Rva001D28F0Element, _STL::allocator<Rva001D28F0Element> > *p = (_STL::vector<Rva001D28F0Element, _STL::allocator<Rva001D28F0Element> > *)&g_Va00E0ABB4;
 	return p->_STL::vector<Rva001D28F0Element, _STL::allocator<Rva001D28F0Element> >::~vector();
+}
+
+// ?rva007B9BD0@@YAXXZ @ 0x007B9BD0 (1B). Empty stub: ret.
+void __cdecl rva007B9BD0()
+{
 }
 
 extern unsigned g_Va00DDC00C;
