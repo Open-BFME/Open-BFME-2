@@ -68612,3 +68612,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?release@Rva002D3869OwnedPrefix@@QAEXXZ,,0x002D3869,17,Code/Libraries/Source/WWVegas/WWLib/Rva002D3869OwnedPrefix.cpp,matched,target-prefix-word0; native-clear-before-scalar-delete; original-owner-unknown
 ?choose@Rva0030DA0BStringChoice@@QBEABVAsciiString@@XZ,,0x0030DA0B,26,Code/GameEngine/Source/GameClient/Rva0030DA0BStringChoice.cpp,matched,native-readonly-string-choice64-68; canonical-one-word-string-view; owner-entry-name-unknown
 ?invokeAndClear@Rva005CCA98Guard@@QAEXXZ,,0x005CCA98,27,Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp,matched,native-flag22-and-word4; clear-after-direct-slot9-forwarder; owner-unknown
+?unlinkAndClear@Rva000985D2HandlePrefix@@QAEXXZ,,0x000985D2,18,Code/GameEngine/Source/GameClient/System/ParticleSystemHandle_dtor.cpp,matched,native-conditional4CBC0-handle-unlink-then-clear-system; wrapper-owner-unknown

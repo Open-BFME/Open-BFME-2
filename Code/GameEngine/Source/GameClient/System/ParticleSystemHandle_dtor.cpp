@@ -70,3 +70,19 @@ void _bfmeBfmeParticleSystemHandleInlineAnchor(BfmeParticleSystemHandle *p)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?rva0004CBC0@RvaSmartPtr12@@QAEXXZ=??1BfmeParticleSystemHandle@@QAE@XZ")
+
+// Target985D2..985E4 is a complete18B RET leaf. It tests the handle's
+// system word, calls the verified55B destructor4CBC0 with the unchanged
+// receiver, then clears that word. The already established handle layout
+// supplies the intrusive links consumed by the destructor. This wrapper's
+// original identity and enclosing allocation remain unknown.
+struct Rva000985D2HandlePrefix {
+    BfmeParticleSystemHandle handle;
+    void unlinkAndClear();
+};
+void Rva000985D2HandlePrefix::unlinkAndClear() {
+    if (handle.m_system) {
+        handle.~BfmeParticleSystemHandle();
+        handle.m_system=0;
+    }
+}
