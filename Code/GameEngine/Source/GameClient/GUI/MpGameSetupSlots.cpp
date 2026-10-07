@@ -393,6 +393,8 @@ struct Rva0057C71FEntry
 class Rva0057E3DB
 {
 public:
+	// Unrowed 0x0057E45C (its Apt callback registration), pinned by address.
+	void rva0057E45C();
 	// Unrowed 0x0057C71F (155 bytes; the scenario's entry for a slot, or
 	// 0), pinned by address.
 	Rva0057C71FEntry *rva0057C71F(int slot);
@@ -428,6 +430,8 @@ public:
 class Rva0057EE5C
 {
 public:
+	// Unrowed 0x0057F0AA (564 bytes; its Apt callback registration), pinned.
+	void rva0057F0AA();
 	void rva0057EA0F();
 	// And its unrowed 0x0057E6D8 (5 bytes, a jump to 0x0057E6C1), pinned.
 	void rva0057E6D8();
@@ -445,6 +449,8 @@ public:
 class Rva0057F2DE
 {
 public:
+	// Unrowed 0x0057FAB0 (453 bytes; its Apt callback registration), pinned.
+	void rva0057FAB0();
 	// Unrowed 0x0057F3A9 (113 bytes; the text of its +0xA0 combo box, or a
 	// global empty string without one), pinned by address.
 	UnicodeString rva0057F3A9();
@@ -460,6 +466,8 @@ public:
 class Rva0057FD6E
 {
 public:
+	// Unrowed 0x0057FFB9 (411 bytes; its Apt callback registration), pinned.
+	void rva0057FFB9();
 	void rva0057FD6E();
 	void rva0057FD94();
 	// Unrowed 0x0057FDB0 (15 bytes; hands the flag to its +0x64 member),
@@ -736,6 +744,89 @@ public:
 	int rva00223A94(const AsciiString *key);
 };
 
+// The Apt callback functors (Rva0057BC63FunctorHolder.cpp): a binding of an
+// object and an eight-byte multiple-inheritance member pointer, and the
+// refcounted holder rowed 0x0057BC63 builds from it.
+class __multiple_inheritance FunctorTarget;
+typedef void (FunctorTarget::*FunctorMethod)(void);
+
+struct FunctorBinding
+{
+	FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) {}
+
+	FunctorTarget *m_target;
+	unsigned int m_pad;
+	FunctorMethod m_method;
+};
+
+class FunctorWrapperHead
+{
+public:
+	void *m_vtbl;
+	int m_refCount; // +0x04
+};
+
+class Rva0057BC63FunctorHolder
+{
+public:
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
+	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr)
+	{
+		if (m_ptr)
+			++m_ptr->m_refCount;
+	}
+
+	FunctorWrapperHead *m_ptr;
+};
+
+// AptCallbackAdders.cpp's by-value callback reference, built in place from a
+// binding passed by value (its out-of-line copy is 0x00518756, ret 0x10);
+// the callee releases it through 0x0007DEEF.
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+
+template <class T> class AptRef : public Rva0057BC63FunctorHolder
+{
+public:
+	AptRef(FunctorBinding binding) : Rva0057BC63FunctorHolder(binding) {}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+};
+
+class AptCommandMap;
+class AptExternHandler;
+
+// The panel's two adders at +0x04 and +0x10 (AptCallbackAdders.cpp, both
+// rowed): each registers with the Apt player and remembers the name.
+class AptCommandMapAdder
+{
+public:
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptExternHandlerAdder
+{
+public:
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+// 0x00411458 stores the reference under the name in the screen table at
+// 0x00E02FD0 (operator[] 0x0041112B, assignment 0x002174A4), releasing it
+// through 0x0007DEEF as above; BFME1's _bfme_setAptScreenRef
+// (AptScreenSetRef.cpp). Unrowed, pinned by address. The callback class
+// is named for the InitGadgets handlers the screens bind here.
+class AptScreenInitGadgets;
+void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
+
 void _bfme_closeAptScreen(const AsciiString &name);
 
 class AptMpGameSetup
@@ -838,8 +929,14 @@ public:
 	// pinned by address.
 	void rva00443538(int flags);
 
+	void rva0044303D();
+	void InitGadgets(const char *name, void *data, GameWindow *window);
+
 private:
-	unsigned char m_pad000[0x58];
+	unsigned char m_pad000[0x04];
+	AptCommandMapAdder m_commandMaps; // +0x04
+	AptExternHandlerAdder m_externHandlers; // +0x10
+	unsigned char m_pad01c[0x58 - 0x1C];
 	MpGameSetupOwner *m_owner; // +0x58
 	Rva0043DA65 *m_game; // +0x5C
 	Rva0057E3DB m_60; // +0x60
@@ -2688,4 +2785,87 @@ int Rva0057E3DB::rva0057CDA1(unsigned int msg, unsigned int data1, unsigned int 
 		return 1;
 	}
 	return 0;
+}
+
+// Retail 0x0044303D, 1040 bytes. Name unknown. Registers the panel's Apt
+// callbacks: the sort, kick, ready and tab handlers as command maps by
+// name, ExternFunc as the extern handler of four names with indices 0..3,
+// and InitGadgets (rowed 0x0043EB1D) as the screen reference; then clears
+// the current game and lets the four members register theirs. Called from
+// the LAN lobby screen 0x00444451. Retail packs the last block's AsciiString
+// in a fresh slot but its by-value binding in the slot the other ten share
+// (sub esp,0x2C); a trailing scope after the call in that block is what
+// reproduces this frame, so it is kept.
+// The handlers are bound as eight-byte multiple-inheritance member pointers
+// (the binding's code and delta words).
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+void AptMpGameSetup::rva0044303D()
+{
+	m_pending = false;
+	m_2c4 = false;
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::OnSortIcons);
+		AsciiString name("MpGameSetup::OnSortIcons");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::OnSortName);
+		AsciiString name("MpGameSetup::OnSortName");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::OnSortPlayers);
+		AsciiString name("MpGameSetup::OnSortPlayers");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::OnKickPlayer);
+		AsciiString name("MpGameSetup::OnKickPlayer");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::OnReadyPress);
+		AsciiString name("MpGameSetup::OnReadyPress");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::OnTabSelect);
+		AsciiString name("MpGameSetup::OnTabSelect");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::ExternFunc);
+		AsciiString name("MpGameSetup::HostMode");
+		m_externHandlers.AddExternHandler(name, 0, AptRef<AptExternHandler>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::ExternFunc);
+		AsciiString name("MpGameSetup::IsInitialized");
+		m_externHandlers.AddExternHandler(name, 1, AptRef<AptExternHandler>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::ExternFunc);
+		AsciiString name("AptMpGameRules::ShowClans");
+		m_externHandlers.AddExternHandler(name, 2, AptRef<AptExternHandler>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::ExternFunc);
+		AsciiString name("AptMpGameRules::ShowChat");
+		m_externHandlers.AddExternHandler(name, 3, AptRef<AptExternHandler>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	Rva00446A67Set(0);
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameSetup::InitGadgets);
+		AsciiString name("MpGameSetup::InitGadgets");
+		_bfme_setAptScreenRef(name, AptRef<AptScreenInitGadgets>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		{
+			FunctorBinding unused(0, 0);
+			(void)unused;
+		}
+	}
+	m_game->m_current = 0;
+	m_60.rva0057E45C();
+	m_d0.rva0057F0AA();
+	m_190.rva0057FAB0();
+	m_244.rva0057FFB9();
 }

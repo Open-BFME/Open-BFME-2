@@ -15251,3 +15251,8 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00553FDD@Rva00385333@@QAEXXZ,0x00553FDD,callee of ?rva00555F68@Rva00385333@@QAEXXZ
 ?rva005C71AD@Rva005C71ADView@@QAEPAXPAXM00000000@Z,0x005C71AD,Ghidra boundary 0x005C71AD/654; callers 0x00540E6C and 0x00540EBD load context into ECX and pass 40 stack bytes with callee cleanup; address-derived helper view
 ?rva0040F87E@ArmySummarySystem@@QAE_NXZ,0x0040F87E,address-derived ArmySummarySystem callee: Ghidra function boundary at 0x0040F87E; called through GameLogic+0x184 at 0x0023C8F9; semantic name unproven
+?rva0057E45C@Rva0057E3DB@@QAEXXZ,0x0057E45C,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ (the +0x60 AptMapPreview member's Apt callback registration; REL32 call at 0x00443418); owner identity unresolved
+?rva0057F0AA@Rva0057EE5C@@QAEXXZ,0x0057F0AA,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ (the +0xD0 member's registration; binds AptMpGameRules::Reset and AptMpGameRules::InitGadgets); owner identity unresolved
+?rva0057FAB0@Rva0057F2DE@@QAEXXZ,0x0057FAB0,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ (the +0x190 member's registration; binds AptMpClans::WebSite and AptMpClans::Delete); owner identity unresolved
+?rva0057FFB9@Rva0057FD6E@@QAEXXZ,0x0057FFB9,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ (the +0x244 member's registration; binds AptMpChat::Send and AptMpChat::InitGadgets); owner identity unresolved
+?_bfme_setAptScreenRef@@YAXABVAsciiString@@V?$AptRef@VAptScreenInitGadgets@@@@@Z,0x00411458,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ; stores the by-value reference under the name in the screen table 0x00E02FD0 (operator[] 0x0041112B then assign 0x002174A4) and releases it via 0x0007DEEF; BFME1 _bfme_setAptScreenRef analogue
