@@ -93,6 +93,9 @@ struct Rva001530E9Path
 };
 void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
 
+// The rowed registry of named sources (WorldBuilder 0x009E9C10).
+void __cdecl Rva00153565Register(const char *name, void *source);
+
 // WWMath's Vector4 and Matrix4 (Vector4 Row[4]), only as far as the camera
 // and skeleton matrix sources inline them.
 class Vector4
@@ -473,10 +476,12 @@ template <class T>
 class FXShaderParameterSourceNamespace_Array : public FXShaderParameterSourceNamespace
 {
 public:
+	FXShaderParameterSourceNamespace_Array(int numElements);
 	virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 
 	int GetSize() const { return m_Elements.size(); }
 	T &rva0014F454(int index);
+	void GrowArray(int totalNumElements);
 
 private:
 	std::vector<T> m_Elements;
@@ -513,6 +518,7 @@ public:
 			virtual void slot02(Rva0007671F &matrix);
 		};
 
+		SourceNamespace_Camera() {}
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 
 		Matrix_WorldToView m_WorldToView;	// +0x04
@@ -531,18 +537,21 @@ public:
 	{
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 		void rva0014D5B0(ID3DXEffect *effect, D3DXHANDLE parameter);
+		void SetIndex(int index) { m_index = index; }
 		int m_index;
 	};
 	struct SourceNamespace_DirectionalLight : public FXShaderParameterSourceNamespace_Struct
 	{
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 		void rva0014D66F(ID3DXEffect *effect, D3DXHANDLE parameter);
+		void SetIndex(int index) { m_index = index; }
 		int m_index;
 	};
 	struct SourceNamespace_PointLight : public FXShaderParameterSourceNamespace_Struct
 	{
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 		void rva0014D90E(ID3DXEffect *effect, D3DXHANDLE parameter);
+		void SetIndex(int index) { m_index = index; }
 		int m_index;
 	};
 
@@ -555,6 +564,7 @@ public:
 		void rva0014D96A(ID3DXEffect *effect, D3DXHANDLE parameter);
 		void rva0014DA92(const Matrix4 &worldToShadow, RefCountPtr<TextureClass> shadowMap);
 		bool hasShadowMap() const { return m_shadowMap.ptr != 0; }
+		void SetIndex(int index) { m_index = index; }
 		int m_index;
 		Matrix4 m_WorldToShadow;		// +0x08
 		RefCountPtr<TextureClass> m_shadowMap;	// +0x48
@@ -596,6 +606,7 @@ public:
 		const std::vector<Matrix3D> *m_InstancingInfo;			// +0x1C
 	};
 
+	FXShaderParameterSourceNamespaceSAS();
 	virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 
 	void NumShadows(ID3DXEffect *effect, D3DXHANDLE parameter);
@@ -704,6 +715,18 @@ void Rva0014D7B1NumPointLights(ID3DXEffect *effect, D3DXHANDLE parameter)
 }
 
 // Retail 0x0014FAC2, 390 bytes.
+// Retail 0x001510C2, 154 bytes (WorldBuilder 0x009F7D20): one ambient
+// light, four directional and four point lights and one shadow, registered
+// as "Sas".
+FXShaderParameterSourceNamespaceSAS::FXShaderParameterSourceNamespaceSAS()
+	: m_SourceNamespace_AmbientLight(1),
+	  m_SourceNamespace_DirectionalLight(4),
+	  m_SourceNamespace_PointLight(4),
+	  m_SourceNamespace_Shadow(1)
+{
+	Rva00153565Register("Sas", this);
+}
+
 void FXShaderParameterSourceNamespaceSAS::ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder)
 {
 	Rva001530E9Path t;
@@ -758,6 +781,30 @@ void FXShaderParameterSourceNamespaceSAS::SetShadowMapInfo(int shadowMapIndex, c
 void FXShaderParameterSourceNamespaceSAS::rva0014F7F2(int shadowMapIndex)
 {
 	SetShadowMapInfo(shadowMapIndex, Matrix4(true), RefCountPtr<TextureClass>());
+}
+
+// Retail 0x00150D8A, 0x00150DFD, 0x00150F19 (87 bytes each) and 0x00150F70
+// (92 bytes, shadows): the default element answers for index -1.
+template <class T>
+FXShaderParameterSourceNamespace_Array<T>::FXShaderParameterSourceNamespace_Array(int numElements)
+{
+	m_Default.SetIndex(-1);
+	if (numElements > 0)
+		GrowArray(numElements);
+}
+
+// Retail 0x00150C97, 0x00150CD0, 0x00150D09 (57 bytes each) and 0x00150D42
+// (72 bytes, shadows); WorldBuilder asserts
+// "!(totalNumElements < m_Elements.size())".
+template <class T>
+void FXShaderParameterSourceNamespace_Array<T>::GrowArray(int totalNumElements)
+{
+	if (totalNumElements < m_Elements.size())
+		return;
+	int i = m_Elements.size();
+	m_Elements.resize(totalNumElements);
+	for (; i < totalNumElements; i++)
+		m_Elements[i].SetIndex(i);
 }
 
 // Retail 0x0014F454, 44 bytes: an index out of range yields the default.
