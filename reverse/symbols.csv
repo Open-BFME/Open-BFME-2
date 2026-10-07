@@ -4892,7 +4892,6 @@ name,address,notes
 ??1Rva006162B0Dtor@@UAE@XZ,0x006162B0,address-derived class dtor called by the 30B scalar deleting destructor at 0x00616490; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva0061ED80@@UAE@XZ,0x0061ED80,opaque vector-destroying dtor (17B: member+0xC via ehvec 0x42FD80 + vptr); tail-called by single-inheritance dtor at 0x180EA0; identity unproven, address-derived name
 ??1Rva00625800Dtor@@UAE@XZ,0x00625800,address-derived class dtor called by the 30B scalar deleting destructor at 0x00626D90; address read from that body REL32; class identity unproven so the model is named for the call target
-??1Rva00633E5@@UAE@XZ,0x00633E5,opaque member-load 2-vptr dtor (mov eax,[ecx+8] + vptrs +0/+4); called by scalar-deleting-dtor at 0x639B4; identity unproven, address-derived name
 ??1Rva006422F@@UAE@XZ,0x006422F,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC59B8); called by scalar-deleting-dtor at 0x642D5; identity unproven, address-derived name
 ??1Rva0064C290Tree@@QAE@XZ,0x0038A48B,callee of ??1Rva006609D0@@UAE@XZ at retail 0x0054FFA5 read from its REL32 displacement; ICF alias onto the matched STLport string-pair Rb_tree destructor body at this address
 ??1Rva0065288@@UAE@XZ,0x0065288,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x6526C; identity unproven, address-derived name

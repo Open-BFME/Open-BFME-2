@@ -662,6 +662,7 @@ class GhostObject : public Snapshot, public CDEProvider
 	friend class W3DGhostObjectManager;
 public:
 	GhostObject();
+	virtual ~GhostObject();
 
 	virtual const void *vslot00( void ) const;
 	virtual const void *vslot04( void ) const;
@@ -898,6 +899,7 @@ class W3DGhostObject : public GhostObject
 	friend class W3DGhostObjectManager;
 public:
 	W3DGhostObject();
+	virtual ~W3DGhostObject();
 
 	virtual void slot00( void );
 	virtual void slot04( void );
@@ -950,6 +952,12 @@ W3DGhostObject::W3DGhostObject()
 	m_nextSystem = 0;
 	m_prevSystem = 0;
 
+}
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+W3DGhostObject::~W3DGhostObject()
+{
 }
 
 // ------------------------------------------------------------------------------------------------
