@@ -15732,3 +15732,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0034BFFF@AIChargeTargetState@@AAEXPAVObject@@@Z,0x0034BFFF,AIChargeTargetState::update 0x0034FE6E calls it with this in ecx; rowed stdcall body ignores ecx
 ??0Rva0030B9DD@@QAE@H@Z,0x0030B9DD,callee of ??0Rva00330C50@@QAE@XZ
 ??0Rva005E87E0@@QAE@PAX0PAURva005CE172Context@@@Z,0x005E87E0,callee of ??0Rva005CE172@@QAE@PAX0PAURva005CE172Context@@@Z
+??0Rva005CC698@@QAE@PAX0PAURva005CE93EContext@@@Z,0x005CC698,callee of ??0Rva005CE93E@@QAE@PAX0PAURva005CE93EContext@@@Z
