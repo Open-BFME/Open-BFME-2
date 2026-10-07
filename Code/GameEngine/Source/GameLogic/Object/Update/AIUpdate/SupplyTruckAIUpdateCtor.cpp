@@ -16,6 +16,10 @@
 // SupplyTruckStateMachine ctor 0x004A7010 on getObject(), then
 // initDefaultState through StateMachine vslot +0x1C; the ZH tail that reads
 // the depleted-supplies voice from the module data is absent in retail.
+// The dtor 0x004A69BF (pinned as the slot-0 ??_G's callee) re-stores the
+// six tables, then deletes the machine through its vslot-0 deleting dtor
+// with flag 0 plus the global operator delete (the DozerAIUpdate dtor's
+// ::delete shape) and clears the pointer before the pinned base dtor.
 class Thing;
 class ModuleData;
 class Object;
@@ -53,7 +57,8 @@ public:
 class StateMachine
 {
 public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual ~StateMachine();
+	virtual void s01(); virtual void s02(); virtual void s03();
 	virtual void s04(); virtual void s05(); virtual void s06();
 	virtual void initDefaultState(); // +0x1C
 };
@@ -62,6 +67,7 @@ class SupplyTruckStateMachine : public StateMachine
 {
 public:
 	SupplyTruckStateMachine(Object *owner);
+	virtual ~SupplyTruckStateMachine();
 	unsigned char m_pad04[0x3C - 4];
 };
 
@@ -122,6 +128,12 @@ SupplyTruckAIUpdate::SupplyTruckAIUpdate( Thing *thing, const ModuleData* module
 	m_forcedBusyPending = false;
 	m_supplyTruckStateMachine = new SupplyTruckStateMachine( getObject() );
 	m_supplyTruckStateMachine->initDefaultState();
+}
+
+SupplyTruckAIUpdate::~SupplyTruckAIUpdate()
+{
+	::delete m_supplyTruckStateMachine;
+	m_supplyTruckStateMachine = 0;
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
