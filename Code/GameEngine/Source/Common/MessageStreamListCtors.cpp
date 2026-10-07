@@ -83,6 +83,7 @@ public:
 	};
 
 	class GameMessageTranslator *findTranslator(unsigned int id);
+	void removeTranslator(unsigned int id);
 	unsigned int rva0030F738(class GameMessageTranslator *translator, unsigned int priority);
 
 private:
@@ -191,6 +192,35 @@ GameMessageTranslator *MessageStream::findTranslator(unsigned int id)
 	}
 
 	return 0;
+}
+
+// ?removeTranslator@MessageStream@@QAEXI@Z @0x0030F7F3 79B
+// MessageStream::removeTranslator from ZH MessageStream.cpp donor: finds the
+// m_id (+0x08) match along m_next, unlinks it from first/last (+0x14/+0x18)
+// and deletes it through the out-of-line ~TranslatorData 0x0030F463.
+// Target caller: ~GameClient 0x0023AE08 per translator it attached.
+void MessageStream::removeTranslator(unsigned int id)
+{
+	TranslatorData *translatorData;
+
+	for (translatorData = (TranslatorData *)m_firstTranslator; translatorData; translatorData = translatorData->m_next)
+	{
+		if (translatorData->m_id == id)
+		{
+			if (translatorData->m_prev)
+				translatorData->m_prev->m_next = translatorData->m_next;
+			else
+				m_firstTranslator = translatorData->m_next;
+
+			if (translatorData->m_next)
+				translatorData->m_next->m_prev = translatorData->m_prev;
+			else
+				m_lastTranslator = translatorData->m_prev;
+
+			delete translatorData;
+			break;
+		}
+	}
 }
 
 // ?rva0030F738@MessageStream@@QAEIPAVGameMessageTranslator@@I@Z @0x0030F738 159B
