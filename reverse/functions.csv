@@ -67600,3 +67600,4 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ??$min@H@@YAABHABH0@Z,,0x000057B0,16,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,min<int> reference helper
 ??$max@H@@YAABHABH0@Z,,0x000057C0,16,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,max<int> reference helper
 ?rva00213A0E@Rva00213A85@@QAEXXZ,,0x00213A0E,119,Code/GameEngine/Source/GameClient/Rva00213A85.cpp,matched,shares table at 0x204 with siblings calls FACE4 then audio slot14 then FACB4
+?rva004E05F0@Rva004E05F0@@QAEPAVCreateAHeroData@@XZ,,0x004E05F0,21,Code/GameEngine/Source/Common/Rva004E05F0.cpp,matched,callee pin rva003F083A callers 0x005CE13E between Disp getters
