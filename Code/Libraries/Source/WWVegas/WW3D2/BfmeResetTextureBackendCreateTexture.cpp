@@ -13,7 +13,7 @@
 // sibling call sites (Recreate plus the literal-init) prove the 7-arg
 // thiscall shape (ret 0x1C).
 
-struct BfmeResetComTexture
+struct IDirect3DBaseTexture8
 {
 	virtual long __stdcall QueryInterface(void *, void **) = 0;
 	virtual unsigned long __stdcall AddRef() = 0;
@@ -23,10 +23,14 @@ struct BfmeResetComTexture
 struct BfmeResetTextureBackend
 {
 	void CreateTexture(int width, int height, int createArg4C, int createArg44, int pool, int usage, int createArg48);
+	void rva001311AA(unsigned int stage);
+	virtual void unknownSlot0();
+	virtual void unknownSlot1();
+	virtual void Initialize();
 
-	int unused0;                 // +0x00
-	int unused4;                 // +0x04
-	BfmeResetComTexture *com;    // +0x08
+	bool initialized;           // +0x04, tested by native 0x001311AA
+	char unknown05[3];
+	IDirect3DBaseTexture8 *com;  // +0x08
 	int field0C;                 // +0x0C: zeroed on recreate
 	char pad10[0x28 - 0x10];
 	int width;                   // +0x28
@@ -95,11 +99,76 @@ void BfmeResetTextureBackend::CreateTexture(int width, int height, int createArg
 		break;
 	}
 	BfmeDX8DeviceLockGuard deviceLock;
-	com = (BfmeResetComTexture *)Rva00120720CreateTexture(width, height, createArg4C, createArg44, pool, sanitizedUsage);
+	com = (IDirect3DBaseTexture8 *)Rva00120720CreateTexture(width, height, createArg4C, createArg44, pool, sanitizedUsage);
 	this->width = width;
 	this->height = height;
 	this->desc30 = 1;
 	this->desc34 = width;
 	this->desc38 = height;
 	this->desc3C = 1;
+}
+
+// Reference lead: BFME1 968ca36c TextureHandleApply.cpp's inline
+// Set_DX8_Texture manages cached COM references and both counters.
+// Target facts: the cache has sixteen slots; SetTexture is at +0x104;
+// this receiver initializes through slot 2 and binds its +0x08 resource.
+// Original receiver/method names are unknown. Data names below are the
+// existing owners in reverse/data_ledger.csv, including its D3D8 ABI label.
+struct IDirect3DDevice8;
+struct BfmeTextureBindDevice
+{
+	struct Vtable
+	{
+		void *unknown[65];
+		long (__stdcall *SetTexture)(IDirect3DDevice8 *, unsigned int,
+			IDirect3DBaseTexture8 *);
+	};
+	Vtable *vtable;
+};
+extern unsigned int number_of_DX8_calls;
+class WW3D
+{
+public:
+	static __forceinline bool Is_Texturing_Enabled() { return IsTexturingEnabled; }
+private:
+	static bool IsTexturingEnabled;
+};
+class DX8Wrapper
+{
+public:
+	static __forceinline void Set_DX8_Texture(unsigned int stage,
+		IDirect3DBaseTexture8 *texture)
+	{
+		if (stage >= 16)
+		{
+			((BfmeTextureBindDevice *)D3DDevice)->vtable->SetTexture(
+				D3DDevice, stage, texture);
+			++number_of_DX8_calls;
+			return;
+		}
+		if (Textures[stage] == texture)
+			return;
+		if (Textures[stage] != 0)
+			Textures[stage]->Release();
+		Textures[stage] = texture;
+		if (Textures[stage] != 0)
+			Textures[stage]->AddRef();
+		((BfmeTextureBindDevice *)D3DDevice)->vtable->SetTexture(
+			D3DDevice, stage, texture);
+		++number_of_DX8_calls;
+		++texture_changes;
+	}
+protected:
+	static IDirect3DBaseTexture8 *Textures[16];
+	static IDirect3DDevice8 *D3DDevice;
+	static unsigned int texture_changes;
+};
+void BfmeResetTextureBackend::rva001311AA(unsigned int stage)
+{
+	if (!initialized)
+		Initialize();
+	if (WW3D::Is_Texturing_Enabled() && com != 0)
+		DX8Wrapper::Set_DX8_Texture(stage, com);
+	else
+		DX8Wrapper::Set_DX8_Texture(stage, 0);
 }
