@@ -29,7 +29,15 @@
 //    BFME 2's on-field shortcut (rva004F13D8) before isPossibleToBuildTeam and
 //    ZH's two debug-AI messages (GlobalData +0x9B8). The queue walk calls
 //    dlink_next_TeamBuildQueue, which retail folded into the shared
-//    mov eax,[ecx+8] getter at 0x0030F45F.
+//    mov eax,[ecx+8] getter at 0x0030F45F. It is virtual: retail's AIPlayer
+//    vtable (0x00862DC8) holds it at +0x64.
+//  - checkQueuedTeams 0x004F1653 (430 bytes, vtable +0x44): ZH's two
+//    build-queue walks. BFME 2 disbands an expired team before unlinking it,
+//    calls Team 0x0039D889(false) before each ready-queue move, iterates team
+//    members through the out-of-line 24-byte DLINK_ITERATOR<Object>, and runs
+//    the production-condition script found by owner and name (0x003573C4)
+//    through 0x0020D451. Reading the prototype through an inline getter, not
+//    the raw field, is what gives retail's edi/ebx assignment.
 // GameLogic comes from the canonical GameLogicObjectLookupView.h.
 #include "ascii_string.h"
 typedef bool Bool;
@@ -235,6 +243,21 @@ public:
 	virtual DozerAIInterface *getDozerAIInterface();		// +0x174
 	virtual void slot178();
 	virtual SupplyTruckAIInterface *getSupplyTruckAIInterface();	// +0x17C
+	virtual void slot180();
+	virtual void slot184();
+	virtual void slot188();
+	virtual void slot18c();
+	virtual void slot190();
+	virtual void slot194();
+	virtual void slot198();
+	virtual void slot19c();
+	virtual void slot1a0();
+	virtual void slot1a4();
+	virtual void slot1a8();
+	virtual void slot1ac();
+	virtual void slot1b0();
+	virtual void slot1b4();
+	virtual Bool isIdle() const;					// +0x1B8
 
 	unsigned char m_pad004[0x3BE - 0x04];
 	Bool m_bfme3BE;					// +0x3BE
@@ -246,6 +269,7 @@ public:
 	Player *getControllingPlayer() const;
 	Bool testStatus(ObjectStatusTypes bit) const;
 	void *rva0028BC58(Int which);
+	AIUpdateInterface *getAI() const { return m_ai; }
 
 	void *m_vtable;
 	ThingTemplate *m_template;			// +0x04
@@ -378,7 +402,12 @@ public:
 	Int countTeamInstances();
 	const AsciiString &getName() const { return m_name; }
 
-	char m_pad000[0x14];
+	const AsciiString &getOwnerName() const { return m_owner; }
+	const AsciiString &getProductionCondition() const { return m_productionCondition; }
+	Bool getExecuteActions() const { return m_executeActions; }
+
+	char m_pad000[0x10];
+	AsciiString m_owner;			// +0x10
 	AsciiString m_name;			// +0x14
 	char m_pad018[0x130 - 0x18];
 	TCreateUnitsInfo m_unitsInfo[7];	// +0x130
@@ -387,18 +416,9 @@ public:
 	Bool m_bfme210;				// +0x210
 	char m_pad211[0x218 - 0x211];
 	Int m_maxInstances;			// +0x218
-};
-
-class Team
-{
-public:
-	char m_pad000[0x30];
-	TeamPrototype *m_proto;			// +0x30
-	char m_pad034[0x5D - 0x34];
-	Bool m_active;				// +0x5D
-	char m_pad05E[0x110 - 0x5E];
-	Bool m_bfme110;				// +0x110
-	Bool m_bfme111;				// +0x111
+	char m_pad21C[0x23C - 0x21C];
+	AsciiString m_productionCondition;	// +0x23C
+	Bool m_executeActions;			// +0x240
 };
 
 template <class OBJCLASS> class DLINK_ITERATOR
@@ -414,11 +434,50 @@ private:
 	GetNextFunc m_getNextFunc;
 };
 
+// BFME2's team-member iterator is a 24-byte object returned through a hidden
+// pointer by Team::iterate_TeamMemberList (0x263864); advance is out of line
+// at 0x263526.
+template <> class DLINK_ITERATOR<Object>
+{
+public:
+	void advance();
+	Bool done() const { return m_cur == 0; }
+	Object *cur() const { return m_cur; }
+private:
+	Object *m_cur;
+	unsigned char m_state[20];
+};
+
+class Team
+{
+public:
+	char m_pad000[0x30];
+	TeamPrototype *m_proto;			// +0x30
+	char m_pad034[0x5D - 0x34];
+	Bool m_active;				// +0x5D
+	char m_pad05E[0x110 - 0x5E];
+	Bool m_bfme110;				// +0x110
+	Bool m_bfme111;				// +0x111
+
+	void rva0039D889(Bool flag);
+	void disband();
+	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
+	const AsciiString &getOwnerName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getOwnerName(); }
+	TeamPrototype *getPrototype() const { return m_proto; }
+};
+
 class TeamInQueue
 {
 public:
+	virtual ~TeamInQueue();
 	TeamInQueue *dlink_next_TeamBuildQueue() const { return m_next; }
-	void *m_vtbl;
+	Bool isBuildTimeExpired();
+	Bool isMinimumBuilt();
+	Bool areBuildsComplete();
+	Bool isAllBuilt();
+	void disband() { if (m_team) m_team->disband(); }
+	__forceinline void deleteInstance() { ::delete this; }
+
 	TeamInQueue *m_prev;			// +0x04
 	TeamInQueue *m_next;			// +0x08
 	char m_pad0C[0x1C - 0x0C];
@@ -433,10 +492,21 @@ public:
 };
 extern GlobalData *TheWritableGlobalData;
 
+class Script
+{
+public:
+	void *getAction() const { return m_action; }
+private:
+	char m_pad00[0x34];
+	void *m_action;				// +0x34
+};
+
 class ScriptEngine
 {
 public:
 	void AppendDebugMessage(const AsciiString &message, Bool forcePause);
+	Script *rva003573C4(const AsciiString &owner, const AsciiString &name, AsciiString *outName);
+	void rva0020D451(AsciiString &scope, void *action, Script *script, const AsciiString &scriptName, int flags);
 };
 extern ScriptEngine *TheScriptEngine;
 
@@ -460,20 +530,27 @@ protected:
 	virtual void slot14();
 	virtual void slot15();
 	virtual void slot16();
-	virtual void slot17();
+	virtual void checkQueuedTeams();				// +0x44
 	virtual void slot18();
 	virtual void slot19();
 	virtual Object *findDozer(const Coord3D *searchPosition);	// +0x50
 	virtual void queueDozer();					// +0x54
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);	// +0x64
 
 	Object *findFactory(const ThingTemplate *thing, Bool busyOK, Int *buildIndex);
 	Bool isPossibleToBuildTeam(TeamPrototype *proto, Bool requireIdleFactory, Bool &notEnoughMoney);
 	Bool rva004F13D8(TeamPrototype *proto);
-	Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);
 	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
 	{
 		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
 	}
+
+public:
+	void removeFrom_TeamBuildQueue(TeamInQueue *team);
+	void prependTo_TeamReadyQueue(TeamInQueue *team);
 
 private:
 	TeamInQueue *m_teamBuildQueue;	// +0x04
@@ -749,4 +826,67 @@ Bool AIPlayer::isAGoodIdeaToBuildTeam(TeamPrototype *proto)
 		return false;
 	}
 	return true;
+}
+
+void AIPlayer::checkQueuedTeams()
+{
+	{
+		for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
+		{
+			TeamInQueue *team = iter.cur();
+			if (team && team->isBuildTimeExpired())
+			{
+				if (team->isMinimumBuilt())
+				{
+					if (team->areBuildsComplete())
+					{
+						removeFrom_TeamBuildQueue(team);
+						team->m_team->rva0039D889(false);
+						prependTo_TeamReadyQueue(team);
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else
+				{
+					team->disband();
+					removeFrom_TeamBuildQueue(team);
+					team->deleteInstance();
+				}
+				iter = iterate_TeamBuildQueue();
+			}
+		}
+	}
+
+	{
+		for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
+		{
+			TeamInQueue *team = iter.cur();
+			if (team && team->isAllBuilt())
+			{
+				removeFrom_TeamBuildQueue(team);
+				team->m_team->rva0039D889(false);
+				prependTo_TeamReadyQueue(team);
+				iter = iterate_TeamBuildQueue();
+				continue;
+			}
+			Bool anyIdle = false;
+			for (DLINK_ITERATOR<Object> it = team->m_team->iterate_TeamMemberList(); !it.done(); it.advance())
+			{
+				Object *obj = it.cur();
+				if (obj && obj->getAI() && obj->getAI()->isIdle())
+					anyIdle = true;
+			}
+			if (anyIdle && team->m_team->getPrototype()->getExecuteActions())
+			{
+				AsciiString scope;
+				const AsciiString &cond = team->m_team->getPrototype()->getProductionCondition();
+				Script *script = TheScriptEngine->rva003573C4(team->m_team->getOwnerName(), cond, &scope);
+				if (script)
+					TheScriptEngine->rva0020D451(scope, script->getAction(), script, cond, (int)team->m_team);
+			}
+		}
+	}
 }
