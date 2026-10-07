@@ -27,6 +27,10 @@ public:
   void interpolate(Gen0060CBB0Pair *from, Gen0060CBB0Pair *to,
                    Gen0060CBB0Pair *current, float progress);
 };
+class T4Host0060C2E0 {
+public:
+  void advance(void);
+};
 class Rva002D3627Host;
 extern Rva002D3627Host *g_00DFEF18;
 class LivingWorldEyeTower {
@@ -37,6 +41,8 @@ class LivingWorldEyeTower {
   void *getPair();
   void processItems();
   void beginState();
+  void processFrame();
+  void updateState();
 public:
   void rva003F9B5A();
   unsigned int m_state;
@@ -94,4 +100,22 @@ void LivingWorldEyeTower::beginState()
 
   if (m_progress68 >= 1.0f)
     processItems();
+}
+
+// ?updateState@LivingWorldEyeTower@@AAEXXZ @0x003F9BED 36B
+// BFME1 donor LivingWorldEyeTowerState.cpp at 6583b3c1ff21db4a561285717028fdafc780b7db
+// switches on m_state, updates state 0 or 1, then processes the frame. Target
+// call sites establish 0x003F9B93 for beginState, the rowed 0x003F93AD helper
+// for state 1, and 0x003F99DC as the unconditional processFrame tail target.
+void LivingWorldEyeTower::updateState()
+{
+	switch (m_state) {
+		case 0:
+			beginState();
+			break;
+		case 1:
+			((T4Host0060C2E0 *)this)->advance();
+			break;
+	}
+	processFrame();
 }
