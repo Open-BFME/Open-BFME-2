@@ -68628,3 +68628,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva00118A15@@YAXXZ,,0x00118A15,11,Code/Libraries/Source/WWVegas/WW3D2/Rva00118990Init.cpp,matched,State setter for DB5FC4 global stores 5; honest address name
 ?rva00118A45@@YAXXZ,,0x00118A45,11,Code/Libraries/Source/WWVegas/WW3D2/Rva00118990Init.cpp,matched,State setter for DB5FC4 global stores 1; honest address name
 ?rva00118A7A@@YAXXZ,,0x00118A7A,11,Code/Libraries/Source/WWVegas/WW3D2/Rva00118990Init.cpp,matched,State setter for DB5FC4 global stores 5; honest address name
+?onEnter@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ,,0x0034C146,1449,Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp,matched,slot 4 of vtable 0x00C10DE8 (27 derived onEnter callers); Zero Hour AIStates.cpp onEnter plus BFME 2 critter desync log literals; BFME 1 0x00172600 structure

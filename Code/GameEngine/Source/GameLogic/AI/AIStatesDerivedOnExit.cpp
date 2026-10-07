@@ -67,6 +67,23 @@
 // Object::rva0028AC7D and the pinned direction getter 0x0030A8EE unless the
 // goal is immobile. KindOf bits are the template's (+4) dword at +0x108
 // (PROJECTILE bit 25, IMMOBILE bit 2).
+// AIInternalMoveToState::onEnter, retail 0x0034C146 (1449 bytes): slot 4 of
+// vtable 0x00C10DE8 (pinned; 27 derived onEnters chain to it). Zero Hour's
+// AIStates.cpp body with BFME 2's critter desync log lines (their literals
+// name every step, as in BFME 1's matched 0x00172600). Target facts: the
+// audio handle (+0x40) is removed through TheAudio slot 27 when at least 5
+// and reset to 1; status 0x31 fails; the locomotor distance to goal is read
+// before the current locomotor's empty startMove (the shared RET 0x000B3FD0);
+// the adjust block brackets adjustDestination with the out-of-line
+// setIgnoreObstacleID (0x003E3BFB) and ends in the rowed Object::rva0028ACDC
+// update-goal; a goal more than 2.5 away (GetLengthEstimate2D) sets MOVING or
+// CLIMBING (0x3D/0x67, the rowed cliff-cell test) when the current locomotor
+// passes the rowed 0x001E543F test and the state is waiting for a path or
+// farther than its close-enough distance (+0x3C), else MOVING for a
+// DOZER+HARVESTER template (kind-of bits 14 and 16, from the retail KindOf
+// name table), and asks for startMoveSound (pinned 0x00347225) at the end.
+// The +0x48..+0x4A flags are adjust-destination, waiting-for-path and
+// try-one-more-repath; computePath is State slot 17.
 enum StateExitType
 {
 	EXIT_NORMAL = 0
@@ -91,6 +108,9 @@ public:
 		PRECISE_Z_POS = 3
 	};
 	void setUsePreciseZPos(bool u) { setFlag(PRECISE_Z_POS, u); }
+	float getCloseEnoughDist() const { return m_closeEnoughDist; }
+	// Zero Hour's startMove; empty in BFME 2 and folded onto the shared RET.
+	void rva000B3FD0();
 private:
 	void setFlag(LocoFlag f, bool b)
 	{
@@ -99,7 +119,9 @@ private:
 		else
 			m_flags &= ~(1 << f);
 	}
-	unsigned char m_pad00[0x44];
+	unsigned char m_pad00[0x3C];
+	float m_closeEnoughDist; // +0x3C
+	unsigned char m_pad40[0x44 - 0x40];
 	unsigned int m_flags; // +0x44
 };
 template <int N> class AIDeadStateAISlots : public AIDeadStateAISlots<N - 1>
@@ -123,6 +145,7 @@ struct Coord3D
 
 	Real length() const;
 	Real GetLengthEstimate() const;
+	Real GetLengthEstimate2D() const;
 };
 extern GameLogic *TheGameLogic;
 extern int g_00DBA4E4; // LOGICFRAMES_PER_SECOND
@@ -146,6 +169,8 @@ enum CommandSourceType
 enum KindOfType
 {
 	KINDOF_IMMOBILE = 2,
+	KINDOF_DOZER = 14,
+	KINDOF_HARVESTER = 16,
 	KINDOF_PROJECTILE = 25
 };
 enum
@@ -195,6 +220,18 @@ public:
 	Bool isSkirmishAIPlayer();
 };
 class LocomotorSet;
+typedef UnsignedInt AudioHandle;
+enum AudioHandleSpecialValues
+{
+	AHSV_NoSound = 1,
+	AHSV_FirstHandle = 5
+};
+class AudioManager : public AIDeadStateAISlots<27>
+{
+public:
+	virtual void removeAudioEvent(AudioHandle handle) = 0; // slot 27
+};
+extern AudioManager *TheAudio;
 // What the path's 0x003642DF returns by value (16 bytes): a node and a
 // position (as in AIUpdateInterfacePrivateCommands.cpp). Unnamed.
 struct Rva003642DFNode;
@@ -217,6 +254,11 @@ public:
 	bool IsBuildRestrictedCell(const Coord3D *pos, bool flagA, bool flagB, int layer);
 	Bool adjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest,
 		const Coord3D *groupDest);
+	void snapClosestGoalPosition(Object *obj, Coord3D *pos);
+	// Zero Hour's setIgnoreObstacleID (out of line, folded with a +0x48 store).
+	void rva003E3BFB(ObjectID objID);
+	// (position, layer) as the rowed name's two ints.
+	bool IsCliffCell(int pos, int layer);
 };
 struct TAiData
 {
@@ -252,9 +294,19 @@ class Rva00352F2FOpaque
 public:
 	void invoke(const Waypoint *way, int maxShots, CommandSourceType cmdSource);
 };
-class AIUpdateInterface : public AIDeadStateAISlots<136>
+class Rva001E46E1
 {
 public:
+	Bool rva001E543F(Object *obj);
+};
+class AIUpdateInterface : public AIDeadStateAISlots<131>
+{
+public:
+	virtual void setLocomotorGoalPositionOnPath() = 0; // slot 131
+	virtual void slot132() = 0;
+	virtual void slot133() = 0;
+	virtual void slot134() = 0;
+	virtual void slot135() = 0;
 	virtual void setLocomotorGoalNone() = 0; // slot 136
 	virtual Bool isDoingGroundMovement() const = 0; // slot 137
 	Locomotor *getCurLocomotor() { return m_curLocomotor; }
@@ -282,6 +334,10 @@ public:
 	// Zero Hour's friend_startingMove and friend_endingMove.
 	void rva00262ACE();
 	void rva00262AEA();
+	ObjectID getIgnoredObstacleID() const;
+	Real getLocomotorDistanceToGoal();
+	void setPathExtraDistance(Real dist);
+	void setDesiredSpeed(Real speed);
 	void friend_setLastCommandSource(CommandSourceType source) { m_lastCommandSource = source; }
 private:
 	unsigned char m_pad004[0x20 - 4];
@@ -304,23 +360,43 @@ public:
 class Rva0010CBits
 {
 public:
-	unsigned int test(int bit) const
+	unsigned int test(unsigned int bit) const
 	{
 		return m_words[bit >> 5] & (1U << (bit & 0x1f));
 	}
-	void clear(int bit)
+	void clear(unsigned int bit)
 	{
 		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
 	}
+	void set(unsigned int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+	}
 private:
 	unsigned int m_words[19];
+};
+// The template name (+0x64) is an AsciiString; its data block keeps the
+// characters at +8.
+class ThingTemplateName
+{
+public:
+	const char *str() const { return m_data ? m_data->m_chars : ""; }
+private:
+	struct Data
+	{
+		unsigned char m_pad[8];
+		char m_chars[1];
+	} *m_data;
 };
 class ThingTemplate
 {
 public:
 	__forceinline unsigned int isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 0x1f)); }
+	const ThingTemplateName &getName() const { return m_name; }
 private:
-	unsigned char m_pad00[0x108];
+	unsigned char m_pad00[0x64];
+	ThingTemplateName m_name; // +0x64
+	unsigned char m_pad68[0x108 - 0x68];
 	unsigned int m_kindOf[1]; // +0x108
 };
 class GeometryInfo
@@ -333,10 +409,33 @@ class Thing
 public:
 	void rva0030A8EE(Coord3D *dir) const;
 };
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_IMMOBILE = 0x31
+};
+enum ModelConditionFlagType
+{
+	MODELCONDITION_MOVING = 0x3D,
+	MODELCONDITION_CLIMBING = 0x67
+};
 class Object
 {
 public:
 	__forceinline unsigned int isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	const ThingTemplate *getTemplate() const { return m_template; }
+	ObjectID getID() const { return m_id; }
+	Bool testStatus(ObjectStatusTypes bit) const;
+	// Zero Hour's getLayer and Pathfinder::updateGoal for this object.
+	int rva0028B511() const;
+	void rva0028ACDC(const Coord3D *goal);
+	__forceinline void setModelConditionState(ModelConditionFlagType bit)
+	{
+		if (m_conditionBits.test(bit) == 0)
+		{
+			m_conditionBits.set(bit);
+			rva0028AE6D();
+		}
+	}
 	const GeometryInfo &getGeometryInfo() const { return *(const GeometryInfo *)m_geometryInfo; }
 	Real rva0028AC7D() const;
 	void getUnitDirectionVector3D(Coord3D &dir) const { ((const Thing *)this)->rva0030A8EE(&dir); }
@@ -352,7 +451,9 @@ public:
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad008[0x38 - 0x08];
 	Coord3D m_position; // +0x38
-	unsigned char m_pad044[0xA8 - 0x44];
+	unsigned char m_pad044[0x74 - 0x44];
+	ObjectID m_id; // +0x74
+	unsigned char m_pad078[0xA8 - 0x78];
 	unsigned char m_geometryInfo[0xB8 - 0xA8]; // +0xA8
 	float m_bfmeRealB8; // +0xB8
 	unsigned char m_pad0BC[0x10C - 0xBC];
@@ -417,7 +518,7 @@ public:
 	virtual void slot09(); virtual void slot10(); virtual void slot11();
 	virtual void slot12(); virtual void slot13(); virtual void slot14();
 	virtual void slot15(); virtual void slot16();
-	virtual void computePath();
+	virtual Bool computePath();
 protected:
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
 	StateMachine *getMachine() const { return m_machine; }
@@ -432,6 +533,7 @@ inline Bool StateMachine::isInIdleState() const
 class AIInternalMoveToState : public State
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 protected:
@@ -446,9 +548,14 @@ protected:
 	unsigned char m_pad2C[0x30 - 0x2C];
 	Int m_goalLayer; // +0x30 (PathfindLayerEnum)
 	Coord3D m_pathGoalPosition; // +0x34
-	unsigned char m_pad40[0x44 - 0x40];
+	AudioHandle m_ambientPlayingHandle; // +0x40
 	UnsignedInt m_pathTimestamp; // +0x44
-	unsigned char m_pad48[0x4C - 0x48];
+	Bool m_adjustsDestination; // +0x48
+	Bool m_waitingForPath; // +0x49
+	Bool m_tryOneMoreRepath; // +0x4A
+	unsigned char m_pad4B[0x4C - 0x4B];
+private:
+	void startMoveSound();
 };
 class AIMoveToState : public AIInternalMoveToState
 {
@@ -543,6 +650,14 @@ static __forceinline void critterDesyncLog(const char *text)
 			fprintf(log, text);
 	}
 }
+// The critter desync log line with the state's goal position appended.
+#define CRITTER_DESYNC_GOAL_LOG(text) \
+	if (g_00E03745) \
+	{ \
+		FprintfTarget *log = (FprintfTarget *)g_00DFEFF0; \
+		if (log != 0) \
+			fprintf(log, text, m_goalPosition.x, m_goalPosition.y, m_goalPosition.z); \
+	}
 
 StateReturnType AIAttackFollowWaypointPathState::update()
 {
@@ -903,4 +1018,121 @@ StateReturnType AIMoveToState::update()
 	}
 
 	return AIInternalMoveToState::update();
+}
+
+StateReturnType AIInternalMoveToState::onEnter()
+{
+	if (TheAudio && m_ambientPlayingHandle >= AHSV_FirstHandle)
+	{
+		TheAudio->removeAudioEvent(m_ambientPlayingHandle);
+		m_ambientPlayingHandle = AHSV_NoSound;
+	}
+
+	Object *obj = getMachineOwner();
+	AIUpdateInterface *ai = obj->getAI();
+	m_waitingForPath = ai->isWaitingForPath();
+
+	if (g_00E03745)
+	{
+		FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
+		if (log != 0)
+			fprintf(log, "CritterDesync: AIInternalMoveToState::onEnter() entered. Object %s(%d) m_goalPosition=%g,%g,%g",
+				obj->getTemplate()->getName().str(), obj->getID(),
+				m_goalPosition.x, m_goalPosition.y, m_goalPosition.z);
+	}
+
+	if (obj->testStatus(OBJECT_STATUS_IMMOBILE))
+	{
+		critterDesyncLog("CritterDesync: AIInternalMoveToState::onEnter() immobile, returning STATE_FAILURE");
+		return STATE_FAILURE;
+	}
+
+	Real distToGoal = ai->getLocomotorDistanceToGoal();
+	Locomotor *curLoco = ai->getCurLocomotor();
+	if (curLoco)
+		curLoco->rva000B3FD0();
+	m_tryOneMoreRepath = true;
+	ai->rva00262ACE();
+
+	CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() pre-adjustDestination. m_goalPosition=%g,%g,%g")
+	if (getAdjustsDestination())
+	{
+		critterDesyncLog("CritterDesync: AIInternalMoveToState::onEnter() will adjustDestination");
+		Pathfinder *pathfinder = TheAI->pathfinder();
+		pathfinder->rva003E3BFB(ai->getIgnoredObstacleID());
+		if (!pathfinder->adjustDestination(obj, ai->getLocomotorSet(), &m_goalPosition, 0))
+		{
+			CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() AdjustDestination failed, snap pos. m_goalPosition=%g,%g,%g")
+			pathfinder->snapClosestGoalPosition(obj, &m_goalPosition);
+			CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() post-SnapClosestGoalPosition. m_goalPosition=%g,%g,%g")
+		}
+		else
+		{
+			CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() AdjustDestination succeeded. m_goalPosition=%g,%g,%g")
+		}
+		obj->rva0028ACDC(&m_goalPosition);
+		CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() post-UpdateGoalPosition. m_goalPosition=%g,%g,%g")
+		pathfinder->rva003E3BFB(INVALID_OBJECT_ID);
+	}
+	else
+	{
+		critterDesyncLog("CritterDesync: AIInternalMoveToState::onEnter() NOT adjustingDestination!!!");
+	}
+
+	Real len;
+	{
+		Coord3D delta;
+		delta.x = obj->getPosition()->x;
+		delta.y = obj->getPosition()->y;
+		delta.z = obj->getPosition()->z;
+		delta.x -= m_goalPosition.x;
+		delta.y -= m_goalPosition.y;
+		delta.z -= m_goalPosition.z;
+		len = delta.GetLengthEstimate2D();
+	}
+	Bool startSound;
+	if (len > 2.5f)
+	{
+		startSound = true;
+		CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() getLengthEstimate2D succeeds. m_goalPosition=%g,%g,%g")
+		if (curLoco && ((Rva001E46E1 *)curLoco)->rva001E543F(obj)
+			&& (m_waitingForPath || distToGoal > curLoco->getCloseEnoughDist()))
+		{
+			CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() blah1. m_goalPosition=%g,%g,%g")
+			ModelConditionFlagType modelConditionFlag =
+				TheAI->pathfinder()->IsCliffCell((int)obj->getPosition(), obj->rva0028B511())
+				? MODELCONDITION_CLIMBING : MODELCONDITION_MOVING;
+			obj->setModelConditionState(modelConditionFlag);
+		}
+		else if (obj->isKindOf(KINDOF_DOZER) && obj->isKindOf(KINDOF_HARVESTER))
+		{
+			CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() blah2. m_goalPosition=%g,%g,%g")
+			obj->setModelConditionState(MODELCONDITION_MOVING);
+		}
+		else
+		{
+			CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() blah3. m_goalPosition=%g,%g,%g")
+		}
+	}
+	else
+	{
+		startSound = false;
+		CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() getLengthEstimate2D fails. m_goalPosition=%g,%g,%g")
+	}
+
+	CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() calling ComputePath1. m_goalPosition=%g,%g,%g")
+	if (!computePath())
+	{
+		CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() ComputePath1 failed. m_goalPosition=%g,%g,%g")
+		ai->rva00262AEA();
+		return STATE_FAILURE;
+	}
+	CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() ComputePath1 succeeded. m_goalPosition=%g,%g,%g")
+
+	ai->setLocomotorGoalPositionOnPath();
+	ai->setPathExtraDistance(0);
+	ai->setDesiredSpeed(999999.0f);
+	if (startSound)
+		startMoveSound();
+	return STATE_CONTINUE;
 }
