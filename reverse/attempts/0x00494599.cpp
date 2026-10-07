@@ -1,6 +1,8 @@
 // ?rva00494599@Rva00494599@@QAE_NPBUCoord3D@@@Z
+// partial score=1.0 date=2026-10-07
+// ?rva00494599@Rva00494599@@QAE_NPBUCoord3D@@@Z
 // partial score=1.0 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /O1 /MD /EHs /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva00494599@Rva00494599@@QAE_NPBUCoord3D@@@Z @0x00494599 212B ret 4.
@@ -9,17 +11,7 @@
 
 #include <vector>
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
-
-struct Coord3D : public Coord3DBase
-{
-	float length() const;
-};
+#include "Coord3D.h"
 
 class Player;
 

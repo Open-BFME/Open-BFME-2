@@ -26,7 +26,17 @@
   "witness_offsets": [],
   "zh": {
    "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h"
-  }
+  },
+  "method_declarations": [
+   {
+    "declaration": "float length() const;",
+    "name": "?length@Coord3D@@QBEMXZ",
+    "rva": "0x00003571",
+    "size": 69,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+    "decided_by": "byte-verified owner; native 0x00494599 consumer calls this owner on a twelve-byte three-float delta"
+   }
+  ]
  },
  "fields": [
   {
