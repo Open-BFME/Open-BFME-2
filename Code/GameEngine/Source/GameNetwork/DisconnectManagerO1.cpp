@@ -342,6 +342,28 @@ struct BfmeDisconnectFrameFields
 };
 
 
+// BFME 2 keeps the disconnect notify time at GlobalData+0xC24 (retail
+// 0x004D3AB2 reads it there); the member name is carried from Open-BFME-1's
+// hasPlayerTimedOut, the ZH header's offset is not BFME 2's.
+struct BfmeDisconnectTimeoutGlobals
+{
+	char m_unreconstructed_000[0xC24];
+	UnsignedInt m_networkDisconnectScreenNotifyTime;	///< retail TheWritableGlobalData+0xc24
+};
+
+Bool DisconnectManager::hasPlayerTimedOut(Int slot) {
+	if (slot == -1) {
+		return FALSE;
+	}
+
+	if (((const BfmeDisconnectTimeoutGlobals *)TheGlobalData)->m_networkDisconnectScreenNotifyTime
+		<= (timeGetTime() - m_playerTimeouts[slot])) {
+		return TRUE;
+	}
+	return FALSE;
+}
+
+
 // this function assumes that we are the packet router. (or at least that 
 // we will be after everyone is getting disconnected)
 // BFME: DESTROYPLAYER enum is 11 (0x0b), not ZH's 8; no setExecutionFrame.
@@ -498,4 +520,21 @@ Bool DisconnectManager::isPlayerVotedOut(Int slot, ConnectionManager *conMgr) {
 		return TRUE;
 	}
 	return FALSE;
+}
+
+Bool DisconnectManager::isPlayerInGame(Int slot, ConnectionManager *conMgr) {
+	Int transSlot = rva0066b3e0(slot, conMgr->getLocalPlayerID());
+	if ((transSlot < 0) || (transSlot >= MAX_SLOTS) || (conMgr->isPlayerConnected(transSlot) == FALSE)) {
+		return FALSE;
+	}
+
+	if (isPlayerVotedOut(slot, conMgr) == TRUE) {
+		return FALSE;
+	}
+
+	if (hasPlayerTimedOut(slot) == TRUE) {
+		return FALSE;
+	}
+
+	return TRUE;
 }
