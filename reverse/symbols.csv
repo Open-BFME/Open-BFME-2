@@ -15270,3 +15270,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0053123A@@YAHPAX@Z,0x0053123A,callee of ?rva00531FE6@Rva002E99F9Sub460@@QAEG_NPAXG@Z
 ?rva0052B23D@Rva0052B23D@@QAEXXZ,0x0052B23D,callee of ??1Rva0052B3B2@@UAE@XZ
 ?rva00534A2A@Rva00534641@@QAEPAVImageSubscriptMap@@ABI@Z,0x00534A2A,callee of ?rva00534AAE@Rva00534AAE@@QAEXXZ
+?rva0046391B@Rva00463A81@@QAEXXZ,0x0046391B,direct thiscall from 0x004640BE with ECX at the same this-0x10 view used by rowed 0x00463A81; zero stack arguments; return is ignored
