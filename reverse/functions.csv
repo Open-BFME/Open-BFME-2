@@ -67792,3 +67792,6 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva00298835@Rva00298835@@QAEXPAUBfmeCopyElementA@@@Z,,0x00298835,94,Code/GameEngine/Source/Common/Rva00298835.cpp,matched,94B ensure-heap GeometryInfo alloc plus bfmeAssign copy
 ?rva002B35DF@Rva002B296F@@QAEXXZ,,0x002B35DF,24,Code/GameEngine/Source/Common/Rva002B296F.cpp,matched,24B refresh over rowed 0x2B296F plus flag plus raw FramesPerSecond
 ?rva002B2334@Rva002B2334@@QAEXMMH@Z,,0x002B2334,41,Code/GameEngine/Source/Common/Rva002B2334.cpp,matched,
+?rva0020F795@Rva0020EE29@@QAEXXZ,,0x0020F795,157,Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp,matched,Dump range 7 head: singleton per-entry notify then F685 plus clear plus gated notify plus inner drain; explicit self copy steers this to edi
+?rva002106D6@Rva002103B6@@QAEXXZ,,0x002106D6,84,Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp,matched,Dump range 7: two vector runs via rowed 0x002103B6 and pinned slot callee; pointer-form counts for end-first
+?Rva0021BEC1@@YGHHH@Z,,0x0021BEC1,31,Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp,matched,Dump range 7 free lookup batch: pinned free plus member with null-zero and bytes-verified extent
