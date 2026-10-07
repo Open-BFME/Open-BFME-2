@@ -15531,3 +15531,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0028E0F9@Rva0028E0F9Host@@QAEXHHH_N@Z,0x0028E0F9,thiscall 4-arg callee of 0x002922A9; tail ret-16; signature from 0.97 bank stash
 ?rva00298480@Object@@QAEXPAVTeam@@@Z,0x00298480,Seat-g11 Object thiscall Team-star to void via 0x298AAD call site
 ?rva002B2BAA@@YA_NXZ,0x002B2BAA,Seat-g11 global no-arg to bool gate via 0x2B3D81 call site
+?rva00295A84@Object@@QAEXPAV1@@Z,0x00295A84,Seat-r10 Object thiscall (Object star) via 0x295CA6 tail call site; dump-range-10 banked partial 0.8 in reverse/attempts/0x00295a84.cpp; identity unproven
+?rva002CB933@Weapon@@QAE_NPAVObject@@PAXMH@Z,0x002CB933,Seat-r10 Weapon thiscall (Object star
