@@ -67789,3 +67789,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0037E787@Rva0037E787@@QAEHPAX0@Z,,0x0037E787,30,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp,matched,gap caller plus rowed callees plus this plus 0x10 player
 ?rva0021BC2C@Rva0021BC2C@@QAEHH@Z,,0x0021BC2C,39,Code/GameEngine/Source/Common/Rva0021BC2CWrapper.cpp,matched,Dump range 7 member count-or-zero via map-find 0x00388F63 plus vector count; honest address name
 ??0Rva0022CA45@@QAE@XZ,,0x0022CA45,47,Code/Libraries/Source/subsystem/Rva0022CA45Ctor.cpp,matched,frameless ctor: novtable-head baseConstruct then own vtable then two outlined Vector_base E16 inits; /GX- frameless; precedent Rva00221088Ctor; address-derived
+?rva00298835@Rva00298835@@QAEXPAUBfmeCopyElementA@@@Z,,0x00298835,94,Code/GameEngine/Source/Common/Rva00298835.cpp,matched,94B ensure-heap GeometryInfo alloc plus bfmeAssign copy
