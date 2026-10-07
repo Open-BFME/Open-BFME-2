@@ -1572,3 +1572,36 @@ ModuleData* ModuleInfo::friend_getNthData(Int i)
 #pragma comment(linker, "/alternatename:?crc@GeometryInfo@@MAEXPAVXfer@@@Z=??_GRva0050B2A@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?xfer@GeometryInfo@@MAEXPAVXfer@@@Z=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?loadPostProcess@GeometryInfo@@MAEXXZ=?name@Rva00050C2BNamed@@QBEPBDXZ")
+
+// Native boundary 0x00331578..0x0033162B (179B), RET 4. The target compares
+// scalar words at +8/+18/+28, seven floats at +C/+10/+14/+24/+20/+2C/+30,
+// and the two string subobjects at +0/+4 through rowed compare 0x69D6.
+// Offset +1C is not read. Equality is the observed behavior; the original
+// class, method, field names and association with ThingTemplate are unknown.
+class Rva00331578
+{
+public:
+	bool rva00331578(const Rva00331578 &other);
+
+private:
+	AsciiString word00, word04;
+	unsigned int value08;
+	float value0C, value10, value14;
+	unsigned int value18;
+	char unknown1C[4];
+	float value20, value24;
+	unsigned int value28;
+	float value2C, value30;
+};
+
+bool Rva00331578::rva00331578(const Rva00331578 &other)
+{
+	if (value08 == other.value08 && value0C == other.value0C &&
+		value10 == other.value10 && value14 == other.value14 &&
+		value18 == other.value18 && word00.compare(other.word00) == 0 &&
+		word04.compare(other.word04) == 0 && value24 == other.value24 &&
+		value20 == other.value20 && value28 == other.value28 &&
+		value2C == other.value2C && value30 == other.value30)
+		return true;
+	return false;
+}
