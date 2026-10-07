@@ -68463,4 +68463,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?SetUpGameSpy@@YAXPBD0@Z,,0x00386F7F,576,Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp,matched,ZH SetUpGameSpy without rank points; BFME2 builds ladder dir and starts buddy/peer/PS threads and pinger; text filters from CustomMatchPreferences
 ?d_0042c879@@YAXXZ,,0x0042C879,88,Code/gen_asm/d_0042c879.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_003f1b7c@@YAXXZ,,0x003F1B7C,87,Code/gen_asm/d_003f1b7c.asm,matched,gen-dump;bounds=ghidra-inventory
-?d_003f1c56@@YAXXZ,,0x003F1C56,76,Code/gen_asm/d_003f1b7c.asm,matched,gen-dump;bounds=ghidra-inventory
+?rva003F1C56@LivingWorldRegion@@QAEXPAVRva003F1C56Plot@@PBURva003F1BD3TemplateView@@@Z,,0x003F1C56,76,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionRva003F1C56.cpp,matched,Native Ghidra76 RET8; rowed LivingWorldRegion counter and limit sibling establish receiver; helper boundaries and caller ABI verified; slot2 listener broadcast and plot activation; original method names unknown
