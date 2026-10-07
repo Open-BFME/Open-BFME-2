@@ -251,6 +251,7 @@ public:
     void rva000567C5(int argument);
     void rva0005A92A(int key, Rva0005A084Vector *output);
     void rva0005774F(int viewType, MusicSystem newMusicSystem, int arg);
+    void rva0005876E(int viewType, int newMusicSystem, int arg, int resume);
     void rva00057297(Rva00051107AudioRequest &request);
     bool rva000570C8(AudioEventRTS *event);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
@@ -558,6 +559,22 @@ void MilesAudioManager::rva0005774F(int viewType, MusicSystem newMusicSystem, in
     if (m_activeMusicSystem[viewType] == newMusicSystem)
         removeCurrentlyPlayingMusic(viewType, arg);
     m_musicStack[viewType][newMusicSystem].clear();
+}
+
+// Address-derived dispatcher. The target compares the active system at +0xB3C,
+// scans lower +0xA4C deque entries while they are empty, then calls the matched
+// move-down or stack-clear helper. No higher-level identity is established.
+// ?MilesAudioManager::rva0005876E present-unmatched
+void MilesAudioManager::rva0005876E(int viewType, int newMusicSystem, int arg, int resume)
+{
+    if (m_activeMusicSystem[viewType] == newMusicSystem && newMusicSystem != 0) {
+        int lowerMusicSystem = newMusicSystem - 1;
+        while (lowerMusicSystem > 0 && m_musicStack[viewType][lowerMusicSystem].empty())
+            --lowerMusicSystem;
+        moveDownMusicSystems(viewType, (MusicSystem)lowerMusicSystem, arg, resume);
+    } else {
+        rva0005774F(viewType, (MusicSystem)newMusicSystem, arg);
+    }
 }
 
 // ?MilesAudioManager::rva00057297 present-unmatched
