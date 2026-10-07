@@ -14,7 +14,7 @@
 #include "PeerThreadRetail.h"
 #include <map>
 // Partial class view: only the independently witnessed stats maps are modeled.
-class PeerThreadClass { public: void pushStatsToRoom(PEER); void getStatsFromRoom(PEER, RoomType); void clearPlayerStats(RoomType); private: unsigned char unknown[0x98]; std::map<std::string, int> group, staging; };
+class PeerThreadClass { public: void pushStatsToRoom(PEER); void getStatsFromRoom(PEER, RoomType); void clearPlayerStats(RoomType); std::wstring getLocalStagingServerName(void); private: unsigned char unknown[0x98]; std::map<std::string, int> group, staging; };
 void PeerThreadClass::clearPlayerStats(RoomType type) { switch (type) { case GroupRoom: group.clear(); break; case StagingRoom: staging.clear(); break; } }
 
 void updateBuddyStatus(GameSpyBuddyStatus, Int groupRoom = 0, std::string gameName = "");
@@ -23,7 +23,6 @@ void stagingRoomPlayerEnum(PEER, PEERBool, RoomType, int, const char *, int, voi
 #pragma comment(linker, "/alternatename:??1PeerResponse@@QAE@XZ=??1BfmeOpaqueOwnedRecord840@@QAE@XZ")
 struct BfmePeerJoinState { unsigned char unknown[0x290]; Int localRoomID; unsigned char unknown294[0x484 - 0x294]; Bool roomJoined; unsigned char alignment[3]; Int qmGroupRoom; };
 class DualIndexedDispatchThunk { public: void dispatch(void *); };
-class Rva00389E69WideField { public: std::wstring get() const; };
 extern "C" void peerEnumPlayers(PEER, RoomType, void *, void *);
 void joinRoomCallback(PEER peer, PEERBool success, PEERJoinResult result, RoomType roomType, void *param)
 {
@@ -32,7 +31,7 @@ void joinRoomCallback(PEER peer, PEERBool success, PEERJoinResult result, RoomTy
 	if (!t)
 		return;
 	DEBUG_LOG(("Room id was %d from thread %X\n", reinterpret_cast<BfmePeerJoinState *>(t)->localRoomID, t));
-	DEBUG_LOG(("Current staging server name is [%ls]\n", reinterpret_cast<const Rva00389E69WideField *>(t)->get().c_str()));
+	DEBUG_LOG(("Current staging server name is [%ls]\n", t->getLocalStagingServerName().c_str()));
 	DEBUG_LOG(("Room type is %d (GroupRoom=%d, StagingRoom=%d, TitleRoom=%d)\n", roomType, GroupRoom, StagingRoom, TitleRoom));
 
 #ifdef USE_BROADCAST_KEYS
@@ -77,8 +76,8 @@ void joinRoomCallback(PEER peer, PEERBool success, PEERJoinResult result, RoomTy
 				resp.joinStagingRoom.result = result;
 				if (success)
 				{
-					DEBUG_LOG(("joinRoomCallback() - game name is now '%ls'\n", reinterpret_cast<const Rva00389E69WideField *>(t)->get().c_str()));
-					updateBuddyStatus( BUDDY_STAGING, 0, WideCharStringToMultiByte(reinterpret_cast<const Rva00389E69WideField *>(t)->get().c_str()) );
+					DEBUG_LOG(("joinRoomCallback() - game name is now '%ls'\n", t->getLocalStagingServerName().c_str()));
+					updateBuddyStatus( BUDDY_STAGING, 0, WideCharStringToMultiByte(t->getLocalStagingServerName().c_str()) );
 				}
 
 				resp.joinStagingRoom.isHostPresent = FALSE;

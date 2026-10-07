@@ -5262,7 +5262,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp	?
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp	??0PeerResponse@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp	??1PeerRequest@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp	??1PeerResponse@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp	?getQMBotName@PeerThreadClass@@QAE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp	_strcpy	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadLookupStat.cpp	?Rva00030830FreeAllocation@@YAXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadNickError.cpp	??0PeerResponse@@QAE@XZ	1

@@ -391,15 +391,15 @@ public:
 	Bool hasPassword( void ) { return m_hasPassword; }
 	Bool allowObservers( void ) { return m_allowObservers; }
   Bool useStats(void) const { return m_useStats; }
-	std::string getMapName( void ) { return m_mapName; }
+	std::string getMapName( void );
 	UnsignedInt exeCRC( void ) { return m_exeCRC; }
 	UnsignedInt iniCRC( void ) { return m_iniCRC; }
 	UnsignedInt gameVersion( void ) { return m_gameVersion; }
-	std::wstring getLocalStagingServerName( void ) { return m_localStagingServerName; }
+	std::wstring getLocalStagingServerName( void );
 	Int getLocalRoomID( void ) { return m_localRoomID; }
 	std::string ladderIP( void ) { return m_ladderIP; }
 	UnsignedShort ladderPort( void ) { return m_ladderPort; }
-	std::string pingStr( void ) { return m_pingStr; }
+	std::string pingStr( void );
 	std::string getPlayerName(Int idx);
 	Int getPlayerWins(Int idx);
 	Int getPlayerLosses(Int idx);
@@ -889,95 +889,6 @@ static const char * ErrorTypeToString(qr2_error_t error)
 	}
 
 	return "Unknown error type";
-}
-
-static void QRServerKeyCallback
-(
-	PEER peer,
-	int key,
-	qr2_buffer_t buffer,
-	void * param
-)
-{
-	//DEBUG_LOG(("QR_SERVER_KEY | %d (%s)\n", key, qr2_registered_key_list[key]));
-	PeerThreadClass *t = (PeerThreadClass *)param;
-	if (!t)
-	{
-		DEBUG_LOG(("QRServerKeyCallback: bailing because of no thread info\n"));
-		return;
-	}
-
-	if (!t->isHosting())
-		t->stopHostingAlready(peer);
-
-#ifdef DEBUG_LOGGING
-	AsciiString val = "";
-#define ADD(x) { qr2_buffer_add(buffer, x); val = x; }
-#define ADDINT(x) { qr2_buffer_add_int(buffer, x); val.format("%d",x); }
-#else
-#define ADD(x) { qr2_buffer_add(buffer, x); }
-#define ADDINT(x) { qr2_buffer_add_int(buffer, x); }
-#endif
-
-	switch(key)
-	{
-	case HOSTNAME_KEY:
-		ADD(t->getPlayerName(0).c_str());
-		break;
-	case GAMEVER_KEY:
-		ADDINT(t->gameVersion());
-		break;
-	case EXECRC_KEY:
-		ADDINT(t->exeCRC());
-		break;
-	case INICRC_KEY:
-		ADDINT(t->iniCRC());
-		break;
-	case GAMENAME_KEY:
-		{
-			std::string tmp = t->getPlayerName(0);
-			tmp.append(" ");
-			tmp.append(WideCharStringToMultiByte(t->getLocalStagingServerName().c_str()));
-			ADD(tmp.c_str());
-		}
-		break;
-	case MAPNAME_KEY:
-		ADD(t->getMapName().c_str());
-		break;
-	case PW_KEY:
-		ADDINT(t->hasPassword());
-		break;
-	case OBS_KEY:
-		ADDINT(t->allowObservers());
-		break;
-  case USE_STATS_KEY:
-    ADDINT(t->useStats());
-    break;
-	case LADIP_KEY:
-		ADD(t->ladderIP().c_str());
-		break;
-	case LADPORT_KEY:
-		ADDINT(t->ladderPort());
-		break;
-	case PINGSTR_KEY:
-		ADD(t->pingStr().c_str());
-		break;
-	case NUMPLAYER_KEY:
-		ADDINT(t->getNumPlayers());
-		break;
-	case MAXPLAYER_KEY:
-		ADDINT(t->getMaxPlayers());
-		break;
-	case NUMOBS_KEY:
-		ADDINT(t->getNumObservers());
-		break;
-	default:
-		ADD("");
-		//DEBUG_LOG(("QR_SERVER_KEY | %d (%s)\n", key, qr2_registered_key_list[key]));
-		break;
-	}
-
-	DEBUG_LOG(("QR_SERVER_KEY | %d (%s) = [%s]\n", key, qr2_registered_key_list[key], val.str()));
 }
 
 static void QRPlayerKeyCallback
@@ -1739,7 +1650,7 @@ struct BfmePeerThreadView
 	Int numPlayers;
 	Int maxPlayers;
 	Int numObservers;
-	unsigned int value248[10];
+	Int value248[10];
 	Int value270;
 	unsigned char unknown274[4];
 	Rva00388EAE stagingServers;
@@ -1751,7 +1662,8 @@ struct BfmePeerThreadView
 	Bool roomJoined;
 	unsigned char unknown485[3];
 	Int qmGroupRoom;
-	unsigned char unknown48C[0x49C - 0x48C];
+	unsigned char unknown48C[4];
+	std::string qmBotName;
 	Bool suspendStateChanged;
 	unsigned char unknown49D[3];
 	Int value4A0;
@@ -1812,6 +1724,147 @@ Int PeerThreadClass::getPlayerHandicap(Int idx)
 std::string PeerThreadClass::getPlayerName(Int idx)
 {
 	return (idx >= 0 && idx < MAX_SLOTS) ? reinterpret_cast<BfmePeerThreadView *>(this)->playerNames[idx] : std::string("UNKNOWN");
+}
+
+// The RVO string getters at [389E2D,389EA5) and 0x389F2C, 30 B each.
+std::string PeerThreadClass::getMapName( void )
+{
+	return reinterpret_cast<BfmePeerThreadView *>(this)->mapName;
+}
+
+std::wstring PeerThreadClass::getLocalStagingServerName( void )
+{
+	return reinterpret_cast<BfmePeerThreadView *>(this)->localStagingServerName;
+}
+
+std::string PeerThreadClass::pingStr( void )
+{
+	return reinterpret_cast<BfmePeerThreadView *>(this)->pingStr;
+}
+
+std::string PeerThreadClass::getQMBotName( void )
+{
+	return reinterpret_cast<BfmePeerThreadView *>(this)->qmBotName;
+}
+
+// The +0xC4 string getter (0x389E4B); only the gamemode key reads it.
+class Rva00389E4BNarrowField
+{
+public:
+	std::string get() const;
+};
+
+// Formats the four dwords at +0x130 as "%d.%d.%d.%d" (Rva0038901DFormat.cpp).
+class Rva00389081
+{
+public:
+	AsciiString rva00389081();
+};
+
+void Rva0055A087Format(Int *values, AsciiString *out);
+extern "C" void MD5Print(unsigned char digest[16], char output[33]);
+
+// BFME2 keeps Zero Hour's logging macros in release, so every getter runs
+// twice. Keys are the ones Thread_Function registers.
+static void QRServerKeyCallback
+(
+	PEER peer,
+	int key,
+	qr2_buffer_t buffer,
+	void * param
+)
+{
+	PeerThreadClass *t = (PeerThreadClass *)param;
+	if (!t)
+		return;
+
+	if (!t->isHosting())
+		t->stopHostingAlready(peer);
+
+	BfmePeerThreadView *v = reinterpret_cast<BfmePeerThreadView *>(t);
+#undef ADD
+#undef ADDINT
+	AsciiString val = "";
+#define ADD(x) { qr2_buffer_add(buffer, x); val = x; }
+#define ADDINT(x) { qr2_buffer_add_int(buffer, x); val.format("%d",x); }
+
+	switch(key)
+	{
+	case HOSTNAME_KEY:
+		ADD(t->getPlayerName(0).c_str());
+		break;
+	case GAMEVER_KEY:
+		ADDINT(v->value158);
+		break;
+	case 0x33: // exeCRC
+		ADD(((const StringBase<char> &)reinterpret_cast<Rva00389081 *>(t)->rva00389081()).str());
+		break;
+	case 0x34: // iniCRC
+		ADDINT(v->value140);
+		break;
+	case 0x35: // cmdCRC
+		ADDINT(v->value144);
+		break;
+	case GAMENAME_KEY:
+		{
+			std::string tmp = t->getPlayerName(0);
+			tmp.append(" ");
+			tmp.append(WideCharStringToMultiByte(t->getLocalStagingServerName().c_str()));
+			ADD(tmp.c_str());
+		}
+		break;
+	case MAPNAME_KEY:
+		ADD(t->getMapName().c_str());
+		break;
+	case GAMETYPE_KEY:
+		ADDINT(v->valueC0);
+		break;
+	case 0x36: // pw
+		ADDINT(v->hasPassword);
+		break;
+	case 0x37: // obs
+		ADDINT(v->allowObservers);
+		break;
+	case 0x38:
+	case 0x45:
+		{
+			unsigned char digest[16];
+			char hex[33];
+			memcpy(digest, v->hash148, sizeof(digest));
+			MD5Print(digest, hex);
+			ADD(hex);
+		}
+		break;
+	case 0x3a: // pings
+		ADD(t->pingStr().c_str());
+		break;
+	case 0x3b: // numRealPlayers
+		ADDINT(v->numPlayers);
+		break;
+	case 0x3c: // maxRealPlayers
+		ADDINT(v->maxPlayers);
+		break;
+	case 0x3d: // numObservers
+		ADDINT(v->numObservers);
+		break;
+	case 0x39:
+	case 0x44:
+		{
+			AsciiString s;
+			Rva0055A087Format(v->value248, &s);
+			ADD(((const StringBase<char> &)s).str());
+		}
+		break;
+	case 0x46: // scen
+		ADDINT(v->value270);
+		break;
+	case GAMEMODE_KEY:
+		ADD(reinterpret_cast<Rva00389E4BNarrowField *>(t)->get().c_str());
+		break;
+	default:
+		ADD("");
+		break;
+	}
 }
 
 // The global after TheGameSpyInfo (0x00E02324); its +0x5C word gates the
@@ -3482,4 +3535,3 @@ void Rva00517EA2::rva00517EA2()
 
 #pragma comment(linker, "/alternatename:??0PeerRequest@@QAE@XZ=??0BfmeOpaqueOwnedRecord492@@QAE@XZ")
 #pragma comment(linker, "/alternatename:??1PeerRequest@@QAE@XZ=??1BfmeOpaqueOwnedRecord492@@QAE@XZ")
-#pragma comment(linker, "/alternatename:?getQMBotName@PeerThreadClass@@QAE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ=?get@Rva00389F2CNarrowField@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ")
