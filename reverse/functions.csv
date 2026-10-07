@@ -68164,3 +68164,11 @@ uw_0076892b,,0x0076892B,11,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matche
 ?Rva00411E80@@YAXH@Z,,0x00411E80,67,Code/GameEngine/Source/Common/BfmeConv1292.cpp,matched,Native Ghidra411E80-411EC3 cdecl owner word proven caller222481; BFME1 1399ad37 bfmeGoSJA lead adapted to three witnessed tables and bit clear; opaque helper411336 plus existing75B value walker; existing data owners
 ?Rva00411336@@YAXPAX0PAD@Z,,0x00411336,95,Code/GameEngine/Source/Common/BfmeConv1292.cpp,matched,Native Ghidra411336-411395 cdecl3; BFME1 1399ad37 bfmeReadSJA loop; retail node8 mapped-owner4 and generic delete callback; three differing template grandchildren externally declared against native ABI; all four emitted helper twins verified with call graph
 ?getFirstHeader@HeaderTemplateManager@@QAEPAVHeaderTemplate@@XZ,,0x00201AD3,15,Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp,matched,Zero Hour donor HeaderTemplate getFirstHeader
+?get@Rva00140C40LeaField@@QBEPAXXZ,,0x00140C40,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
+?get@Rva00661B00LeaField@@QBEPAXXZ,,0x00661B00,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
+?get@Rva0066D430LeaField@@QBEPAXXZ,,0x0066D430,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
+?get@Rva0066D4C0LeaField@@QBEPAXXZ,,0x0066D4C0,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
+?get@Rva0066E450LeaField@@QBEPAXXZ,,0x0066E450,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
+?get@Rva006BD500LeaField@@QBEPAXXZ,,0x006BD500,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
+?get@Rva006C03B0LeaField@@QBEPAXXZ,,0x006C03B0,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
+?get@Rva0071AE40LeaField@@QBEPAXXZ,,0x0071AE40,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
