@@ -2,7 +2,7 @@
 // Range-34 dump lane: 59B free function at 0x005E7322 (ret, frameless).
 // Forwards its int through the pinned 0x005E72B4 helper; on non-null runs
 // the pinned 0x0040CB2C mid accessor, treats ret+4 as an AsciiString with
-// the rowed isEmpty, and on non-empty looks it up through global g_009FF000
+// the rowed isEmpty, and on non-empty looks it up through global ((Rva002D06CA *)TheThingFactory)
 // slot rva002D06CA (same recipe as Rva004B0333Get.cpp). All identities
 // unproven (address-derived).
 #include "ascii_string.h"
@@ -13,7 +13,9 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *g_009FF000;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class Rva002D06CA;
+extern Rva002D06CA *TheThingFactory;
 
 struct Rva005E7322MidRet
 {
@@ -38,5 +40,5 @@ void *rva005E7322(int v)
 	AsciiString *s = &rr->mid(0)->m_str;
 	if (s->isEmpty())
 		return 0;
-	return g_009FF000->rva002D06CA(s);
+	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA(s);
 }
