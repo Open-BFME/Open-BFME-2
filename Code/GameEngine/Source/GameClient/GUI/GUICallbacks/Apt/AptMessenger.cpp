@@ -11,6 +11,7 @@
 // The second-tab name vector calls the existing out-of-line destructor.
 namespace _STL { template <> vector<AsciiString>::~vector(); }
 void __cdecl Rva004178C1(int profile, const AsciiString &name);
+class PlayerInfo {public: bool isIgnored();};
 class GameSpyInfoInterface {public:
  virtual void _M_slot_00();
  virtual void _M_slot_04();
@@ -35,7 +36,7 @@ class GameSpyInfoInterface {public:
  virtual void _M_slot_50();
  virtual void _M_slot_54();
  virtual void _M_slot_58();
- virtual void _M_slot_5c();
+ virtual PlayerInfo *rva00382D0A(int profile);
  virtual void _M_slot_60();
  virtual void _M_slot_64();
  virtual void _M_slot_68();
@@ -87,6 +88,8 @@ class GameSpyInfoInterface {public:
  virtual void _M_slot_120();
  virtual void _M_slot_124();
  virtual void _M_slot_128(int profile);
+ virtual void addToSavedIgnoreList(int profile, AsciiString name);
+ virtual void removeFromSavedIgnoreList(int profile);
 };
 extern GameSpyInfoInterface *TheGameSpyInfo;
 void __cdecl Rva004177D5(int);
@@ -129,6 +132,7 @@ public:
 	void rva005AE886();
 	void rva005AE7C6();
 	void rva005AE990();
+	void rva005AEA3E();
 
 private:
 	unsigned char m_pad000[0x280];
@@ -226,5 +230,32 @@ void AptMessenger::rva005AE990()
         int profile = *it;
         if (profile != TheGameSpyInfo->getLocalProfileID())
             Rva004178C1(profile, *name);
+    }
+}
+
+// Native 0x005AEA3E..0x005AEB2C RET0; OnBttn_1 selects this second-tab
+// action. PeerDefs.cpp identifies slots0x5C/0x12C/0x130 and the directly
+// called PlayerInfo::isIgnored body at 0x00382841. Parallel selections
+// toggle saved-ignore state for each nonlocal profile found in the player map.
+void AptMessenger::rva005AEA3E()
+{
+    if (!TheGameSpyInfo)
+        return;
+    _STL::vector<int> profiles;
+    _STL::vector<AsciiString> names;
+    GetSelectedPlayers(1, (int)&profiles, (int)&names);
+    _STL::vector<AsciiString>::iterator name = names.begin();
+    for (_STL::vector<int>::iterator it = profiles.begin();
+            it != profiles.end(); ++it, ++name) {
+        int profile = *it;
+        if (profile != TheGameSpyInfo->getLocalProfileID()) {
+            PlayerInfo *player = TheGameSpyInfo->rva00382D0A(profile);
+            if (player) {
+                if (player->isIgnored())
+                    TheGameSpyInfo->removeFromSavedIgnoreList(profile);
+                else
+                    TheGameSpyInfo->addToSavedIgnoreList(profile, *name);
+            }
+        }
     }
 }
