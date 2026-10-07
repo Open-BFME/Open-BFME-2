@@ -15490,3 +15490,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva000D1407@AptCampaignReview@@QAEXPBDPAXPAVGameWindow@@@Z,0x000D1407,callee of ??0AptCampaignReview@@QAE@PAX@Z
 ?rva00524D01@Rva005C96A9@@QAEXABVAsciiString@@H@Z,0x00524D01,callee of ?rva005C976F@Rva005C976F@@QAEXXZ
 ?Add_Tri@Render2DClass@@QAEXABVVector2@@00000K@Z,0x00045708,callee of ?Rva001049C7AddTriangle@@YAXPAVRender2DClass@@PBVCoord2D@@11111@Z
+?rva002BF5B0@Rva002D3627Host@@QAE_NPBVCoord2D@@PAUCoord3D@@@Z,0x002BF5B0,callee of ?rva002B2A95@Rva002B2A95Callback@@QAEXPBVRva002E0687@@PBURva002B2A95Record@@PAX@Z
