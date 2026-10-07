@@ -67550,3 +67550,5 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ??1Rva004110B9Tree@@QAE@XZ,,0x004110B9,5,Code/GameEngine/Source/Common/BfmeConv1292.cpp,matched,
 ??1Rva004110BETree@@QAE@XZ,,0x004110BE,5,Code/GameEngine/Source/Common/BfmeConv1292.cpp,matched,
 ??1Rva00411453Tree@@QAE@XZ,,0x00411453,5,Code/GameEngine/Source/GameClient/GUI/AptScreenClose.cpp,matched,
+??1Rva00059068Tree@@QAE@XZ,,0x00059068,5,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,
+?rva0005906D@Rva0005906D@@QAEXXZ,,0x0005906D,5,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,

@@ -238,6 +238,7 @@ struct BfmePod8 {
 class Rva00056CF8 {
 public:
     void rva00057B74(void);
+    ~Rva00056CF8();
 private:
     char opaque[0x10];
 };
@@ -775,4 +776,26 @@ void MilesAudioManager::addUnownedAudioEventInfo(AudioEventInfo *eventInfo)
         m_allAudioEventInfo.rva00059FBB(eventInfo->m_audioName) = eventInfo;
         m_at6A4 = false;
     }
+}
+
+class Rva00059068Tree
+{
+public:
+    ~Rva00059068Tree();
+};
+
+Rva00059068Tree::~Rva00059068Tree()
+{
+    ((_STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>, _STL::less<AsciiString>, _STL::allocator<AsciiString> > *)this)->~_Rb_tree();
+}
+
+class Rva0005906D
+{
+public:
+    void rva0005906D();
+};
+
+void Rva0005906D::rva0005906D()
+{
+    ((Rva00056CF8 *)this)->~Rva00056CF8();
 }
