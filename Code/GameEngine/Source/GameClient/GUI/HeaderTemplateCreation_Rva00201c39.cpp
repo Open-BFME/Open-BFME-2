@@ -4,6 +4,7 @@
 #define _STLP_USE_STATIC_LIB 1
 #include <list>
 #include "ascii_string.h"
+#include "HeaderTemplateView.h"
 
 extern "C" unsigned int __cdecl strlen( const char *text );
 #pragma intrinsic(strlen)
@@ -14,18 +15,6 @@ struct FieldParse;
 
 class GameFont;
 extern const FieldParse g_010F9830[];
-
-class HeaderTemplate
-{
-public:
-	GameFont *m_font;
-	AsciiString m_name;
-	AsciiString m_fontName;
-	int m_point;
-	unsigned char m_bold;
-};
-
-typedef char HeaderTemplateSizeCheck[(sizeof(HeaderTemplate) == 20) ? 1 : -1];
 
 // Row owner of the HeaderTemplate ctor body at 0x00201998
 // (??0Rva0048C200Owner@@QAE@XZ): same 0x14-byte layout, called by retail.
@@ -38,23 +27,6 @@ private:
 };
 
 typedef char Rva0048C200OwnerSizeCheck[(sizeof(Rva0048C200Owner) == 20) ? 1 : -1];
-
-class HeaderTemplateManager
-{
-public:
-	HeaderTemplate *findHeaderTemplate( AsciiString name );
-	HeaderTemplate *newHeaderTemplate( AsciiString name );
-
-	// The owning table uses BFME's Font/Point/Bold offsets at +8/+C/+10.
-	const FieldParse *getFieldParse( void ) const
-	{
-		return g_010F9830;
-	}
-
-private:
-	typedef std::list<HeaderTemplate *> HeaderTemplateList;
-	HeaderTemplateList m_headerTemplateList;
-};
 
 extern HeaderTemplateManager *TheHeaderTemplateManager;
 

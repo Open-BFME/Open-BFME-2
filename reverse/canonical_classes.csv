@@ -49,3 +49,5 @@ BfmeWideResult,Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h,nativ
 GameLogic,Code/GameEngine/Source/Common/GameLogicObjectLookupView.h,native lookup call view; map receiver at +0xB4; full class extent unresolved
 ObjectIdMap,Code/GameEngine/Source/Common/GameLogicObjectLookupView.h,existing pointer-only native hash lookup view; complete map extent unknown
 ObjectIdNode,Code/GameEngine/Source/Common/GameLogicObjectLookupView.h,existing accessed node prefix; returned Object pointer at +0x8
+HeaderTemplate,Code/GameEngine/Source/GameClient/GUI/HeaderTemplateView.h,native 20-byte template; font0 name4 fontName8 pointC bold10 verified across creation and font refresh
+HeaderTemplateManager,Code/GameEngine/Source/GameClient/GUI/HeaderTemplateView.h,shared native STLport list member at +0; circular node links0 and template pointer8; lookup and GUI caller contracts verified

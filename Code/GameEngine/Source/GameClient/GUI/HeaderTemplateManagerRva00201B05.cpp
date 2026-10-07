@@ -11,6 +11,7 @@
 #define _STLP_USE_STATIC_LIB 1
 #include <list>
 #include "ascii_string.h"
+#include "HeaderTemplateView.h"
 
 class GameFont;
 class GlobalLanguage
@@ -44,28 +45,6 @@ private:
 };
 
 typedef char INISizeCheck[(sizeof(INI) == 0x87C) ? 1 : -1];
-
-class HeaderTemplate
-{
-public:
-	GameFont *m_font;
-	AsciiString m_name;
-	AsciiString m_fontName;
-	int m_point;
-	bool m_bold;
-};
-
-typedef char HeaderTemplateSizeCheck[(sizeof(HeaderTemplate) == 20) ? 1 : -1];
-
-class HeaderTemplateManager
-{
-public:
-	void populateGameFonts();
-	void init();
-private:
-	typedef std::list<HeaderTemplate *> HeaderTemplateList;
-	HeaderTemplateList m_headerTemplateList;
-};
 
 void HeaderTemplateManager::populateGameFonts()
 {
