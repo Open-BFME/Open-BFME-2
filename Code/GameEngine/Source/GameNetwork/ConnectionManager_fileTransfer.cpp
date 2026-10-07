@@ -208,3 +208,43 @@ void ConnectionManager::processFileProgress(NetFileProgressCommandMsg *msg)
 
 	m_fileProgressMap[msg->getPlayerID()][msg->getFileID()] = progressMax(oldProgress, msg->getProgress());
 }
+
+void ConnectionManager::processWrapper(NetCommandRef *ref)
+{
+	NetWrapperCommandMsg *wrapperMsg = (NetWrapperCommandMsg *)(ref->getCommand());
+	UnsignedShort commandID = wrapperMsg->getWrappedCommandID();
+	Int origProgress = 0;
+	FileCommandMap::iterator fcIt = m_fileCommandMap.find(commandID);
+	if (fcIt != m_fileCommandMap.end())
+	{
+		origProgress = m_fileProgressMap[m_localSlot][commandID];
+	}
+
+	if (m_netCommandWrapperList != 0)
+	{
+		m_netCommandWrapperList->processWrapper(ref);
+
+		if (fcIt != m_fileCommandMap.end())
+		{
+			Int newProgress = m_netCommandWrapperList->getPercentComplete(commandID);
+			if (newProgress > origProgress && newProgress < 100)
+			{
+				m_fileProgressMap[m_localSlot][commandID] = newProgress;
+
+				Int progressMask = 0xff ^ (1 << m_localSlot);
+				NetFileProgressCommandMsg *msg = new Rva004D598E;
+				msg->setPlayerID(m_localSlot);
+				msg->setID(0);
+				if (DoesCommandRequireACommandID(msg->getNetCommandType()))
+				{
+					msg->setID(GenerateNextCommandID());
+				}
+				msg->setFileID(commandID);
+				msg->setProgress(newProgress);
+				sendLocalCommand(msg, progressMask);
+				processFileProgress(msg);
+				msg->detach();
+			}
+		}
+	}
+}
