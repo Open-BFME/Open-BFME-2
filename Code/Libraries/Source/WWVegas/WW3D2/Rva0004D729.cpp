@@ -10,10 +10,16 @@ class Rva001166E0
 public:
 	void *rva001166E0(int *pitchOut, int left, int top, int right, int bottom);
 };
+class Member0C00739C70
+{
+public:
+	void clear();
+};
 class Rva0004D729
 {
 public:
 	Rva0004D729 *rva0004D729(void *surf, void **bitsOut, int *pitchOut, int left, int top, int right, int bottom);
+	~Rva0004D729();
 private:
 	void *m_surf;
 };
@@ -23,4 +29,9 @@ Rva0004D729 *Rva0004D729::rva0004D729(void *surf, void **bitsOut, int *pitchOut,
 	void *bits = ((Rva001166E0 *)surf)->rva001166E0(pitchOut, left, top, right, bottom);
 	*bitsOut = bits;
 	return this;
+}
+
+Rva0004D729::~Rva0004D729()
+{
+	((Member0C00739C70 *)m_surf)->clear();
 }
