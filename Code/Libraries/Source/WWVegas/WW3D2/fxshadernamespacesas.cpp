@@ -87,13 +87,67 @@ struct Rva001530E9Path
 };
 void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
 
+// WWMath's Vector4 and Matrix4 (Vector4 Row[4]), only as far as the camera
+// and skeleton matrix sources inline them.
+class Vector4
+{
+public:
+	__forceinline Vector4() {}
+	__forceinline Vector4(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
+	float &operator[](int i) { return (&X)[i]; }
+	const float &operator[](int i) const { return (&X)[i]; }
+	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
+	__forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
+
+	float X;
+	float Y;
+	float Z;
+	float W;
+};
+
+class Matrix4
+{
+public:
+	__forceinline Matrix4() {}
+	__forceinline Matrix4(const Vector4 &r0, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
+	{
+		Init(r0, r1, r2, r3);
+	}
+	__forceinline void Init(const Vector4 &r0, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
+	{
+		Row[0] = r0; Row[1] = r1; Row[2] = r2; Row[3] = r3;
+	}
+	__forceinline void Make_Identity()
+	{
+		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
+		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
+		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
+		Row[3].Set(0.0f, 0.0f, 0.0f, 1.0f);
+	}
+	__forceinline Matrix4 Transpose() const
+	{
+		return Matrix4(
+			Vector4(Row[0][0], Row[1][0], Row[2][0], Row[3][0]),
+			Vector4(Row[0][1], Row[1][1], Row[2][1], Row[3][1]),
+			Vector4(Row[0][2], Row[1][2], Row[2][2], Row[3][2]),
+			Vector4(Row[0][3], Row[1][3], Row[2][3], Row[3][3]));
+	}
+	__forceinline Matrix4 &operator=(const Matrix4 &m)
+	{
+		Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2]; Row[3] = m.Row[3];
+		return *this;
+	}
+	static void Multiply(const Matrix4 &a, const Matrix4 &b, Matrix4 *res);
+
+protected:
+	Vector4 Row[4];
+};
+
 // The 0x40-byte matrix the setters build (rowed ctor 0x0007671F).
-class Rva0007671F
+class Rva0007671F : public Matrix4
 {
 public:
 	Rva0007671F();
-private:
-	float m_rows[4][4];
 };
 
 class LightEnvironmentClass;
@@ -154,12 +208,53 @@ private:
 	static unsigned int SyncTime;
 };
 
+enum D3DTRANSFORMSTATETYPE
+{
+	D3DTS_VIEW = 2,
+	D3DTS_PROJECTION = 3,
+	D3DTS_WORLD = 256
+};
+
+// DX8Wrapper's render state (render_state at 0x009EE5D8): the world and view
+// transforms it keeps transposed at +0x1EC and +0x22C.
+struct RenderStateStruct
+{
+	char m_unknown[0x1EC];
+	Matrix4 world;
+	Matrix4 view;
+};
+
 class DX8Wrapper
 {
+	enum ChangedStates
+	{
+		WORLD_IDENTITY = 1 << 18,
+		VIEW_IDENTITY = 1 << 19
+	};
 public:
 	static LightEnvironmentClass *Get_Light_Environment() { return Light_Environment; }
+	static __forceinline void Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4 &m)
+	{
+		switch ((int)transform)
+		{
+		case D3DTS_WORLD:
+			if (render_state_changed & WORLD_IDENTITY) m.Make_Identity();
+			else m = render_state.world.Transpose();
+			break;
+		case D3DTS_VIEW:
+			if (render_state_changed & VIEW_IDENTITY) m.Make_Identity();
+			else m = render_state.view.Transpose();
+			break;
+		case D3DTS_PROJECTION:
+			m = DeviceProjectionMatrix.Transpose();
+			break;
+		}
+	}
 protected:
 	static LightEnvironmentClass *Light_Environment;
+	static RenderStateStruct render_state;
+	static unsigned render_state_changed;
+	static Matrix4 DeviceProjectionMatrix;
 };
 
 class FXShaderParameterBinder;
@@ -537,6 +632,18 @@ void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Matrix::SetInverseTran
 	effect->SetMatrix(parameter, &inverse);
 }
 
+// Retail 0x0014DCC8, 404 bytes (vtable 0x00BD383C slot 2).
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Camera::Matrix_WorldToView::slot02(Rva0007671F &matrix)
+{
+	DX8Wrapper::Get_Transform(D3DTS_VIEW, matrix);
+}
+
+// Retail 0x0014DE5C, 300 bytes (vtable 0x00BD3848 slot 2).
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Camera::Matrix_Projection::slot02(Rva0007671F &matrix)
+{
+	DX8Wrapper::Get_Transform(D3DTS_PROJECTION, matrix);
+}
+
 // Retail 0x0014FCC6, 163 bytes.
 void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Camera::ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder)
 {
@@ -733,6 +840,36 @@ void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::rva0014DF88(
 		effect->SetInt(parameter, m_BoneMappingTable->size());
 	else
 		effect->SetInt(parameter, 1);
+}
+
+// Retail 0x0014EBD4, 404 bytes (vtable 0x00BD3874 slot 2).
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::Matrix_MeshToJointToWorld::slot02(Rva0007671F &matrix)
+{
+	DX8Wrapper::Get_Transform(D3DTS_WORLD, matrix);
+}
+
+// Retail 0x0014ED68, 674 bytes (vtable 0x00BD3880 slot 2).
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::Matrix_MeshToJointToView::slot02(Rva0007671F &matrix)
+{
+	Rva0007671F world;
+	DX8Wrapper::Get_Transform(D3DTS_WORLD, world);
+	Rva0007671F view;
+	DX8Wrapper::Get_Transform(D3DTS_VIEW, view);
+	Matrix4::Multiply(view, world, &matrix);
+}
+
+// Retail 0x0014F00A, 929 bytes (vtable 0x00BD388C slot 2).
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::Matrix_MeshToJointToProjection::slot02(Rva0007671F &matrix)
+{
+	Rva0007671F world;
+	DX8Wrapper::Get_Transform(D3DTS_WORLD, world);
+	Rva0007671F view;
+	DX8Wrapper::Get_Transform(D3DTS_VIEW, view);
+	Rva0007671F projection;
+	DX8Wrapper::Get_Transform(D3DTS_PROJECTION, projection);
+	Rva0007671F worldToView;
+	Matrix4::Multiply(view, world, &worldToView);
+	Matrix4::Multiply(projection, worldToView, &matrix);
 }
 
 // Retail 0x0014DB2C, 20 bytes.
