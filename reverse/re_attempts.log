@@ -16358,3 +16358,5 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva001DF1A4@Eva@@QAEXXZ	0x001DF1A4	120	blocked	vslot slot9 donor mismatch ZH Eva has 4 virtuals BFME1 Eva.h not found listOverlap t=15 model=muse-19
 ?rva0037E898@Rva0037E421@@QAEMHPAXPAVObject@@@Z	0x0037E898	125	blocked	same ecx-kept this wall as 0x0037E815 t=5 model=muse-19
 ?rva0037E649@Rva0037E421@@QAEHPAVObject@@@Z	0x0037E649	159	blocked	needs Player Rva002A9BF2 Rva002A8F24 inheritance plus provisional global type t=10 model=muse-19
+FUN_009b2951	0x005B2951	11	blocked	callback identity and signature not established from its registered-address site t=6 model=gpt-6
+??0Rva005B2575@@QAE@H@Z	0x005B25E7	118	blocked	same-size body; delegate temporary stack placement and exception-state scheduling remain t=7 model=gpt-6 (stash 0.9 kept)
