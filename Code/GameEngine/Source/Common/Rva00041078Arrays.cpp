@@ -53,3 +53,16 @@ void Rva00041078::rva0004123B(int count)
         m_done = (unsigned char *)m_doneOwner.m_p;
     }
 }
+
+void Rva00041078::rva0004128E()
+{
+    if (m_count <= 8) {
+        m_handles = m_inlineHandles;
+    } else {
+        void *handles = ::operator new[](m_count * sizeof(void *));
+        m_handleOwner.rva00041168(handles);
+        m_handles = (void **)m_handleOwner.m_p;
+    }
+    for (int i = 0; i < m_count; ++i)
+        m_handles[i] = m_objs[i]->m_handle;
+}
