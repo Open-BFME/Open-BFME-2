@@ -15350,6 +15350,3 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva0020A586@ScriptEngine@@QAEXPAX0@Z,0x0020A586,Caller walkNamed at 0x0020A775 passes the ECX this pointer plus record and array-entry pointers; callee pops eight bytes and its result is ignored. ScriptEngine owner follows the pinned caller; helper semantics remain unresolved.
 ?sendDisconnectChat@ConnectionManager@@QAEXVUnicodeString@@@Z,0x004D187B,REL32 target read from byte-exact wrapper 0x0025E2E3; target callee copies a UnicodeString into a command object and dispatches it; name/signature are donor-derived and match the local helper declaration.
 ?sendFile@ConnectionManager@@QAEXVAsciiString@@EG@Z,0x004D1927,REL32 target read from byte-exact wrapper 0x0025E327; target callee consumes path plus byte mask and word command ID for file transfer; name/signature are donor-derived and match the local helper declaration.
-?rva00416C69@@YAXXZ,0x00416C69,address-derived no-argument callee from retail call at 0x00517EBC; body identity remains unknown
-?rva005BDAC1@@YAXXZ,0x005BDAC1,address-derived no-argument callee from retail call at 0x00517EC1; body identity remains unknown
-?rva005AF12F@@YAXPAX@Z,0x005AF12F,address-derived one-pointer callee from retail call at 0x00517F05; body identity remains unknown
