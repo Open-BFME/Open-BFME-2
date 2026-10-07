@@ -650,3 +650,41 @@ void DisconnectManager::sendVoteCommand(Int slot, ConnectionManager *conMgr) {
 
 	msg->detach();
 }
+
+// Open-BFME-1's processDisconnectFrame: record a newer disconnect frame from
+// playerID, answer it with frame data and resend ranges to whoever lags. The
+// donor's NetDisconnectFrameCommandMsg::getDisconnectFrame (+0x1c dword) was
+// folded by retail's linker into the identical getter 0x0030F2C7, called here
+// under its name; the frame is read from GameLogic+0x40 as in
+// voteForPlayerDisconnect.
+void DisconnectManager::processDisconnectFrame(NetCommandMsg *msg, ConnectionManager *conMgr) {
+	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg;
+	UnsignedInt playerID = msg->getPlayerID();
+	if (m_disconnectFrames[playerID] >= (UnsignedInt)cmdMsg->getData()) {
+		return;
+	}
+
+	resetPlayersVotes(playerID, (UnsignedInt)cmdMsg->getData() - 1, conMgr);
+	m_disconnectFrames[playerID] = (UnsignedInt)cmdMsg->getData();
+	m_disconnectFramesReceived[playerID] = TRUE;
+	conMgr->sendFrameDataToPlayer(playerID, (UnsignedInt)cmdMsg->getData());
+
+	BFMEConnectionManager *bfmeConMgr = (BFMEConnectionManager *)conMgr;
+	if (playerID == conMgr->getLocalPlayerID()) {
+		for (Int i = 0; i < MAX_SLOTS; ++i) {
+			if (i != playerID) {
+				Int transSlot = Rva004D39DEGet(i, conMgr->getLocalPlayerID());
+				if ((isPlayerInGame(transSlot, conMgr) == TRUE)
+					&& (m_disconnectFrames[i] < m_disconnectFrames[playerID])
+					&& (m_disconnectFramesReceived[i] == TRUE)) {
+					bfmeConMgr->resendFrameRangeToPlayer(i, m_disconnectFrames[i],
+						reinterpret_cast<GameLogic *>(reinterpret_cast<char *>(TheGameLogic) + 4)->getFrame());
+				}
+			}
+		}
+	} else if ((m_disconnectFrames[playerID] < m_disconnectFrames[conMgr->getLocalPlayerID()])
+		&& (m_disconnectFramesReceived[playerID] == TRUE)) {
+		bfmeConMgr->resendFrameRangeToPlayer(playerID, m_disconnectFrames[playerID],
+			reinterpret_cast<GameLogic *>(reinterpret_cast<char *>(TheGameLogic) + 4)->getFrame());
+	}
+}
