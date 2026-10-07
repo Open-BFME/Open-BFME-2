@@ -200,7 +200,6 @@ void BFMEConnectionManager::sendKeepAliveCommand()
 	}
 }
 
-// ?sendFrameInfo@BFMEConnectionManager@@QAEX_N@Z present-unmatched
 void BFMEConnectionManager::sendFrameInfo(Bool nextFrame)
 {
 	Int commandCount = -1;
