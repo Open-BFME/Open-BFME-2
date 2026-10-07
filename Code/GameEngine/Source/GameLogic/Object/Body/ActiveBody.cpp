@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /arch:SSE /Ireference/shims/bfme2_ascii
+// cl: /O1 /EHsc /MD /arch:SSE /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // ActiveBody.cpp -- ActiveBody members recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv): WB's debug build names the function (vtable
 // pairing); retail supplies the bytes. Zero Hour's setDamageState
@@ -13,6 +13,7 @@
 
 #include <string.h>
 #include "ascii_string.h"
+#include "Common/BfmeAudioEventPrefix136.h"
 
 typedef float Real;
 typedef int Int;
@@ -21,6 +22,9 @@ typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 
 enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBBLE };
+enum VeterancyLevel { LEVEL_REGULAR, LEVEL_VETERAN, LEVEL_ELITE, LEVEL_HEROIC };
+enum ArmorSetType { ARMORSET_VETERAN, ARMORSET_ELITE, ARMORSET_HERO };
+enum MaxHealthChangeType { SAME_CURRENTHEALTH, PRESERVE_RATIO };
 
 enum DamageType { DAMAGE_HEALING = 7 };
 enum KindOfType { KINDOF_4 = 4, KINDOF_220 = 0x220 };
@@ -171,6 +175,7 @@ public:
 };
 
 class Object;
+class Drawable;
 class ParticleSystem
 {
 public:
@@ -407,6 +412,8 @@ public:
 	Bool testStatusBit6() const { return (m_status >> 6) & 1; }
 	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
+	Drawable *getDrawable() const;			// 0x005508E2
+	Object *getContainedBy() const { return m_containedBy; }
 
 	void *m_vptr;
 	const ThingTemplate *m_template;	// +0x04
@@ -421,11 +428,74 @@ public:
 	unsigned char m_pad248[0x254 - 0x248];
 	BodyModuleInterface *m_body;		// +0x254
 	AIUpdateInterface *m_ai;		// +0x258
-	unsigned char m_pad25C[0x280 - 0x25C];
+	unsigned char m_pad25C[0x274 - 0x25C];
+	Object *m_containedBy;			// +0x274
+	unsigned char m_pad278[0x280 - 0x278];
 	Int m_field280;				// +0x280
 	unsigned char m_pad284[0x438 - 0x284];
 	UnsignedInt m_flags438;			// +0x438
 };
+
+// The promotion sound references of a Drawable (keyed lookups rowed in
+// DrawableKeyedLookups.cpp) and the Object a Drawable belongs to (+0xFC).
+class Rva002390CB
+{
+public:
+	Rva002390CB(const Rva002390CB &other);
+	~Rva002390CB() { if (m_04.referent != 0) m_04.referent->Release_Ref(); }
+	char m_pad00[4];
+	OpaqueRefElement4 m_04;
+};
+class Drawable
+{
+public:
+	Rva002390CB rva004BE152();		// key 0x31
+	Rva002390CB rva004BE16B();		// key 0x32
+	Rva002390CB rva004BE184();		// key 0x33
+	Object *getObject() const { return m_object; }
+
+	unsigned char m_pad00[0xFC];
+	Object *m_object;			// +0xFC
+};
+
+// Audio event setters rowed by address: 0x002D9C2F assigns the sound
+// reference, 0x002D9531 the Object ID.
+class Rva002D9C2F { public: OpaqueRefElement4 &rva002D9C2F(const OpaqueRefElement4 &other); };
+class Rva002D9531 { public: void rva002D9531(int v); };
+
+template <int N> class VSlots : public VSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class VSlots<0>
+{
+};
+class AudioManager : public VSlots<25>
+{
+public:
+	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *eventToAdd) = 0;	// +0x64
+};
+extern AudioManager *TheAudio;
+
+class InGameUI : public VSlots<70>
+{
+public:
+	virtual Int getSelectCount();				// +0x118
+	virtual void u71(); virtual void u72(); virtual void u73(); virtual void u74();
+	virtual Drawable *getFirstSelectedDrawable();		// +0x12C
+};
+extern InGameUI *TheInGameUI;
+
+class ControlBar
+{
+public:
+	void markUIDirty() { m_UIDirty = true; }
+
+	unsigned char m_pad00[0x28];
+	Bool m_UIDirty;				// +0x28
+};
+extern ControlBar *TheControlBar;
 
 class DOTManager
 {
@@ -465,7 +535,8 @@ extern AI *TheAI;
 class GlobalData
 {
 public:
-	unsigned char m_pad000[0xAE4];
+	unsigned char m_pad000[0xAD4];
+	Real m_healthBonus[4];			// +0xAD4: by veterancy level
 	Real m_defaultStructureRubbleHeight;	// +0xAE4
 };
 extern GlobalData *TheWritableGlobalData;
@@ -622,10 +693,15 @@ public:
 	virtual void i07();
 	virtual void i08();
 	virtual void setDamageState(BodyDamageType newState);	// +0x24
-	virtual void i10(); virtual void i11();
-	virtual void i12(); virtual void i13(); virtual void i14(); virtual void i15();
+	virtual void i10();
+	virtual void onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel newLevel);	// +0x2C
+	virtual void setArmorSetFlag(ArmorSetType ast);		// +0x30
+	virtual void clearArmorSetFlag(ArmorSetType ast);	// +0x34
+	virtual void i14(); virtual void i15();
 	virtual void i16(); virtual void i17(); virtual void i18(); virtual void i19();
-	virtual void i20(); virtual void i21(); virtual void i22(); virtual void i23();
+	virtual void i20(); virtual void i21();
+	virtual void setMaxHealth(Real maxHealth, MaxHealthChangeType healthChangeType);	// +0x58
+	virtual void i23();
 	virtual void i24(); virtual void i25(); virtual void i26(); virtual void i27();
 	virtual void i28(); virtual void i29(); virtual void i30(); virtual void i31();
 	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);	// +0x80
@@ -642,6 +718,7 @@ public:
 	virtual void attemptHealing(DamageInfo *damageInfo);
 	virtual Real estimateDamage(DamageInfoInput &damageInfo) const;
 	virtual void setDamageState(BodyDamageType newState);
+	virtual void onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel newLevel);
 	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);
 
 	virtual void rva004BE69C();
@@ -896,6 +973,91 @@ void ActiveBody::createParticleSystems(const AsciiString &boneBaseName,
 			}
 			boneIndex = (boneIndex + 1) % numBones;
 		}
+	}
+}
+
+// ActiveBody::onVeterancyLevelChanged, retail 0x004BE47D (513B):
+// BodyModuleInterface slot 11. Zero Hour's body without the feedback flag:
+// on a promotion play the Drawable's promotion sound for the new level (its
+// keyed sound references 0x31-0x33) and mark the control bar dirty when this
+// object, or the object containing it as the only selection, is the first
+// selected; then scale the max health by the global health bonuses
+// (interface slot 22, preserving the ratio) and set the veterancy armor flags.
+void ActiveBody::onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel newLevel)
+{
+	if (oldLevel == newLevel)
+		return;
+
+	if (oldLevel < newLevel)
+	{
+		Drawable *draw = getObject()->getDrawable();
+		if (draw)
+		{
+			BfmeAudioEventPrefix136 veterancyChanged((const OpaqueRefElement4 &)BfmePoolRef08(), 0);
+			switch (newLevel)
+			{
+			case LEVEL_VETERAN:
+				((Rva002D9C2F *)&veterancyChanged)->rva002D9C2F(draw->rva004BE152().m_04);
+				break;
+			case LEVEL_ELITE:
+				((Rva002D9C2F *)&veterancyChanged)->rva002D9C2F(draw->rva004BE16B().m_04);
+				break;
+			case LEVEL_HEROIC:
+				((Rva002D9C2F *)&veterancyChanged)->rva002D9C2F(draw->rva004BE184().m_04);
+				break;
+			}
+			((Rva002D9531 *)&veterancyChanged)->rva002D9531(getObject()->getID());
+			TheAudio->addAudioEvent(&veterancyChanged);
+		}
+
+		Object *obj = getObject();
+		Drawable *selected = TheInGameUI->getFirstSelectedDrawable();
+		if (selected)
+		{
+			Object *checkFrontObj = selected->getObject();
+			if (checkFrontObj == obj)
+			{
+				TheControlBar->markUIDirty();
+			}
+			else
+			{
+				const Object *containObj = obj->getContainedBy();
+				if (containObj && TheInGameUI->getSelectCount() == 1)
+				{
+					if (checkFrontObj == containObj)
+						TheControlBar->markUIDirty();
+				}
+			}
+		}
+	}
+
+	Real oldBonus = TheWritableGlobalData->m_healthBonus[oldLevel];
+	Real newBonus = TheWritableGlobalData->m_healthBonus[newLevel];
+	Real mult = newBonus / oldBonus;
+	setMaxHealth(m_maxHealth * mult, PRESERVE_RATIO);
+
+	switch (newLevel)
+	{
+	case LEVEL_REGULAR:
+		clearArmorSetFlag(ARMORSET_VETERAN);
+		clearArmorSetFlag(ARMORSET_ELITE);
+		clearArmorSetFlag(ARMORSET_HERO);
+		break;
+	case LEVEL_VETERAN:
+		setArmorSetFlag(ARMORSET_VETERAN);
+		clearArmorSetFlag(ARMORSET_ELITE);
+		clearArmorSetFlag(ARMORSET_HERO);
+		break;
+	case LEVEL_ELITE:
+		clearArmorSetFlag(ARMORSET_VETERAN);
+		setArmorSetFlag(ARMORSET_ELITE);
+		clearArmorSetFlag(ARMORSET_HERO);
+		break;
+	case LEVEL_HEROIC:
+		clearArmorSetFlag(ARMORSET_VETERAN);
+		clearArmorSetFlag(ARMORSET_ELITE);
+		setArmorSetFlag(ARMORSET_HERO);
+		break;
 	}
 }
 
