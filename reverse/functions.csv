@@ -62755,7 +62755,6 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva004F941E@Rva004F941E@@QAEXABURva004F9018Element@@@Z,,0x004F941E,33,Code/Libraries/Source/WWVegas/WWLib/StlportVectorAppendTriple004F941E.cpp,matched,append triple via rowed push_back 0x4F9018 and pin 0x4F7767
 ?d_00154630@@YAXXZ,,0x00154630,488,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_00554630
 ?d_001ea2cf@@YAXXZ,,0x001EA2CF,223,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_005ea2cf
-?d_004c40ba@@YAXXZ,,0x004C40BA,413,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_008c40ba
 ?d_0014fac2@@YAXXZ,,0x0014FAC2,390,Code/gen_small/dumps_000.cpp,matched,gen-dump;ghidra=FUN_0054fac2
 ?friend_xferSaveDataForCRC@GameState@@QAEXPAVXfer@@W4SnapshotType@@@Z,,0x002DDD0B,50,Code/GameEngine/Source/Common/System/SaveGame/GameStateFriend.cpp,matched,Zero Hour GameState.cpp CRC helper; SaveGameInfo members at +0x2C/+0x44/+0x48/+0x50 off retail displacements; trailing xferSaveData call pinned at 0x002DCE24 until its row lands; exact 50B
 ??0FXListStore@@QAE@XZ,,0x001E33A5,68,Code/GameEngine/Source/GameClient/FXListStoreCtor.cpp,matched,FXListStore default ctor; base SubsystemInterface m_fxmap at +0x0C m_nuggets vector at +0x20
@@ -66763,3 +66762,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva00105CF6@Rva00105CF6@@QAEXPAPBGPAH1@Z,,0x00105CF6,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00105CF6.cpp,matched,address-derived wrapper; retail caller loads data at +0 and advances by 8; passes this+4 to the measured text routine; stores optional integer extents
 ?rva0010694B@BfmeB996Range@@QAE_NPAPAXPAHPAI@Z,,0x0010694B,37,Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp,matched,range parser wrapper; function-scoped frame-pointer setting preserves retail EBP+0x13 stack byte; forwards three args and true to 0x00106781; callee identity unproven
 ?rva00106970@Rva00106C79Holder@@QAE_NHH@Z,,0x00106970,150,Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp,matched,range parser scan; caller 0x00106C79 proves two-int thiscall shape; target checks +8 and +0xC and calls 0x0010694B after a match; owner remains address-derived
+?doSpecialPower@WeaponChangeSpecialPowerModule@@UAEXI@Z,,0x004C40BA,413,Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleDoSpecialPower.cpp,matched,WeaponChangeSpecialPowerModule::doSpecialPower slot 10 of +0x10 interface; layout from body (data+0x7C mask; +0x8C +0x90 ints; +0x94 +0x98 names); callees by ledger rows
