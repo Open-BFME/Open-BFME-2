@@ -5,6 +5,7 @@ class Rva0037F4EA
 {
 public:
 	Rva0037F4EA *rva0037F4EA(int v);
+	void rva0037F87A(void *context);
 private:
 	friend class Rva0037F8AC;
 	int m_00;
@@ -49,6 +50,25 @@ Rva0037F4EA *Rva0037F4EA::rva0037F4EA(int v)
 	m_18 = 0.0f;
 	m_1c = false;
 	return this;
+}
+
+// ?rva0037F8AC@Rva0037F8AC@@QAEXPAX@Z
+// Native Ghidra extent 0x0037F8AC..0x0037F90F; RET 4. Each record's
+// validity byte guards its update. Valid records supply the two planar
+// coordinates at +0x10/+0x14 for the cached squared distance.
+void Rva0037F8AC::rva0037F8AC(void *context)
+{
+	if (!m_00.m_1c)
+		m_00.rva0037F87A(context);
+	if (!m_20.m_1c)
+		m_20.rva0037F87A(context);
+	if (m_00.m_1c && m_20.m_1c)
+	{
+		float dx = m_00.m_10 - m_20.m_10;
+		float dy = m_00.m_14 - m_20.m_14;
+		m_40 = dx * dx + dy * dy;
+		m_44 = true;
+	}
 }
 
 // ?rva0037F90F@Rva0037F8AC@@QAEPAV1@PAXPAURva0037F90FInput@@1@Z

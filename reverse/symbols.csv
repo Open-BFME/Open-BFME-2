@@ -15472,3 +15472,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00068395@BaseHeightMapRenderObjClass@@QAEXHPAVAsciiString@@0_N1@Z,0x00068395,Target caller 0x000CF2CF supplies ECX=TheTerrainRenderObject and ID string pointer string pointer byte byte; wrapper epilogue ret 20 forwards this+0x3860
 
 ?rva0037F8AC@Rva0037F8AC@@QAEXPAX@Z,0x0037F8AC,callee of ?rva0037F90F@Rva0037F8AC@@QAEPAV1@PAXPAURva0037F90FInput@@1@Z
+?rva0037F87A@Rva0037F4EA@@QAEXPAX@Z,0x0037F87A,callee of ?rva0037F8AC@Rva0037F8AC@@QAEXPAX@Z
