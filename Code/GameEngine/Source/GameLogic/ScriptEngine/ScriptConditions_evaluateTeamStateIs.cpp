@@ -69,6 +69,16 @@
 // count sums every non-null player of the mask (countObjectsByThingTemplate
 // with ignoreDead true, sum 0x003BD46E) before the six-way comparison on
 // Parameter::getInt (+0x08).
+//
+// ?evaluatePlayerLostObjectType@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E9EB0 454B
+// ZH/BFME 1 donor: the same-name ScriptConditions.cpp body. Target evidence:
+// jump-table case 104 calls 0x003E9EB0, which initConditionTemplates names
+// PLAYER_LOST_OBJECT_TYPE. BFME 2 runs ZH's single-player body once per
+// player of the mask: each player's summed count is compared with
+// ScriptEngine::getObjectCount 0x00206255 and stored back through
+// setObjectCount 0x00207DF4 (both index the per-player CRC maps at
+// ScriptEngine+0x1A164 by Player::getPlayerIndex, +0x54); a drop returns
+// true at once.
 #include <vector>
 #include "ascii_string.h"
 
@@ -217,7 +227,11 @@ void Script_objectTypesFromParam(Parameter *pTypeParm, ObjectTypes *outObjectTyp
 class Player
 {
 public:
+	int getPlayerIndex() const { return m_playerIndex; }
 	void countObjectsByThingTemplate(int numThingTemplates, const ThingTemplate *const *things, bool ignoreDead, int *counts, bool ignoreUnderConstruction) const;
+private:
+	unsigned char m_pad00[0x54];
+	int m_playerIndex; // +0x54
 };
 
 class ThingFactory
@@ -299,6 +313,8 @@ public:
 	Object *getUnitNamed(Parameter *pUnitParm);
 	int rva00357B82(Parameter *pPlayerParm);
 	unsigned int getFrameObjectCountChanged() const { return m_frameObjectCountChanged; }
+	int getObjectCount(int playerIndex, const AsciiString &objectTypeName) const;
+	void setObjectCount(int playerIndex, const AsciiString &objectTypeName, int newCount);
 private:
 	unsigned char m_pad00[0x1A15C];
 	unsigned int m_frameObjectCountChanged; // +0x1A15C
@@ -318,6 +334,7 @@ protected:
 	bool evaluateTeamStateIsNot(Parameter *, Parameter *);
 	bool evaluateBuiltByPlayer(Condition *, Parameter *, Parameter *);
 	bool evaluatePlayerUnitCondition(Condition *, Parameter *, Parameter *, Parameter *, Parameter *);
+	bool evaluatePlayerLostObjectType(Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -549,5 +566,38 @@ bool ScriptConditions::evaluatePlayerUnitCondition(Condition *pCondition, Parame
 		return true;
 	}
 	pCondition->setCustomData(-1); // false.
+	return false;
+}
+bool ScriptConditions::evaluatePlayerLostObjectType(Parameter *pPlayerParm, Parameter *pTypeParm)
+{
+	_STL::vector<int> counts;
+	_STL::vector<const ThingTemplate *> templates;
+
+	ObjectTypesTemp types;
+	Script_objectTypesFromParam(pTypeParm, types.m_types);
+
+	int numTemplates = types.m_types->prepForPlayerCounting(templates, counts);
+	if (numTemplates == 0) {
+		return false;
+	}
+
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	while (mask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		if (player) {
+			player->countObjectsByThingTemplate(numTemplates, &(*templates.begin()), true, &(*counts.begin()), true);
+
+			int sumOfObjs = Rva003BD46ESum(&counts);
+			int currentCount = TheScriptEngine->getObjectCount(player->getPlayerIndex(), pTypeParm->getString());
+
+			if (sumOfObjs != currentCount) {
+				TheScriptEngine->setObjectCount(player->getPlayerIndex(), pTypeParm->getString(), sumOfObjs);
+			}
+
+			if (sumOfObjs < currentCount) {
+				return true;
+			}
+		}
+	}
 	return false;
 }
