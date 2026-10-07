@@ -84,6 +84,15 @@
 // name table), and asks for startMoveSound (pinned 0x00347225) at the end.
 // The +0x48..+0x4A flags are adjust-destination, waiting-for-path and
 // try-one-more-repath; computePath is State slot 17.
+// AIFollowWaypointPathState::computeGoal, retail 0x00345D00 (545 bytes):
+// pinned non-virtual callee of the wander/panic/follow-waypoint updates and
+// onEnters. Target facts: waypoint links at +0x1C (count +0x4C), the
+// object's formation id at +0x410, the group offset at +0x4C, TerrainLogic
+// getGroundHeight/getMaximumPathfindExtent at slots 6/12, the three critter
+// desync lines 51/52/53, and the pinned rotation helper 0x0036CBF9. Body
+// carried from Zero Hour's AIStates.cpp computeGoal as reshaped by BFME 1's
+// matched 0x0017A600 (prior/next waypoint rotate, no wall or clamp code);
+// the dest/near/far copies are member-wise as the movss stores show.
 enum StateExitType
 {
 	EXIT_NORMAL = 0
@@ -105,9 +114,11 @@ class Locomotor
 public:
 	enum LocoFlag
 	{
+		ALLOW_INVALID_POSITION = 1,
 		PRECISE_Z_POS = 3
 	};
 	void setUsePreciseZPos(bool u) { setFlag(PRECISE_Z_POS, u); }
+	void setAllowInvalidPosition(bool allow) { setFlag(ALLOW_INVALID_POSITION, allow); }
 	float getCloseEnoughDist() const { return m_closeEnoughDist; }
 	// Zero Hour's startMove; empty in BFME 2 and folded onto the shared RET.
 	void rva000B3FD0();
@@ -133,6 +144,7 @@ template <> class AIDeadStateAISlots<0>
 {
 };
 #include "../../Common/GameLogicObjectLookupView.h"
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -147,6 +159,34 @@ struct Coord3D
 	Real GetLengthEstimate() const;
 	Real GetLengthEstimate2D() const;
 };
+struct Region3D
+{
+	Coord3D lo, hi;
+
+	Bool isInRegionNoZ(const Coord3D *query) const
+	{
+		return (lo.x < query->x) && (query->x < hi.x)
+			&& (lo.y < query->y) && (query->y < hi.y);
+	}
+};
+// TheTerrainLogic's getGroundHeight is virtual slot 6 (+0x18) and
+// getMaximumPathfindExtent slot 12 (+0x30) at the computeGoal call sites.
+class TerrainLogic
+{
+public:
+	virtual ~TerrainLogic();
+	virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05();
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;
+	virtual void slot07(); virtual void slot08(); virtual void slot09();
+	virtual void slot10(); virtual void slot11();
+	virtual void getMaximumPathfindExtent(Region3D *extent) const;
+};
+extern TerrainLogic *TheTerrainLogic;
+// Rotates a group offset into the frame of the from->to direction; cdecl
+// helper at 0x0036CBF9 (AIGroup code region, also called at 0x36D744 and
+// 0x3716C6/0x3717B0/0x3718AD). Pinned in symbols.csv; owner and name unproven.
+void Rva0036CBF9Rotate(const Coord3D *from, const Coord3D *to, Coord2D *offset);
 extern GameLogic *TheGameLogic;
 extern int g_00DBA4E4; // LOGICFRAMES_PER_SECOND
 #define LOGICFRAMES_PER_SECOND g_00DBA4E4
@@ -185,13 +225,19 @@ enum
 class Waypoint
 {
 public:
+	enum { MAX_LINKS = 12 };
 	UnsignedInt getID() const { return m_id; }
 	const Coord3D *getLocation() const { return &m_location; }
+	Int getNumLinks() const { return m_numLinks; }
+	Waypoint *getLink(Int ndx) const { return m_links[ndx]; }
 private:
 	unsigned char m_pad00[4];
 	UnsignedInt m_id; // +0x04
 	unsigned char m_pad08[0x0C - 0x08];
 	Coord3D m_location; // +0x0C
+	unsigned char m_pad18[0x1C - 0x18];
+	Waypoint *m_links[MAX_LINKS]; // +0x1C
+	Int m_numLinks; // +0x4C
 };
 class AIGroup
 {
@@ -462,6 +508,9 @@ public:
 	AIUpdateInterface *m_ai; // +0x258
 	unsigned char m_pad25C[0x304 - 0x25C];
 	Team *m_team; // +0x304
+	unsigned char m_pad308[0x410 - 0x308];
+public:
+	UnsignedInt m_formationID; // +0x410
 };
 static __forceinline void clearModelConditionBit(Object *object, int bit)
 {
@@ -538,6 +587,7 @@ public:
 	virtual StateReturnType update();
 protected:
 	Bool getAdjustsDestination() const;
+	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
 	void forceRepath()
 	{
 		m_pathGoalPosition.x = m_pathGoalPosition.y = m_pathGoalPosition.z = -100.0f;
@@ -596,8 +646,11 @@ public:
 	virtual StateReturnType update();
 	void computeGoal(Bool useGroupOffsets);
 	const Waypoint *getNextWaypoint();
+	Real calcExtraPathDistance();
 protected:
-	unsigned char m_pad4C[0x58 - 0x4C];
+	Bool hasNextWaypoint() { return m_currentWaypoint->getNumLinks() > 0; }
+	Coord2D m_groupOffset; // +0x4C
+	unsigned char m_pad54[0x58 - 0x54];
 	Int m_framesSleeping; // +0x58
 	const Waypoint *m_currentWaypoint; // +0x5C
 	const Waypoint *m_priorWaypoint; // +0x60
@@ -859,6 +912,82 @@ StateReturnType AIFollowWaypointPathState::update()
 		return STATE_CONTINUE;
 	}
 	return status;
+}
+
+void AIFollowWaypointPathState::computeGoal(Bool useGroupOffsets)
+{
+	if (m_currentWaypoint == 0)
+		return;
+
+	Object *obj = getMachineOwner();
+	AIUpdateInterface *ai = obj->getAI();
+	Coord3D dest;
+	dest.x = m_currentWaypoint->getLocation()->x;
+	dest.y = m_currentWaypoint->getLocation()->y;
+	dest.z = m_currentWaypoint->getLocation()->z;
+
+	m_goalLayer = LAYER_GROUND; // waypoints are always on the ground.
+
+	ai->setPathExtraDistance(calcExtraPathDistance());
+	if (hasNextWaypoint())
+	{
+		// We are in the middle of a path, so don't set the final goal location yet.
+		critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 51");
+		setAdjustsDestination(false);
+	}
+	else
+	{
+		critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 52");
+		setAdjustsDestination(true);
+		// urg. hacky. if we are a projectile on the last segment, turn on precise z-pos.
+		if (obj->isKindOf(KINDOF_PROJECTILE))
+		{
+			if (ai && ai->getCurLocomotor())
+				ai->getCurLocomotor()->setUsePreciseZPos(true);
+		}
+	}
+
+	Coord2D groupOffset;
+	groupOffset.x = m_groupOffset.x;
+	groupOffset.y = m_groupOffset.y;
+	if (obj->m_formationID)
+	{
+		Coord3D nearPoint;
+		nearPoint.x = dest.x;
+		nearPoint.y = dest.y;
+		nearPoint.z = dest.z;
+		Coord3D farPoint;
+		farPoint.x = dest.x;
+		farPoint.y = dest.y;
+		farPoint.z = dest.z;
+		farPoint.x -= 1.0f;
+		if (m_priorWaypoint)
+		{
+			farPoint = *m_priorWaypoint->getLocation();
+		}
+		else if (m_currentWaypoint->getLink(0))
+		{
+			farPoint = nearPoint;
+			nearPoint = *m_currentWaypoint->getLink(0)->getLocation();
+		}
+		Rva0036CBF9Rotate(&farPoint, &nearPoint, &groupOffset);
+	}
+
+	m_goalPosition = dest;
+	m_goalPosition.x += groupOffset.x;
+	m_goalPosition.y += groupOffset.y;
+	m_goalPosition.z = TheTerrainLogic->getGroundHeight(m_goalPosition.x, m_goalPosition.y);
+
+	Region3D extent;
+	TheTerrainLogic->getMaximumPathfindExtent(&extent);
+
+	if (!extent.isInRegionNoZ(&m_goalPosition))
+	{
+		critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 53");
+		setAdjustsDestination(false); // moving off the map.
+		ai->getCurLocomotor()->setAllowInvalidPosition(true); // allow it to move off the map.
+		m_appendGoalPosition = true; // Moving off the map.
+	}
 }
 
 StateReturnType AIAttackMoveToState::update()
