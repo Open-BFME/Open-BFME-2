@@ -25,6 +25,7 @@
 #include <vector>
 #include <math.h>
 #include "ascii_string.h"
+#include "unicode_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../Libraries/Source/profile/profile.h"
@@ -291,12 +292,18 @@ class GlobalData
 public:
 	char m_pad000[0xc];
 	AsciiString m_mapName;
-	char m_pad010[0xd4 - 0x10];
+	char m_pad010[0x26 - 0x10];
+	bool m_26;
+	char m_pad027[0xd4 - 0x27];
 	float m_d4;
 	float m_d8;
-	char m_pad0DC[0xbd0 - 0xdc];
+	char m_pad0DC[0xaf5 - 0xdc];
+	bool m_af5;
+	char m_padAF6[0xbd0 - 0xaf6];
 	int m_bd0;
-	char m_padBD4[0xe94 - 0xbd4];
+	char m_padBD4[0xddc - 0xbd4];
+	bool m_ddc;
+	char m_padDDD[0xe94 - 0xddd];
 	int m_e94;
 	char m_padE98[0x1110 - 0xe98];
 	bool m_1110;
@@ -391,11 +398,12 @@ public:
 	bool m_9b;
 	bool m_9c;
 	bool m_9d;
-	char m_pad09E[0x9f - 0x9e];
+	bool m_9e;
 	bool m_9f;
 	int m_a0;
 	int m_a4;
-	char m_pad0A8[0xac - 0xa8];
+	bool m_a8;
+	char m_pad0A9[0xac - 0xa9];
 	Object *m_objList;
 	char m_pad0B0[0xb4 - 0xb0];
 	char m_b4[0x10c - 0xb4];
@@ -403,7 +411,7 @@ public:
 	int m_110;
 	char m_pad114[0x118 - 0x114];
 	int m_118;
-	char m_pad11C[0x11d - 0x11c];
+	bool m_11c;
 	bool m_11d;
 	char m_pad11E[0x120 - 0x11e];
 	LoadScreen *m_120;
@@ -704,8 +712,11 @@ public:
 	void setStartPos(int startPos) { m_10 = startPos; }
 	int getPlayerTemplate() const { return m_18; }
 	int getTeamNumber() const { return m_1c; }
+	int getColor() const { return m_c; }
+	void setColor(int color) { m_c = color; }
 
-	char m_pad00[0x10];
+	char m_pad00[0xc];
+	int m_c;
 	int m_10;
 	int m_14;
 	int m_18;
@@ -719,6 +730,7 @@ public:
 	const GameSlot *getConstSlot(int index) const;
 	AsciiString getMap() const;
 	bool isStartPositionTaken(int positionIdx, int slotToIgnore = -1) const;
+	bool isColorTaken(int colorIdx, int slotToIgnore = -1) const;
 };
 
 extern MapCache *TheMapCache;
@@ -904,6 +916,7 @@ public:
 	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
 	virtual void v08();
 	virtual void slot24();
+	void rva001DC5EC(void);
 };
 
 class Rva0023C7D2
@@ -1876,4 +1889,130 @@ void GameLogic::rva00248278(bool loadingSaveGame)
 		TheScriptEngine->rva00205358(&assets, &mode);
 		bfmeMergeReceiverKeys((int)&assets);
 	}
+}
+
+// ?rva00241230@GameLogic@@QAEX_N@Z @0x00241230 431B (EH frame, ret 4; next
+// body 0x002413DF). Called from the new-game pass 0x00248558.
+// Target evidence: TheWindowManager (0x009FEF1C) virtual +0x28, the
+// GlobalData +0xDDC byte copied to +0x11C, bfmeClearReceiverFlag(2), the
+// argument stored at +0x9E, GlobalData +0x26 set when the +0x110 mode is 0 or
+// 6, g_00DFF004 and +0x6D set, TheMouse engine visibility off, the
+// transition-handler wait 0x001DC5EC under +0x72; then, for a new map only,
+// TheGameState (0x009FF08C) takes the map name by value (0x001EB298) and
+// tests a UnicodeString copy of it (0x002DC7C1, result unused) before +0xA8
+// is set. The "newgame" profile range, the 1000 at +0x118, the defaults pass
+// 0x00240E18, GlobalData +0xAF5 and the -1/1/1/1 field resets follow, and
+// the body ends with the inlined slot colour check over TheGameInfo (slot
+// colour +0x0C, TheMultiplayerSettings colour count cached +0x40 from +0x38,
+// isColorTaken 0x003FF34A).
+// Donor: BFME 1 GameLogic.cpp startNewGame (setPristineMapName,
+// isInSaveDirectory sanity check, m_rankLevelLimit = 1000, setDefaults,
+// m_loadScreenRender, the marker/icon/LOD flags and hulk override -1) and
+// its static checkForDuplicateColors, which retail inlines verbatim. BFME 2
+// splits the rest of startNewGame into the stages 0x0024004D onwards; field
+// names stay offset names.
+class GameWindowManager : public SubsystemInterface
+{
+public:
+	virtual void slot28(void);                                           // +0x28
+};
+
+class Mouse
+{
+public:
+	void _bfme_setEngineVisibility(bool visible);
+};
+
+class GameState;
+
+class Rva001EB298
+{
+public:
+	void rva001EB298(AsciiString mapName);
+};
+
+class Rva002DC7C1
+{
+public:
+	bool rva002DC7C1(const UnicodeString &path) const;
+};
+
+class MultiplayerSettings
+{
+public:
+	int getNumColors()
+	{
+		if (m_numColors == 0)
+			m_numColors = m_colorCount;
+		return m_numColors;
+	}
+private:
+	char m_pad00[0x38];
+	int m_colorCount;                                                    // +0x38
+	int m_3c;
+	int m_numColors;                                                     // +0x40
+};
+
+extern GameWindowManager *TheWindowManager;
+extern Mouse *TheMouse;
+extern GameState *TheGameState;
+extern MultiplayerSettings *TheMultiplayerSettings;
+
+static void checkForDuplicateColors(GameInfo *game)
+{
+	if (!game)
+		return;
+	int i;
+
+	for (i = 8 - 1; i >= 0; --i) {
+		GameSlot *slot = game->getSlot(i);
+
+		if (!slot || !slot->isOccupied())
+			continue;
+
+		int colorIdx = slot->getColor();
+		if (colorIdx < 0 || colorIdx >= TheMultiplayerSettings->getNumColors())
+			continue;
+
+		slot->setColor(-1);
+		if (!game->isColorTaken(colorIdx))
+			slot->setColor(colorIdx);
+	}
+}
+
+void GameLogic::rva00241230(bool loadingSaveGame)
+{
+	TheWindowManager->slot28();
+	m_11c = TheWritableGlobalData->m_ddc;
+	bfmeClearReceiverFlag(2);
+	m_9e = loadingSaveGame;
+	if (m_110 == 0 || m_110 == 6)
+		TheWritableGlobalData->m_26 = true;
+	g_00DFF004 = 1;
+	m_6d = true;
+	TheMouse->_bfme_setEngineVisibility(false);
+	if (m_72)
+		TheTransitionHandler->rva001DC5EC();
+
+	if (!loadingSaveGame) {
+		((Rva001EB298 *)TheGameState)->rva001EB298(TheWritableGlobalData->m_mapName);
+		((Rva002DC7C1 *)TheGameState)->rva002DC7C1(UnicodeString(TheWritableGlobalData->m_mapName));
+		m_a8 = true;
+	}
+
+	Profile::StartRange("newgame");
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+
+	m_118 = 1000;
+	rva00240E18(loadingSaveGame);
+	TheWritableGlobalData->m_af5 = true;
+	m_a0 = -1;
+	m_99 = true;
+	m_9a = true;
+	m_9b = true;
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+
+	checkForDuplicateColors(TheGameInfo);
 }

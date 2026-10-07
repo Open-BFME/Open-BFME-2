@@ -15653,7 +15653,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0023F88C@Rva0023E7D9@@QAEX_N@Z,0x0023F88C,bool view of the rowed ?rva0023F88C@Rva0023E7D9@@QAEXH@Z (ret 4 with the argument unused); GameLogic 0x00248558 forwards its bool param (push edi at 0x00248678)
 ?rva0023F52C@GameLogic@@QAEX_N@Z,0x0023F52C,GameLogic member (FUN_0063f52c 864B) called by 0x00248558 at 0x00248645 with its bool param after Profile::StopRange newgame
 ?rva0024004D@GameLogic@@QAEX_N@Z,0x0024004D,GameLogic member (push ebp frame after the 0x00240000 tail jump) called by 0x00248558 at 0x00248656 with its bool param; tests this+0x72 and this+0x78
-?rva00241230@GameLogic@@QAEX_N@Z,0x00241230,GameLogic member (FUN_00641230 431B) called first by the new-game pass 0x00248558 at 0x002485E0 with its bool param
 ?rva002421F5@GameLogic@@QAEX_NPAH@Z,0x002421F5,GameLogic member (FUN_006421f5 494B) called by 0x00248558 at 0x00248621 with its bool param and the address of the progress int (set to 0x29 just before)
 ?rva002469A5@GameLogic@@QAEX_NPAH@Z,0x002469A5,GameLogic member (FUN_006469a5 1484B) called by 0x00248558 at 0x00248606 with its bool param and the address of the progress int (set to 3 before)
 ?rva00205358@ScriptEngine@@QAEXPAVAssetList@@PAUAssetLoadMode@@@Z,0x00205358,TheScriptEngine (0x009FE16C) member called by GameLogic 0x00248278 at 0x00248521 with a fresh AssetList and its load-mode flag (ret 8); walks the sides list and forwards both to 0x003B3836
