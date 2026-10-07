@@ -246,3 +246,28 @@ float Rva0059AEBC::rva0059AEBC()
 {
 	return ((LivingWorldAutoResolveBodyTemplate *)m_holder->rva0033A65E())->getHitpointsForLevel(m_ctx->m_level);
 }
+
+// ?rva0059AED2@Rva0059AED2@@QAEXXZ @0x0059AED2 23B
+// Target evidence: chain lane, calls rowed 0x0059AEBC with same this;
+// copies dword at +0x0C to +0x10, stores callee float result at +0x14,
+// clears byte at +0x18. Caller 0x004F619A; neighbours 0x0059AEBC 0x0059AFC2.
+// Owner identity remains address-derived via pin.
+class Rva0059AED2
+{
+public:
+	void rva0059AED2();
+
+private:
+	char m_pad000[0x0C];
+	unsigned int m_value0C;
+	unsigned int m_value10;
+	float m_value14;
+	unsigned char m_flag18;
+};
+
+void Rva0059AED2::rva0059AED2()
+{
+	m_value10 = m_value0C;
+	m_value14 = ((Rva0059AEBC *)this)->rva0059AEBC();
+	m_flag18 = 0;
+}

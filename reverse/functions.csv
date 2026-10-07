@@ -66771,3 +66771,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva005F62F6@Rva005F62EE@@QAEXPBVImage@@@Z,,0x005F62F6,8,Code/GameEngine/Source/Common/Rva005F62EEForward.cpp,matched,Adjacent wrapper transfers Image to its +8 helper through the rowed 0x005F6112 method
 ?rva005F6306@Rva005F6306@@QAEXXZ,,0x005F6306,8,Code/GameEngine/Source/Common/Rva005F6220Apt.cpp,matched,Address named wrapper forwards through the observed +8 implementation pointer to rowed HideLeaderRankProgress
 ??0Rva004CBEB0@@QAE@XZ,,0x004CBEB0,26,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004CBEB0Ctor.cpp,matched,address-named constructor shape with rowed member constructor
+?rva0059AED2@Rva0059AED2@@QAEXXZ,,0x0059AED2,23,Code/GameEngine/Source/Common/Rva0059ADB9.cpp,matched,chain plus0C to plus10 plus float plus flag via rowed 0x0059AEBC
