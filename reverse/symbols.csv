@@ -15357,3 +15357,5 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva005CD8F7@Rva005CD8F7Call@@QAEHPAX@Z,0x005CD8F7,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
 ?rva005CD690@Rva005CD690Call@@QAEHPAX@Z,0x005CD690,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
 ??0Rva0057525FCall@@QAE@PAVRva00574A8A@@II@Z,0x0057525F,callee of ??0Rva00574A8A@@QAE@II@Z
+?rva00211505@Rva00211505@@QAEXXZ,0x00211505,REL32 call and tail jump observed in target 0x00211570; address-derived names only
+?rva003F92DA@Rva003F92DA@@QAEXXZ,0x003F92DA,REL32 call and tail jump observed in target 0x00211570; address-derived names only
