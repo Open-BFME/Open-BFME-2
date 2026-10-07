@@ -15714,3 +15714,11 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva002829BD@Rva002829BD@@QAEXPAXP6APAX0@Z@Z,0x002829BD,callee of ?rva00282B26@Rva00282B26@@QAEHPAX@Z
 ?rva0023F8DA@GameLogic@@QAEXXZ,0x0023F8DA,callee of ?rva00241529@GameLogic@@QAEXIHIPAVGameMessage@@_NPAVBfmeThingEC@@@Z
 ?rva002401DD@GameLogic@@QAEXPAVBfmeThingEC@@IH@Z,0x002401DD,callee of ?rva00241529@GameLogic@@QAEXIHIPAVGameMessage@@_NPAVBfmeThingEC@@@Z
+?rva002259F3@GameLogic@@QAE_NXZ,0x002259F3,callee of ?update@GameLogic@@UAEXH@Z
+?rva002431CB@Rva002431CB@@QAEXXZ,0x002431CB,callee of ?update@GameLogic@@UAEXH@Z
+?rva00290357@Object@@QAEXXZ,0x00290357,callee of ?update@GameLogic@@UAEXH@Z
+?rva00297612@Object@@QAEXXZ,0x00297612,callee of ?update@GameLogic@@UAEXH@Z
+?rva002F0F07@Pathfinder@@QAEXXZ,0x002F0F07,callee of ?update@GameLogic@@UAEXH@Z
+?rva0040CA98@Rva0040CA98@@QAEXXZ,0x0040CA98,callee of ?update@GameLogic@@UAEXH@Z
+?rva00437BB6@StatsCollectorUpdate@@QAEXXZ,0x00437BB6,callee of ?update@GameLogic@@UAEXH@Z
+?rva00439965@Rva00243177@@QAEXXZ,0x00439965,callee of ?update@GameLogic@@UAEXH@Z

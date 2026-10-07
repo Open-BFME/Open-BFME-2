@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 //
 // ?init@GameLogic@@UAEXXZ @0x00243EE7 957B (Ghidra FUN_00643ee7, ret at
@@ -76,6 +76,7 @@ public:
 	virtual void s05(void); virtual void s06(void); virtual void s07(void);
 	virtual void s08(void);
 	virtual void reset(void);                                            // +0x24
+	virtual void update(void);                                           // +0x28
 	void setName(AsciiString name);
 
 private:
@@ -174,6 +175,7 @@ class Pathfinder
 {
 public:
 	void rva002E8DAA(void);
+	void rva002F0F07(void);
 };
 
 class AI : public SubsystemInterface
@@ -189,11 +191,32 @@ private:
 class AssetList;
 struct AssetLoadMode;
 
+// 0x00203BB1 is rowed as a free function but runs on TheScriptEngine; the
+// member-pointer union loads ecx for it (BFME 1 GameLogic::update precedent).
+void Rva00203BB1ForceAppContinue(void);
+
 class ScriptEngine : public SubsystemInterface
 {
 public:
 	void rva00205358(AssetList *assets, AssetLoadMode *mode);
 	void rva00207C02(void);
+	void rva002047CF(void);
+	void forceAppContinue(void)
+	{
+		union
+		{
+			void (*entry)(void);
+			void (ScriptEngine::*method)(void);
+		} fn;
+		fn.entry = &Rva00203BB1ForceAppContinue;
+		(this->*fn.method)();
+	}
+};
+
+class Rva00203B08
+{
+public:
+	bool rva00203AE5(void);
 };
 
 class Overridable
@@ -253,6 +276,7 @@ class DOTManager
 {
 public:
 	void rva0043B725(void);
+	void update(void);
 };
 
 class Rva00439920
@@ -307,6 +331,7 @@ class Rva00243177
 {
 public:
 	Rva00243177(void);
+	void rva00439965(void);
 
 private:
 	int m_body[6];
@@ -422,7 +447,11 @@ public:
 	unsigned int m_c18;
 	char m_padC1C[0xc30 - 0xc1c];
 	int m_c30;
-	char m_padC34[0xddc - 0xc34];
+	char m_padC34[0xd45 - 0xc34];
+	bool m_d45;
+	char m_padD46[0xd48 - 0xd46];
+	int m_d48;
+	char m_padD4C[0xddc - 0xd4c];
 	bool m_ddc;
 	char m_padDDD[0xe94 - 0xddd];
 	int m_e94;
@@ -456,6 +485,20 @@ enum KindOfType
 	KINDOF_INVALID = -1
 };
 
+class UpdateModule;
+typedef _STL::vector<UpdateModule *> UpdateModuleList;
+
+// The object embedded at GameLogic+0x184 (0x2C bytes); its member 0x0040CA98
+// never reads this.
+class Rva0040CA98
+{
+public:
+	void rva0040CA98(void);
+
+private:
+	char m_body[0x2c];
+};
+
 enum ObjectID
 {
 	INVALID_ID = 0
@@ -465,7 +508,8 @@ class GameLogic : public SubsystemInterface
 {
 public:
 	virtual void init(void);
-	virtual void v10(void); virtual void v11(void); virtual void v12(void); virtual void v13(void);
+	virtual void v11(void); virtual void v12(void);
+	virtual void update(int phase);                                      // +0x34
 	virtual TerrainLogic *createTerrainLogic(void);                      // +0x38
 	virtual GhostObjectManager *createGhostObjectManager(void);          // +0x3C
 	virtual BuffLogic *createBuffLogic(void);                            // +0x40
@@ -508,6 +552,13 @@ public:
 	const AsciiString &rva0023FB58(int index);
 	PlayerLeaveStatus *getPlayerLeaveStatus(int playerIndex);
 	void rva002401DD(BfmeThingEC *stream, unsigned int frame, int player);
+	bool rva002259F3(void);
+	bool rva0042219(void);
+	void processCommandList(void);
+	void processDestroyList(void);
+	void logicMessageDispatcher(GameMessage *msg, void *userData);
+	unsigned int getCRC(int mode);
+	void rva00240EBC(void);
 
 	Object *getFirstObject(void) const { return m_objList; }
 	ObjectTOCEntry *findTOCEntryByName(AsciiString name);
@@ -526,7 +577,8 @@ public:
 	float m_height;
 	unsigned int m_38;
 	char m_pad03C[0x40 - 0x3c];
-	int m_40;
+	unsigned int m_40;
+	unsigned int getFrame(void) const { return m_40; }
 	bool m_44;
 	char m_pad045[0x48 - 0x45];
 	Rva00241529Record *m_48;
@@ -558,7 +610,11 @@ public:
 	char m_pad0A9[0xac - 0xa9];
 	Object *m_objList;
 	char m_pad0B0[0xb4 - 0xb0];
-	char m_b4[0x10c - 0xb4];
+	char m_b4[0xc8 - 0xb4];
+	UpdateModuleList m_updates[4];                                       // +0xC8
+	UpdateModuleList m_sleeping;                                         // +0xF8
+	UpdateModule *m_104;
+	char m_pad108[0x10c - 0x108];
 	int m_10c;
 	int m_110;
 	int m_114;
@@ -579,13 +635,13 @@ public:
 	Object *m_158;
 	Object *m_15c;
 	Object *m_160;
-	char m_pad164[0x170 - 0x164];
+	_STL::vector<void *> m_164;
 	Rva00359E13 *m_170;
 	Rva0043B660 *m_174;
 	Rva00243177 *m_178;
 	int m_17c;
 	int m_180;
-	char m_pad184[0x1b0 - 0x184];
+	Rva0040CA98 m_184;
 	int m_1b0;
 	int m_1b4;
 	int m_1b8;
@@ -932,7 +988,9 @@ public:
 	bool isStartPositionTaken(int positionIdx, int slotToIgnore = -1) const;
 	bool isColorTaken(int colorIdx, int slotToIgnore = -1) const;
 
-	char m_pad04[0x54 - 4];
+	char m_pad04[0x0c - 4];
+	int m_0c;                                                            // +0x0C
+	char m_pad10[0x54 - 0x10];
 	int m_54;                                                            // +0x54
 };
 
@@ -1276,18 +1334,67 @@ public:
 	Drawable *getDrawable(void) const;
 };
 
+// DisabledMaskType: one word; its constructors memset, so it returns
+// through a hidden pointer.
+template <int NUM_BITS>
+class BitFlags
+{
+public:
+	BitFlags(const BitFlags &src);
+	bool any(void) const;
+	bool test(const void *other) const;
+	bool anyIntersectionWith(const BitFlags &that) const { return that.test(this); }
+
+private:
+	unsigned int m_bits[(NUM_BITS + 31) / 32];
+};
+typedef BitFlags<11> DisabledMaskType;
+
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_NONE
+};
+
+class AIUpdateInterface
+{
+public:
+	bool isMoving(void) const;
+	void destroyPath(void);
+};
+
 class Object : public Thing
 {
 public:
 	const ThingTemplate *getTemplate(void) const { return m_template; }
 	Object *getNextObject(void) const { return m_next; }
 	void rva00293E64(Dict *properties);
+	bool testStatus(ObjectStatusTypes bit) const;
+	bool isDisabled(void) const { return m_disabledMask.any(); }
+	const DisabledMaskType &getDisabledFlags(void) const { return m_disabledMask; }
+	AIUpdateInterface *getAIUpdateInterface(void) const { return m_ai; }
+	void rva0023D3AF(void *frame);
+	void rva00290357(void);
+	void rva002903C3(void);
+	void rva002903EF(void);
+	void rva00297612(void);
 
 private:
 	void *m_vtbl;
 	const ThingTemplate *m_template;
 	char m_pad08[0x8c - 0x08];
 	Object *m_next;
+	char m_pad090[0x94 - 0x90];
+
+public:
+	unsigned int m_94;                                                   // +0x94
+	char m_pad098[0x188 - 0x98];
+	unsigned int m_188;                                                  // +0x188
+	char m_pad18C[0x1c8 - 0x18c];
+
+private:
+	DisabledMaskType m_disabledMask;                                     // +0x1C8
+	char m_pad1CC[0x258 - 0x1cc];
+	AIUpdateInterface *m_ai;                                             // +0x258
 };
 
 void GameLogic::addTOCEntry(AsciiString name, unsigned short id)
@@ -1470,7 +1577,7 @@ enum NameKeyType
 class PlayerList : public SubsystemInterface
 {
 public:
-	virtual void p0a(void); virtual void p0b(void); virtual void p0c(void);
+	virtual void p0b(void); virtual void p0c(void);
 	virtual void p0d(void); virtual void p0e(void);
 	virtual void newMap(void);                                           // +0x3C
 
@@ -1896,14 +2003,16 @@ public:
 	virtual void v14(); virtual void v15();
 	virtual void initHeightForMap(void);                                 // +0x58
 	virtual void v17(); virtual void v18(); virtual void v19(); virtual void v1a();
-	virtual void v1b(); virtual void v1c(); virtual void v1d(); virtual void v1e();
+	virtual void v1b(); virtual void v1c(); virtual void v1d();
+	virtual bool slot78(void);                                           // +0x78
 	virtual void v1f(); virtual void v20(); virtual void v21(); virtual void v22();
 	virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26();
 	virtual void v27(); virtual void v28(); virtual void v29(); virtual void v2a();
 	virtual void v2b(); virtual void v2c(); virtual void v2d(); virtual void v2e();
 	virtual void v2f(); virtual void v30(); virtual void v31();
 	virtual void lookAtPosition(const Coord3D *pos, int frames, float easeIn, float easeOut); // +0xC8
-	virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36();
+	virtual void v33(); virtual void v34(); virtual void v35();
+	virtual bool slotD8(void);                                           // +0xD8
 	virtual void v37(); virtual void v38(); virtual void v39(); virtual void v3a();
 	virtual void v3b(); virtual void v3c(); virtual void v3d(); virtual void v3e();
 	virtual void v3f(); virtual void v40(); virtual void v41(); virtual void v42();
@@ -1997,7 +2106,7 @@ public:
 	virtual void slot38(void);                                           // +0x38
 };
 
-class Rva002A8F24
+class Rva002A8F24 : public SubsystemInterface
 {
 public:
 	void rva002A95F9(void);
@@ -2164,8 +2273,6 @@ void GameLogic::rva00248278(bool loadingSaveGame)
 // names stay offset names.
 class GameWindowManager : public SubsystemInterface
 {
-public:
-	virtual void slot28(void);                                           // +0x28
 };
 
 class Mouse
@@ -2237,7 +2344,7 @@ static void checkForDuplicateColors(GameInfo *game)
 
 void GameLogic::rva00241230(bool loadingSaveGame)
 {
-	TheWindowManager->slot28();
+	TheWindowManager->update();
 	m_11c = TheWritableGlobalData->m_ddc;
 	bfmeClearReceiverFlag(2);
 	m_9e = loadingSaveGame;
@@ -2426,7 +2533,24 @@ private:
 	char m_pad00[0x68];
 };
 
-class File;
+// ZH File: open/close/read/write/seek after the destructor.
+class File
+{
+public:
+	enum seekMode
+	{
+		START,
+		CURRENT,
+		END
+	};
+
+	virtual ~File(void);
+	virtual bool open(const char *filename, int access);                 // +0x04
+	virtual void close(void);                                            // +0x08
+	virtual int read(void *buffer, int bytes);                           // +0x0C
+	virtual int write(const void *buffer, int bytes);                    // +0x10
+	virtual int seek(int bytes, seekMode mode);                          // +0x14
+};
 
 enum RecorderModeType
 {
@@ -2435,7 +2559,7 @@ enum RecorderModeType
 	RECORDERMODETYPE_NONE
 };
 
-class RecorderClass
+class RecorderClass : public SubsystemInterface
 {
 public:
 	bool isMultiplayer(void);
@@ -2443,7 +2567,7 @@ public:
 	void logCRCMismatch(void);
 	void rva0037BE15(File *output, unsigned int frame);
 
-	char m_pad000[0xe68];
+	char m_pad00C[0xe68 - 0xc];
 	int m_e68;
 	int m_e6c;
 };
@@ -2524,6 +2648,9 @@ public:
 	virtual void v1c(); virtual void v1d(); virtual void v1e(); virtual void v1f();
 	virtual void v20(); virtual void v21(); virtual void v22();
 	virtual Drawable *getDrawableList(void);                             // +0x8C
+
+	char m_pad004[0xc8 - 4];
+	bool m_c8;
 };
 
 enum GameSpyBuddyStatus
@@ -2677,7 +2804,7 @@ extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(void *module, co
 
 typedef void (*NewMapProc)(void);
 
-class LuaScriptEngine
+class LuaScriptEngine : public SubsystemInterface
 {
 public:
 	void rva003387DC(const AsciiString &mapName);
@@ -2716,14 +2843,15 @@ public:
 	virtual void e08(); virtual void e09(); virtual void e0a(); virtual void e0b();
 	virtual void e0c(); virtual void e0d(); virtual void e0e(); virtual void e0f();
 	virtual void e10(); virtual void e11(); virtual void e12(); virtual void e13();
-	virtual void e14(); virtual void e15();
+	virtual void setQuitting(bool quitting);                             // +0x50
+	virtual void e15();
 	virtual bool isMultiplayerSession(void);                             // +0x58
 };
 
 class Rva00E03138 : public SubsystemInterface
 {
 public:
-	virtual void c0a(); virtual void c0b(); virtual void c0c(); virtual void c0d();
+	virtual void c0b(); virtual void c0c(); virtual void c0d();
 	virtual void c0e(); virtual void c0f(); virtual void c10();
 	virtual void slot44(void);                                           // +0x44
 };
@@ -2770,7 +2898,7 @@ public:
 	void rva0020D7F9(void);
 };
 
-class Rva002872BA
+class Rva002872BA : public SubsystemInterface
 {
 public:
 	void rva00287015(void);
@@ -3628,6 +3756,11 @@ public:
 	void appendIntegerArgument(int arg);
 	void appendTimestampArgument(unsigned int arg);
 	void appendBooleanArgument(bool arg);
+	GameMessage *next(void) const { return m_next; }
+
+private:
+	void *m_vtbl;
+	GameMessage *m_next;                                                 // +0x04
 };
 
 // MessageStreamSubsystem (0x00A00950); appendMessage is vslot 18.
@@ -3887,4 +4020,468 @@ const AsciiString &GameLogic::rva0023FB58(int index)
 		return m_58[index];
 	static AsciiString invalid("Invalid Slot");
 	return invalid;
+}
+
+// The update modules GameLogic keeps per phase (vector<UpdateModule *> at
+// this+0xC8, four of them, and the sleeping list at +0xF8): BehaviorModule
+// is 0x10 bytes with the object at +8, the UpdateModuleInterface vptr sits
+// at +0x10 (update, getDisabledTypesToProcess), then the wake frame, the
+// index in its list and the phase (-1 when sleeping).
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update(void) = 0;
+	virtual DisabledMaskType getDisabledTypesToProcess(void) const = 0;
+};
+
+class BehaviorModule
+{
+public:
+	virtual ~BehaviorModule(void);
+	Object *getObject(void) const { return m_object; }
+
+private:
+	const void *m_moduleData;
+	Object *m_object;                                                    // +0x08
+	void *m_vtbl0C;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	unsigned int getWakeFrame(void) const { return m_nextCallFrame; }
+	void setWakeFrame(unsigned int frame)
+	{
+		if (frame > UPDATE_SLEEP_FOREVER)
+			frame = UPDATE_SLEEP_FOREVER;
+		m_nextCallFrame = frame;
+	}
+	void setIndexInLogic(int index, int phase)
+	{
+		m_phase = phase;
+		m_indexInLogic = index;
+	}
+	void setIndexInLogic(int index)
+	{
+		m_phase = -1;
+		m_indexInLogic = index;
+	}
+
+private:
+	unsigned int m_nextCallFrame;                                        // +0x14
+	int m_indexInLogic;                                                  // +0x18
+	int m_phase;                                                         // +0x1C
+};
+
+// ZH LatchRestore: restores the latched value when the scope ends.
+template <class T>
+class LatchRestore
+{
+public:
+	LatchRestore(T &dest, const T &src) : m_whereToRestore(dest)
+	{
+		m_valueToRestore = dest;
+		dest = src;
+	}
+	virtual ~LatchRestore(void) { m_whereToRestore = m_valueToRestore; }
+
+protected:
+	T m_valueToRestore;
+	T &m_whereToRestore;
+};
+
+class CommandList : public SubsystemInterface
+{
+public:
+	virtual void c0b(); virtual void c0c(); virtual void c0d();
+	virtual void c0e(); virtual void c0f(); virtual void c10();
+	virtual bool containsMessageOfType(int type);                        // +0x44
+	GameMessage *getFirstMessage(void) const { return m_firstMessage; }
+
+private:
+	GameMessage *m_firstMessage;                                         // +0x0C
+};
+
+class Rva00DFE1C8Host
+{
+public:
+	bool rva00210DC9(void);
+};
+
+class Rva002431CB
+{
+public:
+	void rva002431CB(void);
+};
+
+class Rva002CEC0A
+{
+public:
+	void rva002CEC34(void);
+};
+
+class Rva002747F9
+{
+public:
+	void rva002747F9(int mode);
+};
+
+class Rva00238FF3Arg;
+
+class Rva00238E1B
+{
+public:
+	void rva00238FF3(Rva00238FF3Arg *xfer);
+};
+
+class XferSave
+{
+public:
+	XferSave(void);
+	virtual ~XferSave(void);
+	unsigned char Open(Xfer *file, int mode, bool flag);
+	void close(void);
+
+private:
+	char m_body[0x3c];
+};
+
+class CopyProtect
+{
+public:
+	static bool rva00232D38(void);
+};
+
+class StatsCollectorUpdate
+{
+public:
+	void rva00437BB6(void);
+};
+
+class GlobalWeatherSystem : public SubsystemInterface
+{
+};
+
+class WeaponStore : public SubsystemInterface
+{
+};
+
+class LocomotorStore : public SubsystemInterface
+{
+};
+
+class Rva00A027B8 : public SubsystemInterface
+{
+};
+
+// 0x00A03144: GameEngine::init registers it as
+// "TheDelayedExperienceLevelGrantSystem" (site 0x0022F1A4).
+class DelayedExperienceLevelGrantSystem : public SubsystemInterface
+{
+};
+
+class BfmeMade_009CB5F0;
+BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *text);
+void Rva00225A0C(int msec);
+
+extern CommandList *TheCommandList;
+extern Rva00DFE1C8Host *g_00DFE1C8;
+extern bool TheDeepCRC;
+extern bool TheLiteCRC;
+extern void *g_00DFEFF0;
+extern GlobalWeatherSystem *TheGlobalWeatherSystem;
+extern Rva00A027B8 *g_00A027B8;
+extern WeaponStore *TheWeaponStore;
+extern LocomotorStore *TheLocomotorStore;
+extern DelayedExperienceLevelGrantSystem *TheDelayedExperienceLevelGrantSystem;
+extern void *g_Va00E01EDC;
+extern "C" int (__cdecl * const _imp___unlink)(const char *path);
+
+// ?update@GameLogic@@UAEXH@Z @0x0024555A 2437B (vslot +0x34; ret 4 at
+// 0x00245EDC). One frame phase of the logic: phase 1 runs the script,
+// recorder, CRC and command-list work, phase 2 the partition and collision
+// managers and each object's per-frame hook, phases 3..6 the update-module
+// lists (3/4 split list 0 in halves, 5 runs lists 1..2, 6 list 3), and
+// phase 5 the remaining subsystems. Donor: BFME 1 GameLogic::update
+// (0x0038DA10) for the phase layout, module sleep handling, CRC message and
+// latch; BFME 2 adds the FP-mode scope guard, the frame-advance predicate
+// 0x002259F3 at the top, more subsystems and the scenecapture.dat dump.
+// Codegen evidence: retail multiplies by constants with imul (`m_40 * 10`
+// at 0x00245D38, the 12-byte list stride at 0x00245A3C), which this
+// compiler emits only under /G7, hence the TU flag. The CRC block and the
+// module wake add read the frame through the inline getFrame(); with the
+// raw field the allocator caches zero in edi from 0x002458FD on and moves
+// every later register. The module loop tests `i + 1` and lets the
+// optimizer keep the incremented copy at [ebp-0x24], stored after the
+// entry test as at 0x00245A6F.
+void GameLogic::update(int phase)
+{
+	Rva0004224C fpModeGuard;
+
+	if (phase == 1) {
+		TheScriptEngine->rva002047CF();
+		bool freeze = (TheTacticalView->slotD8() && !TheTacticalView->slot78())
+			|| ((Rva00203B08 *)TheScriptEngine)->rva00203AE5();
+		if (TheNetwork)
+			TheNetwork->slotAC();
+		if (rva002259F3() && !freeze)
+			++m_40;
+		if (freeze) {
+			if (TheCommandList->containsMessageOfType(0x1d))
+				TheScriptEngine->forceAppContinue();
+			else {
+				TheGameClient->m_c8 = false;
+				return;
+			}
+		}
+	}
+
+	m_164.clear();
+
+	if (m_125 && !isInMultiplayerGame()) {
+		if (phase == 1) {
+			processCommandList();
+			TheGameClient->m_c8 = true;
+		}
+		m_17c = phase;
+		return;
+	}
+
+	m_17c = phase;
+	bool first = (phase == 1);
+	LatchRestore<bool> inUpdate(m_70, true);
+
+	if (*(bool *)&g_Va00DFE7A8 && first)
+		((Rva002431CB *)&g_Va00DFE7A8)->rva002431CB();
+
+	if (first && getFrame() == 2 && g_00DFE1C8->rva00210DC9()
+		&& ((Rva0023C666 *)TheGameLogic)->rva0023C666()) {
+		for (Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->getNextObject()) {
+			AIUpdateInterface *ai = obj->getAIUpdateInterface();
+			if (ai && ai->isMoving())
+				ai->destroyPath();
+		}
+	}
+
+	TheAI->pathfinder()->rva002F0F07();
+	setFPMode();
+
+	if (first) {
+		TheScriptEngine->update();
+		TheLuaScriptEngine->update();
+		TheTerrainLogic->update();
+		if (g_Va00E02F3C)
+			((SubsystemInterface *)g_Va00E02F3C)->update();
+	}
+
+	if (rva0042219() && TheRecorder && first) {
+		bool generate = false;
+		if (TheRecorder->isMultiplayer()) {
+			unsigned int interval = TheGameInfo->m_0c;
+			generate = (getFrame() % interval) == 0;
+			if (m_110 == 2)
+				generate = false;
+		}
+		if (g_value12A6F38 != -1)
+			generate = getFrame() >= g_value12A6F38 - TheWritableGlobalData->m_c18 - 2
+				&& getFrame() <= (unsigned int)g_value12A6F38;
+		if (generate) {
+			int player = ThePlayerList->getLocalPlayer()->getPlayerIndex();
+			BfmeThingEC *stream = 0;
+
+			unsigned int crc;
+			if (TheDeepCRC) {
+				AsciiString name;
+				name.format("%d", getFrame());
+				stream = (BfmeThingEC *)bfmeMake_009CB5F0((void *)name.str());
+				Profile::StartRange("crc");
+				crc = getCRC((int)stream);
+				Profile::StopRange("crc");
+			} else {
+				TheLiteCRC = true;
+				crc = getCRC(0);
+				TheLiteCRC = false;
+			}
+			GameMessage *msg = MessageStreamSubsystem->appendMessage(0x44a);
+			msg->appendIntegerArgument(crc);
+			msg->appendTimestampArgument(m_38);
+			msg->appendTimestampArgument(getFrame());
+			msg->appendBooleanArgument(TheRecorder->getMode() == RECORDERMODETYPE_PLAYBACK);
+			if (!TheDeepCRC && !TheLiteCRC)
+				msg->appendBooleanArgument(false);
+			else
+				rva00241529(crc, player, m_40, msg, false, stream);
+		}
+		if (g_00DFEFF0)
+			((Rva002CEC0A *)g_00DFEFF0)->rva002CEC34();
+	}
+
+	if (g_00E032F8 && first)
+		((StatsCollectorUpdate *)g_00E032F8)->rva00437BB6();
+
+	if (first) {
+		TheRecorder->update();
+		TheTriggerManager->update();
+		TheGlobalWeatherSystem->update();
+		((DOTManager *)m_174)->update();
+		m_178->rva00439965();
+		for (GameMessage *msg = TheCommandList->getFirstMessage(); msg; msg = msg->next())
+			logicMessageDispatcher(msg, 0);
+		TheCommandList->reset();
+		for (Object *obj = m_objList; obj; obj = obj->getNextObject()) {
+			if (obj->getDrawable())
+				((Rva002747F9 *)obj->getDrawable())->rva002747F9(0);
+		}
+	}
+
+	if (phase == 2) {
+		ThePartitionManager->update();
+		TheCollisionManager->update();
+		for (Object *obj = m_objList; obj; obj = obj->getNextObject()) {
+			unsigned int last = obj->m_188;
+			if (last != m_40)
+
+				obj->rva0023D3AF((void *)m_40);
+		}
+	}
+
+	if (phase > 2) {
+		int start = 0;
+		int end = 0;
+		switch (phase) {
+		case 3:
+		case 4:
+			start = 0;
+			end = 1;
+			break;
+		case 5:
+			start = 1;
+			end = 3;
+			break;
+		case 6:
+			start = 3;
+			end = 4;
+			break;
+		}
+		for (int p = start; p < end; ++p) {
+			int i = phase == 4 ? m_updates[p].size() / 2 - 1 : -1;
+			while (i + 1 < m_updates[p].size()) {
+				++i;
+				if (phase == 3 && i == m_updates[p].size() / 2)
+					break;
+				UpdateModule *u = m_updates[p][i];
+				if (!u || u->getWakeFrame() > TheGameLogic->getFrame())
+					continue;
+				UpdateSleepTime sleep = UPDATE_SLEEP_NONE;
+				const DisabledMaskType &dis = u->getObject()->getDisabledFlags();
+				if (!dis.any() || dis.anyIntersectionWith(u->getDisabledTypesToProcess())) {
+					m_104 = u;
+					if (u->getObject()->m_94 & 1)
+						sleep = UPDATE_SLEEP_FOREVER;
+					else {
+						sleep = u->update();
+						if (sleep < UPDATE_SLEEP_NONE)
+							sleep = UPDATE_SLEEP_NONE;
+					}
+					m_104 = 0;
+				}
+				u->setWakeFrame(TheGameLogic->getFrame() + sleep);
+			}
+			if (phase > 3) {
+				for (unsigned int j = m_updates[p].size(); j > 0;) {
+					UpdateModule *u = m_updates[p][--j];
+					if (u && u->getWakeFrame() >= UPDATE_SLEEP_FOREVER) {
+						if (j < m_updates[p].size() - 1) {
+							m_updates[p][j] = m_updates[p].back();
+							m_updates[p][j]->setIndexInLogic(j, p);
+						}
+						m_updates[p].pop_back();
+						u->setIndexInLogic(m_sleeping.size());
+						m_sleeping.push_back(u);
+					}
+				}
+			}
+		}
+	}
+
+	if (phase == 5)
+		TheAI->update();
+
+	rva00240EBC();
+
+	if (phase == 5) {
+		TheShroudManager->update();
+		((SubsystemInterface *)g_Va00DFE750)->update();
+		g_00A027B8->update();
+		TheLargeGroupAudio->update();
+		processDestroyList();
+		TheWeaponStore->update();
+		TheLocomotorStore->update();
+		g_00E03138->update();
+		TheDelayedExperienceLevelGrantSystem->update();
+		m_184.rva0040CA98();
+		g_00DFEEF8->update();
+		((SubsystemInterface *)g_Va00E01EDC)->update();
+		TheTeamFactory->update();
+	}
+
+	if (rva0042219() && m_40 == 0x400 && !CopyProtect::rva00232D38()) {
+		GameMessage *msg = MessageStreamSubsystem->appendMessage(0x448);
+		msg->appendBooleanArgument(false);
+	}
+
+	if (first) {
+		for (Object *obj = m_objList; obj; obj = obj->getNextObject()) {
+			if (obj->isDisabled())
+				obj->rva00290357();
+			if (obj->testStatus((ObjectStatusTypes)0x4a))
+				obj->rva002903C3();
+			if (obj->testStatus((ObjectStatusTypes)4))
+				obj->rva002903EF();
+			obj->rva00297612();
+		}
+		if (!m_a8 && m_44) {
+			Rva00225A0C((int)m_40 * 10);
+			if (TheWritableGlobalData->m_123d)
+				g_00E09A00 = m_40;
+			if (TheWritableGlobalData->m_d45 && TheWritableGlobalData->m_d48 > 0) {
+				if (m_40 <= TheWritableGlobalData->m_d48) {
+					char path[260];
+					strcpy(path, TheWritableGlobalData->m_mapName.str());
+					int length = strlen(path);
+					if (length >= 4) {
+						char *p = path + length - 4;
+						while (p > path && *p != '\\' && *p != '/')
+							--p;
+						*p = 0;
+						strcat(path, "\\scenecapture.dat");
+						if (m_40 == 1)
+							_imp___unlink(path);
+						File *file = TheFileSystem->openFile(path, 0x4b, 0);
+						if (file) {
+							int start = file->seek(0, File::END);
+							int size = 0;
+							file->write(&size, sizeof(size));
+							XferSave xfer;
+							xfer.Open((Xfer *)file, 0, false);
+							((Rva00238E1B *)TheGameClient)->rva00238FF3((Rva00238FF3Arg *)&xfer);
+							xfer.close();
+							size = file->seek(0, File::CURRENT);
+							file->seek(start, File::START);
+							file->write(&size, sizeof(size));
+							file->close();
+						}
+					}
+				} else
+					TheGameEngine->setQuitting(true);
+			}
+		}
+		TheGameClient->m_c8 = true;
+	}
 }
