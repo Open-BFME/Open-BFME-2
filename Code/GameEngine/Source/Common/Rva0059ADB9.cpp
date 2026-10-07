@@ -166,3 +166,48 @@ void *Rva0059AE32::rva0059AE32(void *source, unsigned int *tail)
 	m_second = tail[1];
 	return this;
 }
+
+// ?rva0059AE94@Rva0059AE94@@QAE_NXZ @0x0059AE94 40B
+// Target evidence: byte gate at +0x18 then float gate at +0x10 like sibling
+// 0x0059ADB9; context from +0x08 plus 0x10 through rowed ThingTemplate
+// 0x0033A9E2 with body at +0x2C; tail result through rowed bool 0x0041950A.
+// Callers 0x004F97AC 0x004F9A05 in 0x004F971E 0x004F99CC; neighbours
+// 0x0059AE55 0x0059AFC2. Owner identity remains address-derived.
+class ThingTemplate
+{
+public:
+	void *getCurrentLivingWorldAutoResolveWeapon(const void *context) const;
+};
+
+class Rva004194D6
+{
+public:
+	bool rva0041950A();
+};
+
+class Rva0059AE94
+{
+public:
+	bool rva0059AE94();
+
+private:
+	char m_pad000[0x08];
+	char *m_base;
+	char m_pad00C[0x04];
+	float m_value;
+	char m_pad014[0x04];
+	unsigned char m_flag;
+	char m_pad019[0x13];
+	ThingTemplate *m_template;
+};
+
+bool Rva0059AE94::rva0059AE94()
+{
+	if (m_flag != 0)
+		return false;
+	if (m_value <= 0.0f)
+		return false;
+	const void *context = (const void *)(m_base + 0x10);
+	void *target = m_template->getCurrentLivingWorldAutoResolveWeapon(context);
+	return ((Rva004194D6 *)target)->rva0041950A();
+}

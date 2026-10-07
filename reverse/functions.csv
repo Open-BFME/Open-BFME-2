@@ -66734,3 +66734,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva003F8F94@PhaseSession@LivingWorldTutorial@@QAEXXZ,,0x003F8F94,30,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldTutorial.cpp,matched,PhaseSession method identity from caller and offsets from adjacent task creation
 ?rva001EDE45@Rva001EDE45@@QAEPAXXZ,,0x001EDE45,7,Code/GameEngine/Source/GameClient/Rva001EDE45Getter.cpp,matched,abuts prev next honest address getter
 ?Rva00301E7BNotEqual@@YAHABUBfmeKeySX@@0@Z,,0x00301E7B,21,Code/GameEngine/Source/Common/BfmeConv1814.cpp,matched,logical negation of rowed bfmeEqualSX plus caller
+?rva0059AE94@Rva0059AE94@@QAE_NXZ,,0x0059AE94,40,Code/GameEngine/Source/Common/Rva0059ADB9.cpp,matched,byte flag plus float gate via rowed 0x0033A9E2 and 0x0041950A
