@@ -115,7 +115,9 @@ inline Coord2D::~Coord2D()
 
 // Two loads and two stores of the base pair, whatever the argument is nominally
 // declared as - which is why one body carries six names.
-Coord2D::Coord2D(const Coord2D &that)
+// The same native copy constructor is emitted by header consumers as a
+// select-any COMDAT; this copy must use the same linkage to fold with them.
+inline Coord2D::Coord2D(const Coord2D &that)
 {
     x = that.x;
     y = that.y;
@@ -449,6 +451,7 @@ inline float Coord2D::toAngle() const
 void _bfmeCoord2DInlineAnchor(Coord2D *c)
 {
     Coord2D local;
+    Coord2D copy(*c);
     c->normalize();
     c->length();
     c->toAngle();
