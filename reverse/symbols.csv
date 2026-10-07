@@ -15314,3 +15314,6 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva000D3DCF@W3DBibBuffer@@IAEXXZ,0x000D3DCF,callee of ?renderBibs@W3DBibBuffer@@QAEXXZ
 ?rva00112259@Rva00115044El@@QAEXXZ,0x00112259,callee of ?rva000E127B@Rva000E127B@@QAEXH@Z
 ??4?$list@URva000B419E@@V?$allocator@URva000B419E@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,0x000BDBFA,callee of ??4BfmePod248@@QAEAAU0@ABU0@@Z
+?rva0057D922@AptMapPreview@@QAEPAVMapMetaData@@ABVAsciiString@@@Z,0x0057D922,callee of ?rva0057E058@AptMapPreview@@QAEXXZ (REL32 at 0x0057E095 with the preview as this and GameInfo::getMap's AsciiString); Ghidra FUN_0097d922 255B returning the MapMetaData; same address as the ?rva0057D922@Rva0057D922@@ placeholder pin; address name
+?rva0057DDAE@AptMapPreview@@QAEXPAVMapMetaData@@@Z,0x0057DDAE,callee of ?rva0057E058@AptMapPreview@@QAEXXZ (REL32 at 0x0057E0B9 with the preview as this and the looked-up MapMetaData); Ghidra FUN_0097ddae 589B; address name
+?rva0057D19A@AptMapPreview@@QAEXPAVMapMetaData@@@Z,0x0057D19A,callee of ?rva0057E058@AptMapPreview@@QAEXXZ (REL32 at 0x0057E0C1 with the preview as this and the looked-up MapMetaData); Ghidra FUN_0097d19a 852B; address name

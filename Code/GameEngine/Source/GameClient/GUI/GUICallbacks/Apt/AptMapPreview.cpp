@@ -42,8 +42,10 @@ public:
 	virtual void slot2C() = 0;
 	virtual void slot30() = 0;
 	virtual void slot34() = 0;
+	// cl groups the overloads in reverse: the AsciiString one is slot 0x38,
+	// the const char * one 0x3C.
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
 	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
-	virtual void slot3C() = 0;
 	virtual void slot40() = 0;
 	virtual void slot44() = 0;
 	virtual void slot48() = 0;
@@ -155,6 +157,9 @@ void GadgetComboBoxReset(GameWindow *comboBox);
 int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, int color);
 void GadgetComboBoxSetItemData(GameWindow *comboBox, int index, void *data);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int selectedIndex, bool dontHide);
+int GadgetComboBoxGetLength(GameWindow *comboBox);
+void *GadgetComboBoxGetItemData(GameWindow *comboBox, int index);
+void GadgetComboBoxHideDropDown(GameWindow *comboBox, bool hide);
 void GadgetListBoxReset(GameWindow *listbox);
 int Rva00326CF0AddLines(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);
 void GadgetListBoxSetTopVisibleEntry(GameWindow *window, int newPos);
@@ -188,7 +193,11 @@ public:
 	void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);		// 0x0022464C
 };
 
-class BfmeAptWindowManager;
+class BfmeAptWindowManager
+{
+public:
+	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool flag);	// 0x00225301
+};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #define TheAptPlayer ((AptPlayer *)g_bfmeAptWindowManager)
 
@@ -197,12 +206,45 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class AptScreenInitGadgets;
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 
-// The preview's +0x18 object; the registration clears its +0x08.
-struct Rva0057E45COwner
+// The preview's +0x18 holder of the game (GameInfo): 0x0043DA65 returns
+// its validated +0x08 value; the registration clears that directly.
+class Rva0043DA65
 {
+public:
+	int rva0043DA65();
+
 	int m_00;
 	int m_04;
 	int m_08;
+};
+
+class MapMetaData;
+
+// The fields and virtuals of the game the preview reads.
+class GameInfo
+{
+public:
+	virtual void v00() = 0;
+	virtual void v01() = 0;
+	virtual void v02() = 0;
+	virtual void v03() = 0;
+	virtual void v04() = 0;
+	virtual void v05() = 0;
+	virtual void v06() = 0;
+	virtual void v07() = 0;
+	virtual void v08() = 0;
+	virtual void v09() = 0;
+	virtual void v10() = 0;
+	virtual void v11() = 0;
+	virtual bool amIHost() const = 0;	// +0x30
+	AsciiString getMap() const;		// 0x0023E943
+
+	unsigned char m_pad04[0x10 - 0x4];
+	bool m_selectStartPoint;	// +0x10
+	unsigned char m_pad11[0x58 - 0x11];
+	int m_campaign;		// +0x58, a campaign manager index
+	unsigned char m_pad5c[0xc8 - 0x5c];
+	int m_c8;		// +0xC8
 };
 
 class AptMapPreview
@@ -218,11 +260,18 @@ public:
 	void rva0057E45C();
 	void rva0057D4F3();	// fills the strategic scenario combo box
 	void rva0057E058();	// refreshes the preview
+	void *GetStrategicScenarioComboBoxSelectedCampaign();	// 0x0057C649
+	MapMetaData *rva0057D922(const AsciiString &map);	// looks the map up
+	void UpdateMapTitle(MapMetaData *map);	// 0x0057C8D1
+	void rva0057DDAE(MapMetaData *map);
+	void rva0057D19A(MapMetaData *map);
+	void bfmeSetMapDescription(MapMetaData *map);	// 0x0057C892
+	void rva0057D10F(MapMetaData *map);	// the map picture
 
 private:
 	unsigned char m_pad00[0x4];
 	unsigned char m_field04[0x18 - 0x4];	// +0x04, handed to the campaign owner
-	Rva0057E45COwner *m_18;	// +0x18
+	Rva0043DA65 *m_18;	// +0x18
 	int m_mode;	// +0x1C (OpenPlay 0, Strategic 1)
 	GameWindow *m_currentMap;	// +0x20
 	GameWindow *m_mapPicture;	// +0x24
@@ -358,6 +407,61 @@ void AptMapPreview::rva0057D4F3()
 	}
 	GadgetComboBoxSetSelectedPos(m_strategicScenarioComboBox, 0, false);
 	UpdateStrategicScenarioDesc();
+}
+
+// Retail 0x0057E058, 499 bytes. Name unknown. Refreshes the preview from
+// the game's map: title, the three map panels, description and picture;
+// then points the strategic scenario combo box at the game's campaign
+// (adopting the selected one when the host's game has none) and sets
+// "APT:SelectStartPoint" to its text or a blank.
+void AptMapPreview::rva0057E058()
+{
+	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
+	MapMetaData *map = info ? rva0057D922(info->getMap()) : 0;
+	UpdateMapTitle(map);
+	rva0057DDAE(map);
+	rva0057D19A(map);
+	bfmeSetMapDescription(map);
+	rva0057D10F(map);
+	if (m_strategicScenarioComboBox != 0)
+	{
+		bool enable = true;
+		if (info != 0)
+		{
+			int campaign = info->m_campaign;
+			int selected = (int)GetStrategicScenarioComboBoxSelectedCampaign();
+			int index = rva0057C621();
+			if (info->amIHost())
+			{
+				if (info->m_c8 == 0)
+					enable = false;
+				if (campaign <= 0)
+					info->m_campaign = selected;
+			}
+			if (selected != campaign || index != campaign)
+			{
+				int count = GadgetComboBoxGetLength(m_strategicScenarioComboBox);
+				for (int i = 0; i < count; ++i)
+				{
+					if ((int)GadgetComboBoxGetItemData(m_strategicScenarioComboBox, i) == campaign)
+					{
+						GadgetComboBoxSetSelectedPos(m_strategicScenarioComboBox, i, false);
+						SelectCampaign(campaign);
+					}
+				}
+			}
+			GadgetComboBoxHideDropDown(m_strategicScenarioComboBox, enable);
+		}
+		else
+			UpdateStrategicScenarioDesc();
+	}
+	if (info != 0 && info->m_selectStartPoint)
+	{
+		AsciiString key("APT:SelectStartPoint");
+		g_bfmeAptWindowManager->bfmeSetText(key, TheGameText->fetch("APT:SelectStartPoint"), false);
+	}
+	else
+		g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:SelectStartPoint"), UnicodeString(L" "), false);
 }
 
 // Retail 0x0057E25D, 382 bytes: "AptMapPreview::MapGadgetInit", the screen
