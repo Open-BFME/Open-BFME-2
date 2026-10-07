@@ -10,19 +10,15 @@
 typedef float Real;
 typedef int Int;
 
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-	void zero()
-	{
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
-	}
-};
+// Retail inlines these stores; no separate private Coord3D::zero body.
+static __forceinline void zeroCoord3D(Coord3D &value)
+{
+    value.x = 0.0f;
+    value.y = 0.0f;
+    value.z = 0.0f;
+}
 
 struct Region3D
 {
@@ -94,8 +90,8 @@ void operator delete[](void *pointer);
 void ShroudManager::reset()
 {
 	Region3D emptyRegion;
-	emptyRegion.lo.zero();
-	emptyRegion.hi.zero();
+	zeroCoord3D(emptyRegion.lo);
+	zeroCoord3D(emptyRegion.hi);
 	setRegion(&emptyRegion, 0.0f);
 
 	enabled = true;

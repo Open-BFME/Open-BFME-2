@@ -37,19 +37,15 @@ __forceinline long bfmeFloatToLongFC(Real value)
 }
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
-	void zero()
-	{
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
-	}
-};
+// Retail inlines these stores; no separate private Coord3D::zero body.
+static __forceinline void zeroCoord3D(Coord3D &value)
+{
+    value.x = 0.0f;
+    value.y = 0.0f;
+    value.z = 0.0f;
+}
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
 struct Region3D
@@ -147,13 +143,13 @@ private:
 // ??0Gen_008812D0@@QAE@XZ
 Gen_008812D0::Gen_008812D0()
 {
-	m_bfmeRegion.lo.zero();
+	zeroCoord3D(m_bfmeRegion.lo);
 	m_bfmeWidth = 0;
 	m_bfmeHeight = 0;
 	m_bfmeCells = 0;
 	m_bfmeVisitor = 0;
 	m_bfmeCellSize = 1.0f;
-	m_bfmeRegion.hi.zero();
+	zeroCoord3D(m_bfmeRegion.hi);
 
 	bfmeConfigure(m_bfmeRegion, 1.0f);
 }
