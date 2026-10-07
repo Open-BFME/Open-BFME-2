@@ -1,5 +1,5 @@
 // _CommUdpProcess
-// partial score=0.9 date=2026-09-23
+// partial score=0.9 date=2026-10-07
 // _CommUdpProcess
 // partial score=0.9 date=2026-09-22, campaign 2026-09-23 (peppy-penguin)
 // cl: /DNDEBUG /MD /GX /Od /GZ /GS
@@ -38,197 +38,271 @@
 // loop-entry jmp (eb 09) so it breaks the prefix. Sole wall stands: post-call
 // ref home ECX (retail) vs EAX (all shapes). Next levers untried: struct-typed
 // ref member access (also a readability win), truthiness loop conditions.
-// The CommUDP tick. Reads at most one datagram per pass into the shared receive
-// record, dispatches it to the connection it belongs to (setup, poke, split
-// packets), then runs every connection's timers; a poke from an unexpected
-// address retargets the matching peer. Returns how many datagrams it read, so
-// the caller loops while it is positive.
 //
-// Written from the retail body (0x00683A30): the BFME1 donor was a lifted
-// byte-dump. The two static receive records share one layout: payload length,
-// source address, packet kind, connection identifier, then the payload.
-struct CommUdpRawPacket
+// 2026-10-07 (claude-opus-5-5, t=75): REWRITTEN STRUCT-TYPED IN ITS HOME TU.
+// The body below drops straight into Code/Libraries/Source/DirtySock/
+// Y4CommTransportLife.c (C, same TU as CommUdpSetup/CommUdpPoke and the tick
+// pump that calls it; place it just before the `// _g_Rva0130AD08Count:` line)
+// with two struct edits in struct Rva00816BF0Comm:
+//   m_name[0x20] at +0x4C becomes m_name[0x10] followed by
+//   int m_dataSent (+0x5C), m_dataRecv (+0x60), m_packSent (+0x64),
+//   m_packRecv (+0x68); and m_gap5[0x114] becomes
+//   unsigned int m_tickIdle (+0xE0) + m_gap5[0x110].
+// Rename the TU's Rva00817B30 prototype/call to CommUdpProcess, and in
+// commudp.cpp change `int CommUdpProcess();` to `(unsigned int tick)`; drop
+// the _Rva00817B30 pin in reverse/symbols.csv when landing. Same wall: first
+// 0x5A3 bytes exact, then retail's next statement starts in ecx, ours in eax
+// (188 masked diffs, all rotation). Further REFUTED this session: callback
+// return types void/char/short/uchar/__int64/void*/float, unprototyped and
+// variadic typedefs, (void) cast, comma, `if (call);` (test is dropped),
+// ternary-void guard, base-struct pointer cast of the first argument,
+// function-pointer-typed field with and without (*f)(), (*(T*)&field),
+// array-indexed and byte-offset call targets, -=/--x/x-- decrements, empty
+// else x4, no-op statements after the call x5, truthiness conditions on the
+// loops/guards, and compiling the whole TU as C++. Survey of all matched
+// DirtySock/GameSpy /GZ bodies: every rotation skip after a call is a call
+// whose result is consumed through a pointer store (`p->f = call()`); no
+// matched body skips after a discarded result.
+struct Rva00816F60Message g_commUdpPacket = { 0 };
+struct Rva00816F60Message g_commUdpPiece = { 0 };
+
+int Rva007FDA50( struct Rva007FD4E0Socket *socket, char *buffer, int length,
+	int flags, unsigned char *from, int *fromLength );
+void CommUdpSetup( struct Rva00816BF0Comm *ref,
+	struct Rva00816F60Message *packet, unsigned char *from );
+int CommUdpPoke( struct Rva00816BF0Comm *ref );
+
+typedef int ( __cdecl *CommUdpCallbackT )( struct Rva00816BF0Comm *comm,
+	int flags );
+
+int CommUdpProcess( unsigned int tick )
 {
 	int len;
-	unsigned int from;
-	unsigned int kind;
-	unsigned int ident;
-	unsigned char data[0x240];
-};
+	int iCount;
+	struct Rva00816BF0Comm *pRef;
+	struct Rva00816BF0Comm *pFind;
+	unsigned char sin[ 0x10 ];
+	struct Rva007FD4E0Socket *pSock;
+	int iSeq;
+	int iPieces;
+	unsigned int uElapsed;
 
-extern CommUdpRawPacket g_commUdpRecv;		// retail 0x00E0A728
-extern CommUdpRawPacket g_commUdpSplit;		// retail 0x00E0A978
-extern char *g_commUdpRefs;			// retail 0x00E0ABA0, linked through +0x78
+	iCount = 0;
+	pFind = 0;
+	memset( sin, 0, sizeof( sin ) );
+	g_commUdpPacket.m_length = -1;
 
-extern "C" {
-	int Rva007FDA50(void *socket, void *buffer, int length, int flags, void *from, int *fromLength);
-	int Rva007FF720(const void *left, const void *right);
-	void Rva008186C0(void *ref, void *packet);
-	int Rva008187E0(void *ref, void *packet);
-	void Rva00818620(void *ref);
-	void Rva00816F60(void *ref);
-	void Rva00818AD0(void *ref);
-}
-
-int CommUdpProcess(unsigned int tick)
-{
-	int fromLength;
-	int count;
-	char *ref;
-	char *pending;
-	unsigned char from[0x10];
-	void *socket;
-	int savedWindow;
-	int pieces;
-	unsigned int idle;
-
-	count = 0;
-	pending = 0;
-	memset(from, 0, sizeof(from));
-	g_commUdpRecv.len = -1;
-	socket = 0;
-
-	for (ref = g_commUdpRefs; ref != 0; ref = *(char **)(ref + 0x78)) {
-		if (*(void **)(ref + 0x7C) != 0 && *(void **)(ref + 0x7C) != socket) {
-			socket = *(void **)(ref + 0x7C);
-			fromLength = sizeof(from);
-			fromLength = Rva007FDA50(socket, &g_commUdpRecv.kind, 0x220, 0, from, &fromLength);
-			if (fromLength > 0) {
-				g_commUdpRecv.len = fromLength - 8;
-				g_commUdpRecv.from = (((from[8] << 8 | from[9]) << 8 | from[10]) << 8) | from[11];
-				if (g_commUdpRecv.kind == 1) {
-					Rva007FE780Printf("CommUdpProcess: got RAW_PACKET_INIT\n");
-				}
-				if (g_commUdpRecv.kind == 2) {
-					Rva007FE780Printf("CommUdpProcess: got RAW_PACKET_CONN\n");
-				}
-				count++;
+	pSock = 0;
+	for ( pRef = g_Rva0130B188List; pRef != 0; pRef = pRef->m_next )
+	{
+		if ( pRef->m_socket != 0 && pRef->m_socket != pSock )
+		{
+			pSock = pRef->m_socket;
+			len = sizeof( sin );
+			len = Rva007FDA50( pSock, (char *)&g_commUdpPacket.m_code,
+				sizeof( g_commUdpPacket ) - 8, 0, sin, &len );
+			if ( len > 0 )
+			{
+				g_commUdpPacket.m_length = len - 8;
+				g_commUdpPacket.m_tick = ( ( ( ( ( sin[ 8 ] << 8 )
+					| sin[ 9 ] ) << 8 ) | sin[ 10 ] ) << 8 ) | sin[ 11 ];
+				if ( g_commUdpPacket.m_code == 1 )
+					Rva007FE780( "CommUdpProcess: got RAW_PACKET_INIT\n" );
+				if ( g_commUdpPacket.m_code == 2 )
+					Rva007FE780( "CommUdpProcess: got RAW_PACKET_CONN\n" );
+				iCount = iCount + 1;
 				break;
 			}
 		}
 	}
 
-	for (ref = g_commUdpRefs; ref != 0; ref = *(char **)(ref + 0x78)) {
+	for ( pRef = g_Rva0130B188List; pRef != 0; pRef = pRef->m_next )
+	{
 		tick = Rva007FEA00();
 
-		if (pending == 0 && socket == *(void **)(ref + 0x7C) && *(int *)(ref + 0x90) == 3
-		    && g_commUdpRecv.len == 0 && g_commUdpRecv.kind == 1
-		    && *(unsigned int *)(ref + 0x94) == g_commUdpRecv.ident) {
-			pending = ref;
+		if ( pFind == 0 && pSock == pRef->m_socket && pRef->m_state == 3
+			&& g_commUdpPacket.m_length == 0
+			&& g_commUdpPacket.m_code == 1
+			&& pRef->m_sessionHash == g_commUdpPacket.m_value )
+		{
+			pFind = pRef;
 		}
 
-		if (g_commUdpRecv.len >= 0 && *(int *)(ref + 0x90) != 3 && *(int *)(ref + 0x90) != 5
-		    && socket == *(void **)(ref + 0x7C) && Rva007FF720(ref + 0x80, from) == 0) {
-			*(int *)(ref + 0x60) += g_commUdpRecv.len;
-			*(int *)(ref + 0x68) += 1;
-			if (g_commUdpRecv.kind == 1 || g_commUdpRecv.kind == 2 || g_commUdpRecv.kind == 3) {
-				CommUdpSetup(ref, &g_commUdpRecv, from);
-			} else if (*(int *)(ref + 0x90) != 4) {
-			} else if (g_commUdpRecv.kind == 4) {
-				*(unsigned int *)(ref + 0xDC) = g_commUdpRecv.from;
-				Rva008186C0(ref, &g_commUdpRecv);
-			} else if (g_commUdpRecv.kind > 0x10000000) {
-				savedWindow = *(int *)(ref + 0xAC);
-				pieces = g_commUdpRecv.kind >> 28;
-				g_commUdpSplit.from = g_commUdpRecv.from;
-				g_commUdpSplit.kind = (g_commUdpRecv.kind & 0x0FFFFFFF) - pieces;
-				g_commUdpSplit.ident = g_commUdpRecv.ident;
-				*(unsigned int *)(ref + 0xDC) = g_commUdpRecv.from;
-				for (; pieces >= 0; pieces--) {
-					if (pieces > 0) {
-						g_commUdpRecv.len -= 1;
-						g_commUdpSplit.len = g_commUdpRecv.data[g_commUdpRecv.len];
-					} else {
-						g_commUdpSplit.len = g_commUdpRecv.len;
+		if ( g_commUdpPacket.m_length >= 0 && pRef->m_state != 3
+			&& pRef->m_state != 5 && pSock == pRef->m_socket
+			&& Rva007FF720( pRef->m_peer, sin ) == 0 )
+		{
+			pRef->m_dataRecv = pRef->m_dataRecv + g_commUdpPacket.m_length;
+			pRef->m_packRecv = pRef->m_packRecv + 1;
+
+			if ( g_commUdpPacket.m_code == 1 || g_commUdpPacket.m_code == 2
+				|| g_commUdpPacket.m_code == 3 )
+			{
+				CommUdpSetup( pRef, &g_commUdpPacket, sin );
+			}
+			else if ( pRef->m_state != 4 )
+			{
+				/* data only flows on an open connection */
+			}
+			else if ( g_commUdpPacket.m_code == 4 )
+			{
+				pRef->m_tickB = g_commUdpPacket.m_tick;
+				Rva008186C0( pRef, &g_commUdpPacket );
+			}
+			else if ( (unsigned int)g_commUdpPacket.m_code > 0x10000000 )
+			{
+				iSeq = pRef->m_recvSequence;
+				iPieces = (unsigned int)g_commUdpPacket.m_code >> 28;
+				g_commUdpPiece.m_tick = g_commUdpPacket.m_tick;
+				g_commUdpPiece.m_code = ( g_commUdpPacket.m_code & 0x0FFFFFFF )
+					- iPieces;
+				g_commUdpPiece.m_value = g_commUdpPacket.m_value;
+				pRef->m_tickB = g_commUdpPacket.m_tick;
+
+				for ( ; iPieces >= 0; --iPieces )
+				{
+					if ( iPieces > 0 )
+					{
+						--g_commUdpPacket.m_length;
+						g_commUdpPiece.m_length = ( (unsigned char *)
+							g_commUdpPacket.m_body )[ g_commUdpPacket.m_length ];
 					}
-					g_commUdpRecv.len -= g_commUdpSplit.len;
-					memcpy(g_commUdpSplit.data, g_commUdpRecv.data + g_commUdpRecv.len, g_commUdpSplit.len);
-					Rva008186C0(ref, &g_commUdpSplit);
-					if (Rva008187E0(ref, &g_commUdpSplit) < 0) {
-						pieces = 0;
+					else
+					{
+						g_commUdpPiece.m_length = g_commUdpPacket.m_length;
 					}
-					if (pieces > 0 && savedWindow != *(int *)(ref + 0xAC)) {
-						savedWindow = *(int *)(ref + 0xAC);
-					}
-					g_commUdpSplit.kind += 1;
+
+					g_commUdpPacket.m_length = g_commUdpPacket.m_length
+						- g_commUdpPiece.m_length;
+					memcpy( g_commUdpPiece.m_body,
+						g_commUdpPacket.m_body + g_commUdpPacket.m_length,
+						g_commUdpPiece.m_length );
+
+					Rva008186C0( pRef, &g_commUdpPiece );
+					if ( Rva008187E0( pRef, &g_commUdpPiece ) < 0 )
+						iPieces = 0;
+
+					if ( iPieces > 0 && iSeq != pRef->m_recvSequence )
+						iSeq = pRef->m_recvSequence;
+
+					++g_commUdpPiece.m_code;
 				}
-			} else {
-				*(unsigned int *)(ref + 0xDC) = g_commUdpRecv.from;
-				Rva008186C0(ref, &g_commUdpRecv);
-				Rva008187E0(ref, &g_commUdpRecv);
 			}
-			g_commUdpRecv.len = -1;
+			else
+			{
+				pRef->m_tickB = g_commUdpPacket.m_tick;
+				Rva008186C0( pRef, &g_commUdpPacket );
+				Rva008187E0( pRef, &g_commUdpPacket );
+			}
+
+			g_commUdpPacket.m_length = -1;
 		}
 
-		if (*(int *)(ref + 0x90) == 2 && tick - *(unsigned int *)(ref + 0xD8) > 1000) {
-			Rva00818620(ref);
+		if ( pRef->m_state == 2 && tick - pRef->m_tickA > 1000 )
+			Rva00818620( pRef );
+
+		if ( pRef->m_state == 4
+			&& pRef->m_sendAckOffset != pRef->m_sendWriteOffset )
+		{
+			Rva00817640( pRef );
 		}
-		if (*(int *)(ref + 0x90) == 4 && *(int *)(ref + 0xC8) != *(int *)(ref + 0xC0)) {
-			Rva00817640(ref);
+
+		if ( pRef->m_state == 4 && tick - pRef->m_tickB > 120000
+			&& tick - pRef->m_tickA < 2000 )
+		{
+			Rva007FE780( "CommUDP: closing connection due to timeout\n" );
+			Rva007FE780( "CommUDP: tick=%d, rtick=%d, stick=%d\n", tick,
+				pRef->m_tickB, pRef->m_tickA );
+			Rva00816F60( pRef );
 		}
-		if (*(int *)(ref + 0x90) == 4 && tick - *(unsigned int *)(ref + 0xDC) > 120000
-		    && tick - *(unsigned int *)(ref + 0xD8) < 2000) {
-			Rva007FE780Printf("CommUDP: closing connection due to timeout\n");
-			Rva007FE780Printf("CommUDP: tick=%d, rtick=%d, stick=%d\n",
-			                   tick, *(unsigned int *)(ref + 0xDC), *(unsigned int *)(ref + 0xD8));
-			Rva00816F60(ref);
+
+		if ( pRef->m_state == 3 && *(unsigned short *)pRef->m_peer == 2
+			&& tick > pRef->m_tickA + 1000 )
+		{
+			CommUdpPoke( pRef );
 		}
-		if (*(int *)(ref + 0x90) == 3 && *(unsigned short *)(ref + 0x80) == 2
-		    && tick > *(unsigned int *)(ref + 0xD8) + 1000) {
-			CommUdpPoke(ref);
+
+		if ( pRef->m_flags == 0 && tick > pRef->m_tickIdle + 250 )
+		{
+			pRef->m_tickIdle = tick;
+			pRef->m_flags = pRef->m_flags | 4;
 		}
-		if (*(int *)(ref + 0x21C) == 0 && tick > *(unsigned int *)(ref + 0xE0) + 250) {
-			*(unsigned int *)(ref + 0xE0) = tick;
-			*(int *)(ref + 0x21C) |= 4;
-		}
-		if (*(int *)(ref + 0x218) == 0 && *(int *)(ref + 0x21C) != 0) {
-			*(int *)(ref + 0x218) += 1;
-			if (*(void **)(ref + 0x220) != 0) {
-				(*(void (__cdecl **)(void *, int))(ref + 0x220))(ref, *(int *)(ref + 0x21C));
-			}
-			*(int *)(ref + 0x218) -= 1;
-			*(int *)(ref + 0x21C) = 0;
+
+		if ( pRef->m_depth == 0 && pRef->m_flags != 0 )
+		{
+			pRef->m_depth = pRef->m_depth + 1;
+			if ( pRef->m_value != 0 )
+				( (CommUdpCallbackT)pRef->m_value )( pRef, pRef->m_flags );
+			pRef->m_depth = pRef->m_depth - 1;
+			pRef->m_flags = 0;
 			tick = Rva007FEA00();
 		}
-		if (*(int *)(ref + 0x90) == 4 && *(int *)(ref + 0xC8) == *(int *)(ref + 0xC0)) {
-			idle = tick - *(unsigned int *)(ref + 0xD8);
-			if ((idle > 100 && *(int *)(ref + 0xB0) != *(int *)(ref + 0xAC))
-			    || (idle > 100 && *(int *)(ref + 0xC0) != *(int *)(ref + 0xC4))
-			    || idle > 2500 || *(int *)(ref + 0xB4) >= 0x800) {
-				*(int *)(ref + 0xB4) = 0;
-				Rva00818AD0(ref);
+
+		if ( pRef->m_state == 4
+			&& pRef->m_sendAckOffset == pRef->m_sendWriteOffset )
+		{
+			uElapsed = tick - pRef->m_tickA;
+			if ( ( uElapsed > 100
+					&& pRef->m_reportedSequence != pRef->m_recvSequence )
+				|| ( uElapsed > 100
+					&& pRef->m_sendWriteOffset != pRef->m_sendReadOffset )
+				|| uElapsed > 2500 || pRef->m_recvCounter >= 0x800 )
+			{
+				pRef->m_recvCounter = 0;
+				Rva00818AD0( pRef );
 			}
 		}
 	}
 
-	if (g_commUdpRecv.len >= 0 && g_commUdpRecv.kind == 5 && *(unsigned short *)&from[0] == 2) {
-		Rva007FE780Printf("CommUDP: received poke packet (from=%08x)\n",
-		                   (((from[4] << 8 | from[5]) << 8 | from[6]) << 8) | from[7]);
-		for (ref = g_commUdpRefs; ref != 0; ref = *(char **)(ref + 0x78)) {
-			if (*(int *)(ref + 0x90) == 2 && *(unsigned short *)(ref + 0x80) == 2
-			    && *(unsigned int *)(ref + 0x94) == g_commUdpRecv.ident) {
-				Rva007FE780Printf("CommUdp: poke source = %08x -- forcing match\n",
-				                   (((*(unsigned char *)(ref + 0x84) << 8 | *(unsigned char *)(ref + 0x85)) << 8 | *(unsigned char *)(ref + 0x86)) << 8) | *(unsigned char *)(ref + 0x87));
-				if (socket == *(void **)(ref + 0x7C)) {
-					Rva007FE780Printf("CommUDP: changing peer to %08x:%d due to poke (was expecting %08x:%d)\n",
-					                   (((from[4] << 8 | from[5]) << 8 | from[6]) << 8) | from[7],
-					                   from[2] << 8 | from[3],
-					                   (((*(unsigned char *)(ref + 0x84) << 8 | *(unsigned char *)(ref + 0x85)) << 8 | *(unsigned char *)(ref + 0x86)) << 8) | *(unsigned char *)(ref + 0x87),
-					                   *(unsigned char *)(ref + 0x82) << 8 | *(unsigned char *)(ref + 0x83));
-					memcpy(ref + 0x80, from, sizeof(from));
+	if ( g_commUdpPacket.m_length >= 0 && g_commUdpPacket.m_code == 5
+		&& *(unsigned short *)sin == 2 )
+	{
+		Rva007FE780( "CommUDP: received poke packet (from=%08x)\n",
+			( ( ( ( ( sin[ 4 ] << 8 ) | sin[ 5 ] ) << 8 ) | sin[ 6 ] ) << 8 )
+			| sin[ 7 ] );
+
+		for ( pRef = g_Rva0130B188List; pRef != 0; pRef = pRef->m_next )
+		{
+			if ( pRef->m_state == 2 && *(unsigned short *)pRef->m_peer == 2
+				&& pRef->m_sessionHash == g_commUdpPacket.m_value )
+			{
+				Rva007FE780( "CommUdp: poke source = %08x -- forcing match\n",
+					( ( ( ( ( (unsigned char)pRef->m_peer[ 4 ] << 8 )
+					| (unsigned char)pRef->m_peer[ 5 ] ) << 8 )
+					| (unsigned char)pRef->m_peer[ 6 ] ) << 8 )
+					| (unsigned char)pRef->m_peer[ 7 ] );
+
+				if ( pSock == pRef->m_socket )
+				{
+					Rva007FE780( "CommUDP: changing peer to %08x:%d due to poke "
+						"(was expecting %08x:%d)\n",
+						( ( ( ( ( sin[ 4 ] << 8 ) | sin[ 5 ] ) << 8 )
+						| sin[ 6 ] ) << 8 ) | sin[ 7 ],
+						( sin[ 2 ] << 8 ) | sin[ 3 ],
+						( ( ( ( ( (unsigned char)pRef->m_peer[ 4 ] << 8 )
+						| (unsigned char)pRef->m_peer[ 5 ] ) << 8 )
+						| (unsigned char)pRef->m_peer[ 6 ] ) << 8 )
+						| (unsigned char)pRef->m_peer[ 7 ],
+						( (unsigned char)pRef->m_peer[ 2 ] << 8 )
+						| (unsigned char)pRef->m_peer[ 3 ] );
+					memcpy( pRef->m_peer, sin, sizeof( sin ) );
 					break;
 				}
 			}
 		}
 	}
 
-	if (pending != 0 && g_commUdpRecv.len == 0) {
-		ref = pending;
-		if (*(unsigned int *)(ref + 0x94) == g_commUdpRecv.ident) {
-			memcpy(ref + 0x80, from, sizeof(from));
-			*(int *)(ref + 0x90) = 4;
-			CommUdpSetup(ref, &g_commUdpRecv, from);
+	if ( pFind != 0 && g_commUdpPacket.m_length == 0 )
+	{
+		pRef = pFind;
+		if ( pRef->m_sessionHash == g_commUdpPacket.m_value )
+		{
+			memcpy( pRef->m_peer, sin, sizeof( sin ) );
+			pRef->m_state = 4;
+			CommUdpSetup( pRef, &g_commUdpPacket, sin );
 		}
 	}
-	return count;
+
+	return iCount;
 }
+
