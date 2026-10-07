@@ -67337,3 +67337,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva000E57FF@Rva000E57FF@@QAEXPAVRva000E488F@@@Z,,0x000E57FF,63,Code/GameEngine/Source/Common/Rva000E57FF.cpp,matched,copy byte +0x21 to +0x22 then sentinel list sets +0x22 when 0x000E48BC accepts and dword +0x98 is set
 ?rva000DF745@W3DBridgeBuffer@@QAEXHH@Z,,0x000DF745,49,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferRva000DF745.cpp,matched,W3DBridgeBuffer forwards first arg to 0x000DD878 then second when +0xD7B6 is set or +0xC is zero and clears +0xD7B5
 ??_ERva00112291@@UAEPAXI@Z,,0x000E1072,78,Code/GameEngine/Source/Common/Rva000E1072.cpp,matched,vector deleting destructor stride 0xD4 calling pinned element dtor 0x00112291
+?rva000E585F@Rva006F8700Owner@@QAEXPAX0PAH1@Z,,0x000E585F,95,Code/GameEngine/Source/Common/Rva000E585F.cpp,matched,folds rowed 0x000E569A into arg4 and +0x40 and 0x000E56AF into arg3 with quotient 3 at +0x48
