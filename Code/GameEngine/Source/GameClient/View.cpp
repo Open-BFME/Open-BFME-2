@@ -160,12 +160,14 @@ void View::zoomOut( void )
 /**
  * Center the view on the given coordinate.
  */
-// ?View::lookAt present-unmatched
+// Retail 0x0025EA7C..0x0025EAD5 preserves z before replacing x and y;
+// initializing those discarded coordinates prevents the 89-byte match.
 void View::lookAt( const Coord3D *o ) 
 { 
 
 	/// @todo this needs to be changed to be 3D, this is still old 2D stuff
-	Coord3D pos = *getPosition();
+	Coord3D pos;
+	pos.z = getPosition()->z;
 	pos.x = o->x - m_width * 0.5f; 
 	pos.y = o->y - m_height * 0.5f; 
 	setPosition(&pos);
