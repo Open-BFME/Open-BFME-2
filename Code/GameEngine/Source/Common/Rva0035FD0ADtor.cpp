@@ -85,3 +85,43 @@ Rva0035FD0A::~Rva0035FD0A()
 		TheDisplayStringManager->freeDisplayString(m_34);
 	m_34 = 0;
 }
+
+// Native [0x0035FD73,0x0035FDCA), 87 bytes. Both this factory and the
+// CountUp factory reference the same complete 48-byte StartFrame/EndFrame
+// field table at VA 0x00C166DC, defined in CountUpTransitionDestructorThunk.cpp.
+typedef char Rva0035FD0ARetailSize[(sizeof(Rva0035FD0A) == 0x38) ? 1 : -1];
+
+class INI;
+typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
+public:
+	void initFromINI(void *what, const FieldParse *table);
+};
+
+extern const FieldParse CountUpTransitionFields[];
+
+class Rva0035FF76;
+class Rva003600D6Holder
+{
+public:
+	void set(Rva0035FF76 *obj);
+};
+
+// Reuse the established opaque pointer-setter binding: full ten-byte
+// 0x005F69CE stores only the pointer at holder+0x10, with no pointee access.
+void __cdecl Rva0035FD73Parse(INI *ini, Rva003600D6Holder *holder)
+{
+	Rva0035FD0A *obj = new Rva0035FD0A;
+	ini->initFromINI(obj, CountUpTransitionFields);
+	obj->m_frameLength = obj->m_endFrame;
+	holder->set((Rva0035FF76 *)obj);
+}
