@@ -4,15 +4,14 @@
 // Fire 0x00525338 with SetFlashEffectState plus _show/_hide plus GetStr of AsciiString at +8,
 // globals g_00BBE358 g_Va007C26F0 TheRva00222A8BTarget, x87 blocker needs inline asm fast_round.
 #include "ascii_string.h"
+#define inline static inline
 #include <math.h>
+#undef inline
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 extern "C" __declspec(dllimport) double __cdecl floor(double);
 
 extern float g_00BBE358;
-extern float g_Va007C26F0;
-// ?g_Va00BC26F0@@3MA: the global at VA 0xbc26f0 is ?g_Va007C26F0@@3MA.
-#pragma comment(linker, "/alternatename:?g_Va00BC26F0@@3MA=?g_Va007C26F0@@3MA")
 
 extern const char g_Rva0107301CEmptyString[];
 
